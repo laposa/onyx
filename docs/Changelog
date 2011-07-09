@@ -1,19 +1,19 @@
 Onxshop (1.5.0/dev)
 
- * move msg() to a singleton ONXSHOP::MSG class
- * remove margins on layout and add margins on each content http://stacklayout.com/
- * http://yuji.wordpress.com/2011/05/25/postgresql-sqlite-django-migrating-postgresql-to-sqlite3-with-pg_dump/
+ * TODO: move msg() to a singleton ONXSHOP::MSG class
+ * TODO: remove margins on layout and add margins on each content http://stacklayout.com/
+ * TODO: http://yuji.wordpress.com/2011/05/25/postgresql-sqlite-django-migrating-postgresql-to-sqlite3-with-pg_dump/
  * rename nx_messages to onxshop_messages, or remove from all component templates
  	nx_ok_msg, nx_error_msg: improve log levels
- 	
- 	removed project_skeleton/onxshop_dir symlink to allow search&replace in IDE
+ 	TEMP removed project_skeleton/onxshop_dir symlink to allow search&replace in IDE
  * move get.php, thumbnail.php to share/get_image.php etc
-http://www.root.cz/clanky/zavadime-omezeni-v-openssh/
+	
+  http://www.root.cz/clanky/zavadime-omezeni-v-openssh/
   Iterator http://zdrojak.root.cz/clanky/lazy-evaluation-v-php/
 
   Use autoload
     http://www.serversidemagazine.com/community/php-“require”-performance/
-	  http://uk.php.net/__autoload
+	http://uk.php.net/__autoload
 
   http://www.catswhocode.com/blog/10-useful-htaccess-snippets-to-have-in-your-toolbox
   http://www.openwall.com/phpass/
@@ -29,9 +29,6 @@ http://www.root.cz/clanky/zavadime-omezeni-v-openssh/
   * TODO: thumbnail.php isn't reading configuration from DB
   * TODO: remove print_article or rename?
   * TODO: use templates/bo/pages/ecommerce/product_detail
-  * removed span from TinyMCE invalid_elements
-  * big cleaning in share/ directory
-  * onxshop.authentication improved _checkAccess
   * GLOBAL_ constant names renamed to ONXSHOP_
   	TODO finish in global.php
   * TODO: change thumbnail_step from 25 to 5
@@ -40,6 +37,9 @@ http://www.root.cz/clanky/zavadime-omezeni-v-openssh/
   		  1. rename common_taxonomy_tree to common_taxonomy
   		  2. add columns from common_taxonomy_label
   		  3. copy common_taxonomy_label to common_taxonomy
+  * removed span from TinyMCE invalid_elements
+  * onxshop.authentication improved _checkAccess
+  * big cleaning in share/ directory
   * finished Xsite -> Onxshop
   * Zend_Db instead of ADOdb, much improved Onxshop_Model
   * jQuery UI upgraded to version 1.8.14

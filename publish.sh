@@ -1,10 +1,7 @@
 #!/bin/sh
-# Norbert Laposa, 2006, 2010
+# Norbert Laposa, 2006, 2010, 2011
 
 DEVELOPMENT_VERSION="/opt/onxshop-dev/";
-
-#!!!!! if you want deploy a new version, first copy an old release to a new release, because in the released version is customized opt/ !!!!!
-# ie cp -a onxshop-1.0-rc3 onxshop-1.0-rc4
 
 DEPLOY_VERSION="onxshop-testing";
 BASE_DIR="/opt/";
@@ -42,6 +39,7 @@ rsync --recursive --backup --backup-dir=$BACKUP_PATH --times --cvs-exclude --del
 	--exclude 'rsync.sh' \
 	--exclude 'opt/_rubish/' \
 	--exclude 'ONXSHOP_VERSION' \
+	--exclude '.git/' \
 	${DEVELOPMENT_VERSION}* \
 	$FULL_PATH
 
