@@ -6,13 +6,13 @@ Multisite design allows to run multiple website and sharing one Onxshop installa
 
 Typical project files
 ----------------------
-conf/
-controllers/
-models/
-onxshop_dir -> /opt/onxshop-latest
-public_html/
-templates/
-var/
+* conf/
+* controllers/
+* models/
+* onxshop_dir -> /opt/onxshop-latest
+* public_html/
+* templates/
+* var/
 
 At this time Onxshop is only optimised for Debian GNU/Linux operating system. You can [Find Debian consultant](http://www.debian.org/consultants) near you and ask him to install Onxshop for you.
 
