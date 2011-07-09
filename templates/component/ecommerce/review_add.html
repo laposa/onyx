@@ -1,0 +1,92 @@
+<!-- BEGIN: content -->
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<div class="review_add">
+	<!-- BEGIN: comment_insert -->
+	<script type="text/javascript">
+	$(function() { 
+	
+		$("#review_form_{GET.node_id}").validate();  
+	
+		var options = { 
+			target: 'div.review_add',
+			success: function(){
+				popupMessage("div.review_add div.onxshop_messages");
+			},
+			url: '/request/component/ecommerce/review_add~node_id={GET.node_id}:allow_anonymouse_submit=0~'
+		}; 
+	
+		$("#review_form_{GET.node_id}").ajaxForm(options); 
+	});
+	</script>
+
+	<form id="review_form_{GET.node_id}" class='comment' method='post' action='{URI}#review_form_{GET.node_id}'>
+		<fieldset class="single">
+			<legend>Add a new review</legend>
+			<div class="row">
+				<span class="label"><label for="comment_author_name_{GET.node_id}"><span class="mandatory-mark">*</span> {I18N_AUTHOR_NAME}:</label></span>
+				<span class="field"><input class="required text" type='text' id="comment_author_name_{GET.node_id}" name='comment[author_name]' value='{COMMENT.author_name|htmlspecialchars}' /></span>
+			</div>
+			<div class="row">
+				<span class="label"><label for="comment_title_{GET.node_id}"><span class="mandatory-mark">*</span> Short summary:</label></span>
+				<span class="field"><input class="required text" type='text' id="comment_title_{GET.node_id}" name='comment[title]' value='{COMMENT.title|htmlspecialchars}' /></span>
+			</div>
+			<div class="row">
+				<span class="label"><label for="comment_content_{GET.node_id}"><span class="mandatory-mark">*</span> Your review:</label></span>
+				<span class="field"><textarea class="required text" id="comment_content_{GET.node_id}" name='comment[content]' cols='50' rows='10' style="width: 100%; height: 40px;">{COMMENT.content|htmlspecialchars}</textarea></span>
+				
+			</div>
+			
+			<div class="row">
+				<span class="label"><label for="comment_ration_{GET.node_id}"><span class="mandatory-mark">*</span> Product Rating</label></span>
+				<span class="field">
+					<select name="comment[rating]" id="comment_ration_{GET.node_id}">
+						<option value="0">-- Select --</option>
+						<option value="1">One Star</option>
+						<option value="2">Two Stars</option>
+						<option value="3">Three Stars</option>
+						<option value="4">Four Stars</option>
+						<option value="5">Five Stars</option>
+					</select>
+				</span>
+			</div>
+			
+			<div class="row submit">
+				<span class="label"><label>&nbsp;</label></span>
+				<span class="field"><button type="submit" name='comment[submit]' class='send_comment' value='send'><span>{I18N_SUBMIT}</span></button></span>
+		    </div>
+		    
+			<input type='hidden' name='comment[parent]' value='0' />
+			<input type='hidden' name='comment[node_id]' value='{GET.node_id}' />
+			<input type='hidden' name='comment[author_email]' value='{COMMENT.author_email}' />
+		</fieldset>
+    </form>
+    <p>Please note that all submitted reviews &amp; comments will become the licensed property of {CONFIGURATION.global.author_content|htmlspecialchars}</p>
+	<!-- END: comment_insert -->
+	
+	<!-- BEGIN: comment_inserted -->
+	<p>Thank you for your review.</p>
+	<!-- END: comment_inserted -->
+	
+	<!-- BEGIN: log_to_insert -->
+	<script type="text/javascript">
+	$(function() { 
+		var options = { 
+			target: 'div.review_add',
+			success: function(){
+				popupMessage("div.review_add div.onxshop_messages");
+				$('div.review_add').load('/request/component/ecommerce/review_add~node_id={GET.node_id}:allow_anonymouse_submit=0~');
+			},
+			url: '/request/component/client/login~to=ajax~'
+		}; 
+	
+		$('div.review_add form').ajaxForm(options); 
+	});
+	</script>
+
+	<h3>Please login to add a review</h3>
+	{LOGIN_BOX}
+	<p><a href="/login?to=/product/{GET.node_id}"><span>Forgotten password or don't have an account yet?</span></a></p>
+	<!-- END: log_to_insert -->
+	
+</div>
+<!-- END: content -->

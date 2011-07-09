@@ -1,0 +1,78 @@
+<!-- BEGIN: content -->
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<div class="comment_edit">
+	<form method="post" action="{URI}" id="comment_edit_form">
+
+		<fieldset class="single">
+			<legend>Review edit</legend>
+			<div class="row title">
+				<span class="label"><label for="comment-title">Title</label></span>
+				<span class="field"><input class="text title" id="comment-title" type="text" name="comment[title]" value="{COMMENT.title|htmlspecialchars}" /></span>
+			</div>
+			<div class="row content">
+				<span class="label"><label for="comment-content">Content</label></span>
+				<span class="field"><textarea id="comment-content" name="comment[content]">{COMMENT.content|htmlspecialchars}</textarea></span>
+			</div>
+			<div class="row rating">
+				<span class="label"><label for="comment-rating">rating</label></span>
+				<span class="field"><input class="text short" id="comment-rating" type="text" name="comment[rating]" value="{COMMENT.rating|htmlspecialchars}" /></span>
+			</div>
+			<div class="row publish">
+				<span class="label"><label for="comment-publish">Publish</label></span>
+				<span class="field">
+					<select id="comment-publish" name="comment[publish]">
+						<option value="0" {SELECTED_0}>No</option>
+						<option value="1" {SELECTED_1}>Yes</option>
+						<option value="-1" {SELECTED_-1}>Reject</option>
+					</select>
+				</span>
+			</div>
+			<div class="row author_name">
+				<span class="label"><label for="comment-author_name">author_name</label></span>
+				<span class="field"><input class="text" id="comment-author_name" type="text" name="comment[author_name]" value="{COMMENT.author_name|htmlspecialchars}" /></span>
+			</div>
+			<div class="row author_email">
+				<span class="label"><label for="comment-author_email">author_email</label></span>
+				<span class="field"><input class="text" id="comment-author_email" type="text" name="comment[author_email]" value="{COMMENT.author_email|htmlspecialchars}" /></span>
+			</div>
+			<div class="row author_website">
+				<span class="label"><label for="comment-author_website">author_website</label></span>
+				<span class="field"><input class="text" id="comment-author_website" type="text" name="comment[author_website]" value="{COMMENT.author_website|htmlspecialchars}" /></span>
+			</div>
+		</fieldset>
+		
+		<p>Review created on <a href="/backoffice/products/{COMMENT.node_id}/edit">product ID {COMMENT.node_id}</a> </p>
+		<p>Item ID {COMMENT.id} created by <a href="/backoffice/customers/{COMMENT.customer_id}/detail">Customer ID {COMMENT.customer_id}</a> on {COMMENT.created} from <a href="/request/component/whois?str={COMMENT.author_ip_address}" target="_blank">IP address {COMMENT.author_ip_address}</a></p>
+		
+		<div class="row submit">
+			<span class="label"><label>&nbsp;</label></span>
+			<span class="field"><button type="submit"  name="save" value="save"><span>Save</span></button></span>
+		</div>
+		
+		<input type="hidden" name="comment[id]" value="{COMMENT.id}" />
+		<input type="hidden" name="comment[parent]" value="{COMMENT.parent}" />
+		<input type="hidden" name="comment[node_id]" value="{COMMENT.node_id}" />
+		
+	</form>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+$(function() {
+	
+	var options = { 
+		target: '#comment_edit_form_result',
+		success: function(responseText, statusText) {
+			popupMessage("#comment_edit_form_result div.onxshop_messages");
+			makeAjaxRequest('#sub_content', '/request/bo/component/ecommerce/review_list');
+		}
+	}; 
+
+    $('#comment_edit_form').ajaxForm(options); 
+});
+/* ]]> */
+</script>
+
+<div id="comment_edit_form_result" style="display: none"></div>
+  
+</div>
+<!-- END: content -->

@@ -1,0 +1,39 @@
+<!-- BEGIN: content -->
+
+<!-- BEGIN: pagination -->
+<div class="pagination">
+	<ul>
+		<!-- BEGIN: previous -->
+		<li class="previous"><span>&lsaquo;</span><a href="{ITEM.link}{LIMIT}"><span>{I18N_PREVIOUS}</span></a></li>
+		<!-- END: previous -->
+		<!-- BEGIN: item -->
+		<li class="{ITEM.class}"><a class="{ITEM.class}" href="{ITEM.link}{LIMIT}"><span>{ITEM.page}</span></a></li>
+		<!-- END: item -->
+		<!-- BEGIN: next -->
+		<li class="next"><a href="{ITEM.link}{LIMIT}"><span>{I18N_NEXT}</span></a><span>&rsaquo;</span></li>
+		<!-- END: next -->
+	</ul>
+	<!-- BEGIN: show_all -->
+	<a class="show_all" href="{ITEM.link}?limit_from=0&limit_per_page={GET.count}"><span>{I18N_SHOW_ALL} ({GET.count} {I18N_RECORDS})</span></a>
+	<!-- END: show_all -->
+	<!-- BEGIN: per_page -->
+	<form method="get" action="{URI}">
+	<input type="hidden" name="limit_from" value="{GET.limit_from}" />
+	<label for="per_page">Items per Page:</label>
+	<select name='limit_per_page' id='per_page' class="short per_page" onchange="submit()">
+		<option value='5' {PAGINATION_selected_5}>5</option>
+		<option value='10' {PAGINATION_selected_10}>10</option>
+		<option value='25' {PAGINATION_selected_25}>25</option>
+		<option value='50' {PAGINATION_selected_50}>50</option>
+		<option value='75' {PAGINATION_selected_75}>75</option>
+		<option value='100' {PAGINATION_selected_100}>100</option>
+		<option value='150' {PAGINATION_selected_150}>150</option>
+		<option value='200' {PAGINATION_selected_200}>200</option>
+		<option value='500' {PAGINATION_selected_500}>500</option>
+		</select>
+	</form>
+	<!-- END: per_page -->
+</div>
+
+<!-- END: pagination -->
+<!-- END: content -->

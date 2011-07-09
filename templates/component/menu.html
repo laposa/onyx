@@ -1,0 +1,20 @@
+<!-- BEGIN: content -->
+<!-- BEGIN: group -->
+<ul>
+<!-- BEGIN: item -->
+<li class='{ITEM.css_class} node_id_{ITEM.id}'>
+	<!-- BEGIN:link -->
+	<a href="/page/{ITEM.id}" title="{ITEM.title|htmlspecialchars}" class="{ITEM.css_class} node_id_{ITEM.id}"><span>{ITEM.name|htmlspecialchars}</span><!-- BEGIN: teaser --><br /><span class="teaser">{ITEM.teaser|strip_tags|htmlspecialchars}</span><!-- END: teaser --></a>
+	<!-- END:link -->
+	<!-- BEGIN:nolink -->
+	<span class="nolink {ITEM.css_class} node_id_{ITEM.id}">{ITEM.name|htmlspecialchars}</span>
+	<!-- END:nolink -->
+	
+	{ITEM.subcontent}
+</li>
+<!-- END: item -->
+{END_RESULT_ITEMS}
+</ul>
+<!-- END: group -->
+{END_RESULT_GROUPS}
+<!-- END: content -->

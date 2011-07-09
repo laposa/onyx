@@ -1,0 +1,43 @@
+<!-- BEGIN: title -->Feed reader<!-- END: title -->
+<!-- BEGIN: content -->
+{FILE "bo/node/default_top.html"}
+<fieldset>
+	<div class="row">
+		<span class="label"><label for="component-channel_title">Display channel title</label></span>
+		<span class="field"><input type="checkbox" id="component-channel_title" name="node[component][channel_title]" {NODE.component.channel_title} /></span>
+	</div>
+	<div class="row">
+		<span class="label"><label for="component-image">Display image</label></span>
+		<span class="field"><input type="checkbox" id="component-image" name="node[component][image]" {NODE.component.image} /></span>
+	</div>
+	<div class="row">
+		<span class="label"><label for="component-desc">Display description</label></span>
+		<span class="field"><input type="checkbox" id="component-desc" name="node[component][description]" {NODE.component.description} /></span>
+	</div>
+	<div class="row">
+		<span class="label"><label for="component-content">Display content (Atom feed only)</label></span>
+		<span class="field"><input type="checkbox" id="component-content" name="node[component][content]" {NODE.component.content} /></span>
+	</div>
+	<div class="row">
+		<span class="label"><label for="component-date">Display date</label></span>
+		<span class="field"><input type="checkbox" id="component-date" name="node[component][pubdate]" {NODE.component.pubdate} /></span>
+	</div>
+	<div class="row">
+		<span class="label"><label for="component-copyright">Display copyright</label></span>
+		<span class="field"><input type="checkbox" id="component-copyright" name="node[component][copyright]" {NODE.component.copyright} /></span>
+	</div>
+	<div class="row">
+		<span class="label"><label for="component-ajax">Use AJAX</label></span>
+		<span class="field"><input type="checkbox" id="component-ajax" name="node[component][ajax]" {NODE.component.ajax} /></span>
+	</div>
+	<div class="row">
+		<span class="label"><label for="component-limit">Items limit:</label></span>
+		<span class="field"><input type="text" id="component-limit" name="node[component][items_limit]" style="width: 20px" value="{NODE.component.items_limit}" /></span>
+	</div>
+	<div class="row">
+		<span class="label"><label for="component-source">Feed source:</label></span>
+		<span class="field"><input type="text" class="text long" id="component-source" name="node[component][url]" value="{NODE.component.url}" /></span>
+	</div>
+</fieldset>
+{FILE "bo/node/default_bottom.html"}
+<!-- END: content -->

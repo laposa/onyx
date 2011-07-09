@@ -1,0 +1,152 @@
+<!-- BEGIN: title -->Order Detail<!-- END: title -->
+<!-- BEGIN: content -->
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+
+
+<div class="twoColumnPage page fifty-fifty">
+	<div class="top page"><span></span></div>
+	<div class="content page">
+		<div class="contentWrappper page">
+
+			<div class="pageHeader">
+				<div class="pageHeaderWrapper">
+					<h1 class="pageTitle"><span>Order ID {GET.id}</span></h1>
+				</div>
+			</div>
+
+			<div class="rowTop page">
+				<div class="columnWrapper page">
+					
+					<div class="twoColumnLayout layout fifty-fifty">
+						<div class="layoutWrapper">
+							<div class="top layout"><span></span></div>
+							<div class="content layout">
+								<div class="contentWrapper layout">
+									<!-- BEGIN: title --><h2 class="layoutTitle"><span>{NODE.title}</span></h2><!-- END: title -->
+									<div class="columnOne layout">
+										<div class="columnWrapper layout">
+											
+											<div class="twoColumnLayout layout fifty-fifty">
+												<div class="layoutWrapper">
+											        <div class="top"><span></span></div>
+											        <div class="layoutContent">
+											            <div class="layoutContentWrapper">
+											                <!-- BEGIN: title --><h2 class="layoutTitle"><a href="#node_id_{NODE.id}"><span>{NODE.title|htmlspecialchars}</span></a></h2><!-- END: title -->
+											                <div class="layoutColumnOne">
+											                    <div class="layoutColumnWrapper">
+											                        {ONXSHOP_REQUEST_delivery_detail #component/ecommerce/delivery_detail~order_id=GET.id~}
+											                    </div>
+											                </div>
+											                <div class="layoutColumnTwo">
+											                    <div class="layoutColumnWrapper">
+											                    	{ONXSHOP_REQUEST_gift_detail #bo/component/ecommerce/gift_detail~order_id=GET.id~}
+											                    </div>
+											                </div>
+											            </div>
+											        </div>
+											        <div class="bottom"><span></span></div>
+											    </div>
+											</div>
+
+
+										</div>
+									</div>
+									<div class="layoutColumnTwo">
+										<div class="layoutColumnWrapper">
+											<form  action="{URI}" method="post" id="order_status_change">
+												<table>
+													<caption>Status Log</caption>
+													<thead>
+														<tr><th>Date</th><th>Status</th></tr>
+													</thead>
+													<tbody>
+														<!-- BEGIN: log -->
+														<tr><td>{STATUS.datetime}</td><td>{STATUS.name}</td></tr>
+														<!-- END: log -->
+														<tr>
+															<td colspan="2" style="text-align: right">
+																<select name='order[status]'>
+																	<!-- BEGIN: status -->
+																	<option value="{STATUS.id}" {STATUS.selected}>{STATUS.name}</option>
+																	<!-- END: status -->
+																</select>
+															</td>
+														</tr>
+													</tbody>
+												</table>
+												
+												<h3>Admin note</h3>
+												<textarea name="order[note_backoffice]">{ORDER.note_backoffice}</textarea>
+												<button type="submit" name="save" value="save"><span>Save</span></button>
+											</form>
+
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="bottom"><span></span></div>
+						</div>
+					</div>
+					{ONXSHOP_REQUEST_order_detail #component/ecommerce/order_detail~order_id=GET.id~}
+	
+				</div>
+			</div>
+
+			<div class="columnOne page">
+				<div class="columnWrapper page">
+					<!-- BEGIN: accounting_detail -->
+
+					<div class="twoColumnLayout layout">
+						<div class="layoutWrapper">
+							<div class="top"><span></span></div>
+							<div class="layoutContent">
+								<div class="layoutContentWrapper">
+									<div class="layoutColumnOne">
+										<div class="layoutColumnWrapper">
+											{ONXSHOP_REQUEST_invoice_detail #component/ecommerce/invoice_detail~order_id=GET.id~}
+										</div>
+									</div>
+									<div class="layoutColumnTwo">
+										<div class="layoutColumnWrapper">
+											{ONXSHOP_REQUEST_transaction_detail #component/ecommerce/transaction_detail~order_id=GET.id~}
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="bottom"><span></span></div>
+						</div>
+					</div>
+						
+						
+						
+					<!-- END: accounting_detail -->	
+				</div>
+			</div>
+			<div class="columnTwo page">
+				<div class="columnWrapper page">
+					<!-- BEGIN: customer_detail -->
+						<div class="customer_detail">
+							<table>
+								<caption>Customer #{ORDER.client.customer.id}</caption>
+								<tr><td>Created</td><td>{ORDER.client.customer.created}</td></tr>
+								<tr><td>Customer Name</td><td><a href="/backoffice/customers/{ORDER.client.customer.id}/detail">{ORDER.client.customer.title_before} {ORDER.client.customer.first_name} {ORDER.client.customer.last_name}</a></td></tr>
+								<tr><td>Email</td><td><a href="/backoffice/customers/{ORDER.client.customer.id}/detail">{ORDER.client.customer.email}</a></td></tr>
+							</table>
+						</div>
+						
+						<h3>Customer Note</h3>
+						<pre>{ORDER.note_customer}</pre>
+					<!-- END: customer_detail -->
+				</div>
+			</div>
+			<div class="rowBottom page">
+				<div class="columnWrapper page">
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="bottom page"><span></span></div>
+</div>
+
+<!-- END: content -->

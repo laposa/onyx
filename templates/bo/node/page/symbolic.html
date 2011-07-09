@@ -1,0 +1,38 @@
+<!-- BEGIN: title -->Symbolic Page Edit<!-- END: title -->
+<!-- BEGIN: content -->
+{FILE "bo/node/default_top.html"}
+<script type="text/javascript">
+/* <![CDATA[ */
+$(document).ready(function(){
+	$('fieldset.symbolic-form-edit div.href a.button').click(function() {
+		$('#href_select').addClass('ajaxLoad').load('/request/component/menu_js~id=0:expand_all=1:publish=0~', function() {
+			$('#href_select').removeClass('ajaxLoad');
+			$('#href_select .simpleTree').simpleTree({
+				drag: false,
+				autoclose: true,
+				afterClick:function(node){
+					var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
+					$('#component-href').attr('value', '/page/' + node_id);
+				},
+				animate: true,
+				docToFolderConvert: true
+			});
+		});
+		return false;
+	});
+});
+/* ]]> */
+</script>
+<fieldset class="symbolic-form-edit">
+	<div class="row href">
+		<span class="label"><label>*Forward Link:</label></span>
+		<span class="field"><input type="text" name="node[component][href]" id="component-href" value="{NODE.component.href}" /> <a class="button" href="#"><span>browse server</span></a></span>
+		<div id="href_select"></div>
+	</div>
+	<div class="row">
+		<span class="label"><label for="node_teaser">Strapline:</label></span>
+		<span class="field"><textarea name="node[teaser]" id="node_teaser" class="small" rows="10" cols="20">{NODE.teaser}</textarea></span>
+	</div>
+</fieldset>
+{FILE "bo/node/default_bottom.html"}
+<!-- END: content -->

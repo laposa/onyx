@@ -1,0 +1,29 @@
+/* tinymce Onxshop additions */
+body {color: red;}
+body, td, pre {font-size: medium;}
+p,
+table,
+ul,
+ol,
+h1,
+h2,
+h3,
+h4,
+h5 {color: black;}
+
+hr {clear: both;}
+a img {border: 1px solid red;}
+
+img.imageLeft {float: left; margin-right: 20px;}
+img.imageRight {float: right; margin-left: 20px;}
+img.border {border: 1px solid black;}
+img.reflect {border-bottom: 10px solid black;}
+
+blockquote {font-family: Times, serif;}
+
+td,
+th {vertical-align: top;}
+
+
+
+

@@ -1,0 +1,115 @@
+<!-- BEGIN: content -->
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<div class="promotion_edit">
+	<form method="post" action="{URI}" id="promotion_edit_form">
+	
+		<div id="promotion_edit">
+			<ul>
+				<li><a href="#onxshop_basicinfo"><span>Basic</span></a></li>
+				<li><a href="#onxshop_minor"><span>Minor Tweaks</span></a></li>
+			</ul>
+		
+			<div id="onxshop_basicinfo">
+				<fieldset class="single">
+					<legend>Basic</legend>
+					<div class="row title">
+						<span class="label"><label for="promotion-title">Promotion Title</label></span>
+						<span class="field"><input class="text" id="promotion-title" type="text" name="promotion[title]" value="{PROMOTION.title|htmlspecialchars}" /></span>
+					</div>
+					<div class="row code_pattern">
+						<span class="label"><label for="promotion-code_pattern">Promotion Code (Regexp Pattern) </label></span>
+						<span class="field"><input class="text" id="promotion-code_pattern" type="text" name="promotion[code_pattern]" value="{PROMOTION.code_pattern|htmlspecialchars}" /></span>
+					</div>
+					<div class="row discount_percentage_value">
+						<span class="label"><label for="promotion-discount_percentage_value">Percentage Value of Discount</label></span>
+						<span class="field"><input class="text short" id="promotion-discount_percentage_value" type="text" name="promotion[discount_percentage_value]" value="{PROMOTION.discount_percentage_value}" /></span>
+					</div>
+					<div class="row discount_fixed_value">
+						<span class="label"><label for="promotion-discount_fixed_value">Fixed Value of Discount</label></span>
+						<span class="field"><input class="text short" id="promotion-discount_fixed_value" type="text" name="promotion[discount_fixed_value]" value="{PROMOTION.discount_fixed_value}" /></span>
+					</div>
+					<div class="row discount_uses_per_coupon">
+						<span class="label"><label for="promotion-uses_per_coupon">Uses per Coupon</label></span>
+						<span class="field"><input class="text short" id="promotion-uses_per_coupon" type="text" name="promotion[uses_per_coupon]" value="{PROMOTION.uses_per_coupon}" /></span>
+					</div>
+					
+					<div class="row publish">
+						<span class="label"><label for="promotion-publish">Publish</label></span>
+						<span class="field"><input id="promotion-publish" type="checkbox" name="promotion[publish]" value="1" {PROMOTION.publish_check} /></span>
+					</div>
+				</fieldset>
+			</div>
+			<div id="onxshop_minor">
+				<fieldset>
+					<legend>Minor Tweaks</legend>
+					<div class="row description">
+						<span class="label"><label for="promotion-description">Description</label></span>
+						<span class="field"><textarea id="promotion-description" name="promotion[description]" />{PROMOTION.description|htmlspecialchars}</textarea></span>
+					</div>
+					<div class="row customer_account_type">
+						<span class="label"><label for="promotion-customer_account_type">Limit To Account Type</label></span>
+						<span class="field">
+							<select id="promotion-customer_account_type" name="promotion[customer_account_type]">
+								<option value="0" {PROMOTION.SELECTED.customer_account_type_0}>Valid For All Customer Accounts</option>
+								<option value="2" {PROMOTION.SELECTED.customer_account_type_2}>For Approved Wholesale Accounts Only</option>
+							</select>
+						</span>
+					</div>
+					
+					<div class="row uses_per_customer">
+						<span class="label"><label for="promotion-uses_per_customer">Allowed number of uses per Customer</label></span>
+						<span class="field"><input class="text short" id="promotion-uses_per_customer" type="text" name="promotion[uses_per_customer]" value="{PROMOTION.uses_per_customer}" /></span>
+					</div>
+					<div class="row limit_list_products">
+						<span class="label"><label for="promotion-limit_list_products">Limit to this products only</label></span>
+						<span class="field"><input disabled="disabled" class="text" id="promotion-limit_list_products" type="text" name="promotion[limit_list_products]" value="{PROMOTION.limit_list_products}" /></span>
+					</div>
+				</fieldset>
+				<fieldset>
+					<legend>Free delivery</legend>
+					<div class="row discount_free_delivery">
+						<span class="label"><label for="promotion-discount_free_delivery">Apply Free Delivery</label></span>
+						<span class="field"><input id="promotion-discount_free_delivery" type="checkbox" name="promotion[discount_free_delivery]" value="1" {PROMOTION.discount_free_delivery_check} /></span>
+					</div>
+					<div class="row limit_delivery_country_id">
+						<span class="label"><label for="promotion-limit_delivery_country_id">Limit to this country_id (delivery country)</label></span>
+						<span class="field"><input class="text short" id="promotion-limit_delivery_country_id" type="text" name="promotion[limit_delivery_country_id]" value="{PROMOTION.limit_delivery_country_id}" /></span>
+					</div>
+					<div class="row limit_delivery_carrier_id">
+						<span class="label"><label for="promotion-limit_delivery_carrier_id">Limit to this carrier_id</label></span>
+						<span class="field"><input class="text short" id="promotion-limit_delivery_carrier_id" type="text" name="promotion[limit_delivery_carrier_id]" value="{PROMOTION.limit_delivery_carrier_id}" /></span>
+					</div>
+				</fieldset>
+			</div>
+			
+			<div class="row submit">
+				<span class="label"><label>&nbsp;</label></span>
+				<span class="field"><button type="submit"  name="save" value="save"><span>Save</span></button></span>
+			</div>
+		</div>
+		
+		<input type="hidden" name="promotion[id]" value="{PROMOTION.id}" />
+	</form>
+
+<script type="text/javascript">
+/* <![CDATA[ */
+$(function() {
+	$("#promotion_edit").tabs();
+	
+	var options = { 
+		target: '#promotion_edit_form_result',
+		success: function(responseText, statusText) {
+			popupMessage("#promotion_edit_form_result div.onxshop_messages");
+			makeAjaxRequest('#sub_content', '/request/bo/component/ecommerce/promotion_list');
+		}
+	}; 
+
+    $('#promotion_edit_form').ajaxForm(options); 
+});
+/* ]]> */
+</script>
+
+<div id="promotion_edit_form_result" style="display: none"></div>
+  
+</div>
+<!-- END: content -->

@@ -1,0 +1,20 @@
+<!-- BEGIN: content -->
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<div class="lastFM {NODE.css_class}">
+	<!-- BEGIN: title --><h3 class="contentTitle"><a href="#node_id_{NODE.id}"><span>{NODE.title|htmlspecialchars}</span></a></h3><!-- END: title -->
+	<!-- BEGIN: title_link --><h3 class="contentTitle"><a href="/page/{NODE.link_to_node_id}"><span>{NODE.title|htmlspecialchars}</span></a></h3><!-- END: title_link -->
+	<div class="contentBody">
+		<form method="post" id="scrobbler_form">
+			<select name="scrobbler" onchange="$('#scrobbler_form').submit();">
+				<option value="TOP_ARTISTS" {SCROBBLER.selected.TOP_ARTISTS}>TOP_ARTISTS</option>
+				<option value="TOP_ALBUMS" {SCROBBLER.selected.TOP_ALBUMS}>TOP_ALBUMS</option>
+				<option value="TOP_TRACKS" {SCROBBLER.selected.TOP_TRACKS}>TOP_TRACKS</option>
+				<option value="RECENT_WEEKLY_ARTIST_CHART" {SCROBBLER.selected.RECENT_WEEKLY_ARTIST_CHART}>RECENT_WEEKLY_ARTIST</option>
+				<option value="RECENT_WEEKLY_TRACK_CHART" {SCROBBLER.selected.RECENT_WEEKLY_TRACK_CHART}>RECENT_WEEKLY_TRACK</option>
+				<option value="RECENT_TRACKS" {SCROBBLER.selected.RECENT_TRACKS}>RECENT_TRACKS</option>
+			</select>
+		</form>
+		<p>{SCROBBLER.content}</p>
+	</div>
+</div>
+<!-- END: content -->

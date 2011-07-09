@@ -1,0 +1,224 @@
+<!-- BEGIN: title -->Picture Gallery Edit<!-- END: title -->
+<!-- BEGIN: content -->
+<script type="text/javascript">
+function hookNodeEditPreUpdate() {
+	//opener.$('#smoothGallery_{GET.id} div.pics').cycle('stop');
+	//opener.$('#smoothGallery_{GET.id}').empty();
+}
+
+function hookNodeEditPostUpdate() {
+	//if (opener) {
+	//	opener.activateSmoothGallery();
+	//}
+	opener.window.location.reload(true);
+}
+</script>
+
+{FILE "bo/node/form_open.html"}
+
+<div id="onxshop_basicinfo" class="ui-tabs-panel">
+	{FILE "bo/node/item_title_basic.html"}
+	<fieldset>
+		<div class="row">
+			<div style="float: left;">
+				<span class="label"><label>Width:</label></span>
+				<span class="field">
+					<select name="node[component][main_image_width]">
+						<option value="0" {SELECTED_main_image_width_original}>Original</option>
+						<option id="main_image_width_display_size" value="{NODE.component.main_image_width}" {SELECTED_main_image_width_custom}>{NODE.component.main_image_width}</option>
+					</select>
+				</span>
+			</div>
+			<div style="float: left;">
+				<span class="label"><label>Constrain:</label></span>
+				<span class="field">
+					<select name="node[component][main_image_constrain]">
+						<option value="0" {SELECTED_main_image_constrain_0}>Original</option>
+						<option value="1-1" {SELECTED_main_image_constrain_1-1}>Square</option>
+					</select>
+				</span>
+			</div>
+			<div class="bottom"><span></span></div>
+		</div>
+		
+		<div style="margin: 10px 0; width: 100%" id="main_image_width_slider"></div>
+					
+		<script type="text/javascript">
+		$(function() {
+			$('#main_image_width_slider').slider({
+				value: {NODE.component.main_image_width},
+				min: {IMAGE_CONF.thumbnail_width_min},
+				max: {IMAGE_CONF.thumbnail_width_max},
+				step: {IMAGE_CONF.thumbnail_step},
+				change: function(event, ui) { $('#main_image_width_display_size').attr('value', ui.value); },
+				slide : function(event, ui) { $('#main_image_width_display_size').html(ui.value).attr('selected', true); }
+			});
+		});
+		</script>
+
+		
+		<div class="row">
+			<span class="label"><label>* Type:</label></span>
+			<span class="field">
+				<select name="node[component][template]">
+					<option value="gallery_smooth" {SELECTED_template_gallery_smooth}>smooth gallery (jQuery Cycle)</option>
+					<option value="gallery" {SELECTED_template_gallery}>gallery with thumbnails</option>
+					<option value="fancybox" {SELECTED_template_fancybox}>fancybox (lightbox)</option>
+					<option value="tools" {SELECTED_template_tools}>jQuery Tools Gallery</option>
+					<option value="single" {SELECTED_template_single}>simple images list</option>
+					<option value="nivo" {SELECTED_template_nivo}>Nivo Slider</option>
+				</select>
+			</span>
+		</div>
+	</fieldset>
+
+	<!-- BEGIN: gallery_smooth_options -->
+	<fieldset style="width: 50%; float: left;">
+		<legend>Smooth gallery options</legend>
+		<div class="row">
+			<span class="label"><label> Effect:</label></span>
+			<span class="field">
+				<select name="node[component][cycle][fx]">
+					<option value="blindX" {SELECTED_cycle_fx_blindX}>blindX</option>
+					<option value="blindY" {SELECTED_cycle_fx_blindY}>blindY</option>
+					<option value="blindZ" {SELECTED_cycle_fx_blindZ}>blindZ</option>
+					<option value="cover" {SELECTED_cycle_fx_cover}>cover</option>
+					<option value="curtainX" {SELECTED_cycle_fx_curtainX}>curtainX</option>
+					<option value="curtainY" {SELECTED_cycle_fx_curtainY}>curtainY</option>
+					<option value="fade" {SELECTED_cycle_fx_fade}>fade</option>
+					<option value="fadeZoom" {SELECTED_cycle_fx_fadeZoom}>fadeZoom</option>
+					<option value="growX" {SELECTED_cycle_fx_growX}>growX</option>
+					<option value="growY" {SELECTED_cycle_fx_growY}>growY</option>
+					<option value="scrollUp" {SELECTED_cycle_fx_scrollUp}>scrollUp</option>
+					<option value="scrollDown" {SELECTED_cycle_fx_scrollDown}>scrollDown</option>
+					<option value="scrollLeft" {SELECTED_cycle_fx_scrollLeft}>scrollLeft</option>
+					<option value="scrollRight" {SELECTED_cycle_fx_scrollRight}>scrollRight</option>
+					<option value="scrollHorz" {SELECTED_cycle_fx_scrollHorz}>scrollHorz</option>
+					<option value="scrollVert" {SELECTED_cycle_fx_scrollVert}>scrollVert</option>
+					<option value="shuffle" {SELECTED_cycle_fx_shuffle}>shuffle</option>
+					<option value="slideX" {SELECTED_cycle_fx_slideX}>slideX</option>
+					<option value="slideY" {SELECTED_cycle_fx_slideY}>slideY</option>
+					<option value="toss" {SELECTED_cycle_fx_toss}>toss</option>
+					<option value="turnUp" {SELECTED_cycle_fx_turnUp}>turnUp</option>
+					<option value="turnDown" {SELECTED_cycle_fx_turnDown}>turnDown</option>
+					<option value="turnLeft" {SELECTED_cycle_fx_turnLeft}>turnLeft</option>
+					<option value="turnRight" {SELECTED_cycle_fx_turnRight}>turnRight</option>
+					<option value="uncover" {SELECTED_cycle_fx_uncover}>uncover</option>
+					<option value="wipe" {SELECTED_cycle_fx_wipe}>wipe</option>
+					<option value="zoom" {SELECTED_cycle_fx_zoom}>zoom</option>
+				</select>
+			</span>
+		</div>
+		
+		<div class="row">
+			<span class="label"><label>Easing:</label></span>
+			<span class="field">
+				<select name="node[component][cycle][easing]">
+					<option value="disable" {SELECTED_cycle_easing_disable}>disable</option>
+					<option value="jswing" {SELECTED_cycle_easing_jswing}>jswing</option>
+					<option value="def" {SELECTED_cycle_easing_def}>def</option>
+					<option value="easeInQuad" {SELECTED_cycle_easing_easeInQuad}>easeInQuad</option>
+					<option value="easeOutQuad" {SELECTED_cycle_easing_easeOutQuad}>easeOutQuad</option>
+					<option value="easeInOutQuad" {SELECTED_cycle_easing_easeInOutQuad}>easeInOutQuad</option>
+					<option value="easeInCubic" {SELECTED_cycle_easing_easeInCubic}>easeInCubic</option>
+					<option value="easeOutCubic" {SELECTED_cycle_easing_easeOutCubic}>easeOutCubic</option>
+					<option value="easeInOutCubic" {SELECTED_cycle_easing_easeInOutCubic}>easeInOutCubic</option>
+					<option value="easeInQuart" {SELECTED_cycle_easing_easeInQuart}>easeInQuart</option>
+					<option value="easeOutQuart" {SELECTED_cycle_easing_easeOutQuart}>easeOutQuart</option>
+					<option value="easeInOutQuart" {SELECTED_cycle_easing_easeInOutQuart}>easeInOutQuart</option>
+					<option value="easeInQuint" {SELECTED_cycle_easing_easeInQuint}>easeInQuint</option>
+					<option value="easeOutQuint" {SELECTED_cycle_easing_easeOutQuint}>easeOutQuint</option>
+					<option value="easeInOutQuint" {SELECTED_cycle_easing_easeInOutQuint}>easeInOutQuint</option>
+					<option value="easeInSine" {SELECTED_cycle_easing_easeInSine}>easeInSine</option>
+					<option value="easeOutSine" {SELECTED_cycle_easing_easeOutSine}>easeOutSine</option>
+					<option value="easeInOutSine" {SELECTED_cycle_easing_easeInOutSine}>easeInOutSine</option>
+					<option value="easeInExpo" {SELECTED_cycle_easing_easeInExpo}>easeInExpo</option>
+					<option value="easeOutExpo" {SELECTED_cycle_easing_easeOutExpo}>easeOutExpo</option>
+					<option value="easeInOutExpo" {SELECTED_cycle_easing_easeInOutExpo}>easeInOutExpo</option>
+					<option value="easeInCirc" {SELECTED_cycle_easing_easeInCirc}>easeInCirc</option>
+					<option value="easeOutCirc" {SELECTED_cycle_easing_easeOutCirc}>easeOutCirc</option>
+					<option value="easeInOutCirc" {SELECTED_cycle_easing_easeInOutCirc}>easeInOutCirc</option>
+					<option value="easeInElastic" {SELECTED_cycle_easing_easeInElastic}>easeInElastic</option>
+					<option value="easeOutElastic" {SELECTED_cycle_easing_easeOutElastic}>easeOutElastic</option>
+					<option value="easeInOutElastic" {SELECTED_cycle_easing_easeInOutElastic}>easeInOutElastic</option>
+					<option value="easeInBack" {SELECTED_cycle_easing_easeInBack}>easeInBack</option>
+					<option value="easeOutBack" {SELECTED_cycle_easing_easeOutBack}>easeOutBack</option>
+					<option value="easeInOutBack" {SELECTED_cycle_easing_easeInOutBack}>easeInOutBack</option>
+					<option value="easeInBounce" {SELECTED_cycle_easing_easeInBounce}>easeInBounce</option>
+					<option value="easeOutBounce" {SELECTED_cycle_easing_easeOutBounce}>easeOutBounce</option>
+					<option value="easeInOutBounce" {SELECTED_cycle_easing_easeInOutBounce}>easeInOutBounce</option>
+				</select>
+			</span>
+		</div>
+		
+		<div class="row">
+			<span class="label"><label> Speed:</label></span>
+			<span class="field">
+				<input type="text" name="node[component][cycle][speed]" value="{NODE.component.cycle.speed}" />ms
+			</span>
+		</div>
+		
+		<div class="row">
+			<span class="label"><label> Timeout:</label></span>
+			<span class="field">
+				<input type="text" name="node[component][cycle][timeout]" value="{NODE.component.cycle.timeout}" />ms
+			</span>
+		</div>
+	</fieldset>
+	<fieldset class="gallery_links" style="clear: none; width:50%; float: right;">
+		<legend>Optional links on each image</legend>
+		<div class="row link_to">
+			<span class="label"><label> Link to:</label></span>
+			<span class="field">
+				<input type="text" style="width: 100%;" name="node[component][cycle][link_to_node_id]" value="{NODE.component.cycle.link_to_node_id}" id="node-component-cycle-link_to_node_id" /> <a class="button"><span>Link to...</span></a>
+			</span>
+		</div>
+		<div id="gallery_link_to_node_id_ajax"></div>
+	</fieldset>
+	
+<script type="text/javascript">
+/* <![CDATA[ */
+$(document).ready(function(){
+	$('fieldset.gallery_links div.link_to a.button').click(function() {
+		$('#gallery_link_to_node_id_ajax').addClass('ajaxLoad').load('/request/component/menu_js~id=0:expand_all=1:publish=0:node_group=page_and_product~', function() {
+			$('#gallery_link_to_node_id_ajax').removeClass('ajaxLoad');
+			$('#gallery_link_to_node_id_ajax .simpleTree').simpleTree({
+				drag: false,
+				autoclose: true,
+				afterClick:function(node){
+					var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
+					var current_value = $('#node-component-cycle-link_to_node_id').attr('value');
+					if (current_value == '') $('#node-component-cycle-link_to_node_id').attr('value', node_id);
+					else $('#node-component-cycle-link_to_node_id').attr('value', current_value + ',' + node_id);
+				},
+				animate: true,
+				docToFolderConvert: true
+			});
+		});
+		return false;
+	});
+});
+/* ]]> */
+</script>
+
+	<!-- END: gallery_smooth_options -->
+	{FILE "bo/node/item_image_list.html"}
+	{FILE "bo/node/item_publish.html"}
+</div>
+		
+<div id="onxshop_minor" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+	{FILE "bo/node/item_title_link.html"}
+	{FILE "bo/node/item_meta_data.html"}
+	{FILE "bo/node/item_taxonomy.html"}
+	{FILE "bo/node/item_position.html"}
+</div>
+
+<div id="onxshop_advanced" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+	{FILE "bo/node/item_advanced.html"}
+	{FILE "bo/node/item_expert_options.html"}
+	{FILE "bo/node/item_content_list.html"}
+	{FILE "bo/node/item_signature.html"}
+</div>
+
+{FILE "bo/node/form_close.html"}
+<!-- END: content -->

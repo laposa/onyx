@@ -1,0 +1,65 @@
+<!-- BEGIN: content -->
+<!-- BEGIN: fe_edit_mode_edit -->
+<script type="text/javascript">
+function refreshMenuAdd(selector) {
+	return true; //disable
+	$(selector).hover(
+		function() {
+			var parent_id = $(this).attr('id').replace(/[^0-9]/g, '');
+			openAjaxRequestInDialog('/request/bo/component/node_add_page~node_group=page:parent=' + parent_id + '~', 'Add a new page');
+		}
+	);
+}
+
+$(function() {
+	refreshDeleteContent();
+	refreshAddContent('body div.onxshop_layout_container');
+	refreshMenuAdd("#primaryNavigation div.menucontainer");
+	refreshMenuAdd("#globalNavigation div.menucontainer");
+	refreshMenuAdd("#footerNavigation div.menucontainer");
+});
+</script>
+<!-- END: fe_edit_mode_edit -->
+
+<!-- BEGIN: fe_edit_mode_move -->
+<script type="text/javascript">
+$(function() {
+	feEditStartDragDrop();
+});
+</script>
+
+<style type="text/css">
+	.onxshop_layout_container div.node {cursor: move; }
+	.onxshop_layout_container {border: 1px dotted black; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; padding: 1em;}
+	.ui-sortable {min-height: 5em;}
+	.ui-sortable-placeholder {  visibility: visible !important; height: 50px !important; }
+	.ui-sortable-placeholder * { visibility: hidden; }
+</style>
+<!-- END: fe_edit_mode_move -->
+
+<!-- BEGIN: fe_edit_mode_preview -->
+
+<!-- END: fe_edit_mode_preview -->
+
+<script type="text/javascript">
+$(function() {
+	$('#fe_edit_mode_form').ajaxForm({
+		url:       '/request/bo/component/fe_edit_mode',
+		success: function() {
+			window.location.reload();
+			//makeAjaxRequest("#node_id_{GET.id}", "/request/node~id={GET.id}~");
+		}
+	});
+});
+</script>
+
+<form action="{URI}" method="post" id="fe_edit_mode_form" style="margin: 0;">
+	<label for="fe_edit_mode">Browse Mode:</label>
+	<select id="fe_edit_mode" name="fe_edit_mode" onchange="$('#fe_edit_mode_form').submit();">
+		<option value="preview" {SELECTED_preview}>Preview</option>
+		<option value="edit" {SELECTED_edit}>Edit</option>
+		<option value="move" {SELECTED_move}>Sort</option>
+	</select>
+</form>
+
+<!-- END: content -->

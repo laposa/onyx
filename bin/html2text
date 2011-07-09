@@ -1,0 +1,3 @@
+#!/bin/sh
+
+/usr/bin/html2text "$1"

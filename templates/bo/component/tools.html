@@ -1,0 +1,38 @@
+<!-- BEGIN: content -->
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+
+<!-- BEGIN: menu -->
+<ul>
+	<li><a href="/backoffice/advanced/tools?tool=uri"><span>generate nice URI</span></a><br />
+	Please do this only if you really know what you are doing. This will generate completely new URL structure.
+	</li>
+	<li><a href="/backoffice/advanced/tools?tool=flush_thumb"><span>flush thumbnails cache</span></a><br />
+		Please do this only if you really know what you are doing. This is useful only if you changed some files directly on the filesystem.</li>
+	<li><a href="/backoffice/advanced/tools?tool=flush_tmp"><span>flush temp directory</span></a></li>
+	<li><a href="/backoffice/advanced/tools?tool=flush_cache"><span>flush cache directory</span></a></li>
+	<li><a href="/backoffice/advanced/tools?tool=find_hard_links"><span>find hard links</span></a></li>
+	<li><a href="/backoffice/advanced/tools?tool=delete_orphaned_baskets"><span>delete orphaned baskets</span></a><br />
+		Will delete baskets created by anonymous user, older than 2 weeks and not converted to an order.</li>
+	<li><a href="/backoffice/advanced/tools?tool=backup"><span>backup</span></a> (click and wait, it takes some time to process)<br />
+		Creates up-to-date backup and download the whole site (only Premium package)</li>
+</ul>
+<!-- END: menu -->
+
+<!-- BEGIN: hard_links -->
+	<h2>Hard Links</h2>
+	<table>
+		<thead>
+			<tr><th>Title</th><th>Preview</th></tr>
+		</thead>
+		<tbody>
+			<!-- BEGIN: item -->
+			<tr>
+				<td><a href="/node/{ITEM.id}" onclick="openEdit('/popup/edit/content/{ITEM.id}/orig/'); return false">{ITEM.title}</a></td>
+				<td>{ITEM.content}</td>
+			</tr>
+			<!-- END: item -->
+		</tbody>
+	</table>	
+<!-- END: hard_links -->
+{SUB_CONTENT}
+<!-- END: content -->

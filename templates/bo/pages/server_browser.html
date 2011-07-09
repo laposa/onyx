@@ -1,0 +1,79 @@
+<!-- BEGIN: title -->Server Browse<!-- END: title -->
+<!-- BEGIN: content -->
+
+<script type="text/javascript">
+/* <![CDATA[ */
+$(document).ready(function(){
+	initializeServerBrowserMenu();
+});
+
+function initializeServerBrowserMenu() {
+	$('div.server_browser_menu .simpleTree').simpleTree({
+		drag: false,
+		autoclose: true,
+		afterClick:function(node){
+			var open_dir = $('a:first', node).attr('href').replace('#', '');
+			serverBrowserOpenDir(open_dir);
+			return false;
+		},
+		afterDblClick:function(node){
+			alert("text-"+$('span:first',node).text());
+		},
+		afterMove:function(destination, source, pos){
+			alert("destination-"+$('span:first',destination).text()+" source-"+$('span:first',source).text()+" pos-"+pos);
+		},
+		afterAjax:function()
+		{
+			alert('Loaded');
+		},
+		animate: true,
+		docToFolderConvert: true
+		});
+}
+
+function serverBrowserOpenDir(open_dir) {
+	//replace white space with +
+	open_dir = open_dir.replace(/ /g, '+');
+	var url = "/request/bo/component/server_browser_file_list~open=" + open_dir + ":type={GET.type}:relation={GET.relation}:node_id={GET.node_id}~";
+	makeAjaxRequest('#server_browser_file_list', url);
+	$("#add_new_file").attr('action', '{_SERVER.REDIRECT_URL}?open='+open_dir);
+}
+/* ]]> */
+</script>
+
+<div class="twoColumnPage page fibonacci-1-2">
+	<div class="top page"><span></span></div>
+	<div class="content page">
+		<div class="contentWrappper page">
+			<div class="pageHeader">
+				<!-- BEGIN: title --><h1 class="pageTitle"><span>{NODE.page_title}</span></h1><!-- END: title -->
+				<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+			</div>
+			<div class="columnTop page">
+				<div class="columnWrapper page">
+				
+				</div>
+			</div>
+
+			<div class="columnOne page">
+				<div class="columnWrapper page">
+					<div id="browser-tree">
+						{SERVER_BROWSER_TREE}
+					</div>
+					<br style="clear: both" />
+					{OPENCLIPART_TREE}
+				</div>
+			</div>
+			<div class="columnTwo page">
+				<div class="columnWrapper page">
+					<div id="server_browser_file_list">
+						{SERVER_BROWSER_FILE_LIST}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="bottom page"><span></span></div>
+</div>
+
+<!-- END: content -->

@@ -1,0 +1,30 @@
+/**
+ * Stripes layout theme
+ * Norbert @ Laposa Ltd, 2009/09/21
+ *
+ */
+
+#container {width: 100%;}
+
+#pageWrapper {padding: 0;}
+
+#content {width: auto; float: none;}
+#contentWrapper {width: 984px; margin: 0 auto;}
+
+div.pageHeaderWrapper {margin-left: 0; padding-left: 0;}
+div.pageContentWrapper {margin-left: 0; padding-left: 0;}
+
+#header {width: 100%;}
+#headerWrapper {padding: 0;}
+#header div.content {width: 984px; margin: 0 auto;}
+#header div.content div.content {margin: 0; width: auto;}
+#header div.top {width: 100%; height: 30px;}
+#header div.bottom {width: 100%; height: 30px;}
+#header div.content div.top,
+#header div.content div.bottom {width: auto; height: auto;}
+
+#footer {width: 100%;}
+#footerNavigation {width: 100%;}
+#footerNavigationWrapper {margin: 0 auto; width: 984px; height: 100px;}
+
+

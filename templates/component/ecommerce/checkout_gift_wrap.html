@@ -1,0 +1,40 @@
+<!-- BEGIN: content -->
+
+<script type="text/javascript">
+
+function toggleGiftWrap(variety_id) {
+	
+	if ($('input#order-other_data-gift_wrap_' + variety_id).is(':checked')) {
+		addToBasketAjaxAction(variety_id);
+	} else {
+		removeFromBasketVarietyAjaxAction(variety_id);
+	}
+	
+	return false;
+}
+
+</script>
+<style type="text/css">
+div.gift_wrap div.image {padding-top: 1em; text-align: center; margin: 0 auto;}
+div.gift_wrap input {margin-right: 1em; margin-bottom: 2em; float: left;}
+fieldset#gift_wrap_380 {width: 50%; float: left;}
+fieldset#gift_wrap_686 {clear: none; width: 50%; float: right;}
+
+</style>
+
+<div class="gift_wrap">
+
+	<form method="post" action="{URL}" id="gift_wrap">
+		<!-- BEGIN: item -->
+		<fieldset id="gift_wrap_{ITEM.variety_id}">
+			<div class="row gift">
+				<input type="checkbox" class="checkbox" name="gift_wrap_{ITEM.variety_id}" value="1" id="order-other_data-gift_wrap_{ITEM.variety_id}" {CHECKED_gift_wrap} onclick="toggleGiftWrap({ITEM.variety_id})" /> <label for="order-other_data-gift_wrap_{ITEM.variety_id}">I would like {ITEM.title|htmlspecialchars}<br />(+£2.10)</label>
+			</div>
+			<div class="image">
+				<a href="#" title="View Full Size" onclick="openImg('/image/{ITEM.image}'); return false;"><img id="image_thumbnail_{ITEM.variety_id}" src="/thumbnail/125/{ITEM.image}" title="{ITEM.title|htmlspecialchars}" alt="{ITEM.title|htmlspecialchars}"></a>
+			</div>
+		</fieldset>
+		<!-- END: item -->
+	</form>
+</div>
+<!-- END: content -->

@@ -1,0 +1,23 @@
+<!-- BEGIN: content -->
+
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<div id="file_list">
+
+	<!-- BEGIN: empty -->
+	<p>No files are currently assigned to this content</p>
+	<!-- END: empty -->
+	
+	<!--  BEGIN: list -->
+		<p><a class="button" href="#file_list" onclick="$('#file_list').empty().addClass('ajaxLoad').parent().load('/request/bo/component/file_list_icon~type={GET.type}:role={GET.role}:relation={GET.relation}:node_id={GET.node_id}~'); return false;"><span>View as icons</span></a></p>
+		<!-- BEGIN: item -->
+			{FILE_DETAIL}
+			<div class="divider"><div><hr /></div></div>
+		<!-- END: item -->
+	<!-- END: list -->
+
+	<p><a class="button add" title="Add Files ..." href="#" onclick="makeAjaxRequest('#file_connector', '/request/bo/pages/server_browser~type={GET.type}:role={GET.role}:relation={GET.relation}:node_id={GET.node_id}~'); return false"><span>Add Files ...</span></a></p>
+	<div id="file_connector"></div>
+</div>
+
+
+<!-- END: content -->

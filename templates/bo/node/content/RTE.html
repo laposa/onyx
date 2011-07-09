@@ -1,0 +1,37 @@
+<!-- BEGIN: title -->RTE Edit<!-- END: title -->
+<!-- BEGIN: content -->
+{FILE "bo/node/form_open.html"}
+
+<div id="onxshop_basicinfo" class="ui-tabs-panel">
+	{FILE "bo/node/item_title_basic.html"}
+	<fieldset class="node_edit_content_RTE">
+		<div class="row rte content">
+			<span class="label"><label>Content: <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'mceAdvanced', 'component-content')" title="enable/disable Rich Text Editor"><span>RTE</span></a></label></span>
+			<span class="field"><textarea name="node[content]" id="component-content" class="big" rows="20" cols="20">{NODE.content|htmlspecialchars}</textarea>
+			</span>
+		</div>
+	</fieldset>
+	
+	{ONXSHOP_REQUEST_tinymce #bo/tinymce~id=GET.id:relation=node:edit_elements=component-content:theme=advanced~}
+	
+	{FILE "bo/node/item_image_list.html"}
+	{FILE "bo/node/item_publish.html"}
+</div>
+		
+<div id="onxshop_minor" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+	{FILE "bo/node/item_title_link.html"}
+	{FILE "bo/node/item_meta_data.html"}
+	{FILE "bo/node/item_taxonomy.html"}
+	{FILE "bo/node/item_position.html"}
+</div>
+
+<div id="onxshop_advanced" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+	{FILE "bo/node/item_advanced.html"}
+	{FILE "bo/node/item_expert_options.html"}
+	{FILE "bo/node/item_content_list.html"}
+	{FILE "bo/node/item_signature.html"}
+</div>
+
+{FILE "bo/node/form_close.html"}
+
+<!-- END: content -->

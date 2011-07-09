@@ -1,0 +1,50 @@
+<!-- BEGIN: content -->
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#order-list-filter-created_from,#order-list-filter-created_to,#order-list-filter-activity_from,#order-list-filter-activity_to').datepicker({firstDay: 1, dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true});
+});
+</script>
+
+<div class="order_list_filter">
+	<form method="post" action="{URI}" id="order_list_filter">
+		<fieldset class="single">
+			<div class="row search">
+				<span class="label"><label>Order status</label></span>
+				<span class="field" >
+					<select name="order-list-filter[status]" id="filter-status" onchange="submit()">
+						<!-- BEGIN: status -->
+						<option value="{STATUS.id}" {STATUS.selected}>{STATUS.name}</option>
+						<!-- END: status -->
+					</select>
+				</span>
+			</div>
+			<div class="row search">
+				<span class="label"><label>Search query</label></span>
+				<span class="field" ><input type="text" id="query" name="order-list-filter[query]" value="{_SESSION.order-list-filter.query}" /></span>
+			</div>
+														
+			<div class="row registered_between">
+				<span class="label"><label>Created between</label></span>
+				<span class="field">
+					<input type="text" class="text" id="order-list-filter-created_from" name="order-list-filter[created_from]" value="{_SESSION.order-list-filter.created_from}" />
+					<input type="text" class="text" id="order-list-filter-created_to" name="order-list-filter[created_to]" value="{_SESSION.order-list-filter.created_to}" />
+				</span>
+			</div>
+			<!--  <div class="row activity_between">
+				<span class="label"><label>Modified between</label></span>
+				<span class="field">
+					<input type="text" class="text" id="order-list-filter-activity_from" name="order-list-filter[activity_from]" value="{_SESSION.order-list-filter.activity_from}" />
+					<input type="text" class="text" id="order-list-filter-activity_to" name="order-list-filter[activity_to]" value="{_SESSION.order-list-filter.activity_to}" />
+				</span>
+			</div>-->
+		</fieldset>
+		
+		<div class="row submit">
+			<span class="label"><label>&nbsp;</label></span>
+			<span class="field"><button type="submit" name="search" value="search"><span>Search</span></button></span>
+		</div>
+	</form>
+</div>
+<!-- END: content -->

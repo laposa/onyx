@@ -1,0 +1,78 @@
+<!-- BEGIN: content -->
+<script type="text/javascript"> 
+/* <![CDATA[ */
+$(function(){ 
+	var options = {
+		target:        '#onxshop_backoffice_content',
+		beforeSubmit: function () {$("#onxshop_backoffice_content").html("<img src='/share/images/ajax-indicator/indicator_verybig.gif' alt='Loading ...'/>");}
+	};
+    $('#system-search form').ajaxForm(options);
+});
+/* ]]> */
+</script> 
+
+<div id="onxshop_header">
+	<div class="onxshop_tabulator_menu sub" style="float: left; margin-bottom: 5px;">
+	<div class="top"><span></span></div>
+	<div class="content">
+		<!-- BEGIN: fe_edit -->
+		<a href="/edit" title="Frontent edit"><img src="/share/images/famfamfam_icons/door_in.png" alt="door in" /></a>
+		&nbsp; &nbsp;
+		<a href='/backoffice/advanced/tools?tool=flush_cache' onclick="openAjaxRequestInGrowl('/request/bo/component/tools~tool=flush_cache~', 'Refresh Cache'); return false" title="Refresh Cache"><img src="/share/images/famfamfam_icons/lightning.png" alt="Refresh Cache"/></a>
+		&nbsp; &nbsp;
+		<!-- END: fe_edit -->
+		
+	</div>
+	<div class="bottom"><span></span></div>
+</div>
+	<div style="float: right; margin: 5px 0 5px 0; height: 1.5em; text-align: right;">
+		<a href="/backoffice" title="Backoffice landing page"><span>{CONFIGURATION.global.title|htmlspecialchars}</span></a> - 
+		<a href="http://www.onxshop.com/" title="Visit Onxshop website"><span>{ONXSHOP_VERSION} {ONXSHOP_PACKAGE_NAME|ucfirst}</span></a> - 
+		<a href="http://www.onxshop.com/support" title="Access to Onxshop support"><span>Get support</span></a> - 
+		<a class="logout" href="/?logout=1" title="Logout from the backoffice"><span>Log Out</span></a>
+		<!-- BEGIN: search -->
+		<div id="system-search" style="position: relative; top: 10px; z-index: 20; padding-right: 2em">
+			<form style="float: right; clear: none; background: transparent; margin: 0; padding: 0;" method="get" action="/request/bo/component/search">
+				<div style="float:left;">
+					<label title="search in content" style="display: none">search</label><input class="text" type="text" name="search[query]" style="width: 150px;" title="currently search in pages only" />
+				</div>
+				<button type="submit" style="margin: 0.2em 0;"><span>Search</span></button>
+				
+			</form>
+		</div>
+		<!-- END: search -->
+	</div>
+	
+</div>
+<script type="text/javascript">
+/* <![CDATA[ */
+	$(function() {
+		//$("#onxshop_backoffice").tabs();
+	});
+/* ]]> */
+</script>
+
+<div id="onxshop_backoffice" class="ui-tabs ui-widget ui-widget-content ui-corner-all">
+
+	<ul id="onxshop_backoffice_menu" class="ui-tabs-nav ui-helper-reset ui-helper-clearfix ui-widget-header ui-corner-all">
+		<!-- BEGIN: cms --><li class="cms {ACTIVE_cms} first ui-state-default ui-corner-top"><a href="/backoffice/cms" title="CMS pages"><span>Pages</span></a></li><!-- END: cms -->
+		<!-- BEGIN: news --><li class="news {ACTIVE_news} ui-state-default ui-corner-top"><a href="/backoffice/news" title="Your company annoucements"><span>Posts</span></a></li><!-- END: news -->
+		<!-- BEGIN: products --><li class="products {ACTIVE_products} ui-state-default ui-corner-top"><a href="/backoffice/products" title="All your products"><span>Products</span></a></li><!-- END: products -->
+		<!-- BEGIN: orders --><li class="orders {ACTIVE_orders} ui-state-default ui-corner-top"><a href="/backoffice/orders" title="List of orders"><span>Orders</span></a></li><!-- END: orders -->
+		<!-- BEGIN: stock --><li class="stock {ACTIVE_stock} ui-state-default ui-corner-top"><a href="/backoffice/stock" title="Manage stock"><span>Stock</span></a></li><!-- END: stock -->
+		<!-- BEGIN: customers --><li class="customers {ACTIVE_customers} ui-state-default ui-corner-top"><a href="/backoffice/customers" title="List of your customers"><span>Customers</span></a></li><!-- END: customers -->
+		<!-- BEGIN: stats --><li class="stats {ACTIVE_stats} ui-state-default ui-corner-top"><a href="/backoffice/stats" title="Reports and statistics - accounting"><span>Reports</span></a></li><!-- END: stats -->
+		<!-- BEGIN: marketing --><li class="marketing {ACTIVE_marketing} ui-state-default ui-corner-top"><a href="/backoffice/marketing" title="Marketing tools - promotions"><span>Marketing</span></a></li><!-- END: marketing -->
+		<!-- BEGIN: comments --><li class="comments {ACTIVE_comments} ui-state-default ui-corner-top"><a href="/backoffice/comments" title="Review and comments approvals"><span>Reviews</span></a></li><!-- END: comments -->
+		<!-- BEGIN: advanced --><li class="advanced {ACTIVE_advanced} last ui-state-default ui-corner-top"><a href="/backoffice/advanced" title="Site configuration, logs, database export, etc."><span>Under the Hood</span></a></li><!-- END: advanced -->
+	</ul>
+
+	<div id="onxshop_backoffice_content" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+		<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+		{SUB_CONTENT}
+	</div>
+
+</div>
+
+
+<!-- END: content -->

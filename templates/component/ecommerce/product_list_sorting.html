@@ -1,0 +1,21 @@
+<!-- BEGIN: content -->
+<div class="sorting">
+	<div class="divider"><hr/></div>
+	<div class="pagination">
+		<div class="title">{ACTIVE.title}</div>
+		
+		<div class="mode">
+			{ONXSHOP_REQUEST_product_list_mode #component/ecommerce/product_list_sorting_mode}
+		</div>
+		
+		<ul>
+			<li class="popularity {POPULARITY.class}"><a title="{POPULARITY.title}" href="{_SERVER.REDIRECT_URL}?sort[by]=popularity&amp;sort[direction]={POPULARITY.direction}" class="{POPULARITY.class}"><span>{I18N_PRODUCT_LIST_SORT_POPULARITY} {POPULARITY.arrow}</span></a></li>
+			<li class="price {PRICE.class}"><a title="{PRICE.title}" href="{_SERVER.REDIRECT_URL}?sort[by]=price&amp;sort[direction]={PRICE.direction}" class="{PRICE.class}"><span>{I18N_PRODUCT_LIST_SORT_PRICE} {PRICE.arrow}</span></a></li>
+			<li class="name {NAME.class}"><a title="{NAME.title}" href="{_SERVER.REDIRECT_URL}?sort[by]=name&amp;sort[direction]={NAME.direction}" class="{NAME.class}"><span>{I18N_PRODUCT_LIST_SORT_NAME} {NAME.arrow}</span></a></li>
+			<li class="created {CREATED.class}"><a title="{CREATED.title}" href="{_SERVER.REDIRECT_URL}?sort[by]=created&amp;sort[direction]={CREATED.direction}" class="{CREATED.class}"><span>{I18N_PRODUCT_LIST_SORT_LATEST} {CREATED.arrow}</span></a></li>
+		</ul>
+		<div class="bottom"><span></span></div>
+	</div>
+	<div class="divider"><hr/></div>
+</div>
+<!-- END: content -->

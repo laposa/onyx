@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- BEGIN: order_item -->
+<order>
+	<document_no></document_no> 
+	<document_date>16/10/2009</document_date> 
+	<priority>W</priority> 
+	<document_created_by>web</document_created_by> 
+	<payment_with_order>1</payment_with_order> 
+	<payment_method>Credit Card</payment_method> 
+	<payment_type>1</payment_type> 
+	<payment_value>100.00</payment_value> 
+	<subtotal_discount_value>0</subtotal_discount_value> 
+	<total_net_value>86.96</total_net_value> 
+	<total_tax_value>13.04</total_tax_value> 
+	<total_gross_value>100.00</total_gross_value> 
+	<postal_name>Steve's House</postal_name>
+	<address_line_1> 3 Finns Lane</address_line_1> 
+	<address_line_2> Knipton</address_line_2>
+	<address_line_3></address_line_3> 
+	<address_line_4></address_line_4> 
+	<city> Grantham</city> 
+	<county>Lincs</county> 
+	<country></country>  
+	<post_code>NG32 1RL</post_code> 
+	<contact>Steve Stratton</contact>
+	<telephone_no></telephone_no> 
+	<fax_no></fax_no> 
+	<email>dunc@duncsmith.com</email> 
+	<promotion_code>dfsfdg</promotion_code>
+	<web_order_id>321388</web_order_id>
+	<items>
+		<!-- BEGIN: basket_item -->
+		<item>
+			<item_code>012073012B</item_code> 
+			<Desc>Buy 2 save 1 - Baby Skin Oil (200ml) - Neutral Baby Child</Desc> 
+			<quantity>2</quantity> 
+			<unit_price>43.48</unit_price> 
+			<total_price>86.96</total_price> 
+		</item>
+		<!-- END: basket_item -->
+	</items>
+	<charges>
+		<item>
+			<item_code>TNT</item_code> 
+			<price>10.00</price> 
+		</item>
+	</charges>
+	<comments>
+	<item>
+		<description>Please take care when handling</description> 
+	</item>
+	</comments>
+</order>
+<!-- END: order_item -->

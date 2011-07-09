@@ -1,0 +1,33 @@
+<!-- BEGIN: title -->News List Edit<!-- END: title -->
+<!-- BEGIN: content -->
+{FILE "bo/node/default_top.html"}
+<fieldset>
+	<div class="row">
+		<span class="label"><label>*Limit:</label></span>
+		<span class="field"><input class="number" type="text" name="node[component][limit]" value="{NODE.component.limit}" /></span>
+	</div>
+	<div class="row">
+		<span class="label"><label>* Type:</label></span>
+		<span class="field">
+			<select name="node[component][template]">
+				<option value="latest" {SELECTED_template_latest}>latest</option>
+				<option value="full" {SELECTED_template_full}>full</option>
+			</select>
+		</span>
+	</div>
+		
+	<div class="row">
+		<span class="label"><label for="component-pagination">Display pagination</label></span>
+		<span class="field"><input type="checkbox" id="component-pagination" name="node[component][pagination]" {NODE.component.pagination} /></span>
+	</div>
+	<div class="row">
+		<span class="label"><label for="component-image">Display teaser image</label></span>
+		<span class="field"><input type="checkbox" id="component-image" name="node[component][image]" {NODE.component.image} /></span>
+	</div>
+	
+	<div id="news_list">
+		{ONXSHOP_REQUEST_list #bo/component/news_list~id=GET.id~}
+	</div>
+</fieldset>
+{FILE "bo/node/default_bottom.html"}
+<!-- END: content -->

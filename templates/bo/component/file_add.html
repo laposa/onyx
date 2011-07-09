@@ -1,0 +1,93 @@
+<!-- BEGIN: content -->
+<script type="text/javascript"> 
+	function initForm() {
+		var options = { 
+			target:        '#file_add_result',   // target element(s) to be updated with server response 
+			beforeSubmit:  function() {$("#file_add .add_button span").replaceWith("<span style='background: white; color: black; padding: 5px; display: block; font-size: 125%'><img src='/share/images/ajax-indicator/indicator.gif' alt='Loading ...'/> Saving...</span>")}, 
+			success:       showResponse
+		}; 
+
+    	$('#file_add').ajaxForm(options);
+	}
+	
+	// wait for the DOM to be loaded 
+	$(document).ready(function() { 
+		initForm();
+	});
+ 
+// post-submit callback 
+function showResponse(responseText, statusText)  { 
+	var result_message = $("#file_add_result div.onxshop_messages").html();
+	growlMessage(result_message);
+	$("#file_add .add_button span").replaceWith("<span>Add</span>");
+	//FIXME: hide when return message == "File inserted", not very safe and doesn't work when debugging is enables...
+	if ($("#file_add_result div.onxshop_messages p.onxshop_error_msg").text() == '') {
+		$("#file_list").load("/request/bo/component/file_list~type={GET.type}:relation={GET.relation}:node_id={GET.node_id}~");
+	}
+} 
+</script> 
+
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+
+<form action="{URI}" method="post" name="file_ass" id="file_add">
+
+<fieldset id="add_to_node">
+<legend>Link New File In</legend>
+
+<div class="twoColumnLayout layout fibonacci-1-5">
+	<div class="layoutWrapper">
+		<div class="top"><span></span></div>
+		<div class="layoutContent">
+			<div class="layoutContentWrapper">
+				<h2 class="layoutTitle"><span>{FILE.src}</span></h2>
+				<div class="layoutColumnOne">
+					<div class="layoutColumnWrapper">
+						<a href="#" title="View Full Size" onclick="openImg('/image/{FILE.src}'); return false;"><img id="file-preview" src="/thumbnail/100/{FILE.src}" alt="thumbnail preview" /></a>
+					</div>						
+				</div>
+				<div class="layoutColumnTwo">
+					<div class="row title">
+						<span class="label"><label>Give this file a short description*:</label></span>
+						<span class="field"><input class="text title" type="text" id="file-title" name="file[title]" value="{FILE.title}"/></span>
+					</div>
+					<div class="row">
+						<span class="label"><label>Role:</label></span>
+						<span class="field">
+							<select name="file[role]">
+								<option value="main" {SELECTED_main}>default</option>
+								<option value="teaser" {SELECTED_teaser}>use as teaser image</option>
+								<option value="RTE" {SELECTED_RTE}>RTE</option>
+							</select>
+						</span>
+					</div>
+					<p><a href="#file-add-advanced" onclick="$('#file-add-advanced').toggle(); return false">Show more options</a></p>
+					<div id="file-add-advanced" style="display: none">
+						<div class="row">
+							<span class="label"><label>Description:</label></span>
+							<span class="field"><textarea name="file[description]">{FILE.description}</textarea></span>
+						</div>
+						<div class="row">
+							<span class="label"><label>Priority:</label></span>
+							<span class="field"><input class="text" style="width: 50px;" type="text" name="file[priority]" value="{FILE.priority}" /></span>
+						</div>
+					</div>
+
+					<input type="hidden" id="file-src" name="file[src]" value="{FILE.src}" />
+					<input type="hidden" name="file[node_id]" value="{FILE.node_id}" />
+					
+					<div class="row submit">
+						<span class="label"><label>&nbsp;</label></span>
+						<span class="field"><button type="submit" name="add" class="add_button" value="add"><span>Add</span></button></span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="bottom"><span></span></div>
+	</div>
+</div>
+
+</fieldset>
+</form>
+
+<div id="file_add_result" style="display: none"></div>
+<!-- END: content -->

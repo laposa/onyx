@@ -1,0 +1,9 @@
+#!/bin/sh
+#hint from http://www.w3.org/People/Raggett/tidy/ :
+#Tidy writes errors to stderr, and won't be paused by the more command. A work around is to redirect stderr to stdout as follows.
+
+#with this way it's not possible, safemode escapeshellcmd and without safe mode it's mess
+#echo "$1" | /usr/bin/tidy -xml -utf8 -e -q 2>&1 
+
+
+#we need to create temporary file :( or wait fpr php5 :) or use apache1 (localy compiled tidy module

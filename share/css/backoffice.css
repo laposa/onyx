@@ -1,0 +1,120 @@
+/**
+ * Backoffice CSS
+ *
+ * Norbert @ Laposa Ltd 2009
+ *
+ */
+
+@import url(/share/css/backoffice_icons.css);
+@import url(/share/css/simple-tree.css);
+@import url(/share/css/default/screen.css);
+@import url(/share/themes/jquery-ui/onxshop/jquery-ui.css);
+
+body {font-size: 70%;}
+textarea {font-size: medium;}
+
+/**
+ * Links
+ */
+a {color: blue;}
+a:active {color: red;}
+a.button {color: #6aac5b;}
+a.add {background: url(/share/images/famfamfam_icons/add.png) no-repeat; padding-left: 20px; height: 20px; display: block;}
+a.remove,
+a.delete {background: url(/share/images/famfamfam_icons/delete.png) no-repeat; padding-left: 20px;
+	height: 20px; display: inline-block; color: red;}
+a.fe_edit_go {display: block; padding-left: 20px; background: url(/share/images/famfamfam_icons/door_in.png) no-repeat;}
+
+/*
+ * Menu
+ */
+a.onxshop_nopublish,
+a.onxshop_nopublish span,
+.disabled,
+.notpublic {text-decoration: line-through;}
+
+/**
+ * Content
+ */
+#backoffice div.twoColumnPage {margin-top: 1em;}
+#backoffice #container {width: auto;}
+#backoffice div.pageContentWrapper,
+#backoffice div.pageHeaderWrapper {padding-left: 0; margin-left: 0;}
+#backofficeWrapper {padding: 5px 15px;}
+/*twenty-eighty backoffice*/
+div.twoColumnPage.backoffice div.page.backoffice.columnOne {width: 20%;}
+div.twoColumnPage.backoffice div.page.backoffice.columnTwo {width: 79%;}
+#secondaryNavigation {display: none}
+#onxshop_backoffice_content {padding-top: 1em; clear: both;}
+#onxshop_backoffice {clear: both;}
+div.wrapper {margin: 0 10px;}
+#onxshop_content {clear: both;}
+#layout_icon {background-position: top right; background-repeat: no-repeat;}
+
+/**
+ * Forms
+ */
+form div.title span.label {text-align: left;}
+form div.title span.field {clear: both; display: block; padding-left: 0; width: 100%;}
+form div.title span.field input.text {width: 70%; float: left;}
+form div.rte span.label {text-align: left;}
+form div.rte span.field {display: block; overflow: auto; width: auto; clear: both; padding: 1px 0 0 1px;}
+/*input.title:hover {background: #f1f1f1 url(/share/images/ruler.png) no-repeat bottom left;}*/
+button.save {float: right; margin: 3px;}
+button.saving {background: white url(/share/images/ajax-indicator/indicator.gif) no-repeat; padding-left: 25px;}
+
+/**
+ * fe edit
+ */
+div.onxshop_highlight_delete {background: #ffbfbf;}
+div.onxshop_highlight_edit {background: #bfffbf;}
+
+/**
+ * Display permission
+ */
+div.node.show_at_normal_login {border: 1px solid red;}
+div.node.hide_at_normal_login {border: 1px solid green;}
+div.node.show_at_trade_login {border: 1px solid red;}
+div.node.hide_at_trade_login {border: 1px solid green;}
+
+/**
+ * Product_list
+ */
+div.product_list div.head form {margin-bottom: 1em;}
+div.product_list div.head form div.row {clear: none; float: left;}
+div.product_list div.head form div.row span.label {width: auto;}
+div.product_list div.head form div.row span.field {padding-right: 1em;}
+
+/**
+ * Product variety list
+ */
+a.button.add_new_variety {float: left; margin-right: 10px;}
+
+table.product_variety_list {width: 100%;}
+
+
+/**
+ * misc
+ */
+div.divider {background: #dadada;}
+
+/**
+ * horizontal menu
+ * currently only used in customer detail page
+ */
+ul.horizontalMenu {list-style-type: none; margin: 0; padding: 0;}
+ul.horizontalMenu li {float: left; padding: 0 15px; margin: 0; border-right: 1px solid #dadada}
+ul.horizontalMenu li a {color: #6aac5b;}
+
+/**
+ * jQuery UI
+ */
+div.ui-dialog legend {display: none;}
+.ui-tabs-hide { display: none; }
+form .ui-tabs {margin: 1em 0}
+
+/**
+ * image file list
+ */
+ 
+div.file_list_icon div.item {height: 120px; overflow: hidden; margin-bottom: 1em;}

@@ -1,0 +1,121 @@
+<!-- BEGIN: content -->
+
+<script type="text/javascript">  
+$(document).ready(function(){  
+	/*when enabled "use this button" dont work*/
+	/*$("#address_edit").validate(); */ 
+});  
+</script>
+
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<div class="address_edit">
+<form action="{URI_SAFE}" method="post" id="address_edit">	
+<div class="twoColumnLayout layout fibonacci-2-1 {NODE.css_class}">
+	<div class="layoutWrapper">
+		<div class="top"><span></span></div>
+		<div class="layoutContent">
+			<div class="layoutContentWrapper">
+				<div class="layoutColumnOne">
+					<div class="layoutColumnWrapper">
+
+						<div class="address_add">
+							<fieldset>
+								<legend>{I18N_ADD_A_NEW_ADDRESS}</legend>
+								<div class="row name">
+									<span class="label"><label><span class="mandatory-mark">*</span> {I18N_NAME}:</label></span>
+									<span class="field"><input class="text required" type="text" name="client[address][name]" value="{client.address.name}" /></span>
+								</div>
+								<div class="row line_1">
+									<span class="label"><label><span class="mandatory-mark">*</span> {I18N_ADDRESS_LINE_1}:</label></span>
+									<span class="field"><input class="text required" type="text" name="client[address][line_1]" value="{client.address.line_1}" /></span>
+								</div>
+								<div class="row line_2">
+									<span class="label"><label>{I18N_ADDRESS_LINE_2}:</label></span>
+									<span class="field"><input class="text" type="text" name="client[address][line_2]" value="{client.address.line_2}" /></span>
+								</div>
+								<div class="row line_3">
+									<span class="label"><label>{I18N_ADDRESS_LINE_3}:</label></span>
+									<span class="field"><input class="text" type="text" name="client[address][line_3]" value="{client.address.line_3}" /></span>
+								</div>
+								<div class="row city">
+									<span class="label"><label><span class="mandatory-mark">*</span> {I18N_CITY}:</label></span>
+									<span class="field"><input class="text required" type="text" name="client[address][city]" value="{client.address.city}" /></span>
+								</div>
+								<div class="row post_code">
+									<span class="label"><label><span class="mandatory-mark">*</span> {I18N_POST_CODE}:</label></span>
+									<span class="field"><input class="text required" type="text" name="client[address][post_code]" value="{client.address.post_code}"/></span>
+								</div>
+								<div class="row county">
+									<span class="label"><label><span class="mandatory-mark">*</span> {I18N_COUNTY}:</label></span>
+									<span class="field"><input class="text required" type="text" name="client[address][county]" value="{client.address.county}"/></span>
+								</div>
+								<div class="row country_id">
+									<span class="label"><label><span class="mandatory-mark">*</span> {I18N_STATE}:</label></span>
+									<!-- BEGIN: country -->
+									<span class="field">
+										<select name="client[address][country_id]">
+										<!-- BEGIN: item -->
+											<option value="{country.id}" {country.selected}>{country.name}</option>
+										<!-- END: item -->
+										</select>
+									</span>
+									<!-- END: country -->
+								</div>
+								<div class="row submit">
+									<span class="label"><label>&nbsp;</label></span>
+									<span class="field"><button class="add_new_address" type="submit" name="add_address" value="add_address"><span>{I18N_ADD_NEW_ADDRESS}</span></button></span>
+								</div>
+							</fieldset>
+						</div>
+
+					</div>
+				</div>
+				<div class="layoutColumnTwo">
+					<div class="layoutColumnWrapper">
+						<div class="address_list">
+							<fieldset>
+								<legend>{I18N_ADDRESS_LIST}</legend>
+								<!-- BEGIN: address -->
+								<div class="item">
+									{address.name|htmlspecialchars}<br />
+									{address.line_1|htmlspecialchars}<br />
+									<!-- BEGIN: line_2 -->
+									{address.line_2|htmlspecialchars}<br />
+									<!-- END: line_2 -->
+									<!-- BEGIN: line_3 -->
+									{address.line_3|htmlspecialchars}<br />
+									<!-- END: line_3 -->
+									{address.city|htmlspecialchars}<br />
+									{address.post_code|htmlspecialchars}<br />
+									{address.county|htmlspecialchars}<br />
+									{address.country.name|htmlspecialchars}<br />
+									
+									<!-- BEGIN: select -->
+									<button type="submit" class="{address.id}_fix select_address" name='select_address' value='{address.id}'><span>{I18N_USE_THIS}</span></button>
+									<!-- END: select -->
+									
+									<!-- BEGIN: delete -->
+									<button type="submit" class="{address.id}_fix remove_address" name='remove_address' value='{address.id}'><span>{I18N_REMOVE}</span></button>
+									<!-- END: delete -->
+								</div>
+								<!-- END: address -->
+							</fieldset>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="bottom"><span></span></div>
+	</div>
+</div>
+
+<input type="hidden" name="type" value="{_GET.type}" />
+</form>
+
+</div>
+
+<script type="text/javascript">
+button_fix(true);
+</script>
+<!-- END: content -->

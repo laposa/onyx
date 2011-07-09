@@ -1,0 +1,22 @@
+<!-- BEGIN: title -->Edit Template<!-- END: title -->
+<!-- BEGIN: content -->
+<h1>Edit Template</h1>
+<form method="post" action="{URI}">
+<fieldset>
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<legend>Edit form</legend>
+<label>*Title:</label>
+<input class="text nf-name" type="text" name="template[title]" value="{template.title}" /><br />
+<label>Description:</label>
+<input class="text nf-email" type="text" name="template[description]" value="{template.description}" /><br />
+<label>Keywords:</label>
+<input class="text nf-phone" type="text" name="template[keywords]" value="{template.keywords}" /><br />
+<label>Header data:</label>
+<textarea name="template[head]" id="edit-head" style="width: 650px; height: 150px;" rows="20" cols="50">{template.head}</textarea><br />
+<label>Content:</label>
+<textarea name="template[content]" id="edit-content" style="width: 800px; height: 600px;" rows="20" cols="50">{template.content}</textarea><br />
+<label>Attachment:</label>
+<button type="submit" name"submit" value="submit"><span>Submit</span></button>
+</fieldset>
+</form>
+<!-- END: content -->

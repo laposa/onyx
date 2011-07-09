@@ -1,0 +1,14 @@
+<!-- BEGIN: content -->
+<form action='{URI}' method="post" id='form_currency'>
+	<div class="row">
+		<span class="label"><label>Currency</label></span>
+		<span class="field">
+			<select name="client[customer][currency_code]" onchange="$('#form_currency').submit()">
+				<!-- BEGIN: item -->
+				<option value="{currency.code}" {currency.selected}>{currency.name} ({currency.code})</option>
+				<!-- END: item -->
+			</select>
+		</span>
+	</div>
+</form>
+<!-- END: content -->

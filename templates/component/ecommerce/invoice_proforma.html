@@ -1,0 +1,69 @@
+<!-- BEGIN: content -->
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<div class="invoice">
+<table border="1" cellpadding="10" cellspacing="0">
+<thead>
+	<tr>
+		<td align="right" colspan="2"><img src="{CONF.company_logo}" alt="{CONF.company_name}" /></td>
+	</tr>
+</thead>
+<tbody>
+	<tr>
+		<td colspan="2">
+		<h1>{I18N_PROFORMA_INVOICE}</h1>
+		<h2>{I18N_THIS_ORDER_IS_STILL_UNPAID}</h2>
+		</td>
+	</tr>
+	<tr>
+			<td align="right">{ORDER.note_customer}</td><td align="right">{INVOICE.address_delivery}</td>
+	</tr>
+	<tr>
+		<td valign="top" width="50%">
+		<table>
+			<caption>{CONF.company_name}</caption>
+			<tr><td>{I18N_INVOICE_NUMBER}</td><td>{INVOICE.id}</td></tr>
+			<tr><td>{I18N_ORDER_NUMBER}</td><td>{INVOICE.order_id}</td></tr>
+			<tr><td>{I18N_BILLING_DATE}</td><td>{INVOICE.created}</td></tr>
+		</table>
+		</td>
+		<td align="right" width="50%">
+		{INVOICE.address_invoice}
+		</td>
+	</tr>
+	<tr>
+		<td class="basket" colspan="2">{INVOICE.basket_detail}</td>
+	</tr>
+
+	
+<!-- BEGIN: other_data -->
+	<tr>
+		<td colspan="2">
+			<h3>{I18N_OTHER}</h3>
+			<!-- BEGIN: item -->
+			<strong>{OTHER_DATA.key}:</strong> {OTHER_DATA.value}<br />
+			<!-- END: item -->
+		</td>
+	</tr>
+<!-- END: other_data -->
+</tbody>
+<tfoot>
+	<tr>
+		<td align="right" colspan="2">
+		{CONF.footer}
+		</td>
+	</tr>
+	<tr>
+		<td align="right" colspan="2">
+		{CONF.return_address}
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+		<h1>{I18N_PROFORMA_INVOICE}</h1>
+		<h2>{I18N_THIS_ORDER_IS_STILL_UNPAID}</h2>
+		</td>
+	</tr>
+</tfoot>
+</table>
+</div>
+<!-- END: content -->

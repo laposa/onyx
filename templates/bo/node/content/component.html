@@ -1,0 +1,118 @@
+<!-- BEGIN: title -->Component<!-- END: title -->
+<!-- BEGIN: head -->
+<script type="text/javascript">
+/* <![CDATA[ */
+$(document).ready(function(){
+	$('ul.componentTemplateMenu div.server_browser_menu .simpleTree').simpleTree({
+		drag: false,
+		autoclose: true,
+		afterClick:function(node){
+			var open_dir = $('a:first', node).attr('href').replace('#', '');
+			$('#component_template').attr('value', open_dir + '.html');
+			return false;
+		},
+	});
+	
+	$('ul.controllerMenu div.server_browser_menu .simpleTree').simpleTree({
+		drag: false,
+		autoclose: true,
+		afterClick:function(node){
+			var open_dir = $('a:first', node).attr('href').replace('#', '');
+			$('#component_controller').attr('value', open_dir + '.php');
+			return false;
+		},
+	});
+	
+	$("#node_edit_component").tabs();
+});
+
+function serverBrowserOpenDir(open_dir) {
+	//empty, required - part of server_browser_menu
+}
+/* ]]> */
+</script>
+<!-- END: head -->
+<!-- BEGIN: content -->
+{FILE "bo/node/default_top.html"}
+				
+	<div id="node_edit_component" style="clear: both">
+		<ul class="ui-tabs-nav">
+			<li class="active"><a href="#onxshop_template"><span>Template</span></a></li>
+			<li><a href="#onxshop_controller"><span>Controller</span></a></li>
+			<li><a href="#onxshop_parameters"><span>Parameters</span></a></li>
+		</ul>
+	
+	
+		<div id="onxshop_template">
+			<fieldset>
+				<legend>Template</legend>
+				<div class="row">
+					<span class="label"><label>Template</label></span>
+					<span class="field">
+						<input type="text" class="text long" id="component_template" name="node[component][template]" value="{NODE.component.template}" />
+					</span>
+				</div>
+				<div class="row">
+					<span class="label"><label>&nbsp;</label></span>
+					<span class="field">
+						<div id="componentTemplate">
+							<ul class="componentTemplateMenu">
+								<li>
+									<a href="#"><span>Local</span></a>
+									{ONXSHOP_REQUEST_template_project #bo/component/server_browser_menu~directory=templates/component/:scope=project:trim_extension=1:expand_all=1:id=null~}
+								</li>
+								
+								<li>
+									<a href="#"><span>Global</span></a>
+									{ONXSHOP_REQUEST_template_onxshop #bo/component/server_browser_menu~directory=templates/component/:scope=onxshop:trim_extension=1:expand_all=1:id=null~}
+								</li>
+								
+							</ul>	
+						</div>
+					</span>
+				</div>
+			</fieldset>
+		</div>
+		
+		<div id="onxshop_controller">
+			<fieldset>
+				<legend>Controller</legend>
+				<div class="row">
+					<span class="label"><label>Controller</label></span>
+					<span class="field">
+						<input type="text" class="text long" id="component_controller" name="node[component][controller]" value="{NODE.component.controller}" />
+					</span>
+				</div>
+				<div class="row">
+					<span class="label"><label>&nbsp;</label></span>
+					<span class="field">
+						<div id="controller">
+							<ul class="controllerMenu">
+								<li class='folder nonactive '>
+									<a href="#"><span>Local</span></a>
+									{ONXSHOP_REQUEST_controller_project #bo/component/server_browser_menu~directory=controllers/component/:scope=project:trim_extension=1:expand_all=1:id=null~}
+								</li>
+								<li class='folder nonactive '>
+									<a href="#"><span>Global</span></a>
+									{ONXSHOP_REQUEST_controller_onxshop #bo/component/server_browser_menu~directory=controllers/component/:scope=onxshop:trim_extension=1:expand_all=1:id=null~}
+								</li>
+								
+							</ul>
+						</div>
+					</span>
+				</div>
+			</fieldset>
+		</div>
+		
+		<div id="onxshop_parameters" class="onxshop_tabulatorX ui-tabs-panel">
+			<fieldset>
+				<legend>Parameters</legend>
+					<div class="row">
+						<span class="label"><label>GET parameters:</label></span>
+						<span class="field"><input type="text" class="text long" name="node[component][parameter]" value="{NODE.component.parameter}" /></span>
+					</div>
+			</fieldset>
+		</div>
+	</div>
+{FILE "bo/node/default_bottom.html"}
+<!-- END: content -->

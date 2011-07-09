@@ -1,0 +1,83 @@
+<!-- BEGIN: content -->
+
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+
+<div class="twoColumnLayout fibonacci-1-2" id="linked-file-{FILE.id}">
+	<div class="contentTitle"><h2><a title="Click on this file to edit its properties" href="#" onclick="makeAjaxRequest('#item-detail-{FILE.id}', '/request/bo/component/file_edit~relation={GET.relation}:file_id={FILE.id}:type={GET.type}~'); return false">{FILE.title|htmlspecialchars}</a></h2></div>
+	<div class="layoutColumnOne">
+		<p>
+		{FILE.info.mime-type}, {FILE.info.size}<br />
+		Role: {FILE.role}<br />
+		Modified: {FILE.modified}<br />
+		Priority: {FILE.priority}</p>
+		<p>
+			<!-- BEGIN: image_view_full --><a class="ui-icon ui-icon-zoomin" style="float: left" href="#" title="View Full Size" onclick="openImg('/image/{FILE.src}'); return false;"><span>View full size</span></a><!-- END: image_view_full -->
+			<a class="ui-icon ui-icon-pencil" style="float: left" title="Click on this file to edit its properties" href="#" onclick="makeAjaxRequest('#item-detail-{FILE.id}', '/request/bo/component/file_edit~relation={GET.relation}:file_id={FILE.id}:type={GET.type}~'); return false"><span>Edit</span></a>
+			<a class="ui-icon ui-icon-disk" style="float: left" title="Download" href="/download/{FILE.src}"><span>Download</span></a>
+			<a class="ui-icon ui-icon-info" style="float: left" href="#" title="View more details" onclick="openAjaxRequestInDialog('/request/bo/component/file_info~file_path_encoded={FILE.file_path_encoded}~', '{FILE.src}'); return false"><span>View more details</span></a>
+			&nbsp;
+			<a class="button remove" title="Unlink file" href="#" onclick="if (confirm('Do you really want to unlink {FILE.title|htmlspecialchars|addslashes}?')) {$('#linked-file-{FILE.id}').load('/request/bo/component/file_unlink~relation={GET.relation}:file_id={FILE.id}~');}; return false"><span>Unlink</span></a>
+		</p>
+		<!-- BEGIN: image_zoom -->
+				
+				Zoom: <span id="imageSizeDisplay_{FILE.id}">125px</span>, Original: <a href="#" onclick="$('#image_thumbnail_{FILE.id}').attr('src', '/image/{FILE.src}'); $('#imageSizeDisplay_{FILE.id}').html('{FILE.imagesize.width}px'); return false;"><span>{FILE.imagesize.width}px</span></a>
+				<div style="margin: 10px 0; width: 90%" id="slider_{FILE.id}"></div>
+			
+				<script type="text/javascript">
+				$(function() {
+					$("#slider_{FILE.id}").slider({
+						value: 125,
+						min: {IMAGE_CONF.thumbnail_width_min},
+						max: {IMAGE_CONF.thumbnail_width_max},
+						step: {IMAGE_CONF.thumbnail_step},
+						change: function(event, ui) { $('#image_thumbnail_{FILE.id}').attr('src', '/thumbnail/'+ ui.value +'/{FILE.src}');},
+						slide : function(event, ui) { $('#imageSizeDisplay_{FILE.id}').html(ui.value + 'px'); }
+					});
+				});
+				</script>
+		<!-- END: image_zoom -->
+		
+	</div>
+	<div class="layoutColumnTwo">
+		<div class="item-detail" id="item-detail-{FILE.id}">
+			
+			
+			<!-- BEGIN: default -->
+				<img id="image_thumbnail_{FILE.id}" src="/thumbnail/125/{FILE.src}" title="{FILE.title}" alt="{FILE.title}" />
+			<!-- END: default -->
+			
+			
+			<!-- BEGIN: RTE_select -->
+				<script language="javascript" type="text/javascript" src="/share/js/tiny_mce_popup_local.js"></script>
+				<script type="text/javascript">
+				function chooseImage(src, title) {
+				    var win = tinyMCEPopup.getWindowArg("window");
+				
+				        // insert information now
+				        win.document.getElementById('src').value = src;
+				    if (win.document.getElementById('alt').value == '') win.document.getElementById('alt').value = title;
+				    if (win.document.getElementById('title').value == '') win.document.getElementById('title').value = title;
+				
+				        // for image browsers: update image dimensions
+				        if (win.ImageDialog.getImageData) win.ImageDialog.getImageData();
+				        if (win.ImageDialog.showPreviewImage) win.ImageDialog.showPreviewImage(src);
+				
+				        // close popup window
+				        tinyMCEPopup.close();
+				}
+				</script>
+				
+				<a href="#" onclick="chooseImage($('#image_thumbnail_{FILE.id}').attr('src') , $('#image_thumbnail_{FILE.id}').attr('title')); return false;"><img id="image_thumbnail_{FILE.id}" src="/thumbnail/125/{FILE.src}" title="{FILE.title}"  alt="{FILE.title}" /></a> <br />
+				
+				<a class="button" href="#" onclick="chooseImage($('#image_thumbnail_{FILE.id}').attr('src') , $('#image_thumbnail_{FILE.id}').attr('title')); return false;"><span>use this ...</span></a>
+			<!-- END: RTE_select -->
+			
+			<!-- BEGIN: CSS_select -->
+				<a href="#" onclick="var src = $('#image_thumbnail_{FILE.id}').attr('src'); alert('Copy&amp;Paste this:\nurl(' + src + ')'); return false;"><img id="image_thumbnail_{FILE.id}" src="/thumbnail/125/{FILE.src}" title="{FILE.title}"  alt="{FILE.title}" /></a> <br />
+				<a class="button" href="#" onclick="var src = $('#image_thumbnail_{FILE.id}').attr('src'); alert('Copy&amp;Paste this:\nurl(' + src + ')'); return false;"><span>use this ...</span></a>
+			<!-- END: CSS_select -->
+		</div>
+	</div>
+</div>			
+
+<!-- END: content -->

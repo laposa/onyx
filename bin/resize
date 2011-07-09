@@ -1,0 +1,10 @@
+#!/bin/sh
+#umask 001; /usr/bin/convert $upload -thumbnail ".$width."x".$height." $upload"
+
+QUALITY=${5};
+if [ "$QUALITY" == "" ]; then
+	QUALITY=80;
+fi;
+
+#umask 001; /usr/bin/convert "$1" -colorspace RGB -depth 8 -quality $QUALITY -thumbnail $2x$3 "$4"
+umask 001; /usr/bin/convert "$1" -colorspace RGB -depth 8 -quality $QUALITY -thumbnail $2x$3 $6 "$4"

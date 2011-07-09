@@ -1,0 +1,48 @@
+<!-- BEGIN: title -->Product Add<!-- END: title -->
+<!-- BEGIN: content -->
+<script type="text/javascript">  
+$(function(){  
+	$("#product_add_form").validate();
+});
+</script>
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<div class="product_add">
+	<form method="post" action="{URI}" id="product_add_form">
+		<fieldset>
+			<legend>Base product info</legend>
+			<div class="row title">
+				<span class="label"><label for="product-name">Product Name</label></span>
+				<span class="field"><input id="product-name" class="text title required" type="text" name="product[name]" value="{PRODUCT.name}"/></span>
+			</div>
+			<div class="row">
+				{ONXSHOP_REQUEST_producttype #bo/component/ecommerce/product_type_select}
+			</div>
+		</fieldset>
+		
+		<p><a href="#" onclick="$('#product_more_details').toggle(); return false">More details</a></p>
+		
+		<div id="product_more_details" style="display: none">
+			<fieldset>
+				<legend>More details</legend>
+				<div class="row rte">
+					<span class="label"><label for="product-teaser">Teaser</label></span>
+					<span class="field"><textarea id="product-teaser" name="product[teaser]">{PRODUCT.teaser}</textarea></span>
+				</div>
+				<div class="row rte">
+					<span class="label"><label for="edit-content">Description</label></span>
+					<span class="field"><textarea id="edit-content" name="product[description]">{PRODUCT.description}</textarea></span>
+				</div>
+				<!--<label for="">URL</label><input type="text" style="width: 400px;" name="product[url]" value="{product.url}"/><br />-->
+				{BRAND_LIST}
+			</fieldset>
+			{ONXSHOP_REQUEST_tinymce #bo/tinymce~theme=simple:relation=product:edit_elements=product-teaser,edit-content~}
+		</div>
+		
+		<div class="row submit">
+			<span class="label"><label>&nbsp;</label></span>
+			<span class="field"><button type="submit" class="next" name="save" value="save"><span>Next</span></button></span>
+		</div>
+	</form>
+</div>
+
+<!-- END: content -->

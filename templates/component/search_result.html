@@ -1,0 +1,30 @@
+<!-- BEGIN: content -->
+<div class="search_result">
+	<!-- BEGIN: result -->
+	<ul>
+	<!-- BEGIN: item -->
+		<li>
+			<!-- BEGIN: link -->
+			<a class="middle {PATH.node_controller}" href="/page/{PATH.id}" title="{PATH.description|htmlspecialchars}"><span>{PATH.title|htmlspecialchars}</span></a> &raquo; 
+			<!-- END: link -->
+			<!-- BEGIN: linklast -->
+			<a class="last {PATH.node_controller}" href="/page/{PATH.id}" title="{PATH.page_title|htmlspecialchars}"><span>{PATH.title|htmlspecialchars}</span></a> 
+			<!-- END: linklast -->
+			<br /><!-- BEGIN: image --><a class="image {PATH.node_controller}" href="/page/{PATH.id}" title="{PATH.page_title|htmlspecialchars}">{IMAGE}</a><!-- END: image --><span class="item_description">{RESULT.description}</span>
+		</li>
+	<!-- END: item -->
+	</ul>
+	<!-- END: result -->
+	
+	<!-- BEGIN: empty_result -->
+	<p><strong>Unfortunately your search did not match any documents.</strong></p>
+	<p>Suggestions:</p>
+	<ul>
+		<li>Make sure all keywords are spelt correctly.</li>
+		<li>Try different keywords.</li>
+		<li>Try more general keywords.</li>
+	</ul>
+	<!-- END: empty_result -->
+</div>
+
+<!-- END: content -->

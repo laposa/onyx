@@ -1,0 +1,2 @@
+createdb -U {DBUSER} -h dbserver -E UTF8 -T {DB-1_1} {DB-1_2}
+psql -U {DBUSER} -h dbserver {DB-1_2} < /usr/local/lib/xsite-1.2-dev/docs/database/upgrade-1.1.7-to-1.2.0.sql

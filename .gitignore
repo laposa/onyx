@@ -1,0 +1,10 @@
+# ignore system and backup files
+.DS_Store
+thumbs.db
+__MACOSX
+._*
+*~
+*.swp
+
+rsync.sh
+

@@ -1,0 +1,55 @@
+<!-- BEGIN: content -->
+
+<script type="text/javascript">
+$(document).ready(function() {
+	$("div.product_list li.variety a.title").editInPlace({
+		url: "/request/bo/component/single_record_update~model=ecommerce_product_variety:attribute=variety_name~",
+		params: "ajax=yes"
+	});
+	$("div.product_list li.variety a.price").editInPlace({
+		url: "/request/bo/component/single_record_update~model=ecommerce_price:attribute=value~",
+		params: "ajax=yes"
+	});
+});
+</script>
+
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<div class="product_list">
+	{ONXSHOP_REQUEST_unfinished #bo/component/ecommerce/unfinished_products}		
+	<p><a class="button add" title="Add a new product" href="/backoffice/products/product_add"><span>Add a new product</span></a></p>
+	<!-- BEGIN: list -->
+	<table>
+		<thead>
+			<tr>
+				<th>Image</th>
+				<th>Product Title / Varieties List</th>
+			</tr>
+		</thead>
+		<tbody>
+			<!-- BEGIN: item -->
+			<tr class="{oddeven}">
+				<td><!--  BEGIN: image --><a href="/backoffice/products/{ITEM.product_id}/edit"><img src="/thumbnail/100/{ITEM.image_src}" alt="{ITEM.image_title|htmlspecialchars}" /></a><!--  END: image --></td>
+				<td>
+					<p class="{ITEM.disabled}"><a href="/backoffice/products/{ITEM.product_id}/edit">{ITEM.product_name|htmlspecialchars}</a></p>
+					<ul>
+					<!-- BEGIN: variety -->
+						<li class="variety"><a class="title {ITEM.variety_publish}" id="ecommerce_product_variety-variety_name-id-{ITEM.variety_id}" href="#{ITEM.variety_id}">{ITEM.variety_name|htmlspecialchars}</a> for <a class="price" id="ecommerce_price-value-product_variety_id-{ITEM.variety_id}" href="#{ITEM.variety_id}">{ITEM.price|money_format('%!n', %s)}</a> {CONFIGURATION.global.default_currency}</li>
+					<!-- END: variety -->
+					</ul>
+				</td>
+			</tr>
+			<!-- END: item -->
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="2">
+					{PAGINATION}
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+	<!-- END: list -->
+</div>
+
+
+<!-- END: content -->

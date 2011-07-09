@@ -1,0 +1,84 @@
+<!-- BEGIN: title -->Product Variety Add<!-- END: title -->
+<!-- BEGIN: content -->
+<script type="text/javascript">  
+$(function(){  
+	$("#product_variety_add_form").validate();
+});
+</script>
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<p><a class="back" href="/backoffice/products/{GET.product_id}/edit"><span>Back to product edit</span></a></p>
+
+<form method="post" action="{URI}" id="product_variety_add_form">
+<fieldset>
+	<legend>Variety of product</legend>
+	<div class="row title">
+		<span class="label"><label for="product-variety-name">Variety Name</label></span>
+		<span class="field"><input type="text" class="text title required" name="product[variety][name]" id="product-variety-name" value="{PRODUCT.variety.name}"/></span>
+	</div>
+	<div class="row">
+		<span class="label"><label for="product-variety-sku">Code (SKU)</label></span>
+		<span class="field"><input type="text" class="text required" name="product[variety][sku]" id="product-variety-sku" value="{PRODUCT.variety.sku}"/></span>
+	</div>
+
+	<div class="row">
+		<span class="label"><label for="product-variety-weight_gross">Weight Gross [{VARIETY_CONF.weight_units}]</label></span>
+		<span class="field"><input type="text" class="text short required number" name="product[variety][weight_gross]" id="product-variety-weight_gross" value="{PRODUCT.variety.weight_gross}"/> (Used for postage. Zero weight is free postage.)</span>
+	</div>			
+
+	<div class="row">
+		<span class="label"><label for="product-variety-stock">Stock</label></span>
+		<span class="field"><input type="text" class="text short required digits" name="product[variety][stock]" id="product-variety-stock" value="{PRODUCT.variety.stock}"/></span>
+	</div>
+
+	<div class="row">
+		<span class="label"><label>Price Value {VAT_NOTE} in {GLOBAL_DEFAULT_CURRENCY}</label></span>
+		<span class="field"><input type="text" class="text short required number" name="product[variety][price][value]" value="{PRODUCT.variety.price.value}"/></span>
+	</div>
+	<input type="hidden" name="product[variety][price][currency_code]" value="{GLOBAL_DEFAULT_CURRENCY}" />
+	<input type="hidden" name="product[variety][price][type]" value="common" />
+
+</fieldset>
+
+<p><a href="#" onclick="$('#variety_more_details').toggle(); return false">More details</a></p>
+
+<div id="variety_more_details" style="display: none">
+<fieldset>
+	<div class="row rte">
+		<span class="label"><label for="product-variety-description">Description</label></span>
+		<span class="field"><textarea id="product-variety-description" name="product[variety][description]">{PRODUCT.variety.description}</textarea></span>
+	</div>
+	<div class="row">
+		<span class="label"><label for="product-variety-weight">Weight Net [{VARIETY_CONF.weight_units}]</label></span>
+		<span class="field"><input type="text" name="product[variety][weight]" id="product-variety-weight" value="{PRODUCT.variety.weight}"/></span>
+	</div>
+</fieldset>
+<fieldset>
+	<legend>Dimensions</legend>
+	<div class="row">
+		<span class="label"><label>Width [{VARIETY_CONF.dimension_units}]</label></span>
+		<span class="field"><input type="text" name="product[variety][width]" value="{PRODUCT.variety.width}"/></span>
+	</div>
+	<div class="row">
+		<span class="label"><label>Height [{VARIETY_CONF.dimension_units}]</label></span>
+		<span class="field"><input type="text" name="product[variety][height]" value="{PRODUCT.variety.height}"/></span>
+	</div>
+	<div class="row">
+		<span class="label"><label>Depth [{VARIETY_CONF.dimension_units}]</label></span>
+		<span class="field"><input type="text" name="product[variety][depth]" value="{PRODUCT.variety.depth}"/></span>
+	</div>
+	<div class="row">
+		<span class="label"><label>Diameter [{VARIETY_CONF.dimension_units}]</label></span>
+		<span class="field"><input type="text" name="product[variety][diameter]" value="{PRODUCT.variety.diameter}"/></span>
+	</div>
+</fieldset>
+</div>
+
+<input type="hidden" name="product[variety][product_id]" value="{GET.product_id}"/>
+<div class="row submit">
+	<span class="label"><label>&nbsp;</label></span>
+	<span class="field"><button type="submit" name="save" value="save"><span>Next</span></button></span>
+</div>
+</form>
+
+{ONXSHOP_REQUEST_tinymce #bo/tinymce~theme=simple:relation=product_variety:edit_elements=product-variety-description~}
+<!-- END: content -->

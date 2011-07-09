@@ -1,0 +1,67 @@
+<!-- BEGIN: content --><?xml version="1.0" encoding="utf-8"?>
+<Company>
+	<!-- BEGIN: products -->
+	<Products>
+		<!-- BEGIN: item -->
+		{FILE "./tpl/gc_Product.xml"}
+		<!-- END: item -->
+	</Products>
+	<!-- END: products -->
+	
+	<!-- BEGIN: customers -->
+	<Customers>
+		<!-- BEGIN: item -->
+		{FILE "./tpl/gc_Customer.xml"}
+		<!-- END: item -->
+	</Customers>
+	<!-- END: customers -->
+	
+	<!-- BEGIN: sales_orders -->
+	<SalesOrders>
+		<!-- BEGIN: item -->
+		{FILE "./tpl/gc_SalesOrder.xml"}
+		<!-- END: item -->
+	</SalesOrders>
+	<!-- END: sales_orders -->
+	
+	<!-- BEGIN: invoices -->
+	<Invoices>
+		<!-- BEGIN: item -->
+		{FILE "./tpl/gc_Invoice.xml"}
+		<!-- END: item -->
+	</Invoices>
+	<!-- END: invoices -->
+	
+	<!-- BEGIN: product_groups -->
+	<ProductGroups>
+		<!-- BEGIN: item -->
+		{FILE "./tpl/gc_ProductGroup.xml"}
+		<!-- END: item -->
+	</ProductGroups>
+	<!-- END: product_groups -->
+	
+	<!-- BEGIN: transactions -->
+	<Transactions>
+		<!-- BEGIN: item -->
+		{FILE "./tpl/gc_Transaction.xml"}
+		<!-- END: item -->
+	</Transactions>
+	<!-- END: transactions -->
+	
+	<!-- BEGIN: tax_rates -->
+	<TaxRates>
+		<!-- BEGIN: item -->
+		{FILE "./tpl/gc_TaxRate.xml"}
+		<!-- END: item -->
+	</TaxRates>
+	<!-- END: tax_rates -->
+	
+	<!-- BEGIN: price_lists -->
+	<PriceLists>
+		<!-- BEGIN: item -->
+		{FILE "./tpl/gc_PriceList.xml"}
+		<!-- END: item -->
+	</PriceLists>
+	<!-- END: price_lists -->
+</Company>
+<!-- END: content -->

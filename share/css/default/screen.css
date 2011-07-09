@@ -1,0 +1,6 @@
+/* import default CSS for generic HTML tags */
+@import url(src/global.css);
+
+/* import default CSS for id,class specific definitions */
+@import url(src/onxshop.css);
+@import url(src/onxshop_ecommerce.css);

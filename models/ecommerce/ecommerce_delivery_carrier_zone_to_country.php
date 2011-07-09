@@ -1,0 +1,35 @@
+<?php
+/**
+ * class shipping_wz_country_to_zone
+ *
+ * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
+ * Licensed under the New BSD License. See the file LICENSE.txt for details.
+ *
+ */
+ 
+class ecommerce_delivery_carrier_zone_to_country extends Onxshop_Model {
+
+	/**
+	 * PRIMARY KEY
+	 * @access private
+	 */
+	public $id;
+	/**
+	 * NOT NULL REFERENCES international_country ON UPDATE CASCADE ON DELETE CASCADE
+	 * @access private
+	 */
+	public $country_id;
+	/**
+	 * NOT NULL REFERENCES shipping_WZ_zone ON UPDATE CASCADE ON DELETE CASCADE
+	 * @access private
+	 */
+	public $zone_id;
+
+
+	public $_hashMap = array(
+		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
+		'country_id'=>array('label' => '', 'validation'=>'int', 'required'=>true),
+		'zone_id'=>array('label' => '', 'validation'=>'int', 'required'=>true)
+		
+		);
+}

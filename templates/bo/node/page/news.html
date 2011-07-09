@@ -1,0 +1,63 @@
+<!-- BEGIN: title -->Article Edit<!-- END: title -->
+<!-- BEGIN: content -->
+{FILE "bo/node/default_top.html"}
+<fieldset>
+	<div class="row">
+		<span class="label" style="float: left;"><label>Author Name:</label></span>
+		<span class="field"><input type="text" class="text" name="node[component][author]" value="{NODE.component.author|htmlspecialchars}" /></span>
+	</div>	
+	<div class="row rte content">
+		<span class="label"><label>Content <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'simple', 'component_content')"><span>RTE</span></a>:</label></span>
+		<span class="field"><textarea name="node[content]" id="component_content" class="big" style="width: 100%; height: 300px;" rows="20" cols="20"><!-- BEGIN: empty --><p>enter your content here</p><!-- END: empty -->{NODE.content|htmlspecialchars}</textarea></span>
+	</div>
+</fieldset>
+
+	{FILE "bo/node/item_meta_data.html"}
+	{FILE "bo/node/item_taxonomy.html"}
+
+
+{ONXSHOP_REQUEST_tinymce1 #bo/tinymce~id=GET.id:relation=node:edit_elements=component_content:theme=advanced~}
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#node-created').datepicker({firstDay: 1, dateFormat: 'yy-mm-dd'});
+});
+</script>
+
+	<div class="row">
+		<span class="label"><label for="node-component-allow_comment">Allow Comments:</label></span>
+		<span class="field"><input type="checkbox" id="node-component-allow_comment" name="node[component][allow_comment]" {NODE.component.allow_comment}/></span>
+	</div>
+	
+	{FILE "bo/node/item_publish.html"}
+</div>
+		
+<div id="onxshop_minor" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+	{FILE "bo/node/item_title_link.html"}
+	<div class="row">
+		<span class="label"><label for="node_teaser">Strapline:</label></span>
+		<span class="field"><input type="text" name="node[teaser]" id="node_teaser" class="text" value="{NODE.teaser|htmlspecialchars}" /></span>
+	</div>
+	<div class="row">
+		<span class="label"><label>Author ID:</label></span>
+		<span class="field"><input type="text" name="node[author]" value="{NODE.author}" /></span>
+	</div>
+	<div class="row">
+		<span class="label"><label>Date (overwrite created date):</label></span>
+		<span class="field"><input type="text" id="node-created" name="node[created]" value="{NODE.created}" /></span>
+	</div>
+
+	{FILE "bo/node/item_position.html"}
+</div>
+
+<div id="onxshop_advanced" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+	{FILE "bo/node/item_advanced.html"}
+	{FILE "bo/node/item_expert_options.html"}
+	{FILE "bo/node/item_content_list.html"}
+	{FILE "bo/node/item_image_list.html"}
+	{FILE "bo/node/item_signature.html"}
+</div>
+
+{FILE "bo/node/form_close.html"}
+<!-- END: content -->

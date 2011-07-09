@@ -1,0 +1,8 @@
+<!-- BEGIN: title -->Crawl<!-- END: title -->
+<!-- BEGIN: content -->
+<!-- BEGIN: messages --><div class="fix">{MESSAGES}</div><!-- END: messages -->
+<p>Number of indexed documents: {INDEX_INFO.indexSize}</p>
+<p><a href="#" onclick="makeAjaxRequest('#crawl_container', '/request/bo/component/search_index_crawl'); return false" title="Trigger Crawler"><span>Trigger Crawler (re-build index of the whole site)</span></a> <span class="warning">Warning: re-index can take some time...</span></p>
+<div id="crawl_container"></div>
+
+<!-- END: content -->

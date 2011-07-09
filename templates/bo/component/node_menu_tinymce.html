@@ -1,0 +1,71 @@
+<!-- BEGIN: content -->
+
+<script language="javascript" type="text/javascript" src="/share/js/tiny_mce_popup_local.js"></script>
+<script type="text/javascript">
+/* <![CDATA[ */
+
+function chooseLink(href) {
+	var win = tinyMCEPopup.getWindowArg("window");
+
+        // insert information now
+        win.document.getElementById('href').value = href;
+
+        // close popup window
+        tinyMCEPopup.close();
+}
+
+$(document).ready(function(){
+	$('#tree_select .simpleTree').simpleTree({
+		drag: false,
+		autoclose: true,
+		afterClick:function(node){
+			var node_id = $('a:first', node).attr('href').replace('#', '');
+			chooseLink('/page/' + node_id);
+		},
+		afterDblClick:function(node){
+			alert("text-"+$('span:first',node).text());
+		},
+		afterMove:function(destination, source, pos){
+			alert("destination-"+$('span:first',destination).text()+" source-"+$('span:first',source).text()+" pos-"+pos);
+		},
+		afterAjax:function()
+		{
+			alert('Loaded');
+		},
+		animate: true,
+		docToFolderConvert: true
+		});
+	
+});
+/* ]]> */
+</script>
+
+<div id="tree_select">
+	<ul class="simpleTree">
+		<li class="root"><span><a href="#0"><span>Root</span></a></span>
+			
+			<!-- BEGIN: group -->
+			<ul>
+			<!-- BEGIN: item -->
+			<li class='{ITEM.type} {ITEM.css_class} node_id_{ITEM.id}'>
+				
+				<!-- BEGIN:link -->
+				<span><a href="#{ITEM.id}" title="{ITEM.title|htmlspecialchars}" class="{ITEM.css_class} node_id_{ITEM.id}"><span>{ITEM.name|htmlspecialchars}</span><!-- BEGIN: teaser --><br /><span class="teaser">{ITEM.teaser|strip_tags|htmlspecialchars}</span><!-- END: teaser --></a></span>
+				<!-- END:link -->
+				<!-- BEGIN:nolink -->
+				<span><a href="#{ITEM.id}" class="{ITEM.css_class} node_id_{ITEM.id}"><span>{ITEM.name|htmlspecialchars}</span></a></span>
+				<!-- END:nolink -->
+				
+				{ITEM.subcontent}
+			</li>
+			<!-- END: item -->
+			{END_RESULT_ITEMS}
+			</ul>
+			<!-- END: group -->
+			{END_RESULT_GROUPS}
+			
+		</li>
+	</ul>
+</div>
+
+<!-- END: content -->

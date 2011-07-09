@@ -1,0 +1,46 @@
+<!-- BEGIN: title -->Filter<!-- END: title -->
+<!-- BEGIN: content -->
+{FILE "bo/node/default_top.html"}
+<script type="text/javascript">
+/* <![CDATA[ */
+$(document).ready(function(){
+	$('fieldset.filter-form-edit div.component-node_id a.button').click(function() {
+		$('#href_select').addClass('ajaxLoad').load('/request/component/taxonomy_menu~expand_all=1:publish=1~', function() {
+			$('#href_select').removeClass('ajaxLoad');
+			$('#href_select .simpleTree').simpleTree({
+				drag: false,
+				autoclose: true,
+				afterClick:function(node){
+					var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
+					$('#component-node_id').attr('value', node_id);
+				},
+				animate: true,
+				docToFolderConvert: true
+			});
+		});
+		return false;
+	});
+});
+/* ]]> */
+</script>
+
+<fieldset class="filter-form-edit">
+	<legend>Menu Edit</legend>
+	<div class="row component-node_id">
+		<span class="label"><label>*Menu Root:</label></span>
+		<a style="float: right" class="button" href="/backoffice/advanced/taxonomy" target="_blank"><span>manage categories</span></a>
+		<span class="field"><input type="text" name="node[component][node_id]" id="component-node_id" value="{NODE.component.node_id}" /> <a class="button" href="#"><span>browse categories</span></a></span>
+		<div id="href_select"></div>
+	</div>
+	<div class="row">
+		<span class="label"><label>*Menu Type:</label></span>
+		<span class="field">
+			<select name="node[component][template]">
+				<option value="menu_UL" {SELECTED_menu_UL}>UL</option>
+				<option value="menu_SELECT" {SELECTED_menu_SELECT}>SELECT</option>
+			</select>
+		</span>
+	</div>
+</fieldset>
+{FILE "bo/node/default_bottom.html"}
+<!-- END: content -->

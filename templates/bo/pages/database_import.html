@@ -1,0 +1,23 @@
+<!-- BEGIN: title -->Import<!-- END: title -->
+<!-- BEGIN: content -->
+
+<!-- BEGIN: import_options -->
+<p>Data file: {GET.data_file}</p>
+<form action="{URI}" method="post">
+<fieldset>
+	<legend>Import options</legend>
+	<label>Method</label>
+	<select name="method">
+		<option value="initial">initial product CSV (Google Base)</option>
+		<option value="database">database CSV</option>
+	</select>
+</fieldset><br />
+<button class="import" name="submit" type="submit" value="submit"><span>Continue ...</span></button>
+</form>
+<!-- END: import_options -->
+
+<!-- BEGIN: server_browser -->
+<h2>Choose the file to be imported</h2>
+{ONXSHOP_REQUEST_serverbrowser #bo/server_browser~type=database_import:directory=var/files/database~}
+<!-- END: server_browser -->
+<!-- END: content -->

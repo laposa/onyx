@@ -1,0 +1,37 @@
+<!-- BEGIN: content -->
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+
+<div class="sales_report">
+	<table>
+		<caption>Sales report</caption>
+		<thead>
+			<tr>
+				<th>SKU Code</th>
+				<th>Product name</th>
+				<th>Units sold</th>
+				<th>Net Revenue</th>
+			</tr>
+		</thead>
+		<tfoot>
+			<tr>
+				<td></td>
+				<td>Total (before discount):</td>
+				<td>{TOTAL_UNITS}</td>
+				<td class="money">{TOTAL_REVENUE|money_format('%n', %s)}</td>
+			</tr>
+		</tfoot>
+		<tbody>
+		
+			<!-- BEGIN: item -->
+				<tr>
+					<td><a href="/backoffice/products/variety/{ITEM.variety_id}/edit" onclick="openEdit('/popup_window/bo/component/ecommerce/product_variety_edit~id={ITEM.variety_id}~', this, 0); return false;">{ITEM.variety_sku}</a></td>
+					<td><a href="/product/{ITEM.product_id}">{ITEM.product_name}</a> / <a href="/backoffice/products/variety/{ITEM.variety_id}/edit" onclick="openEdit('/popup_window/bo/component/ecommerce/product_variety_edit~id={ITEM.variety_id}~', this, 0); return false;">{ITEM.variety_name}</a></td>
+					<td>{ITEM.count}</td>
+					<td class="money">{ITEM.revenue|money_format('%n', %s)}</td>
+				</tr>
+			<!-- END: item -->
+		</tbody>
+	</table>
+	<p><a class="button" title="export" href="/request/bo/export/csv_sales"><span>Export this list</span></a></p>
+</div>
+<!-- END: content -->

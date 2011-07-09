@@ -1,0 +1,193 @@
+/**
+ * Global Onxshop style sheet
+ * Norbert @ Laposa Ltd, 2009/09/22
+ *
+ *
+ */
+
+html {overflow-y: scroll;}
+body {padding: 0; margin: 0; font-family: sans-serif; font-size: medium; line-height: 1.5;}
+
+img {border: 0; -ms-interpolation-mode: bicubic; vertical-align: bottom;}
+
+/**
+ * Forms
+ */
+ 
+form {margin: 0 0 2em 0; padding: 0 1em; clear: both;}
+form div.row {margin: 0 0 1em 0; clear: both;}
+form span.label {display: block; float: none; text-align: left; width: auto;}
+form span.field {display: inline-block; width: 95%;}
+form div.submit button {float: none;}
+
+fieldset {margin: 1em 0 4em 0; padding: 0.5em 0; clear: both; border: 0;}
+fieldset.single {margin-bottom: 0;}
+label {cursor: pointer; cursor: hand; vertical-align: middle;}
+label.error {float: none; color: red; padding-left: .5em; vertical-align: top;}
+legend {font-weight: bold; padding: 0 0.5em; margin: 0 0 1em 0; padding-left: 0;}
+label.radio {float: none; clear: none;}
+input.radio,
+input.checkbox {border: 0;}
+input.price {width: 40px;}
+input.file,
+input[type=file] {border-width: 0;}
+input.error,
+textarea.error {border-color: red!important;}
+textarea {width: 70%; height: 100px; padding: 2px; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px;}
+textarea.small {height: 50px;}
+textarea.big {width: 100%; height: 400px;}
+optgroup {padding-top: 10px;}
+select {border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; width: auto;}
+select.big {width: 100%;}
+input.text {width: 100%;}
+input, 
+textarea {padding: 4px; border: 2px inset white; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px;}
+input:focus, 
+textarea:focus {border: 2px inset white; background: #f1f1f1;}
+input,
+option {padding: 4px; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px;}
+input.title {font-size: 1.4em; font-weight: bold; width: 100%;}
+input.long,
+textarea.long,
+select.long {width: 100%;}
+input.short,
+textarea.short,
+select.short {width: 5em;}
+button {cursor: pointer; cursor: hand; position: relative; padding: 0 0.5em; overflow: visible;}
+button span {position: relative; display: block; white-space: nowrap;}
+
+/*2cols forms (can be set on whole form or particular fieldset*/
+form.twoColumns label,
+fieldset.twoColumns label {padding-right: 1em;}
+form.twoColumns span.label,
+fieldset.twoColumns span.label {width: 50%; float: left; text-align: right;}
+form.twoColumns span.field,
+fieldset.twoColumns span.field {width: 47%;} /* 3% reserve in case odd column width*/
+
+/**
+ * Tables 
+ */
+ 
+table {font-size: inherit; clear: both; margin: 1em 0 2em 0; border: 2px solid #CCCCCC; border-radius: 4px;
+	-moz-border-radius: 4px; -webkit-border-radius: 4px; border-spacing: 0;}
+caption {text-align: left; font-weight: bold; font-size: 1.25em;}
+th {text-align: center;}
+th, 
+td {padding: 0.8em; vertical-align: top;}
+th.money,
+td.money,
+td.number {text-align: right;}
+thead th {border-bottom: 2px solid #CCCCCC;}
+tfoot td {border-top: 2px solid #CCCCCC; font-weight: bold;}
+
+/**
+ * Links
+ */
+ 
+a {cursor: pointer; cursor: hand; text-decoration: underline;}
+a:active {text-decoration: none; outline: 0;}
+a:focus {outline: 0;}
+a.button {display: block;}
+a.button,
+a.active {font-weight: bold;}
+a img {border: 0;}
+div.image a {text-decoration: none;}
+
+/**
+ * Headings
+ */
+ 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+caption {font-family: serif; line-height: 1.2; margin: 1em 0 0.4em 0;}
+
+h1.contentTitle,
+h2.contentTitle,
+h3.contentTitle,
+h4.contentTitle,
+h5.contentTitle,
+h6.contentTitle {margin-top: 0;}
+
+h1 a,
+h2 a,
+h3 a,
+h4 a,
+h5 a,
+h6 a {text-decoration: none;}
+
+h1 {font-size: 2em;}
+h2 {font-size: 1.5em;}
+h3 {font-size: 1.25em;}
+h4 {font-size: 1.15em}
+h5 {font-size: 1em;}
+
+/**
+ * Lists
+ */
+ 
+dl {margin: 1em 0;}
+ul {padding: 0; margin: 1em 0 2em 0;}
+ol {padding: 0; margin: 1em 0 2em 0;}
+ul ul,
+ol ol {margin: 0;}
+li {margin: 0.75em 0 0.75em 20px; vertical-align: middle;}
+
+
+/**
+ * misc
+ */
+ 
+p {margin: 15px 0;}
+hr {height: 0; border: 0; clear: both;}
+code {font-family: monospace;}
+pre {white-space: pre-wrap;}
+
+blockquote {margin: 2em 0; padding: 0 0 0 40px; background: url(/share/images/default/quote_open.png) top left no-repeat;}
+blockquote p {background: url(/share/images/default/quote_close.png) bottom right no-repeat; padding: 0 40px 0 0; font-family: serif;}
+
+span.disabled {text-decoration: line-through;}
+/*a clearing div*/
+div.bottom {clear: both;}
+
+
+/**
+ * Messages
+ */
+ 
+div.onxshop_messages {margin: 1em; border: none; background: black; color: white; opacity: .75; filter: alpha(opacity = 75); padding: 1em; 
+	clear: both;border-radius: 4px; -moz-border-radius: 7px; -webkit-border-radius: 7px;
+	z-index: 1000; position: relative;}
+div.onxshop_messages p {margin: 0 0 1em 0; padding: 0; color: white; font-weight: bold; }
+div.onxshop_messages p.onxshop_ok_msg {}
+div.onxshop_messages p.onxshop_error_msg {background: transparent url(/share/images/bo/watchdog-warning.png) 0 5px no-repeat; padding: 2px 0 2px 25px;}
+
+/**
+ * Ajax
+ */
+ 
+.ajaxLoad {width: 128px; height: 128px; background: url(/share/images/ajax-indicator/indicator_verybig.gif) no-repeat;}
+
+/**
+ * jGrowl
+ */
+ 
+div.jGrowl {padding: 0; z-index: 9999; position: fixed; width: 300px; right: 0; bottom: 0;}
+/*div.jGrowl.top-left {left: 0; top: 60px;}
+div.jGrowl.top-right {right: 0; top: 60px;}
+div.jGrowl.bottom-left {left: 0; bottom: 0;}
+div.jGrowl.bottom-right {right: 0; bottom: 0;}
+div.jGrowl.center {top: 0; width: 50%; left: 25%;}*/
+div.jGrowl p {margin: 0; padding: 0;}
+div.jGrowl div.jGrowl-notification {
+	zoom: 1; text-align: left;
+	display: none; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; min-height: 40px;}
+div.jGrowl div.jGrowl-notification div.header {font-weight: bold;}
+div.jGrowl div.jGrowl-notification div.close {color: black; background: white; float: right; font-weight: bold; font-size: 16px; cursor: pointer; cursor: hand;}
+div.jGrowl div.jGrowl-closer {display: none; color: black; background: white; height: 15px; cursor: pointer; cursor: hand; font-size: 11px; font-weight: bold; text-align: center;}
+div.jGrowl .ui-state-highlight {border: none; background: none;}
+
+

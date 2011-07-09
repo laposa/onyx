@@ -1,0 +1,25 @@
+<!-- BEGIN: content -->
+<div class="twoColumnLayout layout {NODE.layout_style} {NODE.css_class}">
+	<div class="layoutWrapper">
+		<div class="top"><span></span></div>
+		<div class="layoutContent">
+			<div class="layoutContentWrapper">
+				<!-- BEGIN: title --><h2 class="layoutTitle"><a href="#node_id_{NODE.id}"><span>{NODE.title|htmlspecialchars}</span></a></h2><!-- END: title -->
+				<!-- BEGIN: title_link --><h2 class="layoutTitle"><a href="/page/{NODE.link_to_node_id}"><span>{NODE.title|htmlspecialchars}</span></a></h2><!-- END: title_link -->
+				<div class="layoutColumnOne">
+					<div class="layoutColumnWrapper">
+						{CONTAINER.1}
+					</div>
+				</div>
+				<div class="layoutColumnTwo">
+					<div class="layoutColumnWrapper">
+						{CONTAINER.2}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="bottom"><span></span></div>
+	</div>
+</div>
+
+<!-- END: content -->

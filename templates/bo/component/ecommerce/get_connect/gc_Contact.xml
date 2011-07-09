@@ -1,0 +1,16 @@
+<Title>{ITEM.Title}</Title>
+<Forename>{ITEM.Forename}</Forename>
+<Surname>{ITEM.Surname}</Surname>
+<Company>{ITEM.Company}</Company>
+<Address1>{ITEM.Address1}</Address1>
+<Address2>{ITEM.Address2}</Address2>
+<Address3>N/A</Address3>
+<Town>{ITEM.Town}</Town>
+<Postcode>{ITEM.Postcode}</Postcode>
+<County>{ITEM.County}</County>
+<Country>{ITEM.Country}</Country>
+<Telephone>{ITEM.Telephone}</Telephone>
+<Fax></Fax>
+<Mobile></Mobile>
+<Email>{ITEM.Email}</Email>
+

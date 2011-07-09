@@ -1,0 +1,35 @@
+<!-- BEGIN: content -->
+
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+
+<div class="server_browser_menu">
+
+	<ul class="simpleTree">
+		<li class="root"><span><a href="#/" onclick="serverBrowserOpenDir('/'); return false;"><span>Root</span></a></span>
+			
+			<!-- BEGIN: group -->
+			<ul>
+			<!-- BEGIN: item -->
+			<li class='{ITEM.type} {ITEM.css_class} node_id_{ITEM.id}'>
+				
+				<!-- BEGIN:link -->
+				<span><a href="#{ITEM.id}" title="{ITEM.title|htmlspecialchars}" class="{ITEM.css_class} node_id_{ITEM.id}"><span>{ITEM.name|htmlspecialchars}</span><!-- BEGIN: teaser --><br /><span class="teaser">{ITEM.teaser|strip_tags|htmlspecialchars}</span><!-- END: teaser --></a></span>
+				<!-- END:link -->
+				<!-- BEGIN:nolink -->
+				<span><a href="#" class="{ITEM.css_class} node_id_{ITEM.id}"><span>{ITEM.name|htmlspecialchars}</span></a></span>
+				<!-- END:nolink -->
+				
+				{ITEM.subcontent}
+			</li>
+			<!-- END: item -->
+			{END_RESULT_ITEMS}
+			</ul>
+			<!-- END: group -->
+			{END_RESULT_GROUPS}
+	
+			
+		</li>
+	</ul>
+</div>
+
+<!-- END: content -->

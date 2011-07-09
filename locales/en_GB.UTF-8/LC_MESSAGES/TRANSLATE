@@ -1,0 +1,3 @@
+xgettext --keyword="_l" -n ../../../lib/*.php
+msgfmt messages.po
+msgmerge old.po messages.po --output-file=new.po

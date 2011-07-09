@@ -1,0 +1,51 @@
+#!/bin/bash
+# Norbert Laposa, 2006
+
+DEPLOYMENT_CONF="${1}";
+DATABASE_NAME="${2}"
+BACKUP_FILE="${3}";
+CREATE="${4}";
+
+export PGCLIENTENCODING='UNICODE'
+
+if [ ! -f "$DEPLOYMENT_CONF" ]; then
+    echo "$DEPLOYMENT_CONF is not a file";
+    echo "First parameter is the /path/to/Project/conf/deployment.sh";
+    exit 0;
+else
+    source "${DEPLOYMENT_CONF}";
+fi;
+
+#check user ID
+#echo "NOTE: this script must be run with ID as database user";
+ACTUAL_USER=`whoami`;
+if [ $RESTORE_DATABASE_USER != $ACTUAL_USER ]; then
+    echo "This script should be run with ID as the RESTORE_DATABASE_USER ($BACKUP_DATABASE_USER)";
+    echo "You need provide the $BACKUP_DATABASE_USER user password";
+    ASK_FOR_PASS="-W";
+fi;
+
+
+if [ "$DATABASE_NAME" == "" ] || [ "$BACKUP_FILE" == "" ]; then
+	echo "Usage: \"${0} /path/to/Project/conf/deployment.sh database_name backup_file CREATE\" for creating of new database";
+	echo "Usage: \"${0} /path/to/Project/conf/deployment.sh database_name backup_file\" for restoring of database";
+	exit 0;
+fi;
+
+if [ ! -f "$BACKUP_FILE" ]; then
+	echo "$BACKUP_FILE does not exists";
+	exit 0;
+fi;
+
+if [ "$CREATE" == "CREATE" ]; then
+	echo "Creating of new Database";
+	createdb -U $RESTORE_DATABASE_USER $ASK_FOR_PASS $DATABASE_NAME --encoding=UNICODE
+elif [ "$CREATE" == "" ];then
+	echo "Restoring Database from the Backup";
+	CLEAN="-c";
+else
+	echo "Invalid argument $CREATE";
+	exit 0;
+fi;
+
+pg_restore -U $RESTORE_DATABASE_USER $ASK_FOR_PASS $CLEAN --ignore-version -v -x -O -d $DATABASE_NAME $BACKUP_FILE

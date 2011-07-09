@@ -1,0 +1,48 @@
+<!-- BEGIN: content -->
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<!-- BEGIN: orders -->
+<table id="orders" summary="{I18N_YOUR_ORDER_SUMMARY}">
+<caption>{I18N_ORDERS}</caption>
+<colgroup>
+	<col id="orderID" />
+	<col id="DateTime" />
+	<col id="OrderTotal" />
+	<col id="items" />
+	<col id="Status" />
+	<col id="action" />
+</colgroup>
+<thead>
+<tr>
+	<th scope="col"><a href="{URI}&order=id">{I18N_ORDER_ID}</a></th>
+	<th scope="col">{I18N_DATA_AND_TIME}</th>
+	<th scope="col">{I18N_ORDER_TOTAL}</a></th>
+	<th scope="col">{I18N_STATUS}</th>
+	<th scope="col">&nbsp;</th>
+</tr>
+</thead>
+<tbody>
+<!-- BEGIN: item -->
+<tr>
+	<td><a href="/page/{NODE_CONF.id_map-order_detail}?order_id={ITEM.order_id}">#{ITEM.order_id}</a></td>
+	<td>{ITEM.order_created}</td>
+	<td class="money">{ITEM.goods_net|money_format('%n',%s)}</td>
+	<td>
+		{ITEM.status_title}
+		
+		
+	</td>
+	<td>
+		<!-- BEGIN: make_payment -->
+		<a href="/page/{NODE_CONF.id_map-payment}?order_id={ITEM.order_id}" title="Make Payment"><span>Pay</span></a>
+		<!-- END: make_payment -->
+		<a href="/page/{NODE_CONF.id_map-basket}?populate_basket_from_order_id={ITEM.order_id}" title="Repeat Order"><span>Repeat</span></a>
+	</td>
+</tr>
+<!-- END: item -->
+</tbody>
+</table>
+<!-- END: orders -->
+<!-- BEGIN: noorders -->
+<p>{I18N_YOU_HAVE_NO_ORDERS}</p>
+<!-- END: noorders -->
+<!-- END: content -->

@@ -1,0 +1,309 @@
+/**
+  * Author: Norbert Laposa @ LN5, 2008/04/19
+  * Project: Xsite
+  * Description: Xsite Specific Stylesheet
+  * Note: All the blocks corresponds to the HTML snippets from the /templates/ directory
+  * ie node/site/default block correspond to /templates/node/site/default.html file
+  *
+  */
+
+body, p, li {
+	color: #575757;
+	font-family: "Lucida Grande","Lucida Sans Unicode",Arial,Verdana,sans-serif;
+}
+
+fieldset {
+	border: 0;
+}
+
+textarea {
+	border: 1px solid #808080;
+}
+
+input.text, select {
+	border: 1px solid #808080;
+}
+
+input:focus, textarea:focus {
+	background: #ffc;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+th, th a {
+	color: #1983bf;
+}
+
+th, td {
+	border-bottom: 1px solid #ccc; 
+}
+
+a {
+	color: #666;
+}
+
+a:hover {
+	color: #ff7e00;	
+}
+
+h1, h2, h3, h4, h5, h6, caption {
+	color: #0057ae;
+}
+
+hr {
+	color: #ffffff;
+}
+
+/*
+ * Generic Buttons
+ */
+
+button span, a.button span {
+	padding: 0;
+	margin: 0;
+}
+
+button, a.button {
+	background: #ffaa00;
+	color: #d8e8c2;
+	border: outset 2px grey;
+	padding: 2px 5px;
+	margin: 0 0 5px 0;
+	display: inline-block;
+}
+
+button:hover,  a.button:hover {
+	background: #e3ad00;
+	border: inset 2px grey;
+}
+
+/****************************************************************************************/
+/*****************************          node/site           *****************************/
+/****************************************************************************************/
+
+/********* node/site/default.html *********/
+
+
+#header a {
+	color: #75511a;
+}
+
+#header a:hover {
+	color: #ff7e00;
+}
+
+#userbox {
+	color: #75511a;
+}
+
+#primaryNavigation ul li {
+	background: #d8e8c2;
+	border-bottom: 1px white solid;
+}
+
+#primaryNavigation ul li a {
+	color: #75511a;
+}
+
+#primaryNavigation ul li a:hover {
+	color: #ffffff;
+	background: #75511a;
+}
+
+/*second level*/
+#primaryNavigation ul ul li {
+	background: #f1f1f1;
+}
+
+#primaryNavigation ul ul li a {
+	background: none;
+}
+
+#content {
+	background: white;
+}
+
+#footerNavigationWrapper {
+	margin: 0 auto;
+	width: 995px;
+	height: 100px;
+	background: #d8e8c2;
+}
+
+#footerNavigation ul li {
+	border-right: 1px solid white;
+	background: none;
+}
+
+#footerNavigation ul a {
+	color: #75511a;
+}
+
+#footerNavigation ul a:hover {
+	color: #ff7e00;
+}
+
+#copyright p, #credit p, #copyright a, #credit a {
+	color: #75511a;
+}
+
+
+
+/****************************************************************************************/
+/*****************************          node/page           *****************************/
+/****************************************************************************************/
+
+/********* node/page/with_navigation.html *********/
+/********* node/page/product_browse.html *********/
+/********* node/page/commerce.html *********/
+/********* node/page/news.html *********/
+/********* node/product/normal.html *********/
+
+#secondaryNavigation ul, div.menu ul {
+	background: #fff;
+}
+
+#secondaryNavigation ul li, div.menu ul li {
+	background: #fff;
+	border-bottom: 1px white solid;
+}
+
+#secondaryNavigation ul li a:hover, div.menu ul li a:hover {
+	background: #f0f0f0;
+}
+
+
+
+
+/****************************************************************************************/
+/*****************************          node/content        *****************************/
+/****************************************************************************************/
+
+/********* node/content/RTE.html *********/
+
+div.content-RTE em, 
+div.content-RTE strong {
+	color: #575757;
+}
+
+/********* node/content/divider.html *********/
+
+div.divider {
+	background: #dadada;
+}
+
+
+
+
+/****************************************************************************************/
+/*****************************           component          *****************************/
+/****************************************************************************************/
+
+/********* component/RSS_feed.html *********/
+
+div.rssFeed div.item.odd {
+	background: #f0f0f0;
+}
+
+div.rssFeed div.item.even {
+	background: #f8f8f8;
+}
+
+
+
+
+/********* component/pagination.html *********/
+
+div.pagination li a.active {
+	border-color: #CCCCCC;
+}
+
+
+
+/********* comment_UL.html *********/
+
+ul.comment div.item div.content {
+	background: #f0f0f0;
+}
+
+
+/**
+ * Ecommerce
+ */
+
+div.product_detail h3 span {
+	color: #0057ae;
+}
+
+div.product_detail div.product_radio form div.varieties_list div.top {
+	background: #f1f1f1;
+	height: 16px;
+}
+
+div.product_detail div.product_radio form div.varieties_list div.top div.left {
+	background: url(/share/images/default/corners.gif) no-repeat top left;
+	float: left;
+	height: 16px;
+	width: 16px;
+}
+div.product_detail div.product_radio form div.varieties_list div.top div.right {
+	background: url(/share/images/default/corners.gif) no-repeat top right;
+	float: right;
+	height: 16px;
+	width: 16px;
+}
+
+div.product_detail div.product_radio form div.varieties_list div.bottom div.left {
+	background: url(/share/images/default/corners.gif) no-repeat bottom left;
+	float: left;
+	height: 16px;
+	width: 16px;
+}
+div.product_detail div.product_radio form div.varieties_list div.bottom div.right {
+	background: url(/share/images/default/corners.gif) no-repeat bottom right;
+	float: right;
+	height: 16px;
+	width: 16px;
+}
+
+div.product_detail div.product_radio form div.varieties_list div.content {
+	background: #f1f1f1;
+}
+
+div.product_detail div.product_radio form div.varieties_list div.bottom {
+	background: #f1f1f1;
+	height: 16px;
+}
+
+div.product_detail div.product_radio form div.varieties_list div.variety:hover {
+	background: #dcdcdc;
+}
+
+span.price {
+	color: #990000;
+}
+
+div.product_detail div.product_normal div.highlight div.text {
+	color: #5eacda;
+}
+
+/*
+button.confirm_order {
+	border: 0;
+}
+
+a.button.edit_basket {
+	border: 0;
+}
+
+a.button.print_invoice,
+a.button.print_invoice_proforma {
+	border: 0;
+}
+
+button.add_to_basket {
+	border: 0;
+}
+*/

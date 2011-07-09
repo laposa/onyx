@@ -1,0 +1,17 @@
+<!-- BEGIN: title -->{CONFIGURATION.global.title|htmlspecialchars}: New order #{DATA.order.id} (unpaid)<!-- END: title -->
+<!-- BEGIN: content -->
+<p>
+{DATA.order.client.customer.first_name} {DATA.order.client.customer.last_name} has submit order {DATA.order.id}
+</p>
+<p>
+email: {DATA.order.client.customer.email}<br />
+telephone: {DATA.order.client.customer.telephone}, {DATA.order.client.customer.mobilephone}
+</p>
+
+{DATA.order.order_detail}
+
+<p>
+Regards,<br />
+{CONFIGURATION.global.author_content}</p>
+<p>&copy;{TIME|date('Y', %s)} <a href="http://{_SERVER.SERVER_NAME}/"><span>{CONFIGURATION.global.title}</span></a></p>
+<!-- END: content -->

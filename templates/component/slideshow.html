@@ -1,0 +1,30 @@
+<!-- BEGIN: content -->
+
+<script type="text/javascript">
+/*<![CDATA[*/		
+if(hasRightVersion) {  /* if we've detected an acceptable version */
+	var oeTags = '<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="238" height="233" codebase="{PROTOCOL}://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab">'
+	+ '<param name="movie" value="/share/swf/slideshow.swf?page_id={GET.id}" />'
+	+ '<param name="play" value="true" />'
+	+ '<param name="loop" value="true" />'
+	+ '<param name="quality" value="high" />'
+	+ '<param name="menu" value="false" />'
+	+ '<param name="base" value="{BASE_URI}" />'
+	+ '<embed src="/share/swf/slideshow.swf?page_id={GET.id}" width="238" height="233" play="true" loop="true" quality="high" menu="false" base="{BASE_URI}" type="application/x-shockwave-flash" pluginspage="{PROTOCOL}://www.macromedia.com/shockwave/download/index.cgi?P1_Prod_Version=ShockwaveFlash">'
+	+ '</embed>'
+	+ '</object>';
+	document.write(oeTags);   /* embed the flash movie */
+} else {  /* flash is too old or we can't detect the plugin */
+	var alternateContent = '';	
+	document.write(alternateContent);  /* insert non-flash content */
+}
+/*]]>*/
+</script>
+<noscript>
+</noscript>
+
+<!-- BEGIN: fe_edit -->
+<a class="onxshop_fe_edit_button" href="javascript:openImageEdit({GET.id})"><span>EDIT</span></a>
+<!-- END: fe_edit -->
+
+<!-- END: content -->

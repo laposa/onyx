@@ -1,0 +1,39 @@
+<!-- BEGIN: content -->
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<!-- BEGIN: confirm -->
+<script type="text/javascript">
+function deleteNode(node_id) {
+	$("#dialog").load("/request/bo/component/node_delete~id="+node_id+":delete=1:confirm=1:ajax=1~", '', function (responseText, textStatus, XMLHttpRequest) {
+			$("#node_id_" + node_id).empty();
+			popupMessage("#dialog div.onxshop_messages");
+			$('#dialog').dialog( "destroy" );
+	});
+	
+}
+</script>
+
+<div style="padding: 10px;">
+<p><em>Note: this operation is irreversible</em></p>
+<p>Do you really want to delete {NODE.node_group}/{NODE.node_controller} named "{NODE.title}"? <a class="button delete" href="{URI}?confirm=1" onclick="deleteNode({GET.id}); return false;"><span>Yes,&nbsp;Delete</span></a></p>
+
+<!-- BEGIN:children -->
+	<h5>Will delete as well</h5>
+	<ul>
+	<!-- BEGIN: item -->
+		<li><a href="/backoffice/cms/edit/{CHILD.id}">{CHILD.title} <sup>{CHILD.node_group}/{CHILD.node_controller}</sup></a></li>
+	<!-- END: item -->
+	</ul>
+<!-- END:children -->
+
+<!-- BEGIN:linked -->
+	<h5>Linked as shared content</h5>
+	<ul>
+	<!-- BEGIN: item -->
+		<li><a href="/backoffice/cms/edit/{LINKED.id}"> {LINKED.title} <sup>{LINKED.node_group}/{LINKED.node_controller}</sup></a></li>
+	<!-- END: item -->
+	</ul>
+<!-- END:linked -->
+
+</div>
+<!-- END: confirm -->
+<!-- END: content -->

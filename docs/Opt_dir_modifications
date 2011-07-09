@@ -1,0 +1,22 @@
+TinyMCE:
+add plugin/loremipsum
+
+PhpPgAdmin:
+phppgadmin/classes/database/Postgres.php:203
+//XSITE don't change! $str = str_replace("\r\n","\n",$str);
+
+DIFF:
+norbert@carp: opt/phppgadmin$ diff /tmp/Postgres.php classes/database/Postgres.php
+203c203
+<               $str = str_replace("\r\n","\n",$str);
+---
+>               //don't change! $str = str_replace("\r\n","\n",$str);
+
+
+norbert@carp:~$ diff /opt/onxshop-testing/opt/phppgadmin/sequences.php /opt/onxshop-dev/opt/phppgadmin/sequences.php 
+494c494
+< 				echo "<tr><th class=\"data left\">{$lang['strstartvalue']}</th>\n";
+---
+> 				echo "<tr><th class=\"data left\">{$lang['strlastvalue']}</th>\n";
+
+

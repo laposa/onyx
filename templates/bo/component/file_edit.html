@@ -1,0 +1,60 @@
+<!-- BEGIN: content -->
+
+<style type="text/css">
+form.fileEdit div.row span.label {
+	width: 60px;
+}
+</style>
+
+<div id="file-edit-{FILE.id}-wrapper">
+
+<script type="text/javascript"> 
+$(document).ready(function() { 
+	$('#file-edit-{FILE.id}').ajaxForm({target: '#item-detail-{FILE.id}', success:    function() {$('#linked-file-{FILE.id}').load('/request/bo/component/file_detail~file_id={FILE.id}:type={GET.type}:relation={GET.relation}~"')}}); 
+});
+</script>
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+
+<form class="fileEdit" action="{URI}" method="post" id="file-edit-{FILE.id}">
+	<fieldset>
+		<legend>File Edit</legend>
+		
+		<a href="/download/{FILE.src}"><h2><span>{FILE.src}</span></h2></a>
+		
+		<div class="row title">
+			<span class="label"><label>Title *:</label></span>
+			<span class="field"><input class="text title" type="text" name="file[title]" value="{FILE.title}" /></span>
+		</div>
+		<div class="row">
+			<span class="label"><label>Role:</label></span>
+			<span class="field">
+				<select name="file[role]">
+					<option value="main" {SELECTED_main}>default</option>
+					<option value="teaser" {SELECTED_teaser}>use as teaser image</option>
+					<option value="RTE" {SELECTED_RTE}>RTE</option>
+				</select>
+			</span>
+		</div>
+		<p><a href="#file-edit-advanced-{FILE.id}" onclick="$('#file-edit-advanced-{FILE.id}').toggle(); return false;">Show more options</a></p>
+		<div id="file-edit-advanced-{FILE.id}" style="display: none">
+			<div class="row">
+				<span class="label"><label>Description:</label></span>
+				<span class="field"><textarea name="file[description]">{FILE.description}</textarea></span>
+			</div>
+			<div class="row">
+				<span class="label"><label>Priority:</label></span>
+				<span class="field"><input class="text" style="width: 50px;" type="text" name="file[priority]" value="{FILE.priority}" /></span>
+			</div>
+		</div>
+		
+		<input type="hidden" name="file[id]" value="{FILE.id}" />
+		
+		<div class="row submit">
+			<span class="label"><label>&nbsp;</label></span>
+			<span class="field"><button type="submit" name="update" id="update" value="{FILE.id}" class="{FILE.id}"><span>Save</span></button></span>
+		</div>
+	</fieldset>
+</form>
+
+</div>
+<!-- END: content -->

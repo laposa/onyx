@@ -1,0 +1,81 @@
+<!-- BEGIN: title -->Pages<!-- END: title -->
+<!-- BEGIN: content -->
+<script type="text/javascript">
+/* <![CDATA[ */
+$(document).ready(function(){
+	initialiseMenuPagesTree();
+});
+
+function initialiseMenuPagesTree() {
+
+	$('#menupages_tree .simpleTree').simpleTree({
+		drag: true,
+		autoclose: false,
+		afterClick:function(node){
+			var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
+			makeAjaxRequest("#sub_content", "/request/bo/component/node_edit~id="+node_id+"~");
+		},
+		afterDblClick:function(node){
+			//alert("text-"+$('span:first',node).text());
+		},
+		afterMove:function(destination, source, position){
+			var source_node_id = $('a:first', source).attr('href').match("[0-9]{1,}$");
+			var destination_node_id = $('a:first', destination).attr('href').match("[0-9]{1,}$");
+			//alert("moved"+source_node_id+"to"+destination_node_id+"pos"+position);
+			openAjaxRequestInGrowl('/request/bo/component/node_move~source_node_id='+source_node_id+':destination_node_id='+destination_node_id+':position='+position+'~', 'Move node');
+			return false;
+		},
+		afterAjax:function()
+		{
+			//alert('Loaded');
+		},
+		animate: true,
+		docToFolderConvert: true
+	});
+	$("#menupages_tree").css('display', 'block');
+	
+}
+
+function hookNodeEditPostUpdate() {
+	$('#pages_node_menu').load("/request/bo/component/node_menu~id=0:open=0:expand_all=1:publish=0~", function() {
+		initialiseMenuPagesTree();
+	});
+}
+
+/* ]]> */
+</script>
+
+<div class="twoColumnPage page backoffice">
+	<div class="top page"><span></span></div>
+	<div class="content page">
+		<div class="contentWrappper page">
+			<div class="pageHeader">
+				
+			</div>
+			<div class="columnTop page backoffice">
+				<div class="columnWrapper page">
+
+				</div>
+			</div>
+
+			<div class="columnOne page backoffice">
+				<div class="columnWrapper page">
+					<div id="pages_node_menu">
+						{ONXSHOP_REQUEST_menupages #bo/component/node_menu~id=0:open=0:expand_all=1:publish=0~}
+					</div>
+					<p><a class="button" href="/edit" title="Frontent edit"><span>View in front-end edit</span></a></p>
+				</div>
+			</div>
+			<div class="columnTwo page backoffice">
+				<div class="columnWrapper page">
+					<div id="sub_content">
+						{NODE_EDIT}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="bottom page"><span></span></div>
+</div>
+
+<!-- END: content -->

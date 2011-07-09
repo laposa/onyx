@@ -1,0 +1,33 @@
+<!-- BEGIN: content -->
+
+<div id="menupages_tree">
+
+	<ul class="simpleTree">
+		<li class="root"><span><a href="#0" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/node_edit~id=0~'); return false"><span>Root</span></a></span>
+			
+			<!-- BEGIN: group -->
+			<ul>
+			<!-- BEGIN: item -->
+			<li class='{ITEM.type} {ITEM.css_class} node_id_{ITEM.id}'>
+				
+				<!-- BEGIN:link -->
+				<span><a href="#{ITEM.id}" title="{ITEM.title|htmlspecialchars} ID: {ITEM.id}, Priority: {ITEM.priority}, Type: {ITEM.node_group}, Controller: {ITEM.node_controller}" class="{ITEM.css_class} node_id_{ITEM.id}"><span>{ITEM.name|htmlspecialchars}</span><!-- BEGIN: teaser --><br /><span class="teaser">{ITEM.teaser|strip_tags|htmlspecialchars}</span><!-- END: teaser --></a></span>
+				<!-- END:link -->
+				<!-- BEGIN:nolink -->
+				<span><a href="#{ITEM.id}" title="{ITEM.title|htmlspecialchars} ID: {ITEM.id}, Priority: {ITEM.priority}, Type: {ITEM.node_group}, Controller: {ITEM.node_controller}" class="{ITEM.css_class} node_id_{ITEM.id}"><span>{ITEM.name|htmlspecialchars}</span></a></span>
+				<!-- END:nolink -->
+				
+				{ITEM.subcontent}
+			</li>
+			<!-- END: item -->
+			{END_RESULT_ITEMS}
+			</ul>
+			<!-- END: group -->
+			{END_RESULT_GROUPS}
+			
+		</li>
+	</ul>
+	
+</div>
+
+<!-- END: content -->

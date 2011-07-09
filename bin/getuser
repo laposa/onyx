@@ -1,0 +1,2 @@
+#!/bin/sh
+cat /etc/passwd|grep ^[a-z]*:x:$1:|cut -d ":" -f 5|cut -d "," -f 1

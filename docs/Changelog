@@ -1,0 +1,953 @@
+Onxshop (1.5.0/dev)
+
+ * move msg() to a singleton ONXSHOP::MSG class
+ * remove margins on layout and add margins on each content http://stacklayout.com/
+ * http://yuji.wordpress.com/2011/05/25/postgresql-sqlite-django-migrating-postgresql-to-sqlite3-with-pg_dump/
+ * rename nx_messages to onxshop_messages, or remove from all component templates
+ 	nx_ok_msg, nx_error_msg: improve log levels
+ 	
+ 	removed project_skeleton/onxshop_dir symlink to allow search&replace in IDE
+ * move get.php, thumbnail.php to share/get_image.php etc
+http://www.root.cz/clanky/zavadime-omezeni-v-openssh/
+  Iterator http://zdrojak.root.cz/clanky/lazy-evaluation-v-php/
+
+  Use autoload
+    http://www.serversidemagazine.com/community/php-“require”-performance/
+	  http://uk.php.net/__autoload
+
+  http://www.catswhocode.com/blog/10-useful-htaccess-snippets-to-have-in-your-toolbox
+  http://www.openwall.com/phpass/
+  * TODO: review use of php5-suhosin
+  * TODO: fix memory consumption in bo/orders list
+  * TODO: rebuild /backoffice landing page
+  * TODO: query cache, profiler, clean get.php, thumbnail.php and download.php, Xsite.model.php, Xsite.bootstrap.php and bootstrap.php
+  common_image isn't reading db conf at line 142
+  thumbnail.php isn't reading db conf and should be looking into cache
+  * TODO: do crosscheck on payment http://www.worldpay.com/support/kb/bg/paymentresponse/pr5305.html
+  	setup Payment Response password (callbackPW)
+  * TODO: remove dependancy on bin/ scripts
+  * TODO: thumbnail.php isn't reading configuration from DB
+  * TODO: remove print_article or rename?
+  * TODO: use templates/bo/pages/ecommerce/product_detail
+  * removed span from TinyMCE invalid_elements
+  * big cleaning in share/ directory
+  * onxshop.authentication improved _checkAccess
+  * GLOBAL_ constant names renamed to ONXSHOP_
+  	TODO finish in global.php
+  * TODO: change thumbnail_step from 25 to 5
+  * TODO: merge common_taxonomy_label and common_taxonomy_tree into common_taxonomy, 
+  		  rename common_taxonomy_label_image to common_taxonomy_image
+  		  1. rename common_taxonomy_tree to common_taxonomy
+  		  2. add columns from common_taxonomy_label
+  		  3. copy common_taxonomy_label to common_taxonomy
+  * finished Xsite -> Onxshop
+  * Zend_Db instead of ADOdb, much improved Onxshop_Model
+  * jQuery UI upgraded to version 1.8.14
+  * TinyMCE upgraded to version 3.4.3.2
+  * Zend Framework upgraded to version 1.11.7
+  * validation for username changed from email to string
+
+-- Norbert Laposa <norbert@laposa.co.uk>  2011-07-02
+
+Onxshop (1.4.7)
+  
+  * improved component/feed
+  * added default divider visible dotted grey border
+  * JpGraph upgraded to version 3.5.0b1
+  * TinyMCE upgraded to version 3.4.2
+  * fixed thumbnail delete on file overwrite for specific image height folders
+  * added --no-owner pg_dump option to bin/backup
+  * added open menu item option to node/content/menu edit
+  * simplified sale breakdown in backoffice
+  * showing registered and modified timestamp on backoffice customer detail page
+  * improved backoffice logout
+  * fixed the page sorting problem, optional upgrade-1.4.x-parent_container.sql
+  * page tree refresh after change in cms/pages
+  * RTE image CSS applied to news pages
+  * removed mbstring options from htaccess
+  * improved free delivery option support
+  * fixed "browse server" tool in bo/node/content/contact_form
+  * added first_last_class to product_list
+  * added 4columns layout and tweaked margins on 3columns
+  * docs/INSTALL updated for Debian Squeeze 
+  * Debian Squeeze compatibility (goTo renamed to onxshopGoTo, pass by reference,
+    split to preg_split, ereg to preg_match, ereg_replace to preg_replace)
+  * updated product edit teaser RTE with paste plugin 
+
+-- Norbert Laposa <norbert@laposa.co.uk>  2011-05-21
+
+Onxshop (1.4.6)
+  
+  * cleaned opt/ directory
+  * updated database templates using --no-owner pg_dump option
+  * fixed missing email in password_reset template
+  * added fibonacci-1-3, 25%/75% and fibonacci-3-1, 75%/25% into node_layout_style
+
+-- Norbert Laposa <norbert@laposa.co.uk>  2011-04-23
+
+Onxshop (1.4.5)
+  
+  * fixed cheque payment method
+  * updated cz_CZ locale
+  * rewritten taxonomy listing component, changed from dl to table
+  * changed "nothing" string to "n/a" in email log
+  * showing node_group in node update log
+  * add Create Account and Login into userbox, default hidden in CSS
+  * improved /request/ handling to pass through uri_mapping
+  * added pagination and link support to image cycle gallery (image_gallery_smooth)
+  * changed share/image/missing_image.png
+  * fixed support for database conf in common_uri_mapping
+  * remove hardcoded taxonomy label id 12 from default product template
+  * CONF.global.product_detail_image_width changed from 425 to 350
+  * all layout margins set to 15px in CSS, #header, #content and footer made 100%,
+    #primaryNavigation to #content ratio set to fibonacci-1-5
+  * swapped #userbox and #globalNavigation in node/site/default
+  * fixed bug in controllers/tree when displayPermission is used css_class was not properly assigned
+  * new configuration option common_node.conf.id_map-personal_details
+  * added support for multiple taxonomy filter from POST in component/ecommerce/product_list
+  * added {_SERVER.REMOTE_ADDR} and {_SERVER.HTTP_USER_AGENT} to templates/mail/backup_created.html
+  * added <g:id>{VARIETY.sku}</g:id> to export/rss_googlebase
+  * new component/breadcrumb_history
+  * wholesale accounts renamed to trade accounts
+  * added last modified time to product detail under the hood
+  * improved node/content/product_highlights
+  * improved security in image resize processing
+  * component/news_archive and component/news_categories show only published items
+  * added component/news_list_related to node/page/news
+  * new component/news_list_related
+  * implemented local overwrites of global configuration on each node
+  * customer account type  can be changed from bo
+  * customer status can be changed from bo
+  * added product list sort by "created" (by product.id)
+  * added product_type_id_{PRODUCT.product_type_id} CSS class into product detail page
+  * added new line showing discount in orders_breakdown
+  * highlighting disabled campaigns in bo/component/ecommerce/promotion_list
+  * improved userbox component
+  * some improvements in Twitter feed and AJAX option
+  * fixed hiding not published categories
+  * add static Twitter feed to AJAX version
+  * new component/google_pagerank
+  * added media plugin into TinyMCE
+  * TinyMCE upgraded to version 3.4 with hack in advlink.js for Webkit
+  * EditArea in CSS edit replaced by CodeMirror
+  * jQuery Cycle Plugin 2.94
+  * Nivo Slider v2.4
+  * phpPgAdmin-5.0.2
+  * Zend Framework upgraded to version 1.11.3
+  
+-- Norbert Laposa <norbert@laposa.co.uk>  2011-04-01
+
+Onxshop (1.4.4)
+  
+  * added <meta name="viewport" content="width=1024" /> to project_skeleton extra_head
+  * added Privacy Policy page into the template
+  * improved myCustomCleanup in bo/tinymce
+  * changed pictures to square at product_list_shelf
+  * fixed pagination on backoffice/news
+  * changed default blog article date format (removed time)
+  * enabled comments on blog
+  * new GET parameter hide_root for component/taxonomy 
+  * fixed component/image_gallery to support multiple galleries on one page
+  * updated all files heading, renamed author Laposa Solutions Ltd to Laposa Ltd
+  * updated XML schema on sitemap.xml
+  * improvements for different carriers in invoice print template
+  * fixed node/content/menu display_all (expand_all) option
+  * added display_permission support to tree->parseItem (menu)
+  * trade account support
+  * cleaning file title in bo/component/file_add
+  * added new validation data type XML into Xsite.model
+  * jQuery Tools 1.2.5
+  * fixed template - moved Unsubscribe page to parent 90 - docs/database/upgrade-1.4.x-template.sql
+  * added repeat order facility
+  
+ -- Norbert Laposa <norbert@laposa.co.uk>  2011-01-16
+ 
+Onxshop (1.4.3)  
+  
+  * new pre-built common_file contact form - file upload form
+  * added file support to contact forms
+  * Zend Framework upgraded to version 1.11.1
+  * added new common_node.conf[id_map-blog] (protect blog from being deleted)
+  * new Constrain option in image galleries (original, square)
+  * fixed Xsite.controller->parseContentTags() to support multiple GET vars
+  * added protection that Worldpay test order in testMode=100 is cancelled at the end
+  * improved RSS export
+  * improved interface for adding new categories
+  * smooth gallery hooks: beforeSmoothGalleryTransition and afterSmoothGalleryTransition
+  * updated docs/INSTALL with latest Laposa's P002 and P003
+  * basket line VAT is rounded to 5 decimal places
+  * enabled TinyMCE paste plugin (new buttons paste plain text, from Word, select all)
+  * removed outline on links in global.css
+  * improved Node->findHardLinks() function to look for absolute URLs within the site
+  * fixed node/content/file, when using images for download
+  * fixed interface for image edit
+  * new component/news_list, new component/news_list_latest
+  * new bo/component/file, bo/component/file_detail, 
+  * product_list (product_highlights) displays only published varieties
+  * improved common_uri_mapping.to_seo_url() preg_replace_callback expression
+    now URL mapping works correctly with FAQ list, news_archive and news_categories
+  * new node/content/content_list
+  * new component/news_archive, component/news_categories
+  * new locales constant I18N_VIEW_ALL_ARTICLES
+  * node/content/news_list supports "full" and "latest" templates
+  * URL for news/blog changed from /2010-06-11/ to /2010/06/11/
+  * changed order list for comments and reviews to list most recent first
+  * jQuery-UI upgraded to 1.8.6
+  * jQuery upgraded to 1.4.3
+  * TinyMCE upgraded to 3.3.9.2
+  * jQuery Cycle Plugin upgraded to version 2.88
+  * included border-radius.htc
+  * fixed locales for shell environment, so file sort works properly
+  * component/ecommerce/best_buys and component/ecommerce/product_related_to_customer
+    understands "template" GET parameter
+  * updated all files heading
+  * PayPal improvements
+  * promotion code form added to component/ecommerce/checkout_confirm.html
+  * new method in Xsite.model: getTableSize(), showing size in database browse
+  * new optional docs/database/upgrade-1.4.x-royalmail.sql
+  * upgraded calculateWeightZone
+  * default jpeg quality increased from 75% to 80% (common_image.conf.jpeg_quality)
+  * Google AdWords code on payment page (CONFIGURATION.global.google_adwords)
+    
+ -- Norbert Laposa <norbert@laposa.co.uk>  2010-12-05
+ 
+Onxshop (1.4.2)
+  
+  * sending notification to admin after new comment added
+  * added SEO manager backoffice/advanced/seo_manager 
+  * old constant GLOBAL_APP_DIR renamed to GLOBAL_PROJECT_DIR in xsite lib
+  * select Page node_group by default when adding content under Container 
+  * fixed bug when sorting pages and content
+  * removed dedicated image controller from all product lists
+  * added review stars to product shelf
+  * new list|grid view for product list
+  * new method in Xsite.model: executeSql()
+  * added helper class noSecondaryNavigation to site wrapper when secondary navigation is hidden
+  * promotion codes: one limit per user
+  * title link working for all content types
+  * included share/js/PIE.htc
+  * new component bo/component/ecommerce/product_list_by_customer
+  * promotion code list added to reports
+  * improved slider in bo/node/content/picture 
+  * improved create folder and submit file interface in server_browser
+  * contentSide and contentFooter shows only edit icon in FE edit mode 
+  * changed bo/node/content/menu to display unpublished pages
+    
+ -- Norbert Laposa <norbert@laposa.co.uk>  2010-08-30
+ 
+Onxshop (1.4.1)
+  
+  * add extra check if address isn't active before removing from address list
+  * added voucher code net spent and discount given fields into bo/component/ecommerce/promotion_list
+  * secondaryNavigationContainer renamed to containerFour
+  * improved crawler for indexing to not crash on URL containing white space and ignore images
+  * EditArea patched for Safari 5
+  * added require_login checkbox to node edit
+  * header link functionality
+  * TinyMCE upgraded to version 3.3.8
+  * new Google Analytics tracking code
+  * reincarnation of node/file
+  * fixed invalid date in templates (c)1970
+  * added extra security checks to RBS Worldpay callback
+  * new components for checkout wizard
+  * new picture gallery option: Nivo Slider
+  * promotion code made case-insensitive
+  * TinyMCE page menu displays all pages including hidden pages
+  * Zend Framework upgraded to version 1.10.6
+  * fixed font size 10px for printed invoices
+  
+ -- Norbert Laposa <norbert@laposa.co.uk>  2010-07-19
+
+Onxshop (1.4.0)
+
+  * new Reviews&Comments section in backoffice
+  * added new general template block head_once
+  * project skeleton updated
+    - product_type - left only generic items, everything else set to publish = 0
+    - added delivery options to checkout page
+    - added newsletter_subscribe and unsubscribe page
+    - inserted logout component into my-account page
+    - added standard Terms of Use into T&C page
+    - added standard Accessibility policy page
+  * commerce template deprecated, using require_login node attribute instead
+  * customized bo/ecommerce/product_type_list to list only published items
+  * patched jquery.simpletree to work properly in Chrome
+  * basic implementation of Zend_Wildfire (FirePHP)
+  * system containers set to exclude from menu listing i.e. in sitemap
+  * updated component/sitemap to show pages from all navigation containers (root node 0)
+  * added a warning to RTE when hard coded url detected
+  * TinyMCE upgraded to version 3.3.2
+  * Editarea upgraded to version 0.8.2
+  * jquery.jgrowl upgraded to version 1.2.4
+  * jquery.validate upgraded to version 1.7
+  * jquery.form upgraded to version 2.43
+  * jquery UI upgraded to 1.8
+  * jquery edit in place upgraded 
+  * jQuery upgraded to version 1.4.2
+  * jquery.mousewheel upgraded to version 3.0.2
+  * jquery.cycle upgraded to version 2.85
+  * jquery.fancybox upgraded to version 1.3.1
+  * added default time limit 7day and 30day on most popular product calculation (best_buys)
+  * new model/common_taxonomy
+  * bo/component/node_layout renamed to bo/component/node_type_list
+  * conf/node_layout renamed to conf/node_type
+  * deleted secure_html and utils symbolic links from project skeleton
+  * deleted relation_taxonomy_menu, relation_product_in_nodes_menu
+  * deleted node/layout/shared and using only node/content/shared
+  * re-factored all menu components with improved functionality
+  * removed MdTree and ULFromArray, using controller/tree instead
+  * added support for "-editor" user
+  * new product_in_node bo component
+  * new component bo/component/file_list_icon
+  * added $remove_new_lines attribute to html2text function
+  * product edit page improvements
+  * removed multiple product in nodes facility, allow only one and using taxonomy
+  * backoffice price edit UI improvements
+  * added UNIQUE constraint on multiple columns to ecommerce_product_to_product, ecommerce_product_taxonomy,
+    ecommerce_node_taxonomy, ecommerce_product_variety_taxonomy, ecommerce_delivery_carrier_zone_to_country
+  * added new node/content/textile
+  * created a new component bo/component/backup and linked from tools (optionally available)
+  * created new constant ONXSHOP_PACKAGE_NAME (gold, silver and bronze), bronze as default
+    gold and silver allows download whole backup
+  * Xsite rebranded as Onxshop, xsite_dir renamed to onxshop_dir, most of references updated
+  * Zend Framework upgraded to version 1.10.2
+  * improved basket detail component, fixed list of VAT in basket
+  * new ajax basket component
+  * free delivery product code
+  * displaying all files in the file list (not hide files which starts with "_" character)
+  * default CSS improvements
+  * new review product functionality including rating
+  * new way to add page in frontend - refresh menu immediately
+  * product_list and product_highlights supports 2cols ands 3cols
+  * removed node/content/product_list in favour of node/content/product_highlights
+  * graph-success_orders-*.png moved out of files into the /cache folder (excluded for backup)
+  * share/download supports authentication and downloading of files from whole var/ directory
+  * improved the image size slider interface in bo/node/content/picture
+  * created /product/{ID} alias, using in basket
+  * added mandatory weight into product_add_quick
+  * fixed sorting UI for mixed content and layout
+  * added type, status attributes to ecommerce_transaction
+  * added wholesale attribute to ecommerce_product_variety
+  * added name_aka attribute to ecommerce_product (added "Also Known As" to product edit)
+  * added attribute condition (int) to ecommerce_product_variety (new, used, refurbished)
+  * "code" renamed to "sku" in ecommerce_product_variety
+  * "display_in" renamed to "display_in_menu" and type changed to integer in common_node
+  * "node_type" renamed to "node_group", "layout_template" renamed to "node_controller" in common_node
+  * added "priority" and "publish" to common_taxonomy_tree, allows to sort taxonomy
+  * "bruto" renamed to "gross" and "netto" to "net" 
+  * added addslashes for string used in Javascript confirm in file_list
+  * updated Xsite.function msg() to create var/log/messages directory if doesn't exists
+  * visual interface for 2columns and page layout style edit
+  * Fibonacci numbers based layout ratio  (convergence to Golden Ratio 1:1.618), new conf/node_layout_style
+    
+ -- Norbert Laposa <norbert@laposa.co.uk>  2010-05-05
+  
+Xsite (1.3.2)
+
+  * compiled.js
+  * improvements in backoffice/customers
+  * added jQuery Tools Gallery in content/picture + other improvements
+  * integrated reflection for images into TinyMCE
+  * bug fixes and cleaning in export scripts (googlebase, rss_node, zbozi.cz)
+  * bug fixes in drag&drop
+  * bo/component/node_tree_select displays not public items by default
+  * screen width changed from 996 to 984
+  * bo/export/csv_products and bo/export/xml_products
+  * improved search index
+  * simplified product add
+  * jQuery Fancybox Plugin upgraded to version 1.2.6
+  * jQuery Form Plugin upgraded to version 2.34
+  * jQuery Cycle Plugin upgraded to version 2.73
+  
+ -- Norbert Laposa <norbert@laposa.co.uk>  2009-12-02
+  
+Xsite (1.3.1)
+
+  * breadcrumb component improvements
+  * improved popupimage with 100% image width
+  * added URI_SAFE constant into Xtemplate initialization, using it for all component/client forms
+  * reload node edit interface when node_type is changed
+  * added Make Payment button for unpaid orders in order_list and order_detail
+  * fixed product_highlight price line when first variety is not public
+  * HTTP_USER_AGENT in common_session limited to 255 characters
+  * added County/State to registration
+  * show news pages in RTE add link site tree
+  * fixed htaccess remapping for backoffice product section
+  * included more free fonts
+  * integrated pngfix for IE
+  * node/page/product_browse using taxonomy
+  * component/ecommerce/product_list is using taxonomy
+  * fixed taxonomy filter in bo/component/product_list
+  * reorganization of the fe edit interface icons + modes: preview, edit, sort
+  * drag & drop in fe_edit
+  * drag & drop move page and taxonomy item
+  * added breadcrumb for taxonomy and related pages in product edit
+  * added level and display_all options to node/content/menu
+  * free delivery for any carrier if total weight is zero, strict use only gross weight for delivery calc
+  * fulltext search implemented in component/search_indexed with breadcrumb listing
+  * title for menu using description attribute if available
+  * SWFObject removed in favour of jquery.tools.flashembed
+  * jQuery validation plug-in upgraded to version 1.5.5
+  * Zend Framework upgraded to version 1.9.5
+  * TinyMCE upgraded to version 3.2.7
+   
+ -- Norbert Laposa <norbert@laposa.co.uk>  2009-11-02
+  
+Xsite (1.3.0)
+
+  * added require_ssl attribute to common_node
+  * improved CSS integration to support archive.org - compile one screen.css for each stable version 
+  * node_type and layout_template made mandatory
+  * improved backoffice/order_detail page
+  * improved backoffice/stats (reports) section
+  * improved backoffice/marketing section
+  * offering only layout and content node_type in frontend node add dialog
+  * duplicate content functionality in fe_edit (not recursive)
+  * inline frontend node add
+  * jGrowl used for system messages
+  * payment controllers and configuration refactored  
+  * created configuration interface for global constants
+  * added loremipsum plugin to TinyMCE, enabled inlinepopups plugin
+  * make sure container type nodes are not rendered as a link in the menu
+  * default style quotes png made transparent
+  * fixed error message when folder has no write permission (upload failed)
+  * improved backoffice style
+  * new advanced/tool: delete orphaned baskets (made by anonymouse user and older than two weeks)
+  * moved client components from ecommerce (prepare for split Xsite into Xsite CMS and Xsite eCommerce)
+  * removed "body_attributes" attribute from common_node
+  * added publish attribute to ecommerce_product_type (will allow hide unused product types)
+  * added EAN code (European Article Number) and UPC (Universal Product Code)
+  * new attribute "weight" added into ecommerce_delivery
+  * Romania and Bulgaria marked as EU state
+  * added new countries Montenegro and Serbia
+  * jQuery.fancybox
+  * enabled product.url
+  * allowing dash (-) in common_file.nameToSafe()
+  * new controller/component/locale_switcher
+  * new controller/locales
+  * new constant GLOBAL_LOCALE_CURRENCY
+  * jQuery-UI upgraded to version 1.7.2
+  * TinyMCE upgraded to version 3.2.6 jQuery build
+  * XTemplate upgraded to latest SVN (26/08/2009)
+  * Zend Framework upgraded to version 1.9.2
+  * more than one contact forms can be submitted independently on one page
+  * contact_form uses sender's name and email address for email message
+  * new content type node/content/comment
+  * added AddThis button to page/news template
+  * displaying other_data in bo/customer_detail
+  
+ -- Norbert Laposa <norbert@laposa.co.uk>  2009-10-01
+
+Xsite (1.2.2)
+
+  * fixed server browser file overwrite functionality
+  * backoffice interface style and usability improvements
+  * jQuery Growl upgraded to version 1.0.2
+  * preparation for global navigation, REQUIRES: upgrade-1.2.1-to-1.2.2.sql
+  * fixed adding new container to the top level, moving a container to the top level
+  * included famfamfam_flags
+  * component/feed uses Zend_Feed_Reader with the 10 mins cache option and conditional GET
+  * Zend Framework upgraded to version 1.9.1
+  * fixed misspelling in node/layout/2columns
+  * added forgotten opt/jquery/colourpicker
+  * timezone select by locale, currencies symbol printed in templates by locale with money_format('%n',%s)
+  * all price listing is using money_format function depending on locales
+  * flexible form width style
+  * addded ruler to backoffice titles
+  * added <a href="#node_id_{NODE.id}"> to contentTitle and layoutTitle
+  * created Javascript hooks hookNodeEditPreUpdate and hookNodeEditPostUpdate in node edit
+  * new I18N constants I18N_PRODUCT_LIST_SORT_POPULARITY, I18N_PRODUCT_LIST_SORT_PRICE, I18N_PRODUCT_LIST_SORT_NAME + 18 other...
+  * new constants ECOMMERCE_PRODUCT_IMAGE_CYCLE_FX, ECOMMERCE_PRODUCT_IMAGE_CYCLE_EASING,
+    ECOMMERCE_PRODUCT_IMAGE_CYCLE_TIMEOUT, ECOMMERCE_PRODUCT_IMAGE_CYCLE_SPEED
+  * implemented new options into node/content/picture (Photo Gallery): cycle effect, easing, speed and timeout (autoslide) 
+  
+ -- Norbert Laposa <mr@ln5.co.uk>  2009-08-18
+  
+Xsite (1.2.1)
+
+  * added option to change node_type to value "container" directly from node edit
+  * added htmlspecialchars into node edit and product edit titles and description
+  * added best_buys component and page title with customer ID into customer detail page in bo
+  * TinyMCE upgraded to version 3.2.4.1
+  * Zend Framework upgraded to version 1.8.2
+  * added node title, page_title, uri_title into product edit
+    configured passing product teaser to page description if page description is empty
+  * increased image_gallery limit from 10 to 100 in component/ecommerce/product_detail  
+  * fixed misspelling in controller/node/layout/3columns + CSS fixes in xsite.css
+  * added "condition" attribute to Google Base with fixed value "new"
+  * added customer telephone number to invoice and shipping documents
+  * promotion code functionality fixes, added support for fixed value and limit uses_per_coupon
+  * added order id to message subject of new order notification emails
+  * added no cache option to Basket after user login
+  * contact_form works straight after inserting a new node
+  * bug fixes in bo/node/content/contact_form
+  * implemented jQuery colour picker into CSS edit
+  
+ -- Norbert Laposa <mr@ln5.co.uk>  2009-06-22
+  
+Xsite (1.2.0)
+
+  * added "ex VAT" note into basket
+  * added account type filter to customer list
+  * display company detail in backoffice customer detail page
+  * implemented discount codes management in the new Marketing backoffice section
+  * link to order detail page from customer detail page leads to order detail in backoffice instead of frontend
+  * added "Apply for wholesale account" option to the registration form
+  * fixed system locales settings
+  * Editarea upgraded to version 0.8.1.1 with integrated toolbar save button
+  * Zend Framework upgraded to version 1.8.0
+  * Cache is saved only when Xsite_controller->mainAction() returns true (very useful ie when feed download fails)
+  * component/RSS_feed renamed to component/feed, node/RSS to node/feed
+  * component/rss_feed uses Zend/Feed, added support for content attribute from Atom feeds
+  * database prepared for implementing delivery cost maintainance, warehouse accounts,
+    promotional code management and product reviews
+  	requires upgrade-1.1.7-1.2.0.sql
+  * product reviews database prepared for customer's rating
+  * database prepared for better delivery rates management
+  *	new models/ecommerce_delivery_carrier.php, ecommerce_promotion.php, ecommerce_promotion_code.php
+  * added option to node edit: Show At Wholesale Login, Hide At Wholesale Login
+  * fix double node wrapper after node update, ie on largeText 	
+  * implemented jquery.validation for contact, login, registration and comments forms
+  * title_before is marked as mandatory
+  * usage of favicon.ico only
+  * all templates must have only "content" block, other blocks ("title", "head" and "messages") are optional 
+  * lib/xsite/authentication, template1 -> DATABASE_NAME
+  * added class node_id_{NODE.id} into menu_UL items
+  * don't convert htmlspecialchars in Node->nodeDetail function, but in view (templates)
+  * addThisButtons added to node/page/news
+  * fixed pagination list to display correctly selected 5
+  * refactored node_edit
+  * refactored Xsite class
+  * new Xsite.router class
+  * implementation of Zend_Registry (for Xsite HEAD and mailform and image_gallery notify)
+  
+ -- Norbert Laposa <mr@ln5.co.uk>  2009-05-23
+
+Xsite (1.1.7)
+
+  * cache folder changed to var/cache/ in component/RSS_feed
+  * added 8bit depth Image Magick option to bin/convert (affects PNG processing)
+  * new attribute ecommerce_basket.discount_net, 
+    ecommerce_order.promotional_code renamed to ecommerce_order.promotion_code,
+    requires upgrade-1.1.6-1.1.7.sql
+  * new component/ecommerce/promotion_code
+  * included glossy Starfish ecommerce icons
+  * Safari input type search
+  * log messages filename begins with IP address 
+  
+ -- Norbert Laposa <mr@ln5.co.uk>  2009-04-21
+
+Xsite (1.1.6)
+
+  * GLOBAL_XSITE_DIR and GLOBAL_PROJECT_DIR paths autodetection in deployment.php
+  * inline edit for price and variety title in bo/product_list
+  * the only not supported browser for backoffice is IE version lower than 8
+  * better handling of quote characters in menu
+  * cleaned opt/ folder
+  * allow to change node_type and layout_template in node_edit
+  * allow to add layout directly from page defaults
+  * default_advanced page template is hidden by default
+  * nice url records are updated after each page node record is changed
+  * nice URL record is created automatically for a new page
+  * use year-month-date in URLs for news pages
+  * implemented basic node search in backoffice
+  * improved node search to lookup for node ID if query is numeric
+  * news item can be added directly from bo/node/content/news_list
+  * add arrows prev/next into the smooth photo gallery
+  * Generic model class filename renamed to Xsite.model.php and moved into lib/xsite/
+  * COMMON_IMAGE_WIDTH_THUMB constant changed from 100px to 125px
+  * new rules for allowed sizes for thumbnails generation - min 50px, max 800px, step 25px
+    requires upgrade-1.1.5-to-1.1.6.sql
+  * usability improvements all over the board
+  * replacing forward slash characters in title for URI generation
+  * fixed proportion calculation in image_gallery_smooth
+  * fixed open and active status in menu (ULFromArray)
+  * when user doesn't specify node title during creating new node, set attribute to hide title
+  * backoffice products list, orders list and customers list made looking better with no data available
+  * local_exec() function made safer
+  * improved nSite->_explodeRequest() function to use preg_match instead of simple explode by "."
+  * getFlatArrayFromFs() function moved into File object
+  * page_title editable in all nodes (added to bo/component/node_edit)
+    - product titles should be kept short and SEO optimization should be done in product node edit
+  * attribute title added on many places (accessibility improvements)
+  * added accessibility "jump to content" and "jump to menu" to default template
+  * more cleaning options enabled for TinyMCE
+  * added red border around images with link in TinyMCE RTE
+  * PostgreSQL 8.3 related fixes (strict variables types)
+  * fixed bo/ecommerce/orders_breakdown in case there are no data available
+  * UI backoffice theme changed to smoothness
+  * jQuery upgraded to version 1.3.2, jQuery-UI to 1.7.1
+  * ZendFramework upgraded to version 1.7.7
+  * phpMyAdmin upgraded to version 3.1.3
+  * TinyMCE upgraded to version 3.2.2.3
+  * Editarea upgraded to version 0.7.3
+  * default style page size changed to 995px
+  * new component/google_picasa_feed
+  * new component/whois
+  * added #node_id_{GET.node_id} to login, registration, password reset and contact forms
+  
+ -- Norbert Laposa <mr@ln5.co.uk>  2009-03-28
+  
+Xsite (1.1.5)
+
+  * force exit application immediately for commerce pages, when doing forward to SSL
+  * do not cache 401 page and 404 pages
+  * parse published items only in node/product_highlights
+  * bug fixes in file management
+  * login as customer available from bo/customer_detail
+  * default time frame changed from Week to Day in bo/stats pages
+  * added favicon.ico to project skeleton for IE browsers
+  * better icon link titles in frontend edit
+  * phpPgAdmin upgraded to version 4.2.2
+  * new style for Google Analytics initialization and ecommerce tracking
+  * common_uri_mapping support for static 301 redirect rules
+  * updated Generic->deleteAll() function to support WHERE statement
+  * TinyMCE theme_advanced_styles fix
+
+ -- Norbert Laposa <mr@ln5.co.uk>  2009-01-19
+  
+Xsite (1.1.4)
+
+  * Implemented Zend_Cache, new global constant GLOBAL_PAGE_CACHE set default to 24hours
+    Disabled after submitting any POST data, for backoffice users
+    and in controllers: autologin, component/ecommerce/product_list_sorting, (payment callback?)
+  * $ADODB_CACHE_DIR changed to var/cache, new tool flush_cache
+  * Added milisecond from start record to messages, when benchmark is enabled
+  * Zend Framework upgraded to version 1.7.0
+  * TinyMCE upgraded to version 3.2.1.1
+  * enabled automatic forward to WorldPay and ProtX payment gateway (component/ecommerce/payment)
+  * new component ecommerce/delivery_option, to change different provider and to choose gift option
+  * improved orders breakdown
+  * improved bo/order_detail
+  * new components invoice_detail and transaction_details
+  * general CSS improvements
+  * implemented simpleTree to component/tree_select, allow selecting product pages from RTE
+  * new tool for finding hard links
+
+ -- Norbert Laposa <mr@ln5.co.uk>  2008-12-07
+  
+Xsite (1.1.3)
+
+  * articles moved to the news page in project skeleton and global configuration
+  * contact form content edit and frontend template improvements
+  * fixed recently_viewed_products to process only items with valid node_id
+  * improved bo/stats/best_buys, showing number of items sold
+  * fixed missing space before "open" CSS class in menu, removed display_in class
+  * fixed keyword and stock filter in bo/product_list
+  * added filter to bo/blog, improved interface
+  * fixed bo/order_list to reflect GET.customer_id
+  * added option to show customers without any orders in bo/customer_list,
+    added autosubmit after select input value change
+  * show hidden pages in bo/node/menu
+  * hide unpublished contents, added class not_public and highlight it in fe_edit, 
+    fixed highlights to use jQuery
+  * hide menupages in bo/pages before it's fully loaded
+  * add ui-tabs style directly to HTML for node_edit and product_edit, product_variety_edit, 
+    taxonomy_edit, node/component (looks like a tab even Javascript is not loaded)
+  * improved active page detection from URL, in bo/backoffice and bo/pages/advanced
+  * increased row height in forms, fixed size of "Add new content" modal window
+  * fixed margin for UL and OL in global.css
+  * added support for different homepage title in component/breadcrumb
+  * added new subpage button to bo/node/container
+  * added add product shortcut link to page properties edit
+  * fixed Node->getSitemap to add only nodes whose parent is not disabled
+  * new constants COMMON_URI_MAPPING_AND_STRING and locales I18N_AND
+  * fe_edit and backoffice CSS fixes
+  * added title attribute for images
+  * display notification for unsupported browser for all other browsers than Firefox
+  * disabled content/file, content/teaser, content/filter
+  * display content title for a new content
+  * TinyMCE upgraded to version 3.2.0.2
+  * fixed padding for simple-tree
+  * fixed $.ajaxForm integration for node_edit
+  * renamed getFullPath to getFullPathDetail in models/common_uri_mapping
+  
+ -- Norbert Laposa <mr@ln5.co.uk>  2008-10-24
+  
+Xsite (1.1.2)
+
+  * improved project_skeleton
+  * allowed image width select in content/product_highlight + CSS customization for each image width
+  * added notification for IE browsers (version < 8) to backoffice_wrapper
+  * css_edit connected to the media library (relation stored under node_id = 3)
+  * removed last last item from SESSION.active_pages - now contains pages only
+  * new contants GLOBAL_DISPLAY_CONTENT_SIDE, GLOBAL_DISPLAY_CONTENT_FOOT
+  * allow only /node/id and /page/id as general request
+  * added role RTE to file_add and file_edit - allows separate files for products image gallery and description
+  * added log of 404
+  * image gallery improvements
+  * new constant GLOBAL_PRODUCT_IMAGE_GALLERY for choosing of image gallery type for product detail
+  * allowed 600 and 700 pixels image width
+  * stock management for warehouse-user (simplified product management) 
+  * Removed URI backoffice/orders/status/([0-9|all]*)$
+  * Improved user interface for bo/products, bo/orders and bo/customers + filtering and export functionality
+  * Allow "continue edit" or delete "unfinished products"
+  * Improved Generic->delete, updated controllers: ./bo/component/relation_taxonomy.php, ./bo/component/relation_taxonomy.php,
+    ./bo/component/ecommerce/relation_product_related.php, ./bo/component/ecommerce/relation_product_in_nodes.php, 
+    ./bo/component/node_delete.php
+    models: ./ecommerce/ecommerce_basket.php, ./ecommerce/ecommerce_product.php
+  * customers order by spent money and number of orders, CSV export of the result
+  * improved generic forms style, so it looks better in narrow columns 
+  * fixed backoffice logout button
+  * Fixed displaying of MAX_FILE_SIZE for upload
+  * add wrappers to userbox, search, basket, logo, globalNavigation
+  * revealing last open folder in pagetree and server browser_tree (modified ULFromArray as well)
+  * fixed "Wrong key!" error message when SSL was in use
+  * removed duplicates from component/ecommerce/product_related_basket
+  * product_related_basket is passing GET.image_width to product_list, product_list is passing GET.image_width to product_detail
+    node/content/product_highlight has attribute image_width
+  * included forgotten opt/tinymce/jscripts/tiny_mce/tiny_mce_popup_local.js
+  * updated common_email_form->sendMail function
+  * simplified templates for inserting a new product
+  * new controller bo/pages/ecommerce/product_variety_edit.php (fixed "back to product product link" and title)
+  
+ -- Norbert Laposa <mr@ln5.co.uk>  2008-10-12
+  
+Xsite (1.1.1)
+
+  * phpPgAdmin upgraded to version 4.2.1
+  * included LICENSE.txt file
+  * added customer sessions button to backoffice customer detail page
+  * fixed link for product in product_list_optimized, add check and forward on product detail page
+  * Google Sitemap and Google Base improvements, added /sitemap.xml alias
+  * new constant CMS_SYSTEMMENU_ID, forbid delete for all menu IDs in controllers/bo/node_delete
+  * Codepress changed to Editarea
+  * disabled node/content/product_list (use node/content/product_highlight instead)
+  * new backoffice icons
+  * improvements in export/rss_node
+  * Tidy validation for xhtml content (Generic->validation())
+  * added exception for controller/layout in Xsite.php (line 183)
+    layout controller is different than others, it caused double content in HEAD
+  * make file id valid in media library (= caused problems)
+  * fixed nSite->parseContentTags function to not assign double content
+  * component/export/rss_node show pages only
+  * jQuery in action
+  * changed direction of arrow for popularity in component/ecommerce/product_list_sorting
+  
+ -- Norbert Laposa <mr@ln5.co.uk>  2008-09-29
+  
+Xsite (1.1.0)
+
+  * default database cache (GLOBAL_ADODB_CACHE_TIMEOUT) increased from 600s to 3600s
+  * new component/ecommerce/product_list_sorting
+  * sys/page component removed from project_skeleton/404, added in common_uri_mapping instead
+  * assing values for CUSTOMER_FIRST_NAME, CUSTOMER_LAST_NAME, CUSTOMER_EMAIL
+    for logged in user in controller/node - this constants can be used in any node content
+  * new method $Bootstrap->initPreAction, call this method for autologin
+  * new component/autologin
+  * new component/ecommerce/best_buys (best & worst selling products)
+  * phpMyAdmin upgraded to version 2.11.8.1
+  * allow file overwrite in media library
+  * display more image details in product_edit, product_variety_edit, node_edit, taxonomy_edit
+  * new constants COMMON_NODE_LAYOUT_LAYOUT_STYLE, COMMON_NODE_PAGE_LAYOUT_STYLE
+  * highlight new content container onmouseover in fe edit
+  * new constant ECOMMERCE_INVOICE_RETURN_ADDRESS
+  * display EXIF info with ImageMagick/identify in controller/bo/file_info
+  * Codepress upgraded to version 0.9.6
+  * Switched to Zend/Mail, removed phpmailer
+  * added support for more backoffice (database) users
+  * refresh cache icon into fe_edit
+  * upgrade TinyMCE to version 3.1.1
+  * Xsite->parseContentTagsBefore(), Xsite->parseContentTagsAfter(), use in bo/component/node_edit
+  * XTemplate upgraded to v 0.4/svn (change XSITE_REQUEST:name to XSITE_REQUEST_name)
+  * new constants CMS_GLOBALMENU_ID, CMS_MAINMENU_ID, CMS_FOOTERMENU_ID
+  * include customer email and telephone in order notify emails
+  * added attribute product_type_id to ecommerce_basket_content
+  * orders_breakdown component
+  * allow 300px images in form_file
+  * process controller after tpl->assign in layout.php (all controllers must have template now!)
+  * fix protx gateway on PHP5
+  * add display_title display option to all nodes
+  * highlight display_permission in edit mode
+  * allow delete in child list, mark unpublished items
+  * bo/page/news - add page_title
+  * GLOBAL_DEBUG_FILE - var/log/messages/{SESSION_ID}.log, display in advance/logs
+  * added has_child class to menu
+  * new atributes css_class, layout_style, component, relations, display_title
+  * separation of pages and component in bo/ folder
+  * allow delete unused items and empty folders in media library, display relations directly
+  * bootstrap->processActionCached()
+  * removed opt/Compact - now on PHP5 only support
+  * moved lib/xsite/
+  * Included lib/ZendFramework 1.5.2
+  * display delivery note on invoice
+  * don't store other_data in invoice
+  * display customer password in user prefs
+  * change component_data to node_data[other_data] in news controller and NodeEdit.class
+  * removed component.template from bo/RTE and bo/news
+  * fix function Node->getParentPageId
+  * added twenty-eighty page style into CSS
+  * bo/product_list: make 2cols, make page filtering working
+  * product_related - display only published products
+  * Common_node->search() only in published nodes
+  * remove unused attribute brand_id from ecommerce_product
+  * update login functions to use md5 passwords
+  * Client autologin (remember me) functionality in login/logout controllers
+  * rename and improve ClientCustomer->checkEmail() to ClientCustomer->checkLoginId()
+  * set return values for Generic->set()
+  * check login ID in the first step of registration process
+  * new component ecommerce/recently_viewed_products
+  * new component ecommerce/product_related_basket
+  * improved pagination to use GLOBAL_PAGINATION_LIMIT_PER_PAGE, GLOBAL_PAGINATION_OPTION_SHOW_ALL
+    and GLOBAL_PAGINATION_OPTION_PER_PAGE
+  * modify Xsite.class to use parse_str in function _explodeRequest() - allows using arrays in GET
+  * new component product_list_in_node_optimized
+  * component product_list, separated to core product_list and product_list_in_node
+    requires changes in template product_browse, use product_list_in_node instead of product_list component
+  * storing node_id in $_SESSION['history']
+  * renamed .htaccess to htaccess, update project_skeleton
+  * use SERVER.HTTP_HOST instead of hardcoded URL in export/xml_zbozi, added DUES
+  * removed ?> from end of PHP scripts
+  * new templates for frontend and backoffice
+  * removed auto association of page_title from lib/NodeEdit to page controllers
+  * set newsletter to 0 in models/client_customer.php if variable is empty (avoid null)
+
+ -- Norbert Laposa <mr@ln5.co.uk>  2008-08-24
+
+Xsite (1.0.5)
+
+  * new constant GLOBAL_PRODUCT_LIST_PER_PAGE
+  * fix .htaccess for cms/edit (pass GET.id)
+  * use AJAX for node_delete
+  * updated lib/class.html2text.php
+  * removed "Add new subpage" in EditMode
+  * renamed twoColPage -> twoColumnPage
+  * renamed oneColLayout -> oneColumnLayout, twoColLayout -> twoColumnLayout,
+    threeColLayout -> threeColumnLayout
+  * change DB_7corenodes to use default templates instead of with_navigation
+  * display teaser_image in news_list only if exist
+  * added xsite_ecommerce.css to screen.css in project_skeleton
+  * change BO_USE_HTTPS to false in project_skeleton
+  * added div "top" and "bottom" to product_detail
+  * export/xml/zbozi
+  * component/newsletter_unsubscribe
+  * new function Client->newsletterUnSubscribe()
+  * improved Client->loginByEmail()
+  * added page class to all element in page templates
+  * added layout class to all element in layout templates
+  * lib/authentication, using ID 1000 if user id not found
+  * show COMMON_SESSION_TTL in bo/logs
+  * added hint in node move
+  * distinguish not public products in node/content/product_highlight
+  * lipsum in empty node/content/RTE
+
+ -- Norbert Laposa <mr@ln5.co.uk>  2007-11-19
+
+Xsite (1.0.4)
+
+  * Renamed contentWrap->contentWrapper, columnWrap->columnWrapper
+  * Renamed contentFoot->contentFooter, contentFootWrapper->contentFooterWrapper
+  * Added globalNavigation to node/site/default
+  * Improved template/css for node_add and contact_form
+  * Improved htmlspecialchars to use ENT_QUOTES and UTF-8
+  * New localization constant I18N_OUT_OF_STOCK
+  * Change pagination to display either all sessions or active only, this
+    makes user tracking more usable
+  * Removed page/with_navigation from layout list
+  * Changed menu option to display_all=0 in all page templates
+  * Added strip_tags to teaser in ULFromArray.class.php
+  * Improved component/fortunes template to inherit quote
+  * Added show_all option to product_list
+  * Added xsite_dir link and all other symbolic links point to it
+  * Removed --update option from project.rsync
+  * share/images/thumbnail.php is processing only MIME type "image"
+  * Node Edit is using AJAX
+  * node/content/RSS  is using Ajax
+  * RSS_feed template/css improvements
+  * Interface improvements in product page edit (bo/node/page/product)
+  * Improved bo/node/content/file
+  * Updated pagination in bo/logs
+  * New bo/export/newsletter.php
+  * Added class "text title" to all node edit title input fields
+  * phpMyAdmin upgraded to version 2.11.1
+  * SmoothGallery upgraded to version 2.0
+  * Addodb upgraded to 4.95a
+
+ -- Norbert Laposa <mr@ln5.co.uk>  2007-10-07
+
+Xsite (1.0.3)
+
+  * Read content of xsite_version file on the flight
+  * Updated opt/phppgadmin to version 4.1.3
+  * Files renamed and removed in docs/, templates/, controllers/
+  * Add support for server relative path into node/content/RSS.php
+  * Change test of symlink from -a to -h in utils/project.relink
+  * Default CSS/template and backoffice CSS update
+  * Problem with stealing of messages between controllers
+  	Removed messages block from basket_detail.html and address.html
+  * Added option_show_all, option_per_page to component/pagination
+  * Added "show all" button to pagination in database browse
+  * $order_data['basket']['total_goods_netto'] calculation correction
+  * Added money_format for "total" and "vat" in basket_detail controller
+  * Use parent id if we are adding a new page in bo/pages.php
+  * New button for  Add new Subpage from edit mode
+  * Fix page_builder
+  * Improved node delete, Xsite.bootstrap
+  * Add class twenty-eighty, eighty-twenty
+  * Split default/xsite.css and default/xsite_ecommerce.css
+  * Change common_uri_mapping.generateURITable() and nameToSafe()
+    to use recodeUTF8ToAscii() function from Xsite.functions.php
+  * Fix shared content tree menu
+
+ -- Norbert Laposa <mr@ln5.co.uk>  2007-08-09
+
+Xsite (1.0.2)
+
+  * Fixed homepagetitle bug
+  * Use IMAGE_PRODUCT_WIDTH constant in gallery (templates/image.html)
+  * Change customer_note to note_customer in checkout.html
+  * Reflect payment gateways setting in checkout.html
+  * Fix VAT exempt on delivery in models/ecommerce_order
+  * Added delivery logo to the invoice
+  * Added columnWrap to the node/layout/
+  * Default CSS improvements
+  * Added customer detail to the backoffice order detail
+  * Use weight_bruto for delivery cost calculation
+  * Bug fixes in comments component
+  * Fix advanced/logs filter
+  * disabled export of serialised and xhtml types into CSV
+
+ -- Norbert Laposa <mr@ln5.co.uk>  2007-07-23
+
+Xsite (1.0.1)
+
+  * Added pagination to database browse.
+  * Removed serialisation on content/RTE, page/news.
+  * Removed unused directory node/content/_RTE.
+  * Change sequence id in docs/database/DB_7CORE_NODES.sql to 1000.
+    First 1000 nodes is reserved for system nodes.
+  * Node Edit UI improvements.
+  * Fix pagination on content/news_list.
+  * Fix comments.
+  * Added opt/phpicalendar.
+  * Added description of node type to all item's name in bo/node_parent_menu.php.
+  * Some sanity checks in models/ecommerce/ecommerce_invoice.php 
+    and models/ecommerce/ecommerce_order.php.
+  * Improvements of default CSS.
+  * Added global xsite template variable CONFIGURATION into Xsite.php.
+  * Implemented Google analytics into configuration.
+  * Update local_exec() function to try XSITE_PROJECT_DIR/bin/ folder first.
+  * Added opt/phpmyadmin
+  * Added share/css/tinymce.css
+  * Template/CSS changes on page/news and content/news_list
+  * Added SmoothGallery
+  * New tool for clearing of the temp directory
+  * Added description textarea into form_file
+  * Added component/image_gallery_smooth
+  * Updates to node_layout config and controller, allow local ovewrites of global conf,
+    already selected template show in template list even if is disabled in conf
+  * The mainNavigation renamed to primaryNavigation in node/site/default.html
+  * Product image has been added to basket_edit
+  * Add htmlspecialchars on title,pagetitle,body_attributes to Node->nodeDetail() 
+    function in models/common_node.php and NodeEdit->save() in NodeEdit.class.php
+  * Partly fixed sorting in controllers/node/content/news_list.php 
+  * New node/content/HTML (pure HTML)
+
+ -- Norbert Laposa <mr@ln5.co.uk>  2007-07-08
+
+Xsite (1.0.0)
+
+  * Initial release.
+  	Version 1 codename is Bender.
+
+ -- Norbert Laposa <mr@ln5.co.uk>  2007-06-14

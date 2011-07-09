@@ -1,0 +1,61 @@
+<!-- BEGIN: content -->
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+
+<div id="priceList{GET.product_variety_id}">
+	<script type="text/javascript">
+	$(document).ready(function(){
+		/**
+		 * attach click event for price add
+		 */
+		 
+		$('div.price_list a.button').click(function () {
+			
+			$('#priceEdit{GET.product_variety_id}').load('/request/bo/component/ecommerce/price_add~product_variety_id={GET.product_variety_id}~', '', 
+				function() {
+					/**
+					 * ajax form
+					 */
+					 
+					var options = { 
+						target: '#price_add_form_{GET.product_variety_id}',
+						success: function(responseText, statusText) {
+							$('#priceList{GET.product_variety_id}').load('/request/bo/component/ecommerce/price_list~product_variety_id={GET.product_variety_id}~');
+						}
+					}; 
+			
+			    	$('#price_add_form_{GET.product_variety_id}').ajaxForm(options);
+			    	
+				}
+			);
+			
+			return false;
+			
+		});
+	});
+	</script>
+	
+	<table class="price">
+		<thead>
+			<tr>
+				<th>date</th>
+				<th>net value</th>
+				<th title="how many times added to basket">usage</th>
+			</tr>
+		</thead>
+		<tbody>
+			<!-- BEGIN: item -->
+			<tr>
+				<td>{ITEM.date}</td>
+				<td>{ITEM.value|number_format(%s, 2)} {ITEM.currency_code}</td>
+				<td>{ITEM.usage}</td>
+			</tr>
+			<!-- END: item -->
+		</tbody>
+	</table>
+	
+	<p><a class="button add" href="#add_price"><span>Add a new price ...</span></a></p>
+	<div id="priceEdit{GET.product_variety_id}"></div>
+
+</div>
+			
+<!-- END: content -->

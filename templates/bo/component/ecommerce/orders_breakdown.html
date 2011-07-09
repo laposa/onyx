@@ -1,0 +1,80 @@
+<!-- BEGIN: content -->
+
+<div class="orders_brakedown">
+<div class="twoColumnLayout layout fibonacci-1-1">
+	<div class="layoutWrapper">
+		<div class="top"><span></span></div>
+		<div class="layoutContent">
+			<div class="layoutContentWrapper">
+				<h2 class="layoutTitle"><span>Sales breakdown report</span></h2>
+				<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+				
+				<!-- BEGIN: result -->
+				
+				<div class="layoutColumnOne">
+					<div class="layoutColumnWrapper">
+						
+						<table>
+							<caption>Sales of goods, delivery and VAT in {CONFIGURATION.global.default_currency}</caption>
+							<thead>
+								<tr><th>&nbsp;</th><th class="money">Value</th><th class="money">VAT</th><th class="money">&nbsp;</th></tr>
+							</thead>
+							<tbody>
+								<!-- BEGIN: type -->
+								<tr><td>{GOODS_TYPE.name}</td><td class="money">{GOODS_TYPE.net|money_format('%n', %s)}</td><td class="money">{GOODS_TYPE.vat|money_format('%n', %s)}</td><td></td></tr>
+								<!-- END: type -->
+								<!--<tr><td>Total</td><td class="money">{GOODS.total.net|money_format('%n', %s)}</td><td class="money">{GOODS.total.vat|money_format('%n', %s)}</td><td></td></tr>-->
+								<tr><td>Payment Discount</td><td class="money">({GOODS.discount.net|money_format('%n', %s)})</td><td style="text-align: center;">-</td><td></td></tr>
+								<!--<tr><td>Goods</td><td class="money">{GOODS.charged.net|money_format('%n', %s)}</td><td class="money">{GOODS.charged.vat|money_format('%n', %s)}</td><td class="money">{CHARGED.sum.goods|money_format('%n', %s)}</td></tr>-->
+								<tr><td>Delivery VAT exempt</td><td class="money">{DELIVERY.vat_exempt|money_format('%n', %s)}</td><td style="text-align: center;">-</td><td class="money"></td></tr>
+								<tr><td>Delivery</td><td class="money">{DELIVERY.net|money_format('%n', %s)}</td><td class="money">{DELIVERY.vat|money_format('%n', %s)}</td><td class="money"></td></tr>
+							</tbody>
+							<tfoot>
+								<tr>
+									<td>Total</td>
+									<td class="money">{CHARGED.net.total|money_format('%n', %s)}</td>
+									<td class="money">{CHARGED.vat.total|money_format('%n', %s)}</td>
+									<td class="money">
+										{CHARGED.sum.total|money_format('%n', %s)}
+									</td>
+								</tr>
+								<tr>
+									<td>Check</td>
+									<td class="money" colspan="2">
+										(transaction table)<br />
+										(invoice table)
+									</td>
+									<td class="money">
+										{CHECK.worldpay|money_format('%n', %s)}<br />
+										{CHECK.invoice|money_format('%n', %s)}
+									</td>
+								</tr>
+							</tfoot>
+						</table>
+						
+						<!-- <p>CHECK: VAT invoiced for goods: {VAT_GOODS} {CONFIGURATION.global.default_currency}</p>-->
+
+						
+					</div>
+				</div>
+				
+				<div class="layoutColumnTwo">
+					<div class="layoutColumnWrapper">
+					
+												
+					</div>
+				</div>
+				
+				<!-- END: result -->
+			
+			</div>
+		</div>
+		
+		<div class="bottom"><span></span></div>
+	</div>
+</div>
+</div>
+
+
+
+<!-- END: content -->

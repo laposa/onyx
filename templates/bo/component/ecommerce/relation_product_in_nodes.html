@@ -1,0 +1,27 @@
+<!-- BEGIN: content -->
+<!-- BEGIN: multiple -->
+<script type="text/javascript">
+/* <![CDATA[ */
+$(function() {
+	$('div.multiple_pages a.delete').live('click', function() {
+		var child_id = $(this).attr('href').replace('#','');;
+		$('#dialog').addClass('ajaxLoad').load('/request/bo/component/node_delete~id='+child_id+':delete=1~', function() {$(this).removeClass('ajaxLoad');});
+		$('#dialog').dialog({width: 500, modal: true, overlay: {opacity: 0.5, background: 'black'}});
+		$('#dialog').dialog('open');
+		return false;
+	});
+});
+/* ]]> */
+</script>
+
+<div class="multiple_pages">
+	<h2>Multiple pages assigned - please fix</h2>
+	<p>This item is related to more then one pages. Please make sure you populate appropriate categories and then remove the following items.</p>
+	<!-- BEGIN:item -->
+	<div id="node_id_{ITEM.id}">
+		<div style="padding-bottom: 2em;" {ITEM.class}>{BREADCRUMB} <a class="button delete" href="#{ITEM.id}"><span>remove</span></a></div>
+	</div>
+	<!-- END:item -->
+</div>
+<!-- END: multiple -->
+<!-- END: content -->

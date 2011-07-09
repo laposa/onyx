@@ -1,0 +1,22 @@
+<!-- BEGIN: content -->
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+
+<div class="products_by_customer">
+	<table>
+		<thead>
+			<tr>
+				<th>Product name</th>
+				<th>Items</th>
+			</tr>
+		</thead>
+		<tbody>
+			<!-- BEGIN: item -->
+				<tr>
+					<td><a href="/product/{ITEM.product_id}">{ITEM.product_name} / {ITEM.variety_name}</a></td>
+					<td>{ITEM.count}</td>
+				</tr>
+			<!-- END: item -->
+		</tbody>
+	</table>
+</div>
+<!-- END: content -->

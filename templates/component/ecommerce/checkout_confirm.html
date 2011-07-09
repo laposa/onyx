@@ -1,0 +1,76 @@
+<!-- BEGIN: content -->
+<script type="text/javascript">  
+$(function(){  
+	$("#checkout_form").validate();
+});
+</script>
+<style type="text/css">
+div.checkout div.gift_options {float: left;}
+form.checkout div.submit {float: none; width: 100%;}
+form.checkout div.submit a.previous {float: left;}
+</style>
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<div class="checkout">
+	
+	<div class="twoColumnLayout">
+		<div class="layoutColumnOne">
+			<div class="gift_options">
+				<!-- BEGIN: gift_message -->
+				<div class="gift_message">
+					<h3>Gift Message</h3>
+					<p>{GIFT_MESSAGE|htmlspecialchars|nl2br}</p>
+				</div>
+				<!-- END: gift_message -->
+				<!-- BEGIN: gift --><p>We will not include details of prices with delivery.</p><!-- END: gift -->
+			</div>
+	
+			{ONXSHOP_REQUEST_promotion_code #component/ecommerce/promotion_code}
+		</div>
+		<div class="layoutColumnTwo">
+			{ONXSHOP_REQUEST_address #component/ecommerce/checkout_confirm_address}
+		</div>
+	</div>
+	
+	<form class="checkout twoColumns" action="{URI}#node_id_{GET.node_id}" method="post" id="checkout_form">	
+		
+		<fieldset class="other_options">
+			<div class="row note_customer">
+				<span class="label"><label for="order-note_customer">{I18N_ORDER_CUSTOMER_NOTE}
+</label></span>
+				<span class="field">
+					<textarea class="note_customer" id="order-note_customer" name="order[note_customer]" rows="10" cols="50">{ORDER.note_customer|htmlspecialchars}</textarea>
+				</span>
+			</div>
+			<div class="row order-payment_type">
+				<span class="label"><label for="order-payment_type">{I18N_PLEASE_CHOOSE}</label></span>
+				<span class="field">
+				<select name="order[payment_type]" id="order-payment_type">
+					<!-- BEGIN: protx --><option value="protx">Pay By Credit Card</option><!-- END: protx -->
+					<!-- BEGIN: worldpay --><option value="worldpay">Pay By Credit Card</option><!-- END: worldpay -->
+					<!-- BEGIN: paypal --><option value="paypal">Pay By Paypal</option><!-- END: paypal -->
+					<!-- BEGIN: cheque --><option value="cheque">Pay By Cheque</option><!-- END: cheque -->
+				</select>
+				</span>
+			</div>
+		
+			<div class="row terms_agreed">
+				
+			</div>
+	
+		</fieldset>
+	
+		<div class="row submit">
+			<a class="button previous" href="/page/{NODE_CONF.id_map-checkout_gift}"><span>Back to Gift Options</span></a>
+			<div style="float: right">
+				<input class="required checkbox" type="checkbox" name="order_terms_agreed" id="order_terms_agreed" />
+				<label for="order_terms_agreed">{I18N_BY_CLICKING_CONFIRM} <a href="/page/{NODE_CONF.id_map-terms}" target="_blank">{I18N_TERMS_AND_CONDITIONS}</a></label>
+				<button class='confirm_order' type="submit" name="submit" value="submit"><span>{I18N_CONFIRM_ORDER}</span></button>
+			</div>
+		</div>
+		
+		<input type="hidden" name="confirm" value="1" />
+		<input type="hidden" name="order[other_data][gift]" value="{GIFT}" />
+		<input type="hidden" name="order[other_data][gift_message]" value="{GIFT_MESSAGE|htmlspecialchars}" />
+	</form>
+</div>
+<!-- END: content -->

@@ -1,0 +1,23 @@
+<!-- BEGIN: head_once -->
+<script type="text/javascript" src="/share/js/jquery/plugins/jquery.fancybox.js"></script>
+<link rel="stylesheet" href="/share/themes/jquery.fancybox/jquery.fancybox.css" type="text/css" media="screen" />
+<!-- END: head_once -->
+<!-- BEGIN: content -->
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("a.single_image{GET.relation}{GET.node_id}").fancybox({
+			'hideOnContentClick': true,
+			'zoomSpeedIn': 300, 
+			'zoomSpeedOut': 300,
+			'overlayOpacity': 0.9,
+			'padding': 70
+		});
+	}); 
+</script>
+	
+<div class="image_gallery_fancybox">
+	<!-- BEGIN: item -->
+	<div class="item image_id_{GET.relation}{ITEM.id}"><span class="imageWrap"><a class="single_image{GET.relation}{GET.node_id}" rel="single_image{GET.relation}{GET.node_id}" title="{ITEM.title|htmlspecialchars}" href="/thumbnail/600/{ITEM.src}"><img id="image_id_{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}" /></a></span></div>
+	<!-- END: item -->
+</div>
+<!-- END: content -->

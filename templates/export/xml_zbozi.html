@@ -1,0 +1,19 @@
+<!-- BEGIN: content --><?xml version="1.0" encoding="utf-8"?>
+<SHOP>
+<!-- BEGIN: item -->
+	<SHOPITEM>
+		<PRODUCT>{PRODUCT.name|htmlspecialchars|xmlentities}</PRODUCT>
+		<DESCRIPTION>{PRODUCT.description|htmlspecialchars|xmlentities}</DESCRIPTION>
+		<URL>{PRODUCT.url}</URL>
+		<IMGURL>{IMAGE_PRODUCT}</IMGURL>
+		<PRICE>{PRICE.common.value|number_format(%s, 2)}</PRICE>
+		<PRICEVAT>{PRICE.common.value|number_format(%s, 2)}</PRICEVAT>
+		<VAT>{VARIETY.price.CZK.price.vat|number_format(%s, 2)}</VAT>
+		<DUES>0</DUES>
+		<SHOP_DEPOTS>{VARIETY.stock}</SHOP_DEPOTS>
+		<AVAILIBILITY>168</AVAILIBILITY>
+	</SHOPITEM>
+<!-- END: item -->
+
+</SHOP>
+<!-- END: content -->

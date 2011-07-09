@@ -1,0 +1,104 @@
+/**
+ * Brown colour theme
+ * Author: Norbert @ Laposa Ltd, 2009/09/21
+ *
+ */
+ 
+body {	background: #d8e8c2;}
+body, p, li {color: #575757;}
+
+
+legend {color: #1983bf;}
+
+textarea {border: 1px solid #808080;}
+
+input.text,
+select {border: 1px solid #808080;}
+
+input:focus,
+textarea:focus {background: #ffc;}
+
+table {border-collapse: collapse;}
+
+
+th,
+td {border-bottom: 1px solid #ccc; }
+
+a {color: #666;}
+a:hover {color: #ff7e00;}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+caption {color: #57401e;}
+
+hr {color: #ffffff;}
+
+#header {background: #debc85;}
+
+#header div.top,
+#header div.bottom {background: #75511A;}
+#header div.top {background: #b3925d}
+#header div.content div.top,
+#header div.content div.bottom {background: transparent;}
+	
+#logo a {color: #75511a;}
+
+#userbox a {color: white;}
+#primaryNavigation ul li {background: #d8e8c2; border-bottom: 1px white solid;}
+#primaryNavigation ul li a {color: #75511a;}
+#primaryNavigation ul li a:hover {color: #ffffff; background: #75511a;}
+#primaryNavigation ul ul li {background: #f1f1f1;}
+
+#primaryNavigation ul ul li a {background: none;}
+
+
+#footerNavigation {background: #75511A
+}
+
+	
+#footerNavigation ul li {border-right: 1px solid white; background: none;}
+#footerNavigation ul a {color: white;}
+
+#footerNavigation ul a:hover {color: #ff7e00;}
+
+#copyright p, 
+#credit p, 
+#copyright a, 
+#credit a {color: #75511a;}
+
+
+#secondaryNavigation ul, div.menu ul {background: #fff;}
+
+#secondaryNavigation ul li,
+div.menu ul li {background: #fff; border-bottom: 1px white solid;}
+
+#secondaryNavigation ul li a:hover, 
+div.menu ul li a:hover {background: #f0f0f0;}
+
+div.content-RTE em, 
+div.content-RTE strong {color: #575757;}
+
+div.divider {background: #dadada;}
+
+div.rssFeed div.item.odd {background: #f0f0f0;}
+div.rssFeed div.item.even {background: #f8f8f8;}
+
+div.pagination li a.active {border-color: #CCCCCC;}
+
+ul.comment li {border: solid 1px #3D82AD;}
+
+ul.comment div.item div.content {background: #f0f0f0;}
+
+div.product_detail h3 span {color: #0057ae;}
+div.product_detail div.product_radio form div.varieties_list div.content {background: #f1f1f1;}
+div.product_detail div.product_normal div.highlight div.text {color: #5eacda;}
+
+div.product_detail div.product_radio form div.varieties_list div.variety:hover {background: #dcdcdc;}
+
+span.price {color: #990000;}
+
+

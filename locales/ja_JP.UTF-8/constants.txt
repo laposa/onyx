@@ -1,0 +1,239 @@
+//node/page/news.html
+Posted on
+by
+Back to the list
+//node/page/product.html
+At a glance
+Ask our experts
+Recommend to a friend
+//site/defaults.html
+//component/searchbox.html
+Search
+//component/breadcrumb.html
+Home
+//component/breadcrumb_product.html
+Display products in category
+//component/comment.html
+Comments
+Add A New Comment
+Add a comment
+close
+Subject
+Name
+Email
+Website
+
+Text
+Send
+//component/contact_form.html
+//node/content/_contact_from/
+Contact form
+Title
+First Name
+Last Name
+Company
+Address
+City
+Postal Code
+Country
+Email
+Tel
+Fax
+Your Message
+Submit
+Your Name
+//component/discussion.html
+add new topic
+//component/comment_UL.html
+Reply To This Comment
+Author
+Created
+
+//component/pagination.html
+previous
+next
+Show All
+Items
+//component/ecommerce/address.html
+Delivery Address
+change
+Billing Address
+//component/ecommerce/address_edit.html
+Address List
+use this
+Remove
+Add a new addresses
+Recipient Name
+Address Line 1
+Address Line 2
+Address Line 3
+City
+Post Code
+County/State
+State
+Add New Address
+//component/ecommerce/basket.html
+Basket
+Your basket is empty.
+Checkout
+//component/ecommerce/basket_detail.html
+//component/ecommerce/basket_edit.html
+Your order summary
+Product detail
+QTY
+Price
+Total
+VAT
+Sub Total
+Delivery
+Your basket is empty.
+Discount
+//component/ecommerce/basket_edit.html
+Remove
+Update
+Checkout
+Continue Shopping
+//component/ecommerce/checkout.html
+Please read about our 
+Delivery
+I agree with the
+Terms &amp; Conditions
+Confirm Order
+Please enter any special or additional delivery instructions in the box below
+//component/ecommerce/checkout_basket.html
+Edit basket
+//component/ecommerce/invoice.html
+Invoice Number
+Order Reference Number
+Billing Date
+Other
+//component/ecommerce/invoice_proforma.html
+PROFORMA INVOICE
+This order is still unpaid!
+//component/ecommerce/login.html
+Existing customer
+Your email
+Your password
+Remember me
+Submit
+//component/ecommerce/order_detail.html
+Order
+created
+Print Invoice
+Print Proforma Invoice
+Other Details
+//component/ecommerce/orders.html
+Your order summary
+Displayed below are your orders with us:
+Order ID
+Date &amp; Time
+Order Total
+Items
+Status
+You have no orders.
+//component/ecommerce/password_reminder.html
+//component/ecommerce/password_reset.html
+Please enter your email and we will email it to you.
+Password reminder
+Your email
+Submit
+Thank you. Will we send you an email shortly with your password.
+//component/ecommerce/password_reset.html
+Password reset
+A message has been sent to
+, please check your email.
+A new password for
+has now been generated and has been emailed to you.
+//component/ecommerce/payment.html
+Enter Payment Details
+Enter Payment Details
+Enter Payment Details
+Payment by cheque
+Please print this page and sent it with cheque to
+print
+//component/ecommerce/payment_failure.html
+payment failed!
+//component/ecommerce/price.html
+was
+//component/ecommerce/product_detail.html
+Payment by cheque only. Please complete your order online and we will provide you with a printable order summary, an order reference and details of where to send your cheque.
+Add To Basket
+More&nbsp;Details
+From
+for
+Temporarily Out of Stock
+//component/ecommerce/product_options.html
+Select a
+//component/ecommerce/product_related.html
+Customers who purchased this product also bought the following
+We suggest the following
+//component/ecommerce/registration.html
+Personal details
+Title
+First name
+Last name
+Email
+Telephone
+Choose your password
+Password
+Confirm Password
+Company details
+Company Name
+VAT no.
+Account details
+Sign up to our \'Free\' Newsletter
+Prefered currency
+Create Account
+Apply for wholesale account
+//component/ecommerce/registration_start.html
+New customer
+Your email:
+Submit
+//component/client/newsletter_subscribe_start.html
+Sign Up
+//component/ecommerce/user_prefs.html
+Change password
+Current password:
+New password:
+New password repeat:
+Save
+//component/ecommerce/userbox.html
+My Account
+Logged in as
+My Account
+Logout
+
+//conf/ecommerce_price.php
+inc VAT
+ex VAT
+
+//conf/common_uri_mapping.php
+and
+
+//component/ecommerce/product_list_sorting.html
+Popularity
+Price
+Name
+
+//component/ecommerce/product_list_sorting.php
+//popularity
+Click to sort by popularity High-Low
+Sorted by popularity Low-High
+Click to sort by popularity Low-High
+Sorted by popularity High-Low
+Click to sort by price Low-High
+Click to sort by name A-Z
+//price
+Click to sort by price High-Low
+Sorted by price Low-High
+Click to sort by price Low-High
+Sorted by price High-Low
+Click to sort by popularity Most-Least
+Click to sort by name A-Z
+//name
+Click to sort by name Z-A
+Sorted by name A-Z
+Click to sort by name A-Z
+Sorted by name Z-A
+Click to sort by popularity Most-Least
+Click to sort by price Low-High

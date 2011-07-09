@@ -1,0 +1,33 @@
+/**
+ * Print Style Sheet
+ *
+ * Norbert @ Laposa Ltd, 2009/09/22
+ *
+ */
+
+@import url(screen.css);
+
+#accessibility,
+#header,
+#globalNavigation,
+#primaryNavigation,
+#secondaryNavigation,
+#footer {
+	display: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {page-break-after:avoid; page-break-inside:avoid }
+img {page-break-inside:avoid; page-break-after:avoid; }
+blockquote,
+table,
+pre,
+form,
+div.contact_form { page-break-inside:avoid }
+ul,
+ol,
+dl {page-break-before:avoid }

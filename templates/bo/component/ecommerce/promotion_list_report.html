@@ -1,0 +1,48 @@
+<!-- BEGIN: content -->
+
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<div class="promotion_list_report">
+	
+	<table cellspacing="0">
+		<caption>Promotions report</caption>
+		<thead>
+			<tr>
+				<th>Title</th>
+				<th>Code</th>
+				<th>Usage</th>
+				<th>Net Spent<br />(after deducted discount)</th>
+				<th>Net Discount</th>
+			</tr>
+		</thead>
+		
+		<tfoot>
+			<tr>
+				<td></td>
+				<td>Total promotions use:</td>
+				<td class="number">{TOTAL_COUNT}</td>
+				<td class="money">{TOTAL_GOODS_NET|money_format('%n', %s)}</td>
+				<td class="money">{TOTAL_DISCOUNT_NET|money_format('%n', %s)}</td>
+			</tr>
+		</tfoot>
+		
+		<tbody>
+			<!-- BEGIN: item -->
+			<tr>
+				<td>{ITEM.title}</td>
+				<td>{ITEM.code_pattern}</td>
+				<td class="number">{ITEM.count}</td>
+				<td class="money">{ITEM.sum_goods_net|money_format('%n', %s)}</td>
+				<td class="money">{ITEM.sum_discount_net|money_format('%n', %s)}</td>
+			</tr>
+			<!-- END: item -->
+			<!-- BEGIN: empty -->
+			<tr>
+				<td colspan="5"><span class="note">You do not have any coupons.</span></td>
+			</tr>
+			<!-- END: empty -->
+
+		</tbody>
+	</table>
+
+</div>
+<!-- END: content -->

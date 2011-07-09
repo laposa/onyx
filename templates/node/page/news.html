@@ -1,0 +1,96 @@
+<!-- BEGIN: title -->{NODE.page_title}<!-- END: title -->
+<!-- BEGIN: content -->
+
+<div id="pageSide">
+	<div id="pageSideWrapper">
+		<!-- BEGIN: secondary_navigation -->
+		<div id="secondaryNavigation">
+			<div id="secondaryNavigationWrapper">
+				<div class="top"><span></span></div>
+				<div class="content">
+					{SECONDARY_NAVIGATION}
+				</div>
+				<div class="bottom"><span></span></div>
+			</div>
+		</div>
+		
+		<div id="containerFour">
+			<div id="containerFourWrapper">
+				<div class="top"><span></span></div>
+				<div class="content">
+					{CONTAINER.4}
+				</div>
+				<div class="bottom"><span></span></div>
+			</div>
+		</div>
+		<!-- END: secondary_navigation -->
+	</div>
+</div>
+
+<div class="twoColumnPage page news {NODE.layout_style} {NODE.css_class}">
+	<div class="top"><span></span></div>
+	<div class="content">
+		<div class="pageWrapper">
+			{PAGE_HEADER}
+			<div class="pageContent">
+				<div class="pageContentWrapper">
+					<div class="rowTop">
+						<div class="columnWrapper">
+							<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+							{CONTAINER.0}
+						</div>
+					</div>
+		
+					<div class="columnOne">
+						<div class="columnWrapper">
+							<div>
+								<div class="note"><p>{I18N_POSTED_ON} {NODE.created|strtotime|strftime('%A %e %B %Y', %s)} {I18N_BY} <span class="author_name">{NODE.author_detail.name|htmlspecialchars}</span></p></div>
+								
+								<div class="body">
+									{NODE.content}
+									{CONTAINER.1}
+								</div>
+								
+								<div class="addThisButtons">
+									<!-- AddThis Button BEGIN -->
+									<a class="addthis_button" href="http://www.addthis.com/bookmark.php?v=250&amp;pub=xa-4ab0cec12d2bd62f"><img src="http://s7.addthis.com/static/btn/v2/lg-share-en.gif" width="125" height="16" alt="Bookmark and Share" style="border:0"/></a><script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js?pub=xa-4ab0cec12d2bd62f"></script>
+									<!-- AddThis Button END -->
+
+								</div>
+
+								<!-- BEGIN: comment -->
+								<div class="comment" id="comment">
+									<h3>Comments</h3>
+									{COMMENT}
+								</div>
+								<!-- END: comment -->
+					
+					
+								<div class="back">
+									<p><a href="/page/{CMS_BLOG_ID}"><span>{I18N_VIEW_ALL_ARTICLES}</span></a></p>
+								</div>
+							</div>
+		
+							
+						</div>
+					</div>
+					<div class="columnTwo">
+						<div class="columnWrapper">
+							
+							{ONXSHOP_REQUEST_news_list #component/news_list_related~node_id=GET.id:limit_from=0:limit_per_page=25~}					
+							{CONTAINER.2}
+						</div>
+					</div>
+					<div class="rowBottom">
+						<div class="columnWrapper">
+							{CONTAINER.3}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="bottom"><span></span></div>
+</div>
+
+<!-- END: content -->

@@ -1,0 +1,60 @@
+<!-- BEGIN: title -->Products<!-- END: title -->
+<!-- BEGIN: content -->
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#filterTaxonomy .simpleTree').simpleTree({
+		drag: false,
+		autoclose: true,
+		afterClick:function(node){
+			var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
+			makeAjaxRequest("#sub_content", "/request/bo/component/ecommerce/product_list~taxonomy_tree_id="+node_id+"~");
+		},
+		animate: true,
+		docToFolderConvert: true
+		});
+	
+});
+</script>
+
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+
+<div class="twoColumnPage page fibonacci-1-5">
+	<div class="top page"><span></span></div>
+	<div class="content page">
+		<div class="contentWrappper page">
+			<div class="pageHeader">
+				
+			</div>
+			<div class="columnTop page">
+				<div class="columnWrapper page">
+					
+				</div>
+			</div>
+
+			<div class="columnOne page">
+				<div class="columnWrapper page">
+					{ONXSHOP_REQUEST_filter #bo/component/ecommerce/product_list_filter}
+					<div id="filterTaxonomy">
+						{ONXSHOP_REQUEST_menupages #bo/component/taxonomy_menu~id=null:expand_all=1:publish=0~}
+					</div>
+					
+					<p><a class="button" href="/backoffice/stock"><span>Stock management</span></a></p>
+					
+				</div>
+			</div>
+			<div class="columnTwo page">
+				<div class="columnWrapper page">
+					
+					<div id="sub_content">
+						{SUB_CONTENT}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="bottom page"><span></span></div>
+</div>
+
+<!-- END: content -->

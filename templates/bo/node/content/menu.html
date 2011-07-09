@@ -1,0 +1,87 @@
+<!-- BEGIN: title -->Menu Edit<!-- END: title -->
+<!-- BEGIN: content -->
+{FILE "bo/node/default_top.html"}
+
+<script type="text/javascript">
+/* <![CDATA[ */
+$(document).ready(function(){
+	$('fieldset.menu-form-edit div.component-node_id a.button').click(function() {
+		$('#href_select').addClass('ajaxLoad').load('/request/component/menu_js~id=0:expand_all=1:publish=0:node_group=page~', function() {
+			$('#href_select').removeClass('ajaxLoad');
+			$('#href_select .simpleTree').simpleTree({
+				drag: false,
+				autoclose: true,
+				afterClick:function(node){
+					var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
+					$('#component-node_id').attr('value', node_id);
+				},
+				animate: true,
+				docToFolderConvert: true
+			});
+		});
+		return false;
+	});
+	
+	$('fieldset.menu-form-edit div.component-open a.button').click(function() {
+		$('#href_select2').addClass('ajaxLoad').load('/request/component/menu_js~id=0:expand_all=1:publish=0:node_group=page~', function() {
+			$('#href_select2').removeClass('ajaxLoad');
+			$('#href_select2 .simpleTree').simpleTree({
+				drag: false,
+				autoclose: true,
+				afterClick:function(node){
+					var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
+					$('#component-open').attr('value', node_id);
+				},
+				animate: true,
+				docToFolderConvert: true
+			});
+		});
+		return false;
+	});
+	
+});
+/* ]]> */
+</script>
+
+<fieldset class="menu-form-edit">
+	<div class="row component-node_id">
+		<span class="label"><label>*Menu Root ID:</label></span>
+		<span class="field"><input type="text" name="node[component][node_id]" id="component-node_id" value="{NODE.component.node_id}" /> <a class="button" href="#"><span>browse server</span></a></span>
+		<div id="href_select"></div>
+	</div>
+	<div class="row">
+		<span class="label"><label>*Menu Type:</label></span>
+		<span class="field">
+			<select name="node[component][template]">
+				<option value="menu_UL" {SELECTED_menu_UL}>UL</option>
+				<option value="menu_SELECT" {SELECTED_menu_SELECT}>SELECT</option>
+			</select>
+		</span>
+	</div>
+	<div class="row">
+		<span class="label"><label for="component-display_title">Display title</label></span>
+		<span class="field"><input type="checkbox" id="component-display_title" name="node[component][display_title]" {NODE.component.display_title} /></span>
+	</div>
+	<div class="row">
+		<span class="label"><label for="component-display_teaser">Display teaser</label>
+		<span class="field"><input type="checkbox" id="component-display_teaser" name="node[component][display_teaser]" {NODE.component.display_teaser} /></span>
+	</div>
+	
+	<div class="row">
+		<span class="label"><label for="component-display_all">Display All</label>
+		<span class="field"><input type="checkbox" id="component-display_all" name="node[component][display_all]" {NODE.component.display_all} /></span>
+	</div>
+	
+	<div class="row">
+		<span class="label"><label>Starting Level:</label></span>
+		<span class="field"><input class="text short" type="text" name="node[component][level]" id="component-level" value="{NODE.component.level}" /></span>
+	</div>
+	<div class="row component-open">
+		<span class="label"><label>Open menu item ID:</label></span>
+		<span class="field"><input class="text short" type="text" name="node[component][open]" id="component-open" value="{NODE.component.open}" /> <a class="button" href="#"><span>browse server</span></a></span>
+		<div id="href_select2"></div>
+	</div>
+	
+</fieldset>
+{FILE "bo/node/default_bottom.html"}
+<!-- END: content -->

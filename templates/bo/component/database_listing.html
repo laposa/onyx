@@ -1,0 +1,42 @@
+<!-- BEGIN: content -->
+
+	<!-- BEGIN: listing -->
+	<h1>Listing</h1>
+	
+	<h2>{MODEL} ({COUNT_RECORD} records, {TABLE_SIZE})</h2>
+	<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+	<a class="button" href="/request/bo/export/csv_database?model={GET.model}"><span>export CSV</span></a>
+	<br />
+	<table cellspacing="0" border="1">
+	<caption>Records of {MODEL}</caption>
+	<thead>
+	<tr>
+		<!-- BEGIN: th --><th>{COLUMN.name} [{COLUMN.type}]</th><!-- END: th -->
+		<th>&nbsp;</th>
+		<th>&nbsp;</th>
+	</tr>
+	</thead>
+	<tbody>
+	<!-- BEGIN: item -->
+	<tr>
+		<!-- BEGIN: attribute -->
+		<td>{value|htmlspecialchars}</td>
+		<!-- END: attribute -->
+		<td><a class="edit" style="display: none" href="#"><span>edit</span></a></td>
+		<td><a class="delete" style="display: none" href="#"><span>delete</span></a></td>
+	</tr>
+	<!-- END: item -->
+	</tbody>
+	</table>
+
+	<div class="onxshop_pagination">
+	    {PAGINATION}
+	</div>
+
+	<!-- END: listing -->
+	
+	<!-- BEGIN: hint -->
+					<p>Select a database table on the left.</p>
+	<!-- END: hint -->
+
+<!-- END: content -->

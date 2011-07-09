@@ -1,0 +1,58 @@
+<!-- BEGIN: content -->
+
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<div id="file_list" class="file_list_icon">
+
+	<!-- BEGIN: empty -->
+	<p>No files are currently assigned to this content</p>
+	<!-- END: empty -->
+	
+	<!--  BEGIN: list -->
+		<p><a class="button" href="#file_list" onclick="$('#file_list').empty().addClass('ajaxLoad').parent().load('/request/bo/component/file_list~type={GET.type}:role={GET.role}:relation={GET.relation}:node_id={GET.node_id}~'); return false;"><span>View as list</span></a></p>
+		<!-- BEGIN: item -->
+		<div class="item" id="linked-file-{FILE.id}" style="float: left; margin-right: 1em;">
+				
+				<!-- BEGIN: default -->
+					<a href="#" title="View Full Size" onclick="openImg('/image/{FILE.src}'); return false;"><img id="image_thumbnail_{FILE.id}" src="/thumbnail/125/{FILE.src}" title="{FILE.title}" alt="{FILE.title}" /></a>
+				<!-- END: default -->
+				
+				
+				<!-- BEGIN: RTE_select -->
+					<script language="javascript" type="text/javascript" src="/share/js/tiny_mce_popup_local.js"></script>
+					<script type="text/javascript">
+					function chooseImage(src, title) {
+					    var win = tinyMCEPopup.getWindowArg("window");
+					
+					        // insert information now
+					        win.document.getElementById('src').value = src;
+					    if (win.document.getElementById('alt').value == '') win.document.getElementById('alt').value = title;
+					    if (win.document.getElementById('title').value == '') win.document.getElementById('title').value = title;
+					
+					        // for image browsers: update image dimensions
+					        if (win.ImageDialog.getImageData) win.ImageDialog.getImageData();
+					        if (win.ImageDialog.showPreviewImage) win.ImageDialog.showPreviewImage(src);
+					
+					        // close popup window
+					        tinyMCEPopup.close();
+					}
+					</script>
+					
+					<a href="#" onclick="chooseImage($('#image_thumbnail_{FILE.id}').attr('src') , $('#image_thumbnail_{FILE.id}').attr('title')); return false;"><img id="image_thumbnail_{FILE.id}" src="/thumbnail/125/{FILE.src}" title="{FILE.title}"  alt="{FILE.title}" /></a> <br />
+					
+					<a class="button" href="#" onclick="chooseImage($('#image_thumbnail_{FILE.id}').attr('src') , $('#image_thumbnail_{FILE.id}').attr('title')); return false;"><span>use this ...</span></a>
+				<!-- END: RTE_select -->
+				
+				<!-- BEGIN: CSS_select -->
+					<a href="#" onclick="var src = $('#image_thumbnail_{FILE.id}').attr('src'); alert('Copy&amp;Paste this:\nurl(' + src + ')'); return false;"><img id="image_thumbnail_{FILE.id}" src="/thumbnail/125/{FILE.src}" title="{FILE.title}"  alt="{FILE.title}" /></a> <br />
+					<a class="button" href="#" onclick="var src = $('#image_thumbnail_{FILE.id}').attr('src'); alert('Copy&amp;Paste this:\nurl(' + src + ')'); return false;"><span>use this ...</span></a>
+				<!-- END: CSS_select -->
+		</div>
+		<!-- END: item -->
+	<!-- END: list -->
+
+	<p style="clear: both;"><a class="button add" title="Add Files ..." href="#" onclick="makeAjaxRequest('#file_connector', '/request/bo/pages/server_browser~type={GET.type}:role={GET.role}:relation={GET.relation}:node_id={GET.node_id}~'); return false"><span>Add Files ...</span></a></p>
+	<div id="file_connector"></div>
+</div>
+
+
+<!-- END: content -->

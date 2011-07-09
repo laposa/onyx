@@ -1,0 +1,20 @@
+backup created and downloaded from /backoffice/advance/tools/backup
+(available only if ./conf/deployment.php: define('ONXSHOP_PACKAGE_NAME', 'gold');)
+
+download to /tmp folder on the target server:
+
+cd /tmp
+wget --no-check-certificate --http-user=www --http-password=XXX "https://laposa.co.uk/backoffice/advanced/tools?tool=backup"
+tar -xf laposa.co.uk.tar
+mv srv/laposa.co.uk/ /srv/laposa.dev.onxshop.com
+cd /srv/laposa.dev.onxshop.com
+vi conf/deployment.php
+  - disable or edit ONXSHOP_MAIN_DOMAIN
+  - customize database detail
+  - customize SSL setting
+createdb -U www -h dbserver -E UTF8 laposa-1_4
+gunzip var/backup/latest.sql.gz
+psql -U www -h dbserver laposa-1_4 < var/backup/latest.sql
+gzip var/backup/latest.sql
+sudo chown www-data -R var/
+

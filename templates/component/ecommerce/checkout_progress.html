@@ -1,0 +1,60 @@
+<!-- BEGIN: content -->
+<div class="checkoutProgress">
+	<div class="checkoutProgressWrapper">
+		<div class="top"><span></span></div>
+		<div class="content">
+			
+			<ul>
+				<!-- BEGIN: basket_nolink -->
+					<li class="first {ACTIVE}"><span>1. Basket</span></li>
+				<!-- END: basket_nolink -->
+				<!-- BEGIN: basket_link -->
+					<li class="first {ACTIVE}"><a href="/page/{NODE_CONF.id_map-checkout_basket}" title="Manage your basket">1. <span>Basket</span></a></li>
+				<!-- END: basket_link-->
+				<!-- BEGIN: login_nolink -->
+					<li class="middle {ACTIVE}"><span>2. {CHECKOUT_LOGIN}</span></li>
+				<!-- END: login_nolink -->
+				<!-- BEGIN: login_link -->
+					<li class="middle {ACTIVE}"><a href="/page/{NODE_CONF.id_map-checkout_login}" title="Login to your account">2. <span>{CHECKOUT_LOGIN}</span></a></li>
+				<!-- END: login_link -->
+			
+				<!-- BEGIN: delivery_options_nolink -->
+					<li class="middle {ACTIVE}"><span>3. Delivery Options</span></li>
+				<!-- END: delivery_options_nolink -->
+				<!-- BEGIN: delivery_options_link -->
+					<li class="middle {ACTIVE}"><a href="/page/{NODE_CONF.id_map-checkout_delivery_options}" title="Choose your address and delivery method">3. <span>Delivery Options</span></a></li>
+				<!-- END: delivery_options_link -->
+			
+			
+				<!-- BEGIN: gift_nolink -->
+					<li class="middle {ACTIVE}"><span>4. Gift</span></li>
+				<!-- END: gift_nolink -->
+				<!-- BEGIN: gift_link -->
+					<li class="middle {ACTIVE}"><a href="/page/{NODE_CONF.id_map-checkout_gift}" title="Pack as gift">4. <span>Gift</span></a></li>
+				<!-- END: gift_link -->
+			
+			
+				<!-- BEGIN: summary_nolink -->
+					<li class="middle {ACTIVE}"><span>5. Order Summary</span></li>
+				<!-- END: summary_nolink -->
+				<!-- BEGIN: summary_link -->
+					<li class="middle {ACTIVE}"><a href="/page/{NODE_CONF.id_map-checkout_summary}" title="Review your order before submit">5. <span>Order Summary</span></a></li>
+				<!-- END: summary_link -->
+			
+			
+				<!-- BEGIN: payment_nolink -->
+					<li class="last {ACTIVE}"><span>6. Payment</span></li>
+				<!-- END: payment_nolink -->
+				<!-- BEGIN: payment_link -->
+					<li class="last {ACTIVE}"><a href="/page/{NODE_CONF.id_map-checkout_payment}" title="Payment process">6. <span>Payment</span></a></li>
+				<!-- END: payment_link -->
+				
+			</ul>
+
+
+		</div>
+		<div class="bottom"><span></span></div>
+		
+	</div>
+</div>
+<!-- END: content -->

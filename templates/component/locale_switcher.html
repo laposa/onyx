@@ -1,0 +1,16 @@
+<!-- BEGIN: content -->
+<form method="post" action="{URI}" id="locale_switcher_form">
+	<label for="locale_switcher_select">Show currency in </label>
+	<select id="locale_switcher_select" name="locale" onchange="$('#locale_switcher_form').submit()">
+		<option class="gb" value="1" {SELECTED_gb}>GBP British Pounds</option>
+		<option class="eu" value="3" {SELECTED_eu}>EUR European Union Euros</option>
+		<option class="us" value="2" {SELECTED_us}>USD United States Dollars</option>
+		<option class="au" value="6" {SELECTED_au}>AUD Australian Dollars</option>
+		<option class="jp" value="7" {SELECTED_jp}>JPY Japanese Yen</option>
+		<option class="ca" value="8" {SELECTED_ca}>CAD Canadian Dollars</option>
+		<option class="hk" value="9" {SELECTED_hk}>HKD Hong Kong Dollars</option>
+		<option class="nz" value="10" {SELECTED_nz}>NZD New Zealand Dollars</option>
+	</select>
+</form>
+
+<!-- END: content -->

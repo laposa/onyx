@@ -1,0 +1,6 @@
+# Global /robots.txt file Xsite
+
+Sitemap: /sitemap.xml
+
+User-agent: *
+Disallow: /login

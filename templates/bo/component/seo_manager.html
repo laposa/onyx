@@ -1,0 +1,15 @@
+<!-- BEGIN: title -->SEO manager<!-- END: title -->
+<!-- BEGIN: content -->
+<!-- BEGIN: messages --><div class="fix">{MESSAGES}</div><!-- END: messages -->
+
+            
+<table>
+	<thead><th>URI</th><th>type</th><th>Target Page ID</th><th>Title</th><th>Teaser</th><th>Description</th><th>Keywords</th></thead>
+	<tbody>
+		<!-- BEGIN: item -->
+		<tr><td>{ITEM.public_uri}</td><td>{ITEM.type}</td><td>{ITEM.node_id}</td><td>{ITEM.title|htmlspecialchars}</td><td>{ITEM.teaser|htmlspecialchars}</td><td>{ITEM.description|htmlspecialchars}</td><td>{ITEM.keywords|htmlspecialchars}</td></tr>
+		<!-- END: item -->
+	</tbody>
+</table>
+
+<!-- END: content -->

@@ -1,0 +1,100 @@
+/**
+ * Grey colour theme
+ * Norbert @ Laposa Ltd, 2009/09/19
+ *
+  october fullmoon fron Kuler
+ * bold green #002F36
+ * dark green #142426
+ * okr #D1B748
+ * bold yellow #EDDB43
+ * light yellow #FFFD84
+ 
+ */
+
+body {background: #fafafa; color: #142426;}
+
+form {border: 1px solid #F0F0EE; background: #F0F0EE;
+	border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px;}
+
+textarea {border: 1px solid #808080;}
+
+input.text,
+select {border: 1px solid #808080;}
+
+input:focus,
+textarea:focus {background: #ffc;}
+
+table {border-collapse: collapse;}
+
+th,
+th a {color: black;}
+
+th,
+td {border-bottom: 1px solid #ccc;}
+
+a {color: #002F36;}
+a:hover {color: #142426}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+caption,
+legend  {color: #002F36;}
+
+#header a {color: #002F36;}
+#header a:hover {color: #142426;}
+
+#userbox {color: #333;}
+
+#globalNavigation {background: #002F36;}
+#globalNavigation a {color: #D1B748;}
+#globalNavigation a:hover,
+#globalNavigation a.active {text-decoration: none; background: #EDDB43; color: #002F36;}
+#globalNavigation li {border-right: 1px solid #fafafa; background: none;}
+
+#primaryNavigation li {background: #002F36; border-bottom: 1px white solid;}
+#primaryNavigation a {color: #D1B748;}
+#primaryNavigation a.active span {font-weight: normal;}
+#primaryNavigation li.active,
+#primaryNavigation li.active a.active {color: #FFFD84;}
+#primaryNavigation a:hover {color: #000; background: #EDDB43;}
+#primaryNavigation ul ul li {background: #f1f1f1;}
+#primaryNavigation ul ul a {background: none;}
+
+#secondaryNavigation {background: #002F36;}
+#secondaryNavigation li,
+#secondaryNavigation a {color: #D1B748;}
+#secondaryNavigation a:hover,
+#secondaryNavigation a.active {text-decoration: none; font-weight: normal; background: #EDDB43; color: #002F36;}
+#secondaryNavigation li.active {font-weight: normal;}
+#secondaryNavigation a:hover {background: #EDDB43; color: #002F36;;}
+
+#footerNavigation {background: #002F36;}
+#footerNavigation li {border-right: 1px solid #fafafa; background: none;}
+#footerNavigation a {color: #D1B748;}
+#footerNavigation a:hover {color: #FFFD84}
+
+#contentSide,
+#contentSide p {background: #f0f0f0;}
+
+div.content-RTE em, 
+div.content-RTE strong {color: #575757;}
+
+div.divider {background: #dadada;}
+hr {color: #ffffff;}
+
+div.rssFeed div.item.odd {background: #f0f0f0;}
+div.rssFeed div.item.even {background: #f8f8f8;}
+
+div.pagination li a.active {border-color: #CCCCCC;}
+
+ul.comment li {border: solid 1px #3D82AD;}
+ul.comment div.item div.content {background: #f0f0f0;}
+
+span.price {color: #990000;}
+
+div.product_detail div.product_normal div.highlight div.text {color: #5eacda;}
+

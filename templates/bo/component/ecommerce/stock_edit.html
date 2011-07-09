@@ -1,0 +1,66 @@
+<!-- BEGIN: content -->
+
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+
+<script type="text/javascript">
+$(function() {
+    $('#sub_content form').ajaxForm({target: '#sub_content'}); 
+});
+</script>
+
+<form method="post" action="{URI}">
+		
+	<fieldset class="single">
+		<legend>{PRODUCT.name} - {PRODUCT.variety.name}</legend>
+
+		<div class="row">
+			<span class="label"><label>Code (SKU)</label></span>
+			<span class="field"><input type="text" name="product[variety][sku]" value="{PRODUCT.variety.sku}"/></span>
+		</div>	
+		<div class="row">
+			<span class="label"><label>Weight Gross [{VARIETY_CONF.weight_units}]</label></span>
+			<span class="field"><input type="text" name="product[variety][weight_gross]" value="{PRODUCT.variety.weight_gross}"/> (used for postage)</span>
+		</div>
+		<div class="row">
+			<span class="label"><label>Stock</label></span>
+			<span class="field"><input type="text" name="product[variety][stock]" value="{PRODUCT.variety.stock}"/></span>
+		</div>
+	</fieldset>
+		
+	<p><a href="#" onclick="$('#variety_more_details').toggle(); return false">More details</a></p>
+	
+	<div id="variety_more_details" style="display: none;">
+		<div class="row">
+			<span class="label"><label>Weight Net [{VARIETY_CONF.weight_units}]</label></span>
+			<span class="field"><input type="text" name="product[variety][weight]" value="{PRODUCT.variety.weight}"/></span>
+		</div>
+	
+		<fieldset>
+			<legend>Dimensions</legend>
+			<div class="row">
+				<span class="label"><label>Width [{VARIETY_CONF.dimension_units}]</label></span>
+				<span class="field"><input type="text" name="product[variety][width]" value="{PRODUCT.variety.width}"/></span>
+			</div>
+			<div class="row">
+				<span class="label"><label>Height [{VARIETY_CONF.dimension_units}]</label></span>
+				<span class="field"><input type="text" name="product[variety][height]" value="{PRODUCT.variety.height}"/></span>
+			</div>
+			<div class="row">
+				<span class="label"><label>Depth [{VARIETY_CONF.dimension_units}]</label></span>
+				<span class="field"><input type="text" name="product[variety][depth]" value="{PRODUCT.variety.depth}"/></span>
+			</div>
+			<div class="row">
+				<span class="label"><label>Diameter [{VARIETY_CONF.dimension_units}]</label></span>
+				<span class="field"><input type="text" name="product[variety][diameter]" value="{PRODUCT.variety.diameter}"/></span>
+			</div>
+		</fieldset>
+	</div>
+
+	<button type="submit" name="save" value="variety"><span>save</span></button>
+
+
+	<input type="hidden" name="product[variety][id]" value="{PRODUCT.variety.id}"/>
+	<input type="hidden" name="product[variety][product_id]" value="{PRODUCT.variety.product_id}"/>
+</form>
+
+<!-- END: content -->

@@ -1,0 +1,82 @@
+/**
+ * Grey colour theme
+ * Norbert @ Laposa Ltd, 2009/09/19
+ *
+ */
+
+body {background: #fafafa; color: #575757;}
+
+form {border: 1px solid #F0F0EE; background: #F0F0EE;
+	border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px;}
+
+textarea {border: 1px solid #808080;}
+
+input.text,
+select {border: 1px solid #808080;}
+
+input:focus,
+textarea:focus {background: #ffc;}
+
+table {border-collapse: collapse;}
+
+th,
+th a {color: black;}
+
+th,
+td {border-bottom: 1px solid #ccc;}
+
+a {color: #666;}
+a:hover {color: #000;}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+h1 a,h2 a,h3 a,h4 a,h5 a,
+caption,
+legend  {color: #333;}
+
+#header a {color: #333;}
+#header a:hover {color: black;}
+
+#userbox {color: #333;}
+
+#primaryNavigation li {background: #f0f0f0; border-bottom: 1px white solid;}
+#primaryNavigation a.active span {font-weight: normal;}
+#primaryNavigation li.active,
+#primaryNavigation li.active a.active {color: #000;}
+#primaryNavigation li a:hover {color: #000;}
+#primaryNavigation ul ul li {background: #f1f1f1;}
+#primaryNavigation ul ul li a {background: none;}
+
+#secondaryNavigation {background: #f0f0f0;}
+#secondaryNavigation a.active {font-weight: normal; color: black;}
+#secondaryNavigation a.active:hover {color: black;}
+#secondaryNavigation a:hover {background: #fff; color: inherit;}
+
+#footerNavigation {background: #f0f0f0;}
+#footerNavigation li {border-right: 1px solid white; background: none;}
+#footerNavigation a:hover {color: #000;}
+
+#contentSideWrapper {background: #f0f0f0; padding-left: 5px;}
+
+div.content-RTE em, 
+div.content-RTE strong {color: #575757;}
+
+div.divider {background: #dadada;}
+hr {color: #ffffff;}
+
+div.rssFeed div.item.odd {background: #f0f0f0;}
+div.rssFeed div.item.even {background: #f8f8f8;}
+
+div.pagination li a.active {border-color: #CCCCCC;}
+
+ul.comment li {border: solid 1px #3D82AD;}
+ul.comment div.item div.content {background: #f0f0f0;}
+
+span.price {color: #990000;}
+
+div.product_detail div.product_normal div.highlight div.text {color: #5eacda;}
+

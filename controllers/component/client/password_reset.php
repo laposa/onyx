@@ -1,0 +1,106 @@
+<?php
+/**
+ * Copyright (c) 2006-2011 Laposa Ltd (http://laposa.co.uk)
+ * Licensed under the New BSD License. See the file LICENSE.txt for details.
+ * 
+ */
+
+class Onxshop_Controller_Component_Client_Password_Reset extends Onxshop_Controller {
+	
+	/**
+	 * main action
+	 */
+	
+	public function mainAction() {
+		//force SSL
+		//FIXME: we need to check SSL here, because node/page/commerce controller is called after and it caused "Wrong key" error message
+		//when SSL for frontend was enabled
+		if (!$_SERVER['HTTPS'] && ONXSHOP_CUSTOMER_USE_SSL) {
+			header("Location: https://{$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}");
+			exit;
+		}
+		
+		/**
+		 * initialise client_customer object
+		 */
+		
+		require_once('models/client/client_customer.php');
+		$Customer = new client_customer();
+		$Customer->setCacheable(false);
+		
+		/**
+		 * process when submited
+		 */
+		 
+		if ($_POST['submit']) {
+		
+			/**
+			 * assign first
+			 */
+			 
+			if (is_array($_POST['client'])) {
+				$this->tpl->assign('CLIENT', $_POST['client']);
+			}
+		
+			/**
+			 * get detail
+			 */
+			 
+			$customer_data = $Customer->getClientByEmail($_POST['client']['customer']['email']);
+			
+			/**
+			 * when real client, get key
+			 */
+			 
+			if (is_array($customer_data)) {
+				$current_key = $Customer->getPasswordKey($_POST['client']['customer']['email']);
+				$customer_data['password_key'] = $current_key;
+			}
+			
+			/**
+			 * if key was generated successfully, than send it by email
+			 */
+			 
+			if ($current_key) {
+			
+				require_once('models/common/common_email_form.php');
+				$EmailForm = new common_email_form();
+			
+				//this allows use customer data and company data in the mail template
+				//is passed as DATA to template in common_email_form->_format
+				$GLOBALS['common_email_form']['customer'] = $customer_data;
+				
+				if (!$EmailForm->sendEmail('request_password_change', 'n/a', $customer_data['email'], $customer_data['first_name'] . " " . $customer_data['last_name'])) {
+					msg("Can't send email with request for password reset", 'error');
+				}
+				
+				$this->tpl->parse('content.request_sent');
+				$hide_form = 1;
+			}
+		}
+		
+		/**
+		 * reset password when valied email and key is provided
+		 */
+		 
+		if  ($this->GET['email'] && $this->GET['key']) {
+		
+			if ($Customer->resetPassword($this->GET['email'], $this->GET['key'])) {
+				msg("Password for {$this->GET['email']} has for been renewed.", 'ok', 2);
+				$this->tpl->parse('content.password_changed');
+				$hide_form = 1;
+			}
+		
+		}
+		
+		/**
+		 * conditional display form
+		 */
+		
+		if ($hide_form == 0) {
+			$this->tpl->parse('content.request_form');
+		}
+
+		return true;
+	}
+}

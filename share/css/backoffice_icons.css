@@ -1,0 +1,146 @@
+/**
+ * General
+ */
+ 
+.onxshop_edit {background-image: url(/share/images/famfamfam_icons/plugin.png);}
+.onxshop_layout_properties {background-image: url(/share/images/famfamfam_icons/layout.png);}
+.onxshop_page_properties {background-image: url(/share/images/famfamfam_icons/page.png);}
+.onxshop_duplicate {background-image: url(/share/images/famfamfam_icons/application_double.png);}
+.onxshop_delete {background-image: url(/share/images/famfamfam_icons/delete.png);}
+.onxshop_edit_source {background-image: url(/share/images/famfamfam_icons/link_edit.png);}
+.onxshop_new_content {background-image: url(/share/images/famfamfam_icons/add.png);}
+.onxshop_new_layout {background-image: url(/share/images/famfamfam_icons/layout_add.png);}
+.onxshop_edit_main_content {background-image: url(/share/images/famfamfam_icons/text_signature.png);}
+.onxshop_edit_page_add {background-image: url(/share/images/famfamfam_icons/page_add.png);}
+
+/*
+* Container Frontend Icons
+*/
+
+option.onxshop_edit_default.container {background-image: url(/share/images/famfamfam_icons/folder.png);}
+
+/*
+* Page Frontend Icons
+*/
+
+.onxshop_edit_commerce {background-image: url(/share/images/famfamfam_icons/key.png);}
+.onxshop_edit_partner {background-image: url(/share/images/famfamfam_icons/key.png);}
+.onxshop_edit_product_browse {background-image: url(/share/images/famfamfam_icons/building.png);}
+.onxshop_edit_symbolic {background-image: url(/share/images/famfamfam_icons/page_go.png);}
+.onxshop_edit_home {background-image: url(/share/images/famfamfam_icons/house.png);}
+.onxshop_edit_with_navigation {background-image: url(/share/images/famfamfam_icons/layout.png);}
+.onxshop_edit_without_navigation {background-image: url(/share/images/famfamfam_icons/onxshop_without_navigation.png);}
+.onxshop_edit_blank {background-image: url(/share/images/famfamfam_icons/onxshop_1column.png);}
+.onxshop_edit_default {background-image: url(/share/images/famfamfam_icons/page.png);}
+.onxshop_edit_print {background-image: url(/share/images/famfamfam_icons/printer.png);}
+.onxshop_edit_default_advanced {background-image: url(/share/images/famfamfam_icons/page_white_wrench.png);}
+.onxshop_edit_news {background-image: url(/share/images/famfamfam_icons/newspaper.png);}
+.onxshop_edit_product {background-image: url(/share/images/famfamfam_icons/page_white_ruby.png);}
+
+
+/*
+* Layout Frontend Icons
+*/
+
+.onxshop_edit_1column {background-image: url(/share/images/famfamfam_icons/onxshop_1column.png);}
+.onxshop_edit_2columns {background-image: url(/share/images/famfamfam_icons/onxshop_2columns.png);}
+.onxshop_edit_2columns_title {background-image: url(/share/images/famfamfam_icons/onxshop_2columns_title.png);}
+.onxshop_edit_3columns {background-image: url(/share/images/famfamfam_icons/onxshop_3columns.png);}
+
+
+/*
+* Content Frontend Icons
+*/
+div.onxshop_add_content,
+div.onxshop_edit_content {clear: both; padding: 0 0 50px 5px;}
+
+div.onxshop_add_content a.onxshop_new_content,
+div.onxshop_edit_content a,
+div.onxshop_edit_layout a,
+div.onxshop_page_properties a {display: block; width: 30px; height: 19px; float: left; background-repeat: no-repeat; background-position: center;}
+
+div.onxshop_add_content a.onxshop_new_content span,
+div.onxshop_edit_content a span,
+div.onxshop_edit_layout a span,
+div.onxshop_page_properties a span {display: none;}
+
+div.onxshop_page_properties a.verbose {width: auto; text-decoration: none; background-position: left;}
+div.onxshop_page_properties a.verbose span {display: inline; padding: 0 25px;}
+
+.onxshop_edit_articlebox {background-image: url(/share/images/famfamfam_icons/page_edit.png);}
+.onxshop_edit_print_article_list {background-image: url(/share/images/famfamfam_icons/newspaper.png);}
+.onxshop_edit_component {background-image: url(/share/images/famfamfam_icons/plugin.png);}
+.onxshop_edit_quote {background-image: url(/share/images/famfamfam_icons/rosette.png);}
+.onxshop_edit_divider {background-image: url(/share/images/famfamfam_icons/text_horizontalrule.png);}
+.onxshop_edit_teaser {background-image: url(/share/images/famfamfam_icons/page_go.png);}
+.onxshop_edit_imagemap {background-image: url(/share/images/famfamfam_icons/map_edit.png);}
+.onxshop_edit_contact_form {background-image: url(/share/images/famfamfam_icons/email.png);}
+.onxshop_edit_comment {background-image: url(/share/images/famfamfam_icons/comment.png);}
+.onxshop_edit_lastFM {background-image: url(/share/images/famfamfam_icons/music.png);}
+.onxshop_edit_picture {background-image: url(/share/images/famfamfam_icons/photo.png);}
+.onxshop_edit_file {background-image: url(/share/images/famfamfam_icons/disk.png);}
+.onxshop_edit_product_list {background-image: url(/share/images/famfamfam_icons/building.png);}
+.onxshop_edit_feed {background-image: url(/share/images/famfamfam_icons/rss.png);}
+.onxshop_edit_RTE {background-image: url(/share/images/famfamfam_icons/text_signature.png);}
+.onxshop_edit_shared {background-image: url(/share/images/famfamfam_icons/link.png);}
+.onxshop_edit_news_list {background-image: url(/share/images/famfamfam_icons/newspaper.png);}
+.onxshop_edit_menu {background-image: url(/share/images/famfamfam_icons/sitemap_color.png);}
+.onxshop_edit_content_list {background-image: url(/share/images/famfamfam_icons/application_view_list.png);}
+.onxshop_edit_HTML {background-image: url(/share/images/famfamfam_icons/html.png);}
+.onxshop_edit_product_highlights {background-image: url(/share/images/famfamfam_icons/award_star_bronze_2.png);}
+.onxshop_edit_filter {background-image: url(/share/images/famfamfam_icons/page_white_find.png);}
+.onxshop_edit_external_source {background-image: url(/share/images/famfamfam_icons/plugin.png);}
+.onxshop_edit_textile {background-image: url(/share/images/famfamfam_icons/text_signature.png);}
+
+/**
+ * Backoffice main menu
+ */
+/*
+ul#onxshop_backoffice_menu li a span {
+	display: block;
+	padding-left: 20px;
+	background-position: 5px 5px;
+}
+
+ul#onxshop_backoffice_menu li.cms a span {
+	background: url(/share/images/famfamfam_icons/page.png) no-repeat;
+}
+
+ul#onxshop_backoffice_menu li.blog a span {
+	background: url(/share/images/famfamfam_icons/newspaper.png) no-repeat;
+}
+
+ul#onxshop_backoffice_menu li.media a span {
+	background: url(/share/images/famfamfam_icons/photo.png) no-repeat;
+}
+
+ul#onxshop_backoffice_menu li.product a span {
+	background: url(/share/images/famfamfam_icons/ruby.png) no-repeat;
+}
+
+ul#onxshop_backoffice_menu li.orders a span {
+	background: url(/share/images/famfamfam_icons/package.png) no-repeat;
+}
+
+
+ul#onxshop_backoffice_menu li.customers a span {
+	background: url(/share/images/famfamfam_icons/user.png) no-repeat;
+}
+
+ul#onxshop_backoffice_menu li.stats a span {
+	background: url(/share/images/famfamfam_icons/chart_pie.png) no-repeat;
+}
+
+ul#onxshop_backoffice_menu li.advanced a span {
+	background: url(/share/images/famfamfam_icons/server.png) no-repeat;
+}
+*/
+
+/**
+ * Other Icons
+ */
+
+a.onxshop_icon {display: block; width: 19px; height: 19px; background-repeat: no-repeat;}
+a.onxshop_icon span {display: none;}
+a.onxshop_magnifier {background-image: url(/share/images/famfamfam_icons/magnifier.png);}
+div.node-node_controller option {background-repeat: no-repeat; background-position: 5px center; padding: 0.2em 0 0.2em 30px; height:1.4em;}

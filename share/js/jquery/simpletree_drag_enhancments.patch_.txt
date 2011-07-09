@@ -1,0 +1,72 @@
+--- jquery.simple.tree.js.orig	2008-10-07 06:09:00.000000000 -0400
++++ jquery.simple.tree.js	2008-11-18 16:44:11.000000000 -0500
+@@ -34,8 +34,9 @@
+ $.fn.simpleTree = function(opt){
+ 	return this.each(function(){
+ 		var TREE = this;
+-		var ROOT = $('.root',this);
++		var ROOT = $(this);
+ 		var mousePressed = false;
++		var mousePressedY = false; // coordinates for mouse press
+ 		var mouseMoved = false;
+ 		var dragMoveType = false;
+ 		var dragNode_destination = false;
+@@ -45,6 +46,7 @@
+ 
+ 		TREE.option = {
+ 			drag:		true,
++			dragThreshold:	6,   // number of pixels to move before dragging is activated
+ 			animate:	false,
+ 			autoclose:	false,
+ 			speed:		'fast',
+@@ -172,6 +174,7 @@
+ 				return false;
+ 			}).mousedown(function(event){
+ 				mousePressed = true;
++				mousePressedY = event.pageY;
+ 				cloneNode = $(this).parent().clone();
+ 				var LI = $(this).parent();
+ 				if(TREE.option.drag)
+@@ -190,6 +193,16 @@
+ 					TREE.moveNodeToFolder($(this).parent());
+ 				}
+ 				TREE.eventDestroy();
++			}).mouseover(function(){
++				if(mousePressed && mouseMoved && dragNode_source)
++				{
++					$(this).addClass('drag-hover');
++				} 
++			}).mouseout(function() {
++				if(mousePressed && mouseMoved && dragNode_source) 
++				{
++					$(this).removeClass('drag-hover');
++				}
+ 			});
+ 			$('li', obj).each(function(i){
+ 				var className = this.className;
+@@ -233,7 +246,14 @@
+ 			var LI = $(event.data.LI);
+ 			if(mousePressed)
+ 			{
+-				mouseMoved = true;
++				if (!mouseMoved) {
++					if (Math.abs(event.pageY - mousePressedY) > TREE.option.dragThreshold) {
++						mouseMoved = true;
++					} else {
++						return;
++					}
++				}
++				
+ 				if(dragDropTimer) clearTimeout(dragDropTimer);
+ 				if($('#drag_container:not(:visible)')){
+ 					$('#drag_container').show();
+@@ -243,7 +263,8 @@
+ 				$('#drag_container').css({position:'absolute', "left" : (event.pageX + 5), "top": (event.pageY + 15) });
+ 				if(LI.is(':visible'))LI.hide();
+ 				var temp_move = false;
+-				if(event.target.tagName.toLowerCase()=='span' && $.inArray(event.target.className, Array('text','active','trigger'))!= -1)
++				var eventTarget = $(event.target);
++				if(event.target.tagName.toLowerCase()=='span' && (eventTarget.is('.text') || eventTarget.is('.active') || eventTarget.is('.trigger'))) 
+ 				{
+ 					var parent = event.target.parentNode;
+ 					var offs = $(parent).offset({scroll:false});

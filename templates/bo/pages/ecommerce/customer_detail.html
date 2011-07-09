@@ -1,0 +1,68 @@
+<!-- BEGIN: title -->Customer Detail<!-- END: title -->
+<!-- BEGIN: content -->
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+
+<div class="twoColumnPage page fifty-fifty">
+	<div class="top page"><span></span></div>
+	<div class="content page">
+		<div class="contentWrappper page">
+			
+			<div class="pageHeader">
+				<div class="pageHeaderWrapper">
+					<h1 class="pageTitle"><span>Customer ID {GET.id}</span></h1>
+				</div>
+			</div>
+
+			<div class="rowTop page">
+				<div class="columnWrapper page">
+					{CONTAINER.0}
+				</div>
+			</div>
+
+			<div class="columnOne page">
+				<div class="columnWrapper page">
+					{ONXSHOP_REQUEST_user_prefs #component/client/user_prefs&amp;customer_id=GET.id}
+					{ONXSHOP_REQUEST_company #component/client/company_detail~customer_id=GET.id~}
+					<!-- BEGIN: other_data -->
+						<table>
+						<caption>Other data</caption>
+						<!-- BEGIN: item -->
+						<tr><td>{ITEM.key}</td><td>{ITEM.value|htmlspecialchars|nl2br}</td></tr>
+						<!-- END: item -->
+						</table>
+					<!-- END: other_data -->
+				</div>
+			</div>
+			<div class="columnTwo page">
+				<div class="columnWrapper page">
+					<ul class="horizontalMenu">
+						<li><a href="/backoffice/advanced/logs?&filter[customer_id]={GET.id}&filter[archive]=1"><span>view sessions</span></a></li>
+						<li><a href="/page/{NODE_CONF.id_map-login}?client[email]={CUSTOMER.email}"><span>log in</span></a></li>
+					</ul>
+					<div class="divider"><hr /></div>
+					
+					{ADDRESS}
+					{ONXSHOP_REQUEST_orders #bo/component/ecommerce/order_list~customer_id=GET.id~}
+					<h3>Products bought by this customer</h3>
+					{ONXSHOP_REQUEST_products_by_customer #bo/component/ecommerce/product_list_by_customer~period_limit=0:customer_id=GET.id~}
+					<h3>This customer's favourite products (inc orphaned baskets)</h3>
+					{ONXSHOP_REQUEST_bestbuys #bo/component/ecommerce/best_buys~period_limit=0:customer_id=GET.id~}
+					
+				</div>
+			</div>
+			<div class="rowBottom page">
+				<div class="columnWrapper page">
+					<table>
+						<tbody>
+						<tr><td class="first">Created:</td><td class="last">{CUSTOMER.created}</td></tr>
+						<tr><td class="first">Modified:</td><td class="last">{CUSTOMER.modified}</td></tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="bottom page"><span></span></div>
+</div>
+
+<!-- END: content -->

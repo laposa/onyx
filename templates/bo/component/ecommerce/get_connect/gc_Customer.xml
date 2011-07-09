@@ -1,0 +1,23 @@
+	<Customer>
+		<Id>{ITEM.Id}</Id>
+		<CompanyName>{ITEM.CompanyName}</CompanyName>
+		<AccountReference>{ITEM.AccountReference}</AccountReference>
+		<VatNumber>{ITEM.VatNumber}</VatNumber>
+		<CreditLimit>0</CreditLimit>
+		<Balance>0</Balance>
+		<CustomerInvoiceAddress>
+			<!-- BEGIN: address_invoice -->
+			{FILE "./tpl/gc_Contact.xml"}
+			<!-- END: address_invoice -->
+		</CustomerInvoiceAddress>
+		<CustomerDeliveryAddress>
+			<!-- BEGIN: address_delivery -->
+			{FILE "./tpl/gc_Contact.xml"}
+			<!-- END: address_delivery -->
+		</CustomerDeliveryAddress>
+		<Currency>{ITEM.Currency}</Currency>
+		<TermsAgreed>true</TermsAgreed>
+		<PriceListReference></PriceListReference>
+		<AccountStatus>0</AccountStatus>
+	</Customer>
+	

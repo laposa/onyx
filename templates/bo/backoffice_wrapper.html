@@ -1,0 +1,38 @@
+<!-- BEGIN: head -->
+<script type="text/javascript" src="/share/js/jquery/jquery.js"></script>
+<script type="text/javascript" src="/share/js/jquery/plugins/jquery.tools.js"></script>
+<script type="text/javascript" src="/share/js/jquery/ui/jquery-ui.all.min.js"></script>
+<script type="text/javascript" src="/share/js/jquery/plugins/jquery.cookie.js"></script>
+<script type="text/javascript" src="/share/js/jquery/plugins/jquery.form.js"></script>
+<script type="text/javascript" src="/share/js/jquery/plugins/jquery.jgrowl.js"></script>
+<script type="text/javascript" src="/share/js/jquery/plugins/jquery.editinplace.js"></script>
+<script type="text/javascript" src="/share/js/jquery/jquery.simple.tree.js"></script>
+<script type="text/javascript" src="/share/js/jquery/plugins/jquery.validate.js"></script>
+<script type="text/javascript" src="/opt/tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript" src="/share/js/common.js"></script>
+<script type="text/javascript" src="/share/js/backoffice.js"></script>
+<style type="text/css" media="all">
+@import url(/share/css/backoffice.css);
+</style>
+<script type="text/javascript">
+/* <![CDATA[ */
+$(function(){ 
+	if (!jQuery.support.htmlSerialize) {
+		growlMessage("Your browser version is not fully supported,<br />please use Firefox or Safari.");
+	}
+});
+/* ]]> */
+</script>
+<!-- END: head -->
+<!-- BEGIN: content -->
+<div id="backoffice">
+	<div id="backofficeWrapper">
+		<div id="container" style="width: auto;"> 
+			<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+			<div id="dialog" class="flora"></div>
+			{SUB_CONTENT}
+		</div>
+	</div>
+</div>
+
+<!-- END: content -->

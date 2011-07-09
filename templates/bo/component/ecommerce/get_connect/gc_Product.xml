@@ -1,0 +1,26 @@
+		<Product>
+			<Sku></Sku>
+			<Name></Name>
+			<Description></Description>
+			<LongDescription></LongDescription>
+			<ImageUrl></ImageUrl>
+			<ThumbnailUrl></ThumbnailUrl>
+			<Custom1></Custom1>
+			<Custom2></Custom2>
+			<Custom3></Custom3>
+			<SalePrice></SalePrice>
+			<UnitWeight></UnitWeight>
+			<QtyInStock></QtyInStock>
+			<QtyOnOrder></QtyOnOrder>
+			<ReorderQty></ReorderQty>
+			<TaxCode></TaxCode>
+			<GroupCode></GroupCode>
+			<Department></Department>
+			<UnitOfSale></UnitOfSale>
+			<NominalCode></NominalCode>
+			<CostCentre></CostCentre>
+			<Publish></Publish>
+			<SpecialOffer></SpecialOffer>
+			<QtyAllocated></QtyAllocated>
+		</Product>
+	

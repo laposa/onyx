@@ -1,0 +1,51 @@
+<!-- BEGIN: title -->Logs<!-- END: title -->
+<!-- BEGIN: content -->
+
+<div class="filter" >
+	<form action="{_SERVER.REDIRECT_URL}" method="get" style="padding: 0;">
+		<select name='filter[active]' id='filter-disabled'>
+			<option value='0' {ACTIVE_selected_0}>All Sessions</option>
+			<option value='1' {ACTIVE_selected_1}>Active Sessions Only ({SESSION_TTL}h)</option>
+		</select>
+		&nbsp;
+		<label for="filter-customer_id">Customer ID:</label> 
+		<input id="filter-customer_id" type="text" name="filter[customer_id]" value="{FILTER.customer_id}" />
+		<button type="submit" name="submit" value="submit"><span>Submit</span></button>
+	</form>
+</div>
+
+<table style="clear: both;">
+	<caption>Sessions</caption>
+	<thead>
+		<tr>
+			<th>Customer</th>
+			<th>browse history</th>
+			<th>created/modified</th>
+			<th>referer</th>
+			<th>user agent</th>
+		</tr>
+	</thead>
+	<tbody>
+		<!-- BEGIN: item -->
+		<tr>
+			<td><a href="/backoffice/customers/{CUSTOMER.id}/detail">{CUSTOMER.first_name} {CUSTOMER.last_name}</a><br /><a href="/request/component/whois?str={SESSION.ip_address}" target="_blank">{SESSION.ip_address}</a><br />{SESSION.php_auth_user}</td>
+			<td>
+				<!-- BEGIN: history -->{HISTORY.time} <a href="{HISTORY.uri}" target="_blank">{HISTORY.uri}</a><br /><!-- END: history -->
+				<!-- BEGIN: session_messages -->{SESSION.messages|htmlspecialchars|nl2br}<!-- END: session_messages -->
+			</td>
+			<td>{SESSION.created}<br />{SESSION.modified}<br />Diff: {SESSION.time_diff} minutes</td>
+			<td>
+				<!-- BEGIN: referer_link --><a href="{SESSION.http_referer}" target="_blank">{SESSION.http_referer}</a><!-- END: referer_link -->
+				<!-- BEGIN: referer_na -->n/a<!-- END: referer_na -->
+			</td>
+			<td>{SESSION.http_user_agent}</td>
+			
+		</tr>
+		<!-- END: item -->
+	</tbody>
+</table>
+
+<div class="onxshop_pagination">
+{PAGINATION}
+</div>
+<!-- END: content -->

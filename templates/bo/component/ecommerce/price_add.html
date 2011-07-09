@@ -1,0 +1,46 @@
+<!-- BEGIN: title -->Price Add<!-- END: title -->
+<!-- BEGIN: content -->
+	
+	<script type="text/javascript">  
+	$(function(){  
+		/**
+		 * valide form
+		 */
+		 
+		$("#price_add_form_{GET.product_variety_id}").validate();
+		    
+	});
+	</script>
+	<form method="post" action="{URI}" id="price_add_form_{GET.product_variety_id}">
+		<fieldset class="single">
+			<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+			<legend>Add a new price for Variety</legend>
+			<div class="row">
+				<span class="label"><label>Currency</label></span>
+				<span class="field">{ONXSHOP_REQUEST_1 #component/ecommerce/currency_switcher_inline}</span>
+			</div>
+			<div class="row">
+				<span class="label"><label>Price Type</label></span>
+				<span class="field">
+					<select name="price[type]">
+						<!-- BEGIN: type -->
+						<option value="{TYPE}" {SELECTED}>{TYPE}</option>
+						<!-- END: type -->
+					</select>
+				</span>
+			</div>
+			<div class="row">
+				<span class="label"><label>Price Value ({VAT_NOTE})</label></span>
+				<span class="field"><input type="text" class="text required number" name="price[value]" value="{PRICE.value}"/></span>
+			</div>
+		</fieldset>
+		
+		<input type="hidden" name="price[product_variety_id]" value="{GET.product_variety_id}" />
+		
+		<div class="row submit">
+			<span class="label"><label>&nbsp;</label></span>
+			<span class="field"><button type="submit" name="save" value="save"><span>Save</span></button></span>
+		</div>
+	</form>
+
+<!-- END: content -->

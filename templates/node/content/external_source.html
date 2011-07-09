@@ -1,0 +1,18 @@
+<!-- BEGIN: content -->
+<!--
+<script src="http://convert.rss-to-javascript.com/?chan=1&simple_chan=1&desc=1&num=6&src={PAGE.content}" type="text/javascript"></script>
+-->
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<div class="external_source {NODE.css_class}">
+	<!-- BEGIN: title --><h3 class="contentTitle"><a href="#node_id_{NODE.id}"><span>{NODE.title|htmlspecialchars}</span></a></h3><!-- END: title -->
+	<!-- BEGIN: title_link --><h3 class="contentTitle"><a href="/page/{NODE.link_to_node_id}"><span>{NODE.title|htmlspecialchars}</span></a></h3><!-- END: title_link -->
+	<div class="contentBody">
+		<!-- BEGIN: uri -->
+		<p><a href="{NODE.component.image_link}"><img src="{RSS.image_url}" alt="{RSS.image_title}" /></a></p>
+		<!-- END: uri -->
+		<div class="content">
+		{RESULT}
+		</div>
+	</div>
+</div>
+<!-- END: content -->

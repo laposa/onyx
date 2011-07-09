@@ -1,0 +1,21 @@
+<!-- BEGIN: content -->
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<div class="delivery_detail">
+	<!-- BEGIN: item -->
+	<table>
+		<caption>Delivery #{ITEM.id}</caption>
+		<tbody>
+			<tr><td>Carrier</td><td><strong>{ITEM.carrier_detail.title}</strong></td></tr>
+			<tr><td>Value net</td><td class="money">{ITEM.value_net|money_format('%n', %s)}</td></tr>
+			<tr><td>VAT</td><td class="money">{ITEM.vat|money_format('%n', %s)}</td></tr>
+			<tr><td>VAT rate</td><td class="money">{ITEM.vat_rate|number_format(%s, 2)}</td></tr>
+			<!-- <tr><td>required datetime</td><td class="money">{ITEM.required_datetime}</td></tr> -->
+			<tr><td>Customer note</td><td class="money">{ITEM.customer_note}</td></tr>
+			<tr><td>Weight</td><td class="money">{ITEM.weight}g</td></tr>
+		</tbody>
+	</table>
+	<p><a class="button print_invoice" target="_blank" href="/print/invoice/{ITEM.order_id}"><span>Print shipping documents</span></a></p>
+	<!-- END: item -->
+
+</div>
+<!-- END: content -->

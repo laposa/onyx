@@ -1,0 +1,50 @@
+<!-- BEGIN: content -->
+<div class="basket_detail">
+<!-- BEGIN: basket -->
+<table summary="{I18N_YOUR_ORDER_SUMMARY}">
+	<colgroup>
+		<col id="product_detail" />
+		<col id="qty" />
+		<col id="price" />
+		<col id="vat" />
+		<col id="total" />
+	</colgroup>
+	<thead>
+		<tr>
+			<th scope="col" class="product_detail">{I18N_PRODUCT_DETAIL}</th>
+			<th scope="col" class="qty">{I18N_QTY}</th>
+			<th scope="col" class="price">{I18N_PRICE}</th>
+			<th scope="col" class="vat">{I18N_VAT}</th>
+			<th scope="col" class="total">{I18N_TOTAL}</th>
+		</tr>
+	</thead>
+	<tbody>
+		<!-- BEGIN: item -->
+		<tr class="item">
+		  <td class="product_detail"><a href="/product/{ITEM.product.id}" title="{ITEM.product.name|htmlspecialchars}">{ITEM.product.name|htmlspecialchars}</a> - {ITEM.product.variety.name|htmlspecialchars} ({ITEM.product.variety.sku|htmlspecialchars}) {ITEM.other_data|htmlspecialchars}
+		  </td>
+		  <td class="qty">{ITEM.quantity}</td>
+		  <td class="price">{ITEM.total_net|money_format('%n',%s)}</td>
+		  <td class="vat">{ITEM.vat|money_format('%n',%s)}&nbsp;(@{ITEM.product.vat|number_format('%s', 1)}%)</td>
+		  <td class="total">{ITEM.total|money_format('%n',%s)}</td>
+		</tr>
+		<!-- END: item -->
+	</tbody>
+	<tbody class="breakdown">
+		<tr><td>&nbsp;</td><td colspan="3">{I18N_SUB_TOTAL} ({I18N_PRICE_EX_VAT})</td><td class="money">{BASKET.total_goods_net_before_discount|money_format('%n',%s)}</td></tr>
+		<!-- BEGIN: discount --><tr><td>&nbsp;</td><td colspan="3">{I18N_DISCOUNT}</td><td class="money">{BASKET.discount_net|money_format('%n',%s)}</td></tr><!-- END: discount -->
+		<tr><td>&nbsp;</td><td colspan="3">{I18N_DELIVERY}</td><td class="money">{BASKET.delivery.value_net|money_format('%n',%s)}</td></tr>
+		<!-- BEGIN: vat -->
+		<tr><td>&nbsp;</td><td colspan="3">{I18N_VAT} (@ {VAT.rate|number_format('%s', 1)}%)</td><td class="money">{VAT.value|money_format('%n',%s)}</td></tr>
+		<!-- END: vat -->
+		
+		<tr><td>&nbsp;</td><td colspan="3">{I18N_TOTAL}</td><td class="money">{BASKET.total|money_format('%n',%s)}</td></tr>
+	</tbody>
+</table>
+<!-- END: basket -->
+
+<!-- BEGIN: empty -->
+<p>{I18N_YOUR_BASKET_IS_EMPTY}</p>
+<!-- END: empty -->
+</div>
+<!-- END: content -->

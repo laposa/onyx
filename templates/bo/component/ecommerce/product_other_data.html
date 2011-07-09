@@ -1,0 +1,28 @@
+<!-- BEGIN: content -->
+
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+		
+		<fieldset>
+			<legend>Other Data</legend>
+			<div class="row">
+			<!-- BEGIN: other_data -->
+			<div class="product_other_data">
+				<!-- BEGIN: item -->
+				<div id="other_data-{OTHER_DATA.key}">
+					<span class="label"><label>{OTHER_DATA.key}</label></span>
+					<span class="field"><textarea name="product[other_data][{OTHER_DATA.key}]">{OTHER_DATA.value|htmlspecialchars}</textarea>
+					<a href="javascript: return false;" onclick="this.parentNode.parentNode.removeChild(this.parentNode)"><span>remove</span></a></span>
+				</div>
+				<!-- END: item -->
+			</div>
+			<!-- END: other_data -->
+			</div>
+			<div class="row">
+				<a href="#" onclick="$('#product_other_data_new').toggle(); return false;"><span>Add a new attribute</span></a>
+				<div id="product_other_data_new" style="display: none;">
+					<input type="text" name="product_other_data_new[key]" />
+					<textarea name="product_other_data_new[value]"></textarea>
+				</div>
+			</div>
+		</fieldset>
+<!-- END: content -->

@@ -1,0 +1,126 @@
+<!-- BEGIN: content -->
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#product_edit").tabs();
+	/*$("#onxshop_basic div.row").hide();
+	$("#onxshop_basic legend").bind("click", function(e) {
+		$(this).nextAll().slideToggle();
+	});*/
+});
+</script>
+
+
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<form method="post" action="" class="product_edit">
+<div id="product_edit">
+	<ul id="product_edit_menu" class="ui-tabs-nav">
+		<li class="active"><a class="onxshop_basic" href="#onxshop_basic"><span>Basic info</span></a></li>
+		<li><a class="onxshop_minor" href="#onxshop_minor"><span>Minor Tweaks</span></a></li>
+		<li><a class="onxshop_advanced" href="#onxshop_advanced"><span>Under the Hood</span></a></li>
+	</ul>
+
+	<button style="float: right;  margin: 3px;" type="submit" name="save" value="save"><span>Save</span></button>
+	
+	<div id="onxshop_basic" class="onxshop_tabulator ui-tabs-panel">
+		<fieldset>
+			<legend>Base product info</legend>
+			<div class="row title">
+				<span class="label"><label>Product Name</label></span>
+				<span class="field"><input type="text" class="text title long" name="product[name]" value="{PRODUCT.name|htmlspecialchars}" /></span>
+			</div>
+			<div class="row name_aka">
+				<span class="label"><label>Also Known As (optional)</label></span>
+				<span class="field"><input type="text" class="text long" name="product[name_aka]" value="{PRODUCT.name_aka|htmlspecialchars}" /></span>
+			</div>
+			<div class="row rte">
+				<span class="label"><label>Teaser <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'simple', 'product_teaser')"><span>RTE</span></a></label></span>
+				<span class="field"><textarea id="product_teaser" name="product[teaser]">{PRODUCT.teaser|htmlspecialchars}</textarea></span>
+			</div>
+			<div class="row rte">
+				<span class="label"><label>Description <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'mceAdvanced', 'product_description')"><span>RTE</span></a></label></span>
+				<span class="field"><textarea class="big" name="product[description]" id="product_description">{PRODUCT.description|htmlspecialchars}</textarea></span>
+			</div>
+			<div class="row publish">
+				<span class="label"><label for="product-publish">Publish</label></span>
+				<span class="field"><input type="checkbox" id="product-publish" name="product[publish]" value="1" {PRODUCT.publish} /></span>
+			</div>
+		</fieldset>
+		
+		<fieldset>
+			<legend>Product Varieties</legend>
+			<div class="row">
+				{ONXSHOP_REQUEST_detail #bo/component/ecommerce/product_variety_list~id=GET.id~}
+			</div>
+		</fieldset>
+		
+		<fieldset>
+			<legend>Product Images</legend>
+			<div class="row">
+				<div class="image">
+				{ONXSHOP_REQUEST_imagelist #bo/component/file_list_icon~type=add_to_product:role=main:relation=product:node_id=GET.id~}
+				</div>
+			</div>
+		</fieldset>
+		
+		{ONXSHOP_REQUEST_rt #bo/component/relation_taxonomy~relation=product:id=GET.id~}
+	
+		{ONXSHOP_REQUEST_product_in_node #bo/component/ecommerce/product_in_node~product_id=GET.id~}
+		{ONXSHOP_REQUEST_ptn #bo/component/ecommerce/relation_product_in_nodes}
+		
+	</div>
+
+	<div id="onxshop_minor">
+		<div class="row">
+			{ONXSHOP_REQUEST_producttype #bo/component/ecommerce/product_type_select~product_id=GET.id~}
+		</div>
+		<div class="row">
+			<span class="label"><label for="product-URL">External URL (i.e. more information link to other website)</label></span>
+			<span class="field"><input id="product-URL" type="text" class="text long" name="product[url]" value="{PRODUCT.url|htmlspecialchars}"/></span>
+		</div>
+		
+		<div class="row">
+			{ONXSHOP_REQUEST_other_data #bo/component/ecommerce/product_other_data~id=GET.id~}
+		</div>
+				
+		<div class="row">
+			{ONXSHOP_REQUEST_related #bo/component/ecommerce/relation_product_related}
+		</div>
+		
+	</div>
+	
+	<div id="onxshop_advanced">
+		<fieldset>
+			<div class="row">
+				<span class="label"><label for="product-priority">Priority. Used when product list sorted by priority (by your suggestion).</label></span>
+				<span class="field"><input type="text" id="product-priority" name="product[priority]" value="{PRODUCT.priority}" /></span>
+			</div>
+			<p>Product Last Modified {PRODUCT.modified}</p>
+		</fieldset>
+	</div>
+	
+	<button style="float: right;  margin: 3px;" type="submit" name="save" value="save"><span>Save</span></button>
+
+
+	<input type="hidden" name="product[id]" value="{GET.id}" />
+	
+
+</div>
+</form>
+
+<br style="clear: both;" />
+	
+{ONXSHOP_REQUEST_tinymce #bo/tinymce~id=GET.id:relation=product:role=RTE_description:mode=exact:edit_elements=product_description:theme=advanced~}
+
+
+<script type="text/javascript">
+tinyMCE.init({
+	mode : "exact",
+	elements : "product_teaser",
+	theme : "simple",
+	content_css: "/share/css/tinymce.css",
+	invalid_elements : "span,div,form,input,label,button,script,font",
+	plugins : "paste"
+});
+</script>
+<!-- END: content -->

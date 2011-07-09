@@ -1,0 +1,81 @@
+<!-- BEGIN: content -->
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+
+<style type="text/css">
+div.basket_edit p.top {display: none;}
+div.basket_edit th.action {text-align: left;}
+div.basket_edit th.quanity {text-align: left; padding-left: 5px;}
+div.basket_edit td.quanity {line-height: 0px;}
+td.discount p {margin: 0; text-align: right;}
+button.highlightbutton {border: 1px solid red;}
+</style>
+
+<div class="basket_edit">
+	<!-- BEGIN: basket -->
+	<form action="{URI}" method="post">
+		<p class="top">
+			<a class="button continue_shopping" href="{CONTINUE_SHOPPING_URL}"><span>{I18N_CONTINUE_SHOPPING}</span></a>
+			<a class="button checkout" href="/page/{NODE_CONF.id_map-checkout}"><span>{I18N_PROCEED_TO_CHECKOUT}</span></a>
+		</p>
+		<table class="items" summary="Edit Basket">
+			<colgroup>
+				<col id="action" />
+				<col id="product_detail" />
+				<col id="quanity" />
+				<col id="price" />
+				<col id="total" />
+			</colgroup>
+			<thead>
+				<tr>
+					<th scope="col" class="action">{I18N_ACTION}</th>
+					<th scope="col" class="product_detail">{I18N_PRODUCT_DETAIL}</th>
+					<th scope="col" class="quanity">{I18N_QTY}</th>
+					<th scope="col" class="price money">{I18N_PRICE}</th>
+					<th scope="col" class="total money">{I18N_TOTAL}</th>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+					<td colspan="2" class="discount">
+						{ONXSHOP_REQUEST_discount #component/ecommerce/promotion_code_basket~id=GET.id~}
+						<!-- BEGIN: discount --><p>{I18N_DISCOUNT} {BASKET.discount_net|money_format('%n',%s)}</p><!-- END: discount -->
+					</td>
+					<td class="update"><button class="update" type="submit" name="update" value="Update"><span>{I18N_UPDATE}</span></button></td>
+					<td colspan="2" class="sub_total money">{I18N_SUB_TOTAL} ({VAT_NOTE}) {BASKET.total_sub|money_format('%n',%s)}</td>
+				</tr>
+			</tfoot>
+			<tbody>
+				<!-- BEGIN: item -->
+			<tr>
+				<td class="action"><button class="{ITEM.id}_iefix remove " type="submit" name="remove" value="{ITEM.id}"><span>{I18N_REMOVE}</span></button></td>
+				<td class="product_detail"><div class="image"><a href="/page/{ITEM.product.node.id}" title="{ITEM.product.node.title|htmlspecialchars}">{IMAGE_PRODUCT}</a></div><a href="/page/{ITEM.product.node.id}" title="{ITEM.product.node.title|htmlspecialchars}">{ITEM.product.name|htmlspecialchars}</a><br />{ITEM.product.variety.name|htmlspecialchars} ({ITEM.product.variety.sku|htmlspecialchars}) {ITEM.other_data|htmlspecialchars}
+				</td>
+				<td class="quanity"><input class="text basket_content-quantity" type="text" name="basket_content[{ITEM.id}][quantity]" value="{ITEM.quantity}" onfocus="$('button.update').addClass('highlightbutton');"/></td>
+				<td class="price money">{ITEM.price|money_format('%n',%s)}</td>
+				<td class="total money">{ITEM.total|money_format('%n',%s)}</td>
+			</tr>
+				<!-- END: item -->
+				
+			</tbody>
+		</table>
+		
+	</form>
+	
+	<p class="bottom">
+		<a class="button continue_shopping" href="{CONTINUE_SHOPPING_URL}"><span>{I18N_CONTINUE_SHOPPING}</span></a>
+		<a class="button checkout" href="/page/{NODE_CONF.id_map-checkout}"><span>{I18N_PROCEED_TO_CHECKOUT}</span></a>
+	</p>
+	
+	<!-- END: basket -->
+	
+	<!-- BEGIN: empty -->
+	<p class="empty">{I18N_YOUR_BASKET_IS_EMPTY}</p>
+	<p><a class="button continue_shopping" href="{CONTINUE_SHOPPING_URL}"><span>{I18N_CONTINUE_SHOPPING}</span></a></p>
+	<!-- END: empty -->
+
+</div>
+
+<script type="text/javascript">
+button_fix(true);
+</script>
+<!-- END: content -->

@@ -1,0 +1,27 @@
+<!-- BEGIN: content -->
+
+<div class="promotion_code_basket">
+	<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+	<!-- BEGIN: applied -->
+	
+		<div class="applied">
+			<!-- BEGIN: discount_percentage_value -->
+			<p>{PROMOTION_CODE.discount_percentage_value|number_format(%s, 1)}% discount applied.</p>
+			<!-- END: discount_percentage_value -->
+			<!-- BEGIN: discount_fixed_value -->
+			<p>{PROMOTION_CODE.discount_fixed_value|money_format('%n',%s)}% discount applied.</p>
+			<!-- END: discount_fixed_value -->
+			<!-- BEGIN: discount_free_delivery -->
+			<p>Free delivery applied (may be restricted to some country).</p>
+			<!-- END: discount_free_delivery -->
+			<p>Promotion Code Used <input type="text" name="promotion_code" value="{PROMOTION_CODE.value}" disabled="disabled" /> 			<button type="submit" name="promotion_code_remove" value="promotion_code_remove"><span>{I18N_PROMOTION_CODE_REMOVE}</span></button></p>
+		</div>
+	
+	<!-- END: applied -->
+	<!-- BEGIN: enter -->
+		<div class="enter">
+			<p>{I18N_PROMOTION_CODE_HAVE_CODE} <input type="text" name="promotion_code" value="{PROMOTION_CODE.value}" /> <input type="hidden" name="promotion_code_add" value="promotion_code_add" /></p>	
+		</div>
+	<!-- END: enter -->
+</div>
+<!-- END: content -->

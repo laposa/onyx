@@ -1,0 +1,31 @@
+<!-- BEGIN: content -->
+
+<div class="promotion_code">
+	<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+	<!-- BEGIN: applied -->
+	<form action="{URI}" method="post" class="applied">
+		<fieldset class="single">
+			<h3>Promotion {PROMOTION_CODE.title|htmlspecialchars}</h3>
+			<!-- BEGIN: discount_percentage_value -->
+			<p>{PROMOTION_CODE.discount_percentage_value|number_format(%s, 1)}% discount applied.</p>
+			<!-- END: discount_percentage_value -->
+			<!-- BEGIN: discount_fixed_value -->
+			<p>{PROMOTION_CODE.discount_fixed_value|money_format('%n',%s)} discount applied.</p>
+			<!-- END: discount_fixed_value -->
+			<!-- BEGIN: discount_free_delivery -->
+			<p>Free delivery applied (may be restricted to some country).</p>
+			<!-- END: discount_free_delivery -->
+			<p>Promotion Code Used <input type="text" name="promotion_code" value="{PROMOTION_CODE.value}" disabled="disabled" /> 			<button type="submit" name="promotion_code_remove" value="promotion_code_remove"><span>Remove Code</span></button></p>
+		</fieldset>
+	</form>
+	<!-- END: applied -->
+	<!-- BEGIN: enter -->
+	<form action="{URI}" method="post" class="enter">
+		<fieldset class="single">
+			<h3>Promotion code</h3>
+			<p>Have a promotion code? Enter it here <input type="text" name="promotion_code" value="{PROMOTION_CODE.value}" /> 				<button type="submit" name="promotion_code_add" value="promotion_code_add"><span>Apply Code</span></button></p>
+		</fieldset>
+	</form>
+	<!-- END: enter -->
+</div>
+<!-- END: content -->

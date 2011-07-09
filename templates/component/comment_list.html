@@ -1,0 +1,21 @@
+<!-- BEGIN: content -->
+<div class="comment_list">
+	<!-- BEGIN: comment_list -->
+	<ul class="comment">
+		<!-- BEGIN: item -->
+		<li class="{ITEM.odd_even_class}">
+			<div class="item">
+				<h4 class="linkname">{ITEM.title|htmlspecialchars}</h4>
+				<p class="author">{ITEM.author_name|htmlspecialchars}, {ITEM.created|strtotime|strftime('%e %b %R', %s)}</p>
+		
+				<div class="content">{ITEM.content|htmlspecialchars|nl2br}</div>
+				<!-- BEGIN: awaiting --><p>Awaiting moderator approval</p><!-- END: awaiting -->
+				<div class="bottom"><span></span></div>
+			</div>
+			
+		</li>
+		<!-- END: item -->
+	</ul>
+    <!-- END: comment_list -->
+</div>
+<!-- END: content -->

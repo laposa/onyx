@@ -1,0 +1,68 @@
+<!-- BEGIN: content -->
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<div id="child_list_{GET.id}">
+<script type="text/javascript">
+/* <![CDATA[ */
+$(function() {
+
+	$('a.onxshop_new_content').click(function() {
+	
+		var node_id = {GET.id};
+		var container_id = 0;
+		var node_group = '{NODE_GROUP}';
+		var url = '/request/bo/component/node_add~node_group='+node_group+':parent=' + node_id + ':container=' + container_id + ':expand_all=1~';
+
+		$($(this).attr('href') + ' > div.new_node').load(url, '', function() {
+			var button = '#node_add_form_' + node_id + '_' + container_id + '_wrapper button';
+			var container = '#node_add_form_' + node_id + '_' + container_id + '_wrapper';
+			$(button).after(' or <a href="#" onclick="$(\'' + container + '\').remove(); return false;"><span>cancel</span></a>');
+			
+			$('#node_add_form_'+node_id+'_'+container_id+'_wrapper form').ajaxForm({ 
+				target: '#node_add_form_'+node_id+'_'+container_id+'_wrapper',
+				success: function(responseText, statusText) {
+					popupMessage("#node_add_form_"+node_id+"_"+container_id+"_wrapper div.onxshop_messages");
+					var refresh_url = '/request/bo/component/node_list~id='+node_id+':node_group='+node_group+'~';
+					$('#child_list_'+node_id).parent().load(refresh_url);
+				}
+			});
+		});
+		return false;
+	});
+	$('a.onxshop_delete').live('click', function() {
+		var child_id = $(this).attr('href').replace('#','');;
+		$('#dialog').addClass('ajaxLoad').load('/request/bo/component/node_delete~id='+child_id+':delete=1~', function() {$(this).removeClass('ajaxLoad');});
+		$('#dialog').dialog({width: 500, modal: true, overlay: {opacity: 0.5, background: 'black'}});
+		$('#dialog').dialog('open');
+		return false;
+	});
+});
+/* ]]> */
+</script>
+
+	<!-- BEGIN: children -->
+	<table>
+		<thead>
+			<tr><th>Title</th><th>Type</th><th>Container</th><th>Priority</th><th></th></tr>
+		</thead>
+		<tbody>
+			<!-- BEGIN: item -->
+			<tr id="node_id_{CHILD.id}">
+				<td><a class="{CHILD.class}" href="javascript:void({CHILD.id})" onclick="openEdit('/popup/properties/{CHILD.id}/orig/page/{GET.id}')">{CHILD.title}</a></td>
+				<td>{CHILD.node_group}/{CHILD.node_controller}</td>
+				<td>{CHILD.parent_container}</td>
+				<td>{CHILD.priority}</td>
+				<td><div class="onxshop_page_properties"><a class="onxshop_delete" title="Delete {CHILD.node_controller}" href="#{CHILD.id}"><span>Delete</span></a></div></td>
+			</tr>
+			<!-- END: item -->
+		</tbody>
+	</table>
+	<!-- END:children -->
+	<!-- BEGIN: empty -->
+	<p>This node contains no children</p>
+	<!-- END: empty -->
+	<p><a class="button add onxshop_new_content" title="Add Content ..." href="#child_list_{GET.id}" ><span>Add Content ...</span></a></p>
+
+	<div class="new_node"></div>
+</div>
+
+<!-- END: content -->

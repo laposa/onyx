@@ -1,0 +1,57 @@
+<!-- BEGIN: title -->Product Add<!-- END: title -->
+<!-- BEGIN: content -->
+<script type="text/javascript">  
+$(function(){  
+	$("#product_add_form").validate();
+});
+</script>
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<div class="product_add">
+	<form method="post" action="{URI}" id="product_add_form">
+		<fieldset class="single">
+			<legend>Base product info</legend>
+			<div class="row title">
+				<span class="label"><label for="product-name">Product Name</label></span>
+				<span class="field"><input id="product-name" class="text title required" type="text" name="product[name]" value="{PRODUCT.name}"/></span>
+			</div>
+			<div class="row">
+				{ONXSHOP_REQUEST_producttype #bo/component/ecommerce/product_type_select}
+			</div>
+
+			<div class="row title">
+				<span class="label"><label for="product-variety-name">Variety Name</label></span>
+				<span class="field"><input type="text" class="text title required" name="product[variety][name]" id="product-variety-name" value="{PRODUCT.variety.name}"/></span>
+			</div>
+			<div class="row">
+				<span class="label"><label for="product-varitety-sku">Code (SKU)</label></span>
+				<span class="field"><input type="text" class="text required" name="product[variety][sku]" id="product-varitety-sku" value="{PRODUCT.variety.sku}"/></span>
+			</div>
+			<div class="row">
+					<span class="label"><label for="product-variety-weight_gross">Weight Gross [{VARIETY_CONF.weight_units}]</label></span>
+					<span class="field"><input type="text" class="text short required" name="product[variety][weight_gross]" id="product-variety-weight_gross" value="{PRODUCT.variety.weight_gross}"/> (Used for postage. Zero weight is free postage.)</span>
+			</div>
+			<div class="row">
+				<span class="label"><label for="product-varitety-stock">Stock</label></span>
+				<span class="field"><input type="text" class="text short required digits" name="product[variety][stock]" id="product-varitety-stock" value="{PRODUCT.variety.stock}"/></span>
+			</div>
+		
+			<input type="hidden" name="product[variety][price][currency_code]" value="{GLOBAL_DEFAULT_CURRENCY}" />
+			<input type="hidden" name="product[variety][price][type]" value="common" />
+				
+			<div class="row">
+				<span class="label"><label>Price Value ({VAT_NOTE}) in {GLOBAL_DEFAULT_CURRENCY}</label></span>
+				<span class="field"><input type="text" class="text short required number" name="product[variety][price][value]" value="{PRODUCT.variety.price.value}"/></span>
+			</div>
+		</fieldset>
+
+		<div class="row submit">
+			<span class="label"><label>&nbsp;</label></span>
+			<span class="field">
+				<button type="submit" class="save" name="save" value="save"><span>Add this product and continue to edit</span></button>
+			</span>
+		</div>
+	</form>
+	
+</div>
+
+<!-- END: content -->

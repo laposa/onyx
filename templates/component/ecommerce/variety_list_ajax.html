@@ -1,0 +1,75 @@
+<!-- BEGIN: content -->
+<script type="text/javascript">
+function addToBasketAjaxActionFromVarietyList(variety_id) {
+	
+	$('#item_variety_id_' + variety_id + ' a.add_to_basket').css('background', 'url(/share/images/ajax-indicator/indicator_arrows.gif) no-repeat center left');
+	$("#basket").css('background', 'url(/share/images/ajax-indicator/indicator_arrows.gif) no-repeat center left');
+	$("#basket #basketWrapper").load('/request/component/ecommerce/basket', {'add': variety_id, 'quantity': 1}, function (responseText, textStatus, XMLHttpRequest) {
+		popupMessage("#basket #basketWrapper div.onxshop_messages");
+		
+		$("#basket").css('background', 'none');
+		$('#item_variety_id_' + variety_id + ' a.add_to_basket').css('background', 'url(/images/basket-gold-t.png) no-repeat center left');
+	});
+	
+}
+
+
+$(document).ready(function() {
+
+	$('div.variety_list_ajax tr.onstock').hover(function(){$(this).addClass("highlight");}, function() {$(this).removeClass("highlight");}).click(function(){
+		
+		var variety_id = $(this).find('a').attr("href").replace(/[^0-9]/g, '');
+
+		addToBasketAjaxActionFromVarietyList(variety_id);
+		
+		return false;
+	});
+});
+</script>
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<!-- BEGIN: variety -->
+<div class="variety_list_ajax">
+	<table>
+		<!-- BEGIN: item -->
+			<!-- BEGIN: onstock -->
+			<tr class="row onstock" id="item_variety_id_{VARIETY.id}">
+				<td class="first">
+					<a title="{VARIETY.name|htmlspecialchars}" href="#variety_id_{VARIETY.id}"><span class="name">{VARIETY.name|htmlspecialchars}</span> <!-- BEGIN: subtitle --><span class="subtitle">({VARIETY.ean13|htmlspecialchars})*</span><!-- END: subtitle --></a>
+				</td>
+				<td>
+					<a title="{VARIETY.name|htmlspecialchars}" href="#variety_id_{VARIETY.id}"><span class="price">{PRICE}</span></a>
+				</td>
+				<td class="last">
+					<a class="add_to_basket" href="#variety_id_{VARIETY.id}" title="Add to basket"><span>{I18N_ADD_TO_BASKET}</span></a>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="3"><div class="description">{VARIETY.description}</div></td>
+			</tr>
+			<!-- END: onstock -->
+	
+			<!-- BEGIN: outofstock -->
+			<tr class="row outofstock">
+				<td class="first">
+					<span class="name">{VARIETY.name|htmlspecialchars}</span>
+					<div class="description">{VARIETY.description}</div>
+				</td>
+				<td>
+					<span class="price">{PRICE}</span>
+				</td>
+				<td class="last">
+					<span class="outofstock_message">{I18N_OUT_OF_STOCK}</span>
+				</td>
+			</tr>
+			<!-- END: outofstock -->
+	
+		<!-- END: item -->
+	</table>
+	
+	{PRODUCT_OPTIONS}
+	
+</div>
+
+
+<!-- END: variety -->
+<!-- END: content -->

@@ -1,0 +1,20 @@
+<!-- BEGIN: content -->
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<!-- BEGIN: delete -->Not in use<!-- END: delete -->
+<!-- BEGIN: usage -->
+	<!-- BEGIN: node -->
+		<a href="/page/{IMAGE_DETAIL.page_id}">Page {IMAGE_DETAIL.page_id}</a> / 
+		<a href="/page/{IMAGE_DETAIL.node_id}">Node {IMAGE_DETAIL.node_id} ({NODE_DETAIL.node_group}/{NODE_DETAIL.node_controller} p{NODE_DETAIL.parent})</a>
+		<a class="onxshop_icon onxshop_magnifier" href="/request/node~id={IMAGE_DETAIL.node_id}~" onclick="openAjaxRequestInDialog('/request/node~id={IMAGE_DETAIL.node_id}~'); return false;"><span>Preview</span></a><br />
+	<!-- END: node -->
+	<!-- BEGIN: product -->
+		<a href="/backoffice/products/{IMAGE_DETAIL.node_id}/edit">Product {IMAGE_DETAIL.node_id}</a><br />
+	<!-- END: product -->
+	<!-- BEGIN: product_variety -->
+		<a href="/backoffice/products/variety/{IMAGE_DETAIL.node_id}/edit">Product Variety {IMAGE_DETAIL.node_id}</a><br />
+	<!-- END: product_variety -->
+	<!-- BEGIN: taxonomy -->
+		<a href="/backoffice/advanced/taxonomy/properties/{IMAGE_DETAIL.node_id}">Taxonomy {IMAGE_DETAIL.node_id}</a><br />
+	<!-- END: taxonomy -->
+<!-- END: usage -->
+<!-- END: content -->

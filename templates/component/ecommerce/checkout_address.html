@@ -1,0 +1,91 @@
+<!-- BEGIN: content -->
+
+<script type="text/javascript">  
+$(document).ready(function(){
+	$("#address_edit").validate();
+});  
+</script>
+<style type="text/css">
+div.checkout_address div.item {float: left; margin-right: 2em;}
+div.checkout_address div.active {background: #f0f0f0;}
+div.checkout_address a.add_new {display: block; background: url(/images/arrow-gold-right.gif) center left no-repeat; padding-left: 15px;}
+div.checkout_address a.open {background-image: url(/images/arrow-gold-down.gif);}
+</style>
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<div class="checkout_address">
+	<form action="{URI_SAFE}" method="post" id="address_edit" class="twoColumns">	
+	
+	<div class="address_list">
+		<fieldset class="single">
+			<!--<legend>{I18N_ADDRESS_LIST}</legend>-->
+			
+			
+			<select name="selected_address_id" onchange="submit()">
+				<!-- BEGIN: address -->
+				<option value="{ADDRESS.id}" {ADDRESS_selected}>{ADDRESS.name|htmlspecialchars}, {ADDRESS.line_1|htmlspecialchars}, {ADDRESS.city|htmlspecialchars}, {ADDRESS.post_code|htmlspecialchars}, {ADDRESS.county|htmlspecialchars}, {ADDRESS.country.name|htmlspecialchars}</option>
+				<!-- END: address -->
+			</select>
+		</fieldset>
+	</div>
+	
+	<p><a href="#address_add" onclick="$('#address_add').toggle(); $(this).toggleClass('open'); return false;" class="add_new"><span>add a new address</span></a></p>
+	
+	<div class="address_add" style="display: none;" id="address_add">
+		
+			<fieldset>
+				<!--<legend>{I18N_ADD_A_NEW_ADDRESS}</legend>-->
+				<div class="row name">
+					<span class="label"><label for="client-address-name"><span class="mandatory-mark">*</span> {I18N_NAME}:</label></span>
+					<span class="field"><input class="text required" type="text" name="client[address][name]" value="{client.address.name}" id="client-address-name" /></span>
+				</div>
+				<div class="row line_1">
+					<span class="label"><label for="client-address-line_1"><span class="mandatory-mark">*</span> {I18N_ADDRESS_LINE_1}:</label></span>
+					<span class="field"><input class="text required" type="text" name="client[address][line_1]" value="{client.address.line_1}" id="client-address-line_1" /></span>
+				</div>
+				<div class="row line_2">
+					<span class="label"><label for="client-address-line_2">{I18N_ADDRESS_LINE_2}:</label></span>
+					<span class="field"><input class="text" type="text" name="client[address][line_2]" value="{client.address.line_2}" id="client-address-line_2" /></span>
+				</div>
+				<div class="row line_3">
+					<span class="label"><label for="client-address-line_3">{I18N_ADDRESS_LINE_3}:</label></span>
+					<span class="field"><input class="text" type="text" name="client[address][line_3]" value="{client.address.line_3}" id="client-address-line_3" /></span>
+				</div>
+				<div class="row city">
+					<span class="label"><label for="client-address-city"><span class="mandatory-mark">*</span> {I18N_CITY}:</label></span>
+					<span class="field"><input class="text required" type="text" name="client[address][city]" value="{client.address.city}" id="client-address-city" /></span>
+				</div>
+				<div class="row post_code">
+					<span class="label"><label for="client-address-post_code"><span class="mandatory-mark">*</span> {I18N_POST_CODE}:</label></span>
+					<span class="field"><input class="text short required" type="text" name="client[address][post_code]" value="{client.address.post_code}" id="client-address-post_code" /></span>
+				</div>
+				<div class="row county">
+					<span class="label"><label for="client-address-county"><span class="mandatory-mark">*</span> {I18N_COUNTY}:</label></span>
+					<span class="field"><input class="text required" type="text" name="client[address][county]" value="{client.address.county}" id="client-address-county"/></span>
+				</div>
+				<div class="row country_id">
+					<span class="label"><label for="client-address-country_id"><span class="mandatory-mark">*</span> {I18N_STATE}:</label></span>
+					<!-- BEGIN: country -->
+					<span class="field">
+						<select name="client[address][country_id]" id="client-address-country_id" style="width: 170px;">
+						<!-- BEGIN: item -->
+							<option value="{country.id}" {country.selected}>{country.name}</option>
+						<!-- END: item -->
+						</select>
+					</span>
+					<!-- END: country -->
+				</div>
+				
+				<div class="row submit">
+					<span class="label"><label>&nbsp;</label></span>
+					<span class="field"><button class="add_new_address" type="submit" name="add_address" value="add_address"><span>{I18N_ADD_NEW_ADDRESS}</span></button></span>
+				</div>
+			</fieldset>
+	</div>
+	
+	
+	</form>
+
+</div>
+
+
+<!-- END: content -->

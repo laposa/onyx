@@ -1,0 +1,49 @@
+<!-- BEGIN: content -->
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<div class="product_list_scroll">
+	<div class="top"><span></span></div>
+
+	<!-- "previous page" action --> 
+	<a class="prevPage browse left" title="Previous"><span>Prev</span></a> 
+
+	<!-- root element for scrollable --> 
+	<div class="scrollable">     
+		     
+		<!-- root element for the items --> 
+		<div class="items"> 
+		    
+			<!-- BEGIN: item -->
+			<div class="item {ITEM.odd_even_class} {ITEM.first_last_class}">
+				<div class="image">
+					<a href="/page/{ITEM.node_id}" title="{ITEM.product_name|htmlspecialchars}"><img src="/thumbnail/{IMAGE_WIDTH}x{IMAGE_WIDTH}/{ITEM.image_src}" alt="{ITEM.image_title|htmlspecialchars}" /></a>
+				</div>
+				
+				<div class="description">
+					<h3 class="name"><a href="/page/{ITEM.node_id}"><span>{ITEM.product_name|htmlspecialchars}</span></a></h3>
+				</div>
+
+			</div>
+			
+			<!-- END: item -->
+	
+		</div>
+	</div>
+	
+	<!-- "next page" action --> 
+	<a class="nextPage browse right" title="Next"><span>Next</span></a>
+
+	<div class="bottom"><span></span></div>
+</div>
+
+
+<script type="text/javascript"> 
+// execute your scripts when the DOM is ready. this is a good habit 
+$(function() { 
+ 
+    // initialize scrollable 
+    $("div.scrollable").scrollable({size: 3}); 
+ 
+}); 
+</script>
+
+<!-- END: content -->

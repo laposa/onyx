@@ -1,0 +1,15 @@
+<!-- BEGIN: title -->{CONFIGURATION.global.title|htmlspecialchars}: Registration<!-- END: title -->
+<!-- BEGIN: content -->
+<p>Hi {DATA.customer.first_name},</p>
+
+<p>Welcome! Thank you for registering with {CONFIGURATION.global.title|htmlspecialchars}.</p>
+
+<p>Your username is {DATA.customer.email}</p>
+
+<p>If you forget your password, you can retrieve it from this address:<br />
+<a href="http://{_SERVER.HTTP_HOST}/page/{NODE_CONF.id_map-passwordreset}">http://{_SERVER.HTTP_HOST}/page/{NODE_CONF.id_map-passwordreset}</a></p>
+
+<p>Best wishes,</p>
+
+<p>{CONFIGURATION.global.author_content}</p>
+<!-- END: content -->

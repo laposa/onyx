@@ -1,0 +1,20 @@
+<!-- BEGIN: content -->
+
+<!-- BEGIN: detail -->
+<h2>Company detail</h2>
+<dl>
+	<dt>Name</dt><dd>{ITEM.name|htmlspecialchars}</dd>
+	<dt>Web</dt><dd>{ITEM.www|htmlspecialchars}</dd>
+	<dt>Tel</dt><dd>{ITEM.telephone|htmlspecialchars}</dd>
+	<dt>Fax</dt><dd>{ITEM.fax|htmlspecialchars}</dd>
+	<dt>Customer ID</dt><dd>{ITEM.customer_id}</dd>
+	<dt>Registration No</dt><dd>{ITEM.registration_no|htmlspecialchars}</dd>
+	<dt>VAT No</dt><dd>{ITEM.vat_no|htmlspecialchars}</dd>
+</dl>
+<!-- END: detail -->
+
+<!-- BEGIN: empty -->
+<p>This client has no company assigned to the account.</p>
+<!-- END: empty -->
+
+<!-- END: content -->

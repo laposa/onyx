@@ -1,0 +1,7 @@
+<TaxRates>
+	<TaxRate>
+		<Reference>1</Reference>
+		<Description></Description>
+		<Rate>0.00</Rate>
+	</TaxRate>
+</TaxRates>

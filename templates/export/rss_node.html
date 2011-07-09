@@ -1,0 +1,28 @@
+<!-- BEGIN: content --><?xml version="1.0" encoding="UTF-8" ?>
+<rss version ="2.0">
+
+<channel>
+	<title>{CONFIGURATION.global.title|htmlspecialchars|xmlentities} - {NODE.title|htmlspecialchrs|xmlentities}</title>
+	<link>http://{_SERVER.HTTP_HOST}/page/{NODE.id}</link>
+	<description>{NODE.description|htmlspecialchars|xmlentities}</description>
+	<language>en-gb</language>
+	<pubDate>{RSS_DATE}</pubDate>
+	<lastBuildDate>{RSS_DATE}</lastBuildDate>
+	<generator>{ONXSHOP_VERSION}</generator>
+	<managingEditor>{CONFIGURATION.global.admin_email}</managingEditor>
+	<webMaster>{CONFIGURATION.global.admin_email}</webMaster>
+	<ttl>{ONXSHOP_PAGE_CACHE_TTL}</ttl>
+	
+	
+<!-- BEGIN: item -->
+	<item>
+		<title>{CHILD.title|htmlspecialchars|xmlentities}</title>
+		<link>{CHILD.url}</link>
+		<description>{CHILD.teaser|htmlspecialchars|xmlentities}</description>
+		<pubDate>{CHILD.rss_date}</pubDate>
+	</item>
+<!-- END: item -->
+
+</channel>
+</rss>
+<!-- END: content -->

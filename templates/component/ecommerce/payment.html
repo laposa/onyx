@@ -1,0 +1,68 @@
+<!-- BEGIN: content -->
+
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+
+<!-- BEGIN: google_analytics -->
+<script type="text/javascript">
+
+  _gaq.push(['_addTrans',
+    '{ORDER.id}',           // order ID - required
+    '{CONFIGURATION.global.title|htmlspecialchars}',  // affiliation or store name
+    '{ORDER.basket.total}',          // total - required
+    '{ORDER.basket.total_vat}',           // tax
+    '{ORDER.basket.delivery.value_net}',              // shipping
+    '{ORDER.address.delivery.city|htmlspecialchars}',       // city
+    '{ORDER.address.delivery.city|htmlspecialchars}',     // state or province
+    '{ORDER.address.delivery.country.name|htmlspecialchars}'             // country
+  ]);
+
+   // add item might be called for every item in the shopping cart
+   // where your ecommerce engine loops through each item in the cart and
+   // prints out _addItem for each
+   <!-- BEGIN: item -->
+  _gaq.push(['_addItem',
+    '{ORDER.id}',           // order ID - required
+    '{ITEM.product.variety.sku|htmlspecialchars}',           // SKU/code - required
+    '{ITEM.product.name|htmlspecialchars}',        // product name
+    '{ITEM.product.variety.name|htmlspecialchars}',   // category or variation
+    '{ITEM.price}',          // unit price - required
+    '{ITEM.quantity}'               // quantity - required
+  ]);
+  <!-- END: item -->
+  _gaq.push(['_trackTrans']); //submits transaction to the Analytics servers
+
+</script>
+<!-- END: google_analytics -->
+
+<!-- BEGIN: google_adwords -->
+<!-- Google Code for Purchase/Sale Conversion Page -->
+<script type="text/javascript">
+/* <![CDATA[ */
+var google_conversion_id = {CONFIGURATION.global.google_adwords};
+var google_conversion_language = "en";
+var google_conversion_format = "1";
+var google_conversion_color = "ffffff";
+var google_conversion_label = "purchase";
+var google_conversion_value = 0;
+/* ]]> */
+</script>
+<script type="text/javascript" src="https://www.googleadservices.com/pagead/conversion.js">
+</script>
+<noscript>
+<div style="display:inline;">
+<img height="1" width="1" style="border-style:none;" alt="" src="https://www.googleadservices.com/pagead/conversion/{CONFIGURATION.global.google_adwords}/?label=purchase&amp;guid=ON&amp;script=0"/>
+</div>
+</noscript>
+<!-- END: google_adwords -->
+
+<!-- BEGIN: shareasale -->
+<img src="https://shareasale.com/sale.cfm?amount={ORDER.basket.total}>&tracking={ORDER.id}&transtype=sale&merchantID={SHARE_A_SALE_MERCHANT_ID}" width="1" height="1">
+<!-- END: shareasale -->
+
+{RESULT}
+
+
+{ONXSHOP_REQUEST_order_detail #component/ecommerce/order_detail&amp;id=GET.order_id}
+
+
+<!-- END: content -->

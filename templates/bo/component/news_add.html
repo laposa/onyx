@@ -1,0 +1,37 @@
+<!-- BEGIN: content -->
+<script type="text/javascript"> 
+$(document).ready(function() { 
+	var options = { 
+		target:        '#news_add',
+		success:       function() {
+			makeAjaxRequest('#news_list', '/request/bo/component/news_list~news_list_id={GET.news_list_id}~');
+			$('#dialog').dialog( "destroy" );
+		}
+	}; 
+	$('#news_add').ajaxForm(options); 
+});
+</script> 
+
+<div class="node_add">
+	<form method="post" action="{URI}" id="news_add">
+		<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+		<fieldset>
+			<legend>Add a new article to {NEWS_LIST.title|htmlspecialchars}</legend>
+			<div class="row">
+				<span class="label"><label>Article Title:</label></span>
+				<span class="field"><input class="text title" type="text" name="node[title]" value="{NODE.title}" /></span>
+			</div>
+			<div class="row">
+				<span class="label"><label id="layout_icon" class="onxshop_edit_{ACTIVE}">&nbsp;</label></span>
+				<span class="field"><button type="submit" name="save" value="save"><span>Add {GET.node_group}</span></button></span>
+			</div>
+		</fieldset>
+		
+		<input type="hidden" name="node[parent]" value="{NEWS_LIST.id}" />
+		<input type="hidden" name="node[parent_container]" value="0" />
+		<input type="hidden" name="node[node_group]" value="page" />
+		<input type="hidden" name="node[node_controller]" value="news" />
+		<input type="hidden" name="node[publish]" value="0" />
+	</form>
+</div>
+<!-- END: content -->

@@ -1,0 +1,22 @@
+<!-- BEGIN: content -->
+<div class="orders_graph">
+	<form method="post" action="{URI}">
+		<fieldset class="single">
+			<legend>Orders amount graph</legend>
+			<div class="row">
+				<span class="label"><label>Time frame</label></span>
+				<span class="field">
+					<select name="time_frame">
+						<option value="month" {SELECTED_month}>Month</option>
+						<option value="week" {SELECTED_week}>Week</option>
+						<option value="day" {SELECTED_day}>Day</option>
+					</select>
+					<button type="submit" name="submit" value="submit"><span>Submit</span></button>
+				</span>
+			</div>
+		</fieldset>
+	</form>
+	
+	<a href="/download/var/cache/graph-success_orders-{TIME_FRAME}.png"><img src="/image/var/cache/graph-success_orders-{TIME_FRAME}.png" /></a>
+</div>
+<!-- END: content -->

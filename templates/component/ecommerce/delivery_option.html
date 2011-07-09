@@ -1,0 +1,31 @@
+<!-- BEGIN: content -->
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+
+<div class="delivery_option">
+	<form class="delivery_option twoColumns" action="{URI}#node_id_{GET.node_id}" method="post">
+		<fieldset class="single">
+			<legend>Delivery Option</legend>
+			<!-- BEGIN: item -->
+			<div class="row type">
+				<input type="radio" class="radio" name="delivery[carrier_id]" value="{ITEM.id}" id="delivery-carrier_id_{ITEM.id}" title="{ITEM.description|htmlspecialchars}" {ITEM.selected} onclick="submit()" />
+				<label for="delivery-carrier_id_{ITEM.id}" title="{ITEM.description|htmlspecialchars}">{ITEM.title}</label>
+				
+			</div>
+			<!-- END: item -->
+			<!-- 
+			<div class="row required_datetime">
+				<span class="label"><label for="delivery-required_datetime">Required Date</label></span>
+				<span class="field">
+					<input type="text" name="delivery[required_datetime]" value="{DELIVERY.required_datetime}" id="delivery-required_datetime" />
+				</span>
+			</div>
+			 -->
+		</fieldset>
+		
+		<div class="row submit">
+			<span class="label"><label>&nbsp;</label></span>
+			<span class="field"><button type="submit" class="submit" name="change" value="change"><span>Change Delivery</span></button></span>
+		</div>
+	</form>
+</div>
+<!-- END: content -->

@@ -1,0 +1,52 @@
+<!-- BEGIN: content -->
+<div id="product_in_node_{GET.product_id}">
+<script type="text/javascript">
+/* <![CDATA[ */
+$(document).ready(function(){
+	$('fieldset.product_in_node a.button.product_in_node').click(function() {
+		$('#product_in_node_tree').addClass('ajaxLoad').load('/request/component/menu_js~id=0:expand_all=1:publish=0~', function() {
+			$('#product_in_node_tree').removeClass('ajaxLoad');
+			$('#product_in_node_tree .simpleTree').simpleTree({
+				drag: false,
+				autoclose: true,
+				afterClick:function(node){
+					var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
+					$('#product_in_node_{GET.product_id}').load('/request/bo/component/ecommerce/product_in_node~id={GET.product_id}:add_to_parent=' + node_id + '~');
+				},
+				animate: true,
+				docToFolderConvert: true
+			});
+		});
+		return false;
+	});
+});
+/* ]]> */
+</script>
+	
+	<fieldset class="product_in_node">
+		<legend>Product page detail</legend>
+		<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+		
+		<!-- BEGIN: not_exists -->
+		<p>Product page is not created, please select a place for your product.</p>
+		<p><a class="button add product_in_node" href="#"><span>Browse site ...</span></a></p>
+		<div id="product_in_node_tree"></div>
+		<!-- END: not_exists -->
+		
+		<!-- BEGIN: product_node -->
+		<p>Product sits under page <a href="/page/{PARENT_DETAIL.id}">{PARENT_DETAIL.title|htmlspecialchars}</a> <a class="button change product_in_node" href="#"><span>Change ...</span></a></p>
+		<div id="product_in_node_tree"></div>
+		<h4>Full path to product detail</h4>
+		{BREADCRUMB}
+		<h4>Page content node list</h4>
+		<div>
+		{NODE_LIST}
+		</div>
+		<!-- END: product_node -->
+		
+		
+		<input type="hidden" id="node-parent" name="node[parent]" value="{NODE.parent}" />				
+	</fieldset>
+
+</div>
+<!-- END: content -->

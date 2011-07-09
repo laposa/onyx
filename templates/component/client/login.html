@@ -1,0 +1,38 @@
+<!-- BEGIN: content -->
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<!-- BEGIN: login_box -->
+<script type="text/javascript">  
+$(document).ready(function(){  
+	$("#login_node_id_{GET.node_id}").validate();  
+});  
+</script>
+
+<div class="login">
+	<form class="login twoColumns" id="login_node_id_{GET.node_id}" method="post" action="{URI_SAFE}#node_id_{GET.node_id}">
+		<fieldset class="single">
+			<legend>{I18N_EXISTING_CUSTOMER}</legend>
+			<div class="row username">
+				<span class="label"><label for="client-username">{I18N_YOUR_EMAIL}:</label></span>
+				<span class="field"><input class="required text" id="client-username" type="text" name="client[username]" value="{CLIENT.username|htmlspecialchars}"/></span>
+			</div>
+			<div class="row password">
+				<span class="label"><label for="client-password">{I18N_YOUR_PASSWORD}:</label></span>
+				<span class="field"><input class="required text" id="client-password" type="password" name="client[password]" value="{CLIENT.password|htmlspecialchars}"/></span>
+			</div>
+			<div class="row autologin checkbox">
+				<span class="label"><label for="autologin">{I18N_AUTOLOGIN}</label></span>
+				<span class="field"><input type="checkbox" class="checkbox" id="autologin" name="autologin" /></span>
+			</div>
+		</fieldset>
+		<div class="row submit">
+			<span class="label"><label>&nbsp;</label></span>
+			<span class="field"><button type="submit" name="login" value="sent" class="submit"><span>{I18N_SUBMIT}</span></button></span>
+		</div>
+	</form>
+	
+</div>
+<!-- END: login_box -->
+<!-- BEGIN: userbox -->
+{ONXSHOP_REQUEST_userbox #component/client/userbox}
+<!-- END: userbox -->
+<!-- END: content -->

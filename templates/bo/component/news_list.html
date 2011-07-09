@@ -1,0 +1,43 @@
+<!-- BEGIN: content -->
+<div class="newsList">
+	<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+	<p><a class="button add" title="Add new article" href="#" onclick="openAjaxRequestInDialog('/request/bo/component/news_add~news_list_id={NEWS_LIST.id}~', 'Create a news item for {NEWS_LIST.title|htmlspecialchars}'); return false"><span>Add a new article to {NEWS_LIST.title|htmlspecialchars}</span></a></p>
+	
+	<!-- BEGIN: list -->		
+	<table>
+		<thead>
+			<tr>
+				<th>Title</th>
+				<th>Created<br />Modified</th>
+				<th>&nbsp;</th>
+			</tr>
+		</thead>
+		<tfoot>
+			<tr>
+				<td colspan="3">
+					<div class="onxshop_pagination">
+						{PAGINATION}
+					</div>
+				</td>
+			</tr>
+		</tfoot>
+		<tbody>
+			<!-- BEGIN: item -->
+			<tr class="{ITEM.class}">
+				<td>
+					<a href="/popup/edit/{ITEM.node_group}/{ITEM.id}/orig{_SESSION.orig}" onclick="openEdit('/popup/edit/{ITEM.node_group}/{ITEM.id}/orig{_SESSION.orig}'); return false;"><span class="{ITEM.class}">{ITEM.title|htmlspecialchars}</span></a>
+				</td>
+				<td>{ITEM.created}<br />{ITEM.modified}</td>
+				<td>
+					<div class="onxshop_edit_content">
+						<a class="onxshop_delete" title="Delete {ITEM.node_group}" href="#" onclick="openAjaxRequestInDialog('/request/bo/component/node_delete~id={ITEM.id}:delete=1~', 'Delete news item'); return false"><span>Delete</span></a>
+					</div>
+				</td>
+			</tr>
+			<!-- END: item -->
+		</tbody>
+	</table>		
+	<p><a class="button rss" href="/export/rss/node/{NEWS_LIST.id}" ><span>News RSS Export ({NEWS_LIST.title})</span></a></p>
+	<!-- END: list -->
+</div>				
+<!-- END: content -->

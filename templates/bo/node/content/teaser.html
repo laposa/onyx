@@ -1,0 +1,21 @@
+<!-- BEGIN: title -->Teaser<!-- END: title -->
+<!-- BEGIN: content -->
+{FILE "bo/node/default_top.html"}
+<fieldset>
+	<legend>Teaser Edit</legend>
+	<div class="row">
+		<span class="label"><label>*Teaser Text:</label></span>
+		<span class="field"><textarea name="node[component][text]" id="component-text">{NODE.component.text}</textarea></span>
+	</div>
+	<div class="row">
+		<span class="label"><label>*Teaser Link:</label></span>
+		<span class="field"><input type="text" name="node[component][href]" id="component-href" value="{NODE.component.href}" /> <a href="javascript:nOpenWin('/request/sys/xhtml.bo/backoffice.bo/component/tree_select~id={GET.id}:type=teaser~', 520, 700);">browse server</a></span>
+	</div>
+	<div class="row">
+		<span class="label"><label>*Teaser Link Text:</label></span>
+		<span class="field"><input type="text" name="node[component][link_text]" value="{NODE.component.link_text}" /></span>
+	</div>
+</fieldset>
+{ONXSHOP_REQUEST_tinymce #bo/tinymce~id=GET.id:relation=node:edit_elements=component-text~}
+{FILE "bo/node/default_bottom.html"}
+<!-- END: content -->

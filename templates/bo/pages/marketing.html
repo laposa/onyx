@@ -1,0 +1,39 @@
+<!-- BEGIN: title -->Promotions<!-- END: title -->
+<!-- BEGIN: content -->
+
+
+<div class="twoColumnPage page fibonacci-1-5">
+	<div class="top page"><span></span></div>
+	<div class="content page">
+		<div class="contentWrappper page">
+			<div class="pageHeader">
+				
+			</div>
+			<div class="columnTop page">
+				<div class="columnWrapper page">
+
+				</div>
+			</div>
+
+			<div class="columnOne page">
+				<div class="columnWrapper page">
+					<ul>
+						<li><a href="#sub_content" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/ecommerce/promotion_list')"><span>Promotion Codes</span></a></li>
+					</ul>
+					<h3>Data export</h3>
+					{ONXSHOP_REQUEST_export #bo/component/export}
+				</div>
+			</div>
+			<div class="columnTwo page">
+				<div class="columnWrapper page">
+					<div id="sub_content">
+						{ONXSHOP_REQUEST_promotion #bo/component/ecommerce/promotion_list}
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="bottom page"><span></span></div>
+</div>
+
+<!-- END: content -->

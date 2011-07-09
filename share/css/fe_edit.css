@@ -1,0 +1,102 @@
+/**
+ * Backoffice Global CSS
+ *
+ * Norbert @ Laposa Ltd 2009
+ *
+ */
+
+@import url(/share/themes/jquery-ui/onxshop/jquery-ui.css);
+@import url(/share/css/backoffice_icons.css);
+
+
+#onxshop_cms_content {clear: both; padding-top: 20px;}
+
+div.onxshop_edit_layout {background: #d3d7cf; width: 100%; height: 20px;}
+
+/**
+  * onxshop_tabulator
+  */
+
+div.onxshop_tabulator {display: none;}
+
+div.onxshop_tabulator_menu  {border-bottom: 1px solid #d3d7cf; width: 99%; margin: 0 auto;}
+
+div.onxshop_tabulator_menu div.bottom {clear: both;}
+
+div.onxshop_tabulator_menu ul {padding: 0; margin: 0;}
+div.onxshop_tabulator_menu ul li {list-style-type: none; float: left; background: transparent;}
+
+div.onxshop_tabulator_menu ul li span {display: block; padding: 2px 7px 2px 7px;}
+
+div.onxshop_tabulator_menu ul li.active span {background: #d3d7cf;}
+
+/**
+  * onxshop_tabulator sub
+  */
+
+div.onxshop_tabulator_menu.sub,
+div.onxshop_tabulator_menu.sub ul li {border: 0;}
+
+
+
+#onxshop_window_content {background: white; text-align: left; padding: 0 10px;}
+
+#onxshop_window_block {display: none;}
+
+div.onxshop_highlight_delete {background: #ffbfbf;}
+div.onxshop_highlight_edit {background: #bfffbf;}
+
+div.onxshop_highlight_new {background: #bfffbf;}
+
+
+
+
+
+#layout_icon {background-position: top right; background-repeat: no-repeat;}
+
+/**
+ * tinymce editor overwrites
+ */
+span.mceEditorContainer select {width: auto;}
+
+/**
+ * Display permission
+ */
+div.node.show_at_normal_login {border: 1px dotted red;}
+div.node.hide_at_normal_login {border: 1px dotted green;}
+div.node.show_at_trade_login {border: 1px solid red;}
+div.node.hide_at_trade_login {border: 1px solid green;}
+
+div.node.not_public {border: 1px solid red;}
+
+
+/**
+ * jQuery UI
+ */
+
+/*sortable*/
+.droppable-hover {outline: 5px dotted black;}
+.ui-sortable .ui-widget-content {border: 1px dotted red; width: auto; height: 150px; overflow: hidden;}
+.ui-sortable div.ui-widget-content.node_group-layout {height: auto;}
+
+/*dialog*/
+div.ui-dialog div.ui-dialog-content {overflow: auto;}
+div.ui-dialog legend {display: none;}
+.ui-dialog a.remove,
+.ui-dialog a.delete {background: url(/share/images/famfamfam_icons/delete.png) no-repeat; padding-left: 20px;
+	height: 20px; display: inline-block; color: red;}
+/*tabs*/
+ul.ui-tabs-nav li {padding-bottom: 0;}
+
+
+
+
+
+/**
+ * hide duplicate and delete icons for contentSide and foot
+ */
+	
+#contentSide a.onxshop_duplicate,
+#contentFooter a.onxshop_duplicate,
+#contentSide a.onxshop_delete,
+#contentFooter a.onxshop_delete {display: none}

@@ -1,0 +1,42 @@
+<!-- BEGIN: content -->
+
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<div class="promotion_list">
+	
+	
+	<div id="reviewEdit"></div>
+	
+	<table cellspacing="0">
+		<thead>
+			<tr>
+				<th>Title</th>
+				<th>Author</th>
+				<th>Created</th>
+				<th>Product</th>
+				<th>Published</th>
+			</tr>
+		</thead>
+		<tbody>
+			<!-- BEGIN: item -->
+			<tr>
+				<td><a title="Edit promotion settings" onclick="makeAjaxRequest('#reviewEdit', '/request/bo/component/ecommerce/review_edit~id={ITEM.id}~'); return false" href="#reviewEdit">{ITEM.title|htmlspecialchars}</a></td>
+				<td><a href="/backoffice/customers/{ITEM.customer_id}/detail">{ITEM.author_name|htmlspecialchars}</a></td>
+				<td>{ITEM.created}</td>
+				<td><a href="/backoffice/products/{ITEM.node_id}/edit">{ITEM.node_id}</a></td>
+				<td>{ITEM.publish}</td>
+			</tr>
+			<!-- END: item -->
+			<!-- BEGIN: empty -->
+			<tr>
+				<td colspan="5"><span class="note">No reviews.</span></td>
+			</tr>
+			<!-- END: empty -->
+
+		</tbody>
+		<tfoot>
+			{PAGINATION}
+		</tfoot>
+	</table>
+
+</div>
+<!-- END: content -->

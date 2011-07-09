@@ -1,0 +1,11 @@
+<!-- BEGIN: title -->{CONFIGURATION.global.title|htmlspecialchars}: New comment notify<!-- END: title -->
+<!-- BEGIN: content -->
+<p>New comment from {DATA.comment.author_name|htmlspecialchars} &lt;{DATA.comment.author_email|htmlspecialchars}&gt;.</p>
+ 
+<p>View in backoffice <a href="http://{_SERVER.HTTP_HOST}/backoffice/comments">http://{_SERVER.HTTP_HOST}/backoffice/comments</a></p>
+
+<h3>{DATA.comment.title|htmlspecialchars}</h3>
+<p>{DATA.comment.content|htmlspecialchars|nl2br}</p>
+
+<p>{CONFIGURATION.global.author_content}</p>
+<!-- END: content -->

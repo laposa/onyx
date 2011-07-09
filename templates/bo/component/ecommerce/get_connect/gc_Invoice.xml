@@ -1,0 +1,51 @@
+		<Invoice>
+			<Id>{ITEM.Id}</Id>
+			<CustomerId>{ITEM.CustomerId}</CustomerId>
+			<InvoiceNumber>{ITEM.Id}</InvoiceNumber>
+			<CustomerOrderNumber>{ITEM.Id}</CustomerOrderNumber>
+			<AccountReference></AccountReference>
+			<OrderNumber>{ITEM.Id}</OrderNumber>
+			<ForeignRate>{ITEM.ForeignRate}</ForeignRate>
+			<Currency>{ITEM.Currency}</Currency>
+			<Notes1>{ITEM.Notes1}</Notes1>
+			<Notes2>{ITEM.Notes2}</Notes2>
+			<Notes3>{ITEM.Notes3}</Notes3>
+			<CurrencyUsed>true</CurrencyUsed>
+			<InvoiceDate>{ITEM.SalesOrderDate}</InvoiceDate>
+			<InvoiceAddress>
+				<!-- BEGIN: address_invoice -->
+				{FILE "./tpl/gc_Contact.xml"}
+				<!-- END: address_invoice -->
+			</InvoiceAddress>
+			<InvoiceDeliveryAddress>
+				<!-- BEGIN: address_delivery -->
+				{FILE "./tpl/gc_Contact.xml"}
+				<!-- END: address_delivery -->
+			</InvoiceDeliveryAddress>
+			<InvoiceItems>
+				<!-- BEGIN: order_item -->
+				<Item>
+				{FILE "./tpl/gc_Item.xml"}
+				</Item>
+				<!-- END: order_item -->
+			</InvoiceItems>
+			<Carriage>
+				<!-- BEGIN: carriage -->
+				{FILE "./tpl/gc_Item.xml"}
+				<!-- END: carriage -->
+			</Carriage>
+			<InvoiceType>ProductInvoice</InvoiceType>
+			<TakenBy></TakenBy>
+			<ConsignmentNo></ConsignmentNo>
+			<Courier>0</Courier>
+			<SettlementDays>30</SettlementDays>
+			<SettlementDiscount>0</SettlementDiscount>
+			<GlobalNominalCode></GlobalNominalCode>
+			<GlobalDetails></GlobalDetails>
+			<GlobalTaxCode>1</GlobalTaxCode>
+			<GlobalDepartment>0</GlobalDepartment>
+			<PaymentRef></PaymentRef>
+			<PaymentAmount>0</PaymentAmount>
+			<BankAccount></BankAccount>
+			<PaymentType>SalesReceipt</PaymentType>
+		</Invoice>

@@ -1,0 +1,8 @@
+mkdir /home/{USER}/
+cp -a /usr/local/lib/xsite-dev/project_skeleton/ /home/{USER}
+mv /home/{USER}/project_skeleton/ /home/{USER}/onxshop.com
+rm /home{USER}/onxshop.com/xsite_dir
+ln -s /usr/local/lib/xsite-dev/ /home/{USER}/onxshop.com/xsite_dir
+createuser -U master -h localhost -d -S -R -P {USER}
+createdb -U {USER} -h localhost -E UNICODE -T project_skeleton-1_1 template_en-1_1
+vi /home/{USER}/onxshop.com/deployment.php

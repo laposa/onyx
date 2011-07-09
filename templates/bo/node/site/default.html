@@ -1,0 +1,16 @@
+<!-- BEGIN: title -->site/default<!-- END: title -->
+<!-- BEGIN: content -->
+{FILE "bo/node/default_top.html"}
+{ONXSHOP_REQUEST_delete #bo/component/node_delete~id=GET.id:delete=GET.delete~}
+
+<fieldset>
+	<legend>Basic Info</legend>
+	<div class="row" style="float: right;">
+		<a href='/backoffice/cms/manage/add/page/{NODE.id}' onclick="openAjaxRequestInDialog('/ajax/add/page/{NODE.id}', 'Add a new page');return false" title="Add page"><img src="/share/images/famfamfam_icons/page_add.png" alt="Add page"/></a>
+	</div>
+</fieldset>
+
+{ONXSHOP_REQUEST_conf #bo/component/configuration~node_id=GET.id~}
+
+{FILE "bo/node/default_bottom.html"}
+<!-- END: content -->

@@ -1,0 +1,18 @@
+<!-- BEGIN: content --><?xml version="1.0" encoding="UTF-8"?>
+<products_list>
+<!-- BEGIN: item -->
+<product>
+	<sku>{ITEM.sku|htmlspecialchars|xmlentities}</sku>
+	<product_id>{ITEM.product_id}</product_id>
+	<variety_id>{ITEM.variety_id}</variety_id>
+	<product_name>{ITEM.product_name|htmlspecialchars|xmlentities}</product_name>
+	<variety_name>{ITEM.variety_name|htmlspecialchars|xmlentities}</variety_name>
+	<stock>{ITEM.stock}</stock>
+	<weight_gross>{ITEM.weight_gross}</weight_gross>
+	<price>{ITEM.price|number_format(%s, 2)}</price>
+	<price_net>{ITEM.price_net|number_format(%s, 2)}</price_net>
+	<vat_rate>{ITEM.vat_rate|number_format(%s, 2)}</vat_rate>
+</product>
+<!-- END: item -->
+</products_list>
+<!-- END: content -->

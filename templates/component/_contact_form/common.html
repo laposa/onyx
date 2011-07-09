@@ -1,0 +1,82 @@
+<!-- BEGIN: content -->
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<script type="text/javascript">  
+$(document).ready(function(){  
+	$("#contact_form_{GET.node_id}").validate();  
+});  
+</script>
+<div class="contact_form_common">
+	<form class="contact" id="contact_form_{GET.node_id}" action="{URI}#node_id_{GET.node_id}" method="post">
+	<fieldset class="single">
+		<legend>{I18N_CONTACT_FORM}</legend>
+		<div class="row title {ERROR.title}">
+			<span class="label"><label for="formdata-title_{GET.node_id}">{I18N_TITLE}:</label></span>
+			<span class="field"><input class="text short" type="text" id="formdata-title_{GET.node_id}" name="formdata[title]" value="{FORMDATA.title}" />
+			</span>
+		</div>
+		
+		<div class="row first_name {ERROR.first_name}">
+			<span class="label"><label for="textinput_{GET.node_id}"><span class="mandatory-mark">*</span>{I18N_FIRST_NAME}:</label></span>
+			<span class="field"><input type="text" class="required text" id="textinput_{GET.node_id}" name="formdata[required_first_name]" value="{FORMDATA.required_first_name}" maxlength="45" /></span>
+		</div>
+		<div class="row last_name {ERROR.last_name}">
+			<span class="label"><label for="textinput2_{GET.node_id}"><span class="mandatory-mark">*</span>{I18N_LAST_NAME}:</label></span>
+			<span class="field"><input type="text" class="required text" id="textinput2_{GET.node_id}" name="formdata[required_last_name]" value="{FORMDATA.required_last_name}" maxlength="45" /></span>
+		</div>
+		<div class="row company {ERROR.company}">
+			<span class="label"><label for="textinput3_{GET.node_id}">{I18N_COMPANY}:</label></span>
+			<span class="field"><input type="text" class="text" id="textinput3_{GET.node_id}" name="formdata[company]" value="{FORMDATA.company}" maxlength="45" /></span>
+		</div>
+		
+		<div class="row address {ERROR.address}">
+			<span class="label"><label for="textinput4_{GET.node_id}">{I18N_ADDRESS}:</label></span>
+			<span class="field"><input type="text" class="text" id="textinput4_{GET.node_id}" name="formdata[address]" value="{FORMDATA.address}" maxlength="45" /></span>
+		</div>
+		
+		<div class="row city {ERROR.city}">
+			<span class="label"><label for="textinput5_{GET.node_id}">{I18N_CITY}:</label></span>
+			<span class="field"><input type="text" class="text" id="textinput5_{GET.node_id}" name="formdata[city]" value="{FORMDATA.city}" maxlength="45" /></span>
+		</div>
+		
+		<div class="row post_code {ERROR.post_code}">
+			<span class="label"><label for="textinput6_{GET.node_id}">{I18N_POSTAL_CODE}:</label></span>
+			<span class="field"><input type="text" class="text short" id="textinput6_{GET.node_id}" name="formdata[post_code]" value="{FORMDATA.post_code}" maxlength="45" /></span>
+		</div>
+		
+		<div class="row country {ERROR.country}">
+			<span class="label"><label for="textinput7_{GET.node_id}">{I18N_COUNTRY}:</label></span>
+			<span class="field"><input type="text" class="text" id="textinput7_{GET.node_id}" name="formdata[country]" value="{FORMDATA.country}" maxlength="45" /></span>
+		</div>
+		
+		<div class="row email {ERROR.email}">
+			<span class="label"><label for="textinput8_{GET.node_id}"><span class="mandatory-mark">*</span>{I18N_EMAIL}:</label></span>
+			<span class="field"><input type="text" class="required text" id="textinput8_{GET.node_id}" name="formdata[required_email]" value="{FORMDATA.required_email}" maxlength="45" /></span>
+		</div>
+		
+		<div class="row telephone {ERROR.telephone}">
+			<span class="label"><label for="textinput9_{GET.node_id}"><span class="mandatory-mark">*</span>{I18N_TEL}:</label></span>
+			<span class="field"><input type="text" class="required text" id="textinput9_{GET.node_id}" name="formdata[required_telephone]" value="{FORMDATA.required_telephone}" maxlength="45" /></span>
+		</div>
+		
+		<div class="row fax {ERROR.fax}">
+			<span class="label"><label for="textinput10_{GET.node_id}">{I18N_FAX}:</label></span>
+			<span class="field"><input type="text" class="text" id="textinput10_{GET.node_id}" name="formdata[fax]" value="{FORMDATA.fax}" maxlength="45" /></span>
+		</div>
+		
+		<div class="row message {ERROR.message}">
+			<span class="label"><label for="textareainput_{GET.node_id}"><span class="mandatory-mark">*</span>{I18N_YOUR_MESSAGE}:</label></span>
+			<span class="field"><textarea id="textareainput_{GET.node_id}" name="formdata[required_message]" class="required textarea" rows="15" cols="45">{FORMDATA.required_message}</textarea></span>
+		</div>
+	
+	</fieldset>
+	
+		<input type="hidden" name="node_id" value="{GET.node_id}" />
+	
+		<div class="row submit">
+			<span class="label"><label>&nbsp;</label></span>
+			<span class="field"><button type="submit" name="send" value="send" class="submit"><span>{I18N_SUBMIT}</span></button></span>
+		</div>
+	
+	</form>
+</div>
+<!-- END: content -->

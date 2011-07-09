@@ -1,0 +1,14 @@
+<!-- BEGIN: content -->
+<div class="imagemap {NODE.css_class}">
+	<!-- BEGIN: title --><h3 class="contentTitle"><a href="#node_id_{NODE.id}"><span>{NODE.title|htmlspecialchars}</span></a></h3><!-- END: title -->
+	<!-- BEGIN: title_link --><h3 class="contentTitle"><a href="/page/{NODE.link_to_node_id}"><span>{NODE.title|htmlspecialchars}</span></a></h3><!-- END: title_link -->
+	<div class="contentBody">
+		<map name="imagemap{GET.id}">
+			{MAP.definition}
+		</map>
+		
+		<h3>{MAP.title}</h3>
+		<img usemap="#imagemap{GET.id}" class="imageBorder imageRight" src="/image/{IMAGE.src}" alt="{IMAGE.title}" />
+	</div>
+</div>
+<!-- END: content -->

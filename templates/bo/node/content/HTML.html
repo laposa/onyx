@@ -1,0 +1,21 @@
+<!-- BEGIN: title -->HTML Edit<!-- END: title -->
+<!-- BEGIN: content -->
+{FILE "bo/node/default_top.html"}
+<style type="text/css">
+#html_source textarea {width: 90%; height: 400px;}
+</style>
+<fieldset>
+	<div class="row">
+		<span class="label"><label>HTML Source:</label></span>
+		<span class="field" id="html_source"><textarea id="codepress_html" name="node[content]" class="codepress html"><!-- BEGIN: empty --><p>enter your content here</p><!-- END: empty -->{NODE.content|htmlspecialchars}</textarea></span>
+	</div>
+	<!--
+	<script type="text/javascript">
+		document.getElementById("node_edit_{GET.id}").onsubmit = function () {document.getElementById("hack_codepress_html").value = codepress_html.getCode()};
+	</script>
+	<input type="hidden" id="hack_codepress_html" name="node[content]" value="">
+	-->
+</fieldset>
+{FILE "bo/node/default_bottom.html"}
+
+<!-- END: content -->

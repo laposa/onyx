@@ -1,0 +1,80 @@
+#!/bin/bash
+# Norbert Laposa, 2006
+
+NEW_PROJECT_NAME="${1}";
+DEPLOYMENT_CONF="${2}";
+
+export PGCLIENTENCODING='UNICODE'
+
+if [ "$NEW_PROJECT_NAME" == "" ]; then
+    echo "First parameter is the new_project_name";
+	echo "Usage: ${0} project_name [/path/to/Project/conf/deployment.sh]";
+    exit 0;
+fi;
+
+
+if [ "$DEPLOYMENT_CONF" == "" ]; then
+    echo "User does not provide conf file";
+	RP="`readlink -f ${0}`";
+	DIRNAME="`dirname $RP`/";
+	DEPLOYMENT_CONF="${DIRNAME}../conf/deployment.sh";
+	DEPLOYMENT_CONF="`readlink -f $DEPLOYMENT_CONF`";
+	echo "Using default $DEPLOYMENT_CONF";
+fi;
+
+if [ ! -f "$DEPLOYMENT_CONF" ]; then
+    echo "$DEPLOYMENT_CONF is not a file";
+    exit 0;
+fi;
+
+source "${DEPLOYMENT_CONF}";
+
+
+NEW_PROJECT_FULL_PATH="${PROJECT_REMOTE_PATH}${NEW_PROJECT_NAME}/";
+
+rsync --recursive --times --update --rsh ssh --cvs-exclude --links --delete-after --safe-links --compress --progress --whole-file ${NOPROCESS}\
+        --exclude '._*' \
+        --exclude '.*.swp' \
+        --exclude '.DS*' \
+        --exclude 'Thumbs.db' \
+        --exclude '_resources' \
+        $PROJECT_FULL_PATH \
+        $NEW_PROJECT_FULL_PATH
+
+#fix permissions
+chmod a+w -R $NEW_PROJECT_FULL_PATH/var/
+
+#echo "rename ${PROJECT_REMOTE_FULL_PATH} to ${NEW_PROJECT_FULL_PATH}";
+#mv ${PROJECT_REMOTE_FULL_PATH} ${NEW_PROJECT_FULL_PATH}
+
+#project.rsync exclude this files
+
+#echo "copy the conf from ${PROJECT_FULL_PATH}conf/ to ${NEW_PROJECT_FULL_PATH}conf/";
+#cp ${PROJECT_FULL_PATH}conf/deployment.php ${NEW_PROJECT_FULL_PATH}conf/deployment.php
+#cp ${PROJECT_FULL_PATH}conf/deployment.sh ${NEW_PROJECT_FULL_PATH}conf/deployment.sh
+#cp -a ${PROJECT_FULL_PATH}var/ ${NEW_PROJECT_FULL_PATH}
+
+${XSITE_FULL_PATH}utils/project.relink ${NEW_PROJECT_FULL_PATH} ${XSITE_FULL_PATH}
+
+#DATABASE
+#1.option: from the pgdump
+#${XSITE_FULL_PATH}utils/db_backup.restore ${DEPLOYMENT_CONF} ${NEW_PROJECT_NAME} ${PROJECT_FULL_PATH}var/backup/empty_project.pgdump CREATE
+
+#2.option: direct from the sql
+echo "enter the $BACKUP_DATABASE_USER user password";
+su $BACKUP_DATABASE_USER -c "\
+createdb $NEW_PROJECT_NAME --encoding=UNICODE; \
+psql $NEW_PROJECT_NAME < ${XSITE_FULL_PATH}/docs/database/DB_ALL.sql; \
+";
+
+XSITE_FULL_PATH_SED_SAFE=$(echo $XSITE_FULL_PATH|sed 's/\//\\\//g');
+NEW_PROJECT_FULL_PATH_SED_SAFE=$(echo ${NEW_PROJECT_FULL_PATH}|sed 's/\//\\\//g');
+
+sleep 2;
+cat ${NEW_PROJECT_FULL_PATH}conf/deployment.php| sed -e "s/###XSITE_FULL_PATH###/$XSITE_FULL_PATH_SED_SAFE/" > ${NEW_PROJECT_FULL_PATH}conf/deployment.php;
+sleep 1;
+cat ${NEW_PROJECT_FULL_PATH}conf/deployment.php| sed -e "s/###NEW_PROJECT_FULL_PATH###/$NEW_PROJECT_FULL_PATH_SED_SAFE/" > ${NEW_PROJECT_FULL_PATH}conf/deployment.php;
+sleep 1;
+cat ${NEW_PROJECT_FULL_PATH}conf/deployment.php| sed -e "s/###NEW_PROJECT_NAME###/${NEW_PROJECT_NAME}/" > ${NEW_PROJECT_FULL_PATH}conf/deployment.php;
+sleep 1;
+echo "The new Xsite application '$NEW_PROJECT_NAME' has been successfully created.";

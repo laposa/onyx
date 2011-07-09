@@ -1,0 +1,27 @@
+###############
+### Onxshop ###
+###############
+
+php 5.2.8
+modules: php5-imap, php5-pgsql, php5-recode or php5-iconv, php5-mbstrings, php5-gettext, php-exif
+
+postgresql 8.1.11
+package: postgresql
+
+OTHER UTILITIES:
+pdfinfo -v
+pdfinfo version 3.00
+package: xpdf-utils
+
+file -v
+file-4.12
+package: file
+
+convert -version
+Version: ImageMagick 6.0.6 01/28/06 Q16 http://www.imagemagick.org
+Copyright: Copyright (C) 1999-2004 ImageMagick Studio LLC
+package: imagemagick
+
+find --version
+GNU find version 4.1.20
+package: findutils

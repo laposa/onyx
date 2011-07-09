@@ -1,0 +1,73 @@
+<!-- BEGIN: content -->
+<script type="text/javascript">  
+$(function(){  
+	$("#checkout_form").validate();
+});
+</script>
+
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<div class="checkout">
+	<form class="checkout twoColumns" action="{URI}#node_id_{GET.node_id}" method="post" id="checkout_form">	
+		<!-- 
+		<fieldset>
+		<legend>How did you hear about us?</legend>
+		<p class="small">If you are a new customer, please tell us how you heard about us.</p>
+		<select name="order[other_data][source]" size="1">
+		          <option value="U" selected="selected">(select from list)</option>
+		</select>
+		</fieldset>
+		-->
+		
+		<fieldset class="gift_option">
+			<h3>Gift Option</h3>
+			<div class="row gift">
+				<input type="checkbox" class="checkbox" name="order[other_data][gift]" value="1" id="order-other_data-gift"  onclick="$('div.gift_message').slideToggle('slow');" {CHECKED_order-other_data-gift}/> <label for="order-other_data-gift">{I18N_IS_THIS_A_GIFT}</label>
+			</div>
+			<div style="display: {GIFT_DISPLAY}" class="row gift_message">
+				<span class="label"><label for="order-other_data-gift_message">{I18N_GIFT_MESSAGE}</label></span>
+				<span class="field">
+					<textarea class="note_customer" name="order[other_data][gift_message]" id="order-other_data-gift_message" rows="10" cols="50">{ORDER.other_data.gift_message|htmlspecialchars}</textarea>
+				</span>
+			</div>
+		</fieldset>
+		<fieldset class="other_options">
+			<div class="row note_customer">
+				<span class="label"><label for="order-note_customer">{I18N_ORDER_CUSTOMER_NOTE}
+</label></span>
+				<span class="field">
+					<textarea class="note_customer" id="order-note_customer" name="order[note_customer]" rows="10" cols="50">{ORDER.note_customer|htmlspecialchars}</textarea>
+				</span>
+			</div>
+			<div class="row order-payment_type">
+				<span class="label"><label for="order-payment_type">{I18N_PLEASE_CHOOSE}</label></span>
+				<span class="field">
+				<select name="order[payment_type]" id="order-payment_type">
+					<!-- BEGIN: protx --><option value="protx">{I18N_PAY_BY_PROTX}</option><!-- END: protx -->
+					<!-- BEGIN: worldpay --><option value="worldpay">{I18N_PAY_BY_WORLDPAY}</option><!-- END: worldpay -->
+					<!-- BEGIN: paypal --><option value="paypal">{I18N_PAY_BY_PAYPAL}</option><!-- END: paypal -->
+					<!-- BEGIN: cheque --><option value="cheque">{I18N_PAY_BY_CHEQUE}</option><!-- END: cheque -->
+				</select>
+				</span>
+			</div>
+		
+			<div class="row terms_agreed">
+				<input class="required checkbox" type="checkbox" name="order_terms_agreed" id="order_terms_agreed" />
+				<label for="order_terms_agreed">{I18N_BY_CLICKING_CONFIRM} <a href="/page/{NODE_CONF.id_map-terms}" target="_blank">{I18N_TERMS_AND_CONDITIONS}</a></label>
+			</div>
+	
+			<div class="row submit">
+				<span class="label"><label>&nbsp;</label></span>
+				<span class="field"><button class='confirm_order' type="submit" name="submit" value="submit"><span>{I18N_CONFIRM_ORDER}</span></button></span>
+			</div>
+		
+		</fieldset>
+	
+		
+		
+		<input type="hidden" name="confirm" value="1" />
+		
+		<div class="bottom"><span></span></div>
+		
+	</form>
+</div>
+<!-- END: content -->

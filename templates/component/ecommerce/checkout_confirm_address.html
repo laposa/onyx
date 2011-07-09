@@ -1,0 +1,49 @@
+<!-- BEGIN: content -->
+<style type="text/css">
+div.confirm_address div.delivery {float: right; margin-left: 5em;}
+div.confirm_address div.invoices {float: right;}
+</style>
+<div class="confirm_address">
+	<div class="top"><span></span></div>
+	<!-- BEGIN: delivery -->
+	<div class="delivery">
+		<h3>{I18N_DELIVERY_ADDRESS}</h3>
+		<p class="detail">
+		{ADDRESS.delivery.name|htmlspecialchars}<br />
+		{ADDRESS.delivery.line_1|htmlspecialchars}<br />
+		<!-- BEGIN: line_2 -->
+		{ADDRESS.delivery.line_2|htmlspecialchars}<br />
+		<!-- END: line_2 -->
+		<!-- BEGIN: line_3 -->
+		{ADDRESS.delivery.line_3|htmlspecialchars}<br />
+		<!-- END: line_3 -->
+		{ADDRESS.delivery.city|htmlspecialchars}<br />
+		{ADDRESS.delivery.post_code|htmlspecialchars}<br />
+		{ADDRESS.delivery.county|htmlspecialchars}<br />
+		{ADDRESS.delivery.country.name|htmlspecialchars}
+		</p>
+	</div>
+	<!-- END: delivery -->
+	
+	<!-- BEGIN: invoices -->
+	<div class="invoices">
+		<h3>{I18N_BILLING_ADDRESS}</h3>
+		<p class="detail">
+		{ADDRESS.invoices.name|htmlspecialchars}<br />
+		{ADDRESS.invoices.line_1|htmlspecialchars}<br />
+		<!-- BEGIN: line_2 -->
+		{ADDRESS.invoices.line_2|htmlspecialchars}<br />
+		<!-- END: line_2 -->
+		<!-- BEGIN: line_3 -->
+		{ADDRESS.invoices.line_3|htmlspecialchars}<br />
+		<!-- END: line_3 -->
+		{ADDRESS.invoices.city|htmlspecialchars}<br />
+		{ADDRESS.invoices.post_code|htmlspecialchars}<br />
+		{ADDRESS.invoices.county|htmlspecialchars}<br />
+		{ADDRESS.invoices.country.name|htmlspecialchars}
+		</p>
+	</div>
+	<!-- END: invoices -->
+	<div class="bottom"><span></span></div>
+</div>
+<!-- END: content -->

@@ -1,0 +1,12 @@
+<!-- BEGIN: title -->{CONFIGURATION.global.title|htmlspecialchars}: Customer data updated<!-- END: title -->
+<!-- BEGIN: content -->
+<p>Hello {DATA.customer.first_name} {DATA.customer.last_name},<br />
+
+<p>Your account has been updated on {_SERVER.HTTP_HOST}</p>
+
+<p>Your username is {DATA.customer.email}</p>
+
+<p>Best wishes,</p>
+
+<p>{CONFIGURATION.global.author_content}</p>
+<!-- END: content -->

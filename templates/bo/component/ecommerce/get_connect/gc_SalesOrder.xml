@@ -1,0 +1,37 @@
+	<SalesOrder>
+		<Id>{ITEM.Id}</Id>
+		<CustomerId>{ITEM.CustomerId}</CustomerId>
+		<SalesOrderNumber>{ITEM.Id}</SalesOrderNumber>
+		<CustomerOrderNumber>{ITEM.Id}</CustomerOrderNumber>
+		<Notes1>{ITEM.Notes1}</Notes1>
+		<Notes2>{ITEM.Notes2}</Notes2>
+		<Notes3>{ITEM.Notes3}</Notes3>
+		<ForeignRate>{ITEM.ForeignRate}</ForeignRate>
+		<Currency>{ITEM.Currency}</Currency>
+		<AccountReference>{ITEM.AccountReference}</AccountReference>
+		<CurrencyUsed>true</CurrencyUsed>
+		<SalesOrderDate>{ITEM.SalesOrderDate}</SalesOrderDate>
+		<DespatchDate>0001-01-01T00:00:00</DespatchDate>
+		<SalesOrderAddress>
+			<!-- BEGIN: address_invoice -->
+			{FILE "./tpl/gc_Contact.xml"}
+			<!-- END: address_invoice -->
+		</SalesOrderAddress>
+		<SalesOrderDeliveryAddress>
+			<!-- BEGIN: address_delivery -->
+			{FILE "./tpl/gc_Contact.xml"}
+			<!-- END: address_delivery -->
+		</SalesOrderDeliveryAddress>
+		<SalesOrderItems>
+			<!-- BEGIN: order_item -->
+			<Item>
+			{FILE "./tpl/gc_Item.xml"}
+			</Item>
+			<!-- END: order_item -->
+		</SalesOrderItems>
+		<Carriage>
+			<!-- BEGIN: carriage -->
+			{FILE "./tpl/gc_Item.xml"}
+			<!-- END: carriage -->
+		</Carriage>
+	</SalesOrder>

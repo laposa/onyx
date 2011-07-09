@@ -1,0 +1,66 @@
+<!-- BEGIN: content -->
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+
+<div id="taxonomy-edit-{GET.id}-wrapper">
+<script type="text/javascript"> 
+$(document).ready(function() { 
+	$('#taxonomy-edit-{GET.id}').ajaxForm({target: '#sub_content'}); 
+	$("#taxonomy_edit").tabs();
+});
+</script>
+
+<p>{ONXSHOP_REQUEST_taxonomy #component/breadcrumb_taxonomy~id=GET.id~}</p>
+<p><a class="button add" title="Add category here" href='/backoffice/advanced/taxonomy/add/{GET.id}'><span>Add taxonomy category here ...</span></a></p>
+
+<!-- BEGIN: editor -->
+<form method="post" action="{URI}" id="taxonomy-edit-{GET.id}">
+
+	<div id="taxonomy_edit">
+	
+			<ul id="taxonomy_edit_menu" class="ui-tabs-nav">
+				<li class="active"><a class="onxshop_basicinfo" href="#onxshop_basicinfo"><span>Basic</span></a></li>
+				<li><a class="onxshop_images" href="#onxshop_minor"><span>Minor Tweaks</span></a></li>
+			</ul>
+		
+		
+		<button class="save" type="submit" name="save" value="save"><span>Save</span></button>
+		
+		<div style="display: block" id="onxshop_basicinfo" class="ui-tabs-panel">
+			<fieldset>
+				<legend>Taxonomy item</legend>
+				
+				<div class="row">
+					<span class="label"><label for="taxonomy-label-title" title="Category title">Name</label></span>
+					<span class="field"><input type="text" title="The category title" class="text title" id="taxonomy-label-title" name="taxonomy[label][title]" value="{TAXONOMY.label.title|htmlspecialchars}"/></span>
+				</div>
+				<div class="row">
+					<span class="label"><label for="taxonomy-label-publish">Publish</label></span>
+					<span class="field"><input type="checkbox" id="taxonomy-label-publish" name="taxonomy[label][publish]" {TAXONOMY.label.publish_check} /></span>
+				</div>
+
+			</fieldset>
+			<fieldset>
+				<legend>Images</legend>
+				<div class="row">
+					{ONXSHOP_REQUEST_imagelist #bo/component/file_list~type=add_to_taxonomy:relation=taxonomy:node_id=GET.id~}
+				</div>
+			</fieldset>
+		</div>
+	
+		<div id="onxshop_minor" class="ui-tabs-panel">
+				<div class="row rte">
+					<span class="label"><label for="taxonomy-label-description">Description</label></span>
+					<span class="field"><textarea style="height: 50px" name="taxonomy[label][description]" id="taxonomy-label-description">{TAXONOMY.label.description|htmlspecialchars}</textarea></span>
+				</div>
+				<!--common_taxonomy_tree.priority used instead <div class="row">
+					<span class="label"><label for="taxonomy-label-priority">Priority</label></span>
+					<span class="field"><input type="text" id="taxonomy-label-priority" name="taxonomy[label][priority]" value="{TAXONOMY.label.priority}" /></span>
+				</div>-->
+		</div>
+		
+		<input type="hidden" name="taxonomy[label][id]" value="{TAXONOMY.label.id}" />
+	</div>
+</form>
+</div>
+<!-- END: editor -->
+<!-- END: content -->

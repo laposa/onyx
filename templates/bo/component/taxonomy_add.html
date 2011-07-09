@@ -1,0 +1,33 @@
+<!-- BEGIN: content -->
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<p>{ONXSHOP_REQUEST_taxonomy #component/breadcrumb_taxonomy~id=GET.parent~}</p>
+<form method="post" action="{URI}" class="taxonomy_add">
+	<div style="display: block" id="onxshop_basicinfo" class="onxshop_tabulator">
+		<fieldset class="single">
+			<legend>Taxonomy Item Add</legend>
+			<div class="row">
+				<span class="label"><label for="taxonomy-label-title">Name</label></span>
+				<span class="field"><input type="text" name="taxonomy[label][title]" value="{TAXONOMY.label.title|htmlspecialchars}" id="taxonomy-label-title" /></span>
+			</div>
+			
+			<div class="row rte">
+				<span class="label"><label for="taxonomy-label-description">Description</label></span>
+				<span class="field"><textarea name="taxonomy[label][description]" id="taxonomy-label-description">{TAXONOMY.label.description|htmlspecialchars}</textarea></span>
+			</div>
+			
+			<div class="row">
+				<span class="label"><label for="taxonomy-label-priority">Priority</label></span>
+				<span class="field"><input type="text" id="taxonomy-label-priority" name="taxonomy[label][priority]" value="{TAXONOMY.label.priority}"/></span>
+			</div>
+		</fieldset>
+	</div>
+	
+	<input type="hidden" name="taxonomy[label][parent]" value="{GET.parent}" />
+	<div class="row submit">
+		<span class="label"><label>&nbsp;</label></span>
+		<span class="field"><button type="submit" name="save" value="save"><span>Save</span></button></span>
+	</div>
+</form>
+
+
+<!-- END: content -->

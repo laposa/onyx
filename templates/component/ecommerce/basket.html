@@ -1,0 +1,47 @@
+<!-- BEGIN: head -->
+<script type="text/javascript" src="/share/js/basket.js"></script>
+<!-- END: head -->
+<!-- BEGIN: content -->
+<div class="basket {EMPTY}">
+	<div class="basketWrapper">
+			
+			<h3><a class="basket_detail" href="/page/{NODE_CONF.id_map-basket}"><span>{I18N_SHOPPING_BASKET}</span></a></h3>
+			
+			<!-- BEGIN: basket -->
+				
+			<div class="content">
+				<table>
+					<tfoot>
+						<tr><td></td><td><a href="#" onclick="$('#basket div.content').hide('slow');">Close</a></td></tr>
+					</tfoot>
+					<tbody>
+					<!-- BEGIN: item -->
+						<tr><td><a href="/page/{ITEM.product.node.id}" title="{ITEM.product.node.title}"><span>{ITEM.product.name}</span></a> - {ITEM.product.variety.name} ({ITEM.product.variety.sku})<br />
+						{ITEM.quantity} @ {ITEM.price} - {ITEM.total|money_format('%n',%s)}</td><td class="remove"><a class="remove" href="#item_id_{ITEM.id}" title="Remove Item"><span>X</span></a></td></tr>
+					<!-- END: item -->
+					</tbody>
+				</table>
+			</div>
+			
+			
+			<div class="checkout">
+				<div class="summary">
+					{I18N_ITEMS}: <strong>{BASKET.total_items_qty}</strong> <span class="delimiter">|</span> {I18N_TOTAL}: <strong>{BASKET.total|money_format('%n',%s)}</strong> ({VAT_NOTE})
+				</div>
+				<div class="go_to_checkout">
+					<a class="go_to_checkout" href="/page/{NODE_CONF.id_map-checkout}"><span>{I18N_CHECKOUT}</span></a>
+				</div>
+			</div>
+			
+			<!-- END: basket -->
+						
+			<!-- BEGIN: empty -->
+			<p class="empty">{I18N_YOUR_BASKET_IS_EMPTY}</p>
+			<!-- END: empty -->
+			
+	</div>
+</div>
+
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+
+<!-- END: content -->

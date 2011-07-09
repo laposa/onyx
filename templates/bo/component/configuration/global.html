@@ -1,0 +1,109 @@
+<!-- BEGIN: title -->Global Configuration<!-- END: title -->
+<!-- BEGIN: content -->
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<form action="{URI}" method="post">
+	<fieldset>
+		<legend>Global</legend>
+		<div class="row">
+			<span class="label"><label>Title</label></span>
+			<span class="field"><input type="text" value="{CONF.title|htmlspecialchars}" name="conf[item][title]"/></span>
+		</div>
+		
+		<div class="row">
+			<span class="label"><label>Author of content</label></span>
+			<span class="field"><input class="long" type="text" value="{CONF.author_content|htmlspecialchars}" name="conf[item][author_content]"/></span>
+		</div>
+		
+		<div class="row">
+			<span class="label"><label>Website credit</label></span>
+			<span class="field"><input class="long" type="text" value="{CONF.credit|htmlspecialchars}" name="conf[item][credit]"/></span>
+		</div>
+		
+		<div class="row">
+			<span class="label"><label>Html Title Suffix</label></span>
+			<span class="field"><input type="text" value="{CONF.html_title_suffix|htmlspecialchars}" name="conf[item][html_title_suffix]"/></span>
+		</div>
+		<!--
+		<div class="row">
+			<span class="label"><label>Locale</label></span>
+			<span class="field">
+				<select name="conf[item][locale]">
+					<option value="en_GB.UTF-8" {SELECTED.en_GB}>en_GB.UTF-8</option>
+					<option value="cs_CZ.UTF-8" {SELECTED.cs_CZ}>cs_CZ.UTF-8</option>
+					<option value="ja_JP.UTF-8" {SELECTED.ja_JP}>ja_JP.UTF-8</option>
+				</select>
+			</span>
+		</div>
+		
+		<div class="row">
+			<span class="label"><label>Default currency</label></span>
+			<span class="field">
+				<select name="conf[item][default_currency]">
+					<option value="GBP" {SELECTED.GBP}>GBP</option>
+					<option value="CZK" {SELECTED.CZK}>CZK</option>
+					<option value="JPY" {SELECTED.JPY}>JPY</option>
+				</select>
+			</span>
+		</div>
+		-->
+		<div class="row">
+			<span class="label"><label>admin_email</label></span>
+			<span class="field"><input type="text" value="{CONF.admin_email|htmlspecialchars}" name="conf[item][admin_email]"/></span>
+		</div>
+		
+		<div class="row">
+			<span class="label"><label>google_analytics</label></span>
+			<span class="field"><input type="text" value="{CONF.google_analytics|htmlspecialchars}" name="conf[item][google_analytics]"/></span>
+		</div>
+		
+		<div class="row">
+			<span class="label"><label>google_adwords (must be numeric conversion ID)</label></span>
+			<span class="field"><input type="text" value="{CONF.google_adwords|htmlspecialchars}" name="conf[item][google_adwords]"/></span>
+		</div>
+		
+		<div class="row">
+			<span class="label"><label for="conf-display_secondary_navigation">Display Secondary Navigation (default setting for a new page and show/hide subitems in primary nav)</label></span>
+			<span class="field"><input type="checkbox" id="conf-display_secondary_navigation" name="conf[item][display_secondary_navigation]" {CHECKED.display_secondary_navigation} /></span>
+		</div>
+		
+		<div class="row">
+			<span class="label"><label for="conf-display_content_side">display_content_side</label></span>
+			<span class="field"><input type="checkbox" id="conf-display_content_side" name="conf[item][display_content_side]" {CHECKED.display_content_side} /></span>
+		</div>
+		
+		<div class="row">
+			<span class="label"><label for="conf-display_content_foot">display_content_foot</label></span>
+			<span class="field"><input type="checkbox" id="conf-display_content_foot" name="conf[item][display_content_foot]" {CHECKED.display_content_foot} /></span>
+		</div>		
+		
+		<div class="row">
+			<span class="label"><label>extra_head</label></span>
+			<span class="field"><textarea name="conf[item][extra_head]">{CONF.extra_head|htmlspecialchars}</textarea></span>
+		</div>
+		
+		<div class="row">
+			<span class="label"><label>extra_body_top</label></span>
+			<span class="field"><textarea name="conf[item][extra_body_top]">{CONF.extra_body_top|htmlspecialchars}</textarea></span>
+		</div>
+		
+		<div class="row">
+			<span class="label"><label>extra_body_bottom</label></span>
+			<span class="field"><textarea name="conf[item][extra_body_bottom]">{CONF.extra_body_bottom|htmlspecialchars}</textarea></span>
+		</div>
+		
+		
+		
+		
+		
+	</fieldset>
+	
+	<input type="hidden" name="conf[object]" value="global" />
+	<input type="hidden" name="conf[node_id]" value="0" />
+	
+	<div class="row submit">
+		<span class="label"><label>&nbsp;</label></span>
+		<span class="field"><button type="submit" name="save" value="save"><span>save</span></button></span>
+	</div>
+</form>
+			
+<!-- END: content -->

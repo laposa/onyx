@@ -1,0 +1,2 @@
+#!/bin/sh
+identify -format "width %w x height %h\n%[EXIF:*]" "$1"

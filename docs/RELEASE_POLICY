@@ -1,0 +1,44 @@
+3stages:
+stable (last is 1.0.0)
+testing (preparation for 1.0.1)
+dev (always place where edit and fix bugs, after it deploy to testing or backport to old stable)
+
+-----------
+X.X.X.X
++ + + +
++ + + +- bugs only (inner version)
++ + +- controllers+templates
++ +- model
++- architecture
+
+
+1.0.0(.x)
+conf: not change
+controllers: only bugs
+database: not change
+model php: only bugs
+templates: only bugs
+lib: only bugs
+opt: only bugs
+
+can be updated without notify of customer, project.relink is not required
+
+1.0.x
+database: not change
+controllers: new features
+templates: changes allowed
+lib:
+opt: upgrade allowed
+can be updated without notify the customer only if customer is not using local templates
+
+1.x
+database: change (need upgrade script)
+controllers: changes
+templates: change
+
+can be updated without notify the customer only if customer is not using local templates
+database upgrade requires site downtime
+
+version 2.0
+-----------
+architecture update

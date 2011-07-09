@@ -1,0 +1,2 @@
+#!/bin/sh
+pdfinfo -enc UTF-8 $1

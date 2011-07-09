@@ -1,0 +1,163 @@
+DEVELOPER INFO
+--------------
+
+phpPgAdmin is Free/Open Source software, so you're invited to contribute to it.
+Many great features have been written by other people and you too can help to 
+make phpPgAdmin a better tool.
+
+If you're planning to contribute source code, please read the following 
+information:
+ 
+The following method is preferred for new developers:
+ - fetch the current CVS tree over anonymous CVS:
+
+     cvs -d :pserver:anonymous@phppgadmin.cvs.sourceforge.net:/cvsroot/phppgadmin login
+     [Password: ]  simply press the Enter key!
+
+     cvs -z3 -d :pserver:anonymous@phppgadmin.cvs.sourceforge.net:/cvsroot/phppgadmin co -d phpPgAdmin webdb
+     [This will create a new sub-directory named phpPgAdmin] 
+
+ - Add your stuff
+ - Send us the file(s) you've modified or send us a patch (preferred). To 
+   generate a patch, in your 'phpPgAdmin' directory do:
+
+     cvs diff -c > file.txt
+
+   Then, just send us 'file.txt' .
+
+Please note that submitting code is considered a transfer of copyright to the 
+phpPgAdmin project.
+
+Write access to the CVS tree is granted only to developers who have already
+contributed something useful to phpPgAdmin.  If you're interested in that, 
+please contact us.
+These project developers can access the CVS tree via SSH:
+
+  export CVS_RSH=ssh
+  	
+Login once with
+
+  ssh developername@phppgadmin.cvs.sourceforge.net
+
+to create required user directories on the server. Then fetch the current CVS 
+tree:
+  	
+  cvs -z3 -d developername@phppgadmin.cvs.sourceforge.net:/cvsroot/phppgadmin co -d phpPgAdmin webdb
+
+For further information, refer to:
+
+  http://sourceforge.net/projects/phppgadmin
+
+                                 
+TIPS FOR DEVELOPERS
+-------------------
+
+When you submit code to phpPgAdmin, we do expect it to adhere to the existing
+coding standards in the source.  So, instead of using your personal favourite
+code layout style, please format it to look like surrounding code.
+In general, we want the code to be portable, standard compliant (e.g. to W3C 
+(X)HTML and CSS) and independent of specific configurations of PHP, the web 
+server, PostgreSQL or the user browser. We also try to support as many versions
+as possible of these applications.
+
+Test your code properly! For example, if you are developing a feature to create
+domains, try naming your domain all of the following:
+
+	* "
+	* '
+	* \
+	* words with spaces
+	* <br><br><br>
+
+If you are adding a new class function, be sure to use the "clean",
+"fieldClean", "arrayClean" and "fieldArrayClean" functions to properly escape
+odd characters in user input.  Examine existing functions that do similar
+things to yours to get yours right.
+
+When writing data to the display, you should always urlencode() variables in
+HREFs and htmlspecialchars() variables in forms.  Rather than use action=""
+attributes in HTML form elements use action="thisformname.php".  This
+ensures that browsers remove query strings when expanding the given
+relative URL into a full URL.
+
+When working on database classes, always schema qualifing your SQL where it is
+possible with the current schema ($data->_schema) for pg73+ classes. Then don't
+forget to write your method for older classes which doesn't suppport schemas.
+
+When working with CVS, always make sure to do a 'cvs update' both before you 
+start; so you have the latest code to work with; and also again before you 
+create your patch; to minimize the chance of having conflicts. 
+
+COMMON VARIABLES
+----------------
+
+$data - A data connection to the current or default database.
+$misc - Contains miscellaneous functions.  eg. printing headers & footers, etc.
+$lang - Global array containing translated strings.  The strings in this array 
+        have already been converted to HTML, so you should not 
+        htmlspecialchars() them.
+$conf - Global array of configuration options.
+
+WORKING WITH RECORDSETS
+-----------------------
+
+phpPgAdmin uses the ADODB database library for all its database access.  We have
+also written our own wrapper around the ADODB library to make it more object
+oriented (ADODB_base.pclass).
+
+This is the general form for looping over a recordset:
+
+$rs = $class->getResults();
+if (is_object($rs) && $rs->recordCount() > 0) {
+	while (!$rs->EOF) {
+		echo $rs->fields['field'];
+		$rs->moveNext();
+	}
+}
+else echo "No results.";
+
+UPDATING LANGUAGE FILES FOR THE MONO-LINGUAL
+--------------------------------------------
+
+If you need to add or modify language strings for a new feature, the preferred
+method is:
+
+* cd into lang/ subdirectory
+* modify english.php file only! 
+* run "make english" (this will recode the english.php file, and place an 
+    updated copy in lang/recode/)
+
+If you've done it correctly, when you create your patch, it should only have 
+diffs of lang/english.php and lang/recode/english.php files. For more 
+information on how the language system works, please see the TRANSLATORS file.
+
+
+UNDERSTANDING THE WORK/BRANCH/TAG/RELEASE PROCESS
+------------------------------------------------- 
+
+All new work for phpPgAdmin is done against the CVS HEAD branch. When we feel
+we are ready to do a new release, we create a branch (ex. REL_4-1).  This 
+becomes the stable branch for all future 4.1.x releases, and any bugfixes needed
+for 4.1 would go in that branch. 
+
+When we release a new revision, we tag that at release time (REL_4-1-1), so a 
+checkout of any tag should give you the same files that downloading the release
+would have given you. As a general rule, we do not introduce new features into 
+existing stable branches, only bugfixes and language updates. This means if you 
+want to work on new features, you should be working against CVS HEAD. 
+Eventually we will call for another release, and that will be branched (REL_4-2)
+and the cycle will start over. 
+
+On occasion we have created out-of-band branches, typically labeled as DEV_foo.
+These were used for temporary, concurrent development of large features, and 
+should not be used by other developers. When development of those features is 
+completed, the branches get merged in as appropriate, so no further development 
+should occur on those branches. 
+
+GETTING HELP
+------------
+
+We prefer most discussion of development to take place on the phpPgAdmin
+mailing list, so that discussions can be archived and be searchable. 
+However, if you are into IRC, a couple of us hang out on #phppgadmin on 
+freenode, and occasionally discuss things there. 

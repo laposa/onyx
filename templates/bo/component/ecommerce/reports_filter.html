@@ -1,0 +1,30 @@
+<!-- BEGIN: title --><!-- END: title -->
+<!-- BEGIN: head -->
+<!-- END: head -->
+<!-- BEGIN: head_once --><!-- END: head_once -->
+<!-- BEGIN: content -->
+<script type="text/javascript">
+$(document).ready(function(){
+    $('#breakdown_from,#breakdown_to').datepicker({firstDay: 1, dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true});
+});
+</script>
+<form method="get" action="{URI}">
+
+	<fieldset class="single">
+		<legend>Time period</legend>
+		<div class="row">
+			<span class="label"><label>Between</label></span>
+			<span class="field"><input type="text" class="text" name="reports-filter[from]" id="breakdown_from" value="{REPORTS_FILTER.from}" /> (inclusive)</span>
+		</div>
+		<div class="row">
+			<span class="label"><label>and</label></span>
+			<span class="field"><input type="text" class="text" name="reports-filter[to]" id="breakdown_to" value="{REPORTS_FILTER.to}" /> (exclusive)</span>
+		</div>
+	</fieldset>
+	<div class="row submit">
+		<span class="label"><label>&nbsp;</label></span>
+		<span class="field"><button type="submit" name="submit" value="submit"><span>Submit</span></button></span>
+	</div>
+								
+</form>
+<!-- END: content -->

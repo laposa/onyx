@@ -1,0 +1,24 @@
+<!-- BEGIN: content -->
+<script type="text/javascript">
+function search_nodes() {
+    query = $('#node_search_query').attr('value');
+
+    if (query.length > 2 && in_progress == 0)  {
+		in_progress = 1;
+		makeAjaxRequest('#primaryNavigationWrapper', '/request/component/search_nodes?search[query]=' + query);
+		in_progress = 0;
+	}
+    return false;
+}
+
+in_progress = 0;
+
+</script>
+<div class="searchbox">
+	<form action="/page/{NODE_CONF.id_map-search}" method="get">
+		<label>{I18N_SEARCH}</label>
+		<input class="text" name="search[query]" type="text" id="node_search_query" onkeyup="search_nodes();" value="{SEARCH.query}" size="20" maxlength="20" />
+		<button class="search" type="submit" name="submit" value="search"><span>{I18N_SEARCH}</span></button>
+	</form>
+</div>
+<!-- END: content -->

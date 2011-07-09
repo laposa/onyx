@@ -1,0 +1,8 @@
+<!-- BEGIN: title -->{CONFIGURATION.global.title|htmlspecialchars}: Registration Notify<!-- END: title -->
+<!-- BEGIN: content -->
+<p>{DATA.customer.title_before} {DATA.customer.first_name} {DATA.customer.last_name}  has sucessfully registered.</p>
+ 
+<p>Click for profile <a href="http://{_SERVER.HTTP_HOST}/backoffice/customers/{DATA.customer.id}/detail">http://{_SERVER.HTTP_HOST}/backoffice/customers/{DATA.customer.id}/detail</a></p>
+
+<p>{CONFIGURATION.global.author_content}</p>
+<!-- END: content -->

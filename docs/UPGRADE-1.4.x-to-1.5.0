@@ -1,0 +1,18 @@
+rename Xsite_Controller to Onxshop_Controller in controllers/
+rename XSITE_REQUEST to ONXSHOP_REQUEST in templates/
+rename GLOBAL_MAIN_DOMAIN to ONXSHOP_MAIN_DOMAIN in conf/deployment.php
+rename GLOBAL_ONXSHOP_DIR to ONXSHOP_DIR in conf/deployment.php
+rename GLOBAL_PROJECT_DIR to ONXSHOP_PROJECT_DIR in conf/deployment.php
+AUTH_TYPE to ONXSHOP_AUTH_TYPE
+AUTH_SERVER to ONXSHOP_AUTH_SERVER
+EDITOR_USERNAME to ONXSHOP_EDITOR_USERNAME
+EDITOR_PASSWORD to ONXSHOP_EDITOR_PASSWORD
+GLOBAL_REQUIRE_AUTH to ONXSHOP_REQUIRE_AUTH
+BO_USE_HTTPS to ONXSHOP_EDITOR_USE_SSL
+FE_USE_HTTPS to ONXSHOP_CUSTOMER_USE_SSL
+
+GLOBAL_ONXSHOP_DIR to ONXSHOP_DIR in conf/global.php
+
+nx_messages to onxshop_messages
+nx_error_msg to onxshop_error_msg
+nx_ok_msg to onxshop_ok_msg

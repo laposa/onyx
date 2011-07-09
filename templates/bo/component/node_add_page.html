@@ -1,0 +1,48 @@
+<!-- BEGIN: content -->
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+
+<!-- BEGIN: inserted -->
+<div class="inserted_node_id" style="display: none">{INSERTED_NODE_ID}</div>
+<!-- END: inserted -->
+
+<!-- BEGIN: form -->
+<script type="text/javascript">
+$(function() {
+	var options = { 
+		target: '#node_add_form_{GET.parent}_{GET.container}_wrapper',
+		success: function(responseText, statusText) {
+			popupMessage("#node_add_form_{GET.parent}_{GET.container}_wrapper div.onxshop_messages");
+			var refresh_url = '/request/component/menu~id={GET.parent}~';
+			$('#menu_parent_id_{GET.parent}').load(refresh_url, '', function () {
+			} );	
+		}
+	}; 
+
+    $('#node_add_form_{GET.parent}_{GET.container}_wrapper form').ajaxForm(options);
+});
+</script>
+
+<div id="node_add_form_{GET.parent}_{GET.container}_wrapper">
+	<div class="node_add">
+		<form method="post" action="{URI}">
+		
+			<fieldset class="single">
+				<legend>Add a new {GET.node_group}</legend>
+				<div class="row">
+					<span class="label"><label for="node-title" title="Navigation Title">Title:</label></span>
+					<span class="field"><input class="text title" type="text" name="node[title]" id="node-title" title="Navigation Title" value="{NODE.title|htmlspecialchars}" /></span>
+				</div>
+				{NODE_TYPE}
+				<div class="row submit">
+					<span class="label"><label id="layout_icon" class="onxshop_edit_{ACTIVE}">&nbsp;</label></span>
+					<span class="field"><button type="submit" name="save" value="save"><span>Submit</span></button></span>
+				</div>
+			</fieldset>
+
+			<input type="hidden" name="node[parent]" value="{GET.parent}" />
+			<input type="hidden" name="node[parent_container]" value="{GET.container}" />
+		</form>
+	</div>
+</div>
+<!-- END: form -->
+<!-- END: content -->

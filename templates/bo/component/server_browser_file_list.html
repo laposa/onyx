@@ -1,0 +1,133 @@
+<!-- BEGIN: content -->
+
+<div id="server_browser_file_list_wrapper">
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+
+					<div class="breadcrumb">Root/ {FOLDER_HEAD}</div>
+					<!-- BEGIN: add_new_head -->
+					<p>
+						<a style="float: left" class="button add" title="Upload a new file or folder" href="#" onclick="$('#add-folder').hide(); $('#add-file').show(); newFileFormInit(); return false"><span>Upload a new file</span></a>
+						<span style="float: left; margin: 0 20px;">or</span>
+						<a style="float: left;" class="button add" title="Upload a new file or folder" href="#" onclick="$('#add-folder').show(); $('#add-file').hide(); newFileFormInit(); return false"><span>Create a folder</span></a></p>
+					<!-- END: add_new_head -->
+					
+					<div id="server_browser_add">
+						<form action="{URI}" method="post" enctype="multipart/form-data" id="add_new_file">
+							
+							<!-- BEGIN: confirm_overwrite -->
+							<fieldset class="confirmOverwrite">
+								<input type="hidden" name="filename" value="{OVERWRITE_FILE.filename}" />
+								<input type="hidden" name="save_dir" value="{OVERWRITE_FILE.save_dir}" />
+								<input type="hidden" name="temp_file" value="{OVERWRITE_FILE.temp_file}" />
+								<button type="submit" name="overwrite" value="overwrite"><span>Overwrite file {OVERWRITE_FILE.filename}?</span></button>
+							</fieldset>
+							<!-- END: confirm_overwrite -->
+							
+							<!-- BEGIN: add_new -->
+							<div class="addNew">
+								<fieldset class="addNew single">
+									<div class="row" id="add-folder">
+										<label for="add-folder-input">Add</label>
+										<input id="add-folder-input" type="text" name="new_folder" value="{GET.new_folder}" />
+										<button type="submit" name="create" value="create"><span>Create Folder</span></button>
+									</div>
+									<div class="row" id="add-file">
+										<label for="add-file-input">Add:</label>
+										<input id="add-file-input" type="file" name="file" class="file multi" /> 
+										<button type="submit" name="create" value="create"><span>Submit File</span></button> Max&nbsp;filesize:&nbsp;{MAX_FILE_SIZE}
+									</div>
+								</fieldset>
+							</div>
+							<!-- END: add_new -->
+							
+							
+					
+							<input type="hidden" name="open" value="{GET.open}" />
+						</form>
+					</div>
+					
+			<!-- BEGIN: list -->
+			<table class="server-browser">
+				<thead>
+					<tr>
+						<th>&nbsp;</th>
+						<th>Name</th>
+						<th>&nbsp;</th>
+					</tr>
+				</thead>
+				<tbody>
+					<!-- BEGIN: item -->
+					<tr id="file-{ITEM.file_path_encoded_relative}">
+						<td><!-- BEGIN: thumbnail --><a style="display: block; width:55px; height: 50px; overflow: hidden;" href="/image/{BASE}{FOLDER}{ITEM.name}" title="View Full Size" onclick="openImg('/image/{BASE}{FOLDER}{ITEM.name}'); return false;"><img src="/thumbnail/50/{BASE}{FOLDER}{ITEM.name}" alt="{ITEM.name}" /></a><br /><!-- END: thumbnail --></td>
+						<td>
+							<a href="/download/{BASE}{FOLDER}{ITEM.name}" title="Download {ITEM.name} ({ITEM.size})">{ITEM.name|substr(%s, 0, 32)}</a><br />
+							<a class="ui-icon ui-icon-disk" style="float: left" title="Download {ITEM.name} ({ITEM.size})" href="/download/{BASE}{FOLDER}{ITEM.name}"><span>Download</span></a>
+							<a class="ui-icon ui-icon-info" style="float: left" href="#" title="Size: {ITEM.size}, click to view more details" onclick="openAjaxRequestInDialog('/request/bo/component/file_info~file_path_encoded={ITEM.file_path_encoded}~'); return false"><span>View more details</span></a>
+							
+							<!-- BEGIN: usage --><a href="#" onclick="openAjaxRequestInDialog('/request/bo/component/file_usage~file_path_encoded_relative={ITEM.file_path_encoded_relative}~'); return false">Usage: {FILE_USAGE}</a><!-- END: usage -->
+							<!-- BEGIN: delete --><a class="button delete" href="{_SERVER.REDIRECT_URL}?delete_file={BASE}{FOLDER}{ITEM.name}" onclick="$('#file-{ITEM.file_path_encoded_relative}').load('/request/bo/component/file_delete~file_path_encoded={ITEM.file_path_encoded_relative}~'); return false;"><span>delete</span></a><!-- END: delete -->
+						</td>
+						<td>
+							<!-- BEGIN: add_to_node --><a class="button add" title="Use {ITEM.name}" href="#file_connector" onclick="makeAjaxRequest('#file_connector', '/request/bo/component/file_add~file_path_encoded={ITEM.file_path_encoded}:type={GET.type}:role={GET.role}:relation={GET.relation}:node_id={GET.node_id}~');"><span>Use this ...</span></a><br /><!-- END: add_to_node --> 
+							<!-- BEGIN: database_import --><a class="button add" title="Import {ITEM.name}" href="?data_file={BASE}{FOLDER}{ITEM.name}"><span>Import this ...</span></a><br /><!-- END: database_import --> 
+						</td>
+					</tr>
+					<!-- END: item -->
+				</tbody>
+				<tfoot>
+					<tr>
+						<td colspan="4">
+							<div class="onxshop_pagination">
+								{PAGINATION}
+							</div>
+						</td>
+					</tr>
+				</tfoot>
+			</table>
+			<!-- END: list -->
+			
+			<!-- BEGIN: empty -->
+				<div class="empty">
+					<p>This folder is empty. Do you want to remove this folder? <a class="button delete" href="#" onclick="$('#server_browser_file_list').load('/request/bo/component/server_browser_file_list~delete_file={BASE}{FOLDER}~'); fileTreeRefresh(); return false"><span>Yes, delete?</span></a></p>
+				</div>
+			<!-- END: empty -->
+				
+</div>
+<!-- this must be at the end, the document must start with HTML - otherwise overwrite doesn't work in Firefox
+this component would be good to split into upload and file list
+ -->
+<script type="text/javascript">
+/* <![CDATA[ */
+	
+	function newFileFormAfterSuccess() {
+		newFileFormInit();
+		fileTreeRefresh();
+	}
+	
+	function newFileFormInit() {
+		var options = { 
+			target:        '#server_browser_file_list',   // target element(s) to be updated with server response 
+			beforeSubmit:  function() {
+				$("#server_browser_file_list button span").replaceWith("<span style='background: white; color: black; padding: 5px; display: block; font-size: 125%'><img src='/share/images/ajax-indicator/indicator.gif' alt='Loading ...'/> Saving...</span>");
+			},  // pre-submit callback 
+			success:       newFileFormAfterSuccess,  // post-submit callback
+			url:  "/request/bo/component/server_browser_file_list~open={GET.open}:type={GET.type}:relation={GET.relation}:node_id={GET.node_id}~"
+		}; 
+
+    	$('#add_new_file').ajaxForm(options); 
+	}
+	
+	function fileTreeRefresh() {
+		$("#browser-tree").load("/request/bo/component/server_browser_menu~directory={BASE}:type={GET.type}:node_id={GET.node_id}:relation={GET.relation}:expand_all=1:type=d~", function() {initializeServerBrowserMenu()});
+	}
+/* ]]> */
+</script>
+
+<style type="text/css">
+
+#add-folder,
+#add-file {display: none;}
+
+</style>
+
+<!-- END: content -->

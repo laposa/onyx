@@ -1,0 +1,429 @@
+/**
+ * Norbert @ Laposa Ltd, 2009/09/22
+ *
+ */
+
+/****************************************************************************************/
+/*****************************          node/site           *****************************/
+/****************************************************************************************/
+
+/********* node/site/default.html *********/
+#pageWrapper {padding: 0.5em;}
+#pageWrapper div.bottom {clear: both;}
+
+#accessibility {display: none;}
+
+#container {width: 984px; margin: 0 auto;}
+
+#header {width: 100%; margin-bottom: 15px;}
+#headerWrapper {padding: 20px 0;}
+
+#logo {float: left;}
+#logo a {text-decoration: none; font-size: 4em;}
+
+#search {float: right; clear: right; margin-bottom: 15px;}
+#search form {background: transparent; float: right; border-width: 0; margin: 0; padding: 0;}
+#search input {
+	background: white url(/share/images/search-bg.png) no-repeat 3px center;
+	padding-left: 20px; width: 165px; display: block;}
+#search label {width: auto;}
+#search button {display: none;}
+
+#userbox {float: right; margin-bottom: 1.5em;}
+
+#basket {clear: right; float: right; white-space: nowrap; margin-bottom: 15px;}
+#basketWrapper {display: inline;}
+
+/**
+ * global navigation
+ */
+
+#globalNavigation {float: right; margin: 0 0 15px 0;}
+#globalNavigation ul {margin: 0; padding: 0; line-height: 1em; list-style-type: none;}
+#globalNavigation li {float: left; padding: 0; margin: 0;}
+#globalNavigation a {text-decoration: none; display: block; padding: 7px 15px;}
+#globalNavigation a:active span {text-decoration: underline;}
+
+
+/**
+ * primary navigation
+ */
+
+#primaryNavigation {clear: both; float: left; width: 16.66%;}
+#primaryNavigation ul {margin: 0; padding: 0; line-height: 1em; list-style-type: none;}
+#primaryNavigation li {padding: 0; margin: 0; zoom: 1;/*zoom for ie6*/}
+#primaryNavigation a {text-decoration: none; display: block; padding: 7px 5px; white-space: pre; zoom: 1;}
+#primaryNavigation a:active span {text-decoration: underline;}
+#primaryNavigation a.open {font-weight: bold;}
+#primaryNavigation ul ul {list-style-type: square; margin-left: 10px;}
+#primaryNavigation ul ul li {padding-left: 0; margin-left: 15px;}
+#primaryNavigation ul ul a {padding-left: 0; font-weight: normal; height: auto;}
+#primaryNavigationWrapper {overflow: hidden; margin-right: 15px;}
+
+/**
+ * footer navigation
+ */
+ 
+#footerNavigation {clear: both; float: left; width: 100%;}
+#footerNavigation ul {margin: 0; padding: 0; line-height: 1em; list-style-type: none;}
+#footerNavigation li {padding: 0; margin: 0; display: block; float: left;}
+#footerNavigation a {text-decoration: none; display: block; padding: 7px 15px; white-space: pre;}
+#footerNavigation a:active span {text-decoration: underline;}
+
+
+/**
+ * content
+ */
+ 
+#content {width: 83.33%; float: right;} /*content must be splitable by 2 (50% - 50% can be splitted into two blocks of the same size (can cause broken layout in Internet Explorer if not followed). Better to by splitable 4: best practice "#content[width] % 4 = 0"*/
+#contentWrapper {margin-left: 15px;} /* best practice "(#content[width] - #contentWrapper[width]) % 4 = 0"*/
+
+/**
+ * footer
+ */
+ 
+#footer {width: 100%; clear: both; margin-top: 30px;}
+
+#copyright {clear: both; float: left; padding: 30px 0 0.5em 0; white-space: nowrap;}
+#credit {float: right; padding: 30px 0 0.5em 0;}
+
+#copyright p,
+#credit p,
+#copyright a,
+#credit a {text-decoration: none; padding: 0; margin: 0;}
+
+/* graphical credit */
+/*#credit a {background: url(/share/images/onxshop-power-master-150.png) no-repeat; display: block; width: 150px; height: 49px;}
+#credit a span {display: none;}
+#copyright p {padding-top: 25px;}*/
+
+#contentSide {width: 16.66%; margin: 30px 0 15px 0; clear: left; float: left;}
+#contentSideWrapper {margin-right: 15px;}
+
+#contentFooter {clear: both; width: 100%;}
+
+
+/****************************************************************************************/
+/*****************************          node/page           *****************************/
+/****************************************************************************************/
+
+/********* node/page/default.html *********/
+/********* node/page/product_browse.html *********/
+/********* node/page/news.html *********/
+/********* node/page/product.html *********/
+
+#pageSide {float: left; width: 16.66%; overflow: hidden;}
+#pageSideWrapper {margin-right: 15px;}
+
+#secondaryNavigation {line-height: 1em; margin-bottom: 30px;}
+#secondaryNavigation ul {padding: 0; margin: 0; list-style-type: none;}
+#secondaryNavigation li {padding: 0; margin: 0; zoom: 1;/*zoom for ie6*/}
+#secondaryNavigation a {display: block; padding: 7px 5px; text-decoration: none; zoom: 1;}
+#secondaryNavigation a:active span {text-decoration: underline;}
+#secondaryNavigation ul ul {list-style-type: disc;}
+#secondaryNavigation ul ul li {padding-left: 0; margin-left: 25px;}
+
+#containerFour {}
+
+#pageImage {float: right;}
+#pageImage a {text-decoration: none;}
+
+div.page div.pageWrapper {padding: 0;}
+div.page div.rowBottom {clear: both;}
+
+/********* node/page/news.html *********/
+div.news div.note {font-family: fixed;}
+div.news div.note p {margin: 0.5em 0 1em;}
+div.news div.back {clear: both;}
+div.news div.body {margin-bottom: 1em;}
+div.news div.addThisButtons {margin-bottom: 15px;}
+
+/************ node/page/default.html ****/
+/*default, fobinaci-1-1, 50%/50%*/
+div.twoColumnPage div.columnOne,
+div.twoColumnPage.fibonacci-1-1 div.columnOne {float: left; width: 49.999%; clear: both; overflow: hidden; } /*should be 50%, but ie7,ie7 problem with equal devision odd width values*/
+div.twoColumnPage div.columnOne div.columnWrapper {margin-right: 15px;}
+div.twoColumnPage div.columnTwo div.columnWrapper {margin-left: 15px;}
+div.twoColumnPage div.columnTwo,
+div.twoColumnPage.fibonacci-1-1 div.columnTwo {width: 49.999%; float: right; overflow: hidden;} /*should be 50%, but ie7,ie7 problem with equal devision odd width values*/
+/*fibonacci-1-5, 16.6%/83.3%*/
+div.twoColumnPage.fibonacci-1-5 div.columnOne {width: 16.66%;}
+div.twoColumnPage.fibonacci-1-5 div.columnTwo {width: 83.33%;}/*make sure this can be split into equal 50/50*/
+div.twoColumnPage.fibonacci-5-1 div.columnOne {width: 83.33%;}
+div.twoColumnPage.fibonacci-5-1 div.columnTwo {width: 16.66%;}
+/*fibonacci-1-3, 25%/75%*/
+div.twoColumnPage.fibonacci-1-3 div.columnOne {width: 25%;}
+div.twoColumnPage.fibonacci-1-3 div.columnTwo {width: 75%;}/*make sure this can be split into equal 50/50*/
+div.twoColumnPage.fibonacci-3-1 div.columnOne {width: 75%;}
+div.twoColumnPage.fibonacci-3-1 div.columnTwo {width: 25%;}
+/*fibonacci-2-5, 28.6%/71.4%*/
+div.twoColumnPage.fibonacci-2-5 div.columnOne {width: 28.6%;}
+div.twoColumnPage.fibonacci-2-5 div.columnTwo {width: 71.4%;}/*make sure this can be split into equal 50/50*/
+div.twoColumnPage.fibonacci-5-2 div.columnOne {width: 71.4%;}
+div.twoColumnPage.fibonacci-5-2 div.columnTwo {width: 28.6%;}
+/*fibonacci-1-2, 33%/66%*/
+div.twoColumnPage.fibonacci-1-2 div.columnOne {width: 33.3%;}
+div.twoColumnPage.fibonacci-1-2 div.columnTwo {width: 66.6%;}/*make sure this can be split into equal 50/50*/
+div.twoColumnPage.fibonacci-2-1 div.columnOne {width: 66.6%;}
+div.twoColumnPage.fibonacci-2-1 div.columnTwo {width: 33.3%;}
+/*fibonacci-3-5, 38.2%/61.8%*/
+div.twoColumnPage.fibonacci-3-5 div.columnOne {width: 38.2%;}
+div.twoColumnPage.fibonacci-3-5 div.columnTwo {width: 61.77%;}/*should be 61.8, make sure this can be split into equal 50/50*/
+div.twoColumnPage.fibonacci-5-3 div.columnOne {width: 61.77%;}
+div.twoColumnPage.fibonacci-5-3 div.columnTwo {width: 38.2%;}
+/*fibonacci-2-3, 40%/60%*/
+div.twoColumnPage.fibonacci-2-3 div.columnOne {width: 40%;}
+div.twoColumnPage.fibonacci-2-3 div.columnTwo {width: 60%;}/*make sure this can be split into equal 50/50*/
+div.twoColumnPage.fibonacci-3-2 div.columnOne {width: 60%;}
+div.twoColumnPage.fibonacci-3-2 div.columnTwo {width: 40%;}
+
+/****************************************************************************************/
+/*****************************          node/layout         *****************************/
+/****************************************************************************************/
+
+div.layout div.bottom {clear: both;}
+
+/********* node/layout/1column.html *********/
+div.oneColumnLayout {clear: both;}
+div.oneColumnLayout div.layoutColumnOne {float: none; width: auto;}
+
+/********* node/layout/2columns.html *********/
+div.twoColumnLayout {clear: both;}
+
+/*default, fibonacci-1-1, 50%/50%*/
+div.twoColumnLayout div.layoutColumnOne,
+div.twoColumnLayout.fibonacci-1-1 div.layoutColumnOne {float: left; width: 49.999%;} /*should be 50%, but ie7,ie7 problem with equal devision odd width values*/
+div.twoColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnOne > div.layoutColumnWrapper {margin-right: 15px;}
+div.twoColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnTwo > div.layoutColumnWrapper {margin-left: 15px;}
+/*ie6 inherited*/
+div.twoColumnLayout div.layoutContentWrapper div.layoutColumnOne div.layoutColumnTwo div.layoutColumnWrapper {margin-right: 0;}
+div.twoColumnLayout div.layoutContentWrapper div.layoutColumnTwo div.layoutColumnOne div.layoutColumnWrapper {margin-left: 0;}
+
+div.twoColumnLayout div.layoutColumnTwo,
+div.twoColumnLayout.fibonacci-1-1 div.layoutColumnTwo {width: 49.999%; float: right;} /*should be 50%, but ie7,ie7 problem with equal devision odd width values*/
+/*fibonacci-1-1, 1level inheritance, TODO: support for other layout inheritance*/
+div.twoColumnLayout div.twoColumnLayout.fibonacci-1-1 div.layoutColumnOne,
+div.twoColumnLayout div.twoColumnLayout.fibonacci-1-1 div.layoutColumnTwo {width: 49.999%;} /*should be 50%, but ie7,ie7 problem with equal devision odd width values*/
+/*fibonacci-1-5, 16.6%/83.3%*/
+div.twoColumnLayout.fibonacci-1-5 div.layoutColumnOne {width: 16.66%;}
+div.twoColumnLayout.fibonacci-1-5 div.layoutColumnTwo {width: 83.33%;}/*make sure this can be split into equal 50/50*/
+div.twoColumnLayout.fibonacci-5-1 div.layoutColumnOne {width: 83.33%;}
+div.twoColumnLayout.fibonacci-5-1 div.layoutColumnTwo {width: 16.66%;}
+/*fibonacci-1-3, 25%/75%*/
+div.twoColumnLayout.fibonacci-1-3 div.layoutColumnOne {width: 25%;}
+div.twoColumnLayout.fibonacci-1-3 div.layoutColumnTwo {width: 75%;}/*make sure this can be split into equal 50/50*/
+div.twoColumnLayout.fibonacci-3-1 div.layoutColumnOne {width: 75%;}
+div.twoColumnLayout.fibonacci-3-1 div.layoutColumnTwo {width: 25%;}
+/*fibonacci-2-5, 28.6%/71.4%*/
+div.twoColumnLayout.fibonacci-2-5 div.layoutColumnOne {width: 28.6%;}
+div.twoColumnLayout.fibonacci-2-5 div.layoutColumnTwo {width: 71.4%;}/*make sure this can be split into equal 50/50*/
+div.twoColumnLayout.fibonacci-5-2 div.layoutColumnOne {width: 71.4%;}
+div.twoColumnLayout.fibonacci-5-2 div.layoutColumnTwo {width: 28.6%;}
+/*fibonacci-1-2, 33%/66%*/
+div.twoColumnLayout.fibonacci-1-2 div.layoutColumnOne {width: 33.3%;}
+div.twoColumnLayout.fibonacci-1-2 div.layoutColumnTwo {width: 66.6%;}/*make sure this can be split into equal 50/50*/
+div.twoColumnLayout.fibonacci-2-1 div.layoutColumnOne {width: 66.6%;}
+div.twoColumnLayout.fibonacci-2-1 div.layoutColumnTwo {width: 33.3%;}
+/*fibonacci-3-5, 38.2%/61.8%*/
+div.twoColumnLayout.fibonacci-3-5 div.layoutColumnOne {width: 38.2%;}
+div.twoColumnLayout.fibonacci-3-5 div.layoutColumnTwo {width: 61.8%;}/*make sure this can be split into equal 50/50*/
+div.twoColumnLayout.fibonacci-5-3 div.layoutColumnOne {width: 61.8%;}
+div.twoColumnLayout.fibonacci-5-3 div.layoutColumnTwo {width: 38.2%;}
+/*fibonacci-2-3, 40%/60%*/
+div.twoColumnLayout.fibonacci-2-3 div.layoutColumnOne {width: 40%;}
+div.twoColumnLayout.fibonacci-2-3 div.layoutColumnTwo {width: 60%;}/*make sure this can be split into equal 50/50*/
+div.twoColumnLayout.fibonacci-3-2 div.layoutColumnOne {width: 60%;}
+div.twoColumnLayout.fibonacci-3-2 div.layoutColumnTwo {width: 40%;}
+
+/********* node/layout/3columns.html *********/
+div.threeColumnLayout {clear: both;}
+div.threeColumnLayout div.layoutColumnOne, 
+div.threeColumnLayout div.layoutColumnTwo, 
+div.threeColumnLayout div.layoutColumnThree {width: 33.3%; overflow: hidden;}
+div.threeColumnLayout div.layoutColumnOne, 
+div.threeColumnLayout div.layoutColumnTwo {float: left;}
+div.threeColumnLayout div.layoutColumnThree {float: right;}
+div.threeColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnOne > div.layoutColumnWrapper {margin-right: 16px;}
+div.threeColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnTwo > div.layoutColumnWrapper {margin-left: 8px; margin-right: 8px;}
+div.threeColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnThree > div.layoutColumnWrapper {margin-left: 16px;}
+
+/********* node/layout/4columns.html *********/
+div.fourColumnLayout {clear: both;}
+div.fourColumnLayout div.layoutColumnOne, 
+div.fourColumnLayout div.layoutColumnTwo, 
+div.fourColumnLayout div.layoutColumnThree,
+div.fourColumnLayout div.layoutColumnFour {width: 25%; overflow: hidden;}
+div.fourColumnLayout div.layoutColumnOne, 
+div.fourColumnLayout div.layoutColumnTwo,
+div.fourColumnLayout div.layoutColumnThree {float: left;}
+div.fourColumnLayout div.layoutColumnFour {float: right;}
+div.fourColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnOne > div.layoutColumnWrapper {margin-right: 16px;}
+div.fourColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnTwo > div.layoutColumnWrapper,
+div.fourColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnThree > div.layoutColumnWrapper {margin-left: 8px; margin-right: 8px;}
+div.fourColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnFour > div.layoutColumnWrapper {margin-left: 16px;}
+
+/****************************************************************************************/
+/*****************************          node/content        *****************************/
+/****************************************************************************************/
+
+/********* node/content/RTE.html *********/
+div.content-RTE {clear: both; margin-bottom: 15px;}
+/* do not specify img., conflict with reflection*/
+/* use both cases (TinyMCE/Safari bug)*/
+div.content-RTE .imageLeft,
+div.content-RTE .imageleft {float: left; margin-right: 15px;}
+div.content-RTE .imageRight,
+div.content-RTE .imageright {float: right; margin-left: 15px;}
+div.content-RTE .imageBorder,
+div.content-RTE .border {border: 1px solid black;}
+
+/*apply for products, other option would be to add .content-RTE class in product detail page description element */
+div.product .imageLeft,
+div.product .imageleft {float: left; margin-right: 15px;}
+div.product .imageRight,
+div.product .imageright {float: right; margin-left: 15px;}
+div.product .imageBorder,
+div.product .border {border: 1px solid black;}
+
+/*apply for news pages, other option would be to add .content-RTE class in news detail page */
+div.news .imageLeft,
+div.news .imageleft {float: left; margin-right: 15px;}
+div.news .imageRight,
+div.news .imageright {float: right; margin-left: 15px;}
+div.news .imageBorder,
+div.news .border {border: 1px solid black;}
+
+
+/********* node/content/divider.html *********/
+div.divider {clear: both; width: 100%; margin: 0 0 1em 0; padding: 0; border-top: 1px dotted grey; height: 1px; font-size: 1em;}
+div.divider hr {display: none;}
+
+/********* node/content/quote.html *********/
+div.quote p.quote {padding: 0 40px 0 0; margin: 0; text-align: center;}
+div.quote p.author {font-family: sans-serif; padding-right: 40px; text-align: center; background: none;}
+
+/********* node/content/news_list.html *********/
+div.news_list div.teaser_image {float: right; padding: 0 0 10px 10px;}
+div.news_list div.teaser_image a {text-decoration: none;}
+div.news_list div.created {font-family: fixed;}
+div.news_list div.created p {margin-bottom: 1em;}
+div.news_list div.teaser {clear: none;}
+
+/********* node/content/contact_form.html *********/
+div.contact_form textarea {width: 100%;}
+div.contact_form div.submit span.label {display: none;}
+div.contact_form span.mandatory-mark {padding-right: 0.5em;}
+div.contact_form legend {display: none;}
+div.contact_form div.message span.label {float: none; text-align: left; width: auto;}
+
+/********* node/content/picture.html *********/
+div.node-content-picture, 
+div.node-content-picture div.item {margin-bottom: 30px;}
+div.node-content-picture div.picture.single div.item {float: left; margin-right: 30px;}
+
+/********* node/content/HTML.html *********/
+div.node-content-HTML {margin-bottom: 15px;}
+
+/********* node/content/file.html *********/
+div.file span.file_size {white-space: nowrap;}
+
+/****************************************************************************************/
+/*****************************           component          *****************************/
+/****************************************************************************************/
+
+/********* component/feed.html *********/
+div.feed {margin: 0 0 15px 0;}
+div.feed p.pubDate {padding: 0; margin: 0 0 15px 0;}
+div.feed p.copyright {}
+div.feed div.item {margin: 15px 0;}
+div.feed div.item h5 {margin: 0 0 0.5em 0;}
+
+/********* component/breadcrumb.html *********/
+div.breadcrumb {margin-bottom: 15px;}
+
+/********* component/taxonomy.html *********/
+div.taxonomy td.first {font-weight: bold;}
+
+/********* component/searchbox.html *********/
+div.searchbox label {display: none;}
+div.searchbox input.text {margin: 0; width: 185px;}
+
+/********* component/search_result.html *********/
+div.search_result li {clear: both; margin-bottom: 1em;}
+div.search_result li a.last {font-weight: bold;}
+div.search_result li a.image {text-decoration: none; display: block; float: right; padding-left: 5px;}
+div.search_result span.item_description {font-size: small;}
+
+/********* component/pagination.html *********/
+div.pagination {margin: 5px 0; text-align: center;}
+div.pagination a {text-decoration: none;}
+div.pagination ul {margin: 0; padding: 0;}
+div.pagination li {list-style-type: none; display: inline; padding: 0; margin: 0;}
+div.pagination a {display: inline-block; padding: 2px 5px; border: 0;}
+div.pagination a.active {border: 1px solid #CCCCCC; font-weight: normal; -moz-border-radius: 4px; -webkit-border-radius: 4px;}
+div.pagination li.previous a:hover,
+div.pagination li.next a:hover,
+div.pagination a.show_all:hover {text-decoration: underline;}
+
+/********* component/image_gallery.html *********/
+div.image_gallery div.thumbnails div.item {float: left; min-height: 50px;}
+div.image_gallery div.thumbnails div.item img {padding: 0 10px 10px 0;}
+div.image_gallery a {text-decoration: none;}
+
+/********* component/image_gallery_smooth.html *********/
+div.image_gallery_smooth {border: 0; height: 300px; position: relative;}
+div.image_gallery_smooth img:hover {/*cursor: pointer; cursor: hand;*/}
+div.image_gallery_smooth img.thumbnail {display: none;}
+div.image_gallery_smooth div.controls {z-index: 1000; position: absolute; top: 0; left: 0; display: none;}
+div.image_gallery_smooth div.controls a.prev,
+div.image_gallery_smooth div.controls a.next {width: 30px; height: 27px; display: block; opacity: 0.9;}
+div.image_gallery_smooth div.controls a span {display: none;}
+div.image_gallery_smooth div.controls a.prev {background: url(/share/images/default/arrow-left.gif) center left no-repeat; float: left;}
+div.image_gallery_smooth div.controls a.next {background: url(/share/images/default/arrow-right.gif) center right no-repeat; float: right;}
+div.image_gallery_smooth div.controls div.pagination {float: left; margin: 0;}
+div.image_gallery_smooth div.controls div.pagination a {float: left; display: block; padding: 3px 7px;}
+div.image_gallery_smooth div.imageInfo {display: none;}
+
+/********* component/image_gallery_fancybox.html *********/
+div.image_gallery_fancybox div.item {float: left; margin-right: 30px;}
+
+/********* component/google_picasa_feed.html *********/
+div.googlePicasaFeed {margin-bottom: 30px;}
+div.googlePicasaFeed div.imageThumbnailsContainer {width: 750px; height: 100px; overflow: auto; white-space: nowrap;}
+div.googlePicasaFeed div.imageThumbnail {float: left; height: 75px; padding-right: 15px;}
+div.googlePicasaFeed div.imageFull {width: 100%; text-align: center; padding-top: 5px;}
+div.googlePicasaFeed div.imageFull div.imageFullWrapper {clear: both;}
+div.googlePicasaFeed table {padding: 0; margin: 0; border-style: none; border-width: 0;}
+div.googlePicasaFeed table td {padding: 0; margin: 0; border-style: none; border-width: 0;}
+
+/********* component/comment_add.html *********/
+div.comment form input {width: 100%;}
+div.comment form textarea {width: 100%;}
+
+/********* comment_UL.html *********/
+ul.comment li {margin-bottom: 15px;}
+ul.comment p.author,
+ul.comment p.created {margin: 0;}
+ul.comment div.bottom {border-bottom: 1px solid #f0f0f0;}
+ul.comment div.item div.content {padding: 15px 0;}
+
+/********* menu_SELECT.html **********/
+div.selectMenu {padding: 5px 0 0 0;}
+
+/** newsletter subcribe **/
+div.newsletter_subscribe_start div.row {margin: 0;}
+div.newsletter_subscribe_start span.label {display: none;}
+div.newsletter_subscribe_start fieldset {width: 70%; float: left; margin: 0; padding: 0;}
+div.newsletter_subscribe_start div.submit  {clear: none; float: right;}
+
+
+/********* component/google_translate.html *********/
+#google_translate_element {margin-bottom: 30px;}
+
+/********* component/rating_stars.html *********/
+div.rating_stars div.star {float: left; }
+div.rating_stars div.text {display: none;}
+/*
+div.rating_stars div.star {background:url("/share/images/default/star.gif") repeat scroll 0 0 transparent; height:17px; width:17px;}
+div.rating_stars div.star span {display: none;}
+*/
