@@ -1,7 +1,7 @@
 3stages:
 stable (last is 1.0.0)
 testing (preparation for 1.0.1)
-dev (always place where edit and fix bugs, after it deploy to testing or backport to old stable)
+dev (always place where edit and fix bugs, after it deploy to testing or backport to stable)
 
 -----------
 X.X.X.X
@@ -36,7 +36,7 @@ database: change (need upgrade script)
 controllers: changes
 templates: change
 
-can be updated without notify the customer only if customer is not using local templates
+can be upgraded without notify the customer only if customer is not using local templates
 database upgrade requires site downtime
 
 version 2.0

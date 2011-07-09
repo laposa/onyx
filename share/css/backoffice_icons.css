@@ -42,15 +42,13 @@ option.onxshop_edit_default.container {background-image: url(/share/images/famfa
 * Layout Frontend Icons
 */
 
-.onxshop_edit_1column {background-image: url(/share/images/famfamfam_icons/onxshop_1column.png);}
-.onxshop_edit_2columns {background-image: url(/share/images/famfamfam_icons/onxshop_2columns.png);}
-.onxshop_edit_2columns_title {background-image: url(/share/images/famfamfam_icons/onxshop_2columns_title.png);}
-.onxshop_edit_3columns {background-image: url(/share/images/famfamfam_icons/onxshop_3columns.png);}
+.onxshop_edit_layout {background-image: url(/share/images/famfamfam_icons/layout.png);}
 
 
 /*
 * Content Frontend Icons
 */
+
 div.onxshop_add_content,
 div.onxshop_edit_content {clear: both; padding: 0 0 50px 5px;}
 
@@ -92,49 +90,6 @@ div.onxshop_page_properties a.verbose span {display: inline; padding: 0 25px;}
 .onxshop_edit_external_source {background-image: url(/share/images/famfamfam_icons/plugin.png);}
 .onxshop_edit_textile {background-image: url(/share/images/famfamfam_icons/text_signature.png);}
 
-/**
- * Backoffice main menu
- */
-/*
-ul#onxshop_backoffice_menu li a span {
-	display: block;
-	padding-left: 20px;
-	background-position: 5px 5px;
-}
-
-ul#onxshop_backoffice_menu li.cms a span {
-	background: url(/share/images/famfamfam_icons/page.png) no-repeat;
-}
-
-ul#onxshop_backoffice_menu li.blog a span {
-	background: url(/share/images/famfamfam_icons/newspaper.png) no-repeat;
-}
-
-ul#onxshop_backoffice_menu li.media a span {
-	background: url(/share/images/famfamfam_icons/photo.png) no-repeat;
-}
-
-ul#onxshop_backoffice_menu li.product a span {
-	background: url(/share/images/famfamfam_icons/ruby.png) no-repeat;
-}
-
-ul#onxshop_backoffice_menu li.orders a span {
-	background: url(/share/images/famfamfam_icons/package.png) no-repeat;
-}
-
-
-ul#onxshop_backoffice_menu li.customers a span {
-	background: url(/share/images/famfamfam_icons/user.png) no-repeat;
-}
-
-ul#onxshop_backoffice_menu li.stats a span {
-	background: url(/share/images/famfamfam_icons/chart_pie.png) no-repeat;
-}
-
-ul#onxshop_backoffice_menu li.advanced a span {
-	background: url(/share/images/famfamfam_icons/server.png) no-repeat;
-}
-*/
 
 /**
  * Other Icons

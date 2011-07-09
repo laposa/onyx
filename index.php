@@ -1,7 +1,10 @@
 <?php
 /**
- * Onxshop index
- * 
+ * Onxshop index / dispatcher
+ *
+ * An entry point for all actions except thumnails and downloads handlers (share/*.php scripts),
+ * see htaccess for more details. 
+ *
  * Copyright (c) 2008-2011 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
@@ -23,5 +26,3 @@ define("ONXSHOP_VERSION", trim(file_get_contents(ONXSHOP_DIR . 'ONXSHOP_VERSION'
  */
 
 require_once(ONXSHOP_DIR . 'bootstrap.php');
-
-
