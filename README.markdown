@@ -1,3 +1,3 @@
 Onxshop
 =======
-Visit [www.onxshop.com](http://www.onxshop.com/) for more information.
+For more information visit [www.onxshop.com](http://www.onxshop.com/).
