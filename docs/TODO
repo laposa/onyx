@@ -8,8 +8,42 @@ BEFORE EACH RELEASE:
   rm onxshop-1.x.x/rsync.sh
   update onxshop-1.x.x/ONXSHOP_VERSION
   
+  
+HIGH PRIORITY
+
+  * TODO: move msg() to a singleton ONXSHOP::MSG class
+  * TODO: remove margins on layout and add margins on each content http://stacklayout.com/
+  * TODO: review use of php5-suhosin
+  * TODO: fix memory consumption in bo/orders list
+  * TODO: rebuild /backoffice landing page
+  * TODO: thumbnail.php isn't reading configuration from DB, common_image isn't reading db conf at line 142
+  	thumbnail.php isn't reading db conf and should be looking into cache
+  * TODO: do crosscheck on payment http://www.worldpay.com/support/kb/bg/paymentresponse/pr5305.html
+  	setup Payment Response password (callbackPW)
+  * TODO: remove dependancy on bin/ scripts
+  * TODO: remove print_article or rename?
+  * TODO: use templates/bo/pages/ecommerce/product_detail
+  * TODO: merge common_taxonomy_label and common_taxonomy_tree into common_taxonomy, 
+  		  rename common_taxonomy_label_image to common_taxonomy_image
+  		  1. rename common_taxonomy_tree to common_taxonomy
+  		  2. add columns from common_taxonomy_label
+  		  3. copy common_taxonomy_label to common_taxonomy
+  		  
+  		  
+INSPIRATION
+  http://yuji.wordpress.com/2011/05/25/postgresql-sqlite-django-migrating-postgresql-to-sqlite3-with-pg_dump/
+  http://www.root.cz/clanky/zavadime-omezeni-v-openssh/
+  Iterator http://zdrojak.root.cz/clanky/lazy-evaluation-v-php/
+  Use autoload
+  http://www.serversidemagazine.com/community/php-“require”-performance/
+  http://uk.php.net/__autoload
+  http://www.catswhocode.com/blog/10-useful-htaccess-snippets-to-have-in-your-toolbox
+  http://www.openwall.com/phpass/
+    
+  		  
+
 DATABASE
-* DATABASE: consider adding created and modified attrs directly to ecommerce_order
+* consider adding created and modified attrs directly to ecommerce_order
 * add suppliers database
 * TODO in DB: rename teaser to tagline, rename description to excerpt
 * add expires date/time to ecommerce_promotion
@@ -228,7 +262,6 @@ LEFT OUTER JOIN international_country country ON (country.id = zone.country_id)
 ORDER BY zone.zone_id
 
 
-  * google friendconnect (check drawar)
   * http://thinkvitamin.com/dev/oop-with-php-finishing-touches/
   * TODO: create placeholder content component like http://placehold.it/
   * http://www.sotechnology.co.uk/
@@ -240,7 +273,6 @@ ORDER BY zone.zone_id
   * http://www.marcofolio.net/webdesign/the_polaroid_photo_viewer_non-full_screen.html
   * http://tutorialzine.com/2009/11/beautiful-apple-gallery-slideshow/
   * http://www.uploadify.com/
-  * TODO: HTML5 Kuler
   * TODO: implement flat CSV list for promotion code (one code per one line) (see email from David 12 July 2010)
   * TODO: implement Media Queries http://www.smashingmagazine.com/2010/07/19/how-to-use-css3-media-queries-to-create-a-mobile-version-of-your-website/
   * TODO: add somewhere a notice, that wrappers should always have even values for padding in order to keep 50/50

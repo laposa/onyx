@@ -16,4 +16,4 @@ Typical web project files (project_skeleton)
 
 At this time Onxshop is only optimised for Debian GNU/Linux operating system. You can [find Debian consultant](http://www.debian.org/consultants) near you and ask him to install Onxshop for you.
 
-For more information visit [www.onxshop.com](http://www.onxshop.com/).
+For more information visit [onxshop.com](http://onxshop.com/).

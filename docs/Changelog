@@ -1,53 +1,20 @@
 Onxshop (1.5.0/dev)
 
- * TODO: move msg() to a singleton ONXSHOP::MSG class
- * TODO: remove margins on layout and add margins on each content http://stacklayout.com/
- * TODO: http://yuji.wordpress.com/2011/05/25/postgresql-sqlite-django-migrating-postgresql-to-sqlite3-with-pg_dump/
- * rename nx_messages to onxshop_messages, or remove from all component templates
- 	nx_ok_msg, nx_error_msg: improve log levels
- 	TEMP removed project_skeleton/onxshop_dir symlink to allow search&replace in IDE
- * move get.php, thumbnail.php to share/get_image.php etc
-	
-  http://www.root.cz/clanky/zavadime-omezeni-v-openssh/
-  Iterator http://zdrojak.root.cz/clanky/lazy-evaluation-v-php/
-
-  Use autoload
-    http://www.serversidemagazine.com/community/php-“require”-performance/
-	http://uk.php.net/__autoload
-
-  http://www.catswhocode.com/blog/10-useful-htaccess-snippets-to-have-in-your-toolbox
-  http://www.openwall.com/phpass/
-  * TODO: review use of php5-suhosin
-  * TODO: fix memory consumption in bo/orders list
-  * TODO: rebuild /backoffice landing page
-  * TODO: query cache, profiler, clean get.php, thumbnail.php and download.php, Xsite.model.php, Xsite.bootstrap.php and bootstrap.php
-  common_image isn't reading db conf at line 142
-  thumbnail.php isn't reading db conf and should be looking into cache
-  * TODO: do crosscheck on payment http://www.worldpay.com/support/kb/bg/paymentresponse/pr5305.html
-  	setup Payment Response password (callbackPW)
-  * TODO: remove dependancy on bin/ scripts
-  * TODO: thumbnail.php isn't reading configuration from DB
-  * TODO: remove print_article or rename?
-  * TODO: use templates/bo/pages/ecommerce/product_detail
-  * GLOBAL_ constant names renamed to ONXSHOP_
-  	TODO finish in global.php
-  * TODO: change thumbnail_step from 25 to 5
-  * TODO: merge common_taxonomy_label and common_taxonomy_tree into common_taxonomy, 
-  		  rename common_taxonomy_label_image to common_taxonomy_image
-  		  1. rename common_taxonomy_tree to common_taxonomy
-  		  2. add columns from common_taxonomy_label
-  		  3. copy common_taxonomy_label to common_taxonomy
+  * thumbnail_step changed from 25px to 5px
+  * removed project_skeleton/onxshop_dir symlink from dev version, left only in testing
+  * nx_* renamed to onxshop_*
+  * GLOBAL_ constants renamed to ONXSHOP_
   * removed span from TinyMCE invalid_elements
   * onxshop.authentication improved _checkAccess
   * big cleaning in share/ directory
-  * finished Xsite -> Onxshop
-  * Zend_Db instead of ADOdb, much improved Onxshop_Model
+  * finished Xsite -> Onxshop name transition
+  * using Zend_Db instead of ADOdb, much improved Onxshop_Model
   * jQuery UI upgraded to version 1.8.14
   * TinyMCE upgraded to version 3.4.3.2
   * Zend Framework upgraded to version 1.11.7
   * validation for username changed from email to string
 
--- Norbert Laposa <norbert@laposa.co.uk>  2011-07-02
+-- Norbert Laposa <norbert@laposa.co.uk>  2011-07-11
 
 Onxshop (1.4.7)
   
