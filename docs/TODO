@@ -12,7 +12,8 @@ BEFORE EACH RELEASE:
 HIGH PRIORITY
 
   * TODO: move msg() to a singleton ONXSHOP::MSG class
-  * TODO: remove margins on layout and add margins on each content http://stacklayout.com/
+  * TODO: promote we are using something like http://stacklayout.com/ since 2006
+  	remove margins on layout and add margins on each content 
   * TODO: review use of php5-suhosin
   * TODO: fix memory consumption in bo/orders list
   * TODO: rebuild /backoffice landing page
