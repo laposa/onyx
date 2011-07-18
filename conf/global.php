@@ -42,8 +42,8 @@ if(in_array($_SERVER["REMOTE_ADDR"], array_keys($debug_hosts)))  {
 	define('ONXSHOP_IS_DEBUG_HOST', true);
 	define('ONXSHOP_DEBUG_DIRECT', false);
 	define('ONXSHOP_DEBUG_FILE', true);
-	define('ONXSHOP_BENCHMARK', true);
-	define('ONXSHOP_DB_PROFILER', true);
+	define('ONXSHOP_BENCHMARK', false);
+	define('ONXSHOP_DB_PROFILER', false);
 	
 } else {
 	error_reporting(E_ALL & ~E_NOTICE);

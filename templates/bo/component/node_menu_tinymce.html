@@ -1,17 +1,17 @@
 <!-- BEGIN: content -->
 
-<script language="javascript" type="text/javascript" src="/share/js/tiny_mce_popup_local.js"></script>
+<script language="javascript" type="text/javascript" src="/opt/tiny_mce/tiny_mce_popup.js"></script>
 <script type="text/javascript">
 /* <![CDATA[ */
 
 function chooseLink(href) {
 	var win = tinyMCEPopup.getWindowArg("window");
 
-        // insert information now
-        win.document.getElementById('href').value = href;
+	// insert information now
+	win.document.getElementById('href').value = href;
 
-        // close popup window
-        tinyMCEPopup.close();
+	// close popup window
+	tinyMCEPopup.close();
 }
 
 $(document).ready(function(){

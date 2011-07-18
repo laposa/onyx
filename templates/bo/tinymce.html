@@ -2,7 +2,7 @@
 <!--  BEGIN: init -->
 <script type="text/javascript">
 /* <![CDATA[ */
-function tinyMCEinit () {
+function tinyMCEinit() {
 	tinyMCE.init({
 		mode : "{TINYMCE.mode}",
 		elements : "{TINYMCE.edit_elements}",
@@ -21,7 +21,7 @@ function tinyMCEinit () {
 		inline_styles : true,
 		fix_list_elements : true,
 		fix_table_elements : true,
-		cleanup_callback : "myCustomCleanup",
+		cleanup_callback : "onxshopCustomCleanup",
 		relative_urls : false,
 		remove_script_host : true,
 		document_base_url : "{BASE_URI}/",
@@ -32,8 +32,7 @@ function tinyMCEinit () {
 		advlink_styles: "Arrow=arrow",/*for Insert/edit links*/
 		plugin_insertdate_dateFormat : "%Y-%m-%d",
 		plugin_insertdate_timeFormat : "%H:%M:%S",
-		extended_valid_elements : "a[class|name|href|target|title|onclick],img[class|style|src|alt|title|width|height|align|onmouseover|onmouseout|name],hr[class|width|size|noshade],span[class|align|style],code[class|style],obj[param|embed]",
-		file_browser_callback : "fileBrowserCallBack",
+		file_browser_callback : "onxshopFileBrowserCallBack",
 		paste_auto_cleanup_on_paste : true,
 		paste_strip_class_attributes : "all",
 		paste_use_dialog : false,
@@ -41,36 +40,38 @@ function tinyMCEinit () {
 	});
 }
 
-tinyMCEinit ();
+tinyMCEinit();
 
-  function myFileBrowser (field_name, url, type, win, width, height) {
+function onxshopFileBrowser(field_name, url, type, win, width, height) {
 
-    //alert("Field_Name: " + field_name + "\nURL: " + url + "\nType: " + type + "\nWin: " + win); // debug/testing
+	//alert("Field_Name: " + field_name + "\nURL: " + url + "\nType: " + type + "\nWin: " + win); // debug/testing
 
-    tinyMCE.activeEditor.windowManager.open({
-        file : url,
-        title : 'My File Browser',
-        width : 720,  // Your dimensions may differ - toy around with them!
-        height : 700,
-        resizable : "yes",
-        inline : "yes",  // This parameter only has an effect if you use the inlinepopups plugin!
-        close_previous : "no",
-        scrollbars : 1
-    }, {
-        window : win,
-        input : field_name
-    });
-    return false;
-  }
+	tinyMCE.activeEditor.windowManager.open({
+		file : url,
+		title : 'Onxshop File Browser',
+		width : width,
+		height : height,
+		resizable : "yes",
+		inline : "yes",  // This parameter only has an effect if you use the inlinepopups plugin!
+		close_previous : "no",
+		scrollbars : 1,
+		popup_css : false
+	}, {
+		window : win,
+		input : field_name
+	});
 
-function fileBrowserCallBack(field_name, url, type, win) {
-	if (type == 'image') myFileBrowser(field_name, '/popup/files/{GET.relation}/{GET.id}?type=RTE', type, win, 720, 700);
-	else myFileBrowser(field_name, '/popup_window/bo/component/node_menu_tinymce~id=0:open={GET.id}:expand_all=1:publish=0~', type, win, 520, 700);
+	return false;
+}
+
+function onxshopFileBrowserCallBack(field_name, url, type, win) {
+	if (type == 'image') onxshopFileBrowser(field_name, '/popup/files/{GET.relation}/{GET.id}?type=RTE', type, win, 720, 700);
+	else onxshopFileBrowser(field_name, '/popup_window/bo/component/node_menu_tinymce~id=0:open={GET.id}:expand_all=1:publish=0~', type, win, 720, 700);
 	
 	return false;
 }
 
-function myCustomCleanup(type, value) {
+function onxshopCustomCleanup(type, value) {
 	switch (type) {
 		case "get_from_editor":
 			//alert("get_from_editor, Value HTML string: " + value);

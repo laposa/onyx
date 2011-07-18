@@ -18,22 +18,22 @@
 				
 				
 				<!-- BEGIN: RTE_select -->
-					<script language="javascript" type="text/javascript" src="/share/js/tiny_mce_popup_local.js"></script>
+					<script language="javascript" type="text/javascript" src="/opt/tiny_mce/tiny_mce_popup.js"></script>
 					<script type="text/javascript">
 					function chooseImage(src, title) {
-					    var win = tinyMCEPopup.getWindowArg("window");
+						var win = tinyMCEPopup.getWindowArg("window");
 					
-					        // insert information now
-					        win.document.getElementById('src').value = src;
-					    if (win.document.getElementById('alt').value == '') win.document.getElementById('alt').value = title;
-					    if (win.document.getElementById('title').value == '') win.document.getElementById('title').value = title;
+						// insert information now
+						win.document.getElementById('src').value = src;
+						if (win.document.getElementById('alt').value == '') win.document.getElementById('alt').value = title;
+						if (win.document.getElementById('title').value == '') win.document.getElementById('title').value = title;
 					
-					        // for image browsers: update image dimensions
-					        if (win.ImageDialog.getImageData) win.ImageDialog.getImageData();
-					        if (win.ImageDialog.showPreviewImage) win.ImageDialog.showPreviewImage(src);
+						// for image browsers: update image dimensions
+						if (win.ImageDialog.getImageData) win.ImageDialog.getImageData();
+						if (win.ImageDialog.showPreviewImage) win.ImageDialog.showPreviewImage(src);
 					
-					        // close popup window
-					        tinyMCEPopup.close();
+						// close popup window
+						tinyMCEPopup.close();
 					}
 					</script>
 					
