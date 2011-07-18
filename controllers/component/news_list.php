@@ -107,7 +107,7 @@ class Onxshop_Controller_Component_News_List extends Onxshop_Controller {
 		 * get list using filter
 		 */
 		
-		$news_list = $this->Node->getNodeList($filter, 'common_node.created DESC');
+		$news_list = $this->Node->getNodeList($filter, 'common_node.created DESC, id DESC');
 		
 		/**
 		 * get comment count for all news pages

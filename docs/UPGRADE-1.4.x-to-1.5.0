@@ -1,3 +1,4 @@
+rename generic to Onxshop_Model in models/
 rename Xsite_Controller to Onxshop_Controller in controllers/
 rename XSITE_REQUEST to ONXSHOP_REQUEST in templates/
 rename GLOBAL_MAIN_DOMAIN to ONXSHOP_MAIN_DOMAIN in conf/deployment.php
