@@ -1,15 +1,15 @@
 3stages:
-stable (last is 1.0.0)
+stable (latest is 1.0.0)
 testing (preparation for 1.0.1)
 dev (always place where edit and fix bugs, after it deploy to testing or backport to stable)
 
 -----------
 X.X.X.X
 + + + +
-+ + + +- bugs only (inner version)
-+ + +- controllers+templates
-+ +- model
-+- architecture
++ + + +- bug fixes only (inner version)
++ + +- controllers and templates changes are allowed
++ +- model changes (database changes) and conf changes are allowed
++- architecture changes are allowed
 
 
 1.0.0(.x)

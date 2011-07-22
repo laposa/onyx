@@ -1,20 +1,29 @@
-backup created and downloaded from /backoffice/advance/tools/backup
-(available only if ./conf/deployment.php: define('ONXSHOP_PACKAGE_NAME', 'gold');)
+P006 Restore Onxshop project from backup
 
+This procedure is written for backup file created and downloaded from /backoffice/advance/ tools/backup
+(available only if ./conf/deployment.php: define('ONXSHOP_PACKAGE_NAME', 'premium');)
+
+1. unpack backup file
 download to /tmp folder on the target server:
-
 cd /tmp
-wget --no-check-certificate --http-user=www --http-password=XXX "https://laposa.co.uk/backoffice/advanced/tools?tool=backup"
-tar -xf laposa.co.uk.tar
-mv srv/laposa.co.uk/ /srv/laposa.dev.onxshop.com
-cd /srv/laposa.dev.onxshop.com
-vi conf/deployment.php
-  - disable or edit ONXSHOP_MAIN_DOMAIN
-  - customize database detail
-  - customize SSL setting
-createdb -U www -h dbserver -E UTF8 laposa-1_4
-gunzip var/backup/latest.sql.gz
-psql -U www -h dbserver laposa-1_4 < var/backup/latest.sql
-gzip var/backup/latest.sql
-sudo chown www-data -R var/
+wget --no-check-certificate --http-user=[USERNAME] --http-password=[PASSWORD]
+ "https://[SERVER_NAME]/backoffice/advanced/tools?tool=backup"
+tar -xf [SERVER_NAME].tar
 
+2. move web files to virtual hosts folder
+mv srv/[SERVER_NAME]/ /srv/
+cd /srv/[SERVER_NAME}
+
+3. customise deployment configuration
+vi conf/deployment.php
+- disable or edit ONXSHOP_MAIN_DOMAIN - customize database detail
+- customize SSL setting
+
+4. create database and import structure and data
+createdb -U [USERNAME] -h dbserver -E UTF8 [DATABASE_NAME]-1_4
+gunzip var/backup/latest.sql.gz
+psql -U www -h dbserver [DATABASE_NAME]-1_4 < var/backup/latest.sql
+gzip var/backup/latest.sql
+
+5. set filesystem permissions
+sudo chown www-data -R var/
