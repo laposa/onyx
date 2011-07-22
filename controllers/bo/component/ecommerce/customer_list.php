@@ -17,6 +17,8 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Customer_List extends Onxshop_Co
 	
 		require_once('models/client/client_customer.php');	
 		$Customer = new client_customer();
+		//force cache even for back office user
+		$Customer->setCacheable(true);
 		
 		/**
 		 * Get the list

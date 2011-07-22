@@ -1,5 +1,6 @@
 Onxshop (1.5.0/dev)
 
+  * backoffice customer list is forced to use DB cache
   * thumbnail_step changed from 25px to 5px
   * removed project_skeleton/onxshop_dir symlink from dev version, left only in testing
   * nx_* renamed to onxshop_*
@@ -14,7 +15,7 @@ Onxshop (1.5.0/dev)
   * Zend Framework upgraded to version 1.11.7
   * validation for username changed from email to string
 
--- Norbert Laposa <norbert@laposa.co.uk>  2011-07-11
+-- Norbert Laposa <norbert@laposa.co.uk>  2011-07-22
 
 Onxshop (1.4.7)
   

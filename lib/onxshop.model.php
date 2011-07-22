@@ -644,7 +644,7 @@ class Onxshop_Model {
 	 
 	public function executeSql($sql) {
 		
-		if ($this->isCacheable() && preg_match("/^SELECT/i", $sql)) return $this->executeSqlCached($sql);
+		if ($this->isCacheable() && preg_match("/^SELECT/i", trim($sql))) return $this->executeSqlCached($sql);
 		else return $this->executeSqlOnDatabase($sql);
 		
 	}
