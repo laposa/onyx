@@ -73,9 +73,8 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 		 */
 		 
 		if ($node_data['publish'] == 0 && ($node_data['node_group'] == 'page' || $node_data['node_group'] == 'news') && $_SESSION['authentication']['authenticity'] < 1) {
-			$request = ONXSHOP_DEFAULT_LAYOUT . '.' . ONXSHOP_PAGE_TEMPLATE . '.sys/401';
 			msg("Unauthorized access to {$this->request}", 'error', 2);
-			onxshopGoTo($request, 1);
+			onxshopGoTo(ONXSHOP_DEFAULT_LAYOUT . '.' . ONXSHOP_PAGE_TEMPLATE . '.sys/401', 1);//will exit immediatelly
 		}
 		
 		

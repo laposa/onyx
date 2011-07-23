@@ -113,6 +113,9 @@ function getmicrotime() {
  *
  * @param unknown_type $request
  * @param unknown_type $type
+ * type = 0: local path
+ * type = 1: router syntax
+ * type = 2: external URL
  */
  
 function onxshopGoTo($request, $type = 0) {
@@ -120,21 +123,27 @@ function onxshopGoTo($request, $type = 0) {
 	msg("calling onxshopGoTo($request, $type)", 'ok', 2);
 	
 	session_write_close();
-	//msg("calling onxshopGoTo ($request, $type)", 'error');
 	
 	if ($_SERVER['HTTPS']) $protocol = 'https';
 	else $protocol = 'http';
 
+	//protection against HTTP CRLF injection
+	$request = preg_replace("/\r\n/", "", $request);
+	
 	if ($type == 0) {
+	
 		$request = ltrim($request, '/');
+	
 		if (preg_match('/^page\/[0-9]*$/', $request)) {
+		
 			$request = translateURL($request);
 			header("Location: $protocol://{$_SERVER['HTTP_HOST']}$request");
+		
 		} else {
-			$request = ltrim($request, '/');
+			
 			header("Location: $protocol://{$_SERVER['HTTP_HOST']}/$request");
 		}
-		//header("Location: $protocol://{$_SERVER['HTTP_HOST']}{$_SERVER['SCRIPT_NAME']}?request=$request");
+		
 	} else if ($type == 1) {
 
 		$router = new Onxshop_Router();
@@ -144,13 +153,18 @@ function onxshopGoTo($request, $type = 0) {
 		$output = $Router->finalOutput();
 
 		echo $output;
+		
 	} else if ($type == 2) {
+	
 		header("Location: $request");
+	
 	} else {
+	
 		header("Location: $protocol://{$_SERVER['HTTP_HOST']}/$request");
+	
 	}
-	//echo "Location: http://{$_SERVER['HTTP_HOST']}{$_SERVER['SCRIPT_NAME']}?request=$request";
-	//exit the application immediately
+	
+	//exit application processing immediately
 	exit;
 }
 
@@ -165,6 +179,7 @@ function translateURL($request) {
 
 	require_once('models/common/common_uri_mapping.php');
 	$Mapping = new common_uri_mapping();
+	
     if (COMMON_URI_MAPPING_SEO) {
     	$seo = $Mapping->stringToSeoUrl("/$request");
     	return $seo;
