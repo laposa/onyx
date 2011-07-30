@@ -430,11 +430,13 @@ class Onxshop_Model {
 		msg("{$this->_class_name}: Calling count($where)", 'ok', 3);
 		if ($where != '') $where = " WHERE $where";
 		
-		if ($this->isCacheable()) $records = $this->executeSqlCached("SELECT count(id) FROM {$this->_class_name} $where");
-		else $records = $this->executeSql("SELECT count(id) AS count FROM {$this->_class_name} $where");
+		$sql = "SELECT count(id) AS count FROM {$this->_class_name} $where";
+		
+		if ($this->isCacheable()) $records = $this->executeSqlCached($sql);
+		else $records = $this->executeSql($sql);
 		
 		if (is_array($records)) {
-			return $records[0];
+			return $records[0]['count'];
 		} else {
 			return false;
 		}
