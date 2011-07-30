@@ -148,9 +148,9 @@ function onxshopGoTo($request, $type = 0) {
 
 		$router = new Onxshop_Router();
 		
-		$Router = $router->processAction($request);
+		$Onxshop = $router->processAction($request);
 		
-		$output = $Router->finalOutput();
+		$output = $Onxshop->finalOutput();
 
 		echo $output;
 		
