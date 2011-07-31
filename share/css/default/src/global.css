@@ -39,7 +39,7 @@ select {border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px;
 select.big {width: 100%;}
 input.text {width: 100%;}
 input, 
-textarea {padding: 4px; border: 2px inset white; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px;}
+textarea {padding: 4px; border: 2px inset #eee; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px;}
 input:focus, 
 textarea:focus {border: 2px inset white; background: #f1f1f1;}
 input,
@@ -66,17 +66,19 @@ fieldset.twoColumns span.field {width: 47%;} /* 3% reserve in case odd column wi
  * Tables 
  */
  
-table {font-size: inherit; clear: both; margin: 1em 0 2em 0; border: 2px solid #CCCCCC; border-radius: 4px;
+table {font-size: inherit; clear: both; margin: 1em 0 2em 0; border: 2px solid #ccc; border-radius: 4px;
 	-moz-border-radius: 4px; -webkit-border-radius: 4px; border-spacing: 0;}
 caption {text-align: left; font-weight: bold; font-size: 1.25em;}
 th {text-align: center;}
 th, 
-td {padding: 0.8em; vertical-align: top;}
+td {padding: 0.4em; vertical-align: top;}
 th.money,
 td.money,
 td.number {text-align: right;}
-thead th {border-bottom: 2px solid #CCCCCC;}
-tfoot td {border-top: 2px solid #CCCCCC; font-weight: bold;}
+thead th {border-bottom: 2px solid #ccc;}
+tfoot td {border-top: 2px solid #ccc; font-weight: bold;}
+tbody tr:nth-child(odd) {background-color:#eee;}
+tbody tr:nth-child(even) {background-color:#fff;}
 
 /**
  * Links
@@ -159,9 +161,9 @@ div.bottom {clear: both;}
 div.onxshop_messages {margin: 1em; border: none; background: black; color: white; opacity: .75; filter: alpha(opacity = 75); padding: 1em; 
 	clear: both;border-radius: 4px; -moz-border-radius: 7px; -webkit-border-radius: 7px;
 	z-index: 1000; position: relative;}
-div.onxshop_messages p {margin: 0 0 1em 0; padding: 0; color: white; font-weight: bold; }
+div.onxshop_messages p {margin: 1em 0 1em 0; padding: 0; color: white; font-weight: bold; }
 div.onxshop_messages p.onxshop_ok_msg {}
-div.onxshop_messages p.onxshop_error_msg {background: transparent url(/share/images/bo/watchdog-warning.png) 0 5px no-repeat; padding: 2px 0 2px 25px;}
+div.onxshop_messages p.onxshop_error_msg {background: transparent url(/share/images/famfamfam_icons/exclamation.png) 0 0 no-repeat; padding: 0 0 0 25px;}
 
 /**
  * Ajax

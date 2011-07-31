@@ -54,6 +54,7 @@ div.wrapper {margin: 0 10px;}
 /**
  * Forms
  */
+form {padding: 0;}
 form div.title span.label {text-align: left;}
 form div.title span.field {clear: both; display: block; padding-left: 0; width: 100%;}
 form div.title span.field input.text {width: 70%; float: left;}
