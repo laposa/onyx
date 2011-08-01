@@ -1,0 +1,45 @@
+<!-- BEGIN: content -->
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<div class="customer_search">
+
+	<form method="post" action="{URI}">
+		<fieldset class="single">
+			<div class="row query">
+				<span class="label" title="Can be First Name or Last Name, First Name and Last Name, Username"><label>Name*, Email or ID<br /></label></span>
+				<span class="field"><input title="Can be First Name or Last Name, First Name and Last Name, Username" type="text" class="text" id="customer-filter-query" name="customer-filter[query]" value="{_SESSION.customer-filter.query}" /></span>
+			</div>
+			
+			<div class="row customer_group">
+				<span class="label"><label>Customer group</label></span>
+				<span class="field">
+					<select id="customer-filter-group_id" name="customer-filter[group_id]">
+						<option value="-1" {SELECTED_group_-1}>any</option>
+						<option value="0" {SELECTED_group_0}>new (ungrouped)</option>
+						<!-- BEGIN: item --><option value="{ITEM.id}" {SELECTED}>{ITEM.name|htmlspecialchars}</option><!-- END: item -->
+					</select>
+				</span>
+			</div>
+			
+			<div class="row account_type">
+				<span class="label"><label>Account type</label></span>
+				<span class="field">
+					<select id="customer-filter-account_type" name="customer-filter[account_type]">
+						<option value="-1" {SELECTED_account_type_-1}>all</option>
+						<option value="0" {SELECTED_account_type_0}>normal accounts</option>
+						<option value="1" {SELECTED_account_type_1}>requested trade</option>
+						<option value="2" {SELECTED_account_type_2}>approved trade</option>
+					</select>
+				</span>
+			</div>
+			
+		</fieldset>
+		
+		<div class="row submit">
+			<span class="label"><label>&nbsp;</label></span>
+			<span class="field"><button type="submit" name="search" value="Search"><span>Search</span></button></span>
+		</div>
+		
+	</form>
+	
+</div>
+<!-- END: content -->

@@ -1,0 +1,119 @@
+<!-- BEGIN: content -->
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+
+<div class="customer_filter">
+	<!-- BEGIN: form -->
+	<script type="text/javascript">
+	$(document).ready(function(){
+	
+		function initFilterAjaxForm() {
+			$("#customer_filter_form").validate();
+			$('#customer_filter_form').ajaxForm({ 
+				target: '#customer_filter_form_wrapper',
+				beforeSubmit: function() {return $("#customer_filter_form").valid()},
+				success: function(responseText, statusText) {
+					//popupMessage("#promotion_edit_form_result div.onxshop_messages");
+					makeAjaxRequest('#preview_specified_customers', '/request/bo/component/ecommerce/customer_list', function() {
+						$('#preview_specified_customers thead a').click(function() {
+							//TODO update links to use AJAX
+							return false;
+						})
+					});
+					initFilterAjaxForm();
+				}
+			});
+		}
+	
+		initFilterAjaxForm();
+			
+		/**
+		 * date
+		 */
+		 
+		$('#customer-filter-created_from,#customer-filter-created_to,#customer-filter-activity_from,#customer-filter-activity_to').datepicker({firstDay: 1, dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true}); 
+	
+	});
+	</script>
+	<div id="customer_filter_form_wrapper">
+		<form method="post" id="customer_filter_form" action="/request/bo/component/ecommerce/customer_filter">
+			<fieldset class="single">
+				<legend>Specify criteria</legend>
+				<div class="row invoice_status">
+					<span class="label"><label>Display customers</label></span>
+					<span class="field">
+						<select id="customer-filter-invoice_status" name="customer-filter[invoice_status]">
+							<option value="1" {SELECTED_invoice_status_1}>who made an order</option>
+							<option value="0" {SELECTED_invoice_status_0}>all</option>
+						</select>
+					</span>
+				</div>
+									
+				<div class="row country">
+					<span class="label"><label for="customer-filter-country_id">Country</label></span>
+					<span class="field">
+						<!-- BEGIN: country -->
+						<select id="customer-filter-country_id" name="customer-filter[country_id]">
+							<option value="0">All countries</option>
+							<!-- BEGIN: item -->
+							<option value="{ITEM.id}" {ITEM.selected}>{ITEM.name}</option>
+							<!-- END: item -->
+						</select>
+						<!-- END: country --> 
+					</span>
+				</div>
+				
+				<!-- BEGIN: product -->
+				<div class="row product_bought">
+					<span class="label"><label>Product ID bought</label></span>
+					<span class="field">
+						<select id="customer-filter-product_bought" name="customer-filter[product_bought]">
+							<option value="0">Any product</option>
+							<!-- BEGIN: item -->
+							<option value="{ITEM.id}" {ITEM.selected}>{ITEM.name|htmlspecialchars}</option>
+							<!-- END: item -->
+						</select>
+					</span>
+				</div>
+				<div id="filterTaxonomy">
+					{disableONXSHOP_REQUEST_rt #bo/component/relation_taxonomy~relation=product:id=GET.id~}
+				</div>
+				<!-- END: product -->
+	
+			
+				<div class="row registered_between" style="width: 30%;">
+					<span class="label"><label>Registered between</label></span>
+					<span class="field">
+						<input type="text" class="text" id="customer-filter-created_from" name="customer-filter[created_from]" value="{CUSTOMER_FILTER.created_from}" />
+						<input type="text" class="text" id="customer-filter-created_to" name="customer-filter[created_to]" value="{CUSTOMER_FILTER.created_to}" />
+					</span>
+				</div>
+				<div class="row activity_between" style="width: 30%;">
+					<span class="label"><label>Activity between</label></span>
+					<span class="field">
+						<input type="text" class="text" id="customer-filter-activity_from" name="customer-filter[activity_from]" value="{CUSTOMER_FILTER.activity_from}" />
+						<input type="text" class="text" id="customer-filter-activity_to" name="customer-filter[activity_to]" value="{CUSTOMER_FILTER.activity_to}" />
+					</span>
+				</div>
+				<div class="row group_name" style="width: 30%;">
+					<span class="label"><label>* Filter group name</label></span>
+					<span class="field">
+						<input type="text" class="text required" id="customer-filter-group_name" name="customer-filter[group_name]" value="{CUSTOMER_FILTER.group_name|htmlspecialchars}" />
+					</span>
+				</div>
+			</fieldset>
+			
+			<input type="hidden" name="customer-filter[group_id]" value="{CUSTOMER_FILTER.group_id}" />
+			
+			<div class="row submit">
+				<span class="label"><label>&nbsp;</label></span>
+				<span class="field"><button type="submit" name="search" value="Search" onclick="$(this).addClass('saving');"><span>Preview Specified Customers</span></button><!-- BEGIN: save --><button type="submit" name="save" value="save" onclick="$(this).addClass('saving');" title="Newly matched customers will be moved to this group, but it's possible some other customers will remain in this group until they will be moved somewhere else."><span>Save and move listed customers to this group</span></button><!-- END: save --></span>
+			</div>
+			
+			
+		</form>
+	</div>
+	<!-- END: form -->
+	
+	<div id="preview_specified_customers"></div>
+</div>
+<!-- END: content -->
