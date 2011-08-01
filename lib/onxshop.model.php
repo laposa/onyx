@@ -707,6 +707,19 @@ class Onxshop_Model {
 		
 	}
 	
+	/**
+	 * flush cache (for this object)
+	 */
+	 
+	public function flushCache() {
+		
+		$mask = ONXSHOP_DB_QUERY_CACHE_DIRECTORY . "zend_cache---{$this->_class_name}_*";
+		array_map("unlink", glob( $mask ));
+		$mask = ONXSHOP_DB_QUERY_CACHE_DIRECTORY . "zend_cache---internal-metadatas---{$this->_class_name}_*";
+		array_map("unlink", glob( $mask ));
+		
+	}
+	
 	
 	/**
 	 * validate SQL query
