@@ -77,8 +77,6 @@ td.money,
 td.number {text-align: right;}
 thead th {border-bottom: 2px solid #ccc;}
 tfoot td {border-top: 2px solid #ccc; font-weight: bold;}
-tbody tr:nth-child(odd) {background-color:#eee;}
-tbody tr:nth-child(even) {background-color:#fff;}
 
 /**
  * Links

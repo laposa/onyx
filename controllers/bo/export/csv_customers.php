@@ -23,7 +23,7 @@ class Onxshop_Controller_Bo_Export_CSV_Customers extends Onxshop_Controller {
 		 * Get the list
 		 */
 		
-		$records = $Customer->getClientOrders(0, $_SESSION['customer-list-filter']);
+		$records = $Customer->getClientList(0, $_SESSION['customer-filter']);
 		
 		if (is_array($records)) {
 		

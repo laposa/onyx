@@ -13,6 +13,9 @@
 body {font-size: 70%;}
 textarea {font-size: medium;}
 
+tbody tr:nth-child(odd) {background-color:#eee;}
+tbody tr:nth-child(even) {background-color:#fff;}
+
 /**
  * Links
  */
@@ -20,6 +23,7 @@ a {color: blue;}
 a:active {color: red;}
 a.button {color: #6aac5b;}
 a.add {background: url(/share/images/famfamfam_icons/add.png) no-repeat; padding-left: 20px; height: 20px; display: block;}
+a.edit {background: url(/share/images/famfamfam_icons/pencil.png) no-repeat; padding-left: 20px; height: 20px; display: block;}
 a.remove,
 a.delete {background: url(/share/images/famfamfam_icons/delete.png) no-repeat; padding-left: 20px;
 	height: 20px; display: inline-block; color: red;}

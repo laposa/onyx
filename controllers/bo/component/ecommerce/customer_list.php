@@ -21,25 +21,23 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Customer_List extends Onxshop_Co
 		$Customer->setCacheable(true);
 		
 		/**
-		 * Get the list
+		 * Filtering
 		 */
 		
-		$customer_list = $Customer->getClientOrders(0, $_SESSION['customer-list-filter']);
+			 
+		/**
+		 * Get the list
+		 */
+		$customer_filter = $_SESSION['customer-filter'];
+		
+		$customer_list = $Customer->getClientList(0, $customer_filter);
 
 		
 		if (is_array($customer_list) && count($customer_list) > 0) {
 			
 			/**
-			 * Filtering
-			 */
-			//todo
-			
-			/**
 			 * Sorting
 			 */
-			
-			//$_nSite = new nSite("component/ecommerce/product_list_sorting");
-			//$this->tpl->assign('SORTING', $_nSite->getContent());
 			
 			if ($this->GET['customer-list-sort-by']) {
 				$_SESSION['customer-list-sort-by'] = $this->GET['customer-list-sort-by'];

@@ -65,7 +65,7 @@ RewriteRule	^backoffice/orders$		/index.php?request=sys/xhtml.bo/backoffice_wrap
 RewriteRule	^backoffice/orders/([0-9]*)/detail$		/index.php?request=sys/xhtml.bo/backoffice_wrapper.bo/backoffice.bo/pages/ecommerce/order_detail&id=$1 [L]
 RewriteRule	^backoffice/stock$		/index.php?request=sys/xhtml.bo/backoffice_wrapper.bo/backoffice.bo/pages/ecommerce/stock [L,QSA]
 
-RewriteRule	^backoffice/customers$		/index.php?request=sys/xhtml.bo/backoffice_wrapper.bo/backoffice.bo/pages/ecommerce/customer_list [L,QSA]
+RewriteRule	^backoffice/customers$		/index.php?request=sys/xhtml.bo/backoffice_wrapper.bo/backoffice.bo/pages/ecommerce/customers [L,QSA]
 RewriteRule	^backoffice/customers/add$		/index.php?request=sys/xhtml.bo/backoffice_wrapper.bo/backoffice.bo/pages/ecommerce/customer_add [L]
 RewriteRule	^backoffice/customers/([0-9]*)/detail$		/index.php?request=sys/xhtml.bo/backoffice_wrapper.bo/backoffice.bo/pages/ecommerce/customer_detail&id=$1 [L]
 

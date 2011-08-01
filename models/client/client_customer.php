@@ -110,6 +110,12 @@ class client_customer extends Onxshop_Model {
 	
 	var $verified_email_address;
 	
+	/**
+	 * REFERENCES client_group(id) ON UPDATE CASCADE ON DELETE RESTRICT
+	 * @access private
+	 */
+	var $group_id;
+	
 	var $_hashMap = array(
 		'id'=>array('label' => 'ID', 'validation'=>'int', 'required'=>true), 
 		'title_before'=>array('label' => 'Title', 'validation'=>'string', 'required'=>true),
@@ -127,15 +133,16 @@ class client_customer extends Onxshop_Model {
 		'delivery_address_id'=>array('label' => 'Delivery address', 'validation'=>'int', 'required'=>true),
 		'gender'=>array('label' => 'Gender', 'validation'=>'string', 'required'=>false),
 		'created'=>array('label' => 'Date created', 'validation'=>'datetime', 'required'=>true),
-		'currency_code'=>array('label' => 'Prefered currency', 'validation'=>'string', 'required'=>false),
+		'currency_code'=>array('label' => 'Preferred currency', 'validation'=>'string', 'required'=>false),
 		'status'=>array('label' => 'Status', 'validation'=>'int', 'required'=>false),
 		'newsletter'=>array('label' => 'Subscribe to newsletter', 'validation'=>'int', 'required'=>false),
 		'birthday'=>array('label' => 'Birthday', 'validation'=>'int', 'required'=>false),
-		'other_data'=>array('label' => 'Other', 'validation'=>'text', 'required'=>false),
+		'other_data'=>array('label' => 'Other', 'validation'=>'serialized', 'required'=>false),
 		'modified'=>array('label' => 'Date modified', 'validation'=>'datetime', 'required'=>true),
 		'account_type'=>array('label' => 'Account Type', 'validation'=>'int', 'required'=>false),
 		'agreed_with_latest_t_and_c'=>array('label' => 'Agreed with t-and-c', 'validation'=>'int', 'required'=>false),
-		'verified_email_address'=>array('label' => 'Verified Email Address', 'validation'=>'int', 'required'=>false)
+		'verified_email_address'=>array('label' => 'Verified Email Address', 'validation'=>'int', 'required'=>false),
+		'group_id'=>array('label' => 'Client Group', 'validation'=>'int', 'required'=>false)
 	);
 	
 	/**
@@ -832,6 +839,19 @@ class client_customer extends Onxshop_Model {
 		}
 	}
 	
+	/**
+	 * get clients orders and details
+	 * customer_id 0 returns orders of all customers
+	 *
+	 * @param unknown_type $customer_id
+	 * @return unknown
+	 */
+	 
+	function getClientList($customer_id = 0, $filter = false) {
+	
+		return $this->getClientListHeavy($customer_id, $filter);
+	
+	}
 	
 	/**
 	 * get list of clients
@@ -840,7 +860,7 @@ class client_customer extends Onxshop_Model {
 	 * @return unknown
 	 */
 	 
-	function getClientList($filter = false) {
+	function getClientListSimple($filter = false) {
 		
 		$add_to_where = '';
 		
@@ -850,23 +870,31 @@ class client_customer extends Onxshop_Model {
 		 */
 		
 		if (is_numeric($filter['query'])) {
+		
 			$add_to_where .= " AND client_customer.id = {$filter['query']}";
+		
 		} else if (isset($filter['query']) && $filter['query'] !== '') {
+		
 			// we could use ILIKE there, but it's not available in mysql
 			$query = strtoupper(addslashes($filter['query']));
 			//try to explode query by space
 			$e_query = explode(" ", $query);
+			
 			if (count($e_query) == 2) {
+			
 				$add_to_where .= " AND (UPPER(first_name) LIKE '%{$e_query[0]}%' OR UPPER(last_name) LIKE '%{$e_query[1]}%')";
+			
 			} else {
+			
 				$add_to_where .= " AND (UPPER(email) LIKE '%$query%' OR UPPER(first_name) LIKE '%$query%' OR UPPER(last_name) LIKE '%$query%' OR UPPER(username) LIKE '%$query%')";
+			
 			}
 		}
 
 
-		//country filter
-		if (is_numeric($filter['country_id']) && $filter['country_id'] > 0) {
-			$add_to_where .= " AND country_id = {$filter['country_id']}";
+		//group filter
+		if (is_numeric($filter['customer_group_id']) && $filter['customer_group_id'] > 0) {
+			$add_to_where .= " AND customer_group_id = {$filter['customer_group_id']}";
 		}
 		
 		//account type (company) filter
@@ -874,14 +902,6 @@ class client_customer extends Onxshop_Model {
 			if ($filter['account_type'] != -1) $add_to_where .= " AND account_type = {$filter['account_type']}";
 		}
 
-		//created between filter
-		if ($filter['created_from'] != false && $filter['created_to'] != false) {
-			if  (!preg_match('/^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$/', $filter['created_from']) || !preg_match('/^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$/', $filter['created_to'])) {
-				msg("Invalid format for register between. Must be YYYY-MM-DD", "error");
-				return false;
-			}
-			$add_to_where .=" AND client_customer.created BETWEEN '{$filter['created_from']}' AND '{$filter['created_to']}'";
-		}
 		
 		/**
 		 * SQL query
@@ -896,10 +916,8 @@ client_customer.first_name,
 client_customer.last_name,  
 client_customer.newsletter,
 client_customer.invoices_address_id,
-client_address.country_id,
 client_customer.company_id 
 FROM client_customer
-LEFT OUTER JOIN client_address ON (client_address.id = client_customer.invoices_address_id)
 WHERE 1=1 AND client_customer.status < 4 
 $add_to_where
 ORDER BY client_customer.id
@@ -908,19 +926,6 @@ ORDER BY client_customer.id
 		
 		return $this->executeSql($sql);
 		
-	}
-	
-	/**
-	 * get clients orders and details
-	 * customer_id 0 returns orders of all customers
-	 *
-	 * @param unknown_type $customer_id
-	 * @return unknown
-	 */
-	 
-	function getClientOrders($customer_id = 0, $filter = false) {
-		//return $this->getClientOrdersOld($customer_id, $filter);
-		return $this->getClientOrdersNew($customer_id, $filter);
 	}
 	
 	
@@ -937,11 +942,21 @@ ORDER BY client_customer.id
 	 * @return unknown
 	 */
 	 
-	function getClientOrdersNew($customer_id = 0, $filter = false) {
+	function getClientListHeavy($customer_id = 0, $filter = false) {
 		
 		if (!is_numeric($customer_id)) return false;
 		
 		$add_to_where = 'WHERE 1=1 ';
+		
+		/**
+		 * group_id filter
+		 */
+		
+		if (is_numeric($filter['group_id'])) {
+			if ($filter['group_id'] < 0) $add_to_where .= '';
+			else if ($filter['group_id'] == 0) $add_to_where .= " AND client_customer.group_id IS NULL";
+			else if ($filter['group_id'] > 0) $add_to_where .= " AND client_customer.group_id = {$filter['group_id']}";
+		}
 		
 		/**
 		 * query filter
@@ -1157,4 +1172,34 @@ ORDER BY client_customer.id";
 		
 	}
 	
+	/**
+	 * move customers to group
+	 * input is list from getClientList
+	 */
+	 
+	public function moveCustomersToGroupFromList($customer_list, $group_id) {
+	
+		if (!is_array($customer_list) || count($customer_list) == 0) return false;
+		if (!is_numeric($group_id)) return false;
+		 
+		/**
+		 * this can be very heavy, but there is no simpler way apart from writing very complicated, redundant SQL query
+		 */
+		 
+		$id_list = '';
+		
+		foreach ($customer_list as $item) {
+			$id_list .= "{$item['customer_id']},";	
+		}
+			
+		$id_list = rtrim($id_list, ",");
+		
+		$update_sql = "UPDATE client_customer SET group_id = $group_id WHERE id IN ($id_list)";
+		
+		//msg($update_sql);
+		
+		if ($this->executeSql($update_sql)) return true;
+		else return false;
+			
+	}
 }

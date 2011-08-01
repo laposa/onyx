@@ -54,7 +54,7 @@ class client_company extends Onxshop_Model {
 		'customer_id'=>array('label' => '', 'validation'=>'int', 'required'=>true),
 		'registration_no'=>array('label' => '', 'validation'=>'string', 'required'=>false),
 		'vat_no'=>array('label' => '', 'validation'=>'string', 'required'=>false),
-		'other_data'=>array('label' => '', 'validation'=>'string', 'required'=>false)
+		'other_data'=>array('label' => '', 'validation'=>'serialized', 'required'=>false)
 		);
 		
 	/**

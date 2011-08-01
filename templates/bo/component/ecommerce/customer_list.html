@@ -1,12 +1,10 @@
 <!-- BEGIN: content -->
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
-<p><a class="button add" title="Add a new customer" href="/backoffice/customers/add"><span>Add a new customer</span></a></p>
-
 <!-- BEGIN: list -->
 					<table>
 						<thead>
 							<tr>
-								<th>Name<br />Email address</th>
+								<th class="first">Name<br />Email address</th>
 								<th>
                                     <a href="{_SERVER.REDIRECT_URL}?customer-list-sort-by=count_baskets&amp;customer-list-sort-direction=DESC" title="Number of shopping baskets or orders created"><span>Baskets</span></a> /
                                     <a href="{_SERVER.REDIRECT_URL}?customer-list-sort-by=count_orders&amp;customer-list-sort-direction=DESC" title="Number of shopping baskets or orders created"><span>Orders</span></a>
@@ -16,7 +14,6 @@
 								</th>
 								<th><a href="{_SERVER.REDIRECT_URL}?customer-list-sort-by=goods_net&amp;customer-list-sort-direction=DESC"><span>Net spent</span></a></th>
 								<th><a href="{_SERVER.REDIRECT_URL}?customer-list-sort-by=id&amp;customer-list-sort-direction=DESC"><span>Date joined</span></a><br /><a href="{_SERVER.REDIRECT_URL}?customer-list-sort-by=last_order&amp;customer-list-sort-direction=DESC"><span>Last order</span></a></th>
-								<th>Options</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -27,9 +24,6 @@
 								<td><a href="/backoffice/orders?customer_id={ITEM.customer_id}">{ITEM.count_items}</a></td>
 								<td><a href="/backoffice/orders?customer_id={ITEM.customer_id}">{ITEM.goods_net|money_format('%n', %s)}</a></td>
 								<td>{ITEM.customer_created}<br />{ITEM.last_order}</td>
-								<td>
-									<a class="track" href="/backoffice/advanced/logs?filter[customer_id]={ITEM.customer_id}&filter[archive]=1"><span class="edit">Track</span></a>
-								</td>
 							</tr>
 							<!-- END: item -->
 						</tbody>
