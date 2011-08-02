@@ -572,7 +572,7 @@ class client_customer extends Onxshop_Model {
 		$customer_detail = $this->getClientByEmail($email);
 
 		if ($customer_detail) {
-			if (md5($customer_detail['password']) == $md5_password) {
+			if ($customer_detail['password'] == $md5_password) {
 				msg('Login ok', 'ok', 2);
 				return $customer_detail;
 			} else {
@@ -594,7 +594,7 @@ class client_customer extends Onxshop_Model {
 		$customer_detail = $this->listing("username='$username'");
 
 		if (count($customer_detail) > 0) {
-			if (md5($customer_detail[0]['password']) == $md5_password) {
+			if ($customer_detail[0]['password'] == $md5_password) {
 				msg('Login ok', 'ok', 2);
 				return $customer_detail[0];
 			}
