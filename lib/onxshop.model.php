@@ -221,7 +221,7 @@ class Onxshop_Model {
 				if ($result_status > 1) {
 					$error = $result_message;
 				} else if ($result_status > 0) {
-					msg("tidy warning: $result_message", "error", 1);
+					msg("Tidy warning: $result_message", "error", 2);
 				}
 				
 
