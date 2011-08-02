@@ -25,8 +25,10 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Customer_Filter extends Onxshop_
 		 * Store submited data to the SESSION
 		 */
 		
-		if (isset($_POST['customer-filter'])) $_SESSION['customer-filter'] = $_POST['customer-filter'];
-		else if (is_numeric($_SESSION['customer-filter']['group_id'])) {
+		if (isset($_POST['customer-filter'])) {
+			$_SESSION['customer-filter'] = $_POST['customer-filter'];
+			$_SESSION['customer-filter']['group_id'] = ''; 
+		} else if (is_numeric($_SESSION['customer-filter']['group_id'])) {
 			/**
 			 * update incase group_id selected
 			 */

@@ -1014,6 +1014,25 @@ ORDER BY client_customer.id
 		if ($customer_id > 0) $add_to_where .= "AND client_customer.id = $customer_id";
 		
 		/**
+		 * this limits will be added to the end result
+		 */
+		 
+		if (is_numeric($filter['count_orders']) || is_numeric($filter['goods_net'])) {
+
+			$subselect_add_to_where = '';
+			
+			//SUBSELECT count_orders filter
+			if (is_numeric($filter['count_orders'])) {
+				$subselect_add_to_where .= " AND count_orders > {$filter['count_orders']}";
+			}
+			
+			//SUBSELECT goods_net filter
+			if (is_numeric($filter['goods_net'])) {
+				$subselect_add_to_where .= " AND goods_net > {$filter['goods_net']}";
+			}
+		}
+		
+		/**
 		 * SQL query
 		 */
 		//product filter
@@ -1127,6 +1146,12 @@ client_address.country_id,
 client_customer.company_id
 ORDER BY client_customer.id";
 		}
+
+		/**
+		 * add filter to end result
+		 */
+		 
+		if ($subselect_add_to_where) $sql = "SELECT * FROM ($sql) AS subquery WHERE 1=1 $subselect_add_to_where";
 
 		//msg($sql);
 		

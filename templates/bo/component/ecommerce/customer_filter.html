@@ -12,7 +12,7 @@
 				target: '#customer_filter_form_wrapper',
 				beforeSubmit: function() {return $("#customer_filter_form").valid()},
 				success: function(responseText, statusText) {
-					//popupMessage("#promotion_edit_form_result div.onxshop_messages");
+					popupMessage("#customer_filter_form_wrapper div.onxshop_messages");
 					makeAjaxRequest('#preview_specified_customers', '/request/bo/component/ecommerce/customer_list', function() {
 						$('#preview_specified_customers thead a').click(function() {
 							//TODO update links to use AJAX
@@ -45,6 +45,20 @@
 							<option value="1" {SELECTED_invoice_status_1}>who made an order</option>
 							<option value="0" {SELECTED_invoice_status_0}>all</option>
 						</select>
+					</span>
+				</div>
+				
+				<div class="row count_orders">
+					<span class="label"><label>Display customers who made more than</label></span>
+					<span class="field">
+						<input class="digits" type="text" id="customer-filter-count_orders" name="customer-filter[count_orders]" value="{CUSTOMER_FILTER.count_orders}"/> orders
+					</span>
+				</div>
+				
+				<div class="row goods_net">
+					<span class="label"><label>Display customers who made more than</label></span>
+					<span class="field">
+						<input class="number" type="text" id="customer-filter-goods_net" name="customer-filter[goods_net]" value="{CUSTOMER_FILTER.goods_net}"/> {GLOBAL_DEFAULT_CURRENCY}
 					</span>
 				</div>
 									
