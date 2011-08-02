@@ -33,7 +33,7 @@ require_once('lib/onxshop.bootstrap.php');
  * log to firebug
  */
  
-if (ONXSHOP_IS_DEBUG_HOST) {
+if (ONXSHOP_IS_DEBUG_HOST && ONXSHOP_DEBUG_FIREBUG) {
 
 	require_once('Zend/Log/Writer/Firebug.php');
 	require_once('Zend/Log.php');
@@ -75,7 +75,7 @@ $Bootstrap->initAction($_GET['request']);
  * test log to firebug
  */
  
-if (ONXSHOP_IS_DEBUG_HOST) {
+if (ONXSHOP_IS_DEBUG_HOST && ONXSHOP_DEBUG_FIREBUG) {
 
 	// Flush log data to browser
 	$channel->flush();

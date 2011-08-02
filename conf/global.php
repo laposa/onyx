@@ -42,6 +42,7 @@ if(in_array($_SERVER["REMOTE_ADDR"], array_keys($debug_hosts)))  {
 	define('ONXSHOP_IS_DEBUG_HOST', true);
 	define('ONXSHOP_DEBUG_DIRECT', false);
 	define('ONXSHOP_DEBUG_FILE', true);
+	define('ONXSHOP_DEBUG_FIREBUG', false);
 	define('ONXSHOP_BENCHMARK', false);
 	define('ONXSHOP_DB_PROFILER', false);
 	
@@ -52,6 +53,7 @@ if(in_array($_SERVER["REMOTE_ADDR"], array_keys($debug_hosts)))  {
 	define('ONXSHOP_IS_DEBUG_HOST', false);
 	define('ONXSHOP_DEBUG_DIRECT', false);
 	define('ONXSHOP_DEBUG_FILE', true);
+	define('ONXSHOP_DEBUG_FIREBUG', false);
 	define('ONXSHOP_BENCHMARK', false);
 	define('ONXSHOP_DB_PROFILER', false);
 	

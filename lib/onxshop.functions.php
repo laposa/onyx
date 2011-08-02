@@ -53,6 +53,7 @@ function msg($msg, $type = "ok", $level = 0) {
 	        $msg_safe = htmlspecialchars($msg);
 			
 	        switch ($type) {
+	        	
 	            case 'error':
 	                $message = "<p class='onxshop_error_msg'>{$msg_safe}</p>\n";
 	                if (is_object($GLOBALS['fb_logger'])) $GLOBALS['fb_logger']->log($msg, Zend_Log::ERR);
@@ -67,8 +68,8 @@ function msg($msg, $type = "ok", $level = 0) {
 	    	 * direct output or store in _SESSION
 	    	 */
 	    	   
-	        if (ONXSHOP_DEBUG_LEVEL > 4 || ONXSHOP_DEBUG_DIRECT == true) echo $message;
-	        else if ($level == 0) $_SESSION['messages'] .= $message;
+	        if (ONXSHOP_DEBUG_DIRECT == true) echo $message;
+	        else if ($level == 0 || !is_object($GLOBALS['fb_logger'])) $_SESSION['messages'] .= $message;
 		
 			
 			/**
