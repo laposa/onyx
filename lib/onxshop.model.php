@@ -484,7 +484,7 @@ class Onxshop_Model {
 			} catch (Exception $e) {
 				
 				msg($e->getMessage(), 'error', 1);
-				msg($this->db->getConnection()->errorInfo(), 'error', 1);
+				msg("Insert to {$this->_class_nam} failed: " . print_r($this->db->getConnection()->errorInfo(), true), 'error', 1);
 				
 				return false;
 			}
@@ -526,7 +526,7 @@ class Onxshop_Model {
     		} catch (Exception $e) {
 				
 				msg($e->getMessage(), 'error', 1);
-				msg("Failed to update {$this->_class_name}" . $this->db->getConnection()->errorInfo(), 'error', 1);
+				msg("Failed to update {$this->_class_name}: " . print_r($this->db->getConnection()->errorInfo(), true), 'error', 1);
 				
 				return false;
 			}
@@ -579,7 +579,7 @@ class Onxshop_Model {
         	} catch (Exception $e) {
 					
 				msg($e->getMessage(), 'error', 1);
-				msg("Failed to delete {$this->_class_name}" . $this->db->getConnection()->errorInfo(), 'error', 1);
+				msg("Failed to delete {$this->_class_name}: " . print_r($this->db->getConnection()->errorInfo(), true), 'error', 1);
 					
 				return false;
 			}
@@ -613,7 +613,7 @@ class Onxshop_Model {
 		} catch (Exception $e) {
 					
 			msg($e->getMessage(), 'error', 1);
-			msg("Failed to deleteAll {$this->_class_name}" . $this->db->getConnection()->errorInfo(), 'error', 1);
+			msg("Failed to deleteAll {$this->_class_name}: " . print_r($this->db->getConnection()->errorInfo(), true), 'error', 1);
 					
 			return false;
 		}
@@ -669,7 +669,7 @@ class Onxshop_Model {
 		} catch (Exception $e) {
 					
 			msg($e->getMessage(), 'error', 1);
-			msg("Failed to executeSql {$this->_class_name}" . $this->db->getConnection()->errorInfo(), 'error', 1);
+			msg("Failed to executeSql {$this->_class_name}: " . print_r($this->db->getConnection()->errorInfo(), true), 'error', 1);
 					
 			return false;
 		}
