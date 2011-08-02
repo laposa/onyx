@@ -83,8 +83,10 @@ function openAjaxRequestInGrowl(url, title) {
  */
 
 function popupMessage(selector) {
-	var message = $(selector).hide().html();
-	if (message) growlMessage(message);
+	$.each($(selector), function() {
+		var message = $(this).hide().html();
+		if (message) growlMessage(message);
+	});
 }
 
 function growlMessage(message) {

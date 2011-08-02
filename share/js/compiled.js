@@ -1186,9 +1186,11 @@ function unixtime() {
 	return unixtime;
 }
 
-function makeAjaxRequest(jquery_selector, url) {
+function makeAjaxRequest(jquery_selector, url, complete_callback) {
     $(jquery_selector).html("<img src='/share/images/ajax-indicator/indicator_verybig.gif' alt='Loading ...'/>").load(url, '', function (responseText, textStatus, XMLHttpRequest) {
 			popupMessage( jquery_selector + ' div.onxshop_messages');
+			
+			if (jQuery.isFunction(complete_callback)) complete_callback();
 		}
 	);
 }
@@ -1248,8 +1250,10 @@ function openAjaxRequestInGrowl(url, title) {
  */
 
 function popupMessage(selector) {
-	var message = $(selector).hide().html();
-	if (message) growlMessage(message);
+	$.each($(selector), function() {
+		var message = $(this).hide().html();
+		if (message) growlMessage(message);
+	});
 }
 
 function growlMessage(message) {
