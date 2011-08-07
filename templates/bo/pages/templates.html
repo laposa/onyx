@@ -1,29 +1,13 @@
 <!-- BEGIN: title -->Templates<!-- END: title -->
 <!-- BEGIN: content -->
 <style type="text/css">
-code span.text {
-	color: #000000;
-}
-			
-code span.comment {
-	color: #008000;
-}
-			
-code span.tag {
-	color: #0000BB;
-}
-			
-code span.attribute {
-	color: #DD0000;
-}
-			
-code span.value {
-	color: #800080;	
-}
-			
-code span.comment span {
-	color: #008000;
-}
+code {font-size: 12px;}
+code span.text {color: #000000;}
+code span.comment {color: #008000;}
+code span.tag {color: #0000BB;}
+code span.attribute {color: #DD0000;}
+code span.value {color: #800080;}
+code span.comment span {color: #008000;}
 </style>
 
 <script type="text/javascript">
@@ -76,12 +60,12 @@ function serverBrowserOpenDir(open_dir) {
 			</div>
 			<div class="columnTwo page">
 				<div class="columnWrapper page">
-					{ONXSHOP_REQUEST_css_edit #bo/component/css_edit}
-
-					<br style="clear: both;" />
 					<div id="template-edit">
-					{ONXSHOP_REQUEST_template #bo/component/template_edit}
+						{ONXSHOP_REQUEST_template #bo/component/template_edit}
 					</div>
+					<br style="clear: both;" />
+					{ONXSHOP_REQUEST_css_edit #bo/component/css_edit}
+					
 				</div>
 			</div>
 		</div>
