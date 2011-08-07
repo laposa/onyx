@@ -1,1 +1,12 @@
-added 'xmlentities' and 'html2text' to $allowed_callbacks
+305c305
+< 	'urlencode', 'urldecode',
+---
+> 	'urlencode', 'urldecode','xmlentities','html2text',
+696c696
+< 		preg_match_all($this->preg_delimiter . $this->tag_start_delim . '([A-Za-z0-9\._\x7f-\xff]+?' . $this->callback_preg . $this->comment_preg . ')' . $this->tag_end_delim . $this->preg_delimiter, $copy, $var_array);
+---
+> 		preg_match_all($this->preg_delimiter . $this->tag_start_delim . '([A-Za-z0-9\._-\x7f-\xff]+?' . $this->callback_preg . $this->comment_preg . ')' . $this->tag_end_delim . $this->preg_delimiter, $copy, $var_array);
+1632,1633d1631
+< 
+< ?>
+\ No newline at end of file

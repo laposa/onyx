@@ -1629,5 +1629,3 @@ class XTemplate {
 		}
 	}
 } /* end of XTemplate class. */
-
-?>
