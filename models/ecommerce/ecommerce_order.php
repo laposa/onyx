@@ -466,7 +466,14 @@ ORDER BY ecommerce_order.id DESC
 		
 			$order_data['id'] = $id;
 			
-			//promotion code
+			//insert delivery record
+			//need to be inserted before recording usage of promotion code, otherwise delivery calculation thinks coupon has be already used when uses_per_customer = 1
+			if (!$this->insertDelivery($order_data)) {
+				msg("Cannot insert delivery data", 'error');
+				return false;
+			} 
+			
+			//record promotion code use
 			if ($order_data['other_data']['promotion_code']) {
 				require_once('models/ecommerce/ecommerce_promotion_code.php');
 				$Promotion_code = new ecommerce_promotion_code();
@@ -476,12 +483,6 @@ ORDER BY ecommerce_order.id DESC
 					msg("Can't insert promotion code {$order_data['other_data']['promotion_code']} ", 'error');
 				}
 			}
-			
-			//insert delivery record
-			if (!$this->insertDelivery($order_data)) {
-				msg("Cannot insert delivery data", 'error');
-				return false;
-			} 
 			
 			//descrement stock
 			$decrement_stock = $this->decrementStock($id);
