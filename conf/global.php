@@ -78,7 +78,7 @@ if (!defined('ONXSHOP_SESSION_TYPE')) define('ONXSHOP_SESSION_TYPE', 'database')
  * Layout settings
  */
  
-if (!defined('ONXSHOP_DEFAULT_TYPE')) define('ONXSHOP_DEFAULT_TYPE', 'sys/xhtml_10-trans');
+if (!defined('ONXSHOP_DEFAULT_TYPE')) define('ONXSHOP_DEFAULT_TYPE', 'sys/html5');
 if (!defined('ONXSHOP_MAIN_TEMPLATE')) define('ONXSHOP_MAIN_TEMPLATE', 'node/site/default');
 if (!defined('ONXSHOP_PAGE_TEMPLATE')) define('ONXSHOP_PAGE_TEMPLATE', 'node/page/default');
 if (!defined('ONXSHOP_DEFAULT_LAYOUT')) define('ONXSHOP_DEFAULT_LAYOUT', ONXSHOP_DEFAULT_TYPE . '.' . ONXSHOP_MAIN_TEMPLATE);
