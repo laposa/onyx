@@ -44,6 +44,8 @@ class ecommerce_basket extends Onxshop_Model {
 		
 	/**
 	 * get detail
+	 * this is actually getFullDetail
+	 * TODO: refactoring, rename to getFullDetail
 	 */
 	 
 	function getDetail($id) {
@@ -343,7 +345,7 @@ class ecommerce_basket extends Onxshop_Model {
 		if (!is_numeric($discount_net)) return false;
 		
 		//msg("Setting discount $discount_net");
-		$basket_data = $this->getDetail($basket_id);
+		$basket_data = $this->detail($basket_id);
 		$basket_data['discount_net'] = $discount_net;
 		
 		if ($this->update($basket_data)) {

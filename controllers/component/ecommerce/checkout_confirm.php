@@ -61,7 +61,7 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Confirm extends Onxshop_Co
 				//insert order
 				if (isset($_POST['confirm'])) {	
 		
-					if ($order_data['order_terms_agreed'] == 'on') {		
+					if ($_POST['order_terms_agreed'] == 'on') {		
 						//insert only orders with some items in the basket :)
 						$basket_content = $Basket->getContent($basket_id);
 						if (count($basket_content['items']) > 0) {
