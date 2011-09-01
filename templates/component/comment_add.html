@@ -5,10 +5,9 @@
 	<script type="text/javascript">  
 	$(document).ready(function(){  
 		
-		$("#comment_form_{GET.node_id}").validate();
-		
 		var options = { 
 			target: 'div.comment_add',
+			beforeSubmit: function() {return $("#comment_form_{GET.node_id}").valid()},
 			success: function(){
 				popupMessage("div.comment_add div.onxshop_messages");
 			},
