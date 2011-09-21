@@ -19,7 +19,8 @@ div.onxshop_edit_layout {background: #d3d7cf; width: 100%; height: 20px;}
 
 div.onxshop_tabulator {display: none;}
 
-div.onxshop_tabulator_menu  {border-bottom: 1px solid #d3d7cf; width: 99%; margin: 0 auto;}
+div.nx_tabulator_menu {background: #ccc; margin: 0; padding: 0 5px;}
+div.onxshop_tabulator_menu  {border-bottom: 1px solid #d3d7cf; width: 99%; background: #ccc; margin: 0; padding: 0 5px;}
 
 div.onxshop_tabulator_menu div.bottom {clear: both;}
 
