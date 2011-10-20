@@ -17,7 +17,7 @@
 
 $debug_hosts = array(
 'x93.97.247.102' => 1,
-'x188.220.10.89' => 1
+'x188.220.10.46' => 1
 );
 
 /**
@@ -26,14 +26,12 @@ $debug_hosts = array(
 
 //define('ONXSHOP_MAIN_DOMAIN', 'default.co.uk');
 
-
 /**
  * Directory paths
  */
 
 define('ONXSHOP_DIR', realpath(dirname(__FILE__) . '/../onxshop_dir/') . '/');
 define('ONXSHOP_PROJECT_DIR', realpath(dirname(__FILE__) . '/../') . '/');
-
 
 /**
  * Database connection
@@ -45,34 +43,6 @@ define('ONXSHOP_DB_PASSWORD', '');
 define('ONXSHOP_DB_HOST', 'dbserver');
 define('ONXSHOP_DB_PORT', 5432);
 define('ONXSHOP_DB_NAME', '');
-
-/**
- * Authentication type for backend users
- */
-
-define('ONXSHOP_AUTH_TYPE', 'postgresql');
-define('ONXSHOP_AUTH_SERVER', ONXSHOP_DB_HOST);
-
-/**
- * HardCoded user/password
- *
- */
-
-//define('ONXSHOP_EDITOR_USERNAME', 'site_editor_username');
-//define('ONXSHOP_EDITOR_PASSWORD', 'site_password_password');
-
-/**
- * Is authentication always required?
- */
-
-define('ONXSHOP_REQUIRE_AUTH', false);
-
-/**
- * Use SSL?
- */
-
-define('ONXSHOP_EDITOR_USE_SSL', false);
-define('ONXSHOP_CUSTOMER_USE_SSL', false);
 
 /**
  * Onxshop package name

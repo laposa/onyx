@@ -59,6 +59,33 @@ if(in_array($_SERVER["REMOTE_ADDR"], array_keys($debug_hosts)))  {
 	
 }
 
+/**
+ * Authentication type for backend users
+ */
+
+if (!defined('ONXSHOP_AUTH_TYPE')) define('ONXSHOP_AUTH_TYPE', 'postgresql');
+if (!defined('ONXSHOP_AUTH_SERVER')) define('ONXSHOP_AUTH_SERVER', ONXSHOP_DB_HOST);
+
+/**
+ * HardCoded user/password for backend users
+ *
+ */
+
+//if (!defined('ONXSHOP_EDITOR_USERNAME')) define('ONXSHOP_EDITOR_USERNAME', 'site_editor_username');
+//if (!defined('ONXSHOP_EDITOR_PASSWORD')) define('ONXSHOP_EDITOR_PASSWORD', 'site_password_password');
+
+/**
+ * Is authentication always required?
+ */
+
+if (!defined('ONXSHOP_REQUIRE_AUTH')) define('ONXSHOP_REQUIRE_AUTH', false);
+
+/**
+ * Use SSL?
+ */
+
+if (!defined('ONXSHOP_EDITOR_USE_SSL')) define('ONXSHOP_EDITOR_USE_SSL', false);
+if (!defined('ONXSHOP_CUSTOMER_USE_SSL')) define('ONXSHOP_CUSTOMER_USE_SSL', false);
 
 /**
  * Compress output option (not really important when using Apache Deflate module)
