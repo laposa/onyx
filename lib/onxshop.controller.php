@@ -9,19 +9,16 @@ class Onxshop_Controller {
 
 	/**
 	 * request GET parameter.
-	 * @access public
 	 */
 	var $request;
 
 	/**
 	 * All messages.
-	 * @access public
 	 */
 	var $messages;
 
 	/**
 	 * Content after parsing.
-	 * @access public
 	 */
 	var $content;
 
@@ -50,9 +47,9 @@ class Onxshop_Controller {
 	/**
 	 * process
 	 *
-	 * @param unknown_type $request
-	 * @param unknown_type $subOnxshop
-	 * @return Onxshop
+	 * @param string $request
+	 * @param object $subOnxshop
+	 * @return boolean
 	 */
 	 
 	public function process($request, &$subOnxshop = false) {
@@ -72,7 +69,7 @@ class Onxshop_Controller {
 		
 		$this->_module_php = ONXSHOP_PROJECT_DIR . "controllers/{$module['controller']}.php";
 		if (!file_exists($this->_module_php)) $this->_module_php = ONXSHOP_DIR . "controllers/{$module['controller']}.php";
-	
+		
 		if ($this->_template_dir != '') $this->_initTemplate($this->_module_html);
 		else {
 			/*
@@ -126,7 +123,7 @@ class Onxshop_Controller {
 
 	public function mainAction() {
 	
-		//msg("no action for {$this->request}");
+		msg("no action for {$this->request}", 'error', 2);
 
 		return true;
 		
@@ -135,7 +132,7 @@ class Onxshop_Controller {
 	/**
 	 * set request
 	 *
-	 * @param unknown_type $request
+	 * @param string $request
 	 */
 	 
 	public function setRequest($request) {
@@ -151,7 +148,7 @@ class Onxshop_Controller {
     /**
      * get request
      *
-     * @return unknown
+     * @return string
      */
      
 	function getRequest() {
@@ -163,8 +160,8 @@ class Onxshop_Controller {
     /**
      * set title
      *
-     * @param unknown_type $value
-     * @return unknown
+     * @param string $value
+     * @return boolean
      */
      
 	function setTitle($value) {
@@ -188,8 +185,8 @@ class Onxshop_Controller {
     /**
      * set description
      *
-     * @param unknown_type $value
-     * @return unknown
+     * @param string $value
+     * @return boolean
      */
      
 	function setDescription($value) {
@@ -213,8 +210,8 @@ class Onxshop_Controller {
     /**
      * set keywords
      *
-     * @param unknown_type $value
-     * @return unknown
+     * @param string $value
+     * @return boolean
      */
      
 	function setKeywords($value) {
@@ -238,7 +235,7 @@ class Onxshop_Controller {
     /**
      * get title
      *
-     * @return unknown
+     * @return string
      */
      
 	function getTitle() {
@@ -250,8 +247,8 @@ class Onxshop_Controller {
     /**
      * set head
      *
-     * @param unknown_type $head
-     * @return unknown
+     * @param string $head
+     * @return boolean
      */
      
 	function setHead($value) {
@@ -275,8 +272,8 @@ class Onxshop_Controller {
 	/**
      * set head once
      *
-     * @param unknown_type $head
-     * @return unknown
+     * @param string $head
+     * @return boolean
      */
      
 	function setHeadOnce($value) {
@@ -286,13 +283,14 @@ class Onxshop_Controller {
 		if (!Zend_Registry::isRegistered($name)) $this->setHead($value);
 		
 		Zend_Registry::set($name, true);
-				
+		
+		return true;	
 	}
 
     /**
      * get head
      *
-     * @return unknown
+     * @return string
      */
      
 	function getHead() {
@@ -304,8 +302,8 @@ class Onxshop_Controller {
     /**
      * set content
      *
-     * @param unknown_type $content
-     * @return unknown
+     * @param string $content
+     * @return boolean
      */
      
 	function setContent($content) {
@@ -330,6 +328,7 @@ class Onxshop_Controller {
 
     /**
      * Parse Content Tags
+     * @return string
      */
      
 	function parseContentTags() {
@@ -351,16 +350,11 @@ class Onxshop_Controller {
 				
 				$_nxSite = new nSite($xrequest);
 				
-				if ($layout == 1) {
-					$container = $matches[1][$key];		
-					$contentx['content'][$container] .= $_nxSite->getContent();
-					$contentx['node_type'][$container] = $_nxSite->temp['node_type'];
-				} else {
-					//because of stupid parseContentTagsAfter(), we have to check if it isn't assigned already
-					if ($this->tpl->vars["ONXSHOP_REQUEST_{$matches[1][$key]}"] == '') {
-						$this->tpl->assign("ONXSHOP_REQUEST_{$matches[1][$key]}", $_nxSite->getContent());
-					}
+				//because of stupid parseContentTagsAfter(), we have to check if it isn't already assigned 
+				if ($this->tpl->vars["ONXSHOP_REQUEST_{$matches[1][$key]}"] == '') {
+					$this->tpl->assign("ONXSHOP_REQUEST_{$matches[1][$key]}", $_nxSite->getContent());
 				}
+				
 			}
 		}
 		
@@ -393,13 +387,14 @@ class Onxshop_Controller {
     /**
      * find onxshop request tags
      *
-     * @param unknown_type $content
-     * @return unknown
+     * @param string $content
+     * @return array
      */
      
 	function findTags($content) {
 	
 		preg_match_all('/\{ONXSHOP_REQUEST_([^\}]*) #([^\}]*)\}/', $content, $matches);
+		
 		if (count($matches[0]) > 0) {
 			return $matches;
 		} else {
@@ -411,14 +406,15 @@ class Onxshop_Controller {
     /**
      * find containers
      *
-     * @param unknown_type $content
-     * @return unknown
+     * @param string $content
+     * @return array
      */
      
 	function findContainerTags($content) {
 	
 		//{CONTAINER.0.content.content #RTE} 
 		preg_match_all('/\{CONTAINER\.([0-9]*)\.([a-zA-Z]*).[^\}]* #([^\}]*)\}/', $content, $matches);
+		
 		if (count($matches[0]) > 0) {
 			return $matches;
 		} else {
@@ -432,8 +428,7 @@ class Onxshop_Controller {
     /**
      * final output
      *
-     * @param unknown_type $return
-     * @return unknown
+     * @return string
      */
      
 	function finalOutput() {
@@ -446,14 +441,13 @@ class Onxshop_Controller {
 		}
 
 		return $output;
-		
-		//hack
-		$_SESSION['active_pages'] = array();
-		
+				
 	}
 
 
 	/**
+	 * _explodeRequest
+	 *
 	 * @return array
 	 */
 	 
@@ -717,7 +711,7 @@ class nSite {
 	/**
 	 * Construct
 	 */
-	 
+	
 	public function __construct($request, &$subOnxshop = false) {
 		
 		$classname = $this->_prepareCallBack($request);
