@@ -30,15 +30,15 @@
 		<tr>
 			<td><a href="/backoffice/customers/{CUSTOMER.id}/detail">{CUSTOMER.first_name} {CUSTOMER.last_name}</a><br /><a href="/request/component/whois?str={SESSION.ip_address}" target="_blank">{SESSION.ip_address}</a><br />{SESSION.php_auth_user}</td>
 			<td>
-				<!-- BEGIN: history -->{HISTORY.time} <a href="{HISTORY.uri}" target="_blank">{HISTORY.uri}</a><br /><!-- END: history -->
+				<!-- BEGIN: history -->{HISTORY.time} <a href="{HISTORY.uri|htmlspecialchar}" target="_blank">{HISTORY.uri|htmlspecialchars}</a><br /><!-- END: history -->
 				<!-- BEGIN: session_messages -->{SESSION.messages|htmlspecialchars|nl2br}<!-- END: session_messages -->
 			</td>
 			<td>{SESSION.created}<br />{SESSION.modified}<br />Diff: {SESSION.time_diff} minutes</td>
 			<td>
-				<!-- BEGIN: referer_link --><a href="{SESSION.http_referer}" target="_blank">{SESSION.http_referer}</a><!-- END: referer_link -->
+				<!-- BEGIN: referer_link --><a href="{SESSION.http_referer|htmlspecialchars}" target="_blank">{SESSION.http_referer|htmlspecialchars}</a><!-- END: referer_link -->
 				<!-- BEGIN: referer_na -->n/a<!-- END: referer_na -->
 			</td>
-			<td>{SESSION.http_user_agent}</td>
+			<td>{SESSION.http_user_agent|htmlspecialchars}</td>
 			
 		</tr>
 		<!-- END: item -->
