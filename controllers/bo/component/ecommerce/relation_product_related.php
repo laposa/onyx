@@ -19,7 +19,9 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Relation_Product_Related extends
 		$Product = new ecommerce_product();
 		
 		$product_id = $this->GET['id'];
-		$PtP->set('product_id', $product_id);
+		
+		$ptp_data = array();
+		$ptp_data['product_id'] = $product_id;
 		
 		/**
 		 * saving
@@ -35,9 +37,8 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Relation_Product_Related extends
 		
 			foreach ($_POST['product_related'] as $to_id) {
 				if (is_numeric($to_id)) {
-					$PtP->set("related_product_id", $to_id);
-					$PtP->insert();
-					//echo $this->GET['id'] . $to_id;
+					$ptp_data['related_product_id'] = $to_id;
+					$PtP->insert($ptp_data);
 				}
 			}
 		}

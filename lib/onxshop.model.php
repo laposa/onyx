@@ -475,9 +475,7 @@ class Onxshop_Model {
 					$id = $this->db->lastInsertId();
 				}
 				
-				$this->set('id', $id);
-				
-				msg("Inserting of record id:{$this->id} into {$this->_class_name} has been successful.", 'ok', 2);
+				msg("Inserting of record id:{$id} into {$this->_class_name} has been successful.", 'ok', 2);
 
 				return $id;
 			

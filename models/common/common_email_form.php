@@ -178,28 +178,34 @@ class common_email_form extends Onxshop_Model {
 		if (!$email_from) $email_from = $this->conf['mail_sender_address'];
 		if (!$name_from) $name_from = $this->conf['mail_sender_name'];
 		
-		$this->set('content', $content);
-	
-		$this->set('email_from', $email_from);
-		$this->set('name_from', $name_from);
-		$this->set('template', $template);
-		$this->set('email_recipient', $email_recipient);
-		$this->set('name_recipient', $name_recipient);
-		$this->set('created', date('c'));
-		$this->set('ip', $_SERVER['REMOTE_ADDR']);
+		$email_data = array();
+		$email_data['content'] = $content;
+		$email_data['email_from'] = $email_from;
+		$email_data['name_from'] = $name_from;
+		$email_data['template'] = $template;
+		$email_data['email_recipient'] = $email_recipient;
+		$email_data['name_recipient'] = $name_recipient;
+		$email_data['created'] = date('c');
+		$email_data['ip'] = $_SERVER['REMOTE_ADDR'];
+ 	
+ 		$this->setAll($email_data);
  
 		if ($this->getValid()) {
+		
 			if ($this->send()) {
-				if ($this->insert()) {
+		
+				if ($this->insert($email_data)) {
 					return true;
 				} else {
 					//TODO: notify admin
 					msg("Can't insert email record into the database", "error", 1);
 				}
+		
 			} else {
 				//TODO: notify admin
-				msg("Can't send email with mail->send()", "error");
+				msg("Can't send email using mail->send()", "error");
 			}
+			
 		} else {
 	        	return false;
 		}

@@ -45,9 +45,6 @@ class Onxshop_Controller_Bo_Component_Node_Add extends Onxshop_Controller {
 			 * insert a new node
 			 */
 			
-			// FIXME: we need to clean this because of stupid model->insert() function
-			$Node = new common_node();
-			
 			if($id = $Node->nodeInsert($node_data)) {
 				
 				//quick pages builder
