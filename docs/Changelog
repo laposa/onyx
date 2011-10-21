@@ -1,5 +1,21 @@
 Onxshop (1.5.0/dev)
 
+  * move rarely used options from project_skeleton/conf/deployment.php to conf/global.php
+  * improve wording in password change notification email
+  * use sys/html5 template by default
+  * swapped order of inserting delivery and inserting promotion code records
+    to allow reliable funcionality when using uses_per_customer promotion code setting
+  * customer database use md5 passwords by default
+  * improve js popupMessage() with iterator to show all messages from different blocks
+  * improve debugging and add new ONXSHOP_DEBUG_FIREBUG constant to enable/disable log to Firebug
+  * add group ACL to node edit and display
+  * customer group by filter support
+  * add support for complete_callback to makeAjaxRequest()
+  * added zebra to default table style and CSS other fixes
+  * default CSS: removed forced scrollbar in browsers and other improvements
+  * add protection against CRLF HTTP injection into onxshopGoTo function
+  * force backoffice customer list to use cache
+  * documentation update
   * backoffice customer list is forced to use DB cache
   * thumbnail_step changed from 25px to 5px
   * removed project_skeleton/onxshop_dir symlink from dev version, left only in testing
@@ -15,7 +31,7 @@ Onxshop (1.5.0/dev)
   * Zend Framework upgraded to version 1.11.7
   * validation for username changed from email to string
 
--- Norbert Laposa <norbert@laposa.co.uk>  2011-07-22
+-- Norbert Laposa <norbert@laposa.co.uk>  2011-10-21
 
 Onxshop (1.4.7)
   
