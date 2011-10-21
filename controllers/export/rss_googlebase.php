@@ -52,6 +52,12 @@ class Onxshop_Controller_Export_Rss_Googlebase extends Onxshop_Controller {
 							if ($k == 0) {
 								$this->tpl->assign('VARIETY', $v);
 								$this->tpl->assign('PRICE', $v['price']);
+								
+								//set availibity, other possible values are 'available for order' and 'preorder'
+								//if ($v['stock'] > 0) $this->tpl->assign('AVAILIBILITY', 'in stock');
+								//else $this->tpl->assign('AVAILIBILITY', 'out of stock');
+								$this->tpl->assign('AVAILIBILITY', 'in stock'); //always on stock, because first variety can be out of stock, but other not, we should do a check if any variety is in stock
+								
 								$this->tpl->parse("content.generated.item");
 							}
 						}
@@ -62,7 +68,7 @@ class Onxshop_Controller_Export_Rss_Googlebase extends Onxshop_Controller {
 		
 		//save it to the file
 		$this->tpl->parse("content.generated");
-		file_put_contents (ONXSHOP_PROJECT_DIR . "var/files/googlebase.xml", $this->tpl->text("content.generated"));
+		file_put_contents(ONXSHOP_PROJECT_DIR . "var/files/googlebase.xml", $this->tpl->text("content.generated"));
 
 		return true;
 	}
