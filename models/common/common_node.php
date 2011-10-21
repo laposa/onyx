@@ -77,6 +77,8 @@ class common_node extends Onxshop_Model {
 	var $uri_title;
 	
 	/**
+	 * numerical permission for user active status
+	 *
 	 * 0 display always
 	 * 1 display at normal login
 	 * 2 hide at normal login
@@ -109,6 +111,12 @@ class common_node extends Onxshop_Model {
 	var $link_to_node_id;
 	
 	var $require_ssl;
+	
+	/**
+	 * serialized ACL for client_group
+	 */
+	
+	var $display_permission_group_acl;
 	
 	var $_hashMap = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
@@ -143,7 +151,8 @@ class common_node extends Onxshop_Model {
 		'display_breadcrumb'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'browser_title'=>array('label' => '', 'validation'=>'string', 'required'=>false),
 		'link_to_node_id'=>array('label' => '', 'validation'=>'int', 'required'=>false),
-		'require_ssl'=>array('label' => '', 'validation'=>'int', 'required'=>false)
+		'require_ssl'=>array('label' => '', 'validation'=>'int', 'required'=>false),
+		'display_permission_group_acl'=>array('label' => '', 'validation'=>'serialized', 'required'=>false)
 		);
 
 	/**
@@ -372,6 +381,7 @@ class common_node extends Onxshop_Model {
 		$node_data['other_data'] = unserialize(trim($node_data['other_data']));
 		$node_data['component'] = unserialize(trim($node_data['component']));
 		$node_data['relations'] = unserialize(trim($node_data['relations']));
+		$node_data['display_permission_group_acl'] = unserialize($node_data['display_permission_group_acl']);
 		
 		//overwrite author (allowed in bo/node/news edit interface)
 		if ($node_data['component']['author'] != '') $node_data['author_detail']['name'] = $node_data['component']['author'];
@@ -403,7 +413,12 @@ class common_node extends Onxshop_Model {
 		$node_data['modified'] = date('c');
 		if (!is_numeric($node_data['author'])) $node_data['author'] = $_SESSION['authentication']['authenticity'];
 		
-		$node_group = ucfirst($node_data['node_group']);
+		$node_data['other_data'] = serialize($node_data['other_data']);
+		$node_data['component'] = serialize($node_data['component']);
+		$node_data['relations'] = serialize($node_data['relations']);
+		//populate only if ACL in use, otherwise save as empty
+		if (in_array('0', $node_data['display_permission_group_acl']) || in_array('1', $node_data['display_permission_group_acl'])) $node_data['display_permission_group_acl'] = serialize($node_data['display_permission_group_acl']);
+		else $node_data['display_permission_group_acl'] = '';
 		
 		/**
 		 * valid parent
@@ -419,6 +434,7 @@ class common_node extends Onxshop_Model {
 			if ($node_data['node_group'] == 'page') $this->updateSingleURI($node_data);
 			return true;
 		} else {
+			$node_group = ucfirst($node_data['node_group']);
 			msg("$node_group (id={$node_data['id']}) can't be updated", 'error');
 			return false;
 		}
@@ -810,8 +826,6 @@ class common_node extends Onxshop_Model {
 	 * parse children
 	 *
 	 * @param unknown_type $id
-	 * @param unknown_type $display_only_published
-	 * @param unknown_type $display_only_permissioned
 	 * @return unknown
 	 */
 	 
@@ -897,6 +911,70 @@ class common_node extends Onxshop_Model {
 			}
 			
 		}
+    }
+    
+    /**
+     * check group_acl
+     */
+     
+    public function checkDisplayPermissionGroupAcl($node_data, $force_admin_visibility = true) {
+		
+		//return true in case display permission are not set
+		if (!is_array($node_data['display_permission_group_acl'])) return true;
+		
+		if ($_SESSION['authentication']['authenticity'] > 0 && $force_admin_visibility) {
+		
+			return true;
+		
+		}
+		
+		if ($_SESSION['client']['customer']['id'] == 0) {
+			//Everyone (anonymouse)
+			$current_user_group_id = 0;
+			
+		} else {
+		
+			//possibly member of a group
+			if (is_numeric($_SESSION['client']['customer']['group_id'])) $current_user_group_id = $_SESSION['client']['customer']['group_id'];
+			else $current_user_group_id = 0;
+		
+		}
+		
+
+		//first set rule for Everyone
+		switch ($node_data['display_permission_group_acl'][0]) {
+			
+			case '0':
+				$visibility = false;
+			break;
+			case '1':
+				$visibility = true;
+			break;
+			case '-1':
+			default:
+				$visibility = true;
+			break;
+			
+		}
+		
+		//than set rule for active user group
+		switch ($node_data['display_permission_group_acl'][$current_user_group_id]) {
+			
+			case '0':
+				$visibility = false;
+			break;
+			case '1':
+				$visibility = true;
+			break;
+			case '-1':
+			default:
+				//$visibility = null;
+			break;
+			
+		}
+		
+    	return $visibility;
+    	
     }
 
     /**

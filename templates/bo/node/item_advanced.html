@@ -33,7 +33,7 @@
 					</span>
 				</div>
 				<div class="row display_permission">
-					<span class="label"><label for="node.display_permission">Display Permission:</label></span>
+					<span class="label"><label for="node.display_permission">Display Permission by Customer Status:</label></span>
 					<span class="field">
 						<select name="node[display_permission]" id="node.display_permission">
 							<option value="0" {NODE.display_permission_select_0}>Display Allways</option>
@@ -42,6 +42,45 @@
 							<option value="3" {NODE.display_permission_select_3}>Show At Trade Login</option>
 							<option value="4" {NODE.display_permission_select_4}>Hide At Trade Login</option>
 						</select>
+					</span>
+				</div>
+				
+				<div class="row display_permission_group_acl">
+					<span class="label"><label for="node.display_permission_group_acl">Display Permission Customer Group:</label></span>
+					<span class="field">
+					<!-- BEGIN: display_permission_group_acl -->
+					<table>
+						<thead>
+							<tr><th>Name</th><th>Privilege</th></tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Everyone</td>
+								<td>
+									<select name="node[display_permission_group_acl][0]" {DISABLE_EMPTY}>
+										<option value="-1" {SELECTED.item_-1}>-</option>
+										<option value="0" {SELECTED.item_0}>Hide (Deny)</option>
+										<option value="1" {SELECTED.item_1}>Show (Allow)</option>
+									</select>
+								</td>
+							</tr>
+							<!-- BEGIN: item --><tr>
+								<td>{GROUP.name|htmlspecialchars}</td>
+								<td>
+									<select name="node[display_permission_group_acl][{GROUP.id}]">
+										<option value="-1" {SELECTED.item_-1}>-</option>
+										<option value="0" {SELECTED.item_0}>Hide (Deny)</option>
+										<option value="1" {SELECTED.item_1}>Show (Allow)</option>
+									</select>
+								</td>
+							</tr><!-- END: item -->
+						</tbody>
+					</table>
+						<!-- BEGIN: empty -->
+						<p>You need to create some customer groups to use group ACL.</p>
+						<!-- END: empty -->
+					<!-- END: display_permission_group_acl -->
+					
 					</span>
 				</div>
 				

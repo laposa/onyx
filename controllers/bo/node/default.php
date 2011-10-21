@@ -36,13 +36,8 @@ class Onxshop_Controller_Bo_Node_Default extends Onxshop_Controller {
 	 */
 	 
 	function save() {
-	
-		//add serialized component to node.content only when content is empty
 		
 		$node_data = $_POST['node']; 
-		$node_data['other_data'] = serialize($node_data['other_data']);
-		$node_data['component'] = serialize($node_data['component']);
-		$node_data['relations'] = serialize($node_data['relations']);
 
 		if ($node_data['publish'] == 'on' || $node_data['publish'] == 1) $node_data['publish'] = 1;
 		else $node_data['publish'] = 0;
@@ -123,6 +118,9 @@ class Onxshop_Controller_Bo_Node_Default extends Onxshop_Controller {
 		if ($this->node_data['display_permission'] > 0) $this->node_data["display_permission_select_{$this->node_data['display_permission']}"] = "selected='selected'";
 		else $this->node_data['display_permission_select_0'] = "selected='selected'";
 		
+		//display_permission_group_acl
+		$this->renderDisplayPersmissionGroupAcl($this->node_data);
+		
 
 		// get the list of node types
 		$Node_type = new nSite("bo/component/node_type_menu~id=0:open={$this->node_data['node_controller']}:node_group={$this->node_data['node_group']}:expand_all=1~");
@@ -130,6 +128,62 @@ class Onxshop_Controller_Bo_Node_Default extends Onxshop_Controller {
 		
 		$this->tpl->assign('NODE', $this->node_data);
 
+	}
+	
+	/**
+	 * renderDisplayPersmissionGroupAcl
+	 */
+	 
+	public function renderDisplayPersmissionGroupAcl($node_data) {
+		
+		require_once('models/client/client_group.php');
+		$ClientGroup = new client_group();
+		$client_group_list = $ClientGroup->listGroups();
+		
+		
+		if (count($client_group_list) > 0) {
+			
+			foreach($client_group_list as $item) {
+				
+				//selected option for each group
+				$selected = array();
+				if (is_array($node_data['display_permission_group_acl'])) {
+				
+					$item_value = $node_data['display_permission_group_acl'][$item['id']];
+					$selected['item_' . $item_value] = 'selected="selected"';
+				
+				} else {
+				
+					$selected['item_-1'] = 'selected="selected"';
+					
+				}
+				
+				$this->tpl->assign("SELECTED", $selected);
+				
+				$this->tpl->assign('GROUP', $item);
+				
+				$this->tpl->parse('content.display_permission_group_acl.item');
+				
+			}
+		
+			
+			//selected option for Everyone
+			$selected = array();
+			if (is_array($node_data['display_permission_group_acl'])) {
+				$item_value = $node_data['display_permission_group_acl'][0];
+				$selected['item_' . $item_value] = 'selected="selected"';
+			} else {
+				$selected['item_-1'] = 'selected="selected"';
+			}
+			$this->tpl->assign("SELECTED", $selected);
+			
+			
+		} else {
+			$this->tpl->assign('DISABLE_EMPTY', 'disabled="disabled"');
+			$this->tpl->parse('content.display_permission_group_acl.empty');
+		}
+		
+		$this->tpl->parse('content.display_permission_group_acl');
 	}
 	
 	/**

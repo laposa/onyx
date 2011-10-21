@@ -42,9 +42,10 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 		 */
 		 
 		require_once('models/common/common_node.php');
-		$Node = new common_node();
+		$this->Node = new common_node();
 		
-		$node_data = $Node->nodeDetail($node_id);
+		$node_data = $this->Node->nodeDetail($node_id);
+		
 		$node_conf = common_node::initConfiguration();
 		
 		if (!is_array($node_data)) {
@@ -76,7 +77,6 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 			msg("Unauthorized access to {$this->request}", 'error', 2);
 			onxshopGoTo(ONXSHOP_DEFAULT_LAYOUT . '.' . ONXSHOP_PAGE_TEMPLATE . '.sys/401', 1);//will exit immediatelly
 		}
-		
 		
 		/**
 		 * force login
@@ -117,33 +117,35 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 		
 		/**
 		 * Substitute constants in the output for logged in users
+		 * TODO: highlight in documentation!
 		 */
 		
 		if ($_SESSION['client']['customer']['id'] > 0) {
-			$node_data = preg_replace("/{CUSTOMER_FIRST_NAME}/", $_SESSION['client']['customer']['first_name'], $node_data);
-			$node_data = preg_replace("/{CUSTOMER_LAST_NAME}/", $_SESSION['client']['customer']['last_name'], $node_data);
-			$node_data = preg_replace("/{CUSTOMER_EMAIL}/", $_SESSION['client']['customer']['email'], $node_data);
+			$node_data['content'] = preg_replace("/{CUSTOMER_FIRST_NAME}/", $_SESSION['client']['customer']['first_name'], $node_data['content']);
+			$node_data['content'] = preg_replace("/{CUSTOMER_LAST_NAME}/", $_SESSION['client']['customer']['last_name'], $node_data['content']);
+			$node_data['content'] = preg_replace("/{CUSTOMER_EMAIL}/", $_SESSION['client']['customer']['email'], $node_data['content']);
 		}
 		
 		/**
-		 * CONDITIONAL DISPLAY OPTION BY display_permission
+		 * check visibility and than display
 		 */
-		 
-		if ($Node->checkDisplayPermission($node_data)) {
+		
+		if ($this->checkVisibility($node_data)) {
 			
-			if ($this->_checkPermissionForCSS()) {
+			if ($this->_checkPermissionForCSS($node_data)) {
+			
 				//TODO: add and icon with status
 				// we cannot add this css_class to normal node.css_class, because of inheritance
 				if ($node_data['display_permission'] == 1) $node_data['extra_css_class'] = $node_data['extra_css_class'] . ' show_at_normal_login';
 				else if ($node_data['display_permission'] == 2) $node_data['extra_css_class'] = $node_data['extra_css_class'] . ' hide_at_normal_login';
 				else if ($node_data['display_permission'] == 3) $node_data['extra_css_class'] = $node_data['extra_css_class'] . ' show_at_trade_login';
 				else if ($node_data['display_permission'] == 4) $node_data['extra_css_class'] = $node_data['extra_css_class'] . ' hide_at_trade_login';
+				if (is_array($node_data['display_permission_group_acl'])) $node_data['extra_css_class'] = $node_data['extra_css_class'] . ' acl_in_use';
 				if ($node_data['publish'] == 0) $node_data['extra_css_class'] = $node_data['extra_css_class'] . ' not_public';
 			}
 			
-			//don't display hidden node in preview mode
-			if ($node_data['publish'] == 0 && $_SESSION['authentication']['authenticity'] > 0 && $_SESSION['fe_edit_mode'] == 'preview' ) return true;
-			else $this->tpl->assign("NODE", $node_data);
+			$this->tpl->assign("NODE", $node_data);
+		
 		}
 		
 		
@@ -178,13 +180,51 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 	}
 	
 	/**
+	 * checkVisibility
+	 */
+	 
+	public function checkVisibility($node_data) {
+	
+		$visibility = false;
+	
+		/**
+		 * CONDITIONAL DISPLAY OPTION BY display_permission
+		 */
+		 
+		if ($this->Node->checkDisplayPermission($node_data)) {
+			//don't display hidden node in preview mode
+			if ($node_data['publish'] == 0 && $_SESSION['authentication']['authenticity'] > 0 && $_SESSION['fe_edit_mode'] == 'preview' ) $visibility1 = false;
+			else $visibility1 = true;
+		}
+		
+		/**
+		 * check permission from group_acl
+		 */
+		 
+		if ($this->Node->checkDisplayPermissionGroupAcl($node_data)) {
+			$visibility2 = true;
+		} else {
+			$visibility2 = false;
+		}
+		
+		if ($visibility1 && $visibility2) return true;
+		else return false;
+	
+	}
+	
+	/**
 	 * check if add CSS highlight
 	 */
 	 
-	public function _checkPermissionForCSS() {
+	public function _checkPermissionForCSS($node_data) {
 	
 		//add css class when in edit or move mode or when logged in, but no fe_edit_mode array set (just after login)
-		if ($_SESSION['authentication']['authenticity'] > 0 && ($_SESSION['fe_edit_mode'] == 'edit' || $_SESSION['fe_edit_mode'] == 'move') || ($_SESSION['authentication']['authenticity'] > 0 && !is_array($_SESSION['fe_edit_mode']))) return true;
+		if (
+			$_SESSION['authentication']['authenticity'] > 0 && ($_SESSION['fe_edit_mode'] == 'edit' || 
+			$_SESSION['fe_edit_mode'] == 'move') || 
+			($_SESSION['authentication']['authenticity'] > 0 && !is_array($_SESSION['fe_edit_mode'])) ||
+			is_array($node_data['display_permission_group_acl'])
+			) return true;
 		else return false;
 		
 	}

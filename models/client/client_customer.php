@@ -177,6 +177,7 @@ class client_customer extends Onxshop_Model {
 		}
 		
 		$data = $this->detail($id);
+		
 		$data['other_data'] = unserialize($data['other_data']);
 		
 		return $data;

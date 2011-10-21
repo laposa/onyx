@@ -67,7 +67,7 @@ div.node.show_at_normal_login {border: 1px dotted red;}
 div.node.hide_at_normal_login {border: 1px dotted green;}
 div.node.show_at_trade_login {border: 1px solid red;}
 div.node.hide_at_trade_login {border: 1px solid green;}
-
+div.acl_in_use {border: 1px dotted red;}
 div.node.not_public {border: 1px solid red;}
 
 
