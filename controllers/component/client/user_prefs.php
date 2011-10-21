@@ -51,9 +51,6 @@ class Onxshop_Controller_Component_Client_User_Prefs extends Onxshop_Controller 
 			//allow to change status
 			$this->tpl->assign("SELECTED_status_{$client_data['customer']['status']}", 'selected="selected"');
 			$this->tpl->parse('content.status');
-			
-			//than display plain password 
-			$this->tpl->parse('content.password_plain');
 		
 			//and allow to change account type
 			$this->tpl->assign("SELECTED_account_type_{$client_data['customer']['account_type']}", 'selected="selected"');
