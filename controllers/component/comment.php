@@ -137,7 +137,7 @@ class Onxshop_Controller_Component_Comment extends Onxshop_Controller {
 	 
 	function insertComment($data, $options = false) {
 		
-		if ($data['submit']) {
+		if ($_POST['save']) {
 		
 			if ($this->checkData($data)) {
 			
@@ -200,7 +200,7 @@ class Onxshop_Controller_Component_Comment extends Onxshop_Controller {
 		 
 		if ($_SESSION['client']['customer']['id'] || $options['allow_anonymouse_submit']) {
 			
-			if ($data['submit']) {
+			if ($_POST['save']) {
 			
 				/**
 				 * insert comment
