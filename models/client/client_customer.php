@@ -231,7 +231,8 @@ class client_customer extends Onxshop_Model {
 		$customer_data['agreed_with_latest_t_and_c'] = 1;
 		$customer_data['verified_email_address'] = 0;
 		if (!is_numeric($customer_data['newsletter'])) $customer_data['newsletter'] = 0;
-
+		$customer_data['password'] = md5($customer_data['password']);
+		
 		$this->setAll($customer_data);
 	
 		if (!$this->checkLoginId($customer_data)) return false;
@@ -422,7 +423,7 @@ class client_customer extends Onxshop_Model {
 				 
 				$this->update($customer_data);
 				
-				msg("Registration of customer id $id was successful.", 'ok', 1);
+				msg("client_customer.registerCustomer() of customer ID $id was successful.", 'ok', 1);
 				
 				return $id;
 			} else {
@@ -489,6 +490,10 @@ class client_customer extends Onxshop_Model {
 			$customer_data['password'] = $client_current_data['password'];
 		}
 	
+		//remove password_new before update
+		unset($customer_data['password_new']);
+		unset($customer_data['password_new1']);
+		
 		//this allows use customer data and company data in the mail template
 		//is passed as DATA to template in common_email_form->_format
 		$GLOBALS['common_email_form']['customer'] = $customer_data;
@@ -653,13 +658,15 @@ class client_customer extends Onxshop_Model {
 	 
 	function updatePassword($password, $password_new, $password_new1, $client_current_data) {
 	
-		if ($password == $client_current_data['password']) {
+		if (md5($password) == $client_current_data['password']) {
+			
 			if ($password_new == $password_new1) {
+			
 				$password = $password_new;
 				msg('Passwords match.', 'ok', 2);
 				
 				$customer_data = $client_current_data;
-				$customer_data['password'] = $password;
+				$customer_data['password'] = $password; //keep clean, not MD5
 				
 				//send email
 				require_once('models/common/common_email_form.php');
@@ -670,7 +677,8 @@ class client_customer extends Onxshop_Model {
     			//is passed as DATA to template in common_email_form->_format
     			$GLOBALS['common_email_form']['customer'] = $customer_data;
     			
-    			$client_current_data['password'] = $password;
+    			//hash password using md5 here
+    			$client_current_data['password'] = md5($password);
     			
 				if ($this->update($client_current_data)) {
 				 	if (!$EmailForm->sendEmail('change_password', 'n/a', $customer_data['email'], $customer_data['first_name'] . " " . $customer_data['last_name'])) {

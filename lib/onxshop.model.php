@@ -135,7 +135,7 @@ class Onxshop_Model {
 				if (key_exists($key, $data)) {
 					$this->set($key, $data[$key]);
 				} else if ($this->_hashMap[$key]['required'] == true) {
-					msg("{$this->_class_name} key $key is missing", 'error');
+					msg("{$this->_class_name} key $key is required, but not set", 'error', 1);
 				}
 			}
 		} else {
@@ -465,14 +465,21 @@ class Onxshop_Model {
 				
 				$this->db->insert($this->_class_name, $data);	
 				
-				/**
-				 * PostgreSQL returns the OID from lastInsertId
-				 */
-				 
-				if (ONXSHOP_DB_TYPE == 'pgsql') {
-					$id = $this->db->lastInsertId($this->_class_name, "id");
+				if (is_numeric($data['id'])) {
+				
+					$id = $data['id'];
+				
 				} else {
-					$id = $this->db->lastInsertId();
+				
+					/**
+					 * PostgreSQL returns the OID from lastInsertId
+					 */
+					 
+					if (ONXSHOP_DB_TYPE == 'pgsql') {
+						$id = $this->db->lastInsertId($this->_class_name, "id");
+					} else {
+						$id = $this->db->lastInsertId();
+					}
 				}
 				
 				msg("Inserting of record id:{$id} into {$this->_class_name} has been successful.", 'ok', 2);
@@ -482,7 +489,7 @@ class Onxshop_Model {
 			} catch (Exception $e) {
 				
 				msg($e->getMessage(), 'error', 1);
-				msg("Insert to {$this->_class_nam} failed: " . print_r($this->db->getConnection()->errorInfo(), true), 'error', 1);
+				msg("Insert to {$this->_class_name} failed: " . print_r($this->db->getConnection()->errorInfo(), true), 'error', 1);
 				
 				return false;
 			}

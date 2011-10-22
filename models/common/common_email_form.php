@@ -187,13 +187,25 @@ class common_email_form extends Onxshop_Model {
 		$email_data['name_recipient'] = $name_recipient;
 		$email_data['created'] = date('c');
 		$email_data['ip'] = $_SERVER['REMOTE_ADDR'];
+		
+		//temp
+		$this->set('content', $email_data['content']);
+		$this->set('email_from', $email_data['email_from']);
+		$this->set('name_from', $email_data['name_from']);
+		$this->set('template', $email_data['template']);
+		$this->set('email_recipient', $email_data['email_recipient']);
+		$this->set('name_recipient', $email_data['name_recipient']);
+		$this->set('created', $email_data['created']);
+		$this->set('ip', $email_data['ip']);
  	
- 		$this->setAll($email_data);
- 
+ 		//$this->setAll($email_data);
+ 		
 		if ($this->getValid()) {
 		
 			if ($this->send()) {
-		
+				//temp
+				$email_data['subject'] = $this->get('subject');
+				
 				if ($this->insert($email_data)) {
 					return true;
 				} else {

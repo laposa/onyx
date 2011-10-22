@@ -485,7 +485,9 @@ ORDER BY ecommerce_order.id DESC
 			}
 			
 			//descrement stock
-			$decrement_stock = $this->decrementStock($id);
+			//$decrement_stock = $this->decrementStock($id);
+			//FUNCTIONALITY DISABLED, it needs big review and it shouldn't be at this place anyway!
+			$decrement_stock = 0;
 			
 			if  ($decrement_stock > 0) {
 				return false;
@@ -500,7 +502,6 @@ ORDER BY ecommerce_order.id DESC
 	    		
 	    		$order_data = $this->getOrder($id);
 
-	    		
 	    		$_nSite = new nSite("component/ecommerce/order_detail~order_id={$order_data['id']}~");
 				$order_data['order_detail'] = $_nSite->getContent();
 		
