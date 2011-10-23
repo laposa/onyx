@@ -480,7 +480,12 @@ class client_customer extends Onxshop_Model {
 	
 		$client_current_data = $this->detail($customer_data['id']);
 		
+		/**
+		 * update password
+		 */
+		 
 		if (strlen($customer_data['password_new']) > 0) {
+		
 			if ($this->updatePassword($customer_data['password'], $customer_data['password_new'], $customer_data['password_new1'], $client_current_data)) {
 				$customer_data['password'] = $customer_data['password_new'];
 			} else {
@@ -489,24 +494,31 @@ class client_customer extends Onxshop_Model {
 		} else {
 			$customer_data['password'] = $client_current_data['password'];
 		}
-	
-		//remove password_new before update
-		unset($customer_data['password_new']);
-		unset($customer_data['password_new1']);
 		
 		//this allows use customer data and company data in the mail template
 		//is passed as DATA to template in common_email_form->_format
 		$GLOBALS['common_email_form']['customer'] = $customer_data;
 
+		//remove password attributes before update as password is already updated
+		unset($customer_data['password']);
+		unset($customer_data['password_new']);
+		unset($customer_data['password_new1']);
+		
+		/**
+		 * update remaining attributes
+		 */
+		 
 		if ($this->update($customer_data)) {
+		
 			//send email
 			require_once('models/common/common_email_form.php');
 			$EmailForm = new common_email_form();
+			
 			//notify to new details	
 			if (!$EmailForm->sendEmail('customer_data_updated', 'n/a', $customer_data['email'], $customer_data['first_name'] . " " . $customer_data['last_name'])) {
 				msg('Customer data updated email sending failed.', 'error');
 			} else {
-			//msg('Sent');
+				//msg('Sent');
 			}
 
 			//if email changed, send notify to old email as well
@@ -658,7 +670,8 @@ class client_customer extends Onxshop_Model {
 	 
 	function updatePassword($password, $password_new, $password_new1, $client_current_data) {
 	
-		if (md5($password) == $client_current_data['password']) {
+		//hacked for resetPassword() function which is already md5
+		if (md5($password) == $client_current_data['password'] || $password == $client_current_data['password']) {
 			
 			if ($password_new == $password_new1) {
 			
