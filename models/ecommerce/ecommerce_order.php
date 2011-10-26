@@ -129,8 +129,10 @@ class ecommerce_order extends Onxshop_Model {
 	 */
 	
 	function getFullDetail($id) {
+	
 		if (!is_numeric($id)) return false;
 		return $this->getOrder($id);
+	
 	}
 	
 	/**
@@ -402,6 +404,11 @@ ORDER BY ecommerce_order.id DESC
 	 
 	function setStatus($order_id, $status) {
 	
+		if (!is_numeric($order_id) || !is_numeric($status)) {
+			msg("ecommerce_order->setStatus(): order_id or status isn't numeric");
+			return false;
+		}
+		
 		// update
 		$order_data['id'] = $order_id;
 		$order_data['status'] = $status;
@@ -415,7 +422,26 @@ ORDER BY ecommerce_order.id DESC
 		$log_data['datetime'] = date('c');
 		$OrderLog->insert($log_data);
 		
-		//invoice management
+		$this->orderStatusChangeAction($order_id, $status);
+		
+		return true;
+	}
+	
+	/**
+	 * orderStatusChangeAction
+	 */
+	 
+	public function orderStatusChangeAction($order_id, $status) {
+	
+		if (!is_numeric($order_id) || !is_numeric($status)) {
+			msg("ecommerce_order->orderStatusChangeAction(): order_id or status isn't numeric");
+			return false;
+		}
+		
+		/**
+		 * invoice management
+		 */
+		 
 		require_once('models/ecommerce/ecommerce_invoice.php');
 		$Invoice = new ecommerce_invoice();
 		$Invoice->setCacheable(false);
@@ -425,10 +451,20 @@ ORDER BY ecommerce_order.id DESC
 			$Invoice->createNormalInvoice($order_id);
 		} else if ($status == 4) {
 			//mark invoice as cancelled
-			$Invoice->cancelInvoice($order_id);
-			
+			$Invoice->cancelInvoice($order_id);	
 		}
+		
+		/**
+		 * customer actions configurable per customer in controllers/
+		 * calling controllers from model isn't exactly my concept of MVC, let's see it as a HACK for now
+		 */
+		 
+		$_nSite = new nSite("component/ecommerce/order_status_change_action~order_id={$order_id}:status={$status}~");
+		
+		return true;
+		
 	}
+	
 	
 	/**
 	 * check order status
@@ -436,14 +472,18 @@ ORDER BY ecommerce_order.id DESC
 	 */
 	
 	function checkOrderStatusValidForPayment($status) {
+	
 		if (!is_numeric($status)) return false;
 		
 		if ($status == 1 || $status == 2 || $status == 3 || $status == 4) {
+		
 			msg("Ecommerce_order: Can't process order in status New (paid), Dispatched, Completed, Cancelled", 'error', 2);
-			
 			return false;
+		
 		} else {
+		
 			return true;
+		
 		}
 
 	}
@@ -529,26 +569,15 @@ ORDER BY ecommerce_order.id DESC
 
 	function insertDelivery($order_data) {
 		
-		//get basket content
+		//calculate delivery price
 		require_once('models/ecommerce/ecommerce_basket.php');
 		$Basket = new ecommerce_basket();
 		$Basket->setCacheable(false);
-		$basket_content = $Basket->getContent($order_data['basket_id']);
+		$delivery = $Basket->calculateDelivery($order_data['basket_id'], $order_data['delivery_address_id'], $order_data['other_data']['delivery_options'], $order_data['other_data']['promotion_code']);
 		
-		//find promotion data for delivery calculation
-		if ($order_data['other_data']['promotion_code']) {
-			require_once('models/ecommerce/ecommerce_promotion.php');
-			$Promotion = new ecommerce_promotion();
-			$customer_id = $basket_content['customer_id'];
-			$promotion_data = $Promotion->checkCodeBeforeApply($order_data['other_data']['promotion_code'], $customer_id);
-		} else {
-			$promotion_data = false;
-		}
-		
-		//calculate delivery
+		//prepare object
 		require_once('models/ecommerce/ecommerce_delivery.php');
 		$Ecommerce_Delivery = new ecommerce_delivery();
-		$delivery = $Ecommerce_Delivery->calculateDelivery($basket_content, $order_data['delivery_address_id'], $order_data['other_data']['delivery_options'], $promotion_data);
 		
 		//format data
 		$delivery_data['order_id'] = $order_data['id'];
@@ -566,6 +595,8 @@ ORDER BY ecommerce_order.id DESC
 		if ($id = $Ecommerce_Delivery->insertDelivery($delivery_data)) return $id;
 		else return false;
 	}
+	
+	
 
 	
 	/**
@@ -850,10 +881,12 @@ LEFT OUTER JOIN ecommerce_price ON (ecommerce_price.id = ecommerce_basket_conten
 	 */
 	
 	function getInvoiceDetail($order_id) {
+		
 		if (!is_numeric($order_id)) return false;
 		
 		require_once('models/ecommerce/ecommerce_invoice.php');
 		$Invoice = new ecommerce_invoice();
+		$Invoice->setCacheable(false);
 		
 		$invoice_detail = $Invoice->getInvoiceForOrder($order_id);
 		
@@ -866,8 +899,12 @@ LEFT OUTER JOIN ecommerce_price ON (ecommerce_price.id = ecommerce_basket_conten
 	 */
 	 
 	function getTransactionDetail($order_id) {
+		
+		if (!is_numeric($order_id)) return false;
+		
 		require_once('models/ecommerce/ecommerce_transaction.php');
 		$Transaction = new ecommerce_transaction();
+		$Transaction->setCacheable(false);
 		
 		$transaction_list = $Transaction->getListForOrderId($order_id);
 		
