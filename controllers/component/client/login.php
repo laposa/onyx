@@ -51,7 +51,8 @@ class Onxshop_Controller_Component_Client_Login extends Onxshop_Controller {
 				
 					if(isset($_POST['autologin'])){
 						setcookie("autologin_username", $_SESSION['client']['customer']['email'], time()+60*60*24*100, "/");
-						setcookie("autologin_md5_password", md5($_SESSION['client']['customer']['password']), time()+60*60*24*100, "/");
+						//passwords are already md5 in the database
+						setcookie("autologin_md5_password", $_SESSION['client']['customer']['password'], time()+60*60*24*100, "/");
 					}
 				} else {
 					msg('Login failed.  Please try again.', 'error');

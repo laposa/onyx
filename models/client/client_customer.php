@@ -200,8 +200,8 @@ class client_customer extends Onxshop_Model {
 		// address details
 		require_once('models/client/client_address.php');
 		$Address = new client_address();
-		if (is_numeric($client['customer']['delivery_address_id'])) $client['address']['delivery'] = $Address->detail($client['customer']['delivery_address_id']);
-		if (is_numeric($client['customer']['invoices_address_id'])) $client['address']['invoices'] = $Address->detail($client['customer']['invoices_address_id']);
+		if (is_numeric($client['customer']['delivery_address_id'])) $client['address']['delivery'] = $Address->getDetail($client['customer']['delivery_address_id']);
+		if (is_numeric($client['customer']['invoices_address_id'])) $client['address']['invoices'] = $Address->getDetail($client['customer']['invoices_address_id']);
 		
 		// company details
 		if ($client['customer']['company_id'] > 0) {
