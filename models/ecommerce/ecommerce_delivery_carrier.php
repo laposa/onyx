@@ -114,6 +114,22 @@ class ecommerce_delivery_carrier extends Onxshop_Model {
 		
 		return $detail;
 	}
+	
+	/**
+	 * get list
+	 */
+
+	function getList($where = '', $order = 'id ASC', $limit = '') {
+	
+		$list = $this->listing($where, $order, $limit);
+		
+		foreach ($list as $k=>$item) {
+			$list[$k]['free_delivery_map'] = unserialize($item['free_delivery_map']);
+		}
+		
+		return $list;
+	}
+
 		
 	/**
 	 * calculate delivery
@@ -356,7 +372,7 @@ class ecommerce_delivery_carrier extends Onxshop_Model {
 			
 					$diff = $free_delivery_value - $goods_net;
 					$diff = money_format('%n', $diff);
-					msg("Spend another $diff and your delivery will be free!", 'ok', 1);
+					msg("Spend another $diff and your delivery using {$carrier_detail['title']} will be free!", 'ok', 1);
 			
 					return false;
 			

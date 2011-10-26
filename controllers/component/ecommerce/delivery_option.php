@@ -56,7 +56,7 @@ class Onxshop_Controller_Component_Ecommerce_Delivery_Option extends Onxshop_Con
 		 * get available options
 		 */
 		
-		$carrier_list = $Delivery_carrier->listing("publish = 1", "priority DESC, id ASC");
+		$carrier_list = $Delivery_carrier->getList("publish = 1", "priority DESC, id ASC");
 		
 		foreach ($carrier_list as $carrier) {
 				if ($carrier['limit_list_countries']) {
@@ -70,6 +70,7 @@ class Onxshop_Controller_Component_Ecommerce_Delivery_Option extends Onxshop_Con
 		/**
 		 * check if isn't choosen unsuported delivery method
 		 */
+		 
 		if (is_numeric($options['carrier_id'])) {
 			$selected_carrier_detail = $Delivery_carrier->detail($options['carrier_id']);
 			if ($selected_carrier_detail['limit_list_countries']) {
@@ -80,13 +81,37 @@ class Onxshop_Controller_Component_Ecommerce_Delivery_Option extends Onxshop_Con
 			}
 		}
 		
+		
+		/**
+		 * add delivery price information
+		 */
+		
+		foreach ($delivery_option_type as $k=>$item) {
+			
+			$delivery_option_type[$k]['calculated_delivery'] = $this->calculateDeliveryForCarrierId($item['id']);
+		
+		}
+		
+		/**
+		 * force to delivery method which is last in the list and is free (should be best best available)
+		 */
+		
+		foreach ($delivery_option_type as $k=>$item) {
+			
+			if ($item['calculated_delivery']['value'] == 0) $options['carrier_id'] = $item['id'];
+		
+		}
+		
+		
 		/**
 		 * Display
 		 */
 		
 		foreach ($delivery_option_type as $item) {
+			
 			if ($item['id'] == $options['carrier_id']) $item['selected'] = "checked='checked'";
 			else $item['selected'] = '';
+			
 			$this->tpl->assign("ITEM", $item);
 			$this->tpl->parse('content.item');
 		}
@@ -99,5 +124,28 @@ class Onxshop_Controller_Component_Ecommerce_Delivery_Option extends Onxshop_Con
 		$_SESSION['delivery_options'] = $options;
 
 		return true;
+	}
+	
+	/**
+	 * calculate delivery
+	 */
+	 
+	public function calculateDeliveryForCarrierId($carrier_id) {
+		
+		$basket_id = $_SESSION['basket']['id'];
+		$delivery_address_id = $_SESSION['client']['customer']['delivery_address_id'];
+		$delivery_options = array('carrier_id'=>$carrier_id);
+		$promotion_code = $_SESSION['promotion_code'];
+		
+		/**
+		 * prepare for delivery pre-calculation
+		 */
+		 
+		require_once('models/ecommerce/ecommerce_basket.php');
+		$Basket = new ecommerce_basket();
+		
+		$delivery = $Basket->calculateDelivery($basket_id, $delivery_address_id, $delivery_options, $promotion_code);
+		
+		return $delivery;
 	}
 }

@@ -399,4 +399,33 @@ class ecommerce_basket extends Onxshop_Model {
 			return false;
 		}
 	}
+	
+	/**
+	 * calculateDelivery
+	 */
+	 
+	function calculateDelivery($basket_id, $delivery_address_id, $delivery_options, $promotion_code = false) {
+		
+		//get basket content
+		$basket_content = $this->getContent($basket_id);
+		
+		//find promotion data for delivery calculation
+		if ($promotion_code) {
+			require_once('models/ecommerce/ecommerce_promotion.php');
+			$Promotion = new ecommerce_promotion();
+			$customer_id = $basket_content['customer_id'];
+			$promotion_data = $Promotion->checkCodeBeforeApply($promotion_code, $customer_id);
+		} else {
+			$promotion_data = false;
+		}
+		
+		//calculate delivery
+		require_once('models/ecommerce/ecommerce_delivery.php');
+		$Ecommerce_Delivery = new ecommerce_delivery();
+		$delivery = $Ecommerce_Delivery->calculateDelivery($basket_content, $delivery_address_id, $delivery_options, $promotion_data);
+		
+		return $delivery;
+		
+	}
+	
 }
