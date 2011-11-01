@@ -14,12 +14,12 @@
 				/* <![CDATA[ */
 				$(function() {
 					$("#sliderUI").slider({
-						value: $('#node-layout_style').attr("selectedIndex"),
+						value: $('#node-layout_style').prop("selectedIndex"),
 						min: 0,
 						max: $('#node-layout_style').children().length - 1,
 						step: 1,
 						slide: function(event, ui) { 
-							$('#node-layout_style').attr("selectedIndex", ui.value);
+							$('#node-layout_style').prop("selectedIndex", ui.value);
 							$("#layout_style_preview").attr("class", "twoColumnLayout layout " + $('#node-layout_style').val());
 						},
 						start: function(event, ui) {
@@ -31,7 +31,7 @@
 					});
 					
 					$("#node-layout_style").bind("change", function() {
-						$("#sliderUI").slider({value: $('#node-layout_style').attr("selectedIndex")});
+						$("#sliderUI").slider({value: $('#node-layout_style').prop("selectedIndex")});
 						$("#layout_style_preview").attr("class", "twoColumnLayout layout " + $('#node-layout_style').val());
 					});
 					
