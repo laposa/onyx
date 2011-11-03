@@ -47,7 +47,9 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Customer_Filter extends Onxshop_
 			$_SESSION['customer-filter'] = array();
 			$_SESSION['customer-filter']['invoice_status'] = 0;
 			$_SESSION['customer-filter']['account_type'] = -1;
-		} 
+		}
+		
+		if (trim($_SESSION['customer-filter']['group_name']) == '') $_SESSION['customer-filter']['group_name'] = 'Your new group name';
 		
 		/**
 		 * if submitted save, only process save action and don't display form (exit here)
@@ -154,7 +156,9 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Customer_Filter extends Onxshop_
 	 */
 	 
 	public function getGroupFilter($group_id) {
-	
+		
+		if (!is_numeric($group_id) || $group_id < 1) return false;
+		
 		require_once('models/client/client_group.php');
 		$ClientGroup = new client_group();
 		
