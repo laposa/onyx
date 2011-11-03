@@ -11,13 +11,13 @@ function tinyMCEinit() {
 		theme_advanced_toolbar_location : "top",
 		theme_advanced_toolbar_align : "left",
 		remove_linebreaks : false,
-		cleanup_on_startup : true,/*this option was removed in 3.4*/
 		content_css: "/share/css/tinymce.css",
 		apply_source_formatting : true,
 		convert_fonts_to_spans : true,
 		gecko_spellcheck : true, 
-		invalid_elements : "span,div,form,input,label,button,script,font",
+		invalid_elements : "div,form,input,label,button,script,font", /*BUG: when "span" is here, than image insert doesn't work*/
 		verify_css_classes : false,
+		verify_html : true,
 		inline_styles : true,
 		fix_list_elements : true,
 		fix_table_elements : true,
@@ -25,18 +25,15 @@ function tinyMCEinit() {
 		relative_urls : false,
 		remove_script_host : true,
 		document_base_url : "{BASE_URI}/",
-		plugins : "table,save,advhr,advimage,advlink,emotions,iespell,insertdatetime,preview,searchreplace,print,contextmenu,loremipsum,inlinepopups,fullscreen,paste,media",
+		plugins : "table,advimage,advlink,iespell,preview,searchreplace,print,contextmenu,loremipsum,inlinepopups,fullscreen,paste,media",
 		theme_advanced_buttons2_add : "media,fullscreen",
 		theme_advanced_buttons3_add_before : "tablecontrols,separator",
 		theme_advanced_buttons3_add : "blockquote,separator,loremipsum,pastetext,pasteword,selectall",
 		advlink_styles: "Arrow=arrow",/*for Insert/edit links*/
-		plugin_insertdate_dateFormat : "%Y-%m-%d",
-		plugin_insertdate_timeFormat : "%H:%M:%S",
 		file_browser_callback : "onxshopFileBrowserCallBack",
 		paste_auto_cleanup_on_paste : true,
 		paste_strip_class_attributes : "all",
-		paste_use_dialog : false,
-		table_cell_styles : "Odd=odd;"
+		paste_use_dialog : false
 	});
 }
 
