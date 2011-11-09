@@ -5,6 +5,14 @@ vi conf/deployment.php:
 rename GLOBAL_MAIN_DOMAIN to ONXSHOP_MAIN_DOMAIN in conf/deployment.php
 rename GLOBAL_ONXSHOP_DIR to ONXSHOP_DIR in conf/deployment.php
 rename GLOBAL_PROJECT_DIR to ONXSHOP_PROJECT_DIR in conf/deployment.php
+
+rename DATABASE_TYPE to ONXSHOP_DB_TYPE in conf/deployment.php
+rename DATABASE_USER to ONXSHOP_DB_USER in conf/deployment.php
+rename DATABASE_PASSWORD to ONXSHOP_DB_PASSWORD in conf/deployment.php
+rename DATABASE_HOST to ONXSHOP_DB_HOST in conf/deployment.php
+rename DATABASE_PORT to ONXSHOP_DB_PORT in conf/deployment.php
+rename DATABASE_NAME to ONXSHOP_DB_NAME in conf/deployment.php
+
 rename or remove AUTH_TYPE to ONXSHOP_AUTH_TYPE
 rename or remove AUTH_SERVER to ONXSHOP_AUTH_SERVER
 rename or remove EDITOR_USERNAME to ONXSHOP_EDITOR_USERNAME
@@ -27,3 +35,5 @@ rename XSITE_REQUEST to ONXSHOP_REQUEST
 rename nx_messages to onxshop_messages
 rename nx_error_msg to onxshop_error_msg
 rename nx_ok_msg to onxshop_ok_msg
+
+if .htaccess was locally modified, than merge manually
