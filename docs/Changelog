@@ -1,5 +1,7 @@
 Onxshop (1.5.0/dev)
 
+  * make component/ecommerce/checkout_gift_wrap using newly created conf option 
+    for gift wrap (ecommerce_product.gift_wrap_product_id) 
   * move rarely used options from project_skeleton/conf/deployment.php to conf/global.php
   * improve wording in password change notification email
   * use sys/html5 template by default

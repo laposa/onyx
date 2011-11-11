@@ -66,6 +66,20 @@ class ecommerce_product extends Onxshop_Model {
 	);
 	
 	/**
+	 * init configuration
+	 */
+	 
+	static function initConfiguration() {
+	
+		if (array_key_exists('ecommerce_product', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['ecommerce_product'];
+		else $conf = array();
+
+		if (!is_numeric($conf['gift_wrap_product_id'])) $conf['gift_wrap_product_id'] = 0; //set to numeric id > 0, to enable gift wrap option on checkout
+	
+		return $conf;
+	}
+	
+	/**
 	 * insert product
 	 */
 	 

@@ -17,21 +17,55 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Gift_Wrap extends Onxshop_
 	public function mainAction() {
 	
 		/**
+		 * get product conf
+		 */
+		 
+		require_once('models/ecommerce/ecommerce_product.php');
+		$ecommerce_product_conf = ecommerce_product::initConfiguration();
+		
+		/**
+		 * check gift wrap product ID is set
+		 */
+		 
+		if (!is_numeric($ecommerce_product_conf['gift_wrap_product_id']) || $ecommerce_product_conf['gift_wrap_product_id']  == 0) {
+			
+			msg("You need to create ecommerce_product.gift_wrap_product_id conf option to use gift wrap component", 'error');
+			
+			return true;
+		}
+		
+		/**
 		 * get gift wrap product detail
 		 */
 		 
-	 	$gift_wrap_products = $this->getGiftWrapProductDetail();
+	 	$gift_wrap_product_detail = $this->getGiftWrapProductDetail($ecommerce_product_conf['gift_wrap_product_id']);
 	 	
+	 	/**
+	 	 * display each option
+	 	 */
 	 	
-	 	foreach ($gift_wrap_products as $item) {
+	 	foreach ($gift_wrap_product_detail['variety'] as $variety) {
 	 		
-	 		$this->tpl->assign('ITEM', $item);
-	 	
+	 		/**
+	 		 * image
+	 		 */
+	 		 
+	 		//$_nSite = new nSite("component/image~relation=product_variety:node_id={$variety['id']}:limit=0,1~");
+	 		//$this->tpl->assign('IMAGE', $_nSite->getContent());
+	 		
+	 		$variety['image'] = $this->getImage($variety['id']);
+	 		
+	 		/**
+	 		 * assign to template
+	 		 */
+	 		 
+	 		$this->tpl->assign('ITEM', $variety);
+	 		
 			/**
 			 * check if gift wrap is in the basket
 			 */
 			 
-			$gift_selected= $this->checkGiftWrapSelected($item['variety_id']);
+			$gift_selected= $this->checkGiftWrapSelected($variety['id']);
 			
 			/**
 			 * display checked gift wrap
@@ -53,25 +87,14 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Gift_Wrap extends Onxshop_
 	 * get gift wrap product detail
 	 */
 	
-	public function getGiftWrapProductDetail() {
+	public function getGiftWrapProductDetail($gift_wrap_product_id) {
 		
-		$detail['product_id'] = 238;
-		$detail['variety_id'] = 380;
-		$detail['price_gross'] = 2.10;
-		$detail['image'] = 'var/files/products/gift_wrap.png';
-		$detail['title'] = 'JING Gift Wrap';
+		$Product = new ecommerce_product();
 		
-		$gift_wrap_products[] = $detail;
+		$gift_wrap_product_detail = $Product->getProductDetail($gift_wrap_product_id);
 		
-		$detail['product_id'] = 238;
-		$detail['variety_id'] = 686;
-		$detail['price_gross'] = 2.10;
-		$detail['image'] = 'var/files/Packs/11065KH_Giftbox1.jpg';
-		$detail['title'] = 'JING Gift Bag';
-		
-		$gift_wrap_products[] = $detail;
-		
-		return $gift_wrap_products;
+		return $gift_wrap_product_detail;
+				
 	}
 	
 		
@@ -91,4 +114,18 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Gift_Wrap extends Onxshop_
 		else return false;
 	}
 	
+	/**
+	 * get image
+	 */
+	 
+	public function getImage($variety_id) {
+	
+		require_once('models/ecommerce/ecommerce_product_variety_image.php');
+		$Image = new ecommerce_product_variety_image();
+		
+		$image_list = $Image->listing("node_id=$variety_id", "priority DESC, id ASC");
+		
+		return $image_list[0];
+				
+	}
 }
