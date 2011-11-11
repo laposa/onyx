@@ -92,16 +92,6 @@ class Onxshop_Controller_Component_Ecommerce_Delivery_Option extends Onxshop_Con
 		
 		}
 		
-		/**
-		 * force to delivery method which is last in the list and is free (should be best best available)
-		 */
-		
-		foreach ($delivery_option_type as $k=>$item) {
-			
-			if ($item['calculated_delivery']['value'] == 0) $options['carrier_id'] = $item['id'];
-		
-		}
-		
 		
 		/**
 		 * Display
