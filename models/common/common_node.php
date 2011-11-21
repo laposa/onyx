@@ -1310,22 +1310,25 @@ class common_node extends Onxshop_Model {
 	function updateSingleAttribute($attribute, $update_value, $id) {
 	
 		switch ($attribute) {
+			
 			case 'parent':
 				//safety check
 				if ($id == $update_value) {
 					msg("common_node: parent cannot be identical to id", 'error');
 					return false;
 				}
-				
-				$data = $this->detail($id);
+				$data = $this->getDetail($id);
+				unset($data['author_detail']);
 				if (is_array($data)) {
 					$data['parent'] = $update_value;
 					if ($this->nodeUpdate($data)) return true;
 					else return false;
 				}
 			break;
+			
 			case 'parent_container':
-				$data = $this->detail($id);
+				$data = $this->getDetail($id);
+				unset($data['author_detail']);
 				if (is_array($data)) {
 					$data['parent_container'] = $update_value;
 					if ($this->nodeUpdate($data)) return true;
@@ -1334,10 +1337,11 @@ class common_node extends Onxshop_Model {
 			break;
 			
 			case 'priority':
-				$data = $this->detail($id);
+				$data = $this->getDetail($id);
+				unset($data['author_detail']);
 				if (is_array($data)) {
 					$data['priority'] = $update_value;
-					if ($this->update($data)) return true;
+					if ($this->nodeUpdate($data)) return true;
 					else return false;
 				}
 			break;
