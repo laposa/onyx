@@ -154,10 +154,18 @@ class ecommerce_product extends Onxshop_Model {
 		}
 		
 		/**
+		 * prepare core product data
+		 */
+		
+		$product_data = array();
+		$product_data['name'] = $data['name'];
+		$product_data['product_type_id'] = $data['product_type_id'];
+
+		/**
 		 * insert
 		 */
-		 	
-		if ($product_id = $this->insertProduct($data)) {
+				
+		if ($product_id = $this->insertProduct($product_data)) {
 		
 			require_once('models/ecommerce/ecommerce_product_variety.php');
 		

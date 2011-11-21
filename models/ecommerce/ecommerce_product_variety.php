@@ -223,10 +223,22 @@ class ecommerce_product_variety extends Onxshop_Model {
 		if (!is_numeric($data['weight'])) $data['weight'] = $data['weight_gross'];
 		
 		/**
+		 * prepare core variety data
+		 */
+		 
+		$variety_data = array();
+		$variety_data['product_id'] = $data['product_id'];
+		$variety_data['name'] = $data['name'];
+		$variety_data['sku'] = $data['sku'];
+		$variety_data['weight_gross'] = $data['weight_gross'];
+		$variety_data['weight'] = $data['weight'];
+		$variety_data['stock'] = $data['stock'];
+		
+		/**
 		 * insert
 		 */
 		
-		if($product_variety_id = $this->insertVariety($data)) {
+		if($product_variety_id = $this->insertVariety($variety_data)) {
 		
 			require_once('models/ecommerce/ecommerce_price.php');
 			
