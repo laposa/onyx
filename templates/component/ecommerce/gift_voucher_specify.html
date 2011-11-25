@@ -1,0 +1,68 @@
+<!-- BEGIN: content -->
+<script type="text/javascript">
+$(function(){
+	$("#gift_voucher_specify").validate();
+	$("#gift_voucher_specify-variety_id").change(function() {
+		var variety_name = $("#gift_voucher_specify-variety_id option:selected").text();
+		if ($(this).val() != '') $("#gift_voucher-variety_name").text(variety_name);
+		else $("#gift_voucher-variety_name").text("£XX");
+		var variety_description = $("#gift_voucher_specify-variety_id option:selected").attr('title');
+		$("#gift_voucher-variety_description").text(variety_description);
+	});
+	
+	$("#gift_voucher_specify input, #gift_voucher_specify textarea").keyup(function() {
+		var id = $(this).attr('id');
+		target_id = id.replace('gift_voucher_specify', 'gift_voucher');
+		var value = $(this).val();
+		if (value == '') {
+			$("#" + target_id).text('[Enter]');
+		} else {
+			$("#" + target_id).text(value);
+		}
+	});
+});
+</script>
+
+<div class="gift_voucher_specify_specify">
+	<div class="gift_voucher_specify_wrapper">
+		<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+		<form class="gift_voucher_specify" id="gift_voucher_specify" action="{URI}#node_id_{GET.node_id}" method="post">
+			<fieldset class="single">	
+				<div class="row amount">
+					<span class="label"><label for="gift_voucher_specify-variety_id"><span class="mandatory-mark">*</span>Select amount</label></span>
+					<span class="field">
+						<select name="gift_voucher_specify[variety_id]" id="gift_voucher_specify-variety_id" class="required numeric">
+							<option value="">Please select value</option>
+							<!-- BEGIN: item --><option value="{ITEM.id}" title="{ITEM.description|strip_tags|htmlspecialchars}" {SELECTED}>{ITEM.name|htmlspecialchars}</option><!-- END: item -->
+						</select>
+					</span>
+				</div>
+				<div class="row recipient_name">
+					<span class="label"><label for="gift_voucher_specify-recipient_name"><span class="mandatory-mark">*</span>Recipient's name:</label></span>
+					<span class="field"><input type="text" id="gift_voucher_specify-recipient_name" name="gift_voucher_specify[recipient_name]" value="{GIFT_VOUCHER.recipient_name|htmlspecialchars}" class="required text" maxlength="45" /></span>
+				</div>
+				<div class="row recipient_email">
+					<span class="label"><label for="gift_voucher_specify-recipient_email"><span class="mandatory-mark">*</span>Recipient's email:</label></span>
+					<span class="field"><input type="text" id="gift_voucher_specify-recipient_email" name="gift_voucher_specify[recipient_email]" value="{GIFT_VOUCHER.recipient_email|htmlspecialchars}" class="required text email" maxlength="45" /></span>
+				</div>	
+				<div class="row recipient_email_repeat">
+					<span class="label"><label for="gift_voucher_specify-recipient_email_repeat"><span class="mandatory-mark">*</span>Confirm recipient's email:</label></span>
+					<span class="field"><input type="text" id="gift_voucher_specify-recipient_email_repeat" name="gift_voucher_specify[recipient_email_repeat]" value="{GIFT_VOUCHER.recipient_email_repeat|htmlspecialchars}" class="required text email" maxlength="45" /></span>
+				</div>		
+				<div class="row message">
+					<span class="label"><label for="gift_voucher_specify-message">{I18N_YOUR_MESSAGE}:</label></span>
+					<span class="field"><textarea id="gift_voucher_specify-message" name="gift_voucher_specify[message]" rows="15" cols="45">{GIFT_VOUCHER.message|htmlspecialchars}</textarea></span>
+				</div>
+				<div class="row sender_name">
+					<span class="label"><label for="gift_voucher_specify-sender_name"><span class="mandatory-mark">*</span>Your name:</label></span>
+					<span class="field"><input type="text" id="gift_voucher_specify-sender_name" name="gift_voucher_specify[sender_name]" value="{GIFT_VOUCHER.sender_name|htmlspecialchars}" class="required text" maxlength="45" /></span>
+				</div>
+			</fieldset>
+			<div class="row submit">
+				<span class="label"><label>&nbsp;</label></span>
+				<span class="field"><button type="submit" name="send" value="send" class="submit add_to_basket"><span>{I18N_ADD_TO_BASKET}</span></button></span>
+			</div>
+		</form>
+	</div>
+</div>
+<!-- END: content -->

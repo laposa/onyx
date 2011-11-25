@@ -1,0 +1,15 @@
+<!-- BEGIN: title -->{CONFIGURATION.global.title|htmlspecialchars}: Gift Voucher<!-- END: title -->
+<!-- BEGIN: content -->
+<p>
+recipient_name: {DATA.voucher_data.recipient_name}<br />
+recipient_email: {DATA.voucher_data.recipient_email}<br />
+sender_name: {DATA.voucher_data.sender_name}<br />
+promotion_code = {DATA.promotion_data.code_pattern}
+</p>
+<p>You can redeem your voucher at <a href="http://{_SERVER.SERVER_NAME}/">http://{_SERVER.SERVER_NAME}/</a></p>
+<p>
+Regards,<br />
+{CONFIGURATION.global.author_content}</p>
+
+<p>&copy;{TIME|date('Y', %s)} <a href="http://{_SERVER.SERVER_NAME}/"><span>{CONFIGURATION.global.title}</span></a></p>
+<!-- END: content -->

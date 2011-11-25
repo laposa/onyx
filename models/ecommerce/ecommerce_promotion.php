@@ -184,22 +184,29 @@ class ecommerce_promotion extends Onxshop_Model {
 	public function addPromotion($data) {
 	
 		if ($this->checkValidPattern($data['code_pattern'])) {
-			$data['publish'] = 0;
+		
+			if (!is_numeric($data['publish'])) $data['publish'] = 0;
 			$data['created'] = date('c');
 			$data['modified'] = date('c');
-			$data['customer_account_type'] = 0;
+			if (!is_numeric($data['customer_account_type'])) $data['customer_account_type'] = 0;
 			if (!is_numeric($data['discount_percentage_value'])) $data['discount_percentage_value'] = 0;
 			if (!is_numeric($data['discount_fixed_value'])) $data['discount_fixed_value'] = 0;
-			$data['discount_free_delivery'] = 0;
-			$data['uses_per_coupon'] = 0;
-			$data['uses_per_customer'] = 0;
-			$data['limit_delivery_country_id'] = 0;
-			$data['limit_delivery_carrier_id'] = 0;
+			if (!is_numeric($data['discount_free_delivery'])) $data['discount_free_delivery'] = 0;
+			if (!is_numeric($data['uses_per_coupon'])) $data['uses_per_coupon'] = 0;
+			if (!is_numeric($data['uses_per_customer'])) $data['uses_per_customer'] = 0;
+			if (!is_numeric($data['limit_delivery_country_id'])) $data['limit_delivery_country_id'] = 0;
+			if (!is_numeric($data['limit_delivery_carrier_id'])) $data['limit_delivery_carrier_id'] = 0;
+			
+			if (is_array($data['other_data'])) $data['other_data'] = serialize($data['other_data']);
+			
 			if ($id = $this->insert($data)) return $id;
 			else return false;
+		
 		} else {
+		
 			msg('This pattern is in conflict with other promotion pattern', 'error');
 			return false;
+		
 		}
 	}
 	
@@ -230,8 +237,10 @@ class ecommerce_promotion extends Onxshop_Model {
 		foreach ($records as $record) {
 			//msg("{$record['code_pattern']} $code");
 			if ($promotion_id != $record['id']) {
-				if (preg_match("/{$record['code_pattern']}/i", $pattern)) return false;
-				if (preg_match("/$pattern/i", $record['code_pattern'])) return false;
+				$record_code_pattern_regex_safe = preg_replace("/\//", '\/', $record['code_pattern']);
+				if (preg_match("/$record_code_pattern_regex_safe/i", $pattern)) return false;
+				$pattern_regex_safe = preg_replace("/\//", '\/', $pattern);
+				if (preg_match("/$pattern_regex_safe/i", $record['code_pattern'])) return false;
 			}
 		}
 		

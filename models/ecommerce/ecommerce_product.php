@@ -75,7 +75,8 @@ class ecommerce_product extends Onxshop_Model {
 		else $conf = array();
 
 		if (!is_numeric($conf['gift_wrap_product_id'])) $conf['gift_wrap_product_id'] = 0; //set to numeric id > 0, to enable gift wrap option on checkout
-	
+		if (!is_numeric($conf['gift_voucher_product_id'])) $conf['gift_voucher_product_id'] = 0; //set to numeric id > 0, to enable gift vouchers
+		
 		return $conf;
 	}
 	

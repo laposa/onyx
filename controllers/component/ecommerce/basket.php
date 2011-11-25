@@ -25,7 +25,17 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 		 */
 		
 		$post_data = $_POST;
-		//we accept only _POST data, but for repeat order facility also _GET
+		
+		/**
+		 * check other posted data
+		 */
+		
+		if (!is_array($post_data['other_data'])) $post_data['other_data'] = array();
+		
+		/**
+		 * we accept only _POST data, but for repeat order facility also _GET
+		 */
+		 
 		if (is_numeric($this->GET['populate_basket_from_order_id'])) $post_data['populate_basket_from_order_id'] = $this->GET['populate_basket_from_order_id'];
 		
 		$this->checkAction($post_data);
@@ -145,7 +155,7 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 		
 			//add to basket action
 			if (!is_numeric($data['quantity'])) $data['quantity'] = 1;
-			$this->addItem($data['add'], $data['quantity']);
+			$this->addItem($data['add'], $data['quantity'], $data['other_data']);
 		
 		} else if (is_numeric($data['populate_basket_from_order_id'])) {
 		
@@ -204,18 +214,11 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 	 * add to basket action
 	 */
 	 
-	public function addItem($product_variety_id, $quantity) {
+	public function addItem($product_variety_id, $quantity, $other_data = array()) {
 	
 		//check basket is initialised
 		if (!is_numeric($_SESSION['basket']['id'])) return false;
 		
-		/**
-		 * check other posted data
-		 */
-		
-		if (is_array($_POST['other_data'])) $other_data = $_POST['other_data'];
-		else $other_data = array();
-
 		/**
 		 * add to basket
 		 */
@@ -313,7 +316,7 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 			foreach ($basket_content_data['items'] as $item) {
 				
 				//product other_data options
-				if (is_array($item['other_data']) && count($item['other_data']) > 0) $item['other_data'] = implode(",", $item['other_data']);
+				if (is_array($item['other_data']) && count($item['other_data']) > 0) $item['other_data'] = implode(", ", $item['other_data']);
 				else $item['other_data'] = '';
 				
 				//image
@@ -403,7 +406,7 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 
 		//iterate through and call addItem function on each line
 		foreach ($basket_detail['content']['items'] as $item) {
-			$this->addItem($item['product_variety_id'], $item['quantity']);
+			$this->addItem($item['product_variety_id'], $item['quantity'], $item['other_data']);
 		}
 		
 		msg("Items from your old order #{$order_id} were inserted into your current basket");
