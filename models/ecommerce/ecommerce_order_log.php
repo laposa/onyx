@@ -18,6 +18,15 @@ class ecommerce_order_log extends Onxshop_Model {
 	 */
 	var $order_id;
 	/**
+		0 New (unpaid)
+		1 New (paid)
+		2 Dispatched
+		3 Complete
+		4 Cancelled
+		5 Failed payment
+		6 In Progress
+		7 Split
+		
 	 * @access private
 	 */
 	var $status;
