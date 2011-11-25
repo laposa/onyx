@@ -526,7 +526,7 @@ class Onxshop_Controller {
      
 	function _parseTitle() {
 	
-		if (array_key_exists('title', $this->tpl->blocks)) {
+		if ($this->_checkTemplateBlockExists('title')) {
 			$this->tpl->parse('title');
 			return $this->tpl->text('title');
 		} else {
@@ -542,7 +542,7 @@ class Onxshop_Controller {
      
 	function _parseDescription() {
 	
-		if (array_key_exists('description', $this->tpl->blocks)) {
+		if ($this->_checkTemplateBlockExists('description')) {
 			$this->tpl->parse('description');
 			return $this->tpl->text('description');
 		} else {
@@ -558,7 +558,7 @@ class Onxshop_Controller {
      
 	function _parseKeywords() {
 	
-		if (array_key_exists('keywords', $this->tpl->blocks)) {
+		if ($this->_checkTemplateBlockExists('keywords')) {
 			$this->tpl->parse('keywords');
 			return $this->tpl->text('keywords');
 		} else {
@@ -574,7 +574,7 @@ class Onxshop_Controller {
      
 	function _parseHead() {
 	
-		if (array_key_exists('head', $this->tpl->blocks)) {
+		if ($this->_checkTemplateBlockExists('head')) {
 			$this->tpl->parse('head');
 			return $this->tpl->text('head');
 		} else {
@@ -590,7 +590,7 @@ class Onxshop_Controller {
      
 	function _parseHeadOnce() {
 	
-		if (array_key_exists('head_once', $this->tpl->blocks)) {
+		if ($this->_checkTemplateBlockExists('head_once')) {
 			$this->tpl->parse('head_once');
 			return $this->tpl->text('head_once');
 		} else {
@@ -607,7 +607,7 @@ class Onxshop_Controller {
      
 	function _parseContent() {
 	
-		if (array_key_exists('content', $this->tpl->blocks)) {
+		if ($this->_checkTemplateBlockExists('content')) {
 			$this->tpl->parse('content');
 			return $this->tpl->text('content');
 		} else {
@@ -624,7 +624,7 @@ class Onxshop_Controller {
 	function _parseMessages() {
 
 		if ($_SESSION['messages']) {
-			if (array_key_exists('content.messages', $this->tpl->blocks)) {
+			if ($this->_checkTemplateBlockExists('content.messages')) {
 				$messages = $_SESSION['messages'];
 	
 				$this->tpl->assign('MESSAGES', $messages);
@@ -636,7 +636,16 @@ class Onxshop_Controller {
 		
 	}
 
-
+	/**
+	 * check block exists
+	 */
+	 
+	function _checkTemplateBlockExists($block_name = '') {
+		
+		if (array_key_exists($block_name, $this->tpl->blocks)) return true;
+		else return false;
+		
+	}
 
     /**
      * init template
