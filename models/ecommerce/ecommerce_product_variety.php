@@ -270,6 +270,7 @@ class ecommerce_product_variety extends Onxshop_Model {
 	
 		$data['weight'] = $this->convertWeight($data['weight'], $this->conf['weight_units'], 'g');
 		$data['weight_gross'] = $this->convertWeight($data['weight_gross'], $this->conf['weight_units'], 'g');
+		$data['modified'] = date('c');
 		
 		if($id = $this->update($data)) {
 			return $id;
