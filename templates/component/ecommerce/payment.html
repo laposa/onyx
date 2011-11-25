@@ -7,13 +7,13 @@
 
   _gaq.push(['_addTrans',
     '{ORDER.id}',           // order ID - required
-    '{CONFIGURATION.global.title|htmlspecialchars}',  // affiliation or store name
+    '{CONFIGURATION.global.title|addslashes}',  // affiliation or store name
     '{ORDER.basket.total}',          // total - required
     '{ORDER.basket.total_vat}',           // tax
     '{ORDER.basket.delivery.value_net}',              // shipping
-    '{ORDER.address.delivery.city|htmlspecialchars}',       // city
-    '{ORDER.address.delivery.city|htmlspecialchars}',     // state or province
-    '{ORDER.address.delivery.country.name|htmlspecialchars}'             // country
+    '{ORDER.address.delivery.city|addslashes}',       // city
+    '{ORDER.address.delivery.city|addslashes}',     // state or province
+    '{ORDER.address.delivery.country.name|addslashes}'             // country
   ]);
 
    // add item might be called for every item in the shopping cart
@@ -22,9 +22,9 @@
    <!-- BEGIN: item -->
   _gaq.push(['_addItem',
     '{ORDER.id}',           // order ID - required
-    '{ITEM.product.variety.sku|htmlspecialchars}',           // SKU/code - required
-    '{ITEM.product.name|htmlspecialchars}',        // product name
-    '{ITEM.product.variety.name|htmlspecialchars}',   // category or variation
+    '{ITEM.product.variety.sku|addslashes}',           // SKU/code - required
+    '{ITEM.product.name|addslashes}',        // product name
+    '{ITEM.product.variety.name|addslashes}',   // category or variation
     '{ITEM.price}',          // unit price - required
     '{ITEM.quantity}'               // quantity - required
   ]);
