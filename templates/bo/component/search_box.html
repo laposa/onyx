@@ -1,0 +1,20 @@
+<!-- BEGIN: content -->
+<script type="text/javascript"> 
+$(function(){ 
+	var options = {
+		target: '#onxshopBackofficeWrapper',
+		beforeSubmit: function () {$("#onxshopBackofficeWrapper").html("<img src='/share/images/ajax-indicator/indicator_verybig.gif' alt='Loading ...'/>");}
+	};
+    $('#systemSearch form').ajaxForm(options);
+});
+</script> 
+<div id="systemSearch" style="position: relative; top: 10px; z-index: 20; padding-right: 2em">
+	<form style="float: right; clear: none; background: transparent; margin: 0; padding: 0;" method="get" action="/request/bo/component/search">
+		<div style="float:left;">
+			<label title="search in content" style="display: none">search</label><input class="text" type="text" name="search[query]" style="width: 150px;" title="currently search in pages only" />
+		</div>
+		<!--<button type="submit" style="margin: 0.2em 0;"><span>Search</span></button>-->
+	</form>
+</div>
+		
+<!-- END: content -->
