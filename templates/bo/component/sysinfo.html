@@ -1,0 +1,29 @@
+<!-- BEGIN: title -->System Information<!-- END: title -->
+<!-- BEGIN: content -->
+<div class="sysinfo">
+	<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+	<table>
+		<tbody>
+			<tr><td>Uname</td><td>{SYSINFO.uname|htmlspecialchars}</td></tr>
+			<tr><td>OS</td><td>{SYSINFO.os|htmlspecialchars}</td></tr>
+			<tr><td>Uptime</td><td>{SYSINFO.uptime|htmlspecialchars}</td></tr>
+			<tr><td>ID</td><td>{SYSINFO.id|htmlspecialchars}</td></tr>
+			<tr><td>Pwd</td><td>{SYSINFO.pwd|htmlspecialchars}</td></tr>
+			<tr><td>PHP</td><td>{SYSINFO.php|htmlspecialchars}</td></tr>
+			<tr><td>Software</td><td>{SYSINFO.server_software|htmlspecialchars}</td></tr>
+			<tr><td>Server Name</td><td>{SYSINFO.name|htmlspecialchars}</td></tr>
+			<tr><td>Server IP (local)</td><td>{SYSINFO.ip_local}</td></tr>
+			<tr><td>Server IP (public)</td><td>{SYSINFO.ip_public}</td></tr>
+			<tr><td>Free</td><td>{SYSINFO.free}</td></tr>
+			<tr><td>Used</td><td>{SYSINFO.used}</td></tr>
+			<tr><td>Total</td><td>{SYSINFO.all}</td></tr>
+		</tbody>
+	</table>
+	<p><a class="button" href="#sysInfoMoreInfo" onclick="$('#sysInfoMoreInfo').toggle();"><span>More Info…</span></a></p>
+	<div id="sysInfoMoreInfo" style="display: none;">
+		<img src="http://laposa.co.uk/munin/localdomain/localhost.localdomain/cpu-day.png" />
+		<img src="http://laposa.co.uk/munin/localdomain/localhost.localdomain/memory-day.png" />
+	</div>
+</div>
+
+<!-- END: content -->
