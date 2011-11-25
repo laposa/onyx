@@ -267,7 +267,7 @@ class common_email_form extends Onxshop_Model {
 		}
 
 		/**
-		 * attachment(s)
+		 * attachment(s) via upload
 		 */
 		 
 		if (count($_FILES) > 0) {
@@ -309,6 +309,29 @@ class common_email_form extends Onxshop_Model {
 					}
 				}
 			}
+		}
+		
+		/**
+		 * attachments
+		 * quick hack to add attachment functionality, curently used only in gift_voucher_generate
+		 */
+		 
+		if (is_array($GLOBALS['onxshop_atachments']) && count($GLOBALS['onxshop_atachments']) > 0) {
+			
+			foreach ($GLOBALS['onxshop_atachments'] as $file) {
+				
+				if (file_exists($file)) {
+					
+					require_once('models/common/common_file.php');
+					$CommonFile = new common_file();
+			
+					$attachment_info = $CommonFile->getFileInfo($file);
+					$Attachment = $mail->createAttachment(file_get_contents($file));
+					$Attachment->filename = $attachment_info['filename'];
+				}				
+				
+			}
+		
 		}
 
 		/**
@@ -357,6 +380,8 @@ class common_email_form extends Onxshop_Model {
 		$tpl->assign('URI', "$protocol://{$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}");
 		$tpl->assign('_SERVER', $_SERVER);
 		$tpl->assign('CONFIGURATION', $GLOBALS['onxshop_conf']);
+		$tpl->assign('_POST', $_POST);
+		$tpl->assign('_GET', $_GET);
 		$tpl->assign('TIME', time());
 		
 		/**
