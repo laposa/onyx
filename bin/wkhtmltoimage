@@ -1,0 +1,7 @@
+#!/bin/bash
+
+URL=$1;
+FILENAME=$2;
+
+xvfb-run -- wkhtmltoimage --crop-w 475 --quality 80 ${URL} ${FILENAME}
+

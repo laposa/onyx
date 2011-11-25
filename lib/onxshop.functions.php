@@ -29,7 +29,7 @@ function msg($msg, $type = "ok", $level = 0) {
 	if (is_array($msg)) $msg = print_r($msg, true);
 
 	/**
-	 * benchamark
+	 * benchmark
 	 */
 	 
 	if (ONXSHOP_BENCHMARK && ONXSHOP_IS_DEBUG_HOST) {
@@ -220,6 +220,7 @@ function getTemplateDir($file, $prefix = '') {
  
 function local_exec($command) {
 
+	
 	$command = escapeshellcmd($command);
 	msg("Calling: local_exec($command)", "ok", 2);
 	//explode to get filename
@@ -234,15 +235,21 @@ function local_exec($command) {
 	}
 
 	if (file_exists($command_file)) {
-		msg("Calling: local_exec($command_full)", "ok", 3);
-		ob_start();
-		passthru($command_full, $status);
-		$result = ob_get_contents();
-		if ($status > 0) {
-			msg("command: $command_full, return: $result, status: $status", 'error', 3);
+		if (is_executable($command_file)) {
+			msg("Calling: local_exec($command_full)", "ok", 3);
+			ob_start();
+			passthru($command_full, $status);
+			$result = ob_get_contents();
+			if ($status > 0) {
+				msg("command: $command_full, return: $result, status: $status", 'error', 3);
+			}
+			ob_end_clean(); //Use this instead of ob_flush()
+			return $result;
+		} else {
+			msg("Command $command_file is not executable", 'error');
+			return false;
 		}
-		ob_end_clean(); //Use this instead of ob_flush()
-		return $result;
+		
 	} else {
 		msg("Command $command_file not found", 'error');
 		return false;
