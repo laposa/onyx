@@ -27,6 +27,8 @@ Onxshop (1.5.0/dev)
   * big cleaning in share/ directory
   * finished Xsite -> Onxshop name transition
   * using Zend_Db instead of ADOdb, much improved Onxshop_Model
+  * jQuery Form upgraded to version 2.92
+  * jQuery validate upgraded to version 1.9.0
   * jQuery UI upgraded to version 1.8.16
   * jQuery upgraded to version 1.6.4
   * TinyMCE upgraded to version 3.4.6
