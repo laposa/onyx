@@ -9,24 +9,38 @@
 <script type="text/javascript" src="/share/js/fe_edit.js"></script>
 <script type="text/javascript" src="/share/js/backoffice.js"></script>
 
-<div class="onxshop_tabulator_menu sub">
-	<div class="top"><span></span></div>
-	<div class="content">
-		
-		<div style="float: right; ">
-			{ONXSHOP_REQUEST_fe_edit_mode #bo/component/fe_edit_mode~id=GET.id~}
+<div id="onxshopHeader">
+	<div id="onxshopSystemBar">
+	
+		<div id="menuSystem">
+			<a class="onxshop_version" href="/" title="{ONXSHOP_VERSION} {ONXSHOP_PACKAGE_NAME|ucfirst}" onclick="openAjaxRequestInDialog('/request/bo/component/sysinfo', 'Onxshop'); return false;"><span>Onxshop<span></span></a> - 
+			<a class="onxshop_client" href="/" title="{CONFIGURATION.global.title|htmlspecialchars} homepage">{CONFIGURATION.global.title|htmlspecialchars}</span></a>
 		</div>
-		<div class="tools">
-			<a class="onxshop_edit_cms" href="/backoffice/cms" title="Go to backoffice"><img src="/share/images/famfamfam_icons/application_go.png" alt="Go to backoffice" /></a>
-		&nbsp; &nbsp;
+		
+		<div id="menuUser">
+			<a href="http://onxshop.com/support" title="Access to Onxshop support"><span>Support</span></a> - 
+			<a class="logout" href="/?logout=1" title="Logout from the backoffice"><span>Log Out</span></a>
+		</div>
+		
+	</div>
+	
+	<div id="onxshopMenuBar">
+		
+		{ONXSHOP_REQUEST_fe_edit_mode #bo/component/fe_edit_mode~id=GET.id~}
+		
+		<div id="menuShortcuts">
 			<a class="onxshop_edit_flush_cache" href='/backoffice/advanced/tools?tool=flush_cache' onclick="openAjaxRequestInGrowl('/request/bo/component/tools~tool=flush_cache~', 'Flushing Cache'); return false" title="Refresh Cache"><img src="/share/images/famfamfam_icons/lightning.png" alt="Refresh Cache"/></a>
 		&nbsp; &nbsp;
 			<a class="onxshop_edit_css_edit" href="/backoffice/advanced/templates" title="CSS Edit" onclick="nOpenWin('/popup/css_edit/{GET.id}/orig/{_SESSION.orig}', 700, 500); return false;"><img src="/share/images/famfamfam_icons/css.png" alt="CSS" /></a>
 		&nbsp; &nbsp;
 			<a class="onxshop_edit_logs" href="/backoffice/advanced/logs" title="Session Logs" onclick="nOpenWin('/popup/logs', 700, 500); return false;"><img src="/share/images/famfamfam_icons/eye.png" alt="Session Logs" /></a>
 		</div>
+		
+		<ul id="menuContext">
+			<li class="frontoffice first active"><a href="/edit" title="Front-end edit"><span>Front Office</span></a></li>
+			<li class="backoffice last"><a href="/backoffice/pages" title="Backoffice"><span>Back Office</span></a></li>
+		</ul>
 	</div>
-	<div class="bottom"><span></span></div>
 </div>
 
 <div id="onxshop_cms_content">

@@ -20,7 +20,7 @@ function deleteNode(node_id) {
 	<h5>Will delete as well</h5>
 	<ul>
 	<!-- BEGIN: item -->
-		<li><a href="/backoffice/cms/edit/{CHILD.id}">{CHILD.title} <sup>{CHILD.node_group}/{CHILD.node_controller}</sup></a></li>
+		<li><a href="/backoffice/pages/edit/{CHILD.id}">{CHILD.title} <sup>{CHILD.node_group}/{CHILD.node_controller}</sup></a></li>
 	<!-- END: item -->
 	</ul>
 <!-- END:children -->
@@ -29,7 +29,7 @@ function deleteNode(node_id) {
 	<h5>Linked as shared content</h5>
 	<ul>
 	<!-- BEGIN: item -->
-		<li><a href="/backoffice/cms/edit/{LINKED.id}"> {LINKED.title} <sup>{LINKED.node_group}/{LINKED.node_controller}</sup></a></li>
+		<li><a href="/backoffice/pages/{LINKED.id}"> {LINKED.title} <sup>{LINKED.node_group}/{LINKED.node_controller}</sup></a></li>
 	<!-- END: item -->
 	</ul>
 <!-- END:linked -->

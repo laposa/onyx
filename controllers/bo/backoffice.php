@@ -28,10 +28,10 @@ class Onxshop_Controller_Bo_Backoffice extends Onxshop_Controller {
 			$active_array = explode("/", $_SERVER['REQUEST_URI']);
 			$active = $active = preg_replace("/\?.*$/", "", $active_array[2]);
 		} else {
-			$active = 'cms';
+			$active = 'pages';
 		}
 		
-		$this->tpl->assign("ACTIVE_{$active}", 'active ui-tabs-selected ui-state-active');
+		$this->tpl->assign("ACTIVE_{$active}", 'active');
 		
 		/**
 		 * simple ACL
@@ -40,7 +40,7 @@ class Onxshop_Controller_Bo_Backoffice extends Onxshop_Controller {
 		
 		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER || $_SESSION['authentication']['username'] == ONXSHOP_DB_USER . '-editor') $this->tpl->parse('content.fe_edit');
 		
-		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER || $_SESSION['authentication']['username'] == ONXSHOP_DB_USER . '-editor') $this->tpl->parse('content.cms');
+		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER || $_SESSION['authentication']['username'] == ONXSHOP_DB_USER . '-editor') $this->tpl->parse('content.pages');
 		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER || $_SESSION['authentication']['username'] == ONXSHOP_DB_USER . '-editor') $this->tpl->parse('content.news');
 		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER || $_SESSION['authentication']['username'] == ONXSHOP_DB_USER . '-editor') $this->tpl->parse('content.media');
 		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER) $this->tpl->parse('content.products');

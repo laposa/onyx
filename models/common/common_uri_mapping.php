@@ -392,10 +392,15 @@ class common_uri_mapping extends Onxshop_Model {
 		}
 		
 		if ($_GET['fe_edit'] == 1) {
+			//hack to pass _SESSION.fe_edit_mode even before it's called again from fe_edit
+			//consider moving this to $Bootstrap->initPreAction
+			//probably this whole block, _GET shouldn't be here!
+			$_nSite = new nSite('bo/component/fe_edit_mode');	
 			$request = ONXSHOP_DEFAULT_TYPE . "~id=$node_id~.bo/fe_edit~id=$node_id~." . ONXSHOP_MAIN_TEMPLATE . "~id=$node_id~$append";
 		} else {
 			$request = ONXSHOP_DEFAULT_LAYOUT . "~id=$node_id~" . "$append";
 		}
+		
 		return $request;
 	}
 

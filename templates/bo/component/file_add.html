@@ -2,9 +2,9 @@
 <script type="text/javascript"> 
 	function initForm() {
 		var options = { 
-			target:        '#file_add_result',   // target element(s) to be updated with server response 
+			target: '#file_add_result',   // target element(s) to be updated with server response 
 			beforeSubmit:  function() {$("#file_add .add_button span").replaceWith("<span style='background: white; color: black; padding: 5px; display: block; font-size: 125%'><img src='/share/images/ajax-indicator/indicator.gif' alt='Loading ...'/> Saving...</span>")}, 
-			success:       showResponse
+			success: showResponse
 		}; 
 
     	$('#file_add').ajaxForm(options);
@@ -20,7 +20,7 @@ function showResponse(responseText, statusText)  {
 	var result_message = $("#file_add_result div.onxshop_messages").html();
 	growlMessage(result_message);
 	$("#file_add .add_button span").replaceWith("<span>Add</span>");
-	//FIXME: hide when return message == "File inserted", not very safe and doesn't work when debugging is enables...
+	//FIXME: hide when return message == "File inserted", not very safe and doesn't work when debugging is enabled…
 	if ($("#file_add_result div.onxshop_messages p.onxshop_error_msg").text() == '') {
 		$("#file_list").load("/request/bo/component/file_list~type={GET.type}:relation={GET.relation}:node_id={GET.node_id}~");
 	}

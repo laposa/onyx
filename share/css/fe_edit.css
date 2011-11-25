@@ -7,38 +7,9 @@
 
 @import url(/share/themes/jquery-ui/onxshop/jquery-ui.css);
 @import url(/share/css/backoffice_icons.css);
-
+@import url(/share/css/cms_header.css);
 
 #onxshop_cms_content {clear: both; padding-top: 20px;}
-
-div.onxshop_edit_layout {background: #d3d7cf; width: 100%; height: 20px;}
-
-/**
-  * onxshop_tabulator
-  */
-
-div.onxshop_tabulator {display: none;}
-
-div.nx_tabulator_menu {background: #ccc; margin: 0; padding: 0 5px;}
-div.onxshop_tabulator_menu  {border-bottom: 1px solid #d3d7cf; width: 99%; background: #ccc; margin: 0; padding: 0 5px;}
-
-div.onxshop_tabulator_menu div.bottom {clear: both;}
-
-div.onxshop_tabulator_menu ul {padding: 0; margin: 0;}
-div.onxshop_tabulator_menu ul li {list-style-type: none; float: left; background: transparent;}
-
-div.onxshop_tabulator_menu ul li span {display: block; padding: 2px 7px 2px 7px;}
-
-div.onxshop_tabulator_menu ul li.active span {background: #d3d7cf;}
-
-/**
-  * onxshop_tabulator sub
-  */
-
-div.onxshop_tabulator_menu.sub,
-div.onxshop_tabulator_menu.sub ul li {border: 0;}
-
-
 
 #onxshop_window_content {background: white; text-align: left; padding: 0 10px;}
 
@@ -70,7 +41,6 @@ div.node.hide_at_trade_login {border: 1px solid green;}
 div.acl_in_use {border: 1px dotted red;}
 div.node.not_public {border: 1px solid red;}
 
-
 /**
  * jQuery UI
  */
@@ -90,11 +60,8 @@ div.ui-dialog legend {display: none;}
 ul.ui-tabs-nav li {padding-bottom: 0;}
 
 
-
-
-
 /**
- * hide duplicate and delete icons for contentSide and foot
+ * hide duplicate and delete icons for contentSide and contentFooter
  */
 	
 #contentSide a.onxshop_duplicate,

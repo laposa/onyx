@@ -1,40 +1,57 @@
 <!-- BEGIN: content -->
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
-<div class="order_list">
-<!-- BEGIN: list -->
-<div class="list">
-	<table>
-		<thead>
-			<tr>
-				<th><a href="{_SERVER.REDIRECT_URI}?order-list-sortby=id"><span>Order&nbsp;ID</span></a></th>
-				<th>Customer name<br />Email address</th>
-				<th><a href="{_SERVER.REDIRECT_URI}?order-list-sortby=date"><span>Basket Created</span></a><br /><a href="{_SERVER.REDIRECT_URI}?order-list-sortby=date"><span>Last Changed</span></a></th>
-				<th><a href="{_SERVER.REDIRECT_URI}?order-list-sortby=goods_net"><span>Goods Net</span></a></th>
-				<th>Status</th>
-			</tr>
-		</thead>
-		<tbody>
-			<!-- BEGIN: item -->
-			<tr>
-				<td><a href="/backoffice/orders/{ITEM.order_id}/detail">{ITEM.order_id}</a></td>
-				<td><a href="/backoffice/orders/{ITEM.order_id}/detail">{ITEM.title_before|htmlspecialchars} {ITEM.first_name|htmlspecialchars} {ITEM.last_name|htmlspecialchars} {ITEM.title_after|htmlspecialchars}<br />{ITEM.email}</a></td>
-				<td>{ITEM.order_created}<br />{ITEM.last_activity}</td>
-				<td style="text-align: right">{ITEM.goods_net|money_format('%n', %s)}</td>
-				<td>{ITEM.status}</td>
-			</tr>
-			<!-- END: item -->
-		</tbody>
-		<tfoot>
-			<tr>
-				<td colspan="5">
-					<div class="onxshop_pagination">
-						{PAGINATION}
+<div class="ordersList">
+	<!-- BEGIN: list -->
+	<div class="twoColumnLayout layout fibonacci-5-1">
+		<div class="layoutWrapper">
+			<div class="top"><span></span></div>
+			<div class="layoutContent">
+				<div class="layoutContentWrapper">
+					<div class="layoutColumnOne">
+						<div class="layoutColumnWrapper">
+							<table>
+								<thead>
+									<tr>
+										<th><a href="{_SERVER.REDIRECT_URI}?order-list-sortby=id"><span>Order&nbsp;ID</span></a></th>
+										<th>Customer name<br />Email address</th>
+										<th><a href="{_SERVER.REDIRECT_URI}?order-list-sortby=date"><span>Basket Created</span></a><br /><a href="{_SERVER.REDIRECT_URI}?order-list-sortby=date"><span>Last Changed</span></a></th>
+										<th><a href="{_SERVER.REDIRECT_URI}?order-list-sortby=goods_net"><span>Goods Net</span></a></th>
+										<th>Status</th>
+									</tr>
+								</thead>
+								<tbody>
+									<!-- BEGIN: item -->
+									<tr>
+										<td><a href="/backoffice/orders/{ITEM.order_id}/detail">{ITEM.order_id}</a></td>
+										<td><a href="/backoffice/orders/{ITEM.order_id}/detail">{ITEM.title_before|htmlspecialchars} {ITEM.first_name|htmlspecialchars} {ITEM.last_name|htmlspecialchars} {ITEM.title_after|htmlspecialchars}<br />{ITEM.email}</a></td>
+										<td>{ITEM.order_created}<br />{ITEM.last_activity}</td>
+										<td style="text-align: right">{ITEM.goods_net|money_format('%n', %s)}</td>
+										<td>{ITEM.status}</td>
+									</tr>
+									<!-- END: item -->
+								</tbody>
+								<tfoot>
+									<tr>
+										<td colspan="5">
+											<div class="onxshop_pagination">
+												{PAGINATION}
+											</div>
+										</td>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
 					</div>
-				</td>
-			</tr>
-		</tfoot>
-	</table>
-</div>
-<!-- END: list -->
+					<div class="layoutColumnTwo">
+						<div class="layoutColumnWrapper">
+							<!-- BUTTONS HERE -->
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="bottom"><span></span></div>
+		</div>		
+	</div>
+	<!-- END: list -->
 </div>
 <!-- END: content -->

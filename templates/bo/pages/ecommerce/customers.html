@@ -2,32 +2,63 @@
 <!-- BEGIN: content -->
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 <div class="twoColumnPage page fibonacci-1-5">
-	<div class="top page"><span></span></div>
-	<div class="content page">
-		<div class="contentWrappper page">
-			<div class="pageHeader">
-			</div>
-			<div class="columnTop page">
-				<div class="columnWrapper page">
-					
-
-				</div>
-			</div>
-
-			<div class="columnOne page">
-				<div class="columnWrapper page">
-					{ONXSHOP_REQUEST_filter #bo/component/ecommerce/customer_search}
-				</div>
-			</div>
-			<div class="columnTwo page">
-				<div class="columnWrapper page">
-					<p><a class="button add" style="float: left; margin-right: 1em;" title="Add new customer" href="/backoffice/customers/add"><span>Add a new customer</span></a><!-- BEGIN: create_new_group --><a class="button add create-customers-group" style="float: left" title="Create a new customers group" href="#" onclick="makeAjaxRequest('div.columnTwo div.columnWrapper', '/request/bo/component/ecommerce/customer_group_add'); return false;"><span>Advanced Filter</span></a><!-- END: create_new_group -->
-			<!-- BEGIN: modify_group --><a class="button edit modify-customers-group" style="float: left" title="Modify customers group criteria" href="#" onclick="makeAjaxRequest('div.columnTwo div.columnWrapper', '/request/bo/component/ecommerce/customer_group_modify'); return false;"><span>Modify This Group</span></a><!-- END: modify_group --></p>
-					{ONXSHOP_REQUEST_customer_list #bo/component/ecommerce/customer_list}
+	<div class="top"><span></span></div>
+	<div class="content">
+		<div class="pageWrapper">
+			{PAGE_HEADER}
+			<div class="pageContent">
+				<div class="pageContentWrapper">
+					<div class="rowTop">
+						<div class="columnWrapper">
+							{CONTAINER.0}
+						</div>
+					</div>
+		
+					<div class="columnOne">
+						<div class="columnWrapper">
+							{ONXSHOP_REQUEST_filter #bo/component/ecommerce/customer_search}
+							<p>
+								<!-- BEGIN: create_new_group --><a class="button create-customers-group" title="Create a new customers group" href="#" onclick="makeAjaxRequest('div.columnTwo div.columnWrapper', '/request/bo/component/ecommerce/customer_group_add'); return false;"><span>Advanced Filter</span></a><!-- END: create_new_group -->
+								<!-- BEGIN: modify_group --><a class="button modify-customers-group" title="Modify customers group criteria" href="#" onclick="makeAjaxRequest('div.columnTwo div.columnWrapper', '/request/bo/component/ecommerce/customer_group_modify'); return false;"><span>Modify This Group</span></a><!-- END: modify_group --></p>
+						</div>
+					</div>
+					<div class="columnTwo">
+						<div class="columnWrapper">
+							<div id="sub_content">
+								<div class="twoColumnLayout layout fibonacci-5-1">
+									<div class="layoutWrapper">
+										<div class="top"><span></span></div>
+										<div class="layoutContent">
+											<div class="layoutContentWrapper">
+												<div class="layoutColumnOne">
+													<div class="layoutColumnWrapper">
+														{ONXSHOP_REQUEST_customer_list #bo/component/ecommerce/customer_list}
+													</div>
+												</div>
+												<div class="layoutColumnTwo">
+													<div class="layoutColumnWrapper">
+														<p><a class="button add" title="Add new customer" href="/backoffice/customers/add"><span>Add new customer</span></a></p>
+														<p>Export this list:<br /><a class="button" title="Export this list for newsletter" href="/request/bo/export/csv_customers"><span>CSV</span></a></p>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="bottom"><span></span></div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="rowBottom">
+						<div class="columnWrapper">
+							{CONTAINER.3}
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="bottom page"><span></span></div>
+	<div class="bottom"><span></span></div>
 </div>
+
 <!-- END: content -->

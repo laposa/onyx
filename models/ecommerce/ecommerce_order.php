@@ -41,6 +41,7 @@ class ecommerce_order extends Onxshop_Model {
 		5 Failed payment
 		6 In Progress
 		7 Split
+		
 	 * @access private
 	 */
 	var $status;
@@ -420,11 +421,13 @@ ORDER BY ecommerce_order.id DESC
 		$log_data['order_id'] = $order_id;
 		$log_data['status'] = $status;
 		$log_data['datetime'] = date('c');
-		$OrderLog->insert($log_data);
+		$log_data_id = $OrderLog->insert($log_data);
 		
+		//order status change hook
 		$this->orderStatusChangeAction($order_id, $status);
 		
-		return true;
+		//should return numeric, or false
+		return $log_data_id;
 	}
 	
 	/**

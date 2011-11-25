@@ -173,7 +173,7 @@ div.onxshop_messages p.onxshop_error_msg {background: transparent url(/share/ima
  * jGrowl
  */
  
-div.jGrowl {padding: 0; z-index: 9999; position: fixed; width: 300px; right: 0; bottom: 0;}
+div.jGrowl {padding: 0; z-index: 9999; position: fixed; width: 300px; right: 20px; bottom: 0;}
 /*div.jGrowl.top-left {left: 0; top: 60px;}
 div.jGrowl.top-right {right: 0; top: 60px;}
 div.jGrowl.bottom-left {left: 0; bottom: 0;}

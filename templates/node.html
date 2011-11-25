@@ -44,7 +44,7 @@
 		</a>
 	</div>
 	<div style="float: right">
-		<a class="onxshop_page_properties onxshop_edit_page_add" href='/backoffice/cms/manage/add/page/{GET.id}' onclick="openAjaxRequestInDialog('/request/bo/component/node_add_page~node_group=page:parent={GET.id}~', 'Add a new page');return false" title="Add page"><span>Add a New Page</span></a>
+		<a class="onxshop_page_properties onxshop_edit_page_add" href='/backoffice/pages/{GET.id}' onclick="openAjaxRequestInDialog('/request/bo/component/node_add_page~node_group=page:parent={GET.id}~', 'Add a new page');return false" title="Add page"><span>Add a New Page</span></a>
 		<a class="onxshop_delete" title="Delete {NODE.node_group}" href="#{NODE.id}"><span>Delete</span></a>
 	</div>
 </div>
@@ -58,7 +58,7 @@
 
 <!-- BEGIN: fe_edit -->
 <div class="onxshop_edit_content">
-	<a class="onxshop_edit onxshop_edit_{NODE.node_controller}" title="Edit {NODE.node_group} ({NODE.node_controller})" href="#{NODE.id}" 
+	<a class="onxshop_edit onxshop_edit_{NODE.node_controller}" title="Edit {NODE.node_group} ({NODE.node_controller})" href="/backoffice/pages/{NODE.id}" 
 		onclick="openEdit('/popup/edit/{NODE.node_group}/{NODE.id}/orig{_SESSION.orig}'); return false;" 
 		onmouseover="$('#node_id_{NODE.id}').addClass('onxshop_highlight_edit');" 
 		onmouseout="$('#node_id_{NODE.id}').removeClass('onxshop_highlight_edit');">
@@ -66,7 +66,7 @@
 	<a class="onxshop_duplicate" title="Duplicate content {NODE.title|htmlspecialchars}" href="#{NODE.id}" onclick="duplicateNode({NODE.id}); return false;"><span>Duplicate</span></a>
 	<a class="onxshop_delete" title="Delete {NODE.node_group} ({NODE.node_controller})" href="#{NODE.id}"><span>Delete</span></a>
 	<!-- BEGIN: edit_source -->
-	<a class="onxshop_edit_source" title="Edit source" href="#{NODE.id};" onclick="openEdit('/popup/edit/content/{SOURCE.content}/orig{_SESSION.orig}')" >
+	<a class="onxshop_edit_source" title="Edit source" href="#{NODE.id}" onclick="openEdit('/popup/edit/content/{SOURCE.content}/orig{_SESSION.orig}')" >
 	<span>Edit Source</span></a>
 	<!-- END: edit_source -->
 </div>

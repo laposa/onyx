@@ -17,8 +17,8 @@ RewriteRule	^edit/?$    /index.php?request=bo/fe_edit [L]
 
 RewriteRule	^backoffice/?$      /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/summary [L,QSA]
 
-RewriteRule ^backoffice/cms$        /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/cms.bo/pages/pages [L]
-RewriteRule ^backoffice/cms/([0-9]*)$	/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice~id=$1~.bo/pages/cms~id=$1~.bo/pages/pages~id=$1~ [L,QSA]
+RewriteRule ^backoffice/pages$        /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/pages [L]
+RewriteRule ^backoffice/pages/([0-9]*)$	/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice~id=$1~.bo/pages/pages~id=$1~ [L,QSA]
 
 RewriteRule ^backoffice/news$       /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/news [L,QSA]
 RewriteRule ^backoffice/comments$       /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/comments [L,QSA]
@@ -51,13 +51,13 @@ RewriteRule	^backoffice/stock$		/index.php?request=sys/html5.bo/backoffice_wrapp
 
 RewriteRule	^backoffice/products$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/ecommerce/products.bo/component/ecommerce/product_list [L,QSA]
 
-RewriteRule	^backoffice/products/product_add$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/ecommerce/products.bo/component/ecommerce/product_add_quick [L]
+RewriteRule	^backoffice/products/product_add$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/component/ecommerce/product_add_quick [L]
 
-RewriteRule	^backoffice/products/([0-9]*)/variety_add$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/ecommerce/products.bo/component/ecommerce/product_variety_add&product_id=$1 [L]
+RewriteRule	^backoffice/products/([0-9]*)/variety_add$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/component/ecommerce/product_variety_add&product_id=$1 [L]
 
-RewriteRule	^backoffice/products/([0-9]*)/edit$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/ecommerce/products.bo/component/ecommerce/product_edit&id=$1 [L]
+RewriteRule	^backoffice/products/([0-9]*)/edit$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/component/ecommerce/product_edit&id=$1 [L]
 
-RewriteRule	^backoffice/products/variety/([0-9]*)/edit$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/ecommerce/products.bo/component/ecommerce/product_variety_edit&id=$1 [L]
+RewriteRule	^backoffice/products/variety/([0-9]*)/edit$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/component/ecommerce/product_variety_edit&id=$1 [L]
 
 
 

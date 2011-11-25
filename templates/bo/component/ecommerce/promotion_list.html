@@ -1,46 +1,63 @@
 <!-- BEGIN: content -->
 
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
-<div class="promotion_list">
-	
-	<p><a class="button add" href="#" onclick="makeAjaxRequest('#promotionEdit', '/request/bo/component/ecommerce/promotion_add'); return false"><span>add a discount code</span></a></p>
+<div class="promotionList">
 	
 	<div id="promotionEdit"></div>
 	
-	<table cellspacing="0">
+	
+	<div class="twoColumnLayout layout fibonacci-5-1">
+		<div class="layoutWrapper">
+			<div class="top"><span></span></div>
+			<div class="layoutContent">
+				<div class="layoutContentWrapper">
+					<div class="layoutColumnOne">
+						<div class="layoutColumnWrapper">
+							<table>
 		
-		<thead>
-			<tr>
-				<th>Title</th>
-				<th>Code</th>
-				<th>Usage</th>
-				<th>Net Spent<br />(after deducted discount)</th>
-				<th>Net Discount</th>
-			</tr>
-		</thead>
-		
-		<tfoot>
-			{PAGINATION}
-		</tfoot>
-		
-		<tbody>
-			<!-- BEGIN: item -->
-			<tr class="{DISABLED}">
-				<td><a title="Edit promotion settings" onclick="makeAjaxRequest('#promotionEdit', '/request/bo/component/ecommerce/promotion_edit~id={ITEM.id}~');" href="#promotionEdit">{ITEM.title}</a></td>
-				<td>{ITEM.code_pattern}</td>
-				<td class="number">{ITEM.usage.count}</td>
-				<td class="money">{ITEM.usage.sum_goods_net|money_format('%n', %s)}</td>
-				<td class="money">{ITEM.usage.sum_discount_net|money_format('%n', %s)}</td>
-			</tr>
-			<!-- END: item -->
-			<!-- BEGIN: empty -->
-			<tr>
-				<td colspan="5"><span class="note">You do not have any coupons. Create some promotional discounts to attract more customers.</span></td>
-			</tr>
-			<!-- END: empty -->
-
-		</tbody>
-	</table>
-
+								<thead>
+									<tr>
+										<th>Title</th>
+										<th>Code</th>
+										<th>Usage</th>
+										<th>Net Spent<br />(after deducted discount)</th>
+										<th>Net Discount</th>
+									</tr>
+								</thead>
+								
+								<tfoot>
+									{PAGINATION}
+								</tfoot>
+								
+								<tbody>
+									<!-- BEGIN: item -->
+									<tr class="{DISABLED}">
+										<td><a title="Edit promotion settings" onclick="makeAjaxRequest('#promotionEdit', '/request/bo/component/ecommerce/promotion_edit~id={ITEM.id}~');" href="#promotionEdit">{ITEM.title}</a></td>
+										<td>{ITEM.code_pattern}</td>
+										<td class="number">{ITEM.usage.count}</td>
+										<td class="money">{ITEM.usage.sum_goods_net|money_format('%n', %s)}</td>
+										<td class="money">{ITEM.usage.sum_discount_net|money_format('%n', %s)}</td>
+									</tr>
+									<!-- END: item -->
+									<!-- BEGIN: empty -->
+									<tr>
+										<td colspan="5"><span class="note">You do not have any coupons. Create some promotional discounts to attract more customers.</span></td>
+									</tr>
+									<!-- END: empty -->
+						
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="layoutColumnTwo">
+						<div class="layoutColumnWrapper">
+							<p><a class="button add" href="#" onclick="makeAjaxRequest('#promotionEdit', '/request/bo/component/ecommerce/promotion_add'); return false"><span>add a discount code</span></a></p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="bottom"><span></span></div>
+		</div>
+	</div>
 </div>
 <!-- END: content -->

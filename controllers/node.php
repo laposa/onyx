@@ -218,11 +218,11 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 	 
 	public function _checkPermissionForCSS($node_data) {
 	
-		//add css class when in edit or move mode or when logged in, but no fe_edit_mode array set (just after login)
+		//add css class when in edit or move mode or when logged in, but no fe_edit_mode is set (just after login)
 		if (
 			$_SESSION['authentication']['authenticity'] > 0 && ($_SESSION['fe_edit_mode'] == 'edit' || 
 			$_SESSION['fe_edit_mode'] == 'move') || 
-			($_SESSION['authentication']['authenticity'] > 0 && !is_array($_SESSION['fe_edit_mode'])) ||
+			($_SESSION['authentication']['authenticity'] > 0 && !$_SESSION['fe_edit_mode']) ||
 			is_array($node_data['display_permission_group_acl'])
 			) return true;
 		else return false;

@@ -2,7 +2,8 @@
  * Simple Tree
  */
  
- 
+.simpleTree a {text-decoration: none;}
+
 .simpleTree
 {
 	
@@ -29,7 +30,7 @@
 }
 .simpleTree .root
 {
-	margin-left: -10px;
+	margin-left: -18px;
 	background: url(/share/images/simple-tree/root.gif) no-repeat 16px 0;
 }
 .simpleTree .line

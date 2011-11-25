@@ -35,19 +35,26 @@ class Onxshop_Controller_Bo_Pages_Ecommerce_Order_Detail extends Onxshop_Control
 		 
 		if (isset($_POST['save'])) {
 			
+			//get order detail
 			$order_data = $Order->getDetail($order_id);
 		
-			if ($order_data['status'] != $_POST['order']['status']) {
-				$Order->setStatus($order_id, $_POST['order']['status']);
-				$order_data['status'] = $_POST['order']['status'];
-			}
-		
+			//prepare data for update
 			$order_data['note_backoffice'] = $_POST['order']['note_backoffice'];
 		
-			if ($Order->updateOrder($order_data)) {
-				$order_data = $Order->getOrder($order_id);
-				//msg('Updated');
+			//update order data
+			if (!$Order->updateOrder($order_data)) {
+				msg("Cannot update order data (Order ID $order_id)", 'error');
 			}
+			
+			//update order status (warning: order status change can trigger other events affection order_data)
+			if ($order_data['status'] != $_POST['order']['status']) {
+			
+				$order_data['status'] = $_POST['order']['status'];
+				if (!$Order->setStatus($order_id, $_POST['order']['status'])) {
+					msg("Cannot update order status (Order ID $order_id)", 'error');
+				}
+			}
+				
 		}
 		
 		/**

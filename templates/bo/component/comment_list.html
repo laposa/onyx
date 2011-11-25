@@ -22,7 +22,7 @@
 				<td><a title="Edit comment" onclick="makeAjaxRequest('#commentEdit', '/request/bo/component/comment_edit~id={ITEM.id}~'); return false" href="#commentEdit">{ITEM.title|htmlspecialchars}</a></td>
 				<td><a title="Edit comment" onclick="makeAjaxRequest('#commentEdit', '/request/bo/component/comment_edit~id={ITEM.id}~'); return false" href="#commentEdit">{ITEM.author_name|htmlspecialchars}</a></td>
 				<td>{ITEM.created}</td>
-				<td><a href="/backoffice/cms/{ITEM.node_id}/edit">{ITEM.node_id}</a></td>
+				<td><a href="/backoffice/pages/{ITEM.node_id}">{ITEM.node_id}</a></td>
 				<td>{ITEM.publish}</td>
 			</tr>
 			<!-- END: item -->

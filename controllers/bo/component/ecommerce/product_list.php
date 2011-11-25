@@ -145,20 +145,30 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Product_List extends Onxshop_Con
 			
 			if ($i >= $from  && $i < ($from + $per_page) ) {
 				
-				foreach ($p_item as $item) {
-					if ($item['variety_publish'] == 0) $item['variety_publish'] = 'disabled';
-					$this->tpl->assign('ITEM', $item);
-					$this->tpl->parse('content.list.item.variety');
-				}
+				$item = $p_item[0];
 				
-				$even_odd = ( 'odd' != $even_odd ) ? 'odd' : 'even';
-				$item['even_odd'] = $even_odd;
+				$rowspan = count($p_item);
+				
+				$this->tpl->assign('ROWSPAN', "rowspan='$rowspan'");
 				
 				$item['disabled'] = ($item['publish']) ? '' : 'disabled';
 						
 				$this->tpl->assign('ITEM', $item);
-				if ($item['image_src']) $this->tpl->parse('content.list.item.image');
-				$this->tpl->parse('content.list.item');
+				
+				if ($item['image_src']) $this->tpl->parse('content.list.item.imagetitle.image');
+				
+				$this->tpl->parse('content.list.item.imagetitle');
+				
+				$even_odd = ( 'odd' != $even_odd ) ? 'odd' : 'even';
+				$this->tpl->assign('CLASS', "class='$even_odd fullproduct'");
+                
+				foreach ($p_item as $item) {
+					if ($item['variety_publish'] == 0) $item['variety_publish'] = 'disabled';
+					$this->tpl->assign('ITEM', $item);
+					$this->tpl->parse('content.list.item');
+					$this->tpl->assign('CLASS', "class='$even_odd'");
+				}
+				
 			}
 		}
 		
