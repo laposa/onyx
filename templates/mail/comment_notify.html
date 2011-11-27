@@ -1,7 +1,8 @@
-<!-- BEGIN: title -->{CONFIGURATION.global.title|htmlspecialchars}: New comment notify<!-- END: title -->
+<!-- BEGIN: title -->{CONFIGURATION.global.title}: New comment notify<!-- END: title -->
 <!-- BEGIN: content -->
 <p>New comment from {DATA.comment.author_name|htmlspecialchars} &lt;{DATA.comment.author_email|htmlspecialchars}&gt;.</p>
  
+<p>View in front-end <a href="{URI}">{URI}</a></p>
 <p>View in backoffice <a href="http://{_SERVER.HTTP_HOST}/backoffice/comments">http://{_SERVER.HTTP_HOST}/backoffice/comments</a></p>
 
 <h3>{DATA.comment.title|htmlspecialchars}</h3>
