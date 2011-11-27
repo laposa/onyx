@@ -1,0 +1,43 @@
+<!-- BEGIN: content -->
+<div class="survey_result">
+
+<h2>{SURVEY.title|htmlspecialchars}</h2>
+<p><span title="průměrné hodnocení">Výsledná průměrná známka: {SURVEY.average_rating}</span> <br />
+Počet odpovědí: <span title="počet respondentů">{SURVEY.number_of_responses}</span></p>
+<!-- BEGIN: result -->
+	
+	<!-- BEGIN: question -->
+	
+		<h4>{QUESTION.title|htmlspecialchars}</h4>
+		<p><span title="průměrné hodnocení">Průměrná známka: {QUESTION.average_rating}</span></p>
+	
+		<!-- BEGIN: answer_list_text -->
+			<ul class="text">
+				<!-- BEGIN: item -->
+				<li>{ANSWER.value|htmlspecialchars}</li>
+				<!-- END: item -->
+			</ul>
+		<!-- END: answer_list_text -->
+		
+		<!-- BEGIN: answer_list_radio -->
+			<ul class="radio">
+			<!-- BEGIN: item -->
+			<li><span class="bar usage_scale_{ANSWER.usage_scale}" title="{ANSWER.usage_scale_percentage}%"><span></span></span>{ANSWER.title|htmlspecialchars} ({ANSWER.usage_scale_percentage}% <span title="počet respondentů">[{ANSWER.usage_count}]</span>)</li>
+			<!-- END: item -->
+			</ul>
+		<!-- END: answer_list_radio -->
+				
+		<!-- BEGIN: answer_list_select -->
+			<ul class="select">
+			<!-- BEGIN: item -->
+			<li><span class="bar usage_scale_{ANSWER.usage_scale}" title="{ANSWER.usage_scale_percentage}%"><span></span></span>{ANSWER.title|htmlspecialchars}  ({ANSWER.usage_scale_percentage}% <span title="počet respondentů">[{ANSWER.usage_count}]</span>)</li>
+			<!-- END: item -->
+			</ul>
+		<!-- END: answer_list_select -->
+		
+	<!-- END: question -->
+
+<!-- END: result -->
+
+</div>
+<!-- END: content -->

@@ -1,0 +1,52 @@
+<!-- BEGIN: content -->
+
+<!-- BEGIN: form -->
+<script type="text/javascript">
+$(function() {
+	$("#survey_form_{GET.node_id}").validate();
+});
+</script>
+
+<style type="text/css">
+label.error { display: none; }	
+</style>
+
+<form method="post" action="{URI}" id="survey_form_{GET.node_id}">
+	<fieldset class="single">
+		<legend>{SURVEY.title|htmlspecialchars}</legend>
+		<!-- BEGIN: question -->
+		<div class="row">
+			<span class="label"><label for="question_id_{QUESTION.id}">{QUESTION.title|htmlspecialchars}</label></span>
+			<span class="field">
+				<!-- BEGIN: answer_text -->
+				<textarea class="required" name="answer[{QUESTION.id}]">{SELECTED_VALUE}</textarea>
+				<!-- END: answer_text -->
+				<!-- BEGIN: answer_list_radio -->
+					<!-- BEGIN: item -->
+					<div class="row"><input type="radio" class="required" name="answer[{QUESTION.id}]" value="{ANSWER.id}" {SELECTED} id="answer_id_{ANSWER.id}"> <label for="answer_id_{ANSWER.id}">{ANSWER.title|htmlspecialchars}</label></div>
+					<!-- END: item -->
+					<label for="answer[{QUESTION.id}]" class="error">This field is required.</label>
+				<!-- END: answer_list_radio -->
+				<!-- BEGIN: answer_list_select -->
+				<select class="required" name="answer[{QUESTION.id}]" id="question_id_{QUESTION.id}">
+					<option value="">-</option>
+					<!-- BEGIN: item -->
+					<option value="{ANSWER.id}" {SELECTED}>{ANSWER.title|htmlspecialchars}</option>
+					<!-- END: item -->
+				</select>
+				<!-- END: answer_list_select -->
+			</span>
+		</div>
+		<!-- END: question -->
+		
+		<button type="submit" name="save" value="save"><span>Odeslat</span></button>
+		
+	</fieldset>
+</form>
+<!-- END: form -->
+
+<!-- BEGIN: result -->
+{SURVEY_RESULT}
+<!-- END: result -->
+
+<!-- END: content -->

@@ -1,0 +1,63 @@
+<!-- BEGIN: content -->
+
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<div class="survey_question_edit">
+
+	<script type="text/javascript">
+	
+	$(function() {
+		
+		function initSurveyEditForm() {
+	
+		    $('#survey_question_edit_form').ajaxForm({ 
+				target: '#sub_content',
+				beforeSubmit: function() {return $("#survey_question_edit_form").valid()},
+				success: function(responseText, statusText) {
+					popupMessage("#sub_content div.onxshop_messages");
+					makeAjaxRequest('#sub_content', '/request/bo/component/survey_detail~id={GET.survey_id}~');
+				}
+			});
+		}
+		
+		initSurveyEditForm();
+	});
+	
+	</script>
+	
+	<form method="post" action="{URI}" id="survey_question_edit_form">
+
+		<fieldset class="single">
+			<legend>Question add</legend>
+			<div class="row title">
+				<span class="label"><label for="question-title">Title</label></span>
+				<span class="field"><input class="required text title" id="question-title" type="text" name="question[title]" value="{QUESTION.title|htmlspecialchars}" /></span>
+			</div>
+			<div class="row description">
+				<span class="label"><label for="question-description">description</label></span>
+				<span class="field"><textarea id="question-description" name="question[description]">{QUESTION.description|htmlspecialchars}</textarea></span>
+			</div>
+			<div class="row type">
+				<span class="label"><label for="question-type">Type</label></span>
+				<span class="field">
+					<select id="question-type" name="question[type]">
+						<option value="text" {SELECTED_text}>text</option>
+						<option value="checkbox" {SELECTED_checkbox}>checkbox</option>
+						<option value="select" {SELECTED_select}>select</option>
+						<option value="radio" {SELECTED_radio}>radio</option>
+					</select>
+				</span>
+			</div>
+		</fieldset>
+				
+		<div class="row submit">
+			<span class="label"><label>&nbsp;</label></span>
+			<span class="field"><button type="submit"  name="save" value="save"><span>Create new question</span></button> or <a href="#sub_content" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_detail~id={GET.survey_id}~'); return false;">cancel</a></span>
+		</div>
+		
+		<input type="hidden" name="question[publish]" value="1" />
+		<input type="hidden" name="question[survey_id]" value="{GET.survey_id}" />
+		
+	</form>
+		
+</div>
+<!-- END: content -->

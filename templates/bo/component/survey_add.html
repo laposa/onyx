@@ -1,0 +1,49 @@
+<!-- BEGIN: content -->
+
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<div class="survey_edit">
+
+	<script type="text/javascript">
+	
+	$(function() {
+		
+		function initSurveyEditForm() {
+	
+		    $('#survey_edit_form').ajaxForm({ 
+				target: '#sub_content',
+				beforeSubmit: function() {return $("#survey_edit_form").valid()},
+				success: function(responseText, statusText) {
+					popupMessage("#sub_content div.onxshop_messages");
+					makeAjaxRequest('#sub_content', '/request/bo/component/survey_list~');
+				}
+			});
+		}
+		
+		initSurveyEditForm();
+	});
+	
+	</script>
+	
+	<form method="post" action="{URI}" id="survey_edit_form">
+
+		<fieldset class="single">
+			<legend>Survey add</legend>
+			<div class="row title">
+				<span class="label"><label for="survey-title">Title</label></span>
+				<span class="field"><input class="required text title" id="survey-title" type="text" name="survey[title]" value="{SURVEY.title|htmlspecialchars}" /></span>
+			</div>
+			<div class="row description">
+				<span class="label"><label for="survey-description">description</label></span>
+				<span class="field"><textarea id="survey-description" name="survey[description]">{SURVEY.description|htmlspecialchars}</textarea></span>
+			</div>			
+		</fieldset>
+				
+		<div class="row submit">
+			<span class="label"><label>&nbsp;</label></span>
+			<span class="field"><button type="submit"  name="save" value="save"><span>Create new survey</span></button> or <a href="#sub_content" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_list'); return false;">cancel</a></span>
+		</div>
+		
+	</form>
+		
+</div>
+<!-- END: content -->

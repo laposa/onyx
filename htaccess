@@ -22,6 +22,7 @@ RewriteRule ^backoffice/pages/([0-9]*)$	/index.php?request=sys/html5.bo/backoffi
 
 RewriteRule ^backoffice/news$       /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/news [L,QSA]
 RewriteRule ^backoffice/comments$       /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/comments [L,QSA]
+RewriteRule ^backoffice/surveys$       /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/surveys [L,QSA]
 RewriteRule ^backoffice/marketing$       /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/marketing [L,QSA]
 RewriteRule ^backoffice/advanced/media$      /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/pages/server_browser [L,QSA]
 

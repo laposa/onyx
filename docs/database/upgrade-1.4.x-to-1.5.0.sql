@@ -14,6 +14,68 @@ UPDATE client_customer SET password = md5(password);
 
 ALTER TABLE common_node ADD COLUMN display_permission_group_acl TEXT;
 
+/*stage1b */
+
+BEGIN;
+
+CREATE TABLE education_survey (
+	id serial PRIMARY KEY NOT NULL,
+	title varchar(255) NOT NULL,
+	description text,
+	created timestamp(0) without time zone DEFAULT now() NOT NULL,
+	modified timestamp(0) without time zone DEFAULT now(),
+	priority smallint DEFAULT 0,
+	publish smallint DEFAULT 0
+);
+
+CREATE TABLE education_survey_question (
+	id serial PRIMARY KEY NOT NULL,
+	survey_id int NOT NULL REFERENCES education_survey ON UPDATE CASCADE ON DELETE CASCADE,
+	parent int REFERENCES education_survey_question ON UPDATE CASCADE ON DELETE CASCADE,
+	step smallint DEFAULT 1,
+	title varchar(255) NOT NULL,
+	description text,
+	mandatory smallint DEFAULT 1,
+	type varchar(255) NOT NULL,
+	priority smallint DEFAULT 0,
+	publish smallint DEFAULT 1
+);
+
+CREATE TABLE education_survey_question_answer (
+	id serial PRIMARY KEY NOT NULL,
+	question_id int NOT NULL REFERENCES education_survey_question ON UPDATE CASCADE ON DELETE CASCADE,
+	title text NOT NULL,
+	description text,
+	is_correct smallint, 
+	points smallint,
+	priority smallint DEFAULT 0,
+	publish smallint DEFAULT 1
+);
+
+CREATE TABLE education_survey_entry (
+	id serial PRIMARY KEY NOT NULL,
+	survey_id int NOT NULL REFERENCES education_survey ON UPDATE CASCADE ON DELETE RESTRICT,
+	customer_id int NOT NULL REFERENCES client_customer ON UPDATE CASCADE ON DELETE RESTRICT,
+	relation_subject text,
+	created timestamp(0) without time zone DEFAULT now() NOT NULL,
+	modified timestamp(0) without time zone DEFAULT now(),
+	publish smallint DEFAULT 0,
+	UNIQUE (survey_id, customer_id, relation_subject)
+);
+
+CREATE TABLE education_survey_entry_answer (
+	id serial PRIMARY KEY NOT NULL,
+	survey_entry_id int NOT NULL REFERENCES education_survey_entry ON UPDATE CASCADE ON DELETE CASCADE,
+	question_id int NOT NULL REFERENCES education_survey_question ON UPDATE CASCADE ON DELETE RESTRICT,
+	question_answer_id int REFERENCES education_survey_question_answer ON UPDATE CASCADE ON DELETE RESTRICT,
+	value text,
+	created timestamp(0) without time zone DEFAULT now() NOT NULL,
+	modified timestamp(0) without time zone DEFAULT now(),
+	publish smallint DEFAULT 0
+);
+COMMIT;
+ALTER TABLE common_comment ADD COLUMN relation_subject text;
+
 /*stage2 PREPARTION*/
 
 ALTER TABLE ecommerce_product_variety ADD COLUMN reward_points;

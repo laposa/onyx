@@ -1,0 +1,56 @@
+<!-- BEGIN: content -->
+
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<div class="survey_question_answer_edit">
+
+	<script type="text/javascript">
+	
+	$(function() {
+		
+		function initSurveyEditForm() {
+	
+		    $('#survey_question_answer_edit_form').ajaxForm({ 
+				target: '#sub_content',
+				beforeSubmit: function() {return $("#survey_question_answer_edit_form").valid()},
+				success: function(responseText, statusText) {
+					popupMessage("#sub_content div.onxshop_messages");
+					makeAjaxRequest('#sub_content', '/request/bo/component/survey_detail~id={GET.survey_id}~');
+				}
+			});
+		}
+		
+		initSurveyEditForm();
+	});
+	
+	</script>
+	
+	<form method="post" action="{URI}" id="survey_question_answer_edit_form">
+
+		<fieldset class="single">
+			<legend>Answer add</legend>
+			<div class="row title">
+				<span class="label"><label for="answer-title">Title</label></span>
+				<span class="field"><input class="required text title" id="answer-title" type="text" name="answer[title]" value="{ANSWER.title|htmlspecialchars}" /></span>
+			</div>
+			<div class="row description">
+				<span class="label"><label for="answer-description">description</label></span>
+				<span class="field"><textarea id="answer-description" name="answer[description]">{ANSWER.description|htmlspecialchars}</textarea></span>
+			</div>
+			<div class="row points">
+				<span class="label"><label for="answer-points">points</label></span>
+				<span class="field"><input class="number short" id="answer-points" type="text" name="answer[points]" value="{ANSWER.points}" /></span>
+			</div>
+		</fieldset>
+				
+		<div class="row submit">
+			<span class="label"><label>&nbsp;</label></span>
+			<span class="field"><button type="submit"  name="save" value="save"><span>Create new option</span></button> or <a href="#sub_content" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_detail~id={GET.survey_id}~'); return false;">cancel</a></span>
+		</div>
+		
+		<input type="hidden" name="answer[publish]" value="1" />
+		<input type="hidden" name="answer[question_id]" value="{GET.question_id}" />
+		
+	</form>
+		
+</div>
+<!-- END: content -->
