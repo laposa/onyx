@@ -61,6 +61,8 @@ class common_comment extends Onxshop_Model {
 	var $publish;
 	
 	var $rating;
+	
+	var $relation_subject;
 
 	var $_hashMap = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
@@ -75,7 +77,8 @@ class common_comment extends Onxshop_Model {
 		'customer_id'=>array('label' => '', 'validation'=>'int', 'required'=>true),
 		'created'=>array('label' => '', 'validation'=>'datetime', 'required'=>true),
 		'publish'=>array('label' => '', 'validation'=>'int', 'required'=>true),
-		'rating'=>array('label' => '', 'validation'=>'int', 'required'=>false)
+		'rating'=>array('label' => '', 'validation'=>'int', 'required'=>false),
+		'relation_subject'=>array('label' => '', 'validation'=>'text', 'required'=>false)
 	);
 	
 	/**
@@ -113,15 +116,27 @@ class common_comment extends Onxshop_Model {
 	 
 	function getCommentList($filter = false, $sort = 'id ASC') {
 		
-		$add_to_where = '';
+		$add_to_where = '1=1 ';
 	
 		/**
          * query filter
          * 
          */
 
-		if (is_numeric($filter['node_id'])) {
-            $add_to_where .= " node_id = '{$filter['node_id']}'";
+		if (is_array($filter)) {
+			if (is_numeric($filter['node_id'])) {
+	            $add_to_where .= "AND node_id = '{$filter['node_id']}' ";
+	        }
+			
+			if ($filter['relation_subject']) {
+				$add_to_where .= " AND relation_subject = '{$filter['relation_subject']}' ";
+			}
+			
+			if (is_numeric($filter['parent'])) {
+	            $add_to_where .= " AND parent = '{$filter['parent']}'";
+	        } else if (array_key_exists('parent', $filter) && $filter['parent'] === null) {
+	        	$add_to_where .= " AND parent IS NULL";
+	        }
         }
 		
 		/**

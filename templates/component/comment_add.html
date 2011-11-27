@@ -6,7 +6,7 @@
 	$(document).ready(function(){  
 		
 		var options = { 
-			target: 'div.comment_add',
+			target: 'div.comment_add_container',
 			beforeSubmit: function() {return $("#comment_form_{GET.node_id}").valid()},
 			success: function(){
 				popupMessage("div.comment_add div.onxshop_messages");
@@ -21,6 +21,7 @@
 	
 	<form id="comment_form_{GET.node_id}" class='comment' method='post' action='{URI}#comment_form_{GET.node_id}'>
 		<fieldset class="single">
+			<!-- BEGIN: identity_show -->
 			<div class="row">
 				<span class="label"><label for="comment_author_name_{GET.node_id}"><span class="mandatory-mark">*</span> {I18N_AUTHOR_NAME}:</label></span>
 				<span class="field"><input class="required text" type='text' id="comment_author_name_{GET.node_id}" name='comment[author_name]' value='{COMMENT.author_name|htmlspecialchars}' {DISABLED.author_name} /></span>
@@ -29,10 +30,17 @@
 				<span class="label"><label for="comment_author_email_{GET.node_id}"><span class="mandatory-mark">*</span> {I18N_AUTHOR_EMAIL}:</label></span>
 				<span class="field"><input class="required text" type='text' id="comment_author_email_{GET.node_id}" name='comment[author_email]' value='{COMMENT.author_email|htmlspecialchars}' {DISABLED.author_email} /></span>
 			</div>
-			<div class="row">
-				<span class="label"><label for="comment_author_website_{GET.node_id}">{I18N_AUTHOR_WEBSITE}:</label></span>
-				<span class="field"><input class="text" type='text' id="comment_author_website_{GET.node_id}" name='comment[author_website]' value='{COMMENT.author_website|htmlspecialchars}' {DISABLED.author_website} /></span>
-			</div>
+				<!-- BEGIN: website -->
+				<div class="row">
+					<span class="label"><label for="comment_author_website_{GET.node_id}">{I18N_AUTHOR_WEBSITE}:</label></span>
+					<span class="field"><input class="text" type='text' id="comment_author_website_{GET.node_id}" name='comment[author_website]' value='{COMMENT.author_website|htmlspecialchars}' {DISABLED.author_website} /></span>
+				</div>
+				<!-- END: website -->
+			<!-- END: identity_show -->
+			<!-- BEGIN: identity_hidden -->
+			<input type='hidden' name='comment[author_name]' value='n/a' />
+			<input type='hidden' name='comment[author_email]' value='anonym@noemail.com' />
+			<!-- END: identity_hidden -->
 			<div class="row">
 				<span class="label"><label for="comment_title_{GET.node_id}"><span class="mandatory-mark">*</span> {I18N_SUBJECT}:</label></span>
 				<span class="field"><input class="required text title" type='text' id="comment_title_{GET.node_id}" name='comment[title]' value='{COMMENT.title|htmlspecialchars}' /></span>
@@ -52,7 +60,9 @@
     <!-- END: comment_insert -->
     
     <!-- BEGIN: comment_inserted -->
-	<p>Thank you for your comment.</p>
+	<div class="comment_inserted">
+		<p>{I18N_COMMENT_THANK_YOU}</p>
+	</div>
 	<!-- END: comment_inserted -->
 	
 	<!-- BEGIN: log_to_insert -->
@@ -70,10 +80,11 @@
 		$('div.comment_add form').ajaxForm(options); 
 	});
 	</script>
-
-	<h3>Please login to add a comment</h3>
-	{LOGIN_BOX}
-	<p><a href="/login"><span>Forgotten password or don't have an account yet?</span></a></p>
+	<div class="comment_login">
+		<h3>{I18N_COMMENT_PLEASE_LOGIN}</h3>
+		{LOGIN_BOX}
+		<p class="create_account"><a href="/page/8"><span>{I18N_COMMENT_CREATE_ACCOUNT}</span></a></p>
+	</div>
 	<!-- END: log_to_insert -->
 </div>
 <!-- END: content -->

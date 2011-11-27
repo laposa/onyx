@@ -82,13 +82,18 @@ class Onxshop_Controller_Component_Comment extends Onxshop_Controller {
 
 		$filter = array();
 		$filter['node_id'] = $node_id;
+		if (is_numeric($this->GET['parent'])) $filter['parent'] = $this->GET['parent'];
+		else $filter['parent'] = null;
+		$filter['relation_subject'] = $this->getRelationSubject();
 		
 		$list = $this->Comment->getCommentList($filter, 'id DESC');
 		
-		foreach ($list as $item) {
+		$published_comments_count = 0;
 		
-			//display only published items, or inserted by active customer
-			if ($item['publish'] == 1 || ($item['customer_id'] == $_SESSION['client']['customer']['id'] && $_SESSION['client']['customer']['id'] > 0 )) {
+		foreach ($list as $item) {	
+			
+			//display only published items, or inserted by active customer, or admin is logged in
+			if ($item['publish'] == 1 || $this->checkViewPermission($item)) {
 			
 				/**
 				 * odd_even_class
@@ -102,8 +107,30 @@ class Onxshop_Controller_Component_Comment extends Onxshop_Controller {
 				 */
 				 
 				$this->tpl->assign('ITEM', $item);
-			
-				if ($item['publish'] == 0) $this->tpl->parse('content.comment_list.item.awaiting');
+				
+				/**
+				 * check edit permission
+				 */
+				 
+				if ($this->checkEditPermission($item)) {
+					
+					/**
+					 * display status
+					 */
+					 
+					if ($item['publish'] == 0) $this->tpl->parse('content.comment_list.item.edit.publish_awaiting');
+					else if ($item['publish'] == 1) $this->tpl->parse('content.comment_list.item.edit.publish_approved');
+					else if ($item['publish'] == -1) $this->tpl->parse('content.comment_list.item.edit.publish_rejected');
+					
+					if ($filter['parent'] == null) $this->tpl->parse('content.comment_list.item.edit.reply');
+					
+					$this->tpl->parse('content.comment_list.item.edit');
+					
+				} else {
+				
+					if ($item['publish'] == 0) $this->tpl->parse('content.comment_list.item.awaiting');
+					else if ($item['publish'] == -1) $this->tpl->parse('content.comment_list.item.rejected');
+				}
 				
 				/**
 				 * rating
@@ -117,14 +144,24 @@ class Onxshop_Controller_Component_Comment extends Onxshop_Controller {
 					$this->tpl->assign('RATING_STARS', '');
 				}
 				
+				//sub comments
+				$_nSite = new nSite("component/comment_list~node_id={$this->GET['node_id']}:parent={$item['id']}~");
+				$this->tpl->assign("SUB_COMMENTS", $_nSite->getContent());
+				
 				//parse item block
 				$this->tpl->parse('content.comment_list.item');
+				
+				$published_comments_count++;
+				
 			}
 		}
 		
-		
-		if (count($list) > 0) {
+		if ($published_comments_count > 0) {
 			$this->tpl->parse('content.comment_list');
+		} else {
+		
+			if ($filter['parent'] == null) $this->tpl->parse('content.comment_list_empty');
+			
 		}
 
 	}
@@ -154,6 +191,8 @@ class Onxshop_Controller_Component_Comment extends Onxshop_Controller {
 					$data['customer_id'] = 0;
 				}
 		
+				$data['relation_subject'] = $this->getRelationSubject();
+				
 				if (is_numeric($data['customer_id'] )) {
 					
 					if ($this->Comment->insertComment($data)) {
@@ -216,8 +255,8 @@ class Onxshop_Controller_Component_Comment extends Onxshop_Controller {
 			
 		} else {
 			
-			$_Onxshop = new nSite("component/client/login");
-			$this->tpl->assign('LOGIN_BOX', $_Onxshop->getContent());
+			$_nSite = new nSite("component/client/login");
+			$this->tpl->assign('LOGIN_BOX', $_nSite->getContent());
 			
 			$this->tpl->parse('content.log_to_insert');
 		}
@@ -239,13 +278,22 @@ class Onxshop_Controller_Component_Comment extends Onxshop_Controller {
 			$data['customer_id'] = $_SESSION['client']['customer']['id'];
 			$customer_detail = $this->Comment->getCustomerDetail($data['customer_id']);
 
-			$data['author_name'] = "{$customer_detail['customer']['title_before']} {$customer_detail['customer']['first_name']} {$customer_detail['customer']['last_name']}";
+			$data['author_name'] = "{$customer_detail['customer']['first_name']} {$customer_detail['customer']['last_name']}";
 			$data['author_email'] = $customer_detail['customer']['email'];
 			
 		}
 		
 		$this->tpl->assign('COMMENT', $data);
 		
+		/**
+		 * check if identity input field is visible
+		 */
+		 
+		if ($this->checkIdentityVisibility($data)) {
+			$this->tpl->parse('content.comment_insert.identity_show');
+		} else {
+			$this->tpl->parse('content.comment_insert.identity_hidden');
+		}
 		
 		/**
 		 * display insert form
@@ -254,4 +302,49 @@ class Onxshop_Controller_Component_Comment extends Onxshop_Controller {
 		$this->tpl->parse('content.comment_insert');
 	}
 
+
+	/**
+	 * get relation subject
+	 */
+	 
+	public function getRelationSubject() {
+				
+		return '';
+		
+	}
+	
+	/**
+	 * checkViewPermission
+	 */
+	 
+	public function checkViewPermission($item) {
+		
+		if ($item['customer_id'] == $_SESSION['client']['customer']['id'] && $_SESSION['client']['customer']['id'] > 0 ) return true;
+		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER) return true;
+		
+		return false;
+		
+	}
+	
+	/**
+	 * checkEditPermission
+	 */
+	
+	public function checkEditPermission($item) {
+	
+		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER) return true;
+		
+		return false;
+	}
+	
+	/**
+	 * checkIdentityVisibility
+	 */
+	 
+	public function checkIdentityVisibility($item) {
+		
+		//identity input field is visible to everyone
+		return true;
+		
+	}
 }
