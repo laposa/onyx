@@ -34,7 +34,25 @@ class international_country extends Onxshop_Model {
 	 */
 	var $currency_code;
 
-
+	/**
+	 * create table sql
+	 */
+	 
+	private function getCreateTableSql() {
+	
+		$sql = "
+CREATE TABLE international_country (
+    id serial NOT NULL PRIMARY KEY,
+    name character varying(255),
+    iso_code2 character(2),
+    iso_code3 character(3),
+    eu_status boolean,
+    currency_code character(3)
+);
+		";
+		
+		return $sql;
+	}
 
 	/**
 	 * init configuration

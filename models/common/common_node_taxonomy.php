@@ -32,6 +32,24 @@ class common_node_taxonomy extends Onxshop_Model {
 		);
 	
 	/**
+	 * create table sql
+	 */
+	 
+	private function getCreateTableSql() {
+	
+		$sql = "
+CREATE TABLE common_node_taxonomy ( 
+	id serial NOT NULL PRIMARY KEY,
+	node_id int NOT NULL REFERENCES common_node ON UPDATE CASCADE ON DELETE CASCADE,
+	taxonomy_tree_id int NOT NULL REFERENCES common_taxonomy_tree ON UPDATE CASCADE ON DELETE CASCADE
+);
+ALTER TABLE common_node_taxonomy ADD CONSTRAINT node_node_id_taxonomy_tree_id_key UNIQUE (node_id, taxonomy_tree_id);
+		";
+		
+		return $sql;
+	}
+	
+	/**
 	 * get label
 	 */
 	 

@@ -60,10 +60,10 @@ class education_survey_entry extends Onxshop_Model {
 	);
 	
 	/**
-	 * create table
+	 * create table sql
 	 */
 	 
-	private function createTable() {
+	private function getCreateTableSql() {
 	
 		$sql = "
 CREATE TABLE education_survey_entry (
@@ -77,6 +77,8 @@ CREATE TABLE education_survey_entry (
 	UNIQUE (survey_id, customer_id, relation_subject)
 );
 		";
+		
+		return $sql;
 	}
 	
 	/**

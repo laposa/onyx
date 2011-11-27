@@ -12,6 +12,29 @@ require_once('models/common/common_image.php');
 class ecommerce_product_image extends common_image {
 
 	/**
+	 * create table sql
+	 */
+	 
+	private function getCreateTableSql() {
+	
+		$sql = "
+CREATE TABLE ecommerce_product_image ( 
+	id serial NOT NULL PRIMARY KEY,
+	src character varying(255),
+	role character varying(255),
+	node_id int NOT NULL REFERENCES ecommerce_product ON UPDATE CASCADE ON DELETE CASCADE,
+	title character varying(255),
+	description text,
+	priority integer DEFAULT 0 NOT NULL,
+	modified timestamp(0) without time zone,
+	author integer
+);
+		";
+		
+		return $sql;
+	}
+	
+	/**
 	 * init configuration
 	 */
 	/*

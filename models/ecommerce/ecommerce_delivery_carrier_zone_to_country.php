@@ -32,4 +32,24 @@ class ecommerce_delivery_carrier_zone_to_country extends Onxshop_Model {
 		'zone_id'=>array('label' => '', 'validation'=>'int', 'required'=>true)
 		
 		);
+	
+	/**
+	 * create table sql
+	 */
+	 
+	private function getCreateTableSql() {
+	
+		$sql = "
+CREATE TABLE ecommerce_delivery_carrier_zone_to_country (
+    id serial PRIMARY KEY,
+    country_id int NOT NULL REFERENCES international_country ON UPDATE CASCADE ON DELETE CASCADE,
+    zone_id int NOT NULL REFERENCES ecommerce_delivery_carrier_zone ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+ALTER TABLE ecommerce_delivery_carrier_zone_to_country ADD CONSTRAINT country_id_zone_id_key UNIQUE (country_id, zone_id);
+		";
+		
+		return $sql;
+	}
+	
 }

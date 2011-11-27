@@ -100,6 +100,38 @@ class ecommerce_invoice extends Onxshop_Model {
 	);
 	
 	/**
+	 * create table sql
+	 */
+	 
+	private function getCreateTableSql() {
+	
+		$sql = "
+CREATE TABLE ecommerce_invoice ( 
+	id serial NOT NULL PRIMARY KEY,
+	order_id integer REFERENCES ecommerce_order ON UPDATE RESTRICT ON DELETE RESTRICT ,
+	goods_net decimal(12,5) ,
+	goods_vat_sr decimal(12,5) ,
+	goods_vat_rr decimal(12,5) ,
+	delivery_net decimal(12,5) ,
+	delivery_vat decimal(12,5) ,
+	payment_amount decimal(12,5) ,
+	payment_type character varying(255) ,
+	created timestamp(0) without time zone NOT NULL DEFAULT NOW(),
+	modified timestamp(0) without time zone NOT NULL DEFAULT NOW(),
+	status smallint ,
+	other_data text,
+	basket_detail text,
+	customer_name character varying(255) ,
+	customer_email character varying(255) ,
+	address_invoice text,
+	address_delivery text
+);
+		";
+		
+		return $sql;
+	}
+	
+	/**
 	 * init configuration
 	 */
 	 

@@ -69,6 +69,31 @@ class ecommerce_order extends Onxshop_Model {
 		'referrer'=>array('label' => '', 'validation'=>'string', 'required'=>false),
 		'payment_type'=>array('label' => '', 'validation'=>'string', 'required'=>true)
 		);
+		
+	/**
+	 * create table sql
+	 */
+	 
+	private function getCreateTableSql() {
+	
+		$sql = "
+CREATE TABLE ecommerce_order (
+    id serial NOT NULL PRIMARY KEY,
+    basket_id integer REFERENCES ecommerce_basket ON UPDATE CASCADE ON DELETE RESTRICT,
+    invoices_address_id integer REFERENCES client_address ON UPDATE CASCADE ON DELETE RESTRICT,
+    delivery_address_id integer REFERENCES client_address ON UPDATE CASCADE ON DELETE RESTRICT,
+    other_data text,
+    status integer,
+    note_customer text,
+    note_backoffice text,
+    php_session_id character varying(32),
+    referrer character varying(255),
+    payment_type character varying(255)
+);
+		";
+		
+		return $sql;
+	}
 	
 	/**
 	 * init configuration

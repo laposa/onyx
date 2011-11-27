@@ -37,6 +37,24 @@ class common_taxonomy_label extends Onxshop_Model {
 		'publish'=>array('label' => 'int', 'validation'=>'string', 'required'=>false)
 		);
 
+	/**
+	 * create table sql
+	 */
+	 
+	private function getCreateTableSql() {
+	
+		$sql = "
+CREATE TABLE common_taxonomy_label ( 
+	id serial NOT NULL PRIMARY KEY,
+	title varchar(255) NOT NULL ,
+	description text ,
+	priority int DEFAULT 0 NOT NULL,
+	publish integer DEFAULT 1 NOT NULL
+);
+		";
+		
+		return $sql;
+	}
 
 	/**
 	 * change position (NOT IN USE IN 1.4?)

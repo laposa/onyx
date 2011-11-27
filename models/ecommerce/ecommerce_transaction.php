@@ -60,7 +60,29 @@ class ecommerce_transaction extends Onxshop_Model {
 		'type'=>array('label' => '', 'validation'=>'string', 'required'=>false),//for the transition keep as not required
 		'status'=>array('label' => '', 'validation'=>'int', 'required'=>false)
 		);
+	
+	/**
+	 * create table sql
+	 */
+	 
+	private function getCreateTableSql() {
+	
+		$sql = "
+CREATE TABLE ecommerce_transaction (
+    id serial NOT NULL PRIMARY KEY,
+    order_id integer REFERENCES ecommerce_order ON UPDATE CASCADE ON DELETE RESTRICT,
+    pg_data text,
+    currency_code character(3),
+    amount numeric(12,5),
+    created timestamp(0) without time zone,
+	type varchar(255),
+	status smallint
+);
+		";
 		
+		return $sql;
+	}
+	
 	/**
 	 * init configuration
 	 */

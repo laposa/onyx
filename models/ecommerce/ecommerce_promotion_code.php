@@ -37,7 +37,25 @@ class ecommerce_promotion_code extends Onxshop_Model {
 		'code'=>array('label' => '', 'validation'=>'string', 'required'=>true),
 		'order_id'=>array('label' => '', 'validation'=>'int', 'required'=>true)
 		);
-
+	
+	/**
+	 * create table sql
+	 */
+	 
+	private function getCreateTableSql() {
+	
+		$sql = "
+CREATE TABLE ecommerce_promotion_code (
+    id serial NOT NULL PRIMARY KEY,
+    promotion_id integer NOT NULL REFERENCES ecommerce_promotion ON UPDATE CASCADE ON DELETE RESTRICT,
+    code varchar(255),
+    order_id integer  NOT NULL REFERENCES ecommerce_order ON UPDATE CASCADE ON DELETE RESTRICT
+);
+		";
+		
+		return $sql;
+	}
+	
 	/**
 	 * insert promotion code (apply promotion code)
 	 */

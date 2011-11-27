@@ -61,6 +61,29 @@ class common_email_form extends Onxshop_Model {
 
 	var $_form_data_valid;
 
+	/**
+	 * create table sql
+	 */
+	 
+	private function getCreateTableSql() {
+	
+		$sql = "
+CREATE TABLE common_email_form (
+    id serial NOT NULL PRIMARY KEY,
+    email_from character varying(255),
+    name_from character varying(255),
+    subject character varying(255),
+    content text,
+    template character varying(255),
+    email_recipient character varying(255),
+    name_recipient character varying(255),
+    created timestamp(0) without time zone,
+    ip character varying(255)
+);
+		";
+		
+		return $sql;
+	}
 
 	/**
 	 * init configuration

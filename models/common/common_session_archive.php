@@ -12,6 +12,30 @@ require_once('models/common/common_session.php');
 class common_session_archive extends common_session {
 
 	/**
+	 * create table sql
+	 */
+	 
+	private function getCreateTableSql() {
+	
+		$sql = "
+CREATE TABLE common_session_archive ( 
+	id serial NOT NULL PRIMARY KEY,
+	session_id varchar(32) ,
+	session_data text ,
+	customer_id int REFERENCES client_customer ON UPDATE CASCADE ON DELETE CASCADE, 
+	created timestamp(0) without time zone,
+	modified timestamp(0) without time zone,
+	ip_address varchar(255),
+	php_auth_user varchar(255),
+	http_referer text,
+	http_user_agent varchar(255)
+);
+		";
+		
+		return $sql;
+	}
+	
+	/**
 	 * init configuration
 	 */
 	 

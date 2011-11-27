@@ -62,6 +62,35 @@ class common_print_article extends common_file {
 	);
 	
 	/**
+	 * create table sql
+	 */
+	 
+	private function getCreateTableSql() {
+	
+		$sql = "
+CREATE TABLE common_print_article ( 
+	id serial PRIMARY KEY,
+	src varchar(255) ,
+	role varchar(255) ,
+	node_id int NOT NULL REFERENCES common_node(id) ON UPDATE CASCADE ON DELETE CASCADE,
+	title varchar(255) NOT NULL,
+	description text ,
+	priority int DEFAULT 0 NOT NULL,
+	modified timestamp(0) ,
+	author int,
+	type varchar(255) ,
+	authors text ,
+	issue_number int ,
+	page_from int ,
+	date date ,
+	other text
+);
+		";
+		
+		return $sql;
+	}
+	
+	/**
 	 * get issues
 	 */
 

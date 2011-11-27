@@ -33,6 +33,24 @@ class common_uri_mapping extends Onxshop_Model {
 		);
 	
 	/**
+	 * create table sql
+	 */
+	 
+	private function getCreateTableSql() {
+	
+		$sql = "
+CREATE TABLE common_uri_mapping (
+    id serial NOT NULL PRIMARY KEY,
+    node_id integer REFERENCES common_node ON UPDATE CASCADE ON DELETE CASCADE,
+    public_uri text,
+    \"type\" character varying(255)
+);
+		";
+		
+		return $sql;
+	}
+	
+	/**
 	 * init configuration
 	 */
 	 

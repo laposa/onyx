@@ -41,7 +41,27 @@ class ecommerce_basket extends Onxshop_Model {
 		'ip_address'=>array('label' => '', 'validation'=>'string', 'required'=>true),
 		'discount_net'=>array('label' => '', 'validation'=>'decimal', 'required'=>false)
 		);
+	
+	/**
+	 * create table sql
+	 */
+	 
+	private function getCreateTableSql() {
+	
+		$sql = "
+CREATE TABLE ecommerce_basket (
+    id serial NOT NULL PRIMARY KEY,
+    customer_id integer REFERENCES client_customer ON UPDATE CASCADE ON DELETE RESTRICT,
+    created timestamp(0) without time zone,
+    note text,
+    ip_address character varying(255),
+    discount_net decimal(12,5)
+);
+		";
 		
+		return $sql;
+	}
+	
 	/**
 	 * get detail
 	 * this is actually getFullDetail

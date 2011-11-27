@@ -44,6 +44,25 @@ class client_group extends Onxshop_Model {
 		'search_filter'=>array('label' => '', 'validation'=>'serialized', 'required'=>false),
 		'other_data'=>array('label' => '', 'validation'=>'serialized', 'required'=>false)
 		);
+	
+	/**
+	 * create table sql
+	 */
+	 
+	private function getCreateTableSql() {
+	
+		$sql = "
+CREATE TABLE client_group (
+    id serial NOT NULL PRIMARY KEY,
+    name varchar(255) ,
+    description text ,
+    search_filter text ,
+    other_data text
+);
+		";
+		
+		return $sql;
+	}
 		
 	/**
 	 * init configuration

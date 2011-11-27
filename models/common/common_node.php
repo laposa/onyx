@@ -154,7 +154,54 @@ class common_node extends Onxshop_Model {
 		'require_ssl'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'display_permission_group_acl'=>array('label' => '', 'validation'=>'serialized', 'required'=>false)
 		);
-
+	
+	/**
+	 * create table sql
+	 */
+	 
+	private function getCreateTableSql() {
+	
+		$sql = "
+CREATE TABLE common_node (
+	id serial NOT NULL PRIMARY KEY,
+	title character varying(255) NOT NULL,
+	node_group character varying(255) NOT NULL,
+	node_controller character varying(255),
+	parent integer REFERENCES common_node ON UPDATE CASCADE ON DELETE CASCADE,
+	parent_container smallint DEFAULT 0 NOT NULL,
+	priority integer DEFAULT 0 NOT NULL,
+	teaser text,
+	content text,
+	description text,
+	keywords text,
+	page_title character varying(255),
+	head text,
+	body_attributes character varying(255),
+	created timestamp(0) without time zone DEFAULT now() NOT NULL,
+	modified timestamp(0) without time zone DEFAULT now() NOT NULL,
+	publish integer DEFAULT 0 NOT NULL,
+	display_in_menu smallint DEFAULT 1 NOT NULL,
+	author integer NOT NULL,
+	uri_title character varying(255),
+	display_permission smallint DEFAULT 0 NOT NULL,
+	other_data	text,
+	css_class character varying(255) DEFAULT '' NOT NULL,
+	layout_style character varying(255) DEFAULT '' NOT NULL,
+	component text,
+	relations text,
+	display_title smallint,
+	display_secondary_navigation smallint,
+	require_login smallint,
+	display_breadcrumb smallint NOT NULL DEFAULT 0,
+	browser_title varchar(255) NOT NULL DEFAULT '',
+	link_to_node_id integer NOT NULL DEFAULT 0,
+	require_ssl smallint NOT NULL DEFAULT 0
+);
+		";
+		
+		return $sql;
+	}
+	
 	/**
 	 * init configuration
 	 */

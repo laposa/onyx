@@ -46,6 +46,27 @@ class ecommerce_basket_content extends Onxshop_Model {
 	);
 	
 	/**
+	 * create table sql
+	 */
+	 
+	private function getCreateTableSql() {
+	
+		$sql = "
+CREATE TABLE ecommerce_basket_content (
+    id serial NOT NULL PRIMARY KEY,
+    basket_id integer REFERENCES ecommerce_basket ON UPDATE CASCADE ON DELETE CASCADE,
+    product_variety_id integer REFERENCES ecommerce_product_variety ON UPDATE CASCADE ON DELETE RESTRICT,
+    quantity integer,
+    price_id integer REFERENCES ecommerce_price ON UPDATE RESTRICT ON DELETE RESTRICT,
+    other_data text,
+    product_type_id smallint REFERENCES ecommerce_product_type ON UPDATE CASCADE ON DELETE RESTRICT
+);
+		";
+		
+		return $sql;
+	}
+	
+	/**
 	 * insert data
 	 */
 	 

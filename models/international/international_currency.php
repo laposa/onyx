@@ -35,6 +35,25 @@ class international_currency extends Onxshop_Model {
 		'symbol_left'=>array('label' => '', 'validation'=>'string', 'required'=>false),
 		'symbol_right'=>array('label' => '', 'validation'=>'string', 'required'=>false)
 	);
+	
+	/**
+	 * create table sql
+	 */
+	 
+	private function getCreateTableSql() {
+	
+		$sql = "
+CREATE TABLE international_currency (
+    id serial NOT NULL PRIMARY KEY,
+    code character(3),
+    name character varying(255) DEFAULT ''::character varying NOT NULL,
+    symbol_left character varying(255),
+    symbol_right character varying(255)
+);
+		";
+		
+		return $sql;
+	}
 
 	/**
 	 * init configuration

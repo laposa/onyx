@@ -46,6 +46,26 @@ class international_currency_rate extends Onxshop_Model {
 	);
 
 	/**
+	 * create table sql
+	 */
+	 
+	private function getCreateTableSql() {
+	
+		$sql = "
+CREATE TABLE international_currency_rate (
+    id serial NOT NULL PRIMARY KEY,
+    currency_code character(3),
+    currency_code_from character(3),
+    source character varying(255),
+    date timestamp(0) without time zone,
+    amount numeric(12,8)
+);
+		";
+		
+		return $sql;
+	}
+	
+	/**
 	 * init configuration
 	 */
 	static function initConfiguration() {

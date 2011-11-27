@@ -56,6 +56,29 @@ class client_company extends Onxshop_Model {
 		'vat_no'=>array('label' => '', 'validation'=>'string', 'required'=>false),
 		'other_data'=>array('label' => '', 'validation'=>'serialized', 'required'=>false)
 		);
+	
+	/**
+	 * create table sql
+	 */
+	 
+	private function getCreateTableSql() {
+	
+		$sql = "
+CREATE TABLE client_company (
+    id serial NOT NULL PRIMARY KEY,
+    name character varying(255),
+    www character varying(255),
+    telephone character varying(255),
+    fax character varying(255),
+    customer_id integer REFERENCES client_customer ON UPDATE CASCADE ON DELETE CASCADE,
+    registration_no character varying(255), 
+    vat_no character varying(255),
+    other_data text
+);
+		";
+		
+		return $sql;
+	}
 		
 	/**
 	 * init configuration

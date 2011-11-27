@@ -29,6 +29,25 @@ class ecommerce_product_to_product extends Onxshop_Model {
 		);
 		
 	/**
+	 * create table sql
+	 */
+	 
+	private function getCreateTableSql() {
+	
+		$sql = "
+CREATE TABLE ecommerce_product_to_product ( 
+	id serial NOT NULL PRIMARY KEY,
+	product_id int REFERENCES ecommerce_product ON UPDATE CASCADE ON DELETE CASCADE,
+	related_product_id int REFERENCES ecommerce_product ON UPDATE CASCADE ON DELETE CASCADE 
+);
+
+ALTER TABLE ecommerce_product_to_product ADD CONSTRAINT product_id_related_product_id_key UNIQUE (product_id, related_product_id);
+		";
+		
+		return $sql;
+	}
+		
+	/**
 	 * get related products defined by admin
 	 *
 	 * @param unknown_type $product_id

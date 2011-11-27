@@ -100,6 +100,41 @@ class ecommerce_product_variety extends Onxshop_Model {
 	);
 	
 	/**
+	 * create table sql
+	 */
+	 
+	private function getCreateTableSql() {
+	
+		$sql = "
+CREATE TABLE ecommerce_product_variety (
+    id serial NOT NULL PRIMARY KEY,
+    name character varying(255),
+    product_id integer REFERENCES ecommerce_product ON UPDATE CASCADE ON DELETE CASCADE,
+    sku character varying(255),
+    weight integer,
+    weight_gross integer,
+    stock integer,
+    priority integer DEFAULT 0 NOT NULL,
+    description text,
+    other_data text,
+    width integer DEFAULT 0 NOT NULL,
+    height integer DEFAULT 0 NOT NULL,
+    depth integer DEFAULT 0 NOT NULL,
+    diameter integer DEFAULT 0 NOT NULL,
+    modified timestamp(0) without time zone DEFAULT now() NOT NULL,
+    publish smallint DEFAULT 0 NOT NULL,
+	display_permission integer NOT NULL DEFAULT 0,
+	condition smallint NOT NULL DEFAULT 0,
+	wholesale smallint
+);
+
+ALTER TABLE ecommerce_product_variety ADD UNIQUE (\"sku\");
+		";
+		
+		return $sql;
+	}
+	
+	/**
 	 * init configuration
 	 */
 	 

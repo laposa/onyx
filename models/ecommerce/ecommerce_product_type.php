@@ -34,6 +34,24 @@ class ecommerce_product_type extends Onxshop_Model {
 	);
 
 	/**
+	 * create table sql
+	 */
+	 
+	private function getCreateTableSql() {
+	
+		$sql = "
+CREATE TABLE ecommerce_product_type (
+    id serial NOT NULL PRIMARY KEY,
+    name character varying(255),
+    vat numeric DEFAULT 0 NOT NULL,
+	publish integer DEFAULT 1 NOT NULL
+);
+		";
+		
+		return $sql;
+	}
+	
+	/**
 	 * init configuration
 	 */
 	 

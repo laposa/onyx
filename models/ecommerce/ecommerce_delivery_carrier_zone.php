@@ -27,4 +27,22 @@ class ecommerce_delivery_carrier_zone extends Onxshop_Model {
 		'carrier_id'=>array('label' => '', 'validation'=>'int', 'required'=>true)
 		
 		);
+	
+	/**
+	 * create table sql
+	 */
+	 
+	private function getCreateTableSql() {
+	
+		$sql = "
+CREATE TABLE ecommerce_delivery_carrier_zone (
+    id serial PRIMARY KEY,
+    name varchar(255),
+    carrier_id integer NOT NULL DEFAULT 1 REFERENCES ecommerce_delivery_carrier ON UPDATE CASCADE ON DELETE CASCADE;
+);
+		";
+		
+		return $sql;
+	}
+	
 }

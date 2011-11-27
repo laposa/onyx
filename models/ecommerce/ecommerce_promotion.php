@@ -111,7 +111,38 @@ class ecommerce_promotion extends Onxshop_Model {
 		'limit_delivery_country_id'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'limit_delivery_carrier_id'=>array('label' => '', 'validation'=>'int', 'required'=>false)
 		);
+	
+	/**
+	 * create table sql
+	 */
+	 
+	private function getCreateTableSql() {
+	
+		$sql = "
+CREATE TABLE ecommerce_promotion (
+    id serial NOT NULL PRIMARY KEY,
+    title varchar(255) ,
+    description text ,
+    publish smallint NOT NULL DEFAULT 1,
+    created timestamp(0) without time zone DEFAULT now() NOT NULL,
+    modified timestamp(0) without time zone DEFAULT now() NOT NULL,
+    customer_account_type smallint NOT NULL DEFAULT 0,
+    code_pattern varchar(255) NOT NULL,
+    discount_fixed_value decimal(12,5) NOT NULL DEFAULT 0,
+    discount_percentage_value decimal(5,2) NOT NULL DEFAULT 0,
+    discount_free_delivery smallint NOT NULL DEFAULT 0,
+    uses_per_coupon integer NOT NULL DEFAULT 0 ,
+    uses_per_customer smallint NOT NULL DEFAULT 0,
+    limit_list_products text ,
+    other_data text,
+	limit_delivery_country_id smallint NOT NULL DEFAULT 0,
+	limit_delivery_carrier_id smallint NOT NULL DEFAULT 0
+);
+		";
 		
+		return $sql;
+	}
+	
 	/**
 	 * list
 	 */

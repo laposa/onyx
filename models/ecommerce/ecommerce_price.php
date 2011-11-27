@@ -50,6 +50,26 @@ class ecommerce_price extends Onxshop_Model {
 	);
 
 	/**
+	 * create table sql
+	 */
+	 
+	private function getCreateTableSql() {
+	
+		$sql = "
+CREATE TABLE ecommerce_price (
+    id serial NOT NULL PRIMARY KEY,
+    product_variety_id integer REFERENCES ecommerce_product_variety ON UPDATE CASCADE ON DELETE CASCADE,
+    currency_code character(3),
+    value numeric(12,5),
+    \"type\" character varying(255),
+    date timestamp(0) without time zone
+);
+		";
+		
+		return $sql;
+	}
+	
+	/**
 	 * init configuration
 	 */
 	 

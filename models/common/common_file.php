@@ -60,6 +60,31 @@ class common_file extends Onxshop_Model {
 		'modified'=>array('label' => '', 'validation'=>'datetime', 'required'=>true),
 		'author'=>array('label' => '', 'validation'=>'int', 'required'=>true)
 	);
+	
+	/**
+	 * create table sql
+	 */
+	 
+	private function getCreateTableSql() {
+	
+		$sql = "
+CREATE TABLE common_file ( 
+
+	id serial NOT NULL PRIMARY KEY,
+	src varchar(255),
+	role character varying(255),
+	node_id int NOT NULL REFERENCES common_node ON UPDATE CASCADE ON DELETE CASCADE,
+	title varchar(255) ,
+	description text ,
+	priority int DEFAULT 0 NOT NULL,
+	modified timestamp(0) ,
+	author int 
+
+);
+		";
+		
+		return $sql;
+	}
 
 	/**
 	 * get file detail

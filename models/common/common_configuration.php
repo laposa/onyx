@@ -47,6 +47,27 @@ class common_configuration extends Onxshop_Model {
 	);
 	
 	/**
+	 * create table sql
+	 */
+	 
+	private function getCreateTableSql() {
+	
+		$sql = "
+CREATE TABLE common_configuration ( 
+	id serial NOT NULL PRIMARY KEY,
+	node_id int NOT NULL DEFAULT 0 REFERENCES common_node(id) ON UPDATE CASCADE ON DELETE CASCADE,
+	object varchar(255) ,
+	property varchar(255) ,
+	value text ,
+	description text 
+
+);
+		";
+		
+		return $sql;
+	}
+	
+	/**
 	 * get configuration
 	 */
 	

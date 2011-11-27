@@ -79,10 +79,10 @@ class education_survey_question extends Onxshop_Model {
 	);
 	
 	/**
-	 * create table
+	 * create table sql
 	 */
 	 
-	private function createTable() {
+	private function getCreateTableSql() {
 	
 		$sql = "
 CREATE TABLE education_survey_question (
@@ -98,6 +98,8 @@ CREATE TABLE education_survey_question (
 	publish smallint DEFAULT 1
 );
 		";
+		
+		return $sql;
 	}
 	
 	/**

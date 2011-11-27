@@ -72,8 +72,6 @@ class ecommerce_delivery_carrier extends Onxshop_Model {
 	 */
 	var $free_delivery_map;
 
-
-
 	public $_hashMap = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'title'=>array('label' => '', 'validation'=>'string', 'required'=>true),
@@ -88,7 +86,32 @@ class ecommerce_delivery_carrier extends Onxshop_Model {
 		'publish'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'free_delivery_map'=>array('label' => '', 'validation'=>'serialized', 'required'=>false)
 		);
+	
+	/**
+	 * create table sql
+	 */
+	 
+	private function getCreateTableSql() {
+	
+		$sql = "
+CREATE TABLE ecommerce_delivery_carrier (
+    id serial NOT NULL PRIMARY KEY,
+    title varchar(255) ,
+    description text ,
+    limit_list_countries text ,
+    limit_list_products text ,
+    limit_list_product_types text ,
+    limit_order_value decimal(12,5) NOT NULL DEFAULT 0,
+    fixed_value decimal(12,5) NOT NULL DEFAULT 0,
+	fixed_percentage decimal(5,2) NOT NULL DEFAULT 0,
+    priority smallint NOT NULL DEFAULT 0,
+    publish smallint NOT NULL DEFAULT 1
+);
+		";
 		
+		return $sql;
+	}
+	
 	/**
 	 * init configuration
 	 */

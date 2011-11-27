@@ -40,5 +40,24 @@ class ecommerce_delivery_carrier_zone_price extends Onxshop_Model {
 		'currency_code'=>array('label' => '', 'validation'=>'string', 'required'=>true)
 		
 		);
-
+	
+	/**
+	 * create table sql
+	 */
+	 
+	private function getCreateTableSql() {
+	
+		$sql = "
+CREATE TABLE ecommerce_delivery_carrier_zone_price (
+    id serial PRIMARY KEY,
+    zone_id int NOT NULL REFERENCES ecommerce_delivery_carrier_zone ON UPDATE CASCADE ON DELETE CASCADE,
+    weight int ,
+    price numeric(9,2) ,
+    currency_code char(3)
+);
+		";
+		
+		return $sql;
+	}
+	
 }

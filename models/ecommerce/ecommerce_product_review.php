@@ -19,7 +19,33 @@ class ecommerce_product_review extends common_comment {
 	var $node_id;
 
 
-
+	/**
+	 * create table sql
+	 */
+	 
+	private function getCreateTableSql() {
+	
+		$sql = "
+CREATE TABLE ecommerce_product_review (
+    id serial PRIMARY KEY NOT NULL,
+    parent int REFERENCES ecommerce_product_review ON UPDATE CASCADE ON DELETE CASCADE,
+    node_id int REFERENCES ecommerce_product ON UPDATE CASCADE ON DELETE RESTRICT,
+    title varchar(255) ,
+    content text ,
+    author_name varchar(255) ,
+    author_email varchar(255) ,
+    author_website varchar(255) ,
+	author_ip_address varchar(255),
+    customer_id int NOT NULL REFERENCES client_customer ON UPDATE CASCADE ON DELETE RESTRICT,
+    created timestamp(0) default now(),
+    publish smallint,
+	rating default 0
+);
+		";
+		
+		return $sql;
+	}
+	
 	/**
 	 * get tree
 	 */

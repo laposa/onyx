@@ -36,7 +36,26 @@ class common_taxonomy_tree extends Onxshop_Model {
 		'publish'=>array('label' => 'Publish', 'validation'=>'int', 'required'=>false)
 		);
 
+	/**
+	 * create table sql
+	 */
+	 
+	private function getCreateTableSql() {
+	
+		$sql = "
+CREATE TABLE common_taxonomy_tree ( 
+  id serial PRIMARY KEY NOT NULL,
+  label_id int NOT NULL REFERENCES common_taxonomy_label ON UPDATE CASCADE ON DELETE CASCADE,
+  parent int  REFERENCES common_taxonomy_tree ON UPDATE CASCADE ON DELETE CASCADE,
+  priority smallint DEFAULT 0 NOT NULL,
+  publish smallint DEFAULT 1 NOT NULL
+
+);
+		";
 		
+		return $sql;
+	}
+	
 	/**
 	 * get the tree
 	 *

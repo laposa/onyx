@@ -43,6 +43,24 @@ class ecommerce_order_log extends Onxshop_Model {
 		);
 
 	/**
+	 * create table sql
+	 */
+	 
+	private function getCreateTableSql() {
+	
+		$sql = "
+CREATE TABLE ecommerce_order_log (
+    id serial NOT NULL PRIMARY KEY,
+    order_id integer REFERENCES ecommerce_order ON UPDATE CASCADE ON DELETE RESTRICT,
+    status integer,
+    datetime timestamp(0) without time zone
+);
+		";
+		
+		return $sql;
+	}
+	
+	/**
 	 * get log
 	 */
 	 

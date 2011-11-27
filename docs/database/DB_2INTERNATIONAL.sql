@@ -1,32 +1,6 @@
 SET client_encoding = 'UNICODE';
 BEGIN;
-
-CREATE TABLE international_country (
-    id serial NOT NULL PRIMARY KEY,
-    name character varying(255),
-    iso_code2 character(2),
-    iso_code3 character(3),
-    eu_status boolean,
-    currency_code character(3)
-);
-
-CREATE TABLE international_currency (
-    id serial NOT NULL PRIMARY KEY,
-    code character(3),
-    name character varying(255) DEFAULT ''::character varying NOT NULL,
-    symbol_left character varying(255),
-    symbol_right character varying(255)
-);
-
-CREATE TABLE international_currency_rate (
-    id serial NOT NULL PRIMARY KEY,
-    currency_code character(3),
-    currency_code_from character(3),
-    source character varying(255),
-    date timestamp(0) without time zone,
-    amount numeric(12,8)
-);
-
+/*international_country*/
 
 INSERT INTO international_country VALUES (1, 'Afghanistan', 'AF', 'AFG', false, NULL);
 INSERT INTO international_country VALUES (2, 'Albania', 'AL', 'ALB', false, NULL);
@@ -267,8 +241,10 @@ INSERT INTO international_country VALUES (236, 'Yugoslavia', 'YU', 'YUG', false,
 INSERT INTO international_country VALUES (237, 'Zaire', 'ZR', 'ZAR', false, NULL);
 INSERT INTO international_country VALUES (238, 'Zambia', 'ZM', 'ZMB', false, NULL);
 INSERT INTO international_country VALUES (239, 'Zimbabwe', 'ZW', 'ZWE', false, NULL);
+		
+SELECT pg_catalog.setval('international_country_id_seq', (SELECT max(id) FROM international_country), true);
 
-
+/*international_currency*/
 INSERT INTO international_currency VALUES (1, 'EUR', 'Euro', '&euro;', NULL);
 INSERT INTO international_currency VALUES (2, 'GBP', 'British Pound', '&pound;', NULL);
 INSERT INTO international_currency VALUES (3, 'AFA', 'Afghanistan Afghani', '', NULL);
@@ -449,12 +425,9 @@ INSERT INTO international_currency VALUES (45, 'CZK', 'Czech Koruna', '', 'Kč')
 INSERT INTO international_currency VALUES (169, 'USD', 'US Dollar', '$', NULL);
 INSERT INTO international_currency VALUES (63, 'XAU', 'Gold', '', 'g.&nbsp;of&nbsp;Gold');
 
+SELECT pg_catalog.setval('international_currency_id_seq', (SELECT max(id) FROM international_currency), true);
 
---
--- Data for TOC entry 90 (OID 18112)
--- Name: international_currency_rate; Type: TABLE DATA; Schema: public; Owner: liquidlight
---
-
+/*international_currency_rate*/
 INSERT INTO international_currency_rate (currency_code, currency_code_from, source, date, amount) VALUES ('USD', 'GBP', 'google', '2011-03-24', 1.6228);
 INSERT INTO international_currency_rate (currency_code, currency_code_from, source, date, amount) VALUES ('EUR', 'GBP', 'google', '2011-03-24', 1.15075876);
 INSERT INTO international_currency_rate (currency_code, currency_code_from, source, date, amount) VALUES ('CZK', 'GBP', 'google', '2011-03-24', 28.0741817);
@@ -464,7 +437,6 @@ INSERT INTO international_currency_rate (currency_code, currency_code_from, sour
 INSERT INTO international_currency_rate (currency_code, currency_code_from, source, date, amount) VALUES ('HKD', 'GBP', 'google', '2011-03-24', 12.6500577);
 INSERT INTO international_currency_rate (currency_code, currency_code_from, source, date, amount) VALUES ('NZD', 'GBP', 'google', '2011-03-24', 2.17504356);
 
-SELECT pg_catalog.setval('international_country_id_seq', (SELECT max(id) FROM international_country), true);
-SELECT pg_catalog.setval('international_currency_id_seq', (SELECT max(id) FROM international_currency), true);
 SELECT pg_catalog.setval('international_currency_rate_id_seq', (SELECT max(id) FROM international_currency_rate), true);
+
 COMMIT;

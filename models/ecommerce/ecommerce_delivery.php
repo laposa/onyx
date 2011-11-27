@@ -75,6 +75,30 @@ class ecommerce_delivery extends Onxshop_Model {
 		'weight'=>array('label' => '', 'validation'=>'int', 'required'=>true)
 		);
 	
+	/**
+	 * create table sql
+	 */
+	 
+	private function getCreateTableSql() {
+	
+		$sql = "
+CREATE TABLE ecommerce_delivery (
+    id serial NOT NULL PRIMARY KEY,
+    order_id int REFERENCES ecommerce_order ON UPDATE CASCADE ON DELETE RESTRICT,
+    carrier_id integer REFERENCES ecommerce_delivery_carrier ON UPDATE CASCADE ON DELETE CASCADE ,
+    value_net decimal(12,5) ,
+    vat decimal(12,5) ,
+    vat_rate decimal(12,5) ,
+    required_datetime timestamp(0) without time zone,
+    note_customer text ,
+    note_backoffice text ,
+    other_data text,
+	weight integer NOT NULL DEFAULT 0
+);
+		";
+		
+		return $sql;
+	}
 	
 	/**
 	 * insert delivery

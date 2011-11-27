@@ -22,7 +22,29 @@ class common_image  extends common_file {
 		'modified'=>array('label' => '', 'validation'=>'datetime', 'required'=>true),
 		'author'=>array('label' => '', 'validation'=>'int', 'required'=>true)
 	);
+	
+	/**
+	 * create table sql
+	 */
 	 
+	private function getCreateTableSql() {
+	
+		$sql = "
+CREATE TABLE common_image (
+    id serial NOT NULL PRIMARY KEY,
+    src character varying(255),
+    role character varying(255),
+    node_id integer NOT NULL REFERENCES common_node ON UPDATE CASCADE ON DELETE CASCADE,
+    title character varying(255),
+    description text,
+    priority integer DEFAULT 0 NOT NULL,
+    modified timestamp(0) without time zone,
+    author integer
+);
+		";
+		
+		return $sql;
+	}
 	 
 	/**
 	 * init configuration

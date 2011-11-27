@@ -146,6 +146,45 @@ class client_customer extends Onxshop_Model {
 	);
 	
 	/**
+	 * create table sql
+	 */
+	 
+	private function getCreateTableSql() {
+	
+		$sql = "
+CREATE TABLE client_customer (
+    id serial NOT NULL PRIMARY KEY,
+    title_before character varying(255),
+    first_name character varying(255),
+    last_name character varying(255),
+    title_after character varying(255),
+    email character varying(255),
+    \"username\" character varying(255),
+    telephone character varying(255),
+    mobilephone character varying(255),
+    nickname character varying(255),
+    \"password\" character varying(255),
+    company_id integer,
+    invoices_address_id integer,
+    delivery_address_id integer,
+    gender character(1),
+    created timestamp(0) without time zone,
+    currency_code character(3),
+    status smallint,
+    newsletter smallint,
+    birthday date,
+    other_data text,
+    modified timestamp(0) without time zone,
+	account_type smallint NOT NULL DEFAULT 0,
+	agreed_with_latest_t_and_c smallint NOT NULL DEFAULT 0,
+	verified_email_address smallint NOT NULL DEFAULT 0
+);
+		";
+		
+		return $sql;
+	}
+	
+	/**
 	 * init configuration
 	 */
 	 

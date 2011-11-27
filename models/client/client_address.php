@@ -81,6 +81,33 @@ class client_address extends Onxshop_Model {
 		);
 		
 	/**
+	 * create table sql
+	 */
+	 
+	private function getCreateTableSql() {
+	
+		$sql = "
+CREATE TABLE client_address (
+	id serial NOT NULL PRIMARY KEY,
+	customer_id int REFERENCES client_customer ON UPDATE CASCADE ON DELETE CASCADE, 
+	country_id int REFERENCES international_country ON UPDATE CASCADE ON DELETE CASCADE,
+	name varchar(255) ,
+	line_1 varchar(255) ,
+	line_2 varchar(255) ,
+	line_3 varchar(255) ,
+	post_code varchar(255) ,
+	city varchar(255) ,
+	county varchar(255) ,
+	telephone varchar(255) ,
+	comment varchar(255) ,
+	is_deleted bool  DEFAULT false
+);
+		";
+		
+		return $sql;
+	}
+	
+	/**
 	 * init configuration
 	 */
 	static function initConfiguration() {
