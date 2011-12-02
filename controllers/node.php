@@ -132,7 +132,7 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 		
 		if ($this->checkVisibility($node_data)) {
 			
-			if ($this->_checkPermissionForCSS($node_data)) {
+			if ($this->_checkPermissionForExtraCSS($node_data)) {
 			
 				//TODO: add and icon with status
 				// we cannot add this css_class to normal node.css_class, because of inheritance
@@ -186,12 +186,15 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 	public function checkVisibility($node_data) {
 	
 		$visibility = false;
-	
+		//force visibility for admin, only when in edit or preview mode
+		if ($_SESSION['fe_edit_mode'] == 'edit' || $_SESSION['fe_edit_mode'] == 'move') $force_admin_visibility = true;
+		else $force_admin_visibility = false;
+		
 		/**
 		 * CONDITIONAL DISPLAY OPTION BY display_permission
 		 */
 		 
-		if ($this->Node->checkDisplayPermission($node_data)) {
+		if ($this->Node->checkDisplayPermission($node_data, $force_admin_visibility)) {
 			//don't display hidden node in preview mode
 			if ($node_data['publish'] == 0 && $_SESSION['authentication']['authenticity'] > 0 && $_SESSION['fe_edit_mode'] == 'preview' ) $visibility1 = false;
 			else $visibility1 = true;
@@ -201,7 +204,7 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 		 * check permission from group_acl
 		 */
 		 
-		if ($this->Node->checkDisplayPermissionGroupAcl($node_data)) {
+		if ($this->Node->checkDisplayPermissionGroupAcl($node_data, $force_admin_visibility)) {
 			$visibility2 = true;
 		} else {
 			$visibility2 = false;
@@ -216,15 +219,10 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 	 * check if add CSS highlight
 	 */
 	 
-	public function _checkPermissionForCSS($node_data) {
+	public function _checkPermissionForExtraCSS($node_data) {
 	
-		//add css class when in edit or move mode or when logged in, but no fe_edit_mode is set (just after login)
-		if (
-			$_SESSION['authentication']['authenticity'] > 0 && ($_SESSION['fe_edit_mode'] == 'edit' || 
-			$_SESSION['fe_edit_mode'] == 'move') || 
-			($_SESSION['authentication']['authenticity'] > 0 && !$_SESSION['fe_edit_mode']) ||
-			is_array($node_data['display_permission_group_acl'])
-			) return true;
+		//add css class when when logged in and using edit or move mode
+		if ($_SESSION['authentication']['authenticity'] > 0 && ($_SESSION['fe_edit_mode'] == 'edit' || $_SESSION['fe_edit_mode'] == 'move')) return true;
 		else return false;
 		
 	}
