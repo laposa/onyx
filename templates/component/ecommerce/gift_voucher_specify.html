@@ -5,7 +5,7 @@ $(function(){
 	$("#gift_voucher_specify-variety_id").change(function() {
 		var variety_name = $("#gift_voucher_specify-variety_id option:selected").text();
 		if ($(this).val() != '') $("#gift_voucher-variety_name").text(variety_name);
-		else $("#gift_voucher-variety_name").text("£XX");
+		else $("#gift_voucher-variety_name").text("£…");
 		var variety_description = $("#gift_voucher_specify-variety_id option:selected").attr('title');
 		$("#gift_voucher-variety_description").text(variety_description);
 	});
