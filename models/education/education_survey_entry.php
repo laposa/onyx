@@ -135,7 +135,9 @@ CREATE TABLE education_survey_entry (
 			return false;
 		}
 		
-		$data['created'] = date('c');
+		if (!$data['created']) $data['created'] = date('c');
+		$data['modified'] = date('c');
+		if (!is_numeric($data['publish'])) $data['publish'] = 1; 
 		
 		if ($survey_entry_id = $this->save($data)) {
 			

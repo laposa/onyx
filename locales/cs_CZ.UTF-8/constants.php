@@ -25,7 +25,7 @@ define('I18N_COMMENT_HEAD', 'Komentáře');
 define('I18N_COMMENT_ADDNEW', 'Přidat komentář');
 define('I18N_COMMENT_THANK_YOU', 'Děkujeme za Váš komentář, který byl zaslán moderátorovi k uveřejnění.');
 define('I18N_COMMENT_PLEASE_LOGIN', 'Prosím přihlašte se pro možnost vložení komentáře.');
-define('I18N_COMMENT_CREATE_ACCOUNT', 'Nemáte ůčet nebo heslo?');
+define('I18N_COMMENT_CREATE_ACCOUNT', 'Nemáte účet nebo heslo?');
 define('I18N_COMMENT_REPLY', 'Odpovědět');
 define('I18N_COMMENT_APPROVE', 'Schválit');
 define('I18N_COMMENT_OR', 'nebo');
