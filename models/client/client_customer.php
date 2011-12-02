@@ -54,6 +54,7 @@ class client_customer extends Onxshop_Model {
 	 */
 	var $password;
 	/**
+	 * current company
 	 * @access private
 	 */
 	var $company_id;
