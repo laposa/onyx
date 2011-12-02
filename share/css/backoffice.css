@@ -21,6 +21,7 @@ td {vertical-align: middle;}
 th {text-align: left;}
 th.last {text-align: right;}
 
+tr:hover td {background: white;}
 /*tbody tr:nth-child(odd) {background-color:#eee;}
 tbody tr:nth-child(even) {background-color:#fff;}*/
 
@@ -152,7 +153,8 @@ a.button.add_new_variety {float: left; margin-right: 10px;}
 div.product_list tbody tr td {border-top: 0; border-bottom: 0;}
 div.product_list tbody tr.fullproduct td {background-image: url(/share/images/double-border-h.png); background-position: top left; background-repeat: repeat-x;}
 div.product_list td.product_name {font-size: 1.5em; font-family: Georgia;}
-
+div.product_list th.price,
+div.product_list th.sku {text-align: center;}
 /**
  * misc
  */
@@ -193,6 +195,15 @@ background: -ms-linear-gradient(top,  #ededed 0%,#d1d1d1 100%); /* IE10+ */
 background: linear-gradient(top,  #ededed 0%,#d1d1d1 100%); /* W3C */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', endColorstr='#d1d1d1',GradientType=0 ); /* IE6-9 */
 }
+
+#backoffice div.columnTwo form {background: #ededed; /* Old browsers */
+background: -moz-linear-gradient(top,  #ededed 0%, #d1d1d1 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ededed), color-stop(100%,#d1d1d1)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top,  #ededed 0%,#d1d1d1 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top,  #ededed 0%,#d1d1d1 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top,  #ededed 0%,#d1d1d1 100%); /* IE10+ */
+background: linear-gradient(top,  #ededed 0%,#d1d1d1 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', endColorstr='#d1d1d1',GradientType=0 ); /* IE6-9 */}
 #backoffice div.twoColumnPage div.columnOne div.columnWrapper {padding-top: 10px; margin-left: 10px; padding-right: 15px; margin-right:0;}
 #backoffice div.twoColumnPage div.columnTwo div.columnWrapper {margin-left: 0;}
 #backoffice div.twoColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnOne > div.layoutColumnWrapper {margin-right: 10px;}

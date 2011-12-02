@@ -30,10 +30,11 @@ $(document).ready(function() {
 									<tr>
 										<th class="image first"></th>
 										<th class="product_name">Product</th>
-										<th class="sku">SKU</th>
 										<th class="variety_name">Variety</th>
-										<th class="stock">Stock</th>
-										<th class="price last">Price</th>
+										<th class="price">Price</th>
+										<th class="sku">SKU</th>
+										<th class="stock last">Stock</th>
+										
 									</tr>
 								</thead>
 								<tbody>
@@ -43,10 +44,11 @@ $(document).ready(function() {
 											<td {ROWSPAN} class="image"><!--  BEGIN: image --><a href="/backoffice/products/{ITEM.product_id}/edit"><img src="/thumbnail/25x25/{ITEM.image_src}" alt="{ITEM.image_title|htmlspecialchars}" /></a><!--  END: image --></td>
 											<td {ROWSPAN} class="product_name"><span class="{ITEM.disabled}"><a href="/backoffice/products/{ITEM.product_id}/edit">{ITEM.product_name|htmlspecialchars}</a></span></td>
 										<!-- END: imagetitle -->
-										<td class="sku">{ITEM.sku}</td>
 										<td class="variety_name"><a class="title {ITEM.variety_publish}" id="ecommerce_product_variety-variety_name-id-{ITEM.variety_id}" href="#{ITEM.variety_id}">{ITEM.variety_name|htmlspecialchars}</a></td>
+										<td class="price money"><a class="price" id="ecommerce_price-value-product_variety_id-{ITEM.variety_id}" href="#{ITEM.variety_id}">{ITEM.price|money_format('%n', %s)}</a></td>
+										<td class="sku number">{ITEM.sku}</td>
+										
 										<td class="stock number">{ITEM.stock}</td>
-										<td class="price money"><a class="price" id="ecommerce_price-value-product_variety_id-{ITEM.variety_id}" href="#{ITEM.variety_id}">{ITEM.price|money_format('%n', %s)}</a></td> 
 									</tr>
 									<!-- END: item -->
 								</tbody>
