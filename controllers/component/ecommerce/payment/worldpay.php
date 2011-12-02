@@ -129,16 +129,16 @@ class Onxshop_Controller_Component_Ecommerce_Payment_Worldpay extends Onxshop_Co
 				$Order->setStatus($order_id, 1);
 				
 				//send email to admin
-				require_once('models/common/common_email_form.php');
-    			$EmailForm = new common_email_form();
+				require_once('models/common/common_email.php');
+    			$EmailForm = new common_email();
     		
     			$_nSite = new nSite("component/ecommerce/order_detail~order_id={$order_data['id']}~");
 				$order_data['order_detail'] = $_nSite->getContent();
 				
     			//this allows use customer data and company data in the mail template
-    			//is passed as DATA to template in common_email_form->_format
-    			$GLOBALS['common_email_form']['transaction'] = $transaction_data;
-    			$GLOBALS['common_email_form']['order'] = $order_data;
+    			//is passed as DATA to template in common_email->_format
+    			$GLOBALS['common_email']['transaction'] = $transaction_data;
+    			$GLOBALS['common_email']['order'] = $order_data;
 	    		
     			if (!$EmailForm->sendEmail('new_order_paid', 'n/a', $order_data['client']['customer']['email'], $order_data['client']['customer']['first_name'] . " " . $order_data['client']['customer']['last_name'])) {
     				msg("ecommerce_transaction: Can't send email.", 'error', 2);

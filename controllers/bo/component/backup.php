@@ -60,8 +60,8 @@ class Onxshop_Controller_Bo_Component_Backup extends Onxshop_Controller {
 	 
 	private function notifyEmail() {
 	
-		require_once('models/common/common_email_form.php');
-	    $EmailForm = new common_email_form();
+		require_once('models/common/common_email.php');
+	    $EmailForm = new common_email();
 	    
 	    $mail_to = ONXSHOP_SUPPORT_EMAIL;
 	    $mail_toname = ONXSHOP_SUPPORT_NAME;

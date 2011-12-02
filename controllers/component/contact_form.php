@@ -54,9 +54,9 @@ class Onxshop_Controller_Component_Contact_Form extends Onxshop_Controller {
 	
 			if (!is_array($formdata)) return false;
 			
-			require_once('models/common/common_email_form.php');
+			require_once('models/common/common_email.php');
 		    
-			$EmailForm = new common_email_form();
+			$EmailForm = new common_email();
 		    
 			$content = $EmailForm->exploreFormData($formdata);
 

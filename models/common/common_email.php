@@ -1,13 +1,13 @@
 <?php
 /**
- * class common_email_form
+ * class common_email
  *
  * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
  
-class common_email_form extends Onxshop_Model {
+class common_email extends Onxshop_Model {
 
 	/**
 	 * @access private
@@ -68,7 +68,7 @@ class common_email_form extends Onxshop_Model {
 	private function getCreateTableSql() {
 	
 		$sql = "
-CREATE TABLE common_email_form (
+CREATE TABLE common_email (
     id serial NOT NULL PRIMARY KEY,
     email_from character varying(255),
     name_from character varying(255),
@@ -91,7 +91,7 @@ CREATE TABLE common_email_form (
 	 
 	static function initConfiguration() {
 	
-		if (array_key_exists('common_email_form', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['common_email_form'];
+		if (array_key_exists('common_email', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['common_email'];
 		else $conf = array();
 		
 		/**
@@ -392,8 +392,8 @@ CREATE TABLE common_email_form (
 		$tpl->assign('EMAIL', $vars);
 
 		//read passed data
-		if (is_array($GLOBALS['common_email_form'])) {
-			$tpl->assign('DATA', $GLOBALS['common_email_form']);
+		if (is_array($GLOBALS['common_email'])) {
+			$tpl->assign('DATA', $GLOBALS['common_email']);
 		}
 
 		// from $nSite->_initTemplateVariables

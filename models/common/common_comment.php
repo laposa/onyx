@@ -243,11 +243,11 @@ CREATE TABLE common_comment (
 	 
 	public function sendNewCommentNotificationEmail($comment_id, $comment_data) {
 	
-		require_once('models/common/common_email_form.php');
-    	$EmailForm = new common_email_form();
+		require_once('models/common/common_email.php');
+    	$EmailForm = new common_email();
     			
-    	//is passed as DATA array into the template at common_email_form->_format
-    	$GLOBALS['common_email_form']['comment'] = $comment_data;
+    	//is passed as DATA array into the template at common_email->_format
+    	$GLOBALS['common_email']['comment'] = $comment_data;
     	
     	if (!$EmailForm->sendEmail('comment_notify')) {
     		msg('New comment notification email sending failed.', 'error');

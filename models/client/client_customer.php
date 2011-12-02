@@ -401,13 +401,13 @@ CREATE TABLE client_customer (
 				 * send notification email
 				 */
 				 
-				require_once('models/common/common_email_form.php');
-    			$EmailForm = new common_email_form();
+				require_once('models/common/common_email.php');
+    			$EmailForm = new common_email();
     			
     			//this allows use customer data and company data in the mail template
-    			//is passed as DATA to template in common_email_form->_format
-    			$GLOBALS['common_email_form']['customer'] = $customer_data;
-    			$GLOBALS['common_email_form']['company'] = $company_data;
+    			//is passed as DATA to template in common_email->_format
+    			$GLOBALS['common_email']['customer'] = $customer_data;
+    			$GLOBALS['common_email']['company'] = $company_data;
     			
     			if (!$EmailForm->sendEmail('registration', 'n/a', $customer_data['email'], $customer_data['first_name'] . " " . $customer_data['last_name'])) {
     				msg('New customer email sending failed.', 'error');
@@ -536,8 +536,8 @@ CREATE TABLE client_customer (
 		}
 		
 		//this allows use customer data and company data in the mail template
-		//is passed as DATA to template in common_email_form->_format
-		$GLOBALS['common_email_form']['customer'] = $customer_data;
+		//is passed as DATA to template in common_email->_format
+		$GLOBALS['common_email']['customer'] = $customer_data;
 
 		//remove password attributes before update as password is already updated
 		unset($customer_data['password']);
@@ -551,8 +551,8 @@ CREATE TABLE client_customer (
 		if ($this->update($customer_data)) {
 		
 			//send email
-			require_once('models/common/common_email_form.php');
-			$EmailForm = new common_email_form();
+			require_once('models/common/common_email.php');
+			$EmailForm = new common_email();
 			
 			//notify to new details	
 			if (!$EmailForm->sendEmail('customer_data_updated', 'n/a', $customer_data['email'], $customer_data['first_name'] . " " . $customer_data['last_name'])) {
@@ -722,13 +722,13 @@ CREATE TABLE client_customer (
 				$customer_data['password'] = $password; //keep clean, not MD5
 				
 				//send email
-				require_once('models/common/common_email_form.php');
+				require_once('models/common/common_email.php');
     
-    			$EmailForm = new common_email_form();
+    			$EmailForm = new common_email();
     			
     			//this allows use customer data and company data in the mail template
-    			//is passed as DATA to template in common_email_form->_format
-    			$GLOBALS['common_email_form']['customer'] = $customer_data;
+    			//is passed as DATA to template in common_email->_format
+    			$GLOBALS['common_email']['customer'] = $customer_data;
     			
     			//hash password using md5 here
     			$client_current_data['password'] = md5($password);

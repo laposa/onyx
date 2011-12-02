@@ -564,9 +564,9 @@ ORDER BY ecommerce_order.id DESC
 				$this->setStatus($id, 0);
 				
 				//send email to admin
-				require_once('models/common/common_email_form.php');
+				require_once('models/common/common_email.php');
 	    
-	    		$EmailForm = new common_email_form();
+	    		$EmailForm = new common_email();
 	    		
 	    		$order_data = $this->getOrder($id);
 
@@ -574,8 +574,8 @@ ORDER BY ecommerce_order.id DESC
 				$order_data['order_detail'] = $_nSite->getContent();
 		
 	    		//this allows use customer data and company data in the mail template
-	    		//is passed as DATA to template in common_email_form->_format
-	    		$GLOBALS['common_email_form']['order'] = $order_data;
+	    		//is passed as DATA to template in common_email->_format
+	    		$GLOBALS['common_email']['order'] = $order_data;
 	    		
 	    		if ($this->conf['mail_unpaid']) {
 		    		if (!$EmailForm->sendEmail('new_order_unpaid', 'n/a', $this->conf['mail_to_address'], $this->conf['mail_to_name'])) {

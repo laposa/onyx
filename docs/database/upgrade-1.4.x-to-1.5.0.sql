@@ -78,11 +78,16 @@ ALTER TABLE common_comment ADD COLUMN relation_subject text;
 
 /*stage2 PREPARTION*/
 
-ALTER TABLE ecommerce_product_variety ADD COLUMN reward_points;
+ALTER TABLE ecommerce_product_review ADD COLUMN relation_subject text;
+ALTER TABLE ecommerce_product_variety ADD COLUMN reward_points INTEGER;
+ALTER TABLE ecommerce_product_variety ADD COLUMN subtitle varchar(255);
+/*JING ONLY: UPDATE ecommerce_product_variety SET subtitle = ean13;
+UPDATE ecommerce_product_variety SET ean13 = '';*/
 
 CREATE TABLE ecommerce_credit_note (
     id serial NOT NULL PRIMARY KEY,
     customer_id INTEGER REFERENCES client_customer ON UPDATE CASCADE ON DELETE RESTRICT,
+    order_id INTEGER REFERENCES ecommerce_order ON UPDATE CASCADE ON DELETE RESTRICT,
     type cash/points, 
     name varchar(255) ,
     description text ,
@@ -110,10 +115,8 @@ CREATE TABLE client_referral_usage (
     other_data text
 );
 
-/*stage3 PREPARATION: other cleaning*/
-ALTER TABLE client_customer DROP COLUMN company_id;
 ALTER TABLE ecommerce_invoice ADD COLUMN payment_discount;
 ALTER TABLE ecommerce_promotion ADD COLUMN generated_by_order_id INTEGER REFERENCES ecommerce_order ON UPDATE CASCADE ON DELETE RESTRICT;
 ALTER TABLE ecommerce_order_log ADD COLUMN description text, other_data text;
 
-/*rename DB common_email_form to common_email*/
+ALTER TABLE common_email_form RENAME TO common_email;

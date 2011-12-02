@@ -15,8 +15,8 @@ class Onxshop_Controller_Bo_Node_Content_Contact_form extends Onxshop_Controller
 	 
 	function post() {
 		//only for including of configuration
-		require_once('models/common/common_email_form.php');
-		$EmailForm = new common_email_form();
+		require_once('models/common/common_email.php');
+		$EmailForm = new common_email();
 		$this->tpl->assign('EMAIL_FORM_CONF', $EmailForm->conf);
 
 		require_once('models/common/common_file.php');

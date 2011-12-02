@@ -188,11 +188,11 @@ class Onxshop_Controller_Component_Ecommerce_Gift_Voucher_Generate extends Onxsh
 		 * send email
 		 */
 		 
-		$GLOBALS['common_email_form'] = array('promotion_data'=>$promotion_data, 'voucher_data'=>$voucher_data, 'gift_voucher_filename'=>$gift_voucher_filename);
+		$GLOBALS['common_email'] = array('promotion_data'=>$promotion_data, 'voucher_data'=>$voucher_data, 'gift_voucher_filename'=>$gift_voucher_filename);
 		//$GLOBALS['onxshop_atachments'] = array($gift_voucher_filename_fullpath);
 		
-		require_once('models/common/common_email_form.php');
-		$EmailForm = new common_email_form();
+		require_once('models/common/common_email.php');
+		$EmailForm = new common_email();
 		
 		$template = 'gift_voucher';
 		$content = $gift_voucher_filename;
@@ -203,7 +203,7 @@ class Onxshop_Controller_Component_Ecommerce_Gift_Voucher_Generate extends Onxsh
 		
 		$EmailForm->sendEmail($template, $content, $email_recipient, $name_recipient, $email_from, $name_from);
 		
-		unset($GLOBALS['common_email_form']);
+		unset($GLOBALS['common_email']);
 		//unset($GLOBALS['onxshop_atachments']);
 		
 		return true;

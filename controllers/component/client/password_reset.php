@@ -63,12 +63,12 @@ class Onxshop_Controller_Component_Client_Password_Reset extends Onxshop_Control
 			 
 			if ($current_key) {
 			
-				require_once('models/common/common_email_form.php');
-				$EmailForm = new common_email_form();
+				require_once('models/common/common_email.php');
+				$EmailForm = new common_email();
 			
 				//this allows use customer data and company data in the mail template
-				//is passed as DATA to template in common_email_form->_format
-				$GLOBALS['common_email_form']['customer'] = $customer_data;
+				//is passed as DATA to template in common_email->_format
+				$GLOBALS['common_email']['customer'] = $customer_data;
 				
 				if (!$EmailForm->sendEmail('request_password_change', 'n/a', $customer_data['email'], $customer_data['first_name'] . " " . $customer_data['last_name'])) {
 					msg("Can't send email with request for password reset", 'error');
