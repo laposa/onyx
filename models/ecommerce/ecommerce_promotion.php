@@ -213,7 +213,7 @@ CREATE TABLE ecommerce_promotion (
 	 */
 	
 	public function addPromotion($data) {
-	
+		
 		if ($this->checkValidPattern($data['code_pattern'])) {
 		
 			if (!is_numeric($data['publish'])) $data['publish'] = 0;
