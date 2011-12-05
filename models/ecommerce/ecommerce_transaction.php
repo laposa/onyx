@@ -98,7 +98,7 @@ CREATE TABLE ecommerce_transaction (
 			$conf['allowed_types'] = explode(',', $conf['allowed_types']);
 		} else {
 			//default protx,cheque
-			$conf['allowed_types'] = array('protx', 'cheque');
+			$conf['allowed_types'] = array('paypal', 'protx', 'cheque');
 		}
 		
 		return $conf;

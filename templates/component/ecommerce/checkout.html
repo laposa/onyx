@@ -42,9 +42,9 @@ $(function(){
 				<span class="label"><label for="order-payment_type">{I18N_PLEASE_CHOOSE}</label></span>
 				<span class="field">
 				<select name="order[payment_type]" id="order-payment_type">
+					<!-- BEGIN: paypal --><option value="paypal">{I18N_PAY_BY_PAYPAL}</option><!-- END: paypal -->
 					<!-- BEGIN: protx --><option value="protx">{I18N_PAY_BY_PROTX}</option><!-- END: protx -->
 					<!-- BEGIN: worldpay --><option value="worldpay">{I18N_PAY_BY_WORLDPAY}</option><!-- END: worldpay -->
-					<!-- BEGIN: paypal --><option value="paypal">{I18N_PAY_BY_PAYPAL}</option><!-- END: paypal -->
 					<!-- BEGIN: cheque --><option value="cheque">{I18N_PAY_BY_CHEQUE}</option><!-- END: cheque -->
 				</select>
 				</span>
