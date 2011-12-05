@@ -36,7 +36,9 @@ class Onxshop_Controller_Component_Ecommerce_Payment_PayPal_Callback extends Onx
 	 */
 	 
 	public function mainAction() {
-	
+		
+		//not implemented
+		
 	}
 	
 	/**
@@ -44,7 +46,9 @@ class Onxshop_Controller_Component_Ecommerce_Payment_PayPal_Callback extends Onx
 	 */
 	
 	function prepare($order_id) {
+	
     	$order_data = $this->Transaction->getOrderDetail($order_id);
+    
     }
     
     /*

@@ -61,7 +61,13 @@ var google_conversion_value = 0;
 
 {RESULT}
 
-
+<!-- BEGIN: nil_payment -->
+<style type="text/css">
+a.make_payment,
+a.repeat_order {display: none;}
+</style>
+<p>Payment is not required.</p>
+<!-- END: nil_payment -->
 {ONXSHOP_REQUEST_order_detail #component/ecommerce/order_detail&amp;id=GET.order_id}
 
 

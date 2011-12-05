@@ -2,7 +2,7 @@
 /**
  * ProtX aka SagePay
  * 
- * Copyright (c) 2005-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -19,7 +19,7 @@ _Controller_Component_Ecommerce_Payment_Protx {
 	public function mainAction() {
 		
 		if ($_SESSION['client']['customer']['id'] == 0) {
-			msg('payment_callback_protx: You must be logged in first.');
+			msg('payment_callback_protx: You must be logged in.');
 			onxshopGoTo("/");
 		}
 		

@@ -12,6 +12,7 @@ class Onxshop_Controller_Component_Ecommerce_Payment extends Onxshop_Controller 
 	 */
 	 
 	public function mainAction() {
+	
 		$this->transactionPrepare();
 		if ($this->mainPaymentAction()) return true;
 		
@@ -22,6 +23,7 @@ class Onxshop_Controller_Component_Ecommerce_Payment extends Onxshop_Controller 
 	 */
 	
 	function transactionPrepare() {
+	
 		/**
 		 * create transaction object
 		 */
@@ -29,6 +31,7 @@ class Onxshop_Controller_Component_Ecommerce_Payment extends Onxshop_Controller 
 		require_once('models/ecommerce/ecommerce_transaction.php');
 		$this->Transaction = new ecommerce_transaction();
 		$this->Transaction->setCacheable(false);
+	
 	}
 	
 	/**
@@ -105,7 +108,7 @@ class Onxshop_Controller_Component_Ecommerce_Payment extends Onxshop_Controller 
 		$payment_type = $this->Transaction->getPaymentTypeForOrder($order_id);
 		
 		/**
-		 * check whether payament is supported
+		 * check whether payment is supported
 		 */
 		
 		$controller = "component/ecommerce/payment/$payment_type";
@@ -115,21 +118,34 @@ class Onxshop_Controller_Component_Ecommerce_Payment extends Onxshop_Controller 
 			return false;
 		}
 		
-		
 		/**
 		 * process payment method only if status = 0 unpaid or 5 failed payment 
 		 */
 		
 		if ($this->checkOrderStatusValidForPayment($order_data['status'])) {
-			$_nSite = new nSite("component/ecommerce/payment/$payment_type~order_id=$order_id~");
-			$this->tpl->assign("RESULT", $_nSite->getContent());
+		
+			if($order_data['basket']['total'] == 0) {
+				
+				//nil payment - payment is not needed	
+				if ($this->processNilPayment($order_data)) {
+					$this->tpl->parse('content.nil_payment');
+				} else {
+					msg("Cannot process nil payment for order ID $order_id", 'error');
+				}
+			} else {
 			
+				//process payment method as subcontent
+				$_nSite = new nSite("component/ecommerce/payment/$payment_type~order_id=$order_id~");
+				$this->tpl->assign("RESULT", $_nSite->getContent());
+			
+			}
 		} else {
+		
 			msg("Order ID {$order_data['id']} cannot be paid, because order status is: {$order_data['status_title']}", 'error');
 			return false;
+		
 		}
 		
-
 		setlocale(LC_MONETARY, LOCALE);
 		
 		return true;
@@ -141,8 +157,10 @@ class Onxshop_Controller_Component_Ecommerce_Payment extends Onxshop_Controller 
 	 */
 	
 	function checkOrderStatusValidForPayment($status) {
-		if ($this->Transaction->checkOrderStatusValidForPayment($status)) return true;
-		else {
+	
+		if ($this->Transaction->checkOrderStatusValidForPayment($status)) {
+			return true;
+		} else {
 			msg("This order is already paid.", 'error');
 			return false;
 		}
@@ -163,5 +181,25 @@ class Onxshop_Controller_Component_Ecommerce_Payment extends Onxshop_Controller 
 	
 	function paymentProcess($order_id, $pg_data) {
 	
+	}
+	
+	/**
+	 * processNilPayment
+	 */
+	 
+	public function processNilPayment($order_data) {
+		
+		if (!is_array($order_data)) return false;
+		if ($order_data['basket']['total'] > 0) return false;
+		
+		require_once('models/ecommerce/ecommerce_order.php');
+		$EcommerceOrder = new ecommerce_order();
+		$EcommerceOrder->setCacheAble(false);
+		
+		//mark as payed
+		$log_data_id = $EcommerceOrder->setStatus($order_data['id'], 1);
+	
+		return $log_data_id;
+		
 	}
 }
