@@ -67,7 +67,9 @@ class ecommerce_order extends Onxshop_Model {
 		'note_backoffice'=>array('label' => '', 'validation'=>'string', 'required'=>false),
 		'php_session_id'=>array('label' => '', 'validation'=>'string', 'required'=>false),
 		'referrer'=>array('label' => '', 'validation'=>'string', 'required'=>false),
-		'payment_type'=>array('label' => '', 'validation'=>'string', 'required'=>true)
+		'payment_type'=>array('label' => '', 'validation'=>'string', 'required'=>true),
+		'created'=>array('label' => '', 'validation'=>'datetime', 'required'=>false),
+		'modified'=>array('label' => '', 'validation'=>'datetime', 'required'=>false)
 		);
 		
 	/**
@@ -88,7 +90,9 @@ CREATE TABLE ecommerce_order (
     note_backoffice text,
     php_session_id character varying(32),
     referrer character varying(255),
-    payment_type character varying(255)
+    payment_type character varying(255),
+    created timestamp(0) without time zone DEFAULT now(),
+    modified timestamp(0) without time zone DEFAULT now()
 );
 		";
 		
@@ -192,7 +196,8 @@ CREATE TABLE ecommerce_order (
 	function updateOrder($data) {
 	
 		$data['other_data'] = serialize($data['other_data']);
-	
+		$data['modified'] = date('c');
+		
 		if ($this->update($data)) return true;
 		else return false;
 	}
@@ -238,7 +243,7 @@ CREATE TABLE ecommerce_order (
 				msg("Invalid format for created between. Must be YYYY-MM-DD", "error");
 				return false;
 			}
-			$add_to_where .=" AND ecommerce_basket.created BETWEEN '{$filter['created_from']}' AND '{$filter['created_to']}'";
+			$add_to_where .=" AND ecommerce_order.created BETWEEN '{$filter['created_from']}' AND '{$filter['created_to']}'";
 		}
 		
 		//activity between filter
@@ -261,7 +266,8 @@ CREATE TABLE ecommerce_order (
 SELECT 
 ecommerce_order.id AS order_id,
 ecommerce_order.status AS order_status,
-ecommerce_basket.created AS order_created,
+ecommerce_order.created AS order_created,
+ecommerce_order.modified AS last_activity,
 client_customer.id AS customer_id, 
 client_customer.email, 
 client_customer.title_before, 
@@ -270,8 +276,7 @@ client_customer.last_name,
 client_customer.newsletter,
 client_customer.invoices_address_id,
 client_address.country_id,
-client_customer.company_id, 
-ecommerce_invoice.created AS last_activity, 
+client_customer.company_id,  
 ecommerce_invoice.goods_net
 FROM ecommerce_order
 LEFT OUTER JOIN ecommerce_basket ON (ecommerce_basket.id = ecommerce_order.basket_id)
@@ -438,6 +443,7 @@ ORDER BY ecommerce_order.id DESC
 		// update
 		$order_data['id'] = $order_id;
 		$order_data['status'] = $status;
+		$order_data['modified'] = date('c');
 		$this->update($order_data);
 		
 		// log
@@ -529,6 +535,8 @@ ORDER BY ecommerce_order.id DESC
 		
 		$insert_order_data = $order_data;
 		$insert_order_data['other_data'] = serialize($insert_order_data['other_data']);
+		$insert_order_data['created'] = date('c');
+		$insert_order_data['modified'] = date('c');
 		
 		if (is_numeric($id = $this->insert($insert_order_data))) {
 		
@@ -770,13 +778,13 @@ ORDER BY ecommerce_order.id DESC
 			ecommerce_invoice.goods_vat_sr AS goods_vat_sr, 
 			ecommerce_invoice.goods_vat_rr AS goods_vat_rr,
 			ecommerce_invoice.delivery_net AS delivery_net, 
-			ecommerce_invoice.delivery_vat AS delivery_vat, 
+			ecommerce_invoice.delivery_vat AS delivery_vat,
+			ecommerce_invoice.voucher_discount AS voucher_discount,
 			ecommerce_order.id AS order_id, 
 			ecommerce_product_type.id AS type_id, 
 			ecommerce_product_type.name AS type_name, 
 			ecommerce_product_type.vat AS vat_rate, 
-			ecommerce_basket_content.quantity AS quantity, 
-			ecommerce_basket.discount_net AS discount_net,
+			ecommerce_basket_content.quantity AS quantity,
 			ecommerce_price.value AS price 
 			FROM ecommerce_invoice 
 			LEFT OUTER JOIN ecommerce_order ON (ecommerce_order.id = ecommerce_invoice.order_id) 
@@ -794,10 +802,10 @@ ORDER BY ecommerce_order.id DESC
 		foreach ($records as $item) {
 			
 			// reduce price when discount_net applied
-			if ($item['discount_net'] > 0) {
+			//if ($item['discount_net'] > 0) {
 				// TODO: missing item[quantity], should be divided by quantity, looks like we don't count with quantity during calculation in ecommerce_basket->total_goods_net_before_discount 
 				//$item['price'] = $item['price'] - ($item['price'] * $item['discount_net'] / ($item['goods_net'] + $item['discount_net']));
-			}
+			//}
 			
 			// group by product type
 			$breakdown['goods']['type'][$item['type_name']]['net'] += $item['price'] * $item['quantity'];
@@ -822,9 +830,8 @@ ORDER BY ecommerce_order.id DESC
 				$breakdown['goods']['charged']['net'] += $item['goods_net'];
 				$breakdown['goods']['charged']['vat'] += ($item['goods_vat_sr'] + $item['goods_vat_rr']); // either standard rate or reduce rate should be zero
 				
-				//discount
-				$breakdown['goods']['discount']['net'] += $item['discount_net'];
-				$breakdown['goods']['discount']['vat'] = 0; //always zero
+				$breakdown['voucher_discount'] += $item['voucher_discount'];
+				
 			}
 			
 			//total

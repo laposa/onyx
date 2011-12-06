@@ -70,29 +70,25 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Orders_Breakdown extends Onxshop
 			foreach ($breakdown_data['goods']['type'] as $type_name=>$v) {
 		
 				$v['name'] = $type_name;
-				$v['net'] = sprintf("%0.2f", $v['net']);
-				$v['vat'] = sprintf("%0.2f", $v['vat']);
+
 				$this->tpl->assign('GOODS_TYPE', $v);
 				$this->tpl->parse('content.result.type');
 			}
 			
+			$breakdown_data['sales']['net']['total'] = $breakdown_data['goods']['charged']['net'] + $breakdown_data['delivery']['net'] + $breakdown_data['delivery']['vat_exempt'];
+			$breakdown_data['sales']['vat']['total'] = $breakdown_data['goods']['charged']['vat'] + $breakdown_data['delivery']['vat'];
+			$breakdown_data['sales']['sum']['goods'] = $breakdown_data['goods']['charged']['net'] + $breakdown_data['goods']['charged']['vat'];
+			$breakdown_data['sales']['sum']['delivery'] = $breakdown_data['delivery']['net'] + $breakdown_data['delivery']['vat'] + $breakdown_data['delivery']['vat_exempt'];
+			$breakdown_data['sales']['sum']['total'] = $breakdown_data['sales']['sum']['goods'] + $breakdown_data['sales']['sum']['delivery'];
 			
-			$breakdown_data['goods']['total']['net'] = sprintf("%0.2f", $breakdown_data['goods']['total']['net']);
-			$breakdown_data['goods']['total']['vat'] = sprintf("%0.2f", $breakdown_data['goods']['total']['vat']);
-			
-			$breakdown_data['goods']['charged']['net'] = sprintf("%0.2f", $breakdown_data['goods']['charged']['net']);
-			$breakdown_data['goods']['charged']['vat'] = sprintf("%0.2f", $breakdown_data['goods']['charged']['vat']);
-			
-			$breakdown_data['charged']['net']['total'] = sprintf("%0.2f", $breakdown_data['goods']['charged']['net'] + $breakdown_data['delivery']['net'] + $breakdown_data['delivery']['vat_exempt']);
-			$breakdown_data['charged']['vat']['total'] = sprintf("%0.2f", $breakdown_data['goods']['charged']['vat'] + $breakdown_data['delivery']['vat']);
-			$breakdown_data['charged']['sum']['goods'] = sprintf("%0.2f", $breakdown_data['goods']['charged']['net'] + $breakdown_data['goods']['charged']['vat']);
-			$breakdown_data['charged']['sum']['delivery'] = sprintf("%0.2f", $breakdown_data['delivery']['net'] + $breakdown_data['delivery']['vat'] + $breakdown_data['delivery']['vat_exempt']);
-			$breakdown_data['charged']['sum']['total'] = $breakdown_data['charged']['sum']['goods'] + $breakdown_data['charged']['sum']['delivery'];
+			$breakdown_data['after_discount'] = $breakdown_data['sales']['sum']['total'] - $breakdown_data['voucher_discount'];
 			
 			$this->tpl->assign('DELIVERY', $breakdown_data['delivery']);
 			$this->tpl->assign('GOODS', $breakdown_data['goods']);
-			$this->tpl->assign('CHARGED', $breakdown_data['charged']);
+			$this->tpl->assign('SALES', $breakdown_data['sales']);
 			$this->tpl->assign('CHECK', $breakdown_data['check']);
+			$this->tpl->assign('VOUCHER_DISCOUNT', $breakdown_data['voucher_discount']);
+			$this->tpl->assign('AFTER_DISCOUNT', $breakdown_data['after_discount']);
 			
 			$this->tpl->parse('content.result');
 		} else {

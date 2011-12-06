@@ -74,6 +74,8 @@ class ecommerce_product_variety extends Onxshop_Model {
 	 */
 	 
 	var $wholesale;
+	
+	var $reward_points;
 
 	var $_hashMap = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
@@ -96,7 +98,9 @@ class ecommerce_product_variety extends Onxshop_Model {
 		'ean13'=>array('label' => 'EAN (European Article Number)', 'validation'=>'string', 'required'=>false),
 		'upc'=>array('label' => 'UPC (Universal Product Code)', 'validation'=>'string', 'required'=>false),
 		'condition'=>array('label' => '', 'validation'=>'int', 'required'=>false),
-		'wholesale'=>array('label' => '', 'validation'=>'int', 'required'=>false)
+		'wholesale'=>array('label' => '', 'validation'=>'int', 'required'=>false),
+		'reward_points'=>array('label' => '', 'validation'=>'int', 'required'=>false),
+		'subtitle'=>array('label' => 'Name', 'validation'=>'string', 'required'=>false)
 	);
 	
 	/**
@@ -125,7 +129,9 @@ CREATE TABLE ecommerce_product_variety (
     publish smallint DEFAULT 0 NOT NULL,
 	display_permission integer NOT NULL DEFAULT 0,
 	condition smallint NOT NULL DEFAULT 0,
-	wholesale smallint
+	wholesale smallint,
+	reward_points integer,
+	subtitle varchar(255)
 );
 
 ALTER TABLE ecommerce_product_variety ADD UNIQUE (\"sku\");

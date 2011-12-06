@@ -91,6 +91,8 @@ class ecommerce_promotion extends Onxshop_Model {
 	public $limit_delivery_country_id;
 	
 	public $limit_delivery_carrier_id;
+	
+	public $generated_by_order_id;
 
 	public $_hashMap = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
@@ -109,7 +111,8 @@ class ecommerce_promotion extends Onxshop_Model {
 		'limit_list_products'=>array('label' => '', 'validation'=>'string', 'required'=>false),
 		'other_data'=>array('label' => '', 'validation'=>'serialized', 'required'=>false),
 		'limit_delivery_country_id'=>array('label' => '', 'validation'=>'int', 'required'=>false),
-		'limit_delivery_carrier_id'=>array('label' => '', 'validation'=>'int', 'required'=>false)
+		'limit_delivery_carrier_id'=>array('label' => '', 'validation'=>'int', 'required'=>false),
+		'generated_by_order_id'=>array('label' => '', 'validation'=>'int', 'required'=>false)
 		);
 	
 	/**
@@ -136,7 +139,8 @@ CREATE TABLE ecommerce_promotion (
     limit_list_products text ,
     other_data text,
 	limit_delivery_country_id smallint NOT NULL DEFAULT 0,
-	limit_delivery_carrier_id smallint NOT NULL DEFAULT 0
+	limit_delivery_carrier_id smallint NOT NULL DEFAULT 0,
+	generated_by_order_id integer REFERENCES ecommerce_order ON UPDATE CASCADE ON DELETE RESTRICT
 );
 		";
 		

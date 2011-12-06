@@ -39,7 +39,9 @@ class ecommerce_order_log extends Onxshop_Model {
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'order_id'=>array('label' => '', 'validation'=>'int', 'required'=>true),
 		'status'=>array('label' => '', 'validation'=>'int', 'required'=>true),
-		'datetime'=>array('label' => '', 'validation'=>'datetime', 'required'=>true)
+		'datetime'=>array('label' => '', 'validation'=>'datetime', 'required'=>true),
+		'description'=>array('label' => '', 'validation'=>'string', 'required'=>false),
+		'other_data'=>array('label' => '', 'validation'=>'serialized', 'required'=>false)
 		);
 
 	/**
@@ -53,7 +55,9 @@ CREATE TABLE ecommerce_order_log (
     id serial NOT NULL PRIMARY KEY,
     order_id integer REFERENCES ecommerce_order ON UPDATE CASCADE ON DELETE RESTRICT,
     status integer,
-    datetime timestamp(0) without time zone
+    datetime timestamp(0) without time zone,
+    description text,
+    other_data text
 );
 		";
 		

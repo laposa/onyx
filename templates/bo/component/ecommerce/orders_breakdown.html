@@ -15,19 +15,30 @@
 					<tr><td>{GOODS_TYPE.name}</td><td class="money">{GOODS_TYPE.net|money_format('%n', %s)}</td><td class="money">{GOODS_TYPE.vat|money_format('%n', %s)}</td><td></td></tr>
 					<!-- END: type -->
 					<!--<tr><td>Total</td><td class="money">{GOODS.total.net|money_format('%n', %s)}</td><td class="money">{GOODS.total.vat|money_format('%n', %s)}</td><td></td></tr>-->
-					<tr><td>Payment Discount</td><td class="money">({GOODS.discount.net|money_format('%n', %s)})</td><td style="text-align: center;">-</td><td></td></tr>
-					<!--<tr><td>Goods</td><td class="money">{GOODS.charged.net|money_format('%n', %s)}</td><td class="money">{GOODS.charged.vat|money_format('%n', %s)}</td><td class="money">{CHARGED.sum.goods|money_format('%n', %s)}</td></tr>-->
-					<tr><td>Delivery VAT exempt</td><td class="money">{DELIVERY.vat_exempt|money_format('%n', %s)}</td><td style="text-align: center;">-</td><td class="money"></td></tr>
+					
+					<!--<tr><td>Goods</td><td class="money">{GOODS.charged.net|money_format('%n', %s)}</td><td class="money">{GOODS.charged.vat|money_format('%n', %s)}</td><td class="money">{SALES.sum.goods|money_format('%n', %s)}</td></tr>-->
+					<tr><td>Delivery VAT exempt</td><td class="money">{DELIVERY.vat_exempt|money_format('%n', %s)}</td><td class="money">-</td><td class="money"></td></tr>
 					<tr><td>Delivery</td><td class="money">{DELIVERY.net|money_format('%n', %s)}</td><td class="money">{DELIVERY.vat|money_format('%n', %s)}</td><td class="money"></td></tr>
 				</tbody>
 				<tfoot>
 					<tr>
-						<td>Total</td>
-						<td class="money">{CHARGED.net.total|money_format('%n', %s)}</td>
-						<td class="money">{CHARGED.vat.total|money_format('%n', %s)}</td>
-						<td class="money">
-							{CHARGED.sum.total|money_format('%n', %s)}
-						</td>
+						<td>Total Sales</td>
+						<td class="money">{SALES.net.total|money_format('%n', %s)}</td>
+						<td class="money">{SALES.vat.total|money_format('%n', %s)}</td>
+						<td class="money">{SALES.sum.total|money_format('%n', %s)}</td>
+					</tr>
+					
+					<tr>
+						<td>Face value vouchers</td>
+						<td class="money"></td>
+						<td class="money"></td>
+						<td class="money">{VOUCHER_DISCOUNT|money_format('%n', %s)}</td>
+					</tr>
+					<tr>
+						<td>After Discount</td>
+						<td class="money"></td>
+						<td class="money"></td>
+						<td class="money">{AFTER_DISCOUNT|money_format('%n', %s)}</td>
 					</tr>
 					<tr>
 						<td>Check</td>

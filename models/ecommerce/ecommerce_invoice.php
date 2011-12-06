@@ -76,8 +76,10 @@ class ecommerce_invoice extends Onxshop_Model {
 	var $address_invoice;
 	
 	var $address_delivery;
-
-
+	
+	//voucher discount (face value voucher)
+	var $voucher_discount;
+	
 	var $_hashMap = array(
 		'id'=>array('label' => 'ID', 'validation'=>'int', 'required'=>true), 
 		'order_id'=>array('label' => '', 'validation'=>'int', 'required'=>true),
@@ -96,7 +98,8 @@ class ecommerce_invoice extends Onxshop_Model {
 		'customer_name'=>array('label' => '', 'validation'=>'string', 'required'=>true),
 		'customer_email'=>array('label' => '', 'validation'=>'email', 'required'=>true),
 		'address_invoice'=>array('label' => '', 'validation'=>'string', 'required'=>true),
-		'address_delivery'=>array('label' => '', 'validation'=>'string', 'required'=>false)
+		'address_delivery'=>array('label' => '', 'validation'=>'string', 'required'=>false),
+		'voucher_discount'=>array('label' => '', 'validation'=>'decimal', 'required'=>false)
 	);
 	
 	/**
@@ -124,7 +127,8 @@ CREATE TABLE ecommerce_invoice (
 	customer_name character varying(255) ,
 	customer_email character varying(255) ,
 	address_invoice text,
-	address_delivery text
+	address_delivery text,
+	voucher_discount decimal(12,5)
 );
 		";
 		

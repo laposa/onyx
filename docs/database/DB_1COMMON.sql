@@ -28,7 +28,7 @@ SELECT pg_catalog.setval('common_configuration_id_seq', (SELECT max(id) FROM com
 
 /*common_uri_mapping*/
 
-/*common_email_form*/
+/*common_email*/
 
 /*common_taxonomy_label*/
 INSERT INTO common_taxonomy_label VALUES (0, 'Root', '', 0);

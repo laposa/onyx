@@ -39,7 +39,8 @@ CREATE TABLE ecommerce_product_review (
     customer_id int NOT NULL REFERENCES client_customer ON UPDATE CASCADE ON DELETE RESTRICT,
     created timestamp(0) default now(),
     publish smallint,
-	rating default 0
+	rating default 0,
+	relation_subject text
 );
 		";
 		
@@ -52,7 +53,7 @@ CREATE TABLE ecommerce_product_review (
 	
 	function getTree($node_id, $public = 1, $sort = 'ASC') {
 
-		$sql = "SELECT id, parent, title as name, title as title, content, author_name, author_email, author_website, author_ip_address, customer_id, created, rating FROM ecommerce_product_review WHERE publish >= $public AND node_id='$node_id' ORDER BY parent, created $sort";
+		$sql = "SELECT id, parent, title as name, title as title, content, author_name, author_email, author_website, author_ip_address, customer_id, created, rating, relation_subject FROM ecommerce_product_review WHERE publish >= $public AND node_id='$node_id' ORDER BY parent, created $sort";
 
 		$records = $this->executeSql($sql);
 
