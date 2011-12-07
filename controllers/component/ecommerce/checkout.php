@@ -147,6 +147,7 @@ class Onxshop_Controller_Component_Ecommerce_Checkout extends Onxshop_Controller
 				
 				$voucher_basket_items = $this->getVoucherBasketItems($basket_content['items'], $gift_voucher_product_id);
 				
+				if (!$voucher_basket_items) return false;
 				if (count($voucher_basket_items) == count($basket_content['items'])) return true;
 				return false;
 				

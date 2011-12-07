@@ -39,7 +39,8 @@ class Onxshop_Controller_Component_Ecommerce_Promotion_code extends Onxshop_Cont
 
 		require_once('models/ecommerce/ecommerce_promotion.php');
 		$Promotion = new ecommerce_promotion();
-
+		$Promotion->setCacheable(false);
+		
 		require_once('models/ecommerce/ecommerce_basket.php');
 		$Basket = new ecommerce_basket();
 		$Basket->setCacheable(false);

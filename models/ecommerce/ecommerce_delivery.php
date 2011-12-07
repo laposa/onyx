@@ -236,6 +236,9 @@ CREATE TABLE ecommerce_delivery (
 	 */
 	 
 	function findVATEligibility($basket_content) {
+	
+		if (!is_array($basket_content)) return false;
+		
 		foreach ($basket_content['items'] as $item) {
 			if ($item['vat'] > 0) {
 				$vat_rate = (string) $item['product']['vat'];

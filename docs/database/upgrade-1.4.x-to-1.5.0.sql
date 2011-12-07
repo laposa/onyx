@@ -1,5 +1,5 @@
 BEGIN;
-/*stage1 COMMITED*/
+
 CREATE TABLE client_group (
     id serial NOT NULL PRIMARY KEY,
     name varchar(255) ,
@@ -14,8 +14,6 @@ ALTER TABLE client_customer ADD FOREIGN KEY (group_id) REFERENCES client_group O
 UPDATE client_customer SET password = md5(password);
 
 ALTER TABLE common_node ADD COLUMN display_permission_group_acl text;
-
-/*stage1b */
 
 CREATE TABLE education_survey (
 	id serial PRIMARY KEY NOT NULL,
@@ -75,7 +73,6 @@ CREATE TABLE education_survey_entry_answer (
 
 ALTER TABLE common_comment ADD COLUMN relation_subject text;
 
-/*stage2 PREPARTION*/
 ALTER TABLE common_email_form RENAME TO common_email;
 ALTER SEQUENCE common_email_form_id_seq RENAME TO common_email_id_seq;
 ALTER INDEX common_email_form_pkey RENAME TO common_email_pkey;
@@ -116,5 +113,3 @@ WHERE ecommerce_order_log.status = 2 AND ecommerce_order_log.order_id = ecommerc
 
 COMMIT;
 
-/*JING ONLY: UPDATE ecommerce_product_variety SET subtitle = ean13;
-UPDATE ecommerce_product_variety SET ean13 = '';*/

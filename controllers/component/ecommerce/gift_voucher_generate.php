@@ -200,7 +200,7 @@ class Onxshop_Controller_Component_Ecommerce_Gift_Voucher_Generate extends Onxsh
 		$email_recipient = $voucher_data['recipient_email'];
 		$name_recipient = $voucher_data['recipient_name'];
 		$email_from = false;
-		$name_from = false;
+		$name_from = "{$GLOBALS['onxshop_conf']['global']['title']} Gifts";
 		
 		$EmailForm->sendEmail($template, $content, $email_recipient, $name_recipient, $email_from, $name_from);
 		

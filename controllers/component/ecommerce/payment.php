@@ -124,7 +124,9 @@ class Onxshop_Controller_Component_Ecommerce_Payment extends Onxshop_Controller 
 		
 		if ($this->checkOrderStatusValidForPayment($order_data['status'])) {
 		
-			if($order_data['basket']['total_after_discount'] == 0) {
+			$total_payment_amount = $order_data['basket']['total_after_discount'] + $order_data['basket']['delivery']['value'];
+			
+			if(round($total_payment_amount, 2) == 0) {
 				
 				//nil payment - payment is not needed	
 				if ($this->processNilPayment($order_data)) {
@@ -157,7 +159,7 @@ class Onxshop_Controller_Component_Ecommerce_Payment extends Onxshop_Controller 
 	 */
 	
 	function checkOrderStatusValidForPayment($status) {
-	
+		
 		if ($this->Transaction->checkOrderStatusValidForPayment($status)) {
 			return true;
 		} else {
