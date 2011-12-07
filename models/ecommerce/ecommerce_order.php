@@ -839,6 +839,10 @@ ORDER BY ecommerce_order.id DESC
 			$breakdown['goods']['total']['vat'] += $item['vat'];
 		}
 
+		//get wasted vouchers
+		$sql = "SELECT sum(voucher_discount - goods_net - goods_vat_sr - goods_vat_rr) FROM ecommerce_invoice WHERE status = 1 AND(voucher_discount - goods_net - goods_vat_sr - goods_vat_rr) > 0 AND created BETWEEN '$from' AND '$to'";
+		$breakdown['voucher_wasted'] = $this->db->fetchOne($sql);
+		
 		//ecommerce_invoice_transaction check
 		//shoudn't be needed to filter by status, because unseccessfull transactions has amount 0.00
 		$sql = "SELECT sum(amount) FROM ecommerce_transaction WHERE status = 1 AND created BETWEEN '$from' AND '$to'";

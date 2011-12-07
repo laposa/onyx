@@ -32,7 +32,7 @@
 						<td>Face value vouchers</td>
 						<td class="money"></td>
 						<td class="money"></td>
-						<td class="money">{VOUCHER_DISCOUNT|money_format('%n', %s)}</td>
+						<td class="money"><span title="Total value of used voucher">({VOUCHER_DISCOUNT.value|money_format('%n', %s)})</span><br /><span title="Wasted voucher value">{VOUCHER_DISCOUNT.wasted|money_format('%n', %s)}&nbsp;</span></td>
 					</tr>
 					<tr>
 						<td>After Discount</td>

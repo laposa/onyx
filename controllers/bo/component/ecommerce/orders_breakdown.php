@@ -81,13 +81,13 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Orders_Breakdown extends Onxshop
 			$breakdown_data['sales']['sum']['delivery'] = $breakdown_data['delivery']['net'] + $breakdown_data['delivery']['vat'] + $breakdown_data['delivery']['vat_exempt'];
 			$breakdown_data['sales']['sum']['total'] = $breakdown_data['sales']['sum']['goods'] + $breakdown_data['sales']['sum']['delivery'];
 			
-			$breakdown_data['after_discount'] = $breakdown_data['sales']['sum']['total'] - $breakdown_data['voucher_discount'];
+			$breakdown_data['after_discount'] = $breakdown_data['sales']['sum']['total'] - $breakdown_data['voucher_discount'] + $breakdown_data['voucher_wasted'];
 			
 			$this->tpl->assign('DELIVERY', $breakdown_data['delivery']);
 			$this->tpl->assign('GOODS', $breakdown_data['goods']);
 			$this->tpl->assign('SALES', $breakdown_data['sales']);
 			$this->tpl->assign('CHECK', $breakdown_data['check']);
-			$this->tpl->assign('VOUCHER_DISCOUNT', $breakdown_data['voucher_discount']);
+			$this->tpl->assign('VOUCHER_DISCOUNT', array('value'=>$breakdown_data['voucher_discount'], 'wasted'=>$breakdown_data['voucher_wasted']));
 			$this->tpl->assign('AFTER_DISCOUNT', $breakdown_data['after_discount']);
 			
 			$this->tpl->parse('content.result');
