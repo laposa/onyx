@@ -132,6 +132,12 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Confirm extends Onxshop_Co
 		}
 		
 		$this->tpl->assign("ORDER", $_POST['order']);
+		
+		/**
+		 * display virtual product option
+		 */
+		 
+		if ($this->isBasketVirtualProductOnly()) $this->tpl->parse('content.virtual_product');
 
 		return true;
 	}

@@ -58,6 +58,12 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Gift extends Onxshop_Contr
 		 */
 		
 		$this->tpl->assign('GIFT_MESSAGE', $gift_message);
+		
+		/**
+		 * display virtual product option
+		 */
+		 
+		if ($this->isBasketVirtualProductOnly()) $this->tpl->parse('content.virtual_product');
 
 
 		return true;

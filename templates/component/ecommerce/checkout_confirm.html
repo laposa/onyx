@@ -10,6 +10,13 @@ form.checkout div.submit {float: none; width: 100%;}
 form.checkout div.submit a.previous {float: left;}
 </style>
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+
+<!-- BEGIN: virtual_product -->
+<style type="text/css">
+	div.checkout_confirm_address div.delivery {display: none;}
+</style>
+<!-- END: virtual_product -->
+
 <div class="checkout">
 	
 	<div class="twoColumnLayout">
@@ -26,7 +33,7 @@ form.checkout div.submit a.previous {float: left;}
 	
 			{ONXSHOP_REQUEST_promotion_code #component/ecommerce/promotion_code}
 		</div>
-		<div class="layoutColumnTwo">
+		<div class="layoutColumnTwo checkout_confirm_address">
 			{ONXSHOP_REQUEST_address #component/ecommerce/checkout_confirm_address}
 		</div>
 	</div>

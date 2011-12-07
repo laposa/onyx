@@ -79,6 +79,12 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Gift_Wrap extends Onxshop_
 			
 			$this->tpl->parse('content.item');
 		}
+		
+		/**
+		 * display virtual product option
+		 */
+		 
+		if ($this->isBasketVirtualProductOnly()) $this->tpl->parse('content.virtual_product');
 
 		return true;
 	}

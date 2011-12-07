@@ -12,7 +12,17 @@ div.checkout_address a.add_new {display: block; background: url(/images/arrow-go
 div.checkout_address a.open {background-image: url(/images/arrow-gold-down.gif);}
 </style>
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+
+<!-- BEGIN: virtual_product -->
+	<p>Delivery address is not required, because you have in your basket only virtual gift voucher.</p>
+	<style type="text/css">
+		div.checkout_address,
+		div.delivery_option {display: none;}
+	</style>
+<!-- END: virtual_product -->
+
 <div class="checkout_address">
+	
 	<form action="{URI_SAFE}" method="post" id="address_edit" class="twoColumns">	
 	
 	<div class="address_list">

@@ -129,4 +129,86 @@ class Onxshop_Controller_Component_Ecommerce_Checkout extends Onxshop_Controller
 
 		return true;
 	}
+	
+	/**
+	 * check for virtual product only
+	 */
+	 
+	public function isBasketVirtualProductOnly() {
+		
+		if ($gift_voucher_product_id = $this->getGiftVoucherProductId()) {
+		
+			if (is_numeric($basket_id = $_SESSION['basket']['id'])) {
+				
+				require_once('models/ecommerce/ecommerce_basket.php');
+				$Basket = new ecommerce_basket();
+				
+				$basket_content = $Basket->getContent($basket_id);
+				
+				$voucher_basket_items = $this->getVoucherBasketItems($basket_content['items'], $gift_voucher_product_id);
+				
+				if (count($voucher_basket_items) == count($basket_content['items'])) return true;
+				return false;
+				
+			} else {
+			
+				return false;
+			
+			}
+
+		} else {
+		
+			return false;
+		
+		}
+	}
+	
+	/**
+	 * getGiftVoucherProductId
+	 */
+	 
+	public function getGiftVoucherProductId() {
+		
+		/**
+		 * get product conf
+		 */
+		 
+		require_once('models/ecommerce/ecommerce_product.php');
+		$ecommerce_product_conf = ecommerce_product::initConfiguration();
+		
+		/**
+		 * check gift voucher product ID is set
+		 */
+		 
+		if (!is_numeric($ecommerce_product_conf['gift_voucher_product_id']) || $ecommerce_product_conf['gift_voucher_product_id']  == 0) {
+			
+			return false;
+		}
+		
+		return $ecommerce_product_conf['gift_voucher_product_id'];
+	}
+	
+	/**
+	 * getVoucherBasketItems
+	 */
+	 
+	public function getVoucherBasketItems($basket_items, $gift_voucher_product_id) {
+		
+		if (!is_array($basket_items)) return false;
+		if (!is_numeric($gift_voucher_product_id)) return false;
+		
+		$voucher_basket_items = array();
+		
+		foreach ($basket_items as $basket_item) {
+			
+			if ($basket_item['product']['id'] == $gift_voucher_product_id) {
+				$voucher_basket_items[] = $basket_item;
+			}
+			
+		}
+		
+		if (count($voucher_basket_items) > 0) return $voucher_basket_items;
+		else return false;
+		
+	}
 }

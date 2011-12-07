@@ -72,7 +72,15 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Address extends Onxshop_Co
 		 */
 		
 		$this->tpl->assign('client', $_POST['client']);
-
+		
+		/**
+		 * display virtual product option
+		 */
+		 
+		if ($this->GET['type'] == 'delivery') {
+			if ($this->isBasketVirtualProductOnly()) $this->tpl->parse('content.virtual_product');
+		}
+		
 		return true;
 	}
 	
@@ -245,7 +253,7 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Address extends Onxshop_Co
 			msg("This is not your address!", 'error');
 			
 		}
-
-			
+				
 	}
+	
 }
