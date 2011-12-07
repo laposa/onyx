@@ -46,8 +46,7 @@ class Onxshop_Controller_Component_Ecommerce_Variety_List extends Onxshop_Contro
 					$this->tpl->assign("PRICE", $Price->getContent());
 						
 					if ($variety['stock'] > 0 ) {
-						//FIXME: ean13 is temporarily used as variety subtitle
-						if (trim($variety['ean13']) != '') $this->tpl->parse("content.variety.item.onstock.subtitle");
+						if (trim($variety['subtitle']) != '') $this->tpl->parse("content.variety.item.onstock.subtitle");
 						$this->tpl->parse("content.variety.item.onstock");
 					} else if ($variety['stock'] < 0) {
 						$this->tpl->parse("content.variety.item.special");
