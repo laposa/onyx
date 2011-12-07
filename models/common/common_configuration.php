@@ -160,7 +160,7 @@ CREATE TABLE common_configuration (
 		 * set default values if empty
 		 */
 		
-		if ($conf['global']['admin_email_name'] == '') $conf['global']['admin_email_name'] = 'Webmaster';
+		if ($conf['global']['admin_email_name'] == '') $conf['global']['admin_email_name'] = $conf['global']['title'];
 	
 		return $conf;
 	}
