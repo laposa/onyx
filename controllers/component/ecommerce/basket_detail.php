@@ -49,6 +49,12 @@ class Onxshop_Controller_Component_Ecommerce_Basket_Detail extends Onxshop_Contr
 		$Basket->setCacheable(false);
 		
 		/**
+		 * assign VAT note
+		 */
+		 
+		$this->assignVATNote();
+		
+		/**
 		 * Get basket detail
 		 */
 		
@@ -111,8 +117,8 @@ class Onxshop_Controller_Component_Ecommerce_Basket_Detail extends Onxshop_Contr
 			 */
 			
 			$basket_detail['content']['delivery'] = $delivery_data;
-			$basket_detail['content']['total'] = $basket_detail['content']['total'] + $basket_detail['content']['delivery']['value'];
-
+			$basket_detail['content']['total'] = $basket_detail['content']['total_after_discount'] + $basket_detail['content']['delivery']['value'];
+			
 			//display VAT
 			if ($delivery_data['vat_rate'] > 0) {
 				$vat['rate'] = $delivery_data['vat_rate'];
@@ -120,7 +126,8 @@ class Onxshop_Controller_Component_Ecommerce_Basket_Detail extends Onxshop_Contr
 				$this->tpl->assign('VAT', $vat);
 				$this->tpl->parse('content.basket.vat');
 			}
-		
+			
+			//print_r($basket_detail);
 			$this->tpl->assign('BASKET', $basket_detail['content']);
 					
 			/**

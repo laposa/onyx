@@ -192,13 +192,14 @@ CREATE TABLE ecommerce_invoice (
 		$order_data = $Order->getOrder($order_id);
 		
 		$invoice['order_id'] = $order_id;
-		$invoice['goods_net'] = $order_data['basket']['total_goods_net'];
+		$invoice['goods_net'] = $order_data['basket']['total_goods_net_before_discount'];
 		$invoice['goods_vat_sr'] = $order_data['basket']['total_vat'];
 		$invoice['goods_vat_rr'] = 0;
 		$invoice['delivery_net'] = $order_data['basket']['delivery']['value_net'];
 		$invoice['delivery_vat'] = $order_data['basket']['delivery']['vat'];
 
-		$invoice['payment_amount'] = $order_data['basket']['total_goods_net'] + $order_data['basket']['total_vat']  + $order_data['basket']['delivery']['value_net'] + $invoice['delivery_vat'];
+		$invoice['payment_amount'] = $order_data['basket']['total_after_discount'] + $order_data['basket']['delivery']['value_net'] + $invoice['delivery_vat'];
+		
 		if ($order_data['payment_type'] != '') $invoice['payment_type'] = $order_data['payment_type'];
 		else $invoice['payment_type'] = 'n/a';
 		$invoice['created'] = date('c');
@@ -235,6 +236,8 @@ CREATE TABLE ecommerce_invoice (
   		$invoice['address_invoice'] = html2text($invoice['address_invoice']);
 		
   		$invoice['address_delivery'] = html2text($invoice['address_delivery']);
+  		
+  		$invoice['voucher_discount'] = $order_data['basket']['discount_net'];
   		
   		return $invoice;
 	}

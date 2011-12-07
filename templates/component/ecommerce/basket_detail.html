@@ -31,14 +31,14 @@
 		<!-- END: item -->
 	</tbody>
 	<tbody class="breakdown">
-		<tr><td>&nbsp;</td><td colspan="3">{I18N_SUB_TOTAL} ({I18N_PRICE_EX_VAT})</td><td class="money">{BASKET.total_goods_net_before_discount|money_format('%n',%s)}</td></tr>
-		<!-- BEGIN: discount --><tr><td>&nbsp;</td><td colspan="3">{I18N_DISCOUNT}</td><td class="money">{BASKET.discount_net|money_format('%n',%s)}</td></tr><!-- END: discount -->
-		<tr><td>&nbsp;</td><td colspan="3">{I18N_DELIVERY}</td><td class="money">{BASKET.delivery.value_net|money_format('%n',%s)}</td></tr>
+		<tr class="subtotal"><td>&nbsp;</td><td colspan="3">{I18N_SUB_TOTAL} ({VAT_NOTE})</td><td class="money">{BASKET.total_sub|money_format('%n',%s)}</td></tr>
+		<!-- BEGIN: discount --><tr class="discount"><td>&nbsp;</td><td colspan="3">{I18N_DISCOUNT}</td><td class="money">{BASKET.discount_net|money_format('%n',%s)}</td></tr><!-- END: discount -->
+		<tr class="delivery"><td>&nbsp;</td><td colspan="3">{I18N_DELIVERY} ({VAT_NOTE})</td><td class="money">{BASKET.delivery.value|money_format('%n',%s)}</td></tr>
 		<!-- BEGIN: vat -->
-		<tr><td>&nbsp;</td><td colspan="3">{I18N_VAT} (@ {VAT.rate|number_format('%s', 1)}%)</td><td class="money">{VAT.value|money_format('%n',%s)}</td></tr>
+		<tr class="vat"><td>&nbsp;</td><td colspan="3">Accountable {I18N_VAT} (@ {VAT.rate|number_format('%s', 1)}%)</td><td class="money">{VAT.value|money_format('%n',%s)}</td></tr>
 		<!-- END: vat -->
 		
-		<tr><td>&nbsp;</td><td colspan="3">{I18N_TOTAL}</td><td class="money">{BASKET.total|money_format('%n',%s)}</td></tr>
+		<tr class="total"><td>&nbsp;</td><td colspan="3">{I18N_TOTAL}</td><td class="money">{BASKET.total|money_format('%n',%s)}</td></tr>
 	</tbody>
 </table>
 <!-- END: basket -->

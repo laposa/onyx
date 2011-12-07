@@ -152,6 +152,7 @@ class Onxshop_Controller_Component_Ecommerce_Gift_Voucher_Generate extends Onxsh
 		$promotion_data['uses_per_coupon'] = $voucher_basket_item['quantity'];
 		$promotion_data['other_data'] = $voucher_basket_item['other_data'];
 		$promotion_data['publish'] = 1;
+		$promotion_data['generated_by_order_id'] = $this->GET['order_id'];
 		
 		require_once('models/ecommerce/ecommerce_promotion.php');
 		$Promotion = new ecommerce_promotion();

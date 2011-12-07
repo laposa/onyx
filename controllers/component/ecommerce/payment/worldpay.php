@@ -52,7 +52,7 @@ class Onxshop_Controller_Component_Ecommerce_Payment_Worldpay extends Onxshop_Co
 		else $protocol = 'http';
 		$server_url = "$protocol://{$_SERVER['HTTP_HOST']}";
 		
-		$worldpay_amount = $order_data['basket']['total_goods_net'] + $order_data['basket']['total_vat']  + $order_data['basket']['delivery']['value_net'] + $order_data['basket']['delivery']['vat'];
+		$worldpay_amount = $order_data['basket']['total_after_discount'] + $order_data['basket']['delivery']['value_net'] + $order_data['basket']['delivery']['vat'];
 		$worldpay_amount = round($worldpay_amount, 2);
     	
 		$worldpay = array(

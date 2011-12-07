@@ -421,7 +421,7 @@ CREATE TABLE ecommerce_promotion (
 			msg("ecommerce_promotion.applyPromotionCodeToBasket: missing basket data", 'error');
 			return false;
 		}
-
+		
 		$customer_id = $basket_data['customer_id'];
 
 		if ($compaign_data = $this->checkCodeBeforeApply($code, $customer_id)) {			
@@ -431,12 +431,14 @@ CREATE TABLE ecommerce_promotion (
 			$discount_value = 0;
 			
 			if ($compaign_data['discount_percentage_value'] > 0) {
-				$discount_value = $basket_data['content']['total_goods_net_before_discount'] * $compaign_data['discount_percentage_value']/100;
+				$discount_value = ($basket_data['content']['total_goods_net_before_discount'] + $basket_data['content']['total_vat']) * $compaign_data['discount_percentage_value']/100;
 			}
 			
 			if ($compaign_data['discount_fixed_value'] > 0) {
 				$discount_value = $compaign_data['discount_fixed_value'];
 			}
+			
+			$discount_value = round($discount_value, 5);
 			
 			return $discount_value;
 			

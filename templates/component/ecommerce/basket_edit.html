@@ -38,10 +38,9 @@ button.highlightbutton {border: 1px solid red;}
 				<tr>
 					<td colspan="2" class="discount">
 						{ONXSHOP_REQUEST_discount #component/ecommerce/promotion_code_basket~id=GET.id~}
-						<!-- BEGIN: discount --><p>{I18N_DISCOUNT} {BASKET.discount_net|money_format('%n',%s)}</p><!-- END: discount -->
 					</td>
 					<td class="update"><button class="update" type="submit" name="update" value="Update"><span>{I18N_UPDATE}</span></button></td>
-					<td colspan="2" class="sub_total money">{I18N_SUB_TOTAL} ({VAT_NOTE}) {BASKET.total_sub|money_format('%n',%s)}</td>
+					<td colspan="2" class="sub_total money">{I18N_SUB_TOTAL} ({VAT_NOTE}) {BASKET.total|money_format('%n',%s)}<!-- BEGIN: discount --><br />{I18N_DISCOUNT} {BASKET.discount_net|money_format('%n',%s)}<br />After Discount {BASKET.total_after_discount|money_format('%n',%s)}<!-- END: discount --></td>
 				</tr>
 			</tfoot>
 			<tbody>

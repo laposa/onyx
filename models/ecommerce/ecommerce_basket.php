@@ -143,7 +143,7 @@ CREATE TABLE ecommerce_basket (
 				$total = $total + $basket_item['total'];
 				$total_goods_net = $total_goods_net + $basket_item['total_net'];
 				$total_weight = $total_weight + $variety_detail['weight'] * $basket_item['quantity'];
-				//gross weight for delivery purposes 
+				//gross weight for delivery purpose
 				$total_weight_gross = $total_weight_gross + $variety_detail['weight_gross'] * $basket_item['quantity'];
 				
 				$total_vat = $total_vat + $basket_item['vat'];
@@ -159,24 +159,36 @@ CREATE TABLE ecommerce_basket (
 				$total_items_qty = $total_items_qty + $basket_item['quantity'];
 			}
 		}
-		$basket_detail['total_sub'] = $total - $basket_detail['discount_net'];
-
+		
+		$basket_detail['total_sub'] = round($total, 5);
 		$basket_detail['total_weight'] = $total_weight;
 		$basket_detail['total_weight_gross'] = $total_weight_gross;
 		$basket_detail['total_vat'] = $total_vat;
+		
 		if (($price_conf['backoffice_with_vat'] && ONXSHOP_IN_BACKOFFICE) || ($price_conf['frontend_with_vat'] && !ONXSHOP_IN_BACKOFFICE)) {
 			$basket_detail['total'] = $basket_detail['total_sub'];
 		} else {
 			$basket_detail['total'] = $basket_detail['total_sub'] + $basket_detail['total_vat'];			
 		}
 		
-		$basket_detail['total_goods_net'] = $total_goods_net - $basket_detail['discount_net'];
-		$basket_detail['total_goods_net_before_discount'] = $total_goods_net;
+		$basket_detail['total_after_discount'] = $basket_detail['total'] - $basket_detail['discount_net'];
+		$basket_detail['total_after_discount'] = round($basket_detail['total_after_discount'], 5);
 		
+		$basket_detail['total_goods_net'] = $total_goods_net;
+		$basket_detail['total_goods_net_before_discount'] = $total_goods_net; //transitional, total_goods_net was including discount deduction
+		
+		//make sure total_after_discount is not negative
+		if ($basket_detail['total_after_discount'] < 0) {
+			//set to 0
+			$basket_detail['total_after_discount'] = 0;
+		}
+		
+		//make sure total_goods_net is not negative
 		if ($basket_detail['total_goods_net'] < 0) {
+			//send a warning if whole discount is greater than order value
+			//msg('Eligible discount is bigger than order value', 'ok', 1);
+			//set to 0
 			$basket_detail['total_goods_net'] = 0;
-			msg('Eligible discount is bigger than order value');
-			//return false;
 		}
 		
 		$basket = $basket_detail;
@@ -192,12 +204,15 @@ CREATE TABLE ecommerce_basket (
 	/**
 	 * add to basket
 	 *
-	 *
-	 * @param int product_variety_id 	 * @param int quantity 	 * @return bool
+	 * @param int basket_id
+	 * @param int product_variety_id
+	 * @param int quantity
+	 * @param array other_data
+	 * @return bool
 	 * @access public
 	 */
 	 
-	function addToBasket($basket_id, $product_variety_id,  $quantity = 1, $other_data = array() ) {
+	function addToBasket($basket_id, $product_variety_id,  $quantity = 1, $other_data = array()) {
 
 		/**
 		 * get product info

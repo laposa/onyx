@@ -59,7 +59,7 @@ class Onxshop_Controller_Component_Ecommerce_Payment_Protx extends Onxshop_Contr
 			'VendorEmail' => ECOMMERCE_TRANSACTION_PROTX_VENDOR_EMAIL
 		);
 		
-		$protx_amount = $order_data['basket']['total_goods_net'] + $order_data['basket']['total_vat']  + $order_data['basket']['delivery']['value_net'] + $order_data['basket']['delivery']['vat'];;
+		$protx_amount = $order_data['basket']['total_after_discount'] + $order_data['basket']['delivery']['value_net'] + $order_data['basket']['delivery']['vat'];;
 		$protx_amount = round($protx_amount, 2);
 	
 		$protx['Crypt']['VendorTxCode'] = $order_data['id'] . '_' . time();
