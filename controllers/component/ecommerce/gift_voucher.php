@@ -153,10 +153,10 @@ class Onxshop_Controller_Component_Ecommerce_Gift_Voucher extends Onxshop_Contro
 		$data = array();
 		
 		$data['variety_name'] = '£…';
-		$data['variety_description'] = 'VIRTUAL GIFT CARD, XX POUNDS';
-		$data['recipient_name'] = 'RECIPIENTS VERYLONGNAME';
-		$data['message'] = 'A MESSAGE 160 CHARACTERS LONG, A MESSAGE 160 CHARACTERS LONG, A MESSAGE 160 CHARACTERS LONG, A MESSAGE 160 CHARACTERS LONG, A MESSAGE 160 CHARACTERS LONG, A ME.';
-		$data['sender_name'] = 'SENDERS VERYLONGNAME';
+		$data['variety_description'] = 'VIRTUAL GIFT CARD, … POUNDS';
+		$data['recipient_name'] = 'Recipient\'s Name';
+		$data['message'] = 'Your Message';
+		$data['sender_name'] = 'Your Name';
 		
 		return $data;
 	}
@@ -176,8 +176,8 @@ class Onxshop_Controller_Component_Ecommerce_Gift_Voucher extends Onxshop_Contro
 			}
 			
 		} else {
-			$data['variety_name'] = '£XX';
-			$data['variety_description'] = 'VIRTUAL GIFT CARD, XX POUNDS';
+			$data['variety_name'] = '£…';
+			$data['variety_description'] = 'VIRTUAL GIFT CARD, … POUNDS';
 		}
 		
 		return $data;

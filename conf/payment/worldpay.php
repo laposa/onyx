@@ -15,7 +15,7 @@ define('ECOMMERCE_TRANSACTION_WORLDPAY_TESTMODE', 100);
 define('ECOMMERCE_TRANSACTION_WORLDPAY_URL', 'https://secure-test.wp3.rbsworldpay.com/wcc/purchase');
 //define('ECOMMERCE_TRANSACTION_WORLDPAY_URL', 'https://select.worldpay.com/wcc/purchase');
 define('ECOMMERCE_TRANSACTION_WORLDPAY_INSID', 0);
-define('ECOMMERCE_TRANSACTION_WORLDPAY_DESCRIPTION', "Payment for {$GLOBALS['onxshop_conf']['global']['title']} order ID {$_GET['order_id']}.");
+define('ECOMMERCE_TRANSACTION_WORLDPAY_DESCRIPTION', "{$GLOBALS['onxshop_conf']['global']['title']} order ID {$_GET['order_id']}");
 define('ECOMMERCE_TRANSACTION_MAIL_TO', $GLOBALS['onxshop_conf']['global']['admin_email']);
 define('ECOMMERCE_TRANSACTION_MAIL_TONAME', $GLOBALS['onxshop_conf']['global']['admin_email_name']);
 
