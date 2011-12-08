@@ -402,11 +402,12 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 		}*/
 
 		//iterate through and call addItem function on each line
+		$items_added = array();
 		foreach ($basket_detail['content']['items'] as $item) {
-			$this->addItem($item['product_variety_id'], $item['quantity'], $item['other_data']);
+			$items_added[] = $this->addItem($item['product_variety_id'], $item['quantity'], $item['other_data']);
 		}
 		
-		msg("Items from your old order #{$order_id} were inserted into your current basket");
+		if (in_array(true, $items_added)) msg("Items from your old order #{$order_id} were inserted into your current basket");
 		
 		return true;
 	}

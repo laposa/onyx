@@ -236,6 +236,8 @@ CREATE TABLE ecommerce_basket (
 				if ($this->updateBasketContent($basket_id, $current['id'], $current['quantity'] + $quantity)) {
 					msg("ecommerce_basket.addToBasket: Item in basket has been updated", 'ok', 2);
 					return true;
+				} else {
+					msg("Current item {$current['id']} was found in basket $basket_id, but cannot update.", 'error');
 				}
 			}
 		}
@@ -306,14 +308,11 @@ CREATE TABLE ecommerce_basket (
 		require_once('models/ecommerce/ecommerce_basket_content.php');
 		$Basket_content = new ecommerce_basket_content();
 		
-		$basket_data = $Basket_content->detail($basket_content_id);
-		$basket_data['quantity'] = $quantity;
-		
-		if ($Basket_content->update($basket_data)) {
-			return true;
-		} else {
-			return false;
-		}
+		$basket_content_data = $Basket_content->detail($basket_content_id);
+		$basket_content_data['quantity'] = $quantity;
+
+		return $Basket_content->updateItem($basket_content_data);
+				
 	}
 	
 	/**
