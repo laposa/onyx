@@ -11,7 +11,7 @@
 @import url(/share/themes/jquery-ui/onxshop/jquery-ui.css);
 @import url(/share/css/cms_header.css);
 
-body {font-size: 70%; font-family: "Lucida Grande", Helvetica, Arial, sans-serif; background: #6d7076 url(../images/lion-fabric.png) repeat;}
+body {font-size: 70%; font-family: "Lucida Grande", Helvetica, Arial, sans-serif; background: #6d7076 url(../images/lion-fabric.png) repeat; /*background: #e6eaef;*/}
 
 /**
  * tables
@@ -26,7 +26,7 @@ tr:hover td {background: white;}
 tbody tr:nth-child(even) {background-color:#fff;}*/
 
 div.layoutColumnWrapper > table {border: 1px solid #AAA; background: #FDFDFD; border-top: 0; /*box-shadow: 1px 1px 10px #000;*/ box-shadow: 2px 2px rgba(0,0,0,0.2); width: 100%; margin-top: 0; border-top-left-radius: 0;}
-table caption {color: white; margin: 0; padding: 5px;}
+table caption {margin: 0; padding: 5px;}
 table a {text-decoration: none;}
 td {background: #F9F9F9; border-top: 1px solid white; border-bottom: 1px solid #EAEAEA;}
 td td {border-top: 0; border-bottom: 0;}
