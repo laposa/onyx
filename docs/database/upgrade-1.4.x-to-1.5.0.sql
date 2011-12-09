@@ -14,6 +14,7 @@ ALTER TABLE client_customer ADD FOREIGN KEY (group_id) REFERENCES client_group O
 UPDATE client_customer SET password = md5(password);
 
 ALTER TABLE common_node ADD COLUMN display_permission_group_acl text;
+ALTER TABLE common_uri_mapping ADD UNIQUE (public_uri);
 
 CREATE TABLE education_survey (
 	id serial PRIMARY KEY NOT NULL,

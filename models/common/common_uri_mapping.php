@@ -45,6 +45,7 @@ CREATE TABLE common_uri_mapping (
     public_uri text,
     \"type\" character varying(255)
 );
+ALTER TABLE common_uri_mapping ADD UNIQUE (public_uri);
 		";
 		
 		return $sql;

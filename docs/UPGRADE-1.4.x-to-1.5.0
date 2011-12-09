@@ -1,6 +1,9 @@
 createdb -U {DBUSER} -h dbserver -E UTF8 -T {DB-1_4} {DB-1_5}
 psql -U {DBUSER} -h dbserver {DB-1_5} < onxshop_dir/docs/database/upgrade-1.4.x-to-1.5.0.sql
 
+In case DB upgrade fails, than find duplicates in URL and fix manually:
+SELECT public_uri, count(*) FROM common_uri_mapping GROUP BY public_uri HAVING count(*) > 1;
+
 vi conf/deployment.php:
 rename GLOBAL_MAIN_DOMAIN to ONXSHOP_MAIN_DOMAIN in conf/deployment.php
 rename GLOBAL_ONXSHOP_DIR to ONXSHOP_DIR in conf/deployment.php
@@ -37,3 +40,4 @@ rename nx_error_msg to onxshop_error_msg
 rename nx_ok_msg to onxshop_ok_msg
 
 if .htaccess was locally modified, than merge manually
+
