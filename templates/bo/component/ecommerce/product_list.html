@@ -3,11 +3,19 @@
 <script type="text/javascript">
 $(document).ready(function() {
 	$("div.product_list td.variety_name a.title").editInPlace({
-		url: "/request/bo/component/single_record_update~model=ecommerce_product_variety:attribute=variety_name~",
+		url: "/request/bo/component/single_record_update~model=ecommerce_product_variety:attribute=name~",
 		params: "ajax=yes"
 	});
 	$("div.product_list td.price a.price").editInPlace({
 		url: "/request/bo/component/single_record_update~model=ecommerce_price:attribute=value~",
+		params: "ajax=yes"
+	});
+	$("div.product_list td.sku a").editInPlace({
+		url: "/request/bo/component/single_record_update~model=ecommerce_product_variety:attribute=sku~",
+		params: "ajax=yes"
+	});
+	$("div.product_list td.stock a").editInPlace({
+		url: "/request/bo/component/single_record_update~model=ecommerce_product_variety:attribute=stock~",
 		params: "ajax=yes"
 	});
 });
@@ -44,11 +52,10 @@ $(document).ready(function() {
 											<td {ROWSPAN} class="image"><!--  BEGIN: image --><a href="/backoffice/products/{ITEM.product_id}/edit"><img src="/thumbnail/25x25/{ITEM.image_src}" alt="{ITEM.image_title|htmlspecialchars}" /></a><!--  END: image --></td>
 											<td {ROWSPAN} class="product_name"><span class="{ITEM.disabled}"><a href="/backoffice/products/{ITEM.product_id}/edit">{ITEM.product_name|htmlspecialchars}</a></span></td>
 										<!-- END: imagetitle -->
-										<td class="variety_name"><a class="title {ITEM.variety_publish}" id="ecommerce_product_variety-variety_name-id-{ITEM.variety_id}" href="#{ITEM.variety_id}">{ITEM.variety_name|htmlspecialchars}</a></td>
+										<td class="variety_name"><a class="title {ITEM.variety_publish}" id="ecommerce_product_variety-name-id-{ITEM.variety_id}" href="#{ITEM.variety_id}">{ITEM.variety_name|htmlspecialchars}</a></td>
 										<td class="price money"><a class="price" id="ecommerce_price-value-product_variety_id-{ITEM.variety_id}" href="#{ITEM.variety_id}">{ITEM.price|money_format('%n', %s)}</a></td>
-										<td class="sku number">{ITEM.sku}</td>
-										
-										<td class="stock number">{ITEM.stock}</td>
+										<td class="sku number"><a href="#{ITEM.variety_id}" id="ecommerce_product_variety-sku-id-{ITEM.variety_id}">{ITEM.sku}</a></td>
+										<td class="stock number"><a href="#{ITEM.variety_id}" id="ecommerce_product_variety-stock-id-{ITEM.variety_id}">{ITEM.stock}</a></td>
 									</tr>
 									<!-- END: item -->
 								</tbody>

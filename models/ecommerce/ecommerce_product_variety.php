@@ -374,7 +374,21 @@ ALTER TABLE ecommerce_product_variety ADD UNIQUE (\"sku\");
 				$variety_data = $this->detail($id);
 				if ($variety_data) {
 					$variety_data['name'] = $update_value;
-					$this->update($variety_data);
+					return $this->update($variety_data);
+				}
+			break;
+			case 'sku':
+				$variety_data = $this->detail($id);
+				if ($variety_data) {
+					$variety_data['sku'] = $update_value;
+					return $this->update($variety_data);
+				}
+			break;
+			case 'stock':
+				$variety_data = $this->detail($id);
+				if ($variety_data) {
+					$variety_data['stock'] = $update_value;
+					return $this->update($variety_data);
 				}
 			break;
 		}

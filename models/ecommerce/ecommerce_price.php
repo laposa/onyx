@@ -390,7 +390,7 @@ CREATE TABLE ecommerce_price (
 			case 'value':
 				$data['id'] = $id;
 				$data['value'] = $update_value;
-				$this->priceUpdate($data);
+				return $this->priceUpdate($data);
 			break;
 		}
 	}

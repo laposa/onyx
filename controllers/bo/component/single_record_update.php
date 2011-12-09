@@ -31,7 +31,9 @@ class Onxshop_Controller_Bo_Component_Single_Record_Update extends Onxshop_Contr
 				$variety_id = $element_id_parts[3];
 				
 				$ModelObj = new ecommerce_product_variety();
-				$ModelObj->updateSingleAttribute('name', $update_value, $variety_id);
+				
+				if (!$ModelObj->updateSingleAttribute($attribute, $update_value, $variety_id)) msg('Failed', 'error');
+			
 			break;
 			case 'ecommerce_price':
 				require_once('models/ecommerce/ecommerce_price.php');
@@ -41,8 +43,10 @@ class Onxshop_Controller_Bo_Component_Single_Record_Update extends Onxshop_Contr
 				$variety_id = $element_id_parts[3];
 				
 				$last_price = $ModelObj->getLastPriceForVariety($variety_id);
+				//remove anything else than number and decimal point
+				$update_value = preg_replace("/[^0-9\.]*/", '', $update_value);
 				//update only when the new price is different than old price
-				if (round($last_price['value'], 2) != round($update_value, 2)) $ModelObj->updateSingleAttribute('value', $update_value, $last_price['id']);
+				if (round($last_price['value'], 2) != round($update_value, 2)) if (!$ModelObj->updateSingleAttribute('value', $update_value, $last_price['id'])) msg('Failed', 'error');
 			break;
 			default:
 				return false;
