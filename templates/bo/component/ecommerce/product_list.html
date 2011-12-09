@@ -2,11 +2,11 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-	$("div.product_list li.variety a.title").editInPlace({
+	$("div.product_list td.variety_name a.title").editInPlace({
 		url: "/request/bo/component/single_record_update~model=ecommerce_product_variety:attribute=variety_name~",
 		params: "ajax=yes"
 	});
-	$("div.product_list li.variety a.price").editInPlace({
+	$("div.product_list td.price a.price").editInPlace({
 		url: "/request/bo/component/single_record_update~model=ecommerce_price:attribute=value~",
 		params: "ajax=yes"
 	});
