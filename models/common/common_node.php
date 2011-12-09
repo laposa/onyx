@@ -464,8 +464,12 @@ CREATE TABLE common_node (
 		$node_data['component'] = serialize($node_data['component']);
 		$node_data['relations'] = serialize($node_data['relations']);
 		//populate only if ACL in use, otherwise save as empty
-		if (in_array('0', $node_data['display_permission_group_acl']) || in_array('1', $node_data['display_permission_group_acl'])) $node_data['display_permission_group_acl'] = serialize($node_data['display_permission_group_acl']);
-		else $node_data['display_permission_group_acl'] = '';
+		if (is_array($node_data['display_permission_group_acl'])) {
+			if (in_array('0', $node_data['display_permission_group_acl']) || in_array('1', $node_data['display_permission_group_acl'])) $node_data['display_permission_group_acl'] = serialize($node_data['display_permission_group_acl']);
+			else $node_data['display_permission_group_acl'] = '';
+		} else {
+			$node_data['display_permission_group_acl'] = '';
+		}
 		
 		/**
 		 * valid parent
@@ -1388,6 +1392,36 @@ CREATE TABLE common_node (
 				unset($data['author_detail']);
 				if (is_array($data)) {
 					$data['priority'] = $update_value;
+					if ($this->nodeUpdate($data)) return true;
+					else return false;
+				}
+			break;
+			
+			case 'page_title':
+				$data = $this->getDetail($id);
+				unset($data['author_detail']);
+				if (is_array($data)) {
+					$data['page_title'] = $update_value;
+					if ($this->nodeUpdate($data)) return true;
+					else return false;
+				}
+			break;
+			
+			case 'description':
+				$data = $this->getDetail($id);
+				unset($data['author_detail']);
+				if (is_array($data)) {
+					$data['description'] = $update_value;
+					if ($this->nodeUpdate($data)) return true;
+					else return false;
+				}
+			break;
+			
+			case 'keywords':
+				$data = $this->getDetail($id);
+				unset($data['author_detail']);
+				if (is_array($data)) {
+					$data['keywords'] = $update_value;
 					if ($this->nodeUpdate($data)) return true;
 					else return false;
 				}

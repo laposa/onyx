@@ -1,15 +1,39 @@
 <!-- BEGIN: title -->SEO manager<!-- END: title -->
 <!-- BEGIN: content -->
 <!-- BEGIN: messages --><div class="fix">{MESSAGES}</div><!-- END: messages -->
+<script type="text/javascript">
+$(document).ready(function() {
+	$("div.seo_manager td.page_title a").editInPlace({
+		url: "/request/bo/component/single_record_update~model=common_node:attribute=page_title~",
+		params: "ajax=yes"
+	});
+	$("div.seo_manager td.description a").editInPlace({
+		url: "/request/bo/component/single_record_update~model=common_node:attribute=description~",
+		params: "ajax=yes",
+		field_type: "textarea"
+	});
+	$("div.seo_manager td.keywords a").editInPlace({
+		url: "/request/bo/component/single_record_update~model=common_node:attribute=keywords~",
+		params: "ajax=yes",
+		field_type: "textarea"
+	});
+});
+</script>
 
-            
-<table>
-	<thead><th>URI</th><th>type</th><th>Target Page ID</th><th>Title</th><th>Teaser</th><th>Description</th><th>Keywords</th></thead>
-	<tbody>
-		<!-- BEGIN: item -->
-		<tr><td>{ITEM.public_uri}</td><td>{ITEM.type}</td><td>{ITEM.node_id}</td><td>{ITEM.title|htmlspecialchars}</td><td>{ITEM.teaser|htmlspecialchars}</td><td>{ITEM.description|htmlspecialchars}</td><td>{ITEM.keywords|htmlspecialchars}</td></tr>
-		<!-- END: item -->
-	</tbody>
-</table>
-
+<div class="seo_manager"> 
+	<table>
+		<thead><th>URI</th><th>Page Title</th><!--<th>Strapline</th>--><th>Description (Excerpt)</th><th>Labels (Keywords)</th></thead>
+		<tbody>
+			<!-- BEGIN: item -->
+			<tr>
+				<td><a href="{ITEM.public_uri}" target="_blank">{ITEM.public_uri}</a></td>
+				<td class="page_title"><a href="#{ITEM.id}" id="comon_node-page_title-id-{ITEM.node_id}">{ITEM.page_title|htmlspecialchars}</a></td>
+				<!--<td>{ITEM.teaser|htmlspecialchars}</td>-->
+				<td class="description"><a href="#{ITEM.id}" id="comon_node-description-id-{ITEM.node_id}">{ITEM.description|htmlspecialchars}</a></td>
+				<td class="keywords"><a href="#{ITEM.id}" id="comon_node-keywords-id-{ITEM.node_id}">{ITEM.keywords|htmlspecialchars}</a></td>
+			</tr>
+			<!-- END: item -->
+		</tbody>
+	</table>
+</div>
 <!-- END: content -->

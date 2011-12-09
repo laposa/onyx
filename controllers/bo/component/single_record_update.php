@@ -24,7 +24,22 @@ class Onxshop_Controller_Bo_Component_Single_Record_Update extends Onxshop_Contr
 		
 		// currently implemented for product_variety.name and price.value
 		switch ($model) {
+		
+			case 'common_node':
+		
+				require_once('models/common/common_node.php');
+				
+				$element_id_parts = explode('-', $_POST['element_id']);
+				$variety_id = $element_id_parts[3];
+				
+				$ModelObj = new common_node();
+				
+				if (!$ModelObj->updateSingleAttribute($attribute, $update_value, $variety_id)) msg('Failed', 'error');
+			
+			break;
+			
 			case 'ecommerce_product_variety':
+		
 				require_once('models/ecommerce/ecommerce_product_variety.php');
 				
 				$element_id_parts = explode('-', $_POST['element_id']);
@@ -35,7 +50,9 @@ class Onxshop_Controller_Bo_Component_Single_Record_Update extends Onxshop_Contr
 				if (!$ModelObj->updateSingleAttribute($attribute, $update_value, $variety_id)) msg('Failed', 'error');
 			
 			break;
+			
 			case 'ecommerce_price':
+		
 				require_once('models/ecommerce/ecommerce_price.php');
 				$ModelObj = new ecommerce_price();
 				

@@ -31,10 +31,15 @@ class Onxshop_Controller_Bo_Component_Seo_Manager extends Onxshop_Controller {
 				$item['description'] = '';
 				$item['keywords'] = '';
 			}
+		
+			if ($item['page_title'] == '') $item['page_title'] = $item['title'];
 			
 			$this->tpl->assign('ITEM', $item);
 			
-			$this->tpl->parse('content.item');
+			//temporarily disable 301 management - don't display 301 in the list
+			//and don't display 404 page
+			//and not symbolic node_controller
+			if ($item['type'] != '301' && $item['id'] != 14 && $item['node_controller'] != 'symbolic') $this->tpl->parse('content.item');
 		}
             
 		return true;
