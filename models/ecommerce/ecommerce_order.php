@@ -560,40 +560,36 @@ ORDER BY ecommerce_order.id DESC
 				}
 			}
 			
-			//descrement stock
-			//$decrement_stock = $this->decrementStock($id);
-			//FUNCTIONALITY DISABLED, it needs big review and it shouldn't be at this place anyway!
-			$decrement_stock = 0;
+			//get full order data
+			$order_data = $this->getOrder($id);
 			
-			if  ($decrement_stock > 0) {
-				return false;
-			} else {
-				//set status
-				$this->setStatus($id, 0);
-				
-				//send email to admin
-				require_once('models/common/common_email.php');
-	    
-	    		$EmailForm = new common_email();
-	    		
-	    		$order_data = $this->getOrder($id);
+			//descrement stock
+			$this->decrementStock($order_data);
+			
+			//set status
+			$this->setStatus($id, 0);
+			
+			//send email to admin
+			require_once('models/common/common_email.php');
+    
+    		$EmailForm = new common_email();
 
-	    		$_nSite = new nSite("component/ecommerce/order_detail~order_id={$order_data['id']}~");
-				$order_data['order_detail'] = $_nSite->getContent();
-		
-	    		//this allows use customer data and company data in the mail template
-	    		//is passed as DATA to template in common_email->_format
-	    		$GLOBALS['common_email']['order'] = $order_data;
-	    		
-	    		if ($this->conf['mail_unpaid']) {
-		    		if (!$EmailForm->sendEmail('new_order_unpaid', 'n/a', $this->conf['mail_to_address'], $this->conf['mail_to_name'])) {
-	    				msg("ecommerce_order: can't send email", 'error', 2);
-	    			}
-				}
-	    	
-				//return order.id
-				return $id;
+    		$_nSite = new nSite("component/ecommerce/order_detail~order_id={$order_data['id']}~");
+			$order_data['order_detail'] = $_nSite->getContent();
+	
+    		//this allows use customer data and company data in the mail template
+    		//is passed as DATA to template in common_email->_format
+    		$GLOBALS['common_email']['order'] = $order_data;
+    		
+    		if ($this->conf['mail_unpaid']) {
+	    		if (!$EmailForm->sendEmail('new_order_unpaid', 'n/a', $this->conf['mail_to_address'], $this->conf['mail_to_name'])) {
+    				msg("ecommerce_order: can't send email", 'error', 2);
+    			}
 			}
+    	
+			//return order.id
+			return $id;
+			
 		} else {
 			return false;
 		}
@@ -638,59 +634,31 @@ ORDER BY ecommerce_order.id DESC
 	/**
 	 * descrement value on the stock
 	 *
-	 * @param unknown_type $order_id
-	 * @return unknown
+	 * @param array $order_data
+	 * @return bool
 	 */
 	 
-	function decrementStock($order_id) {
+	function decrementStock($order_data) {
 	
-		require_once('models/ecommerce/ecommerce_basket.php');
-		require_once('models/ecommerce/ecommerce_product_variety.php');
-		$Basket = new ecommerce_basket();
-		$ProductVariety = new ecommerce_product_variety();
-		
-		$order = $this->detail($order_id);
-		
-		$basket_content = $Basket->getContent($order['basket_id']);
-		
-		$count_basket_items = count($basket_content['items']);
-		
-		foreach ($basket_content['items'] as $item) {
-		
-			$variety_detail = array();
-			$variety_detail['id'] = $item['product']['variety']['id'];
-			$variety_detail['stock'] = $item['product']['variety']['stock'];
-		
-			if ($variety_detail['stock'] > 0) {
-				
-				$variety_detail['stock'] = $variety_detail['stock'] - $item['quantity'];
-				
-				if ($variety_detail['stock'] > -1) {
-					$ProductVariety->update($variety_detail);
-				} else {
-					msg("This product {$item['product']['name']} {$item['product']['variety']['name']} has not {$item['quantity']} items on the stock!", 'error');
-					if ($Basket->removeFromBasket($item['id'])) {
-						msg("Removed from the basket.");
-						$count_basket_items--;
-					}
-				}
-				
-			} else {
-				//-1 is special case
-				if ($variety_detail['stock'] != -1) {
-					msg("This product {$item['product']['name']} {$item['product']['variety']['name']} was sold out!", 'error');
-					if ($Basket->removeFromBasket($item['id'])) {
-						msg("Removed from the basket.");
-						$count_basket_items--;
-					}
-				}
-			}
+		if (!is_array($order_data)) {
+			msg("Cannot decrement stock", 'error');
+			return false;
 		}
 		
-		//return diff between original basket items and what is possible to buy (on stock)
-		$a = count($basket_content['items']);
-		$diff = $a - $count_basket_items;
-		return $diff;
+		require_once('models/ecommerce/ecommerce_product.php');
+		$ProductVariety = new ecommerce_product_variety();
+		
+		foreach ($order_data['basket']['items'] as $item) {
+			
+			$new_stock_value = $item['product']['variety']['stock'] - $item['quantity'];
+			$variety_id = $item['product']['variety']['id'];
+			
+			$ProductVariety->updateSingleAttribute('stock', $new_stock_value, $variety_id);
+		
+		}
+		
+		return true;
+		
 	}
 
 	/**
