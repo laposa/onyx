@@ -33,9 +33,8 @@ function msg($msg, $type = "ok", $level = 0) {
 	 */
 	 
 	if (ONXSHOP_BENCHMARK && ONXSHOP_IS_DEBUG_HOST) {
-		$time_current = getmicrotime();
-		$time_end = getmicrotime();
-    	$time = $time_end - TIME_START;
+		$time_current = microtime(true);
+    	$time = $time_current - TIME_START;
     	$time = round($time, 4);
 		$msg = "{$time}s: $msg";
 	}
@@ -93,20 +92,6 @@ function msg($msg, $type = "ok", $level = 0) {
 
 	    }
 	}
-}
-
-
-/**
- * get microtime
- * used for logs and benchmark
- *
- * @return unknown
- */
- 
-function getmicrotime() {
-
-	list($usec, $sec) = explode(" ",microtime());
-	return ((float)$usec + (float)$sec);
 }
 
 /**

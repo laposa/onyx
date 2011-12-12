@@ -18,7 +18,7 @@ require_once('lib/onxshop.functions.php');
  */
  
 if (ONXSHOP_BENCHMARK && ONXSHOP_IS_DEBUG_HOST) {
-	$time_start = getmicrotime();
+	$time_start = microtime(true);
 	define("TIME_START", $time_start);
 }
 
@@ -95,7 +95,7 @@ echo $Bootstrap->finalOutput();
  */
    
 if (ONXSHOP_BENCHMARK && ONXSHOP_IS_DEBUG_HOST) {
-    $time_end = getmicrotime();
+    $time_end = microtime(true);
     $time = $time_end - $time_start;
     $time = round($time, 4);
     echo "<div class='onxshop_messages'><p class='onxshop_ok_msg'>Script total running time = $time sec.</p>";
