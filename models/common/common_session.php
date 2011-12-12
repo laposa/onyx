@@ -18,7 +18,7 @@ class common_session extends Onxshop_Model {
 	 */
 	var $id;
 	/**
-	 * index
+	 * session_id must be unique in this table (we should use UNIQUE constraint)
 	 * @access private
 	 */
 	var $session_id;

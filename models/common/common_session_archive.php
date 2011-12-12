@@ -11,6 +11,8 @@ require_once('models/common/common_session.php');
  
 class common_session_archive extends common_session {
 
+	//session_id can be repeated in this table (don't use UNIQUE constraint)
+	
 	/**
 	 * create table sql
 	 */
