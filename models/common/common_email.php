@@ -126,8 +126,6 @@ CREATE TABLE common_email (
 		
 			//check for require items and creating of message
 			while (list ($key, $val) = each ($items)) {
-				
-				$val = htmlspecialchars($val, ENT_QUOTES, 'UTF-8');
 
 				if (preg_match('/required/', $key) && trim($val) == "") {
 					$key = $this->_formatKey($key);

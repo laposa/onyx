@@ -11,21 +11,21 @@ $(function(){
 	<fieldset class="single">
 		<legend>{I18N_CONTACT_FORM}</legend>
 		<div class="row name {ERROR.name}">
-			<span class="label"><label for="textinput_{GET.node_id}"><span class="mandatory-mark">*</span>{I18N_YOUR_NAME}:</label></span>
-			<span class="field"><input type="text" id="textinput_{GET.node_id}" name="formdata[required_name]" value="{FORMDATA.required_name}" class="required text" maxlength="45" /></span>
+			<span class="label"><label for="formdata-name_{GET.node_id}"><span class="mandatory-mark">*</span>{I18N_YOUR_NAME}:</label></span>
+			<span class="field"><input type="text" id="formdata-name_{GET.node_id}" name="formdata[required_name]" value="{FORMDATA.required_name|htmlspecialchars}" class="required text" maxlength="45" /></span>
 		</div>
 		<div class="row email {ERROR.email}">
-			<span class="label"><label for="textinput8_{GET.node_id}"><span class="mandatory-mark">*</span>{I18N_EMAIL}:</label></span>
-			<span class="field"><input type="text" id="textinput8_{GET.node_id}" name="formdata[required_email]" value="{FORMDATA.required_email}" class="required text" maxlength="45" /></span>
+			<span class="label"><label for="formdata-email_{GET.node_id}"><span class="mandatory-mark">*</span>{I18N_EMAIL}:</label></span>
+			<span class="field"><input type="text" id="formdata-email_{GET.node_id}" name="formdata[required_email]" value="{FORMDATA.required_email|htmlspecialchars}" class="required text" maxlength="45" /></span>
 		</div>
 		<div class="row subject {ERROR.subject}">
-			<span class="label"><label for="textinput5_{GET.node_id}"><span class="mandatory-mark">*</span>{I18N_SUBJECT}:</label></span>
-			<span class="field"><input type="text" id="textinput5_{GET.node_id}" name="formdata[required_subject]" value="{FORMDATA.required_subject}" class="required text" maxlength="45" /></span>
+			<span class="label"><label for="formdata-subject_{GET.node_id}"><span class="mandatory-mark">*</span>{I18N_SUBJECT}:</label></span>
+			<span class="field"><input type="text" id="formdata-subject_{GET.node_id}" name="formdata[required_subject]" value="{FORMDATA.required_subject|htmlspecialchars}" class="required text" maxlength="45" /></span>
 		</div>
 		
 		<div class="row message {ERROR.message}">
-			<span class="label"><label for="textareainput_{GET.node_id}"><span class="mandatory-mark">*</span>{I18N_YOUR_MESSAGE}:</label></span>
-			<span class="field"><textarea id="textareainput_{GET.node_id}" class="required" name="formdata[required_message]" rows="15" cols="45">{FORMDATA.required_message}</textarea></span>
+			<span class="label"><label for="formdata-message_{GET.node_id}"><span class="mandatory-mark">*</span>{I18N_YOUR_MESSAGE}:</label></span>
+			<span class="field"><textarea id="formdata-message_{GET.node_id}" class="required" name="formdata[required_message]" rows="15" cols="45">{FORMDATA.required_message|htmlspecialchars}</textarea></span>
 		</div>
 	</fieldset>
 	

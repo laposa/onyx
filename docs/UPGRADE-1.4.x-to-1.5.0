@@ -41,3 +41,5 @@ rename nx_ok_msg to onxshop_ok_msg
 
 if .htaccess was locally modified, than merge manually
 
+make sure custom contact_forms are using |htmlspecialchars in their templates
+
