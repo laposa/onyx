@@ -31,7 +31,6 @@ class Onxshop_Bootstrap {
 		require_once('Zend/Db.php');
 		require_once('Zend/Registry.php');
 
-
 		/**
 		 * Initialise database connection object
 		 */
@@ -196,7 +195,7 @@ class Onxshop_Bootstrap {
 			break;
 		}
 
-		session_set_cookie_params(31536000);// = 3600 * 24 * 365
+		//session_set_cookie_params(31536000);// = 3600 * 24 * 365
 		session_start();
 		
 		if (!array_key_exists('authentication', $_SESSION)) $_SESSION['authentication'] = array();
