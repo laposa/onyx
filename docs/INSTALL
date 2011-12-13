@@ -180,9 +180,11 @@ cp -a /opt/onxshop-latest/project_skeleton ./
 mv project_skeleton [NEWPROJECT]
 cd [NEWPROJECT]
 chmod a+rwx -R var
+#create symlink to shared onxshop_dir folder
+ln -s /opt/onxshop-1.5.0 onxshop_dir;
 
-# optionally
-# rm onxshop_dir; ln -s /opt/onxshop-1.4.0 onxshop_dir;
+# optionally copy the source code directly under the project folder
+# rm onxshop_dir; cp -a /opt/onxshop-1.5.0 onxshop_dir;
 
 3. configure vhost [NEWPROJECT]
 
@@ -215,12 +217,12 @@ exit
 Please keep NEWUSER same as NEWPROJECT when possible.
 3. create new database under newly created db user
 
-createdb -U [NEWUSER] -h localhost -E UTF8 [NEWPROJECT]-1_4
+createdb -U [NEWUSER] -h localhost -E UTF8 [NEWPROJECT]-1_5
 
 4. populate database with project template
 
 cd /srv/[NEWPROJECT]
-psql -U [NEWUSER] -h localhost [NEWPROJECT]-1_4 < onxshop_dir/docs/database/templates/template_en-1_4.sql
+psql -U [NEWUSER] -h localhost [NEWPROJECT]-1_5 < onxshop_dir/docs/database/template_en.sql
 5. modify deployment.php
 
 vi conf/deployment.php
@@ -234,7 +236,7 @@ define('ONXSHOP_DB_USER', '[NEWUSER]');
 define('ONXSHOP_DB_PASSWORD', ''[NEWPASSWORD);
 define('ONXSHOP_DB_HOST', 'localhost');
 define('ONXSHOP_DB_PORT', 5432);
-define('ONXSHOP_DB_NAME', '[NEWPROJECT]-1_4');
+define('ONXSHOP_DB_NAME', '[NEWPROJECT]-1_5');
 
 6. test 
 

@@ -134,7 +134,8 @@ CREATE TABLE client_customer (
     modified timestamp(0) without time zone,
     account_type smallint DEFAULT 0 NOT NULL,
     agreed_with_latest_t_and_c smallint DEFAULT 0 NOT NULL,
-    verified_email_address smallint DEFAULT 0 NOT NULL
+    verified_email_address smallint DEFAULT 0 NOT NULL,
+    group_id smallint
 );
 
 
@@ -165,6 +166,45 @@ SELECT pg_catalog.setval('client_customer_id_seq', 1, true);
 
 
 --
+-- Name: client_group; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE client_group (
+    id integer NOT NULL,
+    name character varying(255),
+    description text,
+    search_filter text,
+    other_data text
+);
+
+
+--
+-- Name: client_group_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE client_group_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- Name: client_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE client_group_id_seq OWNED BY client_group.id;
+
+
+--
+-- Name: client_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('client_group_id_seq', 1, false);
+
+
+--
 -- Name: common_comment; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -181,7 +221,8 @@ CREATE TABLE common_comment (
     customer_id integer NOT NULL,
     created timestamp(0) without time zone DEFAULT now(),
     publish smallint,
-    rating smallint DEFAULT 0
+    rating smallint DEFAULT 0,
+    relation_subject text
 );
 
 
@@ -248,14 +289,14 @@ ALTER SEQUENCE common_configuration_id_seq OWNED BY common_configuration.id;
 -- Name: common_configuration_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('common_configuration_id_seq', 16, true);
+SELECT pg_catalog.setval('common_configuration_id_seq', 17, true);
 
 
 --
--- Name: common_email_form; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+-- Name: common_email; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-CREATE TABLE common_email_form (
+CREATE TABLE common_email (
     id integer NOT NULL,
     email_from character varying(255),
     name_from character varying(255),
@@ -270,10 +311,10 @@ CREATE TABLE common_email_form (
 
 
 --
--- Name: common_email_form_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: common_email_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE common_email_form_id_seq
+CREATE SEQUENCE common_email_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MAXVALUE
@@ -282,17 +323,17 @@ CREATE SEQUENCE common_email_form_id_seq
 
 
 --
--- Name: common_email_form_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: common_email_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE common_email_form_id_seq OWNED BY common_email_form.id;
+ALTER SEQUENCE common_email_id_seq OWNED BY common_email.id;
 
 
 --
--- Name: common_email_form_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: common_email_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('common_email_form_id_seq', 2, true);
+SELECT pg_catalog.setval('common_email_id_seq', 2, true);
 
 
 --
@@ -378,7 +419,7 @@ ALTER SEQUENCE common_image_id_seq OWNED BY common_image.id;
 -- Name: common_image_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('common_image_id_seq', 1, false);
+SELECT pg_catalog.setval('common_image_id_seq', 1, true);
 
 
 --
@@ -417,7 +458,8 @@ CREATE TABLE common_node (
     display_breadcrumb smallint DEFAULT 0 NOT NULL,
     browser_title character varying(255) DEFAULT ''::character varying NOT NULL,
     link_to_node_id integer DEFAULT 0 NOT NULL,
-    require_ssl smallint DEFAULT 0 NOT NULL
+    require_ssl smallint DEFAULT 0 NOT NULL,
+    display_permission_group_acl text
 );
 
 
@@ -444,7 +486,7 @@ ALTER SEQUENCE common_node_id_seq OWNED BY common_node.id;
 -- Name: common_node_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('common_node_id_seq', 1030, true);
+SELECT pg_catalog.setval('common_node_id_seq', 1036, true);
 
 
 --
@@ -777,7 +819,7 @@ ALTER SEQUENCE common_uri_mapping_id_seq OWNED BY common_uri_mapping.id;
 -- Name: common_uri_mapping_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('common_uri_mapping_id_seq', 101, true);
+SELECT pg_catalog.setval('common_uri_mapping_id_seq', 107, true);
 
 
 --
@@ -1009,7 +1051,8 @@ CREATE TABLE ecommerce_invoice (
     customer_name character varying(255),
     customer_email character varying(255),
     address_invoice text,
-    address_delivery text
+    address_delivery text,
+    voucher_discount numeric(12,5)
 );
 
 
@@ -1054,7 +1097,9 @@ CREATE TABLE ecommerce_order (
     note_backoffice text,
     php_session_id character varying(32),
     referrer character varying(255),
-    payment_type character varying(255)
+    payment_type character varying(255),
+    created timestamp(0) without time zone DEFAULT now(),
+    modified timestamp(0) without time zone DEFAULT now()
 );
 
 
@@ -1092,7 +1137,9 @@ CREATE TABLE ecommerce_order_log (
     id integer NOT NULL,
     order_id integer,
     status integer,
-    datetime timestamp(0) without time zone
+    datetime timestamp(0) without time zone,
+    description text,
+    other_data text
 );
 
 
@@ -1268,7 +1315,8 @@ CREATE TABLE ecommerce_product_review (
     customer_id integer NOT NULL,
     created timestamp(0) without time zone DEFAULT now(),
     publish smallint,
-    rating smallint DEFAULT 0
+    rating smallint DEFAULT 0,
+    relation_subject text
 );
 
 
@@ -1435,7 +1483,9 @@ CREATE TABLE ecommerce_product_variety (
     ean13 character varying(255),
     upc character varying(255),
     condition smallint DEFAULT 0 NOT NULL,
-    wholesale smallint
+    wholesale smallint,
+    reward_points integer,
+    subtitle character varying(255)
 );
 
 
@@ -1566,7 +1616,8 @@ CREATE TABLE ecommerce_promotion (
     limit_list_products text,
     other_data text,
     limit_delivery_country_id smallint DEFAULT 0 NOT NULL,
-    limit_delivery_carrier_id smallint DEFAULT 0 NOT NULL
+    limit_delivery_carrier_id smallint DEFAULT 0 NOT NULL,
+    generated_by_order_id integer
 );
 
 
@@ -1674,6 +1725,216 @@ ALTER SEQUENCE ecommerce_transaction_id_seq OWNED BY ecommerce_transaction.id;
 --
 
 SELECT pg_catalog.setval('ecommerce_transaction_id_seq', 1, false);
+
+
+--
+-- Name: education_survey; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE education_survey (
+    id integer NOT NULL,
+    title character varying(255) NOT NULL,
+    description text,
+    created timestamp(0) without time zone DEFAULT now() NOT NULL,
+    modified timestamp(0) without time zone DEFAULT now(),
+    priority smallint DEFAULT 0,
+    publish smallint DEFAULT 0
+);
+
+
+--
+-- Name: education_survey_entry; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE education_survey_entry (
+    id integer NOT NULL,
+    survey_id integer NOT NULL,
+    customer_id integer NOT NULL,
+    relation_subject text,
+    created timestamp(0) without time zone DEFAULT now() NOT NULL,
+    modified timestamp(0) without time zone DEFAULT now(),
+    publish smallint DEFAULT 0
+);
+
+
+--
+-- Name: education_survey_entry_answer; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE education_survey_entry_answer (
+    id integer NOT NULL,
+    survey_entry_id integer NOT NULL,
+    question_id integer NOT NULL,
+    question_answer_id integer,
+    value text,
+    created timestamp(0) without time zone DEFAULT now() NOT NULL,
+    modified timestamp(0) without time zone DEFAULT now(),
+    publish smallint DEFAULT 0
+);
+
+
+--
+-- Name: education_survey_entry_answer_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE education_survey_entry_answer_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- Name: education_survey_entry_answer_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE education_survey_entry_answer_id_seq OWNED BY education_survey_entry_answer.id;
+
+
+--
+-- Name: education_survey_entry_answer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('education_survey_entry_answer_id_seq', 1, false);
+
+
+--
+-- Name: education_survey_entry_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE education_survey_entry_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- Name: education_survey_entry_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE education_survey_entry_id_seq OWNED BY education_survey_entry.id;
+
+
+--
+-- Name: education_survey_entry_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('education_survey_entry_id_seq', 1, false);
+
+
+--
+-- Name: education_survey_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE education_survey_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- Name: education_survey_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE education_survey_id_seq OWNED BY education_survey.id;
+
+
+--
+-- Name: education_survey_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('education_survey_id_seq', 1, false);
+
+
+--
+-- Name: education_survey_question; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE education_survey_question (
+    id integer NOT NULL,
+    survey_id integer NOT NULL,
+    parent integer,
+    step smallint DEFAULT 1,
+    title character varying(255) NOT NULL,
+    description text,
+    mandatory smallint DEFAULT 1,
+    type character varying(255) NOT NULL,
+    priority smallint DEFAULT 0,
+    publish smallint DEFAULT 1
+);
+
+
+--
+-- Name: education_survey_question_answer; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE education_survey_question_answer (
+    id integer NOT NULL,
+    question_id integer NOT NULL,
+    title text NOT NULL,
+    description text,
+    is_correct smallint,
+    points smallint,
+    priority smallint DEFAULT 0,
+    publish smallint DEFAULT 1
+);
+
+
+--
+-- Name: education_survey_question_answer_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE education_survey_question_answer_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- Name: education_survey_question_answer_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE education_survey_question_answer_id_seq OWNED BY education_survey_question_answer.id;
+
+
+--
+-- Name: education_survey_question_answer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('education_survey_question_answer_id_seq', 1, false);
+
+
+--
+-- Name: education_survey_question_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE education_survey_question_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- Name: education_survey_question_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE education_survey_question_id_seq OWNED BY education_survey_question.id;
+
+
+--
+-- Name: education_survey_question_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('education_survey_question_id_seq', 1, false);
 
 
 --
@@ -1792,7 +2053,7 @@ ALTER SEQUENCE international_currency_rate_id_seq OWNED BY international_currenc
 -- Name: international_currency_rate_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('international_currency_rate_id_seq', 172, true);
+SELECT pg_catalog.setval('international_currency_rate_id_seq', 180, true);
 
 
 --
@@ -1898,6 +2159,13 @@ ALTER TABLE client_customer ALTER COLUMN id SET DEFAULT nextval('client_customer
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE client_group ALTER COLUMN id SET DEFAULT nextval('client_group_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE common_comment ALTER COLUMN id SET DEFAULT nextval('common_comment_id_seq'::regclass);
 
 
@@ -1912,7 +2180,7 @@ ALTER TABLE common_configuration ALTER COLUMN id SET DEFAULT nextval('common_con
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE common_email_form ALTER COLUMN id SET DEFAULT nextval('common_email_form_id_seq'::regclass);
+ALTER TABLE common_email ALTER COLUMN id SET DEFAULT nextval('common_email_id_seq'::regclass);
 
 
 --
@@ -2157,6 +2425,41 @@ ALTER TABLE ecommerce_transaction ALTER COLUMN id SET DEFAULT nextval('ecommerce
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE education_survey ALTER COLUMN id SET DEFAULT nextval('education_survey_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE education_survey_entry ALTER COLUMN id SET DEFAULT nextval('education_survey_entry_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE education_survey_entry_answer ALTER COLUMN id SET DEFAULT nextval('education_survey_entry_answer_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE education_survey_question ALTER COLUMN id SET DEFAULT nextval('education_survey_question_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE education_survey_question_answer ALTER COLUMN id SET DEFAULT nextval('education_survey_question_answer_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE international_country ALTER COLUMN id SET DEFAULT nextval('international_country_id_seq'::regclass);
 
 
@@ -2179,7 +2482,7 @@ ALTER TABLE international_currency_rate ALTER COLUMN id SET DEFAULT nextval('int
 --
 
 COPY client_address (id, customer_id, country_id, name, line_1, line_2, line_3, post_code, city, county, telephone, comment, is_deleted) FROM stdin;
-1	1	222	Mr Norbert Laposa	13 Calvin Street			BT5 4NS	Belfast	\N	\N	\N	\N
+1	1	222	Mr Onxshop Tester	58 Howard Street			BT1 6PJ	Belfast	\N	\N	\N	\N
 \.
 
 
@@ -2195,9 +2498,17 @@ COPY client_company (id, name, www, telephone, fax, customer_id, registration_no
 -- Data for Name: client_customer; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY client_customer (id, title_before, first_name, last_name, title_after, email, username, telephone, mobilephone, nickname, password, company_id, invoices_address_id, delivery_address_id, gender, created, currency_code, status, newsletter, birthday, other_data, modified, account_type, agreed_with_latest_t_and_c, verified_email_address) FROM stdin;
-0		Anonym	Anonymouse		anonym@noemail.noemail	anonymouse	notelephone			nopassword	0	1	1	 	2008-08-06 21:24:48	GBP	0	0	2008-08-06		2008-08-06 21:24:48	0	0	0
-1	Ing.	Norbert	Laposa	\N	norbert.laposa@gmail.com	\N	07517 237 901	\N	\N	norbertlaposa	0	1	1	\N	2008-08-16 13:14:23	GBP	1	0	\N	a:1:{s:10:"partner_id";s:0:"";}	2008-08-16 13:14:23	0	0	0
+COPY client_customer (id, title_before, first_name, last_name, title_after, email, username, telephone, mobilephone, nickname, password, company_id, invoices_address_id, delivery_address_id, gender, created, currency_code, status, newsletter, birthday, other_data, modified, account_type, agreed_with_latest_t_and_c, verified_email_address, group_id) FROM stdin;
+1	Mr	Onxshop	Tester	\N	test@onxshop.com	\N	+44(0) 2890 328 988	\N	\N	b3f61bf1cb26243ef478a3c181dd0aa2	0	1	1	\N	2011-12-13 14:00:00	GBP	1	0	\N		2011-12-13 14:00:00	0	0	0	\N
+0		Anonym	Anonymouse		anonym@noemail.noemail	anonymouse	notelephone			9ce21d8f3992d89a325aa9dcf520a591	0	1	1	 	2011-12-13 14:00:00	GBP	0	0	2007-06-14		2011-12-13 14:00:00	0	0	0	\N
+\.
+
+
+--
+-- Data for Name: client_group; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY client_group (id, name, description, search_filter, other_data) FROM stdin;
 \.
 
 
@@ -2205,8 +2516,8 @@ COPY client_customer (id, title_before, first_name, last_name, title_after, emai
 -- Data for Name: common_comment; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY common_comment (id, parent, node_id, title, content, author_name, author_email, author_website, author_ip_address, customer_id, created, publish, rating) FROM stdin;
-0	\N	0	Base	n/a	n/a	noemail@noemail.com	n/a	n/a	0	2008-08-06 21:25:04	0	0
+COPY common_comment (id, parent, node_id, title, content, author_name, author_email, author_website, author_ip_address, customer_id, created, publish, rating, relation_subject) FROM stdin;
+0	\N	0	Base	n/a	n/a	noemail@noemail.com	n/a	n/a	0	2008-08-06 21:25:04	0	0	\N
 \.
 
 
@@ -2215,30 +2526,31 @@ COPY common_comment (id, parent, node_id, title, content, author_name, author_em
 --
 
 COPY common_configuration (id, node_id, object, property, value, description) FROM stdin;
-5	0	global	locale	cs_CZ.UTF-8	
-6	0	global	default_currency	CZK	
-1	0	global	title	Prázdný web	
-2	0	global	author_content	Prázdný web, http://www.vaseadresa.cz/	
+1	0	global	title	White Label	
+2	0	global	author_content	White Label, http://www.example.com/	
+5	0	global	locale	en_GB.UTF-8	
+6	0	global	default_currency	GBP	
 9	0	global	google_analytics		
-8	0	global	css	/**\r\n *\r\n * Our hint to CSS developers: \r\n * use here an @import of a CSS file from your own server,\r\n * work on your local version and paste here the final version \r\n * when you are finished with the development\r\n *\r\n */\r\n \r\n@import url(/share/css/default/theme_colour/grey.css);\r\n/*@import url(/share/css/default/theme_layout/stripes.css);*/\r\n	
-4	0	global	html_title_suffix	- Prázdný web	
+8	0	global	css	/**\r\n *\r\n * Our hint to CSS developers: \r\n * use here an @import of a CSS file from your own server,\r\n * work on your local version and paste here the final version \r\n * when you are finished with the development\r\n *\r\n */\r\n \r\n@import url(/share/css/default/theme_colour/grey.css);\r\n/*@import url(/share/css/default/theme_layout/stripes.css);*/	
+4	0	global	html_title_suffix	- White Label	
 10	0	global	google_adwords		
 11	0	global	display_content_side	1	
 12	0	global	extra_head	<meta name="viewport" content="width=1024" />	
 13	0	global	extra_body_top		
 14	0	global	extra_body_bottom		
 15	0	global	display_secondary_navigation	0	
-7	0	global	admin_email	norbert@laposa.co.uk	
 16	0	global	display_content_foot	0	
-3	0	global	credit	<a href="http://www.onxshop.com" title="Content Management for Web Design Ninjas"><span>Powered by Onxshop</span></a>	
+17	5	global	html_title_suffix		
+3	0	global	credit	<a href="http://onxshop.com" title="Easy web CMS/eCommerce"><span>Powered by Onxshop</span></a>	
+7	0	global	admin_email	test@onxshop.com	
 \.
 
 
 --
--- Data for Name: common_email_form; Type: TABLE DATA; Schema: public; Owner: -
+-- Data for Name: common_email; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY common_email_form (id, email_from, name_from, subject, content, template, email_recipient, name_recipient, created, ip) FROM stdin;
+COPY common_email (id, email_from, name_from, subject, content, template, email_recipient, name_recipient, created, ip) FROM stdin;
 1	norbert.laposa@gmail.com	Webmaster	White Label: Registration	nothing	registration	norbert.laposa@gmail.com	Norbert Laposa	2008-08-16 13:14:23	192.168.0.2
 2	norbert.laposa@gmail.com	Webmaster	White Label: Registration Notify	nothing	registration_notify	norbert.laposa@gmail.com	Webmaster	2008-08-16 13:14:24	192.168.0.2
 \.
@@ -2257,6 +2569,7 @@ COPY common_file (id, src, role, node_id, title, description, priority, modified
 --
 
 COPY common_image (id, src, role, node_id, title, description, priority, modified, author) FROM stdin;
+1	var/files/favicon.ico	main	3	Favicon		0	2011-12-13 14:27:55	1000
 \.
 
 
@@ -2264,82 +2577,87 @@ COPY common_image (id, src, role, node_id, title, description, priority, modifie
 -- Data for Name: common_node; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY common_node (id, title, node_group, node_controller, parent, parent_container, priority, teaser, content, description, keywords, page_title, head, created, modified, publish, display_in_menu, author, uri_title, display_permission, other_data, css_class, layout_style, component, relations, display_title, display_secondary_navigation, require_login, display_breadcrumb, browser_title, link_to_node_id, require_ssl) FROM stdin;
-89	Select Delivery Method	content	component	7	1	100	\N	\N					2010-04-18 01:34:49	2010-04-18 11:10:57	1	1	1000		0	N;			a:3:{s:8:"template";s:30:"ecommerce/delivery_option.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	1	\N	\N	0		0	0
-91	Newsletter Subscribe	content	component	90	1	0	\N	\N					2010-04-18 11:20:58	2010-04-18 11:21:14	1	1	1000		0	N;			a:3:{s:8:"template";s:32:"client/newsletter_subscribe.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0
-69	Search result	content	component	21	1	0	\N				\N		2006-09-30 15:49:27	2008-08-07 01:21:51	1	1	1000		0	N;			a:3:{s:8:"template";s:17:"search_nodes.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0
-72	Sitemap component	content	component	22	1	0	\N				\N		2006-09-30 15:50:21	2008-08-24 00:51:29	1	1	1000		0	N;			a:3:{s:8:"template";s:12:"sitemap.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0
-1016	Privacy Policy	content	RTE	26	1	0	\N	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>\r\n<ul>\r\n<li>velit esse cillum dolore</li>\r\n<li>consectetur adipisicing elit</li>\r\n<li>occaecat cupidatat non proident</li>\r\n</ul>\r\n<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>			\N		2008-08-16 13:00:53	2008-08-16 13:01:11	1	1	1000		0	N;			N;	N;	1	\N	\N	0		0	0
-1017	Returns policy	content	RTE	26	2	0	\N	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>\r\n<ul>\r\n<li>velit esse cillum dolore</li>\r\n<li>consectetur adipisicing elit</li>\r\n<li>occaecat cupidatat non proident</li>\r\n</ul>\r\n<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>			\N		2008-08-16 13:01:53	2008-08-16 13:01:58	1	1	1000		0	N;			N;	N;	1	\N	\N	0		0	0
-68	Search input	content	component	21	1	0	\N				\N		2006-09-30 15:48:45	2008-08-24 18:22:11	1	1	1000		0	N;			a:3:{s:8:"template";s:14:"searchbox.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0
-75	Basket edit component	content	component	6	1	0	\N				\N		2006-09-30 15:54:35	2008-08-24 18:23:16	1	1	1000		0	N;			a:3:{s:8:"template";s:26:"ecommerce/basket_edit.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0
-41	Checkout	content	component	7	1	0	\N				\N		2006-09-30 14:47:01	2008-08-24 18:23:33	1	1	1000		0	N;			a:3:{s:8:"template";s:23:"ecommerce/checkout.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0
-39	Checkout Basket	content	component	7	1	0	\N				\N		2006-09-30 14:44:34	2008-08-24 18:23:51	1	1	1000		0	N;			a:3:{s:8:"template";s:30:"ecommerce/checkout_basket.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0
-51	Order detail component	content	component	19	1	0	\N				\N		2006-09-30 15:22:49	2008-08-24 18:25:32	1	1	1000		0	N;			a:3:{s:8:"template";s:27:"ecommerce/order_detail.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0
-60	Payment component	content	component	10	1	0	\N				\N		2006-09-30 15:32:26	2008-08-24 18:26:22	1	1	1000		0	N;			a:3:{s:8:"template";s:22:"ecommerce/payment.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0
-65	Payment was successfull	content	RTE	12	1	0	\N	<p>Process executed without error and the transaction was successfully Authorised.&nbsp;</p>			\N		2006-09-30 15:43:50	2008-08-24 18:27:47	1	1	1000		0	N;			N;	N;	0	\N	\N	0		0	0
-78	404 error	content	RTE	14	1	0	\N	<p><strong>We have recently restructured this website, you might find what you are looking for by going via the <a href="/">home page</a>.</strong></p>\r\n<p><strong>If you believe you have found a broken link please <a href="/page/20">let us know</a>.</strong></p>\r\n<div class="line">\r\n<hr />\r\n</div>\r\n<p><strong>Please try the following:</strong></p>\r\n<ul>\r\n<li>If you typed the page address in the Address bar, make sure that it is spelled correctly. </li>\r\n<li>Click the <a href="javascript:history.go(-1)">Back</a> button to try another link. </li>\r\n</ul>\r\n<p>HTTP 404 : Page not found</p>			\N		2006-09-30 16:37:05	2008-08-24 18:28:28	1	1	1000		0	N;			N;	N;	1	\N	\N	0		0	0
-93	Newsletter Unsubscribe	content	component	92	1	0	\N	\N					2010-04-18 11:22:40	2010-04-18 11:22:56	1	1	1000		0	N;			a:3:{s:8:"template";s:34:"client/newsletter_unsubscribe.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0
-42	Address component	content	component	7	2	0	\N				\N		2006-09-30 14:54:43	2008-08-24 18:24:18	1	1	1000		0	N;			a:3:{s:8:"template";s:19:"client/address.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0
-1024	Userbox	content	component	15	2	0	\N	\N					2010-04-18 13:45:43	2010-04-18 13:46:15	1	1	1000		0	N;			a:3:{s:8:"template";s:19:"client/userbox.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0
-1015	Our latest news	content	news_list	83	1	0	\N	\N			\N		2008-08-16 04:02:19	2011-01-16 17:32:22	1	1	1000		0	N;			a:5:{s:5:"limit";s:1:"5";s:8:"template";s:4:"full";s:10:"pagination";i:1;s:5:"image";i:0;s:13:"display_title";i:0;}	N;	0	\N	0	0		0	0
-87	General content 2	content	RTE	85	0	0	\N	<p style="text-align: center;"><em>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</em></p>			\N		2006-09-30 15:50:10	2011-01-16 17:36:38	1	1	1000		0	N;			N;	N;	0	\N	0	0		0	0
-1019	forgotten password	content	RTE	8	1	0	\N	<p>\n<a href="/page/9">Zapomněli jste heslo od sv&eacute;ho &uacute;čtu?</a>  \n</p>			\N		2008-10-12 22:53:50	2008-10-12 22:58:49	1	1	1000		0	N;			N;	N;	0	\N	\N	0		0	0
-1020	Payment information	content	RTE	8	2	0	\N	<h3>Platebn&iacute; karty<br /></h3>\n<p>Akceptujeme tyto platebn&iacute; karty: \n</p>\n<p>\n<img src="https://www.worldpay.com/cgenerator/logos/visa.gif" alt="Visa payments supported by WorldPay" />\n<img src="https://www.worldpay.com/cgenerator/logos/visa_delta.gif" alt="Visa/Delta payments supported by WorldPay" />\n<img src="https://www.worldpay.com/cgenerator/logos/mastercard.gif" alt="Mastercard payments supported by WorldPay" />\n<img src="https://www.worldpay.com/cgenerator/logos/switch.gif" alt="Switch payments supported by WorldPay" />\n</p>\n<h3>Obchodn&iacute; podm&iacute;nky<br /></h3>\n<p>Odesl&aacute;n&iacute;m objedn&aacute;vky přes tento web vyjadřujete souhlas s n&aacute;sleduj&iacute;c&iacute;mi <a href="/page/26">obchodn&iacute;mi podm&iacute;nkami</a><a href="/page/26"></a> .\n</p>\n<h3>Platebn&iacute; br&aacute;nu zaji&scaron;ťuje </h3>\n<p>\n<!-- Powered by WorldPay logo-->\n<a href="http://www.worldpay.com/"><img src="https://www.worldpay.com/cgenerator/logos/poweredByWorldPay.gif" alt="Powered By WorldPay" /></a>\n</p>\n<p>\n<!-- WorldPay Guarantee Logo -->\n<img src="https://www.worldpay.com/cgenerator/logos/guaranteed.gif" alt="WorldPay Guarantee" />\n</p>			\N		2008-10-12 23:03:43	2008-10-12 23:10:01	1	1	1000		0	N;			N;	N;	0	\N	\N	0		0	0
-1022	Related products	content	component	6	2	0	\N	\N			\N		2008-10-12 23:16:47	2008-10-12 23:17:54	1	1	1000		0	N;			a:3:{s:8:"template";s:37:"ecommerce/product_related_basket.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0
-1021	Recently viewed	content	component	6	1	0	\N	\N			\N		2008-10-12 23:15:43	2008-10-12 23:18:32	1	1	1000		0	N;			a:3:{s:8:"template";s:39:"ecommerce/recently_viewed_products.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0
-1023	content 1242392858	content	RTE	5	1	0	\N	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>\n<ul>\n<li>velit esse cillum dolore</li>\n<li>consectetur adipisicing elit</li>\n<li>occaecat cupidatat non proident</li>\n</ul>\n<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>					2009-05-15 14:07:38	2009-05-15 14:07:44	1	1	1000		0	N;			N;	N;	0	\N	\N	0		0	0
-45	Address Management Component	content	component	16	1	0	\N				\N		2006-09-30 15:20:05	2008-08-24 18:25:00	1	1	1000		0	N;			a:3:{s:8:"template";s:24:"client/address_edit.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0
-32	Existing customer	content	component	8	1	0	\N				\N		2006-09-30 14:00:05	2008-08-24 01:15:22	1	1	1000		0	N;			a:3:{s:8:"template";s:17:"client/login.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0
-54	User pref component	content	component	18	1	0	\N				\N		2006-09-30 15:25:21	2008-08-24 18:25:48	1	1	1000		0	N;			a:3:{s:8:"template";s:22:"client/user_prefs.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0
-36	Registration component	content	component	13	1	0	\N				\N		2006-09-30 14:26:09	2008-08-24 01:14:57	1	1	1000		0	N;			a:3:{s:8:"template";s:24:"client/registration.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0
-57	Password reset component	content	component	9	1	0	\N				\N		2006-09-30 15:30:31	2008-08-24 18:26:03	1	1	1000		0	N;			a:3:{s:8:"template";s:26:"client/password_reset.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0
-34	New customer	content	component	8	1	0	\N				\N		2006-09-30 14:01:50	2008-08-24 01:15:34	1	1	1000		0	N;			a:3:{s:8:"template";s:30:"client/registration_start.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0
-48	Your orders with us	content	component	17	1	0	\N				\N		2006-09-30 15:21:35	2008-08-16 13:22:33	1	1	1000		0	N;			a:3:{s:8:"template";s:25:"ecommerce/order_list.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	1	\N	\N	0		0	0
-63	Payment failure component	content	component	11	1	0	\N				\N		2006-09-30 15:42:05	2008-08-24 18:26:38	1	1	1000		0	N;			a:3:{s:8:"template";s:37:"ecommerce/payment/protx_callback.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0
-66	Payment success component	content	component	12	1	0	\N				\N		2006-09-30 15:44:42	2008-08-16 13:28:47	1	1	1000		0	N;			a:3:{s:8:"template";s:37:"ecommerce/payment/protx_callback.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	1	\N	\N	0		0	0
-0	Root	site	default	\N	0	0							2008-08-06 21:24:09	2008-08-06 21:24:09	1	1	0		0				\N	\N	\N	\N	\N	0		0	0
-1011	Naše adresa	content	RTE	20	2	5	\N	<p>Jm&eacute;no Přijmen&iacute;<br />Ulice, č.p. xxx<br />PSČ Město<br />Kraj</p>\n<p>telefon: xxx xxx xxx</p>					2008-08-07 01:18:33	2011-01-16 17:31:49	1	1	1000		0	N;			N;	N;	1	\N	\N	0		0	0
-76	Zaslat zprávu	content	contact_form	20	1	15	\N						2006-09-30 16:00:21	2011-01-16 17:31:47	1	1	1000		0	N;			a:6:{s:7:"mail_to";s:0:"";s:11:"mail_toname";s:0:"";s:15:"node_controller";s:13:"common_simple";s:14:"sending_failed";s:84:"Musíte vypňit všechny požadované údaje, které jsou označeny hvězdičkou (*)";s:4:"text";s:27:"Děkujeme za Vaši zprávu.";s:4:"href";s:0:"";}	N;	1	\N	\N	0		0	0
-1029	content 1295195343	content	RTE	1025	1	0	\N	<h3>Ochrana osobn&iacute;ch &uacute;dajů</h3>\n<p>Tyto podm&iacute;nky ochrany osobn&iacute;ch &uacute;dajů stanov&iacute;, jak&yacute;m způsobem [COMPANY NAME] použ&iacute;v&aacute; a chr&aacute;n&iacute; informace, kter&eacute; můžete za určit&yacute;ch okolnost&iacute; poskytnout při použ&iacute;v&aacute;n&iacute; str&aacute;nek um&iacute;stěn&yacute;ch na dom&eacute;ně [COMPANY DOMAIN]. </p>\n<p>[COMPANY NAME] V&aacute;m zaručuje plnou ochranu osobn&iacute;ch &uacute;dajů poskytovan&yacute;ch při použ&iacute;v&aacute;n&iacute; těchto internetov&yacute;ch str&aacute;nek. Pokud V&aacute;s pož&aacute;d&aacute;me o poskytnut&iacute; určit&yacute;ch informac&iacute;, kter&eacute; mohou sloužit k Va&scaron;&iacute; identifikaci při použit&iacute; těchto str&aacute;nek, zaručujeme, že tyto informace budou použity v&yacute;hradně v souladu s touto kodifikac&iacute; ochrany osobn&iacute;ch &uacute;dajů.</p>\n<p>[COMPANY NAME] může v budoucnu změnit tuto definici ochrany osobn&iacute;ch &uacute;dajů prostřednictv&iacute;m updatu těchto str&aacute;nek. Uživatel&eacute; by proto měli př&iacute;ležitostně zkontrolovat možn&eacute; změny a ujistit se, že souhlas&iacute; s aktu&aacute;ln&iacute; verzi podm&iacute;nek už&iacute;v&aacute;n&iacute; a ochrany osobn&iacute;ch &uacute;dajů. Současn&aacute; verze podm&iacute;nek už&iacute;v&aacute;n&iacute; a ochrany osobn&iacute;ch &uacute;dajů je platn&aacute; od [DATE]. </p>\n<h3>Osobn&iacute; &uacute;daje</h3>\n<p>Při použ&iacute;v&aacute;n&iacute; těchto str&aacute;nek můžete b&yacute;t pož&aacute;d&aacute;n&iacute; o poskytnut&iacute; n&aacute;sleduj&iacute;c&iacute;ch informac&iacute;:</p>\n<ul>\n<li>\n<p style="margin-bottom: 0cm;">jm&eacute;no a zaměstn&aacute;n&iacute;</p>\n</li>\n<li>\n<p style="margin-bottom: 0cm;">kontaktn&iacute; informace včetně\te-mailov&eacute; adresy</p>\n</li>\n<li>\n<p style="margin-bottom: 0cm;">demografick&eacute; informace jako je\tPSČ, oblasti z&aacute;jmu</p>\n</li>\n<li>\n<p style="margin-bottom: 0cm;">dal&scaron;&iacute; informace souvisej&iacute;c&iacute; s\tprůzkumem klientů či nab&iacute;dkami služeb a produktů</p>\n</li>\n</ul>\n<h3>Možnosti využit&iacute; osobn&iacute;ch dat</h3>\n<p>Při použ&iacute;v&aacute;n&iacute; na&scaron;ich webov&yacute;ch str&aacute;nek můžeme požadovat někter&eacute; informace, abychom l&eacute;pe porozuměli Va&scaron;im potřeb&aacute;m a poskytovali lep&scaron;&iacute; služby. Tyto informace mohou b&yacute;t vyžadov&aacute;ny zejm&eacute;na pro n&aacute;sleduj&iacute;c&iacute; &uacute;čely:</p>\n<ul>\n<li>\n<p>vnitřn&iacute; &uacute;četnictv&iacute; firmy</p>\n</li>\n<li>\n<p>zlep&scaron;en&iacute; na&scaron;ich služeb a nab&iacute;zen&yacute;ch produktů</p>\n</li>\n<li>\n<p>př&iacute;ležitostn&eacute; informačn&iacute; e-maily o\tnov&yacute;ch produktech, speci&aacute;ln&iacute;ch nab&iacute;dk&aacute;ch a dal&scaron;&iacute;ch t&eacute;matech,\to kter&yacute;ch se domn&iacute;v&aacute;me, že by pro V&aacute;s mohly b&yacute;t zaj&iacute;mav&eacute;</p>\n</li>\n<li>\n<p>osloven&iacute; uživatelů z důvodu průzkumu trhu, a to\tprostřednictv&iacute;m e-mailu či telefonu</p>\n</li>\n</ul>\n<h3>Bezpečnost</h3>\n<p>Zaručujeme, že se v&scaron;emi poskytovan&yacute;mi informacemi je zach&aacute;zeno v souladu s bezpečnostn&iacute;mi standardy a př&iacute;slu&scaron;n&yacute;mi pr&aacute;vn&iacute;mi předpisy. Abychom zabr&aacute;nili zneužit&iacute; či neautorizovan&eacute;mu použit&iacute; poskytnut&yacute;ch dat, uplatňujeme vhodn&aacute; fyzick&aacute;, elektronick&aacute; i manažersk&aacute; opatřen&iacute;, abychom ochr&aacute;nili data z&iacute;skan&aacute; online porstřednictv&iacute;m těchto str&aacute;nek.</p>\n<h3>Odkazy na dal&scaron;&iacute; str&aacute;nky</h3>\n<p>Na&scaron;e str&aacute;nky mohou obsahovat odkazy na str&aacute;nky třet&iacute;ch stran. Pokud použijete někter&yacute; z těchto odkazů a opust&iacute;te na&scaron;e str&aacute;nky, měli byste vz&iacute;t na vědom&iacute;, že nem&aacute;me ž&aacute;dnou kontrolu nad obsahem odkazovan&yacute;ch str&aacute;nek. Proto nejsme zodpovědn&iacute; za ochranu Va&scaron;ich osobn&iacute;ch &uacute;dajů, kter&eacute; poskytnete při použ&iacute;v&aacute;n&iacute; odkazovan&yacute;ch str&aacute;nek. Odkazovan&eacute; str&aacute;nky nejsou v&aacute;z&aacute;ny těmito pravidly pro ochranu osobn&iacute;ch &uacute;dajů. Proto byste měli b&yacute;t při poskytov&aacute;n&iacute; osobn&iacute;ch &uacute;dajů opatrn&iacute; a zkontrolovat pravidla pro ochranu uživatelů a jejich osobn&iacute;ch &uacute;dajů, vztahuj&iacute;c&iacute; se k př&iacute;slu&scaron;n&yacute;m  str&aacute;nk&aacute;m.</p>\n<h3>Kontrola Va&scaron;ich osobn&iacute;ch informac&iacute;</h3>\n<p>Zavazujeme se, že neposkytneme z&iacute;skan&eacute; osobn&iacute; informace  třet&iacute;m stran&aacute;m, a to ž&aacute;dn&yacute;m způsobem, za &uacute;platu ani bezplatně, bez Va&scaron;eho v&yacute;slovn&eacute;ho svolen&iacute;, př&iacute;padně pokud to nebudou vyžadovat pr&aacute;vn&iacute; předpisy. Můžeme využ&iacute;t Va&scaron;e osobn&iacute; informace k zasl&aacute;n&iacute; komerčn&iacute;ch informac&iacute; třet&iacute;ch stran, o kter&yacute;ch se domn&iacute;v&aacute;me, že by pro V&aacute;s mohly b&yacute;t zaj&iacute;mav&eacute;, pokud n&aacute;s o to pož&aacute;d&aacute;te.</p>\n<p>Pokud se domn&iacute;v&aacute;te, že jsou někter&eacute; dř&iacute;ve poskytnut&eacute; osobn&iacute; informace nespr&aacute;vn&eacute; či nekompletn&iacute;, informujte n&aacute;s pros&iacute;m e-mailem na adresu [COMPANY EMAIL]. </p>			\N		2011-01-16 17:29:03	2011-01-16 17:30:38	1	1	1000		0	N;			N;	N;	0	\N	0	0		0	0
-86	General content 1	content	RTE	85	0	0	\N	<p>Jm&eacute;no,<br />Ulice č.p.<br />PSČ Město&nbsp;</p>			\N		2006-09-30 15:50:10	2011-01-16 17:31:29	1	1	1000		0	N;			N;	N;	0	\N	0	0		0	0
-1030	Archive	content	component	83	2	0	\N	\N			\N		2011-01-16 17:32:36	2011-01-16 17:32:56	1	1	1000		0	N;			a:3:{s:8:"template";s:17:"news_archive.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	1	\N	0	0		0	0
-90	Newsletter	page	default	4	0	0	\N	\N	\N	\N	\N	\N	2010-04-18 11:19:18	2010-04-18 11:19:18	1	0	1000	\N	0	\N		fibonacci-2-1	\N	\N	1	\N	\N	0		0	0
-84	Articles	page	default	3	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 12:07:59	2006-09-30 12:07:59	1	1	1000	\N	0	\N			\N	\N	\N	\N	\N	0		0	0
-92	Unsubscribe	page	default	90	0	0	\N	\N	\N	\N	\N	\N	2010-04-18 11:21:40	2010-04-18 11:21:40	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	1	\N	\N	0		0	0
-2	Commerce	container	default	0	0	0	\N	\N			\N		2006-09-30 09:55:17	2008-08-24 22:56:24	1	0	1000		0	N;			N;	N;	1	\N	\N	0		0	0
-3	Special	container	default	0	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 09:55:36	2006-09-30 09:55:36	1	0	1000	\N	0	\N			\N	\N	\N	\N	\N	0		0	0
-16	Správa adres	page	default	15	0	0		\N					2006-09-30 12:03:13	2008-08-24 22:35:52	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	1	0		0	1
-18	Osobní údaje	page	default	15	0	0		\N					2006-09-30 12:03:45	2008-08-24 22:36:24	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	1	0		0	1
-10	Platba	page	default	2	0	0		\N					2006-09-30 10:35:29	2008-08-24 22:36:51	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	1	0		0	1
-11	Selhání platby	page	default	2	0	0		\N					2006-09-30 10:35:43	2008-08-24 22:37:06	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	1	0		0	1
-12	Platba proběhla	page	default	2	0	0		\N					2006-09-30 10:35:59	2008-08-24 22:37:38	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	1	0		0	1
-7	Provedení objednávky	page	default	2	0	0		\N					2006-09-30 10:34:54	2008-08-24 22:38:56	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	1	0		0	1
-85	Content bits	container	default	3	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 12:07:59	2006-09-30 12:07:59	1	1	1000	\N	0	\N			\N	\N	\N	\N	\N	0		0	0
-26	Obchodní podmínky	page	default	4	0	0		N;					2006-09-30 13:40:50	2008-08-24 22:34:47	1	1	1000		0	N;		fibonacci-1-1	N;	N;	1	0	\N	0		0	0
-21	Vyhledat	page	default	4	0	0		\N					2006-09-30 12:08:07	2009-05-15 13:47:11	1	0	1000		0	N;		fibonacci-2-1	N;	N;	1	0	\N	0		0	0
-14	404	page	default	3	0	0		\N					2006-09-30 11:56:37	2008-08-16 13:06:19	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	\N	0		0	0
-22	Mapa stránek	page	default	4	0	0		\N					2006-09-30 12:08:21	2008-08-24 22:33:07	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	\N	0		0	0
-1	Primary navigation	container	default	0	0	10		N;			\N		2006-09-29 18:20:29	2011-01-16 17:25:09	1	1	1000		0	N;			N;	N;	1	\N	0	0		0	0
-4	Footer navigation	container	default	0	0	5		N;			\N		2006-09-30 09:56:36	2011-01-16 17:25:26	1	1	1000		0	N;			N;	N;	1	\N	0	0		0	0
-83	Novinky	page	default	88	0	30		\N					2006-09-30 12:07:59	2011-01-16 17:32:03	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	0	0		0	0
-5	Úvod	page	default	88	0	40		\N					2006-09-30 10:02:51	2011-01-16 17:26:01	1	1	1000		0	N;		fibonacci-2-1	N;	N;	0	0	\N	0		0	0
-20	Kontakt	page	default	88	0	20		\N					2006-09-30 12:07:59	2011-01-16 17:26:22	1	1	1000		0	N;		fibonacci-1-1	N;	N;	1	0	\N	0		0	0
-23	O nás	page	default	88	0	35		\N					2006-09-30 12:09:30	2011-01-16 17:26:56	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	\N	0		0	0
-9	Obnovení hesla	page	default	2	0	0		\N					2006-09-30 10:35:15	2008-08-24 22:36:37	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	\N	0		0	1
-13	Registrace	page	default	2	0	0		\N					2006-09-30 10:36:09	2008-08-24 22:37:49	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	\N	0		0	1
-8	Přihlášení	page	default	2	0	0		\N					2006-09-30 10:35:02	2008-08-24 23:11:13	1	1	1000		0	N;	pageLogin	fibonacci-2-1	N;	N;	1	0	\N	0		0	1
-6	Nákupní košík	page	default	2	0	0		\N					2006-09-30 10:34:35	2008-08-24 22:35:09	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	\N	0		0	0
-19	Detail	page	default	17	0	0		\N					2006-09-30 12:04:12	2008-08-24 22:36:12	1	0	1000		0	N;		fibonacci-2-1	N;	N;	1	0	1	0		0	1
-17	Moje objednávky	page	default	15	0	0		\N					2006-09-30 12:03:28	2008-08-24 23:11:45	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	1	0		0	1
-88	Global navigation	container	default	0	0	15		\N					2009-08-16 13:05:12	2011-01-16 17:25:15	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	0	0		0	0
-1013	Laboris nisi ut aliquip	page	news	83	0	0	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>\n<ul>\n<li>velit esse cillum dolore</li>\n<li>consectetur adipisicing elit</li>\n<li>occaecat cupidatat non proident</li>\n</ul>\n<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>					2008-08-16 03:59:19	2011-01-16 17:33:41	1	1	1000		0	N;		fibonacci-2-1	a:2:{s:6:"author";s:0:"";s:13:"allow_comment";i:1;}	N;	1	\N	0	0		0	0
-15	Můj účet	page	default	88	0	10		\N					2006-09-30 12:02:53	2009-08-16 13:05:58	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	1	0		0	1
-1026	Stránka 1	page	default	1	0	0	\N	\N	\N	\N	\N	\N	2011-01-16 17:27:11	2011-01-16 17:27:11	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	1	\N	\N	0		0	0
-1027	Stránka 2	page	default	1	0	0	\N	\N	\N	\N	\N	\N	2011-01-16 17:27:18	2011-01-16 17:27:18	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	1	\N	\N	0		0	0
-1028	Stránka 3	page	default	1	0	0	\N	\N	\N	\N	\N	\N	2011-01-16 17:27:25	2011-01-16 17:27:25	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	1	\N	\N	0		0	0
-1025	Ochrana údajů	page	default	4	0	0		\N			Ochrana osobních údajů		2011-01-16 17:25:46	2011-01-16 17:28:08	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	0	0		0	0
-1014	Excepteur sint occaecat	page	news	83	0	0	<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>\n<ul>\n<li>velit esse cillum dolore</li>\n<li>consectetur adipisicing elit</li>\n<li>occaecat cupidatat non proident</li>\n</ul>\n<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>					2008-08-16 03:59:48	2011-01-16 17:33:30	1	1	1000		0	N;		fibonacci-2-1	a:2:{s:6:"author";s:0:"";s:13:"allow_comment";i:1;}	N;	1	\N	0	0		0	0
+COPY common_node (id, title, node_group, node_controller, parent, parent_container, priority, teaser, content, description, keywords, page_title, head, created, modified, publish, display_in_menu, author, uri_title, display_permission, other_data, css_class, layout_style, component, relations, display_title, display_secondary_navigation, require_login, display_breadcrumb, browser_title, link_to_node_id, require_ssl, display_permission_group_acl) FROM stdin;
+65	Payment was successfull	content	RTE	12	1	0	\N	<p>Process executed without error and the transaction was successfully Authorised.&nbsp;</p>			\N		2006-09-30 15:43:50	2008-08-24 18:27:47	1	1	1000		0	N;			N;	N;	0	\N	\N	0		0	0	\N
+89	Select Delivery Method	content	component	7	1	100	\N	\N					2010-04-18 01:34:49	2010-04-18 11:10:57	1	1	1000		0	N;			a:3:{s:8:"template";s:30:"ecommerce/delivery_option.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	1	\N	\N	0		0	0	\N
+91	Newsletter Subscribe	content	component	90	1	0	\N	\N					2010-04-18 11:20:58	2010-04-18 11:21:14	1	1	1000		0	N;			a:3:{s:8:"template";s:32:"client/newsletter_subscribe.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N
+93	Newsletter Unsubscribe	content	component	92	1	0	\N	\N					2010-04-18 11:22:40	2010-04-18 11:22:56	1	1	1000		0	N;			a:3:{s:8:"template";s:34:"client/newsletter_unsubscribe.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N
+1028	Other points	content	RTE	1026	1	0	\N	<p>This site has been designed with style sheets to allow maximum flexibility. Header tags and tables summaries have been effectively added to this site.</p>\n<p>Form controls are properly grouped and labelled.</p>					2010-04-18 13:03:47	2010-04-18 13:04:09	1	1	1000		0	N;			N;	N;	1	\N	\N	0		0	0	\N
+1029	Your feedback is important	content	RTE	1026	1	0	\N	<p>If you experience any problems using this site, or have some feedback or suggestions on how to improve accessibility, please <a class="internal-link" href="/page/20">contact us</a>.</p>					2010-04-18 13:04:34	2010-04-18 13:04:55	1	1	1000		0	N;			N;	N;	1	\N	\N	0		0	0	\N
+1030	More information	content	RTE	1026	1	0	\N	<p>For more information about website accessibility please visit the <a href="http://www.w3.org/TR/WCAG10/">W3C Web Content Accessibility Guidelines</a>.</p>					2010-04-18 13:05:16	2010-04-18 13:05:34	1	1	1000		0	N;			N;	N;	1	\N	\N	0		0	0	\N
+1017	Returns policy	content	RTE	26	1	10	\N	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>\n<ul>\n<li>velit esse cillum dolore</li>\n<li>consectetur adipisicing elit</li>\n<li>occaecat cupidatat non proident</li>\n</ul>\n<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>					2008-08-16 13:01:53	2010-04-18 12:50:54	0	1	1000		0	N;			N;	N;	1	\N	\N	0		0	0	\N
+69	Search result	content	component	21	1	0	\N				\N		2006-09-30 15:49:27	2008-08-07 01:21:51	1	1	1000		0	N;			a:3:{s:8:"template";s:17:"search_nodes.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N
+72	Sitemap component	content	component	22	1	0	\N				\N		2006-09-30 15:50:21	2008-08-24 00:51:29	1	1	1000		0	N;			a:3:{s:8:"template";s:12:"sitemap.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N
+86	General content 1	content	RTE	85	0	0	\N	<p>Contact address,<br />Street Name,<br />CITY, Post Code<br />Tel: 01234 567 890</p>					2006-09-30 15:50:10	2010-04-18 13:07:36	1	1	1000		0	N;			N;	N;	0	\N	\N	0		0	0	\N
+68	Search input	content	component	21	1	0	\N				\N		2006-09-30 15:48:45	2008-08-24 18:22:11	1	1	1000		0	N;			a:3:{s:8:"template";s:14:"searchbox.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N
+32	Existing customer	content	component	8	1	0	\N				\N		2006-09-30 14:00:05	2008-08-24 01:15:22	1	1	1000		0	N;			a:3:{s:8:"template";s:17:"client/login.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N
+36	Registration component	content	component	13	1	0	\N				\N		2006-09-30 14:26:09	2008-08-24 01:14:57	1	1	1000		0	N;			a:3:{s:8:"template";s:24:"client/registration.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N
+34	New customer	content	component	8	1	0	\N				\N		2006-09-30 14:01:50	2008-08-24 01:15:34	1	1	1000		0	N;			a:3:{s:8:"template";s:30:"client/registration_start.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N
+75	Basket edit component	content	component	6	1	0	\N				\N		2006-09-30 15:54:35	2008-08-24 18:23:16	1	1	1000		0	N;			a:3:{s:8:"template";s:26:"ecommerce/basket_edit.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N
+41	Checkout	content	component	7	1	0	\N				\N		2006-09-30 14:47:01	2008-08-24 18:23:33	1	1	1000		0	N;			a:3:{s:8:"template";s:23:"ecommerce/checkout.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N
+39	Checkout Basket	content	component	7	1	0	\N				\N		2006-09-30 14:44:34	2008-08-24 18:23:51	1	1	1000		0	N;			a:3:{s:8:"template";s:30:"ecommerce/checkout_basket.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N
+0	Root	site	default	\N	0	0							2008-08-06 21:24:09	2008-08-06 21:24:09	1	1	0		0				\N	\N	\N	\N	\N	0		0	0	\N
+51	Order detail component	content	component	19	1	0	\N				\N		2006-09-30 15:22:49	2008-08-24 18:25:32	1	1	1000		0	N;			a:3:{s:8:"template";s:27:"ecommerce/order_detail.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N
+60	Payment component	content	component	10	1	0	\N				\N		2006-09-30 15:32:26	2008-08-24 18:26:22	1	1	1000		0	N;			a:3:{s:8:"template";s:22:"ecommerce/payment.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N
+1015	Our latest news	content	news_list	83	1	0	\N	\N			\N		2008-08-16 04:02:19	2011-01-16 15:54:36	1	1	1000		0	N;			a:5:{s:5:"limit";s:1:"5";s:8:"template";s:4:"full";s:10:"pagination";i:1;s:5:"image";i:0;s:13:"display_title";i:0;}	N;	0	\N	0	0		0	0	\N
+78	404 error	content	RTE	14	1	0	\N	<p><strong>We have recently restructured this website, you might find what you are looking for by going via the <a href="/">home page</a>.</strong></p>\r\n<p><strong>If you believe you have found a broken link please <a href="/page/20">let us know</a>.</strong></p>\r\n<div class="line">\r\n<hr />\r\n</div>\r\n<p><strong>Please try the following:</strong></p>\r\n<ul>\r\n<li>If you typed the page address in the Address bar, make sure that it is spelled correctly. </li>\r\n<li>Click the <a href="javascript:history.go(-1)">Back</a> button to try another link. </li>\r\n</ul>\r\n<p>HTTP 404 : Page not found</p>			\N		2006-09-30 16:37:05	2008-08-24 18:28:28	1	1	1000		0	N;			N;	N;	1	\N	\N	0		0	0	\N
+1019	forgotten password	content	RTE	8	1	0	\N	<p>\n<a href="/page/9">Forgotten your password since your last visit?</a>  \n</p>			\N		2008-10-12 22:54:29	2008-10-12 22:54:44	1	1	1000		0	N;			N;	N;	0	\N	\N	0		0	0	\N
+1033	Main Page 1	page	default	1	0	0		\N					2011-01-16 15:53:01	2011-01-16 15:56:13	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	0	0		0	0	\N
+1034	Main Page 2	page	default	1	0	0		\N					2011-01-16 15:53:08	2011-01-16 15:56:18	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	0	0		0	0	\N
+1035	Main Page 3	page	default	1	0	0		\N					2011-01-16 15:53:14	2011-01-16 15:56:23	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	0	0		0	0	\N
+1020	Payment information	content	RTE	8	2	0	\N	<h3>Payment information </h3>\n<p>\nWe accept the following payment methods: \n</p>\n<p>\n<img src="https://www.worldpay.com/cgenerator/logos/visa.gif" alt="Visa payments supported by WorldPay" />\n<img src="https://www.worldpay.com/cgenerator/logos/visa_delta.gif" alt="Visa/Delta payments supported by WorldPay" />\n<img src="https://www.worldpay.com/cgenerator/logos/mastercard.gif" alt="Mastercard payments supported by WorldPay" />\n<img src="https://www.worldpay.com/cgenerator/logos/switch.gif" alt="Switch payments supported by WorldPay" />\n</p>\n<h3>Terms and conditions</h3>\n<p>\nBy making a purchase from this site you are agreeing to be bound by our <a href="/page/26">terms and conditions</a> .\n</p>\n<h3>Payment services </h3>\n<p>\n<!-- Powered by WorldPay logo-->\n<a href="http://www.worldpay.com/"><img src="https://www.worldpay.com/cgenerator/logos/poweredByWorldPay.gif" alt="Powered By WorldPay" /></a>\n</p>\n<p>\n<!-- WorldPay Guarantee Logo -->\n<img src="https://www.worldpay.com/cgenerator/logos/guaranteed.gif" alt="WorldPay Guarantee" />\n</p>			\N		2008-10-12 23:04:24	2008-10-12 23:11:21	1	1	1000		0	N;			N;	N;	0	\N	\N	0		0	0	\N
+1022	Related products	content	component	6	2	0	\N	\N			\N		2008-10-12 23:17:09	2008-10-12 23:18:43	1	1	1000		0	N;			a:3:{s:8:"template";s:37:"ecommerce/product_related_basket.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N
+1021	Recently viewed	content	component	6	1	0	\N	\N			\N		2008-10-12 23:16:14	2008-10-12 23:18:55	1	1	1000		0	N;			a:3:{s:8:"template";s:39:"ecommerce/recently_viewed_products.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N
+42	Address component	content	component	7	2	0	\N				\N		2006-09-30 14:54:43	2008-08-24 18:24:18	1	1	1000		0	N;			a:3:{s:8:"template";s:19:"client/address.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N
+1024	Userbox	content	component	15	2	0	\N	\N					2010-04-18 12:43:47	2010-04-18 12:44:21	1	1	1000		0	N;			a:3:{s:8:"template";s:19:"client/userbox.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N
+1027	Text size	content	RTE	1026	1	0	\N	<p>If you would prefer the font size to be larger or smaller, you can easily adjust it using your browser.</p>\n<p>To increase or decrease the text size, follow these basic instructions   for Internet Explorer:</p>\n<ul>\n<li>Click on the 'View' menu in your browser.</li>\n<li>Click on the 'Text size' option.</li>\n<li>Select the size you wish to see.</li>\n</ul>\n<p>To increase or decrease the text size, follow these basic instructions for Mozilla Firefox:</p>\n<ul>\n<li>Click on the 'View' menu in your browser.</li>\n<li>Click on the 'Zoom' option.</li>\n</ul>					2010-04-18 13:02:48	2010-04-18 13:03:20	1	1	1000		0	N;			N;	N;	1	\N	\N	0		0	0	\N
+1023	content 1242392830	content	RTE	5	1	0	\N	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>\n<ul>\n<li>velit esse cillum dolore</li>\n<li>consectetur adipisicing elit</li>\n<li>occaecat cupidatat non proident</li>\n</ul>\n<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>					2009-05-15 14:07:10	2009-05-15 14:07:16	1	1	1000		0	N;			N;	N;	0	\N	\N	0		0	0	\N
+45	Address Management Component	content	component	16	1	0	\N				\N		2006-09-30 15:20:05	2008-08-24 18:25:00	1	1	1000		0	N;			a:3:{s:8:"template";s:24:"client/address_edit.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N
+54	User pref component	content	component	18	1	0	\N				\N		2006-09-30 15:25:21	2008-08-24 18:25:48	1	1	1000		0	N;			a:3:{s:8:"template";s:22:"client/user_prefs.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N
+87	General content 2	content	RTE	85	0	0	\N	<p style="text-align: center;"><em>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</em></p>			\N		2006-09-30 15:50:10	2011-01-16 16:11:40	1	1	1000		0	N;			N;	N;	0	\N	0	0		0	0	\N
+1011	Our Address	content	RTE	20	2	5	\N	<p>Address Name<br />Street, house number xxx<br />Post Code, Town<br />County</p>\n<p>tel: xxxx xxx xxx</p>					2008-08-07 01:18:33	2011-01-16 16:07:10	1	1	1000		0	N;			N;	N;	1	\N	\N	0		0	0	\N
+57	Password reset component	content	component	9	1	0	\N				\N		2006-09-30 15:30:31	2008-08-24 18:26:03	1	1	1000		0	N;			a:3:{s:8:"template";s:26:"client/password_reset.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N
+48	Your orders with us	content	component	17	1	0	\N				\N		2006-09-30 15:21:35	2008-08-16 13:22:33	1	1	1000		0	N;			a:3:{s:8:"template";s:25:"ecommerce/order_list.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	1	\N	\N	0		0	0	\N
+63	Payment failure component	content	component	11	1	0	\N				\N		2006-09-30 15:42:05	2008-08-24 18:26:38	1	1	1000		0	N;			a:3:{s:8:"template";s:37:"ecommerce/payment/protx_callback.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N
+66	Payment success component	content	component	12	1	0	\N				\N		2006-09-30 15:44:42	2008-08-16 13:28:47	1	1	1000		0	N;			a:3:{s:8:"template";s:37:"ecommerce/payment/protx_callback.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	1	\N	\N	0		0	0	\N
+2	Commerce	container	default	0	0	0	\N	\N			\N		2006-09-30 09:55:17	2008-08-24 22:58:05	1	0	1000		0	N;			N;	N;	1	\N	\N	0		0	0	\N
+88	Global navigation	container	default	0	0	15		\N					2009-08-16 13:05:12	2011-01-16 15:56:37	1	1	1000		0	N;			N;	N;	1	0	0	0		0	0	\N
+21	Search	page	default	4	0	0		\N					2006-09-30 12:08:07	2009-05-15 13:48:10	1	0	1000		0	N;		fibonacci-2-1	N;	N;	1	0	\N	0		0	0	\N
+1032	content 1295192947	content	RTE	1031	1	0	\N	<h3>Our privacy policy</h3>\n<p>This privacy policy sets out how [COMPANY NAME] uses and protects any information that you give [COMPANY NAME] when you use this website.</p>\n<p>[COMPANY NAME] is committed to ensuring that your privacy is protected. Should we ask you to provide certain information by which you can be identified when using this website, then you can be assured that it will only be used in accordance with this privacy statement.</p>\n<p>[COMPANY NAME] may change this policy from time to time by updating this page. You should check this page from time to time to ensure that you are happy with any changes. This policy is effective from [DATE].</p>\n<h3>What we collect</h3>\n<p>We may collect the following information:</p>\n<ul>\n<li>name and job title</li>\n<li>contact information including email address</li>\n<li>demographic information such as postcode, preferences and interests</li>\n<li>other information relevant to customer surveys and/or offers</li>\n</ul>\n<h3>What we do with the information we gather</h3>\n<p>We require this information to understand your needs and provide you with a better service, and in particular for the following reasons:</p>\n<ul>\n<li>Internal record keeping.</li>\n<li>We may use the information to improve our products and services.</li>\n<li>We may periodically send promotional emails about new products, special offers or other information which we think you may find interesting using the email address which you have provided.</li>\n<li>From time to time, we may also use your information to contact you for market research purposes. We may contact you by email, phone, fax or mail. We may use the information to customise the website according to your interests.</li>\n</ul>\n<h3>Security</h3>\n<p>We are committed to ensuring that your information is secure. In order to prevent unauthorised access or disclosure we have put in place suitable physical, electronic and managerial procedures to safeguard and secure the information we collect online.</p>\n<h3>How we use cookies</h3>\n<p>A cookie is a small file which asks permission to be placed on your computer's hard drive. Once you agree, the file is added and the cookie helps analyse web traffic or lets you know when you visit a particular site. Cookies allow web applications to respond to you as an individual. The web application can tailor its operations to your needs, likes and dislikes by gathering and remembering information about your preferences.</p>\n<p>We use traffic log cookies to identify which pages are being used. This helps us analyse data about webpage traffic and improve our website in order to tailor it to customer needs. We only use this information for statistical analysis purposes and then the data is removed from the system.</p>\n<p>Overall, cookies help us provide you with a better website, by enabling us to monitor which pages you find useful and which you do not. A cookie in no way gives us access to your computer or any information about you, other than the data you choose to share with us.</p>\n<p>You can choose to accept or decline cookies. Most web browsers automatically accept cookies, but you can usually modify your browser setting to decline cookies if you prefer. This may prevent you from taking full advantage of the website.</p>\n<h3>Links to other websites</h3>\n<p>Our website may contain links to other websites of interest. However, once you have used these links to leave our site, you should note that we do not have any control over that other website. Therefore, we cannot be responsible for the protection and privacy of any information which you provide whilst visiting such sites and such sites are not governed by this privacy statement. You should exercise caution and look at the privacy statement applicable to the website in question.</p>\n<h3>Controlling your personal information</h3>\n<p>You may choose to restrict the collection or use of your personal information in the following ways:</p>\n<ul>\n<li>whenever you are asked to fill in a form on the website, look for the box that you can click to indicate that you do not want the information to be used by anybody for direct marketing purposes</li>\n<li>if you have previously agreed to us using your personal information for direct marketing purposes, you may change your mind at any time by writing to or emailing us at <a href="/page/20">contact page</a></li>\n</ul>\n<p>We will not sell, distribute or lease your personal information to third parties unless we have your permission or are required by law to do so. We may use your personal information to send you promotional information about third parties which we think you may find interesting if you tell us that you wish this to happen.</p>\n<p>You may request details of personal information which we hold about you under the Data Protection Act 1998. A small fee will be payable. If you would like a copy of the information held on you please write to <a href="/page/20">our postal address</a>.</p>\n<p>If you believe that any information we are holding on you is incorrect or incomplete, please write to or email us as soon as possible, at the above address. We will promptly correct any information found to be incorrect.</p>			\N		2011-01-16 15:49:07	2011-01-16 15:51:19	1	1	1000		0	N;			N;	N;	0	\N	0	0		0	0	\N
+76	Send a message	content	contact_form	20	1	5	\N						2006-09-30 16:00:21	2011-01-16 16:07:08	1	1	1000		0	N;			a:6:{s:7:"mail_to";s:0:"";s:11:"mail_toname";s:0:"";s:15:"node_controller";s:13:"common_simple";s:14:"sending_failed";s:89:"You must complete all the required fields. Required items are marked with an asterisk (*)";s:4:"text";s:25:"Thanks for your feedback.";s:4:"href";s:0:"";}	N;	1	\N	\N	0		0	0	\N
+5	Home	page	default	88	0	40		\N			White Label Home		2006-09-30 10:02:51	2011-12-13 14:42:40	1	1	1000		0	N;		fibonacci-2-1	N;	N;	0	0	0	0		0	0	
+1025	Terms of Use	content	RTE	26	1	25	\N	<p>Welcome to our website. If you continue to browse and use this website you are agreeing to comply with and be bound by the following terms and conditions of use, which together with our privacy policy govern [COMPANY NAME]&rsquo;s relationship with you in relation to this website.</p>\n<p>The term &lsquo;[COMPANY NAME]&rsquo; or &lsquo;us&rsquo; or &lsquo;we&rsquo; refers to the owner of the website whose registered office is [COMPANY ADDRESS]. Our company registration number is [REGISTRATION NUMBER], registered in [REGISTERED COUNTRY]. The term &lsquo;you&rsquo; refers to the user or viewer of our website.</p>\n<p>The use of this website is subject to the following terms of use:</p>\n<ol>\n<li>The content of the pages of this website is for your general information and use only. It is subject to change without notice.</li>\n<li>Neither we nor any third parties provide any warranty or guarantee as to the accuracy, timeliness, performance, completeness or suitability of the information and materials found or offered on this website for any particular purpose. You acknowledge that such information and materials may contain inaccuracies or errors and we expressly exclude liability for any such inaccuracies or errors to the fullest extent permitted by law.</li>\n<li>Your use of any information or materials on this website is entirely at your own risk, for which we shall not be liable. It shall be your own responsibility to ensure that any products, services or information available through this website meet your specific requirements.</li>\n<li>This website contains material which is owned by or licensed to us. This material includes, but is not limited to, the design, layout, look, appearance and graphics. Reproduction is prohibited other than in accordance with the copyright notice, which forms part of these terms and conditions.</li>\n<li>All trademarks reproduced in this website, which are not the property of, or licensed to the operator, are acknowledged on the website.</li>\n<li>Unauthorised use of this website may give rise to a claim for damages and/or be a criminal offence.</li>\n<li>From time to time this website may also include links to other websites. These links are provided for your convenience to provide further information. They do not signify that we endorse the website(s). We have no responsibility for the content of the linked website(s).</li>\n<li>You may not create a link to this website from another website or document without [COMPANY NAME]&rsquo;s prior written consent.</li>\n<li>Your use of this website and any dispute arising out of such use of the website is subject to the laws of England, Scotland, Wales and Northern Ireland.</li>\n</ol>					2010-04-18 12:51:22	2011-01-16 15:50:16	1	1	1000		0	N;			N;	N;	1	\N	0	0		0	0	\N
+1036	Archive	content	component	83	2	0	\N	\N			\N		2011-01-16 15:55:01	2011-01-16 15:55:17	1	1	1000		0	N;			a:3:{s:8:"template";s:17:"news_archive.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	1	\N	0	0		0	0	\N
+1	Main navigation	container	default	0	0	10	\N	N;			\N		2006-09-29 18:20:29	2008-08-24 22:57:58	1	1	1000		0	N;			N;	N;	1	\N	\N	0		0	0	\N
+90	Newsletter	page	default	4	0	0	\N	\N	\N	\N	\N	\N	2010-04-18 11:19:18	2010-04-18 11:19:18	1	0	1000	\N	0	\N		fibonacci-2-1	\N	\N	1	\N	\N	0		0	0	\N
+84	Articles	page	default	3	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 12:07:59	2006-09-30 12:07:59	1	1	1000	\N	0	\N			\N	\N	\N	\N	\N	0		0	0	\N
+92	Unsubscribe	page	default	90	0	0	\N	\N	\N	\N	\N	\N	2010-04-18 11:21:40	2010-04-18 11:21:40	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	1	\N	\N	0		0	0	\N
+1026	Accessibility policy	page	default	4	0	0	\N	\N	\N	\N	\N	\N	2010-04-18 13:02:03	2010-04-18 13:02:03	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	1	\N	\N	0		0	0	\N
+85	Content bits	container	default	3	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 12:07:59	2006-09-30 12:07:59	1	1	1000	\N	0	\N			\N	\N	\N	\N	\N	0		0	0	\N
+3	Special	container	default	0	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 09:55:36	2006-09-30 09:55:36	1	0	1000	\N	0	\N			\N	\N	\N	\N	\N	0		0	0	\N
+4	Footer navigation	container	default	0	0	5		N;			\N		2006-09-30 09:56:36	2011-01-16 15:58:20	1	1	1000		0	N;			N;	N;	1	\N	0	0		0	0	\N
+14	404	page	default	3	0	0		\N					2006-09-30 11:56:37	2008-08-16 13:06:19	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	\N	0		0	0	\N
+22	Sitemap	page	default	4	0	0		\N					2006-09-30 12:08:21	2008-08-16 13:06:58	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	\N	0		0	0	\N
+1013	Laboris nisi ut aliquip	page	news	83	0	0	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do\r\neiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad\r\nminim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip\r\nex ea commodo consequat.</p>\r\n<ul>\r\n<li>velit esse cillum dolore</li>\r\n<li>consectetur adipisicing elit</li>\r\n<li>occaecat cupidatat non proident</li>\r\n</ul>\r\n<p>Duis aute irure dolor in reprehenderit in voluptate velit esse\r\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat\r\ncupidatat non proident, sunt in culpa qui officia deserunt mollit anim\r\nid est laborum.</p>					2008-08-16 03:59:19	2008-08-16 12:59:16	1	1	1000		0	N;		fibonacci-2-1	a:2:{s:6:"author";s:0:"";s:13:"allow_comment";i:0;}	N;	1	\N	\N	0		0	0	\N
+1014	Excepteur sint occaecat	page	news	83	0	0	<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do\r\neiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad\r\nminim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip\r\nex ea commodo consequat.</p>\r\n<ul>\r\n<li>velit esse cillum dolore</li>\r\n<li>consectetur adipisicing elit</li>\r\n<li>occaecat cupidatat non proident</li>\r\n</ul>\r\n<p>Duis aute irure dolor in reprehenderit in voluptate velit esse\r\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat\r\ncupidatat non proident, sunt in culpa qui officia deserunt mollit anim\r\nid est laborum.</p>					2008-08-16 03:59:48	2008-08-16 12:58:58	1	1	1000		0	N;		fibonacci-2-1	a:2:{s:6:"author";s:0:"";s:13:"allow_comment";i:0;}	N;	1	\N	\N	0		0	0	\N
+26	Terms & Conditions	page	default	4	0	0		N;					2006-09-30 13:40:50	2010-04-18 12:50:42	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	\N	0		0	0	\N
+13	Registration	page	default	2	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 10:36:09	2006-09-30 10:36:09	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	\N	0		0	1	\N
+8	Login	page	default	2	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 10:35:02	2006-09-30 10:35:02	1	1	1000	\N	0	\N	pageLogin	fibonacci-2-1	\N	\N	\N	\N	\N	0		0	1	\N
+9	Password reset	page	default	2	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 10:35:15	2006-09-30 10:35:15	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	\N	0		0	1	\N
+6	Basket	page	default	2	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 10:34:35	2006-09-30 10:34:35	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	\N	0		0	0	\N
+16	Address Management	page	default	15	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 12:03:13	2006-09-30 12:03:13	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	1	0		0	1	\N
+17	Orders	page	default	15	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 12:03:28	2006-09-30 12:03:28	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	1	0		0	1	\N
+18	Personal Details	page	default	15	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 12:03:45	2006-09-30 12:03:45	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	1	0		0	1	\N
+7	Checkout	page	default	2	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 10:34:54	2006-09-30 10:34:54	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	1	0		0	1	\N
+10	Payment	page	default	2	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 10:35:29	2006-09-30 10:35:29	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	1	0		0	1	\N
+11	Payment failure	page	default	2	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 10:35:43	2006-09-30 10:35:43	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	1	0		0	1	\N
+12	Payment success	page	default	2	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 10:35:59	2006-09-30 10:35:59	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	1	0		0	1	\N
+19	Order detail	page	default	17	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 12:04:12	2006-09-30 12:04:12	1	0	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	1	0		0	1	\N
+1031	Privacy Policy	page	default	4	0	0	\N	\N	\N	\N	\N	\N	2011-01-16 15:45:18	2011-01-16 15:45:18	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	1	\N	\N	0		0	0	\N
+83	News	page	default	88	0	25		\N					2006-09-30 12:07:59	2011-01-16 15:54:18	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	0	0		0	0	\N
+15	My Account	page	default	88	0	10	\N	\N	\N	\N	\N	\N	2006-09-30 12:02:53	2006-09-30 12:02:53	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	1	0		0	1	\N
+20	Contact Us	page	default	88	0	20		\N					2006-09-30 12:07:59	2010-04-18 13:01:35	1	1	1000		0	N;		fibonacci-1-1	N;	N;	1	0	\N	0		0	0	\N
+23	About Us	page	default	88	0	30		\N					2006-09-30 12:09:30	2010-04-18 13:01:32	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	\N	0		0	0	\N
 \.
 
 
@@ -2411,36 +2729,37 @@ COPY common_taxonomy_tree (id, label_id, parent, priority, publish) FROM stdin;
 --
 
 COPY common_uri_mapping (id, node_id, public_uri, type) FROM stdin;
-95	1013	/novinky/2008/08/16/laboris-nisi-ut-aliquip	generic
-96	1014	/novinky/2008/08/16/excepteur-sint-occaecat	generic
-98	1025	/ochrana-udaju	generic
-82	15	/global-navigation/muj-ucet	generic
-72	5	/uvod	generic
-73	6	/nakupni-kosik	generic
-74	7	/provedeni-objednavky	generic
-75	8	/prihlaseni	generic
-76	9	/obnoveni-hesla	generic
-77	10	/platba	generic
-78	11	/selhani-platby	generic
-79	12	/platba-probehla	generic
-80	13	/registrace	generic
-81	14	/404	generic
-83	16	/global-navigation/muj-ucet/sprava-adres	generic
-84	17	/global-navigation/muj-ucet/moje-objednavky	generic
-85	18	/global-navigation/muj-ucet/osobni-udaje	generic
-86	19	/global-navigation/muj-ucet/moje-objednavky/detail	generic
-87	20	/kontakt	generic
-88	21	/vyhledat	generic
-89	22	/mapa-stranek	generic
-90	23	/o-nas	generic
-91	26	/obchodni-podminky	generic
-92	83	/novinky	generic
-93	84	/articles	generic
-94	85	/content-bits	generic
-97	88	/global-navigation	generic
-99	1026	/stranka-1	generic
-100	1027	/stranka-2	generic
-101	1028	/stranka-3	generic
+77	5	/home	generic
+78	6	/basket	generic
+79	7	/checkout	generic
+80	8	/login	generic
+81	9	/password-reset	generic
+82	10	/payment	generic
+83	11	/payment-failure	generic
+84	12	/payment-success	generic
+85	13	/registration	generic
+86	14	/404	generic
+87	15	/my-account	generic
+88	16	/my-account/address-management	generic
+89	17	/my-account/orders	generic
+90	18	/my-account/personal-details	generic
+91	19	/my-account/orders/order-detail	generic
+92	20	/contact-us	generic
+93	21	/search	generic
+94	22	/sitemap	generic
+95	23	/about-us	generic
+96	26	/terms-and-conditions	generic
+97	83	/news	generic
+98	84	/articles	generic
+99	90	/newsletter	generic
+100	92	/newsletter/unsubscribe	generic
+101	1013	/news/2008/08/16/laboris-nisi-ut-aliquip	generic
+102	1014	/news/2008/08/16/excepteur-sint-occaecat	generic
+103	1026	/accessibility-policy	generic
+104	1031	/privacy-policy	generic
+105	1033	/main-page-1	generic
+106	1034	/main-page-2	generic
+107	1035	/main-page-3	generic
 \.
 
 
@@ -3387,7 +3706,7 @@ COPY ecommerce_delivery_carrier_zone_to_country (id, country_id, zone_id) FROM s
 -- Data for Name: ecommerce_invoice; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY ecommerce_invoice (id, order_id, goods_net, goods_vat_sr, goods_vat_rr, delivery_net, delivery_vat, payment_amount, payment_type, created, modified, status, other_data, basket_detail, customer_name, customer_email, address_invoice, address_delivery) FROM stdin;
+COPY ecommerce_invoice (id, order_id, goods_net, goods_vat_sr, goods_vat_rr, delivery_net, delivery_vat, payment_amount, payment_type, created, modified, status, other_data, basket_detail, customer_name, customer_email, address_invoice, address_delivery, voucher_discount) FROM stdin;
 \.
 
 
@@ -3395,7 +3714,7 @@ COPY ecommerce_invoice (id, order_id, goods_net, goods_vat_sr, goods_vat_rr, del
 -- Data for Name: ecommerce_order; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY ecommerce_order (id, basket_id, invoices_address_id, delivery_address_id, other_data, status, note_customer, note_backoffice, php_session_id, referrer, payment_type) FROM stdin;
+COPY ecommerce_order (id, basket_id, invoices_address_id, delivery_address_id, other_data, status, note_customer, note_backoffice, php_session_id, referrer, payment_type, created, modified) FROM stdin;
 \.
 
 
@@ -3403,7 +3722,7 @@ COPY ecommerce_order (id, basket_id, invoices_address_id, delivery_address_id, o
 -- Data for Name: ecommerce_order_log; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY ecommerce_order_log (id, order_id, status, datetime) FROM stdin;
+COPY ecommerce_order_log (id, order_id, status, datetime, description, other_data) FROM stdin;
 \.
 
 
@@ -3435,7 +3754,7 @@ COPY ecommerce_product_image (id, src, role, node_id, title, description, priori
 -- Data for Name: ecommerce_product_review; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY ecommerce_product_review (id, parent, node_id, title, content, author_name, author_email, author_website, author_ip_address, customer_id, created, publish, rating) FROM stdin;
+COPY ecommerce_product_review (id, parent, node_id, title, content, author_name, author_email, author_website, author_ip_address, customer_id, created, publish, rating, relation_subject) FROM stdin;
 \.
 
 
@@ -3460,17 +3779,17 @@ COPY ecommerce_product_to_product (id, product_id, related_product_id) FROM stdi
 --
 
 COPY ecommerce_product_type (id, name, vat, publish) FROM stdin;
+1	Hardware	17.5	1
+2	Software	17.5	1
+3	Energy	5	1
+4	Software (only download)	17.5	1
+5	Documents  (download)	17.5	1
+6	books	0	1
+7	Food	17.5	1
+8	Food BIO	5	1
+9	Generic 1	17.5	1
+10	Generic 2	5	1
 11	Generic 0	0	1
-1	Hardware	17.5	0
-2	Software	17.5	0
-3	Energy	5	0
-4	Software (only download)	17.5	0
-5	Documents  (download)	17.5	0
-6	books	0	0
-7	Food	17.5	0
-8	Food BIO	5	0
-9	Generic 1	22	1
-10	Generic 2	9	1
 \.
 
 
@@ -3478,7 +3797,7 @@ COPY ecommerce_product_type (id, name, vat, publish) FROM stdin;
 -- Data for Name: ecommerce_product_variety; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY ecommerce_product_variety (id, name, product_id, sku, weight, weight_gross, stock, priority, description, other_data, width, height, depth, diameter, modified, publish, display_permission, ean13, upc, condition, wholesale) FROM stdin;
+COPY ecommerce_product_variety (id, name, product_id, sku, weight, weight_gross, stock, priority, description, other_data, width, height, depth, diameter, modified, publish, display_permission, ean13, upc, condition, wholesale, reward_points, subtitle) FROM stdin;
 \.
 
 
@@ -3502,7 +3821,7 @@ COPY ecommerce_product_variety_taxonomy (id, node_id, taxonomy_tree_id) FROM std
 -- Data for Name: ecommerce_promotion; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY ecommerce_promotion (id, title, description, publish, created, modified, customer_account_type, code_pattern, discount_fixed_value, discount_percentage_value, discount_free_delivery, uses_per_coupon, uses_per_customer, limit_list_products, other_data, limit_delivery_country_id, limit_delivery_carrier_id) FROM stdin;
+COPY ecommerce_promotion (id, title, description, publish, created, modified, customer_account_type, code_pattern, discount_fixed_value, discount_percentage_value, discount_free_delivery, uses_per_coupon, uses_per_customer, limit_list_products, other_data, limit_delivery_country_id, limit_delivery_carrier_id, generated_by_order_id) FROM stdin;
 \.
 
 
@@ -3519,6 +3838,46 @@ COPY ecommerce_promotion_code (id, promotion_id, code, order_id) FROM stdin;
 --
 
 COPY ecommerce_transaction (id, order_id, pg_data, currency_code, amount, created, type, status) FROM stdin;
+\.
+
+
+--
+-- Data for Name: education_survey; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY education_survey (id, title, description, created, modified, priority, publish) FROM stdin;
+\.
+
+
+--
+-- Data for Name: education_survey_entry; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY education_survey_entry (id, survey_id, customer_id, relation_subject, created, modified, publish) FROM stdin;
+\.
+
+
+--
+-- Data for Name: education_survey_entry_answer; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY education_survey_entry_answer (id, survey_entry_id, question_id, question_answer_id, value, created, modified, publish) FROM stdin;
+\.
+
+
+--
+-- Data for Name: education_survey_question; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY education_survey_question (id, survey_id, parent, step, title, description, mandatory, type, priority, publish) FROM stdin;
+\.
+
+
+--
+-- Data for Name: education_survey_question_answer; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY education_survey_question_answer (id, question_id, title, description, is_correct, points, priority, publish) FROM stdin;
 \.
 
 
@@ -3963,6 +4322,14 @@ COPY international_currency (id, code, name, symbol_left, symbol_right) FROM std
 --
 
 COPY international_currency_rate (id, currency_code, currency_code_from, source, date, amount) FROM stdin;
+173	USD	GBP	google	2011-03-24 00:00:00	1.62280000
+174	EUR	GBP	google	2011-03-24 00:00:00	1.15075876
+175	CZK	GBP	google	2011-03-24 00:00:00	28.07418170
+176	AUD	GBP	google	2011-03-24 00:00:00	1.59976341
+177	JPY	GBP	google	2011-03-24 00:00:00	131.31574700
+178	CAD	GBP	google	2011-03-24 00:00:00	1.58791354
+179	HKD	GBP	google	2011-03-24 00:00:00	12.65005770
+180	NZD	GBP	google	2011-03-24 00:00:00	2.17504356
 \.
 
 
@@ -3991,6 +4358,14 @@ ALTER TABLE ONLY client_customer
 
 
 --
+-- Name: client_group_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY client_group
+    ADD CONSTRAINT client_group_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: common_comment_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -4007,11 +4382,11 @@ ALTER TABLE ONLY common_configuration
 
 
 --
--- Name: common_email_form_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: common_email_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
-ALTER TABLE ONLY common_email_form
-    ADD CONSTRAINT common_email_form_pkey PRIMARY KEY (id);
+ALTER TABLE ONLY common_email
+    ADD CONSTRAINT common_email_pkey PRIMARY KEY (id);
 
 
 --
@@ -4100,6 +4475,14 @@ ALTER TABLE ONLY common_taxonomy_tree
 
 ALTER TABLE ONLY common_uri_mapping
     ADD CONSTRAINT common_uri_mapping_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: common_uri_mapping_public_uri_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY common_uri_mapping
+    ADD CONSTRAINT common_uri_mapping_public_uri_key UNIQUE (public_uri);
 
 
 --
@@ -4276,6 +4659,54 @@ ALTER TABLE ONLY ecommerce_promotion
 
 ALTER TABLE ONLY ecommerce_transaction
     ADD CONSTRAINT ecommerce_transaction_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: education_survey_entry_answer_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY education_survey_entry_answer
+    ADD CONSTRAINT education_survey_entry_answer_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: education_survey_entry_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY education_survey_entry
+    ADD CONSTRAINT education_survey_entry_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: education_survey_entry_survey_id_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY education_survey_entry
+    ADD CONSTRAINT education_survey_entry_survey_id_key UNIQUE (survey_id, customer_id, relation_subject);
+
+
+--
+-- Name: education_survey_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY education_survey
+    ADD CONSTRAINT education_survey_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: education_survey_question_answer_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY education_survey_question_answer
+    ADD CONSTRAINT education_survey_question_answer_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: education_survey_question_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY education_survey_question
+    ADD CONSTRAINT education_survey_question_pkey PRIMARY KEY (id);
 
 
 --
@@ -4691,6 +5122,14 @@ ALTER TABLE ONLY client_company
 
 
 --
+-- Name: client_customer_group_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY client_customer
+    ADD CONSTRAINT client_customer_group_id_fkey FOREIGN KEY (group_id) REFERENCES client_group(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
 -- Name: common_comment_customer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5059,11 +5498,83 @@ ALTER TABLE ONLY ecommerce_promotion_code
 
 
 --
+-- Name: ecommerce_promotion_generated_by_order_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ecommerce_promotion
+    ADD CONSTRAINT ecommerce_promotion_generated_by_order_id_fkey FOREIGN KEY (generated_by_order_id) REFERENCES ecommerce_order(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
 -- Name: ecommerce_transaction_order_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY ecommerce_transaction
     ADD CONSTRAINT ecommerce_transaction_order_id_fkey FOREIGN KEY (order_id) REFERENCES ecommerce_order(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: education_survey_entry_answer_question_answer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY education_survey_entry_answer
+    ADD CONSTRAINT education_survey_entry_answer_question_answer_id_fkey FOREIGN KEY (question_answer_id) REFERENCES education_survey_question_answer(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: education_survey_entry_answer_question_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY education_survey_entry_answer
+    ADD CONSTRAINT education_survey_entry_answer_question_id_fkey FOREIGN KEY (question_id) REFERENCES education_survey_question(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: education_survey_entry_answer_survey_entry_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY education_survey_entry_answer
+    ADD CONSTRAINT education_survey_entry_answer_survey_entry_id_fkey FOREIGN KEY (survey_entry_id) REFERENCES education_survey_entry(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: education_survey_entry_customer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY education_survey_entry
+    ADD CONSTRAINT education_survey_entry_customer_id_fkey FOREIGN KEY (customer_id) REFERENCES client_customer(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: education_survey_entry_survey_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY education_survey_entry
+    ADD CONSTRAINT education_survey_entry_survey_id_fkey FOREIGN KEY (survey_id) REFERENCES education_survey(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: education_survey_question_answer_question_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY education_survey_question_answer
+    ADD CONSTRAINT education_survey_question_answer_question_id_fkey FOREIGN KEY (question_id) REFERENCES education_survey_question(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: education_survey_question_parent_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY education_survey_question
+    ADD CONSTRAINT education_survey_question_parent_fkey FOREIGN KEY (parent) REFERENCES education_survey_question(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: education_survey_question_survey_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY education_survey_question
+    ADD CONSTRAINT education_survey_question_survey_id_fkey FOREIGN KEY (survey_id) REFERENCES education_survey(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
