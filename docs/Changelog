@@ -1,7 +1,37 @@
 Onxshop (1.5.0/dev)
 
+  * move htmlspecialchars into contact_form templates
+  * drop custom getmicrotime() function
+  * add UNIQUE public_uri constraint to common_uri_mapping
+  * consistent naming for excerpt (description) and labels (keywords)
+  * use editInPlace in SEO Manager
+  * jquery.editinplace upgraded to version 2.3.0
+  * add delivery tracking
+  * make use of product_variety.subtitle
+  * allow to skip payment when amount due is 0 (nil payment)
+  * remove website title from subject as the title is now in from_name
+  * defalt email mail_from is now website title
+  * common_email_form renamed to common_email
+  * move all table create statements to getCreateTableSql function
+  * reworked discount calculation
+  * customise checkout for basket, which contains only virtual products
+  * add new survey system
+  * various comment component improvements
+  * remove htmlspecialchars from mail subject
+  * add CSS class for customer_account_type_{ID}
+  * use addslashes instead of htmlspecialchars in Javascript GA
+  * add support for different product detail page templates
+  * modify default database template and project_skeleton
+  * new backoffice and front-end edit UI style
+  * new backoffice component: bo/component/sysinfo
+  * add delivery tracking
+  * make PayPal default payment method
+  * improve PayPal payment method
+  * add support for email attachments
+  * new component/ecommerce/gift_voucher (currently depends on wkhtmltoimage)
+  * add support for wkhtmltopdf
   * make component/ecommerce/checkout_gift_wrap using newly created conf option 
-    for gift wrap (ecommerce_product.gift_wrap_product_id) 
+    for gift wrap (ecommerce_product.gift_wrap_product_id)
   * move rarely used options from project_skeleton/conf/deployment.php to conf/global.php
   * improve wording in password change notification email
   * use sys/html5 template by default
@@ -20,6 +50,7 @@ Onxshop (1.5.0/dev)
   * documentation update
   * backoffice customer list is forced to use DB cache
   * thumbnail_step changed from 25px to 5px
+  * moved to Git and https://github.com/laposa/onxshop
   * removed project_skeleton/onxshop_dir symlink from dev version, left only in testing
   * nx_* renamed to onxshop_*
   * GLOBAL_ constants renamed to ONXSHOP_
@@ -28,14 +59,14 @@ Onxshop (1.5.0/dev)
   * finished Xsite -> Onxshop name transition
   * using Zend_Db instead of ADOdb, much improved Onxshop_Model
   * jQuery Form upgraded to version 2.92
-  * jQuery validate upgraded to version 1.9.0
+  * jQuery.validate upgraded to version 1.9.0
   * jQuery UI upgraded to version 1.8.16
   * jQuery upgraded to version 1.6.4
   * TinyMCE upgraded to version 3.4.6
   * Zend Framework upgraded to version 1.11.11
   * validation for username changed from email to string
 
--- Norbert Laposa <norbert@laposa.co.uk>  2011-10-21
+-- Norbert Laposa <norbert@laposa.co.uk>  2011-12-13
 
 Onxshop (1.4.7)
   
