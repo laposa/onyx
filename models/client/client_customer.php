@@ -664,6 +664,17 @@ CREATE TABLE client_customer (
 	}
 	
 	/**
+	 * logout
+	 */
+	 
+	public function logout() {
+		
+		//TODO: save to log?
+		
+		return true;
+	}
+	
+	/**
 	 * get greeting
 	 */
 	
