@@ -2,39 +2,56 @@
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 <div class="survey_list">
 	
-	<table cellspacing="0">
-		<thead>
-			<tr>
-				<th>ID</th>
-				<th>Title</th>
-				<th>Description</th>
-				<th>Created</th>
-			</tr>
-		</thead>
-		<tfoot>
-			<a href="/request/bo/export/csv_surveys">Export All Survey Results CSV</a>
-			{PAGINATION}
-		</tfoot>
-		<tfoot>
-			<tr><td colspan="4"><a class="button add" title="Add new survey" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_add'); return false" href="#sub_content"><span>Create new survey</span></a></td></tr>
-		</tfoot>
-		<tbody>
-			<!-- BEGIN: item -->
-			<tr class="publish_{ITEM.publish}">
-				<td>{ITEM.id}</td>
-				<td><a title="Edit survey" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_detail~id={ITEM.id}~'); return false" href="#sub_content">{ITEM.title|htmlspecialchars}</a></td>
-				<td>{ITEM.description|htmlspecialchars}</td>
-				<td>{ITEM.created}</td>
-			</tr>
-			<!-- END: item -->
-			<!-- BEGIN: empty -->
-			<tr>
-				<td colspan="4"><span class="note">No Surveys.</span></td>
-			</tr>
-			<!-- END: empty -->
-
-		</tbody>
-	</table>
+	
+	<div class="twoColumnLayout layout fibonacci-5-1">
+		<div class="layoutWrapper">
+			<div class="top"><span></span></div>
+			<div class="layoutContent">
+				<div class="layoutContentWrapper">
+					<div class="layoutColumnOne">
+						<div class="layoutColumnWrapper">
+							<table cellspacing="0">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>Title</th>
+										<th>Description</th>
+										<th>Created</th>
+									</tr>
+								</thead>
+								<tfoot>
+									{PAGINATION}
+								</tfoot>
+								<tbody>
+									<!-- BEGIN: item -->
+									<tr class="publish_{ITEM.publish}">
+										<td>{ITEM.id}</td>
+										<td><a title="Edit survey" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_detail~id={ITEM.id}~'); return false" href="#sub_content">{ITEM.title|htmlspecialchars}</a></td>
+										<td>{ITEM.description|htmlspecialchars}</td>
+										<td>{ITEM.created}</td>
+									</tr>
+									<!-- END: item -->
+									<!-- BEGIN: empty -->
+									<tr>
+										<td colspan="4"><span class="note">No Surveys.</span></td>
+									</tr>
+									<!-- END: empty -->
+						
+								</tbody>
+							</table>
+						</div>
+					</div>
+					<div class="layoutColumnTwo">
+						<div class="layoutColumnWrapper">
+							<p><a class="button add" title="Add new survey" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_add'); return false" href="#sub_content"><span>Create new survey</span></a></p>
+							<p>Export All Survey Results: <a class="button" href="/request/bo/export/csv_surveys"><span>CSV</span></a></p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="bottom"><span></span></div>
+		</div>
+	</div>
 
 </div>
 <!-- END: content -->

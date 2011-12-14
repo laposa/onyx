@@ -158,6 +158,12 @@ class Onxshop_Controller_Bo_Component_Server_Browser_File_List extends Onxshop_C
 			}
 		}
 		
+		/**
+		 * prepare folder head string
+		 */
+		
+		$folder_head = str_replace('/', ' / ', $relative_folder_path);
+		$folder_head = '/ ' . $folder_head;
 		
 		/**
 		 * Assign template variables
@@ -165,7 +171,7 @@ class Onxshop_Controller_Bo_Component_Server_Browser_File_List extends Onxshop_C
 		 */
 		
 		$this->tpl->assign('BASE', $base_folder);
-		$this->tpl->assign('FOLDER_HEAD', str_replace('/', '/ ', $relative_folder_path));
+		$this->tpl->assign('FOLDER_HEAD', $folder_head);
 		$this->tpl->assign('FOLDER', $relative_folder_path);
 		$this->tpl->assign('MAX_FILE_SIZE', ini_get('upload_max_filesize'));
 		
