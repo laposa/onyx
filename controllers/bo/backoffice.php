@@ -36,6 +36,7 @@ class Onxshop_Controller_Bo_Backoffice extends Onxshop_Controller {
 		/**
 		 * simple ACL
 		 */
+		 
 		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER) $this->tpl->parse('content.search');
 		
 		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER || $_SESSION['authentication']['username'] == ONXSHOP_DB_USER . '-editor') $this->tpl->parse('content.fe_edit');
@@ -43,16 +44,29 @@ class Onxshop_Controller_Bo_Backoffice extends Onxshop_Controller {
 		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER || $_SESSION['authentication']['username'] == ONXSHOP_DB_USER . '-editor') $this->tpl->parse('content.pages');
 		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER || $_SESSION['authentication']['username'] == ONXSHOP_DB_USER . '-editor') $this->tpl->parse('content.news');
 		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER || $_SESSION['authentication']['username'] == ONXSHOP_DB_USER . '-editor') $this->tpl->parse('content.media');
-		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER) $this->tpl->parse('content.products');
-		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER || preg_match("/-warehouse$/", $_SESSION['authentication']['username'])) $this->tpl->parse('content.orders');
+		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER  && $this->isEcommerce()) $this->tpl->parse('content.products');
+		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER || preg_match("/-warehouse$/", $_SESSION['authentication']['username'])) {
+			if ($this->isEcommerce()) $this->tpl->parse('content.orders');
+		}
 		if (preg_match("/-warehouse$/", $_SESSION['authentication']['username'])) $this->tpl->parse('content.stock');
 		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER) $this->tpl->parse('content.customers');
-		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER) $this->tpl->parse('content.stats');
-		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER) $this->tpl->parse('content.marketing');
+		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER  && $this->isEcommerce()) $this->tpl->parse('content.stats');
+		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER && $this->isEcommerce()) $this->tpl->parse('content.marketing');
 		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER) $this->tpl->parse('content.comments');
-		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER) $this->tpl->parse('content.surveys');
+		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER && $this->isEcommerce()) $this->tpl->parse('content.surveys');
 		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER) $this->tpl->parse('content.advanced');
 
 		return true;
+	}
+	
+	/**
+	 * isEcommerce
+	 */
+	 
+	public function isEcommerce() {
+		
+		if (ONXSHOP_PACKAGE_NAME == 'standard' || ONXSHOP_PACKAGE_NAME == 'premium') return true;
+		else return false; 
+	
 	}
 }
