@@ -41,95 +41,95 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Product_List extends Onxshop_Con
 			return true;
 		}
 		
-			/**
-			 * Sorting
-			 */
-			
-			//$_nSite = new nSite("component/ecommerce/product_list_sorting");
-			//$this->tpl->assign('SORTING', $_nSite->getContent());
-			
-			if ($this->GET['product-list-sort-by']) {
-				$_SESSION['product-list-sort-by'] = $this->GET['product-list-sort-by'];
-			}
-			
-			if ($this->GET['product-list-sort-direction']) {
-				$_SESSION['product-list-sort-direction'] = $this->GET['product-list-sort-direction'];
-			}
-			
-			if ($_SESSION['product-list-sort-by']) {
-				$sortby = $_SESSION['product-list-sort-by'];
-			} else {
-				$sortby = "modified";
-			}
-			
-			if ($_SESSION['product-list-sort-direction']) {
-				$direction = $_SESSION['producs-list-sort-direction'];
-			} else {
-				$direction = "DESC";
-			}
-			
-			//msg("Sorted by $sortby $direction");
-			$product_list_sorted = array();
-			switch ($sortby) {
-				default:
-				case 'id':
-					$product_list = php_multisort($product_list, array(array('key'=>'product_id', 'sort'=>$direction), array('key'=>'product_id', 'type'=>'numeric')));
-			
-					foreach ($product_list as $item) {
-						$product_list_sorted[] = $item;
-					}
+		/**
+		 * Sorting
+		 */
+		
+		//$_nSite = new nSite("component/ecommerce/product_list_sorting");
+		//$this->tpl->assign('SORTING', $_nSite->getContent());
+		
+		if ($this->GET['product-list-sort-by']) {
+			$_SESSION['product-list-sort-by'] = $this->GET['product-list-sort-by'];
+		}
+		
+		if ($this->GET['product-list-sort-direction']) {
+			$_SESSION['product-list-sort-direction'] = $this->GET['product-list-sort-direction'];
+		}
+		
+		if ($_SESSION['product-list-sort-by']) {
+			$sortby = $_SESSION['product-list-sort-by'];
+		} else {
+			$sortby = "modified";
+		}
+		
+		if ($_SESSION['product-list-sort-direction']) {
+			$direction = $_SESSION['producs-list-sort-direction'];
+		} else {
+			$direction = "DESC";
+		}
+		
+		//msg("Sorted by $sortby $direction");
+		$product_list_sorted = array();
+		switch ($sortby) {
+			default:
+			case 'id':
+				$product_list = php_multisort($product_list, array(array('key'=>'product_id', 'sort'=>$direction), array('key'=>'product_id', 'type'=>'numeric')));
+		
+				foreach ($product_list as $item) {
+					$product_list_sorted[] = $item;
+				}
 
-					break;
-				case 'modified':
-					$product_list = php_multisort($product_list, array(array('key'=>'modified', 'sort'=>$direction), array('key'=>'product_id', 'type'=>'numeric')));
-			
-					foreach ($product_list as $item) {
-						$product_list_sorted[] = $item;
-					}
-					
-					break;
-			}
-			
-			$product_list = $product_list_sorted;
+				break;
+			case 'modified':
+				$product_list = php_multisort($product_list, array(array('key'=>'modified', 'sort'=>$direction), array('key'=>'product_id', 'type'=>'numeric')));
 		
-			
-			//print_r($product_list);exit;
-			
-			/**
-			 * Reformat
-			 */
-			 
-			$pl = array();
-			foreach ($product_list as $item) {
-				$pl[$item['product_id']][] = $item;
-			}
-			$product_list = array();
-			foreach ($pl as $item) {
-				$product_list[] = $item;
-			}
+				foreach ($product_list as $item) {
+					$product_list_sorted[] = $item;
+				}
+				
+				break;
+		}
 		
-			/**
-			 * Initialize pagination variables
-			 */
-			
-			if  (is_numeric($this->GET['limit_from'])) $from = $this->GET['limit_from'];
-			else $from = 0;
-			if (is_numeric($this->GET['limit_per_page'])) $per_page = $this->GET['limit_per_page'];
-			else $per_page = 25;
-			
-			
-			$limit = "$from,$per_page";
-			
-			
-			/**
-			 * Display pagination
-			 */
-			
-			//$link = "/page/" . $_SESSION['active_pages'][0];
-			$count = count($product_list);
-			
-			$_nSite = new nSite("component/pagination~limit_from=$from:limit_per_page=$per_page:count=$count~");
-			$this->tpl->assign('PAGINATION', $_nSite->getContent());
+		$product_list = $product_list_sorted;
+	
+		
+		//print_r($product_list);exit;
+		
+		/**
+		 * Reformat
+		 */
+		 
+		$pl = array();
+		foreach ($product_list as $item) {
+			$pl[$item['product_id']][] = $item;
+		}
+		$product_list = array();
+		foreach ($pl as $item) {
+			$product_list[] = $item;
+		}
+	
+		/**
+		 * Initialize pagination variables
+		 */
+		
+		if  (is_numeric($this->GET['limit_from'])) $from = $this->GET['limit_from'];
+		else $from = 0;
+		if (is_numeric($this->GET['limit_per_page'])) $per_page = $this->GET['limit_per_page'];
+		else $per_page = 25;
+		
+		
+		$limit = "$from,$per_page";
+		
+		
+		/**
+		 * Display pagination
+		 */
+		
+		//$link = "/page/" . $_SESSION['active_pages'][0];
+		$count = count($product_list);
+		
+		$_nSite = new nSite("component/pagination~link=/request/bo/component/ecommerce/product_list:limit_from=$from:limit_per_page=$per_page:count=$count~");
+		$this->tpl->assign('PAGINATION', $_nSite->getContent());
 			
 			
 		
