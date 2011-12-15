@@ -40,7 +40,7 @@ define('ONXSHOP_PROJECT_DIR', realpath(dirname(__FILE__) . '/../') . '/');
 define('ONXSHOP_DB_TYPE', 'pgsql');
 define('ONXSHOP_DB_USER', '');
 define('ONXSHOP_DB_PASSWORD', '');
-define('ONXSHOP_DB_HOST', 'dbserver');
+define('ONXSHOP_DB_HOST', 'localhost');
 define('ONXSHOP_DB_PORT', 5432);
 define('ONXSHOP_DB_NAME', '');
 
