@@ -2,8 +2,7 @@
  * Onxshop Header
  */
 
-#onxshopHeader {line-height: 1.5;}
-#onxshopHeader a {font-family: "Lucida Grande", Helvetica, Arial, sans-serif;}
+#onxshopHeader {line-height: 17px; font-size: 14px; font-family: "Lucida Grande", Helvetica, Arial, sans-serif;}
 
 /**
  * onxshopSystemBar
@@ -44,7 +43,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e9e9e9', end
 }
 #onxshopMenuBar a.onxshop_version {background: url(../images/favicon-grey.png) no-repeat center center; display: inline-block; height: 16px; padding-left: 20px;}
 #onxshopMenuBar a.onxshop_version span {display: none;}
-#onxshopMenuBar #menuShortcuts {float: left; padding-top: 2px;}
+#onxshopMenuBar #menuShortcuts {float: left; padding-top: 4px;}
 #onxshopMenuBar a {text-decoration: none; text-shadow: 0 1px 0 white;}
 #onxshopMenuBar #menuGroup {float: left;}
 #onxshopMenuBar #menuContext {float: right;}

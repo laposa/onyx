@@ -11,7 +11,7 @@
 @import url(/share/themes/jquery-ui/onxshop/jquery-ui.css);
 @import url(/share/css/cms_header.css);
 
-body {font-size: 70%; color: white; font-family: "Lucida Grande", Helvetica, Arial, sans-serif; background: #6d7076 url(../images/lion-fabric.png) repeat; /*background: #e6eaef;*/}
+body {font-size: 70%; color: white; font-family: "Lucida Grande", Helvetica, Arial, sans-serif;}
 p {margin: 0 0 14px 0;}
 h2 a, h3 a, h4 a {color: white;}
 
@@ -143,6 +143,13 @@ div.product_list th.price,
 div.product_list th.sku {text-align: center;}
 
 /**
+ * file list
+ */
+ 
+#file_list a.button.delete,
+#file_list a.button.remove {padding-top: 0; padding-bottom: 0; background-color: transparent; box-shadow: none; border: 0;}
+
+/**
  * divider
  */
  
@@ -182,7 +189,7 @@ div.file_list_icon div.item {height: 120px; overflow: hidden; margin-bottom: 1em
 /**
  * backoffice content
  */
- 
+#backoffice {background: #6d7076 url(../images/lion-fabric.png) repeat; /*background: #e6eaef;*/}
 #backoffice div.twoColumnPage {margin-top: 5px;}
 #backoffice #container {width: auto;}
 #backoffice div.pageContentWrapper,
@@ -221,4 +228,5 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', end
 #backoffice div.twoColumnPage div.columnTwo div.columnWrapper {margin-left: 0;}
 #backoffice div.twoColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnOne > div.layoutColumnWrapper {margin-right: 10px;}
 #backoffice div.twoColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnTwo > div.layoutColumnWrapper {padding-top: 25px; margin-left: 0;}
+
 
