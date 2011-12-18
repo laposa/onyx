@@ -1,12 +1,12 @@
 <!-- BEGIN: title -->Customer data updated<!-- END: title -->
 <!-- BEGIN: content -->
-<p>Hello {DATA.customer.first_name} {DATA.customer.last_name},<br />
+<p>Hello {DATA.customer.first_name|htmlspecialchars} {DATA.customer.last_name|htmlspecialchars},<br />
 
 <p>Your account has been updated on {_SERVER.HTTP_HOST}</p>
 
-<p>Your username is {DATA.customer.email}</p>
+<p>Your username is {DATA.customer.email|htmlspecialchars}</p>
 
 <p>Best wishes,</p>
 
-<p>{CONFIGURATION.global.author_content}</p>
+<p>{CONFIGURATION.global.author_content|htmlspecialchars}</p>
 <!-- END: content -->

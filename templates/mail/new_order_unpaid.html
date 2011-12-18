@@ -1,17 +1,17 @@
 <!-- BEGIN: title -->New order #{DATA.order.id} (unpaid)<!-- END: title -->
 <!-- BEGIN: content -->
 <p>
-{DATA.order.client.customer.first_name} {DATA.order.client.customer.last_name} has submit order {DATA.order.id}
+{DATA.order.client.customer.first_name|htmlspecialchars} {DATA.order.client.customer.last_name|htmlspecialchars} has submit order {DATA.order.id}
 </p>
 <p>
-email: {DATA.order.client.customer.email}<br />
-telephone: {DATA.order.client.customer.telephone}, {DATA.order.client.customer.mobilephone}
+email: {DATA.order.client.customer.email|htmlspecialchars}<br />
+telephone: {DATA.order.client.customer.telephone|htmlspecialchars}, {DATA.order.client.customer.mobilephone|htmlspecialchars}
 </p>
 
 {DATA.order.order_detail}
 
 <p>
 Regards,<br />
-{CONFIGURATION.global.author_content}</p>
-<p>&copy;{TIME|date('Y', %s)} <a href="http://{_SERVER.SERVER_NAME}/"><span>{CONFIGURATION.global.title}</span></a></p>
+{CONFIGURATION.global.author_content|htmlspecialchars}</p>
+<p>&copy;{TIME|date('Y', %s)} <a href="http://{_SERVER.SERVER_NAME}/"><span>{CONFIGURATION.global.title|htmlspecialchars}</span></a></p>
 <!-- END: content -->
