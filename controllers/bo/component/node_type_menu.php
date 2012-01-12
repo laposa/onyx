@@ -142,16 +142,29 @@ class Onxshop_Controller_Bo_Component_Node_Type_Menu extends Onxshop_Controller_
 		
 		//reorder
 		$temp = array();
-		$temp[0] = $md_tree[1];//content
-		$temp[1] = $md_tree[3];//layout
-		$temp[2] = $md_tree[4];//page
-		$temp[3] = $md_tree[0];//container
-		$temp[4] = $md_tree[5];//site
-		//$temp[5] = $md_tree[2];//this is actually node/default
+		$temp[0] = $this->findInMdTree($md_tree, 'content');//content
+		$temp[1] = $this->findInMdTree($md_tree, 'layout');//layout
+		$temp[2] = $this->findInMdTree($md_tree, 'page');//page
+		$temp[3] = $this->findInMdTree($md_tree, 'container');//container
+		$temp[4] = $this->findInMdTree($md_tree, 'site');//site
 		
 		$md_tree = $temp;
 		
 		return $md_tree;
+	}
+	
+	/**
+	 * findInMdTree
+	 */
+	 
+	public function findInMdTree($md_tree, $query) {
+		
+		foreach ($md_tree as $item) {
+		
+			if ($item['id'] == $query) return $item;
+		
+		}
+		
 	}
 	
 	/**
