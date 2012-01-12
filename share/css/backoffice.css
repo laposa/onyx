@@ -143,13 +143,6 @@ div.product_list th.price,
 div.product_list th.sku {text-align: center;}
 
 /**
- * file list
- */
- 
-#file_list a.button.delete,
-#file_list a.button.remove {padding-top: 0; padding-bottom: 0; background-color: transparent; box-shadow: none; border: 0;}
-
-/**
  * divider
  */
  
@@ -174,6 +167,14 @@ h2 a, h3 a, h4 a {color: black;}
  */
  
 div.file_list_icon div.item {height: 120px; overflow: hidden; margin-bottom: 1em;}
+
+/**
+ * file list
+ */
+ 
+#file_list a.button.delete,
+#file_list a.button.remove,
+#server_browser_file_list a.button.delete  {padding-top: 0; padding-bottom: 0; background-color: transparent; box-shadow: none; border: 0;}
 
 /**
  * server_browser_file_list_wrapper
