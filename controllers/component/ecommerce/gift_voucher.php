@@ -139,7 +139,15 @@ class Onxshop_Controller_Component_Ecommerce_Gift_Voucher extends Onxshop_Contro
 			msg("Gift Voucher: recipient_email is not valid email address", 'error');
 			return false;
 		}
-			
+		
+		//if ($data['delivery_date']) {
+		//	if (!preg_match("/[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4}/", $data['delivery_date'])) {
+		//		msg("Gift Voucher: delivery_date is not valid format", 'error');
+		//		return false;
+		//	}
+		//}
+		
+		
 		return true;
 	}
 	
@@ -157,6 +165,7 @@ class Onxshop_Controller_Component_Ecommerce_Gift_Voucher extends Onxshop_Contro
 		$data['recipient_name'] = 'Recipient\'s Name';
 		$data['message'] = 'Your Message';
 		$data['sender_name'] = 'Your Name';
+		$data['delivery_date'] = 'now';
 		
 		return $data;
 	}

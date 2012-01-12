@@ -90,6 +90,7 @@ class Onxshop_Controller_Component_Ecommerce_Gift_Voucher_Specify extends Onxsho
 		$_POST['other_data']['recipient_email'] = $data['recipient_email'];
 		$_POST['other_data']['message'] = $data['message'];
 		$_POST['other_data']['sender_name'] = $data['sender_name'];
+		if (preg_match("/[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4}/", $data['delivery_date'])) $_POST['other_data']['delivery_date'] = $data['delivery_date'];
 		
 		//will be handled by global basket
 		$_nSite = new nSite('component/ecommerce/basket');

@@ -1,5 +1,7 @@
-<!-- BEGIN: title -->Gift Voucher<!-- END: title -->
+<!-- BEGIN: title -->Gift Voucher Postpone Delivery<!-- END: title -->
 <!-- BEGIN: content -->
+<p>The gift voucher below was scheduled to {DATA.voucher_data.delivery_date|htmlspecialchars}</p>
+<p>Please forward this email to {DATA.voucher_data.recipient_email|htmlspecialchars} at {DATA.voucher_data.delivery_date|htmlspecialchars}</p>
 <div style="width: 49%; float: left;">
 	<p>Dear {DATA.voucher_data.recipient_name|htmlspecialchars}</p>
 	<p>{DATA.voucher_data.sender_name|htmlspecialchars} has sent you a £{DATA.promotion_data.discount_fixed_value} Gift Card to spend on {CONFIGURATION.global.title|htmlspecialchars}.</p>
@@ -15,3 +17,4 @@
 </div>
 <br style="clear: both;" />
 <!-- END: content -->
+

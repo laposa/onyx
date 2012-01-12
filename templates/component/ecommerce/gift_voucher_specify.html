@@ -1,3 +1,9 @@
+<!-- BEGIN: head -->
+<script type="text/javascript" src="/share/js/jquery/ui/jquery-ui.custom.js"></script>
+<style type="text/css" media="screen">
+@import url(/share/themes/jquery-ui/onxshop/jquery-ui.css);
+</style>
+<!-- END: head -->
 <!-- BEGIN: content -->
 <script type="text/javascript">
 $(function(){
@@ -20,6 +26,8 @@ $(function(){
 			$("#" + target_id).text(value);
 		}
 	});
+	
+	 $('#gift_voucher_specify div.delivery_date input').datepicker({firstDay: 1, dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true, minDate: '+1d', maxDate: '+1y'});
 });
 </script>
 
@@ -56,6 +64,10 @@ $(function(){
 				<div class="row sender_name">
 					<span class="label"><label for="gift_voucher_specify-sender_name"><span class="mandatory-mark">*</span>Your name:</label></span>
 					<span class="field"><input type="text" id="gift_voucher_specify-sender_name" name="gift_voucher_specify[sender_name]" value="{GIFT_VOUCHER.sender_name|htmlspecialchars}" class="required text" maxlength="45" /></span>
+				</div>
+				<div class="row delivery_date">
+					<span class="label"><label for="gift_voucher_specify-delivery_date">Delivery date:</label></span>
+					<span class="field"><input type="text" id="gift_voucher_specify-delivery_date" name="gift_voucher_specify[delivery_date]" value="{GIFT_VOUCHER.delivery_date|htmlspecialchars}now" class="text" title="Leave empty to send the voucher now" /></span>
 				</div>
 			</fieldset>
 			<div class="row submit">

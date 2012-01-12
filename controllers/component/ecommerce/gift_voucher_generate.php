@@ -132,6 +132,7 @@ class Onxshop_Controller_Component_Ecommerce_Gift_Voucher_Generate extends Onxsh
 		$voucher_data['recipient_email'] = $voucher_basket_item['other_data']['recipient_email'];
 		$voucher_data['message'] = $voucher_basket_item['other_data']['message'];
 		$voucher_data['sender_name'] = $voucher_basket_item['other_data']['sender_name'];
+		if ($voucher_basket_item['other_data']['delivery_date']) $voucher_data['delivery_date'] = $voucher_basket_item['other_data']['delivery_date'];
 		
 		if (!$this->validateData($voucher_data)) {
 		
@@ -143,9 +144,9 @@ class Onxshop_Controller_Component_Ecommerce_Gift_Voucher_Generate extends Onxsh
 		/**
 		 * create discount code
 		 */
-		
+		$code_pattern_base = "GIFT-{$voucher_basket_item['id']}" . '-';
 		$promotion_data = array();
-		$promotion_data['code_pattern'] = "GIFT-{$voucher_basket_item['id']}" . '-' . $this->randomCode();
+		$promotion_data['code_pattern'] = $code_pattern_base . $this->randomCode();
 		$promotion_data['title'] = $promotion_data['code_pattern'];
 		$promotion_data['discount_percentage_value'] = 0;
 		$promotion_data['discount_fixed_value'] = $voucher_basket_item['total_inc_vat'];
@@ -158,6 +159,10 @@ class Onxshop_Controller_Component_Ecommerce_Gift_Voucher_Generate extends Onxsh
 		$Promotion = new ecommerce_promotion();
 		
 		//TODO: check code wasn't generated before for the same order
+		if (!$Promotion->checkValidPattern($code_pattern_base)) {
+			msg("Code {$code_pattern_base}* was previously generated", 'error');
+			return false;
+		}
 		//preg_match("/GIFT-{$voucher_basket_item['id']}/", $all_patterns_list)
 		
 		if ($promotion_id = $Promotion->addPromotion($promotion_data)) {
@@ -187,25 +192,11 @@ class Onxshop_Controller_Component_Ecommerce_Gift_Voucher_Generate extends Onxsh
 		
 		/**
 		 * send email
+		 * postpone if delivery_date is set
 		 */
-		 
-		$GLOBALS['common_email'] = array('promotion_data'=>$promotion_data, 'voucher_data'=>$voucher_data, 'gift_voucher_filename'=>$gift_voucher_filename);
-		//$GLOBALS['onxshop_atachments'] = array($gift_voucher_filename_fullpath);
 		
-		require_once('models/common/common_email.php');
-		$EmailForm = new common_email();
-		
-		$template = 'gift_voucher';
-		$content = $gift_voucher_filename;
-		$email_recipient = $voucher_data['recipient_email'];
-		$name_recipient = $voucher_data['recipient_name'];
-		$email_from = false;
-		$name_from = "{$GLOBALS['onxshop_conf']['global']['title']} Gifts";
-		
-		$EmailForm->sendEmail($template, $content, $email_recipient, $name_recipient, $email_from, $name_from);
-		
-		unset($GLOBALS['common_email']);
-		//unset($GLOBALS['onxshop_atachments']);
+		if (preg_match("/[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4}/", $voucher_data['delivery_date'])) $this->postponeDelivery($promotion_data, $voucher_data, $gift_voucher_filename);
+		else $this->sendEmail($promotion_data, $voucher_data, $gift_voucher_filename);
 		
 		return true;
 	}
@@ -214,7 +205,7 @@ class Onxshop_Controller_Component_Ecommerce_Gift_Voucher_Generate extends Onxsh
 	 * generate random code
 	 */
 
-	function randomCode($size = 4) {
+	public function randomCode($size = 4) {
 
 		//omit "o" letter to avoid mistakes
 		$hash= array("a","b","c","d","e","f","g","h","i","j","k","l","m","n","p","q","r","s","t","u","v","w","x","y","z");
@@ -230,4 +221,58 @@ class Onxshop_Controller_Component_Ecommerce_Gift_Voucher_Generate extends Onxsh
 		
 		return $code;
 	}
+	
+	/**
+	 * send email
+	 */
+	 
+	public function sendEmail($promotion_data, $voucher_data, $gift_voucher_filename) {
+		
+		$GLOBALS['common_email'] = array('promotion_data'=>$promotion_data, 'voucher_data'=>$voucher_data, 'gift_voucher_filename'=>$gift_voucher_filename);
+		//$GLOBALS['onxshop_atachments'] = array($gift_voucher_filename_fullpath);
+		
+		require_once('models/common/common_email.php');
+		$EmailForm = new common_email();
+		
+		$template = 'gift_voucher';
+		$content = $gift_voucher_filename;
+		$email_recipient = $voucher_data['recipient_email'];
+		$name_recipient = $voucher_data['recipient_name'];
+		$email_from = false;
+		$name_from = "{$GLOBALS['onxshop_conf']['global']['title']} Gifts";
+		
+		$email_sent_status = $EmailForm->sendEmail($template, $content, $email_recipient, $name_recipient, $email_from, $name_from);
+		
+		unset($GLOBALS['common_email']);
+		//unset($GLOBALS['onxshop_atachments']);
+		
+		return $email_sent_status;
+	}
+	
+	/**
+	 * postpone delivery
+	 */
+	
+	public function postponeDelivery($promotion_data, $voucher_data, $gift_voucher_filename) {
+		
+		$GLOBALS['common_email'] = array('promotion_data'=>$promotion_data, 'voucher_data'=>$voucher_data, 'gift_voucher_filename'=>$gift_voucher_filename);
+		
+		require_once('models/common/common_email.php');
+		$EmailForm = new common_email();
+		
+		$template = 'gift_voucher_postpone';
+		$content = $gift_voucher_filename;
+		if (defined('GIFT_VOUCHER_POSTPONE_EMAIL')) $email_recipient = GIFT_VOUCHER_POSTPONE_EMAIL;
+		else $email_recipient = $GLOBALS['onxshop_conf']['global']['admin_email'];
+		$name_recipient = $GLOBALS['onxshop_conf']['global']['admin_email_name'];
+		$email_from = false;
+		$name_from = "Web server";
+		
+		$email_sent_status = $EmailForm->sendEmail($template, $content, $email_recipient, $name_recipient, $email_from, $name_from);
+		
+		unset($GLOBALS['common_email']);
+		
+		return true;
+	}
+	
 }
