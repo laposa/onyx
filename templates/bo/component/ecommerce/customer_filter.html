@@ -78,10 +78,10 @@
 				
 				<!-- BEGIN: product -->
 				<div class="row product_bought">
-					<span class="label"><label>Product ID bought</label></span>
+					<span class="label"><label>Bought product highlighted in the following list. Hold CTRL key (CMD key on Mac) for multiple selections.</label></span>
 					<span class="field">
-						<select id="customer-filter-product_bought" name="customer-filter[product_bought]">
-							<option value="0">Any product</option>
+						<select id="customer-filter-product_bought" name="customer-filter[product_bought][]" multiple="multiple" size="20">
+							<!--<option value="0">Any product</option>-->
 							<!-- BEGIN: item -->
 							<option value="{ITEM.id}" {ITEM.selected}>{ITEM.name|htmlspecialchars}</option>
 							<!-- END: item -->

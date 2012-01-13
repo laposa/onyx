@@ -42,7 +42,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Customer_Filter extends Onxshop_
 		/**
 		 * populate filter in case it's empty
 		 */
-		 
+		
 		if (!is_array($_SESSION['customer-filter'])) {
 			$_SESSION['customer-filter'] = array();
 			$_SESSION['customer-filter']['invoice_status'] = 0;
@@ -97,11 +97,16 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Customer_Filter extends Onxshop_
 		$product_list = $Product->listing('publish = 1', 'name ASC');
 		
 		if (is_array($product_list) && count($product_list) > 0) {
+		
 			foreach ($product_list as $item) {
 				
-				if ($item['id'] == $_SESSION['customer-filter']['product_bought']) $item['selected'] = "selected='selected'";
-				else $item['selected'] = '';
-			
+				if (is_array($_SESSION['customer-filter']['product_bought'])) {
+					if (in_array($item['id'], $_SESSION['customer-filter']['product_bought'])) $item['selected'] = "selected='selected'";
+					else $item['selected'] = '';
+				} else {
+					$item['selected'] = '';
+				}
+				
 				$this->tpl->assign('ITEM', $item);
 				$this->tpl->parse('content.form.product.item');
 			}

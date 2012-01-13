@@ -1105,11 +1105,15 @@ ORDER BY client_customer.id
 			}
 		}
 		
+		//format product filter array to be ready for SQL
+		if (is_array($filter['product_bought'])) $filter['product_bought'] = implode(',', $filter['product_bought']);
+		
 		/**
-		 * SQL query
+		 * create SQL query
 		 */
-		//product filter
-		if (is_numeric($filter['product_bought']) && $filter['product_bought'] > 0)
+		
+		//custom SQL query when product filter is in use
+		if ((is_numeric($filter['product_bought']) || preg_match('/^([0-9]{1,},?){1,}$/', $filter['product_bought'])) && $filter['product_bought'] > 0)
 		{
 		$sql = "
 SELECT
@@ -1134,26 +1138,26 @@ client_customer.company_id,
 
 (	SELECT COUNT(DISTINCT ecommerce_basket.id) FROM ecommerce_basket 
 	INNER JOIN ecommerce_basket_content ON (ecommerce_basket_content.basket_id = ecommerce_basket.id AND ecommerce_basket_content.product_variety_id IN
-		(SELECT id FROM ecommerce_product_variety WHERE product_id = {$filter['product_bought']}))
+		(SELECT id FROM ecommerce_product_variety WHERE product_id IN ({$filter['product_bought']})))
 	WHERE ecommerce_basket.customer_id = client_customer.id
 ) AS count_baskets,
 
 (	SELECT COUNT(DISTINCT ecommerce_basket.id) FROM ecommerce_basket 
 	INNER JOIN ecommerce_basket_content ON (ecommerce_basket_content.basket_id = ecommerce_basket.id AND ecommerce_basket_content.product_variety_id IN
-		(SELECT id FROM ecommerce_product_variety WHERE product_id = {$filter['product_bought']}))
+		(SELECT id FROM ecommerce_product_variety WHERE product_id IN ({$filter['product_bought']})))
 	INNER JOIN ecommerce_order ON (ecommerce_order.basket_id = ecommerce_basket.id)
 	WHERE ecommerce_basket.customer_id = client_customer.id
 ) AS count_orders,
 
 (	SELECT SUM(ecommerce_basket_content.quantity) FROM ecommerce_basket 
 	INNER JOIN ecommerce_basket_content ON (ecommerce_basket_content.basket_id = ecommerce_basket.id AND ecommerce_basket_content.product_variety_id IN
-		(SELECT id FROM ecommerce_product_variety WHERE product_id = {$filter['product_bought']}))
+		(SELECT id FROM ecommerce_product_variety WHERE product_id IN ({$filter['product_bought']})))
 	WHERE ecommerce_basket.customer_id = client_customer.id
 ) AS count_items,
 
 (	SELECT SUM(ecommerce_basket_content.quantity * ecommerce_price.value) FROM ecommerce_basket 
 	INNER JOIN ecommerce_basket_content ON (ecommerce_basket_content.basket_id = ecommerce_basket.id AND ecommerce_basket_content.product_variety_id IN
-		(SELECT id FROM ecommerce_product_variety WHERE product_id = {$filter['product_bought']}))
+		(SELECT id FROM ecommerce_product_variety WHERE product_id IN ({$filter['product_bought']})))
 	INNER JOIN ecommerce_order ON (ecommerce_order.basket_id = ecommerce_basket.id)
 	INNER JOIN ecommerce_price ON (ecommerce_price.id = ecommerce_basket_content.price_id)
 	WHERE ecommerce_basket.customer_id = client_customer.id
@@ -1162,7 +1166,7 @@ client_customer.company_id,
 FROM client_customer
 INNER JOIN ecommerce_basket ON (ecommerce_basket.customer_id = client_customer.id)
 INNER JOIN ecommerce_basket_content ON (ecommerce_basket_content.basket_id = ecommerce_basket.id AND ecommerce_basket_content.product_variety_id IN
-		(SELECT id FROM ecommerce_product_variety WHERE product_id = {$filter['product_bought']}))
+		(SELECT id FROM ecommerce_product_variety WHERE product_id IN ({$filter['product_bought']})))
 INNER JOIN ecommerce_order ON (ecommerce_order.basket_id = ecommerce_basket.id)
 INNER JOIN ecommerce_invoice ON  (ecommerce_invoice.order_id = ecommerce_order.id) 
 LEFT OUTER JOIN client_address ON (client_address.id = client_customer.invoices_address_id)
@@ -1223,9 +1227,9 @@ ORDER BY client_customer.id";
 		/**
 		 * add filter to end result
 		 */
-		 
+		
 		if ($subselect_add_to_where) $sql = "SELECT * FROM ($sql) AS subquery WHERE 1=1 $subselect_add_to_where";
-
+		
 		//msg($sql);
 		
 		return $this->executeSql($sql);
