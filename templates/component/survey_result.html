@@ -2,14 +2,14 @@
 <div class="survey_result">
 
 <h2>{SURVEY.title|htmlspecialchars}</h2>
-<p><span title="průměrné hodnocení">Výsledná průměrná známka: {SURVEY.average_rating}</span> <br />
+<p><span title="průměrné hodnocení">Výsledná průměrná známka: {SURVEY.average_rating|number_format(2)}</span> <br />
 Počet odpovědí: <span title="počet respondentů">{SURVEY.number_of_responses}</span></p>
 <!-- BEGIN: result -->
 	
 	<!-- BEGIN: question -->
 	
 		<h4>{QUESTION.title|htmlspecialchars}</h4>
-		<p><span title="průměrné hodnocení">Průměrná známka: {QUESTION.average_rating}</span></p>
+		<p><span title="průměrné hodnocení">Průměrná známka: {QUESTION.average_rating|number_format(2)}</span></p>
 	
 		<!-- BEGIN: answer_list_text -->
 			<ul class="text">

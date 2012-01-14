@@ -45,7 +45,8 @@ a.fe_edit_go {display: block; padding-left: 20px; background-image: url(/share/i
 a.onxshop_nopublish,
 a.onxshop_nopublish span,
 .disabled,
-.notpublic {text-decoration: line-through;}
+.notpublic,
+.publish_0 {text-decoration: line-through;}
 
 /**
  * tables
