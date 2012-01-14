@@ -101,7 +101,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Customer_Filter extends Onxshop_
 			foreach ($product_list as $item) {
 				
 				if (is_array($_SESSION['customer-filter']['product_bought'])) {
-					if (in_array($item['id'], $_SESSION['customer-filter']['product_bought'])) $item['selected'] = "selected='selected'";
+					if (in_array($item['id'], $_SESSION['customer-filter']['product_bought'])) $item['checked'] = "checked='checked'";
 					else $item['selected'] = '';
 				} else {
 					$item['selected'] = '';
