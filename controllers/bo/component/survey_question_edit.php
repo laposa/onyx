@@ -21,8 +21,10 @@ class Onxshop_Controller_Bo_Component_Survey_Question_Edit extends Onxshop_Contr
 		 */
 		 
 		if ($_POST['save'] && is_array($_POST['question'])) {
-		
-			$this->saveQuestion($_POST['question']);
+			
+			$question_data = $_POST['question'];
+			if (!is_numeric($question_data['mandatory'])) $question_data['mandatory'] = 0;
+			$this->saveQuestion($question_data);
 			
 		}
 		

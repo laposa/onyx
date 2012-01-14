@@ -26,7 +26,6 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 		require_once('models/education/education_survey.php');
 		$this->Survey = new education_survey();
 		
-		
 		/**
 		 * get survey detail
 		 */
@@ -105,6 +104,13 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 		}
 
 		$this->tpl->assign('QUESTION', $question_detail);
+		
+		/**
+		 * if mandatory, than add 'required' CSS class
+		 */
+		 
+		if ($question_detail['mandatory']) $this->tpl->assign('CLASS_REQUIRED', 'required');
+		else $this->tpl->assign('CLASS_REQUIRED', '');
 		
 		switch ($question_detail['type']) {
 			

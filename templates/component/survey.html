@@ -19,16 +19,16 @@ label.error { display: none; }
 			<span class="label"><label for="question_id_{QUESTION.id}">{QUESTION.title|htmlspecialchars}</label></span>
 			<span class="field">
 				<!-- BEGIN: answer_text -->
-				<textarea class="required" name="answer[{QUESTION.id}]">{SELECTED_VALUE}</textarea>
+				<textarea class="{CLASS_REQUIRED}" name="answer[{QUESTION.id}]">{SELECTED_VALUE}</textarea>
 				<!-- END: answer_text -->
 				<!-- BEGIN: answer_list_radio -->
 					<!-- BEGIN: item -->
-					<div class="row"><input type="radio" class="required" name="answer[{QUESTION.id}]" value="{ANSWER.id}" {SELECTED} id="answer_id_{ANSWER.id}"> <label for="answer_id_{ANSWER.id}">{ANSWER.title|htmlspecialchars}</label></div>
+					<div class="row"><input type="radio" class="{CLASS_REQUIRED}" name="answer[{QUESTION.id}]" value="{ANSWER.id}" {SELECTED} id="answer_id_{ANSWER.id}"> <label for="answer_id_{ANSWER.id}">{ANSWER.title|htmlspecialchars}</label></div>
 					<!-- END: item -->
 					<label for="answer[{QUESTION.id}]" class="error">This field is required.</label>
 				<!-- END: answer_list_radio -->
 				<!-- BEGIN: answer_list_select -->
-				<select class="required" name="answer[{QUESTION.id}]" id="question_id_{QUESTION.id}">
+				<select class="{CLASS_REQUIRED}" name="answer[{QUESTION.id}]" id="question_id_{QUESTION.id}">
 					<option value="">-</option>
 					<!-- BEGIN: item -->
 					<option value="{ANSWER.id}" {SELECTED}>{ANSWER.title|htmlspecialchars}</option>

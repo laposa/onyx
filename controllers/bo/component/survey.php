@@ -139,6 +139,7 @@ class Onxshop_Controller_Bo_Component_Survey extends Onxshop_Controller {
 			
 			$this->tpl->assign("SELECTED_{$question_detail['publish']}", "selected='selected'");
 			$this->tpl->assign("SELECTED_{$question_detail['type']}", "selected='selected'");
+			$this->tpl->assign("CHECKED_mandatory_{$question_detail['mandatory']}", "checked='checked'");
 			
 			$this->tpl->assign('QUESTION', $question_detail);
 		}
