@@ -9,11 +9,13 @@ $(document).ready(function() {
 });
 </script>
 
-<p>{ONXSHOP_REQUEST_taxonomy #component/breadcrumb_taxonomy~id=GET.id~}</p>
-<p><a class="button add" title="Add category here" href='/backoffice/advanced/taxonomy/add/{GET.id}'><span>Add taxonomy category here ...</span></a></p>
+
 
 <!-- BEGIN: editor -->
 <form method="post" action="{URI}" id="taxonomy-edit-{GET.id}">
+
+	<p>{ONXSHOP_REQUEST_taxonomy #component/breadcrumb_taxonomy~id=GET.id~}</p>
+	<p><a class="button add" title="Add category here" href='/backoffice/advanced/taxonomy/add/{GET.id}'><span>Add taxonomy category here ...</span></a></p>
 
 	<div id="taxonomy_edit">
 	

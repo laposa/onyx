@@ -72,13 +72,20 @@ class common_taxonomy {
 		
 		$label_data['publish'] = 1;
 		
-		if ($id = $this->TaxonomyLabel->insert($label_data)) {
+		$label_data_clean = $label_data;
+		unset($label_data_clean['parent']);
+		unset($label_data_clean['priority']);
+		
+		if ($id = $this->TaxonomyLabel->insert($label_data_clean)) {
+		
 			$ltree_data['label_id'] = $id;
 			
 			//leave as null if not provided (root is NULL)
 			if ($label_data['parent']) $ltree_data['parent'] = $label_data['parent'];
 			
-			$ltree_data['priority'] = $label_data['priority'];
+			if (is_numeric($label_data['priority'])) $ltree_data['priority'] = $label_data['priority'];
+			else $ltree_data['priority'] = 0;
+			
 			$ltree_data['publish'] = $label_data['publish'];
 
 			if ($tree_id = $this->labelLink($ltree_data)) {
