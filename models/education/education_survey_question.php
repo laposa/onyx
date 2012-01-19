@@ -75,7 +75,8 @@ class education_survey_question extends Onxshop_Model {
 		'mandatory'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'type'=>array('label' => '', 'validation'=>'string', 'required'=>true),
 		'priority'=>array('label' => '', 'validation'=>'int', 'required'=>false),
-		'publish'=>array('label' => '', 'validation'=>'int', 'required'=>false)
+		'publish'=>array('label' => '', 'validation'=>'int', 'required'=>false),
+		'weight'=>array('label' => '', 'validation'=>'int', 'required'=>false)
 	);
 	
 	/**
@@ -95,7 +96,8 @@ CREATE TABLE education_survey_question (
 	mandatory smallint DEFAULT 1,
 	type varchar(255) NOT NULL,
 	priority smallint DEFAULT 0,
-	publish smallint DEFAULT 1
+	publish smallint DEFAULT 1,
+	weight real NOT NULL DEFAULT 1
 );
 		";
 		

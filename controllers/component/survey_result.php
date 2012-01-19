@@ -70,7 +70,9 @@ class Onxshop_Controller_Component_Survey_Result extends Onxshop_Controller_Comp
 		foreach ($survey_detail['question_list'] as $kq=>$question) {
 			
 			if ($question['type'] == 'text') {
+			
 				$question['answer_list'] = $this->getAnswersForQuestion($question['id'], $relation_subject);
+			
 			} else {
 			
 				//add usage count and find max
@@ -190,6 +192,35 @@ class Onxshop_Controller_Component_Survey_Result extends Onxshop_Controller_Comp
 		if ($survey_total_sum > 0) $survey_detail['average_rating'] = $survey_total_x / $survey_total_sum;
 		else $survey_detail['average_rating'] = 'n/a';
 		
+		/**
+		 * weighted mean rating
+		 * calculating manually at this place, but we could use education_survey_entry->getWeightedMean()
+		 */
+		 
+		$weighted_mean_top = 0;
+		$weighted_mean_bottom = 0;
+				
+		foreach ($survey_detail['question_list'] as $k=>$item) {
+			
+			if (is_numeric($item['average_rating'])) {
+			
+				$weighted_mean_top = $weighted_mean_top + $item['weight'] * $item['average_rating'];
+				$weighted_mean_bottom = $weighted_mean_bottom + $item['weight'];
+				
+			}
+			
+		}
+		
+		if ($weighted_mean_bottom > 0) {
+			
+			$survey_detail['weighted_mean'] = $weighted_mean_top / $weighted_mean_bottom;
+			
+		} else {
+			
+			$survey_detail['weighted_mean'] = 'n/a';
+			
+		}
+		
 		return $survey_detail;
 	}
 	
@@ -227,35 +258,51 @@ class Onxshop_Controller_Component_Survey_Result extends Onxshop_Controller_Comp
 			return false;
 		}
 
+		//don't show hidden questions
+		if ($question_detail['publish'] != 1) return true;
+		
 		$this->tpl->assign('QUESTION', $question_detail);
 		
 		switch ($question_detail['type']) {
 			
 			case 'text':
+				
+				if (count($question_detail['answer_list']) == 0) $question_detail['answer_list'][]['value'] = 'n/a'; 
+
 				foreach ($question_detail['answer_list'] as $item) {
 					$this->tpl->assign('ANSWER', $item);
 					$this->tpl->parse('content.result.question.answer_list_text.item');
 				}
 
 				$this->tpl->parse('content.result.question.answer_list_text');
+				
 			break;
 			
 			case 'radio':
+				
 				foreach ($question_detail['answer_list'] as $item) {
 					$this->tpl->assign('ANSWER', $item);
 					$this->tpl->parse('content.result.question.answer_list_radio.item');
 				}
+			
 				$this->tpl->parse('content.result.question.answer_list_radio');
+				$this->tpl->parse('content.result.question.average_rating');
+			
 			break;
 
 			case 'select':
 			default:
+			
 				foreach ($question_detail['answer_list'] as $item) {
 					
 					$this->tpl->assign('ANSWER', $item);
 					$this->tpl->parse('content.result.question.answer_list_select.item');	
+			
 				}		
+			
 				$this->tpl->parse('content.result.question.answer_list_select');
+				$this->tpl->parse('content.result.question.average_rating');
+			
 			break;
 		}
 		

@@ -14,7 +14,7 @@
 		</tfoot>
 		<tbody>
 			<!-- BEGIN: question -->
-			<tr>
+			<tr class="publish_{QUESTION.publish}">
 				<td><a class="button edit publish_{QUESTION.publish}" title="Edit question" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_question_edit~id={QUESTION.id}~'); return false" href="#sub_content"><span>{QUESTION.title|htmlspecialchars}</span></a><br />{QUESTION.description|htmlspecialchars}</td>
 				<td>
 					<!-- BEGIN: answer_text -->

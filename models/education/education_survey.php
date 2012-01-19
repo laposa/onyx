@@ -172,6 +172,9 @@ CREATE TABLE education_survey (
 		require_once('models/education/education_survey_entry.php');
 		$SurveyEntry = new education_survey_entry();
 		
+		//hack for Unicode in Postgresql/JSON
+		if ($relation_subject) $relation_subject = preg_replace('/\\\/', '_', $relation_subject);
+		
 		if ($relation_subject) $where = "survey_id = {$survey_id} AND relation_subject = '$relation_subject'";
 		else $where = "survey_id = {$survey_id}";
 		

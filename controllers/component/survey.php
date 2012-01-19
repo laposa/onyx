@@ -82,7 +82,7 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 			if (is_array($submitted_answers)) $selected_value = $submitted_answers[$item['id']];
 			else $selected_value = false;
 			
-			$this->displayQuestion($item, $selected_value);
+			if ($item['publish'] == 1) $this->displayQuestion($item, $selected_value);
 			
 		}
 		

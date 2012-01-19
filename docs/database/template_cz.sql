@@ -1865,7 +1865,8 @@ CREATE TABLE education_survey_question (
     mandatory smallint DEFAULT 1,
     type character varying(255) NOT NULL,
     priority smallint DEFAULT 0,
-    publish smallint DEFAULT 1
+    publish smallint DEFAULT 1,
+    weight real NOT NULL DEFAULT 1
 );
 
 

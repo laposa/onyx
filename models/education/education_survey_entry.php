@@ -90,6 +90,9 @@ CREATE TABLE education_survey_entry (
 		require_once('models/education/education_survey_entry_answer.php');
 		$SurveyEntryAnswer = new education_survey_entry_answer();
 		
+		//hack for Unicode in Postgresql/JSON
+		if ($relation_subject) $relation_subject = preg_replace('/\\\/', '_', $relation_subject);
+		
 		return $SurveyEntryAnswer->getAnswersForQuestion($question_id, $relation_subject);
 		
 	}
@@ -103,6 +106,9 @@ CREATE TABLE education_survey_entry (
 		require_once('models/education/education_survey_entry_answer.php');
 		$SurveyEntryAnswer = new education_survey_entry_answer();
 		
+		//hack for Unicode in Postgresql/JSON
+		if ($relation_subject) $relation_subject = preg_replace('/\\\/', '_', $relation_subject);
+		
 		return $SurveyEntryAnswer->getAnswerUsageCount($question_answer_id, $relation_subject);
 	}
 	
@@ -114,6 +120,9 @@ CREATE TABLE education_survey_entry (
 	public function getSurveyUsageCount($survey_id, $relation_subject = false) {
 	
 		if (!is_numeric($survey_id)) return false;
+		
+		//hack for Unicode in Postgresql/JSON
+		if ($relation_subject) $relation_subject = preg_replace('/\\\/', '_', $relation_subject);
 		
 		if ($relation_subject) $where = "survey_id = {$survey_id} AND relation_subject LIKE '$relation_subject'";
 		else $where = "survey_id = {$survey_id}";
@@ -204,8 +213,19 @@ CREATE TABLE education_survey_entry (
 	 * getSurveyCustomerCount
 	 */
 	 
-	public function getSurveyCustomerCount() {
-		$sql = "SELECT count(DISTINCT customer_id) FROM education_survey_entry";
+	public function getSurveyCustomerCount($survey_id = false, $relation_subject = false) {
+		
+		$add_to_where = '1=1 ';
+		
+		if (is_numeric($survey_id)) {
+			$add_to_where .= " AND education_survey_entry.survey_id = $survey_id";
+		}
+		
+		if ($relation_subject) {	
+			$add_to_where .= " AND relation_subject LIKE '$relation_subject'";
+		}
+		
+		$sql = "SELECT count(DISTINCT customer_id) FROM education_survey_entry WHERE $add_to_where";
 		$result = $this->executeSql($sql);
 		
 		return $result[0]['count'];
@@ -218,26 +238,54 @@ CREATE TABLE education_survey_entry (
 	public function getAverageRating($survey_id = false, $relation_subject = false) {
 		
 		$add_to_where = '1=1 ';
+
+        if (is_numeric($survey_id)) {
+            $add_to_where .= " AND education_survey_entry.survey_id = $survey_id";
+        }
+
+        if ($relation_subject) {
+            $add_to_where .= " AND relation_subject LIKE '$relation_subject'";
+        }
+
+        $sql = "SELECT avg(education_survey_question_answer.points) FROM education_survey_entry
+        LEFT OUTER JOIN education_survey_entry_answer ON (education_survey_entry_answer.survey_entry_id = education_survey_entry.id)
+        LEFT OUTER JOIN education_survey_question_answer ON (education_survey_question_answer.id = education_survey_entry_answer.question_answer_id)
+        WHERE $add_to_where;
+        ";
+
+        $result = $this->executeSql($sql);
+
+        return $result[0]['avg'];
+        
+	}
+	
+	/**
+	 * get weighted mean
+	 */
+	 
+	public function getWeightedMean($survey_id = false, $relation_subject = false) {
+	
+		$add_to_where = '1=1 ';
 		
 		if (is_numeric($survey_id)) {
 			$add_to_where .= " AND education_survey_entry.survey_id = $survey_id";
 		}
 		
 		if ($relation_subject) {
-			
 			$add_to_where .= " AND relation_subject LIKE '$relation_subject'";
-		
 		}
 		
-		$sql = "SELECT avg(education_survey_question_answer.points) FROM education_survey_entry
+		$sql = "SELECT sum(education_survey_question_answer.points * education_survey_question.weight) / sum(education_survey_question.weight) AS weighted_mean FROM education_survey_entry
 		LEFT OUTER JOIN education_survey_entry_answer ON (education_survey_entry_answer.survey_entry_id = education_survey_entry.id)
 		LEFT OUTER JOIN education_survey_question_answer ON (education_survey_question_answer.id = education_survey_entry_answer.question_answer_id)
+		LEFT OUTER JOIN education_survey_question ON (education_survey_question.id = education_survey_question_answer.question_id)
 		WHERE $add_to_where;
 		";
 		
 		$result = $this->executeSql($sql);
 		
-		return $result[0]['avg'];
+		return $result[0]['weighted_mean'];
+	
 	}
 	
 }

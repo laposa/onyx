@@ -36,7 +36,8 @@ CREATE TABLE education_survey_question (
 	mandatory smallint DEFAULT 1,
 	type varchar(255) NOT NULL,
 	priority smallint DEFAULT 0,
-	publish smallint DEFAULT 1
+	publish smallint DEFAULT 1,
+	weight real NOT NULL DEFAULT 1
 );
 
 CREATE TABLE education_survey_question_answer (
