@@ -266,14 +266,38 @@ class Onxshop_Controller_Component_Survey_Result extends Onxshop_Controller_Comp
 		switch ($question_detail['type']) {
 			
 			case 'text':
-				
-				if (count($question_detail['answer_list']) == 0) $question_detail['answer_list'][]['value'] = 'n/a'; 
 
+				/**
+				 * iterate through and mark if at least one answer is available
+				 */
+				 
 				foreach ($question_detail['answer_list'] as $item) {
-					$this->tpl->assign('ANSWER', $item);
+					
+					if (strlen(trim($item['value'])) > 0) {
+						
+						$this->tpl->assign('ANSWER', $item);
+						$this->tpl->parse('content.result.question.answer_list_text.item');
+						
+						$at_least_one_text_answer_is_available = true;
+					}
+				}
+				
+				/**
+				 * check if at least one text answer is shown
+				 */
+				 
+				if (!$at_least_one_text_answer_is_available) {
+					
+					$dummy_answer['value'] = 'n/a'; 
+					$this->tpl->assign('ANSWER', $dummy_answer);
 					$this->tpl->parse('content.result.question.answer_list_text.item');
+				
 				}
 
+				/**
+				 * display the answer wrapping block
+				 */
+				 
 				$this->tpl->parse('content.result.question.answer_list_text');
 				
 			break;
