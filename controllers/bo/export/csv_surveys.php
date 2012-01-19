@@ -1,11 +1,13 @@
 <?php
 /** 
- * Copyright (c) 2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2011-2012 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
+ 
+require_once('controllers/bo/export/csv.php');
 
-class Onxshop_Controller_Bo_Export_CSV_Surveys extends Onxshop_Controller {
+class Onxshop_Controller_Bo_Export_CSV_Surveys extends Onxshop_Controller_Bo_Export_CSV {
 
 	/**
 	 * main action
@@ -33,13 +35,15 @@ class Onxshop_Controller_Bo_Export_CSV_Surveys extends Onxshop_Controller {
 				$header = 0;
 				
 				foreach ($records as $record) {
+					
 					/**
-					 * Create a header
+					 * Create header
 					 */
 					if ($header == 0) {
+					
 						foreach ($record as $key=>$val) {
+					
 							$column['name'] = $key;
-							//$column['type'] = $col->type;
 					
 							$this->tpl->assign('COLUMN', $column);
 							$this->tpl->parse('content.th');
@@ -48,7 +52,9 @@ class Onxshop_Controller_Bo_Export_CSV_Surveys extends Onxshop_Controller {
 					}
 		        
 					foreach ($record as $key=>$val) {
+					
 						if (!is_numeric($val)) {
+					
 							$val = addslashes($val);
 							$val = '"' . $val . '"';
 							$val = preg_replace("/[\n\r]/", '', $val);
@@ -63,17 +69,12 @@ class Onxshop_Controller_Bo_Export_CSV_Surveys extends Onxshop_Controller {
 		
 			
 			//set the headers for the output
-		    /*
-		    UTF16 for excel
-		    header( "Content-type: application/vnd.ms-excel; charset=UTF-16LE" );
-		    header('Content-Disposition: attachment; filename="export.csv"');
-		    echo chr(255).chr(254).mb_convert_encoding( $vypis_csv, 'UTF-16LE', 'UTF-8′);*/
-			header('Content-type: text/csv; charset=UTF-8');
-			header('Content-Disposition: attachment; filename="customers-'.date('Y\-m\-d\_Hi').'.csv"');
-			header("Cache-Control: cache, must-revalidate");
-			header("Pragma: public");
+			$this->sendCSVHeaders('surveys');
+			
 		} else {
+			
 			echo "no records"; exit;
+		
 		}
 
 		return true;
