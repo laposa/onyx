@@ -260,6 +260,39 @@ class Onxshop_Bootstrap {
 		
 		return $request;
 	}
+	
+	/**
+	 * check is authentication is required
+	 */
+	 
+	public function isRequiredAuthentication($request) {
+	
+		$auth_is_required = false;
+		
+		//force login when request is from bo/ folder
+		if (preg_match('/bo\//', $request)) {
+			
+			$auth_is_required = true;
+			
+		}
+		
+		//force login when controller_request in uri_mapping is from bo/ folder
+		if ($_GET['controller_request']) {
+			
+			if (preg_match('/bo\//', $_GET['controller_request'])) $auth_is_required = true;
+			
+		}
+		
+		//force login when specified
+		if ($_GET['fe_edit'] == 1 || $_GET['login'] == 1 || (ONXSHOP_REQUIRE_AUTH && !ONXSHOP_IS_DEBUG_HOST)) {
+		
+			$auth_is_required = true;
+			
+		}
+		
+		return $auth_is_required;
+		
+	}
 
 	/**
 	 * Init pre action controllers
@@ -283,7 +316,7 @@ class Onxshop_Bootstrap {
 		 * User authentication required for certain actions
 		 */
 		
-		if (preg_match('/bo\//', $request) || $_GET['fe_edit'] == 1 || $_GET['login'] == 1 || (ONXSHOP_REQUIRE_AUTH && !ONXSHOP_IS_DEBUG_HOST)) {
+		if ($this->isRequiredAuthentication($request)) {
 			if(!$this->processAuthentication($request)) {
 				$request = 'sys/xhtml.sys/401';
 			}
