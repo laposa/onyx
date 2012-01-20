@@ -3,10 +3,13 @@
 <div class="order_detail">
 	<h3>{I18N_ORDER} #{ORDER.id} {I18N_CREATED} {ORDER.created}</h3>
 	
-	<!-- BEGIN: make_payment -->
-	<p><a class="button make_payment" href="/page/{NODE_CONF.id_map-payment}?order_id={GET.order_id}"><span>Make Payment</span></a></p>
-	<!-- END: make_payment -->
-	<p><a class="button repeat_order" href="/page/{NODE_CONF.id_map-basket}?populate_basket_from_order_id={GET.order_id}"><span>Repeat</span></a></p>
+	<p>
+		<!-- BEGIN: make_payment -->
+		<a class="button make_payment" href="/page/{NODE_CONF.id_map-payment}?order_id={GET.order_id}"><span>Make Payment</span></a>
+		<!-- END: make_payment -->
+		<a class="button repeat_order" href="/page/{NODE_CONF.id_map-basket}?populate_basket_from_order_id={GET.order_id}"><span>Repeat</span></a>
+		<a class="button print_invoice" href="/print/invoice/{GET.order_id}"><span>Print</span></a>
+	</p>
 	
 	{BASKET_DETAIL}
 	
@@ -30,9 +33,6 @@
 			<div class="bottom"><span></span></div>
 		</div>
 	</div>
-	
-	
-	
 	
 	<pre>{ORDER.note_customer}</pre>
 	
