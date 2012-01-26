@@ -227,11 +227,11 @@ CREATE TABLE common_node (
 		
 		//containers
 		if (!is_numeric($conf['id_map-root'])) $conf['id_map-root'] = 0;
-		if (!is_numeric($conf['id_map-globalmenu'])) $conf['id_map-globalmenu'] = 88;
-		if (!is_numeric($conf['id_map-mainmenu'])) $conf['id_map-mainmenu'] = 1;
+		if (!is_numeric($conf['id_map-globalmenu'])) $conf['id_map-globalmenu'] = 88;//globalNavigation
+		if (!is_numeric($conf['id_map-mainmenu'])) $conf['id_map-mainmenu'] = 1;//primaryNavigation
 		if (!is_numeric($conf['id_map-ecommercemenu'])) $conf['id_map-ecommercemenu'] = 2;
 		if (!is_numeric($conf['id_map-systemmenu'])) $conf['id_map-systemmenu'] = 3;
-		if (!is_numeric($conf['id_map-footermenu'])) $conf['id_map-footermenu'] = 4;
+		if (!is_numeric($conf['id_map-footermenu'])) $conf['id_map-footermenu'] = 4;//footerNavigation
 		if (!is_numeric($conf['id_map-content_bits'])) $conf['id_map-content_bits'] = 85;
 		if (!is_numeric($conf['id_map-content_side'])) $conf['id_map-content_side'] = 86;
 		if (!is_numeric($conf['id_map-content_foot'])) $conf['id_map-content_foot'] = 87;
