@@ -43,7 +43,7 @@
 			
 			
 			<!-- BEGIN: default -->
-				<img id="image_thumbnail_{FILE.id}" src="/thumbnail/125/{FILE.src}" title="{FILE.title}" alt="{FILE.title}" />
+				<img id="image_thumbnail_{FILE.id}" src="/thumbnail/125x125/{FILE.src}" title="{FILE.title}" alt="{FILE.title}" />
 			<!-- END: default -->
 			
 			
@@ -73,7 +73,7 @@
 			<!-- END: RTE_select -->
 			
 			<!-- BEGIN: CSS_select -->
-				<a href="#" onclick="var src = $('#image_thumbnail_{FILE.id}').attr('src'); alert('Copy&amp;Paste this:\nurl(' + src + ')'); return false;"><img id="image_thumbnail_{FILE.id}" src="/thumbnail/125/{FILE.src}" title="{FILE.title}"  alt="{FILE.title}" /></a> <br />
+				<a href="#" onclick="var src = $('#image_thumbnail_{FILE.id}').attr('src'); alert('Copy&amp;Paste this:\nurl(' + src + ')'); return false;"><img id="image_thumbnail_{FILE.id}" src="/thumbnail/125x125/{FILE.src}" title="{FILE.title}"  alt="{FILE.title}" /></a> <br />
 				<a class="button" href="#" onclick="var src = $('#image_thumbnail_{FILE.id}').attr('src'); alert('Copy&amp;Paste this:\nurl(' + src + ')'); return false;"><span>use this ...</span></a>
 			<!-- END: CSS_select -->
 		</div>
