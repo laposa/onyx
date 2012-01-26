@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2012 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -22,7 +22,7 @@ class Onxshop_Controller_Locales extends Onxshop_Controller {
 		} else {
 		
 			if ($_POST['locale']) {
-				$locale_map = array('', 'en_GB.UTF-8', 'en_US.UTF-8', 'en_IE.UTF-8', 'cs_CZ.UTF-8', 'de_DE.UTF-8', 'en_AU.UTF-8', 'ja_JP.UTF-8', 'en_CA.UTF-8', 'en_HK.UTF-8', 'en_NZ.UTF-8');
+				$locale_map = array('', 'en_GB.UTF-8', 'en_US.UTF-8', 'en_IE.UTF-8', 'cs_CZ.UTF-8', 'de_DE.UTF-8', 'en_AU.UTF-8', 'ja_JP.UTF-8', 'en_CA.UTF-8', 'en_HK.UTF-8', 'en_NZ.UTF-8', 'ru_RU.UTF-8', 'he_IL.UTF-8');
 				$locale = $locale_map[$_POST['locale']];
 			} else if ($_SESSION['locale']) {
 				$locale = $_SESSION['locale'];
@@ -38,7 +38,7 @@ class Onxshop_Controller_Locales extends Onxshop_Controller {
 		 */
 		
 		
-		$allowed_locales = array('en_GB.UTF-8', 'en_US.UTF-8', 'en_IE.UTF-8', 'cs_CZ.UTF-8', 'de_DE.UTF-8', 'en_AU.UTF-8', 'ja_JP.UTF-8', 'en_CA.UTF-8', 'en_HK.UTF-8', 'en_NZ.UTF-8');
+		$allowed_locales = array('en_GB.UTF-8', 'en_US.UTF-8', 'en_IE.UTF-8', 'cs_CZ.UTF-8', 'de_DE.UTF-8', 'en_AU.UTF-8', 'ja_JP.UTF-8', 'en_CA.UTF-8', 'en_HK.UTF-8', 'en_NZ.UTF-8', 'ru_RU.UTF-8', 'he_IL.UTF-8');
 		
 		if (!in_array($locale, $allowed_locales)) {
 		
