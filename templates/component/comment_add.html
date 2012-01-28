@@ -19,42 +19,42 @@
 	});  
 	</script>
 	
-	<form id="comment_form_{GET.node_id}" class='comment' method='post' action='{URI}#comment_form_{GET.node_id}'>
+	<form id="comment_form_{GET.node_id}" class="comment" method="post" action="{URI}#comment_form_{GET.node_id}">
 		<fieldset class="single">
 			<!-- BEGIN: identity_show -->
 			<div class="row">
 				<span class="label"><label for="comment_author_name_{GET.node_id}"><span class="mandatory-mark">*</span> {I18N_AUTHOR_NAME}:</label></span>
-				<span class="field"><input class="required text" type='text' id="comment_author_name_{GET.node_id}" name='comment[author_name]' value='{COMMENT.author_name|htmlspecialchars}' {DISABLED.author_name} /></span>
+				<span class="field"><input class="required text" type="text" id="comment_author_name_{GET.node_id}" name="comment[author_name]" value="{COMMENT.author_name|htmlspecialchars}" {DISABLED.author_name} /></span>
 			</div>
 			<div class="row">
 				<span class="label"><label for="comment_author_email_{GET.node_id}"><span class="mandatory-mark">*</span> {I18N_AUTHOR_EMAIL}:</label></span>
-				<span class="field"><input class="required text" type='text' id="comment_author_email_{GET.node_id}" name='comment[author_email]' value='{COMMENT.author_email|htmlspecialchars}' {DISABLED.author_email} /></span>
+				<span class="field"><input class="required text" type="text" id="comment_author_email_{GET.node_id}" name="comment[author_email]" value="{COMMENT.author_email|htmlspecialchars}" {DISABLED.author_email} /></span>
 			</div>
 				<!-- BEGIN: website -->
 				<div class="row">
 					<span class="label"><label for="comment_author_website_{GET.node_id}">{I18N_AUTHOR_WEBSITE}:</label></span>
-					<span class="field"><input class="text" type='text' id="comment_author_website_{GET.node_id}" name='comment[author_website]' value='{COMMENT.author_website|htmlspecialchars}' {DISABLED.author_website} /></span>
+					<span class="field"><input class="text" type="text" id="comment_author_website_{GET.node_id}" name="comment[author_website]" value="{COMMENT.author_website|htmlspecialchars}" {DISABLED.author_website} /></span>
 				</div>
 				<!-- END: website -->
 			<!-- END: identity_show -->
 			<!-- BEGIN: identity_hidden -->
-			<input type='hidden' name='comment[author_name]' value='n/a' />
-			<input type='hidden' name='comment[author_email]' value='anonym@noemail.com' />
+			<input type="hidden" name="comment[author_name]" value="n/a" />
+			<input type="hidden" name="comment[author_email]" value="anonym@noemail.com" />
 			<!-- END: identity_hidden -->
 			<div class="row">
 				<span class="label"><label for="comment_title_{GET.node_id}"><span class="mandatory-mark">*</span> {I18N_SUBJECT}:</label></span>
-				<span class="field"><input class="required text title" type='text' id="comment_title_{GET.node_id}" name='comment[title]' value='{COMMENT.title|htmlspecialchars}' /></span>
+				<span class="field"><input class="required text title" type="text" id="comment_title_{GET.node_id}" name="comment[title]" value="{COMMENT.title|htmlspecialchars}" /></span>
 			</div>
 			<div class="row">
 				<span class="label"><label for="comment_content_{GET.node_id}"><span class="mandatory-mark">*</span> {I18N_TEXT}:</label></span>
-				<span class="field"><textarea class="required text" id="comment_content_{GET.node_id}" name='comment[content]' cols='50' rows='10'>{COMMENT.content|htmlspecialchars}</textarea></span>
+				<span class="field"><textarea class="required text" id="comment_content_{GET.node_id}" name="comment[content]" cols="50" rows="10">{COMMENT.content|htmlspecialchars}</textarea></span>
 			</div>
 			<div class="row submit">
 				<span class="label"><label>&nbsp;</label></span>
-				<span class="field"><button type="submit" name='save' class='send_comment' value='send'><span>{I18N_SEND}</span></button></span>
+				<span class="field"><button type="submit" name="save" class="send_comment" value="send"><span>{I18N_SEND}</span></button></span>
 		    </div>
-			<input type='hidden' class="parent" name='comment[parent]' value='0' />
-			<input type='hidden' class="node_id"  name='comment[node_id]' value='{GET.node_id}' />
+			<input type="hidden" class="parent" name="comment[parent]" value="0" />
+			<input type="hidden" class="node_id"  name="comment[node_id]" value="{GET.node_id}" />
 		</fieldset>	
     </form>
     <!-- END: comment_insert -->

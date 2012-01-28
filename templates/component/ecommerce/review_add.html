@@ -19,20 +19,20 @@
 	});
 	</script>
 
-	<form id="review_form_{GET.node_id}" class='comment' method='post' action='{URI}#review_form_{GET.node_id}'>
+	<form id="review_form_{GET.node_id}" class="comment" method="post" action="{URI}#review_form_{GET.node_id}">
 		<fieldset class="single">
 			<legend>Add a new review</legend>
 			<div class="row">
 				<span class="label"><label for="comment_author_name_{GET.node_id}"><span class="mandatory-mark">*</span> {I18N_AUTHOR_NAME}:</label></span>
-				<span class="field"><input class="required text" type='text' id="comment_author_name_{GET.node_id}" name='comment[author_name]' value='{COMMENT.author_name|htmlspecialchars}' /></span>
+				<span class="field"><input class="required text" type="text" id="comment_author_name_{GET.node_id}" name="comment[author_name]" value="{COMMENT.author_name|htmlspecialchars}" /></span>
 			</div>
 			<div class="row">
 				<span class="label"><label for="comment_title_{GET.node_id}"><span class="mandatory-mark">*</span> Short summary:</label></span>
-				<span class="field"><input class="required text" type='text' id="comment_title_{GET.node_id}" name='comment[title]' value='{COMMENT.title|htmlspecialchars}' /></span>
+				<span class="field"><input class="required text" type="text" id="comment_title_{GET.node_id}" name="comment[title]" value="{COMMENT.title|htmlspecialchars}" /></span>
 			</div>
 			<div class="row">
 				<span class="label"><label for="comment_content_{GET.node_id}"><span class="mandatory-mark">*</span> Your review:</label></span>
-				<span class="field"><textarea class="required text" id="comment_content_{GET.node_id}" name='comment[content]' cols='50' rows='10' style="width: 100%; height: 40px;">{COMMENT.content|htmlspecialchars}</textarea></span>
+				<span class="field"><textarea class="required text" id="comment_content_{GET.node_id}" name="comment[content]" cols="50" rows="10" style="width: 100%; height: 40px;">{COMMENT.content|htmlspecialchars}</textarea></span>
 				
 			</div>
 			
@@ -52,12 +52,12 @@
 			
 			<div class="row submit">
 				<span class="label"><label>&nbsp;</label></span>
-				<span class="field"><button type="submit" name='save' class='send_comment' value='send'><span>{I18N_SUBMIT}</span></button></span>
+				<span class="field"><button type="submit" name="save" class="send_comment" value="send"><span>{I18N_SUBMIT}</span></button></span>
 		    </div>
 		    
-			<input type='hidden' name='comment[parent]' value='0' />
-			<input type='hidden' name='comment[node_id]' value='{GET.node_id}' />
-			<input type='hidden' name='comment[author_email]' value='{COMMENT.author_email}' />
+			<input type="hidden" name="comment[parent]" value="0" />
+			<input type="hidden" name="comment[node_id]" value="{GET.node_id}" />
+			<input type="hidden" name="comment[author_email]" value="{COMMENT.author_email|htmlspecialchars}" />
 		</fieldset>
     </form>
     <p>Please note that all submitted reviews &amp; comments will become the licensed property of {CONFIGURATION.global.author_content|htmlspecialchars}</p>
