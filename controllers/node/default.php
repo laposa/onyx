@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2012 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -60,7 +60,10 @@ class Onxshop_Controller_Node_Default extends Onxshop_Controller {
 		 */
 		 
 		if ($_SESSION['fe_edit_mode'] == 'edit' || $_SESSION['fe_edit_mode'] == 'move') {
-			for ($key = 0; $key < 6; $key++) {
+			//normally we support container.0 to container.6 in default templates, but why not to have some reserve, e.g. 20
+			$min_container_id = 0;
+			$max_container_id = 20;
+			for ($key = $min_container_id; $key < ($max_container_id + 1); $key++) {
 				$container[$key] = "<div class='onxshop_layout_container' id='onxshop_layout_container_{$node_id}_{$key}'>{$container[$key]}</div>";	
 			}
 		}

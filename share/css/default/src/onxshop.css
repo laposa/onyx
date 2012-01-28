@@ -262,6 +262,45 @@ div.fourColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContent
 div.fourColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnThree > div.layoutColumnWrapper {margin-left: 8px; margin-right: 8px;}
 div.fourColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnFour > div.layoutColumnWrapper {margin-left: 16px;}
 
+/********* node/layout/5columns.html *********/
+div.fiveColumnLayout {clear: both;}
+div.fiveColumnLayout div.layoutColumnOne, 
+div.fiveColumnLayout div.layoutColumnTwo, 
+div.fiveColumnLayout div.layoutColumnThree,
+div.fiveColumnLayout div.layoutColumnFour,
+div.fiveColumnLayout div.layoutColumnFive {width: 20%; overflow: hidden;}
+div.fiveColumnLayout div.layoutColumnOne, 
+div.fiveColumnLayout div.layoutColumnTwo,
+div.fiveColumnLayout div.layoutColumnThree,
+div.fiveColumnLayout div.layoutColumnFour {float: left;}
+div.fiveColumnLayout div.layoutColumnFive {float: right;}
+div.fiveColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnOne > div.layoutColumnWrapper {margin-right: 16px;}
+div.fiveColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnTwo > div.layoutColumnWrapper,
+div.fiveColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnThree > div.layoutColumnWrapper,
+div.fiveColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnFour > div.layoutColumnWrapper {margin-left: 8px; margin-right: 8px;}
+div.fiveColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnFive > div.layoutColumnWrapper {margin-left: 16px;}
+
+/********* node/layout/6columns.html *********/
+div.sixColumnLayout {clear: both;}
+div.sixColumnLayout div.layoutColumnOne, 
+div.sixColumnLayout div.layoutColumnTwo, 
+div.sixColumnLayout div.layoutColumnThree,
+div.sixColumnLayout div.layoutColumnFour,
+div.sixColumnLayout div.layoutColumnFive,
+div.sixColumnLayout div.layoutColumnSix {width: 16.666%; overflow: hidden;}
+div.sixColumnLayout div.layoutColumnOne, 
+div.sixColumnLayout div.layoutColumnTwo,
+div.sixColumnLayout div.layoutColumnThree,
+div.sixColumnLayout div.layoutColumnFour,
+div.sixColumnLayout div.layoutColumnFive {float: left;}
+div.sixColumnLayout div.layoutColumnSix {float: right;}
+div.sixColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnOne > div.layoutColumnWrapper {margin-right: 16px;}
+div.sixColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnTwo > div.layoutColumnWrapper,
+div.sixColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnThree > div.layoutColumnWrapper,
+div.sixColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnFour > div.layoutColumnWrapper,
+div.sixColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnFive > div.layoutColumnWrapper {margin-left: 8px; margin-right: 8px;}
+div.sixColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnSix > div.layoutColumnWrapper {margin-left: 16px;}
+
 /****************************************************************************************/
 /*****************************          node/content        *****************************/
 /****************************************************************************************/
