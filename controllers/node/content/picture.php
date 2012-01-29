@@ -69,6 +69,8 @@ class Onxshop_Controller_Node_Content_Picture extends Onxshop_Controller_Node_Co
 			$image_controller = 'component/image_gallery_tools';
 		} else if ($node_data['component']['template'] == 'nivo') {
 			$image_controller = 'component/image_gallery_nivo';
+		} else if ($node_data['component']['template'] == 'prettyphoto') {
+			$image_controller = 'component/image_gallery_prettyphoto';
 		} else {
 			$image_controller = 'component/image';
 			//$image_limit = '0,1';

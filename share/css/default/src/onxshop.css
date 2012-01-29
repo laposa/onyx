@@ -426,6 +426,9 @@ div.image_gallery_smooth div.imageInfo {display: none;}
 /********* component/image_gallery_fancybox.html *********/
 div.image_gallery_fancybox div.item {float: left; margin-right: 30px;}
 
+/********* component/image_gallery_prettyphoto.html *********/
+div.image_gallery_prettyphoto div.item {float: left; margin-right: 30px;}
+
 /********* component/google_picasa_feed.html *********/
 div.googlePicasaFeed {margin-bottom: 30px;}
 div.googlePicasaFeed div.imageThumbnailsContainer {width: 750px; height: 100px; overflow: auto; white-space: nowrap;}
