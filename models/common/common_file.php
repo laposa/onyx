@@ -700,7 +700,7 @@ CREATE TABLE common_file (
 				
 				return $result;
 			} else {
-				msg("common_image.getImageSize(): $files is not an image", 'error');
+				msg("common_image.getImageSize(): $files is not an image", 'error', 1);
 				return false;
 			}
 		} else {
