@@ -193,8 +193,8 @@ div.twoColumnLayout {clear: both;}
 /*default, fibonacci-1-1, 50%/50%*/
 div.twoColumnLayout div.layoutColumnOne,
 div.twoColumnLayout.fibonacci-1-1 div.layoutColumnOne {float: left; width: 49.999%;} /*should be 50%, but ie7,ie7 problem with equal devision odd width values*/
-div.twoColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnOne > div.layoutColumnWrapper {margin-right: 15px;}
-div.twoColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnTwo > div.layoutColumnWrapper {margin-left: 15px;}
+div.twoColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnOne > div.layoutColumnWrapper {margin-right: 15px;}
+div.twoColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnTwo > div.layoutColumnWrapper {margin-left: 15px;}
 /*ie6 inherited*/
 div.twoColumnLayout div.layoutContentWrapper div.layoutColumnOne div.layoutColumnTwo div.layoutColumnWrapper {margin-right: 0;}
 div.twoColumnLayout div.layoutContentWrapper div.layoutColumnTwo div.layoutColumnOne div.layoutColumnWrapper {margin-left: 0;}
@@ -243,9 +243,9 @@ div.threeColumnLayout div.layoutColumnThree {width: 33.3%; overflow: hidden;}
 div.threeColumnLayout div.layoutColumnOne, 
 div.threeColumnLayout div.layoutColumnTwo {float: left;}
 div.threeColumnLayout div.layoutColumnThree {float: right;}
-div.threeColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnOne > div.layoutColumnWrapper {margin-right: 16px;}
-div.threeColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnTwo > div.layoutColumnWrapper {margin-left: 8px; margin-right: 8px;}
-div.threeColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnThree > div.layoutColumnWrapper {margin-left: 16px;}
+div.threeColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnOne > div.layoutColumnWrapper {margin-right: 16px;}
+div.threeColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnTwo > div.layoutColumnWrapper {margin-left: 8px; margin-right: 8px;}
+div.threeColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnThree > div.layoutColumnWrapper {margin-left: 16px;}
 
 /********* node/layout/4columns.html *********/
 div.fourColumnLayout {clear: both;}
@@ -257,10 +257,10 @@ div.fourColumnLayout div.layoutColumnOne,
 div.fourColumnLayout div.layoutColumnTwo,
 div.fourColumnLayout div.layoutColumnThree {float: left;}
 div.fourColumnLayout div.layoutColumnFour {float: right;}
-div.fourColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnOne > div.layoutColumnWrapper {margin-right: 16px;}
-div.fourColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnTwo > div.layoutColumnWrapper,
-div.fourColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnThree > div.layoutColumnWrapper {margin-left: 8px; margin-right: 8px;}
-div.fourColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnFour > div.layoutColumnWrapper {margin-left: 16px;}
+div.fourColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnOne > div.layoutColumnWrapper {margin-right: 16px;}
+div.fourColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnTwo > div.layoutColumnWrapper,
+div.fourColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnThree > div.layoutColumnWrapper {margin-left: 8px; margin-right: 8px;}
+div.fourColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnFour > div.layoutColumnWrapper {margin-left: 16px;}
 
 /********* node/layout/5columns.html *********/
 div.fiveColumnLayout {clear: both;}
@@ -274,11 +274,11 @@ div.fiveColumnLayout div.layoutColumnTwo,
 div.fiveColumnLayout div.layoutColumnThree,
 div.fiveColumnLayout div.layoutColumnFour {float: left;}
 div.fiveColumnLayout div.layoutColumnFive {float: right;}
-div.fiveColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnOne > div.layoutColumnWrapper {margin-right: 16px;}
-div.fiveColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnTwo > div.layoutColumnWrapper,
-div.fiveColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnThree > div.layoutColumnWrapper,
-div.fiveColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnFour > div.layoutColumnWrapper {margin-left: 8px; margin-right: 8px;}
-div.fiveColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnFive > div.layoutColumnWrapper {margin-left: 16px;}
+div.fiveColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnOne > div.layoutColumnWrapper {margin-right: 16px;}
+div.fiveColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnTwo > div.layoutColumnWrapper,
+div.fiveColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnThree > div.layoutColumnWrapper,
+div.fiveColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnFour > div.layoutColumnWrapper {margin-left: 8px; margin-right: 8px;}
+div.fiveColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnFive > div.layoutColumnWrapper {margin-left: 16px;}
 
 /********* node/layout/6columns.html *********/
 div.sixColumnLayout {clear: both;}
@@ -294,12 +294,12 @@ div.sixColumnLayout div.layoutColumnThree,
 div.sixColumnLayout div.layoutColumnFour,
 div.sixColumnLayout div.layoutColumnFive {float: left;}
 div.sixColumnLayout div.layoutColumnSix {float: right;}
-div.sixColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnOne > div.layoutColumnWrapper {margin-right: 16px;}
-div.sixColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnTwo > div.layoutColumnWrapper,
-div.sixColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnThree > div.layoutColumnWrapper,
-div.sixColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnFour > div.layoutColumnWrapper,
-div.sixColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnFive > div.layoutColumnWrapper {margin-left: 8px; margin-right: 8px;}
-div.sixColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnSix > div.layoutColumnWrapper {margin-left: 16px;}
+div.sixColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnOne > div.layoutColumnWrapper {margin-right: 16px;}
+div.sixColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnTwo > div.layoutColumnWrapper,
+div.sixColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnThree > div.layoutColumnWrapper,
+div.sixColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnFour > div.layoutColumnWrapper,
+div.sixColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnFive > div.layoutColumnWrapper {margin-left: 8px; margin-right: 8px;}
+div.sixColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnSix > div.layoutColumnWrapper {margin-left: 16px;}
 
 /****************************************************************************************/
 /*****************************          node/content        *****************************/
