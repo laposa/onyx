@@ -1,6 +1,6 @@
-# Global /robots.txt file Xsite
+# Global /robots.txt file Onxshop
 
 Sitemap: /sitemap.xml
 
 User-agent: *
-Disallow: /login
+
