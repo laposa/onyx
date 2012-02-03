@@ -3,7 +3,7 @@
 <div class="order_detail">
 	<h3>{I18N_ORDER} #{ORDER.id} {I18N_CREATED} {ORDER.created}</h3>
 	
-	<p>
+	<p class="actions">
 		<!-- BEGIN: make_payment -->
 		<a class="button make_payment" href="/page/{NODE_CONF.id_map-payment}?order_id={GET.order_id}"><span>Make Payment</span></a>
 		<!-- END: make_payment -->
