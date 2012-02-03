@@ -9,7 +9,8 @@ $(document).ready( function(){
 
     $('#primaryNavigation ul li').hover(
         function() {
-            $('ul', this).css('display', 'block');
+            $(this).addClass('dropdown_open');
+            $('ul', this).slideDown(350);
             var pos = $(this).offset();
             var width = $(this).width();
             var height = $(this).height();
@@ -17,8 +18,11 @@ $(document).ready( function(){
 
         },
         function() {
+        	$(this).removeClass('dropdown_open');
             $('ul', this).css('display', 'none');
         }
     );
 
+	$('#primaryNavigation a').attr('title', '');
+	
 });
