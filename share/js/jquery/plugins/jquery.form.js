@@ -1,6 +1,6 @@
 /*!
  * jQuery Form Plugin
- * version: 2.92 (22-NOV-2011)
+ * version: 2.95 (30-JAN-2012)
  * @requires jQuery v1.3.2 or later
  *
  * Examples and documentation at: http://malsup.com/jquery/form/
@@ -204,20 +204,36 @@ $.fn.ajaxSubmit = function(options) {
 			}
 		});
 
-		options.data = null;
-		var _beforeSend = options.beforeSend;
-		options.beforeSend = function(xhr, options) {
-			options.data = formdata;
-			if (xhr.upload) { // unfortunately, jQuery doesn't expose this prop (http://bugs.jquery.com/ticket/10190)
-				xhr.upload.onprogress = function(event) {
-					options.progress(event.position, event.total);
-				}
-			}
-			if (_beforeSend)
-				_beforeSend.call(options, xhr, options);
+		if (options.extraData) {
+			for (var k in options.extraData)
+				formdata.append(k, options.extraData[k])
 		}
-		$.ajax(options);
-	}
+
+		options.data = null;
+
+		var s = $.extend(true, {}, $.ajaxSettings, options, {
+			contentType: false,
+			processData: false,
+			cache: false,
+			type: 'POST'
+		});
+
+      //s.context = s.context || s;
+
+      s.data = null;
+      var beforeSend = s.beforeSend;
+      s.beforeSend = function(xhr, o) {
+          o.data = formdata;
+          if(xhr.upload) { // unfortunately, jQuery doesn't expose this prop (http://bugs.jquery.com/ticket/10190)
+              xhr.upload.onprogress = function(event) {
+                  o.progress(event.position, event.total);
+              };
+          }
+          if(beforeSend)
+              beforeSend.call(o, xhr, options);
+      };
+      $.ajax(s);
+   }
 
 	// private function for handling file uploads (hat tip to YAHOO!)
 	function fileUploadIframe(a) {
@@ -326,7 +342,7 @@ $.fn.ajaxSubmit = function(options) {
 			return doc;
 		}
 		
-		// Rails CSRF hack (thanks to Yvan BARTHƒLEMY)
+		// Rails CSRF hack (thanks to Yvan Barthelemy)
 		var csrf_token = $('meta[name=csrf-token]').attr('content');
 		var csrf_param = $('meta[name=csrf-param]').attr('content');
 		if (csrf_param && csrf_token) {
