@@ -62,7 +62,7 @@ Onxshop (1.5.0/dev)
   * jQuery.validate upgraded to version 1.9.0
   * jQuery UI upgraded to version 1.8.16
   * jQuery upgraded to version 1.6.4
-  * TinyMCE upgraded to version 3.4.6
+  * TinyMCE upgraded to version 3.4.8
   * Zend Framework upgraded to version 1.11.11
   * validation for username changed from email to string
 
