@@ -43,3 +43,6 @@ if .htaccess was locally modified, than merge manually
 
 make sure custom contact_forms are using |htmlspecialchars in their templates
 
+check all pages and containers have parent_container = 0
+and for fix trigger upgrade-1.4.x-parent_container.sql
+inconsistency in this can cause problems in sorting pages via drag&drop
