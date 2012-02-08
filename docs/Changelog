@@ -1,5 +1,11 @@
 Onxshop (1.5.0/dev)
 
+  * add print button to order detail in the front-end
+  * add locales for russian and hebrew language
+  * add prettyPhoto as picture gallery option
+  * change padding from 70px to 10px on Fancybox picture gallery
+  * add layoutBody wrapper to every layout
+  * add 5 and 6 columns layouts directly as content type
   * move htmlspecialchars into contact_form templates
   * drop custom getmicrotime() function
   * add UNIQUE public_uri constraint to common_uri_mapping
@@ -19,6 +25,7 @@ Onxshop (1.5.0/dev)
   * various comment component improvements
   * remove htmlspecialchars from mail subject
   * add CSS class for customer_account_type_{ID}
+  * add locale_ class to #site div
   * use addslashes instead of htmlspecialchars in Javascript GA
   * add support for different product detail page templates
   * modify default database template and project_skeleton
@@ -58,6 +65,8 @@ Onxshop (1.5.0/dev)
   * big cleaning in share/ directory
   * finished Xsite -> Onxshop name transition
   * using Zend_Db instead of ADOdb, much improved Onxshop_Model
+  * upgrade jquery.mousewheel to version 3.0.4
+  * upgrade jquery.fancybox to version 1.3.4
   * jQuery Form upgraded to version 2.95
   * jQuery.validate upgraded to version 1.9.0
   * jQuery UI upgraded to version 1.8.16
@@ -66,7 +75,7 @@ Onxshop (1.5.0/dev)
   * Zend Framework upgraded to version 1.11.11
   * validation for username changed from email to string
 
--- Norbert Laposa <norbert@laposa.co.uk>  2011-12-13
+-- Norbert Laposa <norbert@laposa.co.uk>  2011-02-08
 
 Onxshop (1.4.7)
   
