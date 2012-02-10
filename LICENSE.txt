@@ -1,4 +1,4 @@
-Copyright (c) 2005-2011, Laposa Ltd
+Copyright (c) 2002-2012, Laposa Ltd
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification,
