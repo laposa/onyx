@@ -28,8 +28,8 @@
 		<tbody>
 			<!-- BEGIN: item -->
 			<tr>
-				<td>{ITEM.title}</td>
-				<td>{ITEM.code_pattern}</td>
+				<td>{ITEM.title|htmlspecialchars}</td>
+				<td>{ITEM.code_pattern|htmlspecialchars}</td>
 				<td class="number">{ITEM.count}</td>
 				<td class="money">{ITEM.sum_goods_net|money_format('%n', %s)}</td>
 				<td class="money">{ITEM.sum_discount_net|money_format('%n', %s)}</td>

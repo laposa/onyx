@@ -32,7 +32,7 @@ $(document).ready(function() {
 		<!-- BEGIN: variety -->
 		<tr>
 			<td>
-				<a href="/backoffice/products/variety/{VARIETY.id}/edit" onclick="javascript:openEdit('/request/sys/xhtml.bo/backoffice_wrapper.bo/component/ecommerce/product_variety_edit~id={VARIETY.id}~', this, 0); return false;" title="Click to edit whole variety">#{VARIETY.sku}</a>
+				<a href="/backoffice/products/variety/{VARIETY.id}/edit" onclick="javascript:openEdit('/request/sys/xhtml.bo/backoffice_wrapper.bo/component/ecommerce/product_variety_edit~id={VARIETY.id}~', this, 0); return false;" title="Click to edit whole variety">#{VARIETY.sku|htmlspecialchars}</a>
 				<a class="button edit" href="/backoffice/products/variety/{VARIETY.id}/edit" onclick="javascript:openEdit('/request/sys/xhtml.bo/backoffice_wrapper.bo/component/ecommerce/product_variety_edit~id={VARIETY.id}~', this, 0); return false;" title="Click to edit whole variety"><span>Edit</span></a>
 				{IMAGE}
 			</td>

@@ -32,8 +32,8 @@
 								<tbody>
 									<!-- BEGIN: item -->
 									<tr class="{DISABLED}">
-										<td><a title="Edit promotion settings" onclick="makeAjaxRequest('#promotionEdit', '/request/bo/component/ecommerce/promotion_edit~id={ITEM.id}~');" href="#promotionEdit">{ITEM.title}</a></td>
-										<td>{ITEM.code_pattern}</td>
+										<td><a title="Edit promotion settings" onclick="makeAjaxRequest('#promotionEdit', '/request/bo/component/ecommerce/promotion_edit~id={ITEM.id}~');" href="#promotionEdit">{ITEM.title|htmlspecialchars}</a></td>
+										<td>{ITEM.code_pattern|htmlspecialchars}</td>
 										<td class="number">{ITEM.usage.count}</td>
 										<td class="money">{ITEM.usage.sum_goods_net|money_format('%n', %s)}</td>
 										<td class="money">{ITEM.usage.sum_discount_net|money_format('%n', %s)}</td>

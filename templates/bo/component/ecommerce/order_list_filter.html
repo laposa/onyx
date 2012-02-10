@@ -15,28 +15,28 @@ $(document).ready(function(){
 				<span class="field" >
 					<select name="order-list-filter[status]" id="filter-status" onchange="submit()">
 						<!-- BEGIN: status -->
-						<option value="{STATUS.id}" {STATUS.selected}>{STATUS.name}</option>
+						<option value="{STATUS.id}" {STATUS.selected}>{STATUS.name|htmlspecialchars}</option>
 						<!-- END: status -->
 					</select>
 				</span>
 			</div>
 			<div class="row search">
 				<span class="label"><label>Search query</label></span>
-				<span class="field" ><input type="text" id="query" name="order-list-filter[query]" value="{_SESSION.order-list-filter.query}" /></span>
+				<span class="field" ><input type="text" id="query" name="order-list-filter[query]" value="{_SESSION.order-list-filter.query|htmlspecialchars}" /></span>
 			</div>
 														
 			<div class="row registered_between">
 				<span class="label"><label>Created between</label></span>
 				<span class="field">
-					<input type="text" class="text" id="order-list-filter-created_from" name="order-list-filter[created_from]" value="{_SESSION.order-list-filter.created_from}" />
-					<input type="text" class="text" id="order-list-filter-created_to" name="order-list-filter[created_to]" value="{_SESSION.order-list-filter.created_to}" />
+					<input type="text" class="text" id="order-list-filter-created_from" name="order-list-filter[created_from]" value="{_SESSION.order-list-filter.created_from|htmlspecialchars}" />
+					<input type="text" class="text" id="order-list-filter-created_to" name="order-list-filter[created_to]" value="{_SESSION.order-list-filter.created_to|htmlspecialchars}" />
 				</span>
 			</div>
 			<!--  <div class="row activity_between">
 				<span class="label"><label>Modified between</label></span>
 				<span class="field">
-					<input type="text" class="text" id="order-list-filter-activity_from" name="order-list-filter[activity_from]" value="{_SESSION.order-list-filter.activity_from}" />
-					<input type="text" class="text" id="order-list-filter-activity_to" name="order-list-filter[activity_to]" value="{_SESSION.order-list-filter.activity_to}" />
+					<input type="text" class="text" id="order-list-filter-activity_from" name="order-list-filter[activity_from]" value="{_SESSION.order-list-filter.activity_from}|htmlspecialchars" />
+					<input type="text" class="text" id="order-list-filter-activity_to" name="order-list-filter[activity_to]" value="{_SESSION.order-list-filter.activity_to|htmlspecialchars}" />
 				</span>
 			</div>-->
 		</fieldset>
