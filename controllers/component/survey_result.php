@@ -107,7 +107,7 @@ class Onxshop_Controller_Component_Survey_Result extends Onxshop_Controller_Comp
 		 * get average rating
 		 */
 		 
-		$survey_detail = $this->calculateSurveyAverageRating($survey_detail);
+		$survey_detail = $this->calculateSurveyAverageRating($survey_detail, $relation_subject);
 		
 		return $survey_detail;
 		
@@ -156,7 +156,7 @@ class Onxshop_Controller_Component_Survey_Result extends Onxshop_Controller_Comp
 	 * calculateSurveyAverageRating
 	 */
 	 
-	public function calculateSurveyAverageRating($survey_detail) {
+	public function calculateSurveyAverageRating($survey_detail, $relation_subject = fals) {
 	
 		if (!is_array($survey_detail)) return false;
 		if (!is_array($survey_detail['question_list'])) return false;
@@ -196,7 +196,7 @@ class Onxshop_Controller_Component_Survey_Result extends Onxshop_Controller_Comp
 		 * weighted mean rating
 		 * calculating manually at this place, but we could use education_survey_entry->getWeightedMean()
 		 */
-		 
+		/* Option 1: manual
 		$weighted_mean_top = 0;
 		$weighted_mean_bottom = 0;
 				
@@ -219,6 +219,21 @@ class Onxshop_Controller_Component_Survey_Result extends Onxshop_Controller_Comp
 			
 			$survey_detail['weighted_mean'] = 'n/a';
 			
+		}*/
+		
+		// Option 2: weighted mean calculated from education_survey_entry->getWeightedMean()
+		require_once('models/education/education_survey_entry.php');
+		$SurveyEntry = new education_survey_entry();
+		$weighted_mean = $SurveyEntry->getWeightedMean($survey_detail['id'], $relation_subject);
+		
+		if (is_numeric($weighted_mean)) {
+		
+			$survey_detail['weighted_mean'] = $weighted_mean;
+		
+		} else {
+		
+			$survey_detail['weighted_mean'] = 'n/a';
+		
 		}
 		
 		return $survey_detail;
