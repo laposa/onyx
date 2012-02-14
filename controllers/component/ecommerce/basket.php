@@ -274,12 +274,20 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 	 
 	public function updateItems($basket_id, $basket_content) {
 		
-		foreach ($basket_content as $bk=>$bc) {
+		foreach ($basket_content as $basket_content_id=>$bc) {
 		
-			if ($this->Basket->updateBasketContent($basket_id, $bk, $bc['quantity'])) {
-			
-				msg("Item $bk has been updated.", 'ok', 2);
-			
+			if ($bc['quantity'] > 0) {
+				
+				if ($this->Basket->updateBasketContent($basket_id, $basket_content_id, $bc['quantity'])) {
+				
+					msg("Item $bk has been updated.", 'ok', 2);
+				
+				}
+				
+			} else {
+				
+				$this->removeItem($basket_id, $basket_content_id);
+				
 			}
 		}
 	}
