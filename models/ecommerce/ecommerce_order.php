@@ -117,6 +117,10 @@ CREATE TABLE ecommerce_order (
 		
 		$conf['mail_to_address'] = $GLOBALS['onxshop_conf']['global']['admin_email'];
 		$conf['mail_to_name'] = $GLOBALS['onxshop_conf']['global']['admin_email_name'];
+		
+		if ($conf['product_returns_mail_to_address'] == '') $conf['product_returns_mail_to_address'] = $GLOBALS['onxshop_conf']['global']['admin_email'];
+		if ($conf['product_returns_mail_to_name'] == '') $conf['product_returns_mail_to_name'] = $GLOBALS['onxshop_conf']['global']['admin_email_name'];
+		
 		//show print proforma invoice to customer?
 		if ($conf['proforma_invoice'] == 'false') $conf['proforma_invoice'] = false;
 		else $conf['proforma_invoice'] = true;
