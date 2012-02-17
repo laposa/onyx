@@ -26,11 +26,11 @@ class Onxshop_Controller_Component_Ecommerce_Variety_List extends Onxshop_Contro
 		 */
 		 
 		require_once('models/ecommerce/ecommerce_product.php');
-		$Product = new ecommerce_product();
+		$this->Product = new ecommerce_product();
 		
 		$product_id = $this->GET['product_id'];
 		
-		if ($variety_list = $Product->getProductVarietyList($product_id)) {
+		if ($variety_list = $this->Product->getProductVarietyList($product_id)) {
 		
 			/**
 			 * variety list
@@ -62,13 +62,24 @@ class Onxshop_Controller_Component_Ecommerce_Variety_List extends Onxshop_Contro
 			 * product options
 			 */
 
-			$ProductOptions = new nSite("component/ecommerce/product_options~id={$product_id}~");
-			$this->tpl->assign('PRODUCT_OPTIONS', $ProductOptions->getContent());
+			$this->addProductOptions($product_id);
 			
 			$this->tpl->parse('content.variety');
 			
 			return true;
 		}
+		
+	}
+	
+	/**
+	 * product options
+	 */
+			 
+	public function addProductOptions($product_id) {
+	
+		//product options from categories
+		$ProductOptions = new nSite("component/ecommerce/product_options~id={$product_id}~");
+		$this->tpl->assign('PRODUCT_OPTIONS', $ProductOptions->getContent());
 		
 	}
 }

@@ -4,7 +4,7 @@
 <div class="product_other_data">
 <dl>
 <!-- BEGIN: item -->
-<dt>{OTHER_DATA.key}</dt><dd>{OTHER_DATA.value}</dd>
+<dt>{OTHER_DATA.key|htmlspecialchars}</dt><dd>{OTHER_DATA.value|htmlspecialchars|nl2br}</dd>
 <!-- END: item -->
 </dl>
 </div>

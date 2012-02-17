@@ -214,6 +214,22 @@ CREATE TABLE ecommerce_product (
 	} 
 	
 	/**
+	 * getDetail
+	 */
+	 
+	public function getDetail($id) {
+		
+		if (!is_numeric($id)) return false;
+		
+		$product_detail = $this->detail($id);
+		//other data
+		$product_detail['other_data'] = unserialize($product_detail['other_data']);
+	
+		return $product_detail;
+		
+	}
+	
+	/**
 	 * product detail
 	 */
 	 
