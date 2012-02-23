@@ -2,7 +2,7 @@
 /**
  * class international_country
  *
- * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2012 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -63,7 +63,7 @@ CREATE TABLE international_country (
 		else $conf = array();
 
 		// define default country
-		$conf['default_id'] = 222;
+		if (!is_numeric($conf['default_id'])) $conf['default_id'] = 222;
 		
 		//better use CODE3 (i.e. GBR)
 
