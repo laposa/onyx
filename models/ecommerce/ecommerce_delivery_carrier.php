@@ -2,7 +2,7 @@
 /**
  * class ecommerce_delivery_carrier
  *
- * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2012 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -134,6 +134,7 @@ CREATE TABLE ecommerce_delivery_carrier (
 	
 		$detail = $this->detail($id);
 		$detail['free_delivery_map'] = unserialize($detail['free_delivery_map']);
+		if ($detail['limit_list_countries']) $detail['limit_list_countries'] = explode(',', $detail['limit_list_countries']);
 		
 		return $detail;
 	}
@@ -148,6 +149,7 @@ CREATE TABLE ecommerce_delivery_carrier (
 		
 		foreach ($list as $k=>$item) {
 			$list[$k]['free_delivery_map'] = unserialize($item['free_delivery_map']);
+			if ($item['limit_list_countries']) $list[$k]['limit_list_countries'] = explode(',', $item['limit_list_countries']);
 		}
 		
 		return $list;

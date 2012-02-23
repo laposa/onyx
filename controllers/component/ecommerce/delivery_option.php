@@ -2,7 +2,7 @@
 /**
  * Delivery Option
  *
- * Copyright (c) 2008-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2008-2012 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -59,8 +59,8 @@ class Onxshop_Controller_Component_Ecommerce_Delivery_Option extends Onxshop_Con
 		$carrier_list = $Delivery_carrier->getList("publish = 1", "priority DESC, id ASC");
 		
 		foreach ($carrier_list as $carrier) {
-				if ($carrier['limit_list_countries']) {
-					if ($carrier['limit_list_countries'] == $address_detail['country']['id']) $delivery_option_type[] = $carrier;
+				if (is_array($carrier['limit_list_countries'])) {
+					if (in_array($address_detail['country']['id'], $carrier['limit_list_countries'])) $delivery_option_type[] = $carrier;
 				} else {
 					$delivery_option_type[] = $carrier;
 				}
@@ -72,9 +72,9 @@ class Onxshop_Controller_Component_Ecommerce_Delivery_Option extends Onxshop_Con
 		 */
 		 
 		if (is_numeric($options['carrier_id'])) {
-			$selected_carrier_detail = $Delivery_carrier->detail($options['carrier_id']);
-			if ($selected_carrier_detail['limit_list_countries']) {
-				if ($carrier['limit_list_countries'] != $address_detail['country']['id']) {
+			$selected_carrier_detail = $Delivery_carrier->getDetail($options['carrier_id']);
+			if (is_array($selected_carrier_detail['limit_list_countries'])) {
+				if (!in_array($address_detail['country']['id'], $selected_carrier_detail['limit_list_countries'])) {
 					msg("Unsupported delivery method for {$address_detail['country']['name']}. Changed to {$delivery_option_type[0]['title']}");
 					$options['carrier_id'] = $delivery_option_type[0]['id'];
 				}
