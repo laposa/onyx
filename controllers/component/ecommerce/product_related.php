@@ -96,9 +96,20 @@ class Onxshop_Controller_Component_Ecommerce_Product_Related extends Onxshop_Con
 				$query = http_build_query($related_list, '', ':');
 				
 				/**
+				 * check request for image width and customize query in that case
+				 */
+				
+				if (is_numeric($this->GET['image_width'])) {
+					
+					$image_width = $this->GET['image_width'];
+					$query = $query . ":image_width=$image_width";
+					
+				}
+				
+				/**
 				 * call controller
 				 */
-				 
+				
 				$_nSite = new nSite("component/ecommerce/{$product_list_template}~{$query}~");
 				$this->tpl->assign('ITEMS', $_nSite->getContent());
 				$this->tpl->parse('content.product_related');
