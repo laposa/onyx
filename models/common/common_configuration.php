@@ -2,7 +2,7 @@
 /**
  * class common_configuration
  *
- * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2012 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -111,7 +111,6 @@ CREATE TABLE common_configuration (
 		if (!array_key_exists('html_title_suffix', $conf['global'])) $conf['global']['html_title_suffix'] = 'White Label';
 		if (!array_key_exists('locale', $conf['global'])) $conf['global']['locale'] = 'en_GB.UTF-8';
 		if (!array_key_exists('default_currency', $conf['global'])) $conf['global']['default_currency'] = 'GBP';
-		if (!array_key_exists('admin_email', $conf['global'])) $conf['global']['admin_email'] = 'norbert@laposa.co.uk';
 		if (!array_key_exists('author_content', $conf['global'])) $conf['global']['author_content'] = 'White Label, http://www.example.com/';
 		if (!array_key_exists('copyright', $conf['global'])) {
 			$year = date('Y', time());
@@ -157,9 +156,9 @@ CREATE TABLE common_configuration (
 		if (!array_key_exists('product_image_gallery', $conf['global'])) $conf['global']['product_image_gallery'] = 'gallery_smooth';
 		
 		/**
-		 * set default values if empty
+		 * set default address and name for emails (used for common_email, perhaps it should be moved there)
 		 */
-		
+		if (!array_key_exists('admin_email', $conf['global'])) $conf['global']['admin_email'] = 'test@onxshop.com';
 		if ($conf['global']['admin_email_name'] == '') $conf['global']['admin_email_name'] = $conf['global']['title'];
 	
 		return $conf;
