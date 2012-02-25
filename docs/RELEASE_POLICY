@@ -13,9 +13,9 @@ X.X.X.X
 
 
 1.0.0(.x)
-conf: not change
+conf: no changes are allowed
 controllers: only bugs
-database: not change
+database: no changes are allowed
 model php: only bugs
 templates: only bugs
 lib: only bugs
@@ -24,21 +24,22 @@ opt: only bugs
 can be updated without notify of customer, project.relink is not required
 
 1.0.x
-database: not change
+database: no changes are allowed
 controllers: new features
-templates: changes allowed
-lib:
+templates: minor changes allowed
+lib: upgrade allowed
 opt: upgrade allowed
+
 can be updated without notify the customer only if customer is not using local templates
 
 1.x
-database: change (need upgrade script)
-controllers: changes
-templates: change
+database: any changes are allowed (upgrade script is required)
+controllers: any changes are allowed
+templates: any changes are allowed
 
 can be upgraded without notify the customer only if customer is not using local templates
 database upgrade requires site downtime
 
 version 2.0
 -----------
-architecture update
+changes to the core architecture
