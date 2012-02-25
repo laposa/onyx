@@ -1,28 +1,52 @@
 <!-- BEGIN: content -->
 
-<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
-		
-		<fieldset>
-			<legend>Other Data</legend>
-			<div class="row">
-			<!-- BEGIN: other_data -->
-			<div class="product_other_data">
-				<!-- BEGIN: item -->
-				<div id="other_data-{OTHER_DATA.key}">
-					<span class="label"><label>{OTHER_DATA.key}</label></span>
-					<span class="field"><textarea name="product[other_data][{OTHER_DATA.key}]">{OTHER_DATA.value|htmlspecialchars}</textarea>
-					<a href="javascript: return false;" onclick="this.parentNode.parentNode.removeChild(this.parentNode)"><span>remove</span></a></span>
-				</div>
-				<!-- END: item -->
+<script type="text/javascript">
+	function addNewOtherDataAttribute() {
+		/* due to a bug in .clone method, copy textarea_value first and paste after clone using .find('textarea').val(textarea_value)
+		 * http://bugs.jquery.com/ticket/11136
+		 */
+		var textarea_value = $('#product_other_data_new textarea').val();
+		$('#product_other_data_new div.item').clone(true, true).appendTo('div.product_other_data').find('textarea').val(textarea_value);
+		$('#product_other_data_new input, #product_other_data_new textarea').val('');
+		$('#product_other_data_new textarea').attr('name', '');
+		return false;
+	}
+	
+$().ready(function() {
+	
+	$("div.product_other_data input, #product_other_data_new input").keyup(function () {
+      var value = $(this).val();
+      $(this).parent().next().children().attr('name', 'product[other_data]['+value+']');
+    });
+    
+});
+    
+</script>
+
+<fieldset>
+	<legend>Other Data</legend>
+	<div class="row">
+		<!-- BEGIN: other_data -->
+		<div class="product_other_data">
+			<!-- BEGIN: item -->
+			<div class="item">
+				<span class="label"><input type="text" value="{OTHER_DATA.key|htmlspecialchars}"></span>
+				<span class="field"><textarea name="product[other_data][{OTHER_DATA.key|htmlspecialchars}]">{OTHER_DATA.value|htmlspecialchars}</textarea>
+				<a href="javascript: return false;" onclick="$(this).parent().parent().remove()"><span>remove</span></a></span>
 			</div>
-			<!-- END: other_data -->
+			<!-- END: item -->
+		</div>
+		<!-- END: other_data -->
+	</div>
+	<div class="row">
+		<a href="#" onclick="$('#product_other_data_new').toggle(); return false;"><span>Add a new attribute</span></a>
+		<div id="product_other_data_new" style="display: none;">
+			<div class="item">
+				<span class="label"><input type="text" value=""></span>
+				<span class="field"><textarea name=""></textarea>
 			</div>
-			<div class="row">
-				<a href="#" onclick="$('#product_other_data_new').toggle(); return false;"><span>Add a new attribute</span></a>
-				<div id="product_other_data_new" style="display: none;">
-					<input type="text" name="product_other_data_new[key]" />
-					<textarea name="product_other_data_new[value]"></textarea>
-				</div>
-			</div>
-		</fieldset>
+			<p><a href="#" onclick="return addNewOtherDataAttribute();"><span>Add more</span></a></p>
+		</div>
+	</div>
+</fieldset>
 <!-- END: content -->

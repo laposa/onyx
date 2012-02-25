@@ -31,16 +31,13 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Product_Edit extends Onxshop_Con
 			 
 			if (!isset($_POST['product']['publish'])) $_POST['product']['publish'] = 0;
 			
-			$other_data_new_key = trim($_POST['product_other_data_new']['key']);
-			$other_data_new_value = trim($_POST['product_other_data_new']['value']);
+			$_POST['product']['modified'] = date('c');
 			
-			if ($other_data_new_key != '') {
-				msg("Adding new attribute {$other_data_new_key}");
-				$_POST['product']['other_data'][$other_data_new_key] = $other_data_new_value;
-			}
+			/**
+			 * handle other_data
+			 */
 			
 			$_POST['product']['other_data'] = serialize($_POST['product']['other_data']);
-			$_POST['product']['modified'] = date('c');
 			
 			/**
 			 * update product
@@ -48,7 +45,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Product_Edit extends Onxshop_Con
 			 
 			if($id = $Product->update($_POST['product'])) {
 			
-				msg("Product updated.");
+				msg("Product ID=$id updated");
 			
 				/**
 				 * update node info (if exists)
