@@ -154,8 +154,12 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 		if (is_numeric($data['add'])) {
 		
 			//add to basket action
+			// set quantity to 1 by default
 			if (!is_numeric($data['quantity'])) $data['quantity'] = 1;
-			$this->addItem($data['add'], $data['quantity'], $data['other_data']);
+			// allow to create a specific price
+			if (is_numeric($data['other_data']['multiplicator'])) $price_id = $this->getCustomPriceId($data['add'], $data['other_data']['multiplicator']);
+			// add item
+			$this->addItem($data['add'], $data['quantity'], $data['other_data'], $price_id);
 		
 		} else if (is_numeric($data['populate_basket_from_order_id'])) {
 		
@@ -214,7 +218,7 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 	 * add to basket action
 	 */
 	 
-	public function addItem($product_variety_id, $quantity, $other_data = array()) {
+	public function addItem($product_variety_id, $quantity, $other_data = array(), $price_id = false) {
 	
 		//check basket is initialised
 		if (!is_numeric($_SESSION['basket']['id'])) return false;
@@ -223,7 +227,7 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 		 * add to basket
 		 */
 		 
-		if ($this->Basket->addToBasket($_SESSION['basket']['id'], $product_variety_id, $quantity, $other_data)) {
+		if ($this->Basket->addToBasket($_SESSION['basket']['id'], $product_variety_id, $quantity, $other_data, $price_id)) {
 
 			msg("Item has been added to your basket");
 			
@@ -432,5 +436,23 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 		if ($price_conf['frontend_with_vat']) $this->tpl->assign('VAT_NOTE', I18N_PRICE_INC_VAT);
 		else $this->tpl->assign('VAT_NOTE', I18N_PRICE_EX_VAT);
 		
+	}
+	
+	/**
+	 * get or create custom price_id
+	 */
+	 
+	public function getCustomPriceId($product_variety_id, $multiplicator) {
+		
+		if (!is_numeric($product_variety_id)) return false;
+		if (!is_numeric($multiplicator)) return false;
+		
+		require_once('models/ecommerce/ecommerce_price.php');
+		$Price = new ecommerce_price();
+		
+		$price_id = $Price->getCustomPriceIdByMultiplicator($product_variety_id, $multiplicator);
+		
+		if (is_numeric($price_id)) return $price_id;
+		else return false;	
 	}
 }

@@ -86,6 +86,8 @@ CREATE TABLE ecommerce_price (
 		//$conf['type'] = array('common', 'discount', 'trade', 'trade_discount', 'cost');
 		$conf['type'] = array('common');
 		
+		if (!array_key_exists('allow_multiplicator', $conf)) $conf['allow_multiplicator'] = 0;//disabled multiplicator functionality by default
+		
 		$conf['backoffice_with_vat'] = true;
 		$conf['frontend_with_vat'] = true;
 	
@@ -222,7 +224,7 @@ CREATE TABLE ecommerce_price (
 			$price = $price_list[0];
 		}
 		
-		$price = $this->format($price);
+		if (is_numeric($price['id'])) $price = $this->format($price);
 		
 		return $price;
 	}
@@ -381,6 +383,42 @@ CREATE TABLE ecommerce_price (
 	}
 	
 	/**
+	 * getCustomPriceIdByMultiplicator
+	 */
+	 
+	public function getCustomPriceIdByMultiplicator($product_variety_id, $multiplicator) {
+		
+		if ($this->conf['allow_multiplicator'] == 0) {
+			msg("Price multiplicator is disabled", 'error');
+			return false;
+		}
+		
+		if (!is_numeric($product_variety_id)) return false;
+		if (!is_numeric($multiplicator)) return false;
+		
+		$type = "multiplicator_$multiplicator";
+		$price_data = $this->getLastPriceForVariety($product_variety_id, GLOBAL_DEFAULT_CURRENCY, $type);
+		
+		if (is_numeric($price_data['id'])) {
+		
+			$price_id = $price_data['id'];
+		
+		} else {
+		
+			$common_price_data = $this->getLastPriceForVariety($product_variety_id);
+			$price_data['product_variety_id'] = $product_variety_id;
+			$price_data['value'] = $common_price_data['value'] * $multiplicator;
+			$price_data['currency_code'] = GLOBAL_DEFAULT_CURRENCY;
+			$price_data['type'] = $type;
+			$price_id = $this->priceInsert($price_data);
+			
+		}
+		msg($price_id);
+		if (is_numeric($price_id)) return $price_id;
+		else return false;
+	}
+	
+	/**
 	 * temporary implementation for bo/component/single_record_update
 	 */
 	
@@ -394,4 +432,5 @@ CREATE TABLE ecommerce_price (
 			break;
 		}
 	}
+	
 }

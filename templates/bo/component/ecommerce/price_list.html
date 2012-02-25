@@ -39,6 +39,7 @@
 			<tr>
 				<th>date</th>
 				<th>net value</th>
+				<th>type</th>
 				<th title="how many times added to basket">usage</th>
 			</tr>
 		</thead>
@@ -47,6 +48,7 @@
 			<tr>
 				<td>{ITEM.date}</td>
 				<td>{ITEM.value|number_format(%s, 2)} {ITEM.currency_code}</td>
+				<td>{ITEM.type|htmlspecialchars}</td>
 				<td>{ITEM.usage}</td>
 			</tr>
 			<!-- END: item -->

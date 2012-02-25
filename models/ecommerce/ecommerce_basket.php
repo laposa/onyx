@@ -212,8 +212,8 @@ CREATE TABLE ecommerce_basket (
 	 * @access public
 	 */
 	 
-	function addToBasket($basket_id, $product_variety_id,  $quantity = 1, $other_data = array()) {
-
+	function addToBasket($basket_id, $product_variety_id,  $quantity = 1, $other_data = array(), $price_id = false) {
+		
 		/**
 		 * get product info
 		 */
@@ -221,7 +221,7 @@ CREATE TABLE ecommerce_basket (
 		require_once('models/ecommerce/ecommerce_product.php');
 		$Product = new ecommerce_product();
 		$product_data = $Product->getProductDetailByVarietyId($product_variety_id);
-		$price_id = $product_data['variety']['price']['id'];
+		if (!is_numeric($price_id)) $price_id = $product_data['variety']['price']['id'];
 		$product_type_id = $product_data['product_type_id'];
 		
 		/**
