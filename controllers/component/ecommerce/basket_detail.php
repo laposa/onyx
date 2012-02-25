@@ -70,7 +70,7 @@ class Onxshop_Controller_Component_Ecommerce_Basket_Detail extends Onxshop_Contr
 			foreach ($basket_detail['content']['items'] as $item) {
 			
 				//product other_data options
-				if (is_array($item['other_data']) && count($item['other_data']) > 0) $item['other_data'] = implode(",", $item['other_data']);
+				if (is_array($item['other_data']) && count($item['other_data']) > 0) $item['other_data'] = implode(", ", $item['other_data']);
 				else $item['other_data'] = '';
 
 			
