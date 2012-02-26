@@ -2,7 +2,6 @@
 <!-- BEGIN: content -->
 {FILE "bo/node/default_top.html"}
 <script type="text/javascript">
-/* <![CDATA[ */
 $(document).ready(function(){
 	$('fieldset.filter-form-edit div.component-node_id a.button').click(function() {
 		$('#href_select').addClass('ajaxLoad').load('/request/component/taxonomy_menu~expand_all=1:publish=1~', function() {
@@ -21,7 +20,6 @@ $(document).ready(function(){
 		return false;
 	});
 });
-/* ]]> */
 </script>
 
 <fieldset class="filter-form-edit">

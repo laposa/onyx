@@ -1,7 +1,6 @@
 <!-- BEGIN: content -->
 <div id="product_in_node_{GET.product_id}">
 <script type="text/javascript">
-/* <![CDATA[ */
 $(document).ready(function(){
 	$('fieldset.product_in_node a.button.product_in_node').click(function() {
 		$('#product_in_node_tree').addClass('ajaxLoad').load('/request/component/menu_js~id=0:expand_all=1:publish=0~', function() {
@@ -20,7 +19,6 @@ $(document).ready(function(){
 		return false;
 	});
 });
-/* ]]> */
 </script>
 	
 	<fieldset class="product_in_node">

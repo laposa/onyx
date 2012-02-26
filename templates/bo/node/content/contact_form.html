@@ -2,7 +2,6 @@
 <!-- BEGIN: content -->
 {FILE "bo/node/default_top.html"}
 <script type="text/javascript">
-/* <![CDATA[ */
 $(document).ready(function(){
 	$('fieldset.contact-form-edit div.href a.button').click(function() {
 		$('#href_select').addClass('ajaxLoad').load('/request/component/menu_js~id=0:expand_all=1:publish=0~', function() {
@@ -21,7 +20,6 @@ $(document).ready(function(){
 		return false;
 	});
 });
-/* ]]> */
 </script>
 <fieldset class="contact-form-edit">
 	<div class="row">

@@ -2,7 +2,6 @@
 <!-- BEGIN: content -->
 
 <script type="text/javascript">
-/* <![CDATA[ */
 $(document).ready(function(){
 	initializeServerBrowserMenu();
 });
@@ -38,7 +37,6 @@ function serverBrowserOpenDir(open_dir) {
 	makeAjaxRequest('#server_browser_file_list', url);
 	$("#add_new_file").attr('action', '{_SERVER.REDIRECT_URL}?open='+open_dir);
 }
-/* ]]> */
 </script>
 
 <div class="twoColumnPage page fibonacci-1-2">

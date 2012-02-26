@@ -1,7 +1,6 @@
 <!-- BEGIN: title -->Browse<!-- END: title -->
 <!-- BEGIN: content -->
 <script type="text/javascript">
-/* <![CDATA[ */
 $(document).ready(function(){
 	$('div.server_browser_menu .simpleTree').simpleTree({
 		drag: false,
@@ -17,7 +16,6 @@ $(document).ready(function(){
 function serverBrowserOpenDir(open_dir) {
 	makeAjaxRequest('#database-listing', "/request/bo/component/database_listing~model="+open_dir+":type={GET.type}:relation={GET.relation}:node_id={GET.node_id}~");
 }
-/* ]]> */
 </script>
 
 <div class="twoColumnPage page fibonacci-1-2">

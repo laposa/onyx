@@ -2,7 +2,6 @@
 <!-- BEGIN: content -->
 
 <script type="text/javascript">
-/* <![CDATA[ */
 $(document).ready(function(){
 	$('div.server_browser_menu .simpleTree').simpleTree({
 		drag: false,
@@ -16,12 +15,9 @@ $(document).ready(function(){
 
 });
 
-
-
 function serverBrowserOpenDir(open_dir) {
 	makeAjaxRequest('#component_configuration', "/request/bo/component/configuration.bo/component/configuration/" + open_dir);
 }
-/* ]]> */
 </script>
 
 <div class="twoColumnPage page fibonacci-1-2">

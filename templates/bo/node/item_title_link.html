@@ -1,5 +1,4 @@
 <script type="text/javascript">
-/* <![CDATA[ */
 $(document).ready(function(){
 	$('fieldset.title_options div.link_to a.button').click(function() {
 		$('#link_to_node_id_ajax').addClass('ajaxLoad').load('/request/component/menu_js~id=0:expand_all=1:publish=0:node_group=page_and_product~', function() {
@@ -18,7 +17,6 @@ $(document).ready(function(){
 		return false;
 	});
 });
-/* ]]> */
 </script>
 
 	<fieldset class="title_options">
