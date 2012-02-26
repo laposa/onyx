@@ -59,11 +59,16 @@ class Onxshop_Controller_Node_Content_News_List extends Onxshop_Controller_Node_
 		
 			case 'full';
 				$template = 'news_list';
+				$display_teaser_image = '';
 			break;
-			
+			case 'teaser';
+				$template = 'news_list_teaser';
+				$display_teaser_image = ':display_teaser_image=1';
+			break;
 			case 'latest';
 			default:
 				$template = 'news_list_latest';
+				$display_teaser_image = '';
 			break;
 		}
 		
@@ -81,7 +86,7 @@ class Onxshop_Controller_Node_Content_News_List extends Onxshop_Controller_Node_
 		 * call controller
 		 */
 		
-		$_Onxshop = new nSite("component/$template~blog_node_id=$blog_node_id:id=$node_id:limit_from=$limit_from:limit_per_page=$limit_per_page:display_pagination=$display_pagination:publish=1:taxonomy_tree_id={$taxonomy_tree_id}~");
+		$_Onxshop = new nSite("component/$template~blog_node_id=$blog_node_id:id=$node_id:limit_from=$limit_from:limit_per_page=$limit_per_page:display_pagination=$display_pagination:publish=1:taxonomy_tree_id={$taxonomy_tree_id}$display_teaser_image~");
 		$this->tpl->assign('NEWS_LIST', $_Onxshop->getContent());
 		
 		$this->tpl->assign('NODE', $node_data);

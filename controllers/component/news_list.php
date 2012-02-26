@@ -169,8 +169,9 @@ class Onxshop_Controller_Component_News_List extends Onxshop_Controller {
 						 */
 						 
 						if ($display_teaser_image) {
-							$Image = new nSite("component/image&relation=node&role=teaser&node_id={$item['id']}&limit=0,1");
-							$this->tpl->assign('IMAGE', $Image->content);
+							
+							$Image = new nSite("component/image&relation=node&role=main&node_id={$item['id']}&width=130&limit=0,1");
+							$this->tpl->assign('IMAGE', $Image->getContent());
 						}
 						
 						/**

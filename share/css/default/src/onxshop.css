@@ -342,7 +342,7 @@ div.quote p.quote {padding: 0 40px 0 0; margin: 0; text-align: center;}
 div.quote p.author {font-family: sans-serif; padding-right: 40px; text-align: center; background: none;}
 
 /********* node/content/news_list.html *********/
-div.news_list div.teaser_image {float: right; padding: 0 0 10px 10px;}
+div.news_list div.teaser_image {float: left; padding: 0 20px 10px 0;}
 div.news_list div.teaser_image a {text-decoration: none;}
 div.news_list div.created {font-family: fixed;}
 div.news_list div.created p {margin-bottom: 1em;}
