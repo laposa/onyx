@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2010-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2010-2012 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -18,8 +18,10 @@ class Onxshop_Controller_Bo_Component_Template_Edit extends Onxshop_Controller {
 		if ($this->GET['template'] != '') {
 			$model_file = $this->GET['template'];
 			$dir = explode("/", $model_file);
-		
-			$path = ONXSHOP_DIR . "templates/node/$model_file.html";
+			$filename = "templates/$model_file";
+			$this->tpl->assign('TEMPLATE_FILENAME', $filename);
+			
+			$path = ONXSHOP_DIR . $filename;
 			//$real_path = realpath($path);
 		
 			if (file_exists($path) && !is_dir($path)) {
@@ -70,7 +72,7 @@ class Onxshop_Controller_Bo_Component_Template_Edit extends Onxshop_Controller {
                     $ar_value=str_replace("(%comment_e%)", "--&gt;</span>", $ar_value);
                 }
 
-                $res.=nl2br($ar_value);
+                $res.=$ar_value;
             }
             return "<span class=\"text\">$res</span>"; // return RESULT close in tags SPAN
 	}
