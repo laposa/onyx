@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2010-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2010-2012 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -12,15 +12,13 @@ class Onxshop_Controller_Bo_Component_Backup extends Onxshop_Controller {
 	 
 	public function mainAction() {
 	
-		$package = ONXSHOP_PACKAGE_NAME;
-		//TODO: remove gold and silver when transition finished
-		if ($package == 'gold' || $package == 'silver' || $package == 'premium') {
+		if (ONXSHOP_ALLOW_BACKUP_DOWNLOAD) {
 			//$date = date("Y-m-d");
 			$filename = "{$_SERVER['HTTP_HOST']}.tar.gz";
 			if ($this->createBackupFile($filename)) onxshopGoTo("/download/var/backup/$filename");
 			else msg("Can't create backup", 'error');
 		} else {
-			msg('Sorry, this feature is available only in Silver or Gold package', 'error');
+			msg('Sorry, this feature is disabled in your installation', 'error');
 		}
 	}
 	

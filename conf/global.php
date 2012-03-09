@@ -160,3 +160,9 @@ if (!defined('ONXSHOP_PACKAGE_NAME')) define('ONXSHOP_PACKAGE_NAME', 'standard')
  
 if (!defined('ONXSHOP_SUPPORT_EMAIL')) define('ONXSHOP_SUPPORT_EMAIL', 'support@onxshop.com');
 if (!defined('ONXSHOP_SUPPORT_NAME')) define('ONXSHOP_SUPPORT_NAME', 'Onxshop support team');
+
+/**
+ * allow backup download
+ */
+
+if (!defined('ONXSHOP_ALLOW_BACKUP_DOWNLOAD')) define('ONXSHOP_ALLOW_BACKUP_DOWNLOAD', true);
