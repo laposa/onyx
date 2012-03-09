@@ -25,7 +25,6 @@ $(document).ready(function() {
 <div class="product_list">
 	{ONXSHOP_REQUEST_unfinished #bo/component/ecommerce/unfinished_products}		
 	
-	<!-- BEGIN: list -->
 	<div class="twoColumnLayout layout fibonacci-5-1">
 		<div class="layoutWrapper">
 			<div class="top"><span></span></div>
@@ -33,6 +32,7 @@ $(document).ready(function() {
 				<div class="layoutContentWrapper">
 					<div class="layoutColumnOne">
 						<div class="layoutColumnWrapper">
+							
 							<table>
 								<thead>
 									<tr>
@@ -45,6 +45,12 @@ $(document).ready(function() {
 										
 									</tr>
 								</thead>
+								
+								<!-- BEGIN: empty_list -->
+								<tbody><tr><td>No products found.</td></tr></tbody>
+								<!-- END: empty_list -->
+								
+								<!-- BEGIN: list -->
 								<tbody>
 									<!-- BEGIN: item -->
 									<tr {CLASS}>
@@ -59,6 +65,7 @@ $(document).ready(function() {
 									</tr>
 									<!-- END: item -->
 								</tbody>
+								<!-- END: list -->
 								<tfoot>
 									<tr>
 										<td colspan="6">
@@ -67,6 +74,7 @@ $(document).ready(function() {
 									</tr>
 								</tfoot>
 							</table>
+							
 						</div>
 					</div>
 					<div class="layoutColumnTwo">
@@ -81,7 +89,6 @@ $(document).ready(function() {
 			<div class="bottom"><span></span></div>
 		</div>
 	</div>
-	<!-- END: list -->
 </div>
 
 

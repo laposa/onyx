@@ -37,7 +37,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Product_List extends Onxshop_Con
 		
 		if (!is_array($product_list)) return false;
 		if (count($product_list) == 0) {
-			msg("No products found.");
+			$this->tpl->parse('content.empty_list');
 			return true;
 		}
 		
