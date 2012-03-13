@@ -83,6 +83,9 @@ class common_comment extends Onxshop_Model {
 	
 	/**
 	 * create table sql
+	 * 
+	 * @return string
+	 * SQL command for table creating
 	 */
 	 
 	private function getCreateTableSql() {
@@ -110,7 +113,19 @@ CREATE TABLE common_comment (
 	}
 	
 	/**
-	 * get tree
+	 * get comments tree
+	 * 
+	 * @param integer $node_id
+	 * ID of node for comments
+	 * 
+	 * @param integer $public
+	 * only published (1) or also unpublished (0) comments
+	 * 
+	 * @param string $sort
+	 * sorting direction ['ASC'/'DESC']
+	 * 
+	 * @return array
+	 * comments
 	 */
 	
 	function getTree($node_id, $public = 1, $sort = 'ASC') {
@@ -124,6 +139,12 @@ CREATE TABLE common_comment (
 	
 	/**
 	 * get detail
+	 * 
+	 * @param integer $id
+	 * comment ID
+	 * 
+	 * @return array
+	 * comment informations
 	 */
 	
 	public function getDetail($id) {
@@ -140,6 +161,15 @@ CREATE TABLE common_comment (
 	
 	/**
 	 * list
+	 * 
+	 * @param array $filter
+	 * comments filter with any of keys node_id, relation_subject and parent
+	 * 
+	 * @param string $sort
+	 * sorting direction ['ASC'/'DESC']
+	 * 
+	 * @return array
+	 * comments list or false
 	 */
 	 
 	function getCommentList($filter = false, $sort = 'id ASC') {
@@ -178,6 +208,12 @@ CREATE TABLE common_comment (
 	
 	/**
 	 * insert comment
+	 * 
+	 * @param array $data
+	 * comment informations for save
+	 * 
+	 * @return integer
+	 * saved comment ID or false if save failed
 	 */
 
 	function insertComment($data) {
@@ -206,6 +242,12 @@ CREATE TABLE common_comment (
 	
 	/**
 	 * update comment
+	 * 
+	 * @param array $data
+	 * comment informations for save
+	 * 
+	 * @return integer
+	 * saved comment ID or false if save failed
 	 */
 
 	function updateComment($data) {
@@ -227,6 +269,12 @@ CREATE TABLE common_comment (
 	
 	/**
 	 * get customer detail
+	 * 
+	 * @param integer $id
+	 * customer ID
+	 * 
+	 * @return array
+	 * customer informations
 	 */
 	
 	function getCustomerDetail($id) {
@@ -240,6 +288,12 @@ CREATE TABLE common_comment (
 
 	/**
 	 * notification email
+	 * 
+	 * @param integer $comment_id
+	 * ID of comment - not used
+	 * 
+	 * @param array $comment_data
+	 * information about comment
 	 */
 	 
 	public function sendNewCommentNotificationEmail($comment_id, $comment_data) {

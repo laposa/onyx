@@ -47,6 +47,9 @@ class client_group extends Onxshop_Model {
 	
 	/**
 	 * create table sql
+	 * 
+	 * @return string
+	 * SQL command for table creating
 	 */
 	 
 	private function getCreateTableSql() {
@@ -66,6 +69,9 @@ CREATE TABLE client_group (
 		
 	/**
 	 * init configuration
+	 * 
+	 * @return array
+	 * group configuration
 	 */
 	 
 	static function initConfiguration() {
@@ -77,7 +83,13 @@ CREATE TABLE client_group (
 	}
 		
 	/**
-	 * get company detail
+	 * get group detail
+	 * 
+	 * @param integer $id
+	 * group ID
+	 * 
+	 * @return array
+	 * SQL row with group informations
 	 */
 	 
 	public function getDetail($id) {
@@ -94,6 +106,9 @@ CREATE TABLE client_group (
 	
 	/**
 	 * list available groups
+	 * 
+	 * @return array
+	 * groups informations
 	 */
 	
 	public function listGroups() {
@@ -116,6 +131,12 @@ CREATE TABLE client_group (
 	
 	/**
 	 * save group
+	 * 
+	 * @param array $data
+	 * group informations for save
+	 * 
+	 * @return integer
+	 * saved group ID or false if save failed
 	 */
 	 
 	public function saveGroup($data) {

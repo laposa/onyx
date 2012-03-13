@@ -82,6 +82,9 @@ class client_address extends Onxshop_Model {
 		
 	/**
 	 * create table sql
+	 * 
+	 * @return string
+	 * SQL command for table creating
 	 */
 	 
 	private function getCreateTableSql() {
@@ -109,6 +112,9 @@ CREATE TABLE client_address (
 	
 	/**
 	 * init configuration
+	 * 
+	 * @return array
+	 * client address
 	 */
 	static function initConfiguration() {
 		if (array_key_exists('client_address', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['client_address'];
@@ -119,6 +125,12 @@ CREATE TABLE client_address (
 	
 	/**
 	 * get detail
+	 * 
+	 * @param integer $id
+	 * client ID
+	 * 
+	 * @return array
+	 * SQL row with client informations
 	 */
 
 	function getDetail($id) {
@@ -137,6 +149,12 @@ CREATE TABLE client_address (
 	
 	/**
 	 * delete address
+	 * 
+	 * @param integer $address_id
+	 * Client address ID for delete
+	 * 
+	 * @return boolean
+	 * Result of address deleting [true/false]
 	 */
 	
 	public function deleteAddress($address_id) {
@@ -179,6 +197,12 @@ CREATE TABLE client_address (
 	
 	/**
 	 * check address is deleted
+	 * 
+	 * @param integer $address_id
+	 * Client address ID for test
+	 * 
+	 * @todo
+	 * Complete this class method
 	 */
 	 
 	public function checkAddressIsDeleted($address_id) {

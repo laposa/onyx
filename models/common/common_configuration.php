@@ -48,8 +48,11 @@ class common_configuration extends Onxshop_Model {
 	
 	/**
 	 * create table sql
+	 * 
+	 * @return string
+	 * SQL command for table creating
 	 */
-	 
+		 
 	private function getCreateTableSql() {
 	
 		$sql = "
@@ -69,6 +72,15 @@ CREATE TABLE common_configuration (
 	
 	/**
 	 * get configuration
+	 * 
+	 * @param integer $node_id
+	 * ID of node
+	 * 0 for default configuration
+	 * 
+	 * @return array
+	 * configuration
+	 * 
+	 * @see getDefaultCoreValues
 	 */
 	
 	function getConfiguration($node_id = 0) {
@@ -103,6 +115,12 @@ CREATE TABLE common_configuration (
 	
 	/**
 	 * get default core values
+	 * 
+	 * @param array $conf
+	 * configuration
+	 * 
+	 * @return array
+	 * updated configuration
 	 */
 	 
 	public function getDefaultCoreValues($conf) {
@@ -166,6 +184,20 @@ CREATE TABLE common_configuration (
 	 
 	
 	/**
+	 * save configuration
+	 * 
+	 * @param string $object
+	 * name of object
+	 * 
+	 * @param string $property
+	 * name of property
+	 * 
+	 * @param string $value
+	 * value of saved object.property
+	 * 
+	 * @param integer $node_id
+	 * ID of node
+	 * 
 	 * TODO: keep id up to 1000 as reserved for system
 	 */
 
@@ -211,6 +243,16 @@ CREATE TABLE common_configuration (
 	
 	/**
 	 * compare values
+	 * 
+	 * @param array $old
+	 * compared value
+	 * 
+	 * @param array $new
+	 * compared value
+	 * 
+	 * @return boolean
+	 * is this values equal
+	 * 
 	 */
 	 
 	public function checkIfValuesChanged($old, $new) {

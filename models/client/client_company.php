@@ -59,8 +59,11 @@ class client_company extends Onxshop_Model {
 	
 	/**
 	 * create table sql
+	 * 
+	 * @return string
+	 * SQL command for table creating
 	 */
-	 
+			 
 	private function getCreateTableSql() {
 	
 		$sql = "
@@ -82,8 +85,11 @@ CREATE TABLE client_company (
 		
 	/**
 	 * init configuration
+	 * 
+	 * @return array
+	 * client company configuration
 	 */
-	 
+		 
 	static function initConfiguration() {
 		if (array_key_exists('client_company', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['client_company'];
 		else $conf = array();
@@ -93,6 +99,12 @@ CREATE TABLE client_company (
 		
 	/**
 	 * get company detail
+	 * 
+	 * @param integer $id
+	 * company ID
+	 * 
+	 * @return array
+	 * SQL row with company informations
 	 */
 	 
 	public function getDetail($id) {
@@ -107,6 +119,12 @@ CREATE TABLE client_company (
 	
 	/**
 	 * get all registered companies for a customer
+	 * 
+	 * @param integer $id
+	 * customer ID
+	 * 
+	 * @return array
+	 * SQL rows with companies informations or "false"
 	 */
 	 
 	public function getCompanyListForCustomer($customer_id) {

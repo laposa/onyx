@@ -63,8 +63,11 @@ class common_email extends Onxshop_Model {
 
 	/**
 	 * create table sql
+	 * 
+	 * @return string
+	 * SQL command for table creating
 	 */
-	 
+		 
 	private function getCreateTableSql() {
 	
 		$sql = "
@@ -87,6 +90,9 @@ CREATE TABLE common_email (
 
 	/**
 	 * init configuration
+	 * 
+	 * @return array
+	 * configuration
 	 */
 	 
 	static function initConfiguration() {
@@ -116,6 +122,12 @@ CREATE TABLE common_email (
 	
 	/**
 	 * explore form data
+	 * 
+	 * @param array $items
+	 * item list
+	 * 
+	 * @return string
+	 * formated text message
 	 */
 	
 	function exploreFormData($items) {
@@ -156,6 +168,9 @@ CREATE TABLE common_email (
 	
 	/**
 	 * get valid
+	 * 
+	 * @return boolean
+	 * form validation state
 	 */
   
 	function getFormDataValid() {
@@ -168,6 +183,12 @@ CREATE TABLE common_email (
 
 	/**
 	 * set valid
+	 * 
+	 * @param string $key
+	 * item key name
+	 * 
+	 * @param string $value
+	 * item value
 	 */
 	 
 	function setFormDataValid($key, $value) {
@@ -178,6 +199,9 @@ CREATE TABLE common_email (
 
 	/**
 	 * format key
+	 * 
+	 * @param string $key
+	 * item key name
 	 */
 	 
 	function _formatKey($key) {
@@ -189,9 +213,29 @@ CREATE TABLE common_email (
 	}
 
 	/**
-	 * send email
+	 * send e-mail
+	 * 
+	 * @param string $template
+	 * template file name
+	 * 
+	 * @param string $content
+	 * message content
+	 * 
+	 * @param string $email_recipient
+	 * recipient e-mail address
+	 * 
+	 * @param string $name_recipient
+	 * recipient display name
+	 * 
+	 * @param string $email_from
+	 * sender e-mail address
+	 * 
+	 * @param string $name_from
+	 * sender display name
+	 * 
+	 * @return boolean
+	 * send status
 	 */
-	 
 	function sendEmail($template, $content = 'n/a', $email_recipient = false, $name_recipient = false, $email_from = false, $name_from = false) {
 		
 		if (!$email_recipient) $email_recipient = $this->conf['mail_recipient_address'];
@@ -246,6 +290,10 @@ CREATE TABLE common_email (
 	
 	/**
 	 * send
+	 * internal function
+	 * 
+	 * @return boolean
+	 * send status
 	 */
 	 
 	function send() {
@@ -376,9 +424,14 @@ CREATE TABLE common_email (
 	}
 
 	/**
-	 * format
+	 * format a message
+	 * 
+	 * @param string $template
+	 * message template file name
+	 * 
+	 * @return array
+	 * formated message data
 	 */
-	 
 	function _format($template) {
 	
 		$orig = $this->get('content');
@@ -439,9 +492,14 @@ CREATE TABLE common_email (
 	/**
 	 * rewrite relative link to absolute, ie when integration a remote source
 	 *
-	 * @param unknown_type $url
-	 * @param unknown_type $html
-	 * @return unknown
+	 * @param string $url
+	 * absolute prefix of url
+	 * 
+	 * @param string $html
+	 * text for changing
+	 * 
+	 * @return string
+	 * changed text
 	 */
 	 
 	function rel2abs($url, $html) {

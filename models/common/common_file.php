@@ -63,8 +63,10 @@ class common_file extends Onxshop_Model {
 	
 	/**
 	 * create table sql
+	 * 
+	 * @return string
+	 * SQL command for table creating
 	 */
-	 
 	private function getCreateTableSql() {
 	
 		$sql = "
@@ -88,8 +90,13 @@ CREATE TABLE common_file (
 
 	/**
 	 * get file detail
+	 * 
+	 * @param integer $id
+	 * file ID
+	 * 
+	 * @return array
+	 * file detail
 	 */
-	 
 	public function getFileDetail($id) {
 		
 		if (!is_numeric($id)) return false;
@@ -103,8 +110,13 @@ CREATE TABLE common_file (
 
 	/**
 	 * get additional info
+	 * 
+	 * @param array $file_detail
+	 * file information
+	 * 
+	 * @return array
+	 * extended file detail
 	 */
-	 
 	public function pupulateAdditionalInfo($file_detail) {
 		
 		$full_path = ONXSHOP_PROJECT_DIR . $file_detail['src'];
@@ -126,8 +138,19 @@ CREATE TABLE common_file (
 	
 	/**
 	 * list files
+	 * 
+	 * @param integer $node_id
+	 * ID of node with files
+	 * 
+	 * @param string $priority
+	 * sorting part of SQL
+	 * 
+	 * @param string $role
+	 * role name or false for all
+	 * 
+	 * @return array
+	 * list of files
 	 */
-	 
 	function listFiles($node_id , $priority = "priority DESC, id ASC", $role = false) {
 	
 		$result = array();
@@ -153,8 +176,13 @@ CREATE TABLE common_file (
 	
 	/**
 	 * get file link
+	 * 
+	 * @param string $src
+	 * src of file
+	 * 
+	 * @return array
+	 * files with this src
 	 */
-	 
 	function getFileLink($src) {
 	
 		$file_list = $this->listing("src='$src'");
@@ -163,8 +191,13 @@ CREATE TABLE common_file (
 	
 	/**
 	 * insert file
+	 * 
+	 * @param array $file
+	 * information of file for insert
+	 * 
+	 * @return integer
+	 * ID of inserted file or false
 	 */
-	 
 	function insertFile($file = array()) {
 	
 		$src = ONXSHOP_PROJECT_DIR . $file['src'];
@@ -193,10 +226,17 @@ CREATE TABLE common_file (
 	 * Copy single uploaded file
 	 * return string filename on success, array when file exists, otherwise false 
 	 *
-	 * @param unknown_type $file
-	 * @param unknown_type $save_dir
-	 * @param unknown_type $type
+	 * @param array $file
+	 * information of uploaded file
+	 * 
+	 * @param string $save_dir
+	 * directory for save file
+	 * 
+	 * @param unknown_type $overwrite
+	 * not used
+	 * 
 	 * @return mixed
+	 * array with saved file information or false
 	 */
 	 
 	function getSingleUpload($file = array(), $save_dir, $overwrite = 0) {
@@ -259,9 +299,17 @@ CREATE TABLE common_file (
 	}
 	
 	/**
-	 * safe filename
+	 * safe filename convertor
+	 * 
+	 * @param string $name
+	 * original file name
+	 * 
+	 * @param integer $maxlen
+	 * maximal file name length
+	 * 
+	 * @return string
+	 * converted file name
 	 */
-	 
 	function nameToSafe($name, $maxlen=250) {
 	
 	    $name = $this->recodeUTF8ToAscii($name);
@@ -270,8 +318,13 @@ CREATE TABLE common_file (
 
 	/**
 	 * duplicated function from common_uri_mapping
+	 * 
+	 * @param string $string
+	 * text in UTF8 encoding
+	 * 
+	 * @return string
+	 * text recoded into ASCII
 	 */
-	
 	function recodeUTF8ToAscii($string) {
 	
 	    //recode to ASCII
@@ -297,8 +350,18 @@ CREATE TABLE common_file (
 	/**
 	 * Ovewrite file
 	 * 
+	 * @param string $filename
+	 * destination file name
+	 * 
+	 * @param string $save_dir
+	 * destination directory
+	 * 
+	 * @param string $temp_file
+	 * source file name
+	 * 
+	 * @return boolean
+	 * is file copied successfully?
 	 */
-	
 	function overwriteFile($filename, $save_dir, $temp_file) {
 	
 		$result = $this->_overwriteFile($filename, $save_dir, $temp_file);
@@ -326,9 +389,17 @@ CREATE TABLE common_file (
 	/**
 	 * Overwrite existing file on the filesystem
 	 *
-	 * @param unknown_type $filename
-	 * @param unknown_type $save_dir
-	 * @return bool
+	 * @param string $filename
+	 * destination file name
+	 * 
+	 * @param string $save_dir
+	 * destination directory
+	 * 
+	 * @param string $temp_file
+	 * source file name
+	 * 
+	 * @return boolean
+	 * is file copied successfully?
 	 */
 	 
 	function _overwriteFile($filename, $save_dir, $temp_file) {
@@ -346,8 +417,11 @@ CREATE TABLE common_file (
 	/**
 	 * Unlink File from database
 	 *
-	 * @param unknown_type $id
-	 * @return bool
+	 * @param integer $id
+	 * ID of file
+	 * 
+	 * @return boolean
+	 * unlinked successfully?
 	 */
 	 
 	function unlinkFile( $id ) {
@@ -366,8 +440,11 @@ CREATE TABLE common_file (
 	/**
 	 * remove file from the filesystem
 	 *
-	 * @param unknown_type $file
-	 * @return bool
+	 * @param string $file
+	 * file name
+	 * 
+	 * @return boolean
+	 * deleted successfully?
 	 */
 	 
 	function deleteFile( $file ) {
@@ -405,6 +482,9 @@ CREATE TABLE common_file (
 	 *
 	 * @param $fileglob mixed If string, must be a file name (foo.txt), glob pattern (*.txt), or directory name.
 	 *                        If array, must be an array of file names, glob patterns, or directories.
+	 *                        
+	 * @return boolean
+	 * erased successfully?
 	 */
 	 
 	function rm($fileglob) {
@@ -447,13 +527,16 @@ CREATE TABLE common_file (
 	 *
 	 * @param string $dir Directory name
 	 * @param boolean $deleteRootToo Delete specified top-level directory as well
+	 * 
+	 * @return boolean
+	 * erased successfully?
 	 */
 	 
 	function unlinkRecursive($dir, $deleteRootToo = true) {
 	
 	    if(!$dh = opendir($dir))
 	    {
-	        return;
+	        return; //TODO: return false?
 	    }
 	    while (false !== ($obj = readdir($dh)))
 	    {
@@ -481,8 +564,11 @@ CREATE TABLE common_file (
 	/**
 	 * Find where the file is used
 	 *
-	 * @param unknown_type $file
+	 * @param string $file
+	 * file src
+	 * 
 	 * @return array
+	 * file using places list
 	 */
 	 
 	function getRelations($file) {
@@ -515,8 +601,11 @@ CREATE TABLE common_file (
 	/**
 	 * Get detailed file info
 	 *
-	 * @param unknown_type $fp
+	 * @param string $fp
+	 * file name
+	 * 
 	 * @return array
+	 * file info
 	 */
 	 
 	function getFileInfo($fp) {
@@ -541,18 +630,28 @@ CREATE TABLE common_file (
 	}
 	
 	/**
-	 * encode file path
+	 * encode file path to base64
+	 * 
+	 * @param string $string
+	 * input text
+	 * 
+	 * @return string
+	 * encoded text
 	 */
-	 
 	function encode_file_path($string) {
 	
 		return str_replace('=', '_XXX_', base64_encode($string));
 	}
 
 	/**
-	 * decode file path
+	 * decode file path from base64
+	 * 
+	 * @param string $string
+	 * input text
+	 * 
+	 * @return string
+	 * encoded text
 	 */
-	 
 	function decode_file_path($string) {
 	
 		return base64_decode(str_replace('_XXX_', '=', $string));
@@ -563,9 +662,17 @@ CREATE TABLE common_file (
 	 * get file list using unix file command
 	 * TODO: use PHP glob() instead
 	 *
-	 * @param unknown_type $directory
-	 * @param unknown_type $attrs
-	 * @return unknown
+	 * @param string $directory
+	 * from this directory
+	 * 
+	 * @param string $attrs
+	 * files attributes
+	 * 
+	 * @param integer $display_hidden
+	 * with hidden files (1) or not (0)
+	 * 
+	 * @return mixed
+	 * files array or false
 	 */
 	 
 	function getFlatArrayFromFs($directory, $attrs = '', $display_hidden = 0) {
@@ -617,8 +724,11 @@ CREATE TABLE common_file (
 	/**
 	 * get joined list of files from ONXSHOP_DIR and ONXSHOP_PROJECT_DIR
 	 *
-	 * @param unknown_type $directory
-	 * @return unknown
+	 * @param string $directory
+	 * from this subdirectory
+	 * 
+	 * @return array
+	 * merged files list
 	 */
 	 
 	function getFlatArrayFromFsJoin ($directory) {
@@ -650,8 +760,15 @@ CREATE TABLE common_file (
 	/**
 	 * Get File List from file system
 	 * 
+	 * @param string $directory
+	 * from this directory
+	 * 
+	 * @param string $attrs
+	 * files attributes
+	 * 
+	 * @return mixed
+	 * files array or false
 	 */
-	 
 	function getTree($directory, $type = '') {
 
 		$list = $this->getFlatArrayFromFs($directory, $type);
@@ -663,8 +780,11 @@ CREATE TABLE common_file (
 	/**
 	 * byte format
 	 *
-	 * @param unknown_type $size
-	 * @return unknown
+	 * @param integer $size
+	 * size in numeric format
+	 * 
+	 * @return string
+	 * text representation of input size
 	 */
 	 
 	function resize_bytes($size) {
@@ -682,8 +802,13 @@ CREATE TABLE common_file (
 
 	/**
 	 * get image size
+	 * 
+	 * @param string $file
+	 * file name
+	 * 
+	 * @return mixed
+	 * array with image dimensions, or false if not found
 	 */
-	 
 	static function getImageSize($file) {
 		
 		if (is_readable($file)) {

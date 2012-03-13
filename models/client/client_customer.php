@@ -148,6 +148,9 @@ class client_customer extends Onxshop_Model {
 	
 	/**
 	 * create table sql
+	 * 
+	 * @return string
+	 * SQL command for table creating
 	 */
 	 
 	private function getCreateTableSql() {
@@ -187,6 +190,9 @@ CREATE TABLE client_customer (
 	
 	/**
 	 * init configuration
+	 * 
+	 * @return array
+	 * customer configuration
 	 */
 	 
 	static function initConfiguration() {
@@ -207,6 +213,12 @@ CREATE TABLE client_customer (
 	
 	/**
 	 * get detail
+	 * 
+	 * @param integer $id
+	 * customer ID
+	 * 
+	 * @return array
+	 * SQL row with customer informations
 	 */
 	
 	function getDetail($id) {
@@ -225,6 +237,12 @@ CREATE TABLE client_customer (
 	
 	/**
 	 * get client data
+	 * 
+	 * @param integer $id
+	 * client ID
+	 * 
+	 * @return array
+	 * customer informations
 	 */
 	 
 	function getClientData($id = 0) {
@@ -255,6 +273,12 @@ CREATE TABLE client_customer (
 	
 	/**
 	 * check register and prepare data
+	 * 
+	 * @param array $customer_data
+	 * information array for update
+	 * 
+	 * @return array
+	 * completed input $customer_data or false if not valid
 	 */
 	 
 	function prepareToRegister($customer_data) {
@@ -286,6 +310,12 @@ CREATE TABLE client_customer (
 	
 	/**
 	 * check if login id is available for new registration
+	 * 
+	 * @param array $customer_data
+	 * informations with items 'email' and 'username' for test existence
+	 * 
+	 * @return boolean
+	 * is this data available for registration? [true/false]
 	 */
 	
 	function checkLoginId($customer_data) {
@@ -319,6 +349,11 @@ CREATE TABLE client_customer (
 	
 	/**
 	 * check if is registered for newsletter only
+	 * 
+	 * @param string $email
+	 * 
+	 * @return boolean
+	 * is this email address registered for newsleter? [true/false]
 	 */
 	
 	function checkLoginIdSubscribedNewsletterOnly($email) {
@@ -342,6 +377,12 @@ CREATE TABLE client_customer (
 	/**
 	 * insert a new customer with a check whether the same customer isn't already subscribed to the newsletter
 	 * and merge data in the old newsletter account in that case
+	 * 
+	 * @param array $data
+	 * customer data for registration or update
+	 * 
+	 * @return integer
+	 * customer ID or false if not saved
 	 */
 	 
 	public function insertCustomer($data) {
@@ -365,6 +406,18 @@ CREATE TABLE client_customer (
 	
 	/**
 	 * register customer with extended validation (valid password, address check and notification sent)
+	 * 
+	 * @param array $customer_data
+	 * information about customer
+	 * 
+	 * @param array $address_data
+	 * information about customer's address
+	 * 
+	 * @param array $company_data
+	 * information about customer's company
+	 * 
+	 * @return integer
+	 * customer ID or false if not saved
 	 */
 	 
 	function registerCustomer($customer_data, $address_data, $company_data = null) {
@@ -473,8 +526,14 @@ CREATE TABLE client_customer (
 	}
 	
 	
-	/*
+	/**
 	 * This function update client_customer and client_company
+	 * 
+	 * @param array $client_data
+	 * client's information for update
+	 * 
+	 * @return boolean
+	 * is client's information updating successfully [true/false]
 	 */
 	
 	function updateClient($client_data) {
@@ -512,6 +571,12 @@ CREATE TABLE client_customer (
 	
 	/**
      * This function update only client_customer
+     * 
+	 * @param array $customer_data
+	 * customers's information for update
+	 * 
+	 * @return boolean
+	 * is customer's information updating successfully [true/false]
 	 */
 	
 	function updateCustomer($customer_data) {
@@ -577,6 +642,15 @@ CREATE TABLE client_customer (
 	
 	/**
 	 * login
+	 * 
+	 * @param string $username
+	 * user's login name
+	 * 
+	 * @param string $md5_password
+	 * user's password hashed by MD5
+	 * 
+	 * @return integer
+	 * result - logged customer's detail or false
 	 */
 	
 	function login($username, $md5_password) {
@@ -623,6 +697,15 @@ CREATE TABLE client_customer (
 	
 	/**
 	 * login by email
+	 * 
+	 * @param string $email
+	 * user's e-mail address
+	 * 
+	 * @param string $md5_password
+	 * user's password hashed by MD5
+	 * 
+	 * @return integer
+	 * result - logged customer's detail or false
 	 */
 	
 	function loginByEmail($email, $md5_password) {
@@ -645,6 +728,15 @@ CREATE TABLE client_customer (
 	
 	/**
 	 * login by username
+	 * 
+	 * @param string $username
+	 * user's login name
+	 * 
+	 * @param string $md5_password
+	 * user's password hashed by MD5
+	 * 
+	 * @return integer
+	 * result - logged customer's detail or false
 	 */
 	
 	function loginByUsername($username, $md5_password) {
@@ -676,6 +768,9 @@ CREATE TABLE client_customer (
 	
 	/**
 	 * get greeting
+	 * 
+	 * @return string
+	 * a greetings text dependent on current system time
 	 */
 	
 	function _getGreeting() {
@@ -698,6 +793,12 @@ CREATE TABLE client_customer (
 	
 	/**
 	 * generate random password
+	 * 
+	 * @param integer $size
+	 * length of password for generate
+	 * 
+	 * @return string
+	 * generated password
 	 */
 
 	function randomPassword ($size = 5) {
@@ -717,6 +818,21 @@ CREATE TABLE client_customer (
 	
 	/**
 	 * update password
+	 * 
+	 * @param string $password
+	 * current password (before change)
+	 * 
+	 * @param string $password_new
+	 * new password
+	 * 
+	 * @param string $password_new1
+	 * new password for confirmation
+	 * 
+	 * @param string $client_current_data
+	 * client's data
+	 * 
+	 * @return string
+	 * a new password or false if update don't work
 	 */
 	 
 	function updatePassword($password, $password_new, $password_new1, $client_current_data) {
@@ -765,6 +881,17 @@ CREATE TABLE client_customer (
 	
 	/**
 	 * reset password
+	 * 
+	 * @param string $email
+	 * customer's e-mail address
+	 * 
+	 * @param string $key
+	 * a key for this customer's password reset
+	 * 
+	 * @return boolean
+	 * is a reset successfull?
+	 * 
+	 * @see getPasswordKey
 	 */
 	
 	function resetPassword($email, $key) {
@@ -790,6 +917,12 @@ CREATE TABLE client_customer (
 	
 	/**
 	 * get password key
+	 * 
+	 * @param string $email
+	 * customer's e-mail address
+	 * 
+	 * @return string
+	 * a key for this customer's password
 	 */
 	
 	function getPasswordKey($email) {
@@ -807,6 +940,12 @@ CREATE TABLE client_customer (
 	
 	/**
 	 * get client by email
+	 * 
+	 * @param string $email
+	 * customer's e-mail address
+	 * 
+	 * @return array
+	 * customer's information or false if not found
 	 */
 	 
 	function getClientByEmail($email) {
@@ -829,6 +968,12 @@ CREATE TABLE client_customer (
 	
 	/**
 	 * newsletter subscribe
+	 * 
+	 * @param array $customer
+	 * customer's information for subscribe to newsleter
+	 * 
+	 * @return boolean
+	 * result of subscribe
 	 */
 	
 	function newsletterSubscribe($customer) {
@@ -859,6 +1004,12 @@ CREATE TABLE client_customer (
 	
 	/**
 	 * insert newsletter user
+	 * 
+	 * @param array $customer_data
+	 * customer's information for subscribe to newsleter and register if need
+	 * 
+	 * @return integer
+	 * customer ID or false if not saved
 	 */
 	
 	function insertNewletterCustomer($customer_data) {
@@ -889,6 +1040,12 @@ CREATE TABLE client_customer (
 	
 	/**
 	 * newsletter unsubscribe
+	 * 
+	 * @param string $email
+	 * customer's e-mail address
+	 * 
+	 * @return boolean
+	 * result of unsubscribe
 	 */
 
 	function newsletterUnSubscribe($email) {
@@ -914,10 +1071,16 @@ CREATE TABLE client_customer (
 	
 	/**
 	 * get clients orders and details
-	 * customer_id 0 returns orders of all customers
 	 *
-	 * @param unknown_type $customer_id
-	 * @return unknown
+	 * @param integer $customer_id
+	 * customer's ID
+	 * 0 returns orders of all customers
+	 * 
+	 * @param array $filter
+	 * filter rules
+	 * 
+	 * @return array
+	 * client's orders and details, or false if not found
 	 */
 	 
 	function getClientList($customer_id = 0, $filter = false) {
@@ -929,8 +1092,11 @@ CREATE TABLE client_customer (
 	/**
 	 * get list of clients
 	 *
-	 * @param unknown_type $filter
-	 * @return unknown
+	 * @param array $filter
+	 * filter rules
+	 * 
+	 * @return array
+	 * list of clients
 	 */
 	 
 	function getClientListSimple($filter = false) {
@@ -1004,15 +1170,18 @@ ORDER BY client_customer.id
 	
 	/**
 	 * get clients orders and details
-	 * customer_id 0 returns orders of all customers
 	 *
 	 * TODO: consider using HAVING clause
 		There is one important difference between SQL HAVING and SQL WHERE clauses. The SQL WHERE clause condition is tested against each and every row of data, while the SQL HAVING clause condition is tested against the groups and/or aggregates specified in the SQL GROUP BY clause and/or the SQL SELECT column list.
 		
 		It is important to understand that if a SQL statement contains both SQL WHERE and SQL HAVING clauses the SQL WHERE clause is applied first, and the SQL HAVING clause is applied later to the groups and/or aggregates.
 
-	 * @param unknown_type $customer_id
-	 * @return unknown
+	 * @param integer $customer_id
+	 * ID of customer
+	 * 0 returns orders of all customers
+	 * 
+	 * @return array
+	 * customer's orders and details, or false if not found
 	 */
 	 
 	function getClientListHeavy($customer_id = 0, $filter = false) {
@@ -1240,6 +1409,20 @@ ORDER BY client_customer.id";
 	/**
 	 * Get list of products bought by customer
 	 * 
+	 * @param string $order
+	 * direction of sort [ASC/DESC]
+	 * 
+	 * @param integer $limit
+	 * max. number of returned records
+	 * 
+	 * @param integer $customer_id
+	 * ID of customer, or false for all
+	 * 
+	 * @param integer $period_limit
+	 * period in last days of buy
+	 * 
+	 * @return array
+	 * list of products
 	 */
 	 
 	function getProductsByCustomer($order = 'DESC', $limit = 10, $customer_id = false, $period_limit = 30) {
@@ -1277,6 +1460,17 @@ ORDER BY client_customer.id";
 	/**
 	 * move customers to group
 	 * input is list from getClientList
+	 * 
+	 * @param array $customer_list
+	 * IDs of customers to assign into group
+	 * 
+	 * @param integer $group_id
+	 * ID of group
+	 * 
+	 * @return boolean
+	 * result of operation
+	 * 
+	 * @see getClientList
 	 */
 	 
 	public function moveCustomersToGroupFromList($customer_list, $group_id) {
