@@ -65,17 +65,6 @@ class Onxshop_Controller_Component_News_List extends Onxshop_Controller {
 		else $display_pagination = 0;
 		
 		/**
-		 * image size
-		 */
-		 
-		if (is_numeric($this->GET['image_width']) && $this->GET['image_width'] > 0) $image_width = $this->GET['image_width'];
-		else $image_width = 125;
-		
-		if (is_numeric($this->GET['image_height']) && $this->GET['image_height'] > 0) $image_height = $this->GET['image_height'];
-		else $image_height = 0;
-		
-		
-		/**
 		 * Initialize pagination variables
 		 */
 		
@@ -181,7 +170,7 @@ class Onxshop_Controller_Component_News_List extends Onxshop_Controller {
 						 
 						if ($display_teaser_image) {
 							
-							$Image = new nSite("component/image&relation=node&role=main&node_id={$item['id']}&width=$image_width&height=$image_height&limit=0,1");
+							$Image = new nSite("component/image&relation=node&role=main&node_id={$item['id']}&width=130&limit=0,1");
 							$this->tpl->assign('IMAGE', $Image->getContent());
 						}
 						
