@@ -30,6 +30,32 @@ class Onxshop_Controller_Bo_Node_Content_News_List extends Onxshop_Controller_Bo
 	 
 	function post() {
 	
+		/* we need to include config, can be removed when we initialize all conf on beggining */
+		require_once('models/common/common_image.php');
+		$common_image_conf = common_image::initConfiguration();
+		$this->tpl->assign('IMAGE_CONF', $common_image_conf);
+		
+		/**
+		 * main image width
+		 */
+		
+		if ($this->node_data['component']['image_width'] == 0) {
+			$this->tpl->assign("SELECTED_image_width_original", "selected='selected'");
+			$this->node_data['component']['image_width'] = 125;
+		} else {
+			$this->tpl->assign("SELECTED_image_width_custom", "selected='selected'");
+		}
+		
+		/**
+		 * image ratio constrain
+		 */
+		 
+		$this->tpl->assign("SELECTED_image_constrain_{$this->node_data['component']['image_constrain']}", "selected='selected'");
+		
+		/**
+		 * other options
+		 */
+	
 		$this->node_data['component']['pagination']        = ($this->node_data['component']['pagination']) ? 'checked="checked"'      : '';
 		$this->node_data['component']['image']        = ($this->node_data['component']['image']) ? 'checked="checked"'      : '';
 		$this->node_data['component']['display_title']        = ($this->node_data['component']['display_title']) ? 'checked="checked"'      : '';
