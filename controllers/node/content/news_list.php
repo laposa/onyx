@@ -63,7 +63,7 @@ class Onxshop_Controller_Node_Content_News_List extends Onxshop_Controller_Node_
 			break;
 			case 'teaser';
 				$template = 'news_list_teaser';
-				$display_teaser_image = ':display_teaser_image=1';
+				$display_teaser_image = ":display_teaser_image=1";
 			break;
 			case 'latest';
 			default:
@@ -83,15 +83,55 @@ class Onxshop_Controller_Node_Content_News_List extends Onxshop_Controller_Node_
 		}
 		
 		/**
+		 * image size
+		 */
+		 
+		/* image size: we need to include config*/
+		require_once('models/common/common_image.php');
+		$common_image_conf = common_image::initConfiguration();
+		$this->tpl->assign('IMAGE_CONF', $common_image_conf);
+		
+		/**
+		 * image size: set width
+		 */
+		 
+		if (is_numeric($node_data['component']['image_width'])) {
+			$image_width = $node_data['component']['image_width'];
+		} else {
+			$node_data['component']['image_width'] = 0;
+			$image_width = 0;
+		}
+		
+		/**
+		 * image size: check constrain and set appropriate height
+		 */
+		 
+		switch ($node_data['component']['image_constrain']) {
+			
+			case '1-1':
+				$image_height = $image_width;
+			break;
+			
+			case '0':
+			default:
+				$image_height = 0;
+			break;
+		}
+		
+		/**
 		 * call controller
 		 */
 		
-		$_Onxshop = new nSite("component/$template~blog_node_id=$blog_node_id:id=$node_id:limit_from=$limit_from:limit_per_page=$limit_per_page:display_pagination=$display_pagination:publish=1:taxonomy_tree_id={$taxonomy_tree_id}$display_teaser_image~");
+		$_Onxshop = new nSite("component/$template~blog_node_id=$blog_node_id:id=$node_id:limit_from=$limit_from:limit_per_page=$limit_per_page:display_pagination=$display_pagination:publish=1:taxonomy_tree_id={$taxonomy_tree_id}:image_width=$image_width:image_height=$image_height:$display_teaser_image~");
 		$this->tpl->assign('NEWS_LIST', $_Onxshop->getContent());
 		
 		$this->tpl->assign('NODE', $node_data);
 		
-		if ($node_data['display_title'])  $this->tpl->parse('content.title');
+		/**
+		 * display title
+		 */
+
+		$this->displayTitle($node_data);
 
 		return true;
 	}
