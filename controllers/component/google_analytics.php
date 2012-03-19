@@ -1,10 +1,10 @@
 <?php
 /**
- * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2012 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
-class Onxshop_Controller_Component_Googleanalytics extends Onxshop_Controller {
+class Onxshop_Controller_Component_Google_Analytics extends Onxshop_Controller {
 	
 	/**
 	 * main action
