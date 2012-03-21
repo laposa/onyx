@@ -2,7 +2,7 @@
 /**
  * class common_uri_mapping
  *
- * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2012 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -203,6 +203,8 @@ ALTER TABLE common_uri_mapping ADD UNIQUE (public_uri);
 		if (trim($seo_uri) == '') return false;
 		
 		if ($seo_uri == '/') return $this->conf['homepage_id'];
+		
+		if (!$this->isValidURIPath($seo_uri)) return false;
 		
 		$result = $this->listing("public_uri = '$seo_uri'");
 		
@@ -460,6 +462,8 @@ ALTER TABLE common_uri_mapping ADD UNIQUE (public_uri);
 	 
 	function getRedirectURI($uri) {
 		
+		if (!$this->isValidURIPath($uri)) return false;
+		
 		$records = $this->listing("type = '301' AND public_uri = '$uri'");
 
 		if (is_array($records) && count($records) > 0) return $records[0];
@@ -486,5 +490,22 @@ ALTER TABLE common_uri_mapping ADD UNIQUE (public_uri);
 		return $string;
 	}
 	
+	/**
+	 * validate URI path
+	 */
+	 
+	public function isValidURIPath($uri_path) {
+		
+		if (preg_match('/[^a-zA-Z0-9\._\-\/]*/', $uri_path)) {
+			
+			msg("Not a valid URI path ({$uri_path})", 'error');
+			return false;
+			
+		} else {
+		
+			return true;
+		
+		}
+	}
 	
 }

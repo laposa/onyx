@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2006-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2006-2012 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -13,19 +13,38 @@ class Onxshop_Controller_Uri_Mapping extends Onxshop_Controller {
 	 
 	public function mainAction() {
 	
-		if ($this->GET['translate'] != "/") $this->GET['translate'] = rtrim($this->GET['translate'], '/');
+		/**
+		 * input data
+		 */
+		 
+		$translate = $this->GET['translate'];
+		$generate = $this->GET['generate'];
+		$controller_request = $this->GET['controller_request'];
+		$page = $this->GET['page'];//deprecated, TODO: remove from logout component
 		
-		if ($this->GET['generate'] == 1) $update = 1;
+		/**
+		 * cleaning
+		 */
+		 
+		if ($translate != "/") $translate = rtrim($translate, '/');
+		
+		if ($generate == 1) $update = 1;
 		else $update = 0;
 		
+		$controller_request = trim($controller_request);
+		
+		/**
+		 * initialize
+		 */
+		 
 		require_once('models/common/common_uri_mapping.php');
 		$Mapper = new common_uri_mapping($update);
 
 		$Onxshop_Router = new Onxshop_Router();
 		
-		if ($this->GET['translate']) {
+		if ($translate) {
 			
-			$request = $Mapper->translate($this->GET['translate']);
+			$request = $Mapper->translate($translate);
 			
 			if ($request == '' || $request == '/home') $request = "/page/" . $Mapper->conf['homepage_id'] ;
 			
@@ -40,7 +59,7 @@ class Onxshop_Controller_Uri_Mapping extends Onxshop_Controller {
 				//save node_id to last record in history
 				$_SESSION['history'][count($_SESSION['history'])-1]['node_id'] = $node_id;
 			
-			} else if ($redirect_uri = $Mapper->getRedirectURI($this->GET['translate'])) {
+			} else if ($redirect_uri = $Mapper->getRedirectURI($translate)) {
 			
 				$seo_redirect_uri = $Mapper->stringToSeoUrl("/page/{$redirect_uri['node_id']}");
 				header("Location: $seo_redirect_uri", true, 301);
@@ -49,7 +68,7 @@ class Onxshop_Controller_Uri_Mapping extends Onxshop_Controller {
 			} else {
 			
 				$node_id = false;
-				msg("{$this->GET['translate']} not found! (linked from {$_SERVER['HTTP_REFERER']})", 'error');
+				msg("{$translate} not found! (linked from {$_SERVER['HTTP_REFERER']})", 'error');
 			
 			}
 			
@@ -67,16 +86,17 @@ class Onxshop_Controller_Uri_Mapping extends Onxshop_Controller {
 			
 				$this->http_status = '404';
 			}
-		} else if ($this->GET['page']) {
+			
+		} else if ($page) {
 		
 			// is this case still used?
 			//yes, for logout :)
 			echo "uri_mapping"; exit;
 		
-		} else if ($this->GET['controller_request']) {
+		} else if ($controller_request) {
 		
 			// used for /request/ handling to allow translating URLs
-			$Onxshop = $Onxshop_Router->processAction(trim($this->GET['controller_request']));
+			$Onxshop = $Onxshop_Router->processAction($controller_request);
 		
 		}
 		
