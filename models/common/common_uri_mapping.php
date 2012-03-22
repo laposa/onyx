@@ -496,7 +496,7 @@ ALTER TABLE common_uri_mapping ADD UNIQUE (public_uri);
 	 
 	public function isValidURIPath($uri_path) {
 		
-		if (preg_match('/[^a-zA-Z0-9\._\-\/]*/', $uri_path)) {
+		if (preg_match('/[^a-zA-Z0-9\._\-\/]/', $uri_path)) {
 			
 			msg("Not a valid URI path ({$uri_path})", 'error');
 			return false;
