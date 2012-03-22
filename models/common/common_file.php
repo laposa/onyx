@@ -67,6 +67,7 @@ class common_file extends Onxshop_Model {
 	 * @return string
 	 * SQL command for table creating
 	 */
+	 
 	private function getCreateTableSql() {
 	
 		$sql = "
@@ -97,6 +98,7 @@ CREATE TABLE common_file (
 	 * @return array
 	 * file detail
 	 */
+	 
 	public function getFileDetail($id) {
 		
 		if (!is_numeric($id)) return false;
@@ -117,6 +119,7 @@ CREATE TABLE common_file (
 	 * @return array
 	 * extended file detail
 	 */
+	 
 	public function pupulateAdditionalInfo($file_detail) {
 		
 		$full_path = ONXSHOP_PROJECT_DIR . $file_detail['src'];
@@ -151,6 +154,7 @@ CREATE TABLE common_file (
 	 * @return array
 	 * list of files
 	 */
+	 
 	function listFiles($node_id , $priority = "priority DESC, id ASC", $role = false) {
 	
 		$result = array();
@@ -183,6 +187,7 @@ CREATE TABLE common_file (
 	 * @return array
 	 * files with this src
 	 */
+	 
 	function getFileLink($src) {
 	
 		$file_list = $this->listing("src='$src'");
@@ -198,6 +203,7 @@ CREATE TABLE common_file (
 	 * @return integer
 	 * ID of inserted file or false
 	 */
+	 
 	function insertFile($file = array()) {
 	
 		$src = ONXSHOP_PROJECT_DIR . $file['src'];
@@ -310,6 +316,7 @@ CREATE TABLE common_file (
 	 * @return string
 	 * converted file name
 	 */
+	 
 	function nameToSafe($name, $maxlen=250) {
 	
 	    $name = $this->recodeUTF8ToAscii($name);
@@ -325,6 +332,7 @@ CREATE TABLE common_file (
 	 * @return string
 	 * text recoded into ASCII
 	 */
+	 
 	function recodeUTF8ToAscii($string) {
 	
 	    //recode to ASCII
@@ -362,6 +370,7 @@ CREATE TABLE common_file (
 	 * @return boolean
 	 * is file copied successfully?
 	 */
+	 
 	function overwriteFile($filename, $save_dir, $temp_file) {
 	
 		$result = $this->_overwriteFile($filename, $save_dir, $temp_file);
@@ -638,6 +647,7 @@ CREATE TABLE common_file (
 	 * @return string
 	 * encoded text
 	 */
+	 
 	function encode_file_path($string) {
 	
 		return str_replace('=', '_XXX_', base64_encode($string));
@@ -652,12 +662,84 @@ CREATE TABLE common_file (
 	 * @return string
 	 * encoded text
 	 */
+	 
 	function decode_file_path($string) {
 	
 		return base64_decode(str_replace('_XXX_', '=', $string));
 	}
 
+	/**
+	 * function for replace of bin/csv_from_fs
+	 * use the php glob() function
+	 * 
+	 * @param string $directory
+	 * start directory
+	 * 
+	 * @param string $type
+	 * type of items (default '' for all, 'f' for files, 'd' for directories)
+	 * 
+	 * @param boolean $recursive
+	 * walk into subdirectories?
+	 * 
+	 * @return string
+	 * files information formatted as from bin/csv_from_fs
+	 */
+	 
+	private function csv_from_glob($directory, $type = '', $recursive = true) {
 	
+		$path[] = "$directory/*";
+		$out = array();
+
+		while(count($path) != 0) {
+		
+			$v = array_shift($path);
+			
+			foreach(glob($v) as $item) {
+			
+				if( ($type == '') || (($type == 'f') && (filetype($item) == 'file')) || (($type == 'd') && (filetype($item) == 'dir')) ) {
+					$out[] = $this->getFileFindFormat($item);
+				}
+				
+				if ($recursive && is_dir($item)) {
+					$path[] = $item . '/*';
+				}
+			}
+		}
+
+		sort($out);
+		$text = '';
+		
+		foreach ($out as $line) {
+		
+			$text .= "$line\n";
+		
+		}
+		
+		return $text;
+	}
+	
+	/**
+	 * get file information in find format "%h/%f;%h;%f;%s;%c"
+	 * 
+	 * @param string $file
+	 * file name with path
+	 * 
+	 * @return string
+	 * formatted file informations
+	 */
+	 
+	private function getFileFindFormat($file) {
+	
+		$fpath = "./$file";
+		$path_parts = pathinfo($fpath);
+		$dirname = $path_parts['dirname'];
+		$basename = $path_parts['basename'];
+		$filesize = filesize($fpath);
+		$filectime = gmdate('D M j H:i:s Y', filectime($fpath));
+	
+		return "$fpath;$dirname;$basename;$filesize;$filectime";
+	}
+
 	/**
 	 * get file list using unix file command
 	 * TODO: use PHP glob() instead
@@ -676,6 +758,7 @@ CREATE TABLE common_file (
 	 */
 	 
 	function getFlatArrayFromFs($directory, $attrs = '', $display_hidden = 0) {
+	//FIND2GLOB PATCH: function getFlatArrayFromFs($directory, $type = '', $recursive = true, $display_hidden = 0) {
 	
 		msg("calling getFlatArrayFromFs($directory)", 'ok', 3);
 		if (!file_exists($directory)) {
@@ -684,7 +767,8 @@ CREATE TABLE common_file (
 		}
 		
 		$csv_list = local_exec("csv_from_fs " . escapeshellarg($directory) . " " . escapeshellarg($attrs));
-	
+		//FIND2GLOB PATCH:  $csv_list = $this->csv_from_glob($directory, $type, $recursive);
+		
 		$csv_list = str_replace(rtrim($directory, '/'), '', $csv_list);
 		$csv_array = explode("\n", $csv_list);
 	
@@ -698,6 +782,7 @@ CREATE TABLE common_file (
 		array_pop($csv);
 	
 		foreach ($csv as $c) {
+		
 			$l['id'] = ltrim($c[0], '/');
 			$l['parent'] = ltrim($c[1], '/');
 			$l['name'] = $c[2];
@@ -769,6 +854,7 @@ CREATE TABLE common_file (
 	 * @return mixed
 	 * files array or false
 	 */
+	 
 	function getTree($directory, $type = '') {
 
 		$list = $this->getFlatArrayFromFs($directory, $type);
@@ -809,6 +895,7 @@ CREATE TABLE common_file (
 	 * @return mixed
 	 * array with image dimensions, or false if not found
 	 */
+	 
 	static function getImageSize($file) {
 		
 		if (is_readable($file)) {
@@ -833,4 +920,5 @@ CREATE TABLE common_file (
 			return false;
 		}
 	}
+	
 }

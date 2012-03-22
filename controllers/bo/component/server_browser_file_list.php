@@ -188,6 +188,7 @@ class Onxshop_Controller_Bo_Component_Server_Browser_File_List extends Onxshop_C
 		
 		//list content od folder
 		$list = $File->getFlatArrayFromFs($actual_folder, '-type f -maxdepth 1');
+		//FIND2GLOB PATCH: $list = $File->getFlatArrayFromFs($actual_folder, 'f', false);
 		
 		if (is_array($list) && count($list) > 0) {
 			foreach ($list as $l) {
@@ -232,6 +233,7 @@ class Onxshop_Controller_Bo_Component_Server_Browser_File_List extends Onxshop_C
 		} else {
 			// contains no files, check if there aren't some folders, otherwise allow delete
 			$list = $File->getFlatArrayFromFs($actual_folder, '-type d -maxdepth 1');
+			//FIND2GLOB PATCH: $list = $File->getFlatArrayFromFs($actual_folder, 'd', false);
 			if (count($list) == 0) $this->tpl->parse('content.empty');
 		}
 
