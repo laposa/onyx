@@ -1,8 +1,42 @@
-Onxshop (1.5.1/dev)
+Onxshop (1.5.1)
 
-  * New release
+  * make page cache distinguish requests with the same _GET (needed for Onxshop Wordpress plugin)
+  * add mail validation in front-end
+  * new contact form template: booking
+  * improve validation for URI path
+  * add title to "no links" items in taxonomy list
+  * add news_list_teaser, add image size slider to news list component
+  * add news_list_teaser
+  * rename component googleanalytics to google_analytics
+  * add comments for Doxygen
+  * allow backup download by default (ONXSHOP_ALLOW_BACKUP_DOWNLOAD)
+  * make sure Add New Product button is available when product list is empty
+  * removed unused file templates/component/slideshow.html
+  * remove unnecessary CDATA comment
+  * UI improvements in backoffice templates browser/edit
+  * add price multiplicator support and improve custom price list
+  * add white space to other_data delimiter
+  * improve extra attributes UI in product edit (product[other_data])
+  * update documentation
+  * support multiple countries in limit_list_countries
+  * add support for default country ID conf option (default_id)
+  * add support for custom image_width in product_related
+  * add component title to product_edit
+  * clean and enhance product_browse and product template
+  * change default email address
+  * show promotion (voucher) id in link title
+  * improve security in node_delete component
+  * refactored product other data display
+  * add htmlspecialchars into css_class
+  * add new component product returns form
+  * use fixed path for filter properties (fix IE 404 errors in Fancybox)
+  * remove item from basket when quantity is updated to zero
+  * use education_survey_entry->getWeightedMean() method
+  * remove Google verification codes
+  * add forgotten htmlspecialchars callbacks to a few backoffice templates
+  * delete outdated files
   
- -- Norbert Laposa <norbert@laposa.co.uk>  2012-02-08
+ -- Norbert Laposa <norbert@laposa.co.uk>  2012-03-22
 
 Onxshop (1.5.0/dev)
 
