@@ -1,3 +1,9 @@
+Onxshop (1.5.2/dev)
+
+  * New release
+
+ -- Norbert Laposa <norbert@laposa.co.uk>  2012-03-22
+
 Onxshop (1.5.1)
 
   * make page cache distinguish requests with the same _GET (needed for Onxshop Wordpress plugin)
@@ -38,7 +44,7 @@ Onxshop (1.5.1)
   
  -- Norbert Laposa <norbert@laposa.co.uk>  2012-03-22
 
-Onxshop (1.5.0/dev)
+Onxshop (1.5.0)
 
   * add print button to order detail in the front-end
   * add locales for russian and hebrew language
