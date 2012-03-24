@@ -197,6 +197,10 @@ class Onxshop_Bootstrap {
 
 		//session_set_cookie_params(31536000);// = 3600 * 24 * 365
 		session_start();
+		//to be sure sessions are written before exit
+		register_shutdown_function('session_write_close');
+		//in PHP5.4 can be used this:
+		//session_register_shutdown();
 		
 		if (!array_key_exists('authentication', $_SESSION)) $_SESSION['authentication'] = array();
 		if (!array_key_exists('authenticity', $_SESSION['authentication'])) $_SESSION['authentication']['authenticity'] = 0;
