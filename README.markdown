@@ -14,6 +14,26 @@ Typical web project files (project_skeleton)
 * templates/
 * var/
 
-To install follow docs/INSTALL procedure. At this time Onxshop is only optimised for Debian GNU/Linux operating system. You can [find Debian consultant](http://www.debian.org/consultants) near you and ask him to install Onxshop for you.
+Download & Install Onxshop
+==========================
+
+Via Debian APT repository (Debian Squeeze and Ubuntu Lucid)
+
+### 1. Install Onxshop archive public key
+`$ wget -O - https://onxshop.com/debian/conf/signing_key.pub | apt-key add -`
+
+### 2. Create APT source record
+`$ echo "deb http://onxshop.com/debian/ squeeze main" > /etc/apt/sources.list.d/onxshop.list`
+
+### 3. Install Onxshop
+`$ export LANG=en_GB.UTF-8 && aptitude update && aptitude install onxshop`
+
+### 4. Create a website
+`$ sudo onxshop create yoursite.com`
+
+More Information
+================
+
+To install without using Debian package follow docs/INSTALL procedure. At this time Onxshop is only optimised for Debian GNU/Linux operating system. You can [find Debian consultant](http://www.debian.org/consultants) near you and ask him to install Onxshop for you.
 
 For more information visit [Onxshop.com](http://onxshop.com/).
