@@ -1,40 +1,66 @@
 <!-- BEGIN: content -->
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 <div class="survey_detail">
+
 	<h1>{SURVEY.title|htmlspecialchars}</h1>
 	<p>{SURVEY.description|htmlspecialchars}</p>
 	<p>Public: {SURVEY.publish}<br />
 	Created: {SURVEY.created}<br />
-	Modified: {SURVEY.modified}</p>
+	Modified: {SURVEY.modified}<br />
+	Usage: {SURVEY.usage_count}<br />
+	Average rating: {SURVEY.average_rating|number_format(%s, 2)}</p>
 	<p><a class="button edit" title="Edit survey" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_edit~id={SURVEY.id}~'); return false" href="#sub_content"><span>Update basic information</span></a></p>
-	<h2>Survey questions</h2>
-	<table>
-		<tfoot>
-			<tr><td colspan="2"><a class="button add" title="Add new question" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_question_add~survey_id={SURVEY.id}~'); return false" href="#sub_content"><span>Add new question</span></a></td></tr>
-		</tfoot>
-		<tbody>
-			<!-- BEGIN: question -->
-			<tr class="publish_{QUESTION.publish}">
-				<td><a class="button edit publish_{QUESTION.publish}" title="Edit question" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_question_edit~id={QUESTION.id}~'); return false" href="#sub_content"><span>{QUESTION.title|htmlspecialchars}</span></a><br />{QUESTION.description|htmlspecialchars}</td>
-				<td>
-					<!-- BEGIN: answer_text -->
-					{QUESTION.type}
-					<!-- END: answer_text -->
-					<!-- BEGIN: answer_list -->
-					{QUESTION.type}
-					<ul>
-						<!-- BEGIN: item -->
-						<li><a class="button edit publish_{ANSWER.publish}" title="Edit answer option" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_question_answer_edit~id={ANSWER.id}:survey_id={QUESTION.survey_id}~'); return false" href="#sub_content"><span>{ANSWER.title|htmlspecialchars}</span></a></li>
-						<!-- END: item -->
-					</ul>
-					<a class="button add" title="Add new answer option" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_question_answer_add~question_id={QUESTION.id}:survey_id={QUESTION.survey_id}~'); return false" href="#sub_content"><span>Add new option</span></a>
-					<!-- END: answer_list -->
-				</td>
-			</tr>
-			<!-- END: question -->
-			
-		</tbody>
-	</table>
+	
+	<div class="twoColumnLayout layout fibonacci-5-1">
+		<div class="layoutWrapper">
+			<div class="top"><span></span></div>
+			<div class="layoutContent">
+				<div class="layoutContentWrapper">
+					<div class="layoutColumnOne">
+						<div class="layoutColumnWrapper">
+							
+							<table>
+								<caption>Survey questions</caption>
+								<tfoot>
+									<tr><td colspan="2"></td></tr>
+								</tfoot>
+								<tbody>
+									<!-- BEGIN: question -->
+									<tr class="publish_{QUESTION.publish}">
+										<td><a class="button edit publish_{QUESTION.publish}" title="Edit question" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_question_edit~id={QUESTION.id}~'); return false" href="#sub_content"><span>{QUESTION.title|htmlspecialchars}</span></a><br />{QUESTION.description|htmlspecialchars}</td>
+										<td>
+											<!-- BEGIN: answer_text -->
+											{QUESTION.type}
+											<!-- END: answer_text -->
+											<!-- BEGIN: answer_list -->
+											{QUESTION.type}
+											<ul>
+												<!-- BEGIN: item -->
+												<li><a class="button edit publish_{ANSWER.publish}" title="Edit answer option" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_question_answer_edit~id={ANSWER.id}:survey_id={QUESTION.survey_id}~'); return false" href="#sub_content"><span>{ANSWER.title|htmlspecialchars}</span></a></li>
+												<!-- END: item -->
+											</ul>
+											<a class="button add" title="Add new answer option" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_question_answer_add~question_id={QUESTION.id}:survey_id={QUESTION.survey_id}~'); return false" href="#sub_content"><span>Add new option</span></a>
+											<!-- END: answer_list -->
+										</td>
+									</tr>
+									<!-- END: question -->
+									
+								</tbody>
+							</table>
+							
+						</div>
+					</div>
+					<div class="layoutColumnTwo">
+						<div class="layoutColumnWrapper">
+							<p><a class="button add" title="Add new question" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_question_add~survey_id={SURVEY.id}~'); return false" href="#sub_content"><span>Add new question</span></a></p>
+							<p>Export Survey Results: <a class="button" href="/request/bo/export/csv_survey_results?survey_id={SURVEY.id}"><span>CSV</span></a></p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="bottom"><span></span></div>
+		</div>
+	</div>
 
 </div>
 <!-- END: content -->

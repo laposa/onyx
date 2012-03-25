@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2011-2012 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -13,6 +13,10 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 	 
 	public function mainAction() {
 	
+		/**
+		 * input
+		 */
+		 
 		if (is_numeric($this->GET['survey_id'])) $survey_id = $this->GET['survey_id'];
 		else {
 			msg("Survey ID is not numeric", 'error');
@@ -246,26 +250,7 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 		if ($params == '') $params = false;
 		*/
 		
-		/**
-		 * for STAG
-		 */
-		require_once('conf/stag.php');
-		
-		$params['rok'] = STAG_ROK;
-		$params['semestr'] = STAG_SEMESTR;
-		$params['fakulta'] = STAG_DEFAULT_FACULCY;
-		if ($this->GET['katedra']) $params['katedra'] = $this->GET['katedra'];
-		else $params['katedra'] = '%';
-		if ($this->GET['zkratka']) $params['zkratka'] = $this->GET['zkratka'];
-		else $params['zkratka'] = '%';
-		if ($this->GET['ucitIdno']) $params['ucitIdno'] = $this->GET['ucitIdno'];
-		else $params['ucitIdno'] = '%';
-		if ($this->GET['ucitel_fullname']) $params['ucitel_fullname'] = $this->GET['ucitel_fullname'];
-		else $params['ucitel_fullname'] = '%';
-		
-		$params = json_encode($params);
-		
-		return $params;
+		return false;
 		
 	}
 }

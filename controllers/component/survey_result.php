@@ -15,6 +15,10 @@ class Onxshop_Controller_Component_Survey_Result extends Onxshop_Controller_Comp
 	 
 	public function mainAction() {
 	
+		/**
+		 * input
+		 */
+		 
 		if (is_numeric($this->GET['survey_id'])) $survey_id = $this->GET['survey_id'];
 		else {
 			msg("Survey ID is not numeric", 'error');

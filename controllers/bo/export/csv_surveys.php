@@ -17,15 +17,15 @@ class Onxshop_Controller_Bo_Export_CSV_Surveys extends Onxshop_Controller_Bo_Exp
 		
 		set_time_limit(0);
 		
-		require_once('models/client/client_customer.php');
+		require_once('models/education/education_survey.php');
 		
-		$Customer = new client_customer();
+		$Survey = new education_survey();
 		
 		/**
 		 * Get the list
 		 */
 		
-		$records = $Customer->getClientOrders(0, $_SESSION['customer-list-filter']);
+		$records = $Survey->getSurveyListStats();
 		
 		if (is_array($records)) {
 		
