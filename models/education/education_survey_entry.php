@@ -124,8 +124,8 @@ CREATE TABLE education_survey_entry (
 		//hack for Unicode in Postgresql/JSON
 		if ($relation_subject) $relation_subject = preg_replace('/\\\/', '_', $relation_subject);
 		
-		if ($relation_subject) $where = "survey_id = {$survey_id} AND relation_subject LIKE '$relation_subject'";
-		else $where = "survey_id = {$survey_id}";
+		if ($relation_subject) $where = "survey_id = {$survey_id} AND relation_subject LIKE '$relation_subject' AND publish = 1";
+		else $where = "survey_id = {$survey_id} AND publish = 1";
 		
 		$usage_count = $this->count($where);
 		
@@ -215,7 +215,7 @@ CREATE TABLE education_survey_entry (
 	 
 	public function getSurveyCustomerCount($survey_id = false, $relation_subject = false) {
 		
-		$add_to_where = '1=1 ';
+		$add_to_where = 'education_survey_entry.publish = 1';
 		
 		if (is_numeric($survey_id)) {
 			$add_to_where .= " AND education_survey_entry.survey_id = $survey_id";
@@ -237,7 +237,7 @@ CREATE TABLE education_survey_entry (
 	
 	public function getAverageRating($survey_id = false, $relation_subject = false) {
 		
-		$add_to_where = '1=1 ';
+		$add_to_where = 'education_survey_entry.publish = 1 ';
 
         if (is_numeric($survey_id)) {
             $add_to_where .= " AND education_survey_entry.survey_id = $survey_id";
@@ -265,7 +265,7 @@ CREATE TABLE education_survey_entry (
 	 
 	public function getWeightedMean($survey_id = false, $relation_subject = false) {
 	
-		$add_to_where = '1=1 ';
+		$add_to_where = 'education_survey_entry.publish = 1 ';
 		
 		if (is_numeric($survey_id)) {
 			$add_to_where .= " AND education_survey_entry.survey_id = $survey_id";

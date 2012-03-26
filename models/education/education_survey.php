@@ -304,7 +304,7 @@ CREATE TABLE education_survey (
 	
 		if (!is_numeric($survey_id)) return false;
 				
-		$sql = 'SELECT DISTINCT relation_subject from education_survey_entry WHERE survey_id = 3 ORDER BY relation_subject';
+		$sql = 'SELECT DISTINCT relation_subject from education_survey_entry WHERE survey_id = $survey_id ORDER BY relation_subject';
 		
 		$records = $this->executeSql($sql);
 		
@@ -332,7 +332,7 @@ FROM education_survey_entry
         LEFT OUTER JOIN education_survey_entry_answer ON (education_survey_entry_answer.survey_entry_id = education_survey_entry.id)
         LEFT OUTER JOIN education_survey_question_answer ON (education_survey_question_answer.id = education_survey_entry_answer.question_answer_id)
 LEFT OUTER JOIN education_survey_question ON (education_survey_question.id = education_survey_entry_answer.question_id)
-        WHERE education_survey_entry.survey_id = $survey_id
+        WHERE education_survey_entry.survey_id = $survey_id AND education_survey_entry.publish = 1
 GROUP BY education_survey_entry.relation_subject, education_survey_question.id
 ORDER BY education_survey_entry.relation_subject, education_survey_question.id";
 
