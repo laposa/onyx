@@ -352,7 +352,7 @@ CREATE TABLE ecommerce_product (
      *
      */
     
-    function getFilteredProductList($filter = null, $currency_code = GLOBAL_DEFAULT_CURRENCY) {
+    function getFilteredProductList($filter = null, $currency_code = GLOBAL_DEFAULT_CURRENCY, $price_type = 'common') {
     	
     	//sanitize input
     	$filter['keyword'] = pg_escape_string(trim($filter['keyword']));//addslashes or pg_escape_string
@@ -484,7 +484,7 @@ CREATE TABLE ecommerce_product (
 		LEFT OUTER JOIN ecommerce_price price ON (price.product_variety_id = variety.id) 
 		LEFT OUTER JOIN ecommerce_product_image image ON (image.node_id = product.id) 
 		LEFT OUTER JOIN ecommerce_product_review review ON (review.node_id = product.id AND review.publish = 1)
-		WHERE 1 = 1
+		WHERE price.type = '$price_type'
 		$add_to_where
 		GROUP BY variety.id, product.id,  price.value, ecommerce_product_type.vat, product.name, product.teaser, product.priority, variety.name,
 variety.stock, price.date, product.publish, product.modified, variety.sku, variety.weight, variety.weight_gross, variety.publish, image.src, image.title, image.priority, image.id
@@ -521,7 +521,7 @@ variety.stock, price.date, product.publish, product.modified, variety.sku, varie
 	 * @return unknown
 	 */
 
-	function getProductVarietyListInNode($node_id, $currency_code = GLOBAL_DEFAULT_CURRENCY) {
+	function getProductVarietyListInNode($node_id, $currency_code = GLOBAL_DEFAULT_CURRENCY, $price_type = 'common') {
 		
 		if (!is_numeric($node_id)) {
 			msg("Product->getProductVarietyListInNode(): node_id is not numeric");
@@ -562,7 +562,7 @@ variety.stock, price.date, product.publish, product.modified, variety.sku, varie
 		LEFT OUTER JOIN ecommerce_price price ON (price.product_variety_id = variety.id) 
 		LEFT OUTER JOIN ecommerce_product_image image ON (image.node_id = product.id)
 		LEFT OUTER JOIN ecommerce_product_review review ON (review.node_id = product.id AND review.publish = 1)
-		WHERE node.node_group = 'page' AND node.node_controller = 'product' AND node.parent = $node_id AND node.publish = 1 AND variety.publish = 1 AND image.role != 'RTE'
+		WHERE node.node_group = 'page' AND node.node_controller = 'product' AND node.parent = $node_id AND node.publish = 1 AND variety.publish = 1 AND image.role != 'RTE' AND price.type = '$price_type'
 		GROUP BY variety.id, product.id, node.id, node.content, price.value, ecommerce_product_type.vat, product.name, product.teaser, product.priority, variety.name,
 variety.stock, price.date, image.src, image.title, image.priority, image.id, node.publish
 		ORDER BY variety_id ASC, price.date DESC, image_priority DESC, image.id ASC";
