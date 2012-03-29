@@ -124,14 +124,17 @@ define('I18N_CONTINUE_SHOPPING', '買い物を続ける');
 define('I18N_PLEASE_READ_ABOUT_DELIVERY', '配送について、お読み下さい ');
 define('I18N_PLEASE_CHOOSE', 'Please Choose');
 define('I18N_DELIVERY', 'Delivery');
-define('I18N_BY_CLICKING_CONFIRM', '規約に同意します');
-define('I18N_TERMS_AND_CONDITIONS', 'Terms &amp; Conditions');
 define('I18N_CONFIRM_ORDER', '注文を確認');
+define('I18N_BY_CLICKING_CONFIRM', '規約に同意します');
+define('I18N_BY_CLICKING_CONFIRM_AUTO', 'By pressing „' . I18N_CONFIRM_ORDER . '“ you agree with ');
+define('I18N_TERMS_AND_CONDITIONS', 'Terms &amp; Conditions');
 define('I18N_ORDER_CUSTOMER_NOTE', '配送に関する特記事項やその他のリクエストがあればご記入下さい');
 define('I18N_PAY_BY_PROTX', 'Pay By Credit Card');
 define('I18N_PAY_BY_WORLDPAY', 'Pay By Credit Card');
 define('I18N_PAY_BY_PAYPAL', 'Pay By Paypal');
 define('I18N_PAY_BY_CHEQUE', 'Pay By Cheque');
+define('I18N_PAY_BY_ON_DELIVERY', 'Pay On Delivery');
+define('I18N_PAY_BY_BANK_TRANSFER', 'Pay By Bank Transfer');
 define('I18N_IS_THIS_A_GIFT', 'Is this a gift? (we will not include details of prices with delivery)');
 define('I18N_GIFT_MESSAGE', 'Gift Message');
 //component/ecommerce/checkout_basket.html
@@ -141,6 +144,7 @@ define('I18N_INVOICE_NUMBER', '請求書番号');
 define('I18N_ORDER_NUMBER', 'オーダーお問い合わせ番号');
 define('I18N_BILLING_DATE', '請求日');
 define('I18N_OTHER', 'その他');
+define('I18N_CONTACT_TELEPHONE', 'Contact Telephone:');
 //component/ecommerce/invoice_proforma.html
 define('I18N_PROFORMA_INVOICE', '注文確認書');
 define('I18N_THIS_ORDER_IS_STILL_UNPAID', 'このご注文は料金未払いです！');
@@ -185,6 +189,12 @@ define('I18N_MAKE_PAYMENT_WITH_PAYPAL', 'パスワードを入力');
 define('I18N_PAYMEN_BY_CHEQUE', '小切手で支払い');
 define('I18N_PLEASE_PRINT_THIS_PAGE_ETC', 'このページを印刷し小切手と共にお送り下さい。');
 define('I18N_PRINT', 'print');
+//component/ecommerce/payment/on_delivery.html
+define('I18N_MAKE_PAYMENT_WITH_ON_DELIERY', 'Cash on delivery');
+define('I18N_MAKE_PAYMENT_WITH_ON_DELIVERY_INSTRUCTION', 'Please wait for your delivery.');
+//component/ecommerce/payment/bank_transfer.html
+define('I18N_MAKE_PAYMENT_WITH_BANK_TRANFER', 'Bank transfer');
+define('I18N_MAKE_PAYMENT_WITH_BANK_TRANSFER_INSTRUCTION', 'Please wire money to our bank account.');
 //component/ecommerce/payment_failure.html
 define('I18N_PAYMENT_FAILED', 'payment failed!');
 //component/ecommerce/price.html
@@ -239,8 +249,8 @@ define('I18N_CLIENT_AREA', 'マイ・アカウント');
 define('I18N_LOGOUT', 'ログアウト');
 
 //conf/ecommerce_price.php
-define('I18N_PRICE_INC_VAT', '消費税込み');
-define('I18N_PRICE_EX_VAT', '消費税抜き');
+define('I18N_PRICE_INC_VAT', '(消費税込み)');
+define('I18N_PRICE_EX_VAT', '(消費税抜き)');
 
 //conf/common_uri_mapping.php
 define('I18N_AND', 'そして');

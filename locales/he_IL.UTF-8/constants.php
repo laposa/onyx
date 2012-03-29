@@ -124,14 +124,17 @@ define('I18N_CONTINUE_SHOPPING', 'Continue Shopping');
 define('I18N_PLEASE_READ_ABOUT_DELIVERY', 'Please read about our ');
 define('I18N_PLEASE_CHOOSE', 'Please Choose');
 define('I18N_DELIVERY', 'Delivery');
-define('I18N_BY_CLICKING_CONFIRM', 'I agree with the');
-define('I18N_TERMS_AND_CONDITIONS', 'Terms &amp; Conditions');
 define('I18N_CONFIRM_ORDER', 'Confirm Order and Continue to Payment');
+define('I18N_BY_CLICKING_CONFIRM', 'I agree with the');
+define('I18N_BY_CLICKING_CONFIRM_AUTO', 'By pressing „' . I18N_CONFIRM_ORDER . '“ you agree with ');
+define('I18N_TERMS_AND_CONDITIONS', 'Terms &amp; Conditions');
 define('I18N_ORDER_CUSTOMER_NOTE', 'Please enter any special or additional delivery instructions in the box below');
 define('I18N_PAY_BY_PROTX', 'Pay By Credit Card');
 define('I18N_PAY_BY_WORLDPAY', 'Pay By Credit Card');
 define('I18N_PAY_BY_PAYPAL', 'Pay By Paypal');
 define('I18N_PAY_BY_CHEQUE', 'Pay By Cheque');
+define('I18N_PAY_BY_ON_DELIVERY', 'Pay On Delivery');
+define('I18N_PAY_BY_BANK_TRANSFER', 'Pay By Bank Transfer');
 define('I18N_IS_THIS_A_GIFT', 'Is this a gift? (we will not include details of prices with delivery)');
 define('I18N_GIFT_MESSAGE', 'Gift Message');
 //component/ecommerce/checkout_basket.html
@@ -141,6 +144,7 @@ define('I18N_INVOICE_NUMBER', 'Invoice Number');
 define('I18N_ORDER_NUMBER', 'Order Reference Number');
 define('I18N_BILLING_DATE', 'Billing Date');
 define('I18N_OTHER', 'Other');
+define('I18N_CONTACT_TELEPHONE', 'Contact Telephone:');
 //component/ecommerce/invoice_proforma.html
 define('I18N_PROFORMA_INVOICE', 'PROFORMA INVOICE');
 define('I18N_THIS_ORDER_IS_STILL_UNPAID', 'This order is still unpaid!');
@@ -185,6 +189,12 @@ define('I18N_MAKE_PAYMENT_WITH_PAYPAL', 'Enter Payment Details');
 define('I18N_PAYMEN_BY_CHEQUE', 'Payment by cheque');
 define('I18N_PLEASE_PRINT_THIS_PAGE_ETC', 'Please print this page and sent it with cheque to');
 define('I18N_PRINT', 'print');
+//component/ecommerce/payment/on_delivery.html
+define('I18N_MAKE_PAYMENT_WITH_ON_DELIERY', 'Cash on delivery');
+define('I18N_MAKE_PAYMENT_WITH_ON_DELIVERY_INSTRUCTION', 'Please wait for your delivery.');
+//component/ecommerce/payment/bank_transfer.html
+define('I18N_MAKE_PAYMENT_WITH_BANK_TRANFER', 'Bank transfer');
+define('I18N_MAKE_PAYMENT_WITH_BANK_TRANSFER_INSTRUCTION', 'Please wire money to our bank account.');
 //component/ecommerce/payment_failure.html
 define('I18N_PAYMENT_FAILED', 'payment failed!');
 //component/ecommerce/price.html
@@ -239,8 +249,8 @@ define('I18N_CLIENT_AREA', 'My Account');
 define('I18N_LOGOUT', 'Logout');
 
 //conf/ecommerce_price.php
-define('I18N_PRICE_INC_VAT', 'inc VAT');
-define('I18N_PRICE_EX_VAT', 'ex VAT');
+define('I18N_PRICE_INC_VAT', '(inc VAT)');
+define('I18N_PRICE_EX_VAT', '(ex VAT)');
 
 //conf/common_uri_mapping.php
 define('I18N_AND', 'and');

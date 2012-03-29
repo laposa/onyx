@@ -83,7 +83,7 @@ define('I18N_CHANGE_BILLING_ADDRESS', 'Změnit fakturační adresu');
 define('I18N_BILLING_ADDRESS', 'Fakturační adresa');
 //component/ecommerce/address_edit.html
 define('I18N_ADDRESS_List', 'Vaše adresy');
-define('I18N_USE_THIS', 'použij tuto');
+define('I18N_USE_THIS', 'Použij tuto adresu');
 define('I18N_REMOVE', 'Odstranit');
 define('I18N_ADD_A_NEW_ADDRESS', 'Přidat novou adresu');
 define('I18N_NAME', 'Celé jméno');
@@ -108,8 +108,8 @@ define('I18N_QTY', 'Množství');
 define('I18N_PRICE', 'Cena');
 define('I18N_TOTAL', 'Celkem');
 define('I18N_VAT', 'DPH');
-define('I18N_SUB_TOTAL', 'Celkem');
-define('I18N_DELIVERY', 'Doručení');
+define('I18N_SUB_TOTAL', 'Celkem za zboží');
+define('I18N_DELIVERY', 'Poštovné a balné');
 define('I18N_YOUR_BASKET_IS_EMPTY', 'Váš košík je prázdný.');
 define('I18N_DISCOUNT', 'Sleva');
 //component/ecommerce/promotion_code_basket.html
@@ -124,26 +124,30 @@ define('I18N_CONTINUE_SHOPPING', 'Pokračovat v nakupování');
 define('I18N_PLEASE_READ_ABOUT_DELIVERY', 'Prosím přečtěte si ');
 define('I18N_PLEASE_CHOOSE', 'Prosím vyberte');
 define('I18N_DELIVERY', 'Doručení');
-define('I18N_BY_CLICKING_CONFIRM', 'Souhlasím s ');
-define('I18N_TERMS_AND_CONDITIONS', 'Obchodními podmínkami');
 define('I18N_CONFIRM_ORDER', 'Potvrzení objednávky');
+define('I18N_BY_CLICKING_CONFIRM', 'Souhlasím s ');
+define('I18N_BY_CLICKING_CONFIRM_AUTO', 'Stisknutím „' . I18N_CONFIRM_ORDER . '“ souhlasíte s ');
+define('I18N_TERMS_AND_CONDITIONS', 'Obchodními podmínkami');
 define('I18N_ORDER_CUSTOMER_NOTE', 'Vaše poznámky k objednávce/doručení');
 define('I18N_PAY_BY_PROTX', 'Zaplatit platební kartou');
 define('I18N_PAY_BY_WORLDPAY', 'Zaplatit platební kartou');
-define('I18N_PAY_BY_PAYPAL', 'Zaplatit přes PayPal');
+define('I18N_PAY_BY_PAYPAL', 'Zaplatit přes PayPal (platební kartou)');
 define('I18N_PAY_BY_CHEQUE', 'Zaplatit na dobírku');
+define('I18N_PAY_BY_ON_DELIVERY', 'Zaplatit na dobírku (osobně při dodání)');
+define('I18N_PAY_BY_BANK_TRANSFER', 'Zaplatit bankovním převodem na účet');
 define('I18N_IS_THIS_A_GIFT', 'Je toto dárek? (nebudeme přikládat informace o ceně k doručení)');
 define('I18N_GIFT_MESSAGE', 'Darovací zpráva');
 //component/ecommerce/checkout_basket.html
 define('I18N_EDIT_BASKET', 'Editovat košík');
 //component/ecommerce/invoice.html
 define('I18N_INVOICE_NUMBER', 'Faktura číslo');
-define('I18N_ORDER_NUMBER', 'Order Reference Number');
-define('I18N_BILLING_DATE', 'Billing Date');
-define('I18N_OTHER', 'Other');
+define('I18N_ORDER_NUMBER', 'Referenční číslo objednávky');
+define('I18N_BILLING_DATE', 'Datum vystavení');
+define('I18N_OTHER', 'Ostatní');
+define('I18N_CONTACT_TELEPHONE', 'Telefon:');
 //component/ecommerce/invoice_proforma.html
-define('I18N_PROFORMA_INVOICE', 'PROFORMA INVOICE');
-define('I18N_THIS_ORDER_IS_STILL_UNPAID', 'This order is still unpaid!');
+define('I18N_PROFORMA_INVOICE', 'PROFORMA FAKTURA');
+define('I18N_THIS_ORDER_IS_STILL_UNPAID', 'Není daňový doklad!');
 //component/ecommerce/login.html
 define('I18N_EXISTING_CUSTOMER', 'Stávající zákazník');
 define('I18N_YOUR_EMAIL', 'Váš email');
@@ -174,19 +178,25 @@ define('I18N_SUBMIT', 'Odeslat');
 define('I18N_THANK_YOU_WE_WILL_SEND_ETC', 'Thank you. Will we send you an email shortly with your password.');
 //component/ecommerce/password_reset.html
 define('I18N_PASSWORD_RESET', 'Vygenerovat nové heslo');
-define('I18N_A_MESSAGE_HAS_BEEN_SENT_TO', 'A message has been sent to');
-define('I18N_PLEASE_CHECK_YOUR_EMAIL', ', please check your email.');
-define('I18N_A_NEW_PASSWORD_FOR', 'A new password for');
-define('I18N_HAS_NOW_BEEN_GENERATED_ETC', 'has now been generated and has been emailed to you.');
+define('I18N_A_MESSAGE_HAS_BEEN_SENT_TO', 'Zpráva byla odeslána na');
+define('I18N_PLEASE_CHECK_YOUR_EMAIL', ', prosím zkontrolujte svůj email, včetně složky spam.');
+define('I18N_A_NEW_PASSWORD_FOR', 'Nové heslo pro');
+define('I18N_HAS_NOW_BEEN_GENERATED_ETC', ' bylo vytvořeno a zasláno na Váš email.');
 //component/ecommerce/payment.html
-define('I18N_MAKE_PAYMENT_WITH_PROTX', 'Enter Payment Details');
-define('I18N_MAKE_PAYMENT_WITH_WORLDPAY', 'Enter Payment Details');
-define('I18N_MAKE_PAYMENT_WITH_PAYPAL', 'Enter Payment Details');
-define('I18N_PAYMEN_BY_CHEQUE', 'Payment by cheque');
-define('I18N_PLEASE_PRINT_THIS_PAGE_ETC', 'Please print this page and sent it with cheque to');
-define('I18N_PRINT', 'print');
+define('I18N_MAKE_PAYMENT_WITH_PROTX', 'Vložte detaily platby');
+define('I18N_MAKE_PAYMENT_WITH_WORLDPAY', 'Vložte detaily platby');
+define('I18N_MAKE_PAYMENT_WITH_PAYPAL', 'Vložte detaily platby');
+define('I18N_PAYMEN_BY_CHEQUE', 'Platba šekem');
+define('I18N_PLEASE_PRINT_THIS_PAGE_ETC', 'Prosím vytiskněte si tuto stránku a zašlete spolu s šekem na');
+define('I18N_PRINT', 'tisk');
+//component/ecommerce/payment/on_delivery.html
+define('I18N_MAKE_PAYMENT_WITH_ON_DELIERY', 'Platba na dobírku');
+define('I18N_MAKE_PAYMENT_WITH_ON_DELIVERY_INSTRUCTION', 'Prosím vyčkejte s platbou až na doručení.');
+//component/ecommerce/payment/bank_transfer.html
+define('I18N_MAKE_PAYMENT_WITH_BANK_TRANFER', 'Platba bankovním převodem.');
+define('I18N_MAKE_PAYMENT_WITH_BANK_TRANSFER_INSTRUCTION', 'Prosím zašlete platbu na náš bankovní účet.');
 //component/ecommerce/payment_failure.html
-define('I18N_PAYMENT_FAILED', 'payment failed!');
+define('I18N_PAYMENT_FAILED', 'platba selhala!');
 //component/ecommerce/price.html
 define('I18N_WAS', 'bylo');
 //component/ecommerce/product_detail.html
@@ -239,8 +249,8 @@ define('I18N_CLIENT_AREA', 'Můj účet');
 define('I18N_LOGOUT', 'Odhlásit se');
 
 //conf/ecommerce_price.php
-define('I18N_PRICE_INC_VAT', 'včetně DPH');
-define('I18N_PRICE_EX_VAT', 'bez DPH');
+define('I18N_PRICE_INC_VAT', '(včetně DPH)');
+define('I18N_PRICE_EX_VAT', '(bez DPH)');
 
 //conf/common_uri_mapping.php
 define('I18N_AND', 'a');

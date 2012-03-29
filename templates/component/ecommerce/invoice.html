@@ -1,3 +1,4 @@
+<!-- BEGIN: title -->Invoice<!-- END: title -->
 <!-- BEGIN: content -->
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 <!-- BEGIN: gift -->
@@ -39,7 +40,7 @@ display: none;
 	<tr>
 		<td style="width: 50%" valign="top" align="left">
 			{INVOICE.address_delivery|htmlspecialchars|nl2br}
-			<br />Contact Telephone: {ORDER.client.customer.telephone|htmlspecialchars} 
+			<br />{I18N_CONTACT_TELEPHONE} {ORDER.client.customer.telephone|htmlspecialchars} 
 			<br />{ORDER.note_customer|htmlspecialchars|nl2br}
 		</td>
 		<td style="width: 50%" valign="top" align="right">
