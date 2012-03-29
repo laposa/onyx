@@ -73,9 +73,6 @@ div.rssFeed div.item.even {background: #f8f8f8;}
 
 div.pagination li a.active {border-color: #CCCCCC;}
 
-ul.comment li {border: solid 1px #3D82AD;}
-ul.comment div.item div.content {background: #f0f0f0;}
-
 span.price {color: #990000;}
 
 div.product_detail div.product_normal div.highlight div.text {color: #5eacda;}
