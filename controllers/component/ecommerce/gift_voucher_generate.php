@@ -69,7 +69,7 @@ class Onxshop_Controller_Component_Ecommerce_Gift_Voucher_Generate extends Onxsh
 		 
 		if (!is_numeric($ecommerce_product_conf['gift_voucher_product_id']) || $ecommerce_product_conf['gift_voucher_product_id']  == 0) {
 			
-			msg("ecommerce_product.gift_voucher_product_id conf option is not defined", 'error');
+			msg("ecommerce_product.gift_voucher_product_id conf option is not defined", 'error', 1);
 			
 			return false;
 		}
