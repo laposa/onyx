@@ -291,3 +291,6 @@ define('I18N_PRODUCT_LIST_SORT_CREATED_SORTED_CREATED_Z_A', 'Sorted by created L
 define('I18N_PRODUCT_LIST_SORT_CREATED_CLICK_POPULARITY_MOST_LEAST', 'Click to sort by popularity Most-Least');
 define('I18N_PRODUCT_LIST_SORT_CREATED_CLICK_PRICE_LOW_HIGH', 'Click to sort by price Low-High');
 define('I18N_PRODUCT_LIST_SORT_CREATED_CLICK_NAME_A_Z', 'Click to sort by name A-Z');
+
+//component/news_list_related.html
+define('I18N_NEWS_LIST_RELATED', 'Related Articles');

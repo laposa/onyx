@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2005-2010 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2005-2012 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
  
@@ -291,3 +291,6 @@ define('I18N_PRODUCT_LIST_SORT_CREATED_SORTED_CREATED_Z_A', 'Seřazeno dle data 
 define('I18N_PRODUCT_LIST_SORT_CREATED_CLICK_POPULARITY_MOST_LEAST', 'Seřadit dle oblíbenosti Vysoká-Nízká');
 define('I18N_PRODUCT_LIST_SORT_CREATED_CLICK_PRICE_LOW_HIGH', 'Seřadit dle ceny Nejnižší-Nejvyšší');
 define('I18N_PRODUCT_LIST_SORT_CREATED_CLICK_NAME_A_Z', 'Seřadit dle názvu A-Z');
+
+//component/news_list_related.html
+define('I18N_NEWS_LIST_RELATED', 'Související články');
