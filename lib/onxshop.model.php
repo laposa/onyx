@@ -196,6 +196,10 @@ class Onxshop_Model {
     			}
     		
     		case 'xhtml':
+    			
+    			//don't do any validation if Tidy is not installed
+    			if (!function_exists('tidy_get_status')) return true;
+    			
     			//msg($_GET['request']);
     			//msg($value);
     			$tidy_content = '
