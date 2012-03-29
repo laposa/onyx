@@ -107,7 +107,7 @@ class Onxshop_Controller {
 			$this->_initTemplateVariables();
 			$this->_parseTemplate();
 		} else {
-			msg("{$this->_module_html} " . _('does not exists.'), 'error', 2);
+			msg("{$this->_module_html} " . 'does not exists.', 'error', 2);
 		}
 		
 		msg("ONXSHOP_REQUEST: END $request", "ok", 2);

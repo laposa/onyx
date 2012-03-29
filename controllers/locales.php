@@ -79,8 +79,6 @@ class Onxshop_Controller_Locales extends Onxshop_Controller {
 		setlocale(LC_ALL, LOCALE);
 		//but for numbers keep english
 		setlocale(LC_NUMERIC, 'en_GB.UTF-8');
-		bindtextdomain ("messages", ONXSHOP_DIR . "/locales"); 
-		textdomain ("messages");
 
 		require_once('lib/Zend/Locale.php');
 		require_once('lib/Zend/Currency.php');
