@@ -847,11 +847,6 @@ CREATE TABLE client_customer (
 				
 				$customer_data = $client_current_data;
 				$customer_data['password'] = $password; //keep clean, not MD5
-				
-				//send email
-				require_once('models/common/common_email.php');
-    
-    			$EmailForm = new common_email();
     			
     			//this allows use customer data and company data in the mail template
     			//is passed as DATA to template in common_email->_format
@@ -861,21 +856,29 @@ CREATE TABLE client_customer (
     			$client_current_data['password'] = md5($password);
     			
 				if ($this->update($client_current_data)) {
-				 	if (!$EmailForm->sendEmail('change_password', 'n/a', $customer_data['email'], $customer_data['first_name'] . " " . $customer_data['last_name'])) {
-	    				msg('Update password email sending failed.', 'error');
-    				}
+				 	
+				 	msg("Password changed for {$customer_data['email']}");
+					return $password;
+					
 				} else {
+				
 					msg("Can't update password.", 'error');
+					return false;
+				
 				}
 				
-				return $password;
 			} else {
+			
 				msg('New passwords does not match!', 'error');
 				return false;
+			
 			}
+			
 		} else {
+			
 			msg('Wrong old password!', 'error');
 			return false;
+		
 		}
 	}
 	
@@ -897,18 +900,47 @@ CREATE TABLE client_customer (
 	function resetPassword($email, $key) {
 	
 		$client = $this->getClientByEmail($email);
+		
 		if (is_array($client)) {
+		
 			$current_key = $this->getPasswordKey($email);
+		
 			if ($current_key == $key) {
+		
 				$client_current_data = $client;
 				$password_new = $this->randomPassword();
+				
 				if ($this->updatePassword($client_current_data['password'], $password_new, $password_new, $client_current_data)) {
+					
 					msg("Password for $email has been updated", 'ok', 2);
+					
+					$customer_data = $client_current_data;
+					$customer_data['password'] = $password_new;
+					
+					/**
+					 * send email
+					 */
+					 
+					require_once('models/common/common_email.php');
+    				$EmailForm = new common_email();
+    			
+					//this allows use customer data and company data in the mail template
+    				//is passed as DATA to template in common_email->_format
+	    			$GLOBALS['common_email']['customer'] = $customer_data;
+
+					if (!$EmailForm->sendEmail('password_reset', 'n/a', $customer_data['email'], $customer_data['first_name'] . " " . $customer_data['last_name'])) {
+	    				msg('Password reset email sending failed.', 'error');
+    				}
+    				
 					return true;
 				}
+		
 			} else {
+		
 				msg("Wrong key!", 'error');
+		
 			}
+		
 		} else {
 			//msg('failed', 'error');
 			return false;

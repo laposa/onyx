@@ -179,7 +179,7 @@ define('I18N_THANK_YOU_WE_WILL_SEND_ETC', 'Thank you. Will we send you an email 
 //component/ecommerce/password_reset.html
 define('I18N_PASSWORD_RESET', 'Password reset');
 define('I18N_A_MESSAGE_HAS_BEEN_SENT_TO', 'A message has been sent to');
-define('I18N_PLEASE_CHECK_YOUR_EMAIL', ', please check your email.');
+define('I18N_PLEASE_CHECK_YOUR_EMAIL', ', please check your email including spam folder.');
 define('I18N_A_NEW_PASSWORD_FOR', 'A new password for');
 define('I18N_HAS_NOW_BEEN_GENERATED_ETC', 'has now been generated and has been emailed to you.');
 //component/ecommerce/payment.html
