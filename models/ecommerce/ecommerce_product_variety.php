@@ -160,6 +160,16 @@ ALTER TABLE ecommerce_product_variety ADD UNIQUE (\"sku\");
 	}
 	
 	/**
+	 * get detail
+	 */
+	 
+	public function getDetail($variety_id, $price_id = 0, $currency_code = GLOBAL_DEFAULT_CURRENCY) {
+	
+		return $this->getVarietyDetail($variety_id, $price_id, $currency_code);
+		
+	}
+	
+	/**
 	 * get variety detail
 	 */
 	 
@@ -172,6 +182,8 @@ ALTER TABLE ecommerce_product_variety ADD UNIQUE (\"sku\");
 		
 		$variety['weight'] = $this->convertWeight($variety['weight'], 'g', $this->conf['weight_units']);
 		$variety['weight_gross'] = $this->convertWeight($variety['weight_gross'], 'g', $this->conf['weight_units']);
+		
+		if ($variety['other_data']) $variety['other_data'] = unserialize($variety['other_data']);
 		
 		$p = $Price->getPrice($variety_id, $price_id, $currency_code);
 
@@ -196,6 +208,8 @@ ALTER TABLE ecommerce_product_variety ADD UNIQUE (\"sku\");
 		if (!$data['height']) $data['height'] = 0;
 		if (!$data['depth']) $data['depth'] = 0;
 		if (!$data['diameter']) $data['diameter'] = 0;
+		
+		if (is_array($data['other_data'])) $data['other_data'] = serialize($data['other_data']);
 		
 		$data['weight'] = $this->convertWeight($data['weight'], $this->conf['weight_units'], 'g');
 		$data['weight_gross'] = $this->convertWeight($data['weight_gross'], $this->conf['weight_units'], 'g');
@@ -309,6 +323,7 @@ ALTER TABLE ecommerce_product_variety ADD UNIQUE (\"sku\");
 	 
 	function updateVariety($data) {
 	
+		if (is_array($data['other_data'])) $data['other_data'] = serialize($data['other_data']);
 		$data['weight'] = $this->convertWeight($data['weight'], $this->conf['weight_units'], 'g');
 		$data['weight_gross'] = $this->convertWeight($data['weight_gross'], $this->conf['weight_units'], 'g');
 		$data['modified'] = date('c');

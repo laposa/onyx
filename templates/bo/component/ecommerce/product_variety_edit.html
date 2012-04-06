@@ -119,20 +119,23 @@ $(document).ready(function(){
 				</div>
 				<div class="row">
 					<span class="label"><label>Priority:</label></span>
-					<span class="field"><input class="text short" type="text" name="product[variety][priority]" value="{PRODUCT.variety.priority}" /></span>
+					<span class="field"><input class="text short" type="text" name="product[variety][priority]" value="{PRODUCT.variety.priority|htmlspecialchars}" /></span>
 				</div>
 			</fieldset>
 			<fieldset>
 				<legend>Codes</legend>
 				<div class="row">
 					<span class="label"><label>EAN (European Article Number)</label></span>
-					<span class="field"><input type="text" class="text" name="product[variety][ean13]" value="{PRODUCT.variety.ean13}"/></span>
+					<span class="field"><input type="text" class="text" name="product[variety][ean13]" value="{PRODUCT.variety.ean13|htmlspecialchars}"/></span>
 				</div>
 				<div class="row">
 					<span class="label"><label>UPC (Universal Product Code)</label></span>
-					<span class="field"><input type="text" class="text" name="product[variety][upc]" value="{PRODUCT.variety.upc}"/></span>
-				</div>	
+					<span class="field"><input type="text" class="text" name="product[variety][upc]" value="{PRODUCT.variety.upc|htmlspecialchars}"/></span>
+				</div>
 			</fieldset>
+			
+			{ONXSHOP_REQUEST_variety_other_data #bo/component/ecommerce/product_variety_other_data~id=GET.id~}
+			
 		</div>
 		
 			<input type="hidden" name="product[variety][id]" value="{PRODUCT.variety.id}"/>
