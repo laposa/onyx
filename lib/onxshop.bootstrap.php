@@ -417,10 +417,10 @@ class Onxshop_Bootstrap {
 	}
 	
 	/**
-	 * Output content
+	 * getOutput
 	 */
-	
-	function finalOutput() {
+	 
+	public function getOutput() {
 	
 		$result = $this->output;
 
@@ -433,7 +433,17 @@ class Onxshop_Bootstrap {
 			array_pop($_SESSION['history']);
 			$_SESSION['last_diff'] = $_SESSION['history'][count($_SESSION['history'])-1]['uri'];
 		}
-		
+
+		return $result;
+	}
+	
+	/**
+	 * Final output content
+	 */
+	
+	function finalOutput() {
+	
+		$result = $this->getOutput();
 		session_write_close();
 				
 		return $result;
