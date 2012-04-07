@@ -2,7 +2,7 @@
 /**
  * Global Onxshop configuration
  *
- * Copyright (c) 2005-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2005-2012 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 	
  */
@@ -166,3 +166,9 @@ if (!defined('ONXSHOP_SUPPORT_NAME')) define('ONXSHOP_SUPPORT_NAME', 'Onxshop su
  */
 
 if (!defined('ONXSHOP_ALLOW_BACKUP_DOWNLOAD')) define('ONXSHOP_ALLOW_BACKUP_DOWNLOAD', true);
+
+/**
+ * basket
+ */
+ 
+if (!defined('BASKET_CONTINUE_SHOPPING_URL')) define('BASKET_CONTINUE_SHOPPING_URL', '/');

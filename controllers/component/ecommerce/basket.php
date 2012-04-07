@@ -389,7 +389,7 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 	 */
 	 
 	public function getContinueShoppingURL() {
-		return '/';
+		return BASKET_CONTINUE_SHOPPING_URL;
 	}
 	
 	/**
