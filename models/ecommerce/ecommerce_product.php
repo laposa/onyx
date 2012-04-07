@@ -234,7 +234,8 @@ CREATE TABLE ecommerce_product (
 	 */
 	 
 	function productDetail($id) {
-		$product_detail = $this->detail($id);
+	
+		$product_detail = $this->getDetail($id);
 	
 		if (is_array($product_detail)) {
 			require_once('models/ecommerce/ecommerce_product_type.php');
@@ -256,6 +257,7 @@ CREATE TABLE ecommerce_product (
 	 */
 	
 	function getProductDetail($product_id) {
+	
 		$product = $this->productDetail($product_id);
 		$product['variety'] = $this->getProductVarietyList($product_id);
 		
@@ -267,6 +269,7 @@ CREATE TABLE ecommerce_product (
 	 */
 	
 	function getProductVarietyDetail($variety_id, $price_id = 0, $currency_code = GLOBAL_DEFAULT_CURRENCY) {
+	
 		if (!is_numeric($variety_id)) return false;
 		
 		require_once('models/ecommerce/ecommerce_product_variety.php');
@@ -282,6 +285,7 @@ CREATE TABLE ecommerce_product (
 	 */
 	 
 	function getProductVarietyList($product_id) {
+	
 		if (!is_numeric($product_id)) return false;
 		
 		require_once('models/ecommerce/ecommerce_product_variety.php');
@@ -335,6 +339,7 @@ CREATE TABLE ecommerce_product (
      */
      
 	function getProductList() {
+	
 		$product_list = array();
 	
 			$products = $this->listing('', 'priority DESC, id ASC');
@@ -687,6 +692,7 @@ variety.stock, price.date, image.src, image.title, image.priority, image.id, nod
 	 */
 	 
     function findProductInNode($product_id) {
+    
     	require_once('models/common/common_node.php');
     	$Node = new common_node();
     	
