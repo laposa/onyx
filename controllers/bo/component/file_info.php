@@ -20,7 +20,7 @@ class Onxshop_Controller_Bo_Component_File_Info extends Onxshop_Controller_Bo_Co
 		
 		if ($this->GET['file_path_encoded']) {
 			$file_path = $File->decode_file_path($this->GET['file_path_encoded']);
-			$info = $File->getFileInfo($file_path);
+			$info = $File->getFileInfo($file_path, true);
 			$this->tpl->assign("ITEM", $info);
 		}
 

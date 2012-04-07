@@ -617,7 +617,7 @@ CREATE TABLE common_file (
 	 * file info
 	 */
 	 
-	function getFileInfo($fp) {
+	function getFileInfo($fp, $extra_detail = false) {
 	
 		$file_info['modified'] = strftime("%c", filemtime($fp));
 		$file_info['mime-type'] = local_exec("file -bi " . escapeshellarg($fp));
@@ -625,10 +625,12 @@ CREATE TABLE common_file (
 		$file_info['file_path'] = str_replace(ONXSHOP_PROJECT_DIR . 'var/files/', '', $fp);
 		$file_info['size'] = $this->resize_bytes(filesize($fp));
 		
-		if (trim($file_info['mime-type']) == 'application/pdf') {
-			$file_info['extra-detail'] = local_exec("pdfinfo " . escapeshellarg($fp));
-		} else if (preg_match("/^image/", $file_info['mime-type'])) {
-			$file_info['extra-detail'] = local_exec("identify " . escapeshellarg($fp));
+		if ($extra_detail) {
+			if (trim($file_info['mime-type']) == 'application/pdf') {
+				$file_info['extra-detail'] = local_exec("pdfinfo " . escapeshellarg($fp));
+			} else if (preg_match("/^image/", $file_info['mime-type'])) {
+				$file_info['extra-detail'] = local_exec("identify " . escapeshellarg($fp));
+			}
 		}
 		
 		//find filename
