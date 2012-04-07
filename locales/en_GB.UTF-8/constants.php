@@ -36,7 +36,7 @@ define('I18N_COMMENT_REJECTED', 'Rejected.');
 define('I18N_COMMENT_PUBLISH_QUESTION', 'Approve and publish?');
 define('I18N_COMMENT_AWAITING_APPROVAL', 'Awaiting moderator approval');
 define('I18N_COMMENT_REJECTED_BY_WEBMASTER', 'This item was rejected.');
-define('I18N_COMMENT_EMPTY_LIST', 'Comments are not available.');
+define('I18N_COMMENT_EMPTY_LIST', 'Be the first to comment.');
 define('I18N_ADD_COMMENT', 'Add a comment');
 define('I18N_CLOSE', 'close');
 define('I18N_SUBJECT', 'Subject');
