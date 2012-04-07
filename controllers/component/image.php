@@ -89,6 +89,12 @@ class Onxshop_Controller_Component_Image extends Onxshop_Controller {
 		 
 		$Image = $this->createImageObject($relation);
 		
+		/**
+		 * set full width
+		 */
+		 
+		if ($Image->conf['width_max'] > 0 && is_numeric($Image->conf['width_max'])) $this->tpl->assign('FULL_SIZE_IMAGE_WIDTH_PATH', "/thumbnail/{$Image->conf['width_max']}/");
+		else $this->tpl->assign('FULL_SIZE_IMAGE_WIDTH_PATH', "/image/");
 		
 		/**
 		 * get list of images
