@@ -87,7 +87,7 @@ CREATE TABLE ecommerce_basket (
 	function getContent($basket_id, $currency_code = GLOBAL_DEFAULT_CURRENCY) {
 		
 		if (!is_numeric($basket_id)) {
-			msg("ecommerce_basket.getContent: basket_id is not numeric");
+			msg("ecommerce_basket.getContent: basket_id ($basket_id) is not numeric", 'error');
 			return false;
 		}
 		
