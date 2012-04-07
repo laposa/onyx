@@ -29,7 +29,7 @@ class Onxshop_Controller_Component_News_Categories extends Onxshop_Controller {
 		
 			foreach ($article_archive as $item) {
 				if (!$item['title']) {
-					$item['title'] = 'Uncategorized';
+					$item['title'] = I18N_NEWS_CATEGORY_UNCATEGORIZED;
 					$item['taxonomy_tree_id'] = 0;
 				}
 				$this->tpl->assign('ITEM', $item);
