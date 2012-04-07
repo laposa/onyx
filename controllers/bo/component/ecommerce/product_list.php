@@ -63,31 +63,42 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Product_List extends Onxshop_Con
 		}
 		
 		if ($_SESSION['product-list-sort-direction']) {
-			$direction = $_SESSION['producs-list-sort-direction'];
+			$direction = $_SESSION['product-list-sort-direction'];
 		} else {
 			$direction = "DESC";
 		}
 		
 		//msg("Sorted by $sortby $direction");
 		$product_list_sorted = array();
+		
 		switch ($sortby) {
+		
 			default:
 			case 'id':
 				$product_list = php_multisort($product_list, array(array('key'=>'product_id', 'sort'=>$direction), array('key'=>'product_id', 'type'=>'numeric')));
-		
-				foreach ($product_list as $item) {
-					$product_list_sorted[] = $item;
-				}
-
 				break;
 			case 'modified':
 				$product_list = php_multisort($product_list, array(array('key'=>'modified', 'sort'=>$direction), array('key'=>'product_id', 'type'=>'numeric')));
-		
-				foreach ($product_list as $item) {
-					$product_list_sorted[] = $item;
-				}
-				
 				break;
+			case 'product_name':
+				$product_list = php_multisort($product_list, array(array('key'=>'product_name', 'sort'=>$direction), array('key'=>'product_id', 'type'=>'numeric')));	
+				break;
+			case 'variety_name':
+				$product_list = php_multisort($product_list, array(array('key'=>'variety_name', 'sort'=>$direction), array('key'=>'product_id', 'type'=>'numeric')));	
+				break;
+			case 'price':
+				$product_list = php_multisort($product_list, array(array('key'=>'price', 'sort'=>$direction), array('key'=>'product_id', 'type'=>'numeric')));	
+				break;
+			case 'sku':
+				$product_list = php_multisort($product_list, array(array('key'=>'sku', 'sort'=>$direction), array('key'=>'product_id', 'type'=>'numeric')));
+				break;
+			case 'stock':
+				$product_list = php_multisort($product_list, array(array('key'=>'stock', 'sort'=>$direction), array('key'=>'product_id', 'type'=>'numeric')));	
+				break;
+		}
+		
+		foreach ($product_list as $item) {
+			$product_list_sorted[] = $item;
 		}
 		
 		$product_list = $product_list_sorted;
