@@ -1,19 +1,17 @@
 <!-- BEGIN: content -->
 <style type="text/css">
-button.payment_paypal {background: url(/images/btn_xpressCheckout.gif) no-repeat; width: 145px; height: 42px; border: 0;}
-button.payment_paypal span {display: none;}
-
 div.order_detail a.make_payment,
 div.order_detail a.repeat_order {display: none;}
 </style>
+<div class="payment_paypal">
 <!-- BEGIN: messages --><div class="nx_messages">{MESSAGES}</div><!-- END: messages -->
 <form action="{ECOMMERCE_TRANSACTION_PAYPAL_URL}" method="post" id="paypal_form">
 	<input type="hidden" name="cmd" value="_cart" />
 	<input type="hidden" name="upload" value="1" />
 	<input type="hidden" name="business" value="{ECOMMERCE_TRANSACTION_PAYPAL_VENDOR_EMAIL}" />
 	<input type="hidden" name="charset" value="utf-8" />
-	<input type="hidden" name="return" value="http://dcfood.co.uk/page/15" />
-	<input type="hidden" name="currency_code" value="GBP" />
+	<input type="hidden" name="return" value="http://{_SERVER.HTTP_HOST}/page/15" />
+	<input type="hidden" name="currency_code" value="{GLOBAL_DEFAULT_CURRENCY}" />
 	<input type="hidden" name="address_override" value="1" />
 
 	<input type="hidden" name="item_name_1" value="Payment for order ID {PAYMENT_GATEWAY.order_data.id}" />
@@ -27,11 +25,9 @@ div.order_detail a.repeat_order {display: none;}
 	<input type="hidden" name="address2" value="{PAYMENT_GATEWAY.order_data.client.address.delivery.line_2|htmlspecialchars}{PAYMENT_GATEWAY.order_data.client.address.line_3|htmlspecialchars}" />
 	<input type="hidden" name="city" value="{PAYMENT_GATEWAY.order_data.client.address.delivery.city|htmlspecialchars}" />
 	<input type="hidden" name="state" value="{PAYMENT_GATEWAY.order_data.client.address.delivery.county|htmlspecialchars}" />
-	<input type="hidden" name="country" value="UK">  
+	<input type="hidden" name="country" value="{PAYMENT_GATEWAY.order_data.client.address.delivery.country.iso_code2|htmlspecialchars}">  
 	<input type="hidden" name="zip" value="{PAYMENT_GATEWAY.order_data.client.address.delivery.post_code|htmlspecialchars}" />
 	<input type="hidden" name="night_phone_a" value="{PAYMENT_GATEWAY.order_data.client.customer.telephone|htmlspecialchars}" />
-	<!--<input type="hidden" name="night_phone_b" value="555" />
-	<input type="hidden" name="night_phone_c" value="1234" />-->
 	<input type="hidden" name="email" value="{PAYMENT_GATEWAY.order_data.client.customer.email|htmlspecialchars}" />
 	<!--<input type="hidden" name="notify_url" value="/request/component/ecommerce/payment/paypal_callback" />-->
 	<button class="payment_paypal" type='submit' name='paypal'  value='paypal' /><span>{I18N_MAKE_PAYMENT_WITH_PAYPAL}</span></button> 
@@ -40,8 +36,10 @@ div.order_detail a.repeat_order {display: none;}
 <!-- BEGIN: autosubmit -->
 <script type="text/javascript">
 $(window).load(function () {
-$('#paypal_form').submit();
+//$('#paypal_form').submit();
 });
 </script>
 <!-- END: autosubmit -->
+</div>
+
 <!-- END: content -->

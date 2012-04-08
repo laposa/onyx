@@ -2,7 +2,7 @@
 /**
  * Worldpay configuration
  *
- * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2012 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -16,6 +16,3 @@ define('ECOMMERCE_TRANSACTION_WORLDPAY_URL', 'https://secure-test.wp3.rbsworldpa
 //define('ECOMMERCE_TRANSACTION_WORLDPAY_URL', 'https://select.worldpay.com/wcc/purchase');
 define('ECOMMERCE_TRANSACTION_WORLDPAY_INSID', 0);
 define('ECOMMERCE_TRANSACTION_WORLDPAY_DESCRIPTION', "{$GLOBALS['onxshop_conf']['global']['title']} order ID {$_GET['order_id']}");
-define('ECOMMERCE_TRANSACTION_MAIL_TO', $GLOBALS['onxshop_conf']['global']['admin_email']);
-define('ECOMMERCE_TRANSACTION_MAIL_TONAME', $GLOBALS['onxshop_conf']['global']['admin_email_name']);
-

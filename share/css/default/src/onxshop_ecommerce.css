@@ -123,6 +123,11 @@ div.checkout div.submit span.field {float: right; width: auto;}
 /********* component/ecommerce/checkout_basket.html *********/
 a.button.edit_basket {float: right;}
 
+/********* component/ecommerce/payment/paypal.html *********/
+div.payment button.payment_paypal {background: url(/share/images/payment_gateways/btn_xpressCheckout.gif) no-repeat; width: 145px; height: 42px; border: 0;}
+div.payment button.payment_paypal span {display: none;}
+div.payment div.order_detail p.actions {display: none;}
+
 /********* component/ecommerce/order_detail.html *********/
 div.order_detail div.address div.delivery {float: left; margin-right: 2em;}
 div.order_detail a.button.make_payment,
