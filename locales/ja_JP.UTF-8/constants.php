@@ -300,6 +300,10 @@ define('I18N_PRODUCT_LIST_SORT_CREATED_CLICK_NAME_A_Z', 'Click to sort by name A
 //component/news_list_related.html
 define('I18N_NEWS_LIST_RELATED', 'Related Articles');
 
+//component/news_list_*.html
+define('I18N_NEWS_LIST_READ_MORE', 'Read more');
+define('I18N_NEWS_LIST_COMMENTS', 'Comments');
+
 //component/news_categories.html
 define('I18N_NEWS_CATEGORY_UNCATEGORIZED', 'Uncategorized');
 

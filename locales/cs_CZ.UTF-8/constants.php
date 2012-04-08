@@ -300,6 +300,10 @@ define('I18N_PRODUCT_LIST_SORT_CREATED_CLICK_NAME_A_Z', 'Seřadit dle názvu A-Z
 //component/news_list_related.html
 define('I18N_NEWS_LIST_RELATED', 'Související články');
 
+//component/news_list_*.html
+define('I18N_NEWS_LIST_READ_MORE', 'Celý článek');
+define('I18N_NEWS_LIST_COMMENTS', 'Komentáře');
+
 //component/news_categories.html
 define('I18N_NEWS_CATEGORY_UNCATEGORIZED', 'Nezařazeno');
 
