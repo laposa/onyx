@@ -10,7 +10,7 @@
 				<h2 class="newsTitle"><a href="/page/{ITEM.id}">{ITEM.title|htmlspecialchars}</a></h2>
 				<div class="created"><p>{ITEM.created|strtotime|strftime('%A %e %B %Y', %s)} {I18N_BY} <span class="author_name">{ITEM.author_detail.name|htmlspecialchars}</span></p></div>
 				<div class="teaser_image"><a href="/page/{ITEM.id}">{IMAGE}</a></div>
-				<div class="content">{ITEM.description}</div>
+				<div class="content"><p>{ITEM.description|htmlspecialchars}</p></div>
 				<p class="readMore"><a href="/page/{ITEM.id}"><span>{I18N_NEWS_LIST_READ_MORE}</span></a></p>
 				<!-- BEGIN: comment -->
 				<p class="comment"><a href="/page/{ITEM.id}#comment">{I18N_NEWS_LIST_COMMENTS} <span class="count">({COMMENT_COUNT})</span></a></p>
