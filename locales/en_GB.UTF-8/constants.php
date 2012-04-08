@@ -300,3 +300,6 @@ define('I18N_NEWS_LIST_RELATED', 'Related Articles');
 
 //component/news_categories.html
 define('I18N_NEWS_CATEGORY_UNCATEGORIZED', 'Uncategorized');
+
+//component/ecommerce/recently_viewed_products.html
+define('I18N_RECENTLY_VIEWED_PRODUCTS', 'Recently viewed ...');
