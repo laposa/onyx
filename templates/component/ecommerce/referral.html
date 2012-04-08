@@ -1,0 +1,53 @@
+<!-- BEGIN: content -->
+
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<script type="text/javascript">  
+$(function(){  
+	//$("#return_form").validate();
+});
+</script>
+<style type="text/css">
+div.return div.order_detail p.actions {display: none;}
+</style>
+<div class="return">
+
+	<form id="return_form" action="{URI}#node_id_{GET.node_id}" method="post">
+
+		<fieldset class="single">
+		
+			<legend>Send your invite</legend>
+			
+			<div class="row recipient">
+				<span class="label"><label for="referral-recipient">Enter email addresses (Separate addresses with commas)</label></span>
+				<span class="field"><textarea id="referral-recipient" class="required small" name="referral[recipient]" rows="15" cols="45">{REFERRAL.recipient|htmlspecialchars}</textarea></span>
+			</div>
+			
+			<div class="row message">
+				<span class="label"><label for="referral-message">Message</label></span>
+				<span class="field"><div style="border: 1px inset #CBB883; border-radius: 5px; padding: 5px;">Hi, check out {_SERVER.HTTP_HOST} - my new favouire site. They sell tea and beautifull teaware. Best of all, enter <strong>XXX</strong> at checkout for <strong>£15 off</strong> your first order!</div></span>
+			</div>
+			
+		</fieldset>
+		
+		<div class="row submit">
+			<span class="label"><label>&nbsp;</label></span>
+			<span class="field"><button type="submit" name="send" value="send" class="submit"><span>Send invite</span></button></span>
+		</div>
+	
+	</form>
+	
+	<div class="divider"><hr /></div>
+	<h3>Invite your friends</h3>
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+	<p>
+		<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://{_SERVER.HTTP_HOST}/invite/xxx" data-text="Get discount at {_SERVER.HTTP_HOST}" data-count="none">Tweet</a>
+		<div id="fb-root"><script src="http://connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:send href="http://{_SERVER.HTTP_HOST}/invite/xxx"></fb:send></div>
+	</p>
+					
+	
+	<div class="divider"><hr /></div>
+	<h3>Invite via personal link invite (URL)</h3>
+	<p>This link is yours. Copy it and share in blogs or emails</p>
+	<input class="text" type="text" value="http://{_SERVER.HTTP_HOST}/invite/xxx" style="width: 100%;" readonly="readonly" onclick="this.select()"/>
+</div>
+<!-- END: content -->
