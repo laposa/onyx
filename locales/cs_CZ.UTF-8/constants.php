@@ -166,11 +166,11 @@ define('I18N_BUTTON_PRINT_ORDER', 'Vytisknout');
 //component/ecommerce/order_list.html
 define('I18N_YOUR_ORDER_SUMMARY', 'Your order summary');
 define('I18N_ORDERS', 'Výpis Vašich objednávek:');
-define('I18N_ORDER_ID', 'Objednávka ID');
+define('I18N_ORDER_ID', 'ID');
 define('I18N_DATA_AND_TIME', 'Datum &amp; čas');
-define('I18N_ORDER_TOTAL', 'Objednávka celkem');
+define('I18N_ORDER_TOTAL', 'Fakturováno');
 define('I18N_ITEMS', 'Položky');
-define('I18N_STATUS', 'Status');
+define('I18N_STATUS', 'Stav');
 define('I18N_YOU_HAVE_NO_ORDERS', 'Nemáte žádné objednávky.');
 define('I18N_ORDER_PAY', 'Zaplatit');
 define('I18N_ORDER_REPEAT', 'Opakovat');
