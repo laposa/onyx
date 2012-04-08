@@ -160,7 +160,10 @@ define('I18N_CREATED', '発行人');
 define('I18N_PRINT_INVOICE', '請求書を印刷');
 define('I18N_PRINT_PROFORMA_INVOICE', '注文確認書を印刷');
 define('I18N_OTHER_DATA', 'その他の詳細');
-//component/ecommerce/orders.html
+define('I18N_BUTTON_MAKE_PAYMENT', 'Make Payment');
+define('I18N_BUTTON_REPEAT_ORDER', 'Repeat');
+define('I18N_BUTTON_PRINT_ORDER', 'Print');
+//component/ecommerce/order_list.html
 define('I18N_YOUR_ORDER_SUMMARY', 'ご注文内容');
 define('I18N_ORDERS', '以下があなたのご注文内容です。');
 define('I18N_ORDER_ID', 'ご注文ID');
@@ -169,6 +172,8 @@ define('I18N_ORDER_TOTAL', 'ご注文合計');
 define('I18N_ITEMS', 'アイテム');
 define('I18N_STATUS', '状態');
 define('I18N_YOU_HAVE_NO_ORDERS', 'ご注文はありません。');
+define('I18N_ORDER_PAY', 'Pay');
+define('I18N_ORDER_REPEAT', 'Repeat');
 //component/ecommerce/password_reminder.html
 //component/ecommerce/password_reset.html
 define('I18N_PLEASE_ENTER_YOUR_EMAIL_ETC', 'Eメールアドレスを入力ください。改めてお返事をお送りします。');
@@ -300,3 +305,6 @@ define('I18N_NEWS_CATEGORY_UNCATEGORIZED', 'Uncategorized');
 
 //component/ecommerce/recently_viewed_products.html
 define('I18N_RECENTLY_VIEWED_PRODUCTS', 'Recently viewed ...');
+
+//component/ecommerce/product_related_basket.html
+define('I18N_RECOMMENDED_PRODUCTS', 'We recommend ...');

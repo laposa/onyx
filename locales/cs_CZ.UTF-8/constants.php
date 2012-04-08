@@ -160,7 +160,10 @@ define('I18N_CREATED', 'vytvořena');
 define('I18N_PRINT_INVOICE', 'Vytisknout Fakturu');
 define('I18N_PRINT_PROFORMA_INVOICE', 'Vytisknout Proformu Faktury');
 define('I18N_OTHER_DATA', 'Detail objednávky');
-//component/ecommerce/orders.html
+define('I18N_BUTTON_MAKE_PAYMENT', 'Provést platbu');
+define('I18N_BUTTON_REPEAT_ORDER', 'Opakovat objednávku');
+define('I18N_BUTTON_PRINT_ORDER', 'Vytisknout');
+//component/ecommerce/order_list.html
 define('I18N_YOUR_ORDER_SUMMARY', 'Your order summary');
 define('I18N_ORDERS', 'Výpis Vašich objednávek:');
 define('I18N_ORDER_ID', 'Objednávka ID');
@@ -169,6 +172,8 @@ define('I18N_ORDER_TOTAL', 'Objednávka celkem');
 define('I18N_ITEMS', 'Položky');
 define('I18N_STATUS', 'Status');
 define('I18N_YOU_HAVE_NO_ORDERS', 'Nemáte žádné objednávky.');
+define('I18N_ORDER_PAY', 'Zaplatit');
+define('I18N_ORDER_REPEAT', 'Opakovat');
 //component/ecommerce/password_reminder.html
 //component/ecommerce/password_reset.html
 define('I18N_PLEASE_ENTER_YOUR_EMAIL_ETC', 'Vložte prosím svůj email a my Vám pošleme nové heslo.');
@@ -300,3 +305,6 @@ define('I18N_NEWS_CATEGORY_UNCATEGORIZED', 'Nezařazeno');
 
 //component/ecommerce/recently_viewed_products.html
 define('I18N_RECENTLY_VIEWED_PRODUCTS', 'Nedávno navštívené ...');
+
+//component/ecommerce/product_related_basket.html
+define('I18N_RECOMMENDED_PRODUCTS', 'Doporučujeme následující …');

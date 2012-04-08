@@ -160,7 +160,10 @@ define('I18N_CREATED', 'created');
 define('I18N_PRINT_INVOICE', 'Print Invoice');
 define('I18N_PRINT_PROFORMA_INVOICE', 'Print Proforma Invoice');
 define('I18N_OTHER_DATA', 'Other Details');
-//component/ecommerce/orders.html
+define('I18N_BUTTON_MAKE_PAYMENT', 'Make Payment');
+define('I18N_BUTTON_REPEAT_ORDER', 'Repeat');
+define('I18N_BUTTON_PRINT_ORDER', 'Print');
+//component/ecommerce/order_list.html
 define('I18N_YOUR_ORDER_SUMMARY', 'Your order summary');
 define('I18N_ORDERS', 'Displayed below are your orders with us:');
 define('I18N_ORDER_ID', 'Order ID');
@@ -169,6 +172,8 @@ define('I18N_ORDER_TOTAL', 'Order Total');
 define('I18N_ITEMS', 'Items');
 define('I18N_STATUS', 'Status');
 define('I18N_YOU_HAVE_NO_ORDERS', 'You have no orders.');
+define('I18N_ORDER_PAY', 'Pay');
+define('I18N_ORDER_REPEAT', 'Repeat');
 //component/ecommerce/password_reminder.html
 //component/ecommerce/password_reset.html
 define('I18N_PLEASE_ENTER_YOUR_EMAIL_ETC', 'Please enter your email and we will email it to you.');
@@ -303,3 +308,6 @@ define('I18N_NEWS_CATEGORY_UNCATEGORIZED', 'Uncategorized');
 
 //component/ecommerce/recently_viewed_products.html
 define('I18N_RECENTLY_VIEWED_PRODUCTS', 'Recently viewed ...');
+
+//component/ecommerce/product_related_basket.html
+define('I18N_RECOMMENDED_PRODUCTS', 'We recommend ...');

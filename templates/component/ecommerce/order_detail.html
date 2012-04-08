@@ -5,10 +5,10 @@
 	
 	<p class="actions">
 		<!-- BEGIN: make_payment -->
-		<a class="button make_payment" href="/page/{NODE_CONF.id_map-payment}?order_id={GET.order_id}"><span>Make Payment</span></a>
+		<a class="button make_payment" href="/page/{NODE_CONF.id_map-payment}?order_id={GET.order_id}"><span>{I18N_BUTTON_MAKE_PAYMENT}</span></a>
 		<!-- END: make_payment -->
-		<a class="button repeat_order" href="/page/{NODE_CONF.id_map-basket}?populate_basket_from_order_id={GET.order_id}"><span>Repeat</span></a>
-		<a class="button print_invoice" href="/print/invoice/{GET.order_id}"><span>Print</span></a>
+		<a class="button repeat_order" href="/page/{NODE_CONF.id_map-basket}?populate_basket_from_order_id={GET.order_id}"><span>{I18N_BUTTON_REPEAT_ORDER}</span></a>
+		<a class="button print_invoice" href="/print/invoice/{GET.order_id}"><span>{I18N_BUTTON_PRINT_ORDER}</span></a>
 	</p>
 	
 	{BASKET_DETAIL}
@@ -34,14 +34,14 @@
 		</div>
 	</div>
 	
-	<pre>{ORDER.note_customer}</pre>
+	<pre>{ORDER.note_customer|htmlspecialchars}</pre>
 	
 	<!-- BEGIN: other_data -->
 	<div class="other_data">
 		<h3>{I18N_OTHER_DATA}</h3>
 		<p>
 		<!-- BEGIN: item -->
-			<strong>{OTHER_DATA.key}:</strong> {OTHER_DATA.value}<br />
+			<strong>{OTHER_DATA.key|htmlspecialchars}:</strong> {OTHER_DATA.value|htmlspecialchars}<br />
 		<!-- END: item -->
 		</p>
 	</div>
