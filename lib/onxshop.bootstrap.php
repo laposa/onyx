@@ -392,7 +392,7 @@ class Onxshop_Bootstrap {
 		
 			$this->headers = $data['output_headers'];
 			$this->output = $data['output_body'];
-			$this->resendHeaders();
+			$this->restoreHeaders();
 		}
 	}
 	
@@ -425,11 +425,11 @@ class Onxshop_Bootstrap {
 	}
 	
 	/**
-	 * resendHeaders
+	 * restoreHeaders
 	 * will resend original headers for cached pages
 	 */
 	 
-	public function resendHeaders() {
+	public function restoreHeaders() {
 		
 		if (is_array($this->headers)) {
 		
