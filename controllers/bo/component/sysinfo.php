@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2011-2012 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -18,10 +18,12 @@ class Onxshop_Controller_Bo_Component_Sysinfo extends Onxshop_Controller {
 		 * available only to debug hosts
 		 */
 		
+		/*
 		if (!ONXSHOP_IS_DEBUG_HOST) {
 			msg('Need to be listed as $debug_hosts in conf/deployment.php', 'error');
 			return false;
 		}
+		*/
 		
 		$sysinfo = $this->getSysInfo();
 		$this->tpl->assign('SYSINFO', $sysinfo);
