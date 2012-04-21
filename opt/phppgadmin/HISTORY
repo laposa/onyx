@@ -1,6 +1,38 @@
 phpPgAdmin History
 ------------------
 
+
+Version 5.0.4
+-------------
+
+Released: 22th March 2012
+
+Bug fixes.
+
+* Fix #3468882 "UPDATE single row with varchar key: empty where clause", reported by "Dirk Kraemer"
+* Fix XSS in function.php, reported by Mateusz Goik
+* Fix bug where renaming a tablespace was leading to an error
+* Fix a bug where clicking to "Show all schemas" on schema privilege page leads back to the latest tab used in database level
+* Fix a bug when executing a query from the history
+* Fix bad confirmation message when droping an autovacuum table setup
+* Fix bug #3429633 '"Back" link from "Browse" leads to error'
+* Fix a PHP warning when Slony conf parameters are not set
+* Show cancel/kill actions in process page only if role is a superuser
+* Some more small code cleanup and fixes.
+
+Version 5.0.3
+-------------
+
+Released: 3rd October 2011
+
+Some bug fixes.
+
+* Fix bug with enable/disable triggers on multiple triggers (Dawid 'DeyV' Polak)
+* Fix bug #3353670: Error when executing a report with paging
+* Fix bug with OpenBSD about where setting application_name using PGOPTIONS was raising an ERROR
+* Two security fix about code injection, reported by Mateusz Goik, fixed by ioguix
+* Fix character-encoding problem with autocomplete
+
 Version 5.0.2
 -------------
 

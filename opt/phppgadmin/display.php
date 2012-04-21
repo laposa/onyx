@@ -5,8 +5,7 @@
 	 * tables, reports, arbitrary queries, etc. to avoid code duplication.
 	 * @param $query The SQL SELECT string to execute
 	 * @param $count The same SQL query, but only retrieves the count of the rows (AS total)
-	 * @param $return_url The return URL
-	 * @param $return_desc The return link name
+	 * @param $return The return section
 	 * @param $page The current page
 	 *
 	 * $Id: display.php,v 1.68 2008/04/14 12:44:27 ioguix Exp $
@@ -32,7 +31,7 @@
 		if (is_array($_REQUEST['key']))
            $key = $_REQUEST['key'];
         else
-           $key = unserialize($_REQUEST['key']);
+           $key = unserialize(urldecode($_REQUEST['key']));
 
 		if ($confirm) {
 			$misc->printTrail($_REQUEST['subject']);
@@ -143,15 +142,13 @@
 				echo "<input type=\"hidden\" name=\"query\" value=\"", htmlspecialchars($_REQUEST['query']), "\" />\n";
 			if (isset($_REQUEST['count']))
 				echo "<input type=\"hidden\" name=\"count\" value=\"", htmlspecialchars($_REQUEST['count']), "\" />\n";
-			if (isset($_REQUEST['return_url']))
-				echo "<input type=\"hidden\" name=\"return_url\" value=\"", htmlspecialchars($_REQUEST['return_url']), "\" />\n";
-			if (isset($_REQUEST['return_desc']))
-				echo "<input type=\"hidden\" name=\"return_desc\" value=\"", htmlspecialchars($_REQUEST['return_desc']), "\" />\n";
+			if (isset($_REQUEST['return']))
+				echo "<input type=\"hidden\" name=\"return\" value=\"", htmlspecialchars($_REQUEST['return']), "\" />\n";
 			echo "<input type=\"hidden\" name=\"page\" value=\"", htmlspecialchars($_REQUEST['page']), "\" />\n";
 			echo "<input type=\"hidden\" name=\"sortkey\" value=\"", htmlspecialchars($_REQUEST['sortkey']), "\" />\n";
 			echo "<input type=\"hidden\" name=\"sortdir\" value=\"", htmlspecialchars($_REQUEST['sortdir']), "\" />\n";
 			echo "<input type=\"hidden\" name=\"strings\" value=\"", htmlspecialchars($_REQUEST['strings']), "\" />\n";
-			echo "<input type=\"hidden\" name=\"key\" value=\"", htmlspecialchars(serialize($key)), "\" />\n";
+			echo "<input type=\"hidden\" name=\"key\" value=\"", htmlspecialchars(urlencode(serialize($key))), "\" />\n";
 			echo "<p>";
 			if (!$error) echo "<input type=\"submit\" name=\"save\" value=\"{$lang['strsave']}\" />\n";
 			echo "<input type=\"submit\" name=\"cancel\" value=\"{$lang['strcancel']}\" />\n";
@@ -171,7 +168,7 @@
 			if (!isset($_POST['nulls'])) $_POST['nulls'] = array();
 			
 			$status = $data->editRow($_POST['table'], $_POST['values'], $_POST['nulls'], 
-				$_POST['format'], $_POST['types'], unserialize($_POST['key']));
+				$_POST['format'], $_POST['types'], $key);
 			if ($status == 0)
 				doBrowse($lang['strrowupdated']);
 			elseif ($status == -2)
@@ -206,21 +203,19 @@
 				echo "<input type=\"hidden\" name=\"query\" value=\"", htmlspecialchars($_REQUEST['query']), "\" />\n";
 			if (isset($_REQUEST['count']))
 				echo "<input type=\"hidden\" name=\"count\" value=\"", htmlspecialchars($_REQUEST['count']), "\" />\n";
-			if (isset($_REQUEST['return_url']))
-				echo "<input type=\"hidden\" name=\"return_url\" value=\"", htmlspecialchars($_REQUEST['return_url']), "\" />\n";
-			if (isset($_REQUEST['return_desc']))
-				echo "<input type=\"hidden\" name=\"return_desc\" value=\"", htmlspecialchars($_REQUEST['return_desc']), "\" />\n";
+			if (isset($_REQUEST['return']))
+				echo "<input type=\"hidden\" name=\"return\" value=\"", htmlspecialchars($_REQUEST['return']), "\" />\n";
 			echo "<input type=\"hidden\" name=\"page\" value=\"", htmlspecialchars($_REQUEST['page']), "\" />\n";
 			echo "<input type=\"hidden\" name=\"sortkey\" value=\"", htmlspecialchars($_REQUEST['sortkey']), "\" />\n";
 			echo "<input type=\"hidden\" name=\"sortdir\" value=\"", htmlspecialchars($_REQUEST['sortdir']), "\" />\n";
 			echo "<input type=\"hidden\" name=\"strings\" value=\"", htmlspecialchars($_REQUEST['strings']), "\" />\n";
-			echo "<input type=\"hidden\" name=\"key\" value=\"", htmlspecialchars(serialize($_REQUEST['key'])), "\" />\n";
+			echo "<input type=\"hidden\" name=\"key\" value=\"", htmlspecialchars(urlencode(serialize($_REQUEST['key']))), "\" />\n";
 			echo "<input type=\"submit\" name=\"yes\" value=\"{$lang['stryes']}\" />\n";
 			echo "<input type=\"submit\" name=\"no\" value=\"{$lang['strno']}\" />\n";
 			echo "</form>\n";
 		}
 		else {
-			$status = $data->deleteRow($_POST['table'], unserialize($_POST['key']));
+			$status = $data->deleteRow($_POST['table'], unserialize(urldecode($_POST['key'])));
 			if ($status == 0)
 				doBrowse($lang['strrowdeleted']);
 			elseif ($status == -2)
@@ -243,16 +238,7 @@
 			$constraints = $data->getConstraintsWithFields($_REQUEST['table']);
 			if ($constraints->recordCount() > 0) {
 
-				/* build the common parts of the url for the FK  */
-				$fk_return_url = "{$misc->href}&amp;subject=table&amp;table=". urlencode($_REQUEST['table']);
-				if (isset($_REQUEST['page'])) $fk_return_url .= "&amp;page=" . urlencode($_REQUEST['page']);
-				if (isset($_REQUEST['query'])) $fk_return_url .= "&amp;query=" . urlencode($_REQUEST['query']);
-				if (isset($_REQUEST['search_path'])) $fk_return_url .= "&amp;search_path=" . urlencode($_REQUEST['search_path']);
-
-				/* yes, we double urlencode fk_return_url so parameters here don't 
-				 * overwrite real one when included in the final url */
-				$fkey_information['common_url'] = $misc->getHREF('schema') .'&amp;subject=table&amp;return_url=display.php?'
-					. urlencode($fk_return_url) .'&amp;return_desc='. urlencode($lang['strback']);
+				$fkey_information['common_url'] = $misc->getHREF('schema') .'&amp;subject=table';
 
 				/* build the FK constraints data structure */
 				while (!$constraints->EOF) {
@@ -438,7 +424,12 @@
 				$_SESSION['sqlquery'] = $_REQUEST['query'];
 				$misc->printTitle($lang['strselect']);
 				$type = 'SELECT';
-			} else {
+			}
+			else if (isset($_REQUEST['report'])) {
+				$misc->printTitle($lang['strselect']);
+				$type = 'SELECT';
+			}
+			else {
 				$misc->printTitle($lang['strbrowse']);
 				$type = 'TABLE';
 			}
@@ -474,7 +465,7 @@
 		// Retrieve page from query.  $max_pages is returned by reference.
 		$rs = $data->browseQuery($type, 
 			isset($object) ? $object : null, 
-			isset($_REQUEST['query']) ? $_REQUEST['query'] : null, 
+			isset($_SESSION['sqlquery']) ? $_SESSION['sqlquery'] : null,
 			$_REQUEST['sortkey'], $_REQUEST['sortdir'], $_REQUEST['page'],
 			$conf['max_rows'], $max_pages);
 
@@ -485,9 +476,9 @@
 		if (isset($object)) $gets .= "&amp;" . urlencode($subject) . '=' . urlencode($object);
 		if (isset($subject)) $gets .= "&amp;subject=" . urlencode($subject);
 		if (isset($_REQUEST['query'])) $gets .= "&amp;query=" . urlencode($_REQUEST['query']);
+		if (isset($_REQUEST['report'])) $gets .= "&amp;report=" . urlencode($_REQUEST['report']);
 		if (isset($_REQUEST['count'])) $gets .= "&amp;count=" . urlencode($_REQUEST['count']);
-		if (isset($_REQUEST['return_url'])) $gets .= "&amp;return_url=" . urlencode($_REQUEST['return_url']);
-		if (isset($_REQUEST['return_desc'])) $gets .= "&amp;return_desc=" . urlencode($_REQUEST['return_desc']);
+		if (isset($_REQUEST['return'])) $gets .= "&amp;return=" . urlencode($_REQUEST['return']);
 		if (isset($_REQUEST['search_path'])) $gets .= "&amp;search_path=" . urlencode($_REQUEST['search_path']);
 		if (isset($_REQUEST['table'])) $gets .= "&amp;table=" . urlencode($_REQUEST['table']);
 		
@@ -571,8 +562,12 @@
 		echo "<ul class=\"navlink\">\n";
 
 		// Return
-		if (isset($_REQUEST['return_url']) && isset($_REQUEST['return_desc']))
-			echo "\t<li><a href=\"{$_REQUEST['return_url']}\">{$_REQUEST['return_desc']}</a></li>\n";
+		if (isset($_REQUEST['return'])) {
+			$return_url = $misc->getHREFSubject($_REQUEST['return']);
+
+			if ($return_url)
+				echo "\t<li><a href=\"{$return_url}\">{$lang['strback']}</a></li>\n";
+		}
 
 		// Edit SQL link
 		if (isset($_REQUEST['query']))

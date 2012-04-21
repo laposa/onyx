@@ -16,7 +16,7 @@
 	$appName = 'phpPgAdmin';
 
 	// Application version
-	$appVersion = '5.0.2';
+	$appVersion = '5.0.4';
 
 	// PostgreSQL and PHP minimum version
 	$postgresqlMinVer = '7.4';
@@ -189,7 +189,7 @@
 
 		/* starting with PostgreSQL 9.0, we can set the application name */
 		if(isset($_server_info['pgVersion']) && $_server_info['pgVersion'] >= 9)
-			putenv("PGOPTIONS=--application_name={$appName}_{$appVersion}");
+			putenv("PGAPPNAME={$appName}_{$appVersion}");
 
 		// Redirect to the login form if not logged in
 		if (!isset($_server_info['username'])) {
@@ -249,7 +249,7 @@
 
 
 		// Load Slony if required
-		if ($_server_info['slony_support']) {
+		if (isset($_server_info['slony_support'])) {
 			include('./classes/plugins/Slony.php');
 			$slony = new Slony();
 		}

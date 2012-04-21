@@ -41,8 +41,7 @@
 			// and reload the browser frame.
 			if (!empty($_POST['formFuncSchema']) && ($_POST['formFuncSchema'] != $_POST['original_schema'])) {
 				// Jump them to the new function schema
-				$_REQUEST['schema'] = $_POST['formFuncSchema'];
-				$misc->href = "server={$_REQUEST['server']}&amp;database={$_REQUEST['database']}&amp;schema={$_REQUEST['schema']}";
+				$misc->setCurrentSchema($_POST['formFuncSchema']);
 				// Force a browser reload
 				$_reload_browser = true;
 			 }
@@ -774,14 +773,12 @@
 			'function' => array(
 				'title' => $lang['strfunction'],
 				'field' => field('proproto'),
-				'type'  => 'verbatim',
 				'url'   => "redirect.php?subject=function&amp;action=properties&amp;{$misc->href}&amp;",
 				'vars'  => array('function' => 'proproto', 'function_oid' => 'prooid'),
 			),
 			'returns' => array(
 				'title' => $lang['strreturns'],
 				'field' => field('proreturns'),
-				'type'  => 'verbatim',
 			),
 			'owner' => array(
 				'title' => $lang['strowner'],

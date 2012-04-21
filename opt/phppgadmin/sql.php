@@ -80,10 +80,15 @@
 		$report = $reportsdb->getReport($_REQUEST['reportid']);
 		$_SESSION['sqlquery'] = $report->fields['report_sql'];	
 	} 
+	elseif (isset($_REQUEST['subject']) && $_REQUEST['subject'] == 'history') {
+		// Or maybe we came from the history popup
+		$_SESSION['sqlquery'] = $_SESSION['history'][$_REQUEST['server']][$_REQUEST['database']][$_GET['queryid']]['query'];
+	}
 	elseif (isset($_POST['query'])) {
 		// Or maybe we came from an sql form
 		$_SESSION['sqlquery'] = $_POST['query'];
-	} else {
+	}
+	else {
 		echo "could not find the query!!";
 	}
 	
@@ -194,8 +199,10 @@
 	echo "<ul class=\"navlink\">\n";
 	
 	// Return
-	if (isset($_REQUEST['return_url']) && isset($_REQUEST['return_desc']))
-		echo "\t<li><a href=\"{$_REQUEST['return_url']}\">{$_REQUEST['return_desc']}</a></li>\n";
+	if (isset($_REQUEST['return'])) {
+		$return_url = $misc->getHREFSubject($_REQUEST['return']);
+		echo "\t<li><a href=\"{$return_url}\">{$lang['strback']}</a></li>\n";
+	}
 
 	// Edit		
 	echo "\t<li><a href=\"database.php?database=", urlencode($_REQUEST['database']),
