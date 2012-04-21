@@ -89,9 +89,9 @@ RewriteRule	^ajax/add/([a-z]*)/([0-9]*)$	/index.php?request=bo/component/node_ad
 RewriteRule	^ajax/add/([a-z]*)/([0-9]*)/([0-9]*)/orig/(.*)$	/index.php?request=bo/component/node_add&parent=$2&container=$3&node_group=$1&orig=$4&ajax=1&dontforward=1 [L,QSA]
 
 #exports
-RewriteRule ^export/([a-z]*)/([a-z]*)$  /index.php?request=export/$1_$2 [L]
-RewriteRule	^export/([a-z]*)/([a-z]*)/([0-9]*)$	/index.php?request=export/$1_$2&id=$3 [L]
-RewriteRule	^sitemap.xml$	/index.php?request=export/xml_googlesitemap [L]
+RewriteRule ^export/([a-z]*)/([a-z]*)$  /index.php?request=export/$1_$2 [L,QSA]
+RewriteRule	^export/([a-z]*)/([a-z]*)/([0-9]*)$	/index.php?request=export/$1_$2&id=$3 [L,QSA]
+RewriteRule	^sitemap.xml$	/index.php?request=export/xml_googlesitemap [L,QSA]
 
 ###################
 # CLIENT FRONTEND #
