@@ -16,6 +16,7 @@ define('I18N_RECOMMEND_TO_A_FRIEND', 'Recommend to a friend');
 //site/defaults.html
 //component/searchbox.html
 define('I18N_SEARCH', 'Search');
+define('I18N_GOTO_HOMEPAGE', 'Go to the homepage of');
 //component/breadcrumb.html
 define('I18N_HOME', 'Home');
 //component/breadcrumb_product.html

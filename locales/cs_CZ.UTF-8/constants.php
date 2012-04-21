@@ -16,6 +16,7 @@ define('I18N_RECOMMEND_TO_A_FRIEND', 'Doporuč kamarádovi');
 //site/defaults.html
 //component/searchbox.html
 define('I18N_SEARCH', 'Hledej');
+define('I18N_GOTO_HOMEPAGE', 'Přejít na homepage');
 //component/breadcrumb.html
 define('I18N_HOME', 'Úvod');
 //component/breadcrumb_product.html

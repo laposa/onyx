@@ -16,6 +16,7 @@ define('I18N_RECOMMEND_TO_A_FRIEND', '友達にすすめる');
 //site/defaults.html
 //component/searchbox.html
 define('I18N_SEARCH', '検索');
+define('I18N_GOTO_HOMEPAGE', 'Go to the homepage of');
 //component/breadcrumb.html
 define('I18N_HOME', 'ホーム');
 //component/breadcrumb_product.html
