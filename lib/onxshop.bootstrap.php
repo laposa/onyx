@@ -1,15 +1,17 @@
 <?php
 /**
- * Copyright (c) 2005-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2005-2012 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
 
 class Onxshop_Bootstrap {
 
-	var $Onxshop;
+	public $Onxshop;
 	
-	var $output;
+	public $headers;
+	
+	public $output;
 	
 	/**
 	 * constructor
@@ -346,7 +348,9 @@ class Onxshop_Bootstrap {
 		
 		$this->Onxshop = $router->processAction($request);
 		
+		$this->headers = headers_list();
 		$this->output = $this->Onxshop->finalOutput();
+		
 	}
 	
 	/**
@@ -359,7 +363,7 @@ class Onxshop_Bootstrap {
 		
 		$frontendOptions = array(
 		'lifetime' => ONXSHOP_PAGE_CACHE_TTL,
-		'automatic_serialization' => false  // this is default anyway
+		'automatic_serialization' => true
 		);
 		
 		$backendOptions = array('cache_dir' => ONXSHOP_PROJECT_DIR . 'var/cache/');
@@ -368,23 +372,27 @@ class Onxshop_Bootstrap {
 		
 		$id = "GET_" . md5($request . serialize($_GET));
 		
-		if (!($data = $cache->load($id))) {
+		if (!is_array($data = $cache->load($id))) {
 		    // cache miss
-		
+			
 		    $this->processAction($request);
-
-		    $this->output = $this->Onxshop->finalOutput(1);
 		    
 		    if ($this->Onxshop->http_status != 404 && $this->Onxshop->http_status != 401 && !Zend_Registry::isRegistered('controller_error')) {
-		    
-		    	$cache->save($this->output);
-		    
+		    	
+		    	$data_to_cache = array();
+		    	$data_to_cache['output_headers'] = $this->headers;
+		    	$data_to_cache['output_body'] = $this->output;
+		    	$cache->save($data_to_cache);
+		    	
 		    	//TODO update index now
 		    	//$this->indexContent($_GET['translate'], $this->output);
 		    }
 
 		} else {
-			$this->output = $data;
+		
+			$this->headers = $data['output_headers'];
+			$this->output = $data['output_body'];
+			$this->resendHeaders();
 		}
 	}
 	
@@ -414,6 +422,22 @@ class Onxshop_Bootstrap {
 		
 		$index->addDocument($doc);
 		$index->commit();
+	}
+	
+	/**
+	 * resendHeaders
+	 * will resend original headers for cached pages
+	 */
+	 
+	public function resendHeaders() {
+		
+		if (is_array($this->headers)) {
+		
+			foreach ($this->headers as $header) {
+				header($header);
+			}
+		}
+	
 	}
 	
 	/**
