@@ -24,10 +24,10 @@
 								<tbody>
 									<!-- BEGIN: item -->
 									<tr class="publish_{ITEM.publish}">
-										<td>{ITEM.id}</td>
+										<td><a title="Edit survey" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_detail~id={ITEM.id}~'); return false" href="#sub_content">{ITEM.id}</a></td>
 										<td><a title="Edit survey" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_detail~id={ITEM.id}~'); return false" href="#sub_content">{ITEM.title|htmlspecialchars}</a></td>
-										<td>{ITEM.description|htmlspecialchars}</td>
-										<td>{ITEM.created}</td>
+										<td><a title="Edit survey" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_detail~id={ITEM.id}~'); return false" href="#sub_content">{ITEM.description|htmlspecialchars}</a></td>
+										<td><a title="Edit survey" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_detail~id={ITEM.id}~'); return false" href="#sub_content">{ITEM.created}</a></td>
 									</tr>
 									<!-- END: item -->
 									<!-- BEGIN: empty -->
