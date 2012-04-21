@@ -100,6 +100,9 @@ define('I18N_ADD_NEW_ADDRESS', 'Přidat novou adresu');
 define('I18N_SHOPPING_BASKET', 'Nákupní košík');
 define('I18N_YOUR_BASKET_IS_EMPTY', 'Váš košík je prázdný.');
 define('I18N_CHECKOUT', 'Objednat');
+//component/ecommerce/basket.php
+define('I18N_BASKET_ITEM_ADDED', 'Položka byla vložena do košíku');
+define('I18N_BASKET_ITEM_REMOVED', 'Položka byla odstraněna');
 //component/ecommerce/basket_detail.html
 //component/ecommerce/basket_edit.html
 define('I18N_YOUR_ORDER_SUMMARY', 'Detail Vaší objednávky');

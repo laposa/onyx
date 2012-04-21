@@ -229,7 +229,7 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 		 
 		if ($this->Basket->addToBasket($_SESSION['basket']['id'], $product_variety_id, $quantity, $other_data, $price_id)) {
 
-			msg("Item has been added to your basket");
+			msg(I18N_BASKET_ITEM_ADDED);
 			
 			return true;
 		}
@@ -244,7 +244,7 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 	
 		if ($this->Basket->removeFromBasket($basket_id, $item_remove)) {
 		
-			msg("Item has been deleted from your basket");
+			msg(I18N_BASKET_ITEM_REMOVED);
 			return true;
 		} else {
 		

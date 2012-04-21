@@ -100,6 +100,9 @@ define('I18N_ADD_NEW_ADDRESS', '新しい住所を追加');
 define('I18N_SHOPPING_BASKET', 'ショッピングカート');
 define('I18N_YOUR_BASKET_IS_EMPTY', 'カートに商品はありません');
 define('I18N_CHECKOUT', 'レジに進む');
+//component/ecommerce/basket.php
+define('I18N_BASKET_ITEM_ADDED', 'Item has been added to your basket');
+define('I18N_BASKET_ITEM_REMOVED', 'Item has been deleted from your basket');
 //component/ecommerce/basket_detail.html
 //component/ecommerce/basket_edit.html
 define('I18N_YOUR_ORDER_SUMMARY', 'ご注文内容');
