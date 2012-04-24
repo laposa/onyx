@@ -348,7 +348,7 @@ class Onxshop_Bootstrap {
 		
 		$this->Onxshop = $router->processAction($request);
 		
-		$this->headers = headers_list();
+		$this->headers = $this->getPublicHeaders();
 		$this->output = $this->Onxshop->finalOutput();
 		
 	}
@@ -438,6 +438,26 @@ class Onxshop_Bootstrap {
 			}
 		}
 	
+	}
+	
+	/**
+	 * getPublicHeaders
+	 * store in cache only public headers, definitely not "Set-Cookie: PHPSESSID=2vom6fgga2lp0cg5d9gspqomv0; path=/" header!!!
+	 */
+	 
+	public function getPublicHeaders() {
+	
+		$all_headers = headers_list();
+		$public_headers = array();
+		
+		foreach ($all_headers as $item) {
+		
+			if (preg_match('/^Content-Type/', $item)) $public_headers[] = $item;
+			
+		}
+		
+		return $public_headers;
+		
 	}
 	
 	/**
