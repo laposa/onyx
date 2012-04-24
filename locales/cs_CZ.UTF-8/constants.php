@@ -139,6 +139,7 @@ define('I18N_PAY_BY_PAYPAL', 'Zaplatit přes PayPal (platební kartou)');
 define('I18N_PAY_BY_CHEQUE', 'Zaplatit na dobírku');
 define('I18N_PAY_BY_ON_DELIVERY', 'Zaplatit na dobírku (osobně při dodání)');
 define('I18N_PAY_BY_BANK_TRANSFER', 'Zaplatit bankovním převodem na účet');
+define('I18N_PAY_BY_CUSTOM', 'Instukce k platbě budou následovat');
 define('I18N_IS_THIS_A_GIFT', 'Je toto dárek? (nebudeme přikládat informace o ceně k doručení)');
 define('I18N_GIFT_MESSAGE', 'Darovací zpráva');
 //component/ecommerce/checkout_basket.html

@@ -139,6 +139,7 @@ define('I18N_PAY_BY_PAYPAL', 'Pay By Paypal');
 define('I18N_PAY_BY_CHEQUE', 'Pay By Cheque');
 define('I18N_PAY_BY_ON_DELIVERY', 'Pay On Delivery');
 define('I18N_PAY_BY_BANK_TRANSFER', 'Pay By Bank Transfer');
+define('I18N_PAY_BY_CUSTOM', 'Payment instructions will follow');
 define('I18N_IS_THIS_A_GIFT', 'Is this a gift? (we will not include details of prices with delivery)');
 define('I18N_GIFT_MESSAGE', 'Gift Message');
 //component/ecommerce/checkout_basket.html

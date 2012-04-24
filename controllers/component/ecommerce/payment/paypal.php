@@ -38,6 +38,9 @@ class Onxshop_Controller_Component_Ecommerce_Payment_Paypal extends Onxshop_Cont
 	 
 	public function mainAction() {
 	
+		if (is_numeric($this->GET['autosubmit'])) $autosubmit = $this->GET['autosubmit'];
+		else $autosubmit = 1;
+		
 		require_once('conf/payment/paypal.php');
 		
 		$this->transactionPrepare();
@@ -47,7 +50,7 @@ class Onxshop_Controller_Component_Ecommerce_Payment_Paypal extends Onxshop_Cont
 		if (!$payment_gateway_data) return false;
 		
 		$this->tpl->assign("PAYMENT_GATEWAY", $payment_gateway_data);
-		$this->tpl->parse('content.autosubmit');
+		if ($autosubmit) $this->tpl->parse('content.autosubmit');
 	
 		return true;
 	}
