@@ -45,7 +45,7 @@ define('I18N_AUTHOR_NAME', 'Jméno');
 define('I18N_AUTHOR_EMAIL', 'Email');
 define('I18N_AUTHOR_WEBSITE', 'Vaše webová adresa');
 //component/discussion.html
-define('I18N_ADD_NEW_TOPIC', 'add new topic');
+define('I18N_ADD_NEW_TOPIC', 'Přidat nové téma');
 //component/comment_UL.html
 define('I18N_REPLY_TO_THIS_COMMENT', 'Reagovat na tento příspěvek');
 define('I18N_COMMENT_AUTHOR', 'Autor');
@@ -169,7 +169,7 @@ define('I18N_BUTTON_MAKE_PAYMENT', 'Provést platbu');
 define('I18N_BUTTON_REPEAT_ORDER', 'Opakovat objednávku');
 define('I18N_BUTTON_PRINT_ORDER', 'Vytisknout');
 //component/ecommerce/order_list.html
-define('I18N_YOUR_ORDER_SUMMARY', 'Your order summary');
+define('I18N_YOUR_ORDER_SUMMARY', 'Souhrn Vaší objednávky');
 define('I18N_ORDERS', 'Výpis Vašich objednávek:');
 define('I18N_ORDER_ID', 'ID');
 define('I18N_DATA_AND_TIME', 'Datum &amp; čas');
@@ -185,7 +185,7 @@ define('I18N_PLEASE_ENTER_YOUR_EMAIL_ETC', 'Vložte prosím svůj email a my Vá
 define('I18N_PASSWORD_REMINDER', 'Připomenutí hesla');
 define('I18N_YOUR_EMAIL', 'Váš email');
 define('I18N_SUBMIT', 'Odeslat');
-define('I18N_THANK_YOU_WE_WILL_SEND_ETC', 'Thank you. Will we send you an email shortly with your password.');
+define('I18N_THANK_YOU_WE_WILL_SEND_ETC', 'Děkujeme. Pošleme Vám email s Vašim heslem.');
 //component/ecommerce/password_reset.html
 define('I18N_PASSWORD_RESET', 'Vygenerovat nové heslo');
 define('I18N_A_MESSAGE_HAS_BEEN_SENT_TO', 'Zpráva byla odeslána na');
@@ -246,11 +246,11 @@ define('I18N_RS_SUBMIT', 'Odeslat');
 //component/client/newsletter_subscribe_start.html
 define('I18N_NEWSLETTER_SIGNUP', 'Přihlásit');
 //component/ecommerce/user_prefs.html
-define('I18N_CHANGE_PASSWORD', 'Change password');
-define('I18N_CURRENT_PASSWORD', 'Current password:');
-define('I18N_NEW_PASSWORD', 'New password:');
-define('I18N_NEW_PASSWORD1', 'New password repeat:');
-define('I18N_SAVE', 'Save');
+define('I18N_CHANGE_PASSWORD', 'Změna hesla');
+define('I18N_CURRENT_PASSWORD', 'Vaše současné heslo:');
+define('I18N_NEW_PASSWORD', 'Vaše nové heslo:');
+define('I18N_NEW_PASSWORD1', 'Zopakujte Vaše nové heslo:');
+define('I18N_SAVE', 'Uložit');
 //component/ecommerce/userbox.html
 define('I18N_CLIENT_REGISTER', 'Register');
 define('I18N_CLIENT_LOGIN', 'Můj účet');
