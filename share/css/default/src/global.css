@@ -180,12 +180,10 @@ div.jGrowl.bottom-left {left: 0; bottom: 0;}
 div.jGrowl.bottom-right {right: 0; bottom: 0;}
 div.jGrowl.center {top: 0; width: 50%; left: 25%;}*/
 div.jGrowl p {margin: 0; padding: 0;}
-div.jGrowl div.jGrowl-notification {
-	zoom: 1; text-align: left;
-	display: none; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; min-height: 40px;}
-div.jGrowl div.jGrowl-notification div.header {font-weight: bold;}
-div.jGrowl div.jGrowl-notification div.close {color: black; background: white; float: right; font-weight: bold; font-size: 16px; cursor: pointer; cursor: hand;}
+div.jGrowl div.jGrowl-notification {zoom: 1; text-align: left; display: none; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; min-height: 40px;}
+div.jGrowl div.jGrowl-notification div.jGrowl-header {font-weight: bold;}
+div.jGrowl div.jGrowl-notification div.jGrowl-close {color: black; background: white; float: right; font-weight: bold; font-size: 16px; cursor: pointer; cursor: hand;}
 div.jGrowl div.jGrowl-closer {display: none; color: black; background: white; height: 15px; cursor: pointer; cursor: hand; font-size: 11px; font-weight: bold; text-align: center;}
-div.jGrowl .ui-state-highlight {border: none; background: none;}
+div.jGrowl .highlight {border: none; background: none;}
 
 
