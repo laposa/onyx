@@ -1334,7 +1334,7 @@ function unixtime() {
 }
 
 function makeAjaxRequest(jquery_selector, url, complete_callback) {
-    $(jquery_selector).html("<div style='width: 100%; padding-top: 100px; text-align: center;'><img src='/share/images/ajax-indicator/indicator_verybig.gif' alt='Loading ...'/></div>").load(url, '', function (responseText, textStatus, XMLHttpRequest) {
+    jQuery(jquery_selector).html("<div style='width: 100%; padding-top: 100px; text-align: center;'><img src='/share/images/ajax-indicator/indicator_verybig.gif' alt='Loading ...'/></div>").load(url, '', function (responseText, textStatus, XMLHttpRequest) {
 			popupMessage( jquery_selector + ' div.onxshop_messages');
 			
 			if (jQuery.isFunction(complete_callback)) complete_callback();
@@ -1381,9 +1381,9 @@ function button_fix(onlyInt) {
 
 
 function openAjaxRequestInGrowl(url, title) {
-	$.jGrowl('<div class="onxshop_messages in_jGrowl"><img src="/share/images/ajax-indicator/ajax-loader-bar.gif" alt="Loading ..."/></div>', {
+	jQuery.jGrowl('<div class="onxshop_messages in_jGrowl"><img src="/share/images/ajax-indicator/ajax-loader-bar.gif" alt="Loading ..."/></div>', {
 		beforeOpen: function(e, m, o) {
-			$("#dialog").hide().load(url, '', 
+			jQuery("#dialog").hide().load(url, '', 
 				function (responseText, textStatus, XMLHttpRequest) {
 					popupMessage("#dialog div.onxshop_messages");
 				});
@@ -1397,17 +1397,12 @@ function openAjaxRequestInGrowl(url, title) {
  */
 
 function popupMessage(selector) {
-	$.each($(selector), function() {
-		var message = $(this).hide().html();
+	jQuery.each(jQuery(selector), function() {
+		var message = jQuery(this).hide().html();
 		if (message) growlMessage(message);
 	});
 }
 
 function growlMessage(message) {
-	$.jGrowl("<div class='onxshop_messages in_jGrowl'>" + message + "</div>", {life: 4000})
+	jQuery.jGrowl("<div class='onxshop_messages in_jGrowl'>" + message + "</div>", {life: 4000})
 }
-
-$(function () {
-	//disabled, requires fix IE CSS style and to display all message containers on page 
-	//popupMessage("div.onxshop_messages");
-});
