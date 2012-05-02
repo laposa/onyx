@@ -15,6 +15,19 @@ class Onxshop_Controller_Node_Layout_Default extends Onxshop_Controller_Node_Def
 	 
 	public function mainAction() {
 	
+		/**
+		 * check input: node id value must be numeric
+		 */
+		 
+		if (!is_numeric($this->GET['id'])) {
+			msg("node/layout/default: id not numeric", 'error');
+			return false;
+		}
+		
+		/**
+		 * layout standard functions
+		 */
+		 
 		$this->processContainers();
 		$this->processLayout();
 
