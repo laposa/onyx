@@ -87,6 +87,7 @@ CREATE TABLE ecommerce_price (
 		$conf['type'] = array('common');
 		
 		if (!array_key_exists('allow_multiplicator', $conf)) $conf['allow_multiplicator'] = 0;//disabled multiplicator functionality by default
+		if (!array_key_exists('multiplicator_growth', $conf)) $conf['multiplicator_growth'] = 'linear';//linear or exponential_over_1
 		
 		$conf['backoffice_with_vat'] = true;
 		$conf['frontend_with_vat'] = true;
@@ -407,13 +408,28 @@ CREATE TABLE ecommerce_price (
 		
 			$common_price_data = $this->getLastPriceForVariety($product_variety_id);
 			$price_data['product_variety_id'] = $product_variety_id;
-			$price_data['value'] = $common_price_data['value'] * $multiplicator;
+			
+			switch ($this->conf['multiplicator_growth']) {
+				case 'exponential_over_1':
+					//exponential for multiplicator value greater than 1, under 1 is linear
+					if ($multiplicator > 1) $price_data['value'] = $common_price_data['value'] * pow($multiplicator, 2);
+					else $price_data['value'] = $common_price_data['value'] * $multiplicator;
+					break;
+				case 'linear':
+				default:
+					//linear growth
+					$price_data['value'] = $common_price_data['value'] * $multiplicator;
+					break;
+			}
+			
 			$price_data['currency_code'] = GLOBAL_DEFAULT_CURRENCY;
 			$price_data['type'] = $type;
 			$price_id = $this->priceInsert($price_data);
 			
 		}
-		msg($price_id);
+		
+		msg("Created custom price ID $price_id", 'ok', 2);
+		
 		if (is_numeric($price_id)) return $price_id;
 		else return false;
 	}
