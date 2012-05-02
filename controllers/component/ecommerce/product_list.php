@@ -471,7 +471,7 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
 		} else if (!$_SESSION['product_list-sort-by']) {
 		
 			//default
-			$_SESSION['product_list-sort-by'] = 'popularity';
+			$_SESSION['product_list-sort-by'] = $conf['global']['product_list_sorting'];//set in global configuration
 		
 		}
 		
@@ -506,8 +506,7 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
 		//msg("Sorted by $sortby $direction");
 		
 		switch ($sortby) {
-		
-			default:
+			
 			case 'price':
 				if ($direction == 'DESC') $direction = SORT_DESC;
 				else $direction = SORT_ASC;
@@ -555,6 +554,7 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
 				break;
 			
 			case 'created':
+			default:
 				//product_id, or modified, or TODO created attribute for ecommerce_product
 				$product_list = php_multisort($product_list, array(array('key'=>'product_id', 'sort'=>$direction), array('key'=>'product_id', 'type'=>'numeric')));
 		

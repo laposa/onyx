@@ -129,6 +129,7 @@ class Onxshop_Controller_Component_Ecommerce_Product_List_Sorting extends Onxsho
 				break;
 			
 			case 'created':
+			default:
 				if ($sort_direction == 'ASC') {
 					$created['arrow'] = "&#9650;";
 					$created['direction'] = "DESC";

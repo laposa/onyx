@@ -168,6 +168,7 @@ CREATE TABLE common_configuration (
 		 * product template constants
 		 */
 		if (!array_key_exists('product_list_per_page', $conf['global'])) $conf['global']['product_list_per_page'] = 24; //should be dividable by 4, 3 and 2
+		if (!array_key_exists('product_list_sorting', $conf['global'])) $conf['global']['product_list_sorting'] = 'created'; // popularity, price, name, created, priority
 		if (!array_key_exists('product_detail_image_width', $conf['global'])) $conf['global']['product_detail_image_width'] = 350;
 		if (!array_key_exists('product_list_image_width', $conf['global'])) $conf['global']['product_list_image_width'] = 175;
 		//can be: gallery_smooth, gallery, simple_list
