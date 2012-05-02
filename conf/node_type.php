@@ -40,6 +40,7 @@ $templates_info['layout'] = array(
 		'4columns'=>array('title' => '4-columns', 'description'=>''),
 		'5columns'=>array('title' => '5-columns', 'description'=>''),
 		'6columns'=>array('title' => '6-columns', 'description'=>''),
+		'tabs'=>array('title' => 'Tabs', 'description'=>''),
 		'default_template' => '2columns'
 		);
 		
