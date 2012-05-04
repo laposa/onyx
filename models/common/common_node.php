@@ -1522,6 +1522,32 @@ LEFT OUTER JOIN common_taxonomy_label ON (common_taxonomy_tree.label_id = common
 	}
 	
 	/**
+	 * getRelatedTaxonomy
+	 */
+	 
+	public function getRelatedTaxonomy($node_id) {
+		
+		if (!is_numeric($node_id)) return false;
+		
+		require_once('models/common/common_node_taxonomy.php');
+		$Taxonomy = new common_node_taxonomy();
+		
+		$related_taxonomy_ids = $Taxonomy->getRelationsToNode($node_id);
+		
+		$related_taxonomy = array();
+		
+		if (is_array($related_taxonomy_ids)) {
+		
+			foreach ($related_taxonomy_ids as $item_id) {
+				$related_taxonomy[] = $Taxonomy->getLabel($item_id);
+			}
+		
+		}
+		
+		return $related_taxonomy;
+	}
+	
+	/**
 	 * get comment count
 	 */
 	 
