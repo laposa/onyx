@@ -112,6 +112,7 @@ RewriteRule	^imagesxml/([0-9]*)$ /index.php?request=export/imagesxml&role=page&n
 RewriteRule	^client/logout$    /index.php?request=component/client/logout [L]
 
 RewriteRule	^request/(.*)$		/index.php?request=uri_mapping&controller_request=$1 [L,QSA]
+RewriteRule ^api/(.*)$      /index.php?request=uri_mapping&controller_request=api/$1 [L,QSA]
 
 RewriteRule ^product/([0-9]*)$	/index.php?request=forward&product_id=$1 [L]
 
