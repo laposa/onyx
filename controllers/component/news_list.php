@@ -56,6 +56,7 @@ class Onxshop_Controller_Component_News_List extends Onxshop_Controller {
 		$taxonomy_tree_id = $this->getTaxonomyList();
 		
 		if (is_numeric($this->GET['created'])) $created = $this->GET['created'];
+		else if (preg_match('/[0-9]{4}-[0-9]{1,2}/', $this->GET['created'])) $created = $this->GET['created'];
 		else $created = '';
 		
 		if (is_numeric($this->GET['publish'])) $publish = $this->GET['publish'];

@@ -339,9 +339,11 @@ CREATE TABLE common_node (
 			$add_to_where .= " AND common_node.publish = {$filter['publish']}";
 		}
 		
-		//publish filter (only year)
+		//publish filter (only year-month)
 		if (is_numeric($filter['created'])) {
 			$add_to_where .= " AND date_part('year', common_node.created) = '{$filter['created']}'";
+		} else if (preg_match('/^([0-9]{4})-([0-9]{1,2})$/', $filter['created'], $matches)) {
+			$add_to_where .= " AND date_part('year', common_node.created) = '{$matches[1]}' AND date_part('month', common_node.created) = '{$matches[2]}'";
 		}
 		
 		
@@ -1452,21 +1454,24 @@ CREATE TABLE common_node (
 	 * get archive
 	 */
 	 
-	public function getBlogArticleArchive($blog_node_id = CMS_BLOG_ID, $published = 1) {
+	public function getBlogArticleArchive($blog_node_id = CMS_BLOG_ID, $published = 1, $date_part = 'year') {
 	
 		if (!is_numeric($blog_node_id)) return false;
 		if (!is_numeric($published)) return false;
+		
+		if ($date_part == 'year-month') $date_part = "date_part('year', created), date_part('month', created)";
+		else $date_part = "date_part('year', created)";
 		
 		/**
 		 * query 
 		 */
 		 
 		$sql = "
-			SELECT DISTINCT( date_part('year', created)) AS year, count(id) 
+			SELECT DISTINCT( $date_part ) AS date_part, count(id) 
 			FROM common_node 
 			WHERE node_group = 'page' AND node_controller = 'news' AND parent = $blog_node_id  AND publish = $published
-			GROUP BY year 
-			ORDER BY year DESC";
+			GROUP BY date_part
+			ORDER BY date_part DESC";
 	
 		/**
 		 * execute
