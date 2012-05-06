@@ -536,6 +536,8 @@ CREATE TABLE common_node (
 		else if ($node_data['node_group'] == 'page') $node_data['layout_style'] = $this->conf['page_layout_style'];
 		else $node_data['layout_style'] = '';
 		
+		if (is_array($node_data['other_data'])) $node_data['other_data'] = serialize($node_data['other_data']);
+		
 		//TODO: before insert, do a check, that node_data[title] is unique
 		
 		if ($id = $this->insert($node_data)) {
