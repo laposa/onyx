@@ -13,13 +13,8 @@ class Onxshop_Controller_Export_Rss_Googlebase extends Onxshop_Controller {
 	 */
 	 
 	public function mainAction() {
-	
-		//SELECT * FROM ecommerce_product p, ecommerce_product_variety v, ecommerce_price price WHERE p.id = v.product_id AND price.product_variety_id = v.id
-		header('Content-Type: text/xml; charset=UTF-8');
 		
-		// flash in IE with SSL dont like Cache-Control: no-cache and Pragma: no-coche
-		header("Cache-Control: ");
-		header("Pragma: ");
+		header('Content-Type: text/xml; charset=UTF-8');
 		
 		require_once('models/common/common_node.php');
 		$Node = new common_node();
@@ -32,6 +27,7 @@ class Onxshop_Controller_Export_Rss_Googlebase extends Onxshop_Controller {
 		
 		$products = $Product->getProductList();
 		//print_r($products);exit;
+		
 		if (is_array($products)) {
 			foreach ($products as $p) {
 				if ($p['publish'] == 1) {

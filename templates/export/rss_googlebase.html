@@ -7,7 +7,7 @@
 <!-- BEGIN: item -->
 	<item>
 		<title>{PRODUCT.name|htmlspecialchars|xmlentities} - {VARIETY.name|htmlspecialchars|xmlentities}</title>
-		<description>{PRODUCT.teaser|htmlspecialchars|xmlentities}</description>
+		<description>{PRODUCT.teaser|strip_tags|htmlspecialchars|xmlentities}</description>
 		<link>{PRODUCT.link}</link>
 		<g:id>{VARIETY.sku|htmlspecialchars|xmlentities}</g:id>
 		<g:image_link>{PRODUCT.image_src}</g:image_link>
