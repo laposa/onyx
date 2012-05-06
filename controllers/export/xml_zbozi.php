@@ -1,9 +1,10 @@
 <?php
 /** 
- * Copyright (c) 2007-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2007-2012 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  * product export for http://www.zbozi.cz
+ * http://napoveda.seznam.cz/cz/specifikace-xml.html
  */
 
 class Onxshop_Controller_Export_Xml_Zbozi extends Onxshop_Controller {
@@ -14,12 +15,7 @@ class Onxshop_Controller_Export_Xml_Zbozi extends Onxshop_Controller {
 	 
 	public function mainAction() {
 		
-		//SELECT * FROM ecommerce_product p, ecommerce_product_variety v, ecommerce_price price WHERE p.id = v.product_id AND price.product_variety_id = v.id
 		header('Content-Type: text/xml; charset=UTF-8');
-		
-		// flash in IE with SSL dont like Cache-Control: no-cache and Pragma: no-coche
-		header("Cache-Control: ");
-		header("Pragma: ");
 		
 		require_once('models/common/common_node.php');
 		$Node = new common_node();
@@ -33,27 +29,40 @@ class Onxshop_Controller_Export_Xml_Zbozi extends Onxshop_Controller {
 		$products = $Product->getProductList();
 		//print_r($products);exit;
 		
+		$this->tpl->assign('ITEM_TYPE', 'new');//new or bazaar
+		$this->tpl->assign('DUES', 0);//poplatky mimo postovneho
+		$this->tpl->assign('DELIVERY_DATE', 1);//doba expedice
+		$this->tpl->assign('TOLLFREE', 0);
+		
 		foreach ($products as $p) {
+		
+			//get product detail URL
 			$current = $Product->findProductInNode($p['id']);
 			$product_node_data = $current[0];
 			$page_id = $product_node_data['id'];
 			$p['url'] = "http://{$_SERVER['HTTP_HOST']}" . $Node->getSeoURL($page_id);
-			//$p['description'] = recode_string("html..utf8", $p['description']);
-			$p['description'] = $p['name'];
-			$this->tpl->assign('PRODUCT', $p);
+			
+			//description
+			$p['description'] = html_entity_decode(strip_tags($p['description']), ENT_QUOTES, 'UTF-8');
 			
 			//image
 			$images = $Image->listing("role = 'main' AND node_id=".$p['id'], "priority DESC, id ASC", '0,1');
 			$this->tpl->assign('IMAGE_PRODUCT', "http://{$_SERVER['HTTP_HOST']}/image/{$images[0]['src']}");
 		
+			//assign to template
+			$this->tpl->assign('PRODUCT', $p);
+			
+			//variety list
 			if (is_array($p['variety'])) {
 				foreach ($p['variety'] as $v) {
-					//$v['description'] = html_entity_decode($v['description']);
+					//$v['description'] = html_entity_decode(strip_tags($v['description']));
 					$this->tpl->assign('VARIETY', $v);
 					$this->tpl->assign('PRICE', $v['price']['value']);
-					if ($p['publish'] == 1) $this->tpl->parse("content.item");
+					if ($v['publish'] == 1) $this->tpl->parse("content.item_product.item_variety");
 				}
 			}
+			
+			if ($p['publish'] == 1) $this->tpl->parse("content.item_product");
 		}
 
 		return true;
