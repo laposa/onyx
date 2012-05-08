@@ -74,7 +74,7 @@
 					
 					
 								<div class="back">
-									<p><a href="/page/{CMS_BLOG_ID}"><span>{I18N_VIEW_ALL_ARTICLES}</span></a></p>
+									<p><a href="/page/{BLOG_NODE_ID}"><span>{I18N_VIEW_ALL_ARTICLES}</span></a></p>
 								</div>
 							</div>
 		
@@ -84,7 +84,7 @@
 					<div class="columnTwo">
 						<div class="columnWrapper">
 							
-							{ONXSHOP_REQUEST_news_list #component/news_list_related~node_id=GET.id:publish=1:limit_from=0:limit_per_page=25~}					
+							{ONXSHOP_REQUEST_news_list #component/news_list_related~node_id=GET.id:blog_node_id=GET.parent_id:publish=1:limit_from=0:limit_per_page=25~}					
 							{CONTAINER.2}
 						</div>
 					</div>

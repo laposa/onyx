@@ -14,17 +14,26 @@ class Onxshop_Controller_Node_Content_News_List extends Onxshop_Controller_Node_
 	 
 	public function mainAction() {
 		
-		$node_id = $this->GET['id'];
-		
+		/**
+		 * initialise
+		 */
+		 
 		require_once('models/common/common_node.php');
-		
 		$Node = new common_node();
+		
+		/**
+		 * input data
+		 */
+		
+		$node_id = $this->GET['id'];
+		if (is_numeric($this->GET['blog_node_id'])) $blog_node_id = $this->GET['blog_node_id'];
+		else $blog_node_id = $Node->conf['id_map-blog'];
+		
+		/**
+		 * get node detail
+		 */
+		 
 		$node_data = $Node->nodeDetail($node_id);
-		
-		//FIXME
-		$blog_node_id = CMS_BLOG_ID;
-		
-		
 		
 		/**
 		 * filtering

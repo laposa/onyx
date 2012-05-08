@@ -27,7 +27,7 @@ class Onxshop_Controller_Export_Rss_Node extends Onxshop_Controller {
 		if (is_numeric($this->GET['id'])) {
 			$id = $this->GET['id'];
 		} else {
-			$id = CMS_BLOG_ID;
+			$id = $Node->conf['id_map-blog'];
 		}
 
 		/**

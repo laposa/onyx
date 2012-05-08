@@ -14,22 +14,28 @@ class Onxshop_Controller_Component_News_Archive extends Onxshop_Controller {
 	public function mainAction() {
 		
 		/**
+		 * initialise
+		 */
+		 
+		require_once('models/common/common_node.php');
+		$Node = new common_node();
+		
+		/**
 		 * input data
 		 */
 		 
-		if ($this->GET['blog_node_id']) $blog_node_id = $this->GET['blog_node_id'];
-		else $blog_node_id = CMS_BLOG_ID;
+		if (is_numeric($this->GET['blog_node_id'])) $blog_node_id = $this->GET['blog_node_id'];
+		else $blog_node_id = $Node->conf['id_map-blog'];
 		
 		if ($this->GET['date_part'] == 'year-month') $date_part = 'year-month';
 		else $date_part = "year";
 		
-		//$node_id = $this->GET['id'];
-		
 		$this->tpl->assign('BLOG_NODE_ID', $blog_node_id);
 		
-		require_once('models/common/common_node.php');
-		$Node = new common_node();
-		
+		/**
+		 * process
+		 */
+		 
 		if ($article_archive = $Node->getBlogArticleArchive($blog_node_id, 1, $date_part)) {
 			
 			foreach ($article_archive as $item) {

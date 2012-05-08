@@ -2,7 +2,7 @@
 /**
  * class common_node
  *
- * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2012 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -242,9 +242,9 @@ CREATE TABLE common_node (
 		if (!is_numeric($conf['id_map-contact'])) $conf['id_map-contact'] = 20;
 		if (!is_numeric($conf['id_map-sitemap'])) $conf['id_map-sitemap'] = 22;
 		
+		//multiple blogs: define in your local database common_configuration table, e.g: id_map-blog1, id_map-blog2, id_map-blog3
+		//default blog container
 		if (!is_numeric($conf['id_map-blog'])) $conf['id_map-blog'] = 83;
-		//legacy, keep until news_list will be ready for multiple blogs
-		if (!defined('CMS_BLOG_ID')) define('CMS_BLOG_ID', 83);
 		
 		//customer pages
 		if (!is_numeric($conf['id_map-login'])) $conf['id_map-login'] = 8;
@@ -1454,7 +1454,7 @@ CREATE TABLE common_node (
 	 * get archive
 	 */
 	 
-	public function getBlogArticleArchive($blog_node_id = CMS_BLOG_ID, $published = 1, $date_part = 'year') {
+	public function getBlogArticleArchive($blog_node_id, $published = 1, $date_part = 'year') {
 	
 		if (!is_numeric($blog_node_id)) return false;
 		if (!is_numeric($published)) return false;
@@ -1493,7 +1493,7 @@ CREATE TABLE common_node (
 	 * get categories
 	 */
 	 
-	public function getArticlesCategories($blog_node_id = CMS_BLOG_ID, $published = 1) {
+	public function getArticlesCategories($blog_node_id, $published = 1) {
 	
 		if (!is_numeric($blog_node_id)) return false;
 		if (!is_numeric($published)) return false;

@@ -22,13 +22,20 @@ class Onxshop_Controller_Component_News_List extends Onxshop_Controller {
 	 
 	public function newsListAction() {
 	
+		/**
+		 * initialise
+		 */
+		 
 		require_once('models/common/common_node.php');
-		
 		$this->Node = new common_node();
 		
-		//FIXME fixed news_list_id
-		//$blog_node_id = $this->GET['blog_node_id'];
-		$blog_node_id = CMS_BLOG_ID;
+		/**
+		 * input data
+		 */
+		 
+		if (is_numeric($this->GET['blog_node_id'])) $blog_node_id = $this->GET['blog_node_id'];
+		else $blog_node_id = $this->Node->conf['id_map-blog'];
+		
 		$display_teaser_image = $this->GET['display_teaser_image'];
 
 		/**
