@@ -207,6 +207,17 @@ class Onxshop_Controller_Component_News_List extends Onxshop_Controller {
 						if ($item['publish'] == 0) $item['class'] .= ' disabled';
 						
 						/**
+						 * create taxonomy_class from related_taxonomy
+						 */
+						
+						$item['taxonomy_class'] = '';
+						$related_taxonomy = $this->Node->getRelatedTaxonomy($item['id']);
+						
+						foreach ($related_taxonomy as $t_item) {
+							$item['taxonomy_class'] .= "t{$t_item['id']} ";
+						}
+						
+						/**
 						 * assign node (ITEM) data
 						 */
 						 
@@ -275,6 +286,7 @@ class Onxshop_Controller_Component_News_List extends Onxshop_Controller {
 	
 	/**
 	 * get taxonomy from product
+	 * this is for showing related blog articles at product page
 	 */
 	 
 	public function getTaxonomyListFromProduct($product_id) {

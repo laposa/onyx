@@ -6,7 +6,7 @@
 	
 		<div class="contentBody">
 			<!-- BEGIN: item -->
-			<div class="item {ITEM.odd_even_class}">
+			<div class="item {ITEM.odd_even_class} {ITEM.taxonomy_class}">
 				<h2 class="newsTitle"><a href="/page/{ITEM.id}">{ITEM.title|htmlspecialchars}</a></h2>
 				<div class="created"><p>{ITEM.created|strtotime|strftime('%A %e %B %Y', %s)} {I18N_BY} <span class="author_name">{ITEM.author_detail.name|htmlspecialchars}</span></p></div>
 				<div class="teaser_image"><a href="/page/{ITEM.id}">{IMAGE}</a></div>
