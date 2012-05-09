@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2010-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2010-2012 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -30,7 +30,7 @@ class Onxshop_Controller_Component_News_List extends Onxshop_Controller {
 		$this->Node = new common_node();
 		
 		/**
-		 * input data
+		 * basic input data
 		 */
 		 
 		if (is_numeric($this->GET['blog_node_id'])) $blog_node_id = $this->GET['blog_node_id'];
@@ -48,7 +48,7 @@ class Onxshop_Controller_Component_News_List extends Onxshop_Controller {
 		}
 		
 		/**
-		 * get detail
+		 * get detail of blog container node
 		 */
 		 		
 		$news_list_detail = $this->Node->getDetail($blog_node_id);
@@ -122,6 +122,34 @@ class Onxshop_Controller_Component_News_List extends Onxshop_Controller {
 			'taxonomy_tree_id' => $taxonomy_tree_id
 		);
 		
+		$news_list = $this->getNewsList($filter, $limit_from, $limit_per_page);
+
+		if (is_array($news_list) && count($news_list) > 0) {
+
+			$this->parseNewsList($news_list, $display_teaser_image, $image_width, $image_height);
+			
+			/**
+			 * Display pagination
+			 */
+			
+			if ($display_pagination == 1) {
+			
+				$count = count($news_list);
+			
+				$_nSite = new nSite("component/pagination~limit_from=$limit_from:limit_per_page=$limit_per_page:count=$count~");
+				$this->tpl->assign('PAGINATION', $_nSite->getContent());
+			}
+		}
+		
+		return true;
+	}
+	
+	/**
+	 * getNewsList
+	 */
+	 
+	public function getNewsList($filter, $limit_from, $limit_per_page) {
+	
 		/**
 		 * get list using filter
 		 */
@@ -129,42 +157,24 @@ class Onxshop_Controller_Component_News_List extends Onxshop_Controller {
 		$news_list = $this->Node->getNodeList($filter, 'common_node.created DESC, id DESC');
 		
 		/**
-		 * get comment count for all news pages
-		 */
-		 
-		$comment_count = $this->Node->getCommentCount('page', 'news');
-		
-		/**
-		 * Display pagination
-		 */
-		
-		if ($display_pagination == 1) {
-		
-			$count = count($news_list);
-		
-			$_nSite = new nSite("component/pagination~limit_from=$limit_from:limit_per_page=$limit_per_page:count=$count~");
-			$this->tpl->assign('PAGINATION', $_nSite->getContent());
-		}
-		
-		/**
-		 * Parse items
-		 * Implemented pagination
+		 * iterate items and created news_list_filtered
+		 * implemented pagination
 		 */
 		
 		if (is_array($news_list)) {
 		
-			$count_news_list = count($news_list);
+			$news_list_filtered = array();
 			
 			foreach ($news_list as $i=>$item) {
 			
-				//skip active article if any
-				//TODO: when this happens, limit per page is actually descreesed by 1
+				//skip active article if any (e.g. for showing related articles)
 				if ($this->GET['node_id'] == $item['id']) {
 					
-					$count_news_list = $count_news_list - 1;
+					//don't add to the list
 				
 				} else {
 				
+					//check if it's within requested pagination limit
 					if ($i >= $limit_from  && $i < ($limit_from + $limit_per_page) ) {
 						
 						/**
@@ -182,17 +192,6 @@ class Onxshop_Controller_Component_News_List extends Onxshop_Controller {
 						//overwrite author name
 						if ($item['component']['author'] != '') $item['author_detail']['name'] = $item['component']['author'];
 						
-						
-						/**
-						 * teaser image
-						 */
-						 
-						if ($display_teaser_image) {
-							
-							$Image = new nSite("component/image&relation=node&role=main&node_id={$item['id']}&width=$image_width&height=$image_height&limit=0,1");
-							$this->tpl->assign('IMAGE', $Image->getContent());
-						}
-						
 						/**
 						 * odd_even_class
 						 */
@@ -207,49 +206,104 @@ class Onxshop_Controller_Component_News_List extends Onxshop_Controller {
 						if ($item['publish'] == 0) $item['class'] .= ' disabled';
 						
 						/**
+						 * add related_taxonomy
+						 */
+						
+						$item['related_taxonomy'] = $this->Node->getRelatedTaxonomy($item['id']);
+						
+						/**
 						 * create taxonomy_class from related_taxonomy
 						 */
 						
 						$item['taxonomy_class'] = '';
-						$related_taxonomy = $this->Node->getRelatedTaxonomy($item['id']);
 						
-						foreach ($related_taxonomy as $t_item) {
+						foreach ($item['related_taxonomy'] as $t_item) {
 							$item['taxonomy_class'] .= "t{$t_item['id']} ";
 						}
 						
 						/**
-						 * assign node (ITEM) data
+						 * add modified item to final result
 						 */
-						 
-						$this->tpl->assign('ITEM', $item);
 						
-						/**
-						 * check comments
-						 */
-						 
-						
-						if ($item['component']['allow_comment'] == 1) {
-						
-							$item_comment_count = $comment_count[$item['id']];
-							if (!is_numeric($item_comment_count)) $item_comment_count = 0;
-							$this->tpl->assign('COMMENT_COUNT', $item_comment_count);
-							$this->tpl->parse('content.list.item.comment');
-						
-						}
-						
-						/**
-						 * parse
-						 */
-						 
-						$this->tpl->parse('content.list.item');
+						$news_list_filtered[] = $item;
 					}
 				}
 			}
 			
-			if ($count_news_list > 0) $this->tpl->parse('content.list');
+			return $news_list_filtered;
+			
+		} else {
+		
+			return false;
+			
 		}
-
-		return true;
+		
+	}
+	
+	/**
+	 * parseNewsList
+	 */
+	 
+	public function parseNewsList($news_list, $display_teaser_image = false, $image_width = 125, $image_height = 0) {
+	
+		if (!is_array($news_list)) return false;
+		
+		if (count($news_list) > 0) {
+			
+			/**
+			 * get comment count for all news pages
+			 */
+			 
+			$comment_count = $this->Node->getCommentCount('page', 'news');
+			
+			/**
+			 * display news list
+			 */
+			 
+			foreach ($news_list as $item) {
+				
+				/**
+				 * teaser image
+				 */
+				
+				if ($display_teaser_image) {
+					
+					$Image = new nSite("component/image&relation=node&role=main&node_id={$item['id']}&width=$image_width&height=$image_height&limit=0,1");
+					$this->tpl->assign('IMAGE', $Image->getContent());
+				}
+	
+				/**
+				 * assign node (ITEM) data
+				 */
+				
+				$this->tpl->assign('ITEM', $item);
+				
+				/**
+				 * check comments
+				 */
+				
+				
+				if ($item['component']['allow_comment'] == 1) {
+					
+					$item_comment_count = $comment_count[$item['id']];
+					if (!is_numeric($item_comment_count)) $item_comment_count = 0;
+					$this->tpl->assign('COMMENT_COUNT', $item_comment_count);
+					$this->tpl->parse('content.list.item.comment');
+					
+				}
+				
+				/**
+				 * parse
+				 */
+				
+				$this->tpl->parse('content.list.item');
+			}
+			
+			//display news list
+			$this->tpl->parse('content.list');
+			
+		}
+		
 	}
 	
 	/**
