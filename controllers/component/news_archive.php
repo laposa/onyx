@@ -51,7 +51,8 @@ class Onxshop_Controller_Component_News_Archive extends Onxshop_Controller {
 					$item['created_formated'] = strftime('%B %Y', strtotime($item['created']));
 				} else {
 					//archive by year
-					$item['created_formated'] = $item['date_part'];
+					$item['created'] = $item['date_part'];
+					$item['created_formated'] = $item['created'];
 				}
 				
 				$this->tpl->assign('ITEM', $item);
