@@ -95,7 +95,7 @@ class Onxshop_Controller_Uri_Mapping extends Onxshop_Controller {
 		
 		} else if ($controller_request) {
 		
-			// used for /request/ handling to allow translating URLs
+			// used for /request/ and /api/ handling to allow translating URLs
 			$Onxshop = $Onxshop_Router->processAction($controller_request);
 		
 		}
