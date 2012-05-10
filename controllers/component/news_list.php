@@ -123,10 +123,8 @@ class Onxshop_Controller_Component_News_List extends Onxshop_Controller {
 		);
 		
 		$news_list = $this->getNewsList($filter, $limit_from, $limit_per_page);
-
+		
 		if (is_array($news_list) && count($news_list) > 0) {
-
-			$this->parseNewsList($news_list, $display_teaser_image, $image_width, $image_height);
 			
 			/**
 			 * Display pagination
@@ -134,11 +132,18 @@ class Onxshop_Controller_Component_News_List extends Onxshop_Controller {
 			
 			if ($display_pagination == 1) {
 			
-				$count = count($news_list);
-			
+				$full_news_list = $this->Node->getNodeList($filter, 'common_node.created DESC, id DESC');
+				$count = count($full_news_list);
+				
 				$_nSite = new nSite("component/pagination~limit_from=$limit_from:limit_per_page=$limit_per_page:count=$count~");
 				$this->tpl->assign('PAGINATION', $_nSite->getContent());
 			}
+			
+			/**
+			 * display news list
+			 */
+			 
+			$this->parseNewsList($news_list, $display_teaser_image, $image_width, $image_height);
 		}
 		
 		return true;
