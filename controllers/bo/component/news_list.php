@@ -9,6 +9,20 @@ require_once('controllers/component/news_list.php');
 
 class Onxshop_Controller_Bo_Component_News_List extends Onxshop_Controller_Component_News_List {
 
-
+	/**
+	 * getNewsListAll
+	 */
+	 
+	public function getNewsListAll($filter, $sorting = 'common_node.created DESC, id DESC') {
+		
+		//remove filter on parent - show all
+		$filter['parent'] = false;
+		
+		$news_list = $this->Node->getNodeList($filter, $sorting);
+		
+		return $news_list;
+		
+	}
+	
 }
 		

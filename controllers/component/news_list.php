@@ -101,13 +101,12 @@ class Onxshop_Controller_Component_News_List extends Onxshop_Controller {
 		 * can be removed when news_filter and news_archive will be improved
 		 */
 		 
-		if (is_numeric($_GET['taxonomy_tree_id']) || is_numeric($_GET['created'])) {
+		if (is_numeric($this->GET['taxonomy_tree_id']) || is_numeric($this->GET['created'])) {
 			$limit_from = 0;
 			$limit_per_page = 999999;
 		}
 		
 		$limit = "$limit_from,$limit_per_page";
-		
 		
 		/**
 		 * prepare filter
@@ -132,7 +131,8 @@ class Onxshop_Controller_Component_News_List extends Onxshop_Controller {
 			
 			if ($display_pagination == 1) {
 			
-				$full_news_list = $this->Node->getNodeList($filter, 'common_node.created DESC, id DESC');
+				$full_news_list = $this->getNewsListAll($filter);
+				
 				$count = count($full_news_list);
 				
 				$_nSite = new nSite("component/pagination~limit_from=$limit_from:limit_per_page=$limit_per_page:count=$count~");
@@ -150,6 +150,18 @@ class Onxshop_Controller_Component_News_List extends Onxshop_Controller {
 	}
 	
 	/**
+	 * getNewsListAll
+	 */
+	 
+	public function getNewsListAll($filter, $sorting = 'common_node.created DESC, id DESC') {
+		
+		$news_list = $this->Node->getNodeList($filter, $sorting);
+		
+		return $news_list;
+		
+	}
+	
+	/**
 	 * getNewsList
 	 */
 	 
@@ -159,7 +171,7 @@ class Onxshop_Controller_Component_News_List extends Onxshop_Controller {
 		 * get list using filter
 		 */
 		
-		$news_list = $this->Node->getNodeList($filter, 'common_node.created DESC, id DESC');
+		$news_list = $this->getNewsListAll($filter);
 		
 		/**
 		 * iterate items and created news_list_filtered
