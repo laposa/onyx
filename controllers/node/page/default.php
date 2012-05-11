@@ -81,10 +81,28 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
 		}
 		
 		/**
+		 * add related_taxonomy
+		 */
+		
+		$node_data['related_taxonomy'] = $Node->getRelatedTaxonomy($node_data['id']);
+		
+		/**
+		 * create taxonomy_class from related_taxonomy
+		 */
+		
+		$node_data['taxonomy_class'] = '';
+		
+		foreach ($node_data['related_taxonomy'] as $t_item) {
+			$node_data['taxonomy_class'] .= "t{$t_item['id']} ";
+		}
+
+
+		/**
 		 * save node_controller and page css_class into registry to be used in sys/(x)html* as body class
 		 */
 		 
 		Zend_Registry::set('body_css_class', "{$node_data['node_controller']} {$node_data['css_class']}");
+		
 		
 		/**
 		 * assign to template
