@@ -101,7 +101,7 @@ class Onxshop_Controller_Component_News_List extends Onxshop_Controller {
 		 * can be removed when news_filter and news_archive will be improved
 		 */
 		 
-		if (is_numeric($this->GET['taxonomy_tree_id']) || is_numeric($this->GET['created'])) {
+		if ((is_numeric($_GET['taxonomy_tree_id']) || is_numeric($_GET['created'])) || $this->GET['show_all_from_bo']) {
 			$limit_from = 0;
 			$limit_per_page = 999999;
 		}
