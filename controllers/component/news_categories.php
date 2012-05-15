@@ -30,6 +30,8 @@ class Onxshop_Controller_Component_News_Categories extends Onxshop_Controller {
 		if (is_numeric($this->GET['taxonomy_parent_id'])) $taxonomy_parent_id = $this->GET['taxonomy_parent_id'];
 		else $taxonomy_parent_id = false;
 		
+		if (!is_numeric($this->GET['taxonomy_tree_id'])) $this->tpl->assign('ACTIVE_CLASS_ALL', 'active');
+		
 		$this->tpl->assign('BLOG_NODE_ID', $blog_node_id);
 		
 		/**
@@ -44,6 +46,11 @@ class Onxshop_Controller_Component_News_Categories extends Onxshop_Controller {
 					$item['title'] = I18N_NEWS_CATEGORY_UNCATEGORIZED;
 					$item['taxonomy_tree_id'] = 0;
 				}
+				
+				//active css class
+				if ($item['taxonomy_tree_id'] == $this->GET['taxonomy_tree_id']) $this->tpl->assign('ACTIVE_CLASS', 'active');
+				else $this->tpl->assign('ACTIVE_CLASS', '');
+				
 				$this->tpl->assign('ITEM', $item);
 				
 				if (is_numeric($taxonomy_parent_id)) {

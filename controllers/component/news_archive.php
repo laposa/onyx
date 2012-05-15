@@ -30,6 +30,8 @@ class Onxshop_Controller_Component_News_Archive extends Onxshop_Controller {
 		if ($this->GET['date_part'] == 'year-month') $date_part = 'year-month';
 		else $date_part = "year";
 		
+		if (!$this->GET['created']) $this->tpl->assign('ACTIVE_CLASS_ALL', 'active');
+		
 		$this->tpl->assign('BLOG_NODE_ID', $blog_node_id);
 		
 		/**
@@ -37,7 +39,7 @@ class Onxshop_Controller_Component_News_Archive extends Onxshop_Controller {
 		 */
 		 
 		if ($article_archive = $Node->getBlogArticleArchive($blog_node_id, 1, $date_part)) {
-			
+
 			foreach ($article_archive as $item) {
 			
 				if ($date_part == 'year-month') {
@@ -54,6 +56,10 @@ class Onxshop_Controller_Component_News_Archive extends Onxshop_Controller {
 					$item['created'] = $item['date_part'];
 					$item['created_formated'] = $item['created'];
 				}
+				
+				//active css class
+				if ($item['created'] == $this->GET['created']) $this->tpl->assign('ACTIVE_CLASS', 'active');
+				else $this->tpl->assign('ACTIVE_CLASS', '');
 				
 				$this->tpl->assign('ITEM', $item);
 				$this->tpl->parse('content.list.item');
