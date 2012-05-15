@@ -1068,7 +1068,8 @@ CREATE TABLE common_node (
 				        page_title ILIKE '$q' OR 
 						( node_group = 'content' AND content ILIKE '$q' ) OR
 				        description ILIKE '$q' OR
-				        keywords ILIKE '$q')";
+				        keywords ILIKE '$q' OR
+				        component ILIKE '$q')";
 			}
 			$where_query .=  " AND publish = 1 AND ";
 		}
