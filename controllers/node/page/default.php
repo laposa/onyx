@@ -98,10 +98,10 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
 
 
 		/**
-		 * save node_controller and page css_class into registry to be used in sys/(x)html* as body class
+		 * save node_controller, page css_class and taxonomy_class into registry to be used in sys/(x)html* as body class
 		 */
 		 
-		Zend_Registry::set('body_css_class', "{$node_data['node_controller']} {$node_data['css_class']}");
+		Zend_Registry::set('body_css_class', "{$node_data['node_controller']} {$node_data['css_class']} {$node_data['taxonomy_class']}");
 		
 		
 		/**
