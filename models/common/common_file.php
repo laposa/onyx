@@ -212,7 +212,7 @@ CREATE TABLE common_file (
 			
 			if (!is_numeric($file['priority'])) $file['priority'] = 0;
 			$file['modified'] = date('c');
-			$file['author'] = $_SESSION['authentication']['logon'];
+			if (!is_numeric($file['author'])) $file['author'] = $_SESSION['authentication']['logon'];
 			
 			if ($id = $this->insert($file)) {
 				msg('File Inserted', 'ok', 2);
@@ -242,7 +242,9 @@ CREATE TABLE common_file (
 	 * not used
 	 * 
 	 * @return mixed
-	 * array with saved file information or false
+	 * string returned when upload to the save_dir was successfull
+	 * array returned when saved to temporary folder with saved file information 
+	 * false returned on failure
 	 */
 	 
 	function getSingleUpload($file = array(), $save_dir, $overwrite = 0) {
@@ -416,11 +418,13 @@ CREATE TABLE common_file (
 		//$src_file_full = ONXSHOP_PROJECT_DIR . "var/tmp/" . $filename;
 		$src_file_full = ONXSHOP_PROJECT_DIR . $temp_file;
 		$save_file_full = ONXSHOP_PROJECT_DIR . $save_dir . $filename;
-		
-		copy($src_file_full, $save_file_full);
 
-		if (is_readable($save_file_full)) return true;
-		else return false;
+		if (copy($src_file_full, $save_file_full)) {
+			if (is_readable($save_file_full)) return true;
+			else return false;
+		} else {
+			return false;
+		}
 	}
 	
 	/**

@@ -134,12 +134,12 @@ class Onxshop_Controller_Bo_Component_Server_Browser_File_List extends Onxshop_C
 		//otherwise, just just _FILES
 		$normal_formated_files = $_FILES;
 		
-		foreach ($normal_formated_files as $file) {
+		foreach ($normal_formated_files as $file_item) {
 		
-			if (is_uploaded_file($file['tmp_name'])) {
+			if (is_uploaded_file($file_item['tmp_name'])) {
 				
 				$save_dir = $base_folder . $relative_folder_path;
-				$upload = $File->getSingleUpload($file, $save_dir);
+				$upload = $File->getSingleUpload($file_item, $save_dir);
 				
 				/**
 				 * when array is returned by getSingleUpload, it's an existing file is in place
@@ -153,7 +153,7 @@ class Onxshop_Controller_Bo_Component_Server_Browser_File_List extends Onxshop_C
 					$overwrite_show = 1;
 					
 				} else if ($upload) {
-						msg("Uploaded {$file['name']}");
+						msg("Uploaded {$file_item['name']}");
 				}
 			}
 		}

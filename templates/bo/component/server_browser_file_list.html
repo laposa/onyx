@@ -76,11 +76,12 @@
 								<form action="{URI}" method="post" enctype="multipart/form-data" id="add_new_file">
 									
 									<!-- BEGIN: confirm_overwrite -->
+									<p>Do you want to overwrite file {OVERWRITE_FILE.filename}?</p>
 									<fieldset class="confirmOverwrite">
 										<input type="hidden" name="filename" value="{OVERWRITE_FILE.filename}" />
 										<input type="hidden" name="save_dir" value="{OVERWRITE_FILE.save_dir}" />
 										<input type="hidden" name="temp_file" value="{OVERWRITE_FILE.temp_file}" />
-										<button type="submit" name="overwrite" value="overwrite"><span>Overwrite file {OVERWRITE_FILE.filename}?</span></button>
+										<button type="submit" name="overwrite" value="overwrite" title="Overwrite file {OVERWRITE_FILE.filename}?"><span>Yes, overwrite it.</span></button>
 									</fieldset>
 									<!-- END: confirm_overwrite -->
 									

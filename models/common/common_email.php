@@ -351,8 +351,8 @@ CREATE TABLE common_email (
 					 
 					require_once('models/common/common_file.php');
 					//getSingleUpload could be static method
-					$File = new common_file();
-					$upload = $File->getSingleUpload($file, 'var/tmp/');
+					$CommonFile = new common_file();
+					$upload = $CommonFile->getSingleUpload($file, 'var/tmp/');
 					
 					/**
 					 * array indicated the same file name already exists in the var/tmp/ folder
@@ -372,7 +372,7 @@ CREATE TABLE common_email (
 					 */
 					 
 					if (file_exists($attachment_saved_file)) {
-						$attachment_info = $File->getFileInfo($attachment_saved_file);
+						$attachment_info = $CommonFile->getFileInfo($attachment_saved_file);
 						$Attachment = $mail->createAttachment(file_get_contents($attachment_saved_file));
 						$Attachment->filename = $attachment_info['filename'];
 					}
