@@ -475,3 +475,10 @@ div.rating_stars div.text {display: none;}
 div.rating_stars div.star {background:url("/share/images/default/star.gif") repeat scroll 0 0 transparent; height:17px; width:17px;}
 div.rating_stars div.star span {display: none;}
 */
+
+/********* component/social_network_share.html *********/
+div.social_network_share {margin-bottom: 10px;}
+div.social_network_share ul {margin: 0; padding: 0;}
+div.social_network_share li {list-style-image: none; list-style-type: none; float: left; margin: 0 0 0 10px; padding: 0;}
+div.social_network_share li.twitter a {background: url(/share/images/social_networks/twitter-20x20.png) no-repeat; width: 20px; height: 20px; display: block;}
+div.social_network_share li.twitter a span {display: none;}
