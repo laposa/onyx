@@ -49,7 +49,11 @@ function showResponse(responseText, statusText)  {
 		window.location.reload();
 	}
 	
-	refreshOpenerAjax('{GET.orig}', {GET.id});
+	//don't reload in context when in backoffice
+	var path = '{GET.orig}';
+	var node_id = {GET.id};
+	if (path.match(/^backoffice/)) refreshOpener(path, node_id);
+	else refreshOpenerAjax(path, node_id);
 }
 </script>
 
