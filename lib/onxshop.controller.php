@@ -278,7 +278,7 @@ class Onxshop_Controller {
      
 	function setHeadOnce($value) {
 	
-		$name = 'head_' + $this->_module_html;
+		$name = 'head_' . $this->_module_html;
 		
 		if (!Zend_Registry::isRegistered($name)) $this->setHead($value);
 		
