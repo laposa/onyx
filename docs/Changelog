@@ -1,8 +1,73 @@
-Onxshop (1.5.2/dev)
+Onxshop (1.5.3/dev)
 
   * New release
+  
+ -- Norbert Laposa <norbert@laposa.co.uk>  2012-05-20
+ 
+Onxshop (1.5.2)
 
- -- Norbert Laposa <norbert@laposa.co.uk>  2012-03-22
+  * improve bo/posts UI and multiple containers support
+  * move file list in Basic (first) tab in node edit
+  * use dialog window for add new item to node list
+  * improvements to file uploads handling
+  * new component/social_network_share
+  * add X-UA-Compatible to sys/html5 template
+  * add thank you after newsletter subscribe
+  * add taxonomy_class to HTML body and node/pages
+  * pass node_controller and css_class to body tag
+  * basic node search function now looks into component data as well
+  * add support for active classes in news_archive and categories
+  * refactored news_list
+  * add taxonomy_class to news_list
+  * add support for archive listed by year-month
+  * add support for taxonomy_parent_id filter
+  * add UI for node.other_data to node edit
+  * remove Share link as Marketing section is now named Vouchers
+  * use striptags on product teaser
+  * improve product export for zbozi.cz
+  * new node.getRelatedTaxonomy method
+  * add /api/ rewrite rule
+  * new conf option: ecommerce_price.multiplicator_growth
+  * add layout/tabs
+  * further translation
+  * jQuery "no conflict" - use only jQuery() functions, not alias $()
+  * remove unused jQuery plugins
+  * jGrowl upgrade to v1.2.5
+  * add custom payment method - free to edit in CMS
+  * add on_delivery and bank_transfer payment methods and more improvements
+  * improve caching with saving/restoring original HTTP headers
+  * allow QSA on export controllers (to allow nocache=1 GET param)
+  * remove sysinfo restrictions
+  * phpPgAdmin upgrade to v5.0.4
+  * update documentation
+  * add missing folders to project_skeleton
+  * enable autosubmit for PayPal
+  * reformat proforma invoice
+  * add prototype version of referral component
+  * add option to easy modify BASKET_CONTINUE_SHOPPING_URL
+  * automatically unserialize product.other_data on getDetail call
+  * allow sorting in backoffice products list
+  * better wording for empty comments note
+  * improve error message in basket
+  * use common_image.width_max for FULL_SIZE_IMAGE_WIDTH_PATH
+  * performance optimization - read exif only on file detail
+  * allow easy to customise other_data for product_variety
+  * don't send plain password email on every customer update, but only when requested reset
+  * jQuery upgrade to v1.7.2
+  * jQuery UI upgrade to v1.8.18
+  * upgrade jQuery Tools to v1.2.7
+  * remove styling for comments
+  * change AddThis buttons in article details (node/page/news)
+  * make dependency on Tidy optional
+  * remove dependency on gettext
+  * don't show voucher code error to normal users
+  * add price_type option to product variety list function
+  * add publish constraint to survey usage reporting
+  * survey system improvements
+  * add register_shutdown_function('session_write_close');
+  * fix bug in common_uri_mapping.isValidURIPath()
+
+ -- Norbert Laposa <norbert@laposa.co.uk>  2012-05-20
 
 Onxshop (1.5.1)
 
