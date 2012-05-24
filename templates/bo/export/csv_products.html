@@ -1,4 +1,4 @@
-<!-- BEGIN: content -->sku;product_id;variety_id;product_name;variety_name;stock;weight_gross;price;price_net;vat_rate
-<!-- BEGIN: item -->{ITEM.sku|htmlspecialchars|xmlentities};{ITEM.product_id};{ITEM.variety_id};{ITEM.product_name|htmlspecialchars|xmlentities};{ITEM.variety_name|htmlspecialchars|xmlentities};{ITEM.stock};{ITEM.weight_gross};{ITEM.price|number_format(%s, 2)};{ITEM.price_net|number_format(%s, 2)};{ITEM.vat_rate|number_format(%s, 2)}
+<!-- BEGIN: content -->sku,product_id,variety_id,product_name,variety_name,stock,weight_gross,price,price_net,vat_rate
+<!-- BEGIN: item -->"{ITEM.sku|htmlspecialchars|xmlentities}","{ITEM.product_id}","{ITEM.variety_id}","{ITEM.product_name|htmlspecialchars|xmlentities}","{ITEM.variety_name|htmlspecialchars|xmlentities}","{ITEM.stock}","{ITEM.weight_gross}","{ITEM.price|number_format(%s, 2)}","{ITEM.price_net|number_format(%s, 2)}","{ITEM.vat_rate|number_format(%s, 2)}"
 <!-- END: item -->
 <!-- END: content -->
