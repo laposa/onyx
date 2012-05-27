@@ -19,9 +19,9 @@ display: none;
 		<td valign="top" align="left">
 			{CONF.return_address|htmlspecialchars|nl2br}
 		</td>
-		<td valign="top" align="right">
+		<td valign="top" align="left">
 			<!-- BEGIN: logoimage -->
-			<img width="200" src="{CONF.company_logo}" alt="{CONF.company_name|htmlspecialchars}" />
+			<img width="150" src="{CONF.company_logo}" alt="{CONF.company_name|htmlspecialchars}" />
 			<!-- END: logoimage -->
 			<!-- BEGIN: logotypo -->
 			<h1>{CONF.company_name|htmlspecialchars}</h1>
@@ -43,18 +43,10 @@ display: none;
 			<br />{I18N_CONTACT_TELEPHONE} {ORDER.client.customer.telephone|htmlspecialchars} 
 			<br />{ORDER.note_customer|htmlspecialchars|nl2br}
 		</td>
-		<td style="width: 50%" valign="top" align="right">
-			<!-- BEGIN: type -->
-				<!-- BEGIN: carrier_id_2 -->
-				{ECOMMERCE_INVOICE_DELIVERY_LOGO}
-				<!-- END: carrier_id_2 -->
-				<!-- BEGIN: carrier_id_3 -->
-				<h1 style="font-size: 36px;">DHL 24 Hr</h1>
-				<!-- END: carrier_id_3 -->
-				<!-- BEGIN: carrier_id_7 -->
-				<h1 style="font-size: 36px;">DHL 48 Hr</h1>
-				<!-- END: carrier_id_7 -->
-			<!-- END: type -->
+		<td style="width: 50%" valign="top" align="left">
+			<!-- BEGIN: choosed carrier -->
+			<br /> 
+			<!-- END: choosed carrier -->
 		</td>
 	</tr>
 	<tr>
@@ -63,7 +55,6 @@ display: none;
 		</td>
 		<td style="width: 50%" valign="top" align="right">
 			<table>
-				<caption>{CONF.company_name|htmlspecialchars}</caption>
 				<tr><td>{I18N_INVOICE_NUMBER}</td><td>{INVOICE.id}</td></tr>
 				<tr><td>{I18N_ORDER_NUMBER}</td><td>{INVOICE.order_id}</td></tr>
 				<tr><td>{I18N_BILLING_DATE}</td><td>{INVOICE.created}</td></tr>
