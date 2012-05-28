@@ -53,7 +53,7 @@ class Onxshop_Controller_Bo_Backoffice extends Onxshop_Controller {
 		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER  && $this->isEcommerce()) $this->tpl->parse('content.stats');
 		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER && $this->isEcommerce()) $this->tpl->parse('content.marketing');
 		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER) $this->tpl->parse('content.comments');
-		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER && $this->isEcommerce()) $this->tpl->parse('content.surveys');
+		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER) $this->tpl->parse('content.surveys');
 		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER) $this->tpl->parse('content.advanced');
 
 		return true;
