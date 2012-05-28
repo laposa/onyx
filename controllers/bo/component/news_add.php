@@ -16,7 +16,7 @@ class Onxshop_Controller_Bo_Component_News_Add extends Onxshop_Controller {
 		require_once('models/common/common_node.php');
 		$Node = new common_node();
 	
-		$news_list_detail = $Node->getDetail($this->GET['news_list_id']);
+		$news_list_detail = $Node->getDetail($this->GET['blog_node_id']);
 		$this->tpl->assign("NEWS_LIST", $news_list_detail);
 
 		$node_data = $_POST['node'];

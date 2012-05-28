@@ -15,8 +15,8 @@ class Onxshop_Controller_Bo_Component_News_List extends Onxshop_Controller_Compo
 	 
 	public function getNewsListAll($filter, $sorting = 'common_node.created DESC, id DESC') {
 		
-		//remove filter on parent - show all
-		$filter['parent'] = false;
+		//remove filter on parent when blog_node_id is not provided - show all
+		if (!is_numeric($this->GET['blog_node_id'])) $filter['parent'] = false;
 		
 		$news_list = $this->Node->getNodeList($filter, $sorting);
 		
