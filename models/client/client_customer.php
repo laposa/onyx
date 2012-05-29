@@ -388,6 +388,8 @@ CREATE TABLE client_customer (
 	 
 	public function insertCustomer($data) {
 	
+		if (is_array($data['other_data'])) $data['other_data'] = serialize($data['other_data']);
+		
 		if ($newsletter_account = $this->checkLoginIdSubscribedNewsletterOnly($data['email'])) {
 			//merge data, but keep old created time
 			$update_data = array_merge($newsletter_account, $data);
@@ -583,7 +585,8 @@ CREATE TABLE client_customer (
 	function updateCustomer($customer_data) {
 		
 		$customer_data['modified'] = date('c');
-	
+		if (is_array($customer_data['other_data'])) $customer_data['other_data'] = serialize($customer_data['other_data']);
+		
 		$client_current_data = $this->detail($customer_data['id']);
 		
 		/**
@@ -1005,23 +1008,47 @@ CREATE TABLE client_customer (
 	 * @param array $customer
 	 * customer's information for subscribe to newsleter
 	 * 
+	 * @param bool $force_update
+	 * if true, than client will be updated even he is already subscribed
+	 *
 	 * @return boolean
 	 * result of subscribe
 	 */
 	
-	function newsletterSubscribe($customer) {
+	function newsletterSubscribe($customer, $force_update = false) {
 		
 		if ($customer_data = $this->getClientByEmail($customer['email'])) {
-			//update existing
+			
+			//update existing - only newsletter attribute
 			if ($customer_data['newsletter'] == 0) {
+			
 				$customer_data['newsletter'] = 1;
+			
 				if ($this->updateCustomer($customer_data)) {
 					return true;
 				} else {
 					return false;
 				}
+			
+			//update existing - merge new data with old data
+			} else if ($force_update) {
+				
+				$customer_data_m = array_merge($customer_data, $customer);
+				
+				$this->_hashMap['title_before']['required'] = false;
+				$this->_hashMap['telephone']['required'] = false;
+				$this->_hashMap['password']['required'] = false;
+				$this->_hashMap['invoices_address_id']['required'] = false;
+				$this->_hashMap['delivery_address_id']['required'] = false;
+				
+				if ($this->updateCustomer($customer_data_m)) {
+					return true;
+				} else {
+					return false;
+				}
+				
 			} else {
-				msg("Client with email {$customer['email']} is already subscribed", 'error');
+				msg("Client with email {$customer['email']} is already subscribed");
 				return true;
 			}
 			
@@ -1065,7 +1092,8 @@ CREATE TABLE client_customer (
 		$customer_data['account_type'] = 0;
 		$customer_data['agreed_with_latest_t_and_c'] = 0;
 		$customer_data['verified_email_address'] = 0;
-		$customer_data['newsletter'] = 1;
+		//allow newsletter attribute to be preset
+		if (!is_numeric($customer_data['newsletter'])) $customer_data['newsletter'] = 1;
 		
 		return $this->insertCustomer($customer_data);
 		
