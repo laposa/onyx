@@ -462,9 +462,10 @@ CREATE TABLE common_node (
 		$node_data['modified'] = date('c');
 		if (!is_numeric($node_data['author'])) $node_data['author'] = $_SESSION['authentication']['authenticity'];
 		
-		$node_data['other_data'] = serialize($node_data['other_data']);
-		$node_data['component'] = serialize($node_data['component']);
-		$node_data['relations'] = serialize($node_data['relations']);
+		if (is_array($node_data['other_data'])) $node_data['other_data'] = serialize($node_data['other_data']);
+		if (is_array($node_data['component'])) $node_data['component'] = serialize($node_data['component']);
+		if (is_array($node_data['relations'])) $node_data['relations'] = serialize($node_data['relations']);
+		
 		//populate only if ACL in use, otherwise save as empty
 		if (is_array($node_data['display_permission_group_acl'])) {
 			if (in_array('0', $node_data['display_permission_group_acl']) || in_array('1', $node_data['display_permission_group_acl'])) $node_data['display_permission_group_acl'] = serialize($node_data['display_permission_group_acl']);
@@ -539,6 +540,7 @@ CREATE TABLE common_node (
 		else $node_data['layout_style'] = '';
 		
 		if (is_array($node_data['other_data'])) $node_data['other_data'] = serialize($node_data['other_data']);
+		if (is_array($node_data['relations'])) $node_data['relations'] = serialize($node_data['relations']);
 		
 		//TODO: before insert, do a check, that node_data[title] is unique
 		
