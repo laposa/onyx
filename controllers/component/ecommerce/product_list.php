@@ -471,7 +471,7 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
 		} else if (!$_SESSION['product_list-sort-by']) {
 		
 			//default
-			$_SESSION['product_list-sort-by'] = $conf['global']['product_list_sorting'];//set in global configuration
+			$_SESSION['product_list-sort-by'] = $GLOBALS['onxshop_conf']['global']['product_list_sorting'];//set in global configuration
 		
 		}
 		
