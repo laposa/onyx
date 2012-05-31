@@ -582,7 +582,7 @@ CREATE TABLE client_customer (
 	 * is customer's information updating successfully [true/false]
 	 */
 	
-	function updateCustomer($customer_data) {
+	function updateCustomer($customer_data, $send_notify_email = false) {
 		
 		$customer_data['modified'] = date('c');
 		if (is_array($customer_data['other_data'])) $customer_data['other_data'] = serialize($customer_data['other_data']);
@@ -619,26 +619,32 @@ CREATE TABLE client_customer (
 		 
 		if ($this->update($customer_data)) {
 		
-			//send email
-			require_once('models/common/common_email.php');
-			$EmailForm = new common_email();
-			
-			//notify to new details	
-			if (!$EmailForm->sendEmail('customer_data_updated', 'n/a', $customer_data['email'], $customer_data['first_name'] . " " . $customer_data['last_name'])) {
-				msg('Customer data updated email sending failed.', 'error');
-			} else {
-				//msg('Sent');
-			}
+			if ($send_notify_email) {
 
-			//if email changed, send notify to old email as well
-			if ($client_current_data['email'] != $customer_data['email']) {
-				if (!$EmailForm->sendEmail('customer_data_updated', 'n/a', $client_current_data['email'], $client_current_data['first_name'] . " " . $client_current_data['last_name'])) {
+				//send email
+				require_once('models/common/common_email.php');
+				$EmailForm = new common_email();
+				
+				//notify to new details	
+				if (!$EmailForm->sendEmail('customer_data_updated', 'n/a', $customer_data['email'], $customer_data['first_name'] . " " . $customer_data['last_name'])) {
 					msg('Customer data updated email sending failed.', 'error');
 				} else {
-					//msg('Sent1');
+					//msg('Sent');
 				}
+	
+				//if email changed, send notify to old email as well
+				if ($client_current_data['email'] != $customer_data['email']) {
+					if (!$EmailForm->sendEmail('customer_data_updated', 'n/a', $client_current_data['email'], $client_current_data['first_name'] . " " . $client_current_data['last_name'])) {
+						msg('Customer data updated email sending failed.', 'error');
+					} else {
+						//msg('Sent1');
+					}
+				}
+				
 			}
+			
 			return true;
+		
 		} else {
 			return false;
 		}
@@ -1019,6 +1025,16 @@ CREATE TABLE client_customer (
 		
 		if ($customer_data = $this->getClientByEmail($customer['email'])) {
 			
+			/**
+			 * overwrite required fields
+			 */
+			 
+			$this->_hashMap['title_before']['required'] = false;
+			$this->_hashMap['telephone']['required'] = false;
+			$this->_hashMap['password']['required'] = false;
+			$this->_hashMap['invoices_address_id']['required'] = false;
+			$this->_hashMap['delivery_address_id']['required'] = false;
+				
 			//update existing - only newsletter attribute
 			if ($customer_data['newsletter'] == 0) {
 			
@@ -1034,12 +1050,6 @@ CREATE TABLE client_customer (
 			} else if ($force_update) {
 				
 				$customer_data_m = array_merge($customer_data, $customer);
-				
-				$this->_hashMap['title_before']['required'] = false;
-				$this->_hashMap['telephone']['required'] = false;
-				$this->_hashMap['password']['required'] = false;
-				$this->_hashMap['invoices_address_id']['required'] = false;
-				$this->_hashMap['delivery_address_id']['required'] = false;
 				
 				if ($this->updateCustomer($customer_data_m)) {
 					return true;
