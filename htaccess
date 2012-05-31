@@ -21,6 +21,8 @@ RewriteRule ^backoffice/pages$        /index.php?request=sys/html5.bo/backoffice
 RewriteRule ^backoffice/pages/([0-9]*)$	/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice~id=$1~.bo/pages/pages~id=$1~ [L,QSA]
 
 RewriteRule ^backoffice/news$       /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/news [L,QSA]
+RewriteRule ^backoffice/news/([0-9]*)$       /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/news&blog_node_id=$1 [L,QSA]
+
 RewriteRule ^backoffice/comments$       /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/comments [L,QSA]
 RewriteRule ^backoffice/surveys$       /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/surveys [L,QSA]
 RewriteRule ^backoffice/marketing$       /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/marketing [L,QSA]

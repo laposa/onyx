@@ -131,12 +131,8 @@ class Onxshop_Controller_Component_News_List extends Onxshop_Controller {
 			
 			if ($display_pagination == 1) {
 			
-				$full_news_list = $this->getNewsListAll($filter);
+				$this->displayPagination($filter, $limit_from, $limit_per_page);
 				
-				$count = count($full_news_list);
-				
-				$_nSite = new nSite("component/pagination~limit_from=$limit_from:limit_per_page=$limit_per_page:count=$count~");
-				$this->tpl->assign('PAGINATION', $_nSite->getContent());
 			}
 			
 			/**
@@ -370,5 +366,20 @@ class Onxshop_Controller_Component_News_List extends Onxshop_Controller {
 		$taxonomy_tree_id_list = $Product->getTaxonomyForProduct($product_id);
 		
 		return $taxonomy_tree_id_list;
+	}
+	
+	/**
+	 * displayPagination
+	 */
+	 
+	public function displayPagination($filter, $limit_from, $limit_per_page) {
+	
+		$full_news_list = $this->getNewsListAll($filter);
+				
+		$count = count($full_news_list);
+				
+		$_nSite = new nSite("component/pagination~limit_from=$limit_from:limit_per_page=$limit_per_page:count=$count~");
+		$this->tpl->assign('PAGINATION', $_nSite->getContent());
+				
 	}
 }
