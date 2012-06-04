@@ -4,7 +4,7 @@
 # 2. default  link in project_skeleton/onxshop_dir symlink to /opt/onxshop-latest
 # Norbert Laposa, 2006, 2010, 2011
 
-DEVELOPMENT_VERSION="/opt/onxshop-dev/";
+DEVELOPMENT_VERSION="/opt/onxshop/dev/";
 
 DEPLOY_VERSION="onxshop-testing";
 BASE_DIR="/opt/";
