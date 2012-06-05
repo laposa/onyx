@@ -655,8 +655,9 @@ class Onxshop_Controller {
      
 	function _initTemplate($template_file) {
 	
-		// base template for engine
-		$this->tpl = new XTemplate ($template_file, $this->_template_dir);
+		// core template engine
+		// initialize with option to look for files in local (project) and global (onxshop) directory
+		$this->tpl = new XTemplate ($template_file, array(ONXSHOP_PROJECT_DIR . 'templates/', ONXSHOP_DIR . 'templates/'));
 		// set base variables
 		$this->_initTemplateVariables();
 		
