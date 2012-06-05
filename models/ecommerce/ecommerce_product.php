@@ -742,4 +742,30 @@ variety.stock, price.date, image.src, image.title, image.priority, image.id, nod
 		
 		return $relations;
 	}
+	
+	/**
+	 * getRelatedTaxonomy
+	 */
+	 
+	public function getRelatedTaxonomy($product_id) {
+		
+		if (!is_numeric($product_id)) return false;
+		
+		require_once('models/ecommerce/ecommerce_product_taxonomy.php');
+		$Taxonomy = new ecommerce_product_taxonomy();
+		
+		$related_taxonomy_ids = $Taxonomy->getRelationsToProduct($product_id);
+		
+		$related_taxonomy = array();
+		
+		if (is_array($related_taxonomy_ids)) {
+		
+			foreach ($related_taxonomy_ids as $item_id) {
+				$related_taxonomy[] = $Taxonomy->getLabel($item_id);
+			}
+		
+		}
+		
+		return $related_taxonomy;
+	}
 }

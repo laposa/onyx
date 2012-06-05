@@ -99,7 +99,7 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
 		 */
 		
 		$product_variety_list = $this->getProductVarietyList();
-
+		
 		/**
 		 * don't continue if product list is empty, but don't return false
 		 */
