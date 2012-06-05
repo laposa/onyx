@@ -157,9 +157,11 @@ if (!defined('ONXSHOP_PACKAGE_NAME')) define('ONXSHOP_PACKAGE_NAME', 'standard')
 /**
  * Onxshop system support email
  */
- 
+
+if (!defined('ONXSHOP_SUPPORT_WEBSITE_URL')) define('ONXSHOP_SUPPORT_WEBSITE_URL', 'https://onxshop.com/support');
 if (!defined('ONXSHOP_SUPPORT_EMAIL')) define('ONXSHOP_SUPPORT_EMAIL', 'support@onxshop.com');
 if (!defined('ONXSHOP_SUPPORT_NAME')) define('ONXSHOP_SUPPORT_NAME', 'Onxshop support team');
+
 
 /**
  * allow backup download
