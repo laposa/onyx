@@ -264,8 +264,8 @@ function xmlentities($string, $quote_style=ENT_QUOTES) {
   	
   	$string = str_replace($htmlEntities, $utf8Entities, $string);
   	
-  	$search = array('&lsquo;', '&rsquo;', '&ldquo;', '&rdquo;', '&mdash;', '&ndash;'); 
-	$replace = array("&#8216;", "&#8217;", '&#8220;', '&#8221;', '&#8212;', '&#8211;'); 
+  	$search = array('&lsquo;', '&rsquo;', '&ldquo;', '&rdquo;', '&mdash;', '&ndash;', '&amp;'); 
+	$replace = array("&#8216;", "&#8217;", '&#8220;', '&#8221;', '&#8212;', '&#8211;', '&#38;'); 
   	
     return str_replace($search, $replace, $string);
     
