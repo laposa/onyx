@@ -238,4 +238,26 @@ CREATE TABLE common_taxonomy_tree (
 			break;
 		}
 	}
+	
+	/**
+	 * getRelatedTaxonomy
+	 */
+	 
+	public function getRelatedTaxonomy($node_id, $relation = 'common_node_taxonomy') {
+	
+		if (!is_numeric($node_id)) return false;
+		if (!in_array($relation, array('common_node_taxonomy', 'ecommerce_product_taxonomy', 'ecommerce_product_variety_taxonomy'))) return false;
+		
+		$sql = "
+			SELECT tree.id, tree.parent, tree.priority, tree.publish, label.title, label.description  FROM $relation t
+LEFT OUTER JOIN common_taxonomy_tree tree ON (t.taxonomy_tree_id = tree.id)
+LEFT OUTER JOIN common_taxonomy_label label ON (tree.label_id = label.id)
+WHERE node_id = $node_id ORDER BY tree.priority DESC, tree.id ASC
+		";
+	
+		$records = $this->executeSql($sql);
+		
+		return $records;
+		
+	}
 }

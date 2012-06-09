@@ -171,5 +171,15 @@ class common_taxonomy {
 		return $this->TaxonomyTree->moveItem($source_node_id, $destination_node_id, $position);
 		
 	}
+	
+	/**
+	 * getRelatedTaxonomy
+	 */
+	 
+	public function getRelatedTaxonomy($node_id, $relation = 'common_node_taxonomy') {
+	
+		return $this->TaxonomyTree->getRelatedTaxonomy($node_id, $relation);
+	
+	}
 }
 
