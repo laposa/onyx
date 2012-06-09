@@ -482,7 +482,8 @@ CREATE TABLE ecommerce_product (
 		image.priority AS image_priority,
 		image.id,
 		count(review.id) AS review_count, 
-		avg(review.rating) AS review_rating 
+		avg(review.rating) AS review_rating, 
+		(SELECT array_to_string(array_agg(taxonomy.taxonomy_tree_id), ',') FROM ecommerce_product_taxonomy taxonomy WHERE taxonomy.node_id = product.id) AS taxonomy 
 		FROM ecommerce_product product 
 		LEFT OUTER JOIN ecommerce_product_type ON (ecommerce_product_type.id = product.product_type_id) 
 		LEFT OUTER JOIN ecommerce_product_variety variety ON (variety.product_id = product.id)
@@ -559,7 +560,8 @@ variety.stock, price.date, product.publish, product.modified, variety.sku, varie
 		image.priority AS image_priority, 
 		image.id, 
 		count(review.id) AS review_count, 
-		avg(review.rating) AS review_rating
+		avg(review.rating) AS review_rating,
+		(SELECT array_to_string(array_agg(taxonomy.taxonomy_tree_id), ',') FROM ecommerce_product_taxonomy taxonomy WHERE taxonomy.node_id = product.id) AS taxonomy
 		FROM common_node node
 		LEFT OUTER JOIN ecommerce_product product ON (product.id = node.content::int)
 		LEFT OUTER JOIN ecommerce_product_type ON (ecommerce_product_type.id = product.product_type_id) 
@@ -751,21 +753,10 @@ variety.stock, price.date, image.src, image.title, image.priority, image.id, nod
 		
 		if (!is_numeric($product_id)) return false;
 		
-		require_once('models/ecommerce/ecommerce_product_taxonomy.php');
-		$Taxonomy = new ecommerce_product_taxonomy();
-		
-		$related_taxonomy_ids = $Taxonomy->getRelationsToProduct($product_id);
-		
-		$related_taxonomy = array();
-		
-		if (is_array($related_taxonomy_ids)) {
-		
-			foreach ($related_taxonomy_ids as $item_id) {
-				$related_taxonomy[] = $Taxonomy->getLabel($item_id);
-			}
-		
-		}
-		
+		require_once('models/common/common_taxonomy.php');
+		$Taxonomy = new common_taxonomy();
+		$related_taxonomy = $Taxonomy->getRelatedTaxonomy($product_id, 'ecommerce_product_taxonomy');
+				
 		return $related_taxonomy;
 	}
 }

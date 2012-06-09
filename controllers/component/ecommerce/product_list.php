@@ -366,6 +366,28 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
 				 
 				$odd_even = ( $odd_even == 'odd' ) ? 'even' : 'odd';
 				$item['odd_even_class'] = $odd_even;
+				
+				/**
+				 * add related_taxonomy
+				 */
+				
+				$related_taxonomy = explode(',', $item['taxonomy']);
+				
+				/**
+				 * create taxonomy_class from related_taxonomy
+				 */
+				
+				$item['taxonomy_class'] = '';
+				
+				if (is_array($related_taxonomy)) {
+					foreach ($related_taxonomy as $t_item) {
+						$item['taxonomy_class'] .= "t{$t_item} ";
+					}
+				}
+						
+				/**
+				 * add to array
+				 */
 		
 				$product_list_paginated[] = $item;
 				
