@@ -36,10 +36,17 @@
 				<span class="label"><label for="answer-description">description</label></span>
 				<span class="field"><textarea id="answer-description" name="answer[description]">{ANSWER.description|htmlspecialchars}</textarea></span>
 			</div>
+			
+			<div class="row is_correct">
+				<span class="label"><label for="answer-is_correct">is_correct</label></span>
+				<span class="field"><input id="answer-is_correct" type="checkbox" name="answer[is_correct]" value="1" {CHECKED_is_correct} /></span>
+			</div>
+			
 			<div class="row points">
 				<span class="label"><label for="answer-points">points</label></span>
 				<span class="field"><input class="number short" id="answer-points" type="text" name="answer[points]" value="{ANSWER.points}" /></span>
 			</div>
+
 		</fieldset>
 				
 		<div class="row submit">

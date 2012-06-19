@@ -1,0 +1,15 @@
+<!-- BEGIN: content -->
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<div class="survey_menu">
+	
+	<ul>
+	<!-- BEGIN: item -->
+	<li class="publish_{ITEM.publish}"><a title="Edit survey" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_detail~id={ITEM.id}~'); return false" href="#sub_content">{ITEM.title|htmlspecialchars}</a></li>
+	<!-- END: item -->
+	</ul>
+	<!-- BEGIN: empty -->
+	
+	<!-- END: empty -->
+							
+</div>
+<!-- END: content -->

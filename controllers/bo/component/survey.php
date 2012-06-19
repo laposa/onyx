@@ -101,6 +101,8 @@ class Onxshop_Controller_Bo_Component_Survey extends Onxshop_Controller {
 		
 		if (!is_array($question_answer_data)) return false;
 	
+		if (!is_numeric($question_answer_data['is_correct'])) $question_answer_data['is_correct'] = 0;
+		
 		if ($this->QuestionAnswer->saveAnswer($question_answer_data)) msg("Answer id={$question_answer_data['id']} saved");
 		else msg("Answer id={$question_answer_data['id']} save failed", 'error');
 
@@ -160,6 +162,8 @@ class Onxshop_Controller_Bo_Component_Survey extends Onxshop_Controller {
 			
 			$this->tpl->assign("SELECTED_{$question_answer_detail['publish']}", "selected='selected'");
 			$this->tpl->assign("SELECTED_{$question_answer_detail['type']}", "selected='selected'");
+			
+			if ($question_answer_detail['is_correct']) $this->tpl->assign('CHECKED_is_correct', 'checked="checked"');
 			
 			$this->tpl->assign('ANSWER', $question_answer_detail);
 		}

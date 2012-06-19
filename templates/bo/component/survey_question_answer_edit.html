@@ -27,7 +27,7 @@
 	<form method="post" action="{URI}" id="survey_question_answer_edit_form">
 
 		<fieldset class="single">
-			<legend>Answer edit</legend>
+			<legend>Answer edit (id={ANSWER.id})</legend>
 			<div class="row title">
 				<span class="label"><label for="answer-title">Title</label></span>
 				<span class="field"><input class="required text title" id="answer-title" type="text" name="answer[title]" value="{ANSWER.title|htmlspecialchars}" /></span>
@@ -35,6 +35,10 @@
 			<div class="row description">
 				<span class="label"><label for="answer-description">description</label></span>
 				<span class="field"><textarea id="answer-description" name="answer[description]">{ANSWER.description|htmlspecialchars}</textarea></span>
+			</div>
+			<div class="row is_correct">
+				<span class="label"><label for="answer-is_correct">is_correct</label></span>
+				<span class="field"><input id="answer-is_correct" type="checkbox" name="answer[is_correct]" value="1" {CHECKED_is_correct} /></span>
 			</div>
 			<div class="row points">
 				<span class="label"><label for="answer-points">points</label></span>
