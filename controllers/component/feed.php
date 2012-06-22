@@ -96,7 +96,7 @@ class Onxshop_Controller_Component_Feed extends Onxshop_Controller {
 		} catch (Zend_Exception $e) {
 		
 			// feed import failed
-			msg("Exception caught importing feed: {$e->getMessage()}", 'error');
+			msg("Exception caught importing feed: {$e->getMessage()}", 'error', 1);
 			
 			//delete downloaded from cache (probably invalid)
 			// TODO: how to delete feed cache?
