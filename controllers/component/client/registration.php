@@ -29,11 +29,11 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
 		
 		require_once('models/client/client_customer.php');
 		
-		$Customer = new client_customer();
-		$Customer->setCacheable(false);
+		$this->Customer = new client_customer();
+		$this->Customer->setCacheable(false);
 		
 		
-		//if ($_POST['client']['customer']['email'])  $Customer->checkEmail($_POST['client']['customer']['email']);
+		//if ($_POST['client']['customer']['email'])  $this->Customer->checkEmail($_POST['client']['customer']['email']);
 		
 		/**
 		 * country list
@@ -70,7 +70,7 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
 			unset($client_customer['password1']);
 			
 			//check validation of submited fields
-			if ($Customer->prepareToRegister($client_customer) && $this->checkPasswordMatch($_POST['client']['customer']['password'], $_POST['client']['customer']['password1'])) {
+			if ($this->Customer->prepareToRegister($client_customer) && $this->checkPasswordMatch($_POST['client']['customer']['password'], $_POST['client']['customer']['password1'])) {
 				
 				// when required some other step for registering, store fields in session
 				//$_SESSION['r_client'] = $_POST['client'];
@@ -83,7 +83,7 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
 				 * register
 				 */
 				
-				if($id = $Customer->registerCustomer($client_customer, $client_address, $client_company)) {
+				if($id = $this->Customer->registerCustomer($client_customer, $client_address, $client_company)) {
 				
 					msg("Registration of customer ID $id was successful");
 					
@@ -91,7 +91,7 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
 					 * login
 					 */
 					 
-					$this->login($Customer);
+					$this->login($_POST['client']['customer']['email'], $_POST['client']['customer']['password']);
 					
 					
 					/**
@@ -136,13 +136,11 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
 	 * login
 	 */
 	 
-	public function login($Customer) {
+	public function login($username, $password) {
 		
-		//TODO: implement login by username option
-		$username = $_POST['client']['customer']['email'];
-		$md5_password = md5($_POST['client']['customer']['password']);
+		$md5_password = md5($password);
 		
-		$customer_detail = $Customer->login($username, $md5_password);
+		$customer_detail = $this->Customer->login($username, $md5_password);
 		
 		if ($customer_detail) {
 			$_SESSION['client']['customer'] = $customer_detail;
