@@ -27,7 +27,7 @@ class Onxshop_Controller_Component_Client_Logout extends Onxshop_Controller {
 				$this->cleanCookies();
 				
 				//forward to the homepage
-				onxshopGoTo("/");
+				onxshopGoTo(AFTER_CLIENT_LOGOUT_URL);
 			
 			} else {
 			
