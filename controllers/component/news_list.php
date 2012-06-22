@@ -191,6 +191,12 @@ class Onxshop_Controller_Component_News_List extends Onxshop_Controller {
 					if ($i >= $limit_from  && $i < ($limit_from + $limit_per_page) ) {
 						
 						/**
+						 * unserialize other data
+						 */
+						 
+						$item['other_data'] = unserialize($item['other_data']);
+						
+						/**
 						 * unserialize component data
 						 */
 						 
