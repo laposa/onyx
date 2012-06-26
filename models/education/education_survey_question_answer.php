@@ -116,7 +116,7 @@ CREATE TABLE education_survey_question_answer (
 			return false;
 		}
 		
-		$answer_list = $this->listing("question_id = $question_id", 'id ASC, priority DESC');
+		$answer_list = $this->listing("question_id = $question_id", 'priority DESC, id ASC');
 		
 		return $answer_list;
 		

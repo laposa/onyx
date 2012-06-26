@@ -131,7 +131,7 @@ CREATE TABLE education_survey_question (
 			return false;
 		}
 		
-		$question_list = $this->listing("survey_id = $survey_id", 'id ASC, priority DESC');
+		$question_list = $this->listing("survey_id = $survey_id", 'priority DESC, id ASC');
 		
 		require_once('models/education/education_survey_question_answer.php');
 		$SurveyQuestionAnswer = new education_survey_question_answer();
