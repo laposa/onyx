@@ -284,7 +284,7 @@ CREATE TABLE client_customer (
 	 
 	function prepareToRegister($customer_data) {
 		
-		//make email and username lowecase
+		//make email and username lowercase to avoid duplications
 		$customer_data['email'] = strtolower($customer_data['email']);
 		$customer_data['username'] = strtolower($customer_data['username']);
 		//set default values
@@ -324,6 +324,10 @@ CREATE TABLE client_customer (
 	
 	function checkLoginId($customer_data) {
 	
+		//make email and username lowercase to avoid duplications
+		$customer_data['email'] = strtolower($customer_data['email']);
+		$customer_data['username'] = strtolower($customer_data['username']);
+		
 		if ($this->conf['login_type'] == 'email') {
 			if ($this->set('email', $customer_data['email'])) {
 				$customer_current = $this->listing("email='{$customer_data['email']}' AND status < 3");
