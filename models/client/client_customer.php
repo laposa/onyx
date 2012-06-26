@@ -284,8 +284,9 @@ CREATE TABLE client_customer (
 	 
 	function prepareToRegister($customer_data) {
 		
-		//make email lowecase
+		//make email and username lowecase
 		$customer_data['email'] = strtolower($customer_data['email']);
+		$customer_data['username'] = strtolower($customer_data['username']);
 		//set default values
 		$customer_data['company_id'] = 0;
 		$customer_data['invoices_address_id'] = 0;
