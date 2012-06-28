@@ -22,23 +22,34 @@ class Onxshop_Controller_Component_Client_Login extends Onxshop_Controller {
 		$Customer->setCacheable(false);
 		
 		if ($_SESSION['client']['customer']['id'] > 0 && !$this->GET['client']['email']) {
+		
 			//msg('you are in');
 			//onxshopGoTo($this->GET['to']);
+		
 		} else {
+		
 			/* Check if user has been remembered */
-			if(isset($_COOKIE['autologin_username']) && isset($_COOKIE['autologin_md5_password'])){
+			if(isset($_COOKIE['autologin_username']) && isset($_COOKIE['autologin_md5_password'])) {
+			
 				$customer_detail = $Customer->login($_COOKIE['autologin_username'], $_COOKIE['autologin_md5_password']);
+				
 				if ($customer_detail) {
 					$_SESSION['client']['customer'] = $customer_detail;
+				
 				} else {
+				
 					msg("Autologin of ({$_COOKIE['autologin_username']}) failed", 'error', 1);
+				
 				}
 			}
 		
 			/* client submitted username/password */
 			if (isset($_POST['login'])) {
+			
 				$customer_detail = $Customer->login($_POST['client']['username'], md5($_POST['client']['password']));
+			
 				if ($customer_detail) {
+				
 					$_SESSION['client']['customer'] = $customer_detail;
 					
 					/**
@@ -50,30 +61,43 @@ class Onxshop_Controller_Component_Client_Login extends Onxshop_Controller {
 					 */
 				
 					if(isset($_POST['autologin'])){
+						
 						setcookie("autologin_username", $_SESSION['client']['customer']['email'], time()+60*60*24*100, "/");
 						//passwords are already md5 in the database
 						setcookie("autologin_md5_password", $_SESSION['client']['customer']['password'], time()+60*60*24*100, "/");
+					
 					}
+					
 				} else {
-					msg('Login failed.  Please try again.', 'error');
+					
+					$this->loginFailed();
+					
 				}
 				
 			}
 			
 			/* log in as client from backoffice */
 			if ($_SESSION['authentication']['authenticity'] > 0 && $this->GET['client']['email']) {
+				
 				$customer_detail = $Customer->getClientByEmail($this->GET['client']['email']);
+				
 				if ($customer_detail) {
+				
 					$_SESSION['client']['customer'] = $customer_detail;
+				
 				} else {
+				
 					msg('Login from backoffice failed.', 'error');
+				
 				}
 			}
 		}
 		
 		if ($_SESSION['client']['customer']['id'] > 0 && is_numeric($_SESSION['client']['customer']['id'])) {
+			
 			//update basket
 			if ($_SESSION['basket']['id'] > 0 && is_numeric($_SESSION['basket']['id'])) {
+			
 				require_once('models/ecommerce/ecommerce_basket.php');
 				$Basket = new ecommerce_basket();
 				$Basket->setCacheable(false);
@@ -132,4 +156,15 @@ class Onxshop_Controller_Component_Client_Login extends Onxshop_Controller {
 		}
 			
 	}
+	
+	/**
+	 * login failed action
+	 */
+	 
+	public function loginFailed() {
+	
+		msg('Login failed.  Please try again.', 'error');
+	
+	}
+	
 }
