@@ -1,8 +1,38 @@
-Onxshop (1.5.3/dev)
+Onxshop (1.5.3)
 
-  * New release
+  * add lowercase to checkLoginId()
+  * make email address and username lowercase on registration
+  * add loginFailed action for better inheritance overwrites
+  * refactoring in registration component for simple extendibility
+  * add option to force update customer data on newsletter subscription
+  * add AFTER_CLIENT_LOGOUT_URL constant
+  * add group_id to customers export CSV
+  * don't send notification email on every customer data update
+  * don't show feed error message to normal clients
+  * improve survey management UI
+  * use sorting by priority first and than id in surveys list
+  * show Surveys to all account types
+  * add taxonomy ID to each menu item title
+  * add taxonomy class to product list and news list
+  * bug fix: use $GLOBALS['onxshop_conf'] for default sorting in product list
+  * add getRelatedTaxonomy method to common_taxonomy and ecommerce_product
+  * improve other_data and relations serialized fields in common_node
+  * unserialize other data in news_list
+  * make pagination working properly on multiple blog setup
+  * pass blog_node_id to all controllers in news edit
+  * add label synopsis in node edit / item_meta_data
+  * use actual locale in html lang attribute
+  * add username class into backoffice_wrapper and fe_edit
+  * don't reload node in context when in backoffice
+  * social_nework_share improvements
+  * add constant ONXSHOP_SUPPORT_WEBSITE_URL
+  * replace HTML entity for ampersand with it's unicode entity in xmlentities()
+  * use comma instead of semicolons in CSV exports
+  * change AJAX indicator image
+  * fix problem with Xtemplate FILE include
+  * fix typo in headOnce()
   
- -- Norbert Laposa <norbert@laposa.co.uk>  2012-05-20
+ -- Norbert Laposa <norbert@laposa.co.uk>  2012-07-01
  
 Onxshop (1.5.2)
 
