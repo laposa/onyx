@@ -3,7 +3,7 @@
 $(function(){ 
 	var options = {
 		target: '#onxshopBackofficeWrapper',
-		beforeSubmit: function () {$("#onxshopBackofficeWrapper").html("<img src='/share/images/ajax-indicator/indicator_verybig.gif' alt='Loading ...'/>");}
+		beforeSubmit: function () {$("#onxshopBackofficeWrapper").html(onxshop_load_indicator_html_snippet);}
 	};
     $('#systemSearch form').ajaxForm(options);
 });

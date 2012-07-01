@@ -7,7 +7,7 @@ $(function() {
 		url: '/request/bo/component/ecommerce/orders_graph',
 		target: '#orders_graph',
 		beforeSubmit: function () {
-    		$("#orders_graph").html("<img src='/share/images/ajax-indicator/indicator_verybig.gif' alt='Loading ...'/>")
+    		$("#orders_graph").html(onxshop_load_indicator_html_snippet)
 		},
 		success: function(responseText, statusText) {
 			popupMessage("#orders_graph div.onxshop_messages");

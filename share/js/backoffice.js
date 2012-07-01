@@ -1,6 +1,7 @@
 /**
  * backoffice and fe_edit
- * Author: Norbert @ Laposa Ltd 2010
+ * Author: Norbert @ Laposa Ltd 2010, 2012
+ * TODO: move to global Onxshop object
  */
  
 function openEdit(url, el, ajax) {
@@ -14,7 +15,7 @@ function openEdit(url, el, ajax) {
 
 function openAjaxRequestInDialog(url, title) {
 	$('#dialog').dialog( "destroy" );
-	$('#dialog').html("<img src='/share/images/ajax-indicator/indicator_verybig.gif' alt='Loading ...'/>").load(url, '', function (responseText, textStatus, XMLHttpRequest) {
+	$('#dialog').html(onxshop_load_indicator_html_snippet).load(url, '', function (responseText, textStatus, XMLHttpRequest) {
 		//popupMessage("#dialog div.onxshop_messages");
 	})
 	.dialog({
