@@ -329,28 +329,48 @@ CREATE TABLE client_customer (
 		$customer_data['username'] = strtolower($customer_data['username']);
 		
 		if ($this->conf['login_type'] == 'email') {
+		
 			if ($this->set('email', $customer_data['email'])) {
-				$customer_current = $this->listing("email='{$customer_data['email']}' AND status < 3");
+		
+				$customer_current = $this->listing("lower(email) = '{$customer_data['email']}' AND status < 3");
+		
 				if (count($customer_current) > 0) {
+		
 					msg("User email {$customer_data['email']} is already registered", 'error');
 					return false;
+		
 				} else {
+		
 					return true;
+		
 				}
 			} else {
+		
 				return false;
+		
 			}
+		
 		} else {
+		
 			if ($this->set('email', $customer_data['email']) && $this->set('username', $customer_data['username'])) {
-				$customer_current = $this->listing("email='{$customer_data['email']}' OR username='{$customer_data['username']}' AND status < 3");
+		
+				$customer_current = $this->listing("lower(email) = '{$customer_data['email']}' OR username='{$customer_data['username']}' AND status < 3");
+		
 				if (count($customer_current) > 0) {
+			
 					msg("User {$customer_data['email']} or {$customer_data['username']} is already registered", 'error');
 					return false;
+			
 				} else {
+			
 					return true;
+			
 				}
+		
 			} else {
+		
 				return false;
+		
 			}
 		}
 	}
@@ -368,7 +388,7 @@ CREATE TABLE client_customer (
 	
 		$email = strtolower($email);
 		
-		$customer_list = $this->listing("email='{$email}' AND status = 3", 'id DESC');
+		$customer_list = $this->listing("lower(email) = '{$email}' AND status = 3", 'id DESC');
 
 		if (count($customer_list) > 0) {
 			if (count($customer_list) == 1) {
@@ -593,6 +613,10 @@ CREATE TABLE client_customer (
 	
 	function updateCustomer($customer_data, $send_notify_email = false) {
 		
+		//make email and username lowercase to avoid duplications
+		$customer_data['email'] = strtolower($customer_data['email']);
+		$customer_data['username'] = strtolower($customer_data['username']);
+		
 		$customer_data['modified'] = date('c');
 		if (is_array($customer_data['other_data'])) $customer_data['other_data'] = serialize($customer_data['other_data']);
 		
@@ -766,7 +790,7 @@ CREATE TABLE client_customer (
 	
 		$username = strtolower($username);
 		
-		$customer_detail = $this->listing("username='$username'");
+		$customer_detail = $this->listing("lower(username) = '$username'");
 
 		if (count($customer_detail) > 0) {
 			if ($customer_detail[0]['password'] == $md5_password) {
@@ -1015,7 +1039,7 @@ CREATE TABLE client_customer (
 		
 		if ($this->validation('email', 'email', $email)) {
 		
-			$client_list = $this->listing("email = '$email'", "id DESC");
+			$client_list = $this->listing("lower(email) = '$email'", "id DESC");
 		
 			if (is_array($client_list) && count($client_list) > 0) {
 				return $client_list[0];
