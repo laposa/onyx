@@ -366,6 +366,8 @@ CREATE TABLE client_customer (
 	
 	function checkLoginIdSubscribedNewsletterOnly($email) {
 	
+		$email = strtolower($email);
+		
 		$customer_list = $this->listing("email='{$email}' AND status = 3", 'id DESC');
 
 		if (count($customer_list) > 0) {
@@ -672,6 +674,8 @@ CREATE TABLE client_customer (
 	
 	function login($username, $md5_password) {
 	
+		$username = strtolower($username);
+		
 		/**
 		 * check username/password and existance of account
 		 */
@@ -727,6 +731,8 @@ CREATE TABLE client_customer (
 	
 	function loginByEmail($email, $md5_password) {
 	
+		$email = strtolower($email);
+		
 		$customer_detail = $this->getClientByEmail($email);
 
 		if ($customer_detail) {
@@ -758,6 +764,8 @@ CREATE TABLE client_customer (
 	
 	function loginByUsername($username, $md5_password) {
 	
+		$username = strtolower($username);
+		
 		$customer_detail = $this->listing("username='$username'");
 
 		if (count($customer_detail) > 0) {
@@ -916,6 +924,8 @@ CREATE TABLE client_customer (
 	
 	function resetPassword($email, $key) {
 	
+		$email = strtolower($email);
+		
 		$client = $this->getClientByEmail($email);
 		
 		if (is_array($client)) {
@@ -976,6 +986,8 @@ CREATE TABLE client_customer (
 	
 	function getPasswordKey($email) {
 	
+		$email = strtolower($email);
+		
 		$client = $this->getClientByEmail($email);
 		if (is_array($client)) {
 			$key = md5($client['password']);
@@ -999,6 +1011,8 @@ CREATE TABLE client_customer (
 	 
 	function getClientByEmail($email) {
 	
+		$email = strtolower($email);
+		
 		if ($this->validation('email', 'email', $email)) {
 		
 			$client_list = $this->listing("email = '$email'", "id DESC");
@@ -1029,6 +1043,8 @@ CREATE TABLE client_customer (
 	 */
 	
 	function newsletterSubscribe($customer, $force_update = false) {
+		
+		$customer['email'] = strtolower($customer['email']);
 		
 		if ($customer_data = $this->getClientByEmail($customer['email'])) {
 			

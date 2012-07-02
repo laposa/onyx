@@ -91,7 +91,7 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
 					 * login
 					 */
 					 
-					$this->login($_POST['client']['customer']['email'], $_POST['client']['customer']['password']);
+					$this->login($client_customer['email'], $client_customer['password']);
 					
 					
 					/**
