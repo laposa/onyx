@@ -1,3 +1,9 @@
+Onxshop (1.5.4/dev)
+
+  * New release
+
+ -- Norbert Laposa <norbert@laposa.co.uk>  2012-07-01
+
 Onxshop (1.5.3)
 
   * add lowercase to checkLoginId()
@@ -31,9 +37,9 @@ Onxshop (1.5.3)
   * change AJAX indicator image
   * fix problem with Xtemplate FILE include
   * fix typo in headOnce()
-  
+
  -- Norbert Laposa <norbert@laposa.co.uk>  2012-07-01
- 
+
 Onxshop (1.5.2)
 
   * improve bo/posts UI and multiple containers support
