@@ -78,25 +78,25 @@ class Onxshop_Controller_Component_Pagination extends Onxshop_Controller {
 		$display_limit_links = 25;
 		
 		foreach ($pagination as $item) {
-			if ($i < $display_limit_links) {
-				if ($item['from'] == $from && $item['per_page'] == $per_page) {
-					$previous = $item['from'] - $per_page;
-					$next = $item['from'] + $per_page;
-					$item['class'] = 'active';
-				} else {
-					$item['class'] = '';
-				}
 			
-				$item['link'] = $link;
-				if ($item['from'] == 0) $limit = '';
-				else $limit = "?limit_from={$item['from']}&amp;limit_per_page={$item['per_page']}";
-				$this->tpl->assign('LIMIT', $limit);
-			
-				$this->tpl->assign('ITEM', $item);
-		
-				if ($item['per_page'] > 0) $this->tpl->parse('content.pagination.item');
+			if ($item['from'] == $from && $item['per_page'] == $per_page) {
+				$previous = $item['from'] - $per_page;
+				$next = $item['from'] + $per_page;
+				$item['class'] = 'active';
+			} else {
+				$item['class'] = '';
 			}
-			
+		
+			$item['link'] = $link;
+			if ($item['from'] == 0) $limit = '';
+			else $limit = "?limit_from={$item['from']}&amp;limit_per_page={$item['per_page']}";
+			$this->tpl->assign('LIMIT', $limit);
+		
+			$this->tpl->assign('ITEM', $item);
+	
+			//display pagination item only if there are multiple pages and still less than display_limit_links
+			if ($item['per_page'] > 0 && $i < $display_limit_links) $this->tpl->parse('content.pagination.item');
+		
 			$i++;
 		}
 		
@@ -107,8 +107,8 @@ class Onxshop_Controller_Component_Pagination extends Onxshop_Controller {
 			$this->tpl->assign('LIMIT', $limit);
 			$this->tpl->parse('content.pagination.previous');
 		}
-		//next
 		
+		//next
 		if ($next < $count)  {
 			$limit = "?limit_from={$next}&amp;limit_per_page={$item['per_page']}";
 			$this->tpl->assign('LIMIT', $limit);
@@ -117,7 +117,10 @@ class Onxshop_Controller_Component_Pagination extends Onxshop_Controller {
 		
 		//display options?
 		if ($option_show_all) $this->tpl->parse('content.pagination.show_all');
-		if ($option_per_page) $this->tpl->parse('content.pagination.per_page');
+		if ($option_per_page) {
+			$this->tpl->assign("PAGINATION_selected_$per_page", 'selected="selected"');
+			$this->tpl->parse('content.pagination.per_page');
+		}
 		
 		if ($count > $per_page) $this->tpl->parse('content.pagination');
 
