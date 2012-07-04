@@ -450,7 +450,7 @@ class Onxshop_Model {
 	 * insert a record
 	 *
 	 * @param array $data
-	 * @return int
+	 * @return integer
 	 */
 	 
 	public function insert($data) {
@@ -510,7 +510,7 @@ class Onxshop_Model {
 	 * update a record
 	 *
 	 * @param array $data
-	 * @return int
+	 * @return integer
 	 */
 	 
 	public function update($data = array()) {
@@ -553,6 +553,8 @@ class Onxshop_Model {
 	/**
 	 * Save a record
 	 * update or insert
+	 *
+	 * @return integer
 	 */
 
 	public function save($data) {
