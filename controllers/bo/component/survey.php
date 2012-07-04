@@ -75,7 +75,7 @@ class Onxshop_Controller_Bo_Component_Survey extends Onxshop_Controller {
 		
 		if (!is_array($survey_data)) return false;
 	
-		if ($this->Survey->saveSurvey($survey_data)) msg("Survey id={$survey_data['id']} saved");
+		if ($survey_id = $this->Survey->saveSurvey($survey_data)) msg("Survey id={$survey_id} saved");
 		else msg("Survey id={$survey_data['id']} save failed", 'error');
 
 	}
@@ -88,7 +88,7 @@ class Onxshop_Controller_Bo_Component_Survey extends Onxshop_Controller {
 		
 		if (!is_array($question_data)) return false;
 	
-		if ($this->Question->saveQuestion($question_data)) msg("Question id={$question_data['id']} saved");
+		if ($question_id = $this->Question->saveQuestion($question_data)) msg("Question id={$question_id} saved");
 		else msg("Question id={$question_data['id']} save failed", 'error');
 
 	}
@@ -103,7 +103,7 @@ class Onxshop_Controller_Bo_Component_Survey extends Onxshop_Controller {
 	
 		if (!is_numeric($question_answer_data['is_correct'])) $question_answer_data['is_correct'] = 0;
 		
-		if ($this->QuestionAnswer->saveAnswer($question_answer_data)) msg("Answer id={$question_answer_data['id']} saved");
+		if ($answer_id = $this->QuestionAnswer->saveAnswer($question_answer_data)) msg("Answer id={$answer_id} saved");
 		else msg("Answer id={$question_answer_data['id']} save failed", 'error');
 
 	}
