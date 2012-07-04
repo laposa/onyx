@@ -14,11 +14,12 @@
  * @param string message Text of message.
  * @param string type 'ok' or 'error' message
  * @param int level 0 - for view every time 1, 2 - debug levels
+ & @param string error_class - (CSS) class
  * @return void
  * @access public
  */
  
-function msg($msg, $type = "ok", $level = 0) {
+function msg($msg, $type = "ok", $level = 0, $error_class = '') {
 
 	global $_SESSION;
 	
@@ -54,11 +55,11 @@ function msg($msg, $type = "ok", $level = 0) {
 	        switch ($type) {
 	        	
 	            case 'error':
-	                $message = "<p class='onxshop_error_msg'>{$msg_safe}</p>\n";
+	                $message = "<p class='onxshop_error_msg level_$level $error_class'>{$msg_safe}</p>\n";
 	                if (is_object($GLOBALS['fb_logger'])) $GLOBALS['fb_logger']->log($msg, Zend_Log::ERR);
 	            break;
 	            case 'ok':
-	                $message = "<p class='onxshop_ok_msg'>{$msg_safe}</p>\n";
+	                $message = "<p class='onxshop_ok_msg level_$level $error_class'>{$msg_safe}</p>\n";
 	                if (is_object($GLOBALS['fb_logger'])) $GLOBALS['fb_logger']->log($msg, Zend_Log::INFO);
 	            break;
 	        }

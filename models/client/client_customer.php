@@ -336,7 +336,7 @@ CREATE TABLE client_customer (
 		
 				if (count($customer_current) > 0) {
 		
-					msg("User email {$customer_data['email']} is already registered", 'error');
+					msg("User email {$customer_data['email']} is already registered", 'error', 0, 'account_exists');
 					return false;
 		
 				} else {
