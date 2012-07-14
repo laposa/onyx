@@ -6,8 +6,8 @@
 
 DEVELOPMENT_VERSION="/opt/onxshop/dev/";
 
-DEPLOY_VERSION="onxshop-testing";
-BASE_DIR="/opt/";
+DEPLOY_VERSION="testing";
+BASE_DIR="/opt/onxshop/";
 FULL_PATH=$BASE_DIR$DEPLOY_VERSION;
 
 #backup
