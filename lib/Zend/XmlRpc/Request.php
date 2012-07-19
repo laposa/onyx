@@ -14,7 +14,7 @@
  *
  * @category   Zend
  * @package    Zend_Controller
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
  */
 
@@ -41,9 +41,9 @@ require_once 'Zend/XmlRpc/Fault.php';
  *
  * @category Zend
  * @package  Zend_XmlRpc
- * @copyright  Copyright (c) 2005-2011 Zend Technologies USA Inc. (http://www.zend.com)
+ * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version $Id: Request.php 23775 2011-03-01 17:25:24Z ralph $
+ * @version $Id: Request.php 24976 2012-06-19 16:03:28Z matthew $
  */
 class Zend_XmlRpc_Request
 {
@@ -303,12 +303,16 @@ class Zend_XmlRpc_Request
             return false;
         }
 
+        // @see ZF-12293 - disable external entities for security purposes
+        $loadEntities = libxml_disable_entity_loader(true);
         try {
             $xml = new SimpleXMLElement($request);
+            libxml_disable_entity_loader($loadEntities);
         } catch (Exception $e) {
             // Not valid XML
             $this->_fault = new Zend_XmlRpc_Fault(631);
             $this->_fault->setEncoding($this->getEncoding());
+            libxml_disable_entity_loader($loadEntities);
             return false;
         }
 
