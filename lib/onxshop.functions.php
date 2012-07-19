@@ -35,8 +35,8 @@ function msg($msg, $type = "ok", $level = 0, $error_class = '') {
 	 
 	if (ONXSHOP_BENCHMARK && ONXSHOP_IS_DEBUG_HOST) {
 		$time_current = microtime(true);
-    	$time = $time_current - TIME_START;
-    	$time = round($time, 4);
+		$time = $time_current - TIME_START;
+		$time = round($time, 4);
 		$msg = "{$time}s: $msg";
 	}
 	
@@ -84,9 +84,9 @@ function msg($msg, $type = "ok", $level = 0, $error_class = '') {
 				
 				if (is_dir($messages_dir) && is_writable($messages_dir)) {
 					$time = strftime("%D %T", time());
-					$sessin_id = session_id();
+					$session_id = session_id();
 					$type = strtoupper($type);
-					$filename = "$messages_dir{$_SERVER['REMOTE_ADDR']}-$sessin_id.log";
+					$filename = "$messages_dir{$_SERVER['REMOTE_ADDR']}-$session_id.log";
 					file_put_contents($filename, "$time $type: $msg\n", FILE_APPEND);
 				}
 			}
