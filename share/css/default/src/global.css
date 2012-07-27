@@ -5,7 +5,7 @@
  *
  */
 
-body {padding: 0; margin: 0; font-family: sans-serif; font-size: medium; line-height: 1.5;}
+body {padding: 0; margin: 0; font-family: sans-serif; font-size: medium; line-height: 1.5; -webkit-text-size-adjust: none;}
 img {border: 0; -ms-interpolation-mode: bicubic; vertical-align: bottom;}
 
 /**
@@ -173,12 +173,12 @@ div.onxshop_messages p.onxshop_error_msg {background: transparent url(/share/ima
  * jGrowl
  */
  
-div.jGrowl {padding: 0; z-index: 9999; position: fixed; width: 300px; right: 20px; bottom: 0;}
-/*div.jGrowl.top-left {left: 0; top: 60px;}
-div.jGrowl.top-right {right: 0; top: 60px;}
-div.jGrowl.bottom-left {left: 0; bottom: 0;}
-div.jGrowl.bottom-right {right: 0; bottom: 0;}
-div.jGrowl.center {top: 0; width: 50%; left: 25%;}*/
+div.jGrowl div.jGrowl-notification {padding: 0; z-index: 9999; position: fixed; width: 300px; right: 20px; bottom: 0;}
+/*div.jGrowl.top-left div.jGrowl-notification {left: 0; top: 60px;}
+div.jGrowl.top-right div.jGrowl-notification {right: 0; top: 60px;}
+div.jGrowl.bottom-left div.jGrowl-notification {left: 0; bottom: 0;}
+div.jGrowl.bottom-right div.jGrowl-notification {right: 0; bottom: 0;}
+div.jGrowl.center div.jGrowl-notification {top: 0; width: 50%; left: 25%;}*/
 div.jGrowl p {margin: 0; padding: 0;}
 div.jGrowl div.jGrowl-notification {zoom: 1; text-align: left; display: none; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; min-height: 40px;}
 div.jGrowl div.jGrowl-notification div.jGrowl-header {font-weight: bold;}
