@@ -18,7 +18,7 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
 		//force to nonSSL
 		/*
 		if ($node_data['require_ssl'] == 0) {
-			if ($_SERVER['SSL_PROTOCOL'] && $_SESSION['authentication']['authenticity'] < 1) {
+			if (array_key_exists('HTTPS', $_SERVER) && $_SESSION['authentication']['authenticity'] < 1) {
 				header("HTTP/1.1 301 Moved Permanently");
 				header("Location: http://{$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}");
 				exit;

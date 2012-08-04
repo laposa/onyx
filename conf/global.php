@@ -14,7 +14,7 @@
 //define('ONXSHOP_MAIN_DOMAIN', 'default.co.uk');
 
 if (defined('ONXSHOP_MAIN_DOMAIN')) {
-	if ($_SERVER['HTTPS']) $protocol = 'https';
+	if (array_key_exists('HTTPS', $_SERVER)) $protocol = 'https';
 	else $protocol = 'http';
 	
 	if ($_SERVER['HTTP_HOST'] != ONXSHOP_MAIN_DOMAIN) {
