@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2008-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2008-2012 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -81,28 +81,24 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
 		}
 		
 		/**
-		 * add related_taxonomy
+		 * get related_taxonomy
 		 */
 		
-		$node_data['related_taxonomy'] = $Node->getRelatedTaxonomy($node_data['id']);
+		$related_taxonomy = $this->getNodeRelatedTaxonomy($node_data);
 		
 		/**
-		 * create taxonomy_class from related_taxonomy
+		 * create taxonomy class
 		 */
+		 
+		$node_data['taxonomy_class'] = $this->createTaxonomyClass($related_taxonomy);
 		
-		$node_data['taxonomy_class'] = '';
-		
-		foreach ($node_data['related_taxonomy'] as $t_item) {
-			$node_data['taxonomy_class'] .= "t{$t_item['id']} ";
-		}
-
-
 		/**
 		 * save node_controller, page css_class and taxonomy_class into registry to be used in sys/(x)html* as body class
 		 */
-		 
-		Zend_Registry::set('body_css_class', "{$node_data['node_controller']} {$node_data['css_class']} {$node_data['taxonomy_class']}");
 		
+		$body_css_class = "{$node_data['node_controller']} {$node_data['css_class']} {$node_data['taxonomy_class']}";
+		
+		$this->saveBodyCssClass($body_css_class);
 		
 		/**
 		 * assign to template
@@ -140,6 +136,61 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
 		
 		$_SESSION['active_pages'] = $Node->getActivePages($this->GET['id']);
 		$_SESSION['full_path'] = $Node->getFullPath($this->GET['id']);
+	}
+	
+	/**
+	 * get taxonomy related to node
+	 */
+	 
+	public function getNodeRelatedTaxonomy($node_data) {
+		
+		if (!is_array($node_data)) return false;
+		
+		require_once('models/common/common_node.php');
+		$Node = new common_node();
+		$related_taxonomy = $Node->getRelatedTaxonomy($node_data['id']);
+		
+		return $related_taxonomy;
+	}
+	
+	/**
+	 * createTaxonomyClass from $related_taxonomy array
+	 */
+	 
+	public function createTaxonomyClass($related_taxonomy) {
+	
+		if (!is_array($related_taxonomy)) return false;
+		
+		/**
+		 * create taxonomy_class from related_taxonomy
+		 */
+		
+		$taxonomy_class = '';
+		
+		foreach ($related_taxonomy as $t_item) {
+			if (is_numeric($t_item['id'])) $taxonomy_class .= "t{$t_item['id']} ";
+		}
+		
+		return $taxonomy_class;
+		
+	}
+	
+	/**
+	 * saveBodyCssClass
+	 */
+	 
+	public function saveBodyCssClass($body_css_class) {
+		
+		if (Zend_Registry::isRegistered('body_css_class')) {
+		
+			Zend_Registry::set('body_css_class', $body_css_class . ' ' . Zend_Registry::get('body_css_class'));
+		
+		} else {
+		
+			Zend_Registry::set('body_css_class', $body_css_class);
+		
+		}
+		
 	}
 	
 }

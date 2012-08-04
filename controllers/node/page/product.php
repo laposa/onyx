@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2006-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2006-2012 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -50,7 +50,25 @@ class Onxshop_Controller_Node_Page_Product extends Onxshop_Controller_Node_Page_
 		 * get simple product detail (just for basic product attributes)
 		 */
 		 
-		$simple_product_detail = $Product->detail($node_data['content']);
+		$simple_product_detail = $Product->detail($product_id);
+		
+		/**
+		 * get taxonomy_class
+		 */
+		 
+		$related_taxonomy = $Product->getRelatedTaxonomy($product_id);
+		$simple_product_detail['taxonomy_class'] = $this->createTaxonomyClass($related_taxonomy);
+		
+		/**
+		 * save product taxonomy_class to registry
+		 */
+		
+		$this->saveBodyCssClass($simple_product_detail['taxonomy_class']);
+		
+		/**
+		 * assign simple product data to template
+		 */
+		
 		$this->tpl->assign("PRODUCT", $simple_product_detail);
 		
 		
@@ -142,4 +160,5 @@ class Onxshop_Controller_Node_Page_Product extends Onxshop_Controller_Node_Page_
 		
 		return true;
 	}
+	
 }
