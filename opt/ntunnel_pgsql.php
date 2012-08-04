@@ -1,5 +1,28 @@
 <?php	//version pg202
 
+//BEGIN ONXSHOP
+/**
+ * detect onxshop project directory
+ */
+ 
+$onxshop_project_dir =  preg_replace('/public_html\/opt/', '', dirname($_SERVER['SCRIPT_FILENAME']));
+
+/**
+ * include Onxshop project configuration
+ */
+ 
+require_once($onxshop_project_dir . 'conf/global.php');
+
+/**
+ * security check: allow to use only by debug IP
+ */
+ 
+if (!constant('ONXSHOP_IS_DEBUG_HOST')) {
+	echo "Sorry, you are not allowed to use this script. Add your IP address to debug host in conf/deployment.php";
+	exit;
+}
+//END ONXSHOP
+
 //set allowTestMenu to false to disable System/Server test page
 $allowTestMenu = false;
 
