@@ -6,9 +6,9 @@ $(function() {
 
 	$('a.onxshop_new_content').live('click', function() {
 	
-		var node_id = {GET.id};
+		var node_id = $(this).attr('data-node_id');
 		var container_id = 0;
-		var node_group = '{NODE_GROUP}';
+		var node_group = $(this).attr('data-node_group');
 		var url = '/request/bo/component/node_add~node_group='+node_group+':parent=' + node_id + ':container=' + container_id + ':expand_all=1~';
 
 		$('#dialog').addClass('ajaxLoad').load(url, '', function() {
@@ -61,7 +61,7 @@ $(function() {
 	<!-- BEGIN: empty -->
 	<p>This node contains no children</p>
 	<!-- END: empty -->
-	<p><a class="button add onxshop_new_content" title="Add Content ..." href="#child_list_{GET.id}" ><span>Add Content ...</span></a></p>
+	<p><a class="button add onxshop_new_content" title="Add Content ..." data-node_id="{GET.id}" data-node_group="{NODE_GROUP}" href="#child_list_{GET.id}" ><span>Add Content ...</span></a></p>
 </div>
 
 <!-- END: content -->
