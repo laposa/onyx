@@ -1041,12 +1041,12 @@ CREATE TABLE common_node (
      * @return unknown
      */
      
-	function getChildren($parent_id) {
+	function getChildren($parent_id, $sort_by = 'node_group DESC, node_controller DESC, parent_container ASC, priority DESC') {
 
 		$children = array();
 
 		if (is_numeric($parent_id)) {
-			$children = $this->listing("parent = {$parent_id}", "node_group DESC, node_controller DESC, parent_container ASC, priority DESC");
+			$children = $this->listing("parent = {$parent_id}", $sort_by);
 		}
 		
 		return $children;

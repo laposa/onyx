@@ -52,7 +52,7 @@ class Onxshop_Controller_Node_Layout_Tabs extends Onxshop_Controller_Node_Layout
 		require_once('models/common/common_node.php');
 		$Node = new common_node();
 		
-		$children = $Node->getChildren($node_id);
+		$children = $Node->getChildren($node_id, 'priority DESC, id ASC');
 		
 		if (is_array($children) && count($children) > 0) {
 
