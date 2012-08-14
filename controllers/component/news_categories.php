@@ -38,7 +38,7 @@ class Onxshop_Controller_Component_News_Categories extends Onxshop_Controller {
 		 * process
 		 */
 		 
-		if ($article_archive = $Node->getArticlesCategories($blog_node_id, 1, 'common_taxonomy_tree.priority DESC')) {
+		if ($article_archive = $Node->getArticlesCategories($blog_node_id)) {
 			
 			foreach ($article_archive as $item) {
 				
