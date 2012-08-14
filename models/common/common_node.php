@@ -1496,7 +1496,7 @@ CREATE TABLE common_node (
 	 * get categories
 	 */
 	 
-	public function getArticlesCategories($blog_node_id, $published = 1) {
+	public function getArticlesCategories($blog_node_id, $published = 1, $sort_by = 'common_taxonomy_label.title ASC') {
 	
 		if (!is_numeric($blog_node_id)) return false;
 		if (!is_numeric($published)) return false;
@@ -1512,8 +1512,8 @@ LEFT OUTER JOIN common_node_taxonomy ON (common_node.id = common_node_taxonomy.n
 LEFT OUTER JOIN common_taxonomy_tree ON (common_node_taxonomy.taxonomy_tree_id = common_taxonomy_tree.id)
 LEFT OUTER JOIN common_taxonomy_label ON (common_taxonomy_tree.label_id = common_taxonomy_label.id)
 			WHERE common_node.node_group = 'page' AND common_node.node_controller = 'news' AND common_node.parent = $blog_node_id AND common_node.publish = $published
-			GROUP BY common_node_taxonomy.taxonomy_tree_id, common_taxonomy_label.title, common_taxonomy_label.description, common_taxonomy_tree.parent
-			ORDER BY common_taxonomy_label.title ASC";
+			GROUP BY common_node_taxonomy.taxonomy_tree_id, common_taxonomy_label.title, common_taxonomy_label.description, common_taxonomy_tree.parent, common_taxonomy_tree.priority
+			ORDER BY $sort_by";
 	
 		/**
 		 * execute
