@@ -2,7 +2,7 @@
 <script type="text/javascript">
 $(function() { 
     // setup ul.tabs to work as tabs for each div directly under div.tabsLayout div.layoutBody 
-    $("div.tabsLayout ul.tabs").tabs("div.tabsLayout div.layoutBody > div", {current: 'active'});
+    $("div.tabsLayout ul.tabs").tabs("div.tabsLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div", {current: 'active'});
 
 });
 </script>
@@ -22,7 +22,7 @@ $(function() {
 				</ul>
 				<!-- END: menu -->
 				
-				<div class="layoutBody">
+				<div class="layoutBody tabsBody">
 					{CONTAINER.1}
 				</div>
 			</div>

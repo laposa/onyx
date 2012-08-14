@@ -185,7 +185,7 @@ div.layout div.bottom {clear: both;}
 
 /********* node/layout/1column.html *********/
 div.oneColumnLayout {clear: both;}
-div.oneColumnLayout div.layoutColumnOne {float: none; width: auto;}
+div.oneColumnLayout div.layoutColumnSingle {float: none; width: auto;}
 
 /********* node/layout/2columns.html *********/
 div.twoColumnLayout {clear: both;}
