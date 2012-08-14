@@ -71,12 +71,15 @@ class Onxshop_Controller_Component_Image extends Onxshop_Controller {
 		if ($this->GET['role']) $role = preg_replace('/[^a-zA-Z_-]/', '', $this->GET['role']);
 		else $role = false;
 		
-		$role = $role ? "role='{$role}' AND ":'';
+		if (is_numeric($this->GET['node_id'])) {
 		
-		if (is_numeric($this->GET['node_id'])) $node_id = $this->GET['node_id'];
-		else {
+			$node_id = $this->GET['node_id'];
+		
+		} else {
+		
 			msg('image: node_id is not numeric', 'error');
 			return false;
+		
 		}
 		
 		if ($this->GET['limit']) $limit = $this->GET['limit'];
@@ -100,7 +103,7 @@ class Onxshop_Controller_Component_Image extends Onxshop_Controller {
 		 * get list of images
 		 */
 		
-		$image_list = $Image->listing("$role node_id=$node_id", "priority DESC, id ASC", $limit);
+		$image_list = $Image->listFiles($node_id , $priority = "priority DESC, id ASC", $role, $limit);
 		
 		foreach ($image_list as $k=>$item) {
 			$item['path'] = $image_list[$k]['path'] = $img_path;
