@@ -18,7 +18,9 @@ class Onxshop_Controller_Export_Rss_Node extends Onxshop_Controller {
 		 */
 		 
 		require_once('models/common/common_node.php');
+		require_once('models/common/common_image.php');
 		$Node = new common_node();
+		$Image = new common_image();
 		
 		/**
 		 * find node id
@@ -68,10 +70,33 @@ class Onxshop_Controller_Export_Rss_Node extends Onxshop_Controller {
 			$children = $Node->listing("parent = $id AND publish = 1 AND node_group='page'", "created DESC");
 			
 			foreach ($children as $c) {
-			
+				
+				/**
+				 * create public link
+				 */
+				 
 				$link = $Node->getSeoURL($c['id']);
 				$c['url'] = "http://{$_SERVER['HTTP_HOST']}{$link}";
+				
+				/**
+				 * format date
+				 */
+				 
 				$c['rss_date'] = date('D, d M Y g:i:s O', strtotime($c['created']));
+				
+				/**
+				 * add image (not part of RSS spec)
+				 */
+				
+				$teaser_image = $Image->getTeaserImageForNodeId($c['id']);
+				
+				if ($teaser_image) $c['image'] = "http://{$_SERVER['HTTP_HOST']}/image/{$teaser_image['src']}";
+				else $c['image'] = '';
+				
+				/**
+				 * assign
+				 */
+				 
 				$this->tpl->assign('CHILD', $c);
 				$this->tpl->parse("content.item");
 			
