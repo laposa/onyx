@@ -206,4 +206,35 @@ CREATE TABLE common_image (
 		return $add_border_im_param;
 		
 	}
+
+	/**
+	 * getTeaserImageForNodeId
+	 */
+	 
+	public function getTeaserImageForNodeId($node_id) {
+		
+		/**
+		 * try to get explicit "teaser" image role
+		 */
+		 
+		$file_list = $this->listFiles($node_id , $priority = "priority DESC, id ASC", 'teaser');
+		
+		/**
+		 * if the list is empty, get any image
+		 */
+		
+		if (count($file_list) == 0) {
+		
+			$file_list = $this->listFiles($node_id);
+		
+		}
+		
+		/**
+		 * return first item from the list
+		 */
+		 
+		return $file_list[0];
+		
+	}
+	
 }

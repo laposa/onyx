@@ -20,6 +20,7 @@ class common_file extends Onxshop_Model {
 	var $src;
 	/**
 	 * @access private
+	 * e.g. main (default), teaser, RTE
 	 */
 	var $role;
 	
@@ -105,7 +106,7 @@ CREATE TABLE common_file (
  		
  		$file_detail = $this->detail($id);
  		
- 		$file_detail = $this->pupulateAdditionalInfo($file_detail);
+ 		$file_detail = $this->populateAdditionalInfo($file_detail);
 		
 		return $file_detail;
 	}
@@ -120,7 +121,7 @@ CREATE TABLE common_file (
 	 * extended file detail
 	 */
 	 
-	public function pupulateAdditionalInfo($file_detail) {
+	public function populateAdditionalInfo($file_detail) {
 		
 		$full_path = ONXSHOP_PROJECT_DIR . $file_detail['src'];
 		
@@ -155,26 +156,35 @@ CREATE TABLE common_file (
 	 * list of files
 	 */
 	 
-	function listFiles($node_id , $priority = "priority DESC, id ASC", $role = false) {
+	function listFiles($node_id , $priority = "priority DESC, id ASC", $role = false, $limit = '') {
 	
 		$result = array();
 		
 		if (is_numeric($node_id)) {
+		
 			if ($role) {
-				$files = $this->listing("node_id = $node_id AND role = '$role'", $priority);
+		
+				$files = $this->listing("node_id = $node_id AND role = '$role'", $priority, $limit);
+		
 			} else {
-				$files = $this->listing("node_id = $node_id", $priority);
+		
+				$files = $this->listing("node_id = $node_id", $priority, $limit);
+		
 			}
+		
 		} else {
+		
 			msg("File->listFiles: node_id is not numeric", 'error');
+		
 		}
 
 		foreach ($files as $file_detail) {
 			
-			$file_detail = $this->pupulateAdditionalInfo($file_detail);
+			$file_detail = $this->populateAdditionalInfo($file_detail);
 			
 			$result[] = $file_detail;
 		}
+		
 		return $result;
 	}
 	
