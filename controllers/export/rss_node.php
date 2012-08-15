@@ -82,7 +82,7 @@ class Onxshop_Controller_Export_Rss_Node extends Onxshop_Controller {
 				 * format date
 				 */
 				 
-				$c['rss_date'] = date('D, d M Y g:i:s O', strtotime($c['created']));
+				$c['rss_date'] = date('D, d M Y G:i:s O', strtotime($c['created']));
 				
 				/**
 				 * add image (not part of RSS spec)
