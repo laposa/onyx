@@ -370,8 +370,8 @@ class Onxshop_Bootstrap {
 		
 		$cache = Zend_Cache::factory('Output', 'File', $frontendOptions, $backendOptions);
 		
-		$id = "GET_" . md5($request . serialize($_GET));
-		
+		$id = "GET_" . md5($request . serialize($_GET) . isset($_SERVER['HTTPS']));
+
 		if (!is_array($data = $cache->load($id))) {
 		    // cache miss
 			
