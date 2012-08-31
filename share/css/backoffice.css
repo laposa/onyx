@@ -230,4 +230,8 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', end
 #backoffice div.twoColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnOne > div.layoutColumnWrapper {margin-right: 10px;}
 #backoffice div.twoColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnTwo > div.layoutColumnWrapper {padding-top: 25px; margin-left: 0;}
 
+/**
+ * CodeMirror
+ */
 
+div.CodeMirror {font-size: 13px;}

@@ -1,8 +1,19 @@
 <!-- BEGIN: title -->CSS Edit<!-- END: title -->
 <!-- BEGIN: head -->
-<script type="text/javascript" src="/opt/codemirror/js/codemirror.js"></script>
+<script type="text/javascript" src="/opt/codemirror/lib/codemirror.js"></script>
+<link rel="stylesheet" href="/opt/codemirror/lib/codemirror.css">
+<script src="/opt/codemirror/mode/css/css.js"></script>
 <script type="text/javascript" src="/opt/colorpicker/js/colorpicker.js"></script>
 <link rel="stylesheet" media="screen" type="text/css" href="/opt/colorpicker/css/colorpicker.css" />
+<style>
+.CodeMirror-scroll {
+	height: auto;
+	overflow-y: hidden;
+	overflow-x: auto;
+}
+#code_css {height: auto;}
+
+</style>
 <!-- END: head -->
 <!-- BEGIN: content -->
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
@@ -24,7 +35,6 @@
 		$("#css_edit button").addClass('saving');
 	}
 
-
 	function showResponse(responseText, statusText)  {
 		$("#css_edit button").removeClass('saving');
 		popupMessage($("#css_edit_result div.onxshop_messages"));
@@ -38,7 +48,7 @@
 	<form method="post" action="{URI}" id="css_edit">
 		<fieldset class="single">
 			<div class="row">
-				<span class="field"><textarea id="code_css" name="configuration[global][css]" class="code css">{CONFIGURATION.global.css}</textarea></span>
+				<span class="field"><textarea id="code_css" name="configuration[global][css]" class="code css" autofocus="autofocus">{CONFIGURATION.global.css}</textarea></span>
 			</div>
 			<div class="row submit">
 				<span class="label"><label>&nbsp;</label></span>
@@ -61,26 +71,21 @@
 <div id="css_edit_result"></div>
 
 <script type="text/javascript">
-
-  var editor = CodeMirror.fromTextArea('code_css', {
-    height: "dynamic",
-    parserfile: "parsecss.js",
-    stylesheet: "/opt/codemirror/css/csscolors.css",
-    path: "/opt/codemirror/js/",
-    saveFunction: function() {$('#css_edit').submit();}
-  });
   
-  $(document).ready(function() {
-  
-		var options = { 
-			target:        '#css_edit_result',
-			beforeSubmit:  preSubmit,
-			success:       showResponse, 
-			url:       '/request/bo/component/css_edit'
-		}; 
+$(document).ready(function() {
 
-    	$('#css_edit').ajaxForm(options);
+	var editor = CodeMirror.fromTextArea(document.getElementById('code_css'), {
 	});
+
+	var options = { 
+		target: '#css_edit_result',
+		beforeSubmit: preSubmit,
+		success: showResponse, 
+		url: '/request/bo/component/css_edit'
+	};
+
+	$('#css_edit').ajaxForm(options);
+});
 
 </script>
 <!-- END: form -->
