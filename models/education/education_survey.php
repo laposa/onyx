@@ -322,9 +322,12 @@ CREATE TABLE education_survey (
 	 * get all results
 	 */
 	 
-	public function getAllResults($survey_id) {
+	public function getAllResults($survey_id, $relation_subject = false) {
 	
 		if (!is_numeric($survey_id)) return false;
+		
+		if ($relation_subject) $relation_subject_condition = " AND education_survey_entry.relation_subject LIKE '{$relation_subject}'";
+		else $relation_subject_condition = '';
 		
 		$sql = "SELECT education_survey_entry.relation_subject, education_survey_question.id AS question_id, avg(education_survey_question_answer.points) AS average_rating,
 count(DISTINCT education_survey_entry.customer_id)
@@ -333,6 +336,7 @@ FROM education_survey_entry
         LEFT OUTER JOIN education_survey_question_answer ON (education_survey_question_answer.id = education_survey_entry_answer.question_answer_id)
 LEFT OUTER JOIN education_survey_question ON (education_survey_question.id = education_survey_entry_answer.question_id)
         WHERE education_survey_entry.survey_id = $survey_id AND education_survey_entry.publish = 1
+        $relation_subject_condition
 GROUP BY education_survey_entry.relation_subject, education_survey_question.id
 ORDER BY education_survey_entry.relation_subject, education_survey_question.id";
 
