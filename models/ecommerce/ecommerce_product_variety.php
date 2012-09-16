@@ -76,6 +76,8 @@ class ecommerce_product_variety extends Onxshop_Model {
 	var $wholesale;
 	
 	var $reward_points;
+	
+	var $subtitle;
 
 	var $_hashMap = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
