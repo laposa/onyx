@@ -25,7 +25,7 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
 		 
 		if ($this->GET['product_list_mode']) $product_list_mode = $this->GET['product_list_mode'];
 		else if ($_SESSION['product_list_mode']) $product_list_mode = $_SESSION['product_list_mode'];
-		else $product_list_mode = 'shelf';
+		else $product_list_mode = $GLOBALS['onxshop_conf']['global']['product_list_mode']; //setting from database common_configuration, object: global, property: product_list_mode
 		
 		/**
 		 * save to session
@@ -41,7 +41,10 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
 			
 			case 'grid':
 			
-				$mode = '4columns';
+				if (is_numeric($GLOBALS['onxshop_conf']['global']['product_list_grid_columns'])) $number_of_columns = $GLOBALS['onxshop_conf']['global']['product_list_grid_columns']; //setting from database common_configuration, object: global, property: product_list_grid_columns
+				else $number_of_columns = 4;
+				
+				$mode = $number_of_columns . 'columns';
 				
 				/**
 				 * disable page cache for this session
