@@ -452,7 +452,7 @@ class Onxshop_Bootstrap {
 		
 		foreach ($all_headers as $item) {
 		
-			if (preg_match('/^Content-Type/', $item)) $public_headers[] = $item;
+			if (preg_match('/^Content-Type/i', $item)) $public_headers[] = $item;
 			
 		}
 		
