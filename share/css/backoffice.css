@@ -229,6 +229,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', end
 #backoffice div.twoColumnPage div.columnTwo div.columnWrapper {margin-left: 0;}
 #backoffice div.twoColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnOne > div.layoutColumnWrapper {margin-right: 10px;}
 #backoffice div.twoColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnTwo > div.layoutColumnWrapper {padding-top: 25px; margin-left: 0;}
+#backoffice div.twoColumnPage div.columnOne div.twoColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnTwo > div.layoutColumnWrapper {padding-top: 0; margin-left: 10px;}
 
 /**
  * CodeMirror
