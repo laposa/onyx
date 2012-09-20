@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2010-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2010-2012 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -23,9 +23,25 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
 		 * read from session or input
 		 */
 		 
-		if ($this->GET['product_list_mode']) $product_list_mode = $this->GET['product_list_mode'];
-		else if ($_SESSION['product_list_mode']) $product_list_mode = $_SESSION['product_list_mode'];
-		else $product_list_mode = $GLOBALS['onxshop_conf']['global']['product_list_mode']; //setting from database common_configuration, object: global, property: product_list_mode
+		if ($this->GET['product_list_mode']) {
+		
+			$product_list_mode = $this->GET['product_list_mode'];
+			
+			/**
+			 * disable page cache for this session
+			 */
+		
+			$_SESSION['use_page_cache'] = false;
+				
+		} else if ($_SESSION['product_list_mode']) {
+		
+			$product_list_mode = $_SESSION['product_list_mode'];
+		
+		} else {
+		
+			$product_list_mode = $GLOBALS['onxshop_conf']['global']['product_list_mode']; //setting from database common_configuration, object: global, property: product_list_mode
+		
+		}
 		
 		/**
 		 * save to session
@@ -45,12 +61,6 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
 				else $number_of_columns = 4;
 				
 				$mode = $number_of_columns . 'columns';
-				
-				/**
-				 * disable page cache for this session
-				 */
-		
-				$_SESSION['use_page_cache'] = false;
 				
 				//hack to display all products when in grid view
 				$_GET['limit_per_page'] = 300;
