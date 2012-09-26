@@ -1,8 +1,46 @@
-Onxshop (1.5.4/dev)
+Onxshop (1.5.4)
 
-  * New release
+  * use raw entity_encoding option in TinyMCE
+  * HTML validation fixes
+  * backoffice order detail page redesign
+  * disable session after customers choice of product list mode
+  * make filter for public headers case insensitive
+  * new conf options: product_list_mode and product_list_grid_columns
+  * differentiate page cache for HTTP and HTTPS
+  * upgrade CodeMirror to version 2.33.0
+  * add relation subject condition to getAllResults in education_survey
+  * use iFrame version for Facebook Like button
+  * add getTeaserImageForNodeId alias to Image object
+  * format hours correctly in RSS export
+  * add image to each item (option to use it in local rss export template)
+  * use $Image->listFiles instead of generic $Image->listing
+  * add new method getTeaserImageForNodeId and code cleaning
+  * allow to use inherit layouts in tabs
+  * fix sorting in tabs layout
+  * option to use different sorting in news category list
+  * bug fix: mixing of parent containers when adding content in backoffice/pages
+  * add apc manager script with debug IP security check
+  * add debug IP security check to Navicat tunnel
+  * add Navicat tunnel for PostgreSQL connection
+  * improve way how HTTPS is detected
+  * add support for both NODE.taxonomy_class and PRODUCT.taxonomy_class
+  * use direct link to share/docs/
+  * fix jGrowl overlay problem
+  * make password bold in password reset mail template
+  * make password bold in password reminder mail template
+  * disable listing of opt directory
+  * change order of options in survey edit and make radio default
+  * show IDs on save of surveys
+  * Zend Framework upgrade to version 1.11.12
+  * include HTML version of DB schema (now available in PDF and HTML)
+  * update database schema documentation with dbschema.com
+  * customize for new default location /opt/onxshop/
+  * use rawurlencode in share via email (preserve white spaces)
+  * add support for error CSS classes and first use on registration
+  * fix pagination problem with Next button on many entries and option per page
+  * make sure there is are no conflicts uppercase/lowercase username/email
 
- -- Norbert Laposa <norbert@laposa.co.uk>  2012-07-01
+ -- Norbert Laposa <norbert@laposa.co.uk>  2012-09-26
 
 Onxshop (1.5.3)
 
