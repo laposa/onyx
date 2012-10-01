@@ -1,16 +1,16 @@
 <!-- BEGIN: content -->
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 <div class="feed">
-	<!-- BEGIN: channel_title --><h4><a href="{CHANNEL.link}" title="{CHANNEL.description}">{CHANNEL.title}</a></h4> <!-- END: channel_title -->
+	<!-- BEGIN: channel_title --><h4><a href="{CHANNEL.link}" title="{CHANNEL.description|htmlspecialchars}">{CHANNEL.title|htmlspecialchars}</a></h4> <!-- END: channel_title -->
 	<!-- BEGIN: image -->
-	<p class="image"><a href="{CHANNEL.image_link}"><img src="{CHANNEL.image_url}" alt="{CHANNEL.image_title}" /></a></p>
+	<p class="image"><a href="{CHANNEL.image_link}"><img src="{CHANNEL.image_url}" alt="{CHANNEL.image_title|htmlspecialchars}" /></a></p>
 	<!-- END: image -->
 	<div class="list">
 	<!-- BEGIN: item -->
 		<div class="item {ITEM.odd_even_class}">
-			<h5><a href="{ITEM.link}">{ITEM.title}</a></h5>
+			<h5><a href="{ITEM.link}">{ITEM.title|htmlspecialchars}</a></h5>
 			<!-- BEGIN: description -->
-			<div class="description">{ITEM.description}</div>
+			<div class="description">{ITEM.description|htmlspecialchars}</div>
 			<!-- END: description -->
 			<!-- BEGIN: content -->
 			<div class="content">{ITEM.content}</div>
@@ -22,7 +22,7 @@
 	<!-- END: item -->
 	</div>
 	<!-- BEGIN: copyright -->
-	<p class="copyright">{CHANNEL.copyright}</p>
+	<p class="copyright">{CHANNEL.copyright|htmlspecialchars}</p>
 	<!-- END: copyright -->
 </div>
 <!-- END: content -->
