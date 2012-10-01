@@ -52,13 +52,35 @@ class Onxshop_Controller_Node_Layout_Tabs extends Onxshop_Controller_Node_Layout
 		require_once('models/common/common_node.php');
 		$Node = new common_node();
 		
+		/**
+		 * get list of children
+		 */
+		 
 		$children = $Node->getChildren($node_id, 'priority DESC, id ASC');
 		
-		if (is_array($children) && count($children) > 0) {
+		if (!is_array($children)) return false;
+		
+		/**
+		 * filter only published items
+		 */
+		
+		$children_published = array();
+		
+		foreach ($children as $item) {
+		
+			if ($item['publish'] == 1) $children_published[] = $item;
+		
+		}
+		
+		/**
+		 * show only if any items are left
+		 */
+		 
+		if (is_array($children_published) && count($children_published) > 0) {
 
-			$total_count = count($children);
+			$total_count = count($children_published);
 			
-			foreach ($children as $k=>$item) {
+			foreach ($children_published as $k=>$item) {
 				$first_last = '';
 				if ($k == 0) $first_last = 'first';
 				if ($k == ($total_count - 1)) $first_last .= ' last';
@@ -70,6 +92,7 @@ class Onxshop_Controller_Node_Layout_Tabs extends Onxshop_Controller_Node_Layout
 			$this->tpl->parse('content.menu');
 			
 		}
+		
 		return true;
 	}
 	
