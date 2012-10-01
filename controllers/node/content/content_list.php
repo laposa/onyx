@@ -71,8 +71,12 @@ class Onxshop_Controller_Node_Content_Content_List extends Onxshop_Controller_No
 		if ($list = $this->Node->getList("parent = {$list_node_id} AND parent_container = {$list_container} AND node_group = '{$list_node_group}' AND node_controller = '{$list_node_controller}'")) {
 				
 			foreach ($list as $item) {
-				$this->tpl->assign('ITEM', $item);
-				$this->tpl->parse('content.item');
+				
+				if ($item['publish'] == 1) {
+					$this->tpl->assign('ITEM', $item);
+					$this->tpl->parse('content.item');
+				}
+
 			}
 		} else return false;
 
