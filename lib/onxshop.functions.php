@@ -167,7 +167,7 @@ function translateURL($request) {
 	require_once('models/common/common_uri_mapping.php');
 	$Mapping = new common_uri_mapping();
 	
-    if (COMMON_URI_MAPPING_SEO) {
+    if ($Mapping->conf['seo']) {
     	$seo = $Mapping->stringToSeoUrl("/$request");
     	return $seo;
     } else {
