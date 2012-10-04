@@ -15,7 +15,8 @@
 										<th><a href="{_SERVER.REDIRECT_URI}?order-list-sortby=id"><span>Order&nbsp;ID</span></a></th>
 										<th>Customer name<br />Email address</th>
 										<th><a href="{_SERVER.REDIRECT_URI}?order-list-sortby=date"><span>Created</span></a><br /><a href="{_SERVER.REDIRECT_URI}?order-list-sortby=date"><span>Last Changed</span></a></th>
-										<th><a href="{_SERVER.REDIRECT_URI}?order-list-sortby=goods_net"><span>Goods Net</span><br/><span>Payment Amount</span></a></th>
+										<th><a href="{_SERVER.REDIRECT_URI}?order-list-sortby=goods_net"><span>Goods Net</span></a></th>
+										<th>Payment</th>
 										<th>Status</th>
 									</tr>
 								</thead>
@@ -25,14 +26,15 @@
 										<td><a href="/backoffice/orders/{ITEM.order_id}/detail">{ITEM.order_id}</a></td>
 										<td><a href="/backoffice/orders/{ITEM.order_id}/detail">{ITEM.title_before|htmlspecialchars} {ITEM.first_name|htmlspecialchars} {ITEM.last_name|htmlspecialchars} {ITEM.title_after|htmlspecialchars}<br />{ITEM.email}</a></td>
 										<td>{ITEM.order_created}<br />{ITEM.last_activity}</td>
-										<td style="text-align: right">{ITEM.goods_net|money_format('%n', %s)}<br/>{ITEM.payment_amount|money_format('%n', %s)}</td>
+										<td class="money">{ITEM.goods_net|money_format('%n', %s)}</td>
+										<td class="money">{ITEM.payment_amount|money_format('%n', %s)}</td>
 										<td>{ITEM.status}</td>
 									</tr>
 									<!-- END: item -->
 								</tbody>
 								<tfoot>
 									<tr>
-										<td colspan="5">
+										<td colspan="6">
 											<div class="onxshop_pagination">
 												{PAGINATION}
 											</div>
