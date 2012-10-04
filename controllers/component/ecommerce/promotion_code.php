@@ -20,12 +20,6 @@ class Onxshop_Controller_Component_Ecommerce_Promotion_code extends Onxshop_Cont
 		$basket_id = $_SESSION['basket']['id'];
 		
 		/**
-		 * check basket_id
-		 */
-		 
-		if (!is_numeric($basket_id)) return true;
-		
-		/**
 		 * find code
 		 */
 		 
@@ -49,7 +43,8 @@ class Onxshop_Controller_Component_Ecommerce_Promotion_code extends Onxshop_Cont
 		 * basket detail
 		 */
 		 
-		$basket_data = $Basket->getDetail($basket_id);
+		if (is_numeric($basket_id)) $basket_data = $Basket->getDetail($basket_id);
+		else $basket_data = false;
 		
 		/**
 		 * Check Actions
@@ -75,7 +70,7 @@ class Onxshop_Controller_Component_Ecommerce_Promotion_code extends Onxshop_Cont
 		 * Display
 		 */
 		
-		if ($promotion_code = $Promotion->checkCodeBeforeApply($code, $basket_data['customer_id'])) {
+		if ($basket_data && $promotion_code = $Promotion->checkCodeBeforeApply($code, $basket_data['customer_id'])) {
 		
 			$promotion_code['value'] = $code; 
 			$this->tpl->assign('PROMOTION_CODE', $promotion_code); 
