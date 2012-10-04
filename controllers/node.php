@@ -46,8 +46,6 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 		
 		$node_data = $this->Node->nodeDetail($node_id);
 		
-		$node_conf = common_node::initConfiguration();
-		
 		if (!is_array($node_data)) {
 			msg("Node ID {$node_id} does not exists", 'error');
 			return false;
@@ -70,12 +68,15 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 		$GLOBALS['onxshop_conf'] = $this->array_replace_recursive($GLOBALS['onxshop_conf'], $global_conf_node_overwrites);
 		
 		/**
-		 * check permission
+		 * check if page is published, but keep it available in edit mode
 		 */
 		 
-		if ($node_data['publish'] == 0 && ($node_data['node_group'] == 'page' || $node_data['node_group'] == 'news') && $_SESSION['authentication']['authenticity'] < 1) {
-			msg("Unauthorized access to {$this->request}", 'error', 2);
-			onxshopGoTo(ONXSHOP_DEFAULT_LAYOUT . '.' . ONXSHOP_PAGE_TEMPLATE . '.sys/401', 1);//will exit immediatelly
+		if ($node_data['publish'] == 0 && $node_data['node_group'] == 'page' && $_SESSION['authentication']['authenticity'] < 1) {
+			// display 404 page
+			$_nSite = new nSite('node~id=' . $this->Node->conf['id_map-404'].'~'); 
+			$node_data['content'] = $_nSite->getContent();
+			$this->tpl->assign('NODE', $node_data);
+			return true;
 		}
 		
 		/**
@@ -85,7 +86,7 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 		if ($node_data['require_login'] == 1 && $_SESSION['client']['customer']['id'] == 0) {
 			//msg('You must be logged in first.');
 			$_SESSION['to'] = "page/{$node_id}";
-			onxshopGoTo("page/" . $node_conf['id_map-login']);//will exit immediatelly
+			onxshopGoTo("page/" . $this->Node->conf['id_map-login']);//will exit immediatelly
 		}
 		
 		/**
