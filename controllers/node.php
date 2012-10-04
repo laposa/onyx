@@ -70,12 +70,15 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 		$GLOBALS['onxshop_conf'] = $this->array_replace_recursive($GLOBALS['onxshop_conf'], $global_conf_node_overwrites);
 		
 		/**
-		 * check permission
+		 * check if page is published, but keep it available in edit mode
 		 */
 		 
-		if ($node_data['publish'] == 0 && ($node_data['node_group'] == 'page' || $node_data['node_group'] == 'news') && $_SESSION['authentication']['authenticity'] < 1) {
-			msg("Unauthorized access to {$this->request}", 'error', 2);
-			onxshopGoTo(ONXSHOP_DEFAULT_LAYOUT . '.' . ONXSHOP_PAGE_TEMPLATE . '.sys/401', 1);//will exit immediatelly
+		if ($node_data['publish'] == 0 && $node_data['node_group'] == 'page' && $_SESSION['authentication']['authenticity'] < 1) {
+			// display 404 page
+			$_nSite = new nSite('node~id=' . $this->Node->conf['id_map-404'].'~'); 
+			$node_data['content'] = $_nSite->getContent();
+			$this->tpl->assign('NODE', $node_data);
+			return true;
 		}
 		
 		/**
