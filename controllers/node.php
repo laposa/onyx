@@ -46,8 +46,6 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 		
 		$node_data = $this->Node->nodeDetail($node_id);
 		
-		$node_conf = common_node::initConfiguration();
-		
 		if (!is_array($node_data)) {
 			msg("Node ID {$node_id} does not exists", 'error');
 			return false;
@@ -88,7 +86,7 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 		if ($node_data['require_login'] == 1 && $_SESSION['client']['customer']['id'] == 0) {
 			//msg('You must be logged in first.');
 			$_SESSION['to'] = "page/{$node_id}";
-			onxshopGoTo("page/" . $node_conf['id_map-login']);//will exit immediatelly
+			onxshopGoTo("page/" . $this->Node->conf['id_map-login']);//will exit immediatelly
 		}
 		
 		/**
