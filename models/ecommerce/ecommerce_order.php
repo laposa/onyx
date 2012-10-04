@@ -281,7 +281,8 @@ client_customer.newsletter,
 client_customer.invoices_address_id,
 client_address.country_id,
 client_customer.company_id,  
-ecommerce_invoice.goods_net
+ecommerce_invoice.goods_net,
+ecommerce_invoice.payment_amount
 FROM ecommerce_order
 LEFT OUTER JOIN ecommerce_basket ON (ecommerce_basket.id = ecommerce_order.basket_id)
 LEFT OUTER JOIN client_customer ON (client_customer.id = ecommerce_basket.customer_id)
@@ -310,6 +311,7 @@ ORDER BY ecommerce_order.id DESC
 				$breakdown[$item['order_id']]['order_status'] = $item['order_status'];
 				$breakdown[$item['order_id']]['customer_id'] = $item['customer_id'];
 				$breakdown[$item['order_id']]['goods_net'] = $item['goods_net'];
+				$breakdown[$item['order_id']]['payment_amount'] = $item['payment_amount'];
 				$breakdown[$item['order_id']]['email'] = $item['email'];
 				$breakdown[$item['order_id']]['title_before'] = $item['title_before'];
 				$breakdown[$item['order_id']]['first_name'] = $item['first_name'];
