@@ -45,7 +45,7 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 			$submitted_answers = $_POST['answer'];
 			//try to save and if not successfull display survey form again
 			if ($survey_entry_id = $this->saveEntry($survey_id, $submitted_answers)) {
-				msg("Survey ID has been $survey_id submitted as entry ID $survey_entry_id.");
+				msg("Survey ID $survey_id has been submitted as entry ID $survey_entry_id.");
 				onxshopGoTo($_SESSION['referer'], 2);
 				/*$_nSite = new nSite("component/survey_result~survey_id=$survey_id~");
 				$this->tpl->assign('SURVEY_RESULT', $_nSite->getContent());
