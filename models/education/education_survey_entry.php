@@ -288,4 +288,74 @@ CREATE TABLE education_survey_entry (
 	
 	}
 	
+	/**
+	 * findPreviousEntry
+	 */
+	
+	public function findPreviousEntry($survey_entry_data) {
+	
+		if (!is_array($survey_entry_data)) return false;
+		
+		/**
+		 * find previous entry (list)
+		 */
+		 
+		$previous_entries = $this->listing("survey_id = {$survey_entry_data['survey_id']} AND customer_id = {$survey_entry_data['customer_id']} AND relation_subject = '{$survey_entry_data['relation_subject']}'");
+	
+		/**
+		 * check if anything found
+		 */
+		 	
+		if (is_array($previous_entries) && count($previous_entries) == 1) {
+		
+			/**
+			 *  $previous_entries should be size of 1 due to database constraint, use only first found
+			 */
+			 
+			$previous_entry_id = $previous_entries[0]['id'];
+		
+			/**
+			 * check ID is numeric
+			 */
+			 	
+			if (is_numeric($previous_entry_id)) {
+				
+				msg("Previous entry ID $previous_entry_id found");
+				return $previous_entry_id;
+				
+			} else {
+			
+				msg("Previsous entry found, but ID is not numeric", 'error');
+				return false;
+				
+			}
+		
+		} else {
+		
+			return false;
+		
+		}
+	}
+	
+	/**
+	 * deleteEntry
+	 */
+	 
+	public function deleteEntry($previous_entry_id) {
+		
+		if (!is_numeric($previous_entry_id)) return false;
+		
+		if ($this->delete($previous_entry_id)) {
+		
+			msg("Deleted old entry ID $previous_entry_id");
+			return true;
+		
+		} else {
+			
+			msg("Cannot deleted old entry ID $previous_entry_id", 'error');
+			return false;
+		
+		}
+	}
+	
 }
