@@ -9,8 +9,7 @@
 
 require_once('controllers/component/ecommerce/payment/protx.php');
 
-class Onxshop_Controller_Component_Ecommerce_Payment_Protx_Callback extends Onxshop
-_Controller_Component_Ecommerce_Payment_Protx {
+class Onxshop_Controller_Component_Ecommerce_Payment_Protx_Callback extends Onxshop_Controller_Component_Ecommerce_Payment_Protx {
 
 	/**
 	 * main action
