@@ -94,10 +94,16 @@ div.basket a.go_to_checkout {padding-left: 15px;}
 /********* component/ecommerce/basket_edit.html *********/
 div.basket_edit input.basket_content-quantity {width: 20px;}
 div.basket_edit button.update {float: right;}
-div.basket_edit a.checkout {clear: both; float: right; margin-bottom: 1em;}
+div.basket_edit a.checkout {float: right; margin-bottom: 1em;}
 div.basket_edit a.continue_shopping {float: left; margin-bottom: 1em;}
 div.basket_edit div.image a {text-decoration: none;}
 div.basket_edit table.items {clear: both; width: 100%;}
+div.basket_edit p.top {display: none;}
+div.basket_edit th.action {text-align: left;}
+div.basket_edit th.quanity {text-align: left; padding-left: 5px;}
+div.basket_edit td.quanity {line-height: 0px;}
+div.basket_edit td.discount p {margin: 0; text-align: right;}
+div.basket_edit button.highlightbutton {border: 1px solid red;}
 
 /********* component/ecommerce/basket_detail.html *********/
 div.basket_detail th.price,
