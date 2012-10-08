@@ -19,11 +19,11 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 			require_once('Zend/Search/Lucene.php');
 			require_once('models/common/common_node.php');
 			$Node = new common_node();
-		
-		
+			
 			$count = strlen(trim($this->GET['search_query']));
 			
 			if ($count > 2) {
+			
 				//sanitize
 				$search_query = htmlentities(strip_tags( $this->GET['search_query'] ));
 				
@@ -92,11 +92,17 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 					}
 				
 					$this->tpl->parse('content.result');
+				
 				} else {
+				
 					$this->tpl->parse('content.empty_result');
+				
 				}
+			
 			} else {
+			
 				msg("Please specify at least 3 characters", "error");
+			
 			}
 		}
 
