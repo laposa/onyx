@@ -1051,39 +1051,47 @@ CREATE TABLE common_node (
 		
 		return $children;
 	}
-    
+	
 	/**
 	 * TODO: add filter for "display_permission"
 	 */
 	
-    function search($q) {
-    
-    	$q = htmlspecialchars($q, ENT_QUOTES, 'UTF-8');
+	function search($q) {
+	
+		$q = htmlspecialchars($q, ENT_QUOTES, 'UTF-8');
 		$qs = explode(" ", $q);
 		$where_query = '';
+		
 		foreach ($qs as $q) {
+		
 			if (is_numeric($q)) {
+		
 				$where_query .= "(id = $q OR content ILIKE '%$q%')";
+		
 			} else {
+		
 				$q = "%$q%";
 				$where_query .= "(title ILIKE '$q' OR
-				        page_title ILIKE '$q' OR 
-						( node_group = 'content' AND content ILIKE '$q' ) OR
-				        description ILIKE '$q' OR
-				        keywords ILIKE '$q' OR
-				        component ILIKE '$q')";
+					page_title ILIKE '$q' OR 
+					( node_group = 'content' AND content ILIKE '$q' ) OR
+					description ILIKE '$q' OR
+					keywords ILIKE '$q' OR
+					component ILIKE '$q')";
 			}
+		
 			$where_query .=  " AND publish = 1 AND ";
+		
 		}
 		
 		$where_query = rtrim($where_query, "AND ");
 		//msg($where_query);
-    	$result = $this->listing($where_query);
-    	return $result;
-    }
-    
-    
-    /**
+		$result = $this->listing($where_query);
+		
+		return $result;
+	}
+	
+	
+	/**
 	 * return pages and products which we want to display in sitemap 
 	 */
 	 

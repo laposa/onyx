@@ -39,15 +39,15 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 				$search_query = Zend_Search_Lucene_Search_QueryParser::parse($search_query, 'UTF-8');
 				$hits = $index->find($search_query);
 				
-		    	$result_items_shown = 0;
-		    	$result_items_show = 15;
-		    	
-		    	if (count($hits) > 0) {
-		    	
-				  	foreach ($hits as $hit) {
+				$result_items_shown = 0;
+				$result_items_show = 15;
+				
+				if (count($hits) > 0) {
+				
+					foreach ($hits as $hit) {
 						
-				  		if ($result_items_shown < $result_items_show) {
-				  			
+						if ($result_items_shown < $result_items_show) {
+							
 							$r['score'] = $hit->score;
 							$r['title'] = $hit->title;
 							$r['uri'] = $hit->uri;
@@ -84,17 +84,17 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 							}
 			
 							
-				  			$this->tpl->assign('RESULT', $r);
-				  			$this->tpl->parse('content.result.item');
-				  			
-				  			$result_items_shown++;
-			  			}
-			  		}
-			  	
-				  	$this->tpl->parse('content.result');
-			  	} else {
-			  		$this->tpl->parse('content.empty_result');
-			  	}
+							$this->tpl->assign('RESULT', $r);
+							$this->tpl->parse('content.result.item');
+							
+							$result_items_shown++;
+						}
+					}
+				
+					$this->tpl->parse('content.result');
+				} else {
+					$this->tpl->parse('content.empty_result');
+				}
 			} else {
 				msg("Please specify at least 3 characters", "error");
 			}
