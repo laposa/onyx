@@ -95,7 +95,11 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Order_List extends Onxshop_Contr
 					$item['order_created'] = strftime('%c', strtotime($item['order_created']));
 					$item['last_activity'] = strftime('%c', strtotime($item['last_activity']));
 					if (!is_numeric($item['goods_net'])) $item['goods_net'] = 0;
-			
+
+					// display payment due (for unpaid orders only)
+					if ($item['order_status'] == 0 && isset($item['other_data']['payment_due']))
+						$item['payment_due'] = $item['other_data']['payment_due'];
+
 					$item['status'] = $Order->getStatusTitle($item['order_status']);
 			
 					$this->tpl->assign('ITEM', $item);
