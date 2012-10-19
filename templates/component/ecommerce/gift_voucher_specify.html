@@ -34,7 +34,7 @@ $(function(){
 <div class="gift_voucher_specify_specify">
 	<div class="gift_voucher_specify_wrapper">
 		<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
-		<form class="gift_voucher_specify" id="gift_voucher_specify" action="{URI}#node_id_{GET.node_id}" method="post">
+		<form class="gift_voucher_specify" id="gift_voucher_specify" action="{URI|htmlspecialchars}#node_id_{GET.node_id}" method="post">
 			<fieldset class="single">	
 				<div class="row amount">
 					<span class="label"><label for="gift_voucher_specify-variety_id"><span class="mandatory-mark">*</span>Select amount</label></span>

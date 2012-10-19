@@ -8,7 +8,7 @@
 <!-- BEGIN: form -->
 <div id="node_add_form_{GET.parent}_{GET.container}_wrapper">
 	<div class="node_add">
-		<form method="post" action="{URI}">
+		<form method="post" action="{URI|htmlspecialchars}">
 		
 			<fieldset class="single">
 				<legend>Add a new {GET.node_group}</legend>

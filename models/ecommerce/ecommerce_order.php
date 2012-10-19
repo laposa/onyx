@@ -272,6 +272,7 @@ ecommerce_order.id AS order_id,
 ecommerce_order.status AS order_status,
 ecommerce_order.created AS order_created,
 ecommerce_order.modified AS last_activity,
+ecommerce_order.other_data AS other_data,
 client_customer.id AS customer_id, 
 client_customer.email, 
 client_customer.title_before, 
@@ -281,8 +282,7 @@ client_customer.newsletter,
 client_customer.invoices_address_id,
 client_address.country_id,
 client_customer.company_id,  
-ecommerce_invoice.goods_net,
-ecommerce_invoice.payment_amount
+ecommerce_invoice.goods_net
 FROM ecommerce_order
 LEFT OUTER JOIN ecommerce_basket ON (ecommerce_basket.id = ecommerce_order.basket_id)
 LEFT OUTER JOIN client_customer ON (client_customer.id = ecommerce_basket.customer_id)
@@ -296,7 +296,7 @@ ORDER BY ecommerce_order.id DESC
 		//msg($sql);
 		
 		$records = $this->executeSql($sql);
-		
+
 		if (is_array($records)) {
 	
 			if (count($records) == 0) return array();
@@ -311,7 +311,7 @@ ORDER BY ecommerce_order.id DESC
 				$breakdown[$item['order_id']]['order_status'] = $item['order_status'];
 				$breakdown[$item['order_id']]['customer_id'] = $item['customer_id'];
 				$breakdown[$item['order_id']]['goods_net'] = $item['goods_net'];
-				$breakdown[$item['order_id']]['payment_amount'] = $item['payment_amount'];
+				$breakdown[$item['order_id']]['other_data'] = unserialize($item['other_data']);
 				$breakdown[$item['order_id']]['email'] = $item['email'];
 				$breakdown[$item['order_id']]['title_before'] = $item['title_before'];
 				$breakdown[$item['order_id']]['first_name'] = $item['first_name'];
@@ -505,7 +505,7 @@ ORDER BY ecommerce_order.id DESC
 		
 	}
 	
-	
+
 	/**
 	 * check order status
 	 * process payment method only if status = 0 unpaid or 5 failed payment 
@@ -574,6 +574,9 @@ ORDER BY ecommerce_order.id DESC
 			
 			//set status
 			$this->setStatus($id, 0);
+
+			// calculate payable amount
+			$this->updatePayableDue($order_data);
 			
 			//send email to admin
 			require_once('models/common/common_email.php');
@@ -666,6 +669,27 @@ ORDER BY ecommerce_order.id DESC
 		return true;
 		
 	}
+
+
+	/**
+	 * update order to include amount payable (inluding delivery fees) in other_data
+	 * @param array $order_data
+	 */
+
+	function updatePayableDue($order_data) {
+
+		$order_data['other_data']['payment_due'] = 
+			$order_data['basket']['total_after_discount'] + 
+			$order_data['basket']['delivery']['value_net'] + 
+			$order_data['basket']['delivery']['vat'];
+
+		$update_data['id'] = $order_data['id'];
+		$update_data['modified'] = date('c');
+		$update_data['other_data'] = serialize($order_data['other_data']);
+
+		$this->update($update_data);
+	}
+	
 
 	/**
 	 *

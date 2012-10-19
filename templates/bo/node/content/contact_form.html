@@ -40,6 +40,12 @@ $(document).ready(function(){
 			</select> ({DIRECTORY})
 		</span>
 	</div>
+
+	<div class="row">
+		<span class="label"><label for="component-captcha">Anti-spam protection (CAPTCHA):</label></span>
+		<span class="field"><input type="checkbox" id="component-captcha" name="node[component][enable_captcha]" {NODE.component.enable_captcha} /></span>
+	</div>
+
 	<div class="row">
 		<span class="label"><label>* Error message:</label></span>
 		<span class="field"><input type="text" class="text long" name="node[component][sending_failed]" value="{NODE.component.sending_failed}" /></span>

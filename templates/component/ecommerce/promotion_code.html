@@ -3,7 +3,7 @@
 <div class="promotion_code">
 	<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 	<!-- BEGIN: applied -->
-	<form action="{URI}" method="post" class="applied">
+	<form action="{URI|htmlspecialchars}" method="post" class="applied">
 		<fieldset class="single">
 			<h3>Promotion {PROMOTION_CODE.title|htmlspecialchars}</h3>
 			<!-- BEGIN: discount_percentage_value -->
@@ -20,7 +20,7 @@
 	</form>
 	<!-- END: applied -->
 	<!-- BEGIN: enter -->
-	<form action="{URI}" method="post" class="enter">
+	<form action="{URI|htmlspecialchars}" method="post" class="enter">
 		<fieldset class="single">
 			<h3>Promotion code</h3>
 			<p>Have a promotion code? Enter it here <input type="text" name="promotion_code" value="{PROMOTION_CODE.value}" /> 				<button type="submit" name="promotion_code_add" value="promotion_code_add"><span>Apply Code</span></button></p>

@@ -7,7 +7,7 @@
 	<div class="list">
 	<!-- BEGIN: item -->
 		<div class="item {ITEM.odd_even_class}">
-			<h5><a href="{URI}?albumId={ITEM.id}#node_id_{GET.node_id}">{ITEM.title} ({ITEM.numPhotos})</a></h5>
+			<h5><a href="{URI|htmlspecialchars}?albumId={ITEM.id}#node_id_{GET.node_id}">{ITEM.title} ({ITEM.numPhotos})</a></h5>
 		</div>
 	<!-- END: item -->
 	</div>

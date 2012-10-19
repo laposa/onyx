@@ -1,5 +1,5 @@
 <!-- BEGIN: content -->
-<form method="post" action="{URI}" id="locale_switcher_form">
+<form method="post" action="{URI|htmlspecialchars}" id="locale_switcher_form">
 	<label for="locale_switcher_select">Show currency in </label>
 	<select id="locale_switcher_select" name="locale" onchange="$('#locale_switcher_form').submit()">
 		<option class="gb" value="1" {SELECTED_gb}>GBP British Pounds</option>

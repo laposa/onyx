@@ -11,7 +11,7 @@ $(function() {
 label.error { display: none; }	
 </style>
 
-<form method="post" action="{URI}" id="survey_form_{GET.node_id}">
+<form method="post" action="{URI|htmlspecialchars}" id="survey_form_{GET.node_id}">
 	<fieldset class="single">
 		<legend>{SURVEY.title|htmlspecialchars}</legend>
 		<!-- BEGIN: question -->

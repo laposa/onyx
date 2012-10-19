@@ -17,7 +17,7 @@
 	<a class="show_all" href="{ITEM.link}?limit_from=0&limit_per_page={GET.count}"><span>{I18N_SHOW_ALL} ({GET.count} {I18N_RECORDS})</span></a>
 	<!-- END: show_all -->
 	<!-- BEGIN: per_page -->
-	<form method="get" action="{URI}">
+	<form method="get" action="{URI|htmlspecialchars}">
 	<input type="hidden" name="limit_from" value="{GET.limit_from}" />
 	<label for="per_page">Items per Page:</label>
 	<select name='limit_per_page' id='per_page' class="short per_page" onchange="submit()">

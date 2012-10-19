@@ -11,7 +11,7 @@
 		    
 	});
 	</script>
-	<form method="post" action="{URI}" id="price_add_form_{GET.product_variety_id}">
+	<form method="post" action="{URI|htmlspecialchars}" id="price_add_form_{GET.product_variety_id}">
 		<fieldset class="single">
 			<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 			<legend>Add a new price for Variety</legend>

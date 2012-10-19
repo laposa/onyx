@@ -13,7 +13,7 @@ $(document).ready(function() {
 </script> 
 
 <div class="node_add">
-	<form method="post" action="{URI}" id="news_add">
+	<form method="post" action="{URI|htmlspecialchars}" id="news_add">
 		<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 		<fieldset>
 			<legend>Add a new article to {NEWS_LIST.title|htmlspecialchars}</legend>

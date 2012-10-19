@@ -61,6 +61,7 @@ define('I18N_COUNTRY', 'Country');
 define('I18N_EMAIL', 'Email');
 define('I18N_TEL', 'Tel');
 define('I18N_FAX', 'Fax');
+define('I18N_CAPTCHA', 'Enter the code');
 define('I18N_YOUR_MESSAGE', 'Your Message');
 define('I18N_SUBMIT', 'Submit');
 define('I18N_YOUR_NAME', 'Your Name');

@@ -45,7 +45,7 @@
 </script>
 
 <div class="cssEdit">
-	<form method="post" action="{URI}" id="css_edit">
+	<form method="post" action="{URI|htmlspecialchars}" id="css_edit">
 		<fieldset class="single">
 			<div class="row">
 				<span class="field"><textarea id="code_css" name="configuration[global][css]" class="code css" autofocus="autofocus">{CONFIGURATION.global.css}</textarea></span>
