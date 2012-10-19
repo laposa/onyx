@@ -2,7 +2,7 @@
 /** 
  * Google Sitemap
  *
- * Copyright (c) 2008-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2008-2012 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -15,6 +15,8 @@ class Onxshop_Controller_Export_Xml_Googlesitemap extends Onxshop_Controller {
 	 
 	public function mainAction() {
 
+		set_time_limit(0);
+		
 		require_once('models/common/common_node.php');
 		
 		$Node = new common_node();

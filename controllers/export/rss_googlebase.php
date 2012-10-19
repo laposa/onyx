@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2008-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2008-201 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
  
@@ -13,6 +13,8 @@ class Onxshop_Controller_Export_Rss_Googlebase extends Onxshop_Controller {
 	 */
 	 
 	public function mainAction() {
+		
+		set_time_limit(0);
 		
 		header('Content-Type: text/xml; charset=UTF-8');
 		
