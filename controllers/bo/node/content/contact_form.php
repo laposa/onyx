@@ -40,5 +40,8 @@ class Onxshop_Controller_Bo_Node_Content_Contact_form extends Onxshop_Controller
 				$this->tpl->parse('content.templateitem');
 			}
 		}
+
+		$this->node_data['component']['enable_captcha'] = ($this->node_data['component']['enable_captcha']) ? 'checked="checked"' : '';
+
 	}
 }

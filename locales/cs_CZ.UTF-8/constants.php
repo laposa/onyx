@@ -67,6 +67,7 @@ define('I18N_COUNTRY', 'Země');
 define('I18N_EMAIL', 'Email');
 define('I18N_TEL', 'Tel');
 define('I18N_FAX', 'Fax');
+define('I18N_CAPTCHA', 'Opište kód');
 define('I18N_YOUR_MESSAGE', 'Vaše zpráva');
 define('I18N_SUBMIT', 'Odeslat');
 define('I18N_YOUR_NAME', 'Vaše Jméno');

@@ -49,6 +49,13 @@ $(document).ready(function(){
 			<span class="label"><label for="formdata-notes_{GET.node_id}">Other notes/requirements:</label></span>
 			<span class="field"><textarea id="formdata-notes_{GET.node_id}" name="formdata[notes]" class="textarea" rows="15" cols="45">{FORMDATA.notes|htmlspecialchars}</textarea></span>
 		</div>
+
+		<!-- BEGIN: captcha_field -->
+		<div class="row captcha {ERROR.captcha}">
+			<span class="label"><label for="formdata-captcha_{GET.node_id}">{I18N_CAPTCHA} {CAPTCHA}:</label></span>
+			<span class="field"><input type="text" class="text" id="formdata-captcha_{GET.node_id}" name="formdata[captcha]" value="{FORMDATA.captcha|htmlspecialchars}" maxlength="45" /></span>
+		</div>
+		<!-- END: captcha_field -->
 	
 	</fieldset>
 	
