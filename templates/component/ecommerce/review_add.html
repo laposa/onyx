@@ -19,7 +19,7 @@
 	});
 	</script>
 
-	<form id="review_form_{GET.node_id}" class="comment" method="post" action="{URI}#review_form_{GET.node_id}">
+	<form id="review_form_{GET.node_id}" class="comment" method="post" action="{URI|htmlspecialchars}#review_form_{GET.node_id}">
 		<fieldset class="single">
 			<legend>Add a new review</legend>
 			<div class="row">

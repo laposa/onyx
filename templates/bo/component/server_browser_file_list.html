@@ -73,7 +73,7 @@
 							<!-- END: add_new_head -->
 							
 							<div id="server_browser_add">
-								<form action="{URI}" method="post" enctype="multipart/form-data" id="add_new_file">
+								<form action="{URI|htmlspecialchars}" method="post" enctype="multipart/form-data" id="add_new_file">
 									
 									<!-- BEGIN: confirm_overwrite -->
 									<p>Do you want to overwrite file {OVERWRITE_FILE.filename}?</p>

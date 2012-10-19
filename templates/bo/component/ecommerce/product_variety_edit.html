@@ -22,7 +22,7 @@ $(document).ready(function(){
 
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 
-<form method="post" action="{URI}" class="product_variety_edit" id="product_variety_edit_form_{GET.id}">
+<form method="post" action="{URI|htmlspecialchars}" class="product_variety_edit" id="product_variety_edit_form_{GET.id}">
 <div id="product_variety_edit">
 	<ul id="product_edit_menu" class="ui-tabs-nav">
 		<li class="active"><a class="onxshop_basic" href="#onxshop_basic"><span>Basic info</span></a></li>
