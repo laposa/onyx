@@ -7,7 +7,7 @@ $(function(){
 </script>
 
 <div class="contact_form_common_simple">
-	<form class="contact common_simple" id="contact_form_{GET.node_id}" action="{URI}#node_id_{GET.node_id}" method="post">
+	<form class="contact common_simple" id="contact_form_{GET.node_id}" action="{URI|htmlspecialchars}#node_id_{GET.node_id}" method="post">
 	<fieldset class="single">
 		<legend>{I18N_CONTACT_FORM}</legend>
 		<div class="row name {ERROR.name}">
@@ -27,6 +27,14 @@ $(function(){
 			<span class="label"><label for="formdata-message_{GET.node_id}"><span class="mandatory-mark">*</span>{I18N_YOUR_MESSAGE}:</label></span>
 			<span class="field"><textarea id="formdata-message_{GET.node_id}" class="required" name="formdata[required_message]" rows="15" cols="45">{FORMDATA.required_message|htmlspecialchars}</textarea></span>
 		</div>
+
+		<!-- BEGIN: captcha_field -->
+		<div class="row captcha {ERROR.captcha}">
+			<span class="label"><label for="formdata-captcha_{GET.node_id}">{I18N_CAPTCHA} {CAPTCHA}:</label></span>
+			<span class="field"><input type="text" class="text" id="formdata-captcha_{GET.node_id}" name="formdata[captcha]" value="{FORMDATA.captcha|htmlspecialchars}" maxlength="45" /></span>
+		</div>
+		<!-- END: captcha_field -->
+
 	</fieldset>
 	
 		<input type="hidden" name="node_id" value="{GET.node_id}" />

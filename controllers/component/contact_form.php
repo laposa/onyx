@@ -11,7 +11,10 @@ class Onxshop_Controller_Component_Contact_Form extends Onxshop_Controller {
 	 */
 	 
 	public function mainAction() {
-		
+
+		$this->enableCaptcha = ($this->GET['enable_captcha'] == "on" && 
+			strpos($this->tpl->filecontents, '{CAPTCHA}') !== FALSE);
+
 		$this->preProcessEmailForm();
 		
 		if (isset($_POST['send']) && $_POST['node_id'] == $this->GET['node_id']) {
@@ -19,8 +22,14 @@ class Onxshop_Controller_Component_Contact_Form extends Onxshop_Controller {
 			$this->processEmailForm($_POST['formdata']);
 			
 		}
-		
+
 		$this->postProcessEmailForm();
+
+		if ($this->enableCaptcha) {
+			$captcha = new nSite("component/captcha~node_id={$this->GET['node_id']}~");
+			$this->tpl->assign('CAPTCHA', $captcha->getContent());
+			$this->tpl->parse("content.captcha_field");
+		}
 
 		return true;
 	}
@@ -67,7 +76,14 @@ class Onxshop_Controller_Component_Contact_Form extends Onxshop_Controller {
 				$mail_to = $this->GET['mail_to'];
 				$mail_toname = $this->GET['mail_toname'];
 			}
-		    
+
+			if ($this->enableCaptcha) {
+				$isCaptchaValid = (strlen($formdata['captcha']) > 0 && 
+					$formdata['captcha'] == $_SESSION['captcha'][$this->GET['node_id']]);
+				$EmailForm->setValid("captcha", $isCaptchaValid);
+				if (!$isCaptchaValid) msg("Entered code is not valid.", 'error');
+			}
+
 			if ($EmailForm->sendEmail('email_form', $content, $mail_to, $mail_toname, $formdata['required_email'], $formdata['required_name'])) {
 				Zend_Registry::set('notify', 'sent');
 			} else {

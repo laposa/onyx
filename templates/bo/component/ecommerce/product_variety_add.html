@@ -8,7 +8,7 @@ $(function(){
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 <p><a class="back" href="/backoffice/products/{GET.product_id}/edit"><span>Back to product edit</span></a></p>
 
-<form method="post" action="{URI}" id="product_variety_add_form">
+<form method="post" action="{URI|htmlspecialchars}" id="product_variety_add_form">
 <fieldset>
 	<legend>Variety of product</legend>
 	<div class="row title">

@@ -8,7 +8,7 @@ $(document).ready(function(){
 </script>
 
 <div class="order_list_filter">
-	<form method="post" action="{URI}" id="order_list_filter">
+	<form method="post" action="{URI|htmlspecialchars}" id="order_list_filter">
 		<fieldset class="single">
 			<div class="row search">
 				<span class="label"><label>Order status</label></span>

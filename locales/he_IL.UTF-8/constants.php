@@ -61,6 +61,7 @@ define('I18N_COUNTRY', 'Страна');
 define('I18N_EMAIL', 'Электронная почта');
 define('I18N_TEL', 'Тел');
 define('I18N_FAX', 'Факс');
+define('I18N_CAPTCHA', 'Enter the code');
 define('I18N_YOUR_MESSAGE', 'Ваше сообщение');
 define('I18N_SUBMIT', 'Подтвердить');
 define('I18N_YOUR_NAME', 'Ваше имя');

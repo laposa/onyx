@@ -7,7 +7,7 @@ $(function(){
 
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 <div class="checkout">
-	<form class="checkout twoColumns" action="{URI}#node_id_{GET.node_id}" method="post" id="checkout_form">	
+	<form class="checkout twoColumns" action="{URI|htmlspecialchars}#node_id_{GET.node_id}" method="post" id="checkout_form">	
 		
 		<fieldset class="gift_option">
 			<h3>Gift Option</h3>

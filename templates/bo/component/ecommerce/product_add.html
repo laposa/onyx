@@ -7,7 +7,7 @@ $(function(){
 </script>
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 <div class="product_add">
-	<form method="post" action="{URI}" id="product_add_form">
+	<form method="post" action="{URI|htmlspecialchars}" id="product_add_form">
 		<fieldset>
 			<legend>Base product info</legend>
 			<div class="row title">

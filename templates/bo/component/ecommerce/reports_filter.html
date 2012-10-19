@@ -8,7 +8,7 @@ $(document).ready(function(){
     $('#breakdown_from,#breakdown_to').datepicker({firstDay: 1, dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true});
 });
 </script>
-<form method="get" action="{URI}">
+<form method="get" action="{URI|htmlspecialchars}">
 
 	<fieldset class="single">
 		<legend>Time period</legend>

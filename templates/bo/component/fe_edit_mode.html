@@ -59,7 +59,7 @@ $(function() {
 });
 </script>
 
-<form action="{URI}" method="post" id="fe_edit_mode_form" style="margin: 0;">
+<form action="{URI|htmlspecialchars}" method="post" id="fe_edit_mode_form" style="margin: 0;">
 	<label for="fe_edit_mode">Browse Mode:</label>
 	<select id="fe_edit_mode" name="fe_edit_mode" onchange="$('#fe_edit_mode_form').submit();">
 		<option value="preview" {SELECTED_preview}>Preview</option>

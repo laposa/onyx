@@ -2,7 +2,7 @@
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 <div class="basket_edit">
 	<!-- BEGIN: basket -->
-	<form action="{URI}" method="post">
+	<form action="{URI|htmlspecialchars}" method="post">
 		<p class="top">
 			<a class="button continue_shopping" href="{CONTINUE_SHOPPING_URL}"><span>{I18N_CONTINUE_SHOPPING}</span></a>
 			<a class="button checkout" href="/page/{NODE_CONF.id_map-checkout}"><span>{I18N_PROCEED_TO_CHECKOUT}</span></a>

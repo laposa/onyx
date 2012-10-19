@@ -22,7 +22,7 @@ $(function() {
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 <div class="customer_detail">
 	<h3>{I18N_R_PERSONAL_DETAILS}</h3>
-	<form action="{URI_SAFE}" method="post" class="twoColumns" id="customer_edit_form">
+	<form action="{URI_SAFE|htmlspecialchars}" method="post" class="twoColumns" id="customer_edit_form">
 		<fieldset class="single">
 			<legend>{I18N_R_PERSONAL_DETAILS}</legend>
 			<div class="row title_before">
