@@ -2,7 +2,7 @@
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 <div class="newsletter_unsubscribe">
 	<!-- BEGIN: request_form -->
-	<form class="newsletter_unsubscribe" method="post" action="{URI_SAFE}">
+	<form class="newsletter_unsubscribe" method="post" action="{URI_SAFE|htmlspecialchars}">
 		<fieldset class="single">
 			<legend>{I18N_NEWSLETTER_UNSUBSCRIBE}</legend>
 			<div class="row email">

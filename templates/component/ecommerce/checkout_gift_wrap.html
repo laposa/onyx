@@ -24,7 +24,7 @@ function toggleGiftWrap(variety_id) {
 
 <div class="gift_wrap">
 
-	<form method="post" action="{URL}" id="gift_wrap">
+	<form method="post" action="{URI|htmlspecialchars}" id="gift_wrap">
 		<!-- BEGIN: item -->
 		<fieldset id="gift_wrap_{ITEM.id}">
 			<div class="row gift">

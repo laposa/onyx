@@ -3,7 +3,7 @@
 
 <!-- BEGIN: import_options -->
 <p>Data file: {GET.data_file}</p>
-<form action="{URI}" method="post">
+<form action="{URI|htmlspecialchars}" method="post">
 <fieldset>
 	<legend>Import options</legend>
 	<label>Method</label>

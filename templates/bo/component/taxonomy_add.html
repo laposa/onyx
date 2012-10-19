@@ -1,7 +1,7 @@
 <!-- BEGIN: content -->
 
 
-<form method="post" action="{URI}" class="taxonomy_add">
+<form method="post" action="{URI|htmlspecialchars}" class="taxonomy_add">
 	<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 	<p>{ONXSHOP_REQUEST_taxonomy #component/breadcrumb_taxonomy~id=GET.parent~}</p>
 	

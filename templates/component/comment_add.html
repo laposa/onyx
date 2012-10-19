@@ -19,7 +19,7 @@
 	});  
 	</script>
 	
-	<form id="comment_form_{GET.node_id}" class="comment" method="post" action="{URI}#comment_form_{GET.node_id}">
+	<form id="comment_form_{GET.node_id}" class="comment" method="post" action="{URI|htmlspecialchars}#comment_form_{GET.node_id}">
 		<fieldset class="single">
 			<!-- BEGIN: identity_show -->
 			<div class="row">

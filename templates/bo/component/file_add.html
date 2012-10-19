@@ -29,7 +29,7 @@ function showResponse(responseText, statusText)  {
 
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 
-<form action="{URI}" method="post" name="file_ass" id="file_add">
+<form action="{URI|htmlspecialchars}" method="post" name="file_ass" id="file_add">
 
 <fieldset id="add_to_node">
 <legend>Link New File In</legend>
