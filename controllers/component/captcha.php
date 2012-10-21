@@ -11,15 +11,42 @@ class Onxshop_Controller_Component_Captcha extends Onxshop_Controller {
 	 */
 	 
 	public function mainAction() {
+
+		/** 
+		 * get input variables
+		 */
+		 
+		if ($this->GET['width'] >= 10 && $this->GET['width'] <= 200) $width = (int) $this->GET['width'];
+		else $width = 70;
+
+		if ($this->GET['height'] >= 10 && $this->GET['height'] <= 100) $height = (int) $this->GET['height'];
+		else $height = 22;
+
+		if ($this->GET['length'] >= 3 && $this->GET['length'] <= 10) $length = (int) $this->GET['length'];
+		else $length = 5;
+
+		if ($this->GET['fontSize'] >= 8 && $this->GET['fontSize'] <= 30) $fontSize = (int) $this->GET['fontSize'];
+		else $fontSize = 12;
+
+		if (preg_match('/[0-9a-fA-F]{6}/', $this->GET['textColor'])) $textColor = (string) $this->GET['textColor'];
+		else $textColor = "000000";
+
+		if (preg_match('/[0-9a-fA-F]{6}/', $this->GET['backgroundColor'])) $backgroundColor = (string) $this->GET['backgroundColor'];
+		else $backgroundColor = "DDDDDD";
+
+		if (is_numeric($this->GET['id'])) $node_id = (int) $this->GET["id"];
+		else $node_id = 0;
 		
 		// captcha
 		$word = $this->generateRandomWord();
 
 		// save code to session
-		$_SESSION['captcha'][$this->GET['node_id']] = $word;
+		if (!is_array($_SESSION['captcha'])) $_SESSION['captcha'] = array();
+		$_SESSION['captcha'][$node_id] = $word;
 
 		// show image
-		$this->tpl->assign("CAPTCHA_IMAGE", $this->generateCaptchaImage($word));
+		$this->generateCaptchaImage($word, $width, $height, $fontSize, $textColor, $backgroundColor);
+		exit();
 
 		return true;
 	}
@@ -48,13 +75,13 @@ class Onxshop_Controller_Component_Captcha extends Onxshop_Controller {
 		imagettftext($img, $fontSize, 0, $x, $y, $front, $font, $word);
 
 		// output image
-		ob_start();
+		header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
+		header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT"); 
+		header("Cache-Control: no-store, no-cache, must-revalidate"); 
+		header("Cache-Control: post-check=0, pre-check=0", false);
+		header("Pragma: no-cache");	
+		header("Content-Type: image/png");
 		imagepng($img);
-		$data = ob_get_contents();
-		ob_end_clean();
-
-		// return encoded data
-		return "data:image/png;base64," . base64_encode($data);
 	}
 
 }

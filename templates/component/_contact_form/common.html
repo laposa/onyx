@@ -70,7 +70,7 @@ $(document).ready(function(){
 
 		<!-- BEGIN: captcha_field -->
 		<div class="row captcha {ERROR.captcha}">
-			<span class="label"><label for="formdata-captcha_{GET.node_id}">{I18N_CAPTCHA} {CAPTCHA}:</label></span>
+			<span class="label"><label for="formdata-captcha_{GET.node_id}">{I18N_CAPTCHA} <img class="captcha" src="/request/component/captcha?id={GET.node_id}" alt="code"/>:</label></span>
 			<span class="field"><input type="text" class="text" id="formdata-captcha_{GET.node_id}" name="formdata[captcha]" value="{FORMDATA.captcha|htmlspecialchars}" maxlength="45" /></span>
 		</div>
 		<!-- END: captcha_field -->
