@@ -1,6 +1,6 @@
 <?php
 /**
- * class shipping_wz_country_to_zone
+ * class ecommerce_delivery_carrier_zone_to_country
  *
  * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
