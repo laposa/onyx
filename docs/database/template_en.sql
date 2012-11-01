@@ -2058,10 +2058,10 @@ SELECT pg_catalog.setval('international_currency_rate_id_seq', 180, true);
 
 
 --
--- Name: shipping_wz_country_to_zone_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: ecommerce_delivery_carrier_zone_to_country_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE shipping_wz_country_to_zone_id_seq
+CREATE SEQUENCE ecommerce_delivery_carrier_zone_to_country_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MAXVALUE
@@ -2070,24 +2070,24 @@ CREATE SEQUENCE shipping_wz_country_to_zone_id_seq
 
 
 --
--- Name: shipping_wz_country_to_zone_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: ecommerce_delivery_carrier_zone_to_country_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE shipping_wz_country_to_zone_id_seq OWNED BY ecommerce_delivery_carrier_zone_to_country.id;
-
-
---
--- Name: shipping_wz_country_to_zone_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('shipping_wz_country_to_zone_id_seq', 241, true);
+ALTER SEQUENCE ecommerce_delivery_carrier_zone_to_country_id_seq OWNED BY ecommerce_delivery_carrier_zone_to_country.id;
 
 
 --
--- Name: shipping_wz_zone_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: ecommerce_delivery_carrier_zone_to_country_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE shipping_wz_zone_id_seq
+SELECT pg_catalog.setval('ecommerce_delivery_carrier_zone_to_country_id_seq', 241, true);
+
+
+--
+-- Name: ecommerce_delivery_carrier_zone_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE ecommerce_delivery_carrier_zone_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MAXVALUE
@@ -2096,24 +2096,24 @@ CREATE SEQUENCE shipping_wz_zone_id_seq
 
 
 --
--- Name: shipping_wz_zone_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: ecommerce_delivery_carrier_zone_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE shipping_wz_zone_id_seq OWNED BY ecommerce_delivery_carrier_zone.id;
-
-
---
--- Name: shipping_wz_zone_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('shipping_wz_zone_id_seq', 12, true);
+ALTER SEQUENCE ecommerce_delivery_carrier_zone_id_seq OWNED BY ecommerce_delivery_carrier_zone.id;
 
 
 --
--- Name: shipping_wz_zone_price_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+-- Name: ecommerce_delivery_carrier_zone_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-CREATE SEQUENCE shipping_wz_zone_price_id_seq
+SELECT pg_catalog.setval('ecommerce_delivery_carrier_zone_id_seq', 12, true);
+
+
+--
+-- Name: ecommerce_delivery_carrier_zone_price_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE ecommerce_delivery_carrier_zone_price_id_seq
     START WITH 1
     INCREMENT BY 1
     NO MAXVALUE
@@ -2122,17 +2122,17 @@ CREATE SEQUENCE shipping_wz_zone_price_id_seq
 
 
 --
--- Name: shipping_wz_zone_price_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+-- Name: ecommerce_delivery_carrier_zone_price_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
 --
 
-ALTER SEQUENCE shipping_wz_zone_price_id_seq OWNED BY ecommerce_delivery_carrier_zone_price.id;
+ALTER SEQUENCE ecommerce_delivery_carrier_zone_price_id_seq OWNED BY ecommerce_delivery_carrier_zone_price.id;
 
 
 --
--- Name: shipping_wz_zone_price_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: ecommerce_delivery_carrier_zone_price_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('shipping_wz_zone_price_id_seq', 624, true);
+SELECT pg_catalog.setval('ecommerce_delivery_carrier_zone_price_id_seq', 624, true);
 
 
 --
@@ -2293,21 +2293,21 @@ ALTER TABLE ecommerce_delivery_carrier ALTER COLUMN id SET DEFAULT nextval('ecom
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ecommerce_delivery_carrier_zone ALTER COLUMN id SET DEFAULT nextval('shipping_wz_zone_id_seq'::regclass);
+ALTER TABLE ecommerce_delivery_carrier_zone ALTER COLUMN id SET DEFAULT nextval('ecommerce_delivery_carrier_zone_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ecommerce_delivery_carrier_zone_price ALTER COLUMN id SET DEFAULT nextval('shipping_wz_zone_price_id_seq'::regclass);
+ALTER TABLE ecommerce_delivery_carrier_zone_price ALTER COLUMN id SET DEFAULT nextval('ecommerce_delivery_carrier_zone_price_id_seq'::regclass);
 
 
 --
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ecommerce_delivery_carrier_zone_to_country ALTER COLUMN id SET DEFAULT nextval('shipping_wz_country_to_zone_id_seq'::regclass);
+ALTER TABLE ecommerce_delivery_carrier_zone_to_country ALTER COLUMN id SET DEFAULT nextval('ecommerce_delivery_carrier_zone_to_country_id_seq'::regclass);
 
 
 --
@@ -4767,27 +4767,27 @@ ALTER TABLE ONLY ecommerce_product_variety_taxonomy
 
 
 --
--- Name: shipping_wz_country_to_zone_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: ecommerce_delivery_carrier_zone_to_country_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY ecommerce_delivery_carrier_zone_to_country
-    ADD CONSTRAINT shipping_wz_country_to_zone_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT ecommerce_delivery_carrier_zone_to_country_pkey PRIMARY KEY (id);
 
 
 --
--- Name: shipping_wz_zone_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: ecommerce_delivery_carrier_zone_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY ecommerce_delivery_carrier_zone
-    ADD CONSTRAINT shipping_wz_zone_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT ecommerce_delivery_carrier_zone_pkey PRIMARY KEY (id);
 
 
 --
--- Name: shipping_wz_zone_price_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: ecommerce_delivery_carrier_zone_price_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY ecommerce_delivery_carrier_zone_price
-    ADD CONSTRAINT shipping_wz_zone_price_pkey PRIMARY KEY (id);
+    ADD CONSTRAINT ecommerce_delivery_carrier_zone_price_pkey PRIMARY KEY (id);
 
 
 --
@@ -5579,27 +5579,27 @@ ALTER TABLE ONLY education_survey_question
 
 
 --
--- Name: shipping_wz_country_to_zone_country_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: ecommerce_delivery_carrier_country_to_zone_country_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY ecommerce_delivery_carrier_zone_to_country
-    ADD CONSTRAINT shipping_wz_country_to_zone_country_id_fkey FOREIGN KEY (country_id) REFERENCES international_country(id) ON UPDATE CASCADE ON DELETE CASCADE;
+    ADD CONSTRAINT ecommerce_delivery_carrier_country_to_zone_country_id_fkey FOREIGN KEY (country_id) REFERENCES international_country(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
--- Name: shipping_wz_country_to_zone_zone_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: ecommerce_delivery_carrier_country_to_zone_zone_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY ecommerce_delivery_carrier_zone_to_country
-    ADD CONSTRAINT shipping_wz_country_to_zone_zone_id_fkey FOREIGN KEY (zone_id) REFERENCES ecommerce_delivery_carrier_zone(id) ON UPDATE CASCADE ON DELETE CASCADE;
+    ADD CONSTRAINT ecommerce_delivery_carrier_country_to_zone_zone_id_fkey FOREIGN KEY (zone_id) REFERENCES ecommerce_delivery_carrier_zone(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
--- Name: shipping_wz_zone_price_zone_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: ecommerce_delivery_carrier_zone_price_zone_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY ecommerce_delivery_carrier_zone_price
-    ADD CONSTRAINT shipping_wz_zone_price_zone_id_fkey FOREIGN KEY (zone_id) REFERENCES ecommerce_delivery_carrier_zone(id) ON UPDATE CASCADE ON DELETE CASCADE;
+    ADD CONSTRAINT ecommerce_delivery_carrier_zone_price_zone_id_fkey FOREIGN KEY (zone_id) REFERENCES ecommerce_delivery_carrier_zone(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
