@@ -1,10 +1,10 @@
 <?php
 /** 
- * Copyright (c) 2005-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2005-2012 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
-class Onxshop_Controller_Export_Imagesxml extends Onxshop_Controller {
+class Onxshop_Controller_Export_Xml_Image extends Onxshop_Controller {
 	
 	/**
 	 * main action
