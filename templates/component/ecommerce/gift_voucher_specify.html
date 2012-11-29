@@ -27,7 +27,15 @@ $(function(){
 		}
 	});
 	
-	 $('#gift_voucher_specify div.delivery_date input').datepicker({firstDay: 1, dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true, minDate: '+1d', maxDate: '+1y'});
+	 $('#gift_voucher_specify div.delivery_date input').datepicker({firstDay: 1, dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true, minDate: '0', maxDate: '+1y', onSelect: function(dateText, inst) {
+	 		var d = new Date();
+	 		var day = d.getDate();
+	 		var month = d.getMonth() + 1;
+	 		if (day < 10) day = "0" + day;
+	 		if (month < 10) month = "0" + month;
+	 		var today = day + "/" + month + "/" + d.getFullYear();
+	 		if (today == dateText) $('#gift_voucher_specify div.delivery_date input').val("Now");
+		}});
 });
 </script>
 
@@ -66,8 +74,8 @@ $(function(){
 					<span class="field"><input type="text" id="gift_voucher_specify-sender_name" name="gift_voucher_specify[sender_name]" value="{GIFT_VOUCHER.sender_name|htmlspecialchars}" class="required text" maxlength="45" /></span>
 				</div>
 				<div class="row delivery_date">
-					<span class="label"><label for="gift_voucher_specify-delivery_date">Delivery date:</label></span>
-					<span class="field"><input type="text" id="gift_voucher_specify-delivery_date" name="gift_voucher_specify[delivery_date]" value="{GIFT_VOUCHER.delivery_date|htmlspecialchars}now" class="text" title="Leave empty to send the voucher now" /></span>
+					<span class="label"><label for="gift_voucher_specify-delivery_date">When would you like to send your gift voucher?</label></span>
+					<span class="field"><input type="text" id="gift_voucher_specify-delivery_date" name="gift_voucher_specify[delivery_date]" value="{GIFT_VOUCHER.delivery_date|htmlspecialchars}Now or click for further options" class="text" title="Leave empty to send the voucher now" /></span>
 				</div>
 			</fieldset>
 			<div class="row submit">

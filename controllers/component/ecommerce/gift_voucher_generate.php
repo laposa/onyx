@@ -49,35 +49,6 @@ class Onxshop_Controller_Component_Ecommerce_Gift_Voucher_Generate extends Onxsh
 	}
 	
 	/**
-	 * getGiftVoucherProductId
-	 */
-	 
-	public function getGiftVoucherProductId($order_id) {
-		
-		if (!is_numeric($order_id)) return false;
-
-		/**
-		 * get product conf
-		 */
-		 
-		require_once('models/ecommerce/ecommerce_product.php');
-		$ecommerce_product_conf = ecommerce_product::initConfiguration();
-		
-		/**
-		 * check gift voucher product ID is set
-		 */
-		 
-		if (!is_numeric($ecommerce_product_conf['gift_voucher_product_id']) || $ecommerce_product_conf['gift_voucher_product_id']  == 0) {
-			
-			msg("ecommerce_product.gift_voucher_product_id conf option is not defined", 'error', 1);
-			
-			return false;
-		}
-		
-		return $ecommerce_product_conf['gift_voucher_product_id'];
-	}
-	
-	/**
 	 * getVoucherBasketItems
 	 */
 	 
@@ -195,8 +166,10 @@ class Onxshop_Controller_Component_Ecommerce_Gift_Voucher_Generate extends Onxsh
 		 * postpone if delivery_date is set
 		 */
 		
-		if (preg_match("/[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4}/", $voucher_data['delivery_date'])) $this->postponeDelivery($promotion_data, $voucher_data, $gift_voucher_filename);
-		else $this->sendEmail($promotion_data, $voucher_data, $gift_voucher_filename);
+		if (preg_match("/[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4}/", $voucher_data['delivery_date'])) 
+			$this->postponeDelivery($promotion_id, $voucher_data['delivery_date']);
+		else 
+			$this->sendEmail($promotion_data, $voucher_data, $gift_voucher_filename);
 		
 		return true;
 	}
@@ -223,55 +196,23 @@ class Onxshop_Controller_Component_Ecommerce_Gift_Voucher_Generate extends Onxsh
 	}
 	
 	/**
-	 * send email
-	 */
-	 
-	public function sendEmail($promotion_data, $voucher_data, $gift_voucher_filename) {
-		
-		$GLOBALS['common_email'] = array('promotion_data'=>$promotion_data, 'voucher_data'=>$voucher_data, 'gift_voucher_filename'=>$gift_voucher_filename);
-		//$GLOBALS['onxshop_atachments'] = array($gift_voucher_filename_fullpath);
-		
-		require_once('models/common/common_email.php');
-		$EmailForm = new common_email();
-		
-		$template = 'gift_voucher';
-		$content = $gift_voucher_filename;
-		$email_recipient = $voucher_data['recipient_email'];
-		$name_recipient = $voucher_data['recipient_name'];
-		$email_from = false;
-		$name_from = "{$GLOBALS['onxshop_conf']['global']['title']} Gifts";
-		
-		$email_sent_status = $EmailForm->sendEmail($template, $content, $email_recipient, $name_recipient, $email_from, $name_from);
-		
-		unset($GLOBALS['common_email']);
-		//unset($GLOBALS['onxshop_atachments']);
-		
-		return $email_sent_status;
-	}
-	
-	/**
 	 * postpone delivery
 	 */
 	
-	public function postponeDelivery($promotion_data, $voucher_data, $gift_voucher_filename) {
-		
-		$GLOBALS['common_email'] = array('promotion_data'=>$promotion_data, 'voucher_data'=>$voucher_data, 'gift_voucher_filename'=>$gift_voucher_filename);
-		
-		require_once('models/common/common_email.php');
-		$EmailForm = new common_email();
-		
-		$template = 'gift_voucher_postpone';
-		$content = $gift_voucher_filename;
-		if (defined('GIFT_VOUCHER_POSTPONE_EMAIL')) $email_recipient = GIFT_VOUCHER_POSTPONE_EMAIL;
-		else $email_recipient = $GLOBALS['onxshop_conf']['global']['admin_email'];
-		$name_recipient = $GLOBALS['onxshop_conf']['global']['admin_email_name'];
-		$email_from = false;
-		$name_from = "Web server";
-		
-		$email_sent_status = $EmailForm->sendEmail($template, $content, $email_recipient, $name_recipient, $email_from, $name_from);
-		
-		unset($GLOBALS['common_email']);
-		
+	public function postponeDelivery($promotion_id, $date)
+	{
+		$url = urlencode("http://{$_SERVER['SERVER_NAME']}" . 
+			"/request/component/ecommerce/gift_voucher_send?promotion_id={$promotion_id}&nocache=1");
+
+		$date = explode("/", $date);
+		$time = strtotime("{$date[2]}-{$date[1]}-{$date[0]}");
+
+		$time += 7 * 3600; // 7am
+
+ 		// try to add new job using scheduler_add component
+		$c = new nSite("bo/component/scheduler_add~url={$url}:time={$time}~");
+		$result = $c->getContent();
+
 		return true;
 	}
 	
