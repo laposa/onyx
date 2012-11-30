@@ -34,6 +34,9 @@ function toggleGiftWrap(variety_id) {
 				<a href="#" title="View Full Size" onclick="openImg('/image/{ITEM.image.src}'); return false;"><img id="image_thumbnail_{ITEM.id}" src="/thumbnail/125/{ITEM.image.src}" title="{ITEM.image.title|htmlspecialchars}" alt="{ITEM.image.title|htmlspecialchars}">
 				</a>
 			</div>
+			<div class="description">
+				{ITEM.description}
+			</div>
 		</fieldset>
 		<!-- END: item -->
 	</form>
