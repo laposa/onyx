@@ -88,14 +88,17 @@ class Onxshop_Controller_Bo_Component_Scheduler extends Onxshop_Controller {
 		foreach ($items as $item) {
 			if (!empty($item)) {
 
-				$tab = explode("\t", $item);
-				$space = explode(" ", $tab[1]);
+				// 66	Tue Dec  4 15:10:00 2012 a root
+				$num = "\d+";
+				$word = "\w+";
+				preg_match("/($num)\s+($word)\s+($word)\s+($num)\s+($num:$num:$num)\s+($num)\s+($word)\s+($word)/", $item, $matches);
+
 				$item = array(
-					'number' => $tab[0],
-					'date' => "{$space[1]} {$space[2]} {$space[4]}",
-					'time' => $space[3],
-					'queue' => $space[5],
-					'username' => $space[6]
+					'number' => $matches[1],
+					'date' => "{$matches[2]} {$matches[3]} {$matches[4]} {$matches[6]}",
+					'time' => $matches[5],
+					'queue' => $matches[7],
+					'username' => $matches[8]
 				);
 
 				$result[] = $item;
