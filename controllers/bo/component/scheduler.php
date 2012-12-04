@@ -77,6 +77,17 @@ class Onxshop_Controller_Bo_Component_Scheduler extends Onxshop_Controller {
 	}
 
 	/**
+	 * Get job detail in a queue
+	 */
+	protected function getJobDetail($id)
+	{
+		$id = (int) $id;
+		$output = local_exec("atc $id");
+		preg_match('/curl (.*)/', $output, $matches);
+		return $matches[1];
+	}
+
+	/**
 	 * List of jobs in a queue
 	 */
 	protected function listJobs()
@@ -88,7 +99,6 @@ class Onxshop_Controller_Bo_Component_Scheduler extends Onxshop_Controller {
 		foreach ($items as $item) {
 			if (!empty($item)) {
 
-				// 66	Tue Dec  4 15:10:00 2012 a root
 				$num = "\d+";
 				$word = "\w+";
 				preg_match("/($num)\s+($word)\s+($word)\s+($num)\s+($num:$num:$num)\s+($num)\s+($word)\s+($word)/", $item, $matches);

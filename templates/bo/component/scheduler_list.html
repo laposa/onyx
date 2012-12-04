@@ -7,6 +7,7 @@
 	<table>
 		<tr>
 			<th>Job number</th>
+			<th>Job URL</th>
 			<th>Date</th>
 			<th>Hour</th>
 			<th>Queue</th>
@@ -23,6 +24,7 @@
 		<!-- BEGIN: item -->
 		<tr>
 			<td>{ITEM.number}</td>
+			<td id="schedulerUrl{ITEM.number}"><a href="#" title="Load detail" onclick="makeAjaxRequest('#schedulerUrl{ITEM.number}', '/request/bo/component/scheduler_detail?id={ITEM.number}'); return false;">...</a></td>
 			<td>{ITEM.date}</td>
 			<td>{ITEM.time}</td>
 			<td>{ITEM.queue}</td>
@@ -37,6 +39,9 @@
 		<!-- END: item -->
 
 	</table>
+
+	<div id="schedulerDetail">
+	</div>
 
 </div>
 
