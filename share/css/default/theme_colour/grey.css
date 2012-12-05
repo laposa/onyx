@@ -65,7 +65,7 @@ legend  {color: #333;}
 div.content-RTE em, 
 div.content-RTE strong {color: #575757;}
 
-div.divider {background: #dadada;}
+div.divider {border-top: 2px solid #ccc;}
 hr {color: #ffffff;}
 
 div.rssFeed div.item.odd {background: #f0f0f0;}
