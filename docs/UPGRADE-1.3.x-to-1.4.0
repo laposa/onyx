@@ -1,7 +1,7 @@
 rm xsite_dir; ln -s /opt/onxshop-dev onxshop_dir
 
-createdb -U {DBUSER} -h dbserver -E UTF8 -T {DB-1_3} {DB-1_4}
-psql -U {DBUSER} -h dbserver {DB-1_4} < onxshop_dir/docs/database/upgrade-1.3.x-to-1.4.0.sql
+createdb -U {DBUSER} -h localhost -E UTF8 -T {DB-1_3} {DB-1_4}
+psql -U {DBUSER} -h localhost {DB-1_4} < onxshop_dir/docs/database/upgrade-1.3.x-to-1.4.0.sql
 
 vi conf/deployment.php
 change:
