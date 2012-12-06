@@ -428,12 +428,12 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 	 * assign VAT note
 	 */
 	 
-	public function assignVATNote() {
+	public function assignVATNote($exclude_vat = false) {
 		
 		//include price configuration for VAT_NOTE
 		require_once('models/ecommerce/ecommerce_price.php');
 		$price_conf = ecommerce_price::initConfiguration();
-		if ($price_conf['frontend_with_vat']) $this->tpl->assign('VAT_NOTE', I18N_PRICE_INC_VAT);
+		if ($price_conf['frontend_with_vat'] && !$exclude_vat) $this->tpl->assign('VAT_NOTE', I18N_PRICE_INC_VAT);
 		else $this->tpl->assign('VAT_NOTE', I18N_PRICE_EX_VAT);
 		
 	}

@@ -68,11 +68,11 @@ CREATE TABLE ecommerce_basket (
 	 * TODO: refactoring, rename to getFullDetail
 	 */
 	 
-	function getDetail($id) {
+	function getDetail($id, $exclude_vat = false) {
 	
 		if (is_numeric($id)) {
 			$basket_detail = $this->detail($id);
-			$basket_detail['content'] = $this->getContent($id);
+			$basket_detail['content'] = $this->getContent($id, GLOBAL_DEFAULT_CURRENCY, $exclude_vat);
 	
 			return $basket_detail;
 		} else {
@@ -84,13 +84,13 @@ CREATE TABLE ecommerce_basket (
 	 * get content
 	 */
 
-	function getContent($basket_id, $currency_code = GLOBAL_DEFAULT_CURRENCY) {
+	function getContent($basket_id, $currency_code = GLOBAL_DEFAULT_CURRENCY, $exclude_vat = false) {
 		
 		if (!is_numeric($basket_id)) {
 			msg("ecommerce_basket.getContent: basket_id ($basket_id) is not numeric", 'error');
 			return false;
 		}
-		
+
 		require_once('models/ecommerce/ecommerce_price.php');
 		$price_conf = ecommerce_price::initConfiguration();
 		
@@ -126,14 +126,19 @@ CREATE TABLE ecommerce_basket (
 					msg("Sorry, we have not enough items on the stock for {$product_detail['name']} - {$variety_detail['name']}", 'error', 2);
 				}
 				
-
 				$price = $variety_detail['price'];
+
+				if ($exclude_vat) {
+					$product_detail['vat'] = 0;
+					$price['value'] = $price['value_net'];
+				}
 				
 				$basket_item['price'] = $price['value'];
-				$basket_item['total'] = $price['value'] * $basket_item['quantity'];
+				$basket_item['total'] = $basket_item['price'] * $basket_item['quantity'];
 				$basket_item['total_net'] = $price['value_net'] * $basket_item['quantity'];
 				$basket_item['vat'] = $product_detail['vat'] * $price['value_net']/100 * $basket_item['quantity'];
 				$basket_item['vat'] = round($basket_item['vat'], 5);
+
 				if (($price_conf['backoffice_with_vat'] && ONXSHOP_IN_BACKOFFICE) || ($price_conf['frontend_with_vat'] && !ONXSHOP_IN_BACKOFFICE)) {
 					$basket_item['total_inc_vat'] = $basket_item['total'];
 				} else {
@@ -440,15 +445,15 @@ CREATE TABLE ecommerce_basket (
 	 
 	function calculateDelivery($basket_id, $delivery_address_id, $delivery_options, $promotion_code = false) {
 		
-		//get basket content
-		$basket_content = $this->getContent($basket_id);
+		//get basket
+		$basket_detail = $this->getDetail($basket_id);
 		
 		//find promotion data for delivery calculation
 		if ($promotion_code) {
 			require_once('models/ecommerce/ecommerce_promotion.php');
 			$Promotion = new ecommerce_promotion();
-			$customer_id = $basket_content['customer_id'];
-			$promotion_data = $Promotion->checkCodeBeforeApply($promotion_code, $customer_id);
+			$customer_id = $basket_detail['content']['customer_id'];
+			$promotion_data = $Promotion->checkCodeBeforeApply($promotion_code, $customer_id, $basket_detail);
 		} else {
 			$promotion_data = false;
 		}
@@ -456,7 +461,7 @@ CREATE TABLE ecommerce_basket (
 		//calculate delivery
 		require_once('models/ecommerce/ecommerce_delivery.php');
 		$Ecommerce_Delivery = new ecommerce_delivery();
-		$delivery = $Ecommerce_Delivery->calculateDelivery($basket_content, $delivery_address_id, $delivery_options, $promotion_data);
+		$delivery = $Ecommerce_Delivery->calculateDelivery($basket_detail['content'], $delivery_address_id, $delivery_options, $promotion_data);
 		
 		return $delivery;
 		

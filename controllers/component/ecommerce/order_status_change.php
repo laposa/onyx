@@ -48,6 +48,7 @@ class Onxshop_Controller_Component_Ecommerce_Order_Status_Change extends Onxshop
 		if ($status == 1) {
 			
 			$this->giftVoucherAction($order_id, $status);
+			$this->referrerVoucherAction($order_id, $status);
 			
 		}
 		
@@ -89,6 +90,22 @@ class Onxshop_Controller_Component_Ecommerce_Order_Status_Change extends Onxshop
 		 
 		$_nSite = new nSite("component/ecommerce/gift_voucher_generate~order_id={$order_id}~");
 		
+		return true;		 
+		
+	}
+	/**
+	 * Reward inviting user if referrer voucher code has been used
+	 */
+	 
+	public function referrerVoucherAction($order_id, $status) {
+		
+		if (!is_numeric($order_id) || !is_numeric($status)) return false;
+
+		require_once "models/ecommerce/ecommerce_promotion.php";
+
+		$Promotion = new ecommerce_promotion();
+		$Promotion->rewardInvitingUser($order_id);
+
 		return true;		 
 		
 	}

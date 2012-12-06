@@ -44,22 +44,40 @@ class Onxshop_Controller_Component_Ecommerce_Basket_Detail extends Onxshop_Contr
 	
 	function displayBasketCustom() {
 	
-		require_once('models/ecommerce/ecommerce_basket.php');
-		$Basket = new ecommerce_basket();
-		$Basket->setCacheable(false);
-		
-		/**
-		 * assign VAT note
-		 */
-		 
-		$this->assignVATNote();
-		
 		/**
 		 * Get basket detail
 		 */
 		
+		//prepare shipping address
+		if (is_numeric($this->GET['delivery_address_id'])) $delivery_address_id = $this->GET['delivery_address_id'];
+		else if (is_numeric($_SESSION['client']['customer']['delivery_address_id'])) $delivery_address_id = $_SESSION['client']['customer']['delivery_address_id'];
+		else msg('Unknown delivery_address_id', 'error');
+
+		//prepare delivery options
+		if (is_array($this->GET['delivery_options'])) $delivery_options = $this->GET['delivery_options'];
+		else if (is_array($_SESSION['delivery_options'])) $delivery_options = $_SESSION['delivery_options'];
+		else $delivery_options = false;
 		
-		$basket_detail = $Basket->getDetail($this->GET['id']);
+		// exclude vat for non-EU countries
+		require_once('models/client/client_address.php');
+		$Address = new client_address();
+		$delivery = $Address->getDetail($delivery_address_id);
+		$exclude_vat = !$delivery['country']['eu_status'];
+
+		/**
+		 * assign VAT note
+		 */
+		 
+		$this->assignVATNote($exclude_vat);
+
+		/**
+		 * Load baskter content
+		 */
+
+		require_once('models/ecommerce/ecommerce_basket.php');
+		$Basket = new ecommerce_basket();
+		$Basket->setCacheable(false);
+		$basket_detail = $Basket->getDetail($this->GET['id'], $exclude_vat);
 		
 		if (count($basket_detail['content']['items']) > 0) {
 			
@@ -78,16 +96,6 @@ class Onxshop_Controller_Component_Ecommerce_Basket_Detail extends Onxshop_Contr
 				$this->tpl->parse('content.basket.item');
 			}
 			
-			//prepare shipping address
-			if (is_numeric($this->GET['delivery_address_id'])) $delivery_address_id = $this->GET['delivery_address_id'];
-			else if (is_numeric($_SESSION['client']['customer']['delivery_address_id'])) $delivery_address_id = $_SESSION['client']['customer']['delivery_address_id'];
-			else msg('Unknown delivery_address_id', 'error');
-		
-			//prepare delivery options
-			if (is_array($this->GET['delivery_options'])) $delivery_options = $this->GET['delivery_options'];
-			else if (is_array($_SESSION['delivery_options'])) $delivery_options = $_SESSION['delivery_options'];
-			else $delivery_options = false;
-			
 			/**
 			 * calculate delivery
 			 */
@@ -105,7 +113,7 @@ class Onxshop_Controller_Component_Ecommerce_Basket_Detail extends Onxshop_Contr
 				require_once('models/ecommerce/ecommerce_promotion.php');
 				$Promotion = new ecommerce_promotion();
 				$customer_id = $basket_detail['customer_id'];
-				$promotion_data = $Promotion->checkCodeBeforeApply($_SESSION['promotion_code'], $customer_id);
+				$promotion_data = $Promotion->checkCodeBeforeApply($_SESSION['promotion_code'], $customer_id, $basket_detail);
 				$delivery_data = $Delivery->calculateDelivery($basket_detail['content'], $delivery_address_id, $delivery_options, $promotion_data);
 			} else {
 				$delivery_data = $Delivery->calculateDelivery($basket_detail['content'], $delivery_address_id, $delivery_options);
