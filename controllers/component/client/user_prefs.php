@@ -48,6 +48,21 @@ class Onxshop_Controller_Component_Client_User_Prefs extends Onxshop_Controller 
 		//if we are in backoffice 
 		if ($_SESSION['authentication']['authenticity'] > 0) {
 		
+			//allow to change group
+			require_once('models/client/client_group.php');
+			$ClientGroup = new client_group();
+			$list = $ClientGroup->listGroups();
+
+			foreach ($list as $item) {
+			
+				$this->tpl->assign('ITEM', $item);
+				if ($item['id'] == $client_data['customer']['group_id']) $this->tpl->assign('SELECTED', 'selected="selected"');
+				else $this->tpl->assign('SELECTED', '');
+			
+				$this->tpl->parse('content.status.group.item');
+			}
+			$this->tpl->parse('content.status.group');
+
 			//allow to change status
 			$this->tpl->assign("SELECTED_status_{$client_data['customer']['status']}", 'selected="selected"');
 			$this->tpl->parse('content.status');

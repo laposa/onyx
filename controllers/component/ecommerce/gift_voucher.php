@@ -80,6 +80,33 @@ class Onxshop_Controller_Component_Ecommerce_Gift_Voucher extends Onxshop_Contro
 	}
 	
 	/**
+	 * getGiftVoucherProductId
+	 */
+	 
+	public function getGiftVoucherProductId() {
+		
+		/**
+		 * get product conf
+		 */
+		 
+		require_once('models/ecommerce/ecommerce_product.php');
+		$ecommerce_product_conf = ecommerce_product::initConfiguration();
+		
+		/**
+		 * check gift voucher product ID is set
+		 */
+		 
+		if (!is_numeric($ecommerce_product_conf['gift_voucher_product_id']) || $ecommerce_product_conf['gift_voucher_product_id']  == 0) {
+			
+			msg("ecommerce_product.gift_voucher_product_id conf option is not defined", 'error', 1);
+			
+			return false;
+		}
+		
+		return $ecommerce_product_conf['gift_voucher_product_id'];
+	}
+	
+	/**
 	 * check if gift voucher is in basket
 	 */
 	 
@@ -212,4 +239,32 @@ class Onxshop_Controller_Component_Ecommerce_Gift_Voucher extends Onxshop_Contro
 		
 		return $data;
 	}
+
+	/**
+	 * send voucher email
+	 */
+	 
+	public function sendEmail($promotion_data, $voucher_data, $gift_voucher_filename) {
+		
+		$GLOBALS['common_email'] = array('promotion_data'=>$promotion_data, 'voucher_data'=>$voucher_data, 'gift_voucher_filename'=>$gift_voucher_filename);
+		//$GLOBALS['onxshop_atachments'] = array($gift_voucher_filename_fullpath);
+		
+		require_once('models/common/common_email.php');
+		$EmailForm = new common_email();
+		
+		$template = 'gift_voucher';
+		$content = $gift_voucher_filename;
+		$email_recipient = $voucher_data['recipient_email'];
+		$name_recipient = $voucher_data['recipient_name'];
+		$email_from = false;
+		$name_from = "{$GLOBALS['onxshop_conf']['global']['title']} Gifts";
+
+		$email_sent_status = $EmailForm->sendEmail($template, $content, $email_recipient, $name_recipient, $email_from, $name_from);
+		
+		unset($GLOBALS['common_email']);
+		//unset($GLOBALS['onxshop_atachments']);
+		
+		return $email_sent_status;
+	}
+
 }
