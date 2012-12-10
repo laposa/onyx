@@ -46,6 +46,7 @@ RewriteRule ^backoffice/advanced/database/export$       /index.php?request=sys/h
 RewriteRule ^backoffice/advanced/database/import$       /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/pages/database_import [L,QSA]
 RewriteRule ^backoffice/advanced/tools$      /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/pages/tools [L,QSA]
 RewriteRule ^backoffice/advanced/search_index$      /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/component/search_index [L,QSA]
+RewriteRule ^backoffice/advanced/scheduler$      /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/component/scheduler [L,QSA]
 RewriteRule ^backoffice/advanced/seo_manager$      /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/component/seo_manager [L,QSA]
 
 #ecommerce
