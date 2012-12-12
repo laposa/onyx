@@ -2,17 +2,21 @@
 /**
  * Global deployment configuration
  *
- * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2012 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
 
 /**
- * Application Debug settings
+ * Application debug settings
  *
  * 0 - No debugging
- * 3 - Full debugging
- * 5 - Full debugging (direct output)
+ * 1 - Basic debugging
+ * 5 - Full debuggin
+ *
+ * to enable direct debugging use:
+ * define('ONXSHOP_DEBUG_DIRECT', true);
+ * for more options look in onxshop_dir/conf/global.php
  */
 
 $debug_hosts = array(
