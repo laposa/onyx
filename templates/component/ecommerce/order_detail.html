@@ -8,7 +8,9 @@
 		<a class="button make_payment" href="/page/{NODE_CONF.id_map-payment}?order_id={GET.order_id}"><span>{I18N_BUTTON_MAKE_PAYMENT}</span></a>
 		<!-- END: make_payment -->
 		<a class="button repeat_order" href="/page/{NODE_CONF.id_map-basket}?populate_basket_from_order_id={GET.order_id}"><span>{I18N_BUTTON_REPEAT_ORDER}</span></a>
+		<!-- BEGIN: print_invoice -->
 		<a class="button print_invoice" href="/print/invoice/{GET.order_id}"><span>{I18N_BUTTON_PRINT_ORDER}</span></a>
+		<!-- END: print_invoice -->
 	</p>
 	
 	{BASKET_DETAIL}
