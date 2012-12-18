@@ -95,7 +95,7 @@ define('I18N_ADDRESS_LINE_3', 'Address Line 3');
 define('I18N_CITY', 'City');
 define('I18N_POST_CODE', 'Post Code');
 define('I18N_COUNTY', 'County/State');
-define('I18N_STATE', 'State');
+define('I18N_STATE', 'Country');
 define('I18N_ADD_NEW_ADDRESS', 'Add New Address');
 //component/ecommerce/basket.html
 define('I18N_SHOPPING_BASKET', 'Basket');

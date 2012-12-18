@@ -71,11 +71,16 @@ class Onxshop_Controller_Locales extends Onxshop_Controller {
 	
 	function setLocale($locale = LOCALE) {
 		
-		//load language string constants
-		$constants_file = ONXSHOP_DIR . "locales/$locale/constants.php";
-		if (!file_exists($constants_file)) $constants_file = ONXSHOP_DIR . "locales/en_GB.UTF-8/constants.php";
-		require_once($constants_file);
+		//detect if local file with language string constants is available and load it
+		$local_constants_file = ONXSHOP_PROJECT_DIR . "locales/$locale/constants.php";
+		if (file_exists($local_constants_file)) require_once($local_constants_file);
 		
+		//load global language string constants file with fallback to en_GB
+		$global_constants_file = ONXSHOP_DIR . "locales/$locale/constants.php";
+		if (!file_exists($global_constants_file)) $global_constants_file = ONXSHOP_DIR . "locales/en_GB.UTF-8/constants.php";
+		require_once($global_constants_file);
+		
+		//now set system locale
 		setlocale(LC_ALL, LOCALE);
 		//but for numbers keep english
 		setlocale(LC_NUMERIC, 'en_GB.UTF-8');
