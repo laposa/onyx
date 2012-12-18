@@ -89,8 +89,8 @@ CREATE TABLE ecommerce_price (
 		if (!array_key_exists('allow_multiplicator', $conf)) $conf['allow_multiplicator'] = 0;//disabled multiplicator functionality by default
 		if (!array_key_exists('multiplicator_growth', $conf)) $conf['multiplicator_growth'] = 'linear';//linear or exponential_over_1
 		
-		$conf['backoffice_with_vat'] = true;
-		$conf['frontend_with_vat'] = true;
+		if (!array_key_exists('backoffice_with_vat', $conf)) $conf['backoffice_with_vat'] = true;
+		if (!array_key_exists('frontend_with_vat', $conf)) $conf['frontend_with_vat'] = true;
 	
 		return $conf;
 	}
