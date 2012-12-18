@@ -131,7 +131,7 @@ define('I18N_PLEASE_CHOOSE', 'Please Choose');
 define('I18N_DELIVERY', 'Delivery');
 define('I18N_CONFIRM_ORDER', 'Confirm Order and Continue to Payment');
 define('I18N_BY_CLICKING_CONFIRM', 'I agree with the');
-define('I18N_BY_CLICKING_CONFIRM_AUTO', 'By pressing „' . I18N_CONFIRM_ORDER . '“ you agree with ');
+define('I18N_BY_CLICKING_CONFIRM_AUTO', 'By pressing “' . I18N_CONFIRM_ORDER . '” you agree with ');
 define('I18N_TERMS_AND_CONDITIONS', 'Terms &amp; Conditions');
 define('I18N_ORDER_CUSTOMER_NOTE', 'Please enter any special or additional delivery instructions in the box below');
 define('I18N_PAY_BY_PROTX', 'Pay By Credit Card');
