@@ -275,11 +275,11 @@ CREATE TABLE ecommerce_delivery_carrier (
 		$sql = "
 		SELECT zp.weight, zp.price FROM ecommerce_delivery_carrier_zone_to_country ztc
 		LEFT OUTER JOIN ecommerce_delivery_carrier_zone_price zp ON (ztc.zone_id = zp.zone_id)
-		INNER JOIN ecommerce_delivery_carrier_zone AS cz ON cz.carrier_id = $carrier_id
+		INNER JOIN ecommerce_delivery_carrier_zone AS cz ON cz.carrier_id = $carrier_id AND cz.id = ztc.zone_id
 		WHERE ztc.country_id = $country_id
 		ORDER BY zp.weight ASC;
 		";
-		
+
 		if ($zone_price = $this->executeSql($sql)) {
 		
 			/**
@@ -324,9 +324,9 @@ CREATE TABLE ecommerce_delivery_carrier (
 		if (!is_numeric($weight)) return false;
 		
 		foreach ($zone_price as $item) {
-			if ($item['weight'] < $weight) $price = $item['price'];
+			if ($item['weight'] <= $weight) $price = $item['price'];
 		}
-		
+
 		return $price;
 	}
 	
