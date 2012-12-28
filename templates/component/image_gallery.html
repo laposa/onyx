@@ -9,7 +9,7 @@
 	<!-- BEGIN: thumbnails -->
 	<div class="thumbnails">
 		<!-- BEGIN: item -->
-		<div class="item image_id_{GET.relation}{ITEM.id}"><a href="{ITEM.path}/{ITEM.src}" onclick="$('#image_id_{GET.relation}{ITEM.first_id}').attr('src', '{ITEM.path}/{ITEM.src}'); return false;"><span class="imageWrap"><img id="thumbnail_id_{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="/thumbnail/{ITEM.thumbnail_size}/{ITEM.src}" /></span></a></div>
+		<div class="item image_id_{GET.relation}{ITEM.id}"><a href="{ITEM.path}/{ITEM.src}" onclick="$('#image_id_{GET.relation}{ITEM.first_id}').attr('src', '{ITEM.path}/{ITEM.src}').attr('alt', $(this).find('img').attr('alt')).attr('title', $(this).find('img').attr('title')); return false;"><span class="imageWrap"><img id="thumbnail_id_{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="/thumbnail/{ITEM.thumbnail_size}/{ITEM.src}" /></span></a></div>
 		<!-- END: item -->
 	</div>
 	<!-- END: thumbnails -->
