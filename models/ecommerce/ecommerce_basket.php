@@ -452,8 +452,8 @@ CREATE TABLE ecommerce_basket (
 		if ($promotion_code) {
 			require_once('models/ecommerce/ecommerce_promotion.php');
 			$Promotion = new ecommerce_promotion();
-			$customer_id = $basket_content['customer_id'];
-			$promotion_data = $Promotion->checkCodeBeforeApply($promotion_code, $customer_id, $basket_content);
+			$customer_id = $basket_detail['content']['customer_id'];
+			$promotion_data = $Promotion->checkCodeBeforeApply($promotion_code, $customer_id, $basket_detail);
 		} else {
 			$promotion_data = false;
 		}
