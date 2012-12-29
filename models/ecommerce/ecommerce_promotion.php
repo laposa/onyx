@@ -354,7 +354,7 @@ CREATE TABLE ecommerce_promotion (
 			if ($campaign_data['uses_per_coupon'] > 0) {
 				if (($this->getCountUsageOfSingleCode($code) + 1) > $campaign_data['uses_per_coupon']) {
 					if (substr($campaign_data['code_pattern'], 0, 4) != "REF-") { // referral codes validity is extended automatically
-						msg("Code $code usage exceed number of allowed applications", 'error');
+						msg("Code \"$code\" usage exceed number of allowed applications", 'error');
 						return false;
 					}
 				}
@@ -367,7 +367,7 @@ CREATE TABLE ecommerce_promotion (
 			if ($campaign_data['uses_per_customer'] > 0) {
 				
 				if (($this->getCountUsageOfSingleCode($code, $customer_id) + 1) > $campaign_data['uses_per_customer']) {
-					msg("Code $code usage exceed number of allowed applications per one customer (id=$customer_id)", 'error');
+					msg("Code \"$code\" usage exceed number of allowed applications per one customer (id=$customer_id)", 'error');
 					return false;
 				}
 			}
@@ -385,7 +385,7 @@ CREATE TABLE ecommerce_promotion (
 			 */
 			if ($campaign_data['limit_to_first_order'] > 0) {
 				if ($this->getNumCustomerOrders($customer_id) > 0) {
-					msg("Code $code is restricted to you first order.", 'error');
+					msg("Code \"$code\" is restricted to you first order.", 'error');
 					return false;
 				}
 			}
@@ -395,7 +395,8 @@ CREATE TABLE ecommerce_promotion (
 			 */
 			if ($campaign_data['limit_to_order_amount'] > 0) {
 				if ($basket_data['content']['total_sub'] < $campaign_data['limit_to_order_amount']) {
-					msg("The voucher code $code is restricted to orders in amount of {$campaign_data['limit_to_order_amount']}.", 'error');
+					$amount = money_format("%n", $campaign_data['limit_to_order_amount']);
+					msg("The voucher code \"$code\" is restricted to orders in amount of $amount.", 'error');
 					return false;
 				}
 			}
@@ -427,7 +428,7 @@ CREATE TABLE ecommerce_promotion (
 					}
 				}
 				if ($prod == 0) {
-					msg("Sorry, the voucher code $code is limited to certain products, which you don't have in your basket.");
+					msg("Sorry, the voucher code \"$code\" is limited to certain products, which you don't have in your basket.");
 					return false;
 				}
 			}
