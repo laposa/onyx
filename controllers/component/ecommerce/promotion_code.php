@@ -70,7 +70,7 @@ class Onxshop_Controller_Component_Ecommerce_Promotion_code extends Onxshop_Cont
 		 * Display
 		 */
 		
-		if ($basket_data && $promotion_code = $Promotion->checkCodeBeforeApply($code, $basket_data['customer_id'])) {
+		if ($basket_data && $promotion_code = $Promotion->checkCodeBeforeApply($code, $basket_data['customer_id'], $basket_data)) {
 		
 			$promotion_code['value'] = $code; 
 			$this->tpl->assign('PROMOTION_CODE', $promotion_code); 

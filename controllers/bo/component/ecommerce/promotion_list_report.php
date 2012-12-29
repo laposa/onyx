@@ -10,6 +10,21 @@ require_once('controllers/bo/component/ecommerce/promotion_list.php');
 class Onxshop_Controller_Bo_Component_Ecommerce_Promotion_List_Report extends Onxshop_Controller_Bo_Component_Ecommerce_Promotion_List {
 
 	/**
+	 * main action
+	 */
+	 
+	public function mainAction() {
+	
+		$this->initialisePromotion();
+		
+		$promotion_list = $this->getList();
+
+		if (is_array($promotion_list)) $this->parseList($promotion_list);
+
+		return true;
+	}
+
+	/**
 	 * get list
 	 */
 	 

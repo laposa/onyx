@@ -445,8 +445,8 @@ CREATE TABLE ecommerce_basket (
 	 
 	function calculateDelivery($basket_id, $delivery_address_id, $delivery_options, $promotion_code = false) {
 		
-		//get basket content
-		$basket_content = $this->getContent($basket_id);
+		//get basket
+		$basket_detail = $this->getDetail($basket_id);
 		
 		//find promotion data for delivery calculation
 		if ($promotion_code) {
@@ -461,7 +461,7 @@ CREATE TABLE ecommerce_basket (
 		//calculate delivery
 		require_once('models/ecommerce/ecommerce_delivery.php');
 		$Ecommerce_Delivery = new ecommerce_delivery();
-		$delivery = $Ecommerce_Delivery->calculateDelivery($basket_content, $delivery_address_id, $delivery_options, $promotion_data);
+		$delivery = $Ecommerce_Delivery->calculateDelivery($basket_detail['content'], $delivery_address_id, $delivery_options, $promotion_data);
 		
 		return $delivery;
 		
