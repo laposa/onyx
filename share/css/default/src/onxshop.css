@@ -416,9 +416,7 @@ div.image_gallery div.thumbnails div.item img {padding: 0 10px 10px 0;}
 div.image_gallery a {text-decoration: none;}
 
 /********* component/image_gallery_smooth.html *********/
-div.image_gallery_smooth {border: 0; height: 300px; position: relative;}
-div.image_gallery_smooth img:hover {/*cursor: pointer; cursor: hand;*/}
-div.image_gallery_smooth img.thumbnail {display: none;}
+div.image_gallery_smooth {border: 0; position: relative;}
 div.image_gallery_smooth div.controls {z-index: 1000; position: absolute; top: 0; left: 0; display: none;}
 div.image_gallery_smooth div.controls a.prev,
 div.image_gallery_smooth div.controls a.next {width: 30px; height: 27px; display: block; opacity: 0.9;}

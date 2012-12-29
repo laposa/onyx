@@ -77,9 +77,12 @@ function activateSmoothGallery{GET.node_id}() {
     	after: afterSmoothGalleryTransition{GET.node_id}
 	});
 
+	//move control links to bottom right corner
 	var top = Math.round({DIMENSION_MAX.height} - $('#smoothGallery_{GET.node_id} div.controls').outerHeight());
 	var left = Math.round({DIMENSION_MAX.width} - $('#smoothGallery_{GET.node_id} div.controls').outerWidth());
 	$('#smoothGallery_{GET.node_id} div.controls').css('top', top + 'px').css('left', left + 'px');
+	
+	//set full height on control links
 	//$('#smoothGallery_{GET.node_id} div.controls a').css('height', {DIMENSION_MAX.height} + 'px');
 	//$('#smoothGallery_{GET.node_id} div.controls a').css('width', {DIMENSION_MAX.width}/2 + 'px');
 }
