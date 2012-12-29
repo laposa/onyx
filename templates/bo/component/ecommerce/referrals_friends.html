@@ -1,0 +1,32 @@
+<!-- BEGIN: content -->
+
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+
+	<!-- BEGIN: friends_list -->
+	<table>
+		<tr>
+			<th>Name</th>
+			<th>Registration date</th>
+			<th>Received Reward Voucher Code</th>
+			<th>Discount Value</th>
+			<th>Minimim Order</th>
+			<th>Used</th>
+			<th>Invoice Address</th>
+			<th>Delivery Address</th>
+		</tr>
+		<!-- BEGIN: item -->
+		<tr>
+			<td>{ITEM.friend.title_before|htmlspecialchars} {ITEM.friend.first_name|htmlspecialchars} {ITEM.friend.last_name|htmlspecialchars}</td>
+			<td>{ITEM.created|strtotime|date('m/d/Y', %s)}</td>
+			<td><input type="text" readonly="readonly" onclick="this.select()" class="code_input" value="{ITEM.code_pattern|htmlspecialchars}" /></td>
+			<td>{ITEM.discount_fixed_value|money_format('%n',%s)}</td>
+			<td>{ITEM.limit_to_order_amount|money_format('%n',%s)}</td>
+			<td>{ITEM.used}</td>
+			<td>{ITEM.address.address_invoice|str_replace("BILLING ADDRESS", '', %s)|trim|nl2br}</td>
+			<td>{ITEM.address.address_delivery|str_replace("DELIVERY ADDRESS", '', %s)|trim|nl2br}</td>
+		</tr>
+		<!-- END: item -->
+	</table>
+	<!-- END: friends_list -->
+
+<!-- END: content -->

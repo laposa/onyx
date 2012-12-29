@@ -67,6 +67,10 @@
 								{ONXSHOP_REQUEST_products_by_customer #bo/component/ecommerce/product_list_by_customer~period_limit=0:customer_id=GET.id~}
 								<h3>This customer's favourite products (inc orphaned baskets)</h3>
 								{ONXSHOP_REQUEST_bestbuys #bo/component/ecommerce/best_buys~period_limit=0:customer_id=GET.id~}
+								<h3>This customer's generated referral voucher codes</h3>
+								{ONXSHOP_REQUEST_referrals #bo/component/ecommerce/referrals~customer_id=GET.id~}
+								<h3>This customer's accepted invites</h3>
+								{ONXSHOP_REQUEST_referrals_friends #bo/component/ecommerce/referrals_friends~customer_id=GET.id~}
 							</div>
 						</div>
 						<div class="columnTwo">
