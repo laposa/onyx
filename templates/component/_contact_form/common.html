@@ -58,11 +58,6 @@ $(document).ready(function(){
 			<span class="field"><input type="text" class="required text" id="formdata-telephone_{GET.node_id}" name="formdata[required_telephone]" value="{FORMDATA.required_telephone|htmlspecialchars}" maxlength="45" /></span>
 		</div>
 		
-		<div class="row fax {ERROR.fax}">
-			<span class="label"><label for="formdata-fax_{GET.node_id}">{I18N_FAX}:</label></span>
-			<span class="field"><input type="text" class="text" id="formdata-fax_{GET.node_id}" name="formdata[fax]" value="{FORMDATA.fax|htmlspecialchars}" maxlength="45" /></span>
-		</div>
-		
 		<div class="row message {ERROR.message}">
 			<span class="label"><label for="formdata-message_{GET.node_id}"><span class="mandatory-mark">*</span>{I18N_YOUR_MESSAGE}:</label></span>
 			<span class="field"><textarea id="formdata-message_{GET.node_id}" name="formdata[required_message]" class="required textarea" rows="15" cols="45">{FORMDATA.required_message|htmlspecialchars}</textarea></span>
