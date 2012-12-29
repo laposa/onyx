@@ -112,7 +112,11 @@ class ecommerce_promotion extends Onxshop_Model {
 		'other_data'=>array('label' => '', 'validation'=>'serialized', 'required'=>false),
 		'limit_delivery_country_id'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'limit_delivery_carrier_id'=>array('label' => '', 'validation'=>'int', 'required'=>false),
-		'generated_by_order_id'=>array('label' => '', 'validation'=>'int', 'required'=>false)
+		'generated_by_order_id'=>array('label' => '', 'validation'=>'int', 'required'=>false),
+		'generated_by_customer_id'=>array('label' => '', 'validation'=>'int', 'required'=>false),
+		'limit_by_customer_id'=>array('label' => '', 'validation'=>'int', 'required'=>false),
+		'limit_to_first_order'=>array('label' => '', 'validation'=>'int', 'required'=>false),
+		'limit_to_order_amount'=>array('label' => '', 'validation'=>'int', 'required'=>false)
 		);
 	
 	/**
@@ -140,7 +144,10 @@ CREATE TABLE ecommerce_promotion (
     other_data text,
 	limit_delivery_country_id smallint NOT NULL DEFAULT 0,
 	limit_delivery_carrier_id smallint NOT NULL DEFAULT 0,
-	generated_by_order_id integer REFERENCES ecommerce_order ON UPDATE CASCADE ON DELETE RESTRICT
+	limit_customer_id integer REFERENCES client_customer ON UPDATE CASCADE ON DELETE RESTRICT,
+	limit_to_first_order smallint NOT NULL DEFAULT 0,
+	generated_by_order_id integer REFERENCES ecommerce_order ON UPDATE CASCADE ON DELETE RESTRICT,
+	generated_by_customer_id integer REFERENCES client_customer ON UPDATE CASCADE ON DELETE RESTRICT
 );
 		";
 		
@@ -151,10 +158,21 @@ CREATE TABLE ecommerce_promotion (
 	 * list
 	 */
 		
-	public function getList() {
+	public function getList($offset = 0, $limit = 20) {
 	
-		$list = $this->listing();
+	    $sql =
+		    "SELECT promotion.*, customer.title_before AS customer_title_before,
+		    	customer.first_name AS customer_first_name, customer.last_name AS customer_last_name
+		    FROM ecommerce_promotion AS promotion
+		    LEFT JOIN client_customer AS customer ON customer.id = promotion.generated_by_customer_id
+			ORDER BY id DESC
+			LIMIT $limit OFFSET $offset
+			";
 		
+		if (!$list = $this->executeSql($sql)) {
+			return false;
+		}
+
 		foreach ($list as $key=>$item) {
 			$list[$key]['usage'] = $this->getUsage($item['id']);
 		}
@@ -180,18 +198,23 @@ CREATE TABLE ecommerce_promotion (
 			$add_to_where .=" AND invoice.created BETWEEN '{$filter['created_from']}' AND '{$filter['created_to']}'";
 		}
 	
-	    $sql = "
-		    SELECT promotion.id, promotion.title, promotion.code_pattern, count(invoice.id) as count, sum(invoice.goods_net) as sum_goods_net, sum(basket.discount_net) as sum_discount_net
+	    $sql =
+		    "SELECT promotion.id, promotion.title, promotion.code_pattern, count(invoice.id) as count, 
+			    sum(invoice.goods_net) as sum_goods_net, sum(basket.discount_net) as sum_discount_net, 
+			    customer.title_before AS customer_title_before,
+		    	customer.first_name AS customer_first_name, customer.last_name AS customer_last_name
 		    FROM ecommerce_promotion promotion
 		    LEFT OUTER JOIN ecommerce_promotion_code code ON (code.promotion_id = promotion.id) 
 			LEFT OUTER JOIN ecommerce_invoice invoice ON (invoice.order_id = code.order_id)
 			LEFT OUTER JOIN ecommerce_order eorder ON (eorder.id = invoice.order_id)
 			LEFT OUTER JOIN ecommerce_basket basket ON (basket.id = eorder.basket_id)
+			LEFT OUTER JOIN client_customer AS customer ON customer.id = promotion.generated_by_customer_id
 			WHERE invoice.status = 1
 			$add_to_where
-			GROUP BY promotion.id, promotion.title, promotion.code_pattern
+			GROUP BY promotion.id, promotion.title, promotion.code_pattern,
+				customer.title_before, customer.first_name, customer.last_name
 			";
-		
+
 		if ($records = $this->executeSql($sql)) {
 			return $records;
 		} else {
@@ -299,11 +322,11 @@ CREATE TABLE ecommerce_promotion (
 				
 				if (preg_match("/{$item_code_pattern}/i", $code)) {
 					
-					$compaign_data = $record;
+					$campaign_data = $record;
 					
-					$compaign_data['other_data'] = unserialize($compaign_data['other_data']);
+					$campaign_data['other_data'] = unserialize($campaign_data['other_data']);
 					
-					return $compaign_data;
+					return $campaign_data;
 				}
 			}
 		}
@@ -315,39 +338,101 @@ CREATE TABLE ecommerce_promotion (
 	 * check if existing code can be used
 	 */
 	 
-	public function checkCodeBeforeApply($code, $customer_id) {
-		
+	public function checkCodeBeforeApply($code, $customer_id, $basket_data) {
+
 		if (!is_numeric($customer_id)) {
 			msg("ecommerce_promotion.checkCodeBeforeApply(): customer_id is not numeric", 'error');
 			return false;
 		}
-		
-		if ($compaign_data = $this->checkCodeMatch($code)) {
+
+		if ($campaign_data = $this->checkCodeMatch($code)) {
 			
 			/**
 			 *  uses_per_coupon
 			 */
 			 
-			if ($compaign_data['uses_per_coupon'] > 0) {
-				if (($this->getCountUsageOfSingleCode($code) + 1) > $compaign_data['uses_per_coupon']) {
-					msg("Code $code usage exceed number of allowed applications", 'error');
-					return false;
+			if ($campaign_data['uses_per_coupon'] > 0) {
+				if (($this->getCountUsageOfSingleCode($code) + 1) > $campaign_data['uses_per_coupon']) {
+					if (substr($campaign_data['code_pattern'], 0, 4) != "REF-") { // referral codes validity is extended automatically
+						msg("Code $code usage exceed number of allowed applications", 'error');
+						return false;
+					}
 				}
 			}
-			
+
 			/**
-			 * uses_per_customer
+			 * check uses_per_customer
 			 */
-			 
-			if ($compaign_data['uses_per_customer'] > 0) {
+
+			if ($campaign_data['uses_per_customer'] > 0) {
 				
-				if (($this->getCountUsageOfSingleCode($code, $customer_id) + 1) > $compaign_data['uses_per_customer']) {
+				if (($this->getCountUsageOfSingleCode($code, $customer_id) + 1) > $campaign_data['uses_per_customer']) {
 					msg("Code $code usage exceed number of allowed applications per one customer (id=$customer_id)", 'error');
 					return false;
 				}
 			}
-		
-			return $compaign_data;
+
+			/**
+			 * not using self-generated code
+			 */
+			if ($campaign_data['generated_by_customer_id'] > 0 && $campaign_data['generated_by_customer_id'] == $customer_id) {
+				msg("You are not allowed to redeem your own code!");
+				return false;
+			}
+
+			/**
+			 * first order
+			 */
+			if ($campaign_data['limit_to_first_order'] > 0) {
+				if ($this->getNumCustomerOrders($customer_id) > 0) {
+					msg("Code $code is restricted to you first order.", 'error');
+					return false;
+				}
+			}
+
+			/**
+			 * minimum order amount
+			 */
+			if ($campaign_data['limit_to_order_amount'] > 0) {
+				if ($basket_data['content']['total_sub'] < $campaign_data['limit_to_order_amount']) {
+					msg("The voucher code $code is restricted to orders in amount of {$campaign_data['limit_to_order_amount']}.", 'error');
+					return false;
+				}
+			}
+
+			/**
+			 * do not allow to buy gift voucher
+			 */
+			if (substr($campaign_data['code_pattern'], 0, 4) == "REF-" || substr($campaign_data['code_pattern'], 0, 4) == "REW-") {
+				$gift_voucher_product_id = (int) $this->getGiftVoucherProductId();
+				if ($gift_voucher_product_id > 0 && count($basket_data['content']['items']) > 0) {
+					foreach ($basket_data['content']['items'] as $item) {
+						if ($item['product']['id'] == $gift_voucher_product_id) {
+							msg("Sorry, voucher codes cannot be used to buy Gift Voucher Codes.");
+							return false;
+						}
+					}
+				}
+			}
+
+			/**
+			 * check if limited products are in basket
+			 */
+			$limited_ids = explode(",", $campaign_data['limit_list_products']);
+			if (strlen($campaign_data['limit_list_products']) > 0 && is_array($limited_ids)) {
+				$prod = 0;
+				if (count($basket_data['content']['items']) > 0) {
+					foreach ($basket_data['content']['items'] as $item) {
+						if (in_array($item['product']['id'], $limited_ids)) $prod++;
+					}
+				}
+				if ($prod == 0) {
+					msg("Sorry, the voucher code $code is limited to certain products, which you don't have in your basket.");
+					return false;
+				}
+			}
+
+			return $campaign_data;
 			
 		} else {
 		
@@ -355,7 +440,53 @@ CREATE TABLE ecommerce_promotion (
 		}
 		
 	}
-	
+
+
+	/**
+	 * getGiftVoucherProductId
+	 */
+	 
+	public function getGiftVoucherProductId() {
+		
+		/**
+		 * get product conf
+		 */
+		 
+		require_once('models/ecommerce/ecommerce_product.php');
+		$ecommerce_product_conf = ecommerce_product::initConfiguration();
+		
+		/**
+		 * check gift voucher product ID is set
+		 */
+		 
+		if (!is_numeric($ecommerce_product_conf['gift_voucher_product_id']) || $ecommerce_product_conf['gift_voucher_product_id']  == 0) {
+			
+			return false;
+		}
+		
+		return $ecommerce_product_conf['gift_voucher_product_id'];
+	}
+
+
+	/**
+	 * Get number of orders for given customer
+	 * @param  int $customer_id Customer id
+	 * @return int              Number of orders
+	 */
+	public function getNumCustomerOrders($customer_id)
+	{
+		$customer_id = (int) $customer_id;
+
+	    $sql = "SELECT COUNT(*) AS count FROM ecommerce_order AS o
+			LEFT JOIN ecommerce_basket AS b ON (b.id = o.basket_id)
+			WHERE b.customer_id = $customer_id";
+
+		$this->setCacheable(false);
+		if ($records = $this->executeSql($sql)) return (int) $records[0]['count'];
+		else return false;
+
+	}
+
 	/**
 	 * get usage
 	 */
@@ -424,20 +555,35 @@ CREATE TABLE ecommerce_promotion (
 		
 		$customer_id = $basket_data['customer_id'];
 
-		if ($compaign_data = $this->checkCodeBeforeApply($code, $customer_id)) {			
+		if ($campaign_data = $this->checkCodeBeforeApply($code, $customer_id, $basket_data)) {
 			
-			//msg("Your code gives you {$compaign_data['discount_percentage_value']} discount");
+			//msg("Your code gives you {$campaign_data['discount_percentage_value']} discount");
 			
 			$discount_value = 0;
-			
-			if ($compaign_data['discount_percentage_value'] > 0) {
-				$discount_value = ($basket_data['content']['total_goods_net_before_discount'] + $basket_data['content']['total_vat']) * $compaign_data['discount_percentage_value']/100;
+
+			$value_for_discount = ($basket_data['content']['total_goods_net_before_discount'] + $basket_data['content']['total_vat']);
+
+			// if discount is limit to certain products, the value is only the part of the basket
+			$limited_ids = explode(",", $campaign_data['limit_list_products']);
+			if (strlen($campaign_data['limit_list_products']) > 0 && is_array($limited_ids)) {
+				$value_for_discount = 0;
+				if (count($basket_data['content']['items']) > 0) {
+					foreach ($basket_data['content']['items'] as $item) {
+						if (in_array($item['product']['id'], $limited_ids)) $value_for_discount += (float) $item['total_inc_vat'];
+					}
+				}
 			}
 			
-			if ($compaign_data['discount_fixed_value'] > 0) {
-				$discount_value = $compaign_data['discount_fixed_value'];
+			// percentage value discount
+			if ($campaign_data['discount_percentage_value'] > 0) {
+				$discount_value = $value_for_discount * $campaign_data['discount_percentage_value']/100;
 			}
 			
+			// fixed value discount
+			if ($campaign_data['discount_fixed_value'] > 0) {
+				$discount_value = $campaign_data['discount_fixed_value'];
+			}
+
 			$discount_value = round($discount_value, 5);
 			
 			return $discount_value;
@@ -446,4 +592,118 @@ CREATE TABLE ecommerce_promotion (
 			return false;
 		}
 	}
+
+	/**
+	 * Try to reward inviting user in referreal system
+	 * 
+	 * @param  int $order_id Order to check
+	 * @return boolean If attempt was successfull
+	 */
+	public function rewardInvitingUser($order_id)
+	{
+		// get order detail
+		require_once('models/ecommerce/ecommerce_order.php');
+		$EcommerceOrder = new ecommerce_order();
+		$EcommerceOrder->setCacheable(false);
+		$order_detail = $EcommerceOrder->getFullDetail($order_id);
+
+		// get promotion detail
+		$code = pg_escape_string($this->getPromotionCodeForOrder($order_id));
+		$promotions = $this->listing("code_pattern = '$code'");
+		$promotion = $promotions[0];
+
+		if (substr($promotion['code_pattern'], 0, 4) === "REF-") {
+
+			$usage = $this->getCountUsageOfSingleCode($code) + 1;
+
+			if ($promotion['uses_per_coupon'] > 0 && $usage > $promotion['uses_per_coupon']) 
+			{
+				$promotion['uses_per_coupon'] += 10;
+				$this->updatePromotion($promotion);
+				$emailTemplate = 'referral_reward_extend';
+			}
+			else
+			{
+				$emailTemplate = 'referral_reward';
+			}
+
+
+			// check if a user is not already rewarded
+			$this->setCacheable(false);
+			$rewarded_codes = $this->listing("generated_by_order_id = $order_id");
+
+			if (count($rewarded_codes) == 0) {
+
+				$data = array(
+					'title' => "Referral voucher code",
+					'description' => '',
+					'publish' => 1,
+					'code_pattern' => $this->generateRandomCode('REW-', 5, 5),
+					'discount_fixed_value' => $promotion['discount_fixed_value'],
+					'discount_percentage_value' => 0,
+					'discount_free_delivery' => 0,
+					'uses_per_coupon' => 1,
+					'uses_per_customer' => 1,
+					'limit_list_products' => '',
+					'other_data' => NULL,
+					'limit_delivery_country_id' => 0,
+					'limit_delivery_carrier_id' => 0,
+					'limit_by_customer_id' => $promotion['generated_by_customer_id'],
+					'limit_to_first_order' => 0,
+					'limit_to_order_amount' => $promotion['limit_to_order_amount'],
+					'generated_by_order_id' => $order_id,
+					'generated_by_customer_id' => $order_detail['basket']['customer_id']
+				);
+
+				$this->insert($data);
+
+				// send email
+				require_once('models/common/common_email.php');
+				$EmailForm = new common_email();
+				require_once('models/client/client_customer.php');
+				$Customer = new client_customer();
+				$Customer->setCacheable(false);
+				$recipient = $Customer->getDetail($promotion['generated_by_customer_id']);
+
+				$GLOBALS['common_email']['customer'] = $_SESSION['client']['customer'];
+				$GLOBALS['common_email']['recipient'] = $recipient;
+				$GLOBALS['common_email']['code'] = $data['code_pattern'];
+				$GLOBALS['common_email']['total_invited'] = $usage;
+
+				$EmailForm->sendEmail($emailTemplate, 'n/a', $recipient['email'], $recipient['first_name'] . 
+					" " . $recipient['last_name']);
+
+				// TODO: schedule email in two weeks
+
+				return true;
+
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Generate random code
+	 * @return [type] [description]
+	 */
+	public function generateRandomCode($prefix, $size1 = 6, $size2 = 0)
+	{
+		$result = $prefix;
+		$alphabet = "ABCDEFGHJKLMNPQRSTVXYZ23456789";
+		for ($i = 0; $i < $size1; $i++) {
+			$result .= $alphabet[rand(0, strlen($alphabet) - 1)];
+		}
+		if ($size2 > 0) {
+			$result .= "-";
+			for ($i = 0; $i < $size2; $i++) {
+				$result .= $alphabet[rand(0, strlen($alphabet) - 1)];
+			}
+		}
+
+		// TODO: check if code is unique!
+
+		return $result;
+	}
+
 }

@@ -1,0 +1,28 @@
+<!-- BEGIN: content -->
+
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+
+	<!-- BEGIN: promotion_list -->
+	<table>
+		<tr>
+			<th>User's Description</th>
+			<th>Voucher Code to Promote</th>
+			<th>Created</th>
+			<th>Discount Value</th>
+			<th>Minimum Order</th>
+			<th>Number of Uses</th>
+		</tr>
+		<!-- BEGIN: item -->
+		<tr>
+			<td>{PROMOTION.title|htmlspecialchars}</td>
+			<td><input type="text" readonly="readonly" onclick="this.select()" class="code_input" value="{PROMOTION.code_pattern|htmlspecialchars}" /></td>
+			<td>{PROMOTION.created|strtotime||date('m/d/Y', %s)}</td>
+			<td>{PROMOTION.discount_fixed_value|money_format('%n',%s)}</td>
+			<td>{PROMOTION.limit_to_order_amount|money_format('%n',%s)}</td>
+			<td>{PROMOTION.num_uses}</td>
+		</tr>
+		<!-- END: item -->
+	</table>
+	<!-- END: promotion_list -->
+
+<!-- END: content -->
