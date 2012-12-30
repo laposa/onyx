@@ -1,19 +1,229 @@
 <!-- BEGIN: title -->Ecommerce Delivery Configuration<!-- END: title -->
 <!-- BEGIN: content -->
 
-<form action="{URI|htmlspecialchars}" method="post">
+<div id="delivery_config">
 
-	<fieldset>
-		<legend>Ecommerce Delivery</legend>
-	</fieldset>
-	
-	<input type="hidden" name="conf[object]" value="ecommerce_delivery" />
-	<input type="hidden" name="conf[node_id]" value="{GET.node_id}" />
-	
-	<div class="row submit">
-		<span class="label"><label>&nbsp;</label></span>
-		<span class="field"><button type="submit" name="save" value="save"><span>save</span></button></span>
-	</div>
-</form>
-			
+	<style type="text/css">
+		form#delivery_config_form { overflow: auto; }
+		form#delivery_config_form th.header { text-align: center;}
+		form#delivery_config_form td.zone_price { style="text-align: center; padding: 5px 10px; vertical-align: top; }
+		form#delivery_config_form div.zone_price { width: 120px; }
+		form#delivery_config_form input.mini { width: 35px; }
+		form#delivery_config_form fieldset { background: #f0f0f0; border: 1px solid #ccc; padding: 0px 10px; border-radius: 10px; }
+		form#delivery_config_form fieldset legend { background: #f0f0f0; border: 1px solid #ccc; padding: 0px 10px; border-radius: 10px; }
+		form#delivery_config_form button.top_button { float: right; }
+		form#delivery_config_form a.icon { text-decoration: none; width: 16px; height: 16px; float: left; }
+		form#delivery_config_form a.icon span { display: block; width: 16px; height: 16px; }
+	</style>
+
+	<form action="{URI|htmlspecialchars}" method="post" id="delivery_config_form" onsubmit="$('#delivery_config_form button').html(onxshop_load_indicator_html_snippet).attr('disabled', 'disabled')">
+
+		<h1>Delivery</h1>
+
+		<button class="top_button" type="submit" name="save" value="save"><span>save</span></button>
+		
+		<!-- BEGIN: carrier -->
+
+		<fieldset>
+			<legend>{CARRIER.title|htmlspecialchars}</legend>
+
+			<div class="row title">
+				<span class="label"><label>Delivery title</label></span>
+				<span class="field"><input type="text" class="text wide" name="carrier[{CARRIER.id}][title]" value="{CARRIER.title|htmlspecialchars}"/></span>
+			</div>
+
+			<div class="row active">
+				<span class="label"><label>Active</label></span>
+				<span class="field"><input type="checkbox" name="carrier[{CARRIER.id}][publish]" value="1" {CARRIER.publish}/></span>
+			</div>
+
+			<div class="row priority">
+				<span class="label"><label>Priority</label></span>
+				<span class="field"><input type="text" class="text mini" name="carrier[{CARRIER.id}][priority]" value="{CARRIER.priority|htmlspecialchars}"/></span>
+			</div>
+
+			<div class="row fixed_value">
+				<span class="label"><label>Fixed Rate</label></span>
+				<span class="field"><input type="text" class="text mini" name="carrier[{CARRIER.id}][fixed_value]" value="{CARRIER.fixed_value|htmlspecialchars}"/> {CURRENCY}</span>
+			</div>
+
+			<div class="row fixed_percentage">
+				<span class="label"><label>Fixed Rate</label></span>
+				<span class="field"><input type="text" class="text mini" name="carrier[{CARRIER.id}][fixed_percentage]" value="{CARRIER.fixed_percentage|htmlspecialchars}"/>%</span>
+			</div>
+
+			<div class="row zone_rates">
+				<span class="label"><label>Zone rates</label></span>
+				<div class="field">
+					<!-- BEGIN: zone_rates -->
+					<table>
+						<tr>
+							<!-- BEGIN: zone_header -->
+							<th class="header">{ZONE.name|htmlspecialchars}</th>
+							<!-- END: zone_header -->
+						</tr>
+						<tr>
+							<!-- BEGIN: zone_header2 -->
+							<td style="text-align: center;">Weight &rarr; Rate&nbsp;&nbsp;&nbsp;</td>
+							<!-- END: zone_header2 -->
+						</tr>
+						<tr>
+						<!-- BEGIN: zone -->
+						<td class="zone_price">
+							<!-- BEGIN: price -->
+							<div class="zone_price">
+								<input type="text" class="text mini" name="carrier[{CARRIER.id}][price][{PRICE.id}][weight]" value="{PRICE.weight|htmlspecialchars}"/>
+								&rarr;
+								<input type="text" class="text mini" name="carrier[{CARRIER.id}][price][{PRICE.id}][price]" value="{PRICE.price|number_format(%s, 2)|htmlspecialchars}"/>
+							</div>
+							<!-- END: price -->
+							<a href="#" onclick="addRate(this, {CARRIER.id}, {PRICE.zone_id}); return false;">Add rate</a>
+						</td>
+						<!-- END: zone -->
+						</tr>
+					</table>
+					<!-- END: zone_rates -->
+					<!-- BEGIN: no_zones -->
+					Delivery method does not have any zones defined.
+					<!-- END: no_zones -->
+				</div>
+			</div>
+
+			<div class="row limit_list_countries">
+				<span class="label"><label>Restrict to countries</label></span>
+				<span class="field">
+					<table>
+						<!-- BEGIN: limit_list_countries -->
+						<tr>
+							<td>
+								<select name="carrier[{CARRIER.id}][limit_list_countries][]">
+									<!-- BEGIN: item -->
+									<option value="{COUNTRY.id}" {COUNTRY.selected}>{COUNTRY.name}</option>
+									<!-- END: item -->
+								</select>
+							</td>
+							<td><a class="icon onxshop_delete" title="Remove country" onclick="removeRow(this); return false;" href="#"><span>&nbsp;</span></a></td>
+						</tr>
+						<!-- END: limit_list_countries -->
+						<!-- BEGIN: limit_list_countries_empty -->
+						<tr>
+							<td>
+								<select name="carrier[{CARRIER.id}][limit_list_countries][]" onchange="addCountry(this)">
+									<option value="">select country...</option>
+									<!-- BEGIN: item -->
+									<option value="{COUNTRY.id}" {COUNTRY.selected}>{COUNTRY.name}</option>
+									<!-- END: item -->
+								</select>
+							</td>
+							<td>&nbsp;</td>
+						</tr>
+						<!-- END: limit_list_countries_empty -->
+					</table>
+				</span>
+			</div>
+
+			<div class="row free_delivery_map">
+				<span class="label"><label>Free delivery for countries</label></span>
+				<span class="field">
+					<table>
+						<!-- BEGIN: free_delivery_map -->
+						<tr>
+							<td>
+								<select onchange="updateFreeDeliveryCountryId(this)">
+									<!-- BEGIN: item -->
+									<option value="{COUNTRY.id}" {COUNTRY.selected}>{COUNTRY.name}</option>
+									<!-- END: item -->
+								</select>
+							</td>
+							<td>from <input type="text" class="text mini" data-name="carrier[{CARRIER.id}][free_delivery_map]" name="carrier[{CARRIER.id}][free_delivery_map][{COUNTRY_ID}]" value="{VALUE}"/> {CURRENCY}</td>
+							<td><a class="icon onxshop_delete" title="Remove country" onclick="removeRow(this); return false;" href="#"><span>&nbsp;</span></a></td>
+						</tr>
+						<!-- END: free_delivery_map -->
+						<!-- BEGIN: free_delivery_map_empty -->
+						<tr>
+							<td>
+								<select onchange="addFreeDelivery(this)">
+									<option value="">select country...</option>
+									<!-- BEGIN: item -->
+									<option value="{COUNTRY.id}" {COUNTRY.selected}>{COUNTRY.name}</option>
+									<!-- END: item -->
+								</select>
+							</td>
+							<td>from <input type="text" class="text mini" data-name="carrier[{CARRIER.id}][free_delivery_map]" name="carrier[{CARRIER.id}][free_delivery_map][0]" value="0"/> {CURRENCY}</td>
+							<td>&nbsp;</td>
+						</tr>
+						<!-- END: free_delivery_map_empty -->
+					</table>
+				</span>
+			</div>
+
+		</fieldset>
+
+		<!-- END: carrier -->
+
+		<div class="row submit">
+			<span class="label"><label>&nbsp;</label></span>
+			<span class="field"><button type="submit" name="save" value="save"><span>save</span></button></span>
+		</div>
+
+	</form>
+
+</div>
+
+<script type="text/javascript">
+
+	var newRatesIndex = 0;
+
+	function addRate(a, carrier_id, zone_id) {
+		var html = '<div class="zone_price">' +
+			'<input type="text" class="text mini" ' + 
+			'name="carrier[' + carrier_id + '][new_price][' + zone_id + '][' + newRatesIndex + '][weight]" value=""/> &rarr; ' +
+			'<input type="text" class="text mini" ' +
+			'name="carrier[' + carrier_id + '][new_price][' + zone_id + '][' + newRatesIndex + '][price]" value=""/>' +
+			'</div>';
+
+		$(a).before(html);
+		newRatesIndex++;
+
+	}
+
+	function addCountry(select) {
+		var tr = $(select).parent().parent();
+		if (tr.attr("data-cloned") == "true") return;
+		tr.clone().insertBefore(tr);
+		var newTr = tr.prev();
+		newTr.attr("data-cloned", "true").find("select").val($(select).val());
+		newTr.find("td:eq(1)").append('<a class="icon onxshop_delete" title="Remove country" onclick="removeRow(this); return false;" href="#"><span>&nbsp;</span></a>');
+		$(select).val("");
+	}
+
+	function addFreeDelivery(select) {
+		var tr = $(select).parent().parent();
+		if (tr.attr("data-cloned") == "true") {
+			updateFreeDeliveryCountryId(select);
+			return;
+		}
+		tr.clone().insertBefore(tr);
+		var newTr = tr.prev();
+		var newSelect = newTr.attr("data-cloned", "true").find("select").val($(select).val());
+		updateFreeDeliveryCountryId(newSelect);
+		newTr.find("td:eq(2)").append('<a class="icon onxshop_delete" title="Remove country" onclick="removeRow(this); return false;" href="#"><span>&nbsp;</span></a>');
+		$(select).val("");
+		var input = tr.find("td:eq(1) input");
+		input.val("0").attr("name", input.attr("data-name") + "[0]");
+	}
+
+	function updateFreeDeliveryCountryId(select) {
+		var input = $(select).parent().next().find("input");
+		var country_id = $(select).val();
+		var name = input.attr("data-name");
+		input.attr("name", name + "[" + country_id + "]");
+	}
+
+	function removeRow(a) {
+		$(a).parent().parent().remove();
+	}
+
+</script>			
+
 <!-- END: content -->
