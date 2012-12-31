@@ -54,8 +54,7 @@ div.node.not_public {border: 1px solid red;}
 div.ui-dialog div.ui-dialog-content {overflow: auto;}
 div.ui-dialog legend {display: none;}
 .ui-dialog a.remove,
-.ui-dialog a.delete {background: url(/share/images/famfamfam_icons/delete.png) no-repeat; padding-left: 20px;
-	height: 20px; display: inline-block; color: red;}
+.ui-dialog a.delete {background-image: url(/share/images/famfamfam_icons/delete.png); background-repeat: no-repeat; background-position: center left; padding-left: 20px; display: inline-block; color: red;}
 /*tabs*/
 ul.ui-tabs-nav li {padding-bottom: 0;}
 
