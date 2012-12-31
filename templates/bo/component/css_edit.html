@@ -6,13 +6,8 @@
 <script type="text/javascript" src="/opt/colorpicker/js/colorpicker.js"></script>
 <link rel="stylesheet" media="screen" type="text/css" href="/opt/colorpicker/css/colorpicker.css" />
 <style type="text/css">
-.CodeMirror-scroll {
-	height: auto;
-	overflow-y: hidden;
-	overflow-x: auto;
-}
+.CodeMirror-scroll {height: auto; overflow-y: hidden; overflow-x: auto;}
 #code_css {height: auto;}
-
 </style>
 <!-- END: head -->
 <!-- BEGIN: content -->
@@ -25,7 +20,6 @@
 </script>
 
 <script type="text/javascript"> 
-
 	function saveCSS(id, content) {
 		$('#'+id).val(content);
 		$('#css_edit').submit();
@@ -71,12 +65,8 @@
 <div id="css_edit_result"></div>
 
 <script type="text/javascript">
-  
 $(document).ready(function() {
-
-	var editor = CodeMirror.fromTextArea(document.getElementById('code_css'), {
-	});
-
+	var editor = CodeMirror.fromTextArea(document.getElementById('code_css'), {});
 	var options = { 
 		target: '#css_edit_result',
 		beforeSubmit: preSubmit,
@@ -86,7 +76,6 @@ $(document).ready(function() {
 
 	$('#css_edit').ajaxForm(options);
 });
-
 </script>
 <!-- END: form -->
 
