@@ -1,16 +1,5 @@
 <!-- BEGIN: head -->
 <script type="text/javascript" src="/share/js/jquery/plugins/jquery.cycle.all.min.js"></script>
-<style type="text/css">
-#smoothGallery_{GET.node_id} {
-	width: {DIMENSION_MAX.width}px;
-	height: {DIMENSION_MAX.height}px;
-}
-
-#smoothGallery_{GET.node_id} div.pics {
-	width: {DIMENSION_MAX.width}px;
-	height: {DIMENSION_MAX.height}px;
-}
-</style>
 <!-- END: head -->
 <!-- BEGIN: content -->
 
@@ -22,6 +11,7 @@
 		<a href="#" title="next" class="next"><span>Next</span></a>
     </div>
     <div class="pics">
+    	<img src="{IMAGE.path}{IMAGE.src}" width="{DIMENSION_MAX.width}" />
 		<!-- BEGIN: item -->
 		<div class="imageElement">
 			<!-- BEGIN: normal --><span class="imageWrap"><img id="image_id_{IMAGE.id}" alt="{IMAGE.title|htmlspecialchars}" title="{IMAGE.title|htmlspecialchars}" src="{IMAGE.path}{IMAGE.src}" /></span><!-- END: normal -->
@@ -67,7 +57,8 @@ function activateSmoothGallery{GET.node_id}() {
 	    timeout: {CYCLE.timeout},
 	    pause: 1,
 	    fit: 1,
-	    height: '{DIMENSION_MAX.height}px',
+	    slideResize: 0,
+	    slideExpr: 'div.imageElement',
 	    easing: {CYCLE.easing},
 	    next: '#smoothGallery_{GET.node_id} a.next',
         prev: '#smoothGallery_{GET.node_id} a.prev',
