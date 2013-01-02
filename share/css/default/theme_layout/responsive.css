@@ -1,0 +1,102 @@
+/**
+ * Responsive stylesheet
+ * Norbert @ Laposa Ltd, 2012/12/20
+ *
+ * To use change global extra_head in /backoffice/advanced/configuration
+ * from: <meta name="viewport" content="width=1024" />
+ * to: <meta name="viewport" content="width=device-width" />
+ */
+ 
+/**
+ * draw border inside elemements, TODO: include to global CSS
+ */
+ 
+*, *:before, *:after { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+
+/**
+ * 1) Always force a scrollbar in non-IE 
+ *  2) Remove iOS text size adjust without disabling user zoom: www.456bereastreet.com/archive/201012/controlling_text_size_in_safari_for_ios_without_disabling_user_zoom/ 
+ */
+ 
+html { overflow-y: scroll; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; }
+
+/**
+ * add margin to bottom of inline images: TODO move to global.css
+ */
+ 
+div.content-RTE .imageLeft, 
+div.content-RTE .imageleft {margin-bottom: 1em;}
+
+/**
+ * make container full size
+ */
+ 
+#pageWrapper { padding: 0; }
+#container { max-width: 100%; padding: 0; }
+
+/**
+ * fluid images in content area
+ */
+ 
+#content img {max-width: 100%; height: auto; width: auto; /* ie8 fix*/}
+
+/**
+ * Screen size rules
+ */
+
+/* styles for narrow desktop browsers and iPad landscape */
+@media all and (max-width: 1024px) {
+	#contentWrapper { margin: 0; }
+	#containerWrapper {padding: 0 1em;}
+}
+
+/* styles for narrower desktop browsers and iPad portrait */
+@media all and (max-width: 768px) {
+	#content { width: 100%; float: none; clear: both; }
+	#primaryNavigation {width: 100%; margin-bottom: 1em;}
+	#primaryNavigation li {float: left; margin-right: 2em;}
+    #primaryNavigationWrapper {margin-right: 0;}
+    #contentSide {position: static!important; width: 100%!important;}
+}
+
+/* styles for iPhone/Android landscape (and really narrow browser windows) */
+@media all and (max-width: 480px) {
+    #onxshop_cms_content { width: 100%; overflow: hidden; }
+    #logo {margin-bottom: 1em;}
+    #globalNavigation {clear: both; float: none;}
+    #globalNavigation li {float: none;}
+    #primaryNavigation li {float: none; margin-right: 0;}
+    a.button {width: 100%;}
+    /*2cols forms (can be set on whole form or particular fieldset*/
+	form.twoColumns label,
+	fieldset.twoColumns label {padding-right: 0;}
+	form.twoColumns span.label,
+	fieldset.twoColumns span.label {width: auto; float: none; text-align: left;}
+	form.twoColumns span.field,
+	fieldset.twoColumns span.field {width: 100%;;}
+	input {font-size: 2em;;}
+	div.twoColumnPage div.columnOne, 
+    div.twoColumnPage div.columnTwo,
+    div.twoColumnLayout div.layoutColumnOne,
+    div.twoColumnLayout div.layoutColumnTwo {width: auto!important; float: none!important;}
+    div.twoColumnPage div.columnWrapper {margin: 0!important;}
+    div.threeColumnLayout div.layoutColumnOne,
+    div.threeColumnLayout div.layoutColumnTwo,
+    div.threeColumnLayout div.layoutColumnThree {width: auto; float: none;}
+    div.fourColumnLayout div.layoutColumnOne,
+    div.fourColumnLayout div.layoutColumnTwo {width: 50%;}
+    div.fourColumnLayout div.layoutColumnThree,
+    div.fourColumnLayout div.layoutColumnFour {width: 50%;}
+    div.sixColumnLayout div.layoutColumnOne,
+    div.sixColumnLayout div.layoutColumnTwo,
+    div.sixColumnLayout div.layoutColumnThree,
+    div.sixColumnLayout div.layoutColumnFour,
+    div.sixColumnLayout div.layoutColumnFive,
+    div.sixColumnLayout div.layoutColumnSix {width: auto; float: none;}
+    div.layoutColumnWrapper {margin: 0!important;}
+}
+
+/* styles for iPhone/Android portrait */
+@media all and (max-width: 320px) {
+	
+}
