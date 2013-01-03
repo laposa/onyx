@@ -24,7 +24,7 @@ class Onxshop_Controller_Component_Ecommerce_Basket_Detail extends Onxshop_Contr
 		 * create basket object
 		 */
 		 
-		//$this->Basket = $this->initBasket();
+		$this->Basket = $this->initBasket();
 		
 		/**
 		 * display basket
@@ -58,18 +58,24 @@ class Onxshop_Controller_Component_Ecommerce_Basket_Detail extends Onxshop_Contr
 		else if (is_array($_SESSION['delivery_options'])) $delivery_options = $_SESSION['delivery_options'];
 		else $delivery_options = false;
 		
-		// exclude vat for non-EU countries
-		require_once('models/client/client_address.php');
-		$Address = new client_address();
-		$delivery = $Address->getDetail($delivery_address_id);
-		$exclude_vat = !$delivery['country']['eu_status'];
-		$exclude_vat = false;
+		// exclude vat for non-EU countries and whole sale customers
+		require_once('models/ecommerce/ecommerce_order.php');
+		$Order = new ecommerce_order();
+		$customer_id = $_SESSION['client']['customer']['id'];
+		$exclude_vat = !$Order->isVatEligible($delivery_address_id, $customer_id);
 
 		/**
 		 * assign VAT note
 		 */
 		 
 		$this->assignVATNote($exclude_vat);
+
+		/**
+		 * Recalculate discount to follow VAT exclusion rule
+		 */
+		if ($_SESSION['promotion_code']) {
+			$this->applyPromotionCode($_SESSION['basket']['id'], $_SESSION['promotion_code'], $exclude_vat);
+		}
 
 		/**
 		 * Load baskter content

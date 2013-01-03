@@ -88,11 +88,13 @@ class Onxshop_Controller_Component_Ecommerce_Payment_Paypal extends Onxshop_Cont
 		 * prepare data
 		 */
 		 
-		/*$total_amount = $order_data['basket']['total_goods_net'] + $order_data['basket']['total_vat']  + $order_data['basket']['delivery']['value_net'] + $order_data['basket']['delivery']['vat'];
-		$total_amount = round($total_amount, 2);*/
+		require_once('models/ecommerce/ecommerce_order.php');
+		$Order = new ecommerce_order();		
+		$total_amount = $Order->calculatePayableAmount($order_data);
 		
    		$payment_gateway_data = array();
    		$payment_gateway_data['order_data'] = $order_data;
+   		$payment_gateway_data['total_amount'] = $total_amount;
    		$payment_gateway_data['server_url'] = $server_url; 
 		
 		return $payment_gateway_data;

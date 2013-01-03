@@ -127,7 +127,11 @@ CREATE TABLE ecommerce_order (
 		//send email about new unpaid order?
 		if ($conf['mail_unpaid'] == 'false') $conf['mail_unpaid'] = false;
 		else $conf['mail_unpaid'] = true;
-	
+
+		// zero VAT for non-EU customers? (off by default)
+		if ($conf['non_eu_zero_vat'] == 'true') $conf['non_eu_zero_vat'] = true;
+		else $conf['non_eu_zero_vat'] = false;
+
 		return $conf;
 		
 	}
@@ -363,7 +367,9 @@ ORDER BY ecommerce_order.id DESC
 		$order['promotion_code'] = $this->getPromotionCode($id);
 		
 		//get basket detail
-		$basket_content = $Basket->getContent($order['basket_id']);
+		$basket_detail = $Basket->getDetail($order['basket_id']);
+		$exclude_vat = !$this->isVatEligible($order['delivery_address_id'], $basket_detail['customer_id']);
+		$basket_content = $Basket->getContent($order['basket_id'], GLOBAL_DEFAULT_CURRENCY, $exclude_vat);
 		$basket_content['delivery'] = $Delivery->getDeliveryByOrderId($id);
 		$order['basket'] = $basket_content;	
 		
@@ -678,10 +684,7 @@ ORDER BY ecommerce_order.id DESC
 
 	function updatePayableDue($order_data) {
 
-		$order_data['other_data']['payment_due'] = 
-			$order_data['basket']['total_after_discount'] + 
-			$order_data['basket']['delivery']['value_net'] + 
-			$order_data['basket']['delivery']['vat'];
+		$order_data['other_data']['payment_due'] = $this->calculatePayableAmount($order_data);
 
 		$update_data['id'] = $order_data['id'];
 		$update_data['modified'] = date('c');
@@ -690,6 +693,39 @@ ORDER BY ecommerce_order.id DESC
 		$this->update($update_data);
 	}
 	
+
+	/**
+	 * Calcaulate total payable amount
+	 * @return float
+	 */
+	function calculatePayableAmount($order_data) {
+
+		return round($order_data['basket']['total_after_discount'] + 
+			$order_data['basket']['delivery']['value_net'] + 
+			$order_data['basket']['delivery']['vat'], 2);
+	}
+
+
+
+	/**
+	 * Return true if given address and customer is VAT eligible
+	 * 
+	 * @param  int    $delivery_address_id Delivery address id to check EU status
+	 * @param  int    $customer_id         Customer id to check whole sale status (not implemented yet!)
+	 * @return boolean
+	 */
+	function isVatEligible($delivery_address_id, $customer_id) {
+
+		require_once('models/ecommerce/ecommerce_price.php');
+		$order_conf = ecommerce_order::initConfiguration();
+
+		require_once('models/client/client_address.php');
+		$Address = new client_address();
+		$delivery = $Address->getDetail($delivery_address_id);
+		$exclude_vat = $order_conf['non_eu_zero_vat'] && !$delivery['country']['eu_status'];
+
+		return !$exclude_vat;
+	}
 
 	/**
 	 *
