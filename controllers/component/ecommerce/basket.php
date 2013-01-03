@@ -368,13 +368,13 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 	 * apply promotion code
 	 */
 	 
-	public function applyPromotionCode($basket_id, $promotion_code) {
+	public function applyPromotionCode($basket_id, $promotion_code, $exclude_vat = false) {
 	
 		require_once('models/ecommerce/ecommerce_promotion.php');
 		$Promotion = new ecommerce_promotion();
 
 		$basket_data = $this->Basket->getDetail($basket_id);
-		$discount_net = $Promotion->applyPromotionCodeToBasket($promotion_code, $basket_data);
+		$discount_net = $Promotion->applyPromotionCodeToBasket($promotion_code, $basket_data, $exclude_vat);
 		
 		if (is_numeric($discount_net)) {
 			if ($this->Basket->applyDiscount($basket_id, $discount_net)) {

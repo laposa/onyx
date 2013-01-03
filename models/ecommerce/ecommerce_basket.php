@@ -444,9 +444,16 @@ CREATE TABLE ecommerce_basket (
 	 */
 	 
 	function calculateDelivery($basket_id, $delivery_address_id, $delivery_options, $promotion_code = false) {
+
+		// exclude vat for non-EU countries and whole sale customers
+		$basket_detail = $this->getDetail($basket_id); // read basket to get customer_id
+		$customer_id = $basket_detail['customer_id'];
+		require_once('models/ecommerce/ecommerce_order.php');
+		$Order = new ecommerce_order();
+		$exclude_vat = !$Order->isVatEligible($delivery_address_id, $customer_id);
 		
 		//get basket
-		$basket_detail = $this->getDetail($basket_id);
+		$basket_detail = $this->getDetail($basket_id, $exclude_vat); // read basket again with correct vat
 		
 		//find promotion data for delivery calculation
 		if ($promotion_code) {
