@@ -547,7 +547,7 @@ CREATE TABLE ecommerce_promotion (
 	 * Apply promotion code
 	 */
 	
-	function applyPromotionCodeToBasket($code, $basket_data) {
+	function applyPromotionCodeToBasket($code, $basket_data, $exclude_vat = false) {
 
 		if (!is_array($basket_data)) {
 			msg("ecommerce_promotion.applyPromotionCodeToBasket: missing basket data", 'error');
@@ -562,7 +562,8 @@ CREATE TABLE ecommerce_promotion (
 			
 			$discount_value = 0;
 
-			$value_for_discount = ($basket_data['content']['total_goods_net_before_discount'] + $basket_data['content']['total_vat']);
+			$value_for_discount = $basket_data['content']['total_goods_net_before_discount'];
+			if (!$exclude_vat) $value_for_discount += $basket_data['content']['total_vat'];
 
 			// if discount is limit to certain products, the value is only the part of the basket
 			$limited_ids = explode(",", $campaign_data['limit_list_products']);
@@ -570,7 +571,8 @@ CREATE TABLE ecommerce_promotion (
 				$value_for_discount = 0;
 				if (count($basket_data['content']['items']) > 0) {
 					foreach ($basket_data['content']['items'] as $item) {
-						if (in_array($item['product']['id'], $limited_ids)) $value_for_discount += (float) $item['total_inc_vat'];
+						if (in_array($item['product']['id'], $limited_ids)) 
+							$value_for_discount += (float) ($exclude_vat ? $item['total_net'] : $item['total_inc_vat']);
 					}
 				}
 			}
