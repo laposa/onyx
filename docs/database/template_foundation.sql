@@ -2543,7 +2543,7 @@ COPY common_configuration (id, node_id, object, property, value, description) FR
 2	0	global	author_content	Onxshop, http://onxshop.com/	
 4	0	global	html_title_suffix	- Onxshop	
 12	0	global	extra_head	<meta name="viewport" content="width=device-width" />	
-8	0	global	css	/**\r\n *\r\n * Our hint to CSS developers: \r\n * use here an @import of a CSS file from your own server,\r\n * work on your local version and paste here the final version \r\n * when you are finished with the development\r\n *\r\n */\r\n\r\n@import url(/share/css/default/theme_layout/no_sidebar.css);\r\n@import url(/share/css/default/theme_layout/responsive.css);\r\n@import url(/share/css/default/theme_colour/zurb.css);\r\n#basket,\r\n#search {display: none;}\r\n/*@import url(/css/v1.css);*/	
+8	0	global	css	/**\r\n *\r\n * Our hint to CSS developers: \r\n * use here an @import of a CSS file from your own server,\r\n * work on your local version and paste here the final version \r\n * when you are finished with the development\r\n *\r\n */\r\n\r\n@import url(/share/css/default/theme_layout/without_sidebar.css);\r\n@import url(/share/css/default/theme_layout/responsive.css);\r\n@import url(/share/css/default/theme_colour/zurb.css);\r\n#basket,\r\n#search {display: none;}\r\n/*@import url(/css/v1.css);*/	
 \.
 
 
