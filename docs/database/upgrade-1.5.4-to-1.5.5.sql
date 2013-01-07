@@ -1,3 +1,5 @@
+BEGIN;
+
 /* voucher author */
 ALTER TABLE "ecommerce_promotion" ADD COLUMN "generated_by_customer_id" integer
 REFERENCES "client_customer" ON UPDATE CASCADE ON DELETE RESTRICT;
@@ -12,7 +14,7 @@ ALTER TABLE "ecommerce_promotion" ADD COLUMN "limit_to_first_order" smallint NOT
 /* voucher limited to minim order amount */
 ALTER TABLE "ecommerce_promotion" ADD COLUMN "limit_to_order_amount" numeric(12,5) DEFAULT 0;
 
-/* update shipping tables to follow naming convetions */
+/* update shipping tables to follow naming conventions */
 ALTER SEQUENCE "shipping_wz_zone_id_seq" RENAME TO "ecommerce_delivery_carrier_zone_id_seq";
 ALTER SEQUENCE "shipping_wz_zone_price_id_seq" RENAME TO "ecommerce_delivery_carrier_zone_price_id_seq";
 ALTER SEQUENCE "shipping_wz_country_to_zone_id_seq" RENAME TO "ecommerce_delivery_carrier_zone_to_country_id_seq";
@@ -28,3 +30,5 @@ SELECT pg_catalog.setval('ecommerce_delivery_carrier_zone_price_id_seq', (SELECT
 ALTER INDEX "shipping_wz_zone_price_zone_id_fkey" RENAME TO "ecommerce_delivery_carrier_zone_price_zone_id_fkey";
 ALTER INDEX "shipping_wz_country_to_zone_zone_id_fkey" RENAME TO "ecommerce_delivery_carrier_country_to_zone_zone_id_fkey";
 ALTER INDEX "shipping_wz_country_to_zone_country_id_fkey" RENAME TO "ecommerce_delivery_carrier_country_to_zone_country_id_fkey";
+
+COMMIT;

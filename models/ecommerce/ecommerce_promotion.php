@@ -93,6 +93,18 @@ class ecommerce_promotion extends Onxshop_Model {
 	public $limit_delivery_carrier_id;
 	
 	public $generated_by_order_id;
+	
+	/* voucher author */
+	public $generated_by_customer_id;
+	
+	/* voucher limited to specific customer (reward for inviting) */
+	public $limit_by_customer_id;
+	
+	/* voucher limited to first order */
+	public $limit_to_first_order;
+	
+	/* voucher limited to minim order amount */
+	public $limit_to_order_amount;
 
 	public $_hashMap = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
@@ -144,10 +156,12 @@ CREATE TABLE ecommerce_promotion (
     other_data text,
 	limit_delivery_country_id smallint NOT NULL DEFAULT 0,
 	limit_delivery_carrier_id smallint NOT NULL DEFAULT 0,
-	limit_customer_id integer REFERENCES client_customer ON UPDATE CASCADE ON DELETE RESTRICT,
-	limit_to_first_order smallint NOT NULL DEFAULT 0,
 	generated_by_order_id integer REFERENCES ecommerce_order ON UPDATE CASCADE ON DELETE RESTRICT,
-	generated_by_customer_id integer REFERENCES client_customer ON UPDATE CASCADE ON DELETE RESTRICT
+	generated_by_customer_id integer REFERENCES client_customer ON UPDATE CASCADE ON DELETE RESTRICT,
+	limit_by_customer_id integer DEFAULT 0 REFERENCES client_customer ON UPDATE CASCADE ON DELETE RESTRICT,
+	limit_to_first_order smallint NOT NULL DEFAULT 0,
+	limit_to_order_amount numeric(12,5) DEFAULT 0
+	
 );
 		";
 		
