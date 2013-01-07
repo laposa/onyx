@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2005-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2005-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -80,7 +80,7 @@ class Onxshop_Controller_Component_Contact_Form extends Onxshop_Controller {
 				$EmailForm->setValid("captcha", $isCaptchaValid);
 			}
 
-			if ($EmailForm->sendEmail('email_form', $content, $mail_to, $mail_toname, $formdata['required_email'], $formdata['required_name'])) {
+			if ($EmailForm->sendEmail('contact_form', $content, $mail_to, $mail_toname, $formdata['required_email'], $formdata['required_name'])) {
 				Zend_Registry::set('notify', 'sent');
 			} else {
 				Zend_Registry::set('notify', 'failed');
