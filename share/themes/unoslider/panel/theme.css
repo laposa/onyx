@@ -1,0 +1,128 @@
+/* Hand cursor over navigation elements */
+.unoslider_navigation {
+  cursor: pointer;
+}
+
+/* container which contains navigation and indicator */
+.unoslider_navigation_container {
+  background: #e0e0e0;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #efefef), color-stop(100%, #d3d3d3));
+  background: -webkit-linear-gradient(#efefef, #d3d3d3);
+  background: -moz-linear-gradient(#efefef, #d3d3d3);
+  background: -o-linear-gradient(#efefef, #d3d3d3);
+  background: -ms-linear-gradient(#efefef, #d3d3d3);
+  background: linear-gradient(#efefef, #d3d3d3);
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  -ms-border-radius: 3px;
+  -o-border-radius: 3px;
+  border-radius: 3px;
+  border: 1px solid #bfbfbf;
+  width: 40%;
+  height: 30px;
+  position: absolute;
+  left: 50%;
+  bottom: -15px;
+  margin-left: -20%;
+  z-index: 4;
+}
+
+/* Tooltip panel */
+.unoslider_caption {
+  position: absolute;
+  bottom: 40px;
+  left: -30px;
+  line-height: 30px;
+  padding: 5px 10px 5px 40px;
+  font-family: "Helvetica neue", Helvetica, Verdana, sans-serif;
+  background-color: #111111;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+  opacity: 0.8;
+  color: #dbdbdb;
+  font-size: 14px;
+}
+
+/* play, pause, previous and next elements */
+.unoslider_pause, .unoslider_play, .unoslider_left, .unoslider_right {
+  text-indent: 110%;
+  white-space: nowrap;
+  overflow: hidden;
+  position: absolute;
+  display: block;
+  background: url("panel.png") no-repeat;
+}
+
+/* play and pause elements */
+.unoslider_pause, .unoslider_play {
+  height: 17px;
+  width: 15px;
+  margin-top: -8.5px;
+  margin-left: -7.5px;
+  top: 50%;
+  left: 40px;
+}
+
+/* previous and next elements */
+.unoslider_left, .unoslider_right {
+  width: 18px;
+  height: 25px;
+  margin-top: -12.5px;
+  top: 50%;
+}
+
+/* previous */
+.unoslider_left {
+  background-position: -21px -21px;
+  left: 5px;
+}
+
+/* next */
+.unoslider_right {
+  background-position: 0px -21px;
+  right: 5px;
+}
+
+/* pause */
+.unoslider_pause {
+  background-position: 0px 0px;
+}
+
+/* play */
+.unoslider_play {
+  background-position: -24px 0px;
+}
+
+/* bullet indicator */
+.unoslider_indicator {
+  position: absolute;
+  left: 50%;
+  bottom: -10px;
+  width: 26%;
+  margin-left: -13%;
+  text-align: center;
+  _text-align: right;
+  *text-align: right;
+}
+.unoslider_indicator a {
+  text-indent: 110%;
+  white-space: nowrap;
+  overflow: hidden;
+  display: -moz-inline-box;
+  -moz-box-orient: vertical;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  cursor: pointer;
+  margin: 3px;
+  width: 15px;
+  height: 15px;
+  background-color: black;
+  background: url("panel.png") no-repeat;
+  background-position: 0 -50px;
+}
+.unoslider_indicator a {
+  *display: inline;
+}
+.unoslider_indicator a.unoslider_indicator_active {
+  background-position: -16px -50px;
+}

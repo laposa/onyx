@@ -1,0 +1,112 @@
+/* Hand cursor over navigation elements */
+.unoslider_navigation {
+  cursor: pointer;
+}
+
+/* container which contains navigation and indicator */
+.unoslider_navigation_container {
+  background: white;
+  width: 100%;
+  height: 35px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 4;
+}
+
+/* Tooltip panel */
+.unoslider_caption {
+  position: absolute;
+  right: 100px;
+  bottom: 0;
+  font-family: "Helvetica neue", Helvetica, Verdana, sans-serif;
+  line-height: 35px;
+  width: 80%;
+  text-align: center;
+  color: #707070;
+  font-size: 13px;
+}
+
+/* play, pause, previous and next elements */
+.unoslider_pause, .unoslider_play, .unoslider_left, .unoslider_right {
+  text-indent: 110%;
+  white-space: nowrap;
+  overflow: hidden;
+  position: absolute;
+  display: block;
+  background: url("light.png") no-repeat;
+}
+
+/* play and pause elements */
+.unoslider_pause, .unoslider_play {
+  height: 26px;
+  width: 25px;
+  margin-top: -13px;
+  margin-left: -12.5px;
+  top: 50%;
+  left: 98%;
+}
+
+/* previous and next elements */
+.unoslider_left, .unoslider_right {
+  width: 26px;
+  height: 25px;
+  margin-top: -12.5px;
+  top: 50%;
+}
+
+/* previous */
+.unoslider_left {
+  background-position: 0px -27px;
+  right: 70px;
+}
+
+/* next */
+.unoslider_right {
+  background-position: -28px -27px;
+  right: 40px;
+}
+
+/* pause */
+.unoslider_pause {
+  background-position: -28px 0px;
+}
+
+/* play */
+.unoslider_play {
+  background-position: 0px 0px;
+}
+
+/* bullet indicator */
+.unoslider_indicator {
+  position: absolute;
+  left: 15px;
+  bottom: 5px;
+  text-align: left;
+  _text-align: right;
+  *text-align: right;
+  width: 20%;
+}
+.unoslider_indicator a {
+  text-indent: 110%;
+  white-space: nowrap;
+  overflow: hidden;
+  display: -moz-inline-box;
+  -moz-box-orient: vertical;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  cursor: pointer;
+  margin: 3px;
+  width: 17px;
+  height: 17px;
+  background-color: black;
+  background: url("light.png") no-repeat;
+  background-position: 0 -54px;
+}
+.unoslider_indicator a {
+  *display: inline;
+}
+.unoslider_indicator a.unoslider_indicator_active {
+  background-position: -19px -54px;
+}

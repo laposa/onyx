@@ -1,0 +1,104 @@
+/* Hand cursor over navigation elements */
+.unoslider_navigation {
+  cursor: pointer;
+}
+
+/* Tooltip panel */
+.unoslider_caption {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  font-family: "Helvetica neue", Helvetica, Verdana, sans-serif;
+  padding: 10px 0px;
+  width: 100%;
+  background-color: #333333;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+  opacity: 0.8;
+  color: white;
+  text-align: center;
+  font-size: 13px;
+}
+
+/* play, pause, previous and next elements */
+.unoslider_pause, .unoslider_play, .unoslider_left, .unoslider_right {
+  text-indent: 110%;
+  white-space: nowrap;
+  overflow: hidden;
+  position: absolute;
+  display: block;
+  background: url("slick.png") no-repeat;
+}
+
+/* play and pause elements */
+.unoslider_pause, .unoslider_play {
+  height: 72px;
+  width: 72px;
+  margin-top: -36px;
+  margin-left: -36px;
+  top: 50%;
+  left: 50%;
+}
+
+/* previous and next elements */
+.unoslider_left, .unoslider_right {
+  width: 41px;
+  height: 74px;
+  margin-top: -37px;
+  top: 50%;
+}
+
+/* previous */
+.unoslider_left {
+  background-position: 0px -151px;
+  left: -40px;
+}
+
+/* next */
+.unoslider_right {
+  background-position: -43px -151px;
+  right: -40px;
+}
+
+/* pause */
+.unoslider_pause {
+  background-position: 0px -74px;
+}
+
+/* play */
+.unoslider_play {
+  background-position: 0px 0px;
+}
+
+/* bullet indicator */
+.unoslider_indicator {
+  position: absolute;
+  bottom: -30px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  _text-align: right;
+  *text-align: right;
+}
+.unoslider_indicator a {
+  text-indent: 110%;
+  white-space: nowrap;
+  overflow: hidden;
+  display: -moz-inline-box;
+  -moz-box-orient: vertical;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  cursor: pointer;
+  margin: 3px;
+  width: 11px;
+  height: 11px;
+  background-color: black;
+  background: url("slick.png") no-repeat;
+  background-position: 0 -230px;
+}
+.unoslider_indicator a {
+  *display: inline;
+}
+.unoslider_indicator a.unoslider_indicator_active {
+  background-position: -13px -230px;
+}

@@ -1,0 +1,105 @@
+/* Hand cursor over navigation elements */
+.unoslider_navigation {
+  cursor: pointer;
+}
+
+/* Tooltip panel */
+.unoslider_caption {
+  position: absolute;
+  bottom: 15px;
+  left: 0;
+  font-family: "Helvetica neue", Helvetica, Verdana, sans-serif;
+  padding: 10px 15px;
+  background-color: white;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+  opacity: 0.8;
+  color: #c10941;
+  font-size: 15px;
+  text-shadow: white 0 1px 0;
+}
+
+/* play, pause, previous and next elements */
+.unoslider_pause, .unoslider_play, .unoslider_left, .unoslider_right {
+  text-indent: 110%;
+  white-space: nowrap;
+  overflow: hidden;
+  position: absolute;
+  display: block;
+  background: url("minimalist.png") no-repeat;
+}
+
+/* play and pause elements */
+.unoslider_pause, .unoslider_play {
+  height: 42px;
+  width: 42px;
+  margin-top: -21px;
+  margin-left: -21px;
+  top: 50%;
+  left: 50%;
+}
+
+/* previous and next elements */
+.unoslider_left, .unoslider_right {
+  width: 25px;
+  height: 25px;
+  margin-top: -12.5px;
+  top: 50%;
+}
+
+/* previous */
+.unoslider_left {
+  background-position: 0px -89px;
+  left: -12.5px;
+}
+
+/* next */
+.unoslider_right {
+  background-position: -28px -89px;
+  right: -12.5px;
+}
+
+/* pause */
+.unoslider_pause {
+  background-position: 0px -43px;
+}
+
+/* play */
+.unoslider_play {
+  background-position: 0px 0px;
+}
+
+/* bullet indicator */
+.unoslider_indicator {
+  position: absolute;
+  bottom: -30px;
+  right: 10px;
+  width: 100%;
+  text-align: right;
+}
+.unoslider_indicator a {
+  text-indent: 110%;
+  white-space: nowrap;
+  overflow: hidden;
+  display: -moz-inline-box;
+  -moz-box-orient: vertical;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  cursor: pointer;
+  background: #c10941;
+  margin: 3px;
+  width: 10px;
+  height: 10px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+  border-radius: 20px;
+}
+.unoslider_indicator a {
+  *display: inline;
+}
+.unoslider_indicator a.unoslider_indicator_active {
+  width: 13px;
+  height: 13px;
+}

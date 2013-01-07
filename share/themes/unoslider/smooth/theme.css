@@ -1,0 +1,116 @@
+/* Hand cursor over navigation elements */
+.unoslider_navigation {
+  cursor: pointer;
+}
+
+/* container which contains navigation and indicator */
+.unoslider_navigation_container {
+  background: #343434;
+  background: -webkit-gradient(linear, 50% 0%, 50% 100%, color-stop(0%, #404040), color-stop(100%, #292929));
+  background: -webkit-linear-gradient(#404040, #292929);
+  background: -moz-linear-gradient(#404040, #292929);
+  background: -o-linear-gradient(#404040, #292929);
+  background: -ms-linear-gradient(#404040, #292929);
+  background: linear-gradient(#404040, #292929);
+  border-top: 1px solid #4d4d4d;
+  width: 100%;
+  height: 30px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 4;
+}
+
+/* Tooltip panel */
+.unoslider_caption {
+  position: absolute;
+  bottom: 0;
+  left: 80px;
+  font-family: "Helvetica neue", Helvetica, Verdana, sans-serif;
+  line-height: 30px;
+  color: #dbdbdb;
+  font-size: 12px;
+  text-shadow: black 0 1px 0;
+}
+
+/* play, pause, previous and next elements */
+.unoslider_pause, .unoslider_play, .unoslider_left, .unoslider_right {
+  text-indent: 110%;
+  white-space: nowrap;
+  overflow: hidden;
+  position: absolute;
+  display: block;
+  background: url("smooth.png") no-repeat;
+}
+
+/* play and pause elements */
+.unoslider_pause, .unoslider_play {
+  height: 27px;
+  width: 23px;
+  margin-top: -13.5px;
+  margin-left: -11.5px;
+  top: 50%;
+  left: 50px;
+}
+
+/* previous and next elements */
+.unoslider_left, .unoslider_right {
+  width: 25px;
+  height: 22px;
+  margin-top: -11px;
+  top: 50%;
+}
+
+/* previous */
+.unoslider_left {
+  background-position: 0px 0px;
+  left: 5px;
+}
+
+/* next */
+.unoslider_right {
+  background-position: -29px 0px;
+  right: 5px;
+}
+
+/* pause */
+.unoslider_pause {
+  background-position: -31px -25px;
+}
+
+/* play */
+.unoslider_play {
+  background-position: 0px -25px;
+}
+
+/* bullet indicator */
+.unoslider_indicator {
+  position: absolute;
+  right: 40px;
+  bottom: 3px;
+  width: 50%;
+  text-align: right;
+}
+.unoslider_indicator a {
+  text-indent: 110%;
+  white-space: nowrap;
+  overflow: hidden;
+  display: -moz-inline-box;
+  -moz-box-orient: vertical;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  cursor: pointer;
+  margin: 3px;
+  width: 14px;
+  height: 14px;
+  background-color: black;
+  background: url("smooth.png") no-repeat;
+  background-position: 0 -53px;
+}
+.unoslider_indicator a {
+  *display: inline;
+}
+.unoslider_indicator a.unoslider_indicator_active {
+  background-position: -19px -53px;
+}

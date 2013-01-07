@@ -1,0 +1,122 @@
+/* Hand cursor over navigation elements */
+.unoslider_navigation {
+  cursor: pointer;
+}
+
+/* Tooltip panel */
+.unoslider_caption {
+  position: absolute;
+  right: 16px;
+  bottom: 31px;
+  font-family: "Helvetica neue", Helvetica, Verdana, sans-serif;
+  padding: 0 15px;
+  height: 40px;
+  line-height: 40px;
+  background-color: #144a72;
+  color: white;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+  opacity: 0.8;
+  font-size: 14px;
+  font-weight: normal;
+  text-shadow: black 0 1px 0;
+}
+
+/* play, pause, previous and next elements */
+.unoslider_pause, .unoslider_play, .unoslider_left, .unoslider_right {
+  text-indent: 110%;
+  white-space: nowrap;
+  overflow: hidden;
+  position: absolute;
+  display: block;
+  background: url("modern.png") no-repeat;
+}
+
+/* play and pause elements */
+.unoslider_pause, .unoslider_play {
+  height: 98px;
+  width: 98px;
+  margin-top: -49px;
+  margin-left: -49px;
+  top: 50%;
+  left: 50%;
+}
+
+/* previous and next elements */
+.unoslider_left, .unoslider_right {
+  width: 24px;
+  height: 24px;
+  bottom: 71px;
+  background-color: black;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+  opacity: 0.8;
+}
+.unoslider_left:hover, .unoslider_right:hover {
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=90);
+  opacity: 0.9;
+}
+
+/* previous */
+.unoslider_left {
+  background-position: 8px -212px;
+  right: 40px;
+}
+
+/* next */
+.unoslider_right {
+  background-position: -47px -212px;
+  right: 16px;
+}
+
+/* pause */
+.unoslider_pause {
+  background-position: 0px -100px;
+}
+
+/* play */
+.unoslider_play {
+  background-position: 0px 0px;
+}
+
+/* bullet indicator */
+.unoslider_indicator {
+  position: absolute;
+  bottom: 10px;
+  right: 16px;
+  text-align: right;
+  padding: 5px 10px;
+  _width: 50%;
+  *width: 50%;
+  font-size: 0px;
+  background-color: black;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+  opacity: 0.8;
+}
+.unoslider_indicator a {
+  text-indent: 110%;
+  white-space: nowrap;
+  overflow: hidden;
+  display: -moz-inline-box;
+  -moz-box-orient: vertical;
+  display: inline-block;
+  vertical-align: middle;
+  *vertical-align: auto;
+  cursor: pointer;
+  background: #81817e;
+  margin-right: 6px;
+  width: 10px;
+  height: 10px;
+  -webkit-border-radius: 20px;
+  -moz-border-radius: 20px;
+  -ms-border-radius: 20px;
+  -o-border-radius: 20px;
+  border-radius: 20px;
+}
+.unoslider_indicator a {
+  *display: inline;
+}
+.unoslider_indicator a.unoslider_indicator_active {
+  width: 5px;
+  height: 5px;
+  background: black;
+  border: 3px solid #81817e;
+}
