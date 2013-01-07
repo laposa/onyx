@@ -15,7 +15,7 @@ div.order_detail a.repeat_order {display: none;}
 	<input type="hidden" name="address_override" value="1" />
 
 	<input type="hidden" name="item_name_1" value="Payment for order ID {PAYMENT_GATEWAY.order_data.id}" />
-	<input type="hidden" name="amount_1" value="{PAYMENT_GATEWAY.order_data.basket.total}" />
+	<input type="hidden" name="amount_1" value="{PAYMENT_GATEWAY.total_amount}" />
 	<input type="hidden" name="tax_cart" value="0" />
 	<input type="hidden" name="discount_amount_cart" value="{PAYMENT_GATEWAY.order_data.basket.discount_net}" />
 	
