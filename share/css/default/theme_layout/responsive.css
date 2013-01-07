@@ -41,6 +41,23 @@ div.content-RTE .imageleft {margin-bottom: 1em;}
 #content img {max-width: 100%; height: auto; width: auto; /* ie8 fix*/}
 
 /**
+ * fluid video to be used in responsive page layout
+ * thanks Jonathan Suh http://www.jonsuh.com/blog/tutorials/responsive-youtube-vimeo-embed-and-html5-video-with-css/
+ *
+ */
+ 
+div.fluid-video {height: 0; padding-top: 25px; padding-bottom: 67.5%; margin-bottom: 10px; position: relative; overflow: hidden;}
+ 
+div.fluid-video.widescreen {padding-bottom: 57.25%;}
+ 
+div.fluid-video.vimeo {padding-top: 0;}
+
+div.fluid-video embed,
+div.fluid-video iframe,
+div.fluid-video object,
+div.fluid-video video {top: 0; left: 0; width: 100%; height: 100%; position: absolute;}
+
+/**
  * Screen size rules
  */
 

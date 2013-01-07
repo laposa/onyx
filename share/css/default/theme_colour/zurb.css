@@ -1,0 +1,103 @@
+/**
+ * Copy of Zurb Foundation style and customised for Onxshop framework
+ *
+ * Norbert @ Laposa Ltd, 2012/12/20
+ */
+
+html { font-size: 62.5%; }
+
+body { background: white; font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif; font-weight: normal; font-style: normal; font-size: 14px; color: #222222; position: relative; -webkit-font-smoothing: antialiased; }
+
+a { color: #2ba6cb; text-decoration: none; line-height: inherit; }
+
+a:hover { color: #2795b6; }
+
+a:focus { color: #2795b6; }
+
+h1, h2, h3, h4, h5, h6,
+h1 a, h2 a, h3 a { font-family: "Helvetica Neue", "Helvetica", Helvetica, Arial, sans-serif; font-weight: bold; font-style: normal; color: #222222; text-rendering: optimizeLegibility;}
+
+hr { border: solid #ddd; border-width: 1px 0 0; clear: both; margin: 22px 0 21px; height: 0; }
+
+div.breadcrumb,
+#globalNavigation,
+#primaryNavigation,
+#footerNavigation {background: #f2f2f2; border: solid 1px #e6e6e6; margin: 0 0 22px 0; padding: 0.2em 0.5em; }
+
+/**
+ * Panels (to highlight an element, add this class to any content as extra_css_class in Under The Hood)
+ */
+
+div.panel { background: #f2f2f2; border: solid 1px #e6e6e6; margin: 0 0 22px 0; padding: 20px; }
+div.panel > :first-child { margin-top: 0; }
+div.panel > :last-child { margin-bottom: 0; }
+div.panel.callout { background: #2ba6cb; color: #fff; border-color: #2284a1; -webkit-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5); -moz-box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5); box-shadow: inset 0px 1px 0px rgba(255, 255, 255, 0.5); }
+div.panel.callout a { color: #fff; }
+div.panel.callout .button { background: white; border: none; color: #2ba6cb; text-shadow: none; }
+div.panel.callout .button:hover, .panel.callout .button:focus { background: rgba(255, 255, 255, 0.8); }
+div.panel.radius { -webkit-border-radius: 3px; -moz-border-radius: 3px; -ms-border-radius: 3px; -o-border-radius: 3px; border-radius: 3px; }
+
+/**
+ * Tabs
+ */
+ 
+div.tabsLayout div.layoutBody {border-top: solid 1px #e6e6e6;}
+ul.tabs li {position: relative; top: 1px;}
+ul.tabs li a {border-top: 3px solid white;}
+ul.tabs li a.active {font-weight: bold; border-top: 3px solid #2ba6cb; border-left: 1px solid #e6e6e6; border-right: 1px solid #e6e6e6; background: #fff;}
+
+/**
+ * Buttons
+ */
+
+button,
+a.button { width: auto; background: #2ba6cb; border: 1px solid #1e728c; -webkit-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset; -moz-box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset; box-shadow: 0 1px 0 rgba(255, 255, 255, 0.5) inset; color: white; cursor: pointer; display: inline-block; font-family: inherit; font-size: 14px; font-weight: bold; line-height: 1; margin: 0; padding: 10px 20px 11px; position: relative; text-align: center; text-decoration: none; -webkit-transition: background-color 0.15s ease-in-out; -moz-transition: background-color 0.15s ease-in-out; -o-transition: background-color 0.15s ease-in-out; transition: background-color 0.15s ease-in-out; /* Hovers */ /* Sizes */ /* Colors */ /* Radii */ /* Layout */ /* Disabled ---------- */ }
+button,
+a.button:hover, 
+a.button:focus { color: white; background-color: #2284a1; }
+a.button:active { -webkit-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2) inset; -moz-box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2) inset; box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2) inset; }
+a.button.large { font-size: 17px; padding: 15px 30px 16px; }
+a.button.medium { font-size: 14px; }
+a.button.small { font-size: 11px; padding: 7px 14px 8px; }
+a.button.tiny { font-size: 10px; padding: 5px 10px 6px; }
+a.button.expand { width: 100%; text-align: center; }
+a.button.primary { background-color: #2ba6cb; border: 1px solid #1e728c; }
+a.button.primary:hover, 
+a.button.primary:focus { background-color: #2284a1; }
+a.button.success { background-color: #5da423; border: 1px solid #396516; }
+a.button.success:hover, 
+a.button.success:focus { background-color: #457a1a; }
+a.button.alert { background-color: #c60f13; border: 1px solid #7f0a0c; }
+a.button.alert:hover, 
+a.button.alert:focus { background-color: #970b0e; }
+a.button.secondary { background-color: #e9e9e9; color: #1d1d1d; border: 1px solid #c3c3c3; }
+a.button.secondary:hover, 
+a.button.secondary:focus { background-color: #d0d0d0; }
+a.button.radius { -webkit-border-radius: 3px; -moz-border-radius: 3px; -ms-border-radius: 3px; -o-border-radius: 3px; border-radius: 3px; }
+a.button.round { -webkit-border-radius: 1000px; -moz-border-radius: 1000px; -ms-border-radius: 1000px; -o-border-radius: 1000px; border-radius: 1000px; }
+a.button.full-width { width: 100%; text-align: center; padding-left: 0px !important; padding-right: 0px !important; }
+a.button.left-align { text-align: left; text-indent: 12px; }
+a.button.disabled, 
+a.button[disabled] { opacity: 0.6; cursor: default; background: #2ba6cb; -webkit-box-shadow: none; -moz-box-shadow: none; box-shadow: none; }
+a.button.disabled :hover, 
+a.button[disabled] :hover { background: #2ba6cb; }
+a.button.disabled.success, 
+a.button[disabled].success { background-color: #5da423; }
+a.button.disabled.success:hover, 
+a.button.disabled.success:focus, 
+a.button[disabled].success:hover, 
+a.button[disabled].success:focus { background-color: #5da423; outline: none; }
+a.button.disabled.alert, 
+a.button[disabled].alert { background-color: #c60f13; }
+a.button.disabled.alert:hover, 
+a.button.disabled.alert:focus, 
+a.button[disabled].alert:hover, 
+a.button[disabled].alert:focus { background-color: #c60f13; outline: none; }
+a.button.disabled.secondary, 
+a.button[disabled].secondary { background-color: #e9e9e9; }
+a.button.disabled.secondary:hover, 
+a.button.disabled.secondary:focus, 
+a.button[disabled].secondary:hover, 
+a.button[disabled].secondary:focus { background-color: #e9e9e9; outline: none; }
+
+

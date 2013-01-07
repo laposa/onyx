@@ -1,0 +1,11 @@
+/**
+ * no sidebar (use full content width)
+ * Norbert @ Laposa Ltd, 2013/01/07
+ *
+ */
+
+#content { width: 100%; float: none; clear: both; }
+#contentWrapper {margin-left: 0;}
+
+#primaryNavigation {width: 100%; float: none; margin-bottom: 1em;}
+#primaryNavigation li {float: left; margin-right: 2em;}
