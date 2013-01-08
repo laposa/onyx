@@ -1,0 +1,62 @@
+<!-- BEGIN: content -->
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+
+<div class="customer_filter">
+	<!-- BEGIN: form -->
+
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$('#voucher-filter-created_from,#voucher-filter-created_to,#voucher-filter-activity_from,#voucher-filter-activity_to').datepicker({firstDay: 1, dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true});
+	});
+	</script>
+	
+	<div id="customer_filter_form_wrapper">
+		<form method="post" id="customer_filter_form" action="/backoffice/marketing">
+
+			<fieldset class="single">
+
+				<div class="row type">
+					<span class="label"><label>Filter by type</label></span>
+					<span class="field">
+						<select id="voucher-filter-type" name="voucher-filter[type]">
+							<option value="" >all vouchers</option>
+							<option value="REF-" {SELECTED.voucher_type_ref}>referral invites</option>
+							<option value="REW-" {SELECTED.voucher_type_rew}>referral rewards</option>
+							<option value="GIFT-" {SELECTED.voucher_type_gift}>gift vouchers</option>
+							<option value="other" {SELECTED.voucher_type_other}>other vouchers</option>
+						</select>
+					</span>
+				</div>
+
+				<div class="row text_search">
+					<span class="label"><label>Text search (title/code)</label></span>
+					<span class="field">
+						<input class="text_search" type="text" id="voucher-filter-text_search" name="voucher-filter[text_search]" value="{_SESSION.voucher-filter.text_search|htmlspecialchars}"/>
+					</span>
+				</div>
+
+				<div class="row created_between">
+					<span class="label"><label>Created between</label></span>
+					<span class="field">
+						<input type="text" class="text" id="voucher-filter-created_from" name="voucher-filter[created_from]" value="{_SESSION.voucher-filter.created_from|htmlspecialchars}" />
+						<input type="text" class="text" id="voucher-filter-created_to" name="voucher-filter[created_to]" value="{_SESSION.voucher-filter.created_to|htmlspecialchars}" />
+					</span>
+				</div>
+
+			</fieldset>
+
+			<div class="row submit">
+				<span class="label"><label>&nbsp;</label></span>
+				<span class="field">
+					<button type="submit" name="search" value="search"><span>Apply Filter</span></button>
+					<button type="submit" name="reset" value="reset"><span>Reset</span></button>
+				</span>
+			</div>
+			
+			
+		</form>
+	</div>
+	<!-- END: form -->
+	
+</div>
+<!-- END: content -->
