@@ -172,17 +172,26 @@ CREATE TABLE ecommerce_promotion (
 	 * list
 	 */
 		
-	public function getList($offset = 0, $limit = 20) {
-	
+	public function getList($offset = 0, $limit = 20, $filter = array()) {
+
+		// set filtering criteria	
+		$where = $this->prepareWhereConditions($filter);
+
+		// create sql query
 	    $sql =
 		    "SELECT promotion.*, customer.title_before AS customer_title_before,
-		    	customer.first_name AS customer_first_name, customer.last_name AS customer_last_name
+		    	customer.first_name AS customer_first_name, customer.last_name AS customer_last_name,
+		    	CASE WHEN customer.id > 0 THEN
+		    		(SELECT count(*) FROM common_email WHERE email_from = customer.email AND template = 'referral_invite')
+		    		ELSE 0
+		    	END AS customer_invite_count
 		    FROM ecommerce_promotion AS promotion
 		    LEFT JOIN client_customer AS customer ON customer.id = promotion.generated_by_customer_id
+		    WHERE $where
 			ORDER BY id DESC
 			LIMIT $limit OFFSET $offset
 			";
-		
+
 		if (!$list = $this->executeSql($sql)) {
 			return false;
 		}
@@ -193,8 +202,88 @@ CREATE TABLE ecommerce_promotion (
 		
 		return $list;
 	}
-	
-	
+
+
+	/**
+	 * filtered count
+	 */
+		
+	public function getFilteredCount($filter) {
+
+		// set filtering criteria	
+		$where = $this->prepareWhereConditions($filter);
+
+		// create sql query
+	    $sql =
+		    "SELECT count(promotion.*) AS count
+		    FROM ecommerce_promotion AS promotion
+		    WHERE $where
+			";
+
+		if (!$list = $this->executeSql($sql)) {
+			return false;
+		}
+
+		return $list[0]['count'];
+	}
+
+	/**
+	 * Prapare SQL where conditions
+	 * 
+	 * @param  Array  $filter Filtering parameters
+	 * @return String Part of SQL query
+	 */
+	protected function prepareWhereConditions($filter) {
+
+		$where = '1 = 1';
+
+		if (count($filter) > 0) {
+
+			// voucher type filter
+			switch ($filter['type']) {
+				case "REF-": 
+					$where .= " AND promotion.code_pattern LIKE 'REF-%'";
+					break;
+				case "REW-": 
+					$where .= " AND promotion.code_pattern LIKE 'REW-%'";
+					break;
+				case "GIFT-": 
+					$where .= " AND promotion.code_pattern LIKE 'GIFT-%'";
+					break;
+				case "other": 
+					$where .= " AND promotion.code_pattern NOT LIKE 'REF-%'";
+					$where .= " AND promotion.code_pattern NOT LIKE 'REW-%'";
+					$where .= "AND promotion.code_pattern NOT LIKE 'GIFT-%'";
+					break;
+			}
+
+			// text search
+			if (strlen($filter['text_search']) > 0) {
+				$s = pg_escape_string($filter['text_search']);
+				$where .= " AND (promotion.title LIKE '%$s%' OR promotion.code_pattern LIKE '%$s%')";
+			}
+
+			//created between filter
+			if ($filter['created_from'] != false ) {
+				if  (!preg_match('/^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$/', $filter['created_from'])) {
+					msg("Invalid format for created between. Must be YYYY-MM-DD", "error");
+					return false;
+				}
+				$where .=" AND promotion.created >= '{$filter['created_from']}'";
+			}
+			if ($filter['created_to'] != false ) {
+				if  (!preg_match('/^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$/', $filter['created_to'])) {
+					msg("Invalid format for created between. Must be YYYY-MM-DD", "error");
+					return false;
+				}
+				$where .=" AND promotion.created <= '{$filter['created_to']}'";
+			}
+
+		}
+
+		return $where;
+	}
+
 	/**
 	 * get advance list
 	 */
