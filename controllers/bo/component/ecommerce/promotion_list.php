@@ -20,7 +20,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Promotion_List extends Onxshop_C
 		if (is_numeric($this->GET['limit_per_page'])) $per_page = $this->GET['limit_per_page'];
 		else $per_page = 25;
 		
-		$promotion_list = $this->Promotion->getList($from, $per_page);
+		$promotion_list = $this->Promotion->getList($from, $per_page, $_SESSION['voucher-filter']);
 
 		if (is_array($promotion_list)) $this->parseList($promotion_list);
 
@@ -28,7 +28,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Promotion_List extends Onxshop_C
 		 * Display pagination
 		 */
 		
-		$count = $this->Promotion->count();
+		$count = $this->Promotion->getFilteredCount($_SESSION['voucher-filter']);
 
 		if ($count > 0) {		
 
@@ -63,6 +63,9 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Promotion_List extends Onxshop_C
 				
 				if ($item['publish'] == 0) $this->tpl->assign('DISABLED', 'disabled');
 				else $this->tpl->assign('DISABLED', '');
+				if ($item['customer_invite_count'] > 0) 
+					$item['customer_invite_count'] = $item['customer_invite_count'];
+				else $item['customer_invite_count'] = '';
 				$this->tpl->assign('ITEM', $item);
 				$this->tpl->parse('content.item');
 			}
