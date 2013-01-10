@@ -139,11 +139,6 @@ class Onxshop_Controller_Component_Image_Gallery_Smooth extends Onxshop_Controll
 			$images_count = count($images);
 		}
 		
-		if ($images_count > 1) {
-			$this->tpl->parse('content.control');
-		}
-		
-		
 		/**
 		 * Calculate relative height
 		 */
@@ -173,6 +168,15 @@ class Onxshop_Controller_Component_Image_Gallery_Smooth extends Onxshop_Controll
 		
 		$this->tpl->assign("DIMENSION_MAX", $dimension_max);
 		$this->tpl->assign("CYCLE", $cycle);
+		
+		/**
+		 * show control and placeholder only if multiple images
+		 */
+		
+		if ($images_count > 1) {
+			$this->tpl->parse('content.control');
+			$this->tpl->parse('content.placeholder');
+		}
 
 		return true;
 	}
