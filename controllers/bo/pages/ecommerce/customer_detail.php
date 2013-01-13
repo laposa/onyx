@@ -48,7 +48,8 @@ class Onxshop_Controller_Bo_Pages_Ecommerce_Customer_Detail extends Onxshop_Cont
 		if (is_array($customer_data['other_data'])) {
 			foreach ($customer_data['other_data'] as $key=>$value) {
 				$item = array();
-				$item['value'] = $value;
+				if (is_array($value)) $item['value'] = print_r($value, true);
+				else $item['value'] = $value;
 				$item['key'] = $key;
 				$this->tpl->assign("ITEM", $item);
 				$this->tpl->parse("content.other_data.item");
