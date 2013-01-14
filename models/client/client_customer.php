@@ -641,8 +641,8 @@ CREATE TABLE client_customer (
 		//is passed as DATA to template in common_email->_format
 		$GLOBALS['common_email']['customer'] = $customer_data;
 
-		//remove password attributes before update as password is already updated
-		//unset($customer_data['password']); //avoid "client_customer key password is required, but not set" error
+		//remove password attributes before update as password is already updated separetelly with check and md5
+		unset($customer_data['password']); //TODO: avoid "client_customer key password is required, but not set" error when in debug mode
 		unset($customer_data['password_new']);
 		unset($customer_data['password_new1']);
 		
