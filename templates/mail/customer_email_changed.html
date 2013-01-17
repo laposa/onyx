@@ -1,0 +1,12 @@
+<!-- BEGIN: title -->Customer email changed<!-- END: title -->
+<!-- BEGIN: content -->
+<p>Hello {DATA.customer.first_name|htmlspecialchars} {DATA.customer.last_name|htmlspecialchars},<br />
+
+<p>Your account has been updated on {_SERVER.HTTP_HOST}</p>
+
+<p>Your new email is {DATA.customer.email|htmlspecialchars}</p>
+
+<p>Best wishes,</p>
+
+<p>{CONFIGURATION.global.author_content|htmlspecialchars}</p>
+<!-- END: content -->

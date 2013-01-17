@@ -657,11 +657,15 @@ CREATE TABLE client_customer (
 		 
 		if ($this->update($customer_data)) {
 		
-			if ($send_notify_email) {
+			//send email
+			require_once('models/common/common_email.php');
+			$EmailForm = new common_email();
 
-				//send email
-				require_once('models/common/common_email.php');
-				$EmailForm = new common_email();
+			/**
+			 * send notification email only if requested
+			 */
+			 
+			if ($send_notify_email) {
 				
 				//notify to new details	
 				if (!$EmailForm->sendEmail('customer_data_updated', 'n/a', $customer_data['email'], $customer_data['first_name'] . " " . $customer_data['last_name'])) {
@@ -669,16 +673,19 @@ CREATE TABLE client_customer (
 				} else {
 					//msg('Sent');
 				}
-	
-				//if email changed, send notify to old email as well
-				if ($client_current_data['email'] != $customer_data['email']) {
-					if (!$EmailForm->sendEmail('customer_data_updated', 'n/a', $client_current_data['email'], $client_current_data['first_name'] . " " . $client_current_data['last_name'])) {
-						msg('Customer data updated email sending failed.', 'error');
-					} else {
-						//msg('Sent1');
-					}
-				}
 				
+			}
+			
+			/**
+			 * if email changed, send notify to old email
+			 */
+			 
+			if ($client_current_data['email'] != $customer_data['email']) {
+				if (!$EmailForm->sendEmail('customer_email_changed', 'n/a', $client_current_data['email'], $client_current_data['first_name'] . " " . $client_current_data['last_name'])) {
+					msg('Customer data updated email sending failed.', 'error');
+				} else {
+					//msg('Sent1');
+				}
 			}
 			
 			return true;
