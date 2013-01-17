@@ -574,7 +574,8 @@ CREATE TABLE client_customer (
 		$Company = new client_company();
 		
 		if (!isset($client_data['customer']['newsletter'])) $client_data['customer']['newsletter'] = 0;
-	
+		$client_data['customer']['group_id'] = $client_data['customer']['group_id'] > 0 ? $client_data['customer']['group_id'] : null;
+
 		//TEMP!!!
 		$client_data['customer']['company_id'] = 0;
 	
