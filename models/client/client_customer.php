@@ -332,7 +332,9 @@ CREATE TABLE client_customer (
 		
 			if ($this->set('email', $customer_data['email'])) {
 		
-				$customer_current = $this->listing("lower(email) = '{$customer_data['email']}' AND status < 3");
+				$sql = "lower(email) = '{$customer_data['email']}' AND status < 3";
+				if ($customer_data['id'] > 0) $sql .= " AND id != {$customer_data['id']}";
+				$customer_current = $this->listing($sql);
 		
 				if (count($customer_current) > 0) {
 		
@@ -591,6 +593,8 @@ CREATE TABLE client_customer (
 				$client_data['customer']['company_id'] = $id;
 			}
 		}
+
+		if (!$this->checkLoginId($client_data['customer'])) return false;
 		
 		if ($this->updateCustomer($client_data['customer'])) {
 			msg('Customer Data Updated', 'ok', 2);
