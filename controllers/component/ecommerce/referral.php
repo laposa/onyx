@@ -42,7 +42,7 @@ class Onxshop_Controller_Component_Ecommerce_Referral extends Onxshop_Controller
 	 * This could be constant for now, but there is a plan
 	 * to make this variable adjustable (per user group)
 	 */
-	const REFERRAL_PAGE_ID = 5600;
+	const REFERRAL_PAGE_ID = 5727;
 
 	/**
 	 * Model instance
@@ -355,11 +355,11 @@ class Onxshop_Controller_Component_Ecommerce_Referral extends Onxshop_Controller
 
 		$default_message = "Hello,\n\n" .
 				"I would like to introduce you to JING Tea. JING sources exceptional teas " .
-				"from across the world and designs modern and elegant tea wares specifically " .
+				"from across the world and designs modern and elegant JINGwares specifically " .
 				"designed to infuse their teas.\n\n" .
-				"To introduce you to their range I would like to offer you £5.00 off your " . 
-				"first order with JING using the following code: " . $code .
-				"\n\nBrowse JING Tea’s Range at http://www.jingtea.com" .
+				"To introduce you to their range I would like to offer you £5.00 off when " . 
+				"you spend over £20.00 on your first order. Your JING voucher code is: " . $code .
+				"\n\nBrowse JING Tea’s range at http://www.jingtea.com" .
  				"\n\nKind regards,\n" .
 				$_SESSION['client']['customer']['first_name'];
 
