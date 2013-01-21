@@ -100,18 +100,29 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 			}
 		}
 		
+		
 		/**
-		 * process subcontroller
+		 * check template file exists in ONXSHOP_DIR or in ONXSHOP_PROJECT_DIR
 		 */
 		 
-		if (file_exists(ONXSHOP_DIR . "templates/node/{$node_data['node_group']}/{$node_data['node_controller']}.html")) {
+		$controller_path = "node/{$node_data['node_group']}/{$node_data['node_controller']}";
+		
+		$controller_template_path = "templates/{$controller_path}.html";
+		
+		if (file_exists(ONXSHOP_DIR . $controller_template_path) || file_exists(ONXSHOP_PROJECT_DIR . $controller_template_path)) {
 
-			$controller = "node/{$node_data['node_group']}/{$node_data['node_controller']}";
+			$controller = $controller_path;
 			
 		} else {
-			$controller = "node/default";
+		
+			$controller = "node/{$node_data['node_group']}/default";
+		
 		}
 		
+		/**
+		 * process controller referred from this node
+		 */
+		 
 		msg("Node process: $controller", 'ok', 2);
 		$_nSite = new nSite("$controller&id={$node_data['id']}&parent_id={$node_data['parent']}");
 		$node_data['content'] = $_nSite->getContent();
