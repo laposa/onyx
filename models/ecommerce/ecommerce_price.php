@@ -88,6 +88,8 @@ CREATE TABLE ecommerce_price (
 		
 		if (!array_key_exists('allow_multiplicator', $conf)) $conf['allow_multiplicator'] = 0;//disabled multiplicator functionality by default
 		if (!array_key_exists('multiplicator_growth', $conf)) $conf['multiplicator_growth'] = 'linear';//linear or exponential_over_1
+		if ($conf['multiplicator_exponent'] > 0) $conf['multiplicator_exponent'] = (float) $conf['multiplicator_exponent'];
+		else $conf['multiplicator_exponent'] = 2; // exponential growth is 2 by default
 		
 		if (!array_key_exists('backoffice_with_vat', $conf)) $conf['backoffice_with_vat'] = true;
 		if (!array_key_exists('frontend_with_vat', $conf)) $conf['frontend_with_vat'] = true;
@@ -399,20 +401,21 @@ CREATE TABLE ecommerce_price (
 		
 		$type = "multiplicator_$multiplicator";
 		$price_data = $this->getLastPriceForVariety($product_variety_id, GLOBAL_DEFAULT_CURRENCY, $type);
+		$common_price_data = $this->getLastPriceForVariety($product_variety_id);
 		
-		if (is_numeric($price_data['id'])) {
+		if (is_numeric($price_data['id']) && bccomp($common_price_data['value'], $price_data['value'], 3) == 0) {
 		
 			$price_id = $price_data['id'];
-		
+
 		} else {
-		
-			$common_price_data = $this->getLastPriceForVariety($product_variety_id);
+
+			$price_data = array();
 			$price_data['product_variety_id'] = $product_variety_id;
 			
 			switch ($this->conf['multiplicator_growth']) {
 				case 'exponential_over_1':
 					//exponential for multiplicator value greater than 1, under 1 is linear
-					if ($multiplicator > 1) $price_data['value'] = $common_price_data['value'] * pow($multiplicator, 2);
+					if ($multiplicator > 1) $price_data['value'] = $common_price_data['value'] * pow($multiplicator, $this->conf['multiplicator_exponent']);
 					else $price_data['value'] = $common_price_data['value'] * $multiplicator;
 					break;
 				case 'linear':
@@ -425,7 +428,7 @@ CREATE TABLE ecommerce_price (
 			$price_data['currency_code'] = GLOBAL_DEFAULT_CURRENCY;
 			$price_data['type'] = $type;
 			$price_id = $this->priceInsert($price_data);
-			
+
 		}
 		
 		msg("Created custom price ID $price_id", 'ok', 2);
