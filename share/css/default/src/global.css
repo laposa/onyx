@@ -145,7 +145,7 @@ code {font-family: monospace;}
 pre {white-space: pre-wrap;}
 
 blockquote {margin: 2em 0; padding: 0 0 0 40px; background: url(/share/images/default/quote_open.png) top left no-repeat;}
-blockquote p {background: url(/share/images/default/quote_close.png) bottom right no-repeat; padding: 0 40px 0 0; font-family: serif;}
+blockquote p {background: url(/share/images/default/quote_close.png) bottom right no-repeat; padding: 0 40px 0 0;}
 
 span.disabled {text-decoration: line-through;}
 /*a clearing div*/
