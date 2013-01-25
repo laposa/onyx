@@ -6,7 +6,7 @@
 <script src="/opt/codemirror/mode/xml/xml.js"></script>
 <style type="text/css">
 .CodeMirror-scroll {height: auto; min-height: 400px; overflow-y: hidden; overflow-x: auto; border: 2px inset;}
-#html_code {width: 90%; border: 1px solid black;}
+#html_code {width: 90%; min-height: 400px;  border: 1px solid black;}
 </style>
 <fieldset>
 	<div class="row">
@@ -17,7 +17,8 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-	var editor = CodeMirror.fromTextArea(document.getElementById('html_code'), {lineWrapping: true});
+	//disable due to incorrect line wrapping, wait for Codemirror v3
+	//var editor = CodeMirror.fromTextArea(document.getElementById('html_code'), {lineWrapping: true});
 });
 </script>
 
