@@ -2,7 +2,7 @@
 /**
  * Taxonomy tree
  *
- * Copyright (c) 2008-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2008-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -23,5 +23,15 @@ class Onxshop_Controller_Bo_Component_Taxonomy_Menu extends Onxshop_Controller_C
 		$list = $Taxonomy->getTree($publish);
 		
 		return $list;
+	}
+	
+	/**
+	 * getFullPath
+	 */
+	 
+	public function getFullPath() {
+		
+		return array();
+		
 	}
 }

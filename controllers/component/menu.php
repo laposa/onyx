@@ -15,6 +15,8 @@ class Onxshop_Controller_Component_Menu extends Onxshop_Controller_Tree {
 	 
 	public function mainAction() {
 	
+		$this->full_path = $this->getFullPath();
+		
 		/**
 		 * input variables
 		 */
@@ -66,6 +68,16 @@ class Onxshop_Controller_Component_Menu extends Onxshop_Controller_Tree {
 		 */
 		
 		return $this->standardAction($node_id, $publish, $max_display_level, $expand_all, $node_group);
+		
+	}
+	
+	/**
+	 * getFullPath
+	 */
+	 
+	public function getFullPath() {
+		
+		return $_SESSION['full_path'];
 		
 	}
 	

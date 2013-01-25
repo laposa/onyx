@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2010-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2010-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  * this is really node_tree as it depends on common_node
@@ -9,6 +9,8 @@
 
 class Onxshop_Controller_Tree extends Onxshop_Controller {
 
+	public $full_path = array();
+	
 	/**
 	 * main action
 	 */
@@ -135,7 +137,7 @@ class Onxshop_Controller_Tree extends Onxshop_Controller {
 			 * stop if are not expanding all and not selected item
 			 */
 			if ($expand_all == 0) {
-				if ($item['parent'] != $this->GET['open'] && $item['parent'] != $this->GET['id'] && !in_array($item['parent'], $_SESSION['full_path'])) return false;
+				if ($item['parent'] != $this->GET['open'] && $item['parent'] != $this->GET['id'] && !in_array($item['parent'], $this->full_path)) return false;
 			}
 			
 			/**
@@ -217,7 +219,7 @@ class Onxshop_Controller_Tree extends Onxshop_Controller {
 		 * set open and active class
 		 */
 		 
-		if (in_array($item['id'], $_SESSION['full_path'])) {
+		if (in_array($item['id'], $this->full_path)) {
 			$item['css_class'] = $item['css_class'] . " open";
 			if ($item['id'] == $_SESSION['active_pages'][0]) $item['css_class'] = $item['css_class'] . " active";
 		}
