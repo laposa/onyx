@@ -1032,4 +1032,65 @@ LEFT OUTER JOIN ecommerce_price ON (ecommerce_price.id = ecommerce_basket_conten
 		if (is_array($transaction_list)) return $transaction_list[0];
 		else return false;
 	}
+
+	/**
+	 * get list of orders
+	 *
+	 */
+	 
+	function getOrderListForExport($filter = false, $includeProducts = false) {
+		
+		$add_to_where = $this->prepareFilterWhereQuery($filter);
+		
+		/**
+		 * SQL query
+		 */
+		$sql = "SELECT
+			ecommerce_order.id AS order_id,
+			ecommerce_order.status AS order_status,
+			ecommerce_order.created AS order_created,
+			ecommerce_order.modified AS last_activity,
+			ecommerce_basket.customer_id AS customer_id,
+			client_customer.email AS email,
+			client_customer.title_before AS title_before,
+			client_customer.first_name AS first_name,
+			client_customer.last_name AS last_name,
+			ecommerce_invoice.goods_net AS goods_net";
+
+		if ($includeProducts) $sql .= ",
+				ecommerce_product.name AS product_name,
+				ecommerce_product_variety.name AS product_variety,
+				ecommerce_basket_content.quantity AS product_quantity,
+				ecommerce_price.value AS product_price";
+
+		$sql .= "
+			FROM ecommerce_order
+		";
+
+		if ($includeProducts) $sql .= "INNER";
+		else $sql .= "LEFT";
+
+		$sql .= " JOIN ecommerce_invoice ON ecommerce_invoice.order_id = ecommerce_order.id
+			LEFT JOIN ecommerce_basket ON ecommerce_basket.id = ecommerce_order.basket_id
+			LEFT JOIN client_customer ON client_customer.id = ecommerce_basket.customer_id";
+
+		if ($includeProducts) $sql .= "
+			LEFT JOIN ecommerce_basket_content ON ecommerce_basket_content.basket_id = ecommerce_basket.id
+			LEFT JOIN ecommerce_product_variety ON ecommerce_product_variety.id = ecommerce_basket_content.product_variety_id
+			LEFT JOIN ecommerce_product ON ecommerce_product.id = ecommerce_product_variety.product_id
+			LEFT JOIN ecommerce_price ON ecommerce_price.id = ecommerce_basket_content.price_id";
+
+		$sql .= "
+			WHERE 1=1
+			$add_to_where
+			ORDER BY ecommerce_order.id DESC";
+
+		//msg($sql);
+		
+		$records = $this->executeSql($sql);
+
+		return $records;
+
+	}
+
 }
