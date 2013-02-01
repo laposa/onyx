@@ -4945,6 +4945,13 @@ CREATE INDEX ecommerce_basket_customer_id_idx ON ecommerce_basket USING btree (c
 
 
 --
+-- Name: ecommerce_invoice_order_id_idx; Type: INDEX; Schema: public; Owner: jing; Tablespace: 
+--
+
+CREATE INDEX ecommerce_invoice_order_id_idx ON ecommerce_invoice USING btree (order_id);
+
+
+--
 -- Name: ecommerce_order_basket_id_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
