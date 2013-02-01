@@ -40,7 +40,19 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Order_List extends Onxshop_Contr
 		 */
 		
 		if (is_numeric($_POST['order-list-filter']['query'])) onxshopGoTo("/backoffice/orders/{$_POST['order-list-filter']['query']}/detail");
+
+		/**
+		 * Initialize pagination variables
+		 */
 		
+		if  (is_numeric($this->GET['limit_from'])) $from = $this->GET['limit_from'];
+		else $from = 0;
+		if (is_numeric($this->GET['limit_per_page'])) $per_page = $this->GET['limit_per_page'];
+		else $per_page = 25;
+		
+		
+		$limit = "$from,$per_page";
+
 		/**
 		 * Initialize order object
 		 */
@@ -51,64 +63,49 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Order_List extends Onxshop_Contr
 		/**
 		 * Get order list
 		 */
-		$order_list = $Order->getOrderList($customer_id, $order_list_filter);
-		
-		
-		
-		if (count($order_list) > 0) {
-			/**
-			 * Initialize pagination variables
-			 */
-			
-			if  (is_numeric($this->GET['limit_from'])) $from = $this->GET['limit_from'];
-			else $from = 0;
-			if (is_numeric($this->GET['limit_per_page'])) $per_page = $this->GET['limit_per_page'];
-			else $per_page = 25;
-			
-			
-			$limit = "$from,$per_page";
-			
-			
+		$order_list = $Order->getOrderList($customer_id, $order_list_filter, $per_page, $from);
+		$count = $Order->getOrderListCount($customer_id, $order_list_filter);
+
+		if ($count > 0) {
+						
 			/**
 			 * Display pagination
 			 */
 			
-			//$link = "/page/" . $_SESSION['active_pages'][0];
-			$count = count($order_list);
-			
 			$_nSite = new nSite("component/pagination~limit_from=$from:limit_per_page=$per_page:count=$count~");
 			$this->tpl->assign('PAGINATION', $_nSite->getContent());
-			
 			
 			/**
 			 * Display items
 			 * Implemented pagination
 			 */
 		
-		
-			foreach ($order_list as $i=>$item) {
+			foreach ($order_list as $item) {
 				
-				if ($i >= $from  && $i < ($from + $per_page) ) {
-					$even_odd = ( 'odd' != $even_odd ) ? 'odd' : 'even';
-					$item['even_odd'] = $even_odd;
-				
-					$item['order_created'] = strftime('%c', strtotime($item['order_created']));
-					$item['last_activity'] = strftime('%c', strtotime($item['last_activity']));
-					if (!is_numeric($item['goods_net'])) $item['goods_net'] = 0;
-
-					// display payment due (for unpaid orders only)
-					if ($item['order_status'] == 0 && isset($item['other_data']['payment_due']))
-						$item['payment_due'] = $item['other_data']['payment_due'];
-
-					$item['status'] = $Order->getStatusTitle($item['order_status']);
+				$even_odd = ( 'odd' != $even_odd ) ? 'odd' : 'even';
+				$item['even_odd'] = $even_odd;
 			
-					$this->tpl->assign('ITEM', $item);
-					$this->tpl->parse('content.list.item');
-				}
+				$item['order_created'] = strftime('%c', strtotime($item['order_created']));
+				$item['last_activity'] = strftime('%c', strtotime($item['last_activity']));
+				if (!is_numeric($item['goods_net'])) $item['goods_net'] = 0;
+
+				// display payment due (for unpaid orders only)
+				if ($item['order_status'] == 0 && isset($item['other_data']['payment_due']))
+					$item['payment_due'] = $item['other_data']['payment_due'];
+
+				$item['status'] = $Order->getStatusTitle($item['order_status']);
+		
+				$this->tpl->assign('ITEM', $item);
+				$this->tpl->parse('content.list.item');
+
 			}
+
 			$this->tpl->parse('content.list');
+
 		} else {
+
 			msg("No orders found in this category", 'error');
+
 		}
 
 		return true;
