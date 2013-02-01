@@ -323,8 +323,6 @@ CREATE TABLE ecommerce_order (
 		$sql = "SELECT count(*) AS item_count FROM ecommerce_order
 			LEFT OUTER JOIN ecommerce_basket ON (ecommerce_basket.id = ecommerce_order.basket_id)
 			LEFT OUTER JOIN client_customer ON (client_customer.id = ecommerce_basket.customer_id)
-			LEFT OUTER JOIN client_address ON (client_address.id = client_customer.invoices_address_id)
-			LEFT OUTER JOIN ecommerce_invoice ON  (ecommerce_invoice.order_id = ecommerce_order.id)
 			WHERE 1=1
 			$add_to_where";
 
