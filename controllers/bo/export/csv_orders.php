@@ -69,7 +69,7 @@ class Onxshop_Controller_Bo_Export_CSV_Orders extends Onxshop_Controller_Bo_Expo
 				}
 		
 		    //set the headers for the output
-			$this->sendCSVHeaders('customers');
+			$this->sendCSVHeaders('orders' . ($this->GET['inlude_products'] == 1 ? '-products' : ''));
 		
 		} else {
 		
