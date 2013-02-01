@@ -215,10 +215,129 @@ CREATE TABLE ecommerce_order (
 	 *
 	 */
 	 
-	function getOrderList($customer_id = NULL, $filter = false) {
+	function getOrderList($customer_id = NULL, $filter = false, $limit = false, $offset = false) {
 		
 		if (!(is_numeric($customer_id) || is_null($customer_id))) return false;
 		
+		$add_to_where = $this->prepareFilterWhereQuery($filter);
+
+		//customer ID
+		if (is_numeric($customer_id)) $add_to_where .= " AND client_customer.id = $customer_id ";
+
+		$add_limit = '';
+		if (is_numeric($limit) && $limit > 0) {
+			$add_limit = "LIMIT $limit";
+			if (is_numeric($offset) && $offset > 0) {
+				$add_limit .= " OFFSET $offset";
+			}
+		}
+
+		/**
+		 * SQL query
+		 */
+		$sql = "SELECT 
+				ecommerce_order.id AS order_id,
+				ecommerce_order.status AS order_status,
+				ecommerce_order.created AS order_created,
+				ecommerce_order.modified AS last_activity,
+				ecommerce_order.other_data AS other_data,
+				client_customer.id AS customer_id, 
+				client_customer.email, 
+				client_customer.title_before, 
+				client_customer.first_name,
+				client_customer.last_name,  
+				client_customer.newsletter,
+				client_customer.invoices_address_id,
+				client_address.country_id,
+				client_customer.company_id,  
+				ecommerce_invoice.goods_net
+			FROM ecommerce_order
+			LEFT OUTER JOIN ecommerce_basket ON (ecommerce_basket.id = ecommerce_order.basket_id)
+			LEFT OUTER JOIN client_customer ON (client_customer.id = ecommerce_basket.customer_id)
+			LEFT OUTER JOIN client_address ON (client_address.id = client_customer.invoices_address_id)
+			LEFT OUTER JOIN ecommerce_invoice ON  (ecommerce_invoice.order_id = ecommerce_order.id)
+			WHERE 1=1
+			$add_to_where
+			ORDER BY ecommerce_order.id DESC
+			$add_limit
+		";
+
+		//msg($sql);
+		
+		$records = $this->executeSql($sql);
+
+		if (is_array($records)) {
+	
+			if (count($records) == 0) return array();
+			
+			/**
+			 * format output array
+			 */
+			$breakdown = array();
+	
+			foreach ($records as $item) {
+				$breakdown[$item['order_id']]['order_id'] = $item['order_id'];
+				$breakdown[$item['order_id']]['order_status'] = $item['order_status'];
+				$breakdown[$item['order_id']]['customer_id'] = $item['customer_id'];
+				$breakdown[$item['order_id']]['goods_net'] = $item['goods_net'];
+				$breakdown[$item['order_id']]['other_data'] = unserialize($item['other_data']);
+				$breakdown[$item['order_id']]['email'] = $item['email'];
+				$breakdown[$item['order_id']]['title_before'] = $item['title_before'];
+				$breakdown[$item['order_id']]['first_name'] = $item['first_name'];
+				$breakdown[$item['order_id']]['last_name'] = $item['last_name'];
+				$breakdown[$item['order_id']]['newsletter'] = $item['newsletter'];
+				$breakdown[$item['order_id']]['company_id'] = $item['company_id'];
+				$breakdown[$item['order_id']]['invoices_address_id'] = $item['invoices_address_id'];
+				$breakdown[$item['order_id']]['order_created'] = $item['order_created'];
+				$breakdown[$item['order_id']]['last_activity'] = $item['last_activity'];
+			}
+	
+			foreach ($breakdown as $item) {
+				$c_breakdown[] = $item;
+			}
+			return $c_breakdown;
+			
+		} else {
+			
+			return false;
+		}
+	}
+
+	/**
+	 * get number of orders with given filter applied
+	 *
+	 */
+	 
+	function getOrderListCount($customer_id = NULL, $filter = false) {
+		
+		if (!(is_numeric($customer_id) || is_null($customer_id))) return false;
+		
+		$add_to_where = $this->prepareFilterWhereQuery($filter);
+
+		//customer ID
+		if (is_numeric($customer_id)) $add_to_where .= " AND client_customer.id = $customer_id ";
+
+		/**
+		 * SQL query
+		 */
+		$sql = "SELECT count(*) AS item_count FROM ecommerce_order
+			LEFT OUTER JOIN ecommerce_basket ON (ecommerce_basket.id = ecommerce_order.basket_id)
+			LEFT OUTER JOIN client_customer ON (client_customer.id = ecommerce_basket.customer_id)
+			LEFT OUTER JOIN client_address ON (client_address.id = client_customer.invoices_address_id)
+			LEFT OUTER JOIN ecommerce_invoice ON  (ecommerce_invoice.order_id = ecommerce_order.id)
+			WHERE 1=1
+			$add_to_where";
+
+		$record = $this->executeSql($sql);
+
+		return (int) $record[0]['item_count'];
+	}
+
+	/**
+	 * Prepare WHERE part of SQL query according to given filter
+	 */
+	function prepareFilterWhereQuery($filter)
+	{
 		$add_to_where = '';
 		
 		/**
@@ -264,80 +383,9 @@ CREATE TABLE ecommerce_order (
 			$add_to_where .=" AND ecommerce_order_log.datetime BETWEEN '{$filter['activity_from']}' AND '{$filter['activity_to']}'";
 		}*/
 		
-		//customer ID
-		if (is_numeric($customer_id)) $add_to_where .= " AND client_customer.id = $customer_id ";
-		
-		/**
-		 * SQL query
-		 */
-		$sql = "
-SELECT 
-ecommerce_order.id AS order_id,
-ecommerce_order.status AS order_status,
-ecommerce_order.created AS order_created,
-ecommerce_order.modified AS last_activity,
-ecommerce_order.other_data AS other_data,
-client_customer.id AS customer_id, 
-client_customer.email, 
-client_customer.title_before, 
-client_customer.first_name,
-client_customer.last_name,  
-client_customer.newsletter,
-client_customer.invoices_address_id,
-client_address.country_id,
-client_customer.company_id,  
-ecommerce_invoice.goods_net
-FROM ecommerce_order
-LEFT OUTER JOIN ecommerce_basket ON (ecommerce_basket.id = ecommerce_order.basket_id)
-LEFT OUTER JOIN client_customer ON (client_customer.id = ecommerce_basket.customer_id)
-LEFT OUTER JOIN client_address ON (client_address.id = client_customer.invoices_address_id)
-LEFT OUTER JOIN ecommerce_invoice ON  (ecommerce_invoice.order_id = ecommerce_order.id)
-WHERE 1=1
-$add_to_where
-ORDER BY ecommerce_order.id DESC
-";
-
-		//msg($sql);
-		
-		$records = $this->executeSql($sql);
-
-		if (is_array($records)) {
-	
-			if (count($records) == 0) return array();
-			
-			/**
-			 * format output array
-			 */
-			$breakdown = array();
-	
-			foreach ($records as $item) {
-				$breakdown[$item['order_id']]['order_id'] = $item['order_id'];
-				$breakdown[$item['order_id']]['order_status'] = $item['order_status'];
-				$breakdown[$item['order_id']]['customer_id'] = $item['customer_id'];
-				$breakdown[$item['order_id']]['goods_net'] = $item['goods_net'];
-				$breakdown[$item['order_id']]['other_data'] = unserialize($item['other_data']);
-				$breakdown[$item['order_id']]['email'] = $item['email'];
-				$breakdown[$item['order_id']]['title_before'] = $item['title_before'];
-				$breakdown[$item['order_id']]['first_name'] = $item['first_name'];
-				$breakdown[$item['order_id']]['last_name'] = $item['last_name'];
-				$breakdown[$item['order_id']]['newsletter'] = $item['newsletter'];
-				$breakdown[$item['order_id']]['company_id'] = $item['company_id'];
-				$breakdown[$item['order_id']]['invoices_address_id'] = $item['invoices_address_id'];
-				$breakdown[$item['order_id']]['order_created'] = $item['order_created'];
-				$breakdown[$item['order_id']]['last_activity'] = $item['last_activity'];
-			}
-	
-			foreach ($breakdown as $item) {
-				$c_breakdown[] = $item;
-			}
-			return $c_breakdown;
-			
-		} else {
-			
-			return false;
-		}
+		return $add_to_where;
 	}
-	
+
 	/**
 	 * get detail of one order
 	 *
