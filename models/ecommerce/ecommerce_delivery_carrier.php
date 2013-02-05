@@ -79,7 +79,7 @@ class ecommerce_delivery_carrier extends Onxshop_Model {
 		'limit_list_countries'=>array('label' => '', 'validation'=>'string', 'required'=>false),
 		'limit_list_products'=>array('label' => '', 'validation'=>'string', 'required'=>false),
 		'limit_list_product_types'=>array('label' => '', 'validation'=>'string', 'required'=>false),
-		'limit_order_value'=>array('label' => '', 'validation'=>'string', 'required'=>false),
+		'limit_order_value'=>array('label' => '', 'validation'=>'decimal', 'required'=>false),
 		'fixed_value'=>array('label' => '', 'validation'=>'decimal', 'required'=>false),
 		'fixed_percentage'=>array('label' => '', 'validation'=>'decimal', 'required'=>false),
 		'priority'=>array('label' => '', 'validation'=>'int', 'required'=>false),
