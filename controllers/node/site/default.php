@@ -51,7 +51,7 @@ class Onxshop_Controller_Node_Site_Default extends Onxshop_Controller {
 		$this->tpl->assign('GLOBAL_NAVIGATION', $_nSite->getContent());
 		
 		/**
-		 * main menu (primary navigation) will show all items only if secondary navigation is hidden
+		 * main menu (primary navigation) will show all sub items to the active page only if secondary navigation is hidden
 		 */
 		 
 		if ($GLOBALS['onxshop_conf']['global']['display_secondary_navigation'] == 1) {
