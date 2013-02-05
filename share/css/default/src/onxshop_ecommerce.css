@@ -42,6 +42,14 @@ div.product_list_4columns div.item div.price {padding: 0 1em;}
 div.product_list_4columns div.item span.price {}
 div.product_list_4columns div.item div.image a {display: block; margin: 0 auto 1em auto;}
 
+/********* component/ecommerce/product_list_6columns *********/
+div.product_list_6columns a {text-decoration: none; }
+div.product_list_6columns div.item {font-size: 80%; width: 16.66%; text-align: center; float: left; clear: none;}
+div.product_list_6columns div.item h3 {clear: both; padding: 0 1em;}
+div.product_list_6columns div.item div.price {padding: 0 1em;}
+div.product_list_6columns div.item span.price {}
+div.product_list_6columns div.item div.image a {display: block; margin: 0 auto 1em auto;}
+
 /********* component/ecommerce/product_list_scroll *********/
 div.product_list_scroll {margin-top: 1em;}
 div.product_list_scroll a {text-decoration: none; font-size: 80%;}
