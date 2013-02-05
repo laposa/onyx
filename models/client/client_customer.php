@@ -619,8 +619,8 @@ CREATE TABLE client_customer (
 	function updateCustomer($customer_data, $send_notify_email = false) {
 		
 		//make email and username lowercase to avoid duplications
-		$customer_data['email'] = strtolower($customer_data['email']);
-		$customer_data['username'] = strtolower($customer_data['username']);
+		if (array_key_exists('email', $customer_data)) $customer_data['email'] = strtolower($customer_data['email']);
+		if (array_key_exists('username', $customer_data)) $customer_data['username'] = strtolower($customer_data['username']);
 		
 		$customer_data['modified'] = date('c');
 		if (is_array($customer_data['other_data'])) $customer_data['other_data'] = serialize($customer_data['other_data']);
