@@ -192,46 +192,48 @@ div.twoColumnLayout {clear: both;}
 
 /*default, fibonacci-1-1, 50%/50%*/
 div.twoColumnLayout div.layoutColumnOne,
-div.fibonacci-1-1 div.layoutColumnOne {float: left; width: 49.999%;} /*should be 50%, but ie7,ie7 problem with equal devision odd width values*/
+div.twoColumnLayout.fibonacci-1-1 div.layoutColumnOne {float: left; width: 49.999%;} /*should be 50%, but ie7,ie7 problem with equal devision odd width values*/
 div.twoColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnOne > div.layoutColumnWrapper {margin-right: 15px;}
 div.twoColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnTwo > div.layoutColumnWrapper {margin-left: 15px;}
 /*ie6 inherited*/
 div.twoColumnLayout div.layoutContentWrapper div.layoutColumnOne div.layoutColumnTwo div.layoutColumnWrapper {margin-right: 0;}
 div.twoColumnLayout div.layoutContentWrapper div.layoutColumnTwo div.layoutColumnOne div.layoutColumnWrapper {margin-left: 0;}
 
-/*don't repeat twoColumnLayout as all fibonacci are twoColumns and it helps with nesting layouts*/
 div.twoColumnLayout div.layoutColumnTwo,
-div.fibonacci-1-1 div.layoutColumnTwo {width: 49.999%; float: right;} /*should be 50%, but ie7,ie7 problem with equal devision odd width values*/
+div.twoColumnLayout.fibonacci-1-1 div.layoutColumnTwo {width: 49.999%; float: right;} /*should be 50%, but ie7,ie7 problem with equal devision odd width values*/
+/*fibonacci-1-1, 1level inheritance, TODO: support for other layout inheritance*/
+div.twoColumnLayout div.twoColumnLayout.fibonacci-1-1 div.layoutColumnOne,
+div.twoColumnLayout div.twoColumnLayout.fibonacci-1-1 div.layoutColumnTwo {width: 49.999%;} /*should be 50%, but ie7,ie7 problem with equal devision odd width values*/
 /*fibonacci-1-5, 16.6%/83.3%*/
-div.fibonacci-1-5 div.layoutColumnOne {width: 16.66%;}
-div.fibonacci-1-5 div.layoutColumnTwo {width: 83.33%;}/*make sure this can be split into equal 50/50*/
-div.fibonacci-5-1 div.layoutColumnOne {width: 83.33%;}
-div.fibonacci-5-1 div.layoutColumnTwo {width: 16.66%;}
+div.twoColumnLayout.fibonacci-1-5 div.layoutColumnOne {width: 16.66%;}
+div.twoColumnLayout.fibonacci-1-5 div.layoutColumnTwo {width: 83.33%;}/*make sure this can be split into equal 50/50*/
+div.twoColumnLayout.fibonacci-5-1 div.layoutColumnOne {width: 83.33%;}
+div.twoColumnLayout.fibonacci-5-1 div.layoutColumnTwo {width: 16.66%;}
 /*fibonacci-1-3, 25%/75%*/
-div.fibonacci-1-3 div.layoutColumnOne {width: 25%;}
-div.fibonacci-1-3 div.layoutColumnTwo {width: 75%;}/*make sure this can be split into equal 50/50*/
-div.fibonacci-3-1 div.layoutColumnOne {width: 75%;}
-div.fibonacci-3-1 div.layoutColumnTwo {width: 25%;}
+div.twoColumnLayout.fibonacci-1-3 div.layoutColumnOne {width: 25%;}
+div.twoColumnLayout.fibonacci-1-3 div.layoutColumnTwo {width: 75%;}/*make sure this can be split into equal 50/50*/
+div.twoColumnLayout.fibonacci-3-1 div.layoutColumnOne {width: 75%;}
+div.twoColumnLayout.fibonacci-3-1 div.layoutColumnTwo {width: 25%;}
 /*fibonacci-2-5, 28.6%/71.4%*/
-div.fibonacci-2-5 div.layoutColumnOne {width: 28.6%;}
-div.fibonacci-2-5 div.layoutColumnTwo {width: 71.4%;}/*make sure this can be split into equal 50/50*/
-div.fibonacci-5-2 div.layoutColumnOne {width: 71.4%;}
-div.fibonacci-5-2 div.layoutColumnTwo {width: 28.6%;}
+div.twoColumnLayout.fibonacci-2-5 div.layoutColumnOne {width: 28.6%;}
+div.twoColumnLayout.fibonacci-2-5 div.layoutColumnTwo {width: 71.4%;}/*make sure this can be split into equal 50/50*/
+div.twoColumnLayout.fibonacci-5-2 div.layoutColumnOne {width: 71.4%;}
+div.twoColumnLayout.fibonacci-5-2 div.layoutColumnTwo {width: 28.6%;}
 /*fibonacci-1-2, 33%/66%*/
-div.fibonacci-1-2 div.layoutColumnOne {width: 33.3%;}
-div.fibonacci-1-2 div.layoutColumnTwo {width: 66.6%;}/*make sure this can be split into equal 50/50*/
-div.fibonacci-2-1 div.layoutColumnOne {width: 66.6%;}
-div.fibonacci-2-1 div.layoutColumnTwo {width: 33.3%;}
+div.twoColumnLayout.fibonacci-1-2 div.layoutColumnOne {width: 33.3%;}
+div.twoColumnLayout.fibonacci-1-2 div.layoutColumnTwo {width: 66.6%;}/*make sure this can be split into equal 50/50*/
+div.twoColumnLayout.fibonacci-2-1 div.layoutColumnOne {width: 66.6%;}
+div.twoColumnLayout.fibonacci-2-1 div.layoutColumnTwo {width: 33.3%;}
 /*fibonacci-3-5, 38.2%/61.8%*/
-div.fibonacci-3-5 div.layoutColumnOne {width: 38.2%;}
-div.fibonacci-3-5 div.layoutColumnTwo {width: 61.8%;}/*make sure this can be split into equal 50/50*/
-div.fibonacci-5-3 div.layoutColumnOne {width: 61.8%;}
-div.fibonacci-5-3 div.layoutColumnTwo {width: 38.2%;}
+div.twoColumnLayout.fibonacci-3-5 div.layoutColumnOne {width: 38.2%;}
+div.twoColumnLayout.fibonacci-3-5 div.layoutColumnTwo {width: 61.8%;}/*make sure this can be split into equal 50/50*/
+div.twoColumnLayout.fibonacci-5-3 div.layoutColumnOne {width: 61.8%;}
+div.twoColumnLayout.fibonacci-5-3 div.layoutColumnTwo {width: 38.2%;}
 /*fibonacci-2-3, 40%/60%*/
-div.fibonacci-2-3 div.layoutColumnOne {width: 40%;}
-div.fibonacci-2-3 div.layoutColumnTwo {width: 60%;}/*make sure this can be split into equal 50/50*/
-div.fibonacci-3-2 div.layoutColumnOne {width: 60%;}
-div.fibonacci-3-2 div.layoutColumnTwo {width: 40%;}
+div.twoColumnLayout.fibonacci-2-3 div.layoutColumnOne {width: 40%;}
+div.twoColumnLayout.fibonacci-2-3 div.layoutColumnTwo {width: 60%;}/*make sure this can be split into equal 50/50*/
+div.twoColumnLayout.fibonacci-3-2 div.layoutColumnOne {width: 60%;}
+div.twoColumnLayout.fibonacci-3-2 div.layoutColumnTwo {width: 40%;}
 
 /********* node/layout/3columns.html *********/
 div.threeColumnLayout {clear: both;}
