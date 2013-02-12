@@ -105,6 +105,7 @@ define('I18N_CHECKOUT', 'Checkout');
 define('I18N_BASKET_ITEM_ADDED', 'Item has been added to your basket');
 define('I18N_BASKET_ITEM_REMOVED', 'Item has been deleted from your basket');
 //component/ecommerce/basket_detail.html
+define('I18N_VAT_NOTE', 'By default, product prices displayed throughout our website are UK VAT inclusive until you proceed to purchase your order. Taxes and duties are then calculated according to your shipping destination and itemised at the bottom of the Order Summary page.');
 //component/ecommerce/basket_edit.html
 define('I18N_YOUR_ORDER_SUMMARY', 'Your order summary');
 define('I18N_PRODUCT_DETAIL', 'Product detail');

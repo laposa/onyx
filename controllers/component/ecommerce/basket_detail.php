@@ -141,6 +141,8 @@ class Onxshop_Controller_Component_Ecommerce_Basket_Detail extends Onxshop_Contr
 				$this->tpl->assign('VAT', $vat);
 				$this->tpl->parse('content.basket.vat');
 			}
+
+			if ($exclude_vat) $this->tpl->parse('content.vat_note');
 			
 			//print_r($basket_detail);
 			$this->tpl->assign('BASKET', $basket_detail['content']);
