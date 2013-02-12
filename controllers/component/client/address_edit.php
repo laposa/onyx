@@ -118,7 +118,7 @@ class Onxshop_Controller_Component_Client_Address_Edit extends Onxshop_Controlle
 		 * country list
 		 */
 		 
-		$countries = $Country->listing();
+		$countries = $Country->listing("", "name ASC");
 		
 		if (!isset($_POST['client']['address']['country_id'])) $_POST['client']['address']['country_id'] = $Country->conf['default_id'];
 		
