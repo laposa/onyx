@@ -46,6 +46,8 @@ CREATE INDEX ecommerce_basket_content_basket_id_idx ON ecommerce_basket_content 
 CREATE INDEX ecommerce_basket_content_product_variety_id_idx ON ecommerce_basket_content (product_variety_id);
 CREATE INDEX ecommerce_basket_content_price_id_idx ON ecommerce_basket_content (price_id);
 
+CREATE INDEX ecommerce_invoice_order_id_idx ON ecommerce_invoice (order_id);
+
 CREATE INDEX ecommerce_order_basket_id_idx ON ecommerce_order (basket_id);
 CREATE INDEX ecommerce_order_invoices_address_id_idx ON ecommerce_order (invoices_address_id);
 CREATE INDEX ecommerce_order_delivery_address_id_idx ON ecommerce_order (delivery_address_id);

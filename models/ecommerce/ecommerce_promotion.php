@@ -488,7 +488,7 @@ CREATE TABLE ecommerce_promotion (
 			 */
 			if ($campaign_data['limit_to_first_order'] > 0) {
 				if ($this->getNumCustomerOrders($customer_id) > 0) {
-					msg("Code \"$code\" is restricted to you first order.", 'error');
+					msg("Code \"$code\" is restricted to your first order.", 'error');
 					return false;
 				}
 			}

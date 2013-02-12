@@ -41,7 +41,7 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
 		 
 		require_once('models/international/international_country.php');
 		$Country = new international_country();
-		$countries = $Country->listing();
+		$countries = $Country->listing("", "name ASC");
 		
 		if (!isset($_POST['client']['address']['delivery']['country_id'])) $_POST['client']['address']['delivery']['country_id'] = $Country->conf['default_id'];
 		// address will be caught through relation
