@@ -30,7 +30,7 @@ div.checkout_address a.open {background-image: url(/images/arrow-gold-down.gif);
 			<!--<legend>{I18N_ADDRESS_LIST}</legend>-->
 			
 			
-			<select name="selected_address_id" onchange="submit()">
+			<select name="selected_address_id" onchange="$(this).parents('.pageWrapper').css('opacity', 0.3).css('cursor', 'wait'); submit()">
 				<!-- BEGIN: address -->
 				<option value="{ADDRESS.id}" {ADDRESS_selected}>{ADDRESS.name|htmlspecialchars}, {ADDRESS.line_1|htmlspecialchars}, {ADDRESS.city|htmlspecialchars}, {ADDRESS.post_code|htmlspecialchars}, {ADDRESS.county|htmlspecialchars}, {ADDRESS.country.name|htmlspecialchars}</option>
 				<!-- END: address -->
