@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2005-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2005-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -35,9 +35,11 @@ class Onxshop_Controller_Bo_Component_Node_Add extends Onxshop_Controller {
 			//$parent_data = $Node->getDetail($this->GET['parent']);
 
 			if ($node_data['parent'] == $Node->conf['id_map-homepage'] && $node_data['node_group'] == 'page') {
-				msg("Inserting page under the main menu");
-				$home_page_data = $Node->getDetail($Node->conf['id_map-homepage']); 
+				
+				$home_page_data = $Node->getDetail($Node->conf['id_map-homepage']);
 				$node_data['parent'] = $home_page_data['parent'];
+				$home_page_parent_data = $Node->getDetail($home_page_data['parent']);
+				msg("Inserting page under {$home_page_parent_data['title']}");
 			}
 			
 
