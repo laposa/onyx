@@ -38,28 +38,29 @@
 			{PAGE_HEADER}
 			<div class="pageContent">
 				<div class="pageContentWrapper">
-					<div class="rowTop page">
+					<div class="rowTop">
 						<div class="columnWrapper">
 							{CONTAINER.0}
 						</div>
 					</div>
-		
-					<div class="columnOne">
-						<div class="columnWrapper">											
-							<div class="teaser">{PRODUCT.teaser}</div>
-							{ONXSHOP_REQUEST_variety_list #component/ecommerce/variety_list~product_id=GET.product_id~}
-							{PRODUCT.description}
-							{TAXONOMY}
-							{OTHER_DATA}
-							
-							{CONTAINER.1}
+					<div class="rowMiddle">
+						<div class="columnOne">
+							<div class="columnWrapper">											
+								<div class="teaser">{PRODUCT.teaser}</div>
+								{ONXSHOP_REQUEST_variety_list #component/ecommerce/variety_list~product_id=GET.product_id~}
+								{PRODUCT.description}
+								{TAXONOMY}
+								{OTHER_DATA}
+								
+								{CONTAINER.1}
+							</div>
 						</div>
-					</div>
-					<div class="columnTwo">
-						<div class="columnWrapper">
-							<div class="productImage">{ONXSHOP_REQUEST_image #component/image_gallery~relation=product:role=main:width=GET.image_width:node_id=GET.product_id~}</div>
-																		
-							{CONTAINER.2}
+						<div class="columnTwo">
+							<div class="columnWrapper">
+								<div class="productImage">{ONXSHOP_REQUEST_image #component/image_gallery~relation=product:role=main:width=GET.image_width:node_id=GET.product_id~}</div>
+																			
+								{CONTAINER.2}
+							</div>
 						</div>
 					</div>
 					<div class="rowBottom">
