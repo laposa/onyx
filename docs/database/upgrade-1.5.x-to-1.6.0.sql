@@ -31,4 +31,11 @@ ALTER INDEX "shipping_wz_zone_price_zone_id_fkey" RENAME TO "ecommerce_delivery_
 ALTER INDEX "shipping_wz_country_to_zone_zone_id_fkey" RENAME TO "ecommerce_delivery_carrier_country_to_zone_zone_id_fkey";
 ALTER INDEX "shipping_wz_country_to_zone_country_id_fkey" RENAME TO "ecommerce_delivery_carrier_country_to_zone_country_id_fkey";
 
+
+--
+-- Name: ecommerce_invoice_order_id_idx; Type: INDEX; Schema: public; Owner: jing; Tablespace: 
+--
+
+CREATE INDEX ecommerce_invoice_order_id_idx ON ecommerce_invoice USING btree (order_id);
+
 COMMIT;

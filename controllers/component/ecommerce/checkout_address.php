@@ -156,7 +156,7 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Address extends Onxshop_Co
 	 
 	public function displayCountryList() {
 		
-		$countries = $this->Country->listing();
+		$countries = $this->Country->listing("", "name ASC");
 		
 		
 		if (!isset($_POST['client']['address']['country_id'])) $_POST['client']['address']['country_id'] = $this->Country->conf['default_id'];
