@@ -30,7 +30,7 @@ class Onxshop_Controller_Node_Content_Contact_Form extends Onxshop_Controller_No
 		
 		$this->tpl->assign("NODE", $node_data);
 		
-		$Form = new nSite("component/contact_form@component/_contact_form/{$node_data['component']['node_controller']}&amp;node_id={$node_data['id']}&amp;mail_to={$node_data['component']['mail_to']}&amp;mail_toname={$node_data['component']['mail_toname']}&amp;enable_captcha={$node_data['component']['enable_captcha']}");
+		$Form = new nSite("component/contact_form@component/_contact_form/{$node_data['component']['node_controller']}&amp;node_id={$node_data['id']}&amp;mail_to={$node_data['component']['mail_to']}&amp;mail_toname={$node_data['component']['mail_toname']}&amp;spam_protection={$node_data['component']['spam_protection']}");
 		$this->tpl->assign("FORM", $Form->getContent());
 		
 		if (Zend_Registry::isRegistered('notify')) {
