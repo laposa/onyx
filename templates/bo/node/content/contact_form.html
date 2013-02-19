@@ -45,9 +45,9 @@ $(document).ready(function(){
 		<span class="label"><label for="component-captcha">Anti-spam protection (CAPTCHA):</label></span>
 		<span class="field">
 			<select id="component-captcha" name="node[component][spam_protection]">
-				<option name="none">None</option>
-				<option name="captcha_image" {SPAM_PROTECTION.captcha_image}>Captcha image</option>
-				<option name="capcha_text_js" {SPAM_PROTECTION.capcha_text_js}>Invisible field</option>
+				<option value="none">None</option>
+				<option value="captcha_image" {SPAM_PROTECTION.captcha_image}>Captcha image</option>
+				<option value="captcha_text_js" {SPAM_PROTECTION.captcha_text_js}>Invisible field</option>
 			</select>
 	</div>
 
