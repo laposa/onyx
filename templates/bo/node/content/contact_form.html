@@ -43,7 +43,12 @@ $(document).ready(function(){
 
 	<div class="row">
 		<span class="label"><label for="component-captcha">Anti-spam protection (CAPTCHA):</label></span>
-		<span class="field"><input type="checkbox" id="component-captcha" name="node[component][enable_captcha]" {NODE.component.enable_captcha} /></span>
+		<span class="field">
+			<select id="component-captcha" name="node[component][enable_captcha]">
+				<option name="none">none</option>
+				<option name="image" {CAPTCHA.image_enabled}>image</option>
+				<option name="javascript" {CAPTCHA.javascript_enabled}>javascript</option>
+			</select>
 	</div>
 
 	<div class="row">
