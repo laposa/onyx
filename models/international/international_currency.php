@@ -65,8 +65,13 @@ CREATE TABLE international_currency (
 		else $conf = array();
 		
 		$conf['default'] = GLOBAL_DEFAULT_CURRENCY;
-		$conf['allowed'] = array(GLOBAL_DEFAULT_CURRENCY);
-		//$conf['allowed'] = array('all');
+		
+		if (array_key_exists('allowed', $conf)) {
+			$conf['allowed'] = explode(',', $conf['allowed']);
+		} else {
+			$conf['allowed'] = array(GLOBAL_DEFAULT_CURRENCY);
+			//$conf['allowed'] = array('all');
+		}
 		
 		return $conf;
 	}
