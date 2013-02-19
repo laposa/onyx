@@ -41,10 +41,9 @@ class Onxshop_Controller_Bo_Node_Content_Contact_form extends Onxshop_Controller
 			}
 		}
 
-		// $this->node_data['component']['enable_captcha'] = ($this->node_data['component']['enable_captcha']) ? 'checked="checked"' : '';
-		$this->tpl->assign("CAPTCHA", array(
-			'image_enabled' => ($this->node_data['component']['enable_captcha'] == 'image' ? 'selected="selected"' : ''),
-			'javascript_enabled' => ($this->node_data['component']['enable_captcha'] == 'javascript' ? 'selected="selected"' : '')
+		$this->tpl->assign("SPAM_PROTECTION", array(
+			'captcha_image' => ($this->node_data['component']['spam_protection'] == 'captcha_image' ? 'selected="selected"' : ''),
+			'capcha_text_js' => ($this->node_data['component']['spam_protection'] == 'capcha_text_js' ? 'selected="selected"' : '')
 		));
 
 	}

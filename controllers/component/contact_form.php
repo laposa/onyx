@@ -12,8 +12,8 @@ class Onxshop_Controller_Component_Contact_Form extends Onxshop_Controller {
 	 
 	public function mainAction() {
 
-		$this->enableCaptcha = (($this->GET['enable_captcha'] == "image" ||
-			$this->GET['enable_captcha'] == "javascript") && 
+		$this->enableCaptcha = (($this->GET['spam_protection'] == "captcha_image" ||
+			$this->GET['spam_protection'] == "capcha_text_js") && 
 			strpos($this->tpl->filecontents, '/request/component/captcha') !== FALSE);
 
 		$this->preProcessEmailForm();
@@ -27,7 +27,7 @@ class Onxshop_Controller_Component_Contact_Form extends Onxshop_Controller {
 		$this->postProcessEmailForm();
 
 		if ($this->enableCaptcha) {
-			if ($this->GET['enable_captcha'] == "javascript") {
+			if ($this->GET['spam_protection'] == "javascript") {
 				$word = $this->generateRandomWord();
 				$this->tpl->assign('CAPTCHA_CODE', $word);
 				$this->tpl->parse("content.invisible_captcha_field");
