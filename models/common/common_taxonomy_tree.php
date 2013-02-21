@@ -246,7 +246,9 @@ CREATE TABLE common_taxonomy_tree (
 	public function getRelatedTaxonomy($node_id, $relation = 'common_node_taxonomy') {
 	
 		if (!is_numeric($node_id)) return false;
-		if (!in_array($relation, array('common_node_taxonomy', 'ecommerce_product_taxonomy', 'ecommerce_product_variety_taxonomy'))) return false;
+		if (!in_array($relation, array('common_node_taxonomy', 'ecommerce_product_taxonomy', 
+			'ecommerce_product_variety_taxonomy', 'ecommerce_recipe_taxonomy',
+			'ecommerce_store_taxonomy', 'client_customer_taxonomy'))) return false;
 		
 		$sql = "
 			SELECT tree.id, tree.parent, tree.priority, tree.publish, label.title, label.description  FROM $relation t
