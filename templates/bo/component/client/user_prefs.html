@@ -7,6 +7,36 @@ $(document).ready(function(){
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 <form action="{URI_SAFE|htmlspecialchars}" method="post" id="client_customer_edit" class="user_prefs twoColumns">
 	
+	<!-- BEGIN: status -->
+	<fieldset>
+		<div class="row status">
+			<span class="label" for="client-customer-status"><label>Account Status</label></span>
+			<span class="field">
+				<select id="client-customer-status" name="client[customer][status]" >
+					<option value="0" {SELECTED_status_0}>locked (can't re-register)</option>
+					<option value="1" {SELECTED_status_1}>registered</option>
+					<!--<option value="2" {SELECTED_status_2}>reserved</option>-->
+					<option value="3" {SELECTED_status_3}>registered only for newsletter</option>
+					<option value="4" {SELECTED_status_4}>deleted (can register again)</option>
+				</select>
+			</span>
+		</div>
+
+		<!-- BEGIN: group -->
+			<div class="row group">
+				<span class="label" for="client-customer-group"><label>Customer group</label></span>
+				<span class="field">
+					<select id="client-customer-group" name="client[customer][group_id]" >
+						<option value="0">new (ungrouped)</option>
+						<!-- BEGIN: item --><option value="{ITEM.id}" {SELECTED}>{ITEM.name|htmlspecialchars}</option><!-- END: item -->
+					</select>
+				</span>
+			</div>
+		<!-- END: group -->
+
+	</fieldset>
+	<!-- END: status -->
+	
 	<fieldset>
 		<legend>{I18N_CHANGE_PASSWORD}</legend>
 		<div class="row password">
@@ -67,6 +97,18 @@ $(document).ready(function(){
 			<span class="label"><label for="client_customer_currency_code_id">{I18N_R_CURRENCY}</label></span>
 			<span class="field">{ONXSHOP_REQUEST_2 #component/ecommerce/currency_switcher_inline}</span>
 		</div>
+		<!-- BEGIN: account_type -->
+		<div class="row account_type">
+			<span class="label" for="client-customer-account_type"><label>Account type</label></span>
+			<span class="field">
+				<select id="client-customer-account_type" name="client[customer][account_type]" >
+					<option value="0" {SELECTED_account_type_0}>normal account</option>
+					<option value="1" {SELECTED_account_type_1}>requested trade</option>
+					<option value="2" {SELECTED_account_type_2}>approved trade</option>
+				</select>
+			</span>
+		</div>
+		<!-- END: account_type -->
 	</fieldset>
 	
 	<div class="row submit">
