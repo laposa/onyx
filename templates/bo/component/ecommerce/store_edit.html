@@ -1,0 +1,108 @@
+<!-- BEGIN: title -->Store edit<!-- END: title -->
+<!-- BEGIN: content -->
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#store_edit").tabs();
+});
+</script>
+
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<form method="post" action="" class="store_edit">
+<div id="store_edit">
+	<ul id="store_edit_menu" class="ui-tabs-nav">
+		<li class="active"><a class="onxshop_basic" href="#onxshop_basic"><span>Basic info</span></a></li>
+		<li><a class="onxshop_minor" href="#onxshop_minor"><span>Minor Tweaks</span></a></li>
+		<li><a class="onxshop_advanced" href="#onxshop_advanced"><span>Under the Hood</span></a></li>
+	</ul>
+
+	<button style="float: right;  margin: 3px;" type="submit" name="save" value="save"><span>Save</span></button>
+	
+	<div id="onxshop_basic" class="onxshop_tabulator ui-tabs-panel">
+		<fieldset>
+			<legend>Basic Attributes</legend>
+			<div class="row title">
+				<span class="label"><label>Store Title</label></span>
+				<span class="field"><input type="text" class="text title long" name="store[title]" value="{STORE.title|htmlspecialchars}" /></span>
+			</div>
+			<div class="row description rte">
+				<span class="label"><label>Description <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'simple', 'store_description'); return false;"><span>RTE</span></a></label></span>
+				<span class="field"><textarea id="store_description" name="store[description]">{STORE.description|htmlspecialchars}</textarea></span>
+			</div>
+			<div class="row address">
+				<span class="label"><label>Address</label></span>
+				<span class="field"><textarea id="store_address" name="store[address]">{STORE.address|htmlspecialchars}</textarea></span>
+			</div>
+			<div class="row opening hours">
+				<span class="label"><label>Opening Hours</label></span>
+				<span class="field"><textarea id="store_opening_hours" name="store[opening_hours]">{STORE.opening_hours|htmlspecialchars}</textarea></span>
+			</div>
+			<div class="row telephone">
+				<span class="label"><label>Telephone</label></span>
+				<span class="field"><input type="text" class="text telephone long" name="store[telephone]" value="{STORE.telephone|htmlspecialchars}" /></span>
+			</div>
+			<div class="row manager_name">
+				<span class="label"><label>Manager Name</label></span>
+				<span class="field"><input type="text" class="text manager_name long" name="store[manager_name]" value="{STORE.manager_name|htmlspecialchars}" /></span>
+			</div>
+			<div class="row email">
+				<span class="label"><label>E-mail</label></span>
+				<span class="field"><input type="text" class="text email long" name="store[email]" value="{STORE.email|htmlspecialchars}" /></span>
+			</div>
+			<div class="row coordinates_x">
+				<span class="label"><label>X coordinate</label></span>
+				<span class="field"><input type="text" class="coordinates_x" name="store[coordinates_x]" value="{STORE.coordinates_x|htmlspecialchars}" /></span>
+			</div>
+			<div class="row coordinates_y">
+				<span class="label"><label>Y coordinate</label></span>
+				<span class="field"><input type="text" class="coordinates_y" name="store[coordinates_y]" value="{STORE.coordinates_y|htmlspecialchars}" /></span>
+			</div>
+			<div class="row latitude">
+				<span class="label"><label>Latitude</label></span>
+				<span class="field"><input type="text" class="latitude" name="store[latitude]" value="{STORE.latitude|htmlspecialchars}" /></span>
+			</div>
+			<div class="row longitude">
+				<span class="label"><label>Longitude</label></span>
+				<span class="field"><input type="text" class="longitude" name="store[longitude]" value="{STORE.longitude|htmlspecialchars}" /></span>
+			</div>
+			<div class="row publish">
+				<span class="label"><label for="store-publish">Publish</label></span>
+				<span class="field"><input type="checkbox" id="store-publish" name="store[publish]" value="1" {STORE.publish} /></span>
+			</div>
+		</fieldset>
+
+		<fieldset>
+			<legend>Images</legend>
+			<div class="row">
+				<div class="image">
+				{ONXSHOP_REQUEST_imagelist #bo/component/file_list_icon~type=add_to_store:role=main:relation=store:node_id=GET.id~}
+				</div>
+			</div>
+		</fieldset>
+
+		{ONXSHOP_REQUEST_rt #bo/component/relation_taxonomy~relation=store:id=GET.id~}
+	
+		{ONXSHOP_REQUEST_store_in_node #bo/component/ecommerce/store_in_node~store_id=GET.id~}
+		{ONXSHOP_REQUEST_ptn #bo/component/ecommerce/relation_store_in_nodes}
+		
+	</div>
+
+	<div id="onxshop_minor">
+	</div>
+	
+	<div id="onxshop_advanced">
+		<fieldset>
+			<p>Store Last Modified {STORE.modified}</p>
+		</fieldset>
+	</div>
+
+	<button style="float: right;  margin: 3px;" type="submit" name="save" value="save"><span>Save</span></button>
+
+	<input type="hidden" name="store[id]" value="{GET.id}" />
+
+</div>
+</form>
+
+<br style="clear: both;" />
+	
+<!-- END: content -->

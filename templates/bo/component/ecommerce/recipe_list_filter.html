@@ -1,0 +1,24 @@
+<!-- BEGIN: content -->
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<div class="recipe_list_filter">
+	
+	<div class="filter" >
+		<form method="post" action="{URI|htmlspecialchars}">
+			<fieldset class="single">
+				<div class="row filter-keyword">
+					<span class="label"><label for="filter-keyword">Keyword</label></span>
+					<span class="field"><input id="filter-keyword" class="text filter-keyword" type="text" name="recipe-list-filter[keyword]" value="{_SESSION.recipe-list-filter.keyword}" /></span>
+				</div>
+			</fieldset>
+			<div class="row submit">
+				<span class="label"><label>&nbsp;</label></span>
+				<span class="field"><button type="submit" name="search" value="search"><span>Search</span></button></span>
+			</div>
+		</form>
+		
+	</div>
+	
+</div>
+
+
+<!-- END: content -->

@@ -1,0 +1,54 @@
+<!-- BEGIN: title -->Add Store<!-- END: title -->
+<!-- BEGIN: content -->
+<script type="text/javascript">  
+$(function(){  
+	$("#store_add_form").validate();
+});
+</script>
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<div class="store_add">
+	<form method="post" action="{URI|htmlspecialchars}" id="store_add_form">
+		<fieldset>
+			<div class="row title">
+				<span class="label"><label for="store-title">Store Title</label></span>
+				<span class="field"><input id="store-title" class="text title required" type="text" name="store[title]" value="{STORE.title}"/></span>
+			</div>
+		</fieldset>
+
+		<fieldset class="store_in_node">
+		
+			<p>Store page will be created, please select a place for your store:</p>
+
+			<input id="store-page_node_id" type="hidden" name="store[page_node_id]" value="{RECIPE.page_node_id}"/>
+
+			<div id="store_in_node_tree">
+			{ONXSHOP_REQUEST_page_node #component/menu_js~id=0:expand_all=1:publish=0~}
+			</div>
+
+			<script type="text/javascript">
+
+				$(function() {
+					$('#store_in_node_tree .simpleTree').simpleTree({
+						drag: false,
+						autoclose: true,
+						afterClick:function(node){
+							var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
+							$("#store-page_node_id").val(node_id);
+						},
+						animate: true,
+						docToFolderConvert: true
+					});
+
+				});
+			</script>
+
+		</fieldset>
+		
+		<div class="row submit">
+			<span class="label"><label>&nbsp;</label></span>
+			<span class="field"><button type="submit" class="next" name="save" value="save"><span>Next</span></button></span>
+		</div>
+	</form>
+</div>
+
+<!-- END: content -->

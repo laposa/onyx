@@ -1,0 +1,79 @@
+<!-- BEGIN: title -->Recipes<!-- END: title -->
+<!-- BEGIN: content -->
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#filterTaxonomy .simpleTree').simpleTree({
+		drag: false,
+		autoclose: true,
+		afterClick:function(node){
+			var node_id = $('a:first', node).attr('href').match('[0-9]{1,}$');
+			makeAjaxRequest('#sub_content', '/request/bo/component/ecommerce/recipe_list~taxonomy_tree_id=' + node_id + '~', function() {
+				$('#sub_content div.pagination a').die('click');
+				$('#sub_content div.pagination a').live('click', function() {
+					var limit_from = $(this).attr('href').match('limit_from=[0-9]{1,}');
+					var limit_per_page = $(this).attr('href').match('limit_per_page=[0-9]{1,}');
+					makeAjaxRequest('#sub_content', '/request/bo/component/ecommerce/recipe_list~taxonomy_tree_id=' + node_id + ':' + limit_from + ':' + limit_per_page + '~');
+					return false;
+				});
+			});
+		},
+		animate: true,
+		docToFolderConvert: true
+	});
+	
+	$('#sub_content div.pagination a').live('click', function() {
+		var limit_from = $(this).attr('href').match('limit_from=[0-9]{1,}');
+		var limit_per_page = $(this).attr('href').match('limit_per_page=[0-9]{1,}');
+		makeAjaxRequest('#sub_content', '/request/bo/component/ecommerce/recipe_list~' + limit_from + ':' + limit_per_page + '~');
+		return false;
+	});	
+});
+
+</script>
+
+<div id="recipes">
+	<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+	
+	<div class="twoColumnPage page fibonacci-1-5">
+		<div class="top"><span></span></div>
+		<div class="content">
+			<div class="pageWrapper">
+				{PAGE_HEADER}
+				<div class="pageContent">
+					<div class="pageContentWrapper">
+						<div class="rowTop">
+							<div class="columnWrapper">
+								{CONTAINER.0}
+							</div>
+						</div>
+			
+						<div class="columnOne">
+							<div class="columnWrapper">
+								<div id="filterTaxonomy">
+									{ONXSHOP_REQUEST_menupages #bo/component/taxonomy_menu~id=null:expand_all=1:publish=0~}
+								</div>
+								{ONXSHOP_REQUEST_filter #bo/component/ecommerce/recipe_list_filter}
+							</div>
+						</div>
+						<div class="columnTwo">
+							<div class="columnWrapper">
+								<div id="sub_content">
+									{SUB_CONTENT}
+								</div>
+							</div>
+						</div>
+						<div class="rowBottom">
+							<div class="columnWrapper">
+								{CONTAINER.3}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="bottom"><span></span></div>
+	</div>
+</div>
+<!-- END: content -->

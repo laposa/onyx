@@ -1,0 +1,99 @@
+<!-- BEGIN: head -->
+<script type="text/javascript">
+function select_related(id, title) {
+
+	var str = '<tr>' +
+				'<td>' +
+				'	<input type="text" name="ingredients[__ID__][quantity]" value="1"/>' +
+				'</td>' +
+				'<td>' +
+				'	<select name="ingredients[__ID__][units]">' +
+				'		<!-- BEGIN:unit --><option value="{UNIT.id}">{UNIT.title}</option><!-- END:unit -->' +
+				'	</select>' +
+				'</td>' +
+				'<td>' +
+				'	of' +
+				'</td>' +
+				'<td>' +
+				'	<a href="/backoffice/products/__ID__/edit">__TITLE__</a>' +
+				'</td>' +
+				'<td>' +
+				'	<input type="text" name="ingredients[__ID__][notes]" value=""/>' +
+				'</td>' +
+				'<td>' +
+				'	<button style="float: none;" name="" onclick="$(this).parent().parent().remove(); return false"><span>remove</span></button>' +
+				'</td>' +
+			'</tr>';
+        
+    str = str.replace(/__ID__/g, id);
+    str = str.replace(/__TITLE__/g, title);
+
+	$('#related_select table').append(str);
+	$('#psearch_block').toggle();
+
+	return void(0);
+}
+
+function search_product() {
+	query = $('#psearch_input').attr('value');
+	if (query.length > 2) $('#search_result')
+		.html("<img src='/share/images/ajax-indicator/indicator_facebook.gif' alt='Loading ...'/>")
+		.load('/request/bo/component/ecommerce/search_products?search[query]=' + query);
+	return false;
+}
+</script>
+<!-- END: head -->
+<!-- BEGIN: content -->
+<fieldset>
+	<legend>Ingredients</legend>
+	<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+	<div id="related_select">
+		<table>
+			<tr>
+				<th>Quantity</th>
+				<th>Unit</th>
+				<th>&nbsp;</th>
+				<th>Ingredient (product)</th>
+				<th>Note</th>
+				<th></th>
+			</tr>
+			<!-- BEGIN:item -->
+			<tr>
+				<td>
+					<input type="text" name="ingredients[{PRODUCT.id}][quantity]" value="{ITEM.quantity}"/>
+				</td>
+				<td>
+					<select name="ingredients[{PRODUCT.id}][units]">
+						<!-- BEGIN:unit -->	
+						<option value="{UNIT.id}" {UNIT.selected}>{UNIT.title}</option>
+						<!-- END:unit -->
+					</select>
+				</td>
+				<td>
+					of
+				</td>
+				<td>
+					<a {PRODUCT.class} href="/backoffice/products/{PRODUCT.id}/edit">{PRODUCT.name}</a>
+				</td>
+				<td>
+					<input type="text" name="ingredients[{PRODUCT.id}][notes]" value="{ITEM.notes}"/>
+				</td>
+				<td>
+					<button style="float: none;" name="" onclick="$(this).parent().parent().remove(); return false"><span>remove</span></button>
+				</td>
+			</tr>
+			<!-- END:item -->
+		</table>
+	</div>
+	
+	<p><a class="button add" href="#" onclick="$('#psearch_block').toggle(); return false"><span>add new</span></a></p>
+	<div id="psearch_block" style="display: none">
+		<input id="psearch_input" type="text" name="psearch" autocomplete="off" onkeyup="search_product();" /><br />
+		Search for product name, teaser, description.
+		<!--<a class="button" href="javascript:void(0)" onclick="javascript:search_product();"><span>search</span></a><br />-->
+		<div id="search_result"></div>
+	</div>
+
+</fieldset>
+
+<!-- END: content -->
