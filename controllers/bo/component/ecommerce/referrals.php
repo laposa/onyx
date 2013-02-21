@@ -63,9 +63,8 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Referrals extends Onxshop_Contro
 			$this->tpl->parse("content.promotion_list.item");
 		}
 
-		// parse recent promotions list (if any)
-		if (count($promotions) > 0) 
-			$this->tpl->parse("content.promotion_list");
+		// parse recent promotions list
+		$this->tpl->parse("content.promotion_list");
 	}
 
 }
