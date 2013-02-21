@@ -8,6 +8,7 @@
 
 require_once('models/common/common_node.php');
 require_once('models/common/common_image.php');
+require_once('models/common/common_node_taxonomy.php');
 
 class Onxshop_Controller_Bo_Component_Node_Duplicate extends Onxshop_Controller {
 
@@ -22,6 +23,8 @@ class Onxshop_Controller_Bo_Component_Node_Duplicate extends Onxshop_Controller 
 		
 		$this->Node = new common_node();
 		$this->Image = new common_image();
+		$this->Image = new common_image();
+		$this->Taxonomy = new common_node_taxonomy();
 		
 		$new_node_id = $this->duplicateNode($original_node_id);
 
@@ -66,6 +69,19 @@ class Onxshop_Controller_Bo_Component_Node_Duplicate extends Onxshop_Controller 
 				$new_image['node_id'] = $new_node_id;
 				unset($new_image['id']);
 				$image_id = $this->Image->insert($new_image);
+			}
+		}
+
+		// read taxonomy relatoins
+		$original_categories = $this->Taxonomy->listing("node_id = $original_node_id");
+
+		// duplicate taxonomy relations
+		if (is_array($original_categories)) {
+			foreach ($original_categories as $category) {
+				$new_category = $category;
+				$new_category['node_id'] = $new_node_id;
+				unset($new_category['id']);
+				$category_id = $this->Taxonomy->insert($new_category);
 			}
 		}
 
