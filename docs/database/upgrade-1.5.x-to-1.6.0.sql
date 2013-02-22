@@ -426,4 +426,128 @@ ALTER TABLE ONLY ecommerce_store_taxonomy
     ADD CONSTRAINT ecommerce_store_taxonomy_taxonomy_fkey FOREIGN KEY (taxonomy_tree_id) REFERENCES common_taxonomy_tree(id) ON UPDATE RESTRICT ON DELETE RESTRICT;
 
 
+--
+--
+-- Client customer upgrade
+--
+--
+
+--
+-- Name: client_customer_image_id_seq; Type: SEQUENCE; Schema: public; Owner: centra
+--
+
+CREATE SEQUENCE client_customer_image_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.client_customer_image_id_seq OWNER TO centra;
+
+--
+-- Name: client_customer_image; Type: TABLE; Schema: public; Owner: centra; Tablespace: 
+--
+
+CREATE TABLE client_customer_image (
+    id integer DEFAULT nextval('client_customer_image_id_seq'::regclass) NOT NULL,
+    src character varying(255),
+    role character varying(255),
+    node_id integer NOT NULL,
+    title character varying(255),
+    description text,
+    priority integer DEFAULT 0 NOT NULL,
+    modified timestamp(0) without time zone,
+    author integer
+);
+
+--
+-- Name: client_customer_image_pkey; Type: CONSTRAINT; Schema: public; Owner: centra; Tablespace: 
+--
+
+ALTER TABLE ONLY client_customer_image
+    ADD CONSTRAINT client_customer_image_pkey PRIMARY KEY (id);
+
+--
+-- Name: client_customer_image_node_id_key; Type: INDEX; Schema: public; Owner: centra; Tablespace: 
+--
+
+CREATE INDEX client_customer_image_node_id_key ON client_customer_image USING btree (node_id);
+
+--
+-- Name: client_customer_image_customer_fkey; Type: FK CONSTRAINT; Schema: public; Owner: centra
+--
+
+ALTER TABLE ONLY client_customer_image
+    ADD CONSTRAINT client_customer_image_customer_fkey FOREIGN KEY (node_id) REFERENCES client_customer(id) ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+--
+-- Name: client_customer_taxonomy_id_seq; Type: SEQUENCE; Schema: public; Owner: centra
+--
+
+CREATE SEQUENCE client_customer_taxonomy_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.client_customer_taxonomy_id_seq OWNER TO centra;
+
+--
+-- Name: client_customer_taxonomy; Type: TABLE; Schema: public; Owner: centra; Tablespace: 
+--
+
+CREATE TABLE client_customer_taxonomy (
+    id integer DEFAULT nextval('client_customer_taxonomy_id_seq'::regclass) NOT NULL,
+    node_id integer NOT NULL,
+    taxonomy_tree_id integer NOT NULL
+);
+
+--
+-- Name: client_customer_taxonomy_node_id_key; Type: CONSTRAINT; Schema: public; Owner: centra; Tablespace: 
+--
+
+ALTER TABLE ONLY client_customer_taxonomy
+    ADD CONSTRAINT client_customer_taxonomy_node_id_key UNIQUE (node_id, taxonomy_tree_id);
+
+
+--
+-- Name: client_customer_taxonomy_pkey; Type: CONSTRAINT; Schema: public; Owner: centra; Tablespace: 
+--
+
+ALTER TABLE ONLY client_customer_taxonomy
+    ADD CONSTRAINT client_customer_taxonomy_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: client_customer_taxonomy_node_id_key1; Type: INDEX; Schema: public; Owner: centra; Tablespace: 
+--
+
+CREATE INDEX client_customer_taxonomy_node_id_key1 ON client_customer_taxonomy USING btree (node_id);
+
+
+--
+-- Name: client_customer_taxonomy_taxonomy_tree_id_key; Type: INDEX; Schema: public; Owner: centra; Tablespace: 
+--
+
+CREATE INDEX client_customer_taxonomy_taxonomy_tree_id_key ON client_customer_taxonomy USING btree (taxonomy_tree_id);
+
+--
+-- Name: client_customer_taxonomy_customer_fkey; Type: FK CONSTRAINT; Schema: public; Owner: centra
+--
+
+ALTER TABLE ONLY client_customer_taxonomy
+    ADD CONSTRAINT client_customer_taxonomy_customer_fkey FOREIGN KEY (node_id) REFERENCES client_customer(id) ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
+--
+-- Name: client_customer_taxonomy_taxonomy_fkey; Type: FK CONSTRAINT; Schema: public; Owner: centra
+--
+
+ALTER TABLE ONLY client_customer_taxonomy
+    ADD CONSTRAINT client_customer_taxonomy_taxonomy_fkey FOREIGN KEY (taxonomy_tree_id) REFERENCES common_taxonomy_tree(id) ON UPDATE RESTRICT ON DELETE RESTRICT;
+
 COMMIT;
