@@ -5,7 +5,7 @@
  * 
  */
 
-class Onxshop_Controller_Bo_Component_Client_User_Prefs extends Onxshop_Controller {
+class Onxshop_Controller_Bo_Component_Client_Customer_Edit extends Onxshop_Controller {
 
 	/**
 	 * main action
@@ -53,13 +53,13 @@ class Onxshop_Controller_Bo_Component_Client_User_Prefs extends Onxshop_Controll
 		}
 		$this->tpl->parse('content.status.group');
 
+		//and allow to change account type
+		$this->tpl->assign("SELECTED_account_type_{$client_data['customer']['account_type']}", 'selected="selected"');
+		$this->tpl->parse('content.status.account_type');
+		
 		//allow to change status
 		$this->tpl->assign("SELECTED_status_{$client_data['customer']['status']}", 'selected="selected"');
 		$this->tpl->parse('content.status');
-
-		//and allow to change account type
-		$this->tpl->assign("SELECTED_account_type_{$client_data['customer']['account_type']}", 'selected="selected"');
-		$this->tpl->parse('content.account_type');
 
 		return true;
 	}

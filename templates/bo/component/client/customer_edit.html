@@ -34,6 +34,19 @@ $(document).ready(function(){
 			</div>
 		<!-- END: group -->
 
+		<!-- BEGIN: account_type -->
+		<div class="row account_type">
+			<span class="label" for="client-customer-account_type"><label>Account type</label></span>
+			<span class="field">
+				<select id="client-customer-account_type" name="client[customer][account_type]" >
+					<option value="0" {SELECTED_account_type_0}>normal account</option>
+					<option value="1" {SELECTED_account_type_1}>requested trade</option>
+					<option value="2" {SELECTED_account_type_2}>approved trade</option>
+				</select>
+			</span>
+		</div>
+		<!-- END: account_type -->
+		
 	</fieldset>
 	<!-- END: status -->
 	
@@ -97,18 +110,6 @@ $(document).ready(function(){
 			<span class="label"><label for="client_customer_currency_code_id">{I18N_R_CURRENCY}</label></span>
 			<span class="field">{ONXSHOP_REQUEST_2 #component/ecommerce/currency_switcher_inline}</span>
 		</div>
-		<!-- BEGIN: account_type -->
-		<div class="row account_type">
-			<span class="label" for="client-customer-account_type"><label>Account type</label></span>
-			<span class="field">
-				<select id="client-customer-account_type" name="client[customer][account_type]" >
-					<option value="0" {SELECTED_account_type_0}>normal account</option>
-					<option value="1" {SELECTED_account_type_1}>requested trade</option>
-					<option value="2" {SELECTED_account_type_2}>approved trade</option>
-				</select>
-			</span>
-		</div>
-		<!-- END: account_type -->
 	</fieldset>
 	
 	{ONXSHOP_REQUEST_rt #bo/component/relation_taxonomy~relation=customer:id=GET.id~}
