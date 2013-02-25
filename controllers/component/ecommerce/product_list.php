@@ -652,6 +652,10 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
 						
 			}
 			
+		} else if (is_numeric($this->GET['taxonomy_tree_id'])) {
+		
+			$taxonomy[] = $this->GET['taxonomy_tree_id'];
+			
 		}
 		
 		return $taxonomy;
