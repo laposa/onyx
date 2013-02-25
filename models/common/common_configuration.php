@@ -181,7 +181,10 @@ CREATE TABLE common_configuration (
 		 */
 		if (!array_key_exists('admin_email', $conf['global'])) $conf['global']['admin_email'] = 'test@onxshop.com';
 		if ($conf['global']['admin_email_name'] == '') $conf['global']['admin_email_name'] = $conf['global']['title'];
-	
+		
+		//addthis tracking configuration, by default uses shared Onxshop profile
+		if (!array_key_exists('addthis_profile', $conf['global'])) $conf['global']['addthis_profile'] = 'ra-51114b69066f0fe4';
+		
 		return $conf;
 	}
 	 
