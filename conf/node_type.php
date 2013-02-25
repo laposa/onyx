@@ -11,7 +11,7 @@ $templates_info['content'] = array(
 		'RTE'=>array('title' => 'Rich Text', 'description'=>''), 
 		'product_highlights'=>array('title' => 'Product Highlights', 'description'=>''), 
 		'picture'=>array('title' => 'Photo Gallery', 'description'=>''),
-		'quote'=>array('title' => 'Quote', 'description'=>''),
+		'quote'=>array('title' => 'Quote (Testimonial)', 'description'=>'Testimonial'),
 		'contact_form'=>array('title' => 'Contact Form', 'description'=>''), 
 		'comment'=>array('title' => 'Forum - User comments', 'description'=>''),
 		'news_list'=>array('title' => 'News List', 'description'=>''),
