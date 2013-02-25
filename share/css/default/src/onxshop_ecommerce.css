@@ -7,19 +7,19 @@
 /*****************************      component/ecommerce     *****************************/
 /****************************************************************************************/
 
-/********* component/ecommerce/product_list.html *********/
-div.product_list div.item {margin: 1.5em 0;}
-div.product_list div.image {float: left; margin-right: 2em;}
-div.product_list div.description {float: left; width: 50%; }
-div.product_list h3.name {text-transform: none; font-size: 1.2em; margin-top: 0;}
-div.product_list div.detail {float: right; width: 20%;}
-div.product_list div.detail p {padding: 0 1em 0 0;}
-div.product_list p.stock {margin-top: 0;}
-div.product_list p.variety {font-weight: bold; margin-top: 0;}
-div.product_list p.more_details {clear: both; float: left; margin-bottom: 0;}
-div.product_list div.reviews {clear: both;}
-div.product_list div.reviews a {text-decoration: none;}
-div.product_list div.reviews span.review_count {padding-left: 10px; line-height: 1.7; font-size: 85%;}
+/********* component/ecommerce/product_list_shelf.html *********/
+div.product_list_shelf div.item {margin: 1.5em 0;}
+div.product_list_shelf div.image {float: left; margin-right: 2em;}
+div.product_list_shelf div.description {float: left; width: 50%; }
+div.product_list_shelf h3.name {text-transform: none; font-size: 1.2em; margin-top: 0;}
+div.product_list_shelf div.detail {float: right; width: 20%;}
+div.product_list_shelf div.detail p {padding: 0 1em 0 0;}
+div.product_list_shelf p.stock {margin-top: 0;}
+div.product_list_shelf p.variety {font-weight: bold; margin-top: 0;}
+div.product_list_shelf p.more_details {clear: both; float: left; margin-bottom: 0;}
+div.product_list_shelf div.reviews {clear: both;}
+div.product_list_shelf div.reviews a {text-decoration: none;}
+div.product_list_shelf div.reviews span.review_count {padding-left: 10px; line-height: 1.7; font-size: 85%;}
 
 /********* component/ecommerce/product_list_2columns *********/
 div.product_list_2columns div.item {text-align: center; float: left; clear: none; width: 50%;}
@@ -238,8 +238,6 @@ div.product_other_data dd {padding: 0 0 5px 20px;}
 
 
 div.promotion_code form.enter h3 {display: none;}
-
-form div.row {margin: 0 0 0.5em;}
 
 /********* component/ecommerce/gift_card.html *********/
 div.gift_card {width: 7cm; height: 6cm; position: absolute; left: 10.5cm; top: 11cm;}
