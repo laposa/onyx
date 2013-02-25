@@ -15,7 +15,7 @@
 
 /**
  * 1) Always force a scrollbar in non-IE 
- *  2) Remove iOS text size adjust without disabling user zoom: www.456bereastreet.com/archive/201012/controlling_text_size_in_safari_for_ios_without_disabling_user_zoom/ 
+ * 2) Remove iOS text size adjust without disabling user zoom: www.456bereastreet.com/archive/201012/controlling_text_size_in_safari_for_ios_without_disabling_user_zoom/ 
  */
  
 html { overflow-y: scroll; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; }
@@ -35,10 +35,10 @@ div.content-RTE .imageleft {margin-bottom: 1em;}
 #container { max-width: 100%; padding: 0; }
 
 /**
- * fluid images in content area
+ * fluid images
  */
  
-#content img {max-width: 100%; height: auto; width: auto; /* ie8 fix*/}
+img {max-width: 100%; height: auto; width: auto; /* ie8 fix*/}
 
 /**
  * fluid video to be used in responsive page layout
