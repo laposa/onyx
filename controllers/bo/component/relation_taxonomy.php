@@ -38,6 +38,7 @@ class Onxshop_Controller_Bo_Component_Relation_Taxonomy extends Onxshop_Controll
 			case 'store':
 				require_once('models/ecommerce/ecommerce_store_taxonomy.php');
 				$Taxonomy = new ecommerce_store_taxonomy();
+			break;
 			case 'customer':
 				require_once('models/client/client_customer_taxonomy.php');
 				$Taxonomy = new client_customer_taxonomy();
