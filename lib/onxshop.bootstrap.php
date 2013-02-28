@@ -467,7 +467,9 @@ class Onxshop_Bootstrap {
 	public function getOutput() {
 	
 		$result = $this->output;
-
+		
+		$result = $this->outputFilterPublic($result);
+		
 		//hack
 		if ($Onxshop->http_status != '404') {
 			if ($_SERVER['HTTP_REFERER'] != $_SESSION['uri'] && $_SERVER['HTTP_REFERER'] != '') {
@@ -491,6 +493,35 @@ class Onxshop_Bootstrap {
 		session_write_close();
 				
 		return $result;
+	}
+	
+	/**
+	 * Output filter for public clients (this filter should only apply when in frontend preview mode)
+	 * _SESSION.authentication.authenticity
+	 */
+	 
+	public function outputFilterPublic($content) {
+		
+		//disabled TEMP
+		return $content;
+		
+		/**
+		 * Substitute constants in the output for logged in users
+		 * TODO: highlight in documentation!
+		 */
+		
+		if ($_SESSION['client']['customer']['id'] > 0) {
+			$content = preg_replace("/{_SESSION.client.customer.first_name}/", htmlspecialchars($_SESSION['client']['customer']['first_name']), $content);
+			$content = preg_replace("/{_SESSION.client.customer.last_name}/", htmlspecialchars($_SESSION['client']['customer']['last_name']), $content);
+			$content = preg_replace("/{_SESSION.client.customer.email}/", htmlspecialchars($_SESSION['client']['customer']['email']), $content);
+		} else {
+			//assign empty string
+			$content = preg_replace("/{_SESSION.client.customer.first_name}/", '', $content);
+			$content = preg_replace("/{_SESSION.client.customer.last_name}/", '', $content);
+			$content = preg_replace("/{_SESSION.client.customer.email}/", '', $content);
+		}
+		
+		return $content;
 	}
 	
 }

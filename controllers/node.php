@@ -128,17 +128,6 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 		$node_data['content'] = $_nSite->getContent();
 		
 		/**
-		 * Substitute constants in the output for logged in users
-		 * TODO: highlight in documentation!
-		 */
-		
-		if ($_SESSION['client']['customer']['id'] > 0) {
-			$node_data['content'] = preg_replace("/{CUSTOMER_FIRST_NAME}/", $_SESSION['client']['customer']['first_name'], $node_data['content']);
-			$node_data['content'] = preg_replace("/{CUSTOMER_LAST_NAME}/", $_SESSION['client']['customer']['last_name'], $node_data['content']);
-			$node_data['content'] = preg_replace("/{CUSTOMER_EMAIL}/", $_SESSION['client']['customer']['email'], $node_data['content']);
-		}
-		
-		/**
 		 * check visibility and than display
 		 */
 		
