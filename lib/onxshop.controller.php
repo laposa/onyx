@@ -725,6 +725,12 @@ class nSite {
 	public function __construct($request, &$subOnxshop = false) {
 		
 		$classname = $this->_prepareCallBack($request);
+		
+		if (!class_exists($classname)) {
+			echo "missing $classname in $request";
+			return false;
+		}
+		
 		//Yes, we can do this in PHP :)
 		$this->Onxshop = new $classname($request, $subOnxshop);
 		return $this->Onxshop;
@@ -736,7 +742,7 @@ class nSite {
 	
 	public function getContent() {
 	
-		return $this->Onxshop->getContent();
+		if (is_object($this->Onxshop)) return $this->Onxshop->getContent();
 		
 	}
 	
