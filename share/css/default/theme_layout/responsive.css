@@ -104,6 +104,11 @@ div.fluid-video video {top: 0; left: 0; width: 100%; height: 100%; position: abs
     div.fourColumnLayout div.layoutColumnTwo {width: 50%;}
     div.fourColumnLayout div.layoutColumnThree,
     div.fourColumnLayout div.layoutColumnFour {width: 50%;}
+    div.fiveColumnLayout div.layoutColumnOne,
+    div.fiveColumnLayout div.layoutColumnTwo,
+    div.fiveColumnLayout div.layoutColumnThree,
+    div.fiveColumnLayout div.layoutColumnFour,
+    div.fiveColumnLayout div.layoutColumnFive {width: auto; float: none;}
     div.sixColumnLayout div.layoutColumnOne,
     div.sixColumnLayout div.layoutColumnTwo,
     div.sixColumnLayout div.layoutColumnThree,
