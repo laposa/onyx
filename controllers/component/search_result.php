@@ -21,7 +21,7 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 			$Node = new common_node();
 			
 			$count = strlen(trim($this->GET['search_query']));
-			
+
 			if ($count > 2) {
 			
 				//sanitize
@@ -55,8 +55,11 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 							$r['description'] = $hit->description;
 							//hack for the homepage
 							if ($r['uri'] == '') $r['uri'] = '/';
+
 							$r['node_id'] = $Node->getNodeIdFromSeoUri($r['uri']);
 							
+							if (!$r['node_id']) continue;
+
 							//breadcrumb
 							$path = $Node->getFullPathDetailForBreadcrumb($r['node_id']);
 							
