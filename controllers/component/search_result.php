@@ -94,14 +94,11 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 						}
 					}
 				
-					$this->tpl->parse('content.result');
-				
-				} else {
-				
-					$this->tpl->parse('content.empty_result');
-				
-				}
-			
+				}			
+
+				if ($result_items_shown > 0) $this->tpl->parse('content.result');
+				else $this->tpl->parse('content.empty_result');
+
 			} else {
 			
 				msg("Please specify at least 3 characters", "error");
