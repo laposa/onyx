@@ -360,7 +360,7 @@ class Onxshop_Bootstrap {
 	function processActionCached($request) {
 		
 		require_once 'Zend/Cache.php';
-		
+
 		$frontendOptions = array(
 		'lifetime' => ONXSHOP_PAGE_CACHE_TTL,
 		'automatic_serialization' => true
@@ -384,8 +384,8 @@ class Onxshop_Bootstrap {
 		    	$data_to_cache['output_body'] = $this->output;
 		    	$cache->save($data_to_cache);
 		    	
-		    	//TODO update index now
-		    	//$this->indexContent($_GET['translate'], $this->output);
+		    	// update index immediately
+		    	$this->indexContent($_GET['translate'], $this->output);
 		    }
 
 		} else {
@@ -416,7 +416,11 @@ class Onxshop_Bootstrap {
 			// Create index
 			$index = Zend_Search_Lucene::create($index_location);
 		}
-		
+
+		// find and remove pages with the same URI
+		$hits = $index->find("uri:" . $uri);
+		foreach ($hits as $hit) $index->delete($hit);
+
 		$doc = Zend_Search_Lucene_Document_Html::loadHTML($htmlString);
 		$doc->addField(Zend_Search_Lucene_Field::Keyword('uri', $uri));
 		
