@@ -53,8 +53,6 @@ function showResponse(responseText, statusText)  {
 	var path = '{GET.orig}';
 	var node_id = {GET.id};
 	if (path.match(/^backoffice/)) {
-		alert(opener.refreshList);
-		alert(typeof opener.refreshList);
 		if (typeof opener.refreshList == 'function') opener.refreshList();
 		else refreshOpener(path, node_id);
 	}

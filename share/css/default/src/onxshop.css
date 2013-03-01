@@ -132,8 +132,7 @@ div.page div.pageWrapper {padding: 0;}
 div.page div.rowBottom {clear: both;}
 
 /********* node/page/news.html *********/
-div.news div.note {font-family: fixed;}
-div.news div.note p {margin: 0.5em 0 1em;}
+div.news div.note p {margin-top: 0;;}
 div.news div.back {clear: both;}
 div.news div.body {margin-bottom: 1em;}
 div.news div.addThisButtons {margin-bottom: 15px;}
