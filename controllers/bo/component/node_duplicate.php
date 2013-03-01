@@ -85,11 +85,12 @@ class Onxshop_Controller_Bo_Component_Node_Duplicate extends Onxshop_Controller 
 			}
 		}
 
-		// read and duplicate nested nodes
+		// read and duplicate nested nodes, but skip page nodes
 		$nested_nodes = $this->Node->listing("parent = $original_node_id");
 		if (is_array($nested_nodes)) {
 			foreach ($nested_nodes as $nested_node) {
-				$this->duplicateNode($nested_node['id'], $new_node_id);
+				if ($nested_node['node_group'] != 'page')
+					$this->duplicateNode($nested_node['id'], $new_node_id);
 			}
 		}
 
