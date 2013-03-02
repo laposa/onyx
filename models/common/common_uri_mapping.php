@@ -2,7 +2,7 @@
 /**
  * class common_uri_mapping
  *
- * Copyright (c) 2009-2012 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -20,6 +20,9 @@ class common_uri_mapping extends Onxshop_Model {
 	var $node_id;
 	/**
 	 * @access private
+	 * path with leading slash, but without closing slash
+	 * e.g. /example or /example.html
+	 * not /example/
 	 */
 	var $public_uri;
 	
