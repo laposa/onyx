@@ -127,27 +127,19 @@ CREATE TABLE common_image (
 		$height = round($required_width/$size['proportion']);
 		msg("Thumbnail will have size $width x $height", 'ok', 3);
 		
-		
 		/**
-		 * if height is specified align in center (add border)
+		 * if height is specified align in center and allow to fill the space
+		 * see http://www.imagemagick.org/Usage/thumbnails/#cut
 		 */
 		
 		if (is_numeric($required_height)) {
 			
-			$add_border_im_param = common_image::addBorderImParam($width, $height, $required_width, $required_height, $size['proportion']);
-			
-			/* if the image is too tall, reduce the size */
-			
-			if ($height > $required_height) {
-				
-				$width = round($required_height * $size['proportion']);
-				$height = $required_height;
-			
-			}
+			$other_im_params = "-gravity center -extent {$width}x{$required_height}";
+			$height = $required_height;
 			
 		} else {
 			
-			$add_border_im_param = '';
+			$other_im_params = '';
 		
 		}
 		
@@ -161,10 +153,11 @@ CREATE TABLE common_image (
 			return $thumb_file;
 		
 		} else {
+		
 			$image_configuration = common_image::initConfiguration();
 			$jpeg_quality = $image_configuration['jpeg_quality'];
 			
-			$shell_command = "resize " . escapeshellarg($file_rp) . " " . escapeshellarg($width) . " " . escapeshellarg($height) . " " . escapeshellarg($thumb_file_rp) . " " . $jpeg_quality . " " . escapeshellarg($add_border_im_param);
+			$shell_command = "resize " . escapeshellarg($file_rp) . " " . escapeshellarg($width) . " " . escapeshellarg($height) . " " . escapeshellarg($thumb_file_rp) . " " . $jpeg_quality . " " . escapeshellarg($other_im_params);
 			
 			$result = local_exec($shell_command);
 			
@@ -172,39 +165,6 @@ CREATE TABLE common_image (
 			else return false;
 		}
 			
-	}
-	
-	/**
-	 * this is an interim solution before upgrading to Debian Squeeze
-	 * http://www.imagemagick.org/Usage/thumbnails/#cut
-	 * http://www.imagemagick.org/Usage/resize/#space_fill
-	 */
-	 
-	static public function addBorderImParam($width, $height, $required_width, $required_height, $proportion) {
-	
-		if ($height < $required_height) {
-		
-			/* if the image is not tall enought, add border on top and bottom*/
-			$height_diff = $required_height - $height;
-			$half_of_height_diff = round($height_diff / 2);
-			
-			$add_border_im_param = "-bordercolor white  -border 0x{$half_of_height_diff}";
-				
-		} else if ($height > $required_height) {
-			
-			/* if the image is too tall, reduce the size, add border on left and right */
-			$width = round($required_height * $proportion);
-			$height = $required_height;
-			
-			$width_diff = $required_width - $width;
-			$half_of_width_diff = round($width_diff / 2);
-			$add_border_im_param = "-bordercolor white  -border {$half_of_width_diff}x0";
-				
-		}
-		
-		
-		return $add_border_im_param;
-		
 	}
 
 	/**
