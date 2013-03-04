@@ -65,12 +65,12 @@ class Onxshop_Controller_Component_Image extends Onxshop_Controller {
 	
 		if ($this->GET['relation']) $relation = preg_replace('/[^a-zA-Z_-]/', '', $this->GET['relation']);
 		else $relation = '';
-		
+
 		$img_path = $this->getImagePath();
 		
 		if ($this->GET['role']) $role = preg_replace('/[^a-zA-Z_-]/', '', $this->GET['role']);
 		else $role = false;
-		
+
 		if (is_numeric($this->GET['node_id'])) {
 		
 			$node_id = $this->GET['node_id'];
@@ -81,7 +81,7 @@ class Onxshop_Controller_Component_Image extends Onxshop_Controller {
 			return false;
 		
 		}
-		
+
 		if ($this->GET['limit']) $limit = $this->GET['limit'];
 		else $limit = "";
 		
@@ -146,13 +146,20 @@ class Onxshop_Controller_Component_Image extends Onxshop_Controller {
 				require_once('models/common/common_taxonomy_label_image.php');
 				$Image = new common_taxonomy_label_image();
 			break;
+			case 'recipe':
+				require_once('models/ecommerce/ecommerce_recipe_image.php');
+				$Image = new ecommerce_recipe_image();
+			break;
+			case 'store':
+				require_once('models/ecommerce/ecommerce_store_image.php');
+				$Image = new ecommerce_store_image();
+			break;
 			case 'node':
 			default:
 				require_once('models/common/common_image.php');
 				$Image = new common_image();
-			break;
 		}
-		
+
 		return $Image;
 	}
 }
