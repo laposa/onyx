@@ -47,7 +47,8 @@ class ecommerce_recipe_ingredients extends Onxshop_Model {
 		'product_variety_id'=>array('label' => '', 'validation'=>'int', 'required'=>true),
 		'quantity'=>array('label' => '', 'validation'=>'int', 'required'=>true),
 		'units'=>array('label' => '', 'validation'=>'int', 'required'=>true),
-		'notes'=>array('label' => '', 'validation'=>'string', 'required'=>false)
+		'notes'=>array('label' => '', 'validation'=>'string', 'required'=>false),
+		'group_title'=>array('label' => '', 'validation'=>'string', 'required'=>false)
 	);
 
 	/**
@@ -63,7 +64,8 @@ CREATE TABLE ecommerce_recipe_ingredients (
     product_variety_id integer NOT NULL,
     quantity integer,
     units integer,
-    notes text
+    notes text,
+    group_title character varying(255)
 );
 		";
 		

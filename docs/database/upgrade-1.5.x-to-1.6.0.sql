@@ -124,10 +124,11 @@ CREATE SEQUENCE ecommerce_recipe_ingredients_id_seq
 CREATE TABLE ecommerce_recipe_ingredients (
     id integer DEFAULT nextval('ecommerce_recipe_ingredients_id_seq'::regclass) NOT NULL,
     recipe_id integer,
-    product_id integer NOT NULL,
+    product_variety_id integer NOT NULL,
     quantity integer,
     units integer,
-    notes text
+    notes text,
+    group_title character varying(255)
 );
 
 
@@ -359,7 +360,7 @@ CREATE INDEX ecommerce_store_taxonomy_taxonomy_tree_id_key ON ecommerce_store_ta
 --
 
 ALTER TABLE ONLY ecommerce_recipe_ingredients
-    ADD CONSTRAINT ecommerce_recipe_ingredients_product_fkey FOREIGN KEY (product_id) REFERENCES ecommerce_product(id) ON UPDATE RESTRICT ON DELETE RESTRICT;
+    ADD CONSTRAINT ecommerce_recipe_ingredients_product_variety_id_fkey FOREIGN KEY (product_variety_id) REFERENCES ecommerce_product_variety(id) ON UPDATE RESTRICT ON DELETE RESTRICT;
 
 
 --
