@@ -616,7 +616,18 @@ CREATE TABLE common_file (
 		$TaxonomyImage = new common_taxonomy_label_image();
 		$file_list['taxonomy'] = $TaxonomyImage->getFileLink($file);
 
-		$file_list['count'] = count($file_list['file']) + count($file_list['node']) + count($file_list['product']) + count($file_list['product_variety']) + count($file_list['taxonomy']);
+		require_once('models/ecommerce/ecommerce_recipe_image.php');
+		$RecipeImage = new ecommerce_recipe_image();
+		$file_list['recipe'] = $RecipeImage->getFileLink($file);
+
+		require_once('models/ecommerce/ecommerce_store_image.php');
+		$StoreImage = new ecommerce_store_image();
+		$file_list['store'] = $StoreImage->getFileLink($file);
+
+		$file_list['count'] = count($file_list['file']) + count($file_list['node']) + 
+			count($file_list['product']) + count($file_list['product_variety']) + 
+			count($file_list['taxonomy']) + count($file_list['recipe']) +
+			count($file_list['store']);
 
 		return $file_list;
 	}

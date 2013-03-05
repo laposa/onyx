@@ -84,6 +84,20 @@ class Onxshop_Controller_Bo_Component_File_Usage extends Onxshop_Controller_Bo_C
 				}
 			}
 		
+			if (count($relations_list['recipe']) > 0) {
+				foreach($relations_list['recipe'] as $image_detail) {
+					$this->tpl->assign('IMAGE_DETAIL', $image_detail);
+					$this->tpl->parse('content.usage.recipe');
+				}
+			}
+		
+			if (count($relations_list['store']) > 0) {
+				foreach($relations_list['store'] as $image_detail) {
+					$this->tpl->assign('IMAGE_DETAIL', $image_detail);
+					$this->tpl->parse('content.usage.store');
+				}
+			}
+		
 			$this->tpl->parse('content.usage');
 		}
 
