@@ -31,7 +31,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Recipe_List extends Onxshop_Cont
 		if  (is_numeric($this->GET['limit_from'])) $from = $this->GET['limit_from'];
 		else $from = 0;
 		if (is_numeric($this->GET['limit_per_page'])) $per_page = $this->GET['limit_per_page'];
-		else $per_page = 25;
+		else $per_page = 250;
 
 		// get the list
 		require_once('models/ecommerce/ecommerce_recipe.php');
@@ -57,8 +57,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Recipe_List extends Onxshop_Cont
 			$this->tpl->assign('ITEM', $item);
 			if ($item['image_src']) $this->tpl->parse('content.list.item.image');
 			
-			$even_odd = ( 'odd' != $even_odd ) ? 'odd' : 'even';
-			$this->tpl->assign('CLASS', "class='$even_odd fullproduct'");
+			$this->tpl->assign('CLASS', $item['publish'] == 0 ? 'class="publish_0"' : "");
 
 			$this->tpl->parse('content.list.item');
 		}
