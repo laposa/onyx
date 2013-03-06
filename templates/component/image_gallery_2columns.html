@@ -2,13 +2,13 @@
 <div class="image_gallery_2columns" id="gallery_2columns_{GET.node_id}">
 	<!-- BEGIN: item -->
 	<div class="twoColumnLayout fibonacci-1-1">
-		<div class="layoutColumnOne">
+		<div class="layoutColumnOne ofTwo">
 			<h3 class="contentTitle"><a href="#node_id_1416"><span>{ITEM.title|htmlspacialchars}</span></a></h3>		
 			<div class="contentBody">
 				<h1>{ITEM.description|htmlspecialchars|nl2br}</h1>
 			</div>
 		</div>
-		<div class="layoutColumnTwo">
+		<div class="layoutColumnTwo ofTwo">
 			<p><a class="single_image{GET.relation}{GET.node_id}" rel="single_image{GET.relation}{GET.node_id}" title="{ITEM.title|htmlspecialchars}" href="{FULL_SIZE_IMAGE_WIDTH_PATH}{ITEM.src}"><img id="image_id_{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}" /></a></p>
 		</div>
 		<div class="bottom"></div>
