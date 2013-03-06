@@ -24,37 +24,49 @@ $(document).ready(function(){
 	<button style="float: right;  margin: 3px;" type="submit" name="save" value="save"><span>Save</span></button>
 	
 	<div id="onxshop_basic" class="onxshop_tabulator ui-tabs-panel">
-		<fieldset>
-			<legend>Base product info</legend>
-			<div class="row title">
-				<span class="label"><label>Product Name</label></span>
-				<span class="field"><input type="text" class="text title long" name="product[name]" value="{PRODUCT.name|htmlspecialchars}" /></span>
+	
+		<div class="twoColumnLayout fibonacci-5-3">
+			<div class="layoutColumnOne">
+				<div class="layoutColumnWrapper">
+				
+					<div class="row title">
+						<span class="label"><label>Product Name</label></span>
+						<span class="field"><input type="text" class="text title long" name="product[name]" value="{PRODUCT.name|htmlspecialchars}" /></span>
+					</div>
+					<div class="row name_aka">
+						<span class="label"><label>Also Known As / Subtitle (optional)</label></span>
+						<span class="field"><input type="text" class="text long" name="product[name_aka]" value="{PRODUCT.name_aka|htmlspecialchars}" /></span>
+					</div>
+					<div class="row rte">
+						<span class="label"><label>Teaser <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'simple', 'product_teaser')"><span>RTE</span></a></label></span>
+						<span class="field"><textarea id="product_teaser" name="product[teaser]">{PRODUCT.teaser|htmlspecialchars}</textarea></span>
+					</div>
+					<div class="row rte">
+						<span class="label"><label>Description <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'mceAdvanced', 'product_description')"><span>RTE</span></a></label></span>
+						<span class="field"><textarea class="big" style="width: 90%;" name="product[description]" id="product_description">{PRODUCT.description|htmlspecialchars}</textarea></span>
+					</div>
+				</div>
 			</div>
-			<div class="row name_aka">
-				<span class="label"><label>Also Known As / Subtitle (optional)</label></span>
-				<span class="field"><input type="text" class="text long" name="product[name_aka]" value="{PRODUCT.name_aka|htmlspecialchars}" /></span>
+			<div class="layoutColumnTwo">
+				<div class="layoutColumnWrapper">
+					<div class="row publish">
+						<span class="label"><label for="product-publish">Publish</label></span>
+						<span class="field"><input type="checkbox" id="product-publish" name="product[publish]" value="1" {PRODUCT.publish} /></span>
+					</div>
+					<fieldset>
+						<legend>Product Varieties</legend>
+						<div class="row">
+							{ONXSHOP_REQUEST_detail #bo/component/ecommerce/product_variety_list~id=GET.id~}
+						</div>
+					</fieldset>
+					{ONXSHOP_REQUEST_rt #bo/component/relation_taxonomy~relation=product:id=GET.id~}
+	
+					{ONXSHOP_REQUEST_product_in_node #bo/component/ecommerce/product_in_node~product_id=GET.id~}
+					{ONXSHOP_REQUEST_ptn #bo/component/ecommerce/relation_product_in_nodes}
+				</div>
 			</div>
-			<div class="row rte">
-				<span class="label"><label>Teaser <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'simple', 'product_teaser')"><span>RTE</span></a></label></span>
-				<span class="field"><textarea id="product_teaser" name="product[teaser]">{PRODUCT.teaser|htmlspecialchars}</textarea></span>
-			</div>
-			<div class="row rte">
-				<span class="label"><label>Description <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'mceAdvanced', 'product_description')"><span>RTE</span></a></label></span>
-				<span class="field"><textarea class="big" name="product[description]" id="product_description">{PRODUCT.description|htmlspecialchars}</textarea></span>
-			</div>
-			<div class="row publish">
-				<span class="label"><label for="product-publish">Publish</label></span>
-				<span class="field"><input type="checkbox" id="product-publish" name="product[publish]" value="1" {PRODUCT.publish} /></span>
-			</div>
-		</fieldset>
-		
-		<fieldset>
-			<legend>Product Varieties</legend>
-			<div class="row">
-				{ONXSHOP_REQUEST_detail #bo/component/ecommerce/product_variety_list~id=GET.id~}
-			</div>
-		</fieldset>
-		
+		</div>
+	
 		<fieldset>
 			<legend>Product Images</legend>
 			<div class="row">
@@ -63,12 +75,6 @@ $(document).ready(function(){
 				</div>
 			</div>
 		</fieldset>
-		
-		{ONXSHOP_REQUEST_rt #bo/component/relation_taxonomy~relation=product:id=GET.id~}
-	
-		{ONXSHOP_REQUEST_product_in_node #bo/component/ecommerce/product_in_node~product_id=GET.id~}
-		{ONXSHOP_REQUEST_ptn #bo/component/ecommerce/relation_product_in_nodes}
-		
 	</div>
 
 	<div id="onxshop_minor">

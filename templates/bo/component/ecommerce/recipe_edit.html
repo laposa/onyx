@@ -19,37 +19,47 @@ $(document).ready(function(){
 	<button style="float: right;  margin: 3px;" type="submit" name="save" value="save"><span>Save</span></button>
 	
 	<div id="onxshop_basic" class="onxshop_tabulator ui-tabs-panel">
-		<fieldset>
-			<legend>Basic Attributes</legend>
-			<div class="row title">
-				<span class="label"><label>Recipe Title</label></span>
-				<span class="field"><input type="text" class="text title long" name="recipe[title]" value="{RECIPE.title|htmlspecialchars}" /></span>
+		<div class="twoColumnLayout fibonacci-5-3">
+			<div class="layoutColumnOne">
+				<div class="layoutColumnWrapper">
+					<div class="row title">
+						<span class="label"><label>Recipe Title</label></span>
+						<span class="field"><input type="text" class="text title long" name="recipe[title]" value="{RECIPE.title|htmlspecialchars}" /></span>
+					</div>
+					<div class="row rte">
+						<span class="label"><label>Description <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'simple', 'recipe_description'); return false;"><span>RTE</span></a></label></span>
+						<span class="field"><textarea id="recipe_description" name="recipe[description]">{RECIPE.description|htmlspecialchars}</textarea></span>
+					</div>
+					<div class="row rte">
+						<span class="label"><label>Instructions <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'mceAdvanced', 'recipe_instructions'); return false;"><span>RTE</span></a></label></span>
+						<span class="field"><textarea class="big" style="width: 90%;" name="recipe[instructions]" id="recipe_instructions">{RECIPE.instructions|htmlspecialchars}</textarea></span>
+					</div>
+				</div>
 			</div>
-			<div class="row rte">
-				<span class="label"><label>Description <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'simple', 'recipe_description'); return false;"><span>RTE</span></a></label></span>
-				<span class="field"><textarea id="recipe_description" name="recipe[description]">{RECIPE.description|htmlspecialchars}</textarea></span>
+			<div class="layoutColumnTwo">
+				<div class="layoutColumnWrapper">
+					<div class="row publish">
+						<span class="label"><label for="recipe-publish">Publish</label></span>
+						<span class="field"><input type="checkbox" id="recipe-publish" name="recipe[publish]" value="1" {RECIPE.publish} /></span>
+					</div>
+					<div class="row serving_people">
+						<span class="label"><label>Serving People</label></span>
+						<span class="field"><input type="text" class="serving_people" name="recipe[serving_people]" value="{RECIPE.serving_people|htmlspecialchars}" /> persons</span>
+					</div>
+					<div class="row preparation_time">
+						<span class="label"><label>Preparation time</label></span>
+						<span class="field"><input type="text" class="preparation_time" name="recipe[preparation_time]" value="{RECIPE.preparation_time|htmlspecialchars}" /> minutes</span>
+					</div>
+					<div class="row cooking_time">
+						<span class="label"><label>Cooking time</label></span>
+						<span class="field"><input type="text" class="cooking_time" name="recipe[cooking_time]" value="{RECIPE.cooking_time|htmlspecialchars}" /> minutes</span>
+					</div>
+					
+					{ONXSHOP_REQUEST_rt #bo/component/relation_taxonomy~relation=recipe:id=GET.id~}
+					{ONXSHOP_REQUEST_recipe_in_node #bo/component/ecommerce/recipe_in_node~recipe_id=GET.id~}
+				</div>
 			</div>
-			<div class="row rte">
-				<span class="label"><label>Instructions <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'mceAdvanced', 'recipe_instructions'); return false;"><span>RTE</span></a></label></span>
-				<span class="field"><textarea class="big" name="recipe[instructions]" id="recipe_instructions">{RECIPE.instructions|htmlspecialchars}</textarea></span>
-			</div>
-			<div class="row publish">
-				<span class="label"><label for="recipe-publish">Publish</label></span>
-				<span class="field"><input type="checkbox" id="recipe-publish" name="recipe[publish]" value="1" {RECIPE.publish} /></span>
-			</div>
-			<div class="row serving_people">
-				<span class="label"><label>Serving People</label></span>
-				<span class="field"><input type="text" class="serving_people" name="recipe[serving_people]" value="{RECIPE.serving_people|htmlspecialchars}" /> persons</span>
-			</div>
-			<div class="row preparation_time">
-				<span class="label"><label>Preparation time</label></span>
-				<span class="field"><input type="text" class="preparation_time" name="recipe[preparation_time]" value="{RECIPE.preparation_time|htmlspecialchars}" /> minutes</span>
-			</div>
-			<div class="row cooking_time">
-				<span class="label"><label>Cooking time</label></span>
-				<span class="field"><input type="text" class="cooking_time" name="recipe[cooking_time]" value="{RECIPE.cooking_time|htmlspecialchars}" /> minutes</span>
-			</div>
-		</fieldset>
+		</div>
 
 		{ONXSHOP_REQUEST_ingredients #bo/component/ecommerce/recipe_ingredients~node_id=GET.id~}
 		
@@ -61,7 +71,10 @@ $(document).ready(function(){
 				</div>
 			</div>
 		</fieldset>
+	</div>
 
+	<div id="onxshop_minor">
+	
 		<fieldset>
 			<legend>Video</legend>
 			<div class="row video_url">
@@ -69,15 +82,7 @@ $(document).ready(function(){
 				<span class="field"><input type="text" class="text video_url long" name="recipe[video_url]" value="{RECIPE.video_url|htmlspecialchars}" /></span>
 			</div>
 		</fieldset>
-
-		{ONXSHOP_REQUEST_rt #bo/component/relation_taxonomy~relation=recipe:id=GET.id~}
-	
-		{ONXSHOP_REQUEST_recipe_in_node #bo/component/ecommerce/recipe_in_node~recipe_id=GET.id~}
-		{ONXSHOP_REQUEST_ptn #bo/component/ecommerce/relation_recipe_in_nodes}
 		
-	</div>
-
-	<div id="onxshop_minor">
 	</div>
 	
 	<div id="onxshop_advanced">
@@ -104,7 +109,7 @@ $(document).ready(function(){
 <script type="text/javascript">
 tinyMCE.init({
 	mode : "exact",
-	elements : "recipe_instructions",
+	elements : "recipe_description",
 	theme : "simple",
 	content_css: "/share/css/tinymce.css",
 	invalid_elements : "span,div,form,input,label,button,script,font",
