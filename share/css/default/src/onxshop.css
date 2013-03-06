@@ -190,115 +190,115 @@ div.oneColumnLayout div.layoutColumnSingle {float: none; width: auto;}
 div.twoColumnLayout {clear: both;}
 
 /*default, fibonacci-1-1, 50%/50%*/
-div.twoColumnLayout div.layoutColumnOne,
-div.twoColumnLayout.fibonacci-1-1 div.layoutColumnOne {float: left; width: 49.999%;} /*should be 50%, but ie7,ie7 problem with equal devision odd width values*/
-div.twoColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnOne > div.layoutColumnWrapper {margin-right: 15px;}
-div.twoColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnTwo > div.layoutColumnWrapper {margin-left: 15px;}
+div.twoColumnLayout div.layoutColumnOne.ofTwo,
+div.twoColumnLayout.fibonacci-1-1 div.layoutColumnOne.ofTwo {float: left; width: 49.999%;} /*should be 50%, but ie7,ie7 problem with equal devision odd width values*/
+div.twoColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnOne.ofTwo > div.layoutColumnWrapper {margin-right: 15px;}
+div.twoColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnTwo.ofTwo > div.layoutColumnWrapper {margin-left: 15px;}
 /*ie6 inherited*/
-div.twoColumnLayout div.layoutContentWrapper div.layoutColumnOne div.layoutColumnTwo div.layoutColumnWrapper {margin-right: 0;}
-div.twoColumnLayout div.layoutContentWrapper div.layoutColumnTwo div.layoutColumnOne div.layoutColumnWrapper {margin-left: 0;}
+div.twoColumnLayout div.layoutContentWrapper div.layoutColumnOne.ofTwo div.layoutColumnTwo div.layoutColumnWrapper {margin-right: 0;}
+div.twoColumnLayout div.layoutContentWrapper div.layoutColumnTwo.ofTwo div.layoutColumnOne div.layoutColumnWrapper {margin-left: 0;}
 
-div.twoColumnLayout div.layoutColumnTwo,
-div.twoColumnLayout.fibonacci-1-1 div.layoutColumnTwo {width: 49.999%; float: right;} /*should be 50%, but ie7,ie7 problem with equal devision odd width values*/
+div.twoColumnLayout div.layoutColumnTwo.ofTwo,
+div.twoColumnLayout.fibonacci-1-1 div.layoutColumnTwo.ofTwo {width: 49.999%; float: right;} /*should be 50%, but ie7,ie7 problem with equal devision odd width values*/
 /*fibonacci-1-1, 1level inheritance, TODO: support for other layout inheritance*/
-div.twoColumnLayout div.twoColumnLayout.fibonacci-1-1 div.layoutColumnOne,
-div.twoColumnLayout div.twoColumnLayout.fibonacci-1-1 div.layoutColumnTwo {width: 49.999%;} /*should be 50%, but ie7,ie7 problem with equal devision odd width values*/
+div.twoColumnLayout div.twoColumnLayout.fibonacci-1-1 div.layoutColumnOne.ofTwo,
+div.twoColumnLayout div.twoColumnLayout.fibonacci-1-1 div.layoutColumnTwo.ofTwo {width: 49.999%;} /*should be 50%, but ie7,ie7 problem with equal devision odd width values*/
 /*fibonacci-1-5, 16.6%/83.3%*/
-div.twoColumnLayout.fibonacci-1-5 div.layoutColumnOne {width: 16.66%;}
-div.twoColumnLayout.fibonacci-1-5 div.layoutColumnTwo {width: 83.33%;}/*make sure this can be split into equal 50/50*/
-div.twoColumnLayout.fibonacci-5-1 div.layoutColumnOne {width: 83.33%;}
-div.twoColumnLayout.fibonacci-5-1 div.layoutColumnTwo {width: 16.66%;}
+div.twoColumnLayout.fibonacci-1-5 div.layoutColumnOne.ofTwo {width: 16.66%;}
+div.twoColumnLayout.fibonacci-1-5 div.layoutColumnTwo.ofTwo {width: 83.33%;}/*make sure this can be split into equal 50/50*/
+div.twoColumnLayout.fibonacci-5-1 div.layoutColumnOne.ofTwo {width: 83.33%;}
+div.twoColumnLayout.fibonacci-5-1 div.layoutColumnTwo.ofTwo {width: 16.66%;}
 /*fibonacci-1-3, 25%/75%*/
-div.twoColumnLayout.fibonacci-1-3 div.layoutColumnOne {width: 25%;}
-div.twoColumnLayout.fibonacci-1-3 div.layoutColumnTwo {width: 75%;}/*make sure this can be split into equal 50/50*/
-div.twoColumnLayout.fibonacci-3-1 div.layoutColumnOne {width: 75%;}
-div.twoColumnLayout.fibonacci-3-1 div.layoutColumnTwo {width: 25%;}
+div.twoColumnLayout.fibonacci-1-3 div.layoutColumnOne.ofTwo {width: 25%;}
+div.twoColumnLayout.fibonacci-1-3 div.layoutColumnTwo.ofTwo {width: 75%;}/*make sure this can be split into equal 50/50*/
+div.twoColumnLayout.fibonacci-3-1 div.layoutColumnOne.ofTwo {width: 75%;}
+div.twoColumnLayout.fibonacci-3-1 div.layoutColumnTwo.ofTwo {width: 25%;}
 /*fibonacci-2-5, 28.6%/71.4%*/
-div.twoColumnLayout.fibonacci-2-5 div.layoutColumnOne {width: 28.6%;}
-div.twoColumnLayout.fibonacci-2-5 div.layoutColumnTwo {width: 71.4%;}/*make sure this can be split into equal 50/50*/
-div.twoColumnLayout.fibonacci-5-2 div.layoutColumnOne {width: 71.4%;}
-div.twoColumnLayout.fibonacci-5-2 div.layoutColumnTwo {width: 28.6%;}
+div.twoColumnLayout.fibonacci-2-5 div.layoutColumnOne.ofTwo {width: 28.6%;}
+div.twoColumnLayout.fibonacci-2-5 div.layoutColumnTwo.ofTwo {width: 71.4%;}/*make sure this can be split into equal 50/50*/
+div.twoColumnLayout.fibonacci-5-2 div.layoutColumnOne.ofTwo {width: 71.4%;}
+div.twoColumnLayout.fibonacci-5-2 div.layoutColumnTwo.ofTwo {width: 28.6%;}
 /*fibonacci-1-2, 33%/66%*/
-div.twoColumnLayout.fibonacci-1-2 div.layoutColumnOne {width: 33.3%;}
-div.twoColumnLayout.fibonacci-1-2 div.layoutColumnTwo {width: 66.6%;}/*make sure this can be split into equal 50/50*/
-div.twoColumnLayout.fibonacci-2-1 div.layoutColumnOne {width: 66.6%;}
-div.twoColumnLayout.fibonacci-2-1 div.layoutColumnTwo {width: 33.3%;}
+div.twoColumnLayout.fibonacci-1-2 div.layoutColumnOne.ofTwo {width: 33.3%;}
+div.twoColumnLayout.fibonacci-1-2 div.layoutColumnTwo.ofTwo {width: 66.6%;}/*make sure this can be split into equal 50/50*/
+div.twoColumnLayout.fibonacci-2-1 div.layoutColumnOne.ofTwo {width: 66.6%;}
+div.twoColumnLayout.fibonacci-2-1 div.layoutColumnTwo.ofTwo {width: 33.3%;}
 /*fibonacci-3-5, 38.2%/61.8%*/
-div.twoColumnLayout.fibonacci-3-5 div.layoutColumnOne {width: 38.2%;}
-div.twoColumnLayout.fibonacci-3-5 div.layoutColumnTwo {width: 61.8%;}/*make sure this can be split into equal 50/50*/
-div.twoColumnLayout.fibonacci-5-3 div.layoutColumnOne {width: 61.8%;}
-div.twoColumnLayout.fibonacci-5-3 div.layoutColumnTwo {width: 38.2%;}
+div.twoColumnLayout.fibonacci-3-5 div.layoutColumnOne.ofTwo {width: 38.2%;}
+div.twoColumnLayout.fibonacci-3-5 div.layoutColumnTwo.ofTwo {width: 61.8%;}/*make sure this can be split into equal 50/50*/
+div.twoColumnLayout.fibonacci-5-3 div.layoutColumnOne.ofTwo {width: 61.8%;}
+div.twoColumnLayout.fibonacci-5-3 div.layoutColumnTwo.ofTwo {width: 38.2%;}
 /*fibonacci-2-3, 40%/60%*/
-div.twoColumnLayout.fibonacci-2-3 div.layoutColumnOne {width: 40%;}
-div.twoColumnLayout.fibonacci-2-3 div.layoutColumnTwo {width: 60%;}/*make sure this can be split into equal 50/50*/
-div.twoColumnLayout.fibonacci-3-2 div.layoutColumnOne {width: 60%;}
-div.twoColumnLayout.fibonacci-3-2 div.layoutColumnTwo {width: 40%;}
+div.twoColumnLayout.fibonacci-2-3 div.layoutColumnOne.ofTwo {width: 40%;}
+div.twoColumnLayout.fibonacci-2-3 div.layoutColumnTwo.ofTwo {width: 60%;}/*make sure this can be split into equal 50/50*/
+div.twoColumnLayout.fibonacci-3-2 div.layoutColumnOne.ofTwo {width: 60%;}
+div.twoColumnLayout.fibonacci-3-2 div.layoutColumnTwo.ofTwo {width: 40%;}
 
 /********* node/layout/3columns.html *********/
 div.threeColumnLayout {clear: both;}
-div.threeColumnLayout div.layoutColumnOne, 
-div.threeColumnLayout div.layoutColumnTwo, 
-div.threeColumnLayout div.layoutColumnThree {width: 33.3%; overflow: hidden;}
-div.threeColumnLayout div.layoutColumnOne, 
-div.threeColumnLayout div.layoutColumnTwo {float: left;}
-div.threeColumnLayout div.layoutColumnThree {float: right;}
-div.threeColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnOne > div.layoutColumnWrapper {margin-right: 16px;}
-div.threeColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnTwo > div.layoutColumnWrapper {margin-left: 8px; margin-right: 8px;}
-div.threeColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnThree > div.layoutColumnWrapper {margin-left: 16px;}
+div.threeColumnLayout div.layoutColumnOne.ofThree, 
+div.threeColumnLayout div.layoutColumnTwo.ofThree, 
+div.threeColumnLayout div.layoutColumnThree.ofThree {width: 33.3%; overflow: hidden;}
+div.threeColumnLayout div.layoutColumnOne.ofThree, 
+div.threeColumnLayout div.layoutColumnTwo.ofThree {float: left;}
+div.threeColumnLayout div.layoutColumnThree.ofThree {float: right;}
+div.threeColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnOne.ofThree > div.layoutColumnWrapper {margin-right: 16px;}
+div.threeColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnTwo.ofThree > div.layoutColumnWrapper {margin-left: 8px; margin-right: 8px;}
+div.threeColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnThree.ofThree > div.layoutColumnWrapper {margin-left: 16px;}
 
 /********* node/layout/4columns.html *********/
 div.fourColumnLayout {clear: both;}
-div.fourColumnLayout div.layoutColumnOne, 
-div.fourColumnLayout div.layoutColumnTwo, 
-div.fourColumnLayout div.layoutColumnThree,
-div.fourColumnLayout div.layoutColumnFour {width: 25%; overflow: hidden;}
-div.fourColumnLayout div.layoutColumnOne, 
-div.fourColumnLayout div.layoutColumnTwo,
-div.fourColumnLayout div.layoutColumnThree {float: left;}
-div.fourColumnLayout div.layoutColumnFour {float: right;}
-div.fourColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnOne > div.layoutColumnWrapper {margin-right: 16px;}
-div.fourColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnTwo > div.layoutColumnWrapper,
-div.fourColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnThree > div.layoutColumnWrapper {margin-left: 8px; margin-right: 8px;}
-div.fourColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnFour > div.layoutColumnWrapper {margin-left: 16px;}
+div.fourColumnLayout div.layoutColumnOne.ofFour, 
+div.fourColumnLayout div.layoutColumnTwo.ofFour, 
+div.fourColumnLayout div.layoutColumnThree.ofFour,
+div.fourColumnLayout div.layoutColumnFour.ofFour {width: 25%; overflow: hidden;}
+div.fourColumnLayout div.layoutColumnOne.ofFour, 
+div.fourColumnLayout div.layoutColumnTwo.ofFour,
+div.fourColumnLayout div.layoutColumnThree.ofFour {float: left;}
+div.fourColumnLayout div.layoutColumnFour.ofFour {float: right;}
+div.fourColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnOne.ofFour > div.layoutColumnWrapper {margin-right: 16px;}
+div.fourColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnTwo.ofFour > div.layoutColumnWrapper,
+div.fourColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnThree.ofFour > div.layoutColumnWrapper {margin-left: 8px; margin-right: 8px;}
+div.fourColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnFour.ofFour > div.layoutColumnWrapper {margin-left: 16px;}
 
 /********* node/layout/5columns.html *********/
 div.fiveColumnLayout {clear: both;}
-div.fiveColumnLayout div.layoutColumnOne, 
-div.fiveColumnLayout div.layoutColumnTwo, 
-div.fiveColumnLayout div.layoutColumnThree,
-div.fiveColumnLayout div.layoutColumnFour,
-div.fiveColumnLayout div.layoutColumnFive {width: 20%; overflow: hidden;}
-div.fiveColumnLayout div.layoutColumnOne, 
-div.fiveColumnLayout div.layoutColumnTwo,
-div.fiveColumnLayout div.layoutColumnThree,
-div.fiveColumnLayout div.layoutColumnFour {float: left;}
-div.fiveColumnLayout div.layoutColumnFive {float: right;}
-div.fiveColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnOne > div.layoutColumnWrapper {margin-right: 16px;}
-div.fiveColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnTwo > div.layoutColumnWrapper,
-div.fiveColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnThree > div.layoutColumnWrapper,
-div.fiveColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnFour > div.layoutColumnWrapper {margin-left: 8px; margin-right: 8px;}
-div.fiveColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnFive > div.layoutColumnWrapper {margin-left: 16px;}
+div.fiveColumnLayout div.layoutColumnOne.ofFive, 
+div.fiveColumnLayout div.layoutColumnTwo.ofFive, 
+div.fiveColumnLayout div.layoutColumnThree.ofFive,
+div.fiveColumnLayout div.layoutColumnFour.ofFive,
+div.fiveColumnLayout div.layoutColumnFive.ofFive {width: 20%; overflow: hidden;}
+div.fiveColumnLayout div.layoutColumnOne.ofFive, 
+div.fiveColumnLayout div.layoutColumnTwo.ofFive,
+div.fiveColumnLayout div.layoutColumnThree.ofFive,
+div.fiveColumnLayout div.layoutColumnFour.ofFive {float: left;}
+div.fiveColumnLayout div.layoutColumnFive.ofFive {float: right;}
+div.fiveColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnOne.ofFive > div.layoutColumnWrapper {margin-right: 16px;}
+div.fiveColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnTwo.ofFive > div.layoutColumnWrapper,
+div.fiveColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnThree.ofFive > div.layoutColumnWrapper,
+div.fiveColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnFour.ofFive > div.layoutColumnWrapper {margin-left: 8px; margin-right: 8px;}
+div.fiveColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnFive.ofFive > div.layoutColumnWrapper {margin-left: 16px;}
 
 /********* node/layout/6columns.html *********/
 div.sixColumnLayout {clear: both;}
-div.sixColumnLayout div.layoutColumnOne, 
-div.sixColumnLayout div.layoutColumnTwo, 
-div.sixColumnLayout div.layoutColumnThree,
-div.sixColumnLayout div.layoutColumnFour,
-div.sixColumnLayout div.layoutColumnFive,
-div.sixColumnLayout div.layoutColumnSix {width: 16.666%; overflow: hidden;}
-div.sixColumnLayout div.layoutColumnOne, 
-div.sixColumnLayout div.layoutColumnTwo,
-div.sixColumnLayout div.layoutColumnThree,
-div.sixColumnLayout div.layoutColumnFour,
-div.sixColumnLayout div.layoutColumnFive {float: left;}
-div.sixColumnLayout div.layoutColumnSix {float: right;}
-div.sixColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnOne > div.layoutColumnWrapper {margin-right: 16px;}
-div.sixColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnTwo > div.layoutColumnWrapper,
-div.sixColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnThree > div.layoutColumnWrapper,
-div.sixColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnFour > div.layoutColumnWrapper,
-div.sixColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnFive > div.layoutColumnWrapper {margin-left: 8px; margin-right: 8px;}
-div.sixColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnSix > div.layoutColumnWrapper {margin-left: 16px;}
+div.sixColumnLayout div.layoutColumnOne.ofSix, 
+div.sixColumnLayout div.layoutColumnTwo.ofSix, 
+div.sixColumnLayout div.layoutColumnThree.ofSix,
+div.sixColumnLayout div.layoutColumnFour.ofSix,
+div.sixColumnLayout div.layoutColumnFive.ofSix,
+div.sixColumnLayout div.layoutColumnSix.ofSix {width: 16.666%; overflow: hidden;}
+div.sixColumnLayout div.layoutColumnOne.ofSix, 
+div.sixColumnLayout div.layoutColumnTwo.ofSix,
+div.sixColumnLayout div.layoutColumnThree.ofSix,
+div.sixColumnLayout div.layoutColumnFour.ofSix,
+div.sixColumnLayout div.layoutColumnFive.ofSix {float: left;}
+div.sixColumnLayout div.layoutColumnSix.ofSix {float: right;}
+div.sixColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnOne.ofSix > div.layoutColumnWrapper {margin-right: 16px;}
+div.sixColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnTwo.ofSix > div.layoutColumnWrapper,
+div.sixColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnThree.ofSix > div.layoutColumnWrapper,
+div.sixColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnFour.ofSix > div.layoutColumnWrapper,
+div.sixColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnFive.ofSix > div.layoutColumnWrapper {margin-left: 8px; margin-right: 8px;}
+div.sixColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div.layoutColumnSix.ofSix > div.layoutColumnWrapper {margin-left: 16px;}
 
 /********* node/layout/tabs.html *********/
 div.tabsLayout {clear: both;}
