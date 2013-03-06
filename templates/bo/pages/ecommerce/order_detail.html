@@ -32,12 +32,12 @@ pre {font-size: 200%;}
 							<div class="top"><span></span></div>
 							<div class="layoutContent">
 								<div class="layoutContentWrapper">
-									<div class="layoutColumnOne">
+									<div class="layoutColumnOne ofTwo">
 										<div class="layoutColumnWrapper">
 											{ONXSHOP_REQUEST_invoice_detail #component/ecommerce/invoice_detail~order_id=GET.id~}
 										</div>
 									</div>
-									<div class="layoutColumnTwo">
+									<div class="layoutColumnTwo ofTwo">
 										<div class="layoutColumnWrapper">
 											{ONXSHOP_REQUEST_transaction_detail #component/ecommerce/transaction_detail~order_id=GET.id~}
 										</div>
@@ -54,14 +54,14 @@ pre {font-size: 200%;}
 							<div class="top"><span></span></div>
 							<div class="layoutContent">
 								<div class="layoutContentWrapper">
-									<div class="layoutColumnOne">
+									<div class="layoutColumnOne ofTwo">
 										<div class="layoutColumnWrapper">
 											
 											{ONXSHOP_REQUEST_delivery_detail #component/ecommerce/delivery_detail~order_id=GET.id~}
 
 										</div>
 									</div>
-									<div class="layoutColumnTwo">
+									<div class="layoutColumnTwo ofTwo">
 										<div class="layoutColumnWrapper">
 											
 											{ONXSHOP_REQUEST_tracking_information #component/ecommerce/delivery_tracking~order_id=GET.id~}

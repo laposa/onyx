@@ -40,12 +40,12 @@ function showResponse(responseText, statusText)  {
 		<div class="layoutContent">
 			<div class="layoutContentWrapper">
 				<h2 class="layoutTitle"><span>{FILE.src}</span></h2>
-				<div class="layoutColumnOne">
+				<div class="layoutColumnOne ofTwo">
 					<div class="layoutColumnWrapper">
 						<a href="#" title="View Full Size" onclick="openImg('/image/{FILE.src}'); return false;"><img id="file-preview" src="/thumbnail/100/{FILE.src}" alt="thumbnail preview" /></a>
 					</div>						
 				</div>
-				<div class="layoutColumnTwo">
+				<div class="layoutColumnTwo ofTwo">
 					<div class="row title">
 						<span class="label"><label>Give this file a short description*:</label></span>
 						<span class="field"><input class="text title" type="text" id="file-title" name="file[title]" value="{FILE.title}"/></span>

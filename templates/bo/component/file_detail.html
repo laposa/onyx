@@ -4,7 +4,7 @@
 
 <div class="twoColumnLayout fibonacci-1-2" id="linked-file-{FILE.id}">
 	<div class="contentTitle"><h2><a title="Click on this file to edit its properties" href="#" onclick="makeAjaxRequest('#item-detail-{FILE.id}', '/request/bo/component/file_edit~relation={GET.relation}:file_id={FILE.id}:type={GET.type}~'); return false">{FILE.title|htmlspecialchars}</a></h2></div>
-	<div class="layoutColumnOne">
+	<div class="layoutColumnOne ofTwo">
 		<p>
 		{FILE.info.mime-type}, {FILE.info.size}<br />
 		Role: {FILE.role}<br />
@@ -38,7 +38,7 @@
 		<!-- END: image_zoom -->
 		
 	</div>
-	<div class="layoutColumnTwo">
+	<div class="layoutColumnTwo ofTwo">
 		<div class="item-detail" id="item-detail-{FILE.id}">
 			
 			
