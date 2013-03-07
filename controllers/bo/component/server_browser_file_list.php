@@ -216,6 +216,8 @@ class Onxshop_Controller_Bo_Component_Server_Browser_File_List extends Onxshop_C
 					case 'RTE':
 					case 'add_to_product':
 					case 'add_to_product_variety':
+					case 'add_to_recipe':
+					case 'add_to_store':
 					case 'add_to_taxonomy':
 					case 'CSS':
 					case 'file':
