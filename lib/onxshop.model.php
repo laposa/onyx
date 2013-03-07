@@ -135,7 +135,7 @@ class Onxshop_Model {
 				if (key_exists($key, $data)) {
 					$this->set($key, $data[$key]);
 				} else if ($this->_hashMap[$key]['required'] == true) {
-					msg("{$this->_class_name} key $key is required, but not set", 'error', 1);
+					msg("{$this->_class_name} key $key is required, but not set", 'error', 2);
 				}
 			}
 		} else {
