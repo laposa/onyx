@@ -411,21 +411,29 @@ class Onxshop_Bootstrap {
 		
 		if (is_dir($index_location)) {
 			// Open existing index
-			$index = Zend_Search_Lucene::open($index_location);
-		} else {
-			// Create index
-			$index = Zend_Search_Lucene::create($index_location);
+			try {
+				$index = Zend_Search_Lucene::open($index_location);
+			} catch(Exception $e) {
+				// Create index
+				try {
+					$index = Zend_Search_Lucene::create($index_location);
+				} catch(Exception $e) {
+					$index = false;
+				}
+			}
 		}
 
-		// find and remove pages with the same URI
-		$hits = $index->find("uri:" . $uri);
-		foreach ($hits as $hit) $index->delete($hit);
-
-		$doc = Zend_Search_Lucene_Document_Html::loadHTML($htmlString);
-		$doc->addField(Zend_Search_Lucene_Field::Keyword('uri', $uri));
-		
-		$index->addDocument($doc);
-		$index->commit();
+		if ($index) {
+			// find and remove pages with the same URI
+			$hits = $index->find("uri:" . $uri);
+			foreach ($hits as $hit) $index->delete($hit);
+	
+			$doc = Zend_Search_Lucene_Document_Html::loadHTML($htmlString);
+			$doc->addField(Zend_Search_Lucene_Field::Keyword('uri', $uri));
+			
+			$index->addDocument($doc);
+			$index->commit();
+		}
 	}
 	
 	/**
