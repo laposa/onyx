@@ -94,8 +94,8 @@ div.fluid-video video {top: 0; left: 0; width: 100%; height: 100%; position: abs
 	input {font-size: 2em;;}
 	div.twoColumnPage div.columnOne, 
     div.twoColumnPage div.columnTwo,
-    div.twoColumnLayout div.layoutColumnOne,
-    div.twoColumnLayout div.layoutColumnTwo {width: auto!important; float: none!important;}
+    div.twoColumnLayout div.layoutColumnOne.ofTwo,
+    div.twoColumnLayout div.layoutColumnTwo.ofTwo {width: auto!important; float: none!important;}
     div.twoColumnPage div.columnWrapper {margin: 0!important;}
     div.threeColumnLayout div.layoutColumnOne.ofThree,
     div.threeColumnLayout div.layoutColumnTwo.ofThree,
