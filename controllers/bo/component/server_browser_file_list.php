@@ -33,6 +33,7 @@ class Onxshop_Controller_Bo_Component_Server_Browser_File_List extends Onxshop_C
 		else if ($_POST['open']) $open_folder = $_POST['open'];
 		else if ($_SESSION['server_browser_last_open_folder'] != '') $open_folder = urlencode($_SESSION['server_browser_last_open_folder']);
 		else $open_folder = "";
+		$multiupload = ($this->GET['multiupload'] == 'true');
 		
 		/**
 		 * Store opened folder to session
@@ -106,7 +107,11 @@ class Onxshop_Controller_Bo_Component_Server_Browser_File_List extends Onxshop_C
 		
 		if ($_POST['overwrite'] == 'overwrite') {
 			if ($File->overwriteFile($_POST['filename'], $_POST['save_dir'], $_POST['temp_file']) ) {
+
+				if ($multiupload) $this->jsonResponse("success");
+
 				msg('File has been overwritten');
+
 			} else {
 				msg("Can't overwrite file", 'error');
 			}
@@ -140,20 +145,25 @@ class Onxshop_Controller_Bo_Component_Server_Browser_File_List extends Onxshop_C
 				
 				$save_dir = $base_folder . $relative_folder_path;
 				$upload = $File->getSingleUpload($file_item, $save_dir);
-				
+
 				/**
 				 * when array is returned by getSingleUpload, it's an existing file is in place
 				 */
-				 
+
 				if (is_array($upload)) {
 				
 					$this->tpl->assign("OVERWRITE_FILE", $upload);
-					
+
+					if ($multiupload) $this->jsonResponse("file_exists", $upload);
+
 					$this->tpl->parse("content.confirm_overwrite");
 					$overwrite_show = 1;
 					
 				} else if ($upload) {
-						msg("Uploaded {$file_item['name']}");
+
+					if ($multiupload) $this->jsonResponse("success");
+
+					msg("Uploaded {$file_item['name']}");
 				}
 			}
 		}
@@ -173,11 +183,11 @@ class Onxshop_Controller_Bo_Component_Server_Browser_File_List extends Onxshop_C
 		$this->tpl->assign('BASE', $base_folder);
 		$this->tpl->assign('FOLDER_HEAD', $folder_head);
 		$this->tpl->assign('FOLDER', $relative_folder_path);
-		$this->tpl->assign('MAX_FILE_SIZE', ini_get('upload_max_filesize'));
+		$this->tpl->assign('MAX_FILE_SIZE', round($this->convertBytes(ini_get('upload_max_filesize')) / 1048576));
+		$this->tpl->assign('MAX_FILES', 25);
 		
 		//hide upload when overwrite?
 		if ($overwrite_show == 0) {
-			$this->tpl->parse("content.add_new_head");
 			$this->tpl->parse("content.add_new");
 		}
 		
@@ -240,6 +250,47 @@ class Onxshop_Controller_Bo_Component_Server_Browser_File_List extends Onxshop_C
 		}
 
 		return true;
+	}
+
+	/**
+	 * Convert a shorthand byte value from a PHP configuration directive to an integer value
+	 * @param    string   $value
+	 * @return   int
+	 */
+	protected function convertBytes($value)
+	{
+	    if (is_numeric($value)) {
+	        return $value;
+	    } else {
+	        $value_length = strlen($value);
+	        $qty = substr($value, 0, $value_length - 1);
+	        $unit = strtolower(substr($value, $value_length - 1));
+	        switch ($unit) {
+	            case 'k':
+	                $qty *= 1024;
+	                break;
+	            case 'm':
+	                $qty *= 1048576;
+	                break;
+	            case 'g':
+	                $qty *= 1073741824;
+	                break;
+	        }
+	        return $qty;
+	    }
+	}
+
+	/**
+	 * Display JSON response and cancel script execution
+	 * 
+	 * @param  String $status Status attribute value 
+	 * @param  array  $data   Addional response data
+	 */
+	protected function jsonResponse($status, $data = array())
+	{
+		$data['status'] = $status;
+		echo json_encode($data);
+		exit();
 	}
 }	
 		

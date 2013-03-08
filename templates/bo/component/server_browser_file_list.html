@@ -65,13 +65,6 @@
 					<div class="layoutColumnTwo ofTwo">
 						<div class="layoutColumnWrapper">
 						
-							<!-- BEGIN: add_new_head -->
-							<p>
-								Add a new:<br />
-								<a class="button add" title="Upload a new file or folder" href="#" onclick="$('#add-folder').hide(); $('#add-file').show(); newFileFormInit(); return false"><span>file</span></a>
-								<a class="button add" title="Upload a new file or folder" href="#" onclick="$('#add-folder').show(); $('#add-file').hide(); newFileFormInit(); return false"><span>folder</span></a></p>
-							<!-- END: add_new_head -->
-							
 							<div id="server_browser_add">
 								<form action="{URI|htmlspecialchars}" method="post" enctype="multipart/form-data" id="add_new_file">
 									
@@ -88,13 +81,21 @@
 									<!-- BEGIN: add_new -->
 									<div class="addNew">
 										<fieldset class="addNew single">
+											<legend>Upload files</legend>
+											<div class="row" id="add-file">
+												<input id="add-file-input" type="file" name="file" class="file multi" /> 
+												<button type="submit" name="create" value="create"><span>Submit File</span></button> Max&nbsp;size:&nbsp;{MAX_FILE_SIZE} MB
+											</div>
+											<div id="add-dropzone" class="row dropzone">
+												<h2>Drop files here</h2>
+												<small>Max. {MAX_FILES} files, {MAX_FILE_SIZE}MB each</small>
+											</div>
+										</fieldset>
+										<fieldset class="addFolder">
+											<legend>Add folder</legend>
 											<div class="row" id="add-folder">
 												<input id="add-folder-input" type="text" name="new_folder" value="{GET.new_folder}" />
 												<button type="submit" name="create" value="create"><span>Create Folder</span></button>
-											</div>
-											<div class="row" id="add-file">
-												<input id="add-file-input" type="file" name="file" class="file multi" /> 
-												<button type="submit" name="create" value="create"><span>Submit File</span></button> Max&nbsp;size:&nbsp;{MAX_FILE_SIZE}
 											</div>
 										</fieldset>
 									</div>
@@ -103,6 +104,10 @@
 									<input type="hidden" name="open" value="{GET.open}" />
 									
 								</form>
+							</div>
+							<div class="progress-total">
+								Please wait, uploading <span class="num">0</span> file(s)...<br/>
+								<progress value="0" max="100">0%</progress>
 							</div>
 						</div>
 					</div>
@@ -126,28 +131,170 @@ this component would be good to split into upload and file list
 	
 	function newFileFormInit() {
 		var options = { 
-			target:        '#server_browser_file_list',   // target element(s) to be updated with server response 
+			target: '#server_browser_file_list',   // target element(s) to be updated with server response 
 			beforeSubmit:  function() {
 				$("#server_browser_file_list button span").replaceWith("<span style='background: white; color: black; padding: 5px; display: block; font-size: 125%'><img src='/share/images/ajax-indicator/indicator.gif' alt='Loading ...'/> Saving...</span>");
 			},  // pre-submit callback 
-			success:       newFileFormAfterSuccess,  // post-submit callback
+			success: newFileFormAfterSuccess,  // post-submit callback
 			url:  "/request/bo/component/server_browser_file_list~open={GET.open}:type={GET.type}:relation={GET.relation}:node_id={GET.node_id}~"
 		}; 
 
     	$('#add_new_file').ajaxForm(options); 
 	}
 	
+	function showFileUploadDialog() {
+		if (window.FileReader) {
+			$('#add-dropzone').show();
+			$('#add-file').hide();
+		} else {
+			$('#add-dropzone').hide();
+			$('#add-file').show();
+		}
+		newFileFormInit();
+	}
+	
 	function fileTreeRefresh() {
 		$("#browser-tree").load("/request/bo/component/server_browser_menu~directory={BASE}:type={GET.type}:node_id={GET.node_id}:relation={GET.relation}:expand_all=1:type=d~", function() {initializeServerBrowserMenu()});
 	}
 
+	var overwriteDialogsOpen = 0;
+	var allFilesUploadedFlag = false;
+
+	function allFilesUploaded() {
+
+		makeAjaxRequest("#server_browser_file_list", "/request/bo/component/server_browser_file_list~open={GET.open}:type={GET.type}:relation={GET.relation}:node_id={GET.node_id}~");
+		growlMessage("Uploaded completed.");
+
+	}
+
+	var template =
+		'<tr id="file-id">' +
+			'<td><img/></td>' +
+			'<td>' +
+				'<span class="title"></span>&nbsp;<small class="speed"></small><br />' +
+				'<progress value="0" max="100">0%</progress>' +
+				'<div class="overwrite" style="display: none;">' +
+				'File already exists. Do you want to overwrite it?<br/>' +
+				'<button class="overwrite">Yes</button>' +
+				'<button class="keep">No</button>' +
+				'</div>' +
+			'</td>' +
+			'<td>' +
+			'</td>' +
+		'</tr>';
+
+	function createImage(file) {
+
+		var preview = $(template), 
+		image = $('img', preview);
+
+		var reader = new FileReader();
+
+		image.css('width', 50);
+		image.css('height', 50);
+		$(".title", preview).text(file.name);
+
+		reader.onload = function(e) { image.attr('src', e.target.result); };
+		reader.readAsDataURL(file);
+		$('table.server-browser tbody').prepend(preview);
+		$.data(file, preview);
+	}
+
+	$(function() {
+		$('#add-dropzone').filedrop({
+			fallback_id: 'add-folder-input',   // an identifier of a standard file input element
+			url: '/request/bo/component/server_browser_file_list~multiupload=true~',
+			paramname: 'file',                // POST parameter name used on serverside to reference file
+			withCredentials: true,            // make a cross-origin request with cookies
+			error: function(err, file) {
+				switch(err) {
+					case 'BrowserNotSupported':
+						growlMessage('Your browser does not support HTML5 file uploads!');
+						break;
+					case 'TooManyFiles':
+						growlMessage('Too many files! You can upload maximum {MAX_FILES} files at once.');
+						break;
+					case 'FileTooLarge':
+						growlMessage('File ' + file.name + ' too large! Current limit is {MAX_FILE_SIZE}MB');
+						break;
+					case 'FileTypeNotAllowed':
+						growlMessage('File ' + file.name + ' is not a supported image.');
+					default:
+						break;
+				}
+				$("#server_browser_add").show();
+				$("#server_browser_file_list_wrapper .progress-total").hide();
+			},
+			allowedfiletypes: [], // filetypes allowed by Content-Type.  Empty array means no restrictions
+			maxfiles: {MAX_FILES},
+			maxfilesize: {MAX_FILE_SIZE}, // max file size in MBs
+			dragOver: function() { $("#add-dropzone").addClass("drag-over"); },
+			dragLeave: function() { $("#add-dropzone").removeClass("drag-over"); },
+			drop: function() { 
+				$("#add-dropzone").removeClass("drag-over"); 
+				$("#server_browser_add").hide();
+				$("#server_browser_file_list_wrapper .progress-total").show();
+			},
+			uploadStarted: function(i, file, len){
+				createImage(file);
+				var num = $("#server_browser_file_list_wrapper .progress-total .num");
+				num.html(1 + (num.text() * 1));
+			},
+			uploadFinished: function(i, file, response, time) {
+				if (response) {
+
+					if (response.status == 'file_exists') {
+						overwriteDialogsOpen++;
+						var dialog = $.data(file).find('.overwrite').show();
+						dialog.find("button.overwrite").click(function() {
+							$(this).parent().hide();
+							$.post("/request/bo/component/server_browser_file_list~open={GET.open}:type={GET.type}:relation={GET.relation}:node_id={GET.node_id}~", {
+								filename: response.filename,
+								save_dir: response.save_dir,
+								temp_file: response.temp_file,
+								overwrite: "overwrite"
+							}, function(data) {
+								overwriteDialogsOpen--;
+								if (overwriteDialogsOpen == 0 && allFilesUploadedFlag == true) allFilesUploaded();
+							});
+						});
+						dialog.find("button.keep").click(function() {
+							$(this).parent().hide();
+							overwriteDialogsOpen--;
+							if (overwriteDialogsOpen == 0 && allFilesUploadedFlag == true) allFilesUploaded();
+						});
+					} else if (response.status != 'success') {
+						growlMessage("An error occured during upload of the file '" + file.name + "'!");
+					}
+				}
+			},
+			speedUpdated: function(i, file, speed) {
+	        	$.data(file).find('.speed').text("(" + Math.round(speed) + " kB/s)");
+	    	},
+			progressUpdated: function(i, file, progress) {
+				$.data(file).find('progress').val(progress);
+			},
+			globalProgressUpdated: function(progress) {
+				$("#server_browser_file_list_wrapper .progress-total progress").val(progress);
+			},
+			afterAll: function() {
+				allFilesUploadedFlag = true;
+				if (overwriteDialogsOpen == 0) allFilesUploaded();
+			}
+		});
+
+		showFileUploadDialog();
+	});
+
 </script>
 
 <style type="text/css">
-
-#add-folder,
-#add-file {display: none;}
-
+	#server_browser_file_list_wrapper .drag-over { border: 2px dashed black; background: #eee; }
+	#server_browser_file_list_wrapper table.server-browser span.progress { width: 200px; height: 10px; border: 1px solid black; background: white; display: block;}
+	#server_browser_file_list_wrapper table.server-browser span.progress span { width: 0; height: 10px; background: #888; display: block;}
+	#server_browser_file_list_wrapper #add-dropzone { border: 2px dashed #444444; border-radius: 10px; padding: 40px; text-align: center; margin: 0 10px 0 0; }
+	#server_browser_file_list_wrapper progress { width: 300px; }
+	#server_browser_file_list_wrapper .progress-total { display: none; }
 </style>
 
 <!-- END: content -->
