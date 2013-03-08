@@ -47,9 +47,9 @@ class Onxshop_Controller_Bo_Component_File extends Onxshop_Controller {
 				require_once('models/ecommerce/ecommerce_store_image.php');
 				$File = new ecommerce_store_image();
 			break;
-			case 'survey_answer':
-				require_once('models/education/education_survey_question_answer_image.php');
-				$File = new education_survey_question_answer_image();
+			case 'survey':
+				require_once('models/education/education_survey_image.php');
+				$File = new education_survey_image();
 			break;
 			case 'taxonomy':
 				require_once('models/common/common_taxonomy_label_image.php');

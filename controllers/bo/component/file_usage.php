@@ -98,10 +98,10 @@ class Onxshop_Controller_Bo_Component_File_Usage extends Onxshop_Controller_Bo_C
 				}
 			}
 		
-			if (count($relations_list['survey_answer']) > 0) {
-				foreach($relations_list['survey_answer'] as $image_detail) {
+			if (count($relations_list['survey']) > 0) {
+				foreach($relations_list['survey'] as $image_detail) {
 					$this->tpl->assign('IMAGE_DETAIL', $image_detail);
-					$this->tpl->parse('content.usage.survey_answer');
+					$this->tpl->parse('content.usage.survey');
 				}
 			}
 		
