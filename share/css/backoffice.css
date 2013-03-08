@@ -16,13 +16,16 @@ p {margin: 0 0 14px 0;}
 h2 a, h3 a, h4 a {color: white;}
 
 /**
- * Links
+ * Links & buttons
  */
  
 a {color: black;}
 a:active {color: red;}
-a.button {box-shadow: 2px 2px rgba(0,0,0,0.2); color: #3A3A3A; font-weight: bold; border: 1px solid #DBDBDB; border-radius: 5px; background: #eee; display: inline-block; padding: 5px 10px; background-position: center left; background-repeat: no-repeat; vertical-align: baseline; text-decoration: none;}
-a.add {
+a.button,
+button {box-shadow: 2px 2px rgba(0,0,0,0.2); color: #3A3A3A; font-weight: bold; border: 1px solid #DBDBDB; border-radius: 5px; background: #eee; display: inline-block; padding: 5px 10px; background-position: center left; background-repeat: no-repeat; vertical-align: baseline; text-decoration: none;}
+a.add,
+button.add,
+button {
 background: #a9db80; /* Old browsers */
 background: -moz-linear-gradient(top,  #a9db80 0%, #96c56f 100%); /* FF3.6+ */
 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#a9db80), color-stop(100%,#96c56f)); /* Chrome,Safari4+ */
@@ -228,7 +231,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', end
 #backoffice div.twoColumnPage div.columnOne div.columnWrapper {padding-top: 10px; margin-left: 10px; padding-right: 15px; margin-right:0;}
 #backoffice div.twoColumnPage div.columnTwo div.columnWrapper {margin-left: 0;}
 #backoffice div.twoColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnOne > div.layoutColumnWrapper {margin-right: 10px;}
-#backoffice div.twoColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnTwo > div.layoutColumnWrapper {padding-top: 25px; margin-left: 0;}
+#backoffice div.twoColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnTwo > div.layoutColumnWrapper {padding-top: 0em; margin-left: 0;}
 #backoffice div.twoColumnPage div.columnOne div.twoColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnTwo > div.layoutColumnWrapper {padding-top: 0; margin-left: 10px;}
 
 /**
