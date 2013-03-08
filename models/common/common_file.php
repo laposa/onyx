@@ -624,10 +624,14 @@ CREATE TABLE common_file (
 		$StoreImage = new ecommerce_store_image();
 		$file_list['store'] = $StoreImage->getFileLink($file);
 
+		require_once('models/education/education_survey_question_answer_image.php');
+		$StoreImage = new education_survey_question_answer_image();
+		$file_list['survey_answer'] = $StoreImage->getFileLink($file);
+
 		$file_list['count'] = count($file_list['file']) + count($file_list['node']) + 
 			count($file_list['product']) + count($file_list['product_variety']) + 
 			count($file_list['taxonomy']) + count($file_list['recipe']) +
-			count($file_list['store']);
+			count($file_list['store']) + count($file_list['survey_answer']);
 
 		return $file_list;
 	}
