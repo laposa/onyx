@@ -39,6 +39,14 @@ class Onxshop_Controller_Bo_Component_File extends Onxshop_Controller {
 				require_once('models/ecommerce/ecommerce_product_variety_image.php');
 				$File = new ecommerce_product_variety_image();
 			break;
+			case 'recipe':
+				require_once('models/ecommerce/ecommerce_recipe_image.php');
+				$File = new ecommerce_recipe_image();
+			break;
+			case 'store':
+				require_once('models/ecommerce/ecommerce_store_image.php');
+				$File = new ecommerce_store_image();
+			break;
 			case 'taxonomy':
 				require_once('models/common/common_taxonomy_label_image.php');
 				$File = new common_taxonomy_label_image();
