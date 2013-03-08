@@ -31,6 +31,58 @@ ALTER INDEX "shipping_wz_zone_price_zone_id_fkey" RENAME TO "ecommerce_delivery_
 ALTER INDEX "shipping_wz_country_to_zone_zone_id_fkey" RENAME TO "ecommerce_delivery_carrier_country_to_zone_zone_id_fkey";
 ALTER INDEX "shipping_wz_country_to_zone_country_id_fkey" RENAME TO "ecommerce_delivery_carrier_country_to_zone_country_id_fkey";
 
+/* education_survey_image and content column for RTE */
+ALTER TABLE "education_survey_question" ADD COLUMN "content" text;
+ALTER TABLE "education_survey_question_answer" ADD COLUMN "content" text;
+
+--
+-- Name: education_survey_image_id_seq; Type: SEQUENCE; Schema: public; Owner: centra
+--
+
+CREATE SEQUENCE education_survey_image_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+--
+-- Name: education_survey_image; Type: TABLE; Schema: public; Owner: centra; Tablespace: 
+--
+
+CREATE TABLE education_survey_image (
+    id integer DEFAULT nextval('education_survey_image_id_seq'::regclass) NOT NULL,
+    src character varying(255),
+    role character varying(255),
+    node_id integer NOT NULL,
+    title character varying(255),
+    description text,
+    priority integer DEFAULT 0 NOT NULL,
+    modified timestamp(0) without time zone,
+    author integer
+);
+
+--
+-- Name: education_survey_image_pkey; Type: CONSTRAINT; Schema: public; Owner: centra; Tablespace: 
+--
+
+ALTER TABLE ONLY education_survey_image
+    ADD CONSTRAINT education_survey_image_pkey PRIMARY KEY (id);
+
+--
+-- Name: education_survey_image_node_id_key; Type: INDEX; Schema: public; Owner: centra; Tablespace: 
+--
+
+CREATE INDEX education_survey_image_node_id_key ON education_survey_image USING btree (node_id);
+
+--
+-- Name: education_survey_image_node_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: centra
+--
+
+ALTER TABLE ONLY education_survey_image
+    ADD CONSTRAINT education_survey_image_node_id_fkey FOREIGN KEY (node_id) REFERENCES education_survey(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
 --
 -- Name: ecommerce_invoice_order_id_idx; Type: INDEX; Schema: public; Owner: jing; Tablespace: 
 --
@@ -550,5 +602,7 @@ ALTER TABLE ONLY client_customer_taxonomy
 
 ALTER TABLE ONLY client_customer_taxonomy
     ADD CONSTRAINT client_customer_taxonomy_taxonomy_fkey FOREIGN KEY (taxonomy_tree_id) REFERENCES common_taxonomy_tree(id) ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
 
 COMMIT;
