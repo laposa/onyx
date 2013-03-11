@@ -45,7 +45,7 @@ class ecommerce_recipe_ingredients extends Onxshop_Model {
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'recipe_id'=>array('label' => '', 'validation'=>'int', 'required'=>true),
 		'product_variety_id'=>array('label' => '', 'validation'=>'int', 'required'=>true),
-		'quantity'=>array('label' => '', 'validation'=>'int', 'required'=>true),
+		'quantity'=>array('label' => '', 'validation'=>'decimal', 'required'=>true),
 		'units'=>array('label' => '', 'validation'=>'int', 'required'=>true),
 		'notes'=>array('label' => '', 'validation'=>'string', 'required'=>false),
 		'group_title'=>array('label' => '', 'validation'=>'string', 'required'=>false)
@@ -62,7 +62,7 @@ CREATE TABLE ecommerce_recipe_ingredients (
     id integer NOT NULL PRIMARY KEY,
     recipe_id integer,
     product_variety_id integer NOT NULL,
-    quantity integer,
+    quantity real,
     units integer,
     notes text,
     group_title character varying(255)

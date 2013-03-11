@@ -177,7 +177,7 @@ CREATE TABLE ecommerce_recipe_ingredients (
     id integer DEFAULT nextval('ecommerce_recipe_ingredients_id_seq'::regclass) NOT NULL,
     recipe_id integer,
     product_variety_id integer NOT NULL,
-    quantity integer,
+    quantity real,
     units integer,
     notes text,
     group_title character varying(255)
