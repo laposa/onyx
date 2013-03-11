@@ -46,6 +46,16 @@ class education_survey_entry extends Onxshop_Model {
 	public $publish;
 
 	/**
+	 * ip_adress
+	 */
+	public $ip_adress;
+
+	/**
+	 * session_id
+	 */
+	public $session_id;
+
+	/**
 	 * hashMap
 	 */
 	 
@@ -56,7 +66,9 @@ class education_survey_entry extends Onxshop_Model {
 		'relation_subject'=>array('label' => '', 'validation'=>'string', 'required'=>false),
 		'created'=>array('label' => '', 'validation'=>'datetime', 'required'=>true),
 		'modified'=>array('label' => '', 'validation'=>'datetime', 'required'=>false),
-		'publish'=>array('label' => '', 'validation'=>'int', 'required'=>false)
+		'publish'=>array('label' => '', 'validation'=>'int', 'required'=>false),
+		'ip_address'=>array('label' => '', 'validation'=>'string', 'required'=>false),
+		'session_id'=>array('label' => '', 'validation'=>'string', 'required'=>false)
 	);
 	
 	/**
@@ -74,6 +86,8 @@ CREATE TABLE education_survey_entry (
 	created timestamp(0) without time zone DEFAULT now() NOT NULL,
 	modified timestamp(0) without time zone DEFAULT now(),
 	publish smallint DEFAULT 0,
+	ip_address character varying(255),
+	session_id character varying(32),
 	UNIQUE (survey_id, customer_id, relation_subject)
 );
 		";
@@ -148,6 +162,9 @@ CREATE TABLE education_survey_entry (
 		$data['modified'] = date('c');
 		if (!is_numeric($data['publish'])) $data['publish'] = 1; 
 		
+		$data['ip_address'] = $_SERVER['REMOTE_ADDR'];
+		$data['session_id'] = session_id();
+
 		if ($survey_entry_id = $this->save($data)) {
 			
 			return $survey_entry_id;	
