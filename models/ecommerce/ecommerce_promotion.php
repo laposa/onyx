@@ -260,7 +260,7 @@ CREATE TABLE ecommerce_promotion (
 			// text search
 			if (strlen($filter['text_search']) > 0) {
 				$s = pg_escape_string($filter['text_search']);
-				$where .= " AND (promotion.title LIKE '%$s%' OR promotion.code_pattern LIKE '%$s%')";
+				$where .= " AND (promotion.title ILIKE '%$s%' OR promotion.code_pattern ILIKE '%$s%')";
 			}
 
 			//created between filter
