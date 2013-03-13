@@ -40,12 +40,11 @@ class Onxshop_Controller_Bo_Component_Node_Edit extends Onxshop_Controller {
 			$controller_html = $controller;
 		}
 		
-		if (!file_exists(ONXSHOP_DIR . "controllers/{$controller}.php")) {
-			$controller_php = "bo/node/{$node_data['node_group']}/default";
-		} else {
+		if (file_exists(ONXSHOP_DIR . "controllers/{$controller}.php") || file_exists(ONXSHOP_PROJECT_DIR . "controllers/{$controller}.php")) {
 			$controller_php = $controller;
+		} else {
+			$controller_php = "bo/node/{$node_data['node_group']}/default";
 		}
-		
 		
 		$_nSite = new nSite("{$controller_php}@{$controller_html}&id={$node_id}&orig={$this->GET['orig']}&popup={$this->GET['popup']}", $this);
 				
