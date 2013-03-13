@@ -25,11 +25,11 @@ class Onxshop_Controller_Component_Ecommerce_Review extends Onxshop_Controller_C
 	 
 	public function customCommentAction($data, $options) {
 	
-		$_nSite = new nSite("component/ecommerce/review_list~node_id={$data['node_id']}:allow_anonymouse_submit={$options['allow_anonymouse_submit']}~");
-		$this->tpl->assign('PRODUCT_REVIEW_LIST', $_nSite->getContent());
+		$_Onxshop_Request = new Onxshop_Request("component/ecommerce/review_list~node_id={$data['node_id']}:allow_anonymouse_submit={$options['allow_anonymouse_submit']}~");
+		$this->tpl->assign('PRODUCT_REVIEW_LIST', $_Onxshop_Request->getContent());
 		
-		$_nSite = new nSite("component/ecommerce/review_add~node_id={$data['node_id']}:allow_anonymouse_submit={$options['allow_anonymouse_submit']}~");
-		$this->tpl->assign('PRODUCT_REVIEW_ADD', $_nSite->getContent());
+		$_Onxshop_Request = new Onxshop_Request("component/ecommerce/review_add~node_id={$data['node_id']}:allow_anonymouse_submit={$options['allow_anonymouse_submit']}~");
+		$this->tpl->assign('PRODUCT_REVIEW_ADD', $_Onxshop_Request->getContent());
 		
 	}
 	

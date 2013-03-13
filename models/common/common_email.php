@@ -447,7 +447,7 @@ CREATE TABLE common_email (
 			$tpl->assign('DATA', $GLOBALS['common_email']);
 		}
 
-		// from $nSite->_initTemplateVariables
+		// from $Onxshop_Request->_initTemplateVariables
 		if ($_SERVER['HTTPS']) $protocol = 'https';
 		else $protocol = 'http';
 		

@@ -893,7 +893,7 @@ CREATE TABLE common_node (
 			
 			foreach ($children as $key=>$child) {
 				if ($this->checkDisplayPermission($child)) {
-					$_nOnxshop = new nSite("node&id={$child['id']}&no_parent=1");
+					$_nOnxshop = new Onxshop_Request("node&id={$child['id']}&no_parent=1");
 					$contentx[$child['id']]['content'] = $_nOnxshop->getContent();
 					$contentx[$child['id']]['container'] = $child['parent_container'];
 				}

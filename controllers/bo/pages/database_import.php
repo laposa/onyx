@@ -19,7 +19,7 @@ class Onxshop_Controller_Bo_Pages_Database_Import extends Onxshop_Controller {
 				//show controll
 				$this->tpl->parse('content.import_options');
 				if ($_POST['method'] == 'initial') {
-					$nSite = new nSite("bo/database_import_initial");
+					$Onxshop_Request = new Onxshop_Request("bo/database_import_initial");
 				}
 			} else {
 				msg("Datafile $data_file does not exists", 'error');

@@ -13,7 +13,7 @@ class Onxshop_Controller_Bo_Node_Page_Product extends Onxshop_Controller_Bo_Node
 	 */
 
 	function post() {
-		//$Product_detail = new nSite("component/ecommerce/product_detail~product_id={$this->node_data['content']}:template_block=product_more~");
+		//$Product_detail = new Onxshop_Request("component/ecommerce/product_detail~product_id={$this->node_data['content']}:template_block=product_more~");
 		//$this->tpl->assign("PRODUCT_DETAIL", $Product_detail->getContent());
 	}
 }

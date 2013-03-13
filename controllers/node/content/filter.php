@@ -23,9 +23,9 @@ class Onxshop_Controller_Node_Content_Filter extends Onxshop_Controller_Node_Con
 		
 		if ($node_data['component']['template'] == '') $node_data['component']['template'] = 'menu_UL';
 		
-		$nSite = new nSite("component/menu&type=taxonomy&level=2&display_all=1&id={$node_data['component']['node_id']}&template={$node_data['component']['template']}");
+		$Onxshop_Request = new Onxshop_Request("component/menu&type=taxonomy&level=2&display_all=1&id={$node_data['component']['node_id']}&template={$node_data['component']['template']}");
 		
-		$this->tpl->assign("FILTER", $nSite->getContent());
+		$this->tpl->assign("FILTER", $Onxshop_Request->getContent());
 		$this->tpl->assign("NODE", $node_data);
 		
 		if ($node_data['display_title'])  $this->tpl->parse('content.title');

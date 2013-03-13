@@ -551,7 +551,7 @@ CREATE TABLE ecommerce_order (
 		 * calling controllers from model isn't exactly my concept of MVC, let's see it as a HACK for now
 		 */
 		 
-		$_nSite = new nSite("component/ecommerce/order_status_change_action~order_id={$order_id}:status={$status}~");
+		$_Onxshop_Request = new Onxshop_Request("component/ecommerce/order_status_change_action~order_id={$order_id}:status={$status}~");
 		
 		return true;
 		
@@ -635,8 +635,8 @@ CREATE TABLE ecommerce_order (
     
     		$EmailForm = new common_email();
 
-    		$_nSite = new nSite("component/ecommerce/order_detail~order_id={$order_data['id']}~");
-			$order_data['order_detail'] = $_nSite->getContent();
+    		$_Onxshop_Request = new Onxshop_Request("component/ecommerce/order_detail~order_id={$order_data['id']}~");
+			$order_data['order_detail'] = $_Onxshop_Request->getContent();
 	
     		//this allows use customer data and company data in the mail template
     		//is passed as DATA to template in common_email->_format

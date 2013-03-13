@@ -52,7 +52,7 @@ class Onxshop_Controller_Component_Ecommerce_Product_Detail extends Onxshop_Cont
 			 * varieties
 			 */
 
-			$Variety_list = new nSite("component/ecommerce/variety_list~product_id={$this->GET['product_id']}~");
+			$Variety_list = new Onxshop_Request("component/ecommerce/variety_list~product_id={$this->GET['product_id']}~");
 			$this->tpl->assign('VARIETY_LIST', $Variety_list->getContent());
 			
 			/**
@@ -122,14 +122,14 @@ class Onxshop_Controller_Component_Ecommerce_Product_Detail extends Onxshop_Cont
 		$cycle['timeout'] = $ecommerce_product_image_conf['cycle_timeout'];
 		$cycle['speed'] = $ecommerce_product_image_conf['cycle_speed'];
 		
-		$Image = new nSite("$image_controller&relation=product&role=main&width=$image_width&node_id={$product['id']}&limit=$image_limit&cycle_fx={$cycle['fx']}&cycle_easing={$cycle['easing']}&cycle_timeout={$cycle['timeout']}&cycle_speed={$cycle['speed']}");
+		$Image = new Onxshop_Request("$image_controller&relation=product&role=main&width=$image_width&node_id={$product['id']}&limit=$image_limit&cycle_fx={$cycle['fx']}&cycle_easing={$cycle['easing']}&cycle_timeout={$cycle['timeout']}&cycle_speed={$cycle['speed']}");
 		$this->tpl->assign('PRODUCT_IMAGE', $Image->getContent());
 	
 		/**
 		 * variety image
 		 */
 
-		//$Image = new nSite("image&relation=product_variety&role=main&node_id={$product['variety'][0]['id']}&limit=0,1");
+		//$Image = new Onxshop_Request("image&relation=product_variety&role=main&node_id={$product['variety'][0]['id']}&limit=0,1");
 		//$this->tpl->assign('IMAGE_VARIETY', $Image->getContent());
 
 	}

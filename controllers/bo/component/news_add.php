@@ -47,7 +47,7 @@ class Onxshop_Controller_Bo_Component_News_Add extends Onxshop_Controller {
 				msg(ucfirst($node_data['node_group']) ." has been added.");
 				
 				//quick pages builder
-				//$Page_builder = new nSite("bo/page_builder@blank&parent=$id&node_group={$node_data['node_group']}&node_controller={$node_data['node_controller']}");
+				//$Page_builder = new Onxshop_Request("bo/page_builder@blank&parent=$id&node_group={$node_data['node_group']}&node_controller={$node_data['node_controller']}");
 			}
 		}
 		

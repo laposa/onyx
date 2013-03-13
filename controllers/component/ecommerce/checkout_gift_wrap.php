@@ -50,8 +50,8 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Gift_Wrap extends Onxshop_
 	 		 * image
 	 		 */
 	 		 
-	 		//$_nSite = new nSite("component/image~relation=product_variety:node_id={$variety['id']}:limit=0,1~");
-	 		//$this->tpl->assign('IMAGE', $_nSite->getContent());
+	 		//$_Onxshop_Request = new Onxshop_Request("component/image~relation=product_variety:node_id={$variety['id']}:limit=0,1~");
+	 		//$this->tpl->assign('IMAGE', $_Onxshop_Request->getContent());
 	 		
 	 		$variety['image'] = $this->getImage($variety['id']);
 	 		

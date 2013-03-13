@@ -48,8 +48,8 @@ class Onxshop_Controller_Node_Content_Survey extends Onxshop_Controller_Node_Con
 		 * call controller
 		 */
 
-		$_nSite = new nSite("component/$component~node_id={$node_data['id']}:survey_id=$survey_id:limit=$limit:votes_per_day=$votes_per_day:restriction=$restriction:spam_protection=$spam_protection~");
-		$this->tpl->assign('SURVEY', $_nSite->getContent());
+		$_Onxshop_Request = new Onxshop_Request("component/$component~node_id={$node_data['id']}:survey_id=$survey_id:limit=$limit:votes_per_day=$votes_per_day:restriction=$restriction:spam_protection=$spam_protection~");
+		$this->tpl->assign('SURVEY', $_Onxshop_Request->getContent());
 
 		$this->tpl->assign('NODE', $node_data);
 

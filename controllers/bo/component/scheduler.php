@@ -21,7 +21,7 @@ class Onxshop_Controller_Bo_Component_Scheduler extends Onxshop_Controller {
 	 		$time = strtotime($date);
 
 	 		// try to add new job using scheduler_add component
-			$c = new nSite("bo/component/scheduler_add~url={$url}:time={$time}~");
+			$c = new Onxshop_Request("bo/component/scheduler_add~url={$url}:time={$time}~");
 			$this->tpl->assign('RESULT', $c->getContent());
 		}
 
@@ -40,7 +40,7 @@ class Onxshop_Controller_Bo_Component_Scheduler extends Onxshop_Controller {
 		$this->tpl->assign('JOB', $job);
 
 		// include job list
-		$l = new nSite("bo/component/scheduler_list");
+		$l = new Onxshop_Request("bo/component/scheduler_list");
 		$this->tpl->assign('LIST', $l->getContent());
 
 		return true;

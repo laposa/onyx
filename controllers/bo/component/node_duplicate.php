@@ -31,8 +31,8 @@ class Onxshop_Controller_Bo_Component_Node_Duplicate extends Onxshop_Controller 
 		if ($new_node_id) {
 			msg("Content successfully duplicated.");
 
-			$_nSite = new nSite("node~id=$new_node_id~");
-			$this->tpl->assign('NODE_DETAIL', $_nSite->getContent());
+			$_Onxshop_Request = new Onxshop_Request("node~id=$new_node_id~");
+			$this->tpl->assign('NODE_DETAIL', $_Onxshop_Request->getContent());
 		}
 
 		return $new_node_id > 0;

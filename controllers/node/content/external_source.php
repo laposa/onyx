@@ -33,8 +33,8 @@ class Onxshop_Controller_Node_Content_External_Source extends Onxshop_Controller
 		
 		$wget_url = base64_encode($url);
 		
-		$_nSite = new nSite("component/wget&url=$wget_url");
-		$source = $_nSite->getContent();
+		$_Onxshop_Request = new Onxshop_Request("component/wget&url=$wget_url");
+		$source = $_Onxshop_Request->getContent();
 		
 		$source = translateLinks("", $source);
 		

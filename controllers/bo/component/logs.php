@@ -124,8 +124,8 @@ class Onxshop_Controller_Bo_Component_Logs extends Onxshop_Controller {
 		//$link = "/backoffice/advanced/logs";
 		$link = $_SERVER['REDIRECT_URL'];
 		
-		$_nSite = new nSite("component/pagination~limit_from=$from:limit_per_page=$per_page:count=$count:link=$link:option_show_all=1:option_per_page=1~");
-		$this->tpl->assign('PAGINATION', $_nSite->getContent());
+		$_Onxshop_Request = new Onxshop_Request("component/pagination~limit_from=$from:limit_per_page=$per_page:count=$count:link=$link:option_show_all=1:option_per_page=1~");
+		$this->tpl->assign('PAGINATION', $_Onxshop_Request->getContent());
 
 		return true;
 	}

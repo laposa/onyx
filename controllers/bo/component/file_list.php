@@ -49,7 +49,7 @@ class Onxshop_Controller_Bo_Component_File_List extends Onxshop_Controller_Bo_Co
 	
 	public function parseItem($file_detail, $type, $relation) {
 		
-		$_Onxshop = new nSite("bo/component/file_detail~file_id={$file_detail['id']}:type=$type:relation=$relation~");
+		$_Onxshop = new Onxshop_Request("bo/component/file_detail~file_id={$file_detail['id']}:type=$type:relation=$relation~");
 					
 		$this->tpl->assign('FILE_DETAIL', $_Onxshop->getContent());
 										

@@ -46,9 +46,9 @@ class Onxshop_Controller_Bo_Component_Node_Edit extends Onxshop_Controller {
 			$controller_php = "bo/node/{$node_data['node_group']}/default";
 		}
 		
-		$_nSite = new nSite("{$controller_php}@{$controller_html}&id={$node_id}&orig={$this->GET['orig']}&popup={$this->GET['popup']}", $this);
+		$_Onxshop_Request = new Onxshop_Request("{$controller_php}@{$controller_html}&id={$node_id}&orig={$this->GET['orig']}&popup={$this->GET['popup']}", $this);
 				
-		$this->setContent($_nSite->getContent());
+		$this->setContent($_Onxshop_Request->getContent());
 		$this->tpl->assign("SUB_CONTENT", $this->content);
 
 		if ($this->GET['ajax'] == 0) $this->tpl->parse('content.form');

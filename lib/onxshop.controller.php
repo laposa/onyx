@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2005-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2005-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -348,11 +348,11 @@ class Onxshop_Controller {
 					$xrequest = str_replace("{$v}", $this->GET[$m[1][$k]], $xrequest);
 				}
 				
-				$_nxSite = new nSite($xrequest);
+				$_xrequest = new Onxshop_Request($xrequest);
 				
 				//because of stupid parseContentTagsAfter(), we have to check if it isn't already assigned 
 				if ($this->tpl->vars["ONXSHOP_REQUEST_{$matches[1][$key]}"] == '') {
-					$this->tpl->assign("ONXSHOP_REQUEST_{$matches[1][$key]}", $_nxSite->getContent());
+					$this->tpl->assign("ONXSHOP_REQUEST_{$matches[1][$key]}", $_xrequest->getContent());
 				}
 				
 			}
@@ -709,22 +709,13 @@ class Onxshop_Controller {
 		
 	}
 
-	
-} // end of Onxshop
-
-/**
- * compatibility nSite class
- */
- 
-class nSite {
 
 	/**
-	 * Construct
+	 * Factory method for creating new controller using request URI
 	 */
-	
-	public function __construct($request, &$subOnxshop = false) {
-		
-		$classname = $this->_prepareCallBack($request);
+	public static function createController($request, &$subOnxshop = false)
+	{
+		$classname = self::_prepareCallBack($request);
 		
 		if (!class_exists($classname)) {
 			echo "missing $classname in $request";
@@ -732,27 +723,16 @@ class nSite {
 		}
 		
 		//Yes, we can do this in PHP :)
-		$this->Onxshop = new $classname($request, $subOnxshop);
-		return $this->Onxshop;
+		return new $classname($request, $subOnxshop);
+
 	}
-	
-	/**
-	 * get content
-	 */
-	
-	public function getContent() {
-	
-		if (is_object($this->Onxshop)) return $this->Onxshop->getContent();
-		
-	}
-	
-	
+
 	/**
 	 * prepare CallBack function
 	 */
-	
-	private function _prepareCallBack($request) {
-	
+
+	private static function _prepareCallBack($request) {
+
 		$file = preg_replace("/([A-Za-z0-9_\/]*).*/", "\\1", $request);
 		if (file_exists(ONXSHOP_DIR . "controllers/{$file}.php") || file_exists(ONXSHOP_PROJECT_DIR . "controllers/{$file}.php")) {
 			require_once("controllers/{$file}.php");
@@ -764,5 +744,5 @@ class nSite {
 		return $classname;
 		
 	}
-	
+
 }

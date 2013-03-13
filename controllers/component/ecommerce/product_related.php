@@ -110,8 +110,8 @@ class Onxshop_Controller_Component_Ecommerce_Product_Related extends Onxshop_Con
 				 * call controller
 				 */
 				
-				$_nSite = new nSite("component/ecommerce/{$product_list_template}~{$query}~");
-				$this->tpl->assign('ITEMS', $_nSite->getContent());
+				$_Onxshop_Request = new Onxshop_Request("component/ecommerce/{$product_list_template}~{$query}~");
+				$this->tpl->assign('ITEMS', $_Onxshop_Request->getContent());
 				$this->tpl->parse('content.product_related');
 			}
 		}

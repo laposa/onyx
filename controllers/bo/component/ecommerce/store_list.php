@@ -46,8 +46,8 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Store_List extends Onxshop_Contr
 		}
 
 		// display pagination
-		$_nSite = new nSite("component/pagination~link=/request/bo/component/ecommerce/store_list:limit_from=$from:limit_per_page=$per_page:count=$count~");
-		$this->tpl->assign('PAGINATION', $_nSite->getContent());
+		$_Onxshop_Request = new Onxshop_Request("component/pagination~link=/request/bo/component/ecommerce/store_list:limit_from=$from:limit_per_page=$per_page:count=$count~");
+		$this->tpl->assign('PAGINATION', $_Onxshop_Request->getContent());
 
 		// parse items
 		foreach ($store_list as $item) {

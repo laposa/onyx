@@ -27,6 +27,7 @@ class Onxshop_Bootstrap {
 		 
 		require_once('xtemplate.class.php');
 		require_once('onxshop.controller.php');
+		require_once('onxshop.request.php');
 		require_once('onxshop.model.php');
 		require_once('onxshop.router.php');
 		require_once('onxshop.authentication.php');

@@ -215,8 +215,8 @@ class Onxshop_Controller_Bo_Component_Server_Browser_File_List extends Onxshop_C
 				} else {
 					$this->tpl->assign("FILE_USAGE", $relations_list['count']);
 					$this->tpl->parse('content.list.item.usage');
-					//$_nSite = new nSite("bo/component/file_usage~file_path_encoded_relative={$l['file_path_encoded_relative']}~");
-					//$this->tpl->assign("FILE_USAGE", $_nSite->getContent());
+					//$_Onxshop_Request = new Onxshop_Request("bo/component/file_usage~file_path_encoded_relative={$l['file_path_encoded_relative']}~");
+					//$this->tpl->assign("FILE_USAGE", $_Onxshop_Request->getContent());
 				}
 		
 				//if (preg_match('/^image\/.*/', $l['mime-type'])) 

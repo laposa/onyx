@@ -73,8 +73,8 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 		 
 		if ($node_data['publish'] == 0 && $node_data['node_group'] == 'page' && $_SESSION['authentication']['authenticity'] < 1) {
 			// display 404 page
-			$_nSite = new nSite('node~id=' . $this->Node->conf['id_map-404'].'~'); 
-			$node_data['content'] = $_nSite->getContent();
+			$_Onxshop_Request = new Onxshop_Request('node~id=' . $this->Node->conf['id_map-404'].'~'); 
+			$node_data['content'] = $_Onxshop_Request->getContent();
 			$this->tpl->assign('NODE', $node_data);
 			return true;
 		}
@@ -124,8 +124,8 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 		 */
 		 
 		msg("Node process: $controller", 'ok', 2);
-		$_nSite = new nSite("$controller&id={$node_data['id']}&parent_id={$node_data['parent']}");
-		$node_data['content'] = $_nSite->getContent();
+		$_Onxshop_Request = new Onxshop_Request("$controller&id={$node_data['id']}&parent_id={$node_data['parent']}");
+		$node_data['content'] = $_Onxshop_Request->getContent();
 		
 		/**
 		 * check visibility and than display

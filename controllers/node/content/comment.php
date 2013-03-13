@@ -21,8 +21,8 @@ class Onxshop_Controller_Node_Content_Comment extends Onxshop_Controller_Node_Co
 		
 		$node_data = $Node->nodeDetail($this->GET['id']);
 		
-		$_nSite = new nSite("component/comment~node_id={$node_data['id']}:allow_anonymouse_submit={$node_data['component']['allow_anonymouse_submit']}~");
-		$node_data['content'] = $_nSite->getContent();
+		$_Onxshop_Request = new Onxshop_Request("component/comment~node_id={$node_data['id']}:allow_anonymouse_submit={$node_data['component']['allow_anonymouse_submit']}~");
+		$node_data['content'] = $_Onxshop_Request->getContent();
 		
 		$this->tpl->assign("NODE", $node_data);
 		

@@ -72,8 +72,8 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Order_List extends Onxshop_Contr
 			 * Display pagination
 			 */
 			
-			$_nSite = new nSite("component/pagination~limit_from=$from:limit_per_page=$per_page:count=$count~");
-			$this->tpl->assign('PAGINATION', $_nSite->getContent());
+			$_Onxshop_Request = new Onxshop_Request("component/pagination~limit_from=$from:limit_per_page=$per_page:count=$count~");
+			$this->tpl->assign('PAGINATION', $_Onxshop_Request->getContent());
 			
 			/**
 			 * Display items

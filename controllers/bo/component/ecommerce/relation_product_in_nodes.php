@@ -34,8 +34,8 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Relation_Product_In_Nodes extend
 				if ($key > 0) {
 					if ($node_data['publish'] == 0) $node_data['class'] = "class='disabled'";
 					$this->tpl->assign("ITEM", $node_data);
-					$_nSite = new nSite("component/breadcrumb~id={$node_data['id']}:create_last_link=1~");
-					$this->tpl->assign('BREADCRUMB', $_nSite->getContent());
+					$_Onxshop_Request = new Onxshop_Request("component/breadcrumb~id={$node_data['id']}:create_last_link=1~");
+					$this->tpl->assign('BREADCRUMB', $_Onxshop_Request->getContent());
 					$this->tpl->parse("content.multiple.item");
 				}
 			}

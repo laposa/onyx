@@ -30,8 +30,8 @@ class Onxshop_Controller_Node_Content_Component extends Onxshop_Controller_Node_
 			$request = "component/{$node_data['component']['controller']}@component/{$node_data['component']['template']}";
 		}
 
-		$_nSite = new nSite("$request&amp;node_id={$node_data['id']}&amp;fe_edit=0&amp;{$node_data['component']['parameter']}");
-		$node_data['content'] = $_nSite->getContent();
+		$_Onxshop_Request = new Onxshop_Request("$request&amp;node_id={$node_data['id']}&amp;fe_edit=0&amp;{$node_data['component']['parameter']}");
+		$node_data['content'] = $_Onxshop_Request->getContent();
 		
 		$this->tpl->assign("NODE", $node_data);
 		

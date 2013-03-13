@@ -131,7 +131,7 @@ class Onxshop_Controller_Node_Content_News_List extends Onxshop_Controller_Node_
 		 * call controller
 		 */
 		
-		$_Onxshop = new nSite("component/$template~blog_node_id=$blog_node_id:id=$node_id:limit_from=$limit_from:limit_per_page=$limit_per_page:display_pagination=$display_pagination:publish=1:taxonomy_tree_id={$taxonomy_tree_id}:image_width=$image_width:image_height=$image_height:$display_teaser_image~");
+		$_Onxshop = new Onxshop_Request("component/$template~blog_node_id=$blog_node_id:id=$node_id:limit_from=$limit_from:limit_per_page=$limit_per_page:display_pagination=$display_pagination:publish=1:taxonomy_tree_id={$taxonomy_tree_id}:image_width=$image_width:image_height=$image_height:$display_teaser_image~");
 		$this->tpl->assign('NEWS_LIST', $_Onxshop->getContent());
 		
 		$this->tpl->assign('NODE', $node_data);

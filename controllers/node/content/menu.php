@@ -41,8 +41,8 @@ class Onxshop_Controller_Node_Content_Menu extends Onxshop_Controller_Node_Conte
 		 * pass to menu component
 		 */
 		 
-		$nSite = new nSite("component/menu~id={$node_data['component']['node_id']}:template={$node_data['component']['template']}:display_teaser={$node_data['component']['display_teaser']}:level={$level}:expand_all={$display_all}:open={$open}~");
-		$this->tpl->assign("MENU", $nSite->getContent());
+		$Onxshop_Request = new Onxshop_Request("component/menu~id={$node_data['component']['node_id']}:template={$node_data['component']['template']}:display_teaser={$node_data['component']['display_teaser']}:level={$level}:expand_all={$display_all}:open={$open}~");
+		$this->tpl->assign("MENU", $Onxshop_Request->getContent());
 		$this->tpl->assign("NODE", $node_data);
 		
 		if ($node_data['display_title'])  $this->tpl->parse('content.title');

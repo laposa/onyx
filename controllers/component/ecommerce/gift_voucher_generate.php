@@ -210,7 +210,7 @@ class Onxshop_Controller_Component_Ecommerce_Gift_Voucher_Generate extends Onxsh
 		$time += 7 * 3600; // 7am
 
  		// try to add new job using scheduler_add component
-		$c = new nSite("bo/component/scheduler_add~url={$url}:time={$time}~");
+		$c = new Onxshop_Request("bo/component/scheduler_add~url={$url}:time={$time}~");
 		$result = $c->getContent();
 
 		return true;

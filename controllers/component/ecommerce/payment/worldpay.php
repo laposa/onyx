@@ -133,8 +133,8 @@ class Onxshop_Controller_Component_Ecommerce_Payment_Worldpay extends Onxshop_Co
 				require_once('models/common/common_email.php');
     			$EmailForm = new common_email();
     		
-    			$_nSite = new nSite("component/ecommerce/order_detail~order_id={$order_data['id']}~");
-				$order_data['order_detail'] = $_nSite->getContent();
+    			$_Onxshop_Request = new Onxshop_Request("component/ecommerce/order_detail~order_id={$order_data['id']}~");
+				$order_data['order_detail'] = $_Onxshop_Request->getContent();
 				
     			//this allows use customer data and company data in the mail template
     			//is passed as DATA to template in common_email->_format

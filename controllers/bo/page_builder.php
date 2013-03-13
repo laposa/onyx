@@ -20,8 +20,8 @@ class Onxshop_Controller_Bo_Page_Builder extends Onxshop_Controller {
 		$node_controller = $this->GET['node_controller'];
 		$parent = $this->GET['parent'];
 		
-		$_nSite = new nSite("node/{$node_group}/{$node_controller}~id={$parent}~");
-		$template = $_nSite->tpl->filecontents;
+		$_Onxshop_Request = new Onxshop_Request("node/{$node_group}/{$node_controller}~id={$parent}~");
+		$template = $_Onxshop_Request->tpl->filecontents;
 		
 		$tags = $this->findContainerTags($template);
 		
@@ -35,7 +35,7 @@ class Onxshop_Controller_Bo_Page_Builder extends Onxshop_Controller {
 				$node['parent'] = $parent;
 				$node['parent_container'] = $container_id;
 				$_POST['node'] = $node;
-				$_nSite1 = new nSite("bo/component/node_add@blank&parent={$parent}&dontforward=1");
+				$_Onxshop_Request1 = new Onxshop_Request("bo/component/node_add@blank&parent={$parent}&dontforward=1");
 			}
 		}
 

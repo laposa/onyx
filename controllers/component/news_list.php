@@ -287,7 +287,7 @@ class Onxshop_Controller_Component_News_List extends Onxshop_Controller {
 				
 				if ($display_teaser_image) {
 					
-					$Image = new nSite("component/image&relation=node&role=main&node_id={$item['id']}&width=$image_width&height=$image_height&limit=0,1");
+					$Image = new Onxshop_Request("component/image&relation=node&role=main&node_id={$item['id']}&width=$image_width&height=$image_height&limit=0,1");
 					$this->tpl->assign('IMAGE', $Image->getContent());
 				}
 	
@@ -384,8 +384,8 @@ class Onxshop_Controller_Component_News_List extends Onxshop_Controller {
 				
 		$count = count($full_news_list);
 				
-		$_nSite = new nSite("component/pagination~limit_from=$limit_from:limit_per_page=$limit_per_page:count=$count~");
-		$this->tpl->assign('PAGINATION', $_nSite->getContent());
+		$_Onxshop_Request = new Onxshop_Request("component/pagination~limit_from=$limit_from:limit_per_page=$limit_per_page:count=$count~");
+		$this->tpl->assign('PAGINATION', $_Onxshop_Request->getContent());
 				
 	}
 }

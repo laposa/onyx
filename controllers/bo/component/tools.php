@@ -21,7 +21,7 @@ class Onxshop_Controller_Bo_Component_Tools extends Onxshop_Controller {
 		
 		switch ($tool) {
 			case 'uri':
-				$_nSite = new nSite("uri_mapping~generate=1~");
+				$_Onxshop_Request = new Onxshop_Request("uri_mapping~generate=1~");
 				msg("Nice URLs has been completely generated");
 			break;
 			case 'flush_thumb':
@@ -60,7 +60,7 @@ class Onxshop_Controller_Bo_Component_Tools extends Onxshop_Controller {
 			break;
 			
 			case 'backup':
-				$_Onxshop = new nSite("bo/component/backup");
+				$_Onxshop = new Onxshop_Request("bo/component/backup");
 				$this->tpl->assign('SUB_CONTENT', $_Onxshop->getContent());
 			break;
 

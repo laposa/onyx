@@ -47,35 +47,35 @@ class Onxshop_Controller_Node_Site_Default extends Onxshop_Controller {
 		 * global navigation
 		 */
 		 
-		$_nSite = new nSite("component/menu~id=" . $node_conf['id_map-globalmenu'] . ":level=1:open={$this->GET['id']}~");
-		$this->tpl->assign('GLOBAL_NAVIGATION', $_nSite->getContent());
+		$_Onxshop_Request = new Onxshop_Request("component/menu~id=" . $node_conf['id_map-globalmenu'] . ":level=1:open={$this->GET['id']}~");
+		$this->tpl->assign('GLOBAL_NAVIGATION', $_Onxshop_Request->getContent());
 		
 		/**
 		 * main menu (primary navigation) will show all sub items to the active page only if secondary navigation is hidden
 		 */
 		 
 		if ($GLOBALS['onxshop_conf']['global']['display_secondary_navigation'] == 1) {
-			$_nSite = new nSite("component/menu~level=1:expand_all=0:display_teaser=0:id=" . $node_conf['id_map-mainmenu'] . ":open={$this->GET['id']}~");
+			$_Onxshop_Request = new Onxshop_Request("component/menu~level=1:expand_all=0:display_teaser=0:id=" . $node_conf['id_map-mainmenu'] . ":open={$this->GET['id']}~");
 		} else {
-			$_nSite = new nSite("component/menu~level=3:expand_all=0:display_teaser=0:id=" . $node_conf['id_map-mainmenu'] . ":open={$this->GET['id']}~");
+			$_Onxshop_Request = new Onxshop_Request("component/menu~level=3:expand_all=0:display_teaser=0:id=" . $node_conf['id_map-mainmenu'] . ":open={$this->GET['id']}~");
 		}
 		
-		$this->tpl->assign('PRIMARY_NAVIGATION', $_nSite->getContent());
+		$this->tpl->assign('PRIMARY_NAVIGATION', $_Onxshop_Request->getContent());
 		
 		/**
 		 * footer navigation
 		 */
 		 
-		$_nSite = new nSite("component/menu~id=" . $node_conf['id_map-footermenu'] . ":level=1:open={$this->GET['id']}~");
-		$this->tpl->assign('FOOTER_NAVIGATION', $_nSite->getContent());
+		$_Onxshop_Request = new Onxshop_Request("component/menu~id=" . $node_conf['id_map-footermenu'] . ":level=1:open={$this->GET['id']}~");
+		$this->tpl->assign('FOOTER_NAVIGATION', $_Onxshop_Request->getContent());
 		
 		/**
 		 * content side
 		 */
 		 
 		if ($GLOBALS['onxshop_conf']['global']['display_content_side'] == 1) {
-			$_nSite = new nSite("node~id={$node_conf['id_map-content_side']}~");
-			$this->tpl->assign('CONTENT_SIDE', $_nSite->getContent());
+			$_Onxshop_Request = new Onxshop_Request("node~id={$node_conf['id_map-content_side']}~");
+			$this->tpl->assign('CONTENT_SIDE', $_Onxshop_Request->getContent());
 		}
 		
 		/**
@@ -83,8 +83,8 @@ class Onxshop_Controller_Node_Site_Default extends Onxshop_Controller {
 		 */
 		 
 		if ($GLOBALS['onxshop_conf']['global']['display_content_foot'] == 1) {
-			$_nSite = new nSite("node~id={$node_conf['id_map-content_foot']}~");
-			$this->tpl->assign('CONTENT_FOOT', $_nSite->getContent());
+			$_Onxshop_Request = new Onxshop_Request("node~id={$node_conf['id_map-content_foot']}~");
+			$this->tpl->assign('CONTENT_FOOT', $_Onxshop_Request->getContent());
 		}
 
 		return true;

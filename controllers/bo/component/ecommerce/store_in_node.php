@@ -63,12 +63,12 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Store_In_Node extends Onxshop_Co
 			$this->tpl->assign("PARENT_DETAIL", $parent_detail);
 			
 			//breadcrumb
-			$_nSite = new nSite("component/breadcrumb~id={$store_homepage['id']}:create_last_link=1~");
-			$this->tpl->assign('BREADCRUMB', $_nSite->getContent());
+			$_Onxshop_Request = new Onxshop_Request("component/breadcrumb~id={$store_homepage['id']}:create_last_link=1~");
+			$this->tpl->assign('BREADCRUMB', $_Onxshop_Request->getContent());
 			
 			//children node list
-			$_nSite = new nSite("bo/component/node_list~id={$store_homepage['id']}:node_group=content~");
-			$this->tpl->assign('NODE_LIST', $_nSite->getContent());
+			$_Onxshop_Request = new Onxshop_Request("bo/component/node_list~id={$store_homepage['id']}:node_group=content~");
+			$this->tpl->assign('NODE_LIST', $_Onxshop_Request->getContent());
 			
 			//parse
 			$this->tpl->parse('content.store_node');

@@ -65,11 +65,11 @@ class Onxshop_Controller_Component_Comment extends Onxshop_Controller {
 	 
 	public function customCommentAction($data, $options) {
 	
-		$_nSite = new nSite("component/comment_list~node_id={$data['node_id']}:allow_anonymouse_submit={$options['allow_anonymouse_submit']}~");
-		$this->tpl->assign('COMMENT_LIST', $_nSite->getContent());
+		$_Onxshop_Request = new Onxshop_Request("component/comment_list~node_id={$data['node_id']}:allow_anonymouse_submit={$options['allow_anonymouse_submit']}~");
+		$this->tpl->assign('COMMENT_LIST', $_Onxshop_Request->getContent());
 		
-		$_nSite = new nSite("component/comment_add~node_id={$data['node_id']}:allow_anonymouse_submit={$options['allow_anonymouse_submit']}~");
-		$this->tpl->assign('COMMENT_ADD', $_nSite->getContent());
+		$_Onxshop_Request = new Onxshop_Request("component/comment_add~node_id={$data['node_id']}:allow_anonymouse_submit={$options['allow_anonymouse_submit']}~");
+		$this->tpl->assign('COMMENT_ADD', $_Onxshop_Request->getContent());
 		
 	}
 	
@@ -138,15 +138,15 @@ class Onxshop_Controller_Component_Comment extends Onxshop_Controller {
 				 
 				if ($item['rating'] > 0) {
 					$rating = round($item['rating']);
-					$_nSite = new nSite("component/rating_stars~rating={$rating}~");
-					$this->tpl->assign('RATING_STARS', $_nSite->getContent());
+					$_Onxshop_Request = new Onxshop_Request("component/rating_stars~rating={$rating}~");
+					$this->tpl->assign('RATING_STARS', $_Onxshop_Request->getContent());
 				} else {
 					$this->tpl->assign('RATING_STARS', '');
 				}
 				
 				//sub comments
-				$_nSite = new nSite("component/comment_list~node_id={$this->GET['node_id']}:parent={$item['id']}~");
-				$this->tpl->assign("SUB_COMMENTS", $_nSite->getContent());
+				$_Onxshop_Request = new Onxshop_Request("component/comment_list~node_id={$this->GET['node_id']}:parent={$item['id']}~");
+				$this->tpl->assign("SUB_COMMENTS", $_Onxshop_Request->getContent());
 				
 				//parse item block
 				$this->tpl->parse('content.comment_list.item');
@@ -255,8 +255,8 @@ class Onxshop_Controller_Component_Comment extends Onxshop_Controller {
 			
 		} else {
 			
-			$_nSite = new nSite("component/client/login");
-			$this->tpl->assign('LOGIN_BOX', $_nSite->getContent());
+			$_Onxshop_Request = new Onxshop_Request("component/client/login");
+			$this->tpl->assign('LOGIN_BOX', $_Onxshop_Request->getContent());
 			
 			$this->tpl->parse('content.log_to_insert');
 		}

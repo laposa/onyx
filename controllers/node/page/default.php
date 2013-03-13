@@ -63,8 +63,8 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
 		 */
 		 
 		if ($node_data['display_title'])  {
-			$_nSite = new nSite("component/page_header~id={$node_data['id']}~");
-			$this->tpl->assign('PAGE_HEADER', $_nSite->getContent());
+			$_Onxshop_Request = new Onxshop_Request("component/page_header~id={$node_data['id']}~");
+			$this->tpl->assign('PAGE_HEADER', $_Onxshop_Request->getContent());
 		}
 		
 		/**
@@ -75,8 +75,8 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
 		
 			$first_page_id = $Node->getFirstParentPage($_SESSION['active_pages']);
 			//type=page_and_products
-			$_nSite = new nSite("component/menu~level=0:expand_all=0:display_teaser=1:id={$first_page_id}:open={$node_data['id']}~");
-			$this->tpl->assign('SECONDARY_NAVIGATION', $_nSite->getContent());
+			$_Onxshop_Request = new Onxshop_Request("component/menu~level=0:expand_all=0:display_teaser=1:id={$first_page_id}:open={$node_data['id']}~");
+			$this->tpl->assign('SECONDARY_NAVIGATION', $_Onxshop_Request->getContent());
 			$this->tpl->parse('content.secondary_navigation');
 		}
 		

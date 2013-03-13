@@ -33,8 +33,8 @@ class Onxshop_Controller_Node_Content_Feed extends Onxshop_Controller_Node_Conte
 		
 		//get RSS_RESULT
 		$nsite_request = "component/{$feed_controller}~url={$rss_options['url']}:items_limit={$rss_options['items_limit']}:channel_title={$rss_options['channel_title']}:image={$rss_options['image']}:copyright={$rss_options['copyright']}:description={$rss_options['description']}:content={$rss_options['content']}:pubdate={$rss_options['pubdate']}~";
-		$_nSite = new nSite($nsite_request);
-		$this->tpl->assign("RSS_RESULT", $_nSite->getContent());
+		$_Onxshop_Request = new Onxshop_Request($nsite_request);
+		$this->tpl->assign("RSS_RESULT", $_Onxshop_Request->getContent());
 			
 		//if ajax option enable, allow to update dynamicaly
 		if ($rss_options['ajax'] == 1) {

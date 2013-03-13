@@ -47,8 +47,8 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 				/**
 				 * display results when voted already
 				 */
-				$_nSite = new nSite("component/survey_result~survey_id=$survey_id~");
-				$this->tpl->assign('SURVEY_RESULT', $_nSite->getContent());
+				$_Onxshop_Request = new Onxshop_Request("component/survey_result~survey_id=$survey_id~");
+				$this->tpl->assign('SURVEY_RESULT', $_Onxshop_Request->getContent());
 				$this->tpl->parse('content.result');
 
 			} else {

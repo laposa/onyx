@@ -53,11 +53,11 @@ class Onxshop_Controller_Component_Ecommerce_Order_Detail extends Onxshop_Contro
 			 * get address detail
 			 */
 			 
-			$_nSite = new nSite("component/client/address~invoices_address_id={$order_data['invoices_address_id']}:hide_button=1~");
-			$this->tpl->assign("ADDRESS_INVOICES", $_nSite->getContent());
+			$_Onxshop_Request = new Onxshop_Request("component/client/address~invoices_address_id={$order_data['invoices_address_id']}:hide_button=1~");
+			$this->tpl->assign("ADDRESS_INVOICES", $_Onxshop_Request->getContent());
 			
-			$_nSite = new nSite("component/client/address~delivery_address_id={$order_data['delivery_address_id']}:hide_button=1~");
-			$this->tpl->assign("ADDRESS_DELIVERY", $_nSite->getContent());
+			$_Onxshop_Request = new Onxshop_Request("component/client/address~delivery_address_id={$order_data['delivery_address_id']}:hide_button=1~");
+			$this->tpl->assign("ADDRESS_DELIVERY", $_Onxshop_Request->getContent());
 		
 			/**
 			 * basket detail
@@ -72,8 +72,8 @@ class Onxshop_Controller_Component_Ecommerce_Order_Detail extends Onxshop_Contro
 				$this->tpl->assign("BASKET_DETAIL", $invoice_data['basket_detail']);
 				$this->tpl->parse("content.print_invoice");
 			} else {
-				$_nSite = new nSite("component/ecommerce/basket_detail~id={$order_data['basket_id']}:order_id={$order_id}:delivery_address_id={$order_data['delivery_address_id']}:delivery_options[carrier_id]={$order_data['other_data']['delivery_options']['carrier_id']}~");
-				$this->tpl->assign("BASKET_DETAIL", $_nSite->getContent());
+				$_Onxshop_Request = new Onxshop_Request("component/ecommerce/basket_detail~id={$order_data['basket_id']}:order_id={$order_id}:delivery_address_id={$order_data['delivery_address_id']}:delivery_options[carrier_id]={$order_data['other_data']['delivery_options']['carrier_id']}~");
+				$this->tpl->assign("BASKET_DETAIL", $_Onxshop_Request->getContent());
 			}
 		
 			//other data

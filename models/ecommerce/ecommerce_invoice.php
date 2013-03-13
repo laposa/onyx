@@ -219,15 +219,15 @@ CREATE TABLE ecommerce_invoice (
 		 */
 		//get HTML content
 		//basket_detail
-		$_nSite = new nSite("component/ecommerce/basket_detail~id={$order_data['basket_id']}:order_id={$order_id}:delivery_address_id={$order_data['delivery_address_id']}:delivery_options[carrier_id]={$order_data['other_data']['delivery_options']['carrier_id']}~");
-		$invoice['basket_detail'] =  $_nSite->getContent();
+		$_Onxshop_Request = new Onxshop_Request("component/ecommerce/basket_detail~id={$order_data['basket_id']}:order_id={$order_id}:delivery_address_id={$order_data['delivery_address_id']}:delivery_options[carrier_id]={$order_data['other_data']['delivery_options']['carrier_id']}~");
+		$invoice['basket_detail'] =  $_Onxshop_Request->getContent();
 		
 		//address_invoice
-		$_nSite = new nSite("component/client/address~invoices_address_id={$order_data['invoices_address_id']}:hide_button=1~");
-		$invoice['address_invoice'] = $_nSite->getContent();
+		$_Onxshop_Request = new Onxshop_Request("component/client/address~invoices_address_id={$order_data['invoices_address_id']}:hide_button=1~");
+		$invoice['address_invoice'] = $_Onxshop_Request->getContent();
 		//address_delivery
-		$_nSite = new nSite("component/client/address~delivery_address_id={$order_data['delivery_address_id']}:hide_button=1~");
-		$invoice['address_delivery'] = $_nSite->getContent();
+		$_Onxshop_Request = new Onxshop_Request("component/client/address~delivery_address_id={$order_data['delivery_address_id']}:hide_button=1~");
+		$invoice['address_delivery'] = $_Onxshop_Request->getContent();
 		
 		//get the text version
   		

@@ -76,29 +76,29 @@ class Onxshop_Controller_Node_Page_Product extends Onxshop_Controller_Node_Page_
 		 * varieties
 		 */
 
-		//$Variety_list = new nSite("component/ecommerce/variety_list_ajax~product_id={$product_id}~");
+		//$Variety_list = new Onxshop_Request("component/ecommerce/variety_list_ajax~product_id={$product_id}~");
 		//$this->tpl->assign('VARIETY_LIST', $Variety_list->getContent());
 		
 		/**
 		 * taxonomy
 		 */
 		
-		$_nSite = new nSite("component/taxonomy~relation=product:id={$product_id}:hide_root=1~");
-		$this->tpl->assign('TAXONOMY', $_nSite->getContent());
+		$_Onxshop_Request = new Onxshop_Request("component/taxonomy~relation=product:id={$product_id}:hide_root=1~");
+		$this->tpl->assign('TAXONOMY', $_Onxshop_Request->getContent());
 				
 		/**
 		 * other product attributes
 		 */
 		 
-		$_nSite = new nSite("component/ecommerce/product_other_data~id={$product_id}~");
-		$this->tpl->assign('OTHER_DATA', $_nSite->getContent());
+		$_Onxshop_Request = new Onxshop_Request("component/ecommerce/product_other_data~id={$product_id}~");
+		$this->tpl->assign('OTHER_DATA', $_Onxshop_Request->getContent());
 		
 		/**
 		 * product reviews
 		 */
 		 
-		$_nSite = new nSite("component/ecommerce/review~node_id={$product_id}:allow_anonymouse_submit=0~");
-		$this->tpl->assign('PRODUCT_REVIEW', $_nSite->getContent());
+		$_Onxshop_Request = new Onxshop_Request("component/ecommerce/review~node_id={$product_id}:allow_anonymouse_submit=0~");
+		$this->tpl->assign('PRODUCT_REVIEW', $_Onxshop_Request->getContent());
 		
 		
 		/**

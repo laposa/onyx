@@ -42,7 +42,7 @@ class Onxshop_Controller_Component_Ecommerce_Variety_List extends Onxshop_Contro
 					//mark first variety checked
 					if ($key == 0) $variety['checked'] = "checked='checked'";
 					$this->tpl->assign('VARIETY', $variety);
-					$Price = new nSite("component/ecommerce/price~product_variety_id={$variety['id']}~");
+					$Price = new Onxshop_Request("component/ecommerce/price~product_variety_id={$variety['id']}~");
 					$this->tpl->assign("PRICE", $Price->getContent());
 						
 					if ($variety['stock'] > 0 ) {
@@ -78,7 +78,7 @@ class Onxshop_Controller_Component_Ecommerce_Variety_List extends Onxshop_Contro
 	public function addProductOptions($product_id) {
 	
 		//product options from categories
-		$ProductOptions = new nSite("component/ecommerce/product_options~id={$product_id}~");
+		$ProductOptions = new Onxshop_Request("component/ecommerce/product_options~id={$product_id}~");
 		$this->tpl->assign('PRODUCT_OPTIONS', $ProductOptions->getContent());
 		
 	}

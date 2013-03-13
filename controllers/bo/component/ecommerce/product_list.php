@@ -45,8 +45,8 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Product_List extends Onxshop_Con
 		 * Sorting
 		 */
 		
-		//$_nSite = new nSite("component/ecommerce/product_list_sorting");
-		//$this->tpl->assign('SORTING', $_nSite->getContent());
+		//$_Onxshop_Request = new Onxshop_Request("component/ecommerce/product_list_sorting");
+		//$this->tpl->assign('SORTING', $_Onxshop_Request->getContent());
 		
 		if ($this->GET['product-list-sort-by']) {
 			$_SESSION['product-list-sort-by'] = $this->GET['product-list-sort-by'];
@@ -139,8 +139,8 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Product_List extends Onxshop_Con
 		//$link = "/page/" . $_SESSION['active_pages'][0];
 		$count = count($product_list);
 		
-		$_nSite = new nSite("component/pagination~link=/request/bo/component/ecommerce/product_list:limit_from=$from:limit_per_page=$per_page:count=$count~");
-		$this->tpl->assign('PAGINATION', $_nSite->getContent());
+		$_Onxshop_Request = new Onxshop_Request("component/pagination~link=/request/bo/component/ecommerce/product_list:limit_from=$from:limit_per_page=$per_page:count=$count~");
+		$this->tpl->assign('PAGINATION', $_Onxshop_Request->getContent());
 			
 			
 		

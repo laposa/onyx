@@ -137,8 +137,8 @@ class Onxshop_Controller_Component_Ecommerce_Payment extends Onxshop_Controller 
 			} else {
 			
 				//process payment method as subcontent
-				$_nSite = new nSite("component/ecommerce/payment/$payment_type~order_id=$order_id~");
-				$this->tpl->assign("RESULT", $_nSite->getContent());
+				$_Onxshop_Request = new Onxshop_Request("component/ecommerce/payment/$payment_type~order_id=$order_id~");
+				$this->tpl->assign("RESULT", $_Onxshop_Request->getContent());
 			
 			}
 		} else {

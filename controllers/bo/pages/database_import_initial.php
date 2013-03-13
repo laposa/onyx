@@ -169,7 +169,7 @@ class Onxshop_Controller_Bo_Pages_Database_Import_Initial extends Onxshop_Contro
 					break;
 				}
 				
-				$_nSite = new nSite("bo/component/relation_taxonomy~relation=product:id=$product_id~");
+				$_Onxshop_Request = new Onxshop_Request("bo/component/relation_taxonomy~relation=product:id=$product_id~");
 				
 				
 				//print_r($onxshop_product);
@@ -186,7 +186,7 @@ class Onxshop_Controller_Bo_Pages_Database_Import_Initial extends Onxshop_Contro
 						$_POST['add'] = 'add';
 					
 						$file = ONXSHOP_PROJECT_DIR . $_POST['file']['src'];
-						if (file_exists($file)) $_nSite = new nSite("bo/component/form_file~relation=product~");
+						if (file_exists($file)) $_Onxshop_Request = new Onxshop_Request("bo/component/form_file~relation=product~");
 						else msg("File $file does not exists", 'error');
 						unset($_POST['file']);
 					}
@@ -198,7 +198,7 @@ class Onxshop_Controller_Bo_Pages_Database_Import_Initial extends Onxshop_Contro
 					$_POST['product']['pin'][] = '';
 					$_POST['product']['pin'][] =  $gb['page_id'];
 				
-					$_nSite = new nSite("bo/component/ecommerce/relation_product_in_nodes~id=$product_id~");
+					$_Onxshop_Request = new Onxshop_Request("bo/component/ecommerce/relation_product_in_nodes~id=$product_id~");
 					unset($_POST['product']);
 				}
 			}

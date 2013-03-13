@@ -69,7 +69,7 @@ class Onxshop_Controller_Component_Ecommerce_Order_Status_Change extends Onxshop
 		 */
 		/*
 		if ($status == 1) {
-			$_nSite = new nSite("component/ecommerce/your_warehouse_integration_controller~order_id={$order_id}~");
+			$_Onxshop_Request = new Onxshop_Request("component/ecommerce/your_warehouse_integration_controller~order_id={$order_id}~");
 		}*/
 		
 		return true;
@@ -88,7 +88,7 @@ class Onxshop_Controller_Component_Ecommerce_Order_Status_Change extends Onxshop
 		 * try to generate gift voucher
 		 */
 		 
-		$_nSite = new nSite("component/ecommerce/gift_voucher_generate~order_id={$order_id}~");
+		$_Onxshop_Request = new Onxshop_Request("component/ecommerce/gift_voucher_generate~order_id={$order_id}~");
 		
 		return true;		 
 		

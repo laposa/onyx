@@ -15,8 +15,8 @@ class Onxshop_Controller_Bo_Pages_News extends Onxshop_Controller {
 	 
 	public function mainAction() {
 		//$id = 4;
-		//$_nSite = new nSite("component/filter~node_id=$id~");
-		//$this->tpl->assign("FILTER", $_nSite->getContent());
+		//$_Onxshop_Request = new Onxshop_Request("component/filter~node_id=$id~");
+		//$this->tpl->assign("FILTER", $_Onxshop_Request->getContent());
 
 		return true;
 	}

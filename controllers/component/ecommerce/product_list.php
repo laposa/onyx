@@ -80,8 +80,8 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
 		 * call sub controller
 		 */
 		
-		$_nSite = new nSite("component/ecommerce/product_list_$mode~$http_get_query~");
-		$this->tpl->assign('PRODUCT_LIST', $_nSite->getContent());
+		$_Onxshop_Request = new Onxshop_Request("component/ecommerce/product_list_$mode~$http_get_query~");
+		$this->tpl->assign('PRODUCT_LIST', $_Onxshop_Request->getContent());
 	
 		return true;
 	}
@@ -196,8 +196,8 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
 		if ($display_pagination) {
 			//$link = "/page/" . $_SESSION['active_pages'][0];
 			$count = count($product_list);
-			$_nSite = new nSite("component/pagination~limit_from=$from:limit_per_page=$per_page:count=$count~");
-			$this->tpl->assign('PAGINATION', $_nSite->getContent());
+			$_Onxshop_Request = new Onxshop_Request("component/pagination~limit_from=$from:limit_per_page=$per_page:count=$count~");
+			$this->tpl->assign('PAGINATION', $_Onxshop_Request->getContent());
 		}
 		
 		/**
@@ -453,7 +453,7 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
 
 		/*
 		//optionally we can use image wrapper
-		$Image = new nSite("component/image&relation=product&role=main&width=$image_width&node_id={$item['product_id']}&limit=0,1");
+		$Image = new Onxshop_Request("component/image&relation=product&role=main&width=$image_width&node_id={$item['product_id']}&limit=0,1");
 		$this->tpl->assign('IMAGE_PRODUCT', $Image->getContent());
 		*/
 		$this->tpl->assign('IMAGE_WIDTH', $image_width);
@@ -472,8 +472,8 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
 		 
 		if ($item['review_count'] > 0) {
 			$rating = round($item['review_rating']);
-			$_nSite = new nSite("component/rating_stars~rating={$rating}~");
-			$this->tpl->assign('RATING_STARS', $_nSite->getContent());
+			$_Onxshop_Request = new Onxshop_Request("component/rating_stars~rating={$rating}~");
+			$this->tpl->assign('RATING_STARS', $_Onxshop_Request->getContent());
 			if ($item['review_count'] == 1) $this->tpl->assign('REVIEWS', 'Review');
 			else $this->tpl->assign('REVIEWS', 'Reviews');
 			$this->tpl->parse("content.$item_block.reviews");
@@ -622,8 +622,8 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
 		 * call and assign result from the sorting interface controller
 		 */
 		 
-		$_nSite = new nSite("component/ecommerce/product_list_sorting~sort[by]={$sortby}:sort[direction]={$direction}~");
-		$this->tpl->assign('SORTING', $_nSite->getContent());
+		$_Onxshop_Request = new Onxshop_Request("component/ecommerce/product_list_sorting~sort[by]={$sortby}:sort[direction]={$direction}~");
+		$this->tpl->assign('SORTING', $_Onxshop_Request->getContent());
 			
 	}
 	

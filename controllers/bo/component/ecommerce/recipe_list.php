@@ -47,8 +47,8 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Recipe_List extends Onxshop_Cont
 
 		// display pagination
 		$count = count($recipe_list);
-		$_nSite = new nSite("component/pagination~link=/request/bo/component/ecommerce/recipe_list:limit_from=$from:limit_per_page=$per_page:count=$count~");
-		$this->tpl->assign('PAGINATION', $_nSite->getContent());
+		$_Onxshop_Request = new Onxshop_Request("component/pagination~link=/request/bo/component/ecommerce/recipe_list:limit_from=$from:limit_per_page=$per_page:count=$count~");
+		$this->tpl->assign('PAGINATION', $_Onxshop_Request->getContent());
 
 		// parse items
 		foreach ($recipe_list as $item) {

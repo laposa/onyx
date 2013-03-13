@@ -40,8 +40,8 @@ class Onxshop_Controller_Bo_Pages_Ecommerce_Customer_Detail extends Onxshop_Cont
 		$customer_data = $Customer->getDetail($customer_id);
 		$this->tpl->assign("CUSTOMER", $customer_data);
 		
-		$_nSite = new nSite("component/client/address~delivery_address_id={$customer_data['delivery_address_id']}:invoices_address_id={$customer_data['invoices_address_id']}~");
-		$address = $_nSite->getContent();
+		$_Onxshop_Request = new Onxshop_Request("component/client/address~delivery_address_id={$customer_data['delivery_address_id']}:invoices_address_id={$customer_data['invoices_address_id']}~");
+		$address = $_Onxshop_Request->getContent();
 		$this->tpl->assign('ADDRESS', $address);
 
 		//print other data

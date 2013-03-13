@@ -85,8 +85,8 @@ class Onxshop_Controller_Node_Content_Product_Highlights extends Onxshop_Control
 			 * call controller
 			 */
 			
-			$_nSite = new nSite("component/ecommerce/$controller~{$query}~");
-			$this->tpl->assign('PRODUCT_LIST', $_nSite->getContent());
+			$_Onxshop_Request = new Onxshop_Request("component/ecommerce/$controller~{$query}~");
+			$this->tpl->assign('PRODUCT_LIST', $_Onxshop_Request->getContent());
 			
 		}
 		

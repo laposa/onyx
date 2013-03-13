@@ -77,8 +77,8 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 									//image
 									if ($p['node_group'] == 'page' && $p['node_controller'] == 'product') {
 										
-										$_nSite = new nSite("component/image~relation=product:role=main:width=100:height=100:node_id={$p['content']}:limit=0,1~");
-										$this->tpl->assign('IMAGE', $_nSite->getContent());
+										$_Onxshop_Request = new Onxshop_Request("component/image~relation=product:role=main:width=100:height=100:node_id={$p['content']}:limit=0,1~");
+										$this->tpl->assign('IMAGE', $_Onxshop_Request->getContent());
 										
 										$this->tpl->parse('content.result.item.image');
 									}

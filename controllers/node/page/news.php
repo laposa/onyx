@@ -31,8 +31,8 @@ class Onxshop_Controller_Node_Page_News extends Onxshop_Controller_Node_Page_Def
 		
 		//show comments only when enabled
 		if ($node_data['component']['allow_comment'] == 1) {
-			$_nSite = new nSite("component/comment~node_id={$node_id}:allow_anonymouse_submit=1~");
-			$this->tpl->assign("COMMENT", $_nSite->getContent());
+			$_Onxshop_Request = new Onxshop_Request("component/comment~node_id={$node_id}:allow_anonymouse_submit=1~");
+			$this->tpl->assign("COMMENT", $_Onxshop_Request->getContent());
 			$this->tpl->parse("content.comment");
 		}
 		

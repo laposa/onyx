@@ -356,8 +356,8 @@ class Onxshop_Controller_Component_Ecommerce_Return extends Onxshop_Controller {
 		 * get full order detail
 		 */
 		 
-		$_nSite = new nSite("component/ecommerce/order_detail~order_id=$order_id~");
-		$this->tpl->assign('FULL_ORDER_DETAIL', $_nSite->getContent());
+		$_Onxshop_Request = new Onxshop_Request("component/ecommerce/order_detail~order_id=$order_id~");
+		$this->tpl->assign('FULL_ORDER_DETAIL', $_Onxshop_Request->getContent());
 		
 		/**
 		 * show full order detail

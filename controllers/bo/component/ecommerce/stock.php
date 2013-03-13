@@ -57,8 +57,8 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Stock extends Onxshop_Controller
 			//$link = "/page/" . $_SESSION['active_pages'][0];
 			$count = count($product_list);
 			
-			$_nSite = new nSite("component/pagination~limit_from=$from:limit_per_page=$per_page:count=$count~");
-			$this->tpl->assign('PAGINATION', $_nSite->getContent());
+			$_Onxshop_Request = new Onxshop_Request("component/pagination~limit_from=$from:limit_per_page=$per_page:count=$count~");
+			$this->tpl->assign('PAGINATION', $_Onxshop_Request->getContent());
 			
 		
 			
