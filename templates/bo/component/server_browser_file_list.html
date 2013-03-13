@@ -4,7 +4,7 @@
 
 	<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 	
-	<div class="twoColumnLayout layout fibonacci-3-2">
+	<div class="twoColumnLayout layout fibonacci-5-3">
 		<div class="layoutWrapper">
 			<div class="top"><span></span></div>
 			<div class="layoutContent">
@@ -26,9 +26,9 @@
 								<tbody>
 									<!-- BEGIN: item -->
 									<tr id="file-{ITEM.file_path_encoded_relative}">
-										<td><!-- BEGIN: thumbnail --><a style="display: block; width:55px; height: 50px; overflow: hidden;" href="/image/{BASE}{FOLDER}{ITEM.name}" title="View Full Size" onclick="openImg('/image/{BASE}{FOLDER}{ITEM.name}'); return false;"><img src="/thumbnail/50/{BASE}{FOLDER}{ITEM.name}" alt="{ITEM.name}" /></a><br /><!-- END: thumbnail --></td>
+										<td><!-- BEGIN: thumbnail --><a style="display: block; min-width: 50px; min-height: 50px;" href="/image/{BASE}{FOLDER}{ITEM.name}" title="View Full Size" onclick="openImg('/image/{BASE}{FOLDER}{ITEM.name}'); return false;"><img src="/thumbnail/50x50/{BASE}{FOLDER}{ITEM.name}" alt="{ITEM.name}" /></a><br /><!-- END: thumbnail --></td>
 										<td>
-											<a href="/download/{BASE}{FOLDER}{ITEM.name}" title="Download {ITEM.name} ({ITEM.size})" style="display: block; width: 140px; overflow: hidden;">{ITEM.name|substr(%s, 0, 32)}</a><br />
+											<a href="/download/{BASE}{FOLDER}{ITEM.name}" title="Download {ITEM.name} ({ITEM.size})" style="display: block;">{ITEM.name|substr(%s, 0, 32)}</a><br />
 											<a class="ui-icon ui-icon-disk" style="float: left" title="Download {ITEM.name} ({ITEM.size})" href="/download/{BASE}{FOLDER}{ITEM.name}"><span>Download</span></a>
 											<a class="ui-icon ui-icon-info" style="float: left" href="#" title="Size: {ITEM.size}, click to view more details" onclick="openAjaxRequestInDialog('/request/bo/component/file_info~file_path_encoded={ITEM.file_path_encoded}~'); return false"><span>View more details</span></a>
 											
@@ -56,7 +56,7 @@
 									
 							<!-- BEGIN: empty -->
 							<div class="empty">
-								<p>This folder is empty. Do you want to remove this folder? <a class="button delete" href="#" onclick="$('#server_browser_file_list').load('/request/bo/component/server_browser_file_list~delete_file={BASE}{FOLDER}~'); fileTreeRefresh(); return false"><span>Yes, delete?</span></a></p>
+								<p style="padding: 2em;">This folder is empty. Do you want to remove this folder? <a class="button delete" href="#" onclick="$('#server_browser_file_list').load('/request/bo/component/server_browser_file_list~delete_file={BASE}{FOLDER}~'); fileTreeRefresh(); return false"><span>Yes, delete?</span></a></p>
 							</div>
 							<!-- END: empty -->
 							
