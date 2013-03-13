@@ -86,7 +86,7 @@ class Onxshop_Controller_Bo_Export_CSV_Survey_Results extends Onxshop_Controller
 		
 			
 			//set the headers for the output
-			// $this->sendCSVHeaders('surveys');
+			$this->sendCSVHeaders('surveys');
 			
 		} else {
 			
