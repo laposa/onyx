@@ -22,9 +22,9 @@ class Onxshop_Controller_Bo_Component_Survey_Detail extends Onxshop_Controller_B
 		
 		require_once('models/education/education_survey.php');
 		
-		$Survey = new education_survey();
+		$this->Survey = new education_survey();
 		
-		$survey_detail = $Survey->getFullDetail($survey_id);
+		$survey_detail = $this->Survey->getFullDetail($survey_id);
 		
 		$this->displaySurvey($survey_detail);
 		
@@ -74,6 +74,7 @@ class Onxshop_Controller_Bo_Component_Survey_Detail extends Onxshop_Controller_B
 			
 			foreach ($question_detail['answer_list'] as $item) {
 				
+				$item['usage'] = $this->Survey->getAnswerUsage($item['id']);
 				$this->displayAnswer($item);
 				
 			}
