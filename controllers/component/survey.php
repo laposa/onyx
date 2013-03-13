@@ -5,6 +5,9 @@
  * 
  */
 
+require_once('models/education/education_survey.php');
+require_once('models/education/education_survey_entry.php');
+
 class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 
 	/**
@@ -12,7 +15,7 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 	 */
 	 
 	public function mainAction() {
-	
+
 		/**
 		 * input
 		 */
@@ -22,45 +25,79 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 			msg("Survey ID is not numeric", 'error');
 			return false;
 		}
-		
+
 		/**
 		 * initialise
 		 */
 		 
-		require_once('models/education/education_survey.php');
 		$this->Survey = new education_survey();
-		
-		/**
-		 * get survey detail
-		 */
-		 
-		$survey_detail = $this->Survey->getFullDetail($survey_id);
-		
-		/**
-		 * Save on request
-		 */
-		
-		if ($_POST['save'] && is_array($_POST['answer'])) {
-			
-			$submitted_answers = $_POST['answer'];
-			//try to save and if not successfull display survey form again
-			if ($survey_entry_id = $this->saveEntry($survey_id, $submitted_answers)) {
-				msg("Survey ID $survey_id has been submitted as entry ID $survey_entry_id.");
-				onxshopGoTo($_SESSION['referer'], 2);
-				/*$_nSite = new nSite("component/survey_result~survey_id=$survey_id~");
-				$this->tpl->assign('SURVEY_RESULT', $_nSite->getContent());
-				$this->tpl->parse('content.result');*/
+		$this->Entry = new education_survey_entry();
+		$this->Entry->setCacheable(false);
+
+		$can_vote = $this->checkVoteEligibility($survey_id);
+
+		if ($can_vote) {
+
+			/**
+			 * get survey detail
+			 */
+			 
+			$survey_detail = $this->Survey->getFullDetail($survey_id);
+			if ($survey_detail['publish'] == 1) {
+
+				/**
+				 * Save on request
+				 */
+				
+				if ($_POST['save'] && is_array($_POST['answer'])) {
+
+					// check captcha
+					$word = strtolower($_SESSION['captcha'][$this->GET['node_id']]);
+					$isCaptchaValid = strlen($_POST['captcha']) > 0 && $_POST['captcha'] == $word;
+					$captchaEnabled = ($this->GET['spam_protection'] == "captcha_text_js");
+
+					if ($captchaEnabled && $isCaptchaValid) {
+
+						$submitted_answers = $_POST['answer'];
+						unset($_POST['answer']['captcha']);
+
+						//try to save and if not successfull display survey form again
+						if ($survey_entry_id = $this->saveEntry($survey_id, $submitted_answers)) {
+							msg("Survey ID $survey_id has been submitted as entry ID $survey_entry_id.");
+							onxshopGoTo($_SESSION['uri'], 2);
+						} else {
+							msg("Some error occurred during survey submission", 'error');
+							$this->displaySurvey($survey_detail, $submitted_answers);
+						}
+
+					} else {
+						msg("Please enter correct code", 'error');
+						$this->displaySurvey($survey_detail, $submitted_answers);
+					}
+
+				} else {
+				
+					//display survey form
+					$this->displaySurvey($survey_detail);
+				
+				}
+
 			} else {
-				msg("Some error occurred during survey submission", 'error');
-				$this->displaySurvey($survey_detail, $submitted_answers);
+
+				$this->tpl->parse('content.closed');
+
 			}
+
 		} else {
-		
-			//display survey form
-			$this->displaySurvey($survey_detail);
-		
+
+			/**
+			 * display results when voted already
+			 */
+			$_nSite = new nSite("component/survey_result~survey_id=$survey_id~");
+			$this->tpl->assign('SURVEY_RESULT', $_nSite->getContent());
+			$this->tpl->parse('content.result');
+
 		}
-		
 		
 		return true;
 		
@@ -89,9 +126,12 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 			if ($item['publish'] == 1) $this->displayQuestion($item, $selected_value);
 			
 		}
-		
+
+		if ($this->GET['spam_protection'] == "captcha_text_js") {
+			$this->tpl->parse("content.form.invisible_captcha_field");
+		}
+
 		$this->tpl->assign('SURVEY', $survey_detail);
-	
 		$this->tpl->parse('content.form');
 		
 	}
@@ -220,10 +260,8 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 		}
 		
 		if ($survey_entry_data = $this->prepareSurveyEntry($survey_id, $answers)) {
-			require_once('models/education/education_survey_entry.php');
-			$SurveyEntry = new education_survey_entry();
 		
-			return $SurveyEntry->saveEntryFull($survey_entry_data);
+			return $this->Entry->saveEntryFull($survey_entry_data);
 		
 		} else {
 		
@@ -252,5 +290,64 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 		
 		return false;
 		
+	}
+
+
+	/**
+	 * check for previous entries in terms of the limits
+	 */
+
+	protected function checkVoteEligibility($survey_id)
+	{
+		$can_vote = true;
+
+		// get parameters
+
+		$limit = $this->GET['limit'];
+		if (!in_array($limit, array('once_per_competition', 'once_per_day', 'num_per_day')))
+			$limit = 'unlimited';
+
+		$votes_per_day = (int) $this->GET['votes_per_day'];
+
+		$restriction = $this->GET['restriction'];
+		if (!in_array($restriction, array('to_customer', 'to_session', 'to_ip_address')))
+			$restriction = 'none';
+
+		switch ($limit) {
+			case 'once_per_competition':
+				$max_votes = 1;
+				$justToday = false;
+				break;
+			
+			case 'once_per_day':
+				$max_votes = 1;
+				$justToday = true;
+				break;
+			
+			case 'num_per_day':
+				$max_votes = $votes_per_day > 0 ? $votes_per_day : 1;
+				$justToday = true;
+				break;
+
+		}
+
+		if ($limit != 'unlimited') {
+
+			switch ($restriction) {
+				case 'to_ip_address':
+					$num = $this->Entry->numEntriesForIpAddress($survey_id, $_SERVER['REMOTE_ADDR'], $justToday);
+					break;
+
+				case 'to_session':
+					$num = $this->Entry->numEntriesForSessionId($survey_id, session_id(), $justToday);
+					break;
+
+				default:
+			}
+
+			$can_vote = ($num < $max_votes);
+		}
+
+		return $can_vote;
 	}
 }

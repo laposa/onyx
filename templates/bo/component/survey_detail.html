@@ -22,7 +22,7 @@ table a {text-decoration: underline;}
 								<tbody>
 									<!-- BEGIN: question -->
 									<tr class="publish_{QUESTION.publish}">
-										<td><a class="publish_{QUESTION.publish}" title="Edit question" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_question_edit~id={QUESTION.id}~'); return false" href="#sub_content"><span>{QUESTION.title|htmlspecialchars}</span></a><br />{QUESTION.description|htmlspecialchars}</td>
+										<td><a class="publish_{QUESTION.publish}" title="Edit question" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_question_edit~id={QUESTION.id}:survey_id={QUESTION.survey_id}~'); return false" href="#sub_content"><span>{QUESTION.title|htmlspecialchars}</span></a><br />{QUESTION.description|htmlspecialchars}</td>
 										<td>
 											<!-- BEGIN: answer_text -->
 											{QUESTION.type}
@@ -31,7 +31,7 @@ table a {text-decoration: underline;}
 											{QUESTION.type}
 											<ul style="margin-bottom: 0;">
 												<!-- BEGIN: item -->
-												<li><a class="publish_{ANSWER.publish} is_correct_{ANSWER.is_correct}" title="Edit answer option" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_question_answer_edit~id={ANSWER.id}:survey_id={QUESTION.survey_id}~'); return false" href="#sub_content"><span>{ANSWER.title|htmlspecialchars}</span></a></li>
+												<li><a class="publish_{ANSWER.publish} is_correct_{ANSWER.is_correct}" title="Edit answer option" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_question_answer_edit~id={ANSWER.id}:survey_id={QUESTION.survey_id}~'); return false" href="#sub_content"><span>{ANSWER.title|htmlspecialchars}</span></a> <small>({ANSWER.usage} answers/votes)</small></li>
 												<!-- END: item -->
 											</ul>
 											<a class="button add" style="float: left;" title="Add new answer option" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_question_answer_add~question_id={QUESTION.id}:survey_id={QUESTION.survey_id}~'); return false" href="#sub_content"><span>+</span></a>

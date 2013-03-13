@@ -1,0 +1,79 @@
+<!-- BEGIN: title -->Survey Edit<!-- END: title -->
+<!-- BEGIN: content -->
+{FILE "bo/node/default_top.html"}
+<fieldset>
+
+	<div class="row">
+		<span class="label"><label>Survey:</label></span>
+		<span class="field">
+			<select name="node[component][survey_id]">
+				<!-- BEGIN: survey_item -->
+				<option value="{SURVEY_ITEM.id}" {SURVEY_ITEM.selected}>{SURVEY_ITEM.title|htmlspecialchars}</option>
+				<!-- END: survey_item -->
+			</select>
+		</span>
+	</div>
+	<div class="row">
+		<span class="label"><label>Template:</label></span>
+		<span class="field">
+			<select name="node[component][template]">
+				<option value="survey" {SELECTED_template_survey}>Survey</option>
+				<option value="image_poll" {SELECTED_template_image_poll}>Image Poll</option>
+			</select>
+		</span>
+	</div>
+	<div class="row">
+		<span class="label"><label>Entry limit:</label></span>
+		<span class="field">
+			<select id="survey_limit_select" name="node[component][limit]">
+				<option value="unlimited" {SELECTED_limit_unlimited}>unlimited</option>
+				<option value="once_per_competition" {SELECTED_limit_once_per_competition}>once per competition</option>
+				<option value="once_per_day" {SELECTED_limit_once_per_day}>once per day</option>
+				<option value="num_per_day" {SELECTED_limit_num_per_day}>specific number per day</option>
+			</select>
+		</span>
+	</div>
+	<div class="row num_per_day">
+		<span class="label"><label>Number of votes per day:</label></span>
+		<span class="field">
+			<input type="text" class="small" name="node[component][votes_per_day]" value="{NODE.component.votes_per_day|htmlspecialchars}"/>
+		</span>
+	</div>
+	<div class="row restriction_type">
+		<span class="label"><label>Restriction type:</label></span>
+		<span class="field">
+			<select name="node[component][restriction]">
+				<option value="none" {SELECTED_restriction_none}>none</option>
+				<option value="to_customer" disabled {SELECTED_restriction_to_customer}>to customer (require login)</option>
+				<option value="to_session" {SELECTED_restriction_to_session}>to session</option>
+				<option value="to_ip_address" {SELECTED_restriction_to_ip_address}>to IP address</option>
+			</select>
+		</span>
+	</div>
+	<div class="row">
+		<span class="label"><label for="component-captcha">Anti-spam protection (CAPTCHA):</label></span>
+		<span class="field">
+			<select id="component-captcha" name="node[component][spam_protection]">
+				<option value="none">None</option>
+				<option value="captcha_text_js" {SPAM_PROTECTION.captcha_text_js}>Invisible field</option>
+			</select>
+	</div>
+</fieldset>
+
+<script type="text/javascript">
+	$(function() {
+		updateFieldVisibility();
+		$("#survey_limit_select").change(function() { updateFieldVisibility(); });
+	});
+
+	function updateFieldVisibility() {
+		var select = $("#survey_limit_select");
+		if (select.val() == 'unlimited') $(".restriction_type").hide();
+		else $(".restriction_type").show();
+		if (select.val() == 'num_per_day') $(".num_per_day").show();
+		else $(".num_per_day").hide();
+	}
+</script>
+
+{FILE "bo/node/default_bottom.html"}
+<!-- END: content -->
