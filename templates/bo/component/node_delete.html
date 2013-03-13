@@ -6,7 +6,7 @@ function deleteNode(node_id) {
 	$("#dialog").load("/request/bo/component/node_delete~id="+node_id+":delete=1:confirm={CONFIRMATION_CODE}:ajax=1~", '', function (responseText, textStatus, XMLHttpRequest) {
 			$("#node_id_" + node_id).empty();
 			popupMessage("#dialog div.onxshop_messages");
-			$('#dialog').dialog( "destroy" );
+			$('#dialog').dialog( "close").empty();
 	});
 	
 }
