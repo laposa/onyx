@@ -14,7 +14,6 @@ function openEdit(url, el, ajax) {
 }
 
 function openAjaxRequestInDialog(url, title) {
-	$('#dialog').dialog( "destroy" );
 	$('#dialog').html(onxshop_load_indicator_html_snippet).load(url, '', function (responseText, textStatus, XMLHttpRequest) {
 		//popupMessage("#dialog div.onxshop_messages");
 	})
