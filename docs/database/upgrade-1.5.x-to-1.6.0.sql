@@ -35,6 +35,10 @@ ALTER INDEX "shipping_wz_country_to_zone_country_id_fkey" RENAME TO "ecommerce_d
 ALTER TABLE "education_survey_question" ADD COLUMN "content" text;
 ALTER TABLE "education_survey_question_answer" ADD COLUMN "content" text;
 
+/* education_survey_entry update */
+ALTER TABLE "education_survey_entry" ADD COLUMN "ip_adress" character varying(255);
+ALTER TABLE "education_survey_entry" ADD COLUMN "session_id" character varying(32);
+
 --
 -- Name: education_survey_image_id_seq; Type: SEQUENCE; Schema: public; Owner: centra
 --
