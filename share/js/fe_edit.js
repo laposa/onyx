@@ -4,7 +4,6 @@
 function refreshDeleteContent() {
 	$('a.onxshop_delete').live('click', function() {
 		var node_id = $(this).attr('href').replace('#','');
-		$('#dialog').dialog( "destroy" );
 		$("#dialog").dialog({
 			bgiframe: true,
 			autoOpen: false,
@@ -23,7 +22,8 @@ function refreshDeleteContent() {
 				$('#node_id_' + node_id).addClass('onxshop_highlight_edit')
 			}, 
 			close: function() {
-				$('#node_id_' + node_id).removeClass('onxshop_highlight_edit')
+				$('#node_id_' + node_id).removeClass('onxshop_highlight_edit');
+				$('#dialog').empty();
 			}
 		});
 
@@ -119,7 +119,7 @@ function feEditStartDragDrop() {
 		forcePlaceholderSize: true,
 		forceHelperSize: true,
 		scroll: true,
-		
+
 		update: function(event, ui) {
 			//growlMessage("update " + $(event.target).attr('id')); 
 			//feEditDragDrop(event, ui);
