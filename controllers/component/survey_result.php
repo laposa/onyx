@@ -80,17 +80,17 @@ class Onxshop_Controller_Component_Survey_Result extends Onxshop_Controller_Comp
 			} else {
 			
 				//add usage count and find max
-				$usage_count_max = 0;
+				$usage_count_sum = 0;
 				foreach ($question['answer_list'] as $ka=>$answer) {	
 					$usage_count = $this->getAnswerUsage($answer['id'], $relation_subject);
 					$question['answer_list'][$ka]['usage_count'] = $usage_count;
-					if ($usage_count > $usage_count_max) $usage_count_max = $usage_count;
+					$usage_count_sum += $usage_count;
 				}
 				
 				//calculate usage_scale (1 to 10)
 				foreach ($question['answer_list'] as $ka=>$answer) {
 				
-					if ($usage_count_max > 0) $usage_scale = $answer['usage_count'] / $usage_count_max * 10;
+					if ($usage_count_sum > 0) $usage_scale = $answer['usage_count'] / $usage_count_sum * 10;
 					else $usage_scale = 0;
 					
 					$question['answer_list'][$ka]['usage_scale'] = round($usage_scale);

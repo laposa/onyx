@@ -1,0 +1,93 @@
+<!-- BEGIN: content -->
+
+<!-- BEGIN: form -->
+<script type="text/javascript">
+$(function() {
+	$("#survey_form_{GET.node_id}").validate();
+});
+</script>
+
+<style type="text/css">
+label.error { display: none; }	
+</style>
+
+<form method="post" action="{URI|htmlspecialchars}" id="survey_form_{GET.node_id}">
+	<fieldset class="single">
+		<legend>{SURVEY.title|htmlspecialchars}</legend>
+		<!-- BEGIN: question -->
+		<div class="row">
+			<span class="label"><label for="question_id_{QUESTION.id}">{QUESTION.title|htmlspecialchars}</label></span>
+			<span class="field">
+				<!-- BEGIN: answer_text -->
+				<textarea class="{CLASS_REQUIRED}" name="answer[{QUESTION.id}]">{SELECTED_VALUE}</textarea>
+				<!-- END: answer_text -->
+				<!-- BEGIN: answer_list_radio -->
+					<!-- BEGIN: item -->
+					<div class="row">
+						<input type="radio" class="{CLASS_REQUIRED}" name="answer[{QUESTION.id}]" value="{ANSWER.id}" {SELECTED} id="answer_id_{ANSWER.id}">
+						<label for="answer_id_{ANSWER.id}">{ANSWER.title|htmlspecialchars}</label><br/>
+						<div class="RTEcontent">{ANSWER.content}</div>
+					</div>
+					<!-- END: item -->
+					<label for="answer[{QUESTION.id}]" class="error">This field is required.</label>
+				<!-- END: answer_list_radio -->
+				<!-- BEGIN: answer_list_select -->
+				<select class="{CLASS_REQUIRED}" name="answer[{QUESTION.id}]" id="question_id_{QUESTION.id}">
+					<option value="">-</option>
+					<!-- BEGIN: item -->
+					<option value="{ANSWER.id}" {SELECTED}>{ANSWER.title|htmlspecialchars}</option>
+					<!-- END: item -->
+				</select>
+				<!-- END: answer_list_select -->
+			</span>
+		</div>
+		<!-- END: question -->
+
+		<!-- BEGIN: invisible_captcha_field -->
+		<div class="row captcha {ERROR.captcha}">
+			<span class="label"><label for="captcha_input_{GET.node_id}">{I18N_CAPTCHA} <em id="code-captcha_{GET.node_id}">###</em>:</label></span>
+			<span class="field"><input type="text" class="text" id="captcha_input_{GET.node_id}" name="captcha" value="" maxlength="45" /></span>
+		</div>
+		<script type="text/javascript">
+			$.get("/request/component/captcha_js?node_id={GET.node_id}&nocache=1", function(data) {
+				var input = $("#captcha_input_{GET.node_id}");
+				var input = $("#captcha_input_{GET.node_id}");
+				$("#code-captcha_{GET.node_id}").html(data);
+				input.val(data).parent().parent().hide();
+			});
+		</script>
+		<!-- END: invisible_captcha_field -->
+		
+		<button type="submit" name="save" value="save"><span>{I18N_SUBMIT}</span></button>
+		
+	</fieldset>
+</form>
+
+<script type="text/javascript">
+	$(function() {
+		var form = $('#survey_form_{GET.node_id}');
+		form.find("input[type=radio]").hide();
+		form.find("button[type=submit]").hide();
+		form.find(".RTEcontent").css("cursor", "pointer").click(function() {
+			$(this).parent().find("input[type=radio]").attr('checked', true);
+			form.find("button[name=save]").click();
+			return false;
+		});
+	});
+</script>
+
+<!-- END: form -->
+
+<!-- BEGIN: result -->
+{SURVEY_RESULT}
+<!-- END: result -->
+
+<!-- BEGIN: closed -->
+<div class="survey_closed">
+	<p>
+		Survey is closed.
+	</p>
+</div>
+<!-- END: closed -->
+
+<!-- END: content -->

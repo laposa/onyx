@@ -374,5 +374,33 @@ CREATE TABLE education_survey_entry (
 		
 		}
 	}
-	
+
+	/**
+	 * Check previous entries for given IP adress
+	 */
+	 
+	public function numEntriesForIpAddress($survey_id, $ip_address, $today = false) {
+
+		if (!is_numeric($survey_id)) return false;
+		$ip_address = pg_escape_string($ip_address);
+
+		if ($today) $today_sql = " AND modified::date >= (CURRENT_DATE)::date AND modified::date < (CURRENT_DATE + INTERVAL '1 day')::date";
+		else $today_sql = '';
+		return $this->count("survey_id = $survey_id AND ip_address = '$ip_address'" . $today_sql);
+	}
+
+	/**
+	 * Check previous entries for given IP adress
+	 */
+	 
+	public function numEntriesForSessionId($survey_id, $session_id, $today = false) {
+
+		if (!is_numeric($survey_id)) return false;
+		$session_id = pg_escape_string($session_id);
+
+		if ($today) $today_sql = " AND modified::date >= (CURRENT_DATE)::date AND modified::date < (CURRENT_DATE + INTERVAL '1 day')::date";
+		else $today_sql = '';
+		return $this->count("survey_id = $survey_id AND session_id = '$session_id'" . $today_sql);
+	}
+
 }
