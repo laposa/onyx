@@ -10,6 +10,7 @@
 @import url(/share/css/default/screen.css);
 @import url(/share/themes/jquery-ui/onxshop/jquery-ui.css);
 @import url(/share/css/cms_header.css);
+@import url(/share/css/default/theme_layout/responsive.css);
 
 body {font-size: 70%; color: white; font-family: "Lucida Grande", Helvetica, Arial, sans-serif; background: #6d7076 url(../images/lion-fabric.png) repeat; /*background: #e6eaef;*/}
 p {margin: 0 0 14px 0;}
