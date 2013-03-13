@@ -34,22 +34,30 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 		$this->Entry = new education_survey_entry();
 		$this->Entry->setCacheable(false);
 
-		$can_vote = $this->checkVoteEligibility($survey_id);
+		/**
+		 * get survey detail
+		 */
+		 
+		$survey_detail = $this->Survey->getFullDetail($survey_id);
 
-		if ($can_vote) {
+		if ($survey_detail['publish'] == 1) {
 
-			/**
-			 * get survey detail
-			 */
-			 
-			$survey_detail = $this->Survey->getFullDetail($survey_id);
-			if ($survey_detail['publish'] == 1) {
+			if ($this->hasCustomerVoted($survey_id)) {
+
+				/**
+				 * display results when voted already
+				 */
+				$_nSite = new nSite("component/survey_result~survey_id=$survey_id~");
+				$this->tpl->assign('SURVEY_RESULT', $_nSite->getContent());
+				$this->tpl->parse('content.result');
+
+			} else {
 
 				/**
 				 * Save on request
 				 */
 				
-				if ($_POST['save'] && is_array($_POST['answer'])) {
+				if ($this->checkVoteEligibility($survey_id) && $_POST['save'] && is_array($_POST['answer'])) {
 
 					// check captcha
 					$word = strtolower($_SESSION['captcha'][$this->GET['node_id']]);
@@ -72,7 +80,7 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 
 					} else {
 						msg("Please enter correct code", 'error');
-						$this->displaySurvey($survey_detail, $submitted_answers);
+						$this->displaySurvey($survey_detail);
 					}
 
 				} else {
@@ -82,20 +90,12 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 				
 				}
 
-			} else {
-
-				$this->tpl->parse('content.closed');
-
 			}
 
 		} else {
 
-			/**
-			 * display results when voted already
-			 */
-			$_nSite = new nSite("component/survey_result~survey_id=$survey_id~");
-			$this->tpl->assign('SURVEY_RESULT', $_nSite->getContent());
-			$this->tpl->parse('content.result');
+			// survey is unpublished
+			$this->tpl->parse('content.closed');
 
 		}
 		
@@ -294,7 +294,7 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 
 
 	/**
-	 * check for previous entries in terms of the limits
+	 * can customer vote? (terms of the limits)
 	 */
 
 	protected function checkVoteEligibility($survey_id)
@@ -350,4 +350,49 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 
 		return $can_vote;
 	}
+
+
+	/**
+	 * has customer voted already during active session?
+	 */
+
+	protected function hasCustomerVoted($survey_id)
+	{
+		$has_voted = true;
+
+		// get parameters
+
+		$limit = $this->GET['limit'];
+		if (!in_array($limit, array('once_per_competition', 'once_per_day', 'num_per_day')))
+			$limit = 'unlimited';
+
+		$votes_per_day = (int) $this->GET['votes_per_day'];
+
+		switch ($limit) {
+			case 'once_per_competition':
+				$max_votes = 1;
+				$justToday = false;
+				break;
+			
+			case 'once_per_day':
+				$max_votes = 1;
+				$justToday = true;
+				break;
+			
+			case 'num_per_day':
+				$max_votes = $votes_per_day > 0 ? $votes_per_day : 1;
+				$justToday = true;
+				break;
+
+		}
+
+		if ($limit != 'unlimited') {
+
+			$num = $this->Entry->numEntriesForSessionId($survey_id, session_id(), $justToday);
+			$has_voted = ($num < $max_votes);
+		}
+
+		return $has_voted;
+	}
+
 }
