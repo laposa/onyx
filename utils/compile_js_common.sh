@@ -1,4 +1,5 @@
 cat share/js/jquery/jquery.js > share/js/compiled.js
+cat share/js/jquery/jquery-migrate.js >> share/js/compiled.js
 cat share/js/jquery/plugins/jquery.tools.js >> share/js/compiled.js
 cat share/js/jquery/plugins/jquery.easing.js >> share/js/compiled.js
 cat share/js/jquery/plugins/jquery.jgrowl.js >> share/js/compiled.js
