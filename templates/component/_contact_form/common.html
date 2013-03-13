@@ -71,12 +71,15 @@ $(document).ready(function(){
 		<!-- END: captcha_field -->
 		<!-- BEGIN: invisible_captcha_field -->
 		<div class="row captcha {ERROR.captcha}">
-			<span class="label"><label for="formdata-captcha_{GET.node_id}">{I18N_CAPTCHA} <em>{CAPTCHA_CODE|htmlspecialchars}</em>:</label></span>
+			<span class="label"><label for="formdata-captcha_{GET.node_id}">{I18N_CAPTCHA} <em id="code-captcha_{GET.node_id}">###</em>:</label></span>
 			<span class="field"><input type="text" class="text" id="formdata-captcha_{GET.node_id}" name="formdata[captcha]" value="{FORMDATA.captcha|htmlspecialchars}" maxlength="45" /></span>
 		</div>
 		<script type="text/javascript">
-			var input = $("#formdata-captcha_{GET.node_id}");
-			input.val('{CAPTCHA_CODE|htmlspecialchars}').parent().parent().hide();
+			$.get("/request/component/captcha_js?node_id={GET.node_id}&nocache=1", function(data) {
+				var input = $("#formdata-captcha_{GET.node_id}");
+				$("#code-captcha_{GET.node_id}").html(data);
+				input.val(data).parent().parent().hide();
+			});
 		</script>
 		<!-- END: invisible_captcha_field -->
 	

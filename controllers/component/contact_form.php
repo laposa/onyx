@@ -28,11 +28,8 @@ class Onxshop_Controller_Component_Contact_Form extends Onxshop_Controller {
 
 		if ($this->enableCaptcha) {
 			if ($this->GET['spam_protection'] == "captcha_text_js") {
-				$word = $this->generateRandomWord();
-				$this->tpl->assign('CAPTCHA_CODE', $word);
 				$this->tpl->parse("content.invisible_captcha_field");
-			}
-			else {
+			} else {
 				$this->tpl->parse("content.captcha_field");
 			}
 		}
@@ -40,17 +37,6 @@ class Onxshop_Controller_Component_Contact_Form extends Onxshop_Controller {
 		return true;
 	}
 	
-	protected function generateRandomWord($length = 5)
-	{
-		$str = '';
-		for($i = 0; $i < $length; $i++) $str .= chr(rand(97, 122));
-
-		if (!is_array($_SESSION['captcha'])) $_SESSION['captcha'] = array();
-		$_SESSION['captcha'][$this->GET['node_id']] = $str;
-
-		return $str;
-	}
-
 	/**
 	 * preprocess
 	 */
