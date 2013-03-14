@@ -47,7 +47,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e9e9e9', end
 #onxshopMenuBar a {text-decoration: none; text-shadow: 0 1px 0 white;}
 #onxshopMenuBar #menuGroup {float: left;}
 #onxshopMenuBar #menuContext {float: right;}
-#onxshopMenuBar ul {margin: 1px 10px 1px 10px; padding: 0;}
+#onxshopMenuBar ul {margin: 0 10px 0 0; padding: 0;}
 #onxshopMenuBar ul li.first {border-top-left-radius: 2px; border-bottom-left-radius: 2px;}
 #onxshopMenuBar ul li.last { border-top-right-radius: 2px; border-bottom-right-radius: 2px;}
 #onxshopMenuBar ul li a { color: black; font-size: 11px; text-shadow: 0 1px 0 white; text-decoration: none; padding: 5px 10px; display: block;}
