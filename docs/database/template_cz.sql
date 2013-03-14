@@ -4219,7 +4219,7 @@ COPY international_country (id, name, iso_code2, iso_code3, eu_status, currency_
 138	Mexico	MX	MEX	f	\N
 139	Micronesia	FM	FSM	f	\N
 140	Moldova	MD	MDA	f	\N
-141	Monaco	MC	MCO	f	\N
+141	Monaco	MC	MCO	t	\N
 142	Mongolia	MN	MNG	f	\N
 143	Montserrat	MS	MSR	f	\N
 144	Morocco	MA	MAR	f	\N
