@@ -608,5 +608,6 @@ ALTER TABLE ONLY client_customer_taxonomy
     ADD CONSTRAINT client_customer_taxonomy_taxonomy_fkey FOREIGN KEY (taxonomy_tree_id) REFERENCES common_taxonomy_tree(id) ON UPDATE RESTRICT ON DELETE RESTRICT;
 
 
+ALTER TABLE common_node ADD COLUMN share_counter int NOT NULL DEFAULT 0;
 
 COMMIT;

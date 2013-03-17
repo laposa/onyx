@@ -459,7 +459,8 @@ CREATE TABLE common_node (
     browser_title character varying(255) DEFAULT ''::character varying NOT NULL,
     link_to_node_id integer DEFAULT 0 NOT NULL,
     require_ssl smallint DEFAULT 0 NOT NULL,
-    display_permission_group_acl text
+    display_permission_group_acl text,
+    share_counter int NOT NULL DEFAULT 0
 );
 
 

@@ -118,6 +118,8 @@ class common_node extends Onxshop_Model {
 	
 	var $display_permission_group_acl;
 	
+	var $share_counter;
+	
 	var $_hashMap = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'title'=>array('label' => '', 'validation'=>'string', 'required'=>true),
@@ -152,7 +154,8 @@ class common_node extends Onxshop_Model {
 		'browser_title'=>array('label' => '', 'validation'=>'string', 'required'=>false),
 		'link_to_node_id'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'require_ssl'=>array('label' => '', 'validation'=>'int', 'required'=>false),
-		'display_permission_group_acl'=>array('label' => '', 'validation'=>'serialized', 'required'=>false)
+		'display_permission_group_acl'=>array('label' => '', 'validation'=>'serialized', 'required'=>false),
+		'share_counter'=>array('label' => '', 'validation'=>'int', 'required'=>false)
 		);
 	
 	/**
@@ -195,7 +198,9 @@ CREATE TABLE common_node (
 	display_breadcrumb smallint NOT NULL DEFAULT 0,
 	browser_title varchar(255) NOT NULL DEFAULT '',
 	link_to_node_id integer NOT NULL DEFAULT 0,
-	require_ssl smallint NOT NULL DEFAULT 0
+	require_ssl smallint NOT NULL DEFAULT 0,
+	display_permission_group_acl text,
+	share_counter int NOT NULL DEFAULT 0
 );
 		";
 		
