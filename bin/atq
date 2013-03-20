@@ -1,2 +1,0 @@
-#!/bin/sh
-sudo at -l 2>&1

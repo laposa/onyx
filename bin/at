@@ -1,2 +1,0 @@
-#!/bin/sh
-echo "curl $1" | sudo at -t $2 2>&1
