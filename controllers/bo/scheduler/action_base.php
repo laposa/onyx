@@ -89,7 +89,16 @@ abstract class Onxshop_Controller_Scheduler_Action_Base extends Onxshop_Controll
 		));
 
 		$this->setActionStatus(true, $status ? "Content published" : "Content unpublished");
+		$this->flushCache();
 
+	}
+
+
+	public function flushCache()
+	{
+		require_once('models/common/common_file.php');
+		$File = new common_file();
+		$File->rm(ONXSHOP_PROJECT_DIR . "var/cache/*");
 	}
 
 }
