@@ -53,6 +53,9 @@ $(document).ready(function(){
 						<span class="label"><label for="product-publish">Publish</label></span>
 						<span class="field"><input type="checkbox" id="product-publish" name="product[publish]" value="1" {PRODUCT.publish} /></span>
 					</div>
+					<div class="row schedule">
+						{ONXSHOP_REQUEST_scheduler #bo/component/node_scheduler~node_id=GET.id:node_type=ecommerce_product:~}
+					</div>
 					<fieldset>
 						<legend>Product Varieties</legend>
 						<div class="row">
