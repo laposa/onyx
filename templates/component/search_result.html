@@ -3,14 +3,26 @@
 	<!-- BEGIN: result -->
 	<ul>
 	<!-- BEGIN: item -->
-		<li>
-			<!-- BEGIN: link -->
-			<a class="middle {PATH.node_controller}" href="/page/{PATH.id}" title="{PATH.description|htmlspecialchars}"><span>{PATH.title|htmlspecialchars}</span></a> &raquo; 
-			<!-- END: link -->
-			<!-- BEGIN: linklast -->
-			<a class="last {PATH.node_controller}" href="/page/{PATH.id}" title="{PATH.page_title|htmlspecialchars}"><span>{PATH.title|htmlspecialchars}</span></a> 
-			<!-- END: linklast -->
-			<br /><!-- BEGIN: image --><a class="image {PATH.node_controller}" href="/page/{PATH.id}" title="{PATH.page_title|htmlspecialchars}">{IMAGE}</a><!-- END: image --><span class="item_description">{RESULT.description}</span>
+		<li class="{PAGE.node_controller}">
+
+			<h2><a href="/page/{PATH.id}">{PAGE.title|htmlspecialchars}</a></h2>
+
+			<p class="excerpt">
+				<!-- BEGIN: image --><a class="image {PAGE.node_controller}" href="/page/{PAGE.id}" title="{PAGE.page_title|htmlspecialchars}">{IMAGE}</a><!-- END: image -->
+
+				{PAGE.excerpt}
+			</p>
+
+			<div class="navigation">
+				<!-- BEGIN: link -->
+				<a class="middle {PATH.node_controller}" href="/page/{PATH.id}" title="{PATH.description|htmlspecialchars}"><span>{PATH.title|htmlspecialchars}</span></a> &raquo; 
+				<!-- END: link -->
+				<!-- BEGIN: linklast -->
+				<a class="last {PATH.node_controller}" href="/page/{PATH.id}" title="{PATH.page_title|htmlspecialchars}"><span>{PATH.title|htmlspecialchars}</span></a> 
+				<!-- END: linklast -->
+			</div>
+
+			<br />
 		</li>
 	<!-- END: item -->
 	</ul>
