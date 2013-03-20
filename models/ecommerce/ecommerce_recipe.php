@@ -177,12 +177,13 @@ CREATE TABLE ecommerce_recipe (
 		else $order .= " ASC";
 
 		// limits
-		if (is_numeric($frin)) $limit = "$frin";
+		if (is_numeric($from)) $limit = "$from";
 		else $limit = "0";
 		if (is_numeric($per_page)) $limit .= ",$per_page";
 		else $limit .= ",25";
 
 		$records = $this->listing($where, $order, $limit);
+		$count = $this->count($where);
 
 		if (is_array($records)) {
 
@@ -197,10 +198,10 @@ CREATE TABLE ecommerce_recipe (
 				}
 			}
 
-			return $records;
+			return array($records, $count);
 		}
 
-		return false;
+		return array(array(), $count);
     }
 
 
@@ -245,6 +246,54 @@ CREATE TABLE ecommerce_recipe (
     		msg("ecommerce_recipe.findProductInNode: recipe id is not numeric", 'error');
     		return false;
     	}
+    }
+
+
+    /**
+     * list recipes for given taxonomy_ids
+     * each item contains
+     *    - main image details as 'image' field
+     *    - page details as 'page' field
+     */
+    function getRecipeListForTaxonomy($taxonomy_ids, $order = '', $limit = '')
+    {
+   		require_once('models/common/common_node.php');
+ 		require_once('models/ecommerce/ecommerce_recipe_taxonomy.php');
+ 		require_once('models/ecommerce/ecommerce_recipe_image.php');
+
+    	$Node = new common_node();
+		$Image = new ecommerce_recipe_image();
+		$Taxonomy = new ecommerce_recipe_taxonomy();
+
+		$recipes = array();
+
+		if (count($taxonomy_ids) > 0) {
+			$taxonomy = $Taxonomy->listing("taxonomy_tree_id IN (" . implode(",", $taxonomy_ids) . ")");
+
+			$recipe_ids = array();
+			foreach ($taxonomy as $category) {
+				$recipe_ids[] = $category['node_id'];
+			}
+
+			$recipes = $this->listing("id IN (" . implode(",", $recipe_ids) . ") AND publish = 1", $order, $limit);
+			$recipe_pages = $Node->listing("node_group = 'page' AND node_controller = 'recipe' AND content ~ '[0-9]+' AND publish = 1");
+
+			foreach ($recipe_pages as $recipe_page)
+				foreach ($recipes as &$recipe) {
+					if ($recipe_page['content'] == $recipe['id']) {
+						// asign page
+						$recipe['page'] = $recipe_page;
+
+						// load images
+						$image_list = $Image->listFiles($recipe['id'] , $priority = "priority DESC, id ASC", false);
+						$recipe['image']  = $image_list[0];
+					}
+				}
+
+		}
+
+ 		return $recipes;
+
     }
 
 }

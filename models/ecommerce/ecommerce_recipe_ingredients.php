@@ -45,10 +45,9 @@ class ecommerce_recipe_ingredients extends Onxshop_Model {
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'recipe_id'=>array('label' => '', 'validation'=>'int', 'required'=>true),
 		'product_variety_id'=>array('label' => '', 'validation'=>'int', 'required'=>true),
-		'quantity'=>array('label' => '', 'validation'=>'decimal', 'required'=>true),
+		'quantity'=>array('label' => '', 'validation'=>'int', 'required'=>true),
 		'units'=>array('label' => '', 'validation'=>'int', 'required'=>true),
-		'notes'=>array('label' => '', 'validation'=>'string', 'required'=>false),
-		'group_title'=>array('label' => '', 'validation'=>'string', 'required'=>false)
+		'notes'=>array('label' => '', 'validation'=>'string', 'required'=>false)
 	);
 
 	/**
@@ -62,10 +61,9 @@ CREATE TABLE ecommerce_recipe_ingredients (
     id integer NOT NULL PRIMARY KEY,
     recipe_id integer,
     product_variety_id integer NOT NULL,
-    quantity real,
+    quantity integer,
     units integer,
-    notes text,
-    group_title character varying(255)
+    notes text
 );
 		";
 		
@@ -86,6 +84,9 @@ CREATE TABLE ecommerce_recipe_ingredients (
 		return $conf;
 	}
 
+	/**
+	 * Read list of Units from taxonomy tree
+	 */
 	public function getUnits() {
 
 		$conf = self::initConfiguration();
@@ -100,6 +101,48 @@ CREATE TABLE ecommerce_recipe_ingredients (
 			ORDER BY common_taxonomy_tree.priority DESC, common_taxonomy_label.title ASC";
 
 		return $this->executeSql($sql);
+	}
+
+	/**
+	 * Return list of all ingredients for a recipe
+	 * Each element contains:
+	 *  - ingredient data
+	 *  - related product variety data as 'variety' field
+	 *  - related product data as 'product' field
+	 *  - unit name as 'unis_name' field
+	 */
+	public function getIngredientsForRecipe($recipe_id) 
+	{
+		if (!is_numeric($recipe_id)) return false;
+
+		$ingredients = $this->listing("recipe_id = $recipe_id");
+
+		require_once('models/ecommerce/ecommerce_product.php');
+		$Product = new ecommerce_product();
+
+		$units_raw = $this->getUnits();
+		foreach ($units_raw as $unit) {
+			$units[$unit['id']] = $unit['title'];
+		}
+
+		foreach ($ingredients as &$ingredient) {
+
+			$ingredient['units_name'] = $units[$ingredient['units']];
+			$ingredient['variety'] = $Product->getProductVarietyDetail($ingredient['product_variety_id']);
+
+			if ($ingredient['variety']) {
+				$ingredient['product'] = $Product->detail($ingredient['variety']['product_id']);
+			}
+
+			$ingredient['name'] = $ingredient['product']['name'];
+
+		}
+
+		$ingredients = php_multisort($ingredients, array(array('key' => 'group_title', 'sort' => 'asc'),
+			array('key' => 'name', 'sort' => 'asc')));
+
+		return $ingredients;
+
 	}
 
 }

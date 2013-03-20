@@ -1,0 +1,47 @@
+<!-- BEGIN: content -->
+<div class="ingredients_list panel" style="width: 50%; float: left;">
+	<h3 class="contentTitle">Ingredients</h3>
+	<table style="width: 95%;">
+		<!-- BEGIN: ingredient -->
+		<!-- BEGIN: group_title -->
+		<tr class="group_title"><td colspan="2"><strong>{INGREDIENT.group_title}</strong></td></tr>
+		<!-- END: group_title -->
+		<tr><td>{INGREDIENT.product.name}<br/><small>{INGREDIENT.quantity} {INGREDIENT.units_name}</small>
+			<!-- BEGIN: note -->
+			<small>({INGREDIENT.notes})</small>
+			<!-- END: note -->
+		</td><td><a href="#{INGREDIENT.index}">Add to list</a></td></tr>
+		<!-- END: ingredient -->
+		<tr style="background: black; color: white;"><td>Add all to shopping list</td><td><a href="#AddAll">Add to list</a></td></tr>
+	</table>
+</div>
+
+<script type="text/javascript">
+function addToBasketAjaxActionFromVarietyList(variety_id) {
+	
+	$('#item_variety_id_' + variety_id + ' a.add_to_basket').css('background', 'url(/share/images/ajax-indicator/indicator_arrows.gif) no-repeat center left');
+	$("#basket").css('background', 'url(/share/images/ajax-indicator/indicator_arrows.gif) no-repeat center left');
+	$("#basket #basketWrapper").load('/request/component/ecommerce/basket', {'add': variety_id, 'quantity': 1}, function (responseText, textStatus, XMLHttpRequest) {
+		popupMessage("#basket #basketWrapper div.onxshop_messages");
+		
+		$("#basket").css('background', 'none');
+		$('#item_variety_id_' + variety_id + ' a.add_to_basket').css('background', 'url(/images/basket-gold-t.png) no-repeat center left');
+	});
+	
+}
+
+
+$(document).ready(function() {
+
+	$('div.ingredients_list tr').hover(function(){$(this).addClass("highlight");}, function() {$(this).removeClass("highlight");}).click(function(){
+		
+		var variety_id = $(this).find('a').attr("href").replace(/[^0-9]/g, '');
+
+		addToBasketAjaxActionFromVarietyList(variety_id);
+		
+		return false;
+	});
+});
+</script>
+
+<!-- END: content -->

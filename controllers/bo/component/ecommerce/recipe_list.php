@@ -31,12 +31,12 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Recipe_List extends Onxshop_Cont
 		if  (is_numeric($this->GET['limit_from'])) $from = $this->GET['limit_from'];
 		else $from = 0;
 		if (is_numeric($this->GET['limit_per_page'])) $per_page = $this->GET['limit_per_page'];
-		else $per_page = 250;
+		else $per_page = 25;
 
 		// get the list
 		require_once('models/ecommerce/ecommerce_recipe.php');
 		$Recipe = new ecommerce_recipe();	
-		$recipe_list = $Recipe->getFilteredRecipeList($taxonomy_id, $keyword, $order_by, $order_dir, $per_page, $from);
+		list($recipe_list, $count) = $Recipe->getFilteredRecipeList($taxonomy_id, $keyword, $order_by, $order_dir, $per_page, $from);
 		
 		if (!is_array($recipe_list)) return false;
 
@@ -46,9 +46,8 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Recipe_List extends Onxshop_Cont
 		}
 
 		// display pagination
-		$count = count($recipe_list);
-		$_Onxshop_Request = new Onxshop_Request("component/pagination~link=/request/bo/component/ecommerce/recipe_list:limit_from=$from:limit_per_page=$per_page:count=$count~");
-		$this->tpl->assign('PAGINATION', $_Onxshop_Request->getContent());
+		$_nSite = new nSite("component/pagination~link=/request/bo/component/ecommerce/recipe_list:limit_from=$from:limit_per_page=$per_page:count=$count~");
+		$this->tpl->assign('PAGINATION', $_nSite->getContent());
 
 		// parse items
 		foreach ($recipe_list as $item) {

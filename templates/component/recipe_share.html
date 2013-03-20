@@ -1,0 +1,17 @@
+<!-- BEGIN: content -->
+
+	<p>Rate this recipe | <a href="#">share this recipe</a></p>
+	{ONXSHOP_REQUEST_socialshare #component/social_share}
+	<p><img src="/image/var/files/wireframe/star-rating.png"/></p>
+	
+	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+	var js, fjs = d.getElementsByTagName(s)[0];
+	if (d.getElementById(id)) return;
+	js = d.createElement(s); js.id = id;
+	js.src = "//connect.facebook.net/en_US/all.js#xfbml=1&appId=313434252095460";
+	fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>
+	<div class="fb-comments" data-href="{URI}" data-width="470" data-num-posts="2"></div>
+
+<!-- END: content -->
