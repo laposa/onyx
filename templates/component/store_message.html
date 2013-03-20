@@ -1,0 +1,43 @@
+<!-- BEGIN: content -->
+<div class="store_message">
+
+	<p>	
+
+	<!-- BEGIN: authorised_not_selected -->
+	Hi there {_SESSION.client.customer.first_name}, you haven't selected your home store yet!
+	<br/>
+	<!-- END: authorised_not_selected -->
+
+	<!-- BEGIN: authorised_selected -->
+	Your local store is <a href="/page/{STORE_PAGE.id}">{STORE.title}</a>.
+	<br/>
+	<!-- END: authorised_selected -->
+
+	<a href="/page/1345" id="nearesStoreButton">Find your nearest store</a>
+
+	</p>
+
+</div>
+
+<script type="text/javascript">
+
+	$(function() {
+		$("#nearesStoreButton").click(function() {
+
+			if (navigator.geolocation) {
+				var timeoutVal = 10 * 1000 * 1000;
+				navigator.geolocation.getCurrentPosition(
+					findNearestStore, 
+					null,
+    				{ enableHighAccuracy: true, timeout: timeoutVal, maximumAge: 0 }
+  				);	
+			} else {
+				alert("Geolocation is not supported by this browser");
+			}
+
+			return false;
+		});
+	});
+</script>
+
+<!-- END: content -->

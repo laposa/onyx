@@ -1,0 +1,152 @@
+<!-- BEGIN: head -->
+<style type="text/css">
+#mapCanvas {
+	width: 100%;
+	height: 400px;
+	border: 6px solid white;
+	border-radius: 10px;
+}
+#mapCanvas img {
+	max-width: none;
+}
+</style>
+<!-- END: head -->
+
+<!-- BEGIN: content -->
+
+<div id="mapCanvas"></div>
+
+<script type="text/javascript">
+
+	var map;
+
+	$(function() {
+
+		var initLatlng = new google.maps.LatLng({MAP.latitude|htmlspecialchars}, {MAP.longitude|htmlspecialchars});
+
+        var mapOptions = {
+          zoom: 14,
+          center: initLatlng,
+          scrollwheel: false,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+
+        map = new google.maps.Map(document.getElementById('mapCanvas'), mapOptions);
+        map.markers = map.markers || [];
+
+		//add style
+        var styles = [
+		  {
+		    stylers: [
+		      { hue: "#008c94" },
+		      { saturation: -10 },
+		      { gama: 0.50}
+		      
+		    ]
+		  },{
+		    featureType: "road",
+		    elementType: "geometry",
+		    stylers: [
+		      { lightness: 100 },
+		      { visibility: "simplified" }
+		    ]
+		  },{
+		    featureType: "road",
+		    elementType: "labels",
+		    stylers: [
+		      { visibility: "off" }
+		    ]
+		  }
+		];
+		
+		map.setOptions({styles: styles});
+        
+        <!-- BEGIN: fit_to_bounds -->
+        // fit and zoom map to bounds
+		var bounds = new google.maps.LatLngBounds();
+		bounds.extend(new google.maps.LatLng({BOUNDS.latitude.min}, {BOUNDS.longitude.min}));
+		bounds.extend(new google.maps.LatLng({BOUNDS.latitude.max}, {BOUNDS.longitude.max}));
+		  
+		map.fitBounds(bounds);
+        <!-- END: fit_to_bounds -->
+
+        <!-- BEGIN: store_marker -->var marker = addMarker({STORE.latitude}, {STORE.longitude}, 
+        	'{STORE.title|addslashes}', '{STORE.image|addslashes}', '{STORE.address|addslashes}',
+        	'{STORE.url|addslashes}', {STORE.icon|addslashes}, {STORE.open|addslashes});
+        <!-- END: store_marker -->
+
+        function addMarker(latitude, longitude, name, image, address, url, icon, open) {
+
+			var myLatlng = new google.maps.LatLng(latitude, longitude);
+
+			var marker = new google.maps.Marker({
+				position: myLatlng,
+				title: name,
+				icon: icon ? 'https://developers.google.com/maps/documentation/javascript/examples/images/beachflag.png' : '',
+				image: image,
+				address: address,
+				url: url,
+				map: map
+			});
+
+			map.markers.push(marker);
+
+			if (open) {
+		        var infoWindow = new google.maps.InfoWindow({
+		        	content: "<h3 style='margin: 0px;'>" + name + "</h3><p>" + address +
+		        		"</p><a href='" + url + "?set_home_store=true" +
+		        		"'>Save as my own store</a>"
+				});
+				infoWindow.open(map, marker);
+			}
+
+			google.maps.event.addListener(marker, 'click', function() {
+				window.location = marker.url;
+			});
+        }
+
+	});
+
+	function findNearestStore(position) {
+
+		var minDistance = -1;
+		var closest = -1;
+
+		for (i = 0; i < map.markers.length; i++) {
+			var marker = map.markers[i];
+			var d = distanceBetweenPoints(
+				marker.position.lat(), 
+				marker.position.lng(),
+				position.coords.latitude, 
+				position.coords.longitude
+			);
+			if (closest == -1 || minDistance > d) {
+				closest = i;
+				minDistance = d;
+			}
+
+		}
+
+		window.location = map.markers[closest].url;
+	}
+
+	/**
+	 * Calculate geographical distence between points on sphere
+	 * http://en.wikipedia.org/wiki/Haversine_formula
+	 */
+	function distanceBetweenPoints(lat1, lng1, lat2, lng2) {
+		var R = 6371; // equtarial radius
+		var radLat1 = lat1 * (Math.PI / 180);
+		var radLat2 = lat2 * (Math.PI / 180);
+		var deltaLat = (lat2 - lat1) * (Math.PI / 180);
+		var deltaLon = (lng2 - lng1) * (Math.PI / 180);
+		var a = Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2) +
+			    Math.sin(deltaLon / 2) * Math.sin(deltaLon / 2) * 
+			    Math.cos(radLat1) * Math.cos(radLat2);
+		var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+		return R * c;
+	}
+
+</script>
+
+<!-- END: content -->

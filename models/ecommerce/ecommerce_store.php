@@ -236,12 +236,12 @@ CREATE TABLE ecommerce_store (
      * Find store homepage
      * use simple cache
      */
-     
+
     function getStoreHomepage($store_id) {
-    
+
     	require_once('models/common/common_node.php');
     	$Node = new common_node();
-    	
+
     	if (is_numeric($store_id)) {
     		if (!is_array($this->_cache_store_in_node)) $this->_cache_store_in_node = $Node->listing("node_group = 'page' AND node_controller = 'store'", 'id ASC');
     		foreach ($this->_cache_store_in_node as $p) {
@@ -270,9 +270,32 @@ CREATE TABLE ecommerce_store (
     		$current = $Node->listing("node_group = 'page' AND node_controller = 'store' AND content = '{$store_id}'", 'id ASC');
     		return $current;
     	} else {
-    		msg("ecommerce_store.findProductInNode: store id is not numeric", 'error');
+    		msg("ecommerce_store.findStoreInNode: store id is not numeric", 'error');
     		return false;
     	}
     }
+
+	/**
+	 * find store by node_id
+	 */
+	 
+    function findStoreByNode($node_id) {
+    
+    	require_once('models/common/common_node.php');
+    	$Node = new common_node();
+    	
+    	if (is_numeric($node_id)) {
+
+    		$nodes = $Node->listing("node_group = 'page' AND node_controller = 'store' AND id = '{$node_id}'", 'id ASC');
+    		
+    		$store_id = $nodes[0]['content'];
+    		if (is_numeric($store_id) && $store_id > 0) return $this->detail($store_id);
+
+    	} else {
+    		msg("ecommerce_store.findStoreByNode: node id is not numeric", 'error');
+    	}
+
+   		return false;
+ 	}
 
 }
