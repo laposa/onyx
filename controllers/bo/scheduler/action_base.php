@@ -88,9 +88,26 @@ abstract class Onxshop_Controller_Scheduler_Action_Base extends Onxshop_Controll
 			'publish' => $status == 1 ? 1 : 0
 		));
 
+		// for a product, related product_page needs to be updated as well
+		if ($content_type == 'ecommerce_product') {
+			$product_page = $ContentModel->getProductHomepage($content_id);
+			if (is_array($product_page) && count($product_page) > 0) {
+				$this->updateProductPage($product_page, $status);
+			}
+		}
+
 		$this->setActionStatus(true, $status ? "Content published" : "Content unpublished");
 		$this->flushCache();
 
+	}
+
+
+	public function updateProductPage($product_homepage, $status)
+	{
+		$product_homepage['publish'] = ($status == 1 ? 1 : 0);
+
+		$Node = $this->getContentModel('common_node');
+		$Node->nodeUpdate($product_homepage);
 	}
 
 
