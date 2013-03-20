@@ -20,8 +20,18 @@ class Onxshop_Controller_Bo_Component_Scheduler extends Onxshop_Controller {
 			$this->cancelJob($this->GET['cancel']);
 		}
 
-		$jobs = $this->Scheduler->listing("", "scheduled_time DESC");
-		$this->displayListing($jobs);			
+		if  (is_numeric($this->GET['limit_from'])) $from = $this->GET['limit_from'];
+		else $from = 0;
+		if (is_numeric($this->GET['limit_per_page'])) $per_page = $this->GET['limit_per_page'];
+		else $per_page = 25;
+
+		$jobs = $this->Scheduler->listing("", "scheduled_time DESC", "$from,$per_page");
+		$count = $this->Scheduler->count();
+
+		$this->displayListing($jobs);
+
+		$request = new Onxshop_Request("component/pagination~link=/request/bo/component/ecommerce/product_list:limit_from=$from:limit_per_page=$per_page:count=$count~");
+		$this->tpl->assign('PAGINATION', $request->getContent());
 
 		return true;
 	}
