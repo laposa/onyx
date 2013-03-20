@@ -201,17 +201,20 @@ class Onxshop_Controller_Component_Ecommerce_Gift_Voucher_Generate extends Onxsh
 	
 	public function postponeDelivery($promotion_id, $date)
 	{
-		$url = urlencode("http://{$_SERVER['SERVER_NAME']}" . 
-			"/request/component/ecommerce/gift_voucher_send?promotion_id={$promotion_id}&nocache=1");
-
 		$date = explode("/", $date);
 		$time = strtotime("{$date[2]}-{$date[1]}-{$date[0]}");
 
 		$time += 7 * 3600; // 7am
 
- 		// try to add new job using scheduler_add component
-		$c = new Onxshop_Request("bo/component/scheduler_add~url={$url}:time={$time}~");
-		$result = $c->getContent();
+		$data = array(
+			'parameters' => "promotion_id=$promotion_id",
+			'controller' => "gift_voucher_send",
+			'scheduled_time' => $time,
+		);
+
+		require_once('models/common/common_scheduler.php');
+		$Scheduler = new common_scheduler();
+		$Scheduler->scheduleNewJob($data);
 
 		return true;
 	}

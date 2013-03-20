@@ -240,3 +240,12 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', end
  */
 
 div.CodeMirror {font-size: 13px;}
+
+/**
+ * scheduler
+ */
+
+#scheduler_list tr.status_completed { color: #bbbbbb; }
+#scheduler_list tr.status_cancelled { color: #bbbbbb; text-decoration: line-through; }
+#scheduler_list tr.status_completed .onxshop_delete,
+#scheduler_list tr.status_cancelled .onxshop_delete { display: none; }

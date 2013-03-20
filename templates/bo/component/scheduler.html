@@ -2,56 +2,47 @@
 
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 
-<div class="twoColumnLayout layout fibonacci-3-2">
-	<div class="layoutWrapper">
-			<div class="top"><span>{RESULT}</span></div>
-			<div class="layoutContent">
-				<div class="layoutContentWrapper">
-					<div class="layoutColumnOne ofTwo">
-						<div class="layoutColumnWrapper">
+<h3>Scheduled jobs</h3>
 
-							<h3>Pending jobs</h3>
+<table id="scheduler_list">
+	<thead>
+	<tr>
+		<th>Job Id</th>
+		<th>Action</th>
+		<th>Parameters</th>
+		<th>Node Id<br>Node Type</th>
+		<th>Scheduled date/time</th>
+		<th>Status</th>
+		<th>Started<br/>Completed</th>
+		<th>Created<br/>Modified</th>
+		<th>Result</th>
+		<th>&nbsp;</th>
+	</tr>
+	</thead>
+	<tbody>
+		<!-- BEGIN:item -->
+		<tr class="status_{ITEM.status_name|strtolower}">
+			<td>{ITEM.id}</td>
+			<td>{ITEM.controller|str_replace('_', ' ', %s)|ucfirst}</td>
+			<td>{ITEM.parameters|htmlspecialchars}</td>
+			<td>{ITEM.node_id}<br/>{ITEM.node_type}</td>
+			<td>{ITEM.scheduled_time|strtotime||date('d/m/Y H:i:s', %s)}</td>
+			<td>{ITEM.status_name}</td>
+			<td>{ITEM.start_time}<br/>{ITEM.completed_time}</td>
+			<td>{ITEM.created}<br/>{ITEM.modified}</td>
+			<td>{ITEM.result|htmlspecialchars}</td>
+			<td>
+				<a class="onxshop_delete onxshop_icon" title="Cancel job" onclick="if (confirm('Are you sure you want to cancel job {ITEM.id}?')) makeAjaxRequest($('#scheduler_list').parent(), '/request/bo/component/scheduler?cancel={ITEM.id}'); return false;"></a>
+			</td>
+		</tr>
+		<!-- END:item -->
+		<!-- BEGIN: no_schedule -->
+		<tr>
+			<td colspan="10">There are no scheduled jobs.</td>
+		</tr>
+		<!-- END: no_schedule -->
+	</tbody>
+</table>
 
-							{LIST}
-						</div>
-					</div>
-					<div class="layoutColumnTwo ofTwo">
-						<div class="layoutColumnWrapper">
-
-							<h3>Add a job</h3>
-
-							<form method="post" action="/backoffice/advanced/scheduler">
-								<fieldset>
-									<div class="row">
-										<span class="label"><label for="job_date">Job date</label></span>
-										<input id="job_date" type="text" class="date" name="job[date]" value="{JOB.date|htmlspecialchars}" />
-									</div>
-									<div class="row">
-										<span class="label"><label for="job_time">Job time</label></span>
-										<input id="job_time" type="text" class="time" name="job[time]" value="{JOB.time|htmlspecialchars}" />
-									</div>
-									<div class="row">
-										<span class="label"><label for="job_url">URL</label></span>
-										<input id="job_url" type="text" class="long" name="job[url]" value="{JOB.url|htmlspecialchars}" />
-									</div>
-									<div class="row">
-										<span class="label"></span>
-										<button type="submit">Add job to queue</button>
-									</div>
-								</fieldset>
-							</form>
-
-							<script type="text/javascript">
-								$(document).ready(function(){
-									$('#job_date').datepicker({firstDay: 1, dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true}); 
-								});
-							</script>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 </div>
-
 <!-- END: content -->

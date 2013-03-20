@@ -4,7 +4,7 @@
 <script type="text/javascript">
 $(function() {
 
-	$('a.onxshop_new_content').live('click', function() {
+	$('#child_list_{GET.id} a.onxshop_new_content').live('click', function() {
 	
 		var node_id = $(this).attr('data-node_id');
 		var container_id = 0;
@@ -29,14 +29,14 @@ $(function() {
 		$('#dialog').dialog('open');
 		return false;
 	});
-	$('a.onxshop_delete').live('click', function() {
+	$('#child_list_{GET.id} a.onxshop_delete').live('click', function() {
 		var child_id = $(this).attr('href').replace('#','');;
 		$('#dialog').addClass('ajaxLoad').load('/request/bo/component/node_delete~id='+child_id+':delete=1~', function() {$(this).removeClass('ajaxLoad');});
 		$('#dialog').dialog({width: 500, modal: true, overlay: {opacity: 0.5, background: 'black'}});
 		$('#dialog').dialog('open');
 		return false;
 	});
-	$('a.onxshop_duplicate').live('click', function() {
+	$('#child_list_{GET.id} a.onxshop_duplicate').live('click', function() {
 		var child_id = $(this).attr('href').replace('#','');;
 		$.get('/request/bo/component/node_duplicate~id='+child_id+'~', function(data) {
 			growlMessage($(data).find("div.onxshop_messages").text());

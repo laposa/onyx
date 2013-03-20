@@ -610,4 +610,41 @@ ALTER TABLE ONLY client_customer_taxonomy
 
 ALTER TABLE common_node ADD COLUMN share_counter int NOT NULL DEFAULT 0;
 
+
+/**
+ * scheduler
+ */
+
+CREATE SEQUENCE common_scheduler_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+CREATE TABLE common_scheduler (
+    id integer DEFAULT nextval('common_scheduler_id_seq'::regclass) NOT NULL,
+    node_id integer,
+    node_type character varying(255),
+    controller character varying(255),
+    parameters text,
+    scheduled_time timestamp without time zone,
+    status smallint,
+    lock_token int,
+    result text,
+    start_time timestamp without time zone,
+    completed_time timestamp without time zone,
+    created timestamp without time zone,
+    modified timestamp without time zone DEFAULT now()
+);
+
+ALTER TABLE ONLY common_scheduler
+    ADD CONSTRAINT common_scheduler_pkey PRIMARY KEY (id);
+
+CREATE INDEX common_scheduler_node_id_key ON common_scheduler USING btree (node_id);
+CREATE INDEX common_scheduler_scheduled_time_key ON common_scheduler USING btree (scheduled_time);
+CREATE INDEX common_scheduler_lock_token_key ON common_scheduler USING btree (lock_token);
+CREATE INDEX common_scheduler_status_key ON common_scheduler USING btree (status);
+
+
 COMMIT;

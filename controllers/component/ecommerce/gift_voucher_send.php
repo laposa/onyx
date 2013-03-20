@@ -45,7 +45,7 @@ class Onxshop_Controller_Component_Ecommerce_Gift_Voucher_Send extends Onxshop_C
 
 				$this->sendEmail($promotion_data, $voucher_data, $gift_voucher_filename);
 
-				echo "Email sent";
+				msg("Email sent");
 			}
 		}		
 

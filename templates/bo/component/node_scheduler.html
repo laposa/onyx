@@ -1,0 +1,74 @@
+<!-- BEGIN: content -->
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+
+<p>Publishing schedule</p>
+<input type="hidden" name="scheduler_action" value="save"/>
+<table id="scheduler_list">
+	<thead>
+	<tr>
+		<th>Action</th>
+		<th>Scheduled date/time</th>
+		<th>Status</th>
+		<th>&nbsp;</th>
+	</tr>
+	</thead>
+	<tbody>
+	<!-- BEGIN:item -->
+		<tr class="status_{ITEM.status_name|strtolower}">
+			<td>{ITEM.controller|str_replace('_', ' ', %s)|ucfirst}</td>
+			<td>{ITEM.scheduled_time|strtotime||date('d/m/Y H:i:s', %s)}</td>
+			<td>{ITEM.status_name}</td>
+			<td>
+				<a class="onxshop_delete onxshop_icon" title="Cancel job" onclick="$(this).parent().parent().remove(); return false;" href="#"></a>
+				<input type="hidden" name="job[{ITEM.id}]" value="{ITEM.id}"/>
+			</td>
+		</tr>
+	<!-- END:item -->
+	</tbody>
+</table>
+
+<!-- BEGIN: no_schedule -->
+<p id="no_schedule">This content has no publishing schedule.</p>
+<script type="text/javascript">
+	$("#scheduler_list").hide().prev().hide();
+</script>
+<!-- END: no_schedule -->
+
+<div id="scheduler_add_new">
+	<p><a class="button add" href="#"><span>Schedule publishing...</span></a></p>
+</div>
+
+<script type="text/javascript">
+	$(function() {
+		$("#scheduler_add_new a").click(function() {
+
+			var template = '<tr>' +
+				'<td><select name="scheduler[controller][]">' +
+				<!-- BEGIN: controller_item -->
+				'<option value="{ITEM}">{ITEM|ucfirst|preg_replace('/_/', ' ', %s)}</option>' + 
+				<!-- END: controller_item -->
+				'</select></td>' +
+				'<td><input type="text" class="date" style="width: 80px;" name="scheduler[date][]" value="{TOMORROW}" />' +
+				'<input type="text" class="time" style="width: 64px;" name="scheduler[time][]" value="06:00:00" /></td>' +
+				'<td>New</td>' +
+				'<td>' +
+					'<a class="onxshop_delete onxshop_icon" title="Cancel job" onclick="$(this).parent().parent().remove(); return false;" href="#"></a>' +
+				'</td>' +
+			'</tr>';
+
+			$("#scheduler_list tbody").append(template);
+			$('#scheduler_list tbody tr:last input.date').datepicker({firstDay: 1, dateFormat: 'dd/mm/yy'});
+			$("#scheduler_list").show().prev().show();
+			$("#no_schedule").hide();
+
+			return false;
+		});
+	});
+
+	function hookNodeEditPostUpdate() {
+		var block = $("#scheduler_list").parent();
+		var url = "/request/bo/component/node_scheduler?node_id={GET.node_id}&node_type=common_node";
+		makeAjaxRequest(block, url);
+	}
+</script>
+<!-- END: content -->
