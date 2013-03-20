@@ -37,7 +37,7 @@ require_once 'Zend/XmlRpc/Fault.php';
  * @package  Zend_XmlRpc
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version $Id: Response.php 24976 2012-06-19 16:03:28Z matthew $
+ * @version $Id: Response.php 25033 2012-08-17 19:50:08Z matthew $
  */
 class Zend_XmlRpc_Response
 {
@@ -180,6 +180,18 @@ class Zend_XmlRpc_Response
         $loadEntities         = libxml_disable_entity_loader(true);
         $useInternalXmlErrors = libxml_use_internal_errors(true);
         try {
+            $dom = new DOMDocument;
+            $dom->loadXML($response);
+            foreach ($dom->childNodes as $child) {
+                if ($child->nodeType === XML_DOCUMENT_TYPE_NODE) {
+                    require_once 'Zend/XmlRpc/Exception.php';
+                    throw new Zend_XmlRpc_Exception(
+                        'Invalid XML: Detected use of illegal DOCTYPE'
+                    );
+                }
+            }
+            // TODO: Locate why this passes tests but a simplexml import doesn't
+            // $xml = simplexml_import_dom($dom);
             $xml = new SimpleXMLElement($response);
             libxml_disable_entity_loader($loadEntities);
             libxml_use_internal_errors($useInternalXmlErrors);

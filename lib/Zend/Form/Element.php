@@ -38,7 +38,7 @@ require_once 'Zend/Validate/Abstract.php';
  * @subpackage Element
  * @copyright  Copyright (c) 2005-2012 Zend Technologies USA Inc. (http://www.zend.com)
  * @license    http://framework.zend.com/license/new-bsd     New BSD License
- * @version    $Id: Element.php 24594 2012-01-05 21:27:01Z matthew $
+ * @version    $Id: Element.php 25173 2012-12-22 20:05:32Z rob $
  */
 class Zend_Form_Element implements Zend_Validate_Interface
 {
@@ -904,6 +904,7 @@ class Zend_Form_Element implements Zend_Validate_Interface
     public function getAttribs()
     {
         $attribs = get_object_vars($this);
+        unset($attribs['helper']);
         foreach ($attribs as $key => $value) {
             if ('_' == substr($key, 0, 1)) {
                 unset($attribs[$key]);
@@ -1070,14 +1071,13 @@ class Zend_Form_Element implements Zend_Validate_Interface
                 $loader->addPrefixPath($prefix, $path);
                 return $this;
             case null:
-                $prefix = rtrim($prefix, '_');
-                $path   = rtrim($path, DIRECTORY_SEPARATOR);
+                $nsSeparator = (false !== strpos($prefix, '\\'))?'\\':'_';
+                $prefix = rtrim($prefix, $nsSeparator) . $nsSeparator;
+                $path   = rtrim($path, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
                 foreach (array(self::DECORATOR, self::FILTER, self::VALIDATE) as $type) {
                     $cType        = ucfirst(strtolower($type));
-                    $pluginPath   = $path . DIRECTORY_SEPARATOR . $cType . DIRECTORY_SEPARATOR;
-                    $pluginPrefix = $prefix . '_' . $cType;
                     $loader       = $this->getPluginLoader($type);
-                    $loader->addPrefixPath($pluginPrefix, $pluginPath);
+                    $loader->addPrefixPath($prefix . $cType, $path . $cType . DIRECTORY_SEPARATOR);
                 }
                 return $this;
             default:
@@ -2242,14 +2242,14 @@ class Zend_Form_Element implements Zend_Validate_Interface
             if (null !== $translator) {
                 $message = $translator->translate($message);
             }
-            if (($this->isArray() || is_array($value))
-                && !empty($value)
-            ) {
+            if ($this->isArray() || is_array($value)) {
                 $aggregateMessages = array();
                 foreach ($value as $val) {
                     $aggregateMessages[] = str_replace('%value%', $val, $message);
                 }
-                $messages[$key] = implode($this->getErrorMessageSeparator(), $aggregateMessages);
+                if (count($aggregateMessages)) {
+                    $messages[$key] = implode($this->getErrorMessageSeparator(), $aggregateMessages);
+                }
             } else {
                 $messages[$key] = str_replace('%value%', $value, $message);
             }
