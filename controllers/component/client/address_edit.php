@@ -98,6 +98,9 @@ class Onxshop_Controller_Component_Client_Address_Edit extends Onxshop_Controlle
 		
 		$addresses = $Address->listing("customer_id = {$_SESSION['client']['customer']['id']} AND is_deleted IS NOT TRUE", "id DESC");
 
+		$current_invoice = $_SESSION['client']['customer']['invoices_address_id'];
+		$current_billing = $_SESSION['client']['customer']['delivery_address_id'];
+
 		foreach ($addresses as $addr) {
 		
 			$country_detail = $Country->detail($addr['country_id']);
@@ -108,12 +111,13 @@ class Onxshop_Controller_Component_Client_Address_Edit extends Onxshop_Controlle
 			if ($addr['line_3'] != '') $this->tpl->parse('content.address.line_3');
 		
 			if ($this->GET['type'] != '') $this->tpl->parse('content.address.select');
-			else $this->tpl->parse('content.address.delete');
+			else if ($addr['id'] != $current_invoice && $addr['id'] != $current_billing) 
+				$this->tpl->parse('content.address.delete');
 			
-			if ($_SESSION['client']['customer']['invoices_address_id'] == $addr['id'])
+			if ($current_invoice == $addr['id'])
 				$this->tpl->parse('content.address.is_delivery');
 
-			if ($_SESSION['client']['customer']['delivery_address_id'] == $addr['id'])
+			if ($current_billing == $addr['id'])
 				$this->tpl->parse('content.address.is_billing');
 
 			$this->tpl->parse('content.address');
