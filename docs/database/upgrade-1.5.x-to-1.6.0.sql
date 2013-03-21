@@ -39,6 +39,9 @@ ALTER TABLE "education_survey_question_answer" ADD COLUMN "content" text;
 ALTER TABLE "education_survey_entry" ADD COLUMN "ip_adress" character varying(255);
 ALTER TABLE "education_survey_entry" ADD COLUMN "session_id" character varying(32);
 
+/* common_node update */
+ALTER TABLE common_node ADD COLUMN share_counter int NOT NULL DEFAULT 0;
+
 --
 -- Name: education_survey_image_id_seq; Type: SEQUENCE; Schema: public; Owner: centra
 --
@@ -606,9 +609,6 @@ ALTER TABLE ONLY client_customer_taxonomy
 
 ALTER TABLE ONLY client_customer_taxonomy
     ADD CONSTRAINT client_customer_taxonomy_taxonomy_fkey FOREIGN KEY (taxonomy_tree_id) REFERENCES common_taxonomy_tree(id) ON UPDATE RESTRICT ON DELETE RESTRICT;
-
-
-ALTER TABLE common_node ADD COLUMN share_counter int NOT NULL DEFAULT 0;
 
 
 /**
