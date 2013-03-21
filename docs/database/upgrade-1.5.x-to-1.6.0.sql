@@ -52,15 +52,8 @@ ALTER TABLE common_node ADD COLUMN share_counter int NOT NULL DEFAULT 0;
 
 /* survey images table */
 
-CREATE SEQUENCE education_survey_image_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
 CREATE TABLE education_survey_image (
-    id integer DEFAULT nextval('education_survey_image_id_seq'::regclass) NOT NULL PRIMARY KEY,
+    id serial PRIMARY KEY NOT NULL,
     src character varying(255),
     role character varying(255),
     node_id integer NOT NULL REFERENCES education_survey(id) ON UPDATE CASCADE ON DELETE CASCADE,
@@ -76,15 +69,8 @@ CREATE INDEX ecommerce_invoice_order_id_idx ON ecommerce_invoice USING btree (or
 
 /* recipes schema */
 
-CREATE SEQUENCE ecommerce_recipe_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
 CREATE TABLE ecommerce_recipe (
-    id integer DEFAULT nextval('ecommerce_recipe_id_seq'::regclass) NOT NULL PRIMARY KEY,
+    id serial PRIMARY KEY NOT NULL,
     title character varying(255),
     description text,
     instructions text,
@@ -99,15 +85,8 @@ CREATE TABLE ecommerce_recipe (
     other_data text
 );
 
-CREATE SEQUENCE ecommerce_recipe_image_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
 CREATE TABLE ecommerce_recipe_image (
-    id integer DEFAULT nextval('ecommerce_recipe_image_id_seq'::regclass) NOT NULL PRIMARY KEY,
+    id serial PRIMARY KEY NOT NULL,
     src character varying(255),
     role character varying(255),
     node_id integer NOT NULL REFERENCES ecommerce_recipe(id) ON UPDATE RESTRICT ON DELETE RESTRICT,
@@ -120,15 +99,8 @@ CREATE TABLE ecommerce_recipe_image (
 
 CREATE INDEX ecommerce_recipe_image_node_id_key ON ecommerce_recipe_image USING btree (node_id);
 
-CREATE SEQUENCE ecommerce_recipe_ingredients_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
 CREATE TABLE ecommerce_recipe_ingredients (
-    id integer DEFAULT nextval('ecommerce_recipe_ingredients_id_seq'::regclass) NOT NULL PRIMARY KEY,
+    id serial PRIMARY KEY NOT NULL,
     recipe_id integer REFERENCES ecommerce_recipe(id) ON UPDATE RESTRICT ON DELETE RESTRICT,
     product_variety_id integer NOT NULL REFERENCES ecommerce_product_variety(id) ON UPDATE RESTRICT ON DELETE RESTRICT,
     quantity real,
@@ -137,15 +109,8 @@ CREATE TABLE ecommerce_recipe_ingredients (
     group_title character varying(255)
 );
 
-CREATE SEQUENCE ecommerce_recipe_taxonomy_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
 CREATE TABLE ecommerce_recipe_taxonomy (
-    id integer DEFAULT nextval('ecommerce_recipe_taxonomy_id_seq'::regclass) NOT NULL PRIMARY KEY,
+    id serial PRIMARY KEY NOT NULL,
     node_id integer NOT NULL REFERENCES ecommerce_recipe(id) ON UPDATE RESTRICT ON DELETE RESTRICT,
     taxonomy_tree_id integer NOT NULL REFERENCES common_taxonomy_tree(id) ON UPDATE RESTRICT ON DELETE RESTRICT,
     UNIQUE (node_id, taxonomy_tree_id)
@@ -156,15 +121,8 @@ CREATE INDEX ecommerce_recipe_taxonomy_taxonomy_tree_id_key ON ecommerce_recipe_
 
 /* recipes schema */
 
-CREATE SEQUENCE ecommerce_store_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
 CREATE TABLE ecommerce_store (
-    id integer DEFAULT nextval('ecommerce_store_id_seq'::regclass) NOT NULL PRIMARY KEY,
+    id serial PRIMARY KEY NOT NULL,
     title character varying(255),
     description text,
     address text,
@@ -183,15 +141,8 @@ CREATE TABLE ecommerce_store (
     other_data text
 );
 
-CREATE SEQUENCE ecommerce_store_image_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
 CREATE TABLE ecommerce_store_image (
-    id integer DEFAULT nextval('ecommerce_store_image_id_seq'::regclass) NOT NULL PRIMARY KEY,
+    id serial PRIMARY KEY NOT NULL,
     src character varying(255),
     role character varying(255),
     node_id integer NOT NULL REFERENCES ecommerce_store(id) ON UPDATE RESTRICT ON DELETE RESTRICT,
@@ -204,15 +155,8 @@ CREATE TABLE ecommerce_store_image (
 
 CREATE INDEX ecommerce_store_image_node_id_key ON ecommerce_store_image USING btree (node_id);
 
-CREATE SEQUENCE ecommerce_store_taxonomy_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
 CREATE TABLE ecommerce_store_taxonomy (
-    id integer DEFAULT nextval('ecommerce_store_taxonomy_id_seq'::regclass) NOT NULL PRIMARY KEY,
+    id serial PRIMARY KEY NOT NULL,
     node_id integer NOT NULL REFERENCES ecommerce_store(id) ON UPDATE RESTRICT ON DELETE RESTRICT,
     taxonomy_tree_id integer NOT NULL REFERENCES common_taxonomy_tree(id) ON UPDATE RESTRICT ON DELETE RESTRICT,
     UNIQUE (node_id, taxonomy_tree_id)
@@ -223,15 +167,8 @@ CREATE INDEX ecommerce_store_taxonomy_taxonomy_tree_id_key ON ecommerce_store_ta
 
 /* client customer upgrade */
 
-CREATE SEQUENCE client_customer_image_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
 CREATE TABLE client_customer_image (
-    id integer DEFAULT nextval('client_customer_image_id_seq'::regclass) NOT NULL PRIMARY KEY,
+    id serial PRIMARY KEY NOT NULL,
     src character varying(255),
     role character varying(255),
     node_id integer NOT NULL REFERENCES client_customer(id) ON UPDATE RESTRICT ON DELETE RESTRICT,
@@ -244,15 +181,8 @@ CREATE TABLE client_customer_image (
 
 CREATE INDEX client_customer_image_node_id_key ON client_customer_image USING btree (node_id);
 
-CREATE SEQUENCE client_customer_taxonomy_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
 CREATE TABLE client_customer_taxonomy (
-    id integer DEFAULT nextval('client_customer_taxonomy_id_seq'::regclass) NOT NULL PRIMARY KEY,
+    id serial PRIMARY KEY NOT NULL,
     node_id integer NOT NULL REFERENCES client_customer(id) ON UPDATE RESTRICT ON DELETE RESTRICT,
     taxonomy_tree_id integer NOT NULL REFERENCES common_taxonomy_tree(id) ON UPDATE RESTRICT ON DELETE RESTRICT,
     UNIQUE (node_id, taxonomy_tree_id)
@@ -264,15 +194,8 @@ CREATE INDEX client_customer_taxonomy_taxonomy_tree_id_key ON client_customer_ta
 
 /* scheduler */
 
-CREATE SEQUENCE common_scheduler_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MAXVALUE
-    NO MINVALUE
-    CACHE 1;
-
 CREATE TABLE common_scheduler (
-    id integer DEFAULT nextval('common_scheduler_id_seq'::regclass) NOT NULL PRIMARY KEY,
+    id serial PRIMARY KEY NOT NULL,
     node_id integer,
     node_type character varying(255),
     controller character varying(255),
