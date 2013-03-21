@@ -97,7 +97,7 @@ class Onxshop_Controller_Component_Client_Address_Edit extends Onxshop_Controlle
 		 */
 		
 		$addresses = $Address->listing("customer_id = {$_SESSION['client']['customer']['id']} AND is_deleted IS NOT TRUE", "id DESC");
-		
+
 		foreach ($addresses as $addr) {
 		
 			$country_detail = $Country->detail($addr['country_id']);
@@ -110,6 +110,12 @@ class Onxshop_Controller_Component_Client_Address_Edit extends Onxshop_Controlle
 			if ($this->GET['type'] != '') $this->tpl->parse('content.address.select');
 			else $this->tpl->parse('content.address.delete');
 			
+			if ($_SESSION['client']['customer']['invoices_address_id'] == $addr['id'])
+				$this->tpl->parse('content.address.is_delivery');
+
+			if ($_SESSION['client']['customer']['delivery_address_id'] == $addr['id'])
+				$this->tpl->parse('content.address.is_billing');
+
 			$this->tpl->parse('content.address');
 			
 		}
