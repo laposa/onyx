@@ -24,10 +24,10 @@ function msg($msg, $type = "ok", $level = 0, $error_class = '') {
 	global $_SESSION;
 	
 	/**
-	 * arrays convert to string
+	 * convert array or object to string
 	 */
 	 
-	if (is_array($msg)) $msg = print_r($msg, true);
+	if (is_array($msg) || is_object($msg)) $msg = print_r($msg, true);
 
 	/**
 	 * benchmark
