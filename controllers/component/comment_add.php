@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -13,6 +13,10 @@ class Onxshop_Controller_Component_Comment_Add extends Onxshop_Controller_Compon
 	 */
 	 
 	public function customCommentAction($data, $options) {
+
+		// enable captcha if captcha field is present in the template
+		$this->enableCaptcha = (strpos($this->tpl->filecontents, 'comment-captcha_') !== FALSE);
+		if ($this->enableCaptcha) $this->tpl->parse("content.comment_insert.invisible_captcha_field");
 	
 		$data['rating'] = 0;
 		$this->displaySubmitForm($data, $options);

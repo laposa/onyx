@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -169,63 +169,50 @@ class Onxshop_Controller_Component_Comment extends Onxshop_Controller {
 	
 	
 	/**
-	 * insert comments
+	 * get relation subject
 	 */
 	 
-	function insertComment($data, $options = false) {
-		
-		if ($_POST['save']) {
-		
-			if ($this->checkData($data)) {
-			
-				/**
-				 * set customer id
-				 */
-				 
-				if (is_numeric($_SESSION['client']['customer']['id']) && $_SESSION['client']['customer']['id'] > 0) {
-		
-					$data['customer_id'] = $_SESSION['client']['customer']['id'];
-			
-				} else if (!is_numeric($data['customer_id']) && $options['allow_anonymouse_submit'])  {
-					//anonymous
-					$data['customer_id'] = 0;
-				}
-		
-				$data['relation_subject'] = $this->getRelationSubject();
+	public function getRelationSubject() {
 				
-				if (is_numeric($data['customer_id'] )) {
-					
-					if ($this->Comment->insertComment($data)) {
-						
-						msg('Your comment has been inserted');
-						
-						return true;
-					}
-				} else {
-					msg("Must be logged in!", 'error');
-					return false;
-				}
-				
-			} else {
-				
-				msg("Please fill in all fields", 'error');
-			}
-		} else {
+		return '';
 		
-			return false;
-		}
-	
 	}
 	
 	/**
-	 * check data
+	 * checkViewPermission
 	 */
 	 
-	public function checkData($data) {
-	
-		if (trim($data['title']) == '' || trim($data['author_name']) == '' || trim($data['author_email']) == '' || trim($data['title']) == '' || !is_numeric($data['rating'])) return false;
-		else return true;
+	public function checkViewPermission($item) {
+		
+		if ($item['customer_id'] == $_SESSION['client']['customer']['id'] && $_SESSION['client']['customer']['id'] > 0 ) return true;
+		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER) return true;
+		
+		return false;
+		
 	}
+	
+	/**
+	 * checkEditPermission
+	 */
+	
+	public function checkEditPermission($item) {
+	
+		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER) return true;
+		
+		return false;
+	}
+	
+	/**
+	 * checkIdentityVisibility
+	 */
+	 
+	public function checkIdentityVisibility($item) {
+		
+		//identity input field is visible to everyone
+		return true;
+		
+	}
+
 
 	/**
 	 * conditional display submit form
@@ -303,48 +290,76 @@ class Onxshop_Controller_Component_Comment extends Onxshop_Controller {
 	}
 
 
+
 	/**
-	 * get relation subject
+	 * insert comments
 	 */
 	 
-	public function getRelationSubject() {
+	function insertComment($data, $options = false) {
+		
+		if ($_POST['save']) {
+		
+			if ($this->checkData($data)) {
+			
+				/**
+				 * set customer id
+				 */
+				 
+				if (is_numeric($_SESSION['client']['customer']['id']) && $_SESSION['client']['customer']['id'] > 0) {
+		
+					$data['customer_id'] = $_SESSION['client']['customer']['id'];
+			
+				} else if (!is_numeric($data['customer_id']) && $options['allow_anonymouse_submit'])  {
+					//anonymous
+					$data['customer_id'] = 0;
+				}
+		
+				$data['relation_subject'] = $this->getRelationSubject();
 				
-		return '';
+				if (is_numeric($data['customer_id'] )) {
+
+					unset($data['captcha']);
+					
+					if ($this->Comment->insertComment($data)) {
+						
+						msg('Your comment has been inserted');
+						
+						return true;
+					}
+				} else {
+					msg("Must be logged in!", 'error');
+					return false;
+				}
+				
+			} else {
+				
+				msg("Please fill in all fields", 'error');
+			}
+		} else {
 		
+			return false;
+		}
+	
 	}
 	
 	/**
-	 * checkViewPermission
+	 * check data
 	 */
 	 
-	public function checkViewPermission($item) {
-		
-		if ($item['customer_id'] == $_SESSION['client']['customer']['id'] && $_SESSION['client']['customer']['id'] > 0 ) return true;
-		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER) return true;
-		
-		return false;
-		
-	}
+	public function checkData($data) {
 	
-	/**
-	 * checkEditPermission
-	 */
-	
-	public function checkEditPermission($item) {
-	
-		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER) return true;
-		
-		return false;
-	}
-	
-	/**
-	 * checkIdentityVisibility
-	 */
-	 
-	public function checkIdentityVisibility($item) {
-		
-		//identity input field is visible to everyone
+		if (trim($data['title']) == '' || trim($data['author_name']) == '' || 
+			trim($data['author_email']) == '' || trim($data['title']) == '' || 
+			!is_numeric($data['rating'])) return false;
+
+		if ($this->enableCaptcha) {
+			$node_id = (int) $this->GET['node_id'];
+			$word = strtolower($_SESSION['captcha'][$node_id]);
+			$isCaptchaValid = strlen($data['captcha']) > 0 && $data['captcha'] == $word;
+			return $isCaptchaValid;
+		}
+
 		return true;
-		
 	}
+
 }
