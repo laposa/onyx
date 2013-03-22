@@ -77,6 +77,12 @@ $(document).ready(function(){
 								<legend>{I18N_ADDRESS_LIST}</legend>
 								<!-- BEGIN: address -->
 								<div class="item">
+									<!-- BEGIN: is_delivery -->
+									<strong>{I18N_DELIVERY_ADDRESS}</strong><br/>
+									<!-- END: is_delivery -->
+									<!-- BEGIN: is_billing -->
+									<strong>{I18N_BILLING_ADDRESS}</strong><br/>
+									<!-- END: is_billing -->
 									{address.name|htmlspecialchars}<br />
 									{address.line_1|htmlspecialchars}<br />
 									<!-- BEGIN: line_2 -->
