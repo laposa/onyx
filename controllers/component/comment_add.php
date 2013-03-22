@@ -13,6 +13,10 @@ class Onxshop_Controller_Component_Comment_Add extends Onxshop_Controller_Compon
 	 */
 	 
 	public function customCommentAction($data, $options) {
+
+		// enable captcha if captcha field is present in the template
+		$this->enableCaptcha = (strpos($this->tpl->filecontents, 'comment-captcha_') !== FALSE);
+		if ($this->enableCaptcha) $this->tpl->parse("content.comment_insert.invisible_captcha_field");
 	
 		$data['rating'] = 0;
 		$this->displaySubmitForm($data, $options);
@@ -123,6 +127,8 @@ class Onxshop_Controller_Component_Comment_Add extends Onxshop_Controller_Compon
 				$data['relation_subject'] = $this->getRelationSubject();
 				
 				if (is_numeric($data['customer_id'] )) {
+
+					unset($data['captcha']);
 					
 					if ($this->Comment->insertComment($data)) {
 						
@@ -152,8 +158,18 @@ class Onxshop_Controller_Component_Comment_Add extends Onxshop_Controller_Compon
 	 
 	public function checkData($data) {
 	
-		if (trim($data['title']) == '' || trim($data['author_name']) == '' || trim($data['author_email']) == '' || trim($data['title']) == '' || !is_numeric($data['rating'])) return false;
-		else return true;
+		if (trim($data['title']) == '' || trim($data['author_name']) == '' || 
+			trim($data['author_email']) == '' || trim($data['title']) == '' || 
+			!is_numeric($data['rating'])) return false;
+
+		if ($this->enableCaptcha) {
+			$node_id = (int) $this->GET['node_id'];
+			$word = strtolower($_SESSION['captcha'][$node_id]);
+			$isCaptchaValid = strlen($data['captcha']) > 0 && $data['captcha'] == $word;
+			return $isCaptchaValid;
+		}
+
+		return true;
 	}
 
 	

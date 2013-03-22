@@ -25,7 +25,8 @@ class Onxshop_Controller_Component_Captcha_Js extends Onxshop_Controller {
 			$Node = new common_node();
 			$node_data = $Node->nodeDetail($node_id);
 
-			if ($node_data['component']['spam_protection'] =='captcha_text_js') {
+			if ($node_data['component']['spam_protection'] =='captcha_text_js' || 
+				$node_data['node_controller'] == 'news') {
 
 				// captcha
 				$word = $this->generateRandomWord();
