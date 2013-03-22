@@ -63,7 +63,7 @@ $Bootstrap = new Onxshop_Bootstrap();
  * Init pre-action
  */
 
-$Bootstrap->initPreAction(array("autologin", "locales", "scheduler"));
+$Bootstrap->initPreAction(array("autologin", "locales" /*,"scheduler"*/));
 
 /**
  * Init action
