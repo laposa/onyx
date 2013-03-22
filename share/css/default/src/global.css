@@ -85,7 +85,7 @@ tfoot td {border-top: 2px solid #ccc; font-weight: bold;}
 a {cursor: pointer; cursor: hand; text-decoration: underline;}
 a:active {text-decoration: none; outline: 0;}
 a:focus {outline: 0;}
-a.button {display: block;}
+a.button {display: inline-block;}
 a.button,
 a.active {font-weight: bold;}
 a img {border: 0;}
