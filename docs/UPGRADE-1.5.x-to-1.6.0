@@ -8,3 +8,5 @@ grep jquery-ui.custom.js `find ./templates/`
 
 rename contentFooter to contentBottom
 rename contentFooterWrapper to contentBottom
+
+rename _hashMap to _metaData
