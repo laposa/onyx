@@ -5,3 +5,6 @@ psql -U {DBUSER} -h localhost {DB-1_6} < onxshop_dir/docs/database/upgrade-1.5.x
 grep layoutColumnOne `find ./templates/`
 #removed jquery-ui.custom.js
 grep jquery-ui.custom.js `find ./templates/`
+
+rename contentFooter to contentBottom
+rename contentFooterWrapper to contentBottom
