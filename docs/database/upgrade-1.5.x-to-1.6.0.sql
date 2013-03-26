@@ -45,10 +45,7 @@ ALTER TABLE "education_survey_question_answer" ADD COLUMN "content" text;
 
 ALTER TABLE "education_survey_entry" ADD COLUMN "ip_adress" character varying(255);
 ALTER TABLE "education_survey_entry" ADD COLUMN "session_id" character varying(32);
-
-/* common_node update */
-
-ALTER TABLE common_node ADD COLUMN share_counter int NOT NULL DEFAULT 0;
+ALTER TABLE "education_survey_entry" ADD COLUMN "other_data" text;
 
 /* survey images table */
 
@@ -214,5 +211,14 @@ CREATE INDEX common_scheduler_node_id_key ON common_scheduler USING btree (node_
 CREATE INDEX common_scheduler_scheduled_time_key ON common_scheduler USING btree (scheduled_time);
 CREATE INDEX common_scheduler_lock_token_key ON common_scheduler USING btree (lock_token);
 CREATE INDEX common_scheduler_status_key ON common_scheduler USING btree (status);
+
+
+/* common_node */
+ALTER TABLE common_node ADD COLUMN share_counter int NOT NULL DEFAULT 0;
+
+/* client_customer */
+ALTER TABLE client_customer ADD COLUMN oauth text;
+ALTER TABLE client_customer ADD COLUMN deleted_date timestamp without time zone;
+ALTER TABLE client_customer ADD UNIQUE (email, deleted_date);
 
 COMMIT;

@@ -54,6 +54,11 @@ class education_survey_entry extends Onxshop_Model {
 	 * session_id
 	 */
 	public $session_id;
+	
+	/**
+	 * other_data
+	 */
+	public $other_data;
 
 	/**
 	 * hashMap
@@ -68,7 +73,8 @@ class education_survey_entry extends Onxshop_Model {
 		'modified'=>array('label' => '', 'validation'=>'datetime', 'required'=>false),
 		'publish'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'ip_address'=>array('label' => '', 'validation'=>'string', 'required'=>false),
-		'session_id'=>array('label' => '', 'validation'=>'string', 'required'=>false)
+		'session_id'=>array('label' => '', 'validation'=>'string', 'required'=>false),
+		'other_data'=>array('label' => '', 'validation'=>'serialized', 'required'=>false)
 	);
 	
 	/**
@@ -88,6 +94,7 @@ CREATE TABLE education_survey_entry (
 	publish smallint DEFAULT 0,
 	ip_address character varying(255),
 	session_id character varying(32),
+	other_data	text
 	UNIQUE (survey_id, customer_id, relation_subject)
 );
 		";

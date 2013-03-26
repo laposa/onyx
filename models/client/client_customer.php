@@ -117,6 +117,19 @@ class client_customer extends Onxshop_Model {
 	 */
 	var $group_id;
 	
+	/**
+	 * serialised oauth data
+	 */
+	 
+	var $oauth;
+	
+	/**
+	 * use email + deleted_date unique constraint, this will prevent double active accounts
+	 * TODO: implement on user delete action
+	 */
+	 
+	var $deleted_date;
+		
 	var $_hashMap = array(
 		'id'=>array('label' => 'ID', 'validation'=>'int', 'required'=>true), 
 		'title_before'=>array('label' => 'Title', 'validation'=>'string', 'required'=>true),
@@ -143,7 +156,9 @@ class client_customer extends Onxshop_Model {
 		'account_type'=>array('label' => 'Account Type', 'validation'=>'int', 'required'=>false),
 		'agreed_with_latest_t_and_c'=>array('label' => 'Agreed with t-and-c', 'validation'=>'int', 'required'=>false),
 		'verified_email_address'=>array('label' => 'Verified Email Address', 'validation'=>'int', 'required'=>false),
-		'group_id'=>array('label' => 'Client Group', 'validation'=>'int', 'required'=>false)
+		'group_id'=>array('label' => 'Client Group', 'validation'=>'int', 'required'=>false),
+		'oauth'=>array('label' => 'Oauth storege for tokens', 'validation'=>'serialized', 'required'=>false),
+		'deleted_date'=>array('label' => 'Deleted date', 'validation'=>'datetime', 'required'=>false)
 	);
 	
 	/**
@@ -182,7 +197,9 @@ CREATE TABLE client_customer (
 	account_type smallint NOT NULL DEFAULT 0,
 	agreed_with_latest_t_and_c smallint NOT NULL DEFAULT 0,
 	verified_email_address smallint NOT NULL DEFAULT 0,
-	group_id smallint
+	group_id smallint,
+	oauth text,
+	deleted_date timestamp without time zone
 );
 		";
 		
