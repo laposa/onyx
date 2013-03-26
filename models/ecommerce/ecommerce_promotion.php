@@ -106,7 +106,7 @@ class ecommerce_promotion extends Onxshop_Model {
 	/* voucher limited to minim order amount */
 	public $limit_to_order_amount;
 
-	public $_hashMap = array(
+	public $_metaData = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'title'=>array('label' => '', 'validation'=>'string', 'required'=>true),
 		'description'=>array('label' => '', 'validation'=>'string', 'required'=>false),

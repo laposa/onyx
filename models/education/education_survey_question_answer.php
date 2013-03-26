@@ -56,7 +56,7 @@ class education_survey_question_answer extends Onxshop_Model {
 	 * hashMap
 	 */
 	 
-	public $_hashMap = array(
+	public $_metaData = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true),
 		'question_id'=>array('label' => '', 'validation'=>'int', 'required'=>true),
 		'title'=>array('label' => '', 'validation'=>'string', 'required'=>true),

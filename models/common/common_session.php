@@ -53,7 +53,7 @@ class common_session extends Onxshop_Model {
 
 	var $http_user_agent;
 
-	var $_hashMap = array(
+	var $_metaData = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'session_id'=>array('label' => '', 'validation'=>'string', 'required'=>true),
 		'session_data'=>array('label' => '', 'validation'=>'string', 'required'=>true), 

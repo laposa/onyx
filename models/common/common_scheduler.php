@@ -61,7 +61,7 @@ class common_scheduler extends Onxshop_Model {
 	var $modified;
 
 	
-	var $_hashMap = array(
+	var $_metaData = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'node_id'=>array('label' => '', 'validation'=>'string', 'required'=>false),
 		'node_type'=>array('label' => '', 'validation'=>'string', 'required'=>false),

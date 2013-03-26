@@ -18,7 +18,7 @@ class Onxshop_Model {
 	var $_valid = array();
 	var $_class_name = '';
 	var $_public_attributes = array();
-	var $_hashMap;
+	var $_metaData;
 	var $db;
 	
 	/**
@@ -104,9 +104,9 @@ class Onxshop_Model {
 	public function set($attribute, $value) {
 	
 		msg("{$this->_class_name}: Calling set($attribute, $value)", 'ok', 4);
-		$validation_type = $this->_hashMap[$attribute]['validation'];
+		$validation_type = $this->_metaData[$attribute]['validation'];
 		
-		if ($this->_hashMap[$attribute]['required'] == true || $value != '') {
+		if ($this->_metaData[$attribute]['required'] == true || $value != '') {
 			if ($this->validation($validation_type, $attribute, $value)) {
 				if (eval("\$this->$attribute = \$value;") == null) return true;
 			} else {
@@ -134,7 +134,7 @@ class Onxshop_Model {
 			
 				if (key_exists($key, $data)) {
 					$this->set($key, $data[$key]);
-				} else if ($this->_hashMap[$key]['required'] == true) {
+				} else if ($this->_metaData[$key]['required'] == true) {
 					msg("{$this->_class_name} key $key is required, but not set", 'error', 2);
 				}
 			}
@@ -185,10 +185,10 @@ class Onxshop_Model {
         			$this->setValid($attribute, true);
         			return true;
     			} else {
-    				if ($this->_hashMap[$attribute]['required'] == true) {
+    				if ($this->_metaData[$attribute]['required'] == true) {
 	        			$this->setValid($attribute, false);
     	    			/*
-        				($this->_hashMap[$attribute]['label'] == '') ? $label = $attribute: $label = $this->_hashMap[$attribute]['label'];
+        				($this->_metaData[$attribute]['label'] == '') ? $label = $attribute: $label = $this->_metaData[$attribute]['label'];
         				msg("$label is required","error", 0);
         				*/
         				return false;
@@ -306,7 +306,7 @@ class Onxshop_Model {
 		
 		foreach ($this->_valid as $rec) {
 			if ($rec[1] == false) {
-				($this->_hashMap[$rec[0]]['label'] == '') ? $label = $rec[0]: $label = $this->_hashMap[$rec[0]]['label'];
+				($this->_metaData[$rec[0]]['label'] == '') ? $label = $rec[0]: $label = $this->_metaData[$rec[0]]['label'];
 				msg("Invalid value for $label", 'error', 1);
 				$notvalid = 1;
 			}

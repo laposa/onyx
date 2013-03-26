@@ -55,7 +55,7 @@ class Onxshop_Controller_Bo_Export_CSV_Database extends Onxshop_Controller_Bo_Ex
 				foreach ($records as $record) {
 					//$this->tpl->assign('record', $record);
 					foreach ($record as $key=>$val) {
-						if ($Obj->_hashMap[$key]['validation'] == 'serialized' || $Obj->_hashMap[$key]['validation'] == 'xhtml') {
+						if ($Obj->_metaData[$key]['validation'] == 'serialized' || $Obj->_metaData[$key]['validation'] == 'xhtml') {
 							$val = 'N/A';
 						}
 						//test if it's serialized

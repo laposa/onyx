@@ -50,7 +50,7 @@ class ecommerce_product extends Onxshop_Model {
 	
 	var $name_aka;
 
-	var $_hashMap = array(
+	var $_metaData = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'name'=>array('label' => '', 'validation'=>'string', 'required'=>true),
 		'teaser'=>array('label' => '', 'validation'=>'xhtml', 'required'=>false),

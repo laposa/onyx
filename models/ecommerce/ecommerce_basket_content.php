@@ -35,7 +35,7 @@ class ecommerce_basket_content extends Onxshop_Model {
 	/*REFERENCES ecommerce_product_type ON UPDATE CASCADE ON DELETE RESTRICT*/
 	var $product_type_id;
 	
-	var $_hashMap = array(
+	var $_metaData = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'basket_id'=>array('label' => '', 'validation'=>'int', 'required'=>true),
 		'product_variety_id'=>array('label' => '', 'validation'=>'int', 'required'=>true),

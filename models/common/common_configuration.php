@@ -37,7 +37,7 @@ class common_configuration extends Onxshop_Model {
 	var $description;
 
 
-	var $_hashMap = array(
+	var $_metaData = array(
 		'id'=>array('label' => 'ID', 'validation'=>'int', 'required'=>true), 
 		'node_id'=>array('label' => '', 'validation'=>'int', 'required'=>true),
 		'object'=>array('label' => '', 'validation'=>'string', 'required'=>true),

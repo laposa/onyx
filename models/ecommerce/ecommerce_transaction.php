@@ -51,7 +51,7 @@ class ecommerce_transaction extends Onxshop_Model {
 	 
 	var $status;
 
-	var $_hashMap = array(
+	var $_metaData = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'order_id'=>array('label' => '', 'validation'=>'int', 'required'=>true),
 		'pg_data'=>array('label' => '', 'validation'=>'serialized', 'required'=>true),

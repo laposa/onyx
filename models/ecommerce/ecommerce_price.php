@@ -40,7 +40,7 @@ class ecommerce_price extends Onxshop_Model {
 	 */
 	var $date;
 	
-	var $_hashMap = array(
+	var $_metaData = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'product_variety_id'=>array('label' => '', 'validation'=>'int', 'required'=>true),
 		'currency_code'=>array('label' => '', 'validation'=>'string', 'required'=>true),

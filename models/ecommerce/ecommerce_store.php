@@ -94,7 +94,7 @@ class ecommerce_store extends Onxshop_Model {
 	 */
 	var $other_data;
 	
-	var $_hashMap = array(
+	var $_metaData = array(
 		'id'=>array('label' => '', 'validation' => 'int', 'required' => true),
 		'title'=>array('label' => '', 'validation' => 'string', 'required' => true),
 		'description'=>array('label' => '', 'validation' => 'string', 'required' => false),

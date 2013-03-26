@@ -31,7 +31,7 @@ class ecommerce_promotion_code extends Onxshop_Model {
 	 */
 	public $order_id;
 
-	public $_hashMap = array(
+	public $_metaData = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'promotion_id'=>array('label' => '', 'validation'=>'int', 'required'=>true),
 		'code'=>array('label' => '', 'validation'=>'string', 'required'=>true),

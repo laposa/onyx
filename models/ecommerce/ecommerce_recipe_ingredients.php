@@ -41,7 +41,7 @@ class ecommerce_recipe_ingredients extends Onxshop_Model {
 	var $notes;
 	
 
-	var $_hashMap = array(
+	var $_metaData = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'recipe_id'=>array('label' => '', 'validation'=>'int', 'required'=>true),
 		'product_variety_id'=>array('label' => '', 'validation'=>'int', 'required'=>true),

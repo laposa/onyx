@@ -28,7 +28,7 @@ class international_currency extends Onxshop_Model {
 	 */
 	var $symbol_right;
 	
-	var $_hashMap = array(
+	var $_metaData = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'code'=>array('label' => '', 'validation'=>'string', 'required'=>true),
 		'name'=>array('label' => '', 'validation'=>'string', 'required'=>true),

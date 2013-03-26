@@ -21,7 +21,7 @@ class ecommerce_delivery_carrier_zone extends Onxshop_Model {
 
 	public $carrier_id;
 
-	var $_hashMap = array(
+	var $_metaData = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'name'=>array('label' => '', 'validation'=>'string', 'required'=>true),
 		'carrier_id'=>array('label' => '', 'validation'=>'int', 'required'=>true)

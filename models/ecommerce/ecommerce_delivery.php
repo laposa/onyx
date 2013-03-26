@@ -61,7 +61,7 @@ class ecommerce_delivery extends Onxshop_Model {
 	
 	var $weight;
 
-	var $_hashMap = array(
+	var $_metaData = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'order_id'=>array('label' => '', 'validation'=>'int', 'required'=>true),
 		'carrier_id'=>array('label' => '', 'validation'=>'int', 'required'=>true),

@@ -37,7 +37,7 @@ class client_group extends Onxshop_Model {
 	/**
 	 * meta data 
 	 */
-	public $_hashMap = array(
+	public $_metaData = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'name'=>array('label' => '', 'validation'=>'string', 'required'=>true),
 		'description'=>array('label' => '', 'validation'=>'string', 'required'=>false),

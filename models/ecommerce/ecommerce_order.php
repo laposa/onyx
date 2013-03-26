@@ -56,7 +56,7 @@ class ecommerce_order extends Onxshop_Model {
 	
 	var $payment_type;
 	
-	var $_hashMap = array(
+	var $_metaData = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'basket_id'=>array('label' => '', 'validation'=>'int', 'required'=>true),
 		'invoices_address_id'=>array('label' => '', 'validation'=>'int', 'required'=>true),

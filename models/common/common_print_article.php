@@ -41,9 +41,9 @@ class common_print_article extends common_file {
 	
 	
 	/*
-	 * NOTE: we need whole _hashMap
+	 * NOTE: we need whole _metaData
 	 */
-	var $_hashMap = array(
+	var $_metaData = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'src'=>array('label' => '', 'validation'=>'string', 'required'=>true),
 		'role'=>array('label' => '', 'validation'=>'string', 'required'=>true),

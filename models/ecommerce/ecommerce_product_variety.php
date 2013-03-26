@@ -79,7 +79,7 @@ class ecommerce_product_variety extends Onxshop_Model {
 	
 	var $subtitle;
 
-	var $_hashMap = array(
+	var $_metaData = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'product_id'=>array('label' => '', 'validation'=>'int', 'required'=>true),
 		'sku'=>array('label' => 'SKU', 'validation'=>'string', 'required'=>true),

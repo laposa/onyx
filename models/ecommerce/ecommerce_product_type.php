@@ -26,7 +26,7 @@ class ecommerce_product_type extends Onxshop_Model {
 	var $publish;
 
 
-	var $_hashMap = array(
+	var $_metaData = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'name'=>array('label' => '', 'validation'=>'string', 'required'=>true),
 		'vat'=>array('label' => '', 'validation'=>'numeric', 'required'=>true),

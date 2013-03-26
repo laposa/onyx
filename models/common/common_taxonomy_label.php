@@ -29,7 +29,7 @@ class common_taxonomy_label extends Onxshop_Model {
 	var $publish;
 
 
-	var $_hashMap = array(
+	var $_metaData = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'title'=>array('label' => '', 'validation'=>'string', 'required'=>true),
 		'description'=>array('label' => 'string', 'validation'=>'string', 'required'=>false),

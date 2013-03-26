@@ -80,7 +80,7 @@ class ecommerce_invoice extends Onxshop_Model {
 	//voucher discount (face value voucher)
 	var $voucher_discount;
 	
-	var $_hashMap = array(
+	var $_metaData = array(
 		'id'=>array('label' => 'ID', 'validation'=>'int', 'required'=>true), 
 		'order_id'=>array('label' => '', 'validation'=>'int', 'required'=>true),
 		'goods_net'=>array('label' => '', 'validation'=>'decimal', 'required'=>true),

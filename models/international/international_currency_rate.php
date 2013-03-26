@@ -36,7 +36,7 @@ class international_currency_rate extends Onxshop_Model {
 	 */
 	var $amount;
 
-	var $_hashMap = array(
+	var $_metaData = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'currency_code'=>array('label' => '', 'validation'=>'string', 'required'=>true), //currency TO
 		'currency_code_from'=>array('label' => '', 'validation'=>'string', 'required'=>true), // currency FROM

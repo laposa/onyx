@@ -72,7 +72,7 @@ class ecommerce_delivery_carrier extends Onxshop_Model {
 	 */
 	var $free_delivery_map;
 
-	public $_hashMap = array(
+	public $_metaData = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'title'=>array('label' => '', 'validation'=>'string', 'required'=>true),
 		'description'=>array('label' => '', 'validation'=>'string', 'required'=>false),

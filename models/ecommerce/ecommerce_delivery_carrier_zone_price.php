@@ -32,7 +32,7 @@ class ecommerce_delivery_carrier_zone_price extends Onxshop_Model {
 	 */
 	public $currency_code;
 
-	var $_hashMap = array(
+	var $_metaData = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'zone_id'=>array('label' => '', 'validation'=>'int', 'required'=>true),
 		'weight'=>array('label' => '', 'validation'=>'int', 'required'=>true),

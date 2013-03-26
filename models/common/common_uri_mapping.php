@@ -28,7 +28,7 @@ class common_uri_mapping extends Onxshop_Model {
 	
 	var $type;
 	
-	var $_hashMap = array(
+	var $_metaData = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'node_id'=>array('label' => '', 'validation'=>'int', 'required'=>true),
 		'public_uri'=>array('label' => 'Public URI', 'validation'=>'string', 'required'=>true),

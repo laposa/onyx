@@ -28,7 +28,7 @@ class common_taxonomy_tree extends Onxshop_Model {
 
 	var $publish; //not in use yet, use taxonomy.publish instead
 
-	var $_hashMap = array(
+	var $_metaData = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'label_id'=>array('label' => '', 'validation'=>'int', 'required'=>true),
 		'parent'=>array('label' => 'Parent', 'validation'=>'int', 'required'=>false),

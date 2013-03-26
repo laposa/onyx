@@ -64,7 +64,7 @@ class client_address extends Onxshop_Model {
 	 */
 	var $is_deleted;
 
-	var $_hashMap = array(
+	var $_metaData = array(
 		'id'=>array('label' => 'ID', 'validation'=>'int', 'required'=>true), 
 		'country_id'=>array('label' => 'Country', 'validation'=>'int', 'required'=>true),
 		'customer_id'=>array('label' => 'Customer', 'validation'=>'int', 'required'=>true),

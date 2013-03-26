@@ -35,7 +35,7 @@ class ecommerce_order_log extends Onxshop_Model {
 	 */
 	var $datetime;
 
-	var $_hashMap = array(
+	var $_metaData = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'order_id'=>array('label' => '', 'validation'=>'int', 'required'=>true),
 		'status'=>array('label' => '', 'validation'=>'int', 'required'=>true),

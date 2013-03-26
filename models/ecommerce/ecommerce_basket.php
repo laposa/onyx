@@ -33,7 +33,7 @@ class ecommerce_basket extends Onxshop_Model {
 	
 	var $discount_net;
 	
-	var $_hashMap = array(
+	var $_metaData = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'customer_id'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'created'=>array('label' => '', 'validation'=>'datetime', 'required'=>true),

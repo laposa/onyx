@@ -25,7 +25,7 @@ class common_node_taxonomy extends Onxshop_Model {
 	var $taxonomy_tree_id;
 
 
-	var $_hashMap = array(
+	var $_metaData = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'node_id'=>array('label' => '', 'validation'=>'int', 'required'=>true),
 		'taxonomy_tree_id'=>array('label' => '', 'validation'=>'int', 'required'=>true)

@@ -130,7 +130,7 @@ class client_customer extends Onxshop_Model {
 	 
 	var $deleted_date;
 		
-	var $_hashMap = array(
+	var $_metaData = array(
 		'id'=>array('label' => 'ID', 'validation'=>'int', 'required'=>true), 
 		'title_before'=>array('label' => 'Title', 'validation'=>'string', 'required'=>true),
 		'first_name'=>array('label' => 'First name', 'validation'=>'string', 'required'=>true),
@@ -1105,11 +1105,11 @@ CREATE TABLE client_customer (
 			 * overwrite required fields
 			 */
 			 
-			$this->_hashMap['title_before']['required'] = false;
-			$this->_hashMap['telephone']['required'] = false;
-			$this->_hashMap['password']['required'] = false;
-			$this->_hashMap['invoices_address_id']['required'] = false;
-			$this->_hashMap['delivery_address_id']['required'] = false;
+			$this->_metaData['title_before']['required'] = false;
+			$this->_metaData['telephone']['required'] = false;
+			$this->_metaData['password']['required'] = false;
+			$this->_metaData['invoices_address_id']['required'] = false;
+			$this->_metaData['delivery_address_id']['required'] = false;
 				
 			//update existing - only newsletter attribute
 			if ($customer_data['newsletter'] == 0) {
@@ -1164,11 +1164,11 @@ CREATE TABLE client_customer (
 		 * customize required fields
 		 */
 		 
-		$this->_hashMap['title_before']['required'] = false;
-		$this->_hashMap['telephone']['required'] = false;
-		$this->_hashMap['password']['required'] = false;
-		$this->_hashMap['invoices_address_id']['required'] = false;
-		$this->_hashMap['delivery_address_id']['required'] = false;
+		$this->_metaData['title_before']['required'] = false;
+		$this->_metaData['telephone']['required'] = false;
+		$this->_metaData['password']['required'] = false;
+		$this->_metaData['invoices_address_id']['required'] = false;
+		$this->_metaData['delivery_address_id']['required'] = false;
 
 		/**
 		 * set data to insert

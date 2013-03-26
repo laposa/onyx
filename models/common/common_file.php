@@ -50,7 +50,7 @@ class common_file extends Onxshop_Model {
 	 */
 	var $author;
 
-	var $_hashMap = array(
+	var $_metaData = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'src'=>array('label' => '', 'validation'=>'string', 'required'=>true),
 		'role'=>array('label' => '', 'validation'=>'string', 'required'=>false),

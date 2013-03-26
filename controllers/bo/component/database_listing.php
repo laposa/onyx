@@ -79,7 +79,7 @@ class Onxshop_Controller_Bo_Component_Database_Listing extends Onxshop_Controlle
 					//$this->tpl->assign('record', $record);
 					foreach ($record as $key=>$val) {
 						//don't display whole record of serialized content
-						if ($Obj->_hashMap[$key]['validation'] == 'serialized') {
+						if ($Obj->_metaData[$key]['validation'] == 'serialized') {
 							//A) display only part
 							//$val = substr($val, 0, 100) . "...";
 							//B) display human redabe

@@ -120,7 +120,7 @@ class common_node extends Onxshop_Model {
 	
 	var $share_counter;
 	
-	var $_hashMap = array(
+	var $_metaData = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'title'=>array('label' => '', 'validation'=>'string', 'required'=>true),
 		'node_group'=>array('label' => '', 'validation'=>'string', 'required'=>true),

@@ -26,7 +26,7 @@ class ecommerce_delivery_carrier_zone_to_country extends Onxshop_Model {
 	public $zone_id;
 
 
-	public $_hashMap = array(
+	public $_metaData = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'country_id'=>array('label' => '', 'validation'=>'int', 'required'=>true),
 		'zone_id'=>array('label' => '', 'validation'=>'int', 'required'=>true)

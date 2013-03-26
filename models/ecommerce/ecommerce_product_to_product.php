@@ -22,7 +22,7 @@ class ecommerce_product_to_product extends Onxshop_Model {
 	 */
 	var $related_product_id;
 
-	var $_hashMap = array(
+	var $_metaData = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'product_id'=>array('label' => '', 'validation'=>'int', 'required'=>true),
 		'related_product_id'=>array('label' => '', 'validation'=>'int', 'required'=>true)

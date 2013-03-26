@@ -45,7 +45,7 @@ class common_email extends Onxshop_Model {
 	
 	var $ip;
 	
-	var $_hashMap = array(
+	var $_metaData = array(
 		'id'=>array('label' => 'ID', 'validation'=>'int', 'required'=>true), 
 		'email_from'=>array('label' => '', 'validation'=>'email', 'required'=>true),
 		'name_from'=>array('label' => '', 'validation'=>'string', 'required'=>true),

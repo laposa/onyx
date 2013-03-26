@@ -64,7 +64,7 @@ class common_comment extends Onxshop_Model {
 	
 	var $relation_subject;
 
-	var $_hashMap = array(
+	var $_metaData = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'parent'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'node_id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 

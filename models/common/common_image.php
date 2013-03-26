@@ -11,7 +11,7 @@ require_once('models/common/common_file.php');
  
 class common_image  extends common_file {
 
-	var $_hashMap = array(
+	var $_metaData = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'src'=>array('label' => '', 'validation'=>'string', 'required'=>true),
 		'role'=>array('label' => '', 'validation'=>'string', 'required'=>false),
