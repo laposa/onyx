@@ -25,7 +25,7 @@ $templates_info['content'] = array(
 	'recipe_list'=>array('title' => 'Recipe List', 'description'=>'', 'visibility'=>true),
 	'survey'=>array('title' => 'Survey (Questionnaire Form)', 'description'=>'', 'visibility'=>true),
 	'external_source'=>array('title' => 'Remote HTML Resource', 'description'=>'', 'visibility'=>false),
-	'print_article_list'=>array('title' => 'Print Article List (JCM)', 'description'=>'', 'visibility'=>false),
+	'print_article_list'=>array('title' => 'Print Article List', 'description'=>'', 'visibility'=>false),
 	'shared'=>array('title' => 'Shared (Linked) Content', 'description'=>'', 'visibility'=>false),
 	'imagemap'=>array('title' => 'Image map', 'description'=>'', 'visibility'=>false), 
 	'teaser'=>array('title' => 'Content teaser', 'description'=>'', 'visibility'=>false),
