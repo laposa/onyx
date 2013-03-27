@@ -4,7 +4,7 @@ require_once('models/common/common_image.php');
 /**
  * class ecommerce_store_image
  *
- * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -27,7 +27,10 @@ CREATE TABLE ecommerce_store_image (
 	description text,
 	priority integer DEFAULT 0 NOT NULL,
 	modified timestamp(0) without time zone,
-	author integer
+	author integer,
+    content text,
+    other_data text,
+    link_to_node_id integer
 );
 		";
 		

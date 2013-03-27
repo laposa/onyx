@@ -28,7 +28,10 @@ CREATE TABLE ecommerce_product_variety_image (
 	description text,
 	priority integer DEFAULT 0 NOT NULL,
 	modified timestamp(0) without time zone,
-	author integer
+	author integer,
+    content text,
+    other_data text,
+    link_to_node_id integer
 );
 		";
 		

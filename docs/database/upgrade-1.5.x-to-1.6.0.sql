@@ -221,4 +221,38 @@ ALTER TABLE client_customer ADD COLUMN oauth text;
 ALTER TABLE client_customer ADD COLUMN deleted_date timestamp without time zone;
 ALTER TABLE client_customer ADD UNIQUE (email, deleted_date);
 
+/* add column content (RTE) to all image tables */
+ALTER TABLE common_file ADD COLUMN content text;
+ALTER TABLE common_image ADD COLUMN content text;
+ALTER TABLE common_taxonomy_label_image ADD COLUMN content text;
+ALTER TABLE client_customer_image ADD COLUMN content text;
+ALTER TABLE ecommerce_product_image ADD COLUMN content text;
+ALTER TABLE ecommerce_product_variety_image ADD COLUMN content text;
+ALTER TABLE ecommerce_recipe_image ADD COLUMN content text;
+ALTER TABLE ecommerce_store_image ADD COLUMN content text;
+ALTER TABLE education_survey_image ADD COLUMN content text;
+
+/* add column other_data to all image tables */
+ALTER TABLE common_file ADD COLUMN other_data text;
+ALTER TABLE common_image ADD COLUMN other_data text;
+ALTER TABLE common_taxonomy_label_image ADD COLUMN other_data text;
+ALTER TABLE client_customer_image ADD COLUMN other_data text;
+ALTER TABLE ecommerce_product_image ADD COLUMN other_data text;
+ALTER TABLE ecommerce_product_variety_image ADD COLUMN other_data text;
+ALTER TABLE ecommerce_recipe_image ADD COLUMN other_data text;
+ALTER TABLE ecommerce_store_image ADD COLUMN other_data text;
+ALTER TABLE education_survey_image ADD COLUMN other_data text;
+
+/* add column link_to_node_id to all image tables */
+ALTER TABLE common_file ADD COLUMN link_to_node_id integer;
+ALTER TABLE common_image ADD COLUMN link_to_node_id integer;
+ALTER TABLE common_taxonomy_label_image ADD COLUMN link_to_node_id integer;
+ALTER TABLE client_customer_image ADD COLUMN link_to_node_id integer;
+ALTER TABLE ecommerce_product_image ADD COLUMN link_to_node_id integer;
+ALTER TABLE ecommerce_product_variety_image ADD COLUMN link_to_node_id integer;
+ALTER TABLE ecommerce_recipe_image ADD COLUMN link_to_node_id integer;
+ALTER TABLE ecommerce_store_image ADD COLUMN link_to_node_id integer;
+ALTER TABLE education_survey_image ADD COLUMN link_to_node_id integer;
+
+
 COMMIT;

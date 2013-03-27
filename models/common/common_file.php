@@ -59,7 +59,10 @@ class common_file extends Onxshop_Model {
 		'description'=>array('label' => '', 'validation'=>'string', 'required'=>false),
 		'priority'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'modified'=>array('label' => '', 'validation'=>'datetime', 'required'=>true),
-		'author'=>array('label' => '', 'validation'=>'int', 'required'=>true)
+		'author'=>array('label' => '', 'validation'=>'int', 'required'=>false),
+		'content'=>array('label' => '', 'validation'=>'int', 'required'=>false),
+		'other_data'=>array('label' => '', 'validation'=>'serialized', 'required'=>false),
+		'link_to_node_id'=>array('label' => '', 'validation'=>'int', 'required'=>false)
 	);
 	
 	/**
@@ -82,7 +85,10 @@ CREATE TABLE common_file (
 	description text ,
 	priority int DEFAULT 0 NOT NULL,
 	modified timestamp(0) ,
-	author int 
+	author int,
+    content text,
+    other_data text,
+    link_to_node_id integer
 
 );
 		";
