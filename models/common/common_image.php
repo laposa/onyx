@@ -139,8 +139,7 @@ CREATE TABLE common_image (
 		 */
 		
 		if (is_numeric($required_height)) {
-			
-			$other_im_params = "-gravity center -extent {$width}x{$required_height}";
+			$other_im_params = "-background none -gravity center -extent {$width}x{$required_height}";
 			$height = $required_height;
 			
 		} else {
