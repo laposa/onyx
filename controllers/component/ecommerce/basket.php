@@ -154,10 +154,6 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 		if (is_numeric($data['add'])) {
 		
 			//add to basket action
-			// set quantity to 1 by default
-			if (!is_numeric($data['quantity'])) $data['quantity'] = 1;
-			// allow to create a specific price
-			if (is_numeric($data['other_data']['multiplicator'])) $price_id = $this->getCustomPriceId($data['add'], $data['other_data']['multiplicator']);
 			// add item
 			$this->addItem($data['add'], $data['quantity'], $data['other_data'], $price_id);
 		
@@ -222,6 +218,11 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 	
 		//check basket is initialised
 		if (!is_numeric($_SESSION['basket']['id'])) return false;
+
+		// set quantity to 1 by default
+		if (!is_numeric($quantity)) $quantity = 1;
+		// allow to create a specific price
+		if (is_numeric($other_data['multiplicator'])) $price_id = $this->getCustomPriceId($product_variety_id, $other_data['multiplicator']);
 		
 		/**
 		 * add to basket
