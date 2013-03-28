@@ -4,7 +4,7 @@ require_once('models/common/common_image.php');
 /**
  * class ecommerce_recipe_image
  *
- * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -22,7 +22,7 @@ CREATE TABLE ecommerce_recipe_image (
 	id serial NOT NULL PRIMARY KEY,
 	src character varying(255),
 	role character varying(255),
-	node_id int NOT NULL REFERENCES ecommerce_product ON UPDATE CASCADE ON DELETE CASCADE,
+	node_id int NOT NULL REFERENCES ecommerce_recipe ON UPDATE CASCADE ON DELETE CASCADE,
 	title character varying(255),
 	description text,
 	priority integer DEFAULT 0 NOT NULL,

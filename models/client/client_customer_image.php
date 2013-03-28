@@ -20,7 +20,7 @@ CREATE TABLE client_customer_image (
     id serial NOT NULL PRIMARY KEY,
     src character varying(255),
     role character varying(255),
-    node_id integer NOT NULL REFERENCES common_node ON UPDATE CASCADE ON DELETE CASCADE,
+    node_id integer NOT NULL REFERENCES client_customer ON UPDATE CASCADE ON DELETE CASCADE,
     title character varying(255),
     description text,
     priority integer DEFAULT 0 NOT NULL,

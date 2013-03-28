@@ -2,7 +2,7 @@
 /**
  * class common_file
  *
- * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -115,6 +115,40 @@ CREATE TABLE common_file (
  		$file_detail = $this->populateAdditionalInfo($file_detail);
 		
 		return $file_detail;
+	}
+	
+	/**
+	 * get detail alias to getFileDetail
+	 * 
+	 * @param integer $id
+	 * file ID
+	 * 
+	 * @return array
+	 * file detail
+	 */
+	 
+	public function getDetail($id) {
+		
+		return $this->getFileDetail($id);
+		
+	}
+	
+	/**
+	 * update file
+	 * 
+	 * @param array $data
+	 * file data
+	 * 
+	 * @return bool
+	 * on error return false
+	 */
+	 
+	public function updateFile($data) {
+		
+		if (!is_numeric($data['link_to_node_id'])) $data['link_to_node_id'] = 0;
+		
+		return $this->update($data);
+		
 	}
 
 	/**
