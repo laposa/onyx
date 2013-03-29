@@ -83,8 +83,8 @@
 										<fieldset class="addNew single">
 											<legend>Upload files</legend>
 											<div class="row" id="add-file">
-												<input id="add-file-input" type="file" name="file" class="file multi" /> 
-												<button type="submit" name="create" value="create"><span>Submit File</span></button> Max&nbsp;size:&nbsp;{MAX_FILE_SIZE} MB
+												<input id="add-file-input" type="file" name="file" class="file multi" multiple /> 
+												<button type="submit" name="create" value="create"><span>Submit File</span></button><span> Max&nbsp;size:&nbsp;{MAX_FILE_SIZE} MB</span>
 											</div>
 											<div id="add-dropzone" class="row dropzone">
 												<h2>Drop files here</h2>
@@ -145,7 +145,12 @@ this component would be good to split into upload and file list
 	function showFileUploadDialog() {
 		if (window.FileReader) {
 			$('#add-dropzone').show();
-			$('#add-file').hide();
+			// keep upload input above the dropzone with zero opacity to allow click and select
+			$('#add-file').parent().css("position", "relative");
+			$('#add-file').css("position", "absolute").css("border", "1px dotted gray").css("width", "260px")
+				.css("top", "90px").css("left", "10px").css("opacity", 0)
+			$('#add-file button, #add-file span').hide();
+			$('#add-file input').css("cursor", "pointer");
 		} else {
 			$('#add-dropzone').hide();
 			$('#add-file').show();
@@ -202,6 +207,7 @@ this component would be good to split into upload and file list
 
 	$(function() {
 		$('#add-dropzone').filedrop({
+			fallback_id: 'add-file-input',
 			url: '/request/bo/component/server_browser_file_list~multiupload=true~',
 			paramname: 'file',                // POST parameter name used on serverside to reference file
 			withCredentials: true,            // make a cross-origin request with cookies
@@ -292,6 +298,7 @@ this component would be good to split into upload and file list
 	#server_browser_file_list_wrapper table.server-browser span.progress { width: 200px; height: 10px; border: 1px solid black; background: white; display: block;}
 	#server_browser_file_list_wrapper table.server-browser span.progress span { width: 0; height: 10px; background: #888; display: block;}
 	#server_browser_file_list_wrapper #add-dropzone { border: 2px dashed #444444; border-radius: 10px; padding: 40px; text-align: center; margin: 0 10px 0 0; }
+	#server_browser_file_list_wrapper legend { margin: 0; padding-bottom: 1em;}
 	#server_browser_file_list_wrapper progress { width: 300px; }
 	#server_browser_file_list_wrapper .progress-total { display: none; }
 </style>
