@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2010 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2010-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
  
@@ -313,7 +313,14 @@ define('I18N_NEWS_LIST_COMMENTS', 'Comments');
 define('I18N_NEWS_CATEGORY_UNCATEGORIZED', 'Uncategorized');
 
 //component/ecommerce/recently_viewed_products.html
-define('I18N_RECENTLY_VIEWED_PRODUCTS', 'Recently viewed ...');
+define('I18N_RECENTLY_VIEWED_PRODUCTS', 'Recently viewed …');
 
 //component/ecommerce/product_related_basket.html
-define('I18N_RECOMMENDED_PRODUCTS', 'We recommend ...');
+define('I18N_RECOMMENDED_PRODUCTS', 'We recommend …');
+
+//component/survey_result.html
+define('I18N_AVERAGE_RATING', 'average rating');
+define('I18N_AVERAGE_RATING_FINAL', 'Final average rating');
+define('I18N_AVERAGE_MARK', 'Average mark');
+define('I18N_RESPONDENT_COUNT', 'respondents count');
+define('I18N_ANWER_COUNT', 'Answer count');

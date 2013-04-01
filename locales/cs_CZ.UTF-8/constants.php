@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2005-2012 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2005-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
  
@@ -319,3 +319,10 @@ define('I18N_RECENTLY_VIEWED_PRODUCTS', 'Nedávno navštívené ...');
 
 //component/ecommerce/product_related_basket.html
 define('I18N_RECOMMENDED_PRODUCTS', 'Doporučujeme následující …');
+
+//component/survey_result.html
+define('I18N_AVERAGE_RATING', 'průměrné hodnocení');
+define('I18N_AVERAGE_RATING_FINAL', 'Výsledná průměrná známka');
+define('I18N_AVERAGE_MARK', 'Průměrná známka');
+define('I18N_RESPONDENT_COUNT', 'počet respondentů');
+define('I18N_ANWER_COUNT', 'Počet odpovědí');
