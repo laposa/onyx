@@ -1,13 +1,13 @@
 <?php
 /**
- * Copyright (c) 2010-2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
 
 require_once('models/ecommerce/ecommerce_recipe.php');
 
-class Onxshop_Controller_Component_Recipe_List extends Onxshop_Controller {
+class Onxshop_Controller_Component_Ecommerce_Recipe_List extends Onxshop_Controller {
 
 	/**
 	 * main action (only a router in this case)

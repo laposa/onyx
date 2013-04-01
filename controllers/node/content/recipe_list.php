@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2006-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -47,7 +47,7 @@ class Onxshop_Controller_Node_Content_Recipe_List extends Onxshop_Controller_Nod
 		 * call controller
 		 */
 		
-		$_nSite = new nSite("component/$controller~taxonomy_ids=$taxonomy_ids~");
+		$_nSite = new nSite("component/ecommerce/$controller~taxonomy_ids=$taxonomy_ids~");
 		$this->tpl->assign('RECIPE_LIST', $_nSite->getContent());
 			
 		$this->tpl->assign('NODE', $node_data);

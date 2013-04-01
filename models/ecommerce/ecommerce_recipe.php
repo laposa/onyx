@@ -130,6 +130,15 @@ CREATE TABLE ecommerce_recipe (
 		return $conf;
 	}
 
+	/**
+	 * getDetail
+	 */
+	 
+	public function getDetail($id) {
+		
+		return $this->detail($id);
+		
+	}
 
 
 	/**
@@ -295,5 +304,36 @@ CREATE TABLE ecommerce_recipe (
  		return $recipes;
 
     }
+    
+    /**
+	 * get taxonomy relation
+	 */
+	 
+	function getTaxonomyForRecipe($recipe_id) {
+	
+		if (!is_numeric($recipe_id)) return false;
+		
+		require_once('models/ecommerce/ecommerce_recipe_taxonomy.php');
+		$Taxonomy = new ecommerce_recipe_taxonomy();
+		
+		$relations = $Taxonomy->getRelationsToRecipe($product_id);
+		
+		return $relations;
+	}
+	
+	/**
+	 * getRelatedTaxonomy
+	 */
+	 
+	public function getRelatedTaxonomy($recipe_id) {
+		
+		if (!is_numeric($recipe_id)) return false;
+		
+		require_once('models/common/common_taxonomy.php');
+		$Taxonomy = new common_taxonomy();
+		$related_taxonomy = $Taxonomy->getRelatedTaxonomy($recipe_id, 'ecommerce_recipe_taxonomy');
+		
+		return $related_taxonomy;
+	}
 
 }

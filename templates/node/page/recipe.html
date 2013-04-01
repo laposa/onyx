@@ -1,11 +1,4 @@
 <!-- BEGIN: title -->{NODE.page_title}<!-- END: title -->
-<!-- BEGIN: head -->
-<style type="text/css">
-
-	div.recipe .breadcrumb { display: block; }
-
-</style>
-<!-- END: head -->
 <!-- BEGIN: content -->
 
 <div id="pageSide">
@@ -34,8 +27,7 @@
 	</div>
 </div>
 
-
-<div class="twoColumnPage page recipe {NODE.layout_style} {NODE.css_class} {NODE.taxonomy_class}">
+<div class="twoColumnPage page recipe fibonacci-5-3 {NODE.css_class} {NODE.taxonomy_class} {RECIPE.taxonomy_class}">
 	<div class="top"><span></span></div>
 	<div class="content">
 		<div class="pageWrapper">
@@ -44,16 +36,40 @@
 				<div class="pageContentWrapper">
 					<div class="rowTop">
 						<div class="columnWrapper">
-							{ONXSHOP_REQUEST_recipe_image #component/recipe_image~id=GET.recipe_id~}
-							<div style="float: right">{ONXSHOP_REQUEST_socialshare #component/social_network_share}</div>
+							<div class="recipe_image">
+								{ONXSHOP_REQUEST_image #component/image~node_id=GET.recipe_id:relation=recipe:width=300~}
+							</div>
+							{RECIPE.description}
+							<p>Serves {RECIPE.serving_people} {RECIPE.persons}</p>
+							<p>Cooking time: {RECIPE.cooking_time} {RECIPE.minutes}</p>
+	
+							{CONTAINER.0}
+						</div>
+					</div>
+		
+					<div class="rowMiddle">
+						<div class="columnOne">
+							<div class="columnWrapper">		
+								<h3>Method</h3>
+								<div class="instructions">
+									{RECIPE.instructions}
+								</div>
+								{ONXSHOP_REQUEST_socialshare #component/social_network_share}
+								{CONTAINER.1}
+							</div>
+						</div>
+						<div class="columnTwo">
+							<div class="columnWrapper">
+								{ONXSHOP_REQUEST_recipe_ingredients #component/ecommerce/recipe_ingredients~id=GET.recipe_id~}
+								
+								{CONTAINER.2}
+							</div>
+						</div>
+					</div>
+					<div class="rowBottom">
+						<div class="columnWrapper">
+							{ONXSHOP_REQUEST_storemessage #component/store-message}
 							
-							<div style="clear: both;">{ONXSHOP_REQUEST_storemessage #component/store-message}</div>
-							
-							{ONXSHOP_REQUEST_recipe_detail #component/recipe_detail~id=GET.recipe_id~}
-							{ONXSHOP_REQUEST_recipe_ingredients #component/recipe_ingredients~id=GET.recipe_id~}
-							{ONXSHOP_REQUEST_recipe_instructions #component/recipe_instructions~id=GET.recipe_id~}
-							{ONXSHOP_REQUEST_recipe_share #component/recipe_share~id=GET.recipe_id~}
-
 							<div class="twoColumnLayout layout fibonacci-5-3">
 								<div class="layoutWrapper">
 									<div class="top"><span></span></div>
@@ -64,7 +80,7 @@
 													<div class="layoutColumnWrapper">
 														<div class="panel node node_group-content ">
 														<h3 class="contentTitle"><span>Similar Recipes</span></h3>	
-															{ONXSHOP_REQUEST_similar_recipes #component/recipe_list_4columns~taxonomy_ids=GET.taxonomy_ids:limit_per_page=4~}
+															{ONXSHOP_REQUEST_similar_recipes #component/ecommerce/recipe_list_4columns~taxonomy_ids=GET.taxonomy_ids:limit_per_page=4~}
 														</div>
 													</div>
 												</div>
@@ -79,26 +95,6 @@
 									<div class="bottom"><span></span></div>
 								</div>
 							</div>
-							
-							{CONTAINER.0}
-						</div>
-					</div>
-		
-					<div class="rowMiddle">
-						<div class="columnOne">
-							<div class="columnWrapper">
-								{CONTAINER.1}
-							</div>
-						</div>
-						<div class="columnTwo">
-							<div class="columnWrapper">
-								{CONTAINER.2}
-							</div>
-						</div>
-					</div>
-					<div class="rowBottom">
-						<div class="columnWrapper">
-							{CONTAINER.3}
 						</div>
 					</div>
 				</div>

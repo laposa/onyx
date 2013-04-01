@@ -1,21 +1,4 @@
-<!-- BEGIN: content -->
-<div class="ingredients_list panel" style="width: 50%; float: left;">
-	<h3 class="contentTitle">Ingredients</h3>
-	<table style="width: 95%;">
-		<!-- BEGIN: ingredient -->
-		<!-- BEGIN: group_title -->
-		<tr class="group_title"><td colspan="2"><strong>{INGREDIENT.group_title}</strong></td></tr>
-		<!-- END: group_title -->
-		<tr><td>{INGREDIENT.product.name}<br/><small>{INGREDIENT.quantity} {INGREDIENT.units_name}</small>
-			<!-- BEGIN: note -->
-			<small>({INGREDIENT.notes})</small>
-			<!-- END: note -->
-		</td><td><a href="#{INGREDIENT.index}">Add to list</a></td></tr>
-		<!-- END: ingredient -->
-		<tr style="background: black; color: white;"><td>Add all to shopping list</td><td><a href="#AddAll">Add to list</a></td></tr>
-	</table>
-</div>
-
+<!-- BEGIN: head -->
 <script type="text/javascript">
 function addToBasketAjaxActionFromVarietyList(variety_id) {
 	
@@ -43,5 +26,22 @@ $(document).ready(function() {
 	});
 });
 </script>
-
+<!-- END: head -->
+<!-- BEGIN: content -->
+<div class="recipe_ingredients">
+	<h3>Ingredients</h3>
+	<table>
+		<!-- BEGIN: ingredient -->
+		<!-- BEGIN: group_title -->
+		<tr class="group_title"><td colspan="2"><strong>{INGREDIENT.group_title}</strong></td></tr>
+		<!-- END: group_title -->
+		<tr><td>{INGREDIENT.product.name}<br/><small>{INGREDIENT.quantity} {INGREDIENT.units_name}</small>
+			<!-- BEGIN: note -->
+			<small>({INGREDIENT.notes})</small>
+			<!-- END: note -->
+		</td><td><a href="#{INGREDIENT.index}">Add to list</a></td></tr>
+		<!-- END: ingredient -->
+		<tr><td>Add all to shopping list</td><td><a href="#AddAll">Add to list</a></td></tr>
+	</table>
+</div>
 <!-- END: content -->

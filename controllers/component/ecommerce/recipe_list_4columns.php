@@ -1,13 +1,13 @@
 <?php
 /**
- * Copyright (c) 2010-2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
 
-require_once('controllers/component/recipe_list.php');
+require_once('controllers/component/ecommerce/recipe_list.php');
 
-class Onxshop_Controller_Component_Recipe_List_4columns extends Onxshop_Controller_Component_Recipe_List {
+class Onxshop_Controller_Component_Ecommerce_Recipe_List_4columns extends Onxshop_Controller_Component_Ecommerce_Recipe_List {
 
 	/**
 	 * Parse recipe list items
