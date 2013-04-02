@@ -102,7 +102,7 @@ CREATE TABLE common_image (
 	 * resize
 	 */
 	 
-	static function resize($file, $required_width, $required_height = false){
+	static function resize($file, $required_width, $required_height = false, $method = 'extent', $gravity = 'center'){
 	
 		//first check file exists and is readable
 		if (!is_readable(ONXSHOP_PROJECT_DIR . $file)) return false;
@@ -134,12 +134,25 @@ CREATE TABLE common_image (
 		msg("Thumbnail will have size $width x $height", 'ok', 3);
 		
 		/**
+		 * resize method option
+		 */
+		
+		if (!in_array(strtolower($method), array('crop', 'extent'))) $method = 'extent';
+		
+		/**
+		 * gravity option
+		 * NorthWest, North, NorthEast, West, Center, East, SouthWest, South, SouthEast
+		 */
+		
+		if (!in_array(strtolower($gravity), array('northwest', 'north', 'northeast', 'west', 'center', 'east', 'southwest', 'south', 'southeast'))) $gravity = 'center';
+		
+		/**
 		 * if height is specified align in center and allow to fill the space
 		 * see http://www.imagemagick.org/Usage/thumbnails/#cut
 		 */
 		
 		if (is_numeric($required_height)) {
-			$other_im_params = "-background none -gravity center -extent {$width}x{$required_height}";
+			$other_im_params = "-background none -gravity {$gravity} -{$method} {$width}x{$required_height}";
 			$height = $required_height;
 			
 		} else {
