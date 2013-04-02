@@ -20,6 +20,7 @@ class Onxshop_Controller_Bo_Node_Content_Product_highlights extends Onxshop_Cont
 		if ($_POST['node']['component']['display_pagination'] == 'on') $_POST['node']['component']['display_pagination'] = 1;
 		else $_POST['node']['component']['display_pagination'] = 0;
 
+		$this->parseProductSelect();
 	}
 	
 	/**
@@ -46,6 +47,20 @@ class Onxshop_Controller_Bo_Node_Content_Product_highlights extends Onxshop_Cont
 					$this->tpl->parse('content.item');
 				}
 			}
+		}
+	}
+
+	function parseProductSelect() {
+
+		require_once('models/ecommerce/ecommerce_product.php');
+		$Product = new ecommerce_product();
+		$listing = $Product->listing('', 'name ASC');
+		foreach ($listing as $item) {
+			if ($item['publish'] == 0) $item['class'] = 'notpublic';
+			$detail = $this->Node->listing("node_group = 'page' AND node_controller = 'product' AND content = '{$item['id']}'");			
+			if (count($detail) == 0) $item['disabled'] = 'disabled';
+			$this->tpl->assign("PRODUCT", $item);
+			$this->tpl->parse("content.product_select_item");
 		}
 	}
 }
