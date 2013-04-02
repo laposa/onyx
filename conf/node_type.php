@@ -50,7 +50,7 @@ $templates_info['page'] = array(
 	'news'=>array('title' => 'News article', 'description'=>'', 'visibility'=>false),
 	'recipe'=>array('title' => 'Recipe', 'description'=>'', 'visibility'=>false),
 	'store'=>array('title' => 'Store', 'description'=>'', 'visibility'=>false),
-	'product'=>array('title' => 'Store', 'description'=>'', 'visibility'=>false),
+	'product'=>array('title' => 'Product', 'description'=>'', 'visibility'=>false),
 	'product_browse'=>array('title' => 'Products Browse', 'description'=>'', 'visibility'=>true),
 	'symbolic'=>array('title' => 'Symbolic Link Page', 'description'=>'', 'visibility'=>true), 
 	'default_template' => 'default'
