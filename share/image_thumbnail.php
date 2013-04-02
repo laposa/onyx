@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2005-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2005-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -16,7 +16,7 @@ $dir = str_replace($_SERVER["SCRIPT_NAME"], "", $_SERVER["SCRIPT_FILENAME"]);
  
 $width = $_GET['width'];
 $image_file = $_GET['image'];
-if (is_numeric($_GET['height'])) $height = $_GET['height'];
+if (array_key_exists('height', $_GET) && is_numeric($_GET['height'])) $height = $_GET['height'];
 else $height = '';
 
 /**
