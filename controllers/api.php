@@ -131,13 +131,13 @@ class Onxshop_Controller_Api extends Onxshop_Controller {
         header("Cache-Control: cache, must-revalidate");
         header("Pragma: public");
 		
-		$formated_data = "\"title\";\"description\";\"url\"\n";
+		$formated_data = "\"id\",\"title\",\"description\",\"url\"\n";
 		
 		foreach ($data as $item) {
 			$item['title'] = htmlspecialchars($item['title'], ENT_QUOTES, 'UTF-8');
 			$item['description'] = htmlspecialchars($item['description'], ENT_QUOTES, 'UTF-8');
 			$item['url'] = htmlspecialchars($item['url'], ENT_QUOTES, 'UTF-8');
-			$formated_data .= "\"{$item['title']}\";\"{$item['description']}\";\"{$item['url']}\";\n";
+			$formated_data .= "\"{$item['id']}\",\"{$item['title']}\",\"{$item['description']}\",\"{$item['url']}\"\n";
 			
 		}
 		
