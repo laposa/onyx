@@ -102,7 +102,7 @@ CREATE TABLE common_image (
 	 * resize
 	 */
 	 
-	static function resize($file, $required_width, $required_height = false, $method = 'extent', $gravity = 'center'){
+	static function resize($file, $required_width, $required_height = false, $method = 'extent', $gravity = 'center', $fill = true){
 	
 		//first check file exists and is readable
 		if (!is_readable(ONXSHOP_PROJECT_DIR . $file)) return false;
@@ -147,8 +147,19 @@ CREATE TABLE common_image (
 		if (!in_array(strtolower($gravity), array('northwest', 'north', 'northeast', 'west', 'center', 'east', 'southwest', 'south', 'southeast'))) $gravity = 'center';
 		
 		/**
+		 * fill option
+		 */
+		 
+		if ($fill == true) {
+			$fill = '^';
+		} else {
+			$fill = '';
+		}
+		
+		/**
 		 * if height is specified align in center and allow to fill the space
-		 * see http://www.imagemagick.org/Usage/thumbnails/#cut
+		 * see	http://www.imagemagick.org/Usage/thumbnails/#cut
+		 		http://www.imagemagick.org/Usage/resize/#shrink
 		 */
 		
 		if (is_numeric($required_height)) {
@@ -175,7 +186,16 @@ CREATE TABLE common_image (
 			$image_configuration = common_image::initConfiguration();
 			$jpeg_quality = $image_configuration['jpeg_quality'];
 			
-			$shell_command = "resize " . escapeshellarg($file_rp) . " " . escapeshellarg($width) . " " . escapeshellarg($height) . " " . escapeshellarg($thumb_file_rp) . " " . $jpeg_quality . " " . escapeshellarg($other_im_params);
+			$file_rp_escaped = escapeshellarg($file_rp);
+			$width = (int)$width;
+			$height = (int)$height;
+			$jpeg_quality = (int)$jpeg_quality;
+			$thumb_file_rp_escaped = escapeshellarg($thumb_file_rp);
+			
+			//usage: resize $filename $width $height $target_filename $quality $other_options
+			///usr/bin/convert "$1" -colorspace RGB -depth 8 -quality $QUALITY -thumbnail $2x$3^ $6 "$4"
+			
+			$shell_command = "convert {$file_rp_escaped} -colorspace RGB -depth 8 -quality {$jpeg_quality} -thumbnail {$width}x{$height}{$fill} {$other_im_params} {$thumb_file_rp_escaped}";
 			
 			$result = local_exec($shell_command);
 			

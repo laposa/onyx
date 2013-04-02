@@ -1,0 +1,5 @@
+#!/bin/sh
+
+umask 001;
+/usr/bin/convert "$@"
+

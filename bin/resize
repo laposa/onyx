@@ -1,5 +1,6 @@
 #!/bin/sh
-#usage: resize $filename $width $height $target_filename $quality $other_options 
+# this file is DEPRECATED, use bin/convert
+# usage: resize $filename $width $height $target_filename $quality $other_options 
 
 QUALITY=${5};
 if [ "$QUALITY" == "" ]; then
