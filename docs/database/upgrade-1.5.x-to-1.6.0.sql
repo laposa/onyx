@@ -113,8 +113,30 @@ CREATE TABLE ecommerce_recipe_taxonomy (
     UNIQUE (node_id, taxonomy_tree_id)
 );
 
+CREATE TABLE ecommerce_recipe_review (
+	id serial PRIMARY KEY NOT NULL,
+	parent int REFERENCES ecommerce_recipe_review ON UPDATE CASCADE ON DELETE CASCADE,
+	node_id int REFERENCES ecommerce_recipe ON UPDATE CASCADE ON DELETE RESTRICT,
+	title varchar(255),
+	content text,
+	author_name varchar(255),
+	author_email varchar(255),
+	author_website varchar(255),
+	author_ip_address varchar(255),
+	customer_id int NOT NULL REFERENCES client_customer ON UPDATE CASCADE ON DELETE RESTRICT,
+	created timestamp(0) default now(),
+	publish smallint,
+	rating smallint default 0,
+	relation_subject text
+);
+
 CREATE INDEX ecommerce_recipe_taxonomy_node_id_key1 ON ecommerce_recipe_taxonomy USING btree (node_id);
 CREATE INDEX ecommerce_recipe_taxonomy_taxonomy_tree_id_key ON ecommerce_recipe_taxonomy USING btree (taxonomy_tree_id);
+CREATE INDEX ecommerce_recipe_review_node_id_key1 ON ecommerce_recipe_review USING btree (node_id);
+
+/*add missing indexes*/
+CREATE INDEX ecommerce_product_review_node_id_key1 ON ecommerce_product_review USING btree (node_id);
+CREATE INDEX common_comment_node_id_key1 ON common_comment USING btree (node_id);
 
 /* recipes schema */
 

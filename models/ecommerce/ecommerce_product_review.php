@@ -39,7 +39,7 @@ CREATE TABLE ecommerce_product_review (
     customer_id int NOT NULL REFERENCES client_customer ON UPDATE CASCADE ON DELETE RESTRICT,
     created timestamp(0) default now(),
     publish smallint,
-	rating default 0,
+	rating smallint default 0,
 	relation_subject text
 );
 		";
