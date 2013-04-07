@@ -4,11 +4,11 @@
 <!-- BEGIN: content -->
 <div class="social_network_share">
 	<ul>
-		<li class="twitter"><a class="twitter-share-button" href="https://twitter.com/share?url={URI|urlencode}&text={NODE.page_title|urlencode}" onclick="nOpenWin('https://twitter.com/share?url={URI|urlencode}&text={NODE.page_title|urlencode}', 400, 300); return false"><span>Tweet</span></a></li>
+		<li class="twitter"><a class="twitter-share-button" href="https://twitter.com/share?url={SHARE_URI|urlencode}&text={NODE.page_title|urlencode}" onclick="nOpenWin('https://twitter.com/share?url={SHARE_URI|urlencode}&text={NODE.page_title|urlencode}', 400, 300); return false"><span>Tweet</span></a></li>
 		<li class="google"><g:plusone size="medium" count="false"></g:plusone></li>
-		<li class="pinterest"><a href="https://pinterest.com/pin/create/button/" onclick="nOpenWin('https://pinterest.com/pin/create/button/?description={NODE.page_title|urlencode}.%20{NODE.description|urlencode}&url={URI|urlencode}&media=http://{_SERVER.HTTP_HOST}/image/{IMAGE.src|urlencode}', 600, 300); return false;"><span>Pin It</span></a></li>
-		<li class="mailto"><a target="_black" href="mailto:?&subject={NODE.page_title|rawurlencode}&body={URI|urlencode}"><span>&#9993; Email</span></a></li>
-		<li class="facebook"><iframe src="//www.facebook.com/plugins/like.php?href={URI|urlencode}&amp;send=false&amp;layout=button_count&amp;width=91&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:91px; height:21px;" allowTransparency="true"></iframe></li>
+		<li class="pinterest"><a href="https://pinterest.com/pin/create/button/" onclick="nOpenWin('https://pinterest.com/pin/create/button/?description={NODE.page_title|urlencode}.%20{NODE.description|urlencode}&url={SHARE_URI|urlencode}&media=http://{_SERVER.HTTP_HOST}/image/{IMAGE.src|urlencode}', 600, 300); return false;"><span>Pin It</span></a></li>
+		<li class="mailto"><a target="_black" href="mailto:?&subject={NODE.page_title|rawurlencode}&body={SHARE_URI|urlencode}"><span>&#9993; Email</span></a></li>
+		<li class="facebook"><iframe src="//www.facebook.com/plugins/like.php?href={SHARE_URI|urlencode}&amp;send=false&amp;layout=button_count&amp;width=91&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=21" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:91px; height:21px;" allowTransparency="true"></iframe></li>
 	</ul>
 	<div class="bottom"><span></span></div>					
 </div>

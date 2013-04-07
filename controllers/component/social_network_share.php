@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2012 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2012-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -26,6 +26,10 @@ class Onxshop_Controller_Component_Social_Network_Share extends Onxshop_Controll
 		//get node detail
 		$node_data = $Node->nodeDetail($node_id);
 		if ($node_data['page_title'] == '') $node_data['page_title'] = $node_data['title'];
+		
+		//set URI
+		$share_uri = "http://".$_SERVER['HTTP_HOST']."/page/$node_id";
+		$this->tpl->assign('SHARE_URI', $share_uri);
 		
 		//get image detail
 		$image_list = $Image->listFiles($node_id);
