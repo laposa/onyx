@@ -2,29 +2,39 @@
 <div class="store_detail">
 	
 	<!-- BEGIN: store -->
+	<p class="store_title">{STORE.title|htmlspecialchars}</p>
+
+	<a class="save_my_store" href="{URI|htmlspecialchars}?set_home_store=true">Save as my own store</a><br/>
+	<p class="change"> or <a href="/locate/">change location</a></p>
+
 	<div class="shop_facility_list">
 		<!-- BEGIN: category -->
 		<span class="tag">{CATEGORY.title}</span>
 		<!-- END: category -->
 		<span style="clear: both;"></span>
 	</div>
-	<p>{STORE.title|htmlspecialchars}</p>
-	<p>{STORE.address|htmlspecialchars}</p>
 
-	<span style="font-family: entypo; font-size: 200%">&#128222;</span> <a href="tel:{STORE.telephone|htmlspecialchars}">{STORE.telephone|htmlspecialchars}</a><br />
+	<p class="store_address">{STORE.address|htmlspecialchars}</p>
+	<p class="opening_hours">{STORE.opening_hours|htmlspecialchars}</p>
 
-	<a class="get_directions" href="https://maps.google.com/maps?saddr=Dublin,+Ireland&amp;daddr=Cork,+Ireland&amp;hl=en&amp;sll=53.349805,-6.26031&amp;sspn=0.390205,0.975037&amp;geocode=Fa0NLgMdqnmg_ykvrCfqgA5nSDGgcTGXqccACg%3BFTziFwMdVIJ-_ylhub6RCJBESDHQxTGXqccACg&amp;oq=cork&amp;mra=ls&amp;t=m&amp;z=8" style="text-decoration: none;"><span style="font-family: entypo; font-size: 200%;">&#128191;</span> Get Directions to here</a><br/>
+	<p><span class="icon">&#128222;</span> <a href="tel:{STORE.telephone|htmlspecialchars}">{STORE.telephone|htmlspecialchars}</a></p>
+	<p><a class="get_directions" href="#" onclick="getDirections({STORE.latitude}, {STORE.longitude}); return false;" style="text-decoration: none;"><span class="icon">&#128191;</span> Get directions to here</a></p>
 
-	<a href="{URI|htmlspecialchars}?set_home_store=true">Save as my own store</a><br/>
+	<!-- BEGIN: smile_app_banner -->
+	<img src="/images/smile_app_banner.png" alt="Use your smile app here"/>
+	<!-- END: smile_app_banner -->
 
-	<img src="http://maps.googleapis.com/maps/api/streetview?size=640x400&amp;location={STORE.latitude|htmlspecialchars},%20{STORE.longitude|htmlspecialchars}&amp;sensor=false" />
+	<script type="text/javascript">
+		$(function(){
+			$(".provinceDropdowns").hide();
+		});
+	</script>
 
-	<br /><br />
 	<!-- END: store -->
 
 	<!-- BEGIN: no_store -->
-	<p>
-		Please select store on the map...
+	<p class="store_title">
+		Find your store on the map
 	</p>
 	<!-- END: no_store -->
 

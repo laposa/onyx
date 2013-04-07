@@ -1,28 +1,8 @@
-<!-- BEGIN: content -->
-<div class="store_message">
-
-	<p>	
-
-	<!-- BEGIN: authorised_not_selected -->
-	Hi there {_SESSION.client.customer.first_name}, you haven't selected your home store yet!
-	<br/>
-	<!-- END: authorised_not_selected -->
-
-	<!-- BEGIN: authorised_selected -->
-	Your local store is <a href="/page/{STORE_PAGE.id}">{STORE.title}</a>.
-	<br/>
-	<!-- END: authorised_selected -->
-
-	<a href="/page/1345" id="nearesStoreButton">Find your nearest store</a>
-
-	</p>
-
-</div>
-
+<!-- BEGIN: head -->
 <script type="text/javascript">
 
 	$(function() {
-		$("#nearesStoreButton").click(function() {
+		$("a.button.nearestStore").click(function() {
 
 			if (navigator.geolocation) {
 				var timeoutVal = 10 * 1000 * 1000;
@@ -39,5 +19,23 @@
 		});
 	});
 </script>
-
+<!-- END: head -->
+<!-- BEGIN: content -->
+<div class="store_message">
+	<div class="store_message_wrapper">
+		<!-- BEGIN: authorised_not_selected -->
+		<p>Hi there {_SESSION.client.customer.first_name}, you haven't selected your home store yet!</p>
+		<!-- END: authorised_not_selected -->
+	
+		<!-- BEGIN: authorised_selected -->
+		<p>Your local store is <a href="/page/{STORE_PAGE.id}">{STORE.title}</a>.</p>
+		<!-- END: authorised_selected -->
+	
+		<p class="find">
+			<span>Don't be a stranger, swing by…</span>
+			<a href="/page/1345" class="button nearestStore">Find your nearest store</a>
+		</p>
+		<div class="bottom"><span></span></div>
+	</div>
+</div>
 <!-- END: content -->
