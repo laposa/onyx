@@ -83,7 +83,8 @@ div.fluid-video video {top: 0; left: 0; width: 100%; height: 100%; position: abs
     #globalNavigation {clear: both; float: none;}
     #globalNavigation li {float: none;}
     #primaryNavigation li {float: none; margin-right: 0;}
-    a.button {width: 100%;}
+    button,
+    a.button {font-size: 200%;}
     /*2cols forms (can be set on whole form or particular fieldset*/
 	form.twoColumns label,
 	fieldset.twoColumns label {padding-right: 0;}
