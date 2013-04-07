@@ -35,6 +35,7 @@ class Onxshop_Controller_Component_Ecommerce_Recipe_List extends Onxshop_Control
 		$limit = "$from,$per_page";
 
 		$list = $Recipe->getRecipeListForTaxonomy($taxonomy_ids, "", $limit);
+		
 		$this->parseItems($list);
 
 		return true;

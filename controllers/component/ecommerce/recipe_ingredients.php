@@ -27,7 +27,7 @@ class Onxshop_Controller_Component_Ecommerce_Recipe_Ingredients extends Onxshop_
 			foreach ($ingredients as $i => $ingredient) {
 
 				$ingredient['index'] = $i;
-
+				
 				$this->tpl->assign("INGREDIENT", $ingredient);
 
 				if ($ingredient['group_title'] != $prevGroup)

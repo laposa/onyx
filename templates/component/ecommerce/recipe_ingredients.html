@@ -1,25 +1,11 @@
 <!-- BEGIN: head -->
 <script type="text/javascript">
-function addToBasketAjaxActionFromVarietyList(variety_id) {
-	
-	$('#item_variety_id_' + variety_id + ' a.add_to_basket').css('background', 'url(/share/images/ajax-indicator/indicator_arrows.gif) no-repeat center left');
-	$("#basket").css('background', 'url(/share/images/ajax-indicator/indicator_arrows.gif) no-repeat center left');
-	$("#basket #basketWrapper").load('/request/component/ecommerce/basket', {'add': variety_id, 'quantity': 1}, function (responseText, textStatus, XMLHttpRequest) {
-		popupMessage("#basket #basketWrapper div.onxshop_messages");
-		
-		$("#basket").css('background', 'none');
-		$('#item_variety_id_' + variety_id + ' a.add_to_basket').css('background', 'url(/images/basket-gold-t.png) no-repeat center left');
-	});
-	
-}
-
-
 $(document).ready(function() {
 
-	$('div.ingredients_list tr').hover(function(){$(this).addClass("highlight");}, function() {$(this).removeClass("highlight");}).click(function(){
+	$('div.recipe_ingredients tr').hover(function(){$(this).addClass("highlight");}, function() {$(this).removeClass("highlight");}).click(function(){
 		
-		var variety_id = $(this).find('a').attr("href").replace(/[^0-9]/g, '');
-
+		var variety_id = $(this).find('a').attr("data-variety_id");
+		
 		addToBasketAjaxActionFromVarietyList(variety_id);
 		
 		return false;
@@ -35,13 +21,16 @@ $(document).ready(function() {
 		<!-- BEGIN: group_title -->
 		<tr class="group_title"><td colspan="2"><strong>{INGREDIENT.group_title}</strong></td></tr>
 		<!-- END: group_title -->
-		<tr><td>{INGREDIENT.product.name}<br/><small>{INGREDIENT.quantity} {INGREDIENT.units_name}</small>
+		<tr>
+			<td>{INGREDIENT.product.name}<br/><small>{INGREDIENT.quantity} {INGREDIENT.units_name}</small>
 			<!-- BEGIN: note -->
 			<small>({INGREDIENT.notes})</small>
 			<!-- END: note -->
-		</td><td><a href="#{INGREDIENT.index}">Add to list</a></td></tr>
+			</td>
+			<td><a class="button add_to_basket variety_id_{INGREDIENT.variety.id}" href="#{INGREDIENT.variety_id}" data-variety_id="{INGREDIENT.variety.id}"><span>Add to list</span></a></td>
+		</tr>
 		<!-- END: ingredient -->
-		<tr><td>Add all to shopping list</td><td><a href="#AddAll">Add to list</a></td></tr>
+		<tr><td>Add all to shopping list</td><td><a class="button add_all" href="#AddAll"><span>Add to list</span></a></td></tr>
 	</table>
 </div>
 <!-- END: content -->

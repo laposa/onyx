@@ -29,6 +29,10 @@ class Onxshop_Controller_Node_Content_Recipe_List extends Onxshop_Controller_Nod
 
 		switch ($node_data['component']['template']) {
 		
+			case 'shelf':
+				$controller = 'recipe_list_shelf';
+				break;
+				
 			case '4col':
 			default:
 				$controller = 'recipe_list_4columns';

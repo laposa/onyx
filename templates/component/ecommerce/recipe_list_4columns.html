@@ -1,15 +1,15 @@
 <!-- BEGIN: content -->
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 
-<div class="recipe_list_4columns">
+<div class="recipe_list recipe_list_4columns">
 	
 		<div class="fourColumnLayout">
 			<!-- BEGIN: column -->
 			<div class="layoutColumn{COLUMN_NUM} ofFour">
 				<!-- BEGIN: item -->
-				<div class="item">
+				<div class="item {ITEM.taxonomy_class}">
 					
-					<div class="image"><a href="/page/{ITEM.page.id}" title="{ITEM.product_name|htmlspecialchars}"><img src="/thumbnail/230/{ITEM.image.src}" alt="{ITEM.image.title|htmlspecialchars}" /></a></div>
+					<div class="image"><a href="/page/{ITEM.page.id}" title="{ITEM.title|htmlspecialchars}"><img src="/thumbnail/230/{ITEM.image.src}" alt="{ITEM.image.title|htmlspecialchars}" /></a></div>
 					<h3 class="name"><a href="/page/{ITEM.page.id}" title="{ITEM.recipe.name|htmlspecialchars}"><span>{ITEM.title|htmlspecialchars}</span></a></h3>
 					
 				</div>
