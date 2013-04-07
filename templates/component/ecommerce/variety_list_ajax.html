@@ -1,29 +1,15 @@
 <!-- BEGIN: content -->
 <script type="text/javascript">
-function addToBasketAjaxActionFromVarietyList(variety_id) {
-	
-	$('#item_variety_id_' + variety_id + ' a.add_to_basket').css('background', 'url(/share/images/ajax-indicator/indicator_arrows.gif) no-repeat center left');
-	$("#basket").css('background', 'url(/share/images/ajax-indicator/indicator_arrows.gif) no-repeat center left');
-	$("#basket #basketWrapper").load('/request/component/ecommerce/basket', {'add': variety_id, 'quantity': 1}, function (responseText, textStatus, XMLHttpRequest) {
-		popupMessage("#basket #basketWrapper div.onxshop_messages");
-		
-		$("#basket").css('background', 'none');
-		$('#item_variety_id_' + variety_id + ' a.add_to_basket').css('background', 'url(/images/basket-gold-t.png) no-repeat center left');
-	});
-	
-}
-
-
 $(document).ready(function() {
 
-	$('div.variety_list_ajax tr.onstock').hover(function(){$(this).addClass("highlight");}, function() {$(this).removeClass("highlight");}).click(function(){
-		
-		var variety_id = $(this).find('a').attr("href").replace(/[^0-9]/g, '');
+    $('div.variety_list_ajax tr.onstock').hover(function(){$(this).addClass("highlight");}, function() {$(this).removeClass("highlight");}).click(function(){
+        
+        var variety_id = $(this).find('a').attr("data-variety_id");
 
-		addToBasketAjaxActionFromVarietyList(variety_id);
-		
-		return false;
-	});
+        addToBasketAjaxActionFromVarietyList(variety_id);
+        
+        return false;
+    });
 });
 </script>
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
@@ -40,7 +26,7 @@ $(document).ready(function() {
 					<a title="{VARIETY.name|htmlspecialchars}" href="#variety_id_{VARIETY.id}"><span class="price">{PRICE}</span></a>
 				</td>
 				<td class="last">
-					<a class="add_to_basket" href="#variety_id_{VARIETY.id}" title="Add to basket"><span>{I18N_ADD_TO_BASKET}</span></a>
+					<a class="add_to_basket variety_id_{VARIETY.id}" href="#variety_id_{VARIETY.id}" data-variety_id="{INGREDIENT.variety.id}" title="Add to basket"><span>{I18N_ADD_TO_BASKET}</span></a>
 				</td>
 			</tr>
 			<tr>
