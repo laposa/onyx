@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2006-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2006-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -50,9 +50,18 @@ class Onxshop_Controller_Component_Breadcrumb extends Onxshop_Controller {
 			$this->tpl->parse('content.item');
 		}
 		
+		$number_of_page_items = 0;
 		$i = 1;
 		foreach ($path as $p) {
-			if ($p['node_group'] == 'page' || $p['node_group'] == 'product') {
+		
+			if ($p['node_group'] == 'page') {
+			
+				if ($i < $size || $create_last_link) $last_item = false;
+				else $last_item = true;
+				
+				if ($last_item) $this->tpl->assign('LAST', 'last');
+				else $this->tpl->assign('LAST', '');
+				
 				$this->tpl->assign('PATH', $p);
 				
 				if ($i > 1) $this->tpl->parse('content.item.path_delimiter');
@@ -61,10 +70,12 @@ class Onxshop_Controller_Component_Breadcrumb extends Onxshop_Controller {
 				else $this->tpl->parse('content.item.last');
 				
 				$this->tpl->parse('content.item');
+				$number_of_page_items++;
 			}
 			$i++;
 		}
-
+		
+		$this->tpl->assign('NUMBER_OF_ITEMS', $number_of_page_items);
 		return true;
 	}
 	
