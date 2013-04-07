@@ -102,7 +102,7 @@ CREATE TABLE common_image (
 	 * resize
 	 */
 	 
-	static function resize($file, $required_width, $required_height = false, $method = 'extent', $gravity = 'center', $fill = true){
+	static function resize($file, $required_width, $required_height = false, $method = 'extent', $gravity = 'center', $fill = false){
 	
 		//first check file exists and is readable
 		if (!is_readable(ONXSHOP_PROJECT_DIR . $file)) return false;
