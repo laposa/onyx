@@ -77,38 +77,44 @@
 			<div class="pageContent">
 				<div class="pageContentWrapper">
 					<div class="rowTop">
-						<div class="columnWrapper">
-							{CONTAINER.0}
-							<div class="provinceMenu">
-							{ONXSHOP_REQUEST_province_menu #component/menu~expand_all=1:level=2:id=1345~}
+						<div class="rowWrapper">
+							<div class="columnWrapper">
+								{CONTAINER.0}
+								<div class="provinceMenu">
+								{ONXSHOP_REQUEST_province_menu #component/menu~expand_all=1:level=2:id=1345~}
+								</div>
+								<!-- BEGIN: dublin_menu -->
+								<div class="dublinMenu">
+									{ONXSHOP_REQUEST_dublin_menu #component/menu~expand_all=1:level=1:id=1536~}
+								</div>
+								<!-- END: dublin_menu -->
+	
+								{ONXSHOP_REQUEST_store_locator #component/store_locator~node_id=GET.id~}
+								{ONXSHOP_REQUEST_store_message #component/store_message}
+								{ONXSHOP_REQUEST_store_detail #component/store_detail~node_id=GET.id~}
+								{ONXSHOP_REQUEST_store_nearby #component/store_nearby_radius~node_id=GET.id~}
 							</div>
-							<!-- BEGIN: dublin_menu -->
-							<div class="dublinMenu">
-								{ONXSHOP_REQUEST_dublin_menu #component/menu~expand_all=1:level=1:id=1536~}
-							</div>
-							<!-- END: dublin_menu -->
-
-							{ONXSHOP_REQUEST_store_locator #component/store_locator~node_id=GET.id~}
-							{ONXSHOP_REQUEST_store_message #component/store_message}
-							{ONXSHOP_REQUEST_store_detail #component/store_detail~node_id=GET.id~}
-							{ONXSHOP_REQUEST_store_nearby #component/store_nearby_radius~node_id=GET.id~}
 						</div>
 					</div>
 					<div class="rowMiddle">
-						<div class="columnOne">
-							<div class="columnWrapper">
-								{CONTAINER.1}
+						<div class="rowWrapper">
+							<div class="columnOne">
+								<div class="columnWrapper">
+									{CONTAINER.1}
+								</div>
 							</div>
-						</div>
-						<div class="columnTwo">
-							<div class="columnWrapper">
-								{CONTAINER.2}
+							<div class="columnTwo">
+								<div class="columnWrapper">
+									{CONTAINER.2}
+								</div>
 							</div>
 						</div>
 					</div>
 					<div class="rowBottom">
-						<div class="columnWrapper">
-							{CONTAINER.3}
+						<div class="rowWrapper">
+							<div class="columnWrapper">
+								{CONTAINER.3}
+							</div>
 						</div>
 					</div>
 				</div>

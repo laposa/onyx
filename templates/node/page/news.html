@@ -35,54 +35,60 @@
 			<div class="pageContent">
 				<div class="pageContentWrapper">
 					<div class="rowTop">
-						<div class="columnWrapper">
-							<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
-							{CONTAINER.0}
+						<div class="rowWrapper">
+							<div class="columnWrapper">
+								<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+								{CONTAINER.0}
+							</div>
 						</div>
 					</div>
 		
 					<div class="rowMiddle">
-						<div class="columnOne">
-							<div class="columnWrapper">
-								<div>
-									<div class="note"><p>{I18N_POSTED_ON} {NODE.created|strtotime|strftime('%A %e %B %Y', %s)} {I18N_BY} <span class="author_name">{NODE.author_detail.name|htmlspecialchars}</span></p></div>
+						<div class="rowWrapper">
+							<div class="columnOne">
+								<div class="columnWrapper">
+									<div>
+										<div class="note"><p>{I18N_POSTED_ON} {NODE.created|strtotime|strftime('%A %e %B %Y', %s)} {I18N_BY} <span class="author_name">{NODE.author_detail.name|htmlspecialchars}</span></p></div>
+										
+										<div class="body">
+											{NODE.content}
+											{CONTAINER.1}
+										</div>
+										
+										<div class="socialSharing">
+											{ONXSHOP_REQUEST_addthis #component/social_network_addthis}
+										</div>
+		
+										<!-- BEGIN: comment -->
+										<div class="comment" id="comment">
+											<h3>{I18N_COMMENT_HEAD}</h3>
+											{COMMENT}
+										</div>
+										<!-- END: comment -->
+							
+							
+										<div class="back">
+											<p><a href="/page/{BLOG_NODE_ID}"><span>{I18N_VIEW_ALL_ARTICLES}</span></a></p>
+										</div>
+									</div>
+				
 									
-									<div class="body">
-										{NODE.content}
-										{CONTAINER.1}
-									</div>
-									
-									<div class="socialSharing">
-										{ONXSHOP_REQUEST_addthis #component/social_network_addthis}
-									</div>
-	
-									<!-- BEGIN: comment -->
-									<div class="comment" id="comment">
-										<h3>{I18N_COMMENT_HEAD}</h3>
-										{COMMENT}
-									</div>
-									<!-- END: comment -->
-						
-						
-									<div class="back">
-										<p><a href="/page/{BLOG_NODE_ID}"><span>{I18N_VIEW_ALL_ARTICLES}</span></a></p>
-									</div>
 								</div>
-			
-								
 							</div>
-						</div>
-						<div class="columnTwo">
-							<div class="columnWrapper">
-								
-								{ONXSHOP_REQUEST_news_list #component/news_list_related~node_id=GET.id:blog_node_id=GET.parent_id:publish=1:limit_from=0:limit_per_page=25~}					
-								{CONTAINER.2}
+							<div class="columnTwo">
+								<div class="columnWrapper">
+									
+									{ONXSHOP_REQUEST_news_list #component/news_list_related~node_id=GET.id:blog_node_id=GET.parent_id:publish=1:limit_from=0:limit_per_page=25~}					
+									{CONTAINER.2}
+								</div>
 							</div>
 						</div>
 					</div>
 					<div class="rowBottom">
-						<div class="columnWrapper">
-							{CONTAINER.3}
+						<div class="rowWrapper">
+							<div class="columnWrapper">
+								{CONTAINER.3}
+							</div>
 						</div>
 					</div>
 				</div>
