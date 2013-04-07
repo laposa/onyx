@@ -406,6 +406,9 @@ class Onxshop_Bootstrap {
 	 
 	function indexContent($uri, $htmlString) {
 	
+		//disable
+		return true;
+		
 		require_once('Zend/Search/Lucene.php');
 
 		$index_location = ONXSHOP_PROJECT_DIR . 'var/index';
