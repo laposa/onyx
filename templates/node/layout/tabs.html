@@ -1,8 +1,9 @@
 <!-- BEGIN: head_once -->
+<script type="text/javascript" src="/share/js/jquery/ui/jquery-ui.all.min.js"></script>
 <script type="text/javascript">
 $(function() { 
     // setup ul.tabs to work as tabs for each div directly under div.tabsLayout div.layoutBody 
-    $("div.tabsLayout ul.tabs").tabs("div.tabsLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutBody > div", {current: 'active'});
+    $("div.tabsLayout div.tabsWrapper").tabs();
 
 });
 </script>
@@ -16,14 +17,17 @@ $(function() {
 				<!-- BEGIN: title --><h2 class="layoutTitle"><a href="#node_id_{NODE.id}"><span>{NODE.title|htmlspecialchars}</span></a></h2><!-- END: title -->
 				<!-- BEGIN: title_link --><h2 class="layoutTitle"><a href="/page/{NODE.link_to_node_id}"><span>{NODE.title|htmlspecialchars}</span></a></h2><!-- END: title_link -->
 				
-				<!-- BEGIN: menu -->
-				<ul class="tabs">
-					<!-- BEGIN: item --><li class="node_id_{ITEM.id} {FIRST_LAST}"><a href="#node_id_{ITEM.id}"><span>{ITEM.title|htmlspecialchars}</span></a></li><!-- END: item -->
-				</ul>
-				<!-- END: menu -->
-				
-				<div class="layoutBody tabsBody">
-					{CONTAINER.1}
+				<div class="tabsWrapper">
+					<!-- BEGIN: menu -->
+					<ul class="tabs">
+						<!-- BEGIN: item --><li class="node_id_{ITEM.id} {FIRST_LAST}"><a href="#node_id_{ITEM.id}"><span>{ITEM.title|htmlspecialchars}</span></a></li><!-- END: item -->
+					</ul>
+					<!-- END: menu -->
+					
+					<div class="layoutBody tabsBody">
+						{CONTAINER.1}
+						<div class="bottom"><span></span></div>
+					</div>
 				</div>
 			</div>
 		</div>
