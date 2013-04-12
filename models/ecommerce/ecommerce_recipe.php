@@ -316,7 +316,7 @@ CREATE TABLE ecommerce_recipe (
 		require_once('models/ecommerce/ecommerce_recipe_taxonomy.php');
 		$Taxonomy = new ecommerce_recipe_taxonomy();
 		
-		$relations = $Taxonomy->getRelationsToRecipe($product_id);
+		$relations = $Taxonomy->getRelationsToRecipe($recipe_id);
 		
 		return $relations;
 	}
