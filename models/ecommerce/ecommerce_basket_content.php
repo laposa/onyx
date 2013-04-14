@@ -41,7 +41,7 @@ class ecommerce_basket_content extends Onxshop_Model {
 		'product_variety_id'=>array('label' => '', 'validation'=>'int', 'required'=>true),
 		'quantity'=>array('label' => '', 'validation'=>'int', 'required'=>true),
 		'price_id'=>array('label' => '', 'validation'=>'int', 'required'=>true),
-		'other_data'=>array('label' => '', 'validation'=>'string', 'required'=>false),
+		'other_data'=>array('label' => '', 'validation'=>'serialized', 'required'=>false),
 		'product_type_id'=>array('label' => '', 'validation'=>'int', 'required'=>true)
 	);
 	
