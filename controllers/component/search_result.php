@@ -143,7 +143,7 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 
 		$excerpt = $this->highlightKeywords(strip_tags($recipe['description']));
 
-		$request = new Onxshop_Request("component/image~relation=recipe:role=main:width=100:node_id={$recipe['id']}:limit=0,1~");
+		$request = new Onxshop_Request("component/image~relation=recipe:role=main:width=100:height=100:node_id={$recipe['id']}:limit=0,1~");
 		$this->tpl->assign('IMAGE', $request->getContent());
 		$this->tpl->parse('content.result.item.image');
 
@@ -167,7 +167,7 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 		if (strlen($store['opening_hours']) > 0) $excerpt .= "<br/><br/>" . nl2br($store['opening_hours']);
 		$excerpt = $this->highlightKeywords($excerpt);
 
-		$request = new Onxshop_Request("component/image~relation=store:role=main:width=100:node_id={$store['id']}:limit=0,1~");
+		$request = new Onxshop_Request("component/image~relation=store:role=main:width=100:height=100:node_id={$store['id']}:limit=0,1~");
 		$this->tpl->assign('IMAGE', $request->getContent());
 		$this->tpl->parse('content.result.item.image');
 
@@ -189,7 +189,7 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 		else $excerpt = $product['address'];
 		$excerpt = $this->highlightKeywords(strip_tags($excerpt));
 
-		$request = new Onxshop_Request("component/image~relation=product:role=main:width=100:node_id={$product['id']}:limit=0,1~");
+		$request = new Onxshop_Request("component/image~relation=product:role=main:width=100:height=100:node_id={$product['id']}:limit=0,1~");
 		$this->tpl->assign('IMAGE', $request->getContent());
 		$this->tpl->parse('content.result.item.image');
 
