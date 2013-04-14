@@ -380,9 +380,9 @@ CREATE TABLE ecommerce_product (
 	    	//stock value
 	    	if (is_numeric($filter['stock']) && $filter['stock'] >= 0) $add_to_where .= " AND variety.stock < {$filter['stock']}";
 	    	
-	    	//disable/enabled
-	    	if ($filter['disabled'] == 'disabled') $add_to_where .= " AND product.publish = 0";
-	    	else if ($filter['disabled'] == 'enabled') $add_to_where .= " AND product.publish = 1 AND variety.publish = 1";
+	    	//publish filter and deprecated disable/enabled option
+	    	if ($filter['publish'] === 0 || $filter['disabled'] == 'disabled') $add_to_where .= " AND product.publish = 0";
+	    	else if ($filter['publish'] === 1  || $filter['disabled'] == 'enabled') $add_to_where .= " AND product.publish = 1 AND variety.publish = 1";
 	    	
 	    	//taxonomy
 	    	if ($filter['taxonomy_json']) {
