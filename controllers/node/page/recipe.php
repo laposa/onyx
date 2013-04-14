@@ -52,7 +52,7 @@ class Onxshop_Controller_Node_Page_Recipe extends Onxshop_Controller_Node_Page_D
 		 
 		$Recipe_Taxonomy = new ecommerce_recipe_taxonomy();
 		$taxonomy_ids = $Recipe_Taxonomy->getRelationsToRecipe($this->GET['recipe_id']);
-		$this->GET['taxonomy_ids'] = implode(",", $taxonomy_ids);
+		$this->GET['taxonomy_tree_id'] = implode(",", $taxonomy_ids);
 
 	}
 	

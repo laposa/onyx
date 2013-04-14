@@ -19,7 +19,7 @@ class Onxshop_Controller_Component_Ecommerce_Recipe_List extends Onxshop_Control
 		$Recipe = new ecommerce_recipe();
 
 		// get taxonomy ids
-		$taxonomy_ids = explode(",", $this->GET['taxonomy_ids']);
+		$taxonomy_ids = explode(",", $this->GET['taxonomy_tree_id']);
 
 		// validate input
 		if (!is_array($taxonomy_ids)) return false;
