@@ -44,8 +44,12 @@ class Onxshop_Controller_Component_Image_Gallery extends Onxshop_Controller_Comp
 		/**
 		 * display thumbnails only if there is more than one item
 		 */
-		 
-		if (count($image_list) > 1) {
+		
+		$image_count = count($image_list);
+		
+		$this->tpl->assign('IMAGE_COUNT', $image_count);
+		
+		if ($image_count > 1) {
 		
 			foreach ($image_list as $item) {
 		
