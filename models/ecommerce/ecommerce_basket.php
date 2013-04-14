@@ -33,13 +33,19 @@ class ecommerce_basket extends Onxshop_Model {
 	
 	var $discount_net;
 	
+	var $title;
+	
+	var $other_data;
+	
 	var $_metaData = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'customer_id'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'created'=>array('label' => '', 'validation'=>'datetime', 'required'=>true),
 		'note'=>array('label' => '', 'validation'=>'string', 'required'=>false),
 		'ip_address'=>array('label' => '', 'validation'=>'string', 'required'=>true),
-		'discount_net'=>array('label' => '', 'validation'=>'decimal', 'required'=>false)
+		'discount_net'=>array('label' => '', 'validation'=>'decimal', 'required'=>false),
+		'title'=>array('label' => '', 'validation'=>'string', 'required'=>false),
+		'other_data'=>array('label' => '', 'validation'=>'serialized', 'required'=>false)
 		);
 	
 	/**
@@ -55,7 +61,9 @@ CREATE TABLE ecommerce_basket (
     created timestamp(0) without time zone,
     note text,
     ip_address character varying(255),
-    discount_net decimal(12,5)
+    discount_net decimal(12,5),
+    title character varying(255),
+    other_data	text
 );
 		";
 		

@@ -276,5 +276,8 @@ ALTER TABLE ecommerce_recipe_image ADD COLUMN link_to_node_id integer;
 ALTER TABLE ecommerce_store_image ADD COLUMN link_to_node_id integer;
 ALTER TABLE education_survey_image ADD COLUMN link_to_node_id integer;
 
+/* add extra columns to ecommerce_basket */
+ALTER TABLE ecommerce_basket ADD COLUMN title character varying(255);
+ALTER TABLE ecommerce_basket ADD COLUMN other_data text;
 
 COMMIT;
