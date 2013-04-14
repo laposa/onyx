@@ -1,0 +1,28 @@
+<!-- BEGIN: content -->
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+
+<div class="recipe_list recipe_list_shelf">
+
+	<!-- BEGIN: item -->
+	<div class="item {ITEM.taxonomy_class}">
+		
+		<div class="twoColumnLayout fibonacci-2-5">
+			<div class="layoutColumnOne ofTwo">
+				<div class="image"><a href="/page/{ITEM.page.id}" title="{ITEM.title|htmlspecialchars}"><img src="/thumbnail/230/{ITEM.image.src}" alt="{ITEM.image.title|htmlspecialchars}" /></a></div>
+			</div>
+			<div class="layoutColumnTwo ofTwo">
+				<div class="description">
+					<h3 class="name"><a href="/page/{ITEM.page.id}" title="{ITEM.recipe.name|htmlspecialchars}"><span>{ITEM.title|htmlspecialchars}</span></a></h3>
+					{ITEM.description}
+					<p>serving people: {ITEM.serving_people}<br />cooking time: {ITEM.cooking_time}</p>
+				</div>
+			</div>
+			
+		</div>
+		
+	</div>
+	<div class="divider"><hr /></div>
+	<!-- END: item -->
+	
+</div>
+<!-- END: content -->
