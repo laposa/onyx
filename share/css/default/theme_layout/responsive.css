@@ -21,13 +21,6 @@
 html { overflow-y: scroll; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; }
 
 /**
- * add margin to bottom of inline images: TODO move to global.css
- */
- 
-div.content-RTE .imageLeft, 
-div.content-RTE .imageleft {margin-bottom: 1em;}
-
-/**
  * make container full size
  */
  

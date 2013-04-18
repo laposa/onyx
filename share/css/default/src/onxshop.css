@@ -44,6 +44,11 @@
 #globalNavigation a {text-decoration: none; display: block; padding: 7px 15px;}
 #globalNavigation a:active span {text-decoration: underline;}
 
+/**
+ * reveal navigation
+ */
+ 
+#revealNavigationButton {display: none;}
 
 /**
  * primary navigation
@@ -319,9 +324,9 @@ div.content-RTE {clear: both; margin-bottom: 15px;}
 /* do not specify img., conflict with reflection*/
 /* use both cases (TinyMCE/Safari bug)*/
 div.content-RTE .imageLeft,
-div.content-RTE .imageleft {float: left; margin-right: 15px;}
+div.content-RTE .imageleft {float: left; margin-right: 15px; margin-bottom: 15px;}
 div.content-RTE .imageRight,
-div.content-RTE .imageright {float: right; margin-left: 15px;}
+div.content-RTE .imageright {float: right; margin-left: 15px; margin-bottom: 15px;}
 div.content-RTE .imageBorder,
 div.content-RTE .border {border: 1px solid black;}
 
