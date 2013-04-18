@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2005-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2005-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -102,29 +102,58 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 		
 		
 		/**
-		 * check template file exists in ONXSHOP_DIR or in ONXSHOP_PROJECT_DIR
+		 * check if template file exists in ONXSHOP_DIR or in ONXSHOP_PROJECT_DIR
 		 */
 		 
-		$controller_path = "node/{$node_data['node_group']}/{$node_data['node_controller']}";
+		$template_path = "node/{$node_data['node_group']}/{$node_data['node_controller']}";
 		
-		$controller_template_path = "templates/{$controller_path}.html";
+		$template_file_path = "templates/{$template_path}.html";
 		
-		if (file_exists(ONXSHOP_DIR . $controller_template_path) || file_exists(ONXSHOP_PROJECT_DIR . $controller_template_path)) {
+		if (file_exists(ONXSHOP_DIR . $template_file_path) || file_exists(ONXSHOP_PROJECT_DIR . $template_file_path)) {
+
+			$template = $template_path;
+			
+		} else {
+		
+			msg("missing $template_file_path", 'error', 1);
+			
+			//fallback to default
+			$template = "node/{$node_data['node_group']}/default";
+		
+		}
+		
+		/**
+		 * check if controller exits
+		 */
+		 
+		$controller_path = $template_path; //try the same filename as for the template
+		
+		$controller_file_path = "controllers/{$controller_path}.php";
+		
+		if (file_exists(ONXSHOP_DIR . $controller_file_path) || file_exists(ONXSHOP_PROJECT_DIR . $controller_file_path)) {
 
 			$controller = $controller_path;
 			
 		} else {
 		
+			//fallback to default
 			$controller = "node/{$node_data['node_group']}/default";
 		
 		}
 		
 		/**
-		 * process controller referred from this node
+		 * check if we need to use default_controller@specic_template
 		 */
 		 
+		if ($template == $controller) $controller_request = $template;
+		else $controller_request = "{$controller}@{$template}";
+		
+		/**
+		 * process controller referred from this node
+		 */
+		
 		msg("Node process: $controller", 'ok', 2);
-		$_Onxshop_Request = new Onxshop_Request("$controller&id={$node_data['id']}&parent_id={$node_data['parent']}");
+		$_Onxshop_Request = new Onxshop_Request("$controller_request&id={$node_data['id']}&parent_id={$node_data['parent']}");
 		$node_data['content'] = $_Onxshop_Request->getContent();
 		
 		/**
