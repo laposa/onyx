@@ -405,9 +405,6 @@ class Onxshop_Bootstrap {
 	 */
 	 
 	function indexContent($uri, $htmlString) {
-	
-		//disable
-		return true;
 		
 		require_once('Zend/Search/Lucene.php');
 
