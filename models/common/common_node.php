@@ -1176,7 +1176,7 @@ CREATE TABLE common_node (
     	
     	if (is_numeric($node_id)) return $node_id;
     	else {
-    		msg("Node_id for SEO URI $seo_uri was not found", 'error');
+    		msg("Node_id for SEO URI $seo_uri was not found", 'error', 1);
     		return false;
     	}
     }
