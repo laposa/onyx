@@ -386,7 +386,7 @@ class Onxshop_Bootstrap {
 		    	$cache->save($data_to_cache);
 		    	
 		    	// update index immediately
-		    	$this->indexContent($_GET['translate'], $this->output);
+		    	if (ONXSHOP_ALLOW_SEARCH_INDEX_AUTOUPDATE) $this->indexContent($_GET['translate'], $this->output);
 		    }
 
 		} else {

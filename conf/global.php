@@ -181,3 +181,9 @@ if (!defined('AFTER_CLIENT_LOGOUT_URL')) define('AFTER_CLIENT_LOGOUT_URL', '/');
  */
 
 if (!defined('ONXSHOP_ALLOW_SCHEDULER')) define('ONXSHOP_ALLOW_SCHEDULER', false);
+
+/**
+ * allow search index update on cache save event
+ */
+
+if (!defined('ONXSHOP_ALLOW_SEARCH_INDEX_AUTOUPDATE')) define('ONXSHOP_ALLOW_SEARCH_INDEX_AUTOUPDATE', false);
