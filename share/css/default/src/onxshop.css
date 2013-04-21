@@ -145,7 +145,7 @@ div.news div.addThisButtons {margin-bottom: 15px;}
 /************ node/page/default.html ****/
 div.rowTop:after,
 div.rowMiddle:after,
-div.rowBottom:after {content: '.'; display: block; height: 0; clear: both; visibility: hidden;}
+div.rowBottom:after {content: '.'; display: block; height: 0; font-size: 0; clear: both; visibility: hidden;}
 
 /*default, fobinaci-1-1, 50%/50%*/
 div.twoColumnPage div.columnOne,
