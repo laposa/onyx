@@ -2,7 +2,7 @@
 /**
  * Global Onxshop configuration
  *
- * Copyright (c) 2005-2012 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2005-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 	
  */
@@ -187,3 +187,10 @@ if (!defined('ONXSHOP_ALLOW_SCHEDULER')) define('ONXSHOP_ALLOW_SCHEDULER', false
  */
 
 if (!defined('ONXSHOP_ALLOW_SEARCH_INDEX_AUTOUPDATE')) define('ONXSHOP_ALLOW_SEARCH_INDEX_AUTOUPDATE', false);
+
+/**
+ * Set pre-action list as array
+ */
+
+$onxshop_pre_actions = array("autologin", "locales");
+if (ONXSHOP_ALLOW_SCHEDULER) $onxshop_pre_actions[] = "scheduler";

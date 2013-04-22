@@ -60,10 +60,10 @@ if (ONXSHOP_IS_DEBUG_HOST && ONXSHOP_DEBUG_FIREBUG) {
 $Bootstrap = new Onxshop_Bootstrap();
 
 /**
- * Init pre-action
+ * Init pre-action (standard pre-actions defined as global variable in conf/global.php)
  */
 
-$Bootstrap->initPreAction(array("autologin", "locales" , "scheduler"));
+$Bootstrap->initPreAction($onxshop_pre_actions);
 
 /**
  * Init action
