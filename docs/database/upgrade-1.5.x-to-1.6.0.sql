@@ -32,10 +32,6 @@ SELECT pg_catalog.setval('ecommerce_delivery_carrier_zone_id_seq', (SELECT max(i
 SELECT pg_catalog.setval('ecommerce_delivery_carrier_zone_to_country_id_seq', (SELECT max(id) FROM ecommerce_delivery_carrier_zone_to_country), true);
 SELECT pg_catalog.setval('ecommerce_delivery_carrier_zone_price_id_seq', (SELECT max(id) FROM ecommerce_delivery_carrier_zone_price), true);
 
-ALTER INDEX "shipping_wz_zone_price_zone_id_fkey" RENAME TO "ecommerce_delivery_carrier_zone_price_zone_id_fkey";
-ALTER INDEX "shipping_wz_country_to_zone_zone_id_fkey" RENAME TO "ecommerce_delivery_carrier_country_to_zone_zone_id_fkey";
-ALTER INDEX "shipping_wz_country_to_zone_country_id_fkey" RENAME TO "ecommerce_delivery_carrier_country_to_zone_country_id_fkey";
-
 /* education_survey_image and content column for RTE */
 
 ALTER TABLE "education_survey_question" ADD COLUMN "content" text;
@@ -280,4 +276,11 @@ ALTER TABLE education_survey_image ADD COLUMN link_to_node_id integer;
 ALTER TABLE ecommerce_basket ADD COLUMN title character varying(255);
 ALTER TABLE ecommerce_basket ADD COLUMN other_data text;
 
+COMMIT;
+
+/*this only applies to installation made earlier than Onxshop 1.5 */
+BEGIN;
+ALTER INDEX "shipping_wz_zone_price_zone_id_fkey" RENAME TO "ecommerce_delivery_carrier_zone_price_zone_id_fkey";
+ALTER INDEX "shipping_wz_country_to_zone_zone_id_fkey" RENAME TO "ecommerce_delivery_carrier_country_to_zone_zone_id_fkey";
+ALTER INDEX "shipping_wz_country_to_zone_country_id_fkey" RENAME TO "ecommerce_delivery_carrier_country_to_zone_country_id_fkey";
 COMMIT;
