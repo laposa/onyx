@@ -71,7 +71,7 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 
 						//try to save and if not successfull display survey form again
 						if ($survey_entry_id = $this->saveEntry($survey_id, $submitted_answers)) {
-							msg("Survey ID $survey_id has been submitted as entry ID $survey_entry_id.");
+							msg("Survey ID $survey_id has been submitted as entry ID $survey_entry_id.", 'ok', 0, 'survey_submitted');
 							onxshopGoTo($_SESSION['uri'], 2);
 						} else {
 							msg("Some error occurred during survey submission", 'error');
