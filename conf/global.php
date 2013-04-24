@@ -189,7 +189,7 @@ if (!defined('ONXSHOP_ALLOW_SCHEDULER')) define('ONXSHOP_ALLOW_SCHEDULER', false
 if (!defined('ONXSHOP_ALLOW_SEARCH_INDEX_AUTOUPDATE')) define('ONXSHOP_ALLOW_SEARCH_INDEX_AUTOUPDATE', false);
 
 /**
- * Set pre-action list as array
+ * Set pre-action list as array, used in bootstrap.php
  */
 
 $onxshop_pre_actions = array("autologin", "locales");
