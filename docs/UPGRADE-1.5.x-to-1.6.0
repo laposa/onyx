@@ -3,7 +3,7 @@ psql -U {DBUSER} -h localhost {DB-1_6} < onxshop_dir/docs/database/upgrade-1.5.x
 
 #add extra CSS classed to all local layouts (ofTwo, ofThree, etc), find by
 grep layoutColumnOne `find ./templates/`
-#removed jquery-ui.custom.js
+#replace jquery-ui.custom.js with jquery-ui.all.min.js
 grep jquery-ui.custom.js `find ./templates/`
 
 rename contentFooter to contentBottom
