@@ -21,6 +21,7 @@ class Onxshop_Controller_Node_Site_Default extends Onxshop_Controller {
 		 */
 		 
 		$node_data = $this->Node->nodeDetail($this->GET['id']);
+		if ($node_data['page_title'] == '') $node_data['page_title'] = $node_data['title'];
 		
 		/**
 		 * when display_secondary_navigation is hidden, add extra css class "noSecondaryNavigation"
