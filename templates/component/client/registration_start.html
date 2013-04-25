@@ -3,7 +3,7 @@
 
 <script type="text/javascript">  
 $(document).ready(function(){  
-	$("#registration_start_node_id_{GET.node_id}").validate();  
+	$("#registration_start_node_id_{GET.node_id}").validate({onkeyup: false});  
 });  
 </script>
 
@@ -13,7 +13,7 @@ $(document).ready(function(){
 			<legend>{I18N_RS_NEW_CUSTOMER}</legend>
 			<div class="row username">
 				<span class="label"><label for="register">{I18N_RS_YOUR_EMAIL}</label></span>
-				<span class="field"><input class="required text" id="register" type="text" name="client[customer][email]" value="{CLIENT.customer.email|htmlspecialchars}"/></span>
+				<span class="field"><input class="required email" id="register" type="email" name="client[customer][email]" value="{CLIENT.customer.email|htmlspecialchars}"/></span>
 			</div>
 		</fieldset>
 		<div class="row submit">

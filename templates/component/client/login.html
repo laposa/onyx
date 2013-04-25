@@ -3,7 +3,7 @@
 <!-- BEGIN: login_box -->
 <script type="text/javascript">  
 $(document).ready(function(){  
-	$("#login_node_id_{GET.node_id}").validate();  
+	$("#login_node_id_{GET.node_id}").validate({onkeyup: false});  
 });  
 </script>
 
@@ -13,7 +13,7 @@ $(document).ready(function(){
 			<legend>{I18N_EXISTING_CUSTOMER}</legend>
 			<div class="row username">
 				<span class="label"><label for="client-username">{I18N_YOUR_EMAIL}:</label></span>
-				<span class="field"><input class="required text" id="client-username" type="text" name="client[username]" value="{CLIENT.username|htmlspecialchars}"/></span>
+				<span class="field"><input class="required email" id="client-username" type="email" name="client[username]" value="{CLIENT.username|htmlspecialchars}"/></span>
 			</div>
 			<div class="row password">
 				<span class="label"><label for="client-password">{I18N_YOUR_PASSWORD}:</label></span>
