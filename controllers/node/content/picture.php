@@ -60,6 +60,8 @@ class Onxshop_Controller_Node_Content_Picture extends Onxshop_Controller_Node_Co
 		if ($node_data['component']['template'] == 'gallery_smooth') {
 			$image_controller = 'component/image_gallery_smooth';
 			//$image_limit = '0,10';
+		} else if ($node_data['component']['template'] == 'cycle2') {
+			$image_controller = 'component/image_gallery_cycle2';
 		} else if ($node_data['component']['template'] == 'gallery') {
 			$image_controller = 'component/image_gallery';
 			//$image_limit = '0,10';
