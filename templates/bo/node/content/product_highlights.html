@@ -42,6 +42,19 @@ $(function() {
 		</span>
 	</div>
 	<div class="row">
+		<span class="label"><label>Use only images marked image role:</label></span>
+		<span class="field">
+			<select name="node[component][image_role]">
+				<option value="main" {SELECTED_image_role_main}>main (default)</option>
+				<option value="teaser" {SELECTED_image_role_teaser}>teaser</option>
+				<option value="feature" {SELECTED_image_role_feature}>feature</option>
+				<option value="background" {SELECTED_image_role_background}>background</option>
+				<option value="RTE" {SELECTED_image_role_RTE}>RTE</option>
+			</select>
+		</span>
+	</div>
+		
+	<div class="row">
 		<span class="label"><label for="component-display_sorting">Display sorting:</label></span>
 		<span class="field">
 			<input type="checkbox" id="component-display_sorting" name="node[component][display_sorting]" {NODE.component.display_sorting}/>

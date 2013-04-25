@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2010-2012 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2010-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -223,6 +223,17 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
 	
 	function getProductVarietyList() {
 		
+		$filter = array();
+		
+		//this filter option will ensure listing only enabled products and varieties
+		$filter['publish'] = 1;
+			
+		//image role filter
+		if (in_array($this->GET['image_role'], array('default', 'teaser', 'feature', 'background', 'RTE'))) $filter['image_role'] = $this->GET['image_role'];
+		else $filter['image_role'] = 'main';
+		
+		$this->tpl->assign('IMAGE_ROLE', $filter['image_role']);
+		
 		if (is_array($this->GET['product_id_list'])) {
 			
 			/*
@@ -235,8 +246,7 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
 			*/
 
 			$filter['product_id_list'] = $this->GET['product_id_list'];
-			//this filter option will ensure listing only enabled products and varieties
-			$filter['disabled'] = 'enabled';
+			
 			$product_variety_list = $this->Product->getFilteredProductList($filter, GLOBAL_LOCALE_CURRENCY);
 			
 			/**
@@ -275,12 +285,13 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
 			/**
 			 * filter, find if taxonomy is set for node
 			 */
-			
-			$filter = array();
-			//not show hidden products
-			$filter['disabled'] = 'enabled';
-			
-			if ($taxonomy = $Node->getTaxonomyForNode($node_id)) {
+	
+			if ($this->GET['taxonomy_tree_id']) {
+
+				$taxonomy = explode(",", $this->GET['taxonomy_tree_id']);
+				if (count($taxonomy) > 0 && is_numeric($taxonomy[0])) $filter['taxonomy_json'] = json_encode($taxonomy);
+
+			} else if ($taxonomy = $Node->getTaxonomyForNode($node_id)) {
 				
 				//add extra taxonomy filter
 				$taxonomy = $this->addTaxonomyFilter($taxonomy);

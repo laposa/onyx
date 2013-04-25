@@ -31,7 +31,11 @@ class Onxshop_Controller_Bo_Node_Content_Product_highlights extends Onxshop_Cont
 	
 		//template
 		$this->tpl->assign("SELECTED_template_{$this->node_data['component']['template']}", "selected='selected'");
+		//image role
+		$this->tpl->assign("SELECTED_image_role_{$this->node_data['component']['image_role']}", "selected='selected'");
+		//sorting
 		$this->node_data['component']['display_sorting'] = ($this->node_data['component']['display_sorting']) ? 'checked="checked"' : '';
+		//pagination
 		$this->node_data['component']['display_pagination'] = ($this->node_data['component']['display_pagination']) ? 'checked="checked"' : '';
 		
 		//find product in the node

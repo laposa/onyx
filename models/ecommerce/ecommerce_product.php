@@ -384,6 +384,12 @@ CREATE TABLE ecommerce_product (
 	    	if ($filter['publish'] === 0 || $filter['disabled'] == 'disabled') $add_to_where .= " AND product.publish = 0";
 	    	else if ($filter['publish'] === 1  || $filter['disabled'] == 'enabled') $add_to_where .= " AND product.publish = 1 AND variety.publish = 1";
 	    	
+	    	//image role
+	    	if ($filter['image_role']) {
+	    		$filter['image_role'] = pg_escape_string($filter['image_role']);
+	    		$add_to_where .= " AND image.role = '{$filter['image_role']}'";
+	    	}
+	    	
 	    	//taxonomy
 	    	if ($filter['taxonomy_json']) {
 	    	
