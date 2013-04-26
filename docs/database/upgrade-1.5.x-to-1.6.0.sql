@@ -39,7 +39,7 @@ ALTER TABLE "education_survey_question_answer" ADD COLUMN "content" text;
 
 /* education_survey_entry update */
 
-ALTER TABLE "education_survey_entry" ADD COLUMN "ip_adress" character varying(255);
+ALTER TABLE "education_survey_entry" ADD COLUMN "ip_address" character varying(255);
 ALTER TABLE "education_survey_entry" ADD COLUMN "session_id" character varying(32);
 ALTER TABLE "education_survey_entry" ADD COLUMN "other_data" text;
 
