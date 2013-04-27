@@ -80,7 +80,7 @@ class Onxshop_Controller_Node_Page_Recipe extends Onxshop_Controller_Node_Page_D
 			 * save product taxonomy_class to registry
 			 */
 			
-			$this->saveBodyCssClass($simple_product_detail['taxonomy_class']);
+			$this->saveBodyCssClass($recipe['taxonomy_class']);
 			
 			/**
 			 * singular/plurar text
