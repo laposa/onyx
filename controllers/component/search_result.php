@@ -124,6 +124,9 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 			}
 
 		}
+		
+		//use title as fallback if page title isn't available
+		if ($page['page_title'] == '') $page['page_title'] = $page['title'];
 
 		$this->tpl->assign('PAGE', $page);
 		$this->tpl->parse('content.result.item');
