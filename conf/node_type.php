@@ -52,7 +52,7 @@ $templates_info['page'] = array(
 	'store'=>array('title' => 'Store', 'description'=>'', 'visibility'=>false),
 	'product'=>array('title' => 'Product', 'description'=>'', 'visibility'=>false),
 	'product_browse'=>array('title' => 'Products Browse', 'description'=>'', 'visibility'=>true),
-	'symbolic'=>array('title' => 'Symbolic Link Page', 'description'=>'', 'visibility'=>true), 
+	'symbolic'=>array('title' => 'Alias', 'description'=>'a.k.a. symbolic link page', 'visibility'=>true), 
 	'default_template' => 'default'
 	);
 		
