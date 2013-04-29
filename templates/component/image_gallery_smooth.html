@@ -11,14 +11,14 @@
 		<a href="#" title="next" class="next"><span>Next</span></a>
     </div>
     <div class="pics">
-    	<!-- BEGIN: placeholder --><img src="{IMAGE.path}{IMAGE.src}" width="{DIMENSION_MAX.width}" /><!-- END: placeholder -->
+    	<!-- BEGIN: placeholder --><img src="{ITEM.path}{ITEM.src}" width="{DIMENSION_MAX.width}" /><!-- END: placeholder -->
 		<!-- BEGIN: item -->
 		<div class="imageElement">
-			<!-- BEGIN: normal --><span class="imageWrap"><img id="image_id_{IMAGE.id}" alt="{IMAGE.title|htmlspecialchars}" title="{IMAGE.title|htmlspecialchars}" src="{IMAGE.path}{IMAGE.src}" /></span><!-- END: normal -->
-			<!-- BEGIN: link --><span class="imageWrap"><a href="/page/{IMAGE.link_to_node_id}" title="{IMAGE.title|htmlspecialchars}"><img id="image_id_{IMAGE.id}" alt="{IMAGE.title|htmlspecialchars}" title="{IMAGE.title|htmlspecialchars}" src="{IMAGE.path}{IMAGE.src}" /></a></span><!-- END: link -->
+			<!-- BEGIN: normal --><span class="imageWrap"><img id="image_id_{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}" /></span><!-- END: normal -->
+			<!-- BEGIN: link --><span class="imageWrap"><a href="/page/{ITEM.link_to_node_id}" title="{ITEM.title|htmlspecialchars}"><img id="image_id_{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}" /></a></span><!-- END: link -->
 			<div class="imageInfo">
-				<h5>{IMAGE.title|htmlspecialchars}</h5>
-				<p>{IMAGE.description|htmlspecialchars}</p>
+				<h5>{ITEM.title|htmlspecialchars}</h5>
+				<p>{ITEM.description|htmlspecialchars}</p>
 			</div>
 		</div>
 		<!-- END: item -->

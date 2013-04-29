@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2008-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2008-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -126,7 +126,7 @@ class Onxshop_Controller_Component_Image_Gallery_Smooth extends Onxshop_Controll
 					if ($size['proportion'] < $dimension_extreme['proportion_min']) $dimension_extreme['proportion_min'] = $size['proportion'];
 					if (is_numeric($cycle['link_to_node_id'][$i])) $img['link_to_node_id'] = $cycle['link_to_node_id'][$i];
 					
-					$this->tpl->assign('IMAGE', $img);
+					$this->tpl->assign('ITEM', $img);
 					
 					if (is_numeric($img['link_to_node_id'])) $this->tpl->parse('content.item.link');
 					else $this->tpl->parse('content.item.normal');

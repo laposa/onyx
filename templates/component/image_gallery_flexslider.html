@@ -1,0 +1,29 @@
+<!-- BEGIN: head_once -->
+<script type="text/javascript" src="/share/js/jquery/plugins/jquery.flexslider.js"></script>
+<link href="/share/themes/flexslider/flexslider.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript">
+$(document).ready(function() {
+  $('div.image_gallery_flexslider').flexslider({
+    animation: "slide",
+    animationLoop: false,
+    itemWidth: 210,
+    itemMargin: 5
+  });
+});
+</script>
+<!-- END: head_once -->
+<!-- BEGIN: content -->
+<div class="image_gallery_flexslider number_of_items_{IMAGE_COUNT}" id="gallery_flexslider_{GET.node_id}">
+	<ul class="slides">
+		<!-- BEGIN: item -->
+		<li>
+			<img id="image_id_{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}" />
+			<div class="imageInfo">
+				<h5>{ITEM.title|htmlspecialchars}</h5>
+				<p>{ITEM.description|htmlspecialchars}</p>
+			</div>
+		</li>
+	<!-- END: item -->
+	</ul>
+</div>
+<!-- END: content -->
