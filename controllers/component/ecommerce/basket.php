@@ -330,7 +330,7 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 				else $item['other_data'] = '';
 				
 				//image
-				$Image_Controller = new Onxshop_Request("component/image~relation=product:role=main:width=50:node_id={$item['product']['id']}:limit=0,1~");
+				$Image_Controller = new Onxshop_Request("component/image~relation=product:role=main:width=50:height=50:node_id={$item['product']['id']}:limit=0,1~");
 				$this->tpl->assign('IMAGE_PRODUCT', $Image_Controller->getContent());
 				
 				$this->tpl->assign('ITEM', $item);
