@@ -520,11 +520,14 @@ class Onxshop_Bootstrap {
 		 * TODO: highlight in documentation!
 		 */
 		
-		if ($_SESSION['client']['customer']['id'] > 0) {
-			$content = preg_replace("/{{customer.first_name}}/", htmlspecialchars($_SESSION['client']['customer']['first_name']), $content);
-		} else {
-			//assign empty string
-			$content = preg_replace("/{{customer.first_name}}/", '', $content);
+		//only when not logged in backoffice
+		if ($_GET['fe_edit'] == 0) {
+			if ($_SESSION['client']['customer']['id'] > 0) {
+				$content = preg_replace("/{{customer.first_name}}/", htmlspecialchars($_SESSION['client']['customer']['first_name']), $content);
+			} else {
+				//assign empty string
+				$content = preg_replace("/{{customer.first_name}}/", '', $content);
+			}
 		}
 		
 		return $content;
