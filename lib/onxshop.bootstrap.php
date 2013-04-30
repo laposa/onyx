@@ -515,23 +515,16 @@ class Onxshop_Bootstrap {
 	 
 	public function outputFilterPublic($content) {
 		
-		//disabled TEMP
-		return $content;
-		
 		/**
 		 * Substitute constants in the output for logged in users
 		 * TODO: highlight in documentation!
 		 */
 		
 		if ($_SESSION['client']['customer']['id'] > 0) {
-			$content = preg_replace("/{_SESSION.client.customer.first_name}/", htmlspecialchars($_SESSION['client']['customer']['first_name']), $content);
-			$content = preg_replace("/{_SESSION.client.customer.last_name}/", htmlspecialchars($_SESSION['client']['customer']['last_name']), $content);
-			$content = preg_replace("/{_SESSION.client.customer.email}/", htmlspecialchars($_SESSION['client']['customer']['email']), $content);
+			$content = preg_replace("/{{customer.first_name}}/", htmlspecialchars($_SESSION['client']['customer']['first_name']), $content);
 		} else {
 			//assign empty string
-			$content = preg_replace("/{_SESSION.client.customer.first_name}/", '', $content);
-			$content = preg_replace("/{_SESSION.client.customer.last_name}/", '', $content);
-			$content = preg_replace("/{_SESSION.client.customer.email}/", '', $content);
+			$content = preg_replace("/{{customer.first_name}}/", '', $content);
 		}
 		
 		return $content;
