@@ -194,3 +194,23 @@ if (!defined('ONXSHOP_ALLOW_SEARCH_INDEX_AUTOUPDATE')) define('ONXSHOP_ALLOW_SEA
 
 $onxshop_pre_actions = array("autologin", "locales");
 if (ONXSHOP_ALLOW_SCHEDULER) $onxshop_pre_actions[] = "scheduler";
+
+/**
+ * social: Facebook
+ */
+ 
+if (!defined('ONXSHOP_FACEBOOK_APP_ID')) define('ONXSHOP_FACEBOOK_APP_ID', 0);
+if (!defined('ONXSHOP_FACEBOOK_APP_SECRET')) define('ONXSHOP_FACEBOOK_APP_SECRET', '');
+
+/**
+ * social: Twitter
+ */
+ 
+if (!defined('ONXSHOP_TWITTER_APP_ID')) define('ONXSHOP_TWITTER_APP_ID', '');
+if (!defined('ONXSHOP_TWITTER_APP_SECRET')) define('ONXSHOP_TWITTER_APP_SECRET', ''); 
+
+/**
+ * pagination
+ */
+ 
+if (!defined('PAGINATION_SHOW_ITEMS')) define('PAGINATION_SHOW_ITEMS', 10);
