@@ -298,4 +298,63 @@ CREATE TABLE ecommerce_store (
    		return false;
  	}
 
+
+ 	/**
+ 	 * Find nearest store that has specific taxonomy_id
+ 	 * @param  int $store_id    Home store to which the distance is measured
+ 	 * @param  int $taxonomy_id Required facility taxnomy_id
+ 	 * @return int store_id
+ 	 */
+ 	function findNearestStoreWithFacility($store_id, $taxonomy_id)
+ 	{
+ 		if (!is_numeric($store_id)) return false;
+ 		if (!is_numeric($taxonomy_id)) return false;
+
+ 		$list = $this->listing("id IN (SELECT node_id FROM ecommerce_store_taxonomy WHERE taxonomy_tree_id = $taxonomy_id)");
+ 		$store = $this->detail($store_id);
+
+ 		$nearest = 99999;
+
+ 		foreach ($list as $item) {
+ 			$distance = $this->distance($item['latitude'], $item['longitude'], $store['latitude'], $store['longitude']);
+ 			if ($distance < $nearest) {
+ 				$nearest = $distance;
+ 				$store_id = $item['id'];
+ 			}
+ 		}
+
+ 		return $store_id;
+ 	}
+
+
+	/**
+	 * Get distance between two points on sphere (in km)
+	 * http://en.wikipedia.org/wiki/Haversine_formula
+	 * 
+	 * @param  float $lat1 First point latitude
+	 * @param  float $lng1 First point longitude
+	 * @param  float $lat2 Second point latitude
+	 * @param  float $lng2 Second point longitude
+	 * @return float
+	 */
+	public static function distance($lat1, $lng1, $lat2, $lng2)
+	{
+		$earth_radius = 6371;
+
+		$sin_lat = sin(deg2rad($lat2  - $lat1) / 2.0);
+		$sin2_lat = $sin_lat * $sin_lat;
+
+		$sin_lng = sin(deg2rad($lng2 - $lng1) / 2.0);
+		$sin2_lng = $sin_lng * $sin_lng;
+
+		$cos_lat1 = cos($lat1);
+		$cos_lat2 = cos($lat2);
+
+		$sqrt = sqrt($sin2_lat + ($cos_lat1 * $cos_lat2 * $sin2_lng));
+
+		$distance = 2.0 * $earth_radius * asin($sqrt);
+
+		return $distance;
+	}
+
 }
