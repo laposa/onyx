@@ -19,7 +19,7 @@
 			<a class="button remove" title="Unlink file" href="#" onclick="if (confirm('Do you really want to unlink {FILE.title|htmlspecialchars|addslashes}?')) {$('#linked-file-{FILE.id}').load('/request/bo/component/file_unlink~relation={GET.relation}:file_id={FILE.id}~');}; return false"><span>Unlink</span></a>
 		</p>
 		<!-- BEGIN: image_zoom -->
-				
+		<div class="image_zoom">
 				Zoom: <span id="imageSizeDisplay_{FILE.id}">125px</span>, Original: <a href="#" onclick="$('#image_thumbnail_{FILE.id}').attr('src', '/image/{FILE.src}'); $('#imageSizeDisplay_{FILE.id}').html('{FILE.imagesize.width}px'); return false;"><span>{FILE.imagesize.width}px</span></a>
 				<div style="margin: 10px 0; width: 90%" id="slider_{FILE.id}"></div>
 			
@@ -35,6 +35,7 @@
 					});
 				});
 				</script>
+		</div>
 		<!-- END: image_zoom -->
 		
 	</div>

@@ -192,6 +192,9 @@ div.file_list_icon div.item {height: 120px; overflow: hidden; margin-bottom: 1em
  
 #backoffice div.columnTwo div.node_edit form {padding: 0;}
 
+/*don't show image zoom on picture (gallery) node edit*/
+div.node_edit.node-content-picture div.image_zoom {display: none;}
+
 /**
  * backoffice content
  */
