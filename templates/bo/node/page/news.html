@@ -7,7 +7,7 @@
 		<span class="field"><input type="text" class="text" name="node[component][author]" value="{NODE.component.author|htmlspecialchars}" /></span>
 	</div>	
 	<div class="row rte content">
-		<span class="label"><label>Content <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'simple', 'component_content')"><span>RTE</span></a>:</label></span>
+		<span class="label"><label>Content <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'simple', 'component_content'); return false;"><span>RTE</span></a>:</label></span>
 		<span class="field"><textarea name="node[content]" id="component_content" class="big" style="width: 100%; height: 300px;" rows="20" cols="20"><!-- BEGIN: empty --><p>enter your content here</p><!-- END: empty -->{NODE.content|htmlspecialchars}</textarea></span>
 	</div>
 </fieldset>

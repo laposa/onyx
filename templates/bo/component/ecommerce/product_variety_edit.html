@@ -53,7 +53,7 @@ $(document).ready(function(){
 						<span class="field"><input type="text" class="text short" name="product[variety][stock]" value="{PRODUCT.variety.stock}"/></span>
 					</div>
 					<div class="row rte">
-						<span class="label"><label for="product-variety-description">Description <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'simple', 'edit-content')"><span>RTE</span></a></label></span>
+						<span class="label"><label for="product-variety-description">Description <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'simple', 'edit-content'); return false;"><span>RTE</span></a></label></span>
 						<span class="field"><textarea id="edit-content" name="product[variety][description]">{PRODUCT.variety.description|htmlspecialchars}</textarea></span>
 					</div>
 					<div class="row">

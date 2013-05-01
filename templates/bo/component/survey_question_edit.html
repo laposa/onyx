@@ -37,7 +37,7 @@
 				<span class="field"><textarea id="question-description" name="question[description]">{QUESTION.description|htmlspecialchars}</textarea></span>
 			</div>
 			<div class="row content">
-				<span class="label"><label for="question-content">content <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'mceAdvanced', 'question-content')"><span>RTE</span></a></label></span>
+				<span class="label"><label for="question-content">content <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'mceAdvanced', 'question-content'); return false;"><span>RTE</span></a></label></span>
 				<span class="field"><textarea id="question-content" name="question[content]">{QUESTION.content|htmlspecialchars}</textarea></span>
 			</div>
 			<div class="row type">

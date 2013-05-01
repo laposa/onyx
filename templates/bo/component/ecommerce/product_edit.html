@@ -38,11 +38,11 @@ $(document).ready(function(){
 						<span class="field"><input type="text" class="text long" name="product[name_aka]" value="{PRODUCT.name_aka|htmlspecialchars}" /></span>
 					</div>
 					<div class="row rte">
-						<span class="label"><label>Teaser <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'simple', 'product_teaser')"><span>RTE</span></a></label></span>
+						<span class="label"><label>Teaser <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'simple', 'product_teaser'); return false;"><span>RTE</span></a></label></span>
 						<span class="field"><textarea id="product_teaser" name="product[teaser]">{PRODUCT.teaser|htmlspecialchars}</textarea></span>
 					</div>
 					<div class="row rte">
-						<span class="label"><label>Description <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'mceAdvanced', 'product_description')"><span>RTE</span></a></label></span>
+						<span class="label"><label>Description <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'mceAdvanced', 'product_description'); return false;"><span>RTE</span></a></label></span>
 						<span class="field"><textarea class="big" style="width: 90%;" name="product[description]" id="product_description">{PRODUCT.description|htmlspecialchars}</textarea></span>
 					</div>
 				</div>
