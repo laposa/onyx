@@ -120,11 +120,13 @@ function onxshopGoTo($request, $type = 0) {
 	if ($type == 0) {
 	
 		$request = ltrim($request, '/');
-	
-		if (preg_match('/^page\/[0-9]*$/', $request)) {
 		
-			$request = translateURL($request);
-			header("Location: $protocol://{$_SERVER['HTTP_HOST']}$request");
+		if (preg_match('/^(page\/[0-9]{1,})(.*)$/', $request, $matches)) {
+			
+			$request_path = translateURL($matches[1]);
+			$request_params = $matches[2];
+			
+			header("Location: $protocol://{$_SERVER['HTTP_HOST']}{$request_path}{$request_params}");
 		
 		} else {
 			
