@@ -2,7 +2,7 @@
 /**
  * Registration controller
  *
- * Copyright (c) 2005-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2005-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -15,45 +15,9 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
 	 
 	public function mainAction() {
 	
-		/**
-		 * autopopulate
-		 */
-		 
-		if (is_array($_SESSION['r_client']) && !is_array($_POST['client'])) {
-			$_POST['client'] = $_SESSION['r_client'];
-		}
+		$this->commonAction();
 		
-		/**
-		 * initialize
-		 */
-		
-		require_once('models/client/client_customer.php');
-		
-		$this->Customer = new client_customer();
-		$this->Customer->setCacheable(false);
-		
-		
-		//if ($_POST['client']['customer']['email'])  $this->Customer->checkEmail($_POST['client']['customer']['email']);
-		
-		/**
-		 * country list
-		 */
-		 
-		require_once('models/international/international_country.php');
-		$Country = new international_country();
-		$countries = $Country->listing("", "name ASC");
-		
-		if (!isset($_POST['client']['address']['delivery']['country_id'])) $_POST['client']['address']['delivery']['country_id'] = $Country->conf['default_id'];
-		// address will be caught through relation
-		//delivery
-		foreach ($countries as $c) {
-			if ($c['id'] == $_POST['client']['address']['delivery']['country_id']) $c['selected'] = "selected='selected'";
-			else $c['selected'] = '';
-			$this->tpl->assign('COUNTRY', $c);
-			$this->tpl->parse('content.country_delivery.item');
-		}
-		$this->tpl->parse('content.country_delivery');
-		
+		$this->generateCountryList();		
 		
 		/**
 		 * save
@@ -109,22 +73,7 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
 		}
 		
 		
-		/**
-		 * prepare for output
-		 */
-		 
-		if(isset($_POST['client']['customer']['newsletter'])) {
-			$_POST['client']['customer']['newsletter'] = ($_POST['client']['customer']['newsletter'] == 1) ? 'checked="checked" ' : '';
-		} else {
-			$_POST['client']['customer']['newsletter'] = 'checked="checked" ';
-		}
-
-		if(isset($_POST['client']['customer']['trade'])) {
-			$_POST['client']['customer']['trade'] = ($_POST['client']['customer']['trade'] == 1) ? 'checked="checked" ' : '';
-		} else {
-			$_POST['client']['customer']['trade'] = '';
-		}
-		
+		$this->prepareCheckboxes();		
 		
 		$this->tpl->assign('CLIENT', $_POST['client']);
 
@@ -169,7 +118,6 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
 		 
 		if ($this->GET['to']) {
 			if ($this->GET['to'] == 'ajax') {
-				//$this->tpl->parse('content.userbox');
 				return true;
 			} else onxshopGoTo($this->GET['to']);
 		} else if ($_SESSION['to']) {
@@ -195,6 +143,100 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
 			return false;
 		}
 			
+	}
+	
+	/**
+	 * commonAction
+	 */
+	
+	public function commonAction() {
+	
+		/**
+		 * autopopulate
+		 */
+		 
+		if (is_array($_SESSION['r_client']) && !is_array($_POST['client'])) {
+			//populate all available fields
+			$_POST['client'] = $_SESSION['r_client'];
+		
+		} else if (is_array($_SESSION['r_client']) && is_array($_POST['client'])) {
+			//populate only (hidden) social fields
+			$_POST['client']['customer']['facebook_id'] = $_SESSION['r_client']['customer']['facebook_id'];
+			$_POST['client']['customer']['twitter_id'] = $_SESSION['r_client']['customer']['twitter_id'];
+			$_POST['client']['customer']['google_id'] = $_SESSION['r_client']['customer']['google_id'];
+			$_POST['client']['customer']['profile_image_url'] = $_SESSION['r_client']['customer']['profile_image_url'];
+		
+		}
+		
+		/**
+		 * show password input only to non-social auth
+		 */
+		 
+		if (!is_numeric($_POST['client']['customer']['facebook_id']) && !is_numeric($_POST['client']['customer']['twitter_id']) && !is_numeric($_POST['client']['customer']['google_id'])) {
+			$this->tpl->parse('content.password');
+		}
+		
+		/**
+		 * initialize
+		 */
+		 
+		require_once('models/client/client_customer.php');
+		$this->Customer = new client_customer();
+		$this->Customer->setCacheable(false);
+		
+	}
+	
+	/**
+	 * generateCountryList
+	 */
+	 
+	public function generateCountryList() {
+	
+		/**
+		 * country list
+		 */
+		 
+		require_once('models/international/international_country.php');
+		$Country = new international_country();
+		$countries = $Country->listing("", "name ASC");
+		
+		if (!isset($_POST['client']['address']['delivery']['country_id'])) $_POST['client']['address']['delivery']['country_id'] = $Country->conf['default_id'];
+		// address will be caught through relation
+		//delivery
+		foreach ($countries as $c) {
+			if ($c['id'] == $_POST['client']['address']['delivery']['country_id']) $c['selected'] = "selected='selected'";
+			else $c['selected'] = '';
+			$this->tpl->assign('COUNTRY', $c);
+			$this->tpl->parse('content.country_delivery.item');
+		}
+		$this->tpl->parse('content.country_delivery');
+
+
+	}
+	
+	/**
+	 * prepareCheckboxes
+	 */
+	 
+	public function prepareCheckboxes() {
+	
+		/**
+		 * prepare for output
+		 */
+		 
+		if(isset($_POST['client']['customer']['newsletter'])) {
+			$_POST['client']['customer']['newsletter'] = ($_POST['client']['customer']['newsletter'] == 1) ? 'checked="checked" ' : '';
+		} else {
+			$_POST['client']['customer']['newsletter'] = 'checked="checked" ';
+		}
+
+		if(isset($_POST['client']['customer']['trade'])) {
+			$_POST['client']['customer']['trade'] = ($_POST['client']['customer']['trade'] == 1) ? 'checked="checked" ' : '';
+		} else {
+			$_POST['client']['customer']['trade'] = '';
+		}
+
+
 	}
 
 }

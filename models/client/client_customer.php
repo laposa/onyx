@@ -2,7 +2,7 @@
 /**
  * class client_customer
  * 
- * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -85,7 +85,7 @@ class client_customer extends Onxshop_Model {
 	 * 0 - disabled, i.e. temporarily locked (can't register)
 	 * 1 - registered
 	 * 2 - reserved
-	 * 3 - registered only for newsletter (can register by updating the same account detail)
+	 * 3 - preserved for special purposes such as newsletter and survey (can register by updating the same account detail)
 	 * 4 - deleted (can register again)
 	 */
 	
@@ -129,10 +129,18 @@ class client_customer extends Onxshop_Model {
 	 */
 	 
 	var $deleted_date;
+	
+	var $facebook_id;
+	
+	var $twitter_id;
+	
+	var $google_id;
+	
+	var $profile_image_url;
 		
 	var $_metaData = array(
 		'id'=>array('label' => 'ID', 'validation'=>'int', 'required'=>true), 
-		'title_before'=>array('label' => 'Title', 'validation'=>'string', 'required'=>true),
+		'title_before'=>array('label' => 'Title', 'validation'=>'string', 'required'=>false),
 		'first_name'=>array('label' => 'First name', 'validation'=>'string', 'required'=>true),
 		'last_name'=>array('label' => 'Last name', 'validation'=>'string', 'required'=>true),
 		'title_after'=>array('label' => 'Title (after)', 'validation'=>'string', 'required'=>false),
@@ -150,7 +158,7 @@ class client_customer extends Onxshop_Model {
 		'currency_code'=>array('label' => 'Preferred currency', 'validation'=>'string', 'required'=>false),
 		'status'=>array('label' => 'Status', 'validation'=>'int', 'required'=>false),
 		'newsletter'=>array('label' => 'Subscribe to newsletter', 'validation'=>'int', 'required'=>false),
-		'birthday'=>array('label' => 'Birthday', 'validation'=>'int', 'required'=>false),
+		'birthday'=>array('label' => 'Birthday', 'validation'=>'date', 'required'=>false),
 		'other_data'=>array('label' => 'Other', 'validation'=>'serialized', 'required'=>false),
 		'modified'=>array('label' => 'Date modified', 'validation'=>'datetime', 'required'=>true),
 		'account_type'=>array('label' => 'Account Type', 'validation'=>'int', 'required'=>false),
@@ -158,7 +166,11 @@ class client_customer extends Onxshop_Model {
 		'verified_email_address'=>array('label' => 'Verified Email Address', 'validation'=>'int', 'required'=>false),
 		'group_id'=>array('label' => 'Client Group', 'validation'=>'int', 'required'=>false),
 		'oauth'=>array('label' => 'Oauth storege for tokens', 'validation'=>'serialized', 'required'=>false),
-		'deleted_date'=>array('label' => 'Deleted date', 'validation'=>'datetime', 'required'=>false)
+		'deleted_date'=>array('label' => 'Deleted date', 'validation'=>'datetime', 'required'=>false),
+		'facebook_id'=>array('label' => '', 'validation'=>'int', 'required'=>false),
+		'twitter_id'=>array('label' => '', 'validation'=>'int', 'required'=>false),
+		'google_id'=>array('label' => '', 'validation'=>'int', 'required'=>false),
+		'profile_image_url'=>array('label' => '', 'validation'=>'string', 'required'=>false)
 	);
 	
 	/**
@@ -199,7 +211,11 @@ CREATE TABLE client_customer (
 	verified_email_address smallint NOT NULL DEFAULT 0,
 	group_id smallint,
 	oauth text,
-	deleted_date timestamp without time zone
+	deleted_date timestamp without time zone,
+	facebook_id bigint,
+	twitter_id bigint,
+	google_id bigint,
+	profile_image_url text
 );
 		";
 		
@@ -317,6 +333,10 @@ CREATE TABLE client_customer (
 		$customer_data['verified_email_address'] = 0;
 		if (!is_numeric($customer_data['newsletter'])) $customer_data['newsletter'] = 0;
 		$customer_data['password'] = md5($customer_data['password']);
+		if (!is_numeric($customer_data['facebook_id'])) unset($customer_data['facebook_id']);
+		if (!is_numeric($customer_data['twitter_id'])) unset($customer_data['twitter_id']);
+		if (!is_numeric($customer_data['google_id'])) unset($customer_data['google_id']);
+		if (trim($customer_data['profile_image_url']) == '') unset($customer_data['profile_image_url']);
 		
 		$this->setAll($customer_data);
 	
@@ -391,6 +411,63 @@ CREATE TABLE client_customer (
 				return false;
 		
 			}
+		}
+	}
+	
+	/**
+	 * getUserByFacebookId
+	 */
+	 
+	public function getUserByFacebookId($facebook_id) {
+		
+		if (!is_numeric($facebook_id)) return false;
+		
+		$sql = "facebook_id = $facebook_id AND status < 3";
+		
+		$customer_current = $this->listing($sql);
+		
+		if (count($customer_current) > 0) {
+			
+			return $customer_current[0];
+			
+		}
+	}
+	
+	/**
+	 * getUserByTwitterId
+	 */
+	 
+	public function getUserByTwitterId($twitter_id) {
+		
+		if (!is_numeric($twitter_id)) return false;
+		
+		$sql = "twitter_id = $twitter_id AND status < 3";
+		
+		$customer_current = $this->listing($sql);
+		
+		if (count($customer_current) > 0) {
+			
+			return $customer_current[0];
+			
+		}
+	}
+	
+	/**
+	 * getUserByGoogleId
+	 */
+	 
+	public function getUserByGoogleId($google_id) {
+		
+		if (!is_numeric($google_id)) return false;
+		
+		$sql = "google_id = $google_id AND status < 3";
+		
+		$customer_current = $this->listing($sql);
+		
+		if (count($customer_current) > 0) {
+			
+			return $customer_current[0];
+			
 		}
 	}
 	
@@ -1082,7 +1159,7 @@ CREATE TABLE client_customer (
 		}
 	}
 	
-	/**
+/**
 	 * newsletter subscribe
 	 * 
 	 * @param array $customer
@@ -1098,68 +1175,49 @@ CREATE TABLE client_customer (
 	function newsletterSubscribe($customer, $force_update = false) {
 		
 		$customer['email'] = strtolower($customer['email']);
+		$customer['newsletter'] = 1;
 		
 		if ($customer_data = $this->getClientByEmail($customer['email'])) {
-			
-			/**
-			 * overwrite required fields
-			 */
-			 
-			$this->_metaData['title_before']['required'] = false;
-			$this->_metaData['telephone']['required'] = false;
-			$this->_metaData['password']['required'] = false;
-			$this->_metaData['invoices_address_id']['required'] = false;
-			$this->_metaData['delivery_address_id']['required'] = false;
-				
-			//update existing - only newsletter attribute
+
 			if ($customer_data['newsletter'] == 0) {
-			
-				$customer_data['newsletter'] = 1;
-			
-				if ($this->updateCustomer($customer_data)) {
-					return true;
-				} else {
-					return false;
-				}
-			
-			//update existing - merge new data with old data
-			} else if ($force_update) {
-				
-				$customer_data_m = array_merge($customer_data, $customer);
-				
-				if ($this->updateCustomer($customer_data_m)) {
-					return true;
-				} else {
-					return false;
-				}
-				
-			} else {
 				msg("Client with email {$customer['email']} is already subscribed");
 				return true;
+			}
+
+			if ($force_update) {
+				$data_to_save = $customer;
+			} else {
+				$data_to_save = array('id' => $customer_data['id'], 'newsletter' => 1);
+			}
+
+			if ($this->updatePreservedCustomer($data_to_save)) {
+				return true;
+			} else {
+				return false;
 			}
 			
 		} else {
 			//insert new
-			if ($this->insertNewletterCustomer($customer)) {
+			if ($this->insertPreservedCustomer($customer)) {
 				return true;
 			} else {
 				return false;
 			}
 		}
 	}
-	
+
 	/**
-	 * insert newsletter user
+	 * insert customer as preserved record for special purposes such as newletter or survey
 	 * 
 	 * @param array $customer_data
-	 * customer's information for subscribe to newsleter and register if need
+	 * basic customer's information
 	 * 
 	 * @return integer
 	 * customer ID or false if not saved
 	 */
 	
-	function insertNewletterCustomer($customer_data) {
-		
+	function insertPreservedCustomer($customer_data) {
+
 		/**
 		 * customize required fields
 		 */
@@ -1178,11 +1236,40 @@ CREATE TABLE client_customer (
 		$customer_data['account_type'] = 0;
 		$customer_data['agreed_with_latest_t_and_c'] = 0;
 		$customer_data['verified_email_address'] = 0;
-		//allow newsletter attribute to be preset
-		if (!is_numeric($customer_data['newsletter'])) $customer_data['newsletter'] = 1;
+		if (!is_numeric($customer_data['newsletter'])) $customer_data['newsletter'] = 0;
 		
 		return $this->insertCustomer($customer_data);
-		
+
+	}
+
+	/**
+	 * update special type of customer
+	 * 
+	 * @param array $customer_data
+	 * customer's information
+	 * 
+	 * @return integer
+	 * customer ID or false if not saved
+	 */
+	
+	function updatePreservedCustomer($customer_data) {
+
+		/**
+		 * overwrite required fields
+		 */
+		 
+		$this->_metaData['title_before']['required'] = false;
+		$this->_metaData['telephone']['required'] = false;
+		$this->_metaData['password']['required'] = false;
+		$this->_metaData['invoices_address_id']['required'] = false;
+		$this->_metaData['delivery_address_id']['required'] = false;
+
+		if ($this->updateCustomer($customer_data)) {
+			return true;
+		}
+
+		return false;
+
 	}
 	
 	/**

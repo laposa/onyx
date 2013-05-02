@@ -1,0 +1,14 @@
+<!-- BEGIN: content -->
+<div class="twitter_auth">
+	<!-- BEGIN: authorised -->
+	<h3>{USER_PROFILE.name|htmlspecialchars}</h3>
+	<!--<pre>{USER_PROFILE|print_r(%s, true)|htmlspecialchars}</pre>-->
+	<img src="{USER_PROFILE.profile_image_url}" />
+	<!-- END: authorised -->
+	<!-- BEGIN: login -->
+	<form method="post" action="{URI}" class="login via_twitter">
+		<button name="twitter_auth" value="1"><span>Login with Twitter</span></button>
+	</form>
+	<!-- END: login -->
+</div>
+<!-- END: content -->

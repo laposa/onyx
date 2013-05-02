@@ -238,6 +238,10 @@ ALTER TABLE common_node ADD COLUMN share_counter int NOT NULL DEFAULT 0;
 ALTER TABLE client_customer ADD COLUMN oauth text;
 ALTER TABLE client_customer ADD COLUMN deleted_date timestamp without time zone;
 ALTER TABLE client_customer ADD UNIQUE (email, deleted_date);
+ALTER TABLE client_customer ADD COLUMN facebook_id bigint;
+ALTER TABLE client_customer ADD COLUMN twitter_id bigint;
+ALTER TABLE client_customer ADD COLUMN google_id bigint;
+ALTER TABLE client_customer ADD COLUMN profile_image_url text;
 
 /* add column content (RTE) to all image tables */
 ALTER TABLE common_file ADD COLUMN content text;

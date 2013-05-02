@@ -1285,7 +1285,7 @@ abstract class BaseFacebook
       error_log($msg);
     }
     // uncomment this if you want to see the errors on the page
-    // print 'error_log: '.$msg."\n";
+    msg('base_facebook: '.$msg, 'error', 1);
     // @codeCoverageIgnoreEnd
   }
 
