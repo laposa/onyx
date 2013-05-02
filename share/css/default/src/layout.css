@@ -1,0 +1,166 @@
+/**
+ * Norbert @ Laposa Ltd, 2009/09/22
+ *
+ */
+ 
+/****************************************************************************************/
+/*****************************          node/page           *****************************/
+/****************************************************************************************/
+
+/************ node/page/default.html ****/
+div.rowTop:after,
+div.rowMiddle:after,
+div.rowBottom:after {content: '.'; display: block; height: 0; font-size: 0; clear: both; visibility: hidden;}
+div.page div.pageWrapper {padding: 0;}
+div.page div.rowBottom {clear: both;}
+
+/*default, fobinaci-1-1, 50%/50%*/
+div.twoColumnPage div.columnOne,
+div.twoColumnPage.fibonacci-1-1 div.columnOne {float: left; width: 49.999%; clear: both; overflow: hidden; }
+div.twoColumnPage div.columnTwo,
+div.twoColumnPage.fibonacci-1-1 div.columnTwo {width: 49.999%; float: right; overflow: hidden;}
+/*fibonacci-1-5, 16.6%/83.3%*/
+div.twoColumnPage.fibonacci-1-5 div.columnOne {width: 16.66%;}
+div.twoColumnPage.fibonacci-1-5 div.columnTwo {width: 83.33%;}
+div.twoColumnPage.fibonacci-5-1 div.columnOne {width: 83.33%;}
+div.twoColumnPage.fibonacci-5-1 div.columnTwo {width: 16.66%;}
+/*fibonacci-1-3, 25%/75%*/
+div.twoColumnPage.fibonacci-1-3 div.columnOne {width: 25%;}
+div.twoColumnPage.fibonacci-1-3 div.columnTwo {width: 75%;}
+div.twoColumnPage.fibonacci-3-1 div.columnOne {width: 75%;}
+div.twoColumnPage.fibonacci-3-1 div.columnTwo {width: 25%;}
+/*fibonacci-2-5, 28.6%/71.4%*/
+div.twoColumnPage.fibonacci-2-5 div.columnOne {width: 28.6%;}
+div.twoColumnPage.fibonacci-2-5 div.columnTwo {width: 71.4%;}
+div.twoColumnPage.fibonacci-5-2 div.columnOne {width: 71.4%;}
+div.twoColumnPage.fibonacci-5-2 div.columnTwo {width: 28.6%;}
+/*fibonacci-1-2, 33%/66%*/
+div.twoColumnPage.fibonacci-1-2 div.columnOne {width: 33.3%;}
+div.twoColumnPage.fibonacci-1-2 div.columnTwo {width: 66.6%;}
+div.twoColumnPage.fibonacci-2-1 div.columnOne {width: 66.6%;}
+div.twoColumnPage.fibonacci-2-1 div.columnTwo {width: 33.3%;}
+/*fibonacci-3-5, 38.2%/61.8%*/
+div.twoColumnPage.fibonacci-3-5 div.columnOne {width: 38.2%;}
+div.twoColumnPage.fibonacci-3-5 div.columnTwo {width: 61.77%;}
+div.twoColumnPage.fibonacci-5-3 div.columnOne {width: 61.77%;}
+div.twoColumnPage.fibonacci-5-3 div.columnTwo {width: 38.2%;}
+/*fibonacci-2-3, 40%/60%*/
+div.twoColumnPage.fibonacci-2-3 div.columnOne {width: 40%;}
+div.twoColumnPage.fibonacci-2-3 div.columnTwo {width: 60%;}
+div.twoColumnPage.fibonacci-3-2 div.columnOne {width: 60%;}
+div.twoColumnPage.fibonacci-3-2 div.columnTwo {width: 40%;}
+
+/****************************************************************************************/
+/*****************************          node/layout         *****************************/
+/****************************************************************************************/
+
+div.layout div.bottom {clear: both;}
+
+/********* node/layout/1column.html *********/
+div.oneColumnLayout {clear: both;}
+div.oneColumnLayout div.layoutColumnSingle {float: none; width: auto;}
+
+/********* node/layout/2columns.html *********/
+div.twoColumnLayout {clear: both;}
+
+/*default, fibonacci-1-1, 50%/50%*/
+div.twoColumnLayout div.layoutColumnOne.ofTwo,
+div.twoColumnLayout.fibonacci-1-1 div.layoutColumnOne.ofTwo {float: left; width: 49.999%;}
+div.twoColumnLayout div.layoutColumnTwo.ofTwo,
+div.twoColumnLayout.fibonacci-1-1 div.layoutColumnTwo.ofTwo {width: 49.999%; float: right;}
+/*fibonacci-1-5, 16.6%/83.3%*/
+div.twoColumnLayout.fibonacci-1-5 div.layoutColumnOne.ofTwo {width: 16.66%;}
+div.twoColumnLayout.fibonacci-1-5 div.layoutColumnTwo.ofTwo {width: 83.33%;}
+div.twoColumnLayout.fibonacci-5-1 div.layoutColumnOne.ofTwo {width: 83.33%;}
+div.twoColumnLayout.fibonacci-5-1 div.layoutColumnTwo.ofTwo {width: 16.66%;}
+/*fibonacci-1-3, 25%/75%*/
+div.twoColumnLayout.fibonacci-1-3 div.layoutColumnOne.ofTwo {width: 25%;}
+div.twoColumnLayout.fibonacci-1-3 div.layoutColumnTwo.ofTwo {width: 75%;}
+div.twoColumnLayout.fibonacci-3-1 div.layoutColumnOne.ofTwo {width: 75%;}
+div.twoColumnLayout.fibonacci-3-1 div.layoutColumnTwo.ofTwo {width: 25%;}
+/*fibonacci-2-5, 28.6%/71.4%*/
+div.twoColumnLayout.fibonacci-2-5 div.layoutColumnOne.ofTwo {width: 28.6%;}
+div.twoColumnLayout.fibonacci-2-5 div.layoutColumnTwo.ofTwo {width: 71.4%;}
+div.twoColumnLayout.fibonacci-5-2 div.layoutColumnOne.ofTwo {width: 71.4%;}
+div.twoColumnLayout.fibonacci-5-2 div.layoutColumnTwo.ofTwo {width: 28.6%;}
+/*fibonacci-1-2, 33%/66%*/
+div.twoColumnLayout.fibonacci-1-2 div.layoutColumnOne.ofTwo {width: 33.3%;}
+div.twoColumnLayout.fibonacci-1-2 div.layoutColumnTwo.ofTwo {width: 66.6%;}
+div.twoColumnLayout.fibonacci-2-1 div.layoutColumnOne.ofTwo {width: 66.6%;}
+div.twoColumnLayout.fibonacci-2-1 div.layoutColumnTwo.ofTwo {width: 33.3%;}
+/*fibonacci-3-5, 38.2%/61.8%*/
+div.twoColumnLayout.fibonacci-3-5 div.layoutColumnOne.ofTwo {width: 38.2%;}
+div.twoColumnLayout.fibonacci-3-5 div.layoutColumnTwo.ofTwo {width: 61.8%;}
+div.twoColumnLayout.fibonacci-5-3 div.layoutColumnOne.ofTwo {width: 61.8%;}
+div.twoColumnLayout.fibonacci-5-3 div.layoutColumnTwo.ofTwo {width: 38.2%;}
+/*fibonacci-2-3, 40%/60%*/
+div.twoColumnLayout.fibonacci-2-3 div.layoutColumnOne.ofTwo {width: 40%;}
+div.twoColumnLayout.fibonacci-2-3 div.layoutColumnTwo.ofTwo {width: 60%;}
+div.twoColumnLayout.fibonacci-3-2 div.layoutColumnOne.ofTwo {width: 60%;}
+div.twoColumnLayout.fibonacci-3-2 div.layoutColumnTwo.ofTwo {width: 40%;}
+
+/********* node/layout/3columns.html *********/
+div.threeColumnLayout {clear: both;}
+div.threeColumnLayout div.layoutColumnOne.ofThree, 
+div.threeColumnLayout div.layoutColumnTwo.ofThree, 
+div.threeColumnLayout div.layoutColumnThree.ofThree {width: 33.335%; overflow: hidden;}
+div.threeColumnLayout div.layoutColumnOne.ofThree, 
+div.threeColumnLayout div.layoutColumnTwo.ofThree {float: left;}
+div.threeColumnLayout div.layoutColumnThree.ofThree {float: right;}
+
+/********* node/layout/4columns.html *********/
+div.fourColumnLayout {clear: both;}
+div.fourColumnLayout div.layoutColumnOne.ofFour, 
+div.fourColumnLayout div.layoutColumnTwo.ofFour, 
+div.fourColumnLayout div.layoutColumnThree.ofFour,
+div.fourColumnLayout div.layoutColumnFour.ofFour {width: 25%; overflow: hidden;}
+div.fourColumnLayout div.layoutColumnOne.ofFour, 
+div.fourColumnLayout div.layoutColumnTwo.ofFour,
+div.fourColumnLayout div.layoutColumnThree.ofFour {float: left;}
+div.fourColumnLayout div.layoutColumnFour.ofFour {float: right;}
+
+/********* node/layout/5columns.html *********/
+div.fiveColumnLayout {clear: both;}
+div.fiveColumnLayout div.layoutColumnOne.ofFive, 
+div.fiveColumnLayout div.layoutColumnTwo.ofFive, 
+div.fiveColumnLayout div.layoutColumnThree.ofFive,
+div.fiveColumnLayout div.layoutColumnFour.ofFive,
+div.fiveColumnLayout div.layoutColumnFive.ofFive {width: 20%; overflow: hidden;}
+div.fiveColumnLayout div.layoutColumnOne.ofFive, 
+div.fiveColumnLayout div.layoutColumnTwo.ofFive,
+div.fiveColumnLayout div.layoutColumnThree.ofFive,
+div.fiveColumnLayout div.layoutColumnFour.ofFive {float: left;}
+div.fiveColumnLayout div.layoutColumnFive.ofFive {float: right;}
+
+/********* node/layout/6columns.html *********/
+div.sixColumnLayout {clear: both;}
+div.sixColumnLayout div.layoutColumnOne.ofSix, 
+div.sixColumnLayout div.layoutColumnTwo.ofSix, 
+div.sixColumnLayout div.layoutColumnThree.ofSix,
+div.sixColumnLayout div.layoutColumnFour.ofSix,
+div.sixColumnLayout div.layoutColumnFive.ofSix,
+div.sixColumnLayout div.layoutColumnSix.ofSix {width: 16.666%; overflow: hidden;}
+div.sixColumnLayout div.layoutColumnOne.ofSix, 
+div.sixColumnLayout div.layoutColumnTwo.ofSix,
+div.sixColumnLayout div.layoutColumnThree.ofSix,
+div.sixColumnLayout div.layoutColumnFour.ofSix,
+div.sixColumnLayout div.layoutColumnFive.ofSix {float: left;}
+div.sixColumnLayout div.layoutColumnSix.ofSix {float: right;}
+
+/********* node/layout/tabs.html *********/
+div.tabsLayout {clear: both;}
+div.tabsLayout ul.tabs li {float: left; list-style-type: none; padding: 0; margin: 0;}
+div.tabsLayout ul.tabs li a {display: block; padding: 7px 15px;}
+div.tabsLayout div.layoutBody {clear: both;}
+
+/**
+ * gutters
+ * set all gutters to 10px on content elements like traditional grid systems, e.g. 960gs
+ */
+ 
+#header {margin: 10px;}
+#primaryNavigation {margin: 10px;}
+div.pageHeaderWrapper {margin: 10px;}
+h2.layoutTitle {margin: 0 10px;}
+div.node_group-content {margin: 10px;}
+

@@ -1,0 +1,15 @@
+/**
+ * extends default.css prior to Onxshop 1.6
+ * set all gutters to 10px on content elements like traditional grid systems, e.g. 960gs
+ */
+ 
+#containerWrapper {margin: 0;}
+#header {margin: 0 0 10px 0;}
+#headerWrapper {margin: 0 10px;}
+#primaryNavigationWrapper {margin: 0 10px;}
+#contentWrapper {margin-left: 0;}
+div.pageHeaderWrapper {margin: 0 10px;}
+div.columnWrapper {margin: 0!important;}
+div.layoutColumnWrapper {margin: 0!important;}
+div.node_group-content {margin: 10px;}
+h2.layoutTitle {margin-left: 10px;}

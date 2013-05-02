@@ -1,6 +1,9 @@
 /* import default CSS for generic HTML tags */
 @import url(src/global.css);
 
+/* import CSS for layout/grid system */
+@import url(src/layout.css);
+
 /* import default CSS for id,class specific definitions */
 @import url(src/onxshop.css);
 @import url(src/onxshop_ecommerce.css);
