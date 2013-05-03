@@ -82,13 +82,13 @@
 									<div class="addNew">
 										<fieldset class="addNew single">
 											<legend>Upload files</legend>
-											<div class="row" id="add-file">
-												<input id="add-file-input" type="file" name="file" class="file multi" multiple /> 
-												<button type="submit" name="create" value="create"><span>Submit File</span></button><span> Max&nbsp;size:&nbsp;{MAX_FILE_SIZE} MB</span>
-											</div>
 											<div id="add-dropzone" class="row dropzone">
 												<h2>Drop files here</h2>
 												<small>Max. {MAX_FILES} files, {MAX_FILE_SIZE}MB each</small>
+											</div>
+											<div class="row" id="add-file">
+												<input id="add-file-input" type="file" name="file" class="file multi" multiple /> 
+												<button type="submit" name="create" value="create"><span>Submit File</span></button><span> Max&nbsp;size:&nbsp;{MAX_FILE_SIZE} MB</span>
 											</div>
 										</fieldset>
 										<fieldset class="addFolder">
@@ -146,11 +146,10 @@ this component would be good to split into upload and file list
 		if (window.FileReader) {
 			$('#add-dropzone').show();
 			// keep upload input above the dropzone with zero opacity to allow click and select
-			$('#add-file').parent().css("position", "relative");
-			$('#add-file').css("position", "absolute").css("border", "1px dotted gray").css("width", "260px")
-				.css("top", "90px").css("left", "10px").css("opacity", 0)
-			$('#add-file button, #add-file span').hide();
-			$('#add-file input').css("cursor", "pointer");
+			$('#add-file').hide();
+			$('#add-dropzone').css("cursor", "pointer").click(function() {
+				$("#add-file-input").click();
+			});
 		} else {
 			$('#add-dropzone').hide();
 			$('#add-file').show();
@@ -294,10 +293,10 @@ this component would be good to split into upload and file list
 </script>
 
 <style type="text/css">
-	#server_browser_file_list_wrapper .drag-over { border: 2px dashed black; background: #eee; }
 	#server_browser_file_list_wrapper table.server-browser span.progress { width: 200px; height: 10px; border: 1px solid black; background: white; display: block;}
 	#server_browser_file_list_wrapper table.server-browser span.progress span { width: 0; height: 10px; background: #888; display: block;}
-	#server_browser_file_list_wrapper #add-dropzone { border: 2px dashed #444444; border-radius: 10px; padding: 40px; text-align: center; margin: 0 10px 0 0; }
+	#server_browser_file_list_wrapper #add-dropzone { border: 2px dashed #444444; background: white; border-radius: 10px; padding: 40px; text-align: center; margin: 0 10px 0 0;}
+	#server_browser_file_list_wrapper #add-dropzone.drag-over { border: 2px dashed black; background: #eee; }
 	#server_browser_file_list_wrapper legend { margin: 0; padding-bottom: 1em;}
 	#server_browser_file_list_wrapper progress { width: 300px; }
 	#server_browser_file_list_wrapper .progress-total { display: none; }
