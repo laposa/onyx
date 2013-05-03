@@ -13,10 +13,11 @@
 			/*pager: '#gallery_2columns_{GET.node_id} div.pagination',*/
 			activePagerClass: 'active',
 			cleartypeNoBg: true,
-			slideResize: 0,
 			fit: 1,
-			height: 300,
-			delay: 10000
+			slideResize: 0,
+			delay: 10000,
+			pause: 1,
+			height: 270
 		});
 	});
 </script>
@@ -28,8 +29,10 @@
 		</div>
 		<div class="layoutColumnTwo ofTwo">
 			<div class="sliderCopy">
-				<h3><a href="/page/{ITEM.link_to_node_id}"><span>{ITEM.title|htmlspacialchars}</span></a></h3>		
-				<p class="description">{ITEM.description|htmlspecialchars|nl2br}</p>
+				<div class="wrap">
+					<h3><a href="/page/{ITEM.link_to_node_id}"><span>{ITEM.title|htmlspacialchars}</span></a></h3>		
+					<p class="description">{ITEM.description|htmlspecialchars|nl2br}</p>
+				</div>
 				<div class="content"><a href="/page/{ITEM.link_to_node_id}">{ITEM.content}</a></div>
 				<div class="controls">
 					<a href="#" title="previous" class="prev"><span>&#x25C3;</span></a>
