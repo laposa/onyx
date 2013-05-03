@@ -1,18 +1,16 @@
 <!-- BEGIN: content -->
 <div class="facebook_auth">
 	<!-- BEGIN: authorised -->
-	<div class="facebook_authorised">
+	<div class="authorised">
 		<h3>{USER_PROFILE.first_name|htmlspecialchars} {USER_PROFILE.last_name|htmlspecialchars}</h3>
 		<img src="https://graph.facebook.com/{USER_PROFILE.id}/picture">
-		<pre>{USER_PROFILE|print_r(%s, true)}</pre>
+		<!--<pre>{USER_PROFILE|print_r(%s, true)}</pre>-->
 	</div>
 	<!-- END: authorised -->
 	<!-- BEGIN: login -->
-	<div class="facebook_login">
-		<form method="post" action="{URI}" class="login via_facebook">
-			<button name="facebook_auth" value="1"><span>Login with Facebook</span></button>
-		</form>
-	</div>
+	<form method="post" action="{URI|htmlspecialchars}" class="login via_facebook">
+		<button name="facebook_auth" value="1"><span>Connect with Facebook</span></button>
+	</form>
 	<!-- END: login -->
 </div>
 <!-- END: content -->
