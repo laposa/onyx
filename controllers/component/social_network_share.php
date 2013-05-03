@@ -7,6 +7,8 @@
 
 require_once('models/common/common_node.php');
 require_once('models/common/common_image.php');
+require_once('models/ecommerce/ecommerce_recipe_image.php');
+require_once('models/ecommerce/ecommerce_product_image.php');
 
 class Onxshop_Controller_Component_Social_Network_Share extends Onxshop_Controller {
 
@@ -26,11 +28,21 @@ class Onxshop_Controller_Component_Social_Network_Share extends Onxshop_Controll
 	 */
 
 	public function mainAction() {
-
-		$this->initModels();
+		
+		$this->Node = new common_node();
 		$this->node_id = $this->getNodeId();
 		$this->node = $this->getNode($this->node_id);
-		$this->image = $this->getImage($this->node_id);
+		
+		if ($this->node['node_controller'] == 'recipe') {
+			$this->Image = new ecommerce_recipe_image();
+			$this->image = $this->getImage($this->node['content']);
+		} else if ($this->node['node_controller'] == 'product') {
+			$this->Image = new ecommerce_product_image();
+			$this->image = $this->getImage($this->node['content']);
+		} else {
+			$this->Image = new common_image();
+			$this->image = $this->getImage($this->node_id);
+		}
 
 		$share_uri = "http://".$_SERVER['HTTP_HOST']."/page/{$this->node_id}";
 
@@ -40,13 +52,6 @@ class Onxshop_Controller_Component_Social_Network_Share extends Onxshop_Controll
 
 		return true;
 		
-	}
-
-	protected function initModels() {
-
-		$this->Node = new common_node();
-		$this->Image = new common_image();
-
 	}
 
 	protected function getNodeId() {
