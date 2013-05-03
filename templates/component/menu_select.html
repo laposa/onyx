@@ -1,0 +1,18 @@
+<!-- BEGIN: content -->
+<!-- BEGIN: group -->
+<select name="menu_{GET.id}">
+<!-- BEGIN: item -->
+<option value="{ITEM.id}" data-href="/page/{ITEM.id}" {ITEM.selected}>
+	<!-- BEGIN:link -->
+	{ITEM.name|htmlspecialchars}
+	<!-- END:link -->
+	<!-- BEGIN:nolink -->
+	{ITEM.name|htmlspecialchars}
+	<!-- END:nolink -->
+</option>
+<!-- END: item -->
+{END_RESULT_ITEMS}
+</select>
+<!-- END: group -->
+{END_RESULT_GROUPS}
+<!-- END: content -->
