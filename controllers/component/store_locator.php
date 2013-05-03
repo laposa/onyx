@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -33,9 +33,9 @@ class Onxshop_Controller_Component_Store_Locator extends Onxshop_Controller {
 
 		// process request to save store as my own store
 		if ($this->GET['set_home_store'] == 'true' && $selected_store['id'] > 0) {
-			$this->updateCustomersHomeStore($selected_store['id']);
-			msg("You home store has been updated.");
-			onxshopGoTo("page/$node_id");
+			if ($this->updateCustomersHomeStore($selected_store['id'])) msg("You home store has been updated.");
+			else msg("Please login into your account to save your store.");
+			return true;
 		}
 
 		// init map bounds
@@ -52,22 +52,22 @@ class Onxshop_Controller_Component_Store_Locator extends Onxshop_Controller {
 				// find page and url
 				$page = $store_pages[$store['id']];
 				$store['url'] = $Mapping->stringToSeoUrl("/page/{$page['id']}");
+				$store['node_id'] = $page['id'];
 				$store['icon'] = $store['id'] == $selected_store['id'] ? 'false' : 'true';
 				$store['open'] = $store['id'] == $selected_store['id'] ? 'true' : 'false';
 
 				// adjust bounds (by province/county)
-				if ($node_id == 1345 || array_intersect($page_categories, $categories[$store['id']])) {
-					
+				if (array_intersect($page_categories, $categories[$store['id']])) {
 					if ($store['latitude'] > $bounds['latitude']['max']) $bounds['latitude']['max'] = $store['latitude'];
 					if ($store['latitude'] < $bounds['latitude']['min']) $bounds['latitude']['min'] = $store['latitude'];
 					if ($store['longitude'] > $bounds['longitude']['max']) $bounds['longitude']['max'] = $store['longitude'];
 					if ($store['longitude'] < $bounds['longitude']['min']) $bounds['longitude']['min'] = $store['longitude'];
-					$store['icon'] = 'false';
 				}
 
+				$store['opening_hours'] = json_encode(nl2br($store['opening_hours']));
 				// parse item
 				$this->tpl->assign("STORE", $store);
-				$this->tpl->parse("content.store_marker");
+				$this->tpl->parse("content.map.store_marker");
 
 			}
 		}
@@ -84,13 +84,14 @@ class Onxshop_Controller_Component_Store_Locator extends Onxshop_Controller {
 			// ... to bounds of a selected region (province/county)
 			if ($bounds['latitude']['min'] != 9999) {
 				$this->tpl->assign("BOUNDS", $bounds);
-				$this->tpl->parse("content.fit_to_bounds");
+				$this->tpl->parse("content.map.fit_to_bounds");
 			}
 			$map['latitude'] = 53.344189;
 			$map['longitude'] = -6.264478;
 		}
 
 		$this->tpl->assign("MAP", $map);
+		$this->tpl->parse("content.map");
 
 		return true;
 	}
@@ -211,6 +212,10 @@ class Onxshop_Controller_Component_Store_Locator extends Onxshop_Controller {
 	 */
 	protected function updateCustomersHomeStore($store_id)
 	{
+		$customer_id = (int) $_SESSION['client']['customer']['id'];
+
+		if ($customer_id == 0) return false;
+
 		$Customer = new client_customer();
 
 		// update other_data
@@ -221,9 +226,11 @@ class Onxshop_Controller_Component_Store_Locator extends Onxshop_Controller {
 		$_SESSION['client']['customer']['other_data'] = $other_data;
 
 		$Customer->update(array(
-			'id' => $_SESSION['client']['customer']['id'],
+			'id' => $customer_id,
 			'other_data' => $other_data
 		));
+
+		return true;
 	}
 
 }
