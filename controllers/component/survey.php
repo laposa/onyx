@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2011-2012 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2011-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -9,6 +9,8 @@ require_once('models/education/education_survey.php');
 require_once('models/education/education_survey_entry.php');
 
 class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
+
+	const TAXONOMY_TREE_PROVINCE_ID = 53;
 
 	/**
 	 * main action
@@ -59,33 +61,13 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 				
 				if ($this->checkVoteEligibility($survey_id) && $_POST['save'] && is_array($_POST['answer'])) {
 
-					// check captcha
-					$word = strtolower($_SESSION['captcha'][$this->GET['node_id']]);
-					$isCaptchaValid = strlen($_POST['captcha']) > 0 && $_POST['captcha'] == $word;
-					$captchaEnabled = ($this->GET['spam_protection'] == "captcha_text_js");
+					$survey_entry_id = $this->processAndSaveForm($survey_id);
 
-					if ($captchaEnabled && $isCaptchaValid) {
-
-						$submitted_answers = $_POST['answer'];
-						unset($_POST['answer']['captcha']);
-
-						//try to save and if not successfull display survey form again
-						if ($survey_entry_id = $this->saveEntry($survey_id, $submitted_answers)) {
-							msg("Survey ID $survey_id has been submitted as entry ID $survey_entry_id.", 'ok', 0, 'survey_submitted');
-							onxshopGoTo($_SESSION['uri'], 2);
-						} else {
-							msg("Some error occurred during survey submission", 'error');
-							$this->displaySurvey($survey_detail, $submitted_answers);
-						}
-
-					} else {
-						msg("Please enter correct code", 'error');
-						$this->displaySurvey($survey_detail);
-					}
+					if ($survey_entry_id) $this->displaySuccessPage($survey_detail, $survey_entry_id);
+					$this->displaySurvey($survey_detail, $submitted_answers);
 
 				} else {
 				
-					//display survey form
 					$this->displaySurvey($survey_detail);
 				
 				}
@@ -101,6 +83,100 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 		
 		return true;
 		
+	}
+
+	/**
+	 * Display message or forward to thank you page
+	 */
+	public function displaySuccessPage($survey_detail, $survey_entry_id) {
+
+		if ($this->GET['href']) {
+
+			onxshopGoTo($this->GET['href']);
+
+		} else {
+
+			msg("Survey ID {$survey_detail['id']} has been submitted as entry ID $survey_entry_id.", 'ok', 0, 'survey_submitted');
+			onxshopGoTo($_SESSION['uri'], 2);
+
+		}
+	}
+
+	/**
+	 * Process and save survey form
+	 * @return int|FALSE
+	 */
+	public function processAndSaveForm($survey_id) {
+
+		// check captcha
+		$word = strtolower($_SESSION['captcha'][$this->GET['node_id']]);
+		$isCaptchaValid = strlen($_POST['captcha']) > 0 && $_POST['captcha'] == $word;
+		$captchaEnabled = ($this->GET['spam_protection'] == "captcha_text_js");
+
+		if ($captchaEnabled && !$isCaptchaValid) {
+			msg("Please enter correct code", 'error');
+			return false;
+		}
+
+		$customer_id = (int) $_SESSION['client']['customer']['id'];
+
+		if ($this->areUserDetailsRequired()) {
+
+			$customer = $_POST['client']['customer'];
+
+			if ($customer['first_name'] && $customer['last_name'] && $customer['email']) {
+
+				$customer_id = $this->processCustomerDetails($customer);
+
+			} else {
+
+				msg("Invalid personal details entered.", 'error');
+				return false;
+			} 
+		}
+
+		$survey_entry_id = $this->saveEntry($survey_id, $_POST['answer'], $customer_id);
+
+		if (!$survey_entry_id) {
+			msg("An error occurred during survey submission", 'error');
+			return false;
+		}
+
+		return $survey_entry_id;
+	}
+
+	public function processCustomerDetails($form_data)
+	{
+		require_once 'models/client/client_customer.php';
+		$Customer = new client_customer();
+		$Customer->setCacheable(false);
+		
+		$customer_details = $Customer->getClientByEmail($form_data['email']);
+
+		if (is_numeric($customer_details['id'])) {
+
+			$customer_details['other_data'] = unserialize($customer_details['other_data']);
+
+			// update only certain properties
+
+			if (strlen($form_data['other_data']['city']) > 0) 
+				$customer_details['other_data']['city'] = $form_data['other_data']['city'];
+
+			if (strlen($form_data['other_data']['county']) > 0) 
+				$customer_details['other_data']['county'] = $form_data['other_data']['county'];
+
+			if (strlen($form_data['telephone']) > 0) 
+				$customer_details['telephone'] = $form_data['telephone'];
+
+			if (strlen($form_data['birthday']) > 0) 
+				$customer_details['birthday'] = $form_data['birthday'];
+
+			$Customer->updatePreservedCustomer($customer_details);
+
+			return $customer_details['id'];
+		}
+
+		return $Customer->insertPreservedCustomer($form_data);
 	}
 	
 	/**
@@ -131,10 +207,16 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 			$this->tpl->parse("content.form.invisible_captcha_field");
 		}
 
+		if ($this->areUserDetailsRequired()) {
+			$this->parseCountySelect($_POST['client']['customer']['other_data']['county']);
+			$this->tpl->parse("content.form.require_user_details");
+		}
+
 		$this->tpl->assign('SURVEY', $survey_detail);
 		$this->tpl->parse('content.form');
 		
 	}
+
 
 	/**
 	 * displayQuestion
@@ -202,7 +284,7 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 	 * prepare survey entry
 	 */
 	 
-	public function prepareSurveyEntry($survey_id, $answers) {
+	public function prepareSurveyEntry($survey_id, $answers, $customer_id) {
 	
 		if (!is_numeric($survey_id)) return false;
 		
@@ -213,7 +295,7 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 		
 		$survey_entry = array();
 		$survey_entry['survey_id'] = $survey_id;
-		$survey_entry['customer_id'] = $_SESSION['client']['customer']['id'];
+		$survey_entry['customer_id'] = $customer_id;
 		//if GET params provided, use as relation_subject, othewise leave null (undefined)
 		if ($relation_subject = $this->getRelationSubject()) $survey_entry['relation_subject'] = $relation_subject;
 		$survey_entry['answers'] = array();
@@ -252,14 +334,14 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 	 * saveEntry
 	 */
 	
-	public function saveEntry($survey_id, $answers) {
+	public function saveEntry($survey_id, $answers, $customer_id) {
 		
 		if (!is_array($answers)) {
 			msg("saveEntry data isn't array", 'error');
 			return false;
 		}
 		
-		if ($survey_entry_data = $this->prepareSurveyEntry($survey_id, $answers)) {
+		if ($survey_entry_data = $this->prepareSurveyEntry($survey_id, $answers, $customer_id)) {
 		
 			return $this->Entry->saveEntryFull($survey_entry_data);
 		
@@ -358,7 +440,7 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 
 	protected function hasCustomerVoted($survey_id)
 	{
-		$has_voted = true;
+		$has_voted = false;
 
 		// get parameters
 
@@ -369,6 +451,7 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 		$votes_per_day = (int) $this->GET['votes_per_day'];
 
 		switch ($limit) {
+
 			case 'once_per_competition':
 				$max_votes = 1;
 				$justToday = false;
@@ -389,10 +472,49 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 		if ($limit != 'unlimited') {
 
 			$num = $this->Entry->numEntriesForSessionId($survey_id, session_id(), $justToday);
-			$has_voted = ($num < $max_votes);
+			$has_voted = ($num >= $max_votes);
 		}
 
 		return $has_voted;
+	}
+
+	public function areUserDetailsRequired()
+	{
+		$configuration_flag = ($this->GET['require_user_details'] == "1");
+		$user_not_logged_in = !$_SESSION['client']['customer']['id'];
+		return $configuration_flag && $user_not_logged_in;
+	}
+
+	protected function parseCountySelect($selected_id)
+	{
+		$provinces = $this->getTaxonomyBranch(self::TAXONOMY_TREE_PROVINCE_ID);
+
+		foreach ($provinces as $province) {
+
+			$this->tpl->assign("PROVINCE_NAME", $province['label']['title']);
+
+			$counties = $this->getTaxonomyBranch($province['id']);
+
+			foreach ($counties as $county) {
+				$county['selected'] = ($selected_id == $county['id'] ? 'selected="selected"' : '');
+				$this->tpl->assign("COUNTY", $county);
+				$this->tpl->parse("content.form.require_user_details.county_dropdown.province.county");
+			}
+
+			$this->tpl->parse("content.form.require_user_details.county_dropdown.province");
+
+		}
+
+		$this->tpl->parse("content.form.require_user_details.county_dropdown");
+
+	}
+
+	public function getTaxonomyBranch($parent)
+	{
+		require_once('models/common/common_taxonomy.php');
+		$Taxonomy = new common_taxonomy();
+		
+		return $Taxonomy->getChildren($parent);
 	}
 
 }

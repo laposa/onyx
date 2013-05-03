@@ -1,32 +1,40 @@
 <!-- BEGIN: content -->
-
+<div class="survey_image_poll">
 <!-- BEGIN: form -->
 <script type="text/javascript">
 $(function() {
-	$("#survey_form_{GET.node_id}").validate();
+	
+	var form = $('#survey_form_{GET.node_id}');
+	
+	form.validate();
+	form.find("input[type=radio]").hide();
+	form.find("button[type=submit]").hide();
+	form.find(".RTEcontent").css("cursor", "pointer").click(function() {
+		$(this).parent().find("input[type=radio]").attr('checked', true);
+		form.find("button[name=save]").click();
+		return false;
+	});
+	
 });
 </script>
-
-<style type="text/css">
-label.error { display: none; }	
-</style>
 
 <form method="post" action="{URI|htmlspecialchars}" id="survey_form_{GET.node_id}">
 	<fieldset class="single">
 		<legend>{SURVEY.title|htmlspecialchars}</legend>
 		<!-- BEGIN: question -->
 		<div class="row">
-			<span class="label"><label for="question_id_{QUESTION.id}">{QUESTION.title|htmlspecialchars}</label></span>
-			<span class="field">
+			<h2 class="title">{QUESTION.title|htmlspecialchars}</h2>
+			<p class="description">{QUESTION.description|htmlspecialchars}</p>
+			<div class="field">
 				<!-- BEGIN: answer_text -->
 				<textarea class="{CLASS_REQUIRED}" name="answer[{QUESTION.id}]">{SELECTED_VALUE}</textarea>
 				<!-- END: answer_text -->
 				<!-- BEGIN: answer_list_radio -->
 					<!-- BEGIN: item -->
 					<div class="row">
+						<div class="RTEcontent">{ANSWER.content}</div>
 						<input type="radio" class="{CLASS_REQUIRED}" name="answer[{QUESTION.id}]" value="{ANSWER.id}" {SELECTED} id="answer_id_{ANSWER.id}">
 						<label for="answer_id_{ANSWER.id}">{ANSWER.title|htmlspecialchars}</label><br/>
-						<div class="RTEcontent">{ANSWER.content}</div>
 					</div>
 					<!-- END: item -->
 					<label for="answer[{QUESTION.id}]" class="error">This field is required.</label>
@@ -39,7 +47,7 @@ label.error { display: none; }
 					<!-- END: item -->
 				</select>
 				<!-- END: answer_list_select -->
-			</span>
+			</div>
 		</div>
 		<!-- END: question -->
 
@@ -61,21 +69,8 @@ label.error { display: none; }
 		<button type="submit" name="save" value="save"><span>{I18N_SUBMIT}</span></button>
 		
 	</fieldset>
+	<div class="bottom"></div>
 </form>
-
-<script type="text/javascript">
-	$(function() {
-		var form = $('#survey_form_{GET.node_id}');
-		form.find("input[type=radio]").hide();
-		form.find("button[type=submit]").hide();
-		form.find(".RTEcontent").css("cursor", "pointer").click(function() {
-			$(this).parent().find("input[type=radio]").attr('checked', true);
-			form.find("button[name=save]").click();
-			return false;
-		});
-	});
-</script>
-
 <!-- END: form -->
 
 <!-- BEGIN: result -->
@@ -89,5 +84,5 @@ label.error { display: none; }
 	</p>
 </div>
 <!-- END: closed -->
-
+</div>
 <!-- END: content -->

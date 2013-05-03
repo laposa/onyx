@@ -85,16 +85,21 @@ class Onxshop_Controller_Component_Survey_Result extends Onxshop_Controller_Comp
 					$usage_count = $this->getAnswerUsage($answer['id'], $relation_subject);
 					$question['answer_list'][$ka]['usage_count'] = $usage_count;
 					$usage_count_sum += $usage_count;
+					if ($usage_count > $usage_count_max) $usage_count_max = $usage_count;
 				}
 				
 				//calculate usage_scale (1 to 10)
 				foreach ($question['answer_list'] as $ka=>$answer) {
-				
+
 					if ($usage_count_sum > 0) $usage_scale = $answer['usage_count'] / $usage_count_sum * 10;
 					else $usage_scale = 0;
-					
+					if ($usage_count_max > 0) $normalised_scale = $answer['usage_count'] / $usage_count_max;
+					else $normalised_scale = 0;
+
 					$question['answer_list'][$ka]['usage_scale'] = round($usage_scale);
 					$question['answer_list'][$ka]['usage_scale_percentage'] = $usage_scale * 10;
+					$question['answer_list'][$ka]['normalised_usage_scale_percentage'] = $normalised_scale * 100;
+					$question['answer_list'][$ka]['reversed_normalised_usage_scale_percentage'] = 100 - ($normalised_scale * 100);
 				}
 			}
 			
@@ -323,7 +328,9 @@ class Onxshop_Controller_Component_Survey_Result extends Onxshop_Controller_Comp
 			
 			case 'radio':
 				
+				$i = 0;
 				foreach ($question_detail['answer_list'] as $item) {
+					$item['i'] = $i++;
 					$this->tpl->assign('ANSWER', $item);
 					$this->tpl->parse('content.result.question.answer_list_radio.item');
 				}

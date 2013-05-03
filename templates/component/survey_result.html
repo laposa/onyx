@@ -1,15 +1,10 @@
 <!-- BEGIN: content -->
 <div class="survey_result">
 
-<h2>{SURVEY.title|htmlspecialchars}</h2>
-<p><span title="{I18N_AVERAGE_RATING}">{I18N_AVERAGE_RATING_FINAL}: {SURVEY.weighted_mean|number_format(2)}</span> <br />
-{I18N_ANWER_COUNT}: <span title="{I18N_RESPONDENT_COUNT}">{SURVEY.number_of_responses}</span></p>
+<h2>Thanks for voting!</h2>
 <!-- BEGIN: result -->
 	
 	<!-- BEGIN: question -->
-	
-		<h4>{QUESTION.title|htmlspecialchars}</h4>
-		<!-- BEGIN: average_rating --><p><span title="{I18N_AVERAGE_RATING}">{I18N_AVERAGE_MARK}: {QUESTION.average_rating|number_format(2)}</span></p><!-- END: average_rating -->
 	
 		<!-- BEGIN: answer_list_text -->
 			<ul class="text">
@@ -22,7 +17,16 @@
 		<!-- BEGIN: answer_list_radio -->
 			<ul class="radio">
 			<!-- BEGIN: item -->
-			<li><span class="bar usage_scale_{ANSWER.usage_scale}" title="{ANSWER.usage_scale_percentage|number_format(2)}%"><span></span></span>{ANSWER.title|htmlspecialchars} ({ANSWER.usage_scale_percentage|number_format(0)}% <span title="{I18N_RESPONDENT_COUNT}">[{ANSWER.usage_count}]</span>)</li>
+			<li class="item{ANSWER.i}">
+				<div class="RTEcontent">{ANSWER.content}</div>
+				<div class="barArea">
+					<div class="barContainer">
+						<span class="percentage" style="bottom: {ANSWER.normalised_usage_scale_percentage|number_format(0)}%">{ANSWER.usage_scale_percentage|number_format(0)}%</span>
+						<span class="bar"><span style="height: {ANSWER.normalised_usage_scale_percentage|number_format(0)}%"></span></span>
+					</div>
+					<span class="title">{ANSWER.title|htmlspecialchars}</span>
+				</div>
+			</li>
 			<!-- END: item -->
 			</ul>
 		<!-- END: answer_list_radio -->
@@ -38,6 +42,6 @@
 	<!-- END: question -->
 
 <!-- END: result -->
-
+<div class="bottom"></div>
 </div>
 <!-- END: content -->

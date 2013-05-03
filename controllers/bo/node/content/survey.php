@@ -12,8 +12,10 @@ class Onxshop_Controller_Bo_Node_Content_Survey extends Onxshop_Controller_Bo_No
 	/**
 	 * pre action
 	 */
+	 
 	function pre() {
-
+		if ($_POST['node']['component']['require_user_details'] == 'on') $_POST['node']['component']['require_user_details'] = 1;
+		else $_POST['node']['component']['require_user_details'] = 0;
 	}
 
 	/**
@@ -21,6 +23,9 @@ class Onxshop_Controller_Bo_Node_Content_Survey extends Onxshop_Controller_Bo_No
 	 */
 	 
 	function post() {
+
+		// require user details
+		$this->node_data['component']['require_user_details'] = ($this->node_data['component']['require_user_details']) ? 'checked="checked"' : '';
 
 		// survey dropdown	
 		$Survey = new education_survey();
