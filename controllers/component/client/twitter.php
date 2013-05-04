@@ -16,8 +16,42 @@ class Onxshop_Controller_Component_Client_Twitter extends Onxshop_Controller {
 	 */
 	 
 	public function mainAction() {
-				
+		
+		$token = $this->commonAction();
+		
 		return true;
+	}
+	
+	/**
+	 * common action
+	 */
+	 
+	public function commonAction() {
+		
+		// start auth on request (clicked on login via Twitter button) 
+		if ($_POST['twitter_auth']) {
+			$this->oAuth();
+		}
+		
+		// endSession() signs users out of client-facing applications.
+		if ($this->GET['twitter_logout']) {
+			$response   = $this->twitter->account->endSession();
+		}
+		
+		// when comming back from Twitter, oauth_token and oauth_verifier is provided in GET
+		if ($this->GET['oauth_token'] && $this->GET['oauth_verifier']) {
+			
+			//print_r($_SESSION['TWITTER_REQUEST_TOKEN']);
+			if (isset($_SESSION['TWITTER_REQUEST_TOKEN'])) $this->oAuthCallback();
+			
+		}
+		
+		$token = $this->getAccessToken();
+		
+		$this->initTwitter($this->getTwitterUsername(), $token);
+						
+		return $token;
+		
 	}
 	
 	/**
@@ -49,6 +83,8 @@ class Onxshop_Controller_Component_Client_Twitter extends Onxshop_Controller {
 		    'username' => $username,
 		    'accessToken' => $token
 		));
+		
+		return $token;
 		
 	}
 	

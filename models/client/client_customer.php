@@ -340,7 +340,25 @@ CREATE TABLE client_customer (
 		
 		$this->setAll($customer_data);
 	
-		if (!$this->checkLoginId($customer_data)) return false;
+		if ($this->isSocialAccount($customer_data)) {
+			
+			//allow to pass, but issue notice
+			if (!$this->checkLoginId($customer_data)) {		
+			
+				msg("Social registration to an existing account {$customer_data['email']}", 'ok', 1);
+					
+			}
+						
+		} else {
+			
+			//full check
+			if (!$this->checkLoginId($customer_data)) {
+			
+				msg("User email {$customer_data['email']} is already registered", 'error', 0, 'account_exists');	
+				return false;
+			
+			}
+		}
 		
 		if ($this->getValid()) {
 			return $customer_data;
@@ -374,10 +392,9 @@ CREATE TABLE client_customer (
 				$customer_current = $this->listing($sql);
 		
 				if (count($customer_current) > 0) {
-		
-					msg("User email {$customer_data['email']} is already registered", 'error', 0, 'account_exists');
+					
 					return false;
-		
+					
 				} else {
 		
 					return true;
@@ -412,6 +429,17 @@ CREATE TABLE client_customer (
 		
 			}
 		}
+	}
+	
+	/**
+	 * isSocialAccount
+	 */
+	 
+	public function isSocialAccount($customer_data) {
+	
+		if (is_numeric($customer_data['facebook_id']) || is_numeric($customer_data['twitter_id']) || is_numeric($customer_data['google_id'])) return true;
+		else return false;
+		
 	}
 	
 	/**
@@ -480,7 +508,7 @@ CREATE TABLE client_customer (
 	 * is this email address registered for newsleter? [true/false]
 	 */
 	
-	function checkLoginIdSubscribedNewsletterOnly($email) {
+	function checkLoginIdPreservedOnly($email) {
 	
 		$email = strtolower($email);
 		
@@ -491,7 +519,7 @@ CREATE TABLE client_customer (
 				return $customer_list[0]; 
 			} else {
 				//this shouldn't really happen in any circumstances
-				msg("Multiple newsletter registrations on email {$email}, using first found", 'error');
+				msg("Multiple preserved registrations on email {$email}, using first found", 'error');
 				return $customer_list[0];
 			}
 			
@@ -515,12 +543,14 @@ CREATE TABLE client_customer (
 	
 		if (is_array($data['other_data'])) $data['other_data'] = serialize($data['other_data']);
 		
-		if ($newsletter_account = $this->checkLoginIdSubscribedNewsletterOnly($data['email'])) {
-			//merge data, but keep old created time
-			$update_data = array_merge($newsletter_account, $data);
-			$update_data['created'] = $newsletter_account['created'];
-			$update_data['modified'] = date('c');
-			$id = $this->update($update_data);
+		if ($preserved_account = $this->checkLoginIdPreservedOnly($data['email'])) {
+			
+			$id = $this->mergeAccount($preserved_account, $data);
+			
+		} else if ($old_account = $this->getClientByEmail($data['email'])) {
+			//this can happen when associating social account to previously (fully) registered account
+			$id = $this->mergeAccount($old_account, $data);
+			
 		} else {
 			$data['created'] = date('c');
 			$data['modified'] = date('c');
@@ -530,6 +560,21 @@ CREATE TABLE client_customer (
 		if (is_numeric($id)) return $id;
 		else return false;
 	
+	}
+	
+	/**
+	 * mergeAccount
+	 */
+	 
+	public function mergeAccount($old, $new) {
+	
+		//merge data, but keep old created time
+		$merged_data = array_merge($old, $new);
+		$merged_data['created'] = $old['created'];
+		$merged_data['modified'] = date('c');
+		$id = $this->update($merged_data);
+		
+		return $id;
 	}
 	
 	/**
@@ -688,7 +733,12 @@ CREATE TABLE client_customer (
 			}
 		}
 
-		if (!$this->checkLoginId($client_data['customer'])) return false;
+		if (!$this->checkLoginId($client_data['customer'])) {
+		
+			msg("User email {$customer_data['email']} is already registered", 'error', 0, 'account_exists');
+			return false;
+		
+		}
 		
 		if ($this->updateCustomer($client_data['customer'])) {
 			msg('Customer Data Updated', 'ok', 2);

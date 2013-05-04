@@ -18,9 +18,9 @@ class Onxshop_Controller_Component_Client_Facebook_Profile extends Onxshop_Contr
 		/**
 		 * input
 		 */
-		 
+		
 		if ($this->GET['fb_username']) $fb_username = $this->GET['fb_username'];
-		else $fb_username = 'onxshop';
+		else $fb_username = 'me';
 		
 		/**
 		 * call shared actions
@@ -28,10 +28,18 @@ class Onxshop_Controller_Component_Client_Facebook_Profile extends Onxshop_Contr
 		 
 		$this->commonAction();
 		
-		// This call will always work since we are fetching public data.
-		$fb_user_public_detail = $this->Facebook->api("/$fb_username");
+		$user = $this->Facebook->getUser();
 		
-		$this->tpl->assign('FB_USER_PUBLIC_DETAIL', $fb_user_public_detail);
+		if ($user) {
+			// This call will always work since we are fetching public data.
+			$user_profile = $this->Facebook->api("/$fb_username");
+			
+			if ($user_profile) {
+				
+				$this->tpl->assign('USER_PROFILE', $user_profile);
+				$this->tpl->parse('content.profile');
+			}
+		}
 		
 		return true;
 		
