@@ -86,7 +86,7 @@ class Onxshop_Controller_Component_Client_Facebook_Auth extends Onxshop_Controll
 
 	public function getLoginConf() {
 		
-		$conf = array('scope' => 'publish_stream,email,user_mobile_phone,user_birthday,read_friendlists,offline_access');
+		$conf = array('scope' => 'email,user_mobile_phone,read_friendlists');
 		
 		return $conf;
 	}
