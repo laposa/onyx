@@ -456,14 +456,7 @@ CREATE TABLE ecommerce_product (
     		}
     	}
     	
-    	if ($currency_code != GLOBAL_DEFAULT_CURRENCY) {
-			require_once('models/international/international_currency_rate.php');
-			$Currency = new international_currency_rate();
-			$exchange_rate = $Currency->getLatestExchangeRate(GLOBAL_DEFAULT_CURRENCY, $currency_code);
-		} else {
-			$exchange_rate = 1;
-		}
-
+    	$exchange_rate = $this->getExchangeRate($currency_code);
     	
 		$sql = "
 		SELECT DISTINCT ON (variety.id) price.value * (100 + ecommerce_product_type.vat)/100 * $exchange_rate  AS price, 
@@ -540,13 +533,7 @@ variety.stock, price.date, product.publish, product.modified, variety.sku, varie
 			return false;
 		}
 		
-		if ($currency_code != GLOBAL_DEFAULT_CURRENCY) {
-			require_once('models/international/international_currency_rate.php');
-			$Currency = new international_currency_rate();
-			$exchange_rate = $Currency->getLatestExchangeRate(GLOBAL_DEFAULT_CURRENCY, $currency_code);
-		} else {
-			$exchange_rate = 1;
-		}
+		$exchange_rate = $this->getExchangeRate($currency_code);
 		
 		$sql = "
 		SELECT DISTINCT ON (variety.id) price.value * (100 + ecommerce_product_type.vat)/100 * $exchange_rate  AS price, 
@@ -765,5 +752,23 @@ variety.stock, price.date, image.src, image.title, image.priority, image.id, nod
 		$related_taxonomy = $Taxonomy->getRelatedTaxonomy($product_id, 'ecommerce_product_taxonomy');
 				
 		return $related_taxonomy;
+	}
+	
+	/**
+	 * getExchangeRate
+	 */
+	 
+	public function getExchangeRate($currency_code) {
+		
+		if ($currency_code != GLOBAL_DEFAULT_CURRENCY) {
+			require_once('models/international/international_currency_rate.php');
+			$Currency = new international_currency_rate();
+			$exchange_rate = $Currency->getLatestExchangeRate(GLOBAL_DEFAULT_CURRENCY, $currency_code);
+		} else {
+			$exchange_rate = 1;
+		}
+		
+		return $exchange_rate;
+		
 	}
 }
