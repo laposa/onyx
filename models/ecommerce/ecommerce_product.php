@@ -467,7 +467,7 @@ CREATE TABLE ecommerce_product (
     	
 		$sql = "
 		SELECT DISTINCT ON (variety.id) price.value * (100 + ecommerce_product_type.vat)/100 * $exchange_rate  AS price, 
-		price.value AS price_net,
+		price.value * $exchange_rate AS price_net,
 		price.date AS price_date,
 		ecommerce_product_type.vat AS vat_rate,
 		variety.id AS variety_id, 
@@ -550,6 +550,7 @@ variety.stock, price.date, product.publish, product.modified, variety.sku, varie
 		
 		$sql = "
 		SELECT DISTINCT ON (variety.id) price.value * (100 + ecommerce_product_type.vat)/100 * $exchange_rate  AS price, 
+		price.value * $exchange_rate AS price_net,
 		price.date, 
 		variety.id AS variety_id, 
 		variety.name AS variety_name, 
