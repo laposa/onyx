@@ -153,8 +153,8 @@ div.order_detail a.button.print_invoice_proforma {float: left; margin: 0 1em 1em
 div.userbox div.register {float: left; margin-right: 30px; display: none;}
 div.userbox div.login {float: left; display: none;}
 div.userbox a {text-decoration: none; white-space: pre;}
-div.userbox a.client_area {padding-left: 5px; margin-left: 5px; border-left: 1px solid grey;}
-div.userbox a.logout {padding-left: 5px; margin-left: 5px; border-left: 1px solid grey;}
+div.userbox a.client_area {padding-left: 5px; margin-left: 10px;}
+div.userbox a.logout {padding-left: 5px; margin-left: 10px;}
 
 /********* component/client/login.html *********/
 /********* component/client/registration_start.html *********/
