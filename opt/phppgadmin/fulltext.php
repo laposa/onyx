@@ -45,23 +45,51 @@
 
 		$actions = array(
 			'drop' => array(
-				'title' => $lang['strdrop'],
-				'url'   => "fulltext.php?action=dropconfig&amp;{$misc->href}&amp;",
-				'vars'  => array('ftscfg' => 'name'),
+				'content' => $lang['strdrop'],
+				'attr'=> array (
+					'href' => array (
+						'url' => 'fulltext.php',
+						'urlvars' => array (
+							'action' => 'dropconfig',
+							'ftscfg' => field('name')
+						)
+					)
+				)
 			),
 			'alter' => array(
-				'title' => $lang['stralter'],
-				'url'   => "fulltext.php?action=alterconfig&amp;{$misc->href}&amp;",
-				'vars'  => array('ftscfg' => 'name'),
+				'content' => $lang['stralter'],
+				'attr'=> array (
+					'href' => array (
+						'url' => 'fulltext.php',
+						'urlvars' => array (
+							'action' => 'alterconfig',
+							'ftscfg' => field('name')
+						)
+					)
+				)
 			),
 		);
 
-		$misc->printTable($cfgs, $columns, $actions, $lang['strftsnoconfigs']);
+		$misc->printTable($cfgs, $columns, $actions, 'fulltext-fulltext', $lang['strftsnoconfigs']);
 
-
-		echo "<ul class=\"navlink\">\n";
-		echo "\t<li><a href=\"fulltext.php?action=createconfig&amp;{$misc->href}\">{$lang['strftscreateconfig']}</a></li>\n";
-		echo "</ul>\n";
+		$navlinks = array(
+			'createconf' => array (
+				'attr'=> array (
+					'href' => array (
+						'url' => 'fulltext.php',
+						'urlvars' => array (
+							'action' => 'createconfig',
+							'server' => $_REQUEST['server'],
+							'database' => $_REQUEST['database'],
+							'schema' => $_REQUEST['schema']
+						)
+					)
+				),
+				'content' => $lang['strftscreateconfig']
+			)
+		);
+			
+		$misc->printNavLinks($navlinks, 'fulltext-fulltext', get_defined_vars());
 	}
 
 	function doDropConfig($confirm) {
@@ -342,12 +370,9 @@
 
 		$actions = array();
 
-		$misc->printTable($parsers, $columns, $actions, $lang['strftsnoparsers']);
+		$misc->printTable($parsers, $columns, $actions, 'fulltext-viewparsers', $lang['strftsnoparsers']);
 
-		//TODO: create parser
-		//echo "<ul class=\"navlink\">\n";
-		//echo "\t<li><a href=\"#\">{$lang['strftscreateparser']}</a></li>\n";
-		//echo "</ul>\n";
+		//TODO: navlink to "create parser"
 	}
 
 
@@ -385,22 +410,51 @@
 
 		$actions = array(
 			'drop' => array(
-				'title' => $lang['strdrop'],
-				'url'   => "fulltext.php?action=dropdict&amp;{$misc->href}&amp;",
-				'vars'  => array('ftsdict' => 'name'),
+				'content' => $lang['strdrop'],
+				'attr'=> array (
+					'href' => array (
+						'url' => 'fulltext.php',
+						'urlvars' => array (
+							'action' => 'dropdict',
+							'ftsdict' => field('name')
+						)
+					)
+				)
 			),
 			'alter' => array(
-				'title' => $lang['stralter'],
-				'url'   => "fulltext.php?action=alterdict&amp;{$misc->href}&amp;",
-				'vars'  => array('ftsdict' => 'name'),
+				'content' => $lang['stralter'],
+				'attr'=> array (
+					'href' => array (
+						'url' => 'fulltext.php',
+						'urlvars' => array (
+							'action' => 'alterdict',
+							'ftsdict' => field('name')
+						)
+					)
+				)
 			),
 		);
 
-		$misc->printTable($dicts, $columns, $actions, $lang['strftsnodicts']);
+		$misc->printTable($dicts, $columns, $actions, 'fulltext-viewdicts', $lang['strftsnodicts']);
 
-		echo "<ul class=\"navlink\">\n";
-		echo "\t<li><a href=\"fulltext.php?action=createdict&amp;{$misc->href}&amp;\">{$lang['strftscreatedict']}</a></li>\n";
-		echo "</ul>\n";
+		$navlinks = array(
+			'createdict' => array (
+				'attr'=> array (
+					'href' => array (
+						'url' => 'fulltext.php',
+						'urlvars' => array (
+							'action' => 'createdict',
+							'server' => $_REQUEST['server'],
+							'database' => $_REQUEST['database'],
+							'schema' => $_REQUEST['schema'],
+						)
+					)
+				),
+				'content' => $lang['strftscreatedict']
+			)
+		);
+
+		$misc->printNavLinks($navlinks, 'fulltext-viewdicts', get_defined_vars());
 	}
 
 
@@ -440,15 +494,31 @@
 
 		$actions = array(
 			'drop' => array(
-				'title' => $lang['strdrop'],
-				'url'   => "fulltext.php?action=dropmapping&amp;{$misc->href}&amp;",
-				'vars'  => array('mapping' => 'name', 'ftscfg' => 'cfgname'),
 				'multiaction' => 'dropmapping',
+				'content' => $lang['strdrop'],
+				'attr'=> array (
+					'href' => array (
+						'url' => 'fulltext.php',
+						'urlvars' => array (
+							'action' => 'dropmapping',
+							'mapping' => field('name'),
+							'ftscfg' => field('cfgname')
+						)
+					)
+				)
 			),
 			'alter' => array(
-				'title' => $lang['stralter'],
-				'url'   => "fulltext.php?action=altermapping&amp;{$misc->href}&amp;",
-				'vars'  => array('mapping' => 'name', 'ftscfg' => 'cfgname'),
+				'content' => $lang['stralter'],
+				'attr'=> array (
+					'href' => array (
+						'url' => 'fulltext.php',
+						'urlvars' => array (
+							'action' => 'altermapping',
+							'mapping' => field('name'),
+							'ftscfg' => field('cfgname')
+						)
+					)
+				)
 			),
 			'multiactions' => array(
 				'keycols' => array('mapping' => 'name'),
@@ -459,12 +529,27 @@
 
 		);
 
-		$misc->printTable($map, $columns, $actions, $lang['strftsemptymap']);
+		$misc->printTable($map, $columns, $actions, 'fulltext-viewconfig', $lang['strftsemptymap']);
 
-		echo "<ul class=\"navlink\">\n";
-		echo "\t<li><a href=\"fulltext.php?action=addmapping&amp;{$misc->href}&ftscfg={$ftscfg}\">{$lang['strftsaddmapping']}</a></li>\n";
-		echo "</ul>\n";
+		$navlinks = array(
+			'addmapping' => array (
+				'attr'=> array (
+					'href' => array (
+						'url' => 'fulltext.php',
+						'urlvars' => array (
+							'action' => 'addmapping',
+							'server' => $_REQUEST['server'],
+							'database' => $_REQUEST['database'],
+							'schema' => $_REQUEST['schema'],
+							'ftscfg' => $ftscfg
+						)
+					)
+				),
+				'content' => $lang['strftsaddmapping']
+			)
+		);
 
+		$misc->printNavLinks($navlinks, 'fulltext-viewconfig', get_defined_vars());
 	}
 
 	/**
@@ -889,7 +974,7 @@
 	 * Generate XML for the browser tree.
 	 */
 	function doTree() {
-		global $misc, $data, $lang, $slony;
+		global $misc, $data, $lang;
 
 		$tabs = $misc->getNavTabs('fulltext');
 		$items = $misc->adjustTabsForTree($tabs);
@@ -897,7 +982,7 @@
 		$reqvars = $misc->getRequestVars('ftscfg');
 
 		$attrs = array(
-			'text'   => noEscape(field('title')),
+			'text'   => field('title'),
 			'icon'   => field('icon'),
 			'action' => url('fulltext.php',
 				$reqvars,
@@ -912,7 +997,7 @@
 			),
 		);
 
-		$misc->printTreeXML($items, $attrs);
+		$misc->printTree($items, $attrs, 'fts');
 
 		exit;
 	}
@@ -940,7 +1025,7 @@
 		$reqvars = $misc->getRequestVars('ftscfg');
 
 		$attrs = array(
-			'text'   => noEscape(field('name')),
+			'text'   => field('name'),
 			'icon'   => $what,
 			'toolTip'=> field('comment'),
 			'action' => url('fulltext.php',
@@ -959,7 +1044,7 @@
 			),
 		);
 
-		$misc->printTreeXML($items, $attrs);
+		$misc->printTree($items, $attrs, strtolower($what));
 		exit;
 	}
 

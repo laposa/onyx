@@ -1,10 +1,4 @@
-#diff phpPgAdmin-5.0.4/classes/database/Postgres.php phppgadmin/classes/database/Postgres.php
-185c185
-< 		$str = str_replace("\r\n","\n",$str);
----
-> 		//ONXSHOP don't change! $str = str_replace("\r\n","\n",$str);
-
-#diff phpPgAdmin-5.0.4/conf/config.inc.php phppgadmin/conf/config.inc.php
+# diff phppgadmin/conf/config.inc.php-dist phppgadmin/conf/config.inc.php
 18c18
 < 	$conf['servers'][0]['host'] = '';
 ---
@@ -13,7 +7,7 @@
 < 	$conf['servers'][0]['defaultdb'] = 'template1';
 ---
 > 	$conf['servers'][0]['defaultdb'] = 'postgres';
-94c94
+99c99
 < 	$conf['owned_only'] = false;
 ---
 > 	$conf['owned_only'] = true;

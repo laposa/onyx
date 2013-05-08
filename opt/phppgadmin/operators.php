@@ -64,7 +64,21 @@
 			}
 			echo "</table>\n";
 
-			echo "<p><a class=\"navlink\" href=\"operators.php?{$misc->href}\">{$lang['strshowalloperators']}</a></p>\n";
+			$misc->printNavLinks(array (
+				'showall' => array (
+					'attr'=> array (
+						'href' => array (
+							'url' => 'operators.php',
+							'urlvars' => array (
+								'server' => $_REQUEST['server'],
+								'database' => $_REQUEST['database'],
+								'schema' => $_REQUEST['schema']
+							)
+						)
+					),
+					'content' => $lang['strshowalloperators']
+				)), 'operators-properties', get_defined_vars()
+			);
 		}
 		else
 			doDefault($lang['strinvalidparam']);
@@ -146,15 +160,26 @@
 
 		$actions = array(
 			'drop' => array(
-				'title' => $lang['strdrop'],
-				'url'   => "operators.php?action=confirm_drop&amp;{$misc->href}&amp;",
-				'vars'  => array('operator' => 'oprname', 'operator_oid' => 'oid'),
-			),
+				// 'title' => $lang['strdrop'],
+				// 'url'   => "operators.php?action=confirm_drop&amp;{$misc->href}&amp;",
+				// 'vars'  => array('operator' => 'oprname', 'operator_oid' => 'oid'),
+				'content' => $lang['strdrop'],
+				'attr'=> array (
+					'href' => array (
+						'url' => 'operators.php',
+						'urlvars' => array (
+							'action' => 'confirm_drop',
+							'operator' => field('oprname'),
+							'operator_oid' => field('oid')
+						)
+					)
+				)
+			)
 		);
 		
-		$misc->printTable($operators, $columns, $actions, $lang['strnooperators']);
+		$misc->printTable($operators, $columns, $actions, 'operators-operators', $lang['strnooperators']);
 		
-//		echo "<p><a class=\"navlink\" href=\"operators.php?action=create&amp;{$misc->href}\">{$lang['strcreateoperator']}</a></p>\n";
+//		TODO operators.php action=create $lang['strcreateoperator']
 	}
 
 	/**
@@ -184,7 +209,7 @@
 						)
 		);
 		
-		$misc->printTreeXML($operators, $attrs);
+		$misc->printTree($operators, $attrs, 'operators');
 		exit;
 	}
 	

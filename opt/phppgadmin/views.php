@@ -167,10 +167,10 @@
 					foreach($_POST['view'] as $s) {
 						$status = $data->dropView($s, isset($_POST['cascade']));
 						if ($status == 0)
-							$msg.= sprintf('%s: %s<br />', htmlentities($s), $lang['strviewdropped']);
+							$msg.= sprintf('%s: %s<br />', htmlentities($s, ENT_QUOTES, 'UTF-8'), $lang['strviewdropped']);
 						else {
 							$data->endTransaction();
-							doDefault(sprintf('%s%s: %s<br />', $msg, htmlentities($s), $lang['strviewdroppedbad']));
+							doDefault(sprintf('%s%s: %s<br />', $msg, htmlentities($s, ENT_QUOTES, 'UTF-8'), $lang['strviewdroppedbad']));
 							return;
 						}
 					}
@@ -585,16 +585,32 @@
 				'url' => 'views.php',
 			),
 			'browse' => array(
-				'title'	=> $lang['strbrowse'],
-				'url'	=> "display.php?{$misc->href}&amp;subject=view&amp;return=schema&amp;",
-				'vars'	=> array('view' => 'relname'),
+				'content' => $lang['strbrowse'],
+				'attr'=> array (
+					'href' => array (
+						'url' => 'display.php',
+						'urlvars' => array (
+							'action' => 'confselectrows',
+							'subject' => 'view',
+							'return' => 'schema',
+							'view' => field('relname')
+						)
+					)
+				)
 			),
 			'select' => array(
-				'title'	=> $lang['strselect'],
-				'url'	=> "views.php?action=confselectrows&amp;{$misc->href}&amp;",
-				'vars'	=> array('view' => 'relname'),
+				'content' => $lang['strselect'],
+				'attr'=> array (
+					'href' => array (
+						'url' => 'views.php',
+						'urlvars' => array (
+							'action' => 'confselectrows',
+							'view' => field('relname')
+						)
+					)
+				)
 			),
-			
+
 // Insert is possible if the relevant rule for the view has been created.
 //			'insert' => array(
 //				'title'	=> $lang['strinsert'],
@@ -603,22 +619,65 @@
 			//			),
 
 			'alter' => array(
-				'title' => $lang['stralter'],
-				'url'   => "viewproperties.php?action=confirm_alter&amp;{$misc->href}&amp;",
-				'vars'  => array('view' => 'relname'),
+				'content' => $lang['stralter'],
+				'attr'=> array (
+					'href' => array (
+						'url' => 'viewproperties.php',
+						'urlvars' => array (
+							'action' => 'confirm_alter',
+							'view' => field('relname')
+						)
+					)
+				)
 			),
 			'drop' => array(
-				'title'	=> $lang['strdrop'],
-				'url'	=> "views.php?action=confirm_drop&amp;{$misc->href}&amp;",
-				'vars'	=> array('view' => 'relname'),
 				'multiaction' => 'confirm_drop',
+				'content' => $lang['strdrop'],
+				'attr'=> array (
+					'href' => array (
+						'url' => 'views.php',
+						'urlvars' => array (
+							'action' => 'confirm_drop',
+							'view' => field('relname')
+						)
+					)
+				)
 			),
 		);
 		
-		$misc->printTable($views, $columns, $actions, $lang['strnoviews']);
+		$misc->printTable($views, $columns, $actions, 'views-views',  $lang['strnoviews']);
 		
-		echo "<ul class=\"navlink\">\n\t<li><a href=\"views.php?action=create&amp;{$misc->href}\">{$lang['strcreateview']}</a></li>\n";
-		echo "\t<li><a href=\"views.php?action=wiz_create&amp;{$misc->href}\">{$lang['strcreateviewwiz']}</a></li>\n</ul>\n";
+		$navlinks = array (
+			'create' => array (
+				'attr'=> array (
+					'href' => array (
+					'url' => 'views.php',
+						'urlvars' => array (
+							'action' => 'create',
+							'server' => $_REQUEST['server'],
+							'database' => $_REQUEST['database'],
+							'schema' => $_REQUEST['schema']
+						)
+					)
+				),
+				'content' => $lang['strcreateview']
+			),
+			'createwiz' => array (
+				'attr'=> array (
+					'href' => array (
+					'url' => 'views.php',
+						'urlvars' => array (
+							'action' => 'wiz_create',
+							'server' => $_REQUEST['server'],
+							'database' => $_REQUEST['database'],
+							'schema' => $_REQUEST['schema']
+						)
+					)
+				),
+				'content' => $lang['strcreateviewwiz']
+			)
+		);
+		$misc->printNavLinks($navlinks, 'views-views', get_defined_vars());
 
 	}
 	
@@ -646,7 +705,7 @@
 			)
 		);
 		
-		$misc->printTreeXML($views, $attrs);
+		$misc->printTree($views, $attrs, 'views');
 		exit;
 	}
 	
@@ -658,7 +717,7 @@
 		$reqvars = $misc->getRequestVars('view');
 
 		$attrs = array(
-			'text'   => noEscape(field('title')),
+			'text'   => field('title'),
 			'icon'   => field('icon'),
 			'action' => url(field('url'),	$reqvars, field('urlvars'),	array('view' => $_REQUEST['view'])),
 			'branch' => ifempty( 
@@ -671,7 +730,7 @@
 			),
 		);
 
-		$misc->printTreeXML($items, $attrs);
+		$misc->printTree($items, $attrs, 'view');
 		exit;
 	}
 	

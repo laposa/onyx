@@ -35,12 +35,6 @@
 	$conf['servers'][0]['pg_dump_path'] = '/usr/bin/pg_dump';
 	$conf['servers'][0]['pg_dumpall_path'] = '/usr/bin/pg_dumpall';
 
-	// Slony (www.slony.info) support?
-	$conf['servers'][0]['slony_support'] = false;
-	// Specify the path to the Slony SQL scripts (where slony1_base.sql is located, etc.)
-	// No trailing slash.
-	$conf['servers'][0]['slony_sql'] = '/usr/share/pgsql';
-
 	// Example for a second server (PostgreSQL for Windows)
 	//$conf['servers'][1]['desc'] = 'Test Server';
 	//$conf['servers'][1]['host'] = '127.0.0.1';
@@ -49,22 +43,33 @@
 	//$conf['servers'][1]['defaultdb'] = 'template1';
 	//$conf['servers'][1]['pg_dump_path'] = 'C:\\Program Files\\PostgreSQL\\8.0\\bin\\pg_dump.exe';
 	//$conf['servers'][1]['pg_dumpall_path'] = 'C:\\Program Files\\PostgreSQL\\8.0\\bin\\pg_dumpall.exe';
-	//$conf['servers'][1]['slony_support'] = false;
-	//$conf['servers'][1]['slony_sql'] = 'C:\\Program Files\\PostgreSQL\\8.0\\share';
 	
 	
-	// Example of groups definition.
-	// Groups allow administrators to logicaly group servers together under group nodes in the left browser tree
-	//
-	// The group '0' description
+	/* Groups definition */
+	/* Groups allow administrators to logicaly group servers together under
+	 * group nodes in the left browser tree
+	 *
+	 * The group '0' description
+	 */
 	//$conf['srv_groups'][0]['desc'] = 'group one';
-	//
-	// Add here servers indexes belonging to the group '0' seperated by comma
+
+	/* Add here servers indexes belonging to the group '0' seperated by comma */
 	//$conf['srv_groups'][0]['servers'] = '0,1,2'; 
-	//
-	// A server can belong to multi groups
+
+	/* A server can belong to multi groups. Here server 1 is referenced in both
+	 * 'group one' and 'group two'*/
 	//$conf['srv_groups'][1]['desc'] = 'group two';
 	//$conf['srv_groups'][1]['servers'] = '3,1';
+
+	/* A group can be nested in one or more existing groups using the 'parents'
+	 * parameter. Here the group 'group three' contains only one server and will
+	 * appear as a subgroup in both 'group one' and 'group two':
+	 */
+	//$conf['srv_groups'][2]['desc'] = 'group three';
+	//$conf['srv_groups'][2]['servers'] = '4';
+	//$conf['srv_groups'][2]['parents'] = '0,1';
+
+	/* Warning: Only groups with no parents appears at the root of the tree. */
 	
 
 	// Default language. E.g.: 'english', 'polish', etc.  See lang/ directory
@@ -106,20 +111,6 @@
 	// Display "system" objects?
 	$conf['show_system'] = false;
 
-	// Display reports feature?  For this feature to work, you must
-	// install the reports database as explained in the INSTALL file.
-	$conf['show_reports'] = true;
-
-	// Database and table for reports
-	$conf['reports_db'] = 'phppgadmin';
-	$conf['reports_schema'] = 'public';
-	$conf['reports_table'] = 'ppa_reports';
-
-	// Only show owned reports?
-	// Note: This does not prevent people from accessing other reports by
-	// other means.
-	$conf['owned_reports_only'] = false;
-
 	// Minimum length users can set their password to.
 	$conf['min_password_length'] = 1;
 
@@ -149,7 +140,17 @@
 	// Configuration for ajax scripts
 	// Time in seconds. If set to 0, refreshing data using ajax will be disabled (locks and activity pages)
 	$conf['ajax_refresh'] = 3;
-	
+
+	/** Plugins management
+	 * Add plugin names to the following array to activate them
+	 * Example:
+	 *   $conf['plugins'] = array(
+	 *     'Example',
+	 *     'Slony'
+	 *   );
+	 */
+	$conf['plugins'] = array();
+
 	/*****************************************
 	 * Don't modify anything below this line *
 	 *****************************************/

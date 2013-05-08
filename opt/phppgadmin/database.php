@@ -376,7 +376,7 @@
 		
 		$actions = array();
 		
-		$misc->printTable($variables, $columns, $actions, $lang['strnodata']);
+		$misc->printTable($variables, $columns, $actions, 'database-variables', $lang['strnodata']);
 	}
 
 	/**
@@ -429,13 +429,13 @@
 
 			$actions = array();
 
-			$misc->printTable($prep_xacts, $columns, $actions, $lang['strnodata']);
+			$misc->printTable($prep_xacts, $columns, $actions, 'database-processes-preparedxacts', $lang['strnodata']);
 		}
 
 		// Fetch the processes from the database
 		echo "<h3>{$lang['strprocesses']}</h3>\n";
 		$processes = $data->getProcesses($_REQUEST['database']);
-				
+
 		$columns = array(
 			'user' => array(
 				'title' => $lang['strusername'],
@@ -443,11 +443,11 @@
 			),
 			'process' => array(
 				'title' => $lang['strprocess'],
-				'field' => field('procpid'),
+				'field' => field('pid'),
 			),
 			'query' => array(
 				'title' => $lang['strsql'],
-				'field' => field('current_query'),
+				'field' => field('query'),
 			),
 			'start_time' => array(
 				'title' => $lang['strstarttime'],
@@ -462,14 +462,30 @@
 		if ($data->isSuperUser()) {
 			$actions = array(
 				'cancel' => array(
-					'title' => $lang['strcancel'],
-					'url'   => "database.php?action=signal&amp;signal=CANCEL&amp;{$misc->href}&amp;",
-					'vars'  => array('procpid' => 'procpid')
+					'content' => $lang['strcancel'],
+					'attr'=> array (
+						'href' => array (
+							'url' => 'database.php',
+							'urlvars' => array (
+								'action' => 'signal',
+								'signal' => 'CANCEL',
+								'procpid' => field('procpid')
+							)
+						)
+					)
 				),
 				'kill' => array(
-					'title' => $lang['strkill'],
-					'url'   => "database.php?action=signal&amp;signal=KILL&amp;{$misc->href}&amp;",
-					'vars'  => array('procpid' => 'procpid')
+					'content' => $lang['strkill'],
+					'attr'=> array (
+						'href' => array (
+							'url' => 'database.php',
+							'urlvars' => array (
+								'action' => 'signal',
+								'signal' => 'KILL',
+								'procpid' => field('procpid')
+							)
+						)
+					)
 				)
 			);
 	
@@ -480,10 +496,7 @@
 
 		if (count($actions) == 0) unset($columns['actions']);
 	
-		// Remove query start time for <7.4
-		if (!isset($processes->fields['query_start'])) unset($columns['start_time']);
-
-		$misc->printTable($processes, $columns, $actions, $lang['strnodata']);
+		$misc->printTable($processes, $columns, $actions, 'database-processes', $lang['strnodata']);
 		
 		if ($isAjax) exit;
 	}
@@ -529,7 +542,7 @@
 		if (!$data->hasVirtualTransactionId()) unset($columns['vxid']);
 
 		$actions = array();
-		$misc->printTable($variables, $columns, $actions, $lang['strnodata']);
+		$misc->printTable($variables, $columns, $actions, 'database-locks', $lang['strnodata']);
 		
 		if ($isAjax) exit;
 	}
@@ -558,7 +571,10 @@
 		global $data, $misc;
 		global $lang;
 
-		if ((!isset($_SESSION['sqlquery'])) || isset($_REQUEST['new'])) $_SESSION['sqlquery'] = '';
+		if ((!isset($_SESSION['sqlquery'])) || isset($_REQUEST['new'])) {
+			$_SESSION['sqlquery'] = '';
+			$_REQUEST['paginate'] = 'on';
+		}
 
 		$misc->printTrail('database');
 		$misc->printTabs('database','sql');
@@ -579,7 +595,7 @@
 		}
 
 		echo "<p><input type=\"checkbox\" id=\"paginate\" name=\"paginate\"", (isset($_REQUEST['paginate']) ? ' checked="checked"' : ''), " /><label for=\"paginate\">{$lang['strpaginate']}</label></p>\n";
-		echo "<p><input type=\"submit\" value=\"{$lang['strexecute']}\" />\n";
+		echo "<p><input type=\"submit\" name=\"execute\" value=\"{$lang['strexecute']}\" />\n";
 		echo $misc->form;
 		echo "<input type=\"reset\" value=\"{$lang['strreset']}\" /></p>\n";
 		echo "</form>\n";
@@ -589,7 +605,7 @@
 	}
 
 	function doTree() {
-		global $misc, $data, $lang, $slony;
+		global $misc, $data, $lang;
 
 		$reqvars = $misc->getRequestVars('database');
 
@@ -598,7 +614,7 @@
 		$items = $misc->adjustTabsForTree($tabs);
 
 		$attrs = array(
-			'text'   => noEscape(field('title')),
+			'text'   => field('title'),
 			'icon'   => field('icon'),
 			'action' => url(field('url'),
 							$reqvars,
@@ -611,7 +627,7 @@
 						),
 		);
 		
-		$misc->printTreeXML($items, $attrs);
+		$misc->printTree($items, $attrs, 'database');
 
 		exit;
 	}
@@ -625,7 +641,6 @@
 
 	/* normal flow */
 	if ($action == 'locks' or $action == 'processes') {
-		$scripts  = "<script src=\"libraries/js/jquery.js\" type=\"text/javascript\"></script>\n";
 		$scripts .= "<script src=\"js/database.js\" type=\"text/javascript\"></script>";
 
 		$refreshTime = $conf['ajax_refresh'] * 1000;

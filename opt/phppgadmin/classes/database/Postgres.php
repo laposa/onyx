@@ -11,7 +11,7 @@ include_once('./classes/database/ADODB_base.php');
 
 class Postgres extends ADODB_base {
 
-	var $major_version = 9.0;
+	var $major_version = 9.2;
 	// Max object name length
 	var $_maxNameLen = 63;
 	// Store the current schema
@@ -182,11 +182,8 @@ class Postgres extends ADODB_base {
 	 */
 	function clean(&$str) {
 		if ($str === null) return null;
-		//ONXSHOP don't change! $str = str_replace("\r\n","\n",$str);
-		if (function_exists('pg_escape_string'))
-			$str = pg_escape_string($str);
-		else
-			$str = addslashes($str);
+		$str = str_replace("\r\n","\n",$str);
+		$str = pg_escape_string($str);
 		return $str;
 	}
 
@@ -222,10 +219,7 @@ class Postgres extends ADODB_base {
 	function arrayClean(&$arr) {
 		foreach ($arr as $k => $v) {
 			if ($v === null) continue;
-			if (function_exists('pg_escape_string'))
-				$arr[$k] = pg_escape_string($v);
-			else
-				$arr[$k] = addslashes($v);
+			$arr[$k] = pg_escape_string($v);
 		}
 		return $arr;
 	}
@@ -236,12 +230,7 @@ class Postgres extends ADODB_base {
 	 * @return Data formatted for on-screen display
 	 */
 	function escapeBytea($data) {
-		if (function_exists('pg_escape_bytea'))
-			return stripslashes(pg_escape_bytea($data));
-		else {
-		 		$translations = array('\\a' => '\\007', '\\b' => '\\010', '\\t' => '\\011', '\\n' => '\\012', '\\v' => '\\013', '\\f' => '\\014', '\\r' => '\\015');
- 				return strtr(addCSlashes($data, "\0..\37\177..\377"), $translations);
-		}
+		return $data;
 	}
 
 	/**
@@ -281,7 +270,9 @@ class Postgres extends ADODB_base {
 				break;
 			case 'bytea':
 			case 'bytea[]':
-				$value = $this->escapeBytea($value);
+                if (!is_null($value)) {
+				    $value = $this->escapeBytea($value);
+                }
 			case 'text':
 			case 'text[]':
 			case 'xml':
@@ -426,7 +417,7 @@ class Postgres extends ADODB_base {
 	}
 
 	function getHelpPages() {
-		include_once('./help/PostgresDoc90.php');
+		include_once('./help/PostgresDoc92.php');
 		return $this->help_page;
 	}
 
@@ -454,7 +445,7 @@ class Postgres extends ADODB_base {
 
 		$server_info = $misc->getServerInfo();
 
-		if (isset($conf['owned_only']) && $conf['owned_only'] && !$this->isSuperUser($server_info['username'])) {
+		if (isset($conf['owned_only']) && $conf['owned_only'] && !$this->isSuperUser()) {
 			$username = $server_info['username'];
 			$this->clean($username);
 			$clause = " AND pr.rolname='{$username}'";
@@ -475,7 +466,7 @@ class Postgres extends ADODB_base {
 
 		$sql = "
 			SELECT pdb.datname AS datname, pr.rolname AS datowner, pg_encoding_to_char(encoding) AS datencoding,
-				(SELECT description FROM pg_catalog.pg_shdescription pd WHERE pdb.oid=pd.objoid) AS datcomment,
+				(SELECT description FROM pg_catalog.pg_shdescription pd WHERE pdb.oid=pd.objoid AND pd.classoid='pg_database'::regclass) AS datcomment,
 				(SELECT spcname FROM pg_catalog.pg_tablespace pt WHERE pt.oid=pdb.dattablespace) AS tablespace,
 				CASE WHEN pg_catalog.has_database_privilege(current_user, pdb.oid, 'CONNECT') 
 					THEN pg_catalog.pg_database_size(pdb.oid) 
@@ -498,7 +489,7 @@ class Postgres extends ADODB_base {
 	 */
 	function getDatabaseComment($database) {
 		$this->clean($database);
-		$sql = "SELECT description FROM pg_catalog.pg_database JOIN pg_catalog.pg_shdescription ON (oid=objoid) WHERE pg_database.datname = '{$database}' ";
+		$sql = "SELECT description FROM pg_catalog.pg_database JOIN pg_catalog.pg_shdescription ON (oid=objoid AND classoid='pg_database'::regclass) WHERE pg_database.datname = '{$database}' ";
 		return $this->selectSet($sql);
 	}
 
@@ -518,15 +509,7 @@ class Postgres extends ADODB_base {
 	 * @return The encoding.  eg. SQL_ASCII, UTF-8, etc.
 	 */
 	function getDatabaseEncoding() {
-		// Try to avoid a query if at all possible (5)
-		if (function_exists('pg_parameter_status')) {
-			$encoding = pg_parameter_status($this->conn->_connectionID, 'server_encoding');
-			if ($encoding !== false) return $encoding;
-		}
-
-		$sql = "SELECT getdatabaseencoding() AS encoding";
-
-		return $this->selectField($sql, 'encoding');
+		return pg_parameter_status($this->conn->_connectionID, 'server_encoding');
 	}
 
 	/**
@@ -534,11 +517,6 @@ class Postgres extends ADODB_base {
 	 * @return default_with_oids setting
 	 */
 	function getDefaultWithOid() {
-		// Try to avoid a query if at all possible (5)
-		if (function_exists('pg_parameter_status')) {
-			$default = pg_parameter_status($this->conn->_connectionID, 'default_with_oids');
-			if ($default !== false) return $default;
-		}
 
 		$sql = "SHOW default_with_oids";
 
@@ -858,15 +836,10 @@ class Postgres extends ADODB_base {
 	 * @return All schemas, sorted alphabetically
 	 */
 	function getSchemas() {
-		global $conf, $slony;
+		global $conf;
 
 		if (!$conf['show_system']) {
 			$where = "WHERE nspname NOT LIKE 'pg@_%' ESCAPE '@' AND nspname != 'information_schema'";
-			if (isset($slony) && $slony->isEnabled()) {
-				$temp = $slony->slony_schema;
-				$this->clean($temp);
-				$where .= " AND nspname != '{$temp}'";
-			}
 
 		}
 		else $where = "WHERE nspname !~ '^pg_t(emp_[0-9]+|oast)$'";
@@ -891,8 +864,8 @@ class Postgres extends ADODB_base {
 		$sql = "
 			SELECT nspname, nspowner, r.rolname AS ownername, nspacl,
 				pg_catalog.obj_description(pn.oid, 'pg_namespace') as nspcomment
-            FROM pg_catalog.pg_namespace pn
-            	LEFT JOIN pg_roles as r ON pn.nspowner = r.oid
+			FROM pg_catalog.pg_namespace pn
+				LEFT JOIN pg_roles as r ON pn.nspowner = r.oid
 			WHERE nspname='{$schema}'";
 		return $this->selectSet($sql);
 	}
@@ -1596,12 +1569,8 @@ class Postgres extends ADODB_base {
 		if ($triggers->recordCount() > 0) {
 			$sql .= "\n-- Triggers\n\n";
 			while (!$triggers->EOF) {
-				// Nasty hack to support pre-7.4 PostgreSQL
-				if ($triggers->fields['tgdef'] !== null)
-					$sql .= $triggers->fields['tgdef'];
-				else
-					$sql .= $this->getTriggerDef($triggers->fields);
 
+				$sql .= $triggers->fields['tgdef'];
 				$sql .= ";\n";
 
 				$triggers->moveNext();
@@ -4913,6 +4882,7 @@ class Postgres extends ADODB_base {
 	/**
 	 * A helper function for getTriggers that translates
 	 * an array of attribute numbers to an array of field names.
+	 * Note: Only needed for pre-7.4 servers, this function is deprecated 
 	 * @param $trigger An array containing fields from the trigger table
 	 * @return The trigger definition string
 	 */
@@ -6470,10 +6440,10 @@ class Postgres extends ADODB_base {
 	 * @param $username The username of the user
 	 * @return True if is a super user, false otherwise
 	 */
-	function isSuperUser($username) {
+	function isSuperUser($username = '') {
 		$this->clean($username);
 
-		if (function_exists('pg_parameter_status')) {
+		if (empty($usename)) {
 			$val = pg_parameter_status($this->conn->_connectionID, 'is_superuser');
 			if ($val !== false) return $val == 'on';
 		}
@@ -6968,8 +6938,8 @@ class Postgres extends ADODB_base {
 	function getTablespaces($all = false) {
 		global $conf;
 
-		$sql = "SELECT spcname, pg_catalog.pg_get_userbyid(spcowner) AS spcowner, spclocation,
-                    (SELECT description FROM pg_catalog.pg_shdescription pd WHERE pg_tablespace.oid=pd.objoid) AS spccomment
+		$sql = "SELECT spcname, pg_catalog.pg_get_userbyid(spcowner) AS spcowner, pg_catalog.pg_tablespace_location(oid) as spclocation,
+                    (SELECT description FROM pg_catalog.pg_shdescription pd WHERE pg_tablespace.oid=pd.objoid AND pd.classoid='pg_tablespace'::regclass) AS spccomment
 					FROM pg_catalog.pg_tablespace";
 
 		if (!$conf['show_system'] && !$all) {
@@ -6988,8 +6958,8 @@ class Postgres extends ADODB_base {
 	function getTablespace($spcname) {
 		$this->clean($spcname);
 
-		$sql = "SELECT spcname, pg_catalog.pg_get_userbyid(spcowner) AS spcowner, spclocation,
-                    (SELECT description FROM pg_catalog.pg_shdescription pd WHERE pg_tablespace.oid=pd.objoid) AS spccomment
+		$sql = "SELECT spcname, pg_catalog.pg_get_userbyid(spcowner) AS spcowner, pg_catalog.pg_tablespace_location(oid) as spclocation,
+                    (SELECT description FROM pg_catalog.pg_shdescription pd WHERE pg_tablespace.oid=pd.objoid AND pd.classoid='pg_tablespace'::regclass) AS spccomment
 					FROM pg_catalog.pg_tablespace WHERE spcname='{$spcname}'";
 
 		return $this->selectSet($sql);
@@ -7228,12 +7198,15 @@ class Postgres extends ADODB_base {
 	 */
 	function getProcesses($database = null) {
 		if ($database === null)
-			$sql = "SELECT * FROM pg_catalog.pg_stat_activity ORDER BY datname, usename, procpid";
+			$sql = "SELECT datname, usename, pid, query, query_start
+				FROM pg_catalog.pg_stat_activity
+				ORDER BY datname, usename, pid";
 		else {
 			$this->clean($database);
-		$sql = "
-				SELECT * FROM pg_catalog.pg_stat_activity
-				WHERE datname='{$database}' ORDER BY usename, procpid";
+			$sql = "SELECT datname, usename, pid, query, query_start
+				FROM pg_catalog.pg_stat_activity
+				WHERE datname='{$database}'
+				ORDER BY usename, pid";
 		}
 
 		return $this->selectSet($sql);
@@ -7358,19 +7331,6 @@ class Postgres extends ADODB_base {
 
 		return $this->execute($sql);
 
-	}
-
-	/**
-	 * Sets the client encoding
-	 * @param $encoding The encoding to for the client
-	 * @return 0 success
-	 */
-	function setClientEncoding($encoding) {
-		$this->clean($encoding);
-
-		$sql = "SET CLIENT_ENCODING TO '{$encoding}'";
-
-		return $this->execute($sql);
 	}
 
 	/**
@@ -7557,12 +7517,10 @@ class Postgres extends ADODB_base {
     					$query_buf .= $subline;
     					$query_buf .= ';';
 
-            			// Execute the query (supporting 4.1.x PHP...). PHP cannot execute
+						// Execute the query. PHP cannot execute
             			// empty queries, unlike libpq
-            			if (function_exists('pg_query'))
-            				$res = @pg_query($conn, $query_buf);
-            			else
-            				$res = @pg_exec($conn, $query_buf);
+						$res = @pg_query($conn, $query_buf);
+
 						// Call the callback function for display
 						if ($callback !== null) $callback($query_buf, $res, $lineno);
             			// Check for COPY request
@@ -7583,7 +7541,7 @@ class Postgres extends ADODB_base {
 					$query_start = $i + $thislen;
     			}
 
-    			/*
+				/*
 				 * keyword or identifier?
 				 * We grab the whole string so that we don't
 				 * mistakenly see $foo$ inside an identifier as the start
@@ -7622,11 +7580,9 @@ class Postgres extends ADODB_base {
 		 */
     	if (strlen($query_buf) > 0 && strspn($query_buf, " \t\n\r") != strlen($query_buf))
     	{
-			// Execute the query (supporting 4.1.x PHP...)
-			if (function_exists('pg_query'))
-				$res = @pg_query($conn, $query_buf);
-			else
-				$res = @pg_exec($conn, $query_buf);
+			// Execute the query
+			$res = @pg_query($conn, $query_buf);
+
 			// Call the callback function for display
 			if ($callback !== null) $callback($query_buf, $res, $lineno);
 			// Check for COPY request
@@ -8031,6 +7987,7 @@ class Postgres extends ADODB_base {
 	function hasQueryKill() { return true; }
 	function hasConcurrentIndexBuild() { return true; }
 	function hasForceReindex() { return false; }
+	function hasByteaHexDefault() { return true; } 
 	
 }
 ?>

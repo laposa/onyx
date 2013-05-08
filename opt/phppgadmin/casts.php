@@ -62,7 +62,7 @@
 
 		$actions = array();
 		
-		$misc->printTable($casts, $columns, $actions, $lang['strnocasts']);
+		$misc->printTable($casts, $columns, $actions, 'casts-casts', $lang['strnocasts']);
 	}
 
 	/**
@@ -80,7 +80,7 @@
 			'icon'   => 'Cast'
 		);
 		
-		$misc->printTreeXML($casts, $attrs);
+		$misc->printTree($casts, $attrs, 'casts');
 		exit;
 	}
 	

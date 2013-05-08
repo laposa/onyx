@@ -325,11 +325,55 @@
 		}
 		else echo "<p>{$lang['strnodata']}</p>\n";
 
-		echo "<ul class=\"navlink\">\n\t<li><a href=\"functions.php?{$misc->href}\">{$lang['strshowallfunctions']}</a></li>\n";
-		echo "\t<li><a href=\"functions.php?action=edit&amp;{$misc->href}&amp;function=",
-			urlencode($_REQUEST['function']), "&amp;function_oid=", urlencode($_REQUEST['function_oid']), "\">{$lang['stralter']}</a></li>\n";
-		echo "\t<li><a href=\"functions.php?action=confirm_drop&amp;{$misc->href}&amp;function=",
-			urlencode($func_full), "&amp;function_oid=", $_REQUEST['function_oid'], "\">{$lang['strdrop']}</a></li>\n</ul>";
+		$navlinks = array(
+			'showall' => array (
+				'attr'=> array (
+					'href' => array (
+						'url' => 'functions.php',
+						'urlvars' => array (
+							'server' => $_REQUEST['server'],
+							'database' => $_REQUEST['database'],
+							'schema' => $_REQUEST['schema'],
+						)
+					)
+				),
+				'content' => $lang['strshowallfunctions']
+			),
+			'alter' => array (
+				'attr'=> array (
+					'href' => array (
+						'url' => 'functions.php',
+						'urlvars' => array (
+							'action' => 'edit',
+							'server' => $_REQUEST['server'],
+							'database' => $_REQUEST['database'],
+							'schema' => $_REQUEST['schema'],
+							'function' => $_REQUEST['function'],
+							'function_oid' => $_REQUEST['function_oid']
+						)
+					)
+				),
+				'content' => $lang['stralter']
+			),
+			'drop' => array (
+				'attr'=> array (
+					'href' => array (
+						'url' => 'functions.php',
+						'urlvars' => array (
+							'action' => 'confirm_drop',
+							'server' => $_REQUEST['server'],
+							'database' => $_REQUEST['database'],
+							'schema' => $_REQUEST['schema'],
+							'function' => $func_full,
+							'function_oid' => $_REQUEST['function_oid']
+						)
+					)
+				),
+				'content' => $lang['strdrop']
+			)
+		);
+
+		$misc->printNavLinks($navlinks, 'functions-properties', get_defined_vars());
 	}
 
 	/**
@@ -381,10 +425,10 @@
 					foreach($_POST['function_oid'] as $k => $s) {
 						$status = $data->dropFunction($s, isset($_POST['cascade']));
 						if ($status == 0)
-							$msg.= sprintf('%s: %s<br />', htmlentities($_POST['function'][$k]), $lang['strfunctiondropped']);
+							$msg.= sprintf('%s: %s<br />', htmlentities($_POST['function'][$k], ENT_QUOTES, 'UTF-8'), $lang['strfunctiondropped']);
 						else {
 							$data->endTransaction();
-							doDefault(sprintf('%s%s: %s<br />', $msg, htmlentities($_POST['function'][$k]), $lang['strfunctiondroppedbad']));
+							doDefault(sprintf('%s%s: %s<br />', $msg, htmlentities($_POST['function'][$k], ENT_QUOTES, 'UTF-8'), $lang['strfunctiondroppedbad']));
 							return;
 						}
 					}
@@ -803,28 +847,97 @@
 				'url' => 'functions.php',
 			),
 			'alter' => array(
-				'title' => $lang['stralter'],
-				'url'   => "functions.php?action=edit&amp;{$misc->href}&amp;",
-				'vars'  => array('function' => 'proproto', 'function_oid' => 'prooid'),
+				'content' => $lang['stralter'],
+				'attr'=> array (
+					'href' => array (
+						'url' => 'functions.php',
+						'urlvars' => array (
+							'action' => 'edit',
+							'function' => field('proproto'),
+							'function_oid' => field('prooid')
+						)
+					)
+				)
 			),
 			'drop' => array(
-				'title' => $lang['strdrop'],
-				'url'   => "functions.php?action=confirm_drop&amp;{$misc->href}&amp;",
-				'vars'  => array('function' => 'proproto', 'function_oid' => 'prooid'),
 				'multiaction' => 'confirm_drop',
+				'content' => $lang['strdrop'],
+				'attr'=> array (
+					'href' => array (
+						'url' => 'functions.php',
+						'urlvars' => array (
+							'action' => 'confirm_drop',
+							'function' => field('proproto'),
+							'function_oid' => field('prooid')
+						)
+					)
+				)
 			),
 			'privileges' => array(
-				'title' => $lang['strprivileges'],
-				'url'   => "privileges.php?{$misc->href}&amp;subject=function&amp;",
-				'vars'  => array('function' => 'proproto', 'function_oid' => 'prooid'),
+				'content' => $lang['strprivileges'],
+				'attr'=> array (
+					'href' => array (
+						'url' => 'privileges.php',
+						'urlvars' => array (
+							'subject' => 'function',
+							'function' => field('proproto'),
+							'function_oid' => field('prooid')
+						)
+					)
+				)
 			),
 		);
 
-		$misc->printTable($funcs, $columns, $actions, $lang['strnofunctions']);
+		$misc->printTable($funcs, $columns, $actions, 'functions-functions', $lang['strnofunctions']);
 
-		echo "<ul class=\"navlink\">\n\t<li><a href=\"functions.php?action=create&amp;{$misc->href}\">{$lang['strcreateplfunction']}</a></li>\n";
-		echo "\t<li><a href=\"functions.php?action=create&amp;language=internal&amp;{$misc->href}\">{$lang['strcreateinternalfunction']}</a></li>\n";
-		echo "\t<li><a href=\"functions.php?action=create&amp;language=C&amp;{$misc->href}\">{$lang['strcreatecfunction']}</a></li>\n</ul>\n";
+		$navlinks = array(
+			'createpl' => array (
+				'attr'=> array (
+					'href' => array (
+						'url' => 'functions.php',
+						'urlvars' => array (
+							'action' => 'create',
+							'server' => $_REQUEST['server'],
+							'database' => $_REQUEST['database'],
+							'schema' => $_REQUEST['schema']
+						)
+					)
+				),
+				'content' => $lang['strcreateplfunction']
+			),
+			'createinternal' => array (
+				'attr'=> array (
+					'href' => array (
+						'url' => 'functions.php',
+						'urlvars' => array (
+							'action' => 'create',
+							'language' => 'internal',
+							'server' => $_REQUEST['server'],
+							'database' => $_REQUEST['database'],
+							'schema' => $_REQUEST['schema']
+						)
+					)
+				),
+				'content' => $lang['strcreateinternalfunction']
+			),
+			'createc' => array (
+				'attr'=> array (
+					'href' => array (
+						'url' => 'functions.php',
+						'urlvars' => array (
+							'action' => 'create',
+							'language' => 'C',
+							'server' => $_REQUEST['server'],
+							'database' => $_REQUEST['database'],
+							'schema' => $_REQUEST['schema']
+						)
+					)
+				),
+				'content' => $lang['strcreatecfunction']
+			)
+		);
+
+		$misc->printNavLinks($navlinks, 'functions-functions', get_defined_vars());
 	}
 
 	/**
@@ -853,7 +966,7 @@
 						)
 		);
 
-		$misc->printTreeXML($funcs, $attrs);
+		$misc->printTree($funcs, $attrs, 'functions');
 		exit;
 	}
 

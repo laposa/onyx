@@ -51,7 +51,7 @@
 		
 		$actions = array();
 		
-		$misc->printTable($conversions, $columns, $actions, $lang['strnoconversions']);
+		$misc->printTable($conversions, $columns, $actions, 'conversions-conversions', $lang['strnoconversions']);
 	}
 	
 	/**
@@ -68,7 +68,7 @@
 			'toolTip'=> field('concomment')
 		);
 		
-		$misc->printTreeXML($conversions, $attrs);
+		$misc->printTree($conversions, $attrs, 'conversions');
 		exit;
 	}
 	

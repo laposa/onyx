@@ -56,9 +56,9 @@
 					foreach($_REQUEST['table'] as $o) {
 						$status = $data->clusterIndex($o);
 						if ($status == 0)
-							$msg.= sprintf('%s: %s<br />', htmlentities($o), $lang['strclusteredgood']);
+							$msg.= sprintf('%s: %s<br />', htmlentities($o, ENT_QUOTES, 'UTF-8'), $lang['strclusteredgood']);
 						else {
-							doDefault($type, sprintf('%s%s: %s<br />', $msg, htmlentities($o), $lang['strclusteredbad']));
+							doDefault($type, sprintf('%s%s: %s<br />', $msg, htmlentities($o, ENT_QUOTES, 'UTF-8'), $lang['strclusteredbad']));
 							return;
 						}
 					}
@@ -141,9 +141,9 @@
 				foreach($_REQUEST['table'] as $o) {
 					$status = $data->reindex(strtoupper($type), $o, isset($_REQUEST['reindex_force']));
 					if ($status == 0)
-						$msg.= sprintf('%s: %s<br />', htmlentities($o), $lang['strreindexgood']);
+						$msg.= sprintf('%s: %s<br />', htmlentities($o, ENT_QUOTES, 'UTF-8'), $lang['strreindexgood']);
 					else {
-						doDefault($type, sprintf('%s%s: %s<br />', $msg, htmlentities($o), $lang['strreindexbad']));
+						doDefault($type, sprintf('%s%s: %s<br />', $msg, htmlentities($o, ENT_QUOTES, 'UTF-8'), $lang['strreindexbad']));
 						return;
 					}
 				}
@@ -215,9 +215,9 @@
 				foreach($_REQUEST['table'] as $o) {
 					$status = $data->analyzeDB($o);
 					if ($status == 0)
-						$msg.= sprintf('%s: %s<br />', htmlentities($o), $lang['stranalyzegood']);
+						$msg.= sprintf('%s: %s<br />', htmlentities($o, ENT_QUOTES, 'UTF-8'), $lang['stranalyzegood']);
 					else {
-						doDefault($type, sprintf('%s%s: %s<br />', $msg, htmlentities($o), $lang['stranalyzebad']));
+						doDefault($type, sprintf('%s%s: %s<br />', $msg, htmlentities($o, ENT_QUOTES, 'UTF-8'), $lang['stranalyzebad']));
 						return;
 					}
 				}
@@ -292,9 +292,9 @@
 				foreach($_REQUEST['table'] as $t) {
 					$status = $data->vacuumDB($t, isset($_REQUEST['vacuum_analyze']), isset($_REQUEST['vacuum_full']), isset($_REQUEST['vacuum_freeze']));
 					if ($status == 0)
-						$msg.= sprintf('%s: %s<br />', htmlentities($t), $lang['strvacuumgood']);
+						$msg.= sprintf('%s: %s<br />', htmlentities($t, ENT_QUOTES, 'UTF-8'), $lang['strvacuumgood']);
 					else {
-						doDefault($type, sprintf('%s%s: %s<br />', $msg, htmlentities($t), $lang['strvacuumbad']));
+						doDefault($type, sprintf('%s%s: %s<br />', $msg, htmlentities($t, ENT_QUOTES, 'UTF-8'), $lang['strvacuumbad']));
 						return;
 					}
 				}
@@ -628,23 +628,35 @@
 
 			$actions = array(
 				'edit' => array(
-					'title' => $lang['stredit'],
-					'url'   => "{$script}?action=confeditautovac&amp;{$misc->href}&amp;subject={$type}&amp;",
-					'vars'  => array(
-						'schema' => 'nspname',
-						'table' => 'relname'
+					'content' => $lang['stredit'],
+					'attr'=> array (
+						'href' => array (
+							'url' => $script,
+							'urlvars' => array (
+								'subject' => $type,
+								'action' => 'confeditautovac',
+								'schema' => field('nspname'),
+								'table' => field('relname')
+							)
+						)
 					)
 				),
 				'delete' => array(
-					'title' => $lang['strdelete'],
-					'url'   => "{$script}?action=confdelautovac&amp;{$misc->href}&amp;subject={$type}&amp;",
-					'vars'  => array(
-						'schema' => 'nspname',
-						'table' => 'relname'
+					'content' => $lang['strdelete'],
+					'attr'=> array (
+						'href' => array (
+							'url' => $script,
+							'urlvars' => array (
+								'subject' => $type,
+								'action' => 'confdelautovac',
+								'schema' => field('nspname'),
+								'table' => field('relname')
+							)
+						)
 					)
 				)
 			);
-			
+
 			if ($type == 'table') {
 				unset($actions['edit']['vars']['schema'], 
 					$actions['delete']['vars']['schema'],
@@ -653,7 +665,7 @@
 				);
 			}
 
-			$misc->printTable($autovac, $columns, $actions, $lang['strnovacuumconf']);
+			$misc->printTable($autovac, $columns, $actions, 'admin-admin', $lang['strnovacuumconf']);
 			
 			if (($type == 'table') and ($autovac->recordCount() == 0)) {
 				echo "<br />";

@@ -9,6 +9,8 @@
 	 * $Id: sql.php,v 1.43 2008/01/10 20:19:27 xzilla Exp $
 	 */
 
+	 global $lang;
+
 	// Prevent timeouts on large exports (non-safe mode only)
 	if (!ini_get('safe_mode')) set_time_limit(0);
 
@@ -72,15 +74,7 @@
 
 	// We need to store the query in a session for editing purposes
 	// We avoid GPC vars to avoid truncating long queries
-	// If we came from a report, we need to look up the query
-	if (isset($_REQUEST['subject']) && $_REQUEST['subject'] == 'report' ) {
-		global $data, $misc;
-		include_once('./classes/Reports.php');
-		$reportsdb = new Reports($status);
-		$report = $reportsdb->getReport($_REQUEST['reportid']);
-		$_SESSION['sqlquery'] = $report->fields['report_sql'];	
-	} 
-	elseif (isset($_REQUEST['subject']) && $_REQUEST['subject'] == 'history') {
+	if (isset($_REQUEST['subject']) && $_REQUEST['subject'] == 'history') {
 		// Or maybe we came from the history popup
 		$_SESSION['sqlquery'] = $_SESSION['history'][$_REQUEST['server']][$_REQUEST['database']][$_GET['queryid']]['query'];
 	}
@@ -196,36 +190,77 @@
 	
 	echo "<p>{$lang['strsqlexecuted']}</p>\n";
 			
-	echo "<ul class=\"navlink\">\n";
+	$navlinks = array();
+	$fields = array(
+		'server' => $_REQUEST['server'],
+		'database' => $_REQUEST['database'],
+	);
+
+	if(isset($_REQUEST['schema']))
+		$fields['schema'] = $_REQUEST['schema'];
 	
 	// Return
 	if (isset($_REQUEST['return'])) {
-		$return_url = $misc->getHREFSubject($_REQUEST['return']);
-		echo "\t<li><a href=\"{$return_url}\">{$lang['strback']}</a></li>\n";
+		$urlvars = $misc->getSubjectParams($_REQUEST['return']);
+		$navlinks['back'] = array (
+			'attr'=> array (
+				'href' => array (
+					'url' => $urlvars['url'],
+					'urlvars' => $urlvars['params']
+				)
+			),
+			'content' => $lang['strback']
+		);
 	}
 
 	// Edit		
-	echo "\t<li><a href=\"database.php?database=", urlencode($_REQUEST['database']),
-		"&amp;server=", urlencode($_REQUEST['server']), "&amp;action=sql\">{$lang['streditsql']}</a></li>\n";
-				
-	// Create report
-	if (($subject !== 'report') && $conf['show_reports'] && isset($rs) && is_object($rs) && $rs->recordCount() > 0)
-		echo "\t<li><a href=\"reports.php?{$misc->href}&amp;action=create&amp;report_sql=",
-			urlencode($_SESSION['sqlquery']), "\">{$lang['strcreatereport']}</a></li>\n";
-	
+	$navlinks['alter'] = array (
+		'attr'=> array (
+			'href' => array (
+				'url' => 'database.php',
+				'urlvars' => array_merge($fields, array (
+					'action' => 'sql',
+				))
+			)
+		),
+		'content' => $lang['streditsql']
+	);
+
 	// Create view and download
 	if (isset($_SESSION['sqlquery']) && isset($rs) && is_object($rs) && $rs->recordCount() > 0) {
 		// Report views don't set a schema, so we need to disable create view in that case
-		if (isset($_REQUEST['schema'])) 
-			echo "\t<li><a href=\"views.php?action=create&amp;formDefinition=",
-				urlencode($_SESSION['sqlquery']), "&amp;{$misc->href}\">{$lang['strcreateview']}</a></li>\n";
-		echo "\t<li><a href=\"dataexport.php?query=", urlencode($_SESSION['sqlquery']);
+		if (isset($_REQUEST['schema'])) {
+			$navlinks['createview'] = array (
+				'attr'=> array (
+					'href' => array (
+						'url' => 'views.php',
+						'urlvars' => array_merge($fields, array (
+							'action' => 'create',
+							'formDefinition' => $_SESSION['sqlquery']
+						))
+					)
+				),
+				'content' => $lang['strcreateview']
+			);
+		}
+
 		if (isset($_REQUEST['search_path']))
-			echo "&amp;search_path=", urlencode($_REQUEST['search_path']);
-		echo "&amp;{$misc->href}\">{$lang['strdownload']}</a></li>\n";
+			$fields['search_path'] = $_REQUEST['search_path'];
+
+		$navlinks['download'] = array (
+			'attr'=> array (
+				'href' => array (
+					'url' => 'dataexport.php',
+					'urlvars' => array_merge($fields, array(
+						'query' => $_SESSION['sqlquery']
+					))
+				)
+			),
+			'content' => $lang['strdownload']
+		);
 	}
 
-	echo "</ul>\n";
+	$misc->printNavLinks($navlinks, 'sql-form', get_defined_vars());
 	
 	$misc->printFooter();
 ?>

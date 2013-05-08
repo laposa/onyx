@@ -290,29 +290,68 @@
 				'field' => field('idxcomment'),
 			),
 		);
-		
+
 		$actions = array(
 			'cluster' => array(
-				'title' => $lang['strclusterindex'],
-				'url'   => "indexes.php?action=confirm_cluster_index&amp;{$misc->href}&amp;table=".urlencode($_REQUEST['table'])."&amp;",
-				'vars'  => array('index' => 'indname'),
+				'content' => $lang['strclusterindex'],
+				'attr'=> array (
+					'href' => array (
+						'url' => 'indexes.php',
+						'urlvars' => array (
+							'action' => 'confirm_cluster_index',
+							'table' => $_REQUEST['table'],
+							'index' => field('indname')
+						)
+					)
+				)
 			),
 			'reindex' => array(
-				'title' => $lang['strreindex'],
-				'url'   => "indexes.php?action=reindex&amp;{$misc->href}&amp;table=".urlencode($_REQUEST['table'])."&amp;",
-				'vars'  => array('index' => 'indname'),
+				'content' => $lang['strreindex'],
+				'attr'=> array (
+					'href' => array (
+						'url' => 'indexes.php',
+						'urlvars' => array (
+							'action' => 'reindex',
+							'table' => $_REQUEST['table'],
+							'index' => field('indname')
+						)
+					)
+				)
 			),
 			'drop' => array(
-				'title' => $lang['strdrop'],
-				'url'   => "indexes.php?action=confirm_drop_index&amp;{$misc->href}&amp;table=".urlencode($_REQUEST['table'])."&amp;",
-				'vars'  => array('index' => 'indname'),
-			),
+				'content' => $lang['strdrop'],
+				'attr'=> array (
+					'href' => array (
+						'url' => 'indexes.php',
+						'urlvars' => array (
+							'action' => 'confirm_drop_index',
+							'table' => $_REQUEST['table'],
+							'index' => field('indname')
+						)
+					)
+				)
+			)
 		);
 		
-		$misc->printTable($indexes, $columns, $actions, $lang['strnoindexes'], 'indPre');
+		$misc->printTable($indexes, $columns, $actions, 'indexes-indexes', $lang['strnoindexes'], 'indPre');
 		
-		echo "<p><a class=\"navlink\" href=\"indexes.php?action=create_index&amp;{$misc->href}&amp;table=", 
-			urlencode($_REQUEST['table']), "\">{$lang['strcreateindex']}</a></p>\n";		
+		$misc->printNavLinks(array (
+			'create' => array (
+				'attr'=> array (
+					'href' => array (
+						'url' => 'indexes.php',
+						'urlvars' => array (
+							'action' => 'create_index',
+							'server' => $_REQUEST['server'],
+							'database' => $_REQUEST['database'],
+							'schema' => $_REQUEST['schema'],
+							'table' => $_REQUEST['table']
+						)
+					)
+				),
+				'content' => $lang['strcreateindex']
+			)
+		), 'indexes-indexes', get_defined_vars());
 	}
 
 	function doTree() {
@@ -335,7 +374,7 @@
 			'icon'   => callback('getIcon'),
 		);
 
-		$misc->printTreeXML($indexes, $attrs);
+		$misc->printTree($indexes, $attrs, 'indexes');
 		exit;
 	}
 

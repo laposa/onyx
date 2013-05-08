@@ -9,9 +9,7 @@
 
 	// Language and character set
 	$lang['applang'] =  'Afrikaans';
-	$lang['appcharset'] = 'ISO-8859-1';
-	$lang['applocale'] = 'af_ZA';
-	$lang['appdbencoding'] = 'LATIN1';
+	$lang['applocale'] = 'af-ZA';
 	$lang['applangdir'] = 'ltr';
 
 	// Welcome  
@@ -22,7 +20,7 @@
 	$lang['strlocaldocs'] = 'PostgreSQL Dokumentasie (lokaal)';
 	$lang['strreportbug'] = 'Meld \'n fout aan';
 	$lang['strviewfaq'] = 'Bekyk FAQ op internet';
-	$lang['strviewfaq_url'] = 'http://phppgadmin.sourceforge.net/?page=faq';
+	$lang['strviewfaq_url'] = 'http://phppgadmin.sourceforge.net/doku.php?id=faq';
 	
 	// Basic strings
 	$lang['strlogin'] = 'Aanteken';
@@ -79,7 +77,7 @@
 	$lang['strencoding'] = 'Enkodering';
 	$lang['strvalue'] = 'Waarde';
 	$lang['strunique'] = 'Uniek';
-	$lang['strprimary'] = 'Primêr';
+	$lang['strprimary'] = 'PrimÃªr';
 	$lang['strexport'] = 'Eksporteer';
 	$lang['strimport'] = 'Importeer';
 	$lang['strsql'] = 'SQL';
@@ -122,26 +120,25 @@
 	$lang['strpaginate'] = 'Resultate per bladsy';
 	$lang['struploadscript'] = 'of laai \'n SQL skrip in:';
 	$lang['strstarttime'] = 'Begintyd';
-	$lang['strfile'] = 'Lêer';
-	$lang['strfileimported'] = 'Lêer is ingetrek.';
+	$lang['strfile'] = 'LÃªer';
+	$lang['strfileimported'] = 'LÃªer is ingetrek.';
 
 	// Error handling
 	$lang['strnoframes'] = 'Hierdie toepassing maak gebruik van HTML-rame. U het \'n blaaier nodig wat rame ondersteun om hierdie toepassing te kan gebruik. ';
-	$lang['strbadconfig'] = 'Die lêer config.inc.php is verouderd. Jy kan  verbeterde weergawe aflei van die lêer config.inc.php-dist.';
+	$lang['strbadconfig'] = 'Die lÃªer config.inc.php is verouderd. Jy kan  verbeterde weergawe aflei van die lÃªer config.inc.php-dist.';
 	$lang['strnotloaded'] = 'Hierdie PHP-installasie is sonder ondersteuning van hierdie tipe database nie gekompileerd.';
 	$lang['strpostgresqlversionnotsupported'] = 'Weergawe van  PostgreSQL word nie ondersteun nie. Probeer asb. weergawe %s of later.';
 	$lang['strbadschema'] = 'Ongeldige skema gespesifiseer.';
-	$lang['strbadencoding'] = 'Die kliëntenkodering kon nie in die databasis geplaas word nie.';
+	$lang['strbadencoding'] = 'Die kliÃ«ntenkodering kon nie in die databasis geplaas word nie.';
 	$lang['strsqlerror'] = 'SQL-fout:';
 	$lang['strinstatement'] = 'In stelling:';
 	$lang['strinvalidparam'] = 'Ongeldige parameters.';
 	$lang['strnodata'] = 'Geen rye gevind.';
 	$lang['strnoobjects'] = 'Geen objekte gevind.';
 	$lang['strrownotunique'] = 'Geen unieke identifiseerder vir hierdie ry.';
-	$lang['strnoreportsdb'] = 'Jy het nie die verslae-databasis geskep nie. Lees asb. die INSTALL-lêer vir instruksies.';
-	$lang['strnouploads'] = 'Oplaaiing van lêers is afgeskakel.';
+	$lang['strnouploads'] = 'Oplaaiing van lÃªers is afgeskakel.';
 	$lang['strimporterror'] = 'Inleesfout.';
-	$lang['strimporterrorline'] = 'Inleesfout op reël %s.';
+	$lang['strimporterrorline'] = 'Inleesfout op reÃ«l %s.';
 	$lang['strcannotdumponwindows'] = 'Weergee van komplekse tabel- en skemaname word nie op Windows ondersteun nie.  Kyk asb. in die FAQ.';
 
 	// Tables
@@ -177,8 +174,8 @@
 	$lang['strnumcols'] = 'Aantal kolomme';
 	$lang['strcolneedsname'] = 'Jy moet die kolom \'n naam gee';
 	$lang['strselectallfields'] = 'Selekteer alle velde';
-	$lang['strselectneedscol'] = 'Jy moet ten minste één kolom as uitvoer hê';
-	$lang['strselectunary'] = 'Unêre operatore kan nie waardes kry nie.';
+	$lang['strselectneedscol'] = 'Jy moet ten minste Ã©Ã©n kolom as uitvoer hÃª';
+	$lang['strselectunary'] = 'UnÃªre operatore kan nie waardes kry nie.';
 	$lang['straltercolumn'] = 'Wysig kolom';
 	$lang['strcolumnaltered'] = 'Kolom is gewysig.';
 	$lang['strcolumnalteredbad'] = 'Die kolom kon nie gewysig word nie.';
@@ -299,7 +296,7 @@
 	$lang['strviewname'] = 'Aansignaam';
 	$lang['strviewneedsname'] = 'Jy moet die aansig \'n naam gee.';
 	$lang['strviewneedsdef'] = 'Jy moet die aansig definieer.';
-	$lang['strviewneedsfields'] = 'Jy moet sê watter kolomme gekies moet wees in hierdie aansig.';
+	$lang['strviewneedsfields'] = 'Jy moet sÃª watter kolomme gekies moet wees in hierdie aansig.';
 	$lang['strviewcreated'] = 'Aansig is geskep.';
 	$lang['strviewcreatedbad'] = 'Die aansig kon nie geskep word nie.';
 	$lang['strconfdropview'] = 'Is jy seker dat jy die aansig "%s" wil verwyder?';
@@ -346,7 +343,7 @@
 	$lang['strtabname'] = 'Tab-naam';
 	$lang['strcolumnname'] = 'Kolomnaam';
 	$lang['strindexneedsname'] = 'Jy moet \'n naam gee vir die index.';
-	$lang['strindexneedscols'] = 'Indekse moet ten minste uit één kolom bestaan.';
+	$lang['strindexneedscols'] = 'Indekse moet ten minste uit Ã©Ã©n kolom bestaan.';
 	$lang['strindexcreated'] = 'Indeks is geskep';
 	$lang['strindexcreatedbad'] = 'Die indeks kon nie geskep word nie.';
 	$lang['strconfdropindex'] = 'Is jy seker dat jy die indeks "%s" wil verwyder?';
@@ -354,7 +351,7 @@
 	$lang['strindexdroppedbad'] = 'Verwydering van die indeks het misluk.';
 	$lang['strkeyname'] = 'Sleutelnaam';
 	$lang['struniquekey'] = 'Unieke sleutel';
-	$lang['strprimarykey'] = 'Primêre sleutel';
+	$lang['strprimarykey'] = 'PrimÃªre sleutel';
  	$lang['strindextype'] = 'Tipe van die indeks';
 	$lang['strtablecolumnlist'] = 'Kolomme in tabel';
 	$lang['strindexcolumnlist'] = 'Kolomme in indeks';
@@ -363,19 +360,19 @@
 	$lang['strclusteredbad'] = 'Kluster het misluk.';
 
 	// Rules
-	$lang['strrules'] = 'Reëls';
-	$lang['strrule'] = 'Reël';
-	$lang['strshowallrules'] = 'Wys alle reëls';
-	$lang['strnorule'] = 'Geen reël gevind.';
-	$lang['strnorules'] = 'Geen reëls gevind.';
-	$lang['strcreaterule'] = 'Skep \'n reël';
-	$lang['strrulename'] = 'Reëlnaam';
-	$lang['strruleneedsname'] = 'Jy moet \'n naam gee vir die reël.';
-	$lang['strrulecreated'] = 'Reël is geskep.';
-	$lang['strrulecreatedbad'] = 'Die reël kon nie geskep word nie.';
-	$lang['strconfdroprule'] = 'Is jy seker dat jy die reël "%s" op "%s" wil verwyder?';
-	$lang['strruledropped'] = 'Reël is verwyder.';
-	$lang['strruledroppedbad'] = 'Verwydering van die reël het misluk.';
+	$lang['strrules'] = 'ReÃ«ls';
+	$lang['strrule'] = 'ReÃ«l';
+	$lang['strshowallrules'] = 'Wys alle reÃ«ls';
+	$lang['strnorule'] = 'Geen reÃ«l gevind.';
+	$lang['strnorules'] = 'Geen reÃ«ls gevind.';
+	$lang['strcreaterule'] = 'Skep \'n reÃ«l';
+	$lang['strrulename'] = 'ReÃ«lnaam';
+	$lang['strruleneedsname'] = 'Jy moet \'n naam gee vir die reÃ«l.';
+	$lang['strrulecreated'] = 'ReÃ«l is geskep.';
+	$lang['strrulecreatedbad'] = 'Die reÃ«l kon nie geskep word nie.';
+	$lang['strconfdroprule'] = 'Is jy seker dat jy die reÃ«l "%s" op "%s" wil verwyder?';
+	$lang['strruledropped'] = 'ReÃ«l is verwyder.';
+	$lang['strruledroppedbad'] = 'Verwydering van die reÃ«l het misluk.';
 
 	// Constraints
 	$lang['strconstraints'] = 'Beperkings';
@@ -391,17 +388,17 @@
 	$lang['strcheckneedsdefinition'] = 'Kontrolebeperking moet gedefinieer wees.';
 	$lang['strcheckadded'] = 'Kontrolebeperking is bygevoeg.';
 	$lang['strcheckaddedbad'] = 'Kontrolebeperking kon nie bygevoeg word nie.';
-	$lang['straddpk'] = 'Voeg primêre sleutel by';
-	$lang['strpkneedscols'] = 'Primêre sleutel moet minstens één kolom hê.';
-	$lang['strpkadded'] = 'Primêre sleutel bygevoeg.';
-	$lang['strpkaddedbad'] = 'Primêre sleutel kon nie bygevoeg word nie.';
+	$lang['straddpk'] = 'Voeg primÃªre sleutel by';
+	$lang['strpkneedscols'] = 'PrimÃªre sleutel moet minstens Ã©Ã©n kolom hÃª.';
+	$lang['strpkadded'] = 'PrimÃªre sleutel bygevoeg.';
+	$lang['strpkaddedbad'] = 'PrimÃªre sleutel kon nie bygevoeg word nie.';
 	$lang['stradduniq'] = 'Voeg unieke sleutel by.';
-	$lang['struniqneedscols'] = 'Unieke sleutel moet minstens één kolom hê.';
+	$lang['struniqneedscols'] = 'Unieke sleutel moet minstens Ã©Ã©n kolom hÃª.';
 	$lang['struniqadded'] = 'Unieke sleutel is bygevoeg.';
 	$lang['struniqaddedbad'] = 'Unieke sleutel kon nie bygevoeg word nie.';
 	$lang['straddfk'] = 'Voeg vreemdesleutel toe';
-	$lang['strfkneedscols'] = 'Vreemdesleutel moet minstens één kolom hê.';
-	$lang['strfkneedstarget'] = 'Vreemdesleutel moet \'n doeltabel hê.';
+	$lang['strfkneedscols'] = 'Vreemdesleutel moet minstens Ã©Ã©n kolom hÃª.';
+	$lang['strfkneedstarget'] = 'Vreemdesleutel moet \'n doeltabel hÃª.';
 	$lang['strfkadded'] = 'Vreemdesleutel is bygevoeg.';
 	$lang['strfkaddedbad'] = 'Vreemdesleutel kon nie bygevoeg word nie.';
 	$lang['strfktarget'] = 'Doeltabel';
@@ -431,7 +428,7 @@
 	$lang['strfunctiondroppedbad'] =  'Verwydering van die funksie het misluk.';
 	$lang['strfunctionupdated'] =  'Funksie is opgedateer.';
 	$lang['strfunctionupdatedbad'] =  'Opdatering van die funksie het misluk.';
-	$lang['strobjectfile'] = 'Objeklêer';
+	$lang['strobjectfile'] = 'ObjeklÃªer';
 	$lang['strlinksymbol'] = 'Skakelsimbool';
 
 	// Triggers
@@ -502,18 +499,6 @@
 	$lang['strsearchpath'] = 'Skema-soekpad';
 
 	// Reports
-	$lang['strreport'] =  'Verslag';
-	$lang['strreports'] =  'Verslae';
-	$lang['strshowallreports'] =  'Wys alle verslae';
-	$lang['strnoreports'] =  'Geen verslae gevind.';
-	$lang['strcreatereport'] =  'Skep verslag';
-	$lang['strreportdropped'] =  'Verslag is verwyder.';
-	$lang['strreportdroppedbad'] =  'Verwydering van verslag het misluk.';
-	$lang['strconfdropreport'] =  'Is jy seker dat jy die verslag "%s" wil verwyder?';
-	$lang['strreportneedsname'] =  'Jy moet \'n naam gee vir die verslag.';
-	$lang['strreportneedsdef'] =  'Jy moet SQL-kode skryf vir die verslag.';
-	$lang['strreportcreated'] =  'Verslag is geskep.';
-	$lang['strreportcreatedbad'] =  'Die verslag kon nie geskep word nie.';
 
 	// Domains
 	$lang['strdomain'] =  'Domein';
@@ -563,7 +548,7 @@
 	$lang['strtargettype'] = 'Doeltipe';
 	$lang['strimplicit'] = 'Implisiet';
 	$lang['strinassignment'] = 'Tydens toekenning';
-	$lang['strbinarycompat'] = '(Binêr-versoenbaar)';
+	$lang['strbinarycompat'] = '(BinÃªr-versoenbaar)';
 
 	// Conversions
 	$lang['strconversions'] = 'Omskakelings';

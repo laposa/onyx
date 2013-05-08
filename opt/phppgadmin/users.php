@@ -47,7 +47,18 @@
 		}
 		else echo "<p>{$lang['strnodata']}</p>\n";
 		
-		echo "<p><a class=\"navlink\" href=\"users.php?action=confchangepassword&amp;{$misc->href}\">{$lang['strchangepassword']}</a></p>\n";
+		$misc->printNavLinks(array ('changepassword' => array (
+				'attr'=> array (
+					'href' => array (
+						'url' => 'users.php',
+						'urlvars' => array (
+							'action' => 'confchangepassword',
+							'server' => $_REQUEST['server']
+						)
+					)
+				),
+				'content' => $lang['strchangepassword']
+			)), 'users-account', get_defined_vars());
 	}
 	
 	/**
@@ -317,20 +328,45 @@
 		
 		$actions = array(
 			'alter' => array(
-				'title' => $lang['stralter'],
-				'url'   => "users.php?action=edit&amp;{$misc->href}&amp;",
-				'vars'  => array('username' => 'usename'),
+				'content' => $lang['stralter'],
+				'attr'=> array (
+					'href' => array (
+						'url' => 'users.php',
+						'urlvars' => array (
+							'action' => 'edit',
+							'username' => field('usename')
+						)
+					)
+				)
 			),
 			'drop' => array(
-				'title' => $lang['strdrop'],
-				'url'   => "users.php?action=confirm_drop&amp;{$misc->href}&amp;",
-				'vars'  => array('username' => 'usename'),
+				'content' => $lang['strdrop'],
+				'attr'=> array (
+					'href' => array (
+						'url' => 'users.php',
+						'urlvars' => array (
+							'action' => 'confirm_drop',
+							'username' => field('usename')
+						)
+					)
+				)
 			),
 		);
 		
-		$misc->printTable($users, $columns, $actions, $lang['strnousers']);
+		$misc->printTable($users, $columns, $actions, 'users-users', $lang['strnousers']);
 
-		echo "<p><a class=\"navlink\" href=\"users.php?action=create&amp;{$misc->href}\">{$lang['strcreateuser']}</a></p>\n";
+		$misc->printNavLinks(array ('create' => array (
+				'attr'=> array (
+					'href' => array (
+						'url' => 'users.php',
+						'urlvars' => array (
+							'action' => 'create',
+							'server' => $_REQUEST['server']
+						)
+					)
+				),
+				'content' => $lang['strcreateuser']
+			)), 'users-users', get_defined_vars());
 
 	}
 

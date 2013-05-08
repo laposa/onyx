@@ -16,7 +16,7 @@
 	$appName = 'phpPgAdmin';
 
 	// Application version
-	$appVersion = '5.0.4';
+	$appVersion = '5.1';
 
 	// PostgreSQL and PHP minimum version
 	$postgresqlMinVer = '7.4';
@@ -44,7 +44,7 @@
 	// Always include english.php, since it's the master language file
 	if (!isset($conf['default_lang'])) $conf['default_lang'] = 'english';
 	$lang = array();
-	require_once('./lang/recoded/english.php');
+	require_once('./lang/english.php');
 
 	// Create Misc class references
 	require_once('./classes/Misc.php');
@@ -95,7 +95,8 @@
 
 	/* select the theme */
 	unset($_theme);
-	$conf['theme'] = 'default';
+	if (!isset($conf['theme']))
+		$conf['theme'] = 'default';
 
 	// 1. Check for the theme from a request var
 	if (isset($_REQUEST['theme']) && is_file("./themes/{$_REQUEST['theme']}/global.css")) {
@@ -161,9 +162,14 @@
 		$_language = $conf['default_lang'];
 	}
 
+	// 6. Otherwise, default to english.
+	if (!isset($_language))
+		$_language = 'english';
+
+
 	// Import the language file
 	if (isset($_language)) {
-		include("./lang/recoded/{$_language}.php");
+		include("./lang/{$_language}.php");
 		$_SESSION['webdbLanguage'] = $_language;
 	}
 
@@ -178,6 +184,9 @@
 		echo $lang['strnotloaded'];
 		exit;
 	}
+
+	// Manage the plugins
+	require_once('./classes/PluginManager.php');
 
 	// Create data accessor object, if necessary
 	if (!isset($_no_db_connection)) {
@@ -218,41 +227,6 @@
 				exit;
 			}
 		}
-
-		// Get database encoding
-		$dbEncoding = $data->getDatabaseEncoding();
-
-		// Set client encoding to database encoding
-		if ($dbEncoding != '') {
-			// Explicitly change client encoding if it's different to server encoding.
-			if (function_exists('pg_client_encoding'))
-				$currEncoding = pg_client_encoding($data->conn->_connectionID);
-			elseif (function_exists('pg_clientencoding'))
-				$currEncoding = pg_clientencoding($data->conn->_connectionID);
-			else
-				$currEncoding = null;
-
-			if ($currEncoding != $dbEncoding) {
-				$status = $data->setClientEncoding($dbEncoding);
-				if ($status != 0 && $status != -99) {
-					echo $lang['strbadencoding'];
-					exit;
-				}
-			}
-
-			// Override $lang['appcharset']
-			if (isset($data->codemap[$dbEncoding]))
-				$lang['appcharset'] = $data->codemap[$dbEncoding];
-			else
-				$lang['appcharset'] = $dbEncoding;
-		}
-
-
-		// Load Slony if required
-		if (isset($_server_info['slony_support'])) {
-			include('./classes/plugins/Slony.php');
-			$slony = new Slony();
-		}
 	}
 
 	if (!function_exists("htmlspecialchars_decode")) {
@@ -260,4 +234,6 @@
 			return strtr($string, array_flip(get_html_translation_table(HTML_SPECIALCHARS, $quote_style)));
 		}
 	}
+
+	$plugin_manager = new PluginManager($_language);
 ?>

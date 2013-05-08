@@ -51,7 +51,7 @@
 		
 		$actions = array();
 		
-		$misc->printTable($opclasses, $columns, $actions, $lang['strnoopclasses']);
+		$misc->printTable($opclasses, $columns, $actions, 'opclasses-opclasses', $lang['strnoopclasses']);
 	}
 	
 	/**
@@ -71,7 +71,7 @@
 			'toolTip'=> field('opccomment'),
 		);
 		
-		$misc->printTreeXML($opclasses, $attrs);
+		$misc->printTree($opclasses, $attrs, 'opclasses');
 		exit;
 	}
 	

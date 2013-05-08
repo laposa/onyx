@@ -52,26 +52,61 @@
 				'url' => 'sequences.php',
 			),
 			'alter' => array(
-				'title' => $lang['stralter'],
-				'url'   => "sequences.php?action=confirm_alter&amp;{$misc->href}&amp;subject=sequence&amp;",
-				'vars'  => array('sequence' => 'seqname'),
+				'content' => $lang['stralter'],
+				'attr'=> array (
+					'href' => array (
+						'url' => 'sequences.php',
+						'urlvars' => array (
+							'action' => 'confirm_alter',
+							'subject' => 'sequence',
+							'sequence' => field('seqname')
+						)
+					)
+				)
 			),
 			'drop' => array(
-				'title' => $lang['strdrop'],
-				'url'   => "sequences.php?action=confirm_drop&amp;{$misc->href}&amp;",
-				'vars'  => array('sequence' => 'seqname'),
+				'content' => $lang['strdrop'],
+				'attr'=> array (
+					'href' => array (
+						'url' => 'sequences.php',
+						'urlvars' => array (
+							'action' => 'confirm_drop',
+							'sequence' => field('seqname')
+						)
+					)
+				),
 				'multiaction' => 'confirm_drop',
 			),
 			'privileges' => array(
-				'title' => $lang['strprivileges'],
-				'url'   => "privileges.php?{$misc->href}&amp;subject=sequence&amp;",
-				'vars'  => array('sequence' => 'seqname'),
+				'content' => $lang['strprivileges'],
+				'attr'=> array (
+					'href' => array (
+						'url' => 'privileges.php',
+						'urlvars' => array (
+							'subject' => 'sequence',
+							'sequence' => field('seqname')
+						)
+					)
+				)
 			),
 		);
 
-		$misc->printTable($sequences, $columns, $actions, $lang['strnosequences']);
+		$misc->printTable($sequences, $columns, $actions, 'sequences-sequences', $lang['strnosequences']);
 
-		echo "<p><a class=\"navlink\" href=\"sequences.php?action=create&amp;{$misc->href}\">{$lang['strcreatesequence']}</a></p>\n";
+		$misc->printNavLinks(array ('create' => array (
+				'attr'=> array (
+					'href' => array (
+						'url' => 'sequences.php',
+						'urlvars' => array (
+							'action' => 'create',
+							'server' => $_REQUEST['server'],
+							'database' => $_REQUEST['database'],
+							'schema' => $_REQUEST['schema']
+						)
+					)
+				),
+				'content' => $lang['strcreatesequence']
+			)), 'sequences-sequences', get_defined_vars());
 	}
 
 	/**
@@ -97,7 +132,7 @@
 						)
 		);
 
-		$misc->printTreeXML($sequences, $attrs);
+		$misc->printTree($sequences, $attrs, 'sequences');
 		exit;
 	}
 
@@ -152,15 +187,101 @@
 			echo "</tr>";
 			echo "</table>";
 
-			echo "<ul class=\"navlink\">\n";
-			echo "\t<li><a href=\"sequences.php?action=confirm_alter&amp;{$misc->href}&amp;sequence=", urlencode($sequence->fields['seqname']), "\">{$lang['stralter']}</a></li>\n";
-			echo "\t<li><a href=\"sequences.php?action=confirm_setval&amp;{$misc->href}&amp;sequence=", urlencode($sequence->fields['seqname']), "\">{$lang['strsetval']}</a></li>\n";
-			echo "\t<li><a href=\"sequences.php?action=nextval&amp;{$misc->href}&amp;sequence=", urlencode($sequence->fields['seqname']), "\">{$lang['strnextval']}</a></li>\n";
-			if ($data->hasAlterSequenceStart()) {
-				echo "\t<li><a href=\"sequences.php?action=restart&amp;{$misc->href}&amp;sequence=", urlencode($sequence->fields['seqname']), "\">{$lang['strrestart']}</a></li>\n";
-			}
-			echo "\t<li><a href=\"sequences.php?action=reset&amp;{$misc->href}&amp;sequence=", urlencode($sequence->fields['seqname']), "\">{$lang['strreset']}</a></li>\n";
-			echo "\t<li><a href=\"sequences.php?{$misc->href}\">{$lang['strshowallsequences']}</a></li>\n</ul>\n";
+			$navlinks = array (
+				'alter' => array (
+					'attr'=> array (
+						'href' => array (
+							'url' => 'sequences.php',
+							'urlvars' => array (
+								'action' => 'confirm_alter',
+								'server' => $_REQUEST['server'],
+								'database' => $_REQUEST['database'],
+								'schema' => $_REQUEST['schema'],
+								'sequence' => $sequence->fields['seqname']
+							)
+						)
+					),
+					'content' => $lang['stralter']
+				),
+				'setval' => array (
+					'attr'=> array (
+						'href' => array (
+							'url' => 'sequences.php',
+							'urlvars' => array (
+								'action' => 'confirm_setval',
+								'server' => $_REQUEST['server'],
+								'database' => $_REQUEST['database'],
+								'schema' => $_REQUEST['schema'],
+								'sequence' => $sequence->fields['seqname']
+							)
+						)
+					),
+					'content' => $lang['strsetval']
+				),
+				'nextval' => array (
+					'attr'=> array (
+						'href' => array (
+							'url' => 'sequences.php',
+							'urlvars' => array (
+								'action' => 'nextval',
+								'server' => $_REQUEST['server'],
+								'database' => $_REQUEST['database'],
+								'schema' => $_REQUEST['schema'],
+								'sequence' => $sequence->fields['seqname']
+							)
+						)
+					),
+					'content' => $lang['strnextval']
+				),
+				'restart' => array (
+					'attr'=> array (
+						'href' => array (
+							'url' => 'sequences.php',
+							'urlvars' => array (
+								'action' => 'restart',
+								'server' => $_REQUEST['server'],
+								'database' => $_REQUEST['database'],
+								'schema' => $_REQUEST['schema'],
+								'sequence' => $sequence->fields['seqname']
+							)
+						)
+					),
+					'content' => $lang['strrestart']
+				),
+				'reset' => array (
+					'attr'=> array (
+						'href' => array (
+							'url' => 'sequences.php',
+							'urlvars' => array (
+								'action' => 'reset',
+								'server' => $_REQUEST['server'],
+								'database' => $_REQUEST['database'],
+								'schema' => $_REQUEST['schema'],
+								'sequence' => $sequence->fields['seqname']
+							)
+						)
+					),
+					'content' => $lang['strreset']
+				),
+				'showall' => array (
+					'attr'=> array (
+						'href' => array (
+							'url' => 'sequences.php',
+							'urlvars' => array (
+								'server' => $_REQUEST['server'],
+								'database' => $_REQUEST['database'],
+								'schema' => $_REQUEST['schema']
+							)
+						)
+					),
+					'content' => $lang['strshowallsequences']
+				)
+			);
+
+			if (! $data->hasAlterSequenceStart())
+				unset($navlinks['restart']);
+
+			$misc->printNavLinks($navlinks, 'sequences-properties', get_defined_vars());
 		}
 		else echo "<p>{$lang['strnodata']}</p>\n";
 	}
@@ -211,10 +332,10 @@
 					foreach($_POST['sequence'] as $s) {
 						$status = $data->dropSequence($s, isset($_POST['cascade']));
 						if ($status == 0)
-							$msg.= sprintf('%s: %s<br />', htmlentities($s), $lang['strsequencedropped']);
+							$msg.= sprintf('%s: %s<br />', htmlentities($s, ENT_QUOTES, 'UTF-8'), $lang['strsequencedropped']);
 						else {
 							$data->endTransaction();
-							doDefault(sprintf('%s%s: %s<br />', $msg, htmlentities($s), $lang['strsequencedroppedbad']));
+							doDefault(sprintf('%s%s: %s<br />', $msg, htmlentities($s, ENT_QUOTES, 'UTF-8'), $lang['strsequencedroppedbad']));
 							return;
 						}
 					}
@@ -475,8 +596,7 @@
 			echo "<input name=\"name\" size=\"32\" maxlength=\"{$data->_maxNameLen}\" value=\"",
 				htmlspecialchars($_POST['name']), "\" /></td></tr>\n";
 
-			$server_info = $misc->getServerInfo();
-			if ($data->isSuperUser($server_info['username'])) {
+			if ($data->isSuperUser()) {
 				// Fetch all users
 				$users = $data->getUsers();
 

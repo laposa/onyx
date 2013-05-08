@@ -149,15 +149,40 @@
 
 		$actions = array(
 			'drop' => array(
-				'title' => $lang['strdrop'],
-				'url'   => "rules.php?action=confirm_drop&amp;{$misc->href}&amp;reltype={$subject}&amp;{$subject}={$object}&amp;subject=rule&amp;",
-				'vars'  => array('rule' => 'rulename'),
+				'content' => $lang['strdrop'],
+				'attr'=> array (
+					'href' => array (
+						'url' => 'rules.php',
+						'urlvars' => array (
+							'action' => 'confirm_drop',
+							'reltype' => $subject,
+							$subject => $object,
+							'subject' => 'rule',
+							'rule' => field('rulename')
+						)
+					)
+				)
 			),
 		);
 
-		$misc->printTable($rules, $columns, $actions, $lang['strnorules']);
+		$misc->printTable($rules, $columns, $actions, 'rules-rules', $lang['strnorules']);
 
-		echo "<p><a class=\"navlink\" href=\"rules.php?action=create_rule&amp;{$misc->href}&amp;{$subject}={$object}&amp;subject={$subject}\">{$lang['strcreaterule']}</a></p>\n";
+		$misc->printNavLinks(array ('create' => array (
+				'attr'=> array (
+					'href' => array (
+						'url' => 'rules.php',
+						'urlvars' => array (
+							'action' => 'create_rule',
+							'server' => $_REQUEST['server'],
+							'database' => $_REQUEST['database'],
+							'schema' => $_REQUEST['schema'],
+							$subject => $object,
+							'subject' => $subject
+						)
+					)
+				),
+				'content' => $lang['strcreaterule']
+			)), 'rules-rules', get_defined_vars());
 	}
 
 	function doTree() {
@@ -172,7 +197,7 @@
 			'icon'   => 'Rule',
 		);
 
-		$misc->printTreeXML($rules, $attrs);
+		$misc->printTree($rules, $attrs, 'rules');
 		exit;
 	}
 

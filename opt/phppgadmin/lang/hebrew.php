@@ -9,9 +9,7 @@
 	 
 	// Language and character set
 	$lang['applang'] = 'Hebrew';
-	$lang['appcharset'] = 'utf-8';
-	$lang['applocale'] = 'he_IL';
-	$lang['appdbencoding'] = 'UNICODE';
+	$lang['applocale'] = 'he-IL';
 	$lang['applangdir'] = 'rtl';
 
 	// Welcome  
@@ -22,7 +20,7 @@
 	$lang['strlocaldocs'] = 'תיעוד PostgreSQL (מקומי)';
 	$lang['strreportbug'] = 'דווח על באג';
 	$lang['strviewfaq'] = 'צפה ב FAQ מקוון';
-	$lang['strviewfaq_url'] = 'http://phppgadmin.sourceforge.net/?page=faq';
+	$lang['strviewfaq_url'] = 'http://phppgadmin.sourceforge.net/doku.php?id=faq';
 	
 	// Basic strings
 	$lang['strlogin'] = 'התחברות';
@@ -139,7 +137,6 @@
 	$lang['strnodata'] = 'לא נמצאו שורות.';
 	$lang['strnoobjects'] = 'לא נמצאו נתונים.';
 	$lang['strrownotunique'] = 'No unique identifier for this row.';
-	$lang['strnoreportsdb'] = 'לא יצרתה בסיס נתונים בישביל הדוחות. אנא קרא את קובץ ה INSTALL בישביל הדרכה.';
 	$lang['strnouploads'] = 'העלאת קבצים בוטלה.';
 	$lang['strimporterror'] = 'שגיאת יבוא.';
 	$lang['strimporterrorline'] = 'שגיאת יבוא בשורה: %s.';
@@ -498,18 +495,6 @@
 	$lang['strsearchpath'] = 'חיפוש מיקום התרשים.';
 
 	// Reports
-	$lang['strreport'] = 'דוח';
-	$lang['strreports'] = 'דוחות';
-	$lang['strshowallreports'] = 'הראה את כל הדוחות';
-	$lang['strnoreports'] = 'לא נמצאו דוחות.';
-	$lang['strcreatereport'] = 'צור דוח';
-	$lang['strreportdropped'] = 'דוח נמחק.';
-	$lang['strreportdroppedbad'] = 'מחיקת דוח נכשלה';
-	$lang['strconfdropreport'] = 'האם אתה בטוח שברצונך למחוק את הדוח &quot;%s&quotl?';
-	$lang['strreportneedsname'] = 'אתה חייב לציין שם לדוח.';
-	$lang['strreportneedsdef'] = 'אתה חייב לתת SQL לדוח.';
-	$lang['strreportcreated'] = 'דוח נשמר.';
-	$lang['strreportcreatedbad'] = 'שמירת דוח נכשלה.';
 
 	// Domains
 	$lang['strdomain'] = 'תחום';

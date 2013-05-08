@@ -30,9 +30,7 @@
 			echo "<input name=\"newname\" size=\"32\" maxlength=\"{$data->_maxNameLen}\" value=\"",
 				htmlspecialchars($_REQUEST['alterdatabase']), "\" /></td></tr>\n";
 
-			$server_info = $misc->getServerInfo();
-
-			if ($data->hasAlterDatabaseOwner() && $data->isSuperUser($server_info['username'])) {
+			if ($data->hasAlterDatabaseOwner() && $data->isSuperUser()) {
 				// Fetch all users
 
 				$rs = $data->getDatabaseOwner($_REQUEST['alterdatabase']);
@@ -123,9 +121,9 @@
                 foreach($_REQUEST['dropdatabase'] as $d) {
 					$status = $data->dropDatabase($d);
 					if ($status == 0)
-						$msg.= sprintf('%s: %s<br />', htmlentities($d), $lang['strdatabasedropped']);
+						$msg.= sprintf('%s: %s<br />', htmlentities($d, ENT_QUOTES, 'UTF-8'), $lang['strdatabasedropped']);
 					else {
-						doDefault(sprintf('%s%s: %s<br />', $msg, htmlentities($d), $lang['strdatabasedroppedbad']));
+						doDefault(sprintf('%s%s: %s<br />', $msg, htmlentities($d, ENT_QUOTES, 'UTF-8'), $lang['strdatabasedroppedbad']));
 						return;
 					}
 				}// Everything went fine, back to Default page...
@@ -158,10 +156,7 @@
 		if (!isset($_POST['formName'])) $_POST['formName'] = '';
 		// Default encoding is that in language file
 		if (!isset($_POST['formEncoding'])) {
-			if (isset($lang['appdbencoding']))
-				$_POST['formEncoding'] = $lang['appdbencoding'];
-			else
-				$_POST['formEncoding'] = '';
+		    $_POST['formEncoding'] = '';
 		}
 		if (!isset($_POST['formTemplate'])) $_POST['formTemplate'] = 'template1';
 		if (!isset($_POST['formSpc'])) $_POST['formSpc'] = '';
@@ -398,28 +393,51 @@
 
 		$actions = array(
 			'multiactions' => array(
-				'keycols' => array('database' => 'datname'),
-				'url' => 'all_db.php',
-				'default' => null,
+			    'keycols' => array('database' => 'datname'),
+			    'url' => 'all_db.php',
+			    'default' => null,
 			),
 			'drop' => array(
-				'title' => $lang['strdrop'],
-				'url'   => "all_db.php?action=confirm_drop&amp;subject=database&amp;{$misc->href}&amp;",
-				'vars'  => array('dropdatabase' => 'datname'),
-				'multiaction' => 'confirm_drop',
+			    'content' => $lang['strdrop'],
+			    'attr'=> array (
+				'href' => array (
+				    'url' => 'all_db.php',
+				    'urlvars' => array (
+					'subject' => 'database',
+					'action' => 'confirm_drop',
+					'dropdatabase' => field('datname')
+				    )
+				)
+			    ),
+			    'multiaction' => 'confirm_drop',
 			),
 			'privileges' => array(
-				'title' => $lang['strprivileges'],
-				'url'   => "privileges.php?subject=database&amp;{$misc->href}&amp;",
-				'vars'  => array('database' => 'datname'),
+			    'content' => $lang['strprivileges'],
+			    'attr'=> array (
+				'href' => array (
+				    'url' => 'privileges.php',
+				    'urlvars' => array (
+					'subject' => 'database',
+					'database' => field('datname')
+				    )
+				)
+			    )
 			)
 		);
 		if ($data->hasAlterDatabase() ) {
-			$actions['alter'] = array(
-				'title' => $lang['stralter'],
-				'url'   => "all_db.php?action=confirm_alter&amp;subject=database&amp;{$misc->href}&amp;",
-				'vars'  => array('alterdatabase' => 'datname')
-			);
+		    $actions['alter'] = array(
+			'content' => $lang['stralter'],
+			'attr'=> array (
+			    'href' => array (
+				'url' => 'all_db.php',
+				'urlvars' => array (
+				    'subject' => 'database',
+				    'action' => 'confirm_alter',
+				    'alterdatabase' => field('datname')
+				)
+			    )
+			)
+		    );
 		}
 
 		if (!$data->hasTablespaces()) unset($columns['tablespace']);
@@ -427,10 +445,23 @@
 		if (!$data->hasDatabaseCollation()) unset($columns['lc_collate'], $columns['lc_ctype']);
 		if (!isset($data->privlist['database'])) unset($actions['privileges']);
 
-		$misc->printTable($databases, $columns, $actions, $lang['strnodatabases']);
+		$misc->printTable($databases, $columns, $actions, 'all_db-databases', $lang['strnodatabases']);
 
-		echo "<p><a class=\"navlink\" href=\"all_db.php?action=create&amp;{$misc->href}\">{$lang['strcreatedatabase']}</a></p>\n";
-
+		$navlinks = array (
+		    'create' => array (
+			'attr'=> array (
+			    'href' => array (
+				'url' => 'all_db.php',
+				'urlvars' => array (
+				    'action' => 'create',
+				    'server' => $_REQUEST['server']
+				)
+			    )
+			),
+			'content' => $lang['strcreatedatabase']
+		    )
+		);
+		$misc->printNavLinks($navlinks, 'all_db-databases', get_defined_vars());
 	}
 
 	function doTree() {
@@ -457,7 +488,7 @@
 						),
 		);
 
-		$misc->printTreeXML($databases, $attrs);
+		$misc->printTree($databases, $attrs, 'databases');
 		exit;
 	}
 

@@ -20,7 +20,7 @@ class Connection {
 	 * @param $fetchMode Defaults to associative.  Override for different behaviour
 	 */
 	function Connection($host, $port, $sslmode, $user, $password, $database, $fetchMode = ADODB_FETCH_ASSOC) {
-		$this->conn = &ADONewConnection('postgres7');
+		$this->conn = ADONewConnection('postgres7');
 		$this->conn->setFetchMode($fetchMode);
 
 		// Ignore host if null
@@ -51,13 +51,9 @@ class Connection {
 	 * @return -3 Database-specific failure
 	 */
 	function getDriver(&$description) {
-		// If we're on a recent enough PHP 5, and against PostgreSQL 7.4 or
-		// higher, we don't need to query for the version.  This gives a great
-		// speed up.				
-		if (function_exists('pg_version')) {
-			$v = pg_version($this->conn->_connectionID);
-			if (isset($v['server'])) $version = $v['server'];			
-		}
+
+		$v = pg_version($this->conn->_connectionID);
+		if (isset($v['server'])) $version = $v['server'];
 		
 		// If we didn't manage to get the version without a query, query...
 		if (!isset($version)) {
@@ -80,7 +76,10 @@ class Connection {
 
 		// Detect version and choose appropriate database driver
 		switch (substr($version,0,3)) {
-			case '8.4': return 'Postgres'; break;
+			case '9.2': return 'Postgres'; break;
+			case '9.1': return 'Postgres91'; break;
+			case '9.0': return 'Postgres90'; break;
+			case '8.4': return 'Postgres84'; break;
 			case '8.3': return 'Postgres83'; break;
 			case '8.2': return 'Postgres82'; break;
 			case '8.1': return 'Postgres81'; break;
@@ -90,7 +89,7 @@ class Connection {
 		}
 
 		/* All <7.4 versions are not supported */
-		// if major version is 7 or less and wasn't catch in the
+		// if major version is 7 or less and wasn't cought in the
 		// switch/case block, we have an unsupported version.
 		if ((int)substr($version, 0, 1) < 8)
 			return null;
@@ -105,10 +104,7 @@ class Connection {
 	 * @return Error string
 	 */
 	function getLastError() {		
-		if (function_exists('pg_errormessage'))
-			return pg_errormessage($this->conn->_connectionID);
-		else
-			return pg_last_error($this->conn->_connectionID);
+		return pg_last_error($this->conn->_connectionID);
 	}
 }
 

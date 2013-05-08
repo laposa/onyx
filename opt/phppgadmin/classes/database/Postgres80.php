@@ -72,7 +72,7 @@ class Postgres80 extends Postgres81 {
 
 		$server_info = $misc->getServerInfo();
 
-		if (isset($conf['owned_only']) && $conf['owned_only'] && !$this->isSuperUser($server_info['username'])) {
+		if (isset($conf['owned_only']) && $conf['owned_only'] && !$this->isSuperUser()) {
 			$username = $server_info['username'];
 			$this->clean($username);
 			$clause = " AND pu.usename='{$username}'";
@@ -110,16 +110,10 @@ class Postgres80 extends Postgres81 {
 	 * @return All schemas, sorted alphabetically
 	 */
 	function getSchemas() {
-		global $conf, $slony;
+		global $conf;
 
 		if (!$conf['show_system']) {
 			$where = "WHERE nspname NOT LIKE 'pg@_%' ESCAPE '@' AND nspname != 'information_schema'";
-			if (isset($slony) && $slony->isEnabled()) {
-				$temp = $slony->slony_schema;
-				$this->clean($temp);
-				$where .= " AND nspname != '{$temp}'";
-			}
-
 		}
 		else $where = "WHERE nspname !~ '^pg_t(emp_[0-9]+|oast)$'";
 		$sql = "

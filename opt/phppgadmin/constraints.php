@@ -464,22 +464,86 @@
 
 		$actions = array(
 			'drop' => array(
-				'title' => $lang['strdrop'],
-				'url'   => "constraints.php?action=confirm_drop&amp;{$misc->href}&amp;table=".urlencode($_REQUEST['table'])."&amp;",
-				'vars'  => array('constraint' => 'conname', 'type' => 'contype'),
-			),
+				'content' => $lang['strdrop'],
+				'attr'=> array (
+					'href' => array (
+						'url' => 'constraints.php',
+						'urlvars' => array (
+							'action' => 'confirm_drop',
+							'table' => $_REQUEST['table'],
+							'constraint' => field('conname'),
+							'type' => field('contype')
+						)
+					)
+				)
+			)
 		);
 
-		$misc->printTable($constraints, $columns, $actions, $lang['strnoconstraints'], 'cnPre');
+		$misc->printTable($constraints, $columns, $actions, 'constraints-constraints', $lang['strnoconstraints'], 'cnPre');
 
-		echo "<ul class=\"navlink\">\n\t<li><a href=\"constraints.php?action=add_check&amp;{$misc->href}&amp;table=", urlencode($_REQUEST['table']),
-			"\">{$lang['straddcheck']}</a></li>\n";
-		echo "\t<li><a href=\"constraints.php?action=add_unique_key&amp;{$misc->href}&amp;table=", urlencode($_REQUEST['table']),
-			"\">{$lang['stradduniq']}</a></li>\n";
-		echo "\t<li><a href=\"constraints.php?action=add_primary_key&amp;{$misc->href}&amp;table=", urlencode($_REQUEST['table']),
-			"\">{$lang['straddpk']}</a></li>\n";
-		echo "\t<li><a href=\"constraints.php?action=add_foreign_key&amp;{$misc->href}&amp;table=", urlencode($_REQUEST['table']),
-			"\">{$lang['straddfk']}</a></li>\n</ul>\n";
+		$navlinks = array (
+			'addcheck' => array (
+				'attr'=> array (
+					'href' => array (
+						'url' => 'constraints.php',
+						'urlvars' => array (
+							'action' => 'add_check',
+							'server' => $_REQUEST['server'],
+							'database' => $_REQUEST['database'],
+							'schema' => $_REQUEST['schema'],
+							'table' => $_REQUEST['table']
+						)
+					)
+				),
+				'content' => $lang['straddcheck'],
+			),
+			'adduniq' => array (
+				'attr'=> array (
+					'href' => array (
+						'url' => 'constraints.php',
+						'urlvars' => array (
+							'action' => 'add_unique_key',
+							'server' => $_REQUEST['server'],
+							'database' => $_REQUEST['database'],
+							'schema' => $_REQUEST['schema'],
+							'table' => $_REQUEST['table']
+						)
+					)
+				),
+				'content' => $lang['stradduniq'],
+			),
+			'addpk' => array (
+				'attr'=> array (
+					'href' => array (
+						'url' => 'constraints.php',
+						'urlvars' => array (
+							'action' => 'add_primary_key',
+							'server' => $_REQUEST['server'],
+							'database' => $_REQUEST['database'],
+							'schema' => $_REQUEST['schema'],
+							'table' => $_REQUEST['table']
+						)
+					)
+				),
+				'content' => $lang['straddpk'],
+			),
+			'addfk' => array (
+				'attr'=> array (
+					'href' => array (
+						'url' => 'constraints.php',
+						'urlvars' => array (
+							'action' => 'add_foreign_key',
+							'server' => $_REQUEST['server'],
+							'database' => $_REQUEST['database'],
+							'schema' => $_REQUEST['schema'],
+							'table' => $_REQUEST['table']
+						)
+					)
+				),
+				'content' => $lang['straddfk']
+			)
+		);
+		$misc->printNavLinks($navlinks, 'constraints-constraints', get_defined_vars());
 	}
 
 	function doTree() {
@@ -508,7 +572,7 @@
 			'icon'   => callback('getIcon'),
 		);
 
-		$misc->printTreeXML($constraints, $attrs);
+		$misc->printTree($constraints, $attrs, 'constraints');
 		exit;
 	}
 

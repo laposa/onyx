@@ -245,13 +245,59 @@
 		}
 		else echo "<p>{$lang['strnodata']}</p>\n";
 
-		echo "<ul class=\"navlink\">\n\t<li><a class=\"navlink\" href=\"aggregates.php?{$misc->href}\">{$lang['straggrshowall']}</a></li>\n";
+		$navlinks = array (
+			'showall' => array (
+				'attr'=> array (
+					'href' => array (
+						'url' => 'aggregates.php',
+						'urlvars' => array (
+							'server' => $_REQUEST['server'],
+							'database' => $_REQUEST['database'],
+							'schema' => $_REQUEST['schema']
+						)
+					)
+				),
+				'content' => $lang['straggrshowall']
+			)
+		);
+
 		if ($data->hasAlterAggregate()) {
-		echo "\t<li><a class=\"navlink\" href=\"aggregates.php?action=alter&amp;{$misc->href}&amp;aggrname=", 
-			urlencode($_REQUEST['aggrname']), "&amp;aggrtype=", urlencode($_REQUEST['aggrtype']), "\">{$lang['stralter']}</a></li>\n";
+			$navlinks['alter'] = array (
+				'attr'=> array (
+					'href' => array (
+						'url' => 'aggregates.php',
+						'urlvars' => array (
+							'action' => 'alter',
+							'server' => $_REQUEST['server'],
+							'database' => $_REQUEST['database'],
+							'schema' => $_REQUEST['schema'],
+							'aggrname' => $_REQUEST['aggrname'],
+							'aggrtype' => $_REQUEST['aggrtype']
+						)
+					)
+				),
+				'content' => $lang['stralter']
+			);
 		}
-		echo "\t<li><a class=\"navlink\" href=\"aggregates.php?action=confirm_drop&amp;{$misc->href}&amp;aggrname=",
-			urlencode($_REQUEST['aggrname']), "&amp;aggrtype=", urlencode($_REQUEST['aggrtype']), "\">{$lang['strdrop']}</a></li>\n</ul>\n";
+
+		$navlinks['drop'] = array (
+			'attr'=> array (
+				'href' => array (
+					'url' => 'aggregates.php',
+					'urlvars' => array (
+						'action' => 'confirm_drop',
+						'server' => $_REQUEST['server'],
+						'database' => $_REQUEST['database'],
+						'schema' => $_REQUEST['schema'],
+						'aggrname' => $_REQUEST['aggrname'],
+						'aggrtype' => $_REQUEST['aggrtype']
+					)
+				)
+			),
+			'content' => $lang['strdrop']
+		);
+
+		$misc->printNavLinks($navlinks, 'aggregates-properties', get_defined_vars());
 	}
 
 
@@ -298,21 +344,53 @@
 		
 		$actions = array(
 			'alter' => array(
-				'title' => $lang['stralter'],
-				'url'   => "aggregates.php?action=alter&amp;{$misc->href}&amp;",
-				'vars'  => array('aggrname' => 'proname', 'aggrtype' => 'proargtypes'),
+				'content' => $lang['stralter'],
+				'attr'=> array (
+					'href' => array (
+						'url' => 'aggregates.php',
+						'urlvars' => array (
+							'action' => 'alter',
+							'aggrname' => field('proname'),
+							'aggrtype' => field('proargtypes')
+						)
+					)
+				)
 			),
 			'drop' => array(
-				'title' => $lang['strdrop'],
-				'url'   => "aggregates.php?action=confirm_drop&amp;{$misc->href}&amp;",
-				'vars'  => array('aggrname' => 'proname', 'aggrtype' => 'proargtypes'),
+				'content' => $lang['strdrop'],
+				'attr'=> array (
+					'href' => array (
+						'url' => 'aggregates.php',
+						'urlvars' => array (
+							'action' => 'confirm_drop',
+							'aggrname' => field('proname'),
+							'aggrtype' => field('proargtypes')
+						)
+					)
+				)
 			)
 		);
 
 		if (!$data->hasAlterAggregate()) unset($actions['alter']);
-		$misc->printTable($aggregates, $columns, $actions, $lang['strnoaggregates']);
-		
-		echo "<p><a class=\"navlink\" href=\"aggregates.php?action=create&amp;{$misc->href}\">{$lang['strcreateaggregate']}</a></p>\n";
+		$misc->printTable($aggregates, $columns, $actions, 'aggregates-aggregates', $lang['strnoaggregates']);
+
+		$navlinks = array (
+			'create' => array (
+				'attr'=> array (
+					'href' => array (
+						'url' => 'aggregates.php',
+						'urlvars' => array (
+							'action' => 'create',
+							'server' => $_REQUEST['server'],
+							'database' => $_REQUEST['database'],
+							'schema' => $_REQUEST['schema'],
+						)
+					)
+				),
+				'content' => $lang['strcreateaggregate']
+			)
+		);
+		$misc->printNavLinks($navlinks, 'aggregates-aggregates', get_defined_vars());
 	}
 
 	/**
@@ -340,7 +418,7 @@
 			)
 		);
 		
-		$misc->printTreeXML($aggregates, $attrs);
+		$misc->printTree($aggregates, $attrs, 'aggregates');
 		exit;
 	}
 	

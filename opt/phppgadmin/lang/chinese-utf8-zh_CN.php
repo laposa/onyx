@@ -8,9 +8,7 @@
 	
 	// Language and character set
 	$lang['applang'] = '简体中文（统一码）';
-	$lang['appcharset'] = 'UTF-8';
-	$lang['applocale'] = 'zh_CN.UTF-8';
-	$lang['appdbencoding'] = 'UTF8';
+	$lang['applocale'] = 'zh-CN.UTF-8';
 	$lang['applangdir'] = 'ltr';
 	
 	// Welcome
@@ -21,7 +19,7 @@
 	$lang['strlocaldocs'] = 'PostgreSQL 文档 (本地)';
 	$lang['strreportbug'] = '报告 Bug';
 	$lang['strviewfaq'] = '查看在线 FAQ';
-	$lang['strviewfaq_url'] = 'http://phppgadmin.sourceforge.net/?page=faq';
+	$lang['strviewfaq_url'] = 'http://phppgadmin.sourceforge.net/doku.php?id=faq';
 	
 	// Basic strings
 	$lang['strlogin'] = '登录';
@@ -44,7 +42,7 @@
 	$lang['strdisable'] = '无效';
 	$lang['strdrop'] = '删除';
 	$lang['strdropped'] = '已删除';
-	$lang['strnull'] = '空';
+	$lang['strnull'] = '空值';
 	$lang['strnotnull'] = '非空';
 	$lang['strprev'] = '前一页';
 	$lang['strnext'] = '下一页';
@@ -80,7 +78,7 @@
 	$lang['strback'] = '返回';
 	$lang['strqueryresults'] = '查询结果';
 	$lang['strshow'] = '显示';
-	$lang['strempty'] = '空';
+	$lang['strempty'] = '清空';
 	$lang['strlanguage'] = '语言';
 	$lang['strencoding'] = '编码';
 	$lang['strvalue'] = '值';
@@ -138,7 +136,7 @@
 	$lang['strselectall'] = '选择所有';
 	$lang['strunselectall'] = '取消选择所有';
 	$lang['strlocale'] = '本地';
-	
+
 	// User-supplied SQL history
 	$lang['strhistory'] = '历史';
 	$lang['strnohistory'] = '无历史.';
@@ -170,7 +168,6 @@
 	$lang['strnodata'] = '查无数据行。';
 	$lang['strnoobjects'] = '查无对象。';
 	$lang['strrownotunique'] = '该行无唯一约束。';
-	$lang['strnoreportsdb'] = '你不能创建报告数据库。 请参阅INSTALL文件。';
 	$lang['strnouploads'] = '文件上传被禁止。';
 	$lang['strimporterror'] = '导入错误。';
 	$lang['strimporterror-fileformat'] = '导入错误: 自动识别文件类型失败。';
@@ -307,7 +304,7 @@
 	$lang['strroles'] = '角色';
 	$lang['strshowallroles'] = '显示所有角色';
 	$lang['strnoroles'] = '查无角色。';
-	$lang['strinheritsprivs'] = '继承特权?';
+	$lang['strinheritsprivs'] = '继承权限?';
 	$lang['strcreaterole'] = '创建角色';
 	$lang['strcancreaterole'] = '创建角色?';
 	$lang['strrolecreated'] = '角色已创建。';
@@ -325,14 +322,14 @@
 	$lang['strroleneedsname'] = '必须指定角色名称。';
 	
 	// Privileges
-	$lang['strprivilege'] = '特权';
-	$lang['strprivileges'] = '特权';
-	$lang['strnoprivileges'] = '这个对象拥有默认所属人的特权。';
+	$lang['strprivilege'] = '权限';
+	$lang['strprivileges'] = '权限';
+	$lang['strnoprivileges'] = '这个对象拥有默认所属人的权限。';
 	$lang['strgrant'] = '赋予';
 	$lang['strrevoke'] = '撤回';
-	$lang['strgranted'] = '特权已改变';
-	$lang['strgrantfailed'] = '特权改变失败';
-	$lang['strgrantbad'] = '必须指定至少一个用户或一个组和一个特权。';
+	$lang['strgranted'] = '权限已改变';
+	$lang['strgrantfailed'] = '权限改变失败';
+	$lang['strgrantbad'] = '必须指定至少一个用户或一个组和一个权限。';
 	$lang['strgrantor'] = '赋予者';
 	$lang['strasterisk'] = '*';
 	
@@ -455,6 +452,7 @@
 	$lang['strconfcluster'] = '确定要集群 "%s"吗?';
 	$lang['strclusteredgood'] = '集群完成。';
 	$lang['strclusteredbad'] = '集群失败。';
+	$lang['strcluster'] = '集群';
 	
 	// Rules
 	$lang['strrules'] = '规则';
@@ -626,18 +624,6 @@
 	$lang['strspecifyschematodrop'] = '必须至少指定一个模式来删除';
 	
 	// Reports
-	$lang['strreport'] = '报表';
-	$lang['strreports'] = '报表';
-	$lang['strshowallreports'] = '显示所有报表';
-	$lang['strnoreports'] = '查无报表。';
-	$lang['strcreatereport'] = '创建报表';
-	$lang['strreportdropped'] = '报表已删除。';
-	$lang['strreportdroppedbad'] = '报表删除失败。';
-	$lang['strconfdropreport'] = '确定要删除报表"%s"吗？';
-	$lang['strreportneedsname'] = '必须指定报表名称。';
-	$lang['strreportneedsdef'] = '必须给报表指定SQL。';
-	$lang['strreportcreated'] = '报表已保存。';
-	$lang['strreportcreatedbad'] = '报表保存失败。';
 	
 	// Domains
 	$lang['strdomain'] = '域';
@@ -769,118 +755,6 @@
 	$lang['strtablespacedroppedbad'] = '表空间删除失败。';
 	$lang['strtablespacealtered'] = '表空间已变更。';
 	$lang['strtablespacealteredbad'] = '表空间变更失败。';
-	
-	// Slony clusters
-	$lang['strcluster'] = '集群';
-	$lang['strnoclusters'] = '查无此集群。';
-	$lang['strconfdropcluster'] = '确定要删除集群 "%s"吗?';
-	$lang['strclusterdropped'] = '集群已删除。';
-	$lang['strclusterdroppedbad'] = '集群删除失败。';
-	$lang['strinitcluster'] = '初始化集群';
-	$lang['strclustercreated'] = '集群已初始化。';
-	$lang['strclustercreatedbad'] = '集群初始化失败。';
-	$lang['strclusterneedsname'] = '必须指定集群名称。';
-	$lang['strclusterneedsnodeid'] = '必须指定本地节点ID。';
-	
-	// Slony nodes
-	$lang['strnodes'] = '节点';
-	$lang['strnonodes'] = '查无节点。';
-	$lang['strcreatenode'] = '创建节点';
-	$lang['strid'] = 'ID';
-	$lang['stractive'] = '活动的';
-	$lang['strnodecreated'] = '节点已创建。';
-	$lang['strnodecreatedbad'] = '节点创建失败。';
-	$lang['strconfdropnode'] = '确定要删除节点 "%s"吗?';
-	$lang['strnodedropped'] = '节点已删除。';
-	$lang['strnodedroppedbad'] = '节点删除失败';
-	$lang['strfailover'] = '故障切换';
-	$lang['strnodefailedover'] = '节点已故障切换。';
-	$lang['strnodefailedoverbad'] = '节点故障切换失败。';
-	$lang['strstatus'] = '状态';
-	$lang['strhealthy'] = '健康度';
-	$lang['stroutofsync'] = '同步过期';
-	$lang['strunknown'] = '未知的';
-	
-	// Slony paths
-	$lang['strpaths'] = '路径';
-	$lang['strnopaths'] = '查无路径。';
-	$lang['strcreatepath'] = '创建路径';
-	$lang['strnodename'] = '节点名称';
-	$lang['strnodeid'] = '节点 ID';
-	$lang['strconninfo'] = '连接字符串';
-	$lang['strconnretry'] = '重试连接间隔时间';
-	$lang['strpathneedsconninfo'] = '必须指定路径的连接字符串。';
-	$lang['strpathneedsconnretry'] = '必须指定重试连接间隔时间。';
-	$lang['strpathcreated'] = '路径已创建。';
-	$lang['strpathcreatedbad'] = '路径创建失败。';
-	$lang['strconfdroppath'] = '确定要删除路径 "%s"吗?';
-	$lang['strpathdropped'] = '路径已删除。';
-	$lang['strpathdroppedbad'] = '路径删除失败。';
-	
-	// Slony listens
-	$lang['strlistens'] = '监听';
-	$lang['strnolistens'] = '查无监听。';
-	$lang['strcreatelisten'] = '创建监听';
-	$lang['strlistencreated'] = '监听已创建。';
-	$lang['strlistencreatedbad'] = '监听创建失败。';
-	$lang['strconfdroplisten'] = '确定要删除监听 "%s"吗?';
-	$lang['strlistendropped'] = '监听已删除。';
-	$lang['strlistendroppedbad'] = '监听删除失败。';
-	
-	// Slony replication sets
-	$lang['strrepsets'] = '复写群组';
-	$lang['strnorepsets'] = '查无复写群组。';
-	$lang['strcreaterepset'] = '创建复写群组';
-	$lang['strrepsetcreated'] = '复写群组已创建。';
-	$lang['strrepsetcreatedbad'] = '复写群组创建失败。';
-	$lang['strconfdroprepset'] = '确定要删除复写群组 "%s"吗?';
-	$lang['strrepsetdropped'] = '复写群组已删除。';
-	$lang['strrepsetdroppedbad'] = '复写群组删除失败。';
-	$lang['strmerge'] = '合并';
-	$lang['strmergeinto'] = '合并进';
-	$lang['strrepsetmerged'] = '复写群组已合并。';
-	$lang['strrepsetmergedbad'] = '复写群组合并失败。';
-	$lang['strmove'] = '移动';
-	$lang['strneworigin'] = '新建初始点';
-	$lang['strrepsetmoved'] = '复写群组已移动。';
-	$lang['strrepsetmovedbad'] = '复写群组移动失败。';
-	$lang['strnewrepset'] = '新建件复写群组';
-	$lang['strlock'] = '锁定';
-	$lang['strlocked'] = '已锁定';
-	$lang['strunlock'] = '解锁';
-	$lang['strconflockrepset'] = '确定要锁定复写群组 "%s"吗?';
-	$lang['strrepsetlocked'] = '复写群组已锁定。';
-	$lang['strrepsetlockedbad'] = '复写群组锁定失败。';
-	$lang['strconfunlockrepset'] = '确定要解锁复写群组 "%s"吗?';
-	$lang['strrepsetunlocked'] = '复写群组已解锁。';
-	$lang['strrepsetunlockedbad'] = '复写群组解锁失败。';
-	$lang['stronlyonnode'] = '仅一个节点';
-	$lang['strddlscript'] = 'DDL 脚本';
-	$lang['strscriptneedsbody'] = '必须在所有节点上执行该脚本。';
-	$lang['strscriptexecuted'] = '复写群组 DDL 脚本已执行。';
-	$lang['strscriptexecutedbad'] = '复写群组 DDL 脚本执行失败。';
-	$lang['strtabletriggerstoretain'] = '以下触发器将不会被Slony禁用:';
-	
-	// Slony tables in replication sets
-	$lang['straddtable'] = '添加表';
-	$lang['strtableneedsuniquekey'] = '要添加的表需要指定主键或者唯一键。';
-	$lang['strtableaddedtorepset'] = '表已添加到复写群组。';
-	$lang['strtableaddedtorepsetbad'] = '表添加到复写群组失败。';
-	$lang['strconfremovetablefromrepset'] = '确定要将表 "%s" 从复写群组 "%s"中删除吗?';
-	$lang['strtableremovedfromrepset'] = '表已从复写群组中删除。';
-	$lang['strtableremovedfromrepsetbad'] = '表从复写群组中删除失败';
-	
-	// Slony sequences in replication sets
-	$lang['straddsequence'] = '添加序列';
-	$lang['strsequenceaddedtorepset'] = '序列已添加到复写群组。';
-	$lang['strsequenceaddedtorepsetbad'] = '序列添加到复写群组失败。';
-	$lang['strconfremovesequencefromrepset'] = '确定要将序列 "%s" 从复写群组 "%s"中删除吗?';
-	$lang['strsequenceremovedfromrepset'] = '序列已从复写群组中删除。';
-	$lang['strsequenceremovedfromrepsetbad'] = '序列从复写群组中删除失败。';
-	
-	// Slony subscriptions
-	$lang['strsubscriptions'] = '订阅';
-	$lang['strnosubscriptions'] = '查无订阅。';
 	
 	// Miscellaneous
 	$lang['strtopbar'] = '%s 架于 %s：%s － 您是 "%s"';

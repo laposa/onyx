@@ -200,42 +200,97 @@
 			echo "</table>\n";
 			
 			// Display domain constraints
+			echo "<h3>{$lang['strconstraints']}</h3>\n";
 			if ($data->hasDomainConstraints()) {
 				$domaincons = $data->getDomainConstraints($_REQUEST['domain']);
-				if ($domaincons->recordCount() > 0) {
-					echo "<h3>{$lang['strconstraints']}</h3>\n";
-					echo "<table>\n";
-					echo "<tr><th class=\"data\">{$lang['strname']}</th><th class=\"data\">{$lang['strdefinition']}</th><th class=\"data\">{$lang['stractions']}</th>\n";
-					$i = 0;
-					
-					while (!$domaincons->EOF) {
-						$id = (($i % 2 ) == 0 ? '1' : '2');
-						echo "<tr class=\"data{$id}\"><td>", $misc->printVal($domaincons->fields['conname']), "</td>";
-						echo "<td>";
-						echo $misc->printVal($domaincons->fields['consrc']);
-						echo "</td>";
-						echo "<td class=\"opbutton{$id}\">";
-						echo "<a href=\"domains.php?action=confirm_drop_con&amp;{$misc->href}&amp;constraint=", urlencode($domaincons->fields['conname']),
-							"&amp;domain=", urlencode($_REQUEST['domain']), "&amp;type=", urlencode($domaincons->fields['contype']), "\">{$lang['strdrop']}</a></td></tr>\n";
-		
-						$domaincons->moveNext();
-						$i++;
-					}
-					
-					echo "</table>\n";
-				}
+
+				$columns = array (
+					'name' => array (
+						'title' => $lang['strname'],
+						'field' => field('conname')
+					),
+					'definition' => array (
+						'title' => $lang['strdefinition'],
+						'field' => field('consrc'),
+					),
+					'actions' => array (
+						'title' => $lang['stractions'],
+					)
+				);
+
+				$actions = array (
+					'drop' => array (
+						'content' => $lang['strdrop'],
+						'attr'=> array (
+							'href' => array (
+								'url' => 'domains.php',
+								'urlvars' => array (
+									'action' => 'confirm_drop_con',
+									'domain' => $_REQUEST['domain'],
+									'constraint' => field('conname'),
+									'type' => field('contype'),
+								)
+							)
+						)
+					)
+				);
+
+				$misc->printTable($domaincons, $columns, $actions, 'domains-properties', $lang['strnodata']);
 			}
 		}
 		else echo "<p>{$lang['strnodata']}</p>\n";
 		
-		echo "<ul class=\"navlink\">\n\t<li><a href=\"domains.php?action=confirm_drop&amp;{$misc->href}&amp;domain=", urlencode($_REQUEST['domain']),"\">{$lang['strdrop']}</a></li>\n";
+		$navlinks = array (
+			'drop' => array (
+				'attr'=> array (
+					'href' => array (
+						'url' => 'domains.php',
+						'urlvars' => array (
+							'action' => 'confirm_drop',
+							'server' => $_REQUEST['server'],
+							'database' => $_REQUEST['database'],
+							'schema' => $_REQUEST['schema'],
+							'domain' => $_REQUEST['domain']
+						)
+					)
+				),
+				'content' => $lang['strdrop']
+			)
+		);
 		if ($data->hasAlterDomains()) {
-			echo "\t<li><a href=\"domains.php?action=add_check&amp;{$misc->href}&amp;domain=", urlencode($_REQUEST['domain']),
-				"\">{$lang['straddcheck']}</a></li>\n";
-			echo "\t<li><a href=\"domains.php?action=alter&amp;{$misc->href}&amp;domain=", 
-				urlencode($_REQUEST['domain']), "\">{$lang['stralter']}</a></li>\n";
+			$navlinks['addcheck'] = array (
+				'attr'=> array (
+					'href' => array (
+						'url' => 'domains.php',
+						'urlvars' => array (
+							'action' => 'add_check',
+							'server' => $_REQUEST['server'],
+							'database' => $_REQUEST['database'],
+							'schema' => $_REQUEST['schema'],
+							'domain' => $_REQUEST['domain']
+						)
+					)
+				),
+				'content' => $lang['straddcheck']
+			);
+			$navlinks['alter'] = array (
+				'attr'=> array (
+					'href' => array (
+						'url' => 'domains.php',
+						'urlvars' => array (
+							'action' => 'alter',
+							'server' => $_REQUEST['server'],
+							'database' => $_REQUEST['database'],
+							'schema' => $_REQUEST['schema'],
+							'domain' => $_REQUEST['domain']
+						)
+					)
+				),
+				'content' => $lang['stralter']
+			);
 		}
-		echo "</ul>\n";
+		
+		$misc->printNavLinks($navlinks, 'domains-properties', get_defined_vars());
 	}
 	
 	/**
@@ -403,23 +458,52 @@
 		
 		$actions = array(
 			'alter' => array(
-				'title'	=> $lang['stralter'],
-				'url'	=> "domains.php?action=alter&amp;{$misc->href}&amp;",
-				'vars'	=> array('domain' => 'domname'),
+				'content' => $lang['stralter'],
+				'attr'=> array (
+					'href' => array (
+						'url' => 'domains.php',
+						'urlvars' => array (
+							'action' => 'alter',
+							'domain' => field('domname')
+						)
+					)
+				)
 			),
 			'drop' => array(
-				'title'	=> $lang['strdrop'],
-				'url'	=> "domains.php?action=confirm_drop&amp;{$misc->href}&amp;",
-				'vars'	=> array('domain' => 'domname'),
+				'content' => $lang['strdrop'],
+				'attr'=> array (
+					'href' => array (
+						'url' => 'domains.php',
+						'urlvars' => array (
+							'action' => 'confirm_drop',
+							'domain' => field('domname')
+						)
+					)
+				)
 			),
 		);
 
 		if (!$data->hasAlterDomains()) unset($actions['alter']);
 		
-		$misc->printTable($domains, $columns, $actions, $lang['strnodomains']);
-		
-		echo "<p><a class=\"navlink\" href=\"domains.php?action=create&amp;{$misc->href}\">{$lang['strcreatedomain']}</a></p>\n";
+		$misc->printTable($domains, $columns, $actions, 'domains-domains', $lang['strnodomains']);
 
+		$navlinks = array (
+			'create' => array (
+				'attr'=> array (
+					'href' => array (
+						'url' => 'domains.php',
+						'urlvars' => array (
+							'action' => 'create',
+							'server' => $_REQUEST['server'],
+							'database' => $_REQUEST['database'],
+							'schema' => $_REQUEST['schema'],
+						)
+					)
+				),
+				'content' => $lang['strcreatedomain']
+			)
+		);
+		$misc->printNavLinks($navlinks, 'domains-domains', get_defined_vars());
 	}
 	
 	/**
@@ -445,7 +529,7 @@
 						)
 		);
 		
-		$misc->printTreeXML($domains, $attrs);
+		$misc->printTree($domains, $attrs, 'domains');
 		exit;
 	}
 	

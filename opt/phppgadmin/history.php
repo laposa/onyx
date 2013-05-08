@@ -52,27 +52,85 @@
 
 			$actions = array(
 				'run' => array(
-					'title' => $lang['strexecute'],
-					'url'   => "sql.php?{$misc->href}&amp;nohistory=t&amp;subject=history&amp;",
-					'vars'  => array('queryid' => 'queryid', 'paginate' => 'paginate'),
-					'target' => 'detail',
+					'content' => $lang['strexecute'],
+					'attr'=> array (
+						'href' => array (
+							'url' => 'sql.php',
+							'urlvars' => array (
+								'subject' => 'history',
+								'nohistory' => 't',
+								'queryid' => field('queryid'),
+								'paginate' => field('paginate')
+							)
+						),
+						'target' => 'detail'
+					)
 				),
 				'remove' => array(
-					'title' => $lang['strdelete'],
-					'url'   => "history.php?{$misc->href}&amp;action=confdelhistory&amp;",
-					'vars'  => array('queryid' => 'queryid'),
-				),
+					'content' => $lang['strdelete'],
+					'attr'=> array (
+						'href' => array (
+							'url' => 'history.php',
+							'urlvars' => array (
+								'action' => 'confdelhistory',
+								'queryid' => field('queryid'),
+							)
+						)
+					)
+				)
 			);
 
-			$misc->printTable($history, $columns, $actions, $lang['strnohistory']);
+			$misc->printTable($history, $columns, $actions, 'history-history', $lang['strnohistory']);
 		}
 		else echo "<p>{$lang['strnohistory']}</p>\n";
 
-		echo "<ul class=\"navlink\">\n";
+		$navlinks = array (
+			'refresh' => array (
+				'attr'=> array (
+					'href' => array (
+						'url' => 'history.php',
+						'urlvars' => array (
+							'action' => 'history',
+							'server' => $_REQUEST['server'],
+							'database' => $_REQUEST['database'],
+						)
+					)
+				),
+				'content' => $lang['strrefresh']
+			)
+		);
+
 		if (isset($_SESSION['history'][$_REQUEST['server']][$_REQUEST['database']]) 
-				&& count($_SESSION['history'][$_REQUEST['server']][$_REQUEST['database']]))
-			echo "\t<li><a href=\"history.php?action=confclearhistory&amp;{$misc->href}\">{$lang['strclearhistory']}</a></li>\n";
-		echo "\t<li><a href=\"history.php?action=history&amp;{$misc->href}\">{$lang['strrefresh']}</a></li>\n</ul>\n";
+				&& count($_SESSION['history'][$_REQUEST['server']][$_REQUEST['database']])) {
+			$navlinks['download'] = array (
+				'attr'=> array (
+					'href' => array (
+						'url' => 'history.php',
+						'urlvars' => array (
+							'action' => 'download',
+							'server' => $_REQUEST['server'],
+							'database' => $_REQUEST['database']
+						)
+					)
+				),
+				'content' => $lang['strdownload']
+			);
+			$navlinks['clear'] = array (
+				'attr'=> array (
+					'href' => array (
+						'url' => 'history.php',
+						'urlvars' => array(
+							'action' => 'confclearhistory',
+							'server' => $_REQUEST['server'],
+							'database' => $_REQUEST['database']
+						)
+					)
+				),
+				'content' => $lang['strclearhistory']
+			);
+		}
+
+		$misc->printNavLinks($navlinks, 'history-history', get_defined_vars());
 	}
 
 	function doDelHistory($qid, $confirm) {
@@ -87,7 +145,7 @@
 			echo "<h3>{$lang['strdelhistory']}</h3>\n";
 			echo "<p>{$lang['strconfdelhistory']}</p>\n";
 
-			echo "<pre>", htmlentities($_SESSION['history'][$_REQUEST['server']][$_REQUEST['database']][$qid]['query']), "</pre>";
+			echo "<pre>", htmlentities($_SESSION['history'][$_REQUEST['server']][$_REQUEST['database']][$qid]['query'], ENT_QUOTES, 'UTF-8'), "</pre>";
 			echo "<form action=\"history.php\" method=\"post\">\n";
 			echo "<input type=\"hidden\" name=\"action\" value=\"delhistory\" />\n";
 			echo "<input type=\"hidden\" name=\"queryid\" value=\"$qid\" />\n";
@@ -122,7 +180,22 @@
 		else
 			unset($_SESSION['history'][$_REQUEST['server']][$_REQUEST['database']]);
 	}
-																																							
+
+	function doDownloadHistory() {
+		header('Content-Type: application/download');
+		$datetime = date('YmdHis');
+		header("Content-Disposition: attachment; filename=history{$datetime}.sql");
+
+		foreach ($_SESSION['history'][$_REQUEST['server']][$_REQUEST['database']] as $queries) {
+			$query = rtrim($queries['query']);
+			echo $query;
+			if (substr($query, -1) != ';')
+				echo ';';
+			echo "\n";
+		}
+
+		exit;
+	}
 	
 	switch ($action) {
 		case 'confdelhistory':
@@ -138,6 +211,9 @@
 		case 'clearhistory':
 			if (isset($_POST['yes'])) doClearHistory(false);
 			doDefault();
+			break;
+		case 'download':
+			doDownloadHistory();
 			break;
 		default:
 			doDefault();

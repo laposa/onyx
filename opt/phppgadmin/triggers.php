@@ -263,12 +263,6 @@
 
 		function tgPre(&$rowdata,$actions) {
 			global $data;
-			// Nasty hack to support pre-7.4 PostgreSQL
-			$rowdata->fields['+tgdef'] = $rowdata->fields['tgdef'] !== null
-									? $rowdata->fields['tgdef']
-									: $data->getTriggerDef($rowdata->fields);
-
-
 			// toggle enable/disable trigger per trigger
 			if( ! $data->phpBool( $rowdata->fields["tgenabled"] ) ) {
 				unset( $actions['disable'] );
@@ -293,7 +287,7 @@
 			),
 			'definition' => array(
 				'title' => $lang['strdefinition'],
-				'field' => field('+tgdef'),
+				'field' => field('tgdef'),
 			),
 			'function' => array(
 				'title' => $lang['strfunction'],
@@ -312,32 +306,78 @@
 
 		$actions = array(
 			'alter' => array(
-				'title' => $lang['stralter'],
-				'url'   => "triggers.php?action=confirm_alter&amp;{$misc->href}&amp;table=".urlencode($_REQUEST['table'])."&amp;",
-				'vars'  => array('trigger' => 'tgname'),
+				'content' => $lang['stralter'],
+					'attr'=> array (
+						'href' => array (
+							'url' => 'triggers.php',
+							'urlvars' => array (
+								'action' => 'confirm_alter',
+								'table' => $_REQUEST['table'],
+								'trigger' => field('tgname')
+							)
+						)
+					)
 			),
 			'drop' => array(
-				'title' => $lang['strdrop'],
-				'url'   => "triggers.php?action=confirm_drop&amp;{$misc->href}&amp;table=".urlencode($_REQUEST['table'])."&amp;",
-				'vars'  => array('trigger' => 'tgname'),
+				'content' => $lang['strdrop'],
+					'attr'=> array (
+						'href' => array (
+							'url' => 'triggers.php',
+							'urlvars' => array (
+								'action' => 'confirm_drop',
+								'table' => $_REQUEST['table'],
+								'trigger' => field('tgname')
+							)
+						)
+					)
 			),
 		);
 		if($data->hasDisableTriggers()) {
-				$actions['enable'] = array(
-					'title' => $lang['strenable'],
-					'url'   => "triggers.php?action=confirm_enable&amp;{$misc->href}&amp;table=".urlencode($_REQUEST['table'])."&amp;",
-					'vars'  => array('trigger' => 'tgname'),
-				);
-				$actions['disable'] = array(
-					'title' => $lang['strdisable'],
-					'url'   => "triggers.php?action=confirm_disable&amp;{$misc->href}&amp;table=".urlencode($_REQUEST['table'])."&amp;",
-					'vars'  => array('trigger' => 'tgname'),
-				);
+			$actions['enable'] = array(
+				'content' => $lang['strenable'],
+				'attr'=> array (
+					'href' => array (
+						'url' => 'triggers.php',
+						'urlvars' => array (
+							'action' => 'confirm_enable',
+							'table' => $_REQUEST['table'],
+							'trigger' => field('tgname')
+						)
+					)
+				)
+			);
+			$actions['disable'] = array(
+				'content' => $lang['strdisable'],
+				'attr'=> array (
+					'href' => array (
+						'url' => 'triggers.php',
+						'urlvars' => array (
+							'action' => 'confirm_disable',
+							'table' => $_REQUEST['table'],
+							'trigger' => field('tgname')
+						)
+					)
+				)
+			);
 		}
 
-		$misc->printTable($triggers, $columns, $actions, $lang['strnotriggers'], 'tgPre');
+		$misc->printTable($triggers, $columns, $actions, 'triggers-triggers', $lang['strnotriggers'], 'tgPre');
 		
-		echo "<p><a class=\"navlink\" href=\"triggers.php?action=create&amp;{$misc->href}&amp;table=", urlencode($_REQUEST['table']), "\">{$lang['strcreatetrigger']}</a></p>\n";
+		$misc->printNavLinks(array ('create' => array (
+				'attr'=> array (
+					'href' => array (
+					'url' => 'triggers.php',
+						'urlvars' => array (
+							'action' => 'create',
+							'server' => $_REQUEST['server'],
+							'database' => $_REQUEST['database'],
+							'schema' => $_REQUEST['schema'],
+							'table' => $_REQUEST['table']
+						)
+					)
+				),
+				'content' => $lang['strcreatetrigger']
+			)), 'triggers-triggers', get_defined_vars());
 	}
 
 	function doTree() {
@@ -353,7 +393,7 @@
 			'icon'   => 'Trigger',
 		);
 
-		$misc->printTreeXML($triggers, $attrs);
+		$misc->printTree($triggers, $attrs, 'triggers');
 		exit;
 	}
 

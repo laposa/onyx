@@ -13,16 +13,14 @@
 	 *	Comentarios sobre a tradución:
 	 *	- Escolleuse «eliminar» como tradución para “drop”, e «borrar» como tradución para
 	 *	“delete”.
-	 *	- Fixéronse certas escollas de vocabulario: “vacuum” → «aspirado», “cluster” →
-	 *	«contentrado».
+	 *	- Fixéronse certas escollas de vocabulario: “vacuum” → «purgación» (aconsellada por
+	 * 	Leandro Regueiro), “cluster” → «contentrado».
 	 *
 	 */
 
 	// Language and character set
 	$lang['applang'] = 'Galego';
-	$lang['appcharset'] = 'UTF-8';
-	$lang['applocale'] = 'gl_ES';
-	$lang['appdbencoding'] = 'UNICODE';
+	$lang['applocale'] = 'gl-ES';
 	$lang['applangdir'] = 'ltr';
 
 	// Welcome
@@ -33,7 +31,7 @@
 	$lang['strlocaldocs'] = 'Documentación de PostgreSQL (local)';
 	$lang['strreportbug'] = 'Informar dun erro';
 	$lang['strviewfaq'] = 'Ver as preguntas máis frecuentes en liña';
-	$lang['strviewfaq_url'] = 'http://phppgadmin.sourceforge.net/?page=faq';
+	$lang['strviewfaq_url'] = 'http://phppgadmin.sourceforge.net/doku.php?id=faq';
 
 	// Basic strings
 	$lang['strlogin'] = 'Identificarse';
@@ -101,7 +99,7 @@
 	$lang['strencoding'] = 'Codificación';
 	$lang['strvalue'] = 'Valor';
 	$lang['strunique'] = 'Único';
-	$lang['strprimary'] = 'Primario';
+	$lang['strprimary'] = 'Primaria';
 	$lang['strexport'] = 'Exportar';
 	$lang['strimport'] = 'Importar';
 	$lang['strallowednulls'] = 'Permitir valores nulos';
@@ -109,7 +107,7 @@
 	$lang['stremptystring'] = 'Cadea ou campo baleiro';
 	$lang['strsql'] = 'SQL';
 	$lang['stradmin'] = 'Administración';
-	$lang['strvacuum'] = 'Aspirar';
+	$lang['strvacuum'] = 'Purgar';
 	$lang['stranalyze'] = 'Analizar';
 	$lang['strclusterindex'] = 'Concentrar';
 	$lang['strclustered'] = 'Concentrada?';
@@ -161,6 +159,7 @@
 	$lang['strstop'] = 'Deter';
 	$lang['strgotoppage'] = 'Volver arriba';
 	$lang['strtheme'] = 'Tema visual';
+	$lang['strcluster'] = 'Concentrador';
 
 	// Admin
 	$lang['stradminondatabase'] = 'As seguintes tarefas administrativas realizaranse en toda a base de datos «%s».';
@@ -198,7 +197,6 @@
 	$lang['strnodata'] = 'Non se atopou fila algunha.';
 	$lang['strnoobjects'] = 'Non se atopou obxecto algún.';
 	$lang['strrownotunique'] = 'Esta fila non ten ningún identificador único.';
-	$lang['strnoreportsdb'] = 'Non creou a base de datos de informes. Lea o ficheiro »INSTALL» (en inglés) para máis información.';
 	$lang['strnouploads'] = 'A carga de ficheiros está desactivada.';
 	$lang['strimporterror'] = 'Produciuse un erro ao importar.';
 	$lang['strimporterror-fileformat'] = 'Produciuse un erro ao importar: non se puido determinar de maneira automática o formato do ficheiro.';
@@ -206,7 +204,7 @@
 	$lang['strimporterrorline-badcolumnnum'] = 'Produciuse un erro ao importar, na liña %s: a liña non ten unha cantidade de columnas axeitada.';
 	$lang['strimporterror-uploadedfile'] = 'Produciuse un erro ao importar: non se puido cargar o ficheiro no servidor.';
 	$lang['strcannotdumponwindows'] = 'O envorcado de táboas complexas e mais nomes de esquemas non pode efectuarse en sistemas Microsoft Windows.';
-	$lang['strinvalidserverparam'] = 'Produciuse un intento de conexión cun servidor non permitido como parámetro, é posible que alguén estea intentando atacar o seu sistema.'; 
+	$lang['strinvalidserverparam'] = 'Produciuse un intento de conexión cun servidor non permitido como parámetro, é posible que alguén estea intentando atacar o seu sistema.';
 	$lang['strnoserversupplied'] = 'Non se forneceu ningún servidor!';
 	$lang['strbadpgdumppath'] = 'Produciuse un erro ao exportar: non se conseguiu executar pg_dump (a ruta indicada no seu ficheiro «conf/config.inc.php» é «%s»). Cambie a ruta no ficheiro de configuración e volva intentalo.';
 	$lang['strbadpgdumpallpath'] = 'Produciuse un erro ao exportar: non se conseguiu executar pg_dumpall (a ruta indicada no seu ficheiro «conf/config.inc.php» é «%s»). Cambie a ruta no ficheiro de configuración e volva intentalo.';
@@ -271,7 +269,7 @@
 	$lang['strstructureanddata'] = 'Estrutura e datos';
 	$lang['strtabbed'] = 'Tabulado';
 	$lang['strauto'] = 'Detectar';
-	$lang['strconfvacuumtable'] = 'Está seguro de que quere aspirar «%s»?';
+	$lang['strconfvacuumtable'] = 'Está seguro de que quere purgar «%s»?';
 	$lang['strconfanalyzetable'] = 'Está seguro de que quere analizar «%s»?';
 	$lang['strconfreindextable'] = 'Está seguro de que quere indexar «%s»?';
 	$lang['strconfclustertable'] = 'Está seguro de que quere concentrar «%s»?';
@@ -279,7 +277,7 @@
 	$lang['strspecifytabletoanalyze'] = 'Debe especificar polo menos unha táboa a analizar.';
 	$lang['strspecifytabletoempty'] = 'Debe especificar polo menos unha táboa a baleirar.';
 	$lang['strspecifytabletodrop'] = 'Debe especificar polo menos unha táboa a eliminar.';
-	$lang['strspecifytabletovacuum'] = 'Debe especificar polo menos unha táboa a aspirar.';
+	$lang['strspecifytabletovacuum'] = 'Debe especificar polo menos unha táboa a purgar.';
 	$lang['strspecifytabletoreindex'] = 'Debe especificar polo menos unha táboa a indexar.';
 	$lang['strspecifytabletocluster'] = 'Debe especificar polo menos unha táboa a concentrar.';
 	$lang['strnofieldsforinsert'] = 'Non pode inserir filas nunha táboa sen columnas.';
@@ -388,8 +386,8 @@
 	$lang['strdatabasedroppedbad'] = 'Non se conseguiu eliminar a base de datos.';
 	$lang['strentersql'] = 'Introduza a continuación as instrucións SQL a executar:';
 	$lang['strsqlexecuted'] = 'Executáronse as instrucións SQL.';
-	$lang['strvacuumgood'] = 'Completouse o aspirado.';
-	$lang['strvacuumbad'] = 'Non se conseguiu efectuar o aspirado.';
+	$lang['strvacuumgood'] = 'Completouse a purgación.';
+	$lang['strvacuumbad'] = 'Non se conseguiu efectuar a purgación.';
 	$lang['stranalyzegood'] = 'Completouse a análise.';
 	$lang['stranalyzebad'] = 'Non se conseguiu completar a análise.';
 	$lang['strreindexgood'] = 'Completouse o indexado.';
@@ -405,7 +403,7 @@
 	$lang['strspecifydatabasetodrop'] = 'Debe especificar polo menos unha base de datos a eliminar.';
 	$lang['strtemplatedb'] = 'Modelo';
 	$lang['strconfanalyzedatabase'] = 'Está seguro de que quere analizar todas as táboas da base de datos «%s»?';
-	$lang['strconfvacuumdatabase'] = 'Está seguro de que quere aspirar todas as táboas da base de datos «%s»?';
+	$lang['strconfvacuumdatabase'] = 'Está seguro de que quere purgar todas as táboas da base de datos «%s»?';
 	$lang['strconfreindexdatabase'] = 'Está seguro de que quere indexar todas as táboas da base de datos «%s»?';
 	$lang['strconfclusterdatabase'] = 'Está seguro de que quere concentrar todas as táboas da base de datos «%s»?';
 
@@ -497,6 +495,7 @@
 	$lang['strindextype'] = 'Tipo de índice';
 	$lang['strtablecolumnlist'] = 'Columnas na táboa';
 	$lang['strindexcolumnlist'] = 'Columnas no índice';
+	$lang['strconfcluster'] = 'Está seguro de que quere concentrar «%s»?';
 	$lang['strclusteredgood'] = 'Completouse o concentrado.';
 	$lang['strclusteredbad'] = 'Non se conseguiu completar o concentrado.';
 	$lang['strconcurrently'] = 'Simultaneamente';
@@ -547,7 +546,7 @@
 	$lang['strfkaddedbad'] = 'Non se conseguiu engadir a clave externa.';
 	$lang['strfktarget'] = 'Táboa externa';
 	$lang['strfkcolumnlist'] = 'Columnas na clave';
-	$lang['strondelete'] = 'AO ACTUALIZAR'; // Sei que son instrucións cando se usa SQL, pero na
+	$lang['strondelete'] = 'AO ACTUALIZAR';	// Sei que son instrucións cando se usa SQL, pero na
 	$lang['stronupdate'] = 'AO BORRAR';	// interface paréceme mellor traducilos.
 
 	// Functions
@@ -671,18 +670,6 @@
 	$lang['strspecifyschematodrop'] = 'Debe especificar polo menos un esquema a eliminar.';
 
 	// Reports
-	$lang['strreport'] = 'Informe';
-	$lang['strreports'] = 'Informes';
-	$lang['strshowallreports'] = 'Listar todos os informes';
-	$lang['strnoreports'] = 'Non se atopou informe algún.';
-	$lang['strcreatereport'] = 'Crear un informe';
-	$lang['strreportdropped'] = 'Eliminouse o informe.';
-	$lang['strreportdroppedbad'] = 'Non se conseguiu eliminar o informe.';
-	$lang['strconfdropreport'] = 'Está seguro de que quere eliminar o informe «%s»?';
-	$lang['strreportneedsname'] = 'Debe fornecer un nome para o informe.';
-	$lang['strreportneedsdef'] = 'Debe fornecer un código SQL para o informe.';
-	$lang['strreportcreated'] = 'Gardouse o informe.';
-	$lang['strreportcreatedbad'] = 'Non se conseguiu gardar o informe.';
 
 	// Domains
 	$lang['strdomain'] = 'Dominio';
@@ -815,118 +802,6 @@
 	$lang['strtablespacealtered'] = 'Modificouse o alias de ruta.';
 	$lang['strtablespacealteredbad'] = 'Non se conseguiu modificar o alias de ruta.';
 
-	// Slony clusters
-	$lang['strcluster'] = 'Concentrador';
-	$lang['strnoclusters'] = 'Non se atopou concentrador algún.';
-	$lang['strconfdropcluster'] = 'Está seguro de que quere eliminar o concentrador «%s»?';
-	$lang['strclusterdropped'] = 'Eliminouse o concentrador.';
-	$lang['strclusterdroppedbad'] = 'Non se conseguiu eliminar o concentrador.';
-	$lang['strinitcluster'] = 'Inicializar o concentrador';
-	$lang['strclustercreated'] = 'Inicializouse o concentrador.';
-	$lang['strclustercreatedbad'] = 'Non se conseguiu inicializar o concentrador.';
-	$lang['strclusterneedsname'] = 'Debe fornecer un nome para o concentrador.';
-	$lang['strclusterneedsnodeid'] = 'Debe fornecer un identificador para o nodo local.';
-
-	// Slony nodes
-	$lang['strnodes'] = 'Nodos';
-	$lang['strnonodes'] = 'Non se atopou nodo algún.';
-	$lang['strcreatenode'] = 'Crear un nodo';
-	$lang['strid'] = 'Identificador';
-	$lang['stractive'] = 'Activo';
-	$lang['strnodecreated'] = 'Creouse o nodo.';
-	$lang['strnodecreatedbad'] = 'Non se conseguiu crear o nodo.';
-	$lang['strconfdropnode'] = 'Está seguro de que quere eliminar o nodo «%s»?';
-	$lang['strnodedropped'] = 'Eliminouse o nodo.';
-	$lang['strnodedroppedbad'] = 'Non se conseguiu eliminar o nodo.';
-	$lang['strfailover'] = 'Tolerancia de erros';
-	$lang['strnodefailedover'] = 'O nodo tolerou o erro.';
-	$lang['strnodefailedoverbad'] = 'O nodo non deu tolerado o erro.';
-	$lang['strstatus'] = 'Estado';
-	$lang['strhealthy'] = 'Saúde';
-	$lang['stroutofsync'] = 'Sen sincronizar';
-	$lang['strunknown'] = 'Descoñecido';
-
-	// Slony paths
-	$lang['strpaths'] = 'Rutas';
-	$lang['strnopaths'] = 'Non se atopou ruta algunha.';
-	$lang['strcreatepath'] = 'Crear unha ruta';
-	$lang['strnodename'] = 'Nome do nodo';
-	$lang['strnodeid'] = 'Identificador do nodo';
-	$lang['strconninfo'] = 'Cadea de conexión';
-	$lang['strconnretry'] = 'Segundos entre os intentos de conexión';
-	$lang['strpathneedsconninfo'] = 'Debe fornecer unha cadea de conexión para a ruta.';
-	$lang['strpathneedsconnretry'] = 'Debe indicar cantos segundos se ha de agardar para volver intentar establecer unha conexión.';
-	$lang['strpathcreated'] = 'Creouse a ruta.';
-	$lang['strpathcreatedbad'] = 'Non se conseguiu crear a ruta.';
-	$lang['strconfdroppath'] = 'Está seguro de que quere eliminar a ruta «%s»?';
-	$lang['strpathdropped'] = 'Eliminouse a ruta.';
-	$lang['strpathdroppedbad'] = 'Non se conseguiu eliminar a ruta.';
-
-	// Slony listens
-	$lang['strlistens'] = 'Escoitas';
-	$lang['strnolistens'] = 'Non se atopou escoita algunha.';
-	$lang['strcreatelisten'] = 'Crear unha escoita';
-	$lang['strlistencreated'] = 'Creouse a escoita.';
-	$lang['strlistencreatedbad'] = 'Non se conseguiu crear a escoita.';
-	$lang['strconfdroplisten'] = 'Está seguro de que quere eliminar a escoita «%s»?';
-	$lang['strlistendropped'] = 'Eliminouse a escoita.';
-	$lang['strlistendroppedbad'] = 'Non se conseguiu eliminar a escoita.';
-
-	// Slony replication sets
-	$lang['strrepsets'] = 'Grupos de réplicas';
-	$lang['strnorepsets'] = 'Non se atopou grupo de réplicas algún.';
-	$lang['strcreaterepset'] = 'Crear un grupo de réplicas';
-	$lang['strrepsetcreated'] = 'Creouse o grupo de réplicas.';
-	$lang['strrepsetcreatedbad'] = 'Non se conseguiu crear o grupo de réplicas.';
-	$lang['strconfdroprepset'] = 'Está seguro de que quere borrar o grupo de réplicas «%s»?';
-	$lang['strrepsetdropped'] = 'Eliminouse o grupo de réplicas.';
-	$lang['strrepsetdroppedbad'] = 'Non se conseguiu eliminar o grupo de réplicas.';
-	$lang['strmerge'] = 'Mesturar';
-	$lang['strmergeinto'] = 'Mesturar con';
-	$lang['strrepsetmerged'] = 'Mesturáronse os grupos de réplicas.';
-	$lang['strrepsetmergedbad'] = 'Non se conseguiu mesturar os grupos de réplicas.';
-	$lang['strmove'] = 'Mover';
-	$lang['strneworigin'] = 'Nova orixe';
-	$lang['strrepsetmoved'] = 'Moveuse o grupo de réplicas.';
-	$lang['strrepsetmovedbad'] = 'Non se conseguiu mover o grupo de réplicas.';
-	$lang['strnewrepset'] = 'Novo grupo de réplicas';
-	$lang['strlock'] = 'Bloquear';
-	$lang['strlocked'] = 'Bloqueado';
-	$lang['strunlock'] = 'Desbloquear';
-	$lang['strconflockrepset'] = 'Está seguro de que quere bloquear o grupo de réplicas «%s»?';
-	$lang['strrepsetlocked'] = 'Bloqueouse o grupo de réplicas.';
-	$lang['strrepsetlockedbad'] = 'Non se conseguiu bloquear o grupo de réplicas.';
-	$lang['strconfunlockrepset'] = 'Está seguro de que quere desbloquear o grupo de réplicas «%s»?';
-	$lang['strrepsetunlocked'] = 'Desbloqueouse o grupo de réplicas.';
-	$lang['strrepsetunlockedbad'] = 'Non se conseguiu desbloquear o grupo de réplicas.';
-	$lang['stronlyonnode'] = 'Só no nodo';
-	$lang['strddlscript'] = 'Guión DDL';
-	$lang['strscriptneedsbody'] = 'Debe fornecer un guión para que se execute en todos os nodos.';
-	$lang['strscriptexecuted'] = 'Executouse o guión DDL do grupo de réplicas.';
-	$lang['strscriptexecutedbad'] = 'Non se conseguiu executar o guión DDL do grupo de réplicas.';
-	$lang['strtabletriggerstoretain'] = 'Slony non vai desactivar o seguintes disparadores::';
-
-	// Slony tables in replication sets
-	$lang['straddtable'] = 'Engadir unha táboa';
-	$lang['strtableneedsuniquekey'] = 'A táboa a engadir necesita dunha clave primaria ou única.';
-	$lang['strtableaddedtorepset'] = 'Engadiuse a táboa ao grupo de réplicas.';
-	$lang['strtableaddedtorepsetbad'] = 'Non se conseguiu engadir a táboa ao grupo de réplicas.';
-	$lang['strconfremovetablefromrepset'] = 'Está seguro de que quere eliminar a táboa «%s» do grupo de réplicas «%s»?';
-	$lang['strtableremovedfromrepset'] = 'Eliminouse a táboa do grupo de réplicas.';
-	$lang['strtableremovedfromrepsetbad'] = 'Non se conseguiu eliminar a táboa do grupo de réplicas.';
-
-	// Slony sequences in replication sets
-	$lang['straddsequence'] = 'Engadir unha secuencia';
-	$lang['strsequenceaddedtorepset'] = 'Engadiuse a secuencia ao grupo de réplicas.';
-	$lang['strsequenceaddedtorepsetbad'] = 'Non se conseguiu engadir a secuencia ao grupo de réplicas.';
-	$lang['strconfremovesequencefromrepset'] = 'Está seguro de que quere eliminar a secuencia «%s» do grupo de réplicas «%s»?';
-	$lang['strsequenceremovedfromrepset'] = 'Eliminouse a secuencia do grupo de réplicas.';
-	$lang['strsequenceremovedfromrepsetbad'] = 'Non se conseguiu eliminar a secuencia do grupo de réplicas.';
-
-	// Slony subscriptions
-	$lang['strsubscriptions'] = 'Subscricións';
-	$lang['strnosubscriptions'] = 'Non se atopou subscrición algunha.';
-
 	// Miscellaneous
 	$lang['strtopbar'] = '%s, executándose no enderezo %s:%s. Está identificado coma «%s».';
 	$lang['strtimefmt'] = 'd/m/Y, G:i:s';
@@ -942,27 +817,27 @@
 	$lang['strclicktoreload'] = 'Prema aquí para recargar';
 
 	// Autovacuum
-	$lang['strautovacuum'] = 'Aspirado automático';
+	$lang['strautovacuum'] = 'Purgación automática';
 	$lang['strturnedon'] = 'Acendido';
 	$lang['strturnedoff'] = 'Apagado';
 	$lang['strenabled'] = 'Activado';
-	$lang['strnovacuumconf'] = 'Non se atopou configuración para aspirados automáticos algunha.';
-	$lang['strvacuumbasethreshold'] = 'Límite da base do aspirado';
-	$lang['strvacuumscalefactor'] = 'Factores de escala do aspirado';
+	$lang['strnovacuumconf'] = 'Non se atopou ningunha configuración para purgacións automáticas.';
+	$lang['strvacuumbasethreshold'] = 'Límite da base da purgación';
+	$lang['strvacuumscalefactor'] = 'Factores de escala da purgación';
 	$lang['stranalybasethreshold'] = 'Límite da base da análise';
 	$lang['stranalyzescalefactor'] = 'Factores de escala da análise';
-	$lang['strvacuumcostdelay'] = 'Atraso do custo do aspirado';
-	$lang['strvacuumcostlimit'] = 'Custo límite do aspirado';
-	$lang['strvacuumpertable'] = 'Configuración do aspirado automático por táboa';
-	$lang['straddvacuumtable'] = 'Engadir unha configuración de aspirado automático dunha táboa';
-	$lang['streditvacuumtable'] = 'Modificar a configuración de aspirado automático da táboa «%s»';
-	$lang['strdelvacuumtable'] = 'Está seguro de que quere eliminar a configuración de aspirado automático da táboa «%s»?';
-	$lang['strvacuumtablereset'] = 'A configuración de aspirado automático da táboa «%s» restableceuse aos seus valores predeterminados';
-	$lang['strdelvacuumtablefail'] = 'Non se conseguiu eliminar a configuración de aspirado automático da táboa «%s»';
-	$lang['strsetvacuumtablesaved'] = 'Gardouse a configuración de aspirado automático da táboa «%s».';
-	$lang['strsetvacuumtablefail'] = 'Non se conseguiu gardar a configuración de aspirado automático da táboa «%s».';
-	$lang['strspecifydelvacuumtable'] = 'Debe especificar unha táboa da que borrar os parámetros de aspirado.';
-	$lang['strspecifyeditvacuumtable'] = 'Debe especificar unha táboa na que modificar os parámetros de aspirado.';
+	$lang['strvacuumcostdelay'] = 'Atraso do custo da purgación';
+	$lang['strvacuumcostlimit'] = 'Custo límite da purgación';
+	$lang['strvacuumpertable'] = 'Configuración da purgación automática por táboa';
+	$lang['straddvacuumtable'] = 'Engadir unha configuración de purgación automática dunha táboa';
+	$lang['streditvacuumtable'] = 'Modificar a configuración de purgación automática da táboa «%s»';
+	$lang['strdelvacuumtable'] = 'Está seguro de que quere eliminar a configuración de purgación automática da táboa «%s»?';
+	$lang['strvacuumtablereset'] = 'A configuración de purgación automática da táboa «%s» restableceuse aos seus valores predeterminados';
+	$lang['strdelvacuumtablefail'] = 'Non se conseguiu eliminar a configuración de purgación automática da táboa «%s»';
+	$lang['strsetvacuumtablesaved'] = 'Gardouse a configuración de purgación automática da táboa «%s».';
+	$lang['strsetvacuumtablefail'] = 'Non se conseguiu gardar a configuración de purgación automática da táboa «%s».';
+	$lang['strspecifydelvacuumtable'] = 'Debe especificar unha táboa da que borrar os parámetros de purgación.';
+	$lang['strspecifyeditvacuumtable'] = 'Debe especificar unha táboa na que modificar os parámetros de purgación.';
 	$lang['strnotdefaultinred'] = 'Os valores que non sexan os predeterminados están en cor vermella.';
 
 	// Table-level Locks

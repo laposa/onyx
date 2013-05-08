@@ -425,11 +425,47 @@
 		}
 		else echo "<p>{$lang['strnodata']}</p>\n";
 
-		echo "<ul class=\"navlink\">\n\t<li><a href=\"roles.php?{$misc->href}\">{$lang['strshowallroles']}</a></li>\n";
-		echo "\t<li><a href=\"roles.php?action=alter&amp;{$misc->href}&amp;rolename=", 
-			urlencode($_REQUEST['rolename']), "\">{$lang['stralter']}</a></li>\n";
-		echo "\t<li><a href=\"roles.php?action=confirm_drop&amp;{$misc->href}&amp;rolename=",
-			urlencode($_REQUEST['rolename']), "\">{$lang['strdrop']}</li>\n</ul>\n";
+		$navlinks = array (
+			'showall' => array (
+				'attr'=> array (
+					'href' => array (
+						'url' => 'roles.php',
+						'urlvars' => array (
+							'server' => $_REQUEST['server']
+						)
+					)
+				),
+				'content' => $lang['strshowallroles']
+			),
+			'alter' => array (
+				'attr'=> array (
+					'href' => array (
+					'url' => 'roles.php',
+						'urlvars' => array (
+							'action' => 'alter',
+							'server' => $_REQUEST['server'],
+							'rolename' => $_REQUEST['rolename']
+						)
+					)
+				),
+				'content' => $lang['stralter']
+			),
+			'drop' => array (
+				'attr'=> array (
+					'href' => array (
+					'url' => 'roles.php',
+						'urlvars' => array (
+							'action' => 'confirm_drop',
+							'server' => $_REQUEST['server'],
+							'rolename' => $_REQUEST['rolename']
+						)
+					)
+				),
+				'content' => $lang['strdrop']
+			)
+		);
+
+		$misc->printNavLinks($navlinks, 'roles-properties', get_defined_vars());
 	}
 
 	/**
@@ -478,7 +514,18 @@
 		}
 		else echo "<p>{$lang['strnodata']}</p>\n";
 		
-		echo "<p><a class=\"navlink\" href=\"roles.php?action=confchangepassword&amp;{$misc->href}\">{$lang['strchangepassword']}</a></p>\n";
+		$misc->printNavLinks(array ('changepassword' =>  array (
+				'attr'=> array (
+					'href' => array (
+					'url' => 'roles.php',
+						'urlvars' => array (
+							'action' => 'confchangepassword',
+							'server' => $_REQUEST['server']
+						)
+					)
+				),
+				'content' => $lang['strchangepassword']
+			)), 'roles-account', get_defined_vars());
 	}
 	
 	/**
@@ -605,21 +652,48 @@
 		
 		$actions = array(
 			'alter' => array(
-				'title' => $lang['stralter'],
-				'url'   => "roles.php?action=alter&amp;{$misc->href}&amp;",
-				'vars'  => array('rolename' => 'rolname'),
+				'content' => $lang['stralter'],
+				'attr'=> array (
+					'href' => array (
+						'url' => 'roles.php',
+						'urlvars' => array (
+							'action' => 'alter',
+							'rolename' => field('rolname')
+						)
+					)
+				)
 			),
 			'drop' => array(
-				'title' => $lang['strdrop'],
-				'url'   => "roles.php?action=confirm_drop&amp;{$misc->href}&amp;",
-				'vars'  => array('rolename' => 'rolname'),
+				'content' => $lang['strdrop'],
+				'attr'=> array (
+					'href' => array (
+						'url' => 'roles.php',
+						'urlvars' => array (
+							'action' => 'confirm_drop',
+							'rolename' => field('rolname')
+						)
+					)
+				)
 			),
 		);
 		
-		$misc->printTable($roles, $columns, $actions, $lang['strnoroles']);
+		$misc->printTable($roles, $columns, $actions, 'roles-roles', $lang['strnoroles']);
 
-		echo "<p><a class=\"navlink\" href=\"roles.php?action=create&amp;{$misc->href}\">{$lang['strcreaterole']}</a></p>\n";
-
+		$navlinks = array (
+			'create' => array (
+				'attr'=> array (
+					'href' => array (
+						'url' => 'roles.php',
+						'urlvars' => array (
+							'action' => 'create',
+							'server' => $_REQUEST['server']
+						)
+					)
+				),
+				'content' => $lang['strcreaterole']
+			)
+		);
+		$misc->printNavLinks($navlinks, 'roles-roles', get_defined_vars());
 	}
 
 	$misc->printHeader($lang['strroles']);

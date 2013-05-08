@@ -150,8 +150,21 @@
 		}
 		else echo "<p>{$lang['strnodata']}</p>\n";
 		
-		echo "<p><a class=\"navlink\" href=\"viewproperties.php?action=edit&amp;{$misc->href}&amp;view=", 
-			urlencode($_REQUEST['view']), "\">{$lang['stralter']}</a></p>\n";
+		$misc->printNavLinks(array ( 'alter' => array (
+				'attr'=> array (
+					'href' => array (
+						'url' => 'viewproperties.php',
+						'urlvars' => array (
+							'action' => 'edit',
+							'server' => $_REQUEST['server'],
+							'database' => $_REQUEST['database'],
+							'schema' => $_REQUEST['schema'],
+							'view' => $_REQUEST['view']
+						)
+					)
+				),
+				'content' => $lang['stralter']
+			)), 'viewproperties-definition', get_defined_vars());
 	}
 
 	/**
@@ -258,8 +271,7 @@
 				echo "<input name=\"name\" size=\"32\" maxlength=\"{$data->_maxNameLen}\" value=\"",
 					htmlspecialchars($_POST['name']), "\" /></td></tr>\n";
 
-				$server_info = $misc->getServerInfo();
-				if ($data->isSuperUser($server_info['username'])) {
+				if ($data->isSuperUser()) {
 
 					// Fetch all users
 					$users = $data->getUsers();
@@ -364,7 +376,7 @@
 			'toolTip'=> field('comment')
 		);
 
-		$misc->printTreeXML($columns, $attrs);
+		$misc->printTree($columns, $attrs, 'viewcolumns');
 
 		exit;
 	}
@@ -400,6 +412,8 @@
 			'column' => array(
 				'title' => $lang['strcolumn'],
 				'field' => field('attname'),
+				'url'   => "colproperties.php?subject=column&amp;{$misc->href}&amp;view=".urlencode($_REQUEST['view'])."&amp;",
+				'vars'  => array('column' => 'attname'),
 			),
 			'type' => array(
 				'title' => $lang['strtype'],
@@ -420,22 +434,89 @@
 		
 		$actions = array(
 			'alter' => array(
-				'title' => $lang['stralter'],
-				'url'   => "viewproperties.php?action=properties&amp;{$misc->href}&amp;view=".urlencode($_REQUEST['view'])."&amp;",
-				'vars'  => array('column' => 'attname'),
+				'content' => $lang['stralter'],
+				'attr'=> array (
+					'href' => array (
+						'url' => 'viewproperties.php',
+						'urlvars' => array (
+							'action' => 'properties',
+							'view' => $_REQUEST['view'],
+							'column' => field('attname')
+						)
+					)
+				)
 			),
 		);
 		
-		$misc->printTable($attrs, $columns, $actions, null, 'attPre');
+		$misc->printTable($attrs, $columns, $actions, 'viewproperties-viewproperties', null, 'attPre');
 	
 		echo "<br />\n";
 
-		echo "<ul class=\"navlink\">\n";
-		echo "\t<li><a href=\"display.php?{$misc->href}&amp;view=", urlencode($_REQUEST['view']), "&amp;subject=view&amp;return=view\">{$lang['strbrowse']}</a></li>\n";
-		echo "\t<li><a href=\"views.php?action=confselectrows&amp;{$misc->href}&amp;view=", urlencode($_REQUEST['view']),"\">{$lang['strselect']}</a></li>\n";
-		echo "\t<li><a href=\"views.php?action=confirm_drop&amp;{$misc->href}&amp;view=", urlencode($_REQUEST['view']),"\">{$lang['strdrop']}</a></li>\n";
-		echo "\t<li><a href=\"viewproperties.php?action=confirm_alter&amp;{$misc->href}&amp;view=", urlencode($_REQUEST['view']),"\">{$lang['stralter']}</a></li>\n";
-		echo "</ul>\n";
+		$navlinks = array (
+			'browse' => array (
+				'attr'=> array (
+					'href' => array (
+					'url' => 'display.php',
+						'urlvars' => array (
+							'server' => $_REQUEST['server'],
+							'database' => $_REQUEST['database'],
+							'schema' => $_REQUEST['schema'],
+							'view' => $_REQUEST['view'],
+							'subject' => 'view',
+							'return' => 'view'
+						)
+					)
+				),
+				'content' => $lang['strbrowse']
+			),
+			'select' => array (
+				'attr'=> array (
+					'href' => array (
+					'url' => 'views.php',
+						'urlvars' => array (
+							'action' => 'confselectrows',
+							'server' => $_REQUEST['server'],
+							'database' => $_REQUEST['database'],
+							'schema' => $_REQUEST['schema'],
+							'view' => $_REQUEST['view']
+						)
+					)
+				),
+				'content' => $lang['strselect']
+			),
+			'drop' => array (
+				'attr'=> array (
+					'href' => array (
+					'url' => 'views.php',
+						'urlvars' => array (
+							'action' => 'confirm_drop',
+							'server' => $_REQUEST['server'],
+							'database' => $_REQUEST['database'],
+							'schema' => $_REQUEST['schema'],
+							'view' => $_REQUEST['view']
+						)
+					)
+				),
+				'content' => $lang['strdrop']
+			),
+			'alter' => array (
+				'attr'=> array (
+					'href' => array (
+					'url' => 'viewproperties.php',
+						'urlvars' => array (
+							'action' => 'confirm_alter',
+							'server' => $_REQUEST['server'],
+							'database' => $_REQUEST['database'],
+							'schema' => $_REQUEST['schema'],
+							'view' => $_REQUEST['view']
+						)
+					)
+				),
+				'content' => $lang['stralter']
+			)
+		);
+
+		$misc->printNavLinks($navlinks, 'viewproperties-viewproperties', get_defined_vars());
 	}
 
 	$misc->printHeader($lang['strviews'] . ' - ' . $_REQUEST['view']);

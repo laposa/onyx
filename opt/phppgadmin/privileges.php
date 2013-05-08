@@ -232,40 +232,105 @@
 			case 'sequence':
 			case 'function':
 			case 'tablespace':
+				$alllabel = "showall{$_REQUEST['subject']}s";
 				$allurl = "{$_REQUEST['subject']}s.php";
 				$alltxt = $lang["strshowall{$_REQUEST['subject']}s"];
 				break;
 			case 'schema':
+				$alllabel = "showallschemas";
 				$allurl = "schemas.php";
 				$alltxt = $lang["strshowallschemas"];
 				break;
 			case 'database':
+				$alllabel = "showalldatabases";
 				$allurl = 'all_db.php';
 				$alltxt = $lang['strshowalldatabases'];
 				break;
 		}
-		
-		$subject = htmlspecialchars(urlencode($_REQUEST['subject']));
-		$object = htmlspecialchars(urlencode($_REQUEST[$_REQUEST['subject']]));
+
+		$subject = $_REQUEST['subject'];
+		$object = $_REQUEST[$_REQUEST['subject']];
 		
 		if ($_REQUEST['subject'] == 'function') {
 			$objectoid = $_REQUEST[$_REQUEST['subject'].'_oid'];
-			$alterurl = "privileges.php?action=alter&amp;{$misc->href}&amp;{$subject}={$object}&amp;{$subject}_oid={$objectoid}&amp;subject={$subject}&amp;mode=";
+			$urlvars = array (
+				'action' => 'alter',
+				'server' => $_REQUEST['server'],
+				'database' => $_REQUEST['database'],
+				'schema' => $_REQUEST['schema'],
+				$subject => $object,
+				"{$subject}_oid" => $objectoid,
+				'subject'=> $subject
+			);
 		}
 		else if ($_REQUEST['subject'] == 'column') {
-			$alterurl = "privileges.php?action=alter&amp;{$misc->href}&amp;{$subject}={$object}"
-				."&amp;subject={$subject}&amp;table=". urlencode($_REQUEST['table']) ."&amp;mode=";
+			$urlvars = array (
+				'action' => 'alter',
+				'server' => $_REQUEST['server'],
+				'database' => $_REQUEST['database'],
+				'schema' => $_REQUEST['schema'],
+				$subject => $object,
+				'subject'=> $subject
+			);
+
+			if (isset($_REQUEST['table']))
+				$urlvars['table'] = $_REQUEST['table'];
+			else
+				$urlvars['view'] = $_REQUEST['view'];
 		}
 		else {
-			$alterurl = "privileges.php?action=alter&amp;{$misc->href}&amp;{$subject}={$object}&amp;subject={$subject}&amp;mode=";
+			$urlvars = array (
+				'action' => 'alter',
+				'server' => $_REQUEST['server'],
+				'database' => $_REQUEST['database'],
+				$subject => $object,
+				'subject'=> $subject
+			);
+			if (isset($_REQUEST['schema'])) {
+				$urlvars['schema'] = $_REQUEST['schema'];
+			}
 		}
-	
-		echo "<ul class=\"navlink\">\n\t<li><a href=\"{$alterurl}grant\">{$lang['strgrant']}</a></li>\n";
-		echo "\t<li><a href=\"{$alterurl}revoke\">{$lang['strrevoke']}</a></li>\n";
-		if (isset($allurl))
-			echo "\t<li><a href=\"{$allurl}?{$misc->href}\">{$alltxt}</a></li>\n";
-		
-		echo "</ul>\n";
+
+		$navlinks = array (
+			'grant' => array (
+				'attr'=> array (
+					'href' => array (
+						'url' => 'privileges.php',
+						'urlvars' => array_merge($urlvars, array('mode' => 'grant'))
+					)
+				),
+				'content' => $lang['strgrant']
+			),
+			'revoke' => array (
+				'attr'=> array (
+					'href' => array (
+						'url' => 'privileges.php',
+						'urlvars' => array_merge($urlvars, array('mode' => 'revoke'))
+					)
+				),
+				'content' => $lang['strrevoke']
+			)
+		);
+
+		if (isset($allurl)) {
+			$navlinks[$alllabel] = array (
+				'attr'=> array (
+					'href' => array (
+						'url' => $allurl,
+						'urlvars' => array (
+							'server' => $_REQUEST['server'],
+							'database' => $_REQUEST['database']
+						)
+					)
+				),
+				'content' => $alltxt
+			);
+			if (isset($_REQUEST['schema'])) {
+				$navlinks[$alllabel]['attr']['href']['urlvars']['schema'] = $_REQUEST['schema'];
+			}
+		}
+
+		$misc->printNavLinks($navlinks, 'privileges-privileges', get_defined_vars());
 	}
 
 	$misc->printHeader($lang['strprivileges']);

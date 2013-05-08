@@ -7,13 +7,6 @@
 
 ###TODO: Better documentation!!!
 
-// Compatibility functions:
-if (!function_exists('is_a')) {
-	function is_a($object, $class) {
-		return is_object($object) && get_class($object) == strtolower($class) || is_subclass_of($object, $class);
-	}
-}
-
 // Construction functions:
 
 function field($fieldName, $default = null) {
@@ -48,14 +41,6 @@ function url($base, $vars = null /* ... */) {
 	return new UrlDecorator($base, $vars);
 }
 
-function noEscape($value) {
-	if (is_a($value, 'Decorator')) {
-		$value->esc = false;
-		return $value;
-	}
-	return new Decorator($value, false);
-}
-
 function replace($str, $params) {
 	return new replaceDecorator($str, $params);
 }
@@ -65,10 +50,10 @@ function replace($str, $params) {
 function value(&$var, &$fields, $esc = null) {
 	if (is_a($var, 'Decorator')) {
 		$val = $var->value($fields);
-		if (!$var->esc) $esc = null;
 	} else {
 		$val =& $var;
 	}
+
 	if (is_string($val)) {
 		switch($esc) {
 			case 'xml':
@@ -78,7 +63,7 @@ function value(&$var, &$fields, $esc = null) {
 					'<' => '&lt;', '>' => '&gt;'
 				));
 			case 'html':
-				return htmlspecialchars($val);
+				return htmlentities($val, ENT_COMPAT, 'UTF-8');
 			case 'url':
 				return urlencode($val);
 		}
@@ -106,11 +91,8 @@ function value_url(&$var, &$fields) {
 
 class Decorator
 {
-	var $esc = true;
-	
-	function Decorator($value, $esc = true) {
+	function Decorator($value) {
 		$this->v = $value;
-		$this->esc = $esc;
 	}
 	
 	function value($fields) {
@@ -126,7 +108,7 @@ class FieldDecorator extends Decorator
 	}
 	
 	function value($fields) {
-		return isset($fields[$this->f]) ? $fields[$this->f] : (isset($this->d) ? $this->d : null);
+		return isset($fields[$this->f]) ? value($fields[$this->f], $fields) : (isset($this->d) ? $this->d : null);
 	}
 }
 
