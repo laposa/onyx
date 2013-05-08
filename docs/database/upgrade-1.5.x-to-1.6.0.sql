@@ -280,6 +280,8 @@ ALTER TABLE education_survey_image ADD COLUMN link_to_node_id integer;
 ALTER TABLE ecommerce_basket ADD COLUMN title character varying(255);
 ALTER TABLE ecommerce_basket ADD COLUMN other_data text;
 
+/* change client/user_prefs to client/edit (only on default installations)*/
+UPDATE common_node SET component = 'a:3:{s:8:"template";s:16:"client/edit.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}' WHERE component = 'a:3:{s:8:"template";s:22:"client/user_prefs.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}' AND id = 54;
 COMMIT;
 
 /*this only applies to installation made earlier than Onxshop 1.5 */

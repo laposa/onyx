@@ -1,11 +1,11 @@
 <?php
 /** 
- * Copyright (c) 2005-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2005-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
 
-class Onxshop_Controller_Component_Client_User_Prefs extends Onxshop_Controller {
+class Onxshop_Controller_Component_Client_Edit extends Onxshop_Controller {
 
 	/**
 	 * main action
@@ -14,7 +14,7 @@ class Onxshop_Controller_Component_Client_User_Prefs extends Onxshop_Controller 
 	public function mainAction() {
 	
 		if ($_SESSION['client']['customer']['id'] == 0 && $_SESSION['authentication']['authenticity'] < 1) {
-			msg('user_prefs: You must be logged in first.', 'error');
+			msg('client_edit: You must be logged in first.', 'error');
 			onxshopGoTo("/");
 		}
 		
