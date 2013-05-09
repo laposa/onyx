@@ -264,11 +264,13 @@ CREATE TABLE client_customer (
 			return false;
 		}
 		
-		$data = $this->detail($id);
+		if ($data = $this->detail($id)) {
 		
-		$data['other_data'] = unserialize($data['other_data']);
+			$data['other_data'] = unserialize($data['other_data']);
 		
-		if (empty($data['profile_image_url'])) $data['profile_image_url'] = $this->conf['default_profile_image_url']; 
+			if (empty($data['profile_image_url'])) $data['profile_image_url'] = $this->conf['default_profile_image_url']; 
+		
+		}
 		
 		return $data;
 	}
