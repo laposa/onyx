@@ -241,6 +241,8 @@ CREATE TABLE client_customer (
 		if ($conf['registration_mail_to_name'] == '') $conf['registration_mail_to_name'] = $GLOBALS['onxshop_conf']['global']['admin_email_name'];
 		//what is the username for authentication? Can be email or username
 		if (!($conf['login_type'] == 'email' || $conf['login_type'] == 'username')) $conf['login_type'] = 'email';
+		//default avatar
+		if (!$conf['default_profile_image_url']) $conf['default_profile_image_url'] = 'http://placehold.it/50x50';
 
 		return $conf;
 	}
@@ -265,6 +267,8 @@ CREATE TABLE client_customer (
 		$data = $this->detail($id);
 		
 		$data['other_data'] = unserialize($data['other_data']);
+		
+		if (empty($data['profile_image_url'])) $data['profile_image_url'] = $this->conf['default_profile_image_url']; 
 		
 		return $data;
 	}
