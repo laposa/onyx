@@ -29,7 +29,7 @@ class Onxshop_Controller_Component_Client_Userbox extends Onxshop_Controller {
 		 */
 		 
 		if ($_SESSION['client']['customer']['id'] > 0 && is_numeric($_SESSION['client']['customer']['id'])) {
-			$customer_detail = $Customer->detail($_SESSION['client']['customer']['id']);
+			$customer_detail = $Customer->getDetail($_SESSION['client']['customer']['id']);
 			$this->tpl->assign('CUSTOMER', $customer_detail);
 			$this->tpl->parse('content.customer');
 		} else {

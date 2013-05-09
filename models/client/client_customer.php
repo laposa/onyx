@@ -460,7 +460,7 @@ CREATE TABLE client_customer (
 		
 		if (count($customer_current) > 0) {
 			
-			return $customer_current[0];
+			return $this->getDetail($customer_current[0]['id']);
 			
 		}
 	}
@@ -479,7 +479,7 @@ CREATE TABLE client_customer (
 		
 		if (count($customer_current) > 0) {
 			
-			return $customer_current[0];
+			return $this->getDetail($customer_current[0]['id']);
 			
 		}
 	}
@@ -498,7 +498,7 @@ CREATE TABLE client_customer (
 		
 		if (count($customer_current) > 0) {
 			
-			return $customer_current[0];
+			return $this->getDetail($customer_current[0]['id']);
 			
 		}
 	}
@@ -519,12 +519,17 @@ CREATE TABLE client_customer (
 		$customer_list = $this->listing("lower(email) = '{$email}' AND status = 3", 'id DESC');
 
 		if (count($customer_list) > 0) {
+			
 			if (count($customer_list) == 1) {
-				return $customer_list[0]; 
+			
+				return $this->getDetail($customer_list[0]['id']);
+			
 			} else {
+			
 				//this shouldn't really happen in any circumstances
 				msg("Multiple preserved registrations on email {$email}, using first found", 'error');
-				return $customer_list[0];
+				return $this->getDetail($customer_list[0]['id']);
+			
 			}
 			
 		} else {
@@ -1202,7 +1207,7 @@ CREATE TABLE client_customer (
 			$client_list = $this->listing("lower(email) = '$email'", "id DESC");
 		
 			if (is_array($client_list) && count($client_list) > 0) {
-				return $client_list[0];
+				return $this->getDetail($client_list[0]['id']);
 			} else {
 				msg('Email is not registered', 'error', 2);
 				return false;
