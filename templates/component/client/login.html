@@ -13,11 +13,11 @@ $(document).ready(function(){
 			<legend>{I18N_EXISTING_CUSTOMER}</legend>
 			<div class="row username">
 				<span class="label"><label for="client-username">{I18N_YOUR_EMAIL}:</label></span>
-				<span class="field"><input class="required email" id="client-username" type="email" name="client[username]" value="{CLIENT.username|htmlspecialchars}"/></span>
+				<span class="field"><input class="required email" id="client-email" type="email" name="client[customer][email]" value="{CLIENT.customer.email|htmlspecialchars}"/></span>
 			</div>
 			<div class="row password">
 				<span class="label"><label for="client-password">{I18N_YOUR_PASSWORD}:</label></span>
-				<span class="field"><input class="required text" id="client-password" type="password" name="client[password]" value="{CLIENT.password|htmlspecialchars}"/></span>
+				<span class="field"><input class="required text" id="client-password" type="password" name="client[customer][password]" value="{CLIENT.customer.password|htmlspecialchars}"/></span>
 			</div>
 			<div class="row autologin checkbox">
 				<span class="label"><label for="autologin">{I18N_AUTOLOGIN}</label></span>
