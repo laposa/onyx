@@ -20,6 +20,8 @@ class Onxshop_Controller_Component_Client_Logout extends Onxshop_Controller {
 			
 			if ($ClientCustomer->logout()) {
 			
+				msg("Logout of {$_SESSION['client']['customer']['email']}", 'ok', 1);
+				
 				//$_SESSION['client']['customer']['id'] = 0;
 				unset($_SESSION['client']);
 			

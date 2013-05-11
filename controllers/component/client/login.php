@@ -46,7 +46,7 @@ class Onxshop_Controller_Component_Client_Login extends Onxshop_Controller {
 			/* client submitted username/password */
 			if (isset($_POST['login'])) {
 			
-				$customer_detail = $Customer->login($_POST['client']['username'], md5($_POST['client']['password']));
+				$customer_detail = $Customer->login($_POST['client']['customer']['email'], md5($_POST['client']['customer']['password']));
 			
 				if ($customer_detail) {
 				
@@ -93,35 +93,49 @@ class Onxshop_Controller_Component_Client_Login extends Onxshop_Controller {
 			}
 		}
 		
+		/**
+		 * check status
+		 */
+		 
 		if ($_SESSION['client']['customer']['id'] > 0 && is_numeric($_SESSION['client']['customer']['id'])) {
 			
-			//update basket
-			if ($_SESSION['basket']['id'] > 0 && is_numeric($_SESSION['basket']['id'])) {
-			
-				require_once('models/ecommerce/ecommerce_basket.php');
-				$Basket = new ecommerce_basket();
-				$Basket->setCacheable(false);
-				
-				$basket_data = $Basket->detail($_SESSION['basket']['id']);
-				$basket_data['customer_id'] = $_SESSION['client']['customer']['id'];
-				if (!$Basket->update($basket_data)) msg('Basket updated failed', 'error');
-			}
-			
-			msg('you are successfully in', 'ok', 2);
-			
-			/**
-			 * forward
-			 */
-			
-			$this->forwardAfterLogin();
+			$this->actionAfterLogin();
 			
 		}
-		
+				
 		//output
 		$this->tpl->assign('CLIENT', $_POST['client']);
 		$this->tpl->parse('content.login_box');
 		
 		return true;
+	}
+	
+	/**
+	 * actionAfterLogin
+	 */
+	 
+	public function actionAfterLogin() {
+		
+		//update basket
+		if ($_SESSION['basket']['id'] > 0 && is_numeric($_SESSION['basket']['id'])) {
+		
+			require_once('models/ecommerce/ecommerce_basket.php');
+			$Basket = new ecommerce_basket();
+			$Basket->setCacheable(false);
+			
+			$basket_data = $Basket->detail($_SESSION['basket']['id']);
+			$basket_data['customer_id'] = $_SESSION['client']['customer']['id'];
+			if (!$Basket->update($basket_data)) msg('Basket updated failed', 'error');
+		}
+		
+		msg('you are successfully in', 'ok', 2);
+		
+		/**
+		 * forward
+		 */
+		
+		$this->forwardAfterLogin();
+		
 	}
 	
 	/**
