@@ -20,7 +20,7 @@
 #logo {float: left;}
 #logo a {text-decoration: none; font-size: 4em;}
 
-#search {float: right; clear: right; margin-bottom: 15px;}
+#search {float: right; clear: right; margin-bottom: 10px;}
 #search form {background: transparent; float: right; border-width: 0; margin: 0; padding: 0;}
 #search input {
 	background: white url(/share/images/search-bg.png) no-repeat 3px center;
@@ -30,7 +30,7 @@
 
 #userbox {float: right; margin-bottom: 1.5em;}
 
-#basket {clear: right; float: right; white-space: nowrap; margin-bottom: 15px;}
+#basket {clear: right; float: right; white-space: nowrap; margin-bottom: 10px;}
 #basketWrapper {display: inline;}
 
 /**
@@ -99,8 +99,8 @@
 #credit a span {display: none;}
 #copyright p {padding-top: 25px;}*/
 
-#contentSide {width: 16.66%; margin: 30px 0 15px 0; clear: left; float: left;}
-#contentSideWrapper {margin-right: 15px;}
+#contentSide {width: 16.66%; margin: 20px 0 10px 0; clear: left; float: left;}
+#contentSideWrapper {margin-right: 10px;}
 
 #contentBottom {clear: both; width: 100%;}
 
@@ -115,9 +115,9 @@
 /********* node/page/product.html *********/
 
 #pageSide {float: left; overflow: hidden;} /*also wrapper to secondaryNavigation*/
-#pageSideWrapper {margin-right: 15px;}
+#pageSideWrapper {margin-right: 10px;}
 
-#secondaryNavigation {line-height: 1em; margin-bottom: 30px;}
+#secondaryNavigation {line-height: 1em; margin-bottom: 20px;}
 #secondaryNavigation ul {padding: 0; margin: 0; list-style-type: none;}
 #secondaryNavigation li {padding: 0; margin: 0; zoom: 1;/*zoom for ie6*/}
 #secondaryNavigation a {display: block; padding: 7px 5px; text-decoration: none; zoom: 1;}
@@ -132,36 +132,36 @@
 div.news div.note p {margin-top: 0;;}
 div.news div.back {clear: both;}
 div.news div.body {margin-bottom: 1em;}
-div.news div.addThisButtons {margin-bottom: 15px;}
+div.news div.addThisButtons {margin-bottom: 10px;}
 
 /****************************************************************************************/
 /*****************************          node/content        *****************************/
 /****************************************************************************************/
 
 /********* node/content/RTE.html *********/
-div.content-RTE {clear: both; margin-bottom: 15px;}
+div.content-RTE {clear: both;}
 /* do not specify img., conflict with reflection*/
 /* use both cases (TinyMCE/Safari bug)*/
 div.content-RTE .imageLeft,
-div.content-RTE .imageleft {float: left; margin-right: 15px; margin-bottom: 15px;}
+div.content-RTE .imageleft {float: left; margin-right: 10px; margin-bottom: 10px;}
 div.content-RTE .imageRight,
-div.content-RTE .imageright {float: right; margin-left: 15px; margin-bottom: 15px;}
+div.content-RTE .imageright {float: right; margin-left: 10px; margin-bottom: 10px;}
 div.content-RTE .imageBorder,
 div.content-RTE .border {border: 1px solid black;}
 
 /*apply for products, other option would be to add .content-RTE class in product detail page description element */
 div.product .imageLeft,
-div.product .imageleft {float: left; margin-right: 15px;}
+div.product .imageleft {float: left; margin-right: 10px;}
 div.product .imageRight,
-div.product .imageright {float: right; margin-left: 15px;}
+div.product .imageright {float: right; margin-left: 10px;}
 div.product .imageBorder,
 div.product .border {border: 1px solid black;}
 
 /*apply for news pages, other option would be to add .content-RTE class in news detail page */
 div.news .imageLeft,
-div.news .imageleft {float: left; margin-right: 15px;}
+div.news .imageleft {float: left; margin-right: 10px;}
 div.news .imageRight,
-div.news .imageright {float: right; margin-left: 15px;}
+div.news .imageright {float: right; margin-left: 10px;}
 div.news .imageBorder,
 div.news .border {border: 1px solid black;}
 
@@ -190,11 +190,11 @@ div.contact_form div.message span.label {float: none; text-align: left; width: a
 
 /********* node/content/picture.html *********/
 div.node-content-picture, 
-div.node-content-picture div.item {margin-bottom: 30px;}
-div.node-content-picture div.picture.single div.item {float: left; margin-right: 30px;}
+div.node-content-picture div.item {margin-bottom: 10px;}
+div.node-content-picture div.picture.single div.item {float: left; margin-right: 10px;}
 
 /********* node/content/HTML.html *********/
-div.node-content-HTML {margin-bottom: 15px;}
+div.node-content-HTML {}
 
 /********* node/content/file.html *********/
 div.file span.file_size {white-space: nowrap;}
@@ -204,14 +204,13 @@ div.file span.file_size {white-space: nowrap;}
 /****************************************************************************************/
 
 /********* component/feed.html *********/
-div.feed {margin: 0 0 15px 0;}
-div.feed p.pubDate {padding: 0; margin: 0 0 15px 0;}
+div.feed p.pubDate {padding: 0; margin: 0 0 10px 0;}
 div.feed p.copyright {}
-div.feed div.item {margin: 15px 0;}
+div.feed div.item {margin: 10px 0;}
 div.feed div.item h5 {margin: 0 0 0.5em 0;}
 
 /********* component/breadcrumb.html *********/
-div.breadcrumb {margin-bottom: 15px;}
+div.breadcrumb {margin-bottom: 10px;}
 
 /********* component/taxonomy.html *********/
 div.taxonomy td.first {font-weight: bold;}
@@ -221,7 +220,7 @@ div.searchbox label {display: none;}
 div.searchbox input.text {margin: 0; width: 185px;}
 
 /********* component/search_result.html *********/
-div.search_result li {clear: both; margin-bottom: 1em;}
+div.search_result li {clear: both; margin-bottom: 10px;}
 div.search_result li a.last {font-weight: bold;}
 div.search_result li a.image {text-decoration: none; display: block; float: right; padding-left: 5px;}
 div.search_result span.item_description {font-size: small;}
@@ -255,13 +254,12 @@ div.image_gallery_smooth div.controls div.pagination a {float: left; display: bl
 div.image_gallery_smooth div.imageInfo {display: none;}
 
 /********* component/image_gallery_fancybox.html *********/
-div.image_gallery_fancybox div.item {float: left; margin-right: 30px;}
+div.image_gallery_fancybox div.item {float: left; margin-right: 10px;}
 
 /********* component/image_gallery_prettyphoto.html *********/
-div.image_gallery_prettyphoto div.item {float: left; margin-right: 30px;}
+div.image_gallery_prettyphoto div.item {float: left; margin-right: 10px;}
 
 /********* component/google_picasa_feed.html *********/
-div.googlePicasaFeed {margin-bottom: 30px;}
 div.googlePicasaFeed div.imageThumbnailsContainer {width: 750px; height: 100px; overflow: auto; white-space: nowrap;}
 div.googlePicasaFeed div.imageThumbnail {float: left; height: 75px; padding-right: 15px;}
 div.googlePicasaFeed div.imageFull {width: 100%; text-align: center; padding-top: 5px;}
@@ -274,11 +272,11 @@ div.comment form input {width: 100%;}
 div.comment form textarea {width: 100%;}
 
 /********* comment_UL.html *********/
-ul.comment li {margin-bottom: 15px;}
+ul.comment li {margin-bottom: 10px;}
 ul.comment p.author,
 ul.comment p.created {margin: 0;}
 ul.comment div.bottom {border-bottom: 1px solid #f0f0f0;}
-ul.comment div.item div.content {padding: 15px 0;}
+ul.comment div.item div.content {padding: 10px 0;}
 
 /********* menu_SELECT.html **********/
 div.selectMenu {padding: 5px 0 0 0;}
@@ -289,10 +287,6 @@ div.newsletter_subscribe_start span.label {display: none;}
 div.newsletter_subscribe_start fieldset {width: 70%; float: left; margin: 0; padding: 0;}
 div.newsletter_subscribe_start div.submit  {clear: none; float: right;}
 
-
-/********* component/google_translate.html *********/
-#google_translate_element {margin-bottom: 30px;}
-
 /********* component/rating_stars.html *********/
 div.rating_stars div.star {float: left; }
 div.rating_stars div.text {display: none;}
@@ -302,7 +296,6 @@ div.rating_stars div.star span {display: none;}
 */
 
 /********* component/social_network_share.html *********/
-div.social_network_share {margin-bottom: 10px;}
 div.social_network_share ul {margin: 0; padding: 0;}
 div.social_network_share li {list-style-image: none; list-style-type: none; float: left; margin: 0 0 0 10px; padding: 0;}
 div.social_network_share li.twitter a {background: url(/share/images/social_networks/twitter-20x20.png) no-repeat; width: 20px; height: 20px; display: block;}

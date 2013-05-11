@@ -11,6 +11,10 @@
 div.rowTop:after,
 div.rowMiddle:after,
 div.rowBottom:after {content: '.'; display: block; height: 0; font-size: 0; clear: both; visibility: hidden;}
+/*IE8 doesn't support last-child, the following block will be ignored*/
+div.rowTop div.node:last-child:after,
+div.rowMiddle div.node:last-child:after,
+div.rowBottom div.node:last-child:after {content: '.'; display: block; height: 0; font-size: 0; clear: both; visibility: hidden;}
 div.page div.pageWrapper {padding: 0;}
 div.page div.rowBottom {clear: both;}
 
@@ -103,7 +107,7 @@ div.twoColumnLayout.fibonacci-3-2 div.layoutColumnTwo.ofTwo {width: 40%;}
 div.threeColumnLayout {clear: both;}
 div.threeColumnLayout div.layoutColumnOne.ofThree, 
 div.threeColumnLayout div.layoutColumnTwo.ofThree, 
-div.threeColumnLayout div.layoutColumnThree.ofThree {width: 33.335%; overflow: hidden;}
+div.threeColumnLayout div.layoutColumnThree.ofThree {width: 33.334%; overflow: hidden;}
 div.threeColumnLayout div.layoutColumnOne.ofThree, 
 div.threeColumnLayout div.layoutColumnTwo.ofThree {float: left;}
 div.threeColumnLayout div.layoutColumnThree.ofThree {float: right;}
@@ -163,4 +167,3 @@ div.tabsLayout div.layoutBody {clear: both;}
 div.pageHeaderWrapper {margin: 10px;}
 h2.layoutTitle {margin: 0 10px;}
 div.node_group-content {margin: 10px;}
-

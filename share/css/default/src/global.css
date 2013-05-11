@@ -55,7 +55,7 @@ select.long {width: 100%;}
 input.short,
 textarea.short,
 select.short {width: 5em;}
-button {cursor: pointer; cursor: hand; position: relative; padding: 0 0.5em; overflow: visible;}
+button {cursor: pointer; cursor: hand; position: relative; padding: 0 0.5em; overflow: visible; font-family: inherit; font-size: inherit;}
 button span {position: relative; display: block; white-space: nowrap;}
 
 /*2cols forms (can be set on whole form or particular fieldset*/

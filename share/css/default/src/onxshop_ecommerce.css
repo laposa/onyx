@@ -30,7 +30,7 @@ div.product_list_2columns div.item div.image a {display: block; margin: 0 auto 1
 
 /********* component/ecommerce/product_list_3columns *********/
 div.product_list_3columns a {text-decoration: none;}
-div.product_list_3columns div.item {font-size: 80%; width: 33%; text-align: center; float: left; clear: none;}
+div.product_list_3columns div.item {font-size: 80%; width: 33.334%; text-align: center; float: left; clear: none;}
 div.product_list_3columns div.item h3 {clear: both}
 div.product_list_3columns div.item div.image a {display: block; margin: 0 auto 1em auto;}
 
