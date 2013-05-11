@@ -44,7 +44,7 @@ class Onxshop_Controller_Component_Social_Network_Share extends Onxshop_Controll
 			$this->image = $this->getImage($this->node_id);
 		}
 
-		$share_uri = "http://".$_SERVER['HTTP_HOST']."/page/{$this->node_id}";
+		$share_uri = $this->getShareUri();
 
 		$this->tpl->assign('SHARE_URI', $share_uri);
 		$this->tpl->assign('IMAGE', $this->image);
@@ -74,5 +74,12 @@ class Onxshop_Controller_Component_Social_Network_Share extends Onxshop_Controll
 		if (is_array($image_list) && count($image_list) > 0) return $image_list[0];
 		return array('src' => 'var/files/favicon.ico');
 
+	}
+	
+	public function getShareUri() {
+		
+		$share_uri = "http://".$_SERVER['HTTP_HOST']."/page/{$this->node_id}";
+		
+		return $share_uri;
 	}
 }
