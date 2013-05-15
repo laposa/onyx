@@ -7743,8 +7743,7 @@ class Postgres extends ADODB_base {
 		}
 
 		// Generate count query
-		if (!preg_match('/UPDATE/', $query)) $count = "SELECT COUNT(*) AS total FROM ($query) AS sub";
-		else return -2;
+		$count = "SELECT COUNT(*) AS total FROM ($query) AS sub";
 
 		// Open a transaction
 		$status = $this->beginTransaction();
