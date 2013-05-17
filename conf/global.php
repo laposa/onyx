@@ -214,3 +214,9 @@ if (!defined('ONXSHOP_TWITTER_APP_SECRET')) define('ONXSHOP_TWITTER_APP_SECRET',
  */
  
 if (!defined('ONXSHOP_PAGINATION_SHOW_ITEMS')) define('ONXSHOP_PAGINATION_SHOW_ITEMS', 10);
+
+/**
+ * Salt used for encryption/hashing
+ */
+
+if (!defined('ONXSHOP_ENCRYPTION_SALT'))  define('ONXSHOP_ENCRYPTION_SALT', 'w4t5yoy8ry3hewf2ey3wu6ap5ze7haic8pam9ve4vot6cyet');
