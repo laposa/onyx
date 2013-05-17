@@ -22,9 +22,7 @@
 
 #search {float: right; clear: right; margin-bottom: 10px;}
 #search form {background: transparent; float: right; border-width: 0; margin: 0; padding: 0;}
-#search input {
-	background: white url(/share/images/search-bg.png) no-repeat 3px center;
-	padding-left: 20px; width: 165px; display: block;}
+#search input { background: white url(/share/images/search-bg.png) no-repeat 3px center; padding-left: 20px; width: 165px; display: block;}
 #search label {width: auto;}
 #search button {display: none;}
 
@@ -39,7 +37,7 @@
 
 #globalNavigation {float: right; margin: 0 0 15px 0;}
 #globalNavigation ul {margin: 0; padding: 0; line-height: 1em; list-style-type: none;}
-#globalNavigation li {float: left; padding: 0; margin: 0;}
+#globalNavigation li {display: inline-block; padding: 0; margin: 0;}
 #globalNavigation a {text-decoration: none; display: block; padding: 7px 15px;}
 #globalNavigation a:active span {text-decoration: underline;}
 
@@ -55,12 +53,12 @@
 
 #primaryNavigation {clear: both; width: 100%;}
 #primaryNavigation ul {margin: 0; padding: 0; line-height: 1em; list-style-type: none;}
-#primaryNavigation li {padding: 0; margin: 0; float: left; margin-right: 20px; zoom: 1;/*zoom for ie6*/}
+#primaryNavigation li {margin: 0; padding: 0; margin-right: 20px; display: inline-block; zoom: 1;/*zoom for ie6*/}
 #primaryNavigation a {text-decoration: none; display: block; padding: 7px 5px; white-space: pre; zoom: 1;}
 #primaryNavigation a:active span {text-decoration: underline;}
 #primaryNavigation a.open {font-weight: bold;}
 #primaryNavigation ul ul {list-style-type: square; margin-left: 10px;}
-#primaryNavigation ul ul li {padding-left: 0; margin-left: 15px;}
+#primaryNavigation ul ul li {padding-left: 0; margin-left: 15px; display: list-item;}
 #primaryNavigation ul ul a {padding-left: 0; font-weight: normal; height: auto;}
 
 /**
@@ -69,10 +67,9 @@
  
 #footerNavigation {clear: both; float: left; width: 100%;}
 #footerNavigation ul {margin: 0; padding: 0; line-height: 1em; list-style-type: none;}
-#footerNavigation li {padding: 0; margin: 0; display: block; float: left;}
+#footerNavigation li {padding: 0; margin: 0; display: inline-block;}
 #footerNavigation a {text-decoration: none; display: block; padding: 7px 15px; white-space: pre;}
 #footerNavigation a:active span {text-decoration: underline;}
-
 
 /**
  * content

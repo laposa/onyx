@@ -35,6 +35,7 @@ class Onxshop_Controller_Component_Client_Login_Or_Register extends Onxshop_Cont
 		
 			//check validation of submited fields
 			if ($Customer->checkLoginId($_POST['client']['customer'])) {
+			
 				$_SESSION['r_client'] = $_POST['client'];
 				$this->dispatchToRegistration($node_conf);
 				

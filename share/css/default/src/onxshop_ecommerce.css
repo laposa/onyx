@@ -58,7 +58,6 @@ div.product_list_scroll div.item h3 {clear: both; margin: 0 0.5em;}
 div.product_list_scroll div.item div.image a {display: block; margin: 0 auto 1em auto;}
 div.product_list_scroll div.item div.image img {margin: 0 10px;}
 div.product_list_scroll a.browse span {display: none;}
-div.product_highlights div.product_list_scroll div.description {width: 120px;}
 div.product_list_scroll div.scrollable {position:relative; overflow:hidden; width: 360px; height:170px; float: left;}
 div.product_list_scroll div.scrollable div.items {width:20000em; position:absolute; clear:both;}
 div.product_list_scroll div.scrollable div.items div.item {float:left;}
@@ -243,6 +242,6 @@ div.promotion_code form.enter h3 {display: none;}
 div.gift_card {width: 7cm; height: 6cm; position: absolute; left: 10.5cm; top: 11cm;}
 div.gift_message p {color: black; white-space: normal; font-family: Arial; font-size: 10pt; padding: 0; margin: 0; line-height: 1.5em;}
 
-
-    div.loading#basket,
-    a.add_to_basket.loading {background: url(/share/images/ajax-indicator/indicator_arrows.gif) no-repeat center left;}
+/*basket load indicator*/
+div.loading#basket,
+a.add_to_basket.loading {background: url(/share/images/ajax-indicator/indicator_arrows.gif) no-repeat center left;}

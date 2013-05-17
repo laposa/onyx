@@ -152,6 +152,14 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
 	public function commonAction() {
 	
 		/**
+		 * initialize
+		 */
+		 
+		require_once('models/client/client_customer.php');
+		$this->Customer = new client_customer();
+		$this->Customer->setCacheable(false);
+		
+		/**
 		 * autopopulate
 		 */
 		 
@@ -169,21 +177,23 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
 		}
 		
 		/**
+		 * check if we have some old information for this email address
+		 */
+		 
+		if ($current_customer_data = $this->Customer->getClientByEmail($_POST['client']['customer']['email'])) {
+			
+			$_POST['client']['customer'] = array_merge($current_customer_data, $_POST['client']['customer']);
+			
+		}
+		
+		/**
 		 * show password input only to non-social auth
 		 */
 		 
 		if (!is_numeric($_POST['client']['customer']['facebook_id']) && !is_numeric($_POST['client']['customer']['twitter_id']) && !is_numeric($_POST['client']['customer']['google_id'])) {
 			$this->tpl->parse('content.password');
 		}
-		
-		/**
-		 * initialize
-		 */
-		 
-		require_once('models/client/client_customer.php');
-		$this->Customer = new client_customer();
-		$this->Customer->setCacheable(false);
-		
+				
 	}
 	
 	/**

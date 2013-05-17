@@ -28,6 +28,9 @@ class Onxshop_Controller_Component_Client_Logout extends Onxshop_Controller {
 				//clean cookies
 				$this->cleanCookies();
 				
+				//clean facebook auth
+				$this->logoutFromFacebook();
+				
 				//forward to the homepage
 				onxshopGoTo(AFTER_CLIENT_LOGOUT_URL);
 			
@@ -68,5 +71,29 @@ class Onxshop_Controller_Component_Client_Logout extends Onxshop_Controller {
 			setcookie("autologin_md5_password", "", time()-60*60*24*100, "/");
 		}
 		
+	}
+	
+	
+	/**
+	 * logoutFromFacebook
+	 */
+	 
+	public function logoutFromFacebook() {
+	
+		require_once 'lib/facebook/facebook.php';
+		
+		/**
+		 * conf in deployment.php
+		 */
+		 
+		$facebook_conf = array(
+			'appId'  => ONXSHOP_FACEBOOK_APP_ID,
+			'secret' => ONXSHOP_FACEBOOK_APP_SECRET
+		);
+		
+		$this->Facebook = new Facebook($facebook_conf);
+		
+		$this->Facebook->destroySession();
+	
 	}
 }
