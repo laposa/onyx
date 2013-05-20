@@ -33,9 +33,22 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
 			unset($client_customer['trade']);
 			unset($client_customer['password1']);
 			
-			//check validation of submited fields
-			if ($this->Customer->prepareToRegister($client_customer) && $this->checkPasswordMatch($_POST['client']['customer']['password'], $_POST['client']['customer']['password1'])) {
+			/**
+			 * check password match for non-social account
+			 */
+			 
+			if (!$this->Customer->isSocialAccount($_POST['client']['customer'])) {
+					
+				$password_match_status = $this->checkPasswordMatch($_POST['client']['customer']['password'], $_POST['client']['customer']['password1']);
+			} else {
+			
+				$password_match_status = true;
 				
+			}
+				
+			//check validation of submited fields
+			if ($this->Customer->prepareToRegister($client_customer) && $password_match_status) {
+			
 				// when required some other step for registering, store fields in session
 				//$_SESSION['r_client'] = $_POST['client'];
 				
@@ -67,8 +80,11 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
 				} else {
 					msg('Please complete all required fields marked with a asterisk (*)', 'error');
 				}
+			
 			} else {
+			
 				msg('Please complete all required fields marked with an asterisk (*)', 'error');
+			
 			}
 		}
 		
@@ -190,7 +206,7 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
 		 * show password input only to non-social auth
 		 */
 		 
-		if (!is_numeric($_POST['client']['customer']['facebook_id']) && !is_numeric($_POST['client']['customer']['twitter_id']) && !is_numeric($_POST['client']['customer']['google_id'])) {
+		if (!$this->Customer->isSocialAccount($_POST['client']['customer'])) {
 			$this->tpl->parse('content.password');
 		}
 				

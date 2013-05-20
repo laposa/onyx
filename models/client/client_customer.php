@@ -149,7 +149,7 @@ class client_customer extends Onxshop_Model {
 		'telephone'=>array('label' => 'Phone number', 'validation'=>'string', 'required'=>true),
 		'mobilephone'=>array('label' => 'Mobile number', 'validation'=>'string', 'required'=>false),
 		'nickname'=>array('label' => 'Username', 'validation'=>'string', 'required'=>false),
-		'password'=>array('label' => 'Password', 'validation'=>'string', 'required'=>true),
+		'password'=>array('label' => 'Password', 'validation'=>'string', 'required'=>false),
 		'company_id'=>array('label' => 'Company', 'validation'=>'int', 'required'=>false),
 		'invoices_address_id'=>array('label' => 'Invoice address', 'validation'=>'int', 'required'=>true),
 		'delivery_address_id'=>array('label' => 'Delivery address', 'validation'=>'int', 'required'=>true),
@@ -338,7 +338,8 @@ CREATE TABLE client_customer (
 		$customer_data['agreed_with_latest_t_and_c'] = 1;
 		$customer_data['verified_email_address'] = 0;
 		if (!is_numeric($customer_data['newsletter'])) $customer_data['newsletter'] = 0;
-		$customer_data['password'] = md5($customer_data['password']);
+		if (trim($customer_data['password'])) $customer_data['password'] = md5($customer_data['password']);
+		else unset($customer_data['password']);
 		if (!is_numeric($customer_data['facebook_id'])) unset($customer_data['facebook_id']);
 		if (!is_numeric($customer_data['twitter_id'])) unset($customer_data['twitter_id']);
 		if (!is_numeric($customer_data['google_id'])) unset($customer_data['google_id']);
@@ -927,7 +928,7 @@ CREATE TABLE client_customer (
 		$customer_detail = $this->getClientByEmail($email);
 
 		if ($customer_detail) {
-			if ($customer_detail['password'] == $md5_password) {
+			if ($customer_detail['password'] === $md5_password) {
 				msg('Login ok', 'ok', 2);
 				return $customer_detail;
 			} else {
@@ -960,7 +961,7 @@ CREATE TABLE client_customer (
 		$customer_detail = $this->listing("lower(username) = '$username'");
 
 		if (count($customer_detail) > 0) {
-			if ($customer_detail[0]['password'] == $md5_password) {
+			if ($customer_detail[0]['password'] === $md5_password) {
 				msg('Login ok', 'ok', 2);
 				return $customer_detail[0];
 			}
