@@ -136,7 +136,14 @@ CREATE TABLE ecommerce_recipe (
 	 
 	public function getDetail($id) {
 		
-		return $this->detail($id);
+		$data = $this->detail($id);
+		
+		if (is_array($data)) {
+			// handle other_data
+			$data['other_data'] = unserialize($data['other_data']);
+		}
+		
+		return $data;
 		
 	}
 
@@ -158,7 +165,47 @@ CREATE TABLE ecommerce_recipe (
 		}
 	}
 
+	/**
+	 * update recipe
+	 */
+	function updateRecipe($data)
+	{
+		// set values
+		if (!isset($data['publish'])) $data['publish'] = 0;
+		$data['modified'] = date('c');
+			
+		// make sure values are int
+		$data['serving_people'] = (int)$data['serving_people'];
+		$data['preparation_time'] = (int)$data['preparation_time'];
+		$data['cooking_time'] = (int)$data['cooking_time'];
+			
+		// handle other_data
+		$data['other_data'] = serialize($data['other_data']);
 
+		if ($id = $this->update($data)) {
+		
+			// update node info (if exists)
+			$recipe_homepage = $this->getRecipeHomepage($recipe_id);
+		
+			if (is_array($recipe_homepage) && count($recipe_homepage) > 0) {
+			
+				$recipe_homepage['publish'] = $data['publish'];
+				
+				require_once('models/common/common_node.php');
+				$Node = new common_node();
+				
+				$Node->nodeUpdate($recipe_homepage);
+				
+			}
+			
+			return $id;
+		
+		} else {
+		
+			return false;
+		
+		}
+	}
 
     /**
      * get filtered recipe list
