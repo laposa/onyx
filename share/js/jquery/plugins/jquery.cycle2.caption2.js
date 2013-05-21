@@ -1,2 +1,67 @@
-/*! Plugin for Cycle2; Copyright (c) 2012 M. Alsup; ver: 20130306 */
-(function(a){function b(b,c,d,e,f){if(c.captionPlugin!=="caption2")return;a.each(["caption","overlay"],function(){var a=this+"Fx",b=c[a+"Out"]||"hide",f=d[this+"Template"],g=c.API.getComponent(this),h=c[a+"Sel"],i=c.speed,j;c.sync&&(i=i/2),j=h?g.find(h):g,g.length&&f?(b=="hide"&&(i=0),j[b](i,function(){var k=c.API.tmpl(f,d,c,e);g.html(k),j=h?g.find(h):g,h&&j.hide(),b=c[a+"In"]||"show",j[b](i)})):g.hide()})}function c(b,c,d,e,f){if(c.captionPlugin!=="caption2")return;a.each(["caption","overlay"],function(){var a=d[this+"Template"],b=c.API.getComponent(this);b.length&&a&&b.html(c.API.tmpl(a,d,c,e))})}"use strict",a.extend(a.fn.cycle.defaults,{captionFxOut:"fadeOut",captionFxIn:"fadeIn",captionFxSel:undefined,overlayFxOut:"fadeOut",overlayFxIn:"fadeIn",overlayFxSel:undefined}),a(document).on("cycle-bootstrap",function(a,d){d.container.on("cycle-update-view-before",b),d.container.one("cycle-update-view-after",c)})})(jQuery);
+/*! caption2 plugin for Cycle2;  version: 20130306 */
+(function($) {
+"use strict";
+
+$.extend($.fn.cycle.defaults, {
+    captionFxOut:      'fadeOut',
+    captionFxIn:       'fadeIn',
+    captionFxSel:      undefined,
+    overlayFxOut:      'fadeOut',
+    overlayFxIn:       'fadeIn',
+    overlayFxSel:      undefined
+});    
+
+$(document).on( 'cycle-bootstrap', function(e, opts) {
+    opts.container.on( 'cycle-update-view-before', update );
+    opts.container.one( 'cycle-update-view-after', init );
+});
+
+function update( e, opts, slideOpts, currSlide, isAfter ) {
+    if ( opts.captionPlugin !== 'caption2' )
+        return;
+    $.each(['caption','overlay'], function() {
+        var fxBase = this + 'Fx',
+            fx = opts[fxBase + 'Out'] || 'hide',
+            template = slideOpts[this+'Template'],
+            el = opts.API.getComponent( this ),
+            sel = opts[fxBase+'Sel'],
+            speed = opts.speed,
+            animEl;
+
+        if ( opts.sync )
+            speed = speed/2;
+
+        animEl = sel ? el.find( sel ) : el;
+
+        if( el.length && template ) {
+            if ( fx == 'hide')
+                speed = 0;
+            animEl[fx]( speed, function() {
+                var content = opts.API.tmpl( template, slideOpts, opts, currSlide );
+                el.html( content );
+                animEl = sel ? el.find( sel ) : el;
+                if ( sel )
+                    animEl.hide();
+                fx = opts[ fxBase + 'In'] || 'show';
+                animEl[fx]( speed );
+            });
+        }
+        else {
+            el.hide();
+        }
+    });
+}
+
+function init( e, opts, slideOpts, currSlide, isAfter ) {
+    if ( opts.captionPlugin !== 'caption2' )
+        return;
+    $.each(['caption','overlay'], function() {
+        var template = slideOpts[this+'Template'],
+            el = opts.API.getComponent( this );
+
+        if( el.length && template )
+            el.html( opts.API.tmpl( template, slideOpts, opts, currSlide ) );
+    });
+}
+
+})(jQuery);
