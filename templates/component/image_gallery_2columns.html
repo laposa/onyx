@@ -1,26 +1,23 @@
 <!-- BEGIN: head_once -->
-<script type="text/javascript" src="/share/js/jquery/plugins/jquery.cycle.all.min.js"></script>
+<script type="text/javascript" src="/share/js/jquery/plugins/jquery.cycle2.js"></script>
+<script type="text/javascript" src="/share/js/jquery/plugins/jquery.cycle2.swipe.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	
+	$('div.image_gallery_2columns').cycle({
+		speed: 500,
+		fx: 'scrollHorz',
+		slides: 'div.twoColumnLayout',
+		prev: 'div.controls a.prev',
+		next: 'div.controls a.next',
+		swipe: true,
+		delay: 10000,
+		timeout: 6000
+	});
+});
+</script>
 <!-- END: head_once -->
 <!-- BEGIN: content -->
-<script type="text/javascript">
-	$(function() {
-		var gallery = $("#gallery_2columns_{GET.node_id}");	
-		gallery.find(".twoColumnLayout").show();
-		gallery.cycle({
-			fx: "scrollHorz",
-			next: '#gallery_2columns_{GET.node_id} a.next',
-        	prev: '#gallery_2columns_{GET.node_id} a.prev',
-			/*pager: '#gallery_2columns_{GET.node_id} div.pagination',*/
-			activePagerClass: 'active',
-			cleartypeNoBg: true,
-			fit: 1,
-			slideResize: 0,
-			delay: 10000,
-			pause: 1,
-			height: 270
-		});
-	});
-</script>
 <div class="image_gallery_2columns number_of_items_{IMAGE_COUNT}" id="gallery_2columns_{GET.node_id}">
 	<!-- BEGIN: item -->
 	<div class="twoColumnLayout fibonacci-1-1 item_id_{GET.node_id}_{ITEM.id}">
