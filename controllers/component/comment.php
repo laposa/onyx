@@ -144,6 +144,13 @@ class Onxshop_Controller_Component_Comment extends Onxshop_Controller {
 					$this->tpl->assign('RATING_STARS', '');
 				}
 				
+				/**
+				 * avatar
+				 */
+				
+				$_Onxshop_Request = new Onxshop_Request("component/client/avatar~customer_id={$item['customer_id']}~");
+				$this->tpl->assign('AUTHOR_AVATAR', $_Onxshop_Request->getContent());
+				
 				//sub comments
 				$_Onxshop_Request = new Onxshop_Request("component/comment_list~node_id={$this->GET['node_id']}:parent={$item['id']}~");
 				$this->tpl->assign("SUB_COMMENTS", $_Onxshop_Request->getContent());

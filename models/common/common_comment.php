@@ -1,8 +1,6 @@
 <?php
 /**
- * class common_comment
- *
- * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -307,6 +305,32 @@ CREATE TABLE common_comment (
     	if (!$EmailForm->sendEmail('comment_notify')) {
     		msg('New comment notification email sending failed.', 'error');
     	}
+		
+	}
+	
+	/**
+	 * getRating
+	 */
+	
+	public function getRating($node_id) {
+		
+		if (!is_numeric($node_id)) return false;
+		
+		$sql = "SELECT count(review.id) AS count, avg(review.rating) AS rating FROM {$this->_class_name} review WHERE node_id = $node_id AND publish = 1";
+		
+		$records = $this->executeSql($sql);
+		
+		if (is_array($records)) {
+			
+			$review = $records[0];
+			
+			if (is_array($review)) return $review;
+			else return false;
+		
+		} else {
+			
+			return false;
+		}
 		
 	}
 }

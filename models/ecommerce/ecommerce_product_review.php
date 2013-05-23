@@ -1,9 +1,7 @@
 <?php
-
 /**
- * class ecommerce_product_review
  *
- * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -30,11 +28,11 @@ CREATE TABLE ecommerce_product_review (
     id serial PRIMARY KEY NOT NULL,
     parent int REFERENCES ecommerce_product_review ON UPDATE CASCADE ON DELETE CASCADE,
     node_id int REFERENCES ecommerce_product ON UPDATE CASCADE ON DELETE RESTRICT,
-    title varchar(255) ,
-    content text ,
-    author_name varchar(255) ,
-    author_email varchar(255) ,
-    author_website varchar(255) ,
+    title varchar(255),
+    content text,
+    author_name varchar(255),
+    author_email varchar(255),
+    author_website varchar(255),
 	author_ip_address varchar(255),
     customer_id int NOT NULL REFERENCES client_customer ON UPDATE CASCADE ON DELETE RESTRICT,
     created timestamp(0) default now(),

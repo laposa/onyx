@@ -285,7 +285,7 @@ div.newsletter_subscribe_start fieldset {width: 70%; float: left; margin: 0; pad
 div.newsletter_subscribe_start div.submit  {clear: none; float: right;}
 
 /********* component/rating_stars.html *********/
-div.rating_stars div.star {float: left; }
+div.rating_stars div.star {display: inline-block;}
 div.rating_stars div.text {display: none;}
 /*
 div.rating_stars div.star {background:url("/share/images/default/star.gif") repeat scroll 0 0 transparent; height:17px; width:17px;}

@@ -97,7 +97,7 @@ class Onxshop_Controller_Node_Page_Product extends Onxshop_Controller_Node_Page_
 		 * product reviews
 		 */
 		 
-		$_Onxshop_Request = new Onxshop_Request("component/ecommerce/review~node_id={$product_id}:allow_anonymouse_submit=0~");
+		$_Onxshop_Request = new Onxshop_Request("component/ecommerce/product_review~node_id={$product_id}:allow_anonymouse_submit=0~");
 		$this->tpl->assign('PRODUCT_REVIEW', $_Onxshop_Request->getContent());
 		
 		

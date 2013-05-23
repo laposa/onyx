@@ -316,10 +316,12 @@ CREATE TABLE ecommerce_recipe (
    		require_once('models/common/common_node.php');
  		require_once('models/ecommerce/ecommerce_recipe_taxonomy.php');
  		require_once('models/ecommerce/ecommerce_recipe_image.php');
+ 		require_once('models/ecommerce/ecommerce_recipe_review.php');
 
     	$Node = new common_node();
 		$Image = new ecommerce_recipe_image();
 		$Taxonomy = new ecommerce_recipe_taxonomy();
+		$Review = new ecommerce_recipe_review();
 
 		$recipes = array();
 
@@ -343,11 +345,15 @@ CREATE TABLE ecommerce_recipe (
 						// load images
 						$image_list = $Image->listFiles($recipe['id'] , $priority = "priority DESC, id ASC", false);
 						$recipe['image']  = $image_list[0];
+						
+						// load review
+						$recipe['review'] = $Review->getRating($recipe['id']);
+						
 					}
 				}
 
 		}
-
+		
  		return $recipes;
 
     }

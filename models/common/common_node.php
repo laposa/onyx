@@ -1235,13 +1235,38 @@ CREATE TABLE common_node (
     function getProductNodeHomepage($product_id) {
     
     	if (!is_numeric($product_id)) {
-    		msg("Node->etProductNodeHomepage($product_id) is not numeric", 'error');
+    	
+    		msg("Node->getProductNodeHomepage($product_id) is not numeric", 'error');
     		return false;
+    	
     	} else {
+    	
     		require_once("models/ecommerce/ecommerce_product.php");
 			$Product = new ecommerce_product();
 		
 			$homepage = $Product->getProductHomepage($product_id);
+		
+			return $homepage;
+		}
+    }
+    
+    /**
+     * Find homepage of recipe
+     */
+     
+    function getRecipeNodeHomepage($recipe_id) {
+    
+    	if (!is_numeric($recipe_id)) {
+    		
+    		msg("Node->getRecipeNodeHomepage($product_id) is not numeric", 'error');
+    		return false;
+    		
+    	} else {
+    	
+    		require_once("models/ecommerce/ecommerce_recipe.php");
+			$Recipe = new ecommerce_recipe();
+		
+			$homepage = $Recipe->getRecipeHomepage($recipe_id);
 		
 			return $homepage;
 		}

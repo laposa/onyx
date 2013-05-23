@@ -15,6 +15,9 @@
 					<h3 class="name"><a href="/page/{ITEM.page.id}" title="{ITEM.recipe.name|htmlspecialchars}"><span>{ITEM.title|htmlspecialchars}</span></a></h3>
 					{ITEM.description}
 					<p>serving people: {ITEM.serving_people}<br />cooking time: {ITEM.cooking_time}</p>
+					<!-- BEGIN: reviews -->
+					<div class="reviews"><a href="/page/{ITEM.page.id}">{RATING_STARS}</a> <span class="review_count">({ITEM.review.count}&nbsp;{REVIEWS})</span></div>
+					<!-- END: reviews -->
 				</div>
 			</div>
 			

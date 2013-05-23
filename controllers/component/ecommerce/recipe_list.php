@@ -47,7 +47,18 @@ class Onxshop_Controller_Component_Ecommerce_Recipe_List extends Onxshop_Control
 	public function parseItems(&$list)
 	{
 		foreach ($list as $i => $item) {
+			
 			$this->tpl->assign("ITEM", $item);
+			if ($item['review']['count'] > 0) {
+				
+				$rating = round($item['review']['rating']);
+				$_Onxshop_Request = new Onxshop_Request("component/rating_stars~rating={$rating}~");
+				$this->tpl->assign('RATING_STARS', $_Onxshop_Request->getContent());
+				if ($item['review']['count'] == 1) $this->tpl->assign('REVIEWS', 'Review');
+				else $this->tpl->assign('REVIEWS', 'Reviews');
+				
+				$this->tpl->parse('content.item.reviews');
+			}
 			$this->tpl->parse("content.item");
 		}
 	}

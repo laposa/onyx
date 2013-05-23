@@ -1,12 +1,12 @@
 <?php
 /** 
- * Copyright (c) 2010-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2010-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
 require_once('controllers/component/comment.php');
 
-class Onxshop_Controller_Component_Ecommerce_Review extends Onxshop_Controller_Component_Comment {
+class Onxshop_Controller_Component_Ecommerce_Product_Review extends Onxshop_Controller_Component_Comment {
 	
 	/**
 	 * initialize comment
@@ -25,11 +25,11 @@ class Onxshop_Controller_Component_Ecommerce_Review extends Onxshop_Controller_C
 	 
 	public function customCommentAction($data, $options) {
 	
-		$_Onxshop_Request = new Onxshop_Request("component/ecommerce/review_list~node_id={$data['node_id']}:allow_anonymouse_submit={$options['allow_anonymouse_submit']}~");
-		$this->tpl->assign('PRODUCT_REVIEW_LIST', $_Onxshop_Request->getContent());
+		$_Onxshop_Request = new Onxshop_Request("component/ecommerce/product_review_list~node_id={$data['node_id']}:allow_anonymouse_submit={$options['allow_anonymouse_submit']}~");
+		$this->tpl->assign('REVIEW_LIST', $_Onxshop_Request->getContent());
 		
-		$_Onxshop_Request = new Onxshop_Request("component/ecommerce/review_add~node_id={$data['node_id']}:allow_anonymouse_submit={$options['allow_anonymouse_submit']}~");
-		$this->tpl->assign('PRODUCT_REVIEW_ADD', $_Onxshop_Request->getContent());
+		$_Onxshop_Request = new Onxshop_Request("component/ecommerce/product_review_add~node_id={$data['node_id']}:allow_anonymouse_submit={$options['allow_anonymouse_submit']}~");
+		$this->tpl->assign('REVIEW_ADD', $_Onxshop_Request->getContent());
 		
 	}
 	

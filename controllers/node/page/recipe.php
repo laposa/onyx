@@ -53,6 +53,27 @@ class Onxshop_Controller_Node_Page_Recipe extends Onxshop_Controller_Node_Page_D
 		$Recipe_Taxonomy = new ecommerce_recipe_taxonomy();
 		$taxonomy_ids = $Recipe_Taxonomy->getRelationsToRecipe($this->GET['recipe_id']);
 		$this->GET['taxonomy_tree_id'] = implode(",", $taxonomy_ids);
+		
+		/**
+		 * rating & reviews
+		 */
+		
+		require_once('models/ecommerce/ecommerce_recipe_review.php');
+		$Review = new ecommerce_recipe_review();
+		$review_data = $Review->getRating($this->GET['recipe_id']);
+		
+		if ($review_data['count'] > 0) {
+				
+				$rating = round($review_data['rating']);
+				$_Onxshop_Request = new Onxshop_Request("component/rating_stars~rating={$rating}~");
+				$this->tpl->assign('RATING_STARS', $_Onxshop_Request->getContent());
+				if ($review_data['count'] == 1) $this->tpl->assign('REVIEWS', 'Review');
+				else $this->tpl->assign('REVIEWS', 'Reviews');
+				
+				$this->tpl->assign('REVIEW', $review_data);
+				
+				$this->tpl->parse('content.reviews');
+		}
 
 	}
 	

@@ -41,7 +41,7 @@
 			</div>
 		</fieldset>
 		
-		<p>Review created on <a href="/backoffice/products/{COMMENT.node_id}/edit">product ID {COMMENT.node_id}</a> </p>
+		<p>Review created on <a href="/backoffice/recipes/{COMMENT.node_id}/edit">recipe ID {COMMENT.node_id}</a> </p>
 		<p>Item ID {COMMENT.id} created by <a href="/backoffice/customers/{COMMENT.customer_id}/detail">Customer ID {COMMENT.customer_id}</a> on {COMMENT.created} from <a href="/request/component/whois?str={COMMENT.author_ip_address}" target="_blank">IP address {COMMENT.author_ip_address}</a></p>
 		
 		<div class="row submit">
@@ -62,7 +62,7 @@ $(function() {
 		target: '#comment_edit_form_result',
 		success: function(responseText, statusText) {
 			popupMessage("#comment_edit_form_result div.onxshop_messages");
-			makeAjaxRequest('#sub_content', '/request/bo/component/ecommerce/review_list');
+			makeAjaxRequest('#sub_content', '/request/bo/component/ecommerce/recipe_review_list');
 		}
 	}; 
 

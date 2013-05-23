@@ -128,6 +128,7 @@ RewriteRule ^api/v([0-9]*).([a-z0-9-_\.]*)/(.*)$      /index.php?request=uri_map
 RewriteRule ^api/(.*)$      /index.php?request=uri_mapping&controller_request=api/$1 [L,QSA]
 
 RewriteRule ^product/([0-9]*)$	/index.php?request=forward&product_id=$1 [L]
+RewriteRule ^recipe/([0-9]*)$	/index.php?request=forward&recipe_id=$1 [L]
 
 # /home is "/page/GLOBAL_HOMEPAGE_ID"
 RewriteRule	^$    /index.php?request=uri_mapping&translate=/home [L,QSA]

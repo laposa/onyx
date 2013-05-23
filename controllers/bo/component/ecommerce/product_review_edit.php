@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright (c) 2010-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2010-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
 require_once('controllers/bo/component/comment_edit.php');
 
-class Onxshop_Controller_Bo_Component_Ecommerce_Review_Edit extends Onxshop_Controller_Bo_Component_Comment_Edit {
+class Onxshop_Controller_Bo_Component_Ecommerce_Product_Review_Edit extends Onxshop_Controller_Bo_Component_Comment_Edit {
 
 	/**
 	 * initialize comment
@@ -26,8 +26,8 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Review_Edit extends Onxshop_Cont
 	 
 	public function saveComment($comment_data) {
 	
-		if ($this->Comment->updateComment($comment_data)) msg("Review id={$comment_data['id']} updated");
-		else msg("Review id={$comment_data['id']} Update failed", 'error');
+		if ($this->Comment->updateComment($comment_data)) msg("Product review id={$comment_data['id']} updated");
+		else msg("Product review id={$comment_data['id']} Update failed", 'error');
 
 	}
 	
