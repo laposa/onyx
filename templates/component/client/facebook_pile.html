@@ -1,0 +1,18 @@
+<!-- BEGIN: content -->
+<div class="facebook_pile">
+	<h3>Look what your friends are up to</h3>
+	<!-- BEGIN: item_activity -->
+	<div class="item">
+		<div class="image"><img src="https://graph.facebook.com/{FACEBOOK_POST.from.id}/picture?type=large"></div>
+		<p><span class="name">{FACEBOOK_POST.from.name|htmlspecialchars}</span> recommended <a href="/page/{NODE.id}">{NODE.title|htmlspecialchars}</a></p>
+	</div>
+	<!-- END: item_activity -->
+	<!-- BEGIN: item_friend_user -->
+	<div class="item">
+		<div class="image"><img src="https://graph.facebook.com/{FACEBOOK_USER.id}/picture?type=large"></div>
+		<p><span class="name">{FACEBOOK_USER.name|htmlspecialchars}</span> is connected with {CONFIGURATION.global.title|htmlspecialchars}</p>
+	</div>
+	<!-- END: item_friend_user -->
+	<div class="bottom"><span></span></div>
+</div>
+<!-- END: content -->
