@@ -243,7 +243,9 @@ CREATE TABLE client_customer (
 		if (!($conf['login_type'] == 'email' || $conf['login_type'] == 'username')) $conf['login_type'] = 'email';
 		//default avatar
 		if (!$conf['default_profile_image_url']) $conf['default_profile_image_url'] = 'http://placehold.it/50x50';
-
+		//facebook conf
+		if (!$conf['facebook_login_scope']) $conf['facebook_login_scope'] = 'email,user_mobile_phone,read_friendlists';
+		
 		return $conf;
 	}
 	

@@ -50,7 +50,7 @@ class Onxshop_Controller_Component_Client_Facebook_Auth extends Onxshop_Controll
 				$user_profile = $this->Facebook->api('/me');
 				$this->tpl->assign('USER_PROFILE', $user_profile);
 				
-				if ($user_profile['email']) {
+				if ($user_profile['id']) {
 					//try to login
 					$this->loginToOnxshop($user_profile);
 				}
@@ -86,7 +86,10 @@ class Onxshop_Controller_Component_Client_Facebook_Auth extends Onxshop_Controll
 
 	public function getLoginConf() {
 		
-		$conf = array('scope' => 'email,user_mobile_phone,read_friendlists');
+		require_once('models/client/client_customer.php');
+		$client_customer_conf = Client_Customer::initConfiguration();
+		
+		$conf = array('scope' => $client_customer_conf['facebook_login_scope']);
 		
 		return $conf;
 	}
@@ -109,7 +112,7 @@ class Onxshop_Controller_Component_Client_Facebook_Auth extends Onxshop_Controll
 			
 		} else {
 		
-			msg("{$user_profile['email']} sucessfully authorised over Facebook, but must register locally", 'ok', 1);
+			msg("{$user_profile['email']} (FB ID {$user_profile['id']}) sucessfully authorised over Facebook, but must register locally", 'ok', 1);
 			
 			//forward to registration
 			$this->mapUserToOnxshop($user_profile);
