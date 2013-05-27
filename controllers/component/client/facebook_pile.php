@@ -36,24 +36,35 @@ class Onxshop_Controller_Component_Client_Facebook_Pile extends Onxshop_Controll
 			
 			$activity_list = $this->getFriendsActivity();
 			
-			foreach ($activity_list as $item) {
+			if (is_array($activity_list)) {
 			
-				$post_detail = $this->Facebook->api('/' . $item['post_id']);
+				foreach ($activity_list as $item) {
 				
-				if (preg_match('/[0-9]*$/', $post_detail['link'], $matches)) {
+					try {
 					
-					$node_id = $matches[0];
-					$node_detail = $Node->getDetail($node_id);
+						$post_detail = $this->Facebook->api('/' . $item['post_id']);
 					
-					//cut off long titles
-					if (strlen($node_detail['title']) > 32) $node_detail['title'] = substr($node_detail['title'], 0, 32) . '…' ;
+					} catch (FacebookApiException $e) {
 					
-					$this->tpl->assign('NODE', $node_detail);
-					$this->tpl->assign('FACEBOOK_POST', $post_detail);
-					$this->tpl->parse('content.item_activity');
+						msg($e->getMessage(), 'error');
+						
+					}
 					
+					if (preg_match('/[0-9]*$/', $post_detail['link'], $matches)) {
+						
+						$node_id = $matches[0];
+						$node_detail = $Node->getDetail($node_id);
+						
+						//cut off long titles
+						if (strlen($node_detail['title']) > 32) $node_detail['title'] = substr($node_detail['title'], 0, 32) . '…' ;
+						
+						$this->tpl->assign('NODE', $node_detail);
+						$this->tpl->assign('FACEBOOK_POST', $post_detail);
+						$this->tpl->parse('content.item_activity');
+						
+					}
+				
 				}
-			
 			}
 			
 			/**
@@ -68,19 +79,42 @@ class Onxshop_Controller_Component_Client_Facebook_Pile extends Onxshop_Controll
 				
 				$i = 0;
 				
-				foreach ($friend_user_list as $item) {
-					
-					if ($i < (3 - $activity_list_count)) {
-						$user_detail = $this->Facebook->api("/{$item}");
+				if (is_array($friend_user_list)) {
+				
+					foreach ($friend_user_list as $item) {
 						
-						$this->tpl->assign('FACEBOOK_USER', $user_detail);
-						$this->tpl->parse('content.item_friend_user');
-						
-						$i++;
-						
+						if ($i < (3 - $activity_list_count)) {
+							
+							try {
+	
+								$user_detail = $this->Facebook->api("/{$item}");
+	
+							} catch (FacebookApiException $e) {
+			
+								msg($e->getMessage(), 'error');
+								
+							}
+							
+							$this->tpl->assign('FACEBOOK_USER', $user_detail);
+							$this->tpl->parse('content.item_friend_user');
+							
+							$i++;
+							
+						}
 					}
 				}
 			}
+			
+			/**
+			 * show title only if at least one item is listed
+			 */
+			 
+			$friend_user_list_count = count($friend_user_list);
+			
+			$total_list_count = $activity_list_count + $friend_user_list_count;
+			
+			if ($total_list_count > 0) $this->tpl->parse('content.title');
+			
 		}
 		
 		return true;
@@ -94,11 +128,20 @@ class Onxshop_Controller_Component_Client_Facebook_Pile extends Onxshop_Controll
 	public function getFriends($facebook_user_id) {
 	
 		$fql = "SELECT uid, first_name, last_name FROM user WHERE uid in (SELECT uid2 FROM friend where uid1 = $facebook_user_id)";
+
+		try {
+				
+			$response = $this->Facebook->api(array(
+				'method' => 'fql.query',
+				'query' =>$fql
+			));
+			
+		} catch (FacebookApiException $e) {
 		
-		$response = $this->Facebook->api(array(
-			'method' => 'fql.query',
-			'query' =>$fql
-		));
+			msg($e->getMessage(), 'error');
+			
+			return null;
+		}
 		
 		return $response;
 	}
@@ -111,10 +154,19 @@ class Onxshop_Controller_Component_Client_Facebook_Pile extends Onxshop_Controll
 	
 		$fql = "SELECT app_id, type, created_time, post_id, actor_id, message, action_links, description, permalink FROM stream WHERE filter_key IN (SELECT filter_key FROM stream_filter WHERE uid = me()) AND actor_id IN (SELECT uid2 FROM friend WHERE uid1 = me()) AND app_id = " . ONXSHOP_FACEBOOK_APP_ID . " LIMIT 3";
 		
-		$response = $this->Facebook->api(array(
-			'method' => 'fql.query',
-			'query' =>$fql
-		));
+		try {
+
+			$response = $this->Facebook->api(array(
+				'method' => 'fql.query',
+				'query' =>$fql
+			));
+
+		} catch (FacebookApiException $e) {
+		
+			msg($e->getMessage(), 'error');
+		
+			return null;
+		}
 		
 		return $response;
 	}
@@ -125,7 +177,16 @@ class Onxshop_Controller_Component_Client_Facebook_Pile extends Onxshop_Controll
 	 
 	public function getFriendsAppUsers() {
 		
-		$response = $this->Facebook->api(array('method' => 'friends.getAppUsers'));
+		try {
+		
+			$response = $this->Facebook->api(array('method' => 'friends.getAppUsers'));
+		
+		} catch (FacebookApiException $e) {
+		
+			msg($e->getMessage(), 'error');
+		
+			return false;
+		}
 		
 		return $response;
 
