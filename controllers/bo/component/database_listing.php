@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2008-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2008-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -25,7 +25,7 @@ class Onxshop_Controller_Bo_Component_Database_Listing extends Onxshop_Controlle
 			$path = "models/$model_file";
 			//$real_path = realpath($path);
 		
-			if (!is_dir(ONXSHOP_DIR . $path)) {
+			if (!is_dir(ONXSHOP_DIR . $path) && (is_file(ONXSHOP_DIR . "$path.php") || is_file(ONXSHOP_PROJECT_DIR . "$path.php"))) {
 		
 				require_once("$path.php");
 			
