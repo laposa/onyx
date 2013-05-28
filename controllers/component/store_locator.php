@@ -33,7 +33,7 @@ class Onxshop_Controller_Component_Store_Locator extends Onxshop_Controller {
 
 		// process request to save store as my own store
 		if ($this->GET['set_home_store'] == 'true' && $selected_store['id'] > 0) {
-			if ($this->updateCustomersHomeStore($selected_store['id'])) msg("You home store has been updated.");
+			if ($this->updateCustomersHomeStore($selected_store['id'])) msg("Your store has been updated.");
 			else msg("Please login into your account to save your store.");
 			return true;
 		}
@@ -219,15 +219,11 @@ class Onxshop_Controller_Component_Store_Locator extends Onxshop_Controller {
 		$Customer = new client_customer();
 
 		// update other_data
-		$other_data = unserialize($_SESSION['client']['customer']['other_data']);
-		$other_data['home_store_id'] = $store_id;
-		$other_data = serialize($other_data);
+		$_SESSION['client']['customer']['other_data']['home_store_id'] = $store_id;
 
-		$_SESSION['client']['customer']['other_data'] = $other_data;
-
-		$Customer->update(array(
+		$Customer->updateCustomer(array(
 			'id' => $customer_id,
-			'other_data' => $other_data
+			'other_data' => $_SESSION['client']['customer']['other_data']
 		));
 
 		return true;

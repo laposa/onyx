@@ -779,35 +779,39 @@ CREATE TABLE client_customer (
 		//make email and username lowercase to avoid duplications
 		if (array_key_exists('email', $customer_data)) $customer_data['email'] = strtolower($customer_data['email']);
 		if (array_key_exists('username', $customer_data)) $customer_data['username'] = strtolower($customer_data['username']);
-		
 		$customer_data['modified'] = date('c');
 		if (is_array($customer_data['other_data'])) $customer_data['other_data'] = serialize($customer_data['other_data']);
 		
+		//get currently saved data before update
 		$client_current_data = $this->detail($customer_data['id']);
 		
 		/**
 		 * update password
 		 */
-		 
-		if (strlen($customer_data['password_new']) > 0) {
 		
-			if ($this->updatePassword($customer_data['password'], $customer_data['password_new'], $customer_data['password_new1'], $client_current_data)) {
-				$customer_data['password'] = $customer_data['password_new'];
+		if (array_key_exists('password', $customer_data)) {
+		
+			if (strlen($customer_data['password_new']) > 0) {
+			
+				if ($this->updatePassword($customer_data['password'], $customer_data['password_new'], $customer_data['password_new1'], $client_current_data)) {
+					$customer_data['password'] = $customer_data['password_new'];
+				} else {
+					$customer_data['password'] = $client_current_data['password'];
+				}
 			} else {
 				$customer_data['password'] = $client_current_data['password'];
 			}
-		} else {
-			$customer_data['password'] = $client_current_data['password'];
+			
+			//remove password attributes before update as password is already updated separetelly with check and md5
+			unset($customer_data['password']);
+			unset($customer_data['password_new']);
+			unset($customer_data['password_new1']);
+			
 		}
 		
 		//this allows use customer data and company data in the mail template
 		//is passed as DATA to template in common_email->_format
 		$GLOBALS['common_email']['customer'] = $customer_data;
-
-		//remove password attributes before update as password is already updated separetelly with check and md5
-		unset($customer_data['password']); //TODO: avoid "client_customer key password is required, but not set" error when in debug mode
-		unset($customer_data['password_new']);
-		unset($customer_data['password_new1']);
 		
 		/**
 		 * update remaining attributes
@@ -815,7 +819,7 @@ CREATE TABLE client_customer (
 		 
 		if ($this->update($customer_data)) {
 		
-			//send email
+			//initialise common_email
 			require_once('models/common/common_email.php');
 			$EmailForm = new common_email();
 
@@ -835,21 +839,26 @@ CREATE TABLE client_customer (
 			}
 			
 			/**
-			 * if email changed, send notify to old email
+			 * if email changed, send notification to old email
 			 */
 			 
-			if ($client_current_data['email'] != $customer_data['email']) {
-				if (!$EmailForm->sendEmail('customer_email_changed', 'n/a', $client_current_data['email'], $client_current_data['first_name'] . " " . $client_current_data['last_name'])) {
-					msg('Customer data updated email sending failed.', 'error');
-				} else {
-					//msg('Sent1');
+			if (array_key_exists('email', $customer_data)) {
+			
+				if ($client_current_data['email'] != $customer_data['email']) {
+					if (!$EmailForm->sendEmail('customer_email_changed', 'n/a', $client_current_data['email'], $client_current_data['first_name'] . " " . $client_current_data['last_name'])) {
+						msg('Customer data updated email sending failed.', 'error');
+					} else {
+						//msg('Sent1');
+					}
 				}
 			}
 			
 			return true;
 		
 		} else {
+		
 			return false;
+		
 		}
 	}
 	
