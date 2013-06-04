@@ -889,7 +889,10 @@ CREATE TABLE ecommerce_order (
 			
 			// group by product type
 			$breakdown['goods']['type'][$item['type_name']]['net'] += $item['price'] * $item['quantity'];
-			$item['vat'] = $item['price'] * $item['quantity'] * $item['vat_rate'] / 100;
+			if ($item['goods_vat_sr'] > 0 || $item['goods_vat_rr'] > 0) 
+				$item['vat'] = $item['price'] * $item['quantity'] * $item['vat_rate'] / 100;
+			else 
+				$item['vat'] = 0;
 			$breakdown['goods']['type'][$item['type_name']]['vat'] += $item['vat'];
 			
 			
