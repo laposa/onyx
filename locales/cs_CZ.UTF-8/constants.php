@@ -223,7 +223,7 @@ define('I18N_SELECT_A', 'Vyberte si ');
 //component/ecommerce/product_related.html
 define('I18N_RELATED_PRODUCTS_DYNAMIC', 'Ostatní zákazníci zakoupili také');
 define('I18N_RELATED_PRODUCTS_STATIC', 'Doporučujeme následující');
-//component/ecommerce/registration.html
+//component/client/registration.html
 define('I18N_R_PERSONAL_DETAILS', 'Osobní údaje');
 define('I18N_R_TITLE', 'Titul');
 define('I18N_R_FIRST_NAME', 'Křestní jméno');
@@ -241,19 +241,20 @@ define('I18N_R_NEWSLETTER', 'Příhlásit se k našemu Newsletter zdarma');
 define('I18N_R_CURRENCY', 'Preferovaná měna');
 define('I18N_R_SUBMIT', 'Vytvořit účet');
 define('I18N_R_APPLY_FOR_TRADE', 'Velkoobchod');
-//component/ecommerce/registration_start.html
+//component/client/registration_start.html
 define('I18N_RS_NEW_CUSTOMER', 'Nový zákazník');
 define('I18N_RS_YOUR_EMAIL', 'Váš email:');
 define('I18N_RS_SUBMIT', 'Odeslat');
 //component/client/newsletter_subscribe_start.html
 define('I18N_NEWSLETTER_SIGNUP', 'Přihlásit');
-//component/ecommerce/user_prefs.html
+//component/client/edit.html
 define('I18N_CHANGE_PASSWORD', 'Změna hesla');
 define('I18N_CURRENT_PASSWORD', 'Vaše současné heslo:');
 define('I18N_NEW_PASSWORD', 'Vaše nové heslo:');
 define('I18N_NEW_PASSWORD1', 'Zopakujte Vaše nové heslo:');
 define('I18N_SAVE', 'Uložit');
-//component/ecommerce/userbox.html
+define('I18N_CUSTOMER_DATA_UPDATED', "Změny ve Vašem profilu byly uloženy");
+//component/client/userbox.html
 define('I18N_CLIENT_REGISTER', 'Register');
 define('I18N_CLIENT_LOGIN', 'Můj účet');
 define('I18N_LOGGED_IN_AS', 'Přihlášen jako');

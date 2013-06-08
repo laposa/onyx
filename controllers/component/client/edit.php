@@ -35,7 +35,7 @@ class Onxshop_Controller_Component_Client_Edit extends Onxshop_Controller {
 			unset($_POST['client']['customer']['other_data']);
 
 			if ($Customer->updateClient($_POST['client'])) {
-				msg("Your new details are saved, you're all set");
+				msg(I18N_CUSTOMER_DATA_UPDATED);
 			} else {
 				msg("Can't update client data", 'error');
 			}

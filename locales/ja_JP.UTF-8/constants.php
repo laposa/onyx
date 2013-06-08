@@ -221,7 +221,7 @@ define('I18N_SELECT_A', '選択');
 //component/ecommerce/product_related.html
 define('I18N_RELATED_PRODUCTS_DYNAMIC', 'この商品を買った方は以下の商品も買っています。');
 define('I18N_RELATED_PRODUCTS_STATIC', 'ご提案');
-//component/ecommerce/registration.html
+//component/client/registration.html
 define('I18N_R_PERSONAL_DETAILS', '個人情報');
 define('I18N_R_TITLE', 'Title');
 define('I18N_R_FIRST_NAME', '名前');
@@ -239,19 +239,20 @@ define('I18N_R_NEWSLETTER', '無料ニュースレターに登録する');
 define('I18N_R_CURRENCY', '希望する貨幣');
 define('I18N_R_SUBMIT', 'アカウントをつくる');
 define('I18N_R_APPLY_FOR_TRADE', '卸アカウントをつくる');
-//component/ecommerce/registration_start.html
+//component/client/registration_start.html
 define('I18N_RS_NEW_CUSTOMER', '新しいお客さま');
 define('I18N_RS_YOUR_EMAIL', 'Email:');
 define('I18N_RS_SUBMIT', '送信');
 //component/client/newsletter_subscribe_start.html
 define('I18N_NEWSLETTER_SIGNUP', '申し込む');
-//component/ecommerce/user_prefs.html
+//component/client/edit.html
 define('I18N_CHANGE_PASSWORD', 'パスワードを変更');
 define('I18N_CURRENT_PASSWORD', '現在のパスワード');
 define('I18N_NEW_PASSWORD', '新しいパスワード');
 define('I18N_NEW_PASSWORD1', '新しいパスワードをもう一度入力');
 define('I18N_SAVE', '保存');
-//component/ecommerce/userbox.html
+define('I18N_CUSTOMER_DATA_UPDATED', "Your new details are saved");
+//component/client/userbox.html
 define('I18N_CLIENT_REGISTER', 'Register');
 define('I18N_CLIENT_LOGIN', 'マイ・アカウント');
 define('I18N_LOGGED_IN_AS', 'としてログイン');

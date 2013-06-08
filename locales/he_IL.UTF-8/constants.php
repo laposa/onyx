@@ -222,7 +222,7 @@ define('I18N_SELECT_A', 'Select a');
 //component/ecommerce/product_related.html
 define('I18N_RELATED_PRODUCTS_DYNAMIC', 'Customers who purchased this product also bought the following');
 define('I18N_RELATED_PRODUCTS_STATIC', 'We suggest the following');
-//COMPONENT/ECOMMERCE/REGISTRATION.HTML
+//component/client/registration.html
 define('I18N_R_PERSONAL_DETAILS', 'Personal details');
 define('I18N_R_TITLE', 'Title');
 define('I18N_R_FIRST_NAME', 'First name');
@@ -240,19 +240,20 @@ define('I18N_R_NEWSLETTER', 'Sign up to our \'Free\' Newsletter');
 define('I18N_R_CURRENCY', 'Prefered currency');
 define('I18N_R_SUBMIT', 'Create Account');
 define('I18N_R_APPLY_FOR_TRADE', 'Apply for trade account');
-//COMPONENT/ECOMMERCE/REGISTRATION_START.HTML
+//component/client/registration_start.html
 define('I18N_RS_NEW_CUSTOMER', 'New customer');
 define('I18N_RS_YOUR_EMAIL', 'Your email:');
 define('I18N_RS_SUBMIT', 'Submit');
 //component/client/newsletter_subscribe_start.html
 define('I18N_NEWSLETTER_SIGNUP', 'Sign Up');
-//COMPONENT/ECOMMERCE/USER_PREFS.HTML
+//component/client/edit.html
 define('I18N_CHANGE_PASSWORD', 'Change password');
 define('I18N_CURRENT_PASSWORD', 'Current password:');
 define('I18N_NEW_PASSWORD', 'New password:');
 define('I18N_NEW_PASSWORD1', 'New password repeat:');
 define('I18N_SAVE', 'Save');
-//COMPONENT/ECOMMERCE/USERBOX.HTML
+define('I18N_CUSTOMER_DATA_UPDATED', "Your new details are saved");
+//component/client/userbox.html
 define('I18N_CLIENT_REGISTER', 'Create Account');
 define('I18N_CLIENT_LOGIN', 'Login');
 define('I18N_LOGGED_IN_AS', 'Logged in as');
