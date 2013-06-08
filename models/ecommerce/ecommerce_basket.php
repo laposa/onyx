@@ -71,6 +71,19 @@ CREATE TABLE ecommerce_basket (
 	}
 	
 	/**
+	 * init configuration
+	 */
+	 
+	static function initConfiguration() {
+	
+		if (array_key_exists('ecommerce_basket', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['ecommerce_basket'];
+		else $conf = array();
+		
+		return $conf;
+	}
+
+
+	/**
 	 * get detail
 	 * this is actually getFullDetail
 	 * TODO: refactoring, rename to getFullDetail

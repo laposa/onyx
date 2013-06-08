@@ -67,6 +67,22 @@ CREATE TABLE ecommerce_basket_content (
 	}
 	
 	/**
+	 * init configuration
+	 */
+	 
+	static function initConfiguration() {
+	
+		if (array_key_exists('ecommerce_basket_content', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['ecommerce_basket_content'];
+		else $conf = array();
+		
+		if (!is_numeric($conf['allow_out_of_stock_item'])) $conf['allow_out_of_stock_item'] = 0;
+		if (!is_numeric($conf['allow_unpublished_product_variety_item'])) $conf['allow_unpublished_product_variety_item'] = 0;
+		if (!is_numeric($conf['allow_unpublished_product_item'])) $conf['allow_unpublished_product_item'] = 0;
+		
+		return $conf;
+	}
+	
+	/**
 	 * insert data
 	 */
 	 
@@ -135,23 +151,29 @@ CREATE TABLE ecommerce_basket_content (
 		require_once('models/ecommerce/ecommerce_product.php');
 		$EcommerceProduct = new ecommerce_product();
 		$product_detail = $EcommerceProduct->getProductDetailByVarietyId($data['product_variety_id'], $data['price_id']);
-		
-		//check stock is available
-		if ($product_detail['variety']['stock'] < $data['quantity']) {
-			msg("{$product_detail['variety']['sku']} is out of stock.", 'error');
-			return false;
+				
+		if (!$this->conf['allow_out_of_stock_item']) {
+			//check stock is available
+			if ($product_detail['variety']['stock'] < $data['quantity']) {
+				msg("{$product_detail['variety']['sku']} is out of stock.", 'error');
+				return false;
+			}
 		}
 		
-		//check product variety is published
-		if ($product_detail['variety']['publish'] == 0) {
-			msg("{$product_detail['variety']['sku']} is not available.", 'error');
-			return false;
+		if (!$this->conf['allow_unpublished_product_variety_item']) {
+			//check product variety is published
+			if ($product_detail['variety']['publish'] == 0) {
+				msg("{$product_detail['variety']['sku']} is not available.", 'error');
+				return false;
+			}
 		}
 		
-		//check product is published
-		if ($product_detail['publish'] == 0) {
-			msg("Product ID {$product_detail['id']} is not available.", 'error');
-			return false;
+		if (!$this->conf['allow_unpublished_product_item']) {
+			//check product is published
+			if ($product_detail['publish'] == 0) {
+				msg("Product ID {$product_detail['id']} is not available.", 'error');
+				return false;
+			}
 		}
 		
 		return true;
