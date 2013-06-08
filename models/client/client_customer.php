@@ -1068,24 +1068,27 @@ CREATE TABLE client_customer (
 		//hacked for resetPassword() function which is already md5
 		if (md5($password) == $client_current_data['password'] || $password == $client_current_data['password']) {
 			
-			if ($password_new == $password_new1) {
+			//make check only if new password verification is provided
+			if ($password_new == $password_new1 || !$password_new1) {
 			
 				$password = $password_new;
 				msg('Passwords match.', 'ok', 2);
-				
-				$customer_data = $client_current_data;
-				$customer_data['password'] = $password; //keep clean, not MD5
     			
-    			//this allows use customer data and company data in the mail template
-    			//is passed as DATA to template in common_email->_format
-    			$GLOBALS['common_email']['customer'] = $customer_data;
+   				/**
+   				 * prepare date for update
+   				 */
     			
-    			//hash password using md5 here
-    			$client_current_data['password'] = md5($password);
+    			$client_data_for_update = array();
+    			$client_data_for_update['id'] = $client_current_data['id'];
+    			$client_data_for_update['password'] = md5($password); //hash password using md5 here
     			
-				if ($this->update($client_current_data)) {
+    			/**
+    			 * update data
+    			 */
+    			 
+				if ($this->update($client_data_for_update)) {
 				 	
-				 	msg("Password changed for {$customer_data['email']}");
+				 	msg("Password changed for {$client_current_data['email']}");
 					return $password;
 					
 				} else {

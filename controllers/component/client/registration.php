@@ -38,8 +38,11 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
 			 */
 			 
 			if (!$this->Customer->isSocialAccount($_POST['client']['customer'])) {
-					
-				$password_match_status = $this->checkPasswordMatch($_POST['client']['customer']['password'], $_POST['client']['customer']['password1']);
+				
+				//only if repeat password is actually provided	
+				if ($_POST['client']['customer']['password'] && $_POST['client']['customer']['password1']) $password_match_status = $this->checkPasswordMatch($_POST['client']['customer']['password'], $_POST['client']['customer']['password1']);
+				else $password_match_status = true;
+				
 			} else {
 			
 				$password_match_status = true;

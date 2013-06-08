@@ -35,7 +35,7 @@ class Onxshop_Controller_Component_Client_Edit extends Onxshop_Controller {
 			unset($_POST['client']['customer']['other_data']);
 
 			if ($Customer->updateClient($_POST['client'])) {
-				msg('Client Data Updated');
+				msg("Your new details are saved, you're all set");
 			} else {
 				msg("Can't update client data", 'error');
 			}
@@ -47,6 +47,12 @@ class Onxshop_Controller_Component_Client_Edit extends Onxshop_Controller {
 		$client_data['customer']['newsletter'] = ($client_data['customer']['newsletter'] == 1) ? 'checked="checked" ' : '';
 		
 		$this->tpl->assign('CLIENT', $client_data);
+		
+		/**
+		 * show password field only if previously set
+		 */
+		
+		if ($client_data['customer']['password']) $this->tpl->parse('content.password');
 		
 		return true;
 	}

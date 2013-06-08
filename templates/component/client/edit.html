@@ -7,6 +7,7 @@ $(document).ready(function(){
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 <form action="{URI_SAFE|htmlspecialchars}" method="post" id="client_edit" class="client_edit twoColumns">
 	
+	<!-- BEGIN: password -->
 	<fieldset>
 		<legend>{I18N_CHANGE_PASSWORD}</legend>
 		<div class="row password">
@@ -22,6 +23,7 @@ $(document).ready(function(){
 			<span class="field"><input class="text" type="password" id="client-customer-password_new1" name="client[customer][password_new1]" value="" title="Please repeat your new password" /></span>
 		</div>
 	</fieldset>
+	<!-- END: password -->
 	<fieldset>
 		<legend>{I18N_R_PERSONAL_DETAILS}</legend>
 		<div class="row title_before">
