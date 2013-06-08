@@ -48,3 +48,16 @@ function refreshOpenerAjax(path, id) {
 		refreshOpener(path, id);
 	}
 }
+
+/**
+ * on ready
+ */
+
+$(function() {
+	/**
+	 * mark disabled options
+	 */
+	 
+	$('select option.disabled, select option.publish_0').append(' (not public)');
+	
+});

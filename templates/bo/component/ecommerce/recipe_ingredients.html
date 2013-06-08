@@ -38,6 +38,7 @@ $(function() {
 		$("#ingredientsTable").append(template.replace(/__NEW__/g, '__NEW__' + ingredientCounter++));
 		return false;
 	});
+	
 });
 </script>
 <!-- END: head -->
@@ -74,7 +75,7 @@ $(function() {
 				<td>
 					<select name="ingredients[{ITEM.id}][product_variety_id]">
 						<!-- BEGIN: product -->
-						<option value="{VARIETY.id}" {VARIETY.selected}>{PRODUCT.name} - {VARIETY.name}</option>
+						<option value="{VARIETY.id}" {VARIETY.selected} class="{CSS_CLASS}">{PRODUCT.name} - {VARIETY.name}</option>
 						<!-- END: product -->
 					</select>
 				</td>

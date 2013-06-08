@@ -116,11 +116,14 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Recipe_Ingredients extends Onxsh
 		foreach ($products as $product) {
 			$this->tpl->assign("PRODUCT", $product);
 			foreach ($product['variety'] as $variety) {
-				if ($product['publish'] == 1 && $variety['publish'] == 1) {
-					$variety['selected'] = $variety['id'] == $active ? 'selected="selected"' : '';
-					$this->tpl->assign("VARIETY", $variety);
-					$this->tpl->parse($block);
-				}
+			
+				if ($product['publish'] == 0 || $variety['publish'] == 0) $this->tpl->assign('CSS_CLASS', 'disabled');
+				else $this->tpl->assign('CSS_CLASS', '');
+				
+				$variety['selected'] = $variety['id'] == $active ? 'selected="selected"' : '';
+				$this->tpl->assign("VARIETY", $variety);
+				$this->tpl->parse($block);
+			
 			}
 		}
 	}
