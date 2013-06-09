@@ -30,7 +30,7 @@ class Onxshop_Controller_Bo_Component_Scheduler extends Onxshop_Controller {
 
 		$this->displayListing($jobs);
 
-		$request = new Onxshop_Request("component/pagination~link=/request/bo/component/ecommerce/product_list:limit_from=$from:limit_per_page=$per_page:count=$count~");
+		$request = new Onxshop_Request("component/pagination~limit_from=$from:limit_per_page=$per_page:count=$count~");
 		$this->tpl->assign('PAGINATION', $request->getContent());
 
 		return true;
