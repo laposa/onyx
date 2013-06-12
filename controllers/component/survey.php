@@ -49,9 +49,8 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 				/**
 				 * display results when voted already
 				 */
-				$_Onxshop_Request = new Onxshop_Request("component/survey_result~survey_id=$survey_id~");
-				$this->tpl->assign('SURVEY_RESULT', $_Onxshop_Request->getContent());
-				$this->tpl->parse('content.result');
+				 
+				$this->displayResult($survey_id);
 
 			} else {
 
@@ -63,9 +62,15 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 
 					$survey_entry_id = $this->processAndSaveForm($survey_id);
 
-					if ($survey_entry_id) $this->displaySuccessPage($survey_detail, $survey_entry_id);
-					$this->displaySurvey($survey_detail, $submitted_answers);
-
+					if ($survey_entry_id) {
+					
+						msg("Survey ID {$survey_detail['id']} has been submitted as entry ID $survey_entry_id.", 'ok', 1, 'survey_submitted');
+						
+						if ($this->GET['href']) $this->displaySuccessPage($survey_detail, $survey_entry_id);
+						else $this->displayResult($survey_id, $survey_entry_id);
+						
+					}
+					
 				} else {
 				
 					$this->displaySurvey($survey_detail);
@@ -84,22 +89,28 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 		return true;
 		
 	}
+	
+	/**
+	 * displayResult
+	 */
+	 
+	public function displayResult($survey_id, $survey_entry_id = false) {
+		
+		if (!is_numeric($survey_id)) return false;
+		 
+		$_Onxshop_Request = new Onxshop_Request("component/survey_result~survey_id=$survey_id~");
+		$this->tpl->assign('SURVEY_RESULT', $_Onxshop_Request->getContent());
+		$this->tpl->parse('content.result');
+		
+	}
 
 	/**
-	 * Display message or forward to thank you page
+	 * Forward to thank you page
 	 */
-	public function displaySuccessPage($survey_detail, $survey_entry_id) {
+	public function displaySuccessPage($href) {
 
-		if ($this->GET['href']) {
+		onxshopGoTo($href);
 
-			onxshopGoTo($this->GET['href']);
-
-		} else {
-
-			msg("Survey ID {$survey_detail['id']} has been submitted as entry ID $survey_entry_id.", 'ok', 0, 'survey_submitted');
-			onxshopGoTo($_SESSION['uri'], 2);
-
-		}
 	}
 
 	/**
