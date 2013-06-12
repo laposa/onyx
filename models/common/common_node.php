@@ -2,7 +2,7 @@
 /**
  * class common_node
  *
- * Copyright (c) 2009-2012 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -1063,7 +1063,7 @@ CREATE TABLE common_node (
 	
 	function search($q) {
 	
-		$q = htmlspecialchars($q, ENT_QUOTES, 'UTF-8');
+		$q = pg_escape_string($q);
 		$qs = explode(" ", $q);
 		$where_query = '';
 		
