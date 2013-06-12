@@ -44,6 +44,15 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Product_Add_Quick extends Onxsho
 			} else {
 				msg("Product add has failed.", 'error');
 			}
+		} else {
+		
+			$product_data = array();
+			$product_data['variety'] = array();
+			$product_data['variety']['price'] = array();
+			$product_data['variety']['name'] = 'Item';
+			$product_data['variety']['weight_gross'] = 0;
+			$product_data['variety']['stock'] = 999;
+			$product_data['variety']['price']['value'] = 0;
 		}
 		
 		$this->tpl->assign('PRODUCT', $product_data);
