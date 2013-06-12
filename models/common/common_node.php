@@ -285,6 +285,9 @@ CREATE TABLE common_node (
 		//system pages
 		if (!is_numeric($conf['id_map-404'])) $conf['id_map-404'] = 14;
 		
+		//unpublish node on duplicate
+		if (!is_numeric($conf['unpublish_on_duplicate'])) $conf['unpublish_on_duplicate'] = 0;
+		
 		return $conf;
 	}
 	
