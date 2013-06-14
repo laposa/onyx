@@ -104,10 +104,11 @@ class Onxshop_Controller_Component_Client_Facebook_Pile_Survey extends Onxshop_C
 	public function getFriendEntries($friend_user_list, $survey_id) {
 	
 		if (!is_array($friend_user_list)) return false;
+		if (count($friend_user_list) == 0) return false;
 		if (!is_numeric($survey_id)) return false;
 		
 		$friend_user_list = implode(',', $friend_user_list);
-	
+		
 		$friend_entries = $this->SurveyEntry->listing("customer_id IN (SELECT id FROM client_customer WHERE facebook_id IN ($friend_user_list))");
 		
 		return $friend_entries;
