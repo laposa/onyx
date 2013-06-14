@@ -87,6 +87,52 @@ function button_fix(onlyInt) {
     }
 }
 
+/**
+ * form input element placeholder support for IE8
+ */
+ 
+function placeholder_fix() {
+	
+	// Format all elements with the placeholder attribute and insert it as a value
+	if(!('placeholder'in document.createElement("input"))){
+		$('[placeholder]').each(function() {
+			if ($(this).val() == '') {
+				$(this).val($(this).attr('placeholder'));
+				$(this).addClass('placeholder');
+			}
+			$(this).focus(function() {
+				if ($(this).val() == $(this).attr('placeholder') && $(this).hasClass('placeholder')) {
+					$(this).val('');
+					$(this).removeClass('placeholder');
+				}
+			}).blur(function() {
+				if($(this).val() == '') {
+					$(this).val($(this).attr('placeholder'));
+					$(this).addClass('placeholder');
+				}
+			});
+		});
+		
+		// Clean up any placeholders if the form gets submitted
+		$('[placeholder]').parents('form').submit(function() {
+			$(this).find('[placeholder]').each(function() {
+				if ($(this).val() == $(this).attr('placeholder') && $(this).hasClass('placeholder')) {
+					$(this).val('');
+				}
+			});
+		});
+		
+		// Clean up any placeholders if the page is refreshed
+		window.onbeforeunload = function() {
+			$('[placeholder]').each(function() {
+				if ($(this).val() == $(this).attr('placeholder') && $(this).hasClass('placeholder')) {
+					$(this).val('');
+				}
+			});
+		};
+	}
+}
+
 /*
  * implement indexOf for browsers without it (IE8)
  */

@@ -26,11 +26,12 @@ fieldset {margin: 1em 0 4em 0; padding: 0.5em 0; clear: both; border: 0;}
 fieldset.single {margin-bottom: 0;}
 label {cursor: pointer; cursor: hand; vertical-align: middle;}
 label.error {float: none; color: red; padding-left: .5em; vertical-align: top;}
-legend {font-weight: bold; padding: 0 0.5em; margin: 0 0 1em 0; padding-left: 0;}
+legend {font-weight: bold; color: inherit; padding: 0 0.5em; margin: 0 0 1em 0; padding-left: 0;}
 label.radio {float: none; clear: none;}
 input.radio,
 input.checkbox {border: 0;}
 input.price {width: 40px;}
+input.placeholder {color: #aaa;}
 input.file,
 input[type=file] {border-width: 0;}
 input.error,
@@ -164,9 +165,9 @@ div.bottom {clear: both;}
 div.onxshop_messages {margin: 1em; border: none; background: black; color: white; opacity: .75; filter: alpha(opacity = 75); padding: 1em; 
 	clear: both;border-radius: 4px; -moz-border-radius: 7px; -webkit-border-radius: 7px;
 	z-index: 1000; position: relative;}
-div.onxshop_messages p {margin: 1em 0 1em 0; padding: 0; color: white; font-weight: bold; }
+div.onxshop_messages p {margin: 5px 0; line-height: 1; padding: 0; color: white; font-weight: bold; }
 div.onxshop_messages p.onxshop_ok_msg {}
-div.onxshop_messages p.onxshop_error_msg {background: transparent url(/share/images/famfamfam_icons/exclamation.png) 0 0 no-repeat; padding: 0 0 0 25px;}
+div.onxshop_messages p.onxshop_error_msg {background: transparent url(/share/images/famfamfam_icons/exclamation.png) left top no-repeat; padding: 0 0 0 25px;}
 
 /**
  * Ajax
@@ -178,17 +179,10 @@ div.onxshop_messages p.onxshop_error_msg {background: transparent url(/share/ima
  * jGrowl
  */
  
-div.jGrowl div.jGrowl-notification {padding: 0; z-index: 9999; position: fixed; width: 300px; right: 20px; bottom: 0;}
-/*div.jGrowl.top-left div.jGrowl-notification {left: 0; top: 60px;}
-div.jGrowl.top-right div.jGrowl-notification {right: 0; top: 60px;}
-div.jGrowl.bottom-left div.jGrowl-notification {left: 0; bottom: 0;}
-div.jGrowl.bottom-right div.jGrowl-notification {right: 0; bottom: 0;}
-div.jGrowl.center div.jGrowl-notification {top: 0; width: 50%; left: 25%;}*/
-div.jGrowl p {margin: 0; padding: 0;}
-div.jGrowl div.jGrowl-notification {zoom: 1; text-align: left; display: none; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px; min-height: 40px;}
+div.jGrowl div.jGrowl-notification {position: fixed; width: 50%; top: 0; left: 25%; bottom: auto; right: auto; z-index: 9999; zoom: 1; text-align: left; display: none; border-radius: 5px; min-height: 40px;}
 div.jGrowl div.jGrowl-notification div.jGrowl-header {font-weight: bold;}
 div.jGrowl div.jGrowl-notification div.jGrowl-close {color: #fff; background: transparent; float: right; font-weight: bold; font-size: 16px; cursor: pointer; cursor: hand; position: relative; left: -24px; top: 24px; z-index: 9999999;}
-div.jGrowl div.jGrowl-closer {display: none; color: black; background: white; height: 15px; cursor: pointer; cursor: hand; font-size: 11px; font-weight: bold; text-align: center;}
-div.jGrowl .highlight {border: none; background: none;}
+div.jGrowl div.jGrowl-notification div.jGrowl-closer {display: none; color: black; background: white; height: 15px; cursor: pointer; cursor: hand; font-size: 11px; font-weight: bold; text-align: center;}
+div.jGrowl div.jGrowl-notification .highlight {border: none; background: none;}
 
 
