@@ -6,21 +6,15 @@
 
 DEVELOPMENT_VERSION="/opt/onxshop/dev/";
 
-DEPLOY_VERSION="testing";
+DEPLOY_VERSION="1.6-testing";
 BASE_DIR="/opt/onxshop/";
 FULL_PATH=$BASE_DIR$DEPLOY_VERSION;
-
-#backup
-DATE=`date -u +%F_%H%M%S`;
-BACKUP_PATH="${BASE_DIR}onxshop-testing-changes/${DATE}";
-
-
 
 echo "------------------------------------------------";
 echo "PUBLISHING $DEVELOPMENT_VERSION TO $FULL_PATH";
 echo "------------------------------------------------";
 
-rsync --recursive --backup --backup-dir=$BACKUP_PATH --times --cvs-exclude --delete-after --links --safe-links --compress --progress --whole-file ${1}\
+rsync --recursive --times --cvs-exclude --delete-after --links --safe-links --compress --progress --whole-file --checksum ${1}\
 	--exclude '._*' \
 	--exclude '.*.swp' \
 	--exclude '.DS*' \
