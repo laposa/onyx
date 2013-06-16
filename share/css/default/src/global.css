@@ -184,5 +184,6 @@ div.jGrowl div.jGrowl-notification div.jGrowl-header {font-weight: bold;}
 div.jGrowl div.jGrowl-notification div.jGrowl-close {color: #fff; background: transparent; float: right; font-weight: bold; font-size: 16px; cursor: pointer; cursor: hand; position: relative; left: -24px; top: 24px; z-index: 9999999;}
 div.jGrowl div.jGrowl-notification div.jGrowl-closer {display: none; color: black; background: white; height: 15px; cursor: pointer; cursor: hand; font-size: 11px; font-weight: bold; text-align: center;}
 div.jGrowl div.jGrowl-notification .highlight {border: none; background: none;}
-
-
+@media all and (max-width: 800px) {
+	div.jGrowl div.jGrowl-notification {width: 80%; left: 10%;}
+}
