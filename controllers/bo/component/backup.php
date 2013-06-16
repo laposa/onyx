@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2010-2012 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2010-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -12,42 +12,103 @@ class Onxshop_Controller_Bo_Component_Backup extends Onxshop_Controller {
 	 
 	public function mainAction() {
 	
+		if (in_array($this->GET['scope'], array('database', 'project', 'both'))) $scope = $this->GET['scope'];
+		else $scope = 'both';
+		
 		if (ONXSHOP_ALLOW_BACKUP_DOWNLOAD) {
-			//$date = date("Y-m-d");
-			$filename = "{$_SERVER['HTTP_HOST']}.tar.gz";
-			if ($this->createBackupFile($filename)) onxshopGoTo("/download/var/backup/$filename");
-			else msg("Can't create backup", 'error');
+			
+			set_time_limit(0);
+			
+			if ($filename = $this->createBackup($scope)) {
+			
+				$this->notificationEmail();
+				onxshopGoTo("/download/var/backup/$filename");
+			
+			} else {
+				
+				msg("Can't create backup", 'error');
+			
+			}
+			
 		} else {
+		
 			msg('Sorry, this feature is disabled in your installation', 'error');
+		
 		}
 	}
 	
 	/**
-	 * create backup file
+	 * createBackup
+	 */
+	 
+	public function createBackup($scope) {
+		
+		switch ($scope) {
+		
+			case 'database':
+				$filename = $this->createDatabaseBackupFile();
+			break;
+			
+			case 'project':
+				$filename = $this->createProjectBackupFile();
+			break;
+			
+			case 'both':
+			default:
+				$filename_db = $this->createDatabaseBackupFile();
+				$filename = $this->createProjectBackupFile();
+			break;
+			
+		}
+	
+		return $filename;
+	}
+	
+	/**
+	 * create database backup file
 	 */
 	
-	public function createBackupFile($filename) {
-	
-		set_time_limit(0);
+	public function createDatabaseBackupFile() {
+
+		$setting = $this->getSetting();
 		
-		$setting['USER'] = ONXSHOP_DB_USER;
-		$setting['PASSWORD'] = ONXSHOP_DB_PASSWORD;
-		$setting['HOST'] = ONXSHOP_DB_HOST;
-		//$setting['PORT'] = ONXSHOP_DB_PORT;
-		$setting['DBNAME'] = ONXSHOP_DB_NAME;
-		
-		$setting['PROJECT_DIR'] = ONXSHOP_PROJECT_DIR;
-		$setting['ONXSHOP_DIR'] = ONXSHOP_DIR;
+		$filename = "{$setting['DBNAME']}.sql.gz";
 		
 		if ($this->checkPermission($setting)) {
 		
-			$this->notifyEmail();
-		
-			local_exec("backup {$setting['USER']} {$setting['PASSWORD']} {$setting['HOST']} {$setting['DBNAME']} {$setting['PROJECT_DIR']} {$setting['ONXSHOP_DIR']} $filename");
-		
-			return true;
+			local_exec("backup_db {$setting['USER']} {$setting['PASSWORD']} {$setting['HOST']} {$setting['DBNAME']} {$setting['PROJECT_DIR']} $filename");
+					
+			return $filename;
+			
 		} else {
+			
 			return false;
+		
+		}
+		
+	}
+	
+	/**
+	 * create project backup file
+	 */
+	
+	public function createProjectBackupFile() {
+		
+		$setting = $this->getSetting();
+		
+		$filename = "{$_SERVER['HTTP_HOST']}.tar.gz";
+		
+		if ($this->checkPermission($setting)) {
+		
+			local_exec("backup_project {$setting['PROJECT_DIR']}  $filename");
+			//local_exec("backup_onxshop {$setting['ONXSHOP_DIR']}  $setting['PROJECT_DIR'] . 'var/backups/onxshop.tgz'");
+		
+			return $filename;
+			
+		} else {
+			
+			return false;
+		
 		}
 		
 	}
@@ -56,7 +117,7 @@ class Onxshop_Controller_Bo_Component_Backup extends Onxshop_Controller {
 	 * notify about created backup
 	 */
 	 
-	private function notifyEmail() {
+	private function notificationEmail() {
 	
 		require_once('models/common/common_email.php');
 	    $EmailForm = new common_email();
@@ -67,10 +128,35 @@ class Onxshop_Controller_Bo_Component_Backup extends Onxshop_Controller {
 	    $content = array();
 	    
 	    if ($EmailForm->sendEmail('backup_created', $content, $mail_to, $mail_toname, $EmailForm->conf['mail_recipient_address'], $EmailForm->conf['mail_recipient_name'])) {
+	    	
 	    	Zend_Registry::set('notify', 'sent');
+	    
 	    } else {
+	    	
 	    	Zend_Registry::set('notify', 'failed');
+	    
 	    }
+	}
+	
+	/**
+	 * getSetting
+	 */
+	 
+	public function getSetting() {
+	
+		$setting = array();
+		
+		$setting['USER'] = ONXSHOP_DB_USER;
+		$setting['PASSWORD'] = ONXSHOP_DB_PASSWORD;
+		$setting['HOST'] = ONXSHOP_DB_HOST;
+		//$setting['PORT'] = ONXSHOP_DB_PORT;
+		$setting['DBNAME'] = ONXSHOP_DB_NAME;
+		
+		$setting['PROJECT_DIR'] = ONXSHOP_PROJECT_DIR;
+		$setting['ONXSHOP_DIR'] = ONXSHOP_DIR;
+		
+		return $setting;
+		
 	}
 	
 	/**

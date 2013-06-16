@@ -1,0 +1,10 @@
+#!/bin/bash
+
+PROJECT_DIR=$1;
+FILENAME=$2;
+
+tar -zc \
+${PROJECT_DIR} \
+--exclude ".git/*" --exclude "${PROJECT_DIR}_resources" --exclude "var/backup/${FILENAME}" --exclude "var/sessions/*" --exclude "var/tmp/*" --exclude "var/cache/*" --exclude "var/log/*" --exclude "var/thumbnails/*" --exclude "var/index/*" \
+> ${PROJECT_DIR}var/backup/${FILENAME}
+
