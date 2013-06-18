@@ -1669,4 +1669,19 @@ LEFT OUTER JOIN common_taxonomy_label ON (common_taxonomy_tree.label_id = common
 		return $Image->getTeaserImageForNodeId($node_id);
 		
 	}
+	
+	/**
+	 * incrementShareCounter
+	 */
+	 
+	public function incrementShareCounter($node_id) {
+		
+		if (!is_numeric($node_id)) return false;
+		
+		$sql = "UPDATE common_node SET share_counter = share_counter + 1 WHERE id = $node_id";
+		
+		return $this->executeSql($sql);
+		
+	}
+	
 }
