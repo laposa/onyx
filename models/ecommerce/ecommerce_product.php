@@ -482,6 +482,7 @@ CREATE TABLE ecommerce_product (
 		image.id,
 		count(review.id) AS review_count, 
 		avg(review.rating) AS review_rating, 
+		node.share_counter AS share_counter,
 		(SELECT array_to_string(array_agg(taxonomy.taxonomy_tree_id), ',') FROM ecommerce_product_taxonomy taxonomy WHERE taxonomy.node_id = product.id) AS taxonomy 
 		FROM ecommerce_product product 
 		LEFT OUTER JOIN ecommerce_product_type ON (ecommerce_product_type.id = product.product_type_id) 
@@ -489,10 +490,11 @@ CREATE TABLE ecommerce_product (
 		LEFT OUTER JOIN ecommerce_price price ON (price.product_variety_id = variety.id) 
 		LEFT OUTER JOIN ecommerce_product_image image ON (image.node_id = product.id) 
 		LEFT OUTER JOIN ecommerce_product_review review ON (review.node_id = product.id AND review.publish = 1)
+		LEFT OUTER JOIN common_node node ON (product.id::varchar = node.content AND node.node_controller = 'product')
 		WHERE price.type = '$price_type'
 		$add_to_where
 		GROUP BY variety.id, product.id,  price.value, ecommerce_product_type.vat, product.name, product.teaser, product.priority, variety.name,
-variety.stock, price.date, product.publish, product.modified, variety.sku, variety.weight, variety.weight_gross, variety.publish, image.src, image.title, image.priority, image.id
+variety.stock, price.date, product.publish, product.modified, variety.sku, variety.weight, variety.weight_gross, variety.publish, image.src, image.title, image.priority, image.id, node.share_counter
 		ORDER BY variety_id ASC, price.date DESC, image_priority DESC, image.id ASC";
     	
 		//msg ($sql);
@@ -515,79 +517,6 @@ variety.stock, price.date, product.publish, product.modified, variety.sku, varie
 			return false;
 		}
     }
-
-	
-	/**
-	 * depricated function
-	 * Optimized product list in node
-	 *
-	 * @param unknown_type $node_id
-	 * @param unknown_type $currency_code
-	 * @return unknown
-	 */
-
-	function getProductVarietyListInNode($node_id, $currency_code = GLOBAL_DEFAULT_CURRENCY, $price_type = 'common') {
-		
-		if (!is_numeric($node_id)) {
-			msg("Product->getProductVarietyListInNode(): node_id is not numeric");
-			return false;
-		}
-		
-		$exchange_rate = $this->getExchangeRate($currency_code);
-		
-		$sql = "
-		SELECT DISTINCT ON (variety.id) price.value * (100 + ecommerce_product_type.vat)/100 * $exchange_rate  AS price, 
-		price.value * $exchange_rate AS price_net,
-		price.date, 
-		variety.id AS variety_id, 
-		variety.name AS variety_name, 
-		variety.stock, 
-		node.id AS node_id, 
-		node.content, 
-		node.publish AS node_publish, 
-		product.id AS product_id, 
-		product.name AS product_name, 
-		product.teaser AS product_teaser, 
-		product.priority, 
-		image.src AS image_src, 
-		image.title AS image_title, 
-		image.priority AS image_priority, 
-		image.id, 
-		count(review.id) AS review_count, 
-		avg(review.rating) AS review_rating,
-		(SELECT array_to_string(array_agg(taxonomy.taxonomy_tree_id), ',') FROM ecommerce_product_taxonomy taxonomy WHERE taxonomy.node_id = product.id) AS taxonomy
-		FROM common_node node
-		LEFT OUTER JOIN ecommerce_product product ON (product.id = node.content::int)
-		LEFT OUTER JOIN ecommerce_product_type ON (ecommerce_product_type.id = product.product_type_id) 
-		LEFT OUTER JOIN ecommerce_product_variety variety ON (variety.product_id = product.id)
-		LEFT OUTER JOIN ecommerce_price price ON (price.product_variety_id = variety.id) 
-		LEFT OUTER JOIN ecommerce_product_image image ON (image.node_id = product.id)
-		LEFT OUTER JOIN ecommerce_product_review review ON (review.node_id = product.id AND review.publish = 1)
-		WHERE node.node_group = 'page' AND node.node_controller = 'product' AND node.parent = $node_id AND node.publish = 1 AND variety.publish = 1 AND image.role != 'RTE' AND price.type = '$price_type'
-		GROUP BY variety.id, product.id, node.id, node.content, price.value, ecommerce_product_type.vat, product.name, product.teaser, product.priority, variety.name,
-variety.stock, price.date, image.src, image.title, image.priority, image.id, node.publish
-		ORDER BY variety_id ASC, price.date DESC, image_priority DESC, image.id ASC";
-
-		//msg($sql);
-		
-		$records = $this->executeSql($sql);
-		
-		if (is_array($records)) {
-			
-			//change node_id to productHomepage
-			foreach($records as $k=>$record) {
-				$homepage = $this->getProductHomepage($record['product_id']);
-				$records[$k]['node_id'] = $homepage['id'];
-			}
- 			//print_r($records);
-			return $records;
-		
-		} else {
-			
-			return false;
-		}
-	}
-
 
     /**
      * Find product homepage

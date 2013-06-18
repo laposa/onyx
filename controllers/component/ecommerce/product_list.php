@@ -315,16 +315,11 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
 			
 			
 			/**
-			 * get product list by 
-			 * 1. categories
-			 * 2. node (product under node)
+			 * get product list
+			 *
 			 */
-		
-			if (count($taxonomy) > 0) {
-				$product_variety_list = $this->Product->getFilteredProductList($filter, GLOBAL_LOCALE_CURRENCY);
-			} else {
-				$product_variety_list = $this->Product->getProductVarietyListInNode($node_id, GLOBAL_LOCALE_CURRENCY);
-			}
+			
+			$product_variety_list = $this->Product->getFilteredProductList($filter, GLOBAL_LOCALE_CURRENCY);
 			
 		}
 		
@@ -504,7 +499,7 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
 	function _prepareSorting() {
 		
 		 
-		if ($this->GET['sort']['by'] && in_array($this->GET['sort']['by'], array('popularity', 'price', 'name', 'priority', 'created'))) {
+		if ($this->GET['sort']['by'] && in_array($this->GET['sort']['by'], array('popularity', 'price', 'name', 'priority', 'created', 'share_counter'))) {
 		
 			$_SESSION['product_list-sort-by'] = $this->GET['sort']['by'];
 		
@@ -591,6 +586,17 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
 				
 			case 'priority':
 				$product_list = php_multisort($product_list, array(array('key'=>'priority', 'sort'=>$direction), array('key'=>'product_id', 'type'=>'numeric')));
+		
+				foreach ($product_list as $item) {
+					$p[] = $item;
+				}
+				
+				$product_list = $p;
+				break;
+				
+			case 'share_counter':
+				
+				$product_list = php_multisort($product_list, array(array('key'=>'share_counter', 'sort'=>$direction), array('key'=>'product_id', 'type'=>'numeric')));
 		
 				foreach ($product_list as $item) {
 					$p[] = $item;
