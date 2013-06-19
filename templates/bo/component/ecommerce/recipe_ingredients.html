@@ -6,7 +6,7 @@ $(function() {
 		var template = 
 				'<tr>' +
 				'	<td>' +
-				'		<input type="text" name="ingredients[__NEW__][quantity]" value="1"/>' +
+				'		<input type="text" class="short number" name="ingredients[__NEW__][quantity]" value="1"/>' +
 				'	</td>' +
 				'	<td>' +
 				'		<select name="ingredients[__NEW__][units]">' +
@@ -60,7 +60,7 @@ $(function() {
 			<!-- BEGIN: item -->
 			<tr>
 				<td>
-					<input type="text" class="short" name="ingredients[{ITEM.id}][quantity]" value="{ITEM.quantity}"/>
+					<input type="text" class="short number" name="ingredients[{ITEM.id}][quantity]" value="{ITEM.quantity}"/>
 				</td>
 				<td>
 					<select name="ingredients[{ITEM.id}][units]">

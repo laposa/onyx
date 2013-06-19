@@ -4,11 +4,12 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#recipe_edit").tabs();
+	$("#recipe_edit_form").validate();
 });
 </script>
 
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
-<form method="post" action="" class="recipe_edit">
+<form method="post" action="" class="recipe_edit" id="recipe_edit_form">
 <div id="recipe_edit">
 	<ul id="recipe_edit_menu" class="ui-tabs-nav">
 		<li class="active"><a class="onxshop_basic" href="#onxshop_basic"><span>Basic info</span></a></li>
@@ -44,15 +45,15 @@ $(document).ready(function(){
 					</div>
 					<div class="row serving_people">
 						<span class="label"><label>Serving People</label></span>
-						<span class="field"><input type="text" class="serving_people numeric" name="recipe[serving_people]" value="{RECIPE.serving_people|htmlspecialchars}" /> persons</span>
+						<span class="field"><input type="text" class="serving_people number" name="recipe[serving_people]" value="{RECIPE.serving_people|htmlspecialchars}" /> persons</span>
 					</div>
 					<div class="row preparation_time">
 						<span class="label"><label>Preparation time</label></span>
-						<span class="field"><input type="text" class="preparation_time  numeric" name="recipe[preparation_time]" value="{RECIPE.preparation_time|htmlspecialchars}" /> minutes</span>
+						<span class="field"><input type="text" class="preparation_time number" name="recipe[preparation_time]" value="{RECIPE.preparation_time|htmlspecialchars}" /> minutes</span>
 					</div>
 					<div class="row cooking_time">
 						<span class="label"><label>Cooking time</label></span>
-						<span class="field"><input type="text" class="cooking_time  numeric" name="recipe[cooking_time]" value="{RECIPE.cooking_time|htmlspecialchars}" /> minutes</span>
+						<span class="field"><input type="text" class="cooking_time number" name="recipe[cooking_time]" value="{RECIPE.cooking_time|htmlspecialchars}" /> minutes</span>
 					</div>
 					
 					{ONXSHOP_REQUEST_rt #bo/component/relation_taxonomy~relation=recipe:id=GET.id~}
