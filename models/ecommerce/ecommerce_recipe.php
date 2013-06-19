@@ -333,7 +333,24 @@ CREATE TABLE ecommerce_recipe (
 				$recipe_ids[] = $category['node_id'];
 			}
 
-			$recipes = $this->listing("id IN (" . implode(",", $recipe_ids) . ") AND publish = 1", $order, $limit);
+			$where = "ecommerce_recipe.id IN (" . implode(",", $recipe_ids) . ") AND ecommerce_recipe.publish = 1";
+
+			if (preg_match('/[0-9]*,[0-9]*/', $limit)) {
+				$limit = explode(',', $limit);
+				$limit = " LIMIT {$limit[1]} OFFSET {$limit[0]}";
+			} else $limit = '';
+
+			if (strlen($order) > 0) $order = "ORDER BY " . $order;
+			$sql = "SELECT ecommerce_recipe.* 
+				FROM ecommerce_recipe
+				INNER JOIN common_node ON (common_node.node_group = 'page' 
+					AND common_node.node_controller = 'recipe'
+					AND common_node.content = ecommerce_recipe.id::varchar
+					AND common_node.publish = 1)
+				WHERE $where
+				$order $limit";
+		
+			$recipes = $this->executeSql($sql);
 			$recipe_pages = $Node->listing("node_group = 'page' AND node_controller = 'recipe' AND content ~ '[0-9]+' AND publish = 1");
 
 			foreach ($recipe_pages as $recipe_page)

@@ -33,12 +33,28 @@ class Onxshop_Controller_Component_Ecommerce_Recipe_List extends Onxshop_Control
 		else $per_page = 100;
 
 		$limit = "$from,$per_page";
+		$order = $this->prepareSorting($this->GET['sort']);
 
-		$list = $Recipe->getRecipeListForTaxonomy($taxonomy_ids, "", $limit);
-		
+		$list = $Recipe->getRecipeListForTaxonomy($taxonomy_ids, $order, $limit);
+
 		$this->parseItems($list);
 
 		return true;
+	}
+
+	protected function prepareSorting($sort)
+	{
+		if ($sort['by'] && in_array($sort['by'], array('title', 'created', 'priority', 'share_counter'))) {
+			$_SESSION['recipe_list-sort-by'] = $sort['by'];
+			$_SESSION['use_page_cache'] = false;
+		} else if (!$_SESSION['recipe_list-sort-by']) $_SESSION['recipe_list-sort-by'] = 'created';
+		
+		if ($sort['direction'] && in_array($sort['direction'], array('DESC', 'ASC'))) {
+			$_SESSION['recipe_list-sort-direction'] = $sort['direction'];
+			$_SESSION['use_page_cache'] = false;
+		} else if (!$_SESSION['recipe_list-sort-direction']) $_SESSION['recipe_list-sort-direction'] = 'DESC';
+
+		return $_SESSION['recipe_list-sort-by'] . " " . $_SESSION['recipe_list-sort-direction'];
 	}
 
 	/**
