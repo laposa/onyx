@@ -56,6 +56,8 @@ class Onxshop_Controller_Component_Store_Locator extends Onxshop_Controller {
 				$store['icon'] = $store['id'] == $selected_store['id'] ? 'false' : 'true';
 				$store['open'] = $store['id'] == $selected_store['id'] ? 'true' : 'false';
 
+				if ($store['id'] == $_SESSION['client']['customer']['other_data']['home_store_id']) $store['icon'] = 'false';
+				
 				// adjust bounds (by province/county)
 				if (array_intersect($page_categories, $categories[$store['id']])) {
 					if ($store['latitude'] > $bounds['latitude']['max']) $bounds['latitude']['max'] = $store['latitude'];
