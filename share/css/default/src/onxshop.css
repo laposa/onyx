@@ -183,7 +183,6 @@ div.contact_form textarea {width: 100%;}
 div.contact_form div.submit span.label {display: none;}
 div.contact_form span.mandatory-mark {padding-right: 0.5em;}
 div.contact_form legend {display: none;}
-div.contact_form div.message span.label {float: none; text-align: left; width: auto;}
 
 /********* node/content/picture.html *********/
 div.node-content-picture, 
