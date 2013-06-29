@@ -7,6 +7,7 @@
  */
 
 $templates_info['content'] = array(
+	'default'=>array('title' => 'Default', 'description'=>'', 'visibility'=>false),
 	'textile'=>array('title' => 'Textile', 'description'=>'', 'visibility'=>true),
 	'RTE'=>array('title' => 'Rich Text', 'description'=>'', 'visibility'=>true), 
 	'product_highlights'=>array('title' => 'Product Highlights', 'description'=>'', 'visibility'=>true), 
@@ -34,6 +35,7 @@ $templates_info['content'] = array(
 	);
 		
 $templates_info['layout'] = array(
+	'default'=>array('title' => 'Default', 'description'=>'', 'visibility'=>false),
 	'1column'=>array('title' => '1-column (box)', 'description'=>'', 'visibility'=>true),
 	'2columns'=>array('title' => '2-columns', 'description'=>'', 'visibility'=>true),
 	'3columns'=>array('title' => '3-columns', 'description'=>'', 'visibility'=>true),
