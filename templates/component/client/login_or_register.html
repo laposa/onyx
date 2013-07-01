@@ -3,7 +3,8 @@
 
 <script type="text/javascript">  
 $(document).ready(function(){  
-	$("#login_or_register_node_id_{GET.node_id}").validate({onkeyup: false});  
+	$("#login_or_register_node_id_{GET.node_id}").validate({onkeyup: false});
+	placeholder_fix(); 
 });  
 </script>
 
@@ -14,7 +15,7 @@ $(document).ready(function(){
 			<legend>Enter your email address</legend>
 			<div class="row email">
 				<span class="label"><label for="login_or_register_email">{I18N_RS_YOUR_EMAIL}</label></span>
-				<span class="field"><input class="required email" id="login_or_register_email" type="email" name="client[customer][email]" value="{CLIENT.customer.email|htmlspecialchars}" placeholder="your@mail.address"/></span>
+				<span class="field"><input class="required email" id="login_or_register_email" type="email" name="client[customer][email]" value="{CLIENT.customer.email|htmlspecialchars}" placeholder="Your email address"/></span>
 			</div>
 		</fieldset>
 		<div class="row submit">
