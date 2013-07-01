@@ -827,7 +827,7 @@ $(document).on( 'cycle-destroyed', function( e, opts ) {
 
 })(jQuery);
 
-/*! command plugin for Cycle2;  version: 20130323 */
+/*! command plugin for Cycle2;  version: 20130525.1 */
 (function($) {
 "use strict";
 
@@ -900,12 +900,16 @@ $.extend( c2.API, {
     },
 
     destroy: function() {
+        this.stop(); //#204
+
         var opts = this.opts();
+        var clean = $.isFunction( $._data ) ? $._data : $.noop;  // hack for #184 and #201
         clearTimeout(opts.timeoutId);
         opts.timeoutId = 0;
         opts.API.stop();
         opts.API.trigger( 'cycle-destroyed', [ opts ] ).log('cycle-destroyed');
-        opts.container.removeData( 'cycle.opts' );
+        opts.container.removeData();
+        clean( opts.container[0], 'parsedAttrs', false );
 
         // #75; remove inline styles
         if ( ! opts.retainStylesOnDestroy ) {
@@ -913,6 +917,10 @@ $.extend( c2.API, {
             opts.slides.removeAttr( 'style' );
             opts.slides.removeClass( 'cycle-slide-active' );
         }
+        opts.slides.each(function() {
+            $(this).removeData();
+            clean( this, 'parsedAttrs', false );
+        });
     },
 
     jump: function( index ) {
@@ -1158,7 +1166,7 @@ $(document).on( 'cycle-bootstrap', function( e, opts ) {
 
 })(jQuery);
 
-/*! pager plugin for Cycle2;  version: 20130203 */
+/*! pager plugin for Cycle2;  version: 20130525 */
 (function($) {
 "use strict";
 
@@ -1204,10 +1212,12 @@ $(document).on( 'cycle-update-view', function( e, opts, slideOpts ) {
 });
 
 $(document).on( 'cycle-destroyed', function( e, opts ) {
-    var pagers;
-    if (opts.pager && opts.pagerTemplate) {
-        pagers = opts.API.getComponent( 'pager' );
-        pagers.empty();
+    var pager = opts.API.getComponent( 'pager' );
+
+    if ( pager ) {
+        pager.children().off( opts.pagerEvent ); // #202
+        if ( opts.pagerTemplate )
+            pager.empty();
     }
 });
 
