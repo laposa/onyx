@@ -82,6 +82,8 @@ if (!is_readable($file)) {
 	header("Content-type: $mimetype");
 	header('Content-Disposition: attachment; filename='.basename($file));
 	header("Content-Length: " . filesize($file));
+	ob_clean();
+    flush();
 	$bytes = readfile($file);
 	session_write_close();
 	exit;
