@@ -146,13 +146,13 @@ class client_customer extends Onxshop_Model {
 		'title_after'=>array('label' => 'Title (after)', 'validation'=>'string', 'required'=>false),
 		'email'=>array('label' => 'Email', 'validation'=>'email', 'required'=>true),
 		'username'=>array('label' => 'Username', 'validation'=>'string', 'required'=>false),
-		'telephone'=>array('label' => 'Phone number', 'validation'=>'string', 'required'=>true),
+		'telephone'=>array('label' => 'Phone number', 'validation'=>'string', 'required'=>false),
 		'mobilephone'=>array('label' => 'Mobile number', 'validation'=>'string', 'required'=>false),
 		'nickname'=>array('label' => 'Username', 'validation'=>'string', 'required'=>false),
 		'password'=>array('label' => 'Password', 'validation'=>'string', 'required'=>false),
 		'company_id'=>array('label' => 'Company', 'validation'=>'int', 'required'=>false),
-		'invoices_address_id'=>array('label' => 'Invoice address', 'validation'=>'int', 'required'=>true),
-		'delivery_address_id'=>array('label' => 'Delivery address', 'validation'=>'int', 'required'=>true),
+		'invoices_address_id'=>array('label' => 'Invoice address', 'validation'=>'int', 'required'=>false),
+		'delivery_address_id'=>array('label' => 'Delivery address', 'validation'=>'int', 'required'=>false),
 		'gender'=>array('label' => 'Gender', 'validation'=>'string', 'required'=>false),
 		'created'=>array('label' => 'Date created', 'validation'=>'datetime', 'required'=>true),
 		'currency_code'=>array('label' => 'Preferred currency', 'validation'=>'string', 'required'=>false),
@@ -1295,16 +1295,6 @@ CREATE TABLE client_customer (
 	function insertPreservedCustomer($customer_data) {
 
 		/**
-		 * customize required fields
-		 */
-		 
-		$this->_metaData['title_before']['required'] = false;
-		$this->_metaData['telephone']['required'] = false;
-		$this->_metaData['password']['required'] = false;
-		$this->_metaData['invoices_address_id']['required'] = false;
-		$this->_metaData['delivery_address_id']['required'] = false;
-
-		/**
 		 * set data to insert
 		 */
 		
@@ -1329,16 +1319,6 @@ CREATE TABLE client_customer (
 	 */
 	
 	function updatePreservedCustomer($customer_data) {
-
-		/**
-		 * overwrite required fields
-		 */
-		 
-		$this->_metaData['title_before']['required'] = false;
-		$this->_metaData['telephone']['required'] = false;
-		$this->_metaData['password']['required'] = false;
-		$this->_metaData['invoices_address_id']['required'] = false;
-		$this->_metaData['delivery_address_id']['required'] = false;
 
 		if ($this->updateCustomer($customer_data)) {
 			return true;
