@@ -220,7 +220,7 @@ CREATE TABLE common_session (
             
             $array['http_referer'] = $_SERVER['HTTP_REFERER'];
 			
-			$array['http_user_agent'] = substr($_SERVER['HTTP_USER_AGENT'], 0, 255);
+			$array['http_user_agent'] = mb_substr($_SERVER['HTTP_USER_AGENT'], 0, 255);
 
             $this->insertSession($array);
 
