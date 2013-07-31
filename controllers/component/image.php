@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2006-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2006-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -13,60 +13,37 @@ class Onxshop_Controller_Component_Image extends Onxshop_Controller {
 	 
 	public function mainAction() {
 	
-		$image_list = $this->mainImageAction();
+		/**
+		 * getImageList
+		 */
+		 
+		$image_list = $this->getImageList();
 		
+		/**
+		 * assignAndParse
+		 */
+		 
+		$this->assignAndParse($image_list);
+
+
 		return true;
 	}
 	
 	/**
-	 * get image path
-	 */
-	 
-	public function getImagePath() {
-		
-		/**
-		 * check requested width
-		 */
-		 
-		if (is_numeric($this->GET['width'])) $width = $this->GET['width'];
-		else $width = 100;
-		
-		/**
-		 * check requested height
-		 */
-		 
-		if (is_numeric($this->GET['height']) && $this->GET['height'] > 0) $height = $this->GET['height'];
-		else $height = 0;
-		
-		/**
-		 * set path
-		 */
-		 
-		if ($width == 0) $image_path = "/image/";
-		else if ($height > 0) $image_path = "/thumbnail/{$width}x{$height}/";
-		else $image_path = "/thumbnail/{$width}/";
-		
-		/**
-		 * return path string
-		 */
-		 
-		return $image_path;
-	}
-	
-	/**
-	 * main image action
+	 * getImageList
+	 *
+	 * @return array
+	 * image list
 	 */
 	
-	public function mainImageAction() {
+	public function getImageList() {
 
 		/**
-		 * setting variables
+		 * setting input variables
 		 */
 	
 		if ($this->GET['relation']) $relation = preg_replace('/[^a-zA-Z_-]/', '', $this->GET['relation']);
 		else $relation = '';
-
-		$img_path = $this->getImagePath();
 		
 		if ($this->GET['role']) $role = preg_replace('/[^a-zA-Z_-]/', '', $this->GET['role']);
 		else $role = false;
@@ -90,28 +67,14 @@ class Onxshop_Controller_Component_Image extends Onxshop_Controller {
 		 * creating image object
 		 */
 		 
-		$Image = $this->createImageObject($relation);
-		
-		/**
-		 * set full width
-		 */
-		 
-		if ($Image->conf['width_max'] > 0 && is_numeric($Image->conf['width_max'])) $this->tpl->assign('FULL_SIZE_IMAGE_WIDTH_PATH', "/thumbnail/{$Image->conf['width_max']}/");
-		else $this->tpl->assign('FULL_SIZE_IMAGE_WIDTH_PATH', "/image/");
+		$this->Image = $this->createImageObject($relation);
 		
 		/**
 		 * get list of images
 		 */
 		
-		$image_list = $Image->listFiles($node_id , $priority = "priority DESC, id ASC", $role, $limit);
-		
-		foreach ($image_list as $k=>$item) {
-			$item['path'] = $image_list[$k]['path'] = $img_path;
-			$item['first_id'] = $image_list[$k]['first_id'] = $image_list[0]['id'];
-			$this->tpl->assign('ITEM', $item);
-			$this->tpl->parse('content.item');
-		}
-		
+		$image_list = $this->Image->listFiles($node_id , $priority = "priority DESC, id ASC", $role, $limit);
+				
 		/**
 		 * save image count in registry for use in image_gallery
 		 */
@@ -125,10 +88,47 @@ class Onxshop_Controller_Component_Image extends Onxshop_Controller {
 		return $image_list;
 	}
 	
+	/**
+	 * assign and parse image list to template
+	 *
+	 * @param array $image_list
+	 *
+	 * @return bool 
+	 */
+	 
+	public function assignAndParse($image_list) {
+		
+		$img_path = $this->getImagePath();
+		
+		/**
+		 * set full width based on restrictions in Image->conf
+		 */
+		 
+		if ($this->Image->conf['width_max'] > 0 && is_numeric($this->Image->conf['width_max'])) $this->tpl->assign('FULL_SIZE_IMAGE_WIDTH_PATH', "/thumbnail/{$this->Image->conf['width_max']}/");
+		else $this->tpl->assign('FULL_SIZE_IMAGE_WIDTH_PATH', "/image/");
+		
+		/**
+		 * assign & parse each item to template
+		 */
+		 
+		foreach ($image_list as $k=>$item) {
+			$item['path'] = $image_list[$k]['path'] = $img_path;
+			$item['first_id'] = $image_list[$k]['first_id'] = $image_list[0]['id'];
+			$this->tpl->assign('ITEM', $item);
+			$this->tpl->parse('content.item');
+		}
+		
+		return true;
+	}
 	
 	/**
 	 * Create image object
 	 * 
+	 * @param string
+	 * relation (product, product_variety, taxonomy, recipe, store, node)
+	 *
+	 * @return object
+	 * common_image
 	 */
 	
 	function createImageObject($relation) {
@@ -161,5 +161,43 @@ class Onxshop_Controller_Component_Image extends Onxshop_Controller {
 		}
 
 		return $Image;
+	}
+	
+	/**
+	 * get image path
+	 *
+	 * @return string
+	 * image path based on width and height requested via HTTP GET
+	 */
+	 
+	public function getImagePath() {
+		
+		/**
+		 * check requested width
+		 */
+		 
+		if (is_numeric($this->GET['width'])) $width = $this->GET['width'];
+		else $width = 100;
+		
+		/**
+		 * check requested height
+		 */
+		 
+		if (is_numeric($this->GET['height']) && $this->GET['height'] > 0) $height = $this->GET['height'];
+		else $height = 0;
+		
+		/**
+		 * set path
+		 */
+		 
+		if ($width == 0) $image_path = "/image/";
+		else if ($height > 0) $image_path = "/thumbnail/{$width}x{$height}/";
+		else $image_path = "/thumbnail/{$width}/";
+		
+		/**
+		 * return path string
+		 */
+		 
+		return $image_path;
 	}
 }

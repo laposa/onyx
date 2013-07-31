@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2007-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2007-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -38,9 +38,22 @@ class Onxshop_Controller_Component_Image_Gallery extends Onxshop_Controller_Comp
 			break;
 		}
 		
-				
-		$image_list = $this->mainImageAction();
+		/**
+		 * getImageList
+		 */
+		 
+		$image_list = $this->getImageList();
 		
+		/**
+		 * assignAndParse (main images)
+		 */
+		 
+		$this->assignAndParse($image_list);
+		
+		$this->tpl->assign('FIRST_IMAGE', $image_list[0]);
+		
+		$img_path = $this->getImagePath();
+
 		/**
 		 * display thumbnails only if there is more than one item
 		 */
@@ -51,8 +64,13 @@ class Onxshop_Controller_Component_Image_Gallery extends Onxshop_Controller_Comp
 		
 		if ($image_count > 1) {
 		
-			foreach ($image_list as $item) {
-		
+			foreach ($image_list as $k=>$item) {
+				
+				if ($k == 0) $this->tpl->assign('FIRST_LAST', 'first');
+				else if ($k == ($image_count - 1)) $this->tpl->assign('FIRST_LAST', 'last');
+				else $this->tpl->assign('FIRST_LAST', '');
+				
+				$item['path'] = $image_list[$k]['path'] = $img_path;
 				$item['thumbnail_size'] = $thumbnail_size;
 				$this->tpl->assign('ITEM', $item);
 				$this->tpl->parse('content.thumbnails.item');
