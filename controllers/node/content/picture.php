@@ -57,18 +57,14 @@ class Onxshop_Controller_Node_Content_Picture extends Onxshop_Controller_Node_Co
 		 * what template
 		 */
 		 
-		if ($node_data['component']['template'] == 'gallery_smooth') {
-			$image_controller = 'component/image_gallery_smooth';
-			//$image_limit = '0,10';
+		if ($node_data['component']['template'] == 'fancybox') {
+			$image_controller = 'component/image_gallery_fancybox';
+		} else if ($node_data['component']['template'] == 'cycle') {
+			$image_controller = 'component/image_gallery_cycle';
 		} else if ($node_data['component']['template'] == 'cycle2') {
 			$image_controller = 'component/image_gallery_cycle2';
 		} else if ($node_data['component']['template'] == 'flexslider') {
 			$image_controller = 'component/image_gallery_flexslider';
-		} else if ($node_data['component']['template'] == 'gallery') {
-			$image_controller = 'component/image_gallery';
-			//$image_limit = '0,10';
-		} else if ($node_data['component']['template'] == 'fancybox') {
-			$image_controller = 'component/image_gallery_fancybox';
 		} else if ($node_data['component']['template'] == 'tools') {
 			$image_controller = 'component/image_gallery_tools';
 		} else if ($node_data['component']['template'] == 'nivo') {
@@ -79,9 +75,11 @@ class Onxshop_Controller_Node_Content_Picture extends Onxshop_Controller_Node_Co
 			$image_controller = 'component/image_gallery_unoslider';
 		} else if ($node_data['component']['template'] == '2columns') {
 			$image_controller = 'component/image_gallery_2columns';
+		} else if ($node_data['component']['template'] == 'plain') {
+			$image_controller = 'component/image_gallery';
 		} else {
+			// i.e. list
 			$image_controller = 'component/image';
-			//$image_limit = '0,1';
 		}
 		
 		/**

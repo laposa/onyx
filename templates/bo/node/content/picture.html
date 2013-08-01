@@ -1,15 +1,7 @@
 <!-- BEGIN: title -->Picture Gallery Edit<!-- END: title -->
 <!-- BEGIN: content -->
 <script type="text/javascript">
-function hookNodeEditPreUpdate() {
-	//opener.$('#smoothGallery_{GET.id} div.pics').cycle('stop');
-	//opener.$('#smoothGallery_{GET.id}').empty();
-}
-
 function hookNodeEditPostUpdate() {
-	//if (opener) {
-	//	opener.activateSmoothGallery();
-	//}
 	opener.window.location.reload(true);
 }
 </script>
@@ -62,22 +54,22 @@ function hookNodeEditPostUpdate() {
 			<span class="field">
 				<select name="node[component][template]">
 					<option value="fancybox" {SELECTED_template_fancybox}>Fancybox (Lightbox)</option>
-					<option value="gallery_smooth" {SELECTED_template_gallery_smooth}>Cycle (smooth gallery)</option>
+					<option value="cycle" {SELECTED_template_cycle}>Cycle</option>
 					<option value="cycle2" {SELECTED_template_cycle2}>Cycle2</option>
 					<option value="flexslider" {SELECTED_template_flexslider}>Flexslider</option>
 					<option value="tools" {SELECTED_template_tools}>jQuery Tools Gallery</option>
 					<option value="nivo" {SELECTED_template_nivo}>Nivo Slider</option>
 					<option value="prettyphoto" {SELECTED_template_prettyphoto}>prettyPhoto</option>
 					<option value="unoslider" {SELECTED_template_unoslider}>Unoslider</option>
-					<option value="single" {SELECTED_template_single}>simple images list</option>
-					<option value="gallery" {SELECTED_template_gallery}>simple gallery with thumbnails</option>
 					<option value="2columns" {SELECTED_template_2columns}>2columns responsive</option>
+					<option value="plain" {SELECTED_template_plain}>plain gallery with thumbnails</option>
+					<option value="list" {SELECTED_template_list}>simple image list</option>
 				</select>
 			</span>
 		</div>
 	</fieldset>
 
-	<!-- BEGIN: gallery_smooth_options -->
+	<!-- BEGIN: cycle_options -->
 	<fieldset style="width: 50%; float: left;">
 		<legend>Smooth gallery options</legend>
 		<div class="row">
@@ -204,7 +196,7 @@ $(document).ready(function(){
 });
 </script>
 
-	<!-- END: gallery_smooth_options -->
+	<!-- END: cycle_options -->
 	{FILE "bo/node/item_image_list.html"}
 	{FILE "bo/node/item_publish.html"}
 </div>

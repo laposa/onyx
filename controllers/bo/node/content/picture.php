@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2006-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2006-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -23,10 +23,10 @@ class Onxshop_Controller_Bo_Node_Content_Picture extends Onxshop_Controller_Bo_N
 		//TODO?: images size can be extracted from COMMON_IMAGE_THUMBNAIL
 		
 		/**
-		 * smooth gallery options
+		 * cycle gallery options
 		 */
 		 
-		if ($this->node_data['component']['template'] == 'gallery_smooth') {
+		if ($this->node_data['component']['template'] == 'cycle') {
 			
 			if (!$this->node_data['component']['cycle']['fx']) $this->node_data['component']['cycle']['fx'] = $common_image_conf['common_image']['cycle_fx'];
 			if (!$this->node_data['component']['cycle']['easing']) $this->node_data['component']['cycle']['easing'] = $common_image_conf['common_image']['cycle_easing'];
@@ -40,7 +40,7 @@ class Onxshop_Controller_Bo_Node_Content_Picture extends Onxshop_Controller_Bo_N
 			//must assign NODE before parsing
 			$this->tpl->assign("NODE", $this->node_data);
 			
-			$this->tpl->parse('content.gallery_smooth_options');
+			$this->tpl->parse('content.cycle_options');
 		}
 		
 		/**

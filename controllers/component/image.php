@@ -112,8 +112,13 @@ class Onxshop_Controller_Component_Image extends Onxshop_Controller {
 		 */
 		 
 		foreach ($image_list as $k=>$item) {
+			
+			if ($k == 0) $this->tpl->assign('FIRST_LAST', 'first');
+			else if ($k == ($image_count - 1)) $this->tpl->assign('FIRST_LAST', 'last');
+			else $this->tpl->assign('FIRST_LAST', '');
+				
 			$item['path'] = $image_list[$k]['path'] = $img_path;
-			$item['first_id'] = $image_list[$k]['first_id'] = $image_list[0]['id'];
+			
 			$this->tpl->assign('ITEM', $item);
 			$this->tpl->parse('content.item');
 		}

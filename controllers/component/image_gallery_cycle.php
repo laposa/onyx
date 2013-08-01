@@ -7,7 +7,7 @@
 
 require_once('controllers/component/image_gallery.php');
 
-class Onxshop_Controller_Component_Image_Gallery_Smooth extends Onxshop_Controller_Component_Image_Gallery {
+class Onxshop_Controller_Component_Image_Gallery_Cycle extends Onxshop_Controller_Component_Image_Gallery {
 
 	/**
 	 * main action
