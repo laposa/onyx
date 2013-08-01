@@ -1,6 +1,6 @@
 <!-- BEGIN: content -->
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
-
+<div class="scheduler_list">
 <p>Publishing schedule</p>
 <input type="hidden" name="scheduler_action" value="save"/>
 <table id="scheduler_list">
@@ -65,10 +65,16 @@
 		});
 	});
 
+	/**
+	 * TODO: fix conflict with hookNodeEditPostUpdate in node/content/picture
+	 */
+	/*
 	function hookNodeEditPostUpdate() {
 		var block = $("#scheduler_list").parent();
-		var url = "/request/bo/component/node_scheduler?node_id={GET.node_id}&node_type=common_node";
+		var url = "/request/bo/component/scheduler_list?node_id={GET.node_id}&node_type=common_node";
 		makeAjaxRequest(block, url);
 	}
+	*/
 </script>
+</div>
 <!-- END: content -->

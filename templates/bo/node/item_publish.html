@@ -4,6 +4,6 @@
 					<span class="field"><input type="checkbox" id="node.publish" name="node[publish]" {NODE.publish_check} /></span>
 				</div>
 				<div class="row schedule">
-					{ONXSHOP_REQUEST_scheduler #bo/component/node_scheduler~node_id=GET.id:node_type=common_node:~}
+					{ONXSHOP_REQUEST_scheduler #bo/component/scheduler_list~node_id=GET.id:node_type=common_node:~}
 				</div>
 			</fieldset>

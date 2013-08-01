@@ -1,13 +1,13 @@
 <?php
 /** 
- * Copyright (c) 2006-2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
 
-require_once('models/common/common_scheduler.php');
+require_once('controllers/bo/component/scheduler.php');
 
-class Onxshop_Controller_Bo_Component_Node_Scheduler extends Onxshop_Controller {
+class Onxshop_Controller_Bo_Component_Scheduler_List extends Onxshop_Controller_Bo_Component_Scheduler {
 
 	/**
 	 * main action
