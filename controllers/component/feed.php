@@ -96,7 +96,7 @@ class Onxshop_Controller_Component_Feed extends Onxshop_Controller {
 		} catch (Zend_Exception $e) {
 		
 			// feed import failed
-			msg("Exception caught importing feed: {$e->getMessage()}", 'error', 1);
+			msg("Exception caught importing feed: {$e->getMessage()}", 'error');
 			
 			//delete downloaded from cache (probably invalid)
 			// TODO: how to delete feed cache?
@@ -123,12 +123,13 @@ class Onxshop_Controller_Component_Feed extends Onxshop_Controller {
 			$channel['entries'][] = array(
 				'title'       => $entry->getTitle(),
 				'link'        => $entry->getLink(),
-				'author'       => $entry->getAuthor(),
+				'author'      => $entry->getAuthor(),
 				'description' => $entry->getDescription(),
-				'content' => $entry->getContent(),
-				'pubDate'=> $entry->getDateModified(),//Zend_Date object
+				'content'     => $entry->getContent(),
+				'pubDate'     => $entry->getDateModified()->get(),//"dd MMMM HH:mm"
+				'image'       => $entry->getElement()->getElementsByTagName("image")->item(0)->textContent
 			);
-			
+
 		}
 		
 		$channel['encoding'] = 'utf8';
@@ -166,10 +167,8 @@ class Onxshop_Controller_Component_Feed extends Onxshop_Controller {
 					
 			
 					//odd or even
-					if (count($rs['items']) > 4) {
-						if ($i%2 == 0) $item['odd_even_class'] = "even";
-						else $item['odd_even_class'] = "odd";
-					}
+					if ($i%2 == 0) $item['odd_even_class'] = "even";
+					else $item['odd_even_class'] = "odd";
 			
 					//prepare item
 					$item = $this->prepareItem($item);
@@ -181,6 +180,7 @@ class Onxshop_Controller_Component_Feed extends Onxshop_Controller {
 					if ($item['description'] != '' && $feed_options['description'])  $this->tpl->parse('content.item.description');
 					if ($item['content'] != '' && $feed_options['content'])  $this->tpl->parse('content.item.content');
 					if ($item['pubDate'] != '' && $feed_options['pubdate'])  $this->tpl->parse('content.item.pubdate');
+					if ($item['image'] != '')  $this->tpl->parse('content.item.image');
 					$this->tpl->parse('content.item');
 					
 				}
