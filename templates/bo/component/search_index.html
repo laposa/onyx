@@ -1,8 +1,12 @@
-<!-- BEGIN: title -->Crawl<!-- END: title -->
+<!-- BEGIN: title -->Search Index<!-- END: title -->
 <!-- BEGIN: content -->
 <!-- BEGIN: messages --><div class="fix">{MESSAGES}</div><!-- END: messages -->
 <p>Number of indexed documents: {INDEX_INFO.indexSize}</p>
-<p><a href="#" onclick="makeAjaxRequest('#crawl_container', '/request/bo/component/search_index_crawl'); return false" title="Trigger Crawler"><span>Trigger Crawler (re-build index of the whole site)</span></a> <span class="warning">Warning: re-index can take some time...</span></p>
+<p><a class="button" href="/request/bo/component/search_index_build" onclick="if (confirm('Are you sure? Re-index can take several minutes to complete.')) makeAjaxRequest('#crawl_container', this.href); return false" title="Build the Index"><span>Re-build index of the whole site</span></a>
+</p>
+<p>
+<span class="warning">Warning: re-index can take several minutes to complete</span>
+</p>
 <div id="crawl_container"></div>
 
 <!-- END: content -->
