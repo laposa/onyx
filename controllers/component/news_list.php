@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2010-2012 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2010-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -35,8 +35,6 @@ class Onxshop_Controller_Component_News_List extends Onxshop_Controller {
 		 
 		if (is_numeric($this->GET['blog_node_id'])) $blog_node_id = $this->GET['blog_node_id'];
 		else $blog_node_id = $this->Node->conf['id_map-blog'];
-		
-		$display_teaser_image = $this->GET['display_teaser_image'];
 
 		/**
 		 * check
@@ -82,6 +80,15 @@ class Onxshop_Controller_Component_News_List extends Onxshop_Controller {
 		if (is_numeric($this->GET['image_height']) && $this->GET['image_height'] > 0) $image_height = $this->GET['image_height'];
 		else $image_height = 0;
 		
+		/**
+		 * set image path
+		 */
+		 
+		if ($image_width == 0) $image_path = "/image/";
+		else if ($image_height > 0) $image_path = "/thumbnail/{$image_width}x{$image_height}/";
+		else $image_path = "/thumbnail/{$image_width}/";
+		
+		$this->tpl->assign('IMAGE_PATH', $image_path);
 		
 		/**
 		 * Initialize pagination variables
@@ -139,7 +146,7 @@ class Onxshop_Controller_Component_News_List extends Onxshop_Controller {
 			 * display news list
 			 */
 			 
-			$this->parseNewsList($news_list, $display_teaser_image, $image_width, $image_height);
+			$this->parseNewsList($news_list);
 		}
 		
 		return true;
@@ -241,6 +248,12 @@ class Onxshop_Controller_Component_News_List extends Onxshop_Controller {
 						}
 						
 						/**
+						 * add teaser image
+						 */
+						 
+						$item['image'] = $this->Node->getTeaserImageForNodeId($item['id']);
+						
+						/**
 						 * add modified item to final result
 						 */
 						
@@ -263,7 +276,7 @@ class Onxshop_Controller_Component_News_List extends Onxshop_Controller {
 	 * parseNewsList
 	 */
 	 
-	public function parseNewsList($news_list, $display_teaser_image = false, $image_width = 125, $image_height = 0) {
+	public function parseNewsList($news_list) {
 	
 		if (!is_array($news_list)) return false;
 		
@@ -280,16 +293,6 @@ class Onxshop_Controller_Component_News_List extends Onxshop_Controller {
 			 */
 			 
 			foreach ($news_list as $item) {
-				
-				/**
-				 * teaser image
-				 */
-				
-				if ($display_teaser_image) {
-					
-					$Image = new Onxshop_Request("component/image&relation=node&role=main&node_id={$item['id']}&width=$image_width&height=$image_height&limit=0,1");
-					$this->tpl->assign('IMAGE', $Image->getContent());
-				}
 	
 				/**
 				 * assign node (ITEM) data
