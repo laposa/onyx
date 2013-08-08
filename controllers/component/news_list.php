@@ -300,6 +300,8 @@ class Onxshop_Controller_Component_News_List extends Onxshop_Controller {
 				
 				$this->tpl->assign('ITEM', $item);
 				
+				if (is_array($item['image'])) $this->tpl->parse('content.list.item.image');
+				
 				/**
 				 * check comments
 				 */
