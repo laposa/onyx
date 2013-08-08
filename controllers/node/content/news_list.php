@@ -94,11 +94,6 @@ class Onxshop_Controller_Node_Content_News_List extends Onxshop_Controller_Node_
 		/**
 		 * image size
 		 */
-		 
-		/* image size: we need to include config*/
-		require_once('models/common/common_image.php');
-		$common_image_conf = common_image::initConfiguration();
-		$this->tpl->assign('IMAGE_CONF', $common_image_conf);
 		
 		/**
 		 * image size: set width
