@@ -19,6 +19,10 @@ $image_file = $_GET['image'];
 if (array_key_exists('height', $_GET) && is_numeric($_GET['height'])) $height = $_GET['height'];
 else $height = '';
 
+if ($_GET['method']) $method = $_GET['method']; // crop, extend
+if ($_GET['gravity']) $gravity = $_GET['gravity']; // northwest, north, northeast, west, center, east, southwest, south, southeast
+if ($_GET['fill']) $fill = $_GET['fill']; // 0 or 1
+		
 /**
  * include configuration
  */
@@ -86,7 +90,7 @@ if ($width > $image_configuration['width_max']) {
 		 * try
 		 */
 		
-		if ($thumbnail = common_image::resize($image_file, $width, $height)) $image_file = $thumbnail;
+		if ($thumbnail = common_image::resize($image_file, $width, $height, $method, $gravity, $fill)) $image_file = $thumbnail;
 		
 	} else {
 

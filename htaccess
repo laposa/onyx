@@ -116,7 +116,7 @@ RewriteRule	^popupimage/(.*)$ /index.php?request=sys/html5.component/popimage&sr
 RewriteRule	^var/images/(.*)$   /share/image_get.php?image=var/images/$1 [L]
 RewriteRule	^image/var/(.*)$   /share/image_get.php?image=var/$1 [L]
 RewriteRule	^thumbnail/([0-9]*)/var/(.*)$   /share/image_thumbnail.php?&width=$1&image=var/$2 [L]
-RewriteRule	^thumbnail/([0-9]*)x([0-9]*)/var/(.*)$   /share/image_thumbnail.php?&width=$1&height=$2&image=var/$3 [L]
+RewriteRule	^thumbnail/([0-9]*)x([0-9]*)/var/(.*)$   /share/image_thumbnail.php?&width=$1&height=$2&image=var/$3 [L,QSA]
 RewriteRule	^download/var/(.*)$   /share/download.php?file=var/$1 [L]
 RewriteRule	^files/(.*)$   /share/download.php?file=var/files/$1 [L]
 RewriteRule	^imagesxml/([0-9]*)$ /index.php?request=export/imagesxml&role=page&node_id=$1 [L]
