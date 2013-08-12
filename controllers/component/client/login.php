@@ -5,6 +5,9 @@
  *
  */
 
+require_once('models/client/client_customer.php');
+require_once('models/client/client_customer_token.php');
+
 class Onxshop_Controller_Component_Client_Login extends Onxshop_Controller {
 
 	/**
@@ -17,7 +20,6 @@ class Onxshop_Controller_Component_Client_Login extends Onxshop_Controller {
 		 * client
 		 */
 		 
-		require_once('models/client/client_customer.php');
 		$Customer = new client_customer();
 		$Customer->setCacheable(false);
 		
@@ -28,21 +30,6 @@ class Onxshop_Controller_Component_Client_Login extends Onxshop_Controller {
 		
 		} else {
 		
-			/* Check if user has been remembered */
-			if(isset($_COOKIE['autologin_username']) && isset($_COOKIE['autologin_md5_password'])) {
-			
-				$customer_detail = $Customer->login($_COOKIE['autologin_username'], $_COOKIE['autologin_md5_password']);
-				
-				if ($customer_detail) {
-					$_SESSION['client']['customer'] = $customer_detail;
-				
-				} else {
-				
-					msg("Autologin of ({$_COOKIE['autologin_username']}) failed", 'error', 1);
-				
-				}
-			}
-		
 			/* client submitted username/password */
 			if (isset($_POST['login'])) {
 			
@@ -52,19 +39,13 @@ class Onxshop_Controller_Component_Client_Login extends Onxshop_Controller {
 				
 					$_SESSION['client']['customer'] = $customer_detail;
 					
-					/**
-					 * If the user has requested that we remember that
-					 * he's logged in, so we set two cookies. One to hold his username,
-					 * and one to hold his md5 encrypted password. We set them both to
-					 * expire in 100 days. Now, next time he comes to our site, we will
-					 * log him in automatically.
-					 */
-				
-					if(isset($_POST['autologin'])){
+					if (isset($_POST['autologin'])) {
 						
-						setcookie("autologin_username", $_SESSION['client']['customer']['email'], time()+60*60*24*100, "/");
-						//passwords are already md5 in the database
-						setcookie("autologin_md5_password", $_SESSION['client']['customer']['password'], time()+60*60*24*100, "/");
+						$Token = new client_customer_token();
+						$Token->setCacheable(false);
+
+						$token = $Token->generateToken($customer_detail['id']);
+						setcookie("onxshop_token", $token, time()+3600*24*600, "/");
 					
 					}
 					

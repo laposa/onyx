@@ -25,8 +25,7 @@ class Onxshop_Controller_Component_Client_Logout extends Onxshop_Controller {
 				//$_SESSION['client']['customer']['id'] = 0;
 				unset($_SESSION['client']);
 			
-				//clean cookies
-				$this->cleanCookies();
+				$this->invalidateToken();
 				
 				//clean facebook auth
 				$this->logoutFromFacebook();
@@ -45,32 +44,23 @@ class Onxshop_Controller_Component_Client_Logout extends Onxshop_Controller {
 	}
 	
 	/**
-	 * cleanCookies
+	 * invalidate token
 	 */
 	 
-	public function cleanCookies() {
-	
-		// delete session cookie.
-		// this is not what we need, because it will cause logout from backoffice
-		//if (ini_get("session.use_cookies")) {
-		//    $params = session_get_cookie_params();
-		//    setcookie(session_name(), '', time() - 42000,
-		//        $params["path"], $params["domain"],
-		//        $params["secure"], $params["httponly"]
-		//    );
-		//}
-		
-		/**
-		 * Delete autologin cookies - the time must be in the past,
-		 * so just negate what you added when creating the
-		 * cookie.
-		 */
-		 
-		if(isset($_COOKIE['autologin_username']) && isset($_COOKIE['autologin_md5_password'])){
-			setcookie("autologin_username", "", time()-60*60*24*100, "/");
-			setcookie("autologin_md5_password", "", time()-60*60*24*100, "/");
+	public function invalidateToken() {
+
+		// invalidate token in database
+
+		if (isset($_COOKIE['onxshop_token'])) {
+			require_once('models/client/client_customer_token.php');
+			$Token = new client_customer_token();
+			$Token->setCacheable(false);
+			$Token->invalidateToken($_COOKIE['onxshop_token']);
 		}
-		
+
+		// invalidate token in cookie
+
+		setcookie("onxshop_token", "", time()-60*60*24*100, "/");
 	}
 	
 	
