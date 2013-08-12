@@ -282,6 +282,25 @@ ALTER TABLE ecommerce_basket ADD COLUMN other_data text;
 
 /* change client/user_prefs to client/edit (only on default installations)*/
 UPDATE common_node SET component = 'a:3:{s:8:"template";s:16:"client/edit.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}' WHERE component = 'a:3:{s:8:"template";s:22:"client/user_prefs.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}' AND id = 54;
+
+/* create token table */
+CREATE TABLE client_customer_token (
+    id serial NOT NULL PRIMARY KEY,
+    customer_id integer NOT NULL REFERENCES client_customer ON UPDATE CASCADE ON DELETE CASCADE,
+    publish smallint DEFAULT 0 NOT NULL,
+    token character(32),
+    oauth_data text,
+    other_data text,
+    ttl integer,
+    ip_address varchar(255),
+    http_user_agent varchar(255),
+    created timestamp without time zone NOT NULL,
+    modified timestamp without time zone NOT NULL
+);
+
+CREATE INDEX client_customer_token_key ON client_customer_token USING btree (token);
+CREATE INDEX client_customer_token_publish_key ON client_customer_token USING btree (publish);
+
 COMMIT;
 
 /*this only applies to installation made earlier than Onxshop 1.5 */
