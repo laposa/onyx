@@ -25,7 +25,7 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 			if ($count > 2) {
 			
 				//sanitize
-				$search_query = htmlentities(strip_tags( $this->GET['search_query'] ));
+				$search_query = htmlentities(strip_tags($this->GET['search_query']));
 				
 				$index_location = ONXSHOP_PROJECT_DIR . 'var/index';
 				
@@ -38,7 +38,14 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 		
 				$search_query = Zend_Search_Lucene_Search_QueryParser::parse($search_query, 'UTF-8');
 				$hits = $index->find($search_query);
-				
+
+				// try fuzzy search if keyword search does not return anything
+				if (count($hits) == 0) {
+					$search_query = htmlentities(strip_tags($this->GET['search_query']  . '~0.6'));
+					$search_query = Zend_Search_Lucene_Search_QueryParser::parse($search_query, 'UTF-8');
+					$hits = $index->find($search_query);
+				}				
+
 				$result_items_shown = 0;
 				$result_items_show = 15;
 				
