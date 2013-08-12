@@ -18,7 +18,12 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 		 */
 		 
 		$this->Basket = $this->initBasket();
-		
+
+		/**
+		 * check for customer's most recent basket
+		 */
+		$this->checkForPreviousBasket();
+
 		/**
 		 * check and process action
 		 * accept post for all but populate_basket_from_order_id action
@@ -107,7 +112,18 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 		return $Basket;
 
 	}
-	
+
+	/**
+	 *  set basket_id in session to customer's most recent basket
+	 */
+	public function checkForPreviousBasket()
+	{
+		if (!is_numeric($_SESSION['basket']['id']) && $_SESSION['client']['customer']['id'] > 0) {
+			$record = $this->Basket->listing("customer_id = {$_SESSION['client']['customer']['id']}", "created DESC", "0,1");
+			if ($record && is_numeric($record[0]['id'])) $_SESSION['basket']['id'] = $record[0]['id'];
+		}
+	}
+
 	/**
 	 * get basket content
 	 */
