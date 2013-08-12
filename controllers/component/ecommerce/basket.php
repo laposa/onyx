@@ -119,8 +119,8 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 	public function checkForPreviousBasket()
 	{
 		if (!is_numeric($_SESSION['basket']['id']) && $_SESSION['client']['customer']['id'] > 0) {
-			$record = $this->Basket->listing("customer_id = {$_SESSION['client']['customer']['id']}", "created DESC", "0,1");
-			if ($record && is_numeric($record[0]['id'])) $_SESSION['basket']['id'] = $record[0]['id'];
+			$basket = $this->Basket->getLastLiveBasket($_SESSION['client']['customer']['id']);
+			if ($basket && is_numeric($basket['id'])) $_SESSION['basket']['id'] = $basket['id'];
 		}
 	}
 

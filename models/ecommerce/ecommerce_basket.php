@@ -494,5 +494,27 @@ CREATE TABLE ecommerce_basket (
 		return $delivery;
 		
 	}
-	
+
+	/**
+	 * Get customer's most recent basket that was not converted to an order yet
+	 * @param  int   $customer_id Customer Id
+	 * @return Array              Basket detail
+	 */
+	function getLastLiveBasket($customer_id)
+	{
+		if (!is_numeric($customer_id)) return false;
+
+		$sql = "SELECT b.* 
+			FROM ecommerce_basket AS b
+			LEFT JOIN ecommerce_order AS o ON o.basket_id = b.id
+			WHERE customer_id = $customer_id AND o.id IS NULL
+			ORDER BY created DESC
+			LIMIT 1 OFFSET 0";
+
+		$records = $this->executeSql($sql);
+
+		if (isset($records[0])) return $records[0];
+		else return false;;
+	}
+
 }
