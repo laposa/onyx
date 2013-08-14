@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2006-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -16,6 +16,8 @@ class Onxshop_Controller_Bo_Node_Content_Survey extends Onxshop_Controller_Bo_No
 	function pre() {
 		if ($_POST['node']['component']['require_user_details'] == 'on') $_POST['node']['component']['require_user_details'] = 1;
 		else $_POST['node']['component']['require_user_details'] = 0;
+		if ($_POST['node']['component']['require_t_and_c'] == 'on') $_POST['node']['component']['require_t_and_c'] = 1;
+		else $_POST['node']['component']['require_t_and_c'] = 0;
 	}
 
 	/**
@@ -26,6 +28,8 @@ class Onxshop_Controller_Bo_Node_Content_Survey extends Onxshop_Controller_Bo_No
 
 		// require user details
 		$this->node_data['component']['require_user_details'] = ($this->node_data['component']['require_user_details']) ? 'checked="checked"' : '';
+		// require terms and conditions
+		$this->node_data['component']['require_t_and_c'] = ($this->node_data['component']['require_t_and_c']) ? 'checked="checked"' : '';
 
 		// survey dropdown	
 		$Survey = new education_survey();

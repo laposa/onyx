@@ -287,6 +287,7 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 			break;
 		}
 		
+		if ($this->GET['require_t_and_c'] == "1") $this->tpl->parse('content.form.require_t_and_c');
 		$this->tpl->parse('content.form.question');
 		
 	}
@@ -489,12 +490,20 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 		return $has_voted;
 	}
 
+	/**
+	 * areUserDetailsRequired
+	 */
+	 
 	public function areUserDetailsRequired()
 	{
 		$configuration_flag = ($this->GET['require_user_details'] == "1");
 		$user_not_logged_in = !$_SESSION['client']['customer']['id'];
 		return $configuration_flag && $user_not_logged_in;
 	}
+	
+	/**
+	 * parseCountySelect
+	 */
 
 	protected function parseCountySelect($selected_id)
 	{
@@ -520,12 +529,69 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 
 	}
 
+	/**
+	 * getTaxonomyBranch
+	 */
+	 
 	public function getTaxonomyBranch($parent)
 	{
 		require_once('models/common/common_taxonomy.php');
 		$Taxonomy = new common_taxonomy();
 		
 		return $Taxonomy->getChildren($parent);
+	}
+	
+	/**
+	 * saveAttachments
+	 */
+	 
+	public function saveAttachments() {
+		
+		/**
+		 * attachment(s) via upload
+		 */
+		 
+		if (count($_FILES) > 0) {
+		
+			foreach ($_FILES as $key=>$file) {
+			
+				if (is_uploaded_file($file['tmp_name'])) {
+		
+					/**
+					 * file
+					 */
+					 
+					require_once('models/common/common_file.php');
+					//getSingleUpload could be static method
+					$CommonFile = new common_file();
+					$upload = $CommonFile->getSingleUpload($file, 'var/surveys/');
+					
+					/**
+					 * array indicated the same file name already exists in the var/tmp/ folder
+					 * we can ignore it, as the previous attachement was overwritten
+					 * FIXME: could be a problem when more users submit the same filename in the same time
+					 * perhaps saving file with PHP session id or not saving in var/tmp would help
+					 */
+					 
+					if (is_array($upload)) {
+						$attachment_saved_file = ONXSHOP_PROJECT_DIR . $upload['temp_file'];
+					} else {
+						$attachment_saved_file = ONXSHOP_PROJECT_DIR . $upload;
+					}
+					
+					/**
+					 * check if file exists and than add to email as attachemnt
+					 */
+					 
+					if (file_exists($attachment_saved_file)) {
+						$attachment_info = $CommonFile->getFileInfo($attachment_saved_file);
+						$Attachment = $mail->createAttachment(file_get_contents($attachment_saved_file));
+						$Attachment->filename = $attachment_info['filename'];
+					}
+				}
+			}
+		}
+		
 	}
 
 }
