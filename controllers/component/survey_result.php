@@ -54,8 +54,7 @@ class Onxshop_Controller_Component_Survey_Result extends Onxshop_Controller_Comp
 		 * display
 		 */
 	
-		$this->displaySurvey($survey_detail_full);		
-	
+		if ($this->GET['display_results'] == 1) $this->displaySurvey($survey_detail_full);
 		
 		return true;
 		

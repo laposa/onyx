@@ -97,8 +97,19 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 	public function displayResult($survey_id, $survey_entry_id = false) {
 		
 		if (!is_numeric($survey_id)) return false;
-		 
-		$_Onxshop_Request = new Onxshop_Request("component/survey_result~survey_id=$survey_id~");
+		
+		if (is_numeric($this->GET['display_results'])) {
+			
+			if ($this->GET['display_results'] == 1) $display_results = 1;
+			else $display_results = 0;
+			
+		} else {
+			
+			$display_results = 1;
+		
+		}
+		
+		$_Onxshop_Request = new Onxshop_Request("component/survey_result~survey_id=$survey_id:display_results=$display_results~");
 		$this->tpl->assign('SURVEY_RESULT', $_Onxshop_Request->getContent());
 		$this->tpl->parse('content.result');
 		

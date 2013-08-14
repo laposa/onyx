@@ -18,6 +18,8 @@ class Onxshop_Controller_Bo_Node_Content_Survey extends Onxshop_Controller_Bo_No
 		else $_POST['node']['component']['require_user_details'] = 0;
 		if ($_POST['node']['component']['require_t_and_c'] == 'on') $_POST['node']['component']['require_t_and_c'] = 1;
 		else $_POST['node']['component']['require_t_and_c'] = 0;
+		if ($_POST['node']['component']['display_results'] == 'on') $_POST['node']['component']['display_results'] = 1;
+		else $_POST['node']['component']['display_results'] = 0;
 	}
 
 	/**
@@ -30,7 +32,9 @@ class Onxshop_Controller_Bo_Node_Content_Survey extends Onxshop_Controller_Bo_No
 		$this->node_data['component']['require_user_details'] = ($this->node_data['component']['require_user_details']) ? 'checked="checked"' : '';
 		// require terms and conditions
 		$this->node_data['component']['require_t_and_c'] = ($this->node_data['component']['require_t_and_c']) ? 'checked="checked"' : '';
-
+		// display results options
+		$this->node_data['component']['display_results'] = ($this->node_data['component']['display_results']) ? 'checked="checked"' : '';
+		
 		// survey dropdown	
 		$Survey = new education_survey();
 

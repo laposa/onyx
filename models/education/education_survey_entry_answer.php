@@ -181,9 +181,7 @@ WHERE education_survey_entry.relation_subject LIKE '{$relation_subject}' AND edu
 		
 		/**
 		 * array indicated the same file name already exists in the var/tmp/ folder
-		 * we can ignore it, as the previous attachement was overwritten
-		 * FIXME: could be a problem when more users submit the same filename in the same time
-		 * perhaps saving file with PHP session id or not saving in var/tmp would help
+		 * this should never happen as we have entry id in filename 
 		 */
 		 
 		if (is_array($upload)) {
