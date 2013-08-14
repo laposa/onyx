@@ -30,7 +30,7 @@ label.error {float: none; color: red; padding-left: .5em; vertical-align: top;}
 legend {font-weight: bold; color: inherit; padding: 0 0.5em; margin: 0 0 1em 0; padding-left: 0;}
 label.radio {float: none; clear: none;}
 input.radio,
-input.checkbox {border: 0;}
+input.checkbox {border: 0; width: auto;}
 input.price {width: 40px;}
 input.placeholder {color: #aaa;}
 input.file,
