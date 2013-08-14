@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2011-2012 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2011-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -39,8 +39,9 @@ class Onxshop_Controller_Bo_Export_CSV_Survey_Results extends Onxshop_Controller
 		if (!$detail) return false;
 
 		$records = array();
+		
 		foreach ($detail['question_list'] as $question) {
-
+			
 			$item = array(
 				'question_id' => $question['id'],
 				'question_title' => $question['title'],
@@ -58,11 +59,12 @@ class Onxshop_Controller_Bo_Export_CSV_Survey_Results extends Onxshop_Controller
 
 			} else {
 
-				if ($question['type'] == 'text') {
+				if ($question['type'] == 'text' || $question['type'] == 'file') {
 
 					$answers = $Survey->getAnswersForQuestion($question['id']);
 
 					if (is_array($answers)) {
+					
 						foreach ($answers as $answer) {
 
 							$entry = $Survey_Entry->detail($answer['survey_entry_id']);
@@ -82,6 +84,7 @@ class Onxshop_Controller_Bo_Export_CSV_Survey_Results extends Onxshop_Controller
 							}
 
 							$item['answer_id'] = $answer['id'];
+							$item['survey_entry_id'] = $answer['survey_entry_id'];
 							$item['answer_title'] = $answer['value'];
 							$item['created'] = $entry['created'];
 							$item['ip_address'] = $entry['ip_address'];
@@ -98,7 +101,12 @@ class Onxshop_Controller_Bo_Export_CSV_Survey_Results extends Onxshop_Controller
 	    					$item['home_store_name'] = $customer['home_store_name'];
 	    					$item['city'] = $customer['other_data']['city'];
 	    					$item['county'] = $customer['county'];
-
+							
+							// include uploaded file
+							$file = "var/surveys/{$answer['survey_entry_id']}-{$question['id']}-{$answer['id']}-{$answer['value']}";
+							if (file_exists(ONXSHOP_PROJECT_DIR . $file)) $item['file'] = "http://" . $_SERVER['HTTP_HOST'] . "/download/$file";
+							else $item['file'] = 'n/a';
+							
 							$records[] = $item;
 						}
 					}

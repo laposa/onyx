@@ -73,7 +73,7 @@ class Onxshop_Controller_Component_Survey_Result extends Onxshop_Controller_Comp
 		
 		foreach ($survey_detail['question_list'] as $kq=>$question) {
 			
-			if ($question['type'] == 'text') {
+			if ($question['type'] == 'text' || $question['type'] == 'file') {
 			
 				$question['answer_list'] = $this->getAnswersForQuestion($question['id'], $relation_subject);
 			
@@ -338,6 +338,10 @@ class Onxshop_Controller_Component_Survey_Result extends Onxshop_Controller_Comp
 				$this->tpl->parse('content.result.question.answer_list_radio');
 				$this->tpl->parse('content.result.question.average_rating');
 			
+			break;
+			
+			case 'file':
+				//TODO: showing images
 			break;
 
 			case 'select':

@@ -18,7 +18,7 @@ $(function() {
 label.error { display: none; }	
 </style>
 
-<form method="post" action="{URI|htmlspecialchars}" id="survey_form_{GET.node_id}">
+<form method="post" action="{URI|htmlspecialchars}" id="survey_form_{GET.node_id}" enctype="multipart/form-data">
 	<fieldset class="single">
 		<legend>{SURVEY.title|htmlspecialchars}</legend>
 		<!-- BEGIN: question -->
@@ -43,11 +43,7 @@ label.error { display: none; }
 				</select>
 				<!-- END: answer_list_select -->
 				<!-- BEGIN: answer_file -->
-				<div class="row" id="attachment-file">
-					<label for="attachment-file-input">Add:</label>
-					<input id="attachment-file-input" type="file" name="attachment" class="file" /> 
-					<span class="max_filesize">Max&nbsp;filesize:&nbsp;{MAX_FILE_SIZE}</span>
-				</div>
+					<input type="file" name="answer[{QUESTION.id}]" class="file {CLASS_REQUIRED}" />
 				<!-- END: answer_file -->
 			</span>
 		</div>

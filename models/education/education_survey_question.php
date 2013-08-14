@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * Copyright (c) 2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2011-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -137,7 +137,7 @@ CREATE TABLE education_survey_question (
 		$SurveyQuestionAnswer = new education_survey_question_answer();
 		
 		foreach ($question_list as $k=>$item) {
-			if ($item['type'] != 'text') $question_list[$k]['answer_list'] = $SurveyQuestionAnswer->listAnswersForQuestion($item['id']);
+			if ($item['type'] != 'text' && $item['type'] != 'file') $question_list[$k]['answer_list'] = $SurveyQuestionAnswer->listAnswersForQuestion($item['id']);
 		}
 		
 		return $question_list;

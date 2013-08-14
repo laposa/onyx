@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * Copyright (c) 2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2011-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -213,16 +213,28 @@ CREATE TABLE education_survey_entry (
 		if (is_numeric($survey_entry_id)) {
 
 			require_once('models/education/education_survey_entry_answer.php');
+			$EntryAnswer = new education_survey_entry_answer();
 			
+			/**
+			 * save normal data
+			 */
+			 
 			foreach ($data['answers'] as $answer) {
+			
 				$answer['survey_entry_id'] = $survey_entry_id;
-				//TEMP reset before each insert (can be removed in Onxshop 1.5)
-				$EntryAnswer = new education_survey_entry_answer();
+				
 				if (!$EntryAnswer->saveAnswer($answer)) {
 					msg("Error occured in saving " . print_r($answer, true));
 					$error_occured = true;
 				}
+			
 			}
+			
+			/**
+			 * save files
+			 */
+			 
+			$this->saveFiles($survey_entry_id);
 
 		}
 		
@@ -231,6 +243,49 @@ CREATE TABLE education_survey_entry (
 		
 		return $survey_entry_id;
 		
+	}
+	
+	/**
+	 * saveFiles
+	 */
+	 
+	public function saveFiles($survey_entry_id) {
+		/**
+		 * attachment(s) via upload
+		 */
+		 
+		if (count($_FILES) > 0) {
+		
+			foreach ($_FILES as $key=>$file) {
+				
+				foreach ($file['name'] as $question_id=>$single_name) {
+					
+					$file_single = array();
+					$file_single['name'] = $file['name'][$question_id];
+					$file_single['type'] = $file['type'][$question_id];
+					$file_single['tmp_name'] = $file['tmp_name'][$question_id];
+					$file_single['error'] = $file['error'][$question_id];
+					$file_single['size'] = $file['size'][$question_id];
+					
+					require_once('models/education/education_survey_entry_answer.php');
+					$EntryAnswer = new education_survey_entry_answer();
+					
+					$answer['question_id'] = $question_id;
+					$answer['survey_entry_id'] = $survey_entry_id;
+					$answer['value'] = $file_single['name'];
+					
+					if (!$EntryAnswer->saveAnswer($answer, $file_single)) {
+					
+						msg("Error occured in saving " . print_r($answer, true));
+						$error_occured = true;
+					
+					}
+					
+				}
+				
+				
+			}
+		}
 	}
 	
 	/**

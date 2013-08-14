@@ -156,6 +156,10 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 		return $survey_entry_id;
 	}
 
+	/**
+	 * processCustomerDetails
+	 */
+	 
 	public function processCustomerDetails($form_data)
 	{
 		require_once 'models/client/client_customer.php';
@@ -224,6 +228,8 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 		}
 
 		$this->tpl->assign('SURVEY', $survey_detail);
+		
+		if ($this->GET['require_t_and_c'] == "1") $this->tpl->parse('content.form.require_t_and_c');
 		$this->tpl->parse('content.form');
 		
 	}
@@ -270,7 +276,10 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 				}
 				$this->tpl->parse('content.form.question.answer_list_radio');
 			break;
-
+			
+			case 'file':
+				$this->tpl->parse('content.form.question.answer_file');
+			break;
 			case 'select':
 			default:
 				foreach ($question_detail['answer_list'] as $item) {
@@ -285,9 +294,9 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 				}		
 				$this->tpl->parse('content.form.question.answer_list_select');
 			break;
+			
 		}
 		
-		if ($this->GET['require_t_and_c'] == "1") $this->tpl->parse('content.form.require_t_and_c');
 		$this->tpl->parse('content.form.question');
 		
 	}
@@ -324,13 +333,17 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 				$answer['question_id'] = $question_id;
 				
 				/**
-				 * for text type save as value
+				 * for text and file type save as value
 				 */
 				 
-				if ($question_detail['type'] == 'text') {
+				if ($question_detail['type'] == 'text' || $question_detail['type'] == 'file') {
+				
 					$answer['value'] = $answer_value;
+				
 				} else {
+				
 					$answer['question_answer_id'] = $answer_value;
+				
 				}
 				
 				$survey_entry['answers'][] = $answer;
@@ -539,59 +552,6 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 		$Taxonomy = new common_taxonomy();
 		
 		return $Taxonomy->getChildren($parent);
-	}
-	
-	/**
-	 * saveAttachments
-	 */
-	 
-	public function saveAttachments() {
-		
-		/**
-		 * attachment(s) via upload
-		 */
-		 
-		if (count($_FILES) > 0) {
-		
-			foreach ($_FILES as $key=>$file) {
-			
-				if (is_uploaded_file($file['tmp_name'])) {
-		
-					/**
-					 * file
-					 */
-					 
-					require_once('models/common/common_file.php');
-					//getSingleUpload could be static method
-					$CommonFile = new common_file();
-					$upload = $CommonFile->getSingleUpload($file, 'var/surveys/');
-					
-					/**
-					 * array indicated the same file name already exists in the var/tmp/ folder
-					 * we can ignore it, as the previous attachement was overwritten
-					 * FIXME: could be a problem when more users submit the same filename in the same time
-					 * perhaps saving file with PHP session id or not saving in var/tmp would help
-					 */
-					 
-					if (is_array($upload)) {
-						$attachment_saved_file = ONXSHOP_PROJECT_DIR . $upload['temp_file'];
-					} else {
-						$attachment_saved_file = ONXSHOP_PROJECT_DIR . $upload;
-					}
-					
-					/**
-					 * check if file exists and than add to email as attachemnt
-					 */
-					 
-					if (file_exists($attachment_saved_file)) {
-						$attachment_info = $CommonFile->getFileInfo($attachment_saved_file);
-						$Attachment = $mail->createAttachment(file_get_contents($attachment_saved_file));
-						$Attachment->filename = $attachment_info['filename'];
-					}
-				}
-			}
-		}
-		
 	}
 
 }

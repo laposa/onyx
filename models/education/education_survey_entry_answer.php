@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * Copyright (c) 2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2011-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -132,7 +132,7 @@ WHERE education_survey_entry.relation_subject LIKE '{$relation_subject}' AND edu
 	 * saveAnswer
 	 */
 	
-	public function saveAnswer($data) {
+	public function saveAnswer($data, $file = false) {
 	
 		if (!is_array($data)) {
 			msg("survey_entry_answer: data is not array", 'error');
@@ -141,7 +141,70 @@ WHERE education_survey_entry.relation_subject LIKE '{$relation_subject}' AND edu
 		
 		$data['created'] = date('c');
 		
-		return $this->save($data);
+		$id = $this->save($data);
+		
+		if (is_numeric($id)) {
+		
+			// Save file (if provided)
+			if ($file) $this->saveFile($file, $data['survey_entry_id'], $data['question_id'], $id);
+			
+			return $id;
+			
+		} else {
+			
+			msg("Cannot save Question {$data['question_id']}", 'error');
+			return false;
+			
+		}
+	}
+	
+	/**
+	 * saveFile
+	 */
+	 
+	public function saveFile($file_single, $survey_entry_id, $question_id, $answer_id) {
+		
+		/**
+		 * add prefix to filename (rename)
+		 */
+		 
+		$file_single['name'] = "{$survey_entry_id}-{$question_id}-{$answer_id}-" . $file_single['name'];
+		
+		/**
+		 * file
+		 */
+		 
+		require_once('models/common/common_file.php');
+		//getSingleUpload could be static method
+		$CommonFile = new common_file();
+		$upload = $CommonFile->getSingleUpload($file_single, 'var/surveys/');
+		
+		/**
+		 * array indicated the same file name already exists in the var/tmp/ folder
+		 * we can ignore it, as the previous attachement was overwritten
+		 * FIXME: could be a problem when more users submit the same filename in the same time
+		 * perhaps saving file with PHP session id or not saving in var/tmp would help
+		 */
+		 
+		if (is_array($upload)) {
+		
+			$attachment_saved_file = ONXSHOP_PROJECT_DIR . $upload['temp_file'];
+		
+		} else {
+		
+			$attachment_saved_file = ONXSHOP_PROJECT_DIR . $upload;
+		
+		}
+		
+		/**
+		 * check if file exists and than return filename
+		 */
+		 
+		if (file_exists($attachment_saved_file)) {
+			$attachment_info = $CommonFile->getFileInfo($attachment_saved_file);
+			
+			return $attachment_info['filename'];
+		}
 		
 	}
 }
