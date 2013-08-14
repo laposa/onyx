@@ -2,9 +2,7 @@
 <div class="facebook_auth">
 	<!-- BEGIN: authorised -->
 	<div class="authorised">
-		<h3>{USER_PROFILE.first_name|htmlspecialchars} {USER_PROFILE.last_name|htmlspecialchars}</h3>
-		<img src="https://graph.facebook.com/{USER_PROFILE.id}/picture">
-		<!--<pre>{USER_PROFILE|print_r(%s, true)}</pre>-->
+		<span><img src="https://graph.facebook.com/{USER_PROFILE.id}/picture" alt="{USER_PROFILE.first_name|htmlspecialchars} {USER_PROFILE.last_name|htmlspecialchars}" title="{USER_PROFILE.first_name|htmlspecialchars} {USER_PROFILE.last_name|htmlspecialchars}"></span>
 	</div>
 	<!-- END: authorised -->
 	<!-- BEGIN: login -->
