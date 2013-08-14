@@ -127,6 +127,7 @@ class Onxshop_Model {
 	public function setAll($data) {
 	
 		msg("{$this->_class_name} Calling setAll(): " . print_r($data, true), 'ok', 3);
+		$this->_valid = array();// reset previous validation
 		
 		if (is_array($data) && count($data) > 0) {
 			
