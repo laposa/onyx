@@ -22,6 +22,7 @@ class Onxshop_Controller_Bo_Export_CSV_Survey_Results extends Onxshop_Controller
 		require_once('models/client/client_customer.php');
 		require_once('models/ecommerce/ecommerce_store.php');
 		require_once('models/common/common_taxonomy_tree.php');
+		require_once('models/common/common_file.php');
 		
 		$Survey = new education_survey();
 		$Survey_Entry = new education_survey_entry();
@@ -103,7 +104,8 @@ class Onxshop_Controller_Bo_Export_CSV_Survey_Results extends Onxshop_Controller
 	    					$item['county'] = $customer['county'];
 							
 							// include uploaded file
-							$file = "var/surveys/{$answer['survey_entry_id']}-{$question['id']}-{$answer['id']}-{$answer['value']}";
+							$save_filename = common_file::nameToSafe($answer['value']);
+							$file = "var/surveys/{$answer['survey_entry_id']}-{$question['id']}-{$answer['id']}-{$save_filename}";
 							if (file_exists(ONXSHOP_PROJECT_DIR . $file)) $item['file'] = "http://" . $_SERVER['HTTP_HOST'] . "/download/$file";
 							else $item['file'] = 'n/a';
 							

@@ -369,9 +369,9 @@ CREATE TABLE common_file (
 	 * converted file name
 	 */
 	 
-	function nameToSafe($name, $maxlen=250) {
+	static function nameToSafe($name, $maxlen=250) {
 	
-	    $name = $this->recodeUTF8ToAscii($name);
+	    $name = self::recodeUTF8ToAscii($name);
 	    return preg_replace('/[^a-zA-Z0-9._-]/', '_', $name);
 	}
 
@@ -385,7 +385,7 @@ CREATE TABLE common_file (
 	 * text recoded into ASCII
 	 */
 	 
-	function recodeUTF8ToAscii($string) {
+	static function recodeUTF8ToAscii($string) {
 	
 	    //recode to ASCII
 	    if (function_exists("recode_string")) {
