@@ -58,7 +58,9 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Store_Edit extends Onxshop_Contr
 		// store detail
 		$store = $Store->detail($this->GET['id']);
 		$store['publish'] = ($store['publish'] == 1) ? 'checked="checked" ' : '';
+		$store['other_data'] = unserialize($store['other_data']);
 		$this->tpl->assign('STORE', $store);
+		$this->tpl->assign('STREET_VIEW_IMAGE_' . ((int) $store['other_data']['street_view']['image']), 'checked="checked"');
 
 		return true;
 	}

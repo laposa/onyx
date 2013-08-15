@@ -51,23 +51,7 @@ $(document).ready(function(){
 						<span class="label"><label>E-mail</label></span>
 						<span class="field"><input type="text" class="text email long" name="store[email]" value="{STORE.email|htmlspecialchars}" /></span>
 					</div>
-					<div class="row coordinates_x">
-						<span class="label"><label>X coordinate</label></span>
-						<span class="field"><input type="text" class="coordinates_x" name="store[coordinates_x]" value="{STORE.coordinates_x|htmlspecialchars}" /></span>
-					</div>
-					<div class="row coordinates_y">
-						<span class="label"><label>Y coordinate</label></span>
-						<span class="field"><input type="text" class="coordinates_y" name="store[coordinates_y]" value="{STORE.coordinates_y|htmlspecialchars}" /></span>
-					</div>
-					<div class="row latitude">
-						<span class="label"><label>Latitude</label></span>
-						<span class="field"><input type="text" class="latitude" name="store[latitude]" value="{STORE.latitude|htmlspecialchars}" /></span>
-					</div>
-					<div class="row longitude">
-						<span class="label"><label>Longitude</label></span>
-						<span class="field"><input type="text" class="longitude" name="store[longitude]" value="{STORE.longitude|htmlspecialchars}" /></span>
-					</div>
-					
+
 				</div>
 			</div>
 			<div class="layoutColumnTwo ofTwo">
@@ -79,9 +63,183 @@ $(document).ready(function(){
 					{ONXSHOP_REQUEST_rt #bo/component/relation_taxonomy~relation=store:id=GET.id~}
 	
 					{ONXSHOP_REQUEST_store_in_node #bo/component/ecommerce/store_in_node~store_id=GET.id~}
+
 				</div>
 			</div>
 		</div>
+
+		<div class="twoColumnLayout fibonacci-5-3">
+
+			<div class="layoutColumnOne ofTwo">
+				<div class="layoutColumnWrapper">
+
+					<div class="twoColumnLayout custom-fibonacci-1-5">
+						<div class="layoutColumnOne ofTwo" style="width: 40%">
+							<div class="layoutColumnWrapper">
+
+								<fieldset>
+									<legend>Location</legend>
+
+									<div class="row coordinates_x">
+										<span class="label"><label>X coordinate</label></span>
+										<span class="field"><input type="text" class="coordinates_x" name="store[coordinates_x]" value="{STORE.coordinates_x|htmlspecialchars}" /></span>
+									</div>
+									<div class="row coordinates_y">
+										<span class="label"><label>Y coordinate</label></span>
+										<span class="field"><input type="text" class="coordinates_y" name="store[coordinates_y]" value="{STORE.coordinates_y|htmlspecialchars}" /></span>
+									</div>
+									<div class="row latitude">
+										<span class="label"><label>Latitude</label></span>
+										<span class="field"><input type="text" class="latitude" name="store[latitude]" value="{STORE.latitude|htmlspecialchars}" /></span>
+									</div>
+									<div class="row longitude">
+										<span class="label"><label>Longitude</label></span>
+										<span class="field"><input type="text" class="longitude" name="store[longitude]" value="{STORE.longitude|htmlspecialchars}" /></span>
+									</div>					
+								</fieldset>
+							</div>
+						</div>
+						<div class="layoutColumnTwo ofTwo" style="width: 60%">
+							<div class="layoutColumnWrapper">
+
+								<fieldset>
+									<legend>Google Street View Image</legend>
+
+									<div id="googleMapScreen">
+									</div>
+								</fieldset>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+
+			<div class="layoutColumnTwo ofTwo">
+				<div class="layoutColumnWrapper">
+
+					<div class="twoColumnLayout">
+						<div class="layoutColumnOne ofTwo" style="width: 50%">
+							<div class="layoutColumnWrapper">
+
+								<div class="row google_map_buttons">
+									<br/>
+									<br/>
+									<span class="label"><label>Move Camera Target</label></span>
+									<br/>
+									<span class="field" >
+										<span style="display: table-cell; padding: 0; vertical-align: middle; text-align: center; width: 80px; height: 80px; background: #f0f0f0; border-radius: 100%; ">
+											<a href="#" class="move_north" onclick="$('input.latitude').val($('input.latitude').val() * 1 + 0.0001); updateGoogleImage(); return false;">N</a>
+											<br/>
+											<a href="#" class="move_east"  onclick="$('input.longitude').val($('input.longitude').val() * 1 - 0.0001); updateGoogleImage(); return false;">W</a>
+											&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+											<a href="#" class="move_west"  onclick="$('input.longitude').val($('input.longitude').val() * 1 + 0.0001); updateGoogleImage(); return false;">E</a>
+											<br/>
+											<a href="#" class="move_south" onclick="$('input.latitude').val($('input.latitude').val() * 1 - 0.0001); updateGoogleImage(); return false;">S</a>
+										</center>
+									</span>
+									<style>
+										div.google_map_buttons a { padding: 4px 8px; display: inline-block; border-radius: 5px; background: #e0e0e0; text-decoration: none; }
+									</style>
+								</div>
+
+								<div class="row image_type">
+									<br/>
+									<br/>
+									<span class="field" >
+										<label><input type="radio" name="store[other_data][street_view][image]" value="0" {STREET_VIEW_IMAGE_0}/> Show generic store image</label><br/>
+										<label><input type="radio" name="store[other_data][street_view][image]" value="1" {STREET_VIEW_IMAGE_1}/> Show Street View image</label><br/>
+										<label><input type="radio" name="store[other_data][street_view][image]" value="2" {STREET_VIEW_IMAGE_2}/> Show attached image</label><br/>
+									</span>
+								</div>
+
+							</div>
+						</div>
+
+						<div class="layoutColumnTwo ofTwo" style="width: 50%">
+							<div class="layoutColumnWrapper">
+
+								<div class="row google_map_buttons">
+									<br/>
+									<br/>
+									<span class="label"><label>Turn Camera</label></span>
+									<br/>
+									<span class="field">
+										<a href="#" class="look_left"  onclick="$('input.google_map_heading').val((355 + 1 * $('input.google_map_heading').val()) % 360); updateGoogleImage(); return false;">&lt; Left</a>
+										&nbsp;&nbsp;
+										<a href="#" class="look_right"  onclick="$('input.google_map_heading').val((5 + 1 * $('input.google_map_heading').val()) % 360); updateGoogleImage(); return false;">Righ &gt;</a>
+									</span>
+								</div>
+
+								<br/>
+								<div class="row heading">
+									<span class="label"><label>Compass Heading (0-360)</label></span>
+									<span class="field"><input type="text" class="google_map_heading" name="store[other_data][street_view][heading]" value="{STORE.other_data.street_view.heading|htmlspecialchars}" /></span>
+								</div>
+								<div class="row pitch">
+									<span class="label"><label>Up or Down Angle (-90-90)</label></span>
+									<span class="field"><input type="text" class="google_map_pitch" name="store[other_data][street_view][pitch]" value="{STORE.other_data.street_view.pitch|htmlspecialchars}" /></span>
+								</div>
+								<div class="row fov">
+									<span class="label"><label>Field of View (0-120)</label></span>
+									<span class="field"><input type="text" class="google_map_fov" name="store[other_data][street_view][fov]" value="{STORE.other_data.street_view.fov|htmlspecialchars}" /></span>
+								</div>
+
+								<script type="text/javascript">
+
+									function updateGoogleImage() {
+										var lat = $("input.latitude").val();
+										var lng = $("input.longitude").val();
+										var fov = $("input.google_map_fov").val();
+										var heading = $("input.google_map_heading").val();
+										var pitch = $("input.google_map_pitch").val();
+
+										if (fov.length > 0) fov = fov * 1; else fov = 90;
+										if (heading.length > 0) heading = heading % 360; else heading = 0;
+										if (pitch.length > 0) pitch = pitch * 1; else pitch = 0;
+										if (isNaN(heading)) heading = 0;
+										if (isNaN(fov) || fov < 0 || fov > 120) fov = 90;
+										if (isNaN(heading) || pitch < -90 || pitch > 90) pitch = 0;
+
+										$("input.google_map_fov").val(fov);
+										$("input.google_map_heading").val(heading);
+										$("input.google_map_pitch").val(pitch);
+
+										if (lat && lat.length > 0 && lng && lng.length > 0) {
+
+											var url = 'http://maps.googleapis.com/maps/api/streetview?size=320x200';
+											url += '&location=' + lat + ',' + lng;
+											url += '&fov=' + fov;
+											url += '&heading=' + heading;
+											url += '&pitch=' + pitch;
+											url += '&sensor=false';
+
+											var img = $("#googleMapScreen img");
+											if (img.length == 0) {
+												$("#googleMapScreen").append('<img src="' + url + '" />');
+												img = $("#googleMapScreen img");
+											} else {
+												img.attr("src", url);
+											}
+										}
+									}
+
+									$(function() {
+										updateGoogleImage();
+										$("#googleMapScreen").parent().find("input").blur(updateGoogleImage).change(updateGoogleImage);
+									});
+
+								</script>
+
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
 
 		<fieldset>
 			<legend>Images</legend>

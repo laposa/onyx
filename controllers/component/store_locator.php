@@ -66,12 +66,32 @@ class Onxshop_Controller_Component_Store_Locator extends Onxshop_Controller {
 					if ($store['longitude'] < $bounds['longitude']['min']) $bounds['longitude']['min'] = $store['longitude'];
 				}
 
+				$store['other_data'] = unserialize($store['other_data']);
+
+				switch ($store['other_data']['street_view']['image']) {
+					case 1:
+						$store['image'] = 'http://maps.googleapis.com/maps/api/streetview?size=130x130'
+							. '&location=' . $store['latitude'] . ',' . $store['longitude']
+							. '&fov=' . ((int) $store['other_data']['street_view']['fov'])
+							. '&heading=' . ((int) $store['other_data']['street_view']['heading'])
+							. '&pitch=' . ((int) $store['other_data']['street_view']['pitch'])
+							. '&sensor=false';
+						break;
+					case 2:
+						$store['image'] = "/thumbnail/130x130/" . $this->getStoreImage($store['id']);
+						break;
+					case 0:
+					default:
+						$store['image'] = '/image/var/files/generic_store.jpg';
+				}
+
 				$store['opening_hours'] = json_encode(nl2br($store['opening_hours']));
 				// parse item
 				$this->tpl->assign("STORE", $store);
 				$this->tpl->parse("content.map.store_marker");
 
 			}
+
 		}
 
 		// center map to ...
@@ -132,6 +152,18 @@ class Onxshop_Controller_Component_Store_Locator extends Onxshop_Controller {
 	{
 		$Store = new ecommerce_store();
 		return $Store->listing("publish = 1");
+	}
+
+
+	/**
+	 * Returns array of all published stores in the database
+	 * 
+	 * @return Array
+	 */
+	protected function getStoreImage($store_id)
+	{
+		$Store = new ecommerce_store();
+		return $Store->getStoreImage($store_id);
 	}
 
 

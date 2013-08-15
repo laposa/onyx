@@ -230,7 +230,16 @@ CREATE TABLE ecommerce_store (
 		return array(array(), $count);
     }
 
+    function getStoreImage($store_id) {
 
+		require_once('models/ecommerce/ecommerce_store_image.php');
+		$Image = new ecommerce_store_image();
+
+		$images = $Image->listFiles($store_id);
+		if (count($images) > 0) return $images[0]['src'];
+
+		return false;
+    }
 
     /**
      * Find store homepage
