@@ -14,7 +14,8 @@
 				beforeSubmit: function() {return $("#survey_edit_form").valid()},
 				success: function(responseText, statusText) {
 					popupMessage("#sub_content div.onxshop_messages");
-					makeAjaxRequest('#sub_content', '/request/bo/component/survey_list~');
+					makeAjaxRequest('div.columnOne div.columnWrapper', '/request/bo/component/survey_list@bo/component/survey_menu');
+					makeAjaxRequest('#sub_content', '/request/bo/component/survey_list');
 				}
 			});
 		}

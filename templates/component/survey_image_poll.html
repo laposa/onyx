@@ -74,7 +74,11 @@ $(function() {
 <!-- END: form -->
 
 <!-- BEGIN: result -->
-{SURVEY_RESULT}
+<div class="thank_you">
+	<p>Thanks for voting!</p>
+	{SURVEY_RESULT}
+	{ONXSHOP_REQUEST_pile #component/client/facebook_pile_survey~survey_id=GET.survey_id~}
+</div>
 <!-- END: result -->
 
 <!-- BEGIN: closed -->

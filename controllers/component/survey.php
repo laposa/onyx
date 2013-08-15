@@ -66,7 +66,7 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 					
 						msg("Survey ID {$survey_detail['id']} has been submitted as entry ID $survey_entry_id.", 'ok', 1, 'survey_submitted');
 						
-						if ($this->GET['href']) $this->displaySuccessPage($survey_detail, $survey_entry_id);
+						if ($this->GET['href']) $this->displaySuccessPage($this->GET['href']);
 						else $this->displayResult($survey_id, $survey_entry_id);
 						
 					}
