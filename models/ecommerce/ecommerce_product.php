@@ -214,6 +214,62 @@ CREATE TABLE ecommerce_product (
 	} 
 	
 	/**
+	 * updateProduct
+	 */
+	 
+	public function updateProduct($data) {
+		
+		if (!is_array($data)) return false;
+		if (!is_numeric($data['id'])) return false;
+		
+		/**
+		 * set values
+		 */
+		 
+		if (!isset($data['publish'])) $data['publish'] = 0;
+		
+		$data['modified'] = date('c');
+		
+		/**
+		 * handle other_data
+		 */
+		
+		$data['other_data'] = serialize($data['other_data']);
+		
+		/**
+		 * update product
+		 */
+		 
+		if($id = $this->update($data)) {
+		
+			msg("Product ID=$id updated");
+		
+			/**
+			 * update node info (if exists)
+			 */
+			 
+			$product_homepage = $this->getProductHomepage($id);
+		
+			if (is_array($product_homepage) && count($product_homepage) > 0) {
+			
+				$product_homepage['publish'] = $data['publish'];
+				
+				require_once('models/common/common_node.php');
+				$Node = new common_node();
+				
+				$Node->nodeUpdate($product_homepage);
+				
+			}
+			
+			return $id;
+			
+		} else {
+			
+			return false;
+		}
+			
+	}
+	/**
 	 * getDetail
 	 */
 	 

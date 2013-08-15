@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2005-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2005-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -25,46 +25,9 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Product_Edit extends Onxshop_Con
 		 
 		if ($_POST['save']) {
 		
-			/**
-			 * set values
-			 */
-			 
-			if (!isset($_POST['product']['publish'])) $_POST['product']['publish'] = 0;
+			$product_data = $_POST['product'];
 			
-			$_POST['product']['modified'] = date('c');
-			
-			/**
-			 * handle other_data
-			 */
-			
-			$_POST['product']['other_data'] = serialize($_POST['product']['other_data']);
-			
-			/**
-			 * update product
-			 */
-			 
-			if($id = $Product->update($_POST['product'])) {
-			
-				msg("Product ID=$id updated");
-			
-				/**
-				 * update node info (if exists)
-				 */
-				 
-				$product_homepage = $Product->getProductHomepage($_POST['product']['id']);
-			
-				if (is_array($product_homepage) && count($product_homepage) > 0) {
-					$product_homepage['publish'] = $_POST['product']['publish'];
-					
-					require_once('models/common/common_node.php');
-					$Node = new common_node();
-					
-					$Node->nodeUpdate($product_homepage);
-					
-				}
-				
-				
-				
+			if ($id = $Product->updateProduct($product_data)) {
 				
 				/**
 				 * forward to product list main page and exit
@@ -73,7 +36,9 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Product_Edit extends Onxshop_Con
 				onxshopGoTo("/backoffice/products");
 				
 				return true;
+				
 			}
+			
 		}
 		
 		/**
