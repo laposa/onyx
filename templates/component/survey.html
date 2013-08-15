@@ -9,7 +9,9 @@
 $(function() {
 	$("#survey_form_{GET.node_id}").validate();
 
-	$('#client_customer_birthday_id').datepicker({firstDay: 1, dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true, yearRange: '1900:2013', maxDate: new Date()});
+	var current_year = new Date().getFullYear();
+	var last_year = current_year - 1;
+	$('#client_customer_birthday_id').datepicker({firstDay: 1, dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true, yearRange: '1900:' + last_year, maxDate: last_year});
 
 });
 </script>
@@ -68,7 +70,7 @@ label.error { display: none; }
 
 		<div class="row email">
 			<span class="label"><label for="client_customer_email_id"><span class="mandatory-mark">*</span> {I18N_R_EMAIL}</label></span>
-			<span class="field"><input class="required text" type="text" id="client_customer_email_id" name="client[customer][email]" value="{CLIENT.customer.email|htmlspecialchars}"/></span>
+			<span class="field"><input class="required email" type="text" id="client_customer_email_id" name="client[customer][email]" value="{CLIENT.customer.email|htmlspecialchars}"/></span>
 		</div>
 
 		<div class="row telephone">
