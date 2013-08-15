@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2008-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2008-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -16,7 +16,7 @@ class Onxshop_Controller_Autologin extends Onxshop_Controller {
 		if ($_SESSION['client']['customer']['id'] == 0) {
 
 			$this->checkCookieForToken();
-			$this->checkFacebookToken();
+			//$this->checkFacebookToken();
 
 		}
 
