@@ -2,7 +2,7 @@
 /**
  * class ecommerce_recipe
  *
- * Copyright (c) 2009-2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -158,6 +158,9 @@ CREATE TABLE ecommerce_recipe (
 		$data['created'] = date('c');
 		$data['serving_people'] = 4;
 
+		// handle other_data
+		if (is_array($data['other_data'])) $data['other_data'] = serialize($data['other_data']);
+		
 		if ($id = $this->insert($data)) {
 			return $id;
 		} else {
@@ -185,7 +188,7 @@ CREATE TABLE ecommerce_recipe (
 		if ($id = $this->update($data)) {
 		
 			// update node info (if exists)
-			$recipe_homepage = $this->getRecipeHomepage($recipe_id);
+			$recipe_homepage = $this->getRecipeHomepage($id);
 		
 			if (is_array($recipe_homepage) && count($recipe_homepage) > 0) {
 			
