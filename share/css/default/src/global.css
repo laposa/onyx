@@ -180,7 +180,7 @@ div.onxshop_messages p.onxshop_error_msg {background: transparent url(/share/ima
  * jGrowl
  */
  
-div.jGrowl div.jGrowl-notification {position: fixed; width: 50%; top: 20px; left: 25%; bottom: auto; right: auto; z-index: 9999; zoom: 1; text-align: left; display: none; border-radius: 5px; min-height: 40px;}
+div.jGrowl div.jGrowl-notification {position: fixed; width: 50%; top: 50px; left: 25%; bottom: auto; right: auto; z-index: 9999; zoom: 1; text-align: left; display: none; border-radius: 5px; min-height: 40px;}
 div.jGrowl div.jGrowl-notification div.jGrowl-header {font-weight: bold;}
 div.jGrowl div.jGrowl-notification div.jGrowl-close {color: #fff; background: transparent; float: right; font-weight: bold; font-size: 16px; cursor: pointer; cursor: hand; position: relative; left: -24px; top: 24px; z-index: 9999999;}
 div.jGrowl div.jGrowl-notification div.jGrowl-closer {display: none; color: black; background: white; height: 15px; cursor: pointer; cursor: hand; font-size: 11px; font-weight: bold; text-align: center;}
