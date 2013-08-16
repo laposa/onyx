@@ -30,6 +30,8 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Store_Edit extends Onxshop_Contr
 			$_POST['store']['coordinates_y'] = (int) $_POST['store']['coordinates_y'];
 			$_POST['store']['latitude'] = (float) $_POST['store']['latitude'];
 			$_POST['store']['longitude'] = (float) $_POST['store']['longitude'];
+			// serialize street_view_options
+			$_POST['store']['street_view_options'] = serialize($_POST['store']['street_view_options']);
 			
 			// update store
 			if($id = $Store->update($_POST['store'])) {
@@ -58,9 +60,10 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Store_Edit extends Onxshop_Contr
 		// store detail
 		$store = $Store->detail($this->GET['id']);
 		$store['publish'] = ($store['publish'] == 1) ? 'checked="checked" ' : '';
-		$store['other_data'] = unserialize($store['other_data']);
+		$store['street_view_options'] = unserialize($store['street_view_options']);
 		$this->tpl->assign('STORE', $store);
-		$this->tpl->assign('STREET_VIEW_IMAGE_' . ((int) $store['other_data']['street_view']['image']), 'checked="checked"');
+		$this->tpl->assign('ONXSHOP_GOOGLE_API_KEY', ONXSHOP_GOOGLE_API_KEY);
+		$this->tpl->assign('STREET_VIEW_IMAGE_' . ((int) $store['street_view_options']['image']), 'checked="checked"');
 
 		return true;
 	}

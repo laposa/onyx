@@ -66,19 +66,24 @@ class Onxshop_Controller_Component_Store_Locator extends Onxshop_Controller {
 					if ($store['longitude'] < $bounds['longitude']['min']) $bounds['longitude']['min'] = $store['longitude'];
 				}
 
-				$store['other_data'] = unserialize($store['other_data']);
+				$store['street_view_options'] = unserialize($store['street_view_options']);
 
-				switch ($store['other_data']['street_view']['image']) {
+				switch ($store['street_view_options']['image']) {
 					case 1:
+						$lat = $store['street_view_options']['latitude'];
+						$lng = $store['street_view_options']['longitude'];
+						if (empty($lat)) $lat = $store['latitude'];
+						if (empty($lng)) $lng = $store['longitude'];
 						$store['image'] = 'http://maps.googleapis.com/maps/api/streetview?size=130x130'
-							. '&location=' . $store['latitude'] . ',' . $store['longitude']
-							. '&fov=' . ((int) $store['other_data']['street_view']['fov'])
-							. '&heading=' . ((int) $store['other_data']['street_view']['heading'])
-							. '&pitch=' . ((int) $store['other_data']['street_view']['pitch'])
-							. '&sensor=false';
+							. '&location=' . $lat . "," . $lng
+							. '&fov=' . ((int) $store['street_view_options']['fov'])
+							. '&heading=' . ((int) $store['street_view_options']['heading'])
+							. '&pitch=' . ((int) $store['street_view_options']['pitch'])
+							. '&sensor=false'
+							. '&key=' . ONXSHOP_GOOGLE_API_KEY;
 						break;
 					case 2:
-						$store['image'] = "/thumbnail/130x130/" . $this->getStoreImage($store['id']);
+						$store['image'] = "/thumbnail/130x130/" . $this->getStoreImage($store['id']) . '?fill=1';
 						break;
 					case 0:
 					default:
@@ -112,6 +117,7 @@ class Onxshop_Controller_Component_Store_Locator extends Onxshop_Controller {
 			$map['longitude'] = -6.264478;
 		}
 
+		$this->tpl->assign("ONXSHOP_GOOGLE_API_KEY", ONXSHOP_GOOGLE_API_KEY);
 		$this->tpl->assign("MAP", $map);
 		$this->tpl->parse("content.map");
 
