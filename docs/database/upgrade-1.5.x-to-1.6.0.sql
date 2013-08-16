@@ -153,6 +153,7 @@ CREATE TABLE ecommerce_store (
     created timestamp without time zone NOT NULL,
     modified timestamp without time zone NOT NULL,
     publish smallint DEFAULT 0 NOT NULL,
+    street_view_options text,
     other_data text
 );
 

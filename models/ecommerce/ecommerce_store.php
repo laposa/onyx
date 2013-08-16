@@ -111,6 +111,7 @@ class ecommerce_store extends Onxshop_Model {
 		'created'=>array('label' => '', 'validation' => 'datetime', 'required' => false),
 		'modified'=>array('label' => '', 'validation' => 'datetime', 'required' => false),
 		'publish'=>array('label' => '', 'validation' => 'int', 'required' => false),
+		'street_view_options'=>array('label' => '', 'validation' => 'string', 'required' => false),
 		'other_data'=>array('label' => '', 'validation' => 'string', 'required' => false)
 	);
 	
@@ -138,6 +139,7 @@ CREATE TABLE ecommerce_store (
     created timestamp without time zone NOT NULL,
     modified timestamp without time zone NOT NULL,
     publish smallint DEFAULT 0 NOT NULL,
+    street_view_options text,
     other_data text
 );
 	";
