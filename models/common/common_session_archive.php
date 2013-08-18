@@ -56,9 +56,6 @@ CREATE TABLE common_session_archive (
 	 */
 	 
 	function insertSession($session) {
-	
-		// remove primary key
-		unset($session['id']);
 		
 	 	if ($this->conf['keep_anonymouse'] == true) {
         	//archive all
