@@ -4,7 +4,7 @@ require_once('models/common/common_session.php');
 /**
  * class common_session_archive
  *
- * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -57,6 +57,9 @@ CREATE TABLE common_session_archive (
 	 
 	function insertSession($session) {
 	
+		// remove primary key
+		unset($session['id']);
+		
 	 	if ($this->conf['keep_anonymouse'] == true) {
         	//archive all
         	$id = $this->insert($session);
