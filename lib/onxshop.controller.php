@@ -631,6 +631,8 @@ class Onxshop_Controller {
 				$this->tpl->parse('content.messages');
 
 				$_SESSION['messages'] = '';
+				// don't store page in cache if any messages were shown
+				$_SESSION['use_page_cache'] = false;
 			}
 		}
 		
