@@ -396,7 +396,8 @@ CREATE TABLE client_customer (
 		
 			if ($this->set('email', $customer_data['email'])) {
 		
-				$sql = "lower(email) = '{$customer_data['email']}' AND status < 3";
+				$email_quoted = $this->db->quote($customer_data['email']);
+				$sql = "lower(email) = $email_quoted AND status < 3";
 				if ($customer_data['id'] > 0) $sql .= " AND id != {$customer_data['id']}";
 				$customer_current = $this->listing($sql);
 		
@@ -419,7 +420,9 @@ CREATE TABLE client_customer (
 		
 			if ($this->set('email', $customer_data['email']) && $this->set('username', $customer_data['username'])) {
 		
-				$customer_current = $this->listing("lower(email) = '{$customer_data['email']}' OR username='{$customer_data['username']}' AND status < 3");
+				$email_quoted = $this->db->quote($customer_data['email']);
+				$username_quoted = $this->db->quote($customer_data['username']);
+				$customer_current = $this->listing("lower(email) = $email_quoted OR username = $username_quoted AND status < 3");
 		
 				if (count($customer_current) > 0) {
 			
@@ -520,8 +523,9 @@ CREATE TABLE client_customer (
 	function checkLoginIdPreservedOnly($email) {
 	
 		$email = strtolower($email);
+		$email_quoted = $this->db->quote($email);
 		
-		$customer_list = $this->listing("lower(email) = '{$email}' AND status = 3", 'id DESC');
+		$customer_list = $this->listing("lower(email) = $email_quoted AND status = 3", 'id DESC');
 
 		if (count($customer_list) > 0) {
 			
@@ -969,7 +973,8 @@ CREATE TABLE client_customer (
 	
 		$username = strtolower($username);
 		
-		$customer_detail = $this->listing("lower(username) = '$username'");
+		$username_quoted = $this->db->quote($username);
+		$customer_detail = $this->listing("lower(username) = $username_quoted");
 
 		if (count($customer_detail) > 0) {
 			if ($customer_detail[0]['password'] === $md5_password) {
@@ -1221,7 +1226,8 @@ CREATE TABLE client_customer (
 		
 		if ($this->validation('email', 'email', $email)) {
 		
-			$client_list = $this->listing("lower(email) = '$email'", "id DESC");
+			$email_quoted = $this->db->quote($email);
+			$client_list = $this->listing("lower(email) = $email_quoted", "id DESC");
 		
 			if (is_array($client_list) && count($client_list) > 0) {
 				return $this->getDetail($client_list[0]['id']);
