@@ -57,7 +57,7 @@ class Onxshop_Controller_Component_Client_Facebook_Auth extends Onxshop_Controll
 				
 			} catch (FacebookApiException $e) {
 				
-				msg($e, 'error');
+				msg($e, 'error', 1);
 				$user = null;
 			}
 		}
