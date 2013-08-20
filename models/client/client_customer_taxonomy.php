@@ -58,6 +58,7 @@ CREATE INDEX client_customer_taxonomy_taxonomy_tree_id_key ON client_customer_ta
 		
 		$relations_list = $this->listing("node_id = $customer_id");
 		
+		$relations = array();
 		foreach($relations_list as $item) {
 			$relations[] = $item['taxonomy_tree_id'];
 		}
@@ -65,4 +66,14 @@ CREATE INDEX client_customer_taxonomy_taxonomy_tree_id_key ON client_customer_ta
 		return $relations;
 		
 	}
+
+	function remove($customer_id, $taxonomy_tree_id)
+	{
+		if (!is_numeric($customer_id)) return false;
+		if (!is_numeric($taxonomy_tree_id)) return false;
+
+		$sql = "DELETE FROM client_customer_taxonomy WHERE node_id = $customer_id AND taxonomy_tree_id = $taxonomy_tree_id";
+		if ($this->executeSql($sql)) return true;
+	}
+
 }
