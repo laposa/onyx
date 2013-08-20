@@ -11,7 +11,7 @@ require_once('models/common/common_node_taxonomy.php');
 require_once('models/common/common_uri_mapping.php');
 require_once('models/client/client_customer.php');
 
-class Onxshop_Controller_Component_Store_Locator extends Onxshop_Controller {
+class Onxshop_Controller_Component_Ecommerce_Store_Locator extends Onxshop_Controller {
 
 	/**
 	 * main action

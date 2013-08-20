@@ -81,18 +81,18 @@
 							<div class="columnWrapper">
 								{CONTAINER.0}
 								<div class="provinceMenu">
-								{ONXSHOP_REQUEST_province_menu #component/menu~expand_all=1:level=2:id=1345~}
+								{ONXSHOP_REQUEST_province_menu #component/ecommerce/menu~expand_all=1:level=2:id=1345~}
 								</div>
 								<!-- BEGIN: dublin_menu -->
 								<div class="dublinMenu">
-									{ONXSHOP_REQUEST_dublin_menu #component/menu~expand_all=1:level=1:id=1536~}
+									{ONXSHOP_REQUEST_dublin_menu #component/ecommerce/menu~expand_all=1:level=1:id=1536~}
 								</div>
 								<!-- END: dublin_menu -->
 	
-								{ONXSHOP_REQUEST_store_locator #component/store_locator~node_id=GET.id~}
-								{ONXSHOP_REQUEST_store_message #component/store_message}
-								{ONXSHOP_REQUEST_store_detail #component/store_detail~node_id=GET.id~}
-								{ONXSHOP_REQUEST_store_nearby #component/store_nearby_radius~node_id=GET.id~}
+								{ONXSHOP_REQUEST_store_locator #component/ecommerce/store_locator~node_id=GET.id~}
+								{ONXSHOP_REQUEST_store_message #component/ecommerce/store_message}
+								{ONXSHOP_REQUEST_store_detail #component/ecommerce/store_detail~node_id=GET.id~}
+								{ONXSHOP_REQUEST_store_nearby #component/ecommerce/store_nearby_radius~node_id=GET.id~}
 							</div>
 						</div>
 					</div>
