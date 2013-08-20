@@ -65,7 +65,7 @@ class Onxshop_Controller_Autologin extends Onxshop_Controller {
 			} else {
 
 				msg('Invalid autologin token supplied', 'error', 1);
-
+				//TODO: remove token from cookies
 			}
 
 		}
