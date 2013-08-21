@@ -7,7 +7,7 @@
  
 require_once('controllers/bo/export/csv.php');
 
-class Onxshop_Controller_Bo_Export_CSV_Survey_Results extends Onxshop_Controller_Bo_Export_CSV {
+class Onxshop_Controller_Bo_Export_CSV_Survey_Entries extends Onxshop_Controller_Bo_Export_CSV {
 
 	/**
 	 * main action
@@ -91,7 +91,7 @@ class Onxshop_Controller_Bo_Export_CSV_Survey_Results extends Onxshop_Controller
 			}
 		}
 
-		$this->commonCSVAction($records, 'survey-results');
+		$this->commonCSVAction($records, 'survey-entries');
 
 		return true;
 	}

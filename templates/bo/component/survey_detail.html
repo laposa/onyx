@@ -48,7 +48,7 @@ table a {text-decoration: underline;}
 					<div class="layoutColumnTwo ofTwo">
 						<div class="layoutColumnWrapper">
 							<p><a class="button add" title="Add new question" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_question_add~survey_id={SURVEY.id}~'); return false" href="#sub_content"><span>Add new question</span></a></p>
-							<p>Export Survey Results: <a class="button" href="/request/bo/export/csv_survey_results?survey_id={SURVEY.id}"><span>CSV</span></a></p>
+							<p>Export Survey Results: <a class="button" href="/request/bo/export/csv_survey_entries?survey_id={SURVEY.id}"><span>CSV</span></a></p>
 						
 							<table>
 								<caption>{SURVEY.title|htmlspecialchars}</caption>
