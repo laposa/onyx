@@ -3,7 +3,7 @@
  * Onxshop global functions
  * KEEP IT SMALL
  *
- * Copyright (c) 2005-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2005-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -83,7 +83,7 @@ function msg($msg, $type = "ok", $level = 0, $error_class = '') {
 				if (!is_dir($messages_dir)) mkdir($messages_dir);
 				
 				if (is_dir($messages_dir) && is_writable($messages_dir)) {
-					$time = strftime("%D %T", time());
+					$time = strftime("%x %T", time());
 					$session_id = session_id();
 					$type = strtoupper($type);
 					$filename = "$messages_dir{$_SERVER['REMOTE_ADDR']}-$session_id.log";
