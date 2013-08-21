@@ -4,38 +4,35 @@
 	<!-- BEGIN: store -->
 	<p class="store_title">{STORE.title|htmlspecialchars}</p>
 
-	<a class="save_my_store" href="{URI|htmlspecialchars}?set_home_store=true">Save as my own store</a><br/>
-	<p class="change"> or <a href="/locate/">change location</a></p>
+	<a class="save_my_store" href="#" onclick="openAjaxRequestInGrowl('/request/component/ecommerce/store_locator?set_home_store=true&amp;node_id={GET.node_id}', 'Saving...'); if ($('#site').hasClass('customer_account_type_0')) {$(this).html('My selected store')}; return false;">{MY_SELECTED_STORE}</a><br/>
+	<p class="change"> or <a href="/locate/" onclick="return changeLocation()">change location</a></p>
 
-	<div class="shop_facility_list">
-		<!-- BEGIN: category -->
-		<span class="tag">{CATEGORY.title}</span>
-		<!-- END: category -->
-		<span style="clear: both;"></span>
-	</div>
+	{STORE_TAXONOMY}
 
 	<p class="store_address">{STORE.address|htmlspecialchars}</p>
 	<p class="opening_hours">{STORE.opening_hours|htmlspecialchars}</p>
 
-	<p><span class="icon">&#128222;</span> <a href="tel:{STORE.telephone|htmlspecialchars}">{STORE.telephone|htmlspecialchars}</a></p>
-	<p><a class="get_directions" href="#" onclick="getDirections({STORE.latitude}, {STORE.longitude}); return false;" style="text-decoration: none;"><span class="icon">&#128191;</span> Get directions to here</a></p>
-
-	<!-- BEGIN: smile_app_banner -->
-	<img src="/images/smile_app_banner.png" alt="Use your smile app here"/>
-	<!-- END: smile_app_banner -->
+	<p class="telephone">{STORE.telephone|htmlspecialchars}</p>
+	<p class="get_directions"><a href="#" onclick="getDirections({STORE.latitude}, {STORE.longitude}); return false;" style="text-decoration: none;">Get directions to here</a></p>
 
 	<script type="text/javascript">
-		$(function(){
-			$(".provinceDropdowns").hide();
-		});
-	</script>
 
+		$(function(){
+			$("div.store_province_form").hide();
+		});
+
+		function changeLocation() {
+			if (infoWindow) infoWindow.close();
+			$("#storeDetailWrapper").html('<div class="store_detail"><p class="store_title">Find your store on the map</p></div>');
+			$("#storeNearbyWrapper").empty();
+			$("div.store_province_form").show();
+			return false;
+		}
+	</script>
 	<!-- END: store -->
 
 	<!-- BEGIN: no_store -->
-	<p class="store_title">
-		Find your store on the map
-	</p>
+	<p class="store_title">Find your store on the map</p>
 	<!-- END: no_store -->
 
 </div>

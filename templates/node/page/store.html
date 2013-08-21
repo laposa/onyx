@@ -1,98 +1,17 @@
 <!-- BEGIN: title -->{NODE.page_title}<!-- END: title -->
-<!-- BEGIN: head -->
-
-<script src="//maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false&amp;key=AIzaSyD4KVR_kgMVfEqLO0BadhpHeQHWRlxN3Fk"></script>
-
-<!-- component style - needs to be moved to default.css -->
-<style type="text/css">
-.provinceMenu ul {
-	list-style: none;
-}
-.provinceMenu ul li {
-	display: inline-block;
-}
-.provinceMenu ul li a {
-	display: inline-block;
-	background: #4b4b4b;
-	color: #ffffff;
-	padding: 5px 10px;
-	text-decoration: none;
-}
-.provinceMenu ul li a:hover {
-	text-color: #ddd;
-	text-decoration: underline;
-}
-.provinceMenu ul li:hover ul {
-	display: block;
-}
-.provinceMenu ul li ul {
-	display: none;
-	position: absolute;
-	background: #4b4b4b;
-	color: #ffffff;
-	z-index: 1000;
-	max-height: 200px;
-	overflow: scroll;
-}
-.provinceMenu ul li ul li {
-	display: block;
-	padding: 0;
-	margin: 0;
-}
-.provinceMenu ul li ul li a {
-	display: inline-block;
-	padding: 2px 10px;
-	font-size: 80%;
-}
-
-.dublinMenu ul {
-	list-style: none;
-}
-.dublinMenu ul li {
-	display: inline-block;
-	margin: 0 2px;
-}
-.dublinMenu ul li a {
-	display: inline-block;
-	background: #4b4b4b;
-	color: #ffffff;
-	padding: 5px 10px;
-	text-decoration: none;
-}
-.dublinMenu ul li a:hover {
-	text-color: #ddd;
-	text-decoration: underline;
-}
-
-</style>
-
-<!-- END: head -->
-
 <!-- BEGIN: content -->
-<div class="twoColumnPage page product_browse {NODE.layout_style} {NODE.css_class} {NODE.taxonomy_class}">
+<div class="twoColumnPage page store_locator {NODE.layout_style} {NODE.css_class} {NODE.taxonomy_class}">
 	<div class="top"><span></span></div>
 	<div class="content">
 		<div class="pageWrapper">
-			{PAGE_HEADER}
 			<div class="pageContent">
 				<div class="pageContentWrapper">
 					<div class="rowTop">
 						<div class="rowWrapper">
 							<div class="columnWrapper">
 								{CONTAINER.0}
-								<div class="provinceMenu">
-								{ONXSHOP_REQUEST_province_menu #component/ecommerce/menu~expand_all=1:level=2:id=1345~}
-								</div>
-								<!-- BEGIN: dublin_menu -->
-								<div class="dublinMenu">
-									{ONXSHOP_REQUEST_dublin_menu #component/ecommerce/menu~expand_all=1:level=1:id=1536~}
-								</div>
-								<!-- END: dublin_menu -->
 	
 								{ONXSHOP_REQUEST_store_locator #component/ecommerce/store_locator~node_id=GET.id~}
-								{ONXSHOP_REQUEST_store_message #component/ecommerce/store_message}
-								{ONXSHOP_REQUEST_store_detail #component/ecommerce/store_detail~node_id=GET.id~}
-								{ONXSHOP_REQUEST_store_nearby #component/ecommerce/store_nearby_radius~node_id=GET.id~}
 							</div>
 						</div>
 					</div>
@@ -113,6 +32,13 @@
 					<div class="rowBottom">
 						<div class="rowWrapper">
 							<div class="columnWrapper">
+								<div id="storeDetailWrapper">
+									{ONXSHOP_REQUEST_store_detail #component/ecommerce/store_detail~node_id=GET.id~}
+								</div>
+								{ONXSHOP_REQUEST_store_province_form #component/ecommerce/store_province_form~node_id=GET.id~}
+								<div id="storeNearbyWrapper">
+									{ONXSHOP_REQUEST_store_nearby #component/ecommerce/store_nearby_radius~node_id=GET.id~}
+								</div>
 								{CONTAINER.3}
 							</div>
 						</div>

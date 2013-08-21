@@ -90,6 +90,7 @@ class Onxshop_Controller_Component_Ecommerce_Store_Locator extends Onxshop_Contr
 						$store['image'] = '/image/var/files/generic_store.jpg';
 				}
 
+				$store['address'] = json_encode(nl2br($store['address']));
 				$store['opening_hours'] = json_encode(nl2br($store['opening_hours']));
 				// parse item
 				$this->tpl->assign("STORE", $store);

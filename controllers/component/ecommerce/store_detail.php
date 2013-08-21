@@ -16,7 +16,6 @@ class Onxshop_Controller_Component_Ecommerce_Store_Detail extends Onxshop_Contro
 	public function mainAction()
 	{
 		$Store = new ecommerce_store();
-		$Store_Taxonomy = new ecommerce_store_taxonomy();
 		$Taxonomy_Tree = new common_taxonomy_tree();
 
 		$node_id = (int) $this->GET['node_id'];
@@ -25,15 +24,24 @@ class Onxshop_Controller_Component_Ecommerce_Store_Detail extends Onxshop_Contro
 
 		if ($store) {
 
-			if (count($taxonomy) > 0) {
-				foreach ($taxonomy as $category) {
-					if ($category['publish'] == 1) {
-						$this->tpl->assign("CATEGORY", $category);
-						$this->tpl->parse("content.store.category");
-					}
-				}
-			}
+			/**
+			 * get store taxonomy print out
+			 */
+			 
+			$_Onxshop_Request = new Onxshop_Request("component/ecommerce/store_taxonomy~store_id={$store['id']}~");
+			$this->tpl->assign("STORE_TAXONOMY", $_Onxshop_Request->getContent());
 
+			/**
+			 * text depending if my selected store
+			 */
+			 
+			if ($_SESSION['client']['customer']['other_data']['home_store_id'] == $store['id']) $this->tpl->assign('MY_SELECTED_STORE', 'My selected store');
+			else $this->tpl->assign('MY_SELECTED_STORE', 'Save as my own store');
+			
+			/**
+			 * assign and parse
+			 */
+			 
 			$this->tpl->assign("STORE", $store);
 			$this->tpl->parse("content.store");
 
