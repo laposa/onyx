@@ -72,19 +72,19 @@ class Onxshop_Controller_Bo_Export_CSV_Survey_Results extends Onxshop_Controller
 				
 				foreach($question_and_answers as $qa_item) {
 					
-					$q_id = $qa_item['id'];
+					$question_id = $qa_item['question_id'];
+					$entry_answer_id = $qa_item['entry_answer_id'];
 					
-					$item['question_title_'.$q_id] = $qa_item['question_title'];
-					$item['answer_title_'.$q_id] = $qa_item['answer_title'];
-					$item['answer_value_'.$q_id] = $qa_item['answer_value'];
+					$item['question_title_'.$question_id] = $qa_item['question_title'];
+					$item['answer_title_'.$question_id] = $qa_item['answer_title'];
+					$item['answer_value_'.$question_id] = $qa_item['answer_value'];
+				
+					// include uploaded file
+					$save_filename = common_file::nameToSafe($qa_item['answer_value']);
+					$file = "var/surveys/{$entry['id']}-{$question_id}-{$entry_answer_id}-{$save_filename}";
+					if (file_exists(ONXSHOP_PROJECT_DIR . $file)) $item['answer_value_'.$question_id] = "http://" . $_SERVER['HTTP_HOST'] . "/download/$file";
 						
 				}
-				
-				// include uploaded file
-				$save_filename = common_file::nameToSafe($answer['value']);
-				$file = "var/surveys/{$answer['survey_entry_id']}-{$question['id']}-{$answer['id']}-{$save_filename}";
-				if (file_exists(ONXSHOP_PROJECT_DIR . $file)) $item['file'] = "http://" . $_SERVER['HTTP_HOST'] . "/download/$file";
-				else $item['file'] = 'n/a';
 				
 				$records[] = $item;	
 				

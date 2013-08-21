@@ -122,7 +122,12 @@ CREATE TABLE education_survey_entry (
 		
 		if (!is_numeric($entry_id)) return false;
 		
-		$sql = "SELECT education_survey_question.id AS id, education_survey_question.title AS question_title, education_survey_question_answer.title AS answer_title, education_survey_entry_answer.value AS answer_value
+		$sql = "SELECT 
+			education_survey_question.id AS question_id,
+			education_survey_entry_answer.id AS entry_answer_id,
+			education_survey_question.title AS question_title,
+			education_survey_question_answer.title AS answer_title,
+			education_survey_entry_answer.value AS answer_value
 		 FROM education_survey_entry 
 		 LEFT OUTER JOIN education_survey_entry_answer ON (education_survey_entry_answer.survey_entry_id = education_survey_entry.id)
 		 LEFT OUTER JOIN education_survey_question ON (education_survey_question.id = education_survey_entry_answer.question_id)
