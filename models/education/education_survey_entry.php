@@ -103,6 +103,38 @@ CREATE TABLE education_survey_entry (
 	}
 	
 	/**
+	 * getListForSurveyId
+	 */
+	 
+	public function getListForSurveyId($survey_id) {
+		
+		if (!is_numeric($survey_id)) return false;
+		
+		return $this->listing("survey_id = $survey_id");
+		
+	}
+	
+	/**
+	 * getQuestionsAndAnswersForEntry
+	 */
+	 
+	public function getQuestionsAndAnswersForEntry($entry_id) {
+		
+		if (!is_numeric($entry_id)) return false;
+		
+		$sql = "SELECT education_survey_question.id AS id, education_survey_question.title AS question_title, education_survey_question_answer.title AS answer_title, education_survey_entry_answer.value AS answer_value
+		 FROM education_survey_entry 
+		 LEFT OUTER JOIN education_survey_entry_answer ON (education_survey_entry_answer.survey_entry_id = education_survey_entry.id)
+		 LEFT OUTER JOIN education_survey_question ON (education_survey_question.id = education_survey_entry_answer.question_id)
+		 LEFT OUTER JOIN education_survey_question_answer ON (education_survey_question_answer.id = education_survey_entry_answer.question_answer_id)
+		 WHERE education_survey_entry.id = $entry_id";
+
+		$records = $this->executeSql($sql);
+		
+		return $records;
+		
+	}
+	/**
 	 * getAnswersForQuestion
 	 */
 	 
