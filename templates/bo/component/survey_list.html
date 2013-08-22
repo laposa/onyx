@@ -14,8 +14,8 @@
 									<tr>
 										<th>ID</th>
 										<th>Title</th>
-										<th>Description</th>
 										<th>Created</th>
+										<th>Entries</th>
 									</tr>
 								</thead>
 								<tfoot>
@@ -26,8 +26,8 @@
 									<tr class="publish_{ITEM.publish}">
 										<td><a title="Edit survey" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_detail~id={ITEM.id}~'); return false" href="#sub_content">{ITEM.id}</a></td>
 										<td><a title="Edit survey" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_detail~id={ITEM.id}~'); return false" href="#sub_content">{ITEM.title|htmlspecialchars}</a></td>
-										<td><a title="Edit survey" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_detail~id={ITEM.id}~'); return false" href="#sub_content">{ITEM.description|htmlspecialchars}</a></td>
 										<td><a title="Edit survey" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_detail~id={ITEM.id}~'); return false" href="#sub_content">{ITEM.created}</a></td>
+										<td><a title="Download entries" href="/request/bo/export/csv_survey_entries?survey_id={ITEM.id}">{ITEM.usage_count}</a></td>
 									</tr>
 									<!-- END: item -->
 									<!-- BEGIN: empty -->

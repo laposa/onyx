@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2011-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -30,7 +30,7 @@ class Onxshop_Controller_Bo_Component_Survey_List extends Onxshop_Controller_Bo_
 		require_once('models/education/education_survey.php');
 		$Survey = new education_survey();
 		
-		$list = $Survey->getSurveyList('', 'id DESC');
+		$list = $Survey->getSurveyListStats('', 'id DESC');
 
 		return $list;
 	}
