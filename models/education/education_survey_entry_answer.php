@@ -164,20 +164,26 @@ WHERE education_survey_entry.relation_subject LIKE '{$relation_subject}' AND edu
 	 
 	public function saveFile($file_single, $survey_entry_id, $question_id, $answer_id) {
 		
+		// find survey_id by $survey_entry_id
+		require_once('models/education/education_survey_entry.php');
+		$Survey_Entry = new education_survey_entry();
+		$survey_entry_data = $Survey_Entry->detail($survey_entry_id);
+		$survey_id = $survey_entry_data['survey_id'];
+
 		/**
 		 * add prefix to filename (rename)
 		 */
 		 
-		$file_single['name'] = "{$survey_entry_id}-{$question_id}-{$answer_id}-" . $file_single['name'];
+		$file_single['name'] = $this->getFilenameToSave($file_single['name'], $survey_entry_id, $question_id, $answer_id);
 		
 		/**
 		 * file
 		 */
 		 
 		require_once('models/common/common_file.php');
-		//getSingleUpload could be static method
+		//getSingleUpload could be a static method
 		$CommonFile = new common_file();
-		$upload = $CommonFile->getSingleUpload($file_single, 'var/surveys/');
+		$upload = $CommonFile->getSingleUpload($file_single, "var/surveys/$survey_id/");
 		
 		/**
 		 * array indicated the same file name already exists in the var/tmp/ folder
@@ -203,6 +209,25 @@ WHERE education_survey_entry.relation_subject LIKE '{$relation_subject}' AND edu
 			
 			return $attachment_info['filename'];
 		}
+		
+	}
+	
+	/**
+	 * getFilename
+	 */
+	 
+	public function getFilenameToSave($file_name, $survey_entry_id, $question_id, $answer_id) {
+		
+		if (!$file_name) return false;
+		if (!is_numeric($survey_entry_id)) return false;
+		if (!is_numeric($question_id)) return false;
+		if (!is_numeric($answer_id)) return false;
+		
+		require_once('models/common/common_file.php');
+		$file_name = common_file::nameToSafe($file_name);
+		$file_name = "{$survey_entry_id}-{$question_id}-{$answer_id}-" . $file_name;
+		
+		return $file_name;
 		
 	}
 }

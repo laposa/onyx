@@ -19,13 +19,14 @@ class Onxshop_Controller_Bo_Export_CSV_Survey_Entries extends Onxshop_Controller
 		
 		require_once('models/education/education_survey.php');
 		require_once('models/education/education_survey_entry.php');
+		require_once('models/education/education_survey_entry_answer.php');
 		require_once('models/client/client_customer.php');
 		require_once('models/ecommerce/ecommerce_store.php');
 		require_once('models/common/common_taxonomy_tree.php');
-		require_once('models/common/common_file.php');
 		
 		$this->Survey = new education_survey();
 		$this->Survey_Entry = new education_survey_entry();
+		$this->Survey_Entry_Anwer = new education_survey_entry_answer();
 		$this->Customer = new client_customer();
 		$this->Store = new ecommerce_store();
 		$this->Taxonomy_Tree = new common_taxonomy_tree();
@@ -80,9 +81,9 @@ class Onxshop_Controller_Bo_Export_CSV_Survey_Entries extends Onxshop_Controller
 					$item['answer_value_'.$question_id] = $qa_item['answer_value'];
 				
 					// include uploaded file
-					$save_filename = common_file::nameToSafe($qa_item['answer_value']);
-					$file = "var/surveys/{$entry['id']}-{$question_id}-{$entry_answer_id}-{$save_filename}";
-					if (file_exists(ONXSHOP_PROJECT_DIR . $file)) $item['answer_value_'.$question_id] = "http://" . $_SERVER['HTTP_HOST'] . "/download/$file";
+					$save_filename = $this->Survey_Entry_Anwer->getFilenameToSave($qa_item['answer_value'], $entry['id'], $question_id, $entry_answer_id);
+					$file = "var/surveys/$survey_id/{$save_filename}";
+					if (is_file(ONXSHOP_PROJECT_DIR . $file)) $item['answer_value_'.$question_id] = "http://" . $_SERVER['HTTP_HOST'] . "/download/$file";
 						
 				}
 				
@@ -91,7 +92,7 @@ class Onxshop_Controller_Bo_Export_CSV_Survey_Entries extends Onxshop_Controller
 			}
 		}
 
-		$this->commonCSVAction($records, 'survey-entries');
+		$this->commonCSVAction($records, "survey-entries-$survey_id");
 
 		return true;
 	}
