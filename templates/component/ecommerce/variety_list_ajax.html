@@ -20,13 +20,13 @@ $(document).ready(function() {
 			<!-- BEGIN: onstock -->
 			<tr class="row onstock" id="item_variety_id_{VARIETY.id}">
 				<td class="first">
-					<a title="{VARIETY.name|htmlspecialchars}" href="#variety_id_{VARIETY.id}"><span class="name">{VARIETY.name|htmlspecialchars}</span> <!-- BEGIN: subtitle --><span class="subtitle">{VARIETY.subtitle|htmlspecialchars}</span><!-- END: subtitle --></a>
+					<a title="{VARIETY.name|htmlspecialchars}" href="#variety_id_{VARIETY.id}" data-variety_id="{VARIETY.id}"><span class="name">{VARIETY.name|htmlspecialchars}</span> <!-- BEGIN: subtitle --><span class="subtitle">{VARIETY.subtitle|htmlspecialchars}</span><!-- END: subtitle --></a>
 				</td>
 				<td>
-					<a title="{VARIETY.name|htmlspecialchars}" href="#variety_id_{VARIETY.id}"><span class="price">{PRICE}</span></a>
+					<a title="{VARIETY.name|htmlspecialchars}" href="#variety_id_{VARIETY.id}" data-variety_id="{VARIETY.id}"><span class="price">{PRICE}</span></a>
 				</td>
 				<td class="last">
-					<a class="add_to_basket variety_id_{VARIETY.id}" href="#variety_id_{VARIETY.id}" data-variety_id="{INGREDIENT.variety.id}" title="Add to basket"><span>{I18N_ADD_TO_BASKET}</span></a>
+					<a class="add_to_basket variety_id_{VARIETY.id}" href="#variety_id_{VARIETY.id}" data-variety_id="{VARIETY.id}" title="Add to basket"><span>{I18N_ADD_TO_BASKET}</span></a>
 				</td>
 			</tr>
 			<tr>
