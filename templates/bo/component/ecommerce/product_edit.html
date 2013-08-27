@@ -38,6 +38,18 @@ $(document).ready(function(){
 						<span class="label"><label>Description <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'mceAdvanced', 'product_description'); return false;"><span>RTE</span></a></label></span>
 						<span class="field"><textarea class="big" style="width: 90%;" name="product[description]" id="product_description">{PRODUCT.description|htmlspecialchars}</textarea></span>
 					</div>
+
+					{ONXSHOP_REQUEST_product_in_node #bo/component/ecommerce/product_in_node~product_id=GET.id~}
+					{ONXSHOP_REQUEST_ptn #bo/component/ecommerce/relation_product_in_nodes}
+				
+					<fieldset>
+						<legend>Product Images</legend>
+						<div class="row">
+							<div class="image">
+							{ONXSHOP_REQUEST_imagelist #bo/component/file_list_icon~type=add_to_product:relation=product:node_id=GET.id~}
+							</div>
+						</div>
+					</fieldset>
 				</div>
 			</div>
 			<div class="layoutColumnTwo ofTwo">
@@ -56,21 +68,10 @@ $(document).ready(function(){
 						</div>
 					</fieldset>
 					{ONXSHOP_REQUEST_rt #bo/component/relation_taxonomy~relation=product:id=GET.id~}
-	
-					{ONXSHOP_REQUEST_product_in_node #bo/component/ecommerce/product_in_node~product_id=GET.id~}
-					{ONXSHOP_REQUEST_ptn #bo/component/ecommerce/relation_product_in_nodes}
 				</div>
 			</div>
+			<div class="bottom"></div>
 		</div>
-	
-		<fieldset>
-			<legend>Product Images</legend>
-			<div class="row">
-				<div class="image">
-				{ONXSHOP_REQUEST_imagelist #bo/component/file_list_icon~type=add_to_product:relation=product:node_id=GET.id~}
-				</div>
-			</div>
-		</fieldset>
 	</div>
 
 	<div id="onxshop_minor">
