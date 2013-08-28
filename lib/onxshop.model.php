@@ -248,7 +248,7 @@ class Onxshop_Model {
 				return true;
 			break;
 			case 'email':
-				$regex = '/^([*+!.&#$|\'\\%\/0-9a-z^_`{}=?~:-]+)@(([0-9a-z-]+\.)+[0-9a-z]{2,4})$/i';
+				$regex = '/^([*+!.&#$|\'\\%\/0-9a-z^_`{}=?~:-]+)@(([0-9a-z-]+\.)+[0-9a-z]{2,32})$/i';
 				if (preg_match($regex, $value, $matches)) {
 					$this->setValid($attribute, true);
 					return true;
