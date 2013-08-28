@@ -93,16 +93,16 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
 		$node_data['taxonomy_class'] = $this->createTaxonomyClass($related_taxonomy);
 		
 		/**
-		 * create breadcrumb CSS class
+		 * create hierarchy CSS class
 		 */
 		 
-		$node_data['breadcrumb_class'] = $this->createBreadcrumbClass($_SESSION['full_path']);
+		$node_data['hierarchy_class'] = $this->createHierarchyClass($_SESSION['full_path']);
 		
 		/**
 		 * save node_controller, page css_class, current node id, breadcrumb and taxonomy_class into registry to be used in sys/(x)html* as body class
 		 */
 		
-		$body_css_class = "{$node_data['node_controller']} {$node_data['css_class']} {$node_data['taxonomy_class']} node_id_{$this->GET['id']} {$node_data['breadcrumb_class']}";
+		$body_css_class = "{$node_data['node_controller']} {$node_data['css_class']} {$node_data['taxonomy_class']} node_id_{$this->GET['id']} {$node_data['hierarchy_class']}";
 		
 		$this->saveBodyCssClass($body_css_class);
 		
@@ -183,19 +183,19 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
 	}
 	
 	/**
-	 * createBreadcrumbClass
+	 * createHierarchyClass
 	 */
 	
-	public function createBreadcrumbClass($active_pages) {
+	public function createHierarchyClass($full_path) {
 		
-		if (!is_array($active_pages)) return false;
+		if (!is_array($full_path)) return false;
 		
 		// remove first item (active page)
-		array_shift($active_pages);
+		array_shift($full_path);
 		
 		$css_class = '';
 		
-		foreach ($active_pages as $item) {
+		foreach ($full_path as $item) {
 		
 			$css_class = "$css_class parent_node_id_$item";
 		
