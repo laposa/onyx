@@ -753,7 +753,7 @@ variety.stock, price.date, product.publish, product.modified, variety.sku, varie
 			$exchange_rate = 1;
 		}
 		
-		return $exchange_rate;
+		return (int) $exchange_rate;
 		
 	}
 }

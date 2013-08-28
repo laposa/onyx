@@ -1,25 +1,6 @@
 <!-- BEGIN: description -->{NODE.description}<!-- END: description -->
 <!-- BEGIN: keywords -->{NODE.keywords}<!-- END: keywords -->
 <!-- BEGIN: head -->
-
-<!-- 
-http://stackoverflow.com/questions/8888329/how-do-you-suppress-facebook-apps-canvas-scrollbars-in-firefox-7 
-https://www.facebook.com/MarksandSpencer/app_479056238812271
-https://ms-resolutions.herokuapp.com
--->
-<script type="text/javascript">
-window.fbAsyncInit = function() {
-  FB.init({
-    appId  : 'YOUR-APP-ID',
-    status : true, /* check login status */
-    cookie : true, /* enable cookies to allow the server to access the session */
-    xfbml  : true  /* parse XFBML */
-  });
-
-  FB.Canvas.setAutoGrow(true); /* Automatically sets canvas size */
-};
-</script>
-
 <link type="text/css" href="/share/css/default/screen.css" rel="stylesheet" media="screen" />
 <link type="text/css" href="/share/css/default/print.css" rel="stylesheet" media="print" />
 <style type="text/css">
@@ -90,6 +71,10 @@ $(document).ready(function() {
 							</div>
 						</div>
 			
+						<div id="revealNavigationButton">
+							<a class="reveal" href="#primaryNavigation"><span>&#9776;</span></a>
+						</div>
+									
 						<div id="primaryNavigation">
 							<div id="primaryNavigationWrapper">
 								<div class="top"><span></span></div>
@@ -120,8 +105,8 @@ $(document).ready(function() {
 							</div>
 						</div>
 						<div></div> <!-- IE requires this empty div -->
-						<div id="contentFooter">
-							<div id="contentFooterWrapper">
+						<div id="contentBottom">
+							<div id="contentBottomWrapper">
 								<div class="top"><span></span></div>
 								<div class="content">
 									{CONTENT_FOOT}
