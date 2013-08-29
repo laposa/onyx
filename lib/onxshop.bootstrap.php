@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2005-2012 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2005-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -371,7 +371,7 @@ class Onxshop_Bootstrap {
 		
 		$cache = Zend_Cache::factory('Output', 'File', $frontendOptions, $backendOptions);
 		
-		$id = "GET_" . md5($request . serialize($_GET) . isset($_SERVER['HTTPS']));
+		$id = "GET_" . md5($_SERVER['HTTP_HOST'] . $request . serialize($_GET) . isset($_SERVER['HTTPS']));
 
 		if (!is_array($data = $cache->load($id))) {
 		    // cache miss
