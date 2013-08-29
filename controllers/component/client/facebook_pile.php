@@ -60,7 +60,7 @@ class Onxshop_Controller_Component_Client_Facebook_Pile extends Onxshop_Controll
 						
 						} catch (FacebookApiException $e) {
 						
-							msg($e->getMessage(), 'error');
+							msg($e->getMessage(), 'error', 1);
 							
 						}
 						
@@ -105,7 +105,7 @@ class Onxshop_Controller_Component_Client_Facebook_Pile extends Onxshop_Controll
 	
 							} catch (FacebookApiException $e) {
 			
-								msg($e->getMessage(), 'error');
+								msg($e->getMessage(), 'error', 1);
 								
 							}
 							
@@ -152,7 +152,7 @@ class Onxshop_Controller_Component_Client_Facebook_Pile extends Onxshop_Controll
 			
 		} catch (FacebookApiException $e) {
 		
-			msg($e->getMessage(), 'error');
+			msg($e->getMessage(), 'error', 1);
 			
 			return null;
 		}
@@ -177,7 +177,7 @@ class Onxshop_Controller_Component_Client_Facebook_Pile extends Onxshop_Controll
 
 		} catch (FacebookApiException $e) {
 		
-			msg($e->getMessage(), 'error');
+			msg($e->getMessage(), 'error', 1);
 		
 			return null;
 		}
@@ -197,7 +197,7 @@ class Onxshop_Controller_Component_Client_Facebook_Pile extends Onxshop_Controll
 		
 		} catch (FacebookApiException $e) {
 		
-			msg($e->getMessage(), 'error');
+			msg($e->getMessage(), 'error', 1);
 		
 			return false;
 		}
