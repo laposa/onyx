@@ -110,13 +110,16 @@ class Onxshop_Controller_Component_Client_Facebook_Auth extends Onxshop_Controll
 			msg("{$customer_detail['email']} is already registered", 'ok', 1);
 			$_SESSION['client']['customer'] = $customer_detail;	
 			
+			//auto login (TODO allow to enable/disable this behaviour)
+			$this->generateAndSaveOnxshopToken($customer_detail['id']);
+						
 		} else {
 		
-			msg("{$user_profile['email']} (FB ID {$user_profile['id']}) sucessfully authorised over Facebook, but must register locally", 'ok', 1);
+			msg("{$user_profile['email']} (FB ID {$user_profile['id']}) successfully authorised over Facebook, but must register locally", 'ok', 1);
 			
 			//forward to registration
 			$this->mapUserToOnxshop($user_profile);
-			onxshopGoTo("/page/13");//TODO get node_id from conf
+			onxshopGoTo("/page/13");//TODO get node_id from common_node.conf
 		
 		}
 	}
@@ -138,5 +141,25 @@ class Onxshop_Controller_Component_Client_Facebook_Auth extends Onxshop_Controll
 		//save to session
 		$_SESSION['r_client']['customer'] = $onxshop_client_customer;
 		
+	}
+	
+	/**
+	 * generateAndSaveOnxshopToken
+	 */
+	 
+	public function generateAndSaveOnxshopToken($customer_id) {
+		
+		require_once('models/client/client_customer_token.php');
+		$Token = new client_customer_token();
+		$Token->setCacheable(false);
+		
+		$token = $Token->generateToken($customer_id);
+		
+		if ($token) {
+			setcookie("onxshop_token", $token, time()+3600*24*600, "/");
+			return true;
+		} else {
+			return false;
+		}
 	}
 }
