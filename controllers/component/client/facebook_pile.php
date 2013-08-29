@@ -142,20 +142,11 @@ class Onxshop_Controller_Component_Client_Facebook_Pile extends Onxshop_Controll
 	public function getFriends($facebook_user_id) {
 	
 		$fql = "SELECT uid, first_name, last_name FROM user WHERE uid in (SELECT uid2 FROM friend where uid1 = $facebook_user_id)";
-
-		try {
-				
-			$response = $this->Facebook->api(array(
+		
+		$response = $this->makeApiCallCached(array(
 				'method' => 'fql.query',
 				'query' =>$fql
 			));
-			
-		} catch (FacebookApiException $e) {
-		
-			msg($e->getMessage(), 'error', 1);
-			
-			return null;
-		}
 		
 		return $response;
 	}
@@ -168,19 +159,10 @@ class Onxshop_Controller_Component_Client_Facebook_Pile extends Onxshop_Controll
 	
 		$fql = "SELECT app_id, type, created_time, post_id, actor_id, message, action_links, description, permalink FROM stream WHERE filter_key IN (SELECT filter_key FROM stream_filter WHERE uid = me()) AND actor_id IN (SELECT uid2 FROM friend WHERE uid1 = me()) AND app_id = " . ONXSHOP_FACEBOOK_APP_ID . " LIMIT 3";
 		
-		try {
-
-			$response = $this->Facebook->api(array(
+		$response = $this->makeApiCallCached(array(
 				'method' => 'fql.query',
 				'query' =>$fql
 			));
-
-		} catch (FacebookApiException $e) {
-		
-			msg($e->getMessage(), 'error', 1);
-		
-			return null;
-		}
 		
 		return $response;
 	}
@@ -191,19 +173,9 @@ class Onxshop_Controller_Component_Client_Facebook_Pile extends Onxshop_Controll
 	 
 	public function getFriendsAppUsers() {
 		
-		try {
-		
-			$response = $this->Facebook->api(array('method' => 'friends.getAppUsers'));
-		
-		} catch (FacebookApiException $e) {
-		
-			msg($e->getMessage(), 'error', 1);
-		
-			return false;
-		}
+		$response = $this->makeApiCallCached(array('method' => 'friends.getAppUsers'));
 		
 		return $response;
-
 	}
  	
 }

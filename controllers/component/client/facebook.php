@@ -69,6 +69,58 @@ class Onxshop_Controller_Component_Client_Facebook extends Onxshop_Controller {
 	}
 	
 	/**
+	 * callApiCached
+	 */
+	 
+	public function makeApiCallCached($request) {
+		
+		// initialise cache
+		require_once 'Zend/Cache.php';
+		
+		$frontendOptions = array(
+		'lifetime' => ONXSHOP_PAGE_CACHE_TTL,
+		'automatic_serialization' => true
+		);
+		
+		$backendOptions = array('cache_dir' => ONXSHOP_PROJECT_DIR . 'var/cache/');
+		$cache = Zend_Cache::factory('Output', 'File', $frontendOptions, $backendOptions);
+		
+		// create cache key
+		$id = "Facebook_{$_SESSION['client']['customer']['facebook_id']}_" . md5(serialize($request));
+		
+		// attempt to read from cache
+		if (is_array($data = $cache->load($id))) {
+			
+			//read from cache
+			
+			return $data;
+		
+		} else {
+		
+			// cache miss, make call and save to cache
+			
+			try {
+				
+				$response = $this->Facebook->api($request);
+				
+			} catch (FacebookApiException $e) {
+			
+				msg($e->getMessage(), 'error', 1);
+				
+				return null;
+			}
+			
+			// save to cache
+			$cache->save($response);
+			
+			return $response;
+		
+		}
+		
+		
+	}
+	
+	/**
 	 * catchFacebookErrorsViaGET
 	 * as they come via GET callback
 	 */
