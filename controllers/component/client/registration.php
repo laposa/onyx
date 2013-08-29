@@ -71,8 +71,16 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
 					 * login
 					 */
 					 
-					$this->login($client_customer['email'], $client_customer['password']);
-					
+					if ($this->Customer->isSocialAccount($client_customer)) {
+						
+						//msg("social account", 'ok', 1);
+						$this->login($client_customer['email']);
+						
+					} else {
+						//msg("not social account", 'ok', 1);
+						$this->login($client_customer['email'], $client_customer['password']);
+						
+					}
 					
 					/**
 					 * forward
@@ -104,11 +112,17 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
 	 * login
 	 */
 	 
-	public function login($username, $password) {
+	public function login($username, $password = null) {
 		
-		$md5_password = md5($password);
+		if (is_null($password)) {
 		
-		$customer_detail = $this->Customer->login($username, $md5_password);
+			$customer_detail = $this->Customer->login($username);
+		
+		} else {
+		
+			$md5_password = md5($password);
+			$customer_detail = $this->Customer->login($username, $md5_password);
+		}
 		
 		if ($customer_detail) {
 			$_SESSION['client']['customer'] = $customer_detail;

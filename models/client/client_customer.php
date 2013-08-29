@@ -879,8 +879,10 @@ CREATE TABLE client_customer (
 	 * result - logged customer's detail or false
 	 */
 	
-	function login($username, $md5_password) {
+	function login($username, $md5_password = false) {
 	
+		//msg("calling login($username, $md5_password)", 'ok', 1);
+		
 		$username = strtolower($username);
 		
 		/**
@@ -888,9 +890,11 @@ CREATE TABLE client_customer (
 		 */
 		 
 		if ($this->conf['login_type'] == 'username') {
-			$customer_detail = $this->loginByUsername($username, $md5_password);
+			if ($md5_password) $customer_detail = $this->loginByUsername($username, $md5_password);
+			else $customer_detail = $this->getClientByUsername($username);
 		} else {
-			$customer_detail = $this->loginByEmail($username, $md5_password);
+			if ($md5_password) $customer_detail = $this->loginByEmail($username, $md5_password);
+			else $customer_detail = $this->getClientByEmail($username);
 		}
 		
 		/**
@@ -1233,6 +1237,37 @@ CREATE TABLE client_customer (
 				return $this->getDetail($client_list[0]['id']);
 			} else {
 				msg('Email is not registered', 'error', 2);
+				return false;
+			}
+		} else {
+			//msg('failed', 'error');
+			return false;
+		}
+	}
+	
+	/**
+	 * get client by username
+	 * 
+	 * @param string $username
+	 * customer's username
+	 * 
+	 * @return array
+	 * customer's information or false if not found
+	 */
+	 
+	function getClientByUsername($username) {
+	
+		$username = strtolower($username);
+		
+		if ($username) {
+		
+			$username_quoted = $this->db->quote($username);
+			$client_list = $this->listing("lower(username) = $username_quoted", "id DESC");
+		
+			if (is_array($client_list) && count($client_list) > 0) {
+				return $this->getDetail($client_list[0]['id']);
+			} else {
+				msg('Username is not registered', 'error', 2);
 				return false;
 			}
 		} else {
