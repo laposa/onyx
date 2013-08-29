@@ -16,22 +16,16 @@ class Onxshop_Controller_Autologin extends Onxshop_Controller {
 		if ($_SESSION['client']['customer']['id'] == 0) {
 
 			$this->checkCookieForToken();
-			//$this->checkFacebookToken();
 
 		}
 
 		return true;
 
 	}
-
-	protected function checkFacebookToken()
-	{
-		if (isset($_COOKIE['fbsr_' . ONXSHOP_FACEBOOK_APP_ID])) {
-		 	$request = new Onxshop_Request('component/client/facebook_auth');
-			$_SESSION['use_page_cache'] = false;
-		}
-
-	}
+	
+	/**
+	 * checkCookieForToken
+	 */
 
 	protected function checkCookieForToken()
 	{
@@ -53,7 +47,7 @@ class Onxshop_Controller_Autologin extends Onxshop_Controller {
 				if ($conf['login_type'] == 'username') $username = $customer_detail['username'];
 				else $username = $customer_detail['email'];
 
-				$customer_detail = $Customer->login($username, $customer_detail['password']);
+				$customer_detail = $Customer->login($username);
 
 				if ($customer_detail) {
 					$_SESSION['client']['customer'] = $customer_detail;
