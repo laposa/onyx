@@ -41,7 +41,8 @@ class Onxshop_Controller_Component_Client_Login extends Onxshop_Controller {
 					
 					if (isset($_POST['autologin'])) {
 						
-						$this->generateAndSaveOnxshopToken($customer_detail['id']);
+						// auto login (TODO allow to enable/disable this behaviour globally)
+						$Customer->generateAndSaveOnxshopToken($customer_detail['id']);
 					
 					}
 					
@@ -156,26 +157,6 @@ class Onxshop_Controller_Component_Client_Login extends Onxshop_Controller {
 	
 		msg('Login failed.  Please try again.', 'error');
 	
-	}
-	
-	/**
-	 * generateAndSaveOnxshopToken
-	 */
-	 
-	public function generateAndSaveOnxshopToken($customer_id) {
-		
-		require_once('models/client/client_customer_token.php');
-		$Token = new client_customer_token();
-		$Token->setCacheable(false);
-		
-		$token = $Token->generateToken($customer_id);
-		
-		if ($token) {
-			setcookie("onxshop_token", $token, time()+3600*24*600, "/");
-			return true;
-		} else {
-			return false;
-		}
 	}
 	
 }

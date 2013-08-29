@@ -82,6 +82,9 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
 						
 					}
 					
+					// auto login (TODO allow to enable/disable this behaviour)
+					$this->Customer->generateAndSaveOnxshopToken($id);
+					
 					/**
 					 * forward
 					 */

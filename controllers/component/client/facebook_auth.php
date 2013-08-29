@@ -106,12 +106,12 @@ class Onxshop_Controller_Component_Client_Facebook_Auth extends Onxshop_Controll
 		
 		if ($customer_detail = $Customer->getUserByFacebookId($user_profile['id'])) {
 		
-			//already exists a valid account, we can login
+			// already exists a valid account, we can login
 			msg("{$customer_detail['email']} is already registered", 'ok', 1);
 			$_SESSION['client']['customer'] = $customer_detail;	
 			
-			//auto login (TODO allow to enable/disable this behaviour)
-			$this->generateAndSaveOnxshopToken($customer_detail['id']);
+			// auto login (TODO allow to enable/disable this behaviour)
+			$Customer->generateAndSaveOnxshopToken($customer_detail['id']);
 						
 		} else {
 		
@@ -143,23 +143,4 @@ class Onxshop_Controller_Component_Client_Facebook_Auth extends Onxshop_Controll
 		
 	}
 	
-	/**
-	 * generateAndSaveOnxshopToken
-	 */
-	 
-	public function generateAndSaveOnxshopToken($customer_id) {
-		
-		require_once('models/client/client_customer_token.php');
-		$Token = new client_customer_token();
-		$Token->setCacheable(false);
-		
-		$token = $Token->generateToken($customer_id);
-		
-		if ($token) {
-			setcookie("onxshop_token", $token, time()+3600*24*600, "/");
-			return true;
-		} else {
-			return false;
-		}
-	}
 }
