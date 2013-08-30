@@ -302,7 +302,7 @@ class XTemplate {
 	'addslashes', 'addcslashes',
 	// Encoding / decoding modifiers
 	'htmlentities', 'html_entity_decode', 'htmlspecialchars', 'htmlspecialchars_decode',
-	'urlencode', 'urldecode','xmlentities','html2text',
+	'urlencode', 'urldecode','xmlentities','html2text','json_encode','json_decode',
 	// Date / time modifiers
 	'date', 'idate', 'strtotime', 'strftime', 'getdate', 'gettimeofday',
 	// Number modifiers
