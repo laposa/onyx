@@ -218,7 +218,7 @@ class Onxshop_Bootstrap {
 		$_SESSION['orig'] = $_SERVER['REQUEST_URI'];
 		
 		//disable page cache for whole session after a user interaction and for backoffice users
-		if (count($_POST) > 0 || $_SESSION['authentication']['authenticity'] > 0) $_SESSION['use_page_cache'] = false;
+		if (count($_POST) > 0 || $_SESSION['authentication']['authenticity'] > 0 || $_SESSION['client']['customer']['id'] > 0) $_SESSION['use_page_cache'] = false;
 		else if (!isset($_SESSION['use_page_cache'])) $_SESSION['use_page_cache'] = ONXSHOP_PAGE_CACHE_TTL;
 		
 		/**
@@ -378,8 +378,11 @@ class Onxshop_Bootstrap {
 			
 		    $this->processAction($request);
 		    
-		    if ($this->Onxshop->http_status != 404 && $this->Onxshop->http_status != 401 && !Zend_Registry::isRegistered('controller_error')) {
-		    	
+		    if ($this->Onxshop->http_status != 404 
+		    	&& $this->Onxshop->http_status != 401 
+		    	&& !Zend_Registry::isRegistered('controller_error')
+		    	&& is_numeric($_SESSION['use_page_cache'])) {
+
 		    	$data_to_cache = array();
 		    	$data_to_cache['output_headers'] = $this->headers;
 		    	$data_to_cache['output_body'] = $this->output;

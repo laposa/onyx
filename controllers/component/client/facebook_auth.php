@@ -109,6 +109,7 @@ class Onxshop_Controller_Component_Client_Facebook_Auth extends Onxshop_Controll
 			// already exists a valid account, we can login
 			msg("{$customer_detail['email']} is already registered", 'ok', 1);
 			$_SESSION['client']['customer'] = $customer_detail;	
+			$_SESSION['use_page_cache'] = false;
 			
 			// auto login (TODO allow to enable/disable this behaviour)
 			$Customer->generateAndSaveOnxshopToken($customer_detail['id']);
