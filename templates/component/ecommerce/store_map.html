@@ -1,0 +1,74 @@
+<!-- BEGIN: content -->
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<div class="store_map" id="map">
+<!-- BEGIN: map -->
+<script src="//maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false&amp;key={ONXSHOP_GOOGLE_API_KEY}"></script>
+<script src="/js/infobox.js"></script>
+<div id="miniMapCanvas" style="width: 100%; height: 300px;"></div>
+
+<script type="text/javascript">
+
+	var map, infoWindow, savedPosition;
+
+	function getDirections(lat, lng) {
+		var url = "http://maps.google.com/?daddr=" + lat + "," + lng;
+		if (savedPosition) {
+			url += "&saddr=" + savedPosition.coords.latitude + "," + savedPosition.coords.longitude;
+		}
+		window.open(url);
+	}
+
+	$(function() {
+
+		var initLatlng = new google.maps.LatLng({MAP.latitude|htmlspecialchars}, {MAP.longitude|htmlspecialchars});
+
+		var mapOptions = {
+		  zoom: 13,
+		  center: initLatlng,
+		  scrollwheel: false,
+		  mapTypeId: google.maps.MapTypeId.ROADMAP,
+		  mapTypeControlOptions: {
+			mapTypeIds: []
+			}
+		}
+
+		map = new google.maps.Map(document.getElementById('miniMapCanvas'), mapOptions);
+		map.markers = map.markers || [];
+
+		<!-- BEGIN: store_marker -->var marker = addMarker({STORE.latitude}, {STORE.longitude}, 
+			'{STORE.title|addslashes}', '{STORE.image|addslashes}', {STORE.address|nl2br|json_encode},
+			{STORE.opening_hours|nl2br|json_encode}, '{STORE.telephone|addslashes}', {STORE.node_id|addslashes},
+			'{STORE.url|addslashes}', {STORE.icon|addslashes}, {STORE.open|addslashes});
+		<!-- END: store_marker -->
+
+		function addMarker(latitude, longitude, name, image, address, opening_hours, telephone, node_id, url, icon, open) {
+
+			var myLatlng = new google.maps.LatLng(latitude, longitude);
+
+			var marker = new google.maps.Marker({
+				position: myLatlng,
+				title: name,
+				icon: icon ? '/images/locator-pin.png' : '/images/locator-pin_active.png',
+				image: image + '&key={ONXSHOP_GOOGLE_API_KEY}',
+				node_id: node_id,
+				address: address,
+				opening_hours: opening_hours,
+				telephone: telephone,
+				url: url,
+				map: map
+			});
+
+			map.markers.push(marker);
+
+			google.maps.event.addListener(marker, 'click', function() {
+				window.location = marker.url;
+			});
+		}
+
+	});
+
+</script>
+
+<!-- END: map -->
+</div>
+<!-- END: content -->
