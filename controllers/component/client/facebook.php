@@ -67,7 +67,26 @@ class Onxshop_Controller_Component_Client_Facebook extends Onxshop_Controller {
 		$this->Facebook = new Facebook($facebook_conf);
 		
 	}
+
+	/**
+	 * makeApiCall
+	 */
 	
+	public function makeApiCall($request) {
+
+		try {
+			
+			$response = $this->Facebook->api($request);
+			return $response;
+			
+		} catch (FacebookApiException $e) {
+		
+			msg($e->getMessage(), 'error', 1);
+			return null;
+		}
+
+	}
+
 	/**
 	 * callApiCached
 	 */
@@ -98,20 +117,11 @@ class Onxshop_Controller_Component_Client_Facebook extends Onxshop_Controller {
 		} else {
 		
 			// cache miss, make call and save to cache
-			
-			try {
-				
-				$response = $this->Facebook->api($request);
-				
-			} catch (FacebookApiException $e) {
-			
-				msg($e->getMessage(), 'error', 1);
-				
-				return null;
-			}
-			
+
+			$response = $this->makeApiCall($request);
+
 			// save to cache
-			$cache->save($response);
+			if (!is_null($response)) $cache->save($response);
 			
 			return $response;
 		
