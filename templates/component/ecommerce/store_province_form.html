@@ -1,5 +1,5 @@
 <!-- BEGIN: head -->
-<script src='/js/jquery.customSelect.min.js'></script>
+<script src='/share/js/jquery/plugins/jquery.customSelect.min.js'></script>
 <!-- END: head -->
 <!-- BEGIN: content -->
 
@@ -61,10 +61,8 @@
 			$("#province_dropdown").val("{DUBLIN_PAGE_ID}");
 		}
 
-		$('div.store_province_form select#province_dropdown').customSelect({ customClass: 'province'});
-		$('div.store_province_form select#dublin_dropdown').customSelect({ customClass: 'dublin'});
-		$('div.store_province_form select#store_dropdown').customSelect({ customClass: 'store'});
-
+		$('div.store_province_form select').customSelect({mapClass: false, mapStyle: false});
+		
 		// hide Dublin dropdown if not necessary
 		if ($("#province_dropdown").val() != {DUBLIN_PAGE_ID}) $("#dublin_dropdown_wrapper").hide();
 
