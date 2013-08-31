@@ -69,16 +69,17 @@ class Onxshop_Controller_Component_Client_Facebook extends Onxshop_Controller {
 	}
 
 	/**
-	 * makeApiCall
+	 * Invoke the Graph API.
 	 */
 	
-	public function makeApiCall($request) {
+	public function makeOpenGraphApiCall($path, $method = 'GET', $params = array()) {
+
+		$args = func_get_args();
 
 		try {
-			
-			$response = $this->Facebook->api($request);
-			return $response;
-			
+
+			return $this->Facebook->api($path, $method, $params);
+
 		} catch (FacebookApiException $e) {
 		
 			msg($e->getMessage(), 'error', 1);
@@ -88,11 +89,45 @@ class Onxshop_Controller_Component_Client_Facebook extends Onxshop_Controller {
 	}
 
 	/**
+	 * Invoke the old restserver.php endpoint
+	 */
+	
+	public function makeOldApiCall($params) {
+
+		$args = func_get_args();
+
+		try {
+
+			return $this->Facebook->api($params);
+			
+		} catch (FacebookApiException $e) {
+		
+			msg($e->getMessage(), 'error', 1);
+			return null;
+		}
+
+	}
+
+	public function makeApiCall(/* polymorphic */) {
+
+	    $args = func_get_args();
+
+		if (is_array($args[0])) {
+			return $this->makeOldApiCall($args[0]);
+		} else {
+			 return call_user_func_array(array($this, 'makeOpenGraphApiCall'), $args);
+		}
+
+	}
+
+	/**
 	 * callApiCached
 	 */
 	 
-	public function makeApiCallCached($request) {
-		
+	public function makeApiCallCached(/* polymorphic */) {
+
+	    $args = func_get_args();
+
 		// initialise cache
 		require_once 'Zend/Cache.php';
 		
@@ -105,7 +140,7 @@ class Onxshop_Controller_Component_Client_Facebook extends Onxshop_Controller {
 		$cache = Zend_Cache::factory('Output', 'File', $frontendOptions, $backendOptions);
 		
 		// create cache key
-		$id = "Facebook_{$_SESSION['client']['customer']['facebook_id']}_" . md5(serialize($request));
+		$id = "Facebook_{$_SESSION['client']['customer']['facebook_id']}_" . md5(serialize($args));
 		
 		// attempt to read from cache
 		if (is_array($data = $cache->load($id))) {
@@ -118,7 +153,11 @@ class Onxshop_Controller_Component_Client_Facebook extends Onxshop_Controller {
 		
 			// cache miss, make call and save to cache
 
-			$response = $this->makeApiCall($request);
+			if (is_array($args[0])) {
+				$response = $this->makeOldApiCall($args[0]);
+			} else {
+				$response = call_user_func_array(array($this, 'makeOpenGraphApiCall'), $args);
+			}
 
 			// save to cache
 			if (!is_null($response)) $cache->save($response);
