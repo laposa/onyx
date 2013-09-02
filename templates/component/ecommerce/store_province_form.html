@@ -22,7 +22,7 @@
 	<div id="dublin_dropdown_wrapper">
 		<!-- BEGIN: dublin_dropdown -->
 		<select id="dublin_dropdown">
-			<option value="" data-href="/page/{DUBLIN_PAGE_ID}">Select&nbsp;area&nbsp;&hellip;</option>
+			<option value="" data-href="/page/{DUBLIN_PAGE_ID}">Dublin County</option>
 			<!-- BEGIN: district -->
 			<option value="{DISTRICT.id}" data-href="/page/{DISTRICT.id}" {DISTRICT.selected}>Dublin {DISTRICT.title|htmlspecialchars}</option>
 			<!-- END: district -->
@@ -47,15 +47,16 @@
 <script type="text/javascript">
 	$(function() {
 
+		// pre-select Dublin on locator home page
+		if ('{GET.node_id}' == '{PROVINCE_ROOT_PAGE_ID}') {
+			$("#storeProvinceFormWrapper").load('/request/component/ecommerce/store_province_form~store_node_id={DUBLIN_PAGE_ID}~');
+			return;
+		}
+
 		$("div.store_province_form select").change(function() {
 			var page_id = $(this).val();
 			window.location = $(this).find("option:selected").attr("data-href");
 		});
-
-		// pre-select Dublin on locator home page
-		if ('{GET.node_id}' == '{PROVINCE_ROOT_PAGE_ID}') {
-			$("#province_dropdown").val("{DUBLIN_PAGE_ID}");
-		}
 
 		$('div.store_province_form select').customSelect({mapClass: false, mapStyle: false});
 		

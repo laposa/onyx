@@ -167,7 +167,7 @@
 			message = "The position could not be determined due to " + 
 					  "an unknown error (Code: " + strErrorCode + ").";
 		}
-		console.log(message);
+		if (typeof console != 'undefined' && typeof console.log == 'function') console.log(message);
 	}
 
 	/**
