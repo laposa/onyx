@@ -25,6 +25,12 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 		$this->checkForPreviousBasket();
 
 		/**
+		 * store basket content before making any changes for tracking pursposes
+		 */
+		 
+		$this->storeBasketContent();
+		
+		/**
 		 * check and process action
 		 * accept post for all but populate_basket_from_order_id action
 		 */
@@ -170,6 +176,10 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 		if (is_numeric($data['add'])) {
 		
 			//add to basket action
+			// set quantity to 1 by default
+			if (!is_numeric($data['quantity'])) $data['quantity'] = 1;
+			// allow to create a specific price
+			if (is_numeric($data['other_data']['multiplicator'])) $price_id = $this->getCustomPriceId($data['add'], $data['other_data']['multiplicator']);
 			// add item
 			$this->addItem($data['add'], $data['quantity'], $data['other_data'], $price_id);
 		
@@ -234,11 +244,6 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 	
 		//check basket is initialised
 		if (!is_numeric($_SESSION['basket']['id'])) return false;
-
-		// set quantity to 1 by default
-		if (!is_numeric($quantity)) $quantity = 1;
-		// allow to create a specific price
-		if (is_numeric($other_data['multiplicator'])) $price_id = $this->getCustomPriceId($product_variety_id, $other_data['multiplicator']);
 		
 		/**
 		 * add to basket
@@ -331,6 +336,12 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 			
 		$basket_content_data = $this->getBasketContent($basket_id);
 		
+		/**
+		 * parse tracking data (i.e. make diff previous basket state)
+		 */
+
+		$this->parseTrackingData($basket_content_data);
+
 		if (count($basket_content_data['items']) == 0)  {
 			
 			$this->displayEmptyBasket();
@@ -471,5 +482,97 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 		
 		if (is_numeric($price_id)) return $price_id;
 		else return false;	
+	}
+
+
+	/**
+	 * store basket content before making any changes for tracking pursposes
+	 */
+
+	public function storeBasketContent() {
+
+		if (is_numeric($_SESSION['basket']['id'])) {
+
+			$this->previousBasketContent = $this->getBasketContent($_SESSION['basket']['id']);
+
+		} else {
+
+			$this->previousBasketContent = false;
+
+		}
+	}
+
+	/**
+	 * parse tracking data (i.e. make diff previous basket state)
+	 */
+
+	public function parseTrackingData($basket_content_data) {
+
+		if (!is_array($basket_content_data['items'])) $basket_content_data['items'] = array();
+		if (!is_array($this->previousBasketContent['items'])) $this->previousBasketContent['items'] = array();
+
+		$prevState = array();
+		$currentState = array();
+
+		// convert arrays to hashmaps
+		foreach ($basket_content_data['items'] as $item)
+			$currentState[$item['product_variety_id']] = $item;
+		foreach ($this->previousBasketContent['items'] as $item)
+			$prevState[$item['product_variety_id']] = $item;
+
+		// check for additions
+		$addedItems = array();
+		foreach ($currentState as $varietyId => $item) {
+			$currentQty = (int) $item['quantity'];
+			$prevQty = (int) $prevState[$varietyId]['quantity'];
+			if ($currentQty > $prevQty) $addedItems[$varietyId] = $currentQty - $prevQty; 
+		}
+
+		// check for removals
+		$removedItems = array();
+		foreach ($prevState as $varietyId => $item) {
+			$prevQty = (int) $item['quantity'];
+			$currentQty = (int) $currentState[$varietyId]['quantity'];
+			if ($currentQty < $prevQty) $removedItems[$varietyId] = $prevQty - $currentQty; 
+		}
+
+		foreach ($addedItems as $varietyId => $qty) {
+			$item = $currentState[$varietyId];
+			$this->tpl->assign("ITEM", array(
+				'sku' => $item['product']['variety']['sku'],
+				'name' => $item['product']['name'] . ' - ' . $item['product']['variety']['name'],
+				'category' => $this->getCategory($item['product']['node']['id']),
+				'qty' => $qty,
+				'action' => 'add'
+			));
+			$this->tpl->parse("content.tracking");
+		}
+
+		foreach ($removedItems as $varietyId => $qty) {
+			$item = $prevState[$varietyId];
+			$this->tpl->assign("ITEM", array(
+				'sku' => $item['product']['variety']['sku'],
+				'name' => $item['product']['name'] . ' - ' . $item['product']['variety']['name'],
+				'category' => $this->getCategory($item['product']['node']['id']),
+				'qty' => $qty,
+				'action' => 'remove'
+			));
+			$this->tpl->parse("content.tracking");
+		}
+
+	}
+
+	public function getCategory($node_id)
+	{
+		require_once('models/common/common_node.php');
+		$Node = new common_node();
+		$pages = $Node->getFullPathDetailForBreadcrumb($node_id);
+
+		$result = array();
+		foreach ($pages as $page) {
+			if ($page['id'] != 1 && $page['id'] != $node_id) $result[] = $page['title'];
+		}
+
+		return implode(" / ", $result);
 	}
 }

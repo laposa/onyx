@@ -49,3 +49,15 @@ function addToBasketAjaxActionFromVarietyList(variety_id) {
     });
     
 }
+
+function trackBasketUpdate(action, sku, name, category, qty) {
+
+	if (typeof(_gaq) == "undefined") return false;
+
+	if (action == 'add' || action == 'Add') action = 'Add';
+	else action = 'Remove';
+
+	_gaq.push(['_trackEvent', 'Basket', action + '-SKU', sku, qty]);
+	_gaq.push(['_trackEvent', 'Basket', action + '-Product', name, qty]);
+	_gaq.push(['_trackEvent', 'Basket', action + '-Category', category, qty]);
+}
