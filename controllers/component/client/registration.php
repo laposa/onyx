@@ -250,10 +250,14 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
 		// address will be caught through relation
 		//delivery
 		foreach ($countries as $c) {
-			if ($c['id'] == $_POST['client']['address']['delivery']['country_id']) $c['selected'] = "selected='selected'";
-			else $c['selected'] = '';
-			$this->tpl->assign('COUNTRY', $c);
-			$this->tpl->parse('content.country_delivery.item');
+
+			if ($c['publish'] == 1) {
+
+				if ($c['id'] == $_POST['client']['address']['delivery']['country_id']) $c['selected'] = "selected='selected'";
+				else $c['selected'] = '';
+				$this->tpl->assign('COUNTRY', $c);
+				$this->tpl->parse('content.country_delivery.item');
+			}
 		}
 		$this->tpl->parse('content.country_delivery');
 

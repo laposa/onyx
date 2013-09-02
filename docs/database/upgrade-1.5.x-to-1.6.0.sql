@@ -302,6 +302,10 @@ CREATE TABLE client_customer_token (
 CREATE INDEX client_customer_token_key ON client_customer_token USING btree (token);
 CREATE INDEX client_customer_token_publish_key ON client_customer_token USING btree (publish);
 
+/* add publish to international_country */
+ALTER TABLE international_country ADD COLUMN publish smallint;
+UPDATE international_country SET publish = 1;
+
 COMMIT;
 
 /*this only applies to installation made earlier than Onxshop 1.5 */

@@ -33,6 +33,10 @@ class international_country extends Onxshop_Model {
 	 * @access private
 	 */
 	var $currency_code;
+	/**
+	 * @access private
+	 */
+	var $publish;
 
 	/**
 	 * create table sql
@@ -47,7 +51,8 @@ CREATE TABLE international_country (
     iso_code2 character(2),
     iso_code3 character(3),
     eu_status boolean,
-    currency_code character(3)
+    currency_code character(3),
+    publish smallint NOT NULL,
 );
 		";
 		

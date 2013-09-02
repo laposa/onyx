@@ -163,12 +163,15 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Address extends Onxshop_Co
 		
 		foreach ($countries as $c) {
 		
-			if ($c['id'] == $_POST['client']['address']['country_id']) $c['selected'] = "selected='selected'";
-			else $c['selected'] = '';
-			
-			$this->tpl->assign('country', $c);
-			$this->tpl->parse('content.country.item');
-			
+			if ($c['publish'] == 1) {
+
+				if ($c['id'] == $_POST['client']['address']['country_id']) $c['selected'] = "selected='selected'";
+				else $c['selected'] = '';
+				
+				$this->tpl->assign('country', $c);
+				$this->tpl->parse('content.country.item');
+
+			}			
 		}
 		
 		$this->tpl->parse('content.country');
