@@ -35,7 +35,9 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Gift_Detail extends Onxshop_Cont
 		 
 		if (is_numeric($order_id)) $order_data = $Order->getOrder($order_id);
 		
-		if ($order_data['other_data']['gift'] == 1) {
+		if ($order_data['other_data']['gift'] == 1 || 
+			strlen($order_data['other_data']['gift_message']) > 0) {
+
 			$this->tpl->assign("ORDER", $order_data);
 			$this->tpl->parse('content.option');
 		} else {
