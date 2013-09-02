@@ -226,3 +226,20 @@ if (!defined('ONXSHOP_ENCRYPTION_SALT'))  define('ONXSHOP_ENCRYPTION_SALT', 'w4t
  */
 
 if (!defined('ONXSHOP_ENABLE_AB_TESTING')) define('ONXSHOP_ENABLE_AB_TESTING', false);
+
+/**
+ * CDN for images
+ *
+ * ONXSHOP_CDN - use CDN (true/false)
+ * ONXSHOP_CDN_HOST - static content service node URL
+ * ONXSHOP_CDN_USE_WHEN_SSL - use CDN when request is served on SSL (true/false)
+ * ONXSHOP_CDN_ALLOWED_CONTEXT - comma seperated list of html tags (img, link, a, script, style)
+ * ONXSHOP_CDN_ALLOWED_TYPES - comma seperated list of file extensions (e.g. 'jpg, gif, png')
+ */
+
+define('ONXSHOP_CDN', false);
+define('ONXSHOP_CDN_HOST', 'http://static-image.server.my');
+define('ONXSHOP_CDN_USE_WHEN_SSL', false);
+define('ONXSHOP_CDN_ALLOWED_CONTEXT', 'img');
+define('ONXSHOP_CDN_ALLOWED_TYPES', 'jpg, gif, png');
+

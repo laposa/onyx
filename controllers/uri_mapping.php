@@ -106,10 +106,17 @@ class Onxshop_Controller_Uri_Mapping extends Onxshop_Controller {
 		if ($page_data['content'] == "") $page_data['content'] = $this->content;
 		
 		$page_data['content'] = $Mapper->system_uri2public_uri($page_data['content']);
+
+		if (ONXSHOP_CDN && (ONXSHOP_CDN_USE_WHEN_SSL || !isset($_SERVER['HTTPS']))) {
+			require_once('lib/onxshop.cdn.php');
+			$CDN = new Onxshop_Cdn();
+			$page_data['content'] = $CDN->processOutputHtml($page_data['content']);
+		}
 		
 		$this->content = $page_data['content'];
 
 		return true;
 	}
+
 }	
 	
