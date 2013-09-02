@@ -1455,6 +1455,16 @@ CREATE TABLE common_node (
 				}
 			break;
 			
+			case 'browser_title':
+				$data = $this->getDetail($id);
+				unset($data['author_detail']);
+				if (is_array($data)) {
+					$data['browser_title'] = $update_value;
+					if ($this->nodeUpdate($data)) return true;
+					else return false;
+				}
+			break;
+
 			case 'description':
 				$data = $this->getDetail($id);
 				unset($data['author_detail']);

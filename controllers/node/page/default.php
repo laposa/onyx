@@ -54,6 +54,7 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
 		 */
 		 
 		if ($node_data['page_title'] == '') $node_data['page_title'] = $node_data['title'];
+		if ($node_data['browser_title'] != '') $node_data['page_title'] = $node_data['browser_title'];
 		if (!isset($node_data['display_title'])) $node_data['display_title'] = $GLOBALS['onxshop_conf']['global']['display_title'];
 		if (!isset($node_data['display_secondary_navigation'])) $node_data['display_secondary_navigation'] = $GLOBALS['onxshop_conf']['global']['display_secondary_navigation'];
 		

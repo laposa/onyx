@@ -7,6 +7,10 @@ $(document).ready(function() {
 		url: "/request/bo/component/single_record_update~model=common_node:attribute=page_title~",
 		params: "ajax=yes"
 	});
+	$("div.seo_manager td.browser_title a").editInPlace({
+		url: "/request/bo/component/single_record_update~model=common_node:attribute=browser_title~",
+		params: "ajax=yes"
+	});
 	$("div.seo_manager td.description a").editInPlace({
 		url: "/request/bo/component/single_record_update~model=common_node:attribute=description~",
 		params: "ajax=yes",
@@ -22,12 +26,13 @@ $(document).ready(function() {
 
 <div class="seo_manager"> 
 	<table>
-		<thead><th>URI</th><th>Page Title</th><!--<th>Strapline</th>--><th>Excerpt (Description)</th><th>Labels (Keywords)</th></thead>
+		<thead><th>URI</th><th>Page Title</th><th>Browser Title</th><!--<th>Strapline</th>--><th>Excerpt (Description)</th><th>Labels (Keywords)</th></thead>
 		<tbody>
 			<!-- BEGIN: item -->
 			<tr>
 				<td><a href="{ITEM.public_uri}" target="_blank">{ITEM.public_uri}</a></td>
 				<td class="page_title"><a href="#{ITEM.id}" id="comon_node-page_title-id-{ITEM.node_id}">{ITEM.page_title|htmlspecialchars}</a></td>
+				<td class="browser_title"><a href="#{ITEM.id}" id="comon_node-browser_title-id-{ITEM.node_id}">{ITEM.browser_title|htmlspecialchars}</a></td>
 				<!--<td>{ITEM.teaser|htmlspecialchars}</td>-->
 				<td class="description"><a href="#{ITEM.id}" id="comon_node-description-id-{ITEM.node_id}">{ITEM.description|htmlspecialchars}</a></td>
 				<td class="keywords"><a href="#{ITEM.id}" id="comon_node-keywords-id-{ITEM.node_id}">{ITEM.keywords|htmlspecialchars}</a></td>
