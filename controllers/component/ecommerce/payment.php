@@ -49,7 +49,8 @@ class Onxshop_Controller_Component_Ecommerce_Payment extends Onxshop_Controller 
 		if (is_numeric($this->GET['order_id'])) {
 			$order_id = $this->GET['order_id'];
 		} else {
-			msg('Payment: Missing order_id', 'error');
+			msg('Payment: Missing order_id', 'error', 1);
+			onxshopGoTo("/page/" .$node_conf['id_map-404']);
 			return false;
 		}
 		
@@ -117,11 +118,21 @@ class Onxshop_Controller_Component_Ecommerce_Payment extends Onxshop_Controller 
 			msg("Unsupported payment type $payment_type", 'error');
 			return false;
 		}
+
+		/**
+		 * Check order permission
+		 */
 		
+		if ($order_data['basket']['customer_id'] !== $_SESSION['client']['customer']['id'] &&  $_SESSION['authentication']['logon'] == 0) {
+			msg('Unauthorised access to order detail');
+			onxshopGoTo("/page/" .$node_conf['id_map-404']);
+			return false;
+		}
+
 		/**
 		 * process payment method only if status = 0 unpaid or 5 failed payment 
 		 */
-		
+
 		if ($this->checkOrderStatusValidForPayment($order_data['status'])) {
 		
 			$total_payment_amount = $order_data['basket']['total_after_discount'] + $order_data['basket']['delivery']['value'];
