@@ -4,15 +4,11 @@
 
 <div class="referrals">
 
-	<!-- BEGIN: promotion_generator -->
-	<h2>Start inviting friends and family with your personal voucher code </h2>
+	<!-- BEGIN: referral_generator -->
 
-	<p>
-		<a class="button" style="width: 100px" href="?generate=true">
-			<span>Create Your Own Personal Code</span>
-		</a>
-	</p>
-	<!-- END: promotion_generator -->
+	{ONXSHOP_REQUEST_referral_generator #component/ecommerce/referral_generator}
+
+	<!-- END: referral_generator -->
 
 	<!-- BEGIN: my_referrals -->
 
@@ -26,146 +22,31 @@
 				<div class="layoutBody">
 					<div class="layoutColumnOne ofTwo">
 						<div class="layoutColumnWrapper">
-							<h2>Invite Your Friends</h2>
+
+							<h2>Start Inviting</h2>
+
+							<p>Offer the below £5 voucher to friends and family to use on their first JING order.</p>
+
+							<!-- BEGIN: promotion -->
+								<input type="text" readonly="readonly" onclick="this.select()" class="code_input {PROMOTION.used_class}" value="{PROMOTION.code_pattern|htmlspecialchars}" />
+								<br/>
+							<!-- END: promotion -->
 
 							<!-- BEGIN: no_referrals_available -->
-							<p>Sorry, you have already invited your limit of {AVAILABLE_REFERRALS_PER_PERSON} friends.</p>
-							<br/>
+								<p>Sorry, you have already invited your limit of {AVAILABLE_REFERRALS_PER_PERSON} friends.</p>
+								<br/>
 							<!-- END: no_referrals_available -->
 
-							<!-- BEGIN: share -->
-							<p>Start inviting friends and family with your personal voucher code:</p>
-							<!-- BEGIN: promotion_list -->
-							<!-- BEGIN: item -->
-							<input type="text" readonly="readonly" onclick="this.select()" class="code_input {PROMOTION.used_class}" value="{PROMOTION.code_pattern|htmlspecialchars}" />
-							<!-- END: item -->
-							<br/>
-							<!-- END: promotion_list -->
-
-							<h3>Send your invite by email</h3>
-
-							<form id="return_form" action="{URI}#node_id_{GET.node_id}" method="post">
-
-								<fieldset class="single">
-
-									<div class="row recipient">
-										<span class="label"><label for="referral-recipient">Enter email addresses (Separate addresses with commas)</label></span>
-										<span class="field"><input type="text" id="referral-recipient" class="required text" name="referral[recipient]" value="{REFERRAL.recipient|htmlspecialchars}"/></span>
-									</div>
-
-									<div class="row message">
-										<span class="label"><label for="referral-message">Message</label></span>
-										<span class="field"><textarea id="referral-message" class="required" cols="80" rows="15" style="width: 100%; height: 140px;" name="referral[message]">{REFERRAL.message|htmlspecialchars}</textarea></span>
-									</div>
-
-								</fieldset>
-
-								<div class="row submit">
-									<span class="label"><label>&nbsp;</label></span>
-									<span class="field"><button type="submit" name="referral[send]" value="send" class="submit"><span>Send invite</span></button></span>
-								</div>
-
-							</form>
-
-							<div class="divider"><hr /></div>
-
-							<h3>Invite your friends via Facebook and Twitter</h3>
-
-							<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
-
-							<div class="socialButtons">
-								<div class="button"><a href="https://twitter.com/share" class="twitter-share-button" data-url="{PROMOTION.code_url|strtolower|htmlspecialchars}" data-text="Explore JING Tea’s range and receive £5 off your first order. " data-count="none">Tweet</a></div>
-								<div class="button"><div id="fb-root"><script src="//connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:send href="{PROMOTION.code_url|strtolower|htmlspecialchars}"></fb:send></div></div>
-							</div>
-
-							<!-- BEGIN: disabled_url_share -->
-							<div class="divider"><hr /></div>
-
-							<h3>Invite friends with your personal link</h3>
-
-							<p>This is your personal link. You can copy and share it with friends and family in blogs and emails.</p>
-							<input class="text code_input" type="text" value="{PROMOTION.code_url|strtolower|htmlspecialchars}" readonly="readonly" onclick="this.select()"/>
-							<!-- END: disabled_url_share -->
-
-							<!-- END: share -->
+							{ONXSHOP_REQUEST_referral_share #component/ecommerce/referral_share~promotion_id=GET.promotion_id~}
 
 						</div>
 					</div>
 					<div class="layoutColumnTwo ofTwo">
 						<div class="layoutColumnWrapper">
-							<h2>Your £{DISCOUNT_VALUE} Vouchers</h2>
 
-							<!-- BEGIN: friends_list_empty -->
-							<p>Sorry, but none of your friends has accepted your invitation yet.</p>
-							<!-- END: friends_list_empty -->
-
-							<!-- BEGIN: vouchers_list -->
-							<!-- BEGIN: item -->
-							<p class="vouchersList">
-								<input type="text" readonly="readonly" onclick="this.select()" class="code_input {ITEM.used_class}" value="{ITEM.code_pattern|htmlspecialchars}" />
-								<small>Received {ITEM.created|strtotime|date('m/d/Y', %s)}</small>
-							</p>
-							<!-- END: item -->
-							<!-- END: vouchers_list -->
-
-							<!-- BEGIN: available_uses -->
-							<h2 class="remaining">You have {AVAILABLE_USES} More Invites.</h2>
-							<!-- END: available_uses -->
-
-							<!-- BEGIN: friends_list -->
-							<div id="friendList">
-								<h2>Which of you friends have joined JING?</h2>
-								<p>
-									<!-- BEGIN: item -->
-									<span>{ITEM.friend.title_before|htmlspecialchars} {ITEM.friend.first_name|htmlspecialchars} {ITEM.friend.last_name|htmlspecialchars}<br/></span>
-									<!-- END: item -->
-								</p>
-							</div>
-							<!-- END: friends_list -->
-
-							<!-- BEGIN: email_list -->
-							<div id="emailList">
-								<h2>Who have you invited</h2>
-
-								<p>
-								<!-- BEGIN: email -->
-								<span>{ITEM.email_recipient|htmlspecialchars}<br/></span>
-								<!-- END: email -->
-								</p>
-							</div>
-							<!-- END: email_list -->
-
-							<script type="text/javascript">
-								$(function() {
-									if ($("#emailList span").length > 5) {
-										$("#emailList").append('<a href="#" onclick="return showMore(this)">Show More...</a>');
-										$("#emailList span:gt(4)").hide();
-									}
-									if ($("#friendList span").length > 5) {
-										$("#friendList").append('<a href="#" onclick="return showMore(this)">Show More...</a>');
-										$("#friendList span:gt(4)").hide();
-									}
-								});
-
-								function showMore(a) {
-									var msg = $(a).text();
-
-									if (msg == "Show More...") {
-
-										msg = "Minimise";
-										$(a).text(msg).parent().find("span").fadeIn(500);
-
-									} else {
-
-										msg = "Show More...";
-										$(a).text(msg).parent().find("span:gt(4)").fadeOut(500);
-
-									}
-									
-									return false;
-								}
-
-							</script>
+							{ONXSHOP_REQUEST_referral_list_rewards #component/ecommerce/referral_list_rewards}
+							{ONXSHOP_REQUEST_referral_list_emails #component/ecommerce/referral_list_emails}
+							{ONXSHOP_REQUEST_referral_list_joins #component/ecommerce/referral_list_joins}
 
 						</div>
 					</div>
@@ -175,6 +56,37 @@
 	</div>
 	</div>
 	</div>
+
+	<script type="text/javascript">
+		$(function() {
+			if ($("#emailList .item").length > 5) {
+				$("#emailList").append('<a href="#" onclick="return showMore(this)">Show More...</a>');
+				$("#emailList .item:gt(4)").hide();
+			}
+			if ($("#friendList .item").length > 5) {
+				$("#friendList").append('<a href="#" onclick="return showMore(this)">Show More...</a>');
+				$("#friendList .item:gt(4)").hide();
+			}
+			if ($("#rewardList .item").length > 5) {
+				$("#rewardList").append('<a href="#" onclick="return showMore(this)">Show More...</a>');
+				$("#rewardList .item:gt(4)").hide();
+			}
+		});
+
+		function showMore(a) {
+			var msg = $(a).text();
+			if (msg == "Show More...") {
+				msg = "Minimise";
+				$(a).text(msg).parent().find(".item").fadeIn(300);
+			} else {
+				msg = "Show More...";
+				$(a).text(msg).parent().find(".item:gt(4)").fadeOut(300);
+			}
+			return false;
+		}
+
+	</script>
+
 	<!-- END: my_referrals -->
 
 </div>

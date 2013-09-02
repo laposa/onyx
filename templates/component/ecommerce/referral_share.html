@@ -1,0 +1,55 @@
+<!-- BEGIN: content -->
+
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+
+<!-- BEGIN: share -->
+
+	<h3>Send your invite by email</h3>
+
+	<form id="return_form" action="{URI}#node_id_{GET.node_id}" method="post">
+
+		<fieldset class="single">
+
+			<div class="row recipient">
+				<span class="label"><label for="referral-recipient">Enter email addresses (Separate addresses with commas)</label></span>
+				<span class="field"><input type="text" id="referral-recipient" class="required text" name="referral[recipient]" value="{REFERRAL.recipient|htmlspecialchars}"/></span>
+			</div>
+
+			<div class="row message">
+				<span class="label"><label for="referral-message">Message</label></span>
+				<span class="field"><textarea id="referral-message" class="required" style="resize: none;" cols="80" rows="15" name="referral[message]">{REFERRAL.message|htmlspecialchars}</textarea></span>
+				<span class="label"><small>Use ours, or write your own, but if you do remember to include your unique code.</small></span>
+			</div>
+
+		</fieldset>
+
+		<div class="row submit">
+			<span class="label"><label>&nbsp;</label></span>
+			<span class="field"><button type="submit" name="referral[send]" value="send" class="submit"><span>Send invite</span></button></span>
+		</div>
+
+	</form>
+
+	<div class="divider"><hr /></div>
+
+	<h3>Invite your friends via Facebook and Twitter</h3>
+
+	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
+
+	<div class="socialButtons">
+		<div class="button"><a href="https://twitter.com/share" class="twitter-share-button" data-url="{PROMOTION.code_url|strtolower|htmlspecialchars}" data-text="Explore JING Tea’s range and receive £5 off your first order. " data-count="none">Tweet</a></div>
+		<div class="button"><div id="fb-root"><script src="//connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:send href="{PROMOTION.code_url|strtolower|htmlspecialchars}"></fb:send></div></div>
+	</div>
+
+	<!-- BEGIN: disabled_url_share -->
+	<div class="divider"><hr /></div>
+
+	<h3>Invite friends with your personal link</h3>
+
+	<p>This is your personal link. You can copy and share it with friends and family in blogs and emails.</p>
+	<input class="text code_input" type="text" value="{PROMOTION.code_url|strtolower|htmlspecialchars}" readonly="readonly" onclick="this.select()"/>
+	<!-- END: disabled_url_share -->
+
+<!-- END: share -->
+
+<!-- END: content -->

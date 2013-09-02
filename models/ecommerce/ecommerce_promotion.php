@@ -449,7 +449,30 @@ CREATE TABLE ecommerce_promotion (
 		}
 
 		if ($campaign_data = $this->checkCodeMatch($code)) {
-			
+		
+			/**
+			 * first order
+			 */
+			if ($campaign_data['limit_to_first_order'] > 0) {
+				if ($this->getNumCustomersOrders($customer_id) > 0) {
+					if ($this->getNumCustomersPaidOrders($customer_id) == 0) {
+						if (!Zend_Registry::isRegistered('ecommerce_promotion:first_order_unpaid')) {
+							msg("Code \"$code\" can only be applied to your first order. If you cancelled " . 
+								"your previous order, please either return to it in “My Account” or contact " . 
+								"customer services if you wish to continue with your current order.", 
+								'error');
+							Zend_Registry::set('ecommerce_promotion:first_order_unpaid', true);
+						}
+					} else {
+						if (!Zend_Registry::isRegistered('ecommerce_promotion:first_order')) {
+							msg("Code \"$code\" can only be applied to your first order.", 'error');
+							Zend_Registry::set('ecommerce_promotion:first_order', true);
+						}
+					}
+					return false;
+				}
+			}
+
 			/**
 			 *  uses_per_coupon
 			 */
@@ -457,7 +480,10 @@ CREATE TABLE ecommerce_promotion (
 			if ($campaign_data['uses_per_coupon'] > 0) {
 				if (($this->getCountUsageOfSingleCode($code) + 1) > $campaign_data['uses_per_coupon']) {
 					if (substr($campaign_data['code_pattern'], 0, 4) != "REF-") { // referral codes validity is extended automatically
-						msg("Code \"$code\" usage exceed number of allowed applications", 'error');
+						if (!Zend_Registry::isRegistered('ecommerce_promotion:total_usage_exceeded')) {
+							msg("Code \"$code\" usage exceed number of allowed applications", 'error');
+							Zend_Registry::set('ecommerce_promotion:total_usage_exceeded', true);
+						}
 						return false;
 					}
 				}
@@ -470,7 +496,10 @@ CREATE TABLE ecommerce_promotion (
 			if ($campaign_data['uses_per_customer'] > 0) {
 				
 				if (($this->getCountUsageOfSingleCode($code, $customer_id) + 1) > $campaign_data['uses_per_customer']) {
-					msg("Code \"$code\" usage exceed number of allowed applications per one customer (id=$customer_id)", 'error');
+					if (!Zend_Registry::isRegistered('ecommerce_promotion:per_user_usage_exceeded')) {
+						msg("Code \"$code\" usage exceed number of allowed applications per one customer", 'error');
+						Zend_Registry::set('ecommerce_promotion:per_user_usage_exceeded', true);
+					}
 					return false;
 				}
 			}
@@ -479,18 +508,11 @@ CREATE TABLE ecommerce_promotion (
 			 * not using self-generated code
 			 */
 			if ($campaign_data['generated_by_customer_id'] > 0 && $campaign_data['generated_by_customer_id'] == $customer_id) {
-				msg("You are not allowed to redeem your own code!");
-				return false;
-			}
-
-			/**
-			 * first order
-			 */
-			if ($campaign_data['limit_to_first_order'] > 0) {
-				if ($this->getNumCustomerOrders($customer_id) > 0) {
-					msg("Code \"$code\" is restricted to your first order.", 'error');
-					return false;
+				if (!Zend_Registry::isRegistered('ecommerce_promotion:own_code')) {
+					msg("You are not allowed to redeem your own code!");
+					Zend_Registry::set('ecommerce_promotion:own_code', true);
 				}
+				return false;
 			}
 
 			/**
@@ -498,8 +520,11 @@ CREATE TABLE ecommerce_promotion (
 			 */
 			if ($campaign_data['limit_to_order_amount'] > 0) {
 				if ($basket_data['content']['total_sub'] < $campaign_data['limit_to_order_amount']) {
-					$amount = money_format("%n", $campaign_data['limit_to_order_amount']);
-					msg("The voucher code \"$code\" is restricted to orders in amount of $amount.", 'error');
+					if (!Zend_Registry::isRegistered('ecommerce_promotion:order_amount')) {
+						$amount = money_format("%n", $campaign_data['limit_to_order_amount']);
+						msg("The voucher code \"$code\" is restricted to orders in amount of $amount.", 'error');
+						Zend_Registry::set('ecommerce_promotion:order_amount', true);
+					}
 					return false;
 				}
 			}
@@ -512,7 +537,10 @@ CREATE TABLE ecommerce_promotion (
 				if ($gift_voucher_product_id > 0 && count($basket_data['content']['items']) > 0) {
 					foreach ($basket_data['content']['items'] as $item) {
 						if ($item['product']['id'] == $gift_voucher_product_id) {
-							msg("Sorry, voucher codes cannot be used to buy Gift Voucher Codes.");
+							if (!Zend_Registry::isRegistered('ecommerce_promotion:gift_in_basket')) {
+								msg("Sorry, voucher codes cannot be used to buy Gift Voucher Codes.");
+								Zend_Registry::set('ecommerce_promotion:gift_in_basket', true);
+							}
 							return false;
 						}
 					}
@@ -531,7 +559,10 @@ CREATE TABLE ecommerce_promotion (
 					}
 				}
 				if ($prod == 0) {
-					msg("Sorry, the voucher code \"$code\" is limited to certain products, which you don't have in your basket.");
+					if (!Zend_Registry::isRegistered('ecommerce_promotion:limit_to_products')) {
+						msg("Sorry, the voucher code \"$code\" is limited to certain products, which you don't have in your basket.");
+						Zend_Registry::set('ecommerce_promotion:limit_to_products', true);
+					}
 					return false;
 				}
 			}
@@ -573,16 +604,37 @@ CREATE TABLE ecommerce_promotion (
 
 
 	/**
-	 * Get number of orders for given customer
+	 * Get number of all orders for given customer
 	 * @param  int $customer_id Customer id
 	 * @return int              Number of orders
 	 */
-	public function getNumCustomerOrders($customer_id)
+	public function getNumCustomersOrders($customer_id)
 	{
 		$customer_id = (int) $customer_id;
 
 	    $sql = "SELECT COUNT(*) AS count FROM ecommerce_order AS o
 			LEFT JOIN ecommerce_basket AS b ON (b.id = o.basket_id)
+			WHERE b.customer_id = $customer_id AND o.status <> 4";
+
+		$this->setCacheable(false);
+		if ($records = $this->executeSql($sql)) return (int) $records[0]['count'];
+		else return false;
+
+	}
+
+
+	/**
+	 * Get number of paid orders for given customer
+	 * @param  int $customer_id Customer id
+	 * @return int              Number of orders
+	 */
+	public function getNumCustomersPaidOrders($customer_id)
+	{
+		$customer_id = (int) $customer_id;
+
+	    $sql = "SELECT COUNT(*) AS count FROM ecommerce_order AS o
+			LEFT JOIN ecommerce_basket AS b ON (b.id = o.basket_id)
+			INNER JOIN ecommerce_invoice AS i ON i.order_id = o.id AND i.status <> 4
 			WHERE b.customer_id = $customer_id";
 
 		$this->setCacheable(false);
@@ -625,7 +677,11 @@ CREATE TABLE ecommerce_promotion (
 		$usage_list = $Promotion_code->getUsageOfSingleCode($code, $customer_id);
 
 		if (is_array($usage_list)) {
-			return count($usage_list);
+			$result = 0;
+			foreach ($usage_list as $usage) {
+				if ($usage['status'] <> 4) $result++; // do not count cancelled orders
+			}
+			return $result;
 		} else {
 			return false;
 		}
@@ -722,23 +778,18 @@ CREATE TABLE ecommerce_promotion (
 
 			$usage = $this->getCountUsageOfSingleCode($code) + 1;
 
-			if ($promotion['uses_per_coupon'] > 0 && $usage > $promotion['uses_per_coupon']) 
-			{
-				$promotion['uses_per_coupon'] += 10;
-				$this->updatePromotion($promotion);
-				$emailTemplate = 'referral_reward_extend';
-			}
-			else
-			{
-				$emailTemplate = 'referral_reward';
-			}
-
-
 			// check if a user is not already rewarded
 			$this->setCacheable(false);
 			$rewarded_codes = $this->listing("generated_by_order_id = $order_id");
 
 			if (count($rewarded_codes) == 0) {
+
+				// automatically extend to 20 invites
+				if ($promotion['uses_per_coupon'] > 0 && $usage > $promotion['uses_per_coupon'] && $usage < 20) 
+				{
+					$promotion['uses_per_coupon'] += 10;
+					$this->updatePromotion($promotion);
+				}
 
 				$data = array(
 					'title' => "Referral voucher code",
@@ -763,23 +814,14 @@ CREATE TABLE ecommerce_promotion (
 
 				$this->insert($data);
 
-				// send email
-				require_once('models/common/common_email.php');
-				$EmailForm = new common_email();
-				require_once('models/client/client_customer.php');
-				$Customer = new client_customer();
-				$Customer->setCacheable(false);
-				$recipient = $Customer->getDetail($promotion['generated_by_customer_id']);
+				$invited_customer_id = $order_detail['basket']['customer_id'];
+				$rewarded_customer_id = $promotion['generated_by_customer_id'];
+				$code = $data['code_pattern'];
 
-				$GLOBALS['common_email']['customer'] = $_SESSION['client']['customer'];
-				$GLOBALS['common_email']['recipient'] = $recipient;
-				$GLOBALS['common_email']['code'] = $data['code_pattern'];
-				$GLOBALS['common_email']['total_invited'] = $usage;
+				$this->sendRewardEmail($invited_customer_id, $rewarded_customer_id, $code, $usage);
 
-				$EmailForm->sendEmail($emailTemplate, 'n/a', $recipient['email'], $recipient['first_name'] . 
-					" " . $recipient['last_name']);
-
-				// TODO: schedule email in two weeks
+				// send warning email when 15 invites reached
+				if ($usage == 15) $this->sendWarningEmail($rewarded_customer_id);
 
 				return true;
 
@@ -787,6 +829,54 @@ CREATE TABLE ecommerce_promotion (
 		}
 
 		return false;
+	}
+
+	/**
+	 * Send warning email when a customer reaches 15 invites
+	 */
+	public function sendWarningEmail($rewarded_customer_id)
+	{
+		require_once('models/common/common_email.php');
+		require_once('models/client/client_customer.php');
+		$EmailForm = new common_email();
+		$Customer = new client_customer();
+		$Customer->setCacheable(false);
+
+		$rewarded_customer = $Customer->getDetail($rewarded_customer_id);
+
+		$GLOBALS['common_email']['rewarded_customer'] = $rewarded_customer;
+
+		$to_email = false; // admin
+		$to_name = false;
+
+		echo "sending";
+
+		$EmailForm->sendEmail('referral_warning', 'n/a', $to_email, $to_name);
+	}
+
+	/**
+	 * Send email after succesfull reward code allocation
+	 */
+	public function sendRewardEmail($invited_customer_id, $rewarded_customer_id, $code, $usage)
+	{
+		require_once('models/common/common_email.php');
+		require_once('models/client/client_customer.php');
+		$EmailForm = new common_email();
+		$Customer = new client_customer();
+		$Customer->setCacheable(false);
+
+		$rewarded_customer = $Customer->getDetail($rewarded_customer_id);
+		$invited_customer = $Customer->getDetail($invited_customer_id);
+
+		$GLOBALS['common_email']['invited_customer'] = $invited_customer;
+		$GLOBALS['common_email']['rewarded_customer'] = $rewarded_customer;
+		$GLOBALS['common_email']['code'] = $code;
+		$GLOBALS['common_email']['total_invited'] = $usage;
+
+		$to_email = $rewarded_customer['email'];
+		$to_name = $rewarded_customer['first_name'] . " " . $rewarded_customer['last_name'];
+
+		$EmailForm->sendEmail('referral_reward', 'n/a', $to_email, $to_name);
 	}
 
 	/**

@@ -29,7 +29,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Referrals extends Onxshop_Contro
 		$this->Promotion = new ecommerce_promotion();
 		$this->Promotion->setCacheable(false);
 		$this->Customer = new client_customer();
-		$this->Customer->setCacheable(FALSE);
+		$this->Customer->setCacheable(false);
 
 
 		// render
@@ -49,7 +49,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Referrals extends Onxshop_Contro
 	protected function parseRecentPromotions($customer_id)
 	{
 		// prepare list of recent promotions
-		$promotions = $this->Promotion->listing("code_pattern LIKE 'REF-%' " . 
+		$promotions = (array) $this->Promotion->listing("code_pattern LIKE 'REF-%' " . 
 			"AND generated_by_customer_id = $customer_id");
 		$numReferrals = 0;
 
@@ -58,12 +58,11 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Referrals extends Onxshop_Contro
 			$numReferrals += $promotion['uses_per_coupon'];
 			$promotion['num_uses'] = $this->Promotion->getCountUsageOfSingleCode($promotion['code_pattern']);
 			$this->tpl->assign("PROMOTION", $promotion);
-
-			// parse everything
 			$this->tpl->parse("content.promotion_list.item");
 		}
 
-		// parse recent promotions list
+		if (count($promotions) == 0) $this->tpl->parse("content.promotion_list.empty");
+
 		$this->tpl->parse("content.promotion_list");
 	}
 

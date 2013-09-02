@@ -1,0 +1,28 @@
+<!-- BEGIN: content -->
+
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+
+<h2>Your £{DISCOUNT_VALUE} Vouchers</h2>
+
+<!-- BEGIN: friends_list_empty -->
+<p>Once your invitation has been accepted your JING vouchers will appear here.</p>
+<!-- END: friends_list_empty -->
+
+<!-- BEGIN: vouchers_list -->
+<div id="rewardList">
+<!-- BEGIN: item -->
+<p class="vouchersList item">
+	<input type="text" readonly="readonly" onclick="this.select()" class="code_input {ITEM.used_class}" value="{ITEM.code_pattern|htmlspecialchars}" />
+	<!-- BEGIN: received -->
+	<small>Received {ITEM.created|strtotime|date('d/m/Y', %s)}</small>
+	<!-- END: received -->
+	<!-- BEGIN: redeemed -->
+	<small>Redeemed {ITEM.redeemed|strtotime|date('d/m/Y', %s)}</small>
+	<!-- END: redeemed -->
+</p>
+<!-- END: item -->
+</div>
+
+<!-- END: vouchers_list -->
+
+<!-- END: content -->

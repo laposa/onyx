@@ -38,7 +38,9 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Referrals_Friends extends Onxsho
 		$this->Promotion_Code = new ecommerce_promotion_code();
 		$this->Promotion_Code->setCacheable(false);
 		$this->Customer = new client_customer();
-		$this->Customer->setCacheable(FALSE);
+		$this->Customer->setCacheable(false);
+		$this->Order = new ecommerce_order();
+		$this->Order->setCacheable(false);
 
 		// render
 		$customer_id = $this->GET['customer_id'];
@@ -54,21 +56,41 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Referrals_Friends extends Onxsho
 	 */
 	protected function parseFriendsList($customer_id)
 	{
-		// prepare list of invited friends
-		$promotions = $this->Promotion->listing("code_pattern LIKE 'REW-%' " .
-			"AND limit_by_customer_id  = $customer_id");
+		$rew_promotions = $this->Promotion->listing("code_pattern LIKE 'REW-%' AND limit_by_customer_id  = $customer_id");
+		$ref_promotions = $this->Promotion->listing("code_pattern LIKE 'REF-%' AND generated_by_customer_id = $customer_id");
+		
+		foreach ($ref_promotions as $ref_promotion) {
 
-		foreach ($promotions as $promotion) {
-			$promotion['friend'] = $this->Customer->getDetail($promotion['generated_by_customer_id']);
-			$usage = $this->Promotion->getCountUsageOfSingleCode($promotion['code_pattern']);
-			$promotion['used'] = $usage > 0 ? "Yes" : "No";
-			$promotion['address'] = $this->getAddresses($promotion['generated_by_order_id']);
-			$this->tpl->assign("ITEM", $promotion);
-			$this->tpl->parse("content.friends_list.item");
+			$ref_usage = $this->Promotion_Code->getUsageOfSingleCode($ref_promotion['code_pattern']);
+
+			foreach ($ref_usage as $item) {
+
+				$hasReward = false;
+				foreach ($rew_promotions as $rew_promotion) {
+
+					if ($rew_promotion['generated_by_order_id'] == $item['order_id']) {
+						$hasReward = true;
+						$rew_promotion['friend'] = $this->Customer->getDetail($rew_promotion['generated_by_customer_id']);
+						$count_usage = $this->Promotion->getCountUsageOfSingleCode($rew_promotion['code_pattern']);
+						$rew_promotion['used'] = $count_usage > 0 ? "Yes" : "No";
+						$rew_promotion['address'] = $this->getAddresses($rew_promotion['generated_by_order_id']);
+						$this->tpl->assign("ITEM", $rew_promotion);
+						$this->tpl->parse("content.friends_list.item");
+					}
+				}
+
+				if (!$hasReward) {
+					$order = $this->Order->getOrder($item['order_id']);
+					$item['friend'] = $this->Customer->getDetail($order['basket']['customer_id']);
+					$item['order'] = $order;
+					$this->tpl->assign("ITEM", $item);
+					$this->tpl->parse("content.friends_list.unfinished");
+				}
+			}
 		}
 
 		// parse invited friends
-		if (count($promotions) == 0) $this->tpl->parse("content.friends_list.none");
+		if (count($ref_promotions) == 0) $this->tpl->parse("content.friends_list.none");
 		$this->tpl->parse("content.friends_list");
 	}
 
