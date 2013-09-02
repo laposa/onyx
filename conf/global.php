@@ -220,3 +220,9 @@ if (!defined('ONXSHOP_PAGINATION_SHOW_ITEMS')) define('ONXSHOP_PAGINATION_SHOW_I
  */
 
 if (!defined('ONXSHOP_ENCRYPTION_SALT'))  define('ONXSHOP_ENCRYPTION_SALT', 'w4t5yoy8ry3hewf2ey3wu6ap5ze7haic8pam9ve4vot6cyet');
+
+/**
+ * enable A/B testing
+ */
+
+if (!defined('ONXSHOP_ENABLE_AB_TESTING')) define('ONXSHOP_ENABLE_AB_TESTING', false);

@@ -66,6 +66,14 @@ class Onxshop_Bootstrap {
 		 * Initialise authentication object
 		 */
 		$GLOBALS['Auth'] = new Onxshop_Authentication();
+
+		/**
+		 * Initialise A/B testing
+		 */
+		if (defined('ONXSHOP_ENABLE_AB_TESTING') && ONXSHOP_ENABLE_AB_TESTING == true) {
+			if  ($_SESSION['ab_test_group'] !== 0 && $_SESSION['ab_test_group'] !== 1)
+				$_SESSION['ab_test_group'] = mt_rand(0, 1);
+		}
 		
 		//hack
 		if ($_GET['login'] == 1) {
@@ -361,7 +369,7 @@ class Onxshop_Bootstrap {
 	function processActionCached($request) {
 		
 		require_once 'Zend/Cache.php';
-
+		
 		$frontendOptions = array(
 		'lifetime' => ONXSHOP_PAGE_CACHE_TTL,
 		'automatic_serialization' => true
@@ -372,6 +380,8 @@ class Onxshop_Bootstrap {
 		$cache = Zend_Cache::factory('Output', 'File', $frontendOptions, $backendOptions);
 		
 		$id = "GET_" . md5($_SERVER['HTTP_HOST'] . $request . serialize($_GET) . isset($_SERVER['HTTPS']));
+		if (defined('ONXSHOP_ENABLE_AB_TESTING') && ONXSHOP_ENABLE_AB_TESTING == true) $id .= $_SESSION['ab_test_group'];
+
 
 		if (!is_array($data = $cache->load($id))) {
 		    // cache miss
@@ -408,7 +418,7 @@ class Onxshop_Bootstrap {
 	 */
 	 
 	function indexContent($uri, $htmlString) {
-		
+	
 		require_once('Zend/Search/Lucene.php');
 
 		$index_location = ONXSHOP_PROJECT_DIR . 'var/index';

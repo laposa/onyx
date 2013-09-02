@@ -4,6 +4,9 @@
 
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', '{CONFIGURATION.global.google_analytics}']);
+  <!-- BEGIN: abtesting -->
+  _gaq.push(['_setCustomVar', 1, 'A/B Testing', 'Test Group {TEST_GROUP}', 1]);
+  <!-- END: abtesting -->
   _gaq.push(['_trackPageview']);
 
   (function() {
