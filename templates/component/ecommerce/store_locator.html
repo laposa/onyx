@@ -92,8 +92,8 @@
 		showInfoBox(marker);
 		$("#storeDetailWrapper").load('/request/component/ecommerce/store_detail~node_id=' + marker.node_id + '~');
 		$("#storeNearbyWrapper").load('/request/component/ecommerce/store_nearby_radius~node_id=' + marker.node_id + '~');
-		if (history.pushState)
-			history.pushState({ marker: marker.url }, marker.title, marker.url);
+		$("#storeProvinceFormWrapper").load('/request/component/ecommerce/store_province_form~store_node_id=' + marker.node_id + '~');
+		if (history.pushState) history.pushState({ marker: marker.url }, marker.title, marker.url);
 	}
 
 	function showInfoBox(marker) {

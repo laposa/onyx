@@ -25,8 +25,8 @@ class Onxshop_Controller_Component_Ecommerce_Store_Province_Form extends Onxshop
 		$this->tpl->assign("PROVINCE_ROOT_PAGE_ID", self::PROVINCE_ROOT_PAGE_ID);
 
 		$this->parseCountySelect($active_ids);
-		$this->parseAreaSelect($active_ids);
-		$this->parseStoreSelect($active_ids);
+		$areaSelected = $this->parseAreaSelect($active_ids);
+		$this->parseStoreSelect($active_ids, $areaSelected);
 
 		return true;
 	}
@@ -66,11 +66,16 @@ class Onxshop_Controller_Component_Ecommerce_Store_Province_Form extends Onxshop
 
 	protected function parseAreaSelect($active_ids)
 	{
+		$areaSelected = false;
+
 		$districts = $this->getPageChildren(self::DUBLIN_PAGE_ID);
 
 		foreach ($districts as $district) {
 			if ($district['publish'] == 1 && $district['content'] == '') {
-				$district['selected'] = (in_array($district['id'], $active_ids) ? 'selected="selected"' : '');
+				if (in_array($district['id'], $active_ids)) {
+					$areaSelected = true;
+					$district['selected'] = 'selected="selected"';
+				}
 				$this->tpl->assign("DISTRICT", $district);
 				$this->tpl->parse("content.dublin_dropdown.district");
 			}
@@ -80,13 +85,15 @@ class Onxshop_Controller_Component_Ecommerce_Store_Province_Form extends Onxshop
 
 		$this->tpl->parse("content.dublin_dropdown");
 
+		return $areaSelected;
 	}
 
 
 
-	protected function parseStoreSelect($active_ids)
+	protected function parseStoreSelect($active_ids, $areaSelected)
 	{
-		$stores = $this->getPageChildren($active_ids[count($active_ids) - 4]);
+		if ($areaSelected) $stores = $this->getPageChildren($active_ids[count($active_ids) - 5]);
+		else $stores = $this->getPageChildren($active_ids[count($active_ids) - 4]); 
 
 		$stores = php_multisort($stores, array(array('key' => 'title', 'sort' => 'asc')));
 
@@ -114,9 +121,14 @@ class Onxshop_Controller_Component_Ecommerce_Store_Province_Form extends Onxshop
 
 
 	public function getFullPath() {
-		
+
+		if (is_numeric($this->GET['store_node_id'])) {
+			$Node = new common_node();
+			return $Node->getActiveNodes($this->GET['store_node_id']);
+		}
+
 		return $_SESSION['full_path'];
-		
+
 	}
 
 }
