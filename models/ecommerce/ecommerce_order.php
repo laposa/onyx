@@ -784,18 +784,29 @@ CREATE TABLE ecommerce_order (
 	 
 	function getStatData($time_frame = 'week', $limit = 30) {
         switch ($time_frame) {
-            case 'month';
+            case 'month':
                 $format = 'YY/MM';
             break;
-            case 'day';
+            case 'day':
                 $format = 'MM/DD';
             break;
-            case 'week';
-            default;
+            case 'week':
+            default:
+            	$time_frame = 'week';
                 $format = 'YY/WW';
             break;
         }
-        $sql = "SELECT o.id, to_char(b.created, 'YYMMDD') AS datefull, to_char(b.created, '$format') AS date, status FROM ecommerce_order o, ecommerce_basket b WHERE o.basket_id = b.id ORDER BY b.created DESC;";
+        $sql = "SELECT 
+        	o.id, 
+        	to_char(COALESCE(i.created, o.created), 'YYMMDD') AS datefull, 
+        	to_char(COALESCE(i.created, o.created), '$format') AS date, 
+        	i.payment_amount,
+        	o.status,
+        	i.status AS invoice_status
+        	FROM ecommerce_order AS o
+        	LEFT JOIN ecommerce_invoice AS i ON i.order_id = o.id
+        	WHERE COALESCE(i.created, o.created) >= (NOW() - INTERVAL '" . ($limit + 1) . " $time_frame')
+        	ORDER BY COALESCE(i.created, o.created) DESC";
        
         $records = $this->executeSql($sql);
         $data = array();
@@ -806,15 +817,17 @@ CREATE TABLE ecommerce_order (
         foreach ($records as $r) {
             if($d != $r['date']) {
                 $d = $r['date'];
-                $i['success'] = 0;
-                $i['unfinished'] = 0;
+                $i['num_orders_finished'] = 0;
+                $i['num_orders_unfinished'] = 0;
+                $i['revenue'] = 0;
                 $ir++;
             }
 
             if ($r['status'] == 1 || $r['status'] == 2 || $r['status'] == 3 || $r['status'] == 6 || $r['status'] == 7 ) {
-                $i['success']++;
+                $i['num_orders_finished']++;
+            	if ($r['invoice_status'] == 1) $i['revenue'] += $r['payment_amount'];
             } else {
-                $i['unfinished']++;
+            	$i['num_orders_unfinished']++;
             }
 
             // use limit
