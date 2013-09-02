@@ -45,8 +45,13 @@ class Onxshop_Controller_Component_Ecommerce_Basket_Detail extends Onxshop_Contr
 	function displayBasketCustom() {
 	
 		/**
-		 * Get basket detail
+		 * Load basket content
 		 */
+
+		require_once('models/ecommerce/ecommerce_basket.php');
+		$Basket = new ecommerce_basket();
+		$Basket->setCacheable(false);
+		$basket_detail = $Basket->getDetail($this->GET['id'], false);
 		
 		//prepare shipping address
 		if (is_numeric($this->GET['delivery_address_id'])) $delivery_address_id = $this->GET['delivery_address_id'];
@@ -61,7 +66,7 @@ class Onxshop_Controller_Component_Ecommerce_Basket_Detail extends Onxshop_Contr
 		// exclude vat for non-EU countries and whole sale customers
 		require_once('models/ecommerce/ecommerce_order.php');
 		$Order = new ecommerce_order();
-		$customer_id = $_SESSION['client']['customer']['id'];
+		$customer_id = $basket_detail['customer_id'];
 		$exclude_vat = !$Order->isVatEligible($delivery_address_id, $customer_id);
 
 		/**
@@ -77,15 +82,17 @@ class Onxshop_Controller_Component_Ecommerce_Basket_Detail extends Onxshop_Contr
 			$this->applyPromotionCode($_SESSION['basket']['id'], $_SESSION['promotion_code'], $exclude_vat);
 		}
 
+
+		/**
+		 * Reload basket if VAT needs to be excluded
+		 */
+		if ($exclude_vat)
+			$basket_detail = $Basket->getDetail($this->GET['id'], $exclude_vat);
+	
 		/**
 		 * Load baskter content
 		 */
-
-		require_once('models/ecommerce/ecommerce_basket.php');
-		$Basket = new ecommerce_basket();
-		$Basket->setCacheable(false);
-		$basket_detail = $Basket->getDetail($this->GET['id'], $exclude_vat);
-		
+	
 		if (count($basket_detail['content']['items']) > 0) {
 			
 			/**
@@ -119,7 +126,6 @@ class Onxshop_Controller_Component_Ecommerce_Basket_Detail extends Onxshop_Contr
 				//with a promotional code (it's a live basket, not submitted as an order)
 				require_once('models/ecommerce/ecommerce_promotion.php');
 				$Promotion = new ecommerce_promotion();
-				$customer_id = $basket_detail['customer_id'];
 				$promotion_data = $Promotion->checkCodeBeforeApply($_SESSION['promotion_code'], $customer_id, $basket_detail);
 				$delivery_data = $Delivery->calculateDelivery($basket_detail['content'], $delivery_address_id, $delivery_options, $promotion_data);
 			} else {
