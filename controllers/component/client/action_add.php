@@ -5,7 +5,7 @@
  * 
  */
 
-require_once 'models/client/client_actions.php';
+require_once 'models/client/client_action.php';
 
 class Onxshop_Controller_Component_Client_Action_Add extends Onxshop_Controller {
 
@@ -24,7 +24,7 @@ class Onxshop_Controller_Component_Client_Action_Add extends Onxshop_Controller 
 			&& !empty($this->GET['object_name'])
 			&& $this->customer_id > 0) {
 
-			$Actions = new client_actions();
+			$Actions = new client_action();
 			$Actions->insert(array(
 				'customer_id' => $this->customer_id,
 				'node_id' => $this->GET['node_id'],
