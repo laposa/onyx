@@ -110,10 +110,26 @@ class Onxshop_Controller_Node_Page_Recipe extends Onxshop_Controller_Node_Page_D
 			$recipe['persons'] = $recipe['serving_people'] == 1 ? 'person' : 'persons';
 			$recipe['minutes'] = $recipe['cooking_time'] == 1 ? 'minute' : 'minutes';
 
+			/**
+			 * get image path
+			 */
+			$recipe['image'] = $this->getRecipeImagePath($recipe_id);
+
 			$this->tpl->assign("RECIPE", $recipe);
 
 		}
 
 		return true;
 	}
+
+	protected function getRecipeImagePath($recipe_id)
+	{
+		require_once('models/ecommerce/ecommerce_recipe_image.php');
+		$Image = new ecommerce_recipe_image();
+		$image_list = $Image->listFiles($recipe_id, "priority DESC, id ASC", false);
+		if (isset($image_list[0]['src'])) return $image_list[0]['src'];
+		return false;
+
+	}
+
 }

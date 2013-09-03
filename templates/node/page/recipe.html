@@ -1,4 +1,9 @@
 <!-- BEGIN: title -->{NODE.page_title}<!-- END: title -->
+<!-- BEGIN: head -->
+<meta property="og:type" content="{ONXSHOP_FACEBOOK_APP_NAMESPACE}:recipe" /> 
+<meta property="og:image" content="http://{_SERVER.HTTP_HOST}/thumbnail/520x400/{RECIPE.image|htmlspecialchars}" />
+<meta property="og:description" content="{RECIPE.description|strip_tags|htmlspecialchars}" />
+<!-- END: head -->
 <!-- BEGIN: content -->
 
 <div id="pageSide">
