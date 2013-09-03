@@ -306,6 +306,23 @@ CREATE INDEX client_customer_token_publish_key ON client_customer_token USING bt
 ALTER TABLE international_country ADD COLUMN publish smallint;
 UPDATE international_country SET publish = 1;
 
+/* create client action table */
+CREATE TABLE client_action (
+    id serial NOT NULL PRIMARY KEY,
+    customer_id integer NOT NULL REFERENCES client_customer ON UPDATE CASCADE ON DELETE CASCADE,
+    node_id integer NOT NULL REFERENCES common_node ON UPDATE CASCADE ON DELETE CASCADE,
+    action_id varchar(255),
+    network varchar(255),
+    action_name varchar(255),
+    object_name varchar(255),
+    created timestamp without time zone NOT NULL,
+    modified timestamp without time zone NOT NULL,
+    other_data text
+);
+
+CREATE INDEX client_action_customer_id_key ON client_action USING btree (customer_id);
+CREATE INDEX client_action_network_key ON client_action USING btree (network);
+        
 COMMIT;
 
 /*this only applies to installation made earlier than Onxshop 1.5 */

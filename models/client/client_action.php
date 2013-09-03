@@ -8,7 +8,7 @@
  
 require_once('models/common/common_node_taxonomy.php');
 
-class client_actions extends Onxshop_Model {
+class client_action extends Onxshop_Model {
 
 	/**
 	 * @private
@@ -79,7 +79,7 @@ class client_actions extends Onxshop_Model {
 	 
 	private function getCreateTableSql() {
 	
-		$sql = "CREATE TABLE client_actions (
+		$sql = "CREATE TABLE client_action (
 			id serial NOT NULL PRIMARY KEY,
 			customer_id integer NOT NULL REFERENCES client_customer ON UPDATE CASCADE ON DELETE CASCADE,
 			node_id integer NOT NULL REFERENCES common_node ON UPDATE CASCADE ON DELETE CASCADE,
@@ -92,8 +92,8 @@ class client_actions extends Onxshop_Model {
 			other_data text
 		);
 
-		CREATE INDEX client_actions_customer_id_key ON client_actions USING btree (customer_id);
-		CREATE INDEX client_actions_network_key ON client_actions USING btree (network);
+		CREATE INDEX client_action_customer_id_key ON client_action USING btree (customer_id);
+		CREATE INDEX client_action_network_key ON client_action USING btree (network);
 		";
 			
 		return $sql;
@@ -104,7 +104,7 @@ class client_actions extends Onxshop_Model {
 	 */
 	 
 	static function initConfiguration() {
-		if (array_key_exists('client_actions', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['client_actions'];
+		if (array_key_exists('client_action', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['client_action'];
 		else $conf = array();
 		
 		return $conf;
