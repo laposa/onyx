@@ -5,7 +5,7 @@
  */
 
 require_once('controllers/component/ecommerce/recipe_review.php');
-require_once('models/client/client_actions.php');
+require_once('models/client/client_action.php');
 
 class Onxshop_Controller_Component_Ecommerce_Recipe_Review_Add extends Onxshop_Controller_Component_Ecommerce_Recipe_Review {
 
@@ -22,7 +22,7 @@ class Onxshop_Controller_Component_Ecommerce_Recipe_Review_Add extends Onxshop_C
 
 		$result = parent::insertComment($data, $options);
 
-		if ($result && client_actions::hasOpenGraphStory('comment_on', 'recipe')) {
+		if ($result && client_action::hasOpenGraphStory('comment_on', 'recipe')) {
 			$request = new Onxshop_Request("component/client/facebook_story_create~" 
 				. "action=comment_on"
 				. ":object=recipe"
