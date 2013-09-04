@@ -7,6 +7,7 @@
 
 require_once('models/education/education_survey.php');
 require_once('models/education/education_survey_entry.php');
+require_once('models/client/client_action.php');
 
 class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 
@@ -66,9 +67,11 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 					
 						msg("Survey ID {$survey_detail['id']} has been submitted as entry ID $survey_entry_id.", 'ok', 1, 'survey_submitted');
 						
+						$this->createFacebookStory();
+
 						if ($this->GET['href']) $this->displaySuccessPage($this->GET['href']);
 						else $this->displayResult($survey_id, $survey_entry_id);
-						
+
 					}
 					
 				} else {
@@ -563,6 +566,17 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 		$Taxonomy = new common_taxonomy();
 		
 		return $Taxonomy->getChildren($parent);
+	}
+
+	protected function createFacebookStory()
+	{
+		if (client_action::hasOpenGraphStory('enter', 'competition')) {
+			$request = new Onxshop_Request("component/client/facebook_story_create~" 
+				. "action=enter"
+				. ":object=competition"
+				. ":node_id=" . $_SESSION['active_pages'][0]
+				. "~");
+		}
 	}
 
 }
