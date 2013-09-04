@@ -57,7 +57,6 @@ class Onxshop_Controller_Component_Client_Facebook_Story_Create extends Onxshop_
 		switch ($node['node_controller']) {
 			case 'product':
 			case 'store':
-			case 'product':
 			case 'recipe':
 			case 'article':
 				return $node['node_controller'];
