@@ -831,7 +831,7 @@ CREATE TABLE ecommerce_order (
             }
 
             // use limit
-            if ($ir < $limit) {
+            if ($ir <= $limit) {
                 $data[$d] = $i;
             }
         }
