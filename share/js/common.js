@@ -174,5 +174,7 @@ function popupMessage(selector) {
 }
 
 function growlMessage(message) {
-	jQuery.jGrowl("<div class='onxshop_messages in_jGrowl'>" + message + "</div>", {life: 4000})
+	var life = 30 * message.length; // 30ms per character
+	if (life < 4000) life = 4000; // 4 sec at min.
+	jQuery.jGrowl("<div class='onxshop_messages in_jGrowl'>" + message + "</div>", {life: life})
 }
