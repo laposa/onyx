@@ -179,22 +179,56 @@ ALTER TABLE common_uri_mapping ADD UNIQUE (public_uri);
 		else $seo_url = $this->_rewrite_table[$id];
 		
 		if ($seo_url != '') return $seo_url;
-		else return $string;
+		else return $string; // seo_url doesn't exists
 	}
 	
 	/**
 	 * translate
+	 * @param string $string
+	 * URL path, e.g. /contact-us
+	 *
+	 * @returns int
+	 * page node_id
 	 */
 	 
 	function translate($string) {
-
-		if (is_array($this->_rewrite_table)) $u = array_search($string, $this->_rewrite_table);
-		//workaround for translate of already translated :), eg /page/121
-
-		if ($u == '') $u = $string;
-		else $u = "/page/$u";
 		
-		return $u;
+		if (is_numeric($node_id = trim($string, '/'))) {
+			
+			/**
+			 * /1234
+			 * will do redirect
+			 */
+			
+			if ($full_url = $this->_rewrite_table[$node_id]) {
+				
+			}
+			
+		} else if (preg_match('/^\/page/', $string)) {
+					
+			/**
+			 * page
+			 */
+			 
+			 // workaround to translate what's already translated :), eg /page/121
+			if ($u == '') $u = $string;
+			else $u = "/page/$u";
+			
+			$node_id = false;
+		
+			
+		} else {
+			
+			/**
+			 * the rest
+			 * search for URL string
+			 */
+			 
+			if (is_array($this->_rewrite_table)) $node_id = array_search($string, $this->_rewrite_table);
+		
+		}
+		
+		return $node_id;
 	}
 	
 	/**

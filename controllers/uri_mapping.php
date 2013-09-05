@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2006-2012 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2006-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -16,106 +16,156 @@ class Onxshop_Controller_Uri_Mapping extends Onxshop_Controller {
 		/**
 		 * input data
 		 */
-		 
-		$translate = $this->GET['translate'];
-		$generate = $this->GET['generate'];
-		$controller_request = $this->GET['controller_request'];
-		$page = $this->GET['page'];//deprecated, TODO: remove from logout component
 		
-		/**
-		 * cleaning
-		 */
-		 
+		$translate = trim($this->GET['translate']);
 		if ($translate != "/") $translate = rtrim($translate, '/');
 		
-		if ($generate == 1) $update = 1;
-		else $update = 0;
-		
-		$controller_request = trim($controller_request);
+		if ($this->GET['controller_request']) $controller_request = trim($this->GET['controller_request']);
 		
 		/**
 		 * initialize
 		 */
 		 
 		require_once('models/common/common_uri_mapping.php');
-		$Mapper = new common_uri_mapping($update);
-
-		$Onxshop_Router = new Onxshop_Router();
+		$this->Mapper = new common_uri_mapping();
 		
+		/**
+		 * translate request to $action_to_process
+		 */
+		 
 		if ($translate) {
 			
-			$request = $Mapper->translate($translate);
+			if (is_numeric($node_id = trim($translate, '/'))) { // URL like /1234
+				
+				/**
+				 * short URL redirects
+				 */
+				 
+				$this->redirectToSeoURLAndExit($node_id);
+				
+			} else if (preg_match('/^\/\b(page|node)\b\/([0-9]*)$/', $translate, $match)) { // URL like /page/1234 or /node/1234
+				
+				$mapped_node_id = $match[2];
+				$action_to_process = $this->getActionToProcessForExistingPage($mapped_node_id);
+				
+			} else if ($mapped_node_id = $this->Mapper->translate($translate)) { // URL like /abc-cbs
 			
-			if ($request == '' || $request == '/home') $request = "/page/" . $Mapper->conf['homepage_id'] ;
-			
-			$_SESSION['orig'] = $request;
-			msg("uri_mapping: Orig=" . $_SESSION['orig'], 'ok', 3);
-			
-			$request = explode('/', $request);
-			
-			if ($request[1] == 'node' || $request[1] == 'page') {
-			
-				$node_id = intval($request[2]);
-				//save node_id to last record in history
-				$_SESSION['history'][count($_SESSION['history'])-1]['node_id'] = $node_id;
-			
-			} else if ($redirect_uri = $Mapper->getRedirectURI($translate)) {
-			
-				$seo_redirect_uri = $Mapper->stringToSeoUrl("/page/{$redirect_uri['node_id']}");
-				header("Location: $seo_redirect_uri", true, 301);
-				exit;
-			
+				$action_to_process = $this->getActionToProcessForExistingPage($mapped_node_id);
+				
+			} else if ($redirect_uri = $this->Mapper->getRedirectURI($translate)) { // URL like /abc-cbs
+				
+				/**
+				 * explicit redirects
+				 */
+				
+				$this->redirectToSeoURLAndExit($redirect_uri['node_id']);
+				
 			} else {
-			
-				$node_id = false;
+				
+				/**
+				 * page not found
+				 */
+				
 				msg("{$translate} not found! (linked from {$_SERVER['HTTP_REFERER']})", 'error');
-			
-			}
-			
-			if ($node_id > 0 && is_numeric($node_id)) {
-			
-				$r = $Mapper->getRequest($node_id);
-				
-				$Onxshop = $Onxshop_Router->processAction($r);
-				
-			} else {
-			
-				$r = $Mapper->getRequest($Mapper->conf['404_id']);
+				 
+				$action_to_process = $this->Mapper->getRequest($this->Mapper->conf['404_id']);
 		
-				$Onxshop = $Onxshop_Router->processAction($r);
-			
 				$this->http_status = '404';
+					
 			}
 			
-		} else if ($page) {
-		
-			// is this case still used?
-			//yes, for logout :)
-			echo "uri_mapping"; exit;
-		
+			
 		} else if ($controller_request) {
 		
 			// used for /request/ and /api/ handling to allow translating URLs
-			$Onxshop = $Onxshop_Router->processAction($controller_request);
+			$action_to_process = $controller_request;
 		
 		}
 		
+		/**
+		 * process
+		 */
+		
+		if ($action_to_process) {
+		
+			$page_data = $this->processMappedAction($action_to_process);
+					
+			/**
+			 * URI mapping iself will become output of mapped page
+			 */
+			 
+			$this->content = $page_data['content'];
+
+		} else {
+			
+			msg("Cannot find action to process", 'error');
+			
+		}
+		
+		return true;
+	}
+	
+	/**
+	 * redirectToSeoURL
+	 */
+	
+	public function redirectToSeoURLAndExit($node_id) {
+		
+		if (!is_numeric($node_id)) return false;
+		
+		$seo_redirect_uri = $this->Mapper->stringToSeoUrl("/page/{$node_id}");
+		header("Location: $seo_redirect_uri", true, 301);
+		exit;
+	}
+	
+	/**
+	 * getActionToProcessForExistingPage
+	 */
+	 
+	public function getActionToProcessForExistingPage($node_id) {
+		
+		if (!is_numeric($node_id)) return false;
+		
+		//save node_id to last record in history
+		$_SESSION['orig'] = $node_id;
+		$_SESSION['history'][count($_SESSION['history'])-1]['node_id'] = $node_id;
+		
+		$action_to_process = $this->Mapper->getRequest($node_id);
+		
+		return $action_to_process;
+	}
+	 
+	/**
+	 * processMappedAction
+	 */
+	 
+	public function processMappedAction($action_to_process) {
+		
+		/**
+		 * process action
+		 */
+		
+		$Onxshop_Router = new Onxshop_Router();
+		
+		$Onxshop = $Onxshop_Router->processAction($action_to_process);
 		
 		if (is_object($Onxshop)) $page_data['content'] = $Onxshop->getContent();
 		
 		if ($page_data['content'] == "") $page_data['content'] = $this->content;
 		
-		$page_data['content'] = $Mapper->system_uri2public_uri($page_data['content']);
+		$page_data['content'] = $this->Mapper->system_uri2public_uri($page_data['content']);
 
+		/**
+		 * CDN rewrites for URLs (a.k.a. output filter)
+		 */
+		 
 		if (ONXSHOP_CDN && (ONXSHOP_CDN_USE_WHEN_SSL || !isset($_SERVER['HTTPS']))) {
 			require_once('lib/onxshop.cdn.php');
 			$CDN = new Onxshop_Cdn();
 			$page_data['content'] = $CDN->processOutputHtml($page_data['content']);
 		}
-		
-		$this->content = $page_data['content'];
 
-		return true;
+		return $page_data;
 	}
 
 }	
