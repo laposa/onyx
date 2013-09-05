@@ -127,7 +127,7 @@ class Onxshop_Controller_Uri_Mapping extends Onxshop_Controller {
 		if (!is_numeric($node_id)) return false;
 		
 		//save node_id to last record in history
-		$_SESSION['orig'] = $node_id;
+		$_SESSION['orig'] = "/page/$node_id";
 		$_SESSION['history'][count($_SESSION['history'])-1]['node_id'] = $node_id;
 		
 		$action_to_process = $this->Mapper->getRequest($node_id);
