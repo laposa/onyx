@@ -163,8 +163,8 @@ div.bottom {clear: both;}
  * Messages
  */
  
-div.onxshop_messages {margin: 1em; border: none; background: black; color: white; opacity: .75; filter: alpha(opacity = 75); padding: 1em; 
-	clear: both;border-radius: 4px; -moz-border-radius: 7px; -webkit-border-radius: 7px;
+div.onxshop_messages {margin: 1em; border: none; background: black; color: white; background: rgba(0,0,0,0.75); padding: 1em; box-shadow: #000000 5px 5px 30px;
+	clear: both; border-radius: 4px; -moz-border-radius: 7px; -webkit-border-radius: 7px;
 	z-index: 1000; position: relative;}
 div.onxshop_messages p {margin: 5px 0; line-height: 1; padding: 0; color: white; font-weight: bold; }
 div.onxshop_messages p.onxshop_ok_msg {}
@@ -179,12 +179,14 @@ div.onxshop_messages p.onxshop_error_msg {background: transparent url(/share/ima
 /**
  * jGrowl
  */
- 
-div.jGrowl div.jGrowl-notification {position: fixed; width: 50%; top: 50px; left: 25%; bottom: auto; right: auto; z-index: 9999; zoom: 1; text-align: left; display: none; border-radius: 5px; min-height: 40px;}
-div.jGrowl div.jGrowl-notification div.jGrowl-header {font-weight: bold;}
-div.jGrowl div.jGrowl-notification div.jGrowl-close {color: #fff; background: transparent; float: right; font-weight: bold; font-size: 16px; cursor: pointer; cursor: hand; position: relative; left: -24px; top: 24px; z-index: 9999999;}
-div.jGrowl div.jGrowl-notification div.jGrowl-closer {display: none; color: black; background: white; height: 15px; cursor: pointer; cursor: hand; font-size: 11px; font-weight: bold; text-align: center;}
-div.jGrowl div.jGrowl-notification .highlight {border: none; background: none;}
-@media all and (max-width: 800px) {
-	div.jGrowl div.jGrowl-notification {width: 80%; left: 10%;}
+
+div#jGrowl { position: fixed; top: 50px; width: 500px; left: 50%; margin-left: -250px; text-align: center; pointer-events: none; }
+div#jGrowl div.onxshop_messages { margin: 0; padding: 10px 30px; }
+div#jGrowl div.jGrowl-notification { display: block; position: relative; z-index: 9999; zoom: 1; text-align: left; pointer-events: all; border: none; background: none;}
+div#jGrowl div.jGrowl-notification.ui-state-highlight { margin: 0 auto 20px auto; display: inline-block; min-width: 260px; }
+div#jGrowl div.jGrowl-notification p { text-align: left; }
+div#jGrowl div.jGrowl-close { position: absolute; right: 5px; top: 5px; color: #ffffff; cursor: pointer; z-index: 10000; font-weight: bold; font-size: 16px; line-height: 16px; }
+div#jGrowl div.jGrowl-closer { background: black; color: white; background: rgba(0,0,0,0.75); width: 100px; margin: 10px auto; border: none; cursor: pointer; text-align: center; pointer-events: all; }
+@media all and (max-width: 600px) {
+	div#jGrowl { width: 80%; left: 10%; margin-left: 0; }
 }
