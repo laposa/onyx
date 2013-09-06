@@ -108,6 +108,17 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
 		$this->saveBodyCssClass($body_css_class);
 		
 		/**
+		 * opengraph image
+		 */
+		 
+		if ($opengraph_image = $this->getOpenGraphImage($node_data['id'])) {
+			
+			$this->tpl->assign('OPENGRAPH_IMAGE', $opengraph_image);
+			$this->tpl->parse('head.og_image');
+			
+		}
+		
+		/**
 		 * assign to template
 		 */
 		 
@@ -221,6 +232,22 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
 			Zend_Registry::set('body_css_class', $body_css_class);
 		
 		}
+		
+	}
+	
+	/**
+	 * getOpenGraphImage
+	 */
+	 
+	public function getOpenGraphImage($node_id) {
+		
+		require_once('models/common/common_image.php');
+		$Image = new common_image();
+		
+		$image_list = $Image->listFiles($node_id , "priority DESC, id ASC", 'opengraph');
+		
+		if (is_array($image_list) && count($image_list) > 0) return $image_list[0];
+		else return false;
 		
 	}
 	
