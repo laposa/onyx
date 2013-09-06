@@ -263,7 +263,8 @@ CREATE TABLE ecommerce_basket (
 					msg("ecommerce_basket.addToBasket: Item in basket has been updated", 'ok', 2);
 					return true;
 				} else {
-					msg("Current item {$current['id']} was found in basket $basket_id, but cannot update.", 'error');
+					msg("Current item {$current['id']} was found in basket $basket_id, but cannot update.", 'error', 1);
+					return false;
 				}
 			}
 		}
