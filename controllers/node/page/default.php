@@ -106,17 +106,11 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
 		$body_css_class = "{$node_data['node_controller']} {$node_data['css_class']} {$node_data['taxonomy_class']} node_id_{$this->GET['id']} {$node_data['hierarchy_class']}";
 		
 		$this->saveBodyCssClass($body_css_class);
-		
+
 		/**
-		 * opengraph image
+		 * process open graph tags
 		 */
-		 
-		if ($opengraph_image = $this->getOpenGraphImage($node_data['id'])) {
-			
-			$this->tpl->assign('OPENGRAPH_IMAGE', $opengraph_image);
-			$this->tpl->parse('head.og_image');
-			
-		}
+		$this->processOpenGraph($node_data);
 		
 		/**
 		 * assign to template
@@ -234,7 +228,29 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
 		}
 		
 	}
-	
+
+	/**
+	 * Process Open Graph meta tags (if app is active)
+	 */
+	public function processOpenGraph($node_data) {
+
+		if (!defined('ONXSHOP_FACEBOOK_APP_NAMESPACE') || strlen(ONXSHOP_FACEBOOK_APP_NAMESPACE) == 0) return;
+
+		/**
+		 * opengraph image
+		 */
+		 
+		if ($opengraph_image = $this->getOpenGraphImage($node_data['id'])) {
+			
+			$this->tpl->assign('OPENGRAPH_IMAGE', $opengraph_image);
+			$this->tpl->parse('head.open_graph.image');
+			
+		}
+
+		$this->tpl->parse('head.open_graph');
+
+	}	
+
 	/**
 	 * getOpenGraphImage
 	 */
