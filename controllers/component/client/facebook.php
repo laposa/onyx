@@ -82,7 +82,7 @@ class Onxshop_Controller_Component_Client_Facebook extends Onxshop_Controller {
 
 		} catch (FacebookApiException $e) {
 		
-			msg($e->getMessage(), 'error', 1);
+			msg("FB: " . $e->getMessage(), 'error', 1);
 			return null;
 		}
 
@@ -102,7 +102,7 @@ class Onxshop_Controller_Component_Client_Facebook extends Onxshop_Controller {
 			
 		} catch (FacebookApiException $e) {
 		
-			msg($e->getMessage(), 'error', 1);
+			msg("FB: " . $e->getMessage(), 'error', 1);
 			return null;
 		}
 
