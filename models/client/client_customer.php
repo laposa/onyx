@@ -242,7 +242,7 @@ CREATE TABLE client_customer (
 		//what is the username for authentication? Can be email or username
 		if (!($conf['login_type'] == 'email' || $conf['login_type'] == 'username')) $conf['login_type'] = 'email';
 		//default avatar
-		if (!$conf['default_profile_image_url']) $conf['default_profile_image_url'] = 'http://placehold.it/50x50';
+		if (!$conf['default_profile_image_url']) $conf['default_profile_image_url'] = '/share/images/default/default_avatar.png';
 		//facebook conf
 		if (!$conf['facebook_login_scope']) $conf['facebook_login_scope'] = 'email,user_mobile_phone';
 		
