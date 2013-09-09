@@ -251,6 +251,7 @@ class Onxshop_Controller_Component_Comment extends Onxshop_Controller {
 			
 			$_Onxshop_Request = new Onxshop_Request("component/client/login");
 			$this->tpl->assign('LOGIN_BOX', $_Onxshop_Request->getContent());
+			$this->tpl->assign('CURRENT_PAGE_ID', $_SESSION['active_pages'][0]);
 			
 			$this->tpl->parse('content.log_to_insert');
 		}
