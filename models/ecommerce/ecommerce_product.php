@@ -2,7 +2,7 @@
 /**
  * class ecommerce_product
  *
- * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -400,8 +400,7 @@ CREATE TABLE ecommerce_product (
 	
 			$products = $this->listing('', 'priority DESC, id ASC');
 			foreach ($products as $kp=>$p) {
-				$product_list[$kp] = $this->ProductDetail($p['id']);
-				$product_list[$kp]['variety'] = $this->getProductVarietyList($p['id']);
+				$product_list[$kp] = $this->getProductDetail($p['id']);
 			}
 		
 		return $product_list;
