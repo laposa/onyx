@@ -1,8 +1,26 @@
 <!-- BEGIN: head -->
 <script type="text/javascript">
 $(function() {
+
 	var ingredientCounter = 0;
-	$("#ingredientAdd").click(function() {
+	var productListTable = [
+		<!-- BEGIN: product -->{JSON}<!-- END: product -->
+	];
+
+	function updateDropdown(select) {
+
+		for (var i = 0; i < productListTable.length; i++) {
+			var o = productListTable[i];
+			select.append('<option value="' + o.id + '" class="' + (o.publish == 0 ? 'disabled' : '') + '">' + o.name + '</option>');
+		}
+		select.each(function() {
+			var selected = $(this).attr("data-selected");
+			$(this).find("option[value=" + selected + "]").prop('selected', true);
+		});
+
+	}
+
+	function addIngredient() {
 		var template = 
 				'<tr>' +
 				'	<td>' +
@@ -19,10 +37,7 @@ $(function() {
 				'		of' +
 				'	</td>' +
 				'	<td>' +
-				'		<select name="ingredients[__NEW__][product_variety_id]">' +
-				'			<!-- BEGIN: product -->' +
-				'			<option value="{VARIETY.id}">{PRODUCT.name|addslashes} - {VARIETY.name|addslashes}</option>' +
-				'			<!-- END: product -->' +
+				'		<select id="product_dropdown__NEW__" class="product_dropdown" name="ingredients[__NEW__][product_variety_id]">' +
 				'		</select>' +
 				'	</td>' +
 				'	<td>' +
@@ -35,11 +50,16 @@ $(function() {
 				'		<button style="float: none;" name="" onclick="$(this).parent().parent().remove(); return false"><span>remove</span></button>' +
 				'	</td>' +
 				'</tr>';
-		$("#ingredientsTable").append(template.replace(/__NEW__/g, '__NEW__' + ingredientCounter++));
+		$("#ingredientsTable").append(template.replace(/__NEW__/g, '__NEW__' + ingredientCounter));
+		updateDropdown($("#product_dropdown__NEW__" + ingredientCounter));
+		ingredientCounter++;
 		return false;
-	});
-	
+	}
+
+	$("#ingredientAdd").click(addIngredient);
+	updateDropdown($("select.product_dropdown"));
 });
+
 </script>
 <!-- END: head -->
 <!-- BEGIN: content -->
@@ -73,10 +93,7 @@ $(function() {
 					of
 				</td>
 				<td>
-					<select name="ingredients[{ITEM.id}][product_variety_id]">
-						<!-- BEGIN: product -->
-						<option value="{VARIETY.id}" {VARIETY.selected} class="{CSS_CLASS}">{PRODUCT.name} - {VARIETY.name}</option>
-						<!-- END: product -->
+					<select class="product_dropdown" data-selected="{ITEM.product_variety_id}" name="ingredients[{ITEM.id}][product_variety_id]">
 					</select>
 				</td>
 				<td>

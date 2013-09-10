@@ -16,7 +16,6 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Recipe_Ingredients extends Onxsh
 		require_once('models/ecommerce/ecommerce_product.php');
 		
 		$Ingredients = new ecommerce_recipe_ingredients();
-		$Product = new ecommerce_product();
 		
 		$recipe_id = $this->GET['recipe_id'];
 		
@@ -68,23 +67,8 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Recipe_Ingredients extends Onxsh
 		 * get ingredient list (products)
 		 */
 		
-		$products = $Product->getProductList();
-		$products = php_multisort($products, array(array("key" => "name", "sort" => "asc")));
-		$this->parseIngredients($products, false, 'head.product');
-
-		/**
-		 * render template
-		 */
-		
-		foreach ($products as $product) {
-			$this->tpl->assign("PRODUCT", $product);
-			foreach ($product['variety'] as $variety) {
-				$variety['selected'] = $variety['id'] == $ingredient['product_variety_id'] ? 'selected="selected"' : '';
-				$this->tpl->assign("VARIETY", $variety);
-				$this->tpl->parse("content.template.product");
-			}
-		}
-		$this->tpl->parse("content.template");
+		$products = $this->getProductList();
+		$this->parseIngredients($products);
 
 		/**
 		 * listing
@@ -93,9 +77,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Recipe_Ingredients extends Onxsh
 		$current = $Ingredients->listing("recipe_id = $recipe_id");
 
 		foreach ($current as $ingredient) {
-			if ($detail['publish'] == 0) $detail['class'] = "class='disabled'";
 			$this->tpl->assign("ITEM", $ingredient);
-			$this->parseIngredients($products, $ingredient['product_variety_id']);
 			$this->parseUnits($units, $ingredient['units']);
 			$this->tpl->parse("content.item");
 		}
@@ -111,21 +93,37 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Recipe_Ingredients extends Onxsh
 		}
 	}
 
-	public function parseIngredients(&$products, $active, $block = 'content.item.product') {
+	public function parseIngredients(&$products) {
 
-		foreach ($products as $product) {
-			$this->tpl->assign("PRODUCT", $product);
-			foreach ($product['variety'] as $variety) {
-			
-				if ($product['publish'] == 0 || $variety['publish'] == 0) $this->tpl->assign('CSS_CLASS', 'disabled');
-				else $this->tpl->assign('CSS_CLASS', '');
-				
-				$variety['selected'] = $variety['id'] == $active ? 'selected="selected"' : '';
-				$this->tpl->assign("VARIETY", $variety);
-				$this->tpl->parse($block);
-			
-			}
+		$max = count($products) - 1;
+
+		foreach ($products as $i => $product) {
+
+			$json = json_encode(array(
+				'id' => $product['id'],
+				'name' => $product['product_name'] . " - " . $product['variety_name'],
+				'publish' => ($product['variety_publish'] == 0 || $product['variety_publish'] == 0) ? 0: 1
+			));
+			if ($i < $max) $json .= ",";
+			$this->tpl->assign("JSON", $json);
+			$this->tpl->parse("head.product");
+
 		}
+	}
+
+	public function getProductList()
+	{
+		$Product = new ecommerce_product();
+		$sql = "SELECT v.id AS id,
+				v.name AS variety_name,
+				p.name AS product_name,
+				v.publish AS variety_publish,
+				p.publish AS product_publish
+			FROM ecommerce_product_variety AS v
+			LEFT JOIN ecommerce_product AS p ON p.id = v.product_id
+			ORDER BY p.name ASC";
+		$list = $Product->executeSql($sql);
+		return $list;
 	}
 
 }
