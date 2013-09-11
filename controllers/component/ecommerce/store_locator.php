@@ -18,9 +18,10 @@ class Onxshop_Controller_Component_Ecommerce_Store_Locator extends Onxshop_Contr
 	 */
 	public function mainAction()
 	{
-		// init URI mapping model
+		// init URI mapping object and store object
 		$Mapping = new common_uri_mapping();
-
+		$this->Store = new ecommerce_store();
+		
 		// get selected store for detail
 		$node_id = (int) $this->GET['node_id'];
 
@@ -112,8 +113,8 @@ class Onxshop_Controller_Component_Ecommerce_Store_Locator extends Onxshop_Contr
 				$this->tpl->assign("BOUNDS", $bounds);
 				$this->tpl->parse("content.map.fit_to_bounds");
 			}
-			$map['latitude'] = 53.344189;
-			$map['longitude'] = -6.264478;
+			$map['latitude'] = $this->Store->conf['latitude'];
+			$map['longitude'] = $this->Store->conf['longitude'];
 		}
 
 		$this->tpl->assign("MAP", $map);
@@ -154,8 +155,7 @@ class Onxshop_Controller_Component_Ecommerce_Store_Locator extends Onxshop_Contr
 	 */
 	protected function getAllStores()
 	{
-		$Store = new ecommerce_store();
-		return $Store->listing("publish = 1");
+		return $this->Store->listing("publish = 1");
 	}
 
 
@@ -166,8 +166,7 @@ class Onxshop_Controller_Component_Ecommerce_Store_Locator extends Onxshop_Contr
 	 */
 	protected function getStoreImage($store_id)
 	{
-		$Store = new ecommerce_store();
-		return $Store->getStoreImage($store_id);
+		return $this->Store->getStoreImage($store_id);
 	}
 
 
@@ -214,8 +213,7 @@ class Onxshop_Controller_Component_Ecommerce_Store_Locator extends Onxshop_Contr
 	 */
 	protected function getStoreAssociatedToNode($node_id)
 	{
-		$Store = new ecommerce_store();
-		return $Store->findStoreByNode($node_id);
+		return $this->Store->findStoreByNode($node_id);
 	}
 
 

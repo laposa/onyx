@@ -154,7 +154,15 @@ CREATE TABLE ecommerce_store (
 	static function initConfiguration()
 	{
 	
-		$conf = array();
+		if (array_key_exists('ecommerce_store', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['ecommerce_store'];
+		else $conf = array();
+		
+		/**
+		 * default values
+		 */
+		 
+		if (!$conf['latitude']) $conf['latitude'] = 53.344189;
+		if (!$conf['longitude']) $conf['longitude'] = -6.264478;
 
 		return $conf;
 	}

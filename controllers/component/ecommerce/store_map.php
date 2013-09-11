@@ -14,13 +14,19 @@ class Onxshop_Controller_Component_Ecommerce_Store_Map extends Onxshop_Controlle
 	 */
 	public function mainAction()
 	{
-		$Mapping = new common_uri_mapping();
-
-		$store_pages = $this->getStorePages();
-		$stores = $this->getAllStores();
+	
+		$taxonomy_id = $this->GET['taxonomy_id'];
 		$store_to_select = $this->GET['store_id'];
-		if (!is_numeric($store_to_select)) return false;
-
+		
+		if (is_numeric($this->GET['zoom'])) $this->tpl->assign('ZOOM', $this->GET['zoom']);
+		else $this->tpl->assign('ZOOM', 13);
+		
+		$Mapping = new common_uri_mapping();
+		$this->Store = new ecommerce_store();
+		
+		$store_pages = $this->getStorePages();
+		$stores = $this->getAllStores($taxonomy_id);
+		
 		// display pins
 		foreach ($stores as $store) {
 
@@ -37,7 +43,6 @@ class Onxshop_Controller_Component_Ecommerce_Store_Map extends Onxshop_Controlle
 				$store['node_id'] = $page['id'];
 				$store['icon'] = $store['id'] == $selected_store['id'] ? 'false' : 'true';
 				$store['open'] = $store['id'] == $selected_store['id'] ? 'true' : 'false';
-				$store['opening_hours'] = json_encode(nl2br($store['opening_hours']));
 
 				// parse item
 				$this->tpl->assign("STORE", $store);
@@ -47,8 +52,15 @@ class Onxshop_Controller_Component_Ecommerce_Store_Map extends Onxshop_Controlle
 		}
 
 		// center map to a selected store
-		$map['latitude'] = $selected_store['latitude'] + 0.004;
-		$map['longitude'] = $selected_store['longitude'];
+		
+		if ($selected_store) {
+			$map['latitude'] = $selected_store['latitude'] + 0.004;
+			$map['longitude'] = $selected_store['longitude'];
+		} else {
+			$map['latitude'] = $this->Store->conf['latitude'];
+			$map['longitude'] = $this->Store->conf['longitude'];
+		}
+		
 		$this->tpl->assign("MAP", $map);
 		$this->tpl->parse("content.map");
 
@@ -84,10 +96,20 @@ class Onxshop_Controller_Component_Ecommerce_Store_Map extends Onxshop_Controlle
 	 * 
 	 * @return Array
 	 */
-	protected function getAllStores()
-	{
-		$Store = new ecommerce_store();
-		return $Store->listing("publish = 1");
+	protected function getAllStores($taxonomy_id = false)
+	{	
+		if (is_numeric($taxonomy_id)) {
+		
+			$store_list = $this->Store->getFilteredStoreList($taxonomy_id);
+			$store_list = $store_list[0];
+			
+		} else {
+		
+			$store_list = $this->Store->listing("publish = 1");
+		
+		}
+		
+		return $store_list;
 	}
 
 }

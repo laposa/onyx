@@ -4,7 +4,7 @@
 <!-- BEGIN: map -->
 <script src="//maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false&amp;key={ONXSHOP_GOOGLE_API_KEY}"></script>
 <script src="/share/js/infobox.js"></script>
-<div id="miniMapCanvas" style="width: 100%; height: 300px;"></div>
+<div id="miniMapCanvas"></div>
 
 <script type="text/javascript">
 
@@ -21,9 +21,9 @@
 	$(function() {
 
 		var initLatlng = new google.maps.LatLng({MAP.latitude|htmlspecialchars}, {MAP.longitude|htmlspecialchars});
-
+		
 		var mapOptions = {
-		  zoom: 13,
+		  zoom: {ZOOM},
 		  center: initLatlng,
 		  scrollwheel: false,
 		  mapTypeId: google.maps.MapTypeId.ROADMAP,
