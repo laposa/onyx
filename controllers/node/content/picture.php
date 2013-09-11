@@ -77,6 +77,8 @@ class Onxshop_Controller_Node_Content_Picture extends Onxshop_Controller_Node_Co
 			$image_controller = 'component/image_gallery_2columns';
 		} else if ($node_data['component']['template'] == 'plain') {
 			$image_controller = 'component/image_gallery';
+		} else if (getTemplateDir('component/image_gallery_' . $node_data['component']['template'] . '.html') != '') {
+			$image_controller = 'component/image_gallery_' . $node_data['component']['template'];
 		} else {
 			// i.e. list
 			$image_controller = 'component/image';

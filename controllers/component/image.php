@@ -119,6 +119,8 @@ class Onxshop_Controller_Component_Image extends Onxshop_Controller {
 				
 			$item['path'] = $image_list[$k]['path'] = $img_path;
 			
+			$this->tpl->assign('INDEX', $k);
+			
 			$this->tpl->assign('ITEM', $item);
 			$this->tpl->parse('content.item');
 		}
