@@ -49,7 +49,6 @@ class Onxshop_Controller_Component_Ecommerce_Store_Map extends Onxshop_Controlle
 		// center map to a selected store
 		$map['latitude'] = $selected_store['latitude'] + 0.004;
 		$map['longitude'] = $selected_store['longitude'];
-		$this->tpl->assign("ONXSHOP_GOOGLE_API_KEY", ONXSHOP_GOOGLE_API_KEY);
 		$this->tpl->assign("MAP", $map);
 		$this->tpl->parse("content.map");
 

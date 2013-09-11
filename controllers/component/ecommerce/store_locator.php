@@ -116,7 +116,6 @@ class Onxshop_Controller_Component_Ecommerce_Store_Locator extends Onxshop_Contr
 			$map['longitude'] = -6.264478;
 		}
 
-		$this->tpl->assign("ONXSHOP_GOOGLE_API_KEY", ONXSHOP_GOOGLE_API_KEY);
 		$this->tpl->assign("MAP", $map);
 		$this->tpl->parse("content.map");
 

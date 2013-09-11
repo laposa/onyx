@@ -62,7 +62,6 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Store_Edit extends Onxshop_Contr
 		$store['publish'] = ($store['publish'] == 1) ? 'checked="checked" ' : '';
 		$store['street_view_options'] = unserialize($store['street_view_options']);
 		$this->tpl->assign('STORE', $store);
-		$this->tpl->assign('ONXSHOP_GOOGLE_API_KEY', ONXSHOP_GOOGLE_API_KEY);
 		$this->tpl->assign('STREET_VIEW_IMAGE_' . ((int) $store['street_view_options']['image']), 'checked="checked"');
 
 		return true;
