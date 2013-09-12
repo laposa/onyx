@@ -158,12 +158,11 @@ CREATE TABLE common_image (
 		
 		/**
 		 * if height is specified align in center and allow to fill the space
-		 * see	http://www.imagemagick.org/Usage/thumbnails/#cut
-		 		http://www.imagemagick.org/Usage/resize/#shrink
+		 * see  http://www.imagemagick.org/Usage/thumbnails/#cut
+		 *      http://www.imagemagick.org/Usage/resize/#shrink
 		 */
 		if (is_numeric($required_height)) {
-			if (preg_match("/(\.gif$)|(\.png$)/i", $file_rp)) $background = 'none';
-			else $background = 'white';
+			$background = common_image::supportsTransparency($file_rp) ? 'none' : 'white';
 			$other_im_params = "-background {$background} -alpha background -gravity {$gravity} -{$method} {$width}x{$required_height}";
 			$height = $required_height;
 			
@@ -235,5 +234,25 @@ CREATE TABLE common_image (
 		return $file_list[0];
 		
 	}
-	
+
+	/**
+	 * Check whatever given image type supports alpha transparency (such as PNGs and GIFs)
+	 * @param  string  $filename Image file path
+	 * @return boolean
+	 */
+	public static function supportsTransparency($filename)
+	{
+		if (!file_exists($filename)) return false;
+
+		$type = exif_imagetype($filename);
+
+		switch ($type) {
+			case IMAGETYPE_GIF:
+			case IMAGETYPE_PNG:
+				return true;
+		}
+
+		return false;
+	}
+
 }
