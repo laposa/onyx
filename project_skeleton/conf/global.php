@@ -8,11 +8,17 @@
  */
 
 /**
- * Include deploy specific configuration
+ * Include deploy specific configuration (i.e. different on dev&live server)
  */
 
 require_once('deployment.php');
-	
+
+/**
+ * Site specific configuration (i.e. shared on dev&live server)
+ * See onxshop_dir/conf/global.php for all options
+ */
+ 
+//define('ONXSHOP_MAIN_TEMPLATE','node/site/default');
 
 /**
  * Include default global configuration
