@@ -2,19 +2,19 @@
 /**
  * Global configuration
  *
- * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
 
 /**
- * Include deploy specific configuration (i.e. different on dev&live server)
+ * Server specific configuration (i.e. different on dev&live server)
  */
 
 require_once('deployment.php');
 
 /**
- * Site specific configuration (i.e. shared on dev&live server)
+ * Project specific configuration (i.e. shared on dev&live server)
  * See onxshop_dir/conf/global.php for all options
  */
  
