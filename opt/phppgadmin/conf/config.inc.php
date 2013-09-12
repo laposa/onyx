@@ -1,5 +1,20 @@
 <?php
 
+//BEGIN ONXSHOP
+/**
+ * detect onxshop project directory
+ */
+ 
+$onxshop_project_dir =  preg_replace('/public_html\/opt\/phppgadmin/', '', dirname($_SERVER['SCRIPT_FILENAME']));
+
+/**
+ * include Onxshop project configuration
+ */
+ 
+require_once($onxshop_project_dir . 'conf/global.php');
+
+//END ONXSHOP
+
 	/**
 	 * Central phpPgAdmin configuration.  As a user you may modify the
 	 * settings here for your particular configuration.
@@ -15,10 +30,10 @@
 
 	// Hostname or IP address for server.  Use '' for UNIX domain socket.
 	// use 'localhost' for TCP/IP connection on this computer
-	$conf['servers'][0]['host'] = 'localhost';
+	$conf['servers'][0]['host'] = ONXSHOP_DB_HOST;
 
 	// Database port on server (5432 is the PostgreSQL default)
-	$conf['servers'][0]['port'] = 5432;
+	$conf['servers'][0]['port'] = ONXSHOP_DB_PORT;
 
 	// Database SSL mode
 	// Possible options: disable, allow, prefer, require
