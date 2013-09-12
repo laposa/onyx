@@ -65,7 +65,7 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
 				
 				if($id = $this->Customer->registerCustomer($client_customer, $client_address, $client_company)) {
 				
-					msg("Registration of customer ID $id was successful");
+					msg("Customer registration successfully completed");
 					
 					/**
 					 * login

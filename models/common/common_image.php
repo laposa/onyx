@@ -161,9 +161,10 @@ CREATE TABLE common_image (
 		 * see	http://www.imagemagick.org/Usage/thumbnails/#cut
 		 		http://www.imagemagick.org/Usage/resize/#shrink
 		 */
-		
 		if (is_numeric($required_height)) {
-			$other_im_params = "-background none -gravity {$gravity} -{$method} {$width}x{$required_height}";
+			if (preg_match("/(\.gif$)|(\.png$)/i", $file_rp)) $background = 'none';
+			else $background = 'white';
+			$other_im_params = "-background {$background} -alpha background -gravity {$gravity} -{$method} {$width}x{$required_height}";
 			$height = $required_height;
 			
 		} else {
