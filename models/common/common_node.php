@@ -305,7 +305,7 @@ CREATE TABLE common_node (
 	 * get list
 	 */
 	 
-	public function getList($where = '', $order = 'priority DESC, id ASC', $limit = '') {
+	public function getList($where = '', $order = 'priority DESC, id DESC', $limit = '') {
 		
 		return $this->listing($where, $order, $limit);
 	
@@ -318,7 +318,7 @@ CREATE TABLE common_node (
 	 * @return unknown
 	 */
 	 
-	function getNodeList($filter = false, $sort = 'common_node.id DESC') {
+	function getNodeList($filter = false, $sort = 'common_node.priority DESC, common_node.id DESC') {
 		
 		$add_to_where = '';
 		
