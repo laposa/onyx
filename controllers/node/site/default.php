@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2007-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2007-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -48,17 +48,17 @@ class Onxshop_Controller_Node_Site_Default extends Onxshop_Controller {
 		 * global navigation
 		 */
 		 
-		$_Onxshop_Request = new Onxshop_Request("component/menu~id=" . $node_conf['id_map-globalmenu'] . ":level=1:open={$this->GET['id']}~");
+		$_Onxshop_Request = new Onxshop_Request("component/menu~id=" . $node_conf['id_map-global_navigation'] . ":level=1:open={$this->GET['id']}~");
 		$this->tpl->assign('GLOBAL_NAVIGATION', $_Onxshop_Request->getContent());
 		
 		/**
-		 * main menu (primary navigation) will show all sub items to the active page only if secondary navigation is hidden
+		 * primary navigation will show all sub items to the active page only if secondary navigation is hidden
 		 */
 		 
 		if ($GLOBALS['onxshop_conf']['global']['display_secondary_navigation'] == 1) {
-			$_Onxshop_Request = new Onxshop_Request("component/menu~level=1:expand_all=0:display_teaser=0:id=" . $node_conf['id_map-mainmenu'] . ":open={$this->GET['id']}~");
+			$_Onxshop_Request = new Onxshop_Request("component/menu~level=1:expand_all=0:display_teaser=0:id=" . $node_conf['id_map-primary_navigation'] . ":open={$this->GET['id']}~");
 		} else {
-			$_Onxshop_Request = new Onxshop_Request("component/menu~level=3:expand_all=0:display_teaser=0:id=" . $node_conf['id_map-mainmenu'] . ":open={$this->GET['id']}~");
+			$_Onxshop_Request = new Onxshop_Request("component/menu~level=3:expand_all=0:display_teaser=0:id=" . $node_conf['id_map-primary_navigation'] . ":open={$this->GET['id']}~");
 		}
 		
 		$this->tpl->assign('PRIMARY_NAVIGATION', $_Onxshop_Request->getContent());
@@ -67,7 +67,7 @@ class Onxshop_Controller_Node_Site_Default extends Onxshop_Controller {
 		 * footer navigation
 		 */
 		 
-		$_Onxshop_Request = new Onxshop_Request("component/menu~id=" . $node_conf['id_map-footermenu'] . ":level=1:open={$this->GET['id']}~");
+		$_Onxshop_Request = new Onxshop_Request("component/menu~id=" . $node_conf['id_map-footer_navigation'] . ":level=1:open={$this->GET['id']}~");
 		$this->tpl->assign('FOOTER_NAVIGATION', $_Onxshop_Request->getContent());
 		
 		/**
@@ -112,9 +112,9 @@ class Onxshop_Controller_Node_Site_Default extends Onxshop_Controller {
 	public function localeOverwriteConfiguration($node_conf) {
 		
 		/*if (in_array(1049, $_SESSION['active_pages'])) {
-			$node_conf['id_map-globalmenu']
-			$node_conf['id_map-mainmenu']
-			$node_conf['id_map-footermenu']
+			$node_conf['id_map-global_navigation']
+			$node_conf['id_map-primary_navigation']
+			$node_conf['id_map-footer_navigation']
 			$node_conf['id_map-content_side']
 			$node_conf['id_map-content_foot']
 		}*/

@@ -2,7 +2,7 @@
 /** 
  * Google Sitemap
  *
- * Copyright (c) 2008-2012 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2008-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -32,7 +32,7 @@ class Onxshop_Controller_Export_Xml_Googlesitemap extends Onxshop_Controller {
 				$item['loc'] = "http://{$_SERVER['HTTP_HOST']}{$link}";
 				$item['lastmod'] = $Node->getLastMod($node['id'], $node['modified']);
 				$item['lastmod'] = substr($item['lastmod'], 0, 10);
-				if ($node['parent'] == $Node->conf['id_map-globalmenu'] || $node['parent'] == $Node->conf['id_map-mainmenu'] || $node['parent'] == $Node->conf['id_map-footermenu']) {
+				if ($node['parent'] == $Node->conf['id_map-global_navigation'] || $node['parent'] == $Node->conf['id_map-primary_navigation'] || $node['parent'] == $Node->conf['id_map-footer_navigation']) {
 					$item['priority'] = 1;
 				} else {
 					$item['priority'] = 0.5;
