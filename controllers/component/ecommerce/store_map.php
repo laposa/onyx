@@ -52,13 +52,17 @@ class Onxshop_Controller_Component_Ecommerce_Store_Map extends Onxshop_Controlle
 		}
 
 		// center map to a selected store
-		
 		if ($selected_store) {
-			$map['latitude'] = $selected_store['latitude'] + 0.004;
+
+			$map['latitude'] = $selected_store['latitude'];
 			$map['longitude'] = $selected_store['longitude'];
+
 		} else {
+
 			$map['latitude'] = $this->Store->conf['latitude'];
 			$map['longitude'] = $this->Store->conf['longitude'];
+
+			$this->fitMapToBounds($stores);
 		}
 		
 		$this->tpl->assign("MAP", $map);
@@ -67,6 +71,29 @@ class Onxshop_Controller_Component_Ecommerce_Store_Map extends Onxshop_Controlle
 		return true;
 	}
 
+	public function fitMapToBounds(&$stores)
+	{
+		$bounds = array();
+		$bounds['latitude']['max'] = -9999;
+		$bounds['latitude']['min'] = 9999;
+		$bounds['longitude']['max'] = -9999;
+		$bounds['longitude']['min'] = 9999;
+
+		foreach ($stores as $store) {
+
+			if ($store['latitude'] > $bounds['latitude']['max']) $bounds['latitude']['max'] = $store['latitude'];
+			if ($store['latitude'] < $bounds['latitude']['min']) $bounds['latitude']['min'] = $store['latitude'];
+			if ($store['longitude'] > $bounds['longitude']['max']) $bounds['longitude']['max'] = $store['longitude'];
+			if ($store['longitude'] < $bounds['longitude']['min']) $bounds['longitude']['min'] = $store['longitude'];
+
+		}
+
+		if ($bounds['latitude']['min'] != 9999) {
+			$this->tpl->assign("BOUNDS", $bounds);
+			$this->tpl->parse("content.map.fit_to_bounds");
+		}
+
+	}
 
 	/**
 	 * Returns array of all store pages. Store id is used as array index.
