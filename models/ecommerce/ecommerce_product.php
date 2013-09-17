@@ -404,8 +404,8 @@ CREATE TABLE ecommerce_product (
     	
 	    	//node_id
 	    	if (is_array($filter['node_id'])) {
-	    		if ($node_id > 0 && is_numeric($node_id)) $add_to_where = " AND product.id IN (SELECT content FROM common_node WHERE node_group = 'page' AND node_controller = 'product' AND parent = $node_id)";
-	    		$x="node.node_group = 'page' AND node.node_controller = 'product' AND node.parent = $node_id AND node.publish = 1";
+	    		if ($node_id > 0 && is_numeric($node_id)) $add_to_where = " AND product.id IN (SELECT content FROM common_node WHERE node_group = 'page' AND node_controller ~ 'product' AND parent = $node_id)";
+	    		$x="node.node_group = 'page' AND node.node_controller ~ 'product' AND node.parent = $node_id AND node.publish = 1";
 	    	}
 	    	
 	    	//keyword
@@ -526,7 +526,7 @@ CREATE TABLE ecommerce_product (
 		LEFT OUTER JOIN ecommerce_price price ON (price.product_variety_id = variety.id) 
 		LEFT OUTER JOIN ecommerce_product_image image ON (image.node_id = product.id) 
 		LEFT OUTER JOIN ecommerce_product_review review ON (review.node_id = product.id AND review.publish = 1)
-		LEFT OUTER JOIN common_node node ON (product.id::varchar = node.content AND node.node_controller = 'product')
+		LEFT OUTER JOIN common_node node ON (product.id::varchar = node.content AND node.node_controller ~ 'product')
 		WHERE price.type = '$price_type'
 		$add_to_where
 		GROUP BY variety.id, product.id,  price.value, ecommerce_product_type.vat, product.name, product.teaser, product.priority, variety.name,
@@ -567,7 +567,7 @@ variety.stock, price.date, product.publish, product.modified, variety.sku, varie
     	$Node = new common_node();
     	
     	if (is_numeric($product_id)) {
-    		if (!is_array($this->_cache_product_in_node)) $this->_cache_product_in_node = $Node->listing("node_group = 'page' AND node_controller = 'product'", 'id ASC');
+    		if (!is_array($this->_cache_product_in_node)) $this->_cache_product_in_node = $Node->listing("node_group = 'page' AND node_controller ~ 'product'", 'id ASC');
     		foreach ($this->_cache_product_in_node as $p) {
     			//return first in list - it's homepage
     			if ($p['content'] == $product_id) return $p;
@@ -658,7 +658,7 @@ variety.stock, price.date, product.publish, product.modified, variety.sku, varie
     	$Node = new common_node();
     	
     	if (is_numeric($product_id)) {
-    		$current = $Node->listing("node_group = 'page' AND node_controller = 'product' AND content = '{$product_id}'", 'id ASC');
+    		$current = $Node->listing("node_group = 'page' AND node_controller ~ 'product' AND content = '{$product_id}'", 'id ASC');
     		return $current;
     	} else {
     		msg("ecommerce_product.findProductInNode: product id is not numeric", 'error');

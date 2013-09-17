@@ -337,7 +337,9 @@ SET product_type_id = (
 
 ALTER TABLE ecommerce_product DROP COLUMN product_type_id;
 
-        
+/* add missing node_gruop index on common_node */
+CREATE INDEX common_node_node_controller_idx ON common_node USING btree (node_controller);
+
 COMMIT;
 
 /*this only applies to installation made earlier than Onxshop 1.5 */

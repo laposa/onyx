@@ -202,6 +202,12 @@ CREATE TABLE common_node (
 	display_permission_group_acl text,
 	share_counter int NOT NULL DEFAULT 0
 );
+
+CREATE INDEX common_node_display_in_idx ON common_node USING btree (display_in_menu);
+CREATE INDEX common_node_node_group_idx ON common_node USING btree (node_group);
+CREATE INDEX common_node_node_controller_idx ON common_node USING btree (node_controller);
+CREATE INDEX common_node_parent_idx ON common_node USING btree (parent);
+CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 		";
 		
 		return $sql;
@@ -755,10 +761,10 @@ CREATE TABLE common_node (
 		//if ($only_pages == 1) $only_pages = "AND (node_group = 'page' OR node_group = 'layout')";
 		switch ($node_group) {
 			case 'product':
-				$condition = "AND (node_controller = 'product')";
+				$condition = "AND (node_controller ~ 'product' AND node_controller != 'product_browse')";
 			break;
 			case 'notproduct':
-				$condition = "AND (node_controller != 'product')";
+				$condition = "AND (node_controller !~ 'product' OR node_controller = 'product_browse')";
 			break;
 			case 'page_and_product':
 				if ($publish == 1) $condition = "AND (node_group = 'page' OR node_group = 'container') AND display_in_menu > 0";
@@ -769,16 +775,12 @@ CREATE TABLE common_node (
 				$condition = '';
 			break;
 			case 'layout':
-				$condition = "AND ((node_group = 'page' AND node_controller != 'product') OR node_group = 'container' OR node_group = 'layout') ";
+				$condition = "AND ((node_group = 'page' AND node_controller !~ 'product') OR node_group = 'container' OR node_group = 'layout') ";
 			break;
 			case 'page':
 			default:
-				/*
-				if ($publish == 1) $condition = "AND (node_group = 'page' OR node_group = 'container') AND node_controller != 'news' AND node_controller != 'product' AND display_in_menu > 0";
-				else $condition = "AND (node_group = 'page' OR node_group = 'container')";
-				*/
-				if ($publish == 1) $condition = "AND ((node_group = 'page' AND node_controller != 'product' AND node_controller != 'news') OR node_group = 'container') AND display_in_menu > 0";
-				else $condition = "AND ((node_group = 'page' AND node_controller != 'product' AND node_controller != 'news') OR node_group = 'container')";
+				if ($publish == 1) $condition = "AND ((node_group = 'page' AND (node_controller !~ 'product' OR node_controller = 'product_browse') AND node_controller != 'news') OR node_group = 'container') AND display_in_menu > 0";
+				else $condition = "AND ((node_group = 'page' AND (node_controller !~ 'product' OR node_controller = 'product_browse') AND node_controller != 'news') OR node_group = 'container')";
 			break;
 		}
 		
