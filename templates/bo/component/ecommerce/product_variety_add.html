@@ -19,6 +19,9 @@ $(function(){
 		<span class="label"><label for="product-variety-sku">Code (SKU)</label></span>
 		<span class="field"><input type="text" class="text required" name="product[variety][sku]" id="product-variety-sku" value="{PRODUCT.variety.sku}"/></span>
 	</div>
+	<div class="row">
+		{ONXSHOP_REQUEST_producttype #bo/component/ecommerce/product_type_select}
+	</div>
 
 	<div class="row">
 		<span class="label"><label for="product-variety-weight_gross">Weight Gross [{VARIETY_CONF.weight_units}]</label></span>

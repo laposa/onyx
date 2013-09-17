@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2005-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2005-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -17,29 +17,29 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Product_Type_Select extends Onxs
 		 * input
 		 */
 		 
-		if (is_numeric($this->GET['id'])) $product_id = $this->GET['product_id'];
-		else $product_id = false;
+		if (is_numeric($this->GET['product_variety_id'])) $product_variety_id = $this->GET['product_variety_id'];
+		else $product_variety_id = false;
 		
 		/**
 		 * initialize
 		 */
 		 
-		require_once('models/ecommerce/ecommerce_product.php');
+		require_once('models/ecommerce/ecommerce_product_variety.php');
 		require_once('models/ecommerce/ecommerce_product_type.php');
-		$Product = new ecommerce_product();
+		$ProductVariety = new ecommerce_product_variety();
 		$ProductType = new ecommerce_product_type();
 		
 		/**
-		 * get product detail if requested
+		 * get product variety detail if requested
 		 */
 		 
-		if (is_numeric($product_id)) $product = $Product->detail($product_id);
+		if (is_numeric($product_variety_id)) $product_variety = $ProductVariety->detail($product_variety_id);
 		
 		/**
-		 * prepare product type id (either for requested product or default one)
+		 * prepare product type id (either for requested product variety or default one)
 		 */
 		 
-		if (is_numeric($product['product_type_id'])) $product_type_id = $product['product_type_id'];
+		if (is_numeric($product_variety['product_type_id'])) $product_type_id = $product_variety['product_type_id'];
 		else $product_type_id = $ProductType->conf['default_id'];
 		
 		/**

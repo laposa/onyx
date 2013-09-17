@@ -49,6 +49,9 @@ $(document).ready(function(){
 						<span class="field"><input type="text" class="text short" name="product[variety][weight_gross]" value="{PRODUCT.variety.weight_gross}"/> (Used for postage. Zero weight is free postage.)</span>
 					</div>
 					<div class="row">
+						{ONXSHOP_REQUEST_producttype #bo/component/ecommerce/product_type_select~product_variety_id=GET.id~}
+					</div>
+					<div class="row">
 						<span class="label"><label>Stock</label></span>
 						<span class="field"><input type="text" class="text short" name="product[variety][stock]" value="{PRODUCT.variety.stock}"/></span>
 					</div>
