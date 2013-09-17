@@ -13,3 +13,5 @@ rename _hashMap to _metaData
 rename id_map-*menu to id_map-*_navigation
 
 client/user_prefs moved to client/edit (upgrade on node ID 54 is done via SQL update)
+
+remove <!-- BEGIN: product_master --> and <!-- END: product_master --> from templates/node/page/product.html

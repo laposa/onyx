@@ -109,14 +109,6 @@ class Onxshop_Controller_Node_Page_Product extends Onxshop_Controller_Node_Page_
 		$this->processPage();
 
 		/**
-		 * try to find a product_type_id specific template block or use master block (product_master)
-		 */
-		 
-		$product_type_id_specific_block_name = "content.product_type_id_{$simple_product_detail['product_type_id']}";
-		if ($this->_checkTemplateBlockExists($product_type_id_specific_block_name)) $this->tpl->parse($product_type_id_specific_block_name);
-		else $this->tpl->parse('content.product_master');
-		
-		/**
 		 * everything went well
 		 */
 		 
