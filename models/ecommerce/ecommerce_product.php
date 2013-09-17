@@ -26,10 +26,6 @@ class ecommerce_product extends Onxshop_Model {
 	var $description;
 
 	/**
-	 * @access private
-	 */
-	var $product_type_id;
-	/**
 	 * URL reference to manufacturer website,
 	 * can be very long...
 	 * @access private
@@ -55,7 +51,6 @@ class ecommerce_product extends Onxshop_Model {
 		'name'=>array('label' => '', 'validation'=>'string', 'required'=>true),
 		'teaser'=>array('label' => '', 'validation'=>'xhtml', 'required'=>false),
 		'description'=>array('label' => '', 'validation'=>'xhtml', 'required'=>false),
-		'product_type_id'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'url'=>array('label' => '', 'validation'=>'string', 'required'=>false),
 		'priority'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'publish'=>array('label' => '', 'validation'=>'int', 'required'=>false),
@@ -77,7 +72,6 @@ CREATE TABLE ecommerce_product (
     name character varying(255),
     teaser text,
     description text,
-    product_type_id integer REFERENCES ecommerce_product_type ON UPDATE CASCADE ON DELETE CASCADE,
     url text,
     priority integer DEFAULT 0 NOT NULL,
     publish integer DEFAULT 0 NOT NULL,
@@ -140,11 +134,6 @@ CREATE TABLE ecommerce_product (
 	 		return false;
 	 	}
 	 	
-	 	if (!is_numeric($data['product_type_id'])) {
-	 		msg('Product type id is not numeric', 'error');
-	 		return false;
-	 	}
-	 	
 	 	if (trim($data['variety']['name']) == "") {
 	 		msg('Variety name is empty', 'error');
 	 		return false;
@@ -186,7 +175,6 @@ CREATE TABLE ecommerce_product (
 		
 		$product_data = array();
 		$product_data['name'] = $data['name'];
-		$product_data['product_type_id'] = $data['product_type_id'];
 
 		/**
 		 * insert
@@ -294,13 +282,6 @@ CREATE TABLE ecommerce_product (
 		$product_detail = $this->getDetail($id);
 	
 		if (is_array($product_detail)) {
-			require_once('models/ecommerce/ecommerce_product_type.php');
-			$ProductType = new ecommerce_product_type();
-			$product_type_detail = $ProductType->detail($product_detail['product_type_id']);
-			$product_detail['type'] = $product_type_detail;
-			//better keep this...
-			$product_detail['vat'] = $product_type_detail['vat'];
-		
 			return $product_detail;
 		} else {
 			msg("ecommercer_product.ProductDetail($id): can't get detail", 'error', 1);
@@ -418,7 +399,7 @@ CREATE TABLE ecommerce_product (
     	$filter['keyword'] = pg_escape_string(trim($filter['keyword']));//addslashes or pg_escape_string
     	
     	$add_to_where = '';
-    	
+
     	if (is_array($filter)) {
     	
 	    	//node_id
@@ -540,8 +521,8 @@ CREATE TABLE ecommerce_product (
 		node.share_counter AS share_counter,
 		(SELECT array_to_string(array_agg(taxonomy.taxonomy_tree_id), ',') FROM ecommerce_product_taxonomy taxonomy WHERE taxonomy.node_id = product.id) AS taxonomy 
 		FROM ecommerce_product product 
-		LEFT OUTER JOIN ecommerce_product_type ON (ecommerce_product_type.id = product.product_type_id) 
 		LEFT OUTER JOIN ecommerce_product_variety variety ON (variety.product_id = product.id)
+		LEFT OUTER JOIN ecommerce_product_type ON (ecommerce_product_type.id = variety.product_type_id) 
 		LEFT OUTER JOIN ecommerce_price price ON (price.product_variety_id = variety.id) 
 		LEFT OUTER JOIN ecommerce_product_image image ON (image.node_id = product.id) 
 		LEFT OUTER JOIN ecommerce_product_review review ON (review.node_id = product.id AND review.publish = 1)

@@ -356,7 +356,7 @@ CREATE TABLE ecommerce_price (
 			return false;
 		}
 		
-		$sql = "SELECT t.vat FROM ecommerce_product p, ecommerce_product_variety v, ecommerce_product_type t WHERE p.product_type_id = t.id AND v.product_id = p.id AND v.id = $variety_id";
+		$sql = "SELECT t.vat FROM ecommerce_product p, ecommerce_product_variety v, ecommerce_product_type t WHERE v.product_type_id = t.id AND v.product_id = p.id AND v.id = $variety_id";
 		
 		if ($records = $this->executeSql($sql)) {
 			return $records[0]['vat'];
@@ -376,7 +376,7 @@ CREATE TABLE ecommerce_price (
 			return false;
 		}
 		
-		$sql = "SELECT t.vat FROM ecommerce_product p, ecommerce_product_variety v, ecommerce_price price, ecommerce_product_type t WHERE p.product_type_id = t.id AND v.product_id = p.id AND v.id = price.product_variety_id AND price.id = $price_id";
+		$sql = "SELECT t.vat FROM ecommerce_product p, ecommerce_product_variety v, ecommerce_price price, ecommerce_product_type t WHERE v.product_type_id = t.id AND v.product_id = p.id AND v.id = price.product_variety_id AND price.id = $price_id";
 		
 		if ($records = $this->executeSql($sql)) {
 			return $records[0]['vat'];

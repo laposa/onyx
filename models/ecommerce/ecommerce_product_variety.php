@@ -18,6 +18,13 @@ class ecommerce_product_variety extends Onxshop_Model {
 	 * @access private
 	 */
 	var $product_id;
+
+	/**
+	 * @access private
+	 * product type (aka tax group)
+	 */
+	var $product_type_id;
+
 	/**
 	 * @access private
 	 * this is SKU
@@ -82,6 +89,7 @@ class ecommerce_product_variety extends Onxshop_Model {
 	var $_metaData = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'product_id'=>array('label' => '', 'validation'=>'int', 'required'=>true),
+		'product_type_id'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'sku'=>array('label' => 'SKU', 'validation'=>'string', 'required'=>true),
 		'weight'=>array('label' => 'Product Weight Net', 'validation'=>'int', 'required'=>true),
 		'weight_gross'=>array('label' => 'Product Weight Gross', 'validation'=>'int', 'required'=>true),
@@ -116,6 +124,7 @@ CREATE TABLE ecommerce_product_variety (
     id serial NOT NULL PRIMARY KEY,
     name character varying(255),
     product_id integer REFERENCES ecommerce_product ON UPDATE CASCADE ON DELETE CASCADE,
+    product_type_id integer REFERENCES ecommerce_product_type ON UPDATE CASCADE ON DELETE CASCADE,
     sku character varying(255),
     weight integer,
     weight_gross integer,
@@ -190,7 +199,13 @@ ALTER TABLE ecommerce_product_variety ADD UNIQUE (\"sku\");
 		$p = $Price->getPrice($variety_id, $price_id, $currency_code);
 
 		$variety['price'] = $p;
-		
+	
+		require_once('models/ecommerce/ecommerce_product_type.php');
+		$ProductType = new ecommerce_product_type();
+		$product_type_detail = $ProductType->detail($variety['product_type_id']);
+		$variety['type'] = $product_type_detail;
+		$variety['vat'] = $product_type_detail['vat'];
+	
 		return $variety;
 	}
 	
@@ -237,7 +252,12 @@ ALTER TABLE ecommerce_product_variety ADD UNIQUE (\"sku\");
 	 		msg('product_id is not numeric', 'error');
 	 		return false;
 	 	}
-	 	 
+
+	 	if (!is_numeric($data['product_type_id'])) {
+	 		msg('Product type id is not numeric', 'error');
+	 		return false;
+	 	}
+
 	 	if (trim($data['name']) == "") {
 	 		msg('Variety name is empty', 'error');
 	 		return false;
@@ -290,7 +310,8 @@ ALTER TABLE ecommerce_product_variety ADD UNIQUE (\"sku\");
 		$variety_data['weight_gross'] = $data['weight_gross'];
 		$variety_data['weight'] = $data['weight'];
 		$variety_data['stock'] = $data['stock'];
-		
+		$variety_data['product_type_id'] = $data['product_type_id'];
+
 		/**
 		 * insert
 		 */
