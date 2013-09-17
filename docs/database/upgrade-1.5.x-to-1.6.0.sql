@@ -322,6 +322,21 @@ CREATE TABLE client_action (
 
 CREATE INDEX client_action_customer_id_key ON client_action USING btree (customer_id);
 CREATE INDEX client_action_network_key ON client_action USING btree (network);
+
+/* move product_type_id from product to product_variety */
+ALTER TABLE ecommerce_product_variety 
+ADD COLUMN product_type_id integer 
+REFERENCES ecommerce_product_type ON UPDATE CASCADE ON DELETE CASCADE;
+
+UPDATE ecommerce_product_variety 
+SET product_type_id = (
+    SELECT product_type_id
+    FROM ecommerce_product 
+    WHERE id = ecommerce_product_variety.product_id
+);
+
+ALTER TABLE ecommerce_product DROP COLUMN product_type_id;
+
         
 COMMIT;
 
