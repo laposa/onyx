@@ -150,14 +150,14 @@ CREATE TABLE ecommerce_basket (
 				$price = $variety_detail['price'];
 
 				if ($exclude_vat) {
-					$product_detail['vat'] = 0;
+					$variety_detail['vat'] = 0;
 					$price['value'] = $price['value_net'];
 				}
 				
 				$basket_item['price'] = $price['value'];
 				$basket_item['total'] = $basket_item['price'] * $basket_item['quantity'];
 				$basket_item['total_net'] = $price['value_net'] * $basket_item['quantity'];
-				$basket_item['vat'] = $product_detail['vat'] * $price['value_net']/100 * $basket_item['quantity'];
+				$basket_item['vat'] = $variety_detail['vat'] * $price['value_net']/100 * $basket_item['quantity'];
 				$basket_item['vat'] = round($basket_item['vat'], 5);
 
 				if (($price_conf['backoffice_with_vat'] && ONXSHOP_IN_BACKOFFICE) || ($price_conf['frontend_with_vat'] && !ONXSHOP_IN_BACKOFFICE)) {
@@ -248,7 +248,7 @@ CREATE TABLE ecommerce_basket (
 		$Product = new ecommerce_product();
 		$product_data = $Product->getProductDetailByVarietyId($product_variety_id);
 		if (!is_numeric($price_id)) $price_id = $product_data['variety']['price']['id'];
-		$product_type_id = $product_data['product_type_id'];
+		$product_type_id = $product_data['variety']['product_type_id'];
 		
 		/**
 		 * get detail for current basket
