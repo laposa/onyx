@@ -4,57 +4,61 @@
 	<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 				
 	<!-- BEGIN: result -->
-			
-			<table>
-				<!--<caption>Sales of goods, delivery and VAT in {CONFIGURATION.global.default_currency}</caption>-->
-				<thead>
-					<tr><th>&nbsp;</th><th class="money">Value</th><th class="money">VAT</th><th class="money">&nbsp;</th></tr>
-				</thead>
-				<tbody>
-					<!-- BEGIN: type -->
-					<tr><td>{GOODS_TYPE.name}</td><td class="money">{GOODS_TYPE.net|money_format('%n', %s)}</td><td class="money">{GOODS_TYPE.vat|money_format('%n', %s)}</td><td></td></tr>
-					<!-- END: type -->
-					<!--<tr><td>Total</td><td class="money">{GOODS.total.net|money_format('%n', %s)}</td><td class="money">{GOODS.total.vat|money_format('%n', %s)}</td><td></td></tr>-->
-					
-					<!--<tr><td>Goods</td><td class="money">{GOODS.charged.net|money_format('%n', %s)}</td><td class="money">{GOODS.charged.vat|money_format('%n', %s)}</td><td class="money">{SALES.sum.goods|money_format('%n', %s)}</td></tr>-->
-					<tr><td>Delivery VAT exempt</td><td class="money">{DELIVERY.vat_exempt|money_format('%n', %s)}</td><td class="money">-</td><td class="money"></td></tr>
-					<tr><td>Delivery</td><td class="money">{DELIVERY.net|money_format('%n', %s)}</td><td class="money">{DELIVERY.vat|money_format('%n', %s)}</td><td class="money"></td></tr>
-				</tbody>
-				<tfoot>
-					<tr>
-						<td>Total Sales</td>
-						<td class="money">{SALES.net.total|money_format('%n', %s)}</td>
-						<td class="money">{SALES.vat.total|money_format('%n', %s)}</td>
-						<td class="money">{SALES.sum.total|money_format('%n', %s)}</td>
-					</tr>
-					
-					<tr>
-						<td>Face value vouchers</td>
-						<td class="money"></td>
-						<td class="money"></td>
-						<td class="money"><span title="Total value of used voucher">({VOUCHER_DISCOUNT.value|money_format('%n', %s)})</span><br /><span title="Wasted voucher value">{VOUCHER_DISCOUNT.wasted|money_format('%n', %s)}&nbsp;</span></td>
-					</tr>
-					<tr>
-						<td>After Discount</td>
-						<td class="money"></td>
-						<td class="money"></td>
-						<td class="money">{AFTER_DISCOUNT|money_format('%n', %s)}</td>
-					</tr>
-					<tr>
-						<td>Check</td>
-						<td class="money" colspan="2">
-							(transaction table)<br />
-							(invoice table)
-						</td>
-						<td class="money">
-							{CHECK.worldpay|money_format('%n', %s)}<br />
-							{CHECK.invoice|money_format('%n', %s)}
-						</td>
-					</tr>
-				</tfoot>
-			</table>
-			
-			<!-- <p>CHECK: VAT invoiced for goods: {VAT_GOODS} {CONFIGURATION.global.default_currency}</p>-->
+
+		<table>
+			<thead>
+				<tr>
+					<th>&nbsp;</th>
+					<th class="money">Delivery</th>
+					<th class="money">VAT<br/>Rate</th>
+					<th class="money">Gross Value</br>pre Discount</th>
+					<th class="money">Discount</th>
+					<th class="money">Gross Value<br/>post Discount</th>
+					<th class="money">Net Value<br/>post discount</th>
+					<th class="money">VAT</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- BEGIN: row -->
+				<tr>
+					<td>{TYPE_NAME}</td>
+					<td>{ROW.delivery}</td>
+					<td class="money">{ROW.vat_rate}%</td>
+					<td class="money">{ROW.gross_pre_discount|money_format('%n', %s)}</td>
+					<td class="money">{ROW.discount|money_format('%n', %s)}</td>
+					<td class="money">{ROW.gross_post_discount|money_format('%n', %s)}</td>
+					<td class="money">{ROW.net_post_discount|money_format('%n', %s)}</td>
+					<td class="money">{ROW.vat|money_format('%n', %s)}</td>
+				</tr>
+				<!-- END: row -->
+			</tbody>
+			<tbody>
+				<!-- BEGIN: totals -->
+				<tr>
+					<th>TOTAL</th>
+					<th></th>
+					<th></th>
+					<th class="money">{TOTALS.gross_pre_discount|money_format('%n', %s)}</th>
+					<th class="money">{TOTALS.discount|money_format('%n', %s)}</th>
+					<th class="money">{TOTALS.gross_post_discount|money_format('%n', %s)}</th>
+					<th class="money">{TOTALS.net_post_discount|money_format('%n', %s)}</th>
+					<th class="money">{TOTALS.vat|money_format('%n', %s)}</th>
+				</tr>
+				<tr>
+					<th>Check</th>
+					<th></th>
+					<th></th>
+					<th colspan="2"class="money">Invoices<br/>Transactions</th>
+					<th class="money">
+						{INVOICES_TOTAL|money_format('%n', %s)}<br/>
+						{TRANSACTIONS_TOTAL|money_format('%n', %s)}
+					</th>
+					<th></th>
+					<th></th>
+				</tr>
+				<!-- END: totals -->
+			</tbody>
+		</table>
 
 	<!-- END: result -->
 </div>

@@ -848,109 +848,50 @@ CREATE TABLE ecommerce_order (
      * @param unknown_type $to
      */
      
-	function getBreakdown($from, $to) {
-	
+	function getSales($from, $to) {
+
 		/**
 		 * check input date format
 		 */
 		 
-		if  (!preg_match('/^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$/', $from) || !preg_match('/^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$/', $to)) {
+		if (!preg_match('/^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$/', $from) || !preg_match('/^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$/', $to)) {
 			msg("Invalid format for date. Must be YYYY-MM-DD", "error");
 			return false;
 		}
 
-		/**
-		 * build SQL query
-		 */
-		 
-		$sql = "
-			SELECT 
-			ecommerce_invoice.id AS invoice_id, 
-			ecommerce_invoice.created AS invoice_created, 
-			ecommerce_invoice.goods_net AS goods_net, 
-			ecommerce_invoice.goods_vat_sr AS goods_vat_sr, 
-			ecommerce_invoice.goods_vat_rr AS goods_vat_rr,
-			ecommerce_invoice.delivery_net AS delivery_net, 
-			ecommerce_invoice.delivery_vat AS delivery_vat,
-			ecommerce_invoice.voucher_discount AS voucher_discount,
-			ecommerce_order.id AS order_id, 
-			ecommerce_product_type.id AS type_id, 
-			ecommerce_product_type.name AS type_name, 
-			ecommerce_product_type.vat AS vat_rate, 
-			ecommerce_basket_content.quantity AS quantity,
-			ecommerce_price.value AS price 
-			FROM ecommerce_invoice 
-			LEFT OUTER JOIN ecommerce_order ON (ecommerce_order.id = ecommerce_invoice.order_id) 
-			LEFT OUTER JOIN ecommerce_basket ON (ecommerce_basket.id = ecommerce_order.basket_id) 
-			LEFT OUTER JOIN ecommerce_basket_content ON (ecommerce_basket.id = ecommerce_basket_content.basket_id) 
-			LEFT OUTER JOIN ecommerce_price ON (ecommerce_basket_content.price_id = ecommerce_price.id) 
-			LEFT OUTER JOIN ecommerce_product_type ON (ecommerce_product_type.id = ecommerce_basket_content.product_type_id) 
-			WHERE ecommerce_invoice.status = 1 AND ecommerce_invoice.created BETWEEN '$from' AND '$to' 
-			ORDER BY invoice_id;";
+		$sql = "SELECT 
+				invoice.id AS invoice_id,
+				basket_content.product_type_id AS product_type_id,
+				price.value AS price,
+				address.country_id AS delivery_country_id,
+				basket.discount_net AS discount,
+				basket_content.quantity AS quantity,
+				invoice.delivery_net AS delivery_net,
+				invoice.delivery_vat AS delivery_vat,
+				invoice.goods_net AS goods_net,
+				invoice.goods_vat_rr AS goods_vat_rr,
+				orders.id AS order_id,
+				invoice.goods_vat_sr AS goods_vat_sr
+			FROM ecommerce_invoice  AS invoice
+			LEFT JOIN ecommerce_order AS orders ON (orders.id = invoice.order_id) 
+			LEFT JOIN ecommerce_basket AS basket ON (basket.id = orders.basket_id) 
+			LEFT JOIN ecommerce_basket_content AS basket_content ON (basket.id = basket_content.basket_id) 
+			LEFT JOIN ecommerce_price AS price ON (basket_content.price_id = price.id) 
+			LEFT JOIN ecommerce_product_type AS product_type ON (product_type.id = basket_content.product_type_id) 
+			LEFT JOIN client_address AS address ON (address.id = orders.delivery_address_id) 
+			WHERE invoice.status = 1 AND invoice.created BETWEEN '$from' AND '$to'
+			ORDER BY invoice.id";
 
-		$records = $this->executeSql($sql);
-		
-		$breakdown = array();
+		$result['all'] = $this->executeSql($sql);
 
-		foreach ($records as $item) {
-			
-			// reduce price when discount_net applied
-			//if ($item['discount_net'] > 0) {
-				// TODO: missing item[quantity], should be divided by quantity, looks like we don't count with quantity during calculation in ecommerce_basket->total_goods_net_before_discount 
-				//$item['price'] = $item['price'] - ($item['price'] * $item['discount_net'] / ($item['goods_net'] + $item['discount_net']));
-			//}
-			
-			// group by product type
-			$breakdown['goods']['type'][$item['type_name']]['net'] += $item['price'] * $item['quantity'];
-			if ($item['goods_vat_sr'] > 0 || $item['goods_vat_rr'] > 0) 
-				$item['vat'] = $item['price'] * $item['quantity'] * $item['vat_rate'] / 100;
-			else 
-				$item['vat'] = 0;
-			$breakdown['goods']['type'][$item['type_name']]['vat'] += $item['vat'];
-			
-			
-			
-			
-			// check if we jump to another invoice 
-			if ($item['invoice_id'] != $invoice_id) {
-			
-				$invoice_id = $item['invoice_id'];
-				
-				if ($item['delivery_vat'] == 0) {
-					$breakdown['delivery']['vat_exempt'] += $item['delivery_net'];
-				} else {
-					$breakdown['delivery']['net'] += $item['delivery_net'];
-					$breakdown['delivery']['vat'] += $item['delivery_vat'];
-				}
-				
-				$breakdown['goods']['charged']['net'] += $item['goods_net'];
-				$breakdown['goods']['charged']['vat'] += ($item['goods_vat_sr'] + $item['goods_vat_rr']); // either standard rate or reduce rate should be zero
-				
-				$breakdown['voucher_discount'] += $item['voucher_discount'];
-				
-			}
-			
-			//total
-			$breakdown['goods']['total']['net'] += $item['price'] * $item['quantity'];
-			$breakdown['goods']['total']['vat'] += $item['vat'];
-		}
-
-		//get wasted vouchers
-		$sql = "SELECT sum(voucher_discount - goods_net - goods_vat_sr - goods_vat_rr) FROM ecommerce_invoice WHERE status = 1 AND(voucher_discount - goods_net - goods_vat_sr - goods_vat_rr) > 0 AND created BETWEEN '$from' AND '$to'";
-		$breakdown['voucher_wasted'] = $this->db->fetchOne($sql);
-		
-		//ecommerce_invoice_transaction check
-		//shoudn't be needed to filter by status, because unseccessfull transactions has amount 0.00
 		$sql = "SELECT sum(amount) FROM ecommerce_transaction WHERE status = 1 AND created BETWEEN '$from' AND '$to'";
-		$breakdown['check']['worldpay'] = $this->db->fetchOne($sql);
-		
-		//general invoice check
+		$result['transactions_total'] = $this->db->fetchOne($sql);
+
 		$sql = "SELECT sum(payment_amount) FROM ecommerce_invoice WHERE status = 1 AND created BETWEEN '$from' AND '$to'";
-		$breakdown['check']['invoice'] = $this->db->fetchOne($sql);
-		
-		//print_r($breakdown);
-		return $breakdown;
-		
+		$result['invoices_total'] = $this->db->fetchOne($sql);
+
+		return $result;
+
 	}
 			
 	/**
@@ -974,7 +915,7 @@ CREATE TABLE ecommerce_order (
 		 
 		$sql = "SELECT DISTINCT product.id AS product_id, product.name AS product_name, product_variety.name AS variety_name, product_variety.sku AS variety_sku, product_variety.stock AS variety_stock, ecommerce_basket_content.product_variety_id AS variety_id, sum(ecommerce_basket_content.quantity) AS count, sum(ecommerce_price.value * ecommerce_basket_content.quantity) AS revenue
 		FROM ecommerce_basket_content
-LEFT OUTER JOIN ecommerce_price ON (ecommerce_price.id = ecommerce_basket_content.price_id) 
+		LEFT OUTER JOIN ecommerce_price ON (ecommerce_price.id = ecommerce_basket_content.price_id) 
 		LEFT OUTER JOIN ecommerce_product_variety product_variety ON (product_variety.id = ecommerce_basket_content.product_variety_id)
 		LEFT OUTER JOIN ecommerce_product product ON (product.id = product_variety.product_id)
 		LEFT OUTER JOIN ecommerce_basket ON (ecommerce_basket.id =ecommerce_basket_content.basket_id)
