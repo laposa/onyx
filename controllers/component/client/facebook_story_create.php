@@ -177,7 +177,7 @@ class Onxshop_Controller_Component_Client_Facebook_Story_Create extends Onxshop_
 	 */
 	public function getShareUri()
 	{
-		$share_uri = "http://".$_SERVER['HTTP_HOST']."/page/{$this->node_id}";
+		$share_uri = "http://".$_SERVER['HTTP_HOST']."/{$this->node_id}";
 		return $share_uri;
 	}
 
