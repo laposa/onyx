@@ -121,13 +121,24 @@ class Onxshop_Controller_Node_Page_Recipe extends Onxshop_Controller_Node_Page_D
 	 * getOpenGraphImage
 	 */
 	 
-	public function getOpenGraphImage($node_id) {
+	public function getOpenGraphImage($node_id, $content = false) {
+	
+		if (is_numeric($content)) {
+			
+			$recipe_id = $content;
+			
+			require_once('models/ecommerce/ecommerce_recipe_image.php');
+			$Image = new ecommerce_recipe_image();
 
-		require_once('models/ecommerce/ecommerce_recipe_image.php');
-		$Image = new ecommerce_recipe_image();
-
-		$image_list = $Image->listFiles($node_id, "priority DESC, id ASC", false);
-		if (is_array($image_list) && count($image_list) > 0) return $image_list[0];
+			$image_list = $Image->listFiles($recipe_id, "priority DESC, id ASC");
+			
+			if (is_array($image_list) && count($image_list) > 0) return $image_list[0];
+		
+		} else {
+			
+			// Option to implement og:image associated to common_node record
+			
+		}
 
 		return false;
 
