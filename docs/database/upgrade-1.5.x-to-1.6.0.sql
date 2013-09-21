@@ -340,6 +340,49 @@ ALTER TABLE ecommerce_product DROP COLUMN product_type_id;
 /* add missing node_gruop index on common_node */
 CREATE INDEX common_node_node_controller_idx ON common_node USING btree (node_controller);
 
+/* discount resolution for basket */
+
+ALTER TABLE ecommerce_basket RENAME COLUMN discount_net TO discount_taxable;
+ALTER TABLE ecommerce_basket ADD COLUMN discount_non_taxable numeric(12,5) DEFAULT 0 NOT NULL;
+
+/* discount resolution - extra table */
+
+CREATE TABLE ecommerce_promotion_type (
+    id serial NOT NULL PRIMARY KEY,
+    title character varying(255),
+    description text,
+    taxable smallint DEFAULT 0 NOT NULL,
+    publish smallint DEFAULT 1 NOT NULL,
+    created timestamp(0) without time zone DEFAULT now() NOT NULL,
+    modified timestamp(0) without time zone DEFAULT now() NOT NULL,
+    other_data text
+);
+
+INSERT INTO ecommerce_promotion_type VALUES (1, 'Generic Discount Coupon', '', 0, 1, now(), now(), '');
+INSERT INTO ecommerce_promotion_type VALUES (2, 'Referral Invite Coupon', '', 0, 1, now(), now(), '');
+INSERT INTO ecommerce_promotion_type VALUES (3, 'Referral Reward Coupon', '', 0, 1, now(), now(), '');
+INSERT INTO ecommerce_promotion_type VALUES (4, 'Gift Voucher', '', 1, 1, now(), now(), '');
+
+ALTER TABLE ecommerce_promotion ADD COLUMN type integer 
+REFERENCES ecommerce_promotion_type ON UPDATE CASCADE ON DELETE RESTRICT;
+
+UPDATE ecommerce_promotion SET type = 1;
+UPDATE ecommerce_promotion SET type = 2 WHERE code_pattern LIKE 'REF-%';
+UPDATE ecommerce_promotion SET type = 3 WHERE code_pattern LIKE 'REW-%';
+UPDATE ecommerce_promotion SET type = 4 WHERE code_pattern LIKE 'GIFT-%';
+
+/* discount resultion for invoice */
+
+ALTER TABLE ecommerce_invoice RENAME COLUMN voucher_discount TO discount_taxable;
+ALTER TABLE ecommerce_invoice ADD COLUMN discount_non_taxable numeric(12,5) DEFAULT 0 NOT NULL;
+
+/* more invoice table changes */
+
+ALTER TABLE ecommerce_invoice RENAME COLUMN goods_vat_sr TO goods_vat;
+ALTER TABLE ecommerce_invoice DROP COLUMN goods_vat_rr;
+ALTER TABLE ecommerce_invoice ADD COLUMN basket_items text;
+
+
 COMMIT;
 
 /*this only applies to installation made earlier than Onxshop 1.5 */
