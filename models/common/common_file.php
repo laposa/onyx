@@ -428,21 +428,41 @@ CREATE TABLE common_file (
 		$result = $this->_overwriteFile($filename, $save_dir, $temp_file);
 		
 		if ($result) {
+			
 			$thumbnails_dir = ONXSHOP_PROJECT_DIR . "var/thumbnails/";
 			$sizes = scandir($thumbnails_dir);
+			
 			foreach ($sizes as $size) {
+			
 				if (preg_match("/^[0-9]*x?([0-9]*)?$/", $size)) {
 					
 					$file_full_path = $thumbnails_dir . "$size/" . md5($save_dir . $filename);
 					
-					if (file_exists($file_full_path)) {
-						if (unlink($file_full_path)) msg("Deleted $file_full_path", 'ok', 2);
-						else msg("common_file.overwriteFile(): Cannot delete $file_full_path");
+					// get all files starting with the filename (i.e. including params method, gravity, fill)
+					foreach (glob($file_full_path . "*") as $filename_to_delete) {
+						
+						if (file_exists($filename_to_delete) && is_file($filename_to_delete)) {
+						
+							if (unlink($filename_to_delete)) msg("Deleted $filename_to_delete", 'ok', 2);
+							else msg("common_file.overwriteFile(): Cannot delete $filename_to_delete");
+						
+						} else {
+							
+							msg("File $filename_to_delete was found by glob(), but it's not a valid file", 'error');
+							
+						}
+					
 					}
+					
 				}
 			}
+			
 			return $result;
+			
 		} else {
+		
+			msg("Cannot overwrite file $filename, please check file permissions on the server", 'error');
+			
 			return false;
 		}
 	}
