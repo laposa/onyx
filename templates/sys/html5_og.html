@@ -9,6 +9,11 @@
 <meta name="keywords" content="{REGISTRY.keywords|htmlspecialchars}" />
 <link rel="icon" href="/favicon.ico" type="image/x-icon" />
 <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+<meta property="og:url" content="{URI|htmlspecialchars}" />
+<meta property="og:site_name" content="{CONFIGURATION.global.title|htmlspecialchars}" />
+<meta property="og:title" content="{REGISTRY.browser_title|htmlspecialchars}" />
+<meta property="og:app_id" content="{ONXSHOP_FACEBOOK_APP_ID}" />
+<meta property="og:locale" content="{LOCALE|substr(%s, 0, 5)}" />
 {REGISTRY.head}
 </head>
 <body class="{REGISTRY.body_css_class|htmlspecialchars}">
