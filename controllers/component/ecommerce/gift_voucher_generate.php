@@ -117,6 +117,7 @@ class Onxshop_Controller_Component_Ecommerce_Gift_Voucher_Generate extends Onxsh
 		 */
 		$code_pattern_base = "GIFT-{$voucher_basket_item['id']}" . '-';
 		$promotion_data = array();
+		$promotion_data['type'] = 4; // Gift Voucher
 		$promotion_data['code_pattern'] = $code_pattern_base . $this->randomCode();
 		$promotion_data['title'] = $promotion_data['code_pattern'];
 		$promotion_data['discount_percentage_value'] = 0;

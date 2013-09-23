@@ -705,14 +705,12 @@ CREATE TABLE ecommerce_promotion (
 
 		if ($campaign_data = $this->checkCodeBeforeApply($code, $customer_id, $basket_data)) {
 			
-			//msg("Your code gives you {$campaign_data['discount_percentage_value']} discount");
-			
 			$discount_value = 0;
 
 			$value_for_discount = $basket_data['content']['total_goods_net_before_discount'];
 			if (!$exclude_vat) $value_for_discount += $basket_data['content']['total_vat'];
 
-			// if discount is limit to certain products, the value is only the part of the basket
+			// if discount is limited to certain products, the value is only the part of the basket
 			$limited_ids = explode(",", $campaign_data['limit_list_products']);
 			if (strlen($campaign_data['limit_list_products']) > 0 && is_array($limited_ids)) {
 				$value_for_discount = 0;
@@ -783,6 +781,7 @@ CREATE TABLE ecommerce_promotion (
 					'title' => "Referral voucher code",
 					'description' => '',
 					'publish' => 1,
+					'type' => 3, // Referral Reward Coupon
 					'code_pattern' => $this->generateRandomCode('REW-', 5, 5),
 					'discount_fixed_value' => $promotion['discount_fixed_value'],
 					'discount_percentage_value' => 0,

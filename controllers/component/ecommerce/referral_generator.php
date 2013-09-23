@@ -61,6 +61,7 @@ class Onxshop_Controller_Component_Ecommerce_Referral_Generator extends Onxshop_
 			'title' => $title,
 			'description' => '',
 			'publish' => 1,
+			'type' => 2, // Referral Invite Coupon
 			'code_pattern' => $this->Promotion->generateRandomCode('REF-', 5, 5),
 			'discount_fixed_value' => $discount_value,
 			'discount_percentage_value' => 0,
