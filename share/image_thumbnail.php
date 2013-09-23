@@ -19,9 +19,9 @@ $image_file = $_GET['image'];
 if (array_key_exists('height', $_GET) && is_numeric($_GET['height'])) $height = $_GET['height'];
 else $height = '';
 
-if ($_GET['method']) $method = $_GET['method']; // crop, extend
-if ($_GET['gravity']) $gravity = $_GET['gravity']; // northwest, north, northeast, west, center, east, southwest, south, southeast
-if ($_GET['fill']) $fill = $_GET['fill']; // 0 or 1
+if (array_key_exists('method', $_GET) && $_GET['method']) $method = $_GET['method']; // crop, extend
+if (array_key_exists('gravity', $_GET) && $_GET['gravity']) $gravity = $_GET['gravity']; // northwest, north, northeast, west, center, east, southwest, south, southeast
+if (array_key_exists('fill', $_GET) && is_numeric($_GET['fill'])) $fill = $_GET['fill']; // 0 or 1
 		
 /**
  * include configuration
