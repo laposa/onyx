@@ -19,6 +19,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Promotion_Add extends Onxshop_Co
 		 * Save on request
 		 */
 		if (is_array($_POST['promotion'])) {
+			$_POST['promotion']['type'] = 1; // can add discount coupon only
 			if ($Promotion->addPromotion($_POST['promotion'])) {
 				//onxshopGoTo("/backoffice/marketing");
 				msg ('Inserted');

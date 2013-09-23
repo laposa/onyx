@@ -358,7 +358,7 @@ CREATE TABLE ecommerce_promotion_type (
     other_data text
 );
 
-INSERT INTO ecommerce_promotion_type VALUES (1, 'Generic Discount Coupon', '', 0, 1, now(), now(), '');
+INSERT INTO ecommerce_promotion_type VALUES (1, 'Discount Coupon', '', 0, 1, now(), now(), '');
 INSERT INTO ecommerce_promotion_type VALUES (2, 'Referral Invite Coupon', '', 0, 1, now(), now(), '');
 INSERT INTO ecommerce_promotion_type VALUES (3, 'Referral Reward Coupon', '', 0, 1, now(), now(), '');
 INSERT INTO ecommerce_promotion_type VALUES (4, 'Gift Voucher', '', 1, 1, now(), now(), '');

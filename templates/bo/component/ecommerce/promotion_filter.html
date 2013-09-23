@@ -15,18 +15,18 @@
 
 			<fieldset class="single">
 
+				<!-- BEGIN: type -->
 				<div class="row type">
 					<span class="label"><label>Filter by type</label></span>
 					<span class="field">
 						<select id="voucher-filter-type" name="voucher-filter[type]">
-							<option value="" >all vouchers</option>
-							<option value="REF-" {SELECTED.voucher_type_ref}>referral invites</option>
-							<option value="REW-" {SELECTED.voucher_type_rew}>referral rewards</option>
-							<option value="GIFT-" {SELECTED.voucher_type_gift}>gift vouchers</option>
-							<option value="other" {SELECTED.voucher_type_other}>other vouchers</option>
+							<!-- BEGIN: item -->
+							<option value="{ITEM.id}" {ITEM.selected}>{ITEM.title|htmlspecialchars}</option>
+							<!-- END: item -->
 						</select>
 					</span>
 				</div>
+				<!-- END: type -->
 
 				<div class="row text_search">
 					<span class="label"><label>Text search (title/code)</label></span>
@@ -48,8 +48,7 @@
 			<div class="row submit">
 				<span class="label"><label>&nbsp;</label></span>
 				<span class="field">
-					<button type="submit" name="search" value="search"><span>Apply Filter</span></button>
-					<button type="submit" name="reset" value="reset"><span>Reset</span></button>
+					<button type="submit" name="search" value="search"><span>Search</span></button>
 				</span>
 			</div>
 			

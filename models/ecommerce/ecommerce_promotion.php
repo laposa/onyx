@@ -2,7 +2,7 @@
 /**
  * class ecommerce_promotion (consider renaming to ecommerce_voucher)
  *
- * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -239,23 +239,7 @@ CREATE TABLE ecommerce_promotion (
 
 		if (count($filter) > 0) {
 
-			// voucher type filter
-			switch ($filter['type']) {
-				case "REF-": 
-					$where .= " AND promotion.code_pattern LIKE 'REF-%'";
-					break;
-				case "REW-": 
-					$where .= " AND promotion.code_pattern LIKE 'REW-%'";
-					break;
-				case "GIFT-": 
-					$where .= " AND promotion.code_pattern LIKE 'GIFT-%'";
-					break;
-				case "other": 
-					$where .= " AND promotion.code_pattern NOT LIKE 'REF-%'";
-					$where .= " AND promotion.code_pattern NOT LIKE 'REW-%'";
-					$where .= "AND promotion.code_pattern NOT LIKE 'GIFT-%'";
-					break;
-			}
+			if (is_numeric($filter['type'])) $where .= " AND promotion.type = {$filter['type']}";
 
 			// text search
 			if (strlen($filter['text_search']) > 0) {
@@ -303,7 +287,7 @@ CREATE TABLE ecommerce_promotion (
 	
 	    $sql =
 		    "SELECT promotion.id, promotion.title, promotion.code_pattern, count(invoice.id) as count, 
-			    sum(invoice.goods_net) as sum_goods_net, sum(basket.discount_net) as sum_discount_net, 
+			    sum(invoice.goods_net) as sum_goods_net, sum(basket.discount_taxable + basket.discount_non_taxable) as sum_discounts, 
 			    customer.title_before AS customer_title_before,
 		    	customer.first_name AS customer_first_name, customer.last_name AS customer_last_name
 		    FROM ecommerce_promotion promotion
@@ -334,6 +318,11 @@ CREATE TABLE ecommerce_promotion (
 		
 		$detail = $this->detail($id);
 		$detail['other_data'] = unserialize($detail['other_data']);
+
+		require_once('models/ecommerce/ecommerce_promotion_type.php');
+		$Type = new ecommerce_promotion_type();
+		$type = $Type->detail($detail['type']);
+		$detail['type_title'] = $type['title'];
 		
 		return $detail;
 	}
@@ -649,8 +638,7 @@ CREATE TABLE ecommerce_promotion (
 	
 	public function getUsage($id) {
 	
-	    $sql = "
-		    SELECT count(invoice.id) as count, sum(invoice.goods_net) as sum_goods_net, sum(basket.discount_net) as sum_discount_net
+	    $sql = "SELECT count(invoice.id) as count, sum(invoice.goods_net) as sum_goods_net, sum(basket.discount_taxable + basket.discount_non_taxable) as sum_discount
 		    FROM ecommerce_promotion_code code 
 			LEFT OUTER JOIN ecommerce_invoice invoice ON (invoice.order_id = code.order_id)
 			LEFT OUTER JOIN ecommerce_order eorder ON (eorder.id = invoice.order_id)

@@ -20,6 +20,10 @@
 						<span class="label"><label for="promotion-code_pattern">Promotion Code (Regexp Pattern) </label></span>
 						<span class="field"><input class="text" id="promotion-code_pattern" type="text" name="promotion[code_pattern]" value="{PROMOTION.code_pattern|htmlspecialchars}" /></span>
 					</div>
+					<div class="row discount_type">
+						<span class="label"><label for="promotion-uses_per_coupon">Discount Type</label></span>
+						<span class="field"><select disabled="disabled"><option>{PROMOTION.type_title}</option></select></span>
+					</div>
 					<div class="row discount_percentage_value">
 						<span class="label"><label for="promotion-discount_percentage_value">Percentage Value of Discount</label></span>
 						<span class="field"><input class="text short" id="promotion-discount_percentage_value" type="text" name="promotion[discount_percentage_value]" value="{PROMOTION.discount_percentage_value}" /></span>
@@ -32,7 +36,6 @@
 						<span class="label"><label for="promotion-uses_per_coupon">Uses per Coupon</label></span>
 						<span class="field"><input class="text short" id="promotion-uses_per_coupon" type="text" name="promotion[uses_per_coupon]" value="{PROMOTION.uses_per_coupon}" /></span>
 					</div>
-					
 					<div class="row publish">
 						<span class="label"><label for="promotion-publish">Publish</label></span>
 						<span class="field"><input id="promotion-publish" type="checkbox" name="promotion[publish]" value="1" {PROMOTION.publish_check} /></span>
