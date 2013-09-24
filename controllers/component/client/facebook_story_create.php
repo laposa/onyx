@@ -154,8 +154,7 @@ class Onxshop_Controller_Component_Client_Facebook_Story_Create extends Onxshop_
 				. "~");
 
 			if ($this->GET['redirect_to_post']) {
-				header("Location: https://www.facebook.com/me/activity/{$response['id']}/");
-				exit();
+				onxshopGoTo("https://www.facebook.com/me/activity/{$response['id']}/", 2);
 			}
 
 		} else {
@@ -164,7 +163,6 @@ class Onxshop_Controller_Component_Client_Facebook_Story_Create extends Onxshop_
 
 			if ($this->GET['redirect_to_post']) {
 				echo("<script>window.close()</script>");
-				exit();
 			}
 
 		}
