@@ -1,8 +1,9 @@
 <?php
 /**
- * Copyright (c) 2006-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2006-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
+ * TODO: rename to image_gallery
  */
 
 require_once('controllers/node/content/default.php');
@@ -57,31 +58,19 @@ class Onxshop_Controller_Node_Content_Picture extends Onxshop_Controller_Node_Co
 		 * what template
 		 */
 		 
-		if ($node_data['component']['template'] == 'fancybox') {
-			$image_controller = 'component/image_gallery_fancybox';
-		} else if ($node_data['component']['template'] == 'cycle') {
-			$image_controller = 'component/image_gallery_cycle';
-		} else if ($node_data['component']['template'] == 'cycle2') {
-			$image_controller = 'component/image_gallery_cycle2';
-		} else if ($node_data['component']['template'] == 'flexslider') {
-			$image_controller = 'component/image_gallery_flexslider';
-		} else if ($node_data['component']['template'] == 'tools') {
-			$image_controller = 'component/image_gallery_tools';
-		} else if ($node_data['component']['template'] == 'nivo') {
-			$image_controller = 'component/image_gallery_nivo';
-		} else if ($node_data['component']['template'] == 'prettyphoto') {
-			$image_controller = 'component/image_gallery_prettyphoto';
-		} else if ($node_data['component']['template'] == 'unoslider') {
-			$image_controller = 'component/image_gallery_unoslider';
-		} else if ($node_data['component']['template'] == '2columns') {
-			$image_controller = 'component/image_gallery_2columns';
-		} else if ($node_data['component']['template'] == 'plain') {
+		if ($node_data['component']['template'] == 'plain') {
+		
 			$image_controller = 'component/image_gallery';
-		} else if (getTemplateDir('component/image_gallery_' . $node_data['component']['template'] . '.html') != '') {
-			$image_controller = 'component/image_gallery_' . $node_data['component']['template'];
+		
+		} else if (getTemplateDir('component/image_gallery/' . $node_data['component']['template'] . '.html') != '') {
+		
+			$image_controller = 'component/image_gallery/' . $node_data['component']['template'];
+		
 		} else {
+		
 			// i.e. list
 			$image_controller = 'component/image';
+		
 		}
 		
 		/**
