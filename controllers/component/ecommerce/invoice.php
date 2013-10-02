@@ -114,6 +114,7 @@ class Onxshop_Controller_Component_Ecommerce_Invoice extends Onxshop_Controller 
 		
 			//$invoice_data['created'] = strftime('%d/%m/%Y', strtotime($invoice_data['created']));
 			
+			if (empty($invoice_data['basket_detail_enhanced'])) $invoice_data['basket_detail_enhanced'] = $invoice_data['basket_detail'];
 			$this->tpl->assign('INVOICE', $invoice_data);
 			$this->tpl->assign('ORDER', $order_data);
 			
