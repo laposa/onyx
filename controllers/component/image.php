@@ -194,6 +194,18 @@ class Onxshop_Controller_Component_Image extends Onxshop_Controller {
 		else $height = 0;
 		
 		/**
+		 * other resize options
+		 */
+		
+		$image_resize_options = array();
+		
+		if ($this->GET['method']) $image_resize_options['method'] = $this->GET['method'];
+		if ($this->GET['gravity']) $image_resize_options['gravity'] = $this->GET['gravity'];
+		if ($this->GET['fill']) $image_resize_options['fill'] = $this->GET['fill'];
+		
+		if (count($image_resize_options) > 0) $this->tpl->assign('IMAGE_RESIZE_OPTIONS', '?'.http_build_query($image_resize_options));
+		
+		/**
 		 * set path
 		 */
 		 

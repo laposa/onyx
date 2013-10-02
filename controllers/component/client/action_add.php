@@ -39,7 +39,7 @@ class Onxshop_Controller_Component_Client_Action_Add extends Onxshop_Controller 
 
 			msg("Action inserted to the database", "ok", 1);
 
-		} else msg("Unable to insert action to database, missing pamaters " . print_r($this->GET, true), "error", 1);
+		} else msg("Unable to insert action to database, missing parameters " . print_r($this->GET, true), "error", 1);
 
 		return true;
 	}

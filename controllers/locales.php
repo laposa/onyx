@@ -60,6 +60,7 @@ class Onxshop_Controller_Locales extends Onxshop_Controller {
 		 */
 		
 		define('LOCALE', $locale);
+		define('LOCALE_OPENGRAPH', $this->mapToFacebook($locale));
 		
 		if ($_SESSION['locale'] != LOCALE) $_SESSION['locale'] = LOCALE;
 		
@@ -111,5 +112,23 @@ class Onxshop_Controller_Locales extends Onxshop_Controller {
 		
 		$Zend_currency = new Zend_Currency($Zend_locale->toString());
 		define('GLOBAL_LOCALE_CURRENCY', $Zend_currency->getShortName());
+	}
+	
+	/**
+	 * mapToFacebook
+	 */
+	 
+	public function mapToFacebook($locale) {
+		
+		switch ($locale) {
+			case 'en_IE.UTF-8';
+				$facebook_locale = 'en_GB';
+			break;
+			default:
+				$facebook_locale = substr($locale, 0, 5);
+			break;
+		}
+		
+		return $facebook_locale;
 	}
 }

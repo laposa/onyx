@@ -117,6 +117,11 @@ CREATE TABLE common_image (
 		}
 		
 		$file_rp = ONXSHOP_PROJECT_DIR . $file;
+		
+		$image_resize_options = "_{$method}_{$gravity}_{$fill}"; // TODO check valid options
+		if ($image_resize_options == "___") $image_resize_options = "";
+		if ($image_resize_options) $thumb_file = $thumb_file . $image_resize_options;
+		
 		$thumb_file_rp = ONXSHOP_PROJECT_DIR . $thumb_file;
 		
 		//check if the destination directory exits

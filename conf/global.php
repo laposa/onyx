@@ -239,9 +239,16 @@ if (!defined('ONXSHOP_ENABLE_AB_TESTING')) define('ONXSHOP_ENABLE_AB_TESTING', f
  * ONXSHOP_CDN_ALLOWED_TYPES - comma seperated list of file extensions (e.g. 'jpg, gif, png')
  */
 
-define('ONXSHOP_CDN', false);
-define('ONXSHOP_CDN_HOST', 'http://static-image.server.my');
-define('ONXSHOP_CDN_USE_WHEN_SSL', false);
-define('ONXSHOP_CDN_ALLOWED_CONTEXT', 'img');
-define('ONXSHOP_CDN_ALLOWED_TYPES', 'jpg, gif, png');
+if (!defined('ONXSHOP_CDN')) define('ONXSHOP_CDN', false);
+if (!defined('ONXSHOP_CDN_HOST')) define('ONXSHOP_CDN_HOST', 'http://static-image.server.my');
+if (!defined('ONXSHOP_CDN_USE_WHEN_SSL')) define('ONXSHOP_CDN_USE_WHEN_SSL', false);
+if (!defined('ONXSHOP_CDN_ALLOWED_CONTEXT')) define('ONXSHOP_CDN_ALLOWED_CONTEXT', 'img');
+if (!defined('ONXSHOP_CDN_ALLOWED_TYPES')) define('ONXSHOP_CDN_ALLOWED_TYPES', 'jpg, gif, png');
+
+/**
+ * recaptcha
+ */
+ 
+if (!defined('ONXSHOP_RECAPTCHA_PUBLIC_KEY')) define('ONXSHOP_RECAPTCHA_PUBLIC_KEY', '');
+if (!defined('ONXSHOP_RECAPTCHA_PRIVATE_KEY')) define('ONXSHOP_RECAPTCHA_PRIVATE_KEY', '');
 

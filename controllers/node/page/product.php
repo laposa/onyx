@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2006-2012 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2006-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -151,6 +151,33 @@ class Onxshop_Controller_Node_Page_Product extends Onxshop_Controller_Node_Page_
 		$this->GET['image_width'] = $image_width;
 		
 		return true;
+	}
+	
+	/**
+	 * getOpenGraphImage
+	 */
+	 
+	public function getOpenGraphImage($node_id, $content = false) {
+	
+		if (is_numeric($content)) {
+			
+			$product_id = $content;
+			
+			require_once('models/ecommerce/ecommerce_product_image.php');
+			$Image = new ecommerce_product_image();
+
+			$image_list = $Image->listFiles($product_id, "priority DESC, id ASC");
+			
+			if (is_array($image_list) && count($image_list) > 0) return $image_list[0];
+		
+		} else {
+			
+			// Option to implement og:image associated to common_node record
+			
+		}
+
+		return false;
+
 	}
 	
 }

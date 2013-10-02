@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2008-2012 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2008-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -110,6 +110,7 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
 		/**
 		 * process open graph tags
 		 */
+		 
 		$this->processOpenGraph($node_data);
 		
 		/**
@@ -240,7 +241,7 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
 		 * opengraph image
 		 */
 		 
-		if ($opengraph_image = $this->getOpenGraphImage($node_data['id'])) {
+		if ($opengraph_image = $this->getOpenGraphImage($node_data['id'], $node_data['content'])) {
 			
 			$this->tpl->assign('OPENGRAPH_IMAGE', $opengraph_image);
 			$this->tpl->parse('head.open_graph.image');
@@ -255,7 +256,7 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
 	 * getOpenGraphImage
 	 */
 	 
-	public function getOpenGraphImage($node_id) {
+	public function getOpenGraphImage($node_id, $content = false) {
 		
 		require_once('models/common/common_image.php');
 		$Image = new common_image();
