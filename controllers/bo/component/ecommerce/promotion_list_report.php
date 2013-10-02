@@ -54,17 +54,20 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Promotion_List_Report extends On
 		
 		$total_count = 0;
 		$total_goods_net = 0;
-		$total_discount_net = 0;
+		$total_face_value_voucher = 0;
+		$total_discount = 0;
 		
 		foreach ($promotion_list as $item) {
-			$total_count = $total_count + $item['count'];
-			$total_goods_net = $total_goods_net + $item['sum_goods_net'];
-			$total_discount_net = $total_discount_net + $item['sum_discount_net'];
+			$total_count += $item['count'];
+			$total_goods_net + $item['sum_goods_net'];
+			$total_face_value_voucher += $item['sum_face_value_voucher'];
+			$total_discount += $item['sum_discount'];
 		}
 		
 		$this->tpl->assign('TOTAL_COUNT', $total_count);
 		$this->tpl->assign('TOTAL_GOODS_NET', $total_goods_net);
-		$this->tpl->assign('TOTAL_DISCOUNT_NET', $total_discount_net);
+		$this->tpl->assign('TOTAL_FACE_VALUE_VOUCHER', $total_face_value_voucher);
+		$this->tpl->assign('TOTAL_DISCOUNT', $total_discount);
 			
 	}
 

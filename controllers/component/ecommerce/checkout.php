@@ -143,7 +143,7 @@ class Onxshop_Controller_Component_Ecommerce_Checkout extends Onxshop_Controller
 				require_once('models/ecommerce/ecommerce_basket.php');
 				$Basket = new ecommerce_basket();
 				
-				$basket_content = $Basket->getContent($basket_id);
+				$basket_content = $Basket->getFullDetail($basket_id);
 				
 				$voucher_basket_items = $this->getVoucherBasketItems($basket_content['items'], $gift_voucher_product_id);
 				

@@ -133,12 +133,7 @@ CREATE TABLE ecommerce_basket_content (
 	public function getItems($basket_id) {
 	
 		if (!is_numeric($basket_id)) return false;
-		
-		$basket_content_data = array();
-		
-		$basket_content_data = $this->listing("basket_id={$basket_id}");
-		
-		return $basket_content_data;
+		return $this->listing("basket_id = {$basket_id}");
 	}
 
 	/**

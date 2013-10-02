@@ -17,7 +17,6 @@ class Onxshop_Controller_Component_Ecommerce_Payment_Worldpay extends Onxshop_Co
 	
 		require_once('conf/payment/worldpay.php');
 		$this->transactionPrepare();
-		
 		$payment_gateway_data = $this->paymentPrepare($this->GET['order_id']);
 		
 		if (!$payment_gateway_data) return false;

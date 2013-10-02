@@ -118,6 +118,7 @@ define('I18N_SUB_TOTAL', 'Sub Total');
 define('I18N_DELIVERY', 'Delivery');
 define('I18N_YOUR_BASKET_IS_EMPTY', 'Your basket is empty.');
 define('I18N_DISCOUNT', 'Discount');
+define('I18N_DISCOUNT_OF', 'of');
 //component/ecommerce/promotion_code_basket.html
 define('I18N_PROMOTION_CODE_REMOVE', 'Remove Code');
 define('I18N_PROMOTION_CODE_HAVE_CODE', 'Have a promotion code? Enter it here');
@@ -144,6 +145,7 @@ define('I18N_PAY_BY_BANK_TRANSFER', 'Pay By Bank Transfer');
 define('I18N_PAY_BY_CUSTOM', 'Payment instructions will follow');
 define('I18N_IS_THIS_A_GIFT', 'Is this a gift? (we will not include details of prices with delivery)');
 define('I18N_GIFT_MESSAGE', 'Gift Message');
+define('I18N_GIFT_VOUCHER_OF', 'Gift Voucher of');
 //component/ecommerce/checkout_basket.html
 define('I18N_EDIT_BASKET', 'Edit basket');
 //component/ecommerce/invoice.html

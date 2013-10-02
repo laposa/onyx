@@ -31,6 +31,28 @@
 					<td class="money">{ROW.vat|money_format('%n', %s)}</td>
 				</tr>
 				<!-- END: row -->
+				<!-- BEGIN: delivery -->
+				<tr>
+					<td>{TYPE_NAME}</td>
+					<td>{ROW.delivery}</td>
+					<td class="money">{ROW.vat_rate}%</td>
+					<td class="money">{ROW.gross_pre_discount|money_format('%n', %s)}</td>
+					<td class="money">&nbsp;</td>
+					<td class="money">{ROW.gross_post_discount|money_format('%n', %s)}</td>
+					<td class="money">{ROW.net_post_discount|money_format('%n', %s)}</td>
+					<td class="money">{ROW.vat|money_format('%n', %s)}</td>
+				</tr>
+				<!-- END: delivery -->
+				<tr>
+					<td>Redeemed Gift Vouchers</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+					<td class="money">{FACE_VALUE_VOUCHERS|money_format('%n', %s)}</td>
+					<td>&nbsp;</td>
+					<td>&nbsp;</td>
+				</tr>
 			</tbody>
 			<tbody>
 				<!-- BEGIN: totals -->

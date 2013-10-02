@@ -206,8 +206,8 @@ CREATE TABLE ecommerce_delivery (
 		$total_weight = $this->convertWeight($total_weight, $product_variety_conf['weight_units'], 'g');
 
 		//calculate delivery
-		$delivery_price = $this->calculate($delivery_address_id, $total_weight, $basket_content['total_goods_net'], $delivery_options, $promotion_detail);
-	
+		$delivery_price = $this->calculate($delivery_address_id, $total_weight, $basket_content['sub_total']['price'], $delivery_options, $promotion_detail);
+
 		//assign
 		$delivery['value_net'] = $delivery_price;
 		$delivery['weight'] = $total_weight;
@@ -238,10 +238,9 @@ CREATE TABLE ecommerce_delivery (
 	function findVATEligibility($basket_content) {
 	
 		if (!is_array($basket_content)) return false;
-		
 		foreach ($basket_content['items'] as $item) {
-			if ($item['vat'] > 0) {
-				$vat_rate = (string) $item['product']['vat'];
+			if ($item['vat_rate'] > 0) {
+				$vat_rate = (string) $item['vat_rate'];
 				return $vat_rate;
 			}
 		}

@@ -6,7 +6,7 @@
  */
 
 class Onxshop_Controller_Component_Ecommerce_Promotion_code extends Onxshop_Controller {
-	
+
 	/**
 	 * main action
 	 */
@@ -14,18 +14,27 @@ class Onxshop_Controller_Component_Ecommerce_Promotion_code extends Onxshop_Cont
 	public function mainAction() {
 
 		/**
-		 * Load from session
-		 */
-
-		$basket_id = $_SESSION['basket']['id'];
-		
-		/**
 		 * find code
 		 */
 		 
 		if ($_SESSION['promotion_code']) $code = $_SESSION['promotion_code'];
 		else if (trim($_POST['promotion_code']) != '') $code = trim($_POST['promotion_code']);
 		else $code = false;
+
+		/**
+		 * Check Actions
+		 */
+
+		if ($_POST['promotion_code_add'] && $code) {
+
+			$_SESSION['promotion_code'] = $code;
+			onxshopGoTo("/page/{$_SESSION['active_pages'][0]}");
+			
+		} else if ($_POST['promotion_code_remove']) {
+
+			$_SESSION['promotion_code'] = false;
+			onxshopGoTo("/page/{$_SESSION['active_pages'][0]}");
+		}
 		
 		/**
 		 * initialize
@@ -43,34 +52,18 @@ class Onxshop_Controller_Component_Ecommerce_Promotion_code extends Onxshop_Cont
 		 * basket detail
 		 */
 		 
-		if (is_numeric($basket_id)) $basket_data = $Basket->getDetail($basket_id);
-		else $basket_data = false;
-		
-		/**
-		 * Check Actions
-		 */
-
-		if ($_POST['promotion_code_add'] && $code) {
-			
-			//update basket
-			if ($discount_net = $Promotion->applyPromotionCodeToBasket($code, $basket_data)) {
-				
-				$Basket->applyDiscount($basket_id, $discount_net);
-				msg("Promotion code {$code} applied");
-		
-			}
-		} else if ($_POST['promotion_code_remove']) {
-			msg("Code {$code} removed");
-			$code = false;
-			//update basket
-			$Basket->applyDiscount($basket_id, 0);
+		if (is_numeric($_SESSION['basket']['id'])) {
+			$basket = $Basket->getFullDetail($_SESSION['basket']['id']);
+			$Basket->calculateBasketSubTotals($basket, $this->isVatEligible($basket['customer_id']));
+			$Basket->calculateBasketDiscount($basket, $_SESSION['promotion_code']);
 		}
+		else $basket = false;
 		
 		/**
 		 * Display
 		 */
 		
-		if ($basket_data && $promotion_code = $Promotion->checkCodeBeforeApply($code, $basket_data['customer_id'], $basket_data)) {
+		if ($basket && $promotion_code = $Promotion->checkCodeBeforeApply($code, $basket['customer_id'], $basket)) {
 		
 			$promotion_code['value'] = $code; 
 			$this->tpl->assign('PROMOTION_CODE', $promotion_code); 
@@ -86,13 +79,8 @@ class Onxshop_Controller_Component_Ecommerce_Promotion_code extends Onxshop_Cont
 			
 			$promotion_code = array();
 			$promotion_code['value'] = $code;
-		
 			$this->tpl->assign('PROMOTION_CODE', $promotion_code);	
-		
 			$this->tpl->parse('content.enter');
-		
-			//update basket
-			$Basket->applyDiscount($basket_id, 0);
 		}
 		
 		/**
@@ -103,4 +91,22 @@ class Onxshop_Controller_Component_Ecommerce_Promotion_code extends Onxshop_Cont
 
 		return true;
 	}
+
+
+	protected function isVatEligible($customer_id)
+	{
+		$result = true;
+
+		if (is_numeric($_SESSION['client']['customer']['delivery_address_id'])) {
+			
+			require_once('models/ecommerce/ecommerce_order.php');
+			$Order = new ecommerce_order();
+			return $Order->isVatEligible($_SESSION['client']['customer']['delivery_address_id'], $customer_id);
+
+		}
+
+		return $result;
+	}
+
+
 }

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2010-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2010-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -63,7 +63,7 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Confirm extends Onxshop_Co
 		
 					if ($_POST['order_terms_agreed'] == 'on') {		
 						//insert only orders with some items in the basket :)
-						$basket_content = $Basket->getContent($basket_id);
+						$basket_content = $Basket->getFullDetail($basket_id);
 						if (count($basket_content['items']) > 0) {
 							$order_data = $_POST['order'];
 

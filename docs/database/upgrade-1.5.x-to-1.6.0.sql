@@ -337,13 +337,13 @@ SET product_type_id = (
 
 ALTER TABLE ecommerce_product DROP COLUMN product_type_id;
 
-/* add missing node_gruop index on common_node */
+/* add missing node_group index on common_node */
 CREATE INDEX common_node_node_controller_idx ON common_node USING btree (node_controller);
 
 /* discount resolution for basket */
 
-ALTER TABLE ecommerce_basket RENAME COLUMN discount_net TO discount_taxable;
-ALTER TABLE ecommerce_basket ADD COLUMN discount_non_taxable numeric(12,5) DEFAULT 0 NOT NULL;
+ALTER TABLE ecommerce_basket RENAME COLUMN discount_net TO face_value_voucher;
+ALTER TABLE ecommerce_basket_content ADD COLUMN discount numeric(12,5) DEFAULT 0 NOT NULL;
 
 /* discount resolution - extra table */
 
@@ -373,15 +373,13 @@ UPDATE ecommerce_promotion SET type = 4 WHERE code_pattern LIKE 'GIFT-%';
 
 /* discount resultion for invoice */
 
-ALTER TABLE ecommerce_invoice RENAME COLUMN voucher_discount TO discount_taxable;
-ALTER TABLE ecommerce_invoice ADD COLUMN discount_non_taxable numeric(12,5) DEFAULT 0 NOT NULL;
+ALTER TABLE ecommerce_invoice RENAME COLUMN voucher_discount TO face_value_voucher;
 
 /* more invoice table changes */
 
 ALTER TABLE ecommerce_invoice RENAME COLUMN goods_vat_sr TO goods_vat;
 ALTER TABLE ecommerce_invoice DROP COLUMN goods_vat_rr;
-ALTER TABLE ecommerce_invoice ADD COLUMN basket_items text;
-
+ALTER TABLE ecommerce_invoice ADD COLUMN basket_detail_enhanced text;
 
 COMMIT;
 

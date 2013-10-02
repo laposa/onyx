@@ -111,21 +111,23 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Orders_Breakdown extends Onxshop
 				$row['gross_post_discount'] = $row['gross_pre_discount'];
 
 				$totals['gross_pre_discount'] += $row['gross_pre_discount'];
-				$totals['discount'] += $row['discount'];
 				$totals['gross_post_discount'] += $row['gross_post_discount'];
 				$totals['net_post_discount'] += $row['net_post_discount'];
 				$totals['vat'] += $row['vat'];
 
 				$this->tpl->assign("ROW", $row);
-				$this->tpl->parse("content.result.row");
+				$this->tpl->parse("content.result.delivery");
 	
 			}
 
 		}
 
+		$totals['gross_post_discount'] += $breakdown['face_value_vouchers'];
+
 		$this->tpl->assign("TOTALS", $totals);
 		$this->tpl->assign("TRANSACTIONS_TOTAL", $transactions_total);
 		$this->tpl->assign("INVOICES_TOTAL", $invoices_total);
+		$this->tpl->assign("FACE_VALUE_VOUCHERS", $breakdown['face_value_vouchers']);
 		$this->tpl->parse('content.result.totals');
 
 		$this->tpl->parse('content.result');
@@ -140,42 +142,24 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Orders_Breakdown extends Onxshop
 
 		foreach ($invoices as $invoice) {
 
-			$invoice_gross = 0;
 			$delivery = $invoice['delivery'];
 
 			// interate through invoice items - first round
 			foreach ($invoice['items'] as $item) {
 
 				$type = $item['product_type_id'];
-				if ($delivery == 'World' && $item['goods_vat_sr'] == 0) $vat = 0;
+				if ($delivery == 'World' && $item['goods_vat'] == 0) $vat = 0;
 				else $vat = $this->prouduct_types[$type]['vat'];
 
 				$item_gross = $item['quantity'] * $item['price'] * ((100 + $vat) / 100);
 				if ($item_gross > 0) {
 					$breakdown['goods'][$type][$delivery][$vat]['gross_pre_discount'] += $item_gross;
-					$invoice_gross += $item_gross;
-				}
+					$breakdown['goods'][$type][$delivery][$vat]['discount'] -= $item['discount'];
+				} else die("!");
 
 			}
 
-			// if needed interate through invoice items second time to apply discount evenly
-			if ($invoice['items'][0]['discount'] > 0) {
-
-				foreach ($invoice['items'] as $item) {
-
-					$type = $item['product_type_id'];
-					if ($delivery == 'World' && $item['goods_vat_sr'] == 0) $vat = 0;
-					else $vat = $this->prouduct_types[$type]['vat'];
-
-					$item_gross = $item['quantity'] * $item['price'] * ((100 + $vat) / 100);
-					$goods_discount = min($invoice_gross, $item['discount']);
-					$discount = $goods_discount * ($item_gross / $invoice_gross);
-					if ($item_gross > 0) {
-						$breakdown['goods'][$type][$delivery][$vat]['discount'] -= $discount;
-					}
-
-				}
-			}
+			$breakdown['face_value_vouchers'] -= $invoice['items'][0]['face_value_voucher'];
 
 			// process delivery
 			if ($invoice['items'][0]['delivery_net'] > 0) {

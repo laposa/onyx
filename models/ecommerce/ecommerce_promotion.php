@@ -287,7 +287,7 @@ CREATE TABLE ecommerce_promotion (
 	
 	    $sql =
 		    "SELECT promotion.id, promotion.title, promotion.code_pattern, count(invoice.id) as count, 
-			    sum(invoice.goods_net) as sum_goods_net, sum(basket.discount_taxable + basket.discount_non_taxable) as sum_discounts, 
+			    sum(invoice.goods_net) as sum_goods_net, sum(basket.face_value_voucher) as sum_face_value_voucher, 
 			    customer.title_before AS customer_title_before,
 		    	customer.first_name AS customer_first_name, customer.last_name AS customer_last_name
 		    FROM ecommerce_promotion promotion
@@ -303,6 +303,23 @@ CREATE TABLE ecommerce_promotion (
 			";
 
 		if ($records = $this->executeSql($sql)) {
+
+			foreach ($records as &$record) {
+
+			    $sql = "SELECT sum(basket_content.discount) as sum_discount
+				    FROM ecommerce_promotion_code code 
+					LEFT JOIN ecommerce_invoice invoice ON (invoice.order_id = code.order_id)
+					LEFT JOIN ecommerce_order eorder ON (eorder.id = invoice.order_id)
+					LEFT JOIN ecommerce_basket basket ON (basket.id = eorder.basket_id)
+					LEFT JOIN ecommerce_basket_content basket_content ON (basket.id = basket_content.basket_id)
+					WHERE code.promotion_id = {$record['id']} AND invoice.status = 1";
+
+				if ($records2 = $this->executeSql($sql)) {
+					$record['sum_discount'] = $records2[0]['sum_discount'];
+				}
+
+			}
+
 			return $records;
 		} else {
 			return false;
@@ -414,11 +431,11 @@ CREATE TABLE ecommerce_promotion (
 				
 				if (preg_match("/{$item_code_pattern}/i", $code)) {
 					
-					$campaign_data = $record;
+					$promotion_data = $record;
 					
-					$campaign_data['other_data'] = unserialize($campaign_data['other_data']);
+					$promotion_data['other_data'] = unserialize($promotion_data['other_data']);
 					
-					return $campaign_data;
+					return $promotion_data;
 				}
 			}
 		}
@@ -430,19 +447,19 @@ CREATE TABLE ecommerce_promotion (
 	 * check if existing code can be used
 	 */
 	 
-	public function checkCodeBeforeApply($code, $customer_id, $basket_data) {
+	public function checkCodeBeforeApply($code, $customer_id, $basket) {
 
 		if (!is_numeric($customer_id)) {
 			msg("ecommerce_promotion.checkCodeBeforeApply(): customer_id is not numeric", 'error');
 			return false;
 		}
 
-		if ($campaign_data = $this->checkCodeMatch($code)) {
+		if ($promotion_data = $this->checkCodeMatch($code)) {
 		
 			/**
 			 * first order
 			 */
-			if ($campaign_data['limit_to_first_order'] > 0) {
+			if ($promotion_data['limit_to_first_order'] > 0) {
 				if ($this->getNumCustomersOrders($customer_id) > 0) {
 					if ($this->getNumCustomersPaidOrders($customer_id) == 0) {
 						if (!Zend_Registry::isRegistered('ecommerce_promotion:first_order_unpaid')) {
@@ -466,9 +483,9 @@ CREATE TABLE ecommerce_promotion (
 			 *  uses_per_coupon
 			 */
 			 
-			if ($campaign_data['uses_per_coupon'] > 0) {
-				if (($this->getCountUsageOfSingleCode($code) + 1) > $campaign_data['uses_per_coupon']) {
-					if (substr($campaign_data['code_pattern'], 0, 4) != "REF-") { // referral codes validity is extended automatically
+			if ($promotion_data['uses_per_coupon'] > 0) {
+				if (($this->getCountUsageOfSingleCode($code) + 1) > $promotion_data['uses_per_coupon']) {
+					if (substr($promotion_data['code_pattern'], 0, 4) != "REF-") { // referral codes validity is extended automatically
 						if (!Zend_Registry::isRegistered('ecommerce_promotion:total_usage_exceeded')) {
 							msg("Code \"$code\" usage exceed number of allowed applications", 'error');
 							Zend_Registry::set('ecommerce_promotion:total_usage_exceeded', true);
@@ -482,9 +499,9 @@ CREATE TABLE ecommerce_promotion (
 			 * check uses_per_customer
 			 */
 
-			if ($campaign_data['uses_per_customer'] > 0) {
+			if ($promotion_data['uses_per_customer'] > 0) {
 				
-				if (($this->getCountUsageOfSingleCode($code, $customer_id) + 1) > $campaign_data['uses_per_customer']) {
+				if (($this->getCountUsageOfSingleCode($code, $customer_id) + 1) > $promotion_data['uses_per_customer']) {
 					if (!Zend_Registry::isRegistered('ecommerce_promotion:per_user_usage_exceeded')) {
 						msg("Code \"$code\" usage exceed number of allowed applications per one customer", 'error');
 						Zend_Registry::set('ecommerce_promotion:per_user_usage_exceeded', true);
@@ -496,7 +513,7 @@ CREATE TABLE ecommerce_promotion (
 			/**
 			 * not using self-generated code
 			 */
-			if ($campaign_data['generated_by_customer_id'] > 0 && $campaign_data['generated_by_customer_id'] == $customer_id) {
+			if ($promotion_data['generated_by_customer_id'] > 0 && $promotion_data['generated_by_customer_id'] == $customer_id) {
 				if (!Zend_Registry::isRegistered('ecommerce_promotion:own_code')) {
 					msg("You are not allowed to redeem your own code!");
 					Zend_Registry::set('ecommerce_promotion:own_code', true);
@@ -507,11 +524,12 @@ CREATE TABLE ecommerce_promotion (
 			/**
 			 * minimum order amount
 			 */
-			if ($campaign_data['limit_to_order_amount'] > 0) {
-				if ($basket_data['content']['total_sub'] < $campaign_data['limit_to_order_amount']) {
+			if ($promotion_data['limit_to_order_amount'] > 0) {
+				if ($basket['sub_total']['price'] < $promotion_data['limit_to_order_amount']) {
 					if (!Zend_Registry::isRegistered('ecommerce_promotion:order_amount')) {
-						$amount = money_format("%n", $campaign_data['limit_to_order_amount']);
-						msg("The voucher code \"$code\" is restricted to orders in amount of $amount.", 'error');
+						$amount = money_format("%n", $promotion_data['limit_to_order_amount']);
+						$sub_total = money_format("%n", $basket['sub_total']['price']);
+						msg("The voucher code \"$code\" is restricted to orders in amount of $amount. You have only $sub_total in you basket.", 'error');
 						Zend_Registry::set('ecommerce_promotion:order_amount', true);
 					}
 					return false;
@@ -521,10 +539,10 @@ CREATE TABLE ecommerce_promotion (
 			/**
 			 * do not allow to buy gift voucher
 			 */
-			if (substr($campaign_data['code_pattern'], 0, 4) == "REF-" || substr($campaign_data['code_pattern'], 0, 4) == "REW-") {
+			if (substr($promotion_data['code_pattern'], 0, 4) == "REF-" || substr($promotion_data['code_pattern'], 0, 4) == "REW-") {
 				$gift_voucher_product_id = (int) $this->getGiftVoucherProductId();
-				if ($gift_voucher_product_id > 0 && count($basket_data['content']['items']) > 0) {
-					foreach ($basket_data['content']['items'] as $item) {
+				if ($gift_voucher_product_id > 0 && count($basket['items']) > 0) {
+					foreach ($basket['items'] as $item) {
 						if ($item['product']['id'] == $gift_voucher_product_id) {
 							if (!Zend_Registry::isRegistered('ecommerce_promotion:gift_in_basket')) {
 								msg("Sorry, voucher codes cannot be used to buy Gift Voucher Codes.");
@@ -539,11 +557,11 @@ CREATE TABLE ecommerce_promotion (
 			/**
 			 * check if limited products are in basket
 			 */
-			$limited_ids = explode(",", $campaign_data['limit_list_products']);
-			if (strlen($campaign_data['limit_list_products']) > 0 && is_array($limited_ids)) {
+			$limited_ids = explode(",", $promotion_data['limit_list_products']);
+			if (strlen($promotion_data['limit_list_products']) > 0 && is_array($limited_ids)) {
 				$prod = 0;
-				if (count($basket_data['content']['items']) > 0) {
-					foreach ($basket_data['content']['items'] as $item) {
+				if (count($basket['items']) > 0) {
+					foreach ($basket['items'] as $item) {
 						if (in_array($item['product']['id'], $limited_ids)) $prod++;
 					}
 				}
@@ -556,7 +574,11 @@ CREATE TABLE ecommerce_promotion (
 				}
 			}
 
-			return $campaign_data;
+			require_once('models/ecommerce/ecommerce_promotion_type.php');
+			$Type = new ecommerce_promotion_type();
+			$promotion_data['type'] = $Type->detail($promotion_data['type']);
+
+			return $promotion_data;
 			
 		} else {
 		
@@ -638,15 +660,31 @@ CREATE TABLE ecommerce_promotion (
 	
 	public function getUsage($id) {
 	
-	    $sql = "SELECT count(invoice.id) as count, sum(invoice.goods_net) as sum_goods_net, sum(basket.discount_taxable + basket.discount_non_taxable) as sum_discount
+	    $sql = "SELECT count(invoice.id) as count, sum(invoice.goods_net) as sum_goods_net, 
+	    		sum(basket.face_value_voucher) as sum_face_value_voucher
 		    FROM ecommerce_promotion_code code 
-			LEFT OUTER JOIN ecommerce_invoice invoice ON (invoice.order_id = code.order_id)
-			LEFT OUTER JOIN ecommerce_order eorder ON (eorder.id = invoice.order_id)
-			LEFT OUTER JOIN ecommerce_basket basket ON (basket.id = eorder.basket_id)
+			LEFT JOIN ecommerce_invoice invoice ON (invoice.order_id = code.order_id)
+			LEFT JOIN ecommerce_order eorder ON (eorder.id = invoice.order_id)
+			LEFT JOIN ecommerce_basket basket ON (basket.id = eorder.basket_id)
 			WHERE code.promotion_id = $id AND invoice.status = 1";
-		
+
 		if ($records = $this->executeSql($sql)) {
-			return $records[0];
+
+			$result = $records[0];
+
+		    $sql = "SELECT sum(basket_content.discount) as sum_discount
+			    FROM ecommerce_promotion_code code 
+				LEFT JOIN ecommerce_invoice invoice ON (invoice.order_id = code.order_id)
+				LEFT JOIN ecommerce_order eorder ON (eorder.id = invoice.order_id)
+				LEFT JOIN ecommerce_basket basket ON (basket.id = eorder.basket_id)
+				LEFT JOIN ecommerce_basket_content basket_content ON (basket.id = basket_content.basket_id)
+				WHERE code.promotion_id = $id AND invoice.status = 1";
+
+			if ($records = $this->executeSql($sql)) {
+				$result['sum_discount'] = $records[0]['sum_discount'];
+			}
+
+			return $result;
 		} else {
 			return false;
 		}
@@ -688,57 +726,6 @@ CREATE TABLE ecommerce_promotion (
 		
 		return $Promotion_code->getPromotionCodeForOrder($order_id);
 		
-	}
-
-	/**
-	 * Apply promotion code
-	 */
-	
-	function applyPromotionCodeToBasket($code, $basket_data, $exclude_vat = false) {
-
-		if (!is_array($basket_data)) {
-			msg("ecommerce_promotion.applyPromotionCodeToBasket: missing basket data", 'error');
-			return false;
-		}
-		
-		$customer_id = $basket_data['customer_id'];
-
-		if ($campaign_data = $this->checkCodeBeforeApply($code, $customer_id, $basket_data)) {
-			
-			$discount_value = 0;
-
-			$value_for_discount = $basket_data['content']['total_goods_net_before_discount'];
-			if (!$exclude_vat) $value_for_discount += $basket_data['content']['total_vat'];
-
-			// if discount is limited to certain products, the value is only the part of the basket
-			$limited_ids = explode(",", $campaign_data['limit_list_products']);
-			if (strlen($campaign_data['limit_list_products']) > 0 && is_array($limited_ids)) {
-				$value_for_discount = 0;
-				if (count($basket_data['content']['items']) > 0) {
-					foreach ($basket_data['content']['items'] as $item) {
-						if (in_array($item['product']['id'], $limited_ids)) 
-							$value_for_discount += (float) ($exclude_vat ? $item['total_net'] : $item['total_inc_vat']);
-					}
-				}
-			}
-			
-			// percentage value discount
-			if ($campaign_data['discount_percentage_value'] > 0) {
-				$discount_value = $value_for_discount * $campaign_data['discount_percentage_value']/100;
-			}
-			
-			// fixed value discount
-			if ($campaign_data['discount_fixed_value'] > 0) {
-				$discount_value = $campaign_data['discount_fixed_value'];
-			}
-
-			$discount_value = round($discount_value, 5);
-			
-			return $discount_value;
-			
-		} else {
-			return false;
-		}
 	}
 
 	/**
@@ -868,7 +855,6 @@ CREATE TABLE ecommerce_promotion (
 
 	/**
 	 * Generate random code
-	 * @return [type] [description]
 	 */
 	public function generateRandomCode($prefix, $size1 = 6, $size2 = 0)
 	{

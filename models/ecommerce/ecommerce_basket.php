@@ -31,7 +31,7 @@ class ecommerce_basket extends Onxshop_Model {
 	 */
 	var $ip_address;
 	
-	var $discount_net;
+	var $face_value_voucher;
 	
 	var $title;
 	
@@ -43,7 +43,7 @@ class ecommerce_basket extends Onxshop_Model {
 		'created'=>array('label' => '', 'validation'=>'datetime', 'required'=>true),
 		'note'=>array('label' => '', 'validation'=>'string', 'required'=>false),
 		'ip_address'=>array('label' => '', 'validation'=>'string', 'required'=>true),
-		'discount_net'=>array('label' => '', 'validation'=>'decimal', 'required'=>false),
+		'face_value_voucher'=>array('label' => '', 'validation'=>'decimal', 'required'=>false),
 		'title'=>array('label' => '', 'validation'=>'string', 'required'=>false),
 		'other_data'=>array('label' => '', 'validation'=>'serialized', 'required'=>false)
 		);
@@ -54,17 +54,16 @@ class ecommerce_basket extends Onxshop_Model {
 	 
 	private function getCreateTableSql() {
 	
-		$sql = "
-CREATE TABLE ecommerce_basket (
-    id serial NOT NULL PRIMARY KEY,
-    customer_id integer REFERENCES client_customer ON UPDATE CASCADE ON DELETE RESTRICT,
-    created timestamp(0) without time zone,
-    note text,
-    ip_address character varying(255),
-    discount_net decimal(12,5),
-    title character varying(255),
-    other_data	text
-);
+		$sql = "CREATE TABLE ecommerce_basket (
+		    id serial NOT NULL PRIMARY KEY,
+		    customer_id integer REFERENCES client_customer ON UPDATE CASCADE ON DELETE RESTRICT,
+		    created timestamp(0) without time zone,
+		    note text,
+		    ip_address character varying(255),
+		    face_value_voucher decimal(12,5),
+		    title character varying(255),
+		    other_data	text
+		);
 		";
 		
 		return $sql;
@@ -85,147 +84,257 @@ CREATE TABLE ecommerce_basket (
 
 	/**
 	 * get detail
-	 * this is actually getFullDetail
-	 * TODO: refactoring, rename to getFullDetail
 	 */
 	 
-	function getDetail($id, $exclude_vat = false) {
+	function getDetail($id) {
+	
+		if (is_numeric($id)) return $this->detail($id);
+		return false;
+	}
+
+	/**
+	 * get full detail including items
+	 */
+	 
+	function getFullDetail($id, $currency = GLOBAL_DEFAULT_CURRENCY) {
 	
 		if (is_numeric($id)) {
-			$basket_detail = $this->detail($id);
-			$basket_detail['content'] = $this->getContent($id, GLOBAL_DEFAULT_CURRENCY, $exclude_vat);
-	
-			return $basket_detail;
-		} else {
-			return false;
-		}
-	}
-	
-	/**
-	 * get content
-	 */
+			$basket = $this->detail($id);
 
-	function getContent($basket_id, $currency_code = GLOBAL_DEFAULT_CURRENCY, $exclude_vat = false) {
-		
-		if (!is_numeric($basket_id)) {
-			msg("ecommerce_basket.getContent: basket_id ($basket_id) is not numeric", 'error');
-			return false;
-		}
+			require_once('models/ecommerce/ecommerce_basket_content.php');
+			$Basket_content = new ecommerce_basket_content();
+			$Basket_content->setCacheable(false);
+			$basket['items'] = $Basket_content->getItems($id);
+			$basket['currency'] = $currency;
 
-		require_once('models/ecommerce/ecommerce_price.php');
-		$price_conf = ecommerce_price::initConfiguration();
-		
-		require_once('models/ecommerce/ecommerce_basket_content.php');
-		require_once('models/ecommerce/ecommerce_product.php');
-		
-		
-		$Basket_content = new ecommerce_basket_content();
-		$Basket_content->setCacheable(false);
-		$Product = new ecommerce_product();
-		
-		//get basket detail
-		$basket_detail = $this->detail($basket_id);
-		//convert discount value to selected currency
-		$basket_detail['discount_net'] = ecommerce_price::convertCurrency($basket_detail['discount_net'], GLOBAL_DEFAULT_CURRENCY, $currency_code);
-		//get detail of items in basket
-		$basket_content_data = $Basket_content->getItems($basket_detail['id']);
+			require_once('models/ecommerce/ecommerce_product.php');
+			$Product = new ecommerce_product();
+			$Product->setCacheable(false);
 
-		$total_items_qty = 0;
-		
-		if ($basket_content_data) {
-		
-			foreach ($basket_content_data as $basket_key=>$basket_item) {
-			
-				$variety_detail = $Product->getProductVarietyDetail($basket_item['product_variety_id'], $basket_item['price_id'], $currency_code);
-				$product_detail = $Product->ProductDetail($variety_detail['product_id']);
-				
-				//find product in the node
-				$node_detail = $Product->findProductInNode($product_detail['id']);
-				$node_detail = $node_detail[0];
+			foreach ($basket['items'] as &$item) {
 
-				if ($basket_item['quantity'] > $variety_detail['stock'] && $variety_detail['stock'] > 0) {
-					msg("Sorry, we have not enough items on the stock for {$product_detail['name']} - {$variety_detail['name']}", 'error', 2);
-				}
-				
-				$price = $variety_detail['price'];
+				$variety = $Product->getProductVarietyDetail($item['product_variety_id'], $item['price_id'], $currency);
+				$item['product'] = $Product->ProductDetail($variety['product_id']);
+				$node = $Product->findProductInNode($item['product']['id']);
+				$item['product']['variety'] = $variety;
+				$item['product']['node'] = $node[0];
+				$item['other_data'] = unserialize($data['other_data']);
 
-				if ($exclude_vat) {
-					$variety_detail['vat'] = 0;
-					$price['value'] = $price['value_net'];
-				}
-				
-				$basket_item['price'] = $price['value'];
-				$basket_item['total'] = $basket_item['price'] * $basket_item['quantity'];
-				$basket_item['total_net'] = $price['value_net'] * $basket_item['quantity'];
-				$basket_item['vat'] = $variety_detail['vat'] * $price['value_net']/100 * $basket_item['quantity'];
-				$basket_item['vat'] = round($basket_item['vat'], 5);
-
-				if (($price_conf['backoffice_with_vat'] && ONXSHOP_IN_BACKOFFICE) || ($price_conf['frontend_with_vat'] && !ONXSHOP_IN_BACKOFFICE)) {
-					$basket_item['total_inc_vat'] = $basket_item['total'];
-				} else {
-					$basket_item['total_inc_vat'] = $basket_item['total'] + $basket_item['vat'];
-				}
-
-				$total = $total + $basket_item['total'];
-				$total_goods_net = $total_goods_net + $basket_item['total_net'];
-				$total_weight = $total_weight + $variety_detail['weight'] * $basket_item['quantity'];
-				//gross weight for delivery purpose
-				$total_weight_gross = $total_weight_gross + $variety_detail['weight_gross'] * $basket_item['quantity'];
-				
-				$total_vat = $total_vat + $basket_item['vat'];
-				
-				//other data
-				$basket_item['other_data'] = unserialize($basket_item['other_data']);
-				
-				$items[$basket_key] = $basket_item;
-				
-				$product_detail['variety'] = $variety_detail;
-				$product_detail['node'] = $node_detail;
-				$items[$basket_key]['product'] = $product_detail;
-				$total_items_qty = $total_items_qty + $basket_item['quantity'];
 			}
-		}
-		
-		$basket_detail['total_sub'] = round($total, 5);
-		$basket_detail['total_weight'] = $total_weight;
-		$basket_detail['total_weight_gross'] = $total_weight_gross;
-		$basket_detail['total_vat'] = $total_vat;
-		
-		if (($price_conf['backoffice_with_vat'] && ONXSHOP_IN_BACKOFFICE) || ($price_conf['frontend_with_vat'] && !ONXSHOP_IN_BACKOFFICE)) {
-			$basket_detail['total'] = $basket_detail['total_sub'];
-		} else {
-			$basket_detail['total'] = $basket_detail['total_sub'] + $basket_detail['total_vat'];			
-		}
-		
-		$basket_detail['total_after_discount'] = $basket_detail['total'] - $basket_detail['discount_net'];
-		$basket_detail['total_after_discount'] = round($basket_detail['total_after_discount'], 5);
-		
-		$basket_detail['total_goods_net'] = $total_goods_net;
-		$basket_detail['total_goods_net_before_discount'] = $total_goods_net; //transitional, total_goods_net was including discount deduction
-		
-		//make sure total_after_discount is not negative
-		if ($basket_detail['total_after_discount'] < 0) {
-			//set to 0
-			$basket_detail['total_after_discount'] = 0;
-		}
-		
-		//make sure total_goods_net is not negative
-		if ($basket_detail['total_goods_net'] < 0) {
-			//send a warning if whole discount is greater than order value
-			//msg('Eligible discount is bigger than order value', 'ok', 1);
-			//set to 0
-			$basket_detail['total_goods_net'] = 0;
-		}
-		
-		$basket = $basket_detail;
-		if (!is_array($items)) $items = array();
-		$basket['items'] = $items;
-		$basket['total_items'] = count($basket['items']);
-		$basket['total_items_qty'] = $total_items_qty;
-		//print_r($basket);
 
-		return $basket;
+			return $basket;
+
+		} else {
+
+			return false;
+
+		}
 	}
+
+	/**
+	 * calculate sub totals
+	 * requires basket full detail
+	 */
+	public function calculateBasketSubTotals(&$basket, $include_vat = true)
+	{
+		$basket['sub_total']['price'] = 0;
+
+		foreach ($basket['items'] as &$item) {
+
+			$item['unit_price'] = $include_vat ? $item['product']['variety']['price']['value'] : $item['product']['variety']['price']['value_net'];
+			$item['vat_rate'] = $include_vat ? $item['product']['variety']['type']['vat'] : 0;
+			$item['price'] = $item['unit_price'] * $item['quantity'];
+
+			$basket['total_weight'] += $item['product']['variety']['weight'] * $item['quantity'];
+			$basket['total_weight_gross'] += $item['product']['variety']['weight_gross'] * $item['quantity'];
+
+			$basket['quantity'] += $item['quantity'];
+			$basket['count']++;
+
+			$basket['sub_total']['price'] += $item['price'];
+			$basket['sub_totals'][$item['vat_rate']]['price'] += $item['price'];
+			$basket['sub_totals'][$item['vat_rate']]['quantity'] += $item['quantity'];
+
+		}
+	}
+
+	/**
+	 * calculate basket totals
+	 * requires basket full detail with calculated sub totals, applied discount and calculated delivery
+	 */
+	public function calculateBasketTotals(&$basket)
+	{
+		foreach ($basket['items'] as &$item) {
+			$item['total'] = $item['price'] - $item['discount'];			
+			$item['vat'] = $item['total'] / (100 + $item['vat_rate']) * $item['vat_rate'];
+			$item['net'] = $item['total'] / (100 + $item['vat_rate']) * 100;
+			$basket['sub_total']['vat'] += $item['vat'];
+			$basket['sub_total']['net'] += $item['net'];
+			$basket['sub_totals'][$item['vat_rate']]['total'] += $item['total'];
+			$basket['sub_totals'][$item['vat_rate']]['vat'] += $item['vat'];
+			$basket['sub_totals'][$item['vat_rate']]['net'] += $item['net'];
+
+		}
+
+		$basket['total_net'] = $basket['sub_total']['net'] + $basket['delivery']['value_net'];
+		$basket['total_vat'] = $basket['sub_total']['vat'] + $basket['delivery']['vat'];
+		$basket['total'] = max(0, $basket['sub_total']['price'] - $basket['face_value_voucher'] - $basket['discount']) + $basket['delivery']['value'];
+	}
+
+	/**
+	 * apply discount code
+	 * requires basket full detail with calculated sub totals
+	 */
+	public function calculateBasketDiscount(&$basket, $code)
+	{
+		$promotion_data = false;
+
+		$basket['face_value_voucher'] = 0;
+		$basket['face_value_voucher_claim'] = 0;
+		$basket['discount'] = 0;
+		$basket['discount_fixed_claim'] = 0;
+		$basket['discount_percentage_claim'] = 0;
+		foreach ($basket['items'] as &$item) $item['discount'] = 0;
+
+		if ($code) {
+
+			require_once('models/ecommerce/ecommerce_promotion.php');
+			$Promotion = new ecommerce_promotion();
+			$Promotion->setCacheable(false);
+
+			$promotion_data = $Promotion->checkCodeBeforeApply($code, $basket['customer_id'], $basket);
+
+			if ($promotion_data) {
+
+				$promotion_data['discount_fixed_value'] = ecommerce_price::convertCurrency($promotion_data['discount_fixed_value'], 
+					GLOBAL_DEFAULT_CURRENCY, $basket['currency']);
+
+				if ($promotion_data['type']['taxable']) { 
+
+					$this->calculateVoucherDiscount($basket, $promotion_data);
+
+				} else {
+
+					$this->calculateCouponDiscount($basket, $promotion_data);
+
+				}
+
+			}
+
+		}
+
+		$this->saveDiscount($basket);
+
+		return $promotion_data;
+
+	}
+
+	/**
+	 * Calculate Gift Voucher Discount (taxable)
+	 */
+	protected function calculateVoucherDiscount(&$basket, &$promotion_data)
+	{
+		// gift Vouchers
+		$basket['face_value_voucher'] = min($basket['sub_total']['price'], $promotion_data['discount_fixed_value']);
+		$basket['face_value_voucher_claim'] = $promotion_data['discount_fixed_value'];
+	}			
+
+	/**
+	 * Calculate Gift Voucher Discount (taxable)
+	 */
+	protected function calculateCouponDiscount(&$basket, &$promotion_data)
+	{
+		$partial_discount_value = 0;
+
+		// if discount is limited to certain products the discount will be applied only to portion of the order
+		if ($promotion_data['discount_fixed_value'] > 0 && strlen($limit_list_products) > 0 && 
+			is_array($limited_ids = explode(",", $promotion_data['limit_list_products']))) {
+				if (count($basket['items']) > 0) {
+					foreach ($basket['items'] as $item) {
+						if (in_array($item['product']['id'], $limited_ids)) 
+							$partial_discount_value += (float) $item['price'];
+					}
+				}
+			}
+
+		// apply discount to each item
+		foreach ($basket['items'] as &$item) {
+
+			// percentage value discount
+			if ($promotion_data['discount_percentage_value'] > 0) {
+				$item['discount'] = $item['price'] * $promotion_data['discount_percentage_value'] / 100;
+			}
+			
+			// fixed value discount
+			if ($promotion_data['discount_fixed_value'] > 0) {
+				if ($partial_discount_value > 0) {
+					if (in_array($item['product']['id'], $limited_ids)) $item['discount'] = $item['price'] / $partial_discount_value * 
+						min($partial_discount_value, $promotion_data['discount_fixed_value']);
+				} else {
+					$item['discount'] = $item['price'] / $basket['sub_total']['price'] * min(
+						$basket['sub_total']['price'], $promotion_data['discount_fixed_value']);
+				}
+			}
+
+			$basket['discount'] += $item['discount'];
+			$basket['sub_totals'][$item['vat_rate']]['discount'] += $item['discount'];
+
+		}
+
+		// store claimed value
+		$basket['discount_fixed_claim'] = $promotion_data['discount_fixed_value'];
+		$basket['discount_percentage_claim'] = $promotion_data['discount_percentage_value'];
+	}
+
+	/**
+	 * Save calculated discount to table
+	 */
+	protected function saveDiscount(&$basket)
+	{
+		// save face value
+		$this->update(array('id' => $basket['id'], 'face_value_voucher' => $basket['face_value_voucher']));
+
+		// save discounts
+		require_once('models/ecommerce/ecommerce_basket_content.php');
+		$Basket_content = new ecommerce_basket_content();
+		
+		foreach ($basket['items'] as &$item) {
+			$Basket_content->update(array('id' => $item['id'], 'discount' => $item['discount']));
+		}
+	}
+
+	/**
+	 * calculate delivery
+	 * requires 
+	 */
+	 
+	function calculateDelivery($basket_id, $delivery_address_id, $delivery_options, $promotion_code = false) {
+
+		$basket = $this->getDetail($basket_id);
+		require_once('models/ecommerce/ecommerce_order.php');
+		$Order = new ecommerce_order();
+		$include_vat = $Order->isVatEligible($delivery_address_id, $basket['customer_id']);
+		
+		//get basket
+		$basket = $this->getFullDetail($basket_id);
+		$this->calculateBasketSubTotals($basket, $include_vat);
+
+		//find promotion data for delivery calculation
+		if ($promotion_code) {
+			$promotion_data = $this->calculateBasketDiscount($basket, $promotion_code);
+		} else {
+			$promotion_data = false;
+		}
+		
+		//calculate delivery
+		require_once('models/ecommerce/ecommerce_delivery.php');
+		$Delivery = new ecommerce_delivery();
+		$delivery = $Delivery->calculateDelivery($basket, $delivery_address_id, $delivery_options, $promotion_data);
+		
+		return $delivery;
+		
+	}
+
 
 	/**
 	 * add to basket
@@ -240,30 +349,24 @@ CREATE TABLE ecommerce_basket (
 	 
 	function addToBasket($basket_id, $product_variety_id,  $quantity = 1, $other_data = array(), $price_id = false) {
 		
-		/**
-		 * get product info
-		 */
-		 
+		// get product info
 		require_once('models/ecommerce/ecommerce_product.php');
 		$Product = new ecommerce_product();
 		$product_data = $Product->getProductDetailByVarietyId($product_variety_id);
 		if (!is_numeric($price_id)) $price_id = $product_data['variety']['price']['id'];
 		$product_type_id = $product_data['variety']['product_type_id'];
 		
-		/**
-		 * get detail for current basket
-		 */
-		 
-		$basket_content_data_current = $this->getContent($basket_id);
-		
-		foreach ($basket_content_data_current['items'] as $current) {
+		// get detail for current basket
+		$basket = $this->getFullDetail($basket_id);
+
+		foreach ($basket['items'] as $item) {
 			//if the same variety_id, price_id and other_data, than do an update instead
-			if  ($current['product_variety_id'] == $product_variety_id && $current['price_id'] == $price_id && $current['other_data'] == $other_data) {
-				if ($this->updateBasketContent($basket_id, $current['id'], $current['quantity'] + $quantity)) {
+			if  ($item['product_variety_id'] == $product_variety_id && $item['price_id'] == $price_id && $item['other_data'] == $other_data) {
+				if ($this->updateBasketContent($basket_id, $item['id'], $item['quantity'] + $quantity)) {
 					msg("ecommerce_basket.addToBasket: Item in basket has been updated", 'ok', 2);
 					return true;
 				} else {
-					msg("Current item {$current['id']} was found in basket $basket_id, but cannot update.", 'error', 1);
+					msg("Current item {$item['id']} was found in basket $basket_id, but cannot update.", 'error', 1);
 					return false;
 				}
 			}
@@ -273,7 +376,14 @@ CREATE TABLE ecommerce_basket (
 		 * or insert as a new item
 		 */
 			
-		$basket_content_data = array('basket_id'=>$basket_id, 'product_variety_id'=>$product_variety_id, 'quantity'=>$quantity, 'price_id'=>$price_id, 'other_data'=>$other_data, 'product_type_id'=>$product_type_id);
+		$basket_content_data = array(
+			'basket_id' => $basket_id,
+			'product_variety_id' => $product_variety_id,
+			'quantity' => $quantity,
+			'price_id' => $price_id,
+			'other_data' => $other_data,
+			'product_type_id' => $product_type_id
+		);
 		
 		if ($this->insertItemIntoBasketContent($basket_content_data)) {
 			return true;
@@ -397,27 +507,6 @@ CREATE TABLE ecommerce_basket (
 
 		
 	/**
-	 * Discount
-	 */
-
-	function applyDiscount($basket_id, $discount_net) {
-	
-		if (!is_numeric($basket_id)) return false;
-		if (!is_numeric($discount_net)) return false;
-		
-		//msg("Setting discount $discount_net");
-		$basket_data = $this->detail($basket_id);
-		$basket_data['discount_net'] = $discount_net;
-		
-		if ($this->update($basket_data)) {
-			return true;
-		} else {
-			return false;
-		}
-		
-	}
-	
-	/**
 	 * delete unused baskets
 	 */
 	
@@ -462,41 +551,6 @@ CREATE TABLE ecommerce_basket (
 	}
 	
 	/**
-	 * calculateDelivery
-	 */
-	 
-	function calculateDelivery($basket_id, $delivery_address_id, $delivery_options, $promotion_code = false) {
-
-		// exclude vat for non-EU countries and whole sale customers
-		$basket_detail = $this->getDetail($basket_id); // read basket to get customer_id
-		$customer_id = $basket_detail['customer_id'];
-		require_once('models/ecommerce/ecommerce_order.php');
-		$Order = new ecommerce_order();
-		$exclude_vat = !$Order->isVatEligible($delivery_address_id, $customer_id);
-		
-		//get basket
-		$basket_detail = $this->getDetail($basket_id, $exclude_vat); // read basket again with correct vat
-		
-		//find promotion data for delivery calculation
-		if ($promotion_code) {
-			require_once('models/ecommerce/ecommerce_promotion.php');
-			$Promotion = new ecommerce_promotion();
-			$customer_id = $basket_detail['content']['customer_id'];
-			$promotion_data = $Promotion->checkCodeBeforeApply($promotion_code, $customer_id, $basket_detail);
-		} else {
-			$promotion_data = false;
-		}
-		
-		//calculate delivery
-		require_once('models/ecommerce/ecommerce_delivery.php');
-		$Ecommerce_Delivery = new ecommerce_delivery();
-		$delivery = $Ecommerce_Delivery->calculateDelivery($basket_detail['content'], $delivery_address_id, $delivery_options, $promotion_data);
-		
-		return $delivery;
-		
-	}
-
-	/**
 	 * Get customer's most recent basket that was not converted to an order yet
 	 * @param  int   $customer_id Customer Id
 	 * @return Array              Basket detail
@@ -505,16 +559,16 @@ CREATE TABLE ecommerce_basket (
 	{
 		if (!is_numeric($customer_id)) return false;
 
-		$sql = "SELECT b.* 
+		$sql = "SELECT b.*, o.id AS order_id
 			FROM ecommerce_basket AS b
 			LEFT JOIN ecommerce_order AS o ON o.basket_id = b.id
-			WHERE customer_id = $customer_id AND o.id IS NULL
+			WHERE customer_id = $customer_id
 			ORDER BY created DESC
 			LIMIT 1 OFFSET 0";
 
 		$records = $this->executeSql($sql);
 
-		if (isset($records[0])) return $records[0];
+		if (isset($records[0]) && !$records[0]['order_id']) return $records[0];
 		else return false;;
 	}
 

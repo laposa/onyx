@@ -2,7 +2,7 @@
 /**
  * class ecommerce_order
  *
- * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -33,15 +33,15 @@ class ecommerce_order extends Onxshop_Model {
 	 */
 	var $other_data;
 	/**
-		0 New (unpaid)
-		1 New (paid)
-		2 Dispatched
-		3 Complete
-		4 Cancelled
-		5 Failed payment
-		6 In Progress
-		7 Split
-		
+	 * 0 New (unpaid)
+	 * 1 New (paid)
+	 * 2 Dispatched
+	 * 3 Complete
+	 * 4 Cancelled
+	 * 5 Failed payment
+	 * 6 In Progress
+	 * 7 Split
+	 * 
 	 * @access private
 	 */
 	var $status;
@@ -78,22 +78,21 @@ class ecommerce_order extends Onxshop_Model {
 	 
 	private function getCreateTableSql() {
 	
-		$sql = "
-CREATE TABLE ecommerce_order (
-    id serial NOT NULL PRIMARY KEY,
-    basket_id integer REFERENCES ecommerce_basket ON UPDATE CASCADE ON DELETE RESTRICT,
-    invoices_address_id integer REFERENCES client_address ON UPDATE CASCADE ON DELETE RESTRICT,
-    delivery_address_id integer REFERENCES client_address ON UPDATE CASCADE ON DELETE RESTRICT,
-    other_data text,
-    status integer,
-    note_customer text,
-    note_backoffice text,
-    php_session_id character varying(32),
-    referrer character varying(255),
-    payment_type character varying(255),
-    created timestamp(0) without time zone DEFAULT now(),
-    modified timestamp(0) without time zone DEFAULT now()
-);
+		$sql = "CREATE TABLE ecommerce_order (
+		    id serial NOT NULL PRIMARY KEY,
+		    basket_id integer REFERENCES ecommerce_basket ON UPDATE CASCADE ON DELETE RESTRICT,
+		    invoices_address_id integer REFERENCES client_address ON UPDATE CASCADE ON DELETE RESTRICT,
+		    delivery_address_id integer REFERENCES client_address ON UPDATE CASCADE ON DELETE RESTRICT,
+		    other_data text,
+		    status integer,
+		    note_customer text,
+		    note_backoffice text,
+		    php_session_id character varying(32),
+		    referrer character varying(255),
+		    payment_type character varying(255),
+		    created timestamp(0) without time zone DEFAULT now(),
+		    modified timestamp(0) without time zone DEFAULT now()
+		);
 		";
 		
 		return $sql;
@@ -411,12 +410,16 @@ CREATE TABLE ecommerce_order (
 		
 		//get promotion code
 		$order['promotion_code'] = $this->getPromotionCode($id);
-		
+
 		//get basket detail
 		$basket_detail = $Basket->getDetail($order['basket_id']);
-		$exclude_vat = !$this->isVatEligible($order['delivery_address_id'], $basket_detail['customer_id']);
-		$basket_content = $Basket->getContent($order['basket_id'], GLOBAL_DEFAULT_CURRENCY, $exclude_vat);
+		$include_vat = $this->isVatEligible($order['delivery_address_id'], $basket_detail['customer_id']);
+		$basket_content = $Basket->getFullDetail($order['basket_id'], GLOBAL_DEFAULT_CURRENCY);
+		$Basket->calculateBasketSubTotals($basket_content, $include_vat);
+		$Basket->calculateBasketDiscount($basket_content, $order['promotion_code']);
 		$basket_content['delivery'] = $Delivery->getDeliveryByOrderId($id);
+		$Basket->calculateBasketTotals($basket_content);
+
 		$order['basket'] = $basket_content;	
 		
 		//get client detail
@@ -503,7 +506,7 @@ CREATE TABLE ecommerce_order (
 		$order_data['status'] = $status;
 		$order_data['modified'] = date('c');
 		$this->update($order_data);
-		
+
 		// log
 		require_once('models/ecommerce/ecommerce_order_log.php');
 		$OrderLog = new ecommerce_order_log();
@@ -746,9 +749,7 @@ CREATE TABLE ecommerce_order (
 	 */
 	function calculatePayableAmount($order_data) {
 
-		return round($order_data['basket']['total_after_discount'] + 
-			$order_data['basket']['delivery']['value_net'] + 
-			$order_data['basket']['delivery']['vat'], 2);
+		return round($order_data['basket']['total'], 2);
 	}
 
 
@@ -864,14 +865,14 @@ CREATE TABLE ecommerce_order (
 				basket_content.product_type_id AS product_type_id,
 				price.value AS price,
 				address.country_id AS delivery_country_id,
-				basket.discount_net AS discount,
+				basket.face_value_voucher AS face_value_voucher,
+				basket_content.discount AS discount,
 				basket_content.quantity AS quantity,
 				invoice.delivery_net AS delivery_net,
 				invoice.delivery_vat AS delivery_vat,
 				invoice.goods_net AS goods_net,
-				invoice.goods_vat_rr AS goods_vat_rr,
-				orders.id AS order_id,
-				invoice.goods_vat_sr AS goods_vat_sr
+				invoice.goods_vat AS goods_vat,
+				orders.id AS order_id
 			FROM ecommerce_invoice  AS invoice
 			LEFT JOIN ecommerce_order AS orders ON (orders.id = invoice.order_id) 
 			LEFT JOIN ecommerce_basket AS basket ON (basket.id = orders.basket_id) 
@@ -1015,6 +1016,7 @@ CREATE TABLE ecommerce_order (
 		if ($includeProducts) $sql .= ",
 				ecommerce_product.name AS product_name,
 				ecommerce_product_variety.name AS product_variety,
+				ecommerce_product_variety.sku AS sku,
 				ecommerce_basket_content.quantity AS product_quantity,
 				ecommerce_price.value AS product_price";
 

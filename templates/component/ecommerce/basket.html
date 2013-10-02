@@ -26,7 +26,7 @@
 			
 			<div class="checkout">
 				<div class="summary">
-					{I18N_ITEMS}: <strong>{BASKET.total_items_qty}</strong> <span class="delimiter">|</span> {I18N_TOTAL}: <strong>{BASKET.total|money_format('%n',%s)}</strong> {VAT_NOTE}
+					{I18N_ITEMS}: <strong>{BASKET.quantity}</strong> <span class="delimiter">|</span> {I18N_TOTAL}: <strong>{BASKET.total|money_format('%n',%s)}</strong> {VAT_NOTE}
 				</div>
 				<div class="go_to_checkout">
 					<a class="go_to_checkout" href="/page/{NODE_CONF.id_map-checkout}"><span>{I18N_CHECKOUT}</span></a>

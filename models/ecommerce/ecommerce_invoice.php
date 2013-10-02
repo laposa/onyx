@@ -68,6 +68,8 @@ class ecommerce_invoice extends Onxshop_Model {
 	var $other_data;
 	
 	var $basket_detail;
+
+	var $basket_detail_enhanced;
 	
 	var $customer_name;
 	
@@ -78,7 +80,7 @@ class ecommerce_invoice extends Onxshop_Model {
 	var $address_delivery;
 	
 	//voucher discount (face value voucher)
-	var $voucher_discount;
+	var $face_value_voucher;
 	
 	var $_metaData = array(
 		'id'=>array('label' => 'ID', 'validation'=>'int', 'required'=>true), 
@@ -95,11 +97,12 @@ class ecommerce_invoice extends Onxshop_Model {
 		'status'=>array('label' => '', 'validation'=>'int', 'required'=>true),
 		'other_data'=>array('label' => '', 'validation'=>'serialized', 'required'=>false),
 		'basket_detail'=>array('label' => '', 'validation'=>'xhtml', 'required'=>false),
+		'basket_detail_enhanced'=>array('label' => '', 'validation'=>'xhtml', 'required'=>false),
 		'customer_name'=>array('label' => '', 'validation'=>'string', 'required'=>true),
 		'customer_email'=>array('label' => '', 'validation'=>'email', 'required'=>true),
 		'address_invoice'=>array('label' => '', 'validation'=>'string', 'required'=>true),
 		'address_delivery'=>array('label' => '', 'validation'=>'string', 'required'=>false),
-		'voucher_discount'=>array('label' => '', 'validation'=>'decimal', 'required'=>false)
+		'face_value_voucher'=>array('label' => '', 'validation'=>'decimal', 'required'=>false)
 	);
 	
 	/**
@@ -124,11 +127,12 @@ CREATE TABLE ecommerce_invoice (
 	status smallint ,
 	other_data text,
 	basket_detail text,
+	basket_detail_enhanced text,
 	customer_name character varying(255) ,
 	customer_email character varying(255) ,
 	address_invoice text,
 	address_delivery text,
-	voucher_discount decimal(12,5)
+	face_value_voucher decimal(12,5)
 );
 		";
 		
@@ -192,13 +196,12 @@ CREATE TABLE ecommerce_invoice (
 		$order_data = $Order->getOrder($order_id);
 		
 		$invoice['order_id'] = $order_id;
-		$invoice['goods_net'] = $order_data['basket']['total_goods_net_before_discount'];
-		$invoice['goods_vat_sr'] = $order_data['basket']['total_vat'];
-		$invoice['goods_vat_rr'] = 0;
+		$invoice['goods_net'] = $order_data['basket']['sub_total']['net'];
+		$invoice['goods_vat'] = $order_data['basket']['sub_total']['vat'];
 		$invoice['delivery_net'] = $order_data['basket']['delivery']['value_net'];
 		$invoice['delivery_vat'] = $order_data['basket']['delivery']['vat'];
 
-		$invoice['payment_amount'] = $order_data['basket']['total_after_discount'] + $order_data['basket']['delivery']['value_net'] + $invoice['delivery_vat'];
+		$invoice['payment_amount'] = $order_data['basket']['total'];
 		
 		if ($order_data['payment_type'] != '') $invoice['payment_type'] = $order_data['payment_type'];
 		else $invoice['payment_type'] = 'n/a';
@@ -221,6 +224,8 @@ CREATE TABLE ecommerce_invoice (
 		//basket_detail
 		$_Onxshop_Request = new Onxshop_Request("component/ecommerce/basket_detail~id={$order_data['basket_id']}:order_id={$order_id}:delivery_address_id={$order_data['delivery_address_id']}:delivery_options[carrier_id]={$order_data['other_data']['delivery_options']['carrier_id']}~");
 		$invoice['basket_detail'] =  $_Onxshop_Request->getContent();
+		$_Onxshop_Request = new Onxshop_Request("component/ecommerce/basket_detail_enhanced~id={$order_data['basket_id']}:order_id={$order_id}:delivery_address_id={$order_data['delivery_address_id']}:delivery_options[carrier_id]={$order_data['other_data']['delivery_options']['carrier_id']}~");
+		$invoice['basket_detail_enhanced'] =  $_Onxshop_Request->getContent();
 		
 		//address_invoice
 		$_Onxshop_Request = new Onxshop_Request("component/client/address~invoices_address_id={$order_data['invoices_address_id']}:hide_button=1~");
@@ -230,15 +235,10 @@ CREATE TABLE ecommerce_invoice (
 		$invoice['address_delivery'] = $_Onxshop_Request->getContent();
 		
 		//get the text version
-  		
-  		//$invoice['basket_detail'] = html2text($invoice['basket_detail']);
-  		
   		$invoice['address_invoice'] = html2text($invoice['address_invoice']);
-		
   		$invoice['address_delivery'] = html2text($invoice['address_delivery']);
-  		
-  		$invoice['voucher_discount'] = $order_data['basket']['discount_net'];
-  		
+  		$invoice['face_value_voucher'] = $order_data['basket']['face_value_voucher'];
+
   		return $invoice;
 	}
 	

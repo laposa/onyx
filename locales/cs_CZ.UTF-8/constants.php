@@ -118,6 +118,7 @@ define('I18N_SUB_TOTAL', 'Celkem za zboží');
 define('I18N_DELIVERY', 'Poštovné a balné');
 define('I18N_YOUR_BASKET_IS_EMPTY', 'Váš košík je prázdný.');
 define('I18N_DISCOUNT', 'Sleva');
+define('I18N_DISCOUNT_OF', '');
 //component/ecommerce/promotion_code_basket.html
 define('I18N_PROMOTION_CODE_REMOVE', 'Odstranit kód');
 define('I18N_PROMOTION_CODE_HAVE_CODE', 'Máte slevový kód? Vložte zde');
@@ -144,6 +145,7 @@ define('I18N_PAY_BY_BANK_TRANSFER', 'Zaplatit bankovním převodem na účet');
 define('I18N_PAY_BY_CUSTOM', 'Instukce k platbě budou následovat');
 define('I18N_IS_THIS_A_GIFT', 'Je toto dárek? (nebudeme přikládat informace o ceně k doručení)');
 define('I18N_GIFT_MESSAGE', 'Darovací zpráva');
+define('I18N_GIFT_VOUCHER_OF', 'Dárkový poukaz v hodnotě');
 //component/ecommerce/checkout_basket.html
 define('I18N_EDIT_BASKET', 'Editovat košík');
 //component/ecommerce/invoice.html

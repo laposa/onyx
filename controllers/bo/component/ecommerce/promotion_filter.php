@@ -21,6 +21,8 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Promotion_Filter extends Onxshop
 		if (isset($_POST['voucher-filter'])) {
 			$_SESSION['voucher-filter'] = $_POST['voucher-filter'];
 			onxshopGoTo('/backoffice/marketing');
+		} else {
+			if (!isset($_SESSION['voucher-filter']['type'])) $_SESSION['voucher-filter']['type'] = 1;
 		}
 
 		$this->parseTypeSelect($_SESSION['voucher-filter']['type']);

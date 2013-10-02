@@ -4,7 +4,7 @@
 	<!-- BEGIN: basket -->
 	<form action="{URI|htmlspecialchars}" method="post">
 		<p class="top">
-			<a class="button continue_shopping" href="{CONTINUE_SHOPPING_URL}"><span>{I18N_CONTINUE_SHOPPING}</span></a>
+			<a class="button continue_shopping" href="{BASKET_CONTINUE_SHOPPING_URL}"><span>{I18N_CONTINUE_SHOPPING}</span></a>
 			<a class="button checkout" href="/page/{NODE_CONF.id_map-checkout}"><span>{I18N_PROCEED_TO_CHECKOUT}</span></a>
 		</p>
 		<table class="items">
@@ -30,7 +30,13 @@
 						{ONXSHOP_REQUEST_discount #component/ecommerce/promotion_code_basket~id=GET.id~}
 					</td>
 					<td class="update"><button class="update" type="submit" name="update" value="Update"><span>{I18N_UPDATE}</span></button></td>
-					<td colspan="2" class="sub_total money">{I18N_SUB_TOTAL} {VAT_NOTE} {BASKET.total|money_format('%n',%s)}<!-- BEGIN: discount --><br />{I18N_DISCOUNT} {BASKET.discount_net|money_format('%n',%s)}<br />After Discount {BASKET.total_after_discount|money_format('%n',%s)}<!-- END: discount --></td>
+					<td colspan="2" class="sub_total money">{I18N_SUB_TOTAL} {VAT_NOTE} {BASKET.sub_total.price|money_format('%n',%s)}<!-- BEGIN: face_value_voucher --><br />{I18N_GIFT_VOUCHER_OF} {BASKET.face_value_voucher_claim|money_format('%n',%s)|str_replace('.00', '', %s)} -{BASKET.face_value_voucher|money_format('%n',%s)}<br />
+							After Discount {BASKET.total|money_format('%n',%s)}
+						<!-- END: face_value_voucher --><!-- BEGIN: discount --><br />
+							{I18N_DISCOUNT} -{BASKET.discount|money_format('%n',%s)}<br />
+							After Discount {BASKET.total|money_format('%n',%s)}
+						<!-- END: discount -->
+					</td>
 				</tr>
 			</tfoot>
 			<tbody>
@@ -40,8 +46,8 @@
 				<td class="product_detail"><div class="image"><a href="/page/{ITEM.product.node.id}" title="{ITEM.product.node.title|htmlspecialchars}">{IMAGE_PRODUCT}</a></div><a href="/page/{ITEM.product.node.id}" title="{ITEM.product.node.title|htmlspecialchars}">{ITEM.product.name|htmlspecialchars}</a><br />{ITEM.product.variety.name|htmlspecialchars} ({ITEM.product.variety.sku|htmlspecialchars}) {ITEM.other_data|htmlspecialchars}
 				</td>
 				<td class="quanity"><input class="text basket_content-quantity" type="text" name="basket_content[{ITEM.id}][quantity]" value="{ITEM.quantity}" onfocus="$('button.update').addClass('highlightbutton');"/></td>
-				<td class="price money">{ITEM.price|money_format('%n',%s)}</td>
-				<td class="total money">{ITEM.total|money_format('%n',%s)}</td>
+				<td class="price money">{ITEM.unit_price|money_format('%n',%s)}</td>
+				<td class="total money">{ITEM.price|money_format('%n',%s)}</td>
 			</tr>
 				<!-- END: item -->
 				
@@ -51,7 +57,7 @@
 	</form>
 	
 	<p class="bottom">
-		<a class="button continue_shopping" href="{CONTINUE_SHOPPING_URL}"><span>{I18N_CONTINUE_SHOPPING}</span></a>
+		<a class="button continue_shopping" href="{BASKET_CONTINUE_SHOPPING_URL}"><span>{I18N_CONTINUE_SHOPPING}</span></a>
 		<a class="button checkout" href="/page/{NODE_CONF.id_map-checkout}"><span>{I18N_PROCEED_TO_CHECKOUT}</span></a>
 	</p>
 	
@@ -59,7 +65,7 @@
 	
 	<!-- BEGIN: empty -->
 	<p class="empty">{I18N_YOUR_BASKET_IS_EMPTY}</p>
-	<p><a class="button continue_shopping" href="{CONTINUE_SHOPPING_URL}"><span>{I18N_CONTINUE_SHOPPING}</span></a></p>
+	<p><a class="button continue_shopping" href="{BASKET_CONTINUE_SHOPPING_URL}"><span>{I18N_CONTINUE_SHOPPING}</span></a></p>
 	<!-- END: empty -->
 
 </div>

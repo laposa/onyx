@@ -41,7 +41,7 @@ class Onxshop_Controller_Component_Ecommerce_Payment extends Onxshop_Controller 
 	public function mainPaymentAction() {
 
 		setlocale(LC_MONETARY, $GLOBALS['onxshop_conf']['global']['locale']);
-		
+
 		/**
 		 * check input values
 		 */
@@ -74,9 +74,9 @@ class Onxshop_Controller_Component_Ecommerce_Payment extends Onxshop_Controller 
 		/**
 		 * get order detail
 		 */
-		
+
 		$order_data = $this->Transaction->getOrderDetail($order_id);
-		
+
 		// need to assign ORDER detail into template before processing Google Analytics
 		$this->tpl->assign("ORDER", $order_data);
 		
@@ -107,7 +107,7 @@ class Onxshop_Controller_Component_Ecommerce_Payment extends Onxshop_Controller 
 		 */
 		 
 		$payment_type = $this->Transaction->getPaymentTypeForOrder($order_id);
-		
+
 		/**
 		 * check whether payment is supported
 		 */
@@ -135,7 +135,7 @@ class Onxshop_Controller_Component_Ecommerce_Payment extends Onxshop_Controller 
 
 		if ($this->checkOrderStatusValidForPayment($order_data['status'])) {
 		
-			$total_payment_amount = $order_data['basket']['total_after_discount'] + $order_data['basket']['delivery']['value'];
+			$total_payment_amount = $order_data['basket']['total'];
 			
 			if(round($total_payment_amount, 2) == 0) {
 				
@@ -201,10 +201,11 @@ class Onxshop_Controller_Component_Ecommerce_Payment extends Onxshop_Controller 
 	 */
 	 
 	public function processNilPayment($order_data) {
-		
+
 		if (!is_array($order_data)) return false;
-		if ($order_data['basket']['total_after_discount'] > 0) return false;
-		
+		if ($order_data['basket']['total'] > 0) return false;
+
+
 		require_once('models/ecommerce/ecommerce_order.php');
 		$EcommerceOrder = new ecommerce_order();
 		$EcommerceOrder->setCacheAble(false);

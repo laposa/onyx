@@ -167,7 +167,6 @@ CREATE TABLE ecommerce_transaction (
     	$Order = new ecommerce_order();
     	$Order->setCacheable(false);
     	$order_data = $Order->getOrder($order_id);
-    	//$order_data['basket']['total'] = $order_data['basket']['total'] + $order_data['basket']['delivery']['value'];
     	return $order_data;
     }
     
