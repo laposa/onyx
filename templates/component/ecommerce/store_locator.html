@@ -100,13 +100,12 @@
 	function showInfoBox(marker) {
 		if (infoWindow) infoWindow.close();
 		infoWindow = new InfoBox({
-			content: "<h3 style='margin: 15px 0 10px 20px; font-size: 18px; color: #008b95;'>" + marker.title + "</h3>" +
-				'<p style="font-size: 14px; width: 340px;">' +
-				'<span style="float: left; margin: 0 20px 0 20px; border-radius: 100%; width: 130px; height: 130px; overflow: hidden; display: block;"><img style="border-radius: 100%; width: 130px;" src="' + marker.image + '"/></span>' +
-				'<strong>' + marker.address + '</strong><br/>' +
-				marker.opening_hours + '<br/>' +
-				marker.telephone + '<br/>' +
-				'<a href="#" onclick="getDirections(' + marker.position.lat() + ', ' + marker.position.lng() + '); return false">Directions</a></p>',
+			content: "<h3>" + marker.title + "</h3>" +
+				'<p class="image"><img src="' + marker.image + '"/></p>' +
+				'<p class="address">' + marker.address + '</p>' +
+				'<p class="opening_hours">' + marker.opening_hours + '</p>' +
+				'<p class="telephone">' + marker.telephone + '</p>' +
+				'<p class="directions"><a href="#" onclick="getDirections(' + marker.position.lat() + ', ' + marker.position.lng() + '); return false">Directions</a></p>',
 			boxStyle: {
 				background: "url('/images/map-infobox1.png')",
 				width: "360px",

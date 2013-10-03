@@ -251,3 +251,17 @@ a.add_to_basket.loading {background: url(/share/images/ajax-indicator/indicator_
  */
  
 div.store_map img {max-width: none;}
+
+/**
+ * component/ecommerce/store_locator.html
+ * store locator infoBox
+ */
+
+div.store_locator #mapCanvas div.infoBox,
+div.store_locator #mapCanvas div.infoBox div,
+div.store_locator #mapCanvas div.infoBox span,
+div.store_locator #mapCanvas div.infoBox a {font-family: inherit; font-size: inherit; font-weight: inherit;}
+div.store_locator #mapCanvas div.infoBox p {width: 340px; margin: 0; padding: 0;}
+div.store_locator #mapCanvas div.infoBox p.image {float: left; width: 130px; height: 130px; margin: 0 20px 0 20px; border-radius: 100%; overflow: hidden; }
+div.store_locator #mapCanvas div.infoBox p.image img {width: 130px; border-radius: 100%;}
+div.store_locator #mapCanvas div.infoBox p.address {font-weight: bold;}
