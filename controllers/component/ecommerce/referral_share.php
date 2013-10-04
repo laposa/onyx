@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2012 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2012-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -44,11 +44,12 @@ class Onxshop_Controller_Component_Ecommerce_Referral_Share extends Onxshop_Cont
 				"elegant JINGware specifically designed to infuse their teas." .
 				"\n\n" .
 				"As we all appreciate tea, I have chosen you to receive £5.00 off when you " .
-				" spend over £20.00 on your first order." .
+				" spend over " . money_format("%n", self::MINIMUM_ORDER_AMOUNT) . " on your first order." .
 				"\n\n" .
 				"Your £5 JING voucher is: " . $code . "." .
 				"\n\n" .
-				"If you use the code I shall also receive a £5.00 discount on my next order over £20.00." .
+				"If you use the code I shall also receive a £5.00 discount on my next order over " . 
+				money_format("%n", self::MINIMUM_ORDER_AMOUNT) .
 				"\n\n" .
 				"  Browse JING Tea’s range at http://jingtea.com, and don’t forget to use your code at the check-out." .
 				"\n\n" .

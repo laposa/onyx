@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2012 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2012-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -34,7 +34,7 @@ class Onxshop_Controller_Component_Ecommerce_Referral extends Onxshop_Controller
 	 * This could be constant for now, but there is a plan
 	 * to make this variable adjustable (per user group)
 	 */
-	const MINIMUM_ORDER_AMOUNT = 20;
+	const MINIMUM_ORDER_AMOUNT = 30;
 
 	/**
 	 * "Welcome to Jing Tea" page id
