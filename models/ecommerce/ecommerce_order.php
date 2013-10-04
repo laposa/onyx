@@ -416,7 +416,7 @@ class ecommerce_order extends Onxshop_Model {
 		$include_vat = $this->isVatEligible($order['delivery_address_id'], $basket_detail['customer_id']);
 		$basket_content = $Basket->getFullDetail($order['basket_id'], GLOBAL_DEFAULT_CURRENCY);
 		$Basket->calculateBasketSubTotals($basket_content, $include_vat);
-		$Basket->calculateBasketDiscount($basket_content, $order['promotion_code']);
+		$Basket->calculateBasketDiscount($basket_content, $order['promotion_code'], false);
 		$basket_content['delivery'] = $Delivery->getDeliveryByOrderId($id);
 		$Basket->calculateBasketTotals($basket_content);
 

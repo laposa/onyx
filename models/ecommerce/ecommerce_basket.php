@@ -185,7 +185,7 @@ class ecommerce_basket extends Onxshop_Model {
 	 * apply discount code
 	 * requires basket full detail with calculated sub totals
 	 */
-	public function calculateBasketDiscount(&$basket, $code)
+	public function calculateBasketDiscount(&$basket, $code, $check_code = true)
 	{
 		$promotion_data = false;
 
@@ -202,7 +202,8 @@ class ecommerce_basket extends Onxshop_Model {
 			$Promotion = new ecommerce_promotion();
 			$Promotion->setCacheable(false);
 
-			$promotion_data = $Promotion->checkCodeBeforeApply($code, $basket['customer_id'], $basket);
+			if ($check_code) $promotion_data = $Promotion->checkCodeBeforeApply($code, $basket['customer_id'], $basket);
+			else $promotion_data = $Promotion->checkCodeMatch($code);
 
 			if ($promotion_data) {
 

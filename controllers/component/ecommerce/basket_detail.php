@@ -7,6 +7,7 @@
 require_once('controllers/component/ecommerce/basket.php');
 require_once('models/ecommerce/ecommerce_delivery.php');
 require_once('models/ecommerce/ecommerce_order.php');
+require_once('models/ecommerce/ecommerce_promotion.php');
 
 class Onxshop_Controller_Component_Ecommerce_Basket_Detail extends Onxshop_Controller_Component_Ecommerce_Basket {
 
@@ -46,11 +47,47 @@ class Onxshop_Controller_Component_Ecommerce_Basket_Detail extends Onxshop_Contr
 		$this->setVatFlag($basket['customer_id']);
 
 		$this->Basket->calculateBasketSubTotals($basket, $this->include_vat);
-		$promotion_data = $this->Basket->calculateBasketDiscount($basket, $this->getPromotionCode());
-		$this->calculateDelivery($basket, $promotion_data);
+		$this->calculateDiscountAndDelivery($basket);
+
 		$this->Basket->calculateBasketTotals($basket);
 	}
 
+	protected function calculateDiscountAndDelivery(&$basket)
+	{
+
+		$Delivery = new ecommerce_delivery();
+
+		if ($this->orderFinished($basket['id'], $this->GET['order_id'])) {
+
+			$Promotion = new ecommerce_promotion();
+			$Promotion->setCacheable(false);
+
+			$code = $Promotion->getPromotionCodeForOrder($this->GET['order_id']);
+			$verify_code = false;
+			$this->Basket->calculateBasketDiscount($basket, $code, $verify_code);
+			$basket['delivery'] = $Delivery->getDeliveryByOrderId($this->GET['order_id']);
+
+		} else {
+
+			$code = $_SESSION['promotion_code'];
+			$verify_code = true;
+			$promotion_data = $this->Basket->calculateBasketDiscount($basket, $code, $verify_code);
+			$basket['delivery'] = $Delivery->calculateDelivery($basket, $this->delivery_address_id, $this->delivery_options, $promotion_data);
+
+		}
+
+	}
+
+	/**
+	 * check if given order is finished and related to given basket
+	 */
+	protected function orderFinished($basket_id, $order_id)
+	{
+		if (!is_numeric($order_id)) return false;
+		$Order = new ecommerce_order();
+		$order = $Order->getDetail($order_id);
+		return ($order['basket_id'] == $basket_id);
+	}
 
 	/**
 	 * prepare addresses
@@ -68,34 +105,4 @@ class Onxshop_Controller_Component_Ecommerce_Basket_Detail extends Onxshop_Contr
 		else $this->delivery_options = false;
 	}
 
-	/**
-	 * calculate delivery
-	 * @param  [type] $basket [description]
-	 * @return [type]         [description]
-	 */
-	protected function calculateDelivery(&$basket, $promotion_data)
-	{
-		$Delivery = new ecommerce_delivery();
-
-		// use delivery from the ecommerce_delivery table (contains right values if a promotion code have been applied before)
-		if (is_numeric($order_id = $this->GET['order_id']))
-			$basket['delivery'] = $Delivery->getDeliveryByOrderId($order_id);
-		else 
-			$basket['delivery'] = $Delivery->calculateDelivery($basket, $this->delivery_address_id, $this->delivery_options, $promotion_data);
-	}	
-
-	protected function getPromotionCode()
-	{
-		if (is_numeric($order_id = $this->GET['order_id'])) {
-
-			require_once('models/ecommerce/ecommerce_promotion.php');
-			$Promotion = new ecommerce_promotion();
-			return $Promotion->getPromotionCodeForOrder($order_id);
-
-		} else {
-
-			return $_SESSION['promotion_code'];
-
-		}
-	}
 }
