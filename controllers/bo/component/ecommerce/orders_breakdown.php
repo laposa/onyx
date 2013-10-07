@@ -155,7 +155,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Orders_Breakdown extends Onxshop
 				if ($item_gross > 0) {
 					$breakdown['goods'][$type][$delivery][$vat]['gross_pre_discount'] += $item_gross;
 					$breakdown['goods'][$type][$delivery][$vat]['discount'] -= $item['discount'];
-				} else die("!");
+				}
 
 			}
 
