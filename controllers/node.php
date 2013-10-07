@@ -84,8 +84,13 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 		 */
 		 
 		if ($node_data['require_login'] == 1 && $_SESSION['client']['customer']['id'] == 0) {
-			//msg('You must be logged in first.');
-			$_SESSION['to'] = "page/{$node_id}";
+			
+			if (is_array($_GET) && count($_GET) > 0) $query_params = http_build_query($_GET);
+			else $query_params = false;
+			
+			if ($query_params) $_SESSION['to'] = "page/{$node_id}?$query_params";
+			else $_SESSION['to'] = "page/{$node_id}";
+			
 			onxshopGoTo("page/" . $this->Node->conf['id_map-login']);//will exit immediatelly
 		}
 		
