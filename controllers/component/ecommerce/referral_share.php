@@ -46,12 +46,12 @@ class Onxshop_Controller_Component_Ecommerce_Referral_Share extends Onxshop_Cont
 				"As we all appreciate tea, I have chosen you to receive £5.00 off when you " .
 				" spend over " . money_format("%n", self::MINIMUM_ORDER_AMOUNT) . " on your first order." .
 				"\n\n" .
-				"Your £5 JING voucher is: " . $code . "." .
+				"Your £5.00 discount JING voucher is: " . $code . "." .
 				"\n\n" .
-				"If you use the code I shall also receive a £5.00 discount on my next order over " . 
+				"If you use this code I shall also receive a £5.00 discount on my next order over " . 
 				money_format("%n", self::MINIMUM_ORDER_AMOUNT) .
 				"\n\n" .
-				"  Browse JING Tea’s range at http://jingtea.com, and don’t forget to use your code at the check-out." .
+				"  Browse JING Tea’s range at http://jingtea.com, and don’t forget to use your code at the checkout." .
 				"\n\n" .
 				"  With warm regards, \n" .
 				$_SESSION['client']['customer']['first_name'];
