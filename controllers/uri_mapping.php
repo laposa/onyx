@@ -59,6 +59,10 @@ class Onxshop_Controller_Uri_Mapping extends Onxshop_Controller {
 				 */
 				
 				$this->redirectToSeoURLAndExit($redirect_uri['node_id']);
+			
+			} else if ($translate == '/home') {
+				
+				$action_to_process = $this->getActionToProcessForExistingPage($this->Mapper->conf['homepage_id']);
 				
 			} else {
 				
