@@ -72,6 +72,7 @@ class Onxshop_Controller_Component_Ecommerce_Basket_Detail extends Onxshop_Contr
 			$code = $_SESSION['promotion_code'];
 			$verify_code = true;
 			$promotion_data = $this->Basket->calculateBasketDiscount($basket, $code, $verify_code);
+			$this->Basket->saveDiscount($basket);
 			$basket['delivery'] = $Delivery->calculateDelivery($basket, $this->delivery_address_id, $this->delivery_options, $promotion_data);
 
 		}

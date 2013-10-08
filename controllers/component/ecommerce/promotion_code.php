@@ -56,6 +56,7 @@ class Onxshop_Controller_Component_Ecommerce_Promotion_code extends Onxshop_Cont
 			$basket = $Basket->getFullDetail($_SESSION['basket']['id']);
 			$Basket->calculateBasketSubTotals($basket, $this->isVatEligible($basket['customer_id']));
 			$Basket->calculateBasketDiscount($basket, $_SESSION['promotion_code']);
+			$Basket->saveDiscount($basket);
 		}
 		else $basket = false;
 		
