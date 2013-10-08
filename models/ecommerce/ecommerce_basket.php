@@ -224,8 +224,6 @@ class ecommerce_basket extends Onxshop_Model {
 
 		}
 
-		$this->saveDiscount($basket);
-
 		return $promotion_data;
 
 	}
@@ -290,7 +288,7 @@ class ecommerce_basket extends Onxshop_Model {
 	/**
 	 * Save calculated discount to table
 	 */
-	protected function saveDiscount(&$basket)
+	public function saveDiscount(&$basket)
 	{
 		// save face value
 		$this->update(array('id' => $basket['id'], 'face_value_voucher' => $basket['face_value_voucher']));

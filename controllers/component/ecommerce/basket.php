@@ -86,6 +86,7 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 	{
 		$this->Basket->calculateBasketSubTotals($basket, $this->include_vat);
 		$this->Basket->calculateBasketDiscount($basket, $_SESSION['promotion_code']);
+		$this->Basket->saveDiscount($basket);
 		$this->Basket->calculateBasketTotals($basket);
 	}
 
