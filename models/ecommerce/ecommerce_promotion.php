@@ -312,7 +312,8 @@ CREATE TABLE ecommerce_promotion (
 					LEFT JOIN ecommerce_order eorder ON (eorder.id = invoice.order_id)
 					LEFT JOIN ecommerce_basket basket ON (basket.id = eorder.basket_id)
 					LEFT JOIN ecommerce_basket_content basket_content ON (basket.id = basket_content.basket_id)
-					WHERE code.promotion_id = {$record['id']} AND invoice.status = 1";
+					WHERE code.promotion_id = {$record['id']} AND invoice.status = 1
+					$add_to_where";
 
 				if ($records2 = $this->executeSql($sql)) {
 					$record['sum_discount'] = $records2[0]['sum_discount'];
