@@ -237,23 +237,32 @@ div.image_gallery div.thumbnails div.item {float: left; min-height: 50px;}
 div.image_gallery div.thumbnails div.item img {padding: 0 10px 10px 0;}
 div.image_gallery a {text-decoration: none;}
 
-/********* component/image_gallery_smooth.html *********/
-div.image_gallery_smooth {border: 0; position: relative;}
-div.image_gallery_smooth div.controls {z-index: 1000; position: absolute; top: 0; left: 0; display: none;}
-div.image_gallery_smooth div.controls a.prev,
-div.image_gallery_smooth div.controls a.next {width: 30px; height: 27px; display: block; opacity: 0.9;}
-div.image_gallery_smooth div.controls a span {display: none;}
-div.image_gallery_smooth div.controls a.prev {background: url(/share/images/default/arrow-left.gif) center left no-repeat; float: left;}
-div.image_gallery_smooth div.controls a.next {background: url(/share/images/default/arrow-right.gif) center right no-repeat; float: right;}
-div.image_gallery_smooth div.controls div.pagination {float: left; margin: 0;}
-div.image_gallery_smooth div.controls div.pagination a {float: left; display: block; padding: 3px 7px;}
-div.image_gallery_smooth div.imageInfo {display: none;}
+/********* component/image_gallery/cycle.html *********/
+div.image_gallery_cycle {border: 0; position: relative;}
+div.image_gallery_cycle div.controls {z-index: 1000; position: absolute; top: 0; left: 0; display: none;}
+div.image_gallery_cycle div.controls a.prev,
+div.image_gallery_cycle div.controls a.next {width: 30px; height: 27px; display: block; opacity: 0.9;}
+div.image_gallery_cycle div.controls a span {display: none;}
+div.image_gallery_cycle div.controls a.prev {background: url(/share/images/default/arrow-left.gif) center left no-repeat; float: left;}
+div.image_gallery_cycle div.controls a.next {background: url(/share/images/default/arrow-right.gif) center right no-repeat; float: right;}
+div.image_gallery_cycle div.controls div.pagination {float: left; margin: 0;}
+div.image_gallery_cycle div.controls div.pagination a {float: left; display: block; padding: 3px 7px;}
+div.image_gallery_cycle div.imageInfo {display: none;}
 
-/********* component/image_gallery_fancybox.html *********/
+/********* component/image_gallery/fancybox.html *********/
 div.image_gallery_fancybox div.item {float: left; margin-right: 10px;}
 
-/********* component/image_gallery_prettyphoto.html *********/
+/********* component/image_gallery/prettyphoto.html *********/
 div.image_gallery_prettyphoto div.item {float: left; margin-right: 10px;}
+
+/********* component/image_gallery/parallax.html *********/
+div.image_gallery_parallax {text-align: center; background: black;}
+div.image_gallery_parallax div.item {opacity: 0.5; background-position-x: center;}
+div.image_gallery_parallax div.item:hover {opacity: 1;}
+div.image_gallery_parallax div.sliderCopy {padding-top: 150px; text-align: center; color: white;}
+div.image_gallery_parallax a {color: white;}
+div.image_gallery_parallax div.sliderCopy h3 {text-align: center;}
+div.image_gallery_parallax div.item {margin: 0; background-repeat: no-repeat; background-size: cover; height: 500px; background-attachment: fixed;}
 
 /********* component/google_picasa_feed.html *********/
 div.googlePicasaFeed div.imageThumbnailsContainer {width: 750px; height: 100px; overflow: auto; white-space: nowrap;}
