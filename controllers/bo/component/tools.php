@@ -21,7 +21,9 @@ class Onxshop_Controller_Bo_Component_Tools extends Onxshop_Controller {
 		
 		switch ($tool) {
 			case 'uri':
-				$_Onxshop_Request = new Onxshop_Request("uri_mapping~generate=1~");
+				require_once('models/common/common_uri_mapping.php');
+				$CommonURIMapping = new common_uri_mapping();
+				$CommonURIMapping->generateAndSaveURITable();
 				msg("Nice URLs has been completely generated");
 			break;
 			case 'flush_thumb':

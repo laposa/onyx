@@ -88,13 +88,12 @@ ALTER TABLE common_uri_mapping ADD UNIQUE (public_uri);
 	 * 
 	 */
 		
-	function __construct($update = 0) {
+	function __construct() {
 	
 		$this->_class_name = get_class($this);
 		$this->generic();
 		
-		if (!is_numeric($update)) $update = 0;
-		$this->_rewrite_table = $this->getGenericURITable($update);
+		$this->_rewrite_table = $this->getGenericURITable();
 	}
 
 
@@ -280,12 +279,40 @@ ALTER TABLE common_uri_mapping ADD UNIQUE (public_uri);
 	function getGenericURITable($update = 0) {
 	
 		if ($update == 1) {
+			
+			$rewrite_table = $this->generateAndSaveURITable();
+			
+		} else {
+		
+			//get from database
+			$rt = $this->listing("type = 'generic'");
+			foreach ($rt as $r) {
+				$rewrite_table[$r['node_id']] = $r['public_uri'];
+			}
+		
+		}
+		
+		return $rewrite_table;
+	}
+	
+	/**
+	 * generateAndSaveURITable
+	 * 
+	 * @return array
+	 * rewrite table
+	 */
+	
+	public function generateAndSaveURITable() {
+				
+		//creating rewrite table
+		$rewrite_table = $this->generateURITable();
+
+
+		if ($rewrite_table) {
+
 			//delete old one
 			$this->deleteURIMapping();
-			
-			//creating rewrite table
-			$rewrite_table = $this->generateURITable();
-
+		
 			//insert in the DB
 			foreach ($rewrite_table as $key=>$val) {
 				$item['node_id'] = $key;
@@ -293,15 +320,17 @@ ALTER TABLE common_uri_mapping ADD UNIQUE (public_uri);
 				$item['type'] = 'generic';
 				$this->insert($item);
 			}
+			
 			msg("URI table has been generated");
+			
+			return $rewrite_table;
+		
 		} else {
-			//get from database
-			$rt = $this->listing("type = 'generic'");
-			foreach ($rt as $r) {
-				$rewrite_table[$r['node_id']] = $r['public_uri'];
-			}
+			
+			return false;
+			
 		}
-		return $rewrite_table;
+		
 	}
 
 	/**
