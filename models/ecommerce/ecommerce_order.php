@@ -442,9 +442,42 @@ class ecommerce_order extends Onxshop_Model {
 		
 		//get transaction detail
 		$order['transaction'] = $this->getTransactionDetail($id);
-		
+	
+		// get stats
+		$order['client']['stats'] = $this->getNumberOfCustomersOrders($basket_detail['customer_id']);	
+
 		//print_r($order);
 		return $order;
+	}
+
+	/**
+	 * Get number of customer's orders
+	 * @param  int   $customer_id Customer Id
+	 * @return array              Array of two integers - number of completed and number of uncompleted orders
+	 */
+	public function getNumberOfCustomersOrders($customer_id)
+	{
+		if (!is_numeric($customer_id)) return 0;
+
+		$sql = "SELECT count(*) AS item_count FROM ecommerce_order
+			LEFT OUTER JOIN ecommerce_basket ON (ecommerce_basket.id = ecommerce_order.basket_id)
+			LEFT OUTER JOIN client_customer ON (client_customer.id = ecommerce_basket.customer_id)
+			WHERE ecommerce_order.status IN (1, 2, 3, 7) AND client_customer.id = $customer_id";
+
+		$record1 = $this->executeSql($sql);
+
+		$sql = "SELECT count(*) AS item_count FROM ecommerce_order
+			LEFT OUTER JOIN ecommerce_basket ON (ecommerce_basket.id = ecommerce_order.basket_id)
+			LEFT OUTER JOIN client_customer ON (client_customer.id = ecommerce_basket.customer_id)
+			WHERE ecommerce_order.status NOT IN (1, 2, 3, 7) AND client_customer.id = $customer_id";
+
+		$record2 = $this->executeSql($sql);
+
+		return array(
+			'completed' => (int) $record1[0]['item_count'],
+			'uncompleted' => (int) $record2[0]['item_count']
+		);
+
 	}
 
 	/**
