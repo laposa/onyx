@@ -75,6 +75,18 @@ CREATE TABLE common_image (
 		
 		/**
 		 * set default values if empty
+		 *
+		 * This settings doesn't have any effect in share/image_thumbnail.php
+		 * due to missing database connection for better performance.
+		 *
+		 * See https://github.com/laposa/onxshop/issues/8
+		 * 
+		 * You can create local overwrite in ONXSHOP_PROJECT_DIR . 'conf/common_image.php':
+		 *
+		 * 	$GLOBALS['onxshop_conf']['common_image'] = array(
+		 *		'width_max' => 1600,
+		 *		'thumbnail_width_max' => 1600
+		 *	);
 		 */
 		
 		if (!is_numeric($conf['width_max'])) $conf['width_max'] = 1000;

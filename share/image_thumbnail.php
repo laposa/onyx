@@ -39,13 +39,22 @@ require_once(ONXSHOP_DIR . "lib/onxshop.functions.php");
 require_once(ONXSHOP_DIR . "lib/onxshop.model.php");
 
 /**
- * get common_image configuration
+ * onxshop_conf local overwrite due to missing database connection
+ * See https://github.com/laposa/onxshop/issues/8
  */
 
 $GLOBALS['onxshop_conf'] = array();
+ 
+$local_configuration_overwrite_file = ONXSHOP_PROJECT_DIR . 'conf/common_image.php';
+if (file_exists($local_configuration_overwrite_file)) include_once($local_configuration_overwrite_file);
+
+/**
+ * get common_image configuration
+ */
+ 
 require_once(ONXSHOP_DIR . "models/common/common_image.php");
 $image_configuration = common_image::initConfiguration();
-
+	
 /**
  * check requested width
  */
