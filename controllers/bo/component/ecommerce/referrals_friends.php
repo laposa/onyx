@@ -63,28 +63,30 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Referrals_Friends extends Onxsho
 
 			$ref_usage = $this->Promotion_Code->getUsageOfSingleCode($ref_promotion['code_pattern']);
 
-			foreach ($ref_usage as $item) {
+			if ($ref_usage) {
+				foreach ($ref_usage as $item) {
 
-				$hasReward = false;
-				foreach ($rew_promotions as $rew_promotion) {
+					$hasReward = false;
+					foreach ($rew_promotions as $rew_promotion) {
 
-					if ($rew_promotion['generated_by_order_id'] == $item['order_id']) {
-						$hasReward = true;
-						$rew_promotion['friend'] = $this->Customer->getDetail($rew_promotion['generated_by_customer_id']);
-						$count_usage = $this->Promotion->getCountUsageOfSingleCode($rew_promotion['code_pattern']);
-						$rew_promotion['used'] = $count_usage > 0 ? "Yes" : "No";
-						$rew_promotion['address'] = $this->getAddresses($rew_promotion['generated_by_order_id']);
-						$this->tpl->assign("ITEM", $rew_promotion);
-						$this->tpl->parse("content.friends_list.item");
+						if ($rew_promotion['generated_by_order_id'] == $item['order_id']) {
+							$hasReward = true;
+							$rew_promotion['friend'] = $this->Customer->getDetail($rew_promotion['generated_by_customer_id']);
+							$count_usage = $this->Promotion->getCountUsageOfSingleCode($rew_promotion['code_pattern']);
+							$rew_promotion['used'] = $count_usage > 0 ? "Yes" : "No";
+							$rew_promotion['address'] = $this->getAddresses($rew_promotion['generated_by_order_id']);
+							$this->tpl->assign("ITEM", $rew_promotion);
+							$this->tpl->parse("content.friends_list.item");
+						}
 					}
-				}
 
-				if (!$hasReward) {
-					$order = $this->Order->getOrder($item['order_id']);
-					$item['friend'] = $this->Customer->getDetail($order['basket']['customer_id']);
-					$item['order'] = $order;
-					$this->tpl->assign("ITEM", $item);
-					$this->tpl->parse("content.friends_list.unfinished");
+					if (!$hasReward) {
+						$order = $this->Order->getOrder($item['order_id']);
+						$item['friend'] = $this->Customer->getDetail($order['basket']['customer_id']);
+						$item['order'] = $order;
+						$this->tpl->assign("ITEM", $item);
+						$this->tpl->parse("content.friends_list.unfinished");
+					}
 				}
 			}
 		}
