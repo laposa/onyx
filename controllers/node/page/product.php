@@ -108,6 +108,9 @@ class Onxshop_Controller_Node_Page_Product extends Onxshop_Controller_Node_Page_
 		$this->processContainers();
 		$this->processPage();
 
+		if (strlen($simple_product_detail['name_aka']) > 0)
+			$this->tpl->parse('content.name_aka');
+
 		/**
 		 * everything went well
 		 */
