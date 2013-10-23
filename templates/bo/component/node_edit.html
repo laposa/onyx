@@ -52,11 +52,14 @@ function showResponse(responseText, statusText)  {
 	//don't reload in context when in backoffice
 	var path = '{GET.orig}';
 	var node_id = {GET.id};
-	if (path.match(/^backoffice/)) {
-		if (typeof opener.refreshList == 'function') opener.refreshList();
-		else refreshOpener(path, node_id);
+	if (path.length > 0) {
+		if (path.match(/^backoffice/)) {
+			if (typeof opener.refreshList == 'function') opener.refreshList();
+			else refreshOpener(path, node_id);
+		} else {
+			refreshOpenerAjax(path, node_id);
+		}
 	}
-	else refreshOpenerAjax(path, node_id);
 }
 </script>
 
