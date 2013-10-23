@@ -321,7 +321,7 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 	 * get list of nodes
 	 *
 	 * @param unknown_type $filter
-	 * @return unknown
+	 * @return array
 	 */
 	 
 	function getNodeList($filter = false, $sort = 'common_node.priority DESC, common_node.id DESC') {
@@ -418,7 +418,7 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 			
 		} else {
 			
-			return false;
+			return array();
 		
 		}
 	}
