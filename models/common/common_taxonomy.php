@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  * this model doesn't have data on it's own, but in two separata tables
@@ -51,7 +51,10 @@ class common_taxonomy {
 	 */
 	
 	function labelDetail($id) {
+		
 		$label_data = $this->TaxonomyLabel->detail($id);
+		$label_data['image'] = $this->getLabelImages($label_data['id']);
+		
 		return $label_data;
 	}
 
@@ -148,17 +151,25 @@ class common_taxonomy {
 	 * get children
 	 */
 	
-	function getChildren($parent_id, $sort = 'priority DESC, id ASC') {
+	function getChildren($parent_id, $sort = 'priority DESC, id ASC', $published_only = false) {
 		
 		if (!is_numeric($parent_id)) return false;
 		
+		// publish attribute on tree can be ignored, use publish attribute on label instead
 		$list = $this->TaxonomyTree->listing("parent = " . $parent_id, $sort);
 
+		$list_filtered = array();
+		
 		foreach ($list as $k=>$item) {
-			$list[$k]['label'] = $this->labelDetail($item['label_id']);
+
+			$item['label'] = $this->labelDetail($item['label_id']);
+			
+			if ($published_only && $item['label']['publish'] == 1) $list_filtered[] = $item;
+			else if ($published_only == false) $list_filtered[] = $item;
+
 		}
 		
-		return $list;
+		return $list_filtered;
 	
 	}
 	
@@ -180,6 +191,18 @@ class common_taxonomy {
 	
 		return $this->TaxonomyTree->getRelatedTaxonomy($node_id, $relation);
 	
+	}
+	
+	/**
+	 * getLabelImages
+	 */
+	 
+	public function getLabelImages($label_id) {
+		
+		if (!is_numeric($label_id)) return false;
+		
+		return $this->TaxonomyLabel->getImages($label_id);
+		
 	}
 }
 

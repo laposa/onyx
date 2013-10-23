@@ -2,7 +2,7 @@
 /**
  * class common_taxonomy_label
  *
- * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -109,6 +109,24 @@ CREATE TABLE common_taxonomy_label (
 				}
 			break;
 		}
+	}
+	
+	
+	/**
+	 * getImages
+	 */
+	 
+	public function getImages($label_id) {
+		
+		if (!is_numeric($label_id)) return false;
+		
+		require_once('models/common/common_taxonomy_label_image.php');
+		$LabelImage = new common_taxonomy_label_image();
+		
+		$list = $LabelImage->listing('node_id = ' . $label_id);
+		
+		return $list;
+		
 	}
 	
 }
