@@ -316,6 +316,16 @@ class Onxshop_Controller_Component_News_List extends Onxshop_Controller {
 					
 				}
 				
+				if (trim($item['component']['author']) == '') {
+					
+					$this->tpl->assign('AUTHOR_EMPTY', 'author_empty');
+					
+				} else {
+					
+					$this->tpl->assign('AUTHOR_EMPTY', '');
+					
+				}
+				
 				/**
 				 * parse
 				 */

@@ -1,0 +1,16 @@
+<!-- BEGIN: content -->
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<div class="news_list grid">
+	<!-- BEGIN: list -->
+		<div class="contentBody">
+			<!-- BEGIN: item -->
+			<div class="item {ITEM.odd_even_class} {ITEM.taxonomy_class}">
+				<a href="/page/{ITEM.id}"><div class="gridImage"><!-- BEGIN: image --><span class="imageWrap"><img alt="{ITEM.image.title|htmlspecialchars}" title="{ITEM.image.title|htmlspecialchars}" src="{IMAGE_PATH}{ITEM.image.src}?fill=1" /></span><!-- END: image --></div><div class="info"><div class="infoWrap"><h4 class="title">{ITEM.title|htmlspecialchars}</h4><div class="description">{ITEM.description|htmlspecialchars}</div><div class="created {AUTHOR_EMPTY}"><span class="created">{ITEM.created|strtotime|strftime('%A %e %B %Y', %s)}</span> {I18N_BY} <span class="author_name">{ITEM.author_detail.name|htmlspecialchars}</span></div></div></div></a>
+			</div>
+			<!-- END: item -->
+		</div>
+	<!-- END: list -->
+	{PAGINATION}
+	<div class="bottom"><span></span></div>
+</div>
+<!-- END: content -->

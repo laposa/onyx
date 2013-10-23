@@ -72,6 +72,9 @@ class Onxshop_Controller_Node_Content_News_List extends Onxshop_Controller_Node_
 			case 'teaser';
 				$template = 'news_list_teaser';
 			break;
+			case 'grid';
+				$template = 'news_list_grid';
+			break;
 			case 'latest';
 			default:
 				$template = 'news_list_latest';
