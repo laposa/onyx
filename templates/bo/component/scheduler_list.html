@@ -19,7 +19,7 @@
 			<td>{ITEM.scheduled_time|strtotime||date('d/m/Y H:i:s', %s)}</td>
 			<td>{ITEM.status_name}</td>
 			<td>
-				<a class="onxshop_delete onxshop_icon" title="Cancel job" onclick="$(this).parent().parent().remove(); return false;" href="#"></a>
+				<a class="onxshop_delete onxshop_icon" title="Cancel job" onclick="$(this).parent().parent().remove(); return false;" href="#"><span>Remove</span></a>
 				<input type="hidden" name="job[{ITEM.id}]" value="{ITEM.id}"/>
 			</td>
 		</tr>
@@ -52,7 +52,7 @@
 				'<input type="text" class="time" style="width: 64px;" name="scheduler[time][]" value="00:00:00" /></td>' +
 				'<td>New</td>' +
 				'<td>' +
-					'<a class="onxshop_delete onxshop_icon" title="Cancel job" onclick="$(this).parent().parent().remove(); return false;" href="#"></a>' +
+					'<a class="onxshop_delete onxshop_icon" title="Cancel job" onclick="$(this).parent().parent().remove(); return false;" href="#"><span>Remove</span></a>' +
 				'</td>' +
 			'</tr>';
 
