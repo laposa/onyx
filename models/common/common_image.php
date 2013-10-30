@@ -232,7 +232,7 @@ CREATE TABLE common_image (
 		 * try to get explicit "teaser" image role
 		 */
 		 
-		$file_list = $this->listFiles($node_id , $priority = "priority DESC, id ASC", 'teaser');
+		$file_list = $this->listFiles($node_id , 'priority DESC, id ASC', 'teaser');
 		
 		/**
 		 * if the list is empty, get any image
