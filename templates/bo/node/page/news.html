@@ -19,12 +19,6 @@
 {ONXSHOP_REQUEST_tinymce1 #bo/tinymce~id=GET.id:relation=node:edit_elements=component_content:theme=advanced~}
 {FILE "bo/node/item_image_list.html"}
 
-<script type="text/javascript">
-$(document).ready(function(){
-	$('#node-created').datepicker({firstDay: 1, dateFormat: 'yy-mm-dd'});
-});
-</script>
-
 	<div class="row">
 		<span class="label"><label for="node-component-allow_comment">Allow Comments:</label></span>
 		<span class="field"><input type="checkbox" id="node-component-allow_comment" name="node[component][allow_comment]" {NODE.component.allow_comment}/></span>
@@ -47,6 +41,11 @@ $(document).ready(function(){
 		<span class="label"><label>Date (overwrite created date):</label></span>
 		<span class="field"><input type="text" id="node-created" name="node[created]" value="{NODE.created}" /></span>
 	</div>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$('#node-created').datepicker({firstDay: 1, dateFormat: 'yy-mm-dd'});
+	});
+	</script>
 
 	{FILE "bo/node/item_other_data.html"}
 	{FILE "bo/node/item_position.html"}
