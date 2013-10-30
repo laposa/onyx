@@ -36,6 +36,20 @@ class Onxshop_Controller_Node_Page_News extends Onxshop_Controller_Node_Page_Def
 			$this->tpl->parse("content.comment");
 		}
 		
+		/**
+		 * empty author helper class
+		 */
+		 
+		if (trim($node_data['component']['author']) == '') {
+			
+			$this->tpl->assign('AUTHOR_EMPTY', 'author_empty');
+			
+		} else {
+			
+			$this->tpl->assign('AUTHOR_EMPTY', '');
+			
+		}
+		
 		//standard page actions
 		$this->processContainers();
 		$this->processPage();

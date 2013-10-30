@@ -55,7 +55,7 @@
 							<div class="columnOne">
 								<div class="columnWrapper">
 									<div>
-										<div class="note"><p>{I18N_POSTED_ON} {NODE.created|strtotime|strftime('%A %e %B %Y', %s)} {I18N_BY} <span class="author_name">{NODE.author_detail.name|htmlspecialchars}</span></p></div>
+										<div class="note {AUTHOR_EMPTY}"><p>{I18N_POSTED_ON} {NODE.created|strtotime|strftime('%A %e %B %Y', %s)} <span class="by">{I18N_BY}</span> <span class="author_name">{NODE.author_detail.name|htmlspecialchars}</span></p></div>
 										
 										<div class="body">
 											{NODE.content}
