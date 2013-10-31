@@ -342,7 +342,7 @@ class Onxshop_Bootstrap {
 		 */
 		 
 		 
-		if (is_numeric($_SESSION['use_page_cache']) && !$_GET['nocache']) $this->processActionCached($request);
+		if (is_numeric($_SESSION['use_page_cache']) && !$_GET['nocache'] && ONXSHOP_PAGE_CACHE_TTL > 0) $this->processActionCached($request);
 		else $this->processAction($request);
 		
 	}

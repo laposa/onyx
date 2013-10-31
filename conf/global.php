@@ -138,7 +138,10 @@ if (ONXSHOP_IN_BACKOFFICE) {
 if (!defined('ONXSHOP_DB_QUERY_CACHE_TTL')) define('ONXSHOP_DB_QUERY_CACHE_TTL', 3600);
 if (!defined('ONXSHOP_DB_QUERY_CACHE_DIRECTORY')) define('ONXSHOP_DB_QUERY_CACHE_DIRECTORY', ONXSHOP_PROJECT_DIR . 'var/cache/');
 
-/* Zend Cache for whole page */
+/*
+ * Zend Cache for whole page
+ * set 0 to disable
+ */
 if (!defined('ONXSHOP_PAGE_CACHE_TTL')) define('ONXSHOP_PAGE_CACHE_TTL', 86400);
 
 
