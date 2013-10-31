@@ -88,8 +88,8 @@ div.fluid-video video {top: 0; left: 0; width: 100%; height: 100%; position: abs
 	form.twoColumns span.label,
 	fieldset.twoColumns span.label {width: auto; float: none; text-align: left;}
 	form.twoColumns span.field,
-	fieldset.twoColumns span.field {width: 100%;;}
-	input {font-size: 2em;;}
+	fieldset.twoColumns span.field {width: 100%;}
+	input {font-size: 2em;}
 	div.twoColumnPage div.columnOne, 
     div.twoColumnPage div.columnTwo,
     div.twoColumnLayout div.layoutColumnOne.ofTwo,

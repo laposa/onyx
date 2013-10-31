@@ -52,7 +52,7 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e9e9e9', end
 #onxshopMenuBar ul li.last { border-top-right-radius: 2px; border-bottom-right-radius: 2px;}
 #onxshopMenuBar ul li a { color: black; font-size: 11px; text-shadow: 0 1px 0 white; text-decoration: none; padding: 5px 10px; display: block;}
 #onxshopMenuBar ul li {float: left; list-style-type: none; list-style-image: none; padding: 0; margin: 0;
-border-right: 1px solid #ccc; border-bottom: 1px solid #d5d5d5;; border-left: 1px solid #EAEAEA; 
+border-right: 1px solid #ccc; border-bottom: 1px solid #d5d5d5; border-left: 1px solid #EAEAEA; 
 background: #ededed; /* Old browsers */
 background: -moz-linear-gradient(top,  #ededed 0%, #d1d1d1 100%); /* FF3.6+ */
 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ededed), color-stop(100%,#d1d1d1)); /* Chrome,Safari4+ */

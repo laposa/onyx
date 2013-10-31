@@ -126,7 +126,7 @@
 #pageImage a {text-decoration: none;}
 
 /********* node/page/news.html *********/
-div.news div.note p {margin-top: 0;;}
+div.news div.note p {margin-top: 0;}
 div.news div.back {clear: both;}
 div.news div.body {margin-bottom: 1em;}
 div.news div.addThisButtons {margin-bottom: 10px;}
