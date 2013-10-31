@@ -278,7 +278,7 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 		$basket_detail = $this->Basket->getBasketByOrderId($order_id);
 
 		$items_added = array();
-		foreach ($basket_detail['content']['items'] as $item) {
+		foreach ($basket_detail['items'] as $item) {
 			$items_added[] = $this->addItem($item['product_variety_id'], $item['quantity'], $item['other_data']);
 		}
 
