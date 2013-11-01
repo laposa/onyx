@@ -11,6 +11,7 @@ $(function() {
 
 		var option = $("#related_product_select option:selected");
 		var id = option.val();
+		console.log(option);
 		if (id > 0) {
 			var name = option.text();
 			var className = option.attr("data-class");
@@ -86,11 +87,14 @@ $(function() {
 	<div class="row">
 		<a id="related_product_button" class="button" href="#"><span>add new</span></a>
 		<select id="related_product_select" name="related_product_select">
-			<option>Please select a product...</option>
+			<option value="">Please select a product...</option>
 			<!-- BEGIN: product_select_item -->
 			<option value="{PRODUCT.id}" data-class="{PRODUCT.class}" {PRODUCT.disabled}>{PRODUCT.name|htmlspecialchars}</option>
 			<!-- END: product_select_item -->
 		</select>
+		<script>
+			$("#related_product_select").combobox();
+		</script>
 	</div>
 </fieldset>
 {FILE "bo/node/default_bottom.html"}
