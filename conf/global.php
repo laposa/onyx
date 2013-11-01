@@ -13,18 +13,6 @@
 
 //define('ONXSHOP_MAIN_DOMAIN', 'default.co.uk');
 
-if (defined('ONXSHOP_MAIN_DOMAIN')) {
-	if (array_key_exists('HTTPS', $_SERVER)) $protocol = 'https';
-	else $protocol = 'http';
-	
-	if ($_SERVER['HTTP_HOST'] != ONXSHOP_MAIN_DOMAIN) {
-	    Header( "HTTP/1.1 301 Moved Permanently" );
-	    Header( "Location: $protocol://" . ONXSHOP_MAIN_DOMAIN . "{$_SERVER['REQUEST_URI']}" );
-	    //exit the application immediately 
-	    exit;
-	}
-}
-
 /**
  * Set output header
  */
