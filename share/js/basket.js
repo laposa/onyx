@@ -36,11 +36,13 @@ function removeFromBasketVarietyAjaxAction(variety_id) {
 	
 }
 
-function addToBasketAjaxActionFromVarietyList(variety_id) {
+function addToBasketAjaxActionFromVarietyList(variety_id, quantity) {
     
     $('a.add_to_basket' + '.variety_id_' + variety_id).addClass('loading');
     $("#basket").addClass('loading');
-    $("#basket #basketWrapper").load('/request/component/ecommerce/basket', {'add': variety_id, 'quantity': 1}, function (responseText, textStatus, XMLHttpRequest) {
+    quantity = quantity || 1;
+    if (quantity < 1 && quantity > 20) quantity = 1;
+    $("#basket #basketWrapper").load('/request/component/ecommerce/basket', {'add': variety_id, 'quantity': quantity}, function (responseText, textStatus, XMLHttpRequest) {
         popupMessage("#basket #basketWrapper div.onxshop_messages");
         
         $("#basket").removeClass('loading');
