@@ -256,8 +256,9 @@ div.image_gallery_fancybox div.item {float: left; margin-right: 10px;}
 div.image_gallery_prettyphoto div.item {float: left; margin-right: 10px;}
 
 /********* component/image_gallery/parallax.html *********/
-div.image_gallery_parallax {text-align: center; background: black;}
+div.image_gallery_parallax {text-align: center;}
 div.image_gallery_parallax div.item {margin: 0; background-repeat: no-repeat; background-size: cover; min-height: 500px; background-attachment: fixed; background-position-x: center;}
+div.image_gallery_parallax div.item img {display: none;}
 div.image_gallery_parallax div.sliderCopy {padding-top: 150px; text-align: center;}
 div.image_gallery_parallax a {text-decoration: none;}
 div.image_gallery_parallax div.sliderCopy h3 {text-align: center;}
