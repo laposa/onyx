@@ -297,7 +297,7 @@ class XTemplate {
 	// Simple string modifiers
 	'strtoupper', 'strtolower', 'ucwords', 'ucfirst', 'strrev', 'str_word_count', 'strlen',
 	// String replacement modifiers
-	'str_replace', 'str_ireplace', 'preg_replace', 'strip_tags', 'stripcslashes', 'stripslashes', 'substr',
+	'str_replace', 'str_ireplace', 'preg_replace', 'strip_tags', 'stripcslashes', 'stripslashes', 'substr', 'strstr',
 	'str_pad', 'str_repeat', 'strtr', 'trim', 'ltrim', 'rtrim', 'nl2br', 'wordwrap', 'printf', 'sprintf',
 	'addslashes', 'addcslashes',
 	// Encoding / decoding modifiers
