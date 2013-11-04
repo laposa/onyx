@@ -50,6 +50,13 @@ class Onxshop_Controller_Node_Page_News extends Onxshop_Controller_Node_Page_Def
 			
 		}
 		
+		/**
+		 * getRelatedTaxonomy
+		 */
+		 
+		$related_taxonomy = $Node->getRelatedTaxonomy($node_id);
+		$this->tpl->assign('TAXONOMY', $related_taxonomy);
+		
 		//standard page actions
 		$this->processContainers();
 		$this->processPage();
