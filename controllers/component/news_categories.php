@@ -35,6 +35,12 @@ class Onxshop_Controller_Component_News_Categories extends Onxshop_Controller {
 		$this->tpl->assign('BLOG_NODE_ID', $blog_node_id);
 		
 		/**
+		 * total count
+		 */
+		
+		$this->tpl->assign('COUNT_ALL', $Node->count("node_group = 'page' AND node_controller = 'news' AND parent = $blog_node_id AND publish = 1"));
+		
+		/**
 		 * process
 		 */
 		 

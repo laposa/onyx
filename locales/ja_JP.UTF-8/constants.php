@@ -325,3 +325,6 @@ define('I18N_AVERAGE_RATING_FINAL', 'Final average rating');
 define('I18N_AVERAGE_MARK', 'Average mark');
 define('I18N_RESPONDENT_COUNT', 'respondents count');
 define('I18N_ANWER_COUNT', 'Answer count');
+
+//component/nes_categories.html
+define('I18N_VIEW_ALL', 'View All');

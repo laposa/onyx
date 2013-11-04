@@ -329,3 +329,6 @@ define('I18N_AVERAGE_RATING_FINAL', 'Výsledná průměrná známka');
 define('I18N_AVERAGE_MARK', 'Průměrná známka');
 define('I18N_RESPONDENT_COUNT', 'počet respondentů');
 define('I18N_ANWER_COUNT', 'Počet odpovědí');
+
+//component/nes_categories.html
+define('I18N_VIEW_ALL', 'Všechny');
