@@ -1549,7 +1549,7 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 	 * get categories
 	 */
 	 
-	public function getArticlesCategories($blog_node_id, $published = 1, $sort_by = 'common_taxonomy_label.title ASC') {
+	public function getArticlesCategories($blog_node_id, $published = 1, $sort_by = 'common_taxonomy_tree.priority DESC, common_taxonomy_label.title ASC') {
 	
 		if (!is_numeric($blog_node_id)) return false;
 		if (!is_numeric($published)) return false;
