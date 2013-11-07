@@ -212,7 +212,8 @@ CREATE TABLE common_image (
 			//usage: resize $filename $width $height $target_filename $quality $other_options
 			///usr/bin/convert "$1" -colorspace RGB -depth 8 -quality $QUALITY -thumbnail $2x$3^ $6 "$4"
 			
-			$shell_command = "convert {$file_rp_escaped} -colorspace RGB -depth 8 -quality {$jpeg_quality} -thumbnail {$width}x{$height}{$fill} {$other_im_params} {$thumb_file_rp_escaped}";
+			$colorspace = self::isOldImageMagickVersion() ? 'RGB' : 'sRGB';
+			$shell_command = "convert {$file_rp_escaped} -colorspace {$colorspace} -depth 8 -quality {$jpeg_quality} -thumbnail {$width}x{$height}{$fill} {$other_im_params} {$thumb_file_rp_escaped}";
 			
 			$result = local_exec($shell_command);
 			
@@ -220,6 +221,23 @@ CREATE TABLE common_image (
 			else return false;
 		}
 			
+	}
+
+
+	/**
+	 * Determines if ImageMagick is of version less than 6.7.5.
+	 */
+	static protected function isOldImageMagickVersion() {
+
+		$shell_command = "convert -version";
+		$result = local_exec($shell_command);
+		if (preg_match('/Version\:\s+ImageMagick\s+(\d)\.(\d)\.(\d)/', $result, $matches)) {
+			if ($matches[1] < 6) return true;
+			if ($matches[1] == 6 && $matches[2] < 7) return true;
+			if ($matches[1] == 6 && $matches[2] == 7 && $matches[3] < 5) return true;
+		}
+
+		return false;
 	}
 
 	/**
