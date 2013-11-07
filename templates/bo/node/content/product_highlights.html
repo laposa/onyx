@@ -6,18 +6,20 @@ $(function() {
 		var template = '<div>' +
 			'<input type="hidden" name="node[component][related][]" value="__ID__" />' +
 			'<button style="float: none;" name="" onclick="this.parentNode.parentNode.removeChild(this.parentNode)"><span>remove</span></button> ' +
+			'<img src="/thumbnail/25x25/__IMAGE__" width="25" height="25" alt="__NAME__"/> ' +
 			'<a class="__CLASS__" href="/page/__ID__">__NAME__</a><br />' +
 			'</div>';
 
 		var option = $("#related_product_select option:selected");
 		var id = option.val();
-		console.log(option);
 		if (id > 0) {
 			var name = option.text();
 			var className = option.attr("data-class");
+			var imageSrc = option.attr("data-image");
 			template = template.replace(/__ID__/g, id);
 			template = template.replace(/__NAME__/g, name);
 			template = template.replace(/__CLASS__/g, className);
+			template = template.replace(/__IMAGE__/g, imageSrc);
 			$("#related_select").append(template);
 		}
 		return false;
@@ -79,6 +81,7 @@ $(function() {
 			<div>
 			<input type="hidden" name="node[component][related][]" value="{CURRENT.content}" />
 			<button style="float: none;" name="" onclick="this.parentNode.parentNode.removeChild(this.parentNode)"><span>remove</span></button>
+			<img src="/thumbnail/25x25/{CURRENT.image_src}" width="25" height="25" alt="{CURRENT.title|htmlspecialchars}"/>
 			<a class="{CURRENT.class}" href="/page/{CURRENT.id}">{CURRENT.title|htmlspecialchars}</a><br />
 			</div>
 			<!-- END:item -->
@@ -89,7 +92,7 @@ $(function() {
 		<select id="related_product_select" name="related_product_select">
 			<option value="">Please select a product...</option>
 			<!-- BEGIN: product_select_item -->
-			<option value="{PRODUCT.id}" data-class="{PRODUCT.class}" {PRODUCT.disabled}>{PRODUCT.name|htmlspecialchars}</option>
+			<option value="{PRODUCT.id}" data-class="{PRODUCT.class}" data-image="{PRODUCT.image_src}" {PRODUCT.disabled}>{PRODUCT.name|htmlspecialchars}</option>
 			<!-- END: product_select_item -->
 		</select>
 		<script>

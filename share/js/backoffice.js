@@ -87,7 +87,9 @@ $.widget("custom.combobox", {
 			var c = '';
 			if (item.option.disabled) c += 'disabled ';
 			if ($(item.option).attr("data-class") == 'notpublic') c += 'notpublic ';
-      		return $("<li>").append("<a class=\"" + c + "\">" + item.label + "</a>").appendTo(ul);
+      		return $("<li>").append("<a class=\"" + c + "\">" + 
+      			'<img src="/thumbnail/25x25/' + item.image + '" width="25" height="25" alt=""/>&nbsp;' +
+      			item.label + "</a>").appendTo(ul);
     	};
 
 		this._on(this.input, {
@@ -120,9 +122,11 @@ $.widget("custom.combobox", {
 		var matcher = new RegExp($.ui.autocomplete.escapeRegex(request.term), "i");
 		response(this.element.children("option").map(function() {
 			var text = $(this).text();
+			var image = $(this).attr("data-image");
 			if (this.value && (!request.term || matcher.test(text))) return {
 				label: text,
 				value: text,
+				image: image,
 				option: this
 			};
 		}) );
