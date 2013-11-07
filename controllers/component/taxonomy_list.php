@@ -28,6 +28,8 @@ class Onxshop_Controller_Component_Taxonomy_List extends Onxshop_Controller_Comp
 		
 		foreach ($list as $item) {
 		
+			$this->tpl->assign('ITEM', $item);
+			
 			/**
 			 * image
 			 */
@@ -44,7 +46,6 @@ class Onxshop_Controller_Component_Taxonomy_List extends Onxshop_Controller_Comp
 			 * content
 			 */
 			 
-			$this->tpl->assign('ITEM', $item);
 			$this->tpl->parse('content.item');
 			
 		}
