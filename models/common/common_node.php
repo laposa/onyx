@@ -447,7 +447,7 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 		$node_data['display_permission_group_acl'] = unserialize($node_data['display_permission_group_acl']);
 		
 		//overwrite author (allowed in bo/node/news edit interface)
-		if ($node_data['component']['author'] != '') $node_data['author_detail']['name'] = $node_data['component']['author'];
+		if (is_array($node_data['component']) && $node_data['component']['author'] != '') $node_data['author_detail']['name'] = $node_data['component']['author'];
 
 		return $node_data;
 	}

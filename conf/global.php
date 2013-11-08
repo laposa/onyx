@@ -24,7 +24,7 @@ header( 'Content-Type: text/html; charset=UTF-8' );
  */
  
 if(in_array($_SERVER["REMOTE_ADDR"], array_keys($debug_hosts)))  {
-	error_reporting(E_ALL & ~E_NOTICE);
+	error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
 	ini_set('display_errors', 1);
 	define('ONXSHOP_DEBUG_LEVEL', $debug_hosts[$_SERVER["REMOTE_ADDR"]]);
 	define('ONXSHOP_IS_DEBUG_HOST', true);
@@ -35,7 +35,7 @@ if(in_array($_SERVER["REMOTE_ADDR"], array_keys($debug_hosts)))  {
 	define('ONXSHOP_DB_PROFILER', false);
 	
 } else {
-	error_reporting(E_ALL & ~E_NOTICE);
+	error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
 	ini_set('display_errors', 0);
 	define('ONXSHOP_DEBUG_LEVEL', 0);
 	define('ONXSHOP_IS_DEBUG_HOST', false);
