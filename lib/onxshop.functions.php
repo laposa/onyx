@@ -14,7 +14,7 @@
  * @param string message Text of message.
  * @param string type 'ok' or 'error' message
  * @param int level 0 - for view every time 1, 2 - debug levels
- & @param string error_class - (CSS) class
+ * @param string error_class - (CSS) class
  * @return void
  * @access public
  */
@@ -333,3 +333,22 @@ function php_multisort($data,$keys){
 	return $result;
 } 
 
+/**
+ * Limits the string based on the character count. Preserves complete words
+ * so the character count may not be exactly as specified.
+ */
+function character_limiter($str, $n = 500, $end_char = '&hellip;')
+{
+	if (strlen($str) < $n) return $str;
+	// a bit complicated, but faster than preg_replace with \s+
+	$str = preg_replace('/ {2,}/', ' ', str_replace(array("\r", "\n", "\t", "\x0B", "\x0C"), ' ', $str));
+	if (strlen($str) <= $n) return $str;
+	$out = '';
+	foreach (explode(' ', trim($str)) as $val) {
+		$out .= $val.' ';
+		if (strlen($out) >= $n) {
+			$out = trim($out);
+			return (strlen($out) === strlen($str)) ? $out : $out . $end_char;
+		}
+	}
+}
