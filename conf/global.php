@@ -247,7 +247,7 @@ if (!defined('ONXSHOP_RECAPTCHA_PRIVATE_KEY')) define('ONXSHOP_RECAPTCHA_PRIVATE
  * is backoffice user account required?
  */
 
-if (!defined('ONXSHOP_BACKOFFICE_REQUIRE_CUSTOMER_LOGIN')) define('ONXSHOP_BACKOFFICE_REQUIRE_CUSTOMER_LOGIN', false);
+if (!defined('ONXSHOP_BACKOFFICE_REQUIRE_CUSTOMER_LOGIN')) define('ONXSHOP_BACKOFFICE_REQUIRE_CUSTOMER_LOGIN', true);
 
 /**
  * mark object as invalid when using null on required attributes?
