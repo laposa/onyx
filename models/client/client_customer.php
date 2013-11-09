@@ -611,16 +611,33 @@ CREATE TABLE client_customer (
 	 * customer ID or false if not saved
 	 */
 	 
-	function registerCustomer($customer_data, $address_data, $company_data = null) {
+	function registerCustomer($customer_data, $address_data = null, $company_data = null) {
 		
-		require_once('models/client/client_address.php');
-		require_once('models/client/client_company.php');
+		/**
+		 * check address is valid
+		 */
 		
-		$Address = new client_address();
-		$address_data['delivery']['customer_id'] = 0;
-		$Address->setAll($address_data['delivery']);
+		if (is_array($address_data)) {
 		
-		if ($Address->getValid() && $customer_data = $this->prepareToRegister($customer_data)) {
+			require_once('models/client/client_address.php');
+			$Address = new client_address();
+			$address_data['delivery']['customer_id'] = 0;
+			$Address->setAll($address_data['delivery']);
+			
+			if (!$Address->getValid()) {
+				
+				msg('Not a valid address', 'error');
+				msg($address_data);
+				return false;
+			
+			}
+		}
+		
+		/**
+		 * insert customer
+		 */
+		 
+		if ($customer_data = $this->prepareToRegister($customer_data)) {
 			
 			$id = $this->insertCustomer($customer_data);
 			
@@ -633,8 +650,13 @@ CREATE TABLE client_customer (
 				 */
 				 
 				if(strlen(trim($company_data['name']))) {
+					
+					require_once('models/client/client_company.php');
+					
 					$company_data['customer_id'] = $customer_data['id'];
+					
 					$Company = new client_company($company_data);
+					
 					if ($company_id = $Company->insert($company_data)) {
 						$customer_data['company_id'] = $company_id;
 						$this->update($customer_data);
@@ -670,50 +692,76 @@ CREATE TABLE client_customer (
     					msg('Admin notification email sending failed.', 'error');
     			}
 				
-				
 				/**
-				 * insert delivery address
-				 */
-				
-				$address_data['delivery']['customer_id'] = $id;
-    			
-				if ($delivery_address_id = $Address->insert($address_data['delivery'])) {
-					$customer_data['delivery_address_id'] = $delivery_address_id;
-				} else {
-					msg("Your delivery address is not set!", 'error');
-				}
-		
-				/**
-				 * insert invoice address
+				 * insert address and update customer data
 				 */
 				 
-				if (trim($address_data['invoices']['city']) != '') {
-				
-					$address_data['invoices']['customer_id'] = $id;
-					
-					if ($invoices_address_id = $Address->insert($address_data['invoices'])) {
-						$customer_data['invoices_address_id'] = $invoices_address_id;
-					} else {
-						msg("Your invoices address is not set! If your invoices address is same as the delivery address, please leave the invoices address fields empty.", 'error');
-					}
-				} else {
-					$customer_data['invoices_address_id'] = $delivery_address_id;	
-				}
-				
+				$this->insertCustomerAddress($customer_data, $address_data);
 				
 				/**
-				 * update customer record after setting addresses id
+				 * return customer ID
 				 */
 				 
-				$this->update($customer_data);
-				
 				msg("client_customer.registerCustomer() of customer ID $id was successful.", 'ok', 1);
 				
 				return $id;
+				
 			} else {
+				
 				return false;
+			
 			}
 		}
+	}
+	
+	/**
+	 * insertCustomerAddress
+	 */
+	 
+	public function insertCustomerAddress($customer_data, $address_data) {
+		
+		if (!is_array($customer_data)) return false;
+		if (!is_array($address_data)) return false;
+		 
+		require_once('models/client/client_address.php');
+		$Address = new client_address();
+
+		/**
+		 * insert delivery address
+		 */
+		
+		$address_data['delivery']['customer_id'] = $id;
+		
+		if ($delivery_address_id = $Address->insert($address_data['delivery'])) {
+			$customer_data['delivery_address_id'] = $delivery_address_id;
+		} else {
+			msg("Your delivery address is not set!", 'error');
+		}
+
+		/**
+		 * insert invoice address
+		 */
+		 
+		if (trim($address_data['invoices']['city']) != '') {
+		
+			$address_data['invoices']['customer_id'] = $id;
+			
+			if ($invoices_address_id = $Address->insert($address_data['invoices'])) {
+				$customer_data['invoices_address_id'] = $invoices_address_id;
+			} else {
+				msg("Your invoices address is not set! If your invoices address is same as the delivery address, please leave the invoices address fields empty.", 'error');
+			}
+		} else {
+			$customer_data['invoices_address_id'] = $delivery_address_id;	
+		}
+		
+		
+		/**
+		 * update customer record after setting addresses id
+		 */
+		 
+		return $this->update($customer_data);
+				
 	}
 	
 	
