@@ -215,11 +215,13 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
 		/**
 		 * check if we have some old information for this email address
 		 */
-		 
-		if ($current_customer_data = $this->Customer->getClientByEmail($_POST['client']['customer']['email'])) {
-			
-			$_POST['client']['customer'] = array_merge($current_customer_data, $_POST['client']['customer']);
-			
+		
+		if (is_array($_POST['client']['customer'])) {
+			if ($current_customer_data = $this->Customer->getClientByEmail($_POST['client']['customer']['email'])) {
+				
+				$_POST['client']['customer'] = array_merge($current_customer_data, $_POST['client']['customer']);
+				
+			}
 		}
 		
 		/**

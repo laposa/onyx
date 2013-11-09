@@ -1,0 +1,38 @@
+<!-- BEGIN: content -->
+<style type="text/css">
+html,body,#backoffice,#backofficeWrapper,#container {height: 100%;}
+div.backoffice_login {margin: 0 auto; width: 500px; display: table; color: white; height: 100%;}
+div.backoffice_login button {width: 90%;}
+div.backoffice_login #login a {color: white;}
+div.backoffice_login div.backoffice_login_wrapper {display: table-cell; vertical-align: middle;}
+div.backoffice_login #registration {display: none;}
+</style>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$('div.backoffice_login #registration fieldset.delivery_address, div.backoffice_login #registration fieldset.company_details, div.backoffice_login #registration fieldset.account_details').remove();
+});
+</script>
+<div class="backoffice_login">
+	<div class="backoffice_login_wrapper">
+		
+		<!-- BEGIN: choose_login_type -->
+		<style>
+			div.backoffice_login #login {display: none;}
+		</style>
+		<div class="choose_login_type">
+			{ONXSHOP_REQUEST_facebook #component/client/facebook_auth}
+			{ONXSHOP_REQUEST_twitter #component/client/twitter_auth}
+			<button onclick="$('#login').slideToggle();"><span>Connect with Email</span></button>
+		</div>
+		<!-- END: choose_login_type -->
+		<div id="login">
+			{ONXSHOP_REQUEST_login #component/client/login}
+			<a href="#registration" onclick="$('#registration, #login').slideToggle();">Create new account</a>
+		</div>
+		<div id="registration">
+			{ONXSHOP_REQUEST_registration #component/client/registration}
+		</div>
+	</div>
+</div>
+<!-- END: content -->
