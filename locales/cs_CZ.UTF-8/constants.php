@@ -52,7 +52,7 @@ define('I18N_COMMENT_AUTHOR', 'Autor');
 define('I18N_COMMENT_CREATED', 'Vloženo');
 
 define('I18N_TEXT', 'Text');
-define('I18N_SEND', 'odeslat');
+define('I18N_SEND', 'Odeslat');
 //component/contact_form.html
 //node/content/_contact_from/
 define('I18N_CONTACT_FORM', 'Kontaktní formulář');
