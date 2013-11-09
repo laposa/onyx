@@ -99,6 +99,10 @@
 	margin-left:-16px;
 	background: url(/share/images/simple-tree/leaf-last.gif) 0 -1px no-repeat;
 }
+
+div.server_browser_menu .simpleTree .doc {background: url(/share/images/simple-tree/folder.gif) 0 -2px no-repeat;}
+div.server_browser_menu .simpleTree .doc-last {background: url(/share/images/simple-tree/folder-last.gif) 0 -2px no-repeat;}
+
 .simpleTree .ajax
 {
 	background: url(/share/images/simple-tree/spinner.gif) no-repeat 0 0;
