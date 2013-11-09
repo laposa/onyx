@@ -1,38 +1,78 @@
-<!-- BEGIN: content -->
-<style type="text/css">
-html,body,#backoffice,#backofficeWrapper,#container {height: 100%;}
-div.backoffice_login {margin: 0 auto; width: 500px; display: table; color: white; height: 100%;}
-div.backoffice_login button {width: 90%;}
-div.backoffice_login #login a {color: white;}
-div.backoffice_login div.backoffice_login_wrapper {display: table-cell; vertical-align: middle;}
+<!-- BEGIN: head -->
+<style type="text/css" media="screen">
+@import url(/share/css/fe_edit.css);
+html,body,#backoffice,#backofficeWrapper,#container,#onxshop_cms_content {height: 100%;}
+div.backoffice_login #login form,
+div.backoffice_login #registration form {background: rgba(237, 237, 237, 0.9); padding: 10px 20px; color: black; border: 1px solid #CCC; border-radius: 5px;}
+div.backoffice_login form span.field {width: 100%;}
+div.backoffice_login {margin: 20px auto; width: 300px; display: table; height: 80%;}
+div.backoffice_login fieldset legend {text-transform: uppercase;}
+div.backoffice_login #login a,
+div.backoffice_login #registration a {color: white; }
+div.backoffice_login div.backoffice_login_wrapper {display: table-cell; vertical-align: middle; }
 div.backoffice_login #registration {display: none;}
+div.backoffice_login div.autologin span.label {float: left;}
+div.backoffice_login div.autologin span.field {width: auto;}
 </style>
 
 <script type="text/javascript">
 $(document).ready(function(){
 	$('div.backoffice_login #registration fieldset.delivery_address, div.backoffice_login #registration fieldset.company_details, div.backoffice_login #registration fieldset.account_details').remove();
+	$('div.backoffice_login form').removeClass('twoColumns');
 });
 </script>
-<div class="backoffice_login">
-	<div class="backoffice_login_wrapper">
+
+<!-- END: head -->
+<!-- BEGIN: content -->
+<script type="text/javascript" src="/share/js/jquery/ui/jquery-ui.all.min.js"></script>
+<script type="text/javascript" src="/share/js/jquery/plugins/jquery.form.js"></script>
+<script type="text/javascript" src="/share/js/fe_edit.js"></script>
+<script type="text/javascript" src="/share/js/backoffice.js"></script>
+
+<div id="onxshopHeader">
+	<div id="onxshopSystemBar">
+	
+		<div id="menuSystem">
+			<a class="onxshop_version" href="/" title="{ONXSHOP_VERSION} {ONXSHOP_PACKAGE_NAME|ucfirst}" onclick="openAjaxRequestInDialog('/request/bo/component/sysinfo', '{ONXSHOP_VERSION}'); return false;"><span>Onxshop</span></a> - 
+			<a class="onxshop_client" href="/" title="{CONFIGURATION.global.title|htmlspecialchars} homepage"><span>{CONFIGURATION.global.title|htmlspecialchars}</span></a>
+		</div>
 		
-		<!-- BEGIN: choose_login_type -->
-		<style>
-			div.backoffice_login #login {display: none;}
-		</style>
-		<div class="choose_login_type">
-			{ONXSHOP_REQUEST_facebook #component/client/facebook_auth}
-			{ONXSHOP_REQUEST_twitter #component/client/twitter_auth}
-			<button onclick="$('#login').slideToggle();"><span>Connect with Email</span></button>
+		<div id="menuUser">
+			<a href="{ONXSHOP_SUPPORT_WEBSITE_URL}" title="Access to Onxshop support"><span>Support</span></a> - 
+			<a class="logout" href="/?logout=1" title="Logout from the backoffice"><span>Log Out</span></a>
 		</div>
-		<!-- END: choose_login_type -->
-		<div id="login">
-			{ONXSHOP_REQUEST_login #component/client/login}
-			<a href="#registration" onclick="$('#registration, #login').slideToggle();">Create new account</a>
-		</div>
-		<div id="registration">
-			{ONXSHOP_REQUEST_registration #component/client/registration}
+		
+	</div>
+	
+</div>
+
+<div id="onxshop_cms_content" class="username_{_SESSION.authentication.username}">
+	<div class="top"><span></span></div>
+
+	<div class="backoffice_login">
+		<div class="backoffice_login_wrapper">
+			<!-- BEGIN: choose_login_type -->
+			<style>
+				div.backoffice_login #login {display: none;}
+			</style>
+			<div class="choose_login_type">
+				{ONXSHOP_REQUEST_facebook #component/client/facebook_auth}
+				{ONXSHOP_REQUEST_twitter #component/client/twitter_auth}
+				<p><button onclick="$('#login').slideToggle();"><span>Connect with Email</span></button></p>
+			</div>
+			<!-- END: choose_login_type -->
+			<div id="login">
+				{ONXSHOP_REQUEST_login #component/client/login}
+				<p><a href="#registration" onclick="$('#registration, #login').slideToggle();">Create new account</a></p>
+			</div>
+			<div id="registration">
+				{ONXSHOP_REQUEST_registration #component/client/registration}
+				<p><a href="#registration" onclick="$('#registration, #login').slideToggle();">Back to login</a></p>
+			</div>
 		</div>
 	</div>
+		
+		
+	<div class="bottom"><span></span></div>
 </div>
 <!-- END: content -->
