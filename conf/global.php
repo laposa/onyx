@@ -248,3 +248,9 @@ if (!defined('ONXSHOP_RECAPTCHA_PRIVATE_KEY')) define('ONXSHOP_RECAPTCHA_PRIVATE
  */
 
 if (!defined('ONXSHOP_BACKOFFICE_REQUIRE_CUSTOMER_LOGIN')) define('ONXSHOP_BACKOFFICE_REQUIRE_CUSTOMER_LOGIN', false);
+
+/**
+ * mark object as invalid when using null on required attributes?
+ */
+
+if (!defined('ONXSHOP_MODEL_STRICT_VALIDATION')) define('ONXSHOP_MODEL_STRICT_VALIDATION', false);
