@@ -8,8 +8,11 @@ div.backoffice_login #registration form {background: rgba(237, 237, 237, 0.9); p
 div.backoffice_login form span.field {width: 100%;}
 div.backoffice_login {margin: 20px auto; width: 300px; display: table; height: 80%;}
 div.backoffice_login fieldset legend {text-transform: uppercase;}
+div.backoffice_login #login div.login {margin-bottom: 2em;}
 div.backoffice_login #login a,
-div.backoffice_login #registration a {color: white; }
+div.backoffice_login #registration a {color: white; text-decoration: none;}
+div.backoffice_login #login form a,
+div.backoffice_login #registration form a {color: black; text-decoration: underline;}
 div.backoffice_login div.backoffice_login_wrapper {display: table-cell; vertical-align: middle; }
 div.backoffice_login #registration {display: none;}
 div.backoffice_login div.autologin span.label {float: left;}
@@ -20,6 +23,7 @@ div.backoffice_login div.autologin span.field {width: auto;}
 $(document).ready(function(){
 	$('div.backoffice_login #registration fieldset.delivery_address, div.backoffice_login #registration fieldset.company_details, div.backoffice_login #registration fieldset.account_details').remove();
 	$('div.backoffice_login form').removeClass('twoColumns');
+	$('div.backoffice_login #login div.login form.failed').parent().effect("shake");
 });
 </script>
 
@@ -64,11 +68,11 @@ $(document).ready(function(){
 			<!-- END: choose_login_type -->
 			<div id="login">
 				{ONXSHOP_REQUEST_login #component/client/login}
-				<p><a href="#registration" onclick="$('#registration, #login').slideToggle();">Create new account</a></p>
+				<p><a href="#registration" onclick="$('#registration, #login').slideToggle();">Create new account ▶</a></p>
 			</div>
 			<div id="registration">
+				<p><a href="#login" onclick="$('#registration, #login').slideToggle();">◀ Back to login</a></p>
 				{ONXSHOP_REQUEST_registration #component/client/registration}
-				<p><a href="#registration" onclick="$('#registration, #login').slideToggle();">Back to login</a></p>
 			</div>
 		</div>
 	</div>
