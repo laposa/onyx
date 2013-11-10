@@ -93,7 +93,7 @@ class Onxshop_Controller_Component_Client_Twitter_Auth extends Onxshop_Controlle
 		$onxshop_client_customer['first_name'] = $name[0];
 		$onxshop_client_customer['last_name'] = $name[1];
 		$onxshop_client_customer['twitter_id'] = $user_profile->id;
-		$onxshop_client_customer['profile_image_url'] = $user_profile->profile_image_url;
+		$onxshop_client_customer['profile_image_url'] = $user_profile->profile_image_url_https;
 		
 		//save to session
 		$_SESSION['r_client']['customer'] = $onxshop_client_customer;
