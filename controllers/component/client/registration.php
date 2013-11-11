@@ -17,8 +17,6 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
 	
 		$this->commonAction();
 		
-		$this->generateCountryList();		
-		
 		/**
 		 * save
 		 */
@@ -54,8 +52,7 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
 			
 				// when required some other step for registering, store fields in session
 				//$_SESSION['r_client'] = $_POST['client'];
-				
-				if (trim($client_address['delivery']['name']) == '') {
+				if (is_array($client_address) && trim($client_address['delivery']['name']) == '') {
 					$client_address['delivery']['name'] = "{$client_customer['title_before']} {$client_customer['first_name']} {$client_customer['last_name']}";
 				}
 				
@@ -102,7 +99,7 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
 			}
 		}
 		
-		
+		$this->generateCountryList();
 		$this->prepareCheckboxes();		
 		
 		$this->tpl->assign('CLIENT', $_POST['client']);
@@ -215,11 +212,13 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
 		/**
 		 * check if we have some old information for this email address
 		 */
-		 
-		if ($current_customer_data = $this->Customer->getClientByEmail($_POST['client']['customer']['email'])) {
-			
-			$_POST['client']['customer'] = array_merge($current_customer_data, $_POST['client']['customer']);
-			
+		
+		if (is_array($_POST['client']['customer'])) {
+			if ($current_customer_data = $this->Customer->getClientByEmail($_POST['client']['customer']['email'])) {
+				
+				$_POST['client']['customer'] = array_merge($current_customer_data, $_POST['client']['customer']);
+				
+			}
 		}
 		
 		/**

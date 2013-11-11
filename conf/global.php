@@ -243,3 +243,14 @@ if (!defined('ONXSHOP_CDN_ALLOWED_TYPES')) define('ONXSHOP_CDN_ALLOWED_TYPES', '
 if (!defined('ONXSHOP_RECAPTCHA_PUBLIC_KEY')) define('ONXSHOP_RECAPTCHA_PUBLIC_KEY', '');
 if (!defined('ONXSHOP_RECAPTCHA_PRIVATE_KEY')) define('ONXSHOP_RECAPTCHA_PRIVATE_KEY', '');
 
+/**
+ * is backoffice user account required?
+ */
+
+if (!defined('ONXSHOP_BACKOFFICE_REQUIRE_CUSTOMER_LOGIN')) define('ONXSHOP_BACKOFFICE_REQUIRE_CUSTOMER_LOGIN', true);
+
+/**
+ * mark object as invalid when using null on required attributes?
+ */
+
+if (!defined('ONXSHOP_MODEL_STRICT_VALIDATION')) define('ONXSHOP_MODEL_STRICT_VALIDATION', false);

@@ -1,9 +1,9 @@
 <!-- BEGIN: content -->
 <div class="taxonomy_list">
 	<!-- BEGIN: item -->
-	<div class="item">
-		<!-- BEGIN: image --><span><img src="/image/{IMAGE.src}" alt="{IMAGE.title|htmlspecialchars}" title="{ITEM.label.title|htmlspecialchars|nl2br}"></span><!-- END: image -->
-		<!-- BEGIN: image_link --><span><a href="/page/{IMAGE.link_to_node_id}"><img src="/image/{IMAGE.src}" alt="{IMAGE.title|htmlspecialchars}" title="{ITEM.label.title|htmlspecialchars|nl2br}"></a></span><!-- END: image_link -->
+	<div class="item t{ITEM.id}">
+		<!-- BEGIN: image --><span class="item"><span class="image"><img src="/image/{IMAGE.src}" alt="{IMAGE.title|htmlspecialchars}" title="{ITEM.label.title|htmlspecialchars|nl2br}"></span></span><!-- END: image -->
+		<!-- BEGIN: image_link --><span class="item"><a href="/page/{IMAGE.link_to_node_id}"><span class="image"><img src="/image/{IMAGE.src}" alt="{IMAGE.title|htmlspecialchars}" title="{ITEM.label.title|htmlspecialchars|nl2br}"></span></a></span><!-- END: image_link -->
 	</div>
 	<!-- END: item -->
 </div>

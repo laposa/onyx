@@ -46,14 +46,15 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 					$hits = $index->find($search_query);
 				}				
 
-				$result_items_shown = 0;
 				$result_items_show = 15;
 				
 				if (count($hits) > 0) {
-				
+
+					$results = array();
+
 					foreach ($hits as $hit) {
 						
-						if ($result_items_shown >= $result_items_show) break;
+						if (count($results) >= $result_items_show) break;
 
 						$doc = $hit->getDocument();
 						$uri = $hit->uri == '' ? '/' : $hit->uri; 
@@ -66,20 +67,31 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 
 						try {
 							$page['body'] = $doc->getFieldValue("body");
+							$page['path'] = $path;
 
-							$this->parseBreadcrumb($path);
-							$this->parsePageDetails($page);
-							$result_items_shown++;
+							$this->updatePageDetails($page);
+							$results[] = $page;
 
 						} catch (Exception $e) {
 							continue;
 						}
 
 					}
+
+					$results = $this->customSort($results);
+
+					foreach ($results as $result) {
+
+						$this->parseBreadcrumb($result['path']);
+
+						$this->tpl->assign('RESULT', $result);
+						if ($result['image']) $this->tpl->parse('content.result.item.image');
+						$this->tpl->parse('content.result.item');
+					}
 				
 				}			
 
-				if ($result_items_shown > 0) $this->tpl->parse('content.result');
+				if (count($results) > 0) $this->tpl->parse('content.result');
 				else $this->tpl->parse('content.empty_result');
 
 			} else {
@@ -92,33 +104,28 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 		return true;
 	}
 
+	/**
+	 * override in subclass to implement own sorting
+	 */
+	protected function customSort($results) {
+		return $results;
+	}
+
 
 	/**
 	 * load addional page info (excerpt and image)
 	 */
-	protected function parsePageDetails(&$page)
+	protected function updatePageDetails(&$page)
 	{
+		$page['type_priority'] = 0;
+
 		switch ($page['node_controller']) {
-
-			case 'recipe':
-				$result = $this->getRecipeDetails($page['content']);
-				break;
-
-			case 'product':
-				$result = $this->getProductDetails($page['content']);
-				break;
-
-			case 'store':
-				$result = $this->getStoreDetails($page['content']);
-				break;
-
+			case 'recipe': $this->getRecipeDetails($page); break;
+			case 'product': $this->getProductDetails($page); break;
+			case 'store': $this->getStoreDetails($page); break;
 		}
 
-		if ($result) {
-
-				$page['excerpt'] = $result;
-
-		} else {
+		if (strlen($page['excerpt']) == 0) {
 
 			if (strlen($page['description']) < 20) {
 
@@ -135,36 +142,36 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 		//use title as fallback if page title isn't available
 		if ($page['page_title'] == '') $page['page_title'] = $page['title'];
 
-		$this->tpl->assign('PAGE', $page);
-		$this->tpl->parse('content.result.item');
-
 	}
 
 	/**
 	 * load recipe details
 	 */
-	protected function getRecipeDetails($recipe_id)
+	protected function getRecipeDetails(&$page)
 	{
+		$recipe_id = $page['content'];
 		if (!is_numeric($recipe_id)) return false;
 
 		require_once("models/ecommerce/ecommerce_recipe.php");
 		$Recipe = new ecommerce_recipe();
 		$recipe = $Recipe->detail($recipe_id);
 
-		$excerpt = $this->highlightKeywords(strip_tags($recipe['description']));
+		$page['excerpt'] = $this->highlightKeywords(strip_tags($recipe['description']));
 
 		$request = new Onxshop_Request("component/image~relation=recipe:role=main:width=100:height=100:node_id={$recipe['id']}:limit=0,1~");
-		$this->tpl->assign('IMAGE', $request->getContent());
-		$this->tpl->parse('content.result.item.image');
+		$page['image'] = $request->getContent();
 
-		return $excerpt;
+		$page['type_priority'] = 100;
+		$page['priority'] = $recipe['priority'];
+
 	}
 
 	/**
 	 * load store details
 	 */
-	protected function getStoreDetails($store_id)
+	protected function getStoreDetails(&$page)
 	{
+		$store_id = $page['content'];
 		if (!is_numeric($store_id)) return false;
 
 		require_once("models/ecommerce/ecommerce_store.php");
@@ -172,38 +179,40 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 		$store = $Store->detail($store_id);
 
 		$excerpt = strip_tags($store['description']);
-		if (strlen($page['description']) > 0) $excerpt .= "<br/>";
+		if (strlen($store['description']) > 0) $excerpt .= "<br/>";
 		if (strlen($store['address']) > 0) $excerpt .= nl2br($store['address']);
 		if (strlen($store['opening_hours']) > 0) $excerpt .= "<br/><br/>" . nl2br($store['opening_hours']);
-		$excerpt = $this->highlightKeywords($excerpt);
+		$page['excerpt'] = $this->highlightKeywords($excerpt);
 
 		$request = new Onxshop_Request("component/image~relation=store:role=main:width=100:height=100:node_id={$store['id']}:limit=0,1~");
-		$this->tpl->assign('IMAGE', $request->getContent());
-		$this->tpl->parse('content.result.item.image');
+		$page['image'] = $request->getContent();
 
-		return $excerpt;
+		$page['type_priority'] = 200;
+		$page['priority'] = $store['priority'];
 	}
 
 	/**
 	 * load product details
 	 */
-	protected function getProductDetails($product_id)
+	protected function getProductDetails(&$page)
 	{
+		$product_id = $page['content'];
 		if (!is_numeric($product_id)) return false;
 
 		require_once("models/ecommerce/ecommerce_product.php");
 		$Product = new ecommerce_product();
 		$product = $Product->detail($product_id);
 
-		if (strlen($page['description']) > 10) $excerpt = $product['description'];
-		else $excerpt = $product['address'];
-		$excerpt = $this->highlightKeywords(strip_tags($excerpt));
+		if (strlen($page['description']) > 0) $excerpt = $page['description'];
+		else if (strlen($product['excerpt']) > 0) $excerpt = $product['excerpt'];
+		else $excerpt = $product['description'];
+		$page['excerpt'] = $this->highlightKeywords(strip_tags($excerpt));
 
 		$request = new Onxshop_Request("component/image~relation=product:role=main:width=100:height=100:node_id={$product['id']}:limit=0,1~");
-		$this->tpl->assign('IMAGE', $request->getContent());
-		$this->tpl->parse('content.result.item.image');
+		$page['image'] = $request->getContent();
 
-		return $excerpt;
+		$page['type_priority'] = 300;
+		$page['priority'] = $product['priority'];
 	}
 
 

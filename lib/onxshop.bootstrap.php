@@ -273,6 +273,14 @@ class Onxshop_Bootstrap {
 			return false;
 		}
 		
+		if ($_SESSION['client']['customer']['id'] < 1 && ONXSHOP_BACKOFFICE_REQUIRE_CUSTOMER_LOGIN) {
+			
+			$_SESSION['to'] = $_SERVER['REQUEST_URI'];
+			
+			$request = 'sys/html5.bo/backoffice_wrapper.bo/login';
+			
+		}
+		
 		return $request;
 	}
 	
@@ -332,7 +340,7 @@ class Onxshop_Bootstrap {
 		 */
 		
 		if ($this->isRequiredAuthentication($request)) {
-			if(!$this->processAuthentication($request)) {
+			if(!$request = $this->processAuthentication($request)) {
 				$request = 'sys/xhtml.sys/401';
 			}
 		}

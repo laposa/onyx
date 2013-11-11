@@ -55,6 +55,7 @@ class Onxshop_Controller_Uri_Mapping extends Onxshop_Controller {
 				
 				/**
 				 * short URL redirects
+				 * TODO: allow to pass GET parameters
 				 */
 				 
 				$this->redirectToSeoURLAndExit($node_id);

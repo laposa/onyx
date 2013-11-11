@@ -9,7 +9,7 @@ $(document).ready(function(){
 
 <form class="registration twoColumns" id="registration_node_id_{GET.node_id}" action="{URI_SAFE|htmlspecialchars}#node_id_{GET.node_id}" method="post">
 
-	<fieldset>
+	<fieldset class="personal_details">
 	
 		<legend>{I18N_R_PERSONAL_DETAILS}</legend>
 		
@@ -41,7 +41,7 @@ $(document).ready(function(){
 	</fieldset>
 	
 	<!-- BEGIN: password -->
-	<fieldset>
+	<fieldset class="password">
 	
 		<legend>{I18N_R_CHOOSE_YOUR_PASSWORD}</legend>
 		
@@ -58,7 +58,7 @@ $(document).ready(function(){
 	</fieldset>
 	<!-- END: password -->
 	
-	<fieldset>
+	<fieldset class="delivery_address">
 	
 		<legend>{I18N_DELIVERY_ADDRESS}</legend>
 		
@@ -112,7 +112,7 @@ $(document).ready(function(){
 		
 	</fieldset>
 
-	<fieldset>
+	<fieldset class="company_details">
 	
 		<legend>{I18N_R_COMPANY_DETAILS}</legend>
 		
@@ -131,7 +131,7 @@ $(document).ready(function(){
 		</div>
 	</fieldset>
 	
-	<fieldset>
+	<fieldset class="account_details">
 	
 		<legend>{I18N_R_ACCOUNT_DETAILS}</legend>
 		
