@@ -49,6 +49,11 @@ class ecommerce_delivery_carrier extends Onxshop_Model {
 	 * @access private
 	 */
 	public $order_value_to;
+
+	/**
+	 * @access private
+	 */
+	public $warehouse_id;
 	
 	public $_metaData = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
@@ -58,7 +63,8 @@ class ecommerce_delivery_carrier extends Onxshop_Model {
 		'publish'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'zone_id'=>array('label' => '', 'validation'=>'int', 'required'=>true),
 		'order_value_from'=>array('label' => '', 'validation'=>'float', 'required'=>false),
-		'order_value_to'=>array('label' => '', 'validation'=>'float', 'required'=>false)
+		'order_value_to'=>array('label' => '', 'validation'=>'float', 'required'=>false),
+		'warehouse_id'=>array('label' => '', 'validation'=>'int', 'required'=>false)
 	);
 	
 	/**

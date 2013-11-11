@@ -69,6 +69,16 @@
 
 						<textarea ng-model="carrier.description" placeholder="Description"></textarea>
 
+						<h4>Order Value</h4>
+
+						<table>
+							<tr><th>From (incl.)</th><th>To (excl.)</th></tr>
+							<tr>
+								<td><input type="text" required ng-model="carrier.order_value_from"/>{CURRENCY}</td>
+								<td><input type="text" required ng-model="carrier.order_value_to"/>{CURRENCY}</td>
+							</tr>
+						</table>
+
 						<h4>Rates</h4>
 
 						<table ng-show="carrier.rates.length > 0">
@@ -82,13 +92,11 @@
 
 						<button ng-click="addRate(carrier)">Add Rate</button>
 
-						<h4>Order Value</h4>
+						<h4>Warehouse Id</h4>
 
 						<table>
-							<tr><th>From (incl.)</th><th>To (excl.)</th></tr>
 							<tr>
-								<td><input type="text" required ng-model="carrier.order_value_from"/>{CURRENCY}</td>
-								<td><input type="text" required ng-model="carrier.order_value_to"/>{CURRENCY}</td>
+								<td><input type="text" ng-model="carrier.warehouse_id"/></td>
 							</tr>
 						</table>
 
