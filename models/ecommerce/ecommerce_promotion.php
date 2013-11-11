@@ -106,6 +106,12 @@ class ecommerce_promotion extends Onxshop_Model {
 	/* voucher limited to minim order amount */
 	public $limit_to_order_amount;
 
+	/* promotion type */
+	public $type;
+
+	/* limit_cumulative_discount */
+	public $limit_cumulative_discount;
+
 	public $_metaData = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'title'=>array('label' => '', 'validation'=>'string', 'required'=>true),
@@ -128,7 +134,9 @@ class ecommerce_promotion extends Onxshop_Model {
 		'generated_by_customer_id'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'limit_by_customer_id'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'limit_to_first_order'=>array('label' => '', 'validation'=>'int', 'required'=>false),
-		'limit_to_order_amount'=>array('label' => '', 'validation'=>'int', 'required'=>false)
+		'limit_to_order_amount'=>array('label' => '', 'validation'=>'int', 'required'=>false),
+		'type'=>array('label' => '', 'validation'=>'int', 'required'=>true),
+		'limit_cumulative_discount'=>array('label' => '', 'validation'=>'decimal', 'required'=>false)
 		);
 	
 	/**
@@ -150,7 +158,7 @@ CREATE TABLE ecommerce_promotion (
     discount_fixed_value decimal(12,5) NOT NULL DEFAULT 0,
     discount_percentage_value decimal(5,2) NOT NULL DEFAULT 0,
     discount_free_delivery smallint NOT NULL DEFAULT 0,
-    uses_per_coupon integer NOT NULL DEFAULT 0 ,
+    uses_per_coupon integer NOT NULL DEFAULT 0,
     uses_per_customer smallint NOT NULL DEFAULT 0,
     limit_list_products text ,
     other_data text,
@@ -160,8 +168,9 @@ CREATE TABLE ecommerce_promotion (
 	generated_by_customer_id integer REFERENCES client_customer ON UPDATE CASCADE ON DELETE RESTRICT,
 	limit_by_customer_id integer DEFAULT 0 REFERENCES client_customer ON UPDATE CASCADE ON DELETE RESTRICT,
 	limit_to_first_order smallint NOT NULL DEFAULT 0,
-	limit_to_order_amount numeric(12,5) DEFAULT 0
-	
+	limit_to_order_amount numeric(12,5) DEFAULT 0,
+	type integer NOT NULL DEFAULT 1 REFERENCES ecommerce_promotion_type(id) ON UPDATE CASCADE ON DELETE CASCADE,
+	limit_cumulative_discount numeric(12,5) DEFAULT 0
 );
 		";
 		
@@ -540,6 +549,30 @@ CREATE TABLE ecommerce_promotion (
 			}
 
 			/**
+			 * check limit_cumulative_discount
+			 */
+
+			if ($promotion_data['limit_cumulative_discount'] > 0) {
+				require_once('models/ecommerce/ecommerce_basket.php');
+				$Basket = new ecommerce_basket();
+				$Basket->calculateBasketDiscount($basket, $code, false);
+				$usage = $this->getUsage($promotion_data['id'], $customer_id);
+				if ($usage && ($usage['sum_discount'] + $basket['discount']) > $promotion_data['limit_cumulative_discount']) {
+					$limit = money_format("%n", $promotion_data['limit_cumulative_discount']);
+					$provided = money_format("%n", $usage['sum_discount']);
+					$current = money_format("%n", $basket['discount']);
+					$total = money_format("%n", $usage['sum_discount'] + $basket['discount']);
+					if (!Zend_Registry::isRegistered('ecommerce_promotion:limit_cumulative_discount_exceeded')) {
+						msg("Sorry, the code \"$code\" is limited to maximum discount value of $limit. " .
+							"The discount provided to you recently has been in total amount of {$provided} and the " .
+							"discount applied to your current order would be $current, which is $total in total and definitely over the limit of $limit.", 'error');
+						Zend_Registry::set('ecommerce_promotion:limit_cumulative_discount_exceeded', true);
+					}
+					return false;
+				}
+			}
+
+			/**
 			 * not using self-generated code
 			 */
 			if ($promotion_data['generated_by_customer_id'] > 0 && $promotion_data['generated_by_customer_id'] == $customer_id) {
@@ -687,15 +720,18 @@ CREATE TABLE ecommerce_promotion (
 	 * get usage
 	 */
 	
-	public function getUsage($id) {
+	public function getUsage($id, $customer_id = false) {
 	
+		if (is_numeric($customer_id)) $customer_sql = "AND customer_id = $customer_id";
+		else $customer_sql = '';
+
 	    $sql = "SELECT count(invoice.id) as count, sum(invoice.goods_net) as sum_goods_net, 
 	    		sum(basket.face_value_voucher) as sum_face_value_voucher
 		    FROM ecommerce_promotion_code code 
-			LEFT JOIN ecommerce_invoice invoice ON (invoice.order_id = code.order_id)
-			LEFT JOIN ecommerce_order eorder ON (eorder.id = invoice.order_id)
-			LEFT JOIN ecommerce_basket basket ON (basket.id = eorder.basket_id)
-			WHERE code.promotion_id = $id AND invoice.status = 1";
+			INNER JOIN ecommerce_invoice invoice ON invoice.order_id = code.order_id AND invoice.status = 1
+			LEFT JOIN ecommerce_order eorder ON eorder.id = invoice.order_id
+			LEFT JOIN ecommerce_basket basket ON basket.id = eorder.basket_id $customer_sql
+			WHERE code.promotion_id = $id";
 
 		if ($records = $this->executeSql($sql)) {
 
@@ -703,11 +739,11 @@ CREATE TABLE ecommerce_promotion (
 
 		    $sql = "SELECT sum(basket_content.discount) as sum_discount
 			    FROM ecommerce_promotion_code code 
-				LEFT JOIN ecommerce_invoice invoice ON (invoice.order_id = code.order_id)
-				LEFT JOIN ecommerce_order eorder ON (eorder.id = invoice.order_id)
-				LEFT JOIN ecommerce_basket basket ON (basket.id = eorder.basket_id)
-				LEFT JOIN ecommerce_basket_content basket_content ON (basket.id = basket_content.basket_id)
-				WHERE code.promotion_id = $id AND invoice.status = 1";
+				INNER JOIN ecommerce_invoice invoice ON invoice.order_id = code.order_id AND invoice.status = 1
+				LEFT JOIN ecommerce_order eorder ON eorder.id = invoice.order_id
+				LEFT JOIN ecommerce_basket basket ON basket.id = eorder.basket_id $customer_sql
+				LEFT JOIN ecommerce_basket_content basket_content ON basket.id = basket_content.basket_id
+				WHERE code.promotion_id = $id";
 
 			if ($records = $this->executeSql($sql)) {
 				$result['sum_discount'] = $records[0]['sum_discount'];
