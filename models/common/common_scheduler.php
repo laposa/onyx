@@ -143,7 +143,7 @@ CREATE TABLE common_scheduler (
 
 		try {
 
-			$result = $this->db->query("LOCK TABLE common_scheduler IN ACCESS EXCLUSIVE MODE");
+			$this->db->query("LOCK TABLE common_scheduler IN ACCESS EXCLUSIVE MODE");
 			$result = $this->db->query("UPDATE common_scheduler 
 				SET status = 1, lock_token = $lock_token
 				WHERE scheduled_time <= NOW() AND status = 0");
@@ -152,7 +152,7 @@ CREATE TABLE common_scheduler (
 
 		} catch (Exception $e) {
 		
-			$db->rollBack();
+			$this->db->rollBack();
 			msg($e->getMessage(), 'error', 1);
 			$num_locked = 0;
 
