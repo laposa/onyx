@@ -18,9 +18,7 @@ class Onxshop_Controller_Scheduler extends Onxshop_Controller {
 		$Scheduler = new common_scheduler();
 		$Scheduler->setCacheable(false);
 	
-		$lock_token = $Scheduler->lockPendingJobs();
-
-		if ($lock_token > 0) {
+		if ($Scheduler->anyPendingJobs() && ($lock_token = $Scheduler->lockPendingJobs()) > 0) {
 
 			$jobs = $Scheduler->getLockedJobs($lock_token);
 
