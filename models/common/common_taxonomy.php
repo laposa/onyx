@@ -197,11 +197,11 @@ class common_taxonomy {
 	 * getLabelImages
 	 */
 	 
-	public function getLabelImages($label_id) {
+	public function getLabelImages($label_id, $role = false) {
 		
 		if (!is_numeric($label_id)) return false;
 		
-		return $this->TaxonomyLabel->getImages($label_id);
+		return $this->TaxonomyLabel->getImages($label_id, $role);
 		
 	}
 }

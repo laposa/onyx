@@ -116,14 +116,17 @@ CREATE TABLE common_taxonomy_label (
 	 * getImages
 	 */
 	 
-	public function getImages($label_id) {
+	public function getImages($label_id, $role = false) {
 		
 		if (!is_numeric($label_id)) return false;
 		
 		require_once('models/common/common_taxonomy_label_image.php');
 		$LabelImage = new common_taxonomy_label_image();
 		
-		$list = $LabelImage->listing('node_id = ' . $label_id);
+		if ($role) $query = "node_id = $label_id AND role = '$role'";
+		else $query = "node_id = $label_id";
+		
+		$list = $LabelImage->listing($query);
 		
 		return $list;
 		
