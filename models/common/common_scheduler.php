@@ -123,6 +123,14 @@ CREATE TABLE common_scheduler (
 		return $this->listing("node_type = '$node_type' AND node_id = " . $node_id, "scheduled_time ASC");
 	}
 
+	/**
+	 * Look for jobs to be executed
+	 */
+	public function anyPendingJobs()
+	{
+		$count = $this->count("scheduled_time <= NOW() AND status = 0");
+		return ($count > 0);
+	}
 
 	/**
 	 * Look for jobs to be executed, lock them and return the lock token
@@ -131,13 +139,24 @@ CREATE TABLE common_scheduler (
 	{
 		$lock_token = rand(0, 99999999);
 
-		$sql = "UPDATE common_scheduler
-			SET status = 1, lock_token = $lock_token
-			WHERE scheduled_time <= NOW() AND status = 0";
+		$this->db->beginTransaction();
 
-		$result = $this->db->query($sql);
+		try {
 
-		$num_locked = (int) $result->rowCount();
+			$this->db->query("LOCK TABLE common_scheduler IN ACCESS EXCLUSIVE MODE");
+			$result = $this->db->query("UPDATE common_scheduler 
+				SET status = 1, lock_token = $lock_token
+				WHERE scheduled_time <= NOW() AND status = 0");
+			$this->db->commit();
+			$num_locked = (int) $result->rowCount();
+
+		} catch (Exception $e) {
+		
+			$this->db->rollBack();
+			msg($e->getMessage(), 'error', 1);
+			$num_locked = 0;
+
+		}
 
 		return ($num_locked > 0 ? $lock_token : false);
 	}
