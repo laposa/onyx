@@ -79,15 +79,7 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 					}
 
 					$results = $this->customSort($results);
-
-					foreach ($results as $result) {
-
-						$this->parseBreadcrumb($result['path']);
-
-						$this->tpl->assign('RESULT', $result);
-						if ($result['image']) $this->tpl->parse('content.result.item.image');
-						$this->tpl->parse('content.result.item');
-					}
+					$this->parseResults($results);
 				
 				}			
 
@@ -107,10 +99,25 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 	/**
 	 * override in subclass to implement own sorting
 	 */
-	protected function customSort($results) {
+	protected function customSort($results)
+	{
 		return $results;
 	}
 
+	/**
+	 * parse result items (override to implement custom details)
+	 */
+	protected function parseResults($results)
+	{
+		foreach ($results as $result) {
+
+			$this->parseBreadcrumb($result['path']);
+
+			$this->tpl->assign('RESULT', $result);
+			if ($result['image']) $this->tpl->parse('content.result.item.image');
+			$this->tpl->parse('content.result.item');
+		}
+	}
 
 	/**
 	 * load addional page info (excerpt and image)
