@@ -220,7 +220,8 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 	protected function addItem($product_variety_id, $quantity, $other_data = array(), $price_id = false)
 	{
 		if ($this->Basket->addToBasket($this->basket_id, $product_variety_id, $quantity, $other_data, $price_id)) {
-			msg(I18N_BASKET_ITEM_ADDED);
+			if ($quantity == 1) msg(I18N_BASKET_ITEM_ADDED);
+			else msg(str_replace('%n', $quantity, I18N_BASKET_ITEMS_ADDED));
 			return true;
 		}
 

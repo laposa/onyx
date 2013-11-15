@@ -103,6 +103,7 @@ define('I18N_YOUR_BASKET_IS_EMPTY', 'Váš košík je prázdný.');
 define('I18N_CHECKOUT', 'Objednat');
 //component/ecommerce/basket.php
 define('I18N_BASKET_ITEM_ADDED', 'Položka byla vložena do košíku');
+define('I18N_BASKET_ITEMS_ADDED', '%n položek bylo vloženo do košíku');
 define('I18N_BASKET_ITEM_REMOVED', 'Položka byla odstraněna');
 //component/ecommerce/basket_detail.html
 define('I18N_VAT_NOTE', 'By default, product prices displayed throughout our website are UK VAT inclusive until you proceed to purchase your order. Taxes and duties are then calculated according to your shipping destination and itemised at the bottom of the Order Summary page.');
