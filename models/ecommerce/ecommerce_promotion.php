@@ -553,6 +553,7 @@ CREATE TABLE ecommerce_promotion (
 			 */
 
 			if ($promotion_data['limit_cumulative_discount'] > 0) {
+
 				require_once('models/ecommerce/ecommerce_basket.php');
 				$Basket = new ecommerce_basket();
 				$Basket->calculateBasketDiscount($basket, $code, false);
@@ -560,12 +561,19 @@ CREATE TABLE ecommerce_promotion (
 				if ($usage && ($usage['sum_discount'] + $basket['discount']) > $promotion_data['limit_cumulative_discount']) {
 					$limit = money_format("%n", $promotion_data['limit_cumulative_discount']);
 					$provided = money_format("%n", $usage['sum_discount']);
-					$current = money_format("%n", $basket['discount']);
-					$total = money_format("%n", $usage['sum_discount'] + $basket['discount']);
 					if (!Zend_Registry::isRegistered('ecommerce_promotion:limit_cumulative_discount_exceeded')) {
-						msg("Sorry, the code \"$code\" is limited to maximum discount value of $limit. " .
-							"The discount provided to you recently has been in total amount of {$provided} and the " .
-							"discount applied to your current order would be $current, which is $total in total and definitely over the limit of $limit.", 'error');
+						$msg = "Code \"$code\" is limited to maximum discount value of $limit. " .
+							"You’ve already used of {$provided}";
+						if ($promotion_data['discount_percentage_value'] > 0) {
+							$max_order = ($promotion_data['limit_cumulative_discount'] - $usage['sum_discount']) / ($promotion_data['discount_percentage_value'] / 100);
+							if ($max_order > 0) {
+								$max_order = money_format("%n", $max_order);
+								$msg .= ", so your current order would exceed your allotted discount value. " .
+								        "Please try again with an order of no greater than $max_order";
+								}
+						}
+						$msg .= ".";
+						msg($msg, 'error');
 						Zend_Registry::set('ecommerce_promotion:limit_cumulative_discount_exceeded', true);
 					}
 					return false;
