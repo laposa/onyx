@@ -155,90 +155,75 @@ CREATE TABLE ecommerce_delivery (
 	}
 
 	/**
-	 * calculate delivery
-	 *
-	 * @param unknown_type $address_id
-	 * @param unknown_type $weight
-	 * @param unknown_type $goods_net
-	 * @param unknown_type $options
-	 * @return unknown
+	 * Calculate delivery rate for given carrier and basket content
+	 * 
+	 * @param  int    $carrier_id     Carrier Id
+	 * @param  Array  $basket         Basket content 
+	 * @return Array                  Delivery rate and VAT
 	 */
-	
-	function calculate($address_id, $weight, $goods_net, $options, $promotion_detail = false) {
-	
-		require_once('models/ecommerce/ecommerce_delivery_carrier.php');
-		$Carrier = new ecommerce_delivery_carrier();
-		
-		if (is_array($options)) {
-			if (is_numeric($options['carrier_id'])) $carrier_id = $options['carrier_id'];
-			else {
-				$carrier_id = $Carrier->conf['default_carrier_id'];
-			}
-		} else {
-			$carrier_id = $Carrier->conf['default_carrier_id'];
-		}
-		
-		$delivery_price = $Carrier->calculate($address_id, $weight, $goods_net, $carrier_id, $promotion_detail); 
-		
-		return $delivery_price;
-	}
-	
-	/**
-	 * calculate delivery cost of the order
-	 *
-	 * @param unknown_type $basket_content
-	 * @param unknown_type $delivery_address_id
-	 * @param unknown_type $delivery_options
-	 * @return unknown
-	 */
-	 
-	function calculateDelivery($basket_content, $delivery_address_id, $delivery_options = false, $promotion_detail = false) {
-				
+	function calculateDelivery($basket, $carrier_id, $delivery_address_id, $promotion_detail)
+	{
 		//if there is a product with vat rate > 0, add vat to the shipping
-		$add_vat = $this->findVATEligibility($basket_content);
+		$add_vat = $this->findVATEligibility($basket);
 
-		//get weight for delivery
-		$total_weight = $basket_content['total_weight_gross'];
-		
-		//convert total weight to grams
-		require_once('models/ecommerce/ecommerce_product_variety.php');
-		$product_variety_conf = ecommerce_product_variety::initConfiguration();
-		$total_weight = $this->convertWeight($total_weight, $product_variety_conf['weight_units'], 'g');
+		require_once('models/ecommerce/ecommerce_delivery_carrier.php');
+		$Delivery_Carrier = new ecommerce_delivery_carrier();
 
-		//calculate delivery
-		$delivery_price = $this->calculate($delivery_address_id, $total_weight, $basket_content['sub_total']['price'], $delivery_options, $promotion_detail);
+		// first check if the delivery is available for given order value and weight
+		$price = $Delivery_Carrier->getDeliveryRate(
+			$carrier_id, 
+			$basket['sub_total']['price'],
+			$basket['total_weight_gross']
+		);
 
-		//assign
-		$delivery['value_net'] = $delivery_price;
-		$delivery['weight'] = $total_weight;
-		$delivery['vat_rate'] = $add_vat;
+		// false means method is not available for given weight and amount
+		if ($price === false) return false;
 
-		//format
-		$delivery['value_net'] = sprintf("%0.2f", $delivery['value_net']);
-		
-		//add vat
-		if ($add_vat > 0) {
-			$delivery['vat'] = $delivery['value_net'] * $add_vat / 100;
-			$delivery['value'] = $delivery['value_net'] + $delivery['vat'];
-		} else {
-			$delivery['vat'] = 0;
-			$delivery['value'] = $delivery['value_net'];
-		}
-		
-		return  $delivery;
+		// zero weight means free delivery
+		if ($basket['total_weight_gross'] == 0) return $this->getFreeDelivery();
+
+		// check free delivery promotion
+		require_once('models/ecommerce/ecommerce_promotion.php');
+		$Promotion = new ecommerce_promotion();
+		$Promotion->setCacheable(false);
+
+		if ($Promotion->freeDeliveryAvailable($carrier_id, $delivery_address_id, $promotion_detail)) 
+			return $this->getFreeDelivery($basket['total_weight_gross']);
+
+		return array(
+			'value_net' => sprintf("%0.2f", $price),
+			'weight' => $basket['total_weight_gross'],
+			'vat_rate' => $add_vat,
+			'vat' => $price * $add_vat / 100,
+			'value' => sprintf("%0.2f", $price * ($add_vat + 100) / 100)
+		);
 	}
-	
+
+	/**
+	 * Get free delivery array
+	 */
+	function getFreeDelivery($weight = 0)
+	{
+		return array(
+			'value_net' => sprintf("%0.2f", 0),
+			'weight' => $weight,
+			'vat_rate' => 0,
+			'vat' => 0,
+			'value' => sprintf("%0.2f", 0)
+		);
+	}
+
 	/**
 	 * If basket contains at least one VAT item, return VAT rate
 	 *
-	 * @param unknown_type $basket_content
+	 * @param unknown_type $basket
 	 * @return unknown
 	 */
 	 
-	function findVATEligibility($basket_content) {
+	function findVATEligibility($basket) {
 	
-		if (!is_array($basket_content)) return false;
-		foreach ($basket_content['items'] as $item) {
+		if (!is_array($basket)) return false;
+		foreach ($basket['items'] as $item) {
 			if ($item['vat_rate'] > 0) {
 				$vat_rate = (string) $item['vat_rate'];
 				return $vat_rate;
@@ -247,48 +232,5 @@ CREATE TABLE ecommerce_delivery (
 		
 		return 0;
 	}
-
-	/**
-	 * duplication with ./ecommerce/ecommerce_product_variety.php:
-	 *
-	 * @param unknown_type $weight
-	 * @param unknown_type $from
-	 * @param unknown_type $to
-	 * @return unknown
-	 */
-	 
-	function convertWeight($weight, $from, $to) {
-			switch ($from) {
-				case 't':
-					$from_ref = 1000 * 1000;
-				break;
-				case 'kg':
-					$from_ref = 1000;
-				break;
-				case 'g':
-					$from_ref = 1;
-				default:
-				break;
-			}
-			
-			switch ($to) {
-				case 't':
-					$to_ref = 1000 * 1000;
-				break;
-				case 'kg':
-					$to_ref = 1000;
-				break;
-				case 'g':
-					$to_ref = 1;
-				default:
-				break;
-			}
-			
-			$weight = $from_ref * $weight / $to_ref;
-			
-			return $weight;
-	}
-
-
 
 }

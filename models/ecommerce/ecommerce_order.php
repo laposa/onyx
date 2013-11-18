@@ -698,12 +698,25 @@ class ecommerce_order extends Onxshop_Model {
 
 	function insertDelivery($order_data) {
 		
-		//calculate delivery price
 		require_once('models/ecommerce/ecommerce_basket.php');
 		$Basket = new ecommerce_basket();
 		$Basket->setCacheable(false);
-		$delivery = $Basket->calculateDelivery($order_data['basket_id'], $order_data['delivery_address_id'], $order_data['other_data']['delivery_options'], $order_data['other_data']['promotion_code']);
-		
+		$basket = $Basket->getFullDetail($order_data['basket_id']);
+		$include_vat = $this->isVatEligible($order_data['delivery_address_id'], $basket['customer_id']);
+		$Basket->calculateBasketSubTotals($basket, $include_vat);
+		$code = $order_data['other_data']['promotion_code'];
+		$verify_code = false;
+		$promotion_detail = $Basket->calculateBasketDiscount($basket, $code, $verify_code);
+
+		require_once('models/ecommerce/ecommerce_delivery.php');
+		$Delivery = new ecommerce_delivery();
+		$delivery = $Delivery->calculateDelivery(
+			$basket,
+			$order_data['other_data']['delivery_options']['carrier_id'],
+			$order_data['delivery_address_id'],
+			$promotion_detail
+		);
+
 		//prepare object
 		require_once('models/ecommerce/ecommerce_delivery.php');
 		$Ecommerce_Delivery = new ecommerce_delivery();

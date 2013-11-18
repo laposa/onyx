@@ -252,3 +252,15 @@ div.CodeMirror {font-size: 13px;}
 #scheduler_list tr.status_cancelled { color: #bbbbbb; text-decoration: line-through; }
 #scheduler_list tr.status_completed .onxshop_delete,
 #scheduler_list tr.status_cancelled .onxshop_delete { display: none; }
+
+/* combobox */
+.custom-combobox { position: relative; display: inline-block; margin-left: 5px; vertical-align: middle; }
+.custom-combobox-toggle { position: absolute; top: 0; bottom: 0; margin-left: -25px; padding: 0; }
+.custom-combobox-input { margin: 0; padding: 6px 40px 6px 4px;  width: 400px; }
+.ui-autocomplete { max-height: 206px; overflow-y: auto; overflow-x: hidden; }
+.ui-autocomplete a { vertical-align: top; }
+.ui-autocomplete .disabled, 
+.ui-autocomplete .notpublic { color: #bbb; text-decoration: line-through; }
+.ui-autocomplete .disabled img, 
+.ui-autocomplete .notpublic img { opacity: 0.2; }
+

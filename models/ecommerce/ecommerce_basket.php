@@ -303,39 +303,6 @@ class ecommerce_basket extends Onxshop_Model {
 	}
 
 	/**
-	 * calculate delivery
-	 * requires 
-	 */
-	 
-	function calculateDelivery($basket_id, $delivery_address_id, $delivery_options, $promotion_code = false) {
-
-		$basket = $this->getDetail($basket_id);
-		require_once('models/ecommerce/ecommerce_order.php');
-		$Order = new ecommerce_order();
-		$include_vat = $Order->isVatEligible($delivery_address_id, $basket['customer_id']);
-		
-		//get basket
-		$basket = $this->getFullDetail($basket_id);
-		$this->calculateBasketSubTotals($basket, $include_vat);
-
-		//find promotion data for delivery calculation
-		if ($promotion_code) {
-			$promotion_data = $this->calculateBasketDiscount($basket, $promotion_code);
-		} else {
-			$promotion_data = false;
-		}
-		
-		//calculate delivery
-		require_once('models/ecommerce/ecommerce_delivery.php');
-		$Delivery = new ecommerce_delivery();
-		$delivery = $Delivery->calculateDelivery($basket, $delivery_address_id, $delivery_options, $promotion_data);
-		
-		return $delivery;
-		
-	}
-
-
-	/**
 	 * add to basket
 	 *
 	 * @param int basket_id
@@ -538,7 +505,7 @@ class ecommerce_basket extends Onxshop_Model {
 		
 		if ($order_detail = $Order->getDetail($order_id)) {
 			
-			if ($basket_detail = $this->getDetail($order_detail['basket_id'])) {
+			if ($basket_detail = $this->getFullDetail($order_detail['basket_id'])) {
 				return $basket_detail;
 			} else {
 				return false;
