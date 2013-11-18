@@ -15,9 +15,9 @@ $(document).ready(function(){
 <!-- BEGIN: content -->
 <div class="image_gallery_parallax number_of_items_{IMAGE_COUNT}" id="gallery_parallax_{GET.node_id}">
 	<!-- BEGIN: item -->
-	<div class="item index_{INDEX}" style="background-image: url({ITEM.path}{ITEM.src});" data-stellar-background-ratio="0.5">
+	<div class="item index_{INDEX}" style="background-image: url({ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS});" data-stellar-background-ratio="0.5">
 		<a class="single_image{GET.relation}{GET.node_id}" rel="single_image{GET.relation}{GET.node_id}" title="{ITEM.title|htmlspecialchars}" href="/page/{ITEM.link_to_node_id}">
-		<img src="{ITEM.path}{ITEM.src}" />
+		<img src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" />
 		<div class="sliderCopy">
 			<div class="wrap">
 				<h3><span>{ITEM.title|htmlspacialchars}</span></h3>		

@@ -55,10 +55,6 @@ class Onxshop_Controller_Component_News_List extends Onxshop_Controller {
 		/**
 		 * get input variables
 		 */
-		 
-		//if (is_numeric($this->GET['taxonomy_tree_id'])) $taxonomy_tree_id = $this->GET['taxonomy_tree_id'];
-		//else $taxonomy_tree_id = '';
-		$taxonomy_tree_id = $this->getTaxonomyList();
 		
 		if (is_numeric($this->GET['created'])) $created = $this->GET['created'];
 		else if (preg_match('/[0-9]{4}-[0-9]{1,2}/', $this->GET['created'])) $created = $this->GET['created'];
@@ -69,6 +65,12 @@ class Onxshop_Controller_Component_News_List extends Onxshop_Controller {
 		
 		if ($this->GET['display_pagination'] == 1) $display_pagination = 1;
 		else $display_pagination = 0;
+		
+		/**
+		 * detect related taxonomy by provided input data via GET
+		 */
+		 
+		$taxonomy_tree_id = $this->getTaxonomyList();
 		
 		/**
 		 * image size
@@ -190,8 +192,9 @@ class Onxshop_Controller_Component_News_List extends Onxshop_Controller {
 				//skip active article if any (e.g. for showing related articles)
 				if ($this->GET['node_id'] == $item['id']) {
 					
-					//don't add to the list
-				
+					//don't add to the list, but increase per page limit by 1
+					$limit_per_page++;
+					
 				} else {
 				
 					//check if it's within requested pagination limit

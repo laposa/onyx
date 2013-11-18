@@ -31,28 +31,56 @@ class Onxshop_Controller_Node_Content_Picture extends Onxshop_Controller_Node_Co
 		/**
 		 * set width
 		 */
-		 
-		if (is_numeric($node_data['component']['main_image_width'])) {
+		
+		if (is_numeric($node_data['component']['main_image_width']) && $node_data['component']['main_image_width'] > 0) {
+			
 			$image_width = $node_data['component']['main_image_width'];
+			
+		} else if ($node_data['component']['main_image_constrain']) {
+			
+			$Image = new common_image();
+			$image_list = $Image->listFiles($node_data['id']);
+			
+			$image_width = 9999;
+			
+			foreach ($image_list as $item) {
+				if ($item['imagesize']['width'] < $image_width) $image_width = ($item['imagesize']['width'] - $item['imagesize']['width'] % 5);
+			}
+			
+			if ($image_width == 9999) $image_width = 0;
+			
 		} else {
+			
 			$image_width = 0;
+		
 		}
 		
 		/**
 		 * check constrain and set appropriate height
 		 */
-		 
+		
 		switch ($node_data['component']['main_image_constrain']) {
 			
 			case '1-1':
 				$image_height = $image_width;
 			break;
 			
+			case '16-9':
+				$image_height = (int)($image_width / 16 * 9);
+			break;
+			
+			case '4-3':
+				$image_height = (int)($image_width / 16 * 9);
+			break;
+			
 			case '0':
 			default:
 				$image_height = 0;
 			break;
+			
 		}
+		
+		//msg($image_height);
 		
 		/**
 		 * what template
@@ -97,6 +125,13 @@ class Onxshop_Controller_Node_Content_Picture extends Onxshop_Controller_Node_Co
 		else $cycle['timeout'] = $common_image_conf['cycle_timeout'];
 		
 		/**
+		 * fill
+		 * TODO: allow to configure
+		 */
+		 
+		$fill = 1;
+		
+		/**
 		 * disable limit
 		 */
 		
@@ -106,7 +141,7 @@ class Onxshop_Controller_Node_Content_Picture extends Onxshop_Controller_Node_Co
 		 * call controller
 		 */
 		 
-		$Onxshop_Request = new Onxshop_Request("{$image_controller}~relation=node:role=main:width={$image_width}:height={$image_height}:node_id={$node_data['id']}:limit={$image_limit}:cycle_fx={$cycle['fx']}:cycle_easing={$cycle['easing']}:cycle_timeout={$cycle['timeout']}:cycle_speed={$cycle['speed']}:cycle_link_to_node_id={$cycle['link_to_node_id']}~");
+		$Onxshop_Request = new Onxshop_Request("{$image_controller}~relation=node:role=main:width={$image_width}:height={$image_height}:fill=$fill:node_id={$node_data['id']}:limit={$image_limit}:cycle_fx={$cycle['fx']}:cycle_easing={$cycle['easing']}:cycle_timeout={$cycle['timeout']}:cycle_speed={$cycle['speed']}:cycle_link_to_node_id={$cycle['link_to_node_id']}~");
 		$this->tpl->assign("CONTENT", $Onxshop_Request->getContent());
 		
 		$this->tpl->assign('NODE', $node_data);

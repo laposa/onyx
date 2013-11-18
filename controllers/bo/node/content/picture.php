@@ -49,7 +49,20 @@ class Onxshop_Controller_Bo_Node_Content_Picture extends Onxshop_Controller_Bo_N
 		
 		if ($this->node_data['component']['main_image_width'] == 0) {
 			$this->tpl->assign("SELECTED_main_image_width_original", "selected='selected'");
-			$this->node_data['component']['main_image_width'] = 125;
+			
+			$Image = new common_image();
+			$image_list = $Image->listFiles($this->node_data['id']);
+			
+			$image_width = 9999;
+			
+			foreach ($image_list as $item) {
+				if ($item['imagesize']['width'] < $image_width) $image_width = ($item['imagesize']['width'] - $item['imagesize']['width'] % 5);
+			}
+			
+			if ($image_width == 9999) $image_width = 800;
+			
+			$this->node_data['component']['main_image_width'] = $image_width;
+			
 		} else {
 			$this->tpl->assign("SELECTED_main_image_width_custom", "selected='selected'");
 		}
