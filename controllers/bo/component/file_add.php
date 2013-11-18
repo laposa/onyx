@@ -18,6 +18,8 @@ class Onxshop_Controller_Bo_Component_File_Add extends Onxshop_Controller_Bo_Com
 		
 		$File = $this->initializeFile($relation);
 		
+		if(!is_numeric($_POST['file']['link_to_node_id'])) unset($_POST['file']['link_to_node_id']);
+		
 		if ($_POST['add'] == 'add') {
 		
 			if ($File->insertFile($_POST['file'])) {
