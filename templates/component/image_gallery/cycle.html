@@ -14,8 +14,8 @@
     	<!-- BEGIN: placeholder --><img src="{ITEM.path}{ITEM.src}" width="{DIMENSION_MAX.width}" /><!-- END: placeholder -->
 		<!-- BEGIN: item -->
 		<div class="imageElement">
-			<!-- BEGIN: normal --><span class="imageWrap"><img id="image_id_{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}" /></span><!-- END: normal -->
-			<!-- BEGIN: link --><span class="imageWrap"><a href="/page/{ITEM.link_to_node_id}" title="{ITEM.title|htmlspecialchars}"><img id="image_id_{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}" /></a></span><!-- END: link -->
+			<!-- BEGIN: normal --><span class="imageWrap"><img id="image_id_{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" /></span><!-- END: normal -->
+			<!-- BEGIN: link --><span class="imageWrap"><a href="/page/{ITEM.link_to_node_id}" title="{ITEM.title|htmlspecialchars}"><img id="image_id_{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" /></a></span><!-- END: link -->
 			<div class="imageInfo">
 				<h5>{ITEM.title|htmlspecialchars}</h5>
 				<p>{ITEM.description|htmlspecialchars}</p>
