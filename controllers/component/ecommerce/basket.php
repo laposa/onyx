@@ -220,7 +220,8 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 	protected function addItem($product_variety_id, $quantity, $other_data = array(), $price_id = false)
 	{
 		if ($this->Basket->addToBasket($this->basket_id, $product_variety_id, $quantity, $other_data, $price_id)) {
-			msg(I18N_BASKET_ITEM_ADDED);
+			if ($quantity == 1) msg(I18N_BASKET_ITEM_ADDED);
+			else msg(str_replace('%n', $quantity, I18N_BASKET_ITEMS_ADDED));
 			return true;
 		}
 
@@ -278,7 +279,7 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 		$basket_detail = $this->Basket->getBasketByOrderId($order_id);
 
 		$items_added = array();
-		foreach ($basket_detail['content']['items'] as $item) {
+		foreach ($basket_detail['items'] as $item) {
 			$items_added[] = $this->addItem($item['product_variety_id'], $item['quantity'], $item['other_data']);
 		}
 
