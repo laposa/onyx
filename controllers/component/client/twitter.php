@@ -148,13 +148,17 @@ class Onxshop_Controller_Component_Client_Twitter extends Onxshop_Controller {
 	 
 	public function getOAuthConfig() {
 		
+		// detect http vs https
+		if ($_SERVER['HTTPS']) $protocol = 'https';
+		else $protocol = 'http';
+		
 		/**
-		 * app created under norbertlaposa account
+		 * app created on https://dev.twitter.com/apps
 		 */
 		 
 		$config = array(
-			//TODO: http vs https
-		    'callbackUrl' => "http://{$_SERVER['HTTP_HOST']}/page/8",
+			
+		    'callbackUrl' => "$protocol://{$_SERVER['HTTP_HOST']}/page/8",
 		    'consumerKey' => ONXSHOP_TWITTER_APP_ID,
 		    'consumerSecret' => ONXSHOP_TWITTER_APP_SECRET,
 		    'siteUrl' => 'https://api.twitter.com/oauth'
@@ -254,7 +258,7 @@ class Onxshop_Controller_Component_Client_Twitter extends Onxshop_Controller {
 	
 		// username should be taken from client_customer.oauth.twitter
 		// TODO: create client_customer.twitter_username field, but what if client will change it?
-		return 'onxshop'; //or norbertlaposa
+		return 'onxshop'; //
 		
 	}
 }
