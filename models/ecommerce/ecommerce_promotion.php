@@ -592,6 +592,17 @@ CREATE TABLE ecommerce_promotion (
 			}
 
 			/**
+			 * code limited to customer_id
+			 */
+			if ($promotion_data['limit_by_customer_id'] > 0 && $promotion_data['limit_by_customer_id'] != $customer_id) {
+				if (!Zend_Registry::isRegistered('ecommerce_promotion:limit_by_customer_id')) {
+					msg("You are not allowed to redeem the code!");
+					Zend_Registry::set('ecommerce_promotion:limit_by_customer_id', true);
+				}
+				return false;
+			}
+
+			/**
 			 * minimum order amount
 			 */
 			if ($promotion_data['limit_to_order_amount'] > 0) {
