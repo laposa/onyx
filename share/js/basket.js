@@ -48,6 +48,9 @@ function addToBasketAjaxActionFromVarietyList(variety_id, quantity) {
         $("#basket").removeClass('loading');
         $('a.add_to_basket' + '.variety_id_' + variety_id).removeClass('loading').addClass('added');
 
+        if ($('.basket_edit').length > 0) {
+        	$('.basket_edit').load('/request/component/ecommerce/basket_edit');
+        }
     });
     
 }
