@@ -730,7 +730,7 @@ CREATE TABLE client_customer (
 		 * insert delivery address
 		 */
 		
-		$address_data['delivery']['customer_id'] = $id;
+		$address_data['delivery']['customer_id'] = $customer_data['id'];
 		
 		if ($delivery_address_id = $Address->insert($address_data['delivery'])) {
 			$customer_data['delivery_address_id'] = $delivery_address_id;
@@ -744,7 +744,7 @@ CREATE TABLE client_customer (
 		 
 		if (trim($address_data['invoices']['city']) != '') {
 		
-			$address_data['invoices']['customer_id'] = $id;
+			$address_data['invoices']['customer_id'] = $customer_data['id'];
 			
 			if ($invoices_address_id = $Address->insert($address_data['invoices'])) {
 				$customer_data['invoices_address_id'] = $invoices_address_id;
