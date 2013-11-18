@@ -30,6 +30,8 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Promotion_Edit extends Onxshop_C
 			if ($promotion_data['discount_free_delivery'] == 'on' || $promotion_data['discount_free_delivery'] == 1) $promotion_data['discount_free_delivery'] = 1;
 			else $promotion_data['discount_free_delivery'] = 0;
 
+			if (!is_numeric($promotion_data['limit_cumulative_discount'])) $promotion_data['limit_cumulative_discount'] = 0;
+
 			if (is_array($promotion_data['limit_list_products'])) {
 				foreach ($promotion_data['limit_list_products'] as $product_id) {
 					if (is_numeric($product_id)) $limited_ids[] = $product_id;
