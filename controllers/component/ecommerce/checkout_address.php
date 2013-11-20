@@ -111,9 +111,8 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Address extends Onxshop_Co
 	
 	public function displayAddressList($type) {
 
-		
-		//$addresses = $this->Address->listing("customer_id = {$_SESSION['client']['customer']['id']} AND is_deleted IS NOT TRUE", "id DESC");
-		$addresses = $this->Address->listing("customer_id = {$_SESSION['client']['customer']['id']}", "id DESC");
+		$customer_id = (int) $_SESSION['client']['customer']['id'];
+		$addresses = $this->Address->listing("customer_id = {$customer_id}", "id DESC");
 		
 		foreach ($addresses as $addr) {
 					
