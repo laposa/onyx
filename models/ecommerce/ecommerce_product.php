@@ -284,7 +284,7 @@ CREATE TABLE ecommerce_product (
 		if (is_array($product_detail)) {
 			return $product_detail;
 		} else {
-			msg("ecommercer_product.ProductDetail($id): can't get detail", 'error', 1);
+			msg("ecommerce_product.ProductDetail($id): can't get detail", 'error', 1);
 			return false;
 		}
 	}
@@ -369,6 +369,37 @@ CREATE TABLE ecommerce_product (
     	teaser ILIKE '$q' OR 
     	description ILIKE '$q'");
     	return $result;
+    }
+
+	/**
+	 * search for auto complete
+	 */
+	 
+    function searchForAutocomplete($query) {
+
+    	$query = strtolower($query);
+    	$query = preg_replace('/[^a-z1-9]/', ',', $query);
+    	$parts = explode(",", $query);
+    	$where = '';
+    	foreach ($parts as $part) {
+    		$part = trim($part);
+    		if (strlen($part) > 0) {
+				$q = "%" . pg_escape_string($part) . "%";
+    			$where .= " AND p.name ILIKE '$q'";
+    		}
+    	}
+
+    	$sql = "SELECT p.name AS label, i.src AS img, u.public_uri AS url
+    		FROM ecommerce_product AS p
+    		LEFT JOIN ecommerce_product_image AS i ON i.node_id = p.id AND i.role = 'main'
+    		LEFT JOIN common_node AS n ON n.content = p.id::text AND n.node_group = 'page' AND n.node_controller = 'product' AND n.publish = 1
+    		LEFT JOIN common_uri_mapping AS u ON u.node_id = n.id AND u.type = 'generic'
+    		WHERE  p.publish = 1 $where
+    		GROUP BY p.name, i.src, u.public_uri, p.priority
+    		ORDER BY p.priority
+    		LIMIT 5";
+
+    	return $this->executeSql($sql);
     }
     
     /**
