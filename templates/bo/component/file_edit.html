@@ -61,12 +61,12 @@ $(document).ready(function() {
 				</select>
 			</span>
 		</div>
+		<div class="row">
+			<span class="label"><label>Description:</label></span>
+			<span class="field"><textarea name="file[description]">{FILE.description}</textarea></span>
+		</div>
 		<p><a href="#file-edit-advanced-{FILE.id}" onclick="$('#file-edit-advanced-{FILE.id}').toggle(); return false;">Show more options</a></p>
 		<div id="file-edit-advanced-{FILE.id}" style="display: none">
-			<div class="row">
-				<span class="label"><label>Description:</label></span>
-				<span class="field"><textarea name="file[description]">{FILE.description}</textarea></span>
-			</div>
 			<div class="row content">
 				<span class="label"><label for="file-content">content <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'mceAdvanced', 'file-content-{FILE.id}'); return false;"><span>RTE</span></a></label></span>
 				<span class="field"><textarea id="file-content-{FILE.id}" class="mceAdvanced" name="file[content]">{FILE.content|htmlspecialchars}</textarea></span>
