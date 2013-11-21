@@ -1,0 +1,30 @@
+<!-- BEGIN: head_once -->
+<!-- Reuired libraries are added in node/site/default -->
+<script type="text/javascript">
+$(document).ready(function() {
+	$('div.twitter_timeline_slider div.cycle').cycle({
+		speed: 500,
+		timeout: 0,
+		fx: 'scrollHorz',
+		slides: 'div.item',
+		prev: 'div.controls a.prev',
+		next: 'div.controls a.next',
+		swipe: true
+	});
+});
+</script>
+<!-- END: head_once -->
+<!-- BEGIN: content -->
+<div class="twitter_timeline_slider">
+	
+	<div class="cycle">
+		{ONXSHOP_REQUEST_twitter_timeline #component/client/twitter_timeline}
+		<div class="controls">
+		<a href="#" title="previous" class="prev"><span>&#9668;</span></a>
+		<a href="#" title="next" class="next"><span>&#9658;</span></a>
+	</div>
+	</div>
+	
+	<p><a href="https://twitter.com/{ONXSHOP_TWITTER_USERNAME}" class="button twitter" target="_blank"><span>Follow @{ONXSHOP_TWITTER_USERNAME}</span></a></p>
+</div>
+<!-- END: content -->

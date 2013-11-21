@@ -178,6 +178,10 @@ class Onxshop_Controller_Component_Client_Twitter extends Onxshop_Controller {
 			$customer_id = $_SESSION['client']['customer']['id'];
 		}
 		
+		if (is_numeric($customer_id)) {
+			//TODO: save to client_customer.oauth.twitter 
+		}
+		
 		// Currently saving serialised in session, should be in database if customer id is known
 		$_SESSION['TWITTER_ACCESS_TOKEN'] = base64_encode(serialize($token));
     	
@@ -258,7 +262,67 @@ class Onxshop_Controller_Component_Client_Twitter extends Onxshop_Controller {
 	
 		// username should be taken from client_customer.oauth.twitter
 		// TODO: create client_customer.twitter_username field, but what if client will change it?
-		return 'onxshop'; //
+		return ONXSHOP_TWITTER_USERNAME;
+		
+	}
+	
+	/**
+	 * simple test
+	 */
+	 
+	public function simpleTest() {
+		
+		$twitter = new Zend_Service_Twitter(array( 
+			'accessToken' => array(
+				'token' => ONXSHOP_TWITTER_ACCESS_TOKEN,
+				'secret' => ONXSHOP_TWITTER_ACCESS_TOKEN_SECRET,
+			),
+			'oauthOptions' => array(
+				'consumerKey' => ONXSHOP_TWITTER_APP_ID,
+				'consumerSecret' => ONXSHOP_TWITTER_APP_SECRET,
+			)
+		));
+		
+		$options = array( 
+			"screen_name"   => ONXSHOP_TWITTER_USERNAME
+		);
+		$response = $twitter->statuses->userTimeline($options);
+		
+		return $response;
+		
+	}
+	
+	
+	/**
+	 * twitterCallExtend
+	 */
+	 
+	public function twitterCallExtend($obj, $function_name, $options) {
+		
+		try {
+				
+			$response = $this->twitter->$obj->$function_name($options);
+			
+			if ($response->isSuccess()) {
+				
+				return $response->toValue();
+								
+			} else {
+			
+				$errors = $response->getErrors();
+				msg($errors, 'error');
+				
+				return false;
+			}
+			
+		} catch (Zend_Exception $e) {
+	
+			msg("Twitter: {$e->getMessage()}", 'error', 1);
+			$this->debugLastHttpRequest();
+			
+			return false;
+	
+		}
 		
 	}
 }
