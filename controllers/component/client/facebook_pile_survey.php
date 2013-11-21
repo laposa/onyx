@@ -109,7 +109,7 @@ class Onxshop_Controller_Component_Client_Facebook_Pile_Survey extends Onxshop_C
 		
 		$friend_user_list = implode(',', $friend_user_list);
 		
-		$friend_entries = $this->SurveyEntry->listing("customer_id IN (SELECT id FROM client_customer WHERE facebook_id IN ($friend_user_list))");
+		$friend_entries = $this->SurveyEntry->listing("survey_id = $survey_id AND customer_id IN (SELECT id FROM client_customer WHERE facebook_id IN ($friend_user_list))");
 		
 		return $friend_entries;
 		
