@@ -1,4 +1,4 @@
-/*! center plugin for Cycle2;  version: 20130324 */
+/*! center plugin for Cycle2;  version: 20131006 */
 (function($) {
 "use strict";
 
@@ -19,7 +19,7 @@ $(document).on( 'cycle-pre-initialize', function( e, opts ) {
     opts.container.on( 'cycle-destroyed', destroy );
 
     opts.container.on( 'cycle-initialized cycle-slide-added cycle-slide-removed', function( e, opts, slideOpts, slide ) {
-        adjustActive();
+        resize();
     });
 
     adjustActive();
@@ -41,7 +41,7 @@ $(document).on( 'cycle-pre-initialize', function( e, opts ) {
 
     function adjustActive() {
         /*jshint validthis: true */
-        adjustSlide.apply( opts.container.find( opts.slideActiveClass ) );
+        adjustSlide.apply( opts.container.find( '.' + opts.slideActiveClass ) );
         clearTimeout( timeout2 );
         timeout2 = setTimeout( adjustAll, 50 );
     }
@@ -51,11 +51,11 @@ $(document).on( 'cycle-pre-initialize', function( e, opts ) {
         var slide = $(this);
         var contW = opts.container.width();
         var contH = opts.container.height();
-        var w = slide.width();
-        var h = slide.height();
-        if (opts.centerHorz && w < contW)
+        var w = slide.outerWidth();
+        var h = slide.outerHeight();
+        if (opts.centerHorz && w <= contW)
             slide.css( 'marginLeft', (contW - w) / 2 );
-        if (opts.centerVert && h < contH)
+        if (opts.centerVert && h <= contH)
             slide.css( 'marginTop', (contH - h) / 2 );
     }
 });
