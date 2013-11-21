@@ -4,7 +4,7 @@
 <!-- BEGIN: content -->
 <div class="social_network_share">
 	<ul>
-		<li class="twitter"><a class="twitter-share-button" href="https://twitter.com/share?url={SHARE_URI|urlencode}&text={NODE.page_title|urlencode}" onclick="nOpenWin('https://twitter.com/share?url={SHARE_URI|urlencode}&text={NODE.page_title|urlencode}', 400, 300); return false"><span>Tweet</span></a></li>
+		<li class="twitter"><a class="twitter-share-button" href="https://twitter.com/share?url={SHARE_URI|urlencode}&text={NODE.page_title|urlencode}" onclick="nOpenWin('https://twitter.com/share?url={SHARE_URI|urlencode}&text={NODE.page_title|urlencode}&amp;via={ONXSHOP_TWITTER_USERNAME}', 400, 300); return false"><span>Tweet</span></a></li>
 		<li class="google"><g:plusone size="medium" count="false"></g:plusone></li>
 		<li class="pinterest"><a href="https://pinterest.com/pin/create/button/" onclick="nOpenWin('https://pinterest.com/pin/create/button/?description={NODE.page_title|urlencode}.%20{NODE.description|urlencode}&url={SHARE_URI|urlencode}&media=http://{_SERVER.HTTP_HOST}/image/{IMAGE.src|urlencode}', 600, 300); return false;"><span>Pin It</span></a></li>
 		<li class="mailto"><a target="_black" href="mailto:?&subject={NODE.page_title|rawurlencode}&body={SHARE_URI|urlencode}"><span>&#9993; Email</span></a></li>
