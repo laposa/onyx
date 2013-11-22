@@ -397,6 +397,28 @@ CREATE TABLE ecommerce_offer (
 	modified timestamp(0) without time zone,
 	other_data text
 );
+
+/* add type to ecommerce store */
+ALTER TABLE ecommerce_store RENAME COLUMN type TO type_id;
+
+CREATE TABLE ecommerce_store_type (
+    id serial PRIMARY KEY NOT NULL,
+    title character varying(255),
+    description text,
+    publish smallint DEFAULT 1 NOT NULL,
+    created timestamp(0) without time zone DEFAULT now() NOT NULL,
+    modified timestamp(0) without time zone DEFAULT now() NOT NULL,
+    other_data text
+);
+
+INSERT INTO ecommerce_store_type VALUES (1, 'Store', '', 1, now(), now(), '');
+INSERT INTO ecommerce_store_type VALUES (2, 'Supplier', '', 1, now(), now(), '');
+
+UPDATE ecommerce_store SET type_id = 1 WHERE type_id <> 1 AND type_id <> 2;
+
+ALTER TABLE ONLY ecommerce_store ADD CONSTRAINT ecommerce_store_type_id_fkey FOREIGN KEY (type_id) REFERENCES ecommerce_store_type(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
 COMMIT;
 
 /*this only applies to installation made earlier than Onxshop 1.5 */
