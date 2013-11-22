@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -20,13 +20,16 @@ class Onxshop_Controller_Node_Container_Default extends Onxshop_Controller_Node 
 		 */
 		
 		require_once('models/common/common_node.php');
-		$node_conf = common_node::initConfiguration();
+		$Node = new common_node();
 		
 		/**
-		 * nothing to do here, forward to homepage
+		 * nothing to do here, forward first parent page
 		 */
-		onxshopGoTo("page/" . $node_conf['id_map-homepage']);
-
+		
+		$first_parent_page_id = $Node->getParentPageId($this->GET['id']);
+				
+		onxshopGoTo("page/" . $first_parent_page_id);
+		
 		return true;
 	}
 }

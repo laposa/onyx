@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2008-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2008-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -25,8 +25,7 @@ class Onxshop_Controller_Bo_Component_Node_Edit extends Onxshop_Controller {
 		$node_data = $Node->detail($node_id);
 		$this->tpl->assign("NODE", $node_data);
 		
-		/* in backoffice we use getActiveNodes instead of getActivePages function */
-		$_SESSION['active_pages'] = $Node->getActiveNodes($node_id);
+		$_SESSION['active_pages'] = $Node->getActivePages($node_id);
 		$_SESSION['full_path'] = $Node->getFullPath($node_id);
 		
 		if ($_POST['node']['node_controller'] != '') $node_controller = $_POST['node']['node_controller'];
