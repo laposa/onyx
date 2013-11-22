@@ -381,6 +381,22 @@ ALTER TABLE ecommerce_invoice RENAME COLUMN goods_vat_sr TO goods_vat;
 ALTER TABLE ecommerce_invoice DROP COLUMN goods_vat_rr;
 ALTER TABLE ecommerce_invoice ADD COLUMN basket_detail_enhanced text;
 
+/* new table for product offers */
+CREATE TABLE ecommerce_offer (
+	id serial NOT NULL PRIMARY KEY,
+	description text,
+	product_variety_id integer REFERENCES ecommerce_product_variety ON UPDATE CASCADE ON DELETE RESTRICT,
+	schedule_start timestamp(0) without time zone,
+	schedule_end timestamp(0) without time zone,
+	campaign_category_id integer REFERENCES common_taxonomy_tree ON UPDATE CASCADE ON DELETE RESTRICT,
+	roundel_category_id integer REFERENCES common_taxonomy_tree ON UPDATE CASCADE ON DELETE RESTRICT,
+	price_id integer REFERENCES ecommerce_price ON UPDATE CASCADE ON DELETE RESTRICT,
+	quantity integer,
+	saving integer,
+	created timestamp(0) without time zone,
+	modified timestamp(0) without time zone,
+	other_data text
+);
 COMMIT;
 
 /*this only applies to installation made earlier than Onxshop 1.5 */
