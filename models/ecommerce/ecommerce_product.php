@@ -382,22 +382,23 @@ CREATE TABLE ecommerce_product (
     	$parts = explode(",", $query);
     	$where = '';
     	foreach ($parts as $part) {
-    		$part = trim($part);
+    		$part = pg_escape_string(trim($part));
     		if (strlen($part) > 0) {
-				$q = "%" . pg_escape_string($part) . "%";
-    			$where .= " AND p.name ILIKE '$q'";
+    			$where .= " AND (p.name ILIKE '% $part%' OR p.name ILIKE '$part%')";
     		}
     	}
 
-    	$sql = "SELECT p.name AS label, i.src AS img, u.public_uri AS url
-    		FROM ecommerce_product AS p
-    		LEFT JOIN ecommerce_product_image AS i ON i.node_id = p.id AND i.role = 'main'
-    		LEFT JOIN common_node AS n ON n.content = p.id::text AND n.node_group = 'page' AND n.node_controller = 'product' AND n.publish = 1
-    		LEFT JOIN common_uri_mapping AS u ON u.node_id = n.id AND u.type = 'generic'
-    		WHERE  p.publish = 1 $where
-    		GROUP BY p.name, i.src, u.public_uri, p.priority
-    		ORDER BY p.priority
-    		LIMIT 5";
+    	$sql = "SELECT r.id, r.label AS label, r.node_id,
+			(SELECT src FROM ecommerce_product_image AS i WHERE i.node_id = r.id AND i.role = 'main' ORDER BY i.priority DESC LIMIT 1) AS img, 
+			(SELECT public_uri FROM common_uri_mapping AS u WHERE u.node_id = r.node_id AND u.type = 'generic' LIMIT 1) AS url
+		FROM (
+			SELECT p.id, p.name AS label, n.id AS node_id
+			FROM ecommerce_product AS p
+			LEFT JOIN common_node AS n ON n.content = p.id::text AND n.node_group = 'page' AND n.node_controller = 'product' AND n.publish = 1
+			WHERE p.publish = 1 $where
+			ORDER BY p.priority DESC
+			LIMIT 5
+		) AS r";
 
     	return $this->executeSql($sql);
     }
