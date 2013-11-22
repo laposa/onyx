@@ -41,5 +41,5 @@ cat ${FULL_PATH}/share/css/default/src/onxshop_ecommerce.css >> ${SCREEN_CSS};
 #echo "------------------------------------------------";
 #echo "CREATING onxshop_dir SYMLINK IN PROJECT SKELETON";
 #echo "------------------------------------------------";
-#ln -s /opt/onxshop-latest $FULL_PATH/project_skeleton/onxshop_dir
+#ln -s /opt/onxshop/latest $FULL_PATH/project_skeleton/onxshop_dir
 
