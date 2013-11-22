@@ -16,6 +16,50 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
+-- Name: client_action; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE client_action (
+    id integer NOT NULL,
+    customer_id integer NOT NULL,
+    node_id integer NOT NULL,
+    action_id character varying(255),
+    network character varying(255),
+    action_name character varying(255),
+    object_name character varying(255),
+    created timestamp without time zone NOT NULL,
+    modified timestamp without time zone NOT NULL,
+    other_data text
+);
+
+
+--
+-- Name: client_action_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE client_action_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- Name: client_action_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE client_action_id_seq OWNED BY client_action.id;
+
+
+--
+-- Name: client_action_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('client_action_id_seq', 1, false);
+
+
+--
 -- Name: client_address; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -135,7 +179,13 @@ CREATE TABLE client_customer (
     account_type smallint DEFAULT 0 NOT NULL,
     agreed_with_latest_t_and_c smallint DEFAULT 0 NOT NULL,
     verified_email_address smallint DEFAULT 0 NOT NULL,
-    group_id smallint
+    group_id smallint,
+    oauth text,
+    deleted_date timestamp without time zone,
+    facebook_id bigint,
+    twitter_id bigint,
+    google_id bigint,
+    profile_image_url text
 );
 
 
@@ -163,6 +213,134 @@ ALTER SEQUENCE client_customer_id_seq OWNED BY client_customer.id;
 --
 
 SELECT pg_catalog.setval('client_customer_id_seq', 1, true);
+
+
+--
+-- Name: client_customer_image; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE client_customer_image (
+    id integer NOT NULL,
+    src character varying(255),
+    role character varying(255),
+    node_id integer NOT NULL,
+    title character varying(255),
+    description text,
+    priority integer DEFAULT 0 NOT NULL,
+    modified timestamp(0) without time zone,
+    author integer,
+    content text,
+    other_data text,
+    link_to_node_id integer
+);
+
+
+--
+-- Name: client_customer_image_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE client_customer_image_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- Name: client_customer_image_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE client_customer_image_id_seq OWNED BY client_customer_image.id;
+
+
+--
+-- Name: client_customer_image_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('client_customer_image_id_seq', 1, false);
+
+
+--
+-- Name: client_customer_taxonomy; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE client_customer_taxonomy (
+    id integer NOT NULL,
+    node_id integer NOT NULL,
+    taxonomy_tree_id integer NOT NULL
+);
+
+
+--
+-- Name: client_customer_taxonomy_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE client_customer_taxonomy_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- Name: client_customer_taxonomy_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE client_customer_taxonomy_id_seq OWNED BY client_customer_taxonomy.id;
+
+
+--
+-- Name: client_customer_taxonomy_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('client_customer_taxonomy_id_seq', 1, false);
+
+
+--
+-- Name: client_customer_token; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE client_customer_token (
+    id integer NOT NULL,
+    customer_id integer NOT NULL,
+    publish smallint DEFAULT 0 NOT NULL,
+    token character(32),
+    oauth_data text,
+    other_data text,
+    ttl integer,
+    ip_address character varying(255),
+    http_user_agent character varying(255),
+    created timestamp without time zone NOT NULL,
+    modified timestamp without time zone NOT NULL
+);
+
+
+--
+-- Name: client_customer_token_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE client_customer_token_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- Name: client_customer_token_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE client_customer_token_id_seq OWNED BY client_customer_token.id;
+
+
+--
+-- Name: client_customer_token_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('client_customer_token_id_seq', 1, false);
 
 
 --
@@ -349,7 +527,10 @@ CREATE TABLE common_file (
     description text,
     priority integer DEFAULT 0 NOT NULL,
     modified timestamp(0) without time zone,
-    author integer
+    author integer,
+    content text,
+    other_data text,
+    link_to_node_id integer
 );
 
 
@@ -392,7 +573,10 @@ CREATE TABLE common_image (
     description text,
     priority integer DEFAULT 0 NOT NULL,
     modified timestamp(0) without time zone,
-    author integer
+    author integer,
+    content text,
+    other_data text,
+    link_to_node_id integer
 );
 
 
@@ -460,7 +644,7 @@ CREATE TABLE common_node (
     link_to_node_id integer DEFAULT 0 NOT NULL,
     require_ssl smallint DEFAULT 0 NOT NULL,
     display_permission_group_acl text,
-    share_counter int NOT NULL DEFAULT 0
+    share_counter integer DEFAULT 0 NOT NULL
 );
 
 
@@ -574,6 +758,53 @@ ALTER SEQUENCE common_print_article_id_seq OWNED BY common_print_article.id;
 --
 
 SELECT pg_catalog.setval('common_print_article_id_seq', 1, false);
+
+
+--
+-- Name: common_scheduler; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE common_scheduler (
+    id integer NOT NULL,
+    node_id integer,
+    node_type character varying(255),
+    controller character varying(255),
+    parameters text,
+    scheduled_time timestamp without time zone,
+    status smallint,
+    lock_token integer,
+    result text,
+    start_time timestamp without time zone,
+    completed_time timestamp without time zone,
+    created timestamp without time zone,
+    modified timestamp without time zone DEFAULT now()
+);
+
+
+--
+-- Name: common_scheduler_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE common_scheduler_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- Name: common_scheduler_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE common_scheduler_id_seq OWNED BY common_scheduler.id;
+
+
+--
+-- Name: common_scheduler_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('common_scheduler_id_seq', 1, false);
 
 
 --
@@ -716,7 +947,10 @@ CREATE TABLE common_taxonomy_label_image (
     description text,
     priority integer DEFAULT 0 NOT NULL,
     modified timestamp(0) without time zone,
-    author integer
+    author integer,
+    content text,
+    other_data text,
+    link_to_node_id integer
 );
 
 
@@ -833,7 +1067,9 @@ CREATE TABLE ecommerce_basket (
     created timestamp(0) without time zone,
     note text,
     ip_address character varying(255),
-    discount_net numeric(12,5) DEFAULT 0 NOT NULL
+    face_value_voucher numeric(12,5) DEFAULT 0 NOT NULL,
+    title character varying(255),
+    other_data text
 );
 
 
@@ -848,7 +1084,8 @@ CREATE TABLE ecommerce_basket_content (
     quantity integer,
     price_id integer,
     other_data text,
-    product_type_id smallint
+    product_type_id smallint,
+    discount numeric(12,5) DEFAULT 0 NOT NULL
 );
 
 
@@ -1116,8 +1353,7 @@ CREATE TABLE ecommerce_invoice (
     id integer NOT NULL,
     order_id integer,
     goods_net numeric(12,5),
-    goods_vat_sr numeric(12,5),
-    goods_vat_rr numeric(12,5),
+    goods_vat numeric(12,5),
     delivery_net numeric(12,5),
     delivery_vat numeric(12,5),
     payment_amount numeric(12,5),
@@ -1131,7 +1367,8 @@ CREATE TABLE ecommerce_invoice (
     customer_email character varying(255),
     address_invoice text,
     address_delivery text,
-    voucher_discount numeric(12,5)
+    face_value_voucher numeric(12,5),
+    basket_detail_enhanced text
 );
 
 
@@ -1159,6 +1396,53 @@ ALTER SEQUENCE ecommerce_invoice_id_seq OWNED BY ecommerce_invoice.id;
 --
 
 SELECT pg_catalog.setval('ecommerce_invoice_id_seq', 1, false);
+
+
+--
+-- Name: ecommerce_offer; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE ecommerce_offer (
+    id integer NOT NULL,
+    description text,
+    product_variety_id integer,
+    schedule_start timestamp(0) without time zone,
+    schedule_end timestamp(0) without time zone,
+    campaign_category_id integer,
+    roundel_category_id integer,
+    price_id integer,
+    quantity integer,
+    saving integer,
+    created timestamp(0) without time zone,
+    modified timestamp(0) without time zone,
+    other_data text
+);
+
+
+--
+-- Name: ecommerce_offer_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE ecommerce_offer_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- Name: ecommerce_offer_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE ecommerce_offer_id_seq OWNED BY ecommerce_offer.id;
+
+
+--
+-- Name: ecommerce_offer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_offer_id_seq', 1, false);
 
 
 --
@@ -1297,7 +1581,6 @@ CREATE TABLE ecommerce_product (
     name character varying(255),
     teaser text,
     description text,
-    product_type_id integer,
     url text,
     priority integer DEFAULT 0 NOT NULL,
     publish integer DEFAULT 0 NOT NULL,
@@ -1347,7 +1630,10 @@ CREATE TABLE ecommerce_product_image (
     description text,
     priority integer DEFAULT 0 NOT NULL,
     modified timestamp(0) without time zone,
-    author integer
+    author integer,
+    content text,
+    other_data text,
+    link_to_node_id integer
 );
 
 
@@ -1564,7 +1850,8 @@ CREATE TABLE ecommerce_product_variety (
     condition smallint DEFAULT 0 NOT NULL,
     wholesale smallint,
     reward_points integer,
-    subtitle character varying(255)
+    subtitle character varying(255),
+    product_type_id integer
 );
 
 
@@ -1607,7 +1894,10 @@ CREATE TABLE ecommerce_product_variety_image (
     description text,
     priority integer DEFAULT 0 NOT NULL,
     modified timestamp(0) without time zone,
-    author integer
+    author integer,
+    content text,
+    other_data text,
+    link_to_node_id integer
 );
 
 
@@ -1696,7 +1986,12 @@ CREATE TABLE ecommerce_promotion (
     other_data text,
     limit_delivery_country_id smallint DEFAULT 0 NOT NULL,
     limit_delivery_carrier_id smallint DEFAULT 0 NOT NULL,
-    generated_by_order_id integer
+    generated_by_order_id integer,
+    generated_by_customer_id integer,
+    limit_by_customer_id integer DEFAULT 0,
+    limit_to_first_order smallint DEFAULT 0 NOT NULL,
+    limit_to_order_amount numeric(12,5) DEFAULT 0,
+    type integer
 );
 
 
@@ -1762,6 +2057,443 @@ ALTER SEQUENCE ecommerce_promotion_id_seq OWNED BY ecommerce_promotion.id;
 --
 
 SELECT pg_catalog.setval('ecommerce_promotion_id_seq', 1, false);
+
+
+--
+-- Name: ecommerce_promotion_type; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE ecommerce_promotion_type (
+    id integer NOT NULL,
+    title character varying(255),
+    description text,
+    taxable smallint DEFAULT 0 NOT NULL,
+    publish smallint DEFAULT 1 NOT NULL,
+    created timestamp(0) without time zone DEFAULT now() NOT NULL,
+    modified timestamp(0) without time zone DEFAULT now() NOT NULL,
+    other_data text
+);
+
+
+--
+-- Name: ecommerce_promotion_type_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE ecommerce_promotion_type_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- Name: ecommerce_promotion_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE ecommerce_promotion_type_id_seq OWNED BY ecommerce_promotion_type.id;
+
+
+--
+-- Name: ecommerce_promotion_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_promotion_type_id_seq', 1, false);
+
+
+--
+-- Name: ecommerce_recipe; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE ecommerce_recipe (
+    id integer NOT NULL,
+    title character varying(255),
+    description text,
+    instructions text,
+    video_url text,
+    serving_people integer,
+    preparation_time integer,
+    cooking_time integer,
+    priority integer,
+    created timestamp without time zone,
+    modified timestamp without time zone DEFAULT now(),
+    publish smallint,
+    other_data text
+);
+
+
+--
+-- Name: ecommerce_recipe_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE ecommerce_recipe_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- Name: ecommerce_recipe_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE ecommerce_recipe_id_seq OWNED BY ecommerce_recipe.id;
+
+
+--
+-- Name: ecommerce_recipe_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_recipe_id_seq', 1, false);
+
+
+--
+-- Name: ecommerce_recipe_image; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE ecommerce_recipe_image (
+    id integer NOT NULL,
+    src character varying(255),
+    role character varying(255),
+    node_id integer NOT NULL,
+    title character varying(255),
+    description text,
+    priority integer DEFAULT 0 NOT NULL,
+    modified timestamp(0) without time zone DEFAULT now(),
+    author integer,
+    content text,
+    other_data text,
+    link_to_node_id integer
+);
+
+
+--
+-- Name: ecommerce_recipe_image_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE ecommerce_recipe_image_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- Name: ecommerce_recipe_image_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE ecommerce_recipe_image_id_seq OWNED BY ecommerce_recipe_image.id;
+
+
+--
+-- Name: ecommerce_recipe_image_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_recipe_image_id_seq', 1, false);
+
+
+--
+-- Name: ecommerce_recipe_ingredients; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE ecommerce_recipe_ingredients (
+    id integer NOT NULL,
+    recipe_id integer,
+    product_variety_id integer NOT NULL,
+    quantity real,
+    units integer,
+    notes text,
+    group_title character varying(255)
+);
+
+
+--
+-- Name: ecommerce_recipe_ingredients_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE ecommerce_recipe_ingredients_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- Name: ecommerce_recipe_ingredients_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE ecommerce_recipe_ingredients_id_seq OWNED BY ecommerce_recipe_ingredients.id;
+
+
+--
+-- Name: ecommerce_recipe_ingredients_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_recipe_ingredients_id_seq', 1, false);
+
+
+--
+-- Name: ecommerce_recipe_review; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE ecommerce_recipe_review (
+    id integer NOT NULL,
+    parent integer,
+    node_id integer,
+    title character varying(255),
+    content text,
+    author_name character varying(255),
+    author_email character varying(255),
+    author_website character varying(255),
+    author_ip_address character varying(255),
+    customer_id integer NOT NULL,
+    created timestamp(0) without time zone DEFAULT now(),
+    publish smallint,
+    rating smallint DEFAULT 0,
+    relation_subject text
+);
+
+
+--
+-- Name: ecommerce_recipe_review_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE ecommerce_recipe_review_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- Name: ecommerce_recipe_review_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE ecommerce_recipe_review_id_seq OWNED BY ecommerce_recipe_review.id;
+
+
+--
+-- Name: ecommerce_recipe_review_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_recipe_review_id_seq', 1, false);
+
+
+--
+-- Name: ecommerce_recipe_taxonomy; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE ecommerce_recipe_taxonomy (
+    id integer NOT NULL,
+    node_id integer NOT NULL,
+    taxonomy_tree_id integer NOT NULL
+);
+
+
+--
+-- Name: ecommerce_recipe_taxonomy_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE ecommerce_recipe_taxonomy_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- Name: ecommerce_recipe_taxonomy_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE ecommerce_recipe_taxonomy_id_seq OWNED BY ecommerce_recipe_taxonomy.id;
+
+
+--
+-- Name: ecommerce_recipe_taxonomy_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_recipe_taxonomy_id_seq', 1, false);
+
+
+--
+-- Name: ecommerce_store; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE ecommerce_store (
+    id integer NOT NULL,
+    title character varying(255),
+    description text,
+    address text,
+    opening_hours text,
+    telephone character varying(255),
+    manager_name character varying(255),
+    email character varying(255),
+    type_id integer,
+    coordinates_x integer,
+    coordinates_y integer,
+    latitude double precision,
+    longitude double precision,
+    created timestamp without time zone NOT NULL,
+    modified timestamp without time zone NOT NULL,
+    publish smallint DEFAULT 0 NOT NULL,
+    street_view_options text,
+    other_data text
+);
+
+
+--
+-- Name: ecommerce_store_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE ecommerce_store_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- Name: ecommerce_store_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE ecommerce_store_id_seq OWNED BY ecommerce_store.id;
+
+
+--
+-- Name: ecommerce_store_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_store_id_seq', 1, false);
+
+
+--
+-- Name: ecommerce_store_image; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE ecommerce_store_image (
+    id integer NOT NULL,
+    src character varying(255),
+    role character varying(255),
+    node_id integer NOT NULL,
+    title character varying(255),
+    description text,
+    priority integer DEFAULT 0 NOT NULL,
+    modified timestamp(0) without time zone,
+    author integer,
+    content text,
+    other_data text,
+    link_to_node_id integer
+);
+
+
+--
+-- Name: ecommerce_store_image_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE ecommerce_store_image_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- Name: ecommerce_store_image_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE ecommerce_store_image_id_seq OWNED BY ecommerce_store_image.id;
+
+
+--
+-- Name: ecommerce_store_image_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_store_image_id_seq', 1, false);
+
+
+--
+-- Name: ecommerce_store_taxonomy; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE ecommerce_store_taxonomy (
+    id integer NOT NULL,
+    node_id integer NOT NULL,
+    taxonomy_tree_id integer NOT NULL
+);
+
+
+--
+-- Name: ecommerce_store_taxonomy_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE ecommerce_store_taxonomy_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- Name: ecommerce_store_taxonomy_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE ecommerce_store_taxonomy_id_seq OWNED BY ecommerce_store_taxonomy.id;
+
+
+--
+-- Name: ecommerce_store_taxonomy_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_store_taxonomy_id_seq', 1, false);
+
+
+--
+-- Name: ecommerce_store_type; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE ecommerce_store_type (
+    id integer NOT NULL,
+    title character varying(255),
+    description text,
+    publish smallint DEFAULT 1 NOT NULL,
+    created timestamp(0) without time zone DEFAULT now() NOT NULL,
+    modified timestamp(0) without time zone DEFAULT now() NOT NULL,
+    other_data text
+);
+
+
+--
+-- Name: ecommerce_store_type_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE ecommerce_store_type_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- Name: ecommerce_store_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE ecommerce_store_type_id_seq OWNED BY ecommerce_store_type.id;
+
+
+--
+-- Name: ecommerce_store_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_store_type_id_seq', 1, false);
 
 
 --
@@ -1832,7 +2564,10 @@ CREATE TABLE education_survey_entry (
     relation_subject text,
     created timestamp(0) without time zone DEFAULT now() NOT NULL,
     modified timestamp(0) without time zone DEFAULT now(),
-    publish smallint DEFAULT 0
+    publish smallint DEFAULT 0,
+    ip_address character varying(255),
+    session_id character varying(32),
+    other_data text
 );
 
 
@@ -1931,6 +2666,52 @@ SELECT pg_catalog.setval('education_survey_id_seq', 1, false);
 
 
 --
+-- Name: education_survey_image; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE education_survey_image (
+    id integer NOT NULL,
+    src character varying(255),
+    role character varying(255),
+    node_id integer NOT NULL,
+    title character varying(255),
+    description text,
+    priority integer DEFAULT 0 NOT NULL,
+    modified timestamp(0) without time zone,
+    author integer,
+    content text,
+    other_data text,
+    link_to_node_id integer
+);
+
+
+--
+-- Name: education_survey_image_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE education_survey_image_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+--
+-- Name: education_survey_image_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE education_survey_image_id_seq OWNED BY education_survey_image.id;
+
+
+--
+-- Name: education_survey_image_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('education_survey_image_id_seq', 1, false);
+
+
+--
 -- Name: education_survey_question; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -1945,7 +2726,8 @@ CREATE TABLE education_survey_question (
     type character varying(255) NOT NULL,
     priority smallint DEFAULT 0,
     publish smallint DEFAULT 1,
-    weight real DEFAULT 1 NOT NULL
+    weight real DEFAULT 1 NOT NULL,
+    content text
 );
 
 
@@ -1961,7 +2743,8 @@ CREATE TABLE education_survey_question_answer (
     is_correct smallint,
     points smallint,
     priority smallint DEFAULT 0,
-    publish smallint DEFAULT 1
+    publish smallint DEFAULT 1,
+    content text
 );
 
 
@@ -2027,7 +2810,8 @@ CREATE TABLE international_country (
     iso_code2 character(2),
     iso_code3 character(3),
     eu_status boolean,
-    currency_code character(3)
+    currency_code character(3),
+    publish smallint
 );
 
 
@@ -2140,6 +2924,13 @@ SELECT pg_catalog.setval('international_currency_rate_id_seq', 180, true);
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY client_action ALTER COLUMN id SET DEFAULT nextval('client_action_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY client_address ALTER COLUMN id SET DEFAULT nextval('client_address_id_seq'::regclass);
 
 
@@ -2155,6 +2946,27 @@ ALTER TABLE ONLY client_company ALTER COLUMN id SET DEFAULT nextval('client_comp
 --
 
 ALTER TABLE ONLY client_customer ALTER COLUMN id SET DEFAULT nextval('client_customer_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY client_customer_image ALTER COLUMN id SET DEFAULT nextval('client_customer_image_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY client_customer_taxonomy ALTER COLUMN id SET DEFAULT nextval('client_customer_taxonomy_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY client_customer_token ALTER COLUMN id SET DEFAULT nextval('client_customer_token_id_seq'::regclass);
 
 
 --
@@ -2218,6 +3030,13 @@ ALTER TABLE ONLY common_node_taxonomy ALTER COLUMN id SET DEFAULT nextval('commo
 --
 
 ALTER TABLE ONLY common_print_article ALTER COLUMN id SET DEFAULT nextval('common_print_article_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY common_scheduler ALTER COLUMN id SET DEFAULT nextval('common_scheduler_id_seq'::regclass);
 
 
 --
@@ -2322,6 +3141,13 @@ ALTER TABLE ONLY ecommerce_invoice ALTER COLUMN id SET DEFAULT nextval('ecommerc
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY ecommerce_offer ALTER COLUMN id SET DEFAULT nextval('ecommerce_offer_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY ecommerce_order ALTER COLUMN id SET DEFAULT nextval('ecommerce_order_id_seq'::regclass);
 
 
@@ -2420,6 +3246,76 @@ ALTER TABLE ONLY ecommerce_promotion_code ALTER COLUMN id SET DEFAULT nextval('e
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY ecommerce_promotion_type ALTER COLUMN id SET DEFAULT nextval('ecommerce_promotion_type_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ecommerce_recipe ALTER COLUMN id SET DEFAULT nextval('ecommerce_recipe_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ecommerce_recipe_image ALTER COLUMN id SET DEFAULT nextval('ecommerce_recipe_image_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ecommerce_recipe_ingredients ALTER COLUMN id SET DEFAULT nextval('ecommerce_recipe_ingredients_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ecommerce_recipe_review ALTER COLUMN id SET DEFAULT nextval('ecommerce_recipe_review_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ecommerce_recipe_taxonomy ALTER COLUMN id SET DEFAULT nextval('ecommerce_recipe_taxonomy_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ecommerce_store ALTER COLUMN id SET DEFAULT nextval('ecommerce_store_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ecommerce_store_image ALTER COLUMN id SET DEFAULT nextval('ecommerce_store_image_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ecommerce_store_taxonomy ALTER COLUMN id SET DEFAULT nextval('ecommerce_store_taxonomy_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ecommerce_store_type ALTER COLUMN id SET DEFAULT nextval('ecommerce_store_type_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY ecommerce_transaction ALTER COLUMN id SET DEFAULT nextval('ecommerce_transaction_id_seq'::regclass);
 
 
@@ -2442,6 +3338,13 @@ ALTER TABLE ONLY education_survey_entry ALTER COLUMN id SET DEFAULT nextval('edu
 --
 
 ALTER TABLE ONLY education_survey_entry_answer ALTER COLUMN id SET DEFAULT nextval('education_survey_entry_answer_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY education_survey_image ALTER COLUMN id SET DEFAULT nextval('education_survey_image_id_seq'::regclass);
 
 
 --
@@ -2480,6 +3383,14 @@ ALTER TABLE ONLY international_currency_rate ALTER COLUMN id SET DEFAULT nextval
 
 
 --
+-- Data for Name: client_action; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY client_action (id, customer_id, node_id, action_id, network, action_name, object_name, created, modified, other_data) FROM stdin;
+\.
+
+
+--
 -- Data for Name: client_address; Type: TABLE DATA; Schema: public; Owner: -
 --
 
@@ -2500,9 +3411,33 @@ COPY client_company (id, name, www, telephone, fax, customer_id, registration_no
 -- Data for Name: client_customer; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY client_customer (id, title_before, first_name, last_name, title_after, email, username, telephone, mobilephone, nickname, password, company_id, invoices_address_id, delivery_address_id, gender, created, currency_code, status, newsletter, birthday, other_data, modified, account_type, agreed_with_latest_t_and_c, verified_email_address, group_id) FROM stdin;
-1	Mr	Onxshop	Tester	\N	test@onxshop.com	\N	+44(0) 2890 328 988	\N	\N	b3f61bf1cb26243ef478a3c181dd0aa2	0	1	1	\N	2011-12-13 14:00:00	GBP	1	0	\N		2011-12-13 14:00:00	0	0	0	\N
-0		Anonym	Anonymouse		anonym@noemail.noemail	anonymouse	notelephone			9ce21d8f3992d89a325aa9dcf520a591	0	1	1	 	2011-12-13 14:00:00	GBP	0	0	2007-06-14		2011-12-13 14:00:00	0	0	0	\N
+COPY client_customer (id, title_before, first_name, last_name, title_after, email, username, telephone, mobilephone, nickname, password, company_id, invoices_address_id, delivery_address_id, gender, created, currency_code, status, newsletter, birthday, other_data, modified, account_type, agreed_with_latest_t_and_c, verified_email_address, group_id, oauth, deleted_date, facebook_id, twitter_id, google_id, profile_image_url) FROM stdin;
+1	Mr	Onxshop	Tester	\N	test@onxshop.com	\N	+44(0) 2890 328 988	\N	\N	b3f61bf1cb26243ef478a3c181dd0aa2	0	1	1	\N	2011-12-13 14:00:00	GBP	1	0	\N		2011-12-13 14:00:00	0	0	0	\N	\N	\N	\N	\N	\N	\N
+0		Anonym	Anonymouse		anonym@noemail.noemail	anonymouse	notelephone			9ce21d8f3992d89a325aa9dcf520a591	0	1	1	 	2011-12-13 14:00:00	GBP	0	0	2007-06-14		2011-12-13 14:00:00	0	0	0	\N	\N	\N	\N	\N	\N	\N
+\.
+
+
+--
+-- Data for Name: client_customer_image; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY client_customer_image (id, src, role, node_id, title, description, priority, modified, author, content, other_data, link_to_node_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: client_customer_taxonomy; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY client_customer_taxonomy (id, node_id, taxonomy_tree_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: client_customer_token; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY client_customer_token (id, customer_id, publish, token, oauth_data, other_data, ttl, ip_address, http_user_agent, created, modified) FROM stdin;
 \.
 
 
@@ -2562,7 +3497,7 @@ COPY common_email (id, email_from, name_from, subject, content, template, email_
 -- Data for Name: common_file; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY common_file (id, src, role, node_id, title, description, priority, modified, author) FROM stdin;
+COPY common_file (id, src, role, node_id, title, description, priority, modified, author, content, other_data, link_to_node_id) FROM stdin;
 \.
 
 
@@ -2570,16 +3505,16 @@ COPY common_file (id, src, role, node_id, title, description, priority, modified
 -- Data for Name: common_image; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY common_image (id, src, role, node_id, title, description, priority, modified, author) FROM stdin;
-1	var/files/favicon.ico	main	3	Favicon		0	2011-12-13 14:27:55	1000
-2	var/files/placeholder.png	main	1065	Placeholder		0	2012-12-30 15:25:20	1002
-3	var/files/placeholder.png	main	1065	Placeholder		0	2012-12-30 15:25:31	1002
-4	var/files/placeholder.png	main	1065	Placeholder		0	2012-12-30 15:25:38	1002
-5	var/files/placeholder.png	main	1065	Placeholder		0	2012-12-30 15:25:49	1002
-6	var/files/placeholder.png	main	1065	Placeholder		0	2012-12-30 15:25:58	1002
-7	var/files/placeholder.png	main	1065	Placeholder		0	2012-12-30 15:26:05	1002
-8	var/files/placeholder.png	main	1095	Placeholder		0	2012-12-31 02:59:17	1002
-11	var/files/placeholder.png	main	1095	Placeholder		0	2012-12-31 03:19:06	1002
+COPY common_image (id, src, role, node_id, title, description, priority, modified, author, content, other_data, link_to_node_id) FROM stdin;
+1	var/files/favicon.ico	main	3	Favicon		0	2011-12-13 14:27:55	1000	\N	\N	\N
+2	var/files/placeholder.png	main	1065	Placeholder		0	2012-12-30 15:25:20	1002	\N	\N	\N
+3	var/files/placeholder.png	main	1065	Placeholder		0	2012-12-30 15:25:31	1002	\N	\N	\N
+4	var/files/placeholder.png	main	1065	Placeholder		0	2012-12-30 15:25:38	1002	\N	\N	\N
+5	var/files/placeholder.png	main	1065	Placeholder		0	2012-12-30 15:25:49	1002	\N	\N	\N
+6	var/files/placeholder.png	main	1065	Placeholder		0	2012-12-30 15:25:58	1002	\N	\N	\N
+7	var/files/placeholder.png	main	1065	Placeholder		0	2012-12-30 15:26:05	1002	\N	\N	\N
+8	var/files/placeholder.png	main	1095	Placeholder		0	2012-12-31 02:59:17	1002	\N	\N	\N
+11	var/files/placeholder.png	main	1095	Placeholder		0	2012-12-31 03:19:06	1002	\N	\N	\N
 \.
 
 
@@ -2587,172 +3522,172 @@ COPY common_image (id, src, role, node_id, title, description, priority, modifie
 -- Data for Name: common_node; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY common_node (id, title, node_group, node_controller, parent, parent_container, priority, teaser, content, description, keywords, page_title, head, created, modified, publish, display_in_menu, author, uri_title, display_permission, other_data, css_class, layout_style, component, relations, display_title, display_secondary_navigation, require_login, display_breadcrumb, browser_title, link_to_node_id, require_ssl, display_permission_group_acl) FROM stdin;
-65	Payment was successfull	content	RTE	12	1	0	\N	<p>Process executed without error and the transaction was successfully Authorised.&nbsp;</p>			\N		2006-09-30 15:43:50	2008-08-24 18:27:47	1	1	1000		0	N;			N;	N;	0	\N	\N	0		0	0	\N
-89	Select Delivery Method	content	component	7	1	100	\N	\N					2010-04-18 01:34:49	2010-04-18 11:10:57	1	1	1000		0	N;			a:3:{s:8:"template";s:30:"ecommerce/delivery_option.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	1	\N	\N	0		0	0	\N
-91	Newsletter Subscribe	content	component	90	1	0	\N	\N					2010-04-18 11:20:58	2010-04-18 11:21:14	1	1	1000		0	N;			a:3:{s:8:"template";s:32:"client/newsletter_subscribe.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N
-93	Newsletter Unsubscribe	content	component	92	1	0	\N	\N					2010-04-18 11:22:40	2010-04-18 11:22:56	1	1	1000		0	N;			a:3:{s:8:"template";s:34:"client/newsletter_unsubscribe.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N
-1028	Other points	content	RTE	1026	1	0	\N	<p>This site has been designed with style sheets to allow maximum flexibility. Header tags and tables summaries have been effectively added to this site.</p>\n<p>Form controls are properly grouped and labelled.</p>					2010-04-18 13:03:47	2010-04-18 13:04:09	1	1	1000		0	N;			N;	N;	1	\N	\N	0		0	0	\N
-1029	Your feedback is important	content	RTE	1026	1	0	\N	<p>If you experience any problems using this site, or have some feedback or suggestions on how to improve accessibility, please <a class="internal-link" href="/page/20">contact us</a>.</p>					2010-04-18 13:04:34	2010-04-18 13:04:55	1	1	1000		0	N;			N;	N;	1	\N	\N	0		0	0	\N
-1030	More information	content	RTE	1026	1	0	\N	<p>For more information about website accessibility please visit the <a href="http://www.w3.org/TR/WCAG10/">W3C Web Content Accessibility Guidelines</a>.</p>					2010-04-18 13:05:16	2010-04-18 13:05:34	1	1	1000		0	N;			N;	N;	1	\N	\N	0		0	0	\N
-1017	Returns policy	content	RTE	26	1	10	\N	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>\n<ul>\n<li>velit esse cillum dolore</li>\n<li>consectetur adipisicing elit</li>\n<li>occaecat cupidatat non proident</li>\n</ul>\n<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>					2008-08-16 13:01:53	2010-04-18 12:50:54	0	1	1000		0	N;			N;	N;	1	\N	\N	0		0	0	\N
-69	Search result	content	component	21	1	0	\N				\N		2006-09-30 15:49:27	2008-08-07 01:21:51	1	1	1000		0	N;			a:3:{s:8:"template";s:17:"search_nodes.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N
-72	Sitemap component	content	component	22	1	0	\N				\N		2006-09-30 15:50:21	2008-08-24 00:51:29	1	1	1000		0	N;			a:3:{s:8:"template";s:12:"sitemap.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N
-86	General content 1	content	RTE	85	0	0	\N	<p>Contact address,<br />Street Name,<br />CITY, Post Code<br />Tel: 01234 567 890</p>					2006-09-30 15:50:10	2010-04-18 13:07:36	1	1	1000		0	N;			N;	N;	0	\N	\N	0		0	0	\N
-68	Search input	content	component	21	1	0	\N				\N		2006-09-30 15:48:45	2008-08-24 18:22:11	1	1	1000		0	N;			a:3:{s:8:"template";s:14:"searchbox.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N
-32	Existing customer	content	component	8	1	0	\N				\N		2006-09-30 14:00:05	2008-08-24 01:15:22	1	1	1000		0	N;			a:3:{s:8:"template";s:17:"client/login.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N
-36	Registration component	content	component	13	1	0	\N				\N		2006-09-30 14:26:09	2008-08-24 01:14:57	1	1	1000		0	N;			a:3:{s:8:"template";s:24:"client/registration.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N
-34	New customer	content	component	8	1	0	\N				\N		2006-09-30 14:01:50	2008-08-24 01:15:34	1	1	1000		0	N;			a:3:{s:8:"template";s:30:"client/registration_start.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N
-75	Basket edit component	content	component	6	1	0	\N				\N		2006-09-30 15:54:35	2008-08-24 18:23:16	1	1	1000		0	N;			a:3:{s:8:"template";s:26:"ecommerce/basket_edit.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N
-41	Checkout	content	component	7	1	0	\N				\N		2006-09-30 14:47:01	2008-08-24 18:23:33	1	1	1000		0	N;			a:3:{s:8:"template";s:23:"ecommerce/checkout.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N
-39	Checkout Basket	content	component	7	1	0	\N				\N		2006-09-30 14:44:34	2008-08-24 18:23:51	1	1	1000		0	N;			a:3:{s:8:"template";s:30:"ecommerce/checkout_basket.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N
-0	Root	site	default	\N	0	0							2008-08-06 21:24:09	2008-08-06 21:24:09	1	1	0		0				\N	\N	\N	\N	\N	0		0	0	\N
-51	Order detail component	content	component	19	1	0	\N				\N		2006-09-30 15:22:49	2008-08-24 18:25:32	1	1	1000		0	N;			a:3:{s:8:"template";s:27:"ecommerce/order_detail.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N
-60	Payment component	content	component	10	1	0	\N				\N		2006-09-30 15:32:26	2008-08-24 18:26:22	1	1	1000		0	N;			a:3:{s:8:"template";s:22:"ecommerce/payment.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N
-1015	Our latest news	content	news_list	83	1	0	\N	\N			\N		2008-08-16 04:02:19	2011-01-16 15:54:36	1	1	1000		0	N;			a:5:{s:5:"limit";s:1:"5";s:8:"template";s:4:"full";s:10:"pagination";i:1;s:5:"image";i:0;s:13:"display_title";i:0;}	N;	0	\N	0	0		0	0	\N
-78	404 error	content	RTE	14	1	0	\N	<p><strong>We have recently restructured this website, you might find what you are looking for by going via the <a href="/">home page</a>.</strong></p>\r\n<p><strong>If you believe you have found a broken link please <a href="/page/20">let us know</a>.</strong></p>\r\n<div class="line">\r\n<hr />\r\n</div>\r\n<p><strong>Please try the following:</strong></p>\r\n<ul>\r\n<li>If you typed the page address in the Address bar, make sure that it is spelled correctly. </li>\r\n<li>Click the <a href="javascript:history.go(-1)">Back</a> button to try another link. </li>\r\n</ul>\r\n<p>HTTP 404 : Page not found</p>			\N		2006-09-30 16:37:05	2008-08-24 18:28:28	1	1	1000		0	N;			N;	N;	1	\N	\N	0		0	0	\N
-1019	forgotten password	content	RTE	8	1	0	\N	<p>\n<a href="/page/9">Forgotten your password since your last visit?</a>  \n</p>			\N		2008-10-12 22:54:29	2008-10-12 22:54:44	1	1	1000		0	N;			N;	N;	0	\N	\N	0		0	0	\N
-1040	content 1356566512	content	RTE	1038	2	0	\N	<p>six columns</p>			\N		2012-12-27 00:01:52	2012-12-27 01:14:33	1	1	1002		0	\N	panel		\N	\N	0	\N	0	0		0	0	
-1034	Banded	page	default	1	0	70		\N					2011-01-16 15:53:08	2013-01-07 10:09:52	1	1	1002		0			fibonacci-2-1			1	0	0	0		0	0	
-1045	Tabs	layout	tabs	5	1	0	\N	\N			\N		2012-12-27 00:03:20	2012-12-31 01:29:13	1	1	1002		0	\N		fibonacci-1-1	\N	\N	1	\N	0	0		0	0	
-1035	Banner	page	default	1	0	60		\N					2011-01-16 15:53:14	2013-01-07 10:09:52	1	1	1002		0			fibonacci-2-1			1	0	0	0		0	0	
-1020	Payment information	content	RTE	8	2	0	\N	<h3>Payment information </h3>\n<p>\nWe accept the following payment methods: \n</p>\n<p>\n<img src="https://www.worldpay.com/cgenerator/logos/visa.gif" alt="Visa payments supported by WorldPay" />\n<img src="https://www.worldpay.com/cgenerator/logos/visa_delta.gif" alt="Visa/Delta payments supported by WorldPay" />\n<img src="https://www.worldpay.com/cgenerator/logos/mastercard.gif" alt="Mastercard payments supported by WorldPay" />\n<img src="https://www.worldpay.com/cgenerator/logos/switch.gif" alt="Switch payments supported by WorldPay" />\n</p>\n<h3>Terms and conditions</h3>\n<p>\nBy making a purchase from this site you are agreeing to be bound by our <a href="/page/26">terms and conditions</a> .\n</p>\n<h3>Payment services </h3>\n<p>\n<!-- Powered by WorldPay logo-->\n<a href="http://www.worldpay.com/"><img src="https://www.worldpay.com/cgenerator/logos/poweredByWorldPay.gif" alt="Powered By WorldPay" /></a>\n</p>\n<p>\n<!-- WorldPay Guarantee Logo -->\n<img src="https://www.worldpay.com/cgenerator/logos/guaranteed.gif" alt="WorldPay Guarantee" />\n</p>			\N		2008-10-12 23:04:24	2008-10-12 23:11:21	1	1	1000		0	N;			N;	N;	0	\N	\N	0		0	0	\N
-1022	Related products	content	component	6	2	0	\N	\N			\N		2008-10-12 23:17:09	2008-10-12 23:18:43	1	1	1000		0	N;			a:3:{s:8:"template";s:37:"ecommerce/product_related_basket.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N
-1021	Recently viewed	content	component	6	1	0	\N	\N			\N		2008-10-12 23:16:14	2008-10-12 23:18:55	1	1	1000		0	N;			a:3:{s:8:"template";s:39:"ecommerce/recently_viewed_products.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N
-42	Address component	content	component	7	2	0	\N				\N		2006-09-30 14:54:43	2008-08-24 18:24:18	1	1	1000		0	N;			a:3:{s:8:"template";s:19:"client/address.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N
-1024	Userbox	content	component	15	2	0	\N	\N					2010-04-18 12:43:47	2010-04-18 12:44:21	1	1	1000		0	N;			a:3:{s:8:"template";s:19:"client/userbox.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N
-1027	Text size	content	RTE	1026	1	0	\N	<p>If you would prefer the font size to be larger or smaller, you can easily adjust it using your browser.</p>\n<p>To increase or decrease the text size, follow these basic instructions   for Internet Explorer:</p>\n<ul>\n<li>Click on the 'View' menu in your browser.</li>\n<li>Click on the 'Text size' option.</li>\n<li>Select the size you wish to see.</li>\n</ul>\n<p>To increase or decrease the text size, follow these basic instructions for Mozilla Firefox:</p>\n<ul>\n<li>Click on the 'View' menu in your browser.</li>\n<li>Click on the 'Zoom' option.</li>\n</ul>					2010-04-18 13:02:48	2010-04-18 13:03:20	1	1	1000		0	N;			N;	N;	1	\N	\N	0		0	0	\N
-45	Address Management Component	content	component	16	1	0	\N				\N		2006-09-30 15:20:05	2008-08-24 18:25:00	1	1	1000		0	N;			a:3:{s:8:"template";s:24:"client/address_edit.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N
-54	User pref component	content	component	18	1	0	\N				\N		2006-09-30 15:25:21	2008-08-24 18:25:48	1	1	1000		0	N;			a:3:{s:8:"template";s:22:"client/user_prefs.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N
-87	General content 2	content	RTE	85	0	0	\N	<p style="text-align: center;"><em>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</em></p>			\N		2006-09-30 15:50:10	2011-01-16 16:11:40	1	1	1000		0	N;			N;	N;	0	\N	0	0		0	0	\N
-57	Password reset component	content	component	9	1	0	\N				\N		2006-09-30 15:30:31	2008-08-24 18:26:03	1	1	1000		0	N;			a:3:{s:8:"template";s:26:"client/password_reset.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N
-48	Your orders with us	content	component	17	1	0	\N				\N		2006-09-30 15:21:35	2008-08-16 13:22:33	1	1	1000		0	N;			a:3:{s:8:"template";s:25:"ecommerce/order_list.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	1	\N	\N	0		0	0	\N
-63	Payment failure component	content	component	11	1	0	\N				\N		2006-09-30 15:42:05	2008-08-24 18:26:38	1	1	1000		0	N;			a:3:{s:8:"template";s:37:"ecommerce/payment/protx_callback.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N
-66	Payment success component	content	component	12	1	0	\N				\N		2006-09-30 15:44:42	2008-08-16 13:28:47	1	1	1000		0	N;			a:3:{s:8:"template";s:37:"ecommerce/payment/protx_callback.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	1	\N	\N	0		0	0	\N
-2	Commerce	container	default	0	0	0	\N	\N			\N		2006-09-30 09:55:17	2008-08-24 22:58:05	1	0	1000		0	N;			N;	N;	1	\N	\N	0		0	0	\N
-88	Global navigation	container	default	0	0	15		\N					2009-08-16 13:05:12	2011-01-16 15:56:37	1	1	1000		0	N;			N;	N;	1	0	0	0		0	0	\N
-21	Search	page	default	4	0	0		\N					2006-09-30 12:08:07	2009-05-15 13:48:10	1	0	1000		0	N;		fibonacci-2-1	N;	N;	1	0	\N	0		0	0	\N
-1032	content 1295192947	content	RTE	1031	1	0	\N	<h3>Our privacy policy</h3>\n<p>This privacy policy sets out how [COMPANY NAME] uses and protects any information that you give [COMPANY NAME] when you use this website.</p>\n<p>[COMPANY NAME] is committed to ensuring that your privacy is protected. Should we ask you to provide certain information by which you can be identified when using this website, then you can be assured that it will only be used in accordance with this privacy statement.</p>\n<p>[COMPANY NAME] may change this policy from time to time by updating this page. You should check this page from time to time to ensure that you are happy with any changes. This policy is effective from [DATE].</p>\n<h3>What we collect</h3>\n<p>We may collect the following information:</p>\n<ul>\n<li>name and job title</li>\n<li>contact information including email address</li>\n<li>demographic information such as postcode, preferences and interests</li>\n<li>other information relevant to customer surveys and/or offers</li>\n</ul>\n<h3>What we do with the information we gather</h3>\n<p>We require this information to understand your needs and provide you with a better service, and in particular for the following reasons:</p>\n<ul>\n<li>Internal record keeping.</li>\n<li>We may use the information to improve our products and services.</li>\n<li>We may periodically send promotional emails about new products, special offers or other information which we think you may find interesting using the email address which you have provided.</li>\n<li>From time to time, we may also use your information to contact you for market research purposes. We may contact you by email, phone, fax or mail. We may use the information to customise the website according to your interests.</li>\n</ul>\n<h3>Security</h3>\n<p>We are committed to ensuring that your information is secure. In order to prevent unauthorised access or disclosure we have put in place suitable physical, electronic and managerial procedures to safeguard and secure the information we collect online.</p>\n<h3>How we use cookies</h3>\n<p>A cookie is a small file which asks permission to be placed on your computer's hard drive. Once you agree, the file is added and the cookie helps analyse web traffic or lets you know when you visit a particular site. Cookies allow web applications to respond to you as an individual. The web application can tailor its operations to your needs, likes and dislikes by gathering and remembering information about your preferences.</p>\n<p>We use traffic log cookies to identify which pages are being used. This helps us analyse data about webpage traffic and improve our website in order to tailor it to customer needs. We only use this information for statistical analysis purposes and then the data is removed from the system.</p>\n<p>Overall, cookies help us provide you with a better website, by enabling us to monitor which pages you find useful and which you do not. A cookie in no way gives us access to your computer or any information about you, other than the data you choose to share with us.</p>\n<p>You can choose to accept or decline cookies. Most web browsers automatically accept cookies, but you can usually modify your browser setting to decline cookies if you prefer. This may prevent you from taking full advantage of the website.</p>\n<h3>Links to other websites</h3>\n<p>Our website may contain links to other websites of interest. However, once you have used these links to leave our site, you should note that we do not have any control over that other website. Therefore, we cannot be responsible for the protection and privacy of any information which you provide whilst visiting such sites and such sites are not governed by this privacy statement. You should exercise caution and look at the privacy statement applicable to the website in question.</p>\n<h3>Controlling your personal information</h3>\n<p>You may choose to restrict the collection or use of your personal information in the following ways:</p>\n<ul>\n<li>whenever you are asked to fill in a form on the website, look for the box that you can click to indicate that you do not want the information to be used by anybody for direct marketing purposes</li>\n<li>if you have previously agreed to us using your personal information for direct marketing purposes, you may change your mind at any time by writing to or emailing us at <a href="/page/20">contact page</a></li>\n</ul>\n<p>We will not sell, distribute or lease your personal information to third parties unless we have your permission or are required by law to do so. We may use your personal information to send you promotional information about third parties which we think you may find interesting if you tell us that you wish this to happen.</p>\n<p>You may request details of personal information which we hold about you under the Data Protection Act 1998. A small fee will be payable. If you would like a copy of the information held on you please write to <a href="/page/20">our postal address</a>.</p>\n<p>If you believe that any information we are holding on you is incorrect or incomplete, please write to or email us as soon as possible, at the above address. We will promptly correct any information found to be incorrect.</p>			\N		2011-01-16 15:49:07	2011-01-16 15:51:19	1	1	1000		0	N;			N;	N;	0	\N	0	0		0	0	\N
-1042	content 1356566539	content	RTE	1041	1	0	\N	<p>four columns</p>			\N		2012-12-27 00:02:19	2012-12-27 01:14:42	1	1	1002		0	\N	panel		\N	\N	0	\N	0	0		0	0	
-1039	content 1356566499	content	RTE	1038	1	0	\N	<p>six columns</p>			\N		2012-12-27 00:01:39	2012-12-27 01:14:24	1	1	1002		0	\N	panel		\N	\N	0	\N	0	0		0	0	
-1043	content 1356566554	content	RTE	1041	2	0	\N	<p>four columns</p>			\N		2012-12-27 00:02:34	2012-12-27 01:14:51	1	1	1002		0	\N	panel		\N	\N	0	\N	0	0		0	0	
-1044	content 1356566568	content	RTE	1041	3	0	\N	<p>four columns</p>			\N		2012-12-27 00:02:48	2012-12-27 01:14:59	1	1	1002		0	\N	panel		\N	\N	0	\N	0	0		0	0	
-1011	Our Address	content	RTE	20	2	5	\N	<p><a href="#"><img src="http://placehold.it/400x280" alt="" /></a><br /> <a href="#">View Map</a></p> <p>Address Name<br />Street, house number xxx<br />Post Code, Town<br />County</p> <p>tel: xxxx xxx xxx</p>					2008-08-07 01:18:33	2012-12-30 16:46:01	1	1	1002		0	N;			N;	N;	1	\N	0	0		0	0	
-1041	layout 1356566535	layout	3columns	5	1	0	\N	\N			\N		2012-12-27 00:02:15	2012-12-31 01:28:58	1	1	1002		0	\N		fibonacci-1-1	\N	\N	0	\N	0	0		0	0	
-5	Home	page	default	88	0	40		\N			White Label Home		2006-09-30 10:02:51	2012-12-31 01:31:25	1	1	1000		0	\N		fibonacci-2-1	\N	\N	0	0	0	0		0	0	
-1025	Terms of Use	content	RTE	26	1	25	\N	<p>Welcome to our website. If you continue to browse and use this website you are agreeing to comply with and be bound by the following terms and conditions of use, which together with our privacy policy govern [COMPANY NAME]&rsquo;s relationship with you in relation to this website.</p>\n<p>The term &lsquo;[COMPANY NAME]&rsquo; or &lsquo;us&rsquo; or &lsquo;we&rsquo; refers to the owner of the website whose registered office is [COMPANY ADDRESS]. Our company registration number is [REGISTRATION NUMBER], registered in [REGISTERED COUNTRY]. The term &lsquo;you&rsquo; refers to the user or viewer of our website.</p>\n<p>The use of this website is subject to the following terms of use:</p>\n<ol>\n<li>The content of the pages of this website is for your general information and use only. It is subject to change without notice.</li>\n<li>Neither we nor any third parties provide any warranty or guarantee as to the accuracy, timeliness, performance, completeness or suitability of the information and materials found or offered on this website for any particular purpose. You acknowledge that such information and materials may contain inaccuracies or errors and we expressly exclude liability for any such inaccuracies or errors to the fullest extent permitted by law.</li>\n<li>Your use of any information or materials on this website is entirely at your own risk, for which we shall not be liable. It shall be your own responsibility to ensure that any products, services or information available through this website meet your specific requirements.</li>\n<li>This website contains material which is owned by or licensed to us. This material includes, but is not limited to, the design, layout, look, appearance and graphics. Reproduction is prohibited other than in accordance with the copyright notice, which forms part of these terms and conditions.</li>\n<li>All trademarks reproduced in this website, which are not the property of, or licensed to the operator, are acknowledged on the website.</li>\n<li>Unauthorised use of this website may give rise to a claim for damages and/or be a criminal offence.</li>\n<li>From time to time this website may also include links to other websites. These links are provided for your convenience to provide further information. They do not signify that we endorse the website(s). We have no responsibility for the content of the linked website(s).</li>\n<li>You may not create a link to this website from another website or document without [COMPANY NAME]&rsquo;s prior written consent.</li>\n<li>Your use of this website and any dispute arising out of such use of the website is subject to the laws of England, Scotland, Wales and Northern Ireland.</li>\n</ol>					2010-04-18 12:51:22	2011-01-16 15:50:16	1	1	1000		0	N;			N;	N;	1	\N	0	0		0	0	\N
-1	Primary navigation	container	default	0	0	10	\N	N;			\N		2006-09-29 18:20:29	2008-08-24 22:57:58	1	1	1000		0	N;			N;	N;	1	\N	\N	0		0	0	\N
-90	Newsletter	page	default	4	0	0	\N	\N	\N	\N	\N	\N	2010-04-18 11:19:18	2010-04-18 11:19:18	1	0	1000	\N	0	\N		fibonacci-2-1	\N	\N	1	\N	\N	0		0	0	\N
-84	Articles	page	default	3	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 12:07:59	2006-09-30 12:07:59	1	1	1000	\N	0	\N			\N	\N	\N	\N	\N	0		0	0	\N
-92	Unsubscribe	page	default	90	0	0	\N	\N	\N	\N	\N	\N	2010-04-18 11:21:40	2010-04-18 11:21:40	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	1	\N	\N	0		0	0	\N
-1026	Accessibility policy	page	default	4	0	0	\N	\N	\N	\N	\N	\N	2010-04-18 13:02:03	2010-04-18 13:02:03	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	1	\N	\N	0		0	0	\N
-85	Content bits	container	default	3	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 12:07:59	2006-09-30 12:07:59	1	1	1000	\N	0	\N			\N	\N	\N	\N	\N	0		0	0	\N
-3	Special	container	default	0	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 09:55:36	2006-09-30 09:55:36	1	0	1000	\N	0	\N			\N	\N	\N	\N	\N	0		0	0	\N
-4	Footer navigation	container	default	0	0	5		N;			\N		2006-09-30 09:56:36	2011-01-16 15:58:20	1	1	1000		0	N;			N;	N;	1	\N	0	0		0	0	\N
-14	404	page	default	3	0	0		\N					2006-09-30 11:56:37	2008-08-16 13:06:19	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	\N	0		0	0	\N
-22	Sitemap	page	default	4	0	0		\N					2006-09-30 12:08:21	2008-08-16 13:06:58	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	\N	0		0	0	\N
-26	Terms & Conditions	page	default	4	0	0		N;					2006-09-30 13:40:50	2010-04-18 12:50:42	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	\N	0		0	0	\N
-13	Registration	page	default	2	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 10:36:09	2006-09-30 10:36:09	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	\N	0		0	1	\N
-8	Login	page	default	2	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 10:35:02	2006-09-30 10:35:02	1	1	1000	\N	0	\N	pageLogin	fibonacci-2-1	\N	\N	\N	\N	\N	0		0	1	\N
-9	Password reset	page	default	2	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 10:35:15	2006-09-30 10:35:15	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	\N	0		0	1	\N
-6	Basket	page	default	2	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 10:34:35	2006-09-30 10:34:35	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	\N	0		0	0	\N
-16	Address Management	page	default	15	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 12:03:13	2006-09-30 12:03:13	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	1	0		0	1	\N
-17	Orders	page	default	15	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 12:03:28	2006-09-30 12:03:28	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	1	0		0	1	\N
-18	Personal Details	page	default	15	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 12:03:45	2006-09-30 12:03:45	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	1	0		0	1	\N
-7	Checkout	page	default	2	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 10:34:54	2006-09-30 10:34:54	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	1	0		0	1	\N
-10	Payment	page	default	2	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 10:35:29	2006-09-30 10:35:29	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	1	0		0	1	\N
-11	Payment failure	page	default	2	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 10:35:43	2006-09-30 10:35:43	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	1	0		0	1	\N
-12	Payment success	page	default	2	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 10:35:59	2006-09-30 10:35:59	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	1	0		0	1	\N
-19	Order detail	page	default	17	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 12:04:12	2006-09-30 12:04:12	1	0	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	1	0		0	1	\N
-1031	Privacy Policy	page	default	4	0	0	\N	\N	\N	\N	\N	\N	2011-01-16 15:45:18	2011-01-16 15:45:18	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	1	\N	\N	0		0	0	\N
-1036	Archive	content	component	83	2	20	\N	\N			\N		2011-01-16 15:55:01	2012-12-30 15:43:30	1	1	1000		0	\N			a:3:{s:8:"template";s:17:"news_archive.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	\N	1	\N	0	0		0	0	
-1038	layout 1356566494	layout	2columns	5	1	0	\N	\N			\N		2012-12-27 00:01:34	2012-12-31 01:28:40	1	1	1002		0	\N		fibonacci-1-1	\N	\N	0	\N	0	0		0	0	
-20	Contact	page	default	88	0	25		\N			Get in Touch!		2006-09-30 12:07:59	2012-12-31 01:31:25	1	1	1002		0			fibonacci-2-1			1	0	0	0		0	0	
-15	My Account	page	default	88	0	20	\N	\N	\N	\N	\N	\N	2006-09-30 12:02:53	2012-12-31 01:31:25	1	1	1000	\N	0			fibonacci-2-1			\N	\N	1	0		0	1	
-23	About	page	default	88	0	30		\N					2006-09-30 12:09:30	2012-12-31 04:10:10	1	1	1002		0	\N		fibonacci-2-1	\N	\N	1	0	0	0		0	0	
-1058	content 1356879783	content	RTE	1057	1	0	\N	<p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong. Eiusmod swine spare ribs reprehenderit culpa. Boudin aliqua adipisicing rump corned beef.</p>			\N		2012-12-30 15:03:03	2012-12-30 15:03:11	1	1	1002		0	\N			\N	\N	0	\N	0	0		0	0	
-1048	Simple Tab 3	content	RTE	1045	1	0	\N	<p>This is simple tab 3's content. Pretty neat, huh?</p> <p><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span></p>			\N		2012-12-27 00:04:40	2012-12-31 16:06:08	1	1	1002		0	\N			\N	\N	0	\N	0	0		0	0	
-83	Blog	page	default	1	0	50		\N					2006-09-30 12:07:59	2013-01-07 10:09:52	1	1	1002		0			fibonacci-2-1			1	0	0	0		0	0	
-1059	content 1356879802	content	RTE	1057	2	0	\N	<p>Pork drumstick turkey fugiat. Tri-tip elit turducken pork chop in. Swine short ribs meatball irure bacon nulla pork belly cupidatat meatloaf cow. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami.</p>			\N		2012-12-30 15:03:22	2012-12-30 15:03:30	1	1	1002		0	\N			\N	\N	0	\N	0	0		0	0	
-1060	This is a content section.	content	RTE	1034	1	0	\N	<p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong. Eiusmod swine spare ribs reprehenderit culpa. Boudin aliqua adipisicing rump corned beef.</p> <p>Pork drumstick turkey fugiat. Tri-tip elit turducken pork chop in. Swine short ribs meatball irure bacon nulla pork belly cupidatat meatloaf cow. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami.</p>			\N		2012-12-30 15:05:43	2012-12-30 15:06:29	1	1	1002		0	\N			\N	\N	1	\N	0	0		0	0	
-1049	Buttons	content	RTE	1050	1	15	\N	<p><a class="small button" href="#">Small Button</a></p> <p><a class="button" href="#">Medium Button</a></p> <p><a class="large button" href="#">Large Button</a></p>			\N		2012-12-27 00:06:59	2012-12-27 00:08:25	1	1	1002		0						0	\N	0	0		0	0	
-1051	content 1356566925	content	RTE	1050	2	0	\N	<p><a class="small alert button" href="#">Small Alert Button</a></p> <p><a class="success button" href="#">Medium Success Button</a></p> <p><a class="large secondary button" href="#">Large Secondary Button</a></p>			\N		2012-12-27 00:08:45	2012-12-27 00:08:54	1	1	1002		0	\N			\N	\N	0	\N	0	0		0	0	
-1037	The Grid	content	RTE	5	1	0	\N	<p>This is a twelve column section in a row. Each of these includes a div.panel element so you can see where the columns are - it's not required at all for the grid.</p>			\N		2012-12-27 00:00:54	2012-12-31 01:28:27	1	1	1002		0	\N	panel		\N	\N	1	\N	0	0		0	0	
-1053	Other Resources	content	RTE	5	2	0	\N	<p>Once you've exhausted the fun in this document, you should check out:</p> <ul> <li><a href="https://onxshop.com/documentation">Onxshop Documentation</a><br />Everything you need to know about using the framework.</li> <li><a href="https://github.com/laposa/onxshop">Onxshop on Github</a><br />Latest code, issue reports, feature requests and more.</li> <li><a href="https://twitter.com/onxshop">@onxshop</a><br />Ping us on Twitter if you have questions. If you build something with this we'd love to see it (and send you a totally boss sticker).</li> </ul>			\N		2012-12-27 00:10:10	2012-12-31 01:29:55	1	1	1002		0	\N			\N	\N	1	\N	0	0		0	0	
-1061	content 1356880015	content	HTML	1034	2	0	\N	<img src="http://placehold.it/400x300&amp;text=[img]"/>			\N		2012-12-30 15:06:55	2012-12-30 15:07:04	1	1	1002		0	\N			\N	\N	0	\N	0	0		0	0	
-1054	content 1356878639	content	HTML	1034	0	0	\N	<img src="http://placehold.it/1000x400&amp;text=[img]" />\n<hr />\n			\N		2012-12-30 14:43:59	2012-12-30 15:00:46	1	1	1002		0	\N			\N	\N	0	\N	0	0		0	0	
-1055	layout 1356879732	layout	2columns	1034	0	0	\N	\N			\N		2012-12-30 15:02:12	2012-12-30 15:02:20	1	1	1002		0	\N		fibonacci-1-2	\N	\N	0	\N	0	0		0	0	
-1056	content 1356879748	content	HTML	1055	1	0	\N	<img src="http://placehold.it/400x300&amp;text=[img]" />			\N		2012-12-30 15:02:28	2012-12-30 15:02:37	1	1	1002		0	\N			\N	\N	0	\N	0	0		0	0	
-1065	content 1356880874	content	picture	1035	2	0	\N	\N			\N		2012-12-30 15:21:14	2012-12-30 15:27:35	1	1	1002		0	\N			a:3:{s:16:"main_image_width";s:2:"70";s:20:"main_image_constrain";s:1:"0";s:8:"template";s:8:"fancybox";}	\N	0	\N	0	0		0	0	
-1064	This is a content section.	content	RTE	1035	1	0	\N	<p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong. Eiusmod swine spare ribs reprehenderit culpa. Boudin aliqua adipisicing rump corned beef.</p> <p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong. Eiusmod swine spare ribs reprehenderit culpa. Boudin aliqua adipisicing rump corned beef.</p> <p><a class="secondary small button" href="#">Next Page →</a></p>			\N		2012-12-30 15:18:58	2012-12-30 15:28:24	1	1	1002		0	\N			\N	\N	1	\N	0	0		0	0	
-1057	Two columns	layout	2columns	1055	2	20	\N	\N			\N		2012-12-30 15:02:53	2012-12-30 15:08:29	1	1	1002		0			fibonacci-1-1			0	\N	0	0		0	0	
-1062	This is a content section.	content	HTML	1055	2	25	\N	\N	\N	\N	\N	\N	2012-12-30 15:08:03	2012-12-30 15:08:29	1	1	1002	\N	0						1	\N	\N	0		0	0	
-1063	content 1356880625	content	HTML	1035	0	0	\N	<img src="http://placehold.it/1000x400&amp;text=[banner img]"/>			\N		2012-12-30 15:17:05	2012-12-30 15:17:43	1	1	1002		0	\N			\N	\N	0	\N	0	0		0	0	
-1067	Get in touch!	content	RTE	1066	1	0	\N	<p><span>We'd love to hear from you, you attractive person you.</span></p>			\N		2012-12-30 15:31:51	2012-12-30 15:35:05	1	1	1002		0	\N			\N	\N	0	\N	0	0		0	0	
-1066	Get in touch!	layout	2columns	1035	3	0	\N	\N			\N		2012-12-30 15:31:31	2012-12-30 15:34:58	1	1	1002		0	\N	panel	fibonacci-1-1	\N	\N	1	\N	0	0		0	0	
-1068	content 1356881545	content	HTML	1066	2	0	\N	<p><a href="#" class="radius button right" style="float: right">Contact Us</a></p>			\N		2012-12-30 15:32:25	2012-12-30 15:33:17	1	1	1002		0	\N			\N	\N	0	\N	0	0		0	0	
-1050	Buttons	layout	2columns	5	1	0	\N	\N			\N		2012-12-27 00:07:54	2012-12-31 01:29:28	1	1	1002		0	\N		fibonacci-1-1	\N	\N	1	\N	0	0		0	0	
-1100	content 1356919681 (copy) (copy)	content	RTE	1097	3	20	\N	<p><img src="http://placehold.it/400x300&amp;text=[img]" alt="" /></p>			\N		2012-12-31 02:08:01	2012-12-31 02:10:03	1	1	1002		0						0	\N	0	0		0	0	
-1052	Getting Started	content	RTE	5	2	0	\N	<p>We're stoked you want to try Onxshop! To get going, this template includes some basic styles you can modify, play around with, or totally destroy to get going.</p>			\N		2012-12-27 00:09:42	2012-12-31 04:16:08	1	1	1002		0	\N			\N	\N	1	\N	0	0		0	0	
-1098	content 1356919681	content	RTE	1097	1	30	\N	<p><img src="http://placehold.it/400x300&amp;text=[img]" alt="" /></p>			\N		2012-12-31 02:08:01	2012-12-31 02:09:57	1	1	1002		0						0	\N	0	0		0	0	
-1046	Simple Tab 1	content	RTE	1045	1	0	\N	<p>This is simple tab 1's content. Pretty neat, huh?</p> <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>			\N		2012-12-27 00:03:56	2012-12-31 16:05:43	1	1	1002		0	\N			\N	\N	0	\N	0	0		0	0	
-1014	Excepteur sint occaecat	page	news	83	0	0	<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>	<p style="float: right;"><img class="imageright" src="http://placehold.it/300x240&amp;text=[img]" alt="" width="300" height="240" /></p> <p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong. Eiusmod swine spare ribs reprehenderit culpa.</p> <p>Boudin aliqua adipisicing rump corned beef. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami.</p> <p>Pork drumstick turkey fugiat. Tri-tip elit turducken pork chop in. Swine short ribs meatball irure bacon nulla pork belly cupidatat meatloaf cow. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami.</p> <p>Pork drumstick turkey fugiat. Tri-tip elit turducken pork chop in. Swine short ribs meatball irure bacon nulla pork belly cupidatat meatloaf cow. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami.</p>					2008-08-16 03:59:48	2012-12-30 15:57:51	1	1	1000		0	N;		fibonacci-2-1	a:2:{s:6:"author";s:10:"John Smith";s:13:"allow_comment";i:0;}	N;	1	\N	0	0		0	0	
-1069	Categories	content	component	83	2	25	\N	\N			\N		2012-12-30 15:43:05	2012-12-30 15:43:30	1	1	1002		0				a:3:{s:8:"template";s:20:"news_categories.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}		1	\N	0	0		0	0	
-1101	This is a content section.	content	RTE	1097	1	20	\N	<p><span>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong. Eiusmod swine spare ribs reprehenderit culpa. Boudin aliqua adipisicing rump corned beef.</span></p>			\N		2012-12-31 02:09:18	2012-12-31 02:09:57	1	1	1002		0						1	\N	0	0		0	0	
-1070	Featured	content	RTE	83	2	0	\N	<h4>Featured</h4> <p><em>Pork drumstick turkey fugiat. Tri-tip elit turducken pork chop in. Swine short ribs meatball irure bacon nulla pork belly cupidatat meatloaf cow.</em></p> <p><a href="#">Read More →</a></p>			\N		2012-12-30 15:43:52	2012-12-30 15:45:22	1	1	1002		0	\N	panel		\N	\N	0	\N	0	0		0	0	
-1105	Get in touch!	content	RTE	1104	1	0	\N	<p><span>We'd love to hear from you, you attractive person you.</span></p>			\N		2012-12-30 15:31:51	2012-12-31 02:11:53	1	1	1002		0	\N			\N	\N	0	\N	0	0		0	0	
-1099	content 1356919681 (copy)	content	RTE	1097	2	20	\N	<p><img src="http://placehold.it/400x300&amp;text=[img]" alt="" /></p>			\N		2012-12-31 02:08:01	2012-12-31 02:09:54	1	1	1002		0						0	\N	0	0		0	0	
-1106	content 1356881545 (copy)	content	HTML	1104	2	0	\N	<p><a href="#" class="radius button right" style="float: right">Contact Us</a></p>			\N		2012-12-30 15:32:25	2012-12-31 02:12:08	1	1	1002		0	\N			\N	\N	0	\N	0	0		0	0	
-1104	Get in touch!	layout	2columns	1094	3	0	\N	\N			\N		2012-12-30 15:31:31	2012-12-31 02:12:37	1	1	1002		0	\N	panel	fibonacci-1-1	\N	\N	1	\N	0	0		0	0	
-1102	This is a content section.	content	RTE	1097	2	15	\N	<p><span>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong. Eiusmod swine spare ribs reprehenderit culpa. Boudin aliqua adipisicing rump corned beef.</span></p>			\N		2012-12-31 02:09:18	2012-12-31 02:10:14	1	1	1002		0						1	\N	0	0		0	0	
-1103	This is a content section.	content	RTE	1097	3	15	\N	<p><span>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong. Eiusmod swine spare ribs reprehenderit culpa. Boudin aliqua adipisicing rump corned beef.</span></p>			\N		2012-12-31 02:09:18	2012-12-31 02:10:23	1	1	1002		0						1	\N	0	0		0	0	
-1095	content 1356919604	content	picture	1094	0	0	\N	\N			\N		2012-12-31 02:06:44	2012-12-31 03:19:08	1	1	1002		0	\N			a:3:{s:16:"main_image_width";s:1:"0";s:20:"main_image_constrain";s:1:"0";s:8:"template";s:9:"unoslider";}	\N	0	\N	0	0		0	0	
-1109	Header	content	RTE	1107	2	0	\N	<p>Fusce ullamcorper mauris in eros dignissim molestie posuere felis blandit. Aliquam erat volutpat. Mauris ultricies posuere vehicula. Sed sit amet posuere erat. Quisque in ipsum non augue euismod dapibus non et eros. Pellentesque consectetur tempus mi iaculis bibendum. Ut vel dolor sed eros tincidunt volutpat ac eget leo.</p>			\N		2012-12-31 03:36:08	2012-12-31 03:36:28	1	1	1002		0	\N	panel		\N	\N	1	\N	0	0		0	0	
-1111	Header	content	RTE	1110	1	0	\N	<p><span>Praesent placerat dui tincidunt elit suscipit sed.</span></p> <p><a class="small button" href="#">BUTTON TIME!</a></p>			\N		2012-12-31 03:36:58	2012-12-31 03:37:39	1	1	1002		0	\N	panel		\N	\N	1	\N	0	0		0	0	
-1112	Header	content	RTE	1110	2	15	\N	<p><span>Praesent placerat dui tincidunt elit suscipit sed.</span></p> <p><a class="small button" href="#">BUTTON TIME!</a></p>			\N		2012-12-31 03:36:58	2012-12-31 03:38:02	1	1	1002		0		panel				1	\N	0	0		0	0	
-1122	content 1356925230 (copy) (copy)	content	RTE	1114	4	20	\N	<p><span>Description</span></p>			\N		2012-12-31 03:40:30	2012-12-31 03:43:38	1	1	1002		0		panel				0	\N	0	0		0	0	
-1115	content 1356925166	content	RTE	1114	1	0	\N	<p><img src="http://placehold.it/500x500&amp;text=Thumbnail" alt="" /></p>			\N		2012-12-31 03:39:26	2012-12-31 03:40:25	1	1	1002		0	\N			\N	\N	0	\N	0	0		0	0	
-1119	content 1356925230 (copy)	content	RTE	1114	3	15	\N	<p><span>Description</span></p>			\N		2012-12-31 03:40:30	2012-12-31 03:42:00	1	1	1002		0		panel				0	\N	0	0		0	0	
-1120	content 1356925230 (copy) (copy)	content	RTE	1114	1	0	\N	<p><span>Description</span></p>			\N		2012-12-31 03:40:30	2012-12-31 03:40:43	1	1	1002		0	\N	panel		\N	\N	0	\N	0	0		0	0	
-1116	content 1356925230	content	RTE	1114	2	15	\N	<p><span>Description</span></p>			\N		2012-12-31 03:40:30	2012-12-31 03:41:53	1	1	1002		0		panel				0	\N	0	0		0	0	
-1117	content 1356925166 (copy)	content	RTE	1114	2	20	\N	<p><img src="http://placehold.it/500x500&amp;text=Thumbnail" alt="" /></p>			\N		2012-12-31 03:39:26	2012-12-31 03:41:53	1	1	1002		0						0	\N	0	0		0	0	
-1118	content 1356925166 (copy) (copy)	content	RTE	1114	3	20	\N	<p><img src="http://placehold.it/500x500&amp;text=Thumbnail" alt="" /></p>			\N		2012-12-31 03:39:26	2012-12-31 03:42:00	1	1	1002		0						0	\N	0	0		0	0	
-1114	layout 1356925142	layout	4columns	1107	3	20	\N	\N	\N	\N	\N	\N	2012-12-31 03:39:02	2012-12-31 03:42:56	1	1	1002	\N	0			fibonacci-1-1			0	\N	\N	0		0	0	
-1107	Soboxy	page	default	1	0	20		\N					2012-12-31 03:34:46	2013-01-07 10:09:52	1	1	1002		0			fibonacci-1-1			1	0	0	0		0	0	
-1108	content 1356924921	content	HTML	1107	1	0	\N	<img src="http://placehold.it/500x500&amp;text=Image" alt="" />			\N		2012-12-31 03:35:21	2012-12-31 03:45:35	1	1	1002		0	\N			\N	\N	0	\N	0	0		0	0	
-1013	Laboris nisi ut aliquip	page	news	83	0	0	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>	<p style="float: right;"><img class="imageright" src="http://placehold.it/300x240&amp;text=[img]" alt="" width="300" height="240" /></p> <p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong. Eiusmod swine spare ribs reprehenderit culpa.</p> <p>Boudin aliqua adipisicing rump corned beef. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami.</p> <p>Pork drumstick turkey fugiat. Tri-tip elit turducken pork chop in. Swine short ribs meatball irure bacon nulla pork belly cupidatat meatloaf cow. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami.</p> <p>Pork drumstick turkey fugiat. Tri-tip elit turducken pork chop in. Swine short ribs meatball irure bacon nulla pork belly cupidatat meatloaf cow. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami.</p>					2008-08-16 03:59:19	2012-12-30 15:58:01	1	1	1000		0	N;		fibonacci-2-1	a:2:{s:6:"author";s:10:"John Smith";s:13:"allow_comment";i:0;}	N;	1	\N	0	0		0	0	
-1073	Specific Person	content	RTE	1072	1	0	\N	<p><img class="imageleft" src="http://placehold.it/100x100&amp;text=[person]" alt="" /> <img class="imageleft" src="http://placehold.it/100x100&amp;text=[person]" alt="" /> <img class="imageleft" src="http://placehold.it/100x100&amp;text=[person]" alt="" /> <img class="imageleft" src="http://placehold.it/100x100&amp;text=[person]" alt="" /> <img class="imageleft" src="http://placehold.it/100x100&amp;text=[person]" alt="" /> <img class="imageleft" src="http://placehold.it/100x100&amp;text=[person]" alt="" /> <img class="imageleft" src="http://placehold.it/100x100&amp;text=[person]" alt="" /> <img class="imageleft" src="http://placehold.it/100x100&amp;text=[person]" alt="" /> <img class="imageleft" src="http://placehold.it/100x100&amp;text=[person]" alt="" /></p>			\N		2012-12-30 16:12:55	2012-12-30 16:19:45	1	1	1002		0	\N			\N	\N	0	\N	0	0		0	0	
-1071	content 1356883849	content	RTE	20	1	30	\N	<p>We'd love to hear from you. You can either reach out to us as a whole and one of our awesome team members will get back to you, or if you have a specific question reach out to one of our staff. We love getting email all day all day.</p>			\N		2012-12-30 16:10:49	2012-12-30 16:11:25	1	1	1002		0						0	\N	0	0		0	0	
-1072	layout 1356883866	layout	tabs	20	1	20	\N	\N	\N	\N	\N	\N	2012-12-30 16:11:06	2012-12-30 16:11:25	1	1	1002	\N	0			fibonacci-1-1			0	\N	\N	0		0	0	
-76	Contact Our Company	content	contact_form	1072	1	15	\N						2006-09-30 16:00:21	2012-12-30 16:13:10	1	1	1002		0				a:6:{s:7:"mail_to";s:0:"";s:11:"mail_toname";s:0:"";s:15:"node_controller";s:13:"common_simple";s:14:"sending_failed";s:89:"You must complete all the required fields. Required items are marked with an asterisk (*)";s:4:"text";s:25:"Thanks for your feedback.";s:4:"href";s:0:"";}		0	\N	0	0		0	0	
-1081	Panel Title	content	RTE	1075	2	0	\N	<p><span>This is a four columns grid panel with an arbitrary height. Bacon ipsum dolor sit amet salami.</span></p>			\N		2012-12-31 01:57:19	2012-12-31 01:57:37	1	1	1002		0	\N	panel		\N	\N	1	\N	0	0		0	0	
-1088	content 1356919263 (copy) (copy)	content	RTE	1085	3	15	\N	<p><img src="http://placehold.it/400x300" alt="" /></p>			\N		2012-12-31 02:01:03	2012-12-31 02:01:50	1	1	1002		0		panel				0	\N	0	0		0	0	
-1078	layout 1356918845	layout	2columns	1076	2	0	\N	\N			\N		2012-12-31 01:54:05	2012-12-31 01:55:41	1	1	1002		0	\N		fibonacci-2-1	\N	\N	0	\N	0	0		0	0	
-1076	layout 1356918773	layout	2columns	1075	0	0	\N	\N			\N		2012-12-31 01:52:53	2012-12-31 01:55:57	1	1	1002		0	\N		fibonacci-1-3	\N	\N	0	\N	0	0		0	0	
-1077	Panel Title	content	RTE	1076	1	0	\N	<p><span>This is a three columns grid panel with an arbitrary height.</span></p>			\N		2012-12-31 01:53:36	2012-12-31 01:56:16	1	1	1002		0	\N	panel		\N	\N	1	\N	0	0		0	0	
-1079	Panel Title	content	RTE	1078	1	0	\N	<p><span>This is a six columns grid panel with an arbitrary height. Bacon ipsum dolor sit amet salami ham hock biltong ball tip drumstick sirloin pancetta meatball short loin.</span></p>			\N		2012-12-31 01:54:17	2012-12-31 01:56:25	1	1	1002		0	\N	panel		\N	\N	1	\N	0	0		0	0	
-1080	Panel Title	content	RTE	1078	2	0	\N	<p><span>This is a three columns grid panel with an arbitrary height.</span></p>			\N		2012-12-31 01:54:44	2012-12-31 01:56:34	1	1	1002		0	\N	panel		\N	\N	1	\N	0	0		0	0	
-1084	content 1356919117	content	RTE	1082	2	0	\N	<p><img src="http://placehold.it/200x200" alt="" /></p>			\N		2012-12-31 01:58:37	2012-12-31 01:59:00	1	1	1002		0	\N	panel		\N	\N	0	\N	0	0		0	0	
-1083	Panel Title	content	RTE	1082	1	0	\N	<p><span>This is a six columns grid panel with an arbitrary height. Bacon ipsum dolor sit amet salami ham hock biltong ball tip drumstick sirloin pancetta meatball short loin.</span></p>			\N		2012-12-31 01:57:56	2012-12-31 01:59:19	1	1	1002		0	\N	panel		\N	\N	1	\N	0	0		0	0	
-1089	layout 1356919359	layout	2columns	1075	3	0	\N	\N	\N	\N	\N	\N	2012-12-31 02:02:39	2012-12-31 02:02:39	1	1	1002	\N	0	\N		fibonacci-1-1	\N	\N	0	\N	\N	0		0	0	\N
-1082	layout 1356919071	layout	2columns	1075	1	0	\N	\N			\N		2012-12-31 01:57:51	2012-12-31 02:00:15	1	1	1002		0	\N		fibonacci-3-1	\N	\N	0	\N	0	0		0	0	
-1085	layout 1356919243	layout	3columns	1075	3	0	\N	\N	\N	\N	\N	\N	2012-12-31 02:00:43	2012-12-31 02:00:43	1	1	1002	\N	0	\N		fibonacci-1-1	\N	\N	0	\N	\N	0		0	0	\N
-1086	content 1356919263	content	RTE	1085	1	0	\N	<p><img src="http://placehold.it/400x300" alt="" /></p>			\N		2012-12-31 02:01:03	2012-12-31 02:01:24	1	1	1002		0	\N	panel		\N	\N	0	\N	0	0		0	0	
-1087	content 1356919263 (copy)	content	RTE	1085	2	15	\N	<p><img src="http://placehold.it/400x300" alt="" /></p>			\N		2012-12-31 02:01:03	2012-12-31 02:01:47	1	1	1002		0		panel				0	\N	0	0		0	0	
-1090	Panel Title	content	RTE	1089	1	0	\N	<p><span>This is a six columns grid panel with an arbitrary height. Bacon ipsum dolor sit amet salami ham hock biltong ball tip drumstick sirloin pancetta meatball short loin.</span></p>			\N		2012-12-31 02:02:51	2012-12-31 02:03:02	1	1	1002		0	\N	panel		\N	\N	1	\N	0	0		0	0	
-1091	layout 1356919397	layout	2columns	1089	2	0	\N	\N	\N	\N	\N	\N	2012-12-31 02:03:17	2012-12-31 02:03:17	1	1	1002	\N	0	\N		fibonacci-1-1	\N	\N	0	\N	\N	0		0	0	\N
-1092	Panel Title	content	RTE	1091	1	0	\N	<p><span>This is a three columns grid panel with an arbitrary height.</span></p>			\N		2012-12-31 02:03:31	2012-12-31 02:03:40	1	1	1002		0	\N	panel		\N	\N	1	\N	0	0		0	0	
-1093	Panel Title	content	RTE	1091	2	15	\N	<p><span>This is a three columns grid panel with an arbitrary height.</span></p>			\N		2012-12-31 02:03:31	2012-12-31 02:04:05	1	1	1002		0		panel				1	\N	0	0		0	0	
-1096	content 1356919648	content	divider	1094	0	0	\N	\N	\N	\N	\N	\N	2012-12-31 02:07:28	2012-12-31 02:07:28	1	1	1002	\N	0	\N			\N	\N	0	\N	\N	0		0	0	\N
-1097	layout 1356919660	layout	3columns	1094	0	0	\N	\N	\N	\N	\N	\N	2012-12-31 02:07:40	2012-12-31 02:07:40	1	1	1002	\N	0	\N		fibonacci-1-1	\N	\N	0	\N	\N	0		0	0	\N
-1110	layout 1356925005	layout	2columns	1107	2	0	\N	\N	\N	\N	\N	\N	2012-12-31 03:36:45	2012-12-31 03:36:45	1	1	1002	\N	0	\N		fibonacci-1-1	\N	\N	0	\N	\N	0		0	0	\N
-1094	Orbit	page	default	1	0	30	\N	\N	\N	\N	\N	\N	2012-12-31 02:06:17	2013-01-07 10:09:52	1	1	1002	\N	0			fibonacci-2-1			1	\N	\N	0		0	0	
-1123	content 1356927031	content	RTE	23	1	0	\N	<p>Onxshop is 3rd best open source eCommerce according to Open Source CMS user rating. Although this is a great achievement, the eCommerce label is giving an impression that Onxshop is ONLY eCommerce. This little example template is trying to show how flexible Onxshop is in area of website prototyping.</p> <p>I took this exercise as an opportunity to create some responsive rules for layout elements. This is a great payout when full power of Onxshop HTML/CSS fluid design comes into an effect.</p> <p>To use change /backoffice/advanced/configuration</p> <p>&lt;meta name="viewport" content="width=1024" /&gt;</p> <p>to</p> <p>&lt;meta name="viewport" content="width=device-width" /&gt;</p> <p>Thx http://www.bluebit.co.uk/blog/Using_jQuery_Cycle_in_a_Responsive_Layout </p> <p>Use width="100%" in Youtube videos and Google Maps</p> <p>Don's specify width and height on image tags (width="300" height="300" )</p> <p><em>Norbert Laposa, Christmas 2012</em></p>			\N		2012-12-31 04:10:31	2013-01-02 15:05:54	1	1	1002		0	\N			\N	\N	0	\N	0	0		0	0	
-1075	Grid	page	default	1	0	40	\N	\N	\N	\N	\N	\N	2012-12-31 01:52:11	2013-01-07 10:09:52	1	1	1002	\N	0			fibonacci-2-1			1	\N	\N	0		0	0	
-1121	content 1356925166 (copy) (copy) (copy)	content	RTE	1114	4	25	\N	<p><img src="http://placehold.it/500x500&amp;text=Thumbnail" alt="" /></p>			\N		2012-12-31 03:39:26	2012-12-31 03:43:39	1	1	1002		0						0	\N	0	0		0	0	
-1124	Video	page	default	1	0	15	\N	\N	\N	\N	\N	\N	2013-01-07 10:09:34	2013-01-07 10:09:52	1	1	1002	\N	0			fibonacci-2-1			1	\N	\N	0		0	0	
-1047	Simple Tab 2	content	RTE	1045	1	0	\N	<p>This is simple tab 2's content. Pretty neat, huh?</p> <p><span>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span></p>			\N		2012-12-27 00:04:22	2012-12-31 16:06:00	1	1	1002		0	\N			\N	\N	0	\N	0	0		0	0	
-1125	Vimeo - fluid, widescreen	content	HTML	1124	0	0	\N	<div class="fluid-video vimeo widescreen">\n  <iframe src="http://player.vimeo.com/video/55304784" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>\n</div>			\N		2013-01-07 10:10:18	2013-01-07 10:15:44	1	1	1002		0	\N			\N	\N	1	\N	0	0		0	0	
+COPY common_node (id, title, node_group, node_controller, parent, parent_container, priority, teaser, content, description, keywords, page_title, head, created, modified, publish, display_in_menu, author, uri_title, display_permission, other_data, css_class, layout_style, component, relations, display_title, display_secondary_navigation, require_login, display_breadcrumb, browser_title, link_to_node_id, require_ssl, display_permission_group_acl, share_counter) FROM stdin;
+65	Payment was successfull	content	RTE	12	1	0	\N	<p>Process executed without error and the transaction was successfully Authorised.&nbsp;</p>			\N		2006-09-30 15:43:50	2008-08-24 18:27:47	1	1	1000		0	N;			N;	N;	0	\N	\N	0		0	0	\N	0
+89	Select Delivery Method	content	component	7	1	100	\N	\N					2010-04-18 01:34:49	2010-04-18 11:10:57	1	1	1000		0	N;			a:3:{s:8:"template";s:30:"ecommerce/delivery_option.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	1	\N	\N	0		0	0	\N	0
+91	Newsletter Subscribe	content	component	90	1	0	\N	\N					2010-04-18 11:20:58	2010-04-18 11:21:14	1	1	1000		0	N;			a:3:{s:8:"template";s:32:"client/newsletter_subscribe.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0
+93	Newsletter Unsubscribe	content	component	92	1	0	\N	\N					2010-04-18 11:22:40	2010-04-18 11:22:56	1	1	1000		0	N;			a:3:{s:8:"template";s:34:"client/newsletter_unsubscribe.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0
+1028	Other points	content	RTE	1026	1	0	\N	<p>This site has been designed with style sheets to allow maximum flexibility. Header tags and tables summaries have been effectively added to this site.</p>\n<p>Form controls are properly grouped and labelled.</p>					2010-04-18 13:03:47	2010-04-18 13:04:09	1	1	1000		0	N;			N;	N;	1	\N	\N	0		0	0	\N	0
+1029	Your feedback is important	content	RTE	1026	1	0	\N	<p>If you experience any problems using this site, or have some feedback or suggestions on how to improve accessibility, please <a class="internal-link" href="/page/20">contact us</a>.</p>					2010-04-18 13:04:34	2010-04-18 13:04:55	1	1	1000		0	N;			N;	N;	1	\N	\N	0		0	0	\N	0
+1030	More information	content	RTE	1026	1	0	\N	<p>For more information about website accessibility please visit the <a href="http://www.w3.org/TR/WCAG10/">W3C Web Content Accessibility Guidelines</a>.</p>					2010-04-18 13:05:16	2010-04-18 13:05:34	1	1	1000		0	N;			N;	N;	1	\N	\N	0		0	0	\N	0
+1017	Returns policy	content	RTE	26	1	10	\N	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>\n<ul>\n<li>velit esse cillum dolore</li>\n<li>consectetur adipisicing elit</li>\n<li>occaecat cupidatat non proident</li>\n</ul>\n<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>					2008-08-16 13:01:53	2010-04-18 12:50:54	0	1	1000		0	N;			N;	N;	1	\N	\N	0		0	0	\N	0
+69	Search result	content	component	21	1	0	\N				\N		2006-09-30 15:49:27	2008-08-07 01:21:51	1	1	1000		0	N;			a:3:{s:8:"template";s:17:"search_nodes.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0
+72	Sitemap component	content	component	22	1	0	\N				\N		2006-09-30 15:50:21	2008-08-24 00:51:29	1	1	1000		0	N;			a:3:{s:8:"template";s:12:"sitemap.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0
+86	General content 1	content	RTE	85	0	0	\N	<p>Contact address,<br />Street Name,<br />CITY, Post Code<br />Tel: 01234 567 890</p>					2006-09-30 15:50:10	2010-04-18 13:07:36	1	1	1000		0	N;			N;	N;	0	\N	\N	0		0	0	\N	0
+68	Search input	content	component	21	1	0	\N				\N		2006-09-30 15:48:45	2008-08-24 18:22:11	1	1	1000		0	N;			a:3:{s:8:"template";s:14:"searchbox.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0
+32	Existing customer	content	component	8	1	0	\N				\N		2006-09-30 14:00:05	2008-08-24 01:15:22	1	1	1000		0	N;			a:3:{s:8:"template";s:17:"client/login.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0
+36	Registration component	content	component	13	1	0	\N				\N		2006-09-30 14:26:09	2008-08-24 01:14:57	1	1	1000		0	N;			a:3:{s:8:"template";s:24:"client/registration.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0
+34	New customer	content	component	8	1	0	\N				\N		2006-09-30 14:01:50	2008-08-24 01:15:34	1	1	1000		0	N;			a:3:{s:8:"template";s:30:"client/registration_start.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0
+75	Basket edit component	content	component	6	1	0	\N				\N		2006-09-30 15:54:35	2008-08-24 18:23:16	1	1	1000		0	N;			a:3:{s:8:"template";s:26:"ecommerce/basket_edit.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0
+41	Checkout	content	component	7	1	0	\N				\N		2006-09-30 14:47:01	2008-08-24 18:23:33	1	1	1000		0	N;			a:3:{s:8:"template";s:23:"ecommerce/checkout.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0
+39	Checkout Basket	content	component	7	1	0	\N				\N		2006-09-30 14:44:34	2008-08-24 18:23:51	1	1	1000		0	N;			a:3:{s:8:"template";s:30:"ecommerce/checkout_basket.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0
+0	Root	site	default	\N	0	0							2008-08-06 21:24:09	2008-08-06 21:24:09	1	1	0		0				\N	\N	\N	\N	\N	0		0	0	\N	0
+51	Order detail component	content	component	19	1	0	\N				\N		2006-09-30 15:22:49	2008-08-24 18:25:32	1	1	1000		0	N;			a:3:{s:8:"template";s:27:"ecommerce/order_detail.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0
+60	Payment component	content	component	10	1	0	\N				\N		2006-09-30 15:32:26	2008-08-24 18:26:22	1	1	1000		0	N;			a:3:{s:8:"template";s:22:"ecommerce/payment.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0
+1015	Our latest news	content	news_list	83	1	0	\N	\N			\N		2008-08-16 04:02:19	2011-01-16 15:54:36	1	1	1000		0	N;			a:5:{s:5:"limit";s:1:"5";s:8:"template";s:4:"full";s:10:"pagination";i:1;s:5:"image";i:0;s:13:"display_title";i:0;}	N;	0	\N	0	0		0	0	\N	0
+78	404 error	content	RTE	14	1	0	\N	<p><strong>We have recently restructured this website, you might find what you are looking for by going via the <a href="/">home page</a>.</strong></p>\r\n<p><strong>If you believe you have found a broken link please <a href="/page/20">let us know</a>.</strong></p>\r\n<div class="line">\r\n<hr />\r\n</div>\r\n<p><strong>Please try the following:</strong></p>\r\n<ul>\r\n<li>If you typed the page address in the Address bar, make sure that it is spelled correctly. </li>\r\n<li>Click the <a href="javascript:history.go(-1)">Back</a> button to try another link. </li>\r\n</ul>\r\n<p>HTTP 404 : Page not found</p>			\N		2006-09-30 16:37:05	2008-08-24 18:28:28	1	1	1000		0	N;			N;	N;	1	\N	\N	0		0	0	\N	0
+1019	forgotten password	content	RTE	8	1	0	\N	<p>\n<a href="/page/9">Forgotten your password since your last visit?</a>  \n</p>			\N		2008-10-12 22:54:29	2008-10-12 22:54:44	1	1	1000		0	N;			N;	N;	0	\N	\N	0		0	0	\N	0
+1040	content 1356566512	content	RTE	1038	2	0	\N	<p>six columns</p>			\N		2012-12-27 00:01:52	2012-12-27 01:14:33	1	1	1002		0	\N	panel		\N	\N	0	\N	0	0		0	0		0
+1034	Banded	page	default	1	0	70		\N					2011-01-16 15:53:08	2013-01-07 10:09:52	1	1	1002		0			fibonacci-2-1			1	0	0	0		0	0		0
+1045	Tabs	layout	tabs	5	1	0	\N	\N			\N		2012-12-27 00:03:20	2012-12-31 01:29:13	1	1	1002		0	\N		fibonacci-1-1	\N	\N	1	\N	0	0		0	0		0
+1035	Banner	page	default	1	0	60		\N					2011-01-16 15:53:14	2013-01-07 10:09:52	1	1	1002		0			fibonacci-2-1			1	0	0	0		0	0		0
+1105	Get in touch!	content	RTE	1104	1	0	\N	<p><span>We'd love to hear from you, you attractive person you.</span></p>			\N		2012-12-30 15:31:51	2012-12-31 02:11:53	1	1	1002		0	\N			\N	\N	0	\N	0	0		0	0		0
+1020	Payment information	content	RTE	8	2	0	\N	<h3>Payment information </h3>\n<p>\nWe accept the following payment methods: \n</p>\n<p>\n<img src="https://www.worldpay.com/cgenerator/logos/visa.gif" alt="Visa payments supported by WorldPay" />\n<img src="https://www.worldpay.com/cgenerator/logos/visa_delta.gif" alt="Visa/Delta payments supported by WorldPay" />\n<img src="https://www.worldpay.com/cgenerator/logos/mastercard.gif" alt="Mastercard payments supported by WorldPay" />\n<img src="https://www.worldpay.com/cgenerator/logos/switch.gif" alt="Switch payments supported by WorldPay" />\n</p>\n<h3>Terms and conditions</h3>\n<p>\nBy making a purchase from this site you are agreeing to be bound by our <a href="/page/26">terms and conditions</a> .\n</p>\n<h3>Payment services </h3>\n<p>\n<!-- Powered by WorldPay logo-->\n<a href="http://www.worldpay.com/"><img src="https://www.worldpay.com/cgenerator/logos/poweredByWorldPay.gif" alt="Powered By WorldPay" /></a>\n</p>\n<p>\n<!-- WorldPay Guarantee Logo -->\n<img src="https://www.worldpay.com/cgenerator/logos/guaranteed.gif" alt="WorldPay Guarantee" />\n</p>			\N		2008-10-12 23:04:24	2008-10-12 23:11:21	1	1	1000		0	N;			N;	N;	0	\N	\N	0		0	0	\N	0
+1022	Related products	content	component	6	2	0	\N	\N			\N		2008-10-12 23:17:09	2008-10-12 23:18:43	1	1	1000		0	N;			a:3:{s:8:"template";s:37:"ecommerce/product_related_basket.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0
+1021	Recently viewed	content	component	6	1	0	\N	\N			\N		2008-10-12 23:16:14	2008-10-12 23:18:55	1	1	1000		0	N;			a:3:{s:8:"template";s:39:"ecommerce/recently_viewed_products.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0
+42	Address component	content	component	7	2	0	\N				\N		2006-09-30 14:54:43	2008-08-24 18:24:18	1	1	1000		0	N;			a:3:{s:8:"template";s:19:"client/address.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0
+1024	Userbox	content	component	15	2	0	\N	\N					2010-04-18 12:43:47	2010-04-18 12:44:21	1	1	1000		0	N;			a:3:{s:8:"template";s:19:"client/userbox.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0
+1027	Text size	content	RTE	1026	1	0	\N	<p>If you would prefer the font size to be larger or smaller, you can easily adjust it using your browser.</p>\n<p>To increase or decrease the text size, follow these basic instructions   for Internet Explorer:</p>\n<ul>\n<li>Click on the 'View' menu in your browser.</li>\n<li>Click on the 'Text size' option.</li>\n<li>Select the size you wish to see.</li>\n</ul>\n<p>To increase or decrease the text size, follow these basic instructions for Mozilla Firefox:</p>\n<ul>\n<li>Click on the 'View' menu in your browser.</li>\n<li>Click on the 'Zoom' option.</li>\n</ul>					2010-04-18 13:02:48	2010-04-18 13:03:20	1	1	1000		0	N;			N;	N;	1	\N	\N	0		0	0	\N	0
+45	Address Management Component	content	component	16	1	0	\N				\N		2006-09-30 15:20:05	2008-08-24 18:25:00	1	1	1000		0	N;			a:3:{s:8:"template";s:24:"client/address_edit.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0
+87	General content 2	content	RTE	85	0	0	\N	<p style="text-align: center;"><em>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</em></p>			\N		2006-09-30 15:50:10	2011-01-16 16:11:40	1	1	1000		0	N;			N;	N;	0	\N	0	0		0	0	\N	0
+57	Password reset component	content	component	9	1	0	\N				\N		2006-09-30 15:30:31	2008-08-24 18:26:03	1	1	1000		0	N;			a:3:{s:8:"template";s:26:"client/password_reset.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0
+48	Your orders with us	content	component	17	1	0	\N				\N		2006-09-30 15:21:35	2008-08-16 13:22:33	1	1	1000		0	N;			a:3:{s:8:"template";s:25:"ecommerce/order_list.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	1	\N	\N	0		0	0	\N	0
+63	Payment failure component	content	component	11	1	0	\N				\N		2006-09-30 15:42:05	2008-08-24 18:26:38	1	1	1000		0	N;			a:3:{s:8:"template";s:37:"ecommerce/payment/protx_callback.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0
+66	Payment success component	content	component	12	1	0	\N				\N		2006-09-30 15:44:42	2008-08-16 13:28:47	1	1	1000		0	N;			a:3:{s:8:"template";s:37:"ecommerce/payment/protx_callback.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	1	\N	\N	0		0	0	\N	0
+2	Commerce	container	default	0	0	0	\N	\N			\N		2006-09-30 09:55:17	2008-08-24 22:58:05	1	0	1000		0	N;			N;	N;	1	\N	\N	0		0	0	\N	0
+88	Global navigation	container	default	0	0	15		\N					2009-08-16 13:05:12	2011-01-16 15:56:37	1	1	1000		0	N;			N;	N;	1	0	0	0		0	0	\N	0
+21	Search	page	default	4	0	0		\N					2006-09-30 12:08:07	2009-05-15 13:48:10	1	0	1000		0	N;		fibonacci-2-1	N;	N;	1	0	\N	0		0	0	\N	0
+1032	content 1295192947	content	RTE	1031	1	0	\N	<h3>Our privacy policy</h3>\n<p>This privacy policy sets out how [COMPANY NAME] uses and protects any information that you give [COMPANY NAME] when you use this website.</p>\n<p>[COMPANY NAME] is committed to ensuring that your privacy is protected. Should we ask you to provide certain information by which you can be identified when using this website, then you can be assured that it will only be used in accordance with this privacy statement.</p>\n<p>[COMPANY NAME] may change this policy from time to time by updating this page. You should check this page from time to time to ensure that you are happy with any changes. This policy is effective from [DATE].</p>\n<h3>What we collect</h3>\n<p>We may collect the following information:</p>\n<ul>\n<li>name and job title</li>\n<li>contact information including email address</li>\n<li>demographic information such as postcode, preferences and interests</li>\n<li>other information relevant to customer surveys and/or offers</li>\n</ul>\n<h3>What we do with the information we gather</h3>\n<p>We require this information to understand your needs and provide you with a better service, and in particular for the following reasons:</p>\n<ul>\n<li>Internal record keeping.</li>\n<li>We may use the information to improve our products and services.</li>\n<li>We may periodically send promotional emails about new products, special offers or other information which we think you may find interesting using the email address which you have provided.</li>\n<li>From time to time, we may also use your information to contact you for market research purposes. We may contact you by email, phone, fax or mail. We may use the information to customise the website according to your interests.</li>\n</ul>\n<h3>Security</h3>\n<p>We are committed to ensuring that your information is secure. In order to prevent unauthorised access or disclosure we have put in place suitable physical, electronic and managerial procedures to safeguard and secure the information we collect online.</p>\n<h3>How we use cookies</h3>\n<p>A cookie is a small file which asks permission to be placed on your computer's hard drive. Once you agree, the file is added and the cookie helps analyse web traffic or lets you know when you visit a particular site. Cookies allow web applications to respond to you as an individual. The web application can tailor its operations to your needs, likes and dislikes by gathering and remembering information about your preferences.</p>\n<p>We use traffic log cookies to identify which pages are being used. This helps us analyse data about webpage traffic and improve our website in order to tailor it to customer needs. We only use this information for statistical analysis purposes and then the data is removed from the system.</p>\n<p>Overall, cookies help us provide you with a better website, by enabling us to monitor which pages you find useful and which you do not. A cookie in no way gives us access to your computer or any information about you, other than the data you choose to share with us.</p>\n<p>You can choose to accept or decline cookies. Most web browsers automatically accept cookies, but you can usually modify your browser setting to decline cookies if you prefer. This may prevent you from taking full advantage of the website.</p>\n<h3>Links to other websites</h3>\n<p>Our website may contain links to other websites of interest. However, once you have used these links to leave our site, you should note that we do not have any control over that other website. Therefore, we cannot be responsible for the protection and privacy of any information which you provide whilst visiting such sites and such sites are not governed by this privacy statement. You should exercise caution and look at the privacy statement applicable to the website in question.</p>\n<h3>Controlling your personal information</h3>\n<p>You may choose to restrict the collection or use of your personal information in the following ways:</p>\n<ul>\n<li>whenever you are asked to fill in a form on the website, look for the box that you can click to indicate that you do not want the information to be used by anybody for direct marketing purposes</li>\n<li>if you have previously agreed to us using your personal information for direct marketing purposes, you may change your mind at any time by writing to or emailing us at <a href="/page/20">contact page</a></li>\n</ul>\n<p>We will not sell, distribute or lease your personal information to third parties unless we have your permission or are required by law to do so. We may use your personal information to send you promotional information about third parties which we think you may find interesting if you tell us that you wish this to happen.</p>\n<p>You may request details of personal information which we hold about you under the Data Protection Act 1998. A small fee will be payable. If you would like a copy of the information held on you please write to <a href="/page/20">our postal address</a>.</p>\n<p>If you believe that any information we are holding on you is incorrect or incomplete, please write to or email us as soon as possible, at the above address. We will promptly correct any information found to be incorrect.</p>			\N		2011-01-16 15:49:07	2011-01-16 15:51:19	1	1	1000		0	N;			N;	N;	0	\N	0	0		0	0	\N	0
+1042	content 1356566539	content	RTE	1041	1	0	\N	<p>four columns</p>			\N		2012-12-27 00:02:19	2012-12-27 01:14:42	1	1	1002		0	\N	panel		\N	\N	0	\N	0	0		0	0		0
+1039	content 1356566499	content	RTE	1038	1	0	\N	<p>six columns</p>			\N		2012-12-27 00:01:39	2012-12-27 01:14:24	1	1	1002		0	\N	panel		\N	\N	0	\N	0	0		0	0		0
+1043	content 1356566554	content	RTE	1041	2	0	\N	<p>four columns</p>			\N		2012-12-27 00:02:34	2012-12-27 01:14:51	1	1	1002		0	\N	panel		\N	\N	0	\N	0	0		0	0		0
+1044	content 1356566568	content	RTE	1041	3	0	\N	<p>four columns</p>			\N		2012-12-27 00:02:48	2012-12-27 01:14:59	1	1	1002		0	\N	panel		\N	\N	0	\N	0	0		0	0		0
+1011	Our Address	content	RTE	20	2	5	\N	<p><a href="#"><img src="http://placehold.it/400x280" alt="" /></a><br /> <a href="#">View Map</a></p> <p>Address Name<br />Street, house number xxx<br />Post Code, Town<br />County</p> <p>tel: xxxx xxx xxx</p>					2008-08-07 01:18:33	2012-12-30 16:46:01	1	1	1002		0	N;			N;	N;	1	\N	0	0		0	0		0
+1041	layout 1356566535	layout	3columns	5	1	0	\N	\N			\N		2012-12-27 00:02:15	2012-12-31 01:28:58	1	1	1002		0	\N		fibonacci-1-1	\N	\N	0	\N	0	0		0	0		0
+5	Home	page	default	88	0	40		\N			White Label Home		2006-09-30 10:02:51	2012-12-31 01:31:25	1	1	1000		0	\N		fibonacci-2-1	\N	\N	0	0	0	0		0	0		0
+1060	This is a content section.	content	RTE	1034	1	0	\N	<p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong. Eiusmod swine spare ribs reprehenderit culpa. Boudin aliqua adipisicing rump corned beef.</p> <p>Pork drumstick turkey fugiat. Tri-tip elit turducken pork chop in. Swine short ribs meatball irure bacon nulla pork belly cupidatat meatloaf cow. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami.</p>			\N		2012-12-30 15:05:43	2012-12-30 15:06:29	1	1	1002		0	\N			\N	\N	1	\N	0	0		0	0		0
+1049	Buttons	content	RTE	1050	1	15	\N	<p><a class="small button" href="#">Small Button</a></p> <p><a class="button" href="#">Medium Button</a></p> <p><a class="large button" href="#">Large Button</a></p>			\N		2012-12-27 00:06:59	2012-12-27 00:08:25	1	1	1002		0						0	\N	0	0		0	0		0
+1025	Terms of Use	content	RTE	26	1	25	\N	<p>Welcome to our website. If you continue to browse and use this website you are agreeing to comply with and be bound by the following terms and conditions of use, which together with our privacy policy govern [COMPANY NAME]&rsquo;s relationship with you in relation to this website.</p>\n<p>The term &lsquo;[COMPANY NAME]&rsquo; or &lsquo;us&rsquo; or &lsquo;we&rsquo; refers to the owner of the website whose registered office is [COMPANY ADDRESS]. Our company registration number is [REGISTRATION NUMBER], registered in [REGISTERED COUNTRY]. The term &lsquo;you&rsquo; refers to the user or viewer of our website.</p>\n<p>The use of this website is subject to the following terms of use:</p>\n<ol>\n<li>The content of the pages of this website is for your general information and use only. It is subject to change without notice.</li>\n<li>Neither we nor any third parties provide any warranty or guarantee as to the accuracy, timeliness, performance, completeness or suitability of the information and materials found or offered on this website for any particular purpose. You acknowledge that such information and materials may contain inaccuracies or errors and we expressly exclude liability for any such inaccuracies or errors to the fullest extent permitted by law.</li>\n<li>Your use of any information or materials on this website is entirely at your own risk, for which we shall not be liable. It shall be your own responsibility to ensure that any products, services or information available through this website meet your specific requirements.</li>\n<li>This website contains material which is owned by or licensed to us. This material includes, but is not limited to, the design, layout, look, appearance and graphics. Reproduction is prohibited other than in accordance with the copyright notice, which forms part of these terms and conditions.</li>\n<li>All trademarks reproduced in this website, which are not the property of, or licensed to the operator, are acknowledged on the website.</li>\n<li>Unauthorised use of this website may give rise to a claim for damages and/or be a criminal offence.</li>\n<li>From time to time this website may also include links to other websites. These links are provided for your convenience to provide further information. They do not signify that we endorse the website(s). We have no responsibility for the content of the linked website(s).</li>\n<li>You may not create a link to this website from another website or document without [COMPANY NAME]&rsquo;s prior written consent.</li>\n<li>Your use of this website and any dispute arising out of such use of the website is subject to the laws of England, Scotland, Wales and Northern Ireland.</li>\n</ol>					2010-04-18 12:51:22	2011-01-16 15:50:16	1	1	1000		0	N;			N;	N;	1	\N	0	0		0	0	\N	0
+1	Primary navigation	container	default	0	0	10	\N	N;			\N		2006-09-29 18:20:29	2008-08-24 22:57:58	1	1	1000		0	N;			N;	N;	1	\N	\N	0		0	0	\N	0
+90	Newsletter	page	default	4	0	0	\N	\N	\N	\N	\N	\N	2010-04-18 11:19:18	2010-04-18 11:19:18	1	0	1000	\N	0	\N		fibonacci-2-1	\N	\N	1	\N	\N	0		0	0	\N	0
+84	Articles	page	default	3	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 12:07:59	2006-09-30 12:07:59	1	1	1000	\N	0	\N			\N	\N	\N	\N	\N	0		0	0	\N	0
+92	Unsubscribe	page	default	90	0	0	\N	\N	\N	\N	\N	\N	2010-04-18 11:21:40	2010-04-18 11:21:40	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	1	\N	\N	0		0	0	\N	0
+1026	Accessibility policy	page	default	4	0	0	\N	\N	\N	\N	\N	\N	2010-04-18 13:02:03	2010-04-18 13:02:03	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	1	\N	\N	0		0	0	\N	0
+85	Content bits	container	default	3	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 12:07:59	2006-09-30 12:07:59	1	1	1000	\N	0	\N			\N	\N	\N	\N	\N	0		0	0	\N	0
+3	Special	container	default	0	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 09:55:36	2006-09-30 09:55:36	1	0	1000	\N	0	\N			\N	\N	\N	\N	\N	0		0	0	\N	0
+4	Footer navigation	container	default	0	0	5		N;			\N		2006-09-30 09:56:36	2011-01-16 15:58:20	1	1	1000		0	N;			N;	N;	1	\N	0	0		0	0	\N	0
+14	404	page	default	3	0	0		\N					2006-09-30 11:56:37	2008-08-16 13:06:19	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	\N	0		0	0	\N	0
+22	Sitemap	page	default	4	0	0		\N					2006-09-30 12:08:21	2008-08-16 13:06:58	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	\N	0		0	0	\N	0
+26	Terms & Conditions	page	default	4	0	0		N;					2006-09-30 13:40:50	2010-04-18 12:50:42	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	\N	0		0	0	\N	0
+13	Registration	page	default	2	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 10:36:09	2006-09-30 10:36:09	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	\N	0		0	1	\N	0
+8	Login	page	default	2	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 10:35:02	2006-09-30 10:35:02	1	1	1000	\N	0	\N	pageLogin	fibonacci-2-1	\N	\N	\N	\N	\N	0		0	1	\N	0
+9	Password reset	page	default	2	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 10:35:15	2006-09-30 10:35:15	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	\N	0		0	1	\N	0
+6	Basket	page	default	2	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 10:34:35	2006-09-30 10:34:35	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	\N	0		0	0	\N	0
+16	Address Management	page	default	15	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 12:03:13	2006-09-30 12:03:13	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	1	0		0	1	\N	0
+17	Orders	page	default	15	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 12:03:28	2006-09-30 12:03:28	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	1	0		0	1	\N	0
+18	Personal Details	page	default	15	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 12:03:45	2006-09-30 12:03:45	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	1	0		0	1	\N	0
+7	Checkout	page	default	2	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 10:34:54	2006-09-30 10:34:54	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	1	0		0	1	\N	0
+10	Payment	page	default	2	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 10:35:29	2006-09-30 10:35:29	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	1	0		0	1	\N	0
+11	Payment failure	page	default	2	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 10:35:43	2006-09-30 10:35:43	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	1	0		0	1	\N	0
+12	Payment success	page	default	2	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 10:35:59	2006-09-30 10:35:59	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	1	0		0	1	\N	0
+19	Order detail	page	default	17	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 12:04:12	2006-09-30 12:04:12	1	0	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	1	0		0	1	\N	0
+1031	Privacy Policy	page	default	4	0	0	\N	\N	\N	\N	\N	\N	2011-01-16 15:45:18	2011-01-16 15:45:18	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	1	\N	\N	0		0	0	\N	0
+1036	Archive	content	component	83	2	20	\N	\N			\N		2011-01-16 15:55:01	2012-12-30 15:43:30	1	1	1000		0	\N			a:3:{s:8:"template";s:17:"news_archive.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	\N	1	\N	0	0		0	0		0
+1038	layout 1356566494	layout	2columns	5	1	0	\N	\N			\N		2012-12-27 00:01:34	2012-12-31 01:28:40	1	1	1002		0	\N		fibonacci-1-1	\N	\N	0	\N	0	0		0	0		0
+20	Contact	page	default	88	0	25		\N			Get in Touch!		2006-09-30 12:07:59	2012-12-31 01:31:25	1	1	1002		0			fibonacci-2-1			1	0	0	0		0	0		0
+15	My Account	page	default	88	0	20	\N	\N	\N	\N	\N	\N	2006-09-30 12:02:53	2012-12-31 01:31:25	1	1	1000	\N	0			fibonacci-2-1			\N	\N	1	0		0	1		0
+23	About	page	default	88	0	30		\N					2006-09-30 12:09:30	2012-12-31 04:10:10	1	1	1002		0	\N		fibonacci-2-1	\N	\N	1	0	0	0		0	0		0
+1058	content 1356879783	content	RTE	1057	1	0	\N	<p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong. Eiusmod swine spare ribs reprehenderit culpa. Boudin aliqua adipisicing rump corned beef.</p>			\N		2012-12-30 15:03:03	2012-12-30 15:03:11	1	1	1002		0	\N			\N	\N	0	\N	0	0		0	0		0
+1048	Simple Tab 3	content	RTE	1045	1	0	\N	<p>This is simple tab 3's content. Pretty neat, huh?</p> <p><span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span></p>			\N		2012-12-27 00:04:40	2012-12-31 16:06:08	1	1	1002		0	\N			\N	\N	0	\N	0	0		0	0		0
+83	Blog	page	default	1	0	50		\N					2006-09-30 12:07:59	2013-01-07 10:09:52	1	1	1002		0			fibonacci-2-1			1	0	0	0		0	0		0
+1059	content 1356879802	content	RTE	1057	2	0	\N	<p>Pork drumstick turkey fugiat. Tri-tip elit turducken pork chop in. Swine short ribs meatball irure bacon nulla pork belly cupidatat meatloaf cow. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami.</p>			\N		2012-12-30 15:03:22	2012-12-30 15:03:30	1	1	1002		0	\N			\N	\N	0	\N	0	0		0	0		0
+1051	content 1356566925	content	RTE	1050	2	0	\N	<p><a class="small alert button" href="#">Small Alert Button</a></p> <p><a class="success button" href="#">Medium Success Button</a></p> <p><a class="large secondary button" href="#">Large Secondary Button</a></p>			\N		2012-12-27 00:08:45	2012-12-27 00:08:54	1	1	1002		0	\N			\N	\N	0	\N	0	0		0	0		0
+1099	content 1356919681 (copy)	content	RTE	1097	2	20	\N	<p><img src="http://placehold.it/400x300&amp;text=[img]" alt="" /></p>			\N		2012-12-31 02:08:01	2012-12-31 02:09:54	1	1	1002		0						0	\N	0	0		0	0		0
+1037	The Grid	content	RTE	5	1	0	\N	<p>This is a twelve column section in a row. Each of these includes a div.panel element so you can see where the columns are - it's not required at all for the grid.</p>			\N		2012-12-27 00:00:54	2012-12-31 01:28:27	1	1	1002		0	\N	panel		\N	\N	1	\N	0	0		0	0		0
+1053	Other Resources	content	RTE	5	2	0	\N	<p>Once you've exhausted the fun in this document, you should check out:</p> <ul> <li><a href="https://onxshop.com/documentation">Onxshop Documentation</a><br />Everything you need to know about using the framework.</li> <li><a href="https://github.com/laposa/onxshop">Onxshop on Github</a><br />Latest code, issue reports, feature requests and more.</li> <li><a href="https://twitter.com/onxshop">@onxshop</a><br />Ping us on Twitter if you have questions. If you build something with this we'd love to see it (and send you a totally boss sticker).</li> </ul>			\N		2012-12-27 00:10:10	2012-12-31 01:29:55	1	1	1002		0	\N			\N	\N	1	\N	0	0		0	0		0
+1061	content 1356880015	content	HTML	1034	2	0	\N	<img src="http://placehold.it/400x300&amp;text=[img]"/>			\N		2012-12-30 15:06:55	2012-12-30 15:07:04	1	1	1002		0	\N			\N	\N	0	\N	0	0		0	0		0
+1054	content 1356878639	content	HTML	1034	0	0	\N	<img src="http://placehold.it/1000x400&amp;text=[img]" />\n<hr />\n			\N		2012-12-30 14:43:59	2012-12-30 15:00:46	1	1	1002		0	\N			\N	\N	0	\N	0	0		0	0		0
+1055	layout 1356879732	layout	2columns	1034	0	0	\N	\N			\N		2012-12-30 15:02:12	2012-12-30 15:02:20	1	1	1002		0	\N		fibonacci-1-2	\N	\N	0	\N	0	0		0	0		0
+1056	content 1356879748	content	HTML	1055	1	0	\N	<img src="http://placehold.it/400x300&amp;text=[img]" />			\N		2012-12-30 15:02:28	2012-12-30 15:02:37	1	1	1002		0	\N			\N	\N	0	\N	0	0		0	0		0
+1065	content 1356880874	content	picture	1035	2	0	\N	\N			\N		2012-12-30 15:21:14	2012-12-30 15:27:35	1	1	1002		0	\N			a:3:{s:16:"main_image_width";s:2:"70";s:20:"main_image_constrain";s:1:"0";s:8:"template";s:8:"fancybox";}	\N	0	\N	0	0		0	0		0
+1064	This is a content section.	content	RTE	1035	1	0	\N	<p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong. Eiusmod swine spare ribs reprehenderit culpa. Boudin aliqua adipisicing rump corned beef.</p> <p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong. Eiusmod swine spare ribs reprehenderit culpa. Boudin aliqua adipisicing rump corned beef.</p> <p><a class="secondary small button" href="#">Next Page →</a></p>			\N		2012-12-30 15:18:58	2012-12-30 15:28:24	1	1	1002		0	\N			\N	\N	1	\N	0	0		0	0		0
+1057	Two columns	layout	2columns	1055	2	20	\N	\N			\N		2012-12-30 15:02:53	2012-12-30 15:08:29	1	1	1002		0			fibonacci-1-1			0	\N	0	0		0	0		0
+1062	This is a content section.	content	HTML	1055	2	25	\N	\N	\N	\N	\N	\N	2012-12-30 15:08:03	2012-12-30 15:08:29	1	1	1002	\N	0						1	\N	\N	0		0	0		0
+1063	content 1356880625	content	HTML	1035	0	0	\N	<img src="http://placehold.it/1000x400&amp;text=[banner img]"/>			\N		2012-12-30 15:17:05	2012-12-30 15:17:43	1	1	1002		0	\N			\N	\N	0	\N	0	0		0	0		0
+1067	Get in touch!	content	RTE	1066	1	0	\N	<p><span>We'd love to hear from you, you attractive person you.</span></p>			\N		2012-12-30 15:31:51	2012-12-30 15:35:05	1	1	1002		0	\N			\N	\N	0	\N	0	0		0	0		0
+1066	Get in touch!	layout	2columns	1035	3	0	\N	\N			\N		2012-12-30 15:31:31	2012-12-30 15:34:58	1	1	1002		0	\N	panel	fibonacci-1-1	\N	\N	1	\N	0	0		0	0		0
+1068	content 1356881545	content	HTML	1066	2	0	\N	<p><a href="#" class="radius button right" style="float: right">Contact Us</a></p>			\N		2012-12-30 15:32:25	2012-12-30 15:33:17	1	1	1002		0	\N			\N	\N	0	\N	0	0		0	0		0
+1050	Buttons	layout	2columns	5	1	0	\N	\N			\N		2012-12-27 00:07:54	2012-12-31 01:29:28	1	1	1002		0	\N		fibonacci-1-1	\N	\N	1	\N	0	0		0	0		0
+1100	content 1356919681 (copy) (copy)	content	RTE	1097	3	20	\N	<p><img src="http://placehold.it/400x300&amp;text=[img]" alt="" /></p>			\N		2012-12-31 02:08:01	2012-12-31 02:10:03	1	1	1002		0						0	\N	0	0		0	0		0
+1052	Getting Started	content	RTE	5	2	0	\N	<p>We're stoked you want to try Onxshop! To get going, this template includes some basic styles you can modify, play around with, or totally destroy to get going.</p>			\N		2012-12-27 00:09:42	2012-12-31 04:16:08	1	1	1002		0	\N			\N	\N	1	\N	0	0		0	0		0
+1098	content 1356919681	content	RTE	1097	1	30	\N	<p><img src="http://placehold.it/400x300&amp;text=[img]" alt="" /></p>			\N		2012-12-31 02:08:01	2012-12-31 02:09:57	1	1	1002		0						0	\N	0	0		0	0		0
+1046	Simple Tab 1	content	RTE	1045	1	0	\N	<p>This is simple tab 1's content. Pretty neat, huh?</p> <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>			\N		2012-12-27 00:03:56	2012-12-31 16:05:43	1	1	1002		0	\N			\N	\N	0	\N	0	0		0	0		0
+1014	Excepteur sint occaecat	page	news	83	0	0	<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>	<p style="float: right;"><img class="imageright" src="http://placehold.it/300x240&amp;text=[img]" alt="" width="300" height="240" /></p> <p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong. Eiusmod swine spare ribs reprehenderit culpa.</p> <p>Boudin aliqua adipisicing rump corned beef. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami.</p> <p>Pork drumstick turkey fugiat. Tri-tip elit turducken pork chop in. Swine short ribs meatball irure bacon nulla pork belly cupidatat meatloaf cow. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami.</p> <p>Pork drumstick turkey fugiat. Tri-tip elit turducken pork chop in. Swine short ribs meatball irure bacon nulla pork belly cupidatat meatloaf cow. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami.</p>					2008-08-16 03:59:48	2012-12-30 15:57:51	1	1	1000		0	N;		fibonacci-2-1	a:2:{s:6:"author";s:10:"John Smith";s:13:"allow_comment";i:0;}	N;	1	\N	0	0		0	0		0
+1069	Categories	content	component	83	2	25	\N	\N			\N		2012-12-30 15:43:05	2012-12-30 15:43:30	1	1	1002		0				a:3:{s:8:"template";s:20:"news_categories.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}		1	\N	0	0		0	0		0
+1101	This is a content section.	content	RTE	1097	1	20	\N	<p><span>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong. Eiusmod swine spare ribs reprehenderit culpa. Boudin aliqua adipisicing rump corned beef.</span></p>			\N		2012-12-31 02:09:18	2012-12-31 02:09:57	1	1	1002		0						1	\N	0	0		0	0		0
+1070	Featured	content	RTE	83	2	0	\N	<h4>Featured</h4> <p><em>Pork drumstick turkey fugiat. Tri-tip elit turducken pork chop in. Swine short ribs meatball irure bacon nulla pork belly cupidatat meatloaf cow.</em></p> <p><a href="#">Read More →</a></p>			\N		2012-12-30 15:43:52	2012-12-30 15:45:22	1	1	1002		0	\N	panel		\N	\N	0	\N	0	0		0	0		0
+1106	content 1356881545 (copy)	content	HTML	1104	2	0	\N	<p><a href="#" class="radius button right" style="float: right">Contact Us</a></p>			\N		2012-12-30 15:32:25	2012-12-31 02:12:08	1	1	1002		0	\N			\N	\N	0	\N	0	0		0	0		0
+1104	Get in touch!	layout	2columns	1094	3	0	\N	\N			\N		2012-12-30 15:31:31	2012-12-31 02:12:37	1	1	1002		0	\N	panel	fibonacci-1-1	\N	\N	1	\N	0	0		0	0		0
+1102	This is a content section.	content	RTE	1097	2	15	\N	<p><span>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong. Eiusmod swine spare ribs reprehenderit culpa. Boudin aliqua adipisicing rump corned beef.</span></p>			\N		2012-12-31 02:09:18	2012-12-31 02:10:14	1	1	1002		0						1	\N	0	0		0	0		0
+1103	This is a content section.	content	RTE	1097	3	15	\N	<p><span>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong. Eiusmod swine spare ribs reprehenderit culpa. Boudin aliqua adipisicing rump corned beef.</span></p>			\N		2012-12-31 02:09:18	2012-12-31 02:10:23	1	1	1002		0						1	\N	0	0		0	0		0
+1095	content 1356919604	content	picture	1094	0	0	\N	\N			\N		2012-12-31 02:06:44	2012-12-31 03:19:08	1	1	1002		0	\N			a:3:{s:16:"main_image_width";s:1:"0";s:20:"main_image_constrain";s:1:"0";s:8:"template";s:9:"unoslider";}	\N	0	\N	0	0		0	0		0
+1109	Header	content	RTE	1107	2	0	\N	<p>Fusce ullamcorper mauris in eros dignissim molestie posuere felis blandit. Aliquam erat volutpat. Mauris ultricies posuere vehicula. Sed sit amet posuere erat. Quisque in ipsum non augue euismod dapibus non et eros. Pellentesque consectetur tempus mi iaculis bibendum. Ut vel dolor sed eros tincidunt volutpat ac eget leo.</p>			\N		2012-12-31 03:36:08	2012-12-31 03:36:28	1	1	1002		0	\N	panel		\N	\N	1	\N	0	0		0	0		0
+1111	Header	content	RTE	1110	1	0	\N	<p><span>Praesent placerat dui tincidunt elit suscipit sed.</span></p> <p><a class="small button" href="#">BUTTON TIME!</a></p>			\N		2012-12-31 03:36:58	2012-12-31 03:37:39	1	1	1002		0	\N	panel		\N	\N	1	\N	0	0		0	0		0
+1112	Header	content	RTE	1110	2	15	\N	<p><span>Praesent placerat dui tincidunt elit suscipit sed.</span></p> <p><a class="small button" href="#">BUTTON TIME!</a></p>			\N		2012-12-31 03:36:58	2012-12-31 03:38:02	1	1	1002		0		panel				1	\N	0	0		0	0		0
+1122	content 1356925230 (copy) (copy)	content	RTE	1114	4	20	\N	<p><span>Description</span></p>			\N		2012-12-31 03:40:30	2012-12-31 03:43:38	1	1	1002		0		panel				0	\N	0	0		0	0		0
+1115	content 1356925166	content	RTE	1114	1	0	\N	<p><img src="http://placehold.it/500x500&amp;text=Thumbnail" alt="" /></p>			\N		2012-12-31 03:39:26	2012-12-31 03:40:25	1	1	1002		0	\N			\N	\N	0	\N	0	0		0	0		0
+1119	content 1356925230 (copy)	content	RTE	1114	3	15	\N	<p><span>Description</span></p>			\N		2012-12-31 03:40:30	2012-12-31 03:42:00	1	1	1002		0		panel				0	\N	0	0		0	0		0
+1120	content 1356925230 (copy) (copy)	content	RTE	1114	1	0	\N	<p><span>Description</span></p>			\N		2012-12-31 03:40:30	2012-12-31 03:40:43	1	1	1002		0	\N	panel		\N	\N	0	\N	0	0		0	0		0
+1116	content 1356925230	content	RTE	1114	2	15	\N	<p><span>Description</span></p>			\N		2012-12-31 03:40:30	2012-12-31 03:41:53	1	1	1002		0		panel				0	\N	0	0		0	0		0
+1117	content 1356925166 (copy)	content	RTE	1114	2	20	\N	<p><img src="http://placehold.it/500x500&amp;text=Thumbnail" alt="" /></p>			\N		2012-12-31 03:39:26	2012-12-31 03:41:53	1	1	1002		0						0	\N	0	0		0	0		0
+1118	content 1356925166 (copy) (copy)	content	RTE	1114	3	20	\N	<p><img src="http://placehold.it/500x500&amp;text=Thumbnail" alt="" /></p>			\N		2012-12-31 03:39:26	2012-12-31 03:42:00	1	1	1002		0						0	\N	0	0		0	0		0
+1114	layout 1356925142	layout	4columns	1107	3	20	\N	\N	\N	\N	\N	\N	2012-12-31 03:39:02	2012-12-31 03:42:56	1	1	1002	\N	0			fibonacci-1-1			0	\N	\N	0		0	0		0
+1107	Soboxy	page	default	1	0	20		\N					2012-12-31 03:34:46	2013-01-07 10:09:52	1	1	1002		0			fibonacci-1-1			1	0	0	0		0	0		0
+1108	content 1356924921	content	HTML	1107	1	0	\N	<img src="http://placehold.it/500x500&amp;text=Image" alt="" />			\N		2012-12-31 03:35:21	2012-12-31 03:45:35	1	1	1002		0	\N			\N	\N	0	\N	0	0		0	0		0
+1013	Laboris nisi ut aliquip	page	news	83	0	0	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>	<p style="float: right;"><img class="imageright" src="http://placehold.it/300x240&amp;text=[img]" alt="" width="300" height="240" /></p> <p>Bacon ipsum dolor sit amet nulla ham qui sint exercitation eiusmod commodo, chuck duis velit. Aute in reprehenderit, dolore aliqua non est magna in labore pig pork biltong. Eiusmod swine spare ribs reprehenderit culpa.</p> <p>Boudin aliqua adipisicing rump corned beef. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami.</p> <p>Pork drumstick turkey fugiat. Tri-tip elit turducken pork chop in. Swine short ribs meatball irure bacon nulla pork belly cupidatat meatloaf cow. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami.</p> <p>Pork drumstick turkey fugiat. Tri-tip elit turducken pork chop in. Swine short ribs meatball irure bacon nulla pork belly cupidatat meatloaf cow. Nulla corned beef sunt ball tip, qui bresaola enim jowl. Capicola short ribs minim salami nulla nostrud pastrami.</p>					2008-08-16 03:59:19	2012-12-30 15:58:01	1	1	1000		0	N;		fibonacci-2-1	a:2:{s:6:"author";s:10:"John Smith";s:13:"allow_comment";i:0;}	N;	1	\N	0	0		0	0		0
+1073	Specific Person	content	RTE	1072	1	0	\N	<p><img class="imageleft" src="http://placehold.it/100x100&amp;text=[person]" alt="" /> <img class="imageleft" src="http://placehold.it/100x100&amp;text=[person]" alt="" /> <img class="imageleft" src="http://placehold.it/100x100&amp;text=[person]" alt="" /> <img class="imageleft" src="http://placehold.it/100x100&amp;text=[person]" alt="" /> <img class="imageleft" src="http://placehold.it/100x100&amp;text=[person]" alt="" /> <img class="imageleft" src="http://placehold.it/100x100&amp;text=[person]" alt="" /> <img class="imageleft" src="http://placehold.it/100x100&amp;text=[person]" alt="" /> <img class="imageleft" src="http://placehold.it/100x100&amp;text=[person]" alt="" /> <img class="imageleft" src="http://placehold.it/100x100&amp;text=[person]" alt="" /></p>			\N		2012-12-30 16:12:55	2012-12-30 16:19:45	1	1	1002		0	\N			\N	\N	0	\N	0	0		0	0		0
+1071	content 1356883849	content	RTE	20	1	30	\N	<p>We'd love to hear from you. You can either reach out to us as a whole and one of our awesome team members will get back to you, or if you have a specific question reach out to one of our staff. We love getting email all day all day.</p>			\N		2012-12-30 16:10:49	2012-12-30 16:11:25	1	1	1002		0						0	\N	0	0		0	0		0
+1072	layout 1356883866	layout	tabs	20	1	20	\N	\N	\N	\N	\N	\N	2012-12-30 16:11:06	2012-12-30 16:11:25	1	1	1002	\N	0			fibonacci-1-1			0	\N	\N	0		0	0		0
+76	Contact Our Company	content	contact_form	1072	1	15	\N						2006-09-30 16:00:21	2012-12-30 16:13:10	1	1	1002		0				a:6:{s:7:"mail_to";s:0:"";s:11:"mail_toname";s:0:"";s:15:"node_controller";s:13:"common_simple";s:14:"sending_failed";s:89:"You must complete all the required fields. Required items are marked with an asterisk (*)";s:4:"text";s:25:"Thanks for your feedback.";s:4:"href";s:0:"";}		0	\N	0	0		0	0		0
+1081	Panel Title	content	RTE	1075	2	0	\N	<p><span>This is a four columns grid panel with an arbitrary height. Bacon ipsum dolor sit amet salami.</span></p>			\N		2012-12-31 01:57:19	2012-12-31 01:57:37	1	1	1002		0	\N	panel		\N	\N	1	\N	0	0		0	0		0
+1088	content 1356919263 (copy) (copy)	content	RTE	1085	3	15	\N	<p><img src="http://placehold.it/400x300" alt="" /></p>			\N		2012-12-31 02:01:03	2012-12-31 02:01:50	1	1	1002		0		panel				0	\N	0	0		0	0		0
+1078	layout 1356918845	layout	2columns	1076	2	0	\N	\N			\N		2012-12-31 01:54:05	2012-12-31 01:55:41	1	1	1002		0	\N		fibonacci-2-1	\N	\N	0	\N	0	0		0	0		0
+1076	layout 1356918773	layout	2columns	1075	0	0	\N	\N			\N		2012-12-31 01:52:53	2012-12-31 01:55:57	1	1	1002		0	\N		fibonacci-1-3	\N	\N	0	\N	0	0		0	0		0
+1077	Panel Title	content	RTE	1076	1	0	\N	<p><span>This is a three columns grid panel with an arbitrary height.</span></p>			\N		2012-12-31 01:53:36	2012-12-31 01:56:16	1	1	1002		0	\N	panel		\N	\N	1	\N	0	0		0	0		0
+1079	Panel Title	content	RTE	1078	1	0	\N	<p><span>This is a six columns grid panel with an arbitrary height. Bacon ipsum dolor sit amet salami ham hock biltong ball tip drumstick sirloin pancetta meatball short loin.</span></p>			\N		2012-12-31 01:54:17	2012-12-31 01:56:25	1	1	1002		0	\N	panel		\N	\N	1	\N	0	0		0	0		0
+1080	Panel Title	content	RTE	1078	2	0	\N	<p><span>This is a three columns grid panel with an arbitrary height.</span></p>			\N		2012-12-31 01:54:44	2012-12-31 01:56:34	1	1	1002		0	\N	panel		\N	\N	1	\N	0	0		0	0		0
+1084	content 1356919117	content	RTE	1082	2	0	\N	<p><img src="http://placehold.it/200x200" alt="" /></p>			\N		2012-12-31 01:58:37	2012-12-31 01:59:00	1	1	1002		0	\N	panel		\N	\N	0	\N	0	0		0	0		0
+1083	Panel Title	content	RTE	1082	1	0	\N	<p><span>This is a six columns grid panel with an arbitrary height. Bacon ipsum dolor sit amet salami ham hock biltong ball tip drumstick sirloin pancetta meatball short loin.</span></p>			\N		2012-12-31 01:57:56	2012-12-31 01:59:19	1	1	1002		0	\N	panel		\N	\N	1	\N	0	0		0	0		0
+1089	layout 1356919359	layout	2columns	1075	3	0	\N	\N	\N	\N	\N	\N	2012-12-31 02:02:39	2012-12-31 02:02:39	1	1	1002	\N	0	\N		fibonacci-1-1	\N	\N	0	\N	\N	0		0	0	\N	0
+1082	layout 1356919071	layout	2columns	1075	1	0	\N	\N			\N		2012-12-31 01:57:51	2012-12-31 02:00:15	1	1	1002		0	\N		fibonacci-3-1	\N	\N	0	\N	0	0		0	0		0
+1085	layout 1356919243	layout	3columns	1075	3	0	\N	\N	\N	\N	\N	\N	2012-12-31 02:00:43	2012-12-31 02:00:43	1	1	1002	\N	0	\N		fibonacci-1-1	\N	\N	0	\N	\N	0		0	0	\N	0
+1086	content 1356919263	content	RTE	1085	1	0	\N	<p><img src="http://placehold.it/400x300" alt="" /></p>			\N		2012-12-31 02:01:03	2012-12-31 02:01:24	1	1	1002		0	\N	panel		\N	\N	0	\N	0	0		0	0		0
+1087	content 1356919263 (copy)	content	RTE	1085	2	15	\N	<p><img src="http://placehold.it/400x300" alt="" /></p>			\N		2012-12-31 02:01:03	2012-12-31 02:01:47	1	1	1002		0		panel				0	\N	0	0		0	0		0
+1090	Panel Title	content	RTE	1089	1	0	\N	<p><span>This is a six columns grid panel with an arbitrary height. Bacon ipsum dolor sit amet salami ham hock biltong ball tip drumstick sirloin pancetta meatball short loin.</span></p>			\N		2012-12-31 02:02:51	2012-12-31 02:03:02	1	1	1002		0	\N	panel		\N	\N	1	\N	0	0		0	0		0
+1091	layout 1356919397	layout	2columns	1089	2	0	\N	\N	\N	\N	\N	\N	2012-12-31 02:03:17	2012-12-31 02:03:17	1	1	1002	\N	0	\N		fibonacci-1-1	\N	\N	0	\N	\N	0		0	0	\N	0
+1092	Panel Title	content	RTE	1091	1	0	\N	<p><span>This is a three columns grid panel with an arbitrary height.</span></p>			\N		2012-12-31 02:03:31	2012-12-31 02:03:40	1	1	1002		0	\N	panel		\N	\N	1	\N	0	0		0	0		0
+1093	Panel Title	content	RTE	1091	2	15	\N	<p><span>This is a three columns grid panel with an arbitrary height.</span></p>			\N		2012-12-31 02:03:31	2012-12-31 02:04:05	1	1	1002		0		panel				1	\N	0	0		0	0		0
+1096	content 1356919648	content	divider	1094	0	0	\N	\N	\N	\N	\N	\N	2012-12-31 02:07:28	2012-12-31 02:07:28	1	1	1002	\N	0	\N			\N	\N	0	\N	\N	0		0	0	\N	0
+1097	layout 1356919660	layout	3columns	1094	0	0	\N	\N	\N	\N	\N	\N	2012-12-31 02:07:40	2012-12-31 02:07:40	1	1	1002	\N	0	\N		fibonacci-1-1	\N	\N	0	\N	\N	0		0	0	\N	0
+1110	layout 1356925005	layout	2columns	1107	2	0	\N	\N	\N	\N	\N	\N	2012-12-31 03:36:45	2012-12-31 03:36:45	1	1	1002	\N	0	\N		fibonacci-1-1	\N	\N	0	\N	\N	0		0	0	\N	0
+1094	Orbit	page	default	1	0	30	\N	\N	\N	\N	\N	\N	2012-12-31 02:06:17	2013-01-07 10:09:52	1	1	1002	\N	0			fibonacci-2-1			1	\N	\N	0		0	0		0
+1123	content 1356927031	content	RTE	23	1	0	\N	<p>Onxshop is 3rd best open source eCommerce according to Open Source CMS user rating. Although this is a great achievement, the eCommerce label is giving an impression that Onxshop is ONLY eCommerce. This little example template is trying to show how flexible Onxshop is in area of website prototyping.</p> <p>I took this exercise as an opportunity to create some responsive rules for layout elements. This is a great payout when full power of Onxshop HTML/CSS fluid design comes into an effect.</p> <p>To use change /backoffice/advanced/configuration</p> <p>&lt;meta name="viewport" content="width=1024" /&gt;</p> <p>to</p> <p>&lt;meta name="viewport" content="width=device-width" /&gt;</p> <p>Thx http://www.bluebit.co.uk/blog/Using_jQuery_Cycle_in_a_Responsive_Layout </p> <p>Use width="100%" in Youtube videos and Google Maps</p> <p>Don's specify width and height on image tags (width="300" height="300" )</p> <p><em>Norbert Laposa, Christmas 2012</em></p>			\N		2012-12-31 04:10:31	2013-01-02 15:05:54	1	1	1002		0	\N			\N	\N	0	\N	0	0		0	0		0
+1075	Grid	page	default	1	0	40	\N	\N	\N	\N	\N	\N	2012-12-31 01:52:11	2013-01-07 10:09:52	1	1	1002	\N	0			fibonacci-2-1			1	\N	\N	0		0	0		0
+1121	content 1356925166 (copy) (copy) (copy)	content	RTE	1114	4	25	\N	<p><img src="http://placehold.it/500x500&amp;text=Thumbnail" alt="" /></p>			\N		2012-12-31 03:39:26	2012-12-31 03:43:39	1	1	1002		0						0	\N	0	0		0	0		0
+1124	Video	page	default	1	0	15	\N	\N	\N	\N	\N	\N	2013-01-07 10:09:34	2013-01-07 10:09:52	1	1	1002	\N	0			fibonacci-2-1			1	\N	\N	0		0	0		0
+1047	Simple Tab 2	content	RTE	1045	1	0	\N	<p>This is simple tab 2's content. Pretty neat, huh?</p> <p><span>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span></p>			\N		2012-12-27 00:04:22	2012-12-31 16:06:00	1	1	1002		0	\N			\N	\N	0	\N	0	0		0	0		0
+1125	Vimeo - fluid, widescreen	content	HTML	1124	0	0	\N	<div class="fluid-video vimeo widescreen">\n  <iframe src="http://player.vimeo.com/video/55304784" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>\n</div>			\N		2013-01-07 10:10:18	2013-01-07 10:15:44	1	1	1002		0	\N			\N	\N	1	\N	0	0		0	0		0
+54	User pref component	content	component	18	1	0	\N				\N		2006-09-30 15:25:21	2008-08-24 18:25:48	1	1	1000		0	N;			a:3:{s:8:"template";s:16:"client/edit.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0
 \.
 
 
@@ -2773,6 +3708,14 @@ COPY common_node_taxonomy (id, node_id, taxonomy_tree_id) FROM stdin;
 --
 
 COPY common_print_article (id, src, role, node_id, title, description, priority, modified, author, type, authors, issue_number, page_from, date, other) FROM stdin;
+\.
+
+
+--
+-- Data for Name: common_scheduler; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY common_scheduler (id, node_id, node_type, controller, parameters, scheduled_time, status, lock_token, result, start_time, completed_time, created, modified) FROM stdin;
 \.
 
 
@@ -2812,7 +3755,7 @@ COPY common_taxonomy_label (id, title, description, priority, publish) FROM stdi
 -- Data for Name: common_taxonomy_label_image; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY common_taxonomy_label_image (id, src, role, node_id, title, description, priority, modified, author) FROM stdin;
+COPY common_taxonomy_label_image (id, src, role, node_id, title, description, priority, modified, author, content, other_data, link_to_node_id) FROM stdin;
 \.
 
 
@@ -2877,7 +3820,7 @@ COPY common_uri_mapping (id, node_id, public_uri, type) FROM stdin;
 -- Data for Name: ecommerce_basket; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY ecommerce_basket (id, customer_id, created, note, ip_address, discount_net) FROM stdin;
+COPY ecommerce_basket (id, customer_id, created, note, ip_address, face_value_voucher, title, other_data) FROM stdin;
 \.
 
 
@@ -2885,7 +3828,7 @@ COPY ecommerce_basket (id, customer_id, created, note, ip_address, discount_net)
 -- Data for Name: ecommerce_basket_content; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY ecommerce_basket_content (id, basket_id, product_variety_id, quantity, price_id, other_data, product_type_id) FROM stdin;
+COPY ecommerce_basket_content (id, basket_id, product_variety_id, quantity, price_id, other_data, product_type_id, discount) FROM stdin;
 \.
 
 
@@ -3190,7 +4133,15 @@ COPY ecommerce_delivery_carrier_zone_to_country (id, country_id, zone_id) FROM s
 -- Data for Name: ecommerce_invoice; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY ecommerce_invoice (id, order_id, goods_net, goods_vat_sr, goods_vat_rr, delivery_net, delivery_vat, payment_amount, payment_type, created, modified, status, other_data, basket_detail, customer_name, customer_email, address_invoice, address_delivery, voucher_discount) FROM stdin;
+COPY ecommerce_invoice (id, order_id, goods_net, goods_vat, delivery_net, delivery_vat, payment_amount, payment_type, created, modified, status, other_data, basket_detail, customer_name, customer_email, address_invoice, address_delivery, face_value_voucher, basket_detail_enhanced) FROM stdin;
+\.
+
+
+--
+-- Data for Name: ecommerce_offer; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY ecommerce_offer (id, description, product_variety_id, schedule_start, schedule_end, campaign_category_id, roundel_category_id, price_id, quantity, saving, created, modified, other_data) FROM stdin;
 \.
 
 
@@ -3222,7 +4173,7 @@ COPY ecommerce_price (id, product_variety_id, currency_code, value, type, date) 
 -- Data for Name: ecommerce_product; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY ecommerce_product (id, name, teaser, description, product_type_id, url, priority, publish, other_data, modified, availability, name_aka) FROM stdin;
+COPY ecommerce_product (id, name, teaser, description, url, priority, publish, other_data, modified, availability, name_aka) FROM stdin;
 \.
 
 
@@ -3230,7 +4181,7 @@ COPY ecommerce_product (id, name, teaser, description, product_type_id, url, pri
 -- Data for Name: ecommerce_product_image; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY ecommerce_product_image (id, src, role, node_id, title, description, priority, modified, author) FROM stdin;
+COPY ecommerce_product_image (id, src, role, node_id, title, description, priority, modified, author, content, other_data, link_to_node_id) FROM stdin;
 \.
 
 
@@ -3281,7 +4232,7 @@ COPY ecommerce_product_type (id, name, vat, publish) FROM stdin;
 -- Data for Name: ecommerce_product_variety; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY ecommerce_product_variety (id, name, product_id, sku, weight, weight_gross, stock, priority, description, other_data, width, height, depth, diameter, modified, publish, display_permission, ean13, upc, condition, wholesale, reward_points, subtitle) FROM stdin;
+COPY ecommerce_product_variety (id, name, product_id, sku, weight, weight_gross, stock, priority, description, other_data, width, height, depth, diameter, modified, publish, display_permission, ean13, upc, condition, wholesale, reward_points, subtitle, product_type_id) FROM stdin;
 \.
 
 
@@ -3289,7 +4240,7 @@ COPY ecommerce_product_variety (id, name, product_id, sku, weight, weight_gross,
 -- Data for Name: ecommerce_product_variety_image; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY ecommerce_product_variety_image (id, src, role, node_id, title, description, priority, modified, author) FROM stdin;
+COPY ecommerce_product_variety_image (id, src, role, node_id, title, description, priority, modified, author, content, other_data, link_to_node_id) FROM stdin;
 \.
 
 
@@ -3305,7 +4256,7 @@ COPY ecommerce_product_variety_taxonomy (id, node_id, taxonomy_tree_id) FROM std
 -- Data for Name: ecommerce_promotion; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY ecommerce_promotion (id, title, description, publish, created, modified, customer_account_type, code_pattern, discount_fixed_value, discount_percentage_value, discount_free_delivery, uses_per_coupon, uses_per_customer, limit_list_products, other_data, limit_delivery_country_id, limit_delivery_carrier_id, generated_by_order_id) FROM stdin;
+COPY ecommerce_promotion (id, title, description, publish, created, modified, customer_account_type, code_pattern, discount_fixed_value, discount_percentage_value, discount_free_delivery, uses_per_coupon, uses_per_customer, limit_list_products, other_data, limit_delivery_country_id, limit_delivery_carrier_id, generated_by_order_id, generated_by_customer_id, limit_by_customer_id, limit_to_first_order, limit_to_order_amount, type) FROM stdin;
 \.
 
 
@@ -3314,6 +4265,92 @@ COPY ecommerce_promotion (id, title, description, publish, created, modified, cu
 --
 
 COPY ecommerce_promotion_code (id, promotion_id, code, order_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: ecommerce_promotion_type; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY ecommerce_promotion_type (id, title, description, taxable, publish, created, modified, other_data) FROM stdin;
+1	Discount Coupon		0	1	2013-11-22 17:40:24	2013-11-22 17:40:24	
+2	Referral Invite Coupon		0	1	2013-11-22 17:40:24	2013-11-22 17:40:24	
+3	Referral Reward Coupon		0	1	2013-11-22 17:40:24	2013-11-22 17:40:24	
+4	Gift Voucher		1	1	2013-11-22 17:40:24	2013-11-22 17:40:24	
+\.
+
+
+--
+-- Data for Name: ecommerce_recipe; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY ecommerce_recipe (id, title, description, instructions, video_url, serving_people, preparation_time, cooking_time, priority, created, modified, publish, other_data) FROM stdin;
+\.
+
+
+--
+-- Data for Name: ecommerce_recipe_image; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY ecommerce_recipe_image (id, src, role, node_id, title, description, priority, modified, author, content, other_data, link_to_node_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: ecommerce_recipe_ingredients; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY ecommerce_recipe_ingredients (id, recipe_id, product_variety_id, quantity, units, notes, group_title) FROM stdin;
+\.
+
+
+--
+-- Data for Name: ecommerce_recipe_review; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY ecommerce_recipe_review (id, parent, node_id, title, content, author_name, author_email, author_website, author_ip_address, customer_id, created, publish, rating, relation_subject) FROM stdin;
+\.
+
+
+--
+-- Data for Name: ecommerce_recipe_taxonomy; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY ecommerce_recipe_taxonomy (id, node_id, taxonomy_tree_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: ecommerce_store; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY ecommerce_store (id, title, description, address, opening_hours, telephone, manager_name, email, type_id, coordinates_x, coordinates_y, latitude, longitude, created, modified, publish, street_view_options, other_data) FROM stdin;
+\.
+
+
+--
+-- Data for Name: ecommerce_store_image; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY ecommerce_store_image (id, src, role, node_id, title, description, priority, modified, author, content, other_data, link_to_node_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: ecommerce_store_taxonomy; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY ecommerce_store_taxonomy (id, node_id, taxonomy_tree_id) FROM stdin;
+\.
+
+
+--
+-- Data for Name: ecommerce_store_type; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY ecommerce_store_type (id, title, description, publish, created, modified, other_data) FROM stdin;
+1	Store		1	2013-11-22 17:40:24	2013-11-22 17:40:24	
+2	Supplier		1	2013-11-22 17:40:24	2013-11-22 17:40:24	
 \.
 
 
@@ -3337,7 +4374,7 @@ COPY education_survey (id, title, description, created, modified, priority, publ
 -- Data for Name: education_survey_entry; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY education_survey_entry (id, survey_id, customer_id, relation_subject, created, modified, publish) FROM stdin;
+COPY education_survey_entry (id, survey_id, customer_id, relation_subject, created, modified, publish, ip_address, session_id, other_data) FROM stdin;
 \.
 
 
@@ -3350,10 +4387,18 @@ COPY education_survey_entry_answer (id, survey_entry_id, question_id, question_a
 
 
 --
+-- Data for Name: education_survey_image; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY education_survey_image (id, src, role, node_id, title, description, priority, modified, author, content, other_data, link_to_node_id) FROM stdin;
+\.
+
+
+--
 -- Data for Name: education_survey_question; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY education_survey_question (id, survey_id, parent, step, title, description, mandatory, type, priority, publish, weight) FROM stdin;
+COPY education_survey_question (id, survey_id, parent, step, title, description, mandatory, type, priority, publish, weight, content) FROM stdin;
 \.
 
 
@@ -3361,7 +4406,7 @@ COPY education_survey_question (id, survey_id, parent, step, title, description,
 -- Data for Name: education_survey_question_answer; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY education_survey_question_answer (id, question_id, title, description, is_correct, points, priority, publish) FROM stdin;
+COPY education_survey_question_answer (id, question_id, title, description, is_correct, points, priority, publish, content) FROM stdin;
 \.
 
 
@@ -3369,248 +4414,248 @@ COPY education_survey_question_answer (id, question_id, title, description, is_c
 -- Data for Name: international_country; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY international_country (id, name, iso_code2, iso_code3, eu_status, currency_code) FROM stdin;
-1	Afghanistan	AF	AFG	f	\N
-2	Albania	AL	ALB	f	\N
-3	Algeria	DZ	DZA	f	\N
-4	American Samoa	AS	ASM	f	\N
-5	Andorra	AD	AND	f	\N
-6	Angola	AO	AGO	f	\N
-7	Anguilla	AI	AIA	f	\N
-8	Antarctica	AQ	ATA	f	\N
-9	Antigua and Barbuda	AG	ATG	f	\N
-10	Argentina	AR	ARG	f	\N
-11	Armenia	AM	ARM	f	\N
-12	Aruba	AW	ABW	f	\N
-13	Australia	AU	AUS	f	\N
-14	Austria	AT	AUT	t	\N
-15	Azerbaijan	AZ	AZE	f	\N
-16	Bahamas	BS	BHS	f	\N
-17	Bahrain	BH	BHR	f	\N
-18	Bangladesh	BD	BGD	f	\N
-19	Barbados	BB	BRB	f	\N
-20	Belarus	BY	BLR	f	\N
-21	Belgium	BE	BEL	t	\N
-22	Belize	BZ	BLZ	f	\N
-23	Benin	BJ	BEN	f	\N
-24	Bermuda	BM	BMU	f	\N
-25	Bhutan	BT	BTN	f	\N
-26	Bolivia	BO	BOL	f	\N
-27	Bosnia and Herzegowina	BA	BIH	f	\N
-28	Botswana	BW	BWA	f	\N
-29	Bouvet Island	BV	BVT	f	\N
-30	Brazil	BR	BRA	f	\N
-31	British Indian Ocean Territory	IO	IOT	f	\N
-32	Brunei Darussalam	BN	BRN	f	\N
-34	Burkina Faso	BF	BFA	f	\N
-35	Burundi	BI	BDI	f	\N
-36	Cambodia	KH	KHM	f	\N
-37	Cameroon	CM	CMR	f	\N
-38	Canada	CA	CAN	f	\N
-39	Cape Verde	CV	CPV	f	\N
-40	Cayman Islands	KY	CYM	f	\N
-41	Central African Republic	CF	CAF	f	\N
-42	Chad	TD	TCD	f	\N
-43	Chile	CL	CHL	f	\N
-44	China	CN	CHN	f	\N
-45	Christmas Island	CX	CXR	f	\N
-46	Cocos (Keeling) Islands	CC	CCK	f	\N
-47	Colombia	CO	COL	f	\N
-48	Comoros	KM	COM	f	\N
-49	Congo	CG	COG	f	\N
-50	Cook Islands	CK	COK	f	\N
-51	Costa Rica	CR	CRI	f	\N
-52	Cote D'Ivoire	CI	CIV	f	\N
-53	Croatia	HR	HRV	f	\N
-54	Cuba	CU	CUB	f	\N
-55	Cyprus	CY	CYP	t	\N
-56	Czech Republic	CZ	CZE	t	\N
-57	Denmark	DK	DNK	t	\N
-58	Djibouti	DJ	DJI	f	\N
-59	Dominica	DM	DMA	f	\N
-60	Dominican Republic	DO	DOM	f	\N
-61	East Timor	TP	TMP	f	\N
-62	Ecuador	EC	ECU	f	\N
-63	Egypt	EG	EGY	f	\N
-64	El Salvador	SV	SLV	f	\N
-65	Equatorial Guinea	GQ	GNQ	f	\N
-66	Eritrea	ER	ERI	f	\N
-67	Estonia	EE	EST	t	\N
-68	Ethiopia	ET	ETH	f	\N
-69	Falkland Islands (Malvinas)	FK	FLK	f	\N
-70	Faroe Islands	FO	FRO	f	\N
-71	Fiji	FJ	FJI	f	\N
-72	Finland	FI	FIN	t	\N
-73	France	FR	FRA	t	\N
-75	French Guiana	GF	GUF	f	\N
-76	French Polynesia	PF	PYF	f	\N
-77	French Southern Territories	TF	ATF	f	\N
-78	Gabon	GA	GAB	f	\N
-79	Gambia	GM	GMB	f	\N
-80	Georgia	GE	GEO	f	\N
-81	Germany	DE	DEU	t	\N
-82	Ghana	GH	GHA	f	\N
-83	Gibraltar	GI	GIB	f	\N
-84	Greece	GR	GRC	t	\N
-85	Greenland	GL	GRL	f	\N
-86	Grenada	GD	GRD	f	\N
-87	Guadeloupe	GP	GLP	f	\N
-88	Guam	GU	GUM	f	\N
-89	Guatemala	GT	GTM	f	\N
-90	Guinea	GN	GIN	f	\N
-91	Guinea-bissau	GW	GNB	f	\N
-92	Guyana	GY	GUY	f	\N
-93	Haiti	HT	HTI	f	\N
-94	Heard and Mc Donald Islands	HM	HMD	f	\N
-95	Honduras	HN	HND	f	\N
-96	Hong Kong	HK	HKG	f	\N
-97	Hungary	HU	HUN	t	\N
-98	Iceland	IS	ISL	f	\N
-99	India	IN	IND	f	\N
-100	Indonesia	ID	IDN	f	\N
-101	Iran (Islamic Republic of)	IR	IRN	f	\N
-102	Iraq	IQ	IRQ	f	\N
-103	Ireland	IE	IRL	t	\N
-104	Israel	IL	ISR	f	\N
-105	Italy	IT	ITA	t	\N
-106	Jamaica	JM	JAM	f	\N
-107	Japan	JP	JPN	f	\N
-108	Jordan	JO	JOR	f	\N
-109	Kazakhstan	KZ	KAZ	f	\N
-110	Kenya	KE	KEN	f	\N
-111	Kiribati	KI	KIR	f	\N
-112	Korea, Democratic People's Republic of	KP	PRK	f	\N
-113	Korea, Republic of	KR	KOR	f	\N
-114	Kuwait	KW	KWT	f	\N
-115	Kyrgyzstan	KG	KGZ	f	\N
-116	Lao People's Democratic Republic	LA	LAO	f	\N
-117	Latvia	LV	LVA	t	\N
-118	Lebanon	LB	LBN	f	\N
-119	Lesotho	LS	LSO	f	\N
-120	Liberia	LR	LBR	f	\N
-121	Libyan Arab Jamahiriya	LY	LBY	f	\N
-122	Liechtenstein	LI	LIE	f	\N
-123	Lithuania	LT	LTU	t	\N
-124	Luxembourg	LU	LUX	t	\N
-125	Macau	MO	MAC	f	\N
-126	Macedonia	MK	MKD	f	\N
-127	Madagascar	MG	MDG	f	\N
-128	Malawi	MW	MWI	f	\N
-129	Malaysia	MY	MYS	f	\N
-130	Maldives	MV	MDV	f	\N
-131	Mali	ML	MLI	f	\N
-132	Malta	MT	MLT	t	\N
-133	Marshall Islands	MH	MHL	f	\N
-134	Martinique	MQ	MTQ	f	\N
-135	Mauritania	MR	MRT	f	\N
-136	Mauritius	MU	MUS	f	\N
-137	Mayotte	YT	MYT	f	\N
-138	Mexico	MX	MEX	f	\N
-139	Micronesia	FM	FSM	f	\N
-140	Moldova	MD	MDA	f	\N
-141	Monaco	MC	MCO	t	\N
-142	Mongolia	MN	MNG	f	\N
-143	Montserrat	MS	MSR	f	\N
-144	Morocco	MA	MAR	f	\N
-145	Mozambique	MZ	MOZ	f	\N
-146	Myanmar	MM	MMR	f	\N
-147	Namibia	NA	NAM	f	\N
-148	Nauru	NR	NRU	f	\N
-149	Nepal	NP	NPL	f	\N
-150	Netherlands	NL	NLD	t	\N
-151	Netherlands Antilles	AN	ANT	f	\N
-152	New Caledonia	NC	NCL	f	\N
-153	New Zealand	NZ	NZL	f	\N
-154	Nicaragua	NI	NIC	f	\N
-155	Niger	NE	NER	f	\N
-156	Nigeria	NG	NGA	f	\N
-157	Niue	NU	NIU	f	\N
-158	Norfolk Island	NF	NFK	f	\N
-159	Northern Mariana Islands	MP	MNP	f	\N
-160	Norway	NO	NOR	f	\N
-161	Oman	OM	OMN	f	\N
-162	Pakistan	PK	PAK	f	\N
-163	Palau	PW	PLW	f	\N
-164	Panama	PA	PAN	f	\N
-165	Papua New Guinea	PG	PNG	f	\N
-166	Paraguay	PY	PRY	f	\N
-167	Peru	PE	PER	f	\N
-168	Philippines	PH	PHL	f	\N
-169	Pitcairn	PN	PCN	f	\N
-170	Poland	PL	POL	t	\N
-171	Portugal	PT	PRT	t	\N
-172	Puerto Rico	PR	PRI	f	\N
-173	Qatar	QA	QAT	f	\N
-174	Reunion	RE	REU	f	\N
-176	Russia	RU	RUS	f	\N
-177	Rwanda	RW	RWA	f	\N
-178	Saint Kitts and Nevis	KN	KNA	f	\N
-179	Saint Lucia	LC	LCA	f	\N
-180	Saint Vincent and the Grenadines	VC	VCT	f	\N
-181	Samoa	WS	WSM	f	\N
-182	San Marino	SM	SMR	f	\N
-183	Sao Tome and Principe	ST	STP	f	\N
-184	Saudi Arabia	SA	SAU	f	\N
-185	Senegal	SN	SEN	f	\N
-186	Seychelles	SC	SYC	f	\N
-187	Sierra Leone	SL	SLE	f	\N
-188	Singapore	SG	SGP	f	\N
-189	Slovakia (Slovak Republic)	SK	SVK	t	\N
-190	Slovenia	SI	SVN	t	\N
-191	Solomon Islands	SB	SLB	f	\N
-192	Somalia	SO	SOM	f	\N
-193	South Africa	ZA	ZAF	f	\N
-194	South Georgia and the South Sandwich Islands	GS	SGS	f	\N
-195	Spain	ES	ESP	t	\N
-196	Sri Lanka	LK	LKA	f	\N
-197	St. Helena	SH	SHN	f	\N
-198	St. Pierre and Miquelon	PM	SPM	f	\N
-199	Sudan	SD	SDN	f	\N
-200	Suriname	SR	SUR	f	\N
-201	Svalbard and Jan Mayen Islands	SJ	SJM	f	\N
-202	Swaziland	SZ	SWZ	f	\N
-203	Sweden	SE	SWE	t	\N
-204	Switzerland	CH	CHE	f	\N
-205	Syrian Arab Republic	SY	SYR	f	\N
-206	Taiwan	TW	TWN	f	\N
-207	Tajikistan	TJ	TJK	f	\N
-208	Tanzania, United Republic of	TZ	TZA	f	\N
-209	Thailand	TH	THA	f	\N
-210	Togo	TG	TGO	f	\N
-211	Tokelau	TK	TKL	f	\N
-212	Tonga	TO	TON	f	\N
-213	Trinidad and Tobago	TT	TTO	f	\N
-214	Tunisia	TN	TUN	f	\N
-215	Turkey	TR	TUR	f	\N
-216	Turkmenistan	TM	TKM	f	\N
-217	Turks and Caicos Islands	TC	TCA	f	\N
-218	Tuvalu	TV	TUV	f	\N
-219	Uganda	UG	UGA	f	\N
-220	Ukraine	UA	UKR	f	\N
-221	United Arab Emirates	AE	ARE	f	\N
-222	United Kingdom	GB	GBR	t	\N
-223	United States	US	USA	f	\N
-224	United States Minor Outlying Islands	UM	UMI	f	\N
-225	Uruguay	UY	URY	f	\N
-226	Uzbekistan	UZ	UZB	f	\N
-227	Vanuatu	VU	VUT	f	\N
-228	Vatican City State (Holy See)	VA	VAT	f	\N
-229	Venezuela	VE	VEN	f	\N
-230	Viet Nam	VN	VNM	f	\N
-231	Virgin Islands (British)	VG	VGB	f	\N
-232	Virgin Islands (U.S.)	VI	VIR	f	\N
-233	Wallis and Futuna Islands	WF	WLF	f	\N
-234	Western Sahara	EH	ESH	f	\N
-235	Yemen	YE	YEM	f	\N
-236	Yugoslavia	YU	YUG	f	\N
-237	Zaire	ZR	ZAR	f	\N
-238	Zambia	ZM	ZMB	f	\N
-239	Zimbabwe	ZW	ZWE	f	\N
-74	Madeira	XM	MDR	f	\N
-240	Montenegro	ME	MNE	f	\N
-241	Serbia	RS	SRB	f	\N
-33	Bulgaria	BG	BGR	t	\N
-175	Romania	RO	ROM	t	\N
+COPY international_country (id, name, iso_code2, iso_code3, eu_status, currency_code, publish) FROM stdin;
+1	Afghanistan	AF	AFG	f	\N	1
+2	Albania	AL	ALB	f	\N	1
+3	Algeria	DZ	DZA	f	\N	1
+4	American Samoa	AS	ASM	f	\N	1
+5	Andorra	AD	AND	f	\N	1
+6	Angola	AO	AGO	f	\N	1
+7	Anguilla	AI	AIA	f	\N	1
+8	Antarctica	AQ	ATA	f	\N	1
+9	Antigua and Barbuda	AG	ATG	f	\N	1
+10	Argentina	AR	ARG	f	\N	1
+11	Armenia	AM	ARM	f	\N	1
+12	Aruba	AW	ABW	f	\N	1
+13	Australia	AU	AUS	f	\N	1
+14	Austria	AT	AUT	t	\N	1
+15	Azerbaijan	AZ	AZE	f	\N	1
+16	Bahamas	BS	BHS	f	\N	1
+17	Bahrain	BH	BHR	f	\N	1
+18	Bangladesh	BD	BGD	f	\N	1
+19	Barbados	BB	BRB	f	\N	1
+20	Belarus	BY	BLR	f	\N	1
+21	Belgium	BE	BEL	t	\N	1
+22	Belize	BZ	BLZ	f	\N	1
+23	Benin	BJ	BEN	f	\N	1
+24	Bermuda	BM	BMU	f	\N	1
+25	Bhutan	BT	BTN	f	\N	1
+26	Bolivia	BO	BOL	f	\N	1
+27	Bosnia and Herzegowina	BA	BIH	f	\N	1
+28	Botswana	BW	BWA	f	\N	1
+29	Bouvet Island	BV	BVT	f	\N	1
+30	Brazil	BR	BRA	f	\N	1
+31	British Indian Ocean Territory	IO	IOT	f	\N	1
+32	Brunei Darussalam	BN	BRN	f	\N	1
+34	Burkina Faso	BF	BFA	f	\N	1
+35	Burundi	BI	BDI	f	\N	1
+36	Cambodia	KH	KHM	f	\N	1
+37	Cameroon	CM	CMR	f	\N	1
+38	Canada	CA	CAN	f	\N	1
+39	Cape Verde	CV	CPV	f	\N	1
+40	Cayman Islands	KY	CYM	f	\N	1
+41	Central African Republic	CF	CAF	f	\N	1
+42	Chad	TD	TCD	f	\N	1
+43	Chile	CL	CHL	f	\N	1
+44	China	CN	CHN	f	\N	1
+45	Christmas Island	CX	CXR	f	\N	1
+46	Cocos (Keeling) Islands	CC	CCK	f	\N	1
+47	Colombia	CO	COL	f	\N	1
+48	Comoros	KM	COM	f	\N	1
+49	Congo	CG	COG	f	\N	1
+50	Cook Islands	CK	COK	f	\N	1
+51	Costa Rica	CR	CRI	f	\N	1
+52	Cote D'Ivoire	CI	CIV	f	\N	1
+53	Croatia	HR	HRV	f	\N	1
+54	Cuba	CU	CUB	f	\N	1
+55	Cyprus	CY	CYP	t	\N	1
+56	Czech Republic	CZ	CZE	t	\N	1
+57	Denmark	DK	DNK	t	\N	1
+58	Djibouti	DJ	DJI	f	\N	1
+59	Dominica	DM	DMA	f	\N	1
+60	Dominican Republic	DO	DOM	f	\N	1
+61	East Timor	TP	TMP	f	\N	1
+62	Ecuador	EC	ECU	f	\N	1
+63	Egypt	EG	EGY	f	\N	1
+64	El Salvador	SV	SLV	f	\N	1
+65	Equatorial Guinea	GQ	GNQ	f	\N	1
+66	Eritrea	ER	ERI	f	\N	1
+67	Estonia	EE	EST	t	\N	1
+68	Ethiopia	ET	ETH	f	\N	1
+69	Falkland Islands (Malvinas)	FK	FLK	f	\N	1
+70	Faroe Islands	FO	FRO	f	\N	1
+71	Fiji	FJ	FJI	f	\N	1
+72	Finland	FI	FIN	t	\N	1
+73	France	FR	FRA	t	\N	1
+75	French Guiana	GF	GUF	f	\N	1
+76	French Polynesia	PF	PYF	f	\N	1
+77	French Southern Territories	TF	ATF	f	\N	1
+78	Gabon	GA	GAB	f	\N	1
+79	Gambia	GM	GMB	f	\N	1
+80	Georgia	GE	GEO	f	\N	1
+81	Germany	DE	DEU	t	\N	1
+82	Ghana	GH	GHA	f	\N	1
+83	Gibraltar	GI	GIB	f	\N	1
+84	Greece	GR	GRC	t	\N	1
+85	Greenland	GL	GRL	f	\N	1
+86	Grenada	GD	GRD	f	\N	1
+87	Guadeloupe	GP	GLP	f	\N	1
+88	Guam	GU	GUM	f	\N	1
+89	Guatemala	GT	GTM	f	\N	1
+90	Guinea	GN	GIN	f	\N	1
+91	Guinea-bissau	GW	GNB	f	\N	1
+92	Guyana	GY	GUY	f	\N	1
+93	Haiti	HT	HTI	f	\N	1
+94	Heard and Mc Donald Islands	HM	HMD	f	\N	1
+95	Honduras	HN	HND	f	\N	1
+96	Hong Kong	HK	HKG	f	\N	1
+97	Hungary	HU	HUN	t	\N	1
+98	Iceland	IS	ISL	f	\N	1
+99	India	IN	IND	f	\N	1
+100	Indonesia	ID	IDN	f	\N	1
+101	Iran (Islamic Republic of)	IR	IRN	f	\N	1
+102	Iraq	IQ	IRQ	f	\N	1
+103	Ireland	IE	IRL	t	\N	1
+104	Israel	IL	ISR	f	\N	1
+105	Italy	IT	ITA	t	\N	1
+106	Jamaica	JM	JAM	f	\N	1
+107	Japan	JP	JPN	f	\N	1
+108	Jordan	JO	JOR	f	\N	1
+109	Kazakhstan	KZ	KAZ	f	\N	1
+110	Kenya	KE	KEN	f	\N	1
+111	Kiribati	KI	KIR	f	\N	1
+112	Korea, Democratic People's Republic of	KP	PRK	f	\N	1
+113	Korea, Republic of	KR	KOR	f	\N	1
+114	Kuwait	KW	KWT	f	\N	1
+115	Kyrgyzstan	KG	KGZ	f	\N	1
+116	Lao People's Democratic Republic	LA	LAO	f	\N	1
+117	Latvia	LV	LVA	t	\N	1
+118	Lebanon	LB	LBN	f	\N	1
+119	Lesotho	LS	LSO	f	\N	1
+120	Liberia	LR	LBR	f	\N	1
+121	Libyan Arab Jamahiriya	LY	LBY	f	\N	1
+122	Liechtenstein	LI	LIE	f	\N	1
+123	Lithuania	LT	LTU	t	\N	1
+124	Luxembourg	LU	LUX	t	\N	1
+125	Macau	MO	MAC	f	\N	1
+126	Macedonia	MK	MKD	f	\N	1
+127	Madagascar	MG	MDG	f	\N	1
+128	Malawi	MW	MWI	f	\N	1
+129	Malaysia	MY	MYS	f	\N	1
+130	Maldives	MV	MDV	f	\N	1
+131	Mali	ML	MLI	f	\N	1
+132	Malta	MT	MLT	t	\N	1
+133	Marshall Islands	MH	MHL	f	\N	1
+134	Martinique	MQ	MTQ	f	\N	1
+135	Mauritania	MR	MRT	f	\N	1
+136	Mauritius	MU	MUS	f	\N	1
+137	Mayotte	YT	MYT	f	\N	1
+138	Mexico	MX	MEX	f	\N	1
+139	Micronesia	FM	FSM	f	\N	1
+140	Moldova	MD	MDA	f	\N	1
+141	Monaco	MC	MCO	t	\N	1
+142	Mongolia	MN	MNG	f	\N	1
+143	Montserrat	MS	MSR	f	\N	1
+144	Morocco	MA	MAR	f	\N	1
+145	Mozambique	MZ	MOZ	f	\N	1
+146	Myanmar	MM	MMR	f	\N	1
+147	Namibia	NA	NAM	f	\N	1
+148	Nauru	NR	NRU	f	\N	1
+149	Nepal	NP	NPL	f	\N	1
+150	Netherlands	NL	NLD	t	\N	1
+151	Netherlands Antilles	AN	ANT	f	\N	1
+152	New Caledonia	NC	NCL	f	\N	1
+153	New Zealand	NZ	NZL	f	\N	1
+154	Nicaragua	NI	NIC	f	\N	1
+155	Niger	NE	NER	f	\N	1
+156	Nigeria	NG	NGA	f	\N	1
+157	Niue	NU	NIU	f	\N	1
+158	Norfolk Island	NF	NFK	f	\N	1
+159	Northern Mariana Islands	MP	MNP	f	\N	1
+160	Norway	NO	NOR	f	\N	1
+161	Oman	OM	OMN	f	\N	1
+162	Pakistan	PK	PAK	f	\N	1
+163	Palau	PW	PLW	f	\N	1
+164	Panama	PA	PAN	f	\N	1
+165	Papua New Guinea	PG	PNG	f	\N	1
+166	Paraguay	PY	PRY	f	\N	1
+167	Peru	PE	PER	f	\N	1
+168	Philippines	PH	PHL	f	\N	1
+169	Pitcairn	PN	PCN	f	\N	1
+170	Poland	PL	POL	t	\N	1
+171	Portugal	PT	PRT	t	\N	1
+172	Puerto Rico	PR	PRI	f	\N	1
+173	Qatar	QA	QAT	f	\N	1
+174	Reunion	RE	REU	f	\N	1
+176	Russia	RU	RUS	f	\N	1
+177	Rwanda	RW	RWA	f	\N	1
+178	Saint Kitts and Nevis	KN	KNA	f	\N	1
+179	Saint Lucia	LC	LCA	f	\N	1
+180	Saint Vincent and the Grenadines	VC	VCT	f	\N	1
+181	Samoa	WS	WSM	f	\N	1
+182	San Marino	SM	SMR	f	\N	1
+183	Sao Tome and Principe	ST	STP	f	\N	1
+184	Saudi Arabia	SA	SAU	f	\N	1
+185	Senegal	SN	SEN	f	\N	1
+186	Seychelles	SC	SYC	f	\N	1
+187	Sierra Leone	SL	SLE	f	\N	1
+188	Singapore	SG	SGP	f	\N	1
+189	Slovakia (Slovak Republic)	SK	SVK	t	\N	1
+190	Slovenia	SI	SVN	t	\N	1
+191	Solomon Islands	SB	SLB	f	\N	1
+192	Somalia	SO	SOM	f	\N	1
+193	South Africa	ZA	ZAF	f	\N	1
+194	South Georgia and the South Sandwich Islands	GS	SGS	f	\N	1
+195	Spain	ES	ESP	t	\N	1
+196	Sri Lanka	LK	LKA	f	\N	1
+197	St. Helena	SH	SHN	f	\N	1
+198	St. Pierre and Miquelon	PM	SPM	f	\N	1
+199	Sudan	SD	SDN	f	\N	1
+200	Suriname	SR	SUR	f	\N	1
+201	Svalbard and Jan Mayen Islands	SJ	SJM	f	\N	1
+202	Swaziland	SZ	SWZ	f	\N	1
+203	Sweden	SE	SWE	t	\N	1
+204	Switzerland	CH	CHE	f	\N	1
+205	Syrian Arab Republic	SY	SYR	f	\N	1
+206	Taiwan	TW	TWN	f	\N	1
+207	Tajikistan	TJ	TJK	f	\N	1
+208	Tanzania, United Republic of	TZ	TZA	f	\N	1
+209	Thailand	TH	THA	f	\N	1
+210	Togo	TG	TGO	f	\N	1
+211	Tokelau	TK	TKL	f	\N	1
+212	Tonga	TO	TON	f	\N	1
+213	Trinidad and Tobago	TT	TTO	f	\N	1
+214	Tunisia	TN	TUN	f	\N	1
+215	Turkey	TR	TUR	f	\N	1
+216	Turkmenistan	TM	TKM	f	\N	1
+217	Turks and Caicos Islands	TC	TCA	f	\N	1
+218	Tuvalu	TV	TUV	f	\N	1
+219	Uganda	UG	UGA	f	\N	1
+220	Ukraine	UA	UKR	f	\N	1
+221	United Arab Emirates	AE	ARE	f	\N	1
+222	United Kingdom	GB	GBR	t	\N	1
+223	United States	US	USA	f	\N	1
+224	United States Minor Outlying Islands	UM	UMI	f	\N	1
+225	Uruguay	UY	URY	f	\N	1
+226	Uzbekistan	UZ	UZB	f	\N	1
+227	Vanuatu	VU	VUT	f	\N	1
+228	Vatican City State (Holy See)	VA	VAT	f	\N	1
+229	Venezuela	VE	VEN	f	\N	1
+230	Viet Nam	VN	VNM	f	\N	1
+231	Virgin Islands (British)	VG	VGB	f	\N	1
+232	Virgin Islands (U.S.)	VI	VIR	f	\N	1
+233	Wallis and Futuna Islands	WF	WLF	f	\N	1
+234	Western Sahara	EH	ESH	f	\N	1
+235	Yemen	YE	YEM	f	\N	1
+236	Yugoslavia	YU	YUG	f	\N	1
+237	Zaire	ZR	ZAR	f	\N	1
+238	Zambia	ZM	ZMB	f	\N	1
+239	Zimbabwe	ZW	ZWE	f	\N	1
+74	Madeira	XM	MDR	f	\N	1
+240	Montenegro	ME	MNE	f	\N	1
+241	Serbia	RS	SRB	f	\N	1
+33	Bulgaria	BG	BGR	t	\N	1
+175	Romania	RO	ROM	t	\N	1
 \.
 
 
@@ -3818,6 +4863,14 @@ COPY international_currency_rate (id, currency_code, currency_code_from, source,
 
 
 --
+-- Name: client_action_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY client_action
+    ADD CONSTRAINT client_action_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: client_address_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -3834,11 +4887,51 @@ ALTER TABLE ONLY client_company
 
 
 --
+-- Name: client_customer_email_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY client_customer
+    ADD CONSTRAINT client_customer_email_key UNIQUE (email, deleted_date);
+
+
+--
+-- Name: client_customer_image_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY client_customer_image
+    ADD CONSTRAINT client_customer_image_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: client_customer_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY client_customer
     ADD CONSTRAINT client_customer_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: client_customer_taxonomy_node_id_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY client_customer_taxonomy
+    ADD CONSTRAINT client_customer_taxonomy_node_id_key UNIQUE (node_id, taxonomy_tree_id);
+
+
+--
+-- Name: client_customer_taxonomy_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY client_customer_taxonomy
+    ADD CONSTRAINT client_customer_taxonomy_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: client_customer_token_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY client_customer_token
+    ADD CONSTRAINT client_customer_token_pkey PRIMARY KEY (id);
 
 
 --
@@ -3911,6 +5004,14 @@ ALTER TABLE ONLY common_node_taxonomy
 
 ALTER TABLE ONLY common_print_article
     ADD CONSTRAINT common_print_article_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: common_scheduler_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY common_scheduler
+    ADD CONSTRAINT common_scheduler_pkey PRIMARY KEY (id);
 
 
 --
@@ -4042,6 +5143,14 @@ ALTER TABLE ONLY ecommerce_invoice
 
 
 --
+-- Name: ecommerce_offer_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY ecommerce_offer
+    ADD CONSTRAINT ecommerce_offer_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: ecommerce_order_log_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -4162,6 +5271,102 @@ ALTER TABLE ONLY ecommerce_promotion
 
 
 --
+-- Name: ecommerce_promotion_type_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY ecommerce_promotion_type
+    ADD CONSTRAINT ecommerce_promotion_type_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: ecommerce_recipe_image_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY ecommerce_recipe_image
+    ADD CONSTRAINT ecommerce_recipe_image_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: ecommerce_recipe_ingredients_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY ecommerce_recipe_ingredients
+    ADD CONSTRAINT ecommerce_recipe_ingredients_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: ecommerce_recipe_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY ecommerce_recipe
+    ADD CONSTRAINT ecommerce_recipe_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: ecommerce_recipe_review_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY ecommerce_recipe_review
+    ADD CONSTRAINT ecommerce_recipe_review_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: ecommerce_recipe_taxonomy_node_id_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY ecommerce_recipe_taxonomy
+    ADD CONSTRAINT ecommerce_recipe_taxonomy_node_id_key UNIQUE (node_id, taxonomy_tree_id);
+
+
+--
+-- Name: ecommerce_recipe_taxonomy_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY ecommerce_recipe_taxonomy
+    ADD CONSTRAINT ecommerce_recipe_taxonomy_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: ecommerce_store_image_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY ecommerce_store_image
+    ADD CONSTRAINT ecommerce_store_image_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: ecommerce_store_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY ecommerce_store
+    ADD CONSTRAINT ecommerce_store_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: ecommerce_store_taxonomy_node_id_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY ecommerce_store_taxonomy
+    ADD CONSTRAINT ecommerce_store_taxonomy_node_id_key UNIQUE (node_id, taxonomy_tree_id);
+
+
+--
+-- Name: ecommerce_store_taxonomy_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY ecommerce_store_taxonomy
+    ADD CONSTRAINT ecommerce_store_taxonomy_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: ecommerce_store_type_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY ecommerce_store_type
+    ADD CONSTRAINT ecommerce_store_type_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: ecommerce_transaction_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -4191,6 +5396,14 @@ ALTER TABLE ONLY education_survey_entry
 
 ALTER TABLE ONLY education_survey_entry
     ADD CONSTRAINT education_survey_entry_survey_id_key UNIQUE (survey_id, customer_id, relation_subject);
+
+
+--
+-- Name: education_survey_image_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY education_survey_image
+    ADD CONSTRAINT education_survey_image_pkey PRIMARY KEY (id);
 
 
 --
@@ -4274,6 +5487,20 @@ ALTER TABLE ONLY ecommerce_product_variety_taxonomy
 
 
 --
+-- Name: client_action_customer_id_key; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX client_action_customer_id_key ON client_action USING btree (customer_id);
+
+
+--
+-- Name: client_action_network_key; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX client_action_network_key ON client_action USING btree (network);
+
+
+--
 -- Name: client_address_country_id_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -4295,6 +5522,41 @@ CREATE INDEX client_company_customer_id_idx ON client_company USING btree (custo
 
 
 --
+-- Name: client_customer_image_node_id_key; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX client_customer_image_node_id_key ON client_customer_image USING btree (node_id);
+
+
+--
+-- Name: client_customer_taxonomy_node_id_key1; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX client_customer_taxonomy_node_id_key1 ON client_customer_taxonomy USING btree (node_id);
+
+
+--
+-- Name: client_customer_taxonomy_taxonomy_tree_id_key; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX client_customer_taxonomy_taxonomy_tree_id_key ON client_customer_taxonomy USING btree (taxonomy_tree_id);
+
+
+--
+-- Name: client_customer_token_key; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX client_customer_token_key ON client_customer_token USING btree (token);
+
+
+--
+-- Name: client_customer_token_publish_key; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX client_customer_token_publish_key ON client_customer_token USING btree (publish);
+
+
+--
 -- Name: common_comment_costomer_id_id_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -4306,6 +5568,13 @@ CREATE INDEX common_comment_costomer_id_id_idx ON common_comment USING btree (cu
 --
 
 CREATE INDEX common_comment_node_id_idx ON common_comment USING btree (node_id);
+
+
+--
+-- Name: common_comment_node_id_key1; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX common_comment_node_id_key1 ON common_comment USING btree (node_id);
 
 
 --
@@ -4334,6 +5603,13 @@ CREATE INDEX common_image_node_id_idx ON common_image USING btree (node_id);
 --
 
 CREATE INDEX common_node_display_in_idx ON common_node USING btree (display_in_menu);
+
+
+--
+-- Name: common_node_node_controller_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX common_node_node_controller_idx ON common_node USING btree (node_controller);
 
 
 --
@@ -4376,6 +5652,34 @@ CREATE INDEX common_node_taxonomy_taxonomy_tree_id_idx ON common_node_taxonomy U
 --
 
 CREATE INDEX common_print_article_node_id_idx ON common_print_article USING btree (node_id);
+
+
+--
+-- Name: common_scheduler_lock_token_key; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX common_scheduler_lock_token_key ON common_scheduler USING btree (lock_token);
+
+
+--
+-- Name: common_scheduler_node_id_key; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX common_scheduler_node_id_key ON common_scheduler USING btree (node_id);
+
+
+--
+-- Name: common_scheduler_scheduled_time_key; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX common_scheduler_scheduled_time_key ON common_scheduler USING btree (scheduled_time);
+
+
+--
+-- Name: common_scheduler_status_key; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX common_scheduler_status_key ON common_scheduler USING btree (status);
 
 
 --
@@ -4442,11 +5746,10 @@ CREATE INDEX ecommerce_basket_customer_id_idx ON ecommerce_basket USING btree (c
 
 
 --
--- Name: ecommerce_invoice_order_id_idx; Type: INDEX; Schema: public; Owner: jing; Tablespace: 
+-- Name: ecommerce_invoice_order_id_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX ecommerce_invoice_order_id_idx ON ecommerce_invoice USING btree (order_id);
-
 
 
 --
@@ -4513,17 +5816,17 @@ CREATE INDEX ecommerce_product_image_node_id_idx ON ecommerce_product_image USIN
 
 
 --
--- Name: ecommerce_product_product_type_id_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX ecommerce_product_product_type_id_idx ON ecommerce_product USING btree (product_type_id);
-
-
---
 -- Name: ecommerce_product_publish_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX ecommerce_product_publish_idx ON ecommerce_product USING btree (publish);
+
+
+--
+-- Name: ecommerce_product_review_node_id_key1; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX ecommerce_product_review_node_id_key1 ON ecommerce_product_review USING btree (node_id);
 
 
 --
@@ -4583,10 +5886,82 @@ CREATE INDEX ecommerce_product_variety_taxonomy_taxonomy_tree_id_idx ON ecommerc
 
 
 --
+-- Name: ecommerce_recipe_image_node_id_key; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX ecommerce_recipe_image_node_id_key ON ecommerce_recipe_image USING btree (node_id);
+
+
+--
+-- Name: ecommerce_recipe_review_node_id_key1; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX ecommerce_recipe_review_node_id_key1 ON ecommerce_recipe_review USING btree (node_id);
+
+
+--
+-- Name: ecommerce_recipe_taxonomy_node_id_key1; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX ecommerce_recipe_taxonomy_node_id_key1 ON ecommerce_recipe_taxonomy USING btree (node_id);
+
+
+--
+-- Name: ecommerce_recipe_taxonomy_taxonomy_tree_id_key; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX ecommerce_recipe_taxonomy_taxonomy_tree_id_key ON ecommerce_recipe_taxonomy USING btree (taxonomy_tree_id);
+
+
+--
+-- Name: ecommerce_store_image_node_id_key; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX ecommerce_store_image_node_id_key ON ecommerce_store_image USING btree (node_id);
+
+
+--
+-- Name: ecommerce_store_taxonomy_node_id_key1; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX ecommerce_store_taxonomy_node_id_key1 ON ecommerce_store_taxonomy USING btree (node_id);
+
+
+--
+-- Name: ecommerce_store_taxonomy_taxonomy_tree_id_key; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX ecommerce_store_taxonomy_taxonomy_tree_id_key ON ecommerce_store_taxonomy USING btree (taxonomy_tree_id);
+
+
+--
 -- Name: ecommerce_transaction_order_id_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX ecommerce_transaction_order_id_idx ON ecommerce_transaction USING btree (order_id);
+
+
+--
+-- Name: education_survey_image_node_id_key; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX education_survey_image_node_id_key ON education_survey_image USING btree (node_id);
+
+
+--
+-- Name: client_action_customer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY client_action
+    ADD CONSTRAINT client_action_customer_id_fkey FOREIGN KEY (customer_id) REFERENCES client_customer(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: client_action_node_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY client_action
+    ADD CONSTRAINT client_action_node_id_fkey FOREIGN KEY (node_id) REFERENCES common_node(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -4619,6 +5994,38 @@ ALTER TABLE ONLY client_company
 
 ALTER TABLE ONLY client_customer
     ADD CONSTRAINT client_customer_group_id_fkey FOREIGN KEY (group_id) REFERENCES client_group(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: client_customer_image_node_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY client_customer_image
+    ADD CONSTRAINT client_customer_image_node_id_fkey FOREIGN KEY (node_id) REFERENCES client_customer(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: client_customer_taxonomy_node_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY client_customer_taxonomy
+    ADD CONSTRAINT client_customer_taxonomy_node_id_fkey FOREIGN KEY (node_id) REFERENCES client_customer(id) ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
+--
+-- Name: client_customer_taxonomy_taxonomy_tree_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY client_customer_taxonomy
+    ADD CONSTRAINT client_customer_taxonomy_taxonomy_tree_id_fkey FOREIGN KEY (taxonomy_tree_id) REFERENCES common_taxonomy_tree(id) ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
+--
+-- Name: client_customer_token_customer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY client_customer_token
+    ADD CONSTRAINT client_customer_token_customer_id_fkey FOREIGN KEY (customer_id) REFERENCES client_customer(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -4798,14 +6205,6 @@ ALTER TABLE ONLY ecommerce_basket
 
 
 --
--- Name: ecommerce_delivery_carrier_country_to_zone_country_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY ecommerce_delivery_carrier_zone_to_country
-    ADD CONSTRAINT ecommerce_delivery_carrier_country_to_zone_country_id_fkey FOREIGN KEY (country_id) REFERENCES international_country(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
 -- Name: ecommerce_delivery_carrier_country_to_zone_zone_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4854,6 +6253,38 @@ ALTER TABLE ONLY ecommerce_invoice
 
 
 --
+-- Name: ecommerce_offer_campaign_category_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ecommerce_offer
+    ADD CONSTRAINT ecommerce_offer_campaign_category_id_fkey FOREIGN KEY (campaign_category_id) REFERENCES common_taxonomy_tree(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: ecommerce_offer_price_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ecommerce_offer
+    ADD CONSTRAINT ecommerce_offer_price_id_fkey FOREIGN KEY (price_id) REFERENCES ecommerce_price(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: ecommerce_offer_product_variety_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ecommerce_offer
+    ADD CONSTRAINT ecommerce_offer_product_variety_id_fkey FOREIGN KEY (product_variety_id) REFERENCES ecommerce_product_variety(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: ecommerce_offer_roundel_category_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ecommerce_offer
+    ADD CONSTRAINT ecommerce_offer_roundel_category_id_fkey FOREIGN KEY (roundel_category_id) REFERENCES common_taxonomy_tree(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
 -- Name: ecommerce_order_basket_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -4899,14 +6330,6 @@ ALTER TABLE ONLY ecommerce_price
 
 ALTER TABLE ONLY ecommerce_product_image
     ADD CONSTRAINT ecommerce_product_image_node_id_fkey FOREIGN KEY (node_id) REFERENCES ecommerce_product(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: ecommerce_product_product_type_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY ecommerce_product
-    ADD CONSTRAINT ecommerce_product_product_type_id_fkey FOREIGN KEY (product_type_id) REFERENCES ecommerce_product_type(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -4982,6 +6405,14 @@ ALTER TABLE ONLY ecommerce_product_variety
 
 
 --
+-- Name: ecommerce_product_variety_product_type_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ecommerce_product_variety
+    ADD CONSTRAINT ecommerce_product_variety_product_type_id_fkey FOREIGN KEY (product_type_id) REFERENCES ecommerce_product_type(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
 -- Name: ecommerce_product_variety_taxonomy_node_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -5014,11 +6445,139 @@ ALTER TABLE ONLY ecommerce_promotion_code
 
 
 --
+-- Name: ecommerce_promotion_generated_by_customer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ecommerce_promotion
+    ADD CONSTRAINT ecommerce_promotion_generated_by_customer_id_fkey FOREIGN KEY (generated_by_customer_id) REFERENCES client_customer(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
 -- Name: ecommerce_promotion_generated_by_order_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY ecommerce_promotion
     ADD CONSTRAINT ecommerce_promotion_generated_by_order_id_fkey FOREIGN KEY (generated_by_order_id) REFERENCES ecommerce_order(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: ecommerce_promotion_limit_by_customer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ecommerce_promotion
+    ADD CONSTRAINT ecommerce_promotion_limit_by_customer_id_fkey FOREIGN KEY (limit_by_customer_id) REFERENCES client_customer(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: ecommerce_promotion_type_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ecommerce_promotion
+    ADD CONSTRAINT ecommerce_promotion_type_fkey FOREIGN KEY (type) REFERENCES ecommerce_promotion_type(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: ecommerce_recipe_image_node_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ecommerce_recipe_image
+    ADD CONSTRAINT ecommerce_recipe_image_node_id_fkey FOREIGN KEY (node_id) REFERENCES ecommerce_recipe(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: ecommerce_recipe_ingredients_product_variety_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ecommerce_recipe_ingredients
+    ADD CONSTRAINT ecommerce_recipe_ingredients_product_variety_id_fkey FOREIGN KEY (product_variety_id) REFERENCES ecommerce_product_variety(id) ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
+--
+-- Name: ecommerce_recipe_ingredients_recipe_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ecommerce_recipe_ingredients
+    ADD CONSTRAINT ecommerce_recipe_ingredients_recipe_id_fkey FOREIGN KEY (recipe_id) REFERENCES ecommerce_recipe(id) ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
+--
+-- Name: ecommerce_recipe_ingredients_units_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ecommerce_recipe_ingredients
+    ADD CONSTRAINT ecommerce_recipe_ingredients_units_fkey FOREIGN KEY (units) REFERENCES common_taxonomy_tree(id) ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
+--
+-- Name: ecommerce_recipe_review_customer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ecommerce_recipe_review
+    ADD CONSTRAINT ecommerce_recipe_review_customer_id_fkey FOREIGN KEY (customer_id) REFERENCES client_customer(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: ecommerce_recipe_review_node_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ecommerce_recipe_review
+    ADD CONSTRAINT ecommerce_recipe_review_node_id_fkey FOREIGN KEY (node_id) REFERENCES ecommerce_recipe(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: ecommerce_recipe_review_parent_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ecommerce_recipe_review
+    ADD CONSTRAINT ecommerce_recipe_review_parent_fkey FOREIGN KEY (parent) REFERENCES ecommerce_recipe_review(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: ecommerce_recipe_taxonomy_node_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ecommerce_recipe_taxonomy
+    ADD CONSTRAINT ecommerce_recipe_taxonomy_node_id_fkey FOREIGN KEY (node_id) REFERENCES ecommerce_recipe(id) ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
+--
+-- Name: ecommerce_recipe_taxonomy_taxonomy_tree_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ecommerce_recipe_taxonomy
+    ADD CONSTRAINT ecommerce_recipe_taxonomy_taxonomy_tree_id_fkey FOREIGN KEY (taxonomy_tree_id) REFERENCES common_taxonomy_tree(id) ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
+--
+-- Name: ecommerce_store_image_node_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ecommerce_store_image
+    ADD CONSTRAINT ecommerce_store_image_node_id_fkey FOREIGN KEY (node_id) REFERENCES ecommerce_store(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: ecommerce_store_taxonomy_node_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ecommerce_store_taxonomy
+    ADD CONSTRAINT ecommerce_store_taxonomy_node_id_fkey FOREIGN KEY (node_id) REFERENCES ecommerce_store(id) ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
+--
+-- Name: ecommerce_store_taxonomy_taxonomy_tree_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ecommerce_store_taxonomy
+    ADD CONSTRAINT ecommerce_store_taxonomy_taxonomy_tree_id_fkey FOREIGN KEY (taxonomy_tree_id) REFERENCES common_taxonomy_tree(id) ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
+--
+-- Name: ecommerce_store_type_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ecommerce_store
+    ADD CONSTRAINT ecommerce_store_type_id_fkey FOREIGN KEY (type_id) REFERENCES ecommerce_store_type(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -5067,6 +6626,14 @@ ALTER TABLE ONLY education_survey_entry
 
 ALTER TABLE ONLY education_survey_entry
     ADD CONSTRAINT education_survey_entry_survey_id_fkey FOREIGN KEY (survey_id) REFERENCES education_survey(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: education_survey_image_node_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY education_survey_image
+    ADD CONSTRAINT education_survey_image_node_id_fkey FOREIGN KEY (node_id) REFERENCES education_survey(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --

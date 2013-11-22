@@ -1,0 +1,9 @@
+# do not edit SQL template files directly
+# example for template_en.sql when upgrade from 1.5 to 1.6 before release
+createdb -U db_user -h localhost -E UTF8 onxshop_template_temp
+psql -U db_user -h localhost onxshop_template_temp < /opt/onxshop/1.5/docs/database/template_en.sql
+psql -U db_user -h localhost onxshop_template_temp < /opt/onxshop/dev/docs/database/upgrade-1.5.x-to-1.6.0.sql
+pg_dump -U db_user -h localhost --no-owner onxshop_template_temp > /opt/onxshop/dev/docs/database/template_en.sql
+dropdb -U db_user -h localhost onxshop_template_temp
+
+# do the same for template_cz.sql and template_foundation.sql
