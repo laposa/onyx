@@ -10,6 +10,20 @@
 					<span class="field"><input id="filter-keyword" class="text filter-keyword" type="text" name="store-list-filter[keyword]" value="{_SESSION.store-list-filter.keyword}" /></span>
 				</div>
 			</fieldset>
+			<!-- BEGIN: type -->
+			<div class="row type">
+				<span class="label"><label>Filter by type</label></span>
+				<span class="field">
+					<select id="store-list-type" name="store-list-filter[type_id]" onchange="$(this).parent().parent().parent().submit()">
+						<option value="">All</option>
+						<!-- BEGIN: item -->
+						<option value="{ITEM.id}" {ITEM.selected}>{ITEM.title|htmlspecialchars}</option>
+						<!-- END: item -->
+					</select>
+				</span>
+			</div>
+			<!-- END: type -->
+
 			<div class="row submit">
 				<span class="label"><label>&nbsp;</label></span>
 				<span class="field"><button type="submit" name="search" value="search"><span>Search</span></button></span>

@@ -6,7 +6,7 @@ $(document).ready(function() {
 	$('div.store_list a.add').live('click', function() {
 		var child_id = $(this).attr('href').replace('#','');;
 		$('#dialog').addClass('ajaxLoad').load('/request/bo/component/ecommerce/store_add', function() {$(this).removeClass('ajaxLoad');});
-		$('#dialog').dialog({width: 500, modal: true, position: {my: "center top", at: "centre top", of: "div.store_list"}, title: 'Add new store'});
+		$('#dialog').dialog({width: 500, modal: true, position: {my: "center top", at: "centre top", of: "div.store_list"}, title: 'Add New Item'});
 		$('#dialog').dialog('open');
 		return false;
 	});
@@ -63,7 +63,7 @@ $(document).ready(function() {
 					</div>
 					<div class="layoutColumnTwo ofTwo">
 						<div class="layoutColumnWrapper">
-							<p><a class="button add" title="Add new store" href="/backoffice/stores/store_add"><span>Add new store</span></a></p>
+							<p><a class="button add" title="Add New Item" href="/backoffice/stores/store_add"><span>Add New Item</span></a></p>
 						</div>
 					</div>
 				</div>

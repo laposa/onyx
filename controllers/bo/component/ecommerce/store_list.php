@@ -19,6 +19,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Store_List extends Onxshop_Contr
 		$taxonomy_id = $this->GET['taxonomy_tree_id'];
 		if (isset($_POST['store-list-filter'])) $_SESSION['store-list-filter'] = $_POST['store-list-filter'];
 		$keyword = $_SESSION['store-list-filter']['keyword'];
+		$type_id = $_SESSION['store-list-filter']['type_id'];
 
 		// initialize sorting variables
 		if ($this->GET['store-list-sort-by']) $_SESSION['store-list-sort-by'] = $this->GET['store-list-sort-by'];
@@ -36,7 +37,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Store_List extends Onxshop_Contr
 		// get the list
 		require_once('models/ecommerce/ecommerce_store.php');
 		$Store = new ecommerce_store();	
-		list($store_list, $count) = $Store->getFilteredStoreList($taxonomy_id, $keyword, $order_by, $order_dir, $per_page, $from);
+		list($store_list, $count) = $Store->getFilteredStoreList($taxonomy_id, $keyword, $type_id, $order_by, $order_dir, $per_page, $from);
 		
 		if (!is_array($store_list)) return false;
 
@@ -57,7 +58,8 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Store_List extends Onxshop_Contr
 			if ($item['image_src']) $this->tpl->parse('content.list.item.image');
 			
 			$even_odd = ( 'odd' != $even_odd ) ? 'odd' : 'even';
-			$this->tpl->assign('CLASS', "class='$even_odd fullstore'");
+			$publish = $item['publish'] ? '' : 'disabled';
+			$this->tpl->assign('CLASS', "class='$even_odd $publish fullstore'");
 
 			$this->tpl->parse('content.list.item');
 		}

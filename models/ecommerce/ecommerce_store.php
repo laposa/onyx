@@ -192,7 +192,7 @@ CREATE TABLE ecommerce_store (
      *
      */
     
-    function getFilteredStoreList($taxonomy_id = false, $keyword = false, $order_by = false, $order_dir = false, $per_page = 25, $from = 0)
+    function getFilteredStoreList($taxonomy_id = false, $keyword = false, $type_id = 0, $order_by = false, $order_dir = false, $per_page = 25, $from = 0)
     {
 
     	$keyword = pg_escape_string(trim($keyword));
@@ -203,6 +203,8 @@ CREATE TABLE ecommerce_store (
     	if (is_numeric($keyword)) $where .= " AND ecommerce_store.id = {$keyword}";
     	else if ($keyword != '') $where .= " AND (ecommerce_store.title ILIKE '%{$keyword}%' OR ecommerce_store.description ILIKE '%{$keyword}%' OR ecommerce_store.address ILIKE '%{$keyword}%')";
 
+    	//type
+    	if (is_numeric($type_id) && $type_id > 0) $where .= " AND ecommerce_store.type_id = $type_id";
     	//taxonomy
     	if ($taxonomy_id > 0) $where .= " AND ecommerce_store.id IN (SELECT node_id FROM ecommerce_store_taxonomy WHERE taxonomy_tree_id = $taxonomy_id)";
 

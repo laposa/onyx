@@ -60,6 +60,20 @@ $(document).ready(function(){
 						<span class="label"><label for="store-publish">Publish</label></span>
 						<span class="field"><input type="checkbox" id="store-publish" name="store[publish]" value="1" {STORE.publish} /></span>
 					</div>
+
+					<!-- BEGIN: type -->
+					<div class="row type">
+						<span class="label"><label>Type</label></span>
+						<span class="field">
+							<select id="store-type_id" name="store[type_id]">
+								<!-- BEGIN: item -->
+								<option value="{ITEM.id}" {ITEM.selected}>{ITEM.title|htmlspecialchars}</option>
+								<!-- END: item -->
+							</select>
+						</span>
+					</div>
+					<!-- END: type -->
+
 					{ONXSHOP_REQUEST_rt #bo/component/relation_taxonomy~relation=store:id=GET.id~}
 	
 					{ONXSHOP_REQUEST_store_in_node #bo/component/ecommerce/store_in_node~store_id=GET.id~}

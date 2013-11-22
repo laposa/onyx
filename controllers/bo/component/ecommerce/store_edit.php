@@ -4,6 +4,8 @@
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
+require_once('models/ecommerce/ecommerce_store_type.php');
+
 class Onxshop_Controller_Bo_Component_Ecommerce_Store_Edit extends Onxshop_Controller {
 
 	/**
@@ -64,7 +66,23 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Store_Edit extends Onxshop_Contr
 		$this->tpl->assign('STORE', $store);
 		$this->tpl->assign('STREET_VIEW_IMAGE_' . ((int) $store['street_view_options']['image']), 'checked="checked"');
 
+		$this->parseTypeSelect($store['type_id']);
+
 		return true;
 	}
+
+	protected function parseTypeSelect($selected_id)
+	{
+		$Type = new ecommerce_store_type();
+		$records = $Type->listing();
+
+		foreach ($records as $item) {
+			if ($item['id'] == $selected_id) $item['selected'] = 'selected="selected"';
+			$this->tpl->assign("ITEM", $item);
+			$this->tpl->parse("content.type.item");
+		}
+		$this->tpl->parse("content.type");
+	}
+
 }	
 			
