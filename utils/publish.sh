@@ -1,8 +1,13 @@
 #!/bin/sh
+# Norbert Laposa, 2006, 2010, 2011, 2013
+# 
 # this script prepares production version of Onxshop
-# 1. all CSS in one file
-# 2. default  link in project_skeleton/onxshop_dir symlink to /opt/onxshop-latest
-# Norbert Laposa, 2006, 2010, 2011
+#
+# 1. cleanup
+# 2. all CSS in one file
+# 3. all js in one file
+# 4. change symlink in project_skeleton/
+# 
 
 DEVELOPMENT_VERSION="/opt/onxshop/dev/";
 
@@ -14,6 +19,7 @@ echo "------------------------------------------------";
 echo "PUBLISHING $DEVELOPMENT_VERSION TO $FULL_PATH";
 echo "------------------------------------------------";
 
+# 1. cleanup
 rsync --recursive --times --cvs-exclude --delete-after --links --safe-links --compress --progress --whole-file --checksum ${1}\
 	--exclude '._*' \
 	--exclude '.*.swp' \
@@ -28,7 +34,7 @@ rsync --recursive --times --cvs-exclude --delete-after --links --safe-links --co
 	${DEVELOPMENT_VERSION}* \
 	$FULL_PATH
 
-
+# 2. all CSS in one file
 SCREEN_CSS="${FULL_PATH}/share/css/default/screen.css";
 echo "------------------------------------------------";
 echo "COMPILING ${SCREEN_CSS}";
@@ -38,6 +44,14 @@ cat ${FULL_PATH}/share/css/default/src/layout.css >> ${SCREEN_CSS};
 cat ${FULL_PATH}/share/css/default/src/onxshop.css >> ${SCREEN_CSS};
 cat ${FULL_PATH}/share/css/default/src/onxshop_ecommerce.css >> ${SCREEN_CSS};
 
+# 3. all JS in one file
+echo "------------------------------------------------";
+echo "COMPILING share/js/compiled.js";
+echo "------------------------------------------------";
+
+cd $DEVELOPMENT_VERSION && utils/compile_js_common.sh 
+
+# 4. change symlink
 #echo "------------------------------------------------";
 #echo "CREATING onxshop_dir SYMLINK IN PROJECT SKELETON";
 #echo "------------------------------------------------";
