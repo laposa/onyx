@@ -118,7 +118,7 @@ class ecommerce_basket extends Onxshop_Model {
 				$node = $Product->findProductInNode($item['product']['id']);
 				$item['product']['variety'] = $variety;
 				$item['product']['node'] = $node[0];
-				$item['other_data'] = unserialize($data['other_data']);
+				$item['other_data'] = unserialize($item['other_data']);
 
 			}
 
