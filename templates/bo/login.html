@@ -13,6 +13,7 @@ div.backoffice_login #login a,
 div.backoffice_login #registration a {color: white; text-decoration: none;}
 div.backoffice_login #login form a,
 div.backoffice_login #registration form a {color: black; text-decoration: underline;}
+div.backoffice_login #forgot form {display: none;}
 div.backoffice_login div.backoffice_login_wrapper {display: table-cell; vertical-align: middle; }
 div.backoffice_login #registration {display: none;}
 div.backoffice_login div.autologin span.label {float: left;}
@@ -73,6 +74,10 @@ $(document).ready(function(){
 			<div id="login">
 				{ONXSHOP_REQUEST_login #component/client/login}
 				<p><a href="#registration" onclick="$('#registration, #login').slideToggle();">Create new account ▶</a></p>
+				<p><a href="#forgot" onclick="$('#forgot form').slideToggle();">Forgot your password?</a></p>
+				<div id="forgot">	
+					{ONXSHOP_REQUEST_forgot #component/client/password_reset}
+				</div>
 			</div>
 			<div id="registration">
 				<p><a href="#login" onclick="$('#registration, #login').slideToggle();">◀ Back to login</a></p>
