@@ -120,6 +120,7 @@ define('I18N_DELIVERY', 'Poštovné a balné');
 define('I18N_YOUR_BASKET_IS_EMPTY', 'Váš košík je prázdný.');
 define('I18N_DISCOUNT', 'Sleva');
 define('I18N_DISCOUNT_OF', '');
+define('I18N_AFTER_DISCOUNT', 'Celkem po slevě');
 //component/ecommerce/promotion_code_basket.html
 define('I18N_PROMOTION_CODE_REMOVE', 'Odstranit kód');
 define('I18N_PROMOTION_CODE_HAVE_CODE', 'Máte slevový kód? Vložte zde');

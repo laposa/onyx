@@ -120,6 +120,7 @@ define('I18N_DELIVERY', 'Delivery');
 define('I18N_YOUR_BASKET_IS_EMPTY', 'Your basket is empty.');
 define('I18N_DISCOUNT', 'Discount');
 define('I18N_DISCOUNT_OF', 'of');
+define('I18N_AFTER_DISCOUNT', 'After Discount');
 //component/ecommerce/promotion_code_basket.html
 define('I18N_PROMOTION_CODE_REMOVE', 'Remove Code');
 define('I18N_PROMOTION_CODE_HAVE_CODE', 'Have a promotion code? Enter it here');
