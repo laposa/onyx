@@ -32,7 +32,7 @@ ONXSHOP_PROJECT_DIR/conf/deployment.sh
 Database
 --------
 
-Schema is in ONXSHOP_DIR/docs/database/Xsite.pdf
+Schema is in ONXSHOP_DIR/docs/database/Onxshop.pdf
 
 PhpPgAdmin is installed on:
 https://www.domainname.com/opt/phppgadmin/

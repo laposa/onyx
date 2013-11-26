@@ -9,7 +9,7 @@ Typical web project files (project_skeleton)
 * conf/
 * controllers/
 * models/
-* onxshop_dir -> /opt/onxshop/1.5
+* onxshop_dir -> /opt/onxshop/1.6
 * public_html/
 * templates/
 * var/
@@ -17,13 +17,13 @@ Typical web project files (project_skeleton)
 Download & Install Onxshop
 ==========================
 
-Via Debian APT repository (Debian Squeeze and Ubuntu Lucid)
+Via Debian APT repository
 
 ### 1. Install Onxshop archive public key
 `$ wget -O - https://onxshop.com/debian/conf/signing_key.pub | apt-key add -`
 
 ### 2. Create APT source record
-`$ echo "deb http://onxshop.com/debian/ squeeze main" > /etc/apt/sources.list.d/onxshop.list`
+`$ echo "deb http://onxshop.com/debian/ wheezy main" > /etc/apt/sources.list.d/onxshop.list`
 
 ### 3. Install Onxshop
 `$ export LANG=en_GB.UTF-8 && aptitude update && aptitude install onxshop`

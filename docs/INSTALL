@@ -2,7 +2,7 @@
 P002 Preparing server environment
 ==================================
 
-Requires a standard Debian Squeeze installation with all default options.
+Requires a standard Debian Wheezy installation with all default options.
 
 1. install packages 
 
@@ -83,8 +83,6 @@ vi /etc/apache2/mods-available/deflate.conf
 
 vi /etc/apache2/conf.d/onxshop
 
-UseCanonicalName Off
-LogFormat "%V %h %l %u %t \"%r\" %>s %b \"%{Referer}i\" \"%{User-Agent}i\"" onxshop
 <Directory "/srv/*">
     AllowOverride All
 </Directory>
@@ -117,7 +115,7 @@ vi /etc/logrotate.d/onxshop
 
 7. Postgresql config
 
-vi /etc/postgresql/8.4/main/postgresql.conf 
+vi /etc/postgresql/9.1/main/postgresql.conf 
 # - Connection Settings -
 listen_addresses = '*'
 
@@ -181,10 +179,10 @@ mv project_skeleton [NEWPROJECT]
 cd [NEWPROJECT]
 chmod a+rwx -R var
 #create symlink to shared onxshop_dir folder
-ln -s /opt/onxshop-1.5.0 onxshop_dir;
+ln -s /opt/onxshop-1.6.0 onxshop_dir;
 
 # optionally copy the source code directly under the project folder
-# rm onxshop_dir; cp -a /opt/onxshop-1.5.0 onxshop_dir;
+# rm onxshop_dir; cp -a /opt/onxshop-1.6.0 onxshop_dir;
 
 3. configure vhost [NEWPROJECT]
 
@@ -194,7 +192,6 @@ sudo vi /etc/apache2/sites-available/[NEWPROJECT]
 <VirtualHost *:80>
     ServerName [NEWPROJECT]
     ServerAlias www.[NEWPROJECT]
-    DocumentRoot /srv/[NEWPROJECT]
     VirtualDocumentRoot /srv/[NEWPROJECT]/public_html
 </VirtualHost>
 
@@ -217,12 +214,12 @@ exit
 Please keep NEWUSER same as NEWPROJECT when possible.
 3. create new database under newly created db user
 
-createdb -U [NEWUSER] -h localhost -E UTF8 [NEWPROJECT]-1_5
+createdb -U [NEWUSER] -h localhost -E UTF8 [NEWPROJECT]-1_6
 
 4. populate database with project template
 
 cd /srv/[NEWPROJECT]
-psql -U [NEWUSER] -h localhost [NEWPROJECT]-1_5 < onxshop_dir/docs/database/template_en.sql
+psql -U [NEWUSER] -h localhost [NEWPROJECT]-1_6 < onxshop_dir/docs/database/template_en.sql
 5. modify deployment.php
 
 vi conf/deployment.php
@@ -236,7 +233,7 @@ define('ONXSHOP_DB_USER', '[NEWUSER]');
 define('ONXSHOP_DB_PASSWORD', ''[NEWPASSWORD);
 define('ONXSHOP_DB_HOST', 'localhost');
 define('ONXSHOP_DB_PORT', 5432);
-define('ONXSHOP_DB_NAME', '[NEWPROJECT]-1_5');
+define('ONXSHOP_DB_NAME', '[NEWPROJECT]-1_6');
 
 6. test 
 

@@ -1,4 +1,26 @@
-Onxshop (1.5.5/dev)
+Onxshop (1.6.0)
+
+  * Multi-file drag&drop upload to media library
+  * Recursive content duplication
+  * Scheduler (publish and un-publish content on specific date)
+  * Social login (Facebook, Twitter)
+  * Customisable social share component (using API)
+  * Implemented OpenGraph
+  * Enhanced Surveys (image poll, front-end options)
+  * Responsive template
+  * Store database
+  * Recipe database
+  * New gallery types
+  * Image cropping option
+  * Support for roundels in product listing and detail
+  * Internal search engine optimization
+  * Underlaying libraries update to latest version
+  * Many bug fixes and improvements
+  * Many UI improvements
+
+ -- Norbert Laposa <norbert@laposa.co.uk>  2013-11-23
+
+Onxshop (1.5.5)
 
   * New release
 

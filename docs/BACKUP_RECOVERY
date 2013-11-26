@@ -20,9 +20,9 @@ vi conf/deployment.php
 - customize SSL setting
 
 4. create database and import structure and data
-createdb -U [USERNAME] -h localhost -E UTF8 [DATABASE_NAME]-1_5
+createdb -U [USERNAME] -h localhost -E UTF8 [DATABASE_NAME]-1_6
 gunzip var/backup/latest.sql.gz
-psql -U www -h localhost [DATABASE_NAME]-1_5 < var/backup/latest.sql
+psql -U www -h localhost [DATABASE_NAME]-1_6 < var/backup/latest.sql
 gzip var/backup/latest.sql
 
 5. set filesystem permissions
