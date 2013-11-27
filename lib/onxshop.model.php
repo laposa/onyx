@@ -309,7 +309,7 @@ class Onxshop_Model {
 		foreach ($this->_valid as $rec) {
 			if ($rec[1] == false) {
 				($this->_metaData[$rec[0]]['label'] == '') ? $label = $rec[0]: $label = $this->_metaData[$rec[0]]['label'];
-				msg("Invalid value for $label", 'error', 1);
+				msg(I18N_INVALID_VALUE_FOR . $label, 'error', 1);
 				$notvalid = 1;
 			}
 		}

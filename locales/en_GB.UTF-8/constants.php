@@ -4,6 +4,8 @@
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
  
+//lib/onxshop.model.php
+define('I18N_INVALID_VALUE_FOR', 'Invalid value for ');
 //node/page/news.html
 define('I18N_POSTED_ON', 'Posted on');
 define('I18N_BY', 'by');
