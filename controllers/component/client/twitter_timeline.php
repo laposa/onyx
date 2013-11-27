@@ -39,10 +39,33 @@ class Onxshop_Controller_Component_Client_Twitter_Timeline extends Onxshop_Contr
 		
 		if ($token) {
 			
-			$timeline = $this->twitterCallExtend('statuses', 'userTimeline', array("screen_name"   => $username));
+			/**
+			 * cache init
+			 */
 			
-			if (is_array($timeline)) {
+			require_once('Zend/Cache.php');
+			$frontendOptions = array('lifetime' => 60*5,'automatic_serialization' => true);
+			$backendOptions = array('cache_dir' => ONXSHOP_PROJECT_DIR . 'var/cache/');
+			$cache = Zend_Cache::factory('Core', 'File', $frontendOptions, $backendOptions);
+			$cache_id = "twitter_statuses_userTimeline_$username";
+			
+			if (!is_array($cached_data = $cache->load($cache_id))) {
 				
+				$timeline = $this->twitterCallExtend('statuses', 'userTimeline', array("screen_name"   => $username));
+				$cache->save($timeline);
+				
+			} else {
+				
+				$timeline = $cached_data;
+				
+			}
+			
+			/**
+			 * we should have timeline feed at this stage
+			 */
+			 
+			if (is_array($timeline)) {
+			
 				$index = 0;
 				
 				foreach ($timeline as $k=>$item) {
