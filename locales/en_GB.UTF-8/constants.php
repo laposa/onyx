@@ -5,7 +5,10 @@
  */
  
 //lib/onxshop.model.php
-define('I18N_INVALID_VALUE_FOR', 'Invalid value for ');
+define('I18N_ERROR_INVALID_VALUE_FOR', 'Invalid value for ');
+define('I18N_ERROR_INVALID_PRODUCT_CODE', 'Invalid Product Code!');
+define('I18N_ERROR_WRONG_URL', 'Wrong URL!');
+define('I18N_ERROR_ENTER_VALID_EMAIL', 'Please enter a valid email address');
 //node/page/news.html
 define('I18N_POSTED_ON', 'Posted on');
 define('I18N_BY', 'by');

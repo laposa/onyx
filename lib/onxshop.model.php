@@ -254,7 +254,7 @@ class Onxshop_Model {
 					$this->setValid($attribute, true);
 					return true;
 				} else {
-					msg("Please enter a valid Email address", 'error');
+					msg(I18N_ERROR_ENTER_VALID_EMAIL, 'error');
 					$this->setValid($attribute, false);
 					return false;
 				}
@@ -265,7 +265,7 @@ class Onxshop_Model {
 					$this->setValid($attribute, true);
 					return true;
 				} else {
-					msg("Wrong URL!", "error", 2);
+					msg(I18N_ERROR_WRONG_URL, "error", 2);
 					$this->setValid($attribute, false);
 					return false;
 				}
@@ -282,7 +282,7 @@ class Onxshop_Model {
                     $this->setValid($attribute, true);
                     return true;
                 } else {
-                    msg("Invalid Product Code!", 'error', 2);
+                    msg(I18N_ERROR_INVALID_PRODUCT_CODE, 'error', 2);
                     $this->setValid($attribute, false);
                     return false;
                 }
@@ -309,7 +309,7 @@ class Onxshop_Model {
 		foreach ($this->_valid as $rec) {
 			if ($rec[1] == false) {
 				($this->_metaData[$rec[0]]['label'] == '') ? $label = $rec[0]: $label = $this->_metaData[$rec[0]]['label'];
-				msg(I18N_INVALID_VALUE_FOR . $label, 'error', 1);
+				msg(I18N_ERROR_INVALID_VALUE_FOR . $label, 'error', 1);
 				$notvalid = 1;
 			}
 		}

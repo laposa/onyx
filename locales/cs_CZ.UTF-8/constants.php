@@ -5,7 +5,10 @@
  */
  
 //lib/onxshop.model.php
-define('I18N_INVALID_VALUE_FOR', 'Nesprávná hodnota pro ');
+define('I18N_ERROR_INVALID_VALUE_FOR', 'Nesprávná hodnota pro ');
+define('I18N_ERROR_INVALID_PRODUCT_CODE', 'Neplatný kód produktu!');
+define('I18N_ERROR_WRONG_URL', 'Neplatné URL!');
+define('I18N_ERROR_ENTER_VALID_EMAIL', 'Neplatná emailová adresa');
 //node/page/news.html
 define('I18N_POSTED_ON', 'Zasláno');
 define('I18N_BY', 'od');
