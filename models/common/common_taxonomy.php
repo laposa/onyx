@@ -50,10 +50,10 @@ class common_taxonomy {
 	 * label detail
 	 */
 	
-	function labelDetail($id) {
+	function labelDetail($id, $image_role = false) {
 		
 		$label_data = $this->TaxonomyLabel->detail($id);
-		$label_data['image'] = $this->getLabelImages($label_data['id']);
+		$label_data['image'] = $this->getLabelImages($label_data['id'], $image_role);
 		
 		return $label_data;
 	}
@@ -151,7 +151,7 @@ class common_taxonomy {
 	 * get children
 	 */
 	
-	function getChildren($parent_id, $sort = 'priority DESC, id ASC', $published_only = false) {
+	function getChildren($parent_id, $sort = 'priority DESC, id ASC', $published_only = false, $image_role = false) {
 		
 		if (!is_numeric($parent_id)) return false;
 		
@@ -162,7 +162,7 @@ class common_taxonomy {
 		
 		foreach ($list as $k=>$item) {
 
-			$item['label'] = $this->labelDetail($item['label_id']);
+			$item['label'] = $this->labelDetail($item['label_id'], $image_role);
 			
 			if ($published_only && $item['label']['publish'] == 1) $list_filtered[] = $item;
 			else if ($published_only == false) $list_filtered[] = $item;
