@@ -1,16 +1,19 @@
 <!-- BEGIN: title -->site/default<!-- END: title -->
 <!-- BEGIN: content -->
-{FILE "bo/node/default_top.html"}
-{ONXSHOP_REQUEST_delete #bo/component/node_delete~id=GET.id:delete=GET.delete~}
+{FILE "bo/node/form_open.html"}
 
-<fieldset>
-	<legend>Basic Info</legend>
-	<div class="row" style="float: right;">
-		<a href='/backoffice/pages/{NODE.id}' onclick="openAjaxRequestInDialog('/ajax/add/page/{NODE.id}', 'Add a new page');return false" title="Add page"><img src="/share/images/famfamfam_icons/page_add.png" alt="Add page"/></a>
-	</div>
-</fieldset>
+<div id="onxshop_basicinfo" class="ui-tabs-panel">
+	{FILE "bo/node/item_content_list.html"}
+</div>
+		
+<div id="onxshop_minor" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+	
+</div>
 
-{ONXSHOP_REQUEST_conf #bo/component/configuration~node_id=GET.id~}
+<div id="onxshop_advanced" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+	{FILE "bo/node/item_advanced.html"}
+	{FILE "bo/node/item_signature.html"}
+</div>
 
-{FILE "bo/node/default_bottom.html"}
+{FILE "bo/node/form_close.html"}
 <!-- END: content -->
