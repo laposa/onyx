@@ -154,7 +154,11 @@ CREATE TABLE common_session (
 	 */
 	
 	function read( $session_id ) {
-	
+
+		$session_id = strtr($session_id, "./", "--");  // security measure
+		$this->lock = fopen(ONXSHOP_PROJECT_DIR . "/var/sessions/$session_id.lock", 'w');
+		flock($this->lock, LOCK_EX);
+
 		$this->setCacheable(false);
     
         $fieldarray = $this->listing("session_id='$session_id'");
@@ -248,6 +252,8 @@ CREATE TABLE common_session (
 
         }
 
+		flock($this->lock, LOCK_UN);
+
         return true;
 
 	}
@@ -306,6 +312,12 @@ CREATE TABLE common_session (
         foreach ($expired as $e) {
         	$Archive->insertSession($e);
         }
+
+        // delete locks older 2 hours
+		$files = @glob(ONXSHOP_PROJECT_DIR . "/var/sessions/*.lock");
+		foreach($files as $file) {
+			if (is_file($file) && time() - filemtime($file) >= 2 * 60 * 60) @unlink($file);
+		}
         
         //delete them from common_session table
 		$q = "DELETE FROM common_session WHERE modified < '$dt2'";
