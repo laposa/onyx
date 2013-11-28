@@ -186,6 +186,20 @@ class Onxshop_Controller_Bo_Component_Server_Browser_File_List extends Onxshop_C
 		$this->tpl->assign('MAX_FILE_SIZE', round($this->convertBytes(ini_get('upload_max_filesize')) / 1048576));
 		$this->tpl->assign('MAX_FILES', ini_get('max_file_uploads'));
 		
+		/**
+		 * allow to upload only in non-root folder
+		 */
+		
+		if ($relative_folder_path || ONXSHOP_MEDIA_LIBRARY_ROOT_UPLOAD) {
+			
+			$this->tpl->parse('content.add_new.upload_file');
+			
+		} else {
+			
+			$this->tpl->parse('content.add_new.upload_instruction');
+			
+		}
+		
 		//hide upload when overwrite?
 		if ($overwrite_show == 0) {
 			$this->tpl->parse("content.add_new");

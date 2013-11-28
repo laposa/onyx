@@ -254,6 +254,12 @@ if (!defined('ONXSHOP_RECAPTCHA_PRIVATE_KEY')) define('ONXSHOP_RECAPTCHA_PRIVATE
 if (!defined('ONXSHOP_BACKOFFICE_REQUIRE_CUSTOMER_LOGIN')) define('ONXSHOP_BACKOFFICE_REQUIRE_CUSTOMER_LOGIN', true);
 
 /**
+ * allow to upload files to root folder in media library?
+ */
+
+if (!defined('ONXSHOP_MEDIA_LIBRARY_ROOT_UPLOAD')) define('ONXSHOP_MEDIA_LIBRARY_ROOT_UPLOAD', true);
+
+/**
  * mark object as invalid when using null on required attributes?
  */
 
