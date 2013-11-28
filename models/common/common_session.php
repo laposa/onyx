@@ -253,6 +253,7 @@ CREATE TABLE common_session (
         }
 
 		flock($this->lock, LOCK_UN);
+		fclose($this->lock);
 
         return true;
 
