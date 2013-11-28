@@ -20,7 +20,7 @@
 		</p>
 		<!-- BEGIN: image_zoom -->
 		<div class="image_zoom">
-				Zoom: <span id="imageSizeDisplay_{FILE.id}">125px</span>, Original: <a href="#" onclick="$('#image_thumbnail_{FILE.id}').attr('src', '/image/{FILE.src}'); $('#imageSizeDisplay_{FILE.id}').html('{FILE.imagesize.width}px'); return false;"><span>{FILE.imagesize.width}px</span></a>
+				Zoom: <span id="imageSizeDisplay_{FILE.id}">125px</span>, Original: <a href="#" onclick="$('#image_thumbnail_{FILE.id}').attr('src', '/image/{FILE.src}'); $('#imageSizeDisplay_{FILE.id},#imageSizeUseButton_{FILE.id} span.units').html('{FILE.imagesize.width}px'); return false;"><span>{FILE.imagesize.width}px</span></a>
 				<div style="margin: 10px 0; width: 90%" id="slider_{FILE.id}"></div>
 			
 				<script type="text/javascript">
@@ -31,7 +31,7 @@
 						max: {IMAGE_CONF.thumbnail_width_max},
 						step: {IMAGE_CONF.thumbnail_step},
 						change: function(event, ui) { $('#image_thumbnail_{FILE.id}').attr('src', '/thumbnail/'+ ui.value +'/{FILE.src}');},
-						slide : function(event, ui) { $('#imageSizeDisplay_{FILE.id}').html(ui.value + 'px'); }
+						slide : function(event, ui) { $('#imageSizeDisplay_{FILE.id},#imageSizeUseButton_{FILE.id} span.units').html(ui.value + 'px'); }
 					});
 				});
 				</script>
@@ -70,7 +70,7 @@
 				
 				<a href="#" onclick="chooseImage($('#image_thumbnail_{FILE.id}').attr('src') , $('#image_thumbnail_{FILE.id}').attr('title')); return false;"><img id="image_thumbnail_{FILE.id}" src="/thumbnail/125/{FILE.src}" title="{FILE.title}"  alt="{FILE.title}" /></a> <br />
 				
-				<a class="button" href="#" onclick="chooseImage($('#image_thumbnail_{FILE.id}').attr('src') , $('#image_thumbnail_{FILE.id}').attr('title')); return false;"><span>use this ...</span></a>
+				<a class="button" id="imageSizeUseButton_{FILE.id}" href="#" onclick="chooseImage($('#image_thumbnail_{FILE.id}').attr('src') , $('#image_thumbnail_{FILE.id}').attr('title')); return false;"><span>use this (</span><span class="units">125px</span>)</a>
 			<!-- END: RTE_select -->
 			
 			<!-- BEGIN: CSS_select -->
