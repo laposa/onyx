@@ -4,7 +4,7 @@
 <script type="text/javascript">
 $(function() {
 
-	$('#child_list_{GET.id} a.onxshop_new_content').live('click', function() {
+	$('#child_list_{GET.id} a.onxshop_new_content, #button_add_subpage').live('click', function() {
 	
 		var node_id = $(this).attr('data-node_id');
 		var container_id = 0;
@@ -32,7 +32,7 @@ $(function() {
 	$('#child_list_{GET.id} a.onxshop_delete').live('click', function() {
 		var child_id = $(this).attr('href').replace('#','');;
 		$('#dialog').addClass('ajaxLoad').load('/request/bo/component/node_delete~id='+child_id+':delete=1~', function() {$(this).removeClass('ajaxLoad');});
-		$('#dialog').dialog({width: 500, modal: true, overlay: {opacity: 0.5, background: 'black'}});
+		$('#dialog').dialog({width: 500, modal: true, overlay: {opacity: 0.5, background: 'black'}, beforeClose: function( event, ui ) {refreshList()}});
 		$('#dialog').dialog('open');
 		return false;
 	});
@@ -50,6 +50,7 @@ $(function() {
 function refreshList() {
 	var refresh_url = '/request/bo/component/node_list~id={GET.id}:node_group={NODE_GROUP}~';
 	$('#child_list_{GET.id}').parent().load(refresh_url);
+	$('#pages_node_menu').load('/request/bo/component/node_menu~id=0:open=0:expand_all=1:publish=0~', function() {initialiseMenuPagesTree()});
 }
 
 </script>

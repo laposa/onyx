@@ -29,6 +29,8 @@ class Onxshop_Controller_Bo_Pages_Pages extends Onxshop_Controller {
 			$content_id = 0;
 		}
 		
+		$this->tpl->assign('NODE_ID', $content_id);
+		
 		$_Onxshop_Request = new Onxshop_Request("bo/component/node_edit~id=$content_id~");
 		$node_detail = $_Onxshop_Request->getContent();
 		$this->tpl->assign("NODE_EDIT", $node_detail);
