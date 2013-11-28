@@ -33,12 +33,13 @@ class Onxshop_Controller_Node_Content_Contact_Form extends Onxshop_Controller_No
 		$Form = new Onxshop_Request("component/contact_form@component/_contact_form/{$node_data['component']['node_controller']}&amp;node_id={$node_data['id']}&amp;mail_to={$node_data['component']['mail_to']}&amp;mail_toname={$node_data['component']['mail_toname']}&amp;spam_protection={$node_data['component']['spam_protection']}");
 		$this->tpl->assign("FORM", $Form->getContent());
 		
-		if (Zend_Registry::isRegistered('notify')) {
-			if (Zend_Registry::get('notify') == 'sent') {
+		$reg_key = "form_notify_" . $node_data['id'];
+		if (Zend_Registry::isRegistered($reg_key)) {
+			if (Zend_Registry::get($reg_key) == 'sent') {
 				//forward
 				msg($node_data['component']['text'], 'ok');
 				if ($node_data['component']['href'] != '') onxshopGoTo($node_data['component']['href']);
-			} else if (Zend_Registry::get('notify')  == 'failed') {
+			} else if (Zend_Registry::get($reg_key)  == 'failed') {
 				msg($node_data['component']['sending_failed'], 'error');
 				$this->tpl->parse('content.form');
 			} else {

@@ -17,7 +17,7 @@ class Onxshop_Controller_Component_Contact_Form extends Onxshop_Controller {
 			strpos($this->tpl->filecontents, 'formdata-captcha_') !== FALSE);
 
 		$this->preProcessEmailForm();
-		
+
 		if (isset($_POST['send']) && $_POST['node_id'] == $this->GET['node_id']) {
 			
 			$this->processEmailForm($_POST['formdata']);
@@ -72,6 +72,9 @@ class Onxshop_Controller_Component_Contact_Form extends Onxshop_Controller {
 		    
 			$content = $EmailForm->exploreFormData($formdata);
 
+			$node_id = (int) $this->GET['node_id'];
+			$reg_key = "form_notify_" . $node_id;
+
 			if ($this->GET['mail_to'] == '') {
 				$mail_to = $EmailForm->conf['mail_recipient_address'];
 				$mail_toname = $EmailForm->conf['mail_recipient_name'];
@@ -81,16 +84,15 @@ class Onxshop_Controller_Component_Contact_Form extends Onxshop_Controller {
 			}
 
 			if ($this->enableCaptcha) {
-				$node_id = (int) $this->GET['node_id'];
 				$word = strtolower($_SESSION['captcha'][$node_id]);
 				$isCaptchaValid = strlen($formdata['captcha']) > 0 &&  $formdata['captcha'] == $word;
 				$EmailForm->setValid("captcha", $isCaptchaValid);
 			}
 
 			if ($EmailForm->sendEmail('contact_form', $content, $mail_to, $mail_toname, $formdata['required_email'], $formdata['required_name'])) {
-				Zend_Registry::set('notify', 'sent');
+				Zend_Registry::set($reg_key, 'sent');
 			} else {
-				Zend_Registry::set('notify', 'failed');
+				Zend_Registry::set($reg_key, 'failed');
 				$this->tpl->assign('FORMDATA', $formdata);
 			}
 
