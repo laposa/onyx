@@ -7,10 +7,17 @@
 <!-- BEGIN: content -->
 <script type="text/javascript">
 $(function(){
+
+	function extract_price(name) {
+		var price = name.match(/£?\d+/);
+		if (price && price.length > 0 && price[0].length > 0) return price[0];
+		return name;
+	}
+
 	$("#gift_voucher_specify").validate();
 	$("#gift_voucher_specify-variety_id").change(function() {
 		var variety_name = $("#gift_voucher_specify-variety_id option:selected").text();
-		if ($(this).val() != '') $("#gift_voucher-variety_name").text(variety_name);
+		if ($(this).val() != '') $("#gift_voucher-variety_name").text(extract_price(variety_name));
 		else $("#gift_voucher-variety_name").text("£…");
 		var variety_description = $("#gift_voucher_specify-variety_id option:selected").attr('title');
 		$("#gift_voucher-variety_description").text(variety_description);
