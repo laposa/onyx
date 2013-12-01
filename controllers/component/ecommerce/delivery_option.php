@@ -32,8 +32,6 @@ class Onxshop_Controller_Component_Ecommerce_Delivery_Option extends Onxshop_Con
 
 		if (count($carrier_list) > 0) {
 
-			$options = $this->checkSelected($carrier_list, $options);
-
 			foreach ($carrier_list as $i => $item) {
 				
 				if ($options['carrier_id']) {
@@ -97,19 +95,19 @@ class Onxshop_Controller_Component_Ecommerce_Delivery_Option extends Onxshop_Con
 		foreach ($carrier_list as $carrier) {
 
 			// is carrier available for given basket (e.g. order value and weight) ?
-			$delivery = $this->Delivery->calculateDelivery($basket, $carrier['id'], $delivery_address_id, $promotion_detail);
+			$rate = $this->Delivery->calculateDelivery($basket, $carrier['id'], $delivery_address_id, $promotion_detail);
 
-			if ($delivery === false) continue;
+			if ($rate) {
 
-			$carrier['calculated_delivery'] = $delivery['value'];
-			$result[] = $carrier;
+				$carrier['calculated_delivery'] = $rate;
+				$result[] = $carrier;
+				if ($delivery_options['carrier_id'] == $carrier['id']) $selected = true;
 
-			if ($delivery_options['carrier_id'] == $carrier['id']) $selected = true;
-
-			// save the cheapest delivery
-			if ($delivery['value'] < $cheapest_carrier_price) {
-				$cheapest_carrier_price = $delivery['value'];
-				$cheapest_carrier_id = $carrier['id'];
+				// save the cheapest delivery
+				if ($rate['value'] < $cheapest_carrier_price) {
+					$cheapest_carrier_price = $rate['value'];
+					$cheapest_carrier_id = $carrier['id'];
+				}
 			}
 
 		}
@@ -118,30 +116,6 @@ class Onxshop_Controller_Component_Ecommerce_Delivery_Option extends Onxshop_Con
 		if (!$selected) $delivery_options['carrier_id'] = $cheapest_carrier_id;
 
 		return $result;
-	}
-
-	protected function checkSelected(&$carrier_list, $delivery_options)
-	{
-		$selected = false;
-		$cheapest_carrier_price = 99999;
-		$cheapest_carrier_id = null;
-
-		foreach ($carrier_list as $carrier) {
-
-			if ($delivery_options['carrier_id'] == $carrier['id']) $selected = true;
-
-			// save the cheapest delivery
-			if ($carrier['calculated_delivery']['value'] < $cheapest_carrier_price) {
-				$cheapest_carrier_price = $carrier['calculated_delivery']['value'];
-				$cheapest_carrier_id = $carrier['id'];
-			}
-
-		}
-
-		// if no option is selected, auto select the cheapest one
-		if (!$selected) $delivery_options['carrier_id'] = $cheapest_carrier_id;
-
-		return $delivery_options;
 	}
 
 }
