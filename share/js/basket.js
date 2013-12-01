@@ -16,6 +16,8 @@ function addToBasketAjaxAction(variety_id) {
 	
 	$("#basket #basketWrapper").load('/request/component/ecommerce/basket', {'add': variety_id, 'quantity': 1}, function (responseText, textStatus, XMLHttpRequest) {
 		popupMessage("#basket #basketWrapper div.onxshop_messages");
+        // update basket_edit component if present
+        if ($('.basket_edit').length > 0) $('.basket_edit').load(window.location + ' .basket_edit');
 	});
 	
 }
@@ -24,6 +26,8 @@ function removeFromBasketAjaxAction(item_id) {
 
 	$("#basket #basketWrapper").load('/request/component/ecommerce/basket', {'remove': item_id, 'quantity': 1}, function (responseText, textStatus, XMLHttpRequest) {
 		popupMessage("#basket #basketWrapper div.onxshop_messages");
+        // update basket_edit component if present
+        if ($('.basket_edit').length > 0) $('.basket_edit').load(window.location + ' .basket_edit');
 	});
 	
 }
@@ -32,6 +36,8 @@ function removeFromBasketVarietyAjaxAction(variety_id) {
 
 	$("#basket #basketWrapper").load('/request/component/ecommerce/basket', {'remove_variety_id': variety_id, 'quantity': 1}, function (responseText, textStatus, XMLHttpRequest) {
 		popupMessage("#basket #basketWrapper div.onxshop_messages");
+        // update basket_edit component if present
+        if ($('.basket_edit').length > 0) $('.basket_edit').load(window.location + ' .basket_edit');
 	});
 	
 }
@@ -48,9 +54,8 @@ function addToBasketAjaxActionFromVarietyList(variety_id, quantity) {
         $("#basket").removeClass('loading');
         $('a.add_to_basket' + '.variety_id_' + variety_id).removeClass('loading').addClass('added');
 
-        if ($('.basket_edit').length > 0) {
-        	$('.basket_edit').load(window.location + ' .basket_edit');
-        }
+        // update basket_edit component if present
+        if ($('.basket_edit').length > 0) $('.basket_edit').load(window.location + ' .basket_edit');
     });
     
 }
