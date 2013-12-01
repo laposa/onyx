@@ -2,7 +2,7 @@
 
 <script type="text/javascript">  
 $(document).ready(function(){
-	$("#address_edit").validate();
+	$("#address_edit_{GET.node_id}").validate();
 });  
 </script>
 <style type="text/css">
@@ -23,8 +23,10 @@ div.checkout_address a.open {background-image: url(/images/arrow-gold-down.gif);
 
 <div class="checkout_address">
 	
-	<form action="{URI_SAFE|htmlspecialchars}" method="post" id="address_edit" class="twoColumns">	
+	<form action="{URI_SAFE|htmlspecialchars}" method="post" id="address_edit_{GET.node_id}" class="twoColumns">	
 	
+	<input type="hidden" name="node_id" value="{GET.node_id}"/>
+
 	<div class="address_list">
 		<fieldset class="single">
 			<!--<legend>{I18N_ADDRESS_LIST}</legend>-->
@@ -38,9 +40,9 @@ div.checkout_address a.open {background-image: url(/images/arrow-gold-down.gif);
 		</fieldset>
 	</div>
 	
-	<p><a href="#address_add" onclick="$('#address_add').toggle(); $(this).toggleClass('open'); return false;" class="add_new"><span>add a new address</span></a></p>
+	<p><a href="#" onclick="$(this).parent().next().toggle(); $(this).toggleClass('open'); return false;" class="add_new"><span>add a new address</span></a></p>
 	
-	<div class="address_add" style="display: none;" id="address_add">
+	<div class="address_add" style="display: none;">
 		
 			<fieldset>
 				<!--<legend>{I18N_ADD_A_NEW_ADDRESS}</legend>-->

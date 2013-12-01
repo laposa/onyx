@@ -26,7 +26,7 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Address extends Onxshop_Co
 		 * add address
 		 */
 		 
-		if ($_POST['add_address']) {
+		if ($_POST['node_id'] == $this->GET['node_id'] && $_POST['add_address']) {
 		
 			$address_id = $this->addAddress();
 			
@@ -36,7 +36,7 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Address extends Onxshop_Co
 		 * select address
 		 */
 		
-		if (is_numeric($_POST['selected_address_id']) || is_numeric($address_id)) {
+		if ($_POST['node_id'] == $this->GET['node_id'] && (is_numeric($_POST['selected_address_id']) || is_numeric($address_id))) {
 			
 			if (!is_numeric($address_id)) $address_id =  $_POST['selected_address_id'];
 			
@@ -48,7 +48,7 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Address extends Onxshop_Co
 		 * remove address
 		 */
 		 
-		if (is_numeric($_POST['remove_address'])) {
+		if ($_POST['node_id'] == $this->GET['node_id'] && is_numeric($_POST['remove_address'])) {
 		
 			$this->removeAddress($_POST['remove_address']);
 			
