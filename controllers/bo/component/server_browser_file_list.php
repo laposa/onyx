@@ -2,7 +2,7 @@
 /**
  * Server filesystem browser
  *
- * Copyright (c) 2006-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2006-2013 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -117,26 +117,7 @@ class Onxshop_Controller_Bo_Component_Server_Browser_File_List extends Onxshop_C
 			}
 		}
 		
-		//if we use multifile upload -> first create normal array
-		/*
-		$normal_formated_files = array();
-		
-		foreach ($_FILES as $files) {
-			for ($i = 0; $i < count($files['name']); $i++) {
-				if ($file['error'][$i] == 0) {
-					$xfile = array();
-					$xfile['name'] =  $files['name'][$i];
-					$xfile['type'] =  $files['type'][$i];
-					$xfile['tmp_name'] =  $files['tmp_name'][$i];
-					$xfile['error'] =  $files['error'][$i];
-					$xfile['size'] =  $files['size'][$i];
-					
-					$normal_formated_files[] = $xfile;
-				}
-			}
-		}*/
-		
-		//otherwise, just just _FILES
+		//input
 		$normal_formated_files = $_FILES;
 		
 		foreach ($normal_formated_files as $file_item) {
