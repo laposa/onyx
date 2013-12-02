@@ -809,7 +809,6 @@ class ecommerce_order extends Onxshop_Model {
 	 */
 	function isVatEligible($delivery_address_id, $customer_id) {
 
-		require_once('models/ecommerce/ecommerce_price.php');
 		$order_conf = ecommerce_order::initConfiguration();
 
 		require_once('models/client/client_address.php');
@@ -819,6 +818,31 @@ class ecommerce_order extends Onxshop_Model {
 
 		return !$exclude_vat;
 	}
+
+
+	/**
+	 * Return true if delivery to given country is VAT eligible
+	 * 
+	 * @param  int    $country_id    Country Id to check EU status
+	 * @return boolean
+	 */
+	function isVatEligibleByCountry($country_id) {
+
+		$order_conf = ecommerce_order::initConfiguration();
+
+		$exclude_vat = false;
+
+		require_once('models/international/international_country.php');
+		if (is_numeric($country_id)) {
+			$Country = new international_country();
+			$country_data = $Country->detail($country_id);
+			$exclude_vat = $order_conf['non_eu_zero_vat'] && !$country_data['eu_status'];
+		}
+		
+		return !$exclude_vat;
+		
+	}
+
 
 	/**
 	 *

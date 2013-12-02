@@ -454,21 +454,15 @@ CREATE TABLE ecommerce_promotion (
 	}
 
 	/**
-	 * check if free delivery is available for promotion detail, carrier and address
+	 * check if free delivery is available for promotion detail, carrier and delivery country
 	 * @param  string  $code                Code to test
-	 * @param  int     $delivery_address_id Destination delivery address
+	 * @param  int     $country_id          Destination country id
 	 * @param  int     $carrier_id          Choosed carrier
 	 * @return boolean
 	 */
-	public function freeDeliveryAvailable($carrier_id, $delivery_address_id, $promotion_detail)
+	public function freeDeliveryAvailable($carrier_id, $country_id, $promotion_detail)
 	{
 		if ($promotion_detail['discount_free_delivery'] != 1) return false;
-
-		require_once('models/client/client_address.php');
-		$Address = new client_address();
-		
-		$address_detail = $Address->detail($delivery_address_id);
-		$country_id = (int) $address_detail['country_id'];
 
 		// delivery country restriction
 		if ($promotion_detail['limit_delivery_country_id'] > 0 && 

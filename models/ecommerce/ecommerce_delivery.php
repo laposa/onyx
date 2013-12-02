@@ -157,11 +157,30 @@ CREATE TABLE ecommerce_delivery (
 	/**
 	 * Calculate delivery rate for given carrier and basket content
 	 * 
-	 * @param  int    $carrier_id     Carrier Id
-	 * @param  Array  $basket         Basket content 
-	 * @return Array                  Delivery rate and VAT
+	 * @param  Array  $basket              Basket content 
+	 * @param  int    $carrier_id          Carrier id
+	 * @param  int    $delivery_address_id Delivery address id
+	 * @return Array                       Delivery rate and VAT
 	 */
 	function calculateDelivery($basket, $carrier_id, $delivery_address_id, $promotion_detail)
+	{
+		require_once('models/client/client_address.php');
+		$Address = new client_address();
+		$address_detail = $Address->detail($delivery_address_id);
+		$country_id = (int) $address_detail['country_id'];
+
+		return $this->countryDeliveryForCountry($basket, $carrier_id, $country_id, $promotion_detail);
+	}
+
+	/**
+	 * Calculate delivery rate for given carrier and basket content
+	 * 
+	 * @param  Array  $basket              Basket content 
+	 * @param  int    $carrier_id          Carrier id
+	 * @param  int    $country_id          Delivery Country id
+	 * @return Array                       Delivery rate and VAT
+	 */
+	function countryDeliveryForCountry($basket, $carrier_id, $country_id, $promotion_detail)
 	{
 		//if there is a product with vat rate > 0, add vat to the shipping
 		$add_vat = $this->findVATEligibility($basket);
@@ -187,7 +206,7 @@ CREATE TABLE ecommerce_delivery (
 		$Promotion = new ecommerce_promotion();
 		$Promotion->setCacheable(false);
 
-		if ($Promotion->freeDeliveryAvailable($carrier_id, $delivery_address_id, $promotion_detail)) 
+		if ($Promotion->freeDeliveryAvailable($carrier_id, $country_id, $promotion_detail)) 
 			return $this->getFreeDelivery($basket['total_weight_gross']);
 
 		return array(
@@ -197,6 +216,7 @@ CREATE TABLE ecommerce_delivery (
 			'vat' => $price * $add_vat / 100,
 			'value' => sprintf("%0.2f", $price * ($add_vat + 100) / 100)
 		);
+
 	}
 
 	/**
