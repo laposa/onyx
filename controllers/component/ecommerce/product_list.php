@@ -498,15 +498,15 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
 		 
 	function _prepareSorting() {
 		
-		 
+		/**
+		 * sort[by]
+		 */
+		  
 		if ($this->GET['sort']['by'] && in_array($this->GET['sort']['by'], array('popularity', 'price', 'name', 'priority', 'created', 'share_counter'))) {
 		
 			$_SESSION['product_list-sort-by'] = $this->GET['sort']['by'];
 		
-			/**
-			 * disable page cache for this session
-			 */
-		
+			//disable page cache for this session		
 			$_SESSION['use_page_cache'] = false;
 		
 		} else if (!$_SESSION['product_list-sort-by']) {
@@ -516,14 +516,15 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
 		
 		}
 		
+		/**
+		 * sort[direction]
+		 */
+		 
 		if ($this->GET['sort']['direction'] && in_array($this->GET['sort']['direction'], array('DESC', 'ASC'))) {
 		
 			$_SESSION['product_list-sort-direction'] = $this->GET['sort']['direction'];
 		
-			/**
-			 * disable page cache for this session
-			 */
-		
+			//disable page cache for this session
 			$_SESSION['use_page_cache'] = false;
 		
 		} else if (!$_SESSION['product_list-sort-direction']) {

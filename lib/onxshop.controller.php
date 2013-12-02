@@ -448,29 +448,32 @@ class Onxshop_Controller {
 	/**
 	 * _explodeRequest
 	 *
-	 * @return array
+	 * also modifies $this->GET
+	 * @return array associated array of controller and view template
 	 */
 	 
 	function _explodeRequest($request) {
 	
 		/**
+		 * 1st method: parse (nearly) standard HTTP GET syntax
+		 *
 		 * Add global GET parameters to $this->GET
 		 */
+		
+		// variables, TODO allow variables like sort[by]
 		$request = str_replace('&amp;', '&', $request);
 		$request = explode('&', $request);
-		//print_r($request);
+		
 		for ($i=1; $i<count($request); $i++) {
-			$param = explode('=', $request[$i]);
-			// NOT USE GLOBAL??? yes :)
-			// this rewrite GET with local GET
-			$this->GET[$param[0]] = $param[1];
-			//$_GET[$param[0]] = $param[1];
+			parse_str($request[$i], $parsed_get);
+			$this->GET = array_merge_recursive($this->GET, $parsed_get);
 		}
-
+		
 		$module = $request[0];
-	
+		
+		// view and controller
 		$vc = explode('@', $module);
-		//print_r($vc);
+		
 		if (count($vc) > 0) {
 			$m['controller'] = $vc[0];
 			if (isset($vc[1])) $m['view'] = $vc[1];
@@ -480,19 +483,26 @@ class Onxshop_Controller {
 			$m['view'] = $module;
 		}
 
-
 		/**
+		 * 2nd method: parse proprietary syntax
+		 *
+		 * It was introduces to allow passign different parameters to different controllers using the same variable name/
+		 * Consider deprication this feature.
+		 *
 		 * valid syntax controller@view~param:value~
 		 * TODO: allow controller~param:value~@view~param:value~
 		 */
+		 
 		if(preg_match('/([^\~]*)\~([^\~]*)\~/i', $m['view'], $match)) {
 
+			// variables
 			parse_str(preg_replace('/:/', '&', $match[2]), $parsed_GET);
 			$this->GET = array_merge($this->GET, $parsed_GET);
+			
+			// view and controller
 			if(preg_match('/(.*)@([^~]*)/', $match[1], $module_override)) {
 				$m['controller'] = $module_override[1];
 				$m['view'] = $module_override[2];
-			
 			} else {
 				$m['controller'] = $m['view'] = $match[1];
 			}
