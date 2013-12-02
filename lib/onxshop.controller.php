@@ -466,7 +466,7 @@ class Onxshop_Controller {
 		
 		for ($i=1; $i<count($request); $i++) {
 			parse_str($request[$i], $parsed_get);
-			$this->GET = array_merge_recursive($this->GET, $parsed_get);
+			$this->GET = array_merge_recursive_custom($this->GET, $parsed_get);
 		}
 		
 		$module = $request[0];

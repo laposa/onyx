@@ -352,3 +352,22 @@ function character_limiter($str, $n = 500, $end_char = '&hellip;')
 		}
 	}
 }
+
+function array_merge_recursive_custom() {
+
+        $arrays = func_get_args();
+        $base = array_shift($arrays);
+
+        foreach ($arrays as $array) {
+            reset($base); //important
+            while (list($key, $value) = @each($array)) {
+                if (is_array($value) && @is_array($base[$key])) {
+                    $base[$key] = array_merge_recursive_new($base[$key], $value);
+                } else {
+                    $base[$key] = $value;
+                }
+            }
+        }
+
+        return $base;
+    }
