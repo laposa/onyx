@@ -17,88 +17,8 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
 	
 		$this->commonAction();
 		
-		/**
-		 * save
-		 */
-		 
-		if ($_POST['save']) {
-			
-			$client_customer = $_POST['client']['customer'];
-			$client_address = $_POST['client']['address'];
-			$client_company = $_POST['client']['company'];
-			
-			if (is_numeric($client_customer['trade'])) $client_customer['account_type'] = 1; //requested trade account
-			unset($client_customer['trade']);
-			unset($client_customer['password1']);
-			
-			/**
-			 * check password match for non-social account
-			 */
-			 
-			if (!$this->Customer->isSocialAccount($_POST['client']['customer'])) {
-				
-				//only if repeat password is actually provided	
-				if ($_POST['client']['customer']['password'] && $_POST['client']['customer']['password1']) $password_match_status = $this->checkPasswordMatch($_POST['client']['customer']['password'], $_POST['client']['customer']['password1']);
-				else $password_match_status = true;
-				
-			} else {
-			
-				$password_match_status = true;
-				
-			}
-				
-			//check validation of submited fields
-			if ($this->Customer->prepareToRegister($client_customer) && $password_match_status) {
-			
-				// when required some other step for registering, store fields in session
-				//$_SESSION['r_client'] = $_POST['client'];
-				if (is_array($client_address) && trim($client_address['delivery']['name']) == '') {
-					$client_address['delivery']['name'] = "{$client_customer['title_before']} {$client_customer['first_name']} {$client_customer['last_name']}";
-				}
-				
-				/**
-				 * register
-				 */
-				
-				if($id = $this->Customer->registerCustomer($client_customer, $client_address, $client_company)) {
-				
-					msg("Customer registration successfully completed");
-					
-					/**
-					 * login
-					 */
-					 
-					if ($this->Customer->isSocialAccount($client_customer)) {
-						
-						//msg("social account", 'ok', 1);
-						$this->login($client_customer['email']);
-						
-					} else {
-						//msg("not social account", 'ok', 1);
-						$this->login($client_customer['email'], $client_customer['password']);
-						
-					}
-					
-					// auto login (TODO allow to enable/disable this behaviour)
-					$this->Customer->generateAndSaveOnxshopToken($id);
-					
-					/**
-					 * forward
-					 */
-					 
-					$this->forwardAfterLogin();
-					
-				} else {
-					msg('Please complete all required fields marked with a asterisk (*)', 'error');
-				}
-			
-			} else {
-			
-				msg('Please complete all required fields marked with an asterisk (*)', 'error');
-			
-			}
-		}
-		
+		if ($_POST['save']) $this->saveForm();
+
 		$this->generateCountryList();
 		$this->prepareCheckboxes();		
 		
@@ -107,6 +27,87 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
 		return true;
 	}
 	
+
+	/**
+	 * process input form 
+	 */
+	public function saveForm()
+	{
+		$client_customer = $_POST['client']['customer'];
+		$client_address = $_POST['client']['address'];
+		$client_company = $_POST['client']['company'];
+		
+		if (is_numeric($client_customer['trade'])) $client_customer['account_type'] = 1; //requested trade account
+		unset($client_customer['trade']);
+		unset($client_customer['password1']);
+		
+		/**
+		 * check password match for non-social account
+		 */
+		 
+		if (!$this->Customer->isSocialAccount($_POST['client']['customer'])) {
+			
+			//only if repeat password is actually provided	
+			if ($_POST['client']['customer']['password'] && $_POST['client']['customer']['password1']) $password_match_status = $this->checkPasswordMatch($_POST['client']['customer']['password'], $_POST['client']['customer']['password1']);
+			else $password_match_status = true;
+			
+		} else {
+		
+			$password_match_status = true;
+			
+		}
+			
+		//check validation of submited fields
+		if ($this->Customer->prepareToRegister($client_customer) && $password_match_status) {
+		
+			// when required some other step for registering, store fields in session
+			//$_SESSION['r_client'] = $_POST['client'];
+			if (is_array($client_address) && trim($client_address['delivery']['name']) == '') {
+				$client_address['delivery']['name'] = "{$client_customer['title_before']} {$client_customer['first_name']} {$client_customer['last_name']}";
+			}
+			
+			/**
+			 * register
+			 */
+			
+			if($id = $this->Customer->registerCustomer($client_customer, $client_address, $client_company)) {
+			
+				msg("Customer registration successfully completed");
+				
+				/**
+				 * login
+				 */
+				 
+				if ($this->Customer->isSocialAccount($client_customer)) {
+					
+					//msg("social account", 'ok', 1);
+					$this->login($client_customer['email']);
+					
+				} else {
+					//msg("not social account", 'ok', 1);
+					$this->login($client_customer['email'], $client_customer['password']);
+					
+				}
+				
+				// auto login (TODO allow to enable/disable this behaviour)
+				$this->Customer->generateAndSaveOnxshopToken($id);
+				
+				/**
+				 * forward
+				 */
+				 
+				$this->forwardAfterLogin();
+				
+			} else {
+				msg('Please complete all required fields marked with a asterisk (*)', 'error');
+			}
+		
+		} else {
+		
+			msg('Please complete all required fields marked with an asterisk (*)', 'error');
+		
+		}
+	}
 	
 	/**
 	 * login
