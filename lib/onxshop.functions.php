@@ -362,7 +362,7 @@ function array_merge_recursive_custom() {
             reset($base); //important
             while (list($key, $value) = @each($array)) {
                 if (is_array($value) && @is_array($base[$key])) {
-                    $base[$key] = array_merge_recursive_new($base[$key], $value);
+                    $base[$key] = array_merge_recursive_custom($base[$key], $value);
                 } else {
                     $base[$key] = $value;
                 }
