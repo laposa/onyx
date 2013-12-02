@@ -384,7 +384,7 @@ CREATE TABLE ecommerce_product (
     	foreach ($parts as $part) {
     		$part = pg_escape_string(trim($part));
     		if (strlen($part) > 0) {
-    			$where .= " AND (p.name ILIKE '% $part%' OR p.name ILIKE '$part%')";
+    			$where .= " AND (p.name ILIKE '% $part%' OR p.name ILIKE '$part%' OR n.title ILIKE '% $part%' OR n.title ILIKE '$part%')";
     		}
     	}
 
