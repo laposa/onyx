@@ -12,7 +12,7 @@
  *
  * 0 - No debugging
  * 1 - Basic debugging
- * 5 - Full debuggin
+ * 5 - Full debugging
  *
  * to enable direct debugging use:
  * define('ONXSHOP_DEBUG_DIRECT', true);
