@@ -12,6 +12,7 @@ $templates_info['content'] = array(
 	'RTE'=>array('title' => 'Rich Text', 'description'=>'', 'visibility'=>true), 
 	'product_highlights'=>array('title' => 'Product Highlights', 'description'=>'', 'visibility'=>true), 
 	'picture'=>array('title' => 'Photo Gallery', 'description'=>'', 'visibility'=>true),
+	'video'=>array('title' => 'Video', 'description'=>'', 'visibility'=>true),
 	'quote'=>array('title' => 'Quote (Testimonial)', 'description'=>'Testimonial', 'visibility'=>true),
 	'contact_form'=>array('title' => 'Contact Form', 'description'=>'', 'visibility'=>true), 
 	'comment'=>array('title' => 'Forum - User comments', 'description'=>'', 'visibility'=>true),

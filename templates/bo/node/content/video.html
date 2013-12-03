@@ -1,0 +1,42 @@
+<!-- BEGIN: title -->RTE Edit<!-- END: title -->
+<!-- BEGIN: content -->
+{FILE "bo/node/form_open.html"}
+
+<div id="onxshop_basicinfo" class="ui-tabs-panel">
+	{FILE "bo/node/item_title_basic.html"}
+	<fieldset class="node_edit_content_video">
+		<div class="row component provider">
+			<span class="label"><label for="component-provider">Provider</label></span>
+			<span class="field">
+				<select name="node[component][provider]" id="component-provider">
+					<option value="vimeo">Vimeo</option>
+				</select>
+			</span>
+		</div>
+		<div class="row component video_id">
+			<span class="label"><label for="component-video_id">Video ID</label></span>
+			<span class="field"><input name="node[component][video_id]" id="component-video_id" value="{NODE.component.video_id|htmlspecialchars}" /></span>
+		</div>
+	</fieldset>
+	
+	{FILE "bo/node/item_publish.html"}
+</div>
+		
+<div id="onxshop_minor" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+	{FILE "bo/node/item_image_list.html"}
+	{FILE "bo/node/item_title_link.html"}
+	{FILE "bo/node/item_meta_data.html"}
+	{FILE "bo/node/item_taxonomy.html"}
+	{FILE "bo/node/item_position.html"}
+</div>
+
+<div id="onxshop_advanced" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
+	{FILE "bo/node/item_advanced.html"}
+	{FILE "bo/node/item_expert_options.html"}
+	{FILE "bo/node/item_content_list.html"}
+	{FILE "bo/node/item_signature.html"}
+</div>
+
+{FILE "bo/node/form_close.html"}
+
+<!-- END: content -->
