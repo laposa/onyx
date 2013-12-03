@@ -126,10 +126,11 @@ class Onxshop_Controller_Node_Content_Picture extends Onxshop_Controller_Node_Co
 		
 		/**
 		 * fill
-		 * TODO: allow to configure
+		 * 
 		 */
 		 
-		$fill = 1;
+		if (is_numeric($node_data['component']['fill'])) $fill = $node_data['component']['fill'];
+		else $fill = 1;
 		
 		/**
 		 * disable limit
