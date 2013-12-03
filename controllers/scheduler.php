@@ -17,7 +17,11 @@ class Onxshop_Controller_Scheduler extends Onxshop_Controller {
 
 		$Scheduler = new common_scheduler();
 		$Scheduler->setCacheable(false);
-	
+
+		// quick fix to reactivate zombie job
+		// todo: convert scheduler to async script
+		if (rand(0, 20) == 1) $Scheduler->executeSql("UPDATE common_scheduler SET status = 0 WHERE status = 1 AND (now() - start_time) > INTERVAL '10 minutes'");
+
 		if ($Scheduler->anyPendingJobs() && ($lock_token = $Scheduler->lockPendingJobs()) > 0) {
 
 			$jobs = $Scheduler->getLockedJobs($lock_token);
