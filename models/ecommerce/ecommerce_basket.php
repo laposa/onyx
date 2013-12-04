@@ -243,38 +243,34 @@ class ecommerce_basket extends Onxshop_Model {
 	 */
 	protected function calculateCouponDiscount(&$basket, &$promotion_data)
 	{
-		$partial_discount_value = 0;
+		// check for promotion limit for certain products
+		if (strlen($promotion_data['limit_list_products']) > 0) $limited_ids = explode(",", $promotion_data['limit_list_products']);
+		else $limited_ids = false;
 
-		// if discount is limited to certain products the discount will be applied only to portion of the order
-		if ($promotion_data['discount_fixed_value'] > 0 && strlen($limit_list_products) > 0 && 
-			is_array($limited_ids = explode(",", $promotion_data['limit_list_products']))) {
-				if (count($basket['items']) > 0) {
-					foreach ($basket['items'] as $item) {
-						if (in_array($item['product']['id'], $limited_ids)) 
-							$partial_discount_value += (float) $item['price'];
-					}
+		if ($promotion_data['discount_fixed_value'] > 0) {
+
+			// if discount is limited to certain products the discount will be applied only to part of the order
+			if ($limited_ids && count($basket['items']) > 0) {
+				foreach ($basket['items'] as $item) {
+					if (in_array($item['product']['id'], $limited_ids)) $discount_value += (float) $item['price']; 
 				}
+			} else {
+				$discount_value = $basket['sub_total']['price'];
 			}
+			// make sure fixed discount does not exceed the value of the order
+			$factor = min($discount_value, $promotion_data['discount_fixed_value']) / $discount_value;
+
+		} else {
+			$factor = $promotion_data['discount_percentage_value'] / 100;
+		}
 
 		// apply discount to each item
 		foreach ($basket['items'] as &$item) {
 
-			// percentage value discount
-			if ($promotion_data['discount_percentage_value'] > 0) {
-				$item['discount'] = $item['price'] * $promotion_data['discount_percentage_value'] / 100;
-			}
-			
-			// fixed value discount
-			if ($promotion_data['discount_fixed_value'] > 0) {
-				if ($partial_discount_value > 0) {
-					if (in_array($item['product']['id'], $limited_ids)) $item['discount'] = $item['price'] / $partial_discount_value * 
-						min($partial_discount_value, $promotion_data['discount_fixed_value']);
-				} else {
-					$item['discount'] = $item['price'] / $basket['sub_total']['price'] * min(
-						$basket['sub_total']['price'], $promotion_data['discount_fixed_value']);
-				}
-			}
+			// skip items if promotion does not applies to them
+			if ($limited_ids && !in_array($item['product']['id'], $limited_ids)) continue;
 
+			$item['discount'] = $item['price'] * $factor;
 			$basket['discount'] += $item['discount'];
 			$basket['sub_totals'][$item['vat_rate']]['discount'] += $item['discount'];
 
