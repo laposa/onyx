@@ -73,6 +73,8 @@ class Onxshop_Controller_Component_Client_Twitter_Timeline extends Onxshop_Contr
 					// hashtag 
 					if (preg_match('/#'.$hashtag.'/i', $item->text)) {
 						
+						$item->text = $this->highlightLinks($item->text);
+						
 						$this->tpl->assign('INDEX', $index);
 						$this->tpl->assign('ITEM', $item);
 						$this->tpl->parse('content.item');
@@ -86,6 +88,23 @@ class Onxshop_Controller_Component_Client_Twitter_Timeline extends Onxshop_Contr
 		}
 		
 		return true;
+		
+	}
+	
+	/**
+	 * highlight links
+	 */
+	 
+	public function highlightLinks($text) {
+		
+		// hashtags
+		$text = preg_replace('/(#\w*[a-zA-Z0-9_]+\w*)/', '<span class="link hashtag">\1</span>', $text);
+		// usernames
+		$text = preg_replace('/(@\w*[a-zA-Z0-9_]+\w*)/', '<span class="link username">\1</span>', $text);
+		// links
+		$text = preg_replace('/(https?:\/\/[^\s]*)/', '<span class="link url">\1</span>', $text);
+		
+		return $text;
 		
 	}
 	
