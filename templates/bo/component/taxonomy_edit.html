@@ -15,7 +15,6 @@ $(document).ready(function() {
 <form method="post" action="{URI|htmlspecialchars}" id="taxonomy-edit-{GET.id}">
 
 	<p>{ONXSHOP_REQUEST_taxonomy #component/breadcrumb_taxonomy~id=GET.id~}</p>
-	<p><a class="button add" title="Add category here" href='/backoffice/advanced/taxonomy/add/{GET.id}'><span>Add taxonomy category here ...</span></a></p>
 
 	<div id="taxonomy_edit" style="padding-left: 20px;">
 	
@@ -52,6 +51,6 @@ $(document).ready(function() {
 		<input type="hidden" name="taxonomy[label][id]" value="{TAXONOMY.label.id}" />
 	</div>
 </form>
-</div>
 <!-- END: editor -->
+</div>
 <!-- END: content -->

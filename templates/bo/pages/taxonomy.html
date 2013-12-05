@@ -1,13 +1,16 @@
 <!-- BEGIN: title -->Taxonomy<!-- END: title -->
 <!-- BEGIN: content -->
 <script type="text/javascript">
-$(document).ready(function(){
-	$('#taxonomyEditSelect .simpleTree').simpleTree({
+function initialiseMenuTaxonomyTree() {
+	
+	$('#taxonomy_tree_menu .simpleTree').simpleTree({
 		drag: true,
 		autoclose: false,
 		afterClick:function(node){
 			var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
 			makeAjaxRequest('#sub_content', '/request/bo/component/taxonomy_edit~id='+node_id+'~');
+			$('#button_add_subpage').attr('data-node_id', node_id);
+			initialiseTaxonomyAddButton();
 		},
 		afterDblClick:function(node){
 			alert("text-"+$('span:first',node).text());
@@ -27,7 +30,44 @@ $(document).ready(function(){
 		animate: true,
 		docToFolderConvert: true
 	});
+}
+
+function refreshList() {
+	$('#taxonomy_tree_menu').load('/request/bo/component/taxonomy_menu~expand_all=1:publish=0~', function() {initialiseMenuTaxonomyTree()});
+}
+
+function initialiseTaxonomyAddButton() {
+	
+	$('#button_add_subpage').show().live('click', function() {
+	
+		var node_id = $(this).attr('data-node_id');
+		var url = '/request/bo/component/taxonomy_add~parent=' + node_id + '~';
+
+		$('#dialog').addClass('ajaxLoad').load(url, '', function() {
+						
+			$('#dialog form.taxonomy_add').ajaxForm({ 
+				target: '#dialog form.taxonomy_add',
+				success: function(responseText, statusText) {
+					popupMessage("#dialog form.taxonomy_add div.onxshop_messages");
+					refreshList();
+					$('#dialog').empty().dialog('close');
+				}
+			});
+		});
+		$('#dialog').dialog({title: 'Add New Taxonomy Item', width: 500, modal: true, overlay: {opacity: 0.5, background: 'black'}});
+		$('#dialog').dialog('open');
+		return false;
+	});
+	
+}
+
+$(document).ready(function(){
+	
+	initialiseMenuTaxonomyTree();
+	
 });
+
+
 </script>
 <div class="twoColumnPage page fibonacci-2-5">
 	<div class="top"><span></span></div>
@@ -44,15 +84,22 @@ $(document).ready(function(){
 
 			<div class="columnOne">
 				<div class="columnWrapper">
-					<div id="taxonomyEditSelect">
+					<div id="taxonomy_tree_menu">
 						{ONXSHOP_REQUEST_menupages #bo/component/taxonomy_menu~expand_all=1:publish=0~}
 					</div>
 				</div>
 			</div>
 			<div class="columnTwo">
 				<div class="columnWrapper">
-					<div id="sub_content">
-						{SUB_CONTENT}
+					<div class="twoColumnLayout fibonacci-5-2">
+						<div class="layoutColumnOne ofTwo">
+							<div id="sub_content">
+								{SUB_CONTENT}
+							</div>
+						</div>
+						<div class="layoutColumnTwo ofTwo">
+							<p><a class="button add" href="#" id="button_add_subpage" data-node_id="{NODE_ID}" style="margin-left: 10px; display: none;"><span>Add Item</span></a></p>
+						</div>
 					</div>
 				</div>
 			</div>
