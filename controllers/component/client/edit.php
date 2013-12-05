@@ -46,6 +46,9 @@ class Onxshop_Controller_Component_Client_Edit extends Onxshop_Controller {
 		
 		$client_data['customer']['newsletter'] = ($client_data['customer']['newsletter'] == 1) ? 'checked="checked" ' : '';
 		
+		// format birthday only if available to avoid 01/01/1970 by default
+		if ($client_data['customer']['birthday'] != '') $client_data['customer']['birthday'] = strftime('%d/%m/%Y', strtotime($client_data['customer']['birthday']));
+		
 		$this->tpl->assign('CLIENT', $client_data);
 		
 		/**

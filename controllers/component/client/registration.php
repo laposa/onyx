@@ -14,7 +14,7 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
 	 */
 	 
 	public function mainAction() {
-	
+		
 		$this->commonAction();
 		
 		if ($_POST['save']) $this->saveForm();
@@ -22,7 +22,12 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
 		$this->generateCountryList();
 		$this->prepareCheckboxes();		
 		
-		$this->tpl->assign('CLIENT', $_POST['client']);
+		$client_data = $_POST['client'];
+		
+		// format birthday only if available to avoid 01/01/1970 by default
+		if ($client_data['customer']['birthday'] != '') $client_data['customer']['birthday'] = strftime('%d/%m/%Y', strtotime($client_data['customer']['birthday']));
+		
+		$this->tpl->assign('CLIENT', $client_data);
 
 		return true;
 	}

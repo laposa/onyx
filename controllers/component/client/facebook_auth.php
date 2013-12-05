@@ -136,6 +136,7 @@ class Onxshop_Controller_Component_Client_Facebook_Auth extends Onxshop_Controll
 		$onxshop_client_customer['first_name'] = $user_profile['first_name'];
 		$onxshop_client_customer['last_name'] = $user_profile['last_name'];
 		$onxshop_client_customer['email'] = $user_profile['email'];
+		if ($user_profile['birthday']) $onxshop_client_customer['birthday'] = strftime('%F', strtotime($user_profile['birthday']));
 		$onxshop_client_customer['facebook_id'] = $user_profile['id'];
 		$onxshop_client_customer['profile_image_url'] = "https://graph.facebook.com/{$user_profile['id']}/picture";
 		
