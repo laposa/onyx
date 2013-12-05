@@ -9,6 +9,7 @@
 $(function() {
 	$("#survey_form_{GET.node_id}").validate();
 
+	/*birthday*/
 	var current_year = new Date().getFullYear();
 	var last_year = current_year - 1;
 	$('#client_customer_birthday_id').datepicker({firstDay: 1, dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true, yearRange: '1900:' + last_year, maxDate: last_year});
@@ -79,8 +80,8 @@ label.error { display: none; }
 		</div>
 
 		<div class="row birthday">
-			<span class="label"><label for="client_customer_birthday_id">Date of Birth</label></span>
-			<span class="field"><input class="text" type="text" id="client_customer_birthday_id" name="client[customer][birthday]" value="{CLIENT.customer.birthday|htmlspecialchars}"/></span>
+			<span class="label"><label for="client_customer_birthday_id"><span class="mandatory-mark">*</span> Date of Birth</label></span>
+			<span class="field"><input class="required text" type="text" id="client_customer_birthday_id" name="client[customer][birthday]" value="{CLIENT.customer.birthday|htmlspecialchars}"/></span>
 		</div>
 
 		<div class="row county">
