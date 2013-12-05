@@ -1051,12 +1051,14 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
      * @return unknown
      */
      
-	function getChildren($parent_id, $sort_by = 'node_group DESC, node_controller DESC, parent_container ASC, priority DESC') {
-
+	function getChildren($parent_id, $sort_by = 'node_group DESC, node_controller DESC, parent_container ASC, priority DESC', $published_only = false) {
+		
+		if ($published_only) $published_only_constraint = 'AND publish = 1';
+		
 		$children = array();
 
 		if (is_numeric($parent_id)) {
-			$children = $this->listing("parent = {$parent_id}", $sort_by);
+			$children = $this->listing("parent = {$parent_id} $published_only_constraint", $sort_by);
 		}
 		
 		return $children;
