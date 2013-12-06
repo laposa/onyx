@@ -79,12 +79,9 @@ CREATE TABLE ecommerce_price (
 		else $conf = array();
 
 		$conf['default_currency'] = $GLOBALS['onxshop_conf']['global']['default_currency'];
-		
-		//the order does not matter here (only for display order)
-		//'common' is the retail price
-		//'trade' is the wholesale price
-		//$conf['type'] = array('common', 'discount', 'trade', 'trade_discount', 'cost');
-		$conf['type'] = array('common');
+
+		if (empty($conf['type'])) $conf['type'] = array('common');		
+		else $conf['type'] = explode(",", $conf['type']);
 		
 		if (!array_key_exists('allow_multiplicator', $conf)) $conf['allow_multiplicator'] = 0;//disabled multiplicator functionality by default
 		if (!array_key_exists('multiplicator_growth', $conf)) $conf['multiplicator_growth'] = 'linear';//linear or exponential_over_1
