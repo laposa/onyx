@@ -4,6 +4,9 @@
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
+require_once('models/ecommerce/ecommerce_recipe_ingredients.php');
+require_once('models/ecommerce/ecommerce_product.php');
+
 class Onxshop_Controller_Bo_Component_Ecommerce_Recipe_Ingredients extends Onxshop_Controller {
 	
 	/**
@@ -11,11 +14,9 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Recipe_Ingredients extends Onxsh
 	 */
 	 
 	public function mainAction() {
-	
-		require_once('models/ecommerce/ecommerce_recipe_ingredients.php');
-		require_once('models/ecommerce/ecommerce_product.php');
 		
 		$Ingredients = new ecommerce_recipe_ingredients();
+		$Product = new ecommerce_product();
 		
 		$recipe_id = $this->GET['recipe_id'];
 		
@@ -67,7 +68,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Recipe_Ingredients extends Onxsh
 		 * get ingredient list (products)
 		 */
 		
-		$products = $this->getProductList();
+		$products = $Product->getProductListForDropdown();
 		$this->parseIngredients($products);
 
 		/**
@@ -109,21 +110,6 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Recipe_Ingredients extends Onxsh
 			$this->tpl->parse("head.product");
 
 		}
-	}
-
-	public function getProductList()
-	{
-		$Product = new ecommerce_product();
-		$sql = "SELECT v.id AS id,
-				v.name AS variety_name,
-				p.name AS product_name,
-				v.publish AS variety_publish,
-				p.publish AS product_publish
-			FROM ecommerce_product_variety AS v
-			LEFT JOIN ecommerce_product AS p ON p.id = v.product_id
-			ORDER BY p.name ASC";
-		$list = $Product->executeSql($sql);
-		return $list;
 	}
 
 }

@@ -341,6 +341,25 @@ CREATE TABLE ecommerce_product (
 			return false;
 		}
 	}
+
+	/**
+	 * get product list for dropdown
+	 */
+	 
+	function getProductListForDropdown() {
+	
+		$sql = "SELECT v.id AS id,
+				v.name AS variety_name,
+				p.name AS product_name,
+				v.publish AS variety_publish,
+				p.publish AS product_publish,
+				(SELECT src FROM ecommerce_product_image AS i WHERE i.node_id = p.id ORDER BY priority DESC, id ASC LIMIT 1) as image_src
+			FROM ecommerce_product_variety AS v
+			LEFT JOIN ecommerce_product AS p ON p.id = v.product_id
+			ORDER BY p.name ASC";
+
+		return $this->executeSql($sql);
+	}
 	
 	/**
 	 * get product detail by variety id
@@ -452,6 +471,11 @@ CREATE TABLE ecommerce_product (
 	    	if ($filter['publish'] === 0 || $filter['disabled'] == 'disabled') $add_to_where .= " AND product.publish = 0";
 	    	else if ($filter['publish'] === 1  || $filter['disabled'] == 'enabled') $add_to_where .= " AND product.publish = 1 AND variety.publish = 1";
 	    	
+	    	//specal offer
+	    	if (is_numeric($filter['offer_group_id'])) {
+	    		$add_to_where .= " AND variety.id IN (SELECT product_variety_id FROM ecommerce_offer WHERE offer_group_id = {$filter['offer_group_id']})";
+	    	}
+
 	    	//image role
 	    	if ($filter['image_role']) {
 	    		$filter['image_role'] = pg_escape_string($filter['image_role']);
