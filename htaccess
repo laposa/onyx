@@ -55,20 +55,20 @@ RewriteRule ^backoffice/advanced/seo_manager$      /index.php?request=sys/html5.
 #ecommerce
 
 RewriteRule	^backoffice/stock$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/ecommerce/stock [L,QSA]
-
 RewriteRule	^backoffice/products$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/ecommerce/products.bo/component/ecommerce/product_list [L,QSA]
-
 RewriteRule	^backoffice/products/product_add$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/component/ecommerce/product_add_quick [L]
-
+RewriteRule	^backoffice/products/offer_add$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/component/ecommerce/offer_add [L]
+RewriteRule	^backoffice/products/offer_group_add$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/component/ecommerce/offer_group_edit [L]
+RewriteRule	^backoffice/products/offer_group/([0-9]*)/edit$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/component/ecommerce/offer_group_edit&offer_group_id=$1 [L]
 RewriteRule	^backoffice/products/([0-9]*)/variety_add$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/component/ecommerce/product_variety_add&product_id=$1 [L]
-
 RewriteRule	^backoffice/products/([0-9]*)/edit$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/component/ecommerce/product_edit&id=$1 [L]
-
+RewriteRule	^backoffice/products/offer/([0-9]*)/edit$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/component/ecommerce/offer_group_edit&id=$1 [L]
 RewriteRule	^backoffice/products/variety/([0-9]*)/edit$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/component/ecommerce/product_variety_edit&id=$1 [L]
 
 RewriteRule	^backoffice/recipes$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/ecommerce/recipes.bo/component/ecommerce/recipe_list [L,QSA]
 RewriteRule	^backoffice/recipes/recipe_add$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/component/ecommerce/recipe_add [L]
 RewriteRule	^backoffice/recipes/([0-9]*)/edit$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/component/ecommerce/recipe_edit&id=$1 [L]
+
 RewriteRule	^backoffice/stores$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/ecommerce/stores.bo/component/ecommerce/store_list [L,QSA]
 RewriteRule	^backoffice/stores/store_add$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/component/ecommerce/store_add [L]
 RewriteRule	^backoffice/stores/([0-9]*)/edit$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/component/ecommerce/store_edit&id=$1 [L]
