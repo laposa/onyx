@@ -22,6 +22,8 @@ class Onxshop_Controller_Component_Ecommerce_Delivery_Option extends Onxshop_Con
 	 
 	public function mainAction() {
 
+		setlocale(LC_MONETARY, $GLOBALS['onxshop_conf']['global']['locale']);
+
 		$this->initModels();		 
 		$options = $this->getInputOrDefaults();
 		$address_detail = $this->getAddress();
@@ -51,6 +53,8 @@ class Onxshop_Controller_Component_Ecommerce_Delivery_Option extends Onxshop_Con
 		}
 		
 		$_SESSION['delivery_options'] = $options;
+
+		setlocale(LC_MONETARY, LOCALE);
 
 		return true;
 	}

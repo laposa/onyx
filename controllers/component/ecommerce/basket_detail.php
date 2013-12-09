@@ -17,13 +17,32 @@ class Onxshop_Controller_Component_Ecommerce_Basket_Detail extends Onxshop_Contr
 	 
 	public function mainAction() {
 
-		/**
-		 * show only in default currency
-		 */
-		 
+		// show only in default currency
 		setlocale(LC_MONETARY, $GLOBALS['onxshop_conf']['global']['locale']);
-		
-		parent::mainAction();
+
+		$this->initModels();
+
+		$this->basket_id = is_numeric($this->GET['id']) ? $this->GET['id'] : $_SESSION['basket']['id'];
+		$this->customer_id = (int) $_SESSION['client']['customer']['id'];
+
+		$this->checkForPreviousBasket();
+
+		if ($this->basket_id > 0) {
+
+			$basket = $this->Basket->getFullDetail($this->basket_id);
+
+			if (count($basket['items']) > 0) {
+
+				$this->processBasketCalculations($basket);
+				$this->displayBasket($basket);
+
+				return true;
+
+			}
+
+		} 
+
+		$this->displayEmptyBasket();
 
 		setlocale(LC_MONETARY, LOCALE);
 		return true;
@@ -94,6 +113,7 @@ class Onxshop_Controller_Component_Ecommerce_Basket_Detail extends Onxshop_Contr
 		require_once('models/common/common_node.php');
 		$node_conf = common_node::initConfiguration();
 
+		msg("Sorry, selected delivery method can't but used. Please choose a different one.");
 		onxshopGoTo("page/{$node_conf['id_map-checkout_delivery_options']}");
 	}
 

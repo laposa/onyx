@@ -15,6 +15,8 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Gift_Wrap extends Onxshop_
 	 */
 	 
 	public function mainAction() {
+
+		setlocale(LC_MONETARY, $GLOBALS['onxshop_conf']['global']['locale']);
 	
 		/**
 		 * get product conf
@@ -85,6 +87,8 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Gift_Wrap extends Onxshop_
 		 */
 		 
 		if ($this->isBasketVirtualProductOnly()) $this->tpl->parse('content.virtual_product');
+
+		setlocale(LC_MONETARY, LOCALE);
 
 		return true;
 	}
