@@ -31,7 +31,7 @@ RewriteRule ^backoffice/surveys$       /index.php?request=sys/html5.bo/backoffic
 RewriteRule ^backoffice/marketing$       /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/marketing [L,QSA]
 RewriteRule ^backoffice/advanced/media$      /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/pages/server_browser [L,QSA]
 
-RewriteRule ^backoffice/advanced/taxonomy$       /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/pages/taxonomy.bo/component/taxonomy_edit [L]
+RewriteRule ^backoffice/advanced/taxonomy$       /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/pages/taxonomy.bo/component/taxonomy_edit [L,QSA]
 RewriteRule ^backoffice/advanced/taxonomy/properties/([0-9]*)$       /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/pages/taxonomy~id=$1~.bo/component/taxonomy_edit~id=$1~ [L]
 RewriteRule ^backoffice/advanced/taxonomy/add/([0-9]*)$  /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/pages/taxonomy~id=$1~.bo/component/taxonomy_add~parent=$1~ [L]
 

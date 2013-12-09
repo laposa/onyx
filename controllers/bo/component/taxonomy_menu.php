@@ -12,6 +12,41 @@ require_once('controllers/component/menu_js.php');
 class Onxshop_Controller_Bo_Component_Taxonomy_Menu extends Onxshop_Controller_Component_Menu_Js {
 
 	/**
+	 * main action
+	 */
+	
+	public function mainAction() {
+		
+		/**
+		 * root folder name
+		 */
+		 
+		if (is_numeric($this->GET['id'])) {
+			
+			require_once('models/common/common_taxonomy.php');
+			$Taxonomy = new common_taxonomy();
+		
+			$item_detail = $Taxonomy->taxonomyItemDetail($this->GET['id']);
+			
+			$root = array('id'=>$this->GET['id'], 'title'=>$item_detail['label']['title']);
+			
+		} else {
+			
+			$root = array('id'=>0, 'title'=>'Root');
+			
+		}
+		
+		$this->tpl->assign('ROOT', $root);
+		
+		/**
+		 * standard action
+		 */
+		 
+		return parent::mainAction();
+		
+	}
+	
+	/**
 	 * get list
 	 */
 	 

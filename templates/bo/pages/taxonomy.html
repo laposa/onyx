@@ -13,7 +13,7 @@ function initialiseMenuTaxonomyTree() {
 			initialiseTaxonomyAddButton();
 		},
 		afterDblClick:function(node){
-			alert("text-"+$('span:first',node).text());
+			//alert("text-"+$('span:first',node).text());
 		},
 		afterMove:function(destination, source, position){
 			var source_node_id = $('a:first', source).attr('href').match("[0-9]{1,}$");
@@ -62,7 +62,15 @@ function initialiseTaxonomyAddButton() {
 }
 
 $(document).ready(function(){
-	
+	<!-- BEGIN: submenu -->
+	$('#taxonomy_tree_menu .simpleTree a.node_id_{GET.id}').addClass('active open');
+	$('#taxonomy_tree_menu .simpleTree a.node_id_{GET.id}').parent().parent().addClass('active open');
+	$('#taxonomy_tree_menu .simpleTree li.root a').click(function() {
+		makeAjaxRequest('#sub_content', '/request/bo/component/taxonomy_edit~id={GET.id}~');
+	});
+	$('#button_add_subpage').show().attr('data-node_id', {GET.id});
+	initialiseTaxonomyAddButton()
+	<!-- END: submenu -->
 	initialiseMenuTaxonomyTree();
 	
 });
