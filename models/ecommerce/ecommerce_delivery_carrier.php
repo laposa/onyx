@@ -137,9 +137,6 @@ class ecommerce_delivery_carrier extends Onxshop_Model {
 		if (!is_numeric($order_value)) return false;
 		if (!is_numeric($weight)) return false;
 
-		// zero weight means free delivery
-		if ($weight == 0) return 0;
-
 		// convert weight units
 		require_once('models/ecommerce/ecommerce_product_variety.php');
 		$product_variety_conf = ecommerce_product_variety::initConfiguration();
