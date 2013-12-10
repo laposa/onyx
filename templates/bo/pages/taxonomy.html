@@ -65,7 +65,7 @@ $(document).ready(function(){
 	<!-- BEGIN: submenu -->
 	$('#taxonomy_tree_menu .simpleTree a.node_id_{GET.id}').addClass('active open');
 	$('#taxonomy_tree_menu .simpleTree a.node_id_{GET.id}').parent().parent().addClass('active open');
-	$('#taxonomy_tree_menu .simpleTree li.root a').click(function() {
+	$('#taxonomy_tree_menu .simpleTree li.root > a').click(function() {
 		makeAjaxRequest('#sub_content', '/request/bo/component/taxonomy_edit~id={GET.id}~');
 	});
 	$('#button_add_subpage').show().attr('data-node_id', {GET.id});
