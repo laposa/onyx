@@ -44,6 +44,9 @@ class Onxshop_Controller_Node_Content_Product_Highlights extends Onxshop_Control
 			// sorting
 			if ($node_data['component']['display_sorting'] == 1) $query_raw['display_sorting'] = 1;
 			
+			// force sorting as listed
+			$query_raw['product_id_list_force_sorting_as_listed'] = 1;
+			
 			// image role
 			if ($node_data['component']['image_role']) $query_raw['image_role'] = $node_data['component']['image_role'];
 			

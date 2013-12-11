@@ -252,9 +252,13 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
 			/**
 			 * modify priority according sort of product_id_list
 			 */
-			 
-			foreach ($product_variety_list as $key=>$item) {
-				$product_variety_list[$key]['priority'] = 1000 - array_search($item['product_id'], $this->GET['product_id_list']);
+			
+			if ($this->GET['product_id_list_force_sorting_as_listed']) {
+			
+				foreach ($product_variety_list as $key=>$item) {
+					$product_variety_list[$key]['priority'] = 1000 - array_search($item['product_id'], $this->GET['product_id_list']);
+				}
+			
 			}
 			
 		} else {
