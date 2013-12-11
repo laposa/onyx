@@ -70,7 +70,7 @@ class Onxshop_Controller_Component_Client_Twitter_Timeline extends Onxshop_Contr
 				
 				foreach ($timeline as $k=>$item) {
 					
-					// hashtag 
+					// hashtag starts with
 					if (preg_match('/#'.$hashtag.'/i', $item->text)) {
 						
 						$item->text = $this->highlightLinks($item->text);
