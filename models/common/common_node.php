@@ -896,10 +896,13 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 	 * @return unknown
 	 */
 	 
-	function parseChildren($id) {
+	function parseChildren($id, $container = false) {
 	
 		if (is_numeric($id)) {
-			$children = $this->listing("parent = $id AND (node_group = 'layout' OR node_group = 'content')", "priority DESC, id ASC");
+		
+			if (is_numeric($container)) $limit_to_container = "AND parent_container = $container";
+			
+			$children = $this->listing("parent = $id AND (node_group = 'layout' OR node_group = 'content') $limit_to_container", "priority DESC, id ASC");
 			
 			foreach ($children as $key=>$child) {
 				if ($this->checkDisplayPermission($child)) {
@@ -910,9 +913,12 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 			}
 	
 			return $contentx;
+			
 		} else {
+			
 			trigger_error("Node->parseChildren: id is not numeric");
 			return false;
+		
 		}
     }
     
