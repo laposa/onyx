@@ -164,7 +164,7 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 		 * check visibility and than display
 		 */
 		
-		if ($this->checkVisibility($node_data)) {
+		if ($node_visibility = $this->checkVisibility($node_data)) {
 			
 			if ($this->_checkPermissionForExtraCSS($node_data)) {
 			
@@ -195,20 +195,23 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 			if ($node_data['node_group'] == 'content' && $_SESSION['fe_edit_mode'] == 'edit') {
 				if ($node_data['node_controller'] == 'shared')  {
 					$this->tpl->assign("SOURCE", $source);
-					$this->tpl->parse('content.fe_edit.edit_source');
+					$this->tpl->parse('content.wrapper.fe_edit.edit_source');
 				}
-				$this->tpl->parse('content.fe_edit');
+				$this->tpl->parse('content.wrapper.fe_edit');
 			} else if ($node_data['node_group'] == 'layout' && $_SESSION['fe_edit_mode'] == 'edit') {
 				if ($node_data['node_controller'] == 'shared')  {
-					$this->tpl->parse('content.fe_layout_property.edit_shared');
+					$this->tpl->parse('content.wrapper.fe_layout_property.edit_shared');
 				}
-				$this->tpl->parse('content.fe_layout_property');
-				//$this->tpl->parse('content.layout_add');
+				$this->tpl->parse('content.wrapper.fe_layout_property');
+				//$this->tpl->parse('content.wrapper.layout_add');
 			} else if ($node_data['node_group'] == 'page' && $_SESSION['fe_edit_mode'] == 'edit') {
-				$this->tpl->parse('content.fe_page_properties');
+				$this->tpl->parse('content.wrapper.fe_page_properties');
 			}
 		}
 
+		
+		if ($node_visibility) $this->tpl->parse('content.wrapper');
+		
 		return true;
 		
 	}
