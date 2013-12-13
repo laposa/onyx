@@ -362,7 +362,9 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 	 */
 	protected function getProductImage($product_id)
 	{
-		$Image_Controller = new Onxshop_Request("component/image~relation=product:role=main:width=50:height=50:node_id={$product_id}:limit=0,1~");
+		if (is_numeric($this->GET['image_size'])) $size = $this->GET['image_size'];
+		else $size = 50;
+		$Image_Controller = new Onxshop_Request("component/image~relation=product:role=main:width=$size:height=$size:node_id={$product_id}:limit=0,1~");
 		return $Image_Controller->getContent();
 	}
 
