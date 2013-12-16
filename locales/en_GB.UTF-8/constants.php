@@ -22,6 +22,12 @@ define('I18N_RECOMMEND_TO_A_FRIEND', 'Recommend to a friend');
 //component/searchbox.html
 define('I18N_SEARCH', 'Search');
 define('I18N_GOTO_HOMEPAGE', 'Go to the homepage of');
+//component/search_result.html
+define('I18N_SEARCH_RESULT_NOTHING_FOUND_TITLE', 'Unfortunately your search did not match any documents.');
+define('I18N_SEARCH_RESULT_NOTHING_FOUND_SUGGESTIONS', 'Suggestions:');
+define('I18N_SEARCH_RESULT_NOTHING_FOUND_TIP1', 'Make sure all keywords are spelt correctly.');
+define('I18N_SEARCH_RESULT_NOTHING_FOUND_TIP2', 'Try different keywords.');
+define('I18N_SEARCH_RESULT_NOTHING_FOUND_TIP3', 'Try more general keywords.');
 //component/breadcrumb.html
 define('I18N_HOME', 'Home');
 //component/breadcrumb_product.html

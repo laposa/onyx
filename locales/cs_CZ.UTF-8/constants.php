@@ -22,6 +22,12 @@ define('I18N_RECOMMEND_TO_A_FRIEND', 'Doporuč kamarádovi');
 //component/searchbox.html
 define('I18N_SEARCH', 'Hledej');
 define('I18N_GOTO_HOMEPAGE', 'Přejít na homepage');
+//component/search_result.html
+define('I18N_SEARCH_RESULT_NOTHING_FOUND_TITLE', 'Hledaný výraz bohužel nebyl nalezen.');
+define('I18N_SEARCH_RESULT_NOTHING_FOUND_SUGGESTIONS', 'Tipy:');
+define('I18N_SEARCH_RESULT_NOTHING_FOUND_TIP1', 'Zkuste jiná klíčová slova.');
+define('I18N_SEARCH_RESULT_NOTHING_FOUND_TIP2', 'Zkuste obecnější klíčová slova.');
+define('I18N_SEARCH_RESULT_NOTHING_FOUND_TIP3', 'Ujistěte se že všechna klíčová slova jsou zadána bez chyb.');
 //component/breadcrumb.html
 define('I18N_HOME', 'Úvod');
 //component/breadcrumb_product.html
