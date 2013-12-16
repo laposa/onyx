@@ -211,7 +211,7 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 		$product = $Product->detail($product_id);
 
 		if (strlen($page['description']) > 0) $excerpt = $page['description'];
-		else if (strlen($product['excerpt']) > 0) $excerpt = $product['excerpt'];
+		else if (strlen($product['teaser']) > 0) $excerpt = $product['teaser'];
 		else $excerpt = $product['description'];
 		$page['excerpt'] = $this->highlightKeywords(strip_tags($excerpt));
 
