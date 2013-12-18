@@ -38,6 +38,9 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Promotion_Edit extends Onxshop_C
 				}
 				$promotion_data['limit_list_products'] = implode(",", $limited_ids);
 			}
+
+			$promotion_data['limit_delivery_country_id'] = (int) $promotion_data['limit_delivery_country_id'];
+			$promotion_data['limit_delivery_carrier_id'] = (int) $promotion_data['limit_delivery_carrier_id'];
 		
 			if ($Promotion->updatePromotion($promotion_data)) msg("Promotion id={$promotion_data['id']} updated");
 			else msg('Update failed', 'error');
