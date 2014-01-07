@@ -22,6 +22,9 @@ div.confirm_address div.invoices {float: right;}
 		{ADDRESS.delivery.county|htmlspecialchars}<br />
 		{ADDRESS.delivery.country.name|htmlspecialchars}
 		</p>
+		<p>
+			<a href="/page/{NODE_CONF.id_map-checkout_delivery_options}">Edit Delivery Address</a>
+		</p>
 	</div>
 	<!-- END: delivery -->
 	
@@ -41,6 +44,9 @@ div.confirm_address div.invoices {float: right;}
 		{ADDRESS.invoices.post_code|htmlspecialchars}<br />
 		{ADDRESS.invoices.county|htmlspecialchars}<br />
 		{ADDRESS.invoices.country.name|htmlspecialchars}
+		</p>
+		<p>
+			<a href="/page/{NODE_CONF.id_map-checkout_login}">Edit Billing Address</a>
 		</p>
 	</div>
 	<!-- END: invoices -->
