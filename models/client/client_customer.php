@@ -87,6 +87,7 @@ class client_customer extends Onxshop_Model {
 	 * 2 - reserved
 	 * 3 - preserved for special purposes such as newsletter and survey (can register by updating the same account detail)
 	 * 4 - deleted (can register again)
+	 * 5 - guest checkout (can register again)
 	 */
 	
 	var $status;

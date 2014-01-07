@@ -30,24 +30,32 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Confirm_Address extends On
 		if (is_numeric($this->GET['invoices_address_id'])) $invoices_address_id = $this->GET['invoices_address_id'];
 		if (is_numeric($this->GET['delivery_address_id'])) $delivery_address_id = $this->GET['delivery_address_id'];
 		
+		// is guest checkout required?
+		$guestCheckout = $_SESSION['client']['customer']['guest'];
+
 		//if we have not address_ids, we'll use session data
 		if (!is_numeric($invoices_address_id) && !is_numeric($delivery_address_id)) {
 			$invoices_address_id = $_SESSION['client']['customer']['invoices_address_id'];
 			$delivery_address_id = $_SESSION['client']['customer']['delivery_address_id'];
 		}
-		
+
 		if (is_numeric($invoices_address_id)) {
 			$invoices = $Address->getDetail($invoices_address_id);
+		} else if ($guestCheckout) {
+			$invoices = $_SESSION['client']['address']['billing'];
+			$invoices['country']['name'] = $this->getCountryName($invoices['country_id']);
 		} else {
 			$invoices = false;
 		}
 		
 		if (is_numeric($delivery_address_id)) {
 			$delivery = $Address->getDetail($delivery_address_id);
+		} else if ($guestCheckout) {
+			$delivery = $_SESSION['client']['address']['delivery'];
+			$delivery['country']['name'] = $this->getCountryName($delivery['country_id']);
 		} else {
 			$delivery = false;
 		}
-		
 		
 		$addr['invoices'] = $invoices;
 		$addr['delivery'] = $delivery;
@@ -68,5 +76,13 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Confirm_Address extends On
 		}
 
 		return true;
+	}
+
+	protected function getCountryName($country_id)
+	{
+		require_once('models/international/international_country.php');
+		$Country = new international_country();
+		$country = $Country->detail($country_id);
+		return $country['name'];
 	}
 }

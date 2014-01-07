@@ -481,12 +481,22 @@ CREATE TABLE ecommerce_promotion (
 	 
 	public function checkCodeBeforeApply($code, $customer_id, $basket) {
 
-		if (!is_numeric($customer_id)) {
-			msg("ecommerce_promotion.checkCodeBeforeApply(): customer_id is not numeric", 'error');
-			return false;
-		}
-
 		if ($promotion_data = $this->checkCodeMatch($code)) {
+
+			/**
+			 * check if customer_id is needed (some codes can be used in guest checkout mode)
+			 */
+			if (!is_numeric($customer_id) && ($promotion_data['limit_to_first_order'] > 0 ||
+				$promotion_data['uses_per_customer'] > 0 || $promotion_data['limit_cumulative_discount'] > 0 ||
+				$promotion_data['generated_by_customer_id'] > 0 || $promotion_data['limit_by_customer_id'] > 0)) {
+
+				if (!Zend_Registry::isRegistered('ecommerce_promotion:login_needed')) {
+					msg("You have to login or register to use your voucher code.", 'error');
+					Zend_Registry::set('ecommerce_promotion:login_needed', true);
+				}
+
+				return false;
+			}
 		
 			/**
 			 * first order

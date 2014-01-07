@@ -22,6 +22,7 @@ class Onxshop_Controller_Component_Ecommerce_Basket_Detail extends Onxshop_Contr
 
 		$this->initModels();
 
+
 		$this->basket_id = is_numeric($this->GET['id']) ? $this->GET['id'] : $_SESSION['basket']['id'];
 		$this->customer_id = (int) $_SESSION['client']['customer']['id'];
 
@@ -54,7 +55,16 @@ class Onxshop_Controller_Component_Ecommerce_Basket_Detail extends Onxshop_Contr
 	protected function setVatFlag($customer_id)
 	{
 		$Order = new ecommerce_order();
-		$this->include_vat = $Order->isVatEligible($this->delivery_address_id, $customer_id);
+
+		if ($this->guest_customer) {
+
+			$this->include_vat = $Order->isVatEligibleByCountry($this->delivery_country);
+
+		} else {
+
+			$this->include_vat = $Order->isVatEligible($this->delivery_address_id, $customer_id);
+
+		}
 	}
 
 	/**
@@ -95,12 +105,21 @@ class Onxshop_Controller_Component_Ecommerce_Basket_Detail extends Onxshop_Contr
 			$promotion_detail = $this->Basket->calculateBasketDiscount($basket, $code, $verify_code);
 			$this->Basket->saveDiscount($basket);
 
-			$basket['delivery'] = $Delivery->calculateDelivery(
-				$basket, 
-				$this->delivery_options['carrier_id'], 
-				$this->delivery_address_id, 
-				$promotion_detail
-			);
+			if ($this->guest_customer) {
+				$basket['delivery'] = $Delivery->countryDeliveryForCountry(
+					$basket, 
+					$this->delivery_options['carrier_id'], 
+					$this->delivery_country, 
+					$promotion_detail
+				);
+			} else {
+				$basket['delivery'] = $Delivery->calculateDelivery(
+					$basket, 
+					$this->delivery_options['carrier_id'], 
+					$this->delivery_address_id, 
+					$promotion_detail
+				);
+			}
 
 			if ($basket['delivery'] == false) $this->redirectToDeliveryOptionsPage();
 
@@ -133,10 +152,13 @@ class Onxshop_Controller_Component_Ecommerce_Basket_Detail extends Onxshop_Contr
 	 */
 	protected function prepareAddresses()
 	{
+		$this->guest_customer = $_SESSION['client']['customer']['guest'];
+		$this->delivery_country = $_SESSION['client']['address']['delivery']['country_id'];
+
 		//prepare shipping address
 		if (is_numeric($this->GET['delivery_address_id'])) $this->delivery_address_id = $this->GET['delivery_address_id'];
 		else if (is_numeric($_SESSION['client']['customer']['delivery_address_id'])) $this->delivery_address_id = $_SESSION['client']['customer']['delivery_address_id'];
-		else msg('Unknown delivery_address_id', 'error');
+		else if (!$this->guest_customer) msg('Unknown delivery_address_id', 'error');
 
 		//prepare delivery options
 		if (is_array($this->GET['delivery_options'])) $this->delivery_options = $this->GET['delivery_options'];
