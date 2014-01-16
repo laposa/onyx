@@ -747,9 +747,47 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 		$first_parent_page_id = $active_pages[0];
 		return $first_parent_page_id;
 	}
+
+	/**
+	 * prepare SQL filtering query for given node_group
+	 */
+	protected function prepareNodeGroupFilter($publish, $node_group) {
+
+		switch ($node_group) {
+
+			case 'product':
+				return "AND (node_controller ~ 'product' AND node_controller != 'product_browse')";
+				break;
+
+			case 'notproduct':
+				return "AND (node_controller !~ 'product' OR node_controller = 'product_browse')";
+				break;
+
+			case 'page_and_product':
+				if ($publish == 1) return "AND (node_group = 'page' OR node_group = 'container') AND display_in_menu > 0";
+				else return "AND (node_group = 'page' OR node_group = 'container')";
+				break;
+
+			case 'all':
+			case 'content':
+				return '';
+				break;
+
+			case 'layout':
+				return "AND ((node_group = 'page' AND node_controller !~ 'product') OR node_group = 'container' OR node_group = 'layout') ";
+				break;
+
+			case 'page':
+			default:
+				if ($publish == 1) return "AND ((node_group = 'page' AND (node_controller !~ 'product' OR node_controller = 'product_browse') AND node_controller != 'news') OR node_group = 'container') AND display_in_menu > 0";
+				else return "AND ((node_group = 'page' AND (node_controller !~ 'product' OR node_controller = 'product_browse') AND node_controller != 'news') OR node_group = 'container')";
+				break;
+		}
+
+	}
 	
 	/**
-	 * get tree
+	 * get tree (as a flat list)
 	 *
 	 * @param unknown_type $publish
 	 * @param unknown_type $node_group
@@ -758,34 +796,9 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 
 	function getTree($publish = 1, $node_group = 'page') {
 	
-		//if ($only_pages == 1) $only_pages = "AND (node_group = 'page' OR node_group = 'layout')";
-		switch ($node_group) {
-			case 'product':
-				$condition = "AND (node_controller ~ 'product' AND node_controller != 'product_browse')";
-			break;
-			case 'notproduct':
-				$condition = "AND (node_controller !~ 'product' OR node_controller = 'product_browse')";
-			break;
-			case 'page_and_product':
-				if ($publish == 1) $condition = "AND (node_group = 'page' OR node_group = 'container') AND display_in_menu > 0";
-				else $condition = "AND (node_group = 'page' OR node_group = 'container')";
-			break;
-			case 'all':
-			case 'content':
-				$condition = '';
-			break;
-			case 'layout':
-				$condition = "AND ((node_group = 'page' AND node_controller !~ 'product') OR node_group = 'container' OR node_group = 'layout') ";
-			break;
-			case 'page':
-			default:
-				if ($publish == 1) $condition = "AND ((node_group = 'page' AND (node_controller !~ 'product' OR node_controller = 'product_browse') AND node_controller != 'news') OR node_group = 'container') AND display_in_menu > 0";
-				else $condition = "AND ((node_group = 'page' AND (node_controller !~ 'product' OR node_controller = 'product_browse') AND node_controller != 'news') OR node_group = 'container')";
-			break;
-		}
-		
+		$condition = $this->prepareNodeGroupFilter($publish, $node_group);
+
 		$sql = "SELECT id, content, parent, title as name, page_title as title, node_group, node_controller, display_in_menu, display_permission, publish, priority, teaser, description FROM common_node WHERE publish >= $publish $condition ORDER BY priority DESC, id ASC";
-		
 		
 		if ($records = $this->executeSql($sql)) {
 		
