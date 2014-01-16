@@ -12,10 +12,10 @@ require_once('controllers/component/menu_js.php');
 class Onxshop_Controller_Bo_Component_Server_Browser_Menu extends Onxshop_Controller_Component_Menu_Js {
 	
 	/**
-	 * get list
+	 * get tree
 	 */
 	 
-	public function getList($publish = 1) {
+	public function getTree() {
 			
 		/**
 		 * set prefix
@@ -57,7 +57,7 @@ class Onxshop_Controller_Bo_Component_Server_Browser_Menu extends Onxshop_Contro
 			}
 		}
 		
-		return $list;
+		return $this->buildTree($list);
 	}
 	
 	/**
@@ -103,5 +103,25 @@ class Onxshop_Controller_Bo_Component_Server_Browser_Menu extends Onxshop_Contro
 		else return false;
 		
 	}
+
+	/**
+	 * Is given node active? I.e. is it or its parent active?
+	 * Override if necessary
+	 */
+	protected function isNodeActive(&$item)
+	{
+		$preg = str_replace("/", "\/", quotemeta($item['id']));
+		return (preg_match("/{$preg}$/", $_SESSION['server_browser_last_open_folder']));
+	}
+
+	/**
+	 * Is given node open? Override if necessary
+	 */
+	protected function isNodeOpen(&$item)
+	{
+		$preg = str_replace("/", "\/", quotemeta($item['id']));
+		return (preg_match("/{$preg}/", $_SESSION['server_browser_last_open_folder']));
+	}
+
 }
 
