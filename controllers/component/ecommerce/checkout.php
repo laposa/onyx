@@ -63,8 +63,8 @@ class Onxshop_Controller_Component_Ecommerce_Checkout extends Onxshop_Controller
 		
 					if ($_POST['order_terms_agreed'] == 'on') {
 					
-						//insert only orders having some items in the basket :)
-						$basket_content = $Basket->getContent($basket_id);
+						//insert only orders with some items in the basket :)
+						$basket_content = $Basket->getFullDetail($basket_id);
 					
 						if (count($basket_content['items']) > 0) {
 						
