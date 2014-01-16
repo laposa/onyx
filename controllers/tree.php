@@ -166,15 +166,15 @@ abstract class Onxshop_Controller_Tree extends Onxshop_Controller {
 		 * set open and active class
 		 */
 
-		if ($this->isNodeActive($item)) $item['css_class'] . " active";
-		if ($this->isNodeOpen($item)) $item['css_class'] . " open";
+		if ($this->isNodeActive($item)) $item['css_class'] .= " active";
+		if ($this->isNodeOpen($item)) $item['css_class'] .= " open";
 		
 		/**
 		 * add publish, no_publish class if we showing all items
 		 */
 		
 		if (isset($this->GET['publish'])) {
-			if ($item['publish'] == 0) $item['css_class'] = $item['css_class'] . " onxshop_nopublish";
+			if ($item['publish'] == 0) $item['css_class'] .= " onxshop_nopublish";
 		}
 		
 
