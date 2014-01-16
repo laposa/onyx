@@ -256,21 +256,28 @@ class Onxshop_Bootstrap {
 	function processAuthentication($request) {
 	
 		if (!$_SERVER['HTTPS'] && ONXSHOP_EDITOR_USE_SSL) {
-			header("Location: https://{$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}");exit;
+			header("Location: https://{$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}");
+			exit;
 		}
 		
 		if ($_SESSION['authentication']['authenticity'] < 1 && $_GET['login'] != 1) {
 
 			if ($GLOBALS['Auth']->login()) {
+				
 				msg('Successful Login to the backoffice', 'ok', 1);
-				onxshopGoTo("$request", 1);
+			
 			} else {
+				
 				msg('Login to the backoffice failed', 'error', 1);
 				return false;
+			
 			}
+			
 		} else if ($_SESSION['authentication']['authenticity'] < 1) {
+			
 			$GLOBALS['Auth']->login();
 			return false;
+		
 		}
 		
 		if ($_SESSION['client']['customer']['id'] < 1 && ONXSHOP_BACKOFFICE_REQUIRE_CUSTOMER_LOGIN) {
