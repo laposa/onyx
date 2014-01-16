@@ -14,9 +14,7 @@ class Onxshop_Controller_Component_Menu extends Onxshop_Controller_Tree {
 	 */
 	 
 	public function mainAction() {
-	
-		$this->full_path = $this->getFullPath();
-		
+
 		/**
 		 * input variables
 		 */
@@ -70,15 +68,23 @@ class Onxshop_Controller_Component_Menu extends Onxshop_Controller_Tree {
 		return $this->standardAction($node_id, $publish, $max_display_level, $expand_all, $node_group);
 		
 	}
-	
+
 	/**
-	 * getFullPath
+	 * Is given node active? I.e. is it or its parent selected/open?
+	 * Override if necessary
 	 */
-	 
-	public function getFullPath() {
-		
-		return $_SESSION['full_path'];
-		
+	protected function isNodeActive(&$item)
+	{
+		return (in_array($item['id'], $_SESSION['active_pages']));
+	}
+
+	/**
+	 * Is given node open? Override if necessary
+	 */
+	protected function isNodeOpen(&$item)
+	{
+		if (is_numeric($this->GET['open']) && $item['id'] == $this->GET['open']) return true;
+		return ($item['id'] == $_SESSION['active_pages'][0]);
 	}
 	
 }
