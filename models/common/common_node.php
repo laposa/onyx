@@ -825,7 +825,28 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 			return false;
 		}
 	}
-	
+
+	/**
+	 * get list of node by parent id
+	 */
+	function getNodesByParent($publish = 1, $node_group = 'page', $parent_id)
+	{
+		$condition = $this->prepareNodeGroupFilter($publish, $node_group);
+
+		if (is_numeric($parent_id)) $root = "AND parent = $parent_id";
+		else $root = "AND (parent = 0 OR parent IS NULL)";
+		
+		$sql = "SELECT id, content, parent, title as name, page_title as title, node_group, node_controller, 
+				display_in_menu, display_permission, publish, priority, teaser, description 
+			FROM common_node 
+			WHERE publish >= $publish $condition $root
+			ORDER BY priority DESC, id ASC";		
+
+		$tree = $this->executeSql($sql);
+
+		return $tree;
+	}
+
 	/**
 	 * get lazy tree
 	 *
