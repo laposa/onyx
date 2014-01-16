@@ -31,6 +31,7 @@ class Onxshop_Controller_Tree extends Onxshop_Controller {
 		
 		if (count($list) > 0) {
 		
+			// TODO cache this
 			$md_tree = $this->buildTree($list, $node_id);
 			
 			if (count($md_tree) > 0) {
@@ -64,6 +65,8 @@ class Onxshop_Controller_Tree extends Onxshop_Controller {
 	 
 	function buildTree($nodes, $id = null, $level = 1) {
 
+		//this function is called again and again
+		
 		$tree = array();
 
 		if(is_array($nodes)) {
@@ -229,7 +232,7 @@ class Onxshop_Controller_Tree extends Onxshop_Controller {
 		 * ? is it a hack for server_browser??
 		 */
 		 
-		if ($_SESSION['server_browser_last_open_folder'] != "") {
+		if ($_SESSION['server_browser_last_open_folder'] != "" && preg_match('/server_browser_menu/', $this->request)) {
 			$preg = str_replace("/", "\/", quotemeta($item['id']));
 			if (preg_match("/{$preg}/", $_SESSION['server_browser_last_open_folder'])) {
 				$item['css_class'] = $item['css_class'] . " open";
