@@ -13,6 +13,8 @@ class Onxshop_Controller_Bo_Backoffice_Wrapper extends Onxshop_Controller {
 	 
 	public function mainAction() {
 	
+		header('X-Frame-Options: SAMEORIGIN');
+		
 		/*don't need, it's secured in bootstrap
 		require_once('lib/onxshop.authentication.php');
 		$Auth = new Onxshop_Authentication();
