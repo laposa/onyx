@@ -1,0 +1,200 @@
+<!-- BEGIN: head -->
+
+<script type="text/javascript">  
+
+	function updateSelecton_{GET.node_id}() {
+
+		var block = $('#address_edit_{GET.node_id}');
+
+		block.find("input[type=radio]").each(function() {
+			var input = $(this);
+			var label = input.parent();
+			if (input.is(":checked")) label.addClass("selected");
+			else label.removeClass("selected");
+		});
+	}
+
+	function addNewAddress_{GET.node_id}() {
+
+		var block = $('#address_edit_{GET.node_id}');
+		var form = block.find('.address_form');
+
+		if (form.is(":visible")) {
+
+			form.slideUp(500);
+			block.find("p.buttons a").removeClass('open');
+
+		} else {
+
+			form.find('input[type=text]').val('');
+			form.find('button.add_new_address').show();
+			form.find('button.edit_selected_address').hide();
+			block.find("p.buttons a.add_new").addClass('open');
+			form.slideDown(500);
+
+		}
+	}
+
+	function editSelectedAddress_{GET.node_id}() {
+
+		function populateAddressFields(block, form) {
+
+			var selected = block.find(".address_list input:checked").parent();
+
+			form.find('input[type=text], select').each(function() {
+				var input = $(this);
+				var id = input.attr("id");
+				var address_line = selected.find("span[data-field=" + id + "]");
+				var val = address_line.text();
+				if (id == 'client-address-country_id') val = address_line.attr("data-id");
+				input.val(val);
+			});
+
+		}
+
+		var block = $('#address_edit_{GET.node_id}');
+		var form = block.find('.address_form');
+
+		if (form.is(":visible")) {
+
+			form.slideUp(500);
+			block.find("p.buttons a").removeClass('open');
+
+		} else {
+
+			populateAddressFields(block, form);
+			form.find('button.edit_selected_address').show();
+			form.find('button.add_new_address').hide();
+			block.find("p.buttons a.edit_selected").addClass('open');
+			form.slideDown(500);
+		}
+	}
+
+	function removeSelectedAddress_{GET.node_id}() {
+
+		if (confirm('Are you sure you want to remove selected address?')) {
+
+			var form = $('#address_edit_{GET.node_id}');
+			var val = form.find(".address_list input:checked").val();
+			form.append('<input type="hidden" name="remove_address" value="' + val + '"/>');
+			form.submit();
+
+		}
+	}
+
+	$(document).ready(function(){
+		$("#address_edit_{GET.node_id}").validate();
+		updateSelecton_{GET.node_id}();
+	});  
+
+</script>
+
+<!-- END: head -->
+<!-- BEGIN: content -->
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+
+<!-- BEGIN: virtual_product -->
+	<p>Delivery address is not required as you are only purchasing a virtual gift card.</p>
+	<style type="text/css">
+		div.checkout_address,
+		div.delivery_option {display: none;}
+	</style>
+<!-- END: virtual_product -->
+
+<div class="checkout_address">
+	
+	<form action="{URI_SAFE|htmlspecialchars}" method="post" id="address_edit_{GET.node_id}" class="twoColumns">	
+	
+	<input type="hidden" name="node_id" value="{GET.node_id}"/>
+
+	<div class="address_list">
+		<fieldset class="single">
+				<!-- BEGIN: address -->
+				<div class="address_item">
+					<label title="Select this address..." onclick="updateSelecton_{GET.node_id}()">
+						<input type="radio" name="selected_address_id" {ADDRESS_checked} value="{ADDRESS.id}" onclick="$(this).parents('.columnWrapper').css('opacity', 0.3).css('cursor', 'wait').parent().css('background', 'url(/share/images/ajax-indicator/indicator_facebook.gif) center center no-repeat'); submit()"/>
+						<span data-field="client-address-name">{ADDRESS.name|htmlspecialchars|suffix(%s,'<br/>')}</span>
+						<span data-field="client-address-line_1">{ADDRESS.line_1|htmlspecialchars|suffix(%s,'<br/>')}</span>
+						<span data-field="client-address-line_2">{ADDRESS.line_2|htmlspecialchars|suffix(%s,'<br/>')}</span>
+						<span data-field="client-address-line_3">{ADDRESS.line_3|htmlspecialchars|suffix(%s,'<br/>')}</span>
+						<span data-field="client-address-city">{ADDRESS.city|htmlspecialchars|suffix(%s,'<br/>')}</span>
+						<span data-field="client-address-post_code">{ADDRESS.post_code|htmlspecialchars|suffix(%s,'<br/>')}</span>
+						<span data-field="client-address-county">{ADDRESS.county|htmlspecialchars|suffix(%s,'<br/>')}</span>
+						<span data-field="client-address-country_id" data-id="{ADDRESS.country_id}">{ADDRESS.country.name|htmlspecialchars|suffix(%s,'<br/>')}</span>
+					</label>
+				</div>
+				<!-- END: address -->
+		</fieldset>
+	</div>
+	
+	<p class="buttons">
+		<a href="#" onclick="addNewAddress_{GET.node_id}(); return false;" class="add_new"><span>add a new address</span></a>
+		<a href="#" onclick="editSelectedAddress_{GET.node_id}(); return false;" class="edit_selected"><span>edit selected address</span></a>
+		<!-- <a href="#" onclick="removeSelectedAddress_{GET.node_id}(); return false;" class="remove_selected"><span>remove selected address</span></a> -->
+	</p>
+	
+	<div class="address_form" style="display: none;">
+		
+			<fieldset>
+				<div class="row name">
+					<span class="label"><label for="client-address-name"><span class="mandatory-mark">*</span> {I18N_NAME}:</label></span>
+					<span class="field"><input class="text required" type="text" name="client[address][name]" value="{client.address.name}" id="client-address-name" /></span>
+				</div>
+				<div class="row line_1">
+					<span class="label"><label for="client-address-line_1"><span class="mandatory-mark">*</span> {I18N_ADDRESS_LINE_1}:</label></span>
+					<span class="field"><input class="text required" type="text" name="client[address][line_1]" value="{client.address.line_1}" id="client-address-line_1" /></span>
+				</div>
+				<div class="row line_2">
+					<span class="label"><label for="client-address-line_2">{I18N_ADDRESS_LINE_2}:</label></span>
+					<span class="field"><input class="text" type="text" name="client[address][line_2]" value="{client.address.line_2}" id="client-address-line_2" /></span>
+				</div>
+				<div class="row line_3">
+					<span class="label"><label for="client-address-line_3">{I18N_ADDRESS_LINE_3}:</label></span>
+					<span class="field"><input class="text" type="text" name="client[address][line_3]" value="{client.address.line_3}" id="client-address-line_3" /></span>
+				</div>
+				<div class="row city">
+					<span class="label"><label for="client-address-city"><span class="mandatory-mark">*</span> {I18N_CITY}:</label></span>
+					<span class="field"><input class="text required" type="text" name="client[address][city]" value="{client.address.city}" id="client-address-city" /></span>
+				</div>
+				<div class="row post_code">
+					<span class="label"><label for="client-address-post_code"><span class="mandatory-mark">*</span> {I18N_POST_CODE}:</label></span>
+					<span class="field"><input class="text short required" type="text" name="client[address][post_code]" value="{client.address.post_code}" id="client-address-post_code" /></span>
+				</div>
+				<div class="row county">
+					<span class="label"><label for="client-address-county">{I18N_COUNTY}:</label></span>
+					<span class="field"><input class="text" type="text" name="client[address][county]" value="{client.address.county}" id="client-address-county"/></span>
+				</div>
+				<div class="row country_id">
+					<span class="label"><label for="client-address-country_id"><span class="mandatory-mark">*</span> {I18N_STATE}:</label></span>
+					<!-- BEGIN: country -->
+					<span class="field">
+						<select name="client[address][country_id]" id="client-address-country_id" style="width: 170px;">
+						<!-- BEGIN: item -->
+							<option value="{country.id}" {country.selected}>{country.name}</option>
+						<!-- END: item -->
+						</select>
+						<br/>
+						<small>We can only deliver to the above list of countries.</small>
+					</span>
+					<!-- END: country -->
+				</div>
+				
+				<div class="row submit">
+					<span class="label"><label>&nbsp;</label></span>
+					<span class="field"><button class="add_new_address" type="submit" name="add_address" value="add_address"><span>{I18N_ADD_NEW_ADDRESS}</span></button></span>
+				</div>
+
+				<div class="row submit">
+					<span class="label"><label>&nbsp;</label></span>
+					<span class="field"><button class="edit_selected_address" type="submit" name="edit_address" value="1"><span>{I18N_EDIT_SELECTED_ADDRESS}</span></button></span>
+				</div>
+
+			</fieldset>
+	</div>
+	
+	</form>
+
+</div>
+
+
+<!-- END: content -->

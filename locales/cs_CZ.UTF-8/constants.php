@@ -108,6 +108,7 @@ define('I18N_POST_CODE', 'PSČ');
 define('I18N_COUNTY', 'Kraj');
 define('I18N_STATE', 'Stát');
 define('I18N_ADD_NEW_ADDRESS', 'Přidat novou adresu');
+define('I18N_EDIT_SELECTED_ADDRESS', 'Upravit vybranou adresu');
 //component/ecommerce/basket.html
 define('I18N_SHOPPING_BASKET', 'Nákupní košík');
 define('I18N_YOUR_BASKET_IS_EMPTY', 'Váš košík je prázdný.');
