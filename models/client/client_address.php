@@ -212,4 +212,46 @@ CREATE TABLE client_address (
 		//TODO
 		$this->listing("id = $address_id AND is_deleted IS NOT TRUE", "id DESC");
 	}
+
+	/**
+	 * get list of customer's addresses ordered by most recent usage
+	 * plus currently selected address is always first
+	 */
+
+	public function getRecentAddressList($customer_id, $type) {
+
+		if (!is_numeric($customer_id)) return false;
+
+		$order = '';
+		if ($type == "delivery") $order = "(SELECT c.id
+				FROM client_customer AS c
+				WHERE c.id = $customer_id AND c.delivery_address_id = client_address.id
+			) ASC, 
+			(COALESCE((SELECT o.id 
+				FROM ecommerce_order AS o 
+				WHERE o.delivery_address_id = client_address.id 
+				ORDER BY o.created DESC LIMIT 1), 0)
+			) DESC, 
+			";
+
+		if ($type == "invoices") $order = "(SELECT c.id
+				FROM client_customer AS c
+				WHERE c.id = $customer_id AND c.invoices_address_id = client_address.id
+			) ASC, 
+			(COALESCE((SELECT o.id 
+				FROM ecommerce_order AS o 
+				WHERE o.invoices_address_id = client_address.id 
+				ORDER BY o.created DESC LIMIT 1), 0)
+			) DESC, ";
+
+		$sql = "SELECT *
+			FROM client_address
+			WHERE customer_id = $customer_id
+			ORDER BY $order client_address.id DESC";
+
+		$result = $this->executeSql($sql);
+
+		return $result;
+
+	}
 }

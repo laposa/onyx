@@ -122,7 +122,8 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Address extends Onxshop_Co
 	public function displayAddressList($type) {
 
 		$customer_id = (int) $_SESSION['client']['customer']['id'];
-		$addresses = $this->Address->listing("customer_id = {$customer_id}", "id DESC");
+
+		$addresses = $this->Address->getRecentAddressList($customer_id, $type);
 		
 		foreach ($addresses as $addr) {
 					

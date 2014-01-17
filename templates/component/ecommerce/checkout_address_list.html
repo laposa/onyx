@@ -44,7 +44,7 @@
 			form.find('input[type=text], select').each(function() {
 				var input = $(this);
 				var id = input.attr("id");
-				var address_line = selected.find("span[data-field=" + id + "]");
+				var address_line = selected.find("span[class=" + id + "]");
 				var val = address_line.text();
 				if (id == 'client-address-country_id') val = address_line.attr("data-id");
 				input.val(val);
@@ -70,21 +70,37 @@
 		}
 	}
 
-	function removeSelectedAddress_{GET.node_id}() {
+	function showMoreAddresses{GET.node_id}() {
 
-		if (confirm('Are you sure you want to remove selected address?')) {
+		var block = $('#address_edit_{GET.node_id}');
+		var button = block.find("p.buttons a.show_more");
 
-			var form = $('#address_edit_{GET.node_id}');
-			var val = form.find(".address_list input:checked").val();
-			form.append('<input type="hidden" name="remove_address" value="' + val + '"/>');
-			form.submit();
+		if (button.hasClass("open")) {
 
+			block.find('div.address_item:gt(2)').slideUp(500);
+			button.removeClass('open');
+
+		} else {
+
+			block.find('div.address_item:gt(2)').slideDown(500);
+			button.addClass('open');
 		}
+
 	}
 
 	$(document).ready(function(){
-		$("#address_edit_{GET.node_id}").validate();
+
+		var block = $("#address_edit_{GET.node_id}");
+		block.validate();
 		updateSelecton_{GET.node_id}();
+
+		var count = block.find('div.address_item').length;
+		var selected_index = block.find('div.address_item input:checked').parent().parent().index();
+
+		if (count > 3 && selected_index < 3) {
+			block.find('div.address_item:gt(2)').hide()
+			block.find('a.show_more').css('display', 'inline-block');
+		}
 	});  
 
 </script>
@@ -113,14 +129,14 @@
 				<div class="address_item">
 					<label title="Select this address..." onclick="updateSelecton_{GET.node_id}()">
 						<input type="radio" name="selected_address_id" {ADDRESS_checked} value="{ADDRESS.id}" onclick="$(this).parents('.columnWrapper').css('opacity', 0.3).css('cursor', 'wait').parent().css('background', 'url(/share/images/ajax-indicator/indicator_facebook.gif) center center no-repeat'); submit()"/>
-						<span data-field="client-address-name">{ADDRESS.name|htmlspecialchars|suffix(%s,'<br/>')}</span>
-						<span data-field="client-address-line_1">{ADDRESS.line_1|htmlspecialchars|suffix(%s,'<br/>')}</span>
-						<span data-field="client-address-line_2">{ADDRESS.line_2|htmlspecialchars|suffix(%s,'<br/>')}</span>
-						<span data-field="client-address-line_3">{ADDRESS.line_3|htmlspecialchars|suffix(%s,'<br/>')}</span>
-						<span data-field="client-address-city">{ADDRESS.city|htmlspecialchars|suffix(%s,'<br/>')}</span>
-						<span data-field="client-address-post_code">{ADDRESS.post_code|htmlspecialchars|suffix(%s,'<br/>')}</span>
-						<span data-field="client-address-county">{ADDRESS.county|htmlspecialchars|suffix(%s,'<br/>')}</span>
-						<span data-field="client-address-country_id" data-id="{ADDRESS.country_id}">{ADDRESS.country.name|htmlspecialchars|suffix(%s,'<br/>')}</span>
+						<span class="client-address-name">{ADDRESS.name|htmlspecialchars|suffix(%s,'<br/>')}</span>
+						<span class="client-address-line_1">{ADDRESS.line_1|htmlspecialchars|suffix(%s,'<br/>')}</span>
+						<span class="client-address-line_2">{ADDRESS.line_2|htmlspecialchars|suffix(%s,'<br/>')}</span>
+						<span class="client-address-line_3">{ADDRESS.line_3|htmlspecialchars|suffix(%s,'<br/>')}</span>
+						<span class="client-address-city">{ADDRESS.city|htmlspecialchars|suffix(%s,'<br/>')}</span>
+						<span class="client-address-post_code">{ADDRESS.post_code|htmlspecialchars|suffix(%s,'<br/>')}</span>
+						<span class="client-address-county">{ADDRESS.county|htmlspecialchars|suffix(%s,'<br/>')}</span>
+						<span class="client-address-country_id" data-id="{ADDRESS.country_id}">{ADDRESS.country.name|htmlspecialchars|suffix(%s,'<br/>')}</span>
 					</label>
 				</div>
 				<!-- END: address -->
@@ -128,9 +144,9 @@
 	</div>
 	
 	<p class="buttons">
+		<a href="#" onclick="showMoreAddresses{GET.node_id}(); return false;" class="show_more"><span>show more addresses</span></a>
 		<a href="#" onclick="addNewAddress_{GET.node_id}(); return false;" class="add_new"><span>add a new address</span></a>
 		<a href="#" onclick="editSelectedAddress_{GET.node_id}(); return false;" class="edit_selected"><span>edit selected address</span></a>
-		<!-- <a href="#" onclick="removeSelectedAddress_{GET.node_id}(); return false;" class="remove_selected"><span>remove selected address</span></a> -->
 	</p>
 	
 	<div class="address_form" style="display: none;">
