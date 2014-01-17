@@ -299,7 +299,7 @@ class XTemplate {
 	// String replacement modifiers
 	'str_replace', 'str_ireplace', 'preg_replace', 'strip_tags', 'stripcslashes', 'stripslashes', 'substr', 'strstr',
 	'str_pad', 'str_repeat', 'strtr', 'trim', 'ltrim', 'rtrim', 'nl2br', 'wordwrap', 'printf', 'sprintf',
-	'addslashes', 'addcslashes', 'character_limiter',
+	'addslashes', 'addcslashes', 'character_limiter', 'prefix', 'suffix',
 	// Encoding / decoding modifiers
 	'htmlentities', 'html_entity_decode', 'htmlspecialchars', 'htmlspecialchars_decode',
 	'urlencode', 'urldecode','xmlentities','html2text','json_encode','json_decode',

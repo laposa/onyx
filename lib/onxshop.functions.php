@@ -396,3 +396,22 @@ function array_merge_recursive_distinct ( array &$array1, array &$array2 )
 
   return $merged;
 }
+
+/**
+ * Prepend given $str with $prefix if given $str is not empty
+ */
+function prefix($str, $prefix)
+{
+	if (!empty($str)) return $prefix . $str;
+	return $str;
+}
+
+
+/**
+ * Append given $suffix to $str if given $str is not empty
+ */
+function suffix($str, $suffix)
+{
+	if (!empty($str)) return $str . $suffix;
+	return $str;
+}
