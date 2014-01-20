@@ -12,6 +12,16 @@ require_once('controllers/component/menu_js.php');
 class Onxshop_Controller_Component_Taxonomy_Menu extends Onxshop_Controller_Component_Menu_Js {
 
 	/**
+	 * get tree
+	 */
+	public function getTree($publish = 1) {
+
+		$list = $this->getList($publish);
+
+		return $this->buildTree($list);
+	}
+
+	/**
 	 * get list
 	 */
 	 

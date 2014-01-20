@@ -45,7 +45,17 @@ class Onxshop_Controller_Bo_Component_Taxonomy_Menu extends Onxshop_Controller_C
 		return parent::mainAction();
 		
 	}
-	
+
+	/**
+	 * get tree
+	 */
+	public function getTree($publish = 1) {
+
+		$list = $this->getList($publish);
+
+		return $this->buildTree($list);
+	}
+
 	/**
 	 * get list
 	 */
