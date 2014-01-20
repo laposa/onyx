@@ -103,6 +103,7 @@
 
 				<!-- BEGIN: selected_address -->
 				<div class="address_item selected">
+					<p class="selected">{SELECTE_TITLE}</p>
 					<label title="Select this address..." onclick="updateSelecton_{GET.node_id}()">
 						<input type="radio" name="selected_address_id" {ADDRESS_checked} value="{ADDRESS.id}" onclick="$(this).parents('.columnWrapper').css('opacity', 0.3).css('cursor', 'wait').parent().css('background', 'url(/share/images/ajax-indicator/indicator_facebook.gif) center center no-repeat'); submit()"/>
 						<span class="client-address-name">{ADDRESS.name|htmlspecialchars|suffix(%s,'<br/>')}</span>

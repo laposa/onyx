@@ -56,6 +56,8 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Address_List extends Onxsh
 			if ($parse) {
 
 				if ($i == 0) {
+					if ($type == 'delivery') $this->tpl->assign('SELECTE_TITLE', 'We\'ll deliver to');
+					else $this->tpl->assign('SELECTE_TITLE', 'We\'ll bill to');
 					$this->tpl->parse('content.selected_address');
 				} else {
 					$this->tpl->parse('content.address');
