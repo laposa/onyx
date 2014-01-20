@@ -223,14 +223,30 @@ CREATE TABLE client_address (
 		if (!is_numeric($customer_id)) return false;
 
 		$order = '';
-		if ($type == "delivery") $order = "(COALESCE((SELECT o.id 
+		if ($type == "delivery") $order = "(SELECT c.id
+				FROM client_customer AS c
+				WHERE c.id = $customer_id AND c.delivery_address_id = client_address.id
+			) ASC, 
+			(SELECT c.id
+				FROM client_customer AS c
+				WHERE c.id = $customer_id AND c.invoices_address_id = client_address.id
+			) ASC,
+			(COALESCE((SELECT o.id 
 				FROM ecommerce_order AS o 
 				WHERE o.delivery_address_id = client_address.id 
 				ORDER BY o.created DESC LIMIT 1), 0)
 			) DESC, 
 			";
 
-		if ($type == "invoices") $order = "(COALESCE((SELECT o.id 
+		if ($type == "invoices") $order = "(SELECT c.id
+				FROM client_customer AS c
+				WHERE c.id = $customer_id AND c.invoices_address_id = client_address.id
+			) ASC,
+			(SELECT c.id
+				FROM client_customer AS c
+				WHERE c.id = $customer_id AND c.delivery_address_id = client_address.id
+			) ASC, 
+			(COALESCE((SELECT o.id 
 				FROM ecommerce_order AS o 
 				WHERE o.invoices_address_id = client_address.id 
 				ORDER BY o.created DESC LIMIT 1), 0)
