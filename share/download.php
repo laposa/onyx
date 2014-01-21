@@ -14,6 +14,12 @@ $dir = str_replace($_SERVER["SCRIPT_NAME"], "", $_SERVER["SCRIPT_FILENAME"]);
 require_once("$dir/../conf/global.php");
 
 /**
+ * disable time limit
+ */
+ 
+set_time_limit(0);
+
+/**
  * Set include paths
  */
 
