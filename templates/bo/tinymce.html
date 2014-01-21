@@ -65,7 +65,7 @@ function onxshopFileBrowser(field_name, url, type, win, width, height) {
 
 function onxshopFileBrowserCallBack_{GET.relation}_{GET.id}(field_name, url, type, win) {
 	if (type == 'image') onxshopFileBrowser(field_name, '/popup/files/{GET.relation}/{GET.id}?type=RTE', type, win, 720, 700);
-	else onxshopFileBrowser(field_name, '/popup_window/bo/component/node_menu_tinymce~id=0:open={GET.id}:expand_all=1:publish=0~', type, win, 720, 700);
+	else onxshopFileBrowser(field_name, '/popup_window/bo/component/node_menu_tinymce~id=0:open={GET.id}:expand_all=1:publish=0:node_group=page_and_product~', type, win, 720, 700);
 	
 	return false;
 }
