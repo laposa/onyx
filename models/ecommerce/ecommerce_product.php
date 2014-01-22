@@ -413,7 +413,7 @@ CREATE TABLE ecommerce_product (
 		FROM (
 			SELECT p.id, p.name AS label, n.id AS node_id
 			FROM ecommerce_product AS p
-			LEFT JOIN common_node AS n ON n.content = p.id::text AND n.node_group = 'page' AND n.node_controller = 'product' AND n.publish = 1
+			INNER JOIN common_node AS n ON n.content = p.id::text AND n.node_group = 'page' AND n.node_controller = 'product' AND n.publish = 1
 			WHERE p.publish = 1 $where
 			ORDER BY p.priority DESC
 			LIMIT 5
