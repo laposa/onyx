@@ -31,6 +31,16 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Address extends Onxshop_Co
 			$address_id = $this->addAddress();
 			
 		}
+
+		/**
+		 * edit address
+		 */
+		 
+		if ($_POST['node_id'] == $this->GET['node_id'] && is_numeric($_POST['edit_address'])) {
+		
+			$address_id = $this->editAddress($_POST);
+			
+		}
 		
 		/**
 		 * select address
@@ -54,16 +64,8 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Address extends Onxshop_Co
 			
 		}
 
-		/**
-		 * edit address
-		 */
-		 
-		if ($_POST['node_id'] == $this->GET['node_id'] && is_numeric($_POST['edit_address'])) {
-		
-			$this->editAddress($_POST);
-			
-		}
-		
+		$this->tpl->assign('TYPE', $this->getAddressType());
+
 		/**
 		 * address list
 		 */
@@ -164,7 +166,6 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Address extends Onxshop_Co
 			
 		}
 	}
-
 	
 	/**
 	 * country list
@@ -200,10 +201,12 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Address extends Onxshop_Co
 	public function addAddress() {
 	
 		$_POST['client']['address']['customer_id'] = $_SESSION['client']['customer']['id'];
-		
+	
+		if ($address_id = $this->isDuplicateAddress($_POST['client']['address'])) return $address_id;
+
 		if ($address_id = $this->Address->insert($_POST['client']['address'])) {
 		
-			msg('New address added to your list.');
+			msg("New {$this->getAddressType()} address added.");
 		
 			return $address_id;
 		} else {
@@ -223,6 +226,8 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Address extends Onxshop_Co
 
 		$_POST['client']['address']['customer_id'] = $_SESSION['client']['customer']['id'];
 
+		if ($address_id = $this->isDuplicateAddress($_POST['client']['address'])) return $address_id;
+
 		$types = array('invoices', 'delivery');
 		$selected_address_id = $_SESSION['client']['customer']["{$this->GET['type']}_address_id"];
 
@@ -235,7 +240,7 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Address extends Onxshop_Co
 
 			$this->Address->deleteAddress($selected_address_id);
 
-			msg('Selected address has been successfully updated.');
+			msg("{$this->getAddressType()} address has been successfully updated.");
 
 			onxshopGoto("page/{$_SESSION['active_pages'][0]}");
 
@@ -307,5 +312,40 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Address extends Onxshop_Co
 		}
 				
 	}
+
+	/**
+	 * make sure given address isn't a duplicate of existing address
+	 */
 	
+	public function isDuplicateAddress($address) {
+
+		$customer_id = (int) $_SESSION['client']['customer']['id'];
+
+		$addresses = $this->Address->getRecentAddressList($customer_id);
+		
+		foreach ($addresses as $item) {
+			
+			if ($item['is_deleted']) continue;
+
+			if ($item['country_id'] == $address['country_id'] &&
+				$item['name'] == $address['name'] &&
+				$item['line_1'] == $address['line_1'] &&
+				$item['line_2'] == $address['line_2'] &&
+				$item['line_3'] == $address['line_3'] &&
+				$item['post_code'] == $address['post_code'] &&
+				$item['city'] == $address['city'] &&
+				$item['county'] == $address['county'] &&
+				$item['telephone'] == $address['telephone'] &&
+				$item['comment'] == $address['comment']) return $item['id'];
+			
+		}
+
+		return false;
+	}	
+
+	public function getAddressType()
+	{
+		if ($this->GET['type'] == 'delivery') return 'Delivery';
+		if ($this->GET['type'] == 'invoices') return 'Billing';
+	}
 }

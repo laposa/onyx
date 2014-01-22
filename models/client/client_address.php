@@ -218,11 +218,12 @@ CREATE TABLE client_address (
 	 * plus currently selected address is always first
 	 */
 
-	public function getRecentAddressList($customer_id, $type) {
+	public function getRecentAddressList($customer_id, $type = null) {
 
 		if (!is_numeric($customer_id)) return false;
 
 		$order = '';
+
 		if ($type == "delivery") $order = "(SELECT c.id
 				FROM client_customer AS c
 				WHERE c.id = $customer_id AND c.delivery_address_id = client_address.id
