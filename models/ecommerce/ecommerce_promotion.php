@@ -360,7 +360,7 @@ CREATE TABLE ecommerce_promotion (
 	
 	public function addPromotion($data) {
 		
-		if ($this->checkValidPattern($data['code_pattern'])) {
+		if (!$this->codeExists($data['code_pattern'])) {
 		
 			if (!is_numeric($data['publish'])) $data['publish'] = 0;
 			$data['created'] = date('c');
@@ -381,7 +381,7 @@ CREATE TABLE ecommerce_promotion (
 		
 		} else {
 		
-			msg('This pattern is in conflict with other promotion pattern', 'error');
+			msg('This code is in conflict with other promotion code', 'error');
 			return false;
 		
 		}
@@ -393,8 +393,8 @@ CREATE TABLE ecommerce_promotion (
 	 
 	public function updatePromotion($data) {
 	
-		if (!$this->checkValidPattern($data['code_pattern'], $data['id'])) {
-			msg('This pattern is in conflict with other promotion pattern', 'error');
+		if ($this->codeExists($data['code_pattern'], $data['id'])) {
+			msg('This code is in conflict with other promotion code', 'error');
 			return false;
 		}
 		
@@ -405,23 +405,19 @@ CREATE TABLE ecommerce_promotion (
 	}
 	
 	/**
-	 * check pattern
+	 * check if code exists
 	 */
 	
-	public function checkValidPattern($pattern, $promotion_id = 0) {
+	public function codeExists($code, $promotion_id = 0) {
 	
-		$records = $this->listing();
-		foreach ($records as $record) {
-			//msg("{$record['code_pattern']} $code");
-			if ($promotion_id != $record['id']) {
-				$record_code_pattern_regex_safe = preg_replace("/\//", '\/', $record['code_pattern']);
-				if (preg_match("/$record_code_pattern_regex_safe/i", $pattern)) return false;
-				$pattern_regex_safe = preg_replace("/\//", '\/', $pattern);
-				if (preg_match("/$pattern_regex_safe/i", $record['code_pattern'])) return false;
-			}
-		}
-		
-		return true;
+		$code = pg_escape_string($code);
+		$where = "code_pattern = '$code'";
+		if (is_numeric($promotion_id) && $promotion_id > 0) $where .= " AND id <> $promotion_id";
+
+		$records = $this->listing($where);
+
+		return (count($records) > 0);
+
 	}
 	
 	/**
@@ -433,16 +429,12 @@ CREATE TABLE ecommerce_promotion (
 		$records = $this->listing();
 		
 		foreach ($records as $record) {
-			//msg("{$record['code_pattern']} $code");
+
 			if ($record['publish'] == 1 || $only_public == 0) {
 				
-				//allow forward slashes to be used as a string
-				$item_code_pattern = preg_replace("/\//", '\/', $record['code_pattern']);
-				
-				if (preg_match("/{$item_code_pattern}/i", $code)) {
+				if ($code == $record['code_pattern']) {
 					
 					$promotion_data = $record;
-					
 					$promotion_data['other_data'] = unserialize($promotion_data['other_data']);
 					
 					return $promotion_data;
