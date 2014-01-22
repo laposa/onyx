@@ -109,7 +109,7 @@ CREATE TABLE common_configuration (
 			$conf = $this->getDefaultCoreValues($conf);
 
 		}
-			
+
 		return $conf;
 	}
 	

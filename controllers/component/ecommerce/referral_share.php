@@ -38,18 +38,20 @@ class Onxshop_Controller_Component_Ecommerce_Referral_Share extends Onxshop_Cont
 	{
 		$referral = array();
 
+		$min = money_format("%n", $this->conf['minimum_order_amount']);
+		$discount = money_format("%n", $this->conf['discount_value']);
+
 		$default_message = "Hello," .
 				"\n\n" .
 				"JING sources exceptional teas from across the world, and designs modern and " . 
 				"elegant JINGware specifically designed to infuse their teas." .
 				"\n\n" .
-				"As we all appreciate tea, I have chosen you to receive £5.00 off when you " .
-				" spend over " . money_format("%n", self::MINIMUM_ORDER_AMOUNT) . " on your first order." .
+				"As we all appreciate tea, I have chosen you to receive $discount off when you " .
+				" spend over $min on your first order." .
 				"\n\n" .
-				"Your £5.00 discount voucher is: " . $code . "." .
+				"Your $discount discount voucher is: $code." .
 				"\n\n" .
-				"If you use this code I shall also receive a £5.00 discount on my next order over " . 
-				money_format("%n", self::MINIMUM_ORDER_AMOUNT) .
+				"If you use this code I shall also receive a $discount discount on my next order over $min" . 
 				"\n\n" .
 				"  Browse JING Tea’s range at http://jingtea.com, and don’t forget to use your code at the checkout." .
 				"\n\n" .
@@ -141,7 +143,7 @@ class Onxshop_Controller_Component_Ecommerce_Referral_Share extends Onxshop_Cont
 	protected function getShareUrl($code)
 	{
 		return "http://" . $_SERVER['HTTP_HOST'] . 
-			translateURL("page/" . self::REFERRAL_PAGE_ID) . "?code=" . $code;
+			translateURL("page/" . $this->conf['referral_page_id']) . "?code=" . $code;
 	}
 
 

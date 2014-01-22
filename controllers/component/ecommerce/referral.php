@@ -13,38 +13,9 @@ require_once 'models/common/common_email.php';
 class Onxshop_Controller_Component_Ecommerce_Referral extends Onxshop_Controller {
 
 	/**
-	 * Total number of referrals every customer can have.
-	 * 
-	 * This could be constant for now, but there is a plan
-	 * to make this variable adjustable (per user group)
+	 * Configuration
 	 */
-	const AVAILABLE_REFERRALS_PER_PERSON = 10;
-
-	/**
-	 * An amount both customers (inviting and invited) will receive
-	 * 
-	 * This could be constant for now, but there is a plan
-	 * to make this variable adjustable (per user group)
-	 */
-	const DISCOUNT_VALUE = 5;
-
-	/**
-	 * Mimimum order amount to placed
-	 * 
-	 * This could be constant for now, but there is a plan
-	 * to make this variable adjustable (per user group)
-	 */
-	const MINIMUM_ORDER_AMOUNT = 30;
-
-	/**
-	 * "Welcome to Jing Tea" page id
-	 * 
-	 * This could be constant for now, but there is a plan
-	 * to make this variable adjustable (per user group)
-	 */
-	const REFERRAL_PAGE_ID = 5727;
-
-
+	public $conf;
 
 	/**
 	 * Model instance
@@ -71,7 +42,10 @@ class Onxshop_Controller_Component_Ecommerce_Referral extends Onxshop_Controller
 		$this->initCustomer();
 		$this->loadPromotion();
 
-		$this->tpl->assign("DISCOUNT_VALUE", self::DISCOUNT_VALUE);
+		$this->tpl->assign("AVAILABLE_REFERRALS_PER_PERSON", $this->conf['available_referrals_per_person']);
+		$this->tpl->assign("DISCOUNT_VALUE", $this->conf['discount_value']);
+		$this->tpl->assign("MINIMUM_ORDER_AMOUNT", $this->conf['minimum_order_amount']);
+		$this->tpl->assign("REFERRAL_PAGE_ID", $this->conf['referral_page_id']);
 	}
 
 	/**
@@ -108,7 +82,7 @@ class Onxshop_Controller_Component_Ecommerce_Referral extends Onxshop_Controller
 	 */
 	protected function initModels()
 	{
-
+		$this->conf = ecommerce_promotion::initConfiguration();
 		$this->Promotion = new ecommerce_promotion();
 		$this->Promotion->setCacheable(false);
 		$this->Promotion_Code = new ecommerce_promotion_code();

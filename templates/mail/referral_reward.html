@@ -5,9 +5,9 @@
 
 <p>Thank you for sharing JING Tea with your friends and family. The invitation you sent to {DATA.invited_customer.first_name} has been accepted. </p>
 
-<p>As promised, we are pleased to offer you £5.00 off your next order when you spend over £30.00.</p>
+<p>As promised, we are pleased to offer you {DATA.discount_value|money_format} off your next order when you spend over {DATA.minimum_order_amount|money_format}.</p>
 
-<p>Your new £5.00 voucher code is: <strong>{DATA.code}</strong></p>
+<p>Your new {DATA.discount_value|money_format} voucher code is: <strong>{DATA.code}</strong></p>
 
 <p>Full details of your JING vouchers, and the friends you have invited can be found in your <a href="http://{_SERVER.HTTP_HOST}/my-account/invite-friends">JING Account Page</a>.</p>
 

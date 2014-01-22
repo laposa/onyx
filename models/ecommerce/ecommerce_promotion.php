@@ -176,6 +176,30 @@ CREATE TABLE ecommerce_promotion (
 		
 		return $sql;
 	}
+
+	/**
+	 * init configuration
+	 */
+	 
+	static function initConfiguration() {
+	
+		if (array_key_exists('ecommerce_promotion', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['ecommerce_promotion'];
+		else $conf = array();
+
+		// Total number of referrals every customer can have.
+		if (!is_numeric($conf['available_referrals_per_person'])) $conf['available_referrals_per_person'] = 10;
+
+		// An amount both customers (inviting and invited) will receive
+		if (!is_numeric($conf['discount_value'])) $conf['discount_value'] = 5;
+
+		// Mimimum order amount to placed
+		if (!is_numeric($conf['minimum_order_amount'])) $conf['minimum_order_amount'] = 30;
+
+		// Welcome page id
+		if (!is_numeric($conf['referral_page_id'])) $conf['referral_page_id'] = 5727;
+
+		return $conf;
+	}
 	
 	/**
 	 * list
@@ -903,8 +927,6 @@ CREATE TABLE ecommerce_promotion (
 		$to_email = false; // admin
 		$to_name = false;
 
-		echo "sending";
-
 		$EmailForm->sendEmail('referral_warning', 'n/a', $to_email, $to_name);
 	}
 
@@ -926,6 +948,10 @@ CREATE TABLE ecommerce_promotion (
 		$GLOBALS['common_email']['rewarded_customer'] = $rewarded_customer;
 		$GLOBALS['common_email']['code'] = $code;
 		$GLOBALS['common_email']['total_invited'] = $usage;
+
+		$conf = ecommerce_promotion::initConfiguration();
+		$GLOBALS['common_email']['minimum_order_amount'] = $conf['minimum_order_amount'];
+		$GLOBALS['common_email']['discount_value'] = $conf['discount_value'];
 
 		$to_email = $rewarded_customer['email'];
 		$to_name = $rewarded_customer['first_name'] . " " . $rewarded_customer['last_name'];

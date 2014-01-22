@@ -25,7 +25,7 @@ class Onxshop_Controller_Component_Ecommerce_Referral_Generator extends Onxshop_
 
 			$customer_name = $this->getActiveCustomerName();
 			$title = $customer_name . "'s invitation";
-			$this->createCodeByCustomer($this->customer_id, $title, self::DISCOUNT_VALUE);
+			$this->createCodeByCustomer($this->customer_id, $title, $this->conf['discount_value']);
 
 			// redirect to itself
 			onxshopGoTo($this->GET["translate"]);
@@ -66,7 +66,7 @@ class Onxshop_Controller_Component_Ecommerce_Referral_Generator extends Onxshop_
 			'discount_fixed_value' => $discount_value,
 			'discount_percentage_value' => 0,
 			'discount_free_delivery' => 0,
-			'uses_per_coupon' => self::AVAILABLE_REFERRALS_PER_PERSON,
+			'uses_per_coupon' => $this->conf['available_referrals_per_person'],
 			'uses_per_customer' => 1,
 			'limit_list_products' => '',
 			'other_data' => NULL,
@@ -74,7 +74,7 @@ class Onxshop_Controller_Component_Ecommerce_Referral_Generator extends Onxshop_
 			'limit_delivery_carrier_id' => 0,
 			'limit_by_customer_id' => NULL,
 			'limit_to_first_order' => 1,
-			'limit_to_order_amount' => self::MINIMUM_ORDER_AMOUNT,
+			'limit_to_order_amount' => $this->conf['minimum_order_amount'],
 			'generated_by_order_id' => NULL,
 			'generated_by_customer_id' => $customer_id
 		);
