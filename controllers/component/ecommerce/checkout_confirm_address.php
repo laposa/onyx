@@ -16,10 +16,8 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Confirm_Address extends On
 		/**
 		 * include node configuration
 		 */
-				
 		require_once('models/common/common_node.php');
 		$node_conf = common_node::initConfiguration();
-		$this->tpl->assign('NODE_CONF', $node_conf);
 		
 		/**
 		 * client
@@ -31,7 +29,11 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Confirm_Address extends On
 		if (is_numeric($this->GET['delivery_address_id'])) $delivery_address_id = $this->GET['delivery_address_id'];
 		
 		// is guest checkout required?
-		$guestCheckout = $_SESSION['client']['customer']['guest'];
+		$guest_checkout = $_SESSION['client']['customer']['guest'];
+
+		// address edit link
+		if ($guest_checkout) $this->tpl->assign('UPDATE_PAGE_ID', $node_conf['id_map-guest_registration']);
+		else $this->tpl->assign('UPDATE_PAGE_ID', $node_conf['id_map-checkout_delivery_options']);
 
 		//if we have not address_ids, we'll use session data
 		if (!is_numeric($invoices_address_id) && !is_numeric($delivery_address_id)) {
@@ -41,8 +43,8 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Confirm_Address extends On
 
 		if (is_numeric($invoices_address_id)) {
 			$invoices = $Address->getDetail($invoices_address_id);
-		} else if ($guestCheckout) {
-			$invoices = $_SESSION['client']['address']['billing'];
+		} else if ($guest_checkout) {
+			$invoices = $_SESSION['client']['address']['invoices'];
 			$invoices['country']['name'] = $this->getCountryName($invoices['country_id']);
 		} else {
 			$invoices = false;
@@ -50,7 +52,7 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Confirm_Address extends On
 		
 		if (is_numeric($delivery_address_id)) {
 			$delivery = $Address->getDetail($delivery_address_id);
-		} else if ($guestCheckout) {
+		} else if ($guest_checkout) {
 			$delivery = $_SESSION['client']['address']['delivery'];
 			$delivery['country']['name'] = $this->getCountryName($delivery['country_id']);
 		} else {
