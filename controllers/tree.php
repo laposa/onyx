@@ -49,25 +49,25 @@ abstract class Onxshop_Controller_Tree extends Onxshop_Controller {
 
         if(is_array($nodes)) {
         
-                foreach($nodes as $node) {
+            foreach($nodes as $node) {
+            
+                // safety check
+                if ($node['parent'] === $node['id']) {
+                        msg("Infinite loop in tree.buildTree (id={$node['id']}, parent={$node['parent']}", 'error');
+                        return false;
+                }
                 
-                        // safety check
-                        if ($node['parent'] === $node['id']) {
-                                msg("Infinite loop in tree.buildTree (id={$node['id']}, parent={$node['parent']}", 'error');
-                                return false;
-                        }
-                        
-                        if ($node["parent"] == $id) array_push($tree, $node);
-                }
+                if ($node["parent"] == $id) array_push($tree, $node);
+            }
 
-                for($x = 0; $x < count($tree); $x++) {
-                        
-                        $tree[$x]["level"] = $level;
-                        $tree[$x]["children"] = $this->buildTree($nodes, $tree[$x]["id"], $level + 1);
+            for($x = 0; $x < count($tree); $x++) {
+                    
+                $tree[$x]["level"] = $level;
+                $tree[$x]["children"] = $this->buildTree($nodes, $tree[$x]["id"], $level + 1);
 
-                }
+            }
 
-                return $tree;
+            return $tree;
 
         }
 
@@ -88,7 +88,7 @@ abstract class Onxshop_Controller_Tree extends Onxshop_Controller {
 
 			foreach ($tree as $i => $node) {
 
-				if ($expand_all || $this->isNodeActive($node)) {
+				if ($expand_all || $this->isNodeOpen($node) || $this->isNodeActive($node)) {
 					$children = $this->getTree($publish, $node_group, $node['id'], $depth, $expand_all);
 					if (is_array($children) && count($children) > 0) $tree[$i]['children'] = $children;
 				}
@@ -121,6 +121,7 @@ abstract class Onxshop_Controller_Tree extends Onxshop_Controller {
 			if (is_array($item['children']) && count($item['children']) > 0) {
 
 				$item['subcontent'] = $this->parseTree($item['children']);
+
 				if (!empty($item['subcontent'])) $item['css_class'] = $item['css_class'] . ' has_child';
 				
 			} else {
@@ -166,9 +167,11 @@ abstract class Onxshop_Controller_Tree extends Onxshop_Controller {
 		 * set open and active class
 		 */
 
-		if ($this->isNodeActive($item)) $item['css_class'] .= " active";
-		if ($this->isNodeOpen($item)) $item['css_class'] .= " open";
-		
+		if ($this->isNodeActive($item)) {
+			$item['css_class'] .= " open";
+			if ($this->isNodeOpen($item)) $item['css_class'] .= " active";
+		}
+
 		/**
 		 * add publish, no_publish class if we showing all items
 		 */
