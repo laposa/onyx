@@ -88,9 +88,12 @@ abstract class Onxshop_Controller_Tree extends Onxshop_Controller {
 
 			foreach ($tree as $i => $node) {
 
+				$children = $this->getTree($publish, $node_group, $node['id'], $depth, $expand_all);
+
 				if ($expand_all || $this->isNodeOpen($node) || $this->isNodeActive($node)) {
-					$children = $this->getTree($publish, $node_group, $node['id'], $depth, $expand_all);
 					if (is_array($children) && count($children) > 0) $tree[$i]['children'] = $children;
+				} else {
+					$tree[$i]['has_children'] = count($children) > 0;
 				}
 			}
 		}
@@ -122,13 +125,13 @@ abstract class Onxshop_Controller_Tree extends Onxshop_Controller {
 
 				$item['subcontent'] = $this->parseTree($item['children']);
 
-				if (!empty($item['subcontent'])) $item['css_class'] = $item['css_class'] . ' has_child';
-				
 			} else {
 			
 				$item['subcontent'] = '';
 			
 			}
+
+			if (!empty($item['subcontent']) || $item['has_children']) $item['css_class'] = $item['css_class'] . ' has_child';
 
 			if ($item_parsed = $this->parseItem($item)) {
 				
