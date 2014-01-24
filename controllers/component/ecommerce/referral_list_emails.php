@@ -29,7 +29,7 @@ class Onxshop_Controller_Component_Ecommerce_Referral_List_Emails extends Onxsho
 		$EmailForm = new common_email();
 		$EmailForm->setCacheable(false);
 		$email = pg_escape_string($_SESSION['client']['customer']['email']);
-		$emails = $EmailForm->listing("email_from = '$email' AND template = 'referral_invite'");
+		$emails = $EmailForm->listing("email_from = '$email' AND template = 'referral_invite'", "created DESC");
 
 		if (is_array($emails) && count($emails) > 0) {
 

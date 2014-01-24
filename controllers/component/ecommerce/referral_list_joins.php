@@ -33,7 +33,7 @@ class Onxshop_Controller_Component_Ecommerce_Referral_List_Joins extends Onxshop
 	protected function loadList($customer_id)
 	{
 		return $this->Promotion->listing("code_pattern LIKE 'REW-%' " .
-			"AND limit_by_customer_id  = $customer_id");
+			"AND limit_by_customer_id  = $customer_id", "created DESC");
 	}
 
 
