@@ -14,11 +14,11 @@ class Onxshop_Controller_Component_Taxonomy_Menu extends Onxshop_Controller_Comp
 	/**
 	 * get tree
 	 */
-	public function getTree($publish = 1) {
+	public function getTree($publish, $node_group, $parent, $depth, $expand_all) {
 
 		$list = $this->getList($publish);
 
-		return $this->buildTree($list);
+		return $this->buildTree($list, $parent, $depth);
 	}
 
 	/**
