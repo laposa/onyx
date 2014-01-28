@@ -79,7 +79,7 @@ class Onxshop_Controller_Bo_Export_CSV extends Onxshop_Controller {
 			
 					$val = addslashes($val);
 					$val = '"' . $val . '"';
-					$val = preg_replace("/[\n\r]/", '', $val);
+					$val = preg_replace("/[\n\r]/", ' \n ', $val);
 				}
 
 				$this->tpl->assign('value', $val);
