@@ -138,7 +138,7 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 		);
 
 		//remove by variety id
-		if (is_numeric($_POST['remove'])) return array(
+		if (is_numeric($_POST['remove_variety_id'])) return array(
 			'action' => 'remove_variety_id',
 			'product_variety_id' => $_POST['remove_variety_id']
 		);
@@ -180,7 +180,7 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 
 			case 'remove_variety_id':
 
-				$this->removeVariety($input['remove_variety_id']);
+				$this->removeVariety($input['product_variety_id']);
 				break;
 		}
 
@@ -248,8 +248,8 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 	 
 	protected function removeVariety($variety_id)
 	{
-		$basket_content = $this->getBasketContent($this->basket_id);
-		foreach ($basket_content['items'] as $item) {
+		$items = $this->Basket_content->getItems($this->basket_id);
+		foreach ($items as $item) {
 			if ($item['product_variety_id'] == $variety_id) $this->removeItem($item['id']);
 		}
 		
