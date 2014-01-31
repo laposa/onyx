@@ -315,7 +315,9 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 	{
 		$cols = 0 ;
 
-		foreach ($basket['items'] as $item) {
+		$items = array_reverse($basket['items']);
+
+		foreach ($items as $item) {
 
 			if (is_array($item['other_data']) && count($item['other_data']) > 0) $item['other_data'] = implode(", ", $item['other_data']);
 			else $item['other_data'] = '';
