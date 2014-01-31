@@ -191,6 +191,8 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Address extends Onxshop_Co
 			}			
 		}
 		
+		if ($this->GET['type'] == 'delivery') $this->tpl->parse('content.country.delivery_nb');
+
 		$this->tpl->parse('content.country');
 	}
 	
