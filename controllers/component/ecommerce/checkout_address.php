@@ -204,16 +204,19 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Address extends Onxshop_Co
 	
 		$_POST['client']['address']['customer_id'] = $_SESSION['client']['customer']['id'];
 	
-		if ($address_id = $this->isDuplicateAddress($_POST['client']['address'])) return $address_id;
+		if ($address_id = $this->isDuplicateAddress($_POST['client']['address'])) {
+			msg('We\'re sorry, the submitted address already exists.', 'error');
+			return $address_id;
+		}
 
 		if ($address_id = $this->Address->insert($_POST['client']['address'])) {
 		
-			msg("New {$this->getAddressType()} address added.");
+			msg("New {$this->getAddressType()} address has been added.");
 		
 			return $address_id;
 		} else {
 		
-			msg('Address is not valid', 'error');
+			msg('We\'re sorry, the address is not valid', 'error');
 		
 			return false;
 		}

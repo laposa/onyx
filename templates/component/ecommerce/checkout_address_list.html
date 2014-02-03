@@ -2,23 +2,56 @@
 
 <script type="text/javascript">  
 
+	function selectAltAddress_{GET.node_id}() {
+
+		var block = $('#address_edit_{GET.node_id}');
+		var form = block.find('.address_form');
+		var fielset = block.find('fieldset.alternative');
+
+		if (block.find("p.buttons a.select_alt").hasClass('open')) {
+
+			form.slideUp(500);
+			fielset.slideUp(500);
+			block.find("p.buttons a").removeClass('open');
+			block.find(".error").removeClass('error');
+
+		} else {
+
+			block.find("p.buttons a").removeClass('open');
+			block.find("p.buttons a.select_alt").addClass('open');
+			form.slideUp(500);
+			fielset.slideDown(500);
+
+		}
+
+	}
+
 	function addNewAddress_{GET.node_id}() {
 
 		var block = $('#address_edit_{GET.node_id}');
 		var form = block.find('.address_form');
+		var fielset = block.find('fieldset.alternative');
 
-		if (form.is(":visible")) {
+		if (block.find("p.buttons a.add_new").hasClass('open')) {
 
 			form.slideUp(500);
+			fielset.slideUp(500);
 			block.find("p.buttons a").removeClass('open');
+			block.find('.address_form p.error').remove();
+			block.find(".error").removeClass('error');
 
 		} else {
 
 			form.find('input[type=text]').val('');
 			form.find('button.add_new_address').parent().parent().show();
 			form.find('button.edit_selected_address').parent().parent().hide();
+			block.find("p.buttons a").removeClass('open');
 			block.find("p.buttons a.add_new").addClass('open');
-			form.slideDown(500);
+			form.slideDown(500, function() {
+				form.find("input:first").focus();
+				$("html, body").animate({ scrollTop: form.offset().top - 60 }, 300);
+			});
+			fielset.slideUp(500);
 
 		}
 	}
@@ -42,26 +75,48 @@
 
 		var block = $('#address_edit_{GET.node_id}');
 		var form = block.find('.address_form');
+		var fielset = block.find('fieldset.alternative');
 
-		if (form.is(":visible")) {
+		if (block.find("p.buttons a.edit_selected").hasClass('open')) {
 
 			form.slideUp(500);
+			fielset.slideUp(500);
 			block.find("p.buttons a").removeClass('open');
+			block.find('.address_form p.error').remove();
+			block.find(".error").removeClass('error');
 
 		} else {
 
 			populateAddressFields(block, form);
 			form.find('button.edit_selected_address').parent().parent().show();
 			form.find('button.add_new_address').parent().parent().hide();
+			block.find("p.buttons a").removeClass('open');
 			block.find("p.buttons a.edit_selected").addClass('open');
-			form.slideDown(500);
+			form.slideDown(500, function() {
+				form.find("input:first").focus();
+				$("html, body").animate({ scrollTop: form.offset().top - 60 }, 300);
+			});
+			fielset.slideUp(500);
 		}
 	}
 
 	$(document).ready(function(){
 
 		var block = $("#address_edit_{GET.node_id}");
-		block.validate();
+
+		block.validate({ 
+			showErrors: function(errorMap, errorList) {
+				var errors = this.numberOfInvalids();
+				block.find('.address_form p.error').remove();
+				if (errors) {
+					block.find('.address_form').prepend('<p class="error">Please Complete Required Fields</a>');
+					for (var i = 0; i < errorList.length; i++) {
+						var element = errorList[i].element;
+						$(element).addClass("error").parent().prev().find('label').addClass("error");
+					}
+				}
+			}
+		});
 	});
 
 </script>
@@ -100,90 +155,97 @@
 
 	<div class="address_list">
 
-		<fieldset class="single">
+		<div class="selection_block">
 
-			<!-- BEGIN: selected_address -->
-			<div class="selected_address">
-				<span class="client-address-name">{ADDRESS.name|htmlspecialchars|suffix(%s,'<br/>')}</span>
-				<span class="client-address-line_1">{ADDRESS.line_1|htmlspecialchars|suffix(%s,'<br/>')}</span>
-				<span class="client-address-line_2">{ADDRESS.line_2|htmlspecialchars|suffix(%s,'<br/>')}</span>
-				<span class="client-address-line_3">{ADDRESS.line_3|htmlspecialchars|suffix(%s,'<br/>')}</span>
-				<span class="client-address-city">{ADDRESS.city|htmlspecialchars|suffix(%s,'<br/>')}</span>
-				<span class="client-address-post_code">{ADDRESS.post_code|htmlspecialchars|suffix(%s,'<br/>')}</span>
-				<span class="client-address-county">{ADDRESS.county|htmlspecialchars|suffix(%s,'<br/>')}</span>
-				<span class="client-address-country_id" data-id="{ADDRESS.country_id}">{ADDRESS.country.name|htmlspecialchars|suffix(%s,'<br/>')}</span>
+			<fieldset class="single">
+
+				<!-- BEGIN: selected_address -->
+				<div class="selected_address">
+					<span class="client-address-name">{ADDRESS.name|htmlspecialchars|suffix(%s,'<br/>')}</span>
+					<span class="client-address-line_1">{ADDRESS.line_1|htmlspecialchars|suffix(%s,'<br/>')}</span>
+					<span class="client-address-line_2">{ADDRESS.line_2|htmlspecialchars|suffix(%s,'<br/>')}</span>
+					<span class="client-address-line_3">{ADDRESS.line_3|htmlspecialchars|suffix(%s,'<br/>')}</span>
+					<span class="client-address-city">{ADDRESS.city|htmlspecialchars|suffix(%s,'<br/>')}</span>
+					<span class="client-address-post_code">{ADDRESS.post_code|htmlspecialchars|suffix(%s,'<br/>')}</span>
+					<span class="client-address-county">{ADDRESS.county|htmlspecialchars|suffix(%s,'<br/>')}</span>
+					<span class="client-address-country_id" data-id="{ADDRESS.country_id}">{ADDRESS.country.name|htmlspecialchars|suffix(%s,'<br/>')}</span>
+				</div>
+				<!-- END: selected_address -->
+
+			</fieldset>
+
+			<p class="buttons">
+				<a href="#" onclick="addNewAddress_{GET.node_id}(); return false;" class="add_new"><span>Add a New {TYPE} Address</span></a>
+				<a href="#" onclick="selectAltAddress_{GET.node_id}(); return false;" class="select_alt"><span>Select a Previously Used Address</span></a>
+				<a href="#" onclick="editSelectedAddress_{GET.node_id}(); return false;" class="edit_selected"><span>Edit Selected Address</span></a>
+			</p>
+
+			<div class="bottom"></div>
+
+			<div class="address_form" style="display: none;">
+				
+					<fieldset>
+						<div class="row name">
+							<span class="label"><label for="client-address-name"><span class="mandatory-mark">*</span> Name:</label></span>
+							<span class="field"><input class="text required" type="text" name="client[address][name]" value="{client.address.name}" id="client-address-name" /></span>
+						</div>
+						<div class="row line_1">
+							<span class="label"><label for="client-address-line_1"><span class="mandatory-mark">*</span> {TYPE} Address:</label></span>
+							<span class="field"><input class="text required" type="text" name="client[address][line_1]" value="{client.address.line_1}" id="client-address-line_1" /></span>
+						</div>
+						<div class="row line_2">
+							<span class="label"><label for="client-address-line_2">&nbsp;</label></span>
+							<span class="field"><input class="text" type="text" name="client[address][line_2]" value="{client.address.line_2}" id="client-address-line_2" /></span>
+						</div>
+						<div class="row line_3">
+							<span class="label"><label for="client-address-line_3">&nbsp;</label></span>
+							<span class="field"><input class="text" type="text" name="client[address][line_3]" value="{client.address.line_3}" id="client-address-line_3" /></span>
+						</div>
+						<div class="row city">
+							<span class="label"><label for="client-address-city"><span class="mandatory-mark">*</span> {I18N_CITY}:</label></span>
+							<span class="field"><input class="text required" type="text" name="client[address][city]" value="{client.address.city}" id="client-address-city" /></span>
+						</div>
+						<div class="row post_code">
+							<span class="label"><label for="client-address-post_code"><span class="mandatory-mark">*</span> {I18N_POST_CODE}:</label></span>
+							<span class="field"><input class="text short required" type="text" name="client[address][post_code]" value="{client.address.post_code}" id="client-address-post_code" /></span>
+						</div>
+						<div class="row county">
+							<span class="label"><label for="client-address-county">{I18N_COUNTY}:</label></span>
+							<span class="field"><input class="text" type="text" name="client[address][county]" value="{client.address.county}" id="client-address-county"/></span>
+						</div>
+						<div class="row country_id">
+							<span class="label"><label for="client-address-country_id"><span class="mandatory-mark">*</span> {I18N_STATE}:</label></span>
+							<!-- BEGIN: country -->
+							<span class="field">
+								<select name="client[address][country_id]" id="client-address-country_id" style="width: 170px;">
+								<!-- BEGIN: item -->
+									<option value="{country.id}" {country.selected}>{country.name}</option>
+								<!-- END: item -->
+								</select>
+								<!-- BEGIN: delivery_nb -->
+								<br/>
+								<small>We can only deliver to the above list of countries.</small>
+								<!-- END: delivery_nb -->
+							</span>
+							<!-- END: country -->
+						</div>
+						
+						<div class="row submit">
+							<span class="label"><label>&nbsp;</label></span>
+							<span class="field"><button class="add_new_address" type="submit" name="add_address" value="add_address"><span>Confirm {TYPE} Address</span></button></span>
+						</div>
+
+						<div class="row submit">
+							<span class="label"><label>&nbsp;</label></span>
+							<span class="field"><button class="edit_selected_address" type="submit" name="edit_address" value="1"><span>Confirm {TYPE} Address</span></button></span>
+						</div>
+
+					</fieldset>
 			</div>
-			<!-- END: selected_address -->
 
-		</fieldset>
-
-		<p class="buttons">
-			<a href="#" onclick="editSelectedAddress_{GET.node_id}(); return false;" class="edit_selected"><span>Edit Selected Address</span></a>
-			<a href="#" onclick="addNewAddress_{GET.node_id}(); return false;" class="add_new"><span>Add a New {TYPE} Address</span></a>
-		</p>
-
-		<div class="address_form" style="display: none;">
-			
-				<fieldset>
-					<div class="row name">
-						<span class="label"><label for="client-address-name"><span class="mandatory-mark">*</span> Name:</label></span>
-						<span class="field"><input class="text required" type="text" name="client[address][name]" value="{client.address.name}" id="client-address-name" /></span>
-					</div>
-					<div class="row line_1">
-						<span class="label"><label for="client-address-line_1"><span class="mandatory-mark">*</span> {TYPE} Address:</label></span>
-						<span class="field"><input class="text required" type="text" name="client[address][line_1]" value="{client.address.line_1}" id="client-address-line_1" /></span>
-					</div>
-					<div class="row line_2">
-						<span class="label"><label for="client-address-line_2">&nbsp;</label></span>
-						<span class="field"><input class="text" type="text" name="client[address][line_2]" value="{client.address.line_2}" id="client-address-line_2" /></span>
-					</div>
-					<div class="row line_3">
-						<span class="label"><label for="client-address-line_3">&nbsp;</label></span>
-						<span class="field"><input class="text" type="text" name="client[address][line_3]" value="{client.address.line_3}" id="client-address-line_3" /></span>
-					</div>
-					<div class="row city">
-						<span class="label"><label for="client-address-city"><span class="mandatory-mark">*</span> {I18N_CITY}:</label></span>
-						<span class="field"><input class="text required" type="text" name="client[address][city]" value="{client.address.city}" id="client-address-city" /></span>
-					</div>
-					<div class="row post_code">
-						<span class="label"><label for="client-address-post_code"><span class="mandatory-mark">*</span> {I18N_POST_CODE}:</label></span>
-						<span class="field"><input class="text short required" type="text" name="client[address][post_code]" value="{client.address.post_code}" id="client-address-post_code" /></span>
-					</div>
-					<div class="row county">
-						<span class="label"><label for="client-address-county">{I18N_COUNTY}:</label></span>
-						<span class="field"><input class="text" type="text" name="client[address][county]" value="{client.address.county}" id="client-address-county"/></span>
-					</div>
-					<div class="row country_id">
-						<span class="label"><label for="client-address-country_id"><span class="mandatory-mark">*</span> {I18N_STATE}:</label></span>
-						<!-- BEGIN: country -->
-						<span class="field">
-							<select name="client[address][country_id]" id="client-address-country_id" style="width: 170px;">
-							<!-- BEGIN: item -->
-								<option value="{country.id}" {country.selected}>{country.name}</option>
-							<!-- END: item -->
-							</select>
-							<!-- BEGIN: delivery_nb -->
-							<br/>
-							<small>We can only deliver to the above list of countries.</small>
-							<!-- END: delivery_nb -->
-						</span>
-						<!-- END: country -->
-					</div>
-					
-					<div class="row submit">
-						<span class="label"><label>&nbsp;</label></span>
-						<span class="field"><button class="add_new_address" type="submit" name="add_address" value="add_address"><span>Confirm {TYPE} Address</span></button></span>
-					</div>
-
-					<div class="row submit">
-						<span class="label"><label>&nbsp;</label></span>
-						<span class="field"><button class="edit_selected_address" type="submit" name="edit_address" value="1"><span>Confirm {TYPE} Address</span></button></span>
-					</div>
-
-				</fieldset>
 		</div>
 
-		<fieldset class="single">
+		<fieldset class="alternative">
 
 			<h3>Select an Alternative Address</h3>
 
@@ -201,6 +263,9 @@
 			</select>
 
 		</fieldset>
+
+		<div class="bottom"></div>
+
 	</div>
 	
 	</form>
