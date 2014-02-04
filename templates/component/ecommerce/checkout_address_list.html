@@ -52,6 +52,7 @@
 				$("html, body").animate({ scrollTop: form.offset().top - 60 }, 300);
 			});
 			fielset.slideUp(500);
+			resetForm_{GET.node_id}();
 
 		}
 	}
@@ -97,26 +98,49 @@
 				$("html, body").animate({ scrollTop: form.offset().top - 60 }, 300);
 			});
 			fielset.slideUp(500);
+			resetForm_{GET.node_id}();
 		}
 	}
 
-	$(document).ready(function(){
+	function validateForm_{GET.node_id}() {
 
 		var block = $("#address_edit_{GET.node_id}");
 
 		block.validate({ 
-			showErrors: function(errorMap, errorList) {
-				var errors = this.numberOfInvalids();
-				block.find('.address_form p.error').remove();
+			highlight: function(element, errorClass) {
+				$(element).addClass("error").parent().prev().find('label').addClass("my_error");
+			},
+			unhighlight: function(element, errorClass) {
+				$(element).removeClass("error").parent().prev().find('label').removeClass("my_error");
+			},
+			invalidHandler: function(event, validator) {
+				var errors = validator.numberOfInvalids();
+				var form = $('#registration_node_id_{GET.node_id}');
 				if (errors) {
-					block.find('.address_form').prepend('<p class="error">Please Complete Required Fields</a>');
-					for (var i = 0; i < errorList.length; i++) {
-						var element = errorList[i].element;
-						$(element).addClass("error").parent().prev().find('label').addClass("error");
-					}
+					form.prepend('<p class="error">Please Complete Required Fields</a>');
+				} else {
+					form.find('p.error').remove();
 				}
+			},
+			errorPlacement: function(error, element) {
+				// do not display individal errors 
 			}
 		});
+
+	}
+
+	function resetForm_{GET.node_id}() {
+
+		var block = $("#address_edit_{GET.node_id}");
+		block.find('.address_form p.error').remove();
+		block.find('.address_form .error').removeClass("error");
+
+	}
+
+	$(document).ready(function(){
+
+		validateForm_{GET.node_id}();
+
 	});
 
 </script>
@@ -140,18 +164,6 @@
 	<form action="{URI_SAFE|htmlspecialchars}" method="post" id="address_edit_{GET.node_id}" class="twoColumns">	
 	
 	<input type="hidden" name="node_id" value="{GET.node_id}"/>
-
-	<!-- BEGIN: delivery_checkbox -->
-
-		<label>
-			<input type="checkbox" checked="checked" onclick="$('#address_edit_{GET.node_id} div.address_list').slideDown(300); $(this).parent().remove();"/> Deliver to Billing Address
-		</label>
-
-		<script type="text/javascript">
-			$(function() { $('#address_edit_{GET.node_id} div.address_list').hide(); });
-		</script>
-
-	<!-- END: delivery_checkbox -->
 
 	<div class="address_list">
 

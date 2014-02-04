@@ -17,10 +17,6 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Address_List extends Onxsh
 
 		parent::mainAction();
 
-		if ($this->GET['type'] == 'delivery' && $_SESSION['client']['customer']['delivery_address_id'] == $_SESSION['client']['customer']['invoices_address_id']) {
-			$this->tpl->parse('content.delivery_checkbox');
-		}
-
 		if ($_POST['node_id'] == $this->GET['node_id'] && is_numeric($_POST['selected_address_id'])) onxshopGoto("page/{$_SESSION['active_pages'][0]}");
 
 		return true;
