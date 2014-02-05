@@ -42,22 +42,26 @@ function removeFromBasketVarietyAjaxAction(variety_id) {
 	
 }
 
-function addToBasketAjaxActionFromVarietyList(variety_id, quantity, hide_messages) {
+function addToBasketAjaxActionFromVarietyList(variety_id, quantity, success_callback) {
     
     $('a.add_to_basket' + '.variety_id_' + variety_id).addClass('loading');
     $("#basket").addClass('loading');
     quantity = quantity || 1;
-    if (quantity < 1 && quantity > 20) quantity = 1;
-    $("#basket #basketWrapper").load('/request/component/ecommerce/basket', {'add': variety_id, 'quantity': quantity}, function (responseText, textStatus, XMLHttpRequest) {
-        if (hide_messages === true) $("#basket #basketWrapper div.onxshop_messages").remove();
-        else popupMessage("#basket #basketWrapper div.onxshop_messages");
-        
+    if (quantity < 1 && quantity > 100) quantity = 1;
+
+    var callback = function (responseText, textStatus, XMLHttpRequest) {
+        popupMessage("#basket #basketWrapper div.onxshop_messages");
         $("#basket").removeClass('loading');
         $('a.add_to_basket' + '.variety_id_' + variety_id).removeClass('loading').addClass('added');
-
         // update basket_edit component if present
         if ($('.basket_edit').length > 0) $('.basket_edit').load(window.location + ' .basket_edit');
-    });
+    };
+
+    if (typeof success_callback == 'function') callback = success_callback;
+
+    var params = {'add': variety_id, 'quantity': quantity};
+
+    $("#basket #basketWrapper").load('/request/component/ecommerce/basket', params, callback);
     
 }
 
