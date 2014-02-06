@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2012-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -8,17 +8,101 @@
 require_once('controllers/api.php');
 
 class Onxshop_Controller_Api_v1_0_Recipe_List extends Onxshop_Controller_Api {
-	
+
 	/**
 	 * get data
 	 */
 	
 	public function getData() {
 		
+		/**
+		 * initialize
+		 */
+		 
+		require_once('models/ecommerce/ecommerce_recipe.php');
+		$Recipe = new ecommerce_recipe();
+		
+		/**
+		 * get recipe page posts
+		 */
+		
+		$list = $Recipe->getFilteredRecipeList();
+		
 		$data = array();
+		
+		foreach($list[0] as $item ) {
+			
+			if ($item['publish'] == 1) {
+				
+				$item = $this->formatItem($item);
+				
+				$data[] = $item;
+			}
+			
+		}
 		
 		return $data;
 		
 	}
 	
+	/**
+	 * formatItem
+	 */
+	 
+	static function formatItem($original_item) {
+		
+		if (!is_array($original_item)) return false;
+		
+		$item = array();
+				
+		$item['id'] = (int)$original_item['id'];
+		$item['title'] = $original_item['title'];
+		$item['description'] = preg_replace("/[\r\n\t]/", " ", strip_tags($original_item['description']));
+		$item['instructions'] = preg_replace("/[\r\n\t]/", " ", $original_item['instructions']);
+		$item['url'] = "http://{$_SERVER['HTTP_HOST']}/recipe/" . $original_item['id'];
+		$item['priority'] = (int)$original_item['priority'];
+		$item['created'] = $original_item['created'];
+		$item['modified'] = $original_item['modified'];
+		
+		$item['ingredients'] = self::getIngredients($item['id']);
+		$item['categories'] = array();
+		$item['images'] = array("http://{$_SERVER['HTTP_HOST']}/image/" . $original_item['image_src']);
+		$item['video'] = (int)self::getVideoIdFromUrl($original_item['video_url']);
+		$item['comments'] = array();
+		$item['rating'] = array();
+		$item['serving_people'] = (int)$original_item['serving_people'];
+		$item['preparation_time'] = (int)$original_item['preparation_time'];
+		$item['cook_time'] = (int)$original_item['cooking_time'];
+		$item['recommended_wines'] = array();//$this->getRecommendedWines($post->ID);
+		$item['related_offers'] = array();//$this->getSpecialOffersForRecipe($post->ID);
+		$item['meal_types'] = array();//$this->getMealTypesForRecipe($post->ID);
+		
+		return $item;
+		
+	}
+	
+	/**
+	 * getIngredients
+	 */
+	
+	static function getIngredients($recipe_id) {
+		
+		if (!is_numeric($recipe_id)) return false;
+		
+		require_once('models/ecommerce/ecommerce_recipe_ingredients.php');
+		$Ingredients = new ecommerce_recipe_ingredients();
+		
+		return $Ingredients->getIngredientsForRecipeOptimised($recipe_id);
+		
+	}
+	
+	/**
+	 * getVideoIdFromUrl
+	 */
+	 
+	static function getVideoIdFromUrl($video_url) {
+		
+		return 0;
+		
+	}
 }

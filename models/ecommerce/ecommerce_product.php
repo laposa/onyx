@@ -2,7 +2,7 @@
 /**
  * class ecommerce_product
  *
- * Copyright (c) 2009-2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -359,6 +359,23 @@ CREATE TABLE ecommerce_product (
 			ORDER BY p.name ASC";
 
 		return $this->executeSql($sql);
+	}
+	
+	/**
+	 * getProductMainImageSrc
+	 */
+	 
+	function getProductMainImageSrc($product_id) {
+	
+		if (!is_numeric($product_id)) return false;
+		
+		$sql = "SELECT src FROM ecommerce_product_image WHERE node_id = $product_id ORDER BY priority DESC, id ASC LIMIT 1";
+		
+		$result = $this->executeSql($sql);
+		
+		if (is_array($result)) return $result[0]['src'];
+		else return false;
+		
 	}
 	
 	/**

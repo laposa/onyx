@@ -3,7 +3,7 @@
  * class ecommerce_recipe_ingredients
  * link products to recipe as ingredients
  *
- * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2013-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -58,12 +58,13 @@ class ecommerce_recipe_ingredients extends Onxshop_Model {
 	
 		$sql = "
 CREATE TABLE ecommerce_recipe_ingredients (
-    id integer NOT NULL PRIMARY KEY,
-    recipe_id integer,
-    product_variety_id integer NOT NULL,
-    quantity integer,
-    units integer,
-    notes text
+    id serial PRIMARY KEY NOT NULL,
+    recipe_id integer REFERENCES ecommerce_recipe(id) ON UPDATE RESTRICT ON DELETE RESTRICT,
+    product_variety_id integer NOT NULL REFERENCES ecommerce_product_variety(id) ON UPDATE RESTRICT ON DELETE RESTRICT,
+    quantity real,
+    units integer REFERENCES common_taxonomy_tree(id) ON UPDATE RESTRICT ON DELETE RESTRICT,
+    notes text,
+    group_title character varying(255)
 );
 		";
 		
@@ -143,6 +144,26 @@ CREATE TABLE ecommerce_recipe_ingredients (
 
 		return $ingredients;
 
+	}
+	
+	/**
+	 * getIngredientsForRecipeOptimised
+	 */
+	 
+	public function getIngredientsForRecipeOptimised($recipe_id) {
+
+		if (!is_numeric($recipe_id)) return false;
+
+		$sql = "SELECT ecommerce_recipe_ingredients.quantity, common_taxonomy_label.title AS units, ecommerce_product.name AS title, ecommerce_recipe_ingredients.notes, ecommerce_product_variety.sku AS product_id, ecommerce_recipe_ingredients.group_title
+			FROM ecommerce_recipe_ingredients
+			LEFT JOIN common_taxonomy_tree ON common_taxonomy_tree.id = ecommerce_recipe_ingredients.units
+			LEFT JOIN common_taxonomy_label ON common_taxonomy_label.id = common_taxonomy_tree.label_id
+			LEFT JOIN ecommerce_product_variety ON ecommerce_product_variety.id =  ecommerce_recipe_ingredients.product_variety_id
+			LEFT JOIN ecommerce_product ON ecommerce_product.id = ecommerce_product_variety.product_id
+			WHERE ecommerce_recipe_ingredients.recipe_id = $recipe_id
+			ORDER BY ecommerce_recipe_ingredients.id ASC";
+
+		return $this->executeSql($sql);
 	}
 
 }

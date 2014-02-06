@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * Copyright (c) 2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2013-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -64,6 +64,10 @@ class ecommerce_offer extends Onxshop_Model {
 		
 		return $conf;
 	}
+	
+	/**
+	 * getProductIdsForOfferGroup
+	 */
 
 	public function getProductIdsForOfferGroup($offer_group_id = false, $campaign_category_id = false, 
 		$roundel_category_id = false, $taxonomy_tree_ids = array(), $includeForthcoming = false) 
@@ -100,6 +104,10 @@ class ecommerce_offer extends Onxshop_Model {
 
 		return $result;
 	}	
+	
+	/**
+	 * getActiveOffers
+	 */
 
 	public function getActiveOffers($includeForthcoming = false) 
 	{
@@ -116,7 +124,12 @@ class ecommerce_offer extends Onxshop_Model {
 				o.campaign_category_id AS campaign_category_id,
 				o.roundel_category_id AS roundel_category_id,
 				cl.description AS campaign_category,
-				rl.description AS roundel_category
+				rl.description AS roundel_category,
+				g.id AS group_id,
+				g.title AS group_title,
+				g.schedule_start AS group_schedule_start,
+				g.schedule_end AS group_schedule_end
+				
 			FROM ecommerce_offer_group AS g 
 			INNER JOIN ecommerce_offer AS o ON o.offer_group_id = g.id
 			INNER JOIN ecommerce_product_variety AS v ON v.id = o.product_variety_id
