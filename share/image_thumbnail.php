@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2005-2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2005-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -113,5 +113,5 @@ if ($width > $image_configuration['width_max']) {
  */
  
 $_GET['image'] = $image_file;
-include(ONXSHOP_DIR . "share/image_get.php");
+include("image_get.php");
 
