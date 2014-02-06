@@ -2,7 +2,7 @@
 /**
  * class ecommerce_recipe
  *
- * Copyright (c) 2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2013-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -98,7 +98,7 @@ class ecommerce_recipe extends Onxshop_Model {
 	
 		$sql = "
 CREATE TABLE ecommerce_recipe (
-    id integer NOT NULL,
+    id serial PRIMARY KEY NOT NULL,
     title character varying(255),
     description text,
     instructions text,
@@ -108,7 +108,7 @@ CREATE TABLE ecommerce_recipe (
     cooking_time integer,
     priority integer,
     created timestamp without time zone,
-    modified timestamp without time zone,
+    modified timestamp without time zone DEFAULT now(),
     publish smallint,
     other_data text
 );

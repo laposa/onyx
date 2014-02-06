@@ -3,7 +3,7 @@
 /**
  * class ecommerce_recipe_taxonomy
  *
- * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2013-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -25,13 +25,14 @@ class ecommerce_recipe_taxonomy extends common_node_taxonomy {
 	private function getCreateTableSql() {
 	
 		$sql = "
-CREATE TABLE ecommerce_recipe_taxonomy ( 
-	id serial NOT NULL PRIMARY KEY,
-	node_id int NOT NULL REFERENCES ecommerce_recipe ON UPDATE CASCADE ON DELETE CASCADE,
-	taxonomy_tree_id int NOT NULL REFERENCES common_taxonomy_tree ON UPDATE CASCADE ON DELETE CASCADE
+CREATE TABLE ecommerce_recipe_taxonomy (
+    id serial PRIMARY KEY NOT NULL,
+    node_id integer NOT NULL REFERENCES ecommerce_recipe(id) ON UPDATE RESTRICT ON DELETE RESTRICT,
+    taxonomy_tree_id integer NOT NULL REFERENCES common_taxonomy_tree(id) ON UPDATE RESTRICT ON DELETE RESTRICT,
+    UNIQUE (node_id, taxonomy_tree_id)
 );
-
-ALTER TABLE ecommerce_recipe_taxonomy ADD CONSTRAINT product_node_id_taxonomy_tree_id_key UNIQUE (node_id, taxonomy_tree_id);
+CREATE INDEX ecommerce_recipe_taxonomy_node_id_key1 ON ecommerce_recipe_taxonomy USING btree (node_id);
+CREATE INDEX ecommerce_recipe_taxonomy_taxonomy_tree_id_key ON ecommerce_recipe_taxonomy USING btree (taxonomy_tree_id);
 		";
 		
 		return $sql;
@@ -42,10 +43,9 @@ ALTER TABLE ecommerce_recipe_taxonomy ADD CONSTRAINT product_node_id_taxonomy_tr
 	 */
 	 
 	static function initConfiguration() {
+	
 		if (array_key_exists('ecommerce_recipe_taxonomy', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['ecommerce_recipe_taxonomy'];
 		else $conf = array();
-		
-		if (!is_numeric($conf['options_id'])) $conf['options_id'] = 2;//33 dolphin, 63 jing (not in use)
 		
 		return $conf;
 	}
@@ -67,4 +67,5 @@ ALTER TABLE ecommerce_recipe_taxonomy ADD CONSTRAINT product_node_id_taxonomy_tr
 		return $relations;
 		
 	}
+
 }

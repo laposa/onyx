@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * Copyright (c) 2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2013-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -40,6 +40,7 @@ CREATE TABLE ecommerce_recipe_review (
 	rating smallint default 0,
 	relation_subject text
 );
+CREATE INDEX ecommerce_recipe_review_node_id_key1 ON ecommerce_recipe_review USING btree (node_id);
 		";
 		
 		return $sql;

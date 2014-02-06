@@ -40,6 +40,7 @@ CREATE TABLE ecommerce_product_review (
 	rating smallint default 0,
 	relation_subject text
 );
+CREATE INDEX ecommerce_product_review_node_id_key1 ON ecommerce_product_review USING btree (node_id);
 		";
 		
 		return $sql;

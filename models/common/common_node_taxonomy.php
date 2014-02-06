@@ -2,7 +2,7 @@
 /**
  * class common_node_taxonomy
  *
- * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -78,5 +78,23 @@ ALTER TABLE common_node_taxonomy ADD CONSTRAINT node_node_id_taxonomy_tree_id_ke
 		
 		return $relations;
 		
+	}
+	
+	/**
+	 * getUsedTaxonomyLabels
+	 */
+	 
+	public function getUsedTaxonomyLabels() {
+		
+		$sql = "
+			SELECT DISTINCT taxonomy_tree_id, common_taxonomy_label.* FROM {$this->_class_name}
+				LEFT OUTER JOIN common_taxonomy_tree ON common_taxonomy_tree.id = ecommerce_recipe_taxonomy.taxonomy_tree_id
+				LEFT OUTER JOIN common_taxonomy_label ON common_taxonomy_label.id = common_taxonomy_tree.label_id
+			ORDER BY taxonomy_tree_id
+			";
+	
+		$records = $this->executeSql($sql);
+		
+		return $records;
 	}
 }

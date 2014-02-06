@@ -105,6 +105,7 @@ CREATE TABLE common_comment (
 	rating default 0,
 	relation_subject text
 );
+CREATE INDEX common_comment_node_id_key1 ON common_comment USING btree (node_id);
 		";
 		
 		return $sql;
