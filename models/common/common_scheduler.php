@@ -193,6 +193,7 @@ CREATE TABLE common_scheduler (
 				'node_type' => $data['node_type'],
 				'controller' => $data['controller'],
 				'scheduled_time' => date("c", $data['scheduled_time']),
+				'parameters' => $data['parameters'],
 				'status' => 0,
 				'created' =>  date('c'),
 				'modified' =>  date('c')
