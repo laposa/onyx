@@ -49,7 +49,7 @@ class Onxshop_Controller_Component_Ecommerce_Referral_Share extends Onxshop_Cont
 				"As we all appreciate tea, I have chosen you to receive $discount off when you " .
 				" spend over $min on your first order." .
 				"\n\n" .
-				"Your $discount discount voucher is: $code." .
+				"Your $discount discount voucher is: $code" .
 				"\n\n" .
 				"If you use this code I shall also receive a $discount discount on my next order over $min" . 
 				"\n\n" .
