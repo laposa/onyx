@@ -456,7 +456,7 @@ CREATE TABLE ecommerce_promotion (
 
 			if ($record['publish'] == 1 || $only_public == 0) {
 				
-				if ($code == $record['code_pattern']) {
+				if (strtolower($code) == strtolower($record['code_pattern'])) {
 					
 					$promotion_data = $record;
 					$promotion_data['other_data'] = unserialize($promotion_data['other_data']);
