@@ -131,7 +131,7 @@ class Onxshop_Controller_Component_Ecommerce_Gift_Voucher_Generate extends Onxsh
 		$Promotion = new ecommerce_promotion();
 		
 		//TODO: check code wasn't generated before for the same order
-		if (!$Promotion->checkValidPattern($code_pattern_base)) {
+		if (!$Promotion->checkCodeMatch($code_pattern_base)) {
 			msg("Code {$code_pattern_base}* was previously generated", 'error');
 			return false;
 		}
