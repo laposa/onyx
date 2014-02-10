@@ -470,6 +470,31 @@ CREATE TABLE ecommerce_promotion (
 	}
 
 	/**
+	 * check code match
+	 */
+
+	public function checkCodeMatchPartially($code, $only_public = 1) {
+	
+		$records = $this->listing();
+		
+		foreach ($records as $record) {
+
+			if ($record['publish'] == 1 || $only_public == 0) {
+				
+				if (strtolower($code) == strtolower(substr($record['code_pattern'], 0, strlen($code)))) {
+					
+					$promotion_data = $record;
+					$promotion_data['other_data'] = unserialize($promotion_data['other_data']);
+					
+					return $promotion_data;
+				}
+			}
+		}
+		
+		return false;
+	}
+
+	/**
 	 * check if free delivery is available for promotion detail, carrier and delivery country
 	 * @param  string  $code                Code to test
 	 * @param  int     $country_id          Destination country id
