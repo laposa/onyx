@@ -51,7 +51,7 @@ class Onxshop_Controller_Component_Client_Twitter_Timeline extends Onxshop_Contr
 			
 			if (!is_array($cached_data = $cache->load($cache_id))) {
 				
-				$timeline = $this->twitterCallExtend('statuses', 'userTimeline', array("screen_name"   => $username));
+				$timeline = $this->twitterCallExtend('statuses', 'user_timeline', array("screen_name" => $username, "count" => 50));
 				$cache->save($timeline);
 				
 			} else {
