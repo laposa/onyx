@@ -3,7 +3,7 @@
 # usage: resize $filename $width $height $target_filename $quality $other_options 
 
 QUALITY=${5};
-if [ "$QUALITY" == "" ]; then
+if [ "$QUALITY" = "" ]; then
 	QUALITY=80;
 fi;
 
