@@ -8,11 +8,12 @@
 		var form = block.find('.address_form');
 		var fielset = block.find('fieldset.alternative');
 
-		form.slideUp({duration: 500, queue: false}).fadeOut({duration: 200, queue: false});
-		fielset.slideUp({duration: 500, queue: false}).fadeOut({duration: 200, queue: false});
-		block.find("fieldset.selected_address").slideDown({duration: 500, queue: false}).fadeIn({duration: 200, queue: false});
-		block.find("p.buttons a").removeClass('open');
+		form.hide();
+		fielset.hide();
+		block.find("p.buttons").show();
+		block.find("fieldset.selected_address").show();
 		block.find(".error").removeClass('error');
+		block.find("p.buttons a").removeClass('open');
 
 	}
 
@@ -24,9 +25,9 @@
 
 		if (block.find("p.buttons a.select_alt").hasClass('open')) {
 
-			form.slideUp({duration: 500, queue: false}).fadeOut({duration: 200, queue: false});
-			fielset.slideUp({duration: 500, queue: false}).fadeOut({duration: 200, queue: false});
-			block.find("fieldset.selected_address").slideDown({duration: 500, queue: false}).fadeIn({duration: 200, queue: false});
+			form.hide();
+			fielset.slideUp(300);
+			block.find("fieldset.selected_address").show();
 			block.find("p.buttons a").removeClass('open');
 			block.find(".error").removeClass('error');
 
@@ -34,9 +35,9 @@
 
 			block.find("p.buttons a").removeClass('open');
 			block.find("p.buttons a.select_alt").addClass('open');
-			block.find("fieldset.selected_address").slideDown({duration: 500, queue: false}).fadeIn({duration: 200, queue: false});
-			form.slideUp({duration: 500, queue: false}).fadeOut({duration: 200, queue: false});
-			fielset.slideDown({duration: 500, queue: false}).fadeIn({duration: 200, queue: false});
+			block.find("fieldset.selected_address").show();
+			form.hide();
+			fielset.slideDown(300);
 
 		}
 
@@ -48,78 +49,57 @@
 		var form = block.find('.address_form');
 		var fielset = block.find('fieldset.alternative');
 
-		if (block.find("p.buttons a.add_new").hasClass('open')) {
+		// hide
+		form.find('input[type=text]').val('');
+		form.find('button.add_new_address').parent().parent().show();
+		form.find('button.edit_selected_address').parent().parent().hide();
+		fielset.hide();
+		block.find("p.buttons").hide();
 
-			form.slideUp({duration: 500, queue: false}).fadeOut({duration: 200, queue: false});
-			fielset.slideUp({duration: 500, queue: false}).fadeOut({duration: 200, queue: false});
-			block.find("p.buttons a").removeClass('open');
-			block.find('.address_form p.error').remove();
-			block.find(".error").removeClass('error');
+		// show
+		form.fadeIn(800);
 
-		} else {
+		// focus
+		form.find("input:first").focus();
+		$("html, body").animate({ scrollTop: block.offset().top - 120 }, 300);
+		block.find("fieldset.selected_address").hide();
+		resetForm_{GET.node_id}();
 
-			form.insertAfter('#address_add_placeholder_{GET.node_id}');
-			form.find('input[type=text]').val('');
-			form.find('button.add_new_address').parent().parent().show();
-			form.find('button.edit_selected_address').parent().parent().hide();
-			block.find("p.buttons a").removeClass('open');
-			block.find("p.buttons a.add_new").addClass('open');
-			form.slideDown({duration: 500, queue: false, complete: function() {
-				form.find("input:first").focus();
-				$("html, body").animate({ scrollTop: form.offset().top - 60 }, 300);
-			}}).fadeIn({duration: 200, queue: false});
-			fielset.slideUp({duration: 500, queue: false}).fadeOut({duration: 200, queue: false});
-			resetForm_{GET.node_id}();
-
-		}
 	}
 
 	function editSelectedAddress_{GET.node_id}() {
-
-		function populateAddressFields(block, form) {
-
-			var selected = block.find("fieldset.selected_address").parent();
-
-			form.find('input[type=text], select').each(function() {
-				var input = $(this);
-				var id = input.attr("id");
-				var address_line = selected.find("span[class=" + id + "]");
-				var val = address_line.text();
-				if (id == 'client-address-country_id') val = address_line.attr("data-id");
-				input.val(val);
-			});
-
-		}
 
 		var block = $('#address_edit_{GET.node_id}');
 		var form = block.find('.address_form');
 		var fielset = block.find('fieldset.alternative');
 
-		if (block.find("p.buttons a.edit_selected").hasClass('open')) {
+		// hide
+		form.find('button.edit_selected_address').parent().parent().show();
+		form.find('button.add_new_address').parent().parent().hide();
+		block.find("fieldset.selected_address").hide();
+		fielset.hide();
+		block.find("p.buttons").hide();
 
-			form.slideUp({duration: 500, queue: false}).fadeOut({duration: 200, queue: false});
-			fielset.slideUp({duration: 500, queue: false}).fadeOut({duration: 200, queue: false});
-			block.find("p.buttons a").removeClass('open');
-			block.find('.address_form p.error').remove();
-			block.find(".error").removeClass('error');
-			block.find("fieldset.selected_address").slideDown({duration: 500, queue: false}).fadeIn({duration: 200, queue: false});
+		// populate fields
+		var selected = block.find("fieldset.selected_address").parent();
+		form.find('input[type=text], select').each(function() {
+			var input = $(this);
+			var id = input.attr("id");
+			var address_line = selected.find("span[class=" + id + "]");
+			var val = address_line.text();
+			if (id == 'client-address-country_id') val = address_line.attr("data-id");
+			input.val(val);
+		});
 
-		} else {
+		// show
+		form.fadeIn(800);
 
-			form.insertAfter('#address_edit_placeholder_{GET.node_id}');
-			populateAddressFields(block, form);
-			form.find('button.edit_selected_address').parent().parent().show();
-			form.find('button.add_new_address').parent().parent().hide();
-			block.find("p.buttons a").removeClass('open');
-			block.find("p.buttons a.edit_selected").addClass('open');
-			form.slideDown({duration: 500, queue: false, complete: function() {
-				form.find("input:first").focus();
-				$("html, body").animate({ scrollTop: form.offset().top - 60 }, 300);
-			}}).fadeIn({duration: 200, queue: false});
-			block.find("fieldset.selected_address").slideUp({duration: 500, queue: false}).fadeOut({duration: 200, queue: false});
-			fielset.slideUp({duration: 500, queue: false}).fadeOut({duration: 200, queue: false});
-			resetForm_{GET.node_id}();
-		}
+		// focus
+		form.find("input:first").focus();
+		$("html, body").animate({ scrollTop: block.offset().top - 120 }, 300);
+
+		resetForm_{GET.node_id}();
+
 	}
 
 	function validateForm_{GET.node_id}() {
@@ -210,8 +190,6 @@
 
 			<div class="bottom"></div>
 
-			<div id="address_edit_placeholder_{GET.node_id}"></div>
-
 			<div class="address_form" style="display: none;">
 				
 					<fieldset>
@@ -285,7 +263,7 @@
 
 		<p class="buttons">
 			<a href="#" onclick="editSelectedAddress_{GET.node_id}(); return false;" class="edit_selected"><span>Edit Selected Address</span></a>
-			<a href="#" onclick="selectAltAddress_{GET.node_id}(); return false;" class="select_alt"><span>Select an Alternate Address</span></a>
+			<a href="#" onclick="selectAltAddress_{GET.node_id}(); return false;" class="select_alt"><span>Select an Alternative Address</span></a>
 		</p>
 
 		<fieldset class="alternative">
@@ -308,8 +286,6 @@
 		<p class="buttons">
 			<a href="#" onclick="addNewAddress_{GET.node_id}(); return false;" class="add_new"><span>Add a New {TYPE} Address</span></a>
 		</p>
-
-		<div id="address_add_placeholder_{GET.node_id}"></div>
 
 		<div class="bottom"></div>
 
