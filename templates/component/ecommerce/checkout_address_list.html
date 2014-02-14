@@ -8,9 +8,9 @@
 		var form = block.find('.address_form');
 		var fielset = block.find('fieldset.alternative');
 
-		form.slideUp(100);
-		fielset.slideUp(100);
-		block.find(".selected_address").slideDown(100);
+		form.slideUp({duration: 500, queue: false}).fadeOut({duration: 200, queue: false});
+		fielset.slideUp({duration: 500, queue: false}).fadeOut({duration: 200, queue: false});
+		block.find("fieldset.selected_address").slideDown({duration: 500, queue: false}).fadeIn({duration: 200, queue: false});
 		block.find("p.buttons a").removeClass('open');
 		block.find(".error").removeClass('error');
 
@@ -24,9 +24,9 @@
 
 		if (block.find("p.buttons a.select_alt").hasClass('open')) {
 
-			form.slideUp(100);
-			fielset.slideUp(100);
-			block.find(".selected_address").slideDown(100);
+			form.slideUp({duration: 500, queue: false}).fadeOut({duration: 200, queue: false});
+			fielset.slideUp({duration: 500, queue: false}).fadeOut({duration: 200, queue: false});
+			block.find("fieldset.selected_address").slideDown({duration: 500, queue: false}).fadeIn({duration: 200, queue: false});
 			block.find("p.buttons a").removeClass('open');
 			block.find(".error").removeClass('error');
 
@@ -34,9 +34,9 @@
 
 			block.find("p.buttons a").removeClass('open');
 			block.find("p.buttons a.select_alt").addClass('open');
-			block.find(".selected_address").slideDown(100);
-			form.slideUp(100);
-			fielset.slideDown(100);
+			block.find("fieldset.selected_address").slideDown({duration: 500, queue: false}).fadeIn({duration: 200, queue: false});
+			form.slideUp({duration: 500, queue: false}).fadeOut({duration: 200, queue: false});
+			fielset.slideDown({duration: 500, queue: false}).fadeIn({duration: 200, queue: false});
 
 		}
 
@@ -50,26 +50,25 @@
 
 		if (block.find("p.buttons a.add_new").hasClass('open')) {
 
-			form.slideUp(100);
-			fielset.slideUp(100);
+			form.slideUp({duration: 500, queue: false}).fadeOut({duration: 200, queue: false});
+			fielset.slideUp({duration: 500, queue: false}).fadeOut({duration: 200, queue: false});
 			block.find("p.buttons a").removeClass('open');
 			block.find('.address_form p.error').remove();
 			block.find(".error").removeClass('error');
-			block.find(".selected_address").slideDown(100);
 
 		} else {
 
+			form.insertAfter('#address_add_placeholder_{GET.node_id}');
 			form.find('input[type=text]').val('');
 			form.find('button.add_new_address').parent().parent().show();
 			form.find('button.edit_selected_address').parent().parent().hide();
 			block.find("p.buttons a").removeClass('open');
 			block.find("p.buttons a.add_new").addClass('open');
-			form.slideDown(100, function() {
+			form.slideDown({duration: 500, queue: false, complete: function() {
 				form.find("input:first").focus();
-				// $("html, body").animate({ scrollTop: form.offset().top - 60 }, 300);
-			});
-			fielset.slideUp(100);
-			block.find(".selected_address").slideUp(100);
+				$("html, body").animate({ scrollTop: form.offset().top - 60 }, 300);
+			}}).fadeIn({duration: 200, queue: false});
+			fielset.slideUp({duration: 500, queue: false}).fadeOut({duration: 200, queue: false});
 			resetForm_{GET.node_id}();
 
 		}
@@ -79,7 +78,7 @@
 
 		function populateAddressFields(block, form) {
 
-			var selected = block.find(".selected_address").parent();
+			var selected = block.find("fieldset.selected_address").parent();
 
 			form.find('input[type=text], select').each(function() {
 				var input = $(this);
@@ -98,26 +97,27 @@
 
 		if (block.find("p.buttons a.edit_selected").hasClass('open')) {
 
-			block.find(".selected_address").fadeIn(100);
-			form.slideUp(100);
-			fielset.slideUp(100);
+			form.slideUp({duration: 500, queue: false}).fadeOut({duration: 200, queue: false});
+			fielset.slideUp({duration: 500, queue: false}).fadeOut({duration: 200, queue: false});
 			block.find("p.buttons a").removeClass('open');
 			block.find('.address_form p.error').remove();
 			block.find(".error").removeClass('error');
+			block.find("fieldset.selected_address").slideDown({duration: 500, queue: false}).fadeIn({duration: 200, queue: false});
 
 		} else {
 
+			form.insertAfter('#address_edit_placeholder_{GET.node_id}');
 			populateAddressFields(block, form);
 			form.find('button.edit_selected_address').parent().parent().show();
 			form.find('button.add_new_address').parent().parent().hide();
 			block.find("p.buttons a").removeClass('open');
 			block.find("p.buttons a.edit_selected").addClass('open');
-			form.slideDown(100, function() {
+			form.slideDown({duration: 500, queue: false, complete: function() {
 				form.find("input:first").focus();
-				// $("html, body").animate({ scrollTop: form.offset().top - 60 }, 300);
-			});
-			block.find(".selected_address").slideUp(100);
-			fielset.slideUp(100);
+				$("html, body").animate({ scrollTop: form.offset().top - 60 }, 300);
+			}}).fadeIn({duration: 200, queue: false});
+			block.find("fieldset.selected_address").slideUp({duration: 500, queue: false}).fadeOut({duration: 200, queue: false});
+			fielset.slideUp({duration: 500, queue: false}).fadeOut({duration: 200, queue: false});
 			resetForm_{GET.node_id}();
 		}
 	}
@@ -193,22 +193,24 @@
 
 				<!-- BEGIN: selected_address -->
 				<table class="selected_address">
-					<tr><td>Name</td><td><span class="client-address-name">{ADDRESS.name|htmlspecialchars|suffix(%s,'<br/>')}</span></td></tr>
-					<tr><td>{TYPE} Address</td><td>
+					<tr><td><label class="bold">Name</label></td><td><span class="client-address-name">{ADDRESS.name|htmlspecialchars|suffix(%s,'<br/>')}</span></td></tr>
+					<tr><td><label class="bold">{TYPE} Address</label></td><td>
 						<span class="client-address-line_1">{ADDRESS.line_1|htmlspecialchars|suffix(%s,'<br/>')}</span>
 						<span class="client-address-line_2">{ADDRESS.line_2|htmlspecialchars|suffix(%s,'<br/>')}</span>
 						<span class="client-address-line_3">{ADDRESS.line_3|htmlspecialchars}</span>
 					</td></tr>
-					<tr><td>City</td><td><span class="client-address-city">{ADDRESS.city|htmlspecialchars|suffix(%s,'<br/>')}</span></td></tr>
-					<tr><td>Post Code</td><td><span class="client-address-post_code">{ADDRESS.post_code|htmlspecialchars|suffix(%s,'<br/>')}</span></td></tr>
-					<tr><td>County / State</td><td><span class="client-address-county">{ADDRESS.county|htmlspecialchars|suffix(%s,'<br/>')}</span></td></tr>
-					<tr><td>Country</td><td><span class="client-address-country_id" data-id="{ADDRESS.country_id}">{ADDRESS.country.name|htmlspecialchars|suffix(%s,'<br/>')}</span></td></tr>
+					<tr><td><label class="nobold">City</label></td><td><span class="client-address-city">{ADDRESS.city|htmlspecialchars|suffix(%s,'<br/>')}</span></td></tr>
+					<tr><td><label class="nobold">Post Code</label></td><td><span class="client-address-post_code">{ADDRESS.post_code|htmlspecialchars|suffix(%s,'<br/>')}</span></td></tr>
+					<tr><td><label class="nobold">County / State</label></td><td><span class="client-address-county">{ADDRESS.county|htmlspecialchars|suffix(%s,'<br/>')}</span></td></tr>
+					<tr><td><label class="nobold">Country</label></td><td><span class="client-address-country_id" data-id="{ADDRESS.country_id}">{ADDRESS.country.name|htmlspecialchars|suffix(%s,'<br/>')}</span></td></tr>
 				</table>
 				<!-- END: selected_address -->
 
 			</fieldset>
 
 			<div class="bottom"></div>
+
+			<div id="address_edit_placeholder_{GET.node_id}"></div>
 
 			<div class="address_form" style="display: none;">
 				
@@ -284,12 +286,9 @@
 		<p class="buttons">
 			<a href="#" onclick="editSelectedAddress_{GET.node_id}(); return false;" class="edit_selected"><span>Edit Selected Address</span></a>
 			<a href="#" onclick="selectAltAddress_{GET.node_id}(); return false;" class="select_alt"><span>Select an Alternate Address</span></a>
-			<a href="#" onclick="addNewAddress_{GET.node_id}(); return false;" class="add_new"><span>Add a New {TYPE} Address</span></a>
 		</p>
 
 		<fieldset class="alternative">
-
-			<h3>Select an Alternative Address</h3>
 
 			<select name="selected_address_id" onchange="$(this).parents('.pageWrapper').css('opacity', 0.3).css('cursor', 'wait'); submit()">
 				<!-- BEGIN: address -->
@@ -305,6 +304,12 @@
 			</select>
 
 		</fieldset>
+
+		<p class="buttons">
+			<a href="#" onclick="addNewAddress_{GET.node_id}(); return false;" class="add_new"><span>Add a New {TYPE} Address</span></a>
+		</p>
+
+		<div id="address_add_placeholder_{GET.node_id}"></div>
 
 		<div class="bottom"></div>
 
