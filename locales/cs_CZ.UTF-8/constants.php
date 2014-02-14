@@ -192,6 +192,7 @@ define('I18N_ORDERS', 'Výpis Vašich objednávek:');
 define('I18N_ORDER_ID', 'ID');
 define('I18N_DATA_AND_TIME', 'Datum &amp; čas');
 define('I18N_ORDER_TOTAL', 'Fakturováno');
+define('I18N_TOTAL_PAID', 'Uhrazeno');
 define('I18N_ITEMS', 'Položky');
 define('I18N_STATUS', 'Stav');
 define('I18N_YOU_HAVE_NO_ORDERS', 'Nemáte žádné objednávky.');

@@ -192,6 +192,7 @@ define('I18N_ORDERS', 'Displayed below are your orders with us:');
 define('I18N_ORDER_ID', 'Order ID');
 define('I18N_DATA_AND_TIME', 'Date &amp; Time');
 define('I18N_ORDER_TOTAL', 'Order Total');
+define('I18N_TOTAL_PAID', 'Total Paid');
 define('I18N_ITEMS', 'Items');
 define('I18N_STATUS', 'Status');
 define('I18N_YOU_HAVE_NO_ORDERS', 'You have no orders.');
