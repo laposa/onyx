@@ -264,3 +264,9 @@ if (!defined('ONXSHOP_MEDIA_LIBRARY_ROOT_UPLOAD')) define('ONXSHOP_MEDIA_LIBRARY
  */
 
 if (!defined('ONXSHOP_MODEL_STRICT_VALIDATION')) define('ONXSHOP_MODEL_STRICT_VALIDATION', false);
+
+/**
+ * allow to merge newly registred account with previous one
+ */
+
+if (!defined('ONXSHOP_CUSTOMER_ALLOW_ACCOUNT_MERGE')) define('ONXSHOP_CUSTOMER_ALLOW_ACCOUNT_MERGE', false);

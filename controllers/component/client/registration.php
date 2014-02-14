@@ -2,7 +2,7 @@
 /**
  * Registration controller
  *
- * Copyright (c) 2005-2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2005-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -213,6 +213,18 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
 			$_POST['client']['customer']['google_id'] = $_SESSION['r_client']['customer']['google_id'];
 			$_POST['client']['customer']['profile_image_url'] = $_SESSION['r_client']['customer']['profile_image_url'];
 		
+		}
+		
+		/**
+		 * check if we have some old information for this email address
+		 */
+		 
+		if (is_array($_POST['client']['customer']) && ONXSHOP_CUSTOMER_ALLOW_ACCOUNT_MERGE) {
+			if ($current_customer_data = $this->Customer->getClientByEmail($_POST['client']['customer']['email'])) {
+				
+				$_POST['client']['customer'] = array_merge($current_customer_data, $_POST['client']['customer']);
+				
+			}
 		}
 		
 		/**
