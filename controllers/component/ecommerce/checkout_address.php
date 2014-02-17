@@ -233,21 +233,28 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Address extends Onxshop_Co
 
 		if ($address_id = $this->isDuplicateAddress($_POST['client']['address'])) return $address_id;
 
-		$types = array('invoices', 'delivery');
-		$selected_address_id = $_SESSION['client']['customer']["{$this->GET['type']}_address_id"];
+		if ($new_address_id = $this->Address->insert($_POST['client']['address'])) {
 
-		if ($address_id = $this->Address->insert($_POST['client']['address'])) {
-
-			foreach ($types as $type) {
-				if ($selected_address_id == $_SESSION['client']['customer']["{$type}_address_id"])
-					$this->selectAddress($address_id, $type);
+			// which type has to be changed?
+			if ($this->GET['type'] == 'invoices') {
+				$type = 'invoices';
+				$other_type = 'delivery'; 
+			} else {
+				$type = 'delivery'; 
+				$other_type = 'invoices';
 			}
 
-			$this->Address->deleteAddress($selected_address_id);
+			$original_address = $_SESSION['client']['customer']["{$type}_address_id"];
+			$other_address = $_SESSION['client']['customer']["{$other_type}_address_id"];
+
+			$this->selectAddress($new_address_id, $type);
+
+			// can delete only if not selected as other address type
+			if ($original_address != $other_address) $this->Address->deleteAddress($original_address);
 
 			msg("{$this->getAddressType()} address has been successfully updated.");
-
 			onxshopGoto("page/{$_SESSION['active_pages'][0]}");
+
 
 		} else {
 		
