@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2008-2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2008-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -50,11 +50,16 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
 		
 		
 		/**
-		 * prepare variables
+		 * prepare titles
 		 */
 		 
-		if ($node_data['page_title'] == '') $node_data['page_title'] = $node_data['title'];
-		if ($node_data['browser_title'] != '') $node_data['page_title'] = $node_data['browser_title'];
+		if (trim($node_data['page_title']) == '') $node_data['page_title'] = $node_data['title']; // page title is also used component/page_header, this will be effective only if page_title is directly in page template
+		if (trim($node_data['browser_title']) == '') $node_data['browser_title'] = $node_data['page_title'];
+		
+		/**
+		 * fallback on options to global configuration
+		 */
+		 
 		if (!isset($node_data['display_title'])) $node_data['display_title'] = $GLOBALS['onxshop_conf']['global']['display_title'];
 		if (!isset($node_data['display_secondary_navigation'])) $node_data['display_secondary_navigation'] = $GLOBALS['onxshop_conf']['global']['display_secondary_navigation'];
 		
