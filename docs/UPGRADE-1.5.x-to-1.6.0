@@ -17,3 +17,8 @@ client/user_prefs moved to client/edit (upgrade on node ID 54 is done via SQL up
 remove <!-- BEGIN: product_master --> and <!-- END: product_master --> from templates/node/page/product.html
 
 rename component/image_gallery_* to component/image_gallery/*
+
+rename in templates/node/page/*
+<!-- BEGIN: title -->{NODE.page_title}<!-- END: title --> 
+<!-- BEGIN: title -->{NODE.browser_title}<!-- END: title -->
+
