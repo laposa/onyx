@@ -18,26 +18,6 @@
 			&nbsp;
 			<a class="button remove" title="Unlink file" href="#" onclick="if (confirm('Do you really want to unlink {FILE.title|htmlspecialchars|addslashes}?')) {$('#linked-file-{FILE.id}').load('/request/bo/component/file_unlink~relation={GET.relation}:file_id={FILE.id}~', function() { popupMessage('#linked-file-{FILE.id} div.onxshop_messages'); });}; return false"><span>Unlink</span></a>
 		</p>
-		<!-- BEGIN: image_zoom -->
-		<div class="image_zoom">
-				Zoom: <span id="imageSizeDisplay_{FILE.id}">125px</span>, Original: <a href="#" onclick="$('#image_thumbnail_{FILE.id}').attr('src', '/image/{FILE.src}'); $('#imageSizeDisplay_{FILE.id},#imageSizeUseButton_{FILE.id} span.units').html('{FILE.imagesize.width}px'); return false;"><span>{FILE.imagesize.width}px</span></a>
-				<div style="margin: 10px 0; width: 90%" id="slider_{FILE.id}"></div>
-			
-				<script type="text/javascript">
-				$(function() {
-					$("#slider_{FILE.id}").slider({
-						value: 125,
-						min: {IMAGE_CONF.thumbnail_width_min},
-						max: {IMAGE_CONF.thumbnail_width_max},
-						step: {IMAGE_CONF.thumbnail_step},
-						change: function(event, ui) { $('#image_thumbnail_{FILE.id}').attr('src', '/thumbnail/'+ ui.value +'/{FILE.src}');},
-						slide : function(event, ui) { $('#imageSizeDisplay_{FILE.id},#imageSizeUseButton_{FILE.id} span.units').html(ui.value + 'px'); }
-					});
-				});
-				</script>
-		</div>
-		<!-- END: image_zoom -->
-		
 	</div>
 	<div class="layoutColumnTwo ofTwo">
 		<div class="item-detail" id="item-detail-{FILE.id}">
@@ -70,13 +50,33 @@
 				
 				<a href="#" onclick="chooseImage($('#image_thumbnail_{FILE.id}').attr('src') , $('#image_thumbnail_{FILE.id}').attr('title')); return false;"><img id="image_thumbnail_{FILE.id}" src="/thumbnail/125/{FILE.src}" title="{FILE.title}"  alt="{FILE.title}" /></a> <br />
 				
-				<a class="button" id="imageSizeUseButton_{FILE.id}" href="#" onclick="chooseImage($('#image_thumbnail_{FILE.id}').attr('src') , $('#image_thumbnail_{FILE.id}').attr('title')); return false;"><span>use this (</span><span class="units">125px</span>)</a>
+				<p>Use <a class="button" id="imageSizeUseButton_{FILE.id}" href="#" onclick="chooseImage($('#image_thumbnail_{FILE.id}').attr('src') , $('#image_thumbnail_{FILE.id}').attr('title')); return false;"><span class="units">125px</span></a>
+				or <a class="button" id="imageSizeUseButton_{FILE.id}" href="#" onclick="chooseImage('/image/{FILE.src}' , $('#image_thumbnail_{FILE.id}').attr('title')); return false;"><span>original</span></a></p>
 			<!-- END: RTE_select -->
 			
 			<!-- BEGIN: CSS_select -->
 				<a href="#" onclick="var src = $('#image_thumbnail_{FILE.id}').attr('src'); alert('Copy&amp;Paste this:\nurl(' + src + ')'); return false;"><img id="image_thumbnail_{FILE.id}" src="/thumbnail/125x125/{FILE.src}" title="{FILE.title}"  alt="{FILE.title}" /></a> <br />
 				<a class="button" href="#" onclick="var src = $('#image_thumbnail_{FILE.id}').attr('src'); alert('Copy&amp;Paste this:\nurl(' + src + ')'); return false;"><span>use this ...</span></a>
 			<!-- END: CSS_select -->
+			<!-- BEGIN: image_zoom -->
+			<div class="image_zoom">
+					Zoom: <span id="imageSizeDisplay_{FILE.id}">125px</span>, Original: <a href="#" onclick="$('#image_thumbnail_{FILE.id}').attr('src', '/image/{FILE.src}'); $('#imageSizeDisplay_{FILE.id},#imageSizeUseButton_{FILE.id} span.units').html('{FILE.imagesize.width}px'); return false;"><span>{FILE.imagesize.width}px</span></a>
+					<div style="margin: 10px 0; width: 90%" id="slider_{FILE.id}"></div>
+				
+					<script type="text/javascript">
+					$(function() {
+						$("#slider_{FILE.id}").slider({
+							value: 125,
+							min: {IMAGE_CONF.thumbnail_width_min},
+							max: {IMAGE_CONF.thumbnail_width_max},
+							step: {IMAGE_CONF.thumbnail_step},
+							change: function(event, ui) { $('#image_thumbnail_{FILE.id}').attr('src', '/thumbnail/'+ ui.value +'/{FILE.src}');},
+							slide : function(event, ui) { $('#imageSizeDisplay_{FILE.id},#imageSizeUseButton_{FILE.id} span.units').html(ui.value + 'px'); }
+						});
+					});
+					</script>
+			</div>
+		<!-- END: image_zoom -->
 		</div>
 	</div>
 </div>			
