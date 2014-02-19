@@ -14,6 +14,7 @@
 
 body {font-size: 70%; color: white; font-family: "Lucida Grande", Helvetica, Arial, sans-serif; background: #6d7076 url(../images/lion-fabric.png) repeat; /*background: #e6eaef;*/}
 h2 a, h3 a, h4 a {color: white;}
+p:first-child {margin-top: 0;}
 
 /**
  * Links & buttons
