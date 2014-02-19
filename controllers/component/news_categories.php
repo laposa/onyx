@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2010-2012 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2010-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -48,22 +48,12 @@ class Onxshop_Controller_Component_News_Categories extends Onxshop_Controller {
 			
 			foreach ($article_archive as $item) {
 				
-				if (!$item['title']) {
-					$item['title'] = I18N_NEWS_CATEGORY_UNCATEGORIZED;
-					$item['taxonomy_tree_id'] = 0;
+				if ($item['publish']) {
+				
+					$this->assignAndParseItem($item, $taxonomy_parent_id);
+					
 				}
 				
-				//active css class
-				if ($item['taxonomy_tree_id'] == $this->GET['taxonomy_tree_id']) $this->tpl->assign('ACTIVE_CLASS', 'active');
-				else $this->tpl->assign('ACTIVE_CLASS', '');
-				
-				$this->tpl->assign('ITEM', $item);
-				
-				if (is_numeric($taxonomy_parent_id)) {
-					if ($taxonomy_parent_id == $item['parent_id']) $this->tpl->parse('content.list.item');
-				} else {
-					$this->tpl->parse('content.list.item');
-				}
 			}
 			
 			$this->tpl->parse('content.list');
@@ -72,6 +62,34 @@ class Onxshop_Controller_Component_News_Categories extends Onxshop_Controller {
 		
 		
 		return true;
+	}
+	
+	/**
+	 * assignAndParseItem
+	 */
+	 
+	public function assignAndParseItem($item, $taxonomy_parent_id = false) {
+		
+		if (!is_array($item)) return false;
+		
+		if (!$item['title']) {
+			$item['title'] = I18N_NEWS_CATEGORY_UNCATEGORIZED;
+			$item['taxonomy_tree_id'] = 0;
+		}
+		
+		//active css class
+		if ($item['taxonomy_tree_id'] == $this->GET['taxonomy_tree_id']) $this->tpl->assign('ACTIVE_CLASS', 'active');
+		else $this->tpl->assign('ACTIVE_CLASS', '');
+		
+		$this->tpl->assign('ITEM', $item);
+		
+		//parse only items within parent_id if provided
+		if (is_numeric($taxonomy_parent_id)) {
+			if ($taxonomy_parent_id == $item['parent_id']) $this->tpl->parse('content.list.item');
+		} else {
+			$this->tpl->parse('content.list.item');
+		}
+				
 	}
 
 }
