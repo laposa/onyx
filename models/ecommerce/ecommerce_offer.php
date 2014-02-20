@@ -22,7 +22,8 @@ class ecommerce_offer extends Onxshop_Model {
 		'saving'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'created'=>array('label' => '', 'validation'=>'datetime', 'required'=>true),
 		'modified'=>array('label' => '', 'validation'=>'datetime', 'required'=>true),
-		'other_data'=>array('label' => '', 'validation'=>'serialized', 'required'=>false)
+		'other_data'=>array('label' => '', 'validation'=>'serialized', 'required'=>false),
+		'priority'=>array('label' => '', 'validation'=>'int', 'required'=>false)
 		);
 
 	/**
@@ -44,7 +45,8 @@ class ecommerce_offer extends Onxshop_Model {
 			saving integer,
 			created timestamp(0) without time zone,
 			modified timestamp(0) without time zone,
-			other_data text
+			other_data text,
+			priority integer DEFAULT 0 NOT NULL
 		)";
 		
 		return $sql;

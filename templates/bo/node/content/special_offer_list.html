@@ -1,0 +1,69 @@
+<!-- BEGIN: title -->Special Offer List Edit<!-- END: title -->
+<!-- BEGIN: content -->
+{FILE "bo/node/default_top.html"}
+<fieldset>
+
+	<div class="row">
+		<span class="label"><label>*Template (products per line):</label></span>
+		<span class="field">
+			<select name="node[component][template]">
+				<!-- BEGIN: template_item -->
+				<option value="{ITEM.id}" {ITEM.selected}>{ITEM.title}</option>
+				<!-- END: template_item -->
+			</select>
+		</span>
+	</div>
+	<div class="row">
+		<span class="label"><label>Use only images marked image role:</label></span>
+		<span class="field">
+			<select name="node[component][image_role]">
+				<option value="main" {SELECTED_image_role_main}>main (default)</option>
+				<option value="teaser" {SELECTED_image_role_teaser}>teaser</option>
+				<option value="feature" {SELECTED_image_role_feature}>feature</option>
+				<option value="background" {SELECTED_image_role_background}>background</option>
+				<option value="RTE" {SELECTED_image_role_RTE}>RTE</option>
+			</select>
+		</span>
+	</div>
+		
+	<div class="row">
+		<span class="label"><label>Offer Group:</label></span>
+		<span class="field">
+			<select name="node[component][offer_group_id]">
+				<option value="">All Active</option>
+				<!-- BEGIN: offer_group_optgroup -->
+				<optgroup label="{GROUP_NAME}">
+					<!-- BEGIN: offer_group_item -->
+					<option value="{ITEM.id}" {ITEM.selected}>{ITEM.title}</option>
+					<!-- END: offer_group_item -->
+				</optgroup>
+				<!-- END: offer_group_optgroup -->
+			</select>
+		</span>
+	</div>
+	<div class="row">
+		<span class="label"><label>Campaign Category:</label></span>
+		<span class="field">
+			<select name="node[component][campaign_category_id]">
+				<option value="">All</option>
+				<!-- BEGIN: campaign_category_item -->
+				<option value="{ITEM.id}" {ITEM.selected}>{ITEM.label.title}</option>
+				<!-- END: campaign_category_item -->
+			</select>
+		</span>
+	</div>
+	<div class="row">
+		<span class="label"><label>Roundel Category:</label></span>
+		<span class="field">
+			<select name="node[component][roundel_category_id]">
+				<option value="">All</option>
+				<!-- BEGIN: roundel_category_item -->
+				<option value="{ITEM.id}" {ITEM.selected} data-description="{ITEM.label.description}">{ITEM.label.title}</option>
+				<!-- END: roundel_category_item -->
+			</select>
+		</span>
+	</div>
+</fieldset>
+
+{FILE "bo/node/default_bottom.html"}
+<!-- END: content -->

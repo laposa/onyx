@@ -2,7 +2,7 @@
 /**
  * Unfinished products
  *
- * Copyright (c) 2008-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2008-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -20,6 +20,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Unfinished_Products extends Onxs
 		$Product = new ecommerce_product();	
 		
 		//delete product
+		//TODO make it safer
 		if (is_numeric($this->GET['delete_product_id'])) {
 			if ($Product->productDelete($this->GET['delete_product_id'])) msg("Product ID {$this->GET['delete_product_id']} has been deleted");
 			else msg("Cannot delete product ID {$this->GET['delete_product_id']}", 'error');

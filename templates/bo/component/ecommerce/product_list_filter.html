@@ -33,6 +33,26 @@
 						</select>
 					</span>
 				</div>
+				<div class="row filter-offer_group_id">
+					<span class="label"><label for="filter-offer_group_id">Special Offer Group</label></span>
+					<span class="field">
+						<select name='product-list-filter[offer_group_id]' id='filter-offer_group_id' style="width: 100%" onchange="submit()">
+							<option value="">All</option>
+							<!-- BEGIN: offer_group_optgroup -->
+							<optgroup label="{GROUP_NAME}">
+								<!-- BEGIN: offer_group_item -->
+								<option value="{ITEM.id}" {ITEM.selected}>{ITEM.title}</option>
+								<!-- END: offer_group_item -->
+							</optgroup>
+							<!-- END: offer_group_optgroup -->
+						</select>
+						<br/>
+						<a class="button" style="padding: 0px 10px;" title="Create a New Special Offer Group" href="/backoffice/products/offer_group_add"><span>Add</span></a>
+						<!-- BEGIN: edit_offer_group_button -->
+						<a class="button" style="padding: 0px 10px;" title="Edit selected speciall offer group" href="/backoffice/products/offer_group/{OFFER_GROUP_ID}/edit"><span>Edit</span></a>
+						<!-- END: edit_offer_group_button -->
+					</span>
+				</div>
 			</fieldset>
 			<div class="row submit">
 				<span class="label"><label>&nbsp;</label></span>

@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * Copyright (c) 2006-2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2006-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 	
  */
@@ -10,7 +10,8 @@ $templates_info['content'] = array(
 	'default'=>array('title' => 'Default', 'description'=>'', 'visibility'=>false),
 	'textile'=>array('title' => 'Textile', 'description'=>'', 'visibility'=>true),
 	'RTE'=>array('title' => 'Rich Text', 'description'=>'', 'visibility'=>true), 
-	'product_highlights'=>array('title' => 'Product Highlights', 'description'=>'', 'visibility'=>true), 
+	'product_highlights'=>array('title' => 'Product Highlights', 'description'=>'', 'visibility'=>true),
+	'special_offer_list'=>array('title' => 'Special Offers List', 'description'=>'', 'visibility'=>true),
 	'picture'=>array('title' => 'Photo Gallery', 'description'=>'', 'visibility'=>true),
 	'video'=>array('title' => 'Video', 'description'=>'', 'visibility'=>true),
 	'quote'=>array('title' => 'Quote (Testimonial)', 'description'=>'Testimonial', 'visibility'=>true),

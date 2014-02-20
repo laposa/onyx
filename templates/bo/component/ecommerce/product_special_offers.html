@@ -1,0 +1,220 @@
+<!-- BEGIN: content -->
+<script type="text/javascript">
+
+var variety_prices = {VARIETY_PRICES};
+
+function updateVariableLine(block) {
+	var roundel = block.find('div.roundel_category_id select option:selected');
+	var html = roundel.attr('data-description');
+	var price_id = block.find("input.price_id").val();
+	var quantity = block.find("input.quantity").val();
+	var saving = block.find("input.saving").val();
+	html = html.replace(/\{\d+\}/g, '');
+	html = html.replace(/[\n\r]/g, '<br>');
+	html = html.replace('__price__', '<select class="prices_select" style="vertical-align: middle" onchange="$(this).parents(\'.offer\').find(\'input.price_id\').val($(this).val())"></select><a onclick="addPriceForOffer(); return false;" href="#" title="Add a New Price" style="display: inline-block; width: 16px; height: 16px; vertical-align: middle; background: url(/share/images/famfamfam_icons/add.png)"></a>');
+	html = html.replace('__quantity__', '<input type="text" class="text text short" onchange="$(this).parents(\'.offer\').find(\'input.quantity\').val($(this).val())" value="' + quantity + '"/>');
+	html = html.replace('__saving__', '<input type="text" class="text text short" onchange="$(this).parents(\'.offer\').find(\'input.saving\').val($(this).val())" value="' + saving + '"/>');
+	block.find('div.variables span.field span.input').html(html);
+	updatePriceSelects();
+}
+
+function reloadPreview(block) {
+	var campaign = block.find('div.campaign_category_id select option:selected');
+	var roundel = block.find('div.roundel_category_id select option:selected');
+	var text = roundel.attr('data-description');
+	var colors = campaign.attr('data-description').split("\n");
+	var price = formatPrice(block.find("select.prices_select option:selected").text());
+	var quantity = block.find("input.quantity").val();
+	var saving = block.find("input.saving").val();
+	var sizes = text.match(/\{(\d+)\}/g);
+	text = text.replace(/\{\d+\}/g, '');
+	text = text.replace('__price__', price);
+	text = text.replace('__quantity__', quantity);
+	text = text.replace('__saving__', saving);
+	text = text.split("\n");
+	var query = '';
+	for (var i = 0; i < text.length; i++) {
+		query += '&text' + (i + 1) + '=' + encodeURIComponent(text[i]);
+		query += '&size' + (i + 1) + '=' + sizes[i].replace(/[\{\}]/g, '');
+	}
+	query += '&bgcolor=' + encodeURIComponent(colors[0]);
+	query += '&textcolor=' + encodeURIComponent(colors[1]);
+	query = '?' + query.substr(1);
+
+	var html = '<img src="/request/component/ecommerce/roundel_image' + query +
+		'" title="Click to reload the image"/>';
+	block.find('div.variables span.field span.preview').html(html);
+}
+
+function formatPrice(price) {
+	var prefix = '';
+	var postfix = '';
+	if (price.indexOf("EUR") >= 0) prefix = "€";
+	if (price.indexOf("GBP") >= 0) prefix = "£";
+	var value = price.match(/[0-9\.]+/) * 1;
+	if (value < 1) {
+		value = value * 100;
+		prefix = '';
+		if (price.indexOf("EUR") >= 0) postfix = "c";
+		else postfix = 'p';
+	}
+	if (value % 1 > 0) price = value.toFixed(2);
+	else price = value.toString(10);
+	return prefix + price + postfix;
+}
+
+function reloadPrices() {
+	$.get('/request/bo/component/ecommerce/price_list_ajax?product_variety_id={GET.id}', function(data) {
+		variety_prices = data;
+		updatePriceSelects();
+	}, 'json');
+}
+
+function updatePriceSelects() {
+	var prices = {};
+	for (var i = 0; i < variety_prices.length; i++) {
+		var p = variety_prices[i];
+		if (!prices.hasOwnProperty(p.type)) prices[p.type] = [];
+		prices[p.type].push({
+			id: p.id,
+			price: (p.value * 1).toFixed(2) + ' ' + p.currency_code
+		});
+	}
+	var optionsHtml = '';
+	for (var groupProp in prices) {
+		var priceGroup = prices[groupProp];
+		optionsHtml += '<optgroup label="' + groupProp + '">';
+		for (var price in priceGroup) {
+			var p = priceGroup[price];
+			optionsHtml += '<option value="' + p.id + '">' + p.price + '</option>';
+		}
+		optionsHtml += '</optgroup>';
+	}
+	$("select.prices_select").html(optionsHtml);
+	$("select.prices_select").each(function() {
+		$(this).val($(this).parents('.offer').find('input.price_id').val());
+	});
+}
+
+function addPriceForOffer() {
+	$('#offerPrice{GET.id}').load('/request/bo/component/ecommerce/price_add~product_variety_id={GET.id}:type=special_offer~', '', function() {
+		var options = { 
+			target: '#price_add_form_{GET.id}',
+			success: function(responseText, statusText) { reloadPrices() }
+		}; 
+
+		$('#price_add_form_{GET.id}').ajaxForm(options);
+	    	
+	});
+}
+
+var specialOfferAddId = 0;
+
+function addSpecialOffer() {
+	var html = $('div.offer___ID__').html();
+	html = html.replace(/__ID__/g, --specialOfferAddId);
+	$('div.offer___ID__').before('<div class="offer offer_' + specialOfferAddId + '">' + html + '</div>');
+}
+
+</script>
+
+<p><a class="button add" href="#" onclick="addSpecialOffer(); return false;"><span>Add Special Offer</span></a></p>
+<!-- BEGIN: offer -->
+<div class="offer offer_{OFFER.id}">
+
+	<div class="twoColumnLayout layout">
+		<div class="layoutWrapper">
+			<div class="layoutContent">
+				<div class="layoutContentWrapper">
+					<div class="layoutBody">
+						<div class="layoutColumnOne ofTwo">
+							<div class="layoutColumnWrapper">
+
+								<div class="row offer_group_id">
+									<span class="label"><label>Group</label></span>
+									<span class="field">
+										<select name='product[offer][{OFFER.id}][offer_group_id]'>
+											<option value="">None</option>
+											<!-- BEGIN: offer_group_optgroup -->
+											<optgroup label="{GROUP_NAME}">
+												<!-- BEGIN: offer_group_item -->
+												<option value="{ITEM.id}" {ITEM.selected}>{ITEM.title}</option>
+												<!-- END: offer_group_item -->
+											</optgroup>
+											<!-- END: offer_group_optgroup -->
+										</select>
+									</span>
+								</div>
+
+								<div class="row campaign_category_id">
+									<span class="label"><label>Campaign (Roundel Style)</label></span>
+									<span class="field">
+										<select name='product[offer][{OFFER.id}][campaign_category_id]'>
+											<!-- BEGIN: campaign_category_item -->
+											<option value="{ITEM.id}" data-description="{ITEM.label.description}" {ITEM.selected}>{ITEM.label.title}</option>
+											<!-- END: campaign_category_item -->
+										</select>
+									</span>
+								</div>
+
+								<div class="row roundel_category_id">
+									<span class="label"><label>Offer Type (Roundel Type)</label></span>
+									<span class="field">
+										<select name='product[offer][{OFFER.id}][roundel_category_id]' onchange="updateVariableLine($('div.offer_{OFFER.id}'));">
+											<!-- BEGIN: roundel_category_item -->
+											<option value="{ITEM.id}" {ITEM.selected} data-description="{ITEM.label.description}">{ITEM.label.title}</option>
+											<!-- END: roundel_category_item -->
+										</select>
+									</span>
+								</div>
+
+							</div>
+						</div>
+						<div class="layoutColumnTwo ofTwo">
+							<div class="layoutColumnWrapper">
+
+								<div class="row title">
+									<span class="label"><label>Description</label></span>
+									<span class="field"><input type="text" class="text title long" name="product[offer][{OFFER.id}][description]" value="{OFFER.description|htmlspecialchars}" /></span>
+								</div>
+								<div class="row variables">
+									<span class="label"><label>Variables</label></span>
+									<span class="field" style="background: #f0f0f0; border-radius: 10px; padding: 10px;">
+										<span class="input" style="font-size: 16px; float : left;"></span>
+										<span class="preview" onclick="reloadPreview($('div.offer_{OFFER.id}'))" style="float: right; width: 120px; height: 120px; text-align: center; cursor: pointer;">Click here for a preview</span>
+										<div class="bottom"></div>
+									</span>
+								</div>
+
+								<div id="offerPrice{GET.id}"></div>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="bottom"><span></span></div>
+		</div>
+
+		<input type="hidden" class="price_id" name="product[offer][{OFFER.id}][price_id]" value="{OFFER.price_id|htmlspecialchars}" />
+		<input type="hidden" class="quantity" name="product[offer][{OFFER.id}][quantity]" value="{OFFER.quantity|htmlspecialchars}" />
+		<input type="hidden" class="saving" name="product[offer][{OFFER.id}][saving]" value="{OFFER.saving|htmlspecialchars}" />
+
+		<p><a class="button delete" href="#" style="height: auto;" onclick="var c = $(this).parents('.offer'); c.find('input.delete').val(1); c.find('.layout').remove(); return false;"><span>Remove This Offer</span></a>
+
+		<br/>
+
+	</div>
+
+	<input type="hidden" class="delete" name="product[offer][{OFFER.id}][delete]" value="0" />
+
+</div>
+
+<script type="text/javascript">
+	$("div.offer___ID__").hide();
+	updateVariableLine($('div.offer_{OFFER.id}'));
+</script>
+
+<!-- END: offer -->
+
+<!-- END: content -->

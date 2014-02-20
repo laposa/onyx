@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2005-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2005-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -24,7 +24,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Price_Add extends Onxshop_Contro
 		
 		foreach ($types as $type) {
 			$this->tpl->assign('TYPE', $type);
-			if ($type == $_POST['price']['type']) $this->tpl->assign('SELECTED', "selected='selected'");
+			if ($type == $_POST['price']['type'] || $type == $this->GET['type']) $this->tpl->assign('SELECTED', "selected='selected'");
 			else $this->tpl->assign('SELECTED', "");
 			$this->tpl->parse('content.type');
 		}
