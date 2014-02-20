@@ -1,3 +1,32 @@
+Onxshop (1.6.1)
+
+  * add lock for requests with the same session_id to prevent race conditions
+  * new option ONXSHOP_MEDIA_LIBRARY_ROOT_UPLOAD
+  * refactored delivery_option component
+  * enhance automatic basket refresh
+  * scheduler bug fixes
+  * allow to configure image fill option
+  * implement caching for Twitter timeline
+  * highlight links in Twitter timeline
+  * improve ability to have birhday field mandatory
+  * improve taxonomy add UI
+  * new price_list component for ajax use
+  * update components to allow guest checkout
+  * add header X-Frame-Options: SAMEORIGIN to backoffice
+  * improved performance on tree/menu generation
+  * translation updates
+  * unlink basket upon customer logout
+  * updated to referall components
+  * prevent repeating messages when unlinking multiple files
+  * updates to API
+  * checkout and address management components improvements
+  * updates for Debian Wheezy
+  * update documentation
+  * make sure only published categories are visible in the list
+  * UI improvement for RTE image select
+
+ -- Norbert Laposa <norbert@laposa.co.uk>  2014-02-20
+ 
 Onxshop (1.6.0)
 
   * Multi-file drag&drop upload to media library
