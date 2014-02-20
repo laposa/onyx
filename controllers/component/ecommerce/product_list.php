@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2010-2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2010-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -151,27 +151,22 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
 		 * Sorting
 		 */
 		 
-		//force sorting by priority if provided product_id_list
-		if (is_array($this->GET['product_id_list'])) {
-			$sortby = 'priority';
-			$direction = 'DESC';	
-		} else {
-			$this->_prepareSorting();
+		
+		$this->_prepareSorting();
+		
+		/**
+		 * read variables from session
+		 */
 			
-			/**
-			 * read variables from session
-			 */
-				
-			$sortby = $_SESSION['product_list-sort-by'];
-			$direction = $_SESSION['product_list-sort-direction'];
-		}
+		$sortby = $_SESSION['product_list-sort-by'];
+		$direction = $_SESSION['product_list-sort-direction'];
+	
 		
 		if ($this->GET['display_sorting']) {
 			$this->_displaySorting();
 		}
 		
 		$product_list = $this->_processSorting($product_list, $sortby, $direction);
-
 		
 		/**
 		 * Initialize pagination variables
@@ -503,12 +498,23 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
 	function _prepareSorting() {
 		
 		/**
+		 * force sorting by priority if product_id_list_force_sorting_as_listed
+		 */
+		 
+		if (is_array($this->GET['product_id_list']) && $this->GET['product_id_list_force_sorting_as_listed']) {
+		
+			$sortby = 'priority'; //priority will be modified to reflect product_list_list order
+			$direction = 'DESC';
+		
+		}
+		
+		/**
 		 * sort[by]
 		 */
 		  
 		if ($this->GET['sort']['by'] && in_array($this->GET['sort']['by'], array('popularity', 'price', 'name', 'priority', 'created', 'share_counter'))) {
 		
-			$_SESSION['product_list-sort-by'] = $this->GET['sort']['by'];
+			$sortby = $this->GET['sort']['by'];
 		
 			//disable page cache for this session		
 			$_SESSION['use_page_cache'] = false;
@@ -516,7 +522,7 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
 		} else if (!$_SESSION['product_list-sort-by']) {
 		
 			//default
-			$_SESSION['product_list-sort-by'] = $GLOBALS['onxshop_conf']['global']['product_list_sorting'];//set in global configuration
+			$sortby = $GLOBALS['onxshop_conf']['global']['product_list_sorting'];//set in global configuration
 		
 		}
 		
@@ -526,7 +532,7 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
 		 
 		if ($this->GET['sort']['direction'] && in_array($this->GET['sort']['direction'], array('DESC', 'ASC'))) {
 		
-			$_SESSION['product_list-sort-direction'] = $this->GET['sort']['direction'];
+			$direction = $this->GET['sort']['direction'];
 		
 			//disable page cache for this session
 			$_SESSION['use_page_cache'] = false;
@@ -534,9 +540,16 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
 		} else if (!$_SESSION['product_list-sort-direction']) {
 		
 			//default
-			$_SESSION['product_list-sort-direction'] = 'DESC';
+			$direction = 'DESC';
 		
 		}
+		
+		/**
+		 * save to session
+		 */
+		 
+		$_SESSION['product_list-sort-by'] = $sortby;
+		$_SESSION['product_list-sort-direction'] = $direction;
 	}
 	
 	/**

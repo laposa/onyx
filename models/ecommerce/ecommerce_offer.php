@@ -92,12 +92,14 @@ class ecommerce_offer extends Onxshop_Model {
 			$join = "INNER JOIN ecommerce_product_taxonomy AS t ON t.node_id = v.product_id AND t.taxonomy_tree_id IN (" . implode($taxonomy_tree_ids) . ")";
 		}
 
-		$sql = "SELECT DISTINCT v.product_id
+		$sql = "SELECT DISTINCT v.product_id, o.priority, o.created
 			FROM ecommerce_offer_group AS g 
 			INNER JOIN ecommerce_offer AS o ON o.offer_group_id = g.id $condition2 $condition3
 			INNER JOIN ecommerce_product_variety AS v ON v.id = o.product_variety_id
 			$join
-			WHERE g.schedule_end >= NOW() AND g.publish = 1 $condition1 $condition4";
+			WHERE g.schedule_end >= NOW() AND g.publish = 1 $condition1 $condition4
+			ORDER BY o.priority DESC, o.created DESC
+			";
 
 		$rows = $this->executeSql($sql);
 
