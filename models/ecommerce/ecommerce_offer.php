@@ -35,7 +35,8 @@ class ecommerce_offer extends Onxshop_Model {
 		$sql = "CREATE TABLE ecommerce_offer (
 			id serial NOT NULL PRIMARY KEY,
 			description text,
-			offer_group_id integer REFERENCES ecommerce_offer_group ON UPDATE CASCADE ON DELETE RESTRICT;	product_variety_id integer REFERENCES ecommerce_product_variety ON UPDATE CASCADE ON DELETE RESTRICT,
+			offer_group_id integer REFERENCES ecommerce_offer_group ON UPDATE CASCADE ON DELETE RESTRICT,
+			product_variety_id integer REFERENCES ecommerce_product_variety ON UPDATE CASCADE ON DELETE RESTRICT,
 			schedule_start timestamp(0) without time zone,
 			schedule_end timestamp(0) without time zone,
 			campaign_category_id integer REFERENCES common_taxonomy_tree ON UPDATE CASCADE ON DELETE RESTRICT,
