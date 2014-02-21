@@ -22,8 +22,8 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 			$Node = new common_node();
 			$this->Uri = new common_uri_mapping();
 			
-			$search_query = $this->Uri->recodeUTF8ToAscii(trim(strip_tags($this->GET['search_query'])));
-			$count = strlen($search_query);
+			$query = $this->Uri->recodeUTF8ToAscii(trim(strip_tags($this->GET['search_query'])));
+			$count = strlen($query);
 
 			if ($count > 2) {
 			
@@ -36,17 +36,21 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 					return false;
 				}	
 
-				$search_query = Zend_Search_Lucene_Search_QueryParser::parse(htmlentities($search_query), 'UTF-8');
+				$this->keywords = $this->getKeywords($query);
+
+				$search_query = Zend_Search_Lucene_Search_QueryParser::parse(htmlentities($query), 'UTF-8');
 				$hits = $index->find($search_query);
 
-				// try fuzzy search if keyword search does not return anything
-				if (count($hits) == 0) {
-					$search_query = $search_query . '~0.6';
-					$search_query = Zend_Search_Lucene_Search_QueryParser::parse(htmlentities($search_query), 'UTF-8');
-					$hits = $index->find($search_query);
-				}				
-
-				$this->keywords = $this->getKeywords($search_query);
+				try {
+					// try fuzzy search if keyword search does not return anything
+					if (count($hits) == 0) {
+						$query = $query . '~0.6';
+						$search_query = Zend_Search_Lucene_Search_QueryParser::parse(htmlentities($query), 'UTF-8');
+						$hits = $index->find($search_query);
+					}				
+				} catch (Exception $e) {
+					$hits = array();
+				}
 
 				$result_items_show = 15;
 				
@@ -256,7 +260,6 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 	 */
 	protected function highlightKeywords($text, $keywords)
 	{
-
 		foreach ($keywords as $keyword) {
 			if (strlen($keyword) > 2) {
 				$keyword = preg_quote($keyword);
