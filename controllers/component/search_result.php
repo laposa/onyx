@@ -18,15 +18,15 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 		
 			require_once('Zend/Search/Lucene.php');
 			require_once('models/common/common_node.php');
+			require_once('models/common/common_uri_mapping.php');
 			$Node = new common_node();
+			$this->Uri = new common_uri_mapping();
 			
-			$count = strlen(trim($this->GET['search_query']));
+			$search_query = $this->Uri->recodeUTF8ToAscii(trim(strip_tags($this->GET['search_query'])));
+			$count = strlen($search_query);
 
 			if ($count > 2) {
 			
-				//sanitize
-				$search_query = htmlentities(strip_tags($this->GET['search_query']));
-				
 				$index_location = ONXSHOP_PROJECT_DIR . 'var/index';
 				
 				try {
@@ -35,16 +35,18 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 					msg("Cannot open Lucene index", 'error');
 					return false;
 				}	
-		
-				$search_query = Zend_Search_Lucene_Search_QueryParser::parse($search_query, 'UTF-8');
+
+				$search_query = Zend_Search_Lucene_Search_QueryParser::parse(htmlentities($search_query), 'UTF-8');
 				$hits = $index->find($search_query);
 
 				// try fuzzy search if keyword search does not return anything
 				if (count($hits) == 0) {
-					$search_query = htmlentities(strip_tags($this->GET['search_query']  . '~0.6'));
-					$search_query = Zend_Search_Lucene_Search_QueryParser::parse($search_query, 'UTF-8');
+					$search_query = $search_query . '~0.6';
+					$search_query = Zend_Search_Lucene_Search_QueryParser::parse(htmlentities($search_query), 'UTF-8');
 					$hits = $index->find($search_query);
 				}				
+
+				$this->keywords = $this->getKeywords($query);
 
 				$result_items_show = 15;
 				
@@ -136,8 +138,8 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 
 			if (strlen($page['description']) < 20) {
 
-				$page['excerpt'] = $this->reduceDescription($page['body']);
-				$page['excerpt'] = $this->highlightKeywords($page['excerpt']);
+				$page['excerpt'] = $this->reduceDescription($page['body'], $this->keywords);
+				$page['excerpt'] = $this->highlightKeywords($page['excerpt'], $this->keywords);
 
 			} else {
 
@@ -163,7 +165,7 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 		$Recipe = new ecommerce_recipe();
 		$recipe = $Recipe->detail($recipe_id);
 
-		$page['excerpt'] = $this->highlightKeywords(strip_tags($recipe['description']));
+		$page['excerpt'] = $this->highlightKeywords(strip_tags($recipe['description']), $this->keywords);
 
 		$request = new Onxshop_Request("component/image~relation=recipe:role=main:width=100:height=100:node_id={$recipe['id']}:limit=0,1~");
 		$page['image'] = $request->getContent();
@@ -189,7 +191,7 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 		if (strlen($store['description']) > 0) $excerpt .= "<br/>";
 		if (strlen($store['address']) > 0) $excerpt .= nl2br($store['address']);
 		if (strlen($store['opening_hours']) > 0) $excerpt .= "<br/><br/>" . nl2br($store['opening_hours']);
-		$page['excerpt'] = $this->highlightKeywords($excerpt);
+		$page['excerpt'] = $this->highlightKeywords($excerpt, $this->keywords);
 
 		$request = new Onxshop_Request("component/image~relation=store:role=main:width=100:height=100:node_id={$store['id']}:limit=0,1~");
 		$page['image'] = $request->getContent();
@@ -213,7 +215,7 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 		if (strlen($page['description']) > 0) $excerpt = $page['description'];
 		else if (strlen($product['teaser']) > 0) $excerpt = $product['teaser'];
 		else $excerpt = $product['description'];
-		$page['excerpt'] = $this->highlightKeywords(strip_tags($excerpt));
+		$page['excerpt'] = $this->highlightKeywords(strip_tags($excerpt), $this->keywords);
 
 		$request = new Onxshop_Request("component/image~relation=product:role=main:width=100:height=100:node_id={$product['id']}:limit=0,1~");
 		$page['image'] = $request->getContent();
@@ -241,9 +243,8 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 	/**
 	 * get array of query keywords
 	 */
-	protected function getKeywords()
+	protected function getKeywords($query)
 	{
-		$query = trim($this->GET['search_query']);
 		$keywords = explode(" ", $query);
 		foreach ($keywords as &$keyword) $keyword = trim($keyword);
 		return $keywords;
@@ -253,9 +254,8 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 	/**
 	 * highlight keywords in given text using html strong tag
 	 */
-	protected function highlightKeywords($text)
+	protected function highlightKeywords($text, $keywords)
 	{
-		$keywords = $this->getKeywords();
 
 		foreach ($keywords as $keyword) {
 			if (strlen($keyword) > 2) {
@@ -272,9 +272,8 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 	 * reduce given text to 200 characters
 	 * try to reduce it to the part where the first keyword is present
 	 */
-	protected function reduceDescription($text)
+	protected function reduceDescription($text, $keywords)
 	{
-		$keywords = $this->getKeywords();
 		$text = preg_replace("/\s\s([\s]+)?/", " ", $text);
 
 		foreach ($keywords as $keyword) {
@@ -291,6 +290,6 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 			}
 		}
 
-		return substr($text, 0, 200) . "&hellip;";
+		return mb_substr($text, 0, 200) . "&hellip;";
 	}
 }
