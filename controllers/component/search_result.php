@@ -46,7 +46,7 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 					$hits = $index->find($search_query);
 				}				
 
-				$this->keywords = $this->getKeywords($query);
+				$this->keywords = $this->getKeywords($search_query);
 
 				$result_items_show = 15;
 				
