@@ -64,7 +64,11 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Address extends Onxshop_Co
 			
 		}
 
-		$this->tpl->assign('TYPE', $this->getAddressType());
+		$type = $this->getAddressType();
+		$this->tpl->assign('TYPE', $type);
+		if ($type == 'Delivery') $this->tpl->assign('TYPE_TITLE', "A $type");
+		else $this->tpl->assign('TYPE_TITLE', $type);
+		
 
 		/**
 		 * address list
@@ -339,21 +343,29 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Address extends Onxshop_Co
 			
 			if ($item['is_deleted']) continue;
 
-			if ($item['country_id'] == $address['country_id'] &&
-				$item['name'] == $address['name'] &&
-				$item['line_1'] == $address['line_1'] &&
-				$item['line_2'] == $address['line_2'] &&
-				$item['line_3'] == $address['line_3'] &&
-				$item['post_code'] == $address['post_code'] &&
-				$item['city'] == $address['city'] &&
-				$item['county'] == $address['county'] &&
-				$item['telephone'] == $address['telephone'] &&
-				$item['comment'] == $address['comment']) return $item['id'];
+			if ($this->compareTwoAddresses($item, $address)) return $item['id'];
 			
 		}
 
 		return false;
-	}	
+	}
+
+	/**
+	 * Compare two arrays representing an address
+	 */
+	public function compareTwoAddresses(&$address1, &$address2)
+	{
+		return $address1['country_id'] == $address2['country_id'] &&
+			$address1['name'] == $address2['name'] &&
+			$address1['line_1'] == $address2['line_1'] &&
+			$address1['line_2'] == $address2['line_2'] &&
+			$address1['line_3'] == $address2['line_3'] &&
+			$address1['post_code'] == $address2['post_code'] &&
+			$address1['city'] == $address2['city'] &&
+			$address1['county'] == $address2['county'] &&
+			$address1['telephone'] == $address2['telephone'] &&
+			$address1['comment'] == $address2['comment'];
+	}
 
 	public function getAddressType()
 	{
