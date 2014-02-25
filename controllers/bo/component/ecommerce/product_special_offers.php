@@ -93,6 +93,8 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Product_Special_Offers extends O
 
 	protected function parseCategorySelect(&$items, $selected_id, $block_name)
 	{
+		if (!is_array($items) || count($items) == 0) return;
+
 		foreach ($items as $item) {
 			if ($item['id'] == $selected_id) $item['selected'] = 'selected="selected"';
 			if (!$item['publish']) $item['label']['title'] = '* ' . $item['label']['title'];
