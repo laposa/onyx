@@ -53,11 +53,13 @@
 		form.find('input[type=text]').val('');
 		form.find('button.add_new_address').parent().parent().show();
 		form.find('button.edit_selected_address').parent().parent().hide();
+		form.find('h4.edit_title').hide();
 		fielset.hide();
 		block.find("p.buttons").hide();
 
 		// show
 		form.fadeIn(800);
+		form.find('h4.add_title').show();
 
 		// focus
 		form.find("input:first").focus();
@@ -79,6 +81,7 @@
 		block.find("fieldset.selected_address").hide();
 		fielset.hide();
 		block.find("p.buttons").hide();
+		form.find('h4.add_title').hide();
 
 		// populate fields
 		var selected = block.find("fieldset.selected_address").parent();
@@ -93,6 +96,7 @@
 
 		// show
 		form.fadeIn(800);
+		form.find('h4.edit_title').show();
 
 		// focus
 		form.find("input:first").focus();
@@ -159,8 +163,25 @@
 
 <div class="checkout_address">
 
-	<h3>Selected {TYPE} Address</h3>
-	
+	<h3><span>{TYPE_TITLE} Address</span></h3>
+
+
+	<!-- BEGIN: deliver_to_billing -->
+	<form action="{URI_SAFE|htmlspecialchars}" method="post" class="twoColumns">	
+		<input type="hidden" name="action" value="update_deliver_to_billing"/>
+		<label>
+			<input id="deliver_checkbox" type="checkbox" name="deliver_to_billing" {CHECKED} onclick="$(this).parents('.pageWrapper').css('opacity', 0.3).css('cursor', 'wait'); submit()" value="1"/>
+			Deliver to Billing Address
+		</label>
+	</form>
+	<script type="text/javascript">
+		$(function() { 
+			var checkbox = $('#deliver_checkbox');
+			if (checkbox.is(":checked")) $('#address_edit_{GET.node_id}').hide(); 
+		});
+	</script>
+	<!-- END: deliver_to_billing -->
+
 	<form action="{URI_SAFE|htmlspecialchars}" method="post" id="address_edit_{GET.node_id}" class="twoColumns">	
 	
 	<input type="hidden" name="node_id" value="{GET.node_id}"/>
@@ -172,6 +193,7 @@
 			<fieldset class="single selected_address">
 
 				<!-- BEGIN: selected_address -->
+				<h4>Selected {TYPE} Address:</h4>
 				<table class="selected_address">
 					<tr><td><label class="bold">Name</label></td><td><span class="client-address-name">{ADDRESS.name|htmlspecialchars|suffix(%s,'<br/>')}</span></td></tr>
 					<tr><td><label class="bold">{TYPE} Address</label></td><td>
@@ -192,6 +214,8 @@
 
 			<div class="address_form" style="display: none;">
 				
+					<h4 class="add_title">Add A New {TYPE} Address::</h4>
+					<h4 class="edit_title">Edit Current {TYPE} Address:</h4>
 					<fieldset>
 						<div class="row name">
 							<span class="label"><label for="client-address-name"><span class="mandatory-mark">*</span> Name:</label></span>
