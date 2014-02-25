@@ -26,6 +26,10 @@ class Onxshop_Controller_Component_Client_Logout extends Onxshop_Controller {
 				unset($_SESSION['client']);
 				// unlink basket from customer
 				unset($_SESSION['basket']);
+				// clear gift parameters
+				unset($_SESSION['gift']);
+				unset($_SESSION['gift_message']);
+
 			
 				$this->invalidateToken();
 				
