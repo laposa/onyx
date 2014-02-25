@@ -83,7 +83,7 @@ function msg($msg, $type = "ok", $level = 0, $error_class = '') {
 				if (!is_dir($messages_dir)) mkdir($messages_dir);
 				
 				if (is_dir($messages_dir) && is_writable($messages_dir)) {
-					$time = strftime("%x %T", time());
+					$time = strftime("%F %T", time()); // use ISO date format to allow easy sorting
 					$session_id = session_id();
 					$type = strtoupper($type);
 					$filename = "$messages_dir{$_SERVER['REMOTE_ADDR']}-$session_id.log";
