@@ -2,37 +2,82 @@
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 
 <div class="stock">
-	<table>
-		<thead>
-			<tr>
-				<th>Variety ID</th>
-				<th>Name</th>
-				<th>SKU</th>
-				<th>Stock</th>
-				<th>Weight</th>
-				<th>Price</th>
-			</tr>
-		</thead>
-	
-		<tbody>
-			<!-- BEGIN: item -->
-			<tr>
-				<td>{ITEM.variety_id}</td>
-				<td class="{ITEM.disabled}"><a href="#stock_edit" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/ecommerce/stock_edit~id={ITEM.variety_id}~');"><span>{ITEM.product_name} - {ITEM.variety_name}</span></a> </td>
-				<td>{ITEM.sku}</td>
-				<td>{ITEM.stock}</td>
-				<td>{ITEM.weight_gross}</td>
-				<td>{ITEM.price|money_format('%n', %s)}</td>
 
-			</tr>
-			<!-- END: item -->
-		</tbody>
-	</table>
-	<div class="onxshop_pagination">
-		{PAGINATION}
+	<div class="twoColumnLayout layout fibonacci-5-1">
+		<div class="layoutWrapper">
+			<div class="top"><span></span></div>
+			<div class="layoutContent">
+				<div class="layoutContentWrapper">
+					<div class="layoutColumnOne ofTwo">
+						<div class="layoutColumnWrapper">
+							
+							<table>
+								<thead>
+									<tr>
+										<th>Variety ID</th>
+										<th>Name</th>
+										<th>SKU</th>
+										<th>Stock</th>
+										<th>Weight</th>
+										<th>Price</th>
+									</tr>
+								</thead>
+							
+								<tbody>
+									<!-- BEGIN: item -->
+									<tr>
+										<td>{ITEM.variety_id}</td>
+										<td class="{ITEM.disabled}"><a href="#stock_edit" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/ecommerce/stock_edit~id={ITEM.variety_id}~');"><span>{ITEM.product_name} - {ITEM.variety_name}</span></a> </td>
+										<td>{ITEM.sku}</td>
+										<td>{ITEM.stock}</td>
+										<td>{ITEM.weight_gross}</td>
+										<td>{ITEM.price|money_format('%n', %s)}</td>
+
+									</tr>
+									<!-- END: item -->
+								</tbody>
+							</table>
+							<div class="onxshop_pagination">
+								{PAGINATION}
+							</div>
+							
+						</div>
+					</div>
+					<div class="layoutColumnTwo ofTwo">
+						<div class="layoutColumnWrapper">
+							<p>
+								Export this list: <br/>
+								<a class="button" title="export this list as CSV" href="/request/bo/export/csv_products"><span>CSV</span></a> &nbsp;&nbsp;
+								<a class="button" title="export this list as XML" href="/request/bo/export/xml_products"><span>XML</span></a></p>
+							</p>
+							<p>
+								Export stock notifications: <br/>
+								<select class="notification_csv">
+									<option value="">- Select a Period -</option>
+									<!-- BEGIN: stock_period -->
+									<option value="date_from={DATE.from}&amp;date_to={DATE.to}">{DATE.label}</option>
+									<!-- END: stock_period -->
+								</select>
+								<a class="button notification_csv" title="Export notifications as CSV" href="/request/bo/export/csv_notifications"><span>CSV</span></a>
+								<script type="text/javascript">
+									$(function() {
+										$("a.notification_csv").click(function() {
+											var val = $("select.notification_csv").val();
+											if (val == '') alert("Please select a period.");
+											else window.location = $(this).attr("href") + "?" + val;
+											return false;
+										});
+									});
+								</script>
+							</p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="bottom"><span></span></div>
+		</div>
 	</div>
 	
-	<p>Export this list: <a class="button" title="export this list as CSV" href="/request/bo/export/csv_products"><span>CSV</span></a> &nbsp;&nbsp;<a class="button" title="export this list as XML" href="/request/bo/export/xml_products"><span>XML</span></a></p>
 </div>
 
 <!-- END: content -->
