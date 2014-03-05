@@ -277,6 +277,7 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 		if (!is_numeric($conf['id_map-payment_protx_failure'])) $conf['id_map-payment_protx_failure'] = 11;
 		if (!is_numeric($conf['id_map-payment_worldpay_callback'])) $conf['id_map-payment_worldpay_callback'] = 999;
 		if (!is_numeric($conf['id_map-terms'])) $conf['id_map-terms'] = 26;
+		if (!is_numeric($conf['id_map-notifications'])) $conf['id_map-notifications'] = 5932;
 		
 		//checkout pages (wizard checkout)
 		if (!is_numeric($conf['id_map-checkout_basket'])) $conf['id_map-checkout_basket'] = $conf['id_map-basket'];
