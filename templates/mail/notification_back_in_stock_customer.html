@@ -1,0 +1,54 @@
+<!-- BEGIN: title -->Now Available – {DATA.product.name|htmlspecialchars}<!-- END: title -->
+<!-- BEGIN: content -->
+
+<p style="text-align: center">
+	<img src="/images/Jing_Web_logo_2.png" />
+</p>
+
+<p>
+Dear {DATA.customer.first_name},
+</p>
+
+<p>
+	We noted that you expressed an interested in our {DATA.product.name|htmlspecialchars}.
+</p> 
+
+<p>
+	We are pleased to inform you that the below product is now back in stock.
+ </p>
+
+<p>
+	To return JING Tea, please follow the below link:
+</p>
+
+<br/>
+<table>
+	<tr>
+		<td><a style="text-decoration: none; border: none;" href="{DATA.product.url}">{DATA.product.image}</a></td>
+		<td>&nbsp;&nbsp;</td>
+		<td style="border: 1px solid #a39161; padding: 20px; ">
+			<h3><a style="font-size: 16px; color: #a39161;" href="{DATA.product.url}">{DATA.product.name|htmlspecialchars} - {DATA.product.variety.name|htmlspecialchars}</a></h3>
+			<p>{DATA.product.teaser|strip_tags|htmlspecialchars}</p>
+			<p><strong>{DATA.product.variety.price.value||money_format('%n', %s)}</strong></p>
+		</td>
+	</tr>
+</table>
+
+<br/>
+
+<p>
+	Please let us know if you would like any further information about our teas, Glassware or service by contacting <a style="color: #a39161;" href="http://{_SERVER.SERVER_NAME}/contact">customerservices@jingtea.com</a>.
+</p>
+
+<p>
+Kindest regards,<br/>
+JING Tea <a style="color: #a39161;" href="http://{_SERVER.SERVER_NAME}">http://{_SERVER.SERVER_NAME}</a>
+</p>
+
+<hr/>
+
+<p>
+	We sent you the above alert as you expressed an interest in the availability of this product at <a style="color: #a39161;" href="http://{_SERVER.SERVER_NAME}">http://{_SERVER.SERVER_NAME}</a>. To unsubscribe from these emails please click <a style="color: #a39161;" href="http://{_SERVER.SERVER_NAME}/page/{DATA.unsubscribe.page_id}?wid={DATA.unsubscribe.id}&amp;unsubscribe={DATA.unsubscribe.key}">here</a>.
+</p>
+
+<!-- END: content -->
