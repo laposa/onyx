@@ -175,6 +175,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Product_List extends Onxshop_Con
                 
 				foreach ($p_item as $item) {
 					if ($item['variety_publish'] == 0) $item['variety_publish'] = 'disabled';
+					$this->checkNotifications($item);
 					$this->tpl->assign('ITEM', $item);
 					$this->tpl->parse('content.list.item');
 					$this->tpl->assign('CLASS', "class='$even_odd'");
@@ -187,4 +188,20 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Product_List extends Onxshop_Con
 
 		return true;
 	}
+
+	/**
+	 * display confirmation if notifications are about to be sent out
+	 */
+	public function checkNotifications(&$item)
+	{
+		require_once('models/common/common_watchdog.php');
+		$Watchdog = new common_watchdog();
+
+		if ($item['stock'] == 0) {
+			$item['num_notifications'] = $Watchdog->checkWatchdog('back_in_stock_customer', $item['variety_id'], 0, 1, true);
+		} else {
+			$item['num_notifications'] = 0;
+		}
+	}
+
 }

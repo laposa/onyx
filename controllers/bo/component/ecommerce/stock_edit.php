@@ -41,6 +41,16 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Stock_Edit extends Onxshop_Contr
 		
 		$this->tpl->assign('PRODUCT', $p);
 
+		/**
+		 * display confirmation if notifications are about to be sent out
+		 */
+		require_once('models/common/common_watchdog.php');
+		$Watchdog = new common_watchdog();
+
+		$this->tpl->assign('NOTIFICATIONS', array(
+			'back_in_stock_customer' => $Watchdog->checkWatchdog('back_in_stock_customer', $variety_id, 0, 1, true)
+		));
+
 		return true;
 	}
 }

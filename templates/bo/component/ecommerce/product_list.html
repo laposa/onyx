@@ -15,10 +15,25 @@ $(document).ready(function() {
 		params: "ajax=yes"
 	});
 	$("div.product_list td.stock a").editInPlace({
-		url: "/request/bo/component/single_record_update~model=ecommerce_product_variety:attribute=stock~",
-		params: "ajax=yes"
+		url: "",
+		params: "ajax=yes",
+		callback: function(idOfEditor, enteredText, orinalHTMLContent) {
+			var el = $('#' + idOfEditor);
+			var num_notifications = el.attr("data-num-notifications");
+			if (num_notifications > 0) {
+				if (!confirm("Changing stock levels - " + num_notifications + " customer(s) will be notified. Do you want to continue?")) return orinalHTMLContent;
+			}
+			$.post("/request/bo/component/single_record_update~model=ecommerce_product_variety:attribute=stock~", {
+				ajax: "yes",
+				update_value: enteredText,
+				original_html: orinalHTMLContent,
+				element_id: idOfEditor
+
+			});
+			return enteredText;
+		}
 	});
-	
+
 	$('div.product_list a.add.product').live('click', function() {
 		var child_id = $(this).attr('href').replace('#','');;
 		$('#dialog').addClass('ajaxLoad').load('/request/bo/component/ecommerce/product_add_quick', function() {$(this).removeClass('ajaxLoad');});
@@ -70,7 +85,7 @@ $(document).ready(function() {
 										<td class="variety_name"><a class="title {ITEM.variety_publish}" id="ecommerce_product_variety-name-id-{ITEM.variety_id}" href="#{ITEM.variety_id}">{ITEM.variety_name|htmlspecialchars}</a></td>
 										<td class="price money"><a class="price" id="ecommerce_price-value-product_variety_id-{ITEM.variety_id}" href="#{ITEM.variety_id}">{ITEM.price|money_format('%n', %s)}</a></td>
 										<td class="sku number"><a href="#{ITEM.variety_id}" id="ecommerce_product_variety-sku-id-{ITEM.variety_id}">{ITEM.sku}</a></td>
-										<td class="stock number"><a href="#{ITEM.variety_id}" id="ecommerce_product_variety-stock-id-{ITEM.variety_id}">{ITEM.stock}</a></td>
+										<td class="stock number"><a href="#{ITEM.variety_id}" id="ecommerce_product_variety-stock-id-{ITEM.variety_id}" data-original-stock="{ITEM.stock}" data-num-notifications="{ITEM.num_notifications}">{ITEM.stock}</a></td>
 									</tr>
 									<!-- END: item -->
 								</tbody>
