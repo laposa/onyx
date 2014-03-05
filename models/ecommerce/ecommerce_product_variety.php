@@ -431,4 +431,30 @@ ALTER TABLE ecommerce_product_variety ADD UNIQUE (\"sku\");
 			break;
 		}
 	}
+
+	/**
+	 * update a record
+	 *
+	 * customer update function to sent notifications if stock level changes as per defined conditions
+	 *
+	 * @param array $data
+	 * @return integer
+	 */
+	 
+	public function update($data = array())
+	{
+		$detail = $this->detail($data['id']);
+
+		if (is_numeric($detail['stock']) && is_numeric($data['stock']) && $detail['stock'] != $data['stock'])
+		{
+			require_once('models/common/common_watchdog.php');
+			$Watchdog = new common_watchdog();
+			$Watchdog->checkWatchdog('back_in_stock_admin', $data['id'], $detail['stock'], $data['stock']);
+			$Watchdog->checkWatchdog('out_of_stock_admin', $data['id'], $detail['stock'], $data['stock']);
+			$Watchdog->checkWatchdog('back_in_stock_customer', $data['id'], $detail['stock'], $data['stock']);
+		}
+
+		return parent::update($data);
+	}
+
 }
