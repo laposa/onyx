@@ -131,7 +131,7 @@ CREATE TABLE ecommerce_store (
     telephone character varying(255),
     manager_name character varying(255),
     email character varying(255),
-    type_id REFERENCES ecommerce_store ON UPDATE CASCADE ON DELETE RESTRICT,
+    type_id REFERENCES ecommerce_store_type ON UPDATE CASCADE ON DELETE RESTRICT,
     coordinates_x integer,
     coordinates_y integer,
     latitude double precision,
