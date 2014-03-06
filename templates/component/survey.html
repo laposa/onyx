@@ -84,9 +84,30 @@ label.error { display: none; }
 			<span class="field"><input class="required text" type="text" id="client_customer_birthday_id" name="client[customer][birthday]" value="{CLIENT.customer.birthday|htmlspecialchars}"/></span>
 		</div>
 
+		<!-- BEGIN: store -->
 		<div class="row county">
-			<span class="label"><label for="client_customer_conty_id">County</label></span>
+			<span class="label"><label for="client_customer_home_store_id">Store</label></span>
 			<span class="field">
+				<!-- BEGIN: county_dropdown -->
+				<select id="client_customer_home_store_id" name="client[customer][other_data][home_store_id]" style="width: 100%; font-size: 18px;">
+					<!-- BEGIN: province -->
+					<optgroup label="{PROVINCE_NAME}">
+						<!-- BEGIN: store -->
+						<option value="{STORE.id}" {STORE.selected}>{COUNTY.label.title|htmlspecialchars} - {STORE.title|htmlspecialchars}</option>
+						<!-- END: store -->
+					</optgroup>
+					<!-- END: province -->
+				</select>
+				<!-- END: county_dropdown -->
+			</span>
+		</div>
+		<!-- END: store -->
+		
+		<!-- BEGIN: location -->
+		<div class="row county">
+			<span class="label"><label for="client_customer_county_id">County</label></span>
+			<span class="field">
+			
 				<!-- BEGIN: county_dropdown -->
 				<select id="client_customer_county_id" name="client[customer][other_data][county]" style="width: 100%; font-size: 18px;">
 					<!-- BEGIN: province -->
@@ -100,11 +121,11 @@ label.error { display: none; }
 				<!-- END: county_dropdown -->
 			</span>
 		</div>
-
 		<div class="row city">
 			<span class="label"><label for="client_customer_city_id">City / Town</label></span>
 			<span class="field"><input class="text" type="text" id="client_customer_city_id" name="client[customer][other_data][city]" value="{CLIENT.customer.city|htmlspecialchars}"/></span>
 		</div>
+		<!-- END: location -->
 
 	</fieldset>
 

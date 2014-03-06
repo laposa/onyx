@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2011-2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2011-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -193,6 +193,9 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 
 			if (strlen($form_data['other_data']['county']) > 0) 
 				$customer_details['other_data']['county'] = $form_data['other_data']['county'];
+				
+			if (is_numeric($form_data['other_data']['home_store_id']) > 0) 
+				$customer_details['other_data']['home_store_id'] = $form_data['other_data']['home_store_id'];
 
 			if (strlen($form_data['telephone']) > 0) 
 				$customer_details['telephone'] = $form_data['telephone'];
@@ -237,7 +240,15 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 		}
 
 		if ($this->areUserDetailsRequired()) {
-			$this->parseCountySelect($_POST['client']['customer']['other_data']['county']);
+			
+			/**
+			 * decide whether to ask for nearest store or county/town
+			 * TODO: allow to configure or use automatic selection based on data in ecommerce_store
+			 */
+			 
+			if (1 == 1) $this->parseStoreSelect($_POST['client']['customer']['other_data']['county']);
+			else $this->parseLocationSelect($_POST['client']['customer']['other_data']['county']);
+			
 			$this->tpl->parse("content.form.require_user_details");
 		}
 
@@ -529,11 +540,12 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 	}
 	
 	/**
-	 * parseCountySelect
+	 * parseLocationSelect
 	 */
 
-	protected function parseCountySelect($selected_id)
+	protected function parseLocationSelect($selected_id)
 	{
+	
 		$provinces = $this->getTaxonomyBranch(self::TAXONOMY_TREE_PROVINCE_ID);
 
 		foreach ($provinces as $province) {
@@ -545,14 +557,54 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 			foreach ($counties as $county) {
 				$county['selected'] = ($selected_id == $county['id'] ? 'selected="selected"' : '');
 				$this->tpl->assign("COUNTY", $county);
-				$this->tpl->parse("content.form.require_user_details.county_dropdown.province.county");
+				$this->tpl->parse("content.form.require_user_details.location.county_dropdown.province.county");
 			}
 
-			$this->tpl->parse("content.form.require_user_details.county_dropdown.province");
+			$this->tpl->parse("content.form.require_user_details.location.county_dropdown.province");
 
 		}
 
-		$this->tpl->parse("content.form.require_user_details.county_dropdown");
+		$this->tpl->parse("content.form.require_user_details.location.county_dropdown");
+		$this->tpl->parse("content.form.require_user_details.location");
+
+	}
+	
+	/**
+	 * parseStoreSelect
+	 */
+
+	protected function parseStoreSelect($selected_id)
+	{
+		
+		require_once('models/ecommerce/ecommerce_store.php');
+		$Store = new ecommerce_store();
+	
+		$provinces = $this->getTaxonomyBranch(self::TAXONOMY_TREE_PROVINCE_ID);
+
+		foreach ($provinces as $province) {
+
+			$this->tpl->assign("PROVINCE_NAME", $province['label']['title']);
+
+			$counties = $this->getTaxonomyBranch($province['id']);
+
+			foreach ($counties as $county) {
+				$county['selected'] = ($selected_id == $county['id'] ? 'selected="selected"' : '');
+				$this->tpl->assign("COUNTY", $county);
+				// get all stores in this count
+				$store_list = $Store->getFilteredStoreList($county['id']);
+				
+				foreach ($store_list[0] as $store_item) {
+					$this->tpl->assign('STORE', $store_item);
+					$this->tpl->parse("content.form.require_user_details.store.county_dropdown.province.store");
+				}
+			}
+
+			$this->tpl->parse("content.form.require_user_details.store.county_dropdown.province");
+
+		}
+
+		$this->tpl->parse("content.form.require_user_details.store.county_dropdown");
+		$this->tpl->parse("content.form.require_user_details.store");
 
 	}
 
