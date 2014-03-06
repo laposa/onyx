@@ -39,5 +39,11 @@ CREATE TABLE common_watchdog (
 
 CREATE INDEX common_watchdog_combined_idx ON common_watchdog USING btree (name, watched_item_id, publish);
 
+--
+-- customer
+--
+
+ALTER TABLE client_customer
+ADD COLUMN store_id integer REFERENCES ecommerce_store ON UPDATE CASCADE ON DELETE RESTRICT;
 
 COMMIT;
