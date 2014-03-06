@@ -18,6 +18,8 @@ class Onxshop_Controller_Component_Watchdog_Customer extends Onxshop_Controller 
 		$this->Watchdog = new common_watchdog();
 		$this->Product = new ecommerce_product();
 
+		$this->Watchdog->setCacheable(false); // disable db cache for front-end users
+
 		$customer_id = (int) $_SESSION['client']['customer']['id'];
 
 		if ($this->GET['unsubscribe']) {
