@@ -2,7 +2,7 @@
 /**
  * class client_customer
  * 
- * Copyright (c) 2009-2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -101,9 +101,9 @@ class client_customer extends Onxshop_Model {
 	var $modified;
 	
 	/**
-	 * 0 - standard
-	 * 1 - request for trade
-	 * 2 - approved trade
+	 * 0 - standard (can be set by user)
+	 * 1 - request for trade (can be set by user)
+	 * 2 - approved trade (only backend user can change to this status)
 	 */
 	 
 	var $account_type;
@@ -353,7 +353,20 @@ CREATE TABLE client_customer (
 		if (trim($customer_data['profile_image_url']) == '') unset($customer_data['profile_image_url']);
 		
 		$this->setAll($customer_data);
+		
+		/**
+		 * make sure user cannot request account type greater then 1
+		 */
+		 
+		if ($customer_data['account_type'] > 1) {
+			msg("Account Type cannot greater then 1");
+			return false;
+		}
 	
+		/**
+		 * check against existing accounts
+		 */
+		 
 		if ($this->isSocialAccount($customer_data)) {
 			
 			//allow to pass, but issue notice
