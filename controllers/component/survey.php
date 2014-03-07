@@ -242,13 +242,30 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 		if ($this->areUserDetailsRequired()) {
 			
 			/**
+			 * input from POST
+			 */
+			 
+			$client_data = $_POST['client'];
+			
+			/**
 			 * decide whether to ask for nearest store or county/town
 			 * TODO: allow to configure or use automatic selection based on data in ecommerce_store
 			 */
 			 
-			if (1 == 1) $this->parseStoreSelect($_POST['client']['customer']['other_data']['county']);
-			else $this->parseLocationSelect($_POST['client']['customer']['other_data']['county']);
+			if (1 == 1) $this->parseStoreSelect($client_data['customer']['other_data']['county']);
+			else $this->parseLocationSelect($client_data['customer']['other_data']['county']);
 			
+			/**
+			 * checkbox treatment
+			 */
+			 
+			if(isset($client_data['customer']['newsletter'])) {
+				$client_data['customer']['newsletter'] = ($client_data['customer']['newsletter'] == 1) ? 'checked="checked" ' : '';
+			} else {
+				$client_data['customer']['newsletter'] = 'checked="checked" ';
+			}
+			
+			$this->tpl->assign('CLIENT', $client_data);
 			$this->tpl->parse("content.form.require_user_details");
 		}
 
