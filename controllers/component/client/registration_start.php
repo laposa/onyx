@@ -39,6 +39,7 @@ class Onxshop_Controller_Component_Client_Registration_Start extends Onxshop_Con
 				$this->dispatchToRegistration($node_conf);
 				
 			} else  {
+				msg("User email {$_POST['client']['customer']['email']} is already registered", 'error', 0, 'account_exists');
 				$this->tpl->assign('CLIENT', $_POST['client']);
 			}
 		}
