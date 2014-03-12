@@ -608,7 +608,7 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 				$county['selected'] = ($selected_id == $county['id'] ? 'selected="selected"' : '');
 				$this->tpl->assign("COUNTY", $county);
 				// get all stores in this count
-				$store_list = $Store->getFilteredStoreList($county['id']);
+				$store_list = $Store->getFilteredStoreList($county['id'], false, 0, false, false, 1000); //limit to 1000 records per county
 				
 				foreach ($store_list[0] as $store_item) {
 					$this->tpl->assign('STORE', $store_item);
