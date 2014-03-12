@@ -2,7 +2,7 @@
 /**
  * class ecommerce_store
  *
- * Copyright (c) 2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2013-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -98,7 +98,7 @@ class ecommerce_store extends Onxshop_Model {
 		'id'=>array('label' => '', 'validation' => 'int', 'required' => true),
 		'title'=>array('label' => '', 'validation' => 'string', 'required' => true),
 		'description'=>array('label' => '', 'validation' => 'string', 'required' => false),
-		'address'=>array('label' => '', 'validation' => 'string', 'required' => false),
+		'address'=>array('label' => 'Full address as one input box', 'validation' => 'string', 'required' => false),
 		'opening_hours'=>array('label' => '', 'validation' => 'string', 'required' => false),
 		'telephone'=>array('label' => '', 'validation' => 'string', 'required' => false),
 		'manager_name'=>array('label' => '', 'validation' => 'string', 'required' => false),
@@ -112,7 +112,15 @@ class ecommerce_store extends Onxshop_Model {
 		'modified'=>array('label' => '', 'validation' => 'datetime', 'required' => false),
 		'publish'=>array('label' => '', 'validation' => 'int', 'required' => false),
 		'street_view_options'=>array('label' => '', 'validation' => 'string', 'required' => false),
-		'other_data'=>array('label' => '', 'validation' => 'string', 'required' => false)
+		'other_data'=>array('label' => '', 'validation' => 'string', 'required' => false),
+		'country_id'=>array('label' => 'Country', 'validation'=>'int', 'required'=>false),
+		'address_name'=>array('label' => 'Name', 'validation'=>'string', 'required'=>false),
+		'address_line_1'=>array('label' => 'Address line 1', 'validation'=>'string', 'required'=>false),
+		'address_line_2'=>array('label' => 'Address line 2', 'validation'=>'string', 'required'=>false),
+		'address_line_3'=>array('label' => 'Address line 3', 'validation'=>'string', 'required'=>false),
+		'address_city'=>array('label' => 'City', 'validation'=>'string', 'required'=>false),
+		'address_county'=>array('label' => 'County', 'validation'=>'string', 'required'=>false),
+		'address_post_code'=>array('label' => 'Post code', 'validation'=>'string', 'required'=>false)
 	);
 	
 	/**
@@ -140,7 +148,15 @@ CREATE TABLE ecommerce_store (
     modified timestamp without time zone NOT NULL,
     publish smallint DEFAULT 0 NOT NULL,
     street_view_options text,
-    other_data text
+    other_data text,
+    country_id int REFERENCES international_country ON UPDATE CASCADE ON DELETE RESTRICT,
+    address_name varchar(255),
+    address_line_1 varchar(255),
+    address_line_2 varchar(255),
+    address_line_3 varchar(255),
+    address_city varchar(255),
+    address_county varchar(255),
+    address_post_code varchar(255)
 );
 	";
 		

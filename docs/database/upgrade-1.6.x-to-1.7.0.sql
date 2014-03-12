@@ -46,4 +46,18 @@ CREATE INDEX common_watchdog_combined_idx ON common_watchdog USING btree (name, 
 ALTER TABLE client_customer
 ADD COLUMN store_id integer REFERENCES ecommerce_store ON UPDATE CASCADE ON DELETE RESTRICT;
 
+--
+-- store
+--
+
+ALTER TABLE ecommerce_store
+ADD COLUMN country_id int REFERENCES international_country ON UPDATE CASCADE ON DELETE RESTRICT,
+ADD COLUMN address_name varchar(255),
+ADD COLUMN address_line_1 varchar(255),
+ADD COLUMN address_line_2 varchar(255),
+ADD COLUMN address_line_3 varchar(255),
+ADD COLUMN address_city varchar(255),
+ADD COLUMN address_county varchar(255),
+ADD COLUMN address_post_code varchar(255)
+	
 COMMIT;
