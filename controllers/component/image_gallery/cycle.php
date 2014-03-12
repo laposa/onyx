@@ -128,7 +128,7 @@ class Onxshop_Controller_Component_Image_Gallery_Cycle extends Onxshop_Controlle
 					
 					$this->tpl->assign('ITEM', $img);
 					
-					if (is_numeric($img['link_to_node_id'])) $this->tpl->parse('content.item.link');
+					if (is_numeric($img['link_to_node_id']) && $img['link_to_node_id'] > 0) $this->tpl->parse('content.item.link');
 					else $this->tpl->parse('content.item.normal');
 					
 					$this->tpl->parse('content.item');
