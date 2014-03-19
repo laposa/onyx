@@ -156,7 +156,9 @@ define('I18N_THIS_ORDER_IS_STILL_UNPAID', 'このご注文は料金未払いで�
 //component/ecommerce/login.html
 define('I18N_EXISTING_CUSTOMER', '既存のお客様');
 define('I18N_YOUR_EMAIL', 'Email');
+define('I18N_YOUR_EMAIL_PLACEHOLDER', 'e.g. you@example.com');
 define('I18N_YOUR_PASSWORD', 'パスワード');
+define('I18N_YOUR_PASSWORD_PLACEHOLDER', 'your password');
 define('I18N_AUTOLOGIN', '次回から自動的に表示する');
 define('I18N_SUBMIT', '送信');
 //component/ecommerce/order_detail.html
@@ -240,9 +242,12 @@ define('I18N_R_CURRENCY', '希望する貨幣');
 define('I18N_R_SUBMIT', 'アカウントをつくる');
 define('I18N_R_APPLY_FOR_TRADE', '卸アカウントをつくる');
 //component/client/registration_start.html
+//component/client/login_or_register.html
 define('I18N_RS_NEW_CUSTOMER', '新しいお客さま');
-define('I18N_RS_YOUR_EMAIL', 'Email:');
+define('I18N_RS_YOUR_EMAIL', 'Email');
+define('I18N_RS_YOUR_EMAIL_PLACEHOLDER', 'e.g. you@example.com');
 define('I18N_RS_SUBMIT', '送信');
+define('I18N_FORGOTTEN_PASSWORD', 'Forgotten your password since your last visit?');
 //component/client/newsletter_subscribe_start.html
 define('I18N_NEWSLETTER_SIGNUP', '申し込む');
 //component/client/edit.html

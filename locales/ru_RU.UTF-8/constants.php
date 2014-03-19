@@ -156,7 +156,9 @@ define('I18N_THIS_ORDER_IS_STILL_UNPAID', 'This order is still unpaid!');
 //COMPONENT/ECOMMERCE/LOGIN.HTML
 define('I18N_EXISTING_CUSTOMER', 'Existing customer / ');
 define('I18N_YOUR_EMAIL', 'Your email / Ваш имэйл');
+define('I18N_YOUR_EMAIL_PLACEHOLDER', 'e.g. you@example.com');
 define('I18N_YOUR_PASSWORD', 'Your password / Ваш пароль');
+define('I18N_YOUR_PASSWORD_PLACEHOLDER', 'your password');
 define('I18N_AUTOLOGIN', 'Remember me / Запомнить данные');
 define('I18N_SUBMIT', 'Submit / Далее');
 //component/ecommerce/order_detail.html
@@ -240,9 +242,12 @@ define('I18N_R_CURRENCY', 'Prefered currency');
 define('I18N_R_SUBMIT', 'Create Account');
 define('I18N_R_APPLY_FOR_TRADE', 'Apply for trade account');
 //component/client/registration_start.html
+//component/client/login_or_register.html
 define('I18N_RS_NEW_CUSTOMER', 'New customer');
-define('I18N_RS_YOUR_EMAIL', 'Your email:');
+define('I18N_RS_YOUR_EMAIL', 'Your email');
+define('I18N_RS_YOUR_EMAIL_PLACEHOLDER', 'e.g. you@example.com');
 define('I18N_RS_SUBMIT', 'Submit');
+define('I18N_FORGOTTEN_PASSWORD', 'Forgotten your password since your last visit?');
 //component/client/newsletter_subscribe_start.html
 define('I18N_NEWSLETTER_SIGNUP', 'Sign Up');
 //component/client/edit.html

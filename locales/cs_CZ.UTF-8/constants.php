@@ -174,7 +174,9 @@ define('I18N_THIS_ORDER_IS_STILL_UNPAID', 'Není daňový doklad!');
 //component/ecommerce/login.html
 define('I18N_EXISTING_CUSTOMER', 'Stávající zákazník');
 define('I18N_YOUR_EMAIL', 'Váš email');
+define('I18N_YOUR_EMAIL_PLACEHOLDER', 'e.g. you@example.com');
 define('I18N_YOUR_PASSWORD', 'Vaše heslo');
+define('I18N_YOUR_PASSWORD_PLACEHOLDER', 'Vaše heslo');
 define('I18N_AUTOLOGIN', 'Zapamatovat');
 define('I18N_SUBMIT', 'Odeslat');
 //component/ecommerce/order_detail.html
@@ -259,9 +261,12 @@ define('I18N_R_CURRENCY', 'Preferovaná měna');
 define('I18N_R_SUBMIT', 'Vytvořit účet');
 define('I18N_R_APPLY_FOR_TRADE', 'Velkoobchod');
 //component/client/registration_start.html
+//component/client/login_or_register.html
 define('I18N_RS_NEW_CUSTOMER', 'Nový zákazník');
-define('I18N_RS_YOUR_EMAIL', 'Váš email:');
+define('I18N_RS_YOUR_EMAIL', 'Váš email');
+define('I18N_RS_YOUR_EMAIL_PLACEHOLDER', 'např. you@example.com');
 define('I18N_RS_SUBMIT', 'Odeslat');
+define('I18N_FORGOTTEN_PASSWORD', 'Forgotten your password since your last visit?');
 //component/client/newsletter_subscribe_start.html
 define('I18N_NEWSLETTER_SIGNUP', 'Přihlásit');
 //component/client/edit.html
