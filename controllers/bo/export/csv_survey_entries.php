@@ -63,6 +63,7 @@ class Onxshop_Controller_Bo_Export_CSV_Survey_Entries extends Onxshop_Controller
 				$item['last_name'] = $customer['last_name'];
 				$item['email'] = $customer['email'];
 				$item['telephone'] = $customer['telephone'];
+				$item['newsletter'] = $customer['newsletter'];
 				$item['home_store_id'] = $customer['other_data']['home_store_id'];
 				$item['home_store_name'] = $customer['home_store_name'];
 				$item['city'] = $customer['other_data']['city'];
