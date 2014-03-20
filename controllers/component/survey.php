@@ -184,31 +184,13 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 
 		if (is_numeric($customer_details['id'])) {
 
-			$customer_details['other_data'] = unserialize($customer_details['other_data']);
+			return $Customer->mergePreservedAccount($customer_details, $form_data);
+			
+		} else {
 
-			// update only certain properties
-
-			if (strlen($form_data['other_data']['city']) > 0) 
-				$customer_details['other_data']['city'] = $form_data['other_data']['city'];
-
-			if (strlen($form_data['other_data']['county']) > 0) 
-				$customer_details['other_data']['county'] = $form_data['other_data']['county'];
-				
-			if (is_numeric($form_data['other_data']['home_store_id']) > 0) 
-				$customer_details['other_data']['home_store_id'] = $form_data['other_data']['home_store_id'];
-
-			if (strlen($form_data['telephone']) > 0) 
-				$customer_details['telephone'] = $form_data['telephone'];
-
-			if (strlen($form_data['birthday']) > 0) 
-				$customer_details['birthday'] = $form_data['birthday'];
-
-			$Customer->updatePreservedCustomer($customer_details);
-
-			return $customer_details['id'];
+			return $Customer->insertPreservedCustomer($form_data);
+		
 		}
-
-		return $Customer->insertPreservedCustomer($form_data);
 	}
 	
 	/**

@@ -604,6 +604,8 @@ CREATE TABLE client_customer (
 	 
 	public function mergeAccount($old, $new) {
 	
+		if (!is_array($old) || !is_array($new)) return false;
+		
 		//merge data, but keep old created time
 		$merged_data = array_merge($old, $new);
 		$merged_data['created'] = $old['created'];
@@ -611,6 +613,49 @@ CREATE TABLE client_customer (
 		$id = $this->update($merged_data);
 		
 		return $id;
+	}
+	
+	/**
+	 * mergePreservedAccount
+	 */
+	 
+	public function mergePreservedAccount($old, $new) {
+	
+		if (!is_array($old) || !is_array($new)) return false;
+		
+		$merged_data = $old;
+		
+		// merge only certain properties
+
+		if (strlen($new['other_data']['city']) > 0) 
+			$merged_data['other_data']['city'] = $new['other_data']['city'];
+
+		if (strlen($new['other_data']['county']) > 0) 
+			$merged_data['other_data']['county'] = $new['other_data']['county'];
+			
+		if (is_numeric($new['store_id']) > 0) 
+			$merged_data['store_id'] = $new['store_id'];
+			
+		// legacy store_id under other_data
+		if (is_numeric($new['other_data']['home_store_id']) > 0) 
+			$merged_data['other_data']['home_store_id'] = $new['other_data']['home_store_id'];
+
+		if (strlen($new['telephone']) > 0) 
+			$merged_data['telephone'] = $new['telephone'];
+
+		if (strlen($new['birthday']) > 0) 
+			$merged_data['birthday'] = strftime('%Y-%m-%d', strtotime($new['birthday']));
+			
+		if (is_numeric($new['newsletter'])) 
+			$merged_data['newsletter'] = $new['newsletter'];
+		
+		if (is_numeric($new['agreed_with_latest_t_and_c'])) 
+			$merged_data['agreed_with_latest_t_and_c'] = $new['agreed_with_latest_t_and_c'];
+
+		
+		if ($this->updatePreservedCustomer($merged_data)) return $merged_data['id'];
+		else return false;
+
 	}
 	
 	/**
@@ -1407,7 +1452,7 @@ CREATE TABLE client_customer (
 		
 		$customer_data['status'] = 3;
 		$customer_data['account_type'] = 0;
-		$customer_data['agreed_with_latest_t_and_c'] = 0;
+		if (!is_numeric($customer_data['agreed_with_latest_t_and_c'])) $customer_data['agreed_with_latest_t_and_c'] = 0;
 		$customer_data['verified_email_address'] = 0;
 		if (!is_numeric($customer_data['newsletter'])) $customer_data['newsletter'] = 0;
 		
@@ -1426,7 +1471,7 @@ CREATE TABLE client_customer (
 	 */
 	
 	function updatePreservedCustomer($customer_data) {
-
+		
 		if ($this->updateCustomer($customer_data)) {
 			return true;
 		}
