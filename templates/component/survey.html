@@ -60,27 +60,27 @@ label.error { display: none; }
 		<legend>{I18N_R_PERSONAL_DETAILS}</legend>
 		
 		<div class="row first_name">
-			<span class="label"><label for="client_customer_first_name_id"><span class="mandatory-mark">*</span> {I18N_R_FIRST_NAME}</label></span>
+			<span class="label"><label for="client_customer_first_name_id">{I18N_R_FIRST_NAME}</label></span>
 			<span class="field"><input class="required text" type="text" id="client_customer_first_name_id" name="client[customer][first_name]" value="{CLIENT.customer.first_name|htmlspecialchars}"/></span>
  		</div>
  		
 		<div class="row last_name">
-			<span class="label"><label for="client_customer_last_name_id"><span class="mandatory-mark">*</span> {I18N_R_LAST_NAME}</label></span>
+			<span class="label"><label for="client_customer_last_name_id">{I18N_R_LAST_NAME}</label></span>
 			<span class="field"><input class="required text" type="text" id="client_customer_last_name_id" name="client[customer][last_name]" value="{CLIENT.customer.last_name|htmlspecialchars}"/></span>
 		</div>
 
 		<div class="row email">
-			<span class="label"><label for="client_customer_email_id"><span class="mandatory-mark">*</span> {I18N_R_EMAIL}</label></span>
+			<span class="label"><label for="client_customer_email_id">{I18N_R_EMAIL}</label></span>
 			<span class="field"><input class="required email" type="email" id="client_customer_email_id" name="client[customer][email]" value="{CLIENT.customer.email|htmlspecialchars}"/></span>
 		</div>
 
 		<div class="row telephone">
 			<span class="label"><label for="client_customer_telephone_id">{I18N_R_TELEPHONE}</label></span>
-			<span class="field"><input class="text" type="tel" id="client_customer_telephone_id" name="client[customer][telephone]" value="{CLIENT.customer.telephone|htmlspecialchars}"/></span>
+			<span class="field"><input class="required text" type="tel" id="client_customer_telephone_id" name="client[customer][telephone]" value="{CLIENT.customer.telephone|htmlspecialchars}"/></span>
 		</div>
 
 		<div class="row birthday">
-			<span class="label"><label for="client_customer_birthday_id"><span class="mandatory-mark">*</span> Date of Birth</label></span>
+			<span class="label"><label for="client_customer_birthday_id">Date of Birth</label></span>
 			<span class="field"><input class="required text" type="text" id="client_customer_birthday_id" name="client[customer][birthday]" value="{CLIENT.customer.birthday|htmlspecialchars}"/></span>
 		</div>
 
@@ -89,9 +89,10 @@ label.error { display: none; }
 			<span class="label"><label for="client_customer_home_store_id">Store</label></span>
 			<span class="field">
 				<!-- BEGIN: county_dropdown -->
-				<select id="client_customer_home_store_id" name="client[customer][other_data][home_store_id]" style="width: 100%; font-size: 18px;">
+				<select id="client_customer_home_store_id" name="client[customer][other_data][home_store_id]" class="required" style="width: 100%; font-size: 18px;">
 					<!-- BEGIN: province -->
 					<optgroup label="{PROVINCE_NAME}">
+						<option value="">- please select your nearest store -</option>
 						<!-- BEGIN: store -->
 						<option value="{STORE.id}" {STORE.selected}>{COUNTY.label.title|htmlspecialchars} - {STORE.title|htmlspecialchars}</option>
 						<!-- END: store -->
@@ -138,7 +139,7 @@ label.error { display: none; }
 	<!-- BEGIN: require_t_and_c -->
 	<div class="row agreed_with_latest_t_and_c">
 		<span class="label">
-			<input class="checkbox required" type="checkbox" id="client_customer_agreed_with_latest_t_and_c_id" name="client[customer][agreed_with_latest_t_and_c]" value="1"/> <label for="client_customer_agreed_with_latest_t_and_c_id"><span class="mandatory-mark">*</span> I have read and agreed to the <a href="/page/26" target="_blank">Terms &amp; Conditions</a></label>
+			<input class="checkbox required" type="checkbox" id="client_customer_agreed_with_latest_t_and_c_id" name="client[customer][agreed_with_latest_t_and_c]" value="1"/> <label for="client_customer_agreed_with_latest_t_and_c_id">I have read and agreed to the <a href="/page/26" target="_blank">Terms &amp; Conditions</a></label>
 		</span>
 	</div>
 	<!-- END: require_t_and_c -->
