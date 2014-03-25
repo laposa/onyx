@@ -66,8 +66,6 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Address extends Onxshop_Co
 
 		$type = $this->getAddressType();
 		$this->tpl->assign('TYPE', $type);
-		if ($type == 'Delivery') $this->tpl->assign('TYPE_TITLE', "A $type");
-		else $this->tpl->assign('TYPE_TITLE', $type);
 		
 
 		/**

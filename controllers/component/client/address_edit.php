@@ -39,7 +39,7 @@ class Onxshop_Controller_Component_Client_Address_Edit extends Onxshop_Controlle
 			
 			if ($address_id = $Address->insert($_POST['client']['address'])) {
 			
-				msg('New address added to your list. Please select with "use this" button.');
+				msg('New address added to your list.');
 			
 			} else {
 			

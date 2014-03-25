@@ -163,8 +163,9 @@
 
 <div class="checkout_address">
 
-	<h3><span>{TYPE_TITLE} Address</span></h3>
+	<h3><span>{TYPE} Address</span></h3>
 
+	<div class="bottom_clear"></div>
 
 	<!-- BEGIN: deliver_to_billing -->
 	<form action="{URI_SAFE|htmlspecialchars}" method="post" class="twoColumns">	
@@ -219,31 +220,31 @@
 					<fieldset>
 						<div class="row name">
 							<span class="label"><label for="client-address-name"><span class="mandatory-mark">*</span> Name:</label></span>
-							<span class="field"><input class="text required" type="text" name="client[address][name]" value="{client.address.name}" id="client-address-name" /></span>
+							<span class="field"><input class="text required" type="text" name="client[address][name]" value="{client.address.name}" id="client-address-name" maxlength="32" /></span>
 						</div>
 						<div class="row line_1">
 							<span class="label"><label for="client-address-line_1"><span class="mandatory-mark">*</span> {TYPE} Address:</label></span>
-							<span class="field"><input class="text required" type="text" name="client[address][line_1]" value="{client.address.line_1}" id="client-address-line_1" /></span>
+							<span class="field"><input class="text required" type="text" name="client[address][line_1]" value="{client.address.line_1}" id="client-address-line_1" maxlength="32"/></span>
 						</div>
 						<div class="row line_2">
 							<span class="label"><label for="client-address-line_2">&nbsp;</label></span>
-							<span class="field"><input class="text" type="text" name="client[address][line_2]" value="{client.address.line_2}" id="client-address-line_2" /></span>
+							<span class="field"><input class="text" type="text" name="client[address][line_2]" value="{client.address.line_2}" id="client-address-line_2" maxlength="32"/></span>
 						</div>
 						<div class="row line_3">
 							<span class="label"><label for="client-address-line_3">&nbsp;</label></span>
-							<span class="field"><input class="text" type="text" name="client[address][line_3]" value="{client.address.line_3}" id="client-address-line_3" /></span>
+							<span class="field"><input class="text" type="text" name="client[address][line_3]" value="{client.address.line_3}" id="client-address-line_3" maxlength="32"/></span>
 						</div>
 						<div class="row city">
 							<span class="label"><label for="client-address-city"><span class="mandatory-mark">*</span> {I18N_CITY}:</label></span>
-							<span class="field"><input class="text required" type="text" name="client[address][city]" value="{client.address.city}" id="client-address-city" /></span>
+							<span class="field"><input class="text required" type="text" name="client[address][city]" value="{client.address.city}" id="client-address-city" maxlength="32"/></span>
 						</div>
 						<div class="row post_code">
 							<span class="label"><label for="client-address-post_code"><span class="mandatory-mark">*</span> {I18N_POST_CODE}:</label></span>
-							<span class="field"><input class="text post_code required" type="text" name="client[address][post_code]" value="{client.address.post_code}" id="client-address-post_code" /></span>
+							<span class="field"><input class="text post_code required" type="text" name="client[address][post_code]" value="{client.address.post_code}" id="client-address-post_code" maxlength="10"/></span>
 						</div>
 						<div class="row county">
 							<span class="label"><label for="client-address-county">{I18N_COUNTY}:</label></span>
-							<span class="field"><input class="text" type="text" name="client[address][county]" value="{client.address.county}" id="client-address-county"/></span>
+							<span class="field"><input class="text" type="text" name="client[address][county]" value="{client.address.county}" id="client-address-county" maxlength="32"/></span>
 						</div>
 						<div class="row country_id">
 							<span class="label"><label for="client-address-country_id"><span class="mandatory-mark">*</span> {I18N_STATE}:</label></span>
