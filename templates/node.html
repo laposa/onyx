@@ -36,7 +36,7 @@
 <!-- BEGIN: fe_page_properties -->
 <div class="onxshop_page_properties">
 	<div style="float: left;">
-		<a class="onxshop_page_properties onxshop_edit_{NODE.node_controller} verbose" title="Page properties" href="#{NODE.id}" 
+		<a class="onxshop_page_properties onxshop_edit_{NODE.node_controller} verbose" title="Page properties (Controller: {NODE.node_controller}, ID: {NODE.id})" href="#{NODE.id}" 
 		onclick="openEdit('/popup/properties/{NODE.id}/orig{_SESSION.orig}'); return false;" 
 		onmouseover="$('#node_id_{NODE.id}').addClass('onxshop_highlight_edit');" 
 		onmouseout="$('#node_id_{NODE.id}').removeClass('onxshop_highlight_edit');">
