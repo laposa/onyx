@@ -96,13 +96,11 @@ class Onxshop_Controller_Component_News_List extends Onxshop_Controller {
 		 * Initialize pagination variables
 		 */
 		
-		if (is_numeric($this->GET['limit_from']) && is_numeric($this->GET['limit_per_page'])) {
-			$limit_from = $this->GET['limit_from'];
-			$limit_per_page = $this->GET['limit_per_page'];
-		} else {
-			$limit_from = 0;
-			$limit_per_page = 10;
-		}
+		if (is_numeric($this->GET['limit_from'])) $limit_from = $this->GET['limit_from'];
+		else $limit_from = 0;
+		
+		if (is_numeric($this->GET['limit_per_page'])) $limit_per_page = $this->GET['limit_per_page'];
+		else $limit_per_page = 10;
 		
 		/**
 		 * disable pagination when using taxonomy filter or created filter
