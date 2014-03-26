@@ -48,12 +48,19 @@ class Onxshop_Controller_Node_Content_Recipe_List extends Onxshop_Controller_Nod
 		$taxonomy_ids = implode(",", $taxonomy_ids);
 
 		/**
+		 * sorting
+		 */
+		 
+		$sort_by = $node_data['component']['sort_by'];
+		$sort_direction = $node_data['component']['sort_direction'];
+		
+		/**
 		 * call controller
 		 */
 		
-		$_nSite = new nSite("component/ecommerce/$controller~taxonomy_tree_id=$taxonomy_ids~");
+		$_nSite = new nSite("component/ecommerce/$controller~taxonomy_tree_id=$taxonomy_ids:sort[by]=$sort_by:sort[direction]=$sort_direction~");
 		$this->tpl->assign('RECIPE_LIST', $_nSite->getContent());
-			
+		
 		$this->tpl->assign('NODE', $node_data);
 
 		if ($node_data['display_title'])  $this->tpl->parse('content.title');

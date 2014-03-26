@@ -344,7 +344,7 @@ CREATE TABLE ecommerce_recipe (
 			} else $limit = '';
 
 			if (strlen($order) > 0) $order = "ORDER BY " . $order;
-			$sql = "SELECT ecommerce_recipe.* 
+			$sql = "SELECT ecommerce_recipe.*, common_node.share_counter
 				FROM ecommerce_recipe
 				INNER JOIN common_node ON (common_node.node_group = 'page' 
 					AND common_node.node_controller = 'recipe'

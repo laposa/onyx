@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2013-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -16,6 +16,12 @@ class Onxshop_Controller_Bo_Node_Content_Recipe_List extends Onxshop_Controller_
 		
 		//template
 		$this->tpl->assign("SELECTED_template_{$this->node_data['component']['template']}", "selected='selected'");
+		
+		//sort-by
+		$this->tpl->assign("SELECTED_sort_by_{$this->node_data['component']['sort-by']}", "selected='selected'");
+		
+		//sort-order
+		$this->tpl->assign("SELECTED_sort_order_{$this->node_data['component']['sort-order']}", "selected='selected'");
 		
 	}
 }
