@@ -230,7 +230,7 @@ class Onxshop_Bootstrap {
 		else if (!isset($_SESSION['use_page_cache'])) $_SESSION['use_page_cache'] = ONXSHOP_PAGE_CACHE_TTL;
 		
 		/**
-		 * FIXME HACK
+		 * TODO: allow to configure what _GET variables will disable page cache
 		 * disable page cache also when sorting and mode is submitted
 		 * component/ecommerce/product_list_sorting
 		 */

@@ -26,12 +26,6 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
 		if ($this->GET['product_list_mode']) {
 		
 			$product_list_mode = $this->GET['product_list_mode'];
-			
-			/**
-			 * disable page cache for this session
-			 */
-		
-			$_SESSION['use_page_cache'] = false;
 				
 		} else if ($_SESSION['product_list_mode']) {
 		
@@ -516,9 +510,6 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
 		
 			$sortby = $this->GET['sort']['by'];
 		
-			//disable page cache for this session		
-			$_SESSION['use_page_cache'] = false;
-		
 		} else if (!$_SESSION['product_list-sort-by']) {
 		
 			//default
@@ -533,9 +524,6 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
 		if ($this->GET['sort']['direction'] && in_array($this->GET['sort']['direction'], array('DESC', 'ASC'))) {
 		
 			$direction = $this->GET['sort']['direction'];
-		
-			//disable page cache for this session
-			$_SESSION['use_page_cache'] = false;
 		
 		} else if (!$_SESSION['product_list-sort-direction']) {
 		
