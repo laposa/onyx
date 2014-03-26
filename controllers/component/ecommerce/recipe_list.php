@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2013-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -27,64 +27,26 @@ class Onxshop_Controller_Component_Ecommerce_Recipe_List extends Onxshop_Control
 			if (!is_numeric($taxonomy_id)) return false;
 
 		// is there a limit?
-		if  (is_numeric($this->GET['limit_from'])) $from = $this->GET['limit_from'];
-		else $from = 0;
-		if (is_numeric($this->GET['limit_per_page'])) $per_page = $this->GET['limit_per_page'];
-		else $per_page = 100;
+		if  (is_numeric($this->GET['limit_from'])) $limit_from = $this->GET['limit_from'];
+		else $limit_from = null;
+		if (is_numeric($this->GET['limit_per_page'])) $limit_per_page = $this->GET['limit_per_page'];
+		else $limit_per_page = null;
 
-		$limit = "$from,$per_page";
-		$order = $this->prepareSorting($this->GET['sort']);
+		// is there requested sorting?
+		if ($this->GET['sort']['by'] && in_array($this->GET['sort']['by'], array('title', 'created', 'modified', 'priority', 'share_counter'))) $sort_by = $this->GET['sort']['by'];
+		else $sort_by = null;
+		if ($this->GET['sort']['direction'] && in_array($this->GET['sort']['direction'], array('DESC', 'ASC'))) $sort_direction = $this->GET['sort']['direction'];
+		else $sort_direction = null;
 
-		$list = $Recipe->getRecipeListForTaxonomy($taxonomy_ids, $order, $limit);
+		/**
+		 * get the list
+		 */
+		 
+		$list = $Recipe->getRecipeListForTaxonomy($taxonomy_ids, $sort_by, $sort_direction, $limit_from, $limit_per_page);
 
 		$this->parseItems($list);
 
 		return true;
-	}
-
-	protected function prepareSorting($sort)
-	{
-		
-		/**
-		 * read from session or use default values
-		 */
-	
-		if ($_SESSION['recipe-list-sort-by']) $sort_by = $_SESSION['recipe-list-sort-by'];
-		else $sort_by = 'created';
-		
-		if ($_SESSION['recipe-list-sort-direction']) $sort_direction = $_SESSION['recipe-list-sort-direction'];
-		else $sort_direction = 'DESC';
-		
-		/**
-		 * modify by request via input
-		 */
-		 
-		if ($sort['by'] && in_array($sort['by'], array('title', 'created', 'modified', 'priority', 'share_counter'))) {
-		
-			$sort_by = $sort['by'];
-			$_SESSION['use_page_cache'] = false;
-		
-		}
-		
-		if ($sort['direction'] && in_array($sort['direction'], array('DESC', 'ASC'))) {
-		
-			$sort_direction = $sort['direction'];
-			$_SESSION['use_page_cache'] = false;
-		
-		}
-		
-		/**
-		 * save to session
-		 */
-		
-		$_SESSION['recipe-list-sort-by'] = $sort_by;
-		$_SESSION['recipe-list-sort-direction'] = $sort_direction;
-		
-		/** 
-		 * return string ready for sql
-		 */
-		 
-		return "$sort_by $sort_direction";
 	}
 
 	/**

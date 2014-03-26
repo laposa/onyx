@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2013-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -51,8 +51,8 @@ class Onxshop_Controller_Node_Content_Recipe_List extends Onxshop_Controller_Nod
 		 * sorting
 		 */
 		 
-		$sort_by = $node_data['component']['sort_by'];
-		$sort_direction = $node_data['component']['sort_direction'];
+		$sort_by = $node_data['component']['sort']['by'];
+		$sort_direction = $node_data['component']['sort']['direction'];
 		
 		/**
 		 * call controller

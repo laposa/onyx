@@ -230,7 +230,7 @@ CREATE TABLE ecommerce_recipe (
     	if ($taxonomy_id > 0) $where .= " AND ecommerce_recipe.id IN (SELECT node_id FROM ecommerce_recipe_taxonomy WHERE taxonomy_tree_id = $taxonomy_id)";
 
 		// order
-		if ($order_by == 'title' || $order_by == 'modified') $order = "$order_by";
+		if (in_array($order_by, array('title', 'created', 'modified', 'priority', 'share_counter'))) $order = "$order_by";
 		else $order = "title";
 		if ($order_dir == 'DESC') $order .= " DESC";
 		else $order .= " ASC";
@@ -314,8 +314,32 @@ CREATE TABLE ecommerce_recipe (
      *    - main image details as 'image' field
      *    - page details as 'page' field
      */
-    function getRecipeListForTaxonomy($taxonomy_ids, $order = '', $limit = '')
+    function getRecipeListForTaxonomy($taxonomy_ids, $sort_by = 'created', $sort_direction = 'DESC', $limit_from = false, $limit_per_page = false)
     {
+    
+    	/**
+		 * input filter
+		 */
+
+		// sorting
+		if (!in_array($sort_by, array('title', 'created', 'modified', 'priority', 'share_counter'))) $sort_by = 'created';
+		if (!in_array($sort_direction, array('DESC', 'ASC'))) $sort_direction = 'DESC';
+		$order_by = " ORDER BY $sort_by $sort_direction";
+		
+		// limit
+		if  (!is_numeric($limit_from)) $limit_from = false;
+		if (!is_numeric($limit_per_page)) $limit_per_page = false;
+		
+		if (is_numeric($limit_from) && is_numeric($limit_per_page)) {
+			$limit = " LIMIT $limit_per_page OFFSET $limit_from";
+		} else {
+			$limit = '';
+		}
+		
+    	/**
+    	 * initialise
+    	 */
+    	 
    		require_once('models/common/common_node.php');
  		require_once('models/ecommerce/ecommerce_recipe_taxonomy.php');
  		require_once('models/ecommerce/ecommerce_recipe_image.php');
@@ -325,10 +349,15 @@ CREATE TABLE ecommerce_recipe (
 		$Image = new ecommerce_recipe_image();
 		$Taxonomy = new ecommerce_recipe_taxonomy();
 		$Review = new ecommerce_recipe_review();
-
+		
+		/**
+		 * recipes list
+		 */
+		 
 		$recipes = array();
 
 		if (count($taxonomy_ids) > 0) {
+		
 			$taxonomy = $Taxonomy->listing("taxonomy_tree_id IN (" . implode(",", $taxonomy_ids) . ")");
 
 			$recipe_ids = array();
@@ -337,13 +366,7 @@ CREATE TABLE ecommerce_recipe (
 			}
 
 			$where = "ecommerce_recipe.id IN (" . implode(",", $recipe_ids) . ") AND ecommerce_recipe.publish = 1";
-
-			if (preg_match('/[0-9]*,[0-9]*/', $limit)) {
-				$limit = explode(',', $limit);
-				$limit = " LIMIT {$limit[1]} OFFSET {$limit[0]}";
-			} else $limit = '';
-
-			if (strlen($order) > 0) $order = "ORDER BY " . $order;
+			
 			$sql = "SELECT ecommerce_recipe.*, common_node.share_counter
 				FROM ecommerce_recipe
 				INNER JOIN common_node ON (common_node.node_group = 'page' 
@@ -351,7 +374,8 @@ CREATE TABLE ecommerce_recipe (
 					AND common_node.content = ecommerce_recipe.id::varchar
 					AND common_node.publish = 1)
 				WHERE $where
-				$order $limit";
+				$order_by
+				$limit";
 		
 			$recipes = $this->executeSql($sql);
 			$recipe_pages = $Node->listing("node_group = 'page' AND node_controller = 'recipe' AND content ~ '[0-9]+' AND publish = 1");

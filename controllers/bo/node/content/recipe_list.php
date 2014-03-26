@@ -18,10 +18,10 @@ class Onxshop_Controller_Bo_Node_Content_Recipe_List extends Onxshop_Controller_
 		$this->tpl->assign("SELECTED_template_{$this->node_data['component']['template']}", "selected='selected'");
 		
 		//sort-by
-		$this->tpl->assign("SELECTED_sort_by_{$this->node_data['component']['sort-by']}", "selected='selected'");
+		$this->tpl->assign("SELECTED_sort_by_{$this->node_data['component']['sort']['by']}", "selected='selected'");
 		
 		//sort-order
-		$this->tpl->assign("SELECTED_sort_order_{$this->node_data['component']['sort-order']}", "selected='selected'");
+		$this->tpl->assign("SELECTED_sort_direction_{$this->node_data['component']['sort']['direction']}", "selected='selected'");
 		
 	}
 }
