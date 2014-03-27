@@ -168,7 +168,7 @@
 	<div class="bottom_clear"></div>
 
 	<!-- BEGIN: deliver_to_billing -->
-	<form action="{URI_SAFE|htmlspecialchars}" method="post" class="twoColumns">	
+	<form action="{URI_SAFE|htmlspecialchars}" method="post" class="twoColumns deliver_to_billing">
 		<input type="hidden" name="action" value="update_deliver_to_billing"/>
 		<label>
 			<input id="deliver_checkbox" type="checkbox" name="deliver_to_billing" {CHECKED} onclick="$(this).parents('.pageWrapper').css('opacity', 0.3).css('cursor', 'wait'); submit()" value="1"/>
@@ -215,7 +215,7 @@
 
 			<div class="address_form" style="display: none;">
 				
-					<h4 class="add_title">Add A New {TYPE} Address::</h4>
+					<h4 class="add_title">Add A New {TYPE} Address:</h4>
 					<h4 class="edit_title">Edit Current {TYPE} Address:</h4>
 					<fieldset>
 						<div class="row name">
@@ -288,7 +288,7 @@
 
 		<p class="buttons">
 			<a href="#" onclick="editSelectedAddress_{GET.node_id}(); return false;" class="edit_selected"><span>Edit Selected Address</span></a>
-			<a href="#" onclick="selectAltAddress_{GET.node_id}(); return false;" class="select_alt"><span>Select an Alternative Address</span></a>
+			<a href="#" onclick="selectAltAddress_{GET.node_id}(); return false;" class="select_alt"><span>Previously Used Addresses</span></a>
 		</p>
 
 		<fieldset class="alternative">
