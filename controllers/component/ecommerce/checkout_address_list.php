@@ -15,8 +15,6 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Address_List extends Onxsh
 
 	public function mainAction() {
 
-		if ($_POST['action'] == 'update_deliver_to_billing') $_SESSION['deliver_to_billing_address'] = (bool) $_POST['deliver_to_billing'];
-
 		parent::mainAction();
 
 		if ($_POST['node_id'] == $this->GET['node_id'] && is_numeric($_POST['selected_address_id'])) onxshopGoto("page/{$_SESSION['active_pages'][0]}");
@@ -57,24 +55,18 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Address_List extends Onxsh
 			if ($parse) $this->tpl->parse('content.address');
 		}
 
-		if ($type == 'delivery') $this->displayDeliverToBillingCheckbox();
+		if ($type == 'delivery') $this->displayDeliverToBillingCheckbox($delivery, $invoices);
 	}
 
-	public function displayDeliverToBillingCheckbox()
+	public function displayDeliverToBillingCheckbox($delivery, $invoices)
 	{
-		if ($_SESSION['deliver_to_billing_address']) {
+		$customer = $_SESSION['client']['customer'];
+		$sameAddressId = ($customer['delivery_address_id'] == $customer['invoices_address_id']);
 
-			$this->tpl->assign('CHECKED',  'checked="checked"');
-			$_SESSION['deliver_to_billing_address'] = true;
-			$_SESSION['client']['customer']['delivery_address_id'] = $_SESSION['client']['customer']['invoices_address_id'];
-			$this->tpl->parse('content.deliver_to_billing');
+		if ($sameAddressId || $this->compareTwoAddresses($delivery, $invoices)) $this->tpl->assign('CHECKED',  'checked="checked"');
+		else $this->tpl->assign('CHECKED', '');
 
-		} else {
-
-			$this->tpl->assign('CHECKED', '');
-			if ($_SESSION['client']['customer']['invoices_address_id'] != $_SESSION['client']['customer']['delivery_address_id']) $this->tpl->parse('content.deliver_to_billing');
-		
-		}
+		$this->tpl->parse('content.deliver_to_billing');
 
 	}
 

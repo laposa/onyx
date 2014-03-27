@@ -161,7 +161,7 @@
 	</style>
 <!-- END: virtual_product -->
 
-<div class="checkout_address">
+<div class="checkout_address type_{TYPE|strtolower}">
 
 	<h3><span>{TYPE} Address</span></h3>
 
@@ -171,14 +171,46 @@
 	<form action="{URI_SAFE|htmlspecialchars}" method="post" class="twoColumns deliver_to_billing">
 		<input type="hidden" name="action" value="update_deliver_to_billing"/>
 		<label>
-			<input id="deliver_checkbox" type="checkbox" name="deliver_to_billing" {CHECKED} onclick="$(this).parents('.pageWrapper').css('opacity', 0.3).css('cursor', 'wait'); submit()" value="1"/>
+			<input id="deliver_checkbox" type="checkbox" name="deliver_to_billing" {CHECKED} value="1"/>
 			Deliver to Billing Address
 		</label>
 	</form>
 	<script type="text/javascript">
+
 		$(function() { 
+
 			var checkbox = $('#deliver_checkbox');
+
 			if (checkbox.is(":checked")) $('#address_edit_{GET.node_id}').hide(); 
+
+			checkbox.change(function() {
+
+				var block = $('#address_edit_{GET.node_id}');
+
+				if (this.checked) {
+
+					cancelAllDialogs_{GET.node_id}();
+					block.hide();
+
+					var billing_select = $(".checkout_address.type_billing select[name=selected_address_id]");
+					var delivery_select = $(".checkout_address.type_delivery select[name=selected_address_id]");
+					var billing_address_id = billing_select.val();
+					checkbox.parents('.pageWrapper').css('opacity', 0.3).css('cursor', 'wait'); 
+					delivery_select.val(billing_address_id);
+					block.submit();
+
+				} else {
+
+					cancelAllDialogs_{GET.node_id}();
+
+					block.show();
+					block.find('.selection_block table.selected_address').hide();
+					block.find('.selection_block .selected_address h4').hide();
+					block.find('.edit_selected').hide();
+				}
+
+			});
+
 		});
 	</script>
 	<!-- END: deliver_to_billing -->
