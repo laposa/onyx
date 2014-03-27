@@ -522,7 +522,7 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 		if  ($node_data['title'] == '') {
 			$node_data['title'] = "{$node_data['node_group']} " . time();
 			$node_data['display_title'] = 0;
-		} else {
+		} else if (!is_numeric($node_data['display_title'])) {
 			$node_data['display_title'] = 1;
 		}
 		
@@ -541,13 +541,13 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 		if (!is_numeric($node_data['priority'])) $node_data['priority'] = 0;
 		
 		$node_data['author'] = $_SESSION['authentication']['authenticity'];
-		$node_data['display_in_menu'] = 1;
-		$node_data['display_permission'] = 0;
-		$node_data['css_class'] = '';
-		$node_data['display_breadcrumb'] = 0;
-		$node_data['browser_title'] = '';
-		$node_data['link_to_node_id'] = 0;
-		$node_data['require_ssl'] = 0;
+		if (!is_numeric($node_data['display_in_menu'])) $node_data['display_in_menu'] = 1;
+		if (!is_numeric($node_data['display_permission'])) $node_data['display_permission'] = 0;
+		if (!$node_data['css_class']) $node_data['css_class'] = '';
+		if (!is_numeric($node_data['display_breadcrumb'])) $node_data['display_breadcrumb'] = 0;
+		if (!$node_data['browser_title']) $node_data['browser_title'] = '';
+		if (!is_numeric($node_data['link_to_node_id'])) $node_data['link_to_node_id'] = 0;
+		if (!is_numeric($node_data['require_ssl'])) $node_data['require_ssl'] = 0;
 		
 		if ($node_data['node_group'] == 'layout') $node_data['layout_style'] = $this->conf['layout_layout_style'];
 		else if ($node_data['node_group'] == 'page' && $node_data['node_controller'] == 'product') $node_data['layout_style'] = $this->conf['page_product_layout_style'];

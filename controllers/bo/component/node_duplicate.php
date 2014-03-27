@@ -57,9 +57,9 @@ class Onxshop_Controller_Bo_Component_Node_Duplicate extends Onxshop_Controller 
 		unset($new_node_data['id']);
 
 		// insert as new
-		$new_node_id = $this->Node->insert($new_node_data);
+		$new_node_id = $this->Node->nodeInsert($new_node_data);
 		if (!is_numeric($new_node_id)) {
-			msg('node_duplicate: Cannot create node', 'error');
+			msg("node_duplicate: Cannot create copy of node ID $original_node_id", 'error');
 			return false;
 		}
 
