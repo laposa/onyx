@@ -47,8 +47,11 @@ class Onxshop_Controller_Bo_Component_Node_Duplicate extends Onxshop_Controller 
 	{
 		// read original node
 		$original_node_data = $this->Node->detail($original_node_id);
+		
+		// copy and modify
 		$new_node_data = $original_node_data;
 		$new_node_data['title'] = "{$new_node_data['title']} (copy)";
+		if ($new_node_data['uri_title'] != '') $new_node_data['uri_title'] = "{$new_node_data['uri_title']}-copy";
 		if ($new_parent_id > 0) $new_node_data['parent'] = $new_parent_id;
 		else {
 			//top level element can be forced to be unpublished via common_node.conf option
