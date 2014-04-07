@@ -1067,28 +1067,49 @@ class ecommerce_order extends Onxshop_Model {
 	function getOrderListForExport($filter = false, $includeProducts = false) {
 		
 		$add_to_where = $this->prepareFilterWhereQuery($filter);
-		
+
 		/**
 		 * SQL query
 		 */
-		$sql = "SELECT
-			ecommerce_order.id AS order_id,
-			ecommerce_order.status AS order_status,
-			ecommerce_order.created AS order_created,
-			ecommerce_order.modified AS last_activity,
-			ecommerce_basket.customer_id AS customer_id,
-			client_customer.email AS email,
-			client_customer.title_before AS title_before,
-			client_customer.first_name AS first_name,
-			client_customer.last_name AS last_name,
-			ecommerce_invoice.goods_net AS goods_net";
+		$sql = 'SELECT
+			ecommerce_order.id AS "Order Id",
+				(CASE 
+					 WHEN ecommerce_order.status = 0 THEN \'New (unpaid)\'
+					 WHEN ecommerce_order.status = 1 THEN \'New (paid)\'
+					 WHEN ecommerce_order.status = 2 THEN \'Dispatched\'
+					 WHEN ecommerce_order.status = 3 THEN \'Complete\'
+					 WHEN ecommerce_order.status = 4 THEN \'Cancelled\'
+					 WHEN ecommerce_order.status = 5 THEN \'Failed payment\'
+					 WHEN ecommerce_order.status = 6 THEN \'In Progress\'
+					 WHEN ecommerce_order.status = 7 THEN \'Split\'
+				ELSE \'\'
+				END) AS "Order Status",
+			ecommerce_order.created AS "Order Created",
+			ecommerce_order.modified AS "Last Activity",
+			ecommerce_basket.customer_id AS "Customer Id",
+			delivery_country.name AS "Country of Delivery",
+			invoices_country.name AS "Country of Billing",
+			client_customer.email AS "Email",
+			client_customer.title_before AS "Title Before",
+			client_customer.first_name AS "First Name",
+			client_customer.last_name AS "Last Name",
+			ecommerce_invoice.goods_net + ecommerce_invoice.delivery_net AS "Order Total Net",
+			ecommerce_invoice.goods_net + ecommerce_invoice.goods_vat + ecommerce_invoice.delivery_net + ecommerce_invoice.delivery_vat AS "Order Total Gross",
+			ecommerce_invoice.goods_net AS "Goods Value Net",
+			ecommerce_invoice.goods_net + ecommerce_invoice.goods_vat AS "Goods Value Gross",
+			ecommerce_invoice.delivery_net AS "Delivery Net",
+			ecommerce_invoice.delivery_net + ecommerce_invoice.delivery_vat AS "Delivery Gross",
+			ecommerce_invoice.face_value_voucher AS "Discount",
+			ecommerce_invoice.payment_amount AS "Paid"';
 
-		if ($includeProducts) $sql .= ",
-				ecommerce_product.name AS product_name,
-				ecommerce_product_variety.name AS product_variety,
-				ecommerce_product_variety.sku AS sku,
-				ecommerce_basket_content.quantity AS product_quantity,
-				ecommerce_price.value AS product_price";
+		if ($includeProducts) {
+			$sql .= ',
+				ecommerce_product.name AS "Product Name",
+				ecommerce_product_variety.name AS "Product Variety",
+				ecommerce_product_variety.sku AS "SKU",
+				ecommerce_basket_content.quantity AS "Product Quantity",
+				ecommerce_price.value AS "Product Price"';
+		}
 
 		$sql .= "
 			FROM ecommerce_order
@@ -1099,7 +1120,11 @@ class ecommerce_order extends Onxshop_Model {
 
 		$sql .= " JOIN ecommerce_invoice ON ecommerce_invoice.order_id = ecommerce_order.id
 			LEFT JOIN ecommerce_basket ON ecommerce_basket.id = ecommerce_order.basket_id
-			LEFT JOIN client_customer ON client_customer.id = ecommerce_basket.customer_id";
+			LEFT JOIN client_customer ON client_customer.id = ecommerce_basket.customer_id
+			LEFT JOIN client_address AS delivery_address ON delivery_address.id = ecommerce_order.delivery_address_id
+			LEFT JOIN client_address AS invoices_address ON invoices_address.id = ecommerce_order.invoices_address_id
+			LEFT JOIN international_country AS delivery_country ON delivery_country.id = delivery_address.country_id
+			LEFT JOIN international_country AS invoices_country ON invoices_country.id = invoices_address.country_id";
 
 		if ($includeProducts) $sql .= "
 			LEFT JOIN ecommerce_basket_content ON ecommerce_basket_content.basket_id = ecommerce_basket.id
