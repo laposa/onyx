@@ -166,7 +166,7 @@
 			$("input[name='product[variety][stock]']").blur(function() {
 				var original_stock = '{PRODUCT.variety.stock}' * 1;
 				var new_stock = $(this).val();
-				if (original_stock == 0 && new_stock > 0) {
+				if (back_in_stock_notifications_customer > 0 && original_stock == 0 && new_stock > 0) {
 					if (confirm("Changing stock levels - " + back_in_stock_notifications_customer + " customer(s) will be notified. Do you want to continue?")) {
 						return true;
 					} else {

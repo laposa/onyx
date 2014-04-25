@@ -138,8 +138,12 @@ class common_watchdog extends Onxshop_Model {
 							)
 						);
 						
-						if ($no_action) $numSent++;
-						else $numSent += $this->sendNotification($record['customer_id'], 'notification_back_in_stock_customer', $params);
+						if ($no_action) {
+							$numSent++;
+						} else {
+							$numSent += $this->sendNotification($record['customer_id'], 'notification_back_in_stock_customer', $params);
+							$this->setPublish($record['id'], 0);
+						}
 
 					}
 
