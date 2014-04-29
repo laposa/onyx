@@ -2,7 +2,7 @@
 /**
  * Transaction Detail
  *
- * Copyright (c) 2008-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2008-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -37,7 +37,7 @@ class Onxshop_Controller_Component_Ecommerce_Transaction_Detail extends Onxshop_
 		if (is_numeric($order_id)) $order_data = $Order->getOrder($order_id);
 		
 		//security check of owner
-		if ($order_data['basket']['customer_id'] !== $_SESSION['client']['customer']['id'] &&  $_SESSION['authentication']['logon'] == 0) {
+		if ($order_data['basket']['customer_id'] !== $_SESSION['client']['customer']['id'] &&  $_SESSION['authentication']['authenticity'] == 0) {
 			msg('unauthorized access to view transaction detail', 'error');
 		} else {
 			$transaction_list = $Transaction->getListForOrderId($order_id);

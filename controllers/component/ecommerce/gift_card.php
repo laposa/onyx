@@ -2,7 +2,7 @@
 /**
  * Gift message
  *
- * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -24,7 +24,7 @@ class Onxshop_Controller_Component_Ecommerce_Gift_Card extends Onxshop_Controlle
 		$order_detail = $Order->getOrder($this->GET['order_id']);
 
 		//check owner
-		if ($order_data['basket']['customer_id'] !== $_SESSION['client']['customer']['id'] &&  $_SESSION['authentication']['logon'] == 0) {
+		if ($order_data['basket']['customer_id'] !== $_SESSION['client']['customer']['id'] &&  $_SESSION['authentication']['authenticity'] == 0) {
 			msg('gift_card:unauthorized access to view order detail');
 			return false;
 		} else {

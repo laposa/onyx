@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2005-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2005-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -25,6 +25,8 @@ class Onxshop_Authentication {
 		$_SESSION['authentication']['authenticity'] = $this->_http_auth();
 		$_SESSION['authentication']['username'] = $this->username;
 		
+		$_SESSION['authentication']['logon'] = $_SESSION['authentication']['authenticity']; // deprecated, remove in Onxshop 1.8
+		
 		return $_SESSION['authentication']['authenticity'];
 	}
 	
@@ -39,6 +41,7 @@ class Onxshop_Authentication {
 		if ($this->_logout()) {
 		
 			$_SESSION['authentication']['authenticity'] = 0;
+			$_SESSION['authentication']['logon'] = 0; // deprecated, remove in Onxshop 1.8
 			msg('Logout completed');
 			
 			return true;
@@ -213,16 +216,13 @@ class Onxshop_Authentication {
 		
 			if (!$this->_login()) {
 				
-				$_SESSION['authentication']['logon'] = 0;
 				$_SESSION['authentication']['isin'] = 0;
-				
 				
 				return 0;
 				
 			} else {
 				
 				$_SESSION['authentication']['isin'] = 1;
-				$_SESSION['authentication']['logon'] = $this->id;
 				
 				return $this->id;
 			}
@@ -239,7 +239,6 @@ class Onxshop_Authentication {
 	
 		$_SERVER['PHP_AUTH_USER'] = null;
 		
-		$_SESSION['authentication']['logon'] = 0;
 		$_SESSION['authentication']['isin'] = 0;
 		
 		// delete the session cookie.

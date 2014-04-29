@@ -41,7 +41,7 @@ class Onxshop_Controller_Component_Ecommerce_Order_Detail extends Onxshop_Contro
 		$order_data = $Order->getOrder($order_id);
 		
 		//security check of the owner
-		if ($order_data['basket']['customer_id'] !== $_SESSION['client']['customer']['id'] &&  $_SESSION['authentication']['logon'] == 0) {
+		if ($order_data['basket']['customer_id'] !== $_SESSION['client']['customer']['id'] &&  $_SESSION['authentication']['authenticity'] == 0) {
 			msg('unauthorised access to view order detail', 'error');
 		} else {
 			/**

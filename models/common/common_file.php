@@ -2,7 +2,7 @@
 /**
  * class common_file
  *
- * Copyright (c) 2009-2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -262,7 +262,7 @@ CREATE TABLE common_file (
 			
 			if (!is_numeric($file['priority'])) $file['priority'] = 0;
 			$file['modified'] = date('c');
-			if (!is_numeric($file['author'])) $file['author'] = $_SESSION['authentication']['logon'];
+			if (!is_numeric($file['author'])) $file['author'] = $_SESSION['authentication']['authenticity'];
 			
 			if ($id = $this->insert($file)) {
 				msg('File Inserted', 'ok', 2);

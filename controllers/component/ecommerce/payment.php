@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2005-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2005-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -123,7 +123,7 @@ class Onxshop_Controller_Component_Ecommerce_Payment extends Onxshop_Controller 
 		 * Check order permission
 		 */
 		
-		if ($order_data['basket']['customer_id'] !== $_SESSION['client']['customer']['id'] &&  $_SESSION['authentication']['logon'] == 0) {
+		if ($order_data['basket']['customer_id'] !== $_SESSION['client']['customer']['id'] &&  $_SESSION['authentication']['authenticity'] == 0) {
 			msg('Unauthorised access to order detail');
 			onxshopGoTo("/page/" .$node_conf['id_map-404']);
 			return false;

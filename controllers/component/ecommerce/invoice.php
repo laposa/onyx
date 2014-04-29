@@ -2,7 +2,7 @@
 /**
  * Invoice detail controller
  *
- * Copyright (c) 2005-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2005-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -54,7 +54,7 @@ class Onxshop_Controller_Component_Ecommerce_Invoice extends Onxshop_Controller 
 		 * check owner
 		 */
 		 
-		if ($order_data['basket']['customer_id'] !== $_SESSION['client']['customer']['id'] &&  $_SESSION['authentication']['logon'] == 0) {
+		if ($order_data['basket']['customer_id'] !== $_SESSION['client']['customer']['id'] &&  $_SESSION['authentication']['authenticity'] == 0) {
 		
 			msg('unauthorized access to view order detail');
 		

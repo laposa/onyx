@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  * TODO: check if $node_conf['id_map-payment_worldpay_callback'] is coming from the WorldPay server
@@ -22,9 +22,9 @@ class Onxshop_Controller_Component_Ecommerce_Payment_Worldpay_Callback extends O
 			
 			// we need this to allow get order detail with WorldPay
 			// we should check Worlpay IP address here
-			$_SESSION['authentication']['logon'] = 1;
+			$_SESSION['authentication']['authenticity'] = 1;
 			$transaction_id = $this->paymentProcess($this->GET['order_id'], $_POST);
-			$_SESSION['authentication']['logon'] = 0;
+			$_SESSION['authentication']['authenticity'] = 0;
 		}
 
 		return true;
