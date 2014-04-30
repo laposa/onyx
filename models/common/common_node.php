@@ -73,6 +73,8 @@ class common_node extends Onxshop_Model {
 	var $display_in_menu;
 	
 	var $author;
+
+	var $customer_id;
 	
 	var $uri_title;
 	
@@ -140,6 +142,7 @@ class common_node extends Onxshop_Model {
 		'publish'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'display_in_menu'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'author'=>array('label' => '', 'validation'=>'int', 'required'=>false), //must be required, violates not null
+		'customer_id'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'uri_title'=>array('label' => '', 'validation'=>'string', 'required'=>false),
 		'display_permission'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'other_data'=>array('label' => '', 'validation'=>'serialized', 'required'=>false),
@@ -185,6 +188,7 @@ CREATE TABLE common_node (
 	publish integer DEFAULT 0 NOT NULL,
 	display_in_menu smallint DEFAULT 1 NOT NULL,
 	author integer NOT NULL,
+	customer_id integer REFERENCES client_customer ON UPDATE CASCADE ON DELETE RESTRICT,
 	uri_title character varying(255),
 	display_permission smallint DEFAULT 0 NOT NULL,
 	other_data	text,
@@ -476,6 +480,7 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 	
 		$node_data['modified'] = date('c');
 		if (!is_numeric($node_data['author'])) $node_data['author'] = $_SESSION['authentication']['authenticity'];
+		if (!is_numeric($node_data['customer_id'])) $node_data['customer_id'] = (int) $_SESSION['client']['customer']['id'];
 		
 		if (is_array($node_data['other_data'])) $node_data['other_data'] = serialize($node_data['other_data']);
 		if (is_array($node_data['component'])) $node_data['component'] = serialize($node_data['component']);
@@ -541,6 +546,7 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 		if (!is_numeric($node_data['priority'])) $node_data['priority'] = 0;
 		
 		$node_data['author'] = $_SESSION['authentication']['authenticity'];
+		$node_data['customer_id'] = (int) $_SESSION['client']['customer']['id'];
 		if (!is_numeric($node_data['display_in_menu'])) $node_data['display_in_menu'] = 1;
 		if (!is_numeric($node_data['display_permission'])) $node_data['display_permission'] = 0;
 		if (!$node_data['css_class']) $node_data['css_class'] = '';

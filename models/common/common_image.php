@@ -21,6 +21,7 @@ class common_image  extends common_file {
 		'priority'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'modified'=>array('label' => '', 'validation'=>'datetime', 'required'=>true),
 		'author'=>array('label' => '', 'validation'=>'int', 'required'=>false),
+		'customer_id'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'content'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'other_data'=>array('label' => '', 'validation'=>'serialized', 'required'=>false),
 		'link_to_node_id'=>array('label' => '', 'validation'=>'int', 'required'=>false)
@@ -43,6 +44,7 @@ CREATE TABLE common_image (
     priority integer DEFAULT 0 NOT NULL,
     modified timestamp(0) without time zone,
     author integer,
+    customer_id integer REFERENCES client_customer ON UPDATE CASCADE ON DELETE RESTRICT,
     content text,
     other_data text,
     link_to_node_id integer

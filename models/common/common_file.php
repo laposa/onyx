@@ -49,6 +49,10 @@ class common_file extends Onxshop_Model {
 	 * @access private
 	 */
 	var $author;
+	/**
+	 * @access private
+	 */
+	var $customer_id;
 
 	var $_metaData = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
@@ -60,6 +64,7 @@ class common_file extends Onxshop_Model {
 		'priority'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'modified'=>array('label' => '', 'validation'=>'datetime', 'required'=>true),
 		'author'=>array('label' => '', 'validation'=>'int', 'required'=>false),
+		'customer_id'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'content'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'other_data'=>array('label' => '', 'validation'=>'serialized', 'required'=>false),
 		'link_to_node_id'=>array('label' => '', 'validation'=>'int', 'required'=>false)
@@ -86,6 +91,7 @@ CREATE TABLE common_file (
 	priority int DEFAULT 0 NOT NULL,
 	modified timestamp(0) ,
 	author int,
+	customer_id integer REFERENCES client_customer ON UPDATE CASCADE ON DELETE RESTRICT,
     content text,
     other_data text,
     link_to_node_id integer
@@ -263,6 +269,7 @@ CREATE TABLE common_file (
 			if (!is_numeric($file['priority'])) $file['priority'] = 0;
 			$file['modified'] = date('c');
 			if (!is_numeric($file['author'])) $file['author'] = $_SESSION['authentication']['authenticity'];
+			if (!is_numeric($file['customer_id'])) $file['customer_id'] = (int) $_SESSION['client']['customer']['id'];
 			
 			if ($id = $this->insert($file)) {
 				msg('File Inserted', 'ok', 2);
