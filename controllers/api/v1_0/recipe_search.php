@@ -45,7 +45,11 @@ class Onxshop_Controller_Api_v1_0_Recipe_Search extends Onxshop_Controller_Api {
 		 * get recipe list
 		 */
 		
-		$recipe_list = $Recipe->getRecipeListForTaxonomy("$category_id,$meal_type_id");
+		$taxonomy_ids = array();
+		if (is_numeric($category_id)) $taxonomy_ids[] = $category_id;
+		if (is_numeric($meal_type_id)) $taxonomy_ids[] = $meal_type_id;
+		
+		$recipe_list = $Recipe->getRecipeListForTaxonomy($taxonomy_ids);
 		
 		/**
 		 * get extra info
@@ -55,7 +59,17 @@ class Onxshop_Controller_Api_v1_0_Recipe_Search extends Onxshop_Controller_Api {
 		
 		foreach($recipe_list as $item ) {
 			
-			$data[] = $item;
+			$item_formated = array();
+			$item_formated['id'] = $item['id'];
+			$item_formated['title'] = $item['title'];
+			$item_formated['description'] = strip_tags($item['description']);
+			$item_formated['image_thumbnail'] = "http://" . $_SERVER['HTTP_HOST'] . "/image/" . $item['image']['src'];
+			$item_formated['ready_time'] = $item['preparation_time'] + $item['cooking_time'];
+			$item_formated['meal_types'] = array();
+			$item_formated['categories'] = array(); // TODO
+			$item_formated['url'] = "http://" . $_SERVER['HTTP_HOST'] . "/recipe/{$item['id']}";
+			
+			$data[] = $item_formated;
 			
 		}
 		

@@ -309,10 +309,19 @@ CREATE TABLE ecommerce_recipe (
 
 
     /**
+     * getRecipeListForTaxonomy
+     *
      * list recipes for given taxonomy_ids
      * each item contains
      *    - main image details as 'image' field
      *    - page details as 'page' field
+     *
+     * @param array $taxonomy_ids
+     * @param string $sort_by
+     * @param string $sort_direction
+     * @param int $limit_from
+     * @param int $limit_per_page
+	 * @return array
      */
     function getRecipeListForTaxonomy($taxonomy_ids, $sort_by = 'created', $sort_direction = 'DESC', $limit_from = false, $limit_per_page = false)
     {
@@ -356,7 +365,7 @@ CREATE TABLE ecommerce_recipe (
 		 
 		$recipes = array();
 
-		if (count($taxonomy_ids) > 0) {
+		if (is_array($taxonomy_ids) && count($taxonomy_ids) > 0) {
 		
 			$taxonomy = $Taxonomy->listing("taxonomy_tree_id IN (" . implode(",", $taxonomy_ids) . ")");
 
@@ -378,6 +387,7 @@ CREATE TABLE ecommerce_recipe (
 				$limit";
 		
 			$recipes = $this->executeSql($sql);
+			
 			$recipe_pages = $Node->listing("node_group = 'page' AND node_controller = 'recipe' AND content ~ '[0-9]+' AND publish = 1");
 
 			foreach ($recipe_pages as $recipe_page)
