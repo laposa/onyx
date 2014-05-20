@@ -73,17 +73,18 @@ class education_survey_question_answer extends Onxshop_Model {
 	 
 	private function getCreateTableSql() {
 	
-		$sql = "
-CREATE TABLE education_survey_question_answer (
-	id serial PRIMARY KEY NOT NULL,
-	question_id int NOT NULL REFERENCES education_survey_question ON UPDATE CASCADE ON DELETE CASCADE,
-	title text NOT NULL,
-	description text,
-	is_correct smallint, 
-	points smallint,
-	priority smallint DEFAULT 0,
-	publish smallint DEFAULT 1
-);
+		$sql = "CREATE TABLE education_survey_question_answer (
+			id serial PRIMARY KEY NOT NULL,
+			question_id int NOT NULL REFERENCES education_survey_question ON UPDATE CASCADE ON DELETE CASCADE,
+			title text NOT NULL,
+			description text,
+			is_correct smallint, 
+			points smallint,
+			priority smallint DEFAULT 0,
+			publish smallint DEFAULT 1
+		);
+
+			CREATE INDEX education_survey_question_answer_question_id_idx ON education_survey_question_answer (question_id);
 		";
 		
 		return $sql;
