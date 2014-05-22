@@ -296,7 +296,7 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 						$this->tpl->assign('SELECTED', '');
 					}
 					$this->tpl->assign('ANSWER', $item);
-					$this->tpl->parse('content.form.question.answer_list_radio.item');
+					if ($item['publish'] == 1) $this->tpl->parse('content.form.question.answer_list_radio.item');
 				}
 				$this->tpl->parse('content.form.question.answer_list_radio');
 			break;
@@ -314,7 +314,7 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 						$this->tpl->assign('SELECTED', '');
 					}
 					$this->tpl->assign('ANSWER', $item);
-					$this->tpl->parse('content.form.question.answer_list_select.item');	
+					if ($item['publish'] == 1) $this->tpl->parse('content.form.question.answer_list_select.item');	
 				}		
 				$this->tpl->parse('content.form.question.answer_list_select');
 			break;
