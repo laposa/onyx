@@ -162,7 +162,7 @@ CREATE INDEX common_comment_node_id_key1 ON common_comment USING btree (node_id)
 	 * list
 	 * 
 	 * @param array $filter
-	 * comments filter with any of keys node_id, relation_subject and parent
+	 * comments filter with any of keys node_id, relation_subject, customer_id and parent
 	 * 
 	 * @param string $sort
 	 * sorting direction ['ASC'/'DESC']
@@ -190,10 +190,15 @@ CREATE INDEX common_comment_node_id_key1 ON common_comment USING btree (node_id)
 			}
 			
 			if (is_numeric($filter['parent'])) {
-	            $add_to_where .= " AND parent = '{$filter['parent']}'";
+	            $add_to_where .= " AND parent = '{$filter['parent']}' ";
 	        } else if (array_key_exists('parent', $filter) && $filter['parent'] === null) {
-	        	$add_to_where .= " AND parent IS NULL";
+	        	$add_to_where .= " AND parent IS NULL ";
 	        }
+
+			if (is_numeric($filter['customer_id'])) {
+	            $add_to_where .= " AND customer_id = '{$filter['customer_id']}' ";
+	        }
+
         }
 		
 		/**
