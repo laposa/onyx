@@ -152,7 +152,9 @@ class Onxshop_Controller_Component_Comment extends Onxshop_Controller {
 				$this->tpl->assign('AUTHOR_AVATAR', $_Onxshop_Request->getContent());
 				
 				//sub comments
-				$_Onxshop_Request = new Onxshop_Request("component/comment_list~node_id={$this->GET['node_id']}:parent={$item['id']}~");
+				$component = 'component/comment_list';
+				if (strpos($this->request, 'component/ecommerce/product_review_list') === 0) $component = 'component/ecommerce/product_review_list';
+				$_Onxshop_Request = new Onxshop_Request("$component~node_id={$this->GET['node_id']}:parent={$item['id']}~");
 				$this->tpl->assign("SUB_COMMENTS", $_Onxshop_Request->getContent());
 				
 				//parse item block
