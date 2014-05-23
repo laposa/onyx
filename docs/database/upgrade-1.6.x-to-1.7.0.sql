@@ -71,4 +71,11 @@ ALTER TABLE ecommerce_store_image ADD COLUMN customer_id integer REFERENCES clie
 ALTER TABLE ecommerce_product_variety_image ADD COLUMN customer_id integer REFERENCES client_customer ON UPDATE CASCADE ON DELETE RESTRICT;
 ALTER TABLE ecommerce_recipe_image ADD COLUMN customer_id integer REFERENCES client_customer ON UPDATE CASCADE ON DELETE RESTRICT;
 
+--
+-- send review notification 14 days after order
+--  
+ALTER TABLE ecommerce_order ADD COLUMN review_email_sent integer;
+CREATE INDEX ecommerce_order_review_email_sent_idx ON ecommerce_order USING btree (review_email_sent);
+UPDATE ecommerce_order SET review_email_sent = 1;
+
 COMMIT;

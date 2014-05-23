@@ -55,6 +55,8 @@ class ecommerce_order extends Onxshop_Model {
 	var $referrer;
 	
 	var $payment_type;
+
+	var $review_email_sent;
 	
 	var $_metaData = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
@@ -68,6 +70,7 @@ class ecommerce_order extends Onxshop_Model {
 		'php_session_id'=>array('label' => '', 'validation'=>'string', 'required'=>false),
 		'referrer'=>array('label' => '', 'validation'=>'string', 'required'=>false),
 		'payment_type'=>array('label' => '', 'validation'=>'string', 'required'=>true),
+		'review_email_sent'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'created'=>array('label' => '', 'validation'=>'datetime', 'required'=>false),
 		'modified'=>array('label' => '', 'validation'=>'datetime', 'required'=>false)
 		);
@@ -90,6 +93,7 @@ class ecommerce_order extends Onxshop_Model {
 		    php_session_id character varying(32),
 		    referrer character varying(255),
 		    payment_type character varying(255),
+		    review_email_sent integer,
 		    created timestamp(0) without time zone DEFAULT now(),
 		    modified timestamp(0) without time zone DEFAULT now()
 		);
