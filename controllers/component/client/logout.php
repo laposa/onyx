@@ -36,15 +36,15 @@ class Onxshop_Controller_Component_Client_Logout extends Onxshop_Controller {
 				//clean facebook auth
 				$this->logoutFromFacebook();
 				
-				//forward to the homepage
-				onxshopGoTo(AFTER_CLIENT_LOGOUT_URL);
-			
 			} else {
 			
 				msg("Customer logout failed", 'error');
 			
 			}
 		}
+
+		//forward to the homepage
+		onxshopGoTo(AFTER_CLIENT_LOGOUT_URL);
 
 		return true;
 	}
