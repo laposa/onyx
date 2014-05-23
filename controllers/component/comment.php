@@ -241,8 +241,18 @@ class Onxshop_Controller_Component_Comment extends Onxshop_Controller {
 				 * insert comment
 				 */
 				
-				if ($this->insertComment($data, $options)) $this->tpl->parse('content.comment_inserted');
-				else $this->assignAndParseForm($data);
+				if (is_numeric($this->GET['review_id'])) {
+
+					$data['id'] = $this->GET['review_id'];
+					if ($this->updateComment($data, $options)) $this->tpl->parse('content.comment_updated');
+					else $this->assignAndParseForm($data);
+
+				} else {
+
+					if ($this->insertComment($data, $options)) $this->tpl->parse('content.comment_inserted');
+					else $this->assignAndParseForm($data);
+
+				}
 			
 			} else {
 				 
@@ -351,7 +361,55 @@ class Onxshop_Controller_Component_Comment extends Onxshop_Controller {
 		}
 	
 	}
+
+	/**
+	 * update comments
+	 */
+	 
+	function updateComment($data, $options = false) {
+		
+		if ($_POST['save']) {
+		
+			if ($this->checkData($data)) {
+			
+				/**
+				 * check customer id
+				 */
+				 
+				if ($_SESSION['client']['customer']['id'] > 0 && $data['customer_id'] == $_SESSION['client']['customer']['id']) {
+		
+					unset($data['captcha']);
+
+					$data['author_name'] = $_POST['comment']['author_name'];
+					$data['title'] = $_POST['comment']['title'];
+					$data['rating'] = $_POST['comment']['rating'];
+					$data['content'] = $_POST['comment']['content'];
+					$data['publish'] = 0;
+					
+					if ($this->Comment->updateComment($data)) {
+						
+						$this->Comment->sendNewCommentNotificationEmail($data['id'], $data);
+
+						msg('Your comment has been updated');
+						return true;
+					}
+
+				} else {
+					msg("Must be logged in!", 'error');
+					return false;
+				}
+				
+			} else {
+				
+				msg("Please fill in all fields", 'error');
+			}
+		} else {
+		
+			return false;
+		}
 	
+	}
+
 	/**
 	 * check data
 	 */
