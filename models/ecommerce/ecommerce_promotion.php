@@ -520,15 +520,14 @@ CREATE TABLE ecommerce_promotion (
 	 * check if existing code can be used
 	 */
 	 
-	public function checkCodeBeforeApply($code, $customer_id, $basket) {
+	public function checkCodeBeforeApply($code, $customer_id, $basket, $customer_email = '') {
 
 		if ($promotion_data = $this->checkCodeMatch($code)) {
 
 			/**
 			 * check if customer_id is needed (some codes can be used in guest checkout mode)
 			 */
-			if (!is_numeric($customer_id) && ($promotion_data['limit_to_first_order'] > 0 ||
-				$promotion_data['uses_per_customer'] > 0 || $promotion_data['limit_cumulative_discount'] > 0 ||
+			if ($customer_id == 0 && ($promotion_data['uses_per_customer'] > 0 || $promotion_data['limit_cumulative_discount'] > 0 ||
 				$promotion_data['generated_by_customer_id'] > 0 || $promotion_data['limit_by_customer_id'] > 0)) {
 
 				if (!Zend_Registry::isRegistered('ecommerce_promotion:login_needed')) {
@@ -543,7 +542,7 @@ CREATE TABLE ecommerce_promotion (
 			 * first order
 			 */
 			if ($promotion_data['limit_to_first_order'] > 0) {
-				if ($this->getNumCustomersOrders($customer_id) > 0) {
+				if ($this->getNumCustomersOrders($customer_id, $customer_email) > 0) {
 					if ($this->getNumCustomersPaidOrders($customer_id) == 0) {
 						if (!Zend_Registry::isRegistered('ecommerce_promotion:first_order_unpaid')) {
 							msg("Code \"$code\" can only be applied to your first order. If you cancelled " . 
@@ -554,7 +553,7 @@ CREATE TABLE ecommerce_promotion (
 						}
 					} else {
 						if (!Zend_Registry::isRegistered('ecommerce_promotion:first_order')) {
-							msg("Code \"$code\" can only be applied to your first order.", 'error');
+							msg("We are sorry, this voucher is only valid on your first order", 'error');
 							Zend_Registry::set('ecommerce_promotion:first_order', true);
 						}
 					}
@@ -741,17 +740,26 @@ CREATE TABLE ecommerce_promotion (
 
 
 	/**
-	 * Get number of all orders for given customer
-	 * @param  int $customer_id Customer id
-	 * @return int              Number of orders
+	 * Get number of all orders for given customer id and email address
+	 * @param  int $customer_id    Customer id
+	 * @param  int $customer_email Customer email
+	 * @return int                 Number of orders
 	 */
-	public function getNumCustomersOrders($customer_id)
+	public function getNumCustomersOrders($customer_id, $customer_email)
 	{
 		$customer_id = (int) $customer_id;
+		$email = pg_escape_string($customer_email);
+
+		if ($customer_id == 0 && strlen($customer_email) == 0) return false;
 
 	    $sql = "SELECT COUNT(*) AS count FROM ecommerce_order AS o
-			LEFT JOIN ecommerce_basket AS b ON (b.id = o.basket_id)
-			WHERE b.customer_id = $customer_id AND o.status <> 4";
+			INNER JOIN ecommerce_basket AS b ON (b.id = o.basket_id)";
+
+		if (strlen($customer_email) > 0) $sql .= " INNER JOIN client_customer AS c ON (c.email = '$email' AND c.id = b.customer_id)";
+
+		$sql .= " WHERE o.status <> 4";
+
+		if ($customer_id > 0) $sql .= " AND b.customer_id = $customer_id";
 
 		$this->setCacheable(false);
 		if ($records = $this->executeSql($sql)) return (int) $records[0]['count'];

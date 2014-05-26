@@ -61,10 +61,19 @@ class Onxshop_Controller_Component_Ecommerce_Promotion_code extends Onxshop_Cont
 		else $basket = false;
 		
 		/**
+		 * Allow Guest Checkout
+		 */
+		if ($basket['customer_id'] == 0 && $_SESSION['client']['customer']['guest'] == 1) {
+		 	$customer_email = $_SESSION['client']['customer']['email'];
+		} else {
+			$customer_email = '';
+		}
+
+		/**
 		 * Display
 		 */
 		
-		if ($basket && $promotion_code = $Promotion->checkCodeBeforeApply($code, $basket['customer_id'], $basket)) {
+		if ($basket && $promotion_code = $Promotion->checkCodeBeforeApply($code, $basket['customer_id'], $basket, $customer_email)) {
 		
 			$promotion_code['value'] = $code; 
 			$this->tpl->assign('PROMOTION_CODE', $promotion_code); 
