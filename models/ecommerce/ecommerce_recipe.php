@@ -388,6 +388,9 @@ CREATE TABLE ecommerce_recipe (
 		
 			$recipes = $this->executeSql($sql);
 			
+			// return empty array if nothing is found
+			if (!is_array($recipes)) return array();
+			
 			$recipe_pages = $Node->listing("node_group = 'page' AND node_controller = 'recipe' AND content ~ '[0-9]+' AND publish = 1");
 
 			foreach ($recipe_pages as $recipe_page)

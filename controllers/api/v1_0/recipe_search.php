@@ -59,17 +59,7 @@ class Onxshop_Controller_Api_v1_0_Recipe_Search extends Onxshop_Controller_Api {
 		
 		foreach($recipe_list as $item ) {
 			
-			$item_formated = array();
-			$item_formated['id'] = $item['id'];
-			$item_formated['title'] = $item['title'];
-			$item_formated['description'] = strip_tags($item['description']);
-			$item_formated['image_thumbnail'] = "http://" . $_SERVER['HTTP_HOST'] . "/image/" . $item['image']['src'];
-			$item_formated['ready_time'] = $item['preparation_time'] + $item['cooking_time'];
-			$item_formated['meal_types'] = array();
-			$item_formated['categories'] = array(); // TODO
-			$item_formated['url'] = "http://" . $_SERVER['HTTP_HOST'] . "/recipe/{$item['id']}";
-			
-			$data[] = $item_formated;
+			$data[] = $this->formatItem($item);
 			
 		}
 		
@@ -78,6 +68,28 @@ class Onxshop_Controller_Api_v1_0_Recipe_Search extends Onxshop_Controller_Api {
 		 */
 		
 		return $data;
+		
+	}
+	
+	/**
+	 * formatItem
+	 */
+	 
+	static function formatItem($original_item) {
+		
+		if (!is_array($original_item)) return false;
+		
+		$item = array();
+		$item['id'] = $original_item['id'];
+		$item['title'] = $original_item['title'];
+		$item['description'] = strip_tags($original_item['description']);
+		$item['image_thumbnail'] = "http://" . $_SERVER['HTTP_HOST'] . "/image/" . $original_item['image']['src'];
+		$item['ready_time'] = $original_item['preparation_time'] + $original_item['cooking_time'];
+		$item['meal_types'] = array();
+		$item['categories'] = array(); // TODO
+		$item['url'] = "http://" . $_SERVER['HTTP_HOST'] . "/recipe/{$original_item['id']}";
+		
+		return $item;
 		
 	}
 	

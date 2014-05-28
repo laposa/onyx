@@ -108,7 +108,7 @@
 	</table>
 </td></tr>
 <tr><td>images</td><td>array</td><td>URLs</td></tr>
-<tr><td>video</td><td>int</td><td>Vimeo video ID, e.g. 32329926 can crate URL http://vimeo.com/32329926</td></tr>
+<tr class="new"><td>video</td><td>string</td><td>video URL e.g. http://vimeo.com/32329926</td></tr>
 <tr><td>comments</td><td>array list</td><td>
 	<table>
 	<tr><th>parameter</th><th>type</th><th>description</th></tr>
@@ -162,7 +162,7 @@
 
 <h1 id="api_recipe_search">Recipe search</h1>
 <h3>GET /api/v1.2/recipe_search</h3>
-<p>Search for recipes. We'll return list of recipe IDs. <a href="/api/v1.2/recipe_search?format=json&api_key=abcdefgh&meal_type_id=903&category_id=2110&&keyword=Pavlova&ready_time=40&product_id=1000941000">Make Example Call</a></p>
+<p>Search for recipes. We'll return list of recipe IDs. <a href="/api/v1.2/recipe_search?format=json&api_key=abcdefgh&category_id=11">Make Example Call</a></p>
 
 <h2>Request</h2>
 <table>
@@ -183,6 +183,7 @@
 <tr><td>title</td><td>string</td><td>recipe title</td></tr>
 <tr><td>description</td><td>string</td><td>recipe description (excerpt)</td></tr>
 <tr><td>image_thumbnail</td><td>string</td><td>thumbnail URL</td></tr>
+<tr class="new"><td>video</td><td>string</td><td>video URL e.g. http://vimeo.com/32329926</td></tr>
 <tr><td>ready_time</td><td>int</td><td>preparation_time + cook_time in minutes</td></tr>
 <tr><td>meal_types</td><td>array</td><td>
 	Course

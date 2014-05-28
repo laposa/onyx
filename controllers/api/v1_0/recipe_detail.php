@@ -50,7 +50,7 @@ class Onxshop_Controller_Api_v1_0_Recipe_Detail extends Onxshop_Controller_Api {
 			
 			if ($item['publish'] == 1) {
 				
-				$item = Onxshop_Controller_Api_v1_0_Recipe_List::formatItem($item);
+				$item = $this->formatItem($item);
 				
 				$data[] = $item;
 			}
@@ -58,6 +58,16 @@ class Onxshop_Controller_Api_v1_0_Recipe_Detail extends Onxshop_Controller_Api {
 		}
 		
 		return $data;
+		
+	}
+	
+	/**
+	 * formatItem
+	 */
+	 
+	public function formatItem($item) {
+		
+		return Onxshop_Controller_Api_v1_0_Recipe_List::formatItem($item);
 		
 	}
 	

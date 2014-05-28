@@ -6,7 +6,18 @@
  */
 
 require_once('controllers/api/v1_1/recipe_detail.php');
+require_once('controllers/api/v1_2/recipe_list.php');
 
 class Onxshop_Controller_Api_v1_2_Recipe_Detail extends Onxshop_Controller_Api_v1_1_Recipe_Detail {
+	
+	/**
+	 * formatItem
+	 */
+	 
+	public function formatItem($item) {
+		
+		return Onxshop_Controller_Api_v1_2_Recipe_List::formatItem($item);
+		
+	}
 	
 }
