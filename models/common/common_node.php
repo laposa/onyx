@@ -480,7 +480,6 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 	
 		$node_data['modified'] = date('c');
 		if (!is_numeric($node_data['author'])) $node_data['author'] = $_SESSION['authentication']['authenticity'];
-		if (!is_numeric($node_data['customer_id'])) $node_data['customer_id'] = (int) $_SESSION['client']['customer']['id'];
 		
 		if (is_array($node_data['other_data'])) $node_data['other_data'] = serialize($node_data['other_data']);
 		if (is_array($node_data['component'])) $node_data['component'] = serialize($node_data['component']);
