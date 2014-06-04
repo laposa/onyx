@@ -6,6 +6,7 @@
  */
 
 require_once('controllers/component/ecommerce/checkout_address.php');
+require_once('models/common/common_node.php');
 
 class Onxshop_Controller_Component_Ecommerce_Checkout_Address_List extends Onxshop_Controller_Component_Ecommerce_Checkout_Address {
 
@@ -17,6 +18,11 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Address_List extends Onxsh
 
 		parent::mainAction();
 
+		if ($_SESSION['client']['customer']['id'] == 0) {
+			$node_conf = common_node::initConfiguration();
+			onxshopGoto($node_conf['id_map-checkout_login']);
+		}
+		
 		if ($_POST['node_id'] == $this->GET['node_id'] && is_numeric($_POST['selected_address_id'])) onxshopGoto("page/{$_SESSION['active_pages'][0]}");
 
 		return true;
