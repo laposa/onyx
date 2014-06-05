@@ -41,6 +41,11 @@ class Onxshop_Controller_Bo_Component_Comment_List extends Onxshop_Controller {
 	
 		if (count($list) > 0) {
 			foreach ($list as $item) {
+				switch ($item['publish']) {
+					case 0: $item['publish'] = 'new'; break;
+					case 1: $item['publish'] = 'approved'; break;
+					case -1: $item['publish'] = 'rejected'; break;
+				}
 				$this->tpl->assign('ITEM', $item);
 				$this->tpl->parse('content.item');
 			}
