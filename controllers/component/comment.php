@@ -234,6 +234,14 @@ class Onxshop_Controller_Component_Comment extends Onxshop_Controller {
 		 */
 		 
 		if ($_SESSION['client']['customer']['id'] || $options['allow_anonymouse_submit']) {
+
+			if ($options['allow_anonymouse_submit'] && !$_SESSION['client']['customer']['id']) {
+				$this->tpl->parse('content.comment_insert.email');
+			}
+
+			if ($_SESSION['client']['customer']['id'] > 0) {
+				$_POST['comment']['author_email'] = $_SESSION['client']['customer']['email'];
+			}
 			
 			if ($_POST['save']) {
 			
