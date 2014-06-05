@@ -29,12 +29,20 @@ class Onxshop_Controller_Component_Ecommerce_Product_Review_Approve extends Onxs
 			
 				if ($publish == 1) msg("Product review ID $comment_id approved by client ID {$_SESSION['client']['customer']['id']}");
 				else if ($publish == -1) msg("Product review ID $comment_id rejected by client ID {$_SESSION['client']['customer']['id']}");
+				
+				if ($publish == 1) $this->runCustomApproveAction($comment_id);
 				onxshopGoTo($_SESSION['referer'], 2);
 			}
 			
 		}
 		
 		return true;
+	}
+
+	public function runCustomApproveAction($comment_id)
+	{
+		$request = new Onxshop_Request("component/ecommerce/product_review_approve_action~comment_id=$comment_id~");
+		return $request->getContent();
 	}
 	
 }

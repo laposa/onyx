@@ -240,7 +240,7 @@ class Onxshop_Controller_Component_Comment extends Onxshop_Controller {
 			}
 
 			if ($_SESSION['client']['customer']['id'] > 0) {
-				$_POST['comment']['author_email'] = $_SESSION['client']['customer']['email'];
+				$data['author_email'] = $_SESSION['client']['customer']['email'];
 			}
 			
 			if ($_POST['save']) {
