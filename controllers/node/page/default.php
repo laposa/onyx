@@ -240,8 +240,6 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
 	 */
 	public function processOpenGraph($node_data) {
 
-		if (!defined('ONXSHOP_FACEBOOK_APP_NAMESPACE') || strlen(ONXSHOP_FACEBOOK_APP_NAMESPACE) == 0) return;
-
 		/**
 		 * opengraph image
 		 */
