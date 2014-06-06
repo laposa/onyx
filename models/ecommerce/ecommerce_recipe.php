@@ -339,6 +339,9 @@ CREATE TABLE ecommerce_recipe (
 		if  (!is_numeric($limit_from)) $limit_from = false;
 		if (!is_numeric($limit_per_page)) $limit_per_page = false;
 		
+		// allow to use limit_per_page without providing limit_from
+		if (is_numeric($limit_per_page) && $limit_from === false) $limit_from = 0;
+		
 		if (is_numeric($limit_from) && is_numeric($limit_per_page)) {
 			$limit = " LIMIT $limit_per_page OFFSET $limit_from";
 		} else {
