@@ -72,7 +72,7 @@ class Onxshop_Controller_Component_Social_Network_Share extends Onxshop_Controll
 
 		$image_list = $this->Image->listFiles($node_id);
 		if (is_array($image_list) && count($image_list) > 0) return $image_list[0];
-		return array('src' => 'var/files/favicon.ico');
+		return array('src' => ONXSHOP_FACEBOOK_OG_IMAGE);
 
 	}
 	

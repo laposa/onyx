@@ -194,6 +194,7 @@ if (!defined('ONXSHOP_FACEBOOK_APP_ID')) define('ONXSHOP_FACEBOOK_APP_ID', 0);
 if (!defined('ONXSHOP_FACEBOOK_APP_SECRET')) define('ONXSHOP_FACEBOOK_APP_SECRET', '');
 if (!defined('ONXSHOP_FACEBOOK_APP_NAMESPACE')) define('ONXSHOP_FACEBOOK_APP_NAMESPACE', '');
 if (!defined('ONXSHOP_FACEBOOK_APP_OG_STORIES')) define('ONXSHOP_FACEBOOK_APP_OG_STORIES', '');
+if (!defined('ONXSHOP_FACEBOOK_OG_IMAGE')) define('ONXSHOP_FACEBOOK_OG_IMAGE', 'var/files/favicon.ico');
 
 /**
  * social: Twitter
