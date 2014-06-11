@@ -265,7 +265,7 @@ class common_watchdog extends Onxshop_Model {
 
 		$where = "created > '$date_from' AND created < '$date_to' ";
 		$where .= "AND template IN ('notification_back_in_stock_admin', 'notification_out_of_stock_admin', 'notification_back_in_stock_customer')";
-		$list = $Email->listing($where);
+		$list = $Email->listing($where, "id DESC");
 
 		$result = array();
 		foreach ($list as $item) {
@@ -308,7 +308,7 @@ class common_watchdog extends Onxshop_Model {
 						"Variety Id" => $variety_id,
 						"Product Name" => $product['name'],
 						"Variety Name" => $product['variety']['name'],
-						"Date and Time" => date("d/m/Y", strtotime($item['created']))
+						"Date and Time" => date("d/m/Y H:i:s", strtotime($item['created']))
 					);
 
 					if ($is_customer) {
