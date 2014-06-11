@@ -78,7 +78,7 @@ class Onxshop_Controller_Component_Social_Network_Share extends Onxshop_Controll
 	
 	public function getShareUri() {
 		
-		if ($this->GET['url']) $share_uri = "http://" . $_SERVER['HTTP_HOST'] . urldecode($this->GET['url']);
+		if ($this->GET['share_uri']) $share_uri = "http://" . $_SERVER['HTTP_HOST'] . urldecode($this->GET['share_uri']);
 		else $share_uri = "http://" . $_SERVER['HTTP_HOST'] . "/{$this->node_id}";
 		
 		return $share_uri;
