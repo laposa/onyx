@@ -510,7 +510,7 @@ CREATE TABLE common_email (
 		src="" ''
 		and href=\'index.php\'
 		*/
-	    $html = preg_replace("/href=[\"\'](?!JavaScript)(?!http)(.*)[\"\']/i","href=\"$url\\1\"",$html);
+	    $html = preg_replace("/href=[\"\'](?!JavaScript)(?!http)(?!mailto)(.*)[\"\']/i","href=\"$url\\1\"",$html);
 	    $html = preg_replace("/src=[\"\'](?!JavaScript)(?!http)(.*)[\"\']/i","src=\"$url\\1\"",$html);
 	    $html = preg_replace("/action=[\"\'](?!JavaScript)(?!http)(.*)[\"\']/i","action=\"$url\\1\"",$html);
 		//$abs_html = preg_replace( "/(?<!href=\")((http|ftp)+(s)?:\/\/[^<>\s]+)/i", "href=\"$url\\0\"", $html );
