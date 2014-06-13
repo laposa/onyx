@@ -28,7 +28,7 @@ class Onxshop_Controller_Api_v1_2_Recipe_List extends Onxshop_Controller_Api_v1_
 		$item['created'] = $original_item['created'];
 		$item['modified'] = $original_item['modified'];
 		$item['ingredients'] = self::getIngredients($item['id']);
-		$item['categories'] = array();
+		$item['categories'] = self::getCategories($item['id']);
 		$item['images'] = array("http://{$_SERVER['HTTP_HOST']}/image/" . $original_item['image_src']);
 		$item['video'] = $original_item['video_url'];
 		$item['comments'] = array();
@@ -41,6 +41,21 @@ class Onxshop_Controller_Api_v1_2_Recipe_List extends Onxshop_Controller_Api_v1_
 		$item['meal_types'] = array();//$this->getMealTypesForRecipe($post->ID);
 		
 		return $item;
+		
+	}
+	
+	/**
+	 * getIngredients
+	 */
+	
+	static function getCategories($recipe_id) {
+		
+		if (!is_numeric($recipe_id)) return false;
+		
+		require_once('models/ecommerce/ecommerce_recipe.php');
+		$Recipe = new ecommerce_recipe();
+		
+		return $Recipe->getRelatedTaxonomy($recipe_id);
 		
 	}
 	

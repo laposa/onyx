@@ -102,9 +102,11 @@
 	<table>
 	<tr><th>parameter</th><th>type</th><th>description</th></tr>
 	<tr><td>id</td><td>int</td><td>category id (category title can change, but category id will stay the same)</td></tr>
-	<tr><td>title</td><td>string</td><td>category title, e.g. Chrismas Recipe</td></tr>
+	<tr><td class="new">parent</td><td>int</td><td>parent category ID</td></tr>
 	<tr><td>priority</td><td>int</td><td>can be used for sorting</td></tr>
-	<tr><td>usage_count</td><td>int</td><td>number of all recipes in this category</td></tr>
+	<tr><td class="new">publish</td><td>int</td><td>is visible to public?</td></tr>
+	<tr><td>title</td><td>string</td><td>category title, e.g. Chrismas Recipe</td></tr>
+	<tr><td class="new">description</td><td>string</td><td>large description</td></tr>
 	</table>
 </td></tr>
 <tr><td>images</td><td>array</td><td>URLs</td></tr>
@@ -148,7 +150,7 @@
 	<tr><td>id</td><td>int</td><td>related offer id</td></tr>
 	</table>
 </td></tr>
-<tr><td>meal_types</td><td>array list</td><td>
+<tr><td class="new">meal_types DEPRECATED</td><td>array list</td><td>
 	Course
 	<table>
 	<tr><th>parameter</th><th>type</th><th>description</th></tr>
@@ -222,12 +224,14 @@
 <h2>Response</h2>
 <table>
 <tr><th>parameter</th><th>type</th><th>description</th></tr>
-<tr><td>id</td><td>int</td><td>x</td></tr>
+<tr><td>id</td><td>int</td><td>category id (category title can change, but category id will stay the same)</td></tr>
+<tr><td class="new">parent</td><td>int</td><td>parent category ID, currently returning always 0, TODO implement</td></tr>
 <tr><td>title</td><td>string</td><td>category name</td></tr>
 <tr><td>description</td><td>string</td><td>category description excerpt</td></tr>
-<tr><td>image_thumbnail</td><td>string</td><td>category thumbnail URL</td></tr>
 <tr><td>priority</td><td>int</td><td>can be used for sorting</td></tr>
-<tr><td>usage_count</td><td>int</td><td>how many recipes are in category</td></tr>
+<tr><td class="new">publish</td><td>int</td><td>is visible to public?</td></tr>
+<tr><td>image_thumbnail</td><td>string</td><td>category thumbnail URL</td></tr>
+<tr><td class="new">usage_count REMOVED</td><td>int</td><td>how many recipes are in category</td></tr>
 </table>
 
 <div class="divider"><hr /></div>

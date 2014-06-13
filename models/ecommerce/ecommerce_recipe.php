@@ -422,7 +422,7 @@ CREATE TABLE ecommerce_recipe (
 	 * get taxonomy relation
 	 */
 	 
-	function getTaxonomyForRecipe($recipe_id) {
+	static function getTaxonomyForRecipe($recipe_id) {
 	
 		if (!is_numeric($recipe_id)) return false;
 		

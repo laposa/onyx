@@ -35,23 +35,38 @@ class Onxshop_Controller_Api_v1_0_Recipe_Category_List extends Onxshop_Controlle
 		 
 		foreach ($data_original as $item_original) {
 			
-			if ($item_original['publish'] == 1) {
-			
-				$item = array();
-				$item['id'] = $item_original['id'];
-				$item['title'] = $item_original['title'];
-				$item['description'] = $item_original['description'];
-				$item['image_thumbnail'] = $this->getImageThumbnailSrc($item_original['id']);
-				$item['priority'] = $item_original['priority'];
-				$item['usage_count'] = 999;
-				
-				$data[] = $item;
-			}
+			if ($item = $this->formatItem($item_original)) $data[] = $item;;
 			
 		}
 		
 		return $data;
 		
+	}
+	
+	/**
+	 * formatItem
+	 */
+	
+	public function formatItem($item_original) {
+		
+		if (!is_array($item_original)) return false;
+		
+		if ($item_original['publish'] == 1) {
+			
+			$item = array();
+			$item['id'] = $item_original['id'];
+			$item['title'] = $item_original['title'];
+			$item['description'] = $item_original['description'];
+			$item['image_thumbnail'] = $this->getImageThumbnailSrc($item_original['id']);
+			$item['priority'] = $item_original['priority'];
+			$item['usage_count'] = 999;
+			
+			return $item;
+		} else {
+			
+			return false;
+			
+		}
 	}
 	
 	/**

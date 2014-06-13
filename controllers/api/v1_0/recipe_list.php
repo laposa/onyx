@@ -65,7 +65,7 @@ class Onxshop_Controller_Api_v1_0_Recipe_List extends Onxshop_Controller_Api {
 		$item['modified'] = $original_item['modified'];
 		
 		$item['ingredients'] = self::getIngredients($item['id']);
-		$item['categories'] = array();
+		$item['categories'] = self::getCategories($item['id']);
 		$item['images'] = array("http://{$_SERVER['HTTP_HOST']}/image/" . $original_item['image_src']);
 		$item['video'] = (int)self::getVideoIdFromUrl($original_item['video_url']);
 		$item['comments'] = array();
@@ -95,6 +95,18 @@ class Onxshop_Controller_Api_v1_0_Recipe_List extends Onxshop_Controller_Api {
 		return $Ingredients->getIngredientsForRecipeOptimised($recipe_id);
 		
 	}
+	
+	/**
+	 * getIngredients
+	 */
+	
+	static function getCategories($recipe_id) {
+		
+		return array();
+		
+	}
+	
+	
 	
 	/**
 	 * getVideoIdFromUrl
