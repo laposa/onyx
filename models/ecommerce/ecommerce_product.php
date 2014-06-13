@@ -414,13 +414,13 @@ CREATE TABLE ecommerce_product (
     function searchForAutocomplete($query) {
 
     	$query = strtolower($query);
-    	$query = preg_replace('/[^a-z1-9]/', ',', $query);
+    	$query = preg_replace('/[^a-z1-9\-]/', ',', $query);
     	$parts = explode(",", $query);
     	$where = '';
     	foreach ($parts as $part) {
     		$part = pg_escape_string(trim($part));
     		if (strlen($part) > 0) {
-    			$where .= " AND (p.name ILIKE '% $part%' OR p.name ILIKE '$part%' OR n.title ILIKE '% $part%' OR n.title ILIKE '$part%')";
+    			$where .= " AND (p.name ILIKE '% $part%' OR p.name ILIKE '%-$part%' OR p.name ILIKE '$part%' OR n.title ILIKE '% $part%' OR n.title ILIKE '$part%')";
     		}
     	}
 
@@ -810,4 +810,34 @@ variety.stock, price.date, product.publish, product.modified, variety.sku, varie
 		return (float) $exchange_rate;
 		
 	}
+
+	/**
+	 * get ids of recently purchased products
+	 */
+	public function getRecentlyPurchasedProductIds($customer_id, $days_back = 120, $excludedReviewed = false) {
+
+		if (!is_numeric($customer_id)) return false;
+		if (!is_numeric($days_back)) return false;
+
+		$date = date("Y-m-d", time() - $days_back * (24 * 3600));
+	
+		if ($excludedReviewed) {
+			$exclude = '';
+		} else $exclude = '';
+
+		$sql = "SELECT DISTINCT v.product_id
+			FROM ecommerce_order AS o
+			INNER JOIN ecommerce_basket AS b ON b.id = o.basket_id AND b.customer_id = $customer_id
+			INNER JOIN ecommerce_invoice AS i ON i.order_id = o.id AND i.status = 1
+			LEFT JOIN ecommerce_basket_content AS bc ON bc.basket_id = b.id
+			LEFT JOIN ecommerce_product_variety AS v ON v.id = bc.product_variety_id
+			WHERE (o.status = 1 OR o.status = 2) AND o.created >= '$date' $exclude";
+
+		$list = $this->executeSql($sql);
+		$result = array();
+		foreach ($list as $item) $result[] = $item['product_id'];
+		return $result;
+
+	}
+
 }
