@@ -6,7 +6,6 @@
  */
 
 require_once('controllers/api.php');
-require_once('controllers/api/v1_0/recipe_list.php');
 
 class Onxshop_Controller_Api_v1_0_Recipe_Detail extends Onxshop_Controller_Api {
 
@@ -65,10 +64,70 @@ class Onxshop_Controller_Api_v1_0_Recipe_Detail extends Onxshop_Controller_Api {
 	 * formatItem
 	 */
 	 
-	public function formatItem($item) {
+	static function formatItem($original_item) {
 		
-		return Onxshop_Controller_Api_v1_0_Recipe_List::formatItem($item);
+		if (!is_array($original_item)) return false;
+		
+		$item = array();
+				
+		$item['id'] = (int)$original_item['id'];
+		$item['title'] = $original_item['title'];
+		$item['description'] = preg_replace("/[\r\n\t]/", " ", strip_tags($original_item['description']));
+		$item['instructions'] = preg_replace("/[\r\n\t]/", " ", $original_item['instructions']);
+		$item['url'] = "http://{$_SERVER['HTTP_HOST']}/recipe/" . $original_item['id'];
+		$item['priority'] = (int)$original_item['priority'];
+		$item['created'] = $original_item['created'];
+		$item['modified'] = $original_item['modified'];
+		
+		$item['ingredients'] = self::getIngredients($item['id']);
+		$item['categories'] = self::getCategories($item['id']);
+		$item['images'] = array("http://{$_SERVER['HTTP_HOST']}/image/" . $original_item['image_src']);
+		$item['video'] = (int)self::getVideoIdFromUrl($original_item['video_url']);
+		$item['comments'] = array();
+		$item['rating'] = array();
+		$item['serving_people'] = (int)$original_item['serving_people'];
+		$item['preparation_time'] = (int)$original_item['preparation_time'];
+		$item['cook_time'] = (int)$original_item['cooking_time'];
+		$item['recommended_wines'] = array();//$this->getRecommendedWines($post->ID);
+		$item['related_offers'] = array();//$this->getSpecialOffersForRecipe($post->ID);
+		$item['meal_types'] = array();//$this->getMealTypesForRecipe($post->ID);
+		
+		return $item;
 		
 	}
 	
+	/**
+	 * getIngredients
+	 */
+	
+	static function getIngredients($recipe_id) {
+		
+		if (!is_numeric($recipe_id)) return false;
+		
+		require_once('models/ecommerce/ecommerce_recipe_ingredients.php');
+		$Ingredients = new ecommerce_recipe_ingredients();
+		
+		return $Ingredients->getIngredientsForRecipeOptimised($recipe_id);
+		
+	}
+	
+	/**
+	 * getIngredients
+	 */
+	
+	static function getCategories($recipe_id) {
+		
+		return array();
+		
+	}
+	
+	/**
+	 * getVideoIdFromUrl
+	 */
+	 
+	static function getVideoIdFromUrl($video_url) {
+		
+		return 0;
+		
+	}
 }
