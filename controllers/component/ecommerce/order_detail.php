@@ -76,6 +76,7 @@ class Onxshop_Controller_Component_Ecommerce_Order_Detail extends Onxshop_Contro
 			
 			require_once('models/ecommerce/ecommerce_invoice.php');
 			$Invoice = new ecommerce_invoice();
+			$Invoice->setCacheable(false);
 			$invoice_data = $Invoice->getInvoiceForOrder($order_data['id']);
 
 			if ($invoice_data) { 
