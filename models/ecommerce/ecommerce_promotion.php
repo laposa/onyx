@@ -531,7 +531,15 @@ CREATE TABLE ecommerce_promotion (
 				$promotion_data['generated_by_customer_id'] > 0 || $promotion_data['limit_by_customer_id'] > 0)) {
 
 				if (!Zend_Registry::isRegistered('ecommerce_promotion:login_needed')) {
-					msg("You have to login or register to use your voucher code.", 'error');
+
+					if ($_SESSION['client']['customer']['guest']) {
+						msg("We're sorry, but this voucher code cannot be used in conjunction with “Guest Checkout”. Please go to" .
+							" previous step and select “Save Details for Next Order” to create an account or login if you already " .
+							"have an account.", 'error');
+					} else {
+						msg("You have to login or register to use your voucher code.", 'error');
+					}
+
 					Zend_Registry::set('ecommerce_promotion:login_needed', true);
 				}
 
