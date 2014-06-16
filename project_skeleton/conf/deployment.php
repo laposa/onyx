@@ -59,3 +59,9 @@ define('ONXSHOP_DB_NAME', '');
  */
 
 //define('ONXSHOP_PACKAGE_NAME', 'standard');
+
+/**
+ * Salt used for encryption/hashing
+ */
+
+if (!defined('ONXSHOP_ENCRYPTION_SALT'))  define('ONXSHOP_ENCRYPTION_SALT', '');
