@@ -217,7 +217,7 @@ if (!defined('ONXSHOP_PAGINATION_SHOW_ITEMS')) define('ONXSHOP_PAGINATION_SHOW_I
  * Salt used for encryption/hashing
  */
 
-if (!defined('ONXSHOP_ENCRYPTION_SALT'))  define('ONXSHOP_ENCRYPTION_SALT', 'w4t5yoy8ry3hewf2ey3wu6ap5ze7haic8pam9ve4vot6cyet');
+if (!defined('ONXSHOP_ENCRYPTION_SALT'))  define('ONXSHOP_ENCRYPTION_SALT', '');
 
 /**
  * enable A/B testing

@@ -415,3 +415,38 @@ function suffix($str, $suffix)
 	if (!empty($str)) return $str . $suffix;
 	return $str;
 }
+
+/**
+ * Create hash from a given string
+ * Uses ONXSHOP_ENCRYPTION_SALT as a salt.
+ * Returs false if ONXSHOP_ENCRYPTION_SALT is not set or empty.
+ * 
+ * @return String Hashed value (sha256)
+ */
+function makeHash($value)
+{
+	if (!defined('ONXSHOP_ENCRYPTION_SALT') || ONXSHOP_ENCRYPTION_SALT == '') {
+		msg("ONXSHOP_ENCRYPTION_SALT not set", "error", 1);
+		return false;
+	}
+
+	return hash('sha256', ONXSHOP_HASH_SALT . ( (string) $value ));
+}
+
+/**
+ * Compare a given string with its hash
+ * Uses ONXSHOP_ENCRYPTION_SALT as a salt.
+ * Returs false if ONXSHOP_ENCRYPTION_SALT is not set or empty
+ * or if the hashes don't match.
+ * 
+ * @return Boolean
+ */
+function verifyHash($value, $hash)
+{
+	if (!defined('ONXSHOP_ENCRYPTION_SALT') || ONXSHOP_ENCRYPTION_SALT == '') {
+		msg("ONXSHOP_ENCRYPTION_SALT not set", "error", 1);
+		return false;
+	}
+
+	return (hash('sha256', ONXSHOP_HASH_SALT . ( (string) $value )) == strtolower(trim($hash)));
+}
