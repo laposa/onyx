@@ -61,16 +61,7 @@ class Onxshop_Controller_Component_Ecommerce_Payment extends Onxshop_Controller 
 		require_once('models/common/common_node.php');
 		$node_conf = common_node::initConfiguration();
 		$this->tpl->assign('NODE_CONF', $node_conf);
-		
-		/**
-		 * forward to login
-		 */
-		
-		if ($_SESSION['client']['customer']['id'] == 0) {
-			msg('You must login first.');
-			onxshopGoTo("/page/" .$node_conf['id_map-login']);
-		}
-		
+
 		/**
 		 * get order detail
 		 */
@@ -123,42 +114,60 @@ class Onxshop_Controller_Component_Ecommerce_Payment extends Onxshop_Controller 
 		 * Check order permission
 		 */
 		
-		if ($order_data['basket']['customer_id'] !== $_SESSION['client']['customer']['id'] &&  $_SESSION['authentication']['authenticity'] == 0) {
-			msg('Unauthorised access to order detail');
-			onxshopGoTo("/page/" .$node_conf['id_map-404']);
-			return false;
-		}
+		$is_owner = $order_data['basket']['customer_id'] == $_SESSION['client']['customer']['id'];
+		$is_bo_user = $_SESSION['authentication']['authenticity'] > 0;
+		$is_guest_user = $order_data['client']['customer']['status'] == 5;
+		$is_same_session = $order_data['php_session_id'] == session_id() || $order_data['php_session_id'] == $this->GET['php_session_id'];
+		$has_code = !empty($this->GET['code']) && verifyHash($order_data['id'], $this->GET['code']);
 
-		/**
-		 * process payment method only if status = 0 unpaid or 5 failed payment 
-		 */
+		if ($is_bo_user || $is_owner || $is_guest_user && $is_same_session || $has_code) {
 
-		if ($this->checkOrderStatusValidForPayment($order_data['status'])) {
-		
-			$total_payment_amount = $order_data['basket']['total'];
+			/**
+			 * process payment method only if status = 0 unpaid or 5 failed payment 
+			 */
+
+			if ($this->checkOrderStatusValidForPayment($order_data['status'])) {
 			
-			if(round($total_payment_amount, 2) == 0) {
+				$total_payment_amount = $order_data['basket']['total'];
 				
-				//nil payment - payment is not needed	
-				if ($this->processNilPayment($order_data)) {
-					$this->tpl->parse('content.nil_payment');
+				if(round($total_payment_amount, 2) == 0) {
+					
+					//nil payment - payment is not needed	
+					if ($this->processNilPayment($order_data)) {
+						$this->tpl->parse('content.nil_payment');
+					} else {
+						msg("Cannot process nil payment for order ID $order_id", 'error');
+					}
 				} else {
-					msg("Cannot process nil payment for order ID $order_id", 'error');
+				
+					//process payment method as subcontent
+					$_Onxshop_Request = new Onxshop_Request("component/ecommerce/payment/$payment_type~order_id=$order_id~");
+					$this->tpl->assign("RESULT", $_Onxshop_Request->getContent());
+				
 				}
 			} else {
 			
-				//process payment method as subcontent
-				$_Onxshop_Request = new Onxshop_Request("component/ecommerce/payment/$payment_type~order_id=$order_id~");
-				$this->tpl->assign("RESULT", $_Onxshop_Request->getContent());
+				msg("Order ID {$order_data['id']} cannot be paid, because order status is: {$order_data['status_title']}", 'error');
+				return false;
 			
 			}
+
 		} else {
-		
-			msg("Order ID {$order_data['id']} cannot be paid, because order status is: {$order_data['status_title']}", 'error');
+
+			/**
+			 * forward to login
+			 */
+			if ($_SESSION['client']['customer']['id'] == 0) {
+				msg('You must login first.');
+				onxshopGoTo("/page/" .$node_conf['id_map-login']);
+			}
+
+			msg('Unauthorised access to order detail');
+			onxshopGoTo("/page/" .$node_conf['id_map-404']);
 			return false;
-		
+
 		}
-		
+
 		setlocale(LC_MONETARY, LOCALE);
 		
 		return true;

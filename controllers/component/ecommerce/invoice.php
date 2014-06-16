@@ -53,12 +53,15 @@ class Onxshop_Controller_Component_Ecommerce_Invoice extends Onxshop_Controller 
 		/** 
 		 * check owner
 		 */
-		 
-		if ($order_data['basket']['customer_id'] !== $_SESSION['client']['customer']['id'] &&  $_SESSION['authentication']['authenticity'] == 0) {
-		
-			msg('unauthorized access to view order detail');
-		
-		} else {
+
+		//security check of the owner
+		$is_owner = $order_data['basket']['customer_id'] == $_SESSION['client']['customer']['id'];
+		$is_bo_user = $_SESSION['authentication']['authenticity'] > 0;
+		$is_guest_user = $order_data['client']['customer']['status'] == 5;
+		$is_same_session = $order_data['php_session_id'] == session_id() || $order_data['php_session_id'] == $this->GET['php_session_id'];
+		$has_code = !empty($this->GET['code']) && verifyHash($order_data['id'], $this->GET['code']);
+
+		if ($is_bo_user || $is_owner || $is_guest_user && $is_same_session || $has_code) {
 		
 			/**
 			 * check dift option
@@ -121,6 +124,10 @@ class Onxshop_Controller_Component_Ecommerce_Invoice extends Onxshop_Controller 
 			if ($Invoice->conf['company_logo'] != '') $this->tpl->parse('content.logoimage');
 			else $this->tpl->parse('content.logotypo');
 			
+		} else {
+
+			msg('unauthorized access to view order detail');
+
 		}
 
 		return true;

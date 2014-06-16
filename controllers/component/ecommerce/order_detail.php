@@ -2,7 +2,7 @@
 /**
  * Order detail controller
  *
- * Copyright (c) 2005-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2005-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -25,7 +25,12 @@ class Onxshop_Controller_Component_Ecommerce_Order_Detail extends Onxshop_Contro
 			msg('Order Detail: Missing order_id', 'error');
 			return false;
 		}
-		
+
+		/**
+		 * security code to allow unlogged users to pay for the order and view their invoice
+		 */
+		$this->tpl->assign('ORDER_CODE', makeHash($this->GET['order_id']));
+
 		/**
 		 * include node configuration
 		 */
@@ -41,9 +46,14 @@ class Onxshop_Controller_Component_Ecommerce_Order_Detail extends Onxshop_Contro
 		$order_data = $Order->getOrder($order_id);
 		
 		//security check of the owner
-		if ($order_data['basket']['customer_id'] !== $_SESSION['client']['customer']['id'] &&  $_SESSION['authentication']['authenticity'] == 0) {
-			msg('unauthorised access to view order detail', 'error');
-		} else {
+		$is_owner = $order_data['basket']['customer_id'] == $_SESSION['client']['customer']['id'];
+		$is_bo_user = $_SESSION['authentication']['authenticity'] > 0;
+		$is_guest_user = $order_data['client']['customer']['status'] == 5;
+		$is_same_session = $order_data['php_session_id'] == session_id() || $order_data['php_session_id'] == $this->GET['php_session_id'];
+		$has_code = !empty($this->GET['code']) && verifyHash($order_data['id'], $this->GET['code']);
+
+		if ($is_bo_user || $is_owner || $is_guest_user && $is_same_session || $has_code) {
+				
 			/**
 			 * display Make Payment if appropriate
 			 */
@@ -100,6 +110,9 @@ class Onxshop_Controller_Component_Ecommerce_Order_Detail extends Onxshop_Contro
 			$order_data['created'] = strftime('%d/%m/%Y', strtotime($order_data['basket']['created']));
 			
 			$this->tpl->assign('ORDER', $order_data);
+
+		} else {
+			msg('unauthorised access to view order detail', 'error');
 		}
 
 		return true;
