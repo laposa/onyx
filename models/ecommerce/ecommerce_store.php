@@ -208,7 +208,7 @@ CREATE TABLE ecommerce_store (
      *
      */
     
-    function getFilteredStoreList($taxonomy_id = false, $keyword = false, $type_id = 0, $order_by = false, $order_dir = false, $per_page = 25, $from = 0)
+    function getFilteredStoreList($taxonomy_id = false, $keyword = false, $type_id = 0, $order_by = false, $order_dir = false, $per_page = false, $from = false)
     {
 
     	$keyword = pg_escape_string(trim($keyword));
@@ -234,7 +234,7 @@ CREATE TABLE ecommerce_store (
 		if (is_numeric($from)) $limit = "$from";
 		else $limit = "0";
 		if (is_numeric($per_page)) $limit .= ",$per_page";
-		else $limit .= ",25";
+		else $limit = false;
 
 		$records = $this->listing($where, $order, $limit);
 		$count = $this->count($where);

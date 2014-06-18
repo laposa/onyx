@@ -215,7 +215,7 @@ CREATE TABLE ecommerce_recipe (
      *
      */
     
-    function getFilteredRecipeList($taxonomy_id = false, $keyword = false, $order_by = false, $order_dir = false, $per_page = 25, $from = 0)
+    function getFilteredRecipeList($taxonomy_id = false, $keyword = false, $order_by = false, $order_dir = false, $per_page = false, $from = false)
     {
 
     	$keyword = pg_escape_string(trim($keyword));
@@ -239,7 +239,7 @@ CREATE TABLE ecommerce_recipe (
 		if (is_numeric($from)) $limit = "$from";
 		else $limit = "0";
 		if (is_numeric($per_page)) $limit .= ",$per_page";
-		else $limit .= ",25";
+		else $limit = false;
 
 		$records = $this->listing($where, $order, $limit);
 		$count = $this->count($where);
