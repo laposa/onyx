@@ -58,7 +58,7 @@ ADD COLUMN address_line_2 varchar(255),
 ADD COLUMN address_line_3 varchar(255),
 ADD COLUMN address_city varchar(255),
 ADD COLUMN address_county varchar(255),
-ADD COLUMN address_post_code varchar(255)
+ADD COLUMN address_post_code varchar(255);
 
 --
 -- customer_id to core nodes
