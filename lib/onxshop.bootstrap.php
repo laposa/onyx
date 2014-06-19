@@ -343,21 +343,28 @@ class Onxshop_Bootstrap {
 	function initAction($request = '') {
 		
 		/**
+		 * cache can be disabled on request
+		 */
+		 
+		$disable_page_cache = $_GET['nocache'];
+		
+		/**
 		 * User authentication required for certain actions
 		 */
 		
 		if ($this->isRequiredAuthentication($request)) {
+			$disable_page_cache = 1;
 			if(!$request = $this->processAuthentication($request)) {
 				$request = 'sys/xhtml.sys/401';
 			}
 		}
 		
 		/**
-		 * return cached version only if sessiong cache is enabled and GET is without nocache parameter
+		 * return cached version only if session cache is enabled and $disable_page_cache isn't set
 		 */
 		 
 		 
-		if (is_numeric($_SESSION['use_page_cache']) && !$_GET['nocache'] && ONXSHOP_PAGE_CACHE_TTL > 0) $this->processActionCached($request);
+		if (is_numeric($_SESSION['use_page_cache']) && !$disable_page_cache && ONXSHOP_PAGE_CACHE_TTL > 0) $this->processActionCached($request);
 		else $this->processAction($request);
 		
 	}
