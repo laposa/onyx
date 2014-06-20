@@ -75,7 +75,11 @@ class Onxshop_Controller_Component_Menu extends Onxshop_Controller_Tree {
 	 */
 	protected function isNodeActive(&$item)
 	{
-		return (in_array($item['id'], $_SESSION['active_pages']));
+		if (is_numeric($this->GET['active_page'])) {
+			if ($item['id'] == $this->GET['active_page']) return true;
+		} else {
+			return (in_array($item['id'], $_SESSION['active_pages']));
+		}
 	}
 
 	/**

@@ -79,4 +79,12 @@ class Onxshop_Controller_Bo_Component_Taxonomy_Menu extends Onxshop_Controller_C
 		return array();
 		
 	}
+	
+	/**
+	 * Is given node active? I.e. is it or its parent active?
+	 * Override in subclass
+	 */
+	protected function isNodeActive(&$item)
+	{
+	}
 }

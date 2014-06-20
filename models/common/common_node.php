@@ -2,7 +2,7 @@
 /**
  * class common_node
  *
- * Copyright (c) 2009-2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -613,6 +613,8 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 	
 	function getActivePages($id) {
 	
+		if (!is_numeric($id)) return false;
+		
 		// find root parent page
 		$fullpath = $this->getFullPathDetail($id);
 		$active_pages = array();
@@ -630,18 +632,28 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 	/**
 	 * get active nodes
 	 *
-	 * @param unknown_type $id
-	 * @return unknown
+	 * @param int $id
+	 * @param array $filter
+	 * @return array
 	 */
 	
-	function getActiveNodes($id) {
+	function getActiveNodes($id, $filter = false) {
 	
+		if (!is_numeric($id)) return false;
+		
 		// find root parent page
 		$fullpath = $this->getFullPathDetail($id);
 		$active_pages = array();
 	
 		foreach ($fullpath as $fp) {
-			$active_pages[] = $fp['id'];
+			if (is_array($filter)) {
+				if (in_array($fp['node_group'], $filter)) {
+					$active_pages[] = $fp['id'];
+				}
+			} else {
+				
+				$active_pages[] = $fp['id'];
+			}
 		}
 		
 		return $active_pages;
@@ -656,6 +668,8 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 	 
 	function getFullPath($id) {
 	
+		if (!is_numeric($id)) return false;
+		
 		$fullpath = $this->getFullPathDetail($id);
 		
 		$path = array();
@@ -676,6 +690,8 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 	 
 	function getFullPathDetail($id) {
 	
+		if (!is_numeric($id)) return false;
+		
 		msg("Calling getFullPathDetail($id)", 'error', 2);
 		
 		$path = array();
@@ -702,7 +718,9 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 	 */
 	 
 	function getFullPathDetailForBreadcrumb($id) {
-	
+		
+		if (!is_numeric($id)) return false;
+		
 		$path = $this->getFullPathDetail($id);
 		$path = array_reverse($path);
 		
@@ -712,8 +730,8 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 	/**
 	 * find first parent page
 	 *
-	 * @param unknown_type $active_pages
-	 * @return unknown
+	 * @param array $active_pages
+	 * @return int
 	 */
 	
 	function getFirstParentPage($active_pages) {
@@ -721,7 +739,23 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 		//first page in path
 		if (is_array($active_pages)) $active_pages = array_reverse($active_pages);
 		$first_parent_page_id = $active_pages[0];
+		
 		return $first_parent_page_id;
+	}
+	
+	/**
+	 * find last parent page
+	 *
+	 * @param array $active_pages
+	 * @return int
+	 */
+	
+	function getLastParentPage($active_pages) {
+	
+		//last page in path
+		$last_parent_page_id = $active_pages[0];
+		
+		return $last_parent_page_id;
 	}
 	
 	/**

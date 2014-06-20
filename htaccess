@@ -19,7 +19,7 @@ RewriteRule	^edit/?$    /index.php?request=bo/fe_edit [L]
 
 RewriteRule	^backoffice/?$      /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/summary [L,QSA]
 
-RewriteRule ^backoffice/pages$        /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/pages [L]
+RewriteRule ^backoffice/pages$        /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/pages [L,QSA]
 RewriteRule ^backoffice/pages/([0-9]*)$	/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice~id=$1~.bo/pages/pages~id=$1~ [L,QSA]
 
 RewriteRule ^backoffice/news$       /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/news [L,QSA]
