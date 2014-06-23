@@ -3,3 +3,5 @@ psql -U {DBUSER} -h localhost {DB-1_6} < onxshop_dir/docs/database/upgrade-1.6.x
 
 rename $_SESSION['authentication']['logon'] to $_SESSION['authentication']['authenticity']
 
+clean up of htaccess
+

@@ -1,4 +1,4 @@
-#for safety to ensure PHP processor
+# Safety rules to ensure PHP processor enabled and browsing is disabled
 AddType application/x-httpd-php .php
 php_value magic_quotes_gpc Off
 php_value register_globals Off
@@ -7,145 +7,20 @@ php_value session.use_cookies 1
 php_value default_charset UTF-8
 Options -Indexes +FollowSymLinks
 
-#Force IE to the latest verstion
+# Force IE to the latest version
 Header set X-UA-Compatible "IE=edge"
 
+# BEGIN Onxshop
 RewriteEngine On
-
-##############
-# BACKOFFICE #
-##############
-RewriteRule	^edit/?$    /index.php?request=bo/fe_edit [L]
-
-RewriteRule	^backoffice/?$      /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/summary [L,QSA]
-
-RewriteRule ^backoffice/pages$        /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/pages [L,QSA]
-RewriteRule ^backoffice/pages/([0-9]*)$	/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice~id=$1~.bo/pages/pages~id=$1~ [L,QSA]
-
-RewriteRule ^backoffice/news$       /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/news [L,QSA]
-RewriteRule ^backoffice/news/([0-9]*)$       /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/news&blog_node_id=$1 [L,QSA]
-RewriteRule ^backoffice/news/edit/([a-z]*)/([0-9]*)$    /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/news_edit~id=$2~.bo/component/node_edit~id=$2~ [L,QSA]
-
-RewriteRule ^backoffice/comments$       /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/comments [L,QSA]
-RewriteRule ^backoffice/surveys$       /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/surveys [L,QSA]
-RewriteRule ^backoffice/marketing$       /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/marketing [L,QSA]
-RewriteRule ^backoffice/advanced/media$      /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/pages/server_browser [L,QSA]
-
-RewriteRule ^backoffice/advanced/taxonomy$       /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/pages/taxonomy.bo/component/taxonomy_edit [L,QSA]
-RewriteRule ^backoffice/advanced/taxonomy/properties/([0-9]*)$       /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/pages/taxonomy~id=$1~.bo/component/taxonomy_edit~id=$1~ [L]
-RewriteRule ^backoffice/advanced/taxonomy/add/([0-9]*)$  /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/pages/taxonomy~id=$1~.bo/component/taxonomy_add~parent=$1~ [L]
-
-RewriteRule ^backoffice/stats$      /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/statistic [L,QSA]
-
-RewriteRule ^backoffice/advanced$       /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/component/advanced_intro [L,QSA]
-RewriteRule ^backoffice/advanced/configuration$     /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/pages/configuration [L,QSA]
-RewriteRule ^backoffice/advanced/currency$     /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/pages/currency [L,QSA]
-RewriteRule ^backoffice/advanced/logs$      /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/pages/logs [L,QSA]
-RewriteRule ^backoffice/advanced/templates$     /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/pages/templates [L,QSA]
-RewriteRule ^backoffice/advanced/database$      /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/pages/database [L,QSA]
-RewriteRule ^backoffice/advanced/database/browse$       /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/pages/database_browse [L,QSA]
-RewriteRule ^backoffice/advanced/database/browse/model/([a-z\/_\.]*)$       /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/pages/database_browse&model=$1 [L,QSA]
-RewriteRule ^backoffice/advanced/database/export$       /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/pages/database_export [L,QSA]
-RewriteRule ^backoffice/advanced/database/import$       /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/pages/database_import [L,QSA]
-RewriteRule ^backoffice/advanced/tools$      /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/pages/tools [L,QSA]
-RewriteRule ^backoffice/advanced/search_index$      /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/component/search_index [L,QSA]
-RewriteRule ^backoffice/advanced/scheduler$      /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/component/scheduler [L,QSA]
-RewriteRule ^backoffice/advanced/seo_manager$      /index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/component/seo_manager [L,QSA]
-
-#ecommerce
-
-RewriteRule	^backoffice/stock$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/ecommerce/stock [L,QSA]
-RewriteRule	^backoffice/products$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/ecommerce/products.bo/component/ecommerce/product_list [L,QSA]
-RewriteRule	^backoffice/products/product_add$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/component/ecommerce/product_add_quick [L]
-RewriteRule	^backoffice/products/offer_add$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/component/ecommerce/offer_add [L]
-RewriteRule	^backoffice/products/offer_group_add$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/component/ecommerce/offer_group_edit [L]
-RewriteRule	^backoffice/products/offer_group/([0-9]*)/edit$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/component/ecommerce/offer_group_edit&offer_group_id=$1 [L]
-RewriteRule	^backoffice/products/([0-9]*)/variety_add$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/component/ecommerce/product_variety_add&product_id=$1 [L]
-RewriteRule	^backoffice/products/([0-9]*)/edit$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/component/ecommerce/product_edit&id=$1 [L]
-RewriteRule	^backoffice/products/offer/([0-9]*)/edit$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/component/ecommerce/offer_group_edit&id=$1 [L]
-RewriteRule	^backoffice/products/variety/([0-9]*)/edit$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/component/ecommerce/product_variety_edit&id=$1 [L]
-
-RewriteRule	^backoffice/recipes$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/ecommerce/recipes.bo/component/ecommerce/recipe_list [L,QSA]
-RewriteRule	^backoffice/recipes/recipe_add$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/component/ecommerce/recipe_add [L]
-RewriteRule	^backoffice/recipes/([0-9]*)/edit$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/component/ecommerce/recipe_edit&id=$1 [L]
-
-RewriteRule	^backoffice/stores$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/ecommerce/stores.bo/component/ecommerce/store_list [L,QSA]
-RewriteRule	^backoffice/stores/store_add$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/component/ecommerce/store_add [L]
-RewriteRule	^backoffice/stores/([0-9]*)/edit$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/component/ecommerce/store_edit&id=$1 [L]
-
-
-
-RewriteRule	^backoffice/orders$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/ecommerce/orders [L,QSA]
-RewriteRule	^backoffice/orders/([0-9]*)/detail$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/ecommerce/order_detail&id=$1 [L]
-RewriteRule	^backoffice/stock$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/ecommerce/stock [L,QSA]
-
-RewriteRule	^backoffice/customers$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/ecommerce/customers [L,QSA]
-RewriteRule	^backoffice/customers/add$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/ecommerce/customer_add [L]
-RewriteRule	^backoffice/customers/([0-9]*)/detail$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/ecommerce/customer_detail&id=$1 [L]
-
-
-#in popup window
-#general
-RewriteRule	^popup_window/(.*)$		/index.php?request=sys/html5.bo/backoffice_wrapper.bo/popup.$1 [L,QSA]
-#specific (TODO: remove and use popup_window)
-RewriteRule	^popup/edit/([a-z]*)/([0-9]*)/orig/(.*)$    /index.php?request=sys/html5.bo/backoffice_wrapper.bo/popup.bo/component/node_edit~id=$2~&orig=$3&popup=1 [L,QSA]
-RewriteRule	^popup/properties/([0-9]*)/orig/(.*)$	/index.php?request=sys/html5.bo/backoffice_wrapper.bo/popup.bo/component/node_edit&id=$1&orig=$2&popup=1 [L,QSA]
-RewriteRule	^popup/properties/([0-9]*)/delete$    /index.php?request=sys/html5.bo/backoffice_wrapper.bo/popup.bo/component/node_edit~id=$1:delete=1~ [L,QSA]
-RewriteRule	^popup/add/([a-z]*)/([0-9]*)$	/index.php?request=sys/html5.bo/backoffice_wrapper.bo/popup.bo/component/node_add&parent=$2&container=$3&node_group=$1&popup=1 [L]
-RewriteRule	^popup/add/([a-z]*)/([0-9]*)/([0-9]*)/orig/(.*)$	/index.php?request=sys/html5.bo/backoffice_wrapper.bo/popup.bo/component/node_add&parent=$2&container=$3&node_group=$1&orig=$4&popup=1 [L]
-RewriteRule	^popup/files/([a-z_]*)/([0-9]*)$	/request/sys/html5.bo/backoffice_wrapper.bo/popup.bo/component/file_list~relation=$1:node_id=$2~ [L,QSA]
-RewriteRule	^popup/css_edit/([0-9]*)/orig/(.*)$	/index.php?request=sys/html5.bo/backoffice_wrapper.bo/popup.bo/component/css_edit~popup=1:orig=$2:id=$1~ [L,QSA]
-RewriteRule	^popup/logs$	/index.php?request=sys/html5.bo/backoffice_wrapper.bo/popup.bo/component/logs [L,QSA]
-
-#in ajax
-RewriteRule	^ajax/add/([a-z]*)/([0-9]*)$	/index.php?request=bo/component/node_add&parent=$2&container=$3&node_group=$1&ajax=1&dontforward=1 [L,QSA]
-RewriteRule	^ajax/add/([a-z]*)/([0-9]*)/([0-9]*)/orig/(.*)$	/index.php?request=bo/component/node_add&parent=$2&container=$3&node_group=$1&orig=$4&ajax=1&dontforward=1 [L,QSA]
-
-#exports
-RewriteRule ^export/([a-z]*)/([a-z]*)$  /index.php?request=export/$1_$2 [L,QSA]
-RewriteRule	^export/([a-z]*)/([a-z]*)/([0-9]*)$	/index.php?request=export/$1_$2&id=$3 [L,QSA]
-RewriteRule	^sitemap.xml$	/index.php?request=export/xml_googlesitemap [L,QSA]
-
-###################
-# CLIENT FRONTEND #
-###################
-RewriteRule	^print/invoice/(.*)$ /request/sys/html5.node/site/print.component/ecommerce/invoice?id=$1 [L,QSA]
-RewriteRule	^print/invoice_proforma/(.*)$ /request/sys/html5.node/site/print.component/ecommerce/invoice@component/ecommerce/invoice_proforma?id=$1 [L,QSA]
-RewriteRule	^print/gift_card/(.*)$ /request/sys/html5.node/site/print.component/ecommerce/gift_card?order_id=$1 [L]
-RewriteRule	^popupimage/(.*)$ /index.php?request=sys/html5.component/popimage&src=$1 [L]
-
+RewriteRule	^$    /index.php?request=uri_mapping&translate=/home [L,QSA]
 RewriteRule	^var/images/(.*)$   /share/image_get.php?image=var/images/$1 [L]
 RewriteRule	^image/var/(.*)$   /share/image_get.php?image=var/$1 [L]
 RewriteRule	^thumbnail/([0-9]*)/var/(.*)$   /share/image_thumbnail.php?&width=$1&image=var/$2 [L]
 RewriteRule	^thumbnail/([0-9]*)x([0-9]*)/var/(.*)$   /share/image_thumbnail.php?&width=$1&height=$2&image=var/$3 [L,QSA]
 RewriteRule	^download/var/(.*)$   /share/download.php?file=var/$1 [L]
 RewriteRule	^files/(.*)$   /share/download.php?file=var/files/$1 [L]
-RewriteRule	^imagesxml/([0-9]*)$ /index.php?request=export/imagesxml&role=page&node_id=$1 [L]
-
-RewriteRule	^client/logout$    /index.php?request=component/client/logout [L]
-
-RewriteRule	^request/(.*)$		/index.php?request=uri_mapping&controller_request=$1 [L,QSA]
-RewriteRule ^api/v([0-9]*).([a-z0-9-_\.]*)/(.*)$      /index.php?request=uri_mapping&controller_request=api/v$1_$2/$3&version=v$1_$2 [L,QSA]
-RewriteRule ^api/(.*)$      /index.php?request=uri_mapping&controller_request=api/$1 [L,QSA]
-
-RewriteRule ^product/([0-9]*)$	/index.php?request=forward&product_id=$1 [L]
-RewriteRule ^recipe/([0-9]*)$	/index.php?request=forward&recipe_id=$1 [L]
-
-# /home is "/page/GLOBAL_HOMEPAGE_ID"
-RewriteRule	^$    /index.php?request=uri_mapping&translate=/home [L,QSA]
-
-######################
-# LOCAL RULES: BEGIN #
-######################
-
-#write your local rules here
-
-######################
-# LOCAL RULES: END   #
-######################
-
-# the rest
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-l
 RewriteRule ^(.*)$    /index.php?request=uri_mapping&translate=/$1 [L,QSA]
+# END Onxshop

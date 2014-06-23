@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2006-2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2006-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -39,7 +39,16 @@ class Onxshop_Controller_Uri_Mapping extends Onxshop_Controller {
 		if ($this->GET['controller_request']) $controller_request = trim($this->GET['controller_request']);
 		
 		/**
-		 * initialize
+		 * file stored rules
+		 */
+		 
+		if ($custom_translate = $this->proccessFileRules($translate)) {
+			$controller_request = $custom_translate;
+			$translate = false;
+		}
+		
+		/**
+		 * initialize database stored
 		 */
 		 
 		require_once('models/common/common_uri_mapping.php');
@@ -187,6 +196,68 @@ class Onxshop_Controller_Uri_Mapping extends Onxshop_Controller {
 		}
 
 		return $page_data;
+	}
+	
+	/**
+	 * proccessFileRules
+	 */
+	 
+	public function proccessFileRules($translate) {
+		
+		$uri_map = $this->getFileRules();
+		
+		$apply = $this->proccessFileRulesItems($translate, $uri_map);
+		
+		$parsed = parse_url($apply);
+		parse_str($parsed['query'], $query);
+		
+		foreach ($query as $k=>$item) {
+			$_GET[$k] = $item;
+		}
+		
+		if (array_key_exists('controller_request', $query)) return $query['controller_request'];
+		else return $query['request'];
+		
+	}
+	
+	/**
+	 * proccessFileRulesItems
+	 */
+	 
+	public function proccessFileRulesItems($translate, $uri_map) {
+		
+		if (!is_array($uri_map)) return false;
+		
+		foreach ($uri_map as $rule=>$apply) {
+		
+			$rule = str_replace('/', '\/', $rule);
+			$rule = str_replace('\\\\', '\\', $rule);
+		
+			if (preg_match("/$rule/", $translate, $matches)) {
+		
+				if (is_array($apply)) {
+					$apply = $this->proccessFileRulesItems($translate, $apply);
+				}
+				
+				foreach ($matches as $k=>$v) {
+					if ($k > 0) $apply = str_replace('$' . $k, $v, $apply);
+				}
+				
+				return $apply;
+			}
+		}
+	}
+	
+	
+	/**
+	 * getRewriteRules
+	 */
+	 
+	public function getFileRules() {
+		
+		require_once(ONXSHOP_DIR . 'conf/uri_map.php');
+		return $uri_map;
+
 	}
 
 }	
