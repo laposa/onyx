@@ -9,7 +9,7 @@
 @import url(/share/css/backoffice_icons.css);
 @import url(/share/css/cms_header.css);
 
-#onxshop_cms_content {clear: both; padding-top: 20px;}
+#onxshop_cms_content {clear: both; padding-top: 1px;}
 @media all and (max-width: 480px) {
 	#onxshop_cms_content { width: 100%; overflow: hidden; }
 }
