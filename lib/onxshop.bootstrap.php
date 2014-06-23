@@ -341,7 +341,9 @@ class Onxshop_Bootstrap {
 	 * Init Action
 	 */
 	
-	function initAction($request = '') {
+	function initAction($request = 'uri_mapping') {
+		
+		if (!$request) $request = 'uri_mapping';
 		
 		/**
 		 * cache can be disabled on request
