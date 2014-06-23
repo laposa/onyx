@@ -299,7 +299,8 @@ class Onxshop_Bootstrap {
 	
 		$auth_is_required = false;
 		
-		//force login when request is from bo/ folder
+		// force login when request is from bo/ folder
+		// similar check is also done in controllers/uri_mapping
 		if (preg_match('/bo\//', $request)) {
 			
 			$auth_is_required = true;

@@ -43,8 +43,17 @@ class Onxshop_Controller_Uri_Mapping extends Onxshop_Controller {
 		 */
 		 
 		if ($custom_translate = $this->proccessFileRules($translate)) {
+			
 			$controller_request = $custom_translate;
 			$translate = false;
+			
+			//force login when request is from bo/ folder
+			if (preg_match('/bo\//', $controller_request)) {
+				
+				$GLOBALS['Auth']->login();
+				$_SESSION['use_page_cache'] = false;
+			}
+			
 		}
 		
 		/**
