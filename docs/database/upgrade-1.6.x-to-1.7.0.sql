@@ -78,4 +78,18 @@ ALTER TABLE ecommerce_order ADD COLUMN review_email_sent integer;
 CREATE INDEX ecommerce_order_review_email_sent_idx ON ecommerce_order USING btree (review_email_sent);
 UPDATE ecommerce_order SET review_email_sent = 1;
 
+--
+-- ACL table
+--  
+CREATE TABLE client_acl (
+	id serial NOT NULL PRIMARY KEY,
+	customer_id integer NOT NULL REFERENCES client_customer ON UPDATE CASCADE ON DELETE CASCADE,
+	permission integer NOT NULL,
+	scope text,
+	created timestamp without time zone NOT NULL DEFAULT NOW(),
+	modified timestamp without time zone NOT NULL DEFAULT NOW(),
+	other_data text
+);
+CREATE INDEX client_acl_customer_id_key ON client_acl USING btree (permission);
+		
 COMMIT;

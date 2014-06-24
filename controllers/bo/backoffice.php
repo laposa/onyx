@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2006-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2006-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -17,8 +17,6 @@ class Onxshop_Controller_Bo_Backoffice extends Onxshop_Controller {
 		if (!$_SERVER['HTTPS'] && ONXSHOP_EDITOR_USE_SSL) {
 			header("Location: https://{$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}");
 		}
-		
-		$this->tpl->assign('USERNAME', ucfirst($_SESSION['authentication']['username']));
 			
 		/**
 		 * Manage Menu
@@ -37,38 +35,27 @@ class Onxshop_Controller_Bo_Backoffice extends Onxshop_Controller {
 		 * simple ACL
 		 */
 		 
-		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER) $this->tpl->parse('content.search');
+		$username = $_SESSION['authentication']['username'];
 		
-		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER || $_SESSION['authentication']['username'] == ONXSHOP_DB_USER . '-editor') $this->tpl->parse('content.fe_edit');
+		if ($GLOBALS['Auth']->isAdmin($username) || $GLOBALS['Auth']->isEditor($username)) $this->tpl->parse('content.fe_edit');
 		
-		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER || $_SESSION['authentication']['username'] == ONXSHOP_DB_USER . '-editor') $this->tpl->parse('content.pages');
-		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER || $_SESSION['authentication']['username'] == ONXSHOP_DB_USER . '-editor') $this->tpl->parse('content.news');
-		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER || $_SESSION['authentication']['username'] == ONXSHOP_DB_USER . '-editor') $this->tpl->parse('content.media');
-		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER  && $this->isEcommerce()) $this->tpl->parse('content.products');
-		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER || preg_match("/-warehouse$/", $_SESSION['authentication']['username'])) {
-			if ($this->isEcommerce()) $this->tpl->parse('content.orders');
+		if ($GLOBALS['Auth']->isAdmin($username) || $GLOBALS['Auth']->isEditor($username)) $this->tpl->parse('content.pages');
+		if ($GLOBALS['Auth']->isAdmin($username) || $GLOBALS['Auth']->isEditor($username)) $this->tpl->parse('content.news');
+		if ($GLOBALS['Auth']->isAdmin($username) || $GLOBALS['Auth']->isEditor($username)) $this->tpl->parse('content.media');
+		if ($GLOBALS['Auth']->isAdmin($username)  && $GLOBALS['Auth']->isEcommerce()) $this->tpl->parse('content.products');
+		if ($GLOBALS['Auth']->isAdmin($username) || $GLOBALS['Auth']->isWarehouse($username)) {
+			if ($GLOBALS['Auth']->isEcommerce()) $this->tpl->parse('content.orders');
 		}
-		if (preg_match("/-warehouse$/", $_SESSION['authentication']['username'])) $this->tpl->parse('content.stock');
-		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER) $this->tpl->parse('content.customers');
-		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER  && $this->isEcommerce()) $this->tpl->parse('content.stats');
-		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER && $this->isEcommerce()) $this->tpl->parse('content.marketing');
-		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER) $this->tpl->parse('content.comments');
-		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER) $this->tpl->parse('content.surveys');
-		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER) $this->tpl->parse('content.advanced');
-		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER && $this->isEcommerce()) $this->tpl->parse('content.recipes');
-		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER && $this->isEcommerce()) $this->tpl->parse('content.stores');
+		if ($GLOBALS['Auth']->isWarehouse($username)) $this->tpl->parse('content.stock');
+		if ($GLOBALS['Auth']->isAdmin($username)) $this->tpl->parse('content.customers');
+		if ($GLOBALS['Auth']->isAdmin($username) && $GLOBALS['Auth']->isEcommerce()) $this->tpl->parse('content.stats');
+		if ($GLOBALS['Auth']->isAdmin($username) && $GLOBALS['Auth']->isEcommerce()) $this->tpl->parse('content.marketing');
+		if ($GLOBALS['Auth']->isAdmin($username)) $this->tpl->parse('content.comments');
+		if ($GLOBALS['Auth']->isAdmin($username)) $this->tpl->parse('content.surveys');
+		if ($GLOBALS['Auth']->isAdmin($username)) $this->tpl->parse('content.advanced');
+		if ($GLOBALS['Auth']->isAdmin($username) && $GLOBALS['Auth']->isEcommerce()) $this->tpl->parse('content.recipes');
+		if ($GLOBALS['Auth']->isAdmin($username) && $GLOBALS['Auth']->isEcommerce()) $this->tpl->parse('content.stores');
 
 		return true;
-	}
-	
-	/**
-	 * isEcommerce
-	 */
-	 
-	public function isEcommerce() {
-		
-		if (ONXSHOP_PACKAGE_NAME == 'standard' || ONXSHOP_PACKAGE_NAME == 'premium') return true;
-		else return false; 
-	
 	}
 }

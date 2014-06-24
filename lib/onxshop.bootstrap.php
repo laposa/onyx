@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2005-2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2005-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -46,10 +46,15 @@ class Onxshop_Bootstrap {
 		
 		$this->initSession();
 	
+		/**
+		 * Initialise authentication object
+		 */
+		$GLOBALS['Auth'] = new Onxshop_Authentication();
+		
 		//hack
 		if ($_SESSION['authentication']['authenticity'] > 0) {
 			// temporary ACL, database user is superuser
-			if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER || $_SESSION['authentication']['username'] == ONXSHOP_DB_USER . '-editor') $_GET['fe_edit'] = 1;
+			if ($GLOBALS['Auth']->isAdmin($_SESSION['authentication']['username']) || $GLOBALS['Auth']->isEdito($_SESSION['authentication']['username'])) $_GET['fe_edit'] = 1;
 			define('ONXSHOP_DB_QUERY_CACHE', false);
 		} else {
 			$_GET['fe_edit'] = 0;
@@ -61,11 +66,6 @@ class Onxshop_Bootstrap {
 		 */
 
 		$GLOBALS['onxshop_conf'] = $this->initConfiguration();
-		
-		/**
-		 * Initialise authentication object
-		 */
-		$GLOBALS['Auth'] = new Onxshop_Authentication();
 
 		/**
 		 * Initialise A/B testing

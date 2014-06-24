@@ -3,6 +3,7 @@
  * Copyright (c) 2005-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
+ * TODO: integrate further with new client_acl introduced in Onxshop 1.7
  */
 
 class Onxshop_Authentication {
@@ -93,35 +94,65 @@ class Onxshop_Authentication {
 	 
 	function _login() {
 
-		if (!$this->_checkAccess($this->username)) return false;
-
-		switch (ONXSHOP_AUTH_TYPE)  {
-			case 'imap':
-				$auth = $this->authIMAP($this->username, $this->password, "{".ONXSHOP_AUTH_SERVER.":143/imap/notls}");
-			break;
-			case 'postgresql':
-				$auth = $this->authPg($this->username, $this->password, ONXSHOP_AUTH_SERVER);
-			break;
-			case 'onlyeditor':
-				$auth = $this->authFlat($this->username, $this->password);
-			break;
-		}
+		/**
+		 * if email addres, then check against client_acl table
+		 */
 		
-		if ($auth) {
-		
-			msg('Username and Password OK.', 'ok', 2);
-			$id = local_exec("id " . escapeshellarg($this->username));
-			$id = intval($id);
-		
-			if ($id == 0) {
-				msg("numeric id for user {$this->username} was not found, using 1000", 'error', 1);
-				$id = 1000;
+		if (preg_match('/@/', $this->username)) {
+			
+			require_once('models/client/client_customer.php');
+			$Client_Customer = new client_customer();
+			$Client_Customer->setCacheable(false);
+			$customer_detail = $Client_Customer->login($this->username, md5($this->password));
+			
+			if ($customer_detail) {
+				require_once('models/client/client_acl.php');
+				$Client_Acl = new client_acl();
+				$Client_Acl->setCacheable(false);
+				
+				if ($Client_Acl->isBackofficeUser($customer_detail['id'])) {
+					$id = $customer_detail['id'];
+				} else {
+					msg('Not in client_acl table', 'error');
+				}
 			}
-		
-		} else {
-			$id = false;
 		}
 		
+		/**
+		 * check against other methods
+		 */
+
+		if (!is_numeric($id)) {
+		
+			if (!$this->_checkAccess($this->username)) return false;
+	
+			switch (ONXSHOP_AUTH_TYPE)  {
+				case 'imap':
+					$auth = $this->authIMAP($this->username, $this->password, "{".ONXSHOP_AUTH_SERVER.":143/imap/notls}");
+				break;
+				case 'postgresql':
+					$auth = $this->authPg($this->username, $this->password, ONXSHOP_AUTH_SERVER);
+				break;
+				case 'onlyeditor':
+					$auth = $this->authFlat($this->username, $this->password);
+				break;
+			}
+			
+			if ($auth) {
+			
+				msg('Username and Password OK.', 'ok', 2);
+				$id = local_exec("id " . escapeshellarg($this->username));
+				$id = intval($id);
+			
+				if ($id == 0) {
+					msg("numeric id for user {$this->username} was not found, using 1000", 'error', 1);
+					$id = 1000;
+				}
+			
+			} else {
+				$id = false;
+			}
+		}
 		
 		if ($id) {
 		
@@ -251,6 +282,53 @@ class Onxshop_Authentication {
 		}
 				
 		return true;
+	}
+	
+	/**
+	 * isEcommerce
+	 */
+	 
+	public function isEcommerce() {
+		
+		if (ONXSHOP_PACKAGE_NAME == 'standard' || ONXSHOP_PACKAGE_NAME == 'premium') return true;
+		else return false; 
+	
+	}
+	
+	/**
+	 * isAdmin
+	 */
+	 
+	public function isAdmin($username) {
+		
+		//temp
+		if (preg_match('/@/', $username)) return true;
+		
+		if ($username == ONXSHOP_DB_USER) return true;
+		else return false; 
+	
+	}
+	
+	/**
+	 * isEditor
+	 */
+	 
+	public function isEditor($username) {
+		
+		if ($username == ONXSHOP_DB_USER . '-editor') return true;
+		else return false; 
+	
+	}
+	
+	/**
+	 * isWarehouse
+	 */
+	 
+	public function isWarehouse($username) {
+		
+		if (preg_match("/-warehouse$/", $username)) return true;
+		else return false; 
+	
 	}
 
 }
