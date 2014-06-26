@@ -20,12 +20,20 @@ class Onxshop_Controller_Bo_Export_CSV_Orders extends Onxshop_Controller_Bo_Expo
 		require_once('models/ecommerce/ecommerce_order.php');
 		
 		$Order = new ecommerce_order();
+
+		if (is_numeric($this->GET['customer_id'])) {
+			//display all orders when looking for a customer
+			$filter = array();
+			$filter['status'] = 'all';
+		} else {
+			$filter = $_SESSION['order-list-filter'];
+		}
 		
 		/**
 		 * Get the list
 		 */
 		
-		$records = $Order->getOrderListForExport($_SESSION['order-list-filter'], $this->GET['inlude_products'] == 1);
+		$records = $Order->getOrderListForExport($filter, $this->GET['inlude_products'] == 1, $this->GET['customer_id']);
 
 		if (is_array($records)) {
 		

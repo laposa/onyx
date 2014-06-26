@@ -59,10 +59,7 @@
 									</div>
 								</div>
 
-								
-								
-								
-								{ONXSHOP_REQUEST_orders #bo/component/ecommerce/order_list~customer_id=GET.id~}
+								{ONXSHOP_REQUEST_orders #bo/component/ecommerce/order_list~customer_id=GET.id:limit_per_page=1000~}
 								<h3>Products bought by this customer</h3>
 								{ONXSHOP_REQUEST_products_by_customer #bo/component/ecommerce/product_list_by_customer~period_limit=0:customer_id=GET.id~}
 								<h3>This customer's favourite products (inc orphaned baskets)</h3>

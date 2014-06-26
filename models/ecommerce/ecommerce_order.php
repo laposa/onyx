@@ -1068,9 +1068,11 @@ class ecommerce_order extends Onxshop_Model {
 	 *
 	 */
 	 
-	function getOrderListForExport($filter = false, $includeProducts = false) {
+	function getOrderListForExport($filter = false, $includeProducts = false, $customer_id = false) {
 		
 		$add_to_where = $this->prepareFilterWhereQuery($filter);
+
+		if (is_numeric($customer_id)) $add_to_where .= " AND client_customer.id = $customer_id ";
 
 		/**
 		 * SQL query
