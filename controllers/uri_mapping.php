@@ -50,7 +50,8 @@ class Onxshop_Controller_Uri_Mapping extends Onxshop_Controller {
 			//force login when request is from bo/ folder
 			if (preg_match('/bo\//', $controller_request)) {
 				
-				$GLOBALS['Auth']->login();
+				$auth = $GLOBALS['Auth']->login();
+				if (!$auth) $controller_request = 'sys/401';
 				$_SESSION['use_page_cache'] = false;
 			}
 			
