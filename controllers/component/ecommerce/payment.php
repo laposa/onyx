@@ -115,7 +115,7 @@ class Onxshop_Controller_Component_Ecommerce_Payment extends Onxshop_Controller 
 		 */
 		
 		$is_owner = $order_data['basket']['customer_id'] == $_SESSION['client']['customer']['id'];
-		$is_bo_user = $_SESSION['authentication']['authenticity'] > 0;
+		$is_bo_user = Onxshop_Bo_Authentication::getInstance()->isAuthenticated();
 		$is_guest_user = $order_data['client']['customer']['status'] == 5;
 		$is_same_session = $order_data['php_session_id'] == session_id() || $order_data['php_session_id'] == $this->GET['php_session_id'];
 		$has_code = !empty($this->GET['code']) && verifyHash($order_data['id'], $this->GET['code']);

@@ -64,7 +64,7 @@ if (!is_readable($file)) {
 	// log it
 } else {
 	//admin user can download any content from var/ directory
-	if ($_SESSION['authentication']['authenticity'] > 0) {
+	if (Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) {
 		$check = addcslashes(ONXSHOP_PROJECT_DIR, '/') . 'var\/';
 	} else {
 		//guest user can download only content of var/files

@@ -32,29 +32,28 @@ class Onxshop_Controller_Bo_Backoffice extends Onxshop_Controller {
 		$this->tpl->assign("ACTIVE_{$active}", 'active');
 		
 		/**
-		 * simple ACL
+		 * ACL - show everything to all until client_acl is ready (TODO)
 		 */
-		 
-		$username = $_SESSION['authentication']['username'];
-		
-		if ($GLOBALS['Auth']->isAdmin($username) || $GLOBALS['Auth']->isEditor($username)) $this->tpl->parse('content.fe_edit');
-		
-		if ($GLOBALS['Auth']->isAdmin($username) || $GLOBALS['Auth']->isEditor($username)) $this->tpl->parse('content.pages');
-		if ($GLOBALS['Auth']->isAdmin($username) || $GLOBALS['Auth']->isEditor($username)) $this->tpl->parse('content.news');
-		if ($GLOBALS['Auth']->isAdmin($username) || $GLOBALS['Auth']->isEditor($username)) $this->tpl->parse('content.media');
-		if ($GLOBALS['Auth']->isAdmin($username)  && $GLOBALS['Auth']->isEcommerce()) $this->tpl->parse('content.products');
-		if ($GLOBALS['Auth']->isAdmin($username) || $GLOBALS['Auth']->isWarehouse($username)) {
-			if ($GLOBALS['Auth']->isEcommerce()) $this->tpl->parse('content.orders');
+
+		if (Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) {
+
+			$this->tpl->parse('content.fe_edit');
+			$this->tpl->parse('content.pages');
+			$this->tpl->parse('content.news');
+			$this->tpl->parse('content.media');
+			$this->tpl->parse('content.products');
+			$this->tpl->parse('content.orders');
+			$this->tpl->parse('content.stock');
+			$this->tpl->parse('content.customers');
+			$this->tpl->parse('content.stats');
+			$this->tpl->parse('content.marketing');
+			$this->tpl->parse('content.comments');
+			$this->tpl->parse('content.surveys');
+			$this->tpl->parse('content.advanced');
+			$this->tpl->parse('content.recipes');
+			$this->tpl->parse('content.stores');
+
 		}
-		if ($GLOBALS['Auth']->isWarehouse($username)) $this->tpl->parse('content.stock');
-		if ($GLOBALS['Auth']->isAdmin($username)) $this->tpl->parse('content.customers');
-		if ($GLOBALS['Auth']->isAdmin($username) && $GLOBALS['Auth']->isEcommerce()) $this->tpl->parse('content.stats');
-		if ($GLOBALS['Auth']->isAdmin($username) && $GLOBALS['Auth']->isEcommerce()) $this->tpl->parse('content.marketing');
-		if ($GLOBALS['Auth']->isAdmin($username)) $this->tpl->parse('content.comments');
-		if ($GLOBALS['Auth']->isAdmin($username)) $this->tpl->parse('content.surveys');
-		if ($GLOBALS['Auth']->isAdmin($username)) $this->tpl->parse('content.advanced');
-		if ($GLOBALS['Auth']->isAdmin($username) && $GLOBALS['Auth']->isEcommerce()) $this->tpl->parse('content.recipes');
-		if ($GLOBALS['Auth']->isAdmin($username) && $GLOBALS['Auth']->isEcommerce()) $this->tpl->parse('content.stores');
 
 		return true;
 	}

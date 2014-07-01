@@ -24,7 +24,7 @@ class Onxshop_Controller_Component_Ecommerce_Gift_Card extends Onxshop_Controlle
 		$order_detail = $Order->getOrder($this->GET['order_id']);
 
 		//check owner
-		if ($order_data['basket']['customer_id'] !== $_SESSION['client']['customer']['id'] &&  $_SESSION['authentication']['authenticity'] == 0) {
+		if ($order_data['basket']['customer_id'] !== $_SESSION['client']['customer']['id'] &&  !Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) {
 			msg('gift_card:unauthorized access to view order detail');
 			return false;
 		} else {

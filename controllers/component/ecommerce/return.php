@@ -214,7 +214,7 @@ class Onxshop_Controller_Component_Ecommerce_Return extends Onxshop_Controller {
 	
 		if ($_SESSION['client']['customer']['id'] > 0) {
 			$customer_id = $_SESSION['client']['customer']['id'];
-		} else if ($_SESSION['authentication']['authenticity']  > 0) {
+		} else if (Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) {
 			$customer_id = $this->GET['customer_id'];
 		} else {
 			$customer_id = false;

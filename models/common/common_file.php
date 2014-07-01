@@ -268,7 +268,7 @@ CREATE TABLE common_file (
 			
 			if (!is_numeric($file['priority'])) $file['priority'] = 0;
 			$file['modified'] = date('c');
-			if (!is_numeric($file['author'])) $file['author'] = $_SESSION['authentication']['authenticity'];
+			if (!is_numeric($file['author'])) $file['author'] = 0; // deprecated as of Onxshop 1.7
 			if (!is_numeric($file['customer_id'])) $file['customer_id'] = (int) $_SESSION['client']['customer']['id'];
 			
 			if ($id = $this->insert($file)) {

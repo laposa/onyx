@@ -71,7 +71,7 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 		 * check if page is published, but keep it available in edit mode
 		 */
 		 
-		if ($node_data['publish'] == 0 && $node_data['node_group'] == 'page' && $_SESSION['authentication']['authenticity'] < 1) {
+		if ($node_data['publish'] == 0 && $node_data['node_group'] == 'page' && !Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) {
 			// display 404 page
 			$_Onxshop_Request = new Onxshop_Request('node~id=' . $this->Node->conf['id_map-404'].'~'); 
 			$node_data['content'] = $_Onxshop_Request->getContent();
@@ -206,7 +206,7 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 		 
 		// don't show edit icons when shared parameter is 1 (passed from shared content)
 		// and not authenticated for the backend
-		if ($this->GET['shared'] == 0 && $_SESSION['authentication']['authenticity'] > 0) {
+		if ($this->GET['shared'] == 0 && Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) {
 			if ($node_data['node_group'] == 'content' && $_SESSION['fe_edit_mode'] == 'edit') {
 				if ($node_data['node_controller'] == 'shared')  {
 					$this->tpl->assign("SOURCE", $source);
@@ -248,7 +248,7 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 		 
 		if ($this->Node->checkDisplayPermission($node_data, $force_admin_visibility)) {
 			//don't display hidden node in preview mode
-			if ($node_data['publish'] == 0 && $_SESSION['authentication']['authenticity'] > 0 && $_SESSION['fe_edit_mode'] == 'preview' ) $visibility1 = false;
+			if ($node_data['publish'] == 0 && Onxshop_Bo_Authentication::getInstance()->isAuthenticated() && $_SESSION['fe_edit_mode'] == 'preview' ) $visibility1 = false;
 			else $visibility1 = true;
 		}
 		
@@ -274,7 +274,7 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 	public function _checkPermissionForExtraCSS($node_data) {
 	
 		//add css class when when logged in and using edit or move mode
-		if ($_SESSION['authentication']['authenticity'] > 0 && ($_SESSION['fe_edit_mode'] == 'edit' || $_SESSION['fe_edit_mode'] == 'move')) return true;
+		if (Onxshop_Bo_Authentication::getInstance()->isAuthenticated() && ($_SESSION['fe_edit_mode'] == 'edit' || $_SESSION['fe_edit_mode'] == 'move')) return true;
 		else return false;
 		
 	}

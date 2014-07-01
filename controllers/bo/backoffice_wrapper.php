@@ -19,9 +19,9 @@ class Onxshop_Controller_Bo_Backoffice_Wrapper extends Onxshop_Controller {
 		require_once('lib/onxshop.authentication.php');
 		$Auth = new Onxshop_Authentication();
 		
-		if ($_SESSION['authentication']['authenticity'] < 1 && $_GET['login'] != 1) {
+		if (!Onxshop_Bo_Authentication::getInstance()->isAuthenticated() && $_GET['login'] != 1) {
 			onxshopGoTo("/?login=1");
-		} else if ($_SESSION['authentication']['authenticity'] < 1) {
+		} else if (!Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) {
 			$Auth->login();
 		}
 		*/

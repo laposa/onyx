@@ -13,7 +13,7 @@ class Onxshop_Controller_Component_Client_Edit extends Onxshop_Controller {
 	 
 	public function mainAction() {
 	
-		if ($_SESSION['client']['customer']['id'] == 0 && $_SESSION['authentication']['authenticity'] < 1) {
+		if ($_SESSION['client']['customer']['id'] == 0 && !Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) {
 			msg('client_edit: You must be logged in first.', 'error');
 			onxshopGoTo("/");
 		}

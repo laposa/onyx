@@ -37,7 +37,7 @@ class Onxshop_Controller_Component_Ecommerce_Transaction_Detail extends Onxshop_
 		if (is_numeric($order_id)) $order_data = $Order->getOrder($order_id);
 		
 		//security check of owner
-		if ($order_data['basket']['customer_id'] !== $_SESSION['client']['customer']['id'] &&  $_SESSION['authentication']['authenticity'] == 0) {
+		if ($order_data['basket']['customer_id'] !== $_SESSION['client']['customer']['id'] &&  !Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) {
 			msg('unauthorized access to view transaction detail', 'error');
 		} else {
 			$transaction_list = $Transaction->getListForOrderId($order_id);

@@ -55,7 +55,7 @@ class Onxshop_Controller_Component_Client_Login extends Onxshop_Controller {
 			}
 			
 			/* log in as client from backoffice */
-			if ($_SESSION['authentication']['authenticity'] > 0 && $this->GET['client']['email']) {
+			if (Onxshop_Bo_Authentication::getInstance()->isAuthenticated() && $this->GET['client']['email']) {
 				
 				$customer_detail = $Customer->getClientByEmail($this->GET['client']['email']);
 				

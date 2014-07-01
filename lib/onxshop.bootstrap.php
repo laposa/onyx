@@ -30,7 +30,7 @@ class Onxshop_Bootstrap {
 		require_once('onxshop.request.php');
 		require_once('onxshop.model.php');
 		require_once('onxshop.router.php');
-		require_once('onxshop.authentication.php');
+		require_once('onxshop.bo.authentication.php');
 		require_once('Zend/Db.php');
 		require_once('Zend/Registry.php');
 
@@ -47,14 +47,10 @@ class Onxshop_Bootstrap {
 		$this->initSession();
 	
 		/**
-		 * Initialise authentication object
+		 * Back office initialisation
 		 */
-		$GLOBALS['Auth'] = new Onxshop_Authentication();
-		
-		//hack
-		if ($_SESSION['authentication']['authenticity'] > 0) {
-			// temporary ACL, database user is superuser
-			if ($GLOBALS['Auth']->isAdmin($_SESSION['authentication']['username']) || $GLOBALS['Auth']->isEdito($_SESSION['authentication']['username'])) $_GET['fe_edit'] = 1;
+		if (Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) {
+			$_GET['fe_edit'] = 1;
 			define('ONXSHOP_DB_QUERY_CACHE', false);
 		} else {
 			$_GET['fe_edit'] = 0;
@@ -77,15 +73,14 @@ class Onxshop_Bootstrap {
 		
 		//hack
 		if ($_GET['login'] == 1) {
-		    $GLOBALS['Auth']->login();
+		    Onxshop_Bo_Authentication::getInstance()->login();
 		}
 	
 		//hack
 		if ($_GET['logout'] == 1) {
-		    if ($GLOBALS['Auth']->logout()) {
-	    		header("Location: http://{$_SERVER['SERVER_NAME']}/");
-		    	exit;
-		    }
+		    Onxshop_Bo_Authentication::getInstance()->logout();
+    		header("Location: http://{$_SERVER['SERVER_NAME']}/");
+	    	exit;
 		}
 
 		//hack
@@ -212,10 +207,7 @@ class Onxshop_Bootstrap {
 		register_shutdown_function('session_write_close');
 		//in PHP5.4 can be used this:
 		//session_register_shutdown();
-		
-		if (!array_key_exists('authentication', $_SESSION)) $_SESSION['authentication'] = array();
-		if (!array_key_exists('authenticity', $_SESSION['authentication'])) $_SESSION['authentication']['authenticity'] = 0;
-		
+				
 		if (!array_key_exists('active_pages', $_SESSION)) $_SESSION['active_pages'] = array();
 		if (!array_key_exists('full_path', $_SESSION)) $_SESSION['full_path'] = array();
 		if (array_key_exists('HTTPS', $_SERVER)) $protocol = 'https';
@@ -226,7 +218,7 @@ class Onxshop_Bootstrap {
 		$_SESSION['orig'] = $_SERVER['REQUEST_URI'];
 		
 		//disable page cache for whole session after a user interaction and for backoffice users
-		if (count($_POST) > 0 || $_SESSION['authentication']['authenticity'] > 0 || $_SESSION['client']['customer']['id'] > 0) $_SESSION['use_page_cache'] = false;
+		if (count($_POST) > 0 || Onxshop_Bo_Authentication::getInstance()->isAuthenticated() || $_SESSION['client']['customer']['id'] > 0) $_SESSION['use_page_cache'] = false;
 		else if (!isset($_SESSION['use_page_cache'])) $_SESSION['use_page_cache'] = ONXSHOP_PAGE_CACHE_TTL;
 		
 		/**
@@ -260,9 +252,9 @@ class Onxshop_Bootstrap {
 			exit;
 		}
 		
-		if ($_SESSION['authentication']['authenticity'] < 1 && $_GET['login'] != 1) {
+		if (!Onxshop_Bo_Authentication::getInstance()->isAuthenticated() && $_GET['login'] != 1) {
 
-			if ($GLOBALS['Auth']->login()) {
+			if (Onxshop_Bo_Authentication::getInstance()->login()) {
 				
 				msg('Successful Login to the backoffice', 'ok', 1);
 			
@@ -273,9 +265,9 @@ class Onxshop_Bootstrap {
 			
 			}
 			
-		} else if ($_SESSION['authentication']['authenticity'] < 1) {
+		} else if (!Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) {
 			
-			$GLOBALS['Auth']->login();
+			Onxshop_Bo_Authentication::getInstance()->login();
 			return false;
 		
 		}
@@ -548,7 +540,6 @@ class Onxshop_Bootstrap {
 	
 	/**
 	 * Output filter for public clients (this filter should only apply when in frontend preview mode)
-	 * _SESSION.authentication.authenticity
 	 */
 	 
 	public function outputFilterPublic($content) {

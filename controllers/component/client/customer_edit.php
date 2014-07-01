@@ -17,7 +17,7 @@ class Onxshop_Controller_Component_Client_Customer_Edit extends Onxshop_Controll
 		 * check input
 		 */
 		 
-		if ($_SESSION['client']['customer']['id'] == 0 && $_SESSION['authentication']['authenticity'] < 1) {
+		if ($_SESSION['client']['customer']['id'] == 0 && !Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) {
 			msg('controllers/client/customer_detail: You must logged in.', 'error');
 			onxshopGoTo("/");
 		} else {

@@ -463,9 +463,23 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 	 
 	public function getAuthorDetailbyId($author_id) {
 	
-		$user_detail = $GLOBALS['Auth']->getUserDetail($author_id);
-		
-		return $user_detail;
+		if ($author_id == 0) return array(
+			'id' => 1000,
+			'username' => "superuser",
+			'name' => 'Superuser'
+		);
+
+		require_once('models/client/client_customer.php');
+		$Custmer = new client_customer();
+		$customer = $Custmer->getDetail($author_id);
+
+		if ($customer) return array(
+			'id' => $customer['id'],
+			'username' => $customer['email'],
+			'name' => $customer['first_name'] . ' ' . $customer['last_name']
+		);
+
+		return false;
 		
 	}
 	
@@ -479,7 +493,7 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 	function nodeUpdate($node_data) {
 	
 		$node_data['modified'] = date('c');
-		if (!is_numeric($node_data['author'])) $node_data['author'] = $_SESSION['authentication']['authenticity'];
+		if (!is_numeric($node_data['author'])) $node_data['author'] = 0; // deprecated as of Onxshop 1.7
 		
 		if (is_array($node_data['other_data'])) $node_data['other_data'] = serialize($node_data['other_data']);
 		if (is_array($node_data['component'])) $node_data['component'] = serialize($node_data['component']);
@@ -544,7 +558,7 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 		if (!is_numeric($node_data['parent_container'])) $node_data['parent_container'] = 0;
 		if (!is_numeric($node_data['priority'])) $node_data['priority'] = 0;
 		
-		$node_data['author'] = $_SESSION['authentication']['authenticity'];
+		$node_data['author'] = 0; // deprecated as of Onxshop 1.7
 		$node_data['customer_id'] = (int) $_SESSION['client']['customer']['id'];
 		if (!is_numeric($node_data['display_in_menu'])) $node_data['display_in_menu'] = 1;
 		if (!is_numeric($node_data['display_permission'])) $node_data['display_permission'] = 0;
@@ -1006,7 +1020,7 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
     static function checkDisplayPermission($node_data, $force_admin_visibility = true) {
     
 		//for editor show allways
-		if ($_SESSION['authentication']['authenticity'] > 0 && $force_admin_visibility) {
+		if (Onxshop_Bo_Authentication::getInstance()->isAuthenticated() && $force_admin_visibility) {
 		
 			return true;
 		
@@ -1069,7 +1083,7 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 		//return true in case display permission are not set
 		if (!is_array($node_data['display_permission_group_acl'])) return true;
 		
-		if ($_SESSION['authentication']['authenticity'] > 0 && $force_admin_visibility) {
+		if (Onxshop_Bo_Authentication::getInstance()->isAuthenticated() && $force_admin_visibility) {
 		
 			return true;
 		
