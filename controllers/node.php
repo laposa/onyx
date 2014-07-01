@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2005-2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2005-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -159,6 +159,21 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 		msg("Node process: $controller", 'ok', 2);
 		$_Onxshop_Request = new Onxshop_Request("$controller_request&id={$node_data['id']}&parent_id={$node_data['parent']}");
 		$node_data['content'] = $_Onxshop_Request->getContent();
+		
+		/**
+		 * add extra_css_class
+		 */
+		 
+		$node_data['extra_css_class'] = '';
+		
+		if (trim($node_data['css_class']) != '') {
+			
+			$css_classes = explode(" ", $node_data['css_class']);
+			foreach ($css_classes as $css_class_item) {
+				$node_data['extra_css_class'] .= "node-$css_class_item ";
+			}
+			
+		}
 		
 		/**
 		 * check visibility and than display
