@@ -444,7 +444,7 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 			return false;
 		}
 		
-		$node_data['author_detail'] = $this->getAuthorDetailbyId($node_data['author']);
+		$node_data['author_detail'] = $this->getAuthorDetailbyId($node_data['customer_id']);
 	
 		$node_data['other_data'] = unserialize(trim($node_data['other_data']));
 		$node_data['component'] = unserialize(trim($node_data['component']));
@@ -493,7 +493,6 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 	function nodeUpdate($node_data) {
 	
 		$node_data['modified'] = date('c');
-		if (!is_numeric($node_data['author'])) $node_data['author'] = 0; // deprecated as of Onxshop 1.7
 		
 		if (is_array($node_data['other_data'])) $node_data['other_data'] = serialize($node_data['other_data']);
 		if (is_array($node_data['component'])) $node_data['component'] = serialize($node_data['component']);
@@ -558,8 +557,8 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 		if (!is_numeric($node_data['parent_container'])) $node_data['parent_container'] = 0;
 		if (!is_numeric($node_data['priority'])) $node_data['priority'] = 0;
 		
-		$node_data['author'] = 0; // deprecated as of Onxshop 1.7
 		$node_data['customer_id'] = (int) $_SESSION['client']['customer']['id'];
+		$node_data['author'] = $node_data['customer_id']; // deprecated as of Onxshop 1.7
 		if (!is_numeric($node_data['display_in_menu'])) $node_data['display_in_menu'] = 1;
 		if (!is_numeric($node_data['display_permission'])) $node_data['display_permission'] = 0;
 		if (!$node_data['css_class']) $node_data['css_class'] = '';

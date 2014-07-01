@@ -214,7 +214,7 @@ class Onxshop_Controller_Component_News_List extends Onxshop_Controller {
 						 * add author detail
 						 */
 						
-						$item['author_detail'] = $this->Node->getAuthorDetailbyId($item['author']);
+						$item['author_detail'] = $this->Node->getAuthorDetailbyId($item['customer_id']);
 						
 						//overwrite author name
 						if ($item['component']['author'] != '') $item['author_detail']['name'] = $item['component']['author'];
