@@ -6,7 +6,8 @@
  */
 
 require_once('models/client/client_customer.php');
-require_once('models/client/client_acl.php');
+require_once('models/client/client_role_permission.php');
+require_once(ONXSHOP_DIR . 'conf/permissions.php');
 
 class Onxshop_Bo_Authentication
 {
@@ -19,14 +20,21 @@ class Onxshop_Bo_Authentication
 
 
 	/**
-	 * Superuser Autherntication Adapther
+	 * client_role_permission model instance
+	 */
+	private static $Permission;
+
+
+
+	/**
+	 * Superuser Authentication Adapter
 	 */
 	private $superuserAuthAdapter;
 
 
 
 	/**
-	 * Admin Autherntication Adapther
+	 * Admin Authentication Adapter
 	 */
 	private $adminAuthAdapter;
 
@@ -39,7 +47,6 @@ class Onxshop_Bo_Authentication
 	{
 
 		// instantiate superuser AuthAdapter as per configuration settings
-
 		switch (ONXSHOP_AUTH_TYPE)  {
 
 			case 'imap':
@@ -58,8 +65,12 @@ class Onxshop_Bo_Authentication
 		}
 
 		// administrators are authenticated using client_customer_acl
-
 		$this->adminAuthAdapter = new ClientAuthAdapter();
+
+		// create instance of client_role_permission
+		$this->Permission = new client_role_permission();
+		$this->Permission->setCacheable(false);
+
 	}
 
 
@@ -97,7 +108,7 @@ class Onxshop_Bo_Authentication
 
 		if ($username && $password) {
 
-			if (filter_var($username, FILTER_VALIDATE_EMAIL) === true) {
+			if (filter_var($username, FILTER_VALIDATE_EMAIL)) {
 
 				$user = $this->adminAuthAdapter->authenticate($username, $password);
 				$superuser = false;
@@ -165,6 +176,16 @@ class Onxshop_Bo_Authentication
 
 
 	/**
+	 * Is current instalation of ecommerce type?
+	 */
+	public function isEcommerce()
+	{
+		return (ONXSHOP_PACKAGE_NAME == 'standard' || ONXSHOP_PACKAGE_NAME == 'premium');
+	}
+
+
+
+	/**
 	 * Get logged user details
 	 * 
 	 * @return Array User details
@@ -178,6 +199,22 @@ class Onxshop_Bo_Authentication
 		}
 
 		return false;
+	}
+
+
+
+	/**
+	 * Has currently authenticated given permission? 
+	 * 
+	 * @return boolean 
+	 */
+	public function hasPermission($permission, $scope = null)
+	{
+		if (!$this->isAuthenticated()) return false;
+		if ($this->isSuperuser()) return true;
+
+		$customer_id = $_SESSION['authentication']['user_details']['id'];
+		return $this->Permission->checkPermissionByCustomer($customer_id, $permission, $scope);
 	}
 
 
@@ -311,14 +348,14 @@ class ClientAuthAdapter implements AuthAdapter
 	{
 		$Client_Customer = new client_customer();
 		$Client_Customer->setCacheable(false);
-		$customer_detail = $Client_Customer->login($this->username, md5($this->password));
+		$customer_detail = $Client_Customer->login($username, md5($password));
 
 		if ($customer_detail) {
 
-			$Client_Acl = new client_acl();
-			$Client_Acl->setCacheable(false);
+			$Permission = new client_role_permission();
+			$Permission->setCacheable(false);
 
-			if ($Client_Acl->isBackofficeUser($customer_detail['id'])) {
+			if ($Permission->isBackofficeUser($customer_detail['id'])) {
 				return $customer_detail;
 			}
 		}

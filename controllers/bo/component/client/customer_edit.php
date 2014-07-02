@@ -51,6 +51,19 @@ class Onxshop_Controller_Bo_Component_Client_Customer_Edit extends Onxshop_Contr
 		}
 		$this->tpl->parse('content.status.group');
 
+		//allow to change role
+		require_once('models/client/client_role.php');
+		$ClientRole = new client_role();
+		$list = $ClientRole->listRoles();
+
+		foreach ($list as $item) {
+			$this->tpl->assign('ITEM', $item);
+			if (in_array($item['id'], $client_data['customer']['role_ids'])) $this->tpl->assign('CHECKED', 'checked="checked"');
+			else $this->tpl->assign('CHECKED', '');
+			$this->tpl->parse('content.status.role.item');
+		}
+		$this->tpl->parse('content.status.role');
+
 		//and allow to change account type
 		$this->tpl->assign("SELECTED_account_type_{$client_data['customer']['account_type']}", 'selected="selected"');
 		$this->tpl->parse('content.status.account_type');

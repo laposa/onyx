@@ -32,6 +32,7 @@ class Onxshop_Controller_Component_Client_Edit extends Onxshop_Controller {
 			unset($_POST['client']['customer']['status']);
 			unset($_POST['client']['customer']['group_id']);
 			unset($_POST['client']['customer']['group_ids']);
+			unset($_POST['client']['customer']['role_ids']);
 			unset($_POST['client']['customer']['account_type']);
 			unset($_POST['client']['customer']['other_data']);
 

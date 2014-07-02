@@ -82,20 +82,6 @@ CREATE INDEX ecommerce_order_review_email_sent_idx ON ecommerce_order USING btre
 UPDATE ecommerce_order SET review_email_sent = 1;
 
 --
--- ACL table
---  
-CREATE TABLE client_acl (
-	id serial NOT NULL PRIMARY KEY,
-	customer_id integer NOT NULL REFERENCES client_customer ON UPDATE CASCADE ON DELETE CASCADE,
-	permission integer NOT NULL,
-	scope text,
-	created timestamp without time zone NOT NULL DEFAULT NOW(),
-	modified timestamp without time zone NOT NULL DEFAULT NOW(),
-	other_data text
-);
-CREATE INDEX client_acl_customer_id_key ON client_acl USING btree (permission);
-
---
 -- Make customer_group M:N
 --
 CREATE TABLE client_customer_group (
@@ -118,5 +104,75 @@ SELECT group_id, id, now(), now() FROM client_customer WHERE group_id > 0;
 -- remove deprecated column
 --
 ALTER TABLE client_customer DROP COLUMN group_id;
+
+--
+-- ACL
+--  
+DROP TABLE IF EXISTS client_acl;
+
+CREATE TABLE client_role (
+	id serial NOT NULL PRIMARY KEY,
+	name varchar(255) ,
+	description text ,
+	other_data text
+);
+
+CREATE TABLE client_role_permission (
+	id serial NOT NULL PRIMARY KEY,
+	role_id integer NOT NULL REFERENCES client_role ON UPDATE CASCADE ON DELETE CASCADE,
+	permission integer NOT NULL,
+	scope text,
+	created timestamp without time zone NOT NULL DEFAULT NOW(),
+	modified timestamp without time zone NOT NULL DEFAULT NOW(),
+	other_data text
+);
+CREATE INDEX client_role_role_id_key ON client_role_permission USING btree (role_id);
+CREATE INDEX client_role_permission_key ON client_role_permission USING btree (permission);
+
+CREATE TABLE client_customer_role (
+	id serial NOT NULL PRIMARY KEY,
+	role_id integer NOT NULL REFERENCES client_role ON UPDATE CASCADE ON DELETE CASCADE,
+	customer_id integer NOT NULL REFERENCES client_customer ON UPDATE CASCADE ON DELETE CASCADE,
+	created timestamp without time zone NOT NULL DEFAULT NOW(),
+	modified timestamp without time zone NOT NULL DEFAULT NOW()
+);
+CREATE INDEX client_customer_role_role_id_key ON client_customer_role USING btree (role_id);
+CREATE INDEX client_customer_role_customer_id_key ON client_customer_role USING btree (customer_id);
+
+--
+-- Default ACL settings
+--
+INSERT INTO "client_role" ("id", "name", "description", "other_data") VALUES
+(1,	'Admin',	NULL,	NULL),
+(3,	'Warehouse',	NULL,	NULL),
+(2,	'Editor',	NULL,	NULL);
+
+INSERT INTO "client_role_permission" ("id", "role_id", "permission", "scope", "created", "modified", "other_data") VALUES
+-- Admin
+(1, 1, 1000, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_FRONT_END_EDITING
+(2, 1, 2000, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_PAGES_SECTION
+(3, 1, 2001, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_NEWS_SECTION
+(4, 1, 2002, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_PRODUCTS_SECTION
+(5, 1, 2003, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_RECIPES_SECTION
+(6, 1, 2004, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_STORES_SECTION
+(7, 1, 2005, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_ORDERS_SECTION
+(8, 1, 2006, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_STOCK_SECTION
+(9, 1, 2007, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_CUSTOMERS_SECTION
+(10, 1, 2008, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_STATS_SECTION
+(11, 1, 2009, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_MARKETING_SECTION
+(12, 1, 2010, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_COMMENTS_SECTION
+(13, 1, 2011, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_SURVEYS_SECTION
+(14, 1, 2012, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_ADVANCED_SECTION
+-- Editor
+(15, 2, 1000, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_FRONT_END_EDITING
+(16, 2, 2000, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_PAGES_SECTION
+(17, 2, 2001, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_NEWS_SECTION
+(18, 2, 2012, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_ADVANCED_SECTION
+-- Warehouse
+(19, 3, 2005, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_ORDERS_SECTION
+(20, 3, 2006, NULL, now(), now(), NULL); -- ONXSHOP_PERMISSION_STOCK_SECTION
+
+SELECT setval('client_role_id_seq', (SELECT MAX(id) FROM client_role));
+SELECT setval('client_role_permission_id_seq', (SELECT MAX(id) FROM client_role_permission));
 
 COMMIT;

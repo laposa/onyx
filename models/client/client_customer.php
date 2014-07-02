@@ -265,12 +265,20 @@ CREATE TABLE client_customer (
 		
 		if ($data = $this->detail($id)) {
 
+			$data['other_data'] = unserialize($data['other_data']);
+
+			// load groups
 			require_once('models/client/client_customer_group.php');
 			$CustomerGroup = new client_customer_group();
 
-			$data['other_data'] = unserialize($data['other_data']);
 			$data['group_ids'] = $CustomerGroup->getCustomersGroupIds($id);
 			$data['group_id'] = (int) $data['group_ids'][0]; // backwards compatibility
+
+			// load roles
+			require_once('models/client/client_customer_role.php');
+			$CustomerRole = new client_customer_role();
+
+			$data['role_ids'] = $CustomerRole->getCustomersRoleIds($id);
 		
 			if (empty($data['profile_image_url'])) $data['profile_image_url'] = $this->conf['default_profile_image_url']; 
 		
@@ -862,6 +870,11 @@ CREATE TABLE client_customer (
 		require_once('models/client/client_customer_group.php');
 		$CustomerGroup = new client_customer_group();
 		$CustomerGroup->updateCustomerGroups($client_data['customer']['id'], $client_data['customer']['group_ids']);
+
+		//roles
+		require_once('models/client/client_customer_role.php');
+		$CustomerRole = new client_customer_role();
+		$CustomerRole->updateCustomerRoles($client_data['customer']['id'], $client_data['customer']['role_ids']);
 
 		if (!$this->checkLoginId($client_data['customer'])) {
 		

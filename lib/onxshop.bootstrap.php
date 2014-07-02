@@ -49,7 +49,7 @@ class Onxshop_Bootstrap {
 		/**
 		 * Back office initialisation
 		 */
-		if (Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) {
+		if (Onxshop_Bo_Authentication::getInstance()->hasPermission(ONXSHOP_PERMISSION_FRONT_END_EDITING)) {
 			$_GET['fe_edit'] = 1;
 			define('ONXSHOP_DB_QUERY_CACHE', false);
 		} else {

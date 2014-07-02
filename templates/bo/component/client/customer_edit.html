@@ -36,6 +36,19 @@ $(document).ready(function(){
 			</div>
 		<!-- END: group -->
 
+		<!-- BEGIN: role -->
+			<div class="row role">
+				<span class="label"><label>Back Office Access</label></span>
+				<span class="field">
+					<!-- BEGIN: item -->
+					<input type="checkbox" id="client_customer_role_ids_{ITEM.id}" name="client[customer][role_ids][]" value="{ITEM.id}" {CHECKED}/>
+					<label for="client_customer_role_ids_{ITEM.id}">{ITEM.name|htmlspecialchars}</label>
+					<br/>
+					<!-- END: item -->
+				</span>
+			</div>
+		<!-- END: role -->
+
 		<!-- BEGIN: account_type -->
 		<div class="row account_type">
 			<span class="label" for="client-customer-account_type"><label>Account Type</label></span>
