@@ -1206,7 +1206,7 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 		$sql = "
 		SELECT id, parent, title as name, page_title as title, node_group, node_controller, content, display_in_menu, publish, priority, teaser, display_permission, modified 
 		FROM common_node 
-		WHERE publish >= 1 AND node_group='page' AND (require_login IS NULL OR require_login = 0) AND display_permission = 0 AND parent != " . $this->conf['id_map-system_navigation'] . " AND parent != " . $this->conf['id_map-ecommerce_navigation'] . " ORDER BY id ASC";
+		WHERE publish >= 1 AND node_group='page' AND (require_login IS NULL OR require_login = 0) AND display_permission = 0 AND display_in_menu > 0 parent != " . $this->conf['id_map-system_navigation'] . " AND parent != " . $this->conf['id_map-ecommerce_navigation'] . " ORDER BY id ASC";
 		
 		$records = $this->executeSql($sql);
 		
