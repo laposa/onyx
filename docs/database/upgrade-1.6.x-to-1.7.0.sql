@@ -94,5 +94,29 @@ CREATE TABLE client_acl (
 	other_data text
 );
 CREATE INDEX client_acl_customer_id_key ON client_acl USING btree (permission);
-		
+
+--
+-- Make customer_group M:N
+--
+CREATE TABLE client_customer_group (
+	id serial NOT NULL PRIMARY KEY,
+	group_id integer NOT NULL REFERENCES client_group ON UPDATE CASCADE ON DELETE CASCADE,
+	customer_id integer NOT NULL REFERENCES client_customer ON UPDATE CASCADE ON DELETE CASCADE,
+	created timestamp without time zone NOT NULL DEFAULT NOW(),
+	modified timestamp without time zone NOT NULL DEFAULT NOW()
+);
+CREATE INDEX client_customer_group_group_id_key ON client_customer_group USING btree (group_id);
+CREATE INDEX client_customer_group_customer_id_key ON client_customer_group USING btree (customer_id);
+
+--
+-- insert old data from client_customer.group_id to client_customer_group
+--
+INSERT INTO client_customer_group (group_id, customer_id, created, modified)
+SELECT group_id, id, now(), now() FROM client_customer WHERE group_id > 0;
+
+--
+-- remove deprecated column
+--
+ALTER TABLE client_customer DROP COLUMN group_id;
+
 COMMIT;

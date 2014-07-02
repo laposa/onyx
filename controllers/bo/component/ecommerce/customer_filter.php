@@ -2,7 +2,7 @@
 /**
  * Backoffice customer list filter
  *
- * Copyright (c) 2008-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2008-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -19,7 +19,10 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Customer_Filter extends Onxshop_
 		 * if submitted search display save button
 		 */
 		 
-		if (isset($_POST['search'])) $this->tpl->parse('content.form.save');
+		if (isset($_POST['search'])) {
+			$this->parseGroups();
+			$this->tpl->parse('content.form.save');
+		}
 		
 		/**
 		 * Store submited data to the SESSION
@@ -131,22 +134,24 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Customer_Filter extends Onxshop_
 		$ClientGroup = new client_group();
 		
 		$data = array();
-		if (is_numeric($_SESSION['customer-filter-selected_group_id'])) $data['id'] = $_SESSION['customer-filter-selected_group_id'];
+		if ($_SESSION['customer-filter-selected_group_id'] > 0) $data['id'] = $_SESSION['customer-filter-selected_group_id'];
 		$data['name'] = $filter['group_name'];
 		$data['description'] = '';
 		$data['search_filter'] = $filter;
-		
+
 		/**
 		 * save actual group
 		 */
-		 
+
 		if ($id = $ClientGroup->saveGroup($data)) {
 			msg("Customers group saved under name {$data['name']} and ID $id");
 			/**
-			 * move customer to this group
+			 * add customer to this group
 			 */
 		
-			$this->moveCustomersToGroup($id);
+			$this->addCustomersToGroup($id, $_POST['customer-filter']['group_ids_remove']);
+
+			$_SESSION['customer-filter']['group_id'] = $id;
 		
 		} else {
 			msg("Cannot save customers group", 'error');
@@ -177,10 +182,10 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Customer_Filter extends Onxshop_
 	}
 	
 	/**
-	 * move customers to group
+	 * add customers to group
 	 */
 	 
-	public function moveCustomersToGroup($group_id) {
+	public function addCustomersToGroup($group_id, $group_ids_remove) {
 	
 		require_once('models/client/client_group.php');
 		require_once('models/client/client_customer.php');
@@ -194,13 +199,13 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Customer_Filter extends Onxshop_
 			$customer_list = $Customer->getClientList(0, $group_filter);
 			
 			$list_count = count($customer_list);
-			
-			if ($Customer->moveCustomersToGroupFromList($customer_list, $group_id)) {
-				msg("All $list_count customers were moved to group ID $group_id");
+
+			if ($Customer->addCustomersToGroupFromList($customer_list, $group_id, $group_ids_remove)) {
+				msg("All $list_count customers were added to group ID $group_id");
 				//flush cache as we are using forced cache for client_customer in backoffice
 				$Customer->flushCache();
 			} else {
-				msg("Cannot move $list_count customers to group ID $group_id", 'error');
+				msg("Cannot add $list_count customers to group ID $group_id", 'error');
 				return false;
 			}
 			
@@ -209,4 +214,28 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Customer_Filter extends Onxshop_
 		}
 		
 	}
+
+	/**
+	 * Parse groups
+	 */
+	public function parseGroups()
+	{
+		require_once('models/client/client_group.php');
+		$ClientGroup = new client_group();
+		if ($_SESSION['customer-filter-selected_group_id'] > 0) $group_id = $_SESSION['customer-filter-selected_group_id'];
+		else $group_id = 0;
+		$list = $ClientGroup->listing("id <> $group_id");
+
+		if (count($list) == 0) return;
+
+		foreach ($list as $item) {
+			$this->tpl->assign('ITEM', $item);
+			if ($item['id'] == $group_id) continue;
+			else $this->tpl->assign('CHECKED', '');
+			$this->tpl->parse('content.form.group.item');
+		}
+
+		$this->tpl->parse('content.form.group');
+	}
+
 }

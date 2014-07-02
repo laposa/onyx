@@ -31,6 +31,7 @@ class Onxshop_Controller_Component_Client_Edit extends Onxshop_Controller {
 			// do not allow to set certain properties			
 			unset($_POST['client']['customer']['status']);
 			unset($_POST['client']['customer']['group_id']);
+			unset($_POST['client']['customer']['group_ids']);
 			unset($_POST['client']['customer']['account_type']);
 			unset($_POST['client']['customer']['other_data']);
 

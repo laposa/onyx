@@ -111,13 +111,7 @@ class client_customer extends Onxshop_Model {
 	var $agreed_with_latest_t_and_c;
 	
 	var $verified_email_address;
-	
-	/**
-	 * REFERENCES client_group(id) ON UPDATE CASCADE ON DELETE RESTRICT
-	 * @access private
-	 */
-	var $group_id;
-	
+		
 	/**
 	 * serialised oauth data
 	 */
@@ -167,7 +161,6 @@ class client_customer extends Onxshop_Model {
 		'account_type'=>array('label' => 'Account Type', 'validation'=>'int', 'required'=>false),
 		'agreed_with_latest_t_and_c'=>array('label' => 'Agreed with t-and-c', 'validation'=>'int', 'required'=>false),
 		'verified_email_address'=>array('label' => 'Verified Email Address', 'validation'=>'int', 'required'=>false),
-		'group_id'=>array('label' => 'Client Group', 'validation'=>'int', 'required'=>false),
 		'oauth'=>array('label' => 'Oauth storege for tokens', 'validation'=>'serialized', 'required'=>false),
 		'deleted_date'=>array('label' => 'Deleted date', 'validation'=>'datetime', 'required'=>false),
 		'facebook_id'=>array('label' => '', 'validation'=>'int', 'required'=>false),
@@ -213,7 +206,6 @@ CREATE TABLE client_customer (
 	account_type smallint NOT NULL DEFAULT 0,
 	agreed_with_latest_t_and_c smallint NOT NULL DEFAULT 0,
 	verified_email_address smallint NOT NULL DEFAULT 0,
-	group_id smallint,
 	oauth text,
 	deleted_date timestamp without time zone,
 	facebook_id bigint,
@@ -272,8 +264,13 @@ CREATE TABLE client_customer (
 		}
 		
 		if ($data = $this->detail($id)) {
-		
+
+			require_once('models/client/client_customer_group.php');
+			$CustomerGroup = new client_customer_group();
+
 			$data['other_data'] = unserialize($data['other_data']);
+			$data['group_ids'] = $CustomerGroup->getCustomersGroupIds($id);
+			$data['group_id'] = (int) $data['group_ids'][0]; // backwards compatibility
 		
 			if (empty($data['profile_image_url'])) $data['profile_image_url'] = $this->conf['default_profile_image_url']; 
 		
@@ -844,7 +841,6 @@ CREATE TABLE client_customer (
 		$Company = new client_company();
 		
 		if (!isset($client_data['customer']['newsletter'])) $client_data['customer']['newsletter'] = 0;
-		$client_data['customer']['group_id'] = $client_data['customer']['group_id'] > 0 ? $client_data['customer']['group_id'] : null;
 
 		//TEMP!!!
 		$client_data['customer']['company_id'] = 0;
@@ -861,6 +857,11 @@ CREATE TABLE client_customer (
 				$client_data['customer']['company_id'] = $id;
 			}
 		}
+
+		//groups
+		require_once('models/client/client_customer_group.php');
+		$CustomerGroup = new client_customer_group();
+		$CustomerGroup->updateCustomerGroups($client_data['customer']['id'], $client_data['customer']['group_ids']);
 
 		if (!$this->checkLoginId($client_data['customer'])) {
 		
@@ -1571,12 +1572,6 @@ CREATE TABLE client_customer (
 			
 			}
 		}
-
-
-		//group filter
-		if (is_numeric($filter['customer_group_id']) && $filter['customer_group_id'] > 0) {
-			$add_to_where .= " AND customer_group_id = {$filter['customer_group_id']}";
-		}
 		
 		//account type (company) filter
 		if (is_numeric($filter['account_type'])) {
@@ -1587,24 +1582,21 @@ CREATE TABLE client_customer (
 		/**
 		 * SQL query
 		 */
-		$sql = "
-SELECT 
-client_customer.id AS customer_id, 
-client_customer.created AS customer_created, 
-client_customer.email, 
-client_customer.title_before, 
-client_customer.first_name,
-client_customer.last_name,  
-client_customer.newsletter,
-client_customer.invoices_address_id,
-client_customer.company_id,
-client_customer.group_id
-FROM client_customer
-WHERE 1=1 AND client_customer.status < 4 
-$add_to_where
-ORDER BY client_customer.id
-";
-		//msg($sql);
+		$sql = "SELECT 
+			client_customer.id AS customer_id, 
+			client_customer.created AS customer_created, 
+			client_customer.email, 
+			client_customer.title_before, 
+			client_customer.first_name,
+			client_customer.last_name,  
+			client_customer.newsletter,
+			client_customer.invoices_address_id,
+			client_customer.company_id
+			FROM client_customer
+			WHERE 1=1 AND client_customer.status < 4 
+			$add_to_where
+			ORDER BY client_customer.id
+			";
 		
 		return $this->executeSql($sql);
 		
@@ -1615,10 +1607,14 @@ ORDER BY client_customer.id
 	 * get clients orders and details
 	 *
 	 * TODO: consider using HAVING clause
-		There is one important difference between SQL HAVING and SQL WHERE clauses. The SQL WHERE clause condition is tested against each and every row of data, while the SQL HAVING clause condition is tested against the groups and/or aggregates specified in the SQL GROUP BY clause and/or the SQL SELECT column list.
-		
-		It is important to understand that if a SQL statement contains both SQL WHERE and SQL HAVING clauses the SQL WHERE clause is applied first, and the SQL HAVING clause is applied later to the groups and/or aggregates.
-
+	 * There is one important difference between SQL HAVING and SQL WHERE clauses. The SQL WHERE clause
+	 * condition is tested against each and every row of data, while the SQL HAVING clause condition
+	 * is tested against the groups and/or aggregates specified in the SQL GROUP BY clause and/or the
+	 * SQL SELECT column list.
+	 * It is important to understand that if a SQL statement contains both SQL WHERE and SQL HAVING clauses
+	 * the SQL WHERE clause is applied first, and the SQL HAVING clause is applied later to the groups 
+	 * and/or aggregates.
+	 *
 	 * @param integer $customer_id
 	 * ID of customer
 	 * 0 returns orders of all customers
@@ -1639,8 +1635,8 @@ ORDER BY client_customer.id
 		
 		if (is_numeric($filter['group_id'])) {
 			if ($filter['group_id'] < 0) $add_to_where .= '';
-			else if ($filter['group_id'] == 0) $add_to_where .= " AND client_customer.group_id IS NULL";
-			else if ($filter['group_id'] > 0) $add_to_where .= " AND client_customer.group_id = {$filter['group_id']}";
+			else if ($filter['group_id'] == 0) $add_to_where .= " AND (SELECT count(*) FROM client_customer_group WHERE client_customer_group.customer_id = client_customer.id) = 0";
+			else if ($filter['group_id'] > 0) $add_to_where .= " AND client_customer.id IN (SELECT customer_id FROM client_customer_group WHERE group_id = {$filter['group_id']})";
 		}
 		
 		/**
@@ -1727,117 +1723,110 @@ ORDER BY client_customer.id
 		//custom SQL query when product filter is in use
 		if ((is_numeric($filter['product_bought']) || preg_match('/^([0-9]{1,},?){1,}$/', $filter['product_bought'])) && $filter['product_bought'] > 0)
 		{
-		$sql = "
-SELECT
-client_customer.id AS customer_id, 
-client_customer.created AS customer_created, 
+		$sql = "SELECT
+			client_customer.id AS customer_id, 
+			client_customer.created AS customer_created, 
 
-(	SELECT ecommerce_invoice.created FROM ecommerce_invoice
-	INNER JOIN ecommerce_basket ON (ecommerce_basket.customer_id = client_customer.id)
-	INNER JOIN ecommerce_order ON (ecommerce_order.basket_id = ecommerce_basket.id)
-	ORDER BY ecommerce_invoice.id DESC
-	LIMIT 1
-) AS last_order,
+			(	SELECT ecommerce_invoice.created FROM ecommerce_invoice
+				INNER JOIN ecommerce_basket ON (ecommerce_basket.customer_id = client_customer.id)
+				INNER JOIN ecommerce_order ON (ecommerce_order.basket_id = ecommerce_basket.id)
+				ORDER BY ecommerce_invoice.id DESC
+				LIMIT 1
+			) AS last_order,
 
-client_customer.email, 
-client_customer.title_before, 
-client_customer.first_name,
-client_customer.last_name,  
-client_customer.newsletter,
-client_customer.invoices_address_id,
-client_address.country_id,
-client_customer.company_id,
-client_customer.group_id,
+			client_customer.email, 
+			client_customer.title_before, 
+			client_customer.first_name,
+			client_customer.last_name,  
+			client_customer.newsletter,
+			client_customer.invoices_address_id,
+			client_address.country_id,
+			client_customer.company_id,
+			(	SELECT COUNT(DISTINCT ecommerce_basket.id) FROM ecommerce_basket 
+				INNER JOIN ecommerce_basket_content ON (ecommerce_basket_content.basket_id = ecommerce_basket.id AND ecommerce_basket_content.product_variety_id IN
+					(SELECT id FROM ecommerce_product_variety WHERE product_id IN ({$filter['product_bought']})))
+				WHERE ecommerce_basket.customer_id = client_customer.id
+			) AS count_baskets,
 
-(	SELECT COUNT(DISTINCT ecommerce_basket.id) FROM ecommerce_basket 
-	INNER JOIN ecommerce_basket_content ON (ecommerce_basket_content.basket_id = ecommerce_basket.id AND ecommerce_basket_content.product_variety_id IN
-		(SELECT id FROM ecommerce_product_variety WHERE product_id IN ({$filter['product_bought']})))
-	WHERE ecommerce_basket.customer_id = client_customer.id
-) AS count_baskets,
+			(	SELECT COUNT(DISTINCT ecommerce_basket.id) FROM ecommerce_basket 
+				INNER JOIN ecommerce_basket_content ON (ecommerce_basket_content.basket_id = ecommerce_basket.id AND ecommerce_basket_content.product_variety_id IN
+					(SELECT id FROM ecommerce_product_variety WHERE product_id IN ({$filter['product_bought']})))
+				INNER JOIN ecommerce_order ON (ecommerce_order.basket_id = ecommerce_basket.id)
+				WHERE ecommerce_basket.customer_id = client_customer.id
+			) AS count_orders,
 
-(	SELECT COUNT(DISTINCT ecommerce_basket.id) FROM ecommerce_basket 
-	INNER JOIN ecommerce_basket_content ON (ecommerce_basket_content.basket_id = ecommerce_basket.id AND ecommerce_basket_content.product_variety_id IN
-		(SELECT id FROM ecommerce_product_variety WHERE product_id IN ({$filter['product_bought']})))
-	INNER JOIN ecommerce_order ON (ecommerce_order.basket_id = ecommerce_basket.id)
-	WHERE ecommerce_basket.customer_id = client_customer.id
-) AS count_orders,
+			(	SELECT SUM(ecommerce_basket_content.quantity) FROM ecommerce_basket 
+				INNER JOIN ecommerce_basket_content ON (ecommerce_basket_content.basket_id = ecommerce_basket.id AND ecommerce_basket_content.product_variety_id IN
+					(SELECT id FROM ecommerce_product_variety WHERE product_id IN ({$filter['product_bought']})))
+				WHERE ecommerce_basket.customer_id = client_customer.id
+			) AS count_items,
 
-(	SELECT SUM(ecommerce_basket_content.quantity) FROM ecommerce_basket 
-	INNER JOIN ecommerce_basket_content ON (ecommerce_basket_content.basket_id = ecommerce_basket.id AND ecommerce_basket_content.product_variety_id IN
-		(SELECT id FROM ecommerce_product_variety WHERE product_id IN ({$filter['product_bought']})))
-	WHERE ecommerce_basket.customer_id = client_customer.id
-) AS count_items,
+			(	SELECT SUM(ecommerce_basket_content.quantity * ecommerce_price.value) FROM ecommerce_basket 
+				INNER JOIN ecommerce_basket_content ON (ecommerce_basket_content.basket_id = ecommerce_basket.id AND ecommerce_basket_content.product_variety_id IN
+					(SELECT id FROM ecommerce_product_variety WHERE product_id IN ({$filter['product_bought']})))
+				INNER JOIN ecommerce_order ON (ecommerce_order.basket_id = ecommerce_basket.id)
+				INNER JOIN ecommerce_price ON (ecommerce_price.id = ecommerce_basket_content.price_id)
+				WHERE ecommerce_basket.customer_id = client_customer.id
+			) AS goods_net
 
-(	SELECT SUM(ecommerce_basket_content.quantity * ecommerce_price.value) FROM ecommerce_basket 
-	INNER JOIN ecommerce_basket_content ON (ecommerce_basket_content.basket_id = ecommerce_basket.id AND ecommerce_basket_content.product_variety_id IN
-		(SELECT id FROM ecommerce_product_variety WHERE product_id IN ({$filter['product_bought']})))
-	INNER JOIN ecommerce_order ON (ecommerce_order.basket_id = ecommerce_basket.id)
-	INNER JOIN ecommerce_price ON (ecommerce_price.id = ecommerce_basket_content.price_id)
-	WHERE ecommerce_basket.customer_id = client_customer.id
-) AS goods_net
-
-FROM client_customer
-INNER JOIN ecommerce_basket ON (ecommerce_basket.customer_id = client_customer.id)
-INNER JOIN ecommerce_basket_content ON (ecommerce_basket_content.basket_id = ecommerce_basket.id AND ecommerce_basket_content.product_variety_id IN
-		(SELECT id FROM ecommerce_product_variety WHERE product_id IN ({$filter['product_bought']})))
-INNER JOIN ecommerce_order ON (ecommerce_order.basket_id = ecommerce_basket.id)
-INNER JOIN ecommerce_invoice ON  (ecommerce_invoice.order_id = ecommerce_order.id) 
-LEFT OUTER JOIN client_address ON (client_address.id = client_customer.invoices_address_id)
-$add_to_where
-GROUP BY
-client_customer.id,
-client_customer.created,
-client_customer.email, 
-client_customer.title_before,
-client_customer.first_name, 
-client_customer.last_name, 
-client_customer.newsletter,
-client_customer.invoices_address_id,
-client_address.country_id,
-client_customer.company_id,
-client_customer.group_id
-ORDER BY client_customer.id";
+			FROM client_customer
+			INNER JOIN ecommerce_basket ON (ecommerce_basket.customer_id = client_customer.id)
+			INNER JOIN ecommerce_basket_content ON (ecommerce_basket_content.basket_id = ecommerce_basket.id AND ecommerce_basket_content.product_variety_id IN
+					(SELECT id FROM ecommerce_product_variety WHERE product_id IN ({$filter['product_bought']})))
+			INNER JOIN ecommerce_order ON (ecommerce_order.basket_id = ecommerce_basket.id)
+			INNER JOIN ecommerce_invoice ON  (ecommerce_invoice.order_id = ecommerce_order.id) 
+			LEFT OUTER JOIN client_address ON (client_address.id = client_customer.invoices_address_id)
+			$add_to_where
+			GROUP BY
+			client_customer.id,
+			client_customer.created,
+			client_customer.email, 
+			client_customer.title_before,
+			client_customer.first_name, 
+			client_customer.last_name, 
+			client_customer.newsletter,
+			client_customer.invoices_address_id,
+			client_address.country_id,
+			client_customer.company_id
+			ORDER BY client_customer.id";
 		}
 		else
 		{
-		$sql = "
-SELECT
-client_customer.id AS customer_id, 
-client_customer.created AS customer_created, 
-MAX(ecommerce_invoice.created) AS last_order,
-client_customer.email, 
-client_customer.title_before, 
-client_customer.first_name,
-client_customer.last_name,  
-client_customer.newsletter,
-client_customer.invoices_address_id,
-client_address.country_id,
-client_customer.company_id,
-client_customer.group_id,
-COUNT(ecommerce_basket.id) AS count_baskets,
-COUNT(ecommerce_invoice.id) AS count_orders,
-(SELECT SUM(quantity) FROM ecommerce_basket_content INNER JOIN ecommerce_basket ON (ecommerce_basket.customer_id = client_customer.id AND ecommerce_basket.id = ecommerce_basket_content.basket_id)) AS count_items,
-SUM(ecommerce_invoice.goods_net) AS goods_net
-FROM client_customer
-LEFT OUTER JOIN ecommerce_basket ON (ecommerce_basket.customer_id = client_customer.id)
-LEFT OUTER JOIN ecommerce_order ON (ecommerce_order.basket_id = ecommerce_basket.id)
-LEFT OUTER JOIN ecommerce_invoice ON  (ecommerce_invoice.order_id = ecommerce_order.id) 
-LEFT OUTER JOIN client_address ON (client_address.id = client_customer.invoices_address_id)
-$product_join
-$add_to_where
-GROUP BY
-client_customer.id,
-client_customer.created,
-client_customer.email, 
-client_customer.title_before,
-client_customer.first_name, 
-client_customer.last_name, 
-client_customer.newsletter,
-client_customer.invoices_address_id,
-client_address.country_id,
-client_customer.company_id,
-client_customer.group_id
-ORDER BY client_customer.id";
+		$sql = "SELECT
+			client_customer.id AS customer_id, 
+			client_customer.created AS customer_created, 
+			MAX(ecommerce_invoice.created) AS last_order,
+			client_customer.email, 
+			client_customer.title_before, 
+			client_customer.first_name,
+			client_customer.last_name,  
+			client_customer.newsletter,
+			client_customer.invoices_address_id,
+			client_address.country_id,
+			client_customer.company_id,
+			COUNT(ecommerce_basket.id) AS count_baskets,
+			COUNT(ecommerce_invoice.id) AS count_orders,
+			(SELECT SUM(quantity) FROM ecommerce_basket_content INNER JOIN ecommerce_basket ON (ecommerce_basket.customer_id = client_customer.id AND ecommerce_basket.id = ecommerce_basket_content.basket_id)) AS count_items,
+			SUM(ecommerce_invoice.goods_net) AS goods_net
+			FROM client_customer
+			LEFT OUTER JOIN ecommerce_basket ON (ecommerce_basket.customer_id = client_customer.id)
+			LEFT OUTER JOIN ecommerce_order ON (ecommerce_order.basket_id = ecommerce_basket.id)
+			LEFT OUTER JOIN ecommerce_invoice ON  (ecommerce_invoice.order_id = ecommerce_order.id) 
+			LEFT OUTER JOIN client_address ON (client_address.id = client_customer.invoices_address_id)
+			$product_join
+			$add_to_where
+			GROUP BY
+			client_customer.id,
+			client_customer.created,
+			client_customer.email, 
+			client_customer.title_before,
+			client_customer.first_name, 
+			client_customer.last_name, 
+			client_customer.newsletter,
+			client_customer.invoices_address_id,
+			client_address.country_id,
+			client_customer.company_id
+			ORDER BY client_customer.id";
 		}
 
 		/**
@@ -1845,8 +1834,6 @@ ORDER BY client_customer.id";
 		 */
 		
 		if ($subselect_add_to_where) $sql = "SELECT * FROM ($sql) AS subquery WHERE 1=1 $subselect_add_to_where";
-		
-		//msg($sql);
 		
 		return $this->executeSql($sql);
 		
@@ -1905,7 +1892,7 @@ ORDER BY client_customer.id";
 	}
 	
 	/**
-	 * move customers to group
+	 * add customers to group
 	 * input is list from getClientList
 	 * 
 	 * @param array $customer_list
@@ -1914,20 +1901,13 @@ ORDER BY client_customer.id";
 	 * @param integer $group_id
 	 * ID of group
 	 * 
-	 * @return boolean
-	 * result of operation
-	 * 
 	 * @see getClientList
 	 */
 	 
-	public function moveCustomersToGroupFromList($customer_list, $group_id) {
+	public function addCustomersToGroupFromList($customer_list, $group_id, $group_ids_remove) {
 	
 		if (!is_array($customer_list) || count($customer_list) == 0) return false;
 		if (!is_numeric($group_id)) return false;
-		 
-		/**
-		 * this can be very heavy, but there is no simpler way apart from writing very complicated, redundant SQL query
-		 */
 		 
 		$id_list = '';
 		
@@ -1936,14 +1916,25 @@ ORDER BY client_customer.id";
 		}
 			
 		$id_list = rtrim($id_list, ",");
-		
-		$update_sql = "UPDATE client_customer SET group_id = $group_id WHERE id IN ($id_list)";
-		
-		//msg($update_sql);
-		
-		if ($this->executeSql($update_sql)) return true;
-		else return false;
-			
+
+		if (is_array($group_ids_remove)) $group_ids = $group_ids_remove;
+		else $group_ids = array();
+		$group_ids[] = $group_id;
+		$group_ids = implode(",", $group_ids);
+
+		// first clear all group
+		$sql = "DELETE FROM client_customer_group WHERE group_id IN ($group_ids)";
+		$this->executeSql($sql);
+
+		// then insert
+		$sql = "INSERT INTO client_customer_group (group_id, customer_id)
+			SELECT $group_id AS group_id, client_customer.id AS customer_id
+			FROM client_customer 
+			WHERE id IN ($id_list)";
+
+		$this->executeSql($sql);
+
+		return true;
 	}
 	
 	/**

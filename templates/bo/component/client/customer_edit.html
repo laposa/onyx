@@ -25,19 +25,20 @@ $(document).ready(function(){
 
 		<!-- BEGIN: group -->
 			<div class="row group">
-				<span class="label" for="client-customer-group"><label>Customer group</label></span>
+				<span class="label"><label>Customer Group</label></span>
 				<span class="field">
-					<select id="client-customer-group" name="client[customer][group_id]" >
-						<option value="0">new (ungrouped)</option>
-						<!-- BEGIN: item --><option value="{ITEM.id}" {SELECTED}>{ITEM.name|htmlspecialchars}</option><!-- END: item -->
-					</select>
+					<!-- BEGIN: item -->
+					<input type="checkbox" id="client_customer_group_ids_{ITEM.id}" name="client[customer][group_ids][]" value="{ITEM.id}" {CHECKED}/>
+					<label for="client_customer_group_ids_{ITEM.id}">{ITEM.name|htmlspecialchars}</label>
+					<br/>
+					<!-- END: item -->
 				</span>
 			</div>
 		<!-- END: group -->
 
 		<!-- BEGIN: account_type -->
 		<div class="row account_type">
-			<span class="label" for="client-customer-account_type"><label>Account type</label></span>
+			<span class="label" for="client-customer-account_type"><label>Account Type</label></span>
 			<span class="field">
 				<select id="client-customer-account_type" name="client[customer][account_type]" >
 					<option value="0" {SELECTED_account_type_0}>normal account</option>

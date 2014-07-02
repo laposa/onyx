@@ -1,8 +1,8 @@
 <?php
 /**
  * class client_group
- * 
- * Copyright (c) 2011 Laposa Ltd (http://laposa.co.uk)
+ *
+ * Copyright (c) 2011-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -54,15 +54,13 @@ class client_group extends Onxshop_Model {
 	 
 	private function getCreateTableSql() {
 	
-		$sql = "
-CREATE TABLE client_group (
-    id serial NOT NULL PRIMARY KEY,
-    name varchar(255) ,
-    description text ,
-    search_filter text ,
-    other_data text
-);
-		";
+		$sql = "CREATE TABLE client_group (
+		    id serial NOT NULL PRIMARY KEY,
+		    name varchar(255) ,
+		    description text ,
+		    search_filter text ,
+		    other_data text
+		)";
 		
 		return $sql;
 	}

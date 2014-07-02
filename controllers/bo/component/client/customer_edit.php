@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2005-2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2005-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -44,11 +44,9 @@ class Onxshop_Controller_Bo_Component_Client_Customer_Edit extends Onxshop_Contr
 		$list = $ClientGroup->listGroups();
 
 		foreach ($list as $item) {
-		
 			$this->tpl->assign('ITEM', $item);
-			if ($item['id'] == $client_data['customer']['group_id']) $this->tpl->assign('SELECTED', 'selected="selected"');
-			else $this->tpl->assign('SELECTED', '');
-		
+			if (in_array($item['id'], $client_data['customer']['group_ids'])) $this->tpl->assign('CHECKED', 'checked="checked"');
+			else $this->tpl->assign('CHECKED', '');
 			$this->tpl->parse('content.status.group.item');
 		}
 		$this->tpl->parse('content.status.group');

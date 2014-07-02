@@ -86,7 +86,7 @@
 					<span class="label"><label>Bought any of a products highlighted in the following list</label></span>
 					<span class="field">
 							<!-- BEGIN: item -->
-							<input type="checkbox" value="{ITEM.id}" id="customer-filter-product_bought_{ITEM.id}" name="customer-filter[product_bought][]" {ITEM.checked}> <label for="customer-filter-product_bought_{ITEM.id}">{ITEM.name|htmlspecialchars}</label><br />
+							<input type="checkbox" value="{ITEM.id}" id="customer-filter-product_bought_{ITEM.id}" name="customer-filter[product_bought][]" {ITEM.checked}> <label for="customer-filter-product_bought_{ITEM.id}" title="{ITEM.teaser|strip_tags|htmlspecialchars}">{ITEM.name|htmlspecialchars} (id: <a href="/backoffice/products/{ITEM.id}/edit" target="_blank">{ITEM.id}</a>)</label><br />
 							<!-- END: item -->
 						</select>
 					</span>
@@ -95,8 +95,8 @@
 					{disableONXSHOP_REQUEST_rt #bo/component/relation_taxonomy~relation=product:id=GET.id~}
 				</div>
 				<!-- END: product -->
-	
-			
+
+
 				<div class="row registered_between" style="width: 30%;">
 					<span class="label"><label>Registered between</label></span>
 					<span class="field">
@@ -120,10 +120,28 @@
 			</fieldset>
 			
 			<input type="hidden" name="customer-filter[group_id]" value="{CUSTOMER_FILTER.group_id}" />
+
+			<!-- BEGIN: group -->
+			<div class="row group">
+				<span class="label"><label>On save, also remove listed customers from the following groups:</label></span>
+				<span class="field">
+					<!-- BEGIN: item -->
+					<input type="checkbox" id="customer-filter-group_ids_remove_{ITEM.id}" name="customer-filter[group_ids_remove][]" value="{ITEM.id}" {CHECKED}/>
+					<label for="customer-filter-group_ids_remove_{ITEM.id}">{ITEM.name|htmlspecialchars}</label>
+					<br/>
+					<!-- END: item -->
+				</span>
+			</div>
+			<!-- END: group -->
 			
 			<div class="row submit">
 				<span class="label"><label>&nbsp;</label></span>
-				<span class="field"><button type="submit" name="search" value="Search" onclick="$(this).addClass('saving');"><span>Display Specified Customers</span></button><!-- BEGIN: save --><button type="submit" name="save" value="save" onclick="$(this).addClass('saving');" title="Newly matched customers will be moved to this group, but it's possible some other customers will remain in this group until they will be moved somewhere else."><span>Save and move listed customers to this group</span></button><!-- END: save --></span>
+				<span class="field">
+					<button type="submit" name="search" value="Search" onclick="$(this).addClass('saving');"><span>Display Specified Customers</span></button>
+					<!-- BEGIN: save -->
+					<button type="submit" name="save" value="save" onclick="$(this).addClass('saving');" title="Newly matched customers will be added to this group, but bear in mind some customers could be already assigned to other groups."><span>Save and add listed customers to this group</span></button>
+					<!-- END: save -->
+				</span>
 			</div>
 			
 			

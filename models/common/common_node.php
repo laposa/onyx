@@ -1079,7 +1079,7 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
      
     public function checkDisplayPermissionGroupAcl($node_data, $force_admin_visibility = true) {
 		
-		//return true in case display permission are not set
+		// return true in case display permission are not set
 		if (!is_array($node_data['display_permission_group_acl'])) return true;
 		
 		if (Onxshop_Bo_Authentication::getInstance()->isAuthenticated() && $force_admin_visibility) {
@@ -1087,21 +1087,8 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 			return true;
 		
 		}
-		
-		if ($_SESSION['client']['customer']['id'] == 0) {
-			//Everyone (anonymouse)
-			$current_user_group_id = 0;
-			
-		} else {
-		
-			//possibly member of a group
-			if (is_numeric($_SESSION['client']['customer']['group_id'])) $current_user_group_id = $_SESSION['client']['customer']['group_id'];
-			else $current_user_group_id = 0;
-		
-		}
-		
 
-		//first set rule for Everyone
+		// first set rule for Everyone
 		switch ($node_data['display_permission_group_acl'][0]) {
 			
 			case '0':
@@ -1116,25 +1103,39 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 			break;
 			
 		}
-		
-		//than set rule for active user group
-		switch ($node_data['display_permission_group_acl'][$current_user_group_id]) {
-			
-			case '0':
-				$visibility = false;
-			break;
-			case '1':
-				$visibility = true;
-			break;
-			case '-1':
-			default:
-				//$visibility = null;
-			break;
-			
+
+		// than set rule as per active user groups
+		if (!is_array($_SESSION['client']['customer']['group_ids'])) return $visibility;
+		if (count($_SESSION['client']['customer']['group_ids']) == 0) return $visibility;
+
+		$visible = 0;
+		$invisible = 0;
+
+		foreach ($_SESSION['client']['customer']['group_ids'] as $group_id) {
+
+			switch ($node_data['display_permission_group_acl'][$group_id]) {
+				
+				case '0':
+					$invisible++;
+					break;
+
+				case '1':
+					$visible++;
+					break;
+
+			}
+
 		}
-		
+
+		// visibility has priority
+		if ($visible > 0) return true;
+
+		// if no visibility explicitly defined and invisibility explicitly defined then hide
+		if ($visible == 0 && $invisible > 0) return false;
+
+		// otherwise use rule for everyone
     	return $visibility;
-    	
+
     }
 
     /**

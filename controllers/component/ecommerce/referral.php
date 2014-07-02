@@ -100,7 +100,6 @@ class Onxshop_Controller_Component_Ecommerce_Referral extends Onxshop_Controller
 	protected function initCustomer()
 	{
 		$this->customer_id = $this->getActiveCustomerId();
-		$this->customer_group_id = $_SESSION['client']['customer']['group_id'];
 	}
 
 
