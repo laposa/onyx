@@ -102,9 +102,9 @@ $uri_map = array(
 	),
 	
 	'^/print' => array(
-		'^/print/invoice/(.*)$' => '/index.php?request=sys/html5.node/site/print.component/ecommerce/invoice?id=$1',
-		'^/print/invoice_proforma/(.*)$' => '/index.php?request=sys/html5.node/site/print.component/ecommerce/invoice@component/ecommerce/invoice_proforma?id=$1',
-		'^/print/gift_card/(.*)$' => '/index.php?request=sys/html5.node/site/print.component/ecommerce/gift_card?order_id=$1'
+		'^/print/invoice/(.*)$' => '/index.php?request=sys/html5.node/site/print.component/ecommerce/invoice&id=$1',
+		'^/print/invoice_proforma/(.*)$' => '/index.php?request=sys/html5.node/site/print.component/ecommerce/invoice@component/ecommerce/invoice_proforma&id=$1',
+		'^/print/gift_card/(.*)$' => '/index.php?request=sys/html5.node/site/print.component/ecommerce/gift_card&order_id=$1'
 	)
 
 );
