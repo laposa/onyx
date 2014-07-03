@@ -27,6 +27,13 @@ class Onxshop_Bo_Authentication
 
 
 	/**
+	 * Superuser emulation flag
+	 */
+	private static $superuserEmulation = false;
+
+
+
+	/**
 	 * Superuser Authentication Adapter
 	 */
 	private $superuserAuthAdapter;
@@ -210,11 +217,22 @@ class Onxshop_Bo_Authentication
 	 */
 	public function hasPermission($permission, $scope = null)
 	{
+		if (self::$superuserEmulation) return true;
 		if (!$this->isAuthenticated()) return false;
 		if ($this->isSuperuser()) return true;
 
 		$customer_id = $_SESSION['authentication']['user_details']['id'];
 		return $this->Permission->checkPermissionByCustomer($customer_id, $permission, $scope);
+	}
+
+
+
+	/**
+	 * Emulate superuser temporarily (just for the current script run)
+	 */
+	public function emulateSuperuserTemporarily()
+	{
+		self::$superuserEmulation = true;
 	}
 
 

@@ -22,9 +22,8 @@ class Onxshop_Controller_Component_Ecommerce_Payment_Worldpay_Callback extends O
 			
 			// we need this to allow get order detail with WorldPay
 			// we should check Worlpay IP address here
-			$_SESSION['authentication']['authenticity'] = 1;
+			Onxshop_Bo_Authentication::getInstance()->emulateSuperuserTemporarily();
 			$transaction_id = $this->paymentProcess($this->GET['order_id'], $_POST);
-			$_SESSION['authentication']['authenticity'] = 0;
 		}
 
 		return true;
