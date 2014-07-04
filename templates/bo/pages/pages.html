@@ -44,7 +44,33 @@ function hookNodeEditPostUpdate() {
 </script>
 
 <div id="pages">
-	<div class="twoColumnPage page fibonacci-1-5">
+	<div id="pageSide">
+		<div id="pageSideWrapper">
+			<div id="secondaryNavigation">
+				<div id="secondaryNavigationWrapper">
+					<div class="top"><span></span></div>
+					<div class="content">
+						
+					</div>
+					<div class="bottom"><span></span></div>
+				</div>
+			</div>
+			
+			<div id="containerFour">
+				<div id="containerFourWrapper">
+					<div class="top"><span></span></div>
+					<div class="content">
+						<div id="pages_node_menu">
+							{ONXSHOP_REQUEST_menupages #bo/component/node_menu~id=0:open=GET.open:expand_all=1:publish=0~}
+						</div>
+					</div>
+					<div class="bottom"><span></span></div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="twoColumnPage page fibonacci-5-1">
 		<div class="top"><span></span></div>
 		<div class="content">
 			<div class="pageWrapper">
@@ -59,23 +85,14 @@ function hookNodeEditPostUpdate() {
 			
 						<div class="columnOne">
 							<div class="columnWrapper">
-								<div id="pages_node_menu">
-									{ONXSHOP_REQUEST_menupages #bo/component/node_menu~id=0:open=GET.open:expand_all=1:publish=0~}
+								<div id="sub_content">
+									{NODE_EDIT}
 								</div>
 							</div>
 						</div>
 						<div class="columnTwo">
 							<div class="columnWrapper">
-								<div class="twoColumnLayout fibonacci-5-1">
-									<div class="layoutColumnOne ofTwo">
-										<div id="sub_content">
-											{NODE_EDIT}
-										</div>
-									</div>
-									<div class="layoutColumnTwo ofTwo">
-										<p><a class="button add" href="#" id="button_add_subpage" data-node_id="{NODE_ID}" data-node_group="page" style="margin-left: 10px;"><span>Add Subpage</span></a></p>
-									</div>
-								</div>
+								<p><a class="button add" href="#" id="button_add_subpage" data-node_id="{NODE_ID}" data-node_group="page" style="margin-left: 10px;"><span>Add Subpage</span></a></p>
 							</div>
 						</div>
 						<div class="rowBottom">

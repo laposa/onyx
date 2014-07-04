@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2006-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2006-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -14,6 +14,8 @@ class Onxshop_Controller_Bo_Node_Content_Shared extends Onxshop_Controller_Bo_No
 	 */
 	 
 	function pre() {
+		
+		parent::pre();
 		
 		$node_id = $this->GET['id'];
 		$select = $this->GET['select'];

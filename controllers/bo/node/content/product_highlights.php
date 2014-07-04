@@ -1,13 +1,13 @@
 <?php
 /**
- * Copyright (c) 2006-2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2006-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
-require_once('controllers/bo/node/default.php');
+require_once('controllers/bo/node/content/default.php');
 require_once('models/ecommerce/ecommerce_product_image.php');
 
-class Onxshop_Controller_Bo_Node_Content_Product_highlights extends Onxshop_Controller_Bo_Node_Default {
+class Onxshop_Controller_Bo_Node_Content_Product_highlights extends Onxshop_Controller_Bo_Node_Content_Default {
 
 	/**
 	 * pre action
@@ -15,6 +15,8 @@ class Onxshop_Controller_Bo_Node_Content_Product_highlights extends Onxshop_Cont
 
 	function pre() {
 
+		parent::pre();
+		
 		if ($_POST['node']['component']['display_sorting'] == 'on') $_POST['node']['component']['display_sorting'] = 1;
 		else $_POST['node']['component']['display_sorting'] = 0;
 		
@@ -30,6 +32,8 @@ class Onxshop_Controller_Bo_Node_Content_Product_highlights extends Onxshop_Cont
 	 
 	function post() {
 	
+		parent::post();
+		
 		//template
 		$this->tpl->assign("SELECTED_template_{$this->node_data['component']['template']}", "selected='selected'");
 		//image role
@@ -59,6 +63,10 @@ class Onxshop_Controller_Bo_Node_Content_Product_highlights extends Onxshop_Cont
 		}
 	}
 
+	/**
+	 * parseProductSelect
+	 */
+	 
 	function parseProductSelect() {
 
 		require_once('models/ecommerce/ecommerce_product.php');

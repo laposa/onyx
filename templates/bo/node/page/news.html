@@ -1,62 +1,46 @@
-<!-- BEGIN: title -->{NODE.title} - Article Edit<!-- END: title -->
+<!-- BEGIN: title -->{NODE.title} - News Article Edit<!-- END: title -->
 <!-- BEGIN: content -->
-{FILE "bo/node/default_top.html"}
-<fieldset>
-	<div class="row">
-		<span class="label" style="float: left;"><label>Author Name:</label></span>
-		<span class="field"><input type="text" class="text" name="node[component][author]" value="{NODE.component.author|htmlspecialchars}" /></span>
-	</div>	
-	<div class="row rte content">
-		<span class="label"><label>Content <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'simple', 'component_content'); return false;"><span>RTE</span></a>:</label></span>
-		<span class="field"><textarea name="node[content]" id="component_content" class="big" style="width: 100%; height: auto;" rows="20" cols="20"><!-- BEGIN: empty --><p>enter your content here</p><!-- END: empty -->{NODE.content|htmlspecialchars}</textarea></span>
-	</div>
-</fieldset>
-
-	{FILE "bo/node/item_meta_data.html"}
-	{FILE "bo/node/item_taxonomy.html"}
-
-
-{ONXSHOP_REQUEST_tinymce1 #bo/tinymce~id=GET.id:relation=node:edit_elements=component_content:theme=advanced~}
-{FILE "bo/node/item_image_list.html"}
-
-	<div class="row">
-		<span class="label"><label for="node-component-allow_comment">Allow Comments:</label></span>
-		<span class="field"><input type="checkbox" id="node-component-allow_comment" name="node[component][allow_comment]" {NODE.component.allow_comment}/></span>
-	</div>
+{FILE "bo/node/form_open.html"}
 	
-	{FILE "bo/node/item_publish.html"}
-</div>
-		
-<div id="onxshop_minor" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
-	{FILE "bo/node/item_content_list.html"}
-	<div class="row">
-		<span class="label"><label for="node_teaser">Teaser (Strapline):</label></span>
-		<span class="field"><input type="text" name="node[teaser]" id="node_teaser" class="text" value="{NODE.teaser|htmlspecialchars}" /></span>
+<div class="twoColumnLayout fibonacci-1-1">
+	<div class="layoutColumnOne ofTwo">
+		{FILE "bo/node/item_title.html"}
+		{FILE "bo/node/item_page_title.html"}
+		{FILE "bo/node/item_uri_title.html"}
+		{FILE "bo/node/item_browser_title.html"}
+		{FILE "bo/node/item_teaser.html"}
+		{FILE "bo/node/item_description.html"}
 	</div>
-	<div class="row">
-		<span class="label"><label>Author ID:</label></span>
-		<span class="field"><input type="text" name="node[author]" value="{NODE.author}" /></span>
+	<div class="layoutColumnTwo ofTwo">
+		{FILE "bo/node/item_image_list.html"}
+		{FILE "bo/node/item_taxonomy.html"}
+		{FILE "bo/node/item_layout_style.html"}
+		{FILE "bo/node/item_css_class.html"}
 	</div>
-	<div class="row">
-		<span class="label"><label>Date (overwrite created date):</label></span>
-		<span class="field"><input type="text" id="node-created" name="node[created]" value="{NODE.created}" /></span>
-	</div>
-	<script type="text/javascript">
-	$(document).ready(function(){
-		$('#node-created').datepicker({firstDay: 1, dateFormat: 'yy-mm-dd'});
-	});
-	</script>
-
-	{FILE "bo/node/item_other_data.html"}
-	{FILE "bo/node/item_position.html"}
 </div>
 
-<div id="onxshop_advanced" class="ui-tabs-panel ui-widget-content ui-corner-bottom">
-	{FILE "bo/node/item_title_link.html"}
-	{FILE "bo/node/item_advanced.html"}
-	{FILE "bo/node/item_expert_options.html"}
-	{FILE "bo/node/item_signature.html"}
+{FILE "bo/node/item_author_name.html"}
+{FILE "bo/node/item_content.html"}
+{FILE "bo/node/item_allow_comment.html"}
+{FILE "bo/node/item_created.html"}
+
+{FILE "bo/node/item_content_list.html"}
+<div class="twoColumnLayout fibonacci-1-1">
+	<div class="layoutColumnOne ofTwo">
+		{FILE "bo/node/item_display_in_menu.html"}
+		{FILE "bo/node/item_display_permission.html"}
+		{FILE "bo/node/item_display_permission_group_acl.html"}
+		{FILE "bo/node/item_require_login.html"}
+		{FILE "bo/node/item_require_ssl.html"}
+	</div>
+	<div class="layoutColumnTwo ofTwo">
+		{NODE_TYPE}
+		{FILE "bo/node/item_signature.html"}
+		{FILE "bo/node/item_head.html"}
+	</div>
 </div>
 
+{FILE "bo/node/item_publish.html"}
+	
 {FILE "bo/node/form_close.html"}
 <!-- END: content -->

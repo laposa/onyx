@@ -1,0 +1,9 @@
+<div class="row">
+		<span class="label"><label>Date (overwrite created date):</label></span>
+		<span class="field"><input type="text" id="node-created" name="node[created]" value="{NODE.created}" /></span>
+</div>
+<script type="text/javascript">
+$(document).ready(function(){
+	$('#node-created').datepicker({firstDay: 1, dateFormat: 'yy-mm-dd'});
+});
+</script>

@@ -1,7 +1,7 @@
 /**
  * Backoffice CSS
  *
- * Norbert @ Laposa Ltd 2009 - 2011
+ * Norbert @ Laposa Ltd 2009 - 2014
  *
  */
 
@@ -12,7 +12,7 @@
 @import url(/share/css/cms_header.css);
 @import url(/share/css/default/theme_layout/responsive.css);
 
-body {font-size: 70%; color: white; font-family: "Lucida Grande", Helvetica, Arial, sans-serif; background: #6d7076 url(../images/lion-fabric.png) repeat; /*background: #e6eaef;*/}
+body {font-size: 70%; color: black; font-family: "Lucida Grande", "Helvetica Neue", Helvetica, Arial, sans-serif; background: white;}
 h2 a, h3 a, h4 a {color: white;}
 p:first-child {margin-top: 0;}
 
@@ -56,14 +56,14 @@ a.onxshop_nopublish span,
  * tables
  */
  
-table {margin-top: 0; color: black;}
+table {margin-top: 0; width: 100%; color: black; border-radius: 0; border: 0; box-shadow: 2px 2px rgba(0,0,0,0.2); border-left: 1px solid rgba(0,0,0,0.2); border-top: 1px solid rgba(0,0,0,0.2);}
 td {vertical-align: middle;}
 th {text-align: left;}
 th.last {text-align: right;}
 tr:hover td {background: white;}
 /*tbody tr:nth-child(odd) {background-color:#eee;}
 tbody tr:nth-child(even) {background-color:#fff;}*/
-div.layoutColumnWrapper > table {border: 1px solid #AAA; background: #FDFDFD; border-top: 0; /*box-shadow: 1px 1px 10px #000;*/ box-shadow: 2px 2px rgba(0,0,0,0.2); width: 100%; margin-top: 0; border-top-left-radius: 0;}
+div.layoutColumnWrapper > table {background: #FDFDFD; width: 100%; margin-top: 0; }
 table caption {margin: 0; padding: 5px;}
 table a {text-decoration: none;}
 td {background: #F9F9F9; border-top: 1px solid white; border-bottom: 1px solid #EAEAEA;}
@@ -80,7 +80,6 @@ background: linear-gradient(top,  #ededed 0%,#d1d1d1 100%); /* W3C */
 filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', endColorstr='#d1d1d1',GradientType=0 ); /* IE6-9 */
 }
 tfoot td {border-top: 1px solid white; border-bottom: 1px solid #EAEAEA; text-shadow: 0 1px 0 white;
-background: #e9e9e9; /* Old browsers */
 background: #ededed; /* Old browsers */
 background: -moz-linear-gradient(top,  #ededed 0%, #d1d1d1 100%); /* FF3.6+ */
 background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ededed), color-stop(100%,#d1d1d1)); /* Chrome,Safari4+ */
@@ -95,9 +94,11 @@ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', end
  */
  
 form {padding: 0;}
+form fieldset {margin: 1em 0;}
 form div.title span.label {text-align: left;}
 form div.title span.field {clear: both; display: block; padding-left: 0; width: 100%;}
-form div.title span.field input.text {width: 70%; float: left;}
+form div.row {padding: 0 10px;}
+form span.field {width: 100%;}
 form div.rte span.label {text-align: left;}
 form div.rte span.field {display: block; overflow: auto; width: auto; clear: both; padding: 1px 0 0 1px;}
 textarea {font-size: medium;}
@@ -189,8 +190,9 @@ div.file_list_icon div.item a.image {display: block; max-height: 120px; overflow
 /**
  * node_edit (pages)
  */
- 
+#backoffice div.twoColumnPage {width: 80%; float: left;}
 #backoffice div.columnTwo div.node_edit form {padding: 0;}
+#backoffice #pageSide {width: 20%; float: left; overflow-x: scroll;}
 
 /*don't show image zoom on picture (gallery) node edit*/
 div.node_edit.node-content-picture div.image_zoom {display: none;}
@@ -209,34 +211,6 @@ div.wrapper {margin: 0 10px;}
 #onxshop_content {clear: both;}
 #layout_icon {background-position: top right; background-repeat: no-repeat;}
 
-/**
- * backoffice columns
- */
- 
-#backoffice div.columnOne {color: black; border-top-left-radius: 2px; border-bottom-left-radius: 2px;/*box-shadow: 1px 1px 10px #000;*/ box-shadow: 2px 2px rgba(0,0,0,0.2);
-background: #ededed; /* Old browsers */
-background: -moz-linear-gradient(top,  #ededed 0%, #d1d1d1 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ededed), color-stop(100%,#d1d1d1)); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top,  #ededed 0%,#d1d1d1 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top,  #ededed 0%,#d1d1d1 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top,  #ededed 0%,#d1d1d1 100%); /* IE10+ */
-background: linear-gradient(top,  #ededed 0%,#d1d1d1 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', endColorstr='#d1d1d1',GradientType=0 ); /* IE6-9 */
-}
-#backoffice div.columnOne caption {color: black;}
-#backoffice div.columnTwo form {padding: 10px; color: black; background: #ededed; /* Old browsers */
-background: -moz-linear-gradient(top,  #ededed 0%, #d1d1d1 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ededed), color-stop(100%,#d1d1d1)); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top,  #ededed 0%,#d1d1d1 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top,  #ededed 0%,#d1d1d1 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top,  #ededed 0%,#d1d1d1 100%); /* IE10+ */
-background: linear-gradient(top,  #ededed 0%,#d1d1d1 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', endColorstr='#d1d1d1',GradientType=0 ); /* IE6-9 */}
-#backoffice div.twoColumnPage div.columnOne div.columnWrapper {padding-top: 10px; margin-left: 10px; padding-right: 15px; margin-right:0;}
-#backoffice div.twoColumnPage div.columnTwo div.columnWrapper {margin-left: 0;}
-#backoffice div.twoColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnOne > div.layoutColumnWrapper {margin-right: 10px;}
-#backoffice div.twoColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnTwo > div.layoutColumnWrapper {padding-top: 0em; margin-left: 0;}
-#backoffice div.twoColumnPage div.columnOne div.twoColumnLayout > div.layoutWrapper > div.layoutContent > div.layoutContentWrapper > div.layoutColumnTwo > div.layoutColumnWrapper {padding-top: 0; margin-left: 10px;}
 
 /**
  * CodeMirror
@@ -264,3 +238,6 @@ div.CodeMirror {font-size: 13px;}
 .ui-autocomplete .disabled img, 
 .ui-autocomplete .notpublic img { opacity: 0.2; }
 
+
+#node_properties_edit {position: relative;}
+#node_properties_edit button.save {position: fixed; right: 20px; bottom: 20px;}

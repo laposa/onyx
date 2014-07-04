@@ -1,98 +1,14 @@
-
-			<fieldset>
-				<legend>Advanced</legend>
-				{NODE_TYPE}
-				<script type="text/javascript">
-				/*$(function(){
-					$('#node-node_controller').change(
-						function(){
-							if (confirm('reload interface')) {
-								alert('reloading');
-								$('#node_edit_{GET.id}').submit();
-							}
-						});
-				});*/
-				</script>
-				<div class="row uri_title">
-					<span class="label"><label for="node.uri_title" title="Speaking URL path segment">Title for URI (use only last segment, not full path):</label></span>
-					<span class="field"><input class="text" type="text" name="node[uri_title]" id="node.uri_title" value="{NODE.uri_title|htmlspecialchars}" title="If empty, navigation title will be used" onchange="var value = $(this).attr('value'); if (value.indexOf('{_SERVER.HTTP_HOST}') != -1) {growlMessage('Invalid title, don\'t use actual URL'); $(this).attr('value', '');}" /></span>
-				</div>
-				<div class="row css_class">
-					<span class="label"><label for="node.css_class">CSS class:</label></span>
-					<span class="field"><input class="text" type="text" name="node[css_class]" id="node.css_class" value="{NODE.css_class|htmlspecialchars}" /></span>
-				</div>
-
-				<div class="row display_in_menu">
-					<span class="label"><label for="node.display_in_menu">Display Menu Option:</label></span>
-					<span class="field">
-						<select name="node[display_in_menu]" id="node.display_in_menu">
-							<option value="1" {NODE.display_in_menu_select_1}>Normal</option>
-							<option value="2" {NODE.display_in_menu_select_2}>Don't create a link</option>
-							<option value="0" {NODE.display_in_menu_select_0}>Don't display in the menu</option>
-						</select>
-					</span>
-				</div>
-				<div class="row display_permission">
-					<span class="label"><label for="node.display_permission">Display Permission by Customer Status:</label></span>
-					<span class="field">
-						<select name="node[display_permission]" id="node.display_permission">
-							<option value="0" {NODE.display_permission_select_0}>Display Allways</option>
-							<option value="1" {NODE.display_permission_select_1}>Show At Normal Login</option>
-							<option value="2" {NODE.display_permission_select_2}>Hide At Normal Login</option>
-							<option value="3" {NODE.display_permission_select_3}>Show At Trade Login</option>
-							<option value="4" {NODE.display_permission_select_4}>Hide At Trade Login</option>
-						</select>
-					</span>
-				</div>
-				
-				<div class="row display_permission_group_acl">
-					<span class="label"><label for="node.display_permission_group_acl">Display Permission Customer Group:</label></span>
-					<span class="field">
-					<!-- BEGIN: display_permission_group_acl -->
-					<table>
-						<thead>
-							<tr><th>Name</th><th>Privilege</th></tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>Everyone</td>
-								<td>
-									<select name="node[display_permission_group_acl][0]" {DISABLE_EMPTY}>
-										<option value="-1" {SELECTED.item_-1}>-</option>
-										<option value="0" {SELECTED.item_0}>Hide (Deny)</option>
-										<option value="1" {SELECTED.item_1}>Show (Allow)</option>
-									</select>
-								</td>
-							</tr>
-							<!-- BEGIN: item --><tr>
-								<td>{GROUP.name|htmlspecialchars}</td>
-								<td>
-									<select name="node[display_permission_group_acl][{GROUP.id}]">
-										<option value="-1" {SELECTED.item_-1}>-</option>
-										<option value="0" {SELECTED.item_0}>Hide (Deny)</option>
-										<option value="1" {SELECTED.item_1}>Show (Allow)</option>
-									</select>
-								</td>
-							</tr><!-- END: item -->
-						</tbody>
-					</table>
-						<!-- BEGIN: empty -->
-						<p>You need to create some customer groups to use group ACL.</p>
-						<!-- END: empty -->
-					<!-- END: display_permission_group_acl -->
-					
-					</span>
-				</div>
-				
-				<div class="row require_login">
-					<span class="label"><label for="node.require_login">Require Login (force login)</label></span>
-					<span class="field"><input type="checkbox" id="node.require_login" name="node[require_login]" {NODE.require_login_check} /></span>
-				</div>
-				
-				<div class="row require_ssl">
-					<span class="label"><label for="node.require_ssl">Require SSL (if available)</label></span>
-					<span class="field"><input type="checkbox" id="node.require_ssl" name="node[require_ssl]" {NODE.require_ssl_check} /></span>
-				</div>
-				
-			</fieldset>
+<fieldset>
+	<legend>Advanced</legend>
+	{NODE_TYPE}
+	
+	{FILE "bo/node/item_uri_title.html"}
+	{FILE "bo/node/item_css_class.html"}
+	{FILE "bo/node/item_display_in_menu.html"}
+	{FILE "bo/node/item_display_permission.html"}
+	{FILE "bo/node/item_display_permission_group_acl.html"}
+	{FILE "bo/node/item_require_login.html"}
+	{FILE "bo/node/item_require_ssl.html"}
+	
+</fieldset>
 			

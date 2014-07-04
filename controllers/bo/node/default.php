@@ -187,22 +187,65 @@ class Onxshop_Controller_Bo_Node_Default extends Onxshop_Controller {
 	}
 	
 	/**
-	 * hook
-	 *
+	 * pre action
 	 */
 	 
 	function pre() {
+	
+		if ($_POST['node']['display_secondary_navigation'] == 'on' || $_POST['node']['display_secondary_navigation'] == 1) $_POST['node']['display_secondary_navigation'] = 1;
+		else $_POST['node']['display_secondary_navigation'] = 0;
 		
+		if ($_POST['node']['component']['allow_comment'] == 'on') $_POST['node']['component']['allow_comment'] = 1;
+		else $_POST['node']['component']['allow_comment'] = 0;
 	}
 	
 	/**
-	 * hook
-	 *
+	 * post (after) action
+	 */
+
+	function post() {
+
+		if (!is_numeric($this->node_data['display_secondary_navigation'])) $this->node_data['display_secondary_navigation'] = $GLOBALS['onxshop_conf']['global']['display_secondary_navigation'];
+		$this->node_data['display_secondary_navigation']        = ($this->node_data['display_secondary_navigation']) ? 'checked="checked"'      : '';
+
+		$this->node_data['component']['allow_comment']        = ($this->node_data['component']['allow_comment']) ? 'checked="checked"'      : '';
+		
+		//layout styles
+		$this->renderLayoutStyles();
+	}
+	
+	/**
+	 * layout styles
 	 */
 	 
-	function post() {
+	private function renderLayoutStyles() {
+	
+		$styles = $this->getLayoutStyles();
 		
+		foreach ($styles as $k=>$style) {
+			
+			$style['key'] = $k;
+			$this->tpl->assign("STYLE", $style);
+			
+			if ($this->node_data['layout_style'] == $style['key']) $this->tpl->assign("SELECTED", "selected='selected'");
+			else $this->tpl->assign("SELECTED", "");
+			
+			$this->tpl->parse("content.style.item");
+		}
+		$this->tpl->parse("content.style");
 	}
+	
+	/**
+	 * get styles
+	 */
+	 
+	public function getLayoutStyles() {
+	
+		require_once('conf/node_layout_style.php');
+		
+		return $layout_style['page']['styles'];
+	}
+	
 }
 
 		

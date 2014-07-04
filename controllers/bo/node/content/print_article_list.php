@@ -1,12 +1,12 @@
 <?php
 /** 
- * Copyright (c) 2006-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2006-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
-require_once('controllers/bo/node/default.php');
+require_once('controllers/bo/node/content/default.php');
 
-class Onxshop_Controller_Bo_Node_Content_Print_article_list extends Onxshop_Controller_Bo_Node_Default {
+class Onxshop_Controller_Bo_Node_Content_Print_article_list extends Onxshop_Controller_Bo_Node_Content_Default {
 
 	/**
 	 * post action
@@ -14,6 +14,8 @@ class Onxshop_Controller_Bo_Node_Content_Print_article_list extends Onxshop_Cont
 
 	function post() {
 
+		parent::post();
+		
 		$node_id = $this->GET['id'];
 		
 		require_once('models/common/common_print_article.php');

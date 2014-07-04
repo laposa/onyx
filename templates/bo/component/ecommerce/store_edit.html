@@ -1,24 +1,11 @@
 <!-- BEGIN: title -->Store edit<!-- END: title -->
 <!-- BEGIN: content -->
-
-<script type="text/javascript">
-$(document).ready(function(){
-	$("#store_edit").tabs();
-});
-</script>
-
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 <form method="post" action="" class="store_edit">
 <div id="store_edit">
-	<ul id="store_edit_menu" class="ui-tabs-nav">
-		<li class="active"><a class="onxshop_basic" href="#onxshop_basic"><span>Basic info</span></a></li>
-		<li><a class="onxshop_minor" href="#onxshop_minor"><span>Minor Tweaks</span></a></li>
-		<li><a class="onxshop_advanced" href="#onxshop_advanced"><span>Under the Hood</span></a></li>
-	</ul>
 
 	<button style="float: right;  margin: 3px;" type="submit" name="save" value="save"><span>Save</span></button>
-	
-	<div id="onxshop_basic" class="onxshop_tabulator ui-tabs-panel">
+
 		<div class="twoColumnLayout fibonacci-5-3">
 			<div class="layoutColumnOne ofTwo">
 				<div class="layoutColumnWrapper">
@@ -276,16 +263,10 @@ $(document).ready(function(){
 			</div>
 		</fieldset>
 		
-	</div>
-
-	<div id="onxshop_minor">
-	</div>
 	
-	<div id="onxshop_advanced">
 		<fieldset>
 			<p>Store Last Modified {STORE.modified}</p>
 		</fieldset>
-	</div>
 
 	<button style="float: right;  margin: 3px;" type="submit" name="save" value="save"><span>Save</span></button>
 

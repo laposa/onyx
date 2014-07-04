@@ -1,66 +1,66 @@
-		<div class="row">
-			<span class="label"><label for="node-layout_style">Layout Style (column one to column two width ratio)</label></span>
-			<span class="field">
-				<!-- BEGIN: style -->
-				<select name="node[layout_style]" id="node-layout_style">
-					<!-- BEGIN: item -->
-						<option class='{STYLE.key}' value="{STYLE.key}" {SELECTED}>{STYLE.title}</option>
-					<!-- END: item -->
-				</select>
+<div class="row">
+	<span class="label"><label for="node-layout_style">Layout Style (column one to column two width ratio)</label></span>
+	<span class="field">
+		<!-- BEGIN: style -->
+		<select name="node[layout_style]" id="node-layout_style">
+			<!-- BEGIN: item -->
+				<option class='{STYLE.key}' value="{STYLE.key}" {SELECTED}>{STYLE.title}</option>
+			<!-- END: item -->
+		</select>
+	
+		<div style="margin: 10px 0; width: 100%" id="sliderUI"></div>
+		
+		<script type="text/javascript">
+		$(function() {
+			$("#sliderUI").slider({
+				value: $('#node-layout_style').prop("selectedIndex"),
+				min: 0,
+				max: $('#node-layout_style').children().length - 1,
+				step: 1,
+				slide: function(event, ui) { 
+					$('#node-layout_style').prop("selectedIndex", ui.value);
+					$("#layout_style_preview").attr("class", "twoColumnLayout layout " + $('#node-layout_style').val());
+				},
+				start: function(event, ui) {
+					$("#layout_style_preview").show();
+				},
+				stop: function(event, ui) {
+					$("#layout_style_preview").hide();
+				}
+			});
 			
-				<div style="margin: 10px 0; width: 100%" id="sliderUI"></div>
+			$("#node-layout_style").bind("change", function() {
+				$("#sliderUI").slider({value: $('#node-layout_style').prop("selectedIndex")});
+				$("#layout_style_preview").attr("class", "twoColumnLayout layout " + $('#node-layout_style').val());
+			});
+			
+		});
+		</script>				
+		<!-- END: style -->
+	</span>
+</div>
+<div class="twoColumnLayout layout fibonacci-1-1 " id="layout_style_preview">
+	<div class="layoutWrapper">
+		<div class="top"><span></span></div>
+		<div class="layoutContent">
+			<div class="layoutContentWrapper">
 				
-				<script type="text/javascript">
-				$(function() {
-					$("#sliderUI").slider({
-						value: $('#node-layout_style').prop("selectedIndex"),
-						min: 0,
-						max: $('#node-layout_style').children().length - 1,
-						step: 1,
-						slide: function(event, ui) { 
-							$('#node-layout_style').prop("selectedIndex", ui.value);
-							$("#layout_style_preview").attr("class", "twoColumnLayout layout " + $('#node-layout_style').val());
-						},
-						start: function(event, ui) {
-							$("#layout_style_preview").show();
-						},
-						stop: function(event, ui) {
-							$("#layout_style_preview").hide();
-						}
-					});
-					
-					$("#node-layout_style").bind("change", function() {
-						$("#sliderUI").slider({value: $('#node-layout_style').prop("selectedIndex")});
-						$("#layout_style_preview").attr("class", "twoColumnLayout layout " + $('#node-layout_style').val());
-					});
-					
-				});
-				</script>				
-				<!-- END: style -->
-			</span>
-		</div>
-		<div class="twoColumnLayout layout fibonacci-1-1 " id="layout_style_preview">
-			<div class="layoutWrapper">
-				<div class="top"><span></span></div>
-				<div class="layoutContent">
-					<div class="layoutContentWrapper">
-						
-						<div class="layoutColumnOne ofTwo">
-							<div class="layoutColumnWrapper">
-								Column One
-							</div>
-						</div>
-						<div class="layoutColumnTwo ofTwo">
-							<div class="layoutColumnWrapper">
-								Column Two
-							</div>
-						</div>
+				<div class="layoutColumnOne ofTwo">
+					<div class="layoutColumnWrapper">
+						Column One
 					</div>
 				</div>
-				<div class="bottom"><span></span></div>
+				<div class="layoutColumnTwo ofTwo">
+					<div class="layoutColumnWrapper">
+						Column Two
+					</div>
+				</div>
 			</div>
 		</div>
-		<style type="text/css">
-		#layout_style_preview {display: none;}
-		#layout_style_preview div.layoutColumnWrapper {border: 1px solid grey; padding: 1em;}
-		</style>
+		<div class="bottom"><span></span></div>
+	</div>
+</div>
+<style type="text/css">
+#layout_style_preview {display: none;}
+#layout_style_preview div.layoutColumnWrapper {border: 1px solid grey; padding: 1em;}
+</style>

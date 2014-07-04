@@ -1,13 +1,13 @@
 <?php
 /** 
- * Copyright (c) 2010-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2010-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
 
-require_once('controllers/bo/node/default.php');
+require_once('controllers/bo/node/content/default.php');
 
-class Onxshop_Controller_Bo_Node_Content_Textile extends Onxshop_Controller_Bo_Node_Default {
+class Onxshop_Controller_Bo_Node_Content_Textile extends Onxshop_Controller_Bo_Node_Content_Default {
 
 	/**
 	 * post action
@@ -15,6 +15,8 @@ class Onxshop_Controller_Bo_Node_Content_Textile extends Onxshop_Controller_Bo_N
 
 	function post() {
 	
+		parent::post();
+		
 		$this->node_data['body_attributes'] = htmlspecialchars($this->node_data['body_attributes'], ENT_QUOTES, 'UTF-8');
 		
 		if ($this->node_data['content'] == '' && !$_POST['save']) $this->tpl->parse('content.empty');

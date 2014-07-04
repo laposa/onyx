@@ -1,12 +1,12 @@
 <?php
 /**
- * Copyright (c) 2006-2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2006-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
-require_once('controllers/bo/node/default.php');
+require_once('controllers/bo/node/content/default.php');
 
-class Onxshop_Controller_Bo_Node_Content_News_List extends Onxshop_Controller_Bo_Node_Default {
+class Onxshop_Controller_Bo_Node_Content_News_List extends Onxshop_Controller_Bo_Node_Content_Default {
 
 	/**
 	 * pre action
@@ -14,6 +14,8 @@ class Onxshop_Controller_Bo_Node_Content_News_List extends Onxshop_Controller_Bo
 
 	function pre() {
 	
+		parent::pre();
+		
 		if (!(is_numeric($_POST['node']['component']['limit']) && $_POST['node']['component']['limit'] > 0)) $_POST['node']['component']['limit'] = 5;
 		if ($_POST['node']['component']['pagination'] == 'on') $_POST['node']['component']['pagination'] = 1;
 		else $_POST['node']['component']['pagination'] = 0;
@@ -28,6 +30,8 @@ class Onxshop_Controller_Bo_Node_Content_News_List extends Onxshop_Controller_Bo
 	 
 	function post() {
 	
+		parent::post();
+		
 		/* we need to include config, can be removed when we initialize all conf on beggining */
 		require_once('models/common/common_image.php');
 		$common_image_conf = common_image::initConfiguration();

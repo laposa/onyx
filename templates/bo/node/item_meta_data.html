@@ -1,16 +1,6 @@
-
-			<fieldset>
-				<legend>Meta data</legend>
-				<div class="row">
-					<span class="label"><label for="node-browser_title" title="HTML header title">Browser Title (to override Navigation label or Heading Title):</label></span>
-					<span class="field"><input id="node-browser_title" class="text title" type="text" name="node[browser_title]" value="{NODE.browser_title|htmlspecialchars}" title="Please try to your title size keep no longer than this input box, this will display Google in the search result" /></span>
-				</div>
-				<div class="row description">
-					<span class="label"><label for="node.description">Excerpt (Description, Synopsis):</label></span>
-					<span class="field"><textarea name="node[description]" id="node.description" class="small" title="Please try to fit your description into this input box, this will display Google in the search result" cols="50" rows="20">{NODE.description|htmlspecialchars}</textarea></span>
-				</div>
-				<div class="row keywords">
-					<span class="label"><label for="node.keywords">Labels (Keywords):</label></span>
-					<span class="field"><input class="text" type="text" name="node[keywords]" id="node.keywords" value="{NODE.keywords|htmlspecialchars}" /></span>
-				</div>
-			</fieldset>
+<fieldset>
+	<legend>Meta data</legend>
+	{FILE "bo/node/item_browser_title.html"}
+	{FILE "bo/node/item_description.html"}
+	{FILE "bo/node/item_keywords.html"}
+</fieldset>

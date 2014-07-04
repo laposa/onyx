@@ -1,10 +1,10 @@
-			<fieldset>
-				<table>
-					<tbody>
-						<tr><td>Node ID</td><td>{NODE.id}</td></tr>
-						<tr><td>Parent ID</td><td><a href="javascript:void({NODE.parent})" onclick="openEdit('/popup/properties/{NODE.parent}/orig/page/{GET.id}')">{NODE.parent}</a></td></tr>
-						<tr><td>Created</td><td>{NODE.created} by <a href="/backoffice/customers/{NODE.customer_id}/detail">{NODE.customer_id}</a></td></tr>
-						<tr><td>Last Modified</td><td>{NODE.modified} by {NODE.author_detail.name} (UID {NODE.author})</td></tr>
-					</tbody>
-				</table>
-			</fieldset>
+<div class="row">
+	<table>
+		<tbody>
+			<tr><td>Node ID</td><td>{NODE.id}</td></tr>
+			<tr><td>Parent ID</td><td><a href="javascript:void({NODE.parent})" onclick="openEdit('/popup/properties/{NODE.parent}/orig/page/{GET.id}')">{NODE.parent}</a></td></tr>
+			<tr><td>Created</td><td>{NODE.created} by <a href="/backoffice/customers/{NODE.customer_id}/detail">{NODE.customer_id}</a></td></tr>
+			<tr><td>Last Modified</td><td>{NODE.modified} by {NODE.author_detail.name} (UID {NODE.author})</td></tr>
+		</tbody>
+	</table>
+</div>

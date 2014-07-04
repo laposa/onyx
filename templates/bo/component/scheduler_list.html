@@ -1,7 +1,6 @@
 <!-- BEGIN: content -->
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 <div class="scheduler_list">
-<p>Publishing schedule</p>
 <input type="hidden" name="scheduler_action" value="save"/>
 <table id="scheduler_list">
 	<thead>
@@ -28,19 +27,17 @@
 </table>
 
 <!-- BEGIN: no_schedule -->
-<p id="no_schedule">This content has no publishing schedule.</p>
+<span id="no_schedule">This content has no publishing schedule.</span>
 <script type="text/javascript">
 	$("#scheduler_list").hide().prev().hide();
 </script>
 <!-- END: no_schedule -->
 
-<div id="scheduler_add_new">
-	<p><a class="button add" href="#"><span>Schedule publishing...</span></a></p>
-</div>
+<span><a id="scheduler_add_new" href="#"><span>Schedule publishing...</span></a></span>
 
 <script type="text/javascript">
 	$(function() {
-		$("#scheduler_add_new a").click(function() {
+		$("a#scheduler_add_new").click(function() {
 
 			var template = '<tr>' +
 				'<td><select name="scheduler[controller][]">' +

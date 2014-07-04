@@ -4,21 +4,13 @@
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
-require_once('controllers/bo/node/default.php');
+require_once('controllers/bo/node/content/default.php');
 require_once('models/common/common_taxonomy.php');
 require_once('models/ecommerce/ecommerce_offer.php');
 require_once('models/ecommerce/ecommerce_offer_group.php');
 require_once('models/ecommerce/ecommerce_product_image.php');
 
-class Onxshop_Controller_Bo_Node_Content_Special_Offer_List extends Onxshop_Controller_Bo_Node_Default {
-
-	/**
-	 * pre action
-	 */
-
-	function pre() {
-
-	}
+class Onxshop_Controller_Bo_Node_Content_Special_Offer_List extends Onxshop_Controller_Bo_Node_Content_Default {
 	
 	/**
 	 * post action
@@ -26,6 +18,8 @@ class Onxshop_Controller_Bo_Node_Content_Special_Offer_List extends Onxshop_Cont
 	 
 	function post() {
 	
+		parent::post();
+		
 		//dropdowns
 		$Offer_Group = new ecommerce_offer_group();
 		$Taxonomy = new common_taxonomy();
@@ -67,6 +61,10 @@ class Onxshop_Controller_Bo_Node_Content_Special_Offer_List extends Onxshop_Cont
 		}
 	}
 
+	/**
+	 * parseOffersSelectGroup
+	 */
+	 
 	protected function parseOffersSelectGroup(&$groups, $name, $selected_id)
 	{
 		if (!is_array($groups) || count($groups) == 0) return;
@@ -81,6 +79,10 @@ class Onxshop_Controller_Bo_Node_Content_Special_Offer_List extends Onxshop_Cont
 		$this->tpl->assign('GROUP_NAME', $name);
 		$this->tpl->parse('content.offer_group_optgroup');
 	}
+	
+	/**
+	 * parseCategorySelect
+	 */
 
 	protected function parseCategorySelect(&$items, $selected_id, $block_name)
 	{

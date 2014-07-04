@@ -1,9 +1,8 @@
-			<fieldset>	
-				<div class="row publish">
-					<span class="label"><label for="node.publish">Publish</label></span>
-					<span class="field"><input type="checkbox" id="node.publish" name="node[publish]" {NODE.publish_check} /></span>
-				</div>
-				<div class="row schedule">
-					{ONXSHOP_REQUEST_scheduler #bo/component/scheduler_list~node_id=GET.id:node_type=common_node:~}
-				</div>
-			</fieldset>
+<fieldset>
+	<div class="row publish checkbox" style="float: left;">
+		<input type="checkbox" id="node.publish" name="node[publish]" {NODE.publish_check} /> <label for="node.publish">Publish</label>
+	</div>
+	<div class="row schedule" style="float: left;">
+		{ONXSHOP_REQUEST_scheduler #bo/component/scheduler_list~node_id=GET.id:node_type=common_node:~}
+	</div>
+</fieldset>

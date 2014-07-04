@@ -1,5 +1,40 @@
 <!-- BEGIN: title -->Layout Edit<!-- END: title -->
 <!-- BEGIN: content -->
-{FILE "bo/node/default_top.html"}
-{FILE "bo/node/default_bottom.html"}
+{FILE "bo/node/form_open.html"}
+
+<div class="twoColumnLayout fibonacci-1-1">
+	<div class="layoutColumnOne ofTwo">
+		{FILE "bo/node/item_title.html"}
+		{FILE "bo/node/item_page_title.html"}
+		{FILE "bo/node/item_uri_title.html"}
+		{FILE "bo/node/item_browser_title.html"}
+		{FILE "bo/node/item_teaser.html"}
+		{FILE "bo/node/item_description.html"}
+	</div>
+	<div class="layoutColumnTwo ofTwo">
+		{FILE "bo/node/item_image_list.html"}
+		{FILE "bo/node/item_taxonomy.html"}
+		{FILE "bo/node/item_layout_style.html"}
+		{FILE "bo/node/item_css_class.html"}
+	</div>
+</div>
+{FILE "bo/node/item_content_list.html"}
+<div class="twoColumnLayout fibonacci-1-1">
+	<div class="layoutColumnOne ofTwo">
+		{FILE "bo/node/item_display_in_menu.html"}
+		{FILE "bo/node/item_display_permission.html"}
+		{FILE "bo/node/item_display_permission_group_acl.html"}
+		{FILE "bo/node/item_require_login.html"}
+		{FILE "bo/node/item_require_ssl.html"}
+	</div>
+	<div class="layoutColumnTwo ofTwo">
+		{NODE_TYPE}
+		{FILE "bo/node/item_signature.html"}
+		{FILE "bo/node/item_head.html"}
+	</div>
+</div>
+
+{FILE "bo/node/item_publish.html"}
+	
+{FILE "bo/node/form_close.html"}
 <!-- END: content -->
