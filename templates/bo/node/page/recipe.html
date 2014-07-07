@@ -1,45 +1,59 @@
 <!-- BEGIN: title -->{NODE.title} - Recipe Page Edit<!-- END: title -->
 <!-- BEGIN: content -->
 {FILE "bo/node/form_open.html"}
+	
+<div class="twoColumnLayout fibonacci-1-1">
+	<div class="layoutColumnOne ofTwo">
+		{FILE "bo/node/item_title.html"}
+		{FILE "bo/node/item_page_title.html"}
+		{FILE "bo/node/item_uri_title.html"}
+		{FILE "bo/node/item_browser_title.html"}
+		{FILE "bo/node/item_teaser.html"}
+		{FILE "bo/node/item_description.html"}
+	</div>
+	<div class="layoutColumnTwo ofTwo">
+		{FILE "bo/node/item_image_list.html"}
+		{FILE "bo/node/item_taxonomy.html"}
+		{FILE "bo/node/item_layout_style.html"}
+		{FILE "bo/node/item_css_class.html"}
+	</div>
+</div>
 
-	<fieldset>
-		
-		<div class="row title">
-			<span class="label"><label for="node-title">*Navigation Label:</label></span>
-			<span class="field"><input class="text title" type="text" id="node-title" name="node[title]" value="{NODE.title|htmlspecialchars}" /> <input type="checkbox" name="node[display_title]" id="node.display_title" value="1" {NODE.display_title_check} /> <label for="node.display_title">Display heading</label></span>
-		</div>	
-		
-		<div class="row">
-			<span class="label"><label for="node-page_title" title="This title will be displayd in the H1 for page (page title), H2 for layouts and H3 for content elements (content title)">Heading Title (if not provided Navigation Label is used):</label></span>
-			<span class="field"><input class="text title" type="text" name="node[page_title]" id="node-page_title" value="{NODE.page_title|htmlspecialchars}" title="Please try to fit your title length into the size of this input box" onchange="$('#node-browser_title').attr('value', $(this).attr('value'));" /></span>
-		</div>
-		
-		<div class="row">
-			<span class="label"><label>Recipe ID:</label></span>
-			<span class="field"><input style="width: 30px;" type="text" name="node[content]" value="{NODE.content}" /></span>
-		</div>
-		<div class="row">
-			<span class="label"><label>&nbsp;</label></span>
-			<span class="field"><a class="button" href="/backoffice/recipes/{NODE.content}/edit" target="_blank"><span>Edit recipe</span></a></span>
-		</div>
-		<div class="row">
-			{PRODUCT_DETAIL}
-		</div>
-	</fieldset>
+{FILE "bo/node/item_author_name.html"}
+{FILE "bo/node/item_allow_comment.html"}
+{FILE "bo/node/item_created.html"}
 
-	{FILE "bo/node/item_meta_data.html"}
-	{FILE "bo/node/item_taxonomy.html"}
-	{FILE "bo/node/item_position.html"}
-	<p>Publish option on recipe page should be managed in recipe detail itself <a class="button" href="/backoffice/recipes/{NODE.content}/edit" target="_blank"><span>Edit recipe</span></a>.</p>
-	{FILE "bo/node/item_publish.html"}
-	{FILE "bo/node/item_title_link.html"}
+<div class="row">
+	<span class="label"><label>Recipe ID:</label></span>
+	<span class="field"><input class="short" type="text" name="node[content]" value="{NODE.content}" /></span>
+</div>
+<div class="row">
+	<span class="label"><label>&nbsp;</label></span>
+	<span class="field"><a class="button" href="/backoffice/recipes/{NODE.content}/edit" target="_blank"><span>Edit recipe</span></a></span>
+</div>
+<div class="row">
+	{PRODUCT_DETAIL}
+</div>
+		
+{FILE "bo/node/item_content_list.html"}
+<div class="twoColumnLayout fibonacci-1-1">
+	<div class="layoutColumnOne ofTwo">
+		{FILE "bo/node/item_display_in_menu.html"}
+		{FILE "bo/node/item_display_permission.html"}
+		{FILE "bo/node/item_display_permission_group_acl.html"}
+		{FILE "bo/node/item_require_login.html"}
+		{FILE "bo/node/item_require_ssl.html"}
+	</div>
+	<div class="layoutColumnTwo ofTwo">
+		{NODE_TYPE}
+		{FILE "bo/node/item_signature.html"}
+		{FILE "bo/node/item_head.html"}
+	</div>
+</div>
 
-	{FILE "bo/node/item_advanced.html"}
-	{FILE "bo/node/item_expert_options.html"}
-	{FILE "bo/node/item_content_list.html"}
-	{FILE "bo/node/item_image_list.html"}
-	{FILE "bo/node/item_signature.html"}
+
+{FILE "bo/node/item_publish.html"}
+<div class="row">Publish option on recipe page should be managed in recipe detail itself. <a class="button" href="/backoffice/recipes/{NODE.content}/edit" target="_blank"><span>Edit Recipe</span></a></div>
 
 {FILE "bo/node/form_close.html"}
-
 <!-- END: content -->
