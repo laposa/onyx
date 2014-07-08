@@ -48,6 +48,29 @@ function refreshOpenerAjax(path, id) {
 		refreshOpener(path, id);
 	}
 }
+ 
+function clearOnxshopCache(button) {
+	var buttonIcon = $(button).find('.fa');
+	buttonIcon.addClass('fa-spin');
+	jQuery("#dialog").hide().load('/request/bo/component/tools~tool=flush_cache~', '', 
+		function (responseText, textStatus, XMLHttpRequest) {
+			popupMessage("#dialog div.onxshop_messages");
+			buttonIcon.removeClass('fa-spin');
+		});
+}
+
+function showAdvancedSettings(source) {
+	var span = $(source).find('span');
+	var label = span.text();
+	if (label.indexOf("Show") >= 0) {
+		$('div.pageContent .advanced').slideDown(600);
+		span.html('Hide Advanced Settings');
+	} else {
+		$('div.pageContent .advanced').slideUp(600);
+		span.html('Show Advanced Settings');
+	}
+	return false;
+}
 
 /**
  * on ready

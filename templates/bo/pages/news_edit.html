@@ -1,33 +1,58 @@
 <!-- BEGIN: title -->News<!-- END: title -->
 <!-- BEGIN: content -->
-<div class="twoColumnPage page fibonacci-5-1">
-	<div class="top page"><span></span></div>
+
+<div class="twoColumnPage page sidebar">
+	<div class="top"><span></span></div>
 	<div class="content">
-		<div class="contentWrappper">
+		<div class="pageWrapper">
+
 			<div class="pageHeader">
-				
-			</div>
-			<div class="columnTop">
-				<div class="columnWrapper">
-
+				<div class="pageHeaderWrapper">
+					<h1 class="pageTitle"><span>News Edit</span> <span class="info">ID {GET.id}</span></h1>
 				</div>
 			</div>
 
-			<div class="columnOne">
-				<div class="columnWrapper">
-					<div id="sub_content">
-					{SUB_CONTENT}
+			<div class="pageContent">
+				<div class="pageContentWrapper">
+					<div class="rowTop">
+						<div class="rowWrapper">
+							<div class="columnWrapper">
+
+								<div id="sub_content">
+								{SUB_CONTENT}
+								</div>
+
+							</div>
+						</div>
 					</div>
-				</div>
-			</div>
-			<div class="columnTwo">
-				<div class="columnWrapper">
-					<p><a class="button" href="/page/{GET.id}?fe_edit_mode=edit" target="_blank" style="margin-left: 10px;"><span>Preview in Front-End</span></a></p>
+					<div class="rowMiddle">
+						<div class="rowWrapper">
+							<div class="columnOne">
+								<div class="columnWrapper">
+								</div>
+							</div>
+							<div class="columnTwo">
+								<div class="columnWrapper">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="rowBottom">
+						<div class="rowWrapper">
+							<div class="columnWrapper">
+
+								<p>
+									<a class="button" href="/page/{GET.id}?fe_edit_mode=edit" target="_blank" style="margin-left: 10px;"><span>Preview in Front-End</span></a>
+								</p>
+
+							</div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="bottom page"><span></span></div>
+	<div class="bottom"><span></span></div>
 </div>
 
 <!-- END: content -->

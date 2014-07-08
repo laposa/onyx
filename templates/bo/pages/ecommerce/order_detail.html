@@ -4,125 +4,155 @@
 <style type="text/css">
 pre {font-size: 200%;}
 </style>
-<div class="twoColumnPage page fibonacci-5-3">
+
+<div id="order_detail" class="twoColumnPage page backoffice fibonacci-5-3">
 	<div class="top"><span></span></div>
 	<div class="content">
-		<div class="pageWrappper">
+		<div class="pageWrapper">
 
 			<div class="pageHeader">
 				<div class="pageHeaderWrapper">
-					
+					<h1 class="pageTitle"><span>Order Number {GET.id}</span></h1>
+					<h2>Created on {ORDER.created|strtotime|date('d/m/Y', %s)} by<br/>
+					<a href="/backoffice/customers/{ORDER.client.customer.id}/detail">{ORDER.client.customer.title_before} {ORDER.client.customer.first_name} {ORDER.client.customer.last_name}</a>
+					</h2>
 				</div>
 			</div>
 
-			<div class="rowTop">
-				<div class="columnWrapper">
-						
-				</div>
-			</div>
+			<div class="pageContent">
+				<div class="pageContentWrapper">
+					<div class="rowTop">
+						<div class="rowWrapper">
+							<div class="columnWrapper">
 
-			<div class="columnOne">
-				<div class="columnWrapper">
-				
-					{ONXSHOP_REQUEST_order_detail #component/ecommerce/order_detail~order_id=GET.id~}
-					
-					<!-- BEGIN: accounting_detail -->
-					<div class="twoColumnLayout layout">
-						<div class="layoutWrapper">
-							<div class="top"><span></span></div>
-							<div class="layoutContent">
-								<div class="layoutContentWrapper">
-									<div class="layoutColumnOne ofTwo">
-										<div class="layoutColumnWrapper">
-											{ONXSHOP_REQUEST_invoice_detail #component/ecommerce/invoice_detail~order_id=GET.id~}
+							</div>
+						</div>
+					</div>
+					<div class="rowMiddle">
+						<div class="rowWrapper">
+							<div class="columnOne">
+								<div class="columnWrapper">
+									<fieldset>
+										{ONXSHOP_REQUEST_order_detail #component/ecommerce/order_detail~order_id=GET.id~}
+									</fieldset>
+									<!-- BEGIN: accounting_detail -->
+									<div class="twoColumnLayout layout">
+										<div class="layoutWrapper">
+											<div class="top"><span></span></div>
+											<div class="layoutContent">
+												<div class="layoutContentWrapper">
+													<div class="layoutColumnOne ofTwo">
+														<div class="layoutColumnWrapper">
+															<fieldset>
+																{ONXSHOP_REQUEST_invoice_detail #component/ecommerce/invoice_detail~order_id=GET.id~}
+															</fieldset>
+														</div>
+													</div>
+													<div class="layoutColumnTwo ofTwo withPadding">
+														<div class="layoutColumnWrapper">
+															<fieldset>
+																{ONXSHOP_REQUEST_transaction_detail #component/ecommerce/transaction_detail~order_id=GET.id~}
+															</fieldset>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="bottom"><span></span></div>
 										</div>
 									</div>
-									<div class="layoutColumnTwo ofTwo">
-										<div class="layoutColumnWrapper">
-											{ONXSHOP_REQUEST_transaction_detail #component/ecommerce/transaction_detail~order_id=GET.id~}
+									<!-- END: accounting_detail -->						
+									<p>&nbsp;</p>
+									<div class="twoColumnLayout layout fibonacci-1-1">
+										<div class="layoutWrapper">
+											<div class="top"><span></span></div>
+											<div class="layoutContent">
+												<div class="layoutContentWrapper">
+													<div class="layoutColumnOne ofTwo">
+														<div class="layoutColumnWrapper">
+															<fieldset>
+																{ONXSHOP_REQUEST_delivery_detail #component/ecommerce/delivery_detail~order_id=GET.id~}
+															</fieldset>
+														</div>
+													</div>
+													<div class="layoutColumnTwo ofTwo withPadding">
+														<div class="layoutColumnWrapper">
+															<fieldset>
+																{ONXSHOP_REQUEST_tracking_information #component/ecommerce/delivery_tracking~order_id=GET.id~}
+															</fieldset>
+															<fieldset>
+																{ONXSHOP_REQUEST_gift_detail #bo/component/ecommerce/gift_detail~order_id=GET.id~}
+															</fieldset>
+														</div>
+													</div>
+												</div>
+											</div>
+											<div class="bottom"><span></span></div>
 										</div>
 									</div>
 								</div>
 							</div>
-							<div class="bottom"><span></span></div>
-						</div>
-					</div>
-					<!-- END: accounting_detail -->						
-					<p>&nbsp;</p>
-					<div class="twoColumnLayout layout fibonacci-1-1">
-						<div class="layoutWrapper">
-							<div class="top"><span></span></div>
-							<div class="layoutContent">
-								<div class="layoutContentWrapper">
-									<div class="layoutColumnOne ofTwo">
-										<div class="layoutColumnWrapper">
-											
-											{ONXSHOP_REQUEST_delivery_detail #component/ecommerce/delivery_detail~order_id=GET.id~}
+							<div class="columnTwo withPadding">
+								<div class="columnWrapper">
 
-										</div>
-									</div>
-									<div class="layoutColumnTwo ofTwo">
-										<div class="layoutColumnWrapper">
-											
-											{ONXSHOP_REQUEST_tracking_information #component/ecommerce/delivery_tracking~order_id=GET.id~}
-											{ONXSHOP_REQUEST_gift_detail #bo/component/ecommerce/gift_detail~order_id=GET.id~}
-										</div>
-									</div>
+									<form action="{URI|htmlspecialchars}" method="post" id="order_status_change">
+										<fieldset>
+											<legend>Status Log</legend>
+											<table>
+												<thead>
+													<tr><th>Date</th><th>Status</th></tr>
+												</thead>
+												<tbody>
+													<!-- BEGIN: log -->
+													<tr><td>{STATUS.datetime}</td><td>{STATUS.name}</td></tr>
+													<!-- END: log -->
+													<tr>
+														<td colspan="2" style="text-align: right">
+															<select name='order[status]'>
+																<!-- BEGIN: status -->
+																<option value="{STATUS.id}" {STATUS.selected}>{STATUS.name}</option>
+																<!-- END: status -->
+															</select>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+										</fieldset>
+
+										<fieldset>
+											<legend>Admin note</legend>
+											<textarea name="order[note_backoffice]">{ORDER.note_backoffice}</textarea>
+										</fieldset>
+
+										<button class="save"type="submit" name="save" value="save"><span>Save</span></button>
+									
+										<!-- BEGIN: customer_detail -->
+										<fieldset class="customer_detail">
+											<legend>Customer ID {ORDER.client.customer.id}</legend>
+											<br/>
+											<table>
+												<tr><td><strong>Created</strong></td><td>{ORDER.client.customer.created}</td></tr>
+												<tr><td><strong>Customer Name</strong></td><td><a href="/backoffice/customers/{ORDER.client.customer.id}/detail">{ORDER.client.customer.title_before} {ORDER.client.customer.first_name} {ORDER.client.customer.last_name}</a></td></tr>
+												<tr><td><strong>Email</strong></td><td><a href="/backoffice/customers/{ORDER.client.customer.id}/detail">{ORDER.client.customer.email}</a></td></tr>
+												<tr><td><strong>Telephone</strong></td><td>{ORDER.client.customer.telephone}</td></tr>
+												<tr><td><strong>Mobile</strong></td><td>{ORDER.client.customer.mobilephone}</td></tr>
+												<tr><td><strong>Completd Orders</strong></td><td>{ORDER.client.stats.completed}</td></tr>
+												<tr><td><strong>Uncompleted Orders</strong></td><td>{ORDER.client.stats.uncompleted}</td></tr>
+											</table>
+										</fieldset>
+										<!-- END: customer_detail -->
+
+									</form>
+
 								</div>
 							</div>
-							<div class="bottom"><span></span></div>
 						</div>
 					</div>
-				</div>
-			</div>
-			<div class="columnTwo">
-				<div class="columnWrapper">
-					<form  action="{URI|htmlspecialchars}" method="post" id="order_status_change">
-						<table>
-							<caption>Status Log</caption>
-							<thead>
-								<tr><th>Date</th><th>Status</th></tr>
-							</thead>
-							<tbody>
-								<!-- BEGIN: log -->
-								<tr><td>{STATUS.datetime}</td><td>{STATUS.name}</td></tr>
-								<!-- END: log -->
-								<tr>
-									<td colspan="2" style="text-align: right">
-										<select name='order[status]'>
-											<!-- BEGIN: status -->
-											<option value="{STATUS.id}" {STATUS.selected}>{STATUS.name}</option>
-											<!-- END: status -->
-										</select>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-						
-						<h3>Admin note</h3>
-						<textarea name="order[note_backoffice]">{ORDER.note_backoffice}</textarea>
-						<button type="submit" name="save" value="save"><span>Save</span></button>
-					</form>
-					
-					<!-- BEGIN: customer_detail -->
-					<div class="customer_detail">
-						<table>
-							<caption><a href="/backoffice/customers/{ORDER.client.customer.id}/detail">Customer #{ORDER.client.customer.id}</a></caption>
-							<tr><td>Created</td><td>{ORDER.client.customer.created}</td></tr>
-							<tr><td>Customer Name</td><td><a href="/backoffice/customers/{ORDER.client.customer.id}/detail">{ORDER.client.customer.title_before} {ORDER.client.customer.first_name} {ORDER.client.customer.last_name}</a></td></tr>
-							<tr><td>Email</td><td><a href="/backoffice/customers/{ORDER.client.customer.id}/detail">{ORDER.client.customer.email}</a></td></tr>
-							<tr><td>Telephone</td><td>{ORDER.client.customer.telephone}</td></tr>
-							<tr><td>Mobile</td><td>{ORDER.client.customer.mobilephone}</td></tr>
-							<tr><td>Completd Orders</td><td>{ORDER.client.stats.completed}</td></tr>
-							<tr><td>Uncompleted Orders</td><td>{ORDER.client.stats.uncompleted}</td></tr>
-						</table>
+					<div class="rowBottom">
+						<div class="rowWrapper">
+							<div class="columnWrapper">
+							</div>
+						</div>
 					</div>
-					<!-- END: customer_detail -->
-				</div>
-			</div>
-			<div class="rowBottom">
-				<div class="columnWrapper">
-					
 				</div>
 			</div>
 		</div>

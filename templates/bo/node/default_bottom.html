@@ -1,16 +1,20 @@
 {FILE "bo/node/item_content_list.html"}
-<div class="twoColumnLayout fibonacci-1-1">
+<div class="twoColumnLayout fibonacci-1-1 advanced">
 	<div class="layoutColumnOne ofTwo">
-		{FILE "bo/node/item_display_in_menu.html"}
-		{FILE "bo/node/item_display_permission.html"}
-		{FILE "bo/node/item_display_permission_group_acl.html"}
-		{FILE "bo/node/item_require_login.html"}
-		{FILE "bo/node/item_require_ssl.html"}
+		<fieldset>
+			{FILE "bo/node/item_display_in_menu.html"}
+			{FILE "bo/node/item_display_permission.html"}
+			{FILE "bo/node/item_display_permission_group_acl.html"}
+			{FILE "bo/node/item_require_login.html"}
+			{FILE "bo/node/item_require_ssl.html"}
+		</fieldset>
 	</div>
 	<div class="layoutColumnTwo ofTwo">
-		{NODE_TYPE}
-		{FILE "bo/node/item_signature.html"}
-		{FILE "bo/node/item_head.html"}
+		<fieldset>
+			{NODE_TYPE}
+			{FILE "bo/node/item_signature.html"}
+			{FILE "bo/node/item_head.html"}
+		</fieldset>
 	</div>
 </div>
 

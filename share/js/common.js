@@ -178,3 +178,12 @@ function growlMessage(message) {
 	if (life < 4000) life = 4000; // 4 sec at min.
 	jQuery.jGrowl("<div class='onxshop_messages in_jGrowl'>" + message + "</div>", {life: life})
 }
+
+/**
+ * Animated scroll to a specific element
+ */
+function scrollToElement(element) {
+	$('html, body').animate({
+		scrollTop: $(element).offset().top
+	}), 2000;
+}

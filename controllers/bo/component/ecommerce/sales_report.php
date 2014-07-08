@@ -32,10 +32,12 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Sales_Report extends Onxshop_Con
 	 
 	public function renderList($product_list) {
 	
-		if (!is_array($product_list)) return false;
+		if (!is_array($product_list) || count($product_list) > 0) {
+
+			$this->tpl->parse('content.empty');
+			return false;
+		}
 					
-		//print_r($product_list);
-		
 		/**
 		 * Display items and count total revenu
 		 */
@@ -44,15 +46,16 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Sales_Report extends Onxshop_Con
 		$total_revenue = 0;
 		
 		foreach ($product_list as $item) {
-				$this->tpl->assign('ITEM', $item);
-				$this->tpl->parse('content.item');
-				
-				$total_units = $total_units + $item['count'];
-				$total_revenue = $total_revenue + $item['revenue'];
+			$this->tpl->assign('ITEM', $item);
+			$this->tpl->parse('content.item');
+			
+			$total_units = $total_units + $item['count'];
+			$total_revenue = $total_revenue + $item['revenue'];
 		}
-		
+
 		$this->tpl->assign('TOTAL_UNITS', $total_units);
 		$this->tpl->assign('TOTAL_REVENUE', $total_revenue);
+		$this->tpl->parse('content.foot');
 		
 	}
 	

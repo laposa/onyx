@@ -34,39 +34,67 @@ $(document).ready(function(){
 </script>
 
 <div id="products">
+
 	<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
-	
-	<div class="twoColumnPage page fibonacci-1-5">
+
+	<div class="twoColumnPage page sidebar">
 		<div class="top"><span></span></div>
 		<div class="content">
 			<div class="pageWrapper">
-				{PAGE_HEADER}
+
+				<div class="pageHeader">
+					<div class="pageHeaderWrapper">
+						<h1 class="pageTitle"><span>Products</span></h1>
+					</div>
+				</div>
+
 				<div class="pageContent">
 					<div class="pageContentWrapper">
 						<div class="rowTop">
-							<div class="columnWrapper">
-								{CONTAINER.0}
-							</div>
-						</div>
-			
-						<div class="columnOne">
-							<div class="columnWrapper">
-								<div id="filterTaxonomy">
-									{ONXSHOP_REQUEST_menupages #bo/component/taxonomy_menu~id=null:expand_all=1:publish=0~}
+							<div class="rowWrapper">
+								<div class="columnWrapper">
+									<div class="filterBar">
+										{ONXSHOP_REQUEST_filter #bo/component/ecommerce/product_list_filter}
+									</div>
 								</div>
-								{ONXSHOP_REQUEST_filter #bo/component/ecommerce/product_list_filter}
 							</div>
 						</div>
-						<div class="columnTwo">
-							<div class="columnWrapper">
-								<div id="sub_content">
-									{SUB_CONTENT}
+						<div class="rowMiddle">
+							<div class="rowWrapper">
+								<div class="columnOne">
+									<div class="columnWrapper">
+
+										<div id="filterTaxonomy">
+											{ONXSHOP_REQUEST_menupages #bo/component/taxonomy_menu~id=null:expand_all=1:publish=0~}
+										</div>
+
+									</div>
+								</div>
+								<div class="columnTwo">
+									<div class="columnWrapper">
+
+										<div id="sub_content">
+											{SUB_CONTENT}
+										</div>
+
+									</div>
 								</div>
 							</div>
 						</div>
 						<div class="rowBottom">
-							<div class="columnWrapper">
-								{CONTAINER.3}
+							<div class="rowWrapper">
+								<div class="columnWrapper">
+
+									<p>
+										<a class="button add product" title="Add new product" href="/backoffice/products/product_add"><span>Add a New Product</span></a>
+										<a class="button add" title="Create a New Special Pffer" href="/backoffice/products/offer_add"><span>Add a New Offer</span></a>
+									</p>
+									<p>
+										<a class="button" title="export this list as CSV" href="/request/bo/export/csv_products"><span>Export this list CSV</span></a>
+										<a class="button" title="export this list as XML" href="/request/bo/export/xml_products"><span>Export this list XML</span></a>
+									</p>
+
+								</div>
 							</div>
 						</div>
 					</div>
@@ -75,5 +103,6 @@ $(document).ready(function(){
 		</div>
 		<div class="bottom"><span></span></div>
 	</div>
+	
 </div>
 <!-- END: content -->

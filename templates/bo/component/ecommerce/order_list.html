@@ -1,61 +1,46 @@
 <!-- BEGIN: content -->
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 <div class="ordersList">
-	<!-- BEGIN: list -->
-	<div class="twoColumnLayout layout fibonacci-5-1">
-		<div class="layoutWrapper">
-			<div class="top"><span></span></div>
-			<div class="layoutContent">
-				<div class="layoutContentWrapper">
-					<div class="layoutColumnOne ofTwo">
-						<div class="layoutColumnWrapper">
-							<table>
-								<thead>
-									<tr>
-										<th><a href="{_SERVER.REDIRECT_URI}?order-list-sortby=id"><span>Order&nbsp;ID</span></a></th>
-										<th>Customer name<br />Email address</th>
-										<th><a href="{_SERVER.REDIRECT_URI}?order-list-sortby=date"><span>Created</span></a><br /><a href="{_SERVER.REDIRECT_URI}?order-list-sortby=date"><span>Last Changed</span></a></th>
-										<th><a href="{_SERVER.REDIRECT_URI}?order-list-sortby=goods_net"><span>Goods Net</span></a></th>
-										<th>Payment Due</th>
-										<th>Status</th>
-									</tr>
-								</thead>
-								<tbody>
-									<!-- BEGIN: item -->
-									<tr>
-										<td><a href="/backoffice/orders/{ITEM.order_id}/detail">{ITEM.order_id}</a></td>
-										<td><a href="/backoffice/orders/{ITEM.order_id}/detail">{ITEM.title_before|htmlspecialchars} {ITEM.first_name|htmlspecialchars} {ITEM.last_name|htmlspecialchars} {ITEM.title_after|htmlspecialchars}<br />{ITEM.email}</a></td>
-										<td>{ITEM.order_created}<br />{ITEM.last_activity}</td>
-										<td class="money">{ITEM.goods_net|money_format('%n', %s)}</td>
-										<td class="money">{ITEM.payment_due|money_format('%n', %s)}</td>
-										<td>{ITEM.status}</td>
-									</tr>
-									<!-- END: item -->
-								</tbody>
-								<tfoot>
-									<tr>
-										<td colspan="6">
-											<div class="onxshop_pagination">
-												{PAGINATION}
-											</div>
-										</td>
-									</tr>
-								</tfoot>
-							</table>
-						</div>
+	<table>
+		<thead>
+			<tr>
+				<th><a href="{_SERVER.REDIRECT_URI}?order-list-sortby=id"><span>Order&nbsp;ID</span></a></th>
+				<th>Customer name<br />Email address</th>
+				<th><a href="{_SERVER.REDIRECT_URI}?order-list-sortby=date"><span>Created</span></a><br /><a href="{_SERVER.REDIRECT_URI}?order-list-sortby=date"><span>Last Changed</span></a></th>
+				<th><a href="{_SERVER.REDIRECT_URI}?order-list-sortby=goods_net"><span>Goods Net</span></a></th>
+				<th>Payment Due</th>
+				<th>Status</th>
+			</tr>
+		</thead>
+		<!-- BEGIN: list -->
+		<tbody>
+			<!-- BEGIN: item -->
+			<tr>
+				<td><a href="/backoffice/orders/{ITEM.order_id}/detail">{ITEM.order_id}</a></td>
+				<td><a href="/backoffice/orders/{ITEM.order_id}/detail">{ITEM.title_before|htmlspecialchars} {ITEM.first_name|htmlspecialchars} {ITEM.last_name|htmlspecialchars} {ITEM.title_after|htmlspecialchars}<br />{ITEM.email}</a></td>
+				<td>{ITEM.order_created}<br />{ITEM.last_activity}</td>
+				<td class="money">{ITEM.goods_net|money_format('%n', %s)}</td>
+				<td class="money">{ITEM.payment_due|money_format('%n', %s)}</td>
+				<td>{ITEM.status}</td>
+			</tr>
+			<!-- END: item -->
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="6">
+					<div class="onxshop_pagination">
+						{PAGINATION}
 					</div>
-					<div class="layoutColumnTwo ofTwo">
-						<div class="layoutColumnWrapper">
-							<p>Export orders:<br /><a class="button" title="Export this list" href="/request/bo/export/csv_orders?customer_id={GET.customer_id}"><span>CSV</span></a></p>
-							<p>Export purchased products:<br /><a class="button" title="Export this list including purchased products (unpaid orders are not included)" href="/request/bo/export/csv_orders?inlude_products=1&amp;customer_id={GET.customer_id}"><span>CSV</span></a></p>
+				</td>
+			</tr>
+		</tfoot>
+		<!-- END: list -->
+		<!-- BEGIN: empty -->
+		<tbody>
+			<tr><td class="empty" colspan="6">There are currently no orders matching given criteria.</td></tr>
+		</tbody>
+		<!-- END: empty -->
+	</table>
 
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="bottom"><span></span></div>
-		</div>		
-	</div>
-	<!-- END: list -->
 </div>
 <!-- END: content -->

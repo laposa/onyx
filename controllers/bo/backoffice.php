@@ -30,7 +30,19 @@ class Onxshop_Controller_Bo_Backoffice extends Onxshop_Controller {
 		}
 		
 		$this->tpl->assign("ACTIVE_{$active}", 'active');
-		
+
+		/**
+		 * Manage Advanced Menu
+		 */
+		if (preg_match('/backoffice/', $_SERVER['REQUEST_URI'])) {
+			$active_array = explode("/", $_SERVER['REQUEST_URI']);
+			$active = preg_replace("/\?.*$/", "", $active_array[3]);
+		} else {
+			$active = 'configuration';
+		}
+
+		$this->tpl->assign("ACTIVE_{$active}", 'active');
+
 		/**
 		 * ACL
 		 */
@@ -52,6 +64,18 @@ class Onxshop_Controller_Bo_Backoffice extends Onxshop_Controller {
 		if ($auth->hasPermission(ONXSHOP_PERMISSION_COMMENTS_SECTION)) $this->tpl->parse('content.comments');
 		if ($auth->hasPermission(ONXSHOP_PERMISSION_SURVEYS_SECTION)) $this->tpl->parse('content.surveys');
 		if ($auth->hasPermission(ONXSHOP_PERMISSION_ADVANCED_SECTION)) $this->tpl->parse('content.advanced');
+
+		if ($auth->hasPermission(ONXSHOP_PERMISSION_MEDIA_SECTION)) $this->tpl->parse('content.media');
+		if ($auth->hasPermission(ONXSHOP_PERMISSION_TAXONOMY_SECTION)) $this->tpl->parse('content.taxonomy');
+		if ($auth->hasPermission(ONXSHOP_PERMISSION_SEO_MANAGER_SECTION)) $this->tpl->parse('content.seo_manager');
+		if ($auth->hasPermission(ONXSHOP_PERMISSION_DATABASE_SECTION)) $this->tpl->parse('content.database');
+		if ($auth->hasPermission(ONXSHOP_PERMISSION_TEMPLATES_SECTION)) $this->tpl->parse('content.templates');
+		if ($auth->hasPermission(ONXSHOP_PERMISSION_SCHEDULER_SECTION)) $this->tpl->parse('content.scheduler');
+		if ($auth->hasPermission(ONXSHOP_PERMISSION_CURRENCY_SECTION)) $this->tpl->parse('content.currency');
+		if ($auth->hasPermission(ONXSHOP_PERMISSION_SEARCH_INDEX_SECTION)) $this->tpl->parse('content.search_index');
+		if ($auth->hasPermission(ONXSHOP_PERMISSION_TOOLS_SECTION)) $this->tpl->parse('content.tools');
+		if ($auth->hasPermission(ONXSHOP_PERMISSION_LOGS_SECTION)) $this->tpl->parse('content.logs');
+		if ($auth->hasPermission(ONXSHOP_PERMISSION_CONFIGURATION_SECTION)) $this->tpl->parse('content.configuration');
 
 		return true;
 	}

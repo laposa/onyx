@@ -1,6 +1,6 @@
 <!-- BEGIN: head -->
 <style type="text/css" media="screen">
-@import url(/share/css/fe_edit.css);
+	@import url(/share/css/fe_edit.css);
 </style>
 <!-- END: head -->
 <!-- BEGIN: content -->
@@ -9,38 +9,30 @@
 <script type="text/javascript" src="/share/js/fe_edit.js"></script>
 <script type="text/javascript" src="/share/js/backoffice.js"></script>
 
-<div id="onxshopHeader">
-	<div id="onxshopSystemBar">
-	
-		<div id="menuSystem">
-			<a class="onxshop_version" href="/" title="{ONXSHOP_VERSION} {ONXSHOP_PACKAGE_NAME|ucfirst}" onclick="openAjaxRequestInDialog('/request/bo/component/sysinfo', '{ONXSHOP_VERSION}'); return false;"><span>Onxshop</span></a> - 
-			<a class="onxshop_client" href="/" title="{CONFIGURATION.global.title|htmlspecialchars} homepage"><span>{CONFIGURATION.global.title|htmlspecialchars}</span></a>
-		</div>
-		
-		<div id="menuUser">
-			<a href="{ONXSHOP_SUPPORT_WEBSITE_URL}" title="Access to Onxshop support"><span>Support</span></a> - 
-			<a class="logout" href="/?logout=1" title="Logout from the backoffice"><span>Log Out</span></a>
-		</div>
-		
-	</div>
-	
+<div id="onxshopHeader" class="frontend">
+
 	<div id="onxshopMenuBar">
-		
-		{ONXSHOP_REQUEST_fe_edit_mode #bo/component/fe_edit_mode~id=GET.id~}
-		
-		<div id="menuShortcuts">
-			<a class="onxshop_edit_flush_cache" href='/backoffice/advanced/tools?tool=flush_cache' onclick="openAjaxRequestInGrowl('/request/bo/component/tools~tool=flush_cache~', 'Flushing Cache'); return false" title="Refresh Cache"><img src="/share/images/famfamfam_icons/lightning.png" alt="Refresh Cache"/></a>
-		&nbsp; &nbsp;
-			<a class="onxshop_edit_css_edit" href="/backoffice/advanced/templates" title="CSS Edit" onclick="nOpenWin('/popup/css_edit/{GET.id}/orig/{_SESSION.orig}', 700, 500); return false;"><img src="/share/images/famfamfam_icons/css.png" alt="CSS" /></a>
-		&nbsp; &nbsp;
-			<a class="onxshop_edit_sessions_log" href="/backoffice/advanced/logs" title="Sessions Log" onclick="nOpenWin('/popup/logs', 700, 500); return false;"><img src="/share/images/famfamfam_icons/eye.png" alt="Sessions Log" /></a>
-		</div>
-		
-		<ul id="menuContext">
-			<li class="frontoffice first active"><a href="/edit" title="Front-end edit"><span>Front Office</span></a></li>
-			<li class="backoffice last"><a href="/backoffice/pages" title="Backoffice"><span>Back Office</span></a></li>
+
+		<ul id="menuSystem">
+			<li><a class="onxshop_version" href="/" title="{ONXSHOP_VERSION} {ONXSHOP_PACKAGE_NAME|ucfirst}" onclick="openAjaxRequestInDialog('/request/bo/component/sysinfo', '{ONXSHOP_VERSION}'); return false;"><span class="onxshop-logo"></span><span class="title">Onxshop<br/>{CONFIGURATION.global.title|htmlspecialchars}</span></a></li>
 		</ul>
+
+		<ul id="menuBackOffice">
+			<li class="backoffice"><a href="/backoffice"><span class="fa fa-2x fa-cogs"></span><span class="title">Back Office</span></a></li>
+		</ul>
+
+		<ui id="menuEditingMode">
+			{ONXSHOP_REQUEST_fe_edit_mode #bo/component/fe_edit_mode~id=GET.id~}
+		</ui>
+
+		<ul id="menuActions">
+			<li><a href='/backoffice/advanced/tools?tool=flush_cache' onclick="clearOnxshopCache(this); return false"><span class="fa fa-2x fa-refresh"></span><span class="title">Clear Cache</span></a></li>
+			<li><a href="{ONXSHOP_SUPPORT_WEBSITE_URL}" title="Access to Onxshop support" target="_blank"><span class="fa fa-2x fa-question-circle"></span><span class="title">Support</span></a></li>
+			<li><a class="logout" href="/?logout=1" title="Logout from the backoffice"><span class="fa fa-2x fa-power-off"></span><span class="title">Log Out</span></a></li>
+		</ul>
+
 	</div>
+
 </div>
 
 <div id="onxshop_cms_content">
@@ -48,7 +40,5 @@
 		{SUB_CONTENT}
 	<div class="bottom"><span></span></div>
 </div>
-
-
 
 <!-- END: content -->

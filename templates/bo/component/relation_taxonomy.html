@@ -42,21 +42,21 @@ $(document).ready(function(){
 			<!-- BEGIN:ptn -->
 				<div>
 				<input type="hidden" name="relation_taxonomy[]" value="{CURRENT.id}" />
-				<button class="remove" style="float: none;" name="" onclick="this.parentNode.parentNode.removeChild(this.parentNode)"><span>remove</span></button>
+				<button class="remove small" name="" onclick="this.parentNode.parentNode.removeChild(this.parentNode)"><span>Remove</span></button>
 				<div style="display: inline-block" {CURRENT.class}>{BREADCRUMB}</div>
 				</div>
 			<!-- END:ptn -->
 		</div>
 		
 		<div id="rt_add_new">
-			<p><a class="button add" href="#"><span>add relation to a category...</span></a></p>
+			<p><a class="button add" href="#"><span>Add Relation to a Category...</span></a></p>
 		</div>
 	
 	
 		<div id="template_rt_select" style="visibility: hidden">
 			<div>
 				<input type="hidden" name="relation_taxonomy[]" value="__ID__" />
-				<button style="float: none;" name="" onclick="this.parentNode.parentNode.removeChild(this.parentNode)"><span>remove</span></button>
+				<button class="remove small" name="" onclick="this.parentNode.parentNode.removeChild(this.parentNode)"><span>Remove</span></button>
 				<a href="/backoffice/pages/__ID__">__TITLE__</a><br />
 			</div>
 		</div>

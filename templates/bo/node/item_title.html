@@ -2,9 +2,10 @@
 	<span class="label"><label for="node-title">*Navigation Label:</label></span>
 	<span class="field">
 		<div style="width: 60%; float: left;"><input class="text title" type="text" id="node-title" name="node[title]" value="{NODE.title|htmlspecialchars}" /></div> 
-		<div style="float: left;">
+		<div style="float: left; margin-left: 10px;">
 			<input type="checkbox" name="node[display_title]" id="node.display_title" value="1" {NODE.display_title_check} /> <label for="node.display_title">Display heading</label><br />
 			<input type="checkbox" title="When this option is disabled, an extra CSS class noSecondaryNavigation will be added into parent container (helpful for making page full width)" name="node[display_secondary_navigation]" id="node.display_secondary_navigation" {NODE.display_secondary_navigation} /> <label for="node.display_secondary_navigation" title="When this option is disabled, an extra CSS class noSecondaryNavigation will be added into parent container (helpful for making page full width) and CONTAINER.4 will be shown">Secondary Nav.</label>
 		</div>
 	</span>
+	<div class="bottom"></div>
 </div>

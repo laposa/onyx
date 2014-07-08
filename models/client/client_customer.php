@@ -870,11 +870,13 @@ CREATE TABLE client_customer (
 		require_once('models/client/client_customer_group.php');
 		$CustomerGroup = new client_customer_group();
 		$CustomerGroup->updateCustomerGroups($client_data['customer']['id'], $client_data['customer']['group_ids']);
+		unset($client_data['customer']['group_ids']);
 
 		//roles
 		require_once('models/client/client_customer_role.php');
 		$CustomerRole = new client_customer_role();
 		$CustomerRole->updateCustomerRoles($client_data['customer']['id'], $client_data['customer']['role_ids']);
+		unset($client_data['customer']['role_ids']);
 
 		if (!$this->checkLoginId($client_data['customer'])) {
 		

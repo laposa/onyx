@@ -34,61 +34,72 @@ $(function() {
 });
 </script>
 
-<div class="twoColumnPage page fibonacci-1-5">
+<div id="reports_page" class="twoColumnPage page">
 	<div class="top"><span></span></div>
 	<div class="content">
-		<div class="contentWrappper page">
-			<!-- BEGIN: title -->
+		<div class="pageWrapper">
+
 			<div class="pageHeader">
 				<div class="pageHeaderWrapper">
-				<h1 class="pageTitle"><span>{NODE.page_title}</span></h1>
-				</div>
-			</div>
-			<!-- END: title -->
-			<div class="rowTop">
-				<div class="columnWrapper">
-					<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+					<h1 class="pageTitle"><span>Reports</span></h1>
 				</div>
 			</div>
 
-			<div class="columnOne">
-				<div class="columnWrapper">
-					<div id="reports_filter">
-						{ONXSHOP_REQUEST_reports_filter #bo/component/ecommerce/reports_filter}
+			<div class="pageContent">
+				<div class="pageContentWrapper">
+					<div class="rowTop">
+						<div class="rowWrapper">
+							<div class="columnWrapper">
+
+								<div id="reports_filter" class="verticalFilter">
+									{ONXSHOP_REQUEST_reports_filter #bo/component/ecommerce/reports_filter}
+								</div>
+
+								<div id="orders_breakdown">
+									{ONXSHOP_REQUEST_breakdown #bo/component/ecommerce/orders_breakdown}
+								</div>
+								
+								<div id="sales_report" style="display: none;">
+									{ONXSHOP_REQUEST_bestbuys #bo/component/ecommerce/sales_report}
+								</div>
+
+								<div id="promotion_report" style="display: none;">
+									{ONXSHOP_REQUEST_promotion_report #bo/component/ecommerce/promotion_list_report}
+								</div>
+								
+								<div id="orders_graph">
+									{ONXSHOP_REQUEST_graph #bo/component/ecommerce/orders_graph}
+								</div>
+
+							</div>
+						</div>
 					</div>
-				</div>
-			</div>
-			<div class="columnTwo">
-				<div class="columnWrapper ">
-					<div id="orders_breakdown">
-						{ONXSHOP_REQUEST_breakdown #bo/component/ecommerce/orders_breakdown}
+					<div class="rowMiddle">
+						<div class="rowWrapper">
+							<div class="columnOne">
+								<div class="columnWrapper">
+								</div>
+							</div>
+							<div class="columnTwo">
+								<div class="columnWrapper">
+								</div>
+							</div>
+						</div>
 					</div>
-					
-					<p><a class="button" href="#sales_report" onclick="$('#sales_report').toggle(); return false;"><span>Display itemised sales report for selected period</span></a></p>
-					<div id="sales_report" style="display: none;">
-						{ONXSHOP_REQUEST_bestbuys #bo/component/ecommerce/sales_report}
+					<div class="rowBottom">
+						<div class="rowWrapper">
+							<div class="columnWrapper">
+								<p>
+									<a class="button" href="#sales_report" onclick="$('#sales_report').show(); scrollToElement('#sales_report'); return false;"><span>Show Itemised Sales Report</span></a>
+									<a class="button" href="#promotion_report" onclick="$('#promotion_report').show(); scrollToElement('#promotion_report'); return false;"><span>Show Itemised Promotion Report</span></a>
+								</p>
+							</div>
+						</div>
 					</div>
-					<p><a class="button" href="#sales_report" onclick="$('#promotion_report').toggle(); return false;"><span>Display itemised promotion report for selected period</span></a></p>
-					<div id="promotion_report" style="display: none;">
-						{ONXSHOP_REQUEST_promotion_report #bo/component/ecommerce/promotion_list_report}
-					</div>
-					
-				</div>
-			</div>
-			<div class="rowBottom">
-				<div class="columnWrapper">
-					<div id="orders_graph">
-						{ONXSHOP_REQUEST_graph #bo/component/ecommerce/orders_graph}
-					</div>
-					
 				</div>
 			</div>
 		</div>
 	</div>
 	<div class="bottom"><span></span></div>
 </div>
-
-
-
-
 <!-- END: content -->

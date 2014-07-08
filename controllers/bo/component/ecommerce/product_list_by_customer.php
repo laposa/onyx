@@ -105,16 +105,16 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Product_List_By_Customer extends
 			
 			}
 			
-			//print_r($product_list);
-			
 			/**
 			 * Display items
 			 */
 			
 			foreach ($product_list as $item) {
-					$this->tpl->assign('ITEM', $item);
-					$this->tpl->parse('content.item');
+				$this->tpl->assign('ITEM', $item);
+				$this->tpl->parse('content.item');
 			}
+
+			if (count($product_list) == 0) $this->tpl->parse('content.empty');
 		}
 	}
 

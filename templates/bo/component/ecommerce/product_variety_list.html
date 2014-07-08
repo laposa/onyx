@@ -32,8 +32,8 @@ $(document).ready(function() {
 		<!-- BEGIN: variety -->
 		<tr>
 			<td>
-				<a href="/backoffice/products/variety/{VARIETY.id}/edit" onclick="javascript:openEdit('/request/sys/xhtml.bo/backoffice_wrapper.bo/component/ecommerce/product_variety_edit~id={VARIETY.id}~', this, 0); return false;" title="Click to edit whole variety">#{VARIETY.sku|htmlspecialchars}</a>
-				<a class="button edit" href="/backoffice/products/variety/{VARIETY.id}/edit" onclick="javascript:openEdit('/request/sys/xhtml.bo/backoffice_wrapper.bo/component/ecommerce/product_variety_edit~id={VARIETY.id}~', this, 0); return false;" title="Click to edit whole variety"><span>Edit</span></a>
+				<a class="title" href="/backoffice/products/variety/{VARIETY.id}/edit" onclick="javascript:openEdit('/request/sys/xhtml.bo/backoffice_wrapper.bo/component/ecommerce/product_variety_edit~id={VARIETY.id}~', this, 0); return false;" title="Click to Edit Product Variety">{VARIETY.sku|htmlspecialchars}</a>
+				<a class="button edit small" href="/backoffice/products/variety/{VARIETY.id}/edit" onclick="javascript:openEdit('/request/sys/xhtml.bo/backoffice_wrapper.bo/component/ecommerce/product_variety_edit~id={VARIETY.id}~', this, 0); return false;" title="Click to Edit Product Variety"><span>Edit</span></a>
 				{IMAGE}
 			</td>
 			<td class="{DISABLED}"><a class="title" id="ecommerce_product_variety-variety_name-id-{VARIETY.id}" href="#{VARIETY.id}" onclick="javascript:openEdit('/request/sys/xhtml.bo/backoffice_wrapper.bo/component/ecommerce/product_variety_edit~id={VARIETY.id}~', this, 0); return false;">{VARIETY.name|htmlspecialchars}</a><br /><div style="font-size: small">{VARIETY.description}</div></td>
@@ -48,5 +48,5 @@ $(document).ready(function() {
 	</tbody>
 </table>
 
-<p><a class="button add" href="/backoffice/products/{GET.id}/variety_add"><span>add new variety</span></a></p>
+<p><a class="button add" href="/backoffice/products/{GET.id}/variety_add"><span>Add a New Variety</span></a></p>
 <!-- END: content -->

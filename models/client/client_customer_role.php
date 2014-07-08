@@ -152,7 +152,7 @@ class client_customer_role extends Onxshop_Model {
 
 		// remove roles which are not specified
 		foreach ($list as $item) {
-			if (!in_array($item['role_id'], $role_id)) $result += $this->delete($item['id']);
+			if (!in_array($item['role_id'], $role_ids)) $result += $this->delete($item['id']);
 		}
 
 		foreach ($role_ids as $role_id) {

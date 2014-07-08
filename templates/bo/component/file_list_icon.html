@@ -62,13 +62,13 @@
 				
 				<!-- BEGIN: CSS_select -->
 					<a href="#" onclick="var src = $('#image_thumbnail_{FILE.id}').attr('src'); alert('Copy&amp;Paste this:\nurl(' + src + ')'); return false;"><img id="image_thumbnail_{FILE.id}" src="/thumbnail/125/{FILE.src}" title="{FILE.title}"  alt="{FILE.title}" /></a> <br />
-					<a class="button" href="#" onclick="var src = $('#image_thumbnail_{FILE.id}').attr('src'); alert('Copy&amp;Paste this:\nurl(' + src + ')'); return false;"><span>use this ...</span></a>
+					<a class="button" href="#" onclick="var src = $('#image_thumbnail_{FILE.id}').attr('src'); alert('Copy&amp;Paste this:\nurl(' + src + ')'); return false;"><span>Use This...</span></a>
 				<!-- END: CSS_select -->
 		</div>
 		<!-- END: item -->
 	<!-- END: list -->
 
-	<p style="clear: both;"><a class="button add" title="Add Files ..." href="#" onclick="makeAjaxRequest('#file_connector', '/request/bo/pages/server_browser~type={GET.type}:role={GET.role}:relation={GET.relation}:node_id={GET.node_id}~'); return false"><span>Add Files ...</span></a></p>
+	<p style="clear: both;"><a class="button add" title="Add Files..." href="#" onclick="makeAjaxRequest('#file_connector', '/request/bo/pages/server_browser~type={GET.type}:role={GET.role}:relation={GET.relation}:node_id={GET.node_id}~'); return false"><span>Add Files...</span></a></p>
 	<div id="file_connector"></div>
 </div>
 

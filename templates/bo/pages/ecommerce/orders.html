@@ -2,41 +2,65 @@
 <!-- BEGIN: content -->
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 
-<div class="twoColumnPage page fibonacci-1-5">
-	<div class="top"><span></span></div>
-	<div class="content">
-		<div class="pageWrapper">
-			{PAGE_HEADER}
-			<div class="pageContent">
-				<div class="pageContentWrapper">
-					<div class="rowTop">
-						<div class="columnWrapper">
-							{CONTAINER.0}
-						</div>
+<div id="orders">
+
+	<div class="twoColumnPage">
+		<div class="top"><span></span></div>
+		<div class="content">
+			<div class="pageWrapper">
+
+				<div class="pageHeader">
+					<div class="pageHeaderWrapper">
+						<h1 class="pageTitle"><span>Orders</span></h1>
 					</div>
-		
-					<div class="columnOne">
-						<div class="columnWrapper">
-							{ONXSHOP_REQUEST_filter #bo/component/ecommerce/order_list_filter}
-						</div>
-					</div>
-					<div class="columnTwo">
-						<div class="columnWrapper">
-							<div id="sub_content">
-								{ONXSHOP_REQUEST_order_list #bo/component/ecommerce/order_list}
+				</div>
+
+				<div class="pageContent">
+					<div class="pageContentWrapper">
+						<div class="rowTop">
+							<div class="rowWrapper">
+								<div class="columnWrapper">
+
+									{ONXSHOP_REQUEST_filter #bo/component/ecommerce/order_list_filter}
+
+									<div id="sub_content">
+										{ONXSHOP_REQUEST_order_list #bo/component/ecommerce/order_list}
+									</div>
+
+								</div>
 							</div>
 						</div>
-					</div>
-					<div class="rowBottom">
-						<div class="columnWrapper">
-							{CONTAINER.3}
+						<div class="rowMiddle">
+							<div class="rowWrapper">
+								<div class="columnOne">
+									<div class="columnWrapper">
+									</div>
+								</div>
+								<div class="columnTwo">
+									<div class="columnWrapper">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="rowBottom">
+							<div class="rowWrapper">
+								<div class="columnWrapper">
+
+									<p>
+										<a class="button" title="Export this list" href="/request/bo/export/csv_orders"><span>Export Orders</span></a></p>
+										<a class="button" title="Export this list including purchased products (unpaid orders are not included)" href="/request/bo/export/csv_orders?inlude_products=1"><span>Export Purchased Products</span></a></p>
+									</p>
+
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		<div class="bottom"><span></span></div>
 	</div>
-	<div class="bottom"><span></span></div>
+
 </div>
 
 <!-- END: content -->

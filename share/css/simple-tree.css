@@ -2,7 +2,7 @@
  * Simple Tree
  */
  
-.simpleTree a {text-decoration: none;}
+.simpleTree a { text-decoration: none; }
 
 .simpleTree
 {
@@ -15,11 +15,12 @@
 	list-style: none;
 	margin:0;
 	padding:0 0 0 34px;
-	line-height: 14px;
+	line-height: 18px;
+	position: relative;
 }
 .simpleTree li span
 {
-	display:inline;
+	display: inline;
 	clear: left;
 	white-space: nowrap;
 }
@@ -31,8 +32,64 @@
 .simpleTree .root
 {
 	margin-left: -18px;
-	background: url(/share/images/simple-tree/root.gif) no-repeat 16px 0;
+	background: none;
 }
+.simpleTree li.root:before,
+.simpleTree li.folder:before,
+.simpleTree li.folder-open:before,
+.simpleTree li.folder-open-last:before,
+.simpleTree li.folder-close:before,
+.simpleTree li.folder-close-last:before,
+.simpleTree li.doc:before,
+.simpleTree li.doc-last:before
+{
+  display: inline-block;
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  content: "\f15c";
+  margin-left: -16px;
+  line-height: 18px;
+  color: #4260a3;
+  text-shadow: 1px 1px 1px rgba(0,0,0,0.1);
+  position: absolute;
+  font-size: 14px;
+  z-index: 10;
+}
+
+.simpleTree li.folder-open:after,
+.simpleTree li.folder-open-last:after,
+.simpleTree li.folder-close:after,
+.simpleTree li.folder-close-last:after
+{
+  content: "\f0d7";
+  display: inline-block;
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 18px;
+  color: #333;
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 14px;
+  z-index: 10;
+  margin: 0 0 0 1px;
+}
+
+.simpleTree li.folder-close:after,
+.simpleTree li.folder-close-last:after
+{
+  content: "\f0da";
+  margin: 0 0 0 3px;
+}
+
 .simpleTree .line
 {
 	margin:0 0 0 -16px;
@@ -40,7 +97,7 @@
 	line-height: 3px;
 	height:3px;
 	font-size:3px;
-	background: url(/share/images/simple-tree/line_bg.gif) 0 0 no-repeat transparent;
+	/*background: url(/share/images/simple-tree/line_bg.gif) 0 0 no-repeat transparent;*/
 }
 .simpleTree .line-last
 {
@@ -72,36 +129,33 @@
 .simpleTree .folder-open
 {
 	margin-left:-16px;
-	background: url(/share/images/simple-tree/collapsable.gif) 0 -2px no-repeat;
+	/*background: url(/share/images/simple-tree/collapsable.gif) 0 -2px no-repeat;*/
 }
 .simpleTree .folder-open-last
 {
 	margin-left:-16px;
-	background: url(/share/images/simple-tree/collapsable-last.gif) 0 -2px no-repeat;
+	/*background: url(/share/images/simple-tree/collapsable-last.gif) 0 -2px no-repeat;*/
 }
 .simpleTree .folder-close
 {
 	margin-left:-16px;
-	background: url(/share/images/simple-tree/expandable.gif) 0 -2px no-repeat;
+	/*background: url(/share/images/simple-tree/expandable.gif) 0 -2px no-repeat;*/
 }
 .simpleTree .folder-close-last
 {
 	margin-left:-16px;
-	background: url(/share/images/simple-tree/expandable-last.gif) 0 -2px no-repeat;
+	/*background: url(/share/images/simple-tree/expandable-last.gif) 0 -2px no-repeat;*/
 }
 .simpleTree .doc
 {
 	margin-left:-16px;
-	background: url(/share/images/simple-tree/leaf.gif) 0 -1px no-repeat;
+	/*background: url(/share/images/simple-tree/leaf.gif) 0 -1px no-repeat;*/
 }
 .simpleTree .doc-last
 {
 	margin-left:-16px;
-	background: url(/share/images/simple-tree/leaf-last.gif) 0 -1px no-repeat;
+	/*background: url(/share/images/simple-tree/leaf-last.gif) 0 -1px no-repeat;*/
 }
-
-div.server_browser_menu .simpleTree .doc {background: url(/share/images/simple-tree/folder.gif) 0 -2px no-repeat;}
-div.server_browser_menu .simpleTree .doc-last {background: url(/share/images/simple-tree/folder-last.gif) 0 -2px no-repeat;}
 
 .simpleTree .ajax
 {
@@ -122,17 +176,32 @@ div.server_browser_menu .simpleTree .doc-last {background: url(/share/images/sim
 	width: 28px;
 	height: 11px;
 	cursor:pointer;
+	position: relative;
+	z-index: 20;
 }
 .simpleTree .text
 {
 	cursor: default;
 }
+.simpleTree a:active
+{
+	color: #000000;
+}
+.simpleTree .active a:active
+{
+	color: #ffffff;
+}
+.simpleTree .active a,
 .simpleTree .active
 {
 	cursor: default;
-	background-color:#F7BE77;
-	padding:0px 2px;
-	border: 1px dashed #444;
+	background: #5179bf;
+	color: #ffffff;
+	padding: 3px 5px 4px 5px;
+	font-weight: normal;
+	border-top: 1px solid #6d97d0;
+	border-radius: 2px;
+	text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
 }
 #drag_container
 {

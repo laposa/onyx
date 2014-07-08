@@ -21,8 +21,17 @@ class Onxshop_Controller_Bo_Component_Client_Customer_Edit extends Onxshop_Contr
 		if (!is_numeric($customer_id)) return false;
 		
 		if ($_POST['save']) {
+
 			$_POST['client']['customer']['id'] = $customer_id;
-			
+
+			if (strlen($_POST['password_new']) > 0) {
+				$Customer->update(array(
+					'id' => $customer_id,
+					'password' => md5($_POST['password_new'])
+				));
+				msg('New password has been set.');
+			}
+
 			if ($Customer->updateClient($_POST['client'])) {
 				msg('Client Data Updated');
 			} else {
@@ -30,10 +39,9 @@ class Onxshop_Controller_Bo_Component_Client_Customer_Edit extends Onxshop_Contr
 			}
 			
 		}
-		
-		
+
 		$client_data = $Customer->getClientData($customer_id);
-		
+
 		$client_data['customer']['newsletter'] = ($client_data['customer']['newsletter'] == 1) ? 'checked="checked" ' : '';
 		
 		$this->tpl->assign('CLIENT', $client_data);

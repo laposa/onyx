@@ -1,23 +1,36 @@
 <!-- BEGIN: content -->
 <div class="orders_graph">
-	<form method="post" action="{URI|htmlspecialchars}">
-		<fieldset class="single">
-			<legend>Orders amount graph</legend>
-			<div class="row">
-				<span class="label"><label>Time frame</label></span>
-				<span class="field">
-					<select name="time_frame">
-						<option value="month" {SELECTED_month}>Month</option>
-						<option value="week" {SELECTED_week}>Week</option>
-						<option value="day" {SELECTED_day}>Day</option>
-					</select>
-					<button type="submit" name="submit" value="submit"><span>Submit</span></button>
-				</span>
-			</div>
-		</fieldset>
-	</form>
-	
+
+	<h3>Graphs</h3>
+
+	<div class="verticalFilter">
+
+		<form method="post" action="{URI|htmlspecialchars}">
+			<fieldset class="single">
+				<div class="row">
+					<span class="label"><label>Time frame</label></span>
+					<span class="field">
+						<select name="time_frame">
+							<option value="month" {SELECTED_month}>Month</option>
+							<option value="week" {SELECTED_week}>Week</option>
+							<option value="day" {SELECTED_day}>Day</option>
+						</select>
+						<button type="submit" name="submit" value="submit"><span>Submit</span></button>
+					</span>
+				</div>
+			</fieldset>
+		</form>
+	</div>
+
 	<a href="/download/var/cache/graph-revenue-{TIME_FRAME}.png"><img src="/image/var/cache/graph-revenue-{TIME_FRAME}.png" /></a>
+
+	<br/>
+	<br/>
+
 	<a href="/download/var/cache/graph-num_orders-{TIME_FRAME}.png"><img src="/image/var/cache/graph-num_orders-{TIME_FRAME}.png" /></a>
+
+	<br/>
+	<br/>
+
 </div>
 <!-- END: content -->

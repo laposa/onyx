@@ -2,74 +2,34 @@
  * Onxshop Header
  */
 
-#onxshopHeader {line-height: 17px; font-size: 14px; font-family: "Lucida Grande", Helvetica, Arial, sans-serif;}
+#onxshopHeader { position: fixed; z-index: 20000; left: 0; top: 0; width: 130px; height: 100%; background: #2a2f34; box-shadow: inset -3px 0 15px rgba(0,0,0,0.2), 1px 0 3px rgba(0,0,0,0.2); }
+#onxshopBackoffice { margin-left: 130px; }
+#onxshopHeader a { line-height: 17px; font-size: 12px; font-family: "Lucida Grande", Helvetica, Arial, sans-serif;  color: #ccc;}
 
-/**
- * onxshopSystemBar
- */
- 
-#onxshopSystemBar {color: #999; font-weight: bold; font-family: "Lucida Grande", Helvetica, Arial, sans-serif; text-shadow: 0px 1px 0.5px black;
-height: 18px; border-top: 1px solid #494747;
-background: #3f3f3f; /* Old browsers */
-background: -moz-linear-gradient(top,  #3f3f3f 0%, #242424 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#3f3f3f), color-stop(100%,#242424)); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top,  #3f3f3f 0%,#242424 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top,  #3f3f3f 0%,#242424 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top,  #3f3f3f 0%,#242424 100%); /* IE10+ */
-background: linear-gradient(top,  #3f3f3f 0%,#242424 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3f3f3f', endColorstr='#242424',GradientType=0 ); /* IE6-9 */
-}
-#onxshopSystemBar a {color: #999; font-weight: bold; text-decoration: none; text-shadow: 0px 1px 0.5px black;}
-#onxshopSystemBar a:hover {color: #eee;}
-#onxshopSystemBar a.onxshop_version {background: url(../images/favicon-grey.png) no-repeat center left; display: inline-block; height: 16px; padding-left: 20px;}
-#onxshopSystemBar a.onxshop_version:hover {background-image: url(../images/favicon-white.png);}
-#onxshopSystemBar {font-size: 10px; line-height: 17px;}
-#onxshopSystemBar #menuSystem {float: left; margin: 0 0 0 10px; text-align: left;}
-#onxshopSystemBar #menuUser {float: right; margin: 0 15px 0 0; text-align: right;}
+#onxshopMenuBar ul { margin: 0; padding: 10px 0; margin: 0; list-style: none; text-shadow: 1px 1px 1px rgba(0,0,0,0.5); border-top: 1px solid #33373c; box-shadow: 0 -1px 0 #0f1112; }
+#onxshopMenuBar ul li { margin: 0; padding: 0; width: 130px; height: 28px; }
+#onxshopMenuBar ul li a { text-decoration: none; font-size: 11px; display: block; width: 130px; height: 28px; line-height: 24px; transition: color 200ms linear; }
+#onxshopMenuBar ul li a span.fa { margin: 0 8px 0 10px; }
+#onxshopMenuBar ul li.active a { color: #fff; border-top: 1px solid #6d97d0; background-image: -webkit-linear-gradient(top, #5685c4, #4c6cb8); background-image: -moz-linear-gradient(top, #5685c4, #4c6cb8); background-image: -ms-linear-gradient(top, #5685c4, #4c6cb8); background-image: -o-linear-gradient(top, #5685c4, #4c6cb8); background-image: linear-gradient(to bottom, #5685c4, #4c6cb8); }
+#onxshopMenuBar ul li a:hover { color: #fff; }
 
-/**
- * onxshopMenuBar
- */
- 
-#onxshopMenuBar {clear: both; height: 29px; box-shadow: 0 2px rgba(0,0,0,0.2); border-top: 1px solid white;
-background: #e9e9e9; /* Old browsers */
-background: -moz-linear-gradient(top, #e9e9e9 0%, #dedede 21%, #dfdfdf 22%, #dadada 28%, #d8d8d8 34%, #d5d5d5 36%, #d6d6d6 38%, #d0d0d0 50%, #c6c6c6 63%, #c6c6c6 67%, #c2c2c2 70%, #c3c3c3 71%, #bebebe 76%, #bebebe 80%, #bababa 83%, #b6b6b6 89%, #b7b7b7 91%, #b4b4b4 92%, #b6b6b6 93%, #b2b2b2 99%, #b7b8b7 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#e9e9e9), color-stop(21%,#dedede), color-stop(22%,#dfdfdf), color-stop(28%,#dadada), color-stop(34%,#d8d8d8), color-stop(36%,#d5d5d5), color-stop(38%,#d6d6d6), color-stop(50%,#d0d0d0), color-stop(63%,#c6c6c6), color-stop(67%,#c6c6c6), color-stop(70%,#c2c2c2), color-stop(71%,#c3c3c3), color-stop(76%,#bebebe), color-stop(80%,#bebebe), color-stop(83%,#bababa), color-stop(89%,#b6b6b6), color-stop(91%,#b7b7b7), color-stop(92%,#b4b4b4), color-stop(93%,#b6b6b6), color-stop(99%,#b2b2b2), color-stop(100%,#b7b8b7)); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top, #e9e9e9 0%,#dedede 21%,#dfdfdf 22%,#dadada 28%,#d8d8d8 34%,#d5d5d5 36%,#d6d6d6 38%,#d0d0d0 50%,#c6c6c6 63%,#c6c6c6 67%,#c2c2c2 70%,#c3c3c3 71%,#bebebe 76%,#bebebe 80%,#bababa 83%,#b6b6b6 89%,#b7b7b7 91%,#b4b4b4 92%,#b6b6b6 93%,#b2b2b2 99%,#b7b8b7 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top, #e9e9e9 0%,#dedede 21%,#dfdfdf 22%,#dadada 28%,#d8d8d8 34%,#d5d5d5 36%,#d6d6d6 38%,#d0d0d0 50%,#c6c6c6 63%,#c6c6c6 67%,#c2c2c2 70%,#c3c3c3 71%,#bebebe 76%,#bebebe 80%,#bababa 83%,#b6b6b6 89%,#b7b7b7 91%,#b4b4b4 92%,#b6b6b6 93%,#b2b2b2 99%,#b7b8b7 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top, #e9e9e9 0%,#dedede 21%,#dfdfdf 22%,#dadada 28%,#d8d8d8 34%,#d5d5d5 36%,#d6d6d6 38%,#d0d0d0 50%,#c6c6c6 63%,#c6c6c6 67%,#c2c2c2 70%,#c3c3c3 71%,#bebebe 76%,#bebebe 80%,#bababa 83%,#b6b6b6 89%,#b7b7b7 91%,#b4b4b4 92%,#b6b6b6 93%,#b2b2b2 99%,#b7b8b7 100%); /* IE10+ */
-background: linear-gradient(top, #e9e9e9 0%,#dedede 21%,#dfdfdf 22%,#dadada 28%,#d8d8d8 34%,#d5d5d5 36%,#d6d6d6 38%,#d0d0d0 50%,#c6c6c6 63%,#c6c6c6 67%,#c2c2c2 70%,#c3c3c3 71%,#bebebe 76%,#bebebe 80%,#bababa 83%,#b6b6b6 89%,#b7b7b7 91%,#b4b4b4 92%,#b6b6b6 93%,#b2b2b2 99%,#b7b8b7 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e9e9e9', endColorstr='#b7b8b7',GradientType=0 ); /* IE6-9 */
-}
-#onxshopMenuBar a.onxshop_version {background: url(../images/favicon-grey.png) no-repeat center center; display: inline-block; height: 16px; padding-left: 20px;}
-#onxshopMenuBar a.onxshop_version span {display: none;}
-#onxshopMenuBar #menuShortcuts {float: left; padding-top: 4px;}
-#onxshopMenuBar a {text-decoration: none; text-shadow: 0 1px 0 white;}
-#onxshopMenuBar #menuGroup {float: left;}
-#onxshopMenuBar #menuContext {float: right;}
-#onxshopMenuBar ul {margin: 0 10px 0 0; padding: 0;}
-#onxshopMenuBar ul li.first {border-top-left-radius: 2px; border-bottom-left-radius: 2px;}
-#onxshopMenuBar ul li.last { border-top-right-radius: 2px; border-bottom-right-radius: 2px;}
-#onxshopMenuBar ul li a { color: black; font-size: 11px; text-shadow: 0 1px 0 white; text-decoration: none; padding: 5px 10px; display: block;}
-#onxshopMenuBar ul li {float: left; list-style-type: none; list-style-image: none; padding: 0; margin: 0;
-border-right: 1px solid #ccc; border-bottom: 1px solid #d5d5d5; border-left: 1px solid #EAEAEA; 
-background: #ededed; /* Old browsers */
-background: -moz-linear-gradient(top,  #ededed 0%, #d1d1d1 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ededed), color-stop(100%,#d1d1d1)); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top,  #ededed 0%,#d1d1d1 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top,  #ededed 0%,#d1d1d1 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top,  #ededed 0%,#d1d1d1 100%); /* IE10+ */
-background: linear-gradient(top,  #ededed 0%,#d1d1d1 100%); /* W3C */
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ededed', endColorstr='#d1d1d1',GradientType=0 ); /* IE6-9 */}
-#onxshopMenuBar ul li.active,
-#onxshopMenuBar ul li:hover {
-background: #eee; /* Old browsers */
-background: -moz-linear-gradient(top,  #eee 0%, #fff 100%); /* FF3.6+ */
-background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#eee), color-stop(100%,#fff)); /* Chrome,Safari4+ */
-background: -webkit-linear-gradient(top,  #eee 0%,#fff 100%); /* Chrome10+,Safari5.1+ */
-background: -o-linear-gradient(top,  #eee 0%,#fff 100%); /* Opera 11.10+ */
-background: -ms-linear-gradient(top,  #eee 0%,#fff 100%); /* IE10+ */
-background: linear-gradient(top,  #eee 0%,#fff 100%); /* W3C */
-filter: none;
-/*filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#eee', endColorstr='#fff',GradientType=0 );*/ /* IE6-9 */
-}
+#menuSystem { height: 60px; }
+#menuSystem a.onxshop_version span.onxshop-logo { width: 40px; height: 40px; background: url(../images/onxshop-logo-white.png) no-repeat; background-size: 40px 40px; display: inline-block;margin-left: 12px; vertical-align: middle;}
+#menuSystem a.onxshop_version span.title { display: inline-block; margin-left: 12px; vertical-align: middle; color: #ffffff; line-height: 14px;}
+
+ul#menuAdvanced { display: none; }
+
+
+#onxshop_cms_content { margin-left: 50px; }
+#onxshopHeader.frontend { width: 50px; }
+
+#onxshopHeader.frontend #onxshopMenuBar ul#menuGroup { padding-top: 10px; }
+#onxshopHeader.frontend #onxshopMenuBar ul li { text-align: center; width: 50px; height: 38px; }
+#onxshopHeader.frontend #onxshopMenuBar ul li a { width: 50px; height: 38px; line-height: 38px; position: relative;}
+#onxshopHeader.frontend #onxshopMenuBar ul li a span.fa { display: inline-block; margin: 0; line-height: 40px; }
+#onxshopHeader.frontend #onxshopMenuBar ul li a span.title { display: none; position: absolute; z-index: 10000; left: 55px; top: 12px; background: rgba(0,0,0,0.8); color: #ffffff; padding: 2px 14px; line-height: 14px; border-radius: 10px; white-space: nowrap;}
+#onxshopHeader.frontend #onxshopMenuBar ul li a.onxshop_version span.title { top: 1px; left: 42px; padding: 5px 10px; }
+#onxshopHeader.frontend #onxshopMenuBar ul li a:hover span.title { display: block; }
+
+#onxshopHeader.frontend #menuSystem a.onxshop_version { display: block; width: 50px; height: 40px; }
+#onxshopHeader.frontend #menuSystem a.onxshop_version span.onxshop-logo { margin: 0; }

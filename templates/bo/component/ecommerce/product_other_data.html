@@ -30,22 +30,23 @@ $().ready(function() {
 		<div class="product_other_data">
 			<!-- BEGIN: item -->
 			<div class="item">
-				<span class="label"><input type="text" value="{OTHER_DATA.key|htmlspecialchars}"></span>
+				<span class="label"><input type="text" value="{OTHER_DATA.key|htmlspecialchars}">
+				<a class="button remove small" href="javascript: return false;" onclick="$(this).parent().parent().remove()"><span>Remove</span></a></span>
+				</span>
 				<span class="field"><textarea name="product[other_data][{OTHER_DATA.key|htmlspecialchars}]">{OTHER_DATA.value|htmlspecialchars}</textarea>
-				<a href="javascript: return false;" onclick="$(this).parent().parent().remove()"><span>remove</span></a></span>
 			</div>
 			<!-- END: item -->
 		</div>
 		<!-- END: other_data -->
 	</div>
 	<div class="row">
-		<a href="#" onclick="$('#product_other_data_new').toggle(); return false;"><span>Add a new attribute</span></a>
+		<a class="button add" href="#" onclick="$('#product_other_data_new').toggle(); return false;"><span>Add a New Attribute</span></a>
 		<div id="product_other_data_new" style="display: none;">
 			<div class="item">
 				<span class="label"><input type="text" value=""></span>
 				<span class="field"><textarea name=""></textarea>
 			</div>
-			<p><a href="#" onclick="return addNewOtherDataAttribute();"><span>Add more</span></a></p>
+			<p><a class="button add" href="#" onclick="return addNewOtherDataAttribute();"><span>Add More</span></a></p>
 		</div>
 	</div>
 </fieldset>

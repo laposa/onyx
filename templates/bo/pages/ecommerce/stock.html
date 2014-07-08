@@ -2,34 +2,83 @@
 <!-- BEGIN: content -->
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 
+<div class="twoColumnPage page">
+	<div class="top"><span></span></div>
+	<div class="content">
+		<div class="pageWrapper">
 
-<div class="twoColumnPage page fibonacci-1-5">
-	<div class="top page"><span></span></div>
-	<div class="content page">
-		<div class="contentWrappper page">
 			<div class="pageHeader">
-			</div>
-			<div class="columnTop page">
-				<div class="columnWrapper page">
-
+				<div class="pageHeaderWrapper">
+					<h1 class="pageTitle"><span>Stock</span></h1>
 				</div>
 			</div>
 
-			<div class="columnOne page">
-				<div class="columnWrapper page">
-					{ONXSHOP_REQUEST_filter #bo/component/ecommerce/product_list_filter}
-				</div>
-			</div>
-			<div class="columnTwo page">
-				<div class="columnWrapper page">
-					<div id="sub_content">
-						{ONXSHOP_REQUEST_order_list #bo/component/ecommerce/stock}
+			<div class="pageContent">
+				<div class="pageContentWrapper">
+					<div class="rowTop">
+						<div class="rowWrapper">
+							<div class="columnWrapper">
+
+								<div class="filterBar">
+									{ONXSHOP_REQUEST_filter #bo/component/ecommerce/product_list_filter}
+								</div>
+
+								<div id="sub_content">
+									{ONXSHOP_REQUEST_stock_list #bo/component/ecommerce/stock}
+								</div>
+
+							</div>
+						</div>
+					</div>
+					<div class="rowMiddle">
+						<div class="rowWrapper">
+							<div class="columnOne">
+								<div class="columnWrapper">
+								</div>
+							</div>
+							<div class="columnTwo">
+								<div class="columnWrapper">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="rowBottom">
+						<div class="rowWrapper">
+							<div class="columnWrapper">
+
+								<p>
+									<a class="button" title="export this list as CSV" href="/request/bo/export/csv_products"><span>Export List to CSV</span></a>
+									<a class="button" title="export this list as XML" href="/request/bo/export/xml_products"><span>Export List to XML</span></a>
+								</p>
+								<p>
+									<a class="button notification_csv" title="Export notifications as CSV" href="/request/bo/export/csv_notifications"><span>Export Stock Notifications</span></a>
+									<select class="notification_csv">
+										<option value="">- Select a Period -</option>
+										<!-- BEGIN: stock_period -->
+										<option value="date_from={DATE.from}&amp;date_to={DATE.to}">{DATE.label}</option>
+										<!-- END: stock_period -->
+									</select>
+
+									<script type="text/javascript">
+										$(function() {
+											$("a.notification_csv").click(function() {
+												var val = $("select.notification_csv").val();
+												if (val == '') alert("Please select a period first.");
+												else window.location = $(this).attr("href") + "?" + val;
+												return false;
+											});
+										});
+									</script>
+								</p>
+
+
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="bottom page"><span></span></div>
+	<div class="bottom"><span></span></div>
 </div>
-
 <!-- END: content -->

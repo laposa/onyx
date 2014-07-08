@@ -104,7 +104,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Order_List extends Onxshop_Contr
 
 		} else {
 
-			msg("No orders found in this category", 'error');
+			$this->tpl->parse('content.empty');
 
 		}
 

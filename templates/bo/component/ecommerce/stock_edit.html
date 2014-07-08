@@ -4,7 +4,9 @@
 
 <script type="text/javascript">
 $(function() {
-    $('#sub_content form').ajaxForm({target: '#sub_content'}); 
+    $('#sub_content form').ajaxForm({target: '#sub_content', complete: function() {
+    	makeAjaxRequest('#sub_content', '/request/bo/component/ecommerce/stock');
+    }}); 
 });
 </script>
 
@@ -56,7 +58,7 @@ $(function() {
 		</fieldset>
 	</div>
 
-	<button type="submit" name="save" value="variety"><span>save</span></button>
+	<button class="save" type="submit" name="save" value="variety"><span>Save</span></button>
 
 	<input type="hidden" name="product[variety][id]" value="{PRODUCT.variety.id}"/>
 	<input type="hidden" name="product[variety][product_id]" value="{PRODUCT.variety.product_id}"/>

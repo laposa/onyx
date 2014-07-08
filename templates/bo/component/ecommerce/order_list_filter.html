@@ -7,7 +7,7 @@ $(document).ready(function(){
 });
 </script>
 
-<div class="order_list_filter">
+<div class="order_list_filter verticalFilter">
 	<form method="post" action="{URI|htmlspecialchars}" id="order_list_filter">
 		<fieldset class="single">
 			<div class="row search">
@@ -28,23 +28,18 @@ $(document).ready(function(){
 			<div class="row registered_between">
 				<span class="label"><label>Created between</label></span>
 				<span class="field">
-					<input type="text" class="text" id="order-list-filter-created_from" name="order-list-filter[created_from]" value="{_SESSION.order-list-filter.created_from|htmlspecialchars}" />
-					<input type="text" class="text" id="order-list-filter-created_to" name="order-list-filter[created_to]" value="{_SESSION.order-list-filter.created_to|htmlspecialchars}" />
+					<input type="text" class="text date" id="order-list-filter-created_from" name="order-list-filter[created_from]" value="{_SESSION.order-list-filter.created_from|htmlspecialchars}" />
+					<input type="text" class="text date" id="order-list-filter-created_to" name="order-list-filter[created_to]" value="{_SESSION.order-list-filter.created_to|htmlspecialchars}" />
 				</span>
 			</div>
-			<!--  <div class="row activity_between">
-				<span class="label"><label>Modified between</label></span>
-				<span class="field">
-					<input type="text" class="text" id="order-list-filter-activity_from" name="order-list-filter[activity_from]" value="{_SESSION.order-list-filter.activity_from}|htmlspecialchars" />
-					<input type="text" class="text" id="order-list-filter-activity_to" name="order-list-filter[activity_to]" value="{_SESSION.order-list-filter.activity_to|htmlspecialchars}" />
-				</span>
-			</div>-->
 		</fieldset>
 		
 		<div class="row submit">
 			<span class="label"><label>&nbsp;</label></span>
 			<span class="field"><button type="submit" name="search" value="search"><span>Search</span></button></span>
 		</div>
+
+		<div class="bottom"></div>
 	</form>
 </div>
 <!-- END: content -->

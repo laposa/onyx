@@ -28,16 +28,16 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Best_Buys extends Onxshop_Contro
 			
 			}
 			
-			//print_r($product_list);
-			
 			/**
 			 * Display items
 			 */
 			
 			foreach ($product_list as $item) {
-					$this->tpl->assign('ITEM', $item);
-					$this->tpl->parse('content.item');
+				$this->tpl->assign('ITEM', $item);
+				$this->tpl->parse('content.item');
 			}
+
+			if (count($product_list) == 0) $this->tpl->parse('content.empty');
 		}
 	}
 

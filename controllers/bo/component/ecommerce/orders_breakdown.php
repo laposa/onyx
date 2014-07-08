@@ -42,7 +42,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Orders_Breakdown extends Onxshop
 
 		} else {
 
-			msg("Sorry, no data available for selected period.");
+			$this->tpl->parse('content.empty');
 
 		}
 
@@ -138,7 +138,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Orders_Breakdown extends Onxshop
 	 */
 	protected function processInvoices(&$invoices)
 	{
-		$breakdown = array();
+		$breakdown = array('goods' => array(), 'delivery' => array());
 
 		foreach ($invoices as $invoice) {
 

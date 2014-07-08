@@ -139,7 +139,7 @@ class client_customer_group extends Onxshop_Model {
 	 * Update customer's groups as per given array of group ids
 	 * 
 	 * @param  int   $customer_id Customer Id
-	 * @param  array $group_id     Group Ids
+	 * @param  array $group_id    Group Ids
 	 * @return int                Number of updated rows
 	 */
 	function updateCustomerGroups($customer_id, $group_ids)
@@ -152,7 +152,7 @@ class client_customer_group extends Onxshop_Model {
 
 		// remove groups which are not specified
 		foreach ($list as $item) {
-			if (!in_array($item['group_id'], $group_id)) $result += $this->delete($item['id']);
+			if (!in_array($item['group_id'], $group_ids)) $result += $this->delete($item['id']);
 		}
 
 		foreach ($group_ids as $group_id) {

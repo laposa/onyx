@@ -15,25 +15,21 @@ function initialiseMenuPagesTree() {
 			makeAjaxRequest("#sub_content", "/request/bo/component/node_edit~id="+node_id+"~");
 			$('#button_add_subpage').attr('data-node_id', node_id);
 		},
-		afterDblClick:function(node){
-			//alert("text-"+$('span:first',node).text());
+		afterContextMenu:function(node){
+			var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
+			makeAjaxRequest("#sub_content", "/request/bo/component/node_edit~id="+node_id+"~");
+			$('#button_add_subpage').attr('data-node_id', node_id);
 		},
 		afterMove:function(destination, source, position){
 			var source_node_id = $('a:first', source).attr('href').match("[0-9]{1,}$");
 			var destination_node_id = $('a:first', destination).attr('href').match("[0-9]{1,}$");
-			//alert("moved"+source_node_id+"to"+destination_node_id+"pos"+position);
 			openAjaxRequestInGrowl('/request/bo/component/node_move~source_node_id='+source_node_id+':destination_node_id='+destination_node_id+':position='+position+'~', 'Move node');
 			return false;
 		},
-		afterAjax:function()
-		{
-			//alert('Loaded');
-		},
 		animate: true,
-		docToFolderConvert: true
+		docToFolderConvert: false
 	});
-	$("#menupages_tree").css('display', 'block');
-	
+	$('#pages_node_menu').addClass('visible');
 }
 
 function hookNodeEditPostUpdate() {
@@ -44,60 +40,59 @@ function hookNodeEditPostUpdate() {
 </script>
 
 <div id="pages">
-	<div id="pageSide">
-		<div id="pageSideWrapper">
-			<div id="secondaryNavigation">
-				<div id="secondaryNavigationWrapper">
-					<div class="top"><span></span></div>
-					<div class="content">
-						
-					</div>
-					<div class="bottom"><span></span></div>
-				</div>
-			</div>
-			
-			<div id="containerFour">
-				<div id="containerFourWrapper">
-					<div class="top"><span></span></div>
-					<div class="content">
-						<div id="pages_node_menu">
-							{ONXSHOP_REQUEST_menupages #bo/component/node_menu~id=0:open=GET.open:expand_all=1:publish=0~}
-						</div>
-					</div>
-					<div class="bottom"><span></span></div>
-				</div>
-			</div>
-		</div>
-	</div>
 
-	<div class="twoColumnPage page fibonacci-5-1">
+	<div class="twoColumnPage page sidebar">
 		<div class="top"><span></span></div>
 		<div class="content">
 			<div class="pageWrapper">
-				{PAGE_HEADER}
+
+				<div class="pageHeader">
+					<div class="pageHeaderWrapper">
+						<h1 class="pageTitle"><span>Page Edit</span> <span class="info">ID {NODE_ID}</span></h1>
+					</div>
+				</div>
+
 				<div class="pageContent">
 					<div class="pageContentWrapper">
 						<div class="rowTop">
-							<div class="columnWrapper">
-								{CONTAINER.0}
-							</div>
-						</div>
-			
-						<div class="columnOne">
-							<div class="columnWrapper">
-								<div id="sub_content">
-									{NODE_EDIT}
+							<div class="rowWrapper">
+								<div class="columnWrapper">
+									{CONTAINER.0}
 								</div>
 							</div>
 						</div>
-						<div class="columnTwo">
-							<div class="columnWrapper">
-								<p><a class="button add" href="#" id="button_add_subpage" data-node_id="{NODE_ID}" data-node_group="page" style="margin-left: 10px;"><span>Add Subpage</span></a></p>
+						<div class="rowMiddle">
+							<div class="rowWrapper">
+								<div class="columnOne">
+									<div class="columnWrapper">
+
+										<div id="pages_node_menu">
+											{ONXSHOP_REQUEST_menupages #bo/component/node_menu~id=0:open=GET.open:expand_all=1:publish=0~}
+										</div>
+
+									</div>
+								</div>
+								<div class="columnTwo">
+									<div class="columnWrapper">
+
+										<div id="sub_content">
+											{NODE_EDIT}
+										</div>
+
+									</div>
+								</div>
 							</div>
 						</div>
 						<div class="rowBottom">
-							<div class="columnWrapper">
-								{CONTAINER.3}
+							<div class="rowWrapper">
+								<div class="columnWrapper">
+
+									<p>
+										<a class="button add" href="#" id="button_add_subpage" data-node_id="{NODE_ID}" data-node_group="page"><span>Add Subpage</span></a>
+										<a class="button" href="#" onclick="return showAdvancedSettings(this)"><span>Show Advanced Settings</span></a>
+									</p>
+
+								</div>
 							</div>
 						</div>
 					</div>
@@ -106,5 +101,6 @@ function hookNodeEditPostUpdate() {
 		</div>
 		<div class="bottom"><span></span></div>
 	</div>
+
 </div>
 <!-- END: content -->

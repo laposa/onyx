@@ -7,17 +7,7 @@ $(document).ready(function(){
 		autoclose: true,
 		afterClick:function(node){
 			var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
-			$("#sub_content").html(onxshop_load_indicator_html_snippet).load("/request/bo/component/news_list~show_all_from_bo=1:taxonomy_tree_id="+node_id+"~");
-		},
-		afterDblClick:function(node){
-			//alert("text-"+$('span:first',node).text());
-		},
-		afterMove:function(destination, source, pos){
-			//alert("destination-"+$('span:first',destination).text()+" source-"+$('span:first',source).text()+" pos-"+pos);
-		},
-		afterAjax:function()
-		{
-			//alert('Loaded');
+			$("#news_list").html(onxshop_load_indicator_html_snippet).load("/request/bo/component/news_list~show_all_from_bo=1:taxonomy_tree_id="+node_id+"~");
 		},
 		animate: true,
 		docToFolderConvert: true
@@ -26,38 +16,67 @@ $(document).ready(function(){
 });
 </script>
 
-<div class="twoColumnPage page fibonacci-1-5">
-	<div class="top page"><span></span></div>
-	<div class="content page">
-		<div class="contentWrappper page">
-			<div class="pageHeader">
-				
-			</div>
-			<div class="columnTop page">
-				<div class="columnWrapper page">
+<div id="news">
+	<div class="twoColumnPage page sidebar">
+		<div class="top"><span></span></div>
+		<div class="content">
+			<div class="pageWrapper">
 
-				</div>
-			</div>
-
-			<div class="columnOne page">
-				<div class="columnWrapper page">
-					<div id="newsTaxonomyFilter">
-					{ONXSHOP_REQUEST_menupages #bo/component/taxonomy_menu~expand_all=1:publish=0~}
+				<div class="pageHeader">
+					<div class="pageHeaderWrapper">
+						<h1 class="pageTitle"><span>News</span></h1>
 					</div>
 				</div>
-			</div>
-			<div class="columnTwo page">
-				<div class="columnWrapper page">
-					<div id="sub_content">
-						<div id="news_list">
-							{ONXSHOP_REQUEST_newslist #bo/component/news_list~display_pagination=1~}
+
+				<div class="pageContent">
+					<div class="pageContentWrapper">
+						<div class="rowTop">
+							<div class="rowWrapper">
+								<div class="columnWrapper">
+									{CONTAINER.0}
+								</div>
+							</div>
+						</div>
+						<div class="rowMiddle">
+							<div class="rowWrapper">
+								<div class="columnOne">
+									<div class="columnWrapper">
+
+										<div id="newsTaxonomyFilter">
+											{ONXSHOP_REQUEST_menupages #bo/component/taxonomy_menu~expand_all=1:publish=0~}
+										</div>
+
+									</div>
+								</div>
+								<div class="columnTwo">
+									<div class="columnWrapper">
+
+										<div id="news_list">
+											{ONXSHOP_REQUEST_newslist #bo/component/news_list~display_pagination=1~}
+										</div>
+
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="rowBottom">
+							<div class="rowWrapper">
+								<div class="columnWrapper">
+
+									<p>
+										<a class="button add" title="Add new article to {NEWS_LIST.title|htmlspecialchars}" href="#" onclick="openAjaxRequestInDialog('/request/bo/component/news_add~blog_node_id={NEWS_LIST.id}~', 'Create a news item for {NEWS_LIST.title|htmlspecialchars}'); return false"><span>Add a New Article</span></a>
+										<a class="button rss" title="News RSS Export ({NEWS_LIST.title}" href="/export/rss/node/{NEWS_LIST.id}"><span>Export This List as RSS</span></a>
+									</p>
+
+								</div>
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		<div class="bottom"><span></span></div>
 	</div>
-	<div class="bottom page"><span></span></div>
 </div>
 
 <!-- END: content -->

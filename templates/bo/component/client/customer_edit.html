@@ -5,10 +5,16 @@ $(document).ready(function(){
 });  
 </script>
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
-<form action="{URI_SAFE|htmlspecialchars}" method="post" id="client_customer_edit" class="user_prefs twoColumns">
-	
+<form action="{URI_SAFE|htmlspecialchars}" method="post" id="client_customer_edit" class="user_prefs ">
+
 	<!-- BEGIN: status -->
 	<fieldset>
+
+		<div class="row id">
+			<span class="label" for="client-customer-id"><label>Id</label></span>
+			<span class="field">{CLIENT.customer.id}</span>
+		</div>
+
 		<div class="row status">
 			<span class="label" for="client-customer-status"><label>Account Status</label></span>
 			<span class="field">
@@ -67,17 +73,9 @@ $(document).ready(function(){
 	
 	<fieldset>
 		<legend>{I18N_CHANGE_PASSWORD}</legend>
-		<div class="row password">
-			<span class="label"><label for="client-customer-password">{I18N_CURRENT_PASSWORD}</label></span>
-			<span class="field"><input class="text" type="password" id="client-customer-password" name="client[customer][password]" value="" title="You need to type your old password here if you want to set a new password" /></span>
-		</div>
 		<div class="row password_new">
 			<span class="label"><label for="client-customer-password_new">{I18N_NEW_PASSWORD}</label></span>
-			<span class="field"><input class="text" type="password" id="client-customer-password_new" name="client[customer][password_new]" value="" title="Enter a new password if you'd like to change it" /></span>
-		</div>
-		<div class="row password_new1">
-			<span class="label"><label for="client-customer-password_new1">{I18N_NEW_PASSWORD1}</label></span>
-			<span class="field"><input class="text" type="password" id="client-customer-password_new1" name="client[customer][password_new1]" value="" title="Please repeat your new password" /></span>
+			<span class="field"><input class="text" type="text" id="client-customer-password_new" name="password_new" value="" title="Set customer's new password" /></span>
 		</div>
 	</fieldset>
 	<fieldset>
@@ -131,7 +129,7 @@ $(document).ready(function(){
 
 	<div class="row submit">
 		<span class="label"><label>&nbsp;</label></span>
-		<span class="field"><button class="button save" type="submit" name="save" value="save" title="Click to save your records"><span>{I18N_SAVE}</span></button></span>
+		<span class="field"><button class="button save" type="submit" name="save" value="save" onclick="$(this).addClass('saving')" title="Click to save your records"><span>{I18N_SAVE}</span></button></span>
 	</div>
 </form>
 
