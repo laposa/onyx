@@ -393,5 +393,20 @@ CREATE TABLE ecommerce_store (
 
 		return $distance;
 	}
+	
+	/**
+	 * getRelatedTaxonomy
+	 */
+	 
+	public function getRelatedTaxonomy($store_id) {
+		
+		if (!is_numeric($store_id)) return false;
+		
+		require_once('models/common/common_taxonomy.php');
+		$Taxonomy = new common_taxonomy();
+		$related_taxonomy = $Taxonomy->getRelatedTaxonomy($store_id, 'ecommerce_store_taxonomy');
+		
+		return $related_taxonomy;
+	}
 
 }
