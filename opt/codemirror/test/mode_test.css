@@ -9,14 +9,15 @@
   font-size: x-small;
 }
 
-.mt-test {
-  border-left: 10px solid #fff;
+.mt-output .mt-state {
+  font-size: x-small;
+  vertical-align: top;
 }
 
-.mt-pass {
-  border-left: 10px solid #cfc;
+.mt-output .mt-state-row {
+  display: none;
 }
 
-.mt-fail {
-  border-left: 10px solid #fcc;
+.mt-state-unhide .mt-output .mt-state-row {
+  display: table-row;
 }

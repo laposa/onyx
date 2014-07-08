@@ -299,15 +299,26 @@
 <tr><td>title</td><td>string</td><td>store name</td></tr>
 <tr><td>address</td><td>string</td><td>street address</td></tr>
 <tr><td>city</td><td>string</td><td>store city</td></tr>
-<tr><td>county</td><td>string</td><td>store conty</td></tr>
+<tr><td>county</td><td>string</td><td>store county</td></tr>
 <tr><td>country</td><td>string</td><td>country</td></tr>
 <tr><td>latitude</td><td>float</td><td>e.g. 52.3872369</td></tr>
 <tr><td>longitude</td><td>float</td><td>e.g. -9.2994745</td></tr>
-<tr><td>openning_hours</td><td>string</td><td>preformated text</td></tr>
+<tr class="new"><td>opening_hours</td><td>string</td><td>preformated text</td></tr>
 <tr><td>phone</td><td>string</td><td>contact telephone number</td></tr>
 <tr><td>fax</td><td>string</td><td>contact fax number</td></tr>
 <tr><td>manager</td><td>string</td><td>Mr FirstName LastName</td></tr>
 <tr><td>modified</td><td>datetime</td><td>last update</td></tr>
+<tr class="new"><td>categories</td><td>array</td><td>
+	<table>
+	<tr><th>parameter</th><th>type</th><th>description</th></tr>
+	<tr><td>id</td><td>int</td><td>category id (category title can change, but category id will stay the same)</td></tr>
+	<tr><td>parent</td><td>int</td><td>parent category ID</td></tr>
+	<tr><td>priority</td><td>int</td><td>can be used for sorting</td></tr>
+	<tr><td>publish</td><td>int</td><td>is visible to public?</td></tr>
+	<tr><td>title</td><td>string</td><td>category title, e.g. Off-License</td></tr>
+	<tr><td>description</td><td>string</td><td>large description</td></tr>
+	</table>
+</td></tr>
 </table>
 
 <div class="divider"><hr /></div>

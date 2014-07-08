@@ -32,31 +32,39 @@ class Onxshop_Controller_Api_v1_0_Store_Location_List extends Onxshop_Controller
 		
 		foreach($records as $record ) {
 			
-			
-			$item = array();
-			
-			$address_detail = $this->parseAddressCommas($record['address']);
-			
-			$item['id'] = $record['id'];
-			$item['title'] = $record['title'];
-			$item['address'] = $address_detail['address'];
-			$item['city'] = $address_detail['city'];
-			$item['county'] = $address_detail['county'];
-			$item['country'] = $address_detail['country'];
-			$item['latitude'] = $record['latitude'];
-			$item['longitude'] = $record['longitude'];
-			$item['openning_hours'] = $record['opening_hours']; //TODO rename openning_hours to opening_hours in API 1.1
-			$item['phone'] = $record['telephone'];
-			$item['fax'] = '';
-			$item['manager'] = $record['manager_name'];
-			$item['modified'] = $record['modified'];
-			
-			$data[] = $item;
-			
+			$data[] = $this->formatItem($record);
+						
 		}
 			
 		return $data;
 		
+	}
+	
+	/**
+	 * formatItem
+	 */
+	 
+	public function formatItem($record) {
+		
+		$item = array();
+		
+		$address_detail = $this->parseAddressCommas($record['address']);
+			
+		$item['id'] = $record['id'];
+		$item['title'] = $record['title'];
+		$item['address'] = $address_detail['address'];
+		$item['city'] = $address_detail['city'];
+		$item['county'] = $address_detail['county'];
+		$item['country'] = $address_detail['country'];
+		$item['latitude'] = $record['latitude'];
+		$item['longitude'] = $record['longitude'];
+		$item['openning_hours'] = $record['opening_hours']; //TODO rename openning_hours to opening_hours in API 1.1
+		$item['phone'] = $record['telephone'];
+		$item['fax'] = '';
+		$item['manager'] = $record['manager_name'];
+		$item['modified'] = $record['modified'];
+		
+		return $item;
 	}
 	
 	/**
