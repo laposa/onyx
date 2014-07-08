@@ -5,7 +5,7 @@
  *
  */
 
-require_once('controllers/bo/node/content/sdefault.php');
+require_once('controllers/bo/node/content/default.php');
 
 class Onxshop_Controller_Bo_Node_Content_Component extends Onxshop_Controller_Bo_Node_Content_Default {
 	
