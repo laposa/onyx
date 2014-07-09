@@ -24,6 +24,7 @@ class Onxshop_Controller_Component_Ecommerce_Payment_Worldpay_Callback extends O
 			// we should check Worlpay IP address here
 			Onxshop_Bo_Authentication::getInstance()->emulateSuperuserTemporarily();
 			$transaction_id = $this->paymentProcess($this->GET['order_id'], $_POST);
+			Onxshop_Bo_Authentication::getInstance()->disableSuperuserEmulation();
 		}
 
 		return true;

@@ -238,6 +238,16 @@ class Onxshop_Bo_Authentication
 
 
 	/**
+	 * Disable superuser emulation
+	 */
+	public function disableSuperuserEmulation()
+	{
+		self::$superuserEmulation = false;
+	}
+
+
+
+	/**
 	 * Show HTTP Auth dialog (exists the script)
 	 */
 	private function showHttpAuthDialog()
