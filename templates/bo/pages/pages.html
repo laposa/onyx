@@ -27,7 +27,7 @@ function initialiseMenuPagesTree() {
 			return false;
 		},
 		animate: true,
-		docToFolderConvert: false
+		docToFolderConvert: true /*when false, it will not allow to move page using drag&drop under a page without any children*/
 	});
 	$('#pages_node_menu').addClass('visible');
 }
