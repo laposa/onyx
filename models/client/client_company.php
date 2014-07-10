@@ -2,7 +2,7 @@
 /**
  * class client_company
  * 
- * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -108,11 +108,8 @@ CREATE TABLE client_company (
 	 */
 	 
 	public function getDetail($id) {
+	
 		$data = $this->detail($id);
-		
-		foreach ($data as $key=>$item) {
-			if ($item == '') $data[$key] = 'n/a';
-		}
 		
 		return $data;
 	}
@@ -128,9 +125,42 @@ CREATE TABLE client_company (
 	 */
 	 
 	public function getCompanyListForCustomer($customer_id) {
+	
 		$list = $this->listing("customer_id = $customer_id");
 		
 		return $list;
+		
+	}
+	
+	/**
+	 * updateCompanyForClient
+	 */
+	 
+	public function updateCompanyForClient($company_data, $customer_id) {
+		
+		if (is_numeric($company_data['id']) && $company_data['id'] > 0) {
+			
+			$existing_company_data = $this->getDetail($company_data['id']);
+			
+			if ($existing_company_data['customer_id'] == $customer_id) {
+				
+				return $this->update($company_data);
+				
+			} else {
+				
+				msg("Customer ID $customer_id doesn't own company ID {$company_data['id']}", 'error');
+				return false;
+				
+			}
+			
+		} else {
+			
+			unset($company_data['id']);
+			$company_data['customer_id'] = $customer_id;
+			
+			return $this->insert($company_data);
+			
+		}
 		
 	}
 }

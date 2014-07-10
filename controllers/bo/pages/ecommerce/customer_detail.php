@@ -41,6 +41,10 @@ class Onxshop_Controller_Bo_Pages_Ecommerce_Customer_Detail extends Onxshop_Cont
 
 		return true;
 	}
+	
+	/**
+	 * saveForm
+	 */
 
 	protected function saveForm($customer_id)
 	{
@@ -62,6 +66,10 @@ class Onxshop_Controller_Bo_Pages_Ecommerce_Customer_Detail extends Onxshop_Cont
 		}
 	}
 
+	/**
+	 * updatePassword
+	 */
+	 
 	protected function updatePassword($customer_id)
 	{
 		if (strlen($_POST['password_new']) > 0) {
@@ -75,19 +83,28 @@ class Onxshop_Controller_Bo_Pages_Ecommerce_Customer_Detail extends Onxshop_Cont
 		}
 
 	}
+	
+	/**
+	 * parseDetails
+	 */
 
 	protected function parseDetails($customer_id)
 	{
 		$client = $this->Customer->getClientData($customer_id);
+		
 		$company_list = $this->Company->listing("customer_id = $customer_id", "id DESC");
 		$client['company'] = $company_list[0];
 
 		$client['customer']['newsletter'] = ($client['customer']['newsletter'] == 1) ? 'checked="checked" ' : '';
 		$this->tpl->assign('CLIENT', $client);
 
-		$_Onxshop_Request = new Onxshop_Request("component/client/address~delivery_address_id={$client['customer']['delivery_address_id']}:invoices_address_id={$client['customer']['invoices_address_id']}~");
-		$address = $_Onxshop_Request->getContent();
-		$this->tpl->assign('ADDRESS', $address);
+		if (is_numeric($client['customer']['delivery_address_id']) && $client['customer']['delivery_address_id'] > 0) {
+			
+			$_Onxshop_Request = new Onxshop_Request("component/client/address~delivery_address_id={$client['customer']['delivery_address_id']}:invoices_address_id={$client['customer']['invoices_address_id']}~");
+			$address = $_Onxshop_Request->getContent();
+			$this->tpl->assign('ADDRESS', $address);
+		
+		}
 
 		$this->parseGroupCheckboxes($client['customer']['group_ids']);
 		$this->parseRoleCheckboxes($client['customer']['role_ids']);
@@ -103,6 +120,10 @@ class Onxshop_Controller_Bo_Pages_Ecommerce_Customer_Detail extends Onxshop_Cont
 
 	}
 
+	/**
+	 * parseGroupCheckboxes
+	 */
+	 
 	protected function parseGroupCheckboxes($group_ids)
 	{
 		$ClientGroup = new client_group();
@@ -122,6 +143,10 @@ class Onxshop_Controller_Bo_Pages_Ecommerce_Customer_Detail extends Onxshop_Cont
 		$this->tpl->parse('content.group');
 	}
 
+	/**
+	 * parseRoleCheckboxes
+	 */
+	 
 	protected function parseRoleCheckboxes($role_ids)
 	{
 		$ClientRole = new client_role();
@@ -141,7 +166,10 @@ class Onxshop_Controller_Bo_Pages_Ecommerce_Customer_Detail extends Onxshop_Cont
 		$this->tpl->parse('content.role');
 	}
 
-
+	/**
+	 * parseOtherData
+	 */
+	 
 	protected function parseOtherData(&$other_data)
 	{
 		if (is_array($other_data)) {

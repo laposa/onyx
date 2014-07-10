@@ -310,8 +310,8 @@ CREATE TABLE client_customer (
 		// address details
 		require_once('models/client/client_address.php');
 		$Address = new client_address();
-		if (is_numeric($client['customer']['delivery_address_id'])) $client['address']['delivery'] = $Address->getDetail($client['customer']['delivery_address_id']);
-		if (is_numeric($client['customer']['invoices_address_id'])) $client['address']['invoices'] = $Address->getDetail($client['customer']['invoices_address_id']);
+		if (is_numeric($client['customer']['delivery_address_id']) && $client['customer']['delivery_address_id'] > 0) $client['address']['delivery'] = $Address->getDetail($client['customer']['delivery_address_id']);
+		if (is_numeric($client['customer']['invoices_address_id']) && $client['customer']['invoices_address_id'] > 0) $client['address']['invoices'] = $Address->getDetail($client['customer']['invoices_address_id']);
 		
 		// company details
 		if ($client['customer']['company_id'] > 0) {
@@ -849,35 +849,39 @@ CREATE TABLE client_customer (
 		$Company = new client_company();
 		
 		if (!isset($client_data['customer']['newsletter'])) $client_data['customer']['newsletter'] = 0;
-
-		//TEMP!!!
-		$client_data['customer']['company_id'] = 0;
 	
 		$client_data['customer']['modified'] = date('c');
 		
-		//company management
+		// company management
 		if ($client_data['company']['name'] != '') {
-			$client_data['company']['customer_id'] = $client_data['customer']['id'];
-			// TODO: look into the old record and compare (by name, reg.no.?)
-			// TEMP: allways insert new one
-			$id = $Company->insert($client_data['company']);
-			if ($id) {
-				$client_data['customer']['company_id'] = $id;
+			
+			if ($company_id = $Company->updateCompanyForClient($client_data['company'], $client_data['customer']['id'])) {
+				$client_data['customer']['company_id'] = $company_id;
 			}
+			
 		}
+		
+		// unset empty values
+		if (!is_numeric($client_data['customer']['company_id'])) unset($client_data['customer']['company_id']);
+		if (!is_numeric($client_data['customer']['facebook_id'])) unset($client_data['customer']['facebook_id']);
+		if (!is_numeric($client_data['customer']['twitter_id'])) unset($client_data['customer']['twitter_id']);
+		if (!is_numeric($client_data['customer']['google_id'])) unset($client_data['customer']['google_id']);
+		if ($client_data['customer']['birthday'] == '') unset($client_data['customer']['birthday']);
+		
 
-		//groups
+		// groups
 		require_once('models/client/client_customer_group.php');
 		$CustomerGroup = new client_customer_group();
 		$CustomerGroup->updateCustomerGroups($client_data['customer']['id'], $client_data['customer']['group_ids']);
 		unset($client_data['customer']['group_ids']);
 
-		//roles
+		// roles
 		require_once('models/client/client_customer_role.php');
 		$CustomerRole = new client_customer_role();
 		$CustomerRole->updateCustomerRoles($client_data['customer']['id'], $client_data['customer']['role_ids']);
 		unset($client_data['customer']['role_ids']);
-
+		
+		// check if login id is available (i.e. don't overwrite by changing email address)
 		if (!$this->checkLoginId($client_data['customer'])) {
 		
 			msg("User email {$customer_data['email']} is already registered", 'error', 0, 'account_exists');
