@@ -5,3 +5,6 @@ change $_SESSION['authentication']['logon'] and $_SESSION['authentication']['aut
 to Onxshop_Bo_Authentication::getInstance()->isAuthenticated()
 
 clean up of htaccess
+
+check for local templates/bo/backoffice.html
+check for local templates/bo/node/*
