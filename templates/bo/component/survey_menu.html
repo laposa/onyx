@@ -4,7 +4,7 @@
 	
 	<ul>
 	<!-- BEGIN: item -->
-	<li class="publish_{ITEM.publish}"><a title="Edit survey" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_detail~id={ITEM.id}~'); return false" href="#sub_content">{ITEM.title|htmlspecialchars}</a></li>
+	<li class="publish_{ITEM.publish}"><span class="fa fa-lg fa-fw fa-list-ol"></span><a title="Edit survey" href="/backoffice/surveys/{ITEM.id}/detail">{ITEM.title|htmlspecialchars}</a></li>
 	<!-- END: item -->
 	</ul>
 	<!-- BEGIN: empty -->

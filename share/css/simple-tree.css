@@ -50,7 +50,7 @@
   line-height: 1;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  content: "\f15c";
+  content: "\f15c"; /* page icon */
   margin-left: -16px;
   line-height: 18px;
   color: #4260a3;
@@ -60,12 +60,61 @@
   z-index: 10;
 }
 
+.server_browser_menu .simpleTree li.folder-open:before,
+.server_browser_menu .simpleTree li.folder-open-last:before {
+  content: "\f07c"; /* folder icon (open) */
+}
+
+.server_browser_menu .simpleTree li.root:before,
+.server_browser_menu .simpleTree li.folder:before,
+.server_browser_menu .simpleTree li.folder-close:before,
+.server_browser_menu .simpleTree li.folder-close-last:before,
+.server_browser_menu .simpleTree li.doc:before,
+.server_browser_menu .simpleTree li.doc-last:before {
+  content: "\f07b"; /* folder icon (closed) */
+}
+
+#taxonomy_tree_menu .simpleTree li.folder-open:before,
+#taxonomy_tree_menu .simpleTree li.folder-open-last:before,
+#taxonomy_tree_menu .simpleTree li.root:before,
+#taxonomy_tree_menu .simpleTree li.folder:before,
+#taxonomy_tree_menu .simpleTree li.folder-close:before,
+#taxonomy_tree_menu .simpleTree li.folder-close-last:before,
+#taxonomy_tree_menu .simpleTree li.doc:before,
+#taxonomy_tree_menu .simpleTree li.doc-last:before,
+#filterTaxonomy .simpleTree li.folder-open:before,
+#filterTaxonomy .simpleTree li.folder-open-last:before,
+#filterTaxonomy .simpleTree li.root:before,
+#filterTaxonomy .simpleTree li.folder:before,
+#filterTaxonomy .simpleTree li.folder-close:before,
+#filterTaxonomy .simpleTree li.folder-close-last:before,
+#filterTaxonomy .simpleTree li.doc:before,
+#filterTaxonomy .simpleTree li.doc-last:before,
+#newsTaxonomyFilter .simpleTree li.folder-open:before,
+#newsTaxonomyFilter .simpleTree li.folder-open-last:before,
+#newsTaxonomyFilter .simpleTree li.root:before,
+#newsTaxonomyFilter .simpleTree li.folder:before,
+#newsTaxonomyFilter .simpleTree li.folder-close:before,
+#newsTaxonomyFilter .simpleTree li.folder-close-last:before,
+#newsTaxonomyFilter .simpleTree li.doc:before,
+#newsTaxonomyFilter .simpleTree li.doc-last:before,
+.taxonomy_menu .simpleTree li.folder-open:before,
+.taxonomy_menu .simpleTree li.folder-open-last:before,
+.taxonomy_menu .simpleTree li.root:before,
+.taxonomy_menu .simpleTree li.folder:before,
+.taxonomy_menu .simpleTree li.folder-close:before,
+.taxonomy_menu .simpleTree li.folder-close-last:before,
+.taxonomy_menu .simpleTree li.doc:before,
+.taxonomy_menu .simpleTree li.doc-last:before {
+  content: "\f02b"; /* tag icon */
+}
+
 .simpleTree li.folder-open:after,
 .simpleTree li.folder-open-last:after,
 .simpleTree li.folder-close:after,
 .simpleTree li.folder-close-last:after
 {
-  content: "\f0d7";
+  content: "\f0d7"; /* right arrow (open) */
   display: inline-block;
   font-family: FontAwesome;
   font-style: normal;
@@ -86,7 +135,7 @@
 .simpleTree li.folder-close:after,
 .simpleTree li.folder-close-last:after
 {
-  content: "\f0da";
+  content: "\f0da"; /* down arrow (closed) */
   margin: 0 0 0 3px;
 }
 

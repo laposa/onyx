@@ -23,6 +23,8 @@ class Onxshop_Controller_Bo_Component_Survey_Edit extends Onxshop_Controller_Bo_
 		if ($_POST['save'] && is_array($_POST['survey'])) {
 		
 			$this->saveSurvey($_POST['survey']);
+			$id = (int) $this->GET['id'];
+			onxshopGoto("/backoffice/surveys/$id/detail");
 			
 		}
 		

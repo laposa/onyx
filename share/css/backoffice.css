@@ -255,6 +255,9 @@ div.twoColumnPage.sidebar div.columnTwo {width: 80%;}
 div.twoColumnLayout div.layoutColumnTwo.withPadding,
 div.twoColumnPage div.columnTwo.withPadding {padding-left: 20px; }
 
+/**
+ * Customisted elements
+ */
 table.product_variety_list a.title { font-weight: bold; }
 div#order_detail div.pageHeader h2 { position: absolute; top: 20px; right: 20px; text-align: right; margin: 0; padding: 0; }
 #customer_detail h1 span.info { margin: 13px 200px 0 0; }
@@ -263,5 +266,30 @@ div#order_detail div.pageHeader h2 { position: absolute; top: 20px; right: 20px;
 #customer_detail div.customerMedallion span.userAvatar { float: right; display: block; width: 50px; height: 50px; overflow: hidden; border-radius: 25px; border: 3px solid #e0e0e0; position: relative; top: -6px; }
 #customer_detail dt { font-weight: bold; width: 30%; float: left; }
 #reports_page h3,
-#customer_detail h3 { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: lighter; font-size: 28px; margin-top: 0; padding: 0; color: #666;}
+#customer_detail h3.title { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: lighter; font-size: 28px; margin-top: 20px; padding: 0; color: #666;}
 select#node-layout_style { width: 100%; }
+div.survey_menu ul { list-style: none; margin: 0; padding: 0; }
+div.survey_menu li { list-style: none; margin: 0; padding: 2px 0; }
+div.survey_menu li a { margin-left: 5px; text-decoration: none; }
+div.survey_menu li a:hover { text-decoration: underline; }
+div.survey_detail table td.answers { width: 30%; }
+div.survey_detail table td.answers ul { list-style: none; margin: 0; padding: 0; }
+div.survey_detail table td.answers a.button:hover { text-decoration: none; }
+div.survey_detail table td.answers a.is_correct_0 { color: #444; position: relative; }
+div.survey_detail table td.answers a.is_correct_1 { color: #000; position: relative; font-weight: bold;}
+div.survey_detail table td.answers a.is_correct_0:before { content: "\f096"; }
+div.survey_detail table td.answers a.is_correct_1:before { content: "\f046"; }
+div.survey_detail table td.answers li a:before {display: inline-block; font-family: FontAwesome; font-style: normal; font-weight: normal; line-height: 1; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; line-height: 18px; color: #333; position: absolute; left: -18px; top: -1px; font-size: 14px; } 
+
+/**
+ * Tabs
+ */
+div.onxshop_tabs { height: 36px; border-bottom: 1px solid #e0e0e0; margin: 0 0 10px 0; background: #f8f8f8; position: relative; top: -10px;}
+div.onxshop_tabs ul { list-style: none; margin: 0; padding: 0; }
+div.onxshop_tabs ul li { float: left; margin: 0; padding: 0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;}
+div.onxshop_tabs ul li a { text-decoration: none; font-size: 14px; font-weight: bold; color: #666; display: block; padding: 6px 20px; margin: 0 40px 0 0; position: relative; text-shadow: 0 1px 0 #fff; }
+div.onxshop_tabs ul li a:hover,
+div.onxshop_tabs ul li.active a { color: #000; }
+div.onxshop_tabs ul li.active a:before { content: ''; position: absolute; top: 28px; left: 50%; margin-left: -8px; width: 0; height: 0; border-style: solid; border-width: 0 7px 7px 7px; border-color: transparent transparent #e0e0e0 transparent; }
+div.onxshop_tabs ul li.active a:after { content: ''; position: absolute; top: 29px; left: 50%; margin-left: -8px; width: 0; height: 0; border-style: solid; border-width: 0 7px 7px 7px; border-color: transparent transparent #ffffff transparent; }
+

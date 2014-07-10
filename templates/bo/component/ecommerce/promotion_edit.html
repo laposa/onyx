@@ -1,185 +1,221 @@
 <!-- BEGIN: content -->
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
-<div class="promotion_edit">
+
+<div id="discounts_page" class="twoColumnPage page">
+
 	<form method="post" action="{URI|htmlspecialchars}" id="promotion_edit_form">
-	
-		<div id="promotion_edit">
-			<ul>
-				<li><a href="#onxshop_basicinfo"><span>Basic</span></a></li>
-				<li><a href="#onxshop_minor"><span>Minor Tweaks</span></a></li>
-			</ul>
-		
-			<div id="onxshop_basicinfo">
-				<fieldset class="single">
-					<legend>Basic</legend>
-					<div class="row title">
-						<span class="label"><label for="promotion-title">Promotion Title</label></span>
-						<span class="field"><input class="text" id="promotion-title" type="text" name="promotion[title]" value="{PROMOTION.title|htmlspecialchars}" /></span>
-					</div>
-					<div class="row code_pattern">
-						<span class="label"><label for="promotion-code_pattern">Promotion Code</label></span>
-						<span class="field"><input class="text" id="promotion-code_pattern" type="text" name="promotion[code_pattern]" value="{PROMOTION.code_pattern|htmlspecialchars}" /></span>
-					</div>
-					<div class="row discount_type">
-						<span class="label"><label for="promotion-uses_per_coupon">Discount Type</label></span>
-						<span class="field"><select disabled="disabled"><option>{PROMOTION.type_title}</option></select></span>
-					</div>
-					<div class="row discount_percentage_value">
-						<span class="label"><label for="promotion-discount_percentage_value">Percentage Value of Discount</label></span>
-						<span class="field"><input class="text short" id="promotion-discount_percentage_value" type="text" name="promotion[discount_percentage_value]" value="{PROMOTION.discount_percentage_value}" /></span>
-					</div>
-					<div class="row discount_fixed_value">
-						<span class="label"><label for="promotion-discount_fixed_value">Fixed Value of Discount</label></span>
-						<span class="field"><input class="text short" id="promotion-discount_fixed_value" type="text" name="promotion[discount_fixed_value]" value="{PROMOTION.discount_fixed_value}" /></span>
-					</div>
-					<div class="row discount_uses_per_coupon">
-						<span class="label"><label for="promotion-uses_per_coupon">Uses per Coupon</label></span>
-						<span class="field"><input class="text short" id="promotion-uses_per_coupon" type="text" name="promotion[uses_per_coupon]" value="{PROMOTION.uses_per_coupon}" /></span>
-					</div>
-					<div class="row publish">
-						<span class="label"><label for="promotion-publish">Publish</label></span>
-						<span class="field"><input id="promotion-publish" type="checkbox" name="promotion[publish]" value="1" {PROMOTION.publish_check} /></span>
-					</div>
-				</fieldset>
-			</div>
-			<div id="onxshop_minor">
-				<fieldset>
-					<legend>Minor Tweaks</legend>
-					<div class="row description">
-						<span class="label"><label for="promotion-description">Description</label></span>
-						<span class="field"><textarea id="promotion-description" name="promotion[description]" />{PROMOTION.description|htmlspecialchars}</textarea></span>
-					</div>
-					<div class="row customer_account_type">
-						<span class="label"><label for="promotion-customer_account_type">Limit To Account Type</label></span>
-						<span class="field">
-							<select id="promotion-customer_account_type" name="promotion[customer_account_type]">
-								<option value="0" {PROMOTION.SELECTED.customer_account_type_0}>Valid For All Customer Accounts</option>
-								<option value="2" {PROMOTION.SELECTED.customer_account_type_2}>For Approved Wholesale Accounts Only</option>
-							</select>
-						</span>
-					</div>
-					
-					<div class="row uses_per_customer">
-						<span class="label"><label for="promotion-uses_per_customer">Allowed number of uses per Customer</label></span>
-						<span class="field"><input class="text short" id="promotion-uses_per_customer" type="text" name="promotion[uses_per_customer]" value="{PROMOTION.uses_per_customer}" /></span>
-					</div>
-					<div class="row limit_to_order_amount">
-						<span class="label"><label for="promotion-limit_to_order_amount">Limit to minimum order amount</label></span>
-						<span class="field"><input class="text short" id="promotion-limit_to_order_amount" type="text" name="promotion[limit_to_order_amount]" value="{PROMOTION.limit_to_order_amount}" /></span>
-					</div>
-					<div class="row limit_by_customer_id">
-						<span class="label"><label for="promotion-limit_by_customer_id">Limit to customer_id</label></span>
-						<span class="field"><input class="text short" id="promotion-limit_by_customer_id" type="text" name="promotion[limit_by_customer_id]" value="{PROMOTION.limit_by_customer_id}" /></span>
-					</div>
-					<div class="row limit_to_first_order">
-						<span class="label"><label for="promotion-limit_to_first_order">Limit to first order</label></span>
-						<span class="field"><input id="promotion-limit_to_first_order" type="checkbox" name="promotion[limit_to_first_order]" value="1" {PROMOTION.limit_to_first_order_check} /></span>
-					</div>
-					<div class="row limit_cumulative_discount">
-						<span class="label"><label for="promotion-limit_cumulative_discount">Maximum cumulative discount value per customer</label></span>
-						<span class="field"><input class="text short" id="promotion-limit_cumulative_discount" type="text" name="promotion[limit_cumulative_discount]" value="{PROMOTION.limit_cumulative_discount}" /></span>
-					</div>
-				</fieldset>
 
-				<fieldset>
-					<legend>Limit to this products only</legend>
-					<div class="row">
-						<div id="related_select">
-							<!-- BEGIN:item -->
-							<div>
-								<input type="hidden" name="promotion[limit_list_products][]" value="{CURRENT.id}" />
-								<button style="float: none;" name="" onclick="this.parentNode.parentNode.removeChild(this.parentNode)"><span>remove</span></button>
-								<a class="{CURRENT.class}" href="/page/{CURRENT.id}">{CURRENT.name}</a><br />
-							</div>
-							<!-- END:item -->
-						</div>
+		<div class="content">
+			<div class="pageWrapper">
+
+				<div class="pageHeader">
+					<div class="pageHeaderWrapper">
+						<h1 class="pageTitle"><span>Discount Edit</span></h1>
 					</div>
-					<div class="row">
-						<a class="button" href="#" onclick="$('#psearch_block').toggle(); return false"><span>add product</span></a>
-					</div>
-					<div class="row">
-						<div id="psearch_block" style="display: none">
-							<input id="psearch_input" type="text" name="psearch" onkeyup="search_product();" /><br />
-							Search for product name, teaser, description.
-							<div id="search_result"></div>
-						</div>
-					</div>
-					
-					<div class="row">
-						<div id="template_product_limit_select" style="visibility: hidden">
-							<div>
-								<input type="hidden" name="promotion[limit_list_products][]" value="__ID__" />
-								<button style="float: none;" name="" onclick="this.parentNode.parentNode.removeChild(this.parentNode)"><span>remove</span></button>
-								<a href="/product/__ID__/detail">__TITLE__</a><br />
+				</div>
+
+				<div class="pageContent">
+					<div class="pageContentWrapper">
+						<div class="rowTop">
+							<div class="rowWrapper">
+								<div class="columnWrapper">
+								</div>
 							</div>
 						</div>
-					</div>
-				</fieldset>
+						<div class="rowMiddle">
+							<div class="rowWrapper">
+								<div class="columnOne">
+									<div class="columnWrapper">
 
-				<fieldset>
-					<legend>Free delivery</legend>
-					<div class="row discount_free_delivery">
-						<span class="label"><label for="promotion-discount_free_delivery">Apply Free Delivery</label></span>
-						<span class="field"><input id="promotion-discount_free_delivery" type="checkbox" name="promotion[discount_free_delivery]" value="1" {PROMOTION.discount_free_delivery_check} /></span>
+										<fieldset>
+											<div class="row title">
+												<span class="label"><label for="promotion-title">Promotion Title</label></span>
+												<span class="field"><input class="text" id="promotion-title" type="text" name="promotion[title]" value="{PROMOTION.title|htmlspecialchars}" /></span>
+											</div>
+											<div class="row code_pattern">
+												<span class="label"><label for="promotion-code_pattern">Promotion Code</label></span>
+												<span class="field"><input class="text" id="promotion-code_pattern" type="text" name="promotion[code_pattern]" value="{PROMOTION.code_pattern|htmlspecialchars}" /></span>
+											</div>
+											<div class="row description">
+												<span class="label"><label for="promotion-description">Description</label></span>
+												<span class="field"><textarea id="promotion-description" name="promotion[description]">{PROMOTION.description|htmlspecialchars}</textarea></span>
+											</div>
+											<div class="row publish">
+												<span class="label"><label for="promotion-publish">Publish</label></span>
+												<span class="field"><input id="promotion-publish" type="checkbox" name="promotion[publish]" value="1" {PROMOTION.publish_check} /></span>
+											</div>
+										</fieldset>
+
+										<fieldset>
+											<div class="row discount_uses_per_coupon">
+												<span class="label"><label for="promotion-uses_per_coupon">Allowed Number of Uses Across All Customers </label></span>
+												<span class="field"><input class="text short" id="promotion-uses_per_coupon" type="text" name="promotion[uses_per_coupon]" value="{PROMOTION.uses_per_coupon}" /></span>
+											</div>
+											<div class="row uses_per_customer">
+												<span class="label"><label for="promotion-uses_per_customer">Allowed Number of Uses per Single Customer</label></span>
+												<span class="field"><input class="text short" id="promotion-uses_per_customer" type="text" name="promotion[uses_per_customer]" value="{PROMOTION.uses_per_customer}" /></span>
+											</div>
+											<div class="row limit_to_order_amount">
+												<span class="label"><label for="promotion-limit_to_order_amount">Limit to Minimum Order Amount</label></span>
+												<span class="field"><input class="text short" id="promotion-limit_to_order_amount" type="text" name="promotion[limit_to_order_amount]" value="{PROMOTION.limit_to_order_amount}" /></span>
+											</div>
+											<div class="row limit_by_customer_id">
+												<span class="label"><label for="promotion-limit_by_customer_id">Limit to Customer (ID)</label></span>
+												<span class="field"><input class="text short" id="promotion-limit_by_customer_id" type="text" name="promotion[limit_by_customer_id]" value="{PROMOTION.limit_by_customer_id}" /></span>
+											</div>
+											<div class="row limit_to_first_order">
+												<span class="label"><label for="promotion-limit_to_first_order">Limit to First Order</label></span>
+												<span class="field"><input id="promotion-limit_to_first_order" type="checkbox" name="promotion[limit_to_first_order]" value="1" {PROMOTION.limit_to_first_order_check} /></span>
+											</div>
+											<div class="row limit_cumulative_discount">
+												<span class="label"><label for="promotion-limit_cumulative_discount">Maximum Cumulative Discount Value per Customer</label></span>
+												<span class="field"><input class="text short" id="promotion-limit_cumulative_discount" type="text" name="promotion[limit_cumulative_discount]" value="{PROMOTION.limit_cumulative_discount}" /></span>
+											</div>
+											<div class="row customer_account_type">
+												<span class="label"><label for="promotion-customer_account_type">Limit To Account Type</label></span>
+												<span class="field">
+													<select id="promotion-customer_account_type" name="promotion[customer_account_type]">
+														<option value="0" {PROMOTION.SELECTED.customer_account_type_0}>Valid For All Customer Accounts</option>
+														<option value="2" {PROMOTION.SELECTED.customer_account_type_2}>For Approved Wholesale Accounts Only</option>
+													</select>
+												</span>
+											</div>
+
+										</fieldset>
+											
+									</div>
+								</div>
+								<div class="columnTwo withPadding">
+									<div class="columnWrapper">
+
+										<fieldset>
+											<div class="row discount_type">
+												<span class="label"><label for="promotion-uses_per_coupon">Discount Type</label></span>
+												<span class="field"><select disabled="disabled"><option>{PROMOTION.type_title}</option></select></span>
+											</div>
+											<div class="row discount_percentage_value">
+												<span class="label"><label for="promotion-discount_percentage_value">Percentage Value of Discount</label></span>
+												<span class="field"><input class="text short" id="promotion-discount_percentage_value" type="text" name="promotion[discount_percentage_value]" value="{PROMOTION.discount_percentage_value}" /></span>
+											</div>
+											<div class="row discount_fixed_value">
+												<span class="label"><label for="promotion-discount_fixed_value">Fixed Value of Discount</label></span>
+												<span class="field"><input class="text short" id="promotion-discount_fixed_value" type="text" name="promotion[discount_fixed_value]" value="{PROMOTION.discount_fixed_value}" /></span>
+											</div>
+										</fieldset>
+
+										<fieldset>
+											<div class="row discount_free_delivery">
+												<span class="label"><label for="promotion-discount_free_delivery">Apply Free Delivery</label></span>
+												<span class="field"><input id="promotion-discount_free_delivery" type="checkbox" name="promotion[discount_free_delivery]" value="1" {PROMOTION.discount_free_delivery_check} /></span>
+											</div>
+											<div class="row limit_delivery_country_id">
+												<span class="label"><label for="promotion-limit_delivery_country_id">Limit to Country ID (Delivery Country)</label></span>
+												<span class="field"><input class="text short" id="promotion-limit_delivery_country_id" type="text" name="promotion[limit_delivery_country_id]" value="{PROMOTION.limit_delivery_country_id}" /></span>
+											</div>
+											<div class="row limit_delivery_carrier_id">
+												<span class="label"><label for="promotion-limit_delivery_carrier_id">Limit to Carrier ID</label></span>
+												<span class="field"><input class="text short" id="promotion-limit_delivery_carrier_id" type="text" name="promotion[limit_delivery_carrier_id]" value="{PROMOTION.limit_delivery_carrier_id}" /></span>
+											</div>
+										</fieldset>
+
+										<fieldset>
+											<div class="row">
+												<span class="label"><label>Limit to Selected Products</label></span>
+												<div id="related_select">
+													<!-- BEGIN:item -->
+													<div>
+														<input type="hidden" name="promotion[limit_list_products][]" value="{CURRENT.id}" />
+														<button style="float: none;" class="remove small" name="" onclick="this.parentNode.parentNode.removeChild(this.parentNode)"><span>Remove</span></button>
+														<a class="{CURRENT.class}" href="/page/{CURRENT.id}">{CURRENT.name}</a><br />
+													</div>
+													<!-- END:item -->
+												</div>
+											</div>
+											<div class="row">
+												<a class="button add" href="#" onclick="$('#psearch_block').toggle(); return false"><span>Add a Product</span></a>
+											</div>
+											<div class="row">
+												<div id="psearch_block" style="display: none">
+													<input id="psearch_input" type="text" name="psearch" onkeyup="search_product();" /><br />
+													Search for product name, teaser, description.
+													<div id="search_result"></div>
+												</div>
+											</div>
+											
+											<div class="row">
+												<div id="template_product_limit_select" style="visibility: hidden">
+													<div>
+														<input type="hidden" name="promotion[limit_list_products][]" value="__ID__" />
+														<button style="float: none;" class="remove small" name="" onclick="this.parentNode.parentNode.removeChild(this.parentNode)"><span>Remove</span></button>
+														<a href="/product/__ID__/detail">__TITLE__</a><br />
+													</div>
+												</div>
+											</div>
+										</fieldset>
+
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="rowBottom">
+							<div class="rowWrapper">
+								<div class="columnWrapper">
+								</div>
+							</div>
+						</div>
 					</div>
-					<div class="row limit_delivery_country_id">
-						<span class="label"><label for="promotion-limit_delivery_country_id">Limit to this country_id (delivery country)</label></span>
-						<span class="field"><input class="text short" id="promotion-limit_delivery_country_id" type="text" name="promotion[limit_delivery_country_id]" value="{PROMOTION.limit_delivery_country_id}" /></span>
-					</div>
-					<div class="row limit_delivery_carrier_id">
-						<span class="label"><label for="promotion-limit_delivery_carrier_id">Limit to this carrier_id</label></span>
-						<span class="field"><input class="text short" id="promotion-limit_delivery_carrier_id" type="text" name="promotion[limit_delivery_carrier_id]" value="{PROMOTION.limit_delivery_carrier_id}" /></span>
-					</div>
-				</fieldset>
-			</div>
-			
-			<div class="row submit">
-				<span class="label"><label>&nbsp;</label></span>
-				<span class="field"><button type="submit"  name="save" value="save"><span>Save</span></button></span>
+				</div>
 			</div>
 		</div>
-		
+
 		<input type="hidden" name="promotion[id]" value="{PROMOTION.id}" />
+
+		<div class="row submit">
+			<span class="label"><label>&nbsp;</label></span>
+			<span class="field"><button class="save" type="submit" name="save" value="save"><span>Save</span></button></span>
+		</div>
+
+		<div class="bottom"><span></span></div>
+
 	</form>
 
-<script type="text/javascript">
-$(function() {
-	$("#promotion_edit").tabs();
-	
-	var options = { 
-		target: '#promotion_edit_form_result',
-		success: function(responseText, statusText) {
-			popupMessage("#promotion_edit_form_result div.onxshop_messages");
-			makeAjaxRequest('#sub_content', '/request/bo/component/ecommerce/promotion_list');
-		}
-	}; 
-
-    $('#promotion_edit_form').ajaxForm(options); 
-});
-</script>
-
-<script type="text/javascript">
-function select_related(id, title) {
-
-	var str = $('#template_product_limit_select').html();
-        
-    str = str.replace(/__ID__/g, id);
-    str = str.replace(/__TITLE__/g, title);
-
-	$('#related_select').append(str);
-	$('#psearch_block').toggle();
-
-	return void(0);
-}
-
-function search_product() {
-	query = $('#psearch_input').attr('value');
-	if (query.length > 2) $('#search_result').load('/request/bo/component/ecommerce/search_products?search[query]=' + query);
-	return false;
-}
-</script>
-
-<div id="promotion_edit_form_result" style="display: none"></div>
-  
 </div>
+
+<script type="text/javascript">
+
+	$(function() {
+		
+		var options = { 
+			target: '#discounts_page',
+			success: function(responseText, statusText) {
+				popupMessage("#discounts_page div.onxshop_messages");
+				makeAjaxRequest('#onxshopBackofficeWrapper', '/request/bo/pages/marketing');
+			}
+		}; 
+
+	    $('#promotion_edit_form').ajaxForm(options); 
+
+	});
+
+	function select_related(id, title) {
+
+		var str = $('#template_product_limit_select').html();
+	        
+	    str = str.replace(/__ID__/g, id);
+	    str = str.replace(/__TITLE__/g, title);
+
+		$('#related_select').append(str);
+		$('#psearch_block').toggle();
+
+		return void(0);
+	}
+
+	function search_product() {
+		query = $('#psearch_input').attr('value');
+		if (query.length > 2) $('#search_result').load('/request/bo/component/ecommerce/search_products?search[query]=' + query);
+		return false;
+	}
+
+</script>
+
 <!-- END: content -->

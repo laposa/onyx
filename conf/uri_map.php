@@ -34,6 +34,8 @@ $uri_map = array(
 		'^/backoffice/news/edit/([a-z]*)/([0-9]*)$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/news_edit~id=$2~.bo/component/node_edit~id=$2~',
 		'^/backoffice/comments$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/comments',
 		'^/backoffice/surveys$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/surveys',
+		'^/backoffice/surveys/([0-9]*)/detail$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/component/survey_detail&id=$1',
+		'^/backoffice/surveys/([0-9]*)/edit$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/component/survey_edit&id=$1',
 		'^/backoffice/marketing$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/marketing',
 		'^/backoffice/advanced/media$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/pages/server_browser',
 		'^/backoffice/advanced/taxonomy$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/pages/taxonomy.bo/component/taxonomy_edit',

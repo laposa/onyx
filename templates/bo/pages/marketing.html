@@ -1,39 +1,61 @@
 <!-- BEGIN: title -->Discounts<!-- END: title -->
 <!-- BEGIN: content -->
-<div class="twoColumnPage page fibonacci-1-5">
-	<div class="top"><span></span></div>
+<div id="discounts_page" class="twoColumnPage page">
+
 	<div class="content">
 		<div class="pageWrapper">
-			{PAGE_HEADER}
+
+			<div class="pageHeader">
+				<div class="pageHeaderWrapper">
+					<h1 class="pageTitle"><span>Discounts</span></h1>
+				</div>
+			</div>
+
 			<div class="pageContent">
 				<div class="pageContentWrapper">
 					<div class="rowTop">
-						<div class="columnWrapper">
-							{CONTAINER.0}
-						</div>
-					</div>
-		
-					<div class="columnOne">
-						<div class="columnWrapper">
-							{ONXSHOP_REQUEST_filter #bo/component/ecommerce/promotion_filter}
-						</div>
-					</div>
-					<div class="columnTwo">
-						<div class="columnWrapper">
-							<div id="sub_content">
+						<div class="rowWrapper">
+							<div class="columnWrapper">
+
+								<div class="verticalFilter">
+									{ONXSHOP_REQUEST_filter #bo/component/ecommerce/promotion_filter}
+								</div>
+
 								{ONXSHOP_REQUEST_promotion #bo/component/ecommerce/promotion_list}
+
+							</div>
+						</div>
+					</div>
+					<div class="rowMiddle">
+						<div class="rowWrapper">
+							<div class="columnOne">
+								<div class="columnWrapper">
+								</div>
+							</div>
+							<div class="columnTwo">
+								<div class="columnWrapper">
+								</div>
 							</div>
 						</div>
 					</div>
 					<div class="rowBottom">
-						<div class="columnWrapper">
+						<div class="rowWrapper">
+							<div class="columnWrapper">
+
+								<p>
+									<a class="button add" href="#" onclick="makeAjaxRequest('#discounts_page', '/request/bo/component/ecommerce/promotion_add'); return false"><span>Add a New Coupon</span></a>
+									<a class="button export" href="/request/bo/export/csv_promotion" ><span>Export to CSV</span></a>
+								</p>
+
+							</div>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="bottom"><span></span></div>
-</div>
 
+	<div class="bottom"><span></span></div>
+
+</div>
 <!-- END: content -->

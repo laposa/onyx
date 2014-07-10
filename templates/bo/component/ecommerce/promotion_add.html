@@ -1,64 +1,102 @@
 <!-- BEGIN: content -->
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 
-<!--
-Starts <a>30 Apr 2009</a>, is valid until <a>28 May 2009</a>, applies to all orders orders of <input type="text"/><a>GBP</a> or more , with unlimited uses. with a maximum of <input type="text"/> use(s). Starts today, is valid until deactivated, applies to all orders orders of GBP or more , with unlimited uses. 
--->
+<div id="discounts_page" class="twoColumnPage page">
 
-
-
- 
-
-<div class="promotion_edit">
 	<form method="post" action="{URI|htmlspecialchars}" id="promotion_add_form">
-	
-		<div id="promotion_edit">
-		
-			<div id="onxshop_basicinfo">
-				<fieldset class="single">
-					<legend>Basic</legend>
-					<div class="row title">
-						<span class="label"><label for="promotion-title">Promotion Title</label></span>
-						<span class="field"><input class="text" id="promotion-title" type="text" name="promotion[title]" value="{PROMOTION.title|htmlspecialchars}" /></span>
-					</div>
-					<div class="row code_pattern">
-						<span class="label"><label for="promotion-code_pattern">Promotion Code</label></span>
-						<span class="field"><input class="text" id="promotion-code_pattern" type="text" name="promotion[code_pattern]" value="{PROMOTION.code_pattern|htmlspecialchars}" /></span>
-					</div>
-					<div class="row discount_percentage_value">
-						<span class="label"><label for="promotion-discount_percentage_value">Percentage Value of Discount</label></span>
-						<span class="field"><input class="text short" id="promotion-discount_percentage_value" type="text" name="promotion[discount_percentage_value]" value="{PROMOTION.discount_percentage_value}" /></span>
-					</div>
-					<div class="row discount_fixed_value">
-						<span class="label"><label for="promotion-discount_fixed_value">Fixed Value of Discount</label></span>
-						<span class="field"><input class="text short" id="promotion-discount_fixed_value" type="text" name="promotion[discount_fixed_value]" value="{PROMOTION.discount_fixed_value}" /></span>
-					</div>
-				</fieldset>
-			</div>
 
-			<div class="row submit">
-				<span class="label"><label>&nbsp;</label></span>
-				<span class="field"><button type="submit"  name="save" value="save"><span>Save</span></button></span>
+		<div class="content">
+			<div class="pageWrapper">
+
+				<div class="pageHeader">
+					<div class="pageHeaderWrapper">
+						<h1 class="pageTitle"><span>Add a Discount</span></h1>
+					</div>
+				</div>
+
+				<div class="pageContent">
+					<div class="pageContentWrapper">
+						<div class="rowTop">
+							<div class="rowWrapper">
+								<div class="columnWrapper">
+								</div>
+							</div>
+						</div>
+						<div class="rowMiddle">
+							<div class="rowWrapper">
+								<div class="columnOne">
+									<div class="columnWrapper">
+
+										<fieldset>
+											<div class="row title">
+												<span class="label"><label for="promotion-title">Promotion Title</label></span>
+												<span class="field"><input class="text" id="promotion-title" type="text" name="promotion[title]" value="{PROMOTION.title|htmlspecialchars}" /></span>
+											</div>
+											<div class="row code_pattern">
+												<span class="label"><label for="promotion-code_pattern">Promotion Code</label></span>
+												<span class="field"><input class="text" id="promotion-code_pattern" type="text" name="promotion[code_pattern]" value="{PROMOTION.code_pattern|htmlspecialchars}" /></span>
+											</div>
+										</fieldset>
+
+										</fieldset>
+											
+									</div>
+								</div>
+								<div class="columnTwo withPadding">
+									<div class="columnWrapper">
+
+										<fieldset>
+											<div class="row discount_type">
+												<span class="label"><label for="promotion-uses_per_coupon">Discount Type</label></span>
+												<span class="field"><select disabled="disabled"><option>Discount Coupon</option></select></span>
+											</div>
+											<div class="row discount_percentage_value">
+												<span class="label"><label for="promotion-discount_percentage_value">Percentage Value of Discount</label></span>
+												<span class="field"><input class="text short" id="promotion-discount_percentage_value" type="text" name="promotion[discount_percentage_value]" value="{PROMOTION.discount_percentage_value}" /></span>
+											</div>
+											<div class="row discount_fixed_value">
+												<span class="label"><label for="promotion-discount_fixed_value">Fixed Value of Discount</label></span>
+												<span class="field"><input class="text short" id="promotion-discount_fixed_value" type="text" name="promotion[discount_fixed_value]" value="{PROMOTION.discount_fixed_value}" /></span>
+											</div>
+										</fieldset>
+
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="rowBottom">
+							<div class="rowWrapper">
+								<div class="columnWrapper">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
-		
+
+		<div class="row submit">
+			<span class="label"><label>&nbsp;</label></span>
+			<span class="field"><button class="save" type="submit" name="save" value="save"><span>Save</span></button></span>
+		</div>
+
+		<div class="bottom"><span></span></div>
+
 	</form>
 
-<script type="text/javascript">
-$(function() {
-	var options = { 
-		target: '#promotion_add_form_result',
-		success: function(responseText, statusText) {
-			popupMessage("#promotion_add_form_result div.onxshop_messages");
-			makeAjaxRequest('#sub_content', '/request/bo/component/ecommerce/promotion_list');
-		}
-	}; 
+</div>
 
-    $('#promotion_add_form').ajaxForm(options);
-});
+<script type="text/javascript">
+	$(function() {
+		var options = { 
+			success: function(responseText, statusText) {
+				window.location = '/backoffice/marketing';
+			}
+		}; 
+
+	    $('#promotion_add_form').ajaxForm(options);
+	});
 </script>
 
-<div id="promotion_add_form_result" style="display: none"></div>
-  
 </div>
 <!-- END: content -->

@@ -36,10 +36,16 @@
 				</div>
 
 				<div class="row created_between">
-					<span class="label"><label>Created between</label></span>
+					<span class="label"><label>Date From</label></span>
 					<span class="field">
-						<input type="text" class="text" id="voucher-filter-created_from" name="voucher-filter[created_from]" value="{_SESSION.voucher-filter.created_from|htmlspecialchars}" />
-						<input type="text" class="text" id="voucher-filter-created_to" name="voucher-filter[created_to]" value="{_SESSION.voucher-filter.created_to|htmlspecialchars}" />
+						<input type="text" class="text date" id="voucher-filter-created_from" name="voucher-filter[created_from]" value="{_SESSION.voucher-filter.created_from|htmlspecialchars}" />
+					</span>
+				</div>
+
+				<div class="row created_between">
+					<span class="label"><label>Date To</label></span>
+					<span class="field">
+						<input type="text" class="text date" id="voucher-filter-created_to" name="voucher-filter[created_to]" value="{_SESSION.voucher-filter.created_to|htmlspecialchars}" />
 					</span>
 				</div>
 

@@ -19,8 +19,8 @@
 		<tbody>
 			<!-- BEGIN: item -->
 			<tr>
-				<td><a title="Edit comment" onclick="makeAjaxRequest('#commentEdit', '/request/bo/component/comment_edit~id={ITEM.id}~'); return false" href="#commentEdit">{ITEM.title|htmlspecialchars}</a></td>
-				<td><a title="Edit comment" onclick="makeAjaxRequest('#commentEdit', '/request/bo/component/comment_edit~id={ITEM.id}~'); return false" href="#commentEdit">{ITEM.author_name|htmlspecialchars}</a></td>
+				<td><a title="Edit comment" onclick="makeAjaxRequest('#reviews_page', '/request/bo/component/comment_edit~id={ITEM.id}~'); return false" href="#reviews_page">{ITEM.title|htmlspecialchars}</a></td>
+				<td><a title="Edit comment" onclick="makeAjaxRequest('#reviews_page', '/request/bo/component/comment_edit~id={ITEM.id}~'); return false" href="#reviews_page">{ITEM.author_name|htmlspecialchars}</a></td>
 				<td>{ITEM.created}</td>
 				<td><a href="/backoffice/pages/{ITEM.node_id}">{ITEM.node_id}</a></td>
 				<td>{ITEM.publish}</td>
@@ -28,7 +28,7 @@
 			<!-- END: item -->
 			<!-- BEGIN: empty -->
 			<tr>
-				<td colspan="5"><span class="note">No comments.</span></td>
+				<td class="empty" colspan="5">No comments yet.</td>
 			</tr>
 			<!-- END: empty -->
 

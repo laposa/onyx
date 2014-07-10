@@ -36,7 +36,8 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Promotion_Edit extends Onxshop_C
 				foreach ($promotion_data['limit_list_products'] as $product_id) {
 					if (is_numeric($product_id)) $limited_ids[] = $product_id;
 				}
-				$promotion_data['limit_list_products'] = implode(",", $limited_ids);
+				if (is_array($limited_ids)) $promotion_data['limit_list_products'] = implode(",", $limited_ids);
+				else $promotion_data['limit_list_products'] = '';
 			}
 
 			$promotion_data['limit_delivery_country_id'] = (int) $promotion_data['limit_delivery_country_id'];

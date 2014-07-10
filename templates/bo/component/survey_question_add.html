@@ -1,9 +1,97 @@
 <!-- BEGIN: content -->
-
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
-<div class="survey_question_edit">
 
-	<script type="text/javascript">
+<div class="twoColumnPage page survey_question_edit fibonacci-5-1">
+
+	<form method="post" action="{URI|htmlspecialchars}" id="survey_question_edit_form">
+
+		<div class="content">
+			<div class="pageWrapper">
+
+				<div class="pageHeader">
+					<div class="pageHeaderWrapper">
+						<h1 class="pageTitle"><span>Add a New Question</span></h1>
+					</div>
+				</div>
+
+				<div class="pageContent">
+					<div class="pageContentWrapper">
+						<div class="rowTop">
+							<div class="rowWrapper">
+								<div class="columnWrapper">
+								</div>
+							</div>
+						</div>
+						<div class="rowMiddle">
+							<div class="rowWrapper">
+								<div class="columnOne">
+									<div class="columnWrapper">
+
+										<fieldset class="single">
+											<div class="row title">
+												<span class="label"><label for="question-title">Title</label></span>
+												<span class="field"><input class="required text title" id="question-title" type="text" name="question[title]" value="{QUESTION.title|htmlspecialchars}" /></span>
+											</div>
+											<div class="row description">
+												<span class="label"><label for="question-description">Description</label></span>
+												<span class="field"><textarea id="question-description" name="question[description]">{QUESTION.description|htmlspecialchars}</textarea></span>
+											</div>
+											<div class="row content">
+												<span class="label"><label for="question-content">Content <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'mceAdvanced', 'question-content'); return false;"><span>RTE</span></a></label></span>
+												<span class="field"><textarea id="question-content" name="question[content]">{QUESTION.content|htmlspecialchars}</textarea></span>
+											</div>
+											<div class="row type">
+												<span class="label"><label for="question-type">Type</label></span>
+												<span class="field">
+													<select id="question-type" name="question[type]">
+														<option value="radio" {SELECTED_radio}>radio</option>
+														<option value="select" {SELECTED_select}>select</option>
+														<option value="checkbox" {SELECTED_checkbox}>checkbox</option>
+														<option value="text" {SELECTED_text}>text</option>
+														<option value="file" {SELECTED_file}>file</option>
+													</select>
+												</span>
+											</div>
+										</fieldset>
+
+									</div>
+								</div>
+								<div class="columnTwo">
+									<div class="columnWrapper">
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="rowBottom">
+							<div class="rowWrapper">
+								<div class="columnWrapper">
+
+									<p>
+										<a class="button" href="#sub_content" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_detail~id={GET.survey_id}~'); return false;">Cancel</a>
+									</p>
+
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="bottom"><span></span></div>
+
+		<div class="row submit">
+			<span class="label"><label>&nbsp;</label></span>
+			<span class="field"><button type="submit" class="save" name="save" value="save"><span>Create a New Question</span></button></span>
+		</div>
+
+		<input type="hidden" name="question[publish]" value="1" />
+		<input type="hidden" name="question[survey_id]" value="{GET.survey_id}" />
+
+	</form>
+
+</div>
+
+<script type="text/javascript">
 	
 	$(function() {
 		
@@ -22,48 +110,8 @@
 		initSurveyEditForm();
 	});
 	
-	</script>
+</script>
 	
-	<form method="post" action="{URI|htmlspecialchars}" id="survey_question_edit_form">
-
-		<fieldset class="single">
-			<legend>Question add</legend>
-			<div class="row title">
-				<span class="label"><label for="question-title">Title</label></span>
-				<span class="field"><input class="required text title" id="question-title" type="text" name="question[title]" value="{QUESTION.title|htmlspecialchars}" /></span>
-			</div>
-			<div class="row description">
-				<span class="label"><label for="question-description">description</label></span>
-				<span class="field"><textarea id="question-description" name="question[description]">{QUESTION.description|htmlspecialchars}</textarea></span>
-			</div>
-			<div class="row content">
-				<span class="label"><label for="question-content">content <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'mceAdvanced', 'question-content'); return false;"><span>RTE</span></a></label></span>
-				<span class="field"><textarea id="question-content" name="question[content]">{QUESTION.content|htmlspecialchars}</textarea></span>
-			</div>
-			<div class="row type">
-				<span class="label"><label for="question-type">Type</label></span>
-				<span class="field">
-					<select id="question-type" name="question[type]">
-						<option value="radio" {SELECTED_radio}>radio</option>
-						<option value="select" {SELECTED_select}>select</option>
-						<option value="checkbox" {SELECTED_checkbox}>checkbox</option>
-						<option value="text" {SELECTED_text}>text</option>
-						<option value="file" {SELECTED_file}>file</option>
-					</select>
-				</span>
-			</div>
-		</fieldset>
-				
-		<div class="row submit">
-			<span class="label"><label>&nbsp;</label></span>
-			<span class="field"><button type="submit"  name="save" value="save"><span>Create new question</span></button> or <a href="#sub_content" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_detail~id={GET.survey_id}~'); return false;">cancel</a></span>
-		</div>
-		
-		<input type="hidden" name="question[publish]" value="1" />
-		<input type="hidden" name="question[survey_id]" value="{GET.survey_id}" />
-		
-	</form>
-
 {ONXSHOP_REQUEST_tinymce #bo/tinymce~id=GET.survey_id:relation=survey:role=RTE:mode=exact:edit_elements=question-content:theme=advanced~}		
 		
 </div>

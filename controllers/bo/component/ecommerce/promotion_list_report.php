@@ -19,7 +19,11 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Promotion_List_Report extends On
 		
 		$promotion_list = $this->getList();
 
-		if (is_array($promotion_list)) $this->parseList($promotion_list);
+		if (is_array($promotion_list) && count($promotion_list) > 0) {
+			$this->parseList($promotion_list);
+			$this->tpl->parse('content.foot');
+		}
+		else $this->tpl->parse('content.empty');
 
 		return true;
 	}

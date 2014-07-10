@@ -1,9 +1,94 @@
 <!-- BEGIN: content -->
 
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
-<div class="survey_question_answer_edit">
+<div class="twoColumnPage page survey_question_answer_edit fibonacci-2-3">
 
-	<script type="text/javascript">
+	<form method="post" action="{URI|htmlspecialchars}" id="survey_question_answer_edit_form">
+
+		<div class="content">
+			<div class="pageWrapper">
+
+				<div class="pageHeader">
+					<div class="pageHeaderWrapper">
+						<h1 class="pageTitle"><span>Add an Answer</span></h1>
+					</div>
+				</div>
+
+				<div class="pageContent">
+					<div class="pageContentWrapper">
+						<div class="rowTop">
+							<div class="rowWrapper">
+								<div class="columnWrapper">
+								</div>
+							</div>
+						</div>
+						<div class="rowMiddle">
+							<div class="rowWrapper">
+								<div class="columnOne">
+									<div class="columnWrapper">
+
+										<fieldset class="single">
+											<div class="row title">
+												<span class="label"><label for="answer-title">Title</label></span>
+												<span class="field"><input class="required text title" id="answer-title" type="text" name="answer[title]" value="{ANSWER.title|htmlspecialchars}" /></span>
+											</div>
+											<div class="row description">
+												<span class="label"><label for="answer-description">Description</label></span>
+												<span class="field"><textarea id="answer-description" name="answer[description]">{ANSWER.description|htmlspecialchars}</textarea></span>
+											</div>
+											<div class="row is_correct">
+												<span class="label"><label for="answer-is_correct">Is This Answer Correct?</label></span>
+												<span class="field"><input id="answer-is_correct" type="checkbox" name="answer[is_correct]" value="1" {CHECKED_is_correct} /></span>
+											</div>
+											<div class="row points">
+												<span class="label"><label for="answer-points">Points</label></span>
+												<span class="field"><input class="number short" id="answer-points" type="text" name="answer[points]" value="{ANSWER.points}" /></span>
+											</div>
+										</fieldset>
+
+									</div>
+								</div>
+								<div class="columnTwo withPadding">
+									<div class="columnWrapper">
+
+										<fieldset class="single">
+											<div class="row content">
+												<span class="label"><label for="answer-content">Content <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'mceAdvanced', 'answer-content'); return false;"><span>RTE</span></a></label></span>
+												<span class="field"><textarea id="answer-content" name="answer[content]">{ANSWER.content|htmlspecialchars}</textarea></span>
+											</div>
+										</fieldset>
+
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="rowBottom">
+							<div class="rowWrapper">
+								<div class="columnWrapper">
+									<a class="button" href="#sub_content" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_detail~id={GET.survey_id}~'); return false;">Cancel</a>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="bottom"><span></span></div>
+
+		<div class="row submit">
+			<span class="label"><label>&nbsp;</label></span>
+			<span class="field"><button type="submit" class="save" name="save" value="save"><span>Create a New Answer Option</span></button></span>
+		</div>
+		
+		<input type="hidden" name="answer[publish]" value="1" />
+		<input type="hidden" name="answer[question_id]" value="{GET.question_id}" />
+		
+	</form>
+
+</div>
+
+<script type="text/javascript">
 	
 	$(function() {
 		
@@ -22,48 +107,8 @@
 		initSurveyEditForm();
 	});
 	
-	</script>
-	
-	<form method="post" action="{URI|htmlspecialchars}" id="survey_question_answer_edit_form">
-
-		<fieldset class="single">
-			<legend>Answer add</legend>
-			<div class="row title">
-				<span class="label"><label for="answer-title">Title</label></span>
-				<span class="field"><input class="required text title" id="answer-title" type="text" name="answer[title]" value="{ANSWER.title|htmlspecialchars}" /></span>
-			</div>
-			<div class="row description">
-				<span class="label"><label for="answer-description">description</label></span>
-				<span class="field"><textarea id="answer-description" name="answer[description]">{ANSWER.description|htmlspecialchars}</textarea></span>
-			</div>
-			<div class="row content">
-				<span class="label"><label for="answer-content">content <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'mceAdvanced', 'answer-content'); return false;"><span>RTE</span></a></label></span>
-				<span class="field"><textarea id="answer-content" name="answer[content]">{ANSWER.content|htmlspecialchars}</textarea></span>
-			</div>
-			
-			<div class="row is_correct">
-				<span class="label"><label for="answer-is_correct">is_correct</label></span>
-				<span class="field"><input id="answer-is_correct" type="checkbox" name="answer[is_correct]" value="1" {CHECKED_is_correct} /></span>
-			</div>
-			
-			<div class="row points">
-				<span class="label"><label for="answer-points">points</label></span>
-				<span class="field"><input class="number short" id="answer-points" type="text" name="answer[points]" value="{ANSWER.points}" /></span>
-			</div>
-
-		</fieldset>
-				
-		<div class="row submit">
-			<span class="label"><label>&nbsp;</label></span>
-			<span class="field"><button type="submit"  name="save" value="save"><span>Create new option</span></button> or <a href="#sub_content" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_detail~id={GET.survey_id}~'); return false;">cancel</a></span>
-		</div>
-		
-		<input type="hidden" name="answer[publish]" value="1" />
-		<input type="hidden" name="answer[question_id]" value="{GET.question_id}" />
-		
-	</form>
-
+</script>
+					
 {ONXSHOP_REQUEST_tinymce #bo/tinymce~id=GET.survey_id:relation=survey:role=RTE:mode=exact:edit_elements=answer-content:theme=advanced~}
 		
-</div>
 <!-- END: content -->

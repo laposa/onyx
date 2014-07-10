@@ -48,6 +48,8 @@ class Onxshop_Controller_Bo_Component_Survey_Detail extends Onxshop_Controller_B
 			$this->displayQuestion($item);
 			
 		}
+
+		if (count($survey_detail['question_list']) == 0) $this->tpl->parse('content.empty');
 		
 		$this->tpl->assign('SURVEY', $survey_detail);
 	
