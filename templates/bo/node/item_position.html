@@ -1,16 +1,19 @@
-			<fieldset>
-				<legend>Position</legend>
-				<div class="row priority">
-					<span class="label"><label for="node.priority">Priority:</label></span>
-					<span class="field"><input class="text short" type="text" name="node[priority]" id="node.priority" value="{NODE.priority}" /></span>
-				</div>
-				<div class="row parent_container">
-					<span class="label"><label for="node.parent_container">Parent Container:</label></span>
-					<span class="field"><input class="text short" type="text" name="node[parent_container]" id="node.parent_container" value="{NODE.parent_container}" /></span>
-				</div>
-				<input type="hidden" id="node-parent" name="node[parent]" value="{NODE.parent}" />
-				<div class="row move_to">
-					<span class="label"><label><a class="button" href="#" onclick="$('#parent_ajax').addClass('ajaxLoad').load('/request/bo/component/node_parent_menu~id=0:expand_all=1:publish=0:parent_type={NODE.node_group}~', function() {$(this).removeClass('ajaxLoad')}); return false"><span>Move to ...</span></a></label></span>
-					<span class="field"><span style="display: block;" id="parent_ajax"></span></span>
-				</div>
-			</fieldset>
+<div class="row threeColumnLayout">
+	
+	<div class="layoutColumnOne ofThree priority">
+		<span class="label"><label for="node.priority">Priority:</label></span>
+		<span class="field"><input class="text short" type="text" name="node[priority]" id="node.priority" value="{NODE.priority}" /></span>
+	</div>
+
+	<div class="layoutColumnTwo ofThree parent_container">
+		<span class="label"><label for="node.parent_container">Parent Container:</label></span>
+		<span class="field"><input class="text short" type="text" name="node[parent_container]" id="node.parent_container" value="{NODE.parent_container}" /></span>
+	</div>
+
+	<div class="layoutColumnThree ofThree move_to">
+		<span class="label"><label><a class="button" href="#" onclick="$('#parent_ajax').addClass('ajaxLoad').load('/request/bo/component/node_parent_menu~id=0:expand_all=1:publish=0:parent_type={NODE.node_group}~', function() {$(this).removeClass('ajaxLoad')}); return false"><span>Move to ...</span></a></label></span>
+		<span class="field"><span style="display: block;" id="parent_ajax"></span></span>
+	</div>
+</div>
+
+<input type="hidden" id="node-parent" name="node[parent]" value="{NODE.parent}" />
