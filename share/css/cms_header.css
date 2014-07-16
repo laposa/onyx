@@ -11,7 +11,7 @@
 #onxshopMenuBar ul li a { text-decoration: none; margin-top:1px; font-size: 11px; display: block; width: 130px; height: 28px; line-height: 24px; transition: color 200ms linear; }
 #onxshopMenuBar ul li a span.fa { margin: 0 8px 0 10px; }
 #onxshopMenuBar ul li.active a { color: #fff; margin-top: 0; border-top: 1px solid #6d97d0; background-image: -webkit-linear-gradient(top, #5685c4, #4c6cb8); background-image: -moz-linear-gradient(top, #5685c4, #4c6cb8); background-image: -ms-linear-gradient(top, #5685c4, #4c6cb8); background-image: -o-linear-gradient(top, #5685c4, #4c6cb8); background-image: linear-gradient(to bottom, #5685c4, #4c6cb8); }
-#onxshopMenuBar ul li a:hover { color: #fff; }
+#onxshopMenuBar ul li a:hover { color: #fff !important; }
 
 #menuSystem { height: 60px; }
 #menuSystem a.onxshop_version span.onxshop-logo { width: 40px; height: 40px; background: url(../images/onxshop-logo-white.png) no-repeat; background-size: 40px 40px; display: inline-block;margin-left: 12px; vertical-align: middle;}
