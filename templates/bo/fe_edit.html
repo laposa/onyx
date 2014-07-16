@@ -9,7 +9,7 @@
 <script type="text/javascript" src="/share/js/fe_edit.js"></script>
 <script type="text/javascript" src="/share/js/backoffice.js"></script>
 
-<div id="onxshopHeader" class="frontend">
+<div id="onxshopHeader" class="frontend minimised" ondblclick="$(this).remove()">
 
 	<div id="onxshopMenuBar">
 
@@ -26,9 +26,9 @@
 		</ui>
 
 		<ul id="menuActions">
-			<li><a href='/backoffice/advanced/tools?tool=flush_cache' onclick="clearOnxshopCache(this); return false"><span class="fa fa-2x fa-refresh"></span><span class="title">Clear Cache</span></a></li>
-			<li><a href="{ONXSHOP_SUPPORT_WEBSITE_URL}" title="Access to Onxshop support" target="_blank"><span class="fa fa-2x fa-question-circle"></span><span class="title">Support</span></a></li>
-			<li><a class="logout" href="/?logout=1" title="Logout from the backoffice"><span class="fa fa-2x fa-power-off"></span><span class="title">Log Out</span></a></li>
+			<li class="clear_cache"><a href='/backoffice/advanced/tools?tool=flush_cache' onclick="clearOnxshopCache(this); return false"><span class="fa fa-2x fa-refresh"></span><span class="title">Clear Cache</span></a></li>
+			<li class="support"><a href="{ONXSHOP_SUPPORT_WEBSITE_URL}" title="Access to Onxshop support" target="_blank"><span class="fa fa-2x fa-question-circle"></span><span class="title">Support</span></a></li>
+			<li class="logout" ><a class="logout" href="/?logout=1" title="Logout from the backoffice"><span class="fa fa-2x fa-power-off"></span><span class="title">Log Out</span></a></li>
 		</ul>
 
 	</div>
@@ -40,5 +40,9 @@
 		{SUB_CONTENT}
 	<div class="bottom"><span></span></div>
 </div>
+
+<script type="text/javascript">
+	$('#onxshopHeader').draggable();
+</script>
 
 <!-- END: content -->
