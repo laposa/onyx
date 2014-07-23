@@ -144,6 +144,21 @@ label.error { display: none; }
 	</div>
 	<!-- END: require_t_and_c -->
 	
+	<!-- BEGIN: invisible_captcha_field -->
+	<div class="row captcha {ERROR.captcha}">
+		<span class="label"><label for="captcha_input_{GET.node_id}">{I18N_CAPTCHA} <em id="code-captcha_{GET.node_id}">###</em>:</label></span>
+		<span class="field"><input type="text" class="text" id="captcha_input_{GET.node_id}" name="captcha" value="" maxlength="45" /></span>
+	</div>
+	<script type="text/javascript">
+		$.get("/request/component/captcha_js?node_id={GET.node_id}&nocache=1", function(data) {
+			var input = $("#captcha_input_{GET.node_id}");
+			var input = $("#captcha_input_{GET.node_id}");
+			$("#code-captcha_{GET.node_id}").html(data);
+			input.val(data).parent().parent().hide();
+		});
+	</script>
+	<!-- END: invisible_captcha_field -->
+	
 	<button type="submit" name="save" value="save"><span>{I18N_SUBMIT}</span></button>
 </form>
 <!-- END: form -->
