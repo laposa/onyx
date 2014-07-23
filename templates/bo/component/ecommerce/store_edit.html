@@ -1,11 +1,11 @@
 <!-- BEGIN: title -->Store edit<!-- END: title -->
 <!-- BEGIN: content -->
+
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 <form method="post" action="" class="store_edit">
 <div id="store_edit">
 
 	<button style="float: right;  margin: 3px;" type="submit" name="save" value="save"><span>Save</span></button>
-
 		<div class="twoColumnLayout fibonacci-5-3">
 			<div class="layoutColumnOne ofTwo">
 				<div class="layoutColumnWrapper">
@@ -252,8 +252,6 @@
 			</div>
 		</div>
 
-
-
 		<fieldset>
 			<legend>Images</legend>
 			<div class="row">
@@ -263,7 +261,15 @@
 			</div>
 		</fieldset>
 		
-	
+		<fieldset>
+			<legend>Noticeboard</legend>
+			<div class="row">
+				<div class="notices">
+				{ONXSHOP_REQUEST_store_notice_list #bo/component/ecommerce/store_notice_list~store_id=GET.id~}
+				</div>
+			</div>
+		</fieldset>
+		
 		<fieldset>
 			<p>Store Last Modified {STORE.modified}</p>
 		</fieldset>
