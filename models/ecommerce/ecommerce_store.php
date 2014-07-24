@@ -92,7 +92,52 @@ class ecommerce_store extends Onxshop_Model {
 	/**
 	 * @access public
 	 */
+	var $street_view_options;
+	
+	/**
+	 * @access public
+	 */
 	var $other_data;
+	
+	/**
+	 * @access public
+	 */
+	var $country_id;
+	
+	/**
+	 * @access public
+	 */
+	var $address_name;
+	
+	/**
+	 * @access public
+	 */
+	var $address_line_1;
+	
+	/**
+	 * @access public
+	 */
+	var $address_line_2;
+	
+	/**
+	 * @access public
+	 */
+	var $address_line_3;
+	
+	/**
+	 * @access public
+	 */
+	var $address_city;
+	
+	/**
+	 * @access public
+	 */
+	var $address_county;
+	
+	/**
+	 * @access public
+	 */
+	var $address_post_code;
 	
 	var $_metaData = array(
 		'id'=>array('label' => '', 'validation' => 'int', 'required' => true),
