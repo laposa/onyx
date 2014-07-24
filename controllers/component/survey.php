@@ -332,6 +332,9 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 			
 		}
 		
+		if (strlen($question_detail['description']) > 0) $this->tpl->parse('content.form.question.description');
+		if (strlen($question_detail['content']) > 0) $this->tpl->parse('content.form.question.content');
+
 		$this->tpl->parse('content.form.question');
 		
 	}

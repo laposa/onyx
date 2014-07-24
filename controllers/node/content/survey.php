@@ -33,6 +33,10 @@ class Onxshop_Controller_Node_Content_Survey extends Onxshop_Controller_Node_Con
 				$component = 'survey_image_poll';
 				break;
 
+			case 'survey_verbose':
+				$component = 'survey@component/survey_verbose';
+				break;
+
 			case 'survey':
 			default:
 				$component = 'survey';
