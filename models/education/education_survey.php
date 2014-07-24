@@ -45,6 +45,11 @@ class education_survey extends Onxshop_Model {
 	public $publish;
 
 	/**
+	 * other_data
+	 */
+	public $other_data;
+
+	/**
 	 * hashMap
 	 */
 	 
@@ -55,7 +60,8 @@ class education_survey extends Onxshop_Model {
 		'created'=>array('label' => '', 'validation'=>'datetime', 'required'=>true),
 		'modified'=>array('label' => '', 'validation'=>'datetime', 'required'=>false),
 		'priority'=>array('label' => '', 'validation'=>'int', 'required'=>false),
-		'publish'=>array('label' => '', 'validation'=>'int', 'required'=>false)
+		'publish'=>array('label' => '', 'validation'=>'int', 'required'=>false),
+		'other_data'=>array('label' => '', 'validation'=>'string', 'required'=>false)
 	);
 	
 	/**
@@ -64,17 +70,16 @@ class education_survey extends Onxshop_Model {
 	 
 	private function getCreateTableSql() {
 	
-		$sql = "
-CREATE TABLE education_survey (
-	id serial PRIMARY KEY NOT NULL,
-	title varchar(255) NOT NULL,
-	description text,
-	created timestamp(0) without time zone DEFAULT now() NOT NULL,
-	modified timestamp(0) without time zone DEFAULT now(),
-	priority smallint DEFAULT 0,
-	publish smallint DEFAULT 0
-);
-		";
+		$sql = "CREATE TABLE education_survey (
+			id serial PRIMARY KEY NOT NULL,
+			title varchar(255) NOT NULL,
+			description text,
+			created timestamp(0) without time zone DEFAULT now() NOT NULL,
+			modified timestamp(0) without time zone DEFAULT now(),
+			priority smallint DEFAULT 0,
+			publish smallint DEFAULT 0,
+			other_data text
+		)";
 		
 		return $sql;
 	}

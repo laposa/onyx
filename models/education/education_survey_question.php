@@ -62,6 +62,11 @@ class education_survey_question extends Onxshop_Model {
 	public $publish;
 
 	/**
+	 * other_data
+	 */
+	public $other_data;
+
+	/**
 	 * hashMap
 	 */
 	 
@@ -76,7 +81,8 @@ class education_survey_question extends Onxshop_Model {
 		'type'=>array('label' => '', 'validation'=>'string', 'required'=>true),
 		'priority'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'publish'=>array('label' => '', 'validation'=>'int', 'required'=>false),
-		'weight'=>array('label' => '', 'validation'=>'int', 'required'=>false)
+		'weight'=>array('label' => '', 'validation'=>'int', 'required'=>false),
+		'other_data'=>array('label' => '', 'validation'=>'string', 'required'=>false)
 	);
 	
 	/**
@@ -85,21 +91,20 @@ class education_survey_question extends Onxshop_Model {
 	 
 	private function getCreateTableSql() {
 	
-		$sql = "
-CREATE TABLE education_survey_question (
-	id serial PRIMARY KEY NOT NULL,
-	survey_id int NOT NULL REFERENCES education_survey ON UPDATE CASCADE ON DELETE CASCADE,
-	parent int REFERENCES education_survey_question ON UPDATE CASCADE ON DELETE CASCADE,
-	step smallint DEFAULT 1,
-	title varchar(255) NOT NULL,
-	description text,
-	mandatory smallint DEFAULT 1,
-	type varchar(255) NOT NULL,
-	priority smallint DEFAULT 0,
-	publish smallint DEFAULT 1,
-	weight real NOT NULL DEFAULT 1
-);
-		";
+		$sql = "CREATE TABLE education_survey_question (
+			id serial PRIMARY KEY NOT NULL,
+			survey_id int NOT NULL REFERENCES education_survey ON UPDATE CASCADE ON DELETE CASCADE,
+			parent int REFERENCES education_survey_question ON UPDATE CASCADE ON DELETE CASCADE,
+			step smallint DEFAULT 1,
+			title varchar(255) NOT NULL,
+			description text,
+			mandatory smallint DEFAULT 1,
+			type varchar(255) NOT NULL,
+			priority smallint DEFAULT 0,
+			publish smallint DEFAULT 1,
+			weight real NOT NULL DEFAULT 1,
+			other_data text
+		);";
 		
 		return $sql;
 	}
