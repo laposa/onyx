@@ -304,6 +304,17 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 			case 'file':
 				$this->tpl->parse('content.form.question.answer_file');
 			break;
+
+			case 'range':
+				$min = $question_detail['other_data']['min'];
+				$max = $question_detail['other_data']['max'];
+				$step = $question_detail['other_data']['step'];
+				$middle_value = round(($max - $min) / (2 * $step)) * $step;
+				if ($selected_value) $this->tpl->assign('SELECTED_VALUE', $selected_value);
+				else $this->tpl->assign('SELECTED_VALUE', $middle_value);
+				$this->tpl->parse('content.form.question.answer_range');
+			break;
+
 			case 'select':
 			default:
 				foreach ($question_detail['answer_list'] as $item) {

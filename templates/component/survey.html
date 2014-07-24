@@ -48,6 +48,29 @@ label.error { display: none; }
 				<!-- BEGIN: answer_file -->
 					<input type="file" name="answer[{QUESTION.id}]" class="file {CLASS_REQUIRED}" />
 				<!-- END: answer_file -->
+				<!-- BEGIN: answer_range -->
+				<div class="survey_rangle_slider">
+					<input id="answer_range_{QUESTION.id}" type="number" class="short {CLASS_REQUIRED}" name="answer[{QUESTION.id}]" min="{QUESTION.other_data.min}" max="{QUESTION.other_data.max}" step="{QUESTION.other_data.step}" value="{SELECTED_VALUE}"/>
+					<script type="text/javascript">
+						$(function() { 
+							var input = $('#answer_range_{QUESTION.id}');
+							var slider = $('<div id="answer_range_slider_{QUESTION.id}"></div>').insertAfter(input).slider({
+								min: input.attr('min') * 1,
+								max: input.attr('max') * 1,
+								step: input.attr('step') * 1,
+								range: "min",
+								value: input.val(),
+								slide: function(event, ui) {
+									input.val(ui.value);
+								}
+							});
+							input.change(function() {
+								slider.slider("value", input.val());
+							});
+						});
+					</script>
+				</div>
+				<!-- END: answer_range -->
 			</span>
 		</div>
 		<!-- END: question -->

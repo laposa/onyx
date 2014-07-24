@@ -121,6 +121,7 @@ class education_survey_question extends Onxshop_Model {
 		}
 		
 		$detail = $this->detail($question_id);
+		$detail['other_data'] = unserialize($detail['other_data']);
 		
 		return $detail;
 	}
@@ -143,6 +144,7 @@ class education_survey_question extends Onxshop_Model {
 		
 		foreach ($question_list as $k=>$item) {
 			if ($item['type'] != 'text' && $item['type'] != 'file') $question_list[$k]['answer_list'] = $SurveyQuestionAnswer->listAnswersForQuestion($item['id']);
+			$question_list[$k]['other_data'] = unserialize($question_list[$k]['other_data']);
 		}
 		
 		return $question_list;
@@ -157,6 +159,7 @@ class education_survey_question extends Onxshop_Model {
 	
 		if (!is_array($data)) return false;
 
+		$data['other_data'] = serialize($data['other_data']);
 		return $this->save($data);
 		
 	}

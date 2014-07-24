@@ -27,7 +27,7 @@
 								<div class="columnOne">
 									<div class="columnWrapper">
 
-										<fieldset class="single">
+										<fieldset>
 											<div class="row title">
 												<span class="label"><label for="question-title">Title</label></span>
 												<span class="field"><input class="required text title" id="question-title" type="text" name="question[title]" value="{QUESTION.title|htmlspecialchars}" /></span>
@@ -49,8 +49,33 @@
 														<option value="checkbox" {SELECTED_checkbox}>checkbox</option>
 														<option value="text" {SELECTED_text}>text</option>
 														<option value="file" {SELECTED_file}>file</option>
+														<option value="range" {SELECTED_range}>range</option>
 													</select>
+													<script type="text/javascript">
+														$(function() {
+															var select = $('#question-type');
+															var settings = $('#range_settings');
+															settings.toggle(select.val() == 'range');
+															select.change(function() {
+																settings.toggle(select.val() == 'range');
+															});
+														});
+													</script>
 												</span>
+											</div>
+										</fieldset>
+										<fieldset id="range_settings">
+											<div class="row other_data_min">
+												<span class="label"><label for="question-other_data_min">Minimum Range Value</label></span>
+												<span class="field"><input class="number short" id="question-other_data_min" type="text" name="question[other_data][min]" value="{QUESTION.other_data.min}" /></span>
+											</div>
+											<div class="row other_data_max">
+												<span class="label"><label for="question-other_data_max">Maximum Range Value</label></span>
+												<span class="field"><input class="number short" id="question-other_data_max" type="text" name="question[other_data][max]" value="{QUESTION.other_data.max}" /></span>
+											</div>
+											<div class="row other_data_step">
+												<span class="label"><label for="question-other_data_step">Range Step</label></span>
+												<span class="field"><input class="number short" id="question-other_data_step" type="text" name="question[other_data][step]" value="{QUESTION.other_data.step}" /></span>
 											</div>
 										</fieldset>
 
