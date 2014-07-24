@@ -289,6 +289,21 @@ function html2text($input, $remove_new_lines = false){
 	return $plain_text;
 }
 
+/**
+ * parse textile
+ */
+	 
+function textile($text) {
+
+	require_once('Zend/Markup.php');
+	
+	// Creates instance of Zend_Markup_Renderer_Html,
+	// with Zend_Markup_Parser_BbCode as its parser
+	$textilecode = Zend_Markup::factory('Textile');
+	
+	return $textilecode->render($text);
+}
+
 
 ##                ##
 ##  PHPMultiSort  ##

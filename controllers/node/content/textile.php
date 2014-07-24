@@ -36,13 +36,8 @@ class Onxshop_Controller_Node_Content_Textile extends Onxshop_Controller_Node_Co
 	 */
 	 
 	public function parseTextile($text) {
-	
-		require_once('Zend/Markup.php');
 		
-		// Creates instance of Zend_Markup_Renderer_Html,
-		// with Zend_Markup_Parser_BbCode as its parser
-		$textilecode = Zend_Markup::factory('Textile');
-		
-		return $textilecode->render($text);
+		// function defined in onxshop.functions.php
+		return textile($text);
 	}
 }
