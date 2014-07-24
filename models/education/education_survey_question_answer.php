@@ -53,6 +53,11 @@ class education_survey_question_answer extends Onxshop_Model {
 	public $publish;
 
 	/**
+	 * other_data
+	 */
+	public $other_data;
+
+	/**
 	 * hashMap
 	 */
 	 
@@ -64,7 +69,8 @@ class education_survey_question_answer extends Onxshop_Model {
 		'is_correct'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'points'=>array('label' => '', 'validation'=>'int', 'required'=>true),
 		'priority'=>array('label' => '', 'validation'=>'int', 'required'=>false),
-		'publish'=>array('label' => '', 'validation'=>'int', 'required'=>false)
+		'publish'=>array('label' => '', 'validation'=>'int', 'required'=>false),
+		'other_data'=>array('label' => '', 'validation'=>'string', 'required'=>false)
 	);
 	
 	/**
@@ -81,7 +87,8 @@ class education_survey_question_answer extends Onxshop_Model {
 			is_correct smallint, 
 			points smallint,
 			priority smallint DEFAULT 0,
-			publish smallint DEFAULT 1
+			publish smallint DEFAULT 1,
+			other_data text
 		);
 
 			CREATE INDEX education_survey_question_answer_question_id_idx ON education_survey_question_answer (question_id);

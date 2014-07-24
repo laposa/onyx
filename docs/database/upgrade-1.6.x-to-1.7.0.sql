@@ -175,4 +175,11 @@ INSERT INTO "client_role_permission" ("id", "role_id", "permission", "scope", "c
 SELECT setval('client_role_id_seq', (SELECT MAX(id) FROM client_role));
 SELECT setval('client_role_permission_id_seq', (SELECT MAX(id) FROM client_role_permission));
 
+--
+-- Add other_data column to some education_* tables
+--
+ALTER TABLE education_survey ADD COLUMN other_data text;
+ALTER TABLE education_survey_question ADD COLUMN other_data text;
+ALTER TABLE education_survey_question_answer ADD COLUMN other_data text;
+
 COMMIT;
