@@ -182,4 +182,9 @@ ALTER TABLE education_survey ADD COLUMN other_data text;
 ALTER TABLE education_survey_question ADD COLUMN other_data text;
 ALTER TABLE education_survey_question_answer ADD COLUMN other_data text;
 
+--
+-- Add code column to some ecommerce_store
+--
+ALTER TABLE ecommerce_store ADD COLUMN code varchar(255);
+
 COMMIT;
