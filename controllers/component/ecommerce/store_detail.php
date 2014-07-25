@@ -35,7 +35,7 @@ class Onxshop_Controller_Component_Ecommerce_Store_Detail extends Onxshop_Contro
 			 * text depending if my selected store
 			 */
 			 
-			if ($_SESSION['client']['customer']['other_data']['home_store_id'] == $store['id']) $this->tpl->assign('MY_SELECTED_STORE', 'My selected store');
+			if ($_SESSION['client']['customer']['store_id'] == $store['id']) $this->tpl->assign('MY_SELECTED_STORE', 'My selected store');
 			else $this->tpl->assign('MY_SELECTED_STORE', 'Save as my own store');
 			
 			/**

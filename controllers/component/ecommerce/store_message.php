@@ -18,8 +18,7 @@ class Onxshop_Controller_Component_Ecommerce_Store_Message extends Onxshop_Contr
 	
 		if ($_SESSION['client']['customer']['id'] > 0) {
 
-			$other_data = unserialize($_SESSION['client']['customer']['other_data']);
-			$store_id = (int) $other_data['home_store_id']; 
+			$store_id = (int) $_SESSION['client']['customer']['store_id']; 
 
 			if ($store_id > 0) {
 

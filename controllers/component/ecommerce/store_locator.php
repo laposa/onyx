@@ -57,7 +57,7 @@ class Onxshop_Controller_Component_Ecommerce_Store_Locator extends Onxshop_Contr
 				$store['icon'] = $store['id'] == $selected_store['id'] ? 'false' : 'true';
 				$store['open'] = $store['id'] == $selected_store['id'] ? 'true' : 'false';
 
-				if ($store['id'] == $_SESSION['client']['customer']['other_data']['home_store_id']) $store['icon'] = 'false';
+				if ($store['id'] == $_SESSION['client']['customer']['store_id']) $store['icon'] = 'false';
 				
 				// adjust bounds (by province/county)
 				if (array_intersect($page_categories, $categories[$store['id']])) {
@@ -255,7 +255,7 @@ class Onxshop_Controller_Component_Ecommerce_Store_Locator extends Onxshop_Contr
 		$Customer = new client_customer();
 
 		// update other_data
-		$_SESSION['client']['customer']['other_data']['home_store_id'] = $store_id;
+		$_SESSION['client']['customer']['store_id'] = $store_id;
 
 		$Customer->updateCustomer(array(
 			'id' => $customer_id,
