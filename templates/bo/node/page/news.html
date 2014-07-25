@@ -1,5 +1,10 @@
 <!-- BEGIN: title -->{NODE.title} - News Article Edit<!-- END: title -->
 <!-- BEGIN: content -->
+<div class="pageHeader">
+	<div class="pageHeaderWrapper">
+		<h1 class="pageTitle popup"><span>News Article</span> <span class="info">ID {NODE.id}</span></h1>
+	</div>
+</div>
 {FILE "bo/node/form_open.html"}
 	
 <div class="twoColumnLayout fibonacci-1-1">
@@ -31,6 +36,7 @@
 </fieldset>
 
 {FILE "bo/node/item_content_list.html"}
+{FILE "bo/node/item_position.html"}
 <div class="twoColumnLayout fibonacci-1-1 advanced">
 	<div class="layoutColumnOne ofTwo">
 		<fieldset>

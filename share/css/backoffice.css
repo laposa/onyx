@@ -32,6 +32,7 @@ a.button:focus, button:focus { outline: none; }
 a.add, button.add, button { background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #7cd257), color-stop(1, #66a34e) ); background: -moz-linear-gradient( center top, #7cd257 5%, #66a34e 100% ); filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#7cd257', endColorstr='#66a34e'); background-color: #7cd257; color: #ffffff; text-shadow: 0 -1px 0 #585; box-shadow: inset 0px 1px 0px 0px #96db8b, 1px 1px 3px rgba(0,0,0,0.2); -moz-box-shadow: inset 0px 1px 0px 0px #96db8b, 1px 1px 3px rgba(0,0,0,0.2); -webkit-box-shadow: inset 0px 1px 0px 0px #96db8b, 1px 1px 3px rgba(0,0,0,0.2); border: 1px solid #409040; }
 a.button.remove,
 button.remove { background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #c65445), color-stop(1, #91493d) ); background: -moz-linear-gradient( center top, #c65445 5%, #91493d 100% ); filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#c65445', endColorstr='#91493d'); background-color: #c65445; color: #ffffff; text-shadow: 0 -1px 0 #744a43; box-shadow: inset 0px 1px 0px 0px #d18678, 1px 1px 3px rgba(0,0,0,0.2); -moz-box-shadow: inset 0px 1px 0px 0px #d18678, 1px 1px 3px rgba(0,0,0,0.2); -webkit-box-shadow: inset 0px 1px 0px 0px #d18678, 1px 1px 3px rgba(0,0,0,0.2); border: 1px solid #7c4031; }
+button.ui-button, a.button.ui-button { box-shadow: none; }
 
 /*
  * disabled links and items
@@ -233,12 +234,12 @@ button.saving { opacity: 0.7; }
 button.saving span { visibility: hidden; }
 button.saving:before { content: "\f013"; position: absolute; left: 50%; top: 50%; margin-left: -6px; margin-top: -10px; display: inline-block; font-family: FontAwesome; font-style: normal; font-weight: normal; line-height: 1; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; -webkit-animation: spin 2s infinite linear; -moz-animation: spin 2s infinite linear; -o-animation: spin 2s infinite linear; animation: spin 2s infinite linear; font-size: 20px;}
 div.pageHeader { height: 60px; border-bottom: 1px solid #e0e0e0; margin: 0 0 10px 0; }
-div.verticalFilter { border-bottom: 1px solid #e0e0e0; margin: 0 0 20px 0; height: 64px;}
-div.verticalFilter form { margin: 0; }
-div.verticalFilter fieldset { margin: 0; float: left; padding: 0; background: #ffffff;}
-div.verticalFilter select { max-width: 200px; }
-div.verticalFilter div.row { float: left; clear: none; margin: 0 20px 0 0; }
-div.verticalFilter div.row input { float: left; clear: none; margin: 0 5px 0 0;}
+div.horizontalFilter { border-bottom: 1px solid #e0e0e0; margin: 0 0 20px 0; height: 64px;}
+div.horizontalFilter form { margin: 0; }
+div.horizontalFilter fieldset { margin: 0; float: left; padding: 0; background: #ffffff;}
+div.horizontalFilter select { max-width: 200px; }
+div.horizontalFilter div.row { float: left; clear: none; margin: 0 20px 0 0; }
+div.horizontalFilter div.row input { float: left; clear: none; margin: 0 5px 0 0;}
 button.small, a.button.small { height: 22px; line-height: 22px; padding: 0 8px;}
 
 h1 { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: lighter; font-size: 40px; margin-top: 0; padding: 0; color: #666;}

@@ -12,7 +12,10 @@ function initialiseMenuPagesTree() {
 		autoclose: false,
 		afterClick:function(node){
 			var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
-			makeAjaxRequest("#sub_content", "/request/bo/component/node_edit~id="+node_id+"~");
+			makeAjaxRequest("#sub_content", "/request/bo/component/node_edit~id="+node_id+"~", function(data) {  
+				var header = $("#sub_content div.pageHeader").detach();
+				$('#pageHeaderWrapper').empty().append(header);
+			});
 			$('#button_add_subpage').attr('data-node_id', node_id);
 		},
 		afterContextMenu:function(node){
@@ -46,9 +49,11 @@ function hookNodeEditPostUpdate() {
 		<div class="content">
 			<div class="pageWrapper">
 
-				<div class="pageHeader">
-					<div class="pageHeaderWrapper">
-						<h1 class="pageTitle"><span>Page Edit</span> <span class="info">ID {NODE_ID}</span></h1>
+				<div id="pageHeaderWrapper">
+					<div class="pageHeader">
+						<div class="pageHeaderWrapper">
+							<h1 class="pageTitle"><span>Page</span> <span class="info">ID {NODE_ID}</span></h1>
+						</div>
 					</div>
 				</div>
 

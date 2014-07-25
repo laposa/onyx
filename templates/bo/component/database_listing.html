@@ -1,12 +1,15 @@
 <!-- BEGIN: content -->
 
 	<!-- BEGIN: listing -->
-	<h1>Listing</h1>
 	
-	<h2>{MODEL} ({COUNT_RECORD} records, {TABLE_SIZE})</h2>
+	<h2>Table: <strong>{MODEL}</strong> ({COUNT_RECORD} records, {TABLE_SIZE})</h2>
 	<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
-	<a class="button" href="/request/bo/export/csv_database?model={GET.model}"><span>export CSV</span></a>
-	<br />
+	<a id="exportButton" class="button" href="/request/bo/export/csv_database?model={GET.model}"><span>Export CSV</span></a>
+	<script type="text/javascript">
+		$('#database .rowBottom p.export').empty();
+		var button = $('#exportButton').detach();
+		$('#database .rowBottom p.export').append(button);
+	</script>
 	<table cellspacing="0" border="1">
 	<caption>Records of {MODEL}</caption>
 	<thead>

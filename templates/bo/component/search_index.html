@@ -1,12 +1,45 @@
 <!-- BEGIN: title -->Search Index<!-- END: title -->
 <!-- BEGIN: content -->
 <!-- BEGIN: messages --><div class="fix">{MESSAGES}</div><!-- END: messages -->
-<p>Number of indexed documents: {INDEX_INFO.indexSize}</p>
-<p><a class="button" href="/request/bo/component/search_index_build" onclick="if (confirm('Are you sure? Re-index can take several minutes to complete and you cannot use the website using the same session due to session lock preventing race condition.')) makeAjaxRequest('#crawl_container', this.href); return false" title="Build the Index"><span>Re-build index of the whole site</span></a>
-</p>
-<p>
-<span class="warning">Warning: re-index can take several minutes to complete</span>
-</p>
-<div id="crawl_container"></div>
+
+<div class="search_index"> 
+
+	<div class="twoColumnPage page sidebar">
+		<div class="top"><span></span></div>
+		<div class="content">
+			<div class="pageWrapper">
+
+				<div class="pageHeader">
+					<div class="pageHeaderWrapper">
+						<h1 class="pageTitle"><span>Search Index</span></h1>
+					</div>
+				</div>
+
+				<div class="pageContent">
+					<div class="pageContentWrapper">
+						<div class="rowTop">
+							<div class="rowWrapper">
+								<div class="columnWrapper">
+
+									<p>Number of indexed documents: {INDEX_INFO.indexSize}</p>
+									<p><a class="button" href="/request/bo/component/search_index_build" onclick="if (confirm('Are you sure? Re-index can take several minutes to complete and you cannot use the website using the same session due to session lock preventing race condition.')) makeAjaxRequest('#crawl_container', this.href); return false" title="Build the Index"><span>Re-build index of the whole site</span></a>
+									</p>
+									<p>
+									<span class="warning">Warning: re-index can take several minutes to complete</span>
+									</p>
+									<div id="crawl_container"></div>
+
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="bottom"><span></span></div>
+	</div>
+
+</div>
 
 <!-- END: content -->

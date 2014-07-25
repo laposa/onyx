@@ -5,7 +5,6 @@
 <script type="text/javascript"> 
 $(document).ready(function() { 
 	$('#taxonomy-edit-{GET.id}').ajaxForm({target: '#sub_content'}); 
-	$("#taxonomy_edit").tabs();
 });
 </script>
 
@@ -16,7 +15,7 @@ $(document).ready(function() {
 
 	<p>{ONXSHOP_REQUEST_taxonomy #component/breadcrumb_taxonomy~id=GET.id~}</p>
 
-	<div id="taxonomy_edit" style="padding-left: 20px;">
+	<div id="taxonomy_edit">
 	
 		<button class="save" type="submit" name="save" value="save"><span>Save</span></button>
 		

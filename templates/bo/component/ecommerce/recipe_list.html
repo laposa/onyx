@@ -1,74 +1,41 @@
 <!-- BEGIN: content -->
 
-<script type="text/javascript">
-$(document).ready(function() {
-	
-	$('div.recipe_list a.add').live('click', function() {
-		var child_id = $(this).attr('href').replace('#','');;
-		$('#dialog').addClass('ajaxLoad').load('/request/bo/component/ecommerce/recipe_add', function() {$(this).removeClass('ajaxLoad');});
-		$('#dialog').dialog({width: 500, modal: true, position: {my: "center top", at: "centre top", of: "div.recipe_list"}, title: 'Add new recipe'});
-		$('#dialog').dialog('open');
-		return false;
-	});
-	
-});
-</script>
-
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 <div class="recipe_list">
-	<div class="twoColumnLayout layout fibonacci-5-1">
-		<div class="layoutWrapper">
-			<div class="top"><span></span></div>
-			<div class="layoutContent">
-				<div class="layoutContentWrapper">
-					<div class="layoutColumnOne ofTwo">
-						<div class="layoutColumnWrapper">
+
+	<table>
+		<thead>
+			<tr>
+				<th class="image first"></th>
+				<th class="recipe_title"><a href="/backoffice/recipes?recipe-list-sort-by=title&amp;recipe-list-sort-direction=ASC">Title</a></th>
+				<th class="recipe_modified"><a href="/backoffice/recipes?recipe-list-sort-by=modified&amp;recipe-list-sort-direction=DESC">Modified</a></th>
+			</tr>
+		</thead>
+		
+		<!-- BEGIN: empty_list -->
+		<tbody><tr><td colspan="3" class="empty">No recipes found.</td></tr></tbody>
+		<!-- END: empty_list -->
+		
+		<!-- BEGIN: list -->
+		<tbody>
+			<!-- BEGIN: item -->
+			<tr {CLASS}>
+				<td {ROWSPAN} class="image"><!--  BEGIN: image --><a href="/backoffice/recipes/{ITEM.id}/edit"><img src="/thumbnail/25x25/{ITEM.image_src}" alt="{ITEM.image_title|htmlspecialchars}" /></a><!--  END: image --></td>
+				<td {ROWSPAN} class="recipe_title"><span class="{ITEM.disabled}"><a href="/backoffice/recipes/{ITEM.id}/edit">{ITEM.title|htmlspecialchars}</a></span></td>
+				<td class="modified">{ITEM.modified}</a></td>
+			</tr>
+			<!-- END: item -->
+		</tbody>
+		<!-- END: list -->
+		<tfoot>
+			<tr>
+				<td colspan="6">
+					{PAGINATION}
+				</td>
+			</tr>
+		</tfoot>
+	</table>
 							
-							<table>
-								<thead>
-									<tr>
-										<th class="image first"></th>
-										<th class="recipe_title"><a href="/backoffice/recipes?recipe-list-sort-by=title&amp;recipe-list-sort-direction=ASC">Title</a></th>
-										<th class="recipe_modified"><a href="/backoffice/recipes?recipe-list-sort-by=modified&amp;recipe-list-sort-direction=DESC">Modified</a></th>
-									</tr>
-								</thead>
-								
-								<!-- BEGIN: empty_list -->
-								<tbody><tr><td>No recipes found.</td></tr></tbody>
-								<!-- END: empty_list -->
-								
-								<!-- BEGIN: list -->
-								<tbody>
-									<!-- BEGIN: item -->
-									<tr {CLASS}>
-										<td {ROWSPAN} class="image"><!--  BEGIN: image --><a href="/backoffice/recipes/{ITEM.id}/edit"><img src="/thumbnail/25x25/{ITEM.image_src}" alt="{ITEM.image_title|htmlspecialchars}" /></a><!--  END: image --></td>
-										<td {ROWSPAN} class="recipe_title"><span class="{ITEM.disabled}"><a href="/backoffice/recipes/{ITEM.id}/edit">{ITEM.title|htmlspecialchars}</a></span></td>
-										<td class="modified">{ITEM.modified}</a></td>
-									</tr>
-									<!-- END: item -->
-								</tbody>
-								<!-- END: list -->
-								<tfoot>
-									<tr>
-										<td colspan="6">
-											{PAGINATION}
-										</td>
-									</tr>
-								</tfoot>
-							</table>
-							
-						</div>
-					</div>
-					<div class="layoutColumnTwo ofTwo">
-						<div class="layoutColumnWrapper">
-							<p><a class="button add" title="Add new recipe" href="/backoffice/recipes/recipe_add"><span>Add New Recipe</span></a></p>
-						</div>
-					</div>
-				</div>
-			</div>
-			<div class="bottom"><span></span></div>
-		</div>
-	</div>
 </div>
 
 

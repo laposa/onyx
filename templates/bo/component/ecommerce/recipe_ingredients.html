@@ -37,7 +37,7 @@ $(function() {
 				'		of' +
 				'	</td>' +
 				'	<td>' +
-				'		<select id="product_dropdown__NEW__" class="product_dropdown" name="ingredients[__NEW__][product_variety_id]">' +
+				'		<select id="product_dropdown__NEW__" class="product_dropdown" style="width: 200px;" name="ingredients[__NEW__][product_variety_id]">' +
 				'		</select>' +
 				'	</td>' +
 				'	<td>' +
@@ -47,7 +47,7 @@ $(function() {
 				'		<input type="text" name="ingredients[__NEW__][group_title]" value=""/>' +
 				'	</td>' +
 				'	<td>' +
-				'		<button style="float: none;" name="" onclick="$(this).parent().parent().remove(); return false"><span>remove</span></button>' +
+				'		<button style="float: none;" class="remove small" name="" onclick="$(this).parent().parent().remove(); return false"><span>Remove</span></button>' +
 				'	</td>' +
 				'</tr>';
 		$("#ingredientsTable").append(template.replace(/__NEW__/g, '__NEW__' + ingredientCounter));
@@ -93,7 +93,7 @@ $(function() {
 					of
 				</td>
 				<td>
-					<select class="product_dropdown" data-selected="{ITEM.product_variety_id}" name="ingredients[{ITEM.id}][product_variety_id]">
+					<select class="product_dropdown" data-selected="{ITEM.product_variety_id}" style="width: 200px;" name="ingredients[{ITEM.id}][product_variety_id]">
 					</select>
 				</td>
 				<td>
@@ -103,14 +103,14 @@ $(function() {
 					<input type="text" name="ingredients[{ITEM.id}][group_title]" value="{ITEM.group_title}"/>
 				</td>
 				<td>
-					<button style="float: none;" name="" onclick="$(this).parent().parent().remove(); return false"><span>remove</span></button>
+					<button style="float: none;" class="remove small" name="" onclick="$(this).parent().parent().remove(); return false"><span>Remove</span></button>
 				</td>
 			</tr>
 			<!-- END: item -->
 		</table>
 	</div>
 	
-	<p><a class="button add" id="ingredientAdd" href="#"><span>add new</span></a></p>
+	<p><a class="button add" id="ingredientAdd" href="#"><span>Add a New Ingredient</span></a></p>
 
 </fieldset>
 
