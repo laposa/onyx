@@ -1825,7 +1825,6 @@ CREATE TABLE client_customer (
 			client_address.country_id,
 			client_customer.company_id,
 			client_customer.telephone,
-			client_customer.mobilephone,
 			client_customer.birthday,
 			client_customer.store_id,
 			COUNT(ecommerce_basket.id) AS count_baskets,
@@ -1842,6 +1841,7 @@ CREATE TABLE client_customer (
 			GROUP BY
 			client_customer.id,
 			client_customer.created,
+			client_customer.status, 
 			client_customer.email, 
 			client_customer.title_before,
 			client_customer.first_name, 
@@ -1850,6 +1850,8 @@ CREATE TABLE client_customer (
 			client_customer.invoices_address_id,
 			client_address.country_id,
 			client_customer.company_id,
+			client_customer.telephone,
+			client_customer.birthday,
 			client_customer.store_id
 			ORDER BY client_customer.id";
 		}
