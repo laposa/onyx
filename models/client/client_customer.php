@@ -1815,6 +1815,7 @@ CREATE TABLE client_customer (
 			client_customer.id AS customer_id, 
 			client_customer.created AS customer_created, 
 			MAX(ecommerce_invoice.created) AS last_order,
+			client_customer.status, 
 			client_customer.email, 
 			client_customer.title_before, 
 			client_customer.first_name,
@@ -1823,6 +1824,10 @@ CREATE TABLE client_customer (
 			client_customer.invoices_address_id,
 			client_address.country_id,
 			client_customer.company_id,
+			client_customer.telephone,
+			client_customer.mobilephone,
+			client_customer.birthday,
+			client_customer.store_id,
 			COUNT(ecommerce_basket.id) AS count_baskets,
 			COUNT(ecommerce_invoice.id) AS count_orders,
 			(SELECT SUM(quantity) FROM ecommerce_basket_content INNER JOIN ecommerce_basket ON (ecommerce_basket.customer_id = client_customer.id AND ecommerce_basket.id = ecommerce_basket_content.basket_id)) AS count_items,
@@ -1844,7 +1849,8 @@ CREATE TABLE client_customer (
 			client_customer.newsletter,
 			client_customer.invoices_address_id,
 			client_address.country_id,
-			client_customer.company_id
+			client_customer.company_id,
+			client_customer.store_id
 			ORDER BY client_customer.id";
 		}
 

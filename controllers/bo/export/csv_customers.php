@@ -19,16 +19,33 @@ class Onxshop_Controller_Bo_Export_CSV_Customers extends Onxshop_Controller_Bo_E
 		
 		require_once('models/client/client_customer.php');
 		
-		$Customer = new client_customer();
+		$this->Customer = new client_customer();
 		
 		/**
 		 * Get the list
 		 */
 		
-		$records = $Customer->getClientList(0, $_SESSION['customer-filter']);
-		
+		$records = $this->Customer->getClientList(0, $_SESSION['customer-filter']);
+		$stores = $this->getStores();
+		$categories = $this->getCategories();
+
 		if (is_array($records)) {
 		
+				/**
+				 * preprocess
+				 */
+				foreach ($records as $i => $record) {
+
+					$records[$i]['status'] = $this->getStatusName($record['status']);
+					$records[$i]['newsletter'] = $record['newsletter'] == 1 ? 'yes' : 'no';
+					$records[$i]['home_store'] = $stores[$record['store_id']];
+					if (is_array($categories[$record['customer_id']]))
+						$records[$i]['categories'] = implode(", ", $categories[$record['customer_id']]);
+					else 
+						$records[$i]['categories'] = "";
+
+				}
+
 				/**
 				 * parse records
 				 */
@@ -52,7 +69,7 @@ class Onxshop_Controller_Bo_Export_CSV_Customers extends Onxshop_Controller_Bo_E
 					}
 		        
 					foreach ($record as $key=>$val) {
-						
+
 						if (!is_numeric($val)) {
 						
 							$val = addslashes($val);
@@ -63,6 +80,7 @@ class Onxshop_Controller_Bo_Export_CSV_Customers extends Onxshop_Controller_Bo_E
 						
 						$this->tpl->assign('value', $val);
 						$this->tpl->parse('content.item.attribute');
+
 					}
 			
 					$this->tpl->parse('content.item');
@@ -79,4 +97,42 @@ class Onxshop_Controller_Bo_Export_CSV_Customers extends Onxshop_Controller_Bo_E
 
 		return true;
 	}
+
+	protected function getStatusName($status_id) {
+
+		switch ($status_id) {
+			case 0: return 'disabled';
+			case 1: return 'registered';
+			case 2: return 'reserved';
+			case 3: return 'preserved';
+			case 4: return 'deleted';
+		}
+
+		return 'unknown';
+	}
+
+	protected function getStores() {
+
+		$sql = "SELECT id, title FROM ecommerce_store";
+		$records = $this->Customer->executeSql($sql);
+		$result = array();
+		foreach ($records as $item) $result[$item['id']] = $item['title'];
+		return $result;
+	}	
+
+	protected function getCategories() {
+
+		$sql = "SELECT t.node_id, l.title 
+			FROM client_customer_taxonomy AS t
+			LEFT JOIN common_taxonomy_tree AS r ON r.id = t.taxonomy_tree_id
+			LEFT JOIN common_taxonomy_label AS l ON l.id = r.label_id
+			";
+		$records = $this->Customer->executeSql($sql);
+		$result = array();
+		foreach ($records as $item) $result[$item['node_id']][] = $item['title'];
+
+		return $result;
+
+	}
+
 }
