@@ -5,16 +5,20 @@ function feHighlightElement(element, type) {
 
 	var highlight = $('#feHighlight');
 	var offset = element.position();
+	if (offset == undefined) return;
 
 	element.addClass('feHighlighted');
 
-	var top = offset.top;
+	var marginLeft = element.outerWidth(true) - element.innerWidth();
+	var marginTop = element.outerHeight(true) - element.innerHeight();
+	var left = offset.left + marginLeft / 2;
+	var top = offset.top + marginTop / 2;
 	var height = element.height();
 
 	if (type == 'content' || type == 'layout') height -= 23;
 	if (type == 'layout') top += 23;
 
-	highlight.css('left', offset.left);
+	highlight.css('left', left);
 	highlight.css('top', top);
 	highlight.css('width', element.width());
 	highlight.css('height', height);
@@ -38,6 +42,8 @@ function feUnhighlightElement(element) {
  */
 function feSetHighlightType(type) {
 
+	console.log(type);
+
 	var highlight = $('#feHighlight');
 
 	if (type) highlight.addClass(type);
@@ -49,22 +55,35 @@ function feSetHighlightType(type) {
  * Set handlers
  */
 $(function() {
+
 	$('body').addClass('feEditable').append('<div id="feHighlight"></div>');
+
+	// hightlight
 	$('.onxshop_edit_content').live('mouseover', function() {
 		var node_id = $(this).attr('data-node-id');
 		var node = $('#node_id_' + node_id);
 		feHighlightElement(node, 'content');
 	});
+
 	$('.onxshop_edit_layout').live('mouseover', function() {
 		var node_id = $(this).attr('data-node-id');
 		var node = $('#node_id_' + node_id);
 		feHighlightElement(node, 'layout');
 	});
-	$('.onxshop_edit_content, .onxshop_edit_layout').live('mouseout', function() {
+
+	$('.onxshop_page_properties').live('mouseover', function() {
+		var node_id = $(this).attr('data-node-id');
+		var node = $('#node_id_' + node_id);
+		feHighlightElement(node, 'page');
+	});
+
+	// unhighlight
+	$('.onxshop_edit_content, .onxshop_edit_layout, .onxshop_page_properties').live('mouseout', function() {
 		var node_id = $(this).attr('data-node-id');
 		var node = $('#node_id_' + node_id);
 		feUnhighlightElement(node);
 	});
+
 });
 
 $(document).keydown(function (e) {

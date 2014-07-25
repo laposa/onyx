@@ -19,7 +19,7 @@ div.feHighlighted > div[class^=node-] {-webkit-filter: grayscale(1); }
 #feHighlight:after { display: block; font-family: FontAwesome; font-style: normal; font-weight: normal; line-height: 1; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; text-decoration: none; color: #888; text-shadow: 0 1px 0 #ddd; font-size: 30px; position: absolute; left: 50%; top: 50%; margin-left: -15px; margin-top: -15px; width: 30px; text-align: center; height: 30px; }
 #feHighlight.edit:after { content: "\f044"; }
 #feHighlight.duplicate:after { content: "\f0c5"; }
-#feHighlight.delete { outline: 1px dashed #dd0000; }
+#feHighlight.delete { outline: 1px dashed #dd0000; background: rgba(255, 200, 200, 0.7);}
 #feHighlight.delete:after { content: "\f146"; color: #dd0000; opacity: 0.5; }
 
 #layout_icon {background-position: top right; background-repeat: no-repeat;}
@@ -37,7 +37,6 @@ div.node.hide_at_normal_login {border: 1px dotted green;}
 div.node.show_at_trade_login {border: 1px solid red;}
 div.node.hide_at_trade_login {border: 1px solid green;}
 div.acl_in_use {border: 1px dotted red;}
-div.node.not_public {border: 1px dashed #dd0000; }
 div.node.not_public > * {-webkit-filter: grayscale(1); opacity: 0.3; }
 div.node.not_public:hover > * {opacity: 1; -webkit-filter: none; }
 
@@ -75,3 +74,4 @@ ul.ui-tabs-nav li {padding-bottom: 0;}
 body.feEditable .onxshop_edit_layout,
 body.feEditable .onxshop_page_properties,
 body.feEditable .onxshop_edit_content { display: block; }
+body.feEditable .onxshop_page_properties { height: 30px; }

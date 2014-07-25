@@ -7,8 +7,6 @@
  
 .onxshop_edit:before {content: "\f12e";}
 .onxshop_layout_properties:before {content: "\f0db";}
-.onxshop_page_properties:before {content: "\f0f6";}
-div.onxshop_page_properties:before {content: "";}
 .onxshop_duplicate:before {content: "\f0c5";}
 .onxshop_delete:before {content: "\f146";}
 .onxshop_edit_source:before {content: "\f044";}
@@ -60,19 +58,19 @@ div.onxshop_add_content { padding: 0 10px;}
 div.onxshop_add_content a.onxshop_new_content { display: block; float: none; padding: 10px 0 !important; height: 32px; width: 100%; text-align: center; }
 
 div.new_node { border: 1px dashed #ddd; margin: 5px 0; }
-div.new_node:hover { border: 1px dashed #bbb; margin: 5px 0; }
+div.new_node:hover { border: 1px dashed #bbb; margin: 5px 0; background: rgba(0, 200, 0, 0.1) !important;}
 div.new_node:hover .onxshop_new_content:before { color: #000000 !important; }
-div.onxshop_edit_content {background: none; border-top: 1px dashed #ddd; height: 23px;}
+div.onxshop_edit_content {background: none; height: 23px;}
 div.onxshop_edit_content a {background: #ddd; margin: 0 !important; padding: 3px 0 !important; position: relative; top: -1px; }
 div.onxshop_edit_content a:before {margin-left: 6px;}
 div.onxshop_edit_content a:first-child {border-radius: 0 0 0 5px;}
 div.onxshop_edit_content a:last-child {border-radius: 0 0 5px 0; }
 
-div.onxshop_edit_layout {background: none; background: #eee; border-bottom: 1px solid #ddd; margin: 5px 0; padding: 3px 0 0 0; height: 23px; border-radius: 5px 5px 0 0;}
+div.onxshop_edit_layout {background: none; background: #eee; margin: 5px 0; padding: 3px 0 0 0; height: 23px; border-radius: 5px 5px 0 0;}
 div.onxshop_edit_layout a { margin: 0 !important; padding: 0 !important; }
 div.onxshop_edit_layout a:before {margin-left: 6px;}
 
-.feHighlighted .onxshop_edit_content { border-top: 1px solid transparent; }
+.feHighlighted .onxshop_edit_content { }
 .feHighlighted .onxshop_edit_content a {background: #ccc !important; }
 .feHighlighted .layoutColumnOne,
 .feHighlighted .layoutColumnTwo,
@@ -131,14 +129,13 @@ div.node-node_controller option {background-repeat: no-repeat; background-positi
  */
 .onxshop_edit:before,
 .onxshop_layout_properties:before,
-.onxshop_page_properties:before,
 .onxshop_duplicate:before,
 .onxshop_delete:before,
 .onxshop_edit_source:before,
 .onxshop_new_content:before,
 .onxshop_new_layout:before,
 .onxshop_edit_main_content:before,
-.onxshop_edit_page_add :before,
+.onxshop_edit_page_add:before,
 .onxshop_edit_commerce:before,
 .onxshop_edit_partner:before,
 .onxshop_edit_product_browse:before,
@@ -176,19 +173,19 @@ div.node-node_controller option {background-repeat: no-repeat; background-positi
 .onxshop_edit_video:before,
 .onxshop_edit_recipe_list:before
 {
-  display: inline-block;
-  font-family: FontAwesome;
-  font-style: normal;
-  font-weight: normal;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-decoration: none;
+  display: inline-block !important;
+  font-family: FontAwesome !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  line-height: 1 !important;
+  -webkit-font-smoothing: antialiased !important;
+  -moz-osx-font-smoothing: grayscale !important;
+  text-decoration: none !important;
   color: #888 !important;
   text-shadow: 0 1px 0 #ddd !important;
-  font-size: 16px;
-  border-radius: 30px;
-  position: absolute;
+  font-size: 16px !important;
+  border-radius: 30px !important;
+  position: absolute !important;
 }
 
 /**
@@ -196,14 +193,13 @@ div.node-node_controller option {background-repeat: no-repeat; background-positi
  */
 .onxshop_edit:hover:before,
 .onxshop_layout_properties:hover:before,
-.onxshop_page_properties:hover:before,
 .onxshop_duplicate:hover:before,
 .onxshop_delete:hover:before,
 .onxshop_edit_source:hover:before,
 .onxshop_new_content:hover:before,
 .onxshop_new_layout:hover:before,
 .onxshop_edit_main_content:hover:before,
-.onxshop_edit_page_add :hover:before,
+.onxshop_edit_page_add:hover:before,
 .onxshop_edit_commerce:hover:before,
 .onxshop_edit_partner:hover:before,
 .onxshop_edit_product_browse:hover:before,
