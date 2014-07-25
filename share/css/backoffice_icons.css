@@ -5,42 +5,43 @@
  * General
  */
  
-.onxshop_edit:before {content: "\f12e";}
-.onxshop_layout_properties:before {content: "\f0db";}
-.onxshop_duplicate:before {content: "\f0c5";}
-.onxshop_delete:before {content: "\f146";}
-.onxshop_edit_source:before {content: "\f044";}
-.onxshop_new_content:before {content: "\f0fe";}
-.onxshop_new_layout:before {content: "\f0fe";}
-.onxshop_edit_main_content:before {content: "\f044";}
-.onxshop_edit_page_add:before {content: "\f0fe";}
+.onxshop_edit {background-image: url(/share/images/famfamfam_icons/plugin.png);}
+.onxshop_layout_properties {background-image: url(/share/images/famfamfam_icons/layout.png);}
+.onxshop_page_properties {background-image: url(/share/images/famfamfam_icons/page.png);}
+.onxshop_duplicate {background-image: url(/share/images/famfamfam_icons/application_double.png);}
+.onxshop_delete {background-image: url(/share/images/famfamfam_icons/delete.png);}
+.onxshop_edit_source {background-image: url(/share/images/famfamfam_icons/link_edit.png);}
+.onxshop_new_content {background-image: url(/share/images/famfamfam_icons/add.png);}
+.onxshop_new_layout {background-image: url(/share/images/famfamfam_icons/layout_add.png);}
+.onxshop_edit_main_content {background-image: url(/share/images/famfamfam_icons/text_signature.png);}
+.onxshop_edit_page_add {background-image: url(/share/images/famfamfam_icons/page_add.png);}
 
 /*
 * Container Frontend Icons
 */
 
-option.onxshop_edit_default.container:before {content: "\f07b";}
+option.onxshop_edit_default.container {background-image: url(/share/images/famfamfam_icons/folder.png);}
 
 /*
 * Page Frontend Icons
 */
 
-.onxshop_edit_commerce:before {content: "\f084";}
-.onxshop_edit_partner:before {content: "\f084";}
-.onxshop_edit_product_browse:before {content: "\f07a";}
-.onxshop_edit_symbolic:before {content: "\f14c";}
-.onxshop_edit_blank:before {content: "\f0f6";}
-.onxshop_edit_default:before {content: "\f0f6";}
-.onxshop_edit_print:before {content: "\f02f";}
-.onxshop_edit_news:before {content: "\f0f6";}
-.onxshop_edit_product:before {content: "\f02a";}
+.onxshop_edit_commerce {background-image: url(/share/images/famfamfam_icons/key.png);}
+.onxshop_edit_partner {background-image: url(/share/images/famfamfam_icons/key.png);}
+.onxshop_edit_product_browse {background-image: url(/share/images/famfamfam_icons/building.png);}
+.onxshop_edit_symbolic {background-image: url(/share/images/famfamfam_icons/page_go.png);}
+.onxshop_edit_blank {background-image: url(/share/images/famfamfam_icons/page.png);}
+.onxshop_edit_default {background-image: url(/share/images/famfamfam_icons/page.png);}
+.onxshop_edit_print {background-image: url(/share/images/famfamfam_icons/printer.png);}
+.onxshop_edit_news {background-image: url(/share/images/famfamfam_icons/newspaper.png);}
+.onxshop_edit_product {background-image: url(/share/images/famfamfam_icons/page_white_ruby.png);}
 
 
 /*
 * Layout Frontend Icons
 */
 
-.onxshop_edit_layout {content: "\f0db";}
+.onxshop_edit_layout {background-image: url(/share/images/famfamfam_icons/layout.png);}
 
 
 /*
@@ -48,36 +49,12 @@ option.onxshop_edit_default.container:before {content: "\f07b";}
 */
 
 div.onxshop_add_content,
-div.onxshop_edit_content {clear: both; padding: 0; }
+div.onxshop_edit_content {clear: both; padding: 0 0 50px 5px;}
 
 div.onxshop_add_content a.onxshop_new_content,
 div.onxshop_edit_content a,
 div.onxshop_edit_layout a,
-div.onxshop_page_properties a {display: block; width: 25px; height: 23px; float: left; background-repeat: no-repeat; background-position: center;}
-div.onxshop_add_content { padding: 0 10px;}
-div.onxshop_add_content a.onxshop_new_content { display: block; float: none; padding: 10px 0 !important; height: 32px; width: 100%; text-align: center; }
-
-div.new_node { border: 1px dashed #ddd; margin: 5px 0; }
-div.new_node:hover { border: 1px dashed #bbb; margin: 5px 0; background: rgba(0, 200, 0, 0.1) !important;}
-div.new_node:hover .onxshop_new_content:before { color: #000000 !important; }
-div.onxshop_edit_content {background: none; height: 23px;}
-div.onxshop_edit_content a {background: #ddd; margin: 0 !important; padding: 3px 0 !important; position: relative; top: -1px; }
-div.onxshop_edit_content a:before {margin-left: 6px;}
-div.onxshop_edit_content a:first-child {border-radius: 0 0 0 5px;}
-div.onxshop_edit_content a:last-child {border-radius: 0 0 5px 0; }
-
-div.onxshop_edit_layout {background: none; background: #eee; margin: 5px 0; padding: 3px 0 0 0; height: 23px; border-radius: 5px 5px 0 0;}
-div.onxshop_edit_layout a { margin: 0 !important; padding: 0 !important; }
-div.onxshop_edit_layout a:before {margin-left: 6px;}
-
-.feHighlighted .onxshop_edit_content { }
-.feHighlighted .onxshop_edit_content a {background: #ccc !important; }
-.feHighlighted .layoutColumnOne,
-.feHighlighted .layoutColumnTwo,
-.feHighlighted .layoutColumnThree,
-.feHighlighted .layoutColumnFour,
-.feHighlighted .layoutColumnFive,
-.feHighlighted .layoutColumnSix { box-shadow: 1px 0 #000; }
+div.onxshop_page_properties a {display: block; width: 30px; height: 19px; float: left; background-repeat: no-repeat; background-position: center;}
 
 div.onxshop_add_content a.onxshop_new_content span,
 div.onxshop_edit_content a span,
@@ -87,33 +64,33 @@ div.onxshop_page_properties a span {display: none;}
 div.onxshop_page_properties a.verbose {width: auto; text-decoration: none; background-position: left;}
 div.onxshop_page_properties a.verbose span {display: inline; padding: 0 25px;}
 
-.onxshop_edit_articlebox:before {content: "\f044";}
-.onxshop_edit_print_article_list:before {content: "\f0f6";}
-.onxshop_edit_component:before {content: "\f12e";}
-.onxshop_edit_quote:before {content: "\f10e";}
-.onxshop_edit_divider:before {content: "\f068";}
-.onxshop_edit_teaser:before {content: "\f14c";}
-.onxshop_edit_imagemap:before {content: "\f044";}
-.onxshop_edit_contact_form:before {content: "\f003";}
-.onxshop_edit_comment:before {content: "\f086";}
-.onxshop_edit_picture:before {content: "\f03e";}
-.onxshop_edit_file:before {content: "\f0c7";}
-.onxshop_edit_product_list:before {content: "\f07a";}
-.onxshop_edit_feed:before {content: "\f143";}
-.onxshop_edit_RTE:before {content: "\f040";}
-.onxshop_edit_shared:before {content: "\f0c1";}
-.onxshop_edit_news_list:before {content: "\f0f6";}
-.onxshop_edit_menu:before {content: "\f0e8";}
-.onxshop_edit_content_list:before {content: "\f022";}
-.onxshop_edit_HTML:before {content: "\f1c9";}
-.onxshop_edit_product_highlights:before {content: "\f087";}
-.onxshop_edit_special_offer_list:before {content: "\f005";}
-.onxshop_edit_filter:before {content: "\f0b0";}
-.onxshop_edit_external_source:before {content: "\f12e";}
-.onxshop_edit_textile:before {content: "\f040";}
-.onxshop_edit_survey:before {content: "\f046";}
-.onxshop_edit_video:before {content: "\f1c8";}
-.onxshop_edit_recipe_list:before {content: "\f022";}
+.onxshop_edit_articlebox {background-image: url(/share/images/famfamfam_icons/page_edit.png);}
+.onxshop_edit_print_article_list {background-image: url(/share/images/famfamfam_icons/newspaper.png);}
+.onxshop_edit_component {background-image: url(/share/images/famfamfam_icons/plugin.png);}
+.onxshop_edit_quote {background-image: url(/share/images/famfamfam_icons/rosette.png);}
+.onxshop_edit_divider {background-image: url(/share/images/famfamfam_icons/text_horizontalrule.png);}
+.onxshop_edit_teaser {background-image: url(/share/images/famfamfam_icons/page_go.png);}
+.onxshop_edit_imagemap {background-image: url(/share/images/famfamfam_icons/map_edit.png);}
+.onxshop_edit_contact_form {background-image: url(/share/images/famfamfam_icons/email.png);}
+.onxshop_edit_comment {background-image: url(/share/images/famfamfam_icons/comment.png);}
+.onxshop_edit_picture {background-image: url(/share/images/famfamfam_icons/photo.png);}
+.onxshop_edit_file {background-image: url(/share/images/famfamfam_icons/disk.png);}
+.onxshop_edit_product_list {background-image: url(/share/images/famfamfam_icons/building.png);}
+.onxshop_edit_feed {background-image: url(/share/images/famfamfam_icons/rss.png);}
+.onxshop_edit_RTE {background-image: url(/share/images/famfamfam_icons/text_signature.png);}
+.onxshop_edit_shared {background-image: url(/share/images/famfamfam_icons/link.png);}
+.onxshop_edit_news_list {background-image: url(/share/images/famfamfam_icons/newspaper.png);}
+.onxshop_edit_menu {background-image: url(/share/images/famfamfam_icons/sitemap_color.png);}
+.onxshop_edit_content_list {background-image: url(/share/images/famfamfam_icons/application_view_list.png);}
+.onxshop_edit_HTML {background-image: url(/share/images/famfamfam_icons/html.png);}
+.onxshop_edit_product_highlights {background-image: url(/share/images/famfamfam_icons/award_star_bronze_2.png);}
+.onxshop_edit_special_offer_list {background-image: url(/share/images/famfamfam_icons/money.png);}
+.onxshop_edit_filter {background-image: url(/share/images/famfamfam_icons/page_white_find.png);}
+.onxshop_edit_external_source {background-image: url(/share/images/famfamfam_icons/plugin.png);}
+.onxshop_edit_textile {background-image: url(/share/images/famfamfam_icons/text_signature.png);}
+.onxshop_edit_survey {background-image: url(/share/images/famfamfam_icons/application_form.png);}
+.onxshop_edit_video {background-image: url(/share/images/famfamfam_icons/film.png);}
+.onxshop_edit_recipe_list {background-image: url(/share/images/famfamfam_icons/application_view_list.png);}
 
 /**
  * Other Icons
@@ -121,121 +98,5 @@ div.onxshop_page_properties a.verbose span {display: inline; padding: 0 25px;}
 
 a.onxshop_icon {display: block; width: 19px; height: 19px; background-repeat: no-repeat;}
 a.onxshop_icon span {display: none;}
-a.onxshop_magnifier:before {content: "\f00e";}
+a.onxshop_magnifier {background-image: url(/share/images/famfamfam_icons/magnifier.png);}
 div.node-node_controller option {background-repeat: no-repeat; background-position: 5px center; padding: 0.2em 0 0.2em 30px; height:1.4em;}
-
-/**
- * Icon font smoothing
- */
-.onxshop_edit:before,
-.onxshop_layout_properties:before,
-.onxshop_duplicate:before,
-.onxshop_delete:before,
-.onxshop_edit_source:before,
-.onxshop_new_content:before,
-.onxshop_new_layout:before,
-.onxshop_edit_main_content:before,
-.onxshop_edit_page_add:before,
-.onxshop_edit_commerce:before,
-.onxshop_edit_partner:before,
-.onxshop_edit_product_browse:before,
-.onxshop_edit_symbolic:before,
-.onxshop_edit_blank:before,
-.onxshop_edit_default:before,
-.onxshop_edit_print:before,
-.onxshop_edit_news:before,
-.onxshop_edit_product:before,
-.onxshop_edit_articlebox:before,
-.onxshop_edit_print_article_list:before,
-.onxshop_edit_component:before,
-.onxshop_edit_quote:before,
-.onxshop_edit_divider:before,
-.onxshop_edit_teaser:before,
-.onxshop_edit_imagemap:before,
-.onxshop_edit_contact_form:before,
-.onxshop_edit_comment:before,
-.onxshop_edit_picture:before,
-.onxshop_edit_file:before,
-.onxshop_edit_product_list:before,
-.onxshop_edit_feed:before,
-.onxshop_edit_RTE:before,
-.onxshop_edit_shared:before,
-.onxshop_edit_news_list:before,
-.onxshop_edit_menu:before,
-.onxshop_edit_content_list:before,
-.onxshop_edit_HTML:before,
-.onxshop_edit_product_highlights:before,
-.onxshop_edit_special_offer_list:before,
-.onxshop_edit_filter:before,
-.onxshop_edit_external_source:before,
-.onxshop_edit_textile:before,
-.onxshop_edit_survey:before,
-.onxshop_edit_video:before,
-.onxshop_edit_recipe_list:before
-{
-  display: inline-block !important;
-  font-family: FontAwesome !important;
-  font-style: normal !important;
-  font-weight: normal !important;
-  line-height: 1 !important;
-  -webkit-font-smoothing: antialiased !important;
-  -moz-osx-font-smoothing: grayscale !important;
-  text-decoration: none !important;
-  color: #888 !important;
-  text-shadow: 0 1px 0 #ddd !important;
-  font-size: 16px !important;
-  border-radius: 30px !important;
-  position: absolute !important;
-}
-
-/**
- * Hover
- */
-.onxshop_edit:hover:before,
-.onxshop_layout_properties:hover:before,
-.onxshop_duplicate:hover:before,
-.onxshop_delete:hover:before,
-.onxshop_edit_source:hover:before,
-.onxshop_new_content:hover:before,
-.onxshop_new_layout:hover:before,
-.onxshop_edit_main_content:hover:before,
-.onxshop_edit_page_add:hover:before,
-.onxshop_edit_commerce:hover:before,
-.onxshop_edit_partner:hover:before,
-.onxshop_edit_product_browse:hover:before,
-.onxshop_edit_symbolic:hover:before,
-.onxshop_edit_blank:hover:before,
-.onxshop_edit_default:hover:before,
-.onxshop_edit_print:hover:before,
-.onxshop_edit_news:hover:before,
-.onxshop_edit_product:hover:before,
-.onxshop_edit_articlebox:hover:before,
-.onxshop_edit_print_article_list:hover:before,
-.onxshop_edit_component:hover:before,
-.onxshop_edit_quote:hover:before,
-.onxshop_edit_divider:hover:before,
-.onxshop_edit_teaser:hover:before,
-.onxshop_edit_imagemap:hover:before,
-.onxshop_edit_contact_form:hover:before,
-.onxshop_edit_comment:hover:before,
-.onxshop_edit_picture:hover:before,
-.onxshop_edit_file:hover:before,
-.onxshop_edit_product_list:hover:before,
-.onxshop_edit_feed:hover:before,
-.onxshop_edit_RTE:hover:before,
-.onxshop_edit_shared:hover:before,
-.onxshop_edit_news_list:hover:before,
-.onxshop_edit_menu:hover:before,
-.onxshop_edit_content_list:hover:before,
-.onxshop_edit_HTML:hover:before,
-.onxshop_edit_product_highlights:hover:before,
-.onxshop_edit_special_offer_list:hover:before,
-.onxshop_edit_filter:hover:before,
-.onxshop_edit_external_source:hover:before,
-.onxshop_edit_textile:hover:before,
-.onxshop_edit_survey:hover:before,
-.onxshop_edit_video:hover:before,
-.onxshop_edit_recipe_list:hover:before
-{
-	color: #000000 !important;
-}

@@ -1,99 +1,4 @@
 /**
- * Highlight given element
- */
-function feHighlightElement(element, type) {
-
-	var highlight = $('#feHighlight');
-	var offset = element.position();
-	if (offset == undefined) return;
-
-	element.addClass('feHighlighted');
-
-	var marginLeft = element.outerWidth(true) - element.innerWidth();
-	var marginTop = element.outerHeight(true) - element.innerHeight();
-	var left = offset.left + marginLeft / 2;
-	var top = offset.top + marginTop / 2;
-	var height = element.height();
-
-	if (type == 'content' || type == 'layout') height -= 23;
-	if (type == 'layout') top += 23;
-
-	highlight.css('left', left);
-	highlight.css('top', top);
-	highlight.css('width', element.width());
-	highlight.css('height', height);
-
-	highlight.show();
-}
-
-/**
- * Unhighlight given element
- */
-function feUnhighlightElement(element) {
-
-	var highlight = $('#feHighlight');
-	element.removeClass('feHighlighted');
-	highlight.hide();
-
-}
-
-/**
- * Set highlight type
- */
-function feSetHighlightType(type) {
-
-	console.log(type);
-
-	var highlight = $('#feHighlight');
-
-	if (type) highlight.addClass(type);
-	else highlight.removeClass('delete edit add duplicate');
-
-}
-
-/**
- * Set handlers
- */
-$(function() {
-
-	$('body').addClass('feEditable').append('<div id="feHighlight"></div>');
-
-	// hightlight
-	$('.onxshop_edit_content').live('mouseover', function() {
-		var node_id = $(this).attr('data-node-id');
-		var node = $('#node_id_' + node_id);
-		feHighlightElement(node, 'content');
-	});
-
-	$('.onxshop_edit_layout').live('mouseover', function() {
-		var node_id = $(this).attr('data-node-id');
-		var node = $('#node_id_' + node_id);
-		feHighlightElement(node, 'layout');
-	});
-
-	$('.onxshop_page_properties').live('mouseover', function() {
-		var node_id = $(this).attr('data-node-id');
-		var node = $('#node_id_' + node_id);
-		feHighlightElement(node, 'page');
-	});
-
-	// unhighlight
-	$('.onxshop_edit_content, .onxshop_edit_layout, .onxshop_page_properties').live('mouseout', function() {
-		var node_id = $(this).attr('data-node-id');
-		var node = $('#node_id_' + node_id);
-		feUnhighlightElement(node);
-	});
-
-});
-
-$(document).keydown(function (e) {
-    if (e.keyCode == 27) {
-        var body = $(document.body);
-        if (body.hasClass('feEditable')) body.removeClass('feEditable');
-        else body.addClass('feEditable');
-    }
-});
-/**
  * Delete node icon
  */
 function refreshDeleteContent() {
@@ -104,6 +9,15 @@ function refreshDeleteContent() {
 			autoOpen: false,
 			title: 'Delete content',
 			modal: true,
+			/*buttons: {
+				'Remove': function() {
+					alert('remove');
+					$(this).dialog('close');
+				},
+				Cancel: function() {
+					$(this).dialog('close');
+				}
+			},*/
 			open: function() {
 				$('#node_id_' + node_id).addClass('onxshop_highlight_edit')
 			}, 
@@ -116,10 +30,13 @@ function refreshDeleteContent() {
 		$('#dialog').load('/request/bo/component/node_delete~id=' + node_id + ':delete=1~');
 		$('#dialog').dialog('open');
 		return false;
+		
 	}).live('mouseover', function(){
-		feSetHighlightType('delete');
+		var node_id = $(this).attr('href').replace('#','');
+		$('#node_id_' + node_id).addClass("onxshop_highlight_delete"); 
 	}).live('mouseout', function(){ 
-		feSetHighlightType();
+		var node_id = $(this).attr('href').replace('#','');
+		$('#node_id_' + node_id).removeClass("onxshop_highlight_delete"); 
 	});
 
 }
@@ -127,6 +44,8 @@ function refreshDeleteContent() {
 /**
  * Duplicate content
  */
+
+
 function duplicateNode(node_id) {
 	$("#dialog").hide().load("/request/bo/component/node_duplicate~id="+node_id+"~", '', function (responseText, textStatus, XMLHttpRequest) {
 			popupMessage("#dialog div.onxshop_messages");
@@ -161,6 +80,7 @@ $('a.onxshop_new_content').live('click', function() {
 	var info = temp.split('_');
 	var node_id = info[0];
 	var container_id = info[1];
+	//alert("node_id" + node_id + " container_id" + container_id);
 	$($(this).attr('href') + ' > div.new_node').load('/request/bo/component/node_add~node_group=content:parent=' + node_id + ':container=' + container_id + '~', '', function() {
 		var button = '#node_add_form_' + node_id + '_' + container_id + '_wrapper button';
 		var container = '#onxshop_layout_container_' + node_id + '_' + container_id;
@@ -178,6 +98,18 @@ $('a.onxshop_new_content').live('click', function() {
 		});
 	});
 	return false;
+}).live('mouseover', function(){
+	var temp = $(this).attr('href').replace('#onxshop_layout_container_','');
+	var info = temp.split('_');
+	var node_id = info[0];
+	var container_id = info[1];
+	$($(this).attr('href') + ' > div.new_node').addClass("onxshop_highlight_new"); 
+}).live('mouseout', function(){ 
+	var temp = $(this).attr('href').replace('#onxshop_layout_container_','');
+	var info = temp.split('_');
+	var node_id = info[0];
+	var container_id = info[1];
+	$($(this).attr('href') + ' > div.new_node').removeClass("onxshop_highlight_new"); 
 });
 
 
