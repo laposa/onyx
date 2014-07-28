@@ -44,15 +44,6 @@
 												</div>
 											</fieldset>
 
-											<fieldset>
-												<legend>Product Images</legend>
-												<div class="row">
-													<div class="image">
-													{ONXSHOP_REQUEST_imagelist #bo/component/file_list_icon~type=add_to_product:relation=product:node_id=GET.id~}
-													</div>
-												</div>
-											</fieldset>
-
 											<div class="advanced">
 												{ONXSHOP_REQUEST_product_in_node #bo/component/ecommerce/product_in_node~product_id=GET.id~}
 												{ONXSHOP_REQUEST_ptn #bo/component/ecommerce/relation_product_in_nodes}
@@ -66,6 +57,7 @@
 											</fieldset>
 
 										</div>
+										
 										<div class="layoutColumnTwo ofTwo">
 
 											<fieldset>
@@ -99,6 +91,15 @@
 
 										</div>
 									</div>
+									
+									<fieldset>
+										<legend>Product Images</legend>
+										<div class="row">
+											<div class="image">
+											{ONXSHOP_REQUEST_imagelist #bo/component/file_list_icon~type=add_to_product:relation=product:node_id=GET.id~}
+											</div>
+										</div>
+									</fieldset>
 
 									<div class="row advanced">
 										{ONXSHOP_REQUEST_other_data #bo/component/ecommerce/product_other_data~id=GET.id~}
