@@ -207,6 +207,24 @@ class Onxshop_Bo_Authentication
 
 		return false;
 	}
+	
+	/**
+	 * Get user ID
+	 * 
+	 * @return int User ID
+	 */
+	public function getUserId()
+	{
+		if ($this->isAuthenticated()) {
+
+			$user_details = $this->getUserDetails();
+			
+			return $user_details['id'];
+
+		}
+
+		return false;
+	}
 
 
 

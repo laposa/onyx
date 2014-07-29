@@ -557,7 +557,10 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 		if (!is_numeric($node_data['parent_container'])) $node_data['parent_container'] = 0;
 		if (!is_numeric($node_data['priority'])) $node_data['priority'] = 0;
 		
-		$node_data['customer_id'] = (int) $_SESSION['client']['customer']['id'];
+		$bo_user_id = Onxshop_Bo_Authentication::getInstance()->getUserId();
+		if (is_numeric($bo_user_id)) $node_data['customer_id'] = $bo_user_id;
+		else $node_data['customer_id'] = (int) $_SESSION['client']['customer']['id'];
+		
 		$node_data['author'] = $node_data['customer_id']; // deprecated as of Onxshop 1.7
 		if (!is_numeric($node_data['display_in_menu'])) $node_data['display_in_menu'] = 1;
 		if (!is_numeric($node_data['display_permission'])) $node_data['display_permission'] = 0;

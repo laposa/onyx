@@ -269,7 +269,11 @@ CREATE TABLE common_file (
 			if (!is_numeric($file['priority'])) $file['priority'] = 0;
 			$file['modified'] = date('c');
 			if (!is_numeric($file['author'])) $file['author'] = 0; // deprecated as of Onxshop 1.7
-			if (!is_numeric($file['customer_id'])) $file['customer_id'] = (int) $_SESSION['client']['customer']['id'];
+			if (!is_numeric($file['customer_id'])) {
+				$bo_user_id = Onxshop_Bo_Authentication::getInstance()->getUserId();
+				if (is_numeric($bo_user_id)) $file['customer_id'] = $bo_user_id;
+				else $file['customer_id'] = (int) $_SESSION['client']['customer']['id'];
+			}
 			
 			if ($id = $this->insert($file)) {
 				msg('File Inserted', 'ok', 2);
