@@ -64,16 +64,16 @@
 				<td><!-- BEGIN: thumbnail --><a style="display: block; min-width: 50px; min-height: 50px;" href="/image/{BASE}{FOLDER}{ITEM.name}" title="View Full Size" onclick="openImg('/image/{BASE}{FOLDER}{ITEM.name}'); return false;"><img src="/thumbnail/50x50/{BASE}{FOLDER}{ITEM.name}" alt="{ITEM.name}" /></a><br /><!-- END: thumbnail --></td>
 				<td>
 					<a href="/download/{BASE}{FOLDER}{ITEM.name}" title="Download {ITEM.name} ({ITEM.size})" style="display: block;">{ITEM.name|str_replace('_', ' ', %s)}</a>
+					<!-- BEGIN: add_to_node --><a class="button add" title="Use {ITEM.name}" href="#file_connector" onclick="makeAjaxRequest('#file_connector', '/request/bo/component/file_add~file_path_encoded={ITEM.file_path_encoded}:type={GET.type}:role={GET.role}:relation={GET.relation}:node_id={GET.node_id}~');"><span>Use</span></a><br /><!-- END: add_to_node -->
 				</td>
 				<td>
 					<a class="ui-icon ui-icon-disk" style="float: left" title="Download {ITEM.name} ({ITEM.size})" href="/download/{BASE}{FOLDER}{ITEM.name}"><span>Download</span></a>
 					<a class="ui-icon ui-icon-info" style="float: left" href="#" title="Size: {ITEM.size}, click to view more details" onclick="openAjaxRequestInDialog('/request/bo/component/file_info~file_path_encoded={ITEM.file_path_encoded}~'); return false"><span>View more details</span></a>
 					
 					<!-- BEGIN: usage --><a href="#" onclick="openAjaxRequestInDialog('/request/bo/component/file_usage~file_path_encoded_relative={ITEM.file_path_encoded_relative}~'); return false" title="Usage">{FILE_USAGE}x</a><!-- END: usage -->
-					<!-- BEGIN: delete --><a class="button delete" href="{_SERVER.REDIRECT_URL}?delete_file={BASE}{FOLDER}{ITEM.name}" onclick="$('#file-{ITEM.file_path_encoded_relative}').load('/request/bo/component/file_delete~file_path_encoded={ITEM.file_path_encoded_relative}~', function() {popupMessage('#file-{ITEM.file_path_encoded_relative} div.onxshop_messages');}); return false;"><span>delete</span></a><!-- END: delete -->
 				</td>
 				<td>
-					<!-- BEGIN: add_to_node --><a class="button add" title="Use {ITEM.name}" href="#file_connector" onclick="makeAjaxRequest('#file_connector', '/request/bo/component/file_add~file_path_encoded={ITEM.file_path_encoded}:type={GET.type}:role={GET.role}:relation={GET.relation}:node_id={GET.node_id}~');"><span>Use</span></a><br /><!-- END: add_to_node --> 
+					<!-- BEGIN: delete --><a class="button delete" href="{_SERVER.REDIRECT_URL}?delete_file={BASE}{FOLDER}{ITEM.name}" onclick="$('#file-{ITEM.file_path_encoded_relative}').load('/request/bo/component/file_delete~file_path_encoded={ITEM.file_path_encoded_relative}~', function() {popupMessage('#file-{ITEM.file_path_encoded_relative} div.onxshop_messages');}); return false;"><span>delete</span></a><!-- END: delete -->
 					<!-- BEGIN: database_import --><a class="button add" title="Import {ITEM.name}" href="?data_file={BASE}{FOLDER}{ITEM.name}"><span>Import this ...</span></a><br /><!-- END: database_import --> 
 				</td>
 			</tr>
