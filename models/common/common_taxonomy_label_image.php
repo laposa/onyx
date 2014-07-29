@@ -2,7 +2,7 @@
 require_once('models/common/common_image.php');
 
 /**
- * Copyright (c) 2009-2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  * class common_taxonomy_label_image
@@ -38,7 +38,8 @@ CREATE TABLE common_taxonomy_label_image (
 	author integer,
     content text,
     other_data text,
-    link_to_node_id integer
+    link_to_node_id integer,
+    customer_id integer REFERENCES client_customer ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
 		";

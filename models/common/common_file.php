@@ -64,10 +64,10 @@ class common_file extends Onxshop_Model {
 		'priority'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'modified'=>array('label' => '', 'validation'=>'datetime', 'required'=>true),
 		'author'=>array('label' => '', 'validation'=>'int', 'required'=>false),
-		'customer_id'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'content'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'other_data'=>array('label' => '', 'validation'=>'serialized', 'required'=>false),
-		'link_to_node_id'=>array('label' => '', 'validation'=>'int', 'required'=>false)
+		'link_to_node_id'=>array('label' => '', 'validation'=>'int', 'required'=>false),
+		'customer_id'=>array('label' => '', 'validation'=>'int', 'required'=>false)
 	);
 	
 	/**
@@ -91,10 +91,10 @@ CREATE TABLE common_file (
 	priority int DEFAULT 0 NOT NULL,
 	modified timestamp(0) ,
 	author int,
-	customer_id integer REFERENCES client_customer ON UPDATE CASCADE ON DELETE RESTRICT,
     content text,
     other_data text,
-    link_to_node_id integer
+    link_to_node_id integer,
+    customer_id integer REFERENCES client_customer ON UPDATE CASCADE ON DELETE RESTRICT
 
 );
 		";

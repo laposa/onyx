@@ -73,8 +73,6 @@ class common_node extends Onxshop_Model {
 	var $display_in_menu;
 	
 	var $author;
-
-	var $customer_id;
 	
 	var $uri_title;
 	
@@ -122,6 +120,8 @@ class common_node extends Onxshop_Model {
 	
 	var $share_counter;
 	
+	var $customer_id;
+	
 	var $_metaData = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'title'=>array('label' => '', 'validation'=>'string', 'required'=>true),
@@ -142,7 +142,6 @@ class common_node extends Onxshop_Model {
 		'publish'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'display_in_menu'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'author'=>array('label' => '', 'validation'=>'int', 'required'=>false), //must be required, violates not null
-		'customer_id'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'uri_title'=>array('label' => '', 'validation'=>'string', 'required'=>false),
 		'display_permission'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'other_data'=>array('label' => '', 'validation'=>'serialized', 'required'=>false),
@@ -158,7 +157,8 @@ class common_node extends Onxshop_Model {
 		'link_to_node_id'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'require_ssl'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'display_permission_group_acl'=>array('label' => '', 'validation'=>'serialized', 'required'=>false),
-		'share_counter'=>array('label' => '', 'validation'=>'int', 'required'=>false)
+		'share_counter'=>array('label' => '', 'validation'=>'int', 'required'=>false),
+		'customer_id'=>array('label' => '', 'validation'=>'int', 'required'=>false)
 		);
 	
 	/**
@@ -188,7 +188,6 @@ CREATE TABLE common_node (
 	publish integer DEFAULT 0 NOT NULL,
 	display_in_menu smallint DEFAULT 1 NOT NULL,
 	author integer NOT NULL,
-	customer_id integer REFERENCES client_customer ON UPDATE CASCADE ON DELETE RESTRICT,
 	uri_title character varying(255),
 	display_permission smallint DEFAULT 0 NOT NULL,
 	other_data	text,
@@ -204,7 +203,8 @@ CREATE TABLE common_node (
 	link_to_node_id integer NOT NULL DEFAULT 0,
 	require_ssl smallint NOT NULL DEFAULT 0,
 	display_permission_group_acl text,
-	share_counter int NOT NULL DEFAULT 0
+	share_counter int NOT NULL DEFAULT 0,
+	customer_id integer REFERENCES client_customer ON UPDATE CASCADE ON DELETE RESTRICT
 );
 
 CREATE INDEX common_node_display_in_idx ON common_node USING btree (display_in_menu);

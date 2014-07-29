@@ -28,10 +28,10 @@ CREATE TABLE ecommerce_recipe_image (
 	priority integer DEFAULT 0 NOT NULL,
 	modified timestamp(0) without time zone DEFAULT now(),
 	author integer,
-	customer_id integer REFERENCES client_customer ON UPDATE CASCADE ON DELETE RESTRICT,
     content text,
     other_data text,
-    link_to_node_id integer
+    link_to_node_id integer,
+    customer_id integer REFERENCES client_customer ON UPDATE CASCADE ON DELETE RESTRICT
 );
 CREATE INDEX ecommerce_recipe_image_node_id_key ON ecommerce_recipe_image USING btree (node_id);
 		";

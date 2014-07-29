@@ -5,7 +5,7 @@ require_once('models/common/common_image.php');
 /**
  * class ecommerce_product_variety_image
  *
- * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -29,10 +29,10 @@ CREATE TABLE ecommerce_product_variety_image (
 	priority integer DEFAULT 0 NOT NULL,
 	modified timestamp(0) without time zone,
 	author integer,
-	customer_id integer REFERENCES client_customer ON UPDATE CASCADE ON DELETE RESTRICT,
     content text,
     other_data text,
-    link_to_node_id integer
+    link_to_node_id integer,
+    customer_id integer REFERENCES client_customer ON UPDATE CASCADE ON DELETE RESTRICT
 );
 		";
 		
