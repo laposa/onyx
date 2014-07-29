@@ -1,7 +1,7 @@
 <?php
 /** 
  *
- * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -51,6 +51,8 @@ class Onxshop_Controller_Bo_Component_Node_Duplicate extends Onxshop_Controller 
 		// copy and modify
 		$new_node_data = $original_node_data;
 		$new_node_data['title'] = "{$new_node_data['title']} (copy)";
+		$new_node_data['created'] = $new_node_data['modified'] = date('c');
+		$new_node_data['customer_id'] = (int) Onxshop_Bo_Authentication::getInstance()->getUserId();
 		if ($new_node_data['uri_title'] != '') $new_node_data['uri_title'] = "{$new_node_data['uri_title']}-copy";
 		if ($new_parent_id > 0) $new_node_data['parent'] = $new_parent_id;
 		else {
@@ -74,6 +76,8 @@ class Onxshop_Controller_Bo_Component_Node_Duplicate extends Onxshop_Controller 
 			foreach ($original_images as $image) {
 				$new_image = $image;
 				$new_image['node_id'] = $new_node_id;
+				$new_image['modified'] = date('c');
+				$new_image['customer_id'] = (int) Onxshop_Bo_Authentication::getInstance()->getUserId();
 				unset($new_image['id']);
 				$image_id = $this->Image->insert($new_image);
 			}
