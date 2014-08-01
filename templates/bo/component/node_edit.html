@@ -16,6 +16,9 @@
 		}; 
 
     	$('#node_edit_{GET.id}').ajaxForm(options);
+    	
+		$('#extended_toolbar').detach().appendTo('div.rowBottom p');
+		
 	});
         
 // pre-submit callback 

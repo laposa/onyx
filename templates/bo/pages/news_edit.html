@@ -1,16 +1,9 @@
 <!-- BEGIN: title -->News<!-- END: title -->
 <!-- BEGIN: content -->
-
 <div class="twoColumnPage page sidebar">
 	<div class="top"><span></span></div>
 	<div class="content">
 		<div class="pageWrapper">
-
-			<div class="pageHeader">
-				<div class="pageHeaderWrapper">
-					<h1 class="pageTitle"><span>News Edit</span> <span class="info">ID {GET.id}</span></h1>
-				</div>
-			</div>
 
 			<div class="pageContent">
 				<div class="pageContentWrapper">
@@ -19,7 +12,13 @@
 							<div class="columnWrapper">
 
 								<div id="sub_content">
+								
 								{SUB_CONTENT}
+								
+								<p id="extended_toolbar">
+									<a class="button" href="/page/{GET.id}?fe_edit_mode=edit" target="_blank" style="margin-left: 10px;"><span>Preview in Front-End</span></a>
+								</p>
+								
 								</div>
 
 							</div>
@@ -37,17 +36,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="rowBottom">
-						<div class="rowWrapper">
-							<div class="columnWrapper">
-
-								<p>
-									<a class="button" href="/page/{GET.id}?fe_edit_mode=edit" target="_blank" style="margin-left: 10px;"><span>Preview in Front-End</span></a>
-								</p>
-
-							</div>
-						</div>
-					</div>
+					
 				</div>
 			</div>
 		</div>
