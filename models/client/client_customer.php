@@ -613,6 +613,12 @@ CREATE TABLE client_customer (
 		
 		//merge data, but keep old created time
 		$merged_data = array_merge($old, $new);
+		
+		// remove extra attributes
+		unset($merged_data['group_ids']);
+		unset($merged_data['group_id']);
+		unset($merged_data['role_ids']);
+		
 		$merged_data['created'] = $old['created'];
 		$merged_data['modified'] = date('c');
 		$id = $this->update($merged_data);
@@ -629,6 +635,11 @@ CREATE TABLE client_customer (
 		if (!is_array($old) || !is_array($new)) return false;
 		
 		$merged_data = $old;
+		
+		// remove extra attributes
+		unset($merged_data['group_ids']);
+		unset($merged_data['group_id']);
+		unset($merged_data['role_ids']);
 		
 		// merge only certain properties
 
