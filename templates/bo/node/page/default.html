@@ -22,9 +22,9 @@
 		</fieldset>
 	</div>
 	<div class="layoutColumnTwo ofTwo">
+		<fieldset>
 		{FILE "bo/node/item_image_list.html"}
 		{FILE "bo/node/item_taxonomy.html"}
-		<fieldset>
 		<div class="advanced">
 		{FILE "bo/node/item_layout_style.html"}
 		</div>
@@ -58,6 +58,6 @@
 {FILE "bo/node/form_close.html"}
 
 <p id="extended_toolbar">
-	<a class="button add" href="#" id="button_add_subpage" data-node_id="{NODE_ID}" data-node_group="page"><span>Add Subpage</span></a>
+	<a class="button add" href="#" id="button_add_subpage" data-node_id="{GET.id}" data-node_group="page"><span>Add Subpage</span></a>
 </p>
 <!-- END: content -->
