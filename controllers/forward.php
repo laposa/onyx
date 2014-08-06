@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2006-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2006-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -52,6 +52,25 @@ class Onxshop_Controller_Forward extends Onxshop_Controller {
 			} else {
 			
 				msg("Recipe no longer available");
+				onxshopGoTo("/");
+			
+			}
+			
+		} else if (is_numeric($this->GET['store_id'])) {
+		
+			header("HTTP/1.1 301 Moved Permanently");
+			require_once('models/ecommerce/ecommerce_store.php');
+			$Store = new ecommerce_store();
+
+			$store_homepage = $Store->getStoreHomepage($this->GET['store_id']);
+			
+			if (is_array($store_homepage)) {
+			
+				onxshopGoTo("/page/{$store_homepage['id']}");
+			
+			} else {
+			
+				msg("Store no longer available");
 				onxshopGoTo("/");
 			
 			}

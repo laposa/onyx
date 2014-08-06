@@ -20,6 +20,7 @@ $uri_map = array(
 	
 	'^/product/([0-9]*)$' => '/index.php?request=forward&product_id=$1',
 	'^/recipe/([0-9]*)$' => '/index.php?request=forward&recipe_id=$1',
+	'^/store/([0-9]*)$' => '/index.php?request=forward&store_id=$1',
 	'^/client/logout$' => '/index.php?request=component/client/logout',
 	
 	'^/request/(.*)$' => '/index.php?request=uri_mapping&controller_request=$1',
