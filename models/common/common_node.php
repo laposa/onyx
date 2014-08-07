@@ -121,6 +121,11 @@ class common_node extends Onxshop_Model {
 	var $share_counter;
 	
 	var $customer_id;
+
+	/**
+	 * Static variable to speed up hiearchy determination within a single request
+	 */
+	static $parentNodeIdCache = array();
 	
 	var $_metaData = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
@@ -454,6 +459,9 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 		//overwrite author (allowed in bo/node/news edit interface)
 		if (is_array($node_data['component']) && $node_data['component']['author'] != '') $node_data['author_detail']['name'] = $node_data['component']['author'];
 
+		// store parent into static variable, it may because handy
+		self::$parentNodeIdCache[$id] = $node_data['parent'];
+
 		return $node_data;
 	}
 	
@@ -674,6 +682,22 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 		
 		return $active_pages;
 	}
+
+	/**
+	 * get full path
+	 *
+	 * @param unknown_type $id
+	 * @return unknown
+	 */
+
+	function getParentNodeId($id) 
+	{
+		if (!is_numeric($id)) return false;
+		if (isset(self::$parentNodeIdCache[$id])) return self::$parentNodeIdCache[$id];
+		$sql = "SELECT parent FROM common_node WHERE id = $id";
+		$result = $this->executeSql($sql);
+		return self::$parentNodeIdCache[$id] = (int) $result[0]['parent'];
+	}
 	
 	/**
 	 * get full path
@@ -682,35 +706,19 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 	 * @return unknown
 	 */
 
-	static $nodePathCache = array();
-	 
-	function getFullPath($id, $parent_id = false) {
+	function getFullPath($id) {
 	
 		if (!is_numeric($id)) return false;
 
-		if (!is_numeric($parent_id)) {
-			$sql = "SELECT parent FROM common_node WHERE id = $id";
-			$result = $this->executeSql($sql);
-			$parent_id = $result[0]['parent'];
+		$result = array((int) $id);
+		$parent_id = $this->getParentNodeId($id);
+
+		while ($parent_id > 0) {
+			$result[] = $parent_id;
+			$parent_id = $this->getParentNodeId($parent_id);
 		}
 
-		if (!isset(self::$nodePathCache[$id])) {
-
-			self::$nodePathCache[$id][] = $id;
-
-			while ($parent_id > 0) {
-				if (isset(self::$nodePathCache[$parent_id])) {
-					self::$nodePathCache[$id] = array_merge(self::$nodePathCache[$id], self::$nodePathCache[$parent_id]);
-					return self::$nodePathCache[$id];
-				}
-				self::$nodePathCache[$id][] = $parent_id;
-				$sql = "SELECT parent FROM common_node WHERE id = $parent_id";
-				$result = $this->executeSql($sql);
-				$parent_id = $result[0]['parent'];
-			}
-		}
-
-		return self::$nodePathCache[$id];
+		return $result;
 	}
 	
 	/**
