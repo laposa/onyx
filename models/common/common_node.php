@@ -681,20 +681,36 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 	 * @param unknown_type $id
 	 * @return unknown
 	 */
+
+	static $nodePathCache = array();
 	 
-	function getFullPath($id) {
+	function getFullPath($id, $parent_id = false) {
 	
 		if (!is_numeric($id)) return false;
-		
-		$fullpath = $this->getFullPathDetail($id);
-		
-		$path = array();
-		
-		foreach ($fullpath as $fp) {
-			$path[] = $fp['id'];
+
+		if (!is_numeric($parent_id)) {
+			$sql = "SELECT parent FROM common_node WHERE id = $id";
+			$result = $this->executeSql($sql);
+			$parent_id = $result[0]['parent'];
 		}
-		
-		return $path;
+
+		if (!isset(self::$nodePathCache[$id])) {
+
+			self::$nodePathCache[$id][] = $id;
+
+			while ($parent_id > 0) {
+				if (isset(self::$nodePathCache[$parent_id])) {
+					self::$nodePathCache[$id] = array_merge(self::$nodePathCache[$id], self::$nodePathCache[$parent_id]);
+					return self::$nodePathCache[$id];
+				}
+				self::$nodePathCache[$id][] = $parent_id;
+				$sql = "SELECT parent FROM common_node WHERE id = $parent_id";
+				$result = $this->executeSql($sql);
+				$parent_id = $result[0]['parent'];
+			}
+		}
+
+		return self::$nodePathCache[$id];
 	}
 	
 	/**
