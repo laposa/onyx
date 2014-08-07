@@ -46,6 +46,9 @@ class common_configuration extends Onxshop_Model {
 		'description'=>array('label' => '', 'validation'=>'string', 'required'=>false)
 	);
 	
+
+	static $localCache = false;
+
 	/**
 	 * create table sql
 	 * 
@@ -89,13 +92,22 @@ CREATE TABLE common_configuration (
 			msg("common_configuration.getConfiguration: node_id is not numeric", 'error');
 			$node_id = 0;
 		}
-	
+
+		/**
+		 * Cache configuration wihtin a single HTTP request
+		 */
+		if (!self::$localCache) {
+			self::$localCache = array();
+			$list = $this->listing();
+			foreach ($list as $item) {
+				self::$localCache[$item['node_id']][] = $item;
+			}
+		}
+
 		$conf = array();
-		
-		$cs = $this->listing("node_id = {$node_id}");
 			
-		if (is_array($cs)) {
-			foreach ($cs as $c) {
+		if (is_array(self::$localCache[$node_id])) {
+			foreach (self::$localCache[$node_id] as $c) {
 				$conf[$c['object']][$c['property']] = $c['value'];
 			}
 		}
