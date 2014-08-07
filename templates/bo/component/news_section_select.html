@@ -1,0 +1,17 @@
+<!-- BEGIN: content -->
+<!-- BEGIN: select -->
+<div id="newsSectionSelect" style="position: absolute; top: 26px; right: 20px; ">
+
+<label>
+	Selected blog:
+	<select onchange="window.location = $(this).val();">
+		<option value="/backoffice/news/">-- please choose --</option>
+		<!-- BEGIN: item -->
+		<option value="/backoffice/news/{NODE.id}" {SELECTED}>{NODE.title|htmlspecialchars}</option>
+		<!-- END: item -->
+	</select>
+</label>
+
+</div>
+<!-- END: select -->
+<!-- END: content -->
