@@ -11,10 +11,19 @@ $(document).ready(function(){
 			return false;
 		},
 	});
+	
+	$('#sub_content div.pagination a').live('click', function() {
+		var model = $(this).attr('href').match('model=[a-z_\/]{1,}');
+		var limit_from = $(this).attr('href').match('limit_from=[0-9]{1,}');
+		var limit_per_page = $(this).attr('href').match('limit_per_page=[0-9]{1,}');
+		makeAjaxRequest('#sub_content', '/request/bo/component/database_listing~' + model + '~?' + limit_from + '&' + limit_per_page);
+		return false;
+	});	
+	
 });
 
 function serverBrowserOpenDir(open_dir) {
-	makeAjaxRequest('#database-listing', "/request/bo/component/database_listing~model="+open_dir+":type={GET.type}:relation={GET.relation}:node_id={GET.node_id}~");
+	makeAjaxRequest('#sub_content', "/request/bo/component/database_listing~model=" + open_dir + "~");
 }
 </script>
 
@@ -50,7 +59,7 @@ function serverBrowserOpenDir(open_dir) {
 							<div class="columnTwo">
 								<div class="columnWrapper">
 
-									<div id="database-listing" style="overflow: auto;">
+									<div id="sub_content" style="overflow: auto;">
 										{ONXSHOP_REQUEST_database_listing #bo/component/database_listing}
 									</div>
 
