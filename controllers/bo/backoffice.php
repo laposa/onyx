@@ -24,7 +24,7 @@ class Onxshop_Controller_Bo_Backoffice extends Onxshop_Controller {
 		
 		if (preg_match('/backoffice/', $_SERVER['REQUEST_URI'])) {
 			$active_array = explode("/", $_SERVER['REQUEST_URI']);
-			$active = $active = preg_replace("/\?.*$/", "", $active_array[2]);
+			$active = preg_replace("/\?.*$/", "", $active_array[2]);
 		} else {
 			$active = 'pages';
 		}
