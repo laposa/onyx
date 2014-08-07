@@ -32,7 +32,7 @@ class Onxshop_Controller_Bo_Component_Taxonomy_Menu extends Onxshop_Controller_C
 			
 		} else {
 			
-			$root = array('id'=>0, 'title'=>'Root');
+			$root = array('id'=>0, 'title'=>'Categories');
 			
 		}
 		
