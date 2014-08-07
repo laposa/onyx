@@ -199,4 +199,10 @@ ALTER TABLE education_survey_question_answer ADD COLUMN other_data text;
 --
 ALTER TABLE ecommerce_store ADD COLUMN code varchar(255);
 
+--
+-- Add new column common_node.apply_to_children (default 0)
+--
+
+ALTER TABLE "common_configuration" ADD "apply_to_children" smallint NULL DEFAULT '0';
+
 COMMIT;

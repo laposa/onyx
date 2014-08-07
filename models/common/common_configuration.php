@@ -35,6 +35,10 @@ class common_configuration extends Onxshop_Model {
 	 * @access private
 	 */
 	var $description;
+	/**
+	 * @access private
+	 */
+	var $apply_to_children;
 
 
 	var $_metaData = array(
@@ -43,9 +47,9 @@ class common_configuration extends Onxshop_Model {
 		'object'=>array('label' => '', 'validation'=>'string', 'required'=>true),
 		'property'=>array('label' => '', 'validation'=>'string', 'required'=>true),
 		'value'=>array('label' => '', 'validation'=>'string', 'required'=>false),
-		'description'=>array('label' => '', 'validation'=>'string', 'required'=>false)
+		'description'=>array('label' => '', 'validation'=>'string', 'required'=>false),
+		'apply_to_children'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 	);
-	
 
 	static $localCache = false;
 
@@ -58,17 +62,15 @@ class common_configuration extends Onxshop_Model {
 		 
 	private function getCreateTableSql() {
 	
-		$sql = "
-CREATE TABLE common_configuration ( 
-	id serial NOT NULL PRIMARY KEY,
-	node_id int NOT NULL DEFAULT 0 REFERENCES common_node(id) ON UPDATE CASCADE ON DELETE CASCADE,
-	object varchar(255) ,
-	property varchar(255) ,
-	value text ,
-	description text 
-
-);
-		";
+		$sql = "CREATE TABLE common_configuration ( 
+			id serial NOT NULL PRIMARY KEY,
+			node_id int NOT NULL DEFAULT 0 REFERENCES common_node(id) ON UPDATE CASCADE ON DELETE CASCADE,
+			object varchar(255) ,
+			property varchar(255) ,
+			value text ,
+			description text,
+			apply_to_children smallint NULL DEFAULT '0'
+		);";
 		
 		return $sql;
 	}
@@ -111,7 +113,7 @@ CREATE TABLE common_configuration (
 				$conf[$c['object']][$c['property']] = $c['value'];
 			}
 		}
-		
+
 		/**
 		 * default core values (only for root node)
 		 */
@@ -119,6 +121,27 @@ CREATE TABLE common_configuration (
 		if ($node_id == 0) {
 		
 			$conf = $this->getDefaultCoreValues($conf);
+
+		} else {
+
+			/**
+			 * Try to inherit configuration from parent nodes
+			 */
+
+			require_once('models/common/common_node.php');
+			$Node = new common_node();
+
+			$path = $Node->getFullPath($node_id);
+
+			for ($i = 1; $i < count($path); $i++) {
+				$parent_id = $path[$i];
+				if (is_array(self::$localCache[$parent_id])) {
+					foreach (self::$localCache[$parent_id] as $c) {
+						if (!isset($conf[$c['object']][$c['property']]) && $c['apply_to_children'])
+							$conf[$c['object']][$c['property']] = $c['value'];
+					}
+				}
+			}
 
 		}
 
