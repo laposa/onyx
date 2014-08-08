@@ -415,8 +415,9 @@ class Onxshop_Bootstrap {
 		    	$data_to_cache['output_body'] = $this->output;
 		    	$cache->save($data_to_cache);
 		    	
-		    	// update index immediately
-		    	if (ONXSHOP_ALLOW_SEARCH_INDEX_AUTOUPDATE) $this->indexContent($_GET['translate'], $this->output);
+		    	// update index immediately if enabled in the configuration,
+		    	// but not when search_query is submitted (don't index search results)
+		    	if (ONXSHOP_ALLOW_SEARCH_INDEX_AUTOUPDATE && !array_key_exists('search_query', $_GET)) $this->indexContent($_GET['translate'], $this->output);
 		    }
 
 		} else {
@@ -459,7 +460,7 @@ class Onxshop_Bootstrap {
 			$hits = $index->find("uri:" . $uri);
 			foreach ($hits as $hit) $index->delete($hit);
 	
-			$doc = Zend_Search_Lucene_Document_Html::loadHTML($htmlString);
+			$doc = Zend_Search_Lucene_Document_Html::loadHTML($htmlString, true);
 			$doc->addField(Zend_Search_Lucene_Field::Keyword('uri', $uri));
 			
 			$index->addDocument($doc);

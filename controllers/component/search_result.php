@@ -264,7 +264,7 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 			if (strlen($keyword) > 2) {
 				$keyword = preg_quote($keyword);
 				$pattern = "/($keyword)/i";
-				$text = preg_replace($pattern, "<strong style=\"color: #000000; background: #ff0; \">$1</strong>", $text);
+				$text = preg_replace($pattern, "<span class=\"keyword_highlight\">$1</span>", $text);
 			}
 		}
 		

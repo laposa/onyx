@@ -220,6 +220,7 @@ div.search_result li {clear: both; margin-bottom: 10px;}
 div.search_result li a.last {font-weight: bold;}
 div.search_result li a.image {text-decoration: none; display: block; float: right; padding-left: 5px;}
 div.search_result span.item_description {font-size: small;}
+div.search_result span.keyword_highlight {color: #000000; background: #ff0;}
 
 /********* component/pagination.html *********/
 div.pagination {margin: 5px 0; text-align: center;}
