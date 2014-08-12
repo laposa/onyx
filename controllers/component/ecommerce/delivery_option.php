@@ -70,8 +70,6 @@ class Onxshop_Controller_Component_Ecommerce_Delivery_Option extends Onxshop_Con
 
 		$this->Address->setCacheable(false);
 		$this->Delivery->setCacheable(false);
-		$this->Delivery_Carrier->setCacheable(false);
-		$this->Delivery_Carrier_Zone->setCacheable(false);
 		$this->Basket->setCacheable(false);
 		$this->Order->setCacheable(false);
 	}
