@@ -534,10 +534,10 @@ CREATE TABLE ecommerce_promotion (
 
 					if ($_SESSION['client']['customer']['guest']) {
 						msg("We're sorry, but this voucher code cannot be used in conjunction with “Guest Checkout”. Please go to" .
-							" previous step and select “Save Details for Next Order” to create an account or login if you already " .
-							"have an account.", 'error');
+							" previous step and select “Save Details for Next Order” to create an account.", 'error');
 					} else {
 						msg("You have to login or register to use your voucher code.", 'error');
+						debug_print_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
 					}
 
 					Zend_Registry::set('ecommerce_promotion:login_needed', true);
@@ -551,7 +551,7 @@ CREATE TABLE ecommerce_promotion (
 			 */
 			if ($promotion_data['limit_to_first_order'] > 0) {
 				if ($this->getNumCustomersOrders($customer_id, $customer_email) > 0) {
-					if ($this->getNumCustomersPaidOrders($customer_id) == 0) {
+					if ($this->getNumCustomersPaidOrders($customer_id, $customer_email) == 0) {
 						if (!Zend_Registry::isRegistered('ecommerce_promotion:first_order_unpaid')) {
 							msg("Code \"$code\" can only be applied to your first order. If you cancelled " . 
 								"your previous order, please either return to it in “My Account” or contact " . 
@@ -779,16 +779,23 @@ CREATE TABLE ecommerce_promotion (
 	/**
 	 * Get number of paid orders for given customer
 	 * @param  int $customer_id Customer id
+	 * @param  int $customer_email Customer email
 	 * @return int              Number of orders
 	 */
-	public function getNumCustomersPaidOrders($customer_id)
+	public function getNumCustomersPaidOrders($customer_id, $customer_email)
 	{
 		$customer_id = (int) $customer_id;
+		$email = pg_escape_string($customer_email);
+
+		if ($customer_id == 0 && strlen($customer_email) == 0) return false;
 
 	    $sql = "SELECT COUNT(*) AS count FROM ecommerce_order AS o
-			LEFT JOIN ecommerce_basket AS b ON (b.id = o.basket_id)
-			INNER JOIN ecommerce_invoice AS i ON i.order_id = o.id AND i.status <> 4
-			WHERE b.customer_id = $customer_id";
+			INNER JOIN ecommerce_basket AS b ON (b.id = o.basket_id)
+			INNER JOIN ecommerce_invoice AS i ON i.order_id = o.id AND i.status <> 4";
+
+		if (strlen($customer_email) > 0) $sql .= " INNER JOIN client_customer AS c ON (c.email = '$email' AND c.id = b.customer_id)";
+
+		if ($customer_id > 0) $sql .= "WHERE b.customer_id = $customer_id";
 
 		$this->setCacheable(false);
 		if ($records = $this->executeSql($sql)) return (int) $records[0]['count'];

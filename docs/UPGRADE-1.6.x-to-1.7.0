@@ -1,8 +1,12 @@
 createdb -U {DBUSER} -h localhost -E UTF8 -T {DB-1_6} {DB-1_7}
 psql -U {DBUSER} -h localhost {DB-1_6} < onxshop_dir/docs/database/upgrade-1.6.x-to-1.7.0.sql
 
-change $_SESSION['authentication']['logon'] and $_SESSION['authentication']['authenticity']
-to Onxshop_Bo_Authentication::getInstance()->isAuthenticated()
+change:
+	$_SESSION['authentication']['logon'],
+	$_SESSION['authentication']['authenticity'] and
+	$_SESSION['authentication']['username'] == ONXSHOP_DB_USER
+to:
+	Onxshop_Bo_Authentication::getInstance()->isAuthenticated()
 
 clean up of htaccess
 

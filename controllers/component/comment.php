@@ -194,7 +194,7 @@ class Onxshop_Controller_Component_Comment extends Onxshop_Controller {
 	public function checkViewPermission($item) {
 		
 		if ($item['customer_id'] == $_SESSION['client']['customer']['id'] && $_SESSION['client']['customer']['id'] > 0 ) return true;
-		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER) return true;
+		if (Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) return true;
 		
 		return false;
 		
@@ -206,7 +206,7 @@ class Onxshop_Controller_Component_Comment extends Onxshop_Controller {
 	
 	public function checkEditPermission($item) {
 	
-		if ($_SESSION['authentication']['username'] == ONXSHOP_DB_USER) return true;
+		if (Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) return true;
 		
 		return false;
 	}

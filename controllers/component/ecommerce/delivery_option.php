@@ -67,6 +67,11 @@ class Onxshop_Controller_Component_Ecommerce_Delivery_Option extends Onxshop_Con
 		$this->Delivery_Carrier_Zone = new ecommerce_delivery_carrier_zone();
 		$this->Basket = new ecommerce_basket();
 		$this->Order = new ecommerce_order();
+
+		$this->Address->setCacheable(false);
+		$this->Delivery->setCacheable(false);
+		$this->Basket->setCacheable(false);
+		$this->Order->setCacheable(false);
 	}
 
 	protected function getInputOrDefaults()
