@@ -2,7 +2,7 @@
 /**
  * class common_configuration
  *
- * Copyright (c) 2009-2012 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -219,6 +219,9 @@ class common_configuration extends Onxshop_Model {
 		
 		//addthis tracking configuration, by default uses shared Onxshop profile
 		if (!array_key_exists('addthis_profile', $conf['global'])) $conf['global']['addthis_profile'] = 'ra-51114b69066f0fe4';
+		
+		// CSS selector for elements we want to be ingnored by the internal search indexing
+		if (!array_key_exists('search_index_exclude_selector', $conf['global'])) $conf['global']['search_index_exclude_selector'] = '';
 		
 		return $conf;
 	}
