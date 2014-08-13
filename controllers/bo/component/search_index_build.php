@@ -1,7 +1,7 @@
 <?php
 /**
  * Rebuild search index for Zend Lucene using common_uri_mapping
- * Copyright (c) 2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2013-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -106,6 +106,11 @@ class Onxshop_Controller_Bo_Component_Search_Index_Build extends Onxshop_Control
 
 			try {
 				
+				/**
+				 * check if customised template for indexing exists
+				 * this is DEPRECATED approach how to customise indexable content, use getExcludes() instead
+				 * remember that you need also to create controller for the template
+				 */
 				if (file_exists(ONXSHOP_PROJECT_DIR . "templates/node/page/{$page['node_controller']}_indexable.html")) {
 					$toFetch = "request/sys/html5.node/page/{$page['node_controller']}_indexable~id={$page['id']}~";
 				} else {
@@ -118,7 +123,10 @@ class Onxshop_Controller_Bo_Component_Search_Index_Build extends Onxshop_Control
 				$response = $this->client->request();
 				
 				if ($response->isSuccessful() && !$response->isRedirect() && !$response->isError()) {
-					$this->index($uri, Zend_Search_Lucene_Document_Html::loadHTML($response->getBody(), true));
+					
+					$response_body = $this->filterHtmlDocument($response->getBody());
+					
+					$this->index($uri, Zend_Search_Lucene_Document_Html::loadHTML($response_body, true));
 				}
 					
 			} catch(Exception $e) {
@@ -153,6 +161,49 @@ class Onxshop_Controller_Bo_Component_Search_Index_Build extends Onxshop_Control
 		// Add the document to the index
 		$this->index->addDocument($doc);
 		$this->index->commit();
+		
+	}
+	
+	
+	/**
+	 * filterHtmlDocument
+	 */
+	 
+	public function filterHtmlDocument($html_document) {
+		
+		$excludes = $this->getExcludes();
+		
+		if ($excludes != '') {
+		
+			require_once('lib/Zend/Dom/Query.php');
+			
+			$dom = new Zend_Dom_Query($html_document);
+			$items = $dom->query($excludes);
+				
+			msg("Found " . count($items) . " elements matching search_index_exclude_selector");
+				
+			foreach($items as $item) {
+					
+				$item->parentNode->removeChild($item);
+			
+			}
+		
+			$html_document = $dom->getDocument();
+		}
+		
+		return $html_document;
+		
+	}
+	
+	/**
+	 * getExcludes
+	 */
+	 
+	public function getExcludes() {
+		
+		$excludes = $GLOBALS['onxshop_conf']['global']['search_index_exclude_selector']; // CSS selector, i.e. body.product div.rowBottom
+		
+		return $excludes;
 		
 	}
 	

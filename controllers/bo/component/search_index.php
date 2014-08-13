@@ -1,7 +1,7 @@
 <?php
 /**
  * Zend Search Index
- * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -17,11 +17,12 @@ class Onxshop_Controller_Bo_Component_Search_Index extends Onxshop_Controller {
 	 
 	public function mainAction() {
 		
+		$this->index = $this->openIndex();
+		
 		$index_info = $this->getIndexInfo();
 
 		$this->tpl->assign("INDEX_INFO", $index_info);
 		
-		//$this->updateDocument("/faq");
 		return true;
 		
 	}
@@ -31,6 +32,7 @@ class Onxshop_Controller_Bo_Component_Search_Index extends Onxshop_Controller {
 	 */
 	
 	public function getProfile() {
+	
 		$profile = array(
 			'uri'           => "http://{$_SERVER['SERVER_NAME']}/",
 			'path'          => ONXSHOP_PROJECT_DIR . 'var/index/',
@@ -65,11 +67,9 @@ class Onxshop_Controller_Bo_Component_Search_Index extends Onxshop_Controller {
 	 
 	public function getIndexInfo() {
 		
-		$index = $this->openIndex();
-		
-		if (is_object($index)) {
-			$info['indexSize'] = $index->count();
-			$info['documents'] = $index->numDocs();
+		if (is_object($this->index)) {
+			$info['indexSize'] = $this->index->count();
+			$info['documents'] = $this->index->numDocs();
 		} else {
 			$info = array();
 		}
@@ -82,10 +82,9 @@ class Onxshop_Controller_Bo_Component_Search_Index extends Onxshop_Controller {
 	 */
 	
 	public function indexOptimize() {
-		$index = $this->openIndex();
 
 		// Optimize index.
-		$index->optimize();
+		$this->index->optimize();
 	}
 	
 	/**
@@ -93,14 +92,12 @@ class Onxshop_Controller_Bo_Component_Search_Index extends Onxshop_Controller {
 	 */
 	
 	public function updateDocument($uri) {
-	
-		$index = $this->openIndex();
 		
-		$hits = $index->find('uri:' . $uri);
+		$hits = $this->index->find('uri:' . $uri);
 		
 		foreach ($hits as $hit) {
-   		 	msg($hit->id . $hit->uri);
-   		 	//$index->delete($hit->id);
+			msg($hit->id . $hit->uri);
+			//$this->index->delete($hit->id);
 		}
 	}
 	
