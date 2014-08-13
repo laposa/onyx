@@ -38,8 +38,8 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Product_Variety_Edit extends Onx
 		 * update variety
 		 */
 		 
-		if ($_POST['save'] == 'variety') {
-		
+		if ($_POST['save'] == 'save') {
+
 			if (!isset($_POST['product']['variety']['publish'])) $_POST['product']['variety']['publish'] = 0;
 			
 			if($id = $Product_variety->updateVariety($_POST['product']['variety'])) {
