@@ -192,20 +192,29 @@ class Onxshop_Controller_Uri_Mapping extends Onxshop_Controller {
 		if (is_object($Onxshop)) $page_data['content'] = $Onxshop->getContent();
 		
 		if ($page_data['content'] == "") $page_data['content'] = $this->content;
-		
-		$page_data['content'] = $this->Mapper->system_uri2public_uri($page_data['content']);
 
-		/**
-		 * CDN rewrites for URLs (a.k.a. output filter)
-		 */
-		 
+		if ($action_to_process == 'uri_mapping') $page_data['content'] = $this->applyOutputFilters($page_data['content']);
+		
+		return $page_data;
+	}
+
+	/**
+	 * applyOutputFilters
+	 */
+
+	public function applyOutputFilters($content) {
+
+		// translate /page/{ID} to URLs
+		$content = $this->Mapper->system_uri2public_uri($content);
+
+		// CDN rewrites for URLs
 		if (ONXSHOP_CDN && (ONXSHOP_CDN_USE_WHEN_SSL || !isset($_SERVER['HTTPS']))) {
 			require_once('lib/onxshop.cdn.php');
 			$CDN = new Onxshop_Cdn();
-			$page_data['content'] = $CDN->processOutputHtml($page_data['content']);
+			$content = $CDN->processOutputHtml($content);
 		}
 
-		return $page_data;
+		return $content;
 	}
 	
 	/**

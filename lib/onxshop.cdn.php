@@ -49,7 +49,7 @@ class Onxshop_Cdn {
 			return $matches[0];
 
 		$result = $matches[1] . 
-			$this->getServiceNodeUrl($matches[2], $context) . 
+			$this->getServiceNodeUrl($matches[2], null) . 
 			$matches[2] .$matches[3];
 
 		return $result;
