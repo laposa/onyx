@@ -32,7 +32,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Sales_Report extends Onxshop_Con
 	 
 	public function renderList($product_list) {
 	
-		if (!is_array($product_list) || count($product_list) > 0) {
+		if (!is_array($product_list) || count($product_list) == 0) {
 
 			$this->tpl->parse('content.empty');
 			return false;
