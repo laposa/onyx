@@ -72,6 +72,10 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 						if ($this->GET['href']) $this->displaySuccessPage($this->GET['href']);
 						else $this->displayResult($survey_id, $survey_entry_id);
 
+					} else {
+						
+						$this->displaySurvey($survey_detail);
+						
 					}
 					
 				} else {
@@ -148,16 +152,37 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 		if ($this->areUserDetailsRequired()) {
 
 			$customer = $_POST['client']['customer'];
-
-			if ($customer['first_name'] && $customer['last_name'] && $customer['email']) {
-
+			
+			if ($customer['birthday']) {
+				
+				// check, expected as dd/mm/yyyy
+				if (!preg_match('/^\d{1,2}\/\d{1,2}\/\d{4}$/', $customer['birthday'])) {
+					msg('Invalid format for birthday, use dd/mm/yyyy', 'error');
+					return false;
+				}
+				
+				// Format to ISO
+				$customer['birthday'] = strftime('%Y-%m-%d', strtotime(str_replace('/', '-', $customer['birthday'])));
+			}
+			
+			if ($this->validateCustomerDetails($customer)) {
+				
 				$customer_id = $this->processCustomerDetails($customer);
 
 			} else {
 
 				msg("Invalid personal details entered.", 'error');
 				return false;
+				
 			} 
+		}
+		
+		/**
+		 * double check customer_id is numeric and issue error warning
+		 */
+		 
+		if (!is_numeric($customer_id)) {
+			msg("Customer ID isn't numeric", 'error');
 		}
 
 		$survey_entry_id = $this->saveEntry($survey_id, $_POST['answer'], $customer_id);
@@ -168,6 +193,23 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 		}
 
 		return $survey_entry_id;
+	}
+	
+	/**
+	 * validateCustomerDetails
+	 */
+	 
+	public function validateCustomerDetails($data) {
+		
+		require_once 'models/client/client_customer.php';
+		$Customer = new client_customer();
+		
+		if ($Customer->setAll($data) && $Customer->getValid()) {
+			return true;
+		} else {
+			return false;
+		}
+		
 	}
 
 	/**
