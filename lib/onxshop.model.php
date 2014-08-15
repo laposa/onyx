@@ -4,7 +4,7 @@
  *
  * custom Active Record Database Pattern and simple validation
  *
- * Copyright (c) 2005-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2005-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -122,6 +122,7 @@ class Onxshop_Model {
 	 * populate all fields
 	 *
 	 * @param array $data
+	 * @return boolean
 	 */
 	 
 	public function setAll($data) {
@@ -140,8 +141,14 @@ class Onxshop_Model {
 					if (ONXSHOP_MODEL_STRICT_VALIDATION) $this->setValid($key, false);
 				}
 			}
+			
+			return true;
+			
 		} else {
+		
 			$this->setValid('All attributes.', false);
+			return false;
+			
 		}
 	}
 	
@@ -244,9 +251,15 @@ class Onxshop_Model {
 				//$this->setValid($attribute, true);
 				return true;
 			break;
-			case 'date':
-				$this->setValid($attribute, true);
-				return true;
+			case 'date': // ISO date
+				$regex = "/^\d{4}-\d{1,2}-\d{1,2}$/";
+				if (preg_match($regex, $value, $matches)) {
+					$this->setValid($attribute, true);
+					return true;
+				} else {
+					$this->setValid($attribute, false);
+					return false;
+				}
 			break;
 			case 'email':
 				$regex = '/^([*+!.&#$|\'\\%\/0-9a-z^_`{}=?~:-]+)@(([0-9a-z-]+\.)+[0-9a-z]{2,32})$/i';
