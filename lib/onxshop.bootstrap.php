@@ -334,7 +334,7 @@ class Onxshop_Bootstrap {
 	 */
 	
 	function initAction($request = 'uri_mapping') {
-		
+
 		if (!$request) $request = 'uri_mapping';
 		
 		/**
@@ -376,7 +376,7 @@ class Onxshop_Bootstrap {
 		
 		$this->headers = $this->getPublicHeaders();
 		$this->output = $this->Onxshop->finalOutput();
-		
+
 	}
 	
 	/**
@@ -512,6 +512,7 @@ class Onxshop_Bootstrap {
 	
 		$result = $this->output;
 		
+		$result = $this->outputFilterGlobal($result);
 		$result = $this->outputFilterPublic($result);
 		
 		//hack
@@ -538,7 +539,29 @@ class Onxshop_Bootstrap {
 				
 		return $result;
 	}
-	
+
+	/**
+	 * outputFilterGlobal
+	 */
+
+	public function outputFilterGlobal($content) {
+
+		require_once('models/common/common_uri_mapping.php');
+		$Mapper = new common_uri_mapping();
+
+		// translate /page/{ID} to URLs
+		$content = $Mapper->system_uri2public_uri($content);
+
+		// CDN rewrites for URLs
+		if (ONXSHOP_CDN && (ONXSHOP_CDN_USE_WHEN_SSL || !isset($_SERVER['HTTPS']))) {
+			require_once('lib/onxshop.cdn.php');
+			$CDN = new Onxshop_Cdn();
+			$content = $CDN->processOutputHtml($content);
+		}
+
+		return $content;
+	}
+
 	/**
 	 * Output filter for public clients (this filter should only apply when in frontend preview mode)
 	 */

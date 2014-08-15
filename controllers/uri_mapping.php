@@ -180,7 +180,7 @@ class Onxshop_Controller_Uri_Mapping extends Onxshop_Controller {
 	 */
 	 
 	public function processMappedAction($action_to_process) {
-		
+
 		/**
 		 * process action
 		 */
@@ -193,30 +193,9 @@ class Onxshop_Controller_Uri_Mapping extends Onxshop_Controller {
 		
 		if ($page_data['content'] == "") $page_data['content'] = $this->content;
 
-		if ($action_to_process == 'uri_mapping') $page_data['content'] = $this->applyOutputFilters($page_data['content']);
-		
 		return $page_data;
 	}
 
-	/**
-	 * applyOutputFilters
-	 */
-
-	public function applyOutputFilters($content) {
-
-		// translate /page/{ID} to URLs
-		$content = $this->Mapper->system_uri2public_uri($content);
-
-		// CDN rewrites for URLs
-		if (ONXSHOP_CDN && (ONXSHOP_CDN_USE_WHEN_SSL || !isset($_SERVER['HTTPS']))) {
-			require_once('lib/onxshop.cdn.php');
-			$CDN = new Onxshop_Cdn();
-			$content = $CDN->processOutputHtml($content);
-		}
-
-		return $content;
-	}
-	
 	/**
 	 * proccessFileRules
 	 */
