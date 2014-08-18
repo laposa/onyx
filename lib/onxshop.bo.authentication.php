@@ -153,6 +153,7 @@ class Onxshop_Bo_Authentication
 	public function logout()
 	{
 		$_SESSION['authentication'] = null;
+		self::$superuserEmulation = false;
 		msg('Logout completed');
 	}
 
@@ -165,7 +166,7 @@ class Onxshop_Bo_Authentication
 	 */
 	public function isAuthenticated()
 	{
-		return (bool) $_SESSION['authentication']['authenticated'];
+		return (bool) $_SESSION['authentication']['authenticated'] || self::$superuserEmulation;
 	}
 
 
@@ -177,7 +178,7 @@ class Onxshop_Bo_Authentication
 	 */
 	public function isSuperuser()
 	{
-		return (bool) $_SESSION['authentication']['superuser'];
+		return (bool) $_SESSION['authentication']['superuser'] || self::$superuserEmulation;
 	}
 
 
