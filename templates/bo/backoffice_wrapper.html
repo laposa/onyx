@@ -23,6 +23,9 @@ $(function(){
 		growlMessage("Your browser version is not fully supported,<br />please use Chrome, Safari or Firefox.");
 	}
 	popupMessage("div.onxshop_messages");
+
+	var buttonToolbar = $('div.rowBottom p:first');
+	if (buttonToolbar.length > 0) buttonToolbar.append($('.extended_toolbar a').detach());
 });
 </script>
 <!-- END: head -->
