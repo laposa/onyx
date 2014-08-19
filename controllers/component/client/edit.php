@@ -26,6 +26,7 @@ class Onxshop_Controller_Component_Client_Edit extends Onxshop_Controller {
 		if (!is_numeric($customer_id)) return false;
 		
 		if ($_POST['save']) {
+		
 			$_POST['client']['customer']['id'] = $customer_id;
 
 			// do not allow to set certain properties			
@@ -36,6 +37,26 @@ class Onxshop_Controller_Component_Client_Edit extends Onxshop_Controller {
 			unset($_POST['client']['customer']['account_type']);
 			unset($_POST['client']['customer']['other_data']);
 
+			/**
+			 * check birthday field format
+			 */
+			 
+			if ($_POST['client']['customer']['birthday']) {
+				
+				// check, expected as dd/mm/yyyy
+				if (!preg_match('/^\d{1,2}\/\d{1,2}\/\d{4}$/', $_POST['client']['customer']['birthday'])) {
+					msg('Invalid format for birthday, use dd/mm/yyyy', 'error');
+					return false;
+				}
+				
+				// Format to ISO
+				$_POST['client']['customer']['birthday'] = strftime('%Y-%m-%d', strtotime(str_replace('/', '-', $_POST['client']['customer']['birthday'])));
+			}
+			
+			/**
+			 * update
+			 */
+			 
 			if ($Customer->updateClient($_POST['client'])) {
 				msg(I18N_CUSTOMER_DATA_UPDATED);
 			} else {
