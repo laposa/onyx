@@ -5,6 +5,9 @@
  * 
  */
 
+require_once('models/ecommerce/ecommerce_product.php');
+require_once('models/ecommerce/ecommerce_product_variety.php');
+
 class Onxshop_Controller_Component_Ecommerce_Variety_List extends Onxshop_Controller {
 
 	/**
@@ -24,13 +27,22 @@ class Onxshop_Controller_Component_Ecommerce_Variety_List extends Onxshop_Contro
 		/**
 		 * create product object
 		 */
-		 
-		require_once('models/ecommerce/ecommerce_product.php');
+
 		$this->Product = new ecommerce_product();
+		$this->ProductVariety = new ecommerce_product_variety();
+		 
 		
 		$product_id = $this->GET['product_id'];
-		
-		if ($variety_list = $this->Product->getProductVarietyList($product_id)) {
+		$sku = $this->GET['sku'];
+
+		if ($sku && !is_numeric($product_id)) {
+			$variety_list = $this->ProductVariety->getVarietyListForSKU($sku);
+		}
+		else {
+			$variety_list = $this->Product->getProductVarietyList($product_id);
+		}
+
+		if ($variety_list) {
 		
 			/**
 			 * variety list

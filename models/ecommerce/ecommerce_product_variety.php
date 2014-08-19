@@ -457,4 +457,35 @@ ALTER TABLE ecommerce_product_variety ADD UNIQUE (\"sku\");
 		return parent::update($data);
 	}
 
+	/**
+	 * get product variety list for given SKU or list of SKUs (separated by comma)
+	 */
+	 
+	function getVarietyListForSKU($sku) {
+	
+		if (empty($sku)) return array();
+
+		$sku_list = array();
+
+		$skus = explode(",", $sku);
+		foreach ($skus as $sku) {
+			$sku = trim($sku);
+			if (!empty($sku)) $sku_list[] = "'" . pg_escape_string($sku) . "'";
+		}
+		if (count($sku_list) == 0) return array();
+
+		$sku_list = implode(",", $sku_list);
+		$varieties = $this->listing("sku in ($sku_list)", 'priority DESC, id ASC');
+
+		if (is_array($varieties)) {
+			foreach ($varieties as $kv => $v) {
+				$variety[$kv] = $this->getVarietyDetail($v['id']);
+			}
+		} else {
+			$varieties = array();
+		}
+
+		return $varieties;
+	}
+
 }
