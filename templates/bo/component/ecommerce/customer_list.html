@@ -1,42 +1,42 @@
 <!-- BEGIN: content -->
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 <!-- BEGIN: list -->
-					<table>
-						<thead>
-							<tr>
-								<th class="first">Name<br />Email address</th>
-								<th>
-                                    <a href="{_SERVER.REDIRECT_URL}?customer-list-sort-by=count_baskets&amp;customer-list-sort-direction=DESC" title="Number of shopping baskets or orders created"><span>Baskets</span></a> /
-                                    <a href="{_SERVER.REDIRECT_URL}?customer-list-sort-by=count_orders&amp;customer-list-sort-direction=DESC" title="Number of shopping baskets or orders created"><span>Orders</span></a>
-                                </th>
-                                <th>
-									<a href="{_SERVER.REDIRECT_URL}?customer-list-sort-by=count_items&amp;customer-list-sort-direction=DESC" title="Number of items customer bought"><span>Items bought</span></a>
-								</th>
-								<th><a href="{_SERVER.REDIRECT_URL}?customer-list-sort-by=goods_net&amp;customer-list-sort-direction=DESC"><span>Net spent</span></a></th>
-								<th><a href="{_SERVER.REDIRECT_URL}?customer-list-sort-by=id&amp;customer-list-sort-direction=DESC"><span>Date joined</span></a><br /><a href="{_SERVER.REDIRECT_URL}?customer-list-sort-by=last_order&amp;customer-list-sort-direction=DESC"><span>Last order</span></a></th>
-							</tr>
-						</thead>
-						<tbody>
-							<!-- BEGIN: item -->
-							<tr>
-								<td><a href="/backoffice/customers/{ITEM.customer_id}/detail">{ITEM.title_before|htmlspecialchars} {ITEM.first_name|htmlspecialchars} {ITEM.last_name|htmlspecialchars} {ITEM.title_after|htmlspecialchars}<br />{ITEM.email}</a></td>
-								<td><a href="/backoffice/orders?customer_id={ITEM.customer_id}">{ITEM.count_baskets} / {ITEM.count_orders}</a></td>
-								<td><a href="/backoffice/orders?customer_id={ITEM.customer_id}">{ITEM.count_items}</a></td>
-								<td><a href="/backoffice/orders?customer_id={ITEM.customer_id}">{ITEM.goods_net|money_format('%n', %s)}</a></td>
-								<td>{ITEM.customer_created}<br />{ITEM.last_order}</td>
-							</tr>
-							<!-- END: item -->
-						</tbody>
-						<tfoot>
-							<tr>
-								<td colspan="5">
-									<div class="onxshop_pagination">
-										{PAGINATION}
-									</div>
-								</td>
-							</tr>
-						</tfoot>
-					</table>
+<table>
+	<thead>
+		<tr>
+			<th class="first">Name<br />Email address</th>
+			<th>
+                <a href="{_SERVER.REDIRECT_URL}?customer-list-sort-by=count_baskets&amp;customer-list-sort-direction=DESC" title="Number of shopping baskets or orders created"><span>Baskets</span></a> /
+                <a href="{_SERVER.REDIRECT_URL}?customer-list-sort-by=count_orders&amp;customer-list-sort-direction=DESC" title="Number of shopping baskets or orders created"><span>Orders</span></a>
+            </th>
+            <th>
+				<a href="{_SERVER.REDIRECT_URL}?customer-list-sort-by=count_items&amp;customer-list-sort-direction=DESC" title="Number of items customer bought"><span>Items bought</span></a>
+			</th>
+			<th><a href="{_SERVER.REDIRECT_URL}?customer-list-sort-by=goods_net&amp;customer-list-sort-direction=DESC"><span>Net spent</span></a></th>
+			<th><a href="{_SERVER.REDIRECT_URL}?customer-list-sort-by=id&amp;customer-list-sort-direction=DESC"><span>Date joined</span></a><br /><a href="{_SERVER.REDIRECT_URL}?customer-list-sort-by=last_order&amp;customer-list-sort-direction=DESC"><span>Last order</span></a></th>
+		</tr>
+	</thead>
+	<tbody>
+		<!-- BEGIN: item -->
+		<tr class="{ITEM.class}">
+			<td><a href="/backoffice/customers/{ITEM.customer_id}/detail">{ITEM.title_before|htmlspecialchars} {ITEM.first_name|htmlspecialchars} {ITEM.last_name|htmlspecialchars} {ITEM.title_after|htmlspecialchars}<br />{ITEM.email}</a></td>
+			<td><a href="/backoffice/orders?customer_id={ITEM.customer_id}">{ITEM.count_baskets} / {ITEM.count_orders}</a></td>
+			<td><a href="/backoffice/orders?customer_id={ITEM.customer_id}">{ITEM.count_items}</a></td>
+			<td><a href="/backoffice/orders?customer_id={ITEM.customer_id}">{ITEM.goods_net|money_format('%n', %s)}</a></td>
+			<td>{ITEM.customer_created}<br />{ITEM.last_order}</td>
+		</tr>
+		<!-- END: item -->
+	</tbody>
+	<tfoot>
+		<tr>
+			<td colspan="5">
+				<div class="onxshop_pagination">
+					{PAGINATION}
+				</div>
+			</td>
+		</tr>
+	</tfoot>
+</table>
 
 <!-- END: list -->
 

@@ -16,7 +16,9 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Customer_List extends Onxshop_Co
 	public function mainAction() {
 	
 		require_once('models/client/client_customer.php');	
+		require_once('models/client/client_customer_taxonomy.php');	
 		$Customer = new client_customer();
+		$Taxonomy = new client_customer_taxonomy();
 		//force cache even for back office user
 		$Customer->setCacheable(true);
 		
@@ -155,6 +157,8 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Customer_List extends Onxshop_Co
 					$even_odd = ( 'odd' != $even_odd ) ? 'odd' : 'even';
 					$item['even_odd'] = $even_odd;
 				
+					$taxonomy = $Taxonomy->getRelationsToCustomer($customer['customer_id']);
+					foreach ($taxonomy as $t) $customer['class'] .= "t$t ";
 					$this->tpl->assign('ITEM', $customer);
 					$this->tpl->parse('content.list.item');
 				}
