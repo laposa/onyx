@@ -68,7 +68,7 @@ class Onxshop_Controller_Bo_Component_Survey_Detail extends Onxshop_Controller_B
 		
 		$this->tpl->assign('QUESTION', $question_detail);
 		
-		if ($question_detail['type'] == 'text' || $question_detail['type'] == 'file') {
+		if ($question_detail['type'] == 'text' || $question_detail['type'] == 'file' || $question_detail['type'] == 'range') {
 		
 			$this->tpl->parse('content.question.answer_text');
 		
