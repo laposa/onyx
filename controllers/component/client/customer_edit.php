@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2010-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2010-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -41,8 +41,34 @@ class Onxshop_Controller_Component_Client_Customer_Edit extends Onxshop_Controll
 		 */
 		 
 		if (is_array($_POST['client']['customer'])) {
+		
+			/**
+			 * input data
+			 */
+			 
 			$data_to_save = $_POST['client']['customer'];
 			$data_to_save['id'] = $customer_id;
+			
+			/**
+			 * check birthday field format
+			 */
+			 
+			if ($data_to_save['birthday']) {
+				
+				// check, expected as dd/mm/yyyy
+				if (!preg_match('/^\d{1,2}\/\d{1,2}\/\d{4}$/', $data_to_save['birthday'])) {
+					msg('Invalid format for birthday, use dd/mm/yyyy', 'error');
+					return false;
+				}
+				
+				// Format to ISO
+				$data_to_save['birthday'] = strftime('%Y-%m-%d', strtotime(str_replace('/', '-', $data_to_save['birthday'])));
+			}
+			
+			/**
+			 * save
+			 */
+			
 			$this->saveDetail($data_to_save);
 		}
 			
@@ -55,7 +81,7 @@ class Onxshop_Controller_Component_Client_Customer_Edit extends Onxshop_Controll
 		if (is_array($customer_detail)) {
 			$this->tpl->assign('ITEM', $customer_detail);
 		} else {
-			msg('controllers/client/customer_detail: cannot get detail', 'error');
+			msg('controllers/client/customer_edit: cannot get detail', 'error');
 		}
 		
 		return true;
