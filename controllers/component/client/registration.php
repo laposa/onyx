@@ -61,6 +61,22 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
 			$password_match_status = true;
 			
 		}
+		
+		/**
+		 * check birthday field format
+		 */
+		 
+		if ($client_customer['birthday']) {
+			
+			// check, expected as dd/mm/yyyy
+			if (!preg_match('/^\d{1,2}\/\d{1,2}\/\d{4}$/', $client_customer['birthday'])) {
+				msg('Invalid format for birthday, use dd/mm/yyyy', 'error');
+				return false;
+			}
+			
+			// Format to ISO
+			$client_customer['birthday'] = strftime('%Y-%m-%d', strtotime(str_replace('/', '-', $client_customer['birthday'])));
+		}
 			
 		//check validation of submited fields
 		if ($this->Customer->prepareToRegister($client_customer) && $password_match_status) {
