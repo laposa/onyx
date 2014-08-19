@@ -139,6 +139,11 @@ class ecommerce_store extends Onxshop_Model {
 	 */
 	var $address_post_code;
 	
+	/**
+	 * @access public
+	 */
+	var $code;
+	
 	var $_metaData = array(
 		'id'=>array('label' => '', 'validation' => 'int', 'required' => true),
 		'title'=>array('label' => '', 'validation' => 'string', 'required' => true),
@@ -165,7 +170,8 @@ class ecommerce_store extends Onxshop_Model {
 		'address_line_3'=>array('label' => 'Address line 3', 'validation'=>'string', 'required'=>false),
 		'address_city'=>array('label' => 'City', 'validation'=>'string', 'required'=>false),
 		'address_county'=>array('label' => 'County', 'validation'=>'string', 'required'=>false),
-		'address_post_code'=>array('label' => 'Post code', 'validation'=>'string', 'required'=>false)
+		'address_post_code'=>array('label' => 'Post code', 'validation'=>'string', 'required'=>false),
+		'code'=>array('label' => 'Reference code', 'validation'=>'string', 'required'=>false)
 	);
 	
 	/**
@@ -201,7 +207,8 @@ CREATE TABLE ecommerce_store (
     address_line_3 varchar(255),
     address_city varchar(255),
     address_county varchar(255),
-    address_post_code varchar(255)
+    address_post_code varchar(255),
+    code varchar(255)
 );
 	";
 		
