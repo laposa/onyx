@@ -90,8 +90,9 @@
 	});
 
 	function displayStore(marker) {
-		showInfoBox(marker);
-		$("#storeDetailWrapper").load('/request/component/ecommerce/store_detail~node_id=' + marker.node_id + '~');
+		$("#storeDetailWrapper").load('/request/component/ecommerce/store_detail~node_id=' + marker.node_id + '~', function() {
+			showInfoBox(marker);
+		});
 		$("#storeNearbyWrapper").load('/request/component/ecommerce/store_nearby_radius~node_id=' + marker.node_id + '~');
 		$("#storeProvinceFormWrapper").load('/request/component/ecommerce/store_province_form~store_node_id=' + marker.node_id + '~');
 		if (history.pushState) history.pushState({ marker: marker.url }, marker.title, marker.url);
@@ -99,13 +100,27 @@
 
 	function showInfoBox(marker) {
 		if (infoWindow) infoWindow.close();
+		
+		//count notices
+		var notice_count = $('#storeNoticeboard div.item').length;
+		
+		if (notice_count > 0) {
+		
+			if (notice_link > 1) var notice_plural = 's';
+			else var notice_plural = '';
+			
+			var notice_link = '<p class="notice"><a href="#storeNoticeboard" onclick=""><span class="title">Notice'+notice_plural+'</span> <span class="count">' + notice_count + '</span></a></p>';
+		} else {
+			var notice_link = '';
+		}
+		
 		infoWindow = new InfoBox({
 			content: "<h3>" + marker.title + "</h3>" +
 				'<p class="image"><img src="' + marker.image + '"/></p>' +
 				'<p class="address">' + marker.address + '</p>' +
 				'<p class="opening_hours">' + marker.opening_hours + '</p>' +
 				'<p class="telephone">' + marker.telephone + '</p>' +
-				'<p class="directions"><a href="#" onclick="getDirections(' + marker.position.lat() + ', ' + marker.position.lng() + '); return false">Directions</a></p>',
+				'<p class="directions"><a href="#" onclick="getDirections(' + marker.position.lat() + ', ' + marker.position.lng() + '); return false">Directions</a></p>' + notice_link,
 			boxStyle: {
 				background: "url('/images/map-infobox1.png')",
 				width: "360px",
