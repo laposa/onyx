@@ -40,8 +40,8 @@ class client_customer_group extends Onxshop_Model {
 		'id'=>array('label' => 'Id', 'validation'=>'int', 'required'=>true), 
 		'group_id'=>array('label' => 'Group', 'validation'=>'int', 'required'=>true),
 		'customer_id'=>array('label' => 'Customer', 'validation'=>'int', 'required'=>true),
-		'created'=>array('label' => 'Create', 'validation'=>'date', 'required'=>fase),
-		'modified'=>array('label' => 'Modified', 'validation'=>'date', 'required'=>false)
+		'created'=>array('label' => 'Create', 'validation'=>'datetime', 'required'=>fase),
+		'modified'=>array('label' => 'Modified', 'validation'=>'datetime', 'required'=>false)
 	);
 	
 	/**
