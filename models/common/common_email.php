@@ -453,6 +453,7 @@ CREATE TABLE common_email (
 		
 		$tpl->assign('URI', "$protocol://{$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}");
 		$tpl->assign('_SERVER', $_SERVER);
+		$tpl->assign('_SESSION', $_SESSION);
 		$tpl->assign('CONFIGURATION', $GLOBALS['onxshop_conf']);
 		$tpl->assign('_POST', $_POST);
 		$tpl->assign('_GET', $_GET);
