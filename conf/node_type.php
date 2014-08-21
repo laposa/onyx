@@ -33,6 +33,7 @@ $templates_info['content'] = array(
 	'imagemap'=>array('title' => 'Image map', 'description'=>'', 'visibility'=>false), 
 	'teaser'=>array('title' => 'Content teaser', 'description'=>'', 'visibility'=>false),
 	'filter'=>array('title' => 'Categories Filter', 'description'=>'', 'visibility'=>false),
+	'notice'=>array('title' => 'Notice', 'description'=>'i.e. for stores', 'visibility'=>false),
 	'default_template' => 'RTE'
 	);
 		

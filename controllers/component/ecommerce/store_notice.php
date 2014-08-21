@@ -26,7 +26,7 @@ class Onxshop_Controller_Component_Ecommerce_Store_Notice extends Onxshop_Contro
 		$store = $this->Store->findStoreByNode($node_id);
 		$isStoreManager = $this->isStoreManager($store);
 
-		$notices = $this->Node->listing("parent = $node_id AND (css_class = 'notice' OR title = 'Store Notice')",
+		$notices = $this->Node->listing("parent = $node_id AND node_group = 'content' AND node_controller = 'notice'",
 			'priority DESC', '0,6');
 
 		if (count($notices) > 0) {
@@ -100,7 +100,7 @@ class Onxshop_Controller_Component_Ecommerce_Store_Notice extends Onxshop_Contro
 		$node = array(
 			'title' => 'Store Notice',
 			'node_group' => 'content',
-			'node_controller' => 'HTML',
+			'node_controller' => 'notice',
 			'parent' => $node_id,
 			'parent_container' => 4,
 			'priority' => $unix_date,
@@ -114,12 +114,12 @@ class Onxshop_Controller_Component_Ecommerce_Store_Notice extends Onxshop_Contro
 								'DD/MM/YYYY'
 							)
 						)::integer 
-					WHERE css_class = 'notice'
+					WHERE node_controller = 'notice'
 				 */
 			'content' => $html,
 			'publish' => 0,
 			'display_in_menu' => 0,
-			'css_class' => 'notice',
+			'css_class' => 'store',
 			'other_data' => array(
 				'type' => 'store_notice',
 				'text' => $_POST['notice']['text'],

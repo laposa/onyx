@@ -38,6 +38,10 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Store_Notice_List extends Onxsho
 		return true;
 	}
 
+	/**
+	 * parseList
+	 */
+	 
 	public function parseList($node_id) {
 
 		$children = $this->Node->getChildren($node_id);
@@ -69,7 +73,11 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Store_Notice_List extends Onxsho
 		}
 
 	}
-
+	
+	/**
+	 * handlePublishing
+	 */
+	 
 	public function handlePublishing(&$notice) {
 
 		if ($this->GET['action'] == 'approve' && $notice['id'] == $this->GET['notice_id']) {
@@ -107,6 +115,10 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Store_Notice_List extends Onxsho
 
 	}
 
+	/**
+	 * checkDate
+	 */
+	 
 	public function checkDate($date) {
 
 		if (!$date) return false;
@@ -119,6 +131,10 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Store_Notice_List extends Onxsho
 
 	}
 
+	/**
+	 * isScheduled
+	 */
+	 
 	public function isScheduled($node_id) {
 		$list = $this->Scheduler->getScheduleForNode($node_id, 'common_node');
 		foreach ($list as $item) if ($item['status'] == 0) return true;
