@@ -537,7 +537,6 @@ CREATE TABLE ecommerce_promotion (
 							" previous step and select “Save Details for Next Order” to create an account.", 'error');
 					} else {
 						msg("You have to login or register to use your voucher code.", 'error');
-						debug_print_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS);
 					}
 
 					Zend_Registry::set('ecommerce_promotion:login_needed', true);
