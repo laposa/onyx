@@ -465,3 +465,13 @@ function verifyHash($value, $hash)
 
 	return (hash('sha256', ONXSHOP_HASH_SALT . ( (string) $value )) == strtolower(trim($hash)));
 }
+
+/**
+ * Check if given date in format Y-m-d
+ * is a valid date
+ */
+function isValidDate($date)
+{
+	$d = DateTime::createFromFormat('Y-m-d', $date);
+	return $d && $d->format('Y-m-d') == $date;
+}
