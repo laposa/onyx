@@ -50,6 +50,22 @@ function makeAjaxRequest(jquery_selector, url, complete_callback) {
 	);
 }
 
+function showModalOverlay() {
+	var html = '<div id="modal_overlay" class="off">' +
+		'<div id="model_click_zone" onclick="hideModalOverlay()"></div>' +
+		'<div id="modal_overlay_window"></div></div>';
+	$('html,body').addClass('noscroll');
+	$('#backoffice').append(html);
+	setTimeout(function() { $('#modal_overlay').removeClass('off'); }, 100);
+}
+
+function hideModalOverlay() {
+	$('#modal_overlay').addClass('off');
+	setTimeout(function() { 
+		$('#modal_overlay').remove(); $('html,body').removeClass('noscroll');
+	}, 150);
+}
+
 /*
 IE6, IE7 but IE8 BUTTON FIX 
 used in 

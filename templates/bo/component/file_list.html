@@ -15,7 +15,7 @@
 		<!-- END: item -->
 	<!-- END: list -->
 
-	<p><a class="button add" title="Add Files ..." href="#" onclick="makeAjaxRequest('#file_connector', '/request/bo/pages/server_browser~type={GET.type}:role={GET.role}:relation={GET.relation}:node_id={GET.node_id}~'); return false"><span>Add Files...</span></a></p>
+	<p><a class="button add" title="Add Files ..." href="#" onclick="showModalOverlay(); makeAjaxRequest('#modal_overlay_window', '/request/bo/pages/server_browser~type={GET.type}:role={GET.role}:relation={GET.relation}:node_id={GET.node_id}~'); return false"><span>Add Files...</span></a></p>
 	<div id="file_connector"></div>
 </div>
 
