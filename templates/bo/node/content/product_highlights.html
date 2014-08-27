@@ -85,7 +85,7 @@ $(function() {
 			<!-- BEGIN:item -->
 			<div>
 			<input type="hidden" name="node[component][related][]" value="{CURRENT.content}" />
-			<button style="float: none;" name="" onclick="this.parentNode.parentNode.removeChild(this.parentNode)"><span>remove</span></button>
+			<button style="float: none;" class="remove small" name="" onclick="this.parentNode.parentNode.removeChild(this.parentNode)"><span>Remove</span></button>
 			<img src="/thumbnail/25x25/{CURRENT.image_src}" width="25" height="25" alt="{CURRENT.title|htmlspecialchars}"/>
 			<a class="{CURRENT.class}" href="/page/{CURRENT.id}">{CURRENT.title|htmlspecialchars}</a><br />
 			</div>
@@ -93,7 +93,7 @@ $(function() {
 		</div>
 	</div>
 	<div class="row">
-		<a id="related_product_button" class="button" href="#"><span>add new</span></a>
+		<a id="related_product_button" class="button add" href="#"><span>Add a Product</span></a>
 		<select id="related_product_select" name="related_product_select">
 			<option value="">Please select a product...</option>
 			<!-- BEGIN: product_select_item -->

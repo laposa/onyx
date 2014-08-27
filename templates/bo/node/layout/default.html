@@ -9,38 +9,46 @@
 
 <div class="twoColumnLayout fibonacci-1-1">
 	<div class="layoutColumnOne ofTwo">
-		{FILE "bo/node/item_title.html"}
-		<div class="advanced">
-		{FILE "bo/node/item_page_title.html"}
-		{FILE "bo/node/item_uri_title.html"}
-		{FILE "bo/node/item_browser_title.html"}
-		{FILE "bo/node/item_teaser.html"}
-		{FILE "bo/node/item_description.html"}
-		</div>
+		<fieldset>
+			{FILE "bo/node/item_title.html"}
+			<div class="advanced">
+				{FILE "bo/node/item_page_title.html"}
+				{FILE "bo/node/item_uri_title.html"}
+				{FILE "bo/node/item_browser_title.html"}
+				{FILE "bo/node/item_teaser.html"}
+				{FILE "bo/node/item_description.html"}
+			</div>
+		</fieldset>
 	</div>
 	<div class="layoutColumnTwo ofTwo">
-		{FILE "bo/node/item_image_list.html"}
-		{FILE "bo/node/item_taxonomy.html"}
-		<div class="advanced">
-		{FILE "bo/node/item_layout_style.html"}
-		</div>
-		{FILE "bo/node/item_css_class.html"}
+		<fieldset class="advanced">
+				{FILE "bo/node/item_image_list.html"}
+				{FILE "bo/node/item_taxonomy.html"}
+		</fieldset>
+		<fieldset>
+			{FILE "bo/node/item_layout_style.html"}
+			{FILE "bo/node/item_css_class.html"}
+		</fieldset>
 	</div>
 </div>
 {FILE "bo/node/item_content_list.html"}
 {FILE "bo/node/item_position.html"}
 <div class="twoColumnLayout fibonacci-1-1 advanced">
 	<div class="layoutColumnOne ofTwo">
-		{FILE "bo/node/item_display_in_menu.html"}
-		{FILE "bo/node/item_display_permission.html"}
-		{FILE "bo/node/item_display_permission_group_acl.html"}
-		{FILE "bo/node/item_require_login.html"}
-		{FILE "bo/node/item_require_ssl.html"}
+		<fieldset>
+			{FILE "bo/node/item_display_in_menu.html"}
+			{FILE "bo/node/item_display_permission.html"}
+			{FILE "bo/node/item_display_permission_group_acl.html"}
+			{FILE "bo/node/item_require_login.html"}
+			{FILE "bo/node/item_require_ssl.html"}
+		</fieldset>
 	</div>
 	<div class="layoutColumnTwo ofTwo">
-		{NODE_TYPE}
-		{FILE "bo/node/item_signature.html"}
-		{FILE "bo/node/item_head.html"}
+		<fieldset>
+			{NODE_TYPE}
+			{FILE "bo/node/item_signature.html"}
+			{FILE "bo/node/item_head.html"}
+		</fieldset>
 	</div>
 </div>
 {FILE "bo/node/item_publish.html"}

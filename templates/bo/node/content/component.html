@@ -50,7 +50,7 @@ function serverBrowserOpenDir(open_dir) {
 	
 		<div id="onxshop_template">
 			<fieldset>
-				<legend>Template</legend>
+				<legend></legend>
 				<div class="row">
 					<span class="label"><label>Template</label></span>
 					<span class="field">
@@ -58,16 +58,15 @@ function serverBrowserOpenDir(open_dir) {
 					</span>
 				</div>
 				<div class="row">
-					<span class="label"><label>&nbsp;</label></span>
 					<span class="field">
 						<div id="componentTemplate">
 							<ul class="componentTemplateMenu">
-								<li>
+								<li style="margin: 0 0 0 2%; padding: 0; width: 48%; float: left; ">
 									<a href="#"><span>Local</span></a>
 									{ONXSHOP_REQUEST_template_project #bo/component/server_browser_menu~directory=templates/component/:scope=project:trim_extension=1:expand_all=1:id=null~}
 								</li>
 								
-								<li>
+								<li style="margin: 0 0 0 2%; padding: 0; width: 48%; float: left; ">
 									<a href="#"><span>Global</span></a>
 									{ONXSHOP_REQUEST_template_onxshop #bo/component/server_browser_menu~directory=templates/component/:scope=onxshop:trim_extension=1:expand_all=1:id=null~}
 								</li>
@@ -81,7 +80,7 @@ function serverBrowserOpenDir(open_dir) {
 		
 		<div id="onxshop_controller">
 			<fieldset>
-				<legend>Controller</legend>
+				<legend></legend>
 				<div class="row">
 					<span class="label"><label>Controller</label></span>
 					<span class="field">
@@ -89,15 +88,14 @@ function serverBrowserOpenDir(open_dir) {
 					</span>
 				</div>
 				<div class="row">
-					<span class="label"><label>&nbsp;</label></span>
 					<span class="field">
 						<div id="controller">
 							<ul class="controllerMenu">
-								<li class='folder nonactive '>
+								<li style="margin: 0 0 0 2%; padding: 0; width: 48%; float: left; ">
 									<a href="#"><span>Local</span></a>
 									{ONXSHOP_REQUEST_controller_project #bo/component/server_browser_menu~directory=controllers/component/:scope=project:trim_extension=1:expand_all=1:id=null~}
 								</li>
-								<li class='folder nonactive '>
+								<li style="margin: 0 0 0 2%; padding: 0; width: 48%; float: left; ">
 									<a href="#"><span>Global</span></a>
 									{ONXSHOP_REQUEST_controller_onxshop #bo/component/server_browser_menu~directory=controllers/component/:scope=onxshop:trim_extension=1:expand_all=1:id=null~}
 								</li>
@@ -108,16 +106,19 @@ function serverBrowserOpenDir(open_dir) {
 				</div>
 			</fieldset>
 		</div>
-		
+
 		<div id="onxshop_parameters" class="onxshop_tabulatorX ui-tabs-panel">
 			<fieldset>
-				<legend>Parameters</legend>
-					<div class="row">
-						<span class="label"><label>GET parameters:</label></span>
-						<span class="field"><input type="text" class="text long" name="node[component][parameter]" value="{NODE.component.parameter}" /></span>
-					</div>
+				<legend></legend>
+				<div class="row">
+					<span class="label"><label>GET parameters:</label></span>
+					<span class="field"><input type="text" class="text long" name="node[component][parameter]" value="{NODE.component.parameter}" /></span>
+				</div>
 			</fieldset>
 		</div>
 	</div>
+
+	<br/>
+
 {FILE "bo/node/default_bottom.html"}
 <!-- END: content -->

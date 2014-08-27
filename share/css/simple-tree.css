@@ -68,10 +68,13 @@
 .server_browser_menu .simpleTree li.root:before,
 .server_browser_menu .simpleTree li.folder:before,
 .server_browser_menu .simpleTree li.folder-close:before,
-.server_browser_menu .simpleTree li.folder-close-last:before,
+.server_browser_menu .simpleTree li.folder-close-last:before {
+  content: "\f07b"; /* folder icon (closed) */
+}
+
 .server_browser_menu .simpleTree li.doc:before,
 .server_browser_menu .simpleTree li.doc-last:before {
-  content: "\f07b"; /* folder icon (closed) */
+  content: "\f1c9"; /* file icon */
 }
 
 #taxonomy_tree_menu .simpleTree li.folder-open:before,
