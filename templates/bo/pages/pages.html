@@ -9,7 +9,12 @@ $(document).ready(function(){
 function appendHeader() {
 	var header = $("#sub_content div.pageHeader").detach();
 	$('#pageHeaderWrapper').empty().append(header);
+
+	var buttonToolbar = $('div.rowBottom p:first');
+	if (buttonToolbar.length > 0) buttonToolbar.append($('.extended_toolbar a').detach());
+
 }
+
 function initialiseMenuPagesTree() {
 
 	$('#menupages_tree .simpleTree').simpleTree({
