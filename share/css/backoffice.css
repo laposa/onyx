@@ -181,10 +181,10 @@ div.file_list_icon div.item a.image {display: block; max-height: 120px; overflow
 #server_browser_file_list_wrapper a.button.small.remove { margin-top: 4px; }
 table.server-browser {border: 0!important; box-shadow: none!important; margin: 0; padding: 0 10px; width: 100%;}
 
-fieldset#add_to_node { margin: 0; padding: 10px; border: 1px solid #eee; background: white; }
-fieldset#add_to_node legend { top: 0; left: 0; border: 1px solid #eee; background: white;  padding: 1px 10px; border-radius: 3px; margin: 0;}
-fieldset#add_to_node input.filename { border: none; box-shadow: none; width: 100%; }
-fieldset#add_to_node a.image_preview { margin: 10px 0; display: block; }
+#file_list fieldset.file_item_form { margin: 0; padding: 10px; border: 1px solid #eee; background: white; }
+#file_list fieldset.file_item_form legend { top: 0; left: 0; border: 1px solid #eee; background: white;  padding: 1px 10px; border-radius: 3px; margin: 0;}
+#file_list fieldset.file_item_form input.filename { border: none; box-shadow: none; width: 100%; }
+#file_list fieldset.file_item_form a.image_preview { margin: 10px 0; display: block; }
 
 /*don't show image zoom on picture (gallery) node edit*/
 div.node_edit.node-content-picture div.image_zoom {display: none;}

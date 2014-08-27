@@ -44,10 +44,11 @@ $(document).ready(function() {
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 
 <form class="fileEdit" action="{URI|htmlspecialchars}" method="post" id="file-edit-{FILE.id}">
-	<fieldset>
+
+	<fieldset class="file_item_form">
 		<legend>File Edit</legend>
 		
-		<a href="/download/{FILE.src}"><h2><span>{FILE.src}</span></h2></a>
+		<input class="filename" type="text" readonly value="{FILE.src|htmlspecialchars}"/>
 		
 		<div class="row title">
 			<span class="label"><label>Title *:</label></span>
