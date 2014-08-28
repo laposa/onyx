@@ -77,6 +77,16 @@
   content: "\f1c9"; /* file icon */
 }
 
+.server_browser .server_browser_menu .simpleTree li.doc:before,
+.server_browser .server_browser_menu .simpleTree li.doc-last:before {
+  content: "\f07b"; /* file icon */
+}
+
+#database .server_browser_menu .simpleTree li.doc:before,
+#database .server_browser_menu .simpleTree li.doc-last:before {
+  content: "\f1c0"; /* file icon */
+}
+
 #taxonomy_tree_menu .simpleTree li.folder-open:before,
 #taxonomy_tree_menu .simpleTree li.folder-open-last:before,
 #taxonomy_tree_menu .simpleTree li.root:before,
