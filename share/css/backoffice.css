@@ -252,7 +252,7 @@ div.horizontalFilter select { max-width: 200px; }
 div.horizontalFilter div.row { float: left; clear: none; margin: 0 20px 0 0; }
 div.horizontalFilter div.row input { float: left; clear: none; margin: 0 5px 0 0;}
 
-h1 { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: lighter; font-size: 40px; margin-top: 0; padding: 0; color: #666;}
+h1 { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 100; font-size: 40px; margin-top: 0; padding: 0; color: #666;}
 h1 span.info { font-weight: normal; float: right; font-size: 14px; background: #f0f0f0; border: 1px solid #ddd; text-shadow: 0 -1px 0 #fff; border-radius: 20px; padding: 3px 16px; margin: 12px 0 0 0; }
 h2 { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: normal; color: #666;}
 
@@ -277,7 +277,7 @@ div#order_detail div.pageHeader h2 { position: absolute; top: 20px; right: 20px;
 #customer_detail div.customerMedallion span.userAvatar { float: right; display: block; width: 50px; height: 50px; overflow: hidden; border-radius: 25px; border: 3px solid #e0e0e0; position: relative; top: -6px; }
 #customer_detail dt { font-weight: bold; width: 30%; float: left; }
 #reports_page h3,
-#customer_detail h3.title { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: lighter; font-size: 28px; margin-top: 20px; padding: 0; color: #666;}
+#customer_detail h3.title { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 100; font-size: 28px; margin-top: 20px; padding: 0; color: #666;}
 select#node-layout_style { width: 100%; }
 div.survey_menu ul { list-style: none; margin: 0; padding: 0; }
 div.survey_menu li { list-style: none; margin: 0; padding: 2px 0; }
