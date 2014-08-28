@@ -893,7 +893,8 @@ CREATE TABLE client_customer (
 		unset($client_data['customer']['role_ids']);
 		
 		// check if login id is available (i.e. don't overwrite by changing email address)
-		if (!$this->checkLoginId($client_data['customer']) || !$this->checkLoginIdPreservedOnly($customer_data['customer']['email'])) {
+		if (!$this->checkLoginId($client_data['customer']) || 
+			($customer_data['customer'] == 1 && !$this->checkLoginIdPreservedOnly($customer_data['customer']['email']))) {
 			msg("User email {$customer_data['customer']['email']} is already registered", 'error', 0, 'account_exists');
 			return false;		
 		}
