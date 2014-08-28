@@ -16,13 +16,18 @@
 
 class Onxshop_Controller_Api extends Onxshop_Controller {
 
+	static $thumbnail_size = "[THUMBNAIL_SIZE]";
+
 	/**
 	 * main action
 	 */
 	 
 	public function mainAction() {
 
-		$data = $this->getData();
+		$error = $this->getAndValidateInput();
+
+		if ($error) $data = $error;
+		else $data = $this->getData();
 		
 		$format = $this->GET['format'];
 		
@@ -188,5 +193,42 @@ class Onxshop_Controller_Api extends Onxshop_Controller {
 	
 		return $xml;
 	}
-	
+
+	/**
+	 * Get and validate input parameters
+	 *
+	 * return array on error
+	 *        false on success
+	 */
+
+	protected function getAndValidateInput()
+	{
+		$error = array('status' => 400);
+
+		// process thunbnail_size parameter
+
+		if (is_numeric($this->GET['thumbnail_size'])) {
+		
+			if ($this->GET['thumbnail_size'] % 5 != 0) {
+				$error['message'] = "thumbnail_size has to be a multiple of 5";
+				return $error;
+			}
+
+			if ($this->GET['thumbnail_size'] > 1000) {
+				$error['message'] = "thumbnail_size is too big";
+				return $error;
+			}
+
+			if ($this->GET['thumbnail_size'] < 1) {
+				$error['message'] = "thumbnail_size is too small";
+				return $error;
+			}
+
+			self::$thumbnail_size = $this->GET['thumbnail_size'];
+
+		}
+
+		return false;
+	}	
+
 }

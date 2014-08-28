@@ -1,0 +1,50 @@
+<?php
+/** 
+ * Copyright (c) 2014 Laposa Ltd (http://laposa.co.uk)
+ * Licensed under the New BSD License. See the file LICENSE.txt for details.
+ * 
+ */
+
+require_once('controllers/api/v1_2/special_offer_list.php');
+
+class Onxshop_Controller_Api_v1_3_Special_Offer_List extends Onxshop_Controller_Api_v1_2_Special_Offer_List {
+
+	/**
+	 * formatItem
+	 */
+	 
+	public function formatItem($original_item) {
+		
+		if (!is_array($original_item)) return false;
+		$original_item['price_formatted'] = $this->formatPrice($original_item['price'], $original_item['currency_code']);
+		
+		require_once('models/ecommerce/ecommerce_product.php');
+		$Product = new ecommerce_product();
+		$product_detail = $Product->getProductDetail($original_item['product_id']);
+		//print_r($product_detail); exit;
+		
+		
+		
+		$item['id'] = $original_item['offer_id'];
+		$item['title'] = $product_detail['name'];
+		$item['content'] = strip_tags($product_detail['description']);
+		$item['url'] = "http://{$_SERVER['HTTP_HOST']}/product/{$original_item['product_id']}";
+		$item['priority'] = $product_detail['priority'];
+		$item['created'] = $product_detail['modified'];
+		$item['modified'] = $product_detail['modified'];
+		$item['images'] = array("http://{$_SERVER['HTTP_HOST']}/image/" . $Product->getProductMainImageSrc($original_item['product_id']));
+		$item['thumbnails'] = array("http://{$_SERVER['HTTP_HOST']}/thumbnail/" . self::$thumbnail_size . '/' . $Product->getProductMainImageSrc($original_item['product_id']));
+		$item['rondel'] = $this->getRoundelText($original_item);
+		$item['rondel_image_url'] = $this->getRoundelImageSource($original_item);
+		$item['price'] = money_format('%n', $original_item['price']);
+		$item['expiry_date'] = $original_item['group_schedule_end'];
+		$item['taxonomy'] = $this->getTaxonomy($original_item['product_id'], $Product);
+		$item['product_id'] = $product_detail['variety'][0]['sku'];//TODO this is showing only first ones
+		//special offer group
+		$item['group_id'] = $original_item['group_id'];
+		$item['group_title'] = $original_item['group_title'];
+		
+		return $item;	
+	}
+
+}
