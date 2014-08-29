@@ -254,6 +254,7 @@ class Onxshop_Controller_Uri_Mapping extends Onxshop_Controller {
 	public function getFileRules() {
 		
 		require_once(ONXSHOP_DIR . 'conf/uri_map.php');
+		if (file_exists(ONXSHOP_PROJECT_DIR . 'conf/uri_map.php')) require_once(ONXSHOP_PROJECT_DIR . 'conf/uri_map.php');
 		return $uri_map;
 
 	}
