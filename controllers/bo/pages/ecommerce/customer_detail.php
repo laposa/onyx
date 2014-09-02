@@ -107,8 +107,11 @@ class Onxshop_Controller_Bo_Pages_Ecommerce_Customer_Detail extends Onxshop_Cont
 		}
 
 		$this->parseGroupCheckboxes($client['customer']['group_ids']);
-		$this->parseRoleCheckboxes($client['customer']['role_ids']);
 		$this->parseOtherData($client['customer']['other_data']);
+
+		if (Onxshop_Bo_Authentication::getInstance()->hasPermission(ONXSHOP_PERMISSION_CUSTOMER_ROLES_EDITING)) {
+			$this->parseRoleCheckboxes($client['customer']['role_ids']);
+		}
 
 		// Account type dropdown
 		$this->tpl->assign("SELECTED_account_type_{$client['customer']['account_type']}", 'selected="selected"');

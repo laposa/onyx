@@ -174,6 +174,7 @@ INSERT INTO "client_role_permission" ("id", "role_id", "permission", "scope", "c
 (29, 1, 2021, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_TOOLS_SECTION
 (30, 1, 2022, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_LOGS_SECTION
 (31, 1, 2023, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_CONFIGURATION_SECTION
+(32, 1, 1001, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_CUSTOMER_ROLES_EDITING
 
 -- Editor
 (15, 2, 1000, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_FRONT_END_EDITING

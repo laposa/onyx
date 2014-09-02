@@ -11,6 +11,7 @@
  */
 
 define("ONXSHOP_PERMISSION_FRONT_END_EDITING", 1000);
+define("ONXSHOP_PERMISSION_CUSTOMER_ROLES_EDITING", 1001);
 
 /**
  * Permissions for Back Office Sections
