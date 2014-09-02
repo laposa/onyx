@@ -14,8 +14,8 @@
 #onxshopMenuBar ul li a:hover { color: #fff !important; }
 
 #menuSystem { height: 60px; }
-#menuSystem a.onxshop_version span.onxshop-logo { width: 40px; height: 40px; background: url(../images/onxshop-logo-white.png) no-repeat; background-size: 40px 40px; display: inline-block;margin-left: 12px; vertical-align: middle;}
-#menuSystem a.onxshop_version span.title { display: inline-block; margin-left: 12px; vertical-align: middle; color: #ffffff; line-height: 14px;}
+#menuSystem a.onxshop_version span.onxshop-logo { width: 40px; height: 40px; background: url(../images/onxshop-logo-white.png) no-repeat; background-size: 40px 40px; display: inline-block; margin-left: 8px; vertical-align: middle;}
+#menuSystem a.onxshop_version span.title { display: inline-block; margin-left: 9px; vertical-align: middle; color: #ffffff; line-height: 14px; width: 70px;}
 
 ul#menuAdvanced { display: none; }
 
