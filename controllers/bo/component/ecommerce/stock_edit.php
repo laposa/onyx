@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2008-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2008-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -22,7 +22,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Stock_Edit extends Onxshop_Contr
 		
 		$Product_variety->set('id', $this->GET['id']);
 		
-		if ($_POST['save'] == 'variety') {
+		if ($_POST['save'] == 'save') {
 			
 			if($id = $Product_variety->updateVariety($_POST['product']['variety'])) {
 				msg("Product variety updated.");

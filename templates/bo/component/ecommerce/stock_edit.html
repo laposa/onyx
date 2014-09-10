@@ -28,10 +28,12 @@ $(function() {
 			<span class="field"><input type="text" name="product[variety][stock]" value="{PRODUCT.variety.stock}"/></span>
 		</div>
 	</fieldset>
-		
-	<p><a href="#" onclick="$('#variety_more_details').toggle(); return false">More details</a></p>
 	
-	<div id="variety_more_details" style="display: none;">
+	<p class="extended_toolbar">
+		<a class="button" href="#" onclick="return showAdvancedSettings(this)"><span>Show Advanced Settings</span></a>
+	</p>
+								
+	<div id="variety_more_details" class="advanced">
 		<div class="row">
 			<span class="label"><label>Weight Net [{VARIETY_CONF.weight_units}]</label></span>
 			<span class="field"><input type="text" name="product[variety][weight]" value="{PRODUCT.variety.weight}"/></span>
@@ -58,7 +60,7 @@ $(function() {
 		</fieldset>
 	</div>
 
-	<button class="save" type="submit" name="save" value="variety"><span>Save</span></button>
+	<button class="save" type="submit" name="save" value="save"><span>Save</span></button>
 
 	<input type="hidden" name="product[variety][id]" value="{PRODUCT.variety.id}"/>
 	<input type="hidden" name="product[variety][product_id]" value="{PRODUCT.variety.product_id}"/>
