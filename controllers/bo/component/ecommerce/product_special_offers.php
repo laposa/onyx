@@ -21,7 +21,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Product_Special_Offers extends O
 	{
 		$this->initModels();
 		$this->product_variety_id = (int) $this->GET['id'];
-		if ($_POST['save'] == 'variety') $this->saveData($_POST['product']);
+		if ($_POST['save'] == 'save') $this->saveData($_POST['product']);
 		$this->loadData();
 		$this->parseOffers();
 
