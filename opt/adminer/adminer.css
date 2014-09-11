@@ -1,0 +1,11 @@
+body { font-size: 75%; }
+#tables { font-size: 11px; line-height: 16px; }
+#content { padding-bottom: 60px; }
+
+p.pages { background: rgba(255, 255, 255, 0.90); border: none; box-shadow: 0 -1px 10px rgba(0,0,0,0.25); left: 0; padding: 20px 0; z-index: 100; width: 100%; }
+p.pages a { padding: 8px 12px; border: 1px solid #ccc; }
+p.pages a:hover { border: 1px solid #888; }
+p.pages a:first-child { padding: 0; background: none; border: none;}
+p.pages a:hover:first-child { border: none;}
+
+p.pages { padding-left: 21em; }
