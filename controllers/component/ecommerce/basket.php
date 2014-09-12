@@ -32,10 +32,10 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 
 		if ($input) {
 
-			$pre_action_state = $this->Basket_content->getItems($this->basket_id);
+			$pre_action_state = $this->Basket->getFullDetail($this->basket_id, $currency);
 			$this->handleActions($input);
-			$post_action_state = $this->Basket_content->getItems($this->basket_id);
-			$this->parseTrackingData($pre_action_state, $pre_action_state);
+			$post_action_state = $this->Basket->getFullDetail($this->basket_id, $currency);
+			$this->parseTrackingData($pre_action_state['items'], $post_action_state['items']);
 
 		}
 
@@ -387,7 +387,7 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 
 	public function parseTrackingData(&$pre_action_state, &$post_action_state) {
 
-		if (!is_array($post_action_state)) $post_action_state = array();
+		if (!is_array($pre_action_state)) $pre_action_state = array();
 		if (!is_array($post_action_state)) $post_action_state = array();
 
 		$prevState = array();
@@ -396,7 +396,7 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 		// convert arrays to hashmaps
 		foreach ($post_action_state as $item)
 			$currentState[$item['product_variety_id']] = $item;
-		foreach ($post_action_state as $item)
+		foreach ($pre_action_state as $item)
 			$prevState[$item['product_variety_id']] = $item;
 
 		// check for additions
