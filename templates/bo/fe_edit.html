@@ -14,11 +14,11 @@
 	<div id="onxshopMenuBar">
 
 		<ul id="menuSystem">
-			<li><a class="onxshop_version" href="/" title="{ONXSHOP_VERSION} {ONXSHOP_PACKAGE_NAME|ucfirst}" onclick="openAjaxRequestInDialog('/request/bo/component/sysinfo', '{ONXSHOP_VERSION}'); return false;"><span class="onxshop-logo"></span><span class="title">Onxshop<br/>{CONFIGURATION.global.title|htmlspecialchars}</span></a></li>
+			<li><a class="onxshop_version" href="/" title="{CONFIGURATION.global.title|htmlspecialchars} is using {ONXSHOP_VERSION} {ONXSHOP_PACKAGE_NAME|ucfirst}" onclick="return false;"><span>Onxshop</span></a></li>
 		</ul>
 
 		<ul id="menuBackOffice">
-			<li class="backoffice"><a href="/backoffice/pages"><span class="fa fa-2x fa-cogs"></span><span class="title">Back Office</span></a></li>
+			<li class="backoffice"><a href="/backoffice/pages"><span>Back Office</span></a></li>
 		</ul>
 
 		<ui id="menuEditingMode">
@@ -26,9 +26,10 @@
 		</ui>
 
 		<ul id="menuActions">
-			<li class="clear_cache"><a href='/backoffice/advanced/tools?tool=flush_cache' onclick="clearOnxshopCache(this); return false"><span class="fa fa-2x fa-refresh"></span><span class="title">Clear Cache</span></a></li>
-			<li class="support"><a href="{ONXSHOP_SUPPORT_WEBSITE_URL}" title="Access to Onxshop support" target="_blank"><span class="fa fa-2x fa-question-circle"></span><span class="title">Support</span></a></li>
-			<li class="logout" ><a class="logout" href="/?logout=1" title="Logout from the backoffice"><span class="fa fa-2x fa-power-off"></span><span class="title">Log Out</span></a></li>
+			<li class="flush_cache"><a href='/backoffice/advanced/tools?tool=flush_cache' onclick="clearOnxshopCache(this); return false" title="Clear Cache"><span>Clear Cache</span></a></li>
+			<!--<li class="support"><a href="{ONXSHOP_SUPPORT_WEBSITE_URL}" title="Access to Onxshop support" target="_blank"><span>Support</span></a></li>-->
+			<li class="css_edit"><a class="onxshop_edit_css_edit" href="/backoffice/advanced/templates" title="CSS Edit" onclick="nOpenWin('/popup/css_edit/{GET.id}/orig/{_SESSION.orig}', 700, 500); return false;"><span>CSS</span></a></li>
+			<li class="logout" ><a class="logout" href="/?logout=1" title="Logout from the backoffice"><span>Log Out</span></a></li>
 		</ul>
 
 	</div>

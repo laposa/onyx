@@ -1,5 +1,5 @@
 /**
- * Backoffice Global CSS
+ * Front Office
  *
  * Norbert @ Laposa Ltd 2009
  *
@@ -7,7 +7,27 @@
 
 @import url(/share/themes/jquery-ui/onxshop/jquery-ui.css);
 @import url(/share/css/backoffice_icons.css);
-@import url(/share/css/cms_header.css);
+
+#onxshopHeader a { line-height: 17px; font-size: 12px; font-family: "Lucida Grande", Helvetica, Arial, sans-serif;  color: #ccc;}
+#onxshopHeader li span {font-size: 8px;}
+#onxshopHeader li a:before {font-size: 22px;}
+#onxshopHeader { position: fixed; z-index: 2147483647; width: 455px; height: 50px; top: auto; left: auto; left: 50%; margin-left: -230px; bottom: 30px; border-radius: 40px; box-shadow: 1px 1px 20px rgba(0,0,0,0.4); cursor: move; overflow: hidden; background: rgba(50,56,62,1); background: -moz-linear-gradient(top, rgba(50,56,62,1) 0%, rgba(37,38,39,1) 100%); background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(50,56,62,1)), color-stop(100%, rgba(37,38,39,1))); background: -webkit-linear-gradient(top, rgba(50,56,62,1) 0%, rgba(37,38,39,1) 100%); background: -o-linear-gradient(top, rgba(50,56,62,1) 0%, rgba(37,38,39,1) 100%); background: -ms-linear-gradient(top, rgba(50,56,62,1) 0%, rgba(37,38,39,1) 100%); background: linear-gradient(to bottom, rgba(50,56,62,1) 0%, rgba(37,38,39,1) 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#32383e', endColorstr='#252627', GradientType=0 ); }
+#onxshopHeader #onxshopMenuBar ul {margin: 0; padding: 10px 0; margin: 0; list-style: none; text-shadow: 1px 1px 1px rgba(0,0,0,0.5); border-left: 1px solid #33373c; box-shadow: -1px 0 0 #0f1112; }
+#onxshopHeader #onxshopMenuBar ul#menuGroup { padding-top: 10px; }
+#onxshopHeader #onxshopMenuBar ul li { margin: 0; padding: 0; float: left;  width: 50px; height: 50px; list-style: none; text-align: center; }
+#onxshopHeader #onxshopMenuBar ul li a {text-decoration: none; font-size: 11px; display: block; transition: color 200ms linear;   width: 50px; height: 50px; padding-top: 7px;}
+#onxshopMenuBar ul li.active a { color: #fff; margin-top: 0; border-top: 1px solid #6d97d0; background-image: -webkit-linear-gradient(top, #5685c4, #4c6cb8); background-image: -moz-linear-gradient(top, #5685c4, #4c6cb8); background-image: -ms-linear-gradient(top, #5685c4, #4c6cb8); background-image: -o-linear-gradient(top, #5685c4, #4c6cb8); background-image: linear-gradient(to bottom, #5685c4, #4c6cb8); }
+#onxshopMenuBar ul li a:hover { color: #fff !important; }
+#onxshopHeader #onxshopMenuBar #menuSystem { float: left; padding: 0 5px; border: none; box-shadow: none; }
+#onxshopHeader #onxshopMenuBar #menuBackOffice { float: left; padding: 0 5px; }
+#onxshopHeader #onxshopMenuBar #menuEditMode { float: left; padding: 0 5px; }
+#onxshopHeader #onxshopMenuBar #menuActions { float: left; padding: 0 5px; }
+
+#onxshopHeader a.onxshop_version {cursor: move;}
+#onxshopHeader a.onxshop_version:before {display: inline-block; font-family: 'onxshop'; content: '\e601'; font-size: 35px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;}
+#onxshopHeader a.onxshop_version span {display: none;}
+#onxshopHeader #onxshopMenuBar ul li a span.title { -webkit-transform: translateX(-50%); }
+
 
 #onxshop_window_content {background: white; text-align: left; padding: 0 10px;}
 

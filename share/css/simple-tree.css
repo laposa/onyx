@@ -44,7 +44,7 @@
 .simpleTree li.doc-last:before
 {
   display: inline-block;
-  font-family: FontAwesome;
+  font-family: 'onxshop';
   font-style: normal;
   font-weight: normal;
   line-height: 1;
@@ -129,7 +129,7 @@
 {
   content: "\f0d7"; /* right arrow (open) */
   display: inline-block;
-  font-family: FontAwesome;
+  font-family: 'onxshop';
   font-style: normal;
   font-weight: normal;
   line-height: 1;

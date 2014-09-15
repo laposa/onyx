@@ -50,12 +50,13 @@ function refreshOpenerAjax(path, id) {
 }
  
 function clearOnxshopCache(button) {
-	var buttonIcon = $(button).find('.fa');
-	buttonIcon.addClass('fa-spin');
+	var buttonIcon = $(button).find('a');
+	
+	$(button).addClass('onxshop-effect-spin');
 	jQuery("#dialog").hide().load('/request/bo/component/tools~tool=flush_cache~', '', 
 		function (responseText, textStatus, XMLHttpRequest) {
 			popupMessage("#dialog div.onxshop_messages");
-			buttonIcon.removeClass('fa-spin');
+			$(button).removeClass('onxshop-effect-spin');
 		});
 }
 

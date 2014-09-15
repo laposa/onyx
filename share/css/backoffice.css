@@ -11,7 +11,6 @@
 @import url(/share/css/simple-tree.css);
 @import url(/share/css/default/screen.css);
 @import url(/share/themes/jquery-ui/onxshop/jquery-ui.css);
-@import url(/share/css/cms_header.css);
 @import url(/share/css/default/theme_layout/responsive.css);
 
 body {font-size: 70%; color: black; font-family: "Lucida Grande", "Helvetica Neue", Helvetica, Arial, sans-serif; background: white;}
@@ -115,6 +114,25 @@ form .advanced { display: none; }
 #backoffice input[type=checkbox] { border: none !important; box-shadow: none !important;}
 #backoffice input[type=radio] { border: none !important; box-shadow: none !important;}
 
+#onxshopBackoffice { margin-left: 130px; }
+
+/**
+ * onxshopHeader
+ */
+ 
+#onxshopHeader { position: fixed; z-index: 2147483647; left: 0; top: 0; width: 130px; height: 100%; background: #2a2f34; box-shadow: inset -3px 0 15px rgba(0,0,0,0.2), 1px 0 3px rgba(0,0,0,0.2); overflow: hidden;}
+#onxshopHeader a { line-height: 17px; font-size: 12px; font-family: "Lucida Grande", Helvetica, Arial, sans-serif;  color: #ccc;}
+
+#onxshopMenuBar ul { margin: 0; padding: 5px 0; margin: 0; list-style: none; text-shadow: 1px 1px 1px rgba(0,0,0,0.5); border-top: 1px solid #33373c; box-shadow: 0 -1px 0 #0f1112; }
+#onxshopMenuBar ul li { margin: 0; padding: 0; width: 130px;}
+#onxshopMenuBar ul li a { text-decoration: none; font-size: 11px; display: block; width: 130px; height: 28px; line-height: 28px; transition: color 200ms linear; }
+#onxshopMenuBar ul li.active a { color: #fff; margin-top: 0; border-top: 1px solid #6d97d0; background-image: -webkit-linear-gradient(top, #5685c4, #4c6cb8); background-image: -moz-linear-gradient(top, #5685c4, #4c6cb8); background-image: -ms-linear-gradient(top, #5685c4, #4c6cb8); background-image: -o-linear-gradient(top, #5685c4, #4c6cb8); background-image: linear-gradient(to bottom, #5685c4, #4c6cb8); }
+#onxshopMenuBar ul li a:hover { color: #fff !important; }
+
+#menuSystem a.onxshop_version {color: white; height: auto; line-height: 1.2;}
+#menuSystem a.onxshop_version:before {display: inline-block; font-family: 'onxshop'; content: '\e601'; font-size: 2.8em; vertical-align: -15%; margin-left: 3px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;}
+ul#menuAdvanced { display: none; }
+#menuSystem a.onxshop_version span {display: inline-block;}
 
 /**
  * fe edit
@@ -243,7 +261,7 @@ div.popup div.rowBottom div.rowWrapper { margin: 0; }
 button.save { position: fixed; z-index: 16000; right: 20px; bottom: 10px; height: 40px; line-height: 40px; padding: 0 40px; font-size: 16px; }
 button.saving { opacity: 0.7; }
 button.saving span { visibility: hidden; }
-button.saving:before { content: "\f013"; position: absolute; left: 50%; top: 50%; margin-left: -6px; margin-top: -10px; display: inline-block; font-family: FontAwesome; font-style: normal; font-weight: normal; line-height: 1; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; -webkit-animation: spin 2s infinite linear; -moz-animation: spin 2s infinite linear; -o-animation: spin 2s infinite linear; animation: spin 2s infinite linear; font-size: 20px;}
+button.saving:before { content: "\f013"; position: absolute; left: 50%; top: 50%; margin-left: -6px; margin-top: -10px; display: inline-block; font-family: 'onxshop'; font-style: normal; font-weight: normal; line-height: 1; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; -webkit-animation: spin 2s infinite linear; -moz-animation: spin 2s infinite linear; -o-animation: spin 2s infinite linear; animation: spin 2s infinite linear; font-size: 20px;}
 div.pageHeader { height: 60px; border-bottom: 1px solid #e0e0e0; margin: 0 0 10px 0; }
 div.horizontalFilter { border-bottom: 1px solid #e0e0e0; margin: 0 0 20px 0; height: 64px;}
 div.horizontalFilter form { margin: 0; }
@@ -290,7 +308,7 @@ div.survey_detail table td.answers a.is_correct_0 { color: #444; position: relat
 div.survey_detail table td.answers a.is_correct_1 { color: #000; position: relative; font-weight: bold;}
 div.survey_detail table td.answers a.is_correct_0:before { content: "\f096"; }
 div.survey_detail table td.answers a.is_correct_1:before { content: "\f046"; }
-div.survey_detail table td.answers li a:before {display: inline-block; font-family: FontAwesome; font-style: normal; font-weight: normal; line-height: 1; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; line-height: 18px; color: #333; position: absolute; left: -18px; top: -1px; font-size: 14px; } 
+div.survey_detail table td.answers li a:before {display: inline-block; font-family: 'onxshop'; font-style: normal; font-weight: normal; line-height: 1; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; line-height: 18px; color: #333; position: absolute; left: -18px; top: -1px; font-size: 14px; } 
 
 /**
  * Tabs
