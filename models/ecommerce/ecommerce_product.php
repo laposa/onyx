@@ -822,7 +822,7 @@ variety.stock, price.date, product.publish, product.modified, variety.sku, varie
 		$date = date("Y-m-d", time() - $days_back * (24 * 3600));
 	
 		if ($excludedReviewed) {
-			$exclude = '';
+			$exclude = "AND v.product_id NOT IN (SELECT node_id FROM ecommerce_product_review WHERE ecommerce_product_review.customer_id = $customer_id)";
 		} else $exclude = '';
 
 		$sql = "SELECT DISTINCT v.product_id
