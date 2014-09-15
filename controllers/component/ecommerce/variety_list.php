@@ -44,6 +44,7 @@ class Onxshop_Controller_Component_Ecommerce_Variety_List extends Onxshop_Contro
 
 		if ($variety_list) {
 		
+			$product = $this->Product->getDetail($product_id);
 			/**
 			 * variety list
 			 */
@@ -53,6 +54,7 @@ class Onxshop_Controller_Component_Ecommerce_Variety_List extends Onxshop_Contro
 				if ($variety['publish'] == 1) {
 					//mark first variety checked
 					if ($key == 0) $variety['checked'] = "checked='checked'";
+					$this->tpl->assign('PRODUCT', $product);
 					$this->tpl->assign('VARIETY', $variety);
 					$Price = new Onxshop_Request("component/ecommerce/price~product_variety_id={$variety['id']}~");
 					$this->tpl->assign("PRICE", $Price->getContent());
