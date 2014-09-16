@@ -255,7 +255,7 @@ div.CodeMirror {font-size: 13px;}
 div.twoColumnPage { padding: 0 20px; margin: 0;}
 div.twoColumnPage div.twoColumnPage { padding: 0; margin: 0;}
 div.rowBottom { height: 60px;}
-div.rowBottom div.rowWrapper { position: fixed; z-index: 15000; width: 100%; left: 0; bottom: 0; height: 60px; background: rgba(250,250,250,0.9); border-top: 1px solid #fff; margin: 0 0 0 130px; padding: 15px 0 0 20px; box-shadow: 4px 0 6px rgba(0,0,0,0.4); }
+div.rowBottom div.rowWrapper { position: fixed; z-index: 3000; width: 100%; left: 0; bottom: 0; height: 60px; background: rgba(250,250,250,0.9); border-top: 1px solid #fff; margin: 0 0 0 130px; padding: 15px 0 0 20px; box-shadow: 4px 0 6px rgba(0,0,0,0.4); }
 div.rowBottom div.rowWrapper p { display: inline-block; padding: 0; margin: 0 20px 0 0;}
 div.rowBottom div.rowWrapper p a, #toolBar p button { margin: 0 5px 0 0; }
 div.popup div.rowBottom div.rowWrapper { margin: 0; }
