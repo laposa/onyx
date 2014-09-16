@@ -2,7 +2,7 @@
 /**
  * Server filesystem browser
  *
- * Copyright (c) 2006-2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2006-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -98,6 +98,7 @@ class Onxshop_Controller_Bo_Component_Server_Browser_File_List extends Onxshop_C
 		
 		if ($this->GET['delete_file']) {
 			$File->deleteFile($this->GET['delete_file']);
+			return true;
 		}
 		
 		
