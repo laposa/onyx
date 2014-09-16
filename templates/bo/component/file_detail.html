@@ -2,11 +2,12 @@
 
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 
-<div id="linked-file-{FILE.id}">
+<div class="twoColumnLayout fibonacci-1-2" id="linked-file-{FILE.id}">
 
+	
 	<div class="contentTitle"><h2><a title="Click on this file to edit its properties" href="#" onclick="makeAjaxRequest('#item-detail-{FILE.id}', '/request/bo/component/file_edit~relation={GET.relation}:file_id={FILE.id}:type={GET.type}~'); return false">{FILE.title|htmlspecialchars}</a></h2></div>
 
-	<div>
+	<div class="layoutColumnOne ofTwo">
 		<p>
 		{FILE.info.mime-type}, {FILE.info.size}<br />
 		Role: {FILE.role}<br />
@@ -21,7 +22,7 @@
 			<a class="button remove" title="Unlink file" href="#" onclick="if (confirm('Do you really want to unlink {FILE.title|htmlspecialchars|addslashes}?')) {$('#linked-file-{FILE.id}').load('/request/bo/component/file_unlink~relation={GET.relation}:file_id={FILE.id}~', function() { popupMessage('#linked-file-{FILE.id} div.onxshop_messages'); });}; return false"><span>Unlink</span></a>
 		</p>
 	</div>
-	<div>
+	<div class="layoutColumnTwo ofTwo">
 		<div class="item-detail" id="item-detail-{FILE.id}">
 			
 			
