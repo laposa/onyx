@@ -167,6 +167,7 @@ div.divider {border-top: 2px solid #dadada;}
  */
  
 div.ui-dialog legend {display: none;}
+div.ui-dialog {z-index: 5000;}
 .ui-tabs-hide { display: none; }
 
 /**
@@ -327,8 +328,8 @@ div.onxshop_tabs ul li.active a:after { content: ''; position: absolute; top: 29
  */
 html.noscroll, body.noscroll { overflow: hidden; width: 100%; height: 100%; }
 body.noscroll #backoffice { overflow: hidden; width: 100%; height: 100%; }
-#modal_overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(255, 255, 255, 0.3); z-index: 2147483647; overflow-y: scroll;  webkit-transition: all 150ms ease-in; -moz-transition: all 150ms ease-in; -o-transition: all 150ms ease-in; transition: all 150ms ease-in;}
-#modal_overlay.off { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: transparent; z-index: 2147483647; overflow-y: scroll;  webkit-transition: all 150ms ease-in; -moz-transition: all 150ms ease-in; -o-transition: all 150ms ease-in; transition: all 150ms ease-in;}
+#modal_overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(255, 255, 255, 0.3); z-index: 1000; overflow-y: scroll;  webkit-transition: all 150ms ease-in; -moz-transition: all 150ms ease-in; -o-transition: all 150ms ease-in; transition: all 150ms ease-in;}
+#modal_overlay.off { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: transparent; z-index: 1000; overflow-y: scroll;  webkit-transition: all 150ms ease-in; -moz-transition: all 150ms ease-in; -o-transition: all 150ms ease-in; transition: all 150ms ease-in;}
 #model_click_zone { position: fixed; top: 0; left: 0; width: 20%; height: 100%; cursor: pointer; }
 #modal_overlay_window { position: static; opacity: 1; margin-left: 20%; width: 80%; min-height: 100%; padding: 0; overflow: auto; background: #ffffff; box-shadow: -1px 0 5px rgba(0,0,0,0.4); webkit-transition: all 150ms ease-out; -moz-transition: all 150ms ease-out; -o-transition: all 150ms ease-out; transition: all 150ms ease-out; }
 #modal_overlay.off #modal_overlay_window { opacity: 0; -webkit-transform: translateX(100px); -moz-transform: translateX(100px); transform: translateX(100px); webkit-transition: all 150ms ease-in; -moz-transition: all 150ms ease-in; -o-transition: all 150ms ease-in; transition: all 150ms ease-in; }
