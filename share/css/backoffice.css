@@ -198,7 +198,7 @@ div.file_list_icon div.item a.image {display: block; max-height: 120px; overflow
 #server_browser_file_list_wrapper .progress-total { display: none; }
 #server_browser_file_list_wrapper div#add-folder { padding: 10px 20px 0px 20px; }
 #server_browser_file_list_wrapper a.button.small.remove { margin-top: 4px; }
-table.server-browser {border: 0!important; box-shadow: none!important; margin: 0; padding: 0 10px; width: 100%;}
+table.server-browser {border: 0!important; box-shadow: none!important; margin: 0 0 60px 0; padding: 0 10px; width: 100%;}
 
 #file_list fieldset.file_item_form { margin: 0; padding: 10px; border: 1px solid #eee; background: white; }
 #file_list fieldset.file_item_form legend { top: 0; left: 0; border: 1px solid #eee; background: white;  padding: 1px 10px; border-radius: 3px; margin: 0;}
