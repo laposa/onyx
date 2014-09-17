@@ -120,7 +120,7 @@ form .advanced { display: none; }
  * onxshopHeader
  */
  
-#onxshopHeader { position: fixed; z-index: 2147483647; left: 0; top: 0; width: 130px; height: 100%; background: #2a2f34; box-shadow: inset -3px 0 15px rgba(0,0,0,0.2), 1px 0 3px rgba(0,0,0,0.2); overflow: hidden;}
+#onxshopHeader { position: fixed; z-index: 3000; left: 0; top: 0; width: 130px; height: 100%; background: #2a2f34; box-shadow: inset -3px 0 15px rgba(0,0,0,0.2), 1px 0 3px rgba(0,0,0,0.2); overflow: hidden;}
 #onxshopHeader a { line-height: 17px; font-size: 12px; font-family: "Lucida Grande", Helvetica, Arial, sans-serif;  color: #ccc;}
 
 #onxshopMenuBar ul { margin: 0; padding: 5px 0; margin: 0; list-style: none; text-shadow: 1px 1px 1px rgba(0,0,0,0.5); border-top: 1px solid #33373c; box-shadow: 0 -1px 0 #0f1112; }
@@ -328,7 +328,7 @@ div.onxshop_tabs ul li.active a:after { content: ''; position: absolute; top: 29
  */
 html.noscroll, body.noscroll { overflow: hidden; width: 100%; height: 100%; }
 body.noscroll #backoffice { overflow: hidden; width: 100%; height: 100%; }
-#modal_overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(255, 255, 255, 0.3); z-index: 1000; overflow-y: scroll;  webkit-transition: all 150ms ease-in; -moz-transition: all 150ms ease-in; -o-transition: all 150ms ease-in; transition: all 150ms ease-in;}
+#modal_overlay { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(255, 255, 255, 0.3); z-index: 4000; overflow-y: scroll;  webkit-transition: all 150ms ease-in; -moz-transition: all 150ms ease-in; -o-transition: all 150ms ease-in; transition: all 150ms ease-in;}
 #modal_overlay.off { position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: transparent; z-index: 1000; overflow-y: scroll;  webkit-transition: all 150ms ease-in; -moz-transition: all 150ms ease-in; -o-transition: all 150ms ease-in; transition: all 150ms ease-in;}
 #model_click_zone { position: fixed; top: 0; left: 0; width: 20%; height: 100%; cursor: pointer; }
 #modal_overlay_window { position: static; opacity: 1; margin-left: 20%; width: 80%; min-height: 100%; padding: 0; overflow: auto; background: #ffffff; box-shadow: -1px 0 5px rgba(0,0,0,0.4); webkit-transition: all 150ms ease-out; -moz-transition: all 150ms ease-out; -o-transition: all 150ms ease-out; transition: all 150ms ease-out; }
