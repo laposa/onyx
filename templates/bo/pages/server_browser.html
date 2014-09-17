@@ -4,6 +4,7 @@
 
 <script type="text/javascript">
 	$(document).ready(function(){
+		$('div.server_browser_menu .simpleTree li.open').parentsUntil("ul.simpleTree", "li").addClass("open");
 		initializeServerBrowserMenu();
 	});
 
@@ -20,15 +21,15 @@
 				//alert("text-"+$('span:first',node).text());
 			},
 			afterMove:function(destination, source, pos){
-				alert("destination-"+$('span:first',destination).text()+" source-"+$('span:first',source).text()+" pos-"+pos);
+				// alert("destination-"+$('span:first',destination).text()+" source-"+$('span:first',source).text()+" pos-"+pos);
 			},
 			afterAjax:function()
 			{
-				alert('Loaded');
+				// alert('Loaded');
 			},
 			animate: true,
 			docToFolderConvert: true
-			});
+		});
 	}
 
 	function serverBrowserOpenDir(open_dir) {
