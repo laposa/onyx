@@ -1,6 +1,6 @@
 createdb -U {DBUSER} -h localhost -E UTF8 -T {DB-1_5} {DB-1_6}
 psql -U {DBUSER} -h localhost {DB-1_6} < onxshop_dir/docs/database/upgrade-1.5.x-to-1.6.0.sql
-psql -U {DBUSER} -h localhost {DB-1_6} < onxshop_dir/docs/database/upgrade-1.6-ecommerce_delivery_carrier_rate.sql
+psql -U {DBUSER} -h localhost {DB-1_6} < onxshop_dir/docs/database/upgrade-1.6.x-ecommerce_delivery_carrier_rate.sql
 
 #add extra CSS classed to all local layouts (ofTwo, ofThree, etc), find by
 grep layoutColumnOne `find ./templates/`
