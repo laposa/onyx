@@ -276,7 +276,9 @@ class common_configuration extends Onxshop_Model {
 		//compare and save only if values changed
 		if ($this->checkIfValuesChanged($conf_old, $conf_new)) {
 			
-			//save (update or insert)
+			// invalidate cache
+			self::$localCache = false;
+			// save (update or insert)
 			if ($this->save($conf_new)) return true;
 			else return false;
 		} else {
