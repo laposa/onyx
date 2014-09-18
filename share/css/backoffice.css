@@ -123,16 +123,17 @@ form .advanced { display: none; }
 #onxshopHeader { position: fixed; z-index: 3000; left: 0; top: 0; width: 130px; height: 100%; background: #2a2f34; box-shadow: inset -3px 0 15px rgba(0,0,0,0.2), 1px 0 3px rgba(0,0,0,0.2); overflow: hidden;}
 #onxshopHeader a { line-height: 17px; font-size: 12px; font-family: "Lucida Grande", Helvetica, Arial, sans-serif;  color: #ccc;}
 
-#onxshopMenuBar ul { margin: 0; padding: 5px 0; margin: 0; list-style: none; text-shadow: 1px 1px 1px rgba(0,0,0,0.5); border-top: 1px solid #33373c; box-shadow: 0 -1px 0 #0f1112; }
+#onxshopMenuBar ul { margin: 0; padding: 10px 0; list-style: none; text-shadow: 1px 1px 1px rgba(0,0,0,0.5); border-top: 1px solid #33373c; box-shadow: 0 -1px 0 #0f1112; }
 #onxshopMenuBar ul li { margin: 0; padding: 0; width: 130px;}
-#onxshopMenuBar ul li a { text-decoration: none; font-size: 11px; display: block; width: 130px; height: 28px; line-height: 28px; transition: color 200ms linear; }
+#onxshopMenuBar ul li a { text-decoration: none; font-size: 11px; display: block; width: 130px; height: 28px; line-height: 24px; transition: color 200ms linear; }
 #onxshopMenuBar ul li.active a { color: #fff; margin-top: 0; border-top: 1px solid #6d97d0; background-image: -webkit-linear-gradient(top, #5685c4, #4c6cb8); background-image: -moz-linear-gradient(top, #5685c4, #4c6cb8); background-image: -ms-linear-gradient(top, #5685c4, #4c6cb8); background-image: -o-linear-gradient(top, #5685c4, #4c6cb8); background-image: linear-gradient(to bottom, #5685c4, #4c6cb8); }
 #onxshopMenuBar ul li a:hover { color: #fff !important; }
 
+#onxshopMenuBar ul#menuSystem { padding: 10px 0 13px 0; }
 #menuSystem a.onxshop_version {color: white; height: auto; line-height: 1.2;}
-#menuSystem a.onxshop_version:before {display: inline-block; font-family: 'onxshop'; content: '\e601'; font-size: 2.8em; vertical-align: -15%; margin-left: 3px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;}
+#menuSystem li a.onxshop_version:before {display: inline-block; font-family: 'onxshop'; content: '\e601'; font-size: 31px; vertical-align: -15%; margin-left: 0; margin-right: 4px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;}
+#menuSystem a.onxshop_version span {display: inline-block; vertical-align: -15%; }
 ul#menuAdvanced { display: none; }
-#menuSystem a.onxshop_version span {display: inline-block;}
 
 /**
  * fe edit
@@ -197,7 +198,7 @@ div.file_list_icon div.item a.image {display: block; max-height: 120px; overflow
 #server_browser_file_list_wrapper progress { width: 300px; }
 #server_browser_file_list_wrapper .progress-total { display: none; }
 #server_browser_file_list_wrapper div#add-folder { padding: 10px 20px 0px 20px; }
-#server_browser_file_list_wrapper a.button.small.remove { margin-top: 4px; }
+#server_browser_file_list_wrapper a.button.small.remove { margin-top: 4px; background-image: none; }
 table.server-browser {border: 0!important; box-shadow: none!important; margin: 0 0 60px 0; padding: 0 10px; width: 100%;}
 
 #file_list fieldset.file_item_form { margin: 0; padding: 10px; border: 1px solid #eee; background: white; }

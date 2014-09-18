@@ -16,7 +16,7 @@
 	font-style: normal;
 }
 
-#onxshopHeader li a:before {display: inline-block; font-family: 'onxshop'; font-style: normal; font-weight: normal;  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-size: 1.3em; line-height: 1; margin: 0 8px 0 10px; vertical-align: -15%; content: "\f013"; /*default fa-gear*/}
+#onxshopHeader li a:before {display: inline-block; font-family: 'onxshop'; font-style: normal; font-weight: normal;  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-size: 1.3em; line-height: 1; margin: 0 8px 0 10px; vertical-align: -15%; width: 1.2em; text-align: center; content: "\f013"; /*default fa-gear*/}
 
 #menuFrontOffice li.frontoffice a:before {content: '\f108';} /*fa-desktop*/
 
