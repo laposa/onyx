@@ -7,7 +7,7 @@
 
 require_once("controllers/node.php");
 
-class Onxshop_Controller_Config extends Onxshop_Controller_Node {
+class Onxshop_Controller_Node_Force_Config extends Onxshop_Controller_Node {
 
 	/**
 	 * main action

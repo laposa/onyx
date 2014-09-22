@@ -11,7 +11,7 @@
 			success: function(){
 				popupMessage("div.comment_add div.onxshop_messages");
 			},
-			url: '/request/component/comment_add~node_id={GET.node_id}:allow_anonymouse_submit={GET.allow_anonymouse_submit}~.config~node_id={GET.node_id}~'
+			url: '/request/component/comment_add~node_id={GET.node_id}:allow_anonymouse_submit={GET.allow_anonymouse_submit}~.node/force_config~node_id={GET.node_id}~'
 		}; 
 	
 		$("#comment_form_{GET.node_id}").ajaxForm(options); 
