@@ -67,12 +67,21 @@ function addToBasketAjaxActionFromVarietyList(variety_id, quantity, success_call
 
 function trackBasketUpdate(action, sku, name, category, qty) {
 
-	if (typeof(_gaq) == "undefined") return false;
-
 	if (action == 'add' || action == 'Add') action = 'Add';
 	else action = 'Remove';
 
-	_gaq.push(['_trackEvent', 'Basket', action + '-SKU', sku, qty]);
-	_gaq.push(['_trackEvent', 'Basket', action + '-Product', name, qty]);
-	_gaq.push(['_trackEvent', 'Basket', action + '-Category', category, qty]);
+	// Classic Google Analytics event tracking (ga.js)
+	if (typeof(_gaq) == "object") {
+		_gaq.push(['_trackEvent', 'Basket', action + '-SKU', sku, qty]);
+		_gaq.push(['_trackEvent', 'Basket', action + '-Product', name, qty]);
+		_gaq.push(['_trackEvent', 'Basket', action + '-Category', category, qty]);
+	}
+
+	// Universal Analytics event trackign (analytics.js)
+	if (typeof(ga) == "function") {
+		ga('send', 'event', 'Basket', action + '-SKU', sku, qty);
+		ga('send', 'event', 'Basket', action + '-Product', name, qty);
+		ga('send', 'event', 'Basket', action + '-Category', category, qty);
+	}
+
 }
