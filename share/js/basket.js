@@ -70,18 +70,48 @@ function trackBasketUpdate(action, sku, name, category, qty) {
 	if (action == 'add' || action == 'Add') action = 'Add';
 	else action = 'Remove';
 
+	// Google Tag Manager event tracking
+	if (typeof(dataLayer) == "object") {
+		dataLayer.push({
+			"event": "interaction",
+			"eventCategory": "Basket",
+			"eventAction": action + '-SKU',
+			"eventLabel": sku,
+			"eventValue": qty
+		});
+		dataLayer.push({
+			"event": "interaction",
+			"eventCategory": "Basket",
+			"eventAction": action + '-Product',
+			"eventLabel": name,
+			"eventValue": qty
+		});
+		dataLayer.push({
+			"event": "interaction",
+			"eventCategory": "Basket",
+			"eventAction": action + '-Category',
+			"eventLabel": category,
+			"eventValue": qty 
+		});
+		return true;
+	}
+
+	// Universal Analytics event tracking (analytics.js)
+	if (typeof(ga) == "function") {
+		ga('send', 'event', 'Basket', action + '-SKU', sku, qty);
+		ga('send', 'event', 'Basket', action + '-Product', name, qty);
+		ga('send', 'event', 'Basket', action + '-Category', category, qty);
+		return true;
+	}
+
 	// Classic Google Analytics event tracking (ga.js)
 	if (typeof(_gaq) == "object") {
 		_gaq.push(['_trackEvent', 'Basket', action + '-SKU', sku, qty]);
 		_gaq.push(['_trackEvent', 'Basket', action + '-Product', name, qty]);
 		_gaq.push(['_trackEvent', 'Basket', action + '-Category', category, qty]);
+		return true;
 	}
 
-	// Universal Analytics event trackign (analytics.js)
-	if (typeof(ga) == "function") {
-		ga('send', 'event', 'Basket', action + '-SKU', sku, qty);
-		ga('send', 'event', 'Basket', action + '-Product', name, qty);
-		ga('send', 'event', 'Basket', action + '-Category', category, qty);
-	}
+	return false;
 
 }
