@@ -40,6 +40,14 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Promotion_Edit extends Onxshop_C
 				else $promotion_data['limit_list_products'] = '';
 			}
 
+			if (is_numeric($promotion_data['free_promo_products'])) {
+				$promotion_data['free_promo_products'] = array(
+					9999 => (int) $promotion_data['free_promo_products']
+				);
+			} else {
+				$promotion_data['free_promo_products'] = null;
+			}
+
 			$promotion_data['limit_delivery_country_id'] = (int) $promotion_data['limit_delivery_country_id'];
 			$promotion_data['limit_delivery_carrier_id'] = (int) $promotion_data['limit_delivery_carrier_id'];
 		
@@ -62,6 +70,8 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Promotion_Edit extends Onxshop_C
 
 			if ($promotion_detail['limit_to_first_order'] == 1) $promotion_detail['limit_to_first_order_check'] = 'checked="checked"';
 			else $promotion_detail['limit_to_first_order_check'] = '';
+
+			$promotion_detail['free_promo_products'] = $promotion_detail['free_promo_products'][9999];
 
 			//find product in the node
 			$limited_ids = explode(",", $promotion_detail['limit_list_products']);

@@ -136,7 +136,8 @@ class ecommerce_promotion extends Onxshop_Model {
 		'limit_to_first_order'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'limit_to_order_amount'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'type'=>array('label' => '', 'validation'=>'int', 'required'=>true),
-		'limit_cumulative_discount'=>array('label' => '', 'validation'=>'decimal', 'required'=>false)
+		'limit_cumulative_discount'=>array('label' => '', 'validation'=>'decimal', 'required'=>false),
+		'free_promo_products'=>array('label' => '', 'validation'=>'string', 'required'=>false)
 		);
 	
 	/**
@@ -145,33 +146,33 @@ class ecommerce_promotion extends Onxshop_Model {
 	 
 	private function getCreateTableSql() {
 	
-		$sql = "
-CREATE TABLE ecommerce_promotion (
-    id serial NOT NULL PRIMARY KEY,
-    title varchar(255) ,
-    description text ,
-    publish smallint NOT NULL DEFAULT 1,
-    created timestamp(0) without time zone DEFAULT now() NOT NULL,
-    modified timestamp(0) without time zone DEFAULT now() NOT NULL,
-    customer_account_type smallint NOT NULL DEFAULT 0,
-    code_pattern varchar(255) NOT NULL,
-    discount_fixed_value decimal(12,5) NOT NULL DEFAULT 0,
-    discount_percentage_value decimal(5,2) NOT NULL DEFAULT 0,
-    discount_free_delivery smallint NOT NULL DEFAULT 0,
-    uses_per_coupon integer NOT NULL DEFAULT 0,
-    uses_per_customer smallint NOT NULL DEFAULT 0,
-    limit_list_products text ,
-    other_data text,
-	limit_delivery_country_id smallint NOT NULL DEFAULT 0,
-	limit_delivery_carrier_id smallint NOT NULL DEFAULT 0,
-	generated_by_order_id integer REFERENCES ecommerce_order ON UPDATE CASCADE ON DELETE RESTRICT,
-	generated_by_customer_id integer REFERENCES client_customer ON UPDATE CASCADE ON DELETE RESTRICT,
-	limit_by_customer_id integer DEFAULT 0 REFERENCES client_customer ON UPDATE CASCADE ON DELETE RESTRICT,
-	limit_to_first_order smallint NOT NULL DEFAULT 0,
-	limit_to_order_amount numeric(12,5) DEFAULT 0,
-	type integer NOT NULL DEFAULT 1 REFERENCES ecommerce_promotion_type(id) ON UPDATE CASCADE ON DELETE CASCADE,
-	limit_cumulative_discount numeric(12,5) DEFAULT 0
-);
+		$sql = "CREATE TABLE ecommerce_promotion (
+			id serial NOT NULL PRIMARY KEY,
+			title varchar(255) ,
+			description text ,
+			publish smallint NOT NULL DEFAULT 1,
+			created timestamp(0) without time zone DEFAULT now() NOT NULL,
+			modified timestamp(0) without time zone DEFAULT now() NOT NULL,
+			customer_account_type smallint NOT NULL DEFAULT 0,
+			code_pattern varchar(255) NOT NULL,
+			discount_fixed_value decimal(12,5) NOT NULL DEFAULT 0,
+			discount_percentage_value decimal(5,2) NOT NULL DEFAULT 0,
+			discount_free_delivery smallint NOT NULL DEFAULT 0,
+			uses_per_coupon integer NOT NULL DEFAULT 0,
+			uses_per_customer smallint NOT NULL DEFAULT 0,
+			limit_list_products text,
+			other_data text,
+			limit_delivery_country_id smallint NOT NULL DEFAULT 0,
+			limit_delivery_carrier_id smallint NOT NULL DEFAULT 0,
+			generated_by_order_id integer REFERENCES ecommerce_order ON UPDATE CASCADE ON DELETE RESTRICT,
+			generated_by_customer_id integer REFERENCES client_customer ON UPDATE CASCADE ON DELETE RESTRICT,
+			limit_by_customer_id integer DEFAULT 0 REFERENCES client_customer ON UPDATE CASCADE ON DELETE RESTRICT,
+			limit_to_first_order smallint NOT NULL DEFAULT 0,
+			limit_to_order_amount numeric(12,5) DEFAULT 0,
+			type integer NOT NULL DEFAULT 1 REFERENCES ecommerce_promotion_type(id) ON UPDATE CASCADE ON DELETE CASCADE,
+			limit_cumulative_discount numeric(12,5) DEFAULT 0,
+			free_promo_products text
+			);
 		";
 		
 		return $sql;
@@ -369,6 +370,7 @@ CREATE TABLE ecommerce_promotion (
 		
 		$detail = $this->detail($id);
 		$detail['other_data'] = unserialize($detail['other_data']);
+		$detail['free_promo_products'] = unserialize($detail['free_promo_products']);
 
 		require_once('models/ecommerce/ecommerce_promotion_type.php');
 		$Type = new ecommerce_promotion_type();
@@ -423,6 +425,7 @@ CREATE TABLE ecommerce_promotion (
 		}
 		
 		$data['other_data'] = serialize($data['other_data']);
+		$data['free_promo_products'] = serialize($data['free_promo_products']);
 		
 		if ($this->update($data)) return true;
 		else return false;
@@ -460,6 +463,7 @@ CREATE TABLE ecommerce_promotion (
 					
 					$promotion_data = $record;
 					$promotion_data['other_data'] = unserialize($promotion_data['other_data']);
+					$promotion_data['free_promo_products'] = unserialize($promotion_data['free_promo_products']);
 					
 					return $promotion_data;
 				}
@@ -485,6 +489,7 @@ CREATE TABLE ecommerce_promotion (
 					
 					$promotion_data = $record;
 					$promotion_data['other_data'] = unserialize($promotion_data['other_data']);
+					$promotion_data['free_promo_products'] = unserialize($promotion_data['free_promo_products']);
 					
 					return $promotion_data;
 				}
@@ -706,6 +711,11 @@ CREATE TABLE ecommerce_promotion (
 				}
 			}
 
+			/**
+			 * check if free promo item can be addeded to order
+			 */
+			$promotion_data['free_promo_product'] = $this->checkForFreePromoItem($promotion_data, $basket['sub_total']['price']);
+
 			require_once('models/ecommerce/ecommerce_promotion_type.php');
 			$Type = new ecommerce_promotion_type();
 			$promotion_data['type'] = $Type->detail($promotion_data['type']);
@@ -719,6 +729,29 @@ CREATE TABLE ecommerce_promotion (
 		
 	}
 
+	/**
+	 * checkForFreePromoItem
+	 */
+	
+	public function checkForFreePromoItem($promotion_data, $order_value) {
+
+		if (is_array($promotion_data)) {
+
+			$product_variety_id = $promotion_data['free_promo_products'][9999];
+
+			if (is_numeric($promotion_data['free_promo_products'][9999])) {
+				require_once('models/ecommerce/ecommerce_product.php');
+				$Product = new ecommerce_product();
+				$variety = $Product->getProductVarietyDetail($product_variety_id);
+				if ($variety) {
+					$variety['product'] = $Product->getDetail($variety['product_id']);
+					return $variety;
+				}
+			}
+		}
+
+		return false;
+	}
 
 	/**
 	 * getGiftVoucherProductId

@@ -80,6 +80,7 @@ class Onxshop_Controller_Component_Ecommerce_Promotion_code extends Onxshop_Cont
 			if ($promotion_code['discount_percentage_value'] > 0) $this->tpl->parse('content.applied.discount_percentage_value');
 			if ($promotion_code['discount_fixed_value'] > 0) $this->tpl->parse('content.applied.discount_fixed_value');
 			if ($promotion_code['discount_free_delivery'] == 1) $this->tpl->parse('content.applied.discount_free_delivery');
+			if ($promotion_code['free_promo_product']) $this->tpl->parse('content.applied.free_item_info');
 			$this->tpl->parse('content.applied');
 				
 		} else {
