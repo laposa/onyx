@@ -50,6 +50,7 @@ define("ONXSHOP_PERMISSION_CONFIGURATION_SECTION", 2023);
 $permissions = array(
 
 	ONXSHOP_PERMISSION_FRONT_END_EDITING => "Allow front end editing",
+	ONXSHOP_PERMISSION_CUSTOMER_ROLES_EDITING => "Allow to assign roles to users",
 
 	ONXSHOP_PERMISSION_PAGES_SECTION => "Allow access to Pages section",
 	ONXSHOP_PERMISSION_NEWS_SECTION => "Allow access to News section",
