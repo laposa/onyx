@@ -7,7 +7,7 @@
 		<fieldset class="single">
 			<h3>Promotion {PROMOTION_CODE.title|htmlspecialchars}</h3>
 			<!-- BEGIN: free_item_info -->
-			<p class="free_item">We’ve added <strong>{PROMOTION_CODE.free_promo_product.product.name|htmlspecialchars} - {PROMOTION_CODE.free_promo_product.name|htmlspecialchars}</strong> to your order.</p>
+			<p class="free_item">We’ve added your free <strong>{PROMOTION_CODE.free_promo_product.product.name|htmlspecialchars} - {PROMOTION_CODE.free_promo_product.name|htmlspecialchars}</strong> to your order.</p>
 			<!-- END: free_item_info -->
 			<!-- BEGIN: discount_percentage_value -->
 			<p>{PROMOTION_CODE.discount_percentage_value|number_format(%s)}% discount applied.</p>
