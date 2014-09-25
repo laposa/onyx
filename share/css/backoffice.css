@@ -171,6 +171,8 @@ div.ui-dialog legend {display: none;}
 div.ui-dialog {z-index: 5000;}
 .ui-tabs-hide { display: none; }
 
+.ui-slider .ui-slider-handle{width: 2.1em; height: 2.1em; top: -0.7em; margin-left: -0.7em; border-radius: 100px;}
+
 /**
  * popup window
  */
