@@ -207,6 +207,12 @@ ALTER TABLE ecommerce_store ADD COLUMN code varchar(255);
 ALTER TABLE "common_configuration" ADD "apply_to_children" smallint NULL DEFAULT '0';
 
 --
+-- Add new column ecommerce_promotion.limit_cumulative_discount
+--
+
+ALTER TABLE "ecommerce_promotion" ADD "limit_cumulative_discount" numeric(12,5) NULL DEFAULT 0;
+
+--
 -- Add new column ecommerce_promotion.free_promo_products
 --
 

@@ -112,6 +112,9 @@ class ecommerce_promotion extends Onxshop_Model {
 	/* limit_cumulative_discount */
 	public $limit_cumulative_discount;
 
+	/* free_promo_products */
+	public $free_promo_products;
+
 	public $_metaData = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'title'=>array('label' => '', 'validation'=>'string', 'required'=>true),
