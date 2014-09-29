@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2006-2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2006-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -101,6 +101,9 @@ abstract class Onxshop_Controller_Scheduler_Action_Base extends Onxshop_Controll
 
 	}
 
+	/**
+	 * updateProductPage
+	 */
 
 	public function updateProductPage($product_homepage, $status)
 	{
@@ -110,12 +113,13 @@ abstract class Onxshop_Controller_Scheduler_Action_Base extends Onxshop_Controll
 		$Node->nodeUpdate($product_homepage);
 	}
 
-
+	/**
+	 * flushCache
+	 */
+	 
 	public function flushCache()
 	{
-		require_once('models/common/common_file.php');
-		$File = new common_file();
-		$File->rm(ONXSHOP_PROJECT_DIR . "var/cache/*");
+		onxshop_flush_cache();
 	}
 
 }

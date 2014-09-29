@@ -714,7 +714,7 @@ class Onxshop_Model {
 		);
 		$backendOptions = array('cache_dir' => ONXSHOP_DB_QUERY_CACHE_DIRECTORY);
 		
-		$cache = Zend_Cache::factory('Core', 'File', $frontendOptions, $backendOptions);
+		$cache = Zend_Cache::factory('Core', ONXSHOP_DB_QUERY_CACHE_BACKEND, $frontendOptions, $backendOptions);
 		
 		$cache_id = "{$this->_class_name}_" . md5($sql);
 		
@@ -739,6 +739,11 @@ class Onxshop_Model {
 	 
 	public function flushCache() {
 		
+		// APC backend cache
+		// TODO: implement deleting only selected APC records
+		if (function_exists('apc_clear_cache'))  apc_clear_cache('user');
+		
+		// file backend cache
 		$mask = ONXSHOP_DB_QUERY_CACHE_DIRECTORY . "zend_cache---{$this->_class_name}_*";
 		array_map("unlink", glob( $mask ));
 		$mask = ONXSHOP_DB_QUERY_CACHE_DIRECTORY . "zend_cache---internal-metadatas---{$this->_class_name}_*";

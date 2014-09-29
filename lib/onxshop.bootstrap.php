@@ -394,7 +394,7 @@ class Onxshop_Bootstrap {
 		
 		$backendOptions = array('cache_dir' => ONXSHOP_PROJECT_DIR . 'var/cache/');
 		
-		$cache = Zend_Cache::factory('Output', 'File', $frontendOptions, $backendOptions);
+		$cache = Zend_Cache::factory('Output', ONXSHOP_PAGE_CACHE_BACKEND, $frontendOptions, $backendOptions);
 		
 		$id = "GET_" . md5($_SERVER['HTTP_HOST'] . $request . serialize($_GET) . isset($_SERVER['HTTPS']));
 		if (defined('ONXSHOP_ENABLE_AB_TESTING') && ONXSHOP_ENABLE_AB_TESTING == true) $id .= $_SESSION['ab_test_group'];

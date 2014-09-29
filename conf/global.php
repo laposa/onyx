@@ -123,6 +123,7 @@ if (ONXSHOP_IN_BACKOFFICE) {
 	//define('ONXSHOP_DB_QUERY_CACHE', true);
 }
 
+if (!defined('ONXSHOP_DB_QUERY_CACHE_BACKEND')) define('ONXSHOP_DB_QUERY_CACHE_BACKEND', 'File'); // change of this will change also ONXSHOP_PAGE_CACHE_BACKEND, see below
 if (!defined('ONXSHOP_DB_QUERY_CACHE_TTL')) define('ONXSHOP_DB_QUERY_CACHE_TTL', 3600);
 if (!defined('ONXSHOP_DB_QUERY_CACHE_DIRECTORY')) define('ONXSHOP_DB_QUERY_CACHE_DIRECTORY', ONXSHOP_PROJECT_DIR . 'var/cache/');
 
@@ -130,6 +131,8 @@ if (!defined('ONXSHOP_DB_QUERY_CACHE_DIRECTORY')) define('ONXSHOP_DB_QUERY_CACHE
  * Zend Cache for whole page
  * set 0 to disable
  */
+ 
+if (!defined('ONXSHOP_PAGE_CACHE_BACKEND')) define('ONXSHOP_PAGE_CACHE_BACKEND', ONXSHOP_DB_QUERY_CACHE_BACKEND); // Same as DB cache
 if (!defined('ONXSHOP_PAGE_CACHE_TTL')) define('ONXSHOP_PAGE_CACHE_TTL', 86400);
 
 

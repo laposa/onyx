@@ -475,3 +475,27 @@ function isValidDate($date)
 	$d = DateTime::createFromFormat('Y-m-d', $date);
 	return $d && $d->format('Y-m-d') == $date;
 }
+
+/**
+ * onxshop_flush_cache
+ */
+ 
+function onxshop_flush_cache() {
+	
+	require_once('models/common/common_file.php');
+	$File = new common_file();
+		
+	// file backend cache
+	if ($File->rm(ONXSHOP_PROJECT_DIR . "var/cache/*")) $file_clear_status = true;
+	else $file_clear_status = false;
+	
+	// APC backend cache
+	if (function_exists('apc_clear_cache'))  {
+		$apc_clear_status = apc_clear_cache('user');
+	} else {
+		$apc_clear_status = true;
+	}
+	
+	if ($file_clear_status && $apc_clear_status) return true;
+	
+}

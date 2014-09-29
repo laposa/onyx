@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2008-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2008-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -35,8 +35,10 @@ class Onxshop_Controller_Bo_Component_Tools extends Onxshop_Controller {
 				else ("Flushing temp dir failed");
 			break;
 			case 'flush_cache':
-				if ($File->rm(ONXSHOP_PROJECT_DIR . "var/cache/*")) msg("Cache has been refreshed");
+			
+				if (onxshop_flush_cache()) msg("Cache has been refreshed");
 				else msg("Flushing cache failed");
+				
 			break;
 			
 			case 'find_hard_links':
