@@ -22,7 +22,7 @@ class Onxshop_Controller_Component_Ecommerce_Basket_Detail extends Onxshop_Contr
 
 		$this->initModels();
 
-		$this->basket_id = (is_numeric($this->GET['id']) && $_GET['id'] != $this->GET['id']) ? $this->GET['id'] : $_SESSION['basket']['id'];
+		$this->basket_id = $this->getBasketId();
 		$this->customer_id = (int) $_SESSION['client']['customer']['id'];
 
 		$this->checkForPreviousBasket();

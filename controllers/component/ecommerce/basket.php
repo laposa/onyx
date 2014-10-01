@@ -21,7 +21,7 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 
 		$this->initModels();
 
-		$this->basket_id = (is_numeric($this->GET['id']) && $_GET['id'] != $this->GET['id']) ? $this->GET['id'] : $_SESSION['basket']['id'];
+		$this->basket_id = $this->getBasketId();
 		$this->customer_id = (int) $_SESSION['client']['customer']['id'];
 		$this->include_vat = true;
 		$currency = GLOBAL_LOCALE_CURRENCY;
@@ -92,6 +92,35 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 		$this->Basket->calculateBasketDiscount($basket, $_SESSION['promotion_code']);
 		$this->Basket->saveDiscount($basket);
 		$this->Basket->calculateBasketTotals($basket);
+	}
+
+	/**
+	 * determine basket id
+	 */
+	protected function getBasketId()
+	{
+		// from session by default
+		$result = $_SESSION['basket']['id'];
+
+		// parameter may override session
+		if (is_numeric($this->GET['id'])) {
+
+			// is the parameter from $_GET or from parent component?
+			if ($_GET['id'] == $this->GET['id']) {
+
+				// for security reasons do not allow to override the id by
+				// $_GET parameter if valid security code is not present
+				if (substr(makeHash($this->GET['id']), 0, 8) == $this->GET['code']) return $this->GET['id'];
+
+			} else {
+
+				return $this->GET['id'];
+
+			}
+
+		}
+
+		return $result;
 	}
 
 	/**
