@@ -29,7 +29,7 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Basket extends Onxshop_Con
 		 * basket
 		 */
 		if (is_numeric($_SESSION['basket']['id']) && $this->customerData()) {
-			$_Onxshop_Request = new Onxshop_Request("component/ecommerce/basket_detail~id={$_SESSION['basket']['id']}~");
+			$_Onxshop_Request = new Onxshop_Request("component/ecommerce/basket_detail");
 			$this->tpl->assign("BASKET_DETAIL", $_Onxshop_Request->getContent());
 		}
 
