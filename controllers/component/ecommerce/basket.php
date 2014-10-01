@@ -29,8 +29,9 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 
 		// process input
 		$input = $this->processInputData();
+		$can_edit = !$this->Basket->isSubmittedAsOrder($this->basket_id);
 
-		if ($input) {
+		if ($input && $can_edit) {
 
 			$pre_action_state = $this->Basket->getFullDetail($this->basket_id, $currency);
 			$this->handleActions($input);
