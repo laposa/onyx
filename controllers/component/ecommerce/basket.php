@@ -21,7 +21,7 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 
 		$this->initModels();
 
-		$this->basket_id = is_numeric($this->GET['id']) ? $this->GET['id'] : $_SESSION['basket']['id'];
+		$this->basket_id = (is_numeric($this->GET['id']) && $_GET['id'] != $this->GET['id']) ? $this->GET['id'] : $_SESSION['basket']['id'];
 		$this->customer_id = (int) $_SESSION['client']['customer']['id'];
 		$this->include_vat = true;
 		$currency = GLOBAL_LOCALE_CURRENCY;
