@@ -9,6 +9,7 @@ require_once('models/common/common_node.php');
 require_once('models/ecommerce/ecommerce_basket.php');
 require_once('models/ecommerce/ecommerce_basket_content.php');
 require_once('models/ecommerce/ecommerce_price.php');
+require_once('models/ecommerce/ecommerce_order.php');
 
 class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 
@@ -29,7 +30,9 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 
 		// process input
 		$input = $this->processInputData();
-		$can_edit = !$this->Basket->isSubmittedAsOrder($this->basket_id);
+
+		// prevent editing of submitted orders
+		$can_edit = $this->Order->count("basket_id = {$this->basket_id}") == 0;
 
 		if ($input && $can_edit) {
 
@@ -75,6 +78,9 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 
 		$this->Basket_content = new ecommerce_basket_content();
 		$this->Basket_content->setCacheable(false);
+
+		$this->Order = new ecommerce_order();
+		$this->Order->setCacheable(false);
 
 		return $Basket;
 

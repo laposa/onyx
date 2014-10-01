@@ -534,23 +534,4 @@ class ecommerce_basket extends Onxshop_Model {
 		else return false;
 	}
 
-	/**
-	 * Check whether given basket has been submitted 
-	 * as an order
-	 * @param  int   $basket_id Basket Id
-	 * @return bool
-	 */
-	function isSubmittedAsOrder($basket_id)
-	{
-		if (!is_numeric($basket_id)) return false;
-
-		$sql = "SELECT count(*) AS c
-			FROM ecommerce_basket
-			INNER JOIN ecommerce_order ON ecommerce_order.basket_id = ecommerce_basket.id
-			WHERE ecommerce_basket.id = $basket_id";
-
-		$count = $this->executeSql($sql);
-		return ($count[0]['c'] > 0);
-	}
-
 }
