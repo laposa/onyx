@@ -461,4 +461,63 @@ CREATE TABLE ecommerce_store (
 		return $related_taxonomy;
 	}
 
+	/**
+	 * getDataForNoticesReport
+	 */
+
+	public function getDataForNoticesReport($date_from, $date_to)
+	{
+
+		// set to last 7 days if no dates given
+		if (!isValidDate($date_from)) $date_from = date("Y-m-d", time() - 3600 * 24 * 7);
+		if (!isValidDate($date_to)) $date_to = date("Y-m-d", time());
+
+		// add quotes and escape
+		$date_from = $this->db->quote($date_from);
+		$date_to = $this->db->quote($date_to);
+
+		$sql = "SELECT 
+				notice.id AS id,
+				notice.created AS created,
+				notice.modified AS modified,
+				notice.other_data AS other_data,
+				notice.publish AS publish,
+				store.id AS store_id,
+				store.code AS store_code,
+				store.title AS store_title,
+				store.manager_name AS store_manager_name,
+				store.email AS store_email
+			FROM common_node AS notice
+			LEFT JOIN common_node AS parent ON parent.id = notice.parent
+			LEFT JOIN ecommerce_store AS store ON store.id = parent.content::int
+			WHERE notice.node_controller = 'notice' AND notice.created BETWEEN $date_from AND $date_to
+		";
+
+		$records = $this->executeSql($sql);
+
+		$result = array();
+		foreach ($records as $record) {
+
+			$item = array();
+			$data = unserialize($record['other_data']);
+
+			$item['Web Store Id'] = $record['store_id'];
+			$item['Store Code'] = $record['store_code'];
+			$item['Store Title'] = $record['store_title'];
+			$item['Store Manager'] = $record['store_manager_name'];
+			$item['Store Email'] = $record['store_email'];
+			$item['Notice Id'] = $record['id'];
+			$item['Notice Created'] = $record['created'];
+			$item['Is Published'] = $record['publish'] ? 'yes' : 'no';
+			$item['Notice Text'] = $data['text'];
+			$item['Visible From'] = $data['visible_from'];
+			$item['Visible To'] = $data['visible_to'];
+			$item['Image'] = $data['image'] ? 'yes' : 'no';
+
+			$result[] = $item;
+		}
+
+		return $result;
+	}
+
 }

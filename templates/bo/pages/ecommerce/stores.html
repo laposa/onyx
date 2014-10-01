@@ -30,10 +30,35 @@ $(document).ready(function(){
 		return false;
 	});	
 
+	// add store popup
 	$('div#stores a.add').live('click', function() {
 		var child_id = $(this).attr('href').replace('#','');;
 		$('#dialog').addClass('ajaxLoad').load('/request/bo/component/ecommerce/store_add', function() {$(this).removeClass('ajaxLoad');});
 		$('#dialog').dialog({width: 500, modal: true, position: {my: "center top", at: "centre top", of: "div.store_list"}, title: 'Add New Item'});
+		$('#dialog').dialog('open');
+		return false;
+	});
+
+	// notices report export popup
+	$('div#stores a.report').live('click', function() {
+		var child_id = $(this).attr('href').replace('#','');;
+		$('#dialog').dialog({width: 500, modal: true, position: {my: "center top", at: "centre top", of: "div.store_list"}, title: 'Store Notices Activity Report'});
+		$('#dialog').html('<form action="/request/bo/export/csv_store_notices" method="get">' +
+			'<div class="row">' +
+				'<span class="label"><label for="export_from">From Date <small>(inclusive)</small></label></span>' +
+				'<span class="field"><input id="export_from" type="text" name="date_from" value=""/></span>' +
+			'</div>' +
+			'<div class="row">' +
+				'<span class="label"><label for="export_to">To Date <small>(exclusive)</small></label></span>' +
+				'<span class="field"><input id="export_to" type="text" name="date_to" value=""/></span>' +
+			'</div>' +
+			'<div class="row submit">' +
+				'<span class="label"></span>' +
+				'<span class="field"><button class="button add"><span>Download Report</span></button></span>' +
+			'</div>' +
+			'</form>');
+		$('#export_from').datepicker({firstDay: 1, dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true}).datepicker("setDate", "-7");
+		$('#export_to').datepicker({firstDay: 1, dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true}).datepicker("setDate", "+1");
 		$('#dialog').dialog('open');
 		return false;
 	});
@@ -96,6 +121,7 @@ $(document).ready(function(){
 
 									<p>
 										<a class="button add" title="Add a New Store" href="/backoffice/stores/store_add"><span>Add a New Store</span></a>
+										<a class="button report" title="Store Notices Activity Report" href="#"><span>Store Notices Report</span></a>
 									</p>
 
 								</div>
