@@ -303,6 +303,7 @@ class XTemplate {
 	// Encoding / decoding modifiers
 	'htmlentities', 'html_entity_decode', 'htmlspecialchars', 'htmlspecialchars_decode',
 	'urlencode', 'urldecode','xmlentities','html2text','textile','json_encode','json_decode',
+	'makeHash',
 	// Date / time modifiers
 	'date', 'idate', 'strtotime', 'strftime', 'getdate', 'gettimeofday',
 	// Number modifiers
