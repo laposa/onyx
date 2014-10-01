@@ -32,6 +32,16 @@ label.error { display: none; }
 		<!-- BEGIN: question -->
 		<div class="row">
 			<span class="label"><label for="question_id_{QUESTION.id}">{QUESTION.title|htmlspecialchars}</label></span>
+			<!-- BEGIN: description -->
+			<div class="description">
+				{QUESTION.description|htmlspecialchars}
+			</div>
+			<!-- END: description -->
+			<!-- BEGIN: content -->
+			<div class="content">
+				{QUESTION.content}
+			</div>
+			<!-- END: content -->
 			<span class="field">
 				<!-- BEGIN: answer_text -->
 				<textarea class="{CLASS_REQUIRED}" name="answer[{QUESTION.id}]">{SELECTED_VALUE}</textarea>

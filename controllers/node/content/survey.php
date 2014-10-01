@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2013-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -31,10 +31,6 @@ class Onxshop_Controller_Node_Content_Survey extends Onxshop_Controller_Node_Con
 
 			case 'image_poll':
 				$component = 'survey_image_poll';
-				break;
-
-			case 'survey_verbose':
-				$component = 'survey@component/survey_verbose';
 				break;
 
 			case 'survey':
