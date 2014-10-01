@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2005-2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2005-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -498,7 +498,7 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 	 */
 	public function canEditBasket()
 	{
-		if ($this->basket_id == 0) return false;
-		return ($this->Order->count("basket_id = {$this->basket_id}") == 0);
+		if ($this->basket_id == 0) return true; // basket wasn't created yet, editing can start
+		else return ($this->Order->count("basket_id = {$this->basket_id}") == 0); // return true only if there is no order
 	}
 }
