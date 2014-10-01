@@ -31,10 +31,7 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 		// process input
 		$input = $this->processInputData();
 
-		// prevent editing of submitted orders
-		$can_edit = $this->Order->count("basket_id = {$this->basket_id}") == 0;
-
-		if ($input && $can_edit) {
+		if ($input && $this->canEditBasket()) {
 
 			$pre_action_state = $this->Basket->getFullDetail($this->basket_id, $currency);
 			$this->handleActions($input);
@@ -466,4 +463,13 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 		return implode(" / ", $result);
 	}
 
+	/**
+	 * Check whether the basket has been
+	 * submitted as an order 
+	 */
+	public function canEditBasket()
+	{
+		if ($this->basket_id == 0) return false;
+		return ($this->Order->count("basket_id = {$this->basket_id}") == 0);
+	}
 }
