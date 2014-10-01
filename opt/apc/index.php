@@ -3,7 +3,7 @@
   +----------------------------------------------------------------------+
   | APC                                                                  |
   +----------------------------------------------------------------------+
-  | Copyright (c) 2006-2008 The PHP Group                                |
+  | Copyright (c) 2006-2011 The PHP Group                                |
   +----------------------------------------------------------------------+
   | This source file is subject to version 3.01 of the PHP license,      |
   | that is bundled with this package in the file LICENSE, and is        |
@@ -22,7 +22,7 @@
 
  */
 
-$VERSION='$Id: apc.php 271315 2008-12-16 07:15:07Z shire $';
+$VERSION='$Id: apc.php 325483 2012-05-01 00:34:04Z rasmus $';
 
 ////////// READ OPTIONAL CONFIGURATION FILE ////////////
 if (file_exists("apc.conf.php")) include("apc.conf.php");
@@ -65,7 +65,7 @@ $PHP_SELF= isset($_SERVER['PHP_SELF']) ? htmlentities(strip_tags($_SERVER['PHP_S
 $time = time();
 $host = php_uname('n');
 if($host) { $host = '('.$host.')'; }
-if ($_SERVER['SERVER_ADDR']) {
+if (isset($_SERVER['SERVER_ADDR'])) {
   $host .= ' ('.$_SERVER['SERVER_ADDR'].')';
 }
 
@@ -91,7 +91,7 @@ $vardom=array(
 	'SORT1'	=> '/^[AHSMCDTZ]$/',	// first sort key
 	'SORT2'	=> '/^[DA]$/',			// second sort key
 	'AGGR'	=> '/^\d+$/',			// aggregation by dir level
-	'SEARCH'	=> '~^[a-zA-Z0-1/_.-]*$~'			// aggregation by dir level
+	'SEARCH'	=> '~^[a-zA-Z0-9/_.-]*$~'			// aggregation by dir level
 );
 
 // default cache mode
@@ -743,7 +743,7 @@ echo
 	
 if ($AUTHENTICATED) {
 	echo <<<EOB
-		<li><a class="aright" href="$MY_SELF&CC=1&OB={$MYREQUEST['OB']}" onClick="javascipt:return confirm('Are you sure?');">Clear $cache_mode Cache</a></li>
+		<li><a class="aright" href="$MY_SELF&CC=1&OB={$MYREQUEST['OB']}" onClick="javascript:return confirm('Are you sure?');">Clear $cache_mode Cache</a></li>
 EOB;
 }
 echo <<<EOB
@@ -991,14 +991,14 @@ EOB;
 					echo
 						"<tr class=tr-$m>",
 						"<td class=td-0>",ucwords(preg_replace("/_/"," ",$k)),"</td>",
-						"<td class=td-last>",(preg_match("/time/",$k) && $value!='None') ? date(DATE_FORMAT,$value) : $value,"</td>",
+						"<td class=td-last>",(preg_match("/time/",$k) && $value!='None') ? date(DATE_FORMAT,$value) : htmlspecialchars($value, ENT_QUOTES, 'UTF-8'),"</td>",
 						"</tr>";
 					$m=1-$m;
 				}
 				if($fieldkey=='info') {
 					echo "<tr class=tr-$m><td class=td-0>Stored Value</td><td class=td-last><pre>";
 					$output = var_export(apc_fetch($entry[$fieldkey]),true);
-					echo htmlspecialchars($output);
+					echo htmlspecialchars($output, ENT_QUOTES, 'UTF-8');
 					echo "</pre></td></tr>\n";
 				}
 				break;
@@ -1337,8 +1337,8 @@ EOB;
 			} else if (!$i--) {
 				break;
 			}
-			echo "<b><a href=\"http://pecl.php.net/package/APC/$ver\">".htmlspecialchars($v)."</a></b><br><blockquote>";
-			echo nl2br(htmlspecialchars(current($match[2])))."</blockquote>";
+			echo "<b><a href=\"http://pecl.php.net/package/APC/$ver\">".htmlspecialchars($v, ENT_QUOTES, 'UTF-8')."</a></b><br><blockquote>";
+			echo nl2br(htmlspecialchars(current($match[2]), ENT_QUOTES, 'UTF-8'))."</blockquote>";
 			next($match[2]);
 		}
 		echo '</td></tr>';
