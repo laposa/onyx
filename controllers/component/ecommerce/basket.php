@@ -441,6 +441,10 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 
 	}
 
+	/**
+	 * get product page category (fot tracking purposes)
+	 * which is basically the root page title
+	 */
 	public function getCategory($node_id)
 	{
 		require_once('models/common/common_node.php');
