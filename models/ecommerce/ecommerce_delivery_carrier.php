@@ -145,6 +145,7 @@ class ecommerce_delivery_carrier extends Onxshop_Model {
 
 		// check order value
 		$carrier = $this->getDetail($carrier_id);
+		$order_value = round($order_value, 2); // make sure to avoid rounding errors
 		if ($order_value < $carrier['order_value_from'] || $order_value >= $carrier['order_value_to']) return false;
 
 		// check weight

@@ -532,6 +532,9 @@ class ecommerce_promotion extends Onxshop_Model {
 
 		if ($promotion_data = $this->checkCodeMatch($code)) {
 
+			// make sure to avoid rounding errors
+			$order_value = round($basket['sub_total']['price'], 2);
+
 			/**
 			 * check if customer_id is needed (some codes can be used in guest checkout mode)
 			 */
@@ -665,10 +668,10 @@ class ecommerce_promotion extends Onxshop_Model {
 			 * minimum order amount
 			 */
 			if ($promotion_data['limit_to_order_amount'] > 0) {
-				if ($basket['sub_total']['price'] < $promotion_data['limit_to_order_amount']) {
+				if ($order_value < $promotion_data['limit_to_order_amount']) {
 					if (!Zend_Registry::isRegistered('ecommerce_promotion:order_amount')) {
 						$amount = money_format("%n", $promotion_data['limit_to_order_amount']);
-						$sub_total = money_format("%n", $basket['sub_total']['price']);
+						$sub_total = money_format("%n", $order_value);
 						msg("The voucher code \"$code\" is restricted to orders in amount of $amount. You have only $sub_total in you basket.", 'error');
 						Zend_Registry::set('ecommerce_promotion:order_amount', true);
 					}
@@ -717,7 +720,7 @@ class ecommerce_promotion extends Onxshop_Model {
 			/**
 			 * check if free promo item can be addeded to order
 			 */
-			$promotion_data['free_promo_product'] = $this->checkForFreePromoItem($promotion_data, $basket['sub_total']['price']);
+			$promotion_data['free_promo_product'] = $this->checkForFreePromoItem($promotion_data, $order_value);
 
 			require_once('models/ecommerce/ecommerce_promotion_type.php');
 			$Type = new ecommerce_promotion_type();
