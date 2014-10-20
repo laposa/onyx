@@ -184,6 +184,7 @@ function translateURL($request) {
  * @param unknown_type $file
  * @param unknown_type $prefix
  * @return unknown
+ * @deprecated
  */
 
 function getTemplateDir($file, $prefix = '') {
