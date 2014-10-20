@@ -515,6 +515,10 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
 			//default
 			$sortby = $GLOBALS['onxshop_conf']['global']['product_list_sorting'];//set in global configuration
 		
+		} else {
+
+			return;
+
 		}
 		
 		/**
@@ -530,6 +534,10 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
 			//default
 			$direction = 'DESC';
 		
+		} else {
+
+			return;
+
 		}
 		
 		/**

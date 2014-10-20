@@ -361,7 +361,7 @@ class Onxshop_Bootstrap {
 		 
 		if (is_numeric($_SESSION['use_page_cache']) && !$disable_page_cache && ONXSHOP_PAGE_CACHE_TTL > 0) $this->processActionCached($request);
 		else $this->processAction($request);
-		
+
 	}
 	
 	/**
