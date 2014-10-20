@@ -81,7 +81,7 @@ class Onxshop_Controller_Bo_Node_Content_Picture extends Onxshop_Controller_Bo_N
 				$this->tpl->assign("ITEM", array(
 					"name" => $file['title'],
 					"value" => $name,
-					"seleced" => ''
+					"selected" => $name == $this->node_data['component']['template'] ? 'selected="selected"' : ''
 				));
 				$this->tpl->parse("content.local_templates.item");
 			}
