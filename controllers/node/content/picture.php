@@ -83,14 +83,15 @@ class Onxshop_Controller_Node_Content_Picture extends Onxshop_Controller_Node_Co
 		//msg($image_height);
 		
 		/**
-		 * what template
+		 * what controller
 		 */
 		 
 		if ($node_data['component']['template'] == 'plain') {
 		
 			$image_controller = 'component/image_gallery';
 		
-		} else if (getTemplateDir('component/image_gallery/' . $node_data['component']['template'] . '.html') != '') {
+		} else if (file_exists(ONXSHOP_PROJECT_DIR . "controllers/component/image_gallery/{$node_data['component']['template']}.php") ||
+			file_exists(ONXSHOP_DIR . "controllers/component/image_gallery/{$node_data['component']['template']}.php")) {
 		
 			$image_controller = 'component/image_gallery/' . $node_data['component']['template'];
 		
@@ -98,6 +99,26 @@ class Onxshop_Controller_Node_Content_Picture extends Onxshop_Controller_Node_Co
 		
 			// i.e. list
 			$image_controller = 'component/image';
+		
+		}
+
+		/**
+		 * what template
+		 */
+		 
+		if ($node_data['component']['template'] == 'plain') {
+		
+			$image_template = 'component/image_gallery';
+		
+		} else if (file_exists(ONXSHOP_PROJECT_DIR . "templates/component/image_gallery/{$node_data['component']['template']}.html") ||
+			file_exists(ONXSHOP_DIR . "templates/component/image_gallery/{$node_data['component']['template']}.html")) {
+		
+			$image_template = 'component/image_gallery/' . $node_data['component']['template'];
+		
+		} else {
+		
+			// i.e. list
+			$image_template = 'component/image';
 		
 		}
 		
@@ -142,7 +163,7 @@ class Onxshop_Controller_Node_Content_Picture extends Onxshop_Controller_Node_Co
 		 * call controller
 		 */
 		 
-		$Onxshop_Request = new Onxshop_Request("{$image_controller}~relation=node:role=main:width={$image_width}:height={$image_height}:fill=$fill:node_id={$node_data['id']}:limit={$image_limit}:cycle_fx={$cycle['fx']}:cycle_easing={$cycle['easing']}:cycle_timeout={$cycle['timeout']}:cycle_speed={$cycle['speed']}:cycle_link_to_node_id={$cycle['link_to_node_id']}~");
+		$Onxshop_Request = new Onxshop_Request("{$image_controller}@{$image_template}~relation=node:role=main:width={$image_width}:height={$image_height}:fill=$fill:node_id={$node_data['id']}:limit={$image_limit}:cycle_fx={$cycle['fx']}:cycle_easing={$cycle['easing']}:cycle_timeout={$cycle['timeout']}:cycle_speed={$cycle['speed']}:cycle_link_to_node_id={$cycle['link_to_node_id']}~");
 		$this->tpl->assign("CONTENT", $Onxshop_Request->getContent());
 		
 		$this->tpl->assign('NODE', $node_data);
