@@ -85,18 +85,27 @@ function hookNodeEditPostUpdate() {
 			<span class="label"><label>* Type:</label></span>
 			<span class="field">
 				<select name="node[component][template]">
-					<option value="fancybox" {SELECTED_template_fancybox}>Fancybox (Lightbox)</option>
-					<option value="cycle" {SELECTED_template_cycle}>Cycle</option>
-					<option value="cycle2" {SELECTED_template_cycle2}>Cycle2</option>
-					<option value="flexslider" {SELECTED_template_flexslider}>Flexslider</option>
-					<option value="tools" {SELECTED_template_tools}>jQuery Tools Gallery</option>
-					<option value="nivo" {SELECTED_template_nivo}>Nivo Slider</option>
-					<option value="prettyphoto" {SELECTED_template_prettyphoto}>prettyPhoto</option>
-					<option value="unoslider" {SELECTED_template_unoslider}>Unoslider</option>
-					<option value="2columns" {SELECTED_template_2columns}>2columns responsive</option>
-					<option value="parallax" {SELECTED_template_parallax}>parallax</option>
-					<option value="plain" {SELECTED_template_plain}>plain gallery with thumbnails</option>
-					<option value="list" {SELECTED_template_list}>simple image list</option>
+					<optgroup label="Built-In">
+						<option value="fancybox" {SELECTED_template_fancybox}>Fancybox (Lightbox)</option>
+						<option value="cycle" {SELECTED_template_cycle}>Cycle</option>
+						<option value="cycle2" {SELECTED_template_cycle2}>Cycle2</option>
+						<option value="flexslider" {SELECTED_template_flexslider}>Flexslider</option>
+						<option value="tools" {SELECTED_template_tools}>jQuery Tools Gallery</option>
+						<option value="nivo" {SELECTED_template_nivo}>Nivo Slider</option>
+						<option value="prettyphoto" {SELECTED_template_prettyphoto}>prettyPhoto</option>
+						<option value="unoslider" {SELECTED_template_unoslider}>Unoslider</option>
+						<option value="2columns" {SELECTED_template_2columns}>2columns responsive</option>
+						<option value="parallax" {SELECTED_template_parallax}>parallax</option>
+						<option value="plain" {SELECTED_template_plain}>plain gallery with thumbnails</option>
+						<option value="list" {SELECTED_template_list}>simple image list</option>
+					</optgroup>
+					<!-- BEGIN: local_templates -->
+					<optgroup label="Local">
+						<!-- BEGIN: item -->
+						<option value="{ITEM.value}" {ITEM.selected}>{ITEM.name}</option>
+						<!-- END: item -->
+					</optgroup>
+					<!-- END: local_templates -->
 				</select>
 			</span>
 		</div>

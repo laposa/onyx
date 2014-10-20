@@ -5,6 +5,7 @@
  */
 
 require_once('controllers/bo/node/content/default.php');
+require_once('models/common/common_file.php');
 
 class Onxshop_Controller_Bo_Node_Content_Picture extends Onxshop_Controller_Bo_Node_Content_Default {
 	
@@ -68,6 +69,24 @@ class Onxshop_Controller_Bo_Node_Content_Picture extends Onxshop_Controller_Bo_N
 		} else {
 			$this->tpl->assign("SELECTED_main_image_width_custom", "selected='selected'");
 		}
+
+		/**
+		 * local templates
+		 */
+		$File = new common_file();
+		$templates = $File->getFlatArrayFromFs(ONXSHOP_PROJECT_DIR . 'templates/component/image_gallery');
+		foreach ($templates as $file) {
+			if (substr($file['title'], -5) == ".html") {
+				$name = substr($file['title'], 0, -5);
+				$this->tpl->assign("ITEM", array(
+					"name" => $file['title'],
+					"value" => $name,
+					"seleced" => ''
+				));
+				$this->tpl->parse("content.local_templates.item");
+			}
+		}
+		$this->tpl->parse("content.local_templates");
 		
 		/**
 		 * image ratio constrain
