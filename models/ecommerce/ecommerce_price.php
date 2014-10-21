@@ -395,8 +395,15 @@ CREATE TABLE ecommerce_price (
 		
 		if (!is_numeric($product_variety_id)) return false;
 		if (!is_numeric($multiplicator)) return false;
+
+		// need to check if min_price is not set
+		require_once 'models/ecommerce/ecommerce_product_variety.php';
+		$Product_Varity = new ecommerce_product_variety();
+		$product_variety = $Product_Varity->getDetail($product_variety_id);
+		$min_price = (int) $product_variety['other_data']['min_price'];
 		
 		$type = "multiplicator_$multiplicator";
+		if ($min_price > 0) $type .= "_min_$min_price";
 		$price_data = $this->getLastPriceForVariety($product_variety_id, GLOBAL_DEFAULT_CURRENCY, $type);
 		$common_price_data = $this->getLastPriceForVariety($product_variety_id);
 		
@@ -421,6 +428,8 @@ CREATE TABLE ecommerce_price (
 					$price_data['value'] = $common_price_data['value'] * $multiplicator;
 					break;
 			}
+
+			if ($price_data['value'] < $min_price) $price_data['value'] = $min_price;
 			
 			$price_data['currency_code'] = GLOBAL_DEFAULT_CURRENCY;
 			$price_data['type'] = $type;
