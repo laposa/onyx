@@ -218,4 +218,10 @@ ALTER TABLE "ecommerce_promotion" ADD "limit_cumulative_discount" numeric(12,5) 
 
 ALTER TABLE "ecommerce_promotion" ADD "free_promo_products" text NULL;
 
+--
+-- Add new column ecommerce_store.url
+--
+
+ALTER TABLE "ecommerce_store" ADD "url" varchar(512) NULL;
+
 COMMIT;

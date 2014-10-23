@@ -52,6 +52,11 @@ class ecommerce_store extends Onxshop_Model {
 	/**
 	 * @access public
 	 */
+	var $url;
+	
+	/**
+	 * @access public
+	 */
 	var $type_id;
 	
 	/**
@@ -153,6 +158,7 @@ class ecommerce_store extends Onxshop_Model {
 		'telephone'=>array('label' => '', 'validation' => 'string', 'required' => false),
 		'manager_name'=>array('label' => '', 'validation' => 'string', 'required' => false),
 		'email'=>array('label' => '', 'validation' => 'email', 'required' => false),
+		'url'=>array('label' => '', 'validation' => 'string', 'required' => false),
 		'type_id'=>array('label' => '', 'validation' => 'int', 'required' => false),
 		'coordinates_x'=>array('label' => '', 'validation' => 'int', 'required' => false),
 		'coordinates_y'=>array('label' => '', 'validation' => 'int', 'required' => false),
@@ -190,6 +196,7 @@ CREATE TABLE ecommerce_store (
     telephone character varying(255),
     manager_name character varying(255),
     email character varying(255),
+    url character varying(512),
     type_id REFERENCES ecommerce_store_type ON UPDATE CASCADE ON DELETE RESTRICT,
     coordinates_x integer,
     coordinates_y integer,
