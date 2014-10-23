@@ -14,6 +14,13 @@ class Onxshop_Controller_Bo_Component_Sysinfo extends Onxshop_Controller {
 	public function mainAction() {
 	
 		/**
+		 * get user info
+		 */
+		 
+		$user_details = $_SESSION['authentication']['user_details'];
+		$this->tpl->assign('USER_DETAILS', $user_details);
+		
+		/**
 		 * get basic system info
 		 * available only to debug hosts
 		 */

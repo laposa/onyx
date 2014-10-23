@@ -46,7 +46,7 @@
 		<ul id="menuActions">
 			<li class="flush_cache"><a href='/backoffice/advanced/tools?tool=flush_cache' onclick="clearOnxshopCache(this); return false"><span>Clear Cache</span></a></li>
 			<li class="support"><a href="{ONXSHOP_SUPPORT_WEBSITE_URL}" title="Access to Onxshop support" target="_blank"><span>Support</span></a></li>
-			<li class="logout"><a class="logout" href="/?logout=1" title="Logout from the backoffice"><span>Log Out</span></a></li>
+			<li class="logout"><a class="logout" href="/?logout=1" title="Logout user {_SESSION.authentication.user_details.email|htmlspecialchars} from Back Office"><span>Log Out</span></a></li>
 		</ul>
 		
 	</div>

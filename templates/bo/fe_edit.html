@@ -29,7 +29,7 @@
 			<li class="flush_cache"><a href='/backoffice/advanced/tools?tool=flush_cache' onclick="clearOnxshopCache(this); return false" title="Clear Cache"><span>Clear Cache</span></a></li>
 			<!--<li class="support"><a href="{ONXSHOP_SUPPORT_WEBSITE_URL}" title="Access to Onxshop support" target="_blank"><span>Support</span></a></li>-->
 			<li class="css_edit"><a class="onxshop_edit_css_edit" href="/backoffice/advanced/templates" title="CSS Edit" onclick="nOpenWin('/popup/css_edit/{GET.id}/orig/{_SESSION.orig}', 700, 500); return false;"><span>CSS</span></a></li>
-			<li class="logout" ><a class="logout" href="/?logout=1" title="Logout from the backoffice"><span>Log Out</span></a></li>
+			<li class="logout" ><a class="logout" href="/?logout=1" title="Logout user {_SESSION.authentication.user_details.email|htmlspecialchars} from Front Office"><span>Log Out</span></a></li>
 		</ul>
 
 	</div>
