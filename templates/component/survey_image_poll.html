@@ -3,6 +3,8 @@
 <!-- BEGIN: form -->
 <style type="text/css">
 @import url(/share/themes/jquery-ui/onxshop/jquery-ui.css);
+#survey_form_{GET.node_id} fieldset.user_details,
+#survey_form_{GET.node_id} button.submit {display: none;}
 </style>
 <script type="text/javascript" src="/share/js/jquery/ui/jquery-ui.all.min.js"></script>
 <script type="text/javascript">
@@ -19,7 +21,15 @@ $(function() {
 
 		form.find(".RTEcontent").removeClass("selected");
 		$(this).addClass("selected").parent().find("input[type=radio]").attr('checked', true);
-		if (!addional_details) form.find("button[name=save]").click();
+		if (!addional_details) {
+			form.find("button[name=save]").click();
+		} else {
+			$('fieldset.question').hide();
+			$('fieldset.user_details').slideDown();
+			form.find("button[type=submit]").show();
+			$('#client_customer_first_name_id').focus();
+		}
+		
 		return false;
 
 	});
@@ -182,7 +192,7 @@ $(function() {
 	</script>
 	<!-- END: invisible_captcha_field -->
 	
-	<button type="submit" name="save" value="save"><span>{I18N_SUBMIT}</span></button>
+	<button type="submit" name="save" value="save" class="submit"><span>{I18N_SUBMIT}</span></button>
 		
 	<div class="bottom"></div>
 
