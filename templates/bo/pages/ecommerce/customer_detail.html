@@ -195,8 +195,7 @@
 																	</div>
 																	<!-- END: account_type -->
 																	<div class="row checbox newsletter">
-																		<span class="label"><label for="client_customer_newsletter_id">{I18N_R_NEWSLETTER}</label></span>
-																		<span class="field"><input type="checkbox" class="checkbox" id="client_customer_newsletter_id" name="client[customer][newsletter]" value="1" {CLIENT.customer.newsletter} /></span> 
+																		<span class="field"><input type="checkbox" class="checkbox" id="client_customer_newsletter_id" name="client[customer][newsletter]" value="1" {CLIENT.customer.newsletter} /> <label for="client_customer_newsletter_id">{I18N_R_NEWSLETTER}</label></span>
 																	</div>
 																	<div class="row currency">
 																		<span class="label"><label for="client_customer_currency_code_id">{I18N_R_CURRENCY}</label></span>
@@ -214,9 +213,11 @@
 																</table>
 																</fieldset>
 																<!-- END: other_data -->
-
+																
 																<fieldset>
 																	<dl>
+																		<dt>Store ID:</dt><dd><a href="/backoffice/stores/{CLIENT.customer.store_id}/edit">{CLIENT.customer.store_id}</a></dd>
+																		<dt>Verified:</dt><dd>{CLIENT.customer.verified_email_address}</dd>
 																		<dt>Created:</dt><dd>{CLIENT.customer.created}</dd>
 																		<dt>Modified:</dt><dd>{CLIENT.customer.modified}</dd>
 																	</dl>
