@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2008-2012 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2008-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -38,7 +38,8 @@ class Onxshop_Controller_Bo_Export_CSV_Customers extends Onxshop_Controller_Bo_E
 
 					$records[$i]['status'] = $this->getStatusName($record['status']);
 					$records[$i]['newsletter'] = $record['newsletter'] == 1 ? 'yes' : 'no';
-					$records[$i]['home_store'] = $stores[$record['store_id']];
+					$records[$i]['store_title'] = $stores[$record['store_id']]['title'];
+					$records[$i]['store_code'] = $stores[$record['store_id']]['code'];
 					if (is_array($categories[$record['customer_id']]))
 						$records[$i]['categories'] = implode(", ", $categories[$record['customer_id']]);
 					else 
@@ -113,10 +114,10 @@ class Onxshop_Controller_Bo_Export_CSV_Customers extends Onxshop_Controller_Bo_E
 
 	protected function getStores() {
 
-		$sql = "SELECT id, title FROM ecommerce_store";
+		$sql = "SELECT id, title, code FROM ecommerce_store";
 		$records = $this->Customer->executeSql($sql);
 		$result = array();
-		foreach ($records as $item) $result[$item['id']] = $item['title'];
+		foreach ($records as $item) $result[$item['id']] = array('title'=>$item['title'], 'code'=>$item['code']);
 		return $result;
 	}	
 
