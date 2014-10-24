@@ -73,6 +73,9 @@ class Onxshop_Controller_Node_Content_Product_Highlights extends Onxshop_Control
 				case '6col':
 					$controller = 'product_list_6columns';
 					break;
+				case '5col':
+					$controller = 'product_list_5columns';
+					break;
 				case '4col':
 					$controller = 'product_list_4columns';
 					break;
