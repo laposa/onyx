@@ -157,7 +157,15 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
 	
 		
 		if ($this->GET['display_sorting']) {
+
 			$this->_displaySorting();
+
+		} else if (is_array($this->GET['product_id_list']) && $this->GET['product_id_list_force_sorting_as_listed']) {
+
+			// force sorting by priority if product_id_list_force_sorting_as_listed
+			$sortby = 'priority'; //priority should have been modified to reflect product_list_list order
+			$direction = 'DESC';
+
 		}
 		
 		$product_list = $this->_processSorting($product_list, $sortby, $direction);
@@ -492,17 +500,6 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
 	function _prepareSorting() {
 		
 		/**
-		 * force sorting by priority if product_id_list_force_sorting_as_listed
-		 */
-		 
-		if (is_array($this->GET['product_id_list']) && $this->GET['product_id_list_force_sorting_as_listed']) {
-		
-			$sortby = 'priority'; //priority will be modified to reflect product_list_list order
-			$direction = 'DESC';
-		
-		}
-		
-		/**
 		 * sort[by]
 		 */
 		  
@@ -536,7 +533,7 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
 		
 		} else {
 
-			return;
+			return; // if sorting not forced by GET, then don't alter session settings
 
 		}
 		
