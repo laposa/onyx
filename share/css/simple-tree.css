@@ -4,6 +4,10 @@
  
 .simpleTree a { text-decoration: none; }
 
+div.twoColumnPage.page .simpleTree
+{
+	padding-bottom: 80px; 
+}
 .simpleTree
 {
 	
