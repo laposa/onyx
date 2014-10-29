@@ -47,12 +47,13 @@ class Onxshop_Controller_Node_Content_Survey extends Onxshop_Controller_Node_Con
 		$require_t_and_c = (int) $node_data['component']['require_t_and_c'];
 		$display_results = (int) $node_data['component']['display_results'];
 		$href = (string) $node_data['component']['href'];
-
+		$message_after_submission = urlencode((string) $node_data['component']['message_after_submission']);
+		
 		/**
 		 * call controller
 		 */
 
-		$_Onxshop_Request = new Onxshop_Request("component/$component~node_id={$node_data['id']}:survey_id=$survey_id:limit=$limit:votes_per_day=$votes_per_day:restriction=$restriction:spam_protection=$spam_protection:require_user_details=$require_user_details:require_t_and_c=$require_t_and_c:display_results=$display_results:href=$href~");
+		$_Onxshop_Request = new Onxshop_Request("component/$component~node_id={$node_data['id']}:survey_id=$survey_id:limit=$limit:votes_per_day=$votes_per_day:restriction=$restriction:spam_protection=$spam_protection:require_user_details=$require_user_details:require_t_and_c=$require_t_and_c:display_results=$display_results:href=$href:message_after_submission=$message_after_submission~");
 		$this->tpl->assign('SURVEY', $_Onxshop_Request->getContent());
 
 		$this->tpl->assign('NODE', $node_data);

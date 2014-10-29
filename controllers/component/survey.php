@@ -69,8 +69,44 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 						
 						$this->createFacebookStory();
 
-						if ($this->GET['href']) $this->displaySuccessPage($this->GET['href']);
-						else $this->displayResult($survey_id, $survey_entry_id);
+						if ($this->GET['href']) {
+							
+							// forward to another page
+							$this->displaySuccessPage($this->GET['href']);
+						
+						} else {
+							
+							// determine if we'll show the results (stats)
+							if (is_numeric($this->GET['display_results'])) {
+			
+								if ($this->GET['display_results'] == 1) $display_results = 1;
+								else $display_results = 0;
+								
+							} else {
+								
+								$display_results = 1;
+							
+							}
+						
+							if ($display_results) $this->displayResultStats($survey_id, $survey_entry_id);
+							
+							// show message
+							if (strlen($this->GET['message_after_submission']) > 0) {
+								
+								$message_after_submission = urldecode($this->GET['message_after_submission']);
+								
+							} else {
+								
+								$message_after_submission = 'Thank you for your entry!';
+								
+							}
+							
+							$this->tpl->assign('MESSAGE_AFTER_SUBMISSION', $message_after_submission);
+							
+							// parse the block
+							$this->tpl->parse('content.result');
+							
+						}
 
 					} else {
 						
@@ -98,27 +134,15 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 	}
 	
 	/**
-	 * displayResult
+	 * displayResultStats
 	 */
 	 
-	public function displayResult($survey_id, $survey_entry_id = false) {
+	public function displayResultStats($survey_id, $survey_entry_id = false) {
 		
 		if (!is_numeric($survey_id)) return false;
 		
-		if (is_numeric($this->GET['display_results'])) {
-			
-			if ($this->GET['display_results'] == 1) $display_results = 1;
-			else $display_results = 0;
-			
-		} else {
-			
-			$display_results = 1;
-		
-		}
-		
-		$_Onxshop_Request = new Onxshop_Request("component/survey_result~survey_id=$survey_id:display_results=$display_results~");
-		$this->tpl->assign('SURVEY_RESULT', $_Onxshop_Request->getContent());
-		$this->tpl->parse('content.result');
+		$_Onxshop_Request = new Onxshop_Request("component/survey_result~survey_id=$survey_id~");
+		$this->tpl->assign('SURVEY_RESULT_STATS', $_Onxshop_Request->getContent());
 		
 	}
 

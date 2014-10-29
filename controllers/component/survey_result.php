@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2011-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -54,7 +54,7 @@ class Onxshop_Controller_Component_Survey_Result extends Onxshop_Controller_Comp
 		 * display
 		 */
 	
-		if ($this->GET['display_results'] == 1) $this->displaySurvey($survey_detail_full);
+		$this->displaySurvey($survey_detail_full);
 		
 		return true;
 		

@@ -201,17 +201,15 @@ $(function() {
 
 <!-- BEGIN: result -->
 <div class="thank_you">
-	<p>Thanks for voting!</p>
-	{SURVEY_RESULT}
+	<p>{MESSAGE_AFTER_SUBMISSION|htmlspecialchars|nl2br}</p>
+	{SURVEY_RESULT_STATS}
 	{ONXSHOP_REQUEST_pile #component/client/facebook_pile_survey~survey_id=GET.survey_id~}
 </div>
 <!-- END: result -->
 
 <!-- BEGIN: closed -->
 <div class="survey_closed">
-	<p>
-		Survey is closed.
-	</p>
+	<p>Survey is closed.</p>
 </div>
 <!-- END: closed -->
 </div>

@@ -80,6 +80,10 @@
 		<span class="field"><input type="text" name="node[component][href]" id="component-href" value="{NODE.component.href}" /> <a class="button" href="#"><span>browse server</span></a></span>
 		<div id="href_select"></div>
 	</div>
+	<div class="row href">
+		<span class="label"><label>or instead of a redirect, you can show this simple message (HTML is not supported):</label></span>
+		<span class="field"><textarea name="node[component][message_after_submission]" id="component-message_after_submission">{NODE.component.message_after_submission|htmlspecialchars}</textarea></span>
+	</div>
 </fieldset>
 
 <script type="text/javascript">

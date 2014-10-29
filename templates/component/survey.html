@@ -203,8 +203,8 @@ label.error { display: none; }
 
 <!-- BEGIN: result -->
 <div class="thank_you">
-	<p>Thank you for your entry!</p>
-	{SURVEY_RESULT}
+	<p>{MESSAGE_AFTER_SUBMISSION|htmlspecialchars|nl2br}</p>
+	{SURVEY_RESULT_STATS}
 	{ONXSHOP_REQUEST_pile #component/client/facebook_pile_survey~survey_id=GET.survey_id~}
 </div>
 <!-- END: result -->
