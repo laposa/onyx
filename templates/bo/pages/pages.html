@@ -8,8 +8,11 @@ $(document).ready(function(){
 
 function appendHeader() {
 	var header = $("#sub_content div.pageHeader").detach();
+	var title = $("#sub_content #node-title").val();
 	$('#pageHeaderWrapper').empty().append(header);
-
+	
+	document.title = title + ' - Pages';
+	
 	var buttonToolbar = $('div.rowBottom p:first');
 	if (buttonToolbar.length > 0) buttonToolbar.append($('.extended_toolbar a').detach());
 
