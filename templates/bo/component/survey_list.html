@@ -7,7 +7,6 @@
 				<th>ID</th>
 				<th>Title</th>
 				<th>Created</th>
-				<th>Modified</th>
 				<th>Entries</th>
 			</tr>
 		</thead>
@@ -20,7 +19,6 @@
 				<td><a title="Edit survey" href="/backoffice/surveys/{ITEM.id}/detail">{ITEM.id}</a></td>
 				<td><a title="Edit survey" href="/backoffice/surveys/{ITEM.id}/detail">{ITEM.title|htmlspecialchars}</a></td>
 				<td><a title="Edit survey" href="/backoffice/surveys/{ITEM.id}/detail">{ITEM.created}</a></td>
-				<td><a title="Edit survey" href="/backoffice/surveys/{ITEM.id}/detail">{ITEM.modified}</a></td>
 				<td><a title="Download entries" href="/request/bo/export/csv_survey_entries?survey_id={ITEM.id}">{ITEM.usage_count}</a></td>
 			</tr>
 			<!-- END: item -->
