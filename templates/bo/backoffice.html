@@ -11,43 +11,7 @@
 			<li class="frontoffice"><a href="/edit"><span>Front Office</span></a></li>
 		</ul>
 
-		<ul id="menuSections">
-			<!-- BEGIN: pages --><li class="pages {ACTIVE_pages} first"><a href="/backoffice/pages" title="CMS pages"><span>Pages</span></a></li><!-- END: pages -->
-			<!-- BEGIN: news --><li class="news {ACTIVE_news}"><a href="/backoffice/news" title="Your company annoucements or blog"><span>Posts</span></a></li><!-- END: news -->
-			<!-- BEGIN: products --><li class="products {ACTIVE_products}"><a href="/backoffice/products" title="All your products"><span>Products</span></a></li><!-- END: products -->
-			<!-- BEGIN: recipes --><li class="recipes {ACTIVE_recipes}"><a href="/backoffice/recipes" title="All your recipes"><span>Recipes</span></a></li><!-- END: recipes -->
-			<!-- BEGIN: stores --><li class="stores {ACTIVE_stores}"><a href="/backoffice/stores" title="All your stores"><span>Stores</span></a></li><!-- END: stores -->
-			<!-- BEGIN: orders --><li class="orders {ACTIVE_orders}"><a href="/backoffice/orders" title="List of orders"><span>Orders</span></a></li><!-- END: orders -->
-			<!-- BEGIN: stock --><li class="stock {ACTIVE_stock}"><a href="/backoffice/stock" title="Manage stock"><span>Stock</span></a></li><!-- END: stock -->
-			<!-- BEGIN: customers --><li class="customers {ACTIVE_customers}"><a href="/backoffice/customers" title="List of your customers"><span>Customers</span></a></li><!-- END: customers -->
-			<!-- BEGIN: stats --><li class="stats {ACTIVE_stats}"><a href="/backoffice/stats" title="Reports and statistics - accounting"><span>Reports</span></a></li><!-- END: stats -->
-			<!-- BEGIN: marketing --><li class="marketing {ACTIVE_marketing}"><a href="/backoffice/marketing" title="Promotional Discount Coupons and Vouchers"><span>Discounts</span></a></li><!-- END: marketing -->
-			<!-- BEGIN: comments --><li class="comments {ACTIVE_comments}"><a href="/backoffice/comments" title="Review and comments approvals"><span>Reviews</span></a></li><!-- END: comments -->
-			<!-- BEGIN: surveys --><li class="surveys {ACTIVE_surveys}"><a href="/backoffice/surveys" title="Customer surveys and competitions"><span>Surveys</span></a></li><!-- END: surveys -->
-			<!-- BEGIN: advanced --><li class="advanced {ACTIVE_advanced} last"><a href="/backoffice/advanced" title="Site configuration, logs, database export, etc."><span>Advanced</span></a></li>
-			<!-- END: advanced -->
-		</ul>
-
-		<ul id="menuAdvanced">
-			<li class="back first"><a href="/backoffice/pages"><span>Basic</span></a></li>
-			<!-- BEGIN: media --><li class="media {ACTIVE_media}"><a href="/backoffice/advanced/media"><span>Media Library</span></a></li><!-- END: media -->
-			<!-- BEGIN: taxonomy --><li class="taxonomy {ACTIVE_taxonomy}"><a href="/backoffice/advanced/taxonomy"><span>Categories</span></a></li><!-- END: taxonomy -->
-			<!-- BEGIN: seo_manager --><li class="seo_manager {ACTIVE_seo_manager}"><a href="/backoffice/advanced/seo_manager"><span>SEO Manager</span></a></li><!-- END: seo_manager -->
-			<!-- BEGIN: database --><li class="database {ACTIVE_database}"><a href="/backoffice/advanced/database"><span>Database</span></a></li><!-- END: database -->
-			<!-- BEGIN: templates --><li class="templates {ACTIVE_templates}"><a href="/backoffice/advanced/templates"><span>Templates/CSS</span></a></li><!-- END: templates -->
-			<!-- BEGIN: scheduler --><li class="scheduler {ACTIVE_scheduler}"><a href="/backoffice/advanced/scheduler"><span>Scheduler</span></a></li><!-- END: scheduler -->
-			<!-- BEGIN: currency --><li class="currency {ACTIVE_currency}"><a href="/backoffice/advanced/currency"><span>Currency</span></a></li><!-- END: currency -->
-			<!-- BEGIN: search_index --><li class="search_index {ACTIVE_search_index}"><a href="/backoffice/advanced/search_index"><span>Search Index</span></a></li><!-- END: search_index -->
-			<!-- BEGIN: tools --><li class="tools {ACTIVE_tools}"><a href="/backoffice/advanced/tools"><span>Tools</span></a></li><!-- END: tools -->
-			<!-- BEGIN: logs --><li class="logs {ACTIVE_logs}"><a href="/backoffice/advanced/logs"><span>Logs</span></a></li><!-- END: logs -->
-			<!-- BEGIN: configuration --><li class="configuration {ACTIVE_configuration} last" ><a href="/backoffice/advanced/configuration"><span>Configuration</span></a></li><!-- END: configuration -->
-		</ul>
-
-		<ul id="menuActions">
-			<li class="flush_cache"><a href='/backoffice/advanced/tools?tool=flush_cache' onclick="clearOnxshopCache(this); return false"><span>Clear Cache</span></a></li>
-			<li class="support"><a href="{ONXSHOP_SUPPORT_WEBSITE_URL}" title="Access to Onxshop support" target="_blank"><span>Support</span></a></li>
-			<li class="logout"><a class="logout" href="/?logout=1" title="Logout user {_SESSION.authentication.user_details.email|htmlspecialchars} from Back Office"><span>Log Out</span></a></li>
-		</ul>
+		{ONXSHOP_REQUEST_menu #bo/backoffice_menu}
 		
 	</div>
 
@@ -61,33 +25,4 @@
 	</div>
 
 </div>
-
-<script type="text/javascript">
-
-	$(function() {
-
-		$('#menuSections li.advanced a').click(showAdvancedMenu);
-		$('#menuAdvanced li.back a').click(hideAdvancedMenu);
-
-		if ($('#menuAdvanced li.active').length > 0) {
-			$('#menuSections').hide();
-			$('#menuAdvanced').show();
-		}
-
-		function showAdvancedMenu(e) {
-			$('#menuSections').slideUp(100);
-			$('#menuAdvanced').slideDown(100);
-			return false;
-		}
-
-		function hideAdvancedMenu(e) {
-			$('#menuSections').slideDown(100);
-			$('#menuAdvanced').slideUp(100);
-			return false;
-		}
-
-	});
-	
-</script>
-
 <!-- END: content -->

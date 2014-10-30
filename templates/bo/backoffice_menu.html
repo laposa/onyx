@@ -1,0 +1,35 @@
+<!-- BEGIN: content -->
+<div class="backoffice_menu">
+{ONXSHOP_REQUEST_menu_sections #bo/backoffice_menu_sections}
+{ONXSHOP_REQUEST_menu_advanced #bo/backoffice_menu_advanced}
+{ONXSHOP_REQUEST_menu_actions #bo/backoffice_menu_actions}
+</div>
+
+<script type="text/javascript">
+
+	$(function() {
+
+		$('#menuSections li.advanced a').click(showAdvancedMenu);
+		$('#menuAdvanced li.back a').click(hideAdvancedMenu);
+
+		if ($('#menuAdvanced li.active').length > 0) {
+			$('#menuSections').hide();
+			$('#menuAdvanced').show();
+		}
+
+		function showAdvancedMenu(e) {
+			$('#menuSections').slideUp(100);
+			$('#menuAdvanced').slideDown(100);
+			return false;
+		}
+
+		function hideAdvancedMenu(e) {
+			$('#menuSections').slideDown(100);
+			$('#menuAdvanced').slideUp(100);
+			return false;
+		}
+
+	});
+	
+</script>
+<!-- END: content -->

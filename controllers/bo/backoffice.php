@@ -17,65 +17,6 @@ class Onxshop_Controller_Bo_Backoffice extends Onxshop_Controller {
 		if (!$_SERVER['HTTPS'] && ONXSHOP_EDITOR_USE_SSL) {
 			header("Location: https://{$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}");
 		}
-			
-		/**
-		 * Manage Menu
-		 */
-		
-		if (preg_match('/backoffice/', $_SERVER['REQUEST_URI'])) {
-			$active_array = explode("/", $_SERVER['REQUEST_URI']);
-			$active = preg_replace("/\?.*$/", "", $active_array[2]);
-		} else {
-			$active = 'pages';
-		}
-		
-		$this->tpl->assign("ACTIVE_{$active}", 'active');
-
-		/**
-		 * Manage Advanced Menu
-		 */
-		if (preg_match('/backoffice/', $_SERVER['REQUEST_URI'])) {
-			$active_array = explode("/", $_SERVER['REQUEST_URI']);
-			$active = preg_replace("/\?.*$/", "", $active_array[3]);
-		} else {
-			$active = 'configuration';
-		}
-
-		$this->tpl->assign("ACTIVE_{$active}", 'active');
-
-		/**
-		 * ACL
-		 */
-
-		$auth = Onxshop_Bo_Authentication::getInstance();
-		$isEcommerce = $auth->isEcommerce();
-
-		if ($auth->hasPermission(ONXSHOP_PERMISSION_FRONT_END_EDITING)) $this->tpl->parse('content.fe_edit');
-		if ($auth->hasPermission(ONXSHOP_PERMISSION_PAGES_SECTION)) $this->tpl->parse('content.pages');
-		if ($auth->hasPermission(ONXSHOP_PERMISSION_NEWS_SECTION)) $this->tpl->parse('content.news');
-		if ($auth->hasPermission(ONXSHOP_PERMISSION_PRODUCTS_SECTION) && $isEcommerce) $this->tpl->parse('content.products');
-		if ($auth->hasPermission(ONXSHOP_PERMISSION_RECIPES_SECTION) && $isEcommerce) $this->tpl->parse('content.recipes');
-		if ($auth->hasPermission(ONXSHOP_PERMISSION_STORES_SECTION) && $isEcommerce) $this->tpl->parse('content.stores');
-		if ($auth->hasPermission(ONXSHOP_PERMISSION_ORDERS_SECTION) && $isEcommerce) $this->tpl->parse('content.orders');
-		if ($auth->hasPermission(ONXSHOP_PERMISSION_STOCK_SECTION) && $isEcommerce) $this->tpl->parse('content.stock');
-		if ($auth->hasPermission(ONXSHOP_PERMISSION_CUSTOMERS_SECTION)) $this->tpl->parse('content.customers');
-		if ($auth->hasPermission(ONXSHOP_PERMISSION_STATS_SECTION) && $isEcommerce) $this->tpl->parse('content.stats');
-		if ($auth->hasPermission(ONXSHOP_PERMISSION_MARKETING_SECTION) && $isEcommerce) $this->tpl->parse('content.marketing');
-		if ($auth->hasPermission(ONXSHOP_PERMISSION_COMMENTS_SECTION)) $this->tpl->parse('content.comments');
-		if ($auth->hasPermission(ONXSHOP_PERMISSION_SURVEYS_SECTION)) $this->tpl->parse('content.surveys');
-		if ($auth->hasPermission(ONXSHOP_PERMISSION_ADVANCED_SECTION)) $this->tpl->parse('content.advanced');
-
-		if ($auth->hasPermission(ONXSHOP_PERMISSION_MEDIA_SECTION)) $this->tpl->parse('content.media');
-		if ($auth->hasPermission(ONXSHOP_PERMISSION_TAXONOMY_SECTION)) $this->tpl->parse('content.taxonomy');
-		if ($auth->hasPermission(ONXSHOP_PERMISSION_SEO_MANAGER_SECTION)) $this->tpl->parse('content.seo_manager');
-		if ($auth->hasPermission(ONXSHOP_PERMISSION_DATABASE_SECTION)) $this->tpl->parse('content.database');
-		if ($auth->hasPermission(ONXSHOP_PERMISSION_TEMPLATES_SECTION)) $this->tpl->parse('content.templates');
-		if ($auth->hasPermission(ONXSHOP_PERMISSION_SCHEDULER_SECTION)) $this->tpl->parse('content.scheduler');
-		if ($auth->hasPermission(ONXSHOP_PERMISSION_CURRENCY_SECTION)) $this->tpl->parse('content.currency');
-		if ($auth->hasPermission(ONXSHOP_PERMISSION_SEARCH_INDEX_SECTION)) $this->tpl->parse('content.search_index');
-		if ($auth->hasPermission(ONXSHOP_PERMISSION_TOOLS_SECTION)) $this->tpl->parse('content.tools');
-		if ($auth->hasPermission(ONXSHOP_PERMISSION_LOGS_SECTION)) $this->tpl->parse('content.logs');
-		if ($auth->hasPermission(ONXSHOP_PERMISSION_CONFIGURATION_SECTION)) $this->tpl->parse('content.configuration');
 
 		return true;
 	}
