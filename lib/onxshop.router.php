@@ -50,7 +50,7 @@ class Onxshop_Router {
 				}
 				
 				$classname = $this->_prepareCallBack($descendant);
-				eval("\$_Onxshop[\$key] = new $classname(\$descendant, \$subOnxshop);");
+				$_Onxshop[$key] = new $classname($descendant, $subOnxshop);
 			}
 			
 			$this->Onxshop = $_Onxshop[count($descendants) - 1];
@@ -58,7 +58,7 @@ class Onxshop_Router {
 		} else {
 		
 			$classname = $this->_prepareCallBack($modules[0]);
-			eval("\$this->Onxshop = new $classname(\$modules[0]);");
+			$this->Onxshop = new $classname($modules[0]);
 		
 		}
 		

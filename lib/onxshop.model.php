@@ -89,7 +89,7 @@ class Onxshop_Model {
 	public function get($attribute) {
 	
 		msg("{$this->_class_name}: Calling get($attribute)", 'ok', 4);
-		eval("\$value = \$this->$attribute;");
+		$value = $this->$attribute;
 		
 		return $value;
 	}
@@ -108,12 +108,12 @@ class Onxshop_Model {
 		
 		if ($this->_metaData[$attribute]['required'] == true || $value != '') {
 			if ($this->validation($validation_type, $attribute, $value)) {
-				if (eval("\$this->$attribute = \$value;") == null) return true;
+				if (($this->$attribute = $value) == null) return true;
 			} else {
 				return false;
 			}
 		} else {
-			if (eval("\$this->$attribute = \$value;") == null) return true;
+			if (($this->$attribute = $value) == null) return true;
 		}
 
 	}
