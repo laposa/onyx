@@ -1,4 +1,4 @@
-<!-- BEGIN: title -->Customer Detail<!-- END: title -->
+<!-- BEGIN: title -->User Detail<!-- END: title -->
 <!-- BEGIN: content -->
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 
@@ -20,7 +20,7 @@
 
 					<div class="pageHeader">
 						<div class="pageHeaderWrapper">
-							<h1 class="pageTitle"><span>Customer Detail</span> <span class="info">ID {CLIENT.customer.id}</span></h1>
+							<h1 class="pageTitle"><span>User Detail</span> <span class="info">ID {CLIENT.customer.id}</span></h1>
 							<div class="customerMedallion">
 								<span class="userAvatar"><img src="{CLIENT.customer.profile_image_url|htmlspecialchars}" alt="{CLIENT.customer.first_name}'s Avatar"/></span>
 								<h2><span>{CLIENT.customer.first_name}<br/>{CLIENT.customer.last_name}</span></h2>
@@ -216,7 +216,7 @@
 																
 																<fieldset>
 																	<dl>
-																		<dt>Store ID:</dt><dd><a href="/backoffice/stores/{CLIENT.customer.store_id}/edit">{CLIENT.customer.store_id}</a></dd>
+																		<dt>Store ID:</dt><dd><a href="/backoffice/stores/{CLIENT.customer.store_id}/edit">{CLIENT.customer.store_id}</a>&nbsp;</dd>
 																		<dt>Verified:</dt><dd>{CLIENT.customer.verified_email_address}</dd>
 																		<dt>Created:</dt><dd>{CLIENT.customer.created}</dd>
 																		<dt>Modified:</dt><dd>{CLIENT.customer.modified}</dd>
