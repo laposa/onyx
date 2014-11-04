@@ -108,12 +108,14 @@ class Onxshop_Model {
 		
 		if ($this->_metaData[$attribute]['required'] == true || $value != '') {
 			if ($this->validation($validation_type, $attribute, $value)) {
-				if (($this->$attribute = $value) == null) return true;
+				$this->$attribute = $value;
+				return true;
 			} else {
 				return false;
 			}
 		} else {
-			if (($this->$attribute = $value) == null) return true;
+			$this->$attribute = $value;
+			return true;
 		}
 
 	}

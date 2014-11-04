@@ -435,6 +435,7 @@ CREATE TABLE client_customer (
 				}
 			} else {
 		
+				msg("Cannot set email {$customer_data['email']}", 'error');
 				return false;
 		
 			}
