@@ -1,22 +1,23 @@
 <!-- BEGIN: head_once -->
 <script type="text/javascript" src="/share/js/jquery/plugins/jquery.cycle2.js"></script>
 <script type="text/javascript" src="/share/js/jquery/plugins/jquery.cycle2.swipe.js"></script>
+<!-- END: head_once -->
+<!-- BEGIN: head -->
 <script type="text/javascript">
 $(document).ready(function() {
-	
-	$('div.image_gallery_2columns').cycle({
+	$('#gallery_2columns_{GET.node_id}').cycle({
 		speed: 500,
 		fx: 'scrollHorz',
 		slides: 'div.twoColumnLayout',
-		prev: 'div.controls a.prev',
-		next: 'div.controls a.next',
+		prev: '#gallery_2columns_{GET.node_id} div.controls a.prev',
+		next: '#gallery_2columns_{GET.node_id} div.controls a.next',
 		swipe: true,
 		delay: 10000,
 		timeout: 6000
 	});
 });
 </script>
-<!-- END: head_once -->
+<!-- END: head -->
 <!-- BEGIN: content -->
 <div class="image_gallery_2columns number_of_items_{IMAGE_COUNT}" id="gallery_2columns_{GET.node_id}">
 	<!-- BEGIN: item -->
