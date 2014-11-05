@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2007-2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2007-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -16,29 +16,6 @@ class Onxshop_Controller_Component_Image_Gallery extends Onxshop_Controller_Comp
 	public function mainAction() {
 		
 		/**
-		 * check requested thumbnail width
-		 */
-		 
-		if (is_numeric($this->GET['thumbnail_width'])) $thumbnail_width = $this->GET['thumbnail_width'];
-		else $thumbnail_width = 50;
-		
-		/**
-		 * check thumbnail constrain and set appropriate height
-		 */
-		 
-		switch ($this->GET['thumbnail_constrain']) {
-			
-			case '1-1':
-			default:
-				$thumbnail_size = "{$thumbnail_width}x{$thumbnail_width}";
-			break;
-			
-			case '0':
-				$thumbnail_size = "{$thumbnail_width}";
-			break;
-		}
-		
-		/**
 		 * getImageList
 		 */
 		 
@@ -50,10 +27,21 @@ class Onxshop_Controller_Component_Image_Gallery extends Onxshop_Controller_Comp
 		 
 		$this->assignAndParse($image_list);
 		
-		$this->tpl->assign('FIRST_IMAGE', $image_list[0]);
+		/**
+		 * displayThumbnails
+		 */
 		
-		$img_path = $this->getImagePath();
+		$this->displayThumbnails($image_list);
 
+		return true;
+	}
+	
+	/**
+	 * displayThumbnails
+	 */
+	
+	public function displayThumbnails($image_list) {
+		
 		/**
 		 * display thumbnails only if there is more than one item
 		 */
@@ -63,6 +51,35 @@ class Onxshop_Controller_Component_Image_Gallery extends Onxshop_Controller_Comp
 		$this->tpl->assign('IMAGE_COUNT', $image_count);
 		
 		if ($image_count > 1) {
+		
+			$img_path = $this->getImagePath();
+			
+			/**
+			 * check requested thumbnail width
+			 */
+			 
+			if (is_numeric($this->GET['thumbnail_width'])) $thumbnail_width = $this->GET['thumbnail_width'];
+			else $thumbnail_width = 50;
+			
+			/**
+			 * check thumbnail constrain and set appropriate height
+			 */
+			 
+			switch ($this->GET['thumbnail_constrain']) {
+				
+				case '1-1':
+				default:
+					$thumbnail_size = "{$thumbnail_width}x{$thumbnail_width}";
+				break;
+				
+				case '0':
+					$thumbnail_size = "{$thumbnail_width}";
+				break;
+			}
+			
+			/**
+			 * iterate
+			 */
 		
 			foreach ($image_list as $k=>$item) {
 				
@@ -80,8 +97,7 @@ class Onxshop_Controller_Component_Image_Gallery extends Onxshop_Controller_Comp
 			$this->tpl->parse('content.thumbnails');
 		
 		}
-
-		return true;
+		
 	}
 	
 }	

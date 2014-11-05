@@ -6,10 +6,10 @@
 <!-- BEGIN: content -->
 <script type="text/javascript">
 $(document).ready(function() {
-	$("#unoslider_{GET.node_id}").unoslider();
+	$("#gallery_unoslider_{GET.node_id}").unoslider();
 }); 
 </script>
-<ul class="image_gallery_unoslider unoslider" id="unoslider_{GET.node_id}">
+<ul class="image_gallery_unoslider number_of_items_{IMAGE_COUNT}" id="gallery_unoslider_{GET.node_id}">
 	<!-- BEGIN: item -->
 	<li class="item image_id_{GET.relation}{ITEM.id}"><img id="image_id_{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" /></li>
 	<!-- END: item -->

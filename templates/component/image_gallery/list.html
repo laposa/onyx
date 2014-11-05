@@ -1,0 +1,24 @@
+<!-- BEGIN: content -->
+<div class="image_gallery_list number_of_items_{IMAGE_COUNT}" id="gallery_list_{GET.node_id}">
+	<div class="detail">
+		<!-- BEGIN: item -->
+		<div class="item image_id_{GET.relation}{ITEM.id} {FIRST_LAST}"><span class="imageWrap"><img id="image_id_{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" /></span></div>
+		<!-- END: item -->
+	</div>
+	
+	<!-- BEGIN: thumbnails -->
+	<div class="thumbnails">
+		<!-- BEGIN: item -->
+		<div class="item image_id_{GET.relation}{ITEM.id} {FIRST_LAST}"><a href="{ITEM.path}/{ITEM.src}" onclick="$('#gallery_list_{GET.node_id} div.detail div.item.first img').attr('src', '{ITEM.path}/{ITEM.src}{IMAGE_RESIZE_OPTIONS}').attr('alt', $(this).find('img').attr('alt')).attr('title', $(this).find('img').attr('title')); return false;"><span class="imageWrap"><img id="thumbnail_id_{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="/thumbnail/{ITEM.thumbnail_size}/{ITEM.src}{IMAGE_RESIZE_OPTIONS}" /></span></a></div>
+		<!-- END: item -->
+	</div>
+	<!-- END: thumbnails -->
+</div>
+
+<script type="text/javascript">
+$(document).ready(function() {
+	$('#gallery_list_{GET.node_id} div.detail div.item').hide();
+	$('#gallery_list_{GET.node_id} div.detail div.item.first').show();
+});
+</script>
+<!-- END: content -->

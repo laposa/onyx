@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2008-2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2008-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -124,14 +124,10 @@ class Onxshop_Controller_Component_Image_Gallery_Cycle extends Onxshop_Controlle
 					if ($size['height'] < $dimension_extreme['height_min']) $dimension_extreme['height_min'] = $size['height'];
 					if ($size['proportion'] > $dimension_extreme['proportion_max']) $dimension_extreme['proportion_max'] = $size['proportion'];
 					if ($size['proportion'] < $dimension_extreme['proportion_min']) $dimension_extreme['proportion_min'] = $size['proportion'];
+					// deprecated, keep for backward compatibility
 					if (is_numeric($cycle['link_to_node_id'][$i])) $img['link_to_node_id'] = $cycle['link_to_node_id'][$i];
 					
-					$this->tpl->assign('ITEM', $img);
-					
-					if (is_numeric($img['link_to_node_id']) && $img['link_to_node_id'] > 0) $this->tpl->parse('content.item.link');
-					else $this->tpl->parse('content.item.normal');
-					
-					$this->tpl->parse('content.item');
+					$this->assignAndParseItem($img);
 				}
 				
 			}
@@ -180,4 +176,20 @@ class Onxshop_Controller_Component_Image_Gallery_Cycle extends Onxshop_Controlle
 
 		return true;
 	}
+	
+	/**
+	 * assignAndParseItem
+	 */
+	
+	public function assignAndParseItem($item) {
+		
+		$this->tpl->assign('ITEM', $item);
+					
+		if (is_numeric($item['link_to_node_id']) && $item['link_to_node_id'] > 0) $this->tpl->parse('content.item.link');
+		else $this->tpl->parse('content.item.normal');
+					
+		$this->tpl->parse('content.item');
+			
+	}
+
 }

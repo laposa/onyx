@@ -3,7 +3,7 @@
 <!-- END: head -->
 <!-- BEGIN: content -->
 
-<div id="smoothGallery_{GET.node_id}" class="image_gallery_cycle image_gallery_smooth">
+<div class="image_gallery_cycle number_of_items_{IMAGE_COUNT}" id="gallery_cycle_{GET.node_id}">
 	<div class="top"><span></span></div>
     <div class="controls">
 		<a href="#" title="previous" class="prev"><span>Previous</span></a>
@@ -11,7 +11,7 @@
 		<a href="#" title="next" class="next"><span>Next</span></a>
     </div>
     <div class="pics">
-    	<!-- BEGIN: placeholder --><img src="{ITEM.path}{ITEM.src}" width="{DIMENSION_MAX.width}" /><!-- END: placeholder -->
+    	<!-- BEGIN: placeholder --><img class="placeholder" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" width="{DIMENSION_MAX.width}" /><!-- END: placeholder -->
 		<!-- BEGIN: item -->
 		<div class="imageElement">
 			<!-- BEGIN: normal --><span class="imageWrap"><img id="image_id_{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" /></span><!-- END: normal -->
@@ -30,28 +30,28 @@
 /**
  * Initialize the cycle plugin
  */
-function beforeSmoothGalleryTransition{GET.node_id}(currSlideElement, nextSlideElement, options, forwardFlag) {
-	if (typeof localBeforeSmoothGalleryTransition{GET.node_id} == "function") {
-		localBeforeSmoothGalleryTransition{GET.node_id}(currSlideElement, nextSlideElement, options, forwardFlag);
+function beforeGalleryCycleTransition{GET.node_id}(currSlideElement, nextSlideElement, options, forwardFlag) {
+	if (typeof localBeforeGalleryCycleTransition{GET.node_id} == "function") {
+		localBeforeGalleryCycleTransition{GET.node_id}(currSlideElement, nextSlideElement, options, forwardFlag);
 	}
 }
 
-function afterSmoothGalleryTransition{GET.node_id}(currSlideElement, nextSlideElement, options, forwardFlag) {
-	if (typeof localAfterSmoothGalleryTransition{GET.node_id} == "function") {
-		localAfterSmoothGalleryTransition{GET.node_id}(currSlideElement, nextSlideElement, options, forwardFlag);
+function afterGalleryCycleTransition{GET.node_id}(currSlideElement, nextSlideElement, options, forwardFlag) {
+	if (typeof localAfterGalleryCycleTransition{GET.node_id} == "function") {
+		localAfterGalleryCycleTransition{GET.node_id}(currSlideElement, nextSlideElement, options, forwardFlag);
 	}
 }
 
-function activateSmoothGallery{GET.node_id}() {
+function activateGalleryCycle{GET.node_id}() {
 	
 	<!-- BEGIN: control -->
-    $('#smoothGallery_{GET.node_id}').hover(
-            function() { $('#smoothGallery_{GET.node_id} div.controls').fadeIn(); },
-            function() { $('#smoothGallery_{GET.node_id} div.controls').fadeOut(); }
+    $('#gallery_cycle_{GET.node_id}').hover(
+            function() { $('#gallery_cycle_{GET.node_id} div.controls').fadeIn(); },
+            function() { $('#gallery_cycle_{GET.node_id} div.controls').fadeOut(); }
         );
     <!-- END: control -->
     
-	$('#smoothGallery_{GET.node_id} div.pics').cycle({
+	galleryCycle{GET.node_id} = $('#gallery_cycle_{GET.node_id} div.pics').cycle({
 	    fx: '{CYCLE.fx}',
 	    speed: {CYCLE.speed},
 	    timeout: {CYCLE.timeout},
@@ -60,26 +60,26 @@ function activateSmoothGallery{GET.node_id}() {
 	    slideResize: 0,
 	    slideExpr: 'div.imageElement',
 	    easing: {CYCLE.easing},
-	    next: '#smoothGallery_{GET.node_id} a.next',
-        prev: '#smoothGallery_{GET.node_id} a.prev',
-        pager: '#smoothGallery_{GET.node_id} div.pagination',
+	    next: '#gallery_cycle_{GET.node_id} a.next',
+        prev: '#gallery_cycle_{GET.node_id} a.prev',
+        pager: '#gallery_cycle_{GET.node_id} div.pagination',
         activePagerClass: 'active',
-        before:	beforeSmoothGalleryTransition{GET.node_id},
-    	after: afterSmoothGalleryTransition{GET.node_id}
+        before:	beforeGalleryCycleTransition{GET.node_id},
+    	after: afterGalleryCycleTransition{GET.node_id}
 	});
 
 	//move control links to bottom right corner
-	var top = Math.round({DIMENSION_MAX.height} - $('#smoothGallery_{GET.node_id} div.controls').outerHeight());
-	var left = Math.round({DIMENSION_MAX.width} - $('#smoothGallery_{GET.node_id} div.controls').outerWidth());
-	$('#smoothGallery_{GET.node_id} div.controls').css('top', top + 'px').css('left', left + 'px');
+	var top = Math.round({DIMENSION_MAX.height} - $('#gallery_cycle_{GET.node_id} div.controls').outerHeight());
+	var left = Math.round({DIMENSION_MAX.width} - $('#gallery_cycle_{GET.node_id} div.controls').outerWidth());
+	$('#gallery_cycle_{GET.node_id} div.controls').css('top', top + 'px').css('left', left + 'px');
 	
 	//set full height on control links
-	//$('#smoothGallery_{GET.node_id} div.controls a').css('height', {DIMENSION_MAX.height} + 'px');
-	//$('#smoothGallery_{GET.node_id} div.controls a').css('width', {DIMENSION_MAX.width}/2 + 'px');
+	//$('#gallery_cycle_{GET.node_id} div.controls a').css('height', {DIMENSION_MAX.height} + 'px');
+	//$('#gallery_cycle_{GET.node_id} div.controls a').css('width', {DIMENSION_MAX.width}/2 + 'px');
 }
 
 $(document).ready(function () {
-	activateSmoothGallery{GET.node_id}();
+	activateGalleryCycle{GET.node_id}();
 });
 </script>
 

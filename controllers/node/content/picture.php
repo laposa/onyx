@@ -86,19 +86,14 @@ class Onxshop_Controller_Node_Content_Picture extends Onxshop_Controller_Node_Co
 		 * what controller
 		 */
 		 
-		if ($node_data['component']['template'] == 'plain') {
-		
-			$image_controller = 'component/image_gallery';
-		
-		} else if (file_exists(ONXSHOP_PROJECT_DIR . "controllers/component/image_gallery/{$node_data['component']['template']}.php") ||
+		if (file_exists(ONXSHOP_PROJECT_DIR . "controllers/component/image_gallery/{$node_data['component']['template']}.php") ||
 			file_exists(ONXSHOP_DIR . "controllers/component/image_gallery/{$node_data['component']['template']}.php")) {
 		
 			$image_controller = 'component/image_gallery/' . $node_data['component']['template'];
 		
 		} else {
 		
-			// i.e. list
-			$image_controller = 'component/image';
+			$image_controller = 'component/image_gallery';
 		
 		}
 
@@ -106,19 +101,14 @@ class Onxshop_Controller_Node_Content_Picture extends Onxshop_Controller_Node_Co
 		 * what template
 		 */
 		 
-		if ($node_data['component']['template'] == 'plain') {
-		
-			$image_template = 'component/image_gallery';
-		
-		} else if (file_exists(ONXSHOP_PROJECT_DIR . "templates/component/image_gallery/{$node_data['component']['template']}.html") ||
+		if (file_exists(ONXSHOP_PROJECT_DIR . "templates/component/image_gallery/{$node_data['component']['template']}.html") ||
 			file_exists(ONXSHOP_DIR . "templates/component/image_gallery/{$node_data['component']['template']}.html")) {
 		
 			$image_template = 'component/image_gallery/' . $node_data['component']['template'];
 		
 		} else {
 		
-			// i.e. list
-			$image_template = 'component/image';
+			$image_template = 'component/image_gallery';
 		
 		}
 		

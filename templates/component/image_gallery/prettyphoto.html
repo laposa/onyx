@@ -5,10 +5,10 @@
 <!-- BEGIN: content -->
 <script type="text/javascript">
 	$(document).ready(function() {
-		$("#prettyphoto_{GET.node_id} a[rel^='prettyPhoto']").prettyPhoto();
+		$("#gallery_prettyphoto_{GET.node_id} a[rel^='prettyPhoto']").prettyPhoto();
 	}); 
 </script>
-<div class="image_gallery_prettyphoto" id="prettyphoto_{GET.node_id}">
+<div class="image_gallery_prettyphoto number_of_items_{IMAGE_COUNT}" id="gallery_prettyphoto_{GET.node_id}">
 	<!-- BEGIN: item -->
 	<div class="item image_id_{GET.relation}{ITEM.id}"><span class="imageWrap"><a class="single_image{GET.relation}{GET.node_id}" title="{ITEM.title|htmlspecialchars}" href="{FULL_SIZE_IMAGE_WIDTH_PATH}{ITEM.src}" rel="prettyPhoto[pp_gal]"><img id="image_id_{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" /></a></span></div>
 	<!-- END: item -->

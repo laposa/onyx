@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2006-2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2006-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -20,7 +20,7 @@ class Onxshop_Controller_Component_Image extends Onxshop_Controller {
 		$image_list = $this->getImageList();
 		
 		/**
-		 * assignAndParse
+		 * assignAndParse (main images)
 		 */
 		 
 		$this->assignAndParse($image_list);
@@ -108,6 +108,12 @@ class Onxshop_Controller_Component_Image extends Onxshop_Controller {
 		else $this->tpl->assign('FULL_SIZE_IMAGE_WIDTH_PATH', "/image/");
 		
 		/**
+		 * save first image in template variable as helper for a placeholder
+		 */
+		 
+		$this->tpl->assign('FIRST_IMAGE', $image_list[0]);
+		
+		/**
 		 * assign & parse each item to template
 		 */
 		 
@@ -121,11 +127,22 @@ class Onxshop_Controller_Component_Image extends Onxshop_Controller {
 			
 			$this->tpl->assign('INDEX', $k);
 			
-			$this->tpl->assign('ITEM', $item);
-			$this->tpl->parse('content.item');
+			$this->assignAndParseItem($item);
+			
 		}
 		
 		return true;
+	}
+	
+	/**
+	 * assignAndParseItem
+	 */
+	
+	public function assignAndParseItem($item) {
+		
+		$this->tpl->assign('ITEM', $item);
+		$this->tpl->parse('content.item');
+			
 	}
 	
 	/**

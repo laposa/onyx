@@ -233,10 +233,10 @@ div.pagination li.previous a:hover,
 div.pagination li.next a:hover,
 div.pagination a.show_all:hover {text-decoration: underline;}
 
-/********* component/image_gallery.html *********/
-div.image_gallery div.thumbnails div.item {float: left; min-height: 50px;}
-div.image_gallery div.thumbnails div.item img {padding: 0 10px 10px 0;}
-div.image_gallery a {text-decoration: none;}
+/********* component/image_gallery/list.html *********/
+div.image_gallery_list div.thumbnails div.item {float: left; min-height: 50px;}
+div.image_gallery_list div.thumbnails div.item img {padding: 0 10px 10px 0;}
+div.image_gallery_list a {text-decoration: none;}
 
 /********* component/image_gallery/cycle.html *********/
 div.image_gallery_cycle {border: 0; position: relative;}
