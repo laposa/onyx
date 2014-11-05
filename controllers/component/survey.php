@@ -51,7 +51,7 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 				 * display results when voted already
 				 */
 				 
-				$this->displayResult($survey_id);
+				$this->displayResultStats($survey_id);
 
 			} else {
 
