@@ -1,4 +1,4 @@
-/*! center plugin for Cycle2;  version: 20131006 */
+/*! center plugin for Cycle2;  version: 20140121 */
 (function($) {
 "use strict";
 
@@ -14,7 +14,7 @@ $(document).on( 'cycle-pre-initialize', function( e, opts ) {
     // throttle resize event
     var timeout, timeout2;
 
-    $(window).on( 'resize orientationchange', resize );
+    $(window).on( 'resize orientationchange load', resize );
     
     opts.container.on( 'cycle-destroyed', destroy );
 
@@ -53,10 +53,12 @@ $(document).on( 'cycle-pre-initialize', function( e, opts ) {
         var contH = opts.container.height();
         var w = slide.outerWidth();
         var h = slide.outerHeight();
-        if (opts.centerHorz && w <= contW)
-            slide.css( 'marginLeft', (contW - w) / 2 );
-        if (opts.centerVert && h <= contH)
-            slide.css( 'marginTop', (contH - h) / 2 );
+        if (w) {
+            if (opts.centerHorz && w <= contW)
+                slide.css( 'marginLeft', (contW - w) / 2 );
+            if (opts.centerVert && h <= contH)
+                slide.css( 'marginTop', (contH - h) / 2 );
+        }
     }
 });
 
