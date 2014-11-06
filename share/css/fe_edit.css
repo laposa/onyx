@@ -53,6 +53,7 @@ div.node.show_at_trade_login {border: 1px solid red;}
 div.node.hide_at_trade_login {border: 1px solid green;}
 div.acl_in_use {border: 1px dotted red;}
 div.node.not_public {border: 1px solid red;}
+div.node.adaptive {border: 1px dashed #9933CC;}
 
 /**
  * jQuery UI

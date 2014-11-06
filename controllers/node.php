@@ -191,6 +191,7 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 				else if ($node_data['display_permission'] == 4) $node_data['extra_css_class'] = $node_data['extra_css_class'] . ' hide_at_trade_login';
 				if (is_array($node_data['display_permission_group_acl'])) $node_data['extra_css_class'] = $node_data['extra_css_class'] . ' acl_in_use';
 				if ($node_data['publish'] == 0) $node_data['extra_css_class'] = $node_data['extra_css_class'] . ' not_public';
+				if ($node_data['node_controller'] == 'adaptive') $node_data['extra_css_class'] = $node_data['extra_css_class'] . ' adaptive';
 			}
 			
 			$this->tpl->assign("NODE", $node_data);

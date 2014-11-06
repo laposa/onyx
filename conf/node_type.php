@@ -46,6 +46,7 @@ $templates_info['layout'] = array(
 	'5columns'=>array('title' => '5-columns', 'description'=>'', 'visibility'=>true),
 	'6columns'=>array('title' => '6-columns', 'description'=>'', 'visibility'=>true),
 	'tabs'=>array('title' => 'Tabs', 'description'=>'', 'visibility'=>true),
+	'adaptive'=>array('title' => 'Adaptive', 'description'=>'', 'visibility'=>true),
 	'default_template' => '2columns'
 	);
 		
