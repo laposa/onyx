@@ -99,7 +99,7 @@ class Onxshop_Controller_Node_Layout_Adaptive extends Onxshop_Controller_Node_La
 		$logged_in = ($_SESSION['client']['customer']['id'] > 0);
 		$customer_newsletter = ($_SESSION['client']['customer']['newsletter'] > 0);
 
-		$cookie_status = ($_COOKIE['newletter_status'] & 1 == 1);
+		$cookie_status = ($_COOKIE['newsletter_status'] & 1 == 1);
 
 		return $logged_in && $customer_newsletter || $cookie_status;
 	}
