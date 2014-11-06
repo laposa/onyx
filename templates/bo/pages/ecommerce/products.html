@@ -28,7 +28,8 @@ $(document).ready(function(){
 		var limit_per_page = $(this).attr('href').match('limit_per_page=[0-9]{1,}');
 		makeAjaxRequest('#sub_content', '/request/bo/component/ecommerce/product_list~' + limit_from + ':' + limit_per_page + '~');
 		return false;
-	});	
+	});
+	
 });
 
 </script>
@@ -87,7 +88,7 @@ $(document).ready(function(){
 
 									<p>
 										<a class="button add product" title="Add new product" href="/backoffice/products/product_add"><span>Add a New Product</span></a>
-										<a class="button add" title="Create a New Special Pffer" href="/backoffice/products/offer_add"><span>Add a New Offer</span></a>
+										<a class="button add offer" title="Create a New Special Offer" href="/backoffice/products/offer_add"><span>Add a New Offer</span></a>
 									</p>
 									<p>
 										<a class="button" title="export this list as CSV" href="/request/bo/export/csv_products"><span>Export this list CSV</span></a>

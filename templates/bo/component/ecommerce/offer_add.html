@@ -1,18 +1,13 @@
 <!-- BEGIN: title -->Add Offer<!-- END: title -->
-<!-- BEGIN: head -->
+<!-- BEGIN: content -->
 <style type="text/css">
 	#offer_edit .custom-combobox-input { width: 600px; }
 	body .ui-autocomplete { max-height: 460px; }
 </style>
-<!-- END: head -->
-<!-- BEGIN: content -->
-
 <script type="text/javascript">
 
 	$(document).ready(function(){
 
-		// setup tabs
-		$("#offer_edit").tabs();
 		$("#product_select").combobox();
 
 		// setup product dropdown with autocomplete
@@ -172,18 +167,18 @@
 
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 <form method="post" action="{URI|htmlspecialchars}" id="offer_add_form" class="offer_edit">
-<div id="offer_edit">
+	<div id="offer_edit" class="offer">
 
-	<ul id="offer_edit_menu" class="ui-tabs-nav">
-		<li class="active"><a class="onxshop_basic" href="#onxshop_basic"><span>Basic info</span></a></li>
-	</ul>
-
-	<input type="hidden" name="save" value="save"/>
-
-	<div id="onxshop_basic"class="offer" class="onxshop_tabulator ui-tabs-panel">
-
+		<input type="hidden" name="save" value="save"/>
+		
 		<fieldset id="product_fieldset">
-			<legend>Product</legend>
+			
+			<div class="pageHeader">
+				<div class="pageHeaderWrapper">
+					<h1 class="pageTitle"><span>Add New Offer</span></h1>
+				</div>
+			</div>
+			
 			<select id="product_select" name='product_variety_id'>
 				<option value=""></option>
 				<!-- BEGIN: product_item -->
@@ -280,14 +275,6 @@
 
 		</fieldset>
 
-		<br>
-
-		<div class="bottom"></div>
-
 	</div>
-
-	<div class="bottom"></div>
-
-</div>
 </form>
 <!-- END: content -->

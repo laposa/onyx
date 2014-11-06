@@ -1,25 +1,16 @@
 <!-- BEGIN: title -->Offer Group Edit<!-- END: title -->
 <!-- BEGIN: content -->
-
-<script type="text/javascript">
-$(document).ready(function(){
-	$("#offer_edit").tabs();
-});
-</script>
-
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 <form method="post" action="" class="offer_edit">
 <div id="offer_edit">
-	<ul id="offer_edit_menu" class="ui-tabs-nav">
-		<li class="active"><a class="onxshop_basic" href="#onxshop_basic"><span>Basic info</span></a></li>
-		<li><a class="onxshop_minor" href="#onxshop_minor"><span>Minor Tweaks</span></a></li>
-		<li><a class="onxshop_advanced" href="#onxshop_advanced"><span>Under the Hood</span></a></li>
-	</ul>
-
-	<button style="float: right;  margin: 3px;" type="submit" name="save" value="save"><span>Save</span></button>
 	
-	<div id="onxshop_basic" class="onxshop_tabulator ui-tabs-panel">
-
+	<fieldset>
+		<div class="pageHeader">
+			<div class="pageHeaderWrapper">
+				<h1 class="pageTitle"><span>Add Offer Group</span></h1>
+			</div>
+		</div>
+			
 		<div class="row title">
 			<span class="label"><label>Title</label></span>
 			<span class="field"><input type="text" class="text title long" name="offer_group[title]" value="{OFFER_GROUP.title|htmlspecialchars}" /></span>
@@ -44,26 +35,17 @@ $(document).ready(function(){
 
 		<div class="layoutColumnWrapper">
 			<div class="row publish">
-				<span class="label"><label for="store-publish">Publish</label></span>
-				<span class="field"><input type="checkbox" id="store-publish" name="offer_group[publish]" value="1" {OFFER_GROUP.publish} /></span>
+				<span class="field"><input type="checkbox" id="store-publish" name="offer_group[publish]" value="1" {OFFER_GROUP.publish} /> <label for="store-publish">Publish</label></span>
 			</div>
 		</div>
-
-	</div>
-
-	<div id="onxshop_minor">
-	</div>
 	
-	<div id="onxshop_advanced">
-		<fieldset>
-			<p>Last Modified {OFFER_GROUP.modified}</p>
-		</fieldset>
-	</div>
+		<p>Last Modified: {OFFER_GROUP.modified}</p>
+	</fieldset>
 
 	<div class="bottom"></div>
 
 	<button style="float: right;  margin: 3px;" type="submit" name="save" value="save"><span>Save</span></button>
-
+	
 	<div class="bottom"></div>
 
 	<script type="text/javascript">

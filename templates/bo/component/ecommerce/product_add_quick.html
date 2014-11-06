@@ -7,9 +7,15 @@ $(function(){
 </script>
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 <div class="product_add">
+			
 	<form method="post" action="{URI|htmlspecialchars}" id="product_add_form">
 		<fieldset class="single">
-			<legend>Base product info</legend>
+			<div class="pageHeader">
+				<div class="pageHeaderWrapper">
+					<h1 class="pageTitle"><span>Add New Product</span></h1>
+				</div>
+			</div>
+		
 			<div class="row title">
 				<span class="label"><label for="product-name">Product Name</label></span>
 				<span class="field"><input id="product-name" class="text title required" type="text" name="product[name]" value="{PRODUCT.name}"/></span>
