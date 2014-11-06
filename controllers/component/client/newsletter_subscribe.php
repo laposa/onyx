@@ -39,6 +39,13 @@ class Onxshop_Controller_Component_Client_Newsletter_Subscribe extends Onxshop_C
 			if($id = $Customer->newsletterSubscribe($_POST['client']['customer'])) {	
 				msg("Subscribed {$customer['email']}");
 				$this->tpl->parse('content.thank_you');
+
+				// set status cookie
+				setcookie("newsletter_status", "1", time() + 3600 * 24 * 1000, "/");
+				// set customer status 
+				if ($_POST['client']['customer']['email'] == $_SESSION['client']['customer']['email']) 
+					$_SESSION['client']['customer']['newsletter'] = 1;
+
 			} else {
 				msg("Can't subscribe {$customer['email']}", 'error');
 				$this->tpl->parse('content.form');
