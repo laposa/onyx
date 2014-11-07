@@ -285,6 +285,8 @@ class Onxshop_Bootstrap {
 	
 	/**
 	 * check is authentication is required
+	 *
+	 * similar check is done in controllers/uri_mapping
 	 */
 	 
 	public function isRequiredAuthentication($request) {

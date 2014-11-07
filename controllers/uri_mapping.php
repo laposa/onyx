@@ -48,7 +48,13 @@ class Onxshop_Controller_Uri_Mapping extends Onxshop_Controller {
 			$translate = false;
 			
 			//force login when request is from bo/ folder
+			//similar check is done in Onxshop_Bootstrap
 			if (preg_match('/bo\//', $controller_request)) {
+				
+				if (!$_SERVER['HTTPS'] && ONXSHOP_EDITOR_USE_SSL) {
+					header("Location: https://{$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}");
+					exit;
+				}
 				
 				$auth = Onxshop_Bo_Authentication::getInstance()->login();
 				if (!$auth) $controller_request = 'sys/401';
