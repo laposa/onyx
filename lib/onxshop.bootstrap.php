@@ -70,24 +70,12 @@ class Onxshop_Bootstrap {
 			if  ($_SESSION['ab_test_group'] !== 0 && $_SESSION['ab_test_group'] !== 1)
 				$_SESSION['ab_test_group'] = mt_rand(0, 1);
 		}
-		
-		//hack
-		if ($_GET['login'] == 1) {
-		    Onxshop_Bo_Authentication::getInstance()->login();
-		}
 	
 		//hack
 		if ($_GET['logout'] == 1) {
 		    Onxshop_Bo_Authentication::getInstance()->logout();
     		header("Location: http://{$_SERVER['SERVER_NAME']}/");
 	    	exit;
-		}
-
-		//hack
-		if ($_GET['preview'] == 1) {
-			$_SESSION['preview'] = 1;
-		} else if ($_GET['exit_preview'] == 1) {
-			$_SESSION['preview'] = 0;
 		}
 	
 	}
@@ -252,7 +240,7 @@ class Onxshop_Bootstrap {
 			exit;
 		}
 		
-		if (!Onxshop_Bo_Authentication::getInstance()->isAuthenticated() && $_GET['login'] != 1) {
+		if (!Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) {
 
 			if (Onxshop_Bo_Authentication::getInstance()->login()) {
 				
@@ -309,7 +297,7 @@ class Onxshop_Bootstrap {
 		}
 		
 		//force login when specified
-		if ($_GET['fe_edit'] == 1 || $_GET['login'] == 1 || (ONXSHOP_REQUIRE_AUTH && !ONXSHOP_IS_DEBUG_HOST)) {
+		if ($_GET['fe_edit'] == 1 || (ONXSHOP_REQUIRE_AUTH && !ONXSHOP_IS_DEBUG_HOST)) {
 		
 			$auth_is_required = true;
 			
