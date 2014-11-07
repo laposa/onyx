@@ -50,10 +50,8 @@ class Onxshop_Bootstrap {
 		 * Back office initialisation
 		 */
 		if (Onxshop_Bo_Authentication::getInstance()->hasPermission(ONXSHOP_PERMISSION_FRONT_END_EDITING)) {
-			$_GET['fe_edit'] = 1;
 			define('ONXSHOP_DB_QUERY_CACHE', false);
 		} else {
-			$_GET['fe_edit'] = 0;
 			define('ONXSHOP_DB_QUERY_CACHE', true);
 		}
 		
@@ -297,7 +295,7 @@ class Onxshop_Bootstrap {
 		}
 		
 		//force login when specified
-		if ($_GET['fe_edit'] == 1 || (ONXSHOP_REQUIRE_AUTH && !ONXSHOP_IS_DEBUG_HOST)) {
+		if (ONXSHOP_REQUIRE_AUTH && !ONXSHOP_IS_DEBUG_HOST) {
 		
 			$auth_is_required = true;
 			
@@ -564,7 +562,7 @@ class Onxshop_Bootstrap {
 		 */
 		
 		//only when not logged in backoffice
-		if ($_GET['fe_edit'] == 0) {
+		if (!Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) {
 			if ($_SESSION['client']['customer']['id'] > 0) {
 				$content = preg_replace("/{{customer.first_name}}/", htmlspecialchars($_SESSION['client']['customer']['first_name']), $content);
 			} else {

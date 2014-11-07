@@ -478,7 +478,7 @@ ALTER TABLE common_uri_mapping ADD UNIQUE (public_uri);
 			$append = ".node~id=" . $this->conf['404_id'] . "~.sys/404";
 		}
 		
-		if ($_GET['fe_edit'] == 1) {
+		if (Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) {
 			//hack to pass _SESSION.fe_edit_mode even before it's called again from fe_edit
 			//consider moving this to $Bootstrap->initPreAction
 			//probably this whole block, _GET shouldn't be here!
