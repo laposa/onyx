@@ -13,7 +13,7 @@ require_once('models/client/client_group.php');
 require_once('models/client/client_role.php');
 require_once('models/client/client_company.php');
 
-class Onxshop_Controller_Bo_Pages_Ecommerce_Customer_Detail extends Onxshop_Controller {
+class Onxshop_Controller_Bo_Pages_Client_Customer_Detail extends Onxshop_Controller {
 	
 	/**
 	 * main action

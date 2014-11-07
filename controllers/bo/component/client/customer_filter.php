@@ -7,7 +7,7 @@
  * 
  */
 
-class Onxshop_Controller_Bo_Component_Ecommerce_Customer_Filter extends Onxshop_Controller {
+class Onxshop_Controller_Bo_Component_Client_Customer_Filter extends Onxshop_Controller {
 
 	/**
 	 * main action

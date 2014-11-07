@@ -76,9 +76,9 @@ $uri_map = array(
 		'^/backoffice/orders$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/ecommerce/orders',
 		'^/backoffice/orders/([0-9]*)/detail$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/ecommerce/order_detail&id=$1',
 		'^/backoffice/stock$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/ecommerce/stock',
-		'^/backoffice/customers$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/ecommerce/customers',
-		'^/backoffice/customers/add$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/ecommerce/customer_add',
-		'^/backoffice/customers/([0-9]*)/detail$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/ecommerce/customer_detail&id=$1'
+		'^/backoffice/customers$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/client/customers',
+		'^/backoffice/customers/add$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/client/customer_add',
+		'^/backoffice/customers/([0-9]*)/detail$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/client/customer_detail&id=$1'
 	),
 	
 	'^/popup' => array(
