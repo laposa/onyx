@@ -159,6 +159,10 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Customer_List extends Onxshop_Co
 				
 					$taxonomy = $Taxonomy->getRelationsToCustomer($customer['customer_id']);
 					foreach ($taxonomy as $t) $customer['class'] .= "t$t ";
+					
+					$role_ids = $Customer->getRoleIds($customer['customer_id']);
+					foreach ($role_ids as $r) $customer['class'] .= "role_$r ";
+					
 					$this->tpl->assign('ITEM', $customer);
 					$this->tpl->parse('content.list.item');
 				}

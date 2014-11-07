@@ -1994,4 +1994,19 @@ CREATE TABLE client_customer (
 			return false;
 		}
 	}
+	
+	/**
+	 * getRoleIds
+	 */
+	 
+	public function getRoleIds($customer_id) {
+		
+		if (!is_numeric($customer_id)) return false;
+		
+		require_once 'models/client/client_customer_role.php';
+		$Role = new client_customer_role();
+		
+		return $Role->getCustomersRoleIds($customer_id);
+		
+	}
 }
