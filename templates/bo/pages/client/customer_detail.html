@@ -23,7 +23,7 @@
 							<h1 class="pageTitle"><span>User Detail</span> <span class="info">ID {CLIENT.customer.id}</span></h1>
 							<div class="customerMedallion">
 								<span class="userAvatar"><img src="{CLIENT.customer.profile_image_url|htmlspecialchars}" alt="{CLIENT.customer.first_name}'s Avatar"/></span>
-								<h2><span>{CLIENT.customer.first_name}<br/>{CLIENT.customer.last_name}</span></h2>
+								<h2><span>{CLIENT.customer.first_name|htmlspecialchars}<br/>{CLIENT.customer.last_name|htmlspecialchars}</span></h2>
 							</div>
 						</div>
 					</div>
@@ -94,8 +94,8 @@
 																			<span class="label"><label>Back Office Access Role</label></span>
 																			<span class="field">
 																				<!-- BEGIN: item -->
-																				<input type="checkbox" id="client_customer_role_ids_{ITEM.id}" name="client[customer][role_ids][]" value="{ITEM.id}" {CHECKED}/>
-																				<label for="client_customer_role_ids_{ITEM.id}">{ITEM.name|htmlspecialchars}</label>
+																				<input type="checkbox" id="role_ids_{ITEM.id}" name="role_ids[]" value="{ITEM.id}" {CHECKED}/>
+																				<label for="role_ids_{ITEM.id}">{ITEM.name|htmlspecialchars}</label>
 																				<br/>
 																				<!-- END: item -->
 																			</span>
@@ -147,8 +147,8 @@
 																			<span class="label"><label>Customer Group</label></span>
 																			<span class="field">
 																				<!-- BEGIN: item -->
-																				<input type="checkbox" id="client_customer_group_ids_{ITEM.id}" name="client[customer][group_ids][]" value="{ITEM.id}" {CHECKED}/>
-																				<label for="client_customer_group_ids_{ITEM.id}">{ITEM.name|htmlspecialchars}</label>
+																				<input type="checkbox" id="group_ids_{ITEM.id}" name="group_ids[]" value="{ITEM.id}" {CHECKED}/>
+																				<label for="group_ids_{ITEM.id}">{ITEM.name|htmlspecialchars}</label>
 																				<br/>
 																				<!-- END: item -->
 																			</span>

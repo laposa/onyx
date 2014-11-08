@@ -50,11 +50,15 @@ class Onxshop_Controller_Bo_Pages_Client_Customer_Detail extends Onxshop_Control
 	{
 		if ($_POST['save']) {
 
-			$_POST['client']['customer']['id'] = $customer_id;
+			$client_data = $_POST['client'];
+			
+			$client_data['customer']['id'] = $customer_id;
 
 			$this->updatePassword($customer_id);
-
-			if ($this->Customer->updateClient($_POST['client'])) {
+			$this->updateGroups($customer_id, $_POST['group_ids']);
+			$this->updateRoles($customer_id, $_POST['role_ids']);
+			
+			if ($this->Customer->updateClient($client_data)) {
 
 				msg('Customer data has been successfully updated.');
 
@@ -82,6 +86,26 @@ class Onxshop_Controller_Bo_Pages_Client_Customer_Detail extends Onxshop_Control
 			msg('New password has been set.');
 		}
 
+	}
+	
+	/**
+	 * updateGroups
+	 */
+	
+	protected function updateGroups($customer_id, $group_ids) {
+		
+		return $this->Customer->updateGroups($customer_id, $group_ids);
+		
+	}
+	
+	/**
+	 * updateGroups
+	 */
+	
+	protected function updateRoles($customer_id, $role_ids) {
+		
+		return $this->Customer->updateRoles($customer_id, $role_ids);
+		
 	}
 	
 	/**
@@ -154,7 +178,7 @@ class Onxshop_Controller_Bo_Pages_Client_Customer_Detail extends Onxshop_Control
 	{
 		$ClientRole = new client_role();
 		$list = $ClientRole->listRoles();
-
+		
 		foreach ($list as $item) {
 
 			$this->tpl->assign('ITEM', $item);
@@ -194,4 +218,5 @@ class Onxshop_Controller_Bo_Pages_Client_Customer_Detail extends Onxshop_Control
 
 		}
 	}
+	
 }

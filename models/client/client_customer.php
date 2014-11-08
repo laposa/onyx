@@ -880,19 +880,6 @@ CREATE TABLE client_customer (
 		if (!is_numeric($client_data['customer']['google_id'])) unset($client_data['customer']['google_id']);
 		if ($client_data['customer']['birthday'] == '') unset($client_data['customer']['birthday']);
 		
-
-		// groups
-		require_once('models/client/client_customer_group.php');
-		$CustomerGroup = new client_customer_group();
-		$CustomerGroup->updateCustomerGroups($client_data['customer']['id'], $client_data['customer']['group_ids']);
-		unset($client_data['customer']['group_ids']);
-
-		// roles
-		require_once('models/client/client_customer_role.php');
-		$CustomerRole = new client_customer_role();
-		$CustomerRole->updateCustomerRoles($client_data['customer']['id'], $client_data['customer']['role_ids']);
-		unset($client_data['customer']['role_ids']);
-		
 		// check if login id is available (i.e. don't overwrite by changing email address)
 		if (!$this->checkLoginId($client_data['customer']) || 
 			($customer_data['customer'] == 1 && !$this->checkLoginIdPreservedOnly($customer_data['customer']['email']))) {
@@ -2007,6 +1994,38 @@ CREATE TABLE client_customer (
 		$Role = new client_customer_role();
 		
 		return $Role->getCustomersRoleIds($customer_id);
+		
+	}
+	
+	/**
+     * updateGroups
+     */
+     
+	public function updateGroups($customer_id, $group_ids) {
+		
+		if (!is_numeric($customer_id)) return false;
+		if (!is_array($group_ids)) $group_ids = array(); // set empty array to remove all groups association
+		
+		require_once('models/client/client_customer_group.php');
+		$CustomerGroup = new client_customer_group();
+		
+		return $CustomerGroup->updateCustomerGroups($customer_id, $group_ids);
+		
+	}
+	
+	/**
+     * updateRoles
+     */
+     
+	public function updateRoles($customer_id, $role_ids) {
+		
+		if (!is_numeric($customer_id)) return false;
+		if (!is_array($role_ids)) $role_ids = array(); // set empty array to remove all roles association
+		
+		require_once('models/client/client_customer_role.php');
+		$CustomerRole = new client_customer_role();
+		
+		return $CustomerRole->updateCustomerRoles($customer_id, $role_ids);
 		
 	}
 }
