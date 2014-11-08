@@ -102,7 +102,7 @@ form div.layoutColumnTwo fieldset { margin-left: 20px; }
 #backoffice fieldset table th { background: #f8f8f8; }
 fieldset table caption { padding: 2px 10px; color: #999; text-shadow: 0 1px 0 #fff; margin: 12px 0 20px -8px; background: none; text-transform: none; font-size: 12px;}
 form legend { padding: 2px 10px; color: #999; text-shadow: 0 1px 0 #fff; margin-bottom: 20px; position: relative; top: 30px; left: -10px; }
-form .advanced { display: none; }
+div.pageContent .advanced { display: none; }
 #backoffice form textarea.small {height: 60px;}
 #backoffice textarea {padding: 4px; border: 1px solid #ccc; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; box-shadow: inset 0px 1px 1px #e0e0e0; margin: 0 5px 5px 0;}
 #backoffice input {padding: 4px; border: 1px solid #ccc; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; box-shadow: inset 0px 1px 1px #e0e0e0; margin: 0 5px 5px 0;}
