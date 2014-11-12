@@ -195,8 +195,8 @@ if (!defined('ONXSHOP_FACEBOOK_APP_SECRET')) define('ONXSHOP_FACEBOOK_APP_SECRET
 if (!defined('ONXSHOP_FACEBOOK_APP_NAMESPACE')) define('ONXSHOP_FACEBOOK_APP_NAMESPACE', '');
 if (!defined('ONXSHOP_FACEBOOK_APP_OG_STORIES')) define('ONXSHOP_FACEBOOK_APP_OG_STORIES', '');
 if (!defined('ONXSHOP_FACEBOOK_OG_IMAGE')) define('ONXSHOP_FACEBOOK_OG_IMAGE', 'var/files/favicon.ico');
-// Canvas URL is defined by APP_NAMESPACE
-define('ONXSHOP_FACEBOOK_CANVAS_URL', 'https://apps.facebook.com/' . ONXSHOP_FACEBOOK_APP_NAMESPACE);
+// Canvas Facebook Page is defined by APP_NAMESPACE
+define('ONXSHOP_FACEBOOK_CANVAS_PAGE', 'https://apps.facebook.com/' . ONXSHOP_FACEBOOK_APP_NAMESPACE);
 // determine environment (desktop vs mobile)
 if (($_POST['signed_request'] && $_POST['fb_locale'])) define('ONXSHOP_FACEBOOK_ENV', 'desktop');
 else if ($_GET['ref'] == 'web_canvas') define('ONXSHOP_FACEBOOK_ENV', 'mobile');

@@ -103,7 +103,7 @@ class Onxshop_Controller_Component_Client_Facebook_Auth extends Onxshop_Controll
 		$conf = array('scope' => $client_customer_conf['facebook_login_scope']);
 		
 		if (ONXSHOP_FACEBOOK_WITHIN_APP) {
-			if (ONXSHOP_FACEBOOK_ENV == 'desktop') $conf['redirect_uri'] = ONXSHOP_FACEBOOK_CANVAS_URL;
+			if (ONXSHOP_FACEBOOK_ENV == 'desktop') $conf['redirect_uri'] = ONXSHOP_FACEBOOK_CANVAS_PAGE;
 		}
 		
 		return $conf;
