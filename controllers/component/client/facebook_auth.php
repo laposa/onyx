@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2013-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -51,8 +51,8 @@ class Onxshop_Controller_Component_Client_Facebook_Auth extends Onxshop_Controll
 				$this->tpl->assign('USER_PROFILE', $user_profile);
 				
 				if ($user_profile['id']) {
-					//try to login
-					$this->loginToOnxshop($user_profile);
+					//try to login if currently logged in facebook_id isn't the same as authorised one 
+					if ($_SESSION['client']['customer']['facebook_id'] != $user_profile['id']) $this->loginToOnxshop($user_profile);
 				}
 				
 			} catch (FacebookApiException $e) {
@@ -72,8 +72,19 @@ class Onxshop_Controller_Component_Client_Facebook_Auth extends Onxshop_Controll
 		
 		} else {
 		
-			$this->tpl->parse('content.login');
+			if (ONXSHOP_FACEBOOK_WITHIN_APP) {
+				
+				$login_conf = $this->getLoginConf();
+				$fb_login_url = $this->Facebook->getLoginUrl($login_conf);
+				// forward using Javascript
+				echo "<html><head><script>window.top.location.href='$fb_login_url'</script></head><body><a href='$fb_login_url'>Redirecting</a></body></html>";
+				exit;
+			
+			} else {
 		
+				$this->tpl->parse('content.login');
+			
+			}
 		}
 		
 		return true;
@@ -90,6 +101,10 @@ class Onxshop_Controller_Component_Client_Facebook_Auth extends Onxshop_Controll
 		$client_customer_conf = Client_Customer::initConfiguration();
 		
 		$conf = array('scope' => $client_customer_conf['facebook_login_scope']);
+		
+		if (ONXSHOP_FACEBOOK_WITHIN_APP) {
+			if (ONXSHOP_FACEBOOK_ENV == 'desktop') $conf['redirect_uri'] = ONXSHOP_FACEBOOK_CANVAS_URL;
+		}
 		
 		return $conf;
 	}

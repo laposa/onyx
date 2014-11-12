@@ -14,9 +14,6 @@ class Onxshop_Controller_Node_Site_Facebook extends Onxshop_Controller_Node_Site
 	 */
 	 
 	public function mainAction() {
-				
-		$Facebook_Auth = new Onxshop_Request('component/client/facebook_auth');
-		//echo $Facebook_Auth->getContent();
 		
 		return parent::mainAction();
 		

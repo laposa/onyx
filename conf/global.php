@@ -2,7 +2,7 @@
 /**
  * Global Onxshop configuration
  *
- * Copyright (c) 2005-2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2005-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 	
  */
@@ -187,13 +187,6 @@ if (!defined('ONXSHOP_ALLOW_SCHEDULER')) define('ONXSHOP_ALLOW_SCHEDULER', true)
 if (!defined('ONXSHOP_ALLOW_SEARCH_INDEX_AUTOUPDATE')) define('ONXSHOP_ALLOW_SEARCH_INDEX_AUTOUPDATE', false);
 
 /**
- * Set pre-action list as array, used in bootstrap.php
- */
-
-$onxshop_pre_actions = array("autologin", "locales");
-if (ONXSHOP_ALLOW_SCHEDULER) $onxshop_pre_actions[] = "scheduler";
-
-/**
  * social: Facebook
  */
  
@@ -202,6 +195,15 @@ if (!defined('ONXSHOP_FACEBOOK_APP_SECRET')) define('ONXSHOP_FACEBOOK_APP_SECRET
 if (!defined('ONXSHOP_FACEBOOK_APP_NAMESPACE')) define('ONXSHOP_FACEBOOK_APP_NAMESPACE', '');
 if (!defined('ONXSHOP_FACEBOOK_APP_OG_STORIES')) define('ONXSHOP_FACEBOOK_APP_OG_STORIES', '');
 if (!defined('ONXSHOP_FACEBOOK_OG_IMAGE')) define('ONXSHOP_FACEBOOK_OG_IMAGE', 'var/files/favicon.ico');
+// Canvas URL is defined by APP_NAMESPACE
+define('ONXSHOP_FACEBOOK_CANVAS_URL', 'https://apps.facebook.com/' . ONXSHOP_FACEBOOK_APP_NAMESPACE);
+// determine environment (desktop vs mobile)
+if (($_POST['signed_request'] && $_POST['fb_locale'])) define('ONXSHOP_FACEBOOK_ENV', 'desktop');
+else if ($_GET['ref'] == 'web_canvas') define('ONXSHOP_FACEBOOK_ENV', 'mobile');
+else define('ONXSHOP_FACEBOOK_ENV', '');
+// determine if we are running under Facebook App
+if (ONXSHOP_FACEBOOK_ENV == 'desktop' || ONXSHOP_FACEBOOK_ENV == 'mobile') define('ONXSHOP_FACEBOOK_WITHIN_APP', true);
+else define('ONXSHOP_FACEBOOK_WITHIN_APP', false);
 
 /**
  * social: Twitter
@@ -278,3 +280,11 @@ if (!defined('ONXSHOP_MODEL_STRICT_VALIDATION')) define('ONXSHOP_MODEL_STRICT_VA
  */
 
 if (!defined('ONXSHOP_CUSTOMER_ALLOW_ACCOUNT_MERGE')) define('ONXSHOP_CUSTOMER_ALLOW_ACCOUNT_MERGE', false);
+
+/**
+ * Set pre-action list as array, used in bootstrap.php
+ */
+
+$onxshop_pre_actions = array("autologin", "locales");
+if (ONXSHOP_ALLOW_SCHEDULER) $onxshop_pre_actions[] = "scheduler";
+if (ONXSHOP_FACEBOOK_WITHIN_APP) $onxshop_pre_actions[] = 'component/client/facebook_auth';
