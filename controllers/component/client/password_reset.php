@@ -12,13 +12,6 @@ class Onxshop_Controller_Component_Client_Password_Reset extends Onxshop_Control
 	 */
 	
 	public function mainAction() {
-		//force SSL
-		//FIXME: we need to check SSL here, because node/page/commerce controller is called after and it caused "Wrong key" error message
-		//when SSL for frontend was enabled
-		if (!$_SERVER['HTTPS'] && ONXSHOP_CUSTOMER_USE_SSL) {
-			header("Location: https://{$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}");
-			exit;
-		}
 		
 		/**
 		 * initialise client_customer object

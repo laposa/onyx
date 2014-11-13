@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * Copyright (c) 2005-2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2005-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -22,6 +22,15 @@ if (ONXSHOP_BENCHMARK && ONXSHOP_IS_DEBUG_HOST) {
 	define("TIME_START", $time_start);
 }
 
+/**
+ * force SSL
+ */
+
+if (!($_SERVER['SSL_PROTOCOL'] || $_SERVER['HTTPS']) && ONXSHOP_CUSTOMER_USE_SSL) {
+	header("HTTP/1.1 301 Moved Permanently");
+    header("Location: https://{$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}");
+    exit;
+}
 
 /**
  * Include Bootstrap

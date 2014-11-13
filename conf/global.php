@@ -14,12 +14,6 @@
 //define('ONXSHOP_MAIN_DOMAIN', 'default.co.uk');
 
 /**
- * Set output header
- */
-
-header( 'Content-Type: text/html; charset=UTF-8' );
-
-/**
  * Can the remote host see debugging messages?
  */
  

@@ -95,6 +95,9 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 		
 		/**
 		 * force SSL
+		 * this is no longer effective since Onxshop 1.7 when we force SSL for all pages
+		 * when ONXSHOP_CUSTOMER_USE_SSL is set to "true"
+		 * kept here for transitional period
 		 */
 		
 		if ($node_data['require_ssl'] == 1) {
