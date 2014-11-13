@@ -234,8 +234,7 @@ div.pagination li.next a:hover,
 div.pagination a.show_all:hover {text-decoration: underline;}
 
 /********* component/image_gallery/list.html *********/
-div.image_gallery_list div.thumbnails div.item {float: left; min-height: 50px;}
-div.image_gallery_list div.thumbnails div.item img {padding: 0 10px 10px 0;}
+div.image_gallery_list div.thumbnails div.item {display: inline-block; margin: 5px;}
 div.image_gallery_list a {text-decoration: none;}
 
 /********* component/image_gallery/cycle.html *********/

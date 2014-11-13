@@ -59,7 +59,7 @@ class Onxshop_Controller_Component_Image_Gallery extends Onxshop_Controller_Comp
 			 */
 			 
 			if (is_numeric($this->GET['thumbnail_width'])) $thumbnail_width = $this->GET['thumbnail_width'];
-			else $thumbnail_width = 50;
+			else $thumbnail_width = 100;
 			
 			/**
 			 * check thumbnail constrain and set appropriate height
