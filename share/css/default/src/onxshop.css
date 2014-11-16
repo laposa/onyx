@@ -96,8 +96,7 @@
 #credit a span {display: none;}
 #copyright p {padding-top: 25px;}*/
 
-#contentSide {width: 16.66%; margin: 20px 0 10px 0; clear: left; float: left;}
-#contentSideWrapper {margin-right: 10px;}
+#contentSide {width: 150px; margin: 10px; clear: left; float: left;}
 
 #contentBottom {clear: both; width: 100%;}
 
