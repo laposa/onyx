@@ -171,10 +171,12 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
 		 * check
 		 */
 		 
-		if ($this->GET['to']) {
+		if ($this->GET['to'] && !$_SESSION['to']) {
 			if ($this->GET['to'] == 'ajax') {
 				return true;
-			} else onxshopGoTo($this->GET['to']);
+			} else {
+				onxshopGoTo($this->GET['to']);
+			}
 		} else if ($_SESSION['to']) {
 			$to = $_SESSION['to'];
 			$_SESSION['to'] = false;
