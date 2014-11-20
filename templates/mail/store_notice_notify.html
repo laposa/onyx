@@ -1,9 +1,9 @@
 <!-- BEGIN: title -->New Notice<!-- END: title -->
 <!-- BEGIN: content -->
-<p>New notice on <strong>{CONFIGURATION.global.title|htmlspecialchars} {DATA.store.title}</strong> community noticeboard from store manager <strong>{DATA.store.manager_name|htmlspecialchars} &lt;{DATA.store.email|htmlspecialchars}&gt;</strong> (Logged in as <a href="http://{_SERVER.HTTP_HOST}/backoffice/customers/{_SESSION.client.customer.id}/detail">Customer ID {_SESSION.client.customer.id}.</a>)</p>
+<p>New notice on <strong>{CONFIGURATION.global.title|htmlspecialchars} {DATA.store.title}</strong> community noticeboard from store manager <strong>{DATA.store.manager_name|htmlspecialchars} &lt;{DATA.store.email|htmlspecialchars}&gt;</strong> (Logged in as <a href="{PROTOCOL}://{_SERVER.HTTP_HOST}/backoffice/customers/{_SESSION.client.customer.id}/detail">Customer ID {_SESSION.client.customer.id}.</a>)</p>
  
 <!-- cannot use URI, needs to be a page <p>View in front-end <a href="{URI|htmlspecialchars}">{URI|htmlspecialchars}</a></p>-->
-<p>Please review and publish in backoffice <a href="http://{_SERVER.HTTP_HOST}/backoffice/stores/{DATA.store.id}/edit#notice_list_{DATA.store.id}">http://{_SERVER.HTTP_HOST}/backoffice/stores/{DATA.store.id}/edit#notice_list_{DATA.store.id}</a></p>
+<p>Please review and publish in backoffice <a href="{PROTOCOL}://{_SERVER.HTTP_HOST}/backoffice/stores/{DATA.store.id}/edit#notice_list_{DATA.store.id}">{PROTOCOL}://{_SERVER.HTTP_HOST}/backoffice/stores/{DATA.store.id}/edit#notice_list_{DATA.store.id}</a></p>
 
 <p>
 	<strong>Text: </strong> {DATA.notice.text}

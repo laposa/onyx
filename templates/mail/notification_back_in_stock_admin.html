@@ -22,12 +22,12 @@ Please note that the below denomination is now back in stock.
 	Please ensure that this accurately reflects stock level of {DATA.product.name|htmlspecialchars} - {DATA.product.variety.name|htmlspecialchars} ({DATA.product.variety.sku|htmlspecialchars}) and update the product in the back-office accordingly by following the below link. 
 	<br/>
 	<br/>
-	<a style="color: #a39161;" href="http://{_SERVER.SERVER_NAME}/backoffice/products/{DATA.product.id}/edit">http://{_SERVER.SERVER_NAME}/backoffice/products/{DATA.product.id}/edit</a>
+	<a style="color: #a39161;" href="{PROTOCOL}://{_SERVER.SERVER_NAME}/backoffice/products/{DATA.product.id}/edit">{PROTOCOL}://{_SERVER.SERVER_NAME}/backoffice/products/{DATA.product.id}/edit</a>
 </p>
 
 <p>
 Regards,<br />
-JING Tea Web Management, <a style="color: #a39161;" href="http://{_SERVER.SERVER_NAME}">http://{_SERVER.SERVER_NAME}</a>
+JING Tea Web Management, <a style="color: #a39161;" href="{PROTOCOL}://{_SERVER.SERVER_NAME}">{PROTOCOL}://{_SERVER.SERVER_NAME}</a>
 </p>
 
 <!-- END: content -->

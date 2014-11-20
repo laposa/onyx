@@ -7,7 +7,7 @@
 <p>Your username is {DATA.customer.email|htmlspecialchars}</p>
 
 <p>If you forget your password, you can retrieve it from this address:<br />
-<a href="http://{_SERVER.HTTP_HOST}/page/{NODE_CONF.id_map-passwordreset}">http://{_SERVER.HTTP_HOST}/page/{NODE_CONF.id_map-passwordreset}</a></p>
+<a href="{PROTOCOL}://{_SERVER.HTTP_HOST}/page/{NODE_CONF.id_map-passwordreset}">{PROTOCOL}://{_SERVER.HTTP_HOST}/page/{NODE_CONF.id_map-passwordreset}</a></p>
 
 <p>Best wishes,</p>
 

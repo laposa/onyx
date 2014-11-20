@@ -3,7 +3,7 @@
 <p>New comment from {DATA.comment.author_name|htmlspecialchars} &lt;{DATA.comment.author_email|htmlspecialchars}&gt;.</p>
  
 <!-- cannot use URI, needs to be a page <p>View in front-end <a href="{URI|htmlspecialchars}">{URI|htmlspecialchars}</a></p>-->
-<p>View in backoffice <a href="http://{_SERVER.HTTP_HOST}/backoffice/comments">http://{_SERVER.HTTP_HOST}/backoffice/comments</a></p>
+<p>View in backoffice <a href="{PROTOCOL}://{_SERVER.HTTP_HOST}/backoffice/comments">{PROTOCOL}://{_SERVER.HTTP_HOST}/backoffice/comments</a></p>
 
 <h3>{DATA.comment.title|htmlspecialchars}</h3>
 <p>{DATA.comment.content|htmlspecialchars|nl2br}</p>

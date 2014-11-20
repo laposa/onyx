@@ -1,5 +1,5 @@
 <!-- BEGIN: title -->Thank you for inviting {DATA.invited_customer.first_name} to JING Tea<!-- END: title -->
-<!-- BEGIN: content --><p align="center"><img src="http://{_SERVER.HTTP_HOST}/images/jing_logo_email.png" alt="JING"/></p>
+<!-- BEGIN: content --><p align="center"><img src="{PROTOCOL}://{_SERVER.HTTP_HOST}/images/jing_logo_email.png" alt="JING"/></p>
 
 <p>Hello {DATA.rewarded_customer.first_name},</p>
 
@@ -9,7 +9,7 @@
 
 <p>Your new {DATA.discount_value|money_format('%n', %s)} voucher code is: <strong>{DATA.code}</strong></p>
 
-<p>Full details of your JING vouchers, and the friends you have invited can be found in your <a href="http://{_SERVER.HTTP_HOST}/my-account/invite-friends">JING Account Page</a>.</p>
+<p>Full details of your JING vouchers, and the friends you have invited can be found in your <a href="{PROTOCOL}://{_SERVER.HTTP_HOST}/my-account/invite-friends">JING Account Page</a>.</p>
 
 <p>Kind regards,<br/>
 JING Tea

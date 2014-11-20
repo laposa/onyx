@@ -2,7 +2,7 @@
 /**
  * class common_email
  *
- * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -448,9 +448,10 @@ CREATE TABLE common_email (
 		}
 
 		// from $Onxshop_Request->_initTemplateVariables
-		if ($_SERVER['HTTPS']) $protocol = 'https';
+		if ($_SERVER['SSL_PROTOCOL'] || $_SERVER['HTTPS']) $protocol = 'https';
 		else $protocol = 'http';
 		
+		$tpl->assign('PROTOCOL', $protocol);
 		$tpl->assign('URI', "$protocol://{$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}");
 		$tpl->assign('_SERVER', $_SERVER);
 		$tpl->assign('_SESSION', $_SESSION);

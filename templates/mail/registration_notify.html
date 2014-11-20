@@ -2,7 +2,7 @@
 <!-- BEGIN: content -->
 <p>{DATA.customer.title_before|htmlspecialchars} {DATA.customer.first_name|htmlspecialchars} {DATA.customer.last_name|htmlspecialchars}  has sucessfully registered.</p>
  
-<p>Click for profile <a href="http://{_SERVER.HTTP_HOST}/backoffice/customers/{DATA.customer.id}/detail">http://{_SERVER.HTTP_HOST}/backoffice/customers/{DATA.customer.id}/detail</a></p>
+<p>Click for profile <a href="{PROTOCOL}://{_SERVER.HTTP_HOST}/backoffice/customers/{DATA.customer.id}/detail">{PROTOCOL}://{_SERVER.HTTP_HOST}/backoffice/customers/{DATA.customer.id}/detail</a></p>
 
 <p>{CONFIGURATION.global.author_content|htmlspecialchars}</p>
 <!-- END: content -->
