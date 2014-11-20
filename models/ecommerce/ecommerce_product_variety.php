@@ -466,16 +466,20 @@ ALTER TABLE ecommerce_product_variety ADD UNIQUE (\"sku\");
 		if (empty($sku)) return array();
 
 		$sku_list = array();
+		$sku_list_raw = ",";
 
 		$skus = explode(",", $sku);
 		foreach ($skus as $sku) {
 			$sku = trim($sku);
-			if (!empty($sku)) $sku_list[] = "'" . pg_escape_string($sku) . "'";
+			if (!empty($sku)) {
+				$sku_list[] = "'" . pg_escape_string($sku) . "'";
+				$sku_list_raw .= pg_escape_string($sku) . ",";
+			}
 		}
 		if (count($sku_list) == 0) return array();
 
 		$sku_list = implode(",", $sku_list);
-		$varieties = $this->listing("sku in ($sku_list)", 'priority DESC, id ASC');
+		$varieties = $this->listing("sku in ($sku_list)", "position(',' || sku::text || ',' in '$sku_list_raw')");
 
 		if (is_array($varieties)) {
 			foreach ($varieties as $kv => $v) {
