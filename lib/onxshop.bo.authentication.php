@@ -7,7 +7,6 @@
 
 require_once('models/client/client_customer.php');
 require_once('models/client/client_role_permission.php');
-require_once(ONXSHOP_DIR . 'conf/permissions.php');
 
 class Onxshop_Bo_Authentication
 {

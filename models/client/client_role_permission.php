@@ -26,7 +26,12 @@ class client_role_permission extends Onxshop_Model {
 	/**
 	 * @private
 	 */
-	var $permission;
+	var $resource;
+	
+	/**
+	 * @private
+	 */
+	var $operation;
 
 	/**
 	 * @private
@@ -51,7 +56,8 @@ class client_role_permission extends Onxshop_Model {
 	var $_metaData = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'role_id'=>array('label' => '', 'validation'=>'int', 'required'=>true),
-		'permission'=>array('label' => '', 'validation'=>'int', 'required'=>true),
+		'resource'=>array('label' => '', 'validation'=>'string', 'required'=>true),
+		'operation'=>array('label' => '', 'validation'=>'string', 'required'=>false),
 		'scope'=>array('label' => '', 'validation'=>'string', 'required'=>false),
 		'created'=>array('label' => '', 'validation'=>'datetime', 'required'=>true),
 		'modified'=>array('label' => '', 'validation'=>'datetime', 'required'=>true),
@@ -66,15 +72,15 @@ class client_role_permission extends Onxshop_Model {
 	
 		$sql = "CREATE TABLE client_role_permission (
 			id serial NOT NULL PRIMARY KEY,
-			role_id integer NOT NULL REFERENCES client_customer ON UPDATE CASCADE ON DELETE CASCADE,
-			permission integer NOT NULL,
+			role_id integer NOT NULL REFERENCES client_role ON UPDATE CASCADE ON DELETE CASCADE,
+			resource acl_resource,
+			operation acl_operation,
 			scope text,
 			created timestamp without time zone NOT NULL DEFAULT NOW(),
 			modified timestamp without time zone NOT NULL DEFAULT NOW(),
 			other_data text
 		);
-
-		CREATE INDEX client_role_permission_role_id_key ON client_role_permission USING btree (permission);
+		CREATE INDEX client_role_permission_role_id_key ON client_role_permission USING btree (role_id);
 		";
 			
 		return $sql;
@@ -97,11 +103,12 @@ class client_role_permission extends Onxshop_Model {
 	/**
 	 * Return true if given customer has given permission
 	 * @param  int    $customer_id Customer Id
-	 * @param  int    $permission  Permission
-	 * @param  string $scope       Permission scope (null by default)
+	 * @param  string $resource	   Resource
+	 * @param  string $operation   Allowed Operation (null by default)
+	 * @param  string $scope       Limit to scope (null by default), not implemented
 	 * @return bool
 	 */
-	public function checkPermissionByCustomer($customer_id, $permission, $scope = null)
+	public function checkPermissionByCustomer($customer_id, $resource, $operation = null, $scope = null)
 	{
 		if (!is_numeric($customer_id)) return false;
 
@@ -111,9 +118,15 @@ class client_role_permission extends Onxshop_Model {
 		}
 
 		foreach (self::$permissionCache[$customer_id] as $item) {
-			if ($item['permission'] == $permission) {
+			
+			if ($item['resource'] == '_all_') return true; 
+			
+			if ($item['resource'] == $resource) {
+				
+				if ($item['operation'] == '_all_') return true;
+				
 				if ($scope === null) return true;
-				if ($scope == $item['scope']) return true;
+				if ($scope == $item['operation']) return true;
 			}
 		}
 

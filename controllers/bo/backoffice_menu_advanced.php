@@ -34,17 +34,17 @@ class Onxshop_Controller_Bo_Backoffice_Menu_Advanced extends Onxshop_Controller_
 		$auth = Onxshop_Bo_Authentication::getInstance();
 		$isEcommerce = $auth->isEcommerce();
 
-		if ($auth->hasPermission(ONXSHOP_PERMISSION_MEDIA_SECTION)) $this->tpl->parse('content.media');
-		if ($auth->hasPermission(ONXSHOP_PERMISSION_TAXONOMY_SECTION)) $this->tpl->parse('content.taxonomy');
-		if ($auth->hasPermission(ONXSHOP_PERMISSION_SEO_MANAGER_SECTION)) $this->tpl->parse('content.seo_manager');
-		if ($auth->hasPermission(ONXSHOP_PERMISSION_DATABASE_SECTION)) $this->tpl->parse('content.database');
-		if ($auth->hasPermission(ONXSHOP_PERMISSION_TEMPLATES_SECTION)) $this->tpl->parse('content.templates');
-		if ($auth->hasPermission(ONXSHOP_PERMISSION_SCHEDULER_SECTION)) $this->tpl->parse('content.scheduler');
-		if ($auth->hasPermission(ONXSHOP_PERMISSION_CURRENCY_SECTION)) $this->tpl->parse('content.currency');
-		if ($auth->hasPermission(ONXSHOP_PERMISSION_SEARCH_INDEX_SECTION)) $this->tpl->parse('content.search_index');
-		if ($auth->hasPermission(ONXSHOP_PERMISSION_TOOLS_SECTION)) $this->tpl->parse('content.tools');
-		if ($auth->hasPermission(ONXSHOP_PERMISSION_LOGS_SECTION)) $this->tpl->parse('content.logs');
-		if ($auth->hasPermission(ONXSHOP_PERMISSION_CONFIGURATION_SECTION)) $this->tpl->parse('content.configuration');
+		if ($auth->hasPermission('media')) $this->tpl->parse('content.media');
+		if ($auth->hasPermission('taxonomy')) $this->tpl->parse('content.taxonomy');
+		if ($auth->hasPermission('seo_manager')) $this->tpl->parse('content.seo_manager');
+		if ($auth->hasPermission('database')) $this->tpl->parse('content.database');
+		if ($auth->hasPermission('templates')) $this->tpl->parse('content.templates');
+		if ($auth->hasPermission('scheduler')) $this->tpl->parse('content.scheduler');
+		if ($auth->hasPermission('currency')) $this->tpl->parse('content.currency');
+		if ($auth->hasPermission('search_index')) $this->tpl->parse('content.search_index');
+		if ($auth->hasPermission('tools')) $this->tpl->parse('content.tools');
+		if ($auth->hasPermission('logs')) $this->tpl->parse('content.logs');
+		if ($auth->hasPermission('configuration')) $this->tpl->parse('content.configuration');
 
 		return true;
 		

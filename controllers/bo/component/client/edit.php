@@ -133,7 +133,7 @@ class Onxshop_Controller_Bo_Component_Client_Edit extends Onxshop_Controller {
 		$this->parseGroupCheckboxes($client['customer']['group_ids']);
 		$this->parseOtherData($client['customer']['other_data']);
 
-		if (Onxshop_Bo_Authentication::getInstance()->hasPermission(ONXSHOP_PERMISSION_CUSTOMER_ROLES_EDITING)) {
+		if (Onxshop_Bo_Authentication::getInstance()->hasPermission('permissions')) {
 			$this->parseRoleCheckboxes($client['customer']['role_ids']);
 		}
 

@@ -108,7 +108,48 @@ ALTER TABLE client_customer DROP COLUMN group_id;
 --
 -- ACL
 --  
-DROP TABLE IF EXISTS client_acl;
+
+CREATE TYPE acl_resource AS ENUM (
+	'_all_',
+	'front_office',
+	'back_office',
+	'nodes',
+	'products',
+	'recipes',
+	'stores',
+	'orders',
+	'stock',
+	'customers',
+	'reports',
+	'discounts',
+	'comments',
+	'surveys',
+	'media',
+	'taxonomy',
+	'seo_manager',
+	'database',
+	'templates',
+	'scheduler',
+	'currency',
+	'search_index',
+	'tools',
+	'logs',
+	'configuration',
+	'permissions'
+);
+
+CREATE TYPE acl_operation AS ENUM (
+	'_all_',
+	'view',
+	'edit',
+	'add',
+	'delete',
+	'publish'
+);
+
+--
+-- client_role
+--
 
 CREATE TABLE client_role (
 	id serial NOT NULL PRIMARY KEY,
@@ -117,17 +158,89 @@ CREATE TABLE client_role (
 	other_data text
 );
 
+INSERT INTO "client_role" ("id", "name", "description", "other_data") VALUES
+(1, 'Admin', NULL, NULL),
+(2, 'Front Office Only CMS Editor', NULL, NULL),
+(3, 'CMS Editor', NULL, NULL),
+(4, 'Ecommerce Editor', NULL, NULL),
+(5, 'Customer Services', NULL, NULL),
+(6, 'Warehouse', NULL, NULL);
+SELECT setval('client_role_id_seq', (SELECT MAX(id) FROM client_role));
+
+
+--
+-- client_role_permission
+--
+
 CREATE TABLE client_role_permission (
 	id serial NOT NULL PRIMARY KEY,
 	role_id integer NOT NULL REFERENCES client_role ON UPDATE CASCADE ON DELETE CASCADE,
-	permission integer NOT NULL,
+	resource acl_resource,
+	operation acl_operation,
 	scope text,
 	created timestamp without time zone NOT NULL DEFAULT NOW(),
 	modified timestamp without time zone NOT NULL DEFAULT NOW(),
 	other_data text
 );
-CREATE INDEX client_role_role_id_key ON client_role_permission USING btree (role_id);
-CREATE INDEX client_role_permission_key ON client_role_permission USING btree (permission);
+CREATE INDEX client_role_permission_role_id_key ON client_role_permission USING btree (role_id);
+
+
+INSERT INTO "client_role_permission" ("role_id", "resource", "operation") VALUES
+--
+-- Admin
+--
+(1, '_all_', '_all_'),
+--
+-- Front Office Only CMS Editor
+--
+(2, 'front_office', '_all_'),
+(2, 'nodes', 'edit'),
+(2, 'media', '_all_'),
+--
+-- CMS Editor
+--
+(3, 'front_office', '_all_'),
+(3, 'back_office', '_all_'),
+(3, 'nodes', '_all_'),
+(3, 'comments', '_all_'),
+(3, 'surveys', '_all_'),
+(3, 'media', '_all_'),
+(3, 'taxonomy', '_all_'),
+(3, 'seo_manager', '_all_'),
+(3, 'scheduler', '_all_'),
+(3, 'search_index', '_all_'),
+--
+-- Ecommerce Editor
+--
+(4, 'products', '_all_'),
+(4, 'recipes', '_all_'),
+(4, 'stores', '_all_'),
+(4, 'orders', '_all_'),
+(4, 'stock', '_all_'),
+(4, 'customers', '_all_'),
+(4, 'reports', '_all_'),
+(4, 'discounts', '_all_'),
+(4, 'currency', '_all_'),
+--
+-- Customer Services
+--
+(5, 'back_office', '_all_'),
+(5, 'customers', '_all_'),
+(5, 'orders', '_all_'),
+(5, 'comments', '_all_'),
+(5, 'surveys', '_all_'),
+(5, 'discounts', '_all_'),
+--
+-- Warehouse
+--
+(6, 'stock', '_all_');
+
+SELECT setval('client_role_permission_id_seq', (SELECT MAX(id) FROM client_role_permission));
+
+
+--
+-- client_customer_role
+--
 
 CREATE TABLE client_customer_role (
 	id serial NOT NULL PRIMARY KEY,
@@ -139,54 +252,8 @@ CREATE TABLE client_customer_role (
 CREATE INDEX client_customer_role_role_id_key ON client_customer_role USING btree (role_id);
 CREATE INDEX client_customer_role_customer_id_key ON client_customer_role USING btree (customer_id);
 
---
--- Default ACL settings
---
-INSERT INTO "client_role" ("id", "name", "description", "other_data") VALUES
-(1,	'Admin',	NULL,	NULL),
-(3,	'Warehouse',	NULL,	NULL),
-(2,	'Editor',	NULL,	NULL);
 
-INSERT INTO "client_role_permission" ("id", "role_id", "permission", "scope", "created", "modified", "other_data") VALUES
--- Admin
-(1, 1, 1000, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_FRONT_END_EDITING
-(2, 1, 2000, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_PAGES_SECTION
-(3, 1, 2001, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_NEWS_SECTION
-(4, 1, 2002, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_PRODUCTS_SECTION
-(5, 1, 2003, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_RECIPES_SECTION
-(6, 1, 2004, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_STORES_SECTION
-(7, 1, 2005, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_ORDERS_SECTION
-(8, 1, 2006, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_STOCK_SECTION
-(9, 1, 2007, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_CUSTOMERS_SECTION
-(10, 1, 2008, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_STATS_SECTION
-(11, 1, 2009, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_MARKETING_SECTION
-(12, 1, 2010, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_COMMENTS_SECTION
-(13, 1, 2011, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_SURVEYS_SECTION
-(14, 1, 2012, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_ADVANCED_SECTION
-(21, 1, 2013, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_MEDIA_SECTION
-(22, 1, 2014, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_TAXONOMY_SECTION
-(23, 1, 2015, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_SEO_MANAGER_SECTION
-(24, 1, 2016, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_DATABASE_SECTION
-(25, 1, 2017, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_TEMPLATES_SECTION
-(26, 1, 2018, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_SCHEDULER_SECTION
-(27, 1, 2019, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_CURRENCY_SECTION
-(28, 1, 2020, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_SEARCH_INDEX_SECTION
-(29, 1, 2021, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_TOOLS_SECTION
-(30, 1, 2022, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_LOGS_SECTION
-(31, 1, 2023, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_CONFIGURATION_SECTION
-(32, 1, 1001, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_CUSTOMER_ROLES_EDITING
 
--- Editor
-(15, 2, 1000, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_FRONT_END_EDITING
-(16, 2, 2000, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_PAGES_SECTION
-(17, 2, 2001, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_NEWS_SECTION
-(18, 2, 2012, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_ADVANCED_SECTION
--- Warehouse
-(19, 3, 2005, NULL, now(), now(), NULL), -- ONXSHOP_PERMISSION_ORDERS_SECTION
-(20, 3, 2006, NULL, now(), now(), NULL); -- ONXSHOP_PERMISSION_STOCK_SECTION
-
-SELECT setval('client_role_id_seq', (SELECT MAX(id) FROM client_role));
-SELECT setval('client_role_permission_id_seq', (SELECT MAX(id) FROM client_role_permission));
 
 --
 -- Add other_data column to some education_* tables
