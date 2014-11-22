@@ -162,7 +162,7 @@ INSERT INTO "client_role" ("id", "name", "description", "other_data") VALUES
 (1, 'Admin', NULL, NULL),
 (2, 'Front Office Only CMS Editor', NULL, NULL),
 (3, 'CMS Editor', NULL, NULL),
-(4, 'Ecommerce Editor', NULL, NULL),
+(4, 'eCommerce Editor', NULL, NULL),
 (5, 'Customer Services', NULL, NULL),
 (6, 'Warehouse', NULL, NULL);
 SELECT setval('client_role_id_seq', (SELECT MAX(id) FROM client_role));
