@@ -28,7 +28,8 @@ $(document).ready(function(){
 			<span class="label"><label>&nbsp;</label></span>
 			<span class="field"><button type="submit" name="login" value="sent" class="submit"><span>{I18N_SUBMIT}</span></button></span>
 		</div>
-	</form>
+	<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+</form>
 	
 </div>
 <!-- END: login_box -->

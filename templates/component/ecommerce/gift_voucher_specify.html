@@ -89,7 +89,8 @@ $(function(){
 				<span class="label"><label>&nbsp;</label></span>
 				<span class="field"><button type="submit" name="send" value="send" class="submit add_to_basket"><span>{I18N_ADD_TO_BASKET}</span></button></span>
 			</div>
-		</form>
+		<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+</form>
 	</div>
 </div>
 <!-- END: content -->

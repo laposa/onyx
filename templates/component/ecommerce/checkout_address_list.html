@@ -174,7 +174,8 @@
 			<input id="deliver_checkbox" type="checkbox" name="deliver_to_billing" {CHECKED} value="1"/>
 			Deliver to Billing Address
 		</label>
-	</form>
+	<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+</form>
 	<script type="text/javascript">
 
 		$(function() { 
@@ -348,7 +349,8 @@
 
 	</div>
 	
-	</form>
+	<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+</form>
 
 </div>
 

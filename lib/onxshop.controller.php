@@ -695,7 +695,9 @@ class Onxshop_Controller {
 		$this->tpl->assign('_SERVER', $_SERVER);
 		$this->tpl->assign('CONFIGURATION', $GLOBALS['onxshop_conf']);
 		
-		$this->tpl->assign('REGISTRY', $this->_getRegistryAsArray());
+		$registry = $this->_getRegistryAsArray();
+		$this->tpl->assign('REGISTRY', $registry);
+		$this->tpl->assign('CSRF_TOKEN', $registry['CSRF_TOKEN']);
 		
 		$this->tpl->assign('_SESSION', $_SESSION);
 		$this->tpl->assign('_POST', $_POST);

@@ -56,6 +56,7 @@ $(document).ready(function(){
 				'<span class="label"></span>' +
 				'<span class="field"><button class="button add"><span>Download Report</span></button></span>' +
 			'</div>' +
+			'<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />' +
 			'</form>');
 		$('#export_from').datepicker({firstDay: 1, dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true}).datepicker("setDate", "-7");
 		$('#export_to').datepicker({firstDay: 1, dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true}).datepicker("setDate", "+1");

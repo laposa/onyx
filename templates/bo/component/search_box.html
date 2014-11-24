@@ -14,7 +14,8 @@ $(function(){
 			<label title="search in content" style="display: none">search</label><input class="text" type="text" name="search[query]" style="width: 150px;" title="currently search in pages only" />
 		</div>
 		<!--<button type="submit" style="margin: 0.2em 0;"><span>Search</span></button>-->
-	</form>
+	<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+</form>
 </div>
 		
 <!-- END: content -->

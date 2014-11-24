@@ -20,7 +20,8 @@
 			<!-- END: discount_free_delivery -->
 			<p>Promotion Code Used <input type="text" name="promotion_code" value="{PROMOTION_CODE.value}" disabled="disabled" /> 			<button type="submit" name="promotion_code_remove" value="promotion_code_remove"><span>Remove Code</span></button></p>
 		</fieldset>
-	</form>
+	<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+</form>
 	<!-- END: applied -->
 	<!-- BEGIN: enter -->
 	<form action="{URI|htmlspecialchars}" method="post" class="enter">
@@ -28,7 +29,8 @@
 			<h3>Promotion code</h3>
 			<p>Have a promotion code? Enter it here <input type="text" name="promotion_code" value="{PROMOTION_CODE.value}" /> 				<button type="submit" name="promotion_code_add" value="promotion_code_add"><span>Apply Code</span></button></p>
 		</fieldset>
-	</form>
+	<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+</form>
 	<!-- END: enter -->
 </div>
 <!-- END: content -->

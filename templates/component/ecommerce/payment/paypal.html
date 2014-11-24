@@ -31,6 +31,7 @@ div.order_detail a.repeat_order {display: none;}
 	<input type="hidden" name="email" value="{PAYMENT_GATEWAY.order_data.client.customer.email|htmlspecialchars}" />
 	<!--<input type="hidden" name="notify_url" value="/request/component/ecommerce/payment/paypal_callback" />-->
 	<button class="payment_paypal" type='submit' name='paypal'  value='paypal' /><span>{I18N_MAKE_PAYMENT_WITH_PAYPAL}</span></button> 
+<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
 
 <!-- BEGIN: autosubmit -->

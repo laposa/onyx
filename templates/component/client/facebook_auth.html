@@ -8,7 +8,8 @@
 	<!-- BEGIN: login -->
 	<form method="post" action="{URI|htmlspecialchars}" class="login via_facebook">
 		<button class="facebook" name="facebook_auth" value="1"><span>Connect with Facebook</span></button>
-	</form>
+	<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+</form>
 	<!-- END: login -->
 </div>
 <!-- END: content -->

@@ -224,7 +224,8 @@
 			<span class="field"><button class="button save" type="submit" name="save" value="save" onclick="$(this).addClass('saving')" title="Click to save updated records"><span>{I18N_SAVE}</span></button></span>
 		</div>
 
-	</form>
+	<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+</form>
 </div>
 
 <!-- END: content -->

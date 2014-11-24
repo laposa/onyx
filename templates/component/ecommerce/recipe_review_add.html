@@ -74,7 +74,8 @@
 			<input type="hidden" name="comment[node_id]" value="{GET.node_id}" />
 			<input type="hidden" name="comment[author_email]" value="{COMMENT.author_email|htmlspecialchars}" />
 		</fieldset>
-    </form>
+    <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+</form>
     <p class="legal_notice">Please note that all submitted reviews &amp; comments will become the licensed property of {CONFIGURATION.global.author_content|htmlspecialchars}</p>
     </div>
 	<!-- END: comment_insert -->

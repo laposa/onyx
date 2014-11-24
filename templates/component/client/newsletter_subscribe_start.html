@@ -22,7 +22,8 @@ $(document).ready(function(){
 			<span class="field"><button type="submit" name="register" value="sent" class="submit"><span>{I18N_NEWSLETTER_SIGNUP}</span></button></span>
 		</div>
 		<div class="bottom"><span></span></div>
-	</form>
+	<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+</form>
 	
 </div>
 <!-- END: content -->

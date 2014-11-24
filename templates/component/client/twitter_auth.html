@@ -10,7 +10,8 @@
 	<!-- BEGIN: login -->
 	<form method="post" action="{URI|htmlspecialchars}" class="login via_twitter">
 		<button class="twitter" name="twitter_auth" value="1"><span>Connect with Twitter</span></button>
-	</form>
+	<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+</form>
 	<!-- END: login -->
 </div>
 <!-- END: content -->

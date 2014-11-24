@@ -45,6 +45,12 @@ class Onxshop_Bootstrap {
 		 */
 		
 		$this->initSession();
+		
+		/**
+		 * csrfCheck
+		 */
+		 
+		$this->csrfCheck();
 	
 		/**
 		 * Disable DB cache when logged in as editor
@@ -573,6 +579,42 @@ class Onxshop_Bootstrap {
 		}
 		
 		return $content;
+	}
+	
+	/**
+	 * csrfCheck
+	 */
+	 
+	public function csrfCheck() {
+		
+		/**
+		 * generate
+		 */
+		 
+		$CSRF_TOKEN = hash_hmac('md5', session_id(), ONXSHOP_ENCRYPTION_SALT);
+		
+		/**
+		 * save
+		 */
+		 
+		Zend_Registry::set('CSRF_TOKEN', $CSRF_TOKEN);
+		
+		/**
+		 * check if POST data are submitted
+		 * for testing period limited only to backoffice users
+		 */
+		 
+		if (Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) {
+			
+			if (count($_POST) > 0) {
+				
+				if ($CSRF_TOKEN !== $_POST['csrf_token']) {
+					trigger_error('CSRF_TOKEN is not valid', E_USER_ERROR);
+					die();
+				}
+				
+			}
+		}
 	}
 	
 }

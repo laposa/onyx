@@ -69,7 +69,8 @@
 			<input type="hidden" class="parent" name="comment[parent]" value="0" />
 			<input type="hidden" class="node_id"  name="comment[node_id]" value="{GET.node_id}" />
 		</fieldset>	
-    </form>
+    <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+</form>
     <!-- END: comment_insert -->
     
     <!-- BEGIN: comment_inserted -->

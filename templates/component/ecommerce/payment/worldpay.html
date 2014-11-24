@@ -18,6 +18,7 @@
 	<input type=hidden name="email" value="{PAYMENT_GATEWAY.email|htmlspecialchars}" />
 	<input type=hidden name="MC_callback" value="{PAYMENT_GATEWAY.MC_callback}" />
 	<button class="payment_worldpay" type='submit' name='worldpay'  value='worldpay'><span>{I18N_MAKE_PAYMENT_WITH_WORLDPAY}</span></button>
+<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
 
 <!-- BEGIN: autosubmit -->

@@ -212,7 +212,8 @@
 		<input type="hidden" name="product[variety][id]" value="{PRODUCT.variety.id}"/>
 		<input type="hidden" name="product[variety][product_id]" value="{PRODUCT.variety.product_id}"/>
 
-	</form>
+	<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+</form>
 
 
 	{ONXSHOP_REQUEST_tinymce #bo/tinymce~id=GET.id:relation=product_variety:theme=simple~}

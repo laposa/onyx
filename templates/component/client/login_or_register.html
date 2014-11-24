@@ -21,7 +21,8 @@ $(document).ready(function(){
 			<span class="label"><label>&nbsp;</label></span>
 			<span class="field"><button type="submit" name="register" value="sent" class="submit"><span>{I18N_CONTINUE}</span></button></span>
 		</div>
-	</form>
+	<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+</form>
 	<!-- END: form -->
 	<!-- BEGIN: login -->
 	{ONXSHOP_REQUEST_login #component/client/login}
