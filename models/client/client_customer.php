@@ -85,7 +85,7 @@ class client_customer extends Onxshop_Model {
 	 * 0 - disabled, i.e. temporarily locked (can't register)
 	 * 1 - registered
 	 * 2 - reserved
-	 * 3 - preserved for special purposes such as newsletter and survey (can register by updating the same account detail)
+	 * 3 - preserved for special purposes such as newsletter and survey (doesn't have any authentication method and can register by updating the same account details)
 	 * 4 - deleted (can register again)
 	 * 5 - guest checkout (can register again)
 	 */
