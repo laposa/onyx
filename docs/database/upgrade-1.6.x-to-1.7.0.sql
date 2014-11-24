@@ -291,4 +291,27 @@ ALTER TABLE "ecommerce_promotion" ADD "free_promo_products" text NULL;
 
 ALTER TABLE "ecommerce_store" ADD "url" varchar(512) NULL;
 
+
+
+--
+-- Revisions
+--
+
+CREATE TABLE common_revision (
+	id serial PRIMARY KEY NOT NULL,
+	object varchar(255) NOT NULL,
+	node_id integer NOT NULL,
+	content text,
+	status smallint,
+	customer_id integer REFERENCES client_customer ON UPDATE CASCADE ON DELETE RESTRICT,
+	created timestamp without time zone NOT NULL DEFAULT NOW(),
+	modified timestamp without time zone NOT NULL DEFAULT NOW(),
+	other_data text
+);
+		
+CREATE INDEX common_revision_combined_idx
+	ON common_revision
+	USING btree
+	(object, node_id);
+			
 COMMIT;

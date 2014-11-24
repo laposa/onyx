@@ -526,6 +526,7 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 		
 		if ($this->update($node_data)) {
 			if ($node_data['node_group'] == 'page') $this->updateSingleURI($node_data);
+			$this->insertRevision($node_data);
 			return true;
 		} else {
 			$node_group = ucfirst($node_data['node_group']);
@@ -593,6 +594,8 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 			$node_data['id'] = $id;
 			
 			if ($node_data['node_group'] == 'page') $this->insertNewMappingURI($node_data);
+			
+			$this->insertRevision($node_data);
 			
 			return $id;
 		} else {
@@ -1816,6 +1819,30 @@ LEFT OUTER JOIN common_taxonomy_label ON (common_taxonomy_tree.label_id = common
 		$sql = "UPDATE common_node SET share_counter = share_counter + 1 WHERE id = $node_id";
 		
 		return $this->executeSql($sql);
+		
+	}
+	
+	/**
+	 * insertRevision
+	 */
+	 
+	public function insertRevision($node_data) {
+		
+		require_once('models/common/common_revision.php');
+		$Revision = new common_revision();
+		
+		$revision_data = array();
+		$revision_data['node_id'] = $node_data['id'];
+		$revision_data['object'] = 'common_node';
+		$revision_data['content'] = $node_data;
+		
+		if ($revision_id = $Revision->insertRevision($revision_data)) {
+			msg("Saved revision ID $revision_id", 'ok', 1);
+			return $revision_id;
+		} else {
+			msg("Can't save revision for node ID {$revision_data['node_id']}", 'error');
+			return false;
+		}
 		
 	}
 	

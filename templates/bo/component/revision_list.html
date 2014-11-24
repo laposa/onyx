@@ -1,0 +1,33 @@
+<!-- BEGIN: content -->
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<div class="revision_list">
+	<table cellspacing="0">
+		<caption>Revisions</caption>
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Created</th>
+				<th>Author</th>
+			</tr>
+		</thead>
+		<tfoot>
+			{PAGINATION}
+		</tfoot>
+		<tbody>
+			<!-- BEGIN: item -->
+			<tr class="status_{ITEM.status}">
+				<td>{ITEM.id}</td>
+				<td>{ITEM.created|strtotime|date('d/m/Y H:i:s', %s)}</td>
+				<td><a href="/backoffice/customers/{ITEM.customer_id}/detail" target="_blank">{ITEM.customer_id}</a></td>
+			</tr>
+			<!-- END: item -->
+			<!-- BEGIN: empty -->
+			<tr>
+				<td class="empty" colspan="4"><span class="note">No Revisions</span></td>
+			</tr>
+			<!-- END: empty -->
+
+		</tbody>
+	</table>
+</div>
+<!-- END: content -->
