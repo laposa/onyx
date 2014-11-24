@@ -47,9 +47,10 @@ class Onxshop_Bootstrap {
 		$this->initSession();
 	
 		/**
-		 * Back office initialisation
+		 * Disable DB cache when logged in as editor
 		 */
-		if (Onxshop_Bo_Authentication::getInstance()->hasPermission(ONXSHOP_PERMISSION_FRONT_END_EDITING)) {
+		 
+		if (Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) {
 			define('ONXSHOP_DB_QUERY_CACHE', false);
 		} else {
 			define('ONXSHOP_DB_QUERY_CACHE', true);
