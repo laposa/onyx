@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -14,9 +14,10 @@ class Onxshop_Controller_Node_Content_Default extends Onxshop_Controller_Node_De
 	 */
 	 
 	public function mainAction() {
-		//$this->processContainers();
+		
 		if ($this->processContent()) return true;
 		else return false;
+		
 	}
 	
 	/**
@@ -26,6 +27,11 @@ class Onxshop_Controller_Node_Content_Default extends Onxshop_Controller_Node_De
 	public function processContent() {
 		
 		$node_id = $this->GET['id'];
+		
+		if (!is_numeric($node_id)) {
+			msg('node/content/default: id not numeric', 'error');
+			return false;
+		}
 		
 		require_once('models/common/common_node.php');
 		

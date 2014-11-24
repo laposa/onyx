@@ -5,9 +5,9 @@
  *
  */
 
-require_once('controllers/node/layout/default.php');
+require_once('controllers/node/content/default.php');
 
-class Onxshop_Controller_Node_Layout_Adaptive extends Onxshop_Controller_Node_Layout_Default {
+class Onxshop_Controller_Node_Content_Adaptive extends Onxshop_Controller_Node_Content_Default {
 
 	/**
 	 * main action
@@ -18,22 +18,29 @@ class Onxshop_Controller_Node_Layout_Adaptive extends Onxshop_Controller_Node_La
 		/**
 		 * check input: node id value must be numeric
 		 */
-		 
-		if (!is_numeric($this->GET['id'])) {
+
+		$node_id = $this->GET['id'];
+				 
+		if (!is_numeric($node_id)) {
 			msg("node/content/adaptive: id not numeric", 'error');
 			return false;
 		}
 
-		$node_id = $this->GET['id'];
+		/**
+		 * load $this->node_data
+		 */
+		 
 		$this->loadNode($node_id);
 
+		/**
+		 * show only if conditions met
+		 */
+		 
 		if ($this->canDisplay()) {
 		 
-			$this->processContainers($node_id);
-			$this->processLayout();
-
-			$this->tpl->parse("content.subcontent");
-
+		 	$this->processSubContent();
+			$this->processContent();
+			
 		}
 
 		return true;
@@ -107,6 +114,7 @@ class Onxshop_Controller_Node_Layout_Adaptive extends Onxshop_Controller_Node_La
 	/**
 	 * load node data
 	 */
+	 
 	public function loadNode($node_id) {
 
 		require_once('models/common/common_node.php');
@@ -116,60 +124,28 @@ class Onxshop_Controller_Node_Layout_Adaptive extends Onxshop_Controller_Node_La
 	}
 
 	/**
-	 * process containers
-	 */
-	
-	public function processContainers($node_id) {
-	
-		//find child nodes
-		$contentx = $this->Node->parseChildren($node_id);
-		
-		//assign to this controller as CONTAINER variable
-		if (is_array($contentx)) {
-			foreach ($contentx as $content) {
-				$container[$content['container']] .= $content['content'];
-			}
-		}
-		
-		/**
-		 * node add icons
-		 * front-end node edit and node move (sort) icons are inserted in controller/node
-		 *  
-		 */
-		 
-		if ($_SESSION['fe_edit_mode'] == 'edit' || $_SESSION['fe_edit_mode'] == 'move') {
-			//normally we support container.0 to container.6 in default templates, but why not to have some reserve, e.g. 20
-			$min_container_id = 0;
-			$max_container_id = 20;
-			for ($key = $min_container_id; $key < ($max_container_id + 1); $key++) {
-				$container[$key] = "<div class='onxshop_layout_container' id='onxshop_layout_container_{$node_id}_{$key}'>{$container[$key]}</div>";	
-			}
-		}
-			
-		$this->tpl->assign("CONTAINER", $container);
-		$this->tpl->assign("NODE", $node_data);	
-	}
-
-	/**
-	 * process layout
+	 * processSubContent
 	 */
 	 
-	public function processLayout() {
+	public function processSubContent() {
 		
-		if ($this->node_data['page_title'] == '') {
-			$this->node_data['page_title'] = $this->node_data['title'];
+		$children = $this->Node->parseChildren($this->node_data['id']);
+		
+		if (!is_array($children)) {
+			
+			msg("Adaptive content does't have any children", 'error', 1);
+			return false;
 		}
 		
-		if (!isset($this->node_data['display_title'])) $this->node_data['display_title'] = $GLOBALS['onxshop_conf']['global']['display_title'];
+		$sub_content = '';
 		
-		$this->tpl->assign("NODE", $this->node_data);
+		foreach ($children as $item) {
+			
+			$sub_content = $sub_content . $item['content'];
+			
+		}
 		
-		/**
-		 * display title
-		 */
-		 
-		$this->displayTitle($this->node_data);
+		$this->tpl->assign('SUB_CONTENT', $sub_content);
 		
 	}
-
 }

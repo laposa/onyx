@@ -34,6 +34,7 @@ $templates_info['content'] = array(
 	'teaser'=>array('title' => 'Content teaser', 'description'=>'', 'visibility'=>false),
 	'filter'=>array('title' => 'Categories Filter', 'description'=>'', 'visibility'=>false),
 	'notice'=>array('title' => 'Notice', 'description'=>'i.e. for stores', 'visibility'=>false),
+	'adaptive'=>array('title' => 'Adaptive', 'description'=>'Show only if meets certain conditions', 'visibility'=>true),
 	'default_template' => 'RTE'
 	);
 		
@@ -46,7 +47,6 @@ $templates_info['layout'] = array(
 	'5columns'=>array('title' => '5-columns', 'description'=>'', 'visibility'=>true),
 	'6columns'=>array('title' => '6-columns', 'description'=>'', 'visibility'=>true),
 	'tabs'=>array('title' => 'Tabs', 'description'=>'', 'visibility'=>true),
-	'adaptive'=>array('title' => 'Adaptive', 'description'=>'', 'visibility'=>true),
 	'default_template' => '2columns'
 	);
 		

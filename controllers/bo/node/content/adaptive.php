@@ -6,7 +6,7 @@
 
 require_once('controllers/bo/node/content/default.php');
 
-class Onxshop_Controller_Bo_Node_Layout_Adaptive extends Onxshop_Controller_Bo_Node_Content_Default {
+class Onxshop_Controller_Bo_Node_Content_Adaptive extends Onxshop_Controller_Bo_Node_Content_Default {
 
 	/**
 	 * post action
