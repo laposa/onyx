@@ -1473,3 +1473,10 @@ function scrollToElement(element) {
 	}), 2000;
 }
 
+/**
+ * get csrf token
+ */
+function getCSRFToken() {
+	return $("head > meta[name=csrf_token]").attr("content");
+}
+
