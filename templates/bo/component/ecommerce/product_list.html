@@ -4,19 +4,19 @@
 $(document).ready(function() {
 	$("div.product_list td.variety_name a.title").editInPlace({
 		url: "/request/bo/component/single_record_update~model=ecommerce_product_variety:attribute=name~",
-		params: "ajax=yes"
+		params: "csrf_token=" + getCSRFToken()
 	});
 	$("div.product_list td.price a.price").editInPlace({
 		url: "/request/bo/component/single_record_update~model=ecommerce_price:attribute=value~",
-		params: "ajax=yes"
+		params: "csrf_token=" + getCSRFToken()
 	});
 	$("div.product_list td.sku a").editInPlace({
 		url: "/request/bo/component/single_record_update~model=ecommerce_product_variety:attribute=sku~",
-		params: "ajax=yes"
+		params: "csrf_token=" + getCSRFToken()
 	});
 	$("div.product_list td.stock a").editInPlace({
 		url: "",
-		params: "ajax=yes",
+		params: "csrf_token=" + getCSRFToken(),
 		callback: function(idOfEditor, enteredText, orinalHTMLContent) {
 			var el = $('#' + idOfEditor);
 			var num_notifications = el.attr("data-num-notifications");
@@ -24,7 +24,7 @@ $(document).ready(function() {
 				if (!confirm("Changing stock levels - " + num_notifications + " customer(s) will be notified. Do you want to continue?")) return orinalHTMLContent;
 			}
 			$.post("/request/bo/component/single_record_update~model=ecommerce_product_variety:attribute=stock~", {
-				ajax: "yes",
+				csrf_token: getCSRFToken(),
 				update_value: enteredText,
 				original_html: orinalHTMLContent,
 				element_id: idOfEditor

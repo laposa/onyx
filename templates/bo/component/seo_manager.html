@@ -5,20 +5,20 @@
 $(document).ready(function() {
 	$("div.seo_manager td.page_title a").editInPlace({
 		url: "/request/bo/component/single_record_update~model=common_node:attribute=page_title~",
-		params: "ajax=yes"
+		params: "csrf_token=" + getCSRFToken()
 	});
 	$("div.seo_manager td.browser_title a").editInPlace({
 		url: "/request/bo/component/single_record_update~model=common_node:attribute=browser_title~",
-		params: "ajax=yes"
+		params: "csrf_token=" + getCSRFToken()
 	});
 	$("div.seo_manager td.description a").editInPlace({
 		url: "/request/bo/component/single_record_update~model=common_node:attribute=description~",
-		params: "ajax=yes",
+		params: "csrf_token=" + getCSRFToken(),
 		field_type: "textarea"
 	});
 	$("div.seo_manager td.keywords a").editInPlace({
 		url: "/request/bo/component/single_record_update~model=common_node:attribute=keywords~",
-		params: "ajax=yes",
+		params: "csrf_token=" + getCSRFToken(),
 		field_type: "textarea"
 	});
 });
