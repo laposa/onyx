@@ -313,5 +313,13 @@ CREATE INDEX common_revision_combined_idx
 	ON common_revision
 	USING btree
 	(object, node_id);
+
+
+--
+-- Add new column ecommerce_product_variety
+--
+
+ALTER TABLE "ecommerce_product_variety" ADD "limit_to_delivery_zones" varchar(512) NULL;
+
 			
 COMMIT;

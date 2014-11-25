@@ -86,6 +86,8 @@ class ecommerce_product_variety extends Onxshop_Model {
 	
 	var $subtitle;
 
+	var $limit_to_delivery_zones;
+
 	var $_metaData = array(
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'product_id'=>array('label' => '', 'validation'=>'int', 'required'=>true),
@@ -110,7 +112,8 @@ class ecommerce_product_variety extends Onxshop_Model {
 		'condition'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'wholesale'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'reward_points'=>array('label' => '', 'validation'=>'int', 'required'=>false),
-		'subtitle'=>array('label' => 'Name', 'validation'=>'string', 'required'=>false)
+		'subtitle'=>array('label' => 'Name', 'validation'=>'string', 'required'=>false),
+		'limit_to_delivery_zones'=>array('label' => 'Limit to delivery zones', 'validation'=>'string', 'required'=>false)
 	);
 	
 	/**
@@ -119,33 +122,33 @@ class ecommerce_product_variety extends Onxshop_Model {
 	 
 	private function getCreateTableSql() {
 	
-		$sql = "
-CREATE TABLE ecommerce_product_variety (
-    id serial NOT NULL PRIMARY KEY,
-    name character varying(255),
-    product_id integer REFERENCES ecommerce_product ON UPDATE CASCADE ON DELETE CASCADE,
-    product_type_id integer REFERENCES ecommerce_product_type ON UPDATE CASCADE ON DELETE CASCADE,
-    sku character varying(255),
-    weight integer,
-    weight_gross integer,
-    stock integer,
-    priority integer DEFAULT 0 NOT NULL,
-    description text,
-    other_data text,
-    width integer DEFAULT 0 NOT NULL,
-    height integer DEFAULT 0 NOT NULL,
-    depth integer DEFAULT 0 NOT NULL,
-    diameter integer DEFAULT 0 NOT NULL,
-    modified timestamp(0) without time zone DEFAULT now() NOT NULL,
-    publish smallint DEFAULT 0 NOT NULL,
-	display_permission integer NOT NULL DEFAULT 0,
-	condition smallint NOT NULL DEFAULT 0,
-	wholesale smallint,
-	reward_points integer,
-	subtitle varchar(255)
-);
+		$sql = "CREATE TABLE ecommerce_product_variety (
+		    id serial NOT NULL PRIMARY KEY,
+		    name character varying(255),
+		    product_id integer REFERENCES ecommerce_product ON UPDATE CASCADE ON DELETE CASCADE,
+		    product_type_id integer REFERENCES ecommerce_product_type ON UPDATE CASCADE ON DELETE CASCADE,
+		    sku character varying(255),
+		    weight integer,
+		    weight_gross integer,
+		    stock integer,
+		    priority integer DEFAULT 0 NOT NULL,
+		    description text,
+		    other_data text,
+		    width integer DEFAULT 0 NOT NULL,
+		    height integer DEFAULT 0 NOT NULL,
+		    depth integer DEFAULT 0 NOT NULL,
+		    diameter integer DEFAULT 0 NOT NULL,
+		    modified timestamp(0) without time zone DEFAULT now() NOT NULL,
+		    publish smallint DEFAULT 0 NOT NULL,
+			display_permission integer NOT NULL DEFAULT 0,
+			condition smallint NOT NULL DEFAULT 0,
+			wholesale smallint,
+			reward_points integer,
+			subtitle varchar(255),
+			limit_to_delivery_zones character varying(255)
+		);
 
-ALTER TABLE ecommerce_product_variety ADD UNIQUE (\"sku\");
+		ALTER TABLE ecommerce_product_variety ADD UNIQUE (\"sku\");
 		";
 		
 		return $sql;
