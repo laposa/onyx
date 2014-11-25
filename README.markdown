@@ -9,7 +9,7 @@ Typical web project files (project_skeleton)
 * conf/
 * controllers/
 * models/
-* onxshop_dir -> /opt/onxshop/1.6
+* onxshop_dir -> /opt/onxshop/1.7
 * public_html/
 * templates/
 * var/
