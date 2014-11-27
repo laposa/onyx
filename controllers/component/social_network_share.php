@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2012-2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2012-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -53,13 +53,22 @@ class Onxshop_Controller_Component_Social_Network_Share extends Onxshop_Controll
 		return true;
 		
 	}
+	
+	/**
+	 * getNodeId
+	 */
 
 	protected function getNodeId() {
 
 		if (is_numeric($this->GET['node_id'])) return $this->GET['node_id'];
-		return 5; //homepage
+		else if ($node_id = $this->detectParentPage()) return $node_id;
+		else return 5; //homepage
 
 	}
+	
+	/**
+	 * getNode
+	 */
 
 	protected function getNode($node_id) {
 
@@ -67,6 +76,10 @@ class Onxshop_Controller_Component_Social_Network_Share extends Onxshop_Controll
 		if ($node_data['page_title'] == '') $node_data['page_title'] = $node_data['title'];
 		return $node_data;
 	}
+	
+	/**
+	 * getImage
+	 */
 
 	protected function getImage($node_id) {
 
@@ -76,11 +89,26 @@ class Onxshop_Controller_Component_Social_Network_Share extends Onxshop_Controll
 
 	}
 	
+	/**
+	 * getShareUri
+	 */
+	
 	public function getShareUri() {
 		
 		if ($this->GET['share_uri']) $share_uri = "http://" . $_SERVER['HTTP_HOST'] . urldecode($this->GET['share_uri']);
 		else $share_uri = "http://" . $_SERVER['HTTP_HOST'] . "/{$this->node_id}";
 		
 		return $share_uri;
+	}
+	
+	/* *
+	 * detectParentPage
+	 */
+	 
+	public function detectParentPage() {
+		
+		if (is_numeric($_SESSION['active_pages'][0])) return $_SESSION['active_pages'][0];
+		else return false;
+		
 	}
 }
