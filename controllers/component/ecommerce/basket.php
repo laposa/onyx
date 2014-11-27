@@ -484,6 +484,8 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
 		$Node = new common_node();
 		$pages = $Node->getFullPathDetailForBreadcrumb($node_id);
 
+		if (!is_array($pages)) return false;
+		
 		$result = array();
 		foreach ($pages as $page) {
 			if ($page['id'] != 1 && $page['id'] != $node_id) $result[] = $page['title'];
