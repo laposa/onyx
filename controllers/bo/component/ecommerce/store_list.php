@@ -25,8 +25,10 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Store_List extends Onxshop_Contr
 		if ($this->GET['store-list-sort-by']) $_SESSION['store-list-sort-by'] = $this->GET['store-list-sort-by'];
 		if ($this->GET['store-list-sort-direction']) $_SESSION['store-list-sort-direction'] = $this->GET['store-list-sort-direction'];
 
-		$order_by = $_SESSION['store-list-sort-by'];
-		$order_dir = $_SESSION['store-list-sort-direction'];
+		if ($_SESSION['store-list-sort-by']) $order_by = $_SESSION['store-list-sort-by'];
+		else $order_by = 'modified';
+		if ($_SESSION['store-list-sort-direction']) $order_dir = $_SESSION['store-list-sort-direction'];
+		else $order_dir = 'DESC';
 
 		// initialize pagination variables
 		if  (is_numeric($this->GET['limit_from'])) $from = $this->GET['limit_from'];

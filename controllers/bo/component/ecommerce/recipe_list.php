@@ -23,9 +23,11 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Recipe_List extends Onxshop_Cont
 		if ($this->GET['recipe-list-sort-by']) $_SESSION['recipe-list-sort-by'] = $this->GET['recipe-list-sort-by'];
 		if ($this->GET['recipe-list-sort-direction']) $_SESSION['recipe-list-sort-direction'] = $this->GET['recipe-list-sort-direction'];
 
-		$order_by = $_SESSION['recipe-list-sort-by'];
-		$order_dir = $_SESSION['recipe-list-sort-direction'];
-
+		if ($_SESSION['recipe-list-sort-by']) $order_by = $_SESSION['recipe-list-sort-by'];
+		else $order_by = 'modified';
+		if ($_SESSION['recipe-list-sort-direction']) $order_dir = $_SESSION['recipe-list-sort-direction'];
+		else $order_dir = 'DESC';
+		
 		// initialize pagination variables
 		if  (is_numeric($this->GET['limit_from'])) $from = $this->GET['limit_from'];
 		else $from = 0;
