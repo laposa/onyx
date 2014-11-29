@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -19,19 +19,26 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Promotion_Filter extends Onxshop
 		 * Store submited data to the SESSION
 		 */
 		if (isset($_POST['voucher-filter'])) {
-			$_SESSION['voucher-filter'] = $_POST['voucher-filter'];
+			$_SESSION['bo']['voucher-filter'] = $_POST['voucher-filter'];
 			onxshopGoTo('/backoffice/marketing');
 		} else {
-			if (!isset($_SESSION['voucher-filter']['type'])) $_SESSION['voucher-filter']['type'] = 1;
+			if (!isset($_SESSION['bo']['voucher-filter']['type'])) $_SESSION['bo']['voucher-filter']['type'] = 1;
 		}
 
-		$this->parseTypeSelect($_SESSION['voucher-filter']['type']);
+		$filter = $_SESSION['bo']['voucher-filter'];
+		$this->tpl->assign('FILTER', $filter);
+		
+		$this->parseTypeSelect($filter['type']);
 		$this->tpl->parse("content.form");
 
 		return true;
 
 	}
 
+	/**
+	 * parseTypeSelect
+	 */
+	 
 	protected function parseTypeSelect($selected_id)
 	{
 		$Type = new ecommerce_promotion_type();

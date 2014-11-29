@@ -2,7 +2,7 @@
 /** 
  * Products XML export
  *
- * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -36,7 +36,7 @@ class Onxshop_Controller_Bo_Export_Xml_Products extends Onxshop_Controller {
 		 */
 		 
 		if ($_POST['product-list-filter']) $filter = $_POST['product-list-filter'];
-		else if (is_array($_SESSION['product-list-filter'])) $filter = $_SESSION['product-list-filter'];
+		else if (is_array($_SESSION['bo']['product-list-filter'])) $filter = $_SESSION['bo']['product-list-filter'];
 		else $filter = array();
 		
 		

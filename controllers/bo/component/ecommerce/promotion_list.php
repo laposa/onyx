@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2009-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -20,7 +20,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Promotion_List extends Onxshop_C
 		if (is_numeric($this->GET['limit_per_page'])) $per_page = $this->GET['limit_per_page'];
 		else $per_page = 25;
 		
-		$promotion_list = $this->Promotion->getList($from, $per_page, $_SESSION['voucher-filter']);
+		$promotion_list = $this->Promotion->getList($from, $per_page, $_SESSION['bo']['voucher-filter']);
 
 		if (is_array($promotion_list)) $this->parseList($promotion_list);
 
@@ -28,7 +28,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Promotion_List extends Onxshop_C
 		 * Display pagination
 		 */
 		
-		$count = $this->Promotion->getFilteredCount($_SESSION['voucher-filter']);
+		$count = $this->Promotion->getFilteredCount($_SESSION['bo']['voucher-filter']);
 
 		if ($count > 0) {		
 

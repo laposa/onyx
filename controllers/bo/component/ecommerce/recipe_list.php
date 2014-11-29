@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * Copyright (c) 2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2013-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -16,16 +16,16 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Recipe_List extends Onxshop_Cont
 
 		// initialize filter variables
 		$taxonomy_id = $this->GET['taxonomy_tree_id'];
-		if (isset($_POST['recipe-list-filter'])) $_SESSION['recipe-list-filter'] = $_POST['recipe-list-filter'];
-		$keyword = $_SESSION['recipe-list-filter']['keyword'];
+		if (isset($_POST['recipe-list-filter'])) $_SESSION['bo']['recipe-list-filter'] = $_POST['recipe-list-filter'];
+		$keyword = $_SESSION['bo']['recipe-list-filter']['keyword'];
 
 		// initialize sorting variables
-		if ($this->GET['recipe-list-sort-by']) $_SESSION['recipe-list-sort-by'] = $this->GET['recipe-list-sort-by'];
-		if ($this->GET['recipe-list-sort-direction']) $_SESSION['recipe-list-sort-direction'] = $this->GET['recipe-list-sort-direction'];
+		if ($this->GET['recipe-list-sort-by']) $_SESSION['bo']['recipe-list-sort-by'] = $this->GET['recipe-list-sort-by'];
+		if ($this->GET['recipe-list-sort-direction']) $_SESSION['bo']['recipe-list-sort-direction'] = $this->GET['recipe-list-sort-direction'];
 
-		if ($_SESSION['recipe-list-sort-by']) $order_by = $_SESSION['recipe-list-sort-by'];
+		if ($_SESSION['bo']['recipe-list-sort-by']) $order_by = $_SESSION['bo']['recipe-list-sort-by'];
 		else $order_by = 'modified';
-		if ($_SESSION['recipe-list-sort-direction']) $order_dir = $_SESSION['recipe-list-sort-direction'];
+		if ($_SESSION['bo']['recipe-list-sort-direction']) $order_dir = $_SESSION['bo']['recipe-list-sort-direction'];
 		else $order_dir = 'DESC';
 		
 		// initialize pagination variables

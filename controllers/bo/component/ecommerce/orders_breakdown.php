@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2008-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2008-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -225,9 +225,9 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Orders_Breakdown extends Onxshop
 			$range['from'] = $this->GET['reports-filter']['from'];
 			$range['to'] = $this->GET['reports-filter']['to'];
 			
-		} else if (is_array($_SESSION['reports-filter'])) {
-			$range['from'] = $_SESSION['reports-filter']['from'];
-			$range['to'] = $_SESSION['reports-filter']['to'];
+		} else if (is_array($_SESSION['bo']['reports-filter'])) {
+			$range['from'] = $_SESSION['bo']['reports-filter']['from'];
+			$range['to'] = $_SESSION['bo']['reports-filter']['to'];
 		} else {
 			//get actual date
 			$this_year = date('Y');

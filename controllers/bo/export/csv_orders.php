@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2008-2012 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2008-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -26,7 +26,7 @@ class Onxshop_Controller_Bo_Export_CSV_Orders extends Onxshop_Controller_Bo_Expo
 			$filter = array();
 			$filter['status'] = 'all';
 		} else {
-			$filter = $_SESSION['order-list-filter'];
+			$filter = $_SESSION['bo']['order-list-filter'];
 		}
 		
 		/**

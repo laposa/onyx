@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2010-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2010-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -17,19 +17,19 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Reports_Filter extends Onxshop_C
 		 * Store submited data to the SESSION
 		 */
 		
-		if (is_array($this->GET['reports-filter'])) $_SESSION['reports-filter'] = $this->GET['reports-filter'];
+		if (is_array($this->GET['reports-filter'])) $_SESSION['bo']['reports-filter'] = $this->GET['reports-filter'];
 		
 		/**
 		 * if SESSION is empty, create default values
 		 */
 		 
-		if (!is_array($_SESSION['reports-filter'])) {
+		if (!is_array($_SESSION['bo']['reports-filter'])) {
 		
-			$_SESSION['reports-filter'] = array();
+			$_SESSION['bo']['reports-filter'] = array();
 			
 			$latest_month = $this->getLatestMonth();
-			$_SESSION['reports-filter']['from'] = $latest_month['from'];
-			$_SESSION['reports-filter']['to'] = $latest_month['to'];
+			$_SESSION['bo']['reports-filter']['from'] = $latest_month['from'];
+			$_SESSION['bo']['reports-filter']['to'] = $latest_month['to'];
 		}
 		
 		
@@ -37,7 +37,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Reports_Filter extends Onxshop_C
 		 * read from session
 		 */
 		 
-		$reports_filter = $_SESSION['reports-filter'];
+		$reports_filter = $_SESSION['bo']['reports-filter'];
 		
 		$this->tpl->assign("SELECTED_$time_frame", "selected='selected'");
 		$this->tpl->assign("TIME_FRAME", $time_frame);

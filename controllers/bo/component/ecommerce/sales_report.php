@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2010-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2010-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -68,9 +68,9 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Sales_Report extends Onxshop_Con
 		if (is_array($this->GET['reports-filter'])) {
 			$breakdown_period['from'] = $this->GET['reports-filter']['from'];
 			$breakdown_period['to'] = $this->GET['reports-filter']['to'];
-		} else if (is_array($_SESSION['reports-filter'])) {
-			$breakdown_period['from'] = $_SESSION['reports-filter']['from'];
-			$breakdown_period['to'] = $_SESSION['reports-filter']['to'];
+		} else if (is_array($_SESSION['bo']['reports-filter'])) {
+			$breakdown_period['from'] = $_SESSION['bo']['reports-filter']['from'];
+			$breakdown_period['to'] = $_SESSION['bo']['reports-filter']['to'];
 		} else {
 			msg('period not selected', 'error');
 			$breakdown_period['from'] = '2010-05-01';

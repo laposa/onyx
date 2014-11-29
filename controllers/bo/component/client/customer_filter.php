@@ -29,16 +29,16 @@ class Onxshop_Controller_Bo_Component_Client_Customer_Filter extends Onxshop_Con
 		 */
 		
 		if (isset($_POST['customer-filter'])) {
-			$_SESSION['customer-filter'] = $_POST['customer-filter'];
-			$_SESSION['customer-filter']['group_id'] = ''; 
-		} else if (is_numeric($_SESSION['customer-filter']['group_id'])) {
+			$_SESSION['bo']['customer-filter'] = $_POST['customer-filter'];
+			$_SESSION['bo']['customer-filter']['group_id'] = ''; 
+		} else if (is_numeric($_SESSION['bo']['customer-filter']['group_id'])) {
 			/**
 			 * update incase group_id selected
 			 */
-			$group_id = $_SESSION['customer-filter']['group_id'];
+			$group_id = $_SESSION['bo']['customer-filter']['group_id'];
 			if ($group_filter = $this->getGroupFilter($group_id)) {
-				$_SESSION['customer-filter'] = $group_filter;
-				$_SESSION['customer-filter']['group_id'] = $group_id;
+				$_SESSION['bo']['customer-filter'] = $group_filter;
+				$_SESSION['bo']['customer-filter']['group_id'] = $group_id;
 			}
 		}
 		
@@ -46,32 +46,32 @@ class Onxshop_Controller_Bo_Component_Client_Customer_Filter extends Onxshop_Con
 		 * populate filter in case it's empty
 		 */
 		
-		if (!is_array($_SESSION['customer-filter'])) {
-			$_SESSION['customer-filter'] = array();
-			$_SESSION['customer-filter']['invoice_status'] = 0;
-			$_SESSION['customer-filter']['account_type'] = -1;
+		if (!is_array($_SESSION['bo']['customer-filter'])) {
+			$_SESSION['bo']['customer-filter'] = array();
+			$_SESSION['bo']['customer-filter']['invoice_status'] = 0;
+			$_SESSION['bo']['customer-filter']['account_type'] = -1;
 		}
 		
-		if (trim($_SESSION['customer-filter']['group_name']) == '') $_SESSION['customer-filter']['group_name'] = 'Your new group name';
+		if (trim($_SESSION['bo']['customer-filter']['group_name']) == '') $_SESSION['bo']['customer-filter']['group_name'] = 'Your new group name';
 		
 		/**
 		 * if submitted save, only process save action and don't display form (exit here)
 		 */
 		
-		if (isset($_POST['save'])) return $this->saveGroupFilter($_SESSION['customer-filter']);
+		if (isset($_POST['save'])) return $this->saveGroupFilter($_SESSION['bo']['customer-filter']);
 		
 		/**
 		 * assign to template variable
 		 */
 		 
-		$this->tpl->assign('CUSTOMER_FILTER', $_SESSION['customer-filter']);
+		$this->tpl->assign('CUSTOMER_FILTER', $_SESSION['bo']['customer-filter']);
 		
 		/**
 		 * With orders and account type options
 		 */
 		
-		$this->tpl->assign("SELECTED_invoice_status_{$_SESSION['customer-filter']['invoice_status']}", "selected='selected'");
-		$this->tpl->assign("SELECTED_account_type_{$_SESSION['customer-filter']['account_type']}", "selected='selected'");
+		$this->tpl->assign("SELECTED_invoice_status_{$_SESSION['bo']['customer-filter']['invoice_status']}", "selected='selected'");
+		$this->tpl->assign("SELECTED_account_type_{$_SESSION['bo']['customer-filter']['account_type']}", "selected='selected'");
 		
 		/**
 		 * Country list
@@ -82,7 +82,7 @@ class Onxshop_Controller_Bo_Component_Client_Customer_Filter extends Onxshop_Con
 		$countries = $Country->listing();
 		
 		foreach ($countries as $item) {
-			if ($item['id'] == $_SESSION['customer-filter']['country_id']) $item['selected'] = "selected='selected'";
+			if ($item['id'] == $_SESSION['bo']['customer-filter']['country_id']) $item['selected'] = "selected='selected'";
 			else $item['selected'] = '';
 			$this->tpl->assign('ITEM', $item);
 			$this->tpl->parse('content.form.country.item');
@@ -103,8 +103,8 @@ class Onxshop_Controller_Bo_Component_Client_Customer_Filter extends Onxshop_Con
 		
 			foreach ($product_list as $item) {
 				
-				if (is_array($_SESSION['customer-filter']['product_bought'])) {
-					if (in_array($item['id'], $_SESSION['customer-filter']['product_bought'])) $item['checked'] = "checked='checked'";
+				if (is_array($_SESSION['bo']['customer-filter']['product_bought'])) {
+					if (in_array($item['id'], $_SESSION['bo']['customer-filter']['product_bought'])) $item['checked'] = "checked='checked'";
 					else $item['selected'] = '';
 				} else {
 					$item['selected'] = '';
@@ -134,7 +134,7 @@ class Onxshop_Controller_Bo_Component_Client_Customer_Filter extends Onxshop_Con
 		$ClientGroup = new client_group();
 		
 		$data = array();
-		if ($_SESSION['customer-filter-selected_group_id'] > 0) $data['id'] = $_SESSION['customer-filter-selected_group_id'];
+		if ($_SESSION['bo']['customer-filter-selected_group_id'] > 0) $data['id'] = $_SESSION['bo']['customer-filter-selected_group_id'];
 		$data['name'] = $filter['group_name'];
 		$data['description'] = '';
 		$data['search_filter'] = $filter;
@@ -151,7 +151,7 @@ class Onxshop_Controller_Bo_Component_Client_Customer_Filter extends Onxshop_Con
 		
 			$this->addCustomersToGroup($id, $_POST['customer-filter']['group_ids_remove']);
 
-			$_SESSION['customer-filter']['group_id'] = $id;
+			$_SESSION['bo']['customer-filter']['group_id'] = $id;
 		
 		} else {
 			msg("Cannot save customers group", 'error');
@@ -222,7 +222,7 @@ class Onxshop_Controller_Bo_Component_Client_Customer_Filter extends Onxshop_Con
 	{
 		require_once('models/client/client_group.php');
 		$ClientGroup = new client_group();
-		if ($_SESSION['customer-filter-selected_group_id'] > 0) $group_id = $_SESSION['customer-filter-selected_group_id'];
+		if ($_SESSION['bo']['customer-filter-selected_group_id'] > 0) $group_id = $_SESSION['bo']['customer-filter-selected_group_id'];
 		else $group_id = 0;
 		$list = $ClientGroup->listing("id <> $group_id");
 

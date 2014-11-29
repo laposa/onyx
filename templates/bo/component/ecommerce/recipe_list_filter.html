@@ -7,15 +7,15 @@
 			<fieldset class="single">
 				<div class="row filter-keyword">
 					<span class="label"><label for="filter-keyword">Keyword</label></span>
-					<span class="field"><input id="filter-keyword" class="text filter-keyword" type="text" name="recipe-list-filter[keyword]" value="{_SESSION.recipe-list-filter.keyword}" /></span>
+					<span class="field"><input id="filter-keyword" class="text filter-keyword" type="text" name="recipe-list-filter[keyword]" value="{FILTER.keyword|htmlspecialchars}" /></span>
 				</div>
 			</fieldset>
 			<div class="row submit">
 				<span class="label"><label>&nbsp;</label></span>
 				<span class="field"><button type="submit" name="search" value="search"><span>Search</span></button></span>
 			</div>
-		<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
-</form>
+			<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+		</form>
 		
 	</div>
 	

@@ -2,7 +2,7 @@
 /**
  * Order list controller
  *
- * Copyright (c) 2005-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2005-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -20,7 +20,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Order_List extends Onxshop_Contr
 		$customer_id = $this->GET['customer_id'];
 		$status = $this->GET['status'];*/
 			
-		if (is_array($_SESSION['order-list-filter'])) $order_list_filter = $_SESSION['order-list-filter'];
+		if (is_array($_SESSION['bo']['order-list-filter'])) $order_list_filter = $_SESSION['bo']['order-list-filter'];
 		else $order_list_filter = array();
 		
 		if (is_numeric($this->GET['customer_id'])) {

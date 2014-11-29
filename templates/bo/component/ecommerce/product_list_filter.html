@@ -17,11 +17,11 @@
 			<fieldset class="single">
 				<div class="row filter-keyword">
 					<span class="label"><label for="filter-keyword">Keyword</label></span>
-					<span class="field"><input id="filter-keyword" class="text filter-keyword" type="text" name="product-list-filter[keyword]" value="{_SESSION.product-list-filter.keyword}" /></span>
+					<span class="field"><input id="filter-keyword" class="text filter-keyword" type="text" name="product-list-filter[keyword]" value="{FILTER.keyword|htmlspecialchars}" /></span>
 				</div>
 				<div class="row filter-stock">
 					<span class="label"><label for="filter-stock">Where stock is less than</label></span>
-					<span class="field"><input id="filter-stock" class="text filter-stock" type="text" name="product-list-filter[stock]" value="{_SESSION.product-list-filter.stock}" /></span>
+					<span class="field"><input id="filter-stock" class="text filter-stock" type="text" name="product-list-filter[stock]" value="{FILTER.stock|htmlspecialchars}" /></span>
 				</div>
 				<div class="row filter-disabled">
 					<span class="label"><label for="filter-disabled">Public</label></span>
@@ -57,8 +57,8 @@
 				<span class="label"><label>&nbsp;</label></span>
 				<span class="field"><button type="submit" name="search" value="search"><span>Search</span></button></span>
 			</div>
-		<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
-</form>
+			<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+		</form>
 		
 	</div>
 

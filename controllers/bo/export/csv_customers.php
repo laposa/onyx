@@ -25,7 +25,7 @@ class Onxshop_Controller_Bo_Export_CSV_Customers extends Onxshop_Controller_Bo_E
 		 * Get the list
 		 */
 		
-		$records = $this->Customer->getClientList(0, $_SESSION['customer-filter']);
+		$records = $this->Customer->getClientList(0, $_SESSION['bo']['customer-filter']);
 		$stores = $this->getStores();
 		$categories = $this->getCategories();
 

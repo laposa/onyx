@@ -2,7 +2,7 @@
 /**
  * Backoffice store list controller
  *
- * Copyright (c) 2005-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2013-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -17,17 +17,17 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Store_List extends Onxshop_Contr
 
 		// initialize filter variables
 		$taxonomy_id = $this->GET['taxonomy_tree_id'];
-		if (isset($_POST['store-list-filter'])) $_SESSION['store-list-filter'] = $_POST['store-list-filter'];
-		$keyword = $_SESSION['store-list-filter']['keyword'];
-		$type_id = $_SESSION['store-list-filter']['type_id'];
+		if (isset($_POST['store-list-filter'])) $_SESSION['bo']['store-list-filter'] = $_POST['store-list-filter'];
+		$keyword = $_SESSION['bo']['store-list-filter']['keyword'];
+		$type_id = $_SESSION['bo']['store-list-filter']['type_id'];
 
 		// initialize sorting variables
-		if ($this->GET['store-list-sort-by']) $_SESSION['store-list-sort-by'] = $this->GET['store-list-sort-by'];
-		if ($this->GET['store-list-sort-direction']) $_SESSION['store-list-sort-direction'] = $this->GET['store-list-sort-direction'];
+		if ($this->GET['store-list-sort-by']) $_SESSION['bo']['store-list-sort-by'] = $this->GET['store-list-sort-by'];
+		if ($this->GET['store-list-sort-direction']) $_SESSION['bo']['store-list-sort-direction'] = $this->GET['store-list-sort-direction'];
 
-		if ($_SESSION['store-list-sort-by']) $order_by = $_SESSION['store-list-sort-by'];
+		if ($_SESSION['bo']['store-list-sort-by']) $order_by = $_SESSION['bo']['store-list-sort-by'];
 		else $order_by = 'modified';
-		if ($_SESSION['store-list-sort-direction']) $order_dir = $_SESSION['store-list-sort-direction'];
+		if ($_SESSION['bo']['store-list-sort-direction']) $order_dir = $_SESSION['bo']['store-list-sort-direction'];
 		else $order_dir = 'DESC';
 
 		// initialize pagination variables

@@ -2,7 +2,7 @@
 /**
  * Backoffice product list controller
  *
- * Copyright (c) 2005-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2005-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -20,7 +20,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Product_List extends Onxshop_Con
 		 */
 		 
 		if ($_POST['product-list-filter']) $filter = $_POST['product-list-filter'];
-		else $filter = $_SESSION['product-list-filter'];
+		else $filter = $_SESSION['bo']['product-list-filter'];
 
 		if (is_numeric($this->GET['taxonomy_tree_id'])) $filter['taxonomy_json'] = json_encode(array($this->GET['taxonomy_tree_id']));
 		else $filter['taxonomy_json'] = false;
@@ -49,21 +49,21 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Product_List extends Onxshop_Con
 		//$this->tpl->assign('SORTING', $_Onxshop_Request->getContent());
 		
 		if ($this->GET['product-list-sort-by']) {
-			$_SESSION['product-list-sort-by'] = $this->GET['product-list-sort-by'];
+			$_SESSION['bo']['product-list-sort-by'] = $this->GET['product-list-sort-by'];
 		}
 		
 		if ($this->GET['product-list-sort-direction']) {
-			$_SESSION['product-list-sort-direction'] = $this->GET['product-list-sort-direction'];
+			$_SESSION['bo']['product-list-sort-direction'] = $this->GET['product-list-sort-direction'];
 		}
 		
 		if ($_SESSION['product-list-sort-by']) {
-			$sortby = $_SESSION['product-list-sort-by'];
+			$sortby = $_SESSION['bo']['product-list-sort-by'];
 		} else {
 			$sortby = "modified";
 		}
 		
 		if ($_SESSION['product-list-sort-direction']) {
-			$direction = $_SESSION['product-list-sort-direction'];
+			$direction = $_SESSION['bo']['product-list-sort-direction'];
 		} else {
 			$direction = "DESC";
 		}

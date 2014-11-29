@@ -2,7 +2,7 @@
 /**
  * Backoffice store list filter
  *
- * Copyright (c) 2008-2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2013-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 require_once('models/ecommerce/ecommerce_store_type.php');
@@ -15,12 +15,19 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Store_List_Filter extends Onxsho
 	 
 	public function mainAction() {
 		
-		if (isset($_POST['store-list-filter'])) $_SESSION['store-list-filter'] = $_POST['store-list-filter'];
-
-		$this->parseTypeSelect($_SESSION['store-list-filter']['type_id']);
+		if (isset($_POST['store-list-filter'])) $_SESSION['bo']['store-list-filter'] = $_POST['store-list-filter'];
+		
+		$filter = $_SESSION['bo']['store-list-filter'];
+		$this->tpl->assign('FILTER', $filter);
+		
+		$this->parseTypeSelect($_SESSION['bo']['store-list-filter']['type_id']);
 
 		return true;
 	}
+	
+	/**
+	 * parseTypeSelect
+	 */
 
 	protected function parseTypeSelect($selected_id)
 	{

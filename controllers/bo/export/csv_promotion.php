@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2008-2012 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2008-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -25,7 +25,7 @@ class Onxshop_Controller_Bo_Export_CSV_Promotion extends Onxshop_Controller_Bo_E
 		 * Get the list
 		 */
 		
-		$records = $this->Promotion->getList(0, 100000, $_SESSION['voucher-filter']);
+		$records = $this->Promotion->getList(0, 100000, $_SESSION['bo']['voucher-filter']);
 
 		if (is_array($records)) {
 		

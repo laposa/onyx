@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2010-2012 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2010-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -59,7 +59,7 @@ class Onxshop_Controller_Bo_Export_CSV_Sales extends Onxshop_Controller_Bo_Compo
 				}
 		
 			//set the headers for the output
-			$filename = "sales-{$_SESSION['reports-filter']['from']}-{$_SESSION['reports-filter']['to']}";
+			$filename = "sales-{$_SESSION['bo']['reports-filter']['from']}-{$_SESSION['bo']['reports-filter']['to']}";
 			$this->sendCSVHeaders($filename);
 			
 		} else {

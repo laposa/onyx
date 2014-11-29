@@ -2,7 +2,7 @@
 /**
  * Order list filter
  *
- * Copyright (c) 2008-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2008-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -19,22 +19,24 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Order_List_Filter extends Onxsho
 		 * initialize
 		 */
 		
-		if (!isset($_SESSION['order-list-filter'])) $_SESSION['order-list-filter'] = array();
+		if (!isset($_SESSION['bo']['order-list-filter'])) $_SESSION['bo']['order-list-filter'] = array();
 		
 		/**
 		 * Store submited data to the SESSION
 		 */
 		
-		if (isset($_POST['order-list-filter'])) $_SESSION['order-list-filter'] = $_POST['order-list-filter'];
-		if (!is_numeric($_SESSION['order-list-filter']['status']) && $_SESSION['order-list-filter']['status'] != 'all') $_SESSION['order-list-filter']['status'] = 1;
+		if (isset($_POST['order-list-filter'])) $_SESSION['bo']['order-list-filter'] = $_POST['order-list-filter'];
+		if (!is_numeric($_SESSION['bo']['order-list-filter']['status']) && $_SESSION['bo']['order-list-filter']['status'] != 'all') $_SESSION['bo']['order-list-filter']['status'] = 1;
 	
 		/**
 		 * for this controller only
 		 */
 
-		$order_list_filter = $_SESSION['order-list-filter'];
+		$order_list_filter = $_SESSION['bo']['order-list-filter'];
 		//display all orders when looking for a customer
 		if (is_numeric($this->GET['customer_id'])) $order_list_filter['status'] = 'all';
+		
+		$this->tpl->assign('FILTER', $order_list_filter);
 		
 		/**
 		 * create object

@@ -22,14 +22,14 @@ $(document).ready(function(){
 			</div>
 			<div class="row search">
 				<span class="label"><label>Search query</label></span>
-				<span class="field" ><input type="text" id="query" name="order-list-filter[query]" value="{_SESSION.order-list-filter.query|htmlspecialchars}" /></span>
+				<span class="field" ><input type="text" id="query" name="order-list-filter[query]" value="{FILTER.query|htmlspecialchars}" /></span>
 			</div>
 														
 			<div class="row registered_between">
 				<span class="label"><label>Created between</label></span>
 				<span class="field">
-					<input type="text" class="text date" id="order-list-filter-created_from" name="order-list-filter[created_from]" value="{_SESSION.order-list-filter.created_from|htmlspecialchars}" />
-					<input type="text" class="text date" id="order-list-filter-created_to" name="order-list-filter[created_to]" value="{_SESSION.order-list-filter.created_to|htmlspecialchars}" />
+					<input type="text" class="text date" id="order-list-filter-created_from" name="order-list-filter[created_from]" value="{FILTER.created_from|htmlspecialchars}" />
+					<input type="text" class="text date" id="order-list-filter-created_to" name="order-list-filter[created_to]" value="{FILTER.created_to|htmlspecialchars}" />
 				</span>
 			</div>
 		</fieldset>
@@ -40,7 +40,7 @@ $(document).ready(function(){
 		</div>
 
 		<div class="bottom"></div>
-	<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
-</form>
+		<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+	</form>
 </div>
 <!-- END: content -->

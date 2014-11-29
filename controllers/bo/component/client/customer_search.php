@@ -25,16 +25,16 @@ class Onxshop_Controller_Bo_Component_Client_Customer_Search extends Onxshop_Con
 		 * Store submited data to the SESSION
 		 */
 		
-		if (isset($_POST['customer-filter'])) $_SESSION['customer-filter'] = $_POST['customer-filter'];
+		if (isset($_POST['customer-filter'])) $_SESSION['bo']['customer-filter'] = $_POST['customer-filter'];
 		
-		if (!is_array($_SESSION['customer-filter'])) {
-			$_SESSION['customer-filter'] = array();
-			$_SESSION['customer-filter']['invoice_status'] = 0;
-			$_SESSION['customer-filter']['account_type'] = -1;
+		if (!is_array($_SESSION['bo']['customer-filter'])) {
+			$_SESSION['bo']['customer-filter'] = array();
+			$_SESSION['bo']['customer-filter']['invoice_status'] = 0;
+			$_SESSION['bo']['customer-filter']['account_type'] = -1;
 		}
 		
 		//save selected group for use in filter update
-		$_SESSION['customer-filter-selected_group_id'] = $_SESSION['customer-filter']['group_id'];
+		$_SESSION['bo']['customer-filter-selected_group_id'] = $_SESSION['bo']['customer-filter']['group_id'];
 		
 		/**
 		 * list groups
@@ -43,14 +43,14 @@ class Onxshop_Controller_Bo_Component_Client_Customer_Search extends Onxshop_Con
 		$list = $ClientGroup->listGroups();
 		
 		//select boxes
-		$this->tpl->assign("SELECTED_group_{$_SESSION['customer-filter']['group_id']}", 'selected="selected"');
-		$this->tpl->assign("SELECTED_account_type_{$_SESSION['customer-filter']['account_type']}", 'selected="selected"');
+		$this->tpl->assign("SELECTED_group_{$_SESSION['bo']['customer-filter']['group_id']}", 'selected="selected"');
+		$this->tpl->assign("SELECTED_account_type_{$_SESSION['bo']['customer-filter']['account_type']}", 'selected="selected"');
 		
 		foreach ($list as $item) {
 			
 			$this->tpl->assign('ITEM', $item);
 			
-			if ($item['id'] == $_SESSION['customer-filter']['group_id']) $this->tpl->assign('SELECTED', 'selected="selected"');
+			if ($item['id'] == $_SESSION['bo']['customer-filter']['group_id']) $this->tpl->assign('SELECTED', 'selected="selected"');
 			else $this->tpl->assign('SELECTED', '');
 			
 			$this->tpl->parse('content.item');

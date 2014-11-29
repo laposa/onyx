@@ -6,7 +6,7 @@
 		<fieldset class="single">
 			<div class="row query">
 				<span class="label" title="Can be First Name or Last Name, First Name and Last Name, Username"><label>Name*, Email or ID<br /></label></span>
-				<span class="field"><input title="Can be First Name or Last Name, First Name and Last Name, Username" type="text" class="text" id="customer-filter-query" name="customer-filter[query]" value="{_SESSION.customer-filter.query}" /></span>
+				<span class="field"><input title="Can be First Name or Last Name, First Name and Last Name, Username" type="text" class="text" id="customer-filter-query" name="customer-filter[query]" value="{_SESSION.bo.customer-filter.query|htmlspecialchars}" /></span>
 			</div>
 			
 			<div class="row customer_group">

@@ -30,7 +30,7 @@ class Onxshop_Controller_Bo_Component_Client_Customer_List extends Onxshop_Contr
 		/**
 		 * Get the list
 		 */
-		$customer_filter = $_SESSION['customer-filter'];
+		$customer_filter = $_SESSION['bo']['customer-filter'];
 		
 		$customer_list = $Customer->getClientList(0, $customer_filter);
 
@@ -42,21 +42,21 @@ class Onxshop_Controller_Bo_Component_Client_Customer_List extends Onxshop_Contr
 			 */
 			
 			if ($this->GET['customer-list-sort-by']) {
-				$_SESSION['customer-list-sort-by'] = $this->GET['customer-list-sort-by'];
+				$_SESSION['bo']['customer-list-sort-by'] = $this->GET['customer-list-sort-by'];
 			}
 			
 			if ($this->GET['customer-list-sort-direction']) {
-				$_SESSION['customer-list-sort-direction'] = $this->GET['customer-list-sort-direction'];
+				$_SESSION['bo']['customer-list-sort-direction'] = $this->GET['customer-list-sort-direction'];
 			}
 			
-			if ($_SESSION['customer-list-sort-by']) {
-				$sortby = $_SESSION['customer-list-sort-by'];
+			if ($_SESSION['bo']['customer-list-sort-by']) {
+				$sortby = $_SESSION['bo']['customer-list-sort-by'];
 			} else {
 				$sortby = "id";
 			}
 			
-			if ($_SESSION['customer-list-sort-direction']) {
-				$direction = $_SESSION['customer-list-sort-direction'];
+			if ($_SESSION['bo']['customer-list-sort-direction']) {
+				$direction = $_SESSION['bo']['customer-list-sort-direction'];
 			} else {
 				$direction = "DESC";
 			}

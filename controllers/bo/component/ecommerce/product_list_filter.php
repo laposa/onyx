@@ -15,10 +15,11 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Product_List_Filter extends Onxs
 	public function mainAction() {
 		
 		// filter
-		if (isset($_POST['product-list-filter'])) $_SESSION['product-list-filter'] = $_POST['product-list-filter'];
+		if (isset($_POST['product-list-filter'])) $_SESSION['bo']['product-list-filter'] = $_POST['product-list-filter'];
 		
-		$filter = $_SESSION['product-list-filter'];
+		$filter = $_SESSION['bo']['product-list-filter'];
 		
+		$this->tpl->assign('FILTER', $filter);
 		$this->tpl->assign("DISABLED_selected_{$filter['disabled']}", "selected='selected'");
 
 		$this->parseOffersSelect($filter['offer_group_id']);
@@ -31,10 +32,13 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Product_List_Filter extends Onxs
 			$this->tpl->parse("content.edit_offer_group_button");
 		}
 		
-
 		return true;
 	}
 
+	/**
+	 * parseOffersSelect
+	 */
+	 
 	protected function parseOffersSelect($selected_id)
 	{
 		require_once('models/ecommerce/ecommerce_offer_group.php');
@@ -51,6 +55,10 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Product_List_Filter extends Onxs
 
 	}
 
+	/**
+	 * parseOffersSelectGroup
+	 */
+	 
 	protected function parseOffersSelectGroup(&$groups, $name, $selected_id)
 	{
 		if (!is_array($groups) || count($groups) == 0) return;
