@@ -98,7 +98,7 @@ class international_translation extends Onxshop_Model {
 	public function translatePhrase($original_string, $translated_string, $context, &$content)
 	{
 		$original_string = preg_quote($original_string, "/");
-		$replacement = "$1$translated_string$2";
+		$replacement = "\${1}{$translated_string}\${2}";
 
 		switch ($context) {
 			case "separate_text":
