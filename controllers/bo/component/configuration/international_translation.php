@@ -22,13 +22,13 @@ class Onxshop_Controller_Bo_Component_Configuration_International_Translation ex
 			$last_item = $Translation->listing("", "id DESC", "0,1");
 			if (is_numeric($last_item[0]['id'])) {
 				unset($last_item[0]['id']);
-				$last_item[0]['original_string'] = "";
-				$last_item[0]['translated_string'] = "";
 			} else {
 				$last_item[0] = array(
 					"locale" => $GLOBALS['onxshop_conf']['global']['locale']
 				);
 			}
+			$last_item[0]['original_string'] = "";
+			$last_item[0]['translated_string'] = "";
 			$Translation->insert($last_item[0]);
 		}
 
