@@ -103,8 +103,7 @@ if (isset($_GET['preview']) && $_GET['preview'] == 1) {
 /**
  * detect if any backoffice controller is called
  */
- 
-if (preg_match("/\.bo\//", $_GET['request'])) define('ONXSHOP_IN_BACKOFFICE', true);
+if (preg_match("/^\/(backoffice|request\/bo)\//", $_GET['translate'])) define('ONXSHOP_IN_BACKOFFICE', true);
 else define('ONXSHOP_IN_BACKOFFICE', false);
 
 //use query cache?
