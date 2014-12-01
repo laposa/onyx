@@ -40,6 +40,9 @@ class Onxshop_Controller_Component_Locale_Switcher extends Onxshop_Controller {
 			case 'en_NZ.UTF-8':
 				$locale2 = 'nz';
 			break;
+			case 'cs_CZ.UTF-8':
+				$locale2 = 'cs';
+			break;
 		}
 		
 		$this->tpl->assign("SELECTED_$locale2", 'selected="selected"');
