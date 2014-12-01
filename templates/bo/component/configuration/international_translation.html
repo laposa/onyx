@@ -25,7 +25,7 @@
 		element.find("td.context span").editInPlace({
 			url: "/request/bo/component/single_record_update~model=international_translation:attribute=context~",
 			field_type: "select",
-			select_options: ",separate_text,text_inside_tag,text_inside_span_tag,navigation_label,navigation_url,tag_attribute,link_label,link_url",
+			select_options: ",separate_text,text_inside_tag,text_inside_span_tag,navigation_label,navigation_url,tag_attribute,link_label,link_url,heading_title",
 			params: "csrf_token=" + getCSRFToken()
 		});
 		element.find("td.node_id span").editInPlace({

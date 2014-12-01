@@ -133,6 +133,10 @@ class international_translation extends Onxshop_Model {
 				$pattern = "/(href=\\\")$original_string(\\\")/u";
 				break;
 
+			case "heading_title":
+				$pattern = "/(<h[1-6] [^>]+>)(?:<span>)?$original_string(?:<\/span>)?(<\/h[1-6]>)/us";
+				break;
+
 			default:
 				$pattern = "/(.*)$original_string(.*)/";
 
