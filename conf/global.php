@@ -276,6 +276,12 @@ if (!defined('ONXSHOP_MODEL_STRICT_VALIDATION')) define('ONXSHOP_MODEL_STRICT_VA
 if (!defined('ONXSHOP_CUSTOMER_ALLOW_ACCOUNT_MERGE')) define('ONXSHOP_CUSTOMER_ALLOW_ACCOUNT_MERGE', false);
 
 /**
+ * simple translation (output regex filter)
+ */
+
+if (!defined('ONXSHOP_SIMPLE_TRANSLATION_ENABLED')) define('ONXSHOP_SIMPLE_TRANSLATION_ENABLED', false);
+
+/**
  * Set pre-action list as array, used in bootstrap.php
  */
 

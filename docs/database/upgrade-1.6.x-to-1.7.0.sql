@@ -321,5 +321,23 @@ CREATE INDEX common_revision_combined_idx
 
 ALTER TABLE "ecommerce_product_variety" ADD "limit_to_delivery_zones" varchar(512) NULL;
 
-			
+
+
+--
+-- international_translation
+--
+
+CREATE TABLE international_translation (
+	id serial NOT NULL PRIMARY KEY,
+	locale character varying(20) NOT NULL,
+	original_string text NOT NULL,
+	translated_string text NOT NULL,
+	context character varying(63),
+	node_id integer REFERENCES common_node ON UPDATE CASCADE ON DELETE CASCADE
+);
+
+CREATE INDEX international_translation_locale_idx ON international_translation USING btree (locale);
+CREATE INDEX international_translation_node_id_idx ON international_translation USING btree (node_id);
+
+
 COMMIT;

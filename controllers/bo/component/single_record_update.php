@@ -65,6 +65,18 @@ class Onxshop_Controller_Bo_Component_Single_Record_Update extends Onxshop_Contr
 				//update only when the new price is different than old price
 				if (round($last_price['value'], 2) != round($update_value, 2)) if (!$ModelObj->updateSingleAttribute('value', $update_value, $last_price['id'])) msg('Failed', 'error');
 			break;
+
+			case 'international_translation':
+		
+				require_once('models/international/international_translation.php');
+				
+				$element_id_parts = explode('-', $_POST['element_id']);
+				$updated_id = $element_id_parts[3];
+				$ModelObj = new international_translation();
+				if (!$ModelObj->updateSingleAttribute($attribute, $update_value, $updated_id)) msg('Failed', 'error');
+			
+			break;
+
 			default:
 				return false;
 			break;

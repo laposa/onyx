@@ -577,6 +577,20 @@ class Onxshop_Bootstrap {
 				$content = preg_replace("/{{customer.first_name}}/", '', $content);
 			}
 		}
+
+		// translations
+		if (ONXSHOP_SIMPLE_TRANSLATION_ENABLED) {
+
+			$locale = $_SESSION['locale'];
+			$default_locale = $GLOBALS['onxshop_conf']['global']['locale'];
+
+			if ($locale != $default_locale) {
+				require_once('models/international/international_translation.php');
+				$Translation = new international_translation();
+				$node_id = $_SESSION['last_item'] = $_SESSION['history'][count($_SESSION['history'])-1]['node_id'];
+				$content = $Translation->translatePage($content, $locale, $node_id);
+			}
+		}
 		
 		return $content;
 	}
