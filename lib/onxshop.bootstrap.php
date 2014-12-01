@@ -579,7 +579,7 @@ class Onxshop_Bootstrap {
 		}
 
 		// translations
-		if (ONXSHOP_SIMPLE_TRANSLATION_ENABLED) {
+		if (ONXSHOP_SIMPLE_TRANSLATION_ENABLED && !ONXSHOP_IN_BACKOFFICE) {
 
 			$locale = $_SESSION['locale'];
 			$default_locale = $GLOBALS['onxshop_conf']['global']['locale'];
