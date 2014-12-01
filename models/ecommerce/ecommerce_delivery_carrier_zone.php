@@ -58,6 +58,9 @@ class ecommerce_delivery_carrier_zone extends Onxshop_Model {
 		return $zones;
 	}
 
+	/**
+	 * Get Zone Id By Country
+	 */
 	public function getZoneIdByCountry($country_id)
 	{
 		if (!is_numeric($country_id)) return false;
@@ -69,5 +72,20 @@ class ecommerce_delivery_carrier_zone extends Onxshop_Model {
 
 		if (isset($zones[0]['zone_id'])) return $zones[0]['zone_id'];
 		else return false;
+	}
+
+	/**
+	 * Get Zone Id by Address Id
+	 */
+
+	public function getZoneIdByAddress($address_id)
+	{
+		if (!is_numeric($address_id)) return false;
+
+		require_once('models/client/client_address.php');
+		$Address = new client_address();
+		$address = $Address->getDetail($address_id);
+
+		return $this->getZoneIdByCountry($address['country_id']);
 	}
 }
