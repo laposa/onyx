@@ -339,5 +339,11 @@ CREATE TABLE international_translation (
 CREATE INDEX international_translation_locale_idx ON international_translation USING btree (locale);
 CREATE INDEX international_translation_node_id_idx ON international_translation USING btree (node_id);
 
+--
+-- add janrain to customer
+--
+
+ALTER TABLE client_customer ADD COLUMN janrain_id character varying(255);
+
 
 COMMIT;

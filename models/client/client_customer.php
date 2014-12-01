@@ -134,6 +134,8 @@ class client_customer extends Onxshop_Model {
 	var $profile_image_url;
 	
 	var $store_id;
+	
+	var $janrain_id;
 		
 	var $_metaData = array(
 		'id'=>array('label' => 'ID', 'validation'=>'int', 'required'=>true), 
@@ -167,7 +169,8 @@ class client_customer extends Onxshop_Model {
 		'twitter_id'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'google_id'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'profile_image_url'=>array('label' => '', 'validation'=>'string', 'required'=>false),
-		'store_id'=>array('label' => 'Home Store ID', 'validation'=>'int', 'required'=>false)
+		'store_id'=>array('label' => 'Home Store ID', 'validation'=>'int', 'required'=>false),
+		'janrain_id'=>array('label' => 'Janrain UUID', 'validation'=>'string', 'required'=>false)
 	);
 	
 	/**
@@ -212,7 +215,8 @@ CREATE TABLE client_customer (
 	twitter_id bigint,
 	google_id bigint,
 	profile_image_url text,
-	store_id integer REFERENCES ecommerce_store ON UPDATE CASCADE ON DELETE RESTRICT
+	store_id integer REFERENCES ecommerce_store ON UPDATE CASCADE ON DELETE RESTRICT,
+	janrain_id character varying(255)
 );
 		";
 		
