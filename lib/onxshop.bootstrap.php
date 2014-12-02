@@ -265,6 +265,10 @@ class Onxshop_Bootstrap {
 		
 		}
 		
+		/**
+		 * deprecated since Onxshop 1.7
+		 */
+		
 		if ($_SESSION['client']['customer']['id'] < 1 && ONXSHOP_BACKOFFICE_REQUIRE_CUSTOMER_LOGIN) {
 			
 			$_SESSION['to'] = $_SERVER['REQUEST_URI'];
