@@ -1,8 +1,8 @@
 <?php
 /**
- * Global deployment configuration
+ * Deployment configuration
  *
- * Copyright (c) 2009-2012 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -64,4 +64,4 @@ define('ONXSHOP_DB_NAME', '');
  * Salt used for encryption/hashing
  */
 
-if (!defined('ONXSHOP_ENCRYPTION_SALT'))  define('ONXSHOP_ENCRYPTION_SALT', '');
+define('ONXSHOP_ENCRYPTION_SALT', '');
