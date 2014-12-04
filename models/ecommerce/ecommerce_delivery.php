@@ -169,7 +169,7 @@ CREATE TABLE ecommerce_delivery (
 		$address_detail = $Address->detail($delivery_address_id);
 		$country_id = (int) $address_detail['country_id'];
 
-		return $this->countryDeliveryForCountry($basket, $carrier_id, $country_id, $promotion_detail);
+		return $this->calculateDeliveryForCountry($basket, $carrier_id, $country_id, $promotion_detail);
 	}
 
 	/**
@@ -180,7 +180,7 @@ CREATE TABLE ecommerce_delivery (
 	 * @param  int    $country_id          Delivery Country id
 	 * @return Array                       Delivery rate and VAT
 	 */
-	function countryDeliveryForCountry($basket, $carrier_id, $country_id, $promotion_detail)
+	function calculateDeliveryForCountry($basket, $carrier_id, $country_id, $promotion_detail)
 	{
 		//if there is a product with vat rate > 0, add vat to the shipping
 		$add_vat = $this->findVATEligibility($basket);

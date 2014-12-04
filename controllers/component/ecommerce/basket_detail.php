@@ -105,7 +105,7 @@ class Onxshop_Controller_Component_Ecommerce_Basket_Detail extends Onxshop_Contr
 			$this->Basket->saveDiscount($basket);
 
 			if ($this->guest_customer) {
-				$basket['delivery'] = $Delivery->countryDeliveryForCountry(
+				$basket['delivery'] = $Delivery->calculateDeliveryForCountry(
 					$basket, 
 					$this->delivery_options['carrier_id'], 
 					$this->delivery_country, 
@@ -131,7 +131,7 @@ class Onxshop_Controller_Component_Ecommerce_Basket_Detail extends Onxshop_Contr
 		require_once('models/common/common_node.php');
 		$node_conf = common_node::initConfiguration();
 
-		msg("Sorry, selected delivery method can't but used. Please choose a different one.");
+		msg("Sorry, selected delivery method cannot be used. Please choose a different one.");
 		onxshopGoTo("page/{$node_conf['id_map-checkout_delivery_options']}");
 	}
 
