@@ -317,7 +317,26 @@ class ecommerce_basket extends Onxshop_Model {
 		$product_data = $Product->getProductDetailByVarietyId($product_variety_id);
 		if (!is_numeric($price_id)) $price_id = $product_data['variety']['price']['id'];
 		$product_type_id = $product_data['variety']['product_type_id'];
-		
+
+		// limit to delivery zone (if delivery address is set already)
+		if (!empty($product_data['variety']['limit_to_delivery_zones']) && is_numeric($_SESSION['client']['customer']['delivery_address_id'])) {
+
+			$zones = explode(",", $product_data['variety']['limit_to_delivery_zones']);
+
+			if (is_array($zones)) {
+
+				require_once('models/ecommerce/ecommerce_delivery_carrier_zone.php');
+				$DeliveryZone = new ecommerce_delivery_carrier_zone();
+				$delivery_zone_id = $DeliveryZone->getZoneIdByAddress($_SESSION['client']['customer']['delivery_address_id']);
+
+				if (!in_array($delivery_zone_id, $zones)) {
+					msg("Sorry, we're not able to deliver this product to your country.", 'error');
+					return false;
+				}
+
+			}
+		}
+
 		// get detail for current basket
 		$basket = $this->getFullDetail($basket_id);
 

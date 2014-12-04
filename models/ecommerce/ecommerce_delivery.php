@@ -81,20 +81,19 @@ class ecommerce_delivery extends Onxshop_Model {
 	 
 	private function getCreateTableSql() {
 	
-		$sql = "
-CREATE TABLE ecommerce_delivery (
-    id serial NOT NULL PRIMARY KEY,
-    order_id int REFERENCES ecommerce_order ON UPDATE CASCADE ON DELETE RESTRICT,
-    carrier_id integer REFERENCES ecommerce_delivery_carrier ON UPDATE CASCADE ON DELETE CASCADE ,
-    value_net decimal(12,5) ,
-    vat decimal(12,5) ,
-    vat_rate decimal(12,5) ,
-    required_datetime timestamp(0) without time zone,
-    note_customer text ,
-    note_backoffice text ,
-    other_data text,
-	weight integer NOT NULL DEFAULT 0
-);
+		$sql = "CREATE TABLE ecommerce_delivery (
+		    id serial NOT NULL PRIMARY KEY,
+		    order_id int REFERENCES ecommerce_order ON UPDATE CASCADE ON DELETE RESTRICT,
+		    carrier_id integer REFERENCES ecommerce_delivery_carrier ON UPDATE CASCADE ON DELETE CASCADE ,
+		    value_net decimal(12,5) ,
+		    vat decimal(12,5) ,
+		    vat_rate decimal(12,5) ,
+		    required_datetime timestamp(0) without time zone,
+		    note_customer text ,
+		    note_backoffice text ,
+		    other_data text,
+			weight integer NOT NULL DEFAULT 0
+		);
 		";
 		
 		return $sql;
@@ -188,7 +187,10 @@ CREATE TABLE ecommerce_delivery (
 		require_once('models/ecommerce/ecommerce_delivery_carrier.php');
 		$Delivery_Carrier = new ecommerce_delivery_carrier();
 
-		// first check if the delivery is available for given order value and weight
+		// first check if there are restricted items in the basket
+		if (!$this->checkDeliveryRestrictions($basket, $country_id)) return false;
+
+		// check if the delivery is available for given order value and weight
 		$price = $Delivery_Carrier->getDeliveryRate(
 			$carrier_id, 
 			$basket['sub_total']['price'],
@@ -251,6 +253,51 @@ CREATE TABLE ecommerce_delivery (
 		}
 		
 		return 0;
+	}
+
+	/**
+	 * check if all items in the basket can be delivered
+	 * requires basket full detail
+	 */
+	public function checkDeliveryRestrictions(&$basket, $country_id)
+	{
+		if (!is_numeric($country_id) || $country_id == 0) return false;
+
+		require_once('models/ecommerce/ecommerce_delivery_carrier_zone.php');
+		$DeliveryZone = new ecommerce_delivery_carrier_zone();
+		$delivery_zone_id = $DeliveryZone->getZoneIdByCountry($country_id);
+
+		$products = array();
+
+		foreach ($basket['items'] as &$item) {
+
+			$zones = $item['product']['variety']['limit_to_delivery_zones'];
+
+			if (!empty($zones)) {
+
+				$zones = explode(",", $zones);
+
+				if (is_array($zones)) {
+
+					if (!in_array($delivery_zone_id, $zones)) {
+						$products[] = $item['product']['name'];
+					}
+				}
+			}
+		}
+
+		if (count($products) > 0) {
+	
+			if (!Zend_Registry::isRegistered('ecommerce_delivery:not_deliverable_products')) {
+	
+				msg("Sorry, we're not able to deliver the following products to your country: " . implode(" ,", $products), 'error');
+				Zend_Registry::set('ecommerce_delivery:not_deliverable_products', true);
+			}
+	
+			return false;
+		}
+
+		return true;
 	}
 
 }
