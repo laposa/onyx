@@ -288,10 +288,10 @@ class ecommerce_delivery extends Onxshop_Model {
 
 		if (count($products) > 0) {
 	
-			if (!Zend_Registry::isRegistered('ecommerce_delivery:not_deliverable_products')) {
+			if (!Zend_Registry::isRegistered('ecommerce_delivery:not_deliverable_products_message')) {
 	
 				msg("Sorry, we're not able to deliver the following products to your country: " . implode(" ,", $products), 'error');
-				Zend_Registry::set('ecommerce_delivery:not_deliverable_products', true);
+				Zend_Registry::set('ecommerce_delivery:not_deliverable_products_message', true);
 			}
 	
 			return false;

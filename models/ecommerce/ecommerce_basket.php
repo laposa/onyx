@@ -330,7 +330,7 @@ class ecommerce_basket extends Onxshop_Model {
 				$delivery_zone_id = $DeliveryZone->getZoneIdByAddress($_SESSION['client']['customer']['delivery_address_id']);
 
 				if (!in_array($delivery_zone_id, $zones)) {
-					msg("Sorry, we're not able to deliver this product to your country.", 'error');
+					msg("Sorry, we cannot deliver {$product_data['name']} to your country. Please see the product page for delivery options and/or change your delivery address in order to proceed.", 'error');
 					return false;
 				}
 
