@@ -147,30 +147,33 @@ class Onxshop_Controller {
 		
 	}
 
-    /**
-     * get request
-     *
-     * @return string
-     */
-     
+	/**
+	 * get request
+	 *
+	 * @return string
+	 */
+
 	function getRequest() {
 	
 		return $this->request;
-		
+	
 	}
 
-    /**
-     * set title
-     *
-     * @param string $value
-     * @return boolean
-     */
-     
+	/**
+	 * set title
+	 *
+	 * @param string $value
+	 * @return boolean
+	 */
+
 	function setTitle($value) {
 	
 		$value = trim($value);
+		
 		if ($value != '') {
+		
 			$this->title = $value;
+		
 			if (Zend_Registry::isRegistered('browser_title')) {
 				Zend_Registry::set('browser_title', Zend_Registry::get('browser_title') . ' - ' . $value);
 			} else {
@@ -178,19 +181,22 @@ class Onxshop_Controller {
 			}
 			
 			return true;
+		
 		} else {
+		
 			return false;
+		
 		}
 		
 	}
 	
-    /**
-     * set description
-     *
-     * @param string $value
-     * @return boolean
-     */
-     
+	/**
+	 * set description
+	 *
+	 * @param string $value
+	 * @return boolean
+	 */
+
 	function setDescription($value) {
 	
 		$value = trim($value);
@@ -219,13 +225,13 @@ class Onxshop_Controller {
 		
 	}
 	
-    /**
-     * set keywords
-     *
-     * @param string $value
-     * @return boolean
-     */
-     
+	/**
+	 * set keywords
+	 *
+	 * @param string $value
+	 * @return boolean
+	 */
+
 	function setKeywords($value) {
 	
 		$value = trim($value);
@@ -254,25 +260,25 @@ class Onxshop_Controller {
 		
 	}
 
-    /**
-     * get title
-     *
-     * @return string
-     */
-     
+	/**
+	 * get title
+	 *
+	 * @return string
+	 */
+ 
 	function getTitle() {
 	
 		return $this->title;
 		
 	}
 	
-    /**
-     * set head
-     *
-     * @param string $head
-     * @return boolean
-     */
-     
+	/**
+	 * set head
+	 *
+	 * @param string $head
+	 * @return boolean
+	 */
+
 	function setHead($value) {
 	
 		$value = trim($value);
@@ -302,12 +308,12 @@ class Onxshop_Controller {
 	}
 	
 	/**
-     * set head once
-     *
-     * @param string $head
-     * @return boolean
-     */
-     
+	 * set head once
+	 *
+	 * @param string $head
+	 * @return boolean
+	 */
+
 	function setHeadOnce($value) {
 	
 		$name = 'head_' . $this->_module_html;
@@ -319,25 +325,25 @@ class Onxshop_Controller {
 		return true;	
 	}
 
-    /**
-     * get head
-     *
-     * @return string
-     */
-     
+	/**
+	 * get head
+	 *
+	 * @return string
+	 */
+
 	function getHead() {
 	
 		return $this->head;
 		
 	}
 
-    /**
-     * set content
-     *
-     * @param string $content
-     * @return boolean
-     */
-     
+	/**
+	 * set content
+	 *
+	 * @param string $content
+	 * @return boolean
+	 */
+
 	function setContent($content) {
 	
 		$this->content = $content;
@@ -346,12 +352,12 @@ class Onxshop_Controller {
 		
 	}
 
-    /**
-     * get content
-     *
-     * @return string
-     */
-     
+	/**
+	 * get content
+	 *
+	 * @return string
+	 */
+
 	function getContent() {
 	
 		return $this->content;
@@ -359,11 +365,11 @@ class Onxshop_Controller {
 	}
 
 
-    /**
-     * Parse Content Tags
-     * @return string
-     */
-     
+	/**
+	 * Parse Content Tags
+	 * @return string
+	 */
+
 	function parseContentTags() {
 		
 		$content = $this->tpl->filecontents;
@@ -398,7 +404,7 @@ class Onxshop_Controller {
 	/**
 	 * Parse content tags before module
 	 */
-	 
+
 	function parseContentTagsBefore() {
 	
 		$this->parseContentTagsBeforeHook();
@@ -409,21 +415,20 @@ class Onxshop_Controller {
 	/**
 	 * hook before content tags parsed
 	 */
-	 
+
 	function parseContentTagsBeforeHook() {
 	
 		return true;
 		
 	}
-	
-    
-    /**
-     * find onxshop request tags
-     *
-     * @param string $content
-     * @return array
-     */
-     
+	    
+	/**
+	 * find onxshop request tags
+	 *
+	 * @param string $content
+	 * @return array
+	 */
+
 	function findTags($content) {
 	
 		preg_match_all('/\{ONXSHOP_REQUEST_([^\}]*) #([^\}]*)\}/', $content, $matches);
@@ -436,13 +441,13 @@ class Onxshop_Controller {
 		
 	}
 
-    /**
-     * find containers
-     *
-     * @param string $content
-     * @return array
-     */
-     
+	/**
+	 * find containers
+	 *
+	 * @param string $content
+	 * @return array
+	 */
+
 	function findContainerTags($content) {
 	
 		//{CONTAINER.0.content.content #RTE} 
@@ -456,14 +461,12 @@ class Onxshop_Controller {
 		
 	}
 
+	/**
+	 * final output
+	 *
+	 * @return string
+	 */
 
-
-    /**
-     * final output
-     *
-     * @return string
-     */
-     
 	function finalOutput() {
 	
 		$output = $this->getContent();
@@ -476,7 +479,6 @@ class Onxshop_Controller {
 		return $output;
 				
 	}
-
 
 	/**
 	 * _explodeRequest
@@ -563,11 +565,11 @@ class Onxshop_Controller {
 		
 	}
 	
-    /**
-     * parse title
-     * only if title block is present
-     */
-     
+	/**
+	 * parse title
+	 * only if title block is present
+	 */
+
 	function _parseTitle() {
 	
 		if ($this->_checkTemplateBlockExists('title')) {
@@ -583,11 +585,11 @@ class Onxshop_Controller {
 		
 	}
 	
-    /**
-     * parse description
-     * only if description block is present
-     */
-     
+	/**
+	 * parse description
+	 * only if description block is present
+	 */
+
 	function _parseDescription() {
 	
 		if ($this->_checkTemplateBlockExists('description')) {
@@ -603,11 +605,11 @@ class Onxshop_Controller {
 		
 	}
 	
-    /**
-     * parse keywords
-     * only if title block is present
-     */
-     
+	/**
+	 * parse keywords
+	 * only if title block is present
+	 */
+
 	function _parseKeywords() {
 	
 		if ($this->_checkTemplateBlockExists('keywords')) {
@@ -623,11 +625,11 @@ class Onxshop_Controller {
 		
 	}
 	
-    /**
-     * parse head
-     * only if head block is present
-     */
-     
+	/**
+	 * parse head
+	 * only if head block is present
+	 */
+
 	function _parseHead() {
 	
 		if ($this->_checkTemplateBlockExists('head')) {
@@ -644,10 +646,10 @@ class Onxshop_Controller {
 	}
 	
 	/**
-     * parse head once
-     * only if head_once block is present
-     */
-     
+	 * parse head once
+	 * only if head_once block is present
+	 */
+
 	function _parseHeadOnce() {
 	
 		if ($this->_checkTemplateBlockExists('head_once')) {
@@ -664,11 +666,11 @@ class Onxshop_Controller {
 	}
 	
 	
-    /**
-     * parse content
-     * only if head block is present
-     */
-     
+	/**
+	 * parse content
+	 * only if head block is present
+	 */
+
 	function _parseContent() {
 	
 		if ($this->_checkTemplateBlockExists('content')) {
