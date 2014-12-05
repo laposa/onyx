@@ -47,7 +47,9 @@ class Onxshop_Controller_Component_Ecommerce_Delivery_Option extends Onxshop_Con
 
 		} else {
 
-			msg("Sorry, there is no delivery method available for your order value and weight.");
+			if (!Zend_Registry::isRegistered('ecommerce_delivery:not_deliverable_products_message')) {
+				msg("Sorry, there is no delivery method available for your order value and weight.");
+			}
 			$options['carrier_id'] = false;
 
 		}
