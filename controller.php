@@ -55,8 +55,17 @@ class Onxshop_Controller {
 	public function process($request, &$subOnxshop = false) {
 	
 		msg("ONXSHOP_REQUEST: BEGIN $request", "ok", 2);
-		// to think about - is this a good idea?
+		
+		/**
+		 * save copy or GET request to local variable
+		 */
+		 
 		$this->GET = $_GET;
+		
+		/**
+		 * check request
+		 */
+		 
 		$this->setRequest($request);
 
 		$module = $this->_explodeRequest($request);
@@ -71,14 +80,6 @@ class Onxshop_Controller {
 		if (!file_exists($this->_module_php)) $this->_module_php = ONXSHOP_DIR . "controllers/{$module['controller']}.php";
 		
 		if ($this->_template_dir != '') $this->_initTemplate($this->_module_html);
-		else {
-			/*
-			msg("Template {$this->_module_html} Doesn't Exist", 'error', 2);
-			$this->_template_dir = ONXSHOP_DIR . "templates/";
-			$this->_initTemplate('blank.html');
-			*/
-			//exit;
-		}
 	
 		//look for the Onxshop tags
 		$this->parseContentTagsBefore();
@@ -95,7 +96,7 @@ class Onxshop_Controller {
 		}
 		
 		/**
-		 * subconent
+		 * subcontent
 		 */
 		
 		if (is_object($subOnxshop)) { 
@@ -119,6 +120,7 @@ class Onxshop_Controller {
 	
 	/**
 	 * mainAction
+	 * @return boolean
 	 */
 
 	public function mainAction() {
@@ -192,17 +194,27 @@ class Onxshop_Controller {
 	function setDescription($value) {
 	
 		$value = trim($value);
+		
 		if ($value != '') {
+			
 			$this->title = $value;
+			
 			if (Zend_Registry::isRegistered('description')) {
+			
 				Zend_Registry::set('description', Zend_Registry::get('description') . ' - ' . $value);
+			
 			} else {
+			
 				Zend_Registry::set('description', $value);
+			
 			}
 			
 			return true;
+			
 		} else {
+			
 			return false;
+			
 		}
 		
 	}
@@ -217,17 +229,27 @@ class Onxshop_Controller {
 	function setKeywords($value) {
 	
 		$value = trim($value);
+		
 		if ($value != '') {
+		
 			$this->title = $value;
+		
 			if (Zend_Registry::isRegistered('keywords')) {
+		
 				Zend_Registry::set('keywords', Zend_Registry::get('keywords') . ', ' . $value);
+		
 			} else {
+		
 				Zend_Registry::set('keywords', $value);
+		
 			}
 			
 			return true;
+		
 		} else {
+		
 			return false;
+		
 		}
 		
 	}
@@ -254,17 +276,27 @@ class Onxshop_Controller {
 	function setHead($value) {
 	
 		$value = trim($value);
+		
 		if ($value != '') {
+		
 			$this->head = $value;
+		
 			$value = "<!--HEAD block of {$this->_module_html} -->\n" . $value;
+		
 			if (Zend_Registry::isRegistered('head')) {
+		
 				//because we are processing childs first, do a reverse order
 				$value = $value . "\n" . Zend_Registry::get('head');
+		
 			}
+		
 			Zend_Registry::set('head', $value);
 			return true;
+		
 		} else {
+		
 			return false;
+		
 		}
 		
 	}
@@ -309,6 +341,7 @@ class Onxshop_Controller {
 	function setContent($content) {
 	
 		$this->content = $content;
+		
 		return true;
 		
 	}
@@ -513,7 +546,7 @@ class Onxshop_Controller {
 		
 	}
 
-    /**
+	/**
      * parse template
      *
      */
@@ -527,6 +560,7 @@ class Onxshop_Controller {
 		if ($head = $this->_parseHead()) $this->setHead($head);
 		if ($head = $this->_parseHeadOnce()) $this->setHeadOnce($head);
 		if ($content = $this->_parseContent()) $this->setContent($content);
+		
 	}
 	
     /**
@@ -537,10 +571,14 @@ class Onxshop_Controller {
 	function _parseTitle() {
 	
 		if ($this->_checkTemplateBlockExists('title')) {
+			
 			$this->tpl->parse('title');
 			return $this->tpl->text('title');
+		
 		} else {
+		
 			return false;
+		
 		}
 		
 	}
@@ -553,10 +591,14 @@ class Onxshop_Controller {
 	function _parseDescription() {
 	
 		if ($this->_checkTemplateBlockExists('description')) {
+			
 			$this->tpl->parse('description');
 			return $this->tpl->text('description');
+		
 		} else {
+		
 			return false;
+		
 		}
 		
 	}
@@ -569,10 +611,14 @@ class Onxshop_Controller {
 	function _parseKeywords() {
 	
 		if ($this->_checkTemplateBlockExists('keywords')) {
+			
 			$this->tpl->parse('keywords');
 			return $this->tpl->text('keywords');
+		
 		} else {
+		
 			return false;
+		
 		}
 		
 	}
@@ -585,10 +631,14 @@ class Onxshop_Controller {
 	function _parseHead() {
 	
 		if ($this->_checkTemplateBlockExists('head')) {
+			
 			$this->tpl->parse('head');
 			return $this->tpl->text('head');
+		
 		} else {
+		
 			return false;
+		
 		}
 		
 	}
@@ -601,10 +651,14 @@ class Onxshop_Controller {
 	function _parseHeadOnce() {
 	
 		if ($this->_checkTemplateBlockExists('head_once')) {
+			
 			$this->tpl->parse('head_once');
 			return $this->tpl->text('head_once');
+		
 		} else {
+		
 			return false;
+		
 		}
 		
 	}
@@ -618,23 +672,29 @@ class Onxshop_Controller {
 	function _parseContent() {
 	
 		if ($this->_checkTemplateBlockExists('content')) {
+			
 			$this->tpl->parse('content');
 			return $this->tpl->text('content');
+		
 		} else {
+		
 			return false;
+		
 		}
 		
 	}
 	
-   /**
-     * parse messages
-     * display and remove messages from session if message block is present
-     */
-     
+	/**
+	 * parse messages
+	 * display and remove messages from session if message block is present
+	 */
+
 	function _parseMessages() {
 
 		if ($_SESSION['messages']) {
+			
 			if ($this->_checkTemplateBlockExists('content.messages')) {
+			
 				$messages = $_SESSION['messages'];
 	
 				$this->tpl->assign('MESSAGES', $messages);
@@ -659,27 +719,28 @@ class Onxshop_Controller {
 		
 	}
 
-    /**
-     * init template
-     *
-     * @param unknown_type $template_file
-     */
-     
-	function _initTemplate($template_file) {
+	/**
+	 * init template
+	 *
+	 * @param unknown_type $template_file
+	 */
+
+	 function _initTemplate($template_file) {
 	
 		// core template engine
 		// initialize with option to look for files in local (project) and global (onxshop) directory
 		$this->tpl = new XTemplate ($template_file, array(ONXSHOP_PROJECT_DIR . 'templates/', ONXSHOP_DIR . 'templates/'));
+		
 		// set base variables
 		$this->_initTemplateVariables();
 		
 	}
 
-    /**
-     * Initialize global template variables
-     *
-     */
-     
+	/**
+	 * Initialize global template variables
+	 *
+	 */
+
 	function _initTemplateVariables() {
 	
 		if ($_SERVER['SSL_PROTOCOL'] || $_SERVER['HTTPS']) $protocol = 'https';
@@ -727,8 +788,9 @@ class Onxshop_Controller {
 	/**
 	 * Factory method for creating new controller using request URI
 	 */
-	public static function createController($request, &$subOnxshop = false)
-	{
+	
+	public static function createController($request, &$subOnxshop = false) {
+		
 		$classname = self::_prepareCallBack($request);
 		
 		if (!class_exists($classname)) {
