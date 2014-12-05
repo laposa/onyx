@@ -50,7 +50,7 @@ class Onxshop_Bootstrap {
 		 * csrfCheck
 		 */
 		 
-		$this->csrfCheck();
+		if (ONXSHOP_CSRF_PROTECTION_ENABLED) $this->csrfCheck();
 	
 		/**
 		 * Disable DB cache when logged in as editor

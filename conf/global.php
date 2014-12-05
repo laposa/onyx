@@ -288,3 +288,9 @@ if (!defined('ONXSHOP_SIMPLE_TRANSLATION_ENABLED')) define('ONXSHOP_SIMPLE_TRANS
 $onxshop_pre_actions = array("autologin", "locales");
 if (ONXSHOP_ALLOW_SCHEDULER) $onxshop_pre_actions[] = "scheduler";
 if (ONXSHOP_FACEBOOK_WITHIN_APP) $onxshop_pre_actions[] = 'component/client/facebook_auth';
+
+/**
+ * CSRF protection
+ */
+ 
+if (!defined('ONXSHOP_CSRF_PROTECTION_ENABLED')) define('ONXSHOP_CSRF_PROTECTION_ENABLED', true);
