@@ -33,10 +33,10 @@ require_once("$dir/../conf/global.php");
  * Set include paths
  */
  
-set_include_path(get_include_path() . PATH_SEPARATOR . ONXSHOP_DIR);
+set_include_path(ONXSHOP_PROJECT_DIR . PATH_SEPARATOR . ONXSHOP_DIR . PATH_SEPARATOR . ONXSHOP_DIR . 'lib/' . PATH_SEPARATOR . get_include_path());
 
-require_once(ONXSHOP_DIR . "lib/onxshop.functions.php");
-require_once(ONXSHOP_DIR . "lib/onxshop.model.php");
+require_once('lib/onxshop.functions.php');
+require_once('model.php');
 
 /**
  * onxshop_conf local overwrite due to missing database connection

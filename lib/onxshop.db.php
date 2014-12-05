@@ -1,6 +1,6 @@
 <?php
 /**
- * Onxshop_Model class definition
+ * Onxshop_Db class definition
  *
  * custom Active Record Database Pattern and simple validation
  *
@@ -11,7 +11,7 @@
 
 require_once 'Zend/Cache.php';
 
-class Onxshop_Model {
+class Onxshop_Db {
 
 	var $conf = array();
 	var $_cacheable = ONXSHOP_DB_QUERY_CACHE;
