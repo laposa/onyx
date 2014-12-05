@@ -278,11 +278,25 @@ class common_configuration extends Onxshop_Model {
 			
 			// invalidate cache
 			self::$localCache = false;
+			
 			// save (update or insert)
-			if ($this->save($conf_new)) return true;
-			else return false;
+			if ($id = $this->save($conf_new)) {
+			
+				// insertRevision
+				$this->insertRevision($conf_new);
+				
+				// return ID
+				return $id;
+			
+			} else {
+				
+				return false;
+			
+			}
+			
 		} else {
 		
+			msg("Nothing has changed");
 			return false;
 		}
 	}

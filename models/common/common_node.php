@@ -1822,28 +1822,4 @@ LEFT OUTER JOIN common_taxonomy_label ON (common_taxonomy_tree.label_id = common
 		
 	}
 	
-	/**
-	 * insertRevision
-	 */
-	 
-	public function insertRevision($node_data) {
-		
-		require_once('models/common/common_revision.php');
-		$Revision = new common_revision();
-		
-		$revision_data = array();
-		$revision_data['node_id'] = $node_data['id'];
-		$revision_data['object'] = 'common_node';
-		$revision_data['content'] = $node_data;
-		
-		if ($revision_id = $Revision->insertRevision($revision_data)) {
-			msg("Saved revision ID $revision_id", 'ok', 1);
-			return $revision_id;
-		} else {
-			msg("Can't save revision for node ID {$revision_data['node_id']}", 'error');
-			return false;
-		}
-		
-	}
-	
 }

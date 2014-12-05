@@ -956,7 +956,16 @@ CREATE TABLE client_customer (
 		 
 		if ($this->update($customer_data)) {
 		
-			//initialise common_email
+			/**
+			 * insertRevision
+			 */
+			 
+			$this->insertRevision($customer_data);
+			
+			/**
+			 * initialise common_email
+			 */
+			 
 			require_once('models/common/common_email.php');
 			$EmailForm = new common_email();
 
