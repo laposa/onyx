@@ -348,7 +348,7 @@ CREATE TABLE client_customer (
 		$customer_data['delivery_address_id'] = 0;
 		$customer_data['created'] = date('c');
 		$customer_data['modified'] = date('c');
-		$customer_data['status'] = 1;
+		if ($customer_data['status'] != 5) $customer_data['status'] = 1; // set as standard account except the guest account
 		$customer_data['other_data'] = serialize($customer_data['other_data']);
 		if (!is_numeric($customer_data['account_type'])) $customer_data['account_type'] = 0;
 		$customer_data['agreed_with_latest_t_and_c'] = 1;
