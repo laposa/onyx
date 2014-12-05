@@ -1,10 +1,10 @@
 <?php
 /**
- * Copyright (c) 2005-2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2005-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
  
-//lib/onxshop.model.php
+//lib/onxshop.db.php
 define('I18N_ERROR_INVALID_VALUE_FOR', 'Nesprávná hodnota pro ');
 define('I18N_ERROR_INVALID_PRODUCT_CODE', 'Neplatný kód produktu!');
 define('I18N_ERROR_WRONG_URL', 'Neplatné URL!');
@@ -352,3 +352,6 @@ define('I18N_ANWER_COUNT', 'Počet odpovědí');
 
 //component/nes_categories.html
 define('I18N_VIEW_ALL', 'Všechny');
+
+//models/client/client_customer.php
+define('I18N_CLIENT_CUSTOMER_EMAIL_EXISTS', 'Uživatel s emailem %s je již registrován.');

@@ -1,10 +1,10 @@
 <?php
 /**
- * Copyright (c) 2005-2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2005-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
  
-//lib/onxshop.model.php
+//lib/onxshop.db.php
 define('I18N_ERROR_INVALID_VALUE_FOR', 'Invalid value for ');
 define('I18N_ERROR_INVALID_PRODUCT_CODE', 'Invalid Product Code!');
 define('I18N_ERROR_WRONG_URL', 'Wrong URL!');
@@ -356,3 +356,6 @@ define('I18N_ANWER_COUNT', 'Answer count');
 
 //component/nes_categories.html
 define('I18N_VIEW_ALL', 'View All');
+
+//models/client/client_customer.php
+define('I18N_CLIENT_CUSTOMER_EMAIL_EXISTS', 'User email %s is already registered');

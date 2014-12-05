@@ -337,3 +337,6 @@ define('I18N_ANWER_COUNT', 'Answer count');
 
 //component/nes_categories.html
 define('I18N_VIEW_ALL', 'View All');
+
+//models/client/client_customer.php
+define('I18N_CLIENT_CUSTOMER_EMAIL_EXISTS', 'User email %s is already registered');

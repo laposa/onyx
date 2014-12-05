@@ -368,7 +368,7 @@ CREATE TABLE client_customer (
 		 */
 		 
 		if ($customer_data['account_type'] > 1) {
-			msg("Account Type cannot greater then 1");
+			msg("Account Type cannot be greater then 1");
 			return false;
 		}
 	
@@ -389,8 +389,8 @@ CREATE TABLE client_customer (
 			
 			//full check
 			if (!$this->checkLoginId($customer_data)) {
-			
-				msg("User email {$customer_data['email']} is already registered", 'error', 0, 'account_exists');	
+					
+				msg(str_replace('%s', $customer_data['email'], I18N_CLIENT_CUSTOMER_EMAIL_EXISTS), 'error', 0, 'account_exists');	
 				return false;
 			
 			}
