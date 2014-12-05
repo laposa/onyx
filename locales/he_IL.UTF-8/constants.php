@@ -224,6 +224,10 @@ define('I18N_SELECT_A', 'Select a');
 //component/ecommerce/product_related.html
 define('I18N_RELATED_PRODUCTS_DYNAMIC', 'Customers who purchased this product also bought the following');
 define('I18N_RELATED_PRODUCTS_STATIC', 'We suggest the following');
+//component/client/registration.php
+define('I18N_COMPONENT_CLIENT_REGISTRATION_SUCCESS', 'Customer registration successfully completed"');
+define('I18N_COMPONENT_CLIENT_REGISTRATION_ERROR', 'Please complete all required fields marked with a asterisk (*)');
+define('I18N_COMPONENT_CLIENT_REGISTRATION_PASSWORD_NOT_MATCH', 'Passwords does not match.');
 //component/client/registration.html
 define('I18N_R_PERSONAL_DETAILS', 'Personal details');
 define('I18N_R_TITLE', 'Title');

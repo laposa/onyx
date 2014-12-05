@@ -242,6 +242,10 @@ define('I18N_SELECT_A', 'Vyberte si ');
 //component/ecommerce/product_related.html
 define('I18N_RELATED_PRODUCTS_DYNAMIC', 'Ostatní zákazníci zakoupili také');
 define('I18N_RELATED_PRODUCTS_STATIC', 'Doporučujeme následující');
+//component/client/registration.php
+define('I18N_COMPONENT_CLIENT_REGISTRATION_SUCCESS', 'Registrace zákazníka č.%s proběhla úspěšně.');
+define('I18N_COMPONENT_CLIENT_REGISTRATION_ERROR', 'Prosíme o vyplnění všech povinných polí označených hvězdičkou.');
+define('I18N_COMPONENT_CLIENT_REGISTRATION_PASSWORD_NOT_MATCH', 'Hesla se neshodují.');
 //component/client/registration.html
 define('I18N_R_PERSONAL_DETAILS', 'Osobní údaje');
 define('I18N_R_TITLE', 'Titul');

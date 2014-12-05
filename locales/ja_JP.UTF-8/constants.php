@@ -223,6 +223,10 @@ define('I18N_SELECT_A', '選択');
 //component/ecommerce/product_related.html
 define('I18N_RELATED_PRODUCTS_DYNAMIC', 'この商品を買った方は以下の商品も買っています。');
 define('I18N_RELATED_PRODUCTS_STATIC', 'ご提案');
+//component/client/registration.php
+define('I18N_COMPONENT_CLIENT_REGISTRATION_SUCCESS', 'Customer registration successfully completed"');
+define('I18N_COMPONENT_CLIENT_REGISTRATION_ERROR', 'Please complete all required fields marked with a asterisk (*)');
+define('I18N_COMPONENT_CLIENT_REGISTRATION_PASSWORD_NOT_MATCH', 'Passwords does not match.');
 //component/client/registration.html
 define('I18N_R_PERSONAL_DETAILS', '個人情報');
 define('I18N_R_TITLE', 'Title');

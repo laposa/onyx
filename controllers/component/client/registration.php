@@ -93,7 +93,7 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
 			
 			if($id = $this->Customer->registerCustomer($client_customer, $client_address, $client_company)) {
 			
-				msg("Customer registration successfully completed");
+				msg(str_replace('%s', $id, I18N_COMPONENT_CLIENT_REGISTRATION_SUCCESS));
 				
 				/**
 				 * login
@@ -120,12 +120,12 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
 				$this->forwardAfterLogin();
 				
 			} else {
-				msg('Please complete all required fields marked with a asterisk (*)', 'error');
+				msg(I18N_COMPONENT_CLIENT_REGISTRATION_ERROR, 'error');
 			}
 		
 		} else {
 		
-			msg('Please complete all required fields marked with an asterisk (*)', 'error');
+			msg(I18N_COMPONENT_CLIENT_REGISTRATION_ERROR, 'error');
 		
 		}
 	}
@@ -196,7 +196,7 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
 		if ($password == $password1) {
 			return true;
 		} else {
-			msg("Passwords does not match.", 'error');
+			msg(I18N_COMPONENT_CLIENT_REGISTRATION_PASSWORD_NOT_MATCH, 'error');
 			return false;
 		}
 			
