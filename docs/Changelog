@@ -1,3 +1,48 @@
+Onxshop (1.7.0)
+
+  * move to Bin instead of deleting
+  * allow guest checkout
+  * more translations
+  * add CSRF protection to all forms
+  * allow revisions
+  * implement product delivery restrictions by zone
+  * implement simple translation filter
+  * new node/content/adaptive
+  * refactored backoffice authentication and new backoffice ACL
+  * force SSL for all pages when ONXSHOP_CUSTOMER_USE_SSL
+  * improve integration with Facebook if used as an App
+  * update jQuery Cycle2 plugin
+  * include component for importing articles, images and comments from Wordpress
+  * implement APC cache backend for DB and fullpage cache
+  * replace jQuery UI tabs with EasyTabs (don't use any jQuery UI styling)
+  * make the basket updates tracking compatible with Universal Analitics
+  * implement google tag manager component
+  * upgrade Google Analytics code to Universal Analytics
+  * new backoffice UI
+  * refactored uri_map (remove from htaccess)
+  * add forward for /store/{ID}
+  * update CodeMirror to version 4.5.0
+  * upgrade jQuery Validation Plugin to v1.13.0
+  * Zend Framework 1.12.7
+  * upgrade TinyMCE to version 3.5.11
+  * upgrade jquery.customSelect.min.js to v0.5.1
+  * new store_notice component
+  * new age_gate component
+  * implement search_index_exclude_selector
+  * fixes in automatic search index update
+  * allow specific news sections
+  * extend customers export
+  * refactor captcha_js to allow broader usage (e.g. in comments)
+  * API v1.3
+  * allow customers to be member of multiple groups
+  * improved surveys
+  * implemented watchdog
+  * special offers implementation
+  * roundel image generator
+  * many bug fixes
+
+ -- Norbert Laposa <norbert@laposa.co.uk>  2014-12-07
+ 
 Onxshop (1.6.1)
 
   * add lock for requests with the same session_id to prevent race conditions
