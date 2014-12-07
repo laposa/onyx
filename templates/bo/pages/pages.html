@@ -38,7 +38,16 @@ function initialiseMenuPagesTree() {
 		afterMove:function(destination, source, position){
 			var source_node_id = $('a:first', source).attr('href').match("[0-9]{1,}$");
 			var destination_node_id = $('a:first', destination).attr('href').match("[0-9]{1,}$");
-			openAjaxRequestInGrowl('/request/bo/component/node_move~source_node_id='+source_node_id+':destination_node_id='+destination_node_id+':position='+position+'~', 'Move node');
+			//openAjaxRequestInGrowl('/request/bo/component/node_move~source_node_id='+source_node_id+':destination_node_id='+destination_node_id+':position='+position+'~', 'Move node');
+			
+			$.post("/request/bo/component/node_move", {
+                csrf_token: getCSRFToken(),
+                source_node_id: source_node_id[0],
+                destination_node_id: destination_node_id[0],
+                position: position}, function (data) {
+					popupMessage(data);
+				});
+            
 			return false;
 		},
 		animate: true,
