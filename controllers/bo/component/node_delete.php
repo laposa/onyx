@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2006-2012 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2006-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -22,7 +22,7 @@ class Onxshop_Controller_Bo_Component_Node_Delete extends Onxshop_Controller {
 		//delete
 		if ($this->GET['delete'] && is_numeric($delete_id)) {
 		
-			$id_map = $this->createIdMapArray($Node->conf);
+			$id_map = $Node->getIdMap();
 			
 			/**
 			 * create confirmation code
@@ -50,7 +50,7 @@ class Onxshop_Controller_Bo_Component_Node_Delete extends Onxshop_Controller {
 					//delete only if confirmation code match
 					if ($this->GET['confirm'] === $confirmation_code) {
 						
-						if ($Node->delete($delete_id)) {
+						if ($Node->moveToBin($delete_id)) {
 						
 							msg("{$node_data['node_group']} \"{$node_data['title']}\" (id={$node_data['id']}) has been deleted");
 						
@@ -109,28 +109,6 @@ class Onxshop_Controller_Bo_Component_Node_Delete extends Onxshop_Controller {
 		}
 
 		return true;
-	}
-	
-	/**
-	 * create id map array
-	 */
-	 
-	public function createIdMapArray($node_conf) {
-	
-		if (!is_array($node_conf)) return false;
-	
-		$id_map = array();
-		
-		foreach ($node_conf as $key=>$val) {
-		
-			if (preg_match("/^id_map/", $key)) {
-				$k = preg_replace("/^id_map-/", "", $key);
-				$id_map[$k] = $val;
-			}
-		
-		}
-	
-		return $id_map;
 	}
 	
 }
