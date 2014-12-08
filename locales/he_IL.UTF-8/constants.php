@@ -253,6 +253,7 @@ define('I18N_RS_YOUR_EMAIL', 'Your email');
 define('I18N_RS_YOUR_EMAIL_PLACEHOLDER', 'e.g. you@example.com');
 define('I18N_RS_SUBMIT', 'Submit');
 define('I18N_FORGOTTEN_PASSWORD', 'Forgotten your password since your last visit?');
+define('I18N_LOGIN_FAILED', 'Login failed. Please try again.');
 //component/client/newsletter_subscribe_start.html
 define('I18N_NEWSLETTER_SIGNUP', 'Sign Up');
 //component/client/edit.html

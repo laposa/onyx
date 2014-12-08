@@ -179,6 +179,7 @@ define('I18N_YOUR_PASSWORD', 'Your password');
 define('I18N_YOUR_PASSWORD_PLACEHOLDER', 'your password');
 define('I18N_AUTOLOGIN', 'Remember me');
 define('I18N_SUBMIT', 'Submit');
+define('I18N_LOGIN_FAILED', 'Login failed. Please try again.');
 //component/ecommerce/order_detail.html
 define('I18N_ORDER', 'Order');
 define('I18N_CREATED', 'created');

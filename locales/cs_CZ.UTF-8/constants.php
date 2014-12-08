@@ -179,6 +179,7 @@ define('I18N_YOUR_PASSWORD', 'Vaše heslo');
 define('I18N_YOUR_PASSWORD_PLACEHOLDER', 'Vaše heslo');
 define('I18N_AUTOLOGIN', 'Zapamatovat');
 define('I18N_SUBMIT', 'Odeslat');
+define('I18N_LOGIN_FAILED', 'Přihlášení se nezdařilo. Email nebo heslo není správné.');
 //component/ecommerce/order_detail.html
 define('I18N_ORDER', 'Objednávka');
 define('I18N_CREATED', 'vytvořena');

@@ -161,6 +161,7 @@ define('I18N_YOUR_PASSWORD', 'パスワード');
 define('I18N_YOUR_PASSWORD_PLACEHOLDER', 'your password');
 define('I18N_AUTOLOGIN', '次回から自動的に表示する');
 define('I18N_SUBMIT', '送信');
+define('I18N_LOGIN_FAILED', 'Login failed. Please try again.');
 //component/ecommerce/order_detail.html
 define('I18N_ORDER', 'その他');
 define('I18N_CREATED', '発行人');

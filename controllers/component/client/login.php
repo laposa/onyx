@@ -156,7 +156,7 @@ class Onxshop_Controller_Component_Client_Login extends Onxshop_Controller {
 	public function loginFailed() {
 		
 		$this->tpl->assign('FAILED', 'failed');
-		msg('Login failed.  Please try again.', 'error');
+		msg(I18N_LOGIN_FAILED, 'error');
 	
 	}
 	
