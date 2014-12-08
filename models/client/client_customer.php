@@ -747,35 +747,39 @@ CREATE TABLE client_customer (
 					}
 				}
 				
-				/**
-				 * send notification email
-				 */
-				 
-				require_once('models/common/common_email.php');
-    			$EmailForm = new common_email();
-    			
-    			//this allows use customer data and company data in the mail template
-    			//is passed as DATA to template in common_email->_format
-    			$GLOBALS['common_email']['customer'] = $customer_data;
-    			$GLOBALS['common_email']['company'] = $company_data;
-    			
-    			if (!$EmailForm->sendEmail('registration', 'n/a', $customer_data['email'], $customer_data['first_name'] . " " . $customer_data['last_name'])) {
-    				msg('New customer email sending failed.', 'error');
-    			}
-    			
-    			//send it to the customer registration admin email
-    			/*
-    			if ($GLOBALS['onxshop_conf']['global']['admin_email'] != $this->conf['registration_mail_to_address']) {
-    				if (!$EmailForm->sendEmail('registration', 'n/a', $this->conf['registration_mail_to_address'], $this->conf['registration_mail_to_name'])) {
-    					msg('New customer email sending failed.', 'error');
-    				}
-    			}*/
-    
-    			//send notification to admin
-    			if (!$EmailForm->sendEmail('registration_notify', 'n/a', $this->conf['registration_mail_to_address'], $this->conf['registration_mail_to_name'])) {
-    					msg('Admin notification email sending failed.', 'error');
-    			}
-				
+				if ($customer_data['status'] != 5) {
+
+					/**
+					 * send notification email
+					 */
+					 
+					require_once('models/common/common_email.php');
+	    			$EmailForm = new common_email();
+	    			
+	    			//this allows use customer data and company data in the mail template
+	    			//is passed as DATA to template in common_email->_format
+	    			$GLOBALS['common_email']['customer'] = $customer_data;
+	    			$GLOBALS['common_email']['company'] = $company_data;
+	    			
+	    			if (!$EmailForm->sendEmail('registration', 'n/a', $customer_data['email'], $customer_data['first_name'] . " " . $customer_data['last_name'])) {
+	    				msg('New customer email sending failed.', 'error');
+	    			}
+	    			
+	    			//send it to the customer registration admin email
+	    			/*
+	    			if ($GLOBALS['onxshop_conf']['global']['admin_email'] != $this->conf['registration_mail_to_address']) {
+	    				if (!$EmailForm->sendEmail('registration', 'n/a', $this->conf['registration_mail_to_address'], $this->conf['registration_mail_to_name'])) {
+	    					msg('New customer email sending failed.', 'error');
+	    				}
+	    			}*/
+	    
+	    			//send notification to admin
+	    			if (!$EmailForm->sendEmail('registration_notify', 'n/a', $this->conf['registration_mail_to_address'], $this->conf['registration_mail_to_name'])) {
+	    					msg('Admin notification email sending failed.', 'error');
+	    			}
+					
+				}
+
 				/**
 				 * insert address and update customer data
 				 */
