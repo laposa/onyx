@@ -174,9 +174,9 @@ define('I18N_THIS_ORDER_IS_STILL_UNPAID', 'Není daňový doklad!');
 //component/ecommerce/login.html
 define('I18N_EXISTING_CUSTOMER', 'Stávající zákazník');
 define('I18N_YOUR_EMAIL', 'Váš email');
-define('I18N_YOUR_EMAIL_PLACEHOLDER', 'e.g. you@example.com');
+define('I18N_YOUR_EMAIL_PLACEHOLDER', 'můj@email.cz');
 define('I18N_YOUR_PASSWORD', 'Vaše heslo');
-define('I18N_YOUR_PASSWORD_PLACEHOLDER', 'Vaše heslo');
+define('I18N_YOUR_PASSWORD_PLACEHOLDER', 'vaše heslo');
 define('I18N_AUTOLOGIN', 'Zapamatovat');
 define('I18N_SUBMIT', 'Odeslat');
 define('I18N_LOGIN_FAILED', 'Přihlášení se nezdařilo. Email nebo heslo není správné.');
