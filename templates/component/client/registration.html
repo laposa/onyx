@@ -89,7 +89,7 @@ $(document).ready(function(){
 		
 		<div class="row address_post_code">
 			<span class="label"><label for="client_address_delivery_post_code_id"><span class="mandatory-mark">*</span> {I18N_POST_CODE}</label></span>
-			<span class="field"><input class="required text" type="text" id="client_address_delivery_post_code_id" name="client[address][delivery][post_code]" value="{CLIENT.address.delivery.post_code|htmlspecialchars}"/></span>
+			<span class="field"><input class="required text" type="text" id="client_address_delivery_post_code_id" name="client[address][delivery][post_code]" value="{CLIENT.address.delivery.post_code|htmlspecialchars}" maxlength="10"/></span>
 		</div>
 		
 		<div class="row address_county">
