@@ -91,14 +91,6 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
 			// invoice address is same as delivery
 			if (isset($client_address['invoices']['checked']) && $client_address['invoices']['checked'] == 1) $client_address['invoices'] = NULL;
 
-			// what to use as company name?
-			if (empty($client_company['name'])) {
-				if (isset($client_address['invoices']['name']) && strlen($client_address['invoices']['name']) > 0) 
-					$client_company['name'] = $client_address['invoices']['name']; // first invoice if possible
-				else if (isset($client_address['delivery']['line_2']) && strlen($client_address['delivery']['line_2']) > 0) 
-					$client_company['name'] = $client_address['delivery']['line_2']; // than delivery
-			}
-			
 			/**
 			 * register
 			 */
