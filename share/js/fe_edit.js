@@ -168,6 +168,14 @@ function feEditDragDrop(event, ui) {
 
 
 function feEditNodeMove(source_node_id, destination_node_id, destination_container_id, position) {
-	openAjaxRequestInGrowl('/request/bo/component/node_move~source_node_id='+source_node_id+':destination_node_id='+destination_node_id+':container='+destination_container_id+':position='+position+'~', 'Move node');
+	$.post("/request/bo/component/node_move", {
+		csrf_token: getCSRFToken(),
+		source_node_id: source_node_id,
+		destination_node_id: destination_node_id,
+		container: destination_container_id,
+		position: position}, 
+		function (data) {
+			popupMessage(data);
+		});
 	return false;
 }
