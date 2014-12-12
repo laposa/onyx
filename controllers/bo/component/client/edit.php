@@ -26,6 +26,8 @@ class Onxshop_Controller_Bo_Component_Client_Edit extends Onxshop_Controller {
 		$this->Customer->setCacheable(false);
 		$this->Company->setCacheable(false);
 
+		$this->auth = Onxshop_Bo_Authentication::getInstance();
+
 		if (is_numeric($this->GET['id'])) $customer_id = $this->GET['id'];
 		else $customer_id = 0;
 		
@@ -35,6 +37,11 @@ class Onxshop_Controller_Bo_Component_Client_Edit extends Onxshop_Controller {
 		
 		$node_conf = common_node::initConfiguration();
 		$this->tpl->assign('NODE_CONF', $node_conf);
+
+		/**
+		 * check access 
+		 */
+		if (!$this->auth->hasPermission('customers', 'view')) return false;
 
 		$this->saveForm($customer_id);		
 		$this->parseDetails($customer_id);		
@@ -48,7 +55,7 @@ class Onxshop_Controller_Bo_Component_Client_Edit extends Onxshop_Controller {
 
 	protected function saveForm($customer_id)
 	{
-		if ($_POST['save']) {
+		if ($_POST['save'] && $this->auth->hasPermission('customers', 'edit')) {
 
 			$client_data = $_POST['client'];
 			
@@ -104,6 +111,8 @@ class Onxshop_Controller_Bo_Component_Client_Edit extends Onxshop_Controller {
 	
 	protected function updateRoles($customer_id, $role_ids) {
 		
+		if (!$this->auth->hasPermission('permissions', 'edit')) return false;
+
 		return $this->Customer->updateRoles($customer_id, $role_ids);
 		
 	}
@@ -133,7 +142,7 @@ class Onxshop_Controller_Bo_Component_Client_Edit extends Onxshop_Controller {
 		$this->parseGroupCheckboxes($client['customer']['group_ids']);
 		$this->parseOtherData($client['customer']['other_data']);
 
-		if (Onxshop_Bo_Authentication::getInstance()->hasPermission('permissions')) {
+		if ($this->auth->hasPermission('permissions', 'view')) {
 			$this->parseRoleCheckboxes($client['customer']['role_ids']);
 		}
 
