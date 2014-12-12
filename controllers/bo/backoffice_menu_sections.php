@@ -35,20 +35,20 @@ class Onxshop_Controller_Bo_Backoffice_Menu_Sections extends Onxshop_Controller_
 		$auth = Onxshop_Bo_Authentication::getInstance();
 		$isEcommerce = $auth->isEcommerce();
 
-		if ($auth->hasPermission('front_office')) $this->tpl->parse('content.fe_edit');
-		if ($auth->hasPermission('nodes')) $this->tpl->parse('content.pages');
-		if ($auth->hasPermission('nodes')) $this->tpl->parse('content.news');
-		if ($auth->hasPermission('products') && $isEcommerce) $this->tpl->parse('content.products');
-		if ($auth->hasPermission('recipes') && $isEcommerce) $this->tpl->parse('content.recipes');
-		if ($auth->hasPermission('stores') && $isEcommerce) $this->tpl->parse('content.stores');
-		if ($auth->hasPermission('orders') && $isEcommerce) $this->tpl->parse('content.orders');
-		if ($auth->hasPermission('stock') && $isEcommerce) $this->tpl->parse('content.stock');
-		if ($auth->hasPermission('customers')) $this->tpl->parse('content.customers');
-		if ($auth->hasPermission('reports') && $isEcommerce) $this->tpl->parse('content.stats');
-		if ($auth->hasPermission('discounts') && $isEcommerce) $this->tpl->parse('content.marketing');
-		if ($auth->hasPermission('comments')) $this->tpl->parse('content.comments');
-		if ($auth->hasPermission('surveys')) $this->tpl->parse('content.surveys');
-		if ($auth->hasPermission('_all_')) $this->tpl->parse('content.advanced');
+		if ($auth->hasAnyPermission('front_office')) $this->tpl->parse('content.fe_edit');
+		if ($auth->hasAnyPermission('nodes')) $this->tpl->parse('content.pages');
+		if ($auth->hasAnyPermission('nodes')) $this->tpl->parse('content.news');
+		if ($auth->hasAnyPermission('products') && $isEcommerce) $this->tpl->parse('content.products');
+		if ($auth->hasAnyPermission('recipes') && $isEcommerce) $this->tpl->parse('content.recipes');
+		if ($auth->hasAnyPermission('stores') && $isEcommerce) $this->tpl->parse('content.stores');
+		if ($auth->hasAnyPermission('orders') && $isEcommerce) $this->tpl->parse('content.orders');
+		if ($auth->hasAnyPermission('stock') && $isEcommerce) $this->tpl->parse('content.stock');
+		if ($auth->hasAnyPermission('customers')) $this->tpl->parse('content.customers');
+		if ($auth->hasAnyPermission('reports') && $isEcommerce) $this->tpl->parse('content.stats');
+		if ($auth->hasAnyPermission('discounts') && $isEcommerce) $this->tpl->parse('content.marketing');
+		if ($auth->hasAnyPermission('comments')) $this->tpl->parse('content.comments');
+		if ($auth->hasAnyPermission('surveys')) $this->tpl->parse('content.surveys');
+		if ($auth->hasAnyPermission('_all_')) $this->tpl->parse('content.advanced');
 
 		return true;
 		

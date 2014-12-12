@@ -104,11 +104,11 @@ class client_role_permission extends Onxshop_Model {
 	 * Return true if given customer has given permission
 	 * @param  int    $customer_id Customer Id
 	 * @param  string $resource	   Resource
-	 * @param  string $operation   Allowed Operation (null by default)
+	 * @param  string $operation   Operation (wildcard operation "_any_" is accepted)
 	 * @param  string $scope       Limit to scope (null by default), not implemented
 	 * @return bool
 	 */
-	public function checkPermissionByCustomer($customer_id, $resource, $operation = "_all_", $scope = null)
+	public function checkPermissionByCustomer($customer_id, $resource, $operation, $scope = null)
 	{
 		if (!is_numeric($customer_id)) return false;
 
@@ -123,7 +123,9 @@ class client_role_permission extends Onxshop_Model {
 			
 			if ($item['resource'] == $resource) {
 				
-				if ($item['operation'] == "_all_" || $item['operation'] == $operation) return true;
+				if ($item['operation'] == "_all_" || 
+					$item['operation'] == $operation ||
+					$operation == "_any_") return true;
 
 			}
 		}

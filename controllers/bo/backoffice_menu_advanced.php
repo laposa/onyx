@@ -34,17 +34,17 @@ class Onxshop_Controller_Bo_Backoffice_Menu_Advanced extends Onxshop_Controller_
 		$auth = Onxshop_Bo_Authentication::getInstance();
 		$isEcommerce = $auth->isEcommerce();
 
-		if ($auth->hasPermission('media')) $this->tpl->parse('content.media');
-		if ($auth->hasPermission('taxonomy')) $this->tpl->parse('content.taxonomy');
-		if ($auth->hasPermission('seo_manager')) $this->tpl->parse('content.seo_manager');
-		if ($auth->hasPermission('database')) $this->tpl->parse('content.database');
-		if ($auth->hasPermission('templates')) $this->tpl->parse('content.templates');
-		if ($auth->hasPermission('scheduler')) $this->tpl->parse('content.scheduler');
-		if ($auth->hasPermission('currency')) $this->tpl->parse('content.currency');
-		if ($auth->hasPermission('search_index')) $this->tpl->parse('content.search_index');
-		if ($auth->hasPermission('tools')) $this->tpl->parse('content.tools');
-		if ($auth->hasPermission('logs')) $this->tpl->parse('content.logs');
-		if ($auth->hasPermission('configuration')) $this->tpl->parse('content.configuration');
+		if ($auth->hasAnyPermission('media')) $this->tpl->parse('content.media');
+		if ($auth->hasAnyPermission('taxonomy')) $this->tpl->parse('content.taxonomy');
+		if ($auth->hasAnyPermission('seo_manager')) $this->tpl->parse('content.seo_manager');
+		if ($auth->hasAnyPermission('database')) $this->tpl->parse('content.database');
+		if ($auth->hasAnyPermission('templates')) $this->tpl->parse('content.templates');
+		if ($auth->hasAnyPermission('scheduler')) $this->tpl->parse('content.scheduler');
+		if ($auth->hasAnyPermission('currency')) $this->tpl->parse('content.currency');
+		if ($auth->hasAnyPermission('search_index')) $this->tpl->parse('content.search_index');
+		if ($auth->hasAnyPermission('tools')) $this->tpl->parse('content.tools');
+		if ($auth->hasAnyPermission('logs')) $this->tpl->parse('content.logs');
+		if ($auth->hasAnyPermission('configuration')) $this->tpl->parse('content.configuration');
 
 		return true;
 		

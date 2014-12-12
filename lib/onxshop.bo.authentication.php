@@ -230,11 +230,11 @@ class Onxshop_Bo_Authentication
 
 	/**
 	 * Has currently authenticated user permission to perform
-	 * an operation on an resource?
+	 * a given operation on a given resource?
 	 * 
 	 * @return boolean 
 	 */
-	public function hasPermission($resource, $operation = "_all_")
+	public function hasPermission($resource, $operation)
 	{
 		if (self::$superuserEmulation) return true;
 		if (!$this->isAuthenticated()) return false;
@@ -242,6 +242,19 @@ class Onxshop_Bo_Authentication
 
 		$customer_id = $_SESSION['authentication']['user_details']['id'];
 		return $this->Permission->checkPermissionByCustomer($customer_id, $resource, $operation);
+	}
+
+
+
+	/**
+	 * Has currently authenticated user permission to perform
+	 * at least one single operation on a given resource?
+	 * 
+	 * @return boolean 
+	 */
+	public function hasAnyPermission($resource)
+	{
+		return $this->hasPermission($resource, "__any__");
 	}
 
 
