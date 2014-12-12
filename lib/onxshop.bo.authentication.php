@@ -229,18 +229,19 @@ class Onxshop_Bo_Authentication
 
 
 	/**
-	 * Has currently authenticated given permission? 
+	 * Has currently authenticated user permission to perform
+	 * an operation on an resource?
 	 * 
 	 * @return boolean 
 	 */
-	public function hasPermission($permission, $scope = null)
+	public function hasPermission($resource, $operation = "_all_")
 	{
 		if (self::$superuserEmulation) return true;
 		if (!$this->isAuthenticated()) return false;
 		if ($this->isSuperuser()) return true;
 
 		$customer_id = $_SESSION['authentication']['user_details']['id'];
-		return $this->Permission->checkPermissionByCustomer($customer_id, $permission, $scope);
+		return $this->Permission->checkPermissionByCustomer($customer_id, $resource, $operation);
 	}
 
 

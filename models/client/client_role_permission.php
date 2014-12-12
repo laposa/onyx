@@ -108,7 +108,7 @@ class client_role_permission extends Onxshop_Model {
 	 * @param  string $scope       Limit to scope (null by default), not implemented
 	 * @return bool
 	 */
-	public function checkPermissionByCustomer($customer_id, $resource, $operation = null, $scope = null)
+	public function checkPermissionByCustomer($customer_id, $resource, $operation = "_all_", $scope = null)
 	{
 		if (!is_numeric($customer_id)) return false;
 
@@ -119,14 +119,12 @@ class client_role_permission extends Onxshop_Model {
 
 		foreach (self::$permissionCache[$customer_id] as $item) {
 			
-			if ($item['resource'] == '_all_') return true; 
+			if ($item['resource'] == "_all_") return true; 
 			
 			if ($item['resource'] == $resource) {
 				
-				if ($item['operation'] == '_all_') return true;
-				
-				if ($scope === null) return true;
-				if ($scope == $item['operation']) return true;
+				if ($item['operation'] == "_all_" || $item['operation'] == $operation) return true;
+
 			}
 		}
 
