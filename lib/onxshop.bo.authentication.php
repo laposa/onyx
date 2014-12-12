@@ -254,7 +254,7 @@ class Onxshop_Bo_Authentication
 	 */
 	public function hasAnyPermission($resource)
 	{
-		return $this->hasPermission($resource, "__any__");
+		return $this->hasPermission($resource, "_any_");
 	}
 
 
