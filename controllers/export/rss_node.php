@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2007-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2007-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -40,6 +40,17 @@ class Onxshop_Controller_Export_Rss_Node extends Onxshop_Controller {
 		// flash in IE with SSL dont like Cache-Control: no-cache and Pragma: no-coche
 		header("Cache-Control: ");
 		header("Pragma: ");
+
+		/**
+		 * Initialize pagination variables
+		 */
+		
+		if  (is_numeric($this->GET['limit_from'])) $from = $this->GET['limit_from'];
+		else $from = 0;
+		if (is_numeric($this->GET['limit_per_page'])) $per_page = $this->GET['limit_per_page'];
+		else $per_page = 25;
+		
+		$limit = "$from,$per_page";
 		
 		/**
 		 * latest date
@@ -62,12 +73,18 @@ class Onxshop_Controller_Export_Rss_Node extends Onxshop_Controller {
 		 */
 		 
 		$node_data = $Node->getDetail($id);
+		$channel_taxonomy_labels = array();
 		
 		if ($node_data['publish'] == 1) {
 		
 			$this->tpl->assign('NODE', $node_data);
 		
-			$children = $Node->listing("parent = $id AND publish = 1 AND node_group='page'", "created DESC");
+			$taxonomy_filter = '';
+			if (is_numeric($this->GET['taxonomy_tree_id']) && $this->GET['taxonomy_tree_id'] > 0) {
+				$taxonomy_filter = " AND id IN (SELECT node_id FROM common_node_taxonomy WHERE taxonomy_tree_id = {$this->GET['taxonomy_tree_id']})";
+			}
+
+			$children = $Node->listing("parent = $id AND publish = 1 AND node_group='page' $taxonomy_filter", "created DESC", $limit);
 			
 			foreach ($children as $c) {
 				
@@ -85,22 +102,42 @@ class Onxshop_Controller_Export_Rss_Node extends Onxshop_Controller {
 				$c['rss_date'] = date('D, d M Y G:i:s O', strtotime($c['created']));
 				
 				/**
+				 * get categories
+				 */
+				$taxonomy_list = $Node->getRelatedTaxonomy($c['id']);
+
+				foreach ($taxonomy_list as $taxonomy) {
+					$this->tpl->assign('CATEGORY', $taxonomy);
+					$this->tpl->parse('content.item.category');
+					$channel_taxonomy_labels[$taxonomy['label']['title']] = true;
+				}
+
+				/**
 				 * add image (not part of RSS spec)
 				 */
 				
 				$teaser_image = $Image->getTeaserImageForNodeId($c['id']);
-				
 				if ($teaser_image) $c['image'] = "http://{$_SERVER['HTTP_HOST']}/image/{$teaser_image['src']}";
-				else $c['image'] = '';
-				
+
 				/**
 				 * assign
 				 */
 				 
 				$this->tpl->assign('CHILD', $c);
+
+				if ($teaser_image) $this->tpl->parse("content.item.image");
 				$this->tpl->parse("content.item");
 			
 			}
+		}
+
+		// parse channel category list
+		$i = 0;
+		foreach ($channel_taxonomy_labels as $label => $item) {
+			if ($i + 1 < count($channel_taxonomy_labels)) $label = $label . "/";
+			$this->tpl->assign('CATEGORY', $label);
+			$this->tpl->parse('content.category');
+			$i++;
 		}
 
 		return true;

@@ -1,5 +1,5 @@
 <!-- BEGIN: content --><?xml version="1.0" encoding="UTF-8" ?>
-<rss version ="2.0">
+<rss version ="2.0" xmlns:media="http://search.yahoo.com/mrss/">
 
 <channel>
 	<title>{CONFIGURATION.global.title|htmlspecialchars|xmlentities} - {NODE.title|htmlspecialchars|xmlentities}</title>
@@ -12,6 +12,7 @@
 	<managingEditor>{CONFIGURATION.global.admin_email}</managingEditor>
 	<webMaster>{CONFIGURATION.global.admin_email}</webMaster>
 	<ttl>{ONXSHOP_PAGE_CACHE_TTL}</ttl>
+	<category><!-- BEGIN: category -->{CATEGORY|htmlspecialchars|xmlentities}<!-- END: category --></category>
 	
 	
 <!-- BEGIN: item -->
@@ -20,6 +21,8 @@
 		<link>{CHILD.url}</link>
 		<description>{CHILD.description|htmlspecialchars|xmlentities}</description>
 		<pubDate>{CHILD.rss_date}</pubDate>
+<!-- BEGIN: category -->		<category>{CATEGORY.label.title|htmlspecialchars|xmlentities}</category><!-- END: category -->
+<!-- BEGIN: image -->		<media:content url="{CHILD.image}"/><!-- END: image -->
 	</item>
 <!-- END: item -->
 
