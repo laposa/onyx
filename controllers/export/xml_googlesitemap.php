@@ -25,11 +25,14 @@ class Onxshop_Controller_Export_Xml_Googlesitemap extends Onxshop_Controller {
 		
 		if (is_array($sitemap)) {
 		
+			if ($_SERVER['SSL_PROTOCOL'] || $_SERVER['HTTPS']) $protocol = 'https';
+			else $protocol = 'http';
+
 			foreach ($sitemap as $node) {
 		
 				$link = $Node->getSeoURL($node['id']);
 				
-				$item['loc'] = "http://{$_SERVER['HTTP_HOST']}{$link}";
+				$item['loc'] = "$protocol://{$_SERVER['HTTP_HOST']}{$link}";
 				$item['lastmod'] = $Node->getLastMod($node['id'], $node['modified']);
 				$item['lastmod'] = substr($item['lastmod'], 0, 10);
 				if ($node['parent'] == $Node->conf['id_map-global_navigation'] || $node['parent'] == $Node->conf['id_map-primary_navigation'] || $node['parent'] == $Node->conf['id_map-footer_navigation']) {
