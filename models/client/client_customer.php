@@ -240,6 +240,7 @@ CREATE TABLE client_customer (
 		 */
 		if ($conf['registration_mail_to_address'] == '') $conf['registration_mail_to_address'] = $GLOBALS['onxshop_conf']['global']['admin_email'];
 		if ($conf['registration_mail_to_name'] == '') $conf['registration_mail_to_name'] = $GLOBALS['onxshop_conf']['global']['admin_email_name'];
+		if ($conf['registration_mail_send_to_customer'] == '') $conf['registration_mail_send_to_customer'] = 1;
 		//what is the username for authentication? Can be email or username
 		if (!($conf['login_type'] == 'email' || $conf['login_type'] == 'username')) $conf['login_type'] = 'email';
 		//default avatar
@@ -747,7 +748,7 @@ CREATE TABLE client_customer (
 					}
 				}
 				
-				if ($customer_data['status'] != 5) {
+				if ($customer_data['status'] != 5 && $this->conf['registration_mail_send_to_customer'] == 1) {
 
 					/**
 					 * send notification email
