@@ -14,10 +14,21 @@ $(document).ready(function(){
 			success: function(responseText, statusText) {
 				popupMessage("#customer_filter_form_wrapper div.onxshop_messages");
 				if ($('#preview_specified_customers').length == 0) window.location = '/backoffice/customers';
-				makeAjaxRequest('#preview_specified_customers', '/request/bo/component/client/customer_list', function() {
+				makeAjaxRequest('#preview_specified_customers', '/request/bo/component/client/customer_list', function () {
+					initAjaxPagination();
 				});
 				initFilterAjaxForm();
 			}
+		});
+	}
+
+	function initAjaxPagination() {
+
+		$("#preview_specified_customers div.pagination a").click(function() {
+			makeAjaxRequest('#preview_specified_customers', $(this).attr("href"), function() {
+				initAjaxPagination();
+			});
+			return false;
 		});
 	}
 
