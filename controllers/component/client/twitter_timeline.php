@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2013-2014 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -21,6 +21,9 @@ class Onxshop_Controller_Component_Client_Twitter_Timeline extends Onxshop_Contr
 		 
 		$username = ONXSHOP_TWITTER_USERNAME;
 		$hashtag = ONXSHOP_TWITTER_HASHTAG;
+		
+		if (is_numeric($this->GET['limit_from'])) $limit_from = $this->GET['limit_from'];
+		if (is_numeric($this->GET['limit_per_page'])) $limit_per_page = $this->GET['limit_per_page'];
 		
 		/**
 		 * init twitter
@@ -67,20 +70,28 @@ class Onxshop_Controller_Component_Client_Twitter_Timeline extends Onxshop_Contr
 			if (is_array($timeline)) {
 			
 				$index = 0;
+				$counter = 0;
 				
 				foreach ($timeline as $k=>$item) {
 					
 					// hashtag starts with
-					if (preg_match('/#'.$hashtag.'/i', $item->text)) {
+					if (empty($hashtag) || preg_match('/#'.$hashtag.'/i', $item->text)) {
 						
-						$item->text = $this->highlightLinks($item->text);
+						if (!isset($limit_from) || $counter >= $limit_from) {
+							
+							$item->text = $this->highlightLinks($item->text);
 						
-						$this->tpl->assign('INDEX', $index);
-						$this->tpl->assign('ITEM', $item);
-						$this->tpl->parse('content.item');
-						$index++;
+							$this->tpl->assign('INDEX', $index);
+							$this->tpl->assign('ITEM', $item);
+							$this->tpl->parse('content.item');
+							$index++;
+						
+							if (isset($limit_per_page) && $index == $limit_per_page) break;
+						}
 						
 					}
+					
+					$counter++;
 					
 				}
 			}
