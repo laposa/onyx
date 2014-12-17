@@ -88,10 +88,10 @@ class Onxshop_Controller_Component_Client_Twitter_Timeline extends Onxshop_Contr
 						
 							if (isset($limit_per_page) && $index == $limit_per_page) break;
 						}
-						
-					}
 					
-					$counter++;
+						$counter++;
+							
+					}
 					
 				}
 			}
