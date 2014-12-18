@@ -83,7 +83,15 @@ $(function() {
 	 */
 	 
 	$('select option.disabled, select option.publish_0').append(' (not public)');
-	
+
+	$("#menuBackOffice a, #menuEditingMode a, #menuActions a.logout").click(function() { 
+		var body = $("#onxshop_cms_content");
+		body.fadeOut(500, function() {
+			body.html('<img src="/share/images/ajax-indicator/indicator_facebook.gif" alt="Loading..." style="position: fixed; width: 16px; height: 11px; top: 50%; left: 50%; margin: -5px 0 0 -8px;"/>');
+			body.fadeIn(300);
+		});	
+	});
+
 });
 
 /**
