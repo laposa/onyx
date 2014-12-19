@@ -22,7 +22,7 @@
 		<description>{CHILD.description|htmlspecialchars|xmlentities}</description>
 		<pubDate>{CHILD.rss_date}</pubDate>
 <!-- BEGIN: category -->		<category>{CATEGORY.label.title|htmlspecialchars|xmlentities}</category><!-- END: category -->
-<!-- BEGIN: image -->		<media:content url="{CHILD.image}"/><!-- END: image -->
+<!-- BEGIN: image -->		<media:content medium="image" type="{CHILD.image.type}" url="{CHILD.image.url}" width="{CHILD.image.width}" height="{CHILD.image.height}"/><!-- END: image -->
 	</item>
 <!-- END: item -->
 

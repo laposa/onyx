@@ -116,8 +116,7 @@ class Onxshop_Controller_Export_Rss_Node extends Onxshop_Controller {
 				 * add image (not part of RSS spec)
 				 */
 				
-				$teaser_image = $Image->getTeaserImageForNodeId($c['id']);
-				if ($teaser_image) $c['image'] = "http://{$_SERVER['HTTP_HOST']}/image/{$teaser_image['src']}";
+				$c['image'] = $this->processImage($Image->getTeaserImageForNodeId($c['id']));
 
 				/**
 				 * assign
@@ -125,7 +124,7 @@ class Onxshop_Controller_Export_Rss_Node extends Onxshop_Controller {
 				 
 				$this->tpl->assign('CHILD', $c);
 
-				if ($teaser_image) $this->tpl->parse("content.item.image");
+				if ($c['image']) $this->tpl->parse("content.item.image");
 				$this->tpl->parse("content.item");
 			
 			}
@@ -141,5 +140,43 @@ class Onxshop_Controller_Export_Rss_Node extends Onxshop_Controller {
 		}
 
 		return true;
+	}
+
+	public function processImage($image)
+	{
+		if (!$image) return false;
+
+		/**
+		 * image size
+		 */
+		 
+		if (is_numeric($this->GET['image_width']) && $this->GET['image_width'] > 0) $image_width = $this->GET['image_width'];
+		else $image_width = 0;
+		
+		if (is_numeric($this->GET['image_height']) && $this->GET['image_height'] > 0) $image_height = $this->GET['image_height'];
+		else $image_height = 0;
+
+		$image['url'] = "http://" . $_SERVER['HTTP_HOST'];
+
+		if ($image_width) {
+
+			if ($image_height == 0) $image['url'] .= "/thumbnail/{$image_width}/" . $image['src'];
+			else $image['url'] .= "/thumbnail/{$image_width}x{$image_height}/" . $image['src'];
+
+			$image['width'] = $image_width;
+			if ($image_height == 0) $image['height'] = round($image['imagesize']['height'] * ($image_width / $image['imagesize']['width']));
+			else $image['height'] = $image_height;
+
+		} else {
+
+			$image['url'] .= "/image/" . $image['src'];
+			$image['width'] = $image['imagesize']['width'];
+			$image['height'] = $image['imagesize']['height'];
+
+		}
+
+		$image['type'] = str_replace("; charset=binary", "", trim($image['info']['mime-type']));
+
+		return $image;
 	}
 }
