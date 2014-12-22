@@ -229,6 +229,7 @@ this component would be good to split into upload and file list
 								filename: response.filename,
 								save_dir: response.save_dir,
 								temp_file: response.temp_file,
+								csrf_token: getCSRFToken(),
 								overwrite: "overwrite"
 							}, function(data) {
 								overwriteDialogsOpen--;
