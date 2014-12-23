@@ -1918,17 +1918,20 @@ CREATE TABLE client_customer (
 		}
 		
 		
-		$sql = "
-		SELECT DISTINCT product_variety.product_id AS product_id, product_variety_id, count(product_variety_id) AS count, product.name AS product_name, product_variety.name AS variety_name 
-		FROM ecommerce_basket_content basket_content
-		LEFT OUTER JOIN ecommerce_product_variety product_variety ON (product_variety.id = product_variety_id)
-		LEFT OUTER JOIN ecommerce_product product ON (product.id = product_variety.product_id)
-		LEFT OUTER JOIN ecommerce_basket basket ON (basket.id = basket_content.basket_id)
-		LEFT OUTER JOIN ecommerce_order eorder ON (eorder.basket_id = basket.id)
-		LEFT OUTER JOIN ecommerce_invoice invoice ON (invoice.order_id = eorder.id)
-		WHERE invoice.status = 1 AND product.publish = 1 $add_sql
-		GROUP BY product_id, product_variety_id, product_name, variety_name 
-		ORDER BY count $order $limit";
+		$sql = "SELECT DISTINCT product_variety.product_id AS product_id, 
+				product_variety_id, 
+				sum(basket_content.quantity) AS count, 
+				product.name AS product_name, 
+				product_variety.name AS variety_name 
+			FROM ecommerce_basket_content basket_content
+			LEFT OUTER JOIN ecommerce_product_variety product_variety ON (product_variety.id = product_variety_id)
+			LEFT OUTER JOIN ecommerce_product product ON (product.id = product_variety.product_id)
+			LEFT OUTER JOIN ecommerce_basket basket ON (basket.id = basket_content.basket_id)
+			LEFT OUTER JOIN ecommerce_order eorder ON (eorder.basket_id = basket.id)
+			LEFT OUTER JOIN ecommerce_invoice invoice ON (invoice.order_id = eorder.id)
+			WHERE invoice.status = 1 AND product.publish = 1 $add_sql
+			GROUP BY product_id, product_variety_id, product_name, variety_name 
+			ORDER BY count $order $limit";
 		
 		return $this->executeSql($sql);
 		
