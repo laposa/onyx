@@ -72,6 +72,7 @@ class Onxshop_Controller_Component_Ecommerce_Gift_Voucher extends Onxshop_Contro
 	public function getGiftVoucherProductDetail($gift_voucher_product_id) {
 		
 		$Product = new ecommerce_product();
+		$Product->setCacheable(false);
 		
 		$gift_voucher_product_detail = $Product->getProductDetail($gift_voucher_product_id);
 		
@@ -228,11 +229,11 @@ class Onxshop_Controller_Component_Ecommerce_Gift_Voucher extends Onxshop_Contro
 	
 		require_once('models/ecommerce/ecommerce_promotion.php');
 		$Promotion = new ecommerce_promotion();
-		
+		$Promotion->setCacheable(false);
+
 		$promotion_list = $Promotion->listing("code_pattern = '{$voucher_code}'");
-		
 		$promotion_data = $Promotion->getDetail($promotion_list[0]['id']);
-		
+
 		$data = $promotion_data['other_data'];
 		$data['variety_name'] = "£" . round($promotion_data['discount_fixed_value']);
 		$data['variety_description'] = "VOUCHER CODE: {$voucher_code}";

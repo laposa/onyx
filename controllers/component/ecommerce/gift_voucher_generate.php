@@ -22,7 +22,7 @@ class Onxshop_Controller_Component_Ecommerce_Gift_Voucher_Generate extends Onxsh
 		
 		$order_id = $this->GET['order_id'];
 		
-		if ($gift_voucher_product_id = $this->getGiftVoucherProductId($order_id)) {
+		if ($gift_voucher_product_id = $this->getGiftVoucherProductId()) {
 		
 			/**
 			 * get order detail
@@ -30,9 +30,10 @@ class Onxshop_Controller_Component_Ecommerce_Gift_Voucher_Generate extends Onxsh
 			 
 			require_once('models/ecommerce/ecommerce_order.php');
 			$EcommerceOrder = new ecommerce_order();
+			$EcommerceOrder->setCacheable(false);
 			
 			$order_detail = $EcommerceOrder->getFullDetail($order_id);
-			
+
 			/**
 			 * find if the order contains gift
 			 */
@@ -129,8 +130,9 @@ class Onxshop_Controller_Component_Ecommerce_Gift_Voucher_Generate extends Onxsh
 		
 		require_once('models/ecommerce/ecommerce_promotion.php');
 		$Promotion = new ecommerce_promotion();
+		$Promotion->setCacheable(false);
 		
-		//TODO: check code wasn't generated before for the same order
+		//TODO: check if the code wasn't generated before for the same order
 		if ($Promotion->checkCodeMatchPartially($code_pattern_base)) {
 			msg("Code {$code_pattern_base}* was previously generated", 'error');
 			return false;
@@ -143,7 +145,7 @@ class Onxshop_Controller_Component_Ecommerce_Gift_Voucher_Generate extends Onxsh
 			msg('Promotion code generation failed', 'error');
 			//return false;
 		}
-		
+
 		/**
 		 * create the voucher file
 		 */

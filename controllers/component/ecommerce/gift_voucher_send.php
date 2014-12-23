@@ -27,6 +27,7 @@ class Onxshop_Controller_Component_Ecommerce_Gift_Voucher_Send extends Onxshop_C
 
 			require_once('models/ecommerce/ecommerce_promotion.php');
 			$Promotion = new ecommerce_promotion();
+			$Promotion->setCacheable(false);
 
 			$promotion_data = $Promotion->getDetail($promotion_id);
 
