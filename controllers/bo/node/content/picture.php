@@ -73,20 +73,8 @@ class Onxshop_Controller_Bo_Node_Content_Picture extends Onxshop_Controller_Bo_N
 		/**
 		 * local templates
 		 */
-		$File = new common_file();
-		$templates = $File->getFlatArrayFromFs(ONXSHOP_PROJECT_DIR . 'templates/component/image_gallery');
-		foreach ($templates as $file) {
-			if (substr($file['title'], -5) == ".html") {
-				$name = substr($file['title'], 0, -5);
-				$this->tpl->assign("ITEM", array(
-					"name" => $file['title'],
-					"value" => $name,
-					"selected" => $name == $this->node_data['component']['template'] ? 'selected="selected"' : ''
-				));
-				$this->tpl->parse("content.local_templates.item");
-			}
-		}
-		$this->tpl->parse("content.local_templates");
+		
+		$this->displayLocalImageGalleryTemplates();
 		
 		/**
 		 * image ratio constrain
@@ -105,6 +93,35 @@ class Onxshop_Controller_Bo_Node_Content_Picture extends Onxshop_Controller_Bo_N
 		 */
 		 
 		$this->tpl->assign("SELECTED_fill_{$this->node_data['component']['fill']}", "selected='selected'");
+	}
+	
+	/**
+	 * displayLocalImageGalleryTemplates
+	 */
+	 
+	function displayLocalImageGalleryTemplates() {
+		
+		$File = new common_file();
+		$templates = $File->getFlatArrayFromFs(ONXSHOP_PROJECT_DIR . 'templates/component/image_gallery');
+		
+		if (is_array($templates)) {
+
+			foreach ($templates as $file) {
+				if (substr($file['title'], -5) == ".html") {
+					$name = substr($file['title'], 0, -5);
+					$this->tpl->assign("ITEM", array(
+						"name" => $file['title'],
+						"value" => $name,
+						"selected" => $name == $this->node_data['component']['template'] ? 'selected="selected"' : ''
+					));
+					$this->tpl->parse("content.local_templates.item");
+				}
+			}
+	
+			$this->tpl->parse("content.local_templates");
+			
+		}
+		
 	}
 }
 
