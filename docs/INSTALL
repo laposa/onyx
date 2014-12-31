@@ -214,12 +214,12 @@ exit
 Please keep NEWUSER same as NEWPROJECT when possible.
 3. create new database under newly created db user
 
-createdb -U [NEWUSER] -h localhost -E UTF8 [NEWPROJECT]-1_6
+createdb -U [NEWUSER] -h localhost -E UTF8 [NEWPROJECT]-1_7
 
 4. populate database with project template
 
 cd /srv/[NEWPROJECT]
-psql -U [NEWUSER] -h localhost [NEWPROJECT]-1_6 < onxshop_dir/docs/database/template_en.sql
+psql -U [NEWUSER] -h localhost [NEWPROJECT]-1_7 < onxshop_dir/docs/database/template_en.sql
 5. modify deployment.php
 
 vi conf/deployment.php
@@ -233,7 +233,7 @@ define('ONXSHOP_DB_USER', '[NEWUSER]');
 define('ONXSHOP_DB_PASSWORD', ''[NEWPASSWORD);
 define('ONXSHOP_DB_HOST', 'localhost');
 define('ONXSHOP_DB_PORT', 5432);
-define('ONXSHOP_DB_NAME', '[NEWPROJECT]-1_6');
+define('ONXSHOP_DB_NAME', '[NEWPROJECT]-1_7');
 
 6. test 
 
