@@ -4,12 +4,73 @@
 
 SET statement_timeout = 0;
 SET client_encoding = 'UTF8';
-SET standard_conforming_strings = off;
+SET standard_conforming_strings = on;
 SET check_function_bodies = false;
 SET client_min_messages = warning;
-SET escape_string_warning = off;
+
+--
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
+
+
+--
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
 
 SET search_path = public, pg_catalog;
+
+--
+-- Name: acl_operation; Type: TYPE; Schema: public; Owner: -
+--
+
+CREATE TYPE acl_operation AS ENUM (
+    '_all_',
+    'view',
+    'edit',
+    'add',
+    'delete',
+    'publish'
+);
+
+
+--
+-- Name: acl_resource; Type: TYPE; Schema: public; Owner: -
+--
+
+CREATE TYPE acl_resource AS ENUM (
+    '_all_',
+    'front_office',
+    'back_office',
+    'nodes',
+    'products',
+    'recipes',
+    'stores',
+    'orders',
+    'stock',
+    'customers',
+    'reports',
+    'discounts',
+    'comments',
+    'surveys',
+    'media',
+    'taxonomy',
+    'seo_manager',
+    'database',
+    'templates',
+    'scheduler',
+    'currency',
+    'search_index',
+    'tools',
+    'logs',
+    'configuration',
+    'permissions'
+);
+
 
 SET default_tablespace = '';
 
@@ -40,8 +101,8 @@ CREATE TABLE client_action (
 CREATE SEQUENCE client_action_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -50,13 +111,6 @@ CREATE SEQUENCE client_action_id_seq
 --
 
 ALTER SEQUENCE client_action_id_seq OWNED BY client_action.id;
-
-
---
--- Name: client_action_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('client_action_id_seq', 1, false);
 
 
 --
@@ -87,8 +141,8 @@ CREATE TABLE client_address (
 CREATE SEQUENCE client_address_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -97,13 +151,6 @@ CREATE SEQUENCE client_address_id_seq
 --
 
 ALTER SEQUENCE client_address_id_seq OWNED BY client_address.id;
-
-
---
--- Name: client_address_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('client_address_id_seq', 1, true);
 
 
 --
@@ -130,8 +177,8 @@ CREATE TABLE client_company (
 CREATE SEQUENCE client_company_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -140,13 +187,6 @@ CREATE SEQUENCE client_company_id_seq
 --
 
 ALTER SEQUENCE client_company_id_seq OWNED BY client_company.id;
-
-
---
--- Name: client_company_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('client_company_id_seq', 1, false);
 
 
 --
@@ -179,14 +219,47 @@ CREATE TABLE client_customer (
     account_type smallint DEFAULT 0 NOT NULL,
     agreed_with_latest_t_and_c smallint DEFAULT 0 NOT NULL,
     verified_email_address smallint DEFAULT 0 NOT NULL,
-    group_id smallint,
     oauth text,
     deleted_date timestamp without time zone,
     facebook_id bigint,
     twitter_id bigint,
     google_id bigint,
-    profile_image_url text
+    profile_image_url text,
+    store_id integer,
+    janrain_id character varying(255)
 );
+
+
+--
+-- Name: client_customer_group; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE client_customer_group (
+    id integer NOT NULL,
+    group_id integer NOT NULL,
+    customer_id integer NOT NULL,
+    created timestamp without time zone DEFAULT now() NOT NULL,
+    modified timestamp without time zone DEFAULT now() NOT NULL
+);
+
+
+--
+-- Name: client_customer_group_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE client_customer_group_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: client_customer_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE client_customer_group_id_seq OWNED BY client_customer_group.id;
 
 
 --
@@ -196,8 +269,8 @@ CREATE TABLE client_customer (
 CREATE SEQUENCE client_customer_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -206,13 +279,6 @@ CREATE SEQUENCE client_customer_id_seq
 --
 
 ALTER SEQUENCE client_customer_id_seq OWNED BY client_customer.id;
-
-
---
--- Name: client_customer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('client_customer_id_seq', 1, true);
 
 
 --
@@ -231,7 +297,8 @@ CREATE TABLE client_customer_image (
     author integer,
     content text,
     other_data text,
-    link_to_node_id integer
+    link_to_node_id integer,
+    customer_id integer
 );
 
 
@@ -242,8 +309,8 @@ CREATE TABLE client_customer_image (
 CREATE SEQUENCE client_customer_image_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -255,10 +322,35 @@ ALTER SEQUENCE client_customer_image_id_seq OWNED BY client_customer_image.id;
 
 
 --
--- Name: client_customer_image_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: client_customer_role; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-SELECT pg_catalog.setval('client_customer_image_id_seq', 1, false);
+CREATE TABLE client_customer_role (
+    id integer NOT NULL,
+    role_id integer NOT NULL,
+    customer_id integer NOT NULL,
+    created timestamp without time zone DEFAULT now() NOT NULL,
+    modified timestamp without time zone DEFAULT now() NOT NULL
+);
+
+
+--
+-- Name: client_customer_role_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE client_customer_role_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: client_customer_role_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE client_customer_role_id_seq OWNED BY client_customer_role.id;
 
 
 --
@@ -279,8 +371,8 @@ CREATE TABLE client_customer_taxonomy (
 CREATE SEQUENCE client_customer_taxonomy_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -289,13 +381,6 @@ CREATE SEQUENCE client_customer_taxonomy_id_seq
 --
 
 ALTER SEQUENCE client_customer_taxonomy_id_seq OWNED BY client_customer_taxonomy.id;
-
-
---
--- Name: client_customer_taxonomy_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('client_customer_taxonomy_id_seq', 1, false);
 
 
 --
@@ -324,8 +409,8 @@ CREATE TABLE client_customer_token (
 CREATE SEQUENCE client_customer_token_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -334,13 +419,6 @@ CREATE SEQUENCE client_customer_token_id_seq
 --
 
 ALTER SEQUENCE client_customer_token_id_seq OWNED BY client_customer_token.id;
-
-
---
--- Name: client_customer_token_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('client_customer_token_id_seq', 1, false);
 
 
 --
@@ -363,8 +441,8 @@ CREATE TABLE client_group (
 CREATE SEQUENCE client_group_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -376,10 +454,69 @@ ALTER SEQUENCE client_group_id_seq OWNED BY client_group.id;
 
 
 --
--- Name: client_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: client_role; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-SELECT pg_catalog.setval('client_group_id_seq', 1, false);
+CREATE TABLE client_role (
+    id integer NOT NULL,
+    name character varying(255),
+    description text,
+    other_data text
+);
+
+
+--
+-- Name: client_role_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE client_role_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: client_role_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE client_role_id_seq OWNED BY client_role.id;
+
+
+--
+-- Name: client_role_permission; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE client_role_permission (
+    id integer NOT NULL,
+    role_id integer NOT NULL,
+    resource acl_resource,
+    operation acl_operation,
+    scope text,
+    created timestamp without time zone DEFAULT now() NOT NULL,
+    modified timestamp without time zone DEFAULT now() NOT NULL,
+    other_data text
+);
+
+
+--
+-- Name: client_role_permission_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE client_role_permission_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: client_role_permission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE client_role_permission_id_seq OWNED BY client_role_permission.id;
 
 
 --
@@ -411,8 +548,8 @@ CREATE TABLE common_comment (
 CREATE SEQUENCE common_comment_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -421,13 +558,6 @@ CREATE SEQUENCE common_comment_id_seq
 --
 
 ALTER SEQUENCE common_comment_id_seq OWNED BY common_comment.id;
-
-
---
--- Name: common_comment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('common_comment_id_seq', 1, false);
 
 
 --
@@ -440,7 +570,8 @@ CREATE TABLE common_configuration (
     object character varying(255),
     property character varying(255),
     value text,
-    description text
+    description text,
+    apply_to_children smallint DEFAULT 0::smallint
 );
 
 
@@ -451,8 +582,8 @@ CREATE TABLE common_configuration (
 CREATE SEQUENCE common_configuration_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -461,13 +592,6 @@ CREATE SEQUENCE common_configuration_id_seq
 --
 
 ALTER SEQUENCE common_configuration_id_seq OWNED BY common_configuration.id;
-
-
---
--- Name: common_configuration_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('common_configuration_id_seq', 17, true);
 
 
 --
@@ -495,8 +619,8 @@ CREATE TABLE common_email (
 CREATE SEQUENCE common_email_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -505,13 +629,6 @@ CREATE SEQUENCE common_email_id_seq
 --
 
 ALTER SEQUENCE common_email_id_seq OWNED BY common_email.id;
-
-
---
--- Name: common_email_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('common_email_id_seq', 2, true);
 
 
 --
@@ -530,7 +647,8 @@ CREATE TABLE common_file (
     author integer,
     content text,
     other_data text,
-    link_to_node_id integer
+    link_to_node_id integer,
+    customer_id integer
 );
 
 
@@ -541,8 +659,8 @@ CREATE TABLE common_file (
 CREATE SEQUENCE common_file_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -551,13 +669,6 @@ CREATE SEQUENCE common_file_id_seq
 --
 
 ALTER SEQUENCE common_file_id_seq OWNED BY common_file.id;
-
-
---
--- Name: common_file_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('common_file_id_seq', 1, false);
 
 
 --
@@ -576,7 +687,8 @@ CREATE TABLE common_image (
     author integer,
     content text,
     other_data text,
-    link_to_node_id integer
+    link_to_node_id integer,
+    customer_id integer
 );
 
 
@@ -587,8 +699,8 @@ CREATE TABLE common_image (
 CREATE SEQUENCE common_image_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -597,13 +709,6 @@ CREATE SEQUENCE common_image_id_seq
 --
 
 ALTER SEQUENCE common_image_id_seq OWNED BY common_image.id;
-
-
---
--- Name: common_image_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('common_image_id_seq', 1, true);
 
 
 --
@@ -644,7 +749,8 @@ CREATE TABLE common_node (
     link_to_node_id integer DEFAULT 0 NOT NULL,
     require_ssl smallint DEFAULT 0 NOT NULL,
     display_permission_group_acl text,
-    share_counter integer DEFAULT 0 NOT NULL
+    share_counter integer DEFAULT 0 NOT NULL,
+    customer_id integer
 );
 
 
@@ -655,8 +761,8 @@ CREATE TABLE common_node (
 CREATE SEQUENCE common_node_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -665,13 +771,6 @@ CREATE SEQUENCE common_node_id_seq
 --
 
 ALTER SEQUENCE common_node_id_seq OWNED BY common_node.id;
-
-
---
--- Name: common_node_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('common_node_id_seq', 1036, true);
 
 
 --
@@ -692,8 +791,8 @@ CREATE TABLE common_node_taxonomy (
 CREATE SEQUENCE common_node_taxonomy_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -702,13 +801,6 @@ CREATE SEQUENCE common_node_taxonomy_id_seq
 --
 
 ALTER SEQUENCE common_node_taxonomy_id_seq OWNED BY common_node_taxonomy.id;
-
-
---
--- Name: common_node_taxonomy_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('common_node_taxonomy_id_seq', 1, false);
 
 
 --
@@ -741,8 +833,8 @@ CREATE TABLE common_print_article (
 CREATE SEQUENCE common_print_article_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -754,10 +846,39 @@ ALTER SEQUENCE common_print_article_id_seq OWNED BY common_print_article.id;
 
 
 --
--- Name: common_print_article_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: common_revision; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-SELECT pg_catalog.setval('common_print_article_id_seq', 1, false);
+CREATE TABLE common_revision (
+    id integer NOT NULL,
+    object character varying(255) NOT NULL,
+    node_id integer NOT NULL,
+    content text,
+    status smallint,
+    customer_id integer,
+    created timestamp without time zone DEFAULT now() NOT NULL,
+    modified timestamp without time zone DEFAULT now() NOT NULL,
+    other_data text
+);
+
+
+--
+-- Name: common_revision_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE common_revision_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: common_revision_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE common_revision_id_seq OWNED BY common_revision.id;
 
 
 --
@@ -788,8 +909,8 @@ CREATE TABLE common_scheduler (
 CREATE SEQUENCE common_scheduler_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -798,13 +919,6 @@ CREATE SEQUENCE common_scheduler_id_seq
 --
 
 ALTER SEQUENCE common_scheduler_id_seq OWNED BY common_scheduler.id;
-
-
---
--- Name: common_scheduler_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('common_scheduler_id_seq', 1, false);
 
 
 --
@@ -850,8 +964,8 @@ CREATE TABLE common_session_archive (
 CREATE SEQUENCE common_session_archive_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -863,21 +977,14 @@ ALTER SEQUENCE common_session_archive_id_seq OWNED BY common_session_archive.id;
 
 
 --
--- Name: common_session_archive_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('common_session_archive_id_seq', 1, false);
-
-
---
 -- Name: common_session_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE common_session_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -886,13 +993,6 @@ CREATE SEQUENCE common_session_id_seq
 --
 
 ALTER SEQUENCE common_session_id_seq OWNED BY common_session.id;
-
-
---
--- Name: common_session_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('common_session_id_seq', 18, true);
 
 
 --
@@ -915,8 +1015,8 @@ CREATE TABLE common_taxonomy_label (
 CREATE SEQUENCE common_taxonomy_label_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -925,13 +1025,6 @@ CREATE SEQUENCE common_taxonomy_label_id_seq
 --
 
 ALTER SEQUENCE common_taxonomy_label_id_seq OWNED BY common_taxonomy_label.id;
-
-
---
--- Name: common_taxonomy_label_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('common_taxonomy_label_id_seq', 3, true);
 
 
 --
@@ -950,7 +1043,8 @@ CREATE TABLE common_taxonomy_label_image (
     author integer,
     content text,
     other_data text,
-    link_to_node_id integer
+    link_to_node_id integer,
+    customer_id integer
 );
 
 
@@ -961,8 +1055,8 @@ CREATE TABLE common_taxonomy_label_image (
 CREATE SEQUENCE common_taxonomy_label_image_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -971,13 +1065,6 @@ CREATE SEQUENCE common_taxonomy_label_image_id_seq
 --
 
 ALTER SEQUENCE common_taxonomy_label_image_id_seq OWNED BY common_taxonomy_label_image.id;
-
-
---
--- Name: common_taxonomy_label_image_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('common_taxonomy_label_image_id_seq', 1, false);
 
 
 --
@@ -1000,8 +1087,8 @@ CREATE TABLE common_taxonomy_tree (
 CREATE SEQUENCE common_taxonomy_tree_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -1010,13 +1097,6 @@ CREATE SEQUENCE common_taxonomy_tree_id_seq
 --
 
 ALTER SEQUENCE common_taxonomy_tree_id_seq OWNED BY common_taxonomy_tree.id;
-
-
---
--- Name: common_taxonomy_tree_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('common_taxonomy_tree_id_seq', 3, true);
 
 
 --
@@ -1038,8 +1118,8 @@ CREATE TABLE common_uri_mapping (
 CREATE SEQUENCE common_uri_mapping_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -1051,10 +1131,38 @@ ALTER SEQUENCE common_uri_mapping_id_seq OWNED BY common_uri_mapping.id;
 
 
 --
--- Name: common_uri_mapping_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: common_watchdog; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-SELECT pg_catalog.setval('common_uri_mapping_id_seq', 107, true);
+CREATE TABLE common_watchdog (
+    id integer NOT NULL,
+    name character varying(255),
+    watched_item_id integer,
+    customer_id integer,
+    created timestamp without time zone,
+    modified timestamp without time zone DEFAULT now(),
+    publish smallint,
+    other_data text
+);
+
+
+--
+-- Name: common_watchdog_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE common_watchdog_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: common_watchdog_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE common_watchdog_id_seq OWNED BY common_watchdog.id;
 
 
 --
@@ -1096,8 +1204,8 @@ CREATE TABLE ecommerce_basket_content (
 CREATE SEQUENCE ecommerce_basket_content_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -1109,21 +1217,14 @@ ALTER SEQUENCE ecommerce_basket_content_id_seq OWNED BY ecommerce_basket_content
 
 
 --
--- Name: ecommerce_basket_content_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('ecommerce_basket_content_id_seq', 1, false);
-
-
---
 -- Name: ecommerce_basket_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE ecommerce_basket_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -1132,13 +1233,6 @@ CREATE SEQUENCE ecommerce_basket_id_seq
 --
 
 ALTER SEQUENCE ecommerce_basket_id_seq OWNED BY ecommerce_basket.id;
-
-
---
--- Name: ecommerce_basket_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('ecommerce_basket_id_seq', 1, false);
 
 
 --
@@ -1187,8 +1281,8 @@ CREATE TABLE ecommerce_delivery_carrier (
 CREATE SEQUENCE ecommerce_delivery_carrier_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -1200,10 +1294,35 @@ ALTER SEQUENCE ecommerce_delivery_carrier_id_seq OWNED BY ecommerce_delivery_car
 
 
 --
--- Name: ecommerce_delivery_carrier_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: ecommerce_delivery_carrier_rate; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-SELECT pg_catalog.setval('ecommerce_delivery_carrier_id_seq', 6, true);
+CREATE TABLE ecommerce_delivery_carrier_rate (
+    id integer NOT NULL,
+    carrier_id integer,
+    weight_from numeric(12,5) DEFAULT 0,
+    weight_to numeric(12,5) DEFAULT 0,
+    price numeric(12,5)
+);
+
+
+--
+-- Name: ecommerce_delivery_carrier_rate_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE ecommerce_delivery_carrier_rate_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: ecommerce_delivery_carrier_rate_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE ecommerce_delivery_carrier_rate_id_seq OWNED BY ecommerce_delivery_carrier_rate.id;
 
 
 --
@@ -1224,8 +1343,8 @@ CREATE TABLE ecommerce_delivery_carrier_zone (
 CREATE SEQUENCE ecommerce_delivery_carrier_zone_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -1234,13 +1353,6 @@ CREATE SEQUENCE ecommerce_delivery_carrier_zone_id_seq
 --
 
 ALTER SEQUENCE ecommerce_delivery_carrier_zone_id_seq OWNED BY ecommerce_delivery_carrier_zone.id;
-
-
---
--- Name: ecommerce_delivery_carrier_zone_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('ecommerce_delivery_carrier_zone_id_seq', 12, true);
 
 
 --
@@ -1263,8 +1375,8 @@ CREATE TABLE ecommerce_delivery_carrier_zone_price (
 CREATE SEQUENCE ecommerce_delivery_carrier_zone_price_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -1273,13 +1385,6 @@ CREATE SEQUENCE ecommerce_delivery_carrier_zone_price_id_seq
 --
 
 ALTER SEQUENCE ecommerce_delivery_carrier_zone_price_id_seq OWNED BY ecommerce_delivery_carrier_zone_price.id;
-
-
---
--- Name: ecommerce_delivery_carrier_zone_price_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('ecommerce_delivery_carrier_zone_price_id_seq', 624, true);
 
 
 --
@@ -1300,8 +1405,8 @@ CREATE TABLE ecommerce_delivery_carrier_zone_to_country (
 CREATE SEQUENCE ecommerce_delivery_carrier_zone_to_country_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -1313,21 +1418,14 @@ ALTER SEQUENCE ecommerce_delivery_carrier_zone_to_country_id_seq OWNED BY ecomme
 
 
 --
--- Name: ecommerce_delivery_carrier_zone_to_country_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('ecommerce_delivery_carrier_zone_to_country_id_seq', 241, true);
-
-
---
 -- Name: ecommerce_delivery_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE ecommerce_delivery_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -1336,13 +1434,6 @@ CREATE SEQUENCE ecommerce_delivery_id_seq
 --
 
 ALTER SEQUENCE ecommerce_delivery_id_seq OWNED BY ecommerce_delivery.id;
-
-
---
--- Name: ecommerce_delivery_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('ecommerce_delivery_id_seq', 1, false);
 
 
 --
@@ -1379,8 +1470,8 @@ CREATE TABLE ecommerce_invoice (
 CREATE SEQUENCE ecommerce_invoice_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -1389,13 +1480,6 @@ CREATE SEQUENCE ecommerce_invoice_id_seq
 --
 
 ALTER SEQUENCE ecommerce_invoice_id_seq OWNED BY ecommerce_invoice.id;
-
-
---
--- Name: ecommerce_invoice_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('ecommerce_invoice_id_seq', 1, false);
 
 
 --
@@ -1415,8 +1499,46 @@ CREATE TABLE ecommerce_offer (
     saving integer,
     created timestamp(0) without time zone,
     modified timestamp(0) without time zone,
+    other_data text,
+    offer_group_id integer,
+    priority integer DEFAULT 0 NOT NULL
+);
+
+
+--
+-- Name: ecommerce_offer_group; Type: TABLE; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE TABLE ecommerce_offer_group (
+    id integer NOT NULL,
+    title character varying(255),
+    description text,
+    schedule_start timestamp(0) without time zone,
+    schedule_end timestamp(0) without time zone,
+    publish integer DEFAULT 0 NOT NULL,
+    created timestamp(0) without time zone,
+    modified timestamp(0) without time zone,
     other_data text
 );
+
+
+--
+-- Name: ecommerce_offer_group_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE ecommerce_offer_group_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: ecommerce_offer_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE ecommerce_offer_group_id_seq OWNED BY ecommerce_offer_group.id;
 
 
 --
@@ -1426,8 +1548,8 @@ CREATE TABLE ecommerce_offer (
 CREATE SEQUENCE ecommerce_offer_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -1436,13 +1558,6 @@ CREATE SEQUENCE ecommerce_offer_id_seq
 --
 
 ALTER SEQUENCE ecommerce_offer_id_seq OWNED BY ecommerce_offer.id;
-
-
---
--- Name: ecommerce_offer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('ecommerce_offer_id_seq', 1, false);
 
 
 --
@@ -1462,7 +1577,8 @@ CREATE TABLE ecommerce_order (
     referrer character varying(255),
     payment_type character varying(255),
     created timestamp(0) without time zone DEFAULT now(),
-    modified timestamp(0) without time zone DEFAULT now()
+    modified timestamp(0) without time zone DEFAULT now(),
+    review_email_sent integer
 );
 
 
@@ -1473,8 +1589,8 @@ CREATE TABLE ecommerce_order (
 CREATE SEQUENCE ecommerce_order_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -1483,13 +1599,6 @@ CREATE SEQUENCE ecommerce_order_id_seq
 --
 
 ALTER SEQUENCE ecommerce_order_id_seq OWNED BY ecommerce_order.id;
-
-
---
--- Name: ecommerce_order_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('ecommerce_order_id_seq', 1, false);
 
 
 --
@@ -1513,8 +1622,8 @@ CREATE TABLE ecommerce_order_log (
 CREATE SEQUENCE ecommerce_order_log_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -1523,13 +1632,6 @@ CREATE SEQUENCE ecommerce_order_log_id_seq
 --
 
 ALTER SEQUENCE ecommerce_order_log_id_seq OWNED BY ecommerce_order_log.id;
-
-
---
--- Name: ecommerce_order_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('ecommerce_order_log_id_seq', 1, false);
 
 
 --
@@ -1553,8 +1655,8 @@ CREATE TABLE ecommerce_price (
 CREATE SEQUENCE ecommerce_price_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -1563,13 +1665,6 @@ CREATE SEQUENCE ecommerce_price_id_seq
 --
 
 ALTER SEQUENCE ecommerce_price_id_seq OWNED BY ecommerce_price.id;
-
-
---
--- Name: ecommerce_price_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('ecommerce_price_id_seq', 1, false);
 
 
 --
@@ -1598,8 +1693,8 @@ CREATE TABLE ecommerce_product (
 CREATE SEQUENCE ecommerce_product_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -1608,13 +1703,6 @@ CREATE SEQUENCE ecommerce_product_id_seq
 --
 
 ALTER SEQUENCE ecommerce_product_id_seq OWNED BY ecommerce_product.id;
-
-
---
--- Name: ecommerce_product_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('ecommerce_product_id_seq', 1, false);
 
 
 --
@@ -1633,7 +1721,8 @@ CREATE TABLE ecommerce_product_image (
     author integer,
     content text,
     other_data text,
-    link_to_node_id integer
+    link_to_node_id integer,
+    customer_id integer
 );
 
 
@@ -1644,8 +1733,8 @@ CREATE TABLE ecommerce_product_image (
 CREATE SEQUENCE ecommerce_product_image_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -1654,13 +1743,6 @@ CREATE SEQUENCE ecommerce_product_image_id_seq
 --
 
 ALTER SEQUENCE ecommerce_product_image_id_seq OWNED BY ecommerce_product_image.id;
-
-
---
--- Name: ecommerce_product_image_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('ecommerce_product_image_id_seq', 1, false);
 
 
 --
@@ -1692,8 +1774,8 @@ CREATE TABLE ecommerce_product_review (
 CREATE SEQUENCE ecommerce_product_review_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -1702,13 +1784,6 @@ CREATE SEQUENCE ecommerce_product_review_id_seq
 --
 
 ALTER SEQUENCE ecommerce_product_review_id_seq OWNED BY ecommerce_product_review.id;
-
-
---
--- Name: ecommerce_product_review_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('ecommerce_product_review_id_seq', 1, false);
 
 
 --
@@ -1729,8 +1804,8 @@ CREATE TABLE ecommerce_product_taxonomy (
 CREATE SEQUENCE ecommerce_product_taxonomy_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -1739,13 +1814,6 @@ CREATE SEQUENCE ecommerce_product_taxonomy_id_seq
 --
 
 ALTER SEQUENCE ecommerce_product_taxonomy_id_seq OWNED BY ecommerce_product_taxonomy.id;
-
-
---
--- Name: ecommerce_product_taxonomy_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('ecommerce_product_taxonomy_id_seq', 1, false);
 
 
 --
@@ -1766,8 +1834,8 @@ CREATE TABLE ecommerce_product_to_product (
 CREATE SEQUENCE ecommerce_product_to_product_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -1776,13 +1844,6 @@ CREATE SEQUENCE ecommerce_product_to_product_id_seq
 --
 
 ALTER SEQUENCE ecommerce_product_to_product_id_seq OWNED BY ecommerce_product_to_product.id;
-
-
---
--- Name: ecommerce_product_to_product_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('ecommerce_product_to_product_id_seq', 1, false);
 
 
 --
@@ -1804,8 +1865,8 @@ CREATE TABLE ecommerce_product_type (
 CREATE SEQUENCE ecommerce_product_type_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -1814,13 +1875,6 @@ CREATE SEQUENCE ecommerce_product_type_id_seq
 --
 
 ALTER SEQUENCE ecommerce_product_type_id_seq OWNED BY ecommerce_product_type.id;
-
-
---
--- Name: ecommerce_product_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('ecommerce_product_type_id_seq', 11, true);
 
 
 --
@@ -1851,7 +1905,8 @@ CREATE TABLE ecommerce_product_variety (
     wholesale smallint,
     reward_points integer,
     subtitle character varying(255),
-    product_type_id integer
+    product_type_id integer,
+    limit_to_delivery_zones character varying(512)
 );
 
 
@@ -1862,8 +1917,8 @@ CREATE TABLE ecommerce_product_variety (
 CREATE SEQUENCE ecommerce_product_variety_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -1872,13 +1927,6 @@ CREATE SEQUENCE ecommerce_product_variety_id_seq
 --
 
 ALTER SEQUENCE ecommerce_product_variety_id_seq OWNED BY ecommerce_product_variety.id;
-
-
---
--- Name: ecommerce_product_variety_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('ecommerce_product_variety_id_seq', 1, false);
 
 
 --
@@ -1897,7 +1945,8 @@ CREATE TABLE ecommerce_product_variety_image (
     author integer,
     content text,
     other_data text,
-    link_to_node_id integer
+    link_to_node_id integer,
+    customer_id integer
 );
 
 
@@ -1908,8 +1957,8 @@ CREATE TABLE ecommerce_product_variety_image (
 CREATE SEQUENCE ecommerce_product_variety_image_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -1918,13 +1967,6 @@ CREATE SEQUENCE ecommerce_product_variety_image_id_seq
 --
 
 ALTER SEQUENCE ecommerce_product_variety_image_id_seq OWNED BY ecommerce_product_variety_image.id;
-
-
---
--- Name: ecommerce_product_variety_image_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('ecommerce_product_variety_image_id_seq', 1, false);
 
 
 --
@@ -1945,8 +1987,8 @@ CREATE TABLE ecommerce_product_variety_taxonomy (
 CREATE SEQUENCE ecommerce_product_variety_taxonomy_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -1955,13 +1997,6 @@ CREATE SEQUENCE ecommerce_product_variety_taxonomy_id_seq
 --
 
 ALTER SEQUENCE ecommerce_product_variety_taxonomy_id_seq OWNED BY ecommerce_product_variety_taxonomy.id;
-
-
---
--- Name: ecommerce_product_variety_taxonomy_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('ecommerce_product_variety_taxonomy_id_seq', 1, false);
 
 
 --
@@ -1991,7 +2026,9 @@ CREATE TABLE ecommerce_promotion (
     limit_by_customer_id integer DEFAULT 0,
     limit_to_first_order smallint DEFAULT 0 NOT NULL,
     limit_to_order_amount numeric(12,5) DEFAULT 0,
-    type integer
+    type integer,
+    limit_cumulative_discount numeric(12,5) DEFAULT 0,
+    free_promo_products text
 );
 
 
@@ -2014,8 +2051,8 @@ CREATE TABLE ecommerce_promotion_code (
 CREATE SEQUENCE ecommerce_promotion_code_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -2027,21 +2064,14 @@ ALTER SEQUENCE ecommerce_promotion_code_id_seq OWNED BY ecommerce_promotion_code
 
 
 --
--- Name: ecommerce_promotion_code_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('ecommerce_promotion_code_id_seq', 1, false);
-
-
---
 -- Name: ecommerce_promotion_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE ecommerce_promotion_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -2050,13 +2080,6 @@ CREATE SEQUENCE ecommerce_promotion_id_seq
 --
 
 ALTER SEQUENCE ecommerce_promotion_id_seq OWNED BY ecommerce_promotion.id;
-
-
---
--- Name: ecommerce_promotion_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('ecommerce_promotion_id_seq', 1, false);
 
 
 --
@@ -2082,8 +2105,8 @@ CREATE TABLE ecommerce_promotion_type (
 CREATE SEQUENCE ecommerce_promotion_type_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -2092,13 +2115,6 @@ CREATE SEQUENCE ecommerce_promotion_type_id_seq
 --
 
 ALTER SEQUENCE ecommerce_promotion_type_id_seq OWNED BY ecommerce_promotion_type.id;
-
-
---
--- Name: ecommerce_promotion_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('ecommerce_promotion_type_id_seq', 1, false);
 
 
 --
@@ -2129,8 +2145,8 @@ CREATE TABLE ecommerce_recipe (
 CREATE SEQUENCE ecommerce_recipe_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -2139,13 +2155,6 @@ CREATE SEQUENCE ecommerce_recipe_id_seq
 --
 
 ALTER SEQUENCE ecommerce_recipe_id_seq OWNED BY ecommerce_recipe.id;
-
-
---
--- Name: ecommerce_recipe_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('ecommerce_recipe_id_seq', 1, false);
 
 
 --
@@ -2164,7 +2173,8 @@ CREATE TABLE ecommerce_recipe_image (
     author integer,
     content text,
     other_data text,
-    link_to_node_id integer
+    link_to_node_id integer,
+    customer_id integer
 );
 
 
@@ -2175,8 +2185,8 @@ CREATE TABLE ecommerce_recipe_image (
 CREATE SEQUENCE ecommerce_recipe_image_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -2185,13 +2195,6 @@ CREATE SEQUENCE ecommerce_recipe_image_id_seq
 --
 
 ALTER SEQUENCE ecommerce_recipe_image_id_seq OWNED BY ecommerce_recipe_image.id;
-
-
---
--- Name: ecommerce_recipe_image_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('ecommerce_recipe_image_id_seq', 1, false);
 
 
 --
@@ -2216,8 +2219,8 @@ CREATE TABLE ecommerce_recipe_ingredients (
 CREATE SEQUENCE ecommerce_recipe_ingredients_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -2226,13 +2229,6 @@ CREATE SEQUENCE ecommerce_recipe_ingredients_id_seq
 --
 
 ALTER SEQUENCE ecommerce_recipe_ingredients_id_seq OWNED BY ecommerce_recipe_ingredients.id;
-
-
---
--- Name: ecommerce_recipe_ingredients_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('ecommerce_recipe_ingredients_id_seq', 1, false);
 
 
 --
@@ -2264,8 +2260,8 @@ CREATE TABLE ecommerce_recipe_review (
 CREATE SEQUENCE ecommerce_recipe_review_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -2274,13 +2270,6 @@ CREATE SEQUENCE ecommerce_recipe_review_id_seq
 --
 
 ALTER SEQUENCE ecommerce_recipe_review_id_seq OWNED BY ecommerce_recipe_review.id;
-
-
---
--- Name: ecommerce_recipe_review_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('ecommerce_recipe_review_id_seq', 1, false);
 
 
 --
@@ -2301,8 +2290,8 @@ CREATE TABLE ecommerce_recipe_taxonomy (
 CREATE SEQUENCE ecommerce_recipe_taxonomy_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -2311,13 +2300,6 @@ CREATE SEQUENCE ecommerce_recipe_taxonomy_id_seq
 --
 
 ALTER SEQUENCE ecommerce_recipe_taxonomy_id_seq OWNED BY ecommerce_recipe_taxonomy.id;
-
-
---
--- Name: ecommerce_recipe_taxonomy_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('ecommerce_recipe_taxonomy_id_seq', 1, false);
 
 
 --
@@ -2342,7 +2324,17 @@ CREATE TABLE ecommerce_store (
     modified timestamp without time zone NOT NULL,
     publish smallint DEFAULT 0 NOT NULL,
     street_view_options text,
-    other_data text
+    other_data text,
+    country_id integer,
+    address_name character varying(255),
+    address_line_1 character varying(255),
+    address_line_2 character varying(255),
+    address_line_3 character varying(255),
+    address_city character varying(255),
+    address_county character varying(255),
+    address_post_code character varying(255),
+    code character varying(255),
+    url character varying(512)
 );
 
 
@@ -2353,8 +2345,8 @@ CREATE TABLE ecommerce_store (
 CREATE SEQUENCE ecommerce_store_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -2363,13 +2355,6 @@ CREATE SEQUENCE ecommerce_store_id_seq
 --
 
 ALTER SEQUENCE ecommerce_store_id_seq OWNED BY ecommerce_store.id;
-
-
---
--- Name: ecommerce_store_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('ecommerce_store_id_seq', 1, false);
 
 
 --
@@ -2388,7 +2373,8 @@ CREATE TABLE ecommerce_store_image (
     author integer,
     content text,
     other_data text,
-    link_to_node_id integer
+    link_to_node_id integer,
+    customer_id integer
 );
 
 
@@ -2399,8 +2385,8 @@ CREATE TABLE ecommerce_store_image (
 CREATE SEQUENCE ecommerce_store_image_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -2409,13 +2395,6 @@ CREATE SEQUENCE ecommerce_store_image_id_seq
 --
 
 ALTER SEQUENCE ecommerce_store_image_id_seq OWNED BY ecommerce_store_image.id;
-
-
---
--- Name: ecommerce_store_image_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('ecommerce_store_image_id_seq', 1, false);
 
 
 --
@@ -2436,8 +2415,8 @@ CREATE TABLE ecommerce_store_taxonomy (
 CREATE SEQUENCE ecommerce_store_taxonomy_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -2446,13 +2425,6 @@ CREATE SEQUENCE ecommerce_store_taxonomy_id_seq
 --
 
 ALTER SEQUENCE ecommerce_store_taxonomy_id_seq OWNED BY ecommerce_store_taxonomy.id;
-
-
---
--- Name: ecommerce_store_taxonomy_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('ecommerce_store_taxonomy_id_seq', 1, false);
 
 
 --
@@ -2477,8 +2449,8 @@ CREATE TABLE ecommerce_store_type (
 CREATE SEQUENCE ecommerce_store_type_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -2487,13 +2459,6 @@ CREATE SEQUENCE ecommerce_store_type_id_seq
 --
 
 ALTER SEQUENCE ecommerce_store_type_id_seq OWNED BY ecommerce_store_type.id;
-
-
---
--- Name: ecommerce_store_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('ecommerce_store_type_id_seq', 1, false);
 
 
 --
@@ -2519,8 +2484,8 @@ CREATE TABLE ecommerce_transaction (
 CREATE SEQUENCE ecommerce_transaction_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -2529,13 +2494,6 @@ CREATE SEQUENCE ecommerce_transaction_id_seq
 --
 
 ALTER SEQUENCE ecommerce_transaction_id_seq OWNED BY ecommerce_transaction.id;
-
-
---
--- Name: ecommerce_transaction_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('ecommerce_transaction_id_seq', 1, false);
 
 
 --
@@ -2549,7 +2507,8 @@ CREATE TABLE education_survey (
     created timestamp(0) without time zone DEFAULT now() NOT NULL,
     modified timestamp(0) without time zone DEFAULT now(),
     priority smallint DEFAULT 0,
-    publish smallint DEFAULT 0
+    publish smallint DEFAULT 0,
+    other_data text
 );
 
 
@@ -2594,8 +2553,8 @@ CREATE TABLE education_survey_entry_answer (
 CREATE SEQUENCE education_survey_entry_answer_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -2607,21 +2566,14 @@ ALTER SEQUENCE education_survey_entry_answer_id_seq OWNED BY education_survey_en
 
 
 --
--- Name: education_survey_entry_answer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('education_survey_entry_answer_id_seq', 1, false);
-
-
---
 -- Name: education_survey_entry_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE education_survey_entry_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -2633,21 +2585,14 @@ ALTER SEQUENCE education_survey_entry_id_seq OWNED BY education_survey_entry.id;
 
 
 --
--- Name: education_survey_entry_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('education_survey_entry_id_seq', 1, false);
-
-
---
 -- Name: education_survey_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE education_survey_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -2656,13 +2601,6 @@ CREATE SEQUENCE education_survey_id_seq
 --
 
 ALTER SEQUENCE education_survey_id_seq OWNED BY education_survey.id;
-
-
---
--- Name: education_survey_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('education_survey_id_seq', 1, false);
 
 
 --
@@ -2681,7 +2619,8 @@ CREATE TABLE education_survey_image (
     author integer,
     content text,
     other_data text,
-    link_to_node_id integer
+    link_to_node_id integer,
+    customer_id integer
 );
 
 
@@ -2692,8 +2631,8 @@ CREATE TABLE education_survey_image (
 CREATE SEQUENCE education_survey_image_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -2702,13 +2641,6 @@ CREATE SEQUENCE education_survey_image_id_seq
 --
 
 ALTER SEQUENCE education_survey_image_id_seq OWNED BY education_survey_image.id;
-
-
---
--- Name: education_survey_image_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('education_survey_image_id_seq', 1, false);
 
 
 --
@@ -2727,7 +2659,8 @@ CREATE TABLE education_survey_question (
     priority smallint DEFAULT 0,
     publish smallint DEFAULT 1,
     weight real DEFAULT 1 NOT NULL,
-    content text
+    content text,
+    other_data text
 );
 
 
@@ -2744,7 +2677,8 @@ CREATE TABLE education_survey_question_answer (
     points smallint,
     priority smallint DEFAULT 0,
     publish smallint DEFAULT 1,
-    content text
+    content text,
+    other_data text
 );
 
 
@@ -2755,8 +2689,8 @@ CREATE TABLE education_survey_question_answer (
 CREATE SEQUENCE education_survey_question_answer_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -2768,21 +2702,14 @@ ALTER SEQUENCE education_survey_question_answer_id_seq OWNED BY education_survey
 
 
 --
--- Name: education_survey_question_answer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('education_survey_question_answer_id_seq', 1, false);
-
-
---
 -- Name: education_survey_question_id_seq; Type: SEQUENCE; Schema: public; Owner: -
 --
 
 CREATE SEQUENCE education_survey_question_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -2791,13 +2718,6 @@ CREATE SEQUENCE education_survey_question_id_seq
 --
 
 ALTER SEQUENCE education_survey_question_id_seq OWNED BY education_survey_question.id;
-
-
---
--- Name: education_survey_question_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('education_survey_question_id_seq', 1, false);
 
 
 --
@@ -2822,8 +2742,8 @@ CREATE TABLE international_country (
 CREATE SEQUENCE international_country_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -2832,13 +2752,6 @@ CREATE SEQUENCE international_country_id_seq
 --
 
 ALTER SEQUENCE international_country_id_seq OWNED BY international_country.id;
-
-
---
--- Name: international_country_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('international_country_id_seq', 241, true);
 
 
 --
@@ -2861,8 +2774,8 @@ CREATE TABLE international_currency (
 CREATE SEQUENCE international_currency_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -2871,13 +2784,6 @@ CREATE SEQUENCE international_currency_id_seq
 --
 
 ALTER SEQUENCE international_currency_id_seq OWNED BY international_currency.id;
-
-
---
--- Name: international_currency_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('international_currency_id_seq', 179, true);
 
 
 --
@@ -2901,8 +2807,8 @@ CREATE TABLE international_currency_rate (
 CREATE SEQUENCE international_currency_rate_id_seq
     START WITH 1
     INCREMENT BY 1
-    NO MAXVALUE
     NO MINVALUE
+    NO MAXVALUE
     CACHE 1;
 
 
@@ -2914,10 +2820,36 @@ ALTER SEQUENCE international_currency_rate_id_seq OWNED BY international_currenc
 
 
 --
--- Name: international_currency_rate_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+-- Name: international_translation; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
-SELECT pg_catalog.setval('international_currency_rate_id_seq', 180, true);
+CREATE TABLE international_translation (
+    id integer NOT NULL,
+    locale character varying(20) NOT NULL,
+    original_string text NOT NULL,
+    translated_string text NOT NULL,
+    context character varying(63),
+    node_id integer
+);
+
+
+--
+-- Name: international_translation_id_seq; Type: SEQUENCE; Schema: public; Owner: -
+--
+
+CREATE SEQUENCE international_translation_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+--
+-- Name: international_translation_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
+--
+
+ALTER SEQUENCE international_translation_id_seq OWNED BY international_translation.id;
 
 
 --
@@ -2952,7 +2884,21 @@ ALTER TABLE ONLY client_customer ALTER COLUMN id SET DEFAULT nextval('client_cus
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY client_customer_group ALTER COLUMN id SET DEFAULT nextval('client_customer_group_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY client_customer_image ALTER COLUMN id SET DEFAULT nextval('client_customer_image_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY client_customer_role ALTER COLUMN id SET DEFAULT nextval('client_customer_role_id_seq'::regclass);
 
 
 --
@@ -2974,6 +2920,20 @@ ALTER TABLE ONLY client_customer_token ALTER COLUMN id SET DEFAULT nextval('clie
 --
 
 ALTER TABLE ONLY client_group ALTER COLUMN id SET DEFAULT nextval('client_group_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY client_role ALTER COLUMN id SET DEFAULT nextval('client_role_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY client_role_permission ALTER COLUMN id SET DEFAULT nextval('client_role_permission_id_seq'::regclass);
 
 
 --
@@ -3036,6 +2996,13 @@ ALTER TABLE ONLY common_print_article ALTER COLUMN id SET DEFAULT nextval('commo
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY common_revision ALTER COLUMN id SET DEFAULT nextval('common_revision_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY common_scheduler ALTER COLUMN id SET DEFAULT nextval('common_scheduler_id_seq'::regclass);
 
 
@@ -3085,6 +3052,13 @@ ALTER TABLE ONLY common_uri_mapping ALTER COLUMN id SET DEFAULT nextval('common_
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
+ALTER TABLE ONLY common_watchdog ALTER COLUMN id SET DEFAULT nextval('common_watchdog_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
 ALTER TABLE ONLY ecommerce_basket ALTER COLUMN id SET DEFAULT nextval('ecommerce_basket_id_seq'::regclass);
 
 
@@ -3107,6 +3081,13 @@ ALTER TABLE ONLY ecommerce_delivery ALTER COLUMN id SET DEFAULT nextval('ecommer
 --
 
 ALTER TABLE ONLY ecommerce_delivery_carrier ALTER COLUMN id SET DEFAULT nextval('ecommerce_delivery_carrier_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ecommerce_delivery_carrier_rate ALTER COLUMN id SET DEFAULT nextval('ecommerce_delivery_carrier_rate_id_seq'::regclass);
 
 
 --
@@ -3142,6 +3123,13 @@ ALTER TABLE ONLY ecommerce_invoice ALTER COLUMN id SET DEFAULT nextval('ecommerc
 --
 
 ALTER TABLE ONLY ecommerce_offer ALTER COLUMN id SET DEFAULT nextval('ecommerce_offer_id_seq'::regclass);
+
+
+--
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ecommerce_offer_group ALTER COLUMN id SET DEFAULT nextval('ecommerce_offer_group_id_seq'::regclass);
 
 
 --
@@ -3383,11 +3371,25 @@ ALTER TABLE ONLY international_currency_rate ALTER COLUMN id SET DEFAULT nextval
 
 
 --
+-- Name: id; Type: DEFAULT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY international_translation ALTER COLUMN id SET DEFAULT nextval('international_translation_id_seq'::regclass);
+
+
+--
 -- Data for Name: client_action; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY client_action (id, customer_id, node_id, action_id, network, action_name, object_name, created, modified, other_data) FROM stdin;
 \.
+
+
+--
+-- Name: client_action_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('client_action_id_seq', 1, false);
 
 
 --
@@ -3400,6 +3402,13 @@ COPY client_address (id, customer_id, country_id, name, line_1, line_2, line_3, 
 
 
 --
+-- Name: client_address_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('client_address_id_seq', 1, true);
+
+
+--
 -- Data for Name: client_company; Type: TABLE DATA; Schema: public; Owner: -
 --
 
@@ -3408,21 +3417,72 @@ COPY client_company (id, name, www, telephone, fax, customer_id, registration_no
 
 
 --
+-- Name: client_company_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('client_company_id_seq', 1, false);
+
+
+--
 -- Data for Name: client_customer; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY client_customer (id, title_before, first_name, last_name, title_after, email, username, telephone, mobilephone, nickname, password, company_id, invoices_address_id, delivery_address_id, gender, created, currency_code, status, newsletter, birthday, other_data, modified, account_type, agreed_with_latest_t_and_c, verified_email_address, group_id, oauth, deleted_date, facebook_id, twitter_id, google_id, profile_image_url) FROM stdin;
-1	Mr	Onxshop	Tester	\N	test@onxshop.com	\N	+44(0) 2890 328 988	\N	\N	b3f61bf1cb26243ef478a3c181dd0aa2	0	1	1	\N	2011-12-13 14:00:00	GBP	1	0	\N		2011-12-13 14:00:00	0	0	0	\N	\N	\N	\N	\N	\N	\N
-0		Anonym	Anonymouse		anonym@noemail.noemail	anonymouse	notelephone			9ce21d8f3992d89a325aa9dcf520a591	0	1	1	 	2011-12-13 14:00:00	GBP	0	0	2007-06-14		2011-12-13 14:00:00	0	0	0	\N	\N	\N	\N	\N	\N	\N
+COPY client_customer (id, title_before, first_name, last_name, title_after, email, username, telephone, mobilephone, nickname, password, company_id, invoices_address_id, delivery_address_id, gender, created, currency_code, status, newsletter, birthday, other_data, modified, account_type, agreed_with_latest_t_and_c, verified_email_address, oauth, deleted_date, facebook_id, twitter_id, google_id, profile_image_url, store_id, janrain_id) FROM stdin;
+1	Mr	Onxshop	Tester	\N	test@onxshop.com	\N	+44(0) 2890 328 988	\N	\N	b3f61bf1cb26243ef478a3c181dd0aa2	0	1	1	\N	2011-12-13 14:00:00	GBP	1	0	\N		2011-12-13 14:00:00	0	0	0	\N	\N	\N	\N	\N	\N	\N	\N
+0		Anonym	Anonymouse		anonym@noemail.noemail	anonymouse	notelephone			9ce21d8f3992d89a325aa9dcf520a591	0	1	1	 	2011-12-13 14:00:00	GBP	0	0	2007-06-14		2011-12-13 14:00:00	0	0	0	\N	\N	\N	\N	\N	\N	\N	\N
 \.
+
+
+--
+-- Data for Name: client_customer_group; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY client_customer_group (id, group_id, customer_id, created, modified) FROM stdin;
+\.
+
+
+--
+-- Name: client_customer_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('client_customer_group_id_seq', 1, false);
+
+
+--
+-- Name: client_customer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('client_customer_id_seq', 1, true);
 
 
 --
 -- Data for Name: client_customer_image; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY client_customer_image (id, src, role, node_id, title, description, priority, modified, author, content, other_data, link_to_node_id) FROM stdin;
+COPY client_customer_image (id, src, role, node_id, title, description, priority, modified, author, content, other_data, link_to_node_id, customer_id) FROM stdin;
 \.
+
+
+--
+-- Name: client_customer_image_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('client_customer_image_id_seq', 1, false);
+
+
+--
+-- Data for Name: client_customer_role; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY client_customer_role (id, role_id, customer_id, created, modified) FROM stdin;
+\.
+
+
+--
+-- Name: client_customer_role_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('client_customer_role_id_seq', 1, false);
 
 
 --
@@ -3434,6 +3494,13 @@ COPY client_customer_taxonomy (id, node_id, taxonomy_tree_id) FROM stdin;
 
 
 --
+-- Name: client_customer_taxonomy_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('client_customer_taxonomy_id_seq', 1, false);
+
+
+--
 -- Data for Name: client_customer_token; Type: TABLE DATA; Schema: public; Owner: -
 --
 
@@ -3442,11 +3509,91 @@ COPY client_customer_token (id, customer_id, publish, token, oauth_data, other_d
 
 
 --
+-- Name: client_customer_token_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('client_customer_token_id_seq', 1, false);
+
+
+--
 -- Data for Name: client_group; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY client_group (id, name, description, search_filter, other_data) FROM stdin;
 \.
+
+
+--
+-- Name: client_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('client_group_id_seq', 1, false);
+
+
+--
+-- Data for Name: client_role; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY client_role (id, name, description, other_data) FROM stdin;
+1	Admin	\N	\N
+2	Front Office Only CMS Editor	\N	\N
+3	CMS Editor	\N	\N
+4	eCommerce Editor	\N	\N
+5	Customer Services	\N	\N
+6	Warehouse	\N	\N
+\.
+
+
+--
+-- Name: client_role_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('client_role_id_seq', 1000, true);
+
+
+--
+-- Data for Name: client_role_permission; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY client_role_permission (id, role_id, resource, operation, scope, created, modified, other_data) FROM stdin;
+1	1	_all_	_all_	\N	2014-12-31 20:29:08.138829	2014-12-31 20:29:08.138829	\N
+2	2	front_office	_all_	\N	2014-12-31 20:29:08.138829	2014-12-31 20:29:08.138829	\N
+3	2	nodes	edit	\N	2014-12-31 20:29:08.138829	2014-12-31 20:29:08.138829	\N
+4	2	media	_all_	\N	2014-12-31 20:29:08.138829	2014-12-31 20:29:08.138829	\N
+5	3	front_office	_all_	\N	2014-12-31 20:29:08.138829	2014-12-31 20:29:08.138829	\N
+6	3	back_office	_all_	\N	2014-12-31 20:29:08.138829	2014-12-31 20:29:08.138829	\N
+7	3	nodes	_all_	\N	2014-12-31 20:29:08.138829	2014-12-31 20:29:08.138829	\N
+8	3	comments	_all_	\N	2014-12-31 20:29:08.138829	2014-12-31 20:29:08.138829	\N
+9	3	surveys	_all_	\N	2014-12-31 20:29:08.138829	2014-12-31 20:29:08.138829	\N
+10	3	media	_all_	\N	2014-12-31 20:29:08.138829	2014-12-31 20:29:08.138829	\N
+11	3	taxonomy	_all_	\N	2014-12-31 20:29:08.138829	2014-12-31 20:29:08.138829	\N
+12	3	seo_manager	_all_	\N	2014-12-31 20:29:08.138829	2014-12-31 20:29:08.138829	\N
+13	3	scheduler	_all_	\N	2014-12-31 20:29:08.138829	2014-12-31 20:29:08.138829	\N
+14	3	search_index	_all_	\N	2014-12-31 20:29:08.138829	2014-12-31 20:29:08.138829	\N
+15	4	products	_all_	\N	2014-12-31 20:29:08.138829	2014-12-31 20:29:08.138829	\N
+16	4	recipes	_all_	\N	2014-12-31 20:29:08.138829	2014-12-31 20:29:08.138829	\N
+17	4	stores	_all_	\N	2014-12-31 20:29:08.138829	2014-12-31 20:29:08.138829	\N
+18	4	orders	_all_	\N	2014-12-31 20:29:08.138829	2014-12-31 20:29:08.138829	\N
+19	4	stock	_all_	\N	2014-12-31 20:29:08.138829	2014-12-31 20:29:08.138829	\N
+20	4	customers	_all_	\N	2014-12-31 20:29:08.138829	2014-12-31 20:29:08.138829	\N
+21	4	reports	_all_	\N	2014-12-31 20:29:08.138829	2014-12-31 20:29:08.138829	\N
+22	4	discounts	_all_	\N	2014-12-31 20:29:08.138829	2014-12-31 20:29:08.138829	\N
+23	4	currency	_all_	\N	2014-12-31 20:29:08.138829	2014-12-31 20:29:08.138829	\N
+24	5	back_office	_all_	\N	2014-12-31 20:29:08.138829	2014-12-31 20:29:08.138829	\N
+25	5	customers	_all_	\N	2014-12-31 20:29:08.138829	2014-12-31 20:29:08.138829	\N
+26	5	orders	_all_	\N	2014-12-31 20:29:08.138829	2014-12-31 20:29:08.138829	\N
+27	5	comments	_all_	\N	2014-12-31 20:29:08.138829	2014-12-31 20:29:08.138829	\N
+28	5	surveys	_all_	\N	2014-12-31 20:29:08.138829	2014-12-31 20:29:08.138829	\N
+29	5	discounts	_all_	\N	2014-12-31 20:29:08.138829	2014-12-31 20:29:08.138829	\N
+30	6	stock	_all_	\N	2014-12-31 20:29:08.138829	2014-12-31 20:29:08.138829	\N
+\.
+
+
+--
+-- Name: client_role_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('client_role_permission_id_seq', 30, true);
 
 
 --
@@ -3459,28 +3606,42 @@ COPY common_comment (id, parent, node_id, title, content, author_name, author_em
 
 
 --
+-- Name: common_comment_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('common_comment_id_seq', 1, false);
+
+
+--
 -- Data for Name: common_configuration; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY common_configuration (id, node_id, object, property, value, description) FROM stdin;
-1	0	global	title	White Label	
-2	0	global	author_content	White Label, http://www.example.com/	
-5	0	global	locale	en_GB.UTF-8	
-6	0	global	default_currency	GBP	
-9	0	global	google_analytics		
-8	0	global	css	/**\r\n *\r\n * Our hint to CSS developers: \r\n * use here an @import of a CSS file from your own server,\r\n * work on your local version and paste here the final version \r\n * when you are finished with the development\r\n *\r\n */\r\n \r\n@import url(/share/css/default/theme_colour/grey.css);\r\n/*@import url(/share/css/default/theme_layout/stripes.css);*/	
-4	0	global	html_title_suffix	- White Label	
-10	0	global	google_adwords		
-11	0	global	display_content_side	1	
-12	0	global	extra_head	<meta name="viewport" content="width=1024" />	
-13	0	global	extra_body_top		
-14	0	global	extra_body_bottom		
-15	0	global	display_secondary_navigation	0	
-16	0	global	display_content_foot	0	
-17	5	global	html_title_suffix		
-3	0	global	credit	<a href="http://onxshop.com" title="Easy web CMS/eCommerce"><span>Powered by Onxshop</span></a>	
-7	0	global	admin_email	test@onxshop.com	
+COPY common_configuration (id, node_id, object, property, value, description, apply_to_children) FROM stdin;
+1	0	global	title	White Label		0
+2	0	global	author_content	White Label, http://www.example.com/		0
+5	0	global	locale	en_GB.UTF-8		0
+6	0	global	default_currency	GBP		0
+9	0	global	google_analytics			0
+8	0	global	css	/**\r\n *\r\n * Our hint to CSS developers: \r\n * use here an @import of a CSS file from your own server,\r\n * work on your local version and paste here the final version \r\n * when you are finished with the development\r\n *\r\n */\r\n \r\n@import url(/share/css/default/theme_colour/grey.css);\r\n/*@import url(/share/css/default/theme_layout/stripes.css);*/		0
+4	0	global	html_title_suffix	- White Label		0
+10	0	global	google_adwords			0
+11	0	global	display_content_side	1		0
+12	0	global	extra_head	<meta name="viewport" content="width=1024" />		0
+13	0	global	extra_body_top			0
+14	0	global	extra_body_bottom			0
+15	0	global	display_secondary_navigation	0		0
+16	0	global	display_content_foot	0		0
+17	5	global	html_title_suffix			0
+3	0	global	credit	<a href="http://onxshop.com" title="Easy web CMS/eCommerce"><span>Powered by Onxshop</span></a>		0
+7	0	global	admin_email	test@onxshop.com		0
 \.
+
+
+--
+-- Name: common_configuration_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('common_configuration_id_seq', 17, true);
 
 
 --
@@ -3494,108 +3655,137 @@ COPY common_email (id, email_from, name_from, subject, content, template, email_
 
 
 --
+-- Name: common_email_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('common_email_id_seq', 2, true);
+
+
+--
 -- Data for Name: common_file; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY common_file (id, src, role, node_id, title, description, priority, modified, author, content, other_data, link_to_node_id) FROM stdin;
+COPY common_file (id, src, role, node_id, title, description, priority, modified, author, content, other_data, link_to_node_id, customer_id) FROM stdin;
 \.
+
+
+--
+-- Name: common_file_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('common_file_id_seq', 1, false);
 
 
 --
 -- Data for Name: common_image; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY common_image (id, src, role, node_id, title, description, priority, modified, author, content, other_data, link_to_node_id) FROM stdin;
-1	var/files/favicon.ico	main	3	Favicon		0	2011-12-13 14:27:55	1000	\N	\N	\N
+COPY common_image (id, src, role, node_id, title, description, priority, modified, author, content, other_data, link_to_node_id, customer_id) FROM stdin;
+1	var/files/favicon.ico	main	3	Favicon		0	2011-12-13 14:27:55	1000	\N	\N	\N	\N
 \.
+
+
+--
+-- Name: common_image_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('common_image_id_seq', 1, true);
 
 
 --
 -- Data for Name: common_node; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY common_node (id, title, node_group, node_controller, parent, parent_container, priority, teaser, content, description, keywords, page_title, head, created, modified, publish, display_in_menu, author, uri_title, display_permission, other_data, css_class, layout_style, component, relations, display_title, display_secondary_navigation, require_login, display_breadcrumb, browser_title, link_to_node_id, require_ssl, display_permission_group_acl, share_counter) FROM stdin;
-65	Payment was successfull	content	RTE	12	1	0	\N	<p>Process executed without error and the transaction was successfully Authorised.&nbsp;</p>			\N		2006-09-30 15:43:50	2008-08-24 18:27:47	1	1	1000		0	N;			N;	N;	0	\N	\N	0		0	0	\N	0
-89	Select Delivery Method	content	component	7	1	100	\N	\N					2010-04-18 01:34:49	2010-04-18 11:10:57	1	1	1000		0	N;			a:3:{s:8:"template";s:30:"ecommerce/delivery_option.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	1	\N	\N	0		0	0	\N	0
-91	Newsletter Subscribe	content	component	90	1	0	\N	\N					2010-04-18 11:20:58	2010-04-18 11:21:14	1	1	1000		0	N;			a:3:{s:8:"template";s:32:"client/newsletter_subscribe.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0
-93	Newsletter Unsubscribe	content	component	92	1	0	\N	\N					2010-04-18 11:22:40	2010-04-18 11:22:56	1	1	1000		0	N;			a:3:{s:8:"template";s:34:"client/newsletter_unsubscribe.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0
-1028	Other points	content	RTE	1026	1	0	\N	<p>This site has been designed with style sheets to allow maximum flexibility. Header tags and tables summaries have been effectively added to this site.</p>\n<p>Form controls are properly grouped and labelled.</p>					2010-04-18 13:03:47	2010-04-18 13:04:09	1	1	1000		0	N;			N;	N;	1	\N	\N	0		0	0	\N	0
-1029	Your feedback is important	content	RTE	1026	1	0	\N	<p>If you experience any problems using this site, or have some feedback or suggestions on how to improve accessibility, please <a class="internal-link" href="/page/20">contact us</a>.</p>					2010-04-18 13:04:34	2010-04-18 13:04:55	1	1	1000		0	N;			N;	N;	1	\N	\N	0		0	0	\N	0
-1030	More information	content	RTE	1026	1	0	\N	<p>For more information about website accessibility please visit the <a href="http://www.w3.org/TR/WCAG10/">W3C Web Content Accessibility Guidelines</a>.</p>					2010-04-18 13:05:16	2010-04-18 13:05:34	1	1	1000		0	N;			N;	N;	1	\N	\N	0		0	0	\N	0
-1017	Returns policy	content	RTE	26	1	10	\N	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>\n<ul>\n<li>velit esse cillum dolore</li>\n<li>consectetur adipisicing elit</li>\n<li>occaecat cupidatat non proident</li>\n</ul>\n<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>					2008-08-16 13:01:53	2010-04-18 12:50:54	0	1	1000		0	N;			N;	N;	1	\N	\N	0		0	0	\N	0
-69	Search result	content	component	21	1	0	\N				\N		2006-09-30 15:49:27	2008-08-07 01:21:51	1	1	1000		0	N;			a:3:{s:8:"template";s:17:"search_nodes.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0
-72	Sitemap component	content	component	22	1	0	\N				\N		2006-09-30 15:50:21	2008-08-24 00:51:29	1	1	1000		0	N;			a:3:{s:8:"template";s:12:"sitemap.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0
-86	General content 1	content	RTE	85	0	0	\N	<p>Contact address,<br />Street Name,<br />CITY, Post Code<br />Tel: 01234 567 890</p>					2006-09-30 15:50:10	2010-04-18 13:07:36	1	1	1000		0	N;			N;	N;	0	\N	\N	0		0	0	\N	0
-68	Search input	content	component	21	1	0	\N				\N		2006-09-30 15:48:45	2008-08-24 18:22:11	1	1	1000		0	N;			a:3:{s:8:"template";s:14:"searchbox.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0
-32	Existing customer	content	component	8	1	0	\N				\N		2006-09-30 14:00:05	2008-08-24 01:15:22	1	1	1000		0	N;			a:3:{s:8:"template";s:17:"client/login.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0
-36	Registration component	content	component	13	1	0	\N				\N		2006-09-30 14:26:09	2008-08-24 01:14:57	1	1	1000		0	N;			a:3:{s:8:"template";s:24:"client/registration.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0
-34	New customer	content	component	8	1	0	\N				\N		2006-09-30 14:01:50	2008-08-24 01:15:34	1	1	1000		0	N;			a:3:{s:8:"template";s:30:"client/registration_start.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0
-75	Basket edit component	content	component	6	1	0	\N				\N		2006-09-30 15:54:35	2008-08-24 18:23:16	1	1	1000		0	N;			a:3:{s:8:"template";s:26:"ecommerce/basket_edit.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0
-41	Checkout	content	component	7	1	0	\N				\N		2006-09-30 14:47:01	2008-08-24 18:23:33	1	1	1000		0	N;			a:3:{s:8:"template";s:23:"ecommerce/checkout.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0
-39	Checkout Basket	content	component	7	1	0	\N				\N		2006-09-30 14:44:34	2008-08-24 18:23:51	1	1	1000		0	N;			a:3:{s:8:"template";s:30:"ecommerce/checkout_basket.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0
-0	Root	site	default	\N	0	0							2008-08-06 21:24:09	2008-08-06 21:24:09	1	1	0		0				\N	\N	\N	\N	\N	0		0	0	\N	0
-51	Order detail component	content	component	19	1	0	\N				\N		2006-09-30 15:22:49	2008-08-24 18:25:32	1	1	1000		0	N;			a:3:{s:8:"template";s:27:"ecommerce/order_detail.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0
-60	Payment component	content	component	10	1	0	\N				\N		2006-09-30 15:32:26	2008-08-24 18:26:22	1	1	1000		0	N;			a:3:{s:8:"template";s:22:"ecommerce/payment.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0
-1015	Our latest news	content	news_list	83	1	0	\N	\N			\N		2008-08-16 04:02:19	2011-01-16 15:54:36	1	1	1000		0	N;			a:5:{s:5:"limit";s:1:"5";s:8:"template";s:4:"full";s:10:"pagination";i:1;s:5:"image";i:0;s:13:"display_title";i:0;}	N;	0	\N	0	0		0	0	\N	0
-78	404 error	content	RTE	14	1	0	\N	<p><strong>We have recently restructured this website, you might find what you are looking for by going via the <a href="/">home page</a>.</strong></p>\r\n<p><strong>If you believe you have found a broken link please <a href="/page/20">let us know</a>.</strong></p>\r\n<div class="line">\r\n<hr />\r\n</div>\r\n<p><strong>Please try the following:</strong></p>\r\n<ul>\r\n<li>If you typed the page address in the Address bar, make sure that it is spelled correctly. </li>\r\n<li>Click the <a href="javascript:history.go(-1)">Back</a> button to try another link. </li>\r\n</ul>\r\n<p>HTTP 404 : Page not found</p>			\N		2006-09-30 16:37:05	2008-08-24 18:28:28	1	1	1000		0	N;			N;	N;	1	\N	\N	0		0	0	\N	0
-1019	forgotten password	content	RTE	8	1	0	\N	<p>\n<a href="/page/9">Forgotten your password since your last visit?</a>  \n</p>			\N		2008-10-12 22:54:29	2008-10-12 22:54:44	1	1	1000		0	N;			N;	N;	0	\N	\N	0		0	0	\N	0
-1033	Main Page 1	page	default	1	0	0		\N					2011-01-16 15:53:01	2011-01-16 15:56:13	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	0	0		0	0	\N	0
-1034	Main Page 2	page	default	1	0	0		\N					2011-01-16 15:53:08	2011-01-16 15:56:18	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	0	0		0	0	\N	0
-1035	Main Page 3	page	default	1	0	0		\N					2011-01-16 15:53:14	2011-01-16 15:56:23	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	0	0		0	0	\N	0
-23	About Us	page	default	88	0	30		\N					2006-09-30 12:09:30	2010-04-18 13:01:32	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	\N	0		0	0	\N	0
-1020	Payment information	content	RTE	8	2	0	\N	<h3>Payment information </h3>\n<p>\nWe accept the following payment methods: \n</p>\n<p>\n<img src="https://www.worldpay.com/cgenerator/logos/visa.gif" alt="Visa payments supported by WorldPay" />\n<img src="https://www.worldpay.com/cgenerator/logos/visa_delta.gif" alt="Visa/Delta payments supported by WorldPay" />\n<img src="https://www.worldpay.com/cgenerator/logos/mastercard.gif" alt="Mastercard payments supported by WorldPay" />\n<img src="https://www.worldpay.com/cgenerator/logos/switch.gif" alt="Switch payments supported by WorldPay" />\n</p>\n<h3>Terms and conditions</h3>\n<p>\nBy making a purchase from this site you are agreeing to be bound by our <a href="/page/26">terms and conditions</a> .\n</p>\n<h3>Payment services </h3>\n<p>\n<!-- Powered by WorldPay logo-->\n<a href="http://www.worldpay.com/"><img src="https://www.worldpay.com/cgenerator/logos/poweredByWorldPay.gif" alt="Powered By WorldPay" /></a>\n</p>\n<p>\n<!-- WorldPay Guarantee Logo -->\n<img src="https://www.worldpay.com/cgenerator/logos/guaranteed.gif" alt="WorldPay Guarantee" />\n</p>			\N		2008-10-12 23:04:24	2008-10-12 23:11:21	1	1	1000		0	N;			N;	N;	0	\N	\N	0		0	0	\N	0
-1022	Related products	content	component	6	2	0	\N	\N			\N		2008-10-12 23:17:09	2008-10-12 23:18:43	1	1	1000		0	N;			a:3:{s:8:"template";s:37:"ecommerce/product_related_basket.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0
-1021	Recently viewed	content	component	6	1	0	\N	\N			\N		2008-10-12 23:16:14	2008-10-12 23:18:55	1	1	1000		0	N;			a:3:{s:8:"template";s:39:"ecommerce/recently_viewed_products.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0
-42	Address component	content	component	7	2	0	\N				\N		2006-09-30 14:54:43	2008-08-24 18:24:18	1	1	1000		0	N;			a:3:{s:8:"template";s:19:"client/address.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0
-1024	Userbox	content	component	15	2	0	\N	\N					2010-04-18 12:43:47	2010-04-18 12:44:21	1	1	1000		0	N;			a:3:{s:8:"template";s:19:"client/userbox.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0
-1027	Text size	content	RTE	1026	1	0	\N	<p>If you would prefer the font size to be larger or smaller, you can easily adjust it using your browser.</p>\n<p>To increase or decrease the text size, follow these basic instructions   for Internet Explorer:</p>\n<ul>\n<li>Click on the 'View' menu in your browser.</li>\n<li>Click on the 'Text size' option.</li>\n<li>Select the size you wish to see.</li>\n</ul>\n<p>To increase or decrease the text size, follow these basic instructions for Mozilla Firefox:</p>\n<ul>\n<li>Click on the 'View' menu in your browser.</li>\n<li>Click on the 'Zoom' option.</li>\n</ul>					2010-04-18 13:02:48	2010-04-18 13:03:20	1	1	1000		0	N;			N;	N;	1	\N	\N	0		0	0	\N	0
-1023	content 1242392830	content	RTE	5	1	0	\N	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>\n<ul>\n<li>velit esse cillum dolore</li>\n<li>consectetur adipisicing elit</li>\n<li>occaecat cupidatat non proident</li>\n</ul>\n<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>					2009-05-15 14:07:10	2009-05-15 14:07:16	1	1	1000		0	N;			N;	N;	0	\N	\N	0		0	0	\N	0
-45	Address Management Component	content	component	16	1	0	\N				\N		2006-09-30 15:20:05	2008-08-24 18:25:00	1	1	1000		0	N;			a:3:{s:8:"template";s:24:"client/address_edit.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0
-87	General content 2	content	RTE	85	0	0	\N	<p style="text-align: center;"><em>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</em></p>			\N		2006-09-30 15:50:10	2011-01-16 16:11:40	1	1	1000		0	N;			N;	N;	0	\N	0	0		0	0	\N	0
-1011	Our Address	content	RTE	20	2	5	\N	<p>Address Name<br />Street, house number xxx<br />Post Code, Town<br />County</p>\n<p>tel: xxxx xxx xxx</p>					2008-08-07 01:18:33	2011-01-16 16:07:10	1	1	1000		0	N;			N;	N;	1	\N	\N	0		0	0	\N	0
-57	Password reset component	content	component	9	1	0	\N				\N		2006-09-30 15:30:31	2008-08-24 18:26:03	1	1	1000		0	N;			a:3:{s:8:"template";s:26:"client/password_reset.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0
-48	Your orders with us	content	component	17	1	0	\N				\N		2006-09-30 15:21:35	2008-08-16 13:22:33	1	1	1000		0	N;			a:3:{s:8:"template";s:25:"ecommerce/order_list.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	1	\N	\N	0		0	0	\N	0
-63	Payment failure component	content	component	11	1	0	\N				\N		2006-09-30 15:42:05	2008-08-24 18:26:38	1	1	1000		0	N;			a:3:{s:8:"template";s:37:"ecommerce/payment/protx_callback.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0
-66	Payment success component	content	component	12	1	0	\N				\N		2006-09-30 15:44:42	2008-08-16 13:28:47	1	1	1000		0	N;			a:3:{s:8:"template";s:37:"ecommerce/payment/protx_callback.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	1	\N	\N	0		0	0	\N	0
-2	Commerce	container	default	0	0	0	\N	\N			\N		2006-09-30 09:55:17	2008-08-24 22:58:05	1	0	1000		0	N;			N;	N;	1	\N	\N	0		0	0	\N	0
-88	Global navigation	container	default	0	0	15		\N					2009-08-16 13:05:12	2011-01-16 15:56:37	1	1	1000		0	N;			N;	N;	1	0	0	0		0	0	\N	0
-21	Search	page	default	4	0	0		\N					2006-09-30 12:08:07	2009-05-15 13:48:10	1	0	1000		0	N;		fibonacci-2-1	N;	N;	1	0	\N	0		0	0	\N	0
-1032	content 1295192947	content	RTE	1031	1	0	\N	<h3>Our privacy policy</h3>\n<p>This privacy policy sets out how [COMPANY NAME] uses and protects any information that you give [COMPANY NAME] when you use this website.</p>\n<p>[COMPANY NAME] is committed to ensuring that your privacy is protected. Should we ask you to provide certain information by which you can be identified when using this website, then you can be assured that it will only be used in accordance with this privacy statement.</p>\n<p>[COMPANY NAME] may change this policy from time to time by updating this page. You should check this page from time to time to ensure that you are happy with any changes. This policy is effective from [DATE].</p>\n<h3>What we collect</h3>\n<p>We may collect the following information:</p>\n<ul>\n<li>name and job title</li>\n<li>contact information including email address</li>\n<li>demographic information such as postcode, preferences and interests</li>\n<li>other information relevant to customer surveys and/or offers</li>\n</ul>\n<h3>What we do with the information we gather</h3>\n<p>We require this information to understand your needs and provide you with a better service, and in particular for the following reasons:</p>\n<ul>\n<li>Internal record keeping.</li>\n<li>We may use the information to improve our products and services.</li>\n<li>We may periodically send promotional emails about new products, special offers or other information which we think you may find interesting using the email address which you have provided.</li>\n<li>From time to time, we may also use your information to contact you for market research purposes. We may contact you by email, phone, fax or mail. We may use the information to customise the website according to your interests.</li>\n</ul>\n<h3>Security</h3>\n<p>We are committed to ensuring that your information is secure. In order to prevent unauthorised access or disclosure we have put in place suitable physical, electronic and managerial procedures to safeguard and secure the information we collect online.</p>\n<h3>How we use cookies</h3>\n<p>A cookie is a small file which asks permission to be placed on your computer's hard drive. Once you agree, the file is added and the cookie helps analyse web traffic or lets you know when you visit a particular site. Cookies allow web applications to respond to you as an individual. The web application can tailor its operations to your needs, likes and dislikes by gathering and remembering information about your preferences.</p>\n<p>We use traffic log cookies to identify which pages are being used. This helps us analyse data about webpage traffic and improve our website in order to tailor it to customer needs. We only use this information for statistical analysis purposes and then the data is removed from the system.</p>\n<p>Overall, cookies help us provide you with a better website, by enabling us to monitor which pages you find useful and which you do not. A cookie in no way gives us access to your computer or any information about you, other than the data you choose to share with us.</p>\n<p>You can choose to accept or decline cookies. Most web browsers automatically accept cookies, but you can usually modify your browser setting to decline cookies if you prefer. This may prevent you from taking full advantage of the website.</p>\n<h3>Links to other websites</h3>\n<p>Our website may contain links to other websites of interest. However, once you have used these links to leave our site, you should note that we do not have any control over that other website. Therefore, we cannot be responsible for the protection and privacy of any information which you provide whilst visiting such sites and such sites are not governed by this privacy statement. You should exercise caution and look at the privacy statement applicable to the website in question.</p>\n<h3>Controlling your personal information</h3>\n<p>You may choose to restrict the collection or use of your personal information in the following ways:</p>\n<ul>\n<li>whenever you are asked to fill in a form on the website, look for the box that you can click to indicate that you do not want the information to be used by anybody for direct marketing purposes</li>\n<li>if you have previously agreed to us using your personal information for direct marketing purposes, you may change your mind at any time by writing to or emailing us at <a href="/page/20">contact page</a></li>\n</ul>\n<p>We will not sell, distribute or lease your personal information to third parties unless we have your permission or are required by law to do so. We may use your personal information to send you promotional information about third parties which we think you may find interesting if you tell us that you wish this to happen.</p>\n<p>You may request details of personal information which we hold about you under the Data Protection Act 1998. A small fee will be payable. If you would like a copy of the information held on you please write to <a href="/page/20">our postal address</a>.</p>\n<p>If you believe that any information we are holding on you is incorrect or incomplete, please write to or email us as soon as possible, at the above address. We will promptly correct any information found to be incorrect.</p>			\N		2011-01-16 15:49:07	2011-01-16 15:51:19	1	1	1000		0	N;			N;	N;	0	\N	0	0		0	0	\N	0
-76	Send a message	content	contact_form	20	1	5	\N						2006-09-30 16:00:21	2011-01-16 16:07:08	1	1	1000		0	N;			a:6:{s:7:"mail_to";s:0:"";s:11:"mail_toname";s:0:"";s:15:"node_controller";s:13:"common_simple";s:14:"sending_failed";s:89:"You must complete all the required fields. Required items are marked with an asterisk (*)";s:4:"text";s:25:"Thanks for your feedback.";s:4:"href";s:0:"";}	N;	1	\N	\N	0		0	0	\N	0
-5	Home	page	default	88	0	40		\N			White Label Home		2006-09-30 10:02:51	2011-12-13 14:42:40	1	1	1000		0	N;		fibonacci-2-1	N;	N;	0	0	0	0		0	0		0
-54	User pref component	content	component	18	1	0	\N				\N		2006-09-30 15:25:21	2008-08-24 18:25:48	1	1	1000		0	N;			a:3:{s:8:"template";s:16:"client/edit.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0
-1025	Terms of Use	content	RTE	26	1	25	\N	<p>Welcome to our website. If you continue to browse and use this website you are agreeing to comply with and be bound by the following terms and conditions of use, which together with our privacy policy govern [COMPANY NAME]&rsquo;s relationship with you in relation to this website.</p>\n<p>The term &lsquo;[COMPANY NAME]&rsquo; or &lsquo;us&rsquo; or &lsquo;we&rsquo; refers to the owner of the website whose registered office is [COMPANY ADDRESS]. Our company registration number is [REGISTRATION NUMBER], registered in [REGISTERED COUNTRY]. The term &lsquo;you&rsquo; refers to the user or viewer of our website.</p>\n<p>The use of this website is subject to the following terms of use:</p>\n<ol>\n<li>The content of the pages of this website is for your general information and use only. It is subject to change without notice.</li>\n<li>Neither we nor any third parties provide any warranty or guarantee as to the accuracy, timeliness, performance, completeness or suitability of the information and materials found or offered on this website for any particular purpose. You acknowledge that such information and materials may contain inaccuracies or errors and we expressly exclude liability for any such inaccuracies or errors to the fullest extent permitted by law.</li>\n<li>Your use of any information or materials on this website is entirely at your own risk, for which we shall not be liable. It shall be your own responsibility to ensure that any products, services or information available through this website meet your specific requirements.</li>\n<li>This website contains material which is owned by or licensed to us. This material includes, but is not limited to, the design, layout, look, appearance and graphics. Reproduction is prohibited other than in accordance with the copyright notice, which forms part of these terms and conditions.</li>\n<li>All trademarks reproduced in this website, which are not the property of, or licensed to the operator, are acknowledged on the website.</li>\n<li>Unauthorised use of this website may give rise to a claim for damages and/or be a criminal offence.</li>\n<li>From time to time this website may also include links to other websites. These links are provided for your convenience to provide further information. They do not signify that we endorse the website(s). We have no responsibility for the content of the linked website(s).</li>\n<li>You may not create a link to this website from another website or document without [COMPANY NAME]&rsquo;s prior written consent.</li>\n<li>Your use of this website and any dispute arising out of such use of the website is subject to the laws of England, Scotland, Wales and Northern Ireland.</li>\n</ol>					2010-04-18 12:51:22	2011-01-16 15:50:16	1	1	1000		0	N;			N;	N;	1	\N	0	0		0	0	\N	0
-1036	Archive	content	component	83	2	0	\N	\N			\N		2011-01-16 15:55:01	2011-01-16 15:55:17	1	1	1000		0	N;			a:3:{s:8:"template";s:17:"news_archive.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	1	\N	0	0		0	0	\N	0
-1	Main navigation	container	default	0	0	10	\N	N;			\N		2006-09-29 18:20:29	2008-08-24 22:57:58	1	1	1000		0	N;			N;	N;	1	\N	\N	0		0	0	\N	0
-90	Newsletter	page	default	4	0	0	\N	\N	\N	\N	\N	\N	2010-04-18 11:19:18	2010-04-18 11:19:18	1	0	1000	\N	0	\N		fibonacci-2-1	\N	\N	1	\N	\N	0		0	0	\N	0
-84	Articles	page	default	3	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 12:07:59	2006-09-30 12:07:59	1	1	1000	\N	0	\N			\N	\N	\N	\N	\N	0		0	0	\N	0
-92	Unsubscribe	page	default	90	0	0	\N	\N	\N	\N	\N	\N	2010-04-18 11:21:40	2010-04-18 11:21:40	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	1	\N	\N	0		0	0	\N	0
-1026	Accessibility policy	page	default	4	0	0	\N	\N	\N	\N	\N	\N	2010-04-18 13:02:03	2010-04-18 13:02:03	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	1	\N	\N	0		0	0	\N	0
-85	Content bits	container	default	3	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 12:07:59	2006-09-30 12:07:59	1	1	1000	\N	0	\N			\N	\N	\N	\N	\N	0		0	0	\N	0
-3	Special	container	default	0	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 09:55:36	2006-09-30 09:55:36	1	0	1000	\N	0	\N			\N	\N	\N	\N	\N	0		0	0	\N	0
-4	Footer navigation	container	default	0	0	5		N;			\N		2006-09-30 09:56:36	2011-01-16 15:58:20	1	1	1000		0	N;			N;	N;	1	\N	0	0		0	0	\N	0
-14	404	page	default	3	0	0		\N					2006-09-30 11:56:37	2008-08-16 13:06:19	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	\N	0		0	0	\N	0
-22	Sitemap	page	default	4	0	0		\N					2006-09-30 12:08:21	2008-08-16 13:06:58	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	\N	0		0	0	\N	0
-1013	Laboris nisi ut aliquip	page	news	83	0	0	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do\r\neiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad\r\nminim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip\r\nex ea commodo consequat.</p>\r\n<ul>\r\n<li>velit esse cillum dolore</li>\r\n<li>consectetur adipisicing elit</li>\r\n<li>occaecat cupidatat non proident</li>\r\n</ul>\r\n<p>Duis aute irure dolor in reprehenderit in voluptate velit esse\r\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat\r\ncupidatat non proident, sunt in culpa qui officia deserunt mollit anim\r\nid est laborum.</p>					2008-08-16 03:59:19	2008-08-16 12:59:16	1	1	1000		0	N;		fibonacci-2-1	a:2:{s:6:"author";s:0:"";s:13:"allow_comment";i:0;}	N;	1	\N	\N	0		0	0	\N	0
-1014	Excepteur sint occaecat	page	news	83	0	0	<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do\r\neiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad\r\nminim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip\r\nex ea commodo consequat.</p>\r\n<ul>\r\n<li>velit esse cillum dolore</li>\r\n<li>consectetur adipisicing elit</li>\r\n<li>occaecat cupidatat non proident</li>\r\n</ul>\r\n<p>Duis aute irure dolor in reprehenderit in voluptate velit esse\r\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat\r\ncupidatat non proident, sunt in culpa qui officia deserunt mollit anim\r\nid est laborum.</p>					2008-08-16 03:59:48	2008-08-16 12:58:58	1	1	1000		0	N;		fibonacci-2-1	a:2:{s:6:"author";s:0:"";s:13:"allow_comment";i:0;}	N;	1	\N	\N	0		0	0	\N	0
-26	Terms & Conditions	page	default	4	0	0		N;					2006-09-30 13:40:50	2010-04-18 12:50:42	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	\N	0		0	0	\N	0
-13	Registration	page	default	2	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 10:36:09	2006-09-30 10:36:09	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	\N	0		0	1	\N	0
-8	Login	page	default	2	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 10:35:02	2006-09-30 10:35:02	1	1	1000	\N	0	\N	pageLogin	fibonacci-2-1	\N	\N	\N	\N	\N	0		0	1	\N	0
-9	Password reset	page	default	2	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 10:35:15	2006-09-30 10:35:15	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	\N	0		0	1	\N	0
-6	Basket	page	default	2	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 10:34:35	2006-09-30 10:34:35	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	\N	0		0	0	\N	0
-16	Address Management	page	default	15	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 12:03:13	2006-09-30 12:03:13	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	1	0		0	1	\N	0
-17	Orders	page	default	15	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 12:03:28	2006-09-30 12:03:28	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	1	0		0	1	\N	0
-18	Personal Details	page	default	15	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 12:03:45	2006-09-30 12:03:45	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	1	0		0	1	\N	0
-7	Checkout	page	default	2	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 10:34:54	2006-09-30 10:34:54	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	1	0		0	1	\N	0
-10	Payment	page	default	2	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 10:35:29	2006-09-30 10:35:29	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	1	0		0	1	\N	0
-11	Payment failure	page	default	2	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 10:35:43	2006-09-30 10:35:43	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	1	0		0	1	\N	0
-12	Payment success	page	default	2	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 10:35:59	2006-09-30 10:35:59	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	1	0		0	1	\N	0
-19	Order detail	page	default	17	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 12:04:12	2006-09-30 12:04:12	1	0	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	1	0		0	1	\N	0
-1031	Privacy Policy	page	default	4	0	0	\N	\N	\N	\N	\N	\N	2011-01-16 15:45:18	2011-01-16 15:45:18	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	1	\N	\N	0		0	0	\N	0
-83	News	page	default	88	0	25		\N					2006-09-30 12:07:59	2011-01-16 15:54:18	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	0	0		0	0	\N	0
-15	My Account	page	default	88	0	10	\N	\N	\N	\N	\N	\N	2006-09-30 12:02:53	2006-09-30 12:02:53	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	1	0		0	1	\N	0
-20	Contact Us	page	default	88	0	20		\N					2006-09-30 12:07:59	2010-04-18 13:01:35	1	1	1000		0	N;		fibonacci-1-1	N;	N;	1	0	\N	0		0	0	\N	0
+COPY common_node (id, title, node_group, node_controller, parent, parent_container, priority, teaser, content, description, keywords, page_title, head, created, modified, publish, display_in_menu, author, uri_title, display_permission, other_data, css_class, layout_style, component, relations, display_title, display_secondary_navigation, require_login, display_breadcrumb, browser_title, link_to_node_id, require_ssl, display_permission_group_acl, share_counter, customer_id) FROM stdin;
+65	Payment was successfull	content	RTE	12	1	0	\N	<p>Process executed without error and the transaction was successfully Authorised.&nbsp;</p>			\N		2006-09-30 15:43:50	2008-08-24 18:27:47	1	1	1000		0	N;			N;	N;	0	\N	\N	0		0	0	\N	0	\N
+89	Select Delivery Method	content	component	7	1	100	\N	\N					2010-04-18 01:34:49	2010-04-18 11:10:57	1	1	1000		0	N;			a:3:{s:8:"template";s:30:"ecommerce/delivery_option.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	1	\N	\N	0		0	0	\N	0	\N
+91	Newsletter Subscribe	content	component	90	1	0	\N	\N					2010-04-18 11:20:58	2010-04-18 11:21:14	1	1	1000		0	N;			a:3:{s:8:"template";s:32:"client/newsletter_subscribe.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0	\N
+93	Newsletter Unsubscribe	content	component	92	1	0	\N	\N					2010-04-18 11:22:40	2010-04-18 11:22:56	1	1	1000		0	N;			a:3:{s:8:"template";s:34:"client/newsletter_unsubscribe.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0	\N
+1028	Other points	content	RTE	1026	1	0	\N	<p>This site has been designed with style sheets to allow maximum flexibility. Header tags and tables summaries have been effectively added to this site.</p>\n<p>Form controls are properly grouped and labelled.</p>					2010-04-18 13:03:47	2010-04-18 13:04:09	1	1	1000		0	N;			N;	N;	1	\N	\N	0		0	0	\N	0	\N
+1029	Your feedback is important	content	RTE	1026	1	0	\N	<p>If you experience any problems using this site, or have some feedback or suggestions on how to improve accessibility, please <a class="internal-link" href="/page/20">contact us</a>.</p>					2010-04-18 13:04:34	2010-04-18 13:04:55	1	1	1000		0	N;			N;	N;	1	\N	\N	0		0	0	\N	0	\N
+1030	More information	content	RTE	1026	1	0	\N	<p>For more information about website accessibility please visit the <a href="http://www.w3.org/TR/WCAG10/">W3C Web Content Accessibility Guidelines</a>.</p>					2010-04-18 13:05:16	2010-04-18 13:05:34	1	1	1000		0	N;			N;	N;	1	\N	\N	0		0	0	\N	0	\N
+1017	Returns policy	content	RTE	26	1	10	\N	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>\n<ul>\n<li>velit esse cillum dolore</li>\n<li>consectetur adipisicing elit</li>\n<li>occaecat cupidatat non proident</li>\n</ul>\n<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>					2008-08-16 13:01:53	2010-04-18 12:50:54	0	1	1000		0	N;			N;	N;	1	\N	\N	0		0	0	\N	0	\N
+69	Search result	content	component	21	1	0	\N				\N		2006-09-30 15:49:27	2008-08-07 01:21:51	1	1	1000		0	N;			a:3:{s:8:"template";s:17:"search_nodes.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0	\N
+72	Sitemap component	content	component	22	1	0	\N				\N		2006-09-30 15:50:21	2008-08-24 00:51:29	1	1	1000		0	N;			a:3:{s:8:"template";s:12:"sitemap.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0	\N
+86	General content 1	content	RTE	85	0	0	\N	<p>Contact address,<br />Street Name,<br />CITY, Post Code<br />Tel: 01234 567 890</p>					2006-09-30 15:50:10	2010-04-18 13:07:36	1	1	1000		0	N;			N;	N;	0	\N	\N	0		0	0	\N	0	\N
+68	Search input	content	component	21	1	0	\N				\N		2006-09-30 15:48:45	2008-08-24 18:22:11	1	1	1000		0	N;			a:3:{s:8:"template";s:14:"searchbox.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0	\N
+32	Existing customer	content	component	8	1	0	\N				\N		2006-09-30 14:00:05	2008-08-24 01:15:22	1	1	1000		0	N;			a:3:{s:8:"template";s:17:"client/login.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0	\N
+36	Registration component	content	component	13	1	0	\N				\N		2006-09-30 14:26:09	2008-08-24 01:14:57	1	1	1000		0	N;			a:3:{s:8:"template";s:24:"client/registration.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0	\N
+34	New customer	content	component	8	1	0	\N				\N		2006-09-30 14:01:50	2008-08-24 01:15:34	1	1	1000		0	N;			a:3:{s:8:"template";s:30:"client/registration_start.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0	\N
+75	Basket edit component	content	component	6	1	0	\N				\N		2006-09-30 15:54:35	2008-08-24 18:23:16	1	1	1000		0	N;			a:3:{s:8:"template";s:26:"ecommerce/basket_edit.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0	\N
+41	Checkout	content	component	7	1	0	\N				\N		2006-09-30 14:47:01	2008-08-24 18:23:33	1	1	1000		0	N;			a:3:{s:8:"template";s:23:"ecommerce/checkout.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0	\N
+39	Checkout Basket	content	component	7	1	0	\N				\N		2006-09-30 14:44:34	2008-08-24 18:23:51	1	1	1000		0	N;			a:3:{s:8:"template";s:30:"ecommerce/checkout_basket.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0	\N
+0	Root	site	default	\N	0	0							2008-08-06 21:24:09	2008-08-06 21:24:09	1	1	0		0				\N	\N	\N	\N	\N	0		0	0	\N	0	\N
+51	Order detail component	content	component	19	1	0	\N				\N		2006-09-30 15:22:49	2008-08-24 18:25:32	1	1	1000		0	N;			a:3:{s:8:"template";s:27:"ecommerce/order_detail.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0	\N
+60	Payment component	content	component	10	1	0	\N				\N		2006-09-30 15:32:26	2008-08-24 18:26:22	1	1	1000		0	N;			a:3:{s:8:"template";s:22:"ecommerce/payment.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0	\N
+1015	Our latest news	content	news_list	83	1	0	\N	\N			\N		2008-08-16 04:02:19	2011-01-16 15:54:36	1	1	1000		0	N;			a:5:{s:5:"limit";s:1:"5";s:8:"template";s:4:"full";s:10:"pagination";i:1;s:5:"image";i:0;s:13:"display_title";i:0;}	N;	0	\N	0	0		0	0	\N	0	\N
+78	404 error	content	RTE	14	1	0	\N	<p><strong>We have recently restructured this website, you might find what you are looking for by going via the <a href="/">home page</a>.</strong></p>\r\n<p><strong>If you believe you have found a broken link please <a href="/page/20">let us know</a>.</strong></p>\r\n<div class="line">\r\n<hr />\r\n</div>\r\n<p><strong>Please try the following:</strong></p>\r\n<ul>\r\n<li>If you typed the page address in the Address bar, make sure that it is spelled correctly. </li>\r\n<li>Click the <a href="javascript:history.go(-1)">Back</a> button to try another link. </li>\r\n</ul>\r\n<p>HTTP 404 : Page not found</p>			\N		2006-09-30 16:37:05	2008-08-24 18:28:28	1	1	1000		0	N;			N;	N;	1	\N	\N	0		0	0	\N	0	\N
+1019	forgotten password	content	RTE	8	1	0	\N	<p>\n<a href="/page/9">Forgotten your password since your last visit?</a>  \n</p>			\N		2008-10-12 22:54:29	2008-10-12 22:54:44	1	1	1000		0	N;			N;	N;	0	\N	\N	0		0	0	\N	0	\N
+1033	Main Page 1	page	default	1	0	0		\N					2011-01-16 15:53:01	2011-01-16 15:56:13	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	0	0		0	0	\N	0	\N
+1034	Main Page 2	page	default	1	0	0		\N					2011-01-16 15:53:08	2011-01-16 15:56:18	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	0	0		0	0	\N	0	\N
+1035	Main Page 3	page	default	1	0	0		\N					2011-01-16 15:53:14	2011-01-16 15:56:23	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	0	0		0	0	\N	0	\N
+23	About Us	page	default	88	0	30		\N					2006-09-30 12:09:30	2010-04-18 13:01:32	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	\N	0		0	0	\N	0	\N
+94	Bin	page	default	0	0	0		\N					2014-12-07 00:00:00	2014-12-07 00:00:00	1	0	1000		0	\N			\N	\N	1	0	0	0		0	0		0	\N
+1020	Payment information	content	RTE	8	2	0	\N	<h3>Payment information </h3>\n<p>\nWe accept the following payment methods: \n</p>\n<p>\n<img src="https://www.worldpay.com/cgenerator/logos/visa.gif" alt="Visa payments supported by WorldPay" />\n<img src="https://www.worldpay.com/cgenerator/logos/visa_delta.gif" alt="Visa/Delta payments supported by WorldPay" />\n<img src="https://www.worldpay.com/cgenerator/logos/mastercard.gif" alt="Mastercard payments supported by WorldPay" />\n<img src="https://www.worldpay.com/cgenerator/logos/switch.gif" alt="Switch payments supported by WorldPay" />\n</p>\n<h3>Terms and conditions</h3>\n<p>\nBy making a purchase from this site you are agreeing to be bound by our <a href="/page/26">terms and conditions</a> .\n</p>\n<h3>Payment services </h3>\n<p>\n<!-- Powered by WorldPay logo-->\n<a href="http://www.worldpay.com/"><img src="https://www.worldpay.com/cgenerator/logos/poweredByWorldPay.gif" alt="Powered By WorldPay" /></a>\n</p>\n<p>\n<!-- WorldPay Guarantee Logo -->\n<img src="https://www.worldpay.com/cgenerator/logos/guaranteed.gif" alt="WorldPay Guarantee" />\n</p>			\N		2008-10-12 23:04:24	2008-10-12 23:11:21	1	1	1000		0	N;			N;	N;	0	\N	\N	0		0	0	\N	0	\N
+1022	Related products	content	component	6	2	0	\N	\N			\N		2008-10-12 23:17:09	2008-10-12 23:18:43	1	1	1000		0	N;			a:3:{s:8:"template";s:37:"ecommerce/product_related_basket.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0	\N
+1021	Recently viewed	content	component	6	1	0	\N	\N			\N		2008-10-12 23:16:14	2008-10-12 23:18:55	1	1	1000		0	N;			a:3:{s:8:"template";s:39:"ecommerce/recently_viewed_products.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0	\N
+42	Address component	content	component	7	2	0	\N				\N		2006-09-30 14:54:43	2008-08-24 18:24:18	1	1	1000		0	N;			a:3:{s:8:"template";s:19:"client/address.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0	\N
+1024	Userbox	content	component	15	2	0	\N	\N					2010-04-18 12:43:47	2010-04-18 12:44:21	1	1	1000		0	N;			a:3:{s:8:"template";s:19:"client/userbox.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0	\N
+1027	Text size	content	RTE	1026	1	0	\N	<p>If you would prefer the font size to be larger or smaller, you can easily adjust it using your browser.</p>\n<p>To increase or decrease the text size, follow these basic instructions   for Internet Explorer:</p>\n<ul>\n<li>Click on the 'View' menu in your browser.</li>\n<li>Click on the 'Text size' option.</li>\n<li>Select the size you wish to see.</li>\n</ul>\n<p>To increase or decrease the text size, follow these basic instructions for Mozilla Firefox:</p>\n<ul>\n<li>Click on the 'View' menu in your browser.</li>\n<li>Click on the 'Zoom' option.</li>\n</ul>					2010-04-18 13:02:48	2010-04-18 13:03:20	1	1	1000		0	N;			N;	N;	1	\N	\N	0		0	0	\N	0	\N
+1023	content 1242392830	content	RTE	5	1	0	\N	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>\n<ul>\n<li>velit esse cillum dolore</li>\n<li>consectetur adipisicing elit</li>\n<li>occaecat cupidatat non proident</li>\n</ul>\n<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>					2009-05-15 14:07:10	2009-05-15 14:07:16	1	1	1000		0	N;			N;	N;	0	\N	\N	0		0	0	\N	0	\N
+45	Address Management Component	content	component	16	1	0	\N				\N		2006-09-30 15:20:05	2008-08-24 18:25:00	1	1	1000		0	N;			a:3:{s:8:"template";s:24:"client/address_edit.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0	\N
+87	General content 2	content	RTE	85	0	0	\N	<p style="text-align: center;"><em>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</em></p>			\N		2006-09-30 15:50:10	2011-01-16 16:11:40	1	1	1000		0	N;			N;	N;	0	\N	0	0		0	0	\N	0	\N
+1011	Our Address	content	RTE	20	2	5	\N	<p>Address Name<br />Street, house number xxx<br />Post Code, Town<br />County</p>\n<p>tel: xxxx xxx xxx</p>					2008-08-07 01:18:33	2011-01-16 16:07:10	1	1	1000		0	N;			N;	N;	1	\N	\N	0		0	0	\N	0	\N
+57	Password reset component	content	component	9	1	0	\N				\N		2006-09-30 15:30:31	2008-08-24 18:26:03	1	1	1000		0	N;			a:3:{s:8:"template";s:26:"client/password_reset.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0	\N
+48	Your orders with us	content	component	17	1	0	\N				\N		2006-09-30 15:21:35	2008-08-16 13:22:33	1	1	1000		0	N;			a:3:{s:8:"template";s:25:"ecommerce/order_list.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	1	\N	\N	0		0	0	\N	0	\N
+63	Payment failure component	content	component	11	1	0	\N				\N		2006-09-30 15:42:05	2008-08-24 18:26:38	1	1	1000		0	N;			a:3:{s:8:"template";s:37:"ecommerce/payment/protx_callback.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0	\N
+66	Payment success component	content	component	12	1	0	\N				\N		2006-09-30 15:44:42	2008-08-16 13:28:47	1	1	1000		0	N;			a:3:{s:8:"template";s:37:"ecommerce/payment/protx_callback.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	1	\N	\N	0		0	0	\N	0	\N
+2	Commerce	container	default	0	0	0	\N	\N			\N		2006-09-30 09:55:17	2008-08-24 22:58:05	1	0	1000		0	N;			N;	N;	1	\N	\N	0		0	0	\N	0	\N
+88	Global navigation	container	default	0	0	15		\N					2009-08-16 13:05:12	2011-01-16 15:56:37	1	1	1000		0	N;			N;	N;	1	0	0	0		0	0	\N	0	\N
+21	Search	page	default	4	0	0		\N					2006-09-30 12:08:07	2009-05-15 13:48:10	1	0	1000		0	N;		fibonacci-2-1	N;	N;	1	0	\N	0		0	0	\N	0	\N
+1032	content 1295192947	content	RTE	1031	1	0	\N	<h3>Our privacy policy</h3>\n<p>This privacy policy sets out how [COMPANY NAME] uses and protects any information that you give [COMPANY NAME] when you use this website.</p>\n<p>[COMPANY NAME] is committed to ensuring that your privacy is protected. Should we ask you to provide certain information by which you can be identified when using this website, then you can be assured that it will only be used in accordance with this privacy statement.</p>\n<p>[COMPANY NAME] may change this policy from time to time by updating this page. You should check this page from time to time to ensure that you are happy with any changes. This policy is effective from [DATE].</p>\n<h3>What we collect</h3>\n<p>We may collect the following information:</p>\n<ul>\n<li>name and job title</li>\n<li>contact information including email address</li>\n<li>demographic information such as postcode, preferences and interests</li>\n<li>other information relevant to customer surveys and/or offers</li>\n</ul>\n<h3>What we do with the information we gather</h3>\n<p>We require this information to understand your needs and provide you with a better service, and in particular for the following reasons:</p>\n<ul>\n<li>Internal record keeping.</li>\n<li>We may use the information to improve our products and services.</li>\n<li>We may periodically send promotional emails about new products, special offers or other information which we think you may find interesting using the email address which you have provided.</li>\n<li>From time to time, we may also use your information to contact you for market research purposes. We may contact you by email, phone, fax or mail. We may use the information to customise the website according to your interests.</li>\n</ul>\n<h3>Security</h3>\n<p>We are committed to ensuring that your information is secure. In order to prevent unauthorised access or disclosure we have put in place suitable physical, electronic and managerial procedures to safeguard and secure the information we collect online.</p>\n<h3>How we use cookies</h3>\n<p>A cookie is a small file which asks permission to be placed on your computer's hard drive. Once you agree, the file is added and the cookie helps analyse web traffic or lets you know when you visit a particular site. Cookies allow web applications to respond to you as an individual. The web application can tailor its operations to your needs, likes and dislikes by gathering and remembering information about your preferences.</p>\n<p>We use traffic log cookies to identify which pages are being used. This helps us analyse data about webpage traffic and improve our website in order to tailor it to customer needs. We only use this information for statistical analysis purposes and then the data is removed from the system.</p>\n<p>Overall, cookies help us provide you with a better website, by enabling us to monitor which pages you find useful and which you do not. A cookie in no way gives us access to your computer or any information about you, other than the data you choose to share with us.</p>\n<p>You can choose to accept or decline cookies. Most web browsers automatically accept cookies, but you can usually modify your browser setting to decline cookies if you prefer. This may prevent you from taking full advantage of the website.</p>\n<h3>Links to other websites</h3>\n<p>Our website may contain links to other websites of interest. However, once you have used these links to leave our site, you should note that we do not have any control over that other website. Therefore, we cannot be responsible for the protection and privacy of any information which you provide whilst visiting such sites and such sites are not governed by this privacy statement. You should exercise caution and look at the privacy statement applicable to the website in question.</p>\n<h3>Controlling your personal information</h3>\n<p>You may choose to restrict the collection or use of your personal information in the following ways:</p>\n<ul>\n<li>whenever you are asked to fill in a form on the website, look for the box that you can click to indicate that you do not want the information to be used by anybody for direct marketing purposes</li>\n<li>if you have previously agreed to us using your personal information for direct marketing purposes, you may change your mind at any time by writing to or emailing us at <a href="/page/20">contact page</a></li>\n</ul>\n<p>We will not sell, distribute or lease your personal information to third parties unless we have your permission or are required by law to do so. We may use your personal information to send you promotional information about third parties which we think you may find interesting if you tell us that you wish this to happen.</p>\n<p>You may request details of personal information which we hold about you under the Data Protection Act 1998. A small fee will be payable. If you would like a copy of the information held on you please write to <a href="/page/20">our postal address</a>.</p>\n<p>If you believe that any information we are holding on you is incorrect or incomplete, please write to or email us as soon as possible, at the above address. We will promptly correct any information found to be incorrect.</p>			\N		2011-01-16 15:49:07	2011-01-16 15:51:19	1	1	1000		0	N;			N;	N;	0	\N	0	0		0	0	\N	0	\N
+76	Send a message	content	contact_form	20	1	5	\N						2006-09-30 16:00:21	2011-01-16 16:07:08	1	1	1000		0	N;			a:6:{s:7:"mail_to";s:0:"";s:11:"mail_toname";s:0:"";s:15:"node_controller";s:13:"common_simple";s:14:"sending_failed";s:89:"You must complete all the required fields. Required items are marked with an asterisk (*)";s:4:"text";s:25:"Thanks for your feedback.";s:4:"href";s:0:"";}	N;	1	\N	\N	0		0	0	\N	0	\N
+5	Home	page	default	88	0	40		\N			White Label Home		2006-09-30 10:02:51	2011-12-13 14:42:40	1	1	1000		0	N;		fibonacci-2-1	N;	N;	0	0	0	0		0	0		0	\N
+54	User pref component	content	component	18	1	0	\N				\N		2006-09-30 15:25:21	2008-08-24 18:25:48	1	1	1000		0	N;			a:3:{s:8:"template";s:16:"client/edit.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0	\N
+1025	Terms of Use	content	RTE	26	1	25	\N	<p>Welcome to our website. If you continue to browse and use this website you are agreeing to comply with and be bound by the following terms and conditions of use, which together with our privacy policy govern [COMPANY NAME]&rsquo;s relationship with you in relation to this website.</p>\n<p>The term &lsquo;[COMPANY NAME]&rsquo; or &lsquo;us&rsquo; or &lsquo;we&rsquo; refers to the owner of the website whose registered office is [COMPANY ADDRESS]. Our company registration number is [REGISTRATION NUMBER], registered in [REGISTERED COUNTRY]. The term &lsquo;you&rsquo; refers to the user or viewer of our website.</p>\n<p>The use of this website is subject to the following terms of use:</p>\n<ol>\n<li>The content of the pages of this website is for your general information and use only. It is subject to change without notice.</li>\n<li>Neither we nor any third parties provide any warranty or guarantee as to the accuracy, timeliness, performance, completeness or suitability of the information and materials found or offered on this website for any particular purpose. You acknowledge that such information and materials may contain inaccuracies or errors and we expressly exclude liability for any such inaccuracies or errors to the fullest extent permitted by law.</li>\n<li>Your use of any information or materials on this website is entirely at your own risk, for which we shall not be liable. It shall be your own responsibility to ensure that any products, services or information available through this website meet your specific requirements.</li>\n<li>This website contains material which is owned by or licensed to us. This material includes, but is not limited to, the design, layout, look, appearance and graphics. Reproduction is prohibited other than in accordance with the copyright notice, which forms part of these terms and conditions.</li>\n<li>All trademarks reproduced in this website, which are not the property of, or licensed to the operator, are acknowledged on the website.</li>\n<li>Unauthorised use of this website may give rise to a claim for damages and/or be a criminal offence.</li>\n<li>From time to time this website may also include links to other websites. These links are provided for your convenience to provide further information. They do not signify that we endorse the website(s). We have no responsibility for the content of the linked website(s).</li>\n<li>You may not create a link to this website from another website or document without [COMPANY NAME]&rsquo;s prior written consent.</li>\n<li>Your use of this website and any dispute arising out of such use of the website is subject to the laws of England, Scotland, Wales and Northern Ireland.</li>\n</ol>					2010-04-18 12:51:22	2011-01-16 15:50:16	1	1	1000		0	N;			N;	N;	1	\N	0	0		0	0	\N	0	\N
+1036	Archive	content	component	83	2	0	\N	\N			\N		2011-01-16 15:55:01	2011-01-16 15:55:17	1	1	1000		0	N;			a:3:{s:8:"template";s:17:"news_archive.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	1	\N	0	0		0	0	\N	0	\N
+1	Main navigation	container	default	0	0	10	\N	N;			\N		2006-09-29 18:20:29	2008-08-24 22:57:58	1	1	1000		0	N;			N;	N;	1	\N	\N	0		0	0	\N	0	\N
+90	Newsletter	page	default	4	0	0	\N	\N	\N	\N	\N	\N	2010-04-18 11:19:18	2010-04-18 11:19:18	1	0	1000	\N	0	\N		fibonacci-2-1	\N	\N	1	\N	\N	0		0	0	\N	0	\N
+84	Articles	page	default	3	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 12:07:59	2006-09-30 12:07:59	1	1	1000	\N	0	\N			\N	\N	\N	\N	\N	0		0	0	\N	0	\N
+92	Unsubscribe	page	default	90	0	0	\N	\N	\N	\N	\N	\N	2010-04-18 11:21:40	2010-04-18 11:21:40	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	1	\N	\N	0		0	0	\N	0	\N
+1026	Accessibility policy	page	default	4	0	0	\N	\N	\N	\N	\N	\N	2010-04-18 13:02:03	2010-04-18 13:02:03	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	1	\N	\N	0		0	0	\N	0	\N
+85	Content bits	container	default	3	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 12:07:59	2006-09-30 12:07:59	1	1	1000	\N	0	\N			\N	\N	\N	\N	\N	0		0	0	\N	0	\N
+3	Special	container	default	0	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 09:55:36	2006-09-30 09:55:36	1	0	1000	\N	0	\N			\N	\N	\N	\N	\N	0		0	0	\N	0	\N
+4	Footer navigation	container	default	0	0	5		N;			\N		2006-09-30 09:56:36	2011-01-16 15:58:20	1	1	1000		0	N;			N;	N;	1	\N	0	0		0	0	\N	0	\N
+14	404	page	default	3	0	0		\N					2006-09-30 11:56:37	2008-08-16 13:06:19	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	\N	0		0	0	\N	0	\N
+22	Sitemap	page	default	4	0	0		\N					2006-09-30 12:08:21	2008-08-16 13:06:58	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	\N	0		0	0	\N	0	\N
+1013	Laboris nisi ut aliquip	page	news	83	0	0	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do\r\neiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad\r\nminim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip\r\nex ea commodo consequat.</p>\r\n<ul>\r\n<li>velit esse cillum dolore</li>\r\n<li>consectetur adipisicing elit</li>\r\n<li>occaecat cupidatat non proident</li>\r\n</ul>\r\n<p>Duis aute irure dolor in reprehenderit in voluptate velit esse\r\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat\r\ncupidatat non proident, sunt in culpa qui officia deserunt mollit anim\r\nid est laborum.</p>					2008-08-16 03:59:19	2008-08-16 12:59:16	1	1	1000		0	N;		fibonacci-2-1	a:2:{s:6:"author";s:0:"";s:13:"allow_comment";i:0;}	N;	1	\N	\N	0		0	0	\N	0	\N
+1014	Excepteur sint occaecat	page	news	83	0	0	<p>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do\r\neiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad\r\nminim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip\r\nex ea commodo consequat.</p>\r\n<ul>\r\n<li>velit esse cillum dolore</li>\r\n<li>consectetur adipisicing elit</li>\r\n<li>occaecat cupidatat non proident</li>\r\n</ul>\r\n<p>Duis aute irure dolor in reprehenderit in voluptate velit esse\r\ncillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat\r\ncupidatat non proident, sunt in culpa qui officia deserunt mollit anim\r\nid est laborum.</p>					2008-08-16 03:59:48	2008-08-16 12:58:58	1	1	1000		0	N;		fibonacci-2-1	a:2:{s:6:"author";s:0:"";s:13:"allow_comment";i:0;}	N;	1	\N	\N	0		0	0	\N	0	\N
+26	Terms & Conditions	page	default	4	0	0		N;					2006-09-30 13:40:50	2010-04-18 12:50:42	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	\N	0		0	0	\N	0	\N
+13	Registration	page	default	2	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 10:36:09	2006-09-30 10:36:09	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	\N	0		0	1	\N	0	\N
+8	Login	page	default	2	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 10:35:02	2006-09-30 10:35:02	1	1	1000	\N	0	\N	pageLogin	fibonacci-2-1	\N	\N	\N	\N	\N	0		0	1	\N	0	\N
+9	Password reset	page	default	2	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 10:35:15	2006-09-30 10:35:15	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	\N	0		0	1	\N	0	\N
+6	Basket	page	default	2	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 10:34:35	2006-09-30 10:34:35	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	\N	0		0	0	\N	0	\N
+16	Address Management	page	default	15	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 12:03:13	2006-09-30 12:03:13	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	1	0		0	1	\N	0	\N
+17	Orders	page	default	15	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 12:03:28	2006-09-30 12:03:28	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	1	0		0	1	\N	0	\N
+18	Personal Details	page	default	15	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 12:03:45	2006-09-30 12:03:45	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	1	0		0	1	\N	0	\N
+7	Checkout	page	default	2	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 10:34:54	2006-09-30 10:34:54	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	1	0		0	1	\N	0	\N
+10	Payment	page	default	2	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 10:35:29	2006-09-30 10:35:29	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	1	0		0	1	\N	0	\N
+11	Payment failure	page	default	2	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 10:35:43	2006-09-30 10:35:43	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	1	0		0	1	\N	0	\N
+12	Payment success	page	default	2	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 10:35:59	2006-09-30 10:35:59	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	1	0		0	1	\N	0	\N
+19	Order detail	page	default	17	0	0	\N	\N	\N	\N	\N	\N	2006-09-30 12:04:12	2006-09-30 12:04:12	1	0	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	1	0		0	1	\N	0	\N
+1031	Privacy Policy	page	default	4	0	0	\N	\N	\N	\N	\N	\N	2011-01-16 15:45:18	2011-01-16 15:45:18	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	1	\N	\N	0		0	0	\N	0	\N
+83	News	page	default	88	0	25		\N					2006-09-30 12:07:59	2011-01-16 15:54:18	1	1	1000		0	N;		fibonacci-2-1	N;	N;	1	0	0	0		0	0	\N	0	\N
+15	My Account	page	default	88	0	10	\N	\N	\N	\N	\N	\N	2006-09-30 12:02:53	2006-09-30 12:02:53	1	1	1000	\N	0	\N		fibonacci-2-1	\N	\N	\N	\N	1	0		0	1	\N	0	\N
+20	Contact Us	page	default	88	0	20		\N					2006-09-30 12:07:59	2010-04-18 13:01:35	1	1	1000		0	N;		fibonacci-1-1	N;	N;	1	0	\N	0		0	0	\N	0	\N
 \.
+
+
+--
+-- Name: common_node_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('common_node_id_seq', 1036, true);
 
 
 --
@@ -3607,6 +3797,13 @@ COPY common_node_taxonomy (id, node_id, taxonomy_tree_id) FROM stdin;
 
 
 --
+-- Name: common_node_taxonomy_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('common_node_taxonomy_id_seq', 1, false);
+
+
+--
 -- Data for Name: common_print_article; Type: TABLE DATA; Schema: public; Owner: -
 --
 
@@ -3615,11 +3812,40 @@ COPY common_print_article (id, src, role, node_id, title, description, priority,
 
 
 --
+-- Name: common_print_article_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('common_print_article_id_seq', 1, false);
+
+
+--
+-- Data for Name: common_revision; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY common_revision (id, object, node_id, content, status, customer_id, created, modified, other_data) FROM stdin;
+\.
+
+
+--
+-- Name: common_revision_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('common_revision_id_seq', 1, false);
+
+
+--
 -- Data for Name: common_scheduler; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY common_scheduler (id, node_id, node_type, controller, parameters, scheduled_time, status, lock_token, result, start_time, completed_time, created, modified) FROM stdin;
 \.
+
+
+--
+-- Name: common_scheduler_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('common_scheduler_id_seq', 1, false);
 
 
 --
@@ -3639,6 +3865,20 @@ COPY common_session_archive (id, session_id, session_data, customer_id, created,
 
 
 --
+-- Name: common_session_archive_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('common_session_archive_id_seq', 1, false);
+
+
+--
+-- Name: common_session_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('common_session_id_seq', 18, true);
+
+
+--
 -- Data for Name: common_taxonomy_label; Type: TABLE DATA; Schema: public; Owner: -
 --
 
@@ -3651,11 +3891,25 @@ COPY common_taxonomy_label (id, title, description, priority, publish) FROM stdi
 
 
 --
+-- Name: common_taxonomy_label_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('common_taxonomy_label_id_seq', 3, true);
+
+
+--
 -- Data for Name: common_taxonomy_label_image; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY common_taxonomy_label_image (id, src, role, node_id, title, description, priority, modified, author, content, other_data, link_to_node_id) FROM stdin;
+COPY common_taxonomy_label_image (id, src, role, node_id, title, description, priority, modified, author, content, other_data, link_to_node_id, customer_id) FROM stdin;
 \.
+
+
+--
+-- Name: common_taxonomy_label_image_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('common_taxonomy_label_image_id_seq', 1, false);
 
 
 --
@@ -3667,6 +3921,13 @@ COPY common_taxonomy_tree (id, label_id, parent, priority, publish) FROM stdin;
 2	2	\N	0	1
 3	3	\N	0	1
 \.
+
+
+--
+-- Name: common_taxonomy_tree_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('common_taxonomy_tree_id_seq', 3, true);
 
 
 --
@@ -3705,7 +3966,30 @@ COPY common_uri_mapping (id, node_id, public_uri, type) FROM stdin;
 105	1033	/main-page-1	generic
 106	1034	/main-page-2	generic
 107	1035	/main-page-3	generic
+76	94	/bin	generic
 \.
+
+
+--
+-- Name: common_uri_mapping_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('common_uri_mapping_id_seq', 107, true);
+
+
+--
+-- Data for Name: common_watchdog; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY common_watchdog (id, name, watched_item_id, customer_id, created, modified, publish, other_data) FROM stdin;
+\.
+
+
+--
+-- Name: common_watchdog_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('common_watchdog_id_seq', 1, false);
 
 
 --
@@ -3722,6 +4006,20 @@ COPY ecommerce_basket (id, customer_id, created, note, ip_address, face_value_vo
 
 COPY ecommerce_basket_content (id, basket_id, product_variety_id, quantity, price_id, other_data, product_type_id, discount) FROM stdin;
 \.
+
+
+--
+-- Name: ecommerce_basket_content_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_basket_content_id_seq', 1, false);
+
+
+--
+-- Name: ecommerce_basket_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_basket_id_seq', 1, false);
 
 
 --
@@ -3747,6 +4045,28 @@ COPY ecommerce_delivery_carrier (id, title, description, limit_list_countries, l
 
 
 --
+-- Name: ecommerce_delivery_carrier_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_delivery_carrier_id_seq', 6, true);
+
+
+--
+-- Data for Name: ecommerce_delivery_carrier_rate; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY ecommerce_delivery_carrier_rate (id, carrier_id, weight_from, weight_to, price) FROM stdin;
+\.
+
+
+--
+-- Name: ecommerce_delivery_carrier_rate_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_delivery_carrier_rate_id_seq', 1, false);
+
+
+--
 -- Data for Name: ecommerce_delivery_carrier_zone; Type: TABLE DATA; Schema: public; Owner: -
 --
 
@@ -3764,6 +4084,13 @@ COPY ecommerce_delivery_carrier_zone (id, name, carrier_id) FROM stdin;
 11	Zone 10	2
 12	Zone 11	2
 \.
+
+
+--
+-- Name: ecommerce_delivery_carrier_zone_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_delivery_carrier_zone_id_seq', 12, true);
 
 
 --
@@ -4399,6 +4726,13 @@ COPY ecommerce_delivery_carrier_zone_price (id, zone_id, weight, price, currency
 
 
 --
+-- Name: ecommerce_delivery_carrier_zone_price_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_delivery_carrier_zone_price_id_seq', 624, true);
+
+
+--
 -- Data for Name: ecommerce_delivery_carrier_zone_to_country; Type: TABLE DATA; Schema: public; Owner: -
 --
 
@@ -4648,6 +4982,20 @@ COPY ecommerce_delivery_carrier_zone_to_country (id, country_id, zone_id) FROM s
 
 
 --
+-- Name: ecommerce_delivery_carrier_zone_to_country_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_delivery_carrier_zone_to_country_id_seq', 241, true);
+
+
+--
+-- Name: ecommerce_delivery_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_delivery_id_seq', 1, false);
+
+
+--
 -- Data for Name: ecommerce_invoice; Type: TABLE DATA; Schema: public; Owner: -
 --
 
@@ -4656,19 +5004,55 @@ COPY ecommerce_invoice (id, order_id, goods_net, goods_vat, delivery_net, delive
 
 
 --
+-- Name: ecommerce_invoice_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_invoice_id_seq', 1, false);
+
+
+--
 -- Data for Name: ecommerce_offer; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY ecommerce_offer (id, description, product_variety_id, schedule_start, schedule_end, campaign_category_id, roundel_category_id, price_id, quantity, saving, created, modified, other_data) FROM stdin;
+COPY ecommerce_offer (id, description, product_variety_id, schedule_start, schedule_end, campaign_category_id, roundel_category_id, price_id, quantity, saving, created, modified, other_data, offer_group_id, priority) FROM stdin;
 \.
+
+
+--
+-- Data for Name: ecommerce_offer_group; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY ecommerce_offer_group (id, title, description, schedule_start, schedule_end, publish, created, modified, other_data) FROM stdin;
+\.
+
+
+--
+-- Name: ecommerce_offer_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_offer_group_id_seq', 1, false);
+
+
+--
+-- Name: ecommerce_offer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_offer_id_seq', 1, false);
 
 
 --
 -- Data for Name: ecommerce_order; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY ecommerce_order (id, basket_id, invoices_address_id, delivery_address_id, other_data, status, note_customer, note_backoffice, php_session_id, referrer, payment_type, created, modified) FROM stdin;
+COPY ecommerce_order (id, basket_id, invoices_address_id, delivery_address_id, other_data, status, note_customer, note_backoffice, php_session_id, referrer, payment_type, created, modified, review_email_sent) FROM stdin;
 \.
+
+
+--
+-- Name: ecommerce_order_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_order_id_seq', 1, false);
 
 
 --
@@ -4680,11 +5064,25 @@ COPY ecommerce_order_log (id, order_id, status, datetime, description, other_dat
 
 
 --
+-- Name: ecommerce_order_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_order_log_id_seq', 1, false);
+
+
+--
 -- Data for Name: ecommerce_price; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY ecommerce_price (id, product_variety_id, currency_code, value, type, date) FROM stdin;
 \.
+
+
+--
+-- Name: ecommerce_price_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_price_id_seq', 1, false);
 
 
 --
@@ -4696,11 +5094,25 @@ COPY ecommerce_product (id, name, teaser, description, url, priority, publish, o
 
 
 --
+-- Name: ecommerce_product_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_product_id_seq', 1, false);
+
+
+--
 -- Data for Name: ecommerce_product_image; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY ecommerce_product_image (id, src, role, node_id, title, description, priority, modified, author, content, other_data, link_to_node_id) FROM stdin;
+COPY ecommerce_product_image (id, src, role, node_id, title, description, priority, modified, author, content, other_data, link_to_node_id, customer_id) FROM stdin;
 \.
+
+
+--
+-- Name: ecommerce_product_image_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_product_image_id_seq', 1, false);
 
 
 --
@@ -4712,6 +5124,13 @@ COPY ecommerce_product_review (id, parent, node_id, title, content, author_name,
 
 
 --
+-- Name: ecommerce_product_review_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_product_review_id_seq', 1, false);
+
+
+--
 -- Data for Name: ecommerce_product_taxonomy; Type: TABLE DATA; Schema: public; Owner: -
 --
 
@@ -4720,11 +5139,25 @@ COPY ecommerce_product_taxonomy (id, node_id, taxonomy_tree_id) FROM stdin;
 
 
 --
+-- Name: ecommerce_product_taxonomy_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_product_taxonomy_id_seq', 1, false);
+
+
+--
 -- Data for Name: ecommerce_product_to_product; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY ecommerce_product_to_product (id, product_id, related_product_id) FROM stdin;
 \.
+
+
+--
+-- Name: ecommerce_product_to_product_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_product_to_product_id_seq', 1, false);
 
 
 --
@@ -4747,19 +5180,40 @@ COPY ecommerce_product_type (id, name, vat, publish) FROM stdin;
 
 
 --
+-- Name: ecommerce_product_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_product_type_id_seq', 11, true);
+
+
+--
 -- Data for Name: ecommerce_product_variety; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY ecommerce_product_variety (id, name, product_id, sku, weight, weight_gross, stock, priority, description, other_data, width, height, depth, diameter, modified, publish, display_permission, ean13, upc, condition, wholesale, reward_points, subtitle, product_type_id) FROM stdin;
+COPY ecommerce_product_variety (id, name, product_id, sku, weight, weight_gross, stock, priority, description, other_data, width, height, depth, diameter, modified, publish, display_permission, ean13, upc, condition, wholesale, reward_points, subtitle, product_type_id, limit_to_delivery_zones) FROM stdin;
 \.
+
+
+--
+-- Name: ecommerce_product_variety_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_product_variety_id_seq', 1, false);
 
 
 --
 -- Data for Name: ecommerce_product_variety_image; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY ecommerce_product_variety_image (id, src, role, node_id, title, description, priority, modified, author, content, other_data, link_to_node_id) FROM stdin;
+COPY ecommerce_product_variety_image (id, src, role, node_id, title, description, priority, modified, author, content, other_data, link_to_node_id, customer_id) FROM stdin;
 \.
+
+
+--
+-- Name: ecommerce_product_variety_image_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_product_variety_image_id_seq', 1, false);
 
 
 --
@@ -4771,10 +5225,17 @@ COPY ecommerce_product_variety_taxonomy (id, node_id, taxonomy_tree_id) FROM std
 
 
 --
+-- Name: ecommerce_product_variety_taxonomy_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_product_variety_taxonomy_id_seq', 1, false);
+
+
+--
 -- Data for Name: ecommerce_promotion; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY ecommerce_promotion (id, title, description, publish, created, modified, customer_account_type, code_pattern, discount_fixed_value, discount_percentage_value, discount_free_delivery, uses_per_coupon, uses_per_customer, limit_list_products, other_data, limit_delivery_country_id, limit_delivery_carrier_id, generated_by_order_id, generated_by_customer_id, limit_by_customer_id, limit_to_first_order, limit_to_order_amount, type) FROM stdin;
+COPY ecommerce_promotion (id, title, description, publish, created, modified, customer_account_type, code_pattern, discount_fixed_value, discount_percentage_value, discount_free_delivery, uses_per_coupon, uses_per_customer, limit_list_products, other_data, limit_delivery_country_id, limit_delivery_carrier_id, generated_by_order_id, generated_by_customer_id, limit_by_customer_id, limit_to_first_order, limit_to_order_amount, type, limit_cumulative_discount, free_promo_products) FROM stdin;
 \.
 
 
@@ -4784,6 +5245,20 @@ COPY ecommerce_promotion (id, title, description, publish, created, modified, cu
 
 COPY ecommerce_promotion_code (id, promotion_id, code, order_id) FROM stdin;
 \.
+
+
+--
+-- Name: ecommerce_promotion_code_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_promotion_code_id_seq', 1, false);
+
+
+--
+-- Name: ecommerce_promotion_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_promotion_id_seq', 1, false);
 
 
 --
@@ -4799,6 +5274,13 @@ COPY ecommerce_promotion_type (id, title, description, taxable, publish, created
 
 
 --
+-- Name: ecommerce_promotion_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_promotion_type_id_seq', 1, false);
+
+
+--
 -- Data for Name: ecommerce_recipe; Type: TABLE DATA; Schema: public; Owner: -
 --
 
@@ -4807,11 +5289,25 @@ COPY ecommerce_recipe (id, title, description, instructions, video_url, serving_
 
 
 --
+-- Name: ecommerce_recipe_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_recipe_id_seq', 1, false);
+
+
+--
 -- Data for Name: ecommerce_recipe_image; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY ecommerce_recipe_image (id, src, role, node_id, title, description, priority, modified, author, content, other_data, link_to_node_id) FROM stdin;
+COPY ecommerce_recipe_image (id, src, role, node_id, title, description, priority, modified, author, content, other_data, link_to_node_id, customer_id) FROM stdin;
 \.
+
+
+--
+-- Name: ecommerce_recipe_image_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_recipe_image_id_seq', 1, false);
 
 
 --
@@ -4823,11 +5319,25 @@ COPY ecommerce_recipe_ingredients (id, recipe_id, product_variety_id, quantity, 
 
 
 --
+-- Name: ecommerce_recipe_ingredients_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_recipe_ingredients_id_seq', 1, false);
+
+
+--
 -- Data for Name: ecommerce_recipe_review; Type: TABLE DATA; Schema: public; Owner: -
 --
 
 COPY ecommerce_recipe_review (id, parent, node_id, title, content, author_name, author_email, author_website, author_ip_address, customer_id, created, publish, rating, relation_subject) FROM stdin;
 \.
+
+
+--
+-- Name: ecommerce_recipe_review_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_recipe_review_id_seq', 1, false);
 
 
 --
@@ -4839,19 +5349,40 @@ COPY ecommerce_recipe_taxonomy (id, node_id, taxonomy_tree_id) FROM stdin;
 
 
 --
+-- Name: ecommerce_recipe_taxonomy_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_recipe_taxonomy_id_seq', 1, false);
+
+
+--
 -- Data for Name: ecommerce_store; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY ecommerce_store (id, title, description, address, opening_hours, telephone, manager_name, email, type_id, coordinates_x, coordinates_y, latitude, longitude, created, modified, publish, street_view_options, other_data) FROM stdin;
+COPY ecommerce_store (id, title, description, address, opening_hours, telephone, manager_name, email, type_id, coordinates_x, coordinates_y, latitude, longitude, created, modified, publish, street_view_options, other_data, country_id, address_name, address_line_1, address_line_2, address_line_3, address_city, address_county, address_post_code, code, url) FROM stdin;
 \.
+
+
+--
+-- Name: ecommerce_store_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_store_id_seq', 1, false);
 
 
 --
 -- Data for Name: ecommerce_store_image; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY ecommerce_store_image (id, src, role, node_id, title, description, priority, modified, author, content, other_data, link_to_node_id) FROM stdin;
+COPY ecommerce_store_image (id, src, role, node_id, title, description, priority, modified, author, content, other_data, link_to_node_id, customer_id) FROM stdin;
 \.
+
+
+--
+-- Name: ecommerce_store_image_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_store_image_id_seq', 1, false);
 
 
 --
@@ -4860,6 +5391,13 @@ COPY ecommerce_store_image (id, src, role, node_id, title, description, priority
 
 COPY ecommerce_store_taxonomy (id, node_id, taxonomy_tree_id) FROM stdin;
 \.
+
+
+--
+-- Name: ecommerce_store_taxonomy_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_store_taxonomy_id_seq', 1, false);
 
 
 --
@@ -4873,6 +5411,13 @@ COPY ecommerce_store_type (id, title, description, publish, created, modified, o
 
 
 --
+-- Name: ecommerce_store_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_store_type_id_seq', 1, false);
+
+
+--
 -- Data for Name: ecommerce_transaction; Type: TABLE DATA; Schema: public; Owner: -
 --
 
@@ -4881,10 +5426,17 @@ COPY ecommerce_transaction (id, order_id, pg_data, currency_code, amount, create
 
 
 --
+-- Name: ecommerce_transaction_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('ecommerce_transaction_id_seq', 1, false);
+
+
+--
 -- Data for Name: education_survey; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY education_survey (id, title, description, created, modified, priority, publish) FROM stdin;
+COPY education_survey (id, title, description, created, modified, priority, publish, other_data) FROM stdin;
 \.
 
 
@@ -4905,18 +5457,46 @@ COPY education_survey_entry_answer (id, survey_entry_id, question_id, question_a
 
 
 --
+-- Name: education_survey_entry_answer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('education_survey_entry_answer_id_seq', 1, false);
+
+
+--
+-- Name: education_survey_entry_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('education_survey_entry_id_seq', 1, false);
+
+
+--
+-- Name: education_survey_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('education_survey_id_seq', 1, false);
+
+
+--
 -- Data for Name: education_survey_image; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY education_survey_image (id, src, role, node_id, title, description, priority, modified, author, content, other_data, link_to_node_id) FROM stdin;
+COPY education_survey_image (id, src, role, node_id, title, description, priority, modified, author, content, other_data, link_to_node_id, customer_id) FROM stdin;
 \.
+
+
+--
+-- Name: education_survey_image_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('education_survey_image_id_seq', 1, false);
 
 
 --
 -- Data for Name: education_survey_question; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY education_survey_question (id, survey_id, parent, step, title, description, mandatory, type, priority, publish, weight, content) FROM stdin;
+COPY education_survey_question (id, survey_id, parent, step, title, description, mandatory, type, priority, publish, weight, content, other_data) FROM stdin;
 \.
 
 
@@ -4924,8 +5504,22 @@ COPY education_survey_question (id, survey_id, parent, step, title, description,
 -- Data for Name: education_survey_question_answer; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY education_survey_question_answer (id, question_id, title, description, is_correct, points, priority, publish, content) FROM stdin;
+COPY education_survey_question_answer (id, question_id, title, description, is_correct, points, priority, publish, content, other_data) FROM stdin;
 \.
+
+
+--
+-- Name: education_survey_question_answer_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('education_survey_question_answer_id_seq', 1, false);
+
+
+--
+-- Name: education_survey_question_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('education_survey_question_id_seq', 1, false);
 
 
 --
@@ -5178,6 +5772,13 @@ COPY international_country (id, name, iso_code2, iso_code3, eu_status, currency_
 
 
 --
+-- Name: international_country_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('international_country_id_seq', 241, true);
+
+
+--
 -- Data for Name: international_currency; Type: TABLE DATA; Schema: public; Owner: -
 --
 
@@ -5365,6 +5966,13 @@ COPY international_currency (id, code, name, symbol_left, symbol_right) FROM std
 
 
 --
+-- Name: international_currency_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('international_currency_id_seq', 179, true);
+
+
+--
 -- Data for Name: international_currency_rate; Type: TABLE DATA; Schema: public; Owner: -
 --
 
@@ -5378,6 +5986,28 @@ COPY international_currency_rate (id, currency_code, currency_code_from, source,
 179	HKD	GBP	google	2011-03-24 00:00:00	12.65005770
 180	NZD	GBP	google	2011-03-24 00:00:00	2.17504356
 \.
+
+
+--
+-- Name: international_currency_rate_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('international_currency_rate_id_seq', 180, true);
+
+
+--
+-- Data for Name: international_translation; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY international_translation (id, locale, original_string, translated_string, context, node_id) FROM stdin;
+\.
+
+
+--
+-- Name: international_translation_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('international_translation_id_seq', 1, false);
 
 
 --
@@ -5413,6 +6043,14 @@ ALTER TABLE ONLY client_customer
 
 
 --
+-- Name: client_customer_group_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY client_customer_group
+    ADD CONSTRAINT client_customer_group_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: client_customer_image_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -5426,6 +6064,14 @@ ALTER TABLE ONLY client_customer_image
 
 ALTER TABLE ONLY client_customer
     ADD CONSTRAINT client_customer_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: client_customer_role_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY client_customer_role
+    ADD CONSTRAINT client_customer_role_pkey PRIMARY KEY (id);
 
 
 --
@@ -5458,6 +6104,22 @@ ALTER TABLE ONLY client_customer_token
 
 ALTER TABLE ONLY client_group
     ADD CONSTRAINT client_group_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: client_role_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY client_role_permission
+    ADD CONSTRAINT client_role_permission_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: client_role_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY client_role
+    ADD CONSTRAINT client_role_pkey PRIMARY KEY (id);
 
 
 --
@@ -5525,6 +6187,14 @@ ALTER TABLE ONLY common_print_article
 
 
 --
+-- Name: common_revision_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY common_revision
+    ADD CONSTRAINT common_revision_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: common_scheduler_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -5589,6 +6259,14 @@ ALTER TABLE ONLY common_uri_mapping
 
 
 --
+-- Name: common_watchdog_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY common_watchdog
+    ADD CONSTRAINT common_watchdog_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: country_id_zone_id_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -5618,6 +6296,14 @@ ALTER TABLE ONLY ecommerce_basket
 
 ALTER TABLE ONLY ecommerce_delivery_carrier
     ADD CONSTRAINT ecommerce_delivery_carrier_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: ecommerce_delivery_carrier_rate_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY ecommerce_delivery_carrier_rate
+    ADD CONSTRAINT ecommerce_delivery_carrier_rate_pkey PRIMARY KEY (id);
 
 
 --
@@ -5658,6 +6344,14 @@ ALTER TABLE ONLY ecommerce_delivery
 
 ALTER TABLE ONLY ecommerce_invoice
     ADD CONSTRAINT ecommerce_invoice_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: ecommerce_offer_group_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY ecommerce_offer_group
+    ADD CONSTRAINT ecommerce_offer_group_pkey PRIMARY KEY (id);
 
 
 --
@@ -5973,6 +6667,14 @@ ALTER TABLE ONLY international_currency_rate
 
 
 --
+-- Name: international_translation_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY international_translation
+    ADD CONSTRAINT international_translation_pkey PRIMARY KEY (id);
+
+
+--
 -- Name: node_node_id_taxonomy_tree_id_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -6040,10 +6742,38 @@ CREATE INDEX client_company_customer_id_idx ON client_company USING btree (custo
 
 
 --
+-- Name: client_customer_group_customer_id_key; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX client_customer_group_customer_id_key ON client_customer_group USING btree (customer_id);
+
+
+--
+-- Name: client_customer_group_group_id_key; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX client_customer_group_group_id_key ON client_customer_group USING btree (group_id);
+
+
+--
 -- Name: client_customer_image_node_id_key; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX client_customer_image_node_id_key ON client_customer_image USING btree (node_id);
+
+
+--
+-- Name: client_customer_role_customer_id_key; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX client_customer_role_customer_id_key ON client_customer_role USING btree (customer_id);
+
+
+--
+-- Name: client_customer_role_role_id_key; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX client_customer_role_role_id_key ON client_customer_role USING btree (role_id);
 
 
 --
@@ -6072,6 +6802,13 @@ CREATE INDEX client_customer_token_key ON client_customer_token USING btree (tok
 --
 
 CREATE INDEX client_customer_token_publish_key ON client_customer_token USING btree (publish);
+
+
+--
+-- Name: client_role_permission_role_id_key; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX client_role_permission_role_id_key ON client_role_permission USING btree (role_id);
 
 
 --
@@ -6173,6 +6910,13 @@ CREATE INDEX common_print_article_node_id_idx ON common_print_article USING btre
 
 
 --
+-- Name: common_revision_combined_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX common_revision_combined_idx ON common_revision USING btree (object, node_id);
+
+
+--
 -- Name: common_scheduler_lock_token_key; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -6236,6 +6980,13 @@ CREATE INDEX common_uri_mapping_node_id_idx ON common_uri_mapping USING btree (n
 
 
 --
+-- Name: common_watchdog_combined_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX common_watchdog_combined_idx ON common_watchdog USING btree (name, watched_item_id, publish);
+
+
+--
 -- Name: ecommerce_basket_content_basket_id_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -6261,6 +7012,20 @@ CREATE INDEX ecommerce_basket_content_product_variety_id_idx ON ecommerce_basket
 --
 
 CREATE INDEX ecommerce_basket_customer_id_idx ON ecommerce_basket USING btree (customer_id);
+
+
+--
+-- Name: ecommerce_delivery_carrier_rate_carrier_id_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX ecommerce_delivery_carrier_rate_carrier_id_idx ON ecommerce_delivery_carrier_rate USING btree (carrier_id);
+
+
+--
+-- Name: ecommerce_delivery_carrier_rate_weight_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX ecommerce_delivery_carrier_rate_weight_idx ON ecommerce_delivery_carrier_rate USING btree (weight_from, weight_to);
 
 
 --
@@ -6303,6 +7068,13 @@ CREATE INDEX ecommerce_order_log_order_id_idx ON ecommerce_order_log USING btree
 --
 
 CREATE INDEX ecommerce_order_log_status_idx ON ecommerce_order_log USING btree (status);
+
+
+--
+-- Name: ecommerce_order_review_email_sent_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX ecommerce_order_review_email_sent_idx ON ecommerce_order USING btree (review_email_sent);
 
 
 --
@@ -6467,6 +7239,20 @@ CREATE INDEX education_survey_image_node_id_key ON education_survey_image USING 
 
 
 --
+-- Name: international_translation_locale_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX international_translation_locale_idx ON international_translation USING btree (locale);
+
+
+--
+-- Name: international_translation_node_id_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
+--
+
+CREATE INDEX international_translation_node_id_idx ON international_translation USING btree (node_id);
+
+
+--
 -- Name: client_action_customer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6507,11 +7293,27 @@ ALTER TABLE ONLY client_company
 
 
 --
--- Name: client_customer_group_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: client_customer_group_customer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY client_customer
-    ADD CONSTRAINT client_customer_group_id_fkey FOREIGN KEY (group_id) REFERENCES client_group(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+ALTER TABLE ONLY client_customer_group
+    ADD CONSTRAINT client_customer_group_customer_id_fkey FOREIGN KEY (customer_id) REFERENCES client_customer(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: client_customer_group_group_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY client_customer_group
+    ADD CONSTRAINT client_customer_group_group_id_fkey FOREIGN KEY (group_id) REFERENCES client_group(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: client_customer_image_customer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY client_customer_image
+    ADD CONSTRAINT client_customer_image_customer_id_fkey FOREIGN KEY (customer_id) REFERENCES client_customer(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -6520,6 +7322,30 @@ ALTER TABLE ONLY client_customer
 
 ALTER TABLE ONLY client_customer_image
     ADD CONSTRAINT client_customer_image_node_id_fkey FOREIGN KEY (node_id) REFERENCES client_customer(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: client_customer_role_customer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY client_customer_role
+    ADD CONSTRAINT client_customer_role_customer_id_fkey FOREIGN KEY (customer_id) REFERENCES client_customer(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: client_customer_role_role_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY client_customer_role
+    ADD CONSTRAINT client_customer_role_role_id_fkey FOREIGN KEY (role_id) REFERENCES client_role(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: client_customer_store_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY client_customer
+    ADD CONSTRAINT client_customer_store_id_fkey FOREIGN KEY (store_id) REFERENCES ecommerce_store(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -6544,6 +7370,14 @@ ALTER TABLE ONLY client_customer_taxonomy
 
 ALTER TABLE ONLY client_customer_token
     ADD CONSTRAINT client_customer_token_customer_id_fkey FOREIGN KEY (customer_id) REFERENCES client_customer(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: client_role_permission_role_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY client_role_permission
+    ADD CONSTRAINT client_role_permission_role_id_fkey FOREIGN KEY (role_id) REFERENCES client_role(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
@@ -6579,6 +7413,14 @@ ALTER TABLE ONLY common_configuration
 
 
 --
+-- Name: common_file_customer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY common_file
+    ADD CONSTRAINT common_file_customer_id_fkey FOREIGN KEY (customer_id) REFERENCES client_customer(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
 -- Name: common_file_node_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6587,11 +7429,27 @@ ALTER TABLE ONLY common_file
 
 
 --
+-- Name: common_image_customer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY common_image
+    ADD CONSTRAINT common_image_customer_id_fkey FOREIGN KEY (customer_id) REFERENCES client_customer(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
 -- Name: common_image_node_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY common_image
     ADD CONSTRAINT common_image_node_id_fkey FOREIGN KEY (node_id) REFERENCES common_node(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: common_node_customer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY common_node
+    ADD CONSTRAINT common_node_customer_id_fkey FOREIGN KEY (customer_id) REFERENCES client_customer(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -6635,6 +7493,14 @@ ALTER TABLE ONLY common_print_article
 
 
 --
+-- Name: common_revision_customer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY common_revision
+    ADD CONSTRAINT common_revision_customer_id_fkey FOREIGN KEY (customer_id) REFERENCES client_customer(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
 -- Name: common_session_archive_customer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6648,6 +7514,14 @@ ALTER TABLE ONLY common_session_archive
 
 ALTER TABLE ONLY common_session
     ADD CONSTRAINT common_session_customer_id_fkey FOREIGN KEY (customer_id) REFERENCES client_customer(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: common_taxonomy_label_image_customer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY common_taxonomy_label_image
+    ADD CONSTRAINT common_taxonomy_label_image_customer_id_fkey FOREIGN KEY (customer_id) REFERENCES client_customer(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -6680,6 +7554,14 @@ ALTER TABLE ONLY common_taxonomy_tree
 
 ALTER TABLE ONLY common_uri_mapping
     ADD CONSTRAINT common_uri_mapping_node_id_fkey FOREIGN KEY (node_id) REFERENCES common_node(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: common_watchdog_customer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY common_watchdog
+    ADD CONSTRAINT common_watchdog_customer_id_fkey FOREIGN KEY (customer_id) REFERENCES client_customer(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -6731,6 +7613,14 @@ ALTER TABLE ONLY ecommerce_delivery
 
 
 --
+-- Name: ecommerce_delivery_carrier_rate_carrier_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ecommerce_delivery_carrier_rate
+    ADD CONSTRAINT ecommerce_delivery_carrier_rate_carrier_id_fkey FOREIGN KEY (carrier_id) REFERENCES ecommerce_delivery_carrier(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
 -- Name: ecommerce_delivery_carrier_zone_carrier_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6760,6 +7650,14 @@ ALTER TABLE ONLY ecommerce_invoice
 
 ALTER TABLE ONLY ecommerce_offer
     ADD CONSTRAINT ecommerce_offer_campaign_category_id_fkey FOREIGN KEY (campaign_category_id) REFERENCES common_taxonomy_tree(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: ecommerce_offer_offer_group_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ecommerce_offer
+    ADD CONSTRAINT ecommerce_offer_offer_group_id_fkey FOREIGN KEY (offer_group_id) REFERENCES ecommerce_offer_group(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -6827,6 +7725,14 @@ ALTER TABLE ONLY ecommerce_price
 
 
 --
+-- Name: ecommerce_product_image_customer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ecommerce_product_image
+    ADD CONSTRAINT ecommerce_product_image_customer_id_fkey FOREIGN KEY (customer_id) REFERENCES client_customer(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
 -- Name: ecommerce_product_image_node_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -6888,6 +7794,14 @@ ALTER TABLE ONLY ecommerce_product_to_product
 
 ALTER TABLE ONLY ecommerce_product_to_product
     ADD CONSTRAINT ecommerce_product_to_product_related_product_id_fkey FOREIGN KEY (related_product_id) REFERENCES ecommerce_product(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: ecommerce_product_variety_image_customer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ecommerce_product_variety_image
+    ADD CONSTRAINT ecommerce_product_variety_image_customer_id_fkey FOREIGN KEY (customer_id) REFERENCES client_customer(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -6979,6 +7893,14 @@ ALTER TABLE ONLY ecommerce_promotion
 
 
 --
+-- Name: ecommerce_recipe_image_customer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ecommerce_recipe_image
+    ADD CONSTRAINT ecommerce_recipe_image_customer_id_fkey FOREIGN KEY (customer_id) REFERENCES client_customer(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
 -- Name: ecommerce_recipe_image_node_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7048,6 +7970,22 @@ ALTER TABLE ONLY ecommerce_recipe_taxonomy
 
 ALTER TABLE ONLY ecommerce_recipe_taxonomy
     ADD CONSTRAINT ecommerce_recipe_taxonomy_taxonomy_tree_id_fkey FOREIGN KEY (taxonomy_tree_id) REFERENCES common_taxonomy_tree(id) ON UPDATE RESTRICT ON DELETE RESTRICT;
+
+
+--
+-- Name: ecommerce_store_country_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ecommerce_store
+    ADD CONSTRAINT ecommerce_store_country_id_fkey FOREIGN KEY (country_id) REFERENCES international_country(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
+-- Name: ecommerce_store_image_customer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ecommerce_store_image
+    ADD CONSTRAINT ecommerce_store_image_customer_id_fkey FOREIGN KEY (customer_id) REFERENCES client_customer(id) ON UPDATE CASCADE ON DELETE RESTRICT;
 
 
 --
@@ -7131,6 +8069,14 @@ ALTER TABLE ONLY education_survey_entry
 
 
 --
+-- Name: education_survey_image_customer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY education_survey_image
+    ADD CONSTRAINT education_survey_image_customer_id_fkey FOREIGN KEY (customer_id) REFERENCES client_customer(id) ON UPDATE CASCADE ON DELETE RESTRICT;
+
+
+--
 -- Name: education_survey_image_node_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7160,6 +8106,14 @@ ALTER TABLE ONLY education_survey_question
 
 ALTER TABLE ONLY education_survey_question
     ADD CONSTRAINT education_survey_question_survey_id_fkey FOREIGN KEY (survey_id) REFERENCES education_survey(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: international_translation_node_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY international_translation
+    ADD CONSTRAINT international_translation_node_id_fkey FOREIGN KEY (node_id) REFERENCES common_node(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --

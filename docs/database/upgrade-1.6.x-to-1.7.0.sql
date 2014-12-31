@@ -350,6 +350,6 @@ ALTER TABLE client_customer ADD COLUMN janrain_id character varying(255);
 --
 
 INSERT INTO common_node VALUES (94, 'Bin', 'page', 'default', 0, 0, 0, '', NULL, '', '', '', '', '2014-12-07 00:00:00', '2014-12-07 00:00:00', 1, 0, 1000, '', 0, NULL, '', '', NULL, NULL, 1, 0, 0, 0, '', 0, 0, '', 0);
-INSERT INTO common_uri_mapping VALUES (76, 94, '/bin', 'generic');
+INSERT INTO common_uri_mapping (node_id, public_uri, type) VALUES (94, '/bin', 'generic');
 
 COMMIT;

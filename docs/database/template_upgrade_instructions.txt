@@ -7,3 +7,4 @@ pg_dump -U db_user -h localhost --no-owner onxshop_template_temp > /opt/onxshop/
 dropdb -U db_user -h localhost onxshop_template_temp
 
 # do the same for template_cz.sql and template_foundation.sql
+
