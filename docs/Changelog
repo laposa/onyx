@@ -1,5 +1,6 @@
 Onxshop (1.7.0)
 
+  * node rss feed upgrade (filtering by category, images)
   * move to Bin instead of deleting
   * allow guest checkout
   * more translations
@@ -23,7 +24,7 @@ Onxshop (1.7.0)
   * add forward for /store/{ID}
   * update CodeMirror to version 4.5.0
   * upgrade jQuery Validation Plugin to v1.13.0
-  * Zend Framework 1.12.7
+  * Zend Framework 1.12.9
   * upgrade TinyMCE to version 3.5.11
   * upgrade jquery.customSelect.min.js to v0.5.1
   * new store_notice component
@@ -41,7 +42,7 @@ Onxshop (1.7.0)
   * roundel image generator
   * many bug fixes
 
- -- Norbert Laposa <norbert@laposa.co.uk>  2014-12-07
+ -- Norbert Laposa <norbert@laposa.co.uk>  2014-12-31
  
 Onxshop (1.6.1)
 
