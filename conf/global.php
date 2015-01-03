@@ -2,7 +2,7 @@
 /**
  * Global Onxshop configuration
  *
- * Copyright (c) 2005-2014 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2005-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 	
  */
@@ -15,16 +15,21 @@
 
 /**
  * Can the remote host see debugging messages?
+ * see lib/onxshop.functions.php: msg() function for documentation
  */
  
 if(in_array($_SERVER["REMOTE_ADDR"], array_keys($debug_hosts)))  {
 	error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
 	ini_set('display_errors', 1);
 	define('ONXSHOP_DEBUG_LEVEL', $debug_hosts[$_SERVER["REMOTE_ADDR"]]);
+	define('ONXSHOP_DEBUG_INCLUDE_BACKTRACE', true);
+	define('ONXSHOP_DEBUG_INCLUDE_USER_ID', true);
 	define('ONXSHOP_IS_DEBUG_HOST', true);
-	define('ONXSHOP_DEBUG_DIRECT', false);
-	define('ONXSHOP_DEBUG_FILE', true);
-	define('ONXSHOP_DEBUG_FIREBUG', false);
+	define('ONXSHOP_DEBUG_OUTPUT_SESSION', false); // save in session and manage output on each controller/template level
+	define('ONXSHOP_DEBUG_OUTPUT_DIRECT', false); // sends directly to client
+	define('ONXSHOP_DEBUG_OUTPUT_FILE', false); // store in var/log/messages/
+	define('ONXSHOP_DEBUG_OUTPUT_FIREBUG', false); // use Firebug
+	define('ONXSHOP_DEBUG_OUTPUT_ERROR_LOG', true); // use Apache error log, i.e. /var/log/apache2/errog.log
 	define('ONXSHOP_BENCHMARK', false);
 	define('ONXSHOP_DB_PROFILER', false);
 	
@@ -32,10 +37,14 @@ if(in_array($_SERVER["REMOTE_ADDR"], array_keys($debug_hosts)))  {
 	error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
 	ini_set('display_errors', 0);
 	define('ONXSHOP_DEBUG_LEVEL', 0);
+	define('ONXSHOP_DEBUG_INCLUDE_BACKTRACE', false);
+	define('ONXSHOP_DEBUG_INCLUDE_USER_ID', true);
 	define('ONXSHOP_IS_DEBUG_HOST', false);
-	define('ONXSHOP_DEBUG_DIRECT', false);
-	define('ONXSHOP_DEBUG_FILE', true);
-	define('ONXSHOP_DEBUG_FIREBUG', false);
+	define('ONXSHOP_DEBUG_OUTPUT_SESSION', false);
+	define('ONXSHOP_DEBUG_OUTPUT_DIRECT', false);
+	define('ONXSHOP_DEBUG_OUTPUT_FILE', false);
+	define('ONXSHOP_DEBUG_OUTPUT_FIREBUG', false);
+	define('ONXSHOP_DEBUG_OUTPUT_ERROR_LOG', true);
 	define('ONXSHOP_BENCHMARK', false);
 	define('ONXSHOP_DB_PROFILER', false);
 	
@@ -105,16 +114,6 @@ if (isset($_GET['preview']) && $_GET['preview'] == 1) {
  */
 if (preg_match("/^\/(backoffice|request\/bo)\//", $_GET['translate'])) define('ONXSHOP_IN_BACKOFFICE', true);
 else define('ONXSHOP_IN_BACKOFFICE', false);
-
-//use query cache?
-if (ONXSHOP_IN_BACKOFFICE) {
-	//should be here, but it's not working here :)
-	// looks like ONXSHOP_IN_BACKOFFICE detection above isn't working
-	//temporarily moved to bootstrap.php
-	//define('ONXSHOP_DB_QUERY_CACHE', false);
-} else {
-	//define('ONXSHOP_DB_QUERY_CACHE', true);
-}
 
 /**
  * cache backend possible values: File, Apc

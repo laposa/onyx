@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * Copyright (c) 2005-2014 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2005-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -42,7 +42,7 @@ require_once('lib/onxshop.bootstrap.php');
  * log to firebug
  */
  
-if (ONXSHOP_IS_DEBUG_HOST && ONXSHOP_DEBUG_FIREBUG) {
+if (ONXSHOP_IS_DEBUG_HOST && ONXSHOP_DEBUG_OUTPUT_FIREBUG) {
 
 	require_once('Zend/Log/Writer/Firebug.php');
 	require_once('Zend/Log.php');
@@ -84,7 +84,7 @@ $Bootstrap->initAction($_GET['request']);
  * test log to firebug
  */
  
-if (ONXSHOP_IS_DEBUG_HOST && ONXSHOP_DEBUG_FIREBUG) {
+if (ONXSHOP_IS_DEBUG_HOST && ONXSHOP_DEBUG_OUTPUT_FIREBUG) {
 
 	// Flush log data to browser
 	$channel->flush();

@@ -3,7 +3,7 @@
  * Onxshop global functions
  * KEEP IT SMALL
  *
- * Copyright (c) 2005-2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2005-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -15,12 +15,14 @@
  * @param string type 'ok' or 'error' message
  * @param int level 0 - for view every time 1, 2 - debug levels
  * @param string error_class - (CSS) class
- * @return void
+ * @return boolean
  * @access public
  */
  
 function msg($msg, $type = "ok", $level = 0, $error_class = '') {
-
+	
+    if ($level > ONXSHOP_DEBUG_LEVEL) return false; // process only if matching log level
+	
 	global $_SESSION;
 	
 	/**
@@ -30,7 +32,7 @@ function msg($msg, $type = "ok", $level = 0, $error_class = '') {
 	if (is_array($msg) || is_object($msg)) $msg = print_r($msg, true);
 
 	/**
-	 * benchmark
+	 * including timing for benchmark
 	 */
 	 
 	if (ONXSHOP_BENCHMARK && ONXSHOP_IS_DEBUG_HOST) {
@@ -39,60 +41,110 @@ function msg($msg, $type = "ok", $level = 0, $error_class = '') {
 		$time = round($time, 4);
 		$msg = "{$time}s: $msg";
 	}
-	
+
 	/**
-	 * display only to debug host or 
+	 * include backtrace (only with errors)
 	 */
 	 
-	if(ONXSHOP_IS_DEBUG_HOST || $level == 0) {
-	    
-	    if (!isset($_SESSION['messages'])) $_SESSION['messages'] = '';
-	    
-	    if ($level <= ONXSHOP_DEBUG_LEVEL) {
-	    
-	        $msg_safe = htmlspecialchars($msg);
-			
-	        switch ($type) {
-	        	
-	            case 'error':
-	                $message = "<p class='onxshop_error_msg level_$level $error_class'>{$msg_safe}</p>\n";
-	                if (is_object($GLOBALS['fb_logger'])) $GLOBALS['fb_logger']->log($msg, Zend_Log::ERR);
-	            break;
-	            case 'ok':
-	                $message = "<p class='onxshop_ok_msg level_$level $error_class'>{$msg_safe}</p>\n";
-	                if (is_object($GLOBALS['fb_logger'])) $GLOBALS['fb_logger']->log($msg, Zend_Log::INFO);
-	            break;
-	        }
-	    
-	    	/**
-	    	 * direct output or store in _SESSION
-	    	 */
-	    	   
-	        if (ONXSHOP_DEBUG_DIRECT == true) echo $message;
-	        else if ($level == 0 || !is_object($GLOBALS['fb_logger'])) $_SESSION['messages'] .= $message;
+	if (ONXSHOP_DEBUG_INCLUDE_BACKTRACE && $type == 'error') {
+	
+		$backtrace = debug_backtrace();
 		
+		// format same way as debug_print_backtrace, i.e. #0  c() called at [/tmp/include.php:10]
+		$backtrace_formatted = '';
+		
+		foreach ($backtrace as $k=>$item) {
 			
-			/**
-			 * write to debug file
-			 */
-			 
-			if (ONXSHOP_DEBUG_FILE) {
-				
-				$messages_dir = ONXSHOP_PROJECT_DIR . "var/log/messages/";
-				
-				if (!is_dir($messages_dir)) mkdir($messages_dir);
-				
-				if (is_dir($messages_dir) && is_writable($messages_dir)) {
-					$time = strftime("%F %T", time()); // use ISO date format to allow easy sorting
-					$session_id = session_id();
-					$type = strtoupper($type);
-					$filename = "$messages_dir{$_SERVER['REMOTE_ADDR']}-$session_id.log";
-					file_put_contents($filename, "$time $type: $msg\n", FILE_APPEND);
-				}
-			}
-
-	    }
+			$backtrace_formatted .= " #$k  {$item['function']} called at [{$item['file']}:{$item['line']}]";
+			
+		}
+		
 	}
+	
+	/**
+	 * include user info
+	 */
+	 
+	if (ONXSHOP_DEBUG_INCLUDE_USER_ID) {
+		
+		$user_info = '';
+		
+		if ($backoffice_username = $_SESSION['authentication']['user_details']['username']) {
+			$user_info .= "BO user: {$backoffice_username}, ";
+		}
+		
+		if ($customer_id = $_SESSION['client']['customer']['id']) {
+			$user_info .= "FE Customer ID: $customer_id";
+		}
+		
+		if ($user_info) $user_info = "($user_info) ";
+	}
+    
+	/**
+	 * store in session and manage in controller where message can be parsed to the template
+	 * level 0 messages are always saved to session to be shown in template
+	 */
+	
+	if (ONXSHOP_DEBUG_OUTPUT_SESSION || $level == 0) {
+	    
+		if (!isset($_SESSION['messages'])) $_SESSION['messages'] = '';
+		
+		if ($type == 'error') $_SESSION['messages'] .= "<p class='onxshop_error_msg level_$level $error_class'>". htmlspecialchars($msg) ."</p>\n";
+		else $_SESSION['messages'] .= "<p class='onxshop_ok_msg level_$level $error_class'>". htmlspecialchars($msg) ."</p>\n";
+		
+	}
+	
+	/**
+	 * firebug
+	 */
+	 
+	if (ONXSHOP_DEBUG_OUTPUT_FIREBUG) {
+		
+		if (is_object($GLOBALS['fb_logger'])) {
+			
+			if ($type == 'error') $GLOBALS['fb_logger']->log($msg, Zend_Log::ERR);
+			else $GLOBALS['fb_logger']->log($msg, Zend_Log::INFO);
+		
+		}
+	
+	}
+	
+	/**
+	 * direct output - send immediatelly to client
+	 */
+	 
+	if (ONXSHOP_DEBUG_OUTPUT_DIRECT) echo $msg;
+	
+	/**
+	 * write to debug file
+	 */
+	 
+	if (ONXSHOP_DEBUG_OUTPUT_FILE) {
+		
+		$messages_dir = ONXSHOP_PROJECT_DIR . "var/log/messages/";
+		
+		if (!is_dir($messages_dir)) mkdir($messages_dir);
+		
+		if (is_dir($messages_dir) && is_writable($messages_dir)) {
+			$time = strftime("%F %T", time()); // use ISO date format to allow easy sorting
+			$session_id = session_id();
+			$type = strtoupper($type);
+			$filename = "$messages_dir{$_SERVER['REMOTE_ADDR']}-$session_id.log";
+			file_put_contents($filename, "$time $type: $msg\n", FILE_APPEND);
+		}
+	}
+	
+	/**
+	 * send to standard PHP error log
+	 */
+	 
+	if (ONXSHOP_DEBUG_OUTPUT_ERROR_LOG) {
+		
+		error_log($user_info . $msg . $backtrace_formatted);
+		
+	}
+
+	return true;
 }
 
 /**

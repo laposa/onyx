@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2006-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2006-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -107,8 +107,8 @@ class Onxshop_Controller_Bo_Component_Logs extends Onxshop_Controller {
 			if ($s['customer_id'] > 0) $this->tpl->assign('CUSTOMER', $Customer->detail($s['customer_id']));
 			else $this->tpl->assign('CUSTOMER', '');
 			
-			//messages
-			if (ONXSHOP_DEBUG_FILE) {
+			// show messages
+			if (ONXSHOP_DEBUG_OUTPUT_FILE) {
 				$messages_file = ONXSHOP_PROJECT_DIR . "var/log/messages/{$s['ip_address']}-{$s['session_id']}.log";
 				if (file_exists($messages_file)) {
 					$s['messages'] = file_get_contents($messages_file);
