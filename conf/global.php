@@ -29,7 +29,7 @@ if(in_array($_SERVER["REMOTE_ADDR"], array_keys($debug_hosts)))  {
 	define('ONXSHOP_DEBUG_OUTPUT_DIRECT', false); // sends directly to client
 	define('ONXSHOP_DEBUG_OUTPUT_FILE', false); // store in var/log/messages/
 	define('ONXSHOP_DEBUG_OUTPUT_FIREBUG', false); // use Firebug
-	define('ONXSHOP_DEBUG_OUTPUT_ERROR_LOG', true); // use Apache error log, i.e. /var/log/apache2/errog.log
+	define('ONXSHOP_DEBUG_OUTPUT_ERROR_LOG', true); // use Apache error log, i.e. /var/log/apache2/error.log
 	define('ONXSHOP_BENCHMARK', false);
 	define('ONXSHOP_DB_PROFILER', false);
 	

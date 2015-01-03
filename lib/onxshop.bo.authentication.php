@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2005-2014 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2005-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -331,7 +331,9 @@ class IMAPAuthAdapter implements AuthAdapter
 			imap_close($mailbox);
 
 			return array(
-				'username' => $username
+				'id' => 0,
+				'username' => $username,
+				'email' => $username . '@' . ONXSHOP_AUTH_SERVER
 			);
 
 		}
@@ -365,7 +367,9 @@ class PSQLAuthAdapter implements AuthAdapter
 			pg_close($dbconn);
 
 			return array(
-				'username' => $username
+				'id' => 0,
+				'username' => $username,
+				'email' => $username . '@' . ONXSHOP_AUTH_SERVER
 			);
 
 		}
@@ -386,11 +390,19 @@ class FlatAuthAdapter implements AuthAdapter
 
 	public function authenticate($username, $password)
 	{
-		return (
+		if (
 			defined('ONXSHOP_EDITOR_USERNAME') && 
 			$username == constant('ONXSHOP_EDITOR_USERNAME') && 
 			$password == constant('ONXSHOP_EDITOR_PASSWORD')
-		); 
+		) {
+			
+			return array(
+				'id' => 0,
+				'username' => $username,
+				'email' => $username . '@flat'
+			);
+			
+		} 
 
 	}
 

@@ -69,15 +69,15 @@ function msg($msg, $type = "ok", $level = 0, $error_class = '') {
 		
 		$user_info = '';
 		
-		if ($backoffice_username = $_SESSION['authentication']['user_details']['username']) {
-			$user_info .= "BO user: {$backoffice_username}, ";
+		if ($backoffice_user_email = $_SESSION['authentication']['user_details']['email']) {
+			$user_info .= "BO user: {$backoffice_user_email} ";
 		}
 		
 		if ($customer_id = $_SESSION['client']['customer']['id']) {
-			$user_info .= "FE Customer ID: $customer_id";
+			$user_info .= "FE Customer ID: $customer_id ";
 		}
 		
-		if ($user_info) $user_info = "($user_info) ";
+		if ($user_info) $user_info = "(" . rtrim($user_info) . ") ";
 	}
     
 	/**
