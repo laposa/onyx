@@ -4,7 +4,7 @@
  *
  * custom Active Record Database Pattern and simple validation
  *
- * Copyright (c) 2005-2014 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2005-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -718,7 +718,7 @@ class Onxshop_Db {
 		
 		$cache = Zend_Cache::factory('Core', ONXSHOP_DB_QUERY_CACHE_BACKEND, $frontendOptions, $backendOptions);
 		
-		$cache_id = "{$this->_class_name}_" . md5($sql);
+		$cache_id = preg_replace('/\W/', '', $_SERVER['HTTP_HOST']) . "_SQL_{$this->_class_name}_" . md5(ONXSHOP_DB_HOST . ONXSHOP_DB_PORT . ONXSHOP_DB_NAME . $sql); // include hostname and database connection details to prevent conflicts in shared cache engine environment
 		
 		if ($records = $cache->load($cache_id)) {
 			

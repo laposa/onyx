@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2005-2014 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2005-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -395,7 +395,7 @@ class Onxshop_Bootstrap {
 		
 		$cache = Zend_Cache::factory('Output', ONXSHOP_PAGE_CACHE_BACKEND, $frontendOptions, $backendOptions);
 		
-		$id = "GET_" . md5($_SERVER['HTTP_HOST'] . $request . serialize($_GET) . isset($_SERVER['HTTPS']));
+		$id = preg_replace('/\W/', '', $_SERVER['HTTP_HOST']) . '_GET_' . md5(ONXSHOP_DB_HOST . ONXSHOP_DB_PORT . ONXSHOP_DB_NAME . $request . serialize($_GET) . isset($_SERVER['HTTPS'])); // include hostname and database connection details to prevent conflicts in shared cache engine environment
 		if (defined('ONXSHOP_ENABLE_AB_TESTING') && ONXSHOP_ENABLE_AB_TESTING == true) $id .= $_SESSION['ab_test_group'];
 
 
