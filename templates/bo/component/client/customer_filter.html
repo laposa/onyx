@@ -190,6 +190,7 @@ $(document).ready(function(){
 											<span class="field">
 												<button type="submit" name="search" value="Search" onclick="$(this).addClass('saving');"><span>Display Specified Customers</span></button>
 												<!-- BEGIN: save -->
+												<a class="button" title="Export this list for newsletter" href="/request/bo/export/csv_customers"><span>Export to CSV</span></a>
 												<button class="save" type="submit" name="save" value="save" onclick="$(this).addClass('saving');" title="Newly matched customers will be added to this group, but bear in mind some customers could be already assigned to other groups."><span>Save and Add Listed Customers to This Group</span></button>
 												<!-- END: save -->
 											</span>
