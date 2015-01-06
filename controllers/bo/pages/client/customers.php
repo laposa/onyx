@@ -18,7 +18,7 @@ class Onxshop_Controller_Bo_Pages_Client_Customers extends Onxshop_Controller {
 		 * conditional display of different buttons
 		 */
 		 
-		if ($_SESSION['customer-filter-selected_group_id'] > 0) $this->tpl->parse('content.modify_group');
+		if ($_SESSION['bo']['customer-filter-selected_group_id'] > 0) $this->tpl->parse('content.modify_group');
 		else $this->tpl->parse('content.create_new_group');
 				
 		return true;
