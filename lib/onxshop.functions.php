@@ -74,7 +74,7 @@ function msg($msg, $type = "ok", $level = 0, $error_class = '') {
 		}
 		
 		if ($customer_id = $_SESSION['client']['customer']['id']) {
-			$user_info .= "FE Customer ID: $customer_id ";
+			$user_info .= "Customer ID: $customer_id ";
 		}
 		
 		if ($user_info) $user_info = "(" . rtrim($user_info) . ") ";
