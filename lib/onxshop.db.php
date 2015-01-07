@@ -737,20 +737,37 @@ class Onxshop_Db {
 	
 	/**
 	 * flush cache (for this object)
+	 * TODO: this should be using $cache->clean(Zend_Cache::CLEANING_MODE_MATCHING_TAG);
 	 */
 	 
 	public function flushCache() {
 		
-		// APC backend cache
-		// TODO: implement deleting only selected APC records
-		if (function_exists('apc_clear_cache'))  apc_clear_cache('user');
+		switch (ONXSHOP_DB_QUERY_CACHE_BACKEND) {
+			
+			case 'Apc':
+				// TODO: implement deleting only selected APC records for this object
+				if (function_exists('apc_clear_cache'))  apc_clear_cache('user');
+			break;
+			
+			case 'Libmemcached':
+				// TODO: implement deleting only selected records for this object
+				if (class_exists('Memcached')) {
+					$m = new Memcached();
+					$m->addServer('localhost', 11211);
+					$m->flush();
+				}
+			break;
+			
+			case 'File':
+			default:
+				$mask = ONXSHOP_DB_QUERY_CACHE_DIRECTORY . "zend_cache---*_SQL_{$this->_class_name}_*";
+				array_map("unlink", glob( $mask ));
+				$mask = ONXSHOP_DB_QUERY_CACHE_DIRECTORY . "zend_cache---internal-metadatas---*_SQL_{$this->_class_name}_*";
+				array_map("unlink", glob( $mask ));
+			break;
+		}
 		
-		// file backend cache
-		$mask = ONXSHOP_DB_QUERY_CACHE_DIRECTORY . "zend_cache---{$this->_class_name}_*";
-		array_map("unlink", glob( $mask ));
-		$mask = ONXSHOP_DB_QUERY_CACHE_DIRECTORY . "zend_cache---internal-metadatas---{$this->_class_name}_*";
-		array_map("unlink", glob( $mask ));
-		
+		return true;
 	}
 	
 	

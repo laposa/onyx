@@ -531,6 +531,7 @@ function isValidDate($date)
 
 /**
  * onxshop_flush_cache
+ * TODO: this should be using $cache->clean(Zend_Cache::CLEANING_MODE_ALL);
  */
  
 function onxshop_flush_cache() {
@@ -549,6 +550,15 @@ function onxshop_flush_cache() {
 		$apc_clear_status = true;
 	}
 	
-	if ($file_clear_status && $apc_clear_status) return true;
+	// Libmemcached
+	if (class_exists('Memcached')) {
+		$m = new Memcached();
+		$m->addServer('localhost', 11211);
+		$libmemcached_clear_status = $m->flush();
+	} else {
+		$libmemcached_clear_status = true;
+	}
+	 
+	if ($file_clear_status && $apc_clear_status && $libmemcached_clear_status) return true;
 	
 }

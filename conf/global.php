@@ -116,7 +116,7 @@ if (preg_match("/^\/(backoffice|request\/bo)\//", $_GET['translate'])) define('O
 else define('ONXSHOP_IN_BACKOFFICE', false);
 
 /**
- * cache backend possible values: File, Apc
+ * cache backend possible values: File, Apc, Libmemcached
  */
  
 if (!defined('ONXSHOP_DB_QUERY_CACHE_BACKEND')) define('ONXSHOP_DB_QUERY_CACHE_BACKEND', 'File'); // change of this will change also ONXSHOP_PAGE_CACHE_BACKEND, see below
