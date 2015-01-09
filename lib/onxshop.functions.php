@@ -531,34 +531,18 @@ function isValidDate($date)
 
 /**
  * onxshop_flush_cache
- * TODO: this should be using $cache->clean(Zend_Cache::CLEANING_MODE_ALL);
+ * 
  */
  
 function onxshop_flush_cache() {
 	
-	require_once('models/common/common_file.php');
-	$File = new common_file();
-		
-	// file backend cache
-	if ($File->rm(ONXSHOP_PROJECT_DIR . "var/cache/*")) $file_clear_status = true;
-	else $file_clear_status = false;
+	$registry = Zend_Registry::getInstance();
 	
-	// APC backend cache
-	if (function_exists('apc_clear_cache'))  {
-		$apc_clear_status = apc_clear_cache('user');
-	} else {
-		$apc_clear_status = true;
-	}
+	$db_cache_clear_status = $registry['onxshop_db_cache']->clean(Zend_Cache::CLEANING_MODE_ALL);
 	
-	// Libmemcached
-	if (class_exists('Memcached')) {
-		$m = new Memcached();
-		$m->addServer('localhost', 11211);
-		$libmemcached_clear_status = $m->flush();
-	} else {
-		$libmemcached_clear_status = true;
-	}
-	 
-	if ($file_clear_status && $apc_clear_status && $libmemcached_clear_status) return true;
+	if (ONXSHOP_DB_QUERY_CACHE_BACKEND !== ONXSHOP_PAGE_CACHE_BACKEND) $page_cache_clear_status = $registry['onxshop_page_cache']->clean(Zend_Cache::CLEANING_MODE_ALL);
+	else $page_cache_clear_status = true;
+	
+	if ($db_cache_clear_status && $page_cache_clear_status) return true;
 	
 }

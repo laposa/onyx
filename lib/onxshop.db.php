@@ -9,8 +9,6 @@
  *
  */
 
-require_once 'Zend/Cache.php';
-
 class Onxshop_Db {
 
 	var $conf = array();
@@ -54,7 +52,8 @@ class Onxshop_Db {
 		msg("{$this->_class_name}: Calling generic()", 'ok', 3);
 		
 		if (Zend_Registry::isRegistered('onxshop_db')) $this->db = Zend_Registry::get('onxshop_db');
-
+		if (Zend_Registry::isRegistered('onxshop_db_cache')) $this->cache = Zend_Registry::get('onxshop_db_cache');
+		
 		$vars = get_object_vars($this);
 		
 		//init configuration for current model
@@ -705,29 +704,22 @@ class Onxshop_Db {
 	}
 	
 	/**
-	 * query cache TODO
+	 * query cache
 	 */
 	 
 	public function executeSqlCached($sql) {
-	
-		$frontendOptions = array(
-		'lifetime' => ONXSHOP_DB_QUERY_CACHE_TTL,
-		'automatic_serialization' => false
-		);
-		$backendOptions = array('cache_dir' => ONXSHOP_DB_QUERY_CACHE_DIRECTORY);
 		
-		$cache = Zend_Cache::factory('Core', ONXSHOP_DB_QUERY_CACHE_BACKEND, $frontendOptions, $backendOptions);
+		// create cache key
+		$cache_id = preg_replace('/\W/', '', $_SERVER['HTTP_HOST']) . "_SQL_{$this->_class_name}_" . md5(ONXSHOP_DB_HOST . ONXSHOP_DB_PORT . ONXSHOP_DB_NAME . $sql); // include hostname and database connection details to prevent conflict in shared cache engine environment
 		
-		$cache_id = preg_replace('/\W/', '', $_SERVER['HTTP_HOST']) . "_SQL_{$this->_class_name}_" . md5(ONXSHOP_DB_HOST . ONXSHOP_DB_PORT . ONXSHOP_DB_NAME . $sql); // include hostname and database connection details to prevent conflicts in shared cache engine environment
-		
-		if ($records = $cache->load($cache_id)) {
+		if ($records = $this->cache->load($cache_id)) {
 			
 			$records = unserialize($records);
 			
 		} else {
 		
 			$records = $this->executeSqlOnDatabase($sql);
-			$cache->save(serialize($records), $cache_id);
+			$this->cache->save(serialize($records), $cache_id);
 			
 		}
 		
@@ -737,25 +729,19 @@ class Onxshop_Db {
 	
 	/**
 	 * flush cache (for this object)
-	 * TODO: this should be using $cache->clean(Zend_Cache::CLEANING_MODE_MATCHING_TAG);
+	 * TODO: this should be using $this->cache->clean(Zend_Cache::CLEANING_MODE_MATCHING_TAG, array('tagA', 'tagC'));
+	 * or $cache->remove('idToRemove');
+	 *
+	 * currently only File backend deletes files related to this object and Apc and Libmemcached will flush complete DB cache
 	 */
 	 
 	public function flushCache() {
 		
 		switch (ONXSHOP_DB_QUERY_CACHE_BACKEND) {
 			
-			case 'Apc':
-				// TODO: implement deleting only selected APC records for this object
-				if (function_exists('apc_clear_cache'))  apc_clear_cache('user');
-			break;
-			
+			case 'Apc':			
 			case 'Libmemcached':
-				// TODO: implement deleting only selected records for this object
-				if (class_exists('Memcached')) {
-					$m = new Memcached();
-					$m->addServer('localhost', 11211);
-					$m->flush();
-				}
+				$this->cache->clean(Zend_Cache::CLEANING_MODE_ALL);
 			break;
 			
 			case 'File':

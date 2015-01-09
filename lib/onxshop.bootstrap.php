@@ -33,12 +33,19 @@ class Onxshop_Bootstrap {
 		require_once('onxshop.bo.authentication.php');
 		require_once('Zend/Db.php');
 		require_once('Zend/Registry.php');
+		require_once('Zend/Cache.php');
 
 		/**
 		 * Initialise database connection object
 		 */
 
 		$this->initDatabase();
+		
+		/**
+		 * Initialise cache backend connection
+		 */
+		 
+		$this->initCache();
 	
 		/**
 		 * Initialise session
@@ -154,6 +161,51 @@ class Onxshop_Bootstrap {
 		 */
 		 
 		Zend_Registry::set('onxshop_db', $db);
+		
+	}
+	
+	/**
+	 * initCache
+	 */
+	
+	function initCache() {
+		
+		/**
+		 * database cache
+		 */
+		 
+		$frontendOptions = array(
+		'lifetime' => ONXSHOP_DB_QUERY_CACHE_TTL,
+		'automatic_serialization' => false
+		);
+		$backendOptions = array('cache_dir' => ONXSHOP_DB_QUERY_CACHE_DIRECTORY);
+		
+		$cache = Zend_Cache::factory('Core', ONXSHOP_DB_QUERY_CACHE_BACKEND, $frontendOptions, $backendOptions);
+		
+		/**
+		 * store db cache in registry
+		 */
+		 
+		Zend_Registry::set('onxshop_db_cache', $cache);
+		
+		/**
+		 * page cache
+		 */
+		
+		$frontendOptions = array(
+		'lifetime' => ONXSHOP_PAGE_CACHE_TTL,
+		'automatic_serialization' => true
+		);
+		
+		$backendOptions = array('cache_dir' => ONXSHOP_PROJECT_DIR . 'var/cache/');
+		
+		$this->cache = Zend_Cache::factory('Output', ONXSHOP_PAGE_CACHE_BACKEND, $frontendOptions, $backendOptions);
+		
+		/**
+		 * store page cache in registry
+		 */
+		 
+		Zend_Registry::set('onxshop_page_cache', $this->cache);
 	}
 
 	/**
@@ -384,22 +436,11 @@ class Onxshop_Bootstrap {
 	
 	function processActionCached($request) {
 		
-		require_once 'Zend/Cache.php';
-		
-		$frontendOptions = array(
-		'lifetime' => ONXSHOP_PAGE_CACHE_TTL,
-		'automatic_serialization' => true
-		);
-		
-		$backendOptions = array('cache_dir' => ONXSHOP_PROJECT_DIR . 'var/cache/');
-		
-		$cache = Zend_Cache::factory('Output', ONXSHOP_PAGE_CACHE_BACKEND, $frontendOptions, $backendOptions);
-		
+		// create cache key
 		$id = preg_replace('/\W/', '', $_SERVER['HTTP_HOST']) . '_GET_' . md5(ONXSHOP_DB_HOST . ONXSHOP_DB_PORT . ONXSHOP_DB_NAME . $request . serialize($_GET) . isset($_SERVER['HTTPS'])); // include hostname and database connection details to prevent conflicts in shared cache engine environment
 		if (defined('ONXSHOP_ENABLE_AB_TESTING') && ONXSHOP_ENABLE_AB_TESTING == true) $id .= $_SESSION['ab_test_group'];
 
-
-		if (!is_array($data = $cache->load($id))) {
+		if (!is_array($data = $this->cache->load($id))) {
 		    // cache miss
 			
 		    $this->processAction($request);
@@ -412,7 +453,7 @@ class Onxshop_Bootstrap {
 		    	$data_to_cache = array();
 		    	$data_to_cache['output_headers'] = $this->headers;
 		    	$data_to_cache['output_body'] = $this->output;
-		    	$cache->save($data_to_cache);
+		    	$this->cache->save($data_to_cache);
 		    	
 		    	// update index immediately if enabled in the configuration,
 		    	// but not when search_query is submitted (don't index search results)
