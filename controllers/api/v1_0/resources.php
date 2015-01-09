@@ -1,11 +1,12 @@
 <?php
 /** 
- * Copyright (c) 2012-2014 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2012-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
 
 require_once('controllers/api.php');
+require_once('models/common/common_revision.php');
 
 class Onxshop_Controller_Api_v1_0_Resources extends Onxshop_Controller_Api {
 
@@ -30,6 +31,9 @@ class Onxshop_Controller_Api_v1_0_Resources extends Onxshop_Controller_Api {
 			$base_api_url = "$protocol://{$_SERVER['HTTP_HOST']}/api/v{$version_string}/";
 			$standard_params = "?format={$format}&api_key={$api_key}";
 			
+			$Revision = new common_revision();
+			$last_revision_id = $Revision->count(); // this should be max(id), but count will do
+			
 			$data = array();
 			$data['recipe_list'] = "{$base_api_url}recipe_list{$standard_params}";
 			$data['recipe_category_list'] = "{$base_api_url}recipe_category_list{$standard_params}";
@@ -41,7 +45,7 @@ class Onxshop_Controller_Api_v1_0_Resources extends Onxshop_Controller_Api {
 			$data['android_download_url'] = "https://play.google.com/";
 			$data['landing_page'] = "$protocol://{$_SERVER['HTTP_HOST']}/";
 			$data['theme_version'] = 1;
-			$data['data_version'] = 1;
+			$data['data_version'] = $last_revision_id;
 			$data['background_images'] = "$protocol://{$_SERVER['HTTP_HOST']}/images/recipe_app/backgrounds/";
 			$data['background_main'] = "$protocol://{$_SERVER['HTTP_HOST']}/images/recipe_app/backgrounds/main.png";
 			$data['background_invisible_header'] = "$protocol://{$_SERVER['HTTP_HOST']}/images/recipe_app/backgrounds/invisible_header.png";
