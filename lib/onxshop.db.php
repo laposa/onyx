@@ -450,7 +450,7 @@ class Onxshop_Db {
 		msg("{$this->_class_name}: Calling count($where)", 'ok', 3);
 		if ($where != '') $where = " WHERE $where";
 		
-		$sql = "SELECT count(id) AS count FROM {$this->_class_name} $where";
+		$sql = "SELECT count(*) AS count FROM {$this->_class_name} $where";
 		
 		if ($this->isCacheable()) $records = $this->executeSqlCached($sql);
 		else $records = $this->executeSql($sql);
