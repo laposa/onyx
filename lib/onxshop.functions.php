@@ -531,11 +531,16 @@ function isValidDate($date)
 
 /**
  * onxshop_flush_cache
- * 
+ *
+ * @return Boolean
  */
  
 function onxshop_flush_cache() {
 	
+	/**
+	 * clean cache using Zend_Cache method
+	 */
+	 
 	$registry = Zend_Registry::getInstance();
 	
 	$db_cache_clear_status = $registry['onxshop_db_cache']->clean(Zend_Cache::CLEANING_MODE_ALL);
@@ -543,6 +548,20 @@ function onxshop_flush_cache() {
 	if (ONXSHOP_DB_QUERY_CACHE_BACKEND !== ONXSHOP_PAGE_CACHE_BACKEND) $page_cache_clear_status = $registry['onxshop_page_cache']->clean(Zend_Cache::CLEANING_MODE_ALL);
 	else $page_cache_clear_status = true;
 	
-	if ($db_cache_clear_status && $page_cache_clear_status) return true;
+	/**
+	 * remove all files in cache directory
+	 */
+	 
+	require_once('models/common/common_file.php');
+	$File = new common_file();
+	if ($File->rm(ONXSHOP_PROJECT_DIR . "var/cache/*")) $file_clear_status = true;
+	else $file_clear_status = false;
+
+	/**
+	 * return true only if all cache was cleared
+	 */
+	 
+	if ($db_cache_clear_status && $page_cache_clear_status && $file_clear_status) return true;
+	else return false;
 	
 }
