@@ -1,0 +1,70 @@
+<!-- BEGIN: title -->Profile Edit<!-- END: title -->
+<!-- BEGIN: content -->
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+
+<script type="text/javascript">  
+	$(document).ready(function(){  
+		$("#profile_edit").validate();  
+	});  
+</script>
+
+
+<div class="edit_profile">
+
+	<div class="pageHeader">
+		<div class="pageHeaderWrapper">
+			<h1 class="pageTitle"><span>My Profile</span></h1>
+		</div>
+	</div>
+
+	<!-- BEGIN: form -->
+	<form action="{URI_SAFE|htmlspecialchars}" method="post" id="edit_profile">
+
+		<fieldset>
+			<div class="row title_before">
+				<span class="label"><label for="client-customer-title_before">{I18N_R_TITLE}</label></span>
+				<span class="field"><input class="text short" type="text" id="client-customer-title_before" name="client[customer][title_before]" value="{CLIENT.customer.title_before|htmlspecialchars}" title="Your title, ie Ms, Mr, Miss, Dr" /></span>
+			</div>
+			<div class="row first_name">
+				<span class="label"><label for="client-customer-first_name"><span class="mandatory-mark">*</span> {I18N_R_FIRST_NAME}</label></span>
+				<span class="field"><input class="required text" type="text" id="client-customer-first_name" name="client[customer][first_name]" value="{CLIENT.customer.first_name|htmlspecialchars}" title="Please type here your first name" /></span>
+			</div>
+			<div class="row last_name">
+				<span class="label"><label for="client-customer-last_name"><span class="mandatory-mark">*</span> {I18N_R_LAST_NAME}</label></span>
+				<span class="field"><input class="required text" type="text" id="client-customer-last_name" name="client[customer][last_name]" value="{CLIENT.customer.last_name|htmlspecialchars}" title="Your family name" /></span>
+			</div>
+			<div class="row email">
+				<span class="label"><label for="client-customer-email"><span class="mandatory-mark">*</span> {I18N_R_EMAIL}</label></span>
+				<span class="field"><input class="required text" type="text" id="client-customer-email" name="client[customer][email]" value="{CLIENT.customer.email}" title="Your valid email address" /></span>
+			</div>
+			<div class="row telephone">
+				<span class="label"><label for="client-customer-telephone">{I18N_R_TELEPHONE}</label></span>
+				<span class="field"><input class="text" type="text" id="client-customer-telephone" name="client[customer][telephone]" value="{CLIENT.customer.telephone|htmlspecialchars}" title="Contact telephone number"/></span>
+			</div>
+			<div class="row password_new">
+				<span class="label"><label for="client-customer-password_new">{I18N_CHANGE_PASSWORD}</label></span>
+				<span class="field"><input class="text" type="text" id="client-customer-password_new" name="password_new" value="" title="Set new password" /></span>
+			</div>
+		</fieldset>
+
+		<fieldset>
+			<dl>
+				<dt>ID:</dt><dd>{CLIENT.customer.id}</dd>
+				<dt>Created:</dt><dd>{CLIENT.customer.created}</dd>
+				<dt>Modified:</dt><dd>{CLIENT.customer.modified}</dd>
+			</dl>
+		</fieldset>
+		
+		<div class="row submit">
+			<span class="label"><label>&nbsp;</label></span>
+			<span class="field"><button class="button save" type="submit" name="save" value="save" onclick="$(this).addClass('saving')" title="Click to save updated records"><span>{I18N_SAVE}</span></button></span>
+		</div>
+		
+		<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+	</form>
+	<!-- END: form -->
+	<!-- BEGIN: other_auth -->
+		<p>You are authenticated using a differnet system, i.e. PostgreSQL, you cannot update your profile here.</p>
+	<!-- END: other_auth -->
+</div>
+<!-- END: content -->
