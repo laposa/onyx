@@ -170,12 +170,14 @@ div.divider hr {display: none;}
 div.quote p.quote {padding: 0 40px 0 0; margin: 0; text-align: center;}
 div.quote p.author {font-family: sans-serif; padding-right: 40px; text-align: center; background: none;}
 
-/********* node/content/news_list.html *********/
-div.news_list div.teaser_image {float: left; padding: 0 20px 10px 0;}
-div.news_list div.teaser_image a {text-decoration: none;}
-div.news_list div.created {font-weight: bold;}
-div.news_list div.created p {margin-bottom: 1em;}
-div.news_list div.teaser {clear: none;}
+/********* node/content/news_list_teaser.html *********/
+div.news_list.teaser div.image {float: left; padding: 0 20px 10px 0;}
+div.news_list.teaser div.image a {text-decoration: none;}
+div.news_list.teaser div.created {font-weight: bold;}
+div.news_list.teaser div.created p {margin-bottom: 1em;}
+
+/********* node/content/news_list_grid.html *********/
+div.news_list.grid div.item {width: 300px; min-height: 300px; display: block; float: left; margin: 10px;}
 
 /********* node/content/contact_form.html *********/
 div.contact_form textarea {width: 100%;}
