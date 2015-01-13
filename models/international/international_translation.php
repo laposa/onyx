@@ -141,9 +141,18 @@ class international_translation extends Onxshop_Model {
 				$pattern = "/(.*)$original_string(.*)/";
 
 		}
+		
+		$translation = preg_replace($pattern, $replacement, $content);
 
-		return preg_replace($pattern, $replacement, $content);
+		if (preg_last_error() == PREG_NO_ERROR) return $translation;
 
+		if (preg_last_error() == PREG_INTERNAL_ERROR) msg('There is an internal error!', 'error', 1);
+		if (preg_last_error() == PREG_BACKTRACK_LIMIT_ERROR) msg('Backtrack limit was exhausted!', 'error', 1);
+		if (preg_last_error() == PREG_RECURSION_LIMIT_ERROR) msg('Recursion limit was exhausted!', 'error', 1);
+		if (preg_last_error() == PREG_BAD_UTF8_ERROR) msg('Bad UTF8 error!', 'error', 1);
+		if (preg_last_error() == PREG_BAD_UTF8_ERROR) msg('Bad UTF8 offset error!', 'error', 1);
+
+		return $content;
 	}
 
 	/**
