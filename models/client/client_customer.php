@@ -1381,14 +1381,51 @@ CREATE TABLE client_customer (
 			$client_list = $this->listing("lower(email) = $email_quoted", "id DESC");
 		
 			if (is_array($client_list) && count($client_list) > 0) {
-				return $this->getDetail($client_list[0]['id']);
+
+				if (count($client_list) == 1) {
+					
+					// if one email address is found, use it whatever status it is (further checks on valid status are made in login()
+					$customer_id = $client_list[0]['id'];
+
+				} else {
+
+					/**
+					 * if multiple email addresses are found, use the latest with
+					 * status != 4 (not deleted) and
+					 * status != 5 (not guest account)
+					 */
+					foreach ($client_list as $item) {
+						if ($item['status'] !== 4 && $item['status'] !== 5) {
+							$customer_id = $item['id'];
+							break;
+						}
+					}
+
+					if (!is_numeric($customer_id)) msg("Cannot find any valid account for $email, but a deleted or guest account is present.", 'error', 1); // don't show this error message to the customer to prevent exposing registered accounts
+
+				}
+
+				if (is_numeric($customer_id)) {
+
+					return $this->getDetail($customer_id);
+
+				} else {
+
+					return false;
+
+				}
+
 			} else {
-				msg('Email is not registered', 'error', 2);
+
+				msg('Email is not registered', 'error', 1); // don't show this error message to the customer
 				return false;
+
 			}
+
 		} else {
-			//msg('failed', 'error');
+
 			return false;
+
 		}
 	}
 	
