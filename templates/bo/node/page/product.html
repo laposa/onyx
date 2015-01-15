@@ -32,15 +32,13 @@
 	</div>
 </div>
 
-<div class="row">
-	<span class="label"><label>Product ID:</label></span>
-	<span class="field"><input style="width: 30px;" type="text" name="node[content]" value="{NODE.content}" /></span>
-</div>
+<fieldset class="advanced">
+	<div class="row">
+		<span class="label"><label>Product ID:</label></span>
+		<span class="field"><input class="short" type="text" name="node[content]" value="{NODE.content}" /> <a href="/backoffice/products/{NODE.content}/edit" target="_blank"><span>Edit Product</span></a></span>
+	</div>
+</fieldset>
 
-<div class="row">
-	{PRODUCT_DETAIL}
-</div>
-		
 {FILE "bo/node/item_content_list.html"}
 {FILE "bo/node/item_position.html"}
 

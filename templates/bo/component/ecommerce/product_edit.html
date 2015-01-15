@@ -62,8 +62,7 @@
 
 											<fieldset>
 												<div class="row publish">
-													<span class="label"><label for="product-publish">Publish</label></span>
-													<span class="field"><input type="checkbox" id="product-publish" name="product[publish]" value="1" {PRODUCT.publish} /></span>
+													<span class="label"><input type="checkbox" id="product-publish" name="product[publish]" value="1" {PRODUCT.publish} /> <label for="product-publish">Publish</label></span>
 												</div>
 												<div class="row schedule">
 													{ONXSHOP_REQUEST_scheduler #bo/component/scheduler_list~node_id=GET.id:node_type=ecommerce_product:~}

@@ -12,45 +12,37 @@
 		<fieldset>
 		{FILE "bo/node/item_title.html"}
 		{FILE "bo/node/item_page_title.html"}
+		<div class="advanced">
 		{FILE "bo/node/item_uri_title.html"}
 		{FILE "bo/node/item_browser_title.html"}
 		{FILE "bo/node/item_teaser.html"}
+		</div>
 		{FILE "bo/node/item_description.html"}
 		</fieldset>
 	</div>
 	<div class="layoutColumnTwo ofTwo">
 		<fieldset>
 		{FILE "bo/node/item_image_list.html"}
+		<div class="advanced">
 		{FILE "bo/node/item_taxonomy.html"}
 		{FILE "bo/node/item_layout_style.html"}
+		</div>
 		{FILE "bo/node/item_css_class.html"}
 		</fieldset>
 	</div>
 </div>
 
-<fieldset>
-{FILE "bo/node/item_author_name.html"}
-{FILE "bo/node/item_allow_comment.html"}
-{FILE "bo/node/item_created.html"}
+<fieldset class="advanced">
+	<div class="row">
+		<span class="label"><label>Store ID:</label></span>
+		<span class="field"><input class="short" type="text" name="node[content]" value="{NODE.content}" /> <a href="/backoffice/stores/{NODE.content}/edit" target="_blank"><span>Edit store</span></a></span>
+	</div>
 </fieldset>
 
-<div class="row">
-	<span class="label"><label>Store ID:</label></span>
-	<span class="field"><input style="width: 30px;" type="text" name="node[content]" value="{NODE.content}" /></span>
-</div>
-<div class="row">
-	<span class="label"><label>&nbsp;</label></span>
-	<span class="field"><a class="button" href="/backoffice/stores/{NODE.content}/edit" target="_blank"><span>Edit store</span></a></span>
-</div>
-	
-<div class="row">
-	{PRODUCT_DETAIL}
-</div>
-		
 {FILE "bo/node/item_content_list.html"}
 {FILE "bo/node/item_position.html"}
 
-<div class="twoColumnLayout fibonacci-1-1">
+<div class="twoColumnLayout fibonacci-1-1 advanced">
 	<div class="layoutColumnOne ofTwo">
 		{FILE "bo/node/item_display_in_menu.html"}
 		{FILE "bo/node/item_display_permission.html"}
@@ -67,6 +59,7 @@
 
 {FILE "bo/node/item_publish.html"}
 <div class="row">Publish option on store page should be managed in store detail itself.</div>
+
 {FILE "bo/node/form_close.html"}
 
 <p class="extended_toolbar">
