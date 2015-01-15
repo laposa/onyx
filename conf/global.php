@@ -117,6 +117,8 @@ else define('ONXSHOP_IN_BACKOFFICE', false);
 
 /**
  * cache backend possible values: File, Apc, Libmemcached
+ * Shared hosting should be using only File backend
+ * Apc and Libmemcached should be used only on dedicated servers
  */
  
 if (!defined('ONXSHOP_DB_QUERY_CACHE_BACKEND')) define('ONXSHOP_DB_QUERY_CACHE_BACKEND', 'File'); // change of this will change also ONXSHOP_PAGE_CACHE_BACKEND, see below
