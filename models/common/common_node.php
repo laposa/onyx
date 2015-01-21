@@ -413,7 +413,7 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 			common_node.*
 			FROM common_node
 			$join
-			WHERE 1=1
+			WHERE parent != {$this->conf['id_map-content_bin']}
 			$add_to_where
 			ORDER BY $sort
 			";
