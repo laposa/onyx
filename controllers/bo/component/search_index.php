@@ -1,7 +1,7 @@
 <?php
 /**
  * Zend Search Index
- * Copyright (c) 2009-2014 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -33,8 +33,11 @@ class Onxshop_Controller_Bo_Component_Search_Index extends Onxshop_Controller {
 	
 	public function getProfile() {
 	
+		if ($_SERVER['SSL_PROTOCOL'] || $_SERVER['HTTPS']) $protocol = 'https';
+		else $protocol = 'http';
+
 		$profile = array(
-			'uri'           => "http://{$_SERVER['SERVER_NAME']}/",
+			'uri'           => "$protocol://{$_SERVER['SERVER_NAME']}/",
 			'path'          => ONXSHOP_PROJECT_DIR . 'var/index/',
 		);
 		
