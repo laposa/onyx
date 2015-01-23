@@ -60,7 +60,7 @@ class common_watchdog extends Onxshop_Model {
 		'other_data'=>array('label' => '', 'validation'=>'string', 'required'=>false)
 	);
 
-	var $cache = array();
+	var $cache_local = array();
 
 	/**
 	 * create table sql
@@ -218,9 +218,9 @@ class common_watchdog extends Onxshop_Model {
 
 	protected function getProductInfo($product_variety_id)
 	{
-		// cache product info
+		// cache_local product info
 		$key = "product_variety_id_{$product_variety_id}";
-		if (isset($this->cache[$key])) return $this->cache[$key];
+		if (isset($this->cache_local[$key])) return $this->cache_local[$key];
 
 		require_once('models/ecommerce/ecommerce_product.php');
 		$Product = new ecommerce_product();
@@ -234,7 +234,7 @@ class common_watchdog extends Onxshop_Model {
 		$product['variety'] = $variety;
 		$product['image'] = $Image->getContent();
 
-		$this->cache[$key] = $product;
+		$this->cache_local[$key] = $product;
 
 		return $product;
 
