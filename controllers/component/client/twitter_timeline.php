@@ -24,7 +24,10 @@ class Onxshop_Controller_Component_Client_Twitter_Timeline extends Onxshop_Contr
 		
 		if (is_numeric($this->GET['limit_from'])) $limit_from = $this->GET['limit_from'];
 		if (is_numeric($this->GET['limit_per_page'])) $limit_per_page = $this->GET['limit_per_page'];
-		
+
+		if (is_numeric($this->GET['limit_fetch'])) $limit_fetch = $this->GET['limit_fetch']; else $limit_fetch = 50;
+		$limit_fetch = max(min($limit_fetch, 1000), 1); // make sure the value is between 1 and 1000
+
 		/**
 		 * init twitter
 		 */
@@ -54,7 +57,7 @@ class Onxshop_Controller_Component_Client_Twitter_Timeline extends Onxshop_Contr
 			
 			if (!is_array($cached_data = $cache->load($cache_id))) {
 				
-				$timeline = $this->twitterCallExtend('statuses', 'user_timeline', array("screen_name" => $username, "count" => 50));
+				$timeline = $this->twitterCallExtend('statuses', 'user_timeline', array("screen_name" => $username, "count" => $limit_fetch));
 				$cache->save($timeline);
 				
 			} else {
