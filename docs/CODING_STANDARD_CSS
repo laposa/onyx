@@ -1,0 +1,37 @@
+Camel Case
+----------
+what is it for: core structure element IDs and class names
+where to find: page and layout templates (templates/node/*)
+
+all ID attributes are using camel case, example: #primaryNavigation
+layouts are using camel case, example div.twoColumnLayout
+
+References:
+https://github.com/laposa/onxshop/blob/master/share/css/default/src/layout.css
+
+
+Underscores
+-----------
+what is it for: representing filenames of controller
+where to find it: component templates (templates/components/*)
+
+every file in templates/component must be wrapped in <div class="file_name">
+component wrappers are using wrappers the same as filenames, example div.
+filenames for templates are using underscores, dashes and spaced are not allowed
+
+References:
+https://github.com/laposa/onxshop/blob/master/share/css/default/src/onxshop_ecommerce.css
+https://github.com/laposa/onxshop/blob/master/share/css/default/src/onxshop.css (needs cleanup)
+
+
+Dashes
+-------
+what is it for: parameters
+where to find it: node wrappers added by the CMS system
+
+node wrappers are using dashes, example div.node-page-default (div.node-{node_group}-{NODE.node_controller})
+if developing components to be used outside front-end interface, i.e. backoffice or outside of Onxshop, never use selectors with dashes as they are specific when used in node structure
+parameters of layout are using dashes fibonacci-1-1
+
+References:
+https://github.com/laposa/onxshop/blob/master/share/css/default/src/layout.css
