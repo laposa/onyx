@@ -4,9 +4,7 @@ Sitemap: /sitemap.xml
 
 User-agent: *
 
-Disallow: /search*
-Disallow: /checkout/
-Disallow: /login*
+Disallow: *?to=
 Disallow: *?product_list_mode=
 Disallow: *?sort*
 Disallow: *?limit_from=
