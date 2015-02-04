@@ -3870,7 +3870,7 @@ COPY common_node (id, title, node_group, node_controller, parent, parent_contain
 1047	Simple Tab 2	content	RTE	1045	1	0	\N	<p>This is simple tab 2's content. Pretty neat, huh?</p> <p><span>Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</span></p>			\N		2012-12-27 00:04:22	2012-12-31 16:06:00	1	1	1002		0	\N			\N	\N	0	\N	0	0		0	0		0	\N
 1125	Vimeo - fluid, widescreen	content	HTML	1124	0	0	\N	<div class="fluid-video vimeo widescreen">\n  <iframe src="http://player.vimeo.com/video/55304784" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>\n</div>			\N		2013-01-07 10:10:18	2013-01-07 10:15:44	1	1	1002		0	\N			\N	\N	1	\N	0	0		0	0		0	\N
 54	User pref component	content	component	18	1	0	\N				\N		2006-09-30 15:25:21	2008-08-24 18:25:48	1	1	1000		0	N;			a:3:{s:8:"template";s:16:"client/edit.html";s:10:"controller";s:0:"";s:9:"parameter";s:0:"";}	N;	0	\N	\N	0		0	0	\N	0	\N
-94	Bin	page	default	0	0	0		\N					2014-12-07 00:00:00	2014-12-07 00:00:00	1	0	1000		0	\N			\N	\N	1	0	0	0		0	0		0	\N
+94	Bin	page	default	0	0	0		\N					2014-12-07 00:00:00	2014-12-07 00:00:00	0	0	1000		0	\N			\N	\N	1	0	0	0		0	0		0	\N
 \.
 
 
