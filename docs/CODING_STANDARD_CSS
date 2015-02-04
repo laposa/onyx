@@ -1,3 +1,8 @@
+When to use ID or class?
+------------------------
+IDs can be used only in node/page/* and node/site/* templates
+everything else is using classes, because content can be added multiple times to a page
+
 Camel Case
 ----------
 what is it for: core structure element IDs and class names
@@ -35,3 +40,9 @@ parameters of layout are using dashes fibonacci-1-1
 
 References:
 https://github.com/laposa/onxshop/blob/master/share/css/default/src/layout.css
+
+
+TODO: fix inconsistencies in next major release (Onxshop 1.8)
+-------------------------------------------------------------
+- node wrappers like #node_id_1234 should be using dashes
+- div.node_group-content should be div.node-group-content
