@@ -863,8 +863,9 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 
 			case 'page':
 			default:
-				if ($publish == 1) return "AND ((node_group = 'page' AND (node_controller !~ 'product' OR node_controller = 'product_browse') AND node_controller != 'news') OR node_group = 'container') AND display_in_menu > 0";
-				else return "AND ((node_group = 'page' AND (node_controller !~ 'product' OR node_controller = 'product_browse') AND node_controller != 'news') OR node_group = 'container')";
+				$sql = "AND ((node_group = 'page' AND (node_controller !~ 'product' OR node_controller = 'product_browse') AND node_controller != 'recipe' AND node_controller != 'news') OR node_group = 'container') ";
+				if ($publish == 1) $sql .= " AND display_in_menu > 0";
+				return $sql;
 				break;
 		}
 
