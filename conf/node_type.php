@@ -32,6 +32,7 @@ $templates_info['content'] = array(
 	'shared'=>array('title' => 'Shared (Linked) Content', 'description'=>'', 'visibility'=>false),
 	'imagemap'=>array('title' => 'Image map', 'description'=>'', 'visibility'=>false), 
 	'teaser'=>array('title' => 'Content teaser', 'description'=>'', 'visibility'=>false),
+	'teaser_list'=>array('title' => 'Teaser list', 'description'=>'', 'visibility'=>true),
 	'filter'=>array('title' => 'Categories Filter', 'description'=>'', 'visibility'=>false),
 	'notice'=>array('title' => 'Notice', 'description'=>'i.e. for stores', 'visibility'=>false),
 	'adaptive'=>array('title' => 'Adaptive', 'description'=>'Show only if meets certain conditions', 'visibility'=>true),

@@ -7,22 +7,43 @@
 </div>
 {FILE "bo/node/default_top.html"}
 
-<fieldset>
-	<legend>Teaser Edit</legend>
-	<div class="row">
-		<span class="label"><label>*Teaser Text:</label></span>
-		<span class="field"><textarea name="node[component][text]" id="component-text">{NODE.component.text}</textarea></span>
+<fieldset class="teaser-form-edit">
+	<div class="row node_id">
+		<span class="label"><label>Target Page Id: *</label></span>
+		<span class="field"><input type="text" name="node[component][node_id]" id="component-node_id" value="{NODE.component.node_id}" /> <a class="button" href="#"><span>Browse Server</span></a></span>
+		<div id="node_id_select"></div>
 	</div>
 	<div class="row">
-		<span class="label"><label>*Teaser Link:</label></span>
-		<span class="field"><input type="text" name="node[component][href]" id="component-href" value="{NODE.component.href}" /> <a href="javascript:nOpenWin('/request/sys/xhtml.bo/backoffice.bo/component/tree_select~id={GET.id}:type=teaser~', 520, 700);">browse server</a></span>
+		<span class="label"><label>Teaser Text:</label></span>
+		<span class="field"><textarea name="node[component][text]" id="component-text" placeholder="Leave empty to automatically populate from the linked page...">{NODE.component.text}</textarea>
+		</span>
 	</div>
 	<div class="row">
-		<span class="label"><label>*Teaser Link Text:</label></span>
-		<span class="field"><input type="text" name="node[component][link_text]" value="{NODE.component.link_text}" /></span>
+		<span class="label"><label>Teaser Link Text:</label></span>
+		<span class="field"><input type="text" name="node[component][link_text]" value="{NODE.component.link_text}" placeholder="Find Out More"/></span>
 	</div>
 </fieldset>
-{ONXSHOP_REQUEST_tinymce #bo/tinymce~id=GET.id:relation=node:edit_elements=component-text~}
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$('fieldset.teaser-form-edit div.node_id a.button').click(function() {
+		$('#node_id_select').addClass('ajaxLoad').load('/request/component/menu_js~id=0:expand_all=1:publish=0~', function() {
+			$('#node_id_select').removeClass('ajaxLoad');
+			$('#node_id_select .simpleTree').simpleTree({
+				drag: false,
+				autoclose: true,
+				afterClick:function(node){
+					var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
+					$('#component-node_id').attr('value', node_id);
+				},
+				animate: true,
+				docToFolderConvert: true
+			});
+		});
+		return false;
+	});
+});
+</script>
 
 {FILE "bo/node/default_bottom.html"}
 <!-- END: content -->
