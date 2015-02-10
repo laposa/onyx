@@ -383,7 +383,7 @@ CREATE TABLE common_file (
 	static function nameToSafe($name, $maxlen=250) {
 	
 	    $name = self::recodeUTF8ToAscii($name);
-	    return preg_replace('/[^a-zA-Z0-9._-]/', '_', $name);
+	    return preg_replace('/[^a-zA-Z0-9._-]/', '-', $name);
 	}
 
 	/**
