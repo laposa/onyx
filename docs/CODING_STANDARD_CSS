@@ -3,6 +3,12 @@ When to use ID or class?
 IDs can be used only in node/page/* and node/site/* templates
 everything else is using classes, because content can be added multiple times to a page
 
+extra CSS class should be using Camel Case
+sectionExample
+pageExampleLanding
+fullBleed
+noMargin
+
 Camel Case
 ----------
 what is it for: core structure element IDs and class names
