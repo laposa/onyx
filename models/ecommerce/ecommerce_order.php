@@ -409,6 +409,7 @@ class ecommerce_order extends Onxshop_Model {
 		$Basket->setCacheable(false);
 		$Customer->setCacheable(false);
 		$OrderLog->setCacheable(false);
+		//this can be cached (submitted orders cannot change address) $Delivery->setCacheable(false);
 		
 		$order = $this->getDetail($id);
 		
