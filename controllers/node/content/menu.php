@@ -28,7 +28,16 @@ class Onxshop_Controller_Node_Content_Menu extends Onxshop_Controller_Node_Conte
 		 * get node component options
 		 */
 		 
-		if ($node_data['component']['template'] == '') $node_data['component']['template'] = 'menu_UL';
+		switch ($node_data['component']['template']) {
+			case 'menu_SELECT':
+				$template = 'component/menu_select';
+				break;
+			case 'menu_GRID':
+				$template = 'component/menu_grid';
+				break;
+			default:
+				$template = 'component/menu';
+		}
 		
 		if (is_numeric($node_data['component']['level'])) $level = $node_data['component']['level'];
 		else $level = 0;
@@ -41,7 +50,7 @@ class Onxshop_Controller_Node_Content_Menu extends Onxshop_Controller_Node_Conte
 		 * pass to menu component
 		 */
 		 
-		$Onxshop_Request = new Onxshop_Request("component/menu~id={$node_data['component']['node_id']}:template={$node_data['component']['template']}:display_teaser={$node_data['component']['display_teaser']}:level={$level}:expand_all={$display_all}:open={$open}~");
+		$Onxshop_Request = new Onxshop_Request("$template~id={$node_data['component']['node_id']}:display_teaser={$node_data['component']['display_teaser']}:level={$level}:expand_all={$display_all}:open={$open}~");
 		$this->tpl->assign("MENU", $Onxshop_Request->getContent());
 		$this->tpl->assign("NODE", $node_data);
 		
