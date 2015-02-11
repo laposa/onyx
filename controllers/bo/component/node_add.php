@@ -76,7 +76,7 @@ class Onxshop_Controller_Bo_Component_Node_Add extends Onxshop_Controller {
 		if ($node_group == 'container') $node_group = 'page';
 		
 		// get the list of node types
-		$Node_type = new Onxshop_Request("bo/component/node_type_menu~id=0:open={$node_controller}:node_group={$node_group}:expand_all=$expand_all~");
+		$Node_type = new Onxshop_Request("bo/component/node_type_menu~id=new:open={$node_controller}:node_group={$node_group}:expand_all=$expand_all~");
 		$this->tpl->assign("NODE_TYPE", $Node_type->getContent());
 
 		$this->tpl->parse('content.form');

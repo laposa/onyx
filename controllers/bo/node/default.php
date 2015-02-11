@@ -123,7 +123,7 @@ class Onxshop_Controller_Bo_Node_Default extends Onxshop_Controller {
 		
 
 		// get the list of node types
-		$Node_type = new Onxshop_Request("bo/component/node_type_menu~id=0:open={$this->node_data['node_controller']}:node_group={$this->node_data['node_group']}:expand_all=1~");
+		$Node_type = new Onxshop_Request("bo/component/node_type_menu~id={$this->node_data['id']}:open={$this->node_data['node_controller']}:node_group={$this->node_data['node_group']}:expand_all=1~");
 		$this->tpl->assign("NODE_TYPE", $Node_type->getContent());
 		
 		$this->tpl->assign('NODE', $this->node_data);
