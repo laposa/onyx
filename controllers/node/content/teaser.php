@@ -26,8 +26,12 @@ class Onxshop_Controller_Node_Content_Teaser extends Onxshop_Controller_Node_Con
 
 		// set default link text if required
 		$params = '';
-		if (trim($node_data['component']['teaser_text']) != '') $params .= (":teaser_text=" . urlencode($node_data['component']['teaser_text']));
-		if (trim($node_data['component']['link_text']) != '') $params .= (":link_text=" . urlencode($node_data['component']['link_text']));
+		if (trim($node_data['component']['teaser_text']) != '') $params .= ":teaser_text=" . urlencode($node_data['component']['teaser_text']);
+		if (trim($node_data['component']['link_text']) != '') $params .= ":link_text=" . urlencode($node_data['component']['link_text']);
+
+		// check for image override
+		$image = $this->Node->getTeaserImageForNodeId($this->GET['id']);
+		if ($image) $params .= ":img_src=/image/" . urlencode($image['src']);
 
 		/**
 		 * call controller

@@ -42,7 +42,13 @@ class Onxshop_Controller_Component_Teaser extends Onxshop_Controller {
 		 * load image
 		 */
 
-		$node['image'] = $this->getImage($node);
+		if (empty($this->GET['img_src'])) {
+			$node['image'] = $this->getImage($node);
+			if ($node['image']) $node['image']['src'] = "/thumbnail/210x90/" . $node['image']['src'] . "?fill=1";
+		} else {
+			$node['image']['src'] = $this->GET['img_src'];
+			$node['image']['title'] = $node['title'];
+		}
 
 		/**
 		 * override teaser text and link text if requred
