@@ -3,11 +3,10 @@ When to use ID or class?
 IDs can be used only in node/page/* and node/site/* templates
 everything else is using classes, because content can be added multiple times to a page
 
-extra CSS class should be using Camel Case
-sectionExample
-pageExampleLanding
-fullBleed
-noMargin
+When to use camel case, underscores and dashed?
+-----------------------------------------------
+In summary camel case are for CMS users, underscores for HTML template coders 
+and dashes are used by the system.
 
 Camel Case
 ----------
@@ -16,6 +15,12 @@ where to find: page and layout templates (templates/node/*)
 
 all ID attributes are using camel case, example: #primaryNavigation
 layouts are using camel case, example div.twoColumnLayout
+
+extra CSS class should be using Camel Case
+sectionExample
+pageExampleLanding
+fullBleed
+noMargin
 
 References:
 https://github.com/laposa/onxshop/blob/master/share/css/default/src/layout.css
