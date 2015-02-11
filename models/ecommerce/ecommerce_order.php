@@ -409,6 +409,7 @@ class ecommerce_order extends Onxshop_Model {
 		$Basket->setCacheable(false);
 		$Customer->setCacheable(false);
 		$OrderLog->setCacheable(false);
+		//this can be cached (submitted orders cannot change address) $Delivery->setCacheable(false);
 		
 		$order = $this->getDetail($id);
 		
@@ -1149,6 +1150,32 @@ class ecommerce_order extends Onxshop_Model {
 
 		return $records;
 
+	}
+
+	/**
+	 * Get orders for which the review is due
+	 */
+
+	public function getOrdersForReviews($dayInterval = 15, $newsletterSubscribersOnly = true)
+	{
+		if (!is_numeric($dayInterval) || $dayInterval < 0 || $dayInterval > 90) {
+			msg("Given dayInterval value is invalid", "error");
+			return false;
+		}
+
+		if ($newsletterSubscribersOnly) $newsletter = " AND client_customer.newsletter <> 0";
+
+		$sql = "SELECT ecommerce_order.id FROM ecommerce_order
+			INNER JOIN ecommerce_basket ON ecommerce_basket.id = ecommerce_order.basket_id
+			INNER JOIN client_customer ON client_customer.id = ecommerce_basket.customer_id $newsletter
+			WHERE (review_email_sent = 0 OR review_email_sent IS NULL)
+				AND (now() - ecommerce_order.created) > INTERVAL '$dayInterval days' 
+				AND ecommerce_order.status IN (1, 2, 3)
+		";
+
+		$records = $this->executeSql($sql);
+		return $records;
+			 
 	}
 
 }

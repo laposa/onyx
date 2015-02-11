@@ -917,7 +917,12 @@ CREATE TABLE client_customer (
 	 */
 	
 	function updateCustomer($customer_data, $send_notify_email = false) {
-		
+	
+		// clean up attribute which are not part of the model
+		unset($customer_data['group_ids']);
+		unset($customer_data['group_id']);
+		unset($customer_data['role_ids']);
+
 		//make email and username lowercase to avoid duplications
 		if (array_key_exists('email', $customer_data)) $customer_data['email'] = strtolower($customer_data['email']);
 		if (array_key_exists('username', $customer_data)) $customer_data['username'] = strtolower($customer_data['username']);
