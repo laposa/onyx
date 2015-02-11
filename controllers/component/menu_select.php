@@ -11,7 +11,7 @@ class Onxshop_Controller_Component_Menu_Select extends Onxshop_Controller_Compon
 
 	public function parseItem($item)
 	{
-		if (in_array($item['id'], $this->full_path)) {
+		if (in_array($item['id'], $_SESSION['active_pages'])) {
 			$item['selected'] = 'selected="selected"';
 		}
 
