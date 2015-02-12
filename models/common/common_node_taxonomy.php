@@ -72,6 +72,7 @@ ALTER TABLE common_node_taxonomy ADD CONSTRAINT node_node_id_taxonomy_tree_id_ke
 		
 		$relations_list = $this->listing("node_id = $node_id");
 		
+		$relations = array();
 		foreach($relations_list as $item) {
 			$relations[] = $item['taxonomy_tree_id'];
 		}
