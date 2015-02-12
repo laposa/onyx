@@ -1541,13 +1541,32 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 	 * get sibling
 	 */
 	 
-	function getSiblingList($item_id) {
+	function getSiblingList($item_id, $exclude_unrelated = true) {
 	
 		if (!is_numeric($item_id)) return false;
 		
 		if ($item_data = $this->detail($item_id)) {
+			
+			/**
+			 * prepare exclude_query to make sure we are getting only related siblings
+			 */
+			
+			if ($exclude_unrelated) {
+				
+				if (in_array($item_data['node_group'], array('page', 'container', 'site'))) {
+					
+					// asking for page or container, don't include products, recipes and news
+					$exclude_query = "(node_group = 'page' OR node_group = 'container') AND node_controller != 'product' AND node_controller != 'recipe' AND node_controller != 'news'";
+					
+				} else {
+					
+					//asking for content or layout, exclude all pages and containers
+					$exclude_query = "node_group != 'page' AND node_group != 'container'";
+				}
+			}
+			
 			//use same sorting as getTree() function
-			$list = $this->listing("parent_container = {$item_data['parent_container']} AND parent = {$item_data['parent']}", 'priority DESC, id ASC');
+			$list = $this->listing("parent_container = {$item_data['parent_container']} AND parent = {$item_data['parent']} AND $exclude_query", 'priority DESC, id ASC');
 		} else {
 			return false;
 		}
