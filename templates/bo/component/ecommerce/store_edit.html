@@ -42,18 +42,16 @@
 
 											<fieldset>
 												<div class="row address">
-													<span class="label"><label>Address</label></span>
+													<span class="label"><label>Address (one text field for the address is deprecated, news instalaltions should use separate address fields below)</label></span>
 													<span class="field"><textarea id="store_address" name="store[address]">{STORE.address|htmlspecialchars}</textarea></span>
 												</div>
 												
-												<div class="advanced">
-												<!--
-												<div class="row country_id">
+												<div class="row country_id advanced">
 													<span class="label"><label>country_id</label></span>
 													<span class="field"><input type="text" class="number country_id short" name="store[country_id]" value="{STORE.country_id|htmlspecialchars}" /></span>
 												</div>
-												-->
-												<div class="row address_name">
+												
+												<div class="row address_name advanced">
 													<span class="label"><label>Address Name</label></span>
 													<span class="field"><input type="text" class="text address_name long" name="store[address_name]" value="{STORE.address_name|htmlspecialchars}" /></span>
 												</div>
@@ -80,7 +78,6 @@
 												<div class="row address_post_code">
 													<span class="label"><label>Address Post Code</label></span>
 													<span class="field"><input type="text" class="text address_post_code long" name="store[address_post_code]" value="{STORE.address_post_code|htmlspecialchars}" /></span>
-												</div>
 												</div>
 												
 												<div class="row opening hours">
