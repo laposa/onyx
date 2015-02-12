@@ -35,37 +35,63 @@
 </div>
 
 <fieldset>
-	<div class="row">
-		<span class="label"><label>*Template:</label></span>
-		<span class="field">
-			<select name="node[component][template]">
-				<option value="4col" {SELECTED_template_4col}>4 Columns</option>
-				<option value="shelf" {SELECTED_template_shelf}>Shelf</option>
-			</select>
-		</span>
-	</div>
-	<div class="row">
-		<span class="label"><label>Sort By:</label></span>
-		<span class="field">
-			<select name="node[component][sort][by]">
-				<option value="created" {SELECTED_sort_by_created}>Created time</option>
-				<option value="modified" {SELECTED_sort_by_modified}>Modified time</option>
-				<option value="title" {SELECTED_sort_by_title}>Title</option>
-				<option value="priority" {SELECTED_sort_by_priority}>Priority</option>
-				<option value="share_counter" {SELECTED_sort_by_share_counter}>Share counter</option>
-			</select>
-		</span>
-	</div>
-	<div class="row">
-		<span class="label"><label>Sort Direction:</label></span>
-		<span class="field">
-			<select name="node[component][sort][direction]">
-				<option value="DESC" {SELECTED_sort_direction_DESC}>DESC</option>
-				<option value="ASC" {SELECTED_sort_direction_ASC}>ASC</option>
-			</select>
-		</span>
+	<div class="twoColumnLayout">
+		<div class="layoutWrapper">
+			<div class="layoutColumnOne ofTwo">
+				<div class="layoutColumnWrapper">
+
+					<div class="row">
+						<span class="label"><label>*Template:</label></span>
+						<span class="field">
+							<select name="node[component][template]">
+								<option value="4col" {SELECTED_template_4col}>4 Columns</option>
+								<option value="shelf" {SELECTED_template_shelf}>Shelf</option>
+							</select>
+						</span>
+					</div>
+					<div class="row">
+						<span class="label"><label>Sort By:</label></span>
+						<span class="field">
+							<select name="node[component][sort][by]">
+								<option value="created" {SELECTED_sort_by_created}>Created time</option>
+								<option value="modified" {SELECTED_sort_by_modified}>Modified time</option>
+								<option value="title" {SELECTED_sort_by_title}>Title</option>
+								<option value="priority" {SELECTED_sort_by_priority}>Priority</option>
+								<option value="share_counter" {SELECTED_sort_by_share_counter}>Share counter</option>
+							</select>
+						</span>
+					</div>
+					<div class="row">
+						<span class="label"><label>Sort Direction:</label></span>
+						<span class="field">
+							<select name="node[component][sort][direction]">
+								<option value="DESC" {SELECTED_sort_direction_DESC}>DESC</option>
+								<option value="ASC" {SELECTED_sort_direction_ASC}>ASC</option>
+							</select>
+						</span>
+					</div>
+
+				</div>
+			</div>
+			<div class="layoutColumnTwo ofTwo">
+				<div class="layoutColumnWrapper">
+
+					<div class="row">
+						<span class="label"><label>*Limit:</label></span>
+						<span class="field"><input class="number" type="text" name="node[component][limit]" value="{NODE.component.limit}" /></span>
+					</div>
+					<div class="row">
+						<span class="label"><label for="component-pagination">Display pagination</label></span>
+						<span class="field"><input type="checkbox" id="component-pagination" name="node[component][pagination]" {NODE.component.pagination} /></span>
+					</div>
+
+				</div>
+			</div>
+			<div class="bottom"><span></span></div>
+		</div>
 	</div>
 </fieldset>
+
 <div class="advanced">
 {FILE "bo/node/item_content_list.html"}
 {FILE "bo/node/item_position.html"}
