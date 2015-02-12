@@ -91,6 +91,8 @@ $(function() {
 				body.html('<img src="/share/images/ajax-indicator/indicator_facebook.gif" alt="Loading..." style="position: fixed; width: 16px; height: 11px; top: 50%; left: 50%; margin: -5px 0 0 -8px;"/>');
 				body.fadeIn(300);
 			});	
+			var targetUrl = $(this).attr("href");
+			setTimeout(function() { window.location = targetUrl; }, 5000); // try again after 5 seconds
 		}
 	});
 
