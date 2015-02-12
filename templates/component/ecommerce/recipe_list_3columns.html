@@ -1,0 +1,29 @@
+<!-- BEGIN: content -->
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+
+<div class="recipe_list recipe_list_3columns">
+
+	<div class="threeColumnLayout">
+		<!-- BEGIN: column -->
+		<div class="layoutColumn{COLUMN_NUM} ofThree">
+			<!-- BEGIN: item -->
+			<div class="item {ITEM.taxonomy_class}">
+				
+				<div class="image">
+					<!-- BEGIN: image --><a href="/page/{ITEM.page.id}" title="{ITEM.title|htmlspecialchars}"><img src="/thumbnail/230/{ITEM.image.src}" alt="{ITEM.image.title|htmlspecialchars}" /></a><!-- END: image -->
+				</div>
+				
+				<h3 class="name"><a href="/page/{ITEM.page.id}" title="{ITEM.recipe.name|htmlspecialchars}"><span>{ITEM.title|htmlspecialchars}</span></a></h3>
+				
+			</div>
+			<!-- END: item -->
+		</div>
+		<!-- END: column -->
+	</div>
+	
+	<div class="bottom"></div>
+	{PAGINATION}
+	<div class="bottom"></div>
+
+</div>
+<!-- END: content -->
