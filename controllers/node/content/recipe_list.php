@@ -58,8 +58,8 @@ class Onxshop_Controller_Node_Content_Recipe_List extends Onxshop_Controller_Nod
 		 * call controller
 		 */
 		
-		$_nSite = new nSite("component/ecommerce/$controller~taxonomy_tree_id=$taxonomy_ids:sort[by]=$sort_by:sort[direction]=$sort_direction~");
-		$this->tpl->assign('RECIPE_LIST', $_nSite->getContent());
+		$_Onxshop_Controller = new Onxshop_Controller("component/ecommerce/$controller~taxonomy_tree_id=$taxonomy_ids:sort[by]=$sort_by:sort[direction]=$sort_direction~");
+		$this->tpl->assign('RECIPE_LIST', $_Onxshop_Controller->getContent());
 		
 		$this->tpl->assign('NODE', $node_data);
 
