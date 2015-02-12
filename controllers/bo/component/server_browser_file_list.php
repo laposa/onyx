@@ -165,7 +165,7 @@ class Onxshop_Controller_Bo_Component_Server_Browser_File_List extends Onxshop_C
 		$this->tpl->assign('BASE', $base_folder);
 		$this->tpl->assign('FOLDER_HEAD', $folder_head);
 		$this->tpl->assign('FOLDER', $relative_folder_path);
-		$this->tpl->assign('MAX_FILE_SIZE', round($this->convertBytes(ini_get('upload_max_filesize')) / 1048576));
+		$this->tpl->assign('MAX_FILE_SIZE', round($File->convertBytes(ini_get('upload_max_filesize')) / 1048576));
 		$this->tpl->assign('MAX_FILES', ini_get('max_file_uploads'));
 		
 		/**
@@ -247,34 +247,6 @@ class Onxshop_Controller_Bo_Component_Server_Browser_File_List extends Onxshop_C
 		}
 
 		return true;
-	}
-
-	/**
-	 * Convert a shorthand byte value from a PHP configuration directive to an integer value
-	 * @param    string   $value
-	 * @return   int
-	 */
-	protected function convertBytes($value)
-	{
-	    if (is_numeric($value)) {
-	        return $value;
-	    } else {
-	        $value_length = strlen($value);
-	        $qty = substr($value, 0, $value_length - 1);
-	        $unit = strtolower(substr($value, $value_length - 1));
-	        switch ($unit) {
-	            case 'k':
-	                $qty *= 1024;
-	                break;
-	            case 'm':
-	                $qty *= 1048576;
-	                break;
-	            case 'g':
-	                $qty *= 1073741824;
-	                break;
-	        }
-	        return $qty;
-	    }
 	}
 
 	/**
