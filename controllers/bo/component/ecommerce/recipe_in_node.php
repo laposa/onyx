@@ -99,7 +99,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Recipe_In_Node extends Onxshop_C
 		 * prepare node data
 		 */
 		 
-		$recipe_node['title'] = $recipe_detail['name'];
+		$recipe_node['title'] = $recipe_detail['title'];
 		$recipe_node['parent'] = $parent_id;
 		$recipe_node['parent_container'] = 0;
 		$recipe_node['node_group'] = 'page';
@@ -107,7 +107,6 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Recipe_In_Node extends Onxshop_C
 		$recipe_node['content'] = $recipe_id;
 		//$recipe_node['layout_style'] = $Node->conf['page_recipe_layout_style'];
 		//this need to be updated on each recipe update
-		$recipe_node['priority'] = $recipe_detail['priority'];
 		$recipe_node['publish'] = $recipe_detail['publish'];
 		
 		/**
