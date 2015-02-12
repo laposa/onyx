@@ -377,46 +377,91 @@ CREATE TABLE ecommerce_recipe (
 				$recipe_ids[] = $category['node_id'];
 			}
 
-			$where = "ecommerce_recipe.id IN (" . implode(",", $recipe_ids) . ") AND ecommerce_recipe.publish = 1";
-			
-			$sql = "SELECT ecommerce_recipe.*, common_node.share_counter
-				FROM ecommerce_recipe
-				INNER JOIN common_node ON (common_node.node_group = 'page' 
-					AND common_node.node_controller = 'recipe'
-					AND common_node.content = ecommerce_recipe.id::varchar
-					AND common_node.publish = 1)
-				WHERE $where
-				$order_by
-				$limit";
-		
-			$recipes = $this->executeSql($sql);
-			
-			// return empty array if nothing is found
-			if (!is_array($recipes)) return array();
-			
-			$recipe_pages = $Node->listing("node_group = 'page' AND node_controller = 'recipe' AND content ~ '[0-9]+' AND publish = 1");
+			$where = "AND ecommerce_recipe.id IN (" . implode(",", $recipe_ids) . ")";
 
-			foreach ($recipe_pages as $recipe_page)
-				foreach ($recipes as &$recipe) {
-					if ($recipe_page['content'] == $recipe['id']) {
-						// asign page
-						$recipe['page'] = $recipe_page;
+		} else {
 
-						// load images
-						$image_list = $Image->listFiles($recipe['id'] , $priority = "priority DESC, id ASC", false);
-						$recipe['image']  = $image_list[0];
-						
-						// load review
-						$recipe['review'] = $Review->getRating($recipe['id']);
-						
-					}
-				}
-
+			$where = "";
 		}
+			
+		$sql = "SELECT ecommerce_recipe.*, common_node.share_counter
+			FROM ecommerce_recipe
+			INNER JOIN common_node ON (common_node.node_group = 'page' 
+				AND common_node.node_controller = 'recipe'
+				AND common_node.content = ecommerce_recipe.id::varchar
+				AND common_node.publish = 1)
+			WHERE ecommerce_recipe.publish = 1 $where
+			$order_by
+			$limit";
+	
+		$recipes = $this->executeSql($sql);
+		
+		// return empty array if nothing is found
+		if (!is_array($recipes)) return array();
+		
+		$recipe_pages = $Node->listing("node_group = 'page' AND node_controller = 'recipe' AND content ~ '[0-9]+' AND publish = 1");
+
+		foreach ($recipe_pages as $recipe_page) {
+			foreach ($recipes as &$recipe) {
+				if ($recipe_page['content'] == $recipe['id']) {
+
+					// assign page
+					$recipe['page'] = $recipe_page;
+
+					// load images
+					$image_list = $Image->listFiles($recipe['id'] , $priority = "priority DESC, id ASC", false);
+					$recipe['image']  = $image_list[0];
+					
+					// load review
+					$recipe['review'] = $Review->getRating($recipe['id']);
+					
+				}
+			}
+		}
+
 		
  		return $recipes;
 
     }
+
+    /**
+     * getRecipeCountForTaxonomy
+     */
+
+    function getRecipeCountForTaxonomy($taxonomy_ids) {
+
+ 		require_once('models/ecommerce/ecommerce_recipe_taxonomy.php');
+		$Taxonomy = new ecommerce_recipe_taxonomy();
+
+		if (is_array($taxonomy_ids) && count($taxonomy_ids) > 0) {
+		
+			$taxonomy = $Taxonomy->listing("taxonomy_tree_id IN (" . implode(",", $taxonomy_ids) . ")");
+
+			$recipe_ids = array();
+			foreach ($taxonomy as $category) {
+				$recipe_ids[] = $category['node_id'];
+			}
+
+			$where = "AND ecommerce_recipe.id IN (" . implode(",", $recipe_ids) . ")";
+
+		} else {
+
+			$where = "";
+		}
+		
+		$sql = "SELECT count(ecommerce_recipe.id) AS count
+			FROM ecommerce_recipe
+			INNER JOIN common_node ON (common_node.node_group = 'page' 
+				AND common_node.node_controller = 'recipe'
+				AND common_node.content = ecommerce_recipe.id::varchar
+				AND common_node.publish = 1)
+			WHERE ecommerce_recipe.publish = 1 $where";
+	
+		$result = $this->executeSql($sql);
+		return (int) $result[0]['count'];
+
+    }
+
     
     /**
 	 * get taxonomy relation

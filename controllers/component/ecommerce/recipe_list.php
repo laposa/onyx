@@ -19,12 +19,15 @@ class Onxshop_Controller_Component_Ecommerce_Recipe_List extends Onxshop_Control
 		$Recipe = new ecommerce_recipe();
 
 		// get taxonomy ids
-		$taxonomy_ids = explode(",", $this->GET['taxonomy_tree_id']);
-
-		// validate input
-		if (!is_array($taxonomy_ids)) return false;
-		foreach ($taxonomy_ids as $taxonomy_id) 
-			if (!is_numeric($taxonomy_id)) return false;
+		if (empty($this->GET['taxonomy_tree_id'])) {
+			$taxonomy_ids = array();
+		} else {
+			$taxonomy_ids = explode(",", $this->GET['taxonomy_tree_id']);
+			// validate input
+			if (!is_array($taxonomy_ids)) return false;
+			foreach ($taxonomy_ids as $taxonomy_id) 
+				if (!is_numeric($taxonomy_id)) return false;
+		}
 
 		// is there a limit?
 		if  (is_numeric($this->GET['limit_from'])) $limit_from = $this->GET['limit_from'];
@@ -46,6 +49,14 @@ class Onxshop_Controller_Component_Ecommerce_Recipe_List extends Onxshop_Control
 
 		$this->parseItems($list);
 
+		if ($this->GET['display_pagination'] == 1) {
+		
+			$count = $Recipe->getRecipeCountForTaxonomy($taxonomy_ids);
+			$_Onxshop_Request = new Onxshop_Request("component/pagination~limit_from=$limit_from:limit_per_page=$limit_per_page:count=$count~");
+			$this->tpl->assign('PAGINATION', $_Onxshop_Request->getContent());
+			
+		}
+
 		return true;
 	}
 
@@ -57,6 +68,9 @@ class Onxshop_Controller_Component_Ecommerce_Recipe_List extends Onxshop_Control
 		foreach ($list as $i => $item) {
 			
 			$this->tpl->assign("ITEM", $item);
+
+			if ($item['image']['src']) $this->tpl->parse('content.item.image');
+
 			if ($item['review']['count'] > 0) {
 				
 				$rating = round($item['review']['rating']);
@@ -67,6 +81,7 @@ class Onxshop_Controller_Component_Ecommerce_Recipe_List extends Onxshop_Control
 				
 				$this->tpl->parse('content.item.reviews');
 			}
+
 			$this->tpl->parse("content.item");
 		}
 	}

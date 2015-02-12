@@ -20,6 +20,7 @@ class Onxshop_Controller_Component_Ecommerce_Recipe_List_4columns extends Onxsho
 			for ($i = $j; $i < count($list); $i += 4) {
 				$item = $list[$i];
 				$this->tpl->assign("ITEM", $item);
+				if ($item['image']['src']) $this->tpl->parse('content.column.item.image');
 				$this->tpl->parse("content.column.item");
 			}
 			$this->tpl->assign("COLUMN_NUM", $columnNames[$j]);

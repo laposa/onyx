@@ -32,10 +32,14 @@ class Onxshop_Controller_Node_Content_Recipe_List extends Onxshop_Controller_Nod
 			case 'shelf':
 				$controller = 'recipe_list_shelf';
 				break;
-				
+
 			case '4col':
-			default:
 				$controller = 'recipe_list_4columns';
+				break;
+				
+			case '3col':
+			default:
+				$controller = 'recipe_list_3columns';
 				break;
 		}
 		
@@ -53,13 +57,38 @@ class Onxshop_Controller_Node_Content_Recipe_List extends Onxshop_Controller_Nod
 		 
 		$sort_by = $node_data['component']['sort']['by'];
 		$sort_direction = $node_data['component']['sort']['direction'];
+
+		/**
+		 * limit
+		 */
+		 
+		if (is_numeric($this->GET['limit_from']) && is_numeric($this->GET['limit_per_page'])) {
+			$limit_from = $this->GET['limit_from'];
+			$limit_per_page = $this->GET['limit_per_page'];
+		} else if (is_numeric($node_data['component']['limit'])) {
+			$limit_from = 0;
+			$limit_per_page = $node_data['component']['limit'];
+		} else {
+			$limit_from = '';
+			$limit_per_page = '';
+		}
+
+		/**
+		 * pagination
+		 */
+		 
+		if ($node_data['component']['pagination'] == 1) {
+			$display_pagination = 1;
+		} else {
+			$display_pagination = 0;
+		}
 		
 		/**
 		 * call controller
 		 */
-		
-		$_Onxshop_Controller = new Onxshop_Controller("component/ecommerce/$controller~taxonomy_tree_id=$taxonomy_ids:sort[by]=$sort_by:sort[direction]=$sort_direction~");
-		$this->tpl->assign('RECIPE_LIST', $_Onxshop_Controller->getContent());
+
+		$_Onxshop_Request = new Onxshop_Request("component/ecommerce/$controller~taxonomy_tree_id=$taxonomy_ids:sort[by]=$sort_by:sort[direction]=$sort_direction:limit_from=$limit_from:limit_per_page=$limit_per_page:display_pagination=$display_pagination~");
+		$this->tpl->assign('RECIPE_LIST', $_Onxshop_Request->getContent());
 		
 		$this->tpl->assign('NODE', $node_data);
 

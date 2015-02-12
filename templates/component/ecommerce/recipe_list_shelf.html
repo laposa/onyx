@@ -8,7 +8,11 @@
 		
 		<div class="twoColumnLayout fibonacci-2-5">
 			<div class="layoutColumnOne ofTwo">
-				<div class="image"><a href="/page/{ITEM.page.id}" title="{ITEM.title|htmlspecialchars}"><img src="/thumbnail/230/{ITEM.image.src}" alt="{ITEM.image.title|htmlspecialchars}" /></a></div>
+
+				<div class="image">
+					<!-- BEGIN: image --><a href="/page/{ITEM.page.id}" title="{ITEM.title|htmlspecialchars}"><img src="/thumbnail/230/{ITEM.image.src}" alt="{ITEM.image.title|htmlspecialchars}" /></a><!-- END: image -->
+				</div>
+
 			</div>
 			<div class="layoutColumnTwo ofTwo">
 				<div class="description">
@@ -27,5 +31,8 @@
 	<div class="divider"><hr /></div>
 	<!-- END: item -->
 	
+	{PAGINATION}
+	<div class="bottom"></div>
+
 </div>
 <!-- END: content -->
