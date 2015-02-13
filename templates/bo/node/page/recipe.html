@@ -22,8 +22,9 @@
 	</div>
 	<div class="layoutColumnTwo ofTwo">
 		<fieldset>
-		{FILE "bo/node/item_image_list.html"}
 		<div class="advanced">
+		<p>See recipe database for related images</p>
+		{FILE "bo/node/item_image_list.html"}
 		{FILE "bo/node/item_taxonomy.html"}
 		{FILE "bo/node/item_layout_style.html"}
 		</div>
@@ -64,7 +65,7 @@
 {FILE "bo/node/form_close.html"}
 
 <p class="extended_toolbar">
-	<a class="button edit" href="/backoffice/recipes/{NODE.content}/edit" target="_blank"><span>Edit Recipe</span></a>
+	<a class="button add" href="/backoffice/recipes/{NODE.content}/edit" target="_blank"><span>Edit Recipe</span></a>
 	<a class="button edit" href="/page/{GET.id}?fe_edit_mode=edit" target="_blank" style="margin-left: 10px;"><span>Open in Front-End Editing</span></a>
 </p>
 <!-- END: content -->

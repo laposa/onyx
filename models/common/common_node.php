@@ -2,7 +2,7 @@
 /**
  * class common_node
  *
- * Copyright (c) 2009-2014 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -1846,10 +1846,47 @@ LEFT OUTER JOIN common_taxonomy_label ON (common_taxonomy_tree.label_id = common
 	 
 	public function getTeaserImageForNodeId($node_id) {
 		
-		require_once('models/common/common_image.php');
-		$Image = new common_image();
+		$node_detail = $this->nodeDetail($node_id);
 		
-		return $Image->getTeaserImageForNodeId($node_id);
+		switch ($node_detail['node_controller']) {
+			
+			case 'recipe':
+				require_once('models/ecommerce/ecommerce_recipe_image.php');
+				$Image = new ecommerce_recipe_image();
+				
+				// change node ID
+				$image_node_id = $node_detail['content'];
+				
+			break;
+			
+			case 'product':
+				require_once('models/ecommerce/ecommerce_product_image.php');
+				$Image = new ecommerce_product_image();
+				
+				// change node ID
+				$image_node_id = $node_detail['content'];
+				
+			break;
+			
+			case 'store':
+				require_once('models/ecommerce/ecommerce_store_image.php');
+				$Image = new ecommerce_store_image();
+				
+				// change node ID
+				$image_node_id = $node_detail['content'];
+				
+			break;
+			
+			case 'default':
+				require_once('models/common/common_image.php');
+				$Image = new common_image();
+				
+				// node_id in common_node is direct reference to common_node.id
+				$image_node_id = $node_id;
+			break;
+		}
+		
+		return $Image->getTeaserImageForNodeId($image_node_id);
 		
 	}
 	
