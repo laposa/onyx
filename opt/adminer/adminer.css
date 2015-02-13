@@ -1,6 +1,8 @@
-body { font-size: 75%; }
+body { font-size: 75%; font-family: "Lucida Grande", "Verdana", sans-serif; }
 #tables { font-size: 11px; line-height: 16px; }
 #content { padding-bottom: 60px; }
+
+a:hover { color: #333 !important; }
 
 p.pages { background: rgba(255, 255, 255, 0.90); border: none; box-shadow: 0 -1px 10px rgba(0,0,0,0.25); left: 0; padding: 20px 0; z-index: 100; width: 100%; z-index: 1000; }
 p.pages a { padding: 8px 12px; border: 1px solid #ccc; }
@@ -10,12 +12,28 @@ p.pages a:hover:first-child { border: none;}
 
 p.pages { padding-left: 21em; }
 
-pre { font-size: 11; font-family: "Menlo", monospace; }
+pre#sql-1 { padding: 10px; background: #f0f0f0; border: 1px solid #d0d0d0; }
+pre, code { font-size: 11; font-family: "Menlo", monospace; }
+
 #menu p.links { padding-right: 0; }
 #menu p.links a { margin-right: 10px; font-size: 11px; }
 #menu p.links a:nth-child(3) { margin-right: 0; }
-div#content p.links a { font-size: 12px; border: 1px solid #999; padding: 3px 10px; border-radius: 4px; background: #ffffff; margin-right: 12px; }
+div#content p.links a { font-size: 12px; padding: 3px 10px; margin-right: 3px; border: 1px solid #ccc; background: #f3f3f3; }
+div#content p.links a.active { background: #ffffff; border-bottom: 1px solid #ffffff; }
 div#content p.links a:hover { text-decoration: none; background: #f0f0f0; color: #000; }
-div#content p.links:nth-child(4) { position: absolute; right: 0; top: 42px; }
+div#content p.links:nth-child(4) { position: absolute; right: 0; top: 57px; }
 div#content h2 { margin-bottom: 10px; }
 form#form fieldset { margin-top: 0; }
+#dbs { line-height: 1.8; padding: 10px 0.8em 0 0.8em!important; background: #f0f0f0; height: 48px; margin: 1px 0 0 0 !important; }
+#dbs select[name="db"] { float: right; width: 80%; }
+#dbs select[name="ns"] { float: right; width: 60%; }
+#lang { display: none; }
+#menu { margin-top: 0; top: 0; width: 20em; }
+div#content { margin-left: 21em; padding-right: 0; margin-top: 0; }
+h1 { font-size: 11px; padding: 6px 10px 0 10px; height: 19px; border-bottom: 1px solid #e0e0e0; box-shadow: 0 1px 0 #f8f8f8;}
+#h1 { font-style: normal; color: #000; }
+h2 { border-bottom: 1px solid #ccc !important; background: #f0f0f0; padding-top: 39px; padding-bottom: 0; padding-left: 20px; height: 36px; font-size: 14px !important; text-shadow: 0 1px 0 #ffffff; }
+#breadcrumb { background: #ffffff; left: auto; padding-left: 20px; top: 2px; font-size: 11px; z-index: 10; background: #f0f0f0; }
+p.jsonly { font-size: 11px; }
+.logout { left: 240px; background: #f0f0f0; margin: 0; z-index: 1; height: 25px; border-bottom: 1px solid #e0e0e0; box-shadow: 0 1px 0 #f8f8f8; }
+.logout input#logout { float: right; margin: 3px 20px 0 0; border: none; background: transparent; }
