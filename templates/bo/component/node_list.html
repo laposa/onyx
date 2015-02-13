@@ -40,7 +40,6 @@ $(function() {
 	$('#child_list_{GET.id} a.onxshop_duplicate').on('click', function() {
 		var child_id = $(this).attr('href').replace('#','');;
 		$.get('/request/bo/component/node_duplicate~id='+child_id+'~', function(data) {
-			console.log($(data).find("div.onxshop_messages"));
 			popupMessage($(data).find("div.onxshop_messages"));
 			refreshList();
 		});
