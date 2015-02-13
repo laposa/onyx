@@ -112,6 +112,16 @@ class Onxshop_Controller_Node_Page_Recipe extends Onxshop_Controller_Node_Page_D
 
 			$this->tpl->assign("RECIPE", $recipe);
 
+			/**
+			 * video
+			 */
+			if (!empty($recipe['video_url'])) {
+
+				$video_url = urlencode($recipe['video_url']);
+				$_Onxshop_Request = new Onxshop_Request("component/video~video_url={$video_url}~");
+				$this->tpl->assign('RECIPE_VIDEO', $_Onxshop_Request->getContent());
+
+			}
 		}
 
 		return true;
