@@ -1878,6 +1878,7 @@ LEFT OUTER JOIN common_taxonomy_label ON (common_taxonomy_tree.label_id = common
 			break;
 			
 			case 'default':
+			default:
 				require_once('models/common/common_image.php');
 				$Image = new common_image();
 				
