@@ -60,6 +60,7 @@ CREATE INDEX ecommerce_recipe_taxonomy_taxonomy_tree_id_key ON ecommerce_recipe_
 		
 		$relations_list = $this->listing("node_id = $recipe_id");
 		
+		$relations = array();
 		foreach($relations_list as $item) {
 			$relations[] = $item['taxonomy_tree_id'];
 		}

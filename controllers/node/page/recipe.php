@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2013-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -51,7 +51,7 @@ class Onxshop_Controller_Node_Page_Recipe extends Onxshop_Controller_Node_Page_D
 		 */
 		 
 		$Recipe_Taxonomy = new ecommerce_recipe_taxonomy();
-		$taxonomy_ids = $Recipe_Taxonomy->getRelationsToRecipe($this->GET['recipe_id']);
+		$taxonomy_ids = (array) $Recipe_Taxonomy->getRelationsToRecipe($this->GET['recipe_id']);
 		$this->GET['taxonomy_tree_id'] = implode(",", $taxonomy_ids);
 		
 		/**
