@@ -111,21 +111,17 @@ class Onxshop_Controller_Uri_Mapping extends Onxshop_Controller {
 				/**
 				 * page not found
 				 */
-				
-				msg("{$translate} not found! (linked from {$_SERVER['HTTP_REFERER']})", 'error');
 				 
 				$action_to_process = $this->Mapper->getRequest($this->Mapper->conf['404_id']);
 		
 				$this->http_status = '404';
-					
+				
 			}
-			
 			
 		} else if ($controller_request) {
 		
 			// used for /request/ and /api/ handling to allow translating URLs
 			$action_to_process = $controller_request;
-		
 		}
 		
 		/**
