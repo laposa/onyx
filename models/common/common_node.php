@@ -1846,7 +1846,7 @@ LEFT OUTER JOIN common_taxonomy_label ON (common_taxonomy_tree.label_id = common
 	 
 	public function getTeaserImageForNodeId($node_id) {
 		
-		$node_detail = $this->nodeDetail($node_id);
+		$node_detail = $this->detail($node_id); //don't need to call full nodeDetail
 		
 		switch ($node_detail['node_controller']) {
 			
@@ -1923,6 +1923,51 @@ LEFT OUTER JOIN common_taxonomy_label ON (common_taxonomy_tree.label_id = common
 		}
 	
 		return $id_map;
+	}
+	
+	/**
+	 * getAuthorStats
+	 */
+	 
+	public function getAuthorStats($customer_id) {
+		
+		if (!is_numeric($customer_id)) return false;
+		
+		$stats = array();
+		
+		// number of teaser images:
+		//$sql = "SELECT count(*) FROM common_image WHERE customer_id = $customer_id AND role = 'teaser'";
+		//$stats[''] = $this->count();
+		
+		// number of all nodes:
+		$stats['node'] = $this->count("customer_id = $customer_id");
+		
+		// number of all pages created
+		$stats['page'] = $this->count("customer_id = $customer_id AND node_group = 'page'");
+		
+		// number of all layouts created
+		$stats['layout'] = $this->count("customer_id = $customer_id AND node_group = 'layout'");
+		
+		// number of all content created
+		$stats['content'] = $this->count("customer_id = $customer_id AND node_group = 'content'");
+		
+		// number of pages created with description
+		$stats['page_description'] = $this->count("customer_id = $customer_id AND node_group = 'page' AND description != ''");
+		
+		// number of pages type 'news' (blog) created
+		$stats['news'] = $this->count("customer_id = $customer_id AND node_group = 'page' AND node_controller = 'news'");
+		
+		// number of pages type 'recipe' created
+		$stats['recipe'] = $this->count("customer_id = $customer_id AND node_group = 'page' AND node_controller = 'recipe'");
+		
+		// number of pages type 'product' created
+		$stats['product'] = $this->count("customer_id = $customer_id AND node_group = 'page' AND node_controller = 'product'");
+		
+		// number of pages type 'store' created
+		$stats['product'] = $this->count("customer_id = $customer_id AND node_group = 'page' AND node_controller = 'store'");
+		
+		return $stats;
+		
 	}
 	
 }

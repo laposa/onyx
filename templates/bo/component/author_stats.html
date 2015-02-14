@@ -1,0 +1,28 @@
+<!-- BEGIN: content -->
+<div class="author_stats">
+	<h4>Author Stats</h4>
+
+	<form action="{URI}" method="POST">
+		<select name="customer_id" onchange="$(this).parents('form').submit();">
+			<option value="0">Superuser (id=0)</option>
+			<!-- BEGIN: item -->
+			<option value="{CUSTOMER.id}" {SELECTED}>{CUSTOMER.first_name|htmlspecialchars} {CUSTOMER.last_name} (id={CUSTOMER.id})</option>
+			<!-- END: item -->
+		</select>
+		<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+	</form>
+
+	<ul>
+		<li>number of all nodes: {AUTHOR_STATS.node}
+		<li>number of all pages created: {AUTHOR_STATS.page}
+		<li>number of all layouts created: {AUTHOR_STATS.layout}
+		<li>number of all content created: {AUTHOR_STATS.content}
+		<li>number of pages created with description: {AUTHOR_STATS.page_description}
+		<li>number of pages type 'news' (blog) created: {AUTHOR_STATS.news}
+		<li>number of pages type 'recipe' created: {AUTHOR_STATS.recipe}
+		<li>number of pages type 'product' created: {AUTHOR_STATS.product}
+		<li>number of pages type 'store' created: {AUTHOR_STATS.store}
+	</ul>
+	
+</div>
+<!-- END: content -->

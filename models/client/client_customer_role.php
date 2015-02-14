@@ -1,8 +1,7 @@
 <?php
 /**
- * class client_customer_role
  * 
- * Copyright (c) 2009-2014 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2014-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -93,8 +92,34 @@ class client_customer_role extends Onxshop_Model {
 		foreach ($list as $item) 
 			$result[] = $item['role_id'];
 		return $result;		
-	}	
+	}
 
+	/**
+	 * List customer IDs with any role
+	 * 
+	 * @param  int $role_id     Role Id
+	 * @return array            Customer Ids
+	 */
+	 
+	function getCustomerIdsWithRole($role_id = false)
+	{
+		
+		if (is_numeric($role_id)) $sql = "SELECT DISTINCT customer_id FROM client_customer_role WHERE role_id = $role_id ORDER BY customer_id";
+		else $sql = "SELECT DISTINCT customer_id FROM client_customer_role ORDER BY customer_id";
+		
+		$records = $this->executeSql($sql);
+		
+		$result = array();
+		
+		foreach ($records as $item) {
+			
+			$result[] = $item['customer_id'];
+		
+		}
+            
+		return $result;
+	}
+	
 	/**
 	 * Assign role to a customer (if not set already)
 	 * 
@@ -161,5 +186,5 @@ class client_customer_role extends Onxshop_Model {
 
 		return $result;
 	}
-
+	
 }

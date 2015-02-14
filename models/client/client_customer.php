@@ -2091,4 +2091,26 @@ CREATE TABLE client_customer (
 		return $CustomerRole->updateCustomerRoles($customer_id, $role_ids);
 		
 	}
+	
+	/**
+	 * getCustomersWithRole
+	 */
+	 
+	public function getCustomersWithRole($role_id = false) {
+		
+		require_once 'models/client/client_customer_role.php';
+		$Role = new client_customer_role();
+		
+		$customer_ids = $Role->getCustomerIdsWithRole($role_id);
+		
+		$customer_list = array();
+		
+		foreach ($customer_ids as $customer_id) {
+			
+			$customer_list[] = $this->detail($customer_id);
+			
+		}
+		
+		return $customer_list;
+	}
 }
