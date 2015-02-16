@@ -4,7 +4,7 @@
 
 	<form action="{URI}" method="POST">
 		<select name="customer_id" onchange="$(this).parents('form').submit();">
-			<option value="0">Superuser (id=0)</option>
+			<option value="0">Superuser</option>
 			<!-- BEGIN: item -->
 			<option value="{CUSTOMER.id}" {SELECTED}>{CUSTOMER.first_name|htmlspecialchars} {CUSTOMER.last_name} (id={CUSTOMER.id})</option>
 			<!-- END: item -->
@@ -13,15 +13,28 @@
 	</form>
 
 	<ul>
-		<li>number of all nodes: {AUTHOR_STATS.node}
-		<li>number of all pages created: {AUTHOR_STATS.page}
-		<li>number of all layouts created: {AUTHOR_STATS.layout}
-		<li>number of all content created: {AUTHOR_STATS.content}
-		<li>number of pages created with description: {AUTHOR_STATS.page_description}
-		<li>number of pages type 'news' (blog) created: {AUTHOR_STATS.news}
-		<li>number of pages type 'recipe' created: {AUTHOR_STATS.recipe}
-		<li>number of pages type 'product' created: {AUTHOR_STATS.product}
-		<li>number of pages type 'store' created: {AUTHOR_STATS.store}
+		<li>number of all nodes (total): {AUTHOR_STATS.common_node.total}
+		<li>number of all pages created: {AUTHOR_STATS.common_node.page}
+		<li>number of all layouts created: {AUTHOR_STATS.common_node.layout}
+		<li>number of all content created: {AUTHOR_STATS.common_node.content}
+		<li>number of pages created with description: {AUTHOR_STATS.common_node.page_description}
+		<li>number of pages type 'news' (blog) created: {AUTHOR_STATS.common_node.news}
+		<li>number of pages type 'recipe' created: {AUTHOR_STATS.common_node.recipe}
+		<li>number of pages type 'product' created: {AUTHOR_STATS.common_node.product}
+		<li>number of pages type 'store' created: {AUTHOR_STATS.common_node.store}
+		<li>revisions saved: {AUTHOR_STATS.common_revision.total}
+		<li>images uploaded and associated to nodes (total): {AUTHOR_STATS.common_image.total}
+		<li>images uploaded and associated to nodes (main): {AUTHOR_STATS.common_image.main}
+		<li>images uploaded and associated to nodes (teaser): {AUTHOR_STATS.common_image.teaser}
+		<li>images uploaded and associated to nodes (header): {AUTHOR_STATS.common_image.header}
+		<li>images uploaded and associated to nodes (feature): {AUTHOR_STATS.common_image.feature}
+		<li>images uploaded and associated to nodes (promotion): {AUTHOR_STATS.common_image.promotion}
+		<li>images uploaded and associated to nodes (background): {AUTHOR_STATS.common_image.background}
+		<li>images uploaded and associated to nodes (RTE): {AUTHOR_STATS.common_image.RTE}
+		<li>images uploaded and associated to nodes (opengraph): {AUTHOR_STATS.common_image.opengraph}
+		<li>images uploaded and associated to recipes:
+		<li>images uploaded and associated to products:
+		<li>images uploaded and associated to stores:
 	</ul>
 	
 </div>

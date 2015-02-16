@@ -157,5 +157,21 @@ class common_revision extends Onxshop_Model {
 		 return array('common_node', 'ecommerce_product', 'ecommerce_product_variety');
 		 
 	}
+	
+	/**
+	 * getAuthorStats
+	 */
 	 
+	public function getAuthorStats($customer_id) {
+		
+		if (!is_numeric($customer_id)) return false;
+		
+		$stats = array();
+		
+		$stats['total'] = $this->count("customer_id = $customer_id");
+				
+		return $stats;
+		
+	}
+	
 }

@@ -44,11 +44,39 @@ class Onxshop_Controller_Bo_Component_Author_Stats extends Onxshop_Controller {
 		 * stats
 		 */
 		 
+		$author_stats = array();
+		
+		/**
+		 * common_node
+		 */
+		 
 		require_once('models/common/common_node.php');
 		$Node = new common_node();
 		
-		$author_stats = $Node->getAuthorStats($customer_id);
+		$author_stats['common_node'] = $Node->getAuthorStats($customer_id);
 		
+		/**
+		 * common_image
+		 */
+		 
+		require_once('models/common/common_image.php');
+		$Image = new common_image();
+		
+		$author_stats['common_image'] = $Image->getAuthorStats($customer_id);
+		
+		/**
+		 * common_revision
+		 */
+		 
+		require_once('models/common/common_revision.php');
+		$Revision = new common_revision();
+		
+		$author_stats['common_revision'] = $Revision->getAuthorStats($customer_id);
+		
+		/**
+		 * assign
+		 */
+			
 		$this->tpl->assign('AUTHOR_STATS', $author_stats);
 		
 		return true;

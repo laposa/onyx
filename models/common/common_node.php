@@ -1935,12 +1935,8 @@ LEFT OUTER JOIN common_taxonomy_label ON (common_taxonomy_tree.label_id = common
 		
 		$stats = array();
 		
-		// number of teaser images:
-		//$sql = "SELECT count(*) FROM common_image WHERE customer_id = $customer_id AND role = 'teaser'";
-		//$stats[''] = $this->count();
-		
 		// number of all nodes:
-		$stats['node'] = $this->count("customer_id = $customer_id");
+		$stats['total'] = $this->count("customer_id = $customer_id");
 		
 		// number of all pages created
 		$stats['page'] = $this->count("customer_id = $customer_id AND node_group = 'page'");
