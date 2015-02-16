@@ -7,7 +7,7 @@
 require_once('controllers/node/content/default.php');
 require_once('models/common/common_node.php');
 
-class Onxshop_Controller_Node_Content_Teaser_List extends Onxshop_Controller_Node_Content_Default {
+class Onxshop_Controller_Node_Content_Page_List extends Onxshop_Controller_Node_Content_Default {
 
 	/**
 	 * main action

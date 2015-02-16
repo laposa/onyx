@@ -1,13 +1,25 @@
-<!-- BEGIN: title -->Teaser List<!-- END: title -->
+<!-- BEGIN: title -->Page List<!-- END: title -->
 <!-- BEGIN: content -->
 <div class="pageHeader">
 	<div class="pageHeaderWrapper">
-		<h1 class="pageTitle popup"><span>Teaser</span> <span class="info">ID {NODE.id}</span></h1>
+		<h1 class="pageTitle popup"><span>Page List</span> <span class="info">ID {NODE.id}</span></h1>
 	</div>
 </div>
 {FILE "bo/node/default_top.html"}
 
 <fieldset class="teaser-form-edit">
+	<div class="row">
+		<span class="label"><label>* Type:</label></span>
+		<span class="field">
+			<select name="node[component][template]">
+				<option value="grid" {SELECTED_template_grid}>grid</option>
+				<!--
+				<option value="shelf" {SELECTED_template_shelf}>shelf</option>
+				<option value="simple" {SELECTED_template_simple}>simple list (UL)</option>
+				-->
+			</select>
+		</span>
+	</div>
 	<div class="row node_ids">
 		<span class="label"><label>Target Page IDs: *</label></span>
 		<span class="field"><input type="text" class="text" name="node[component][node_ids]" id="component-node_ids" value="{NODE.component.node_ids}" /> <a class="button" href="#"><span>Browse Server</span></a></span>
