@@ -3645,23 +3645,6 @@ SELECT pg_catalog.setval('common_configuration_id_seq', 17, true);
 
 
 --
--- Data for Name: common_email; Type: TABLE DATA; Schema: public; Owner: -
---
-
-COPY common_email (id, email_from, name_from, subject, content, template, email_recipient, name_recipient, created, ip) FROM stdin;
-1	norbert.laposa@gmail.com	Webmaster	White Label: Registration	nothing	registration	norbert.laposa@gmail.com	Norbert Laposa	2008-08-16 13:14:23	192.168.0.2
-2	norbert.laposa@gmail.com	Webmaster	White Label: Registration Notify	nothing	registration_notify	norbert.laposa@gmail.com	Webmaster	2008-08-16 13:14:24	192.168.0.2
-\.
-
-
---
--- Name: common_email_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('common_email_id_seq', 2, true);
-
-
---
 -- Data for Name: common_file; Type: TABLE DATA; Schema: public; Owner: -
 --
 
