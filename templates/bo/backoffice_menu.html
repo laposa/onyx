@@ -9,23 +9,26 @@
 
 	$(function() {
 
+		var menuHeight = $('#menuSections').outerHeight();
+		var advancedMenuHeight = $('#menuAdvanced').outerHeight();
+
 		$('#menuSections li.advanced a').click(showAdvancedMenu);
 		$('#menuAdvanced li.back a').click(hideAdvancedMenu);
 
 		if ($('#menuAdvanced li.active').length > 0) {
-			$('#menuSections').hide();
-			$('#menuAdvanced').show();
+			$('#menuSections').css("margin-left", -130).css("height", advancedMenuHeight);
+			$('#menuAdvanced').css("margin-left", -130).css("height", advancedMenuHeight);
 		}
 
 		function showAdvancedMenu(e) {
-			$('#menuSections').slideUp(600);
-			$('#menuAdvanced').slideDown(600);
+			$('#menuSections').css("margin-left", 0).animate({ "margin-left": -130, "height": advancedMenuHeight }, 300);
+			$('#menuAdvanced').css("margin-left", 0).animate({ "margin-left": -130, "height": advancedMenuHeight }, 300);
 			return false;
 		}
 
 		function hideAdvancedMenu(e) {
-			$('#menuSections').slideDown(600);
-			$('#menuAdvanced').slideUp(600);
+			$('#menuSections').css("margin-left", -130).animate({ "margin-left": 0, "height": menuHeight }, 300);
+			$('#menuAdvanced').css("margin-left", -130).animate({ "margin-left": 0, "height": menuHeight }, 300);
 			return false;
 		}
 
