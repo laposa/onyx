@@ -133,7 +133,8 @@ div.pageContent .advanced { display: none; }
 #menuSystem a.onxshop_version {color: white; height: auto; line-height: 1.2;}
 #menuSystem li a.onxshop_version:before {display: inline-block; font-family: 'onxshop'; content: '\e601'; font-size: 31px; vertical-align: -15%; margin-left: 0; margin-right: 4px; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;}
 #menuSystem a.onxshop_version span {display: inline-block; vertical-align: -15%; max-width: 80px; max-height: 25px; overflow: hidden;}
-ul#menuAdvanced { display: none; }
+div.backoffice_menu { position: relative; }
+ul#menuAdvanced { position: absolute; top: 0; left: 130px; }
 
 /**
  * fe edit
