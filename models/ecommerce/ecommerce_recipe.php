@@ -2,7 +2,7 @@
 /**
  * class ecommerce_recipe
  *
- * Copyright (c) 2013-2014 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2013-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -126,6 +126,8 @@ CREATE TABLE ecommerce_recipe (
 	
 		if (array_key_exists('ecommerce_recipe', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['ecommerce_recipe'];
 		else $conf = array();
+		
+		if (!is_numeric($conf['taxonomy_tree_id'])) $conf['taxonomy_tree_id'] = 4; // experimental
 		
 		return $conf;
 	}
@@ -492,6 +494,23 @@ CREATE TABLE ecommerce_recipe (
 		$related_taxonomy = $Taxonomy->getRelatedTaxonomy($recipe_id, 'ecommerce_recipe_taxonomy');
 		
 		return $related_taxonomy;
+	}
+	
+	/**
+	 * getRecipeTaxonomy
+	 * TODO: this should re-used or merged with /api/v1.3/recipe_category_list
+	 */
+	 
+	public function getRecipeTaxonomy() {
+		
+		// get categories from taxonomy
+		require_once('models/common/common_taxonomy.php');
+		$Taxonomy = new common_taxonomy;
+		
+		$recipe_categories = $Taxonomy->getChildren($this->conf['taxonomy_tree_id']);
+		
+		return $recipe_categories;
+		
 	}
 
 }
