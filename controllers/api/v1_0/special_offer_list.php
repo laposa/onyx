@@ -112,7 +112,12 @@ class Onxshop_Controller_Api_v1_0_Special_Offer_List extends Onxshop_Controller_
 	{
 		require_once('controllers/component/ecommerce/roundel_css.php');
 		$image_src = Onxshop_Controller_Component_Ecommerce_Roundel_CSS::getRoundelImageSource($offer);
-		$image_src = "http://{$_SERVER['HTTP_HOST']}/$image_src";
+		
+		if ($_SERVER['SSL_PROTOCOL'] || $_SERVER['HTTPS']) $protocol = 'https';
+		else $protocol = 'http';
+		
+		$image_src = "$protocol://{$_SERVER['HTTP_HOST']}/$image_src";
+		
 		return $image_src;
 	}
 	
