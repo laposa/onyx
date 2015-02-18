@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2013-2014 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2013-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -60,16 +60,17 @@ class Onxshop_Controller_Api_v1_0_Special_Offer_List extends Onxshop_Controller_
 		$product_detail = $Product->getProductDetail($original_item['product_id']);
 		//print_r($product_detail); exit;
 		
-		
+		if ($_SERVER['SSL_PROTOCOL'] || $_SERVER['HTTPS']) $protocol = 'https';
+		else $protocol = 'http';
 		
 		$item['id'] = $original_item['offer_id'];
 		$item['title'] = $product_detail['name'];
 		$item['content'] = strip_tags($product_detail['description']);
-		$item['url'] = "http://{$_SERVER['HTTP_HOST']}/product/{$original_item['product_id']}";
+		$item['url'] = "$protocol://{$_SERVER['HTTP_HOST']}/product/{$original_item['product_id']}";
 		$item['priority'] = $product_detail['priority'];
 		$item['created'] = $product_detail['modified'];
 		$item['modified'] = $product_detail['modified'];
-		$item['images'] = array("http://{$_SERVER['HTTP_HOST']}/image/" . $Product->getProductMainImageSrc($original_item['product_id']));
+		$item['images'] = array("$protocol://{$_SERVER['HTTP_HOST']}/image/" . $Product->getProductMainImageSrc($original_item['product_id']));
 		$item['rondel'] = $this->getRoundelText($original_item);
 		$item['rondel_image_url'] = $this->getRoundelImageSource($original_item);
 		$item['price'] = money_format('%n', $original_item['price']);
