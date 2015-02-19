@@ -5,9 +5,9 @@
 <label>
 	Selected blog:
 	<select onchange="window.location = $(this).val();">
-		<option value="/backoffice/news/">-- please choose --</option>
+		<option value="/backoffice/news/">-- all --</option>
 		<!-- BEGIN: item -->
-		<option value="/backoffice/news/{NODE.id}" {SELECTED}>{NODE.title|htmlspecialchars}</option>
+		<option value="/backoffice/news/{NODE.id}" {SELECTED}>{NODE.title|htmlspecialchars} (id={NODE.id})</option>
 		<!-- END: item -->
 	</select>
 </label>

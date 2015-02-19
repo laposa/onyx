@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2014 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2014-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -15,24 +15,45 @@ class Onxshop_Controller_Bo_Component_News_Section_Select extends Onxshop_Contro
 	 
 	public function mainAction() {
 
+		/**
+		 * input - selected blog
+		 */
+		 
 		$blog_node_id = $this->GET['blog_node_id'];
 
+		/**
+		 * create objects
+		 */
+		 
 		$Conf = new common_configuration();
-		$conf = $Conf->listing("object = 'common_node' AND property = 'id_map-blog'");
-
-		if (!$conf || count($conf) == 0) return true;
-
 		$Node = new common_node();
-		$node_conf = $Node::initConfiguration();
-		$default_blog_node_id = (int) $node_conf['id_map-blog'];
-
-		$list = array($default_blog_node_id => $default_blog_node_id);
-
-		foreach ($conf as $item) {
-			$id = (int) $item['value'];
-			$list[$id] = $id;
+		
+		/**
+		 *  list all id_map-blog* configuration options
+		 */
+		
+		$conf = $Conf->listing("object = 'common_node' AND property LIKE 'id_map-blog%'");
+		
+		if (is_array($conf) && count($conf) > 0) {
+			
+			foreach ($conf as $item) {
+				$id = (int) $item['value'];
+				$list[$id] = $id;
+			}
+			
+		} else {
+		
+			$node_conf = $Node::initConfiguration();
+			$default_blog_node_id = (int) $node_conf['id_map-blog'];
+	
+			$list = array($default_blog_node_id => $default_blog_node_id);
+		
 		}
 
+		/**
+		 * parse dropdown
+		 */
+		 
 		if (count($list) > 0) {
 
 			foreach ($list as $id) {

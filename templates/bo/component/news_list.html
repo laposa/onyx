@@ -29,13 +29,14 @@ function refreshList() {
 		<thead>
 			<tr>
 				<th>Title</th>
+				<th>Parent</th>
 				<th>Created<br /><a href="?sorting=modified">Modified</a></th>
 				<th>&nbsp;</th>
 			</tr>
 		</thead>
 		<tfoot>
 			<tr>
-				<td colspan="3">
+				<td colspan="4">
 					<div class="onxshop_pagination">
 						{PAGINATION}
 					</div>
@@ -48,6 +49,7 @@ function refreshList() {
 				<td>
 					<a href="/backoffice/news/edit/{ITEM.node_group}/{ITEM.id}"><span class="{ITEM.class}">{ITEM.title|htmlspecialchars}</span></a>
 				</td>
+				<td>{ITEM.parent}</td>
 				<td>{ITEM.created}<br />{ITEM.modified}</td>
 				<td>
 					<div class="onxshop_edit_content">
