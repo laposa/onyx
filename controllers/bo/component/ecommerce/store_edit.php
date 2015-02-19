@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2005-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2013-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -35,6 +35,9 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Store_Edit extends Onxshop_Contr
 			// serialize street_view_options
 			$_POST['store']['street_view_options'] = serialize($_POST['store']['street_view_options']);
 			
+			// remove if country_id isn't numeric
+			if (!is_numeric($_POST['store']['country_id'])) unset($_POST['store']['country_id']);
+			
 			// update store
 			if($id = $Store->update($_POST['store'])) {
 			
@@ -56,6 +59,11 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Store_Edit extends Onxshop_Contr
 				// forward to store list main page and exit
 				onxshopGoTo("/backoffice/stores");
 				return true;
+				
+			} else {
+				
+				msg("Cannot update store details", 'error');
+			
 			}
 		}
 		
