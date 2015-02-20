@@ -864,7 +864,7 @@ CREATE TABLE common_file (
 	
 		msg("calling getFlatArrayFromFs($directory)", 'ok', 3);
 		if (!file_exists($directory)) {
-			msg("Directory $directory does not exists!", 'error'); 
+			msg("Directory $directory does not exists!", 'error', 1); 
 			return false;
 		}
 		
