@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2006-2014 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2006-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -47,52 +47,17 @@ class Onxshop_Controller_Bo_Node_Content_Picture extends Onxshop_Controller_Bo_N
 		}
 		
 		/**
-		 * main image width
-		 */
-		
-		if ($this->node_data['component']['main_image_width'] == 0) {
-			$this->tpl->assign("SELECTED_main_image_width_original", "selected='selected'");
-			
-			$Image = new common_image();
-			$image_list = $Image->listFiles($this->node_data['id']);
-			
-			$image_width = 9999;
-			
-			foreach ($image_list as $item) {
-				if ($item['imagesize']['width'] < $image_width) $image_width = ($item['imagesize']['width'] - $item['imagesize']['width'] % 5);
-			}
-			
-			if ($image_width == 9999) $image_width = 800;
-			
-			$this->node_data['component']['main_image_width'] = $image_width;
-			
-		} else {
-			$this->tpl->assign("SELECTED_main_image_width_custom", "selected='selected'");
-		}
-
-		/**
 		 * local templates
 		 */
 		
 		$this->displayLocalImageGalleryTemplates();
 		
 		/**
-		 * image ratio constrain
-		 */
-		 
-		$this->tpl->assign("SELECTED_main_image_constrain_{$this->node_data['component']['main_image_constrain']}", "selected='selected'");
-
-		/**
 		 * template selected
 		 */
 		 
 		$this->tpl->assign("SELECTED_template_{$this->node_data['component']['template']}", "selected='selected'");
 		
-		/**
-		 * fill option
-		 */
-		 
-		$this->tpl->assign("SELECTED_fill_{$this->node_data['component']['fill']}", "selected='selected'");
 	}
 	
 	/**

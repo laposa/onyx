@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2008-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2008-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -126,6 +126,10 @@ class Onxshop_Controller_Bo_Node_Default extends Onxshop_Controller {
 		$Node_type = new Onxshop_Request("bo/component/node_type_menu~id={$this->node_data['id']}:open={$this->node_data['node_controller']}:node_group={$this->node_data['node_group']}:expand_all=1~");
 		$this->tpl->assign("NODE_TYPE", $Node_type->getContent());
 		
+		// item_image_properties.html
+		$this->initiateImagePropertiesItem();
+		
+		// node_data
 		$this->tpl->assign('NODE', $this->node_data);
 
 	}
@@ -246,6 +250,97 @@ class Onxshop_Controller_Bo_Node_Default extends Onxshop_Controller {
 		return $layout_style['page']['styles'];
 	}
 	
+	
+	/**
+	 * initiateImagePropertiesItem
+	 */
+	 
+	public function initiateImagePropertiesItem() {
+		
+		require_once('models/common/common_image.php');
+		$common_image_conf = common_image::initConfiguration();
+		$this->tpl->assign('IMAGE_CONF', $common_image_conf);
+		
+		/**
+		 * image width
+		 */
+		
+		if ($this->node_data['component']['image_width'] == 0) {
+			
+			$this->tpl->assign("SELECTED_image_width_original", "selected='selected'");
+			$this->node_data['component']['image_width'] = $this->getLargestAssociatedImageWidth($this->node_data['id']);;
+		
+		} else {
+		
+			$this->tpl->assign("SELECTED_image_width_custom", "selected='selected'");
+		
+		}
+		
+		/**
+		 * image ratio constrain
+		 */
+		 
+		$this->tpl->assign("SELECTED_image_constrain_{$this->node_data['component']['image_constrain']}", "selected='selected'");
+		
+		
+		
+		/**
+		 * main image width (TODO merge with image_width)
+		 */
+		
+		if ($this->node_data['component']['main_image_width'] == 0) {
+			
+			$this->tpl->assign("SELECTED_main_image_width_original", "selected='selected'");
+			$this->node_data['component']['main_image_width'] = $this->getLargestAssociatedImageWidth($this->node_data['id']);
+			
+		} else {
+			
+			$this->tpl->assign("SELECTED_main_image_width_custom", "selected='selected'");
+		
+		}
+		
+		/**
+		 * main image ratio constrain (TODO: merge with image_width)
+		 */
+		
+		$this->tpl->assign("SELECTED_main_image_constrain_{$this->node_data['component']['main_image_constrain']}", "selected='selected'");
+		
+		/**
+		 * fill option
+		 */
+		 
+		$this->tpl->assign("SELECTED_image_fill_{$this->node_data['component']['image_fill']}", "selected='selected'");
+		
+	}
+	
+	/**
+	 * getLargestAssociatedImageWidth
+	 */
+	 
+	public function getLargestAssociatedImageWidth($node_id) {
+		
+		if (!is_numeric($node_id)) return false;
+		
+		require_once('models/common/common_image.php');
+		$Image = new common_image();
+		
+		/**
+		 * if not set, round to larges associated image with
+		 */
+			 
+		$image_list = $Image->listFiles($this->node_data['id']);
+		
+		$image_width = 9999;
+		
+		foreach ($image_list as $item) {
+			if ($item['imagesize']['width'] < $image_width) $image_width = ($item['imagesize']['width'] - $item['imagesize']['width'] % 5);
+		}
+		
+		if ($image_width == 9999) $image_width = 800; // default value
+		
+		return $image_width;
+		
+	}	
 }
 
 		

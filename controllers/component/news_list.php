@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2010-2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2010-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -82,6 +82,19 @@ class Onxshop_Controller_Component_News_List extends Onxshop_Controller {
 		if (is_numeric($this->GET['image_height']) && $this->GET['image_height'] > 0) $image_height = $this->GET['image_height'];
 		else $image_height = 0;
 		
+		/**
+		 * other resize options
+		 */
+		
+		$image_resize_options = array();
+		
+		if ($this->GET['image_method']) $image_resize_options['method'] = $this->GET['image_method'];
+		if ($this->GET['image_gravity']) $image_resize_options['gravity'] = $this->GET['image_gravity'];
+		if ($this->GET['image_fill']) $image_resize_options['fill'] = $this->GET['image_fill'];
+		else $image_resize_options['fill'] = 1;
+		
+		if (count($image_resize_options) > 0) $this->tpl->assign('IMAGE_RESIZE_OPTIONS', '?'.http_build_query($image_resize_options));
+
 		/**
 		 * set image path
 		 */

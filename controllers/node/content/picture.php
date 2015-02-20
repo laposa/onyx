@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2006-2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2006-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  * TODO: rename to image_gallery
@@ -29,7 +29,7 @@ class Onxshop_Controller_Node_Content_Picture extends Onxshop_Controller_Node_Co
 		if ($node_data['component']['template'] == '') $node_data['component']['template'] = 'single';
 		
 		/**
-		 * set width
+		 * image size: set width
 		 */
 		
 		if (is_numeric($node_data['component']['main_image_width']) && $node_data['component']['main_image_width'] > 0) {
@@ -56,13 +56,17 @@ class Onxshop_Controller_Node_Content_Picture extends Onxshop_Controller_Node_Co
 		}
 		
 		/**
-		 * check constrain and set appropriate height
+		 * image size: check constrain and set appropriate height
 		 */
 		
 		switch ($node_data['component']['main_image_constrain']) {
 			
 			case '1-1':
 				$image_height = $image_width;
+			break;
+			
+			case '2_39-1': // 2.39:1
+				$image_height = (int)($image_width / 2.39 * 1);
 			break;
 			
 			case '16-9':
@@ -80,7 +84,13 @@ class Onxshop_Controller_Node_Content_Picture extends Onxshop_Controller_Node_Co
 			
 		}
 		
-		//msg($image_height);
+		/**
+		 * image size: fill cropping option
+		 * 
+		 */
+		 
+		if (is_numeric($node_data['component']['image_fill'])) $fill = $node_data['component']['image_fill'];
+		else $fill = 1;
 		
 		/**
 		 * what controller
@@ -134,14 +144,6 @@ class Onxshop_Controller_Node_Content_Picture extends Onxshop_Controller_Node_Co
 		else $cycle['speed'] = $common_image_conf['cycle_speed'];
 		if (is_numeric($node_data['component']['cycle']['timeout'])) $cycle['timeout'] = $node_data['component']['cycle']['timeout'];
 		else $cycle['timeout'] = $common_image_conf['cycle_timeout'];
-		
-		/**
-		 * fill
-		 * 
-		 */
-		 
-		if (is_numeric($node_data['component']['fill'])) $fill = $node_data['component']['fill'];
-		else $fill = 1;
 		
 		/**
 		 * disable limit

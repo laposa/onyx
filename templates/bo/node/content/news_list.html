@@ -26,42 +26,9 @@
 	</div>
 	
 	<div class="row">
-		<div style="float: left;">
-			<span class="label"><label>Image Width:</label></span>
-			<span class="field">
-				<select name="node[component][image_width]">
-					<option value="0" {SELECTED_image_width_original}>Original</option>
-					<option id="image_width_display_size" value="{NODE.component.image_width}" {SELECTED_image_width_custom}>{NODE.component.image_width}</option>
-				</select>
-			</span>
-		</div>
-		<div style="float: left;">
-			<span class="label"><label>Image Constrain:</label></span>
-			<span class="field">
-				<select name="node[component][image_constrain]">
-					<option value="0" {SELECTED_image_constrain_0}>Original</option>
-					<option value="1-1" {SELECTED_image_constrain_1-1}>Square</option>
-				</select>
-			</span>
-		</div>
-		<div class="bottom"><span></span></div>
+		{FILE "bo/node/item_image_properties.html"}
 	</div>
 	
-	<div style="margin: 10px 0; width: 100%" id="image_width_slider"></div>
-					
-	<script type="text/javascript">
-	$(function() {
-		$('#image_width_slider').slider({
-			value: {NODE.component.image_width},
-			min: {IMAGE_CONF.thumbnail_width_min},
-			max: {IMAGE_CONF.thumbnail_width_max},
-			step: {IMAGE_CONF.thumbnail_step},
-			change: function(event, ui) { $('#image_width_display_size').attr('value', ui.value); },
-			slide : function(event, ui) { $('#image_width_display_size').html(ui.value).attr('selected', true); }
-		});
-	});
-	</script>
-		
 	<div class="row">
 		<span class="label"><label for="component-pagination">Display pagination</label></span>
 		<span class="field"><input type="checkbox" id="component-pagination" name="node[component][pagination]" {NODE.component.pagination} /></span>

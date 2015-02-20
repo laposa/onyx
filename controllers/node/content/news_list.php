@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2006-2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2006-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -116,17 +116,38 @@ class Onxshop_Controller_Node_Content_News_List extends Onxshop_Controller_Node_
 				$image_height = $image_width;
 			break;
 			
+			case '2_39-1': // 2.39:1
+				$image_height = (int)($image_width / 2.39 * 1);
+			break;
+			
+			case '16-9':
+				$image_height = (int)($image_width / 16 * 9);
+			break;
+			
+			case '4-3':
+				$image_height = (int)($image_width / 16 * 9);
+			break;
+			
 			case '0':
 			default:
 				$image_height = 0;
 			break;
+			
 		}
+		
+		/**
+		 * image size: fill cropping option
+		 * 
+		 */
+		 
+		if (is_numeric($node_data['component']['image_fill'])) $image_fill = $node_data['component']['image_fill'];
+		else $image_fill = 1;
 		
 		/**
 		 * call controller
 		 */
 		
-		$_Onxshop = new Onxshop_Request("component/$template~blog_node_id=$blog_node_id:id=$node_id:limit_from=$limit_from:limit_per_page=$limit_per_page:display_pagination=$display_pagination:publish=1:taxonomy_tree_id={$taxonomy_tree_id}:image_width=$image_width:image_height=$image_height~");
+		$_Onxshop = new Onxshop_Request("component/$template~blog_node_id=$blog_node_id:id=$node_id:limit_from=$limit_from:limit_per_page=$limit_per_page:display_pagination=$display_pagination:publish=1:taxonomy_tree_id={$taxonomy_tree_id}:image_width=$image_width:image_height=$image_height:image_fill=$image_fill~");
 		$this->tpl->assign('NEWS_LIST', $_Onxshop->getContent());
 		
 		$this->tpl->assign('NODE', $node_data);

@@ -39,29 +39,62 @@ class Onxshop_Controller_Component_Teaser extends Onxshop_Controller {
 		if (trim($node['link_text']) == '') $node['link_text'] = "Find Out More";
 
 		/**
+		 * override teaser text and link text if requred
+		 */
+		if (isset($this->GET['teaser_text']) && !empty($this->GET['teaser_text'])) $node['description'] = $this->GET['teaser_text'];
+		if (isset($this->GET['link_text']) && !empty($this->GET['link_text'])) $node['link_text'] = $this->GET['link_text'];
+		
+		/**
 		 * load image
 		 */
 
 		if (empty($this->GET['img_src'])) {
 			$node['image'] = $this->getImage($node);
-			if ($node['image']) $node['image']['src'] = "/thumbnail/210x90/" . $node['image']['src'] . "?fill=1";
+			if ($node['image']) $node['image']['src'] = $node['image']['src'];
 		} else {
 			$node['image']['src'] = $this->GET['img_src'];
 			$node['image']['title'] = $node['title'];
 		}
-
+		
 		/**
-		 * override teaser text and link text if requred
+		 * image size
 		 */
-		if (isset($this->GET['teaser_text']) && !empty($this->GET['teaser_text'])) $node['description'] = $this->GET['teaser_text'];
-		if (isset($this->GET['link_text']) && !empty($this->GET['link_text'])) $node['link_text'] = $this->GET['link_text'];
-
+		 
+		if (is_numeric($this->GET['image_width']) && $this->GET['image_width'] > 0) $image_width = $this->GET['image_width'];
+		else $image_width = 210;
+		
+		if (is_numeric($this->GET['image_height']) && $this->GET['image_height'] > 0) $image_height = $this->GET['image_height'];
+		else $image_height = 90;
+		
+		/**
+		 * other resize options
+		 */
+		
+		$image_resize_options = array();
+		
+		if ($this->GET['image_method']) $image_resize_options['method'] = $this->GET['image_method'];
+		if ($this->GET['image_gravity']) $image_resize_options['gravity'] = $this->GET['image_gravity'];
+		if ($this->GET['image_fill']) $image_resize_options['fill'] = $this->GET['image_fill'];
+		else $image_resize_options['fill'] = 1;
+		
+		if (count($image_resize_options) > 0) $this->tpl->assign('IMAGE_RESIZE_OPTIONS', '?'.http_build_query($image_resize_options));
+		
+		/**
+		 * set image path
+		 */
+		 
+		if ($image_width == 0) $image_path = "/image/";
+		else if ($image_height > 0) $image_path = "/thumbnail/{$image_width}x{$image_height}/";
+		else $image_path = "/thumbnail/{$image_width}/";
+		
+		$this->tpl->assign('IMAGE_PATH', $image_path);
+		
 		/**
 		 * process the template
 		 */
 
 		$this->tpl->assign("NODE", $node);
-
+		 
 		if ($node['image']['src']) $this->tpl->parse("content.image");
 
 		return true;

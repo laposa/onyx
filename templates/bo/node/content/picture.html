@@ -32,54 +32,10 @@ function hookNodeEditPostUpdate() {
 </script>
 
 	<fieldset>
-		<div class="row advanced">
-			<div style="float: left;">
-				<span class="label"><label>Width:</label></span>
-				<span class="field">
-					<select name="node[component][main_image_width]">
-						<option value="0" {SELECTED_main_image_width_original}>Original</option>
-						<option id="main_image_width_display_size" value="{NODE.component.main_image_width}" {SELECTED_main_image_width_custom}>{NODE.component.main_image_width}</option>
-					</select>
-				</span>
-			</div>
-			<div style="float: left;">
-				<span class="label"><label>Constrain:</label></span>
-				<span class="field">
-					<select name="node[component][main_image_constrain]">
-						<option value="0" {SELECTED_main_image_constrain_0}>Original</option>
-						<option value="1-1" {SELECTED_main_image_constrain_1-1}>Square</option>
-						<option value="16-9" {SELECTED_main_image_constrain_16-9}>Landscape 16:9</option>
-						<option value="4-3" {SELECTED_main_image_constrain_4-3}>Landscape 4:3</option>
-					</select>
-				</span>
-			</div>
-			<div style="float: left;">
-				<span class="label"><label>Cropping options:</label></span>
-				<span class="field">
-					<select name="node[component][fill]">
-						<option value="1" {SELECTED_fill_1}>Expand to fill all space</option>
-						<option value="0" {SELECTED_fill_0}>Add white space</option>
-					</select>
-				</span>
-			</div>
-			<div class="bottom"><span></span></div>
-			
-			<div style="margin: 10px 0; width: 100%" id="main_image_width_slider"></div>
+		
+		<div class="row">
+			{FILE "bo/node/item_image_properties_main.html"}
 		</div>
-					
-		<script type="text/javascript">
-		$(function() {
-			$('#main_image_width_slider').slider({
-				value: {NODE.component.main_image_width},
-				min: {IMAGE_CONF.thumbnail_width_min},
-				max: {IMAGE_CONF.thumbnail_width_max},
-				step: {IMAGE_CONF.thumbnail_step},
-				change: function(event, ui) { $('#main_image_width_display_size').attr('value', ui.value); },
-				slide : function(event, ui) { $('#main_image_width_display_size').html(ui.value).attr('selected', true); }
-			});
-		});
-		</script>
-
 		
 		<div class="row">
 			<span class="label"><label>* Type:</label></span>
