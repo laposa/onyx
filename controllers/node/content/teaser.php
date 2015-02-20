@@ -31,7 +31,7 @@ class Onxshop_Controller_Node_Content_Teaser extends Onxshop_Controller_Node_Con
 
 		// check for image override
 		$image = $this->Node->getTeaserImageForNodeId($this->GET['id']);
-		if ($image) $params .= ":img_src=/image/" . urlencode($image['src']);
+		if ($image) $params .= ":img_src=" . urlencode($image['src']);
 
 		/**
 		 * call controller
