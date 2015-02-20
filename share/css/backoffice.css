@@ -263,7 +263,7 @@ div.rowBottom div.rowWrapper { position: fixed; z-index: 250000; /*needs to be h
 div.rowBottom div.rowWrapper p { display: inline-block; padding: 0; margin: 0 20px 0 0;}
 div.rowBottom div.rowWrapper p a, #toolBar p button { margin: 0 5px 0 0; }
 div.popup div.rowBottom div.rowWrapper { margin: 0; }
-button.save { position: fixed; z-index: 16000; right: 20px; bottom: 10px; height: 40px; line-height: 40px; padding: 0 40px; font-size: 16px; }
+button.save { position: fixed; z-index: 260000; /*higher div.rowBottom div.rowWrapper*/ right: 20px; bottom: 10px; height: 40px; line-height: 40px; padding: 0 40px; font-size: 16px; }
 button.saving { opacity: 0.7; }
 button.saving span { visibility: hidden; }
 button.saving:before { content: "\f013"; position: absolute; left: 50%; top: 50%; margin-left: -6px; margin-top: -10px; display: inline-block; font-family: 'onxshop'; font-style: normal; font-weight: normal; line-height: 1; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; -webkit-animation: spin 2s infinite linear; -moz-animation: spin 2s infinite linear; -o-animation: spin 2s infinite linear; animation: spin 2s infinite linear; font-size: 20px;}
