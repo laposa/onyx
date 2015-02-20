@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2006-2014 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2006-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -197,7 +197,7 @@ class Onxshop_Controller_Component_Image extends Onxshop_Controller {
 	public function getImagePath() {
 		
 		/**
-		 * check requested width
+		 * check requested width - for generating IMAGE_PATH
 		 */
 		 
 		if (is_numeric($this->GET['width'])) $width = $this->GET['width'];
@@ -211,7 +211,15 @@ class Onxshop_Controller_Component_Image extends Onxshop_Controller {
 		else $height = 0;
 		
 		/**
-		 * other resize options
+		 * set path
+		 */
+		 
+		if ($width == 0) $image_path = "/image/";
+		else if ($height > 0) $image_path = "/thumbnail/{$width}x{$height}/";
+		else $image_path = "/thumbnail/{$width}/";
+		
+		/**
+		 * other resize options - generating IMAGE_RESIZE_OPTIONS
 		 */
 		
 		$image_resize_options = array();
@@ -222,13 +230,6 @@ class Onxshop_Controller_Component_Image extends Onxshop_Controller {
 		
 		if (count($image_resize_options) > 0) $this->tpl->assign('IMAGE_RESIZE_OPTIONS', '?'.http_build_query($image_resize_options));
 		
-		/**
-		 * set path
-		 */
-		 
-		if ($width == 0) $image_path = "/image/";
-		else if ($height > 0) $image_path = "/thumbnail/{$width}x{$height}/";
-		else $image_path = "/thumbnail/{$width}/";
 		
 		/**
 		 * return path string

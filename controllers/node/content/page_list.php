@@ -23,54 +23,8 @@ class Onxshop_Controller_Node_Content_Page_List extends Onxshop_Controller_Node_
 		 * image size
 		 */
 		
-		/**
-		 * image size: set width
-		 */
-		 
-		if (is_numeric($node_data['component']['image_width'])) {
-			$image_width = $node_data['component']['image_width'];
-		} else {
-			$node_data['component']['image_width'] = 0;
-			$image_width = 0;
-		}
+		$image_o = $this->getImageSizeOptions($node_data);
 		
-		/**
-		 * image size: check constrain and set appropriate height
-		 */
-		 
-		switch ($node_data['component']['image_constrain']) {
-			
-			case '1-1':
-				$image_height = $image_width;
-			break;
-			
-			default:
-			case '2_39-1': // 2.39:1
-				$image_height = (int)($image_width / 2.39 * 1);
-			break;
-			
-			case '16-9':
-				$image_height = (int)($image_width / 16 * 9);
-			break;
-			
-			case '4-3':
-				$image_height = (int)($image_width / 16 * 9);
-			break;
-			
-			case '0':
-				$image_height = 0;
-			break;
-			
-		}
-		
-		/**
-		 * image size: fill cropping option
-		 * 
-		 */
-		 
-		if (is_numeric($node_data['component']['image_fill'])) $image_fill = $node_data['component']['image_fill'];
-		else $image_fill = 1;
-
 		/**
 		 * call controller
 		 */
@@ -81,7 +35,7 @@ class Onxshop_Controller_Node_Content_Page_List extends Onxshop_Controller_Node_
 		foreach ($node_ids as $node_id) {
 
 			if (is_numeric($node_id)) {
-				$_Onxshop_Request = new Onxshop_Request("component/teaser~target_node_id={$node_id}:image_width=$image_width:image_height=$image_height:image_fill=$image_fill~");
+				$_Onxshop_Request = new Onxshop_Request("component/teaser~target_node_id={$node_id}:image_width={$image_o['width']}:image_height={$image_o['height']}:image_fill={$image_o['fill']}~");
 				$content .= $_Onxshop_Request->getContent();
 			}
 

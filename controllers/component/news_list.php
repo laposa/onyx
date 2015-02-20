@@ -73,17 +73,27 @@ class Onxshop_Controller_Component_News_List extends Onxshop_Controller {
 		$taxonomy_tree_id = $this->getTaxonomyList();
 		
 		/**
-		 * image size
+		 * image size - for generating IMAGE_PATH
 		 */
 		 
 		if (is_numeric($this->GET['image_width']) && $this->GET['image_width'] > 0) $image_width = $this->GET['image_width'];
-		else $image_width = 125;
+		else $image_width = 210;
 		
 		if (is_numeric($this->GET['image_height']) && $this->GET['image_height'] > 0) $image_height = $this->GET['image_height'];
 		else $image_height = 0;
 		
 		/**
-		 * other resize options
+		 * set image path
+		 */
+		 
+		if ($image_width == 0) $image_path = "/image/";
+		else if ($image_height > 0) $image_path = "/thumbnail/{$image_width}x{$image_height}/";
+		else $image_path = "/thumbnail/{$image_width}/";
+		
+		$this->tpl->assign('IMAGE_PATH', $image_path);
+		
+		/**
+		 * other resize options - generating IMAGE_RESIZE_OPTIONS
 		 */
 		
 		$image_resize_options = array();
@@ -95,15 +105,6 @@ class Onxshop_Controller_Component_News_List extends Onxshop_Controller {
 		
 		if (count($image_resize_options) > 0) $this->tpl->assign('IMAGE_RESIZE_OPTIONS', '?'.http_build_query($image_resize_options));
 
-		/**
-		 * set image path
-		 */
-		 
-		if ($image_width == 0) $image_path = "/image/";
-		else if ($image_height > 0) $image_path = "/thumbnail/{$image_width}x{$image_height}/";
-		else $image_path = "/thumbnail/{$image_width}/";
-		
-		$this->tpl->assign('IMAGE_PATH', $image_path);
 		
 		/**
 		 * Initialize pagination variables

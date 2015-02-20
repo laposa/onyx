@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2009-2012 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -78,5 +78,67 @@ class Onxshop_Controller_Node_Default extends Onxshop_Controller {
 	 
 	public function processLayout() {
 	
+	}
+	
+	/**
+	 * getImageSizeOptions
+	 * 
+	 */
+	 
+	function getImageSizeOptions($node_data) {
+		
+			/**
+			 * image size: set width
+			 */
+			 
+			if (is_numeric($node_data['component']['image_width'])) {
+				$image_width = $node_data['component']['image_width'];
+			} else {
+				$node_data['component']['image_width'] = 0;
+				$image_width = 0;
+			}
+			
+			/**
+			 * image size: check constrain and set appropriate height
+			 */
+			
+			switch ($node_data['component']['image_constrain']) {
+				
+				case '1-1':
+					$image_height = $image_width;
+				break;
+				
+				default:
+				case '2_39-1': // 2.39:1
+					$image_height = (int)($image_width / 2.39 * 1);
+				break;
+				
+				case '16-9':
+					$image_height = (int)($image_width / 16 * 9);
+				break;
+				
+				case '4-3':
+					$image_height = (int)($image_width / 16 * 9);
+				break;
+				
+				case '0':
+					$image_height = 0;
+				break;
+				
+			}
+			
+			/**
+			 * image size: fill cropping option
+			 * 
+			 */
+			 
+			if (is_numeric($node_data['component']['image_fill'])) $image_fill = $node_data['component']['image_fill'];
+			else $image_fill = 1;
+
+			/**
+			 * return array
+			 */
+			 
+			return array('width'=>$image_width, 'height'=>$image_height, 'fill'=>$image_fill);
 	}
 }
