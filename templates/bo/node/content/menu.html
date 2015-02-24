@@ -64,22 +64,20 @@ $(document).ready(function(){
 		</span>
 	</div>
 	
-	<div class="row advanced">
+	<div class="row">
+		<p>The image sizing option has only effect for grid menu type.</p>
 		{FILE "bo/node/item_image_properties.html"}
 	</div>
 	
 	<div class="row">
-		<span class="label"><label for="component-display_title">Display title</label></span>
-		<span class="field"><input type="checkbox" id="component-display_title" name="node[component][display_title]" {NODE.component.display_title} /></span>
+		<span class="field"><input type="checkbox" id="component-display_title" name="node[component][display_title]" {NODE.component.display_title} /> <label for="component-display_title">Display title</label></span>
 	</div>
 	<div class="row">
-		<span class="label"><label for="component-display_teaser">Display teaser</label>
-		<span class="field"><input type="checkbox" id="component-display_teaser" name="node[component][display_teaser]" {NODE.component.display_teaser} /></span>
+		<span class="field"><input type="checkbox" id="component-display_teaser" name="node[component][display_teaser]" {NODE.component.display_teaser} /> <label for="component-display_teaser">Display teaser</label></span>
 	</div>
 	
 	<div class="row">
-		<span class="label"><label for="component-display_all">Display All</label>
-		<span class="field"><input type="checkbox" id="component-display_all" name="node[component][display_all]" {NODE.component.display_all} /></span>
+		<span class="field"><input type="checkbox" id="component-display_all" name="node[component][display_all]" {NODE.component.display_all} /> <label for="component-display_all">Display All</label></span>
 	</div>
 	
 	<div class="row">
