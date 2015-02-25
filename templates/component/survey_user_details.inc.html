@@ -1,0 +1,78 @@
+<fieldset class="single user_details">
+
+	<legend>{I18N_R_PERSONAL_DETAILS}</legend>
+	
+	<div class="row first_name">
+		<span class="label"><label for="client_customer_first_name_id">{I18N_R_FIRST_NAME}</label></span>
+		<span class="field"><input class="required text" type="text" id="client_customer_first_name_id" name="client[customer][first_name]" value="{CLIENT.customer.first_name|htmlspecialchars}"/></span>
+		</div>
+		
+	<div class="row last_name">
+		<span class="label"><label for="client_customer_last_name_id">{I18N_R_LAST_NAME}</label></span>
+		<span class="field"><input class="required text" type="text" id="client_customer_last_name_id" name="client[customer][last_name]" value="{CLIENT.customer.last_name|htmlspecialchars}"/></span>
+	</div>
+
+	<div class="row email">
+		<span class="label"><label for="client_customer_email_id">{I18N_R_EMAIL}</label></span>
+		<span class="field"><input class="required email" type="email" id="client_customer_email_id" name="client[customer][email]" value="{CLIENT.customer.email|htmlspecialchars}"/></span>
+	</div>
+
+	<div class="row telephone">
+		<span class="label"><label for="client_customer_telephone_id">{I18N_R_TELEPHONE}</label></span>
+		<span class="field"><input class="required text" type="tel" id="client_customer_telephone_id" name="client[customer][telephone]" value="{CLIENT.customer.telephone|htmlspecialchars}"/></span>
+	</div>
+
+	<div class="row birthday">
+		<span class="label"><label for="client_customer_birthday_id">Date of Birth</label></span>
+		<span class="field"><input class="required text dateFormat" type="text" id="client_customer_birthday_id" name="client[customer][birthday]" value="{CLIENT.customer.birthday|htmlspecialchars}"/></span>
+	</div>
+
+	<!-- BEGIN: store -->
+	<div class="row county">
+		<span class="label"><label for="client_customer_store_id">Store</label></span>
+		<span class="field">
+			<!-- BEGIN: county_dropdown -->
+			<select id="client_customer_store_id" name="client[customer][store_id]" class="required" style="width: 100%; font-size: 18px;">
+				<option value="">- please select your nearest store -</option>
+				<!-- BEGIN: province -->
+				<optgroup label="{PROVINCE_NAME}">
+					<!-- BEGIN: store -->
+					<option value="{STORE.id}" {STORE.selected}>{COUNTY.label.title|htmlspecialchars} - {STORE.title|htmlspecialchars}</option>
+					<!-- END: store -->
+				</optgroup>
+				<!-- END: province -->
+			</select>
+			<!-- END: county_dropdown -->
+		</span>
+	</div>
+	<!-- END: store -->
+	
+	<!-- BEGIN: location -->
+	<div class="row county">
+		<span class="label"><label for="client_customer_county_id">County</label></span>
+		<span class="field">
+		
+			<!-- BEGIN: county_dropdown -->
+			<select id="client_customer_county_id" name="client[customer][other_data][county]" style="width: 100%; font-size: 18px;">
+				<!-- BEGIN: province -->
+				<optgroup label="{PROVINCE_NAME}">
+					<!-- BEGIN: county -->
+					<option value="{COUNTY.id}" {COUNTY.selected}>{COUNTY.label.title|htmlspecialchars}</option>
+					<!-- END: county -->
+				</optgroup>
+				<!-- END: province -->
+			</select>
+			<!-- END: county_dropdown -->
+		</span>
+	</div>
+	<div class="row city">
+		<span class="label"><label for="client_customer_city_id">City / Town</label></span>
+		<span class="field"><input class="text" type="text" id="client_customer_city_id" name="client[customer][other_data][city]" value="{CLIENT.customer.city|htmlspecialchars}"/></span>
+	</div>
+	<!-- END: location -->
+
+	<div class="row checkbox newsletter">
+		<span class="label"><input type="checkbox" class="checkbox" id="client_customer_newsletter_id" name="client[customer][newsletter]" value="1" {CLIENT.customer.newsletter} /> <label for="client_customer_newsletter_id">{I18N_R_NEWSLETTER}</label></span>
+	</div>
+	
+</fieldset>
