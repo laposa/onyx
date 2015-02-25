@@ -16,7 +16,7 @@ class Onxshop_Controller_Bo_Node_Content_Recipe_List extends Onxshop_Controller_
 	
 		parent::pre();
 		
-		if (!(is_numeric($_POST['node']['component']['limit']) && $_POST['node']['component']['limit'] > 0)) $_POST['node']['component']['limit'] = 10;
+		if (!$_POST['node']['component']['limit']) $_POST['node']['component']['limit'] = 25;
 		if ($_POST['node']['component']['pagination'] == 'on') $_POST['node']['component']['pagination'] = 1;
 		else $_POST['node']['component']['pagination'] = 0;
 

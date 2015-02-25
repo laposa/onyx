@@ -31,15 +31,15 @@ class Onxshop_Controller_Component_Ecommerce_Recipe_List extends Onxshop_Control
 
 		// is there a limit?
 		if  (is_numeric($this->GET['limit_from'])) $limit_from = $this->GET['limit_from'];
-		else $limit_from = null;
+		else $limit_from = 0;
 		if (is_numeric($this->GET['limit_per_page'])) $limit_per_page = $this->GET['limit_per_page'];
-		else $limit_per_page = null;
+		else $limit_per_page = 25;
 
 		// is there requested sorting?
 		if ($this->GET['sort']['by'] && in_array($this->GET['sort']['by'], array('title', 'created', 'modified', 'priority', 'share_counter'))) $sort_by = $this->GET['sort']['by'];
-		else $sort_by = null;
+		else $sort_by = 'modified';
 		if ($this->GET['sort']['direction'] && in_array($this->GET['sort']['direction'], array('DESC', 'ASC'))) $sort_direction = $this->GET['sort']['direction'];
-		else $sort_direction = null;
+		else $sort_direction = 'DESC';
 
 		/**
 		 * get the list
