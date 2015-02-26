@@ -1465,7 +1465,7 @@ CREATE TABLE client_customer (
 		}
 	}
 	
-/**
+	/**
 	 * newsletter subscribe
 	 * 
 	 * @param array $customer
@@ -1485,7 +1485,7 @@ CREATE TABLE client_customer (
 		
 		if ($customer_data = $this->getClientByEmail($customer['email'])) {
 
-			if ($customer_data['newsletter'] == 0) {
+			if ($customer_data['newsletter'] > 0) {
 				msg("Client with email {$customer['email']} is already subscribed");
 				return true;
 			}
