@@ -45,6 +45,16 @@ class Onxshop_Controller_Component_Teaser extends Onxshop_Controller {
 		if (isset($this->GET['link_text']) && !empty($this->GET['link_text'])) $node['link_text'] = $this->GET['link_text'];
 		
 		/**
+		 * image size - for generating IMAGE_PATH
+		 */
+		 
+		if (is_numeric($this->GET['image_width']) && $this->GET['image_width'] > 0) $image_width = $this->GET['image_width'];
+		else $image_width = 210;
+		
+		if (is_numeric($this->GET['image_height']) && $this->GET['image_height'] > 0) $image_height = $this->GET['image_height'];
+		else $image_height = 90;
+
+		/**
 		 * load image
 		 */
 
@@ -54,18 +64,9 @@ class Onxshop_Controller_Component_Teaser extends Onxshop_Controller {
 		} else {
 			$node['image']['src'] = $this->GET['img_src'];
 			$node['image']['title'] = $node['title'];
+			$image_width = 0; // make sure to use the original dimensions if image provided in GET
 		}
-		
-		/**
-		 * image size - for generating IMAGE_PATH
-		 */
-		 
-		if (is_numeric($this->GET['image_width']) && $this->GET['image_width'] > 0) $image_width = $this->GET['image_width'];
-		else $image_width = 210;
-		
-		if (is_numeric($this->GET['image_height']) && $this->GET['image_height'] > 0) $image_height = $this->GET['image_height'];
-		else $image_height = 90;
-		
+				
 		/**
 		 * set image path
 		 */
