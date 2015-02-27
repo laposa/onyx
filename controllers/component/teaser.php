@@ -86,7 +86,7 @@ class Onxshop_Controller_Component_Teaser extends Onxshop_Controller {
 		if ($this->GET['image_method']) $image_resize_options['method'] = $this->GET['image_method'];
 		if ($this->GET['image_gravity']) $image_resize_options['gravity'] = $this->GET['image_gravity'];
 		if ($this->GET['image_fill']) $image_resize_options['fill'] = $this->GET['image_fill'];
-		else $image_resize_options['fill'] = 1;
+		else $image_resize_options['fill'] = 0;
 		
 		if (count($image_resize_options) > 0) $this->tpl->assign('IMAGE_RESIZE_OPTIONS', '?'.http_build_query($image_resize_options));
 		

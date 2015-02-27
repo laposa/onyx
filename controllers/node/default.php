@@ -118,7 +118,7 @@ class Onxshop_Controller_Node_Default extends Onxshop_Controller {
 				break;
 				
 				case '4-3':
-					$image_height = (int)($image_width / 16 * 9);
+					$image_height = (int)($image_width / 4 * 3);
 				break;
 				
 				case '0':
