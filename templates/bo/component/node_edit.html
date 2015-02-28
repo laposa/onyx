@@ -22,9 +22,7 @@
 function preSubmit() {
 	if(typeof hookNodeEditPreUpdate == 'function') {
 		hookNodeEditPreUpdate();
-	} 
-	
-	$("#save_button, #save_button_bottom").addClass('saving');
+	}
 }
 
 //debug
@@ -38,7 +36,9 @@ function showRequestX(formData, jqForm, options) {
 function showResponse(responseText, statusText)  {
 	
 	popupMessage("#node_properties_edit_result div.onxshop_messages");
-	$("#save_button, #save_button_bottom").removeClass('saving');
+	
+	$('button.save').removeClass('saving');
+	
 	if(typeof hookNodeEditPostUpdate == 'function') {
 		hookNodeEditPostUpdate();
 	}

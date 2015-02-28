@@ -95,9 +95,17 @@ $(function() {
 			setTimeout(function() { window.location = targetUrl; }, 5000); // try again after 5 seconds
 		}
 	});
+	
+	/**
+	 * add feedback on save button
+	 */
+	 
+	$('button.save').on('click', function() {
+		$(this).addClass('saving');
+	});
 
 });
-
+	
 /**
  * jQuery UI comboxo widget
  */
