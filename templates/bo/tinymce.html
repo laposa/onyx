@@ -106,10 +106,44 @@ function onxshopCustomCleanup(type, value) {
 	return value;
 }
 
+/**
+ * ajax save - make content is saved when using ajaxForm
+ */
+ 
 $('form').bind('form-pre-serialize', function(e) {
-    tinyMCE.triggerSave();
+	
+	/**
+	 * Saves all contents 
+	 */
+	tinyMCEFullscreenOnxshopFix();
+	
+	tinyMCE.triggerSave();
+	
 });
 
+/**
+ * non-ajax save
+ */
+ 
+$('button.save').on('click', function() {
+ 	tinyMCEFullscreenOnxshopFix();
+});
+
+/**
+ * allow direct saving in fullscreen mode
+ */
+ 
+function tinyMCEFullscreenOnxshopFix() {
+	
+	if (tinyMCE.activeEditor.getParam('fullscreen_is_enabled')) {
+		
+		var fullscreenEditor = tinyMCE.activeEditor;
+		var originalEditor = tinyMCE.get(fullscreenEditor.getParam('fullscreen_editor_id'));
+		
+		originalEditor.setContent(fullscreenEditor.getContent({format : 'raw'}), {format : 'raw'});
+		
+	}
+}
 </script>
 
 <!--  END: init -->
