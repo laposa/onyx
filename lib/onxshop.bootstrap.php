@@ -441,24 +441,26 @@ class Onxshop_Bootstrap {
 		if (defined('ONXSHOP_ENABLE_AB_TESTING') && ONXSHOP_ENABLE_AB_TESTING == true) $id .= $_SESSION['ab_test_group'];
 
 		if (!is_array($data = $this->cache->load($id))) {
-		    // cache miss
+			// cache miss
 			
-		    $this->processAction($request);
-		    
-		    if ($this->Onxshop->http_status != 404 
-		    	&& $this->Onxshop->http_status != 401 
-		    	&& !Zend_Registry::isRegistered('controller_error')
-		    	&& is_numeric($_SESSION['use_page_cache'])) {
+			$this->processAction($request);
+			
+			if ($this->Onxshop->http_status != 404
+				&& $this->Onxshop->http_status != 401
+				&& !Zend_Registry::isRegistered('controller_error')
+				&& is_numeric($_SESSION['use_page_cache'])) {
 
-		    	$data_to_cache = array();
-		    	$data_to_cache['output_headers'] = $this->headers;
-		    	$data_to_cache['output_body'] = $this->output;
-		    	$this->cache->save($data_to_cache);
-		    	
-		    	// update index immediately if enabled in the configuration,
-		    	// but not when search_query is submitted (don't index search results)
-		    	if (ONXSHOP_ALLOW_SEARCH_INDEX_AUTOUPDATE && !array_key_exists('search_query', $_GET)) $this->indexContent($_GET['translate'], $this->output);
-		    }
+				$data_to_cache = array();
+				$data_to_cache['output_headers'] = $this->headers;
+				$data_to_cache['output_body'] = $this->output;
+				$this->cache->save($data_to_cache);
+
+				// update index immediately if enabled in the configuration,
+				// but not when search_query is submitted (don't index search results)
+				// and not when forward "to" is provided
+				// TODO: canonise the request before submitting for indexing
+				if (ONXSHOP_ALLOW_SEARCH_INDEX_AUTOUPDATE && !array_key_exists('search_query', $_GET) && !array_key_exists('to', $_GET)) $this->indexContent($_GET['translate'], $this->output);
+			}
 
 		} else {
 		
