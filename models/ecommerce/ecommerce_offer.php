@@ -90,7 +90,7 @@ class ecommerce_offer extends Onxshop_Model {
 		if (!$includeForthcoming) $condition4 = "AND g.schedule_start <= NOW()";
 		if (count($taxonomy_tree_ids) > 0) {
 			foreach ($taxonomy_tree_ids as &$taxonomy_tree_id) $taxonomy_tree_id = 1 * $taxonomy_tree_id; // sanitize input
-			$join = "INNER JOIN ecommerce_product_taxonomy AS t ON t.node_id = v.product_id AND t.taxonomy_tree_id IN (" . implode($taxonomy_tree_ids) . ")";
+			$join = "INNER JOIN ecommerce_product_taxonomy AS t ON t.node_id = v.product_id AND t.taxonomy_tree_id IN (" . implode(',', $taxonomy_tree_ids) . ")";
 		}
 
 		$sql = "SELECT DISTINCT v.product_id, o.priority, o.created
