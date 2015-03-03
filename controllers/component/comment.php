@@ -92,6 +92,9 @@ class Onxshop_Controller_Component_Comment extends Onxshop_Controller {
 		
 		foreach ($list as $item) {	
 			
+			// don't show empty records - could be used for rating only without a comment
+			if (trim($item['content']) == '') continue;
+			
 			//display only published items, or inserted by active customer, or admin is logged in
 			if ($item['publish'] == 1 || $this->checkViewPermission($item)) {
 			
