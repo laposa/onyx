@@ -1,7 +1,7 @@
 <?php
 /** 
  * Zend Search Lucene
- * Copyright (c) 2009-2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -69,6 +69,10 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 						if (!$node_id) continue;
 
 						$path = $Node->getFullPathDetailForBreadcrumb($node_id);
+						
+						// skip bin items
+						if ($path[0]['id'] == $Node->conf['id_map-bin']) continue;
+						
 						$page = end($path);
 
 						try {

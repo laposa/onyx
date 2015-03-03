@@ -255,7 +255,7 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 		if (!is_numeric($conf['id_map-content_bits'])) $conf['id_map-content_bits'] = 85;
 		if (!is_numeric($conf['id_map-content_side'])) $conf['id_map-content_side'] = 86;
 		if (!is_numeric($conf['id_map-content_foot'])) $conf['id_map-content_foot'] = 87;
-		if (!is_numeric($conf['id_map-content_bin'])) $conf['id_map-content_bin'] = 94;
+		if (!is_numeric($conf['id_map-bin'])) $conf['id_map-bin'] = 94;
 		
 		//basic cms pages
 		if (!is_numeric($conf['id_map-homepage'])) $conf['id_map-homepage'] = 5;
@@ -413,7 +413,7 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 			common_node.*
 			FROM common_node
 			$join
-			WHERE parent != {$this->conf['id_map-content_bin']}
+			WHERE parent != {$this->conf['id_map-bin']}
 			$add_to_where
 			ORDER BY $sort
 			";
@@ -1481,7 +1481,7 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 	
 	function moveToBin($node_id) {
 		
-		$destination_id = $this->conf['id_map-content_bin'];
+		$destination_id = $this->conf['id_map-bin'];
 		
 		if (!is_numeric($node_id)) {
 			msg("moveToBin: node_id isn't numeric", 'error');
