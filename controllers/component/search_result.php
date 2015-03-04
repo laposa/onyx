@@ -19,7 +19,7 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 			require_once('Zend/Search/Lucene.php');
 			require_once('models/common/common_node.php');
 			require_once('models/common/common_uri_mapping.php');
-			$Node = new common_node();
+			$this->Node = new common_node();
 			$this->Uri = new common_uri_mapping();
 			
 			$query = $this->Uri->recodeUTF8ToAscii(trim(strip_tags($this->GET['search_query'])));
@@ -65,13 +65,13 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 						$doc = $hit->getDocument();
 						$uri = $hit->uri == '' ? '/' : $hit->uri; 
 
-						$node_id = $Node->getNodeIdFromSeoUri($uri);
+						$node_id = $this->Node->getNodeIdFromSeoUri($uri);
 						if (!$node_id) continue;
 
-						$path = $Node->getFullPathDetailForBreadcrumb($node_id);
+						$path = $this->Node->getFullPathDetailForBreadcrumb($node_id);
 						
 						// skip bin items
-						if ($path[0]['id'] == $Node->conf['id_map-bin']) continue;
+						if ($path[0]['id'] == $this->Node->conf['id_map-bin']) continue;
 						
 						$page = end($path);
 
@@ -139,7 +139,9 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 		if (substr($page['node_controller'], 0, 6) == 'recipe') $this->getRecipeDetails($page);
 		if (substr($page['node_controller'], 0, 7) == 'product') $this->getProductDetails($page);
 		if (substr($page['node_controller'], 0, 5) == 'store') $this->getStoreDetails($page);
-
+		
+		$page['image'] = $this->Node->getTeaserImageForNodeId($page['id']);
+		
 		if (strlen($page['excerpt']) == 0) {
 
 			if (strlen($page['description']) < 20) {
@@ -173,9 +175,6 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 
 		$page['excerpt'] = $this->highlightKeywords(strip_tags($recipe['description']), $this->keywords);
 
-		$request = new Onxshop_Request("component/image~relation=recipe:role=main:width=100:height=100:node_id={$recipe['id']}:limit=0,1~");
-		$page['image'] = $request->getContent();
-
 		$page['type_priority'] = 100;
 		$page['priority'] = $recipe['priority'];
 
@@ -198,10 +197,7 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 		if (strlen($store['address']) > 0) $excerpt .= nl2br($store['address']);
 		if (strlen($store['opening_hours']) > 0) $excerpt .= "<br/><br/>" . nl2br($store['opening_hours']);
 		$page['excerpt'] = $this->highlightKeywords($excerpt, $this->keywords);
-
-		$request = new Onxshop_Request("component/image~relation=store:role=main:width=100:height=100:node_id={$store['id']}:limit=0,1~");
-		$page['image'] = $request->getContent();
-
+		
 		$page['type_priority'] = 200;
 		$page['priority'] = $store['priority'];
 	}
@@ -222,9 +218,6 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 		else if (strlen($product['teaser']) > 0) $excerpt = $product['teaser'];
 		else $excerpt = $product['description'];
 		$page['excerpt'] = $this->highlightKeywords(strip_tags($excerpt), $this->keywords);
-
-		$request = new Onxshop_Request("component/image~relation=product:role=main:width=100:height=100:node_id={$product['id']}:limit=0,1~");
-		$page['image'] = $request->getContent();
 
 		$page['type_priority'] = 300;
 		$page['priority'] = $product['priority'];

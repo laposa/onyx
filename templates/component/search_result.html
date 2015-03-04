@@ -8,7 +8,7 @@
 			<h2><a href="/page/{PATH.id}">{RESULT.page_title|htmlspecialchars}</a></h2>
 
 			<p class="excerpt">
-				<!-- BEGIN: image --><a class="image {RESULT.node_controller}" href="/page/{RESULT.id}" title="{RESULT.page_title|htmlspecialchars}">{RESULT.image}</a><!-- END: image -->
+				<!-- BEGIN: image --><a class="image {RESULT.node_controller}" href="/page/{RESULT.id}" title="{RESULT.page_title|htmlspecialchars}"><img src="/thumbnail/100x100/{RESULT.image.src}?fill=1" /></a><!-- END: image -->
 
 				{RESULT.excerpt}
 			</p>
