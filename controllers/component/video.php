@@ -23,7 +23,7 @@ class Onxshop_Controller_Component_Video extends Onxshop_Controller {
 		// detect youtube
 		preg_match("/https?:\/\/youtu.be\/([0-9a-zA-Z]+)/", $this->GET['video_url'], $matches);
 		if (isset($matches[1]) && !empty($matches[1])) $youtube_video_id = $matches[1];
-		preg_match("/https?:\/\/www.youtube.com\/watch\?v=([0-9a-zA-Z]+)/", $this->GET['video_url'], $matches);
+		preg_match("/https?:\/\/www.youtube.com\/watch\?v=([0-9a-zA-Z-]+)/", $this->GET['video_url'], $matches);
 		if (isset($matches[1]) && !empty($matches[1])) $youtube_video_id = $matches[1];
 
 		if ($vimeo_video_id) {
