@@ -70,7 +70,7 @@ class Onxshop_Controller_Api_v1_0_Special_Offer_List extends Onxshop_Controller_
 		$item['priority'] = $product_detail['priority'];
 		$item['created'] = $product_detail['modified'];
 		$item['modified'] = $product_detail['modified'];
-		$item['images'] = array("$protocol://{$_SERVER['HTTP_HOST']}/image/" . $Product->getProductMainImageSrc($original_item['product_id']));
+		$item['images'] = array("$protocol://{$_SERVER['HTTP_HOST']}/thumbnail/180x180/" . $Product->getProductMainImageSrc($original_item['product_id']));
 		$item['rondel'] = $this->getRoundelText($original_item);
 		$item['rondel_image_url'] = $this->getRoundelImageSource($original_item);
 		$item['price'] = money_format('%n', $original_item['price']);
