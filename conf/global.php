@@ -8,7 +8,7 @@
  */
 
 /**
- * Force using only one domain
+ * Force using only one domain (in Onxshop_Controller_Uri_Mapping)
  */
 
 //define('ONXSHOP_MAIN_DOMAIN', 'default.co.uk');
@@ -73,6 +73,7 @@ if (!defined('ONXSHOP_REQUIRE_AUTH')) define('ONXSHOP_REQUIRE_AUTH', false);
 
 /**
  * Use SSL?
+ * will force SSL in Onxshop_Controller_Uri_Mapping
  */
 
 if (!defined('ONXSHOP_EDITOR_USE_SSL')) define('ONXSHOP_EDITOR_USE_SSL', false);
