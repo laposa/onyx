@@ -34,7 +34,7 @@ class Onxshop_Controller_Component_Client_Newsletter_Subscribe extends Onxshop_C
 		 * save
 		 */
 		 
-		if ($_POST['client']['customer']['first_name'] && $_POST['client']['customer']['last_name'] && $_POST['client']['customer']['email']) {
+		if ($_POST['client']['customer']['save_newsletter_signup'] && $_POST['client']['customer']['first_name'] && $_POST['client']['customer']['last_name'] && $_POST['client']['customer']['email']) {
 				
 			if($id = $Customer->newsletterSubscribe($_POST['client']['customer'])) {	
 				msg("Subscribed {$customer['email']}");
