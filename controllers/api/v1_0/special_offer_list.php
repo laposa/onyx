@@ -73,7 +73,8 @@ class Onxshop_Controller_Api_v1_0_Special_Offer_List extends Onxshop_Controller_
 		$item['images'] = array("$protocol://{$_SERVER['HTTP_HOST']}/thumbnail/180x180/" . $Product->getProductMainImageSrc($original_item['product_id']));
 		$item['rondel'] = $this->getRoundelText($original_item);
 		$item['rondel_image_url'] = $this->getRoundelImageSource($original_item);
-		$item['price'] = money_format('%n', $original_item['price']);
+		if ($original_item['price'] > 0) $item['price'] = money_format('%n', $original_item['price']);
+		else $item['price'] = '';
 		$item['expiry_date'] = $original_item['group_schedule_end'];
 		$item['taxonomy'] = $this->getTaxonomy($original_item['product_id'], $Product);
 		$item['product_id'] = $product_detail['variety'][0]['sku'];//TODO this is showing only first ones
