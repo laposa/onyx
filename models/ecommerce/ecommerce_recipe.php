@@ -212,6 +212,94 @@ CREATE TABLE ecommerce_recipe (
 		}
 	}
 
+
+    /**
+     * search recipes
+     *
+     */
+
+	function searchRecipes($keywords, $ingredients, $cooking_time, $taxonomy_id, $limit_per_page, $limit_from)
+	{
+		$where = 'ecommerce_recipe.publish = 1 ';
+
+		// keywords SQL
+		if (strlen(trim($keywords)) > 0) {
+			$keywords_array = explode(" ", $keywords);
+			foreach ($keywords_array as $keyword) {
+				$keyword = pg_escape_string($keyword);
+	    		if (strlen(trim($keyword)) > 0) $where .= " AND (ecommerce_recipe.title ILIKE '%{$keyword}%' OR ecommerce_recipe.description ILIKE '%{$keyword}%' OR ecommerce_recipe.instructions ILIKE '%{$keyword}%')";
+			}
+		}
+
+		// ingredients SQL
+		if (strlen(trim($ingredients)) > 0) {
+			$ingredients_array = explode(" ", $ingredients);
+			$product_where = '';
+			foreach ($ingredients_array as $ingredient) {
+				$ingredient = pg_escape_string($ingredient);
+	    		if (strlen(trim($ingredient)) > 0) $product_where .= " OR (name ILIKE '%{$ingredient}%')";
+			}
+			if ($product_where <> '') {
+				$product_ids = "SELECT id FROM ecommerce_product WHERE 0=1 " . $product_where;
+				$product_variety_ids = "SELECT id FROM ecommerce_product_variety WHERE product_id IN ($product_ids)";
+				$recipe_ids = "SELECT recipe_id FROM ecommerce_recipe_ingredients WHERE product_variety_id IN ($product_variety_ids)";
+				$where .= " AND ecommerce_recipe.id IN ($recipe_ids)";
+			}
+		}
+
+    	//taxonomy
+    	if (is_numeric($taxonomy_id) && $taxonomy_id > 0) $where .= " AND ecommerce_recipe.id IN (SELECT node_id FROM ecommerce_recipe_taxonomy WHERE taxonomy_tree_id = $taxonomy_id)";
+
+    	//time
+    	if (is_numeric($cooking_time) && $cooking_time > 0) $where .= " AND ecommerce_recipe.cooking_time <= $cooking_time";
+
+		// limits
+		if (!is_numeric($limit_from)) $limit_from = 0;
+		if (!is_numeric($limit_per_page)) $limit_per_page = 25;
+
+		// sql
+		$sql = "SELECT * FROM ecommerce_recipe WHERE " . $where .
+			" ORDER BY ecommerce_recipe.id DESC" .
+			" LIMIT $limit_per_page OFFSET $limit_from";
+
+		// list
+		$records = $this->executeSql($sql);
+
+		// count
+		$count = $this->executeSql("SELECT count(*) AS \"count\" FROM ecommerce_recipe WHERE " . $where);
+		$count = $count[0]['count'];
+
+		if (is_array($records)) {
+
+			require_once('models/ecommerce/ecommerce_recipe_image.php');
+			$Image = new ecommerce_recipe_image();
+
+			require_once('models/common/common_node.php');
+			$Node = new common_node();
+
+			$recipe_pages = $Node->listing("node_group = 'page' AND node_controller = 'recipe' AND content ~ '[0-9]+' AND publish = 1");
+
+			foreach ($records as $i => $item) {
+				$images = $Image->listFiles($item['id']);
+				if (count($images) > 0) {
+					$records[$i]['image']['src'] = $images[0]['src'];
+					$records[$i]['image']['title'] = $images[0]['title'];
+				}
+				foreach ($recipe_pages as $recipe_page) {
+					if ($recipe_page['content'] == $item['id']) {
+						$records[$i]['page'] = $recipe_page;
+					}
+				}
+			}
+
+			return array($records, $count);
+		}
+
+		return array(array(), $count);
+
+	}
+
+
     /**
      * get filtered recipe list
      *
