@@ -1486,7 +1486,7 @@ CREATE TABLE client_customer (
 		if ($customer_data = $this->getClientByEmail($customer['email'])) {
 
 			if ($customer_data['newsletter'] > 0) {
-				msg("Client with email {$customer['email']} is already subscribed");
+				msg("Client with email {$customer['email']} is already subscribed", 'ok', 1);
 				return true;
 			}
 
