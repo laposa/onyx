@@ -132,7 +132,8 @@ CREATE TABLE education_survey_entry (
 		 LEFT OUTER JOIN education_survey_entry_answer ON (education_survey_entry_answer.survey_entry_id = education_survey_entry.id)
 		 LEFT OUTER JOIN education_survey_question ON (education_survey_question.id = education_survey_entry_answer.question_id)
 		 LEFT OUTER JOIN education_survey_question_answer ON (education_survey_question_answer.id = education_survey_entry_answer.question_answer_id)
-		 WHERE education_survey_entry.id = $entry_id";
+		 WHERE education_survey_entry.id = $entry_id
+		 ORDER BY education_survey_question.priority DESC, education_survey_question.id ASC";
 
 		$records = $this->executeSql($sql);
 		

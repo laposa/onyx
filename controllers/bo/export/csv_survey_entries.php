@@ -18,6 +18,7 @@ class Onxshop_Controller_Bo_Export_CSV_Survey_Entries extends Onxshop_Controller
 		set_time_limit(0);
 		
 		require_once('models/education/education_survey.php');
+		require_once('models/education/education_survey_question.php');
 		require_once('models/education/education_survey_entry.php');
 		require_once('models/education/education_survey_entry_answer.php');
 		require_once('models/client/client_customer.php');
@@ -25,6 +26,7 @@ class Onxshop_Controller_Bo_Export_CSV_Survey_Entries extends Onxshop_Controller
 		require_once('models/common/common_taxonomy_tree.php');
 		
 		$this->Survey = new education_survey();
+		$this->Question = new education_survey_question();
 		$this->Survey_Entry = new education_survey_entry();
 		$this->Survey_Entry_Anwer = new education_survey_entry_answer();
 		$this->Customer = new client_customer();
@@ -42,6 +44,8 @@ class Onxshop_Controller_Bo_Export_CSV_Survey_Entries extends Onxshop_Controller
 		 */
 
 		$records = array();
+
+		$questions = $this->Question->listQuestions($survey_id);
 		 
 		if ($entries_list = $this->Survey_Entry->getListForSurveyId($survey_id)) {
 		
@@ -68,16 +72,23 @@ class Onxshop_Controller_Bo_Export_CSV_Survey_Entries extends Onxshop_Controller
 				$item['home_store_name'] = $customer['home_store_name'];
 				$item['home_store_reference_code'] = $customer['home_store_reference_code'];
 				$item['county'] = $customer['county'];
+
+				// make sure all questions are present in the result
+				foreach ($questions as $question) {
+					$question_id = $question['id'];
+					$item['question_title_'.$question_id] = $question['title'];
+					$item['answer_title_'.$question_id] = "-";
+					$item['answer_value_'.$question_id] = "-";
+				}
 				
 				// answer
 				$question_and_answers = $this->Survey_Entry->getQuestionsAndAnswersForEntry($entry['id']);
-				
+
 				foreach($question_and_answers as $qa_item) {
 					
 					$question_id = $qa_item['question_id'];
 					$entry_answer_id = $qa_item['entry_answer_id'];
 					
-					$item['question_title_'.$question_id] = $qa_item['question_title'];
 					$item['answer_title_'.$question_id] = $qa_item['answer_title'];
 					$item['answer_value_'.$question_id] = $qa_item['answer_value'];
 				

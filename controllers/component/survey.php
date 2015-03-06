@@ -437,10 +437,10 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 				$answer['question_id'] = $question_id;
 				
 				/**
-				 * for text and file type save as value
+				 * for text, range and file type save as value
 				 */
 				 
-				if ($question_detail['type'] == 'text' || $question_detail['type'] == 'file') {
+				if ($question_detail['type'] == 'text' || $question_detail['type'] == 'file' || $question_detail['type'] == 'range') {
 				
 					$answer['value'] = $answer_value;
 				
