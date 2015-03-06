@@ -3,24 +3,20 @@
 
 <div class="recipe_list recipe_list_4columns">
 
+	<!-- BEGIN: layout -->
 	<div class="fourColumnLayout">
-		<!-- BEGIN: column -->
+		<!-- BEGIN: item -->
 		<div class="layoutColumn{COLUMN_NUM} ofFour">
-			<!-- BEGIN: item -->
 			<div class="item {ITEM.taxonomy_class}">
-				
 				<div class="image">
 					<!-- BEGIN: image --><a href="/page/{ITEM.page.id}" title="{ITEM.title|htmlspecialchars}"><img src="/thumbnail/230/{ITEM.image.src}" alt="{ITEM.image.title|htmlspecialchars}" /></a><!-- END: image -->
-				</div>
-				
+				</div>	
 				<h3 class="name"><a href="/page/{ITEM.page.id}" title="{ITEM.recipe.name|htmlspecialchars}"><span>{ITEM.title|htmlspecialchars}</span></a></h3>
-				
 			</div>
-			<!-- END: item -->
 		</div>
-		<!-- END: column -->
+		<!-- END: item -->
 	</div>
-	
+	<!-- END: layout -->
 	<div class="bottom"></div>
 	{PAGINATION}
 	<div class="bottom"></div>

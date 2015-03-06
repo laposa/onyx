@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2013-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -14,18 +14,22 @@ class Onxshop_Controller_Component_Ecommerce_Recipe_List_3columns extends Onxsho
 	 */
 	public function parseItems(&$list)
 	{
-		$columnNames = array("One", "Two", "Three");
-
-		for ($j = 0; $j < 3; $j++) {
-			for ($i = $j; $i < count($list); $i += 3) {
-				$item = $list[$i];
-				$this->tpl->assign("ITEM", $item);
-				if ($item['image']['src']) $this->tpl->parse('content.column.item.image');
-				$this->tpl->parse("content.column.item");
-			}
-			$this->tpl->assign("COLUMN_NUM", $columnNames[$j]);
-			$this->tpl->parse("content.column");
+		foreach ($list as $k=>$item) {
+			
+			$pos = $k+1;
+			
+			if ($pos%3 == 0) $column_num = 'Three';
+			else if (($pos%2 == 0)) $column_num = 'Two';
+			else $column_num = 'One';
+			
+			$this->tpl->assign('COLUMN_NUM', $column_num);
+			
+			$this->parseItem($item, 'content.layout.item');
+			
+			if ($pos%3 == 0) $this->tpl->parse('content.layout');
+		
 		}
+		
 	}
 
 }

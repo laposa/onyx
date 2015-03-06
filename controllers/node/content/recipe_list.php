@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2013-2014 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2013-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -40,6 +40,9 @@ class Onxshop_Controller_Node_Content_Recipe_List extends Onxshop_Controller_Nod
 			case '3col':
 			default:
 				$controller = 'recipe_list_3columns';
+				break;
+			case '2col':
+				$controller = 'recipe_list_2columns';
 				break;
 		}
 		

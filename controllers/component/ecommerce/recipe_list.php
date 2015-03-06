@@ -67,9 +67,21 @@ class Onxshop_Controller_Component_Ecommerce_Recipe_List extends Onxshop_Control
 	{
 		foreach ($list as $i => $item) {
 			
+			$this->parseItem($item);
+			
+		}
+	}
+	
+	/**
+	 * Parse one item
+	 */
+	 
+	public function parseItem($item, $block_name = 'content.item')
+	{
+			
 			$this->tpl->assign("ITEM", $item);
 
-			if ($item['image']['src']) $this->tpl->parse('content.item.image');
+			if ($item['image']['src']) $this->tpl->parse("$block_name.image");
 
 			if ($item['review']['count'] > 0) {
 				
@@ -79,11 +91,10 @@ class Onxshop_Controller_Component_Ecommerce_Recipe_List extends Onxshop_Control
 				if ($item['review']['count'] == 1) $this->tpl->assign('REVIEWS', 'Review');
 				else $this->tpl->assign('REVIEWS', 'Reviews');
 				
-				$this->tpl->parse('content.item.reviews');
+				$this->tpl->parse("$block_name.reviews");
 			}
 
-			$this->tpl->parse("content.item");
-		}
+			$this->tpl->parse("$block_name");
 	}
 
 }
