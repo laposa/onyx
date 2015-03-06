@@ -73,12 +73,12 @@ class Onxshop_Controller_Bo_Export_CSV_Survey_Entries extends Onxshop_Controller
 				$item['home_store_reference_code'] = $customer['home_store_reference_code'];
 				$item['county'] = $customer['county'];
 
-				// make sure all questions are present in the result
+				// make sure all questions are present in the result (even as empty cells)
 				foreach ($questions as $question) {
 					$question_id = $question['id'];
-					$item['question_title_'.$question_id] = $question['title'];
-					$item['answer_title_'.$question_id] = "-";
-					$item['answer_value_'.$question_id] = "-";
+					$item['question_title_'.$question_id] = "";
+					$item['answer_title_'.$question_id] = "";
+					$item['answer_value_'.$question_id] = "";
 				}
 				
 				// answer
@@ -89,6 +89,7 @@ class Onxshop_Controller_Bo_Export_CSV_Survey_Entries extends Onxshop_Controller
 					$question_id = $qa_item['question_id'];
 					$entry_answer_id = $qa_item['entry_answer_id'];
 					
+					$item['question_title_'.$question_id] = $qa_item['question_title'];
 					$item['answer_title_'.$question_id] = $qa_item['answer_title'];
 					$item['answer_value_'.$question_id] = $qa_item['answer_value'];
 				
