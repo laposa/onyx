@@ -87,7 +87,7 @@ class Onxshop_Controller_Api_v1_0_Recipe_Detail extends Onxshop_Controller_Api {
 		$item['images'] = array("$protocol://{$_SERVER['HTTP_HOST']}/image/" . $original_item['image_src']);
 		$item['video'] = (int)self::getVideoIdFromUrl($original_item['video_url']);
 		$item['comments'] = array();
-		$item['rating'] = array();
+		$item['rating'] = self::getRating($item['id']);
 		$item['serving_people'] = (int)$original_item['serving_people'];
 		$item['preparation_time'] = (int)$original_item['preparation_time'];
 		$item['cook_time'] = (int)$original_item['cooking_time'];
@@ -145,7 +145,52 @@ class Onxshop_Controller_Api_v1_0_Recipe_Detail extends Onxshop_Controller_Api {
 	 
 	static function getVideoIdFromUrl($video_url) {
 		
-		return 0;
+		if (!empty($video_url)) {
+
+			$vimeo_video_id = false;
+			$youtube_video_id = false;
+
+			// detect vimeo
+			preg_match("/https?:\/\/vimeo.com\/(\d+)/", $video_url, $matches);
+			if (isset($matches[1]) && is_numeric($matches[1])) $vimeo_video_id = $matches[1];
+
+			// detect youtube
+			//preg_match("/https?:\/\/youtu.be\/([0-9a-zA-Z]+)/", $video_url, $matches);
+			//if (isset($matches[1]) && !empty($matches[1])) $youtube_video_id = $matches[1];
+			//preg_match("/https?:\/\/www.youtube.com\/watch\?v=([0-9a-zA-Z-]+)/", $video_url, $matches);
+			//if (isset($matches[1]) && !empty($matches[1])) $youtube_video_id = $matches[1];
+
+			if (is_numeric($vimeo_video_id)) $video_id = $vimeo_video_id;
+			else $video_id = 0;
+			
+		} else {
+			
+			$video_id = 0;
+			
+		}
+			
+		return $video_id;
+		
+	}
+	
+	/**
+	 * getRating
+	 */
+	 
+	static function getRating($recipe_id) {
+		
+		if (!is_numeric($recipe_id)) return false;
+		
+		require_once('models/ecommerce/ecommerce_recipe_review.php');
+		$Review = new ecommerce_recipe_review();
+		$review_data = $Review->getRating($recipe_id);
+		
+		$rating = array();
+		$rating['value'] = (int)$review_data['rating'];
+		$rating['votes_sum'] = (int)$review_data['count'];
+		$rating['voters_sum'] = (int)$review_data['count'];
+		
+		return $rating;
 		
 	}
 }
