@@ -117,6 +117,7 @@ class Onxshop_Controller_Api_v1_0_Special_Offer_List extends Onxshop_Controller_
 		if ($_SERVER['SSL_PROTOCOL'] || $_SERVER['HTTPS']) $protocol = 'https';
 		else $protocol = 'http';
 		
+		$image_src = ltrim($image_src, '/');
 		$image_src = "$protocol://{$_SERVER['HTTP_HOST']}/$image_src";
 		
 		return $image_src;
