@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2013-2014 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2013-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -115,13 +115,28 @@ class Onxshop_Controller_Api_v1_0_Recipe_Detail extends Onxshop_Controller_Api {
 	}
 	
 	/**
-	 * getIngredients
+	 * getCategories
 	 */
 	
 	static function getCategories($recipe_id) {
 		
-		return array();
+		if (!is_numeric($recipe_id)) return false;
 		
+		require_once('models/ecommerce/ecommerce_recipe.php');
+		$Recipe = new ecommerce_recipe();
+		
+		$categories_system = $Recipe->getRelatedTaxonomy($recipe_id);
+		$categories = array();
+		
+		foreach ($categories_system as $k=>$item) {
+			$categories[$k] = array();
+			$categories[$k]['id'] = $item['id'];
+			$categories[$k]['title'] = $item['title'];
+			$categories[$k]['priority'] = $item['priority'];
+			$categories[$k]['usage_count'] = 0;
+		}
+		
+		return $categories;
 	}
 	
 	/**
