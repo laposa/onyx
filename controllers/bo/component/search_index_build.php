@@ -1,7 +1,7 @@
 <?php
 /**
  * Rebuild search index for Zend Lucene using common_uri_mapping
- * Copyright (c) 2013-2014 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2013-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -45,7 +45,7 @@ class Onxshop_Controller_Bo_Component_Search_Index_Build extends Onxshop_Control
 
 		// load all pages
 		$Node =  new common_node();
-		$sql = "publish = 1 AND node_group = 'page' AND node_controller <> 'symbolic'";
+		$sql = "publish = 1 AND display_in_menu = 1 AND node_group = 'page' AND node_controller <> 'symbolic'";
 		if ($node_id) $sql .= " AND id = $node_id";
 		$this->pageList = $Node->listing($sql);
 
