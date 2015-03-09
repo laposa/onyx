@@ -136,6 +136,18 @@ class Onxshop_Controller_Api_v1_0_Recipe_Detail extends Onxshop_Controller_Api {
 			$categories[$k]['usage_count'] = 0;
 		}
 		
+		/**
+		 * historic reasons...
+		 */
+		 
+		if (count($categories) == 0) {
+			$categories[0] = array();
+			$categories[0]['id'] = 1;
+			$categories[0]['title'] = 'Uncategorised';
+			$categories[0]['priority'] = 0;
+			$categories[0]['usage_count'] = 0;
+		}
+		
 		return $categories;
 	}
 	
