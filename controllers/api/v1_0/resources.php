@@ -31,9 +31,6 @@ class Onxshop_Controller_Api_v1_0_Resources extends Onxshop_Controller_Api {
 			$base_api_url = "$protocol://{$_SERVER['HTTP_HOST']}/api/v{$version_string}/";
 			$standard_params = "?format={$format}&api_key={$api_key}";
 			
-			$Revision = new common_revision();
-			$last_revision_id = $Revision->count(); // this should be max(id), but count will do
-			
 			$data = array();
 			$data['recipe_list'] = "{$base_api_url}recipe_list{$standard_params}";
 			$data['recipe_category_list'] = "{$base_api_url}recipe_category_list{$standard_params}";
@@ -44,8 +41,8 @@ class Onxshop_Controller_Api_v1_0_Resources extends Onxshop_Controller_Api {
 			$data['iphone_download_url'] = "http://itunes.apple.com/";
 			$data['android_download_url'] = "https://play.google.com/";
 			$data['landing_page'] = "$protocol://{$_SERVER['HTTP_HOST']}/";
-			$data['theme_version'] = 1;
-			$data['data_version'] = $last_revision_id;
+			$data['theme_version'] = $this->getThemeVersion();
+			$data['data_version'] = $this->getDataVersion();;
 			$data['background_images'] = "$protocol://{$_SERVER['HTTP_HOST']}/images/recipe_app/backgrounds/";
 			$data['background_main'] = "$protocol://{$_SERVER['HTTP_HOST']}/images/recipe_app/backgrounds/main.png";
 			$data['background_invisible_header'] = "$protocol://{$_SERVER['HTTP_HOST']}/images/recipe_app/backgrounds/invisible_header.png";
@@ -60,6 +57,55 @@ class Onxshop_Controller_Api_v1_0_Resources extends Onxshop_Controller_Api {
 		}
 		
 		return $data;
+		
+	}
+	
+	/**
+	 * getDataVersion
+	 */
+	 
+	public function getDataVersion() {
+		 
+		if (is_numeric($GLOBALS['onxshop_conf']['common_configuration']['api_data_version'])) {
+			
+			/**
+			 * read from config
+			 */
+
+			$data_version = $GLOBALS['onxshop_conf']['common_configuration']['api_data_version'];
+		
+		} else {
+			
+			/**
+			 * return latest revision ID
+			 */
+			 
+			$Revision = new common_revision();
+			$data_version = $Revision->count(); // this should be max(id), but count will do
+				
+		}
+		
+		return $data_version;
+		
+	}
+	
+	/**
+	 * getThemeVersion
+	 */
+	 
+	public function getThemeVersion() {
+		
+		if (is_numeric($GLOBALS['onxshop_conf']['common_configuration']['api_theme_version'])) {
+			
+			$theme_version = $GLOBALS['onxshop_conf']['common_configuration']['api_theme_version'];
+			
+		} else {
+			
+			$theme_version = 1;
+			
+		}
+		
+		return $theme_version;
 		
 	}
 	

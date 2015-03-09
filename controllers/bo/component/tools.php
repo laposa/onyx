@@ -20,24 +20,48 @@ class Onxshop_Controller_Bo_Component_Tools extends Onxshop_Controller {
 		$tool = $this->GET['tool'];
 		
 		switch ($tool) {
+			
 			case 'uri':
 				require_once('models/common/common_uri_mapping.php');
 				$CommonURIMapping = new common_uri_mapping();
 				$CommonURIMapping->generateAndSaveURITable();
 				msg("Nice URLs has been completely generated");
 			break;
+			
 			case 'flush_thumb':
 				if  ($File->rm(ONXSHOP_PROJECT_DIR . "var/thumbnails/*")) msg("All image thumbnails have been deleted");
 				else ("Flushing thumbnails failed");
 			break;
+			
 			case 'flush_tmp':
 				if ($File->rm(ONXSHOP_PROJECT_DIR . "var/tmp/*")) msg("Temp directory has been cleaned");
 				else ("Flushing temp dir failed");
 			break;
+			
 			case 'flush_cache':
 			
 				if (onxshop_flush_cache()) msg("Cache has been refreshed");
 				else msg("Flushing cache failed");
+				
+			break;
+			
+			case 'flush_api_cache':
+				
+				if (is_numeric($GLOBALS['onxshop_conf']['common_configuration']['api_data_version'])) $current_api_data_version = $GLOBALS['onxshop_conf']['common_configuration']['api_data_version'];
+				else $current_api_data_version = 1;
+				//msg($current_api_data_version);
+				$api_data_version = $current_api_data_version + 1;
+				
+				$Configuration = new common_configuration();
+				
+				if ($Configuration->saveConfig('common_configuration', 'api_data_version', $api_data_version)) {
+					
+					msg("Data version of API has increased to $api_data_version");
+					
+					if (onxshop_flush_cache()) msg("Cache has been refreshed");
+					else msg("Flushing cache failed");
+					
+				}
 				
 			break;
 			

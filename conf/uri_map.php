@@ -55,6 +55,7 @@ $uri_map = array(
 		'^/backoffice/advanced/database/export$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/pages/database_export',
 		'^/backoffice/advanced/database/import$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/pages/database_import',
 		'^/backoffice/advanced/tools$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/pages/tools',
+		'^/backoffice/advanced/api$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/pages/api',
 		'^/backoffice/advanced/search_index$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/component/search_index',
 		'^/backoffice/advanced/scheduler$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/component/scheduler',
 		'^/backoffice/advanced/seo_manager$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/component/seo_manager',
