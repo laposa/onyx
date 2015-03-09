@@ -71,6 +71,8 @@ class Onxshop_Controller_Api_v1_0_Recipe_Category_List extends Onxshop_Controlle
 	
 	/**
 	 * getImageThumbnailSrc
+	 *
+	 * @return URL string
 	 */
 	 
 	public function getImageThumbnailSrc($label_id) {
@@ -83,7 +85,7 @@ class Onxshop_Controller_Api_v1_0_Recipe_Category_List extends Onxshop_Controlle
 		$images = $Taxonomy->getLabelImages($label_id);
 		
 		if (is_array($images) && count($images) > 0) return "//{$_SERVER['HTTP_HOST']}/image/" . $images[0]['src'];
-		else return false;
+		else return '';
 	}
 	
 }
