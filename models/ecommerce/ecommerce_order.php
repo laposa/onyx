@@ -664,12 +664,12 @@ class ecommerce_order extends Onxshop_Model {
 			
 			//descrement stock
 			$this->decrementStock($order_data);
-			
-			//set status
-			$this->setStatus($id, 0);
 
 			// calculate payable amount
 			$this->updatePayableDue($order_data);
+			
+			//set status
+			$this->setStatus($id, 0);
 			
 			//send email to admin
 			require_once('models/common/common_email.php');
