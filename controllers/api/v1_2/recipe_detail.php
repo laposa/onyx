@@ -41,7 +41,7 @@ class Onxshop_Controller_Api_v1_2_Recipe_Detail extends Onxshop_Controller_Api_v
 		$item['cook_time'] = (int)$original_item['cooking_time'];
 		$item['recommended_wines'] = array();//$this->getRecommendedWines($post->ID);
 		$item['related_offers'] = array();//$this->getSpecialOffersForRecipe($post->ID);
-		$item['meal_types'] = $item['ingredients'];//$this->getMealTypesForRecipe($post->ID);
+		$item['meal_types'] = array();//$this->getMealTypesForRecipe($post->ID);
 		
 		return $item;
 		
