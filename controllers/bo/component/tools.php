@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2008-2014 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2008-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -22,20 +22,26 @@ class Onxshop_Controller_Bo_Component_Tools extends Onxshop_Controller {
 		switch ($tool) {
 			
 			case 'uri':
+			
 				require_once('models/common/common_uri_mapping.php');
 				$CommonURIMapping = new common_uri_mapping();
 				$CommonURIMapping->generateAndSaveURITable();
 				msg("Nice URLs has been completely generated");
+			
 			break;
 			
 			case 'flush_thumb':
+			
 				if  ($File->rm(ONXSHOP_PROJECT_DIR . "var/thumbnails/*")) msg("All image thumbnails have been deleted");
 				else ("Flushing thumbnails failed");
+			
 			break;
 			
 			case 'flush_tmp':
+			
 				if ($File->rm(ONXSHOP_PROJECT_DIR . "var/tmp/*")) msg("Temp directory has been cleaned");
 				else ("Flushing temp dir failed");
+			
 			break;
 			
 			case 'flush_cache':
@@ -49,7 +55,7 @@ class Onxshop_Controller_Bo_Component_Tools extends Onxshop_Controller {
 				
 				if (is_numeric($GLOBALS['onxshop_conf']['common_configuration']['api_data_version'])) $current_api_data_version = $GLOBALS['onxshop_conf']['common_configuration']['api_data_version'];
 				else $current_api_data_version = 1;
-				//msg($current_api_data_version);
+				
 				$api_data_version = $current_api_data_version + 1;
 				
 				$Configuration = new common_configuration();
@@ -66,6 +72,7 @@ class Onxshop_Controller_Bo_Component_Tools extends Onxshop_Controller {
 			break;
 			
 			case 'find_hard_links':
+			
 				require_once('models/common/common_node.php');
 				$Node = new common_node();
 				$hard_links = $Node->findHardLinks();
@@ -75,9 +82,11 @@ class Onxshop_Controller_Bo_Component_Tools extends Onxshop_Controller {
 					$this->tpl->parse('content.hard_links.item');
 				}
 				$this->tpl->parse('content.hard_links');
+				
 			break;
 
 			case 'delete_orphaned_baskets':
+			
 				require_once('models/ecommerce/ecommerce_basket.php');
 				$Basket = new ecommerce_basket();
 
@@ -88,12 +97,16 @@ class Onxshop_Controller_Bo_Component_Tools extends Onxshop_Controller {
 			break;
 			
 			case 'backup':
+			
 				$_Onxshop = new Onxshop_Request("bo/component/backup");
 				$this->tpl->assign('SUB_CONTENT', $_Onxshop->getContent());
+			
 			break;
 
 			default:
+			
 				$this->tpl->parse('content.menu');
+			
 			break;
 		}
 

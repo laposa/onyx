@@ -85,7 +85,7 @@ class Onxshop_Controller_Api_v1_0_Resources extends Onxshop_Controller_Api {
 				
 		}
 		
-		return $data_version;
+		return (int)$data_version;
 		
 	}
 	
@@ -105,7 +105,7 @@ class Onxshop_Controller_Api_v1_0_Resources extends Onxshop_Controller_Api {
 			
 		}
 		
-		return $theme_version;
+		return (int)$theme_version;
 		
 	}
 	
