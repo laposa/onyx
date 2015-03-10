@@ -73,7 +73,7 @@ class Onxshop_Controller_Api_v1_0_Recipe_Detail extends Onxshop_Controller_Api {
 		if ($_SERVER['SSL_PROTOCOL'] || $_SERVER['HTTPS']) $protocol = 'https';
 		else $protocol = 'http';
 			
-		$item['id'] = (int)$original_item['id'];
+		$item['id'] = (string)$original_item['id']; // we need to have it string in v1.0 for historic reasons, although it's wrong and the documentation is saying it's integer
 		$item['title'] = $original_item['title'];
 		$item['description'] = preg_replace("/[\r\n\t]/", " ", strip_tags($original_item['description']));
 		$item['instructions'] = preg_replace("/[\r\n\t]/", " ", $original_item['instructions']);
