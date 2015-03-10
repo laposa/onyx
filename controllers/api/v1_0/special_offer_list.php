@@ -63,7 +63,7 @@ class Onxshop_Controller_Api_v1_0_Special_Offer_List extends Onxshop_Controller_
 		if ($_SERVER['SSL_PROTOCOL'] || $_SERVER['HTTPS']) $protocol = 'https';
 		else $protocol = 'http';
 		
-		$item['id'] = $original_item['offer_id'];
+		$item['id'] = (string)$original_item['offer_id']; // from historic reason we need to make this string
 		$item['title'] = $product_detail['name'];
 		$item['content'] = strip_tags($product_detail['description']);
 		$item['url'] = "$protocol://{$_SERVER['HTTP_HOST']}/product/{$original_item['product_id']}";
