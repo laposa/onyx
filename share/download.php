@@ -86,7 +86,7 @@ if (!is_readable($file)) {
 	header('Pragma: private');
 	header('Cache-control: private, must-revalidate');
 	header("Content-type: $mimetype");
-	header('Content-Disposition: attachment; filename='.basename($file));
+	if (!isset($_GET['view'])) header('Content-Disposition: attachment; filename='.basename($file));
 	header("Content-Length: " . filesize($file));
 	ob_end_clean();
 	$bytes = readfile($file);

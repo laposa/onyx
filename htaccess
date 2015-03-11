@@ -16,6 +16,7 @@ RewriteRule	^image/var/(.*)$   /share/image_get.php?image=var/$1 [L]
 RewriteRule	^thumbnail/([0-9]*)/var/(.*)$   /share/image_thumbnail.php?&width=$1&image=var/$2 [L]
 RewriteRule	^thumbnail/([0-9]*)x([0-9]*)/var/(.*)$   /share/image_thumbnail.php?&width=$1&height=$2&image=var/$3 [L,QSA]
 RewriteRule	^download/var/(.*)$   /share/download.php?file=var/$1 [L]
+RewriteRule	^view/var/(.*)$   /share/download.php?view=1&file=var/$1 [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-l

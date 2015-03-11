@@ -67,7 +67,8 @@
 					<a href="/download/{BASE}{FOLDER}{ITEM.name}" title="Download {ITEM.name} ({ITEM.size})" style="display: block;">{ITEM.name|str_replace('_', ' ', %s)}</a>
 				</td>
 				<td>
-					<a class="ui-icon ui-icon-disk" style="float: left" title="Download {ITEM.name} ({ITEM.size})" href="/download/{BASE}{FOLDER}{ITEM.name}"><span>Download</span></a>
+					<a class="ui-icon ui-icon-search" style="float: left" title="View {ITEM.name} ({ITEM.size})" href="/view/{BASE}{FOLDER}{ITEM.name}"><span>View</span></a>
+					<a class="ui-icon ui-icon-arrowthickstop-1-s" style="float: left" title="Download {ITEM.name} ({ITEM.size})" href="/download/{BASE}{FOLDER}{ITEM.name}"><span>Download</span></a>
 					<a class="ui-icon ui-icon-info" style="float: left" href="#" title="Size: {ITEM.size}, click to view more details" onclick="openAjaxRequestInDialog('/request/bo/component/file_info~file_path_encoded={ITEM.file_path_encoded}~'); return false"><span>View more details</span></a>
 					
 					<!-- BEGIN: usage --><a href="#" onclick="openAjaxRequestInDialog('/request/bo/component/file_usage~file_path_encoded_relative={ITEM.file_path_encoded_relative}~'); return false" title="Usage">{FILE_USAGE}x</a><!-- END: usage -->
