@@ -140,7 +140,9 @@
 		}
 		$("select.prices_select").html(optionsHtml);
 		$("select.prices_select").each(function() {
-			$(this).val($(this).parents('.offer').find('input.price_id').val());
+			var input = $(this).parents('.offer').find('input.price_id');
+			$(this).val(input.val());
+			input.val($(this).val());
 		});
 	}
 
