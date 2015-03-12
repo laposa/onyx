@@ -96,25 +96,13 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Offer_Add extends Onxshop_Contro
 
 	protected function saveData($offer)
 	{
-		if (!is_numeric($offer['product_variety_id'])) $this->ajaxMessage("Special offer has not been saved, because no product was selected.");
-		if (!is_numeric($offer['offer_group_id'])) $this->ajaxMessage("Special offer has not been saved, because no group was selected.");
+		if (is_numeric($this->Offer->insertOffer($offer))) $this->ajaxMessage("Special offer successfully saved");
 
-		$detail = array(
-			'product_variety_id' => $offer['product_variety_id'],
-			'offer_group_id' => $offer['offer_group_id'] > 0 ? $offer['offer_group_id'] : null,
-			'campaign_category_id' => $offer['campaign_category_id'] > 0 ? $offer['campaign_category_id'] : null,
-			'roundel_category_id' => $offer['roundel_category_id'] > 0 ? $offer['roundel_category_id'] : null,
-			'description' => $offer['description'],
-			'price_id' => $offer['price_id'] > 0 ? $offer['price_id'] : null,
-			'quantity' => $offer['quantity'] > 0 ? $offer['quantity'] : null,
-			'saving' => $offer['saving'] > 0 ? $offer['saving'] : null,
-			'created' => date("c"),
-			'modified' => date("c")
-		);
-
-		$id = $this->Offer->insert($detail);
-		if (is_numeric($id)) $this->ajaxMessage("Special offer successfully saved");
-		else $this->ajaxMessage("Unable to save special offer");
+		if ($_SESSION['messages']) {
+			$messages = $_SESSION['messages'];
+			$_SESSION['messages'] = '';
+			$this->ajaxMessage($messages);
+		}
 	}
 
 	protected function ajaxMessage($message)

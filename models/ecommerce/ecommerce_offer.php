@@ -67,7 +67,49 @@ class ecommerce_offer extends Onxshop_Model {
 		
 		return $conf;
 	}
-	
+
+	/**
+	 * insertOffer
+	 */
+	public function insertOffer($offer)
+	{
+		if (!is_numeric($offer['product_variety_id'])) {
+			msg("Special offer has not been saved, because no product was selected.", "error");
+			return false;
+		}
+		if (!is_numeric($offer['offer_group_id'])) {
+			msg("Special offer has not been saved, because no group was selected.", "error");
+			return false;
+		}
+
+		if ($offer['price_id'] > 0) {
+			require_once('models/ecommerce/ecommerce_price.php');
+			$Price = new ecommerce_price();
+			$price = $Price->detail($offer['price_id']);
+			if ($price['product_variety_id'] != $offer['product_variety_id']) {
+				msg("Special offer price does not to belong to given product variety.", "error");
+				return false;
+			}
+		}
+
+		$detail = array(
+			'product_variety_id' => $offer['product_variety_id'],
+			'offer_group_id' => $offer['offer_group_id'] > 0 ? $offer['offer_group_id'] : null,
+			'campaign_category_id' => $offer['campaign_category_id'] > 0 ? $offer['campaign_category_id'] : null,
+			'roundel_category_id' => $offer['roundel_category_id'] > 0 ? $offer['roundel_category_id'] : null,
+			'description' => $offer['description'],
+			'price_id' => $offer['price_id'] > 0 ? $offer['price_id'] : null,
+			'quantity' => $offer['quantity'] > 0 ? $offer['quantity'] : null,
+			'saving' => $offer['saving'] > 0 ? $offer['saving'] : null,
+			'created' => date("c"),
+			'modified' => date("c")
+		);
+
+		return $this->Offer->insert($detail);
+
+	}
+
+
 	/**
 	 * getProductIdsForOfferGroup
 	 */
