@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2012-2014 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2012-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -39,7 +39,7 @@ class Onxshop_Controller_Api_v1_0_Recipe_Search extends Onxshop_Controller_Api {
 		 */
 		 
 		require_once('models/ecommerce/ecommerce_recipe.php');
-		$Recipe = new ecommerce_recipe();
+		$this->Recipe = new ecommerce_recipe();
 		
 		/**
 		 * get recipe list
@@ -49,7 +49,7 @@ class Onxshop_Controller_Api_v1_0_Recipe_Search extends Onxshop_Controller_Api {
 		if (is_numeric($category_id)) $taxonomy_ids[] = $category_id;
 		if (is_numeric($meal_type_id)) $taxonomy_ids[] = $meal_type_id;
 		
-		$recipe_list = $Recipe->getRecipeListForTaxonomy($taxonomy_ids);
+		$recipe_list = $this->Recipe->getRecipeListForTaxonomy($taxonomy_ids);
 		
 		/**
 		 * get extra info
@@ -75,7 +75,7 @@ class Onxshop_Controller_Api_v1_0_Recipe_Search extends Onxshop_Controller_Api {
 	 * formatItem
 	 */
 	 
-	static function formatItem($original_item) {
+	public function formatItem($original_item) {
 		
 		if (!is_array($original_item)) return false;
 		
@@ -88,12 +88,58 @@ class Onxshop_Controller_Api_v1_0_Recipe_Search extends Onxshop_Controller_Api {
 		$item['description'] = strip_tags($original_item['description']);
 		$item['image_thumbnail'] = "$protocol://" . $_SERVER['HTTP_HOST'] . "/image/" . $original_item['image']['src'];
 		$item['ready_time'] = $original_item['preparation_time'] + $original_item['cooking_time'];
-		$item['meal_types'] = array();
-		$item['categories'] = array(); // TODO
+		$item['meal_types'] = $this->getMealTypes($original_item);
+		$item['categories'] = $this->getCategories($original_item);
 		$item['url'] = "$protocol://" . $_SERVER['HTTP_HOST'] . "/recipe/{$original_item['id']}";
 		
 		return $item;
 		
+	}
+	
+	/**
+	 * getMealTypes
+	 */
+	 
+	public function getMealTypes($original_item) {
+		
+		$categories = $this->Recipe->getRelatedTaxonomy($original_item['id']);
+		
+		$formatted = array();
+		
+		foreach ($categories as $k=>$item) {
+		
+			$formatted[$k]['id'] = $item['id'];
+			$formatted[$k]['title'] = $item['title'];
+		
+		}
+		
+		return $formatted;
+			
+	}
+	
+	/**
+	 * getMealTypes
+	 */
+	 
+	public function getCategories($original_item) {
+		
+		$categories = $this->Recipe->getRelatedTaxonomy($original_item['id']);
+		
+		$formatted = array();
+		
+		foreach ($categories as $k=>$item) {
+		
+			$formatted[$k]['id'] = $item['id'];
+			$formatted[$k]['title'] = $item['title'];
+			$formatted[$k]['priority'] = $item['priority'];
+			$formatted[$k]['usage_count'] = 1;
+		
+		}
+		
+		return $formatted;
+		
+		return array();
+			
 	}
 	
 }
