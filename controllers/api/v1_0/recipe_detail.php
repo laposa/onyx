@@ -51,7 +51,7 @@ class Onxshop_Controller_Api_v1_0_Recipe_Detail extends Onxshop_Controller_Api {
 				
 				$item = $this->formatItem($item);
 				
-				$data[] = $item;
+				$data = $item; // it's only one item
 			}
 			
 		}

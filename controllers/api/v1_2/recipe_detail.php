@@ -10,6 +10,18 @@ require_once('controllers/api/v1_1/recipe_detail.php');
 class Onxshop_Controller_Api_v1_2_Recipe_Detail extends Onxshop_Controller_Api_v1_1_Recipe_Detail {
 	
 	/**
+	 * get data
+	 */
+	
+	public function getData() {
+		
+		$data = parent::getData();
+		
+		return array($data); // API v1.2 and v1.3 incorrectly returns "items.item.*", TODO: fix in v1.4 and change to "items.*" or "detail.*"
+		
+	}
+	
+	/**
 	 * formatItem
 	 */
 	 
