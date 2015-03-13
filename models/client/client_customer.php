@@ -589,6 +589,9 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
 	 
 	public function insertCustomer($data) {
 	
+		//make email and username lowercase to avoid duplications
+		if (array_key_exists('email', $data)) $data['email'] = strtolower($data['email']);
+		if (array_key_exists('username', $data)) $data['username'] = strtolower($data['username']);
 		if (is_array($data['other_data'])) $data['other_data'] = serialize($data['other_data']);
 		
 		if ($preserved_account = $this->checkLoginIdPreservedOnly($data['email'])) {
