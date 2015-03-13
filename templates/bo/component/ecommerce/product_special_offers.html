@@ -121,9 +121,9 @@ function addSpecialOffer() {
 <p><a class="button add" href="#" onclick="addSpecialOffer(); return false;"><span>Add Special Offer</span></a></p>
 <!-- BEGIN: offer -->
 <div class="offer offer_{OFFER.id}">
-
 	<div class="twoColumnLayout layout">
 		<div class="layoutWrapper">
+			<h2>Offer ID {OFFER.id}</h2>
 			<div class="layoutContent">
 				<div class="layoutContentWrapper">
 					<div class="layoutBody">
@@ -202,7 +202,7 @@ function addSpecialOffer() {
 
 		<p><a class="button delete" href="#" style="height: auto;" onclick="var c = $(this).parents('.offer'); c.find('input.delete').val(1); c.find('.layout').remove(); return false;"><span>Remove This Offer</span></a>
 
-		<br/>
+		<br/><br/>
 
 	</div>
 

@@ -353,3 +353,7 @@ INSERT INTO common_node VALUES (94, 'Bin', 'page', 'default', 0, 0, 0, '', NULL,
 INSERT INTO common_uri_mapping (node_id, public_uri, type) VALUES (94, '/bin', 'generic');
 
 COMMIT;
+
+BEGIN;
+ALTER TABLE ONLY ecommerce_offer ADD CONSTRAINT offer_group_id_product_variety_id_key UNIQUE (offer_group_id, product_variety_id);
+COMMIT;

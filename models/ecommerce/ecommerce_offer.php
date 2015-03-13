@@ -48,7 +48,9 @@ class ecommerce_offer extends Onxshop_Model {
 			modified timestamp(0) without time zone,
 			other_data text,
 			priority integer DEFAULT 0 NOT NULL
-		)";
+		);
+		ALTER TABLE ONLY ecommerce_offer ADD CONSTRAINT offer_group_id_product_variety_id_key UNIQUE (offer_group_id, product_variety_id);
+		";
 		
 		return $sql;
 	}
