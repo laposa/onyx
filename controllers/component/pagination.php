@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2006-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2006-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -15,14 +15,15 @@ class Onxshop_Controller_Component_Pagination extends Onxshop_Controller {
 
 		// input: count of all records, records per page, from which record item we display
 		// count [int], from[int], per_page[int], link[string]
+		// link [string], option_show_all [int], option_per_page [int]
 		
 		/**
 		 * Compulsory input variables
 		 */
 		
-		$count = $this->GET['count'];
-		$from = $this->GET['limit_from'];
-		$per_page = $this->GET['limit_per_page'];
+		$count = (int)$this->GET['count'];
+		$from = (int)$this->GET['limit_from'];
+		$per_page = (int)$this->GET['limit_per_page'];
 
 		if ($count > $per_page) {		
 
@@ -33,9 +34,9 @@ class Onxshop_Controller_Component_Pagination extends Onxshop_Controller {
 			else $link = $_SERVER['REDIRECT_URL'];
 			
 			// display options
-			if ($this->GET['option_show_all']) $option_show_all = $this->GET['option_show_all'];
+			if (is_numeric($this->GET['option_show_all'])) $option_show_all = $this->GET['option_show_all'];
 			else $option_show_all = 1;
-			if ($this->GET['option_per_page']) $option_per_page = $this->GET['option_per_page'];
+			if (is_numeric($this->GET['option_per_page'])) $option_per_page = $this->GET['option_per_page'];
 			else $option_per_page = 0;
 
 			// page items		
