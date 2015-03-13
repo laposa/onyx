@@ -30,8 +30,7 @@ CREATE TABLE ecommerce_store_taxonomy (
 	node_id int NOT NULL REFERENCES ecommerce_store ON UPDATE CASCADE ON DELETE CASCADE,
 	taxonomy_tree_id int NOT NULL REFERENCES common_taxonomy_tree ON UPDATE CASCADE ON DELETE CASCADE
 );
-
-ALTER TABLE ecommerce_store_taxonomy ADD CONSTRAINT product_node_id_taxonomy_tree_id_key UNIQUE (node_id, taxonomy_tree_id);
+ALTER TABLE ONLY ecommerce_store_taxonomy ADD CONSTRAINT ecommerce_store_taxonomy_node_id_key UNIQUE (node_id, taxonomy_tree_id);
 		";
 		
 		return $sql;

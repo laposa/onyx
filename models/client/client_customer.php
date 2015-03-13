@@ -218,6 +218,7 @@ CREATE TABLE client_customer (
 	store_id integer REFERENCES ecommerce_store ON UPDATE CASCADE ON DELETE RESTRICT,
 	janrain_id character varying(255)
 );
+ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE (email, deleted_date);
 		";
 		
 		return $sql;
