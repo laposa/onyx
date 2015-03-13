@@ -169,7 +169,7 @@ div.divider {border-top: 2px solid #dadada;}
  */
  
 div.ui-dialog legend {display: none;}
-div.ui-dialog {z-index: 5000;}
+div.ui-dialog {z-index: 310000; /*needs to be higher than #modal_overlay*/}
 .ui-tabs-hide { display: none; }
 
 .ui-slider .ui-slider-handle{width: 2.1em; height: 2.1em; top: -0.7em; margin-left: -0.7em; border-radius: 100px;}

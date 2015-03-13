@@ -27,8 +27,7 @@ $(document).ready(function() {
 				<span class="field"><input type="text" title="The category title" class="text title" id="taxonomy-label-title" name="taxonomy[label][title]" value="{TAXONOMY.label.title|htmlspecialchars}"/></span>
 			</div>
 			<div class="row">
-				<span class="label"><label for="taxonomy-label-publish">Publish (Visibility in context of Taxonomy)</label></span>
-				<span class="field"><input type="checkbox" id="taxonomy-label-publish" name="taxonomy[label][publish]" {TAXONOMY.label.publish_check} /></span>
+				<span class="field"><input type="checkbox" id="taxonomy-label-publish" name="taxonomy[label][publish]" {TAXONOMY.label.publish_check} /> <label for="taxonomy-label-publish">Publish (Visibility in context of Taxonomy)</label></span>
 			</div>
 			<div class="row rte">
 				<span class="label"><label for="taxonomy-label-description">Description</label></span>
