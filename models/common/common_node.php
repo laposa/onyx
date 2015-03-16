@@ -1965,5 +1965,36 @@ LEFT OUTER JOIN common_taxonomy_label ON (common_taxonomy_tree.label_id = common
 		return $stats;
 		
 	}
+
+	/**
+	 * getCustomerIdForLastModified
+	 *
+	 * @param integer $node_id
+	 * @return integer|bool $customer_id or FALSE on fail
+	 */
+	 
+	public function getCustomerIdForLastModified($node_id) {
+	
+		if (!is_numeric($node_id)) return false;
+		
+		require_once('models/common/common_revision.php');
+		$Revision = new common_revision();
+				
+		$revision_list = $Revision->listing("object = 'common_node' AND node_id = $node_id", 'id DESC', '0,1');
+		
+		if (is_array($revision_list)) {
+			
+			$customer_id = $revision_list[0]['customer_id'];
+		
+		} else {
+			
+			$node_detail = $this->detail($node_id);
+			$customer_id = $node_detail['customer_id'];
+			
+		}
+		
+		return $customer_id;
+		
+	}
 	
 }

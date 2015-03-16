@@ -11,7 +11,7 @@
 			<tr id="node_id_{ITEM.id}">
 				<td><a class="{ITEM.class}" href="/backoffice/pages/{ITEM.id}">{ITEM.title|htmlspecialchars}</a></td>
 				<td>{ITEM.node_group}/{ITEM.node_controller}</td>
-				<td><a href="/backoffice/customers/{ITEM.customer_id}/detail">{ITEM.customer_id}</a></td>
+				<td><a href="/backoffice/customers/{ITEM.latest_change_by}/detail">{ITEM.latest_change_by}</a></td>
 				<td>{ITEM.modified}</td>
 			</tr>
 			<!-- END: item -->
