@@ -45,11 +45,8 @@ class Onxshop_Controller_Api_v1_0_Recipe_Search extends Onxshop_Controller_Api {
 		 * get recipe list
 		 */
 		
-		$taxonomy_ids = array();
-		if (is_numeric($category_id)) $taxonomy_ids[] = $category_id;
-		if (is_numeric($meal_type_id)) $taxonomy_ids[] = $meal_type_id;
-		
-		$recipe_list = $this->Recipe->getRecipeListForTaxonomy($taxonomy_ids);
+		$recipe_list_x = $this->Recipe->getFilteredRecipeList($category_id, $keyword);
+		$recipe_list = $recipe_list_x[0]; // array($records, $count);
 		
 		/**
 		 * get extra info
@@ -86,7 +83,7 @@ class Onxshop_Controller_Api_v1_0_Recipe_Search extends Onxshop_Controller_Api {
 		$item['id'] = $original_item['id'];
 		$item['title'] = $original_item['title'];
 		$item['description'] = strip_tags($original_item['description']);
-		$item['image_thumbnail'] = "$protocol://" . $_SERVER['HTTP_HOST'] . "/image/" . $original_item['image']['src'];
+		$item['image_thumbnail'] = "$protocol://" . $_SERVER['HTTP_HOST'] . "/image/" . $original_item['image_src'];
 		$item['ready_time'] = $original_item['preparation_time'] + $original_item['cooking_time'];
 		$item['meal_types'] = $this->getMealTypes($original_item);
 		$item['categories'] = $this->getCategories($original_item);

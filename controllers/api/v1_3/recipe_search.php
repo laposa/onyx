@@ -24,9 +24,9 @@ class Onxshop_Controller_Api_v1_3_Recipe_Search extends Onxshop_Controller_Api_v
 		$item['id'] = $original_item['id'];
 		$item['title'] = $original_item['title'];
 		$item['description'] = strip_tags($original_item['description']);
-		$item['image_thumbnail'] = "$protocol://" . $_SERVER['HTTP_HOST'] . "/image/" . $original_item['image']['src'];
-		$item['images'] = array("$protocol://" . $_SERVER['HTTP_HOST'] . "/image/" . $original_item['image']['src']);
-		$item['thumbnails'] = array("$protocol://" . $_SERVER['HTTP_HOST'] . "/thumbnail/" . self::$thumbnail_size . '/'. $original_item['image']['src']);
+		$item['image_thumbnail'] = "$protocol://" . $_SERVER['HTTP_HOST'] . "/image/" . $original_item['image_src'];
+		$item['images'] = array("$protocol://" . $_SERVER['HTTP_HOST'] . "/image/" . $original_item['image_src']);
+		$item['thumbnails'] = array("$protocol://" . $_SERVER['HTTP_HOST'] . "/thumbnail/" . self::$thumbnail_size . '/'. $original_item['image_src']);
 		$item['video'] = $original_item['video_url'];
 		$item['ready_time'] = $original_item['preparation_time'] + $original_item['cooking_time'];
 		$item['meal_types'] = $this->getMealTypes($original_item); // TODO remove in v1.4
