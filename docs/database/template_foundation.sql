@@ -5474,6 +5474,12 @@ COPY international_translation (id, locale, original_string, translated_string, 
 
 SELECT pg_catalog.setval('international_translation_id_seq', 1, false);
 
+--
+-- offer_group_id_product_variety_id_key
+-- 
+
+ALTER TABLE ONLY ecommerce_offer ADD CONSTRAINT offer_group_id_product_variety_id_key UNIQUE (offer_group_id, product_variety_id);
+
 
 --
 -- Name: client_action_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
