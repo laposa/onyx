@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2012-2014 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2012-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -27,7 +27,7 @@ class Onxshop_Controller_Api_v1_0_Recipe_List extends Onxshop_Controller_Api {
 		 * get recipe page posts
 		 */
 		
-		$list = $Recipe->getFilteredRecipeList();
+		$list = $Recipe->getFilteredRecipeList(false, false, 'priority', 'DESC');
 		
 		$data = array();
 		
