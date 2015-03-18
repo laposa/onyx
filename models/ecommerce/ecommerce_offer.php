@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * Copyright (c) 2013-2014 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2013-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -107,7 +107,7 @@ class ecommerce_offer extends Onxshop_Model {
 			'modified' => date("c")
 		);
 
-		return $this->Offer->insert($detail);
+		return $this->insert($detail);
 
 	}
 
