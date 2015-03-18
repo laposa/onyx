@@ -18,6 +18,12 @@ class Onxshop_Controller_Api_v1_1_Special_Offer_List extends Onxshop_Controller_
 		$item = parent::formatItem($original_item);
 		$item['id'] = (int)$item['id']; // typecast back to correct type
 		
+		// hack specific for consumer aaGheo5b - requires fixed ID for 'This Weeks Offers'
+		// TODO: in v1.4 create option to have an extra attribute allowing to search for specific offers
+		if ($this->GET['api_key'] == 'aaGheo5b') {
+			if (strtolower(trim($item['group_title'])) == 'this weeks offers') $item['group_id'] = 6; // hard code This Weeks Offers ID
+		}
+		
 		return $item;	
 	}
 	
