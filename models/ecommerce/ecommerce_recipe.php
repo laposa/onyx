@@ -46,6 +46,8 @@ class ecommerce_recipe extends Onxshop_Model {
 	
 	/**
 	 * @access public
+	 *
+	 * we also user ready_time = preparation_time + cooking_time
 	 */
 	var $cooking_time;
 	
@@ -218,7 +220,7 @@ CREATE TABLE ecommerce_recipe (
      *
      */
 
-	function searchRecipes($keywords, $ingredients, $cooking_time, $taxonomy_id, $limit_per_page, $limit_from)
+	function searchRecipes($keywords, $ingredients, $ready_time, $taxonomy_id, $limit_per_page, $limit_from)
 	{
 		$where = 'ecommerce_recipe.publish = 1 ';
 
@@ -251,7 +253,7 @@ CREATE TABLE ecommerce_recipe (
     	if (is_numeric($taxonomy_id) && $taxonomy_id > 0) $where .= " AND ecommerce_recipe.id IN (SELECT node_id FROM ecommerce_recipe_taxonomy WHERE taxonomy_tree_id = $taxonomy_id)";
 
     	//time
-    	if (is_numeric($cooking_time) && $cooking_time > 0) $where .= " AND ecommerce_recipe.cooking_time <= $cooking_time";
+    	if (is_numeric($ready_time) && $ready_time > 0) $where .= " AND (ecommerce_recipe.preparation_time + ecommerce_recipe.cooking_time) <= $ready_time";
 
 		// limits
 		if (!is_numeric($limit_from)) $limit_from = 0;
