@@ -46,7 +46,7 @@ class Onxshop_Controller_Api_v1_0_Recipe_Search extends Onxshop_Controller_Api {
 		 */
 		
 		$ingredients = $keyword;
-		$recipe_list_x = $this->Recipe->searchRecipes($keyword, $ingredients, $ready_time, $category_id);
+		$recipe_list_x = $this->Recipe->searchRecipes($keyword, $ingredients, $ready_time, $category_id, $product_id);
 		$recipe_list = $recipe_list_x[0]; // array($records, $count);
 		
 		/**

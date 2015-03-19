@@ -220,7 +220,7 @@ CREATE TABLE ecommerce_recipe (
      *
      */
 
-	function searchRecipes($keywords = false, $ingredients = false, $ready_time = false, $taxonomy_id = false, $limit_per_page = false, $limit_from = false)
+	function searchRecipes($keywords = false, $ingredients = false, $ready_time = false, $taxonomy_id = false, $product_variety_sku = false, $limit_per_page = false, $limit_from = false)
 	{
 		$where = 'ecommerce_recipe.publish = 1 ';
 
@@ -247,6 +247,16 @@ CREATE TABLE ecommerce_recipe (
 				$recipe_ids = "SELECT recipe_id FROM ecommerce_recipe_ingredients WHERE product_variety_id IN ($product_variety_ids)";
 				$where .= " AND ecommerce_recipe.id IN ($recipe_ids)";
 			}
+		}
+		
+		// product SKU
+		if (strlen(trim($product_variety_sku)) > 0) {
+			
+			$product_variety_sku = pg_escape_string($product_variety_sku);
+			$product_variety_ids = "SELECT id FROM ecommerce_product_variety WHERE ecommerce_product_variety.sku = '$product_variety_sku'";
+			$recipe_ids = "SELECT recipe_id FROM ecommerce_recipe_ingredients WHERE product_variety_id IN ($product_variety_ids)";
+			$where .= " AND ecommerce_recipe.id IN ($recipe_ids)";
+			
 		}
 
     	//taxonomy
