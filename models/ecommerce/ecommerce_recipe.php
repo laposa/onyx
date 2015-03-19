@@ -220,7 +220,7 @@ CREATE TABLE ecommerce_recipe (
      *
      */
 
-	function searchRecipes($keywords, $ingredients, $ready_time, $taxonomy_id, $limit_per_page, $limit_from)
+	function searchRecipes($keywords = false, $ingredients = false, $ready_time = false, $taxonomy_id = false, $limit_per_page = false, $limit_from = false)
 	{
 		$where = 'ecommerce_recipe.publish = 1 ';
 

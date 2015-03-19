@@ -24,7 +24,7 @@ class Onxshop_Controller_Api_v1_2_Recipe_Search extends Onxshop_Controller_Api_v
 		$item['id'] = $original_item['id'];
 		$item['title'] = $original_item['title'];
 		$item['description'] = strip_tags($original_item['description']);
-		$item['image_thumbnail'] = "$protocol://" . $_SERVER['HTTP_HOST'] . "/image/" . $original_item['image_src'];
+		$item['image_thumbnail'] = "$protocol://" . $_SERVER['HTTP_HOST'] . "/image/" . $original_item['image']['src'];
 		$item['video'] = $original_item['video_url'];
 		$item['ready_time'] = $original_item['preparation_time'] + $original_item['cooking_time'];
 		$item['meal_types'] = $this->getMealTypes($original_item);

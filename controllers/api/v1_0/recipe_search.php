@@ -45,8 +45,8 @@ class Onxshop_Controller_Api_v1_0_Recipe_Search extends Onxshop_Controller_Api {
 		 * get recipe list
 		 */
 		
-		// TODO use $this->Recipe->searchRecipes() instead
-		$recipe_list_x = $this->Recipe->getFilteredRecipeList($category_id, $keyword);
+		$ingredients = $keyword;
+		$recipe_list_x = $this->Recipe->searchRecipes($keyword, $ingredients, $ready_time, $category_id);
 		$recipe_list = $recipe_list_x[0]; // array($records, $count);
 		
 		/**
@@ -84,7 +84,7 @@ class Onxshop_Controller_Api_v1_0_Recipe_Search extends Onxshop_Controller_Api {
 		$item['id'] = $original_item['id'];
 		$item['title'] = $original_item['title'];
 		$item['description'] = strip_tags($original_item['description']);
-		$item['image_thumbnail'] = "$protocol://" . $_SERVER['HTTP_HOST'] . "/image/" . $original_item['image_src'];
+		$item['image_thumbnail'] = "$protocol://" . $_SERVER['HTTP_HOST'] . "/image/" . $original_item['image']['src'];
 		$item['ready_time'] = $original_item['preparation_time'] + $original_item['cooking_time'];
 		$item['meal_types'] = $this->getMealTypes($original_item);
 		$item['categories'] = $this->getCategories($original_item);
