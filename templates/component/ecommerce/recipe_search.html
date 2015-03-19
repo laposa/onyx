@@ -1,0 +1,102 @@
+<!-- BEGIN: content -->
+<div class="recipe_search">
+	<div class="recipe_search_wrapper">
+
+		<form method="get" action="{URI|htmlspecialchars}">
+
+			<fieldset>
+
+				<div class="fields">
+
+					<div class="row keywords">
+						<span class="field">
+							<input type="text" id="recipe-keywords" name="keywords" value="{GET.keywords|htmlspecialchars}" class="text" maxlength="45" placeholder="Search Keywords"/>
+						</span>
+					</div>
+
+					<div class="row cooking_time">
+						<span class="field">
+							<select id="recipe-cooking_time" name="time">
+								<option value="">Select Cooking Time</option>
+								<option value="">Any</option>
+								<option {SELECT_COOK_20}value="20">Up to 20 Minutes</option>
+								<option {SELECT_COOK_30}value="30">Up to 30 Minutes</option>
+								<option {SELECT_COOK_45}value="45">Up to 45 Minutes</option>
+								<option {SELECT_COOK_60}value="60">Up to 1 Hour</option>
+								<option {SELECT_COOK_120}value="120">Up to 2 Hours</option>
+								<option {SELECT_COOK_180}value="180">Up to 3 Hours</option>
+								<option {SELECT_COOK_240}value="240">Up to 4 Hours</option>
+							</select>
+						</span>
+					</div>
+
+					<div class="row ingredients">
+						<span class="field">
+							<input type="text" id="recipe-ingredients" name="ingredients" value="{GET.ingredients|htmlspecialchars}" class="text" maxlength="45" placeholder="Ingredients" />
+						</span>
+					</div>
+
+					<div class="row taxonomy_tree_id">
+						<span class="field">
+							<select id="recipe-taxonomy_tree_id" name="course">
+								<option value="">Select Course</option>
+								<option value="">Any</option>
+								<!-- BEGIN: taxonomy_item -->
+								<option value="{ITEM.id}" {ITEM.selected}>{ITEM.label.title|htmlspecialchars}</option>
+								<!-- END: taxonomy_item -->
+							</select>
+						</span>
+					</div>
+
+				</div>
+
+				<div class="row submit">
+					<span class="field">
+						<button type="submit"><span>Search</span></button>
+					</span>
+				</div>
+
+				<div class="bottom"></div>
+
+			</fieldset>
+
+		</form>
+
+		<div class="recipe_list recipe_list_shelf">
+
+			<!-- BEGIN: item -->
+			<div class="item {ITEM.taxonomy_class}">
+				
+				<div class="twoColumnLayout fibonacci-2-5">
+					<div class="layoutColumnOne ofTwo">
+
+						<div class="image">
+							<!-- BEGIN: image --><a href="/page/{ITEM.page.id}" title="{ITEM.title|htmlspecialchars}"><img src="/thumbnail/230x100/{ITEM.image.src}?fill=1" alt="{ITEM.image.title|htmlspecialchars}" /></a><!-- END: image -->
+						</div>
+
+					</div>
+					<div class="layoutColumnTwo ofTwo">
+						<div class="description">
+							<h3 class="name"><a href="/page/{ITEM.page.id}" title="{ITEM.recipe.name|htmlspecialchars}"><span>{ITEM.title|htmlspecialchars}</span></a></h3>
+							<p>{ITEM.description|strip_tags}</p>
+							<p><small>Serving people: {ITEM.serving_people}<br />Cooking time:{ITEM.cooking_time}</small></p>
+							<!-- BEGIN: reviews -->
+							<div class="reviews"><a href="/page/{ITEM.page.id}">{RATING_STARS}</a> <span class="review_count">({ITEM.review.count}&nbsp;{REVIEWS})</span></div>
+							<!-- END: reviews -->
+						</div>
+					</div>
+					
+				</div>
+				
+			</div>
+			<div class="divider"><hr /></div>
+			<!-- END: item -->
+			
+			{PAGINATION}
+			<div class="bottom"></div>
+
+		</div>
+
+	</div>
+</div>
+<!-- END: content -->
