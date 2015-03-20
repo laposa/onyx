@@ -40,7 +40,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Store_List extends Onxshop_Contr
 		require_once('models/ecommerce/ecommerce_store.php');
 		$Store = new ecommerce_store();	
 		$store_list = $Store->getFilteredStoreList($taxonomy_id, $keyword, $type_id, $order_by, $order_dir, $per_page, $from);
-		$count = $Store->getFilteredStoreListCount($taxonomy_id, $keyword, $type_id);
+		$count = $Store->getFilteredStoreCount($taxonomy_id, $keyword, $type_id);
 		
 		if (!is_array($store_list)) return false;
 

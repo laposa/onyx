@@ -1,5 +1,5 @@
 
 Check local usage of ecommerce_store->getFilteredStoreList() method. It is 
 no longer returning a 'count' as a second element of an array, but you have
-to call ecommerce_store->getFilteredStoreListCount() separately.
+to call ecommerce_store->getFilteredStoreCount() separately.
 

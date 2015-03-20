@@ -269,7 +269,7 @@ CREATE TABLE ecommerce_store (
     
     function getFilteredStoreList($taxonomy_id = false, $keyword = false, $type_id = 0, $order_by = false, $order_dir = false, $per_page = false, $from = false)
     {
-    	$where = $this->prepareStoreListFilteringSql($taxonomy_id, $keyword, $type_id);
+    	$where = $this->prepareStoreFilteringSql($taxonomy_id, $keyword, $type_id);
 
 		// order
 		if ($order_by == 'title' || $order_by == 'modified') $order = "$order_by";
@@ -309,17 +309,17 @@ CREATE TABLE ecommerce_store (
      *
      */
     
-    function getFilteredStoreListCount($taxonomy_id = false, $keyword = false, $type_id = 0)
+    function getFilteredStoreCount($taxonomy_id = false, $keyword = false, $type_id = 0)
     {
-    	$where = $this->prepareStoreListFilteringSql($taxonomy_id, $keyword, $type_id);
+    	$where = $this->prepareStoreFilteringSql($taxonomy_id, $keyword, $type_id);
 		return $this->count($where);
     }
 
     /**
-     * prepareStoreListFilteringSql
+     * prepareStoreFilteringSql
      */
 
-    private function prepareStoreListFilteringSql($taxonomy_id, $keyword, $type_id)
+    private function prepareStoreFilteringSql($taxonomy_id, $keyword, $type_id)
     {
     	$sql = '1 = 1';
 
