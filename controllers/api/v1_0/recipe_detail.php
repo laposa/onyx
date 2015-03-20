@@ -38,23 +38,30 @@ class Onxshop_Controller_Api_v1_0_Recipe_Detail extends Onxshop_Controller_Api {
 		$Recipe = new ecommerce_recipe();
 		
 		/**
-		 * get recipe page posts
+		 * get recipe detail
 		 */
-		
-		$list = $Recipe->getFilteredRecipeList(false, $recipe_id);
-		
-		$data = array();
-		
-		foreach($list[0] as $item ) {
-			
-			if ($item['publish'] == 1) {
-				
-				$item = $this->formatItem($item);
-				
-				$data = $item; // it's only one item
-			}
-			
+
+		$item = $Recipe->getDetail($recipe_id);
+
+		/**
+		 * get recipe image
+		 */
+
+		require_once('models/ecommerce/ecommerce_recipe_image.php');
+		$Image = new ecommerce_recipe_image();
+
+		$images = $Image->listFiles($item['id']);
+		if (count($images) > 0) {
+			$item['image_src'] = $images[0]['src'];
+			$item['image_title'] = $images[0]['title'];
 		}
+
+		/**
+		 * return the result
+		 */
+
+		if ($item['publish'] == 1) return $this->formatItem($item);
+		else return array();
 		
 		return $data;
 		

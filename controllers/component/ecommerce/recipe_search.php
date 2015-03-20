@@ -93,7 +93,7 @@ class Onxshop_Controller_Component_Ecommerce_Recipe_Search extends Onxshop_Contr
 		if (!empty($this->GET['sku'])) $product_variety_sku = $this->GET['sku'];
 		else $product_variety_sku = false;
 		
-		return $this->Recipe->searchRecipes($keywords, $ingredients, $time, $taxonomy_id, $product_variety_sku, $limit_per_page, $limit_from);
+		return $this->Recipe->getFilteredRecipeList($keywords, $ingredients, $time, $taxonomy_id, $product_variety_sku, $limit_per_page, $limit_from);
 	}
 
 }

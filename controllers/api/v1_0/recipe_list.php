@@ -27,11 +27,11 @@ class Onxshop_Controller_Api_v1_0_Recipe_List extends Onxshop_Controller_Api {
 		 * get recipe page posts
 		 */
 		
-		$list = $Recipe->getFilteredRecipeList(false, false, 'priority', 'DESC');
+		$list = $Recipe->getFilteredRecipeList(false, false, false, false, false, 'priority', 'DESC');
 		
 		$data = array();
 		
-		foreach($list[0] as $item ) {
+		foreach($list as $item ) {
 			
 			if ($item['publish'] == 1) {
 				

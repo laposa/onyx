@@ -214,13 +214,10 @@ CREATE TABLE ecommerce_recipe (
 		}
 	}
 
-
-    /**
-     * search recipes
-     *
-     */
-
-	function searchRecipes($keywords = false, $ingredients = false, $ready_time = false, $taxonomy_id = false, $product_variety_sku = false, $limit_per_page = false, $limit_from = false)
+	/**
+	 * prepareRecipeFilterSql
+	 */
+	private function prepareRecipeFilterSql($keywords, $ingredients, $ready_time, $taxonomy_id, $product_variety_sku)
 	{
 		$where = 'ecommerce_recipe.publish = 1 ';
 
@@ -265,21 +262,35 @@ CREATE TABLE ecommerce_recipe (
     	//time
     	if (is_numeric($ready_time) && $ready_time > 0) $where .= " AND (ecommerce_recipe.preparation_time + ecommerce_recipe.cooking_time) <= $ready_time";
 
+    	return $where;
+	}
+
+    /**
+     * search recipes
+     *
+     */
+
+	function getFilteredRecipeList($keywords = false, $ingredients = false, $ready_time = false, $taxonomy_id = false, $product_variety_sku = false, $limit_per_page = false, $limit_from = false, $order_by = false, $order_dir = false)
+	{
+		$where = $this->prepareRecipeFilterSql($keywords, $ingredients, $ready_time, $taxonomy_id, $product_variety_sku);
+
 		// limits
 		if (!is_numeric($limit_from)) $limit_from = 0;
 		if (!is_numeric($limit_per_page)) $limit_per_page = 25;
 
+		// order
+		if (in_array($order_by, array('title', 'created', 'modified', 'priority', 'share_counter'))) $order = "$order_by";
+		else $order = "ecommerce_recipe.id";
+		if ($order_dir == 'DESC') $order .= " DESC";
+		else $order .= " ASC";
+
 		// sql
 		$sql = "SELECT * FROM ecommerce_recipe WHERE " . $where .
-			" ORDER BY ecommerce_recipe.id DESC" .
+			" ORDER BY $order" .
 			" LIMIT $limit_per_page OFFSET $limit_from";
 
 		// list
 		$records = $this->executeSql($sql);
-
-		// count
-		$count = $this->executeSql("SELECT count(*) AS \"count\" FROM ecommerce_recipe WHERE " . $where);
-		$count = $count[0]['count'];
 
 		if (is_array($records)) {
 
@@ -304,67 +315,22 @@ CREATE TABLE ecommerce_recipe (
 				}
 			}
 
-			return array($records, $count);
+			$records;
 		}
 
-		return array(array(), $count);
+		return array();
 
 	}
 
+	/**
+	 * getFilteredRecipeCount
+	 */
 
-    /**
-     * get filtered recipe list
-     *
-     */
-    
-    function getFilteredRecipeList($taxonomy_id = false, $keyword = false, $order_by = false, $order_dir = false, $per_page = false, $from = false)
-    {
-
-    	$keyword = pg_escape_string(trim($keyword));
-
-    	$where = '1 = 1';
-
-    	//keyword
-    	if (is_numeric($keyword)) $where .= " AND ecommerce_recipe.id = {$keyword}";
-    	else if ($keyword != '') $where .= " AND (ecommerce_recipe.title ILIKE '%{$keyword}%' OR ecommerce_recipe.description ILIKE '%{$keyword}%' OR ecommerce_recipe.instructions ILIKE '%{$keyword}%')";
-
-    	//taxonomy
-    	if ($taxonomy_id > 0) $where .= " AND ecommerce_recipe.id IN (SELECT node_id FROM ecommerce_recipe_taxonomy WHERE taxonomy_tree_id = $taxonomy_id)";
-
-		// order
-		if (in_array($order_by, array('title', 'created', 'modified', 'priority', 'share_counter'))) $order = "$order_by";
-		else $order = "title";
-		if ($order_dir == 'DESC') $order .= " DESC";
-		else $order .= " ASC";
-
-		// limits
-		if (is_numeric($from)) $limit = "$from";
-		else $limit = "0";
-		if (is_numeric($per_page)) $limit .= ",$per_page";
-		else $limit = false;
-
-		$records = $this->listing($where, $order, $limit);
-		$count = $this->count($where);
-
-		if (is_array($records)) {
-
-			require_once('models/ecommerce/ecommerce_recipe_image.php');
-			$Image = new ecommerce_recipe_image();
-
-			foreach ($records as $i => $item) {
-				$images = $Image->listFiles($item['id']);
-				if (count($images) > 0) {
-					$records[$i]['image_src'] = $images[0]['src'];
-					$records[$i]['image_title'] = $images[0]['title'];
-				}
-			}
-
-			return array($records, $count);
-		}
-
-		return array(array(), $count);
-    }
-
+	function getFilteredRecipeCount($keywords = false, $ingredients = false, $ready_time = false, $taxonomy_id = false, $product_variety_sku = false)
+	{
+		$where = $this->prepareRecipeFilterSql($keywords, $ingredients, $ready_time, $taxonomy_id, $product_variety_sku);
+		return $this->count($where);
+	}
 
     /**
      * Find recipe homepage

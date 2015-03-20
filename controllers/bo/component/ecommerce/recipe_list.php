@@ -37,7 +37,8 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Recipe_List extends Onxshop_Cont
 		// get the list
 		require_once('models/ecommerce/ecommerce_recipe.php');
 		$Recipe = new ecommerce_recipe();	
-		list($recipe_list, $count) = $Recipe->getFilteredRecipeList($taxonomy_id, $keyword, $order_by, $order_dir, $per_page, $from);
+		$recipe_list = $Recipe->getFilteredRecipeList($keyword, false, false, $taxonomy_id, false, $per_page, $from, $order_by, $order_dir);
+		$count = $Recipe->getFilteredRecipeCount($keyword, false, false, $taxonomy_id);
 		
 		if (!is_array($recipe_list)) return false;
 
