@@ -672,7 +672,7 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 				// get all stores in this count
 				$store_list = $Store->getFilteredStoreList($county['id'], false, 0, false, false, 1000); //limit to 1000 records per county
 				
-				foreach ($store_list[0] as $store_item) {
+				foreach ($store_list as $store_item) {
 					$this->tpl->assign('STORE', $store_item);
 					$this->tpl->parse("content.form.require_user_details.store.county_dropdown.province.store");
 				}

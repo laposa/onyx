@@ -132,7 +132,6 @@ class Onxshop_Controller_Component_Ecommerce_Store_Map extends Onxshop_Controlle
 		if (is_numeric($taxonomy_id)) {
 		
 			$store_list = $this->Store->getFilteredStoreList($taxonomy_id, false, 0, false, false, 9999);
-			$store_list = $store_list[0];
 			
 		} else {
 		
