@@ -477,7 +477,7 @@ CREATE TABLE ecommerce_product (
 	    	}
 	    	
 	    	//keyword
-	    	if (is_numeric($filter['keyword'])) $add_to_where .= " AND product.id = {$filter['keyword']} OR variety.id = {$filter['keyword']}";
+	    	if (is_numeric($filter['keyword'])) $add_to_where .= " AND product.id = {$filter['keyword']} OR variety.id = {$filter['keyword']} OR variety.sku = '{$filter['keyword']}'";
 	    	else if ($filter['keyword'] != '') $add_to_where .= " AND (variety.sku ILIKE '%{$filter['keyword']}%' OR product.name ILIKE '%{$filter['keyword']}%')";
 	    	else $add_to_where .= " AND (image.role != 'RTE' OR image.role IS NULL) "; //use image filter only when not empty keyword (it allows to find product with one image role RTE)
 	    	
