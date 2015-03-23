@@ -86,14 +86,17 @@ class Onxshop_Controller_Component_Ecommerce_Recipe_Search extends Onxshop_Contr
 		else $keywords = false;
 
 		// ingredients
-		if (!empty($this->GET['ingredients'])) $ingredients = $this->GET['ingredients'];
-		else $ingredients = false;
-		
-		// sku
-		if (!empty($this->GET['sku'])) $product_variety_sku = $this->GET['sku'];
+		if (!empty($this->GET['ingredients'])) $keywords .= " " . $this->GET['ingredients'];
 		else $product_variety_sku = false;
 		
-		return $this->Recipe->getFilteredRecipeList($keywords, $ingredients, $time, $taxonomy_id, $product_variety_sku, $limit_per_page, $limit_from);
+		// sku
+		if (!empty($this->GET['sku'])) if (!empty($product_variety_sku)) $product_variety_sku .= "," . $this->GET['sku'];
+		else $product_variety_sku = $this->GET['sku'];
+
+		return array(
+			$this->Recipe->getFilteredRecipeList($keywords, $time, $taxonomy_id, $product_variety_sku, $limit_per_page, $limit_from, false, false, true),
+			$this->Recipe->getFilteredRecipeCount($keywords, $time, $taxonomy_id, $product_variety_sku, true)
+		);
 	}
 
 }

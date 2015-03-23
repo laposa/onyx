@@ -217,43 +217,49 @@ CREATE TABLE ecommerce_recipe (
 	/**
 	 * prepareRecipeFilterSql
 	 */
-	private function prepareRecipeFilterSql($keywords, $ingredients, $ready_time, $taxonomy_id, $product_variety_sku)
+	private function prepareRecipeFilterSql($keywords, $ready_time, $taxonomy_id, $product_variety_sku, $publish)
 	{
-		$where = 'ecommerce_recipe.publish = 1 ';
+		if ($publish) $where = 'ecommerce_recipe.publish = 1 ';
+		else $where = '1 = 1 ';
 
 		// keywords SQL
+		$keywords = str_replace(",", " ", $keywords);
 		if (strlen(trim($keywords)) > 0) {
-			$keywords_array = explode(" ", $keywords);
-			foreach ($keywords_array as $keyword) {
-				$keyword = pg_escape_string($keyword);
-	    		if (strlen(trim($keyword)) > 0) $where .= " AND (ecommerce_recipe.title ILIKE '%{$keyword}%' OR ecommerce_recipe.description ILIKE '%{$keyword}%' OR ecommerce_recipe.instructions ILIKE '%{$keyword}%')";
-			}
-		}
 
-		// ingredients SQL
-		if (strlen(trim($ingredients)) > 0) {
-			$ingredients_array = explode(" ", $ingredients);
-			$product_where = '';
-			foreach ($ingredients_array as $ingredient) {
-				$ingredient = pg_escape_string($ingredient);
-	    		if (strlen(trim($ingredient)) > 0) $product_where .= " OR (name ILIKE '%{$ingredient}%')";
-			}
-			if ($product_where <> '') {
-				$product_ids = "SELECT id FROM ecommerce_product WHERE 0=1 " . $product_where;
-				$product_variety_ids = "SELECT id FROM ecommerce_product_variety WHERE product_id IN ($product_ids)";
-				$recipe_ids = "SELECT recipe_id FROM ecommerce_recipe_ingredients WHERE product_variety_id IN ($product_variety_ids)";
-				$where .= " AND ecommerce_recipe.id IN ($recipe_ids)";
+			$keywords_array = explode(" ", $keywords);
+
+			foreach ($keywords_array as $keyword) {
+
+				$keyword = trim(pg_escape_string($keyword));
+
+	    		if (strlen($keyword) > 0) {
+					// title, description, instructions
+	    			$where .= " AND (ecommerce_recipe.title ILIKE '%{$keyword}%' " .
+	    				"OR ecommerce_recipe.description ILIKE '%{$keyword}%' " .
+	    				"OR ecommerce_recipe.instructions ILIKE '%{$keyword}%' ";
+
+					// ingredients
+					$product_ids = "SELECT id FROM ecommerce_product WHERE name ILIKE '%{$keyword}%'";
+					$product_variety_ids = "SELECT id FROM ecommerce_product_variety WHERE product_id IN ($product_ids)";
+					$recipe_ids = "SELECT recipe_id FROM ecommerce_recipe_ingredients WHERE product_variety_id IN ($product_variety_ids)";
+	    			$where .= " OR ecommerce_recipe.id IN ($recipe_ids))";
+				}
 			}
 		}
 		
 		// product SKU
 		if (strlen(trim($product_variety_sku)) > 0) {
-			
-			$product_variety_sku = pg_escape_string($product_variety_sku);
-			$product_variety_ids = "SELECT id FROM ecommerce_product_variety WHERE ecommerce_product_variety.sku = '$product_variety_sku'";
-			$recipe_ids = "SELECT recipe_id FROM ecommerce_recipe_ingredients WHERE product_variety_id IN ($product_variety_ids)";
-			$where .= " AND ecommerce_recipe.id IN ($recipe_ids)";
-			
+			$product_variety_sku_array = explode(",", $product_variety_sku);
+			$product_variety_sku = array();
+			foreach ($product_variety_sku_array as $sku) {
+				$product_variety_sku[] = "'" . pg_escape_string($sku) . "'";
+			}
+			$product_variety_sku = implode(",", $product_variety_sku);
+			if (count($product_variety_sku) > 0) {
+				$product_variety_ids = "SELECT id FROM ecommerce_product_variety WHERE ecommerce_product_variety.sku IN ($product_variety_sku)";
+				$recipe_ids = "SELECT recipe_id FROM ecommerce_recipe_ingredients WHERE product_variety_id = ALL ($product_variety_ids)";
+				$where .= " AND ecommerce_recipe.id IN ($recipe_ids)";
+			}
 		}
 
     	//taxonomy
@@ -265,24 +271,36 @@ CREATE TABLE ecommerce_recipe (
     	return $where;
 	}
 
-    /**
-     * search recipes
-     *
-     */
-
-	function getFilteredRecipeList($keywords = false, $ingredients = false, $ready_time = false, $taxonomy_id = false, $product_variety_sku = false, $limit_per_page = false, $limit_from = false, $order_by = false, $order_dir = false)
+	/**
+	 * Get filtered recipe list
+	 * 
+	 * @param  string $keywords            Search keywords (looking though title, description, instructions and ingredients)
+	 * @param  string $ready_time          Maximum ready time (cooking + preparation time)
+	 * @param  string $taxonomy_id         Recipe category
+	 * @param  string $product_variety_sku Filter by product SKU(s)
+	 * @param  string $limit_per_page      Page Limit
+	 * @param  string $limit_from          Page Limit
+	 * @param  string $order_by            Ordering
+	 * @param  string $order_dir           Ordering
+	 * @param  boolean $publish            Publish filter
+	 * @return array
+	 */
+	function getFilteredRecipeList($keywords = false, $ready_time = false, $taxonomy_id = false, $product_variety_sku = false, $limit_per_page = false, $limit_from = false, $order_by = false, $order_dir = false, $publish = 1)
 	{
-		$where = $this->prepareRecipeFilterSql($keywords, $ingredients, $ready_time, $taxonomy_id, $product_variety_sku);
+		$where = $this->prepareRecipeFilterSql($keywords, $ready_time, $taxonomy_id, $product_variety_sku, $publish);
 
 		// limits
 		if (!is_numeric($limit_from)) $limit_from = 0;
 		if (!is_numeric($limit_per_page)) $limit_per_page = 25;
 
 		// order
-		if (in_array($order_by, array('title', 'created', 'modified', 'priority', 'share_counter'))) $order = "$order_by";
-		else $order = "ecommerce_recipe.id";
-		if ($order_dir == 'DESC') $order .= " DESC";
-		else $order .= " ASC";
+		if (in_array($order_by, array('title', 'created', 'modified', 'priority', 'share_counter'))) {
+			$order = "$order_by";
+			if ($order_dir == 'DESC') $order .= " DESC";
+			else $order .= " ASC";
+		} else {
+			$order = "priority DESC, ecommerce_recipe.id DESC";
+		}
 
 		// sql
 		$sql = "SELECT * FROM ecommerce_recipe WHERE " . $where .
@@ -315,7 +333,7 @@ CREATE TABLE ecommerce_recipe (
 				}
 			}
 
-			$records;
+			return $records;
 		}
 
 		return array();
@@ -326,9 +344,9 @@ CREATE TABLE ecommerce_recipe (
 	 * getFilteredRecipeCount
 	 */
 
-	function getFilteredRecipeCount($keywords = false, $ingredients = false, $ready_time = false, $taxonomy_id = false, $product_variety_sku = false)
+	function getFilteredRecipeCount($keywords = false, $ready_time = false, $taxonomy_id = false, $product_variety_sku = false, $publish = 1)
 	{
-		$where = $this->prepareRecipeFilterSql($keywords, $ingredients, $ready_time, $taxonomy_id, $product_variety_sku);
+		$where = $this->prepareRecipeFilterSql($keywords, $ready_time, $taxonomy_id, $product_variety_sku, $publish);
 		return $this->count($where);
 	}
 
