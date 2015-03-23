@@ -44,7 +44,7 @@ class Onxshop_Controller_Api_v1_2_Recipe_Detail extends Onxshop_Controller_Api_v
 		$item['modified'] = $original_item['modified'];
 		$item['ingredients'] = self::getIngredients($item['id']);
 		$item['categories'] = self::getCategories($item['id']);
-		$item['images'] = array("$protocol://{$_SERVER['HTTP_HOST']}/image/" . $original_item['image_src']);
+		$item['images'] = array("$protocol://{$_SERVER['HTTP_HOST']}/image/" . $original_item['image']['src']);
 		$item['video'] = $original_item['video_url'];
 		$item['comments'] = array();
 		$item['rating'] = self::getRating($item['id']);

@@ -52,8 +52,8 @@ class Onxshop_Controller_Api_v1_0_Recipe_Detail extends Onxshop_Controller_Api {
 
 		$images = $Image->listFiles($item['id']);
 		if (count($images) > 0) {
-			$item['image_src'] = $images[0]['src'];
-			$item['image_title'] = $images[0]['title'];
+			$item['image']['src'] = $images[0]['src'];
+			$item['image']['title'] = $images[0]['title'];
 		}
 
 		/**
@@ -91,7 +91,7 @@ class Onxshop_Controller_Api_v1_0_Recipe_Detail extends Onxshop_Controller_Api {
 		
 		$item['ingredients'] = self::getIngredients($item['id']);
 		$item['categories'] = self::getCategories($item['id']);
-		$item['images'] = array("$protocol://{$_SERVER['HTTP_HOST']}/image/" . $original_item['image_src']);
+		$item['images'] = array("$protocol://{$_SERVER['HTTP_HOST']}/image/" . $original_item['image']['src']);
 		$item['video'] = (int)self::getVideoIdFromUrl($original_item['video_url']);
 		$item['comments'] = array();
 		$item['rating'] = self::getRating($item['id']);
