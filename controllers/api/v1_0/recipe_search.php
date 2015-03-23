@@ -45,7 +45,7 @@ class Onxshop_Controller_Api_v1_0_Recipe_Search extends Onxshop_Controller_Api {
 		 * get recipe list
 		 */
 		
-		$recipe_list = $this->Recipe->getFilteredRecipeList($keyword, $ready_time, $category_id, $product_id);
+		$recipe_list = $this->Recipe->getFilteredRecipeList($keyword, $ready_time, $category_id, $product_id, 10000);
 
 		/**
 		 * get extra info

@@ -27,7 +27,7 @@ class Onxshop_Controller_Api_v1_0_Recipe_List extends Onxshop_Controller_Api {
 		 * get recipe page posts
 		 */
 		
-		$list = $Recipe->getFilteredRecipeList();
+		$list = $Recipe->getFilteredRecipeList(false, false, false, false, 10000);
 
 		$data = array();
 		
