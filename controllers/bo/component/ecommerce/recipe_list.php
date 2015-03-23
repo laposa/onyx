@@ -56,7 +56,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Recipe_List extends Onxshop_Cont
 
 			$item['modified'] = date("d/m/Y H:i", strtotime($item['modified']));
 			$this->tpl->assign('ITEM', $item);
-			if ($item['image_src']) $this->tpl->parse('content.list.item.image');
+			if ($item['image']['src']) $this->tpl->parse('content.list.item.image');
 			
 			$this->tpl->assign('CLASS', $item['publish'] == 0 ? 'class="publish_0"' : "");
 

@@ -20,7 +20,7 @@
 		<tbody>
 			<!-- BEGIN: item -->
 			<tr {CLASS}>
-				<td {ROWSPAN} class="image"><!--  BEGIN: image --><a href="/backoffice/recipes/{ITEM.id}/edit"><img src="/thumbnail/25x25/{ITEM.image_src}" alt="{ITEM.image_title|htmlspecialchars}" /></a><!--  END: image --></td>
+				<td {ROWSPAN} class="image"><!--  BEGIN: image --><a href="/backoffice/recipes/{ITEM.id}/edit"><img src="/thumbnail/25x25/{ITEM.image.src}" alt="{ITEM.image.title|htmlspecialchars}" /></a><!--  END: image --></td>
 				<td {ROWSPAN} class="recipe_title"><span class="{ITEM.disabled}"><a href="/backoffice/recipes/{ITEM.id}/edit">{ITEM.title|htmlspecialchars}</a></span></td>
 				<td class="modified">{ITEM.modified}</a></td>
 			</tr>
