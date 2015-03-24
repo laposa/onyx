@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2012-2014 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2012-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -48,7 +48,7 @@ class Onxshop_Controller_Api_v1_0_Store_Location_List extends Onxshop_Controller
 		
 		$item = array();
 		
-		$address_detail = $this->parseAddressCommas($record['address']);
+		$address_detail = $this->getAddressDetail($record);
 			
 		$item['id'] = $record['id'];
 		$item['title'] = $record['title'];
@@ -58,13 +58,45 @@ class Onxshop_Controller_Api_v1_0_Store_Location_List extends Onxshop_Controller
 		$item['country'] = $address_detail['country'];
 		$item['latitude'] = $record['latitude'];
 		$item['longitude'] = $record['longitude'];
-		$item['openning_hours'] = $record['opening_hours']; //TODO rename openning_hours to opening_hours in API 1.1
+		$item['openning_hours'] = $record['opening_hours']; // spelling fixed in API v1.2
 		$item['phone'] = $record['telephone'];
 		$item['fax'] = '';
 		$item['manager'] = $record['manager_name'];
 		$item['modified'] = $record['modified'];
 		
 		return $item;
+	}
+	
+	/**
+	 * getAddressDetail
+	 */
+	 
+	public function getAddressDetail($record) {
+		
+		$address_detail = array();
+		
+		if ($record['address_line_1']) {
+			
+			$address_detail['address'] = $record['address_line_1'];
+			if ($record['address_line_2']) $address_detail['address'] = "{$address_detail['address']}, {$record['address_line_2']}";
+			if ($record['address_line_3']) $address_detail['address'] = "{$address_detail['address']}, {$record['address_line_3']}";
+			$address_detail['city'] = $record['address_city'];
+			$address_detail['county'] = $record['address_county'];
+			if (is_numeric($record['country_id'])) $address_detail['country'] = $this->getCountryName($record['country_id']);
+			else $address_detail['country'] = '';
+			
+		} else if (($line_count = count(preg_split('/\R/',$record['address']))) > 1) {
+			
+			$address_detail = $this->parseAddressLineByLine($record['address']);
+			
+		} else {
+			
+			$address_detail = $this->parseAddressCommas($record['address']);
+			
+		}
+		
+		return $address_detail;
+		
 	}
 	
 	/**
@@ -105,5 +137,23 @@ class Onxshop_Controller_Api_v1_0_Store_Location_List extends Onxshop_Controller
 		if ($address_detail[3]) $formated_address['address'] = $formated_address['address'] . ', ' .  $address_detail[3];
 		
 		return $formated_address;
+	}
+	
+	/**
+	 * getCountryName
+	 */
+	 
+	public function getCountryName($country_id) {
+		
+		if (!is_numeric($country_id)) return false;
+		
+		require_once('models/international/international_country.php');
+		$Country = new international_country();
+		
+		$country_detail = $Country->detail($country_id);
+		
+		if (is_array($country_detail)) return $country_detail['name'];
+		else return false;
+		
 	}
 }

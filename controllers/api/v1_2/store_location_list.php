@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2014 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2014-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -17,7 +17,7 @@ class Onxshop_Controller_Api_v1_2_Store_Location_List extends Onxshop_Controller
 		
 		$item = array();
 		
-		$address_detail = $this->parseAddressCommas($record['address']);
+		$address_detail = $this->getAddressDetail($record);
 			
 		$item['id'] = $record['id'];
 		$item['title'] = $record['title'];
