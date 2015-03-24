@@ -104,7 +104,8 @@
 		if (value < 1) {
 			value = value * 100;
 			prefix = '';
-			postfix = 'p';
+			if (price.indexOf("EUR") >= 0) postfix = "c";
+			else postfix = 'p';
 		}
 		if (value % 1 > 0) price = value.toFixed(2);
 		else price = value.toString(10);
