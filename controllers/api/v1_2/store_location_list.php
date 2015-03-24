@@ -20,17 +20,17 @@ class Onxshop_Controller_Api_v1_2_Store_Location_List extends Onxshop_Controller
 		$address_detail = $this->getAddressDetail($record);
 			
 		$item['id'] = $record['id'];
-		$item['title'] = $record['title'];
-		$item['address'] = $address_detail['address'];
-		$item['city'] = $address_detail['city'];
-		$item['county'] = $address_detail['county'];
-		$item['country'] = $address_detail['country'];
+		$item['title'] = (string)$record['title'];
+		$item['address'] = (string)$address_detail['address'];
+		$item['city'] = (string)$address_detail['city'];
+		$item['county'] = (string)$address_detail['county'];
+		$item['country'] = (string)$address_detail['country'];
 		$item['latitude'] = $record['latitude'];
 		$item['longitude'] = $record['longitude'];
-		$item['opening_hours'] = $record['opening_hours'];
-		$item['phone'] = $record['telephone'];
+		$item['opening_hours'] = (string)$record['opening_hours'];
+		$item['phone'] = (string)$record['telephone'];
 		$item['fax'] = '';
-		$item['manager'] = $record['manager_name'];
+		$item['manager'] = (string)$record['manager_name'];
 		$item['modified'] = $record['modified'];
 		$item['categories'] = self::getCategories($record['id']);
 		
