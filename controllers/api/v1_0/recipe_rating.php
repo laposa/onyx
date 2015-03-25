@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2012-2014 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2012-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -19,8 +19,9 @@ class Onxshop_Controller_Api_v1_0_Recipe_Rating extends Onxshop_Controller_Api {
 		 * initialize
 		 */
 		 
-		require_once('models/wordpress/wordpress_recipe.php');
-		$this->Recipe = new wordpress_recipe();
+		require_once('models/ecommerce/ecommerce_recipe_review.php');
+		$this->RecipeReview = new ecommerce_recipe_review();
+		$this->RecipeReview->setCacheAble(false);
 		
 		$data = array();
 		
@@ -58,9 +59,10 @@ class Onxshop_Controller_Api_v1_0_Recipe_Rating extends Onxshop_Controller_Api {
 				 */
 				 
 				if ($this->submitRating($recipe_id, $rating)) {
+					
 					$message = "Your rating was submitted";
 					$status = 200;
-					$new_rating = $this->Recipe->getRating($recipe_id);
+					$new_rating = $this->RecipeReview->getRating($recipe_id);
 					
 					$data['rating_submitted'] = $rating;
 					$data['rating'] = $new_rating;
@@ -93,7 +95,9 @@ class Onxshop_Controller_Api_v1_0_Recipe_Rating extends Onxshop_Controller_Api {
 		if (!is_numeric($recipe_id)) return false;
 		if (!is_numeric($rating)) return false;
 		
-		return $this->Recipe->updateRating($recipe_id, $rating);
+		if ($this->RecipeReview->insertNodeRatingWithoutReview($recipe_id, $rating)) {
+			return $this->RecipeReview->getRating($recipe_id);
+		}
 		
 	}
 	

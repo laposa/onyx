@@ -597,4 +597,25 @@ CREATE TABLE ecommerce_recipe (
 		
 	}
 
+	/**
+	 * getRating
+	 */
+	 
+	public function getRating($recipe_id) {
+		
+		if (!is_numeric($recipe_id)) return false;
+		
+	}
+	
+	/**
+	 * updateRating
+	 */
+	 
+	public function updateRating($recipe_id, $rating) {
+		
+		if (!is_numeric($recipe_id)) return false;
+		if (!is_numeric($rating)) return false;
+		
+	}
+	
 }

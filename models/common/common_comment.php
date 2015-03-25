@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2009-2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -66,12 +66,12 @@ class common_comment extends Onxshop_Model {
 		'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
 		'parent'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'node_id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
-		'title'=>array('label' => '', 'validation'=>'string', 'required'=>true),
-		'content'=>array('label' => '', 'validation'=>'string', 'required'=>true),
-		'author_name'=>array('label' => '', 'validation'=>'string', 'required'=>true),
-		'author_email'=>array('label' => '', 'validation'=>'email', 'required'=>true),
+		'title'=>array('label' => '', 'validation'=>'string', 'required'=>false),
+		'content'=>array('label' => '', 'validation'=>'string', 'required'=>false),
+		'author_name'=>array('label' => '', 'validation'=>'string', 'required'=>false),
+		'author_email'=>array('label' => '', 'validation'=>'email', 'required'=>false),
 		'author_website'=>array('label' => '', 'validation'=>'string', 'required'=>false),
-		'author_ip_address'=>array('label' => '', 'validation'=>'string', 'required'=>true),
+		'author_ip_address'=>array('label' => '', 'validation'=>'string', 'required'=>false),
 		'customer_id'=>array('label' => '', 'validation'=>'int', 'required'=>true),
 		'created'=>array('label' => '', 'validation'=>'datetime', 'required'=>true),
 		'publish'=>array('label' => '', 'validation'=>'int', 'required'=>true),
@@ -338,5 +338,39 @@ CREATE INDEX common_comment_node_id_key1 ON common_comment USING btree (node_id)
 			return false;
 		}
 		
+	}
+	
+	/**
+	 * insertRatingWithoutReview
+	 * 
+	 * @param int $node_id
+	 * @param int $rating
+	 * 
+	 * @return integer saved comment ID or false if save failed
+	 */
+
+	function insertNodeRatingWithoutReview($node_id, $rating) {
+	
+		if (!is_numeric($node_id)) return false;
+		if (!is_numeric($rating)) return false;
+		
+		$data = array();
+		$data['node_id'] = $node_id;
+		$data['rating'] = $rating;
+		$data['created'] = date('c');
+		$data['publish'] = 1;
+		$data['author_ip_address'] = $_SERVER['REMOTE_ADDR'];
+		$data['customer_id'] = $_SESSION['client']['customer']['id'];
+		
+		if ($id = $this->insert($data)) {
+			
+			return $id;
+			
+		} else {
+			
+			msg("Cannot insert rating", "error");
+			return false;
+			
+		}
 	}
 }
