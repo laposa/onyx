@@ -360,7 +360,8 @@ CREATE INDEX common_comment_node_id_key1 ON common_comment USING btree (node_id)
 		$data['created'] = date('c');
 		$data['publish'] = 1;
 		$data['author_ip_address'] = $_SERVER['REMOTE_ADDR'];
-		$data['customer_id'] = $_SESSION['client']['customer']['id'];
+		if (is_numeric($_SESSION['client']['customer']['id'])) $data['customer_id'] = $_SESSION['client']['customer']['id'];
+		else $data['customer_id'] = 0; // anonymous user
 		
 		if ($id = $this->insert($data)) {
 			
