@@ -402,7 +402,9 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 			}
 			
 			//TODO: not very clean, but before close repeat the last one and close
-			$add_to_where .= "common_node_taxonomy.taxonomy_tree_id = {$taxonomy_item_id})";
+			if (is_numeric($taxonomy_item_id) && $taxonomy_item_id > 0) {
+				$add_to_where .= "common_node_taxonomy.taxonomy_tree_id = {$taxonomy_item_id})";
+			}
 		}
 		
 		/**
