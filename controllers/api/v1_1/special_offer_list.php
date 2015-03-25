@@ -8,7 +8,41 @@
 require_once('controllers/api/v1_0/special_offer_list.php');
 
 class Onxshop_Controller_Api_v1_1_Special_Offer_List extends Onxshop_Controller_Api_v1_0_Special_Offer_List {
+	
+	/**
+	 * get data
+	 */
+	
+	public function getData() {
+
+		$data = '';
 		
+		/**
+		 * initialize
+		 */
+		 
+		require_once('models/ecommerce/ecommerce_offer.php');
+		$Offer = new ecommerce_offer();
+		
+		/**
+		 * get special offer list
+		 */
+		
+		$records = $Offer->getActiveOffers();
+		
+		$data = array();
+		
+		foreach($records as $record) {
+
+			$item = $this->formatItem($record);
+			$data[] = $item;
+			
+		}
+			
+		return $data;
+		
+	}
+	
 	/**
 	 * formatItem
 	 */
