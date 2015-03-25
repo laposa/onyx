@@ -210,6 +210,26 @@ CREATE INDEX common_comment_node_id_key1 ON common_comment USING btree (node_id)
 		return $list;
 	}
 	
+	
+	/**
+	 * getCommentsForNodeId
+	 */
+	 
+	public function getCommentsForNodeId($node_id, $sort = 'id ASC') {
+		
+		if (!is_numeric($node_id)) return false;
+		
+		$add_to_where = "node_id = $node_id AND content IS NOT NULL AND content != ''";
+		
+		/**
+		 * get list
+		 */
+		 
+		$list = $this->listing($add_to_where, $sort);
+		
+		return $list;
+	}
+ 	
 	/**
 	 * insert comment
 	 * 
