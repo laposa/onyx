@@ -62,10 +62,14 @@ class Onxshop_Controller_Api_v1_0_Recipe_Rating extends Onxshop_Controller_Api {
 					
 					$message = "Your rating was submitted";
 					$status = 200;
+					
 					$new_rating = $this->RecipeReview->getRating($recipe_id);
 					
 					$data['rating_submitted'] = $rating;
-					$data['rating'] = $new_rating;
+					$data['rating'] = array(); 
+					$data['rating']['value'] = round($new_rating['rating'], 2);
+					$data['rating']['votes_sum'] = $new_rating['rating'] * $new_rating['count']; // TODO: remove in later API version
+					$data['rating']['voters_sum'] = $new_rating['count'];
 			
 				} else {
 				
@@ -79,8 +83,6 @@ class Onxshop_Controller_Api_v1_0_Recipe_Rating extends Onxshop_Controller_Api {
 				
 		$data['message'] = $message;
 		$data['status'] = $status;
-		
-		//print_r($data);
 			
 		return $data;
 		

@@ -339,6 +339,16 @@
 <h2>Response</h2>
 <table>
 <tr><th>parameter</th><th>type</th><th>description</th></tr>
+<tr><td>rating_submitted</td><td>int</td><td>Only on success, otherwise now included.</td></tr>
+<tr><td>rating_submitted</td><td>array</td><td>
+	Only on success, otherwise now included.
+	<table>
+	<tr><th>parameter</th><th>type</th><th>description</th></tr>
+	<tr><td>value</td><td>int</td><td>new rating value</td></tr>
+	<tr><td>votes_sum</td><td>int</td><td>deprecated</td></tr>
+	<tr><td>voters_sum</td><td>int</td><td>count of number of entries</td></tr>
+	</table>
+</td></tr>
 <tr><td>message</td><td>string</td><td>Detail about result</td></tr>
 <tr><td>status</td><td>int</td><td>200 for success, 400 for error</td></tr>
 </table>
