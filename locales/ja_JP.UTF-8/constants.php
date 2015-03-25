@@ -38,6 +38,7 @@ define('I18N_COMMENT_PUBLISH_QUESTION', 'Approve and publish?');
 define('I18N_COMMENT_AWAITING_APPROVAL', 'Awaiting moderator approval');
 define('I18N_COMMENT_REJECTED_BY_WEBMASTER', 'This item was rejected.');
 define('I18N_COMMENT_EMPTY_LIST', 'Comments are not available.');
+define('I18N_REVIEW_EMPTY_LIST', 'Be the first to add a review.');
 define('I18N_ADD_COMMENT', 'コメントを書き込む');
 define('I18N_CLOSE', '閉じる');
 define('I18N_SUBJECT', '題名');

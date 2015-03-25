@@ -49,6 +49,7 @@ define('I18N_COMMENT_PUBLISH_QUESTION', 'Schválit a publikovat?');
 define('I18N_COMMENT_AWAITING_APPROVAL', 'Tento příspěvek není veřejný a čeká na schválení moderátorem diskuze.');
 define('I18N_COMMENT_REJECTED_BY_WEBMASTER', 'Tento příspěvek byl odmítnut moderátorem diskuze.');
 define('I18N_COMMENT_EMPTY_LIST', 'Neobsahuje žádné komentáře.');
+define('I18N_REVIEW_EMPTY_LIST', 'Neobsahuje žádná recenze');
 define('I18N_ADD_COMMENT', 'Přidat komentář');
 define('I18N_CLOSE', 'zavřít');
 define('I18N_SUBJECT', 'Věc');

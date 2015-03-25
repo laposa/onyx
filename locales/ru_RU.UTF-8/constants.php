@@ -38,6 +38,7 @@ define('I18N_COMMENT_PUBLISH_QUESTION', 'Подтвердить и опубли�
 define('I18N_COMMENT_AWAITING_APPROVAL', 'Подождите подтверждения модератора');
 define('I18N_COMMENT_REJECTED_BY_WEBMASTER', 'Этот материал удален');
 define('I18N_COMMENT_EMPTY_LIST', 'Нет доступных комментариев');
+define('I18N_REVIEW_EMPTY_LIST', 'Нет доступных комментариев');
 define('I18N_ADD_COMMENT', 'Вставить комментарий');
 define('I18N_CLOSE', 'Закрыть');
 define('I18N_SUBJECT', 'Субъект');
