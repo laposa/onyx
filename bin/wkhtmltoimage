@@ -3,5 +3,6 @@
 URL=$1;
 FILENAME=$2;
 
-xvfb-run -- wkhtmltoimage --crop-w 475 --quality 80 ${URL} ${FILENAME}
+# added --ignore-load-errors to ignore SSL certificate problems
+xvfb-run -- wkhtmltoimage --crop-w 475 --quality 80 --ignore-load-errors ${URL} ${FILENAME}
 

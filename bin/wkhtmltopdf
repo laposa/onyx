@@ -3,5 +3,6 @@
 URL=$1;
 FILENAME=$2;
 
-xvfb-run -- wkhtmltopdf ${URL} ${FILENAME}
+# added --ignore-load-errors to ignore SSL certificate problems
+xvfb-run -- wkhtmltopdf --ignore-load-errors ${URL} ${FILENAME}
 
