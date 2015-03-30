@@ -40,3 +40,6 @@ for i in $FILES_ALL
 echo "Making var directory world writeable"
 sudo chmod a+w -R var/
 
+echo "Making files in bin directory executable"
+sudo chmod a+x -R bin/*
+
