@@ -50,8 +50,11 @@ class Onxshop_Bootstrap {
 		/**
 		 * Initialise session
 		 */
-		
-		$this->initSession();
+		if ($this->isSessionRequired()) {
+			
+			$this->initSession();
+			
+		}
 		
 		/**
 		 * csrfCheck
@@ -246,6 +249,9 @@ class Onxshop_Bootstrap {
 			break;
 		}
 
+		// disable no-cache headers
+		//session_cache_limiter(0);
+		
 		//session_set_cookie_params(31536000);// = 3600 * 24 * 365
 		session_start();
 		//to be sure sessions are written before exit
@@ -262,17 +268,8 @@ class Onxshop_Bootstrap {
 		$_SESSION['last_item'] = $_SESSION['history'][count($_SESSION['history'])-1]['uri'];
 		$_SESSION['orig'] = $_SERVER['REQUEST_URI'];
 		
-		//disable page cache for whole session after a user interaction and for backoffice users
-		if (count($_POST) > 0 || Onxshop_Bo_Authentication::getInstance()->isAuthenticated() || $_SESSION['client']['customer']['id'] > 0) $_SESSION['use_page_cache'] = false;
-		else if (!isset($_SESSION['use_page_cache'])) $_SESSION['use_page_cache'] = ONXSHOP_PAGE_CACHE_TTL;
 		
-		/**
-		 * TODO: allow to configure what _GET variables will disable page cache
-		 * disable page cache also when sorting and mode is submitted
-		 * component/ecommerce/product_list_sorting
-		 */
-		 
-		if (is_array($_GET['sort']) || $_GET['product_list_mode']) $_SESSION['use_page_cache'] = false;
+		$_SESSION['use_page_cache'] = $this->isPageCacheAllowed();
 
 		// in the session history we store only new URIs and not the AJAX request (begin with /request/)
 		// and don't store a popup
@@ -282,7 +279,6 @@ class Onxshop_Bootstrap {
 
 		$_SESSION['last_diff'] = $_SESSION['last_item'];
 
-		//print_r($_SESSION); exit;
 	}
 
 
@@ -387,19 +383,15 @@ class Onxshop_Bootstrap {
 	function initAction($request = 'uri_mapping') {
 
 		if (!$request) $request = 'uri_mapping';
-		
-		/**
-		 * cache can be disabled on request
-		 */
-		 
-		$disable_page_cache = $_GET['nocache'];
-		
+				
 		/**
 		 * User authentication required for certain actions
 		 */
 		
 		if ($this->isRequiredAuthentication($request)) {
-			$disable_page_cache = 1;
+			
+			$this->disable_page_cache = 1;
+			
 			if(!$request = $this->processAuthentication($request)) {
 				$request = 'sys/xhtml.sys/401';
 			}
@@ -410,7 +402,7 @@ class Onxshop_Bootstrap {
 		 */
 		 
 		 
-		if (is_numeric($_SESSION['use_page_cache']) && !$disable_page_cache && ONXSHOP_PAGE_CACHE_TTL > 0) $this->processActionCached($request);
+		if ($this->isPageCacheAllowed()) $this->processActionCached($request);
 		else $this->processAction($request);
 
 	}
@@ -577,8 +569,9 @@ class Onxshop_Bootstrap {
 	function finalOutput() {
 	
 		$result = $this->getOutput();
+		
 		session_write_close();
-				
+		
 		return $result;
 	}
 
@@ -678,4 +671,78 @@ class Onxshop_Bootstrap {
 		}
 	}
 	
+	/**
+	 * isSessionRequired
+	 */
+	 
+	public function isSessionRequired() {
+		
+		/**
+		 * exceptions
+		 */
+		 
+		$exceptions = array('/request/component/ecommerce/roundel_image');
+		
+		if (array_key_exists('translate', $_GET) && in_array($_GET['translate'], $exceptions)) return false;
+		
+		/**
+		 * don't need session for cached pages when client doesn't have PHPSESSID
+		 */
+		
+		//if ($this->isPageCacheAllowed() && !isset($_COOKIE['PHPSESSID'])) return false;
+		
+		return true;
+		
+	}
+	
+	/**
+	 * isPageCacheAllowed
+	 */
+	
+	public function isPageCacheAllowed() {
+		
+		/**
+		 * default value
+		 */
+		 
+		$use_page_cache = true;
+			
+		/**
+		 * cache can be disabled on request on within bootstrap
+		 */
+		
+		if (isset($_GET['nocache'])) $this->disable_page_cache = $_GET['nocache'];
+		
+		// check if explicitly disabled
+		if ($this->disable_page_cache || ONXSHOP_PAGE_CACHE_TTL == 0) {
+			
+			$use_page_cache = false;
+		
+		} else {
+		
+			/**
+			 * previously set (i.e. disabled) in session
+			 */
+		 
+			if (isset($_SESSION['use_page_cache'])) $use_page_cache = $_SESSION['use_page_cache'];
+	
+			/**
+			 * disable page cache for whole session after a user interaction and for backoffice users
+			 */
+			 
+			if (count($_POST) > 0 || Onxshop_Bo_Authentication::getInstance()->isAuthenticated() || $_SESSION['client']['customer']['id'] > 0) $use_page_cache = false;
+			
+			/**
+			 * TODO: allow to configure what _GET variables will disable page cache
+			 * disable page cache also when sorting and mode is submitted
+			 * component/ecommerce/product_list_sorting
+			 */
+			 
+			if (is_array($_GET['sort']) || $_GET['product_list_mode']) $use_page_cache = false;
+		
+		}
+		
+		return $use_page_cache;
+		
+	}
 }
