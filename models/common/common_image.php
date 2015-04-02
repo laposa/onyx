@@ -246,13 +246,13 @@ CREATE TABLE common_image (
 	 * getTeaserImageForNodeId
 	 */
 	 
-	public function getTeaserImageForNodeId($node_id) {
+	public function getTeaserImageForNodeId($node_id, $role = 'teaser') {
 		
 		/**
 		 * try to get explicit "teaser" image role
 		 */
 		 
-		$file_list = $this->listFiles($node_id , 'priority DESC, id ASC', 'teaser');
+		$file_list = $this->listFiles($node_id , 'priority DESC, id ASC', $role);
 		
 		/**
 		 * if the list is empty, get any image

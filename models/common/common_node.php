@@ -589,6 +589,7 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 		
 		if (is_array($node_data['other_data'])) $node_data['other_data'] = serialize($node_data['other_data']);
 		if (is_array($node_data['relations'])) $node_data['relations'] = serialize($node_data['relations']);
+		if (is_array($node_data['component'])) $node_data['component'] = serialize($node_data['component']);
 		
 		//TODO: before insert, do a check, that node_data[title] is unique
 		
@@ -1846,7 +1847,7 @@ LEFT OUTER JOIN common_taxonomy_label ON (common_taxonomy_tree.label_id = common
 	 * getTeaserImageForNodeId
 	 */
 	 
-	public function getTeaserImageForNodeId($node_id) {
+	public function getTeaserImageForNodeId($node_id, $role = 'teaser') {
 		
 		$node_detail = $this->detail($node_id); //don't need to call full nodeDetail
 		
@@ -1889,7 +1890,7 @@ LEFT OUTER JOIN common_taxonomy_label ON (common_taxonomy_tree.label_id = common
 			break;
 		}
 		
-		return $Image->getTeaserImageForNodeId($image_node_id);
+		return $Image->getTeaserImageForNodeId($image_node_id, $role);
 		
 	}
 	
