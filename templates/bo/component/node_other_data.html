@@ -28,16 +28,22 @@ $().ready(function() {
 	<div class="row">
 		<!-- BEGIN: other_data -->
 		<div class="node_other_data">
-			<!-- BEGIN: item -->
 			<div class="item">
+			<!-- BEGIN: item_editable -->
 				<span class="label"><input type="text" value="{OTHER_DATA.key|htmlspecialchars}"></span>
 				<span class="field"><textarea name="node[other_data][{OTHER_DATA.key|htmlspecialchars}]">{OTHER_DATA.value|htmlspecialchars}</textarea>
-				<a href="javascript: return false;" onclick="$(this).parent().parent().remove()"><span>remove</span></a></span>
+				<a href="#" onclick="$(this).parent().parent().remove(); return false;"><span>remove</span></a></span>
+			<!-- END: item_editable -->
+			<!-- BEGIN: item_noneditable -->
+				<span class="label">{OTHER_DATA.key|htmlspecialchars}</span>
+				<span class="field">{OTHER_DATA.value|print_r(%s, true)|htmlspecialchars}</span>
+			<!-- END: item_noneditable -->
 			</div>
-			<!-- END: item -->
 		</div>
 		<!-- END: other_data -->
 	</div>
+	
+	<!-- BEGIN: add -->
 	<div class="row">
 		<a href="#" onclick="$('#node_other_data_new').toggle(); return false;"><span>Add a new attribute</span></a>
 		<div id="node_other_data_new" style="display: none;">
@@ -48,5 +54,6 @@ $().ready(function() {
 			<p><a href="#" onclick="return addNewOtherDataAttribute();"><span>Add more</span></a></p>
 		</div>
 	</div>
+	<!-- END: add -->
 </fieldset>
 <!-- END: content -->
