@@ -407,9 +407,10 @@ CREATE TABLE ecommerce_recipe (
      * @param string $sort_direction
      * @param int $limit_from
      * @param int $limit_per_page
+     * @param bool $disjunctive - whatever included recipes should have all given $taxonomy_ids (true) or any of given $taxonomy_ids (false)
 	 * @return array
      */
-    function getRecipeListForTaxonomy($taxonomy_ids, $sort_by = 'created', $sort_direction = 'DESC', $limit_from = false, $limit_per_page = false)
+    function getRecipeListForTaxonomy($taxonomy_ids, $sort_by = 'created', $sort_direction = 'DESC', $limit_from = false, $limit_per_page = false, $disjunctive = false)
     {
     
     	/**
@@ -454,20 +455,26 @@ CREATE TABLE ecommerce_recipe (
 		 
 		$recipes = array();
 
+		$where = "";
+
 		if (is_array($taxonomy_ids) && count($taxonomy_ids) > 0) {
 		
-			$taxonomy = $Taxonomy->listing("taxonomy_tree_id IN (" . implode(",", $taxonomy_ids) . ")");
+			$id_list = implode(",", $taxonomy_ids);
 
-			$recipe_ids = array();
-			foreach ($taxonomy as $category) {
-				$recipe_ids[] = $category['node_id'];
+			if ($disjunctive) {
+				$count = count($taxonomy_ids);
+				$where = "AND ecommerce_recipe.id IN (
+					SELECT ecommerce_recipe.id
+					FROM ecommerce_recipe
+					INNER JOIN ecommerce_recipe_taxonomy ON ecommerce_recipe_taxonomy.node_id = ecommerce_recipe.id
+					WHERE ecommerce_recipe_taxonomy.taxonomy_tree_id IN ($id_list)
+					GROUP BY ecommerce_recipe.id
+					HAVING count(DISTINCT ecommerce_recipe_taxonomy.taxonomy_tree_id) = $count
+				)";
+			} else {
+				$where = "AND ecommerce_recipe.id IN (SELECT node_id FROM ecommerce_recipe_taxonomy WHERE taxonomy_tree_id IN ($id_list))";
 			}
 
-			$where = "AND ecommerce_recipe.id IN (" . implode(",", $recipe_ids) . ")";
-
-		} else {
-
-			$where = "";
 		}
 			
 		$sql = "SELECT ecommerce_recipe.*, common_node.share_counter
