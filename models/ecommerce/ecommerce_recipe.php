@@ -408,9 +408,10 @@ CREATE TABLE ecommerce_recipe (
      * @param int $limit_from
      * @param int $limit_per_page
      * @param bool $disjunctive - whatever included recipes should have all given $taxonomy_ids (true) or any of given $taxonomy_ids (false)
+     * @param string $image_role
 	 * @return array
      */
-    function getRecipeListForTaxonomy($taxonomy_ids, $sort_by = 'created', $sort_direction = 'DESC', $limit_from = false, $limit_per_page = false, $disjunctive = false)
+    function getRecipeListForTaxonomy($taxonomy_ids, $sort_by = 'created', $sort_direction = 'DESC', $limit_from = false, $limit_per_page = false, $disjunctive = false, $image_role = 'teaser')
     {
     
     	/**
@@ -502,7 +503,12 @@ CREATE TABLE ecommerce_recipe (
 					$recipe['page'] = $recipe_page;
 
 					// load images
-					$image_list = $Image->listFiles($recipe['id'] , $priority = "priority DESC, id ASC", false);
+					$image_list = $Image->listFiles($recipe['id'] , $priority = "priority DESC, id ASC", $image_role);
+					// if empty list, get any image, without specification of image_role
+					if (is_array($image_list) && count($image_list) == 0) {
+						$image_list = $Image->listFiles($recipe['id'] , $priority = "priority DESC, id ASC");
+					}
+					// return only one image
 					$recipe['image']  = $image_list[0];
 					
 					// load review

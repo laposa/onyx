@@ -41,11 +41,15 @@ class Onxshop_Controller_Component_Ecommerce_Recipe_List extends Onxshop_Control
 		if ($this->GET['sort']['direction'] && in_array($this->GET['sort']['direction'], array('DESC', 'ASC'))) $sort_direction = $this->GET['sort']['direction'];
 		else $sort_direction = 'DESC';
 
+		// image role
+		if ($this->GET['image_role']) $image_role = $this->GET['image_role'];
+		else $image_role = 'teaser';
+
 		/**
 		 * get the list
 		 */
 		 
-		$list = $Recipe->getRecipeListForTaxonomy($taxonomy_ids, $sort_by, $sort_direction, $limit_from, $limit_per_page);
+		$list = $Recipe->getRecipeListForTaxonomy($taxonomy_ids, $sort_by, $sort_direction, $limit_from, $limit_per_page, false, $image_role);
 
 		$this->parseItems($list);
 
