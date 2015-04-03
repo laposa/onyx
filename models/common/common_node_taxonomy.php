@@ -2,7 +2,7 @@
 /**
  * class common_node_taxonomy
  *
- * Copyright (c) 2009-2014 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -47,6 +47,23 @@ ALTER TABLE common_node_taxonomy ADD CONSTRAINT node_node_id_taxonomy_tree_id_ke
 		";
 		
 		return $sql;
+	}
+	
+	/**
+	 * assignNodeToTaxonomy
+	 */
+	 
+	public function assignNodeToTaxonomy($node_id, $taxonomy_tree_id) {
+		
+		if (!is_numeric($node_id)) return false;
+		if (!is_numeric($taxonomy_tree_id)) return false;
+		
+		$data = array();
+		$data['node_id'] = $node_id;
+		$data['taxonomy_tree_id'] = $taxonomy_tree_id;
+		
+		return $this->insert($data);
+		
 	}
 	
 	/**
