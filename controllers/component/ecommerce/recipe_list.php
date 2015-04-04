@@ -45,11 +45,15 @@ class Onxshop_Controller_Component_Ecommerce_Recipe_List extends Onxshop_Control
 		if ($this->GET['image_role']) $image_role = $this->GET['image_role'];
 		else $image_role = 'teaser';
 
+		// disjunctive (0 for OR, 1 for AND)
+		if (is_numeric($this->GET['conjunction']) && $this->GET['conjunction'] == 0) $conjunction = false;
+		else $conjunction = true;
+		
 		/**
 		 * get the list
 		 */
 		
-		$list = $Recipe->getRecipeListForTaxonomy($taxonomy_ids, $sort_by, $sort_direction, $limit_from, $limit_per_page, $image_role);
+		$list = $Recipe->getRecipeListForTaxonomy($taxonomy_ids, $sort_by, $sort_direction, $limit_from, $limit_per_page, $image_role, $conjunction);
 		
 		$this->parseItems($list);
 

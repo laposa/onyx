@@ -408,10 +408,10 @@ CREATE TABLE ecommerce_recipe (
      * @param int $limit_from
      * @param int $limit_per_page
      * @param string $image_role
-     * @param bool $disjunctive - whatever included recipes should have all given $taxonomy_ids (true) or any of given $taxonomy_ids (false)
+     * @param bool $conjunction - whatever included recipes should have all given $taxonomy_ids (true) or any of given $taxonomy_ids (false)
 	 * @return array
      */
-    function getRecipeListForTaxonomy($taxonomy_ids, $sort_by = 'created', $sort_direction = 'DESC', $limit_from = false, $limit_per_page = false, $image_role = 'teaser', $disjunctive = true)
+    function getRecipeListForTaxonomy($taxonomy_ids, $sort_by = 'created', $sort_direction = 'DESC', $limit_from = false, $limit_per_page = false, $image_role = 'teaser', $conjunction = true)
     {
     
     	/**
@@ -462,7 +462,7 @@ CREATE TABLE ecommerce_recipe (
 		
 			$id_list = implode(",", $taxonomy_ids);
 
-			if ($disjunctive) {
+			if ($conjunction) {
 				$count = count($taxonomy_ids);
 				$where = "AND ecommerce_recipe.id IN (
 					SELECT ecommerce_recipe.id
