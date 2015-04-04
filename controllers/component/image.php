@@ -73,7 +73,7 @@ class Onxshop_Controller_Component_Image extends Onxshop_Controller {
 		 * get list of images
 		 */
 		
-		$image_list = $this->Image->listFiles($node_id , $priority = "priority DESC, id ASC", $role, $limit);
+		$image_list = $this->Image->listFiles($node_id , $role, "priority DESC, id ASC", $limit);
 				
 		/**
 		 * save image count in registry for use in image_gallery

@@ -2,7 +2,7 @@
 /**
  * class common_file
  *
- * Copyright (c) 2009-2014 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -192,17 +192,17 @@ CREATE TABLE common_file (
 	 * @param integer $node_id
 	 * ID of node with files
 	 * 
-	 * @param string $priority
-	 * sorting part of SQL
-	 * 
 	 * @param string $role
 	 * role name or false for all
+	 *
+	 * @param string $order
+	 * sorting part of SQL
 	 * 
 	 * @return array
 	 * list of files
 	 */
 	 
-	function listFiles($node_id , $priority = "priority DESC, id ASC", $role = false, $limit = '') {
+	function listFiles($node_id , $role = false, $order = "priority DESC, id ASC", $limit = '') {
 	
 		$result = array();
 		
@@ -210,11 +210,11 @@ CREATE TABLE common_file (
 		
 			if ($role) {
 		
-				$files = $this->listing("node_id = $node_id AND role = '$role'", $priority, $limit);
+				$files = $this->listing("node_id = $node_id AND role = '$role'", $order, $limit);
 		
 			} else {
 		
-				$files = $this->listing("node_id = $node_id", $priority, $limit);
+				$files = $this->listing("node_id = $node_id", $order, $limit);
 		
 			}
 		

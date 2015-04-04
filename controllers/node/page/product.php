@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2006-2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2006-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -169,7 +169,7 @@ class Onxshop_Controller_Node_Page_Product extends Onxshop_Controller_Node_Page_
 			require_once('models/ecommerce/ecommerce_product_image.php');
 			$Image = new ecommerce_product_image();
 
-			$image_list = $Image->listFiles($product_id, "priority DESC, id ASC");
+			$image_list = $Image->listFiles($product_id);
 			
 			if (is_array($image_list) && count($image_list) > 0) return $image_list[0];
 		

@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2008-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2008-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -24,7 +24,7 @@ class Onxshop_Controller_Bo_Component_File_List extends Onxshop_Controller_Bo_Co
 		
 		$role = $this->GET['role'];
 		if (!is_numeric($this->GET['node_id'])) $this->GET['node_id'] = $_POST['file']['node_id'];
-		if (is_numeric($this->GET['node_id'])) $files = $File->listFiles($this->GET['node_id'], 'priority DESC, id ASC', $role);
+		if (is_numeric($this->GET['node_id'])) $files = $File->listFiles($this->GET['node_id'], $role);
 		
 		if (is_array($files)) {
 			if (count($files) == 0) $this->tpl->parse('content.empty');

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2008-2014 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2008-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -264,7 +264,7 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
 		require_once('models/common/common_image.php');
 		$Image = new common_image();
 		
-		$image_list = $Image->listFiles($node_id , "priority DESC, id ASC", 'opengraph');
+		$image_list = $Image->listFiles($node_id , 'opengraph');
 		
 		if (is_array($image_list) && count($image_list) > 0) return $image_list[0];
 		else return false;

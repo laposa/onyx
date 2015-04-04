@@ -503,10 +503,10 @@ CREATE TABLE ecommerce_recipe (
 					$recipe['page'] = $recipe_page;
 
 					// load images
-					$image_list = $Image->listFiles($recipe['id'] , $priority = "priority DESC, id ASC", $image_role);
+					$image_list = $Image->listFiles($recipe['id'], $image_role);
 					// if empty list, get any image, without specification of image_role
 					if (is_array($image_list) && count($image_list) == 0) {
-						$image_list = $Image->listFiles($recipe['id'] , $priority = "priority DESC, id ASC");
+						$image_list = $Image->listFiles($recipe['id']);
 					}
 					// return only one image
 					$recipe['image']  = $image_list[0];

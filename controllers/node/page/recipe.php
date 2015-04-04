@@ -140,7 +140,7 @@ class Onxshop_Controller_Node_Page_Recipe extends Onxshop_Controller_Node_Page_D
 			require_once('models/ecommerce/ecommerce_recipe_image.php');
 			$Image = new ecommerce_recipe_image();
 
-			$image_list = $Image->listFiles($recipe_id, "priority DESC, id ASC");
+			$image_list = $Image->listFiles($recipe_id);
 			
 			if (is_array($image_list) && count($image_list) > 0) return $image_list[0];
 		

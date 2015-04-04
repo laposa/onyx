@@ -4,7 +4,7 @@ require_once('models/common/common_file.php');
 /**
  * class common_image
  *
- * Copyright (c) 2009-2014 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -252,7 +252,7 @@ CREATE TABLE common_image (
 		 * try to get explicit "teaser" image role
 		 */
 		 
-		$file_list = $this->listFiles($node_id , 'priority DESC, id ASC', $role);
+		$file_list = $this->listFiles($node_id, $role);
 		
 		/**
 		 * if the list is empty, get any image

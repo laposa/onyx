@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2013-2014 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2013-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -48,9 +48,9 @@ class Onxshop_Controller_Component_Ecommerce_Recipe_List extends Onxshop_Control
 		/**
 		 * get the list
 		 */
-		 
+		
 		$list = $Recipe->getRecipeListForTaxonomy($taxonomy_ids, $sort_by, $sort_direction, $limit_from, $limit_per_page, $image_role);
-
+		
 		$this->parseItems($list);
 
 		if ($this->GET['display_pagination'] == 1) {
