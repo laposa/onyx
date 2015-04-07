@@ -213,13 +213,27 @@ CREATE INDEX common_comment_node_id_key1 ON common_comment USING btree (node_id)
 	
 	/**
 	 * getCommentsForNodeId
+	 *
+	 * @param int $node_id
+	 * reference to foreign key
+	 *
+	 * @param int $public_only
+	 * change to 0 to list all comments (including rejected)
+	 *
+	 * @param string $sort
+	 * SQL order by
+	 * 
+	 * @return integer
+	 * saved comment ID or false if save failed
 	 */
 	 
-	public function getCommentsForNodeId($node_id, $sort = 'id ASC') {
+	public function getCommentsForNodeId($node_id, $public_only = 1, $sort = 'id ASC') {
 		
 		if (!is_numeric($node_id)) return false;
 		
 		$add_to_where = "node_id = $node_id AND content IS NOT NULL AND content != ''";
+		
+		if ($public_only === 1) $add_to_where .= " AND publish = 1";
 		
 		/**
 		 * get list
