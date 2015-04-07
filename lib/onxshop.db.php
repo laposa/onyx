@@ -509,7 +509,7 @@ class Onxshop_Db {
 			} catch (Exception $e) {
 				
 				msg($e->getMessage(), 'error', 1);
-				msg("Insert to {$this->_class_name} failed: " . print_r($this->db->getConnection()->errorInfo(), true), 'error', 1);
+				msg("Insert(". print_r($data, true) .") to {$this->_class_name} failed: " . print_r($this->db->getConnection()->errorInfo(), true), 'error', 1);
 				
 				return false;
 			}
