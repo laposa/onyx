@@ -15,6 +15,9 @@ class Onxshop_Controller_Component_Video extends Onxshop_Controller {
 
 		$vimeo_video_id = false;
 		$youtube_video_id = false;
+		
+		if (is_numeric($this->GET['autoplay']) && $this->GET['autoplay'] == 1) $autoplay = 1;
+		else $autoplay = 0;
 
 		// detect vimeo
 		preg_match("/https?:\/\/vimeo.com\/(\d+)/", $this->GET['video_url'], $matches);
@@ -28,12 +31,12 @@ class Onxshop_Controller_Component_Video extends Onxshop_Controller {
 
 		if ($vimeo_video_id) {
 
-			$_Onxshop_Request = new Onxshop_Request("component/video_vimeo~video_id={$vimeo_video_id}~");
+			$_Onxshop_Request = new Onxshop_Request("component/video_vimeo~video_id={$vimeo_video_id}:autoplay=$autoplay~");
 			$this->tpl->assign('CONTENT', $_Onxshop_Request->getContent());
 
 		} else if ($youtube_video_id) {
 
-			$_Onxshop_Request = new Onxshop_Request("component/video_youtube~video_id={$youtube_video_id}~");
+			$_Onxshop_Request = new Onxshop_Request("component/video_youtube~video_id={$youtube_video_id}:autoplay=$autoplay~");
 			$this->tpl->assign('CONTENT', $_Onxshop_Request->getContent());
 
 		}
