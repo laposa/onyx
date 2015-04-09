@@ -99,6 +99,29 @@ ALTER TABLE common_node_taxonomy ADD CONSTRAINT node_node_id_taxonomy_tree_id_ke
 	}
 	
 	/**
+	 * getDetailedRelationsToNode
+	 */
+	
+	function getDetailedRelationsToNode($node_id) {
+	
+		if (!is_numeric($node_id)) return false;
+		
+		$relations = $this->getRelationsToNode($node_id);
+		
+		if (is_array($relations)) {
+			
+			foreach($relations as $k=>$item) {
+				
+				$relations[$k] = $this->getLabel($item);
+				
+			}
+		}
+			
+		return $relations;
+		
+	}
+	
+	/**
 	 * getUsedTaxonomyLabels
 	 */
 	 

@@ -56,14 +56,7 @@ CREATE INDEX client_customer_taxonomy_taxonomy_tree_id_key ON client_customer_ta
 	
 		if (!is_numeric($customer_id)) return false;
 		
-		$relations_list = $this->listing("node_id = $customer_id");
-		
-		$relations = array();
-		foreach($relations_list as $item) {
-			$relations[] = $item['taxonomy_tree_id'];
-		}
-		
-		return $relations;
+		return $this->getRelationsToNode($customer_id);
 		
 	}
 
