@@ -437,10 +437,7 @@ class Onxshop_Bootstrap {
 			
 			$this->processAction($request);
 			
-			if ($this->Onxshop->http_status != 404
-				&& $this->Onxshop->http_status != 401
-				&& !Zend_Registry::isRegistered('controller_error')
-				&& is_numeric($_SESSION['use_page_cache'])) {
+			if ($this->canBeSavedInCache()) {
 
 				$data_to_cache = array();
 				$data_to_cache['output_headers'] = $this->headers;
@@ -743,6 +740,27 @@ class Onxshop_Bootstrap {
 		}
 		
 		return $use_page_cache;
+		
+	}
+	
+	/**
+	 * canBeSavedInCache
+	 */
+	 
+	public function canBeSavedInCache() {
+		
+		if ($this->Onxshop->http_status != 404
+			&& $this->Onxshop->http_status != 401
+			&& !Zend_Registry::isRegistered('controller_error')
+			&& $_SESSION['use_page_cache']) {
+			
+			return true;
+		
+		} else {
+			
+			return false;
+		
+		}
 		
 	}
 }
