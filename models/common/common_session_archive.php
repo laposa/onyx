@@ -4,7 +4,7 @@ require_once('models/common/common_session.php');
 /**
  * class common_session_archive
  *
- * Copyright (c) 2009-2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -80,13 +80,6 @@ CREATE TABLE common_session_archive (
 	 
 	function deleteAnonymouse( $max_lifetime = 604800 ) {
 	
-		//DELETE FROM `common_session_archive` WHERE `customer_id` =0 AND `php_auth_user` = ''
-		/*
-		ASHMORE EXAMPLE
-		2594archived-2186not users= 408users log
-		3.2MB size of archived in one week
-		28.8MB of users log/year
-		*/
         $real_now = time();
 
         $dt1 = $real_now - $max_lifetime;

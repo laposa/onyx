@@ -5,7 +5,7 @@
  * inspired by article By Tony Marston
  * http://www.developertutorials.com/tutorials/php/saving-php-session-data-database-050711/page2.html
  *
- * Copyright (c) 2009-2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -132,10 +132,10 @@ CREATE TABLE common_session (
 	
         if (!empty($this->fieldarray)) {
 
-            // perform garbage collection
-
-            $result = $this->gc($this->conf['ttl']);
-
+            // perform garbage collection on average after every 100 request
+            if (mt_rand(1, 100) == 1) $result = $this->gc($this->conf['ttl']);
+			else $result = true;
+			
             return $result;
 
         }
@@ -323,9 +323,6 @@ CREATE TABLE common_session (
         //delete them from common_session table
 		$q = "DELETE FROM common_session WHERE modified < '$dt2'";
         $this->executeSql($q);
-        //echo($q);
-        
-        //$count = $this->_dml_deleteSelection("last_updated < $dt2");
 
         return true;
 
