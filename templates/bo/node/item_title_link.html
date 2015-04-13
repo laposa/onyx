@@ -1,6 +1,6 @@
 <script type="text/javascript">
 $(document).ready(function(){
-	$('fieldset.title_options div.link_to a.button').click(function() {
+	$('div.title_options div.link_to_node_id a.button').click(function() {
 		$('#link_to_node_id_ajax').addClass('ajaxLoad').load('/request/component/menu_js~id=0:expand_all=1:publish=0:node_group=page_and_product~', function() {
 			$('#link_to_node_id_ajax').removeClass('ajaxLoad');
 			$('#link_to_node_id_ajax .simpleTree').simpleTree({
@@ -19,16 +19,14 @@ $(document).ready(function(){
 });
 </script>
 
-	<fieldset class="title_options">
-		
-		<div class="row link_to_node_id">
-			<span class="label"><label for="node-link_to_node_id" title="Link to node id">Heading Link to node ID:</label></span>
-			<span class="field"><input class="text short" type="text" name="node[link_to_node_id]" id="node-link_to_node_id" value="{NODE.link_to_node_id}" /></span>
-		</div>
-		
-		<div class="row link_to">
-			<span class="label"><label><a class="button" href="#"><span>Header Link To ...</span></a></label></span>
-			<span class="field"><span style="display: block;" id="link_to_node_id_ajax"></span></span>
-		</div>
-		
-	</fieldset>
+<div class="title_options">
+	
+	<div class="row link_to_node_id">
+		<span class="label"><label for="node-link_to_node_id" title="Link to node id">Heading Link to node ID:</label></span>
+		<span class="field"><input class="text short" type="text" name="node[link_to_node_id]" id="node-link_to_node_id" value="{NODE.link_to_node_id}" />
+		<a class="button" href="#"><span>Browse...</span></a>
+		<span style="display: block;" id="link_to_node_id_ajax"></span>
+		</span>
+	</div>
+
+</div>
