@@ -1,3 +1,83 @@
+Onxshop (1.7.1)
+  
+  * clean up in msg() function to allow better debugging
+  * make sure all auth adapters are returning at least user id, username 
+    and email and use email for logs
+  * show "Customer ID" instead of "FE Customer ID" in log files
+  * bug fix after all BO session data were moved under _SESSION['bo']
+  * experimental support for Libmemcached
+  * refactoring code for db and page cache
+  * add /backoffice/my section allowing to change currently logged in 
+    user password without further permissions
+  * cleaning in news_list* templates (unified CSS class names)
+  * make sure deleted and guest accounts are ignored when multiple records with 
+    the same email address are found
+  * backoffice UI polishing for store, recipe and product edit
+  * don't show deleted Posts in backoffice news list
+  * add HTTP/HTTPS protocol detection for search index builder
+  * avoid local and global cache conflict
+  * implement twitter feed fetch limit as parameter
+  * include example for backup script
+  * include example for fix_permissions script
+  * update robots.txt to disallow specific pages
+  * Bin is unpublished by default
+  * implement teaser list content
+  * exclude recipe pages from menus
+  * add a new method to get list of customers review should be send to
+  * update CSS coding standard
+  * move convertBytes to common_file
+  * make getSiblingList used in sorting returning only related siblings by default
+  * optimise store edit interface for using new address fields
+  * make sure getRelationsToNode() returns empty array if not categories are found
+  * add 3-column recipe list template
+  * add fake apple touch icons
+  * fix multiple messages showing when using actions on bo/node_list
+  * solve multiple duplicate issue in news list
+  * don't show error message for selected URIs to keep the error log clean
+  * new component page_list
+  * new component bo/author_stats
+  * empty common_email table in templates
+  * new method getRecipeTaxonomy
+  * improve multiple blog facility to allow easier configuration
+  * bug fix preventing store details update
+  * create separate templates for user detatails and T&C in surveys
+  * don't show comments with empty content
+  * rename id_map-content_bin to id_map-bin and skip bin items in search results
+  * first forward to primary domain, then to SSL
+  * make newsletter sign-up submission more independent
+  * add 2cols for recipe list and fix layouts
+  * use HTML5 email and tel input types
+  * index only pages which are visible in navigation
+  * enable file viewing
+  * move special offer insert action into model with price validation
+  * stronger input variable type checking in paginatioin component
+  * prevent duplications in ecommerce_offers on database level
+  * lowercase email and username on customer insert
+  * backoffice UI bug fixes
+  * use getCustomerIdForLastModified for node_list_recent
+  * upgrade adminer to 4.2.1
+  * separate count calculation from ecommerce_store->getFilteredStoreList
+  * rename getFilteredStoreListCount to getFilteredStoreCount
+  * allow to search by SKU in BO even it's numeric
+  * change searchRecipe method to use ready_time (preparation_time + cooking_time)
+  * add search by product_variety_sku to searchRecipe method
+  * new front-end component/ecommerce/recipe_search
+  * API bug fixes
+  * allow to submit rating by anonymouse user
+  * add new method getCommentsForNodeId
+  * fix_permissions update (make files in bin/ executable)
+  * node_edit UI improvements
+  * refactoring in bootstrap method
+  * allow to specify other image role in getTeaserImage
+  * allow to specify image role for recipe list
+  * new method assignNodeToTaxonomy
+  * new conjunction option in recipe list
+  * added autoplay option to component/video
+  * improved debugging
+  * performance optimizations
+
+ -- Norbert Laposa <norbert@laposa.co.uk>  2015-04-13
+ 
 Onxshop (1.7.0)
 
   * node rss feed upgrade (filtering by category, images)
