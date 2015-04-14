@@ -477,7 +477,8 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 		if ($author_id == 0) return array(
 			'id' => 1000,
 			'username' => "superuser",
-			'name' => 'Superuser'
+			'email' => $GLOBALS['onxshop_conf']['global']['admin_email'],
+			'name' => $GLOBALS['onxshop_conf']['global']['admin_email_name']
 		);
 
 		require_once('models/client/client_customer.php');
@@ -487,6 +488,7 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 		if ($customer) return array(
 			'id' => $customer['id'],
 			'username' => $customer['email'],
+			'email' => $customer['email'],
 			'name' => $customer['first_name'] . ' ' . $customer['last_name']
 		);
 
