@@ -19,8 +19,8 @@ class Onxshop_Controller_Component_Client_Twitter_Timeline extends Onxshop_Contr
 		 * input
 		 */
 		 
-		$username = ONXSHOP_TWITTER_USERNAME;
-		$hashtag = ONXSHOP_TWITTER_HASHTAG;
+		$username = ltrim(ONXSHOP_TWITTER_USERNAME, "@"); // allow to use leading "at" sign i.e. @onxshop
+		$hashtag = ltrim(ONXSHOP_TWITTER_HASHTAG, "#"); // allow to use leading "hash" sign i.e. #cms
 		
 		if (is_numeric($this->GET['limit_from'])) $limit_from = $this->GET['limit_from'];
 		if (is_numeric($this->GET['limit_per_page'])) $limit_per_page = $this->GET['limit_per_page'];
