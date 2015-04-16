@@ -352,6 +352,7 @@ CREATE TABLE ecommerce_product (
 				v.name AS variety_name,
 				p.name AS product_name,
 				v.publish AS variety_publish,
+				v.sku AS sku,
 				p.publish AS product_publish,
 				(SELECT src FROM ecommerce_product_image AS i WHERE i.node_id = p.id ORDER BY priority DESC, id ASC LIMIT 1) as image_src
 			FROM ecommerce_product_variety AS v

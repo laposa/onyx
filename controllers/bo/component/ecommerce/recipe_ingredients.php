@@ -102,6 +102,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Recipe_Ingredients extends Onxsh
 
 			$json = json_encode(array(
 				'id' => $product['id'],
+				'sku' => $product['sku'],
 				'name' => $product['product_name'] . " - " . $product['variety_name'],
 				'publish' => ($product['variety_publish'] == 0 || $product['variety_publish'] == 0) ? 0: 1
 			));

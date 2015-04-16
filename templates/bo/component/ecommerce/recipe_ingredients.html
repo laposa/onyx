@@ -11,7 +11,7 @@ $(function() {
 
 		for (var i = 0; i < productListTable.length; i++) {
 			var o = productListTable[i];
-			select.append('<option value="' + o.id + '" class="' + (o.publish == 0 ? 'disabled' : '') + '">' + o.name + '</option>');
+			select.append('<option value="' + o.id + '" class="' + (o.publish == 0 ? 'disabled' : '') + '">' + o.name + ' - ' + o.sku +'</option>');
 		}
 		select.each(function() {
 			var selected = $(this).attr("data-selected");
@@ -85,7 +85,7 @@ $(function() {
 				<td>
 					<select name="ingredients[{ITEM.id}][units]">
 						<!-- BEGIN:unit -->	
-						<option value="{UNIT.id}" {UNIT.selected}>{UNIT.title}</option>
+						<option value="{UNIT.id}" {UNIT.selected}>{UNIT.title|htmlspecialchars}</option>
 						<!-- END:unit -->
 					</select>
 				</td>
