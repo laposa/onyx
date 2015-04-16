@@ -56,13 +56,13 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Product_List extends Onxshop_Con
 			$_SESSION['bo']['product-list-sort-direction'] = $this->GET['product-list-sort-direction'];
 		}
 		
-		if ($_SESSION['product-list-sort-by']) {
+		if ($_SESSION['bo']['product-list-sort-by']) {
 			$sortby = $_SESSION['bo']['product-list-sort-by'];
 		} else {
 			$sortby = "modified";
 		}
 		
-		if ($_SESSION['product-list-sort-direction']) {
+		if ($_SESSION['bo']['product-list-sort-direction']) {
 			$direction = $_SESSION['bo']['product-list-sort-direction'];
 		} else {
 			$direction = "DESC";
