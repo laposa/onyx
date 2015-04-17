@@ -24,7 +24,7 @@ class common_taxonomy_label extends Onxshop_Model {
 	/**
 	 * @access private
 	 */
-	var $priority; //not in use, using common_taxonomy_tree.priority
+	var $priority; // DEPRECATED, do not in use, using common_taxonomy_tree.priority
 
 	var $publish;
 
