@@ -131,7 +131,7 @@ ALTER TABLE common_node_taxonomy ADD CONSTRAINT node_node_id_taxonomy_tree_id_ke
 			SELECT DISTINCT taxonomy_tree_id, common_taxonomy_label.*, common_taxonomy_tree.priority AS priority FROM {$this->_class_name}
 				LEFT OUTER JOIN common_taxonomy_tree ON common_taxonomy_tree.id = ecommerce_recipe_taxonomy.taxonomy_tree_id
 				LEFT OUTER JOIN common_taxonomy_label ON common_taxonomy_label.id = common_taxonomy_tree.label_id
-			ORDER BY taxonomy_tree_id
+			ORDER BY common_taxonomy_tree.priority DESC, taxonomy_tree_id DESC
 			";
 	
 		$records = $this->executeSql($sql);
