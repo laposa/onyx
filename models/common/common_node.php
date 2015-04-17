@@ -331,7 +331,7 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 	/**
 	 * get list of nodes
 	 *
-	 * @param unknown_type $filter
+	 * @param array $filter
 	 * @return array
 	 */
 	 
@@ -359,18 +359,18 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 			$add_to_where .= " AND common_node.parent = {$filter['parent']}";
 		}
 		
-		//publish filter
+		//publish filter (1 for only published, 0 for only not published, and a string (e.g. 'all') for no restriction by publishing status
+		//non-authorised backoffice users shoud be limited in controller to use only 1
 		if (is_numeric($filter['publish'])) {
 			$add_to_where .= " AND common_node.publish = {$filter['publish']}";
 		}
 		
-		//publish filter (only year-month)
+		//created filter (only year-month)
 		if (is_numeric($filter['created'])) {
 			$add_to_where .= " AND date_part('year', common_node.created) = '{$filter['created']}'";
 		} else if (preg_match('/^([0-9]{4})-([0-9]{1,2})$/', $filter['created'], $matches)) {
 			$add_to_where .= " AND date_part('year', common_node.created) = '{$matches[1]}' AND date_part('month', common_node.created) = '{$matches[2]}'";
 		}
-		
 		
 		//taxonomy filter
 		if (is_numeric($filter['taxonomy_tree_id'])) {

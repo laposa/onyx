@@ -409,9 +409,10 @@ CREATE TABLE ecommerce_recipe (
      * @param int $limit_per_page
      * @param string $image_role
      * @param bool $conjunction - whether included recipes should have all given $taxonomy_ids (true) or any of given $taxonomy_ids (false)
+     * @param int|string $publish_status - integer to limit by publishing status, string, i.e. 'all' for no restriction by publishing status
 	 * @return array
      */
-    function getRecipeListForTaxonomy($taxonomy_ids, $sort_by = 'created', $sort_direction = 'DESC', $limit_from = false, $limit_per_page = false, $image_role = 'teaser', $conjunction = true)
+    function getRecipeListForTaxonomy($taxonomy_ids, $sort_by = 'created', $sort_direction = 'DESC', $limit_from = false, $limit_per_page = false, $image_role = 'teaser', $conjunction = true, $publish_status = 1)
     {
     
     	/**
@@ -477,14 +478,20 @@ CREATE TABLE ecommerce_recipe (
 			}
 
 		}
-			
+		
+		// $publish_status
+		if (is_numeric($publish_status)) {
+			$where_node_publish = " AND common_node.publish = {$publish_status}";
+			$where_recipe_publish = " AND ecommerce_recipe.publish = {$publish_status}";
+		}
+		
 		$sql = "SELECT ecommerce_recipe.*, common_node.share_counter
 			FROM ecommerce_recipe
 			INNER JOIN common_node ON (common_node.node_group = 'page' 
 				AND common_node.node_controller = 'recipe'
 				AND common_node.content = ecommerce_recipe.id::varchar
-				AND common_node.publish = 1)
-			WHERE ecommerce_recipe.publish = 1 $where
+				$where_node_publish)
+			WHERE 1=1 $where_recipe_publish $where
 			$order_by
 			$limit";
 	
