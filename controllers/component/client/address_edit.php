@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2005-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2005-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -13,6 +13,13 @@ class Onxshop_Controller_Component_Client_Address_Edit extends Onxshop_Controlle
 	 
 	public function mainAction() {
 	
+		$customer_id = $_SESSION['client']['customer']['id'];
+		
+		if (!is_numeric($customer_id)) {
+			msg("Address management requires active customer ID");
+			return true;
+		}
+		
 		/**
 		 * initialize
 		 */
@@ -35,7 +42,7 @@ class Onxshop_Controller_Component_Client_Address_Edit extends Onxshop_Controlle
 		 
 		if ($_POST['add_address']) {
 		
-			$_POST['client']['address']['customer_id'] = $_SESSION['client']['customer']['id'];
+			$_POST['client']['address']['customer_id'] = $customer_id;
 			
 			if ($address_id = $Address->insert($_POST['client']['address'])) {
 			
@@ -54,7 +61,7 @@ class Onxshop_Controller_Component_Client_Address_Edit extends Onxshop_Controlle
 		
 		if ($_POST['select_address']) {
 		
-			$customer_detail = $Customer->detail($_SESSION['client']['customer']['id']);
+			$customer_detail = $Customer->detail($customer_id);
 			$customer_detail["{$this->GET['type']}_address_id"] = $_POST['select_address'];
 			
 			if ($Customer->update($customer_detail)) {
@@ -79,7 +86,7 @@ class Onxshop_Controller_Component_Client_Address_Edit extends Onxshop_Controlle
 			
 			$address_detail = $Address->detail($address_id_to_remove);
 			
-			if ($address_detail['customer_id'] == $_SESSION['client']['customer']['id']) {
+			if ($address_detail['customer_id'] == $customer_id) {
 			
 				if ($Address->deleteAddress($address_id_to_remove)) msg('Address has been removed');
 				else msg('Cannot remove address', 'error');
@@ -96,7 +103,7 @@ class Onxshop_Controller_Component_Client_Address_Edit extends Onxshop_Controlle
 		 * address list
 		 */
 		
-		$addresses = $Address->listing("customer_id = {$_SESSION['client']['customer']['id']} AND is_deleted IS NOT TRUE", "id DESC");
+		$addresses = $Address->listing("customer_id = $customer_id AND is_deleted IS NOT TRUE", "id DESC");
 
 		$current_invoices = $_SESSION['client']['customer']['invoices_address_id'];
 		$current_delivery = $_SESSION['client']['customer']['delivery_address_id'];
