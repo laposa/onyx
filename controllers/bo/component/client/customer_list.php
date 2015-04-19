@@ -32,6 +32,10 @@ class Onxshop_Controller_Bo_Component_Client_Customer_List extends Onxshop_Contr
 		 */
 		$customer_filter = $_SESSION['bo']['customer-filter'];
 		
+		// account_type is integer, but we also allow in UI to use it for backoffice users
+		if ($customer_filter['account_type'] == 'backoffice') $customer_filter['backoffice_role_only'] = 1;
+		
+		// get the list
 		$customer_list = $Customer->getClientList(0, $customer_filter);
 
 		

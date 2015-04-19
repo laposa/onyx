@@ -1749,9 +1749,33 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
 			$add_to_where .= " AND country_id = {$filter['country_id']}";
 		}
 		
-		//account type (company) filter
+		// account type (company) filter
 		if (is_numeric($filter['account_type'])) {
+			
 			if ($filter['account_type'] != -1) $add_to_where .= " AND account_type = {$filter['account_type']}";
+			
+		}
+		
+		// filter option to search for backoffice users,
+		// who are associated via client_customer_role
+		if ($filter['backoffice_role_only'] == 1) {
+			
+			$bo_users_list = $this->getCustomersWithRole();
+		
+			$bo_users_list_ids = array();
+			
+			foreach ($bo_users_list as $customer) {
+				
+				if (is_numeric($customer['id'])) $bo_users_list_ids[] = $customer['id'];
+				
+			}
+			
+			if (is_array($bo_users_list_ids) && count($bo_users_list_ids) > 0) {
+				
+				$bo_users_list_ids_imploded = implode(',', $bo_users_list_ids);
+				$add_to_where .= " AND client_customer.id IN ($bo_users_list_ids_imploded)";
+			
+			}
 		}
 		
 		//created between filter
