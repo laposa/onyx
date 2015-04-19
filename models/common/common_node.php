@@ -384,26 +384,36 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 			}
 			
 		} else if (is_array($filter['taxonomy_tree_id'])) {
-		
-			$join = "LEFT OUTER JOIN common_node_taxonomy ON (common_node_taxonomy.node_id = common_node.id)";
 			
-			$add_to_where .= " AND (";
+			/**
+			 * created $taxonomy_filtered_ids which will contain only allowed values
+			 */
+			 
+			$taxonomy_filtered_ids = array();
 			
 			foreach ($filter['taxonomy_tree_id'] as $taxonomy_item_id) {
 				
 				if (is_numeric($taxonomy_item_id)) {
 					
 					if ($taxonomy_item_id > 0) {
-						$add_to_where .= "common_node_taxonomy.taxonomy_tree_id = {$taxonomy_item_id} OR ";
+						$taxonomy_filtered_ids[] = $taxonomy_item_id;
 					}
 					
 				}
 				
 			}
 			
-			//TODO: not very clean, but before close repeat the last one and close
-			if (is_numeric($taxonomy_item_id) && $taxonomy_item_id > 0) {
-				$add_to_where .= "common_node_taxonomy.taxonomy_tree_id = {$taxonomy_item_id})";
+			/**
+			 * if valid $taxonomy_filtered_ids, add extra condition
+			 */
+			 
+			if (is_array($taxonomy_filtered_ids) && count($taxonomy_filtered_ids) > 0) {
+				
+				$taxonomy_filtered_ids_string = implode(',', $taxonomy_filtered_ids);
+				
+				$join = "LEFT OUTER JOIN common_node_taxonomy ON (common_node_taxonomy.node_id = common_node.id)";
+				$add_to_where .= " AND common_node_taxonomy.taxonomy_tree_id IN ($taxonomy_filtered_ids_string)";
+				
 			}
 		}
 		
