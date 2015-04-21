@@ -521,6 +521,9 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 		if (is_array($node_data['component'])) $node_data['component'] = serialize($node_data['component']);
 		if (is_array($node_data['relations'])) $node_data['relations'] = serialize($node_data['relations']);
 		
+		// set owner only if empty
+		if (!is_numeric($node_data['customer_id'])) $node_data['customer_id'] = (int) $_SESSION['client']['customer']['id'];;
+		
 		//populate only if ACL in use, otherwise save as empty
 		if (is_array($node_data['display_permission_group_acl'])) {
 			if (in_array('0', $node_data['display_permission_group_acl']) || in_array('1', $node_data['display_permission_group_acl'])) $node_data['display_permission_group_acl'] = serialize($node_data['display_permission_group_acl']);
