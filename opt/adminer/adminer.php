@@ -4,7 +4,7 @@
  * detect onxshop project directory
  */
 
-$onxshop_project_dir =  preg_replace('/public_html\/opt/', '', dirname($_SERVER['SCRIPT_FILENAME']));
+$onxshop_project_dir =  preg_replace('/public_html\/opt\/adminer/', '', dirname($_SERVER['SCRIPT_FILENAME']));
 
 /**
  * include Onxshop project configuration
