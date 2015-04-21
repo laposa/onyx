@@ -458,6 +458,7 @@ CREATE TABLE common_email (
 		$tpl->assign('CONFIGURATION', $GLOBALS['onxshop_conf']);
 		$tpl->assign('_POST', $_POST);
 		$tpl->assign('_GET', $_GET);
+		$tpl->assign('GET', $_GET); // assign also to GET variable to keep consitent with normal templates initiated via a controller
 		$tpl->assign('TIME', time());
 		
 		/**
