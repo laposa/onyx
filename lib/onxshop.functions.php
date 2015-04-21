@@ -333,9 +333,9 @@ function xmlentities($string, $quote_style=ENT_QUOTES) {
 
 function html2text($input, $remove_new_lines = false){
 
-	require_once('lib/class.html2text.php');
-	$h2t = new html2text($input);
-	$plain_text = $h2t->get_text();
+	require_once('lib/Html2Text.php');
+	$html = new \Html2Text\Html2Text($input);
+	$plain_text = $html->getText();
 	
 	if ($remove_new_lines) $plain_text = preg_replace('/\n/', ' ', $plain_text);
 	
