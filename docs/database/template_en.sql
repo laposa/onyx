@@ -5148,16 +5148,16 @@ SELECT pg_catalog.setval('ecommerce_product_to_product_id_seq', 1, false);
 --
 
 COPY ecommerce_product_type (id, name, vat, publish) FROM stdin;
-1	Hardware	17.5	1
-2	Software	17.5	1
-3	Energy	5	1
-4	Software (only download)	17.5	1
-5	Documents  (download)	17.5	1
-6	books	0	1
-7	Food	17.5	1
-8	Food BIO	5	1
-9	Generic 1	17.5	1
-10	Generic 2	5	1
+1	Hardware	20	0
+2	Software	20	0
+3	Energy	5	0
+4	Software (only download)	20	0
+5	Documents  (download)	20	0
+6	books	0	0
+7	Food	20	0
+8	Food BIO	5	0
+9	Generic 1	20	1
+10	Generic 2	5	0
 11	Generic 0	0	1
 \.
 
