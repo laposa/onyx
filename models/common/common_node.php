@@ -543,7 +543,10 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 		 */
 		
 		if ($this->update($node_data)) {
-			if ($node_data['node_group'] == 'page') $this->updateSingleURI($node_data);
+			if ($node_data['node_group'] == 'page') {
+					// update existing or insert a new one
+					if (!$this->updateSingleURI($node_data)) $this->insertNewMappingURI($node_data);
+			}
 			$this->insertRevision($node_data);
 			return true;
 		} else {
