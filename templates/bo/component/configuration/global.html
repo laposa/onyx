@@ -13,7 +13,12 @@
 			<span class="label"><label>Author of content</label></span>
 			<span class="field"><input class="long" type="text" value="{CONF.author_content|htmlspecialchars}" name="conf[item][author_content]"/></span>
 		</div>
-		
+		<!-- BEGIN: copyright -->
+		<div class="row">
+			<span class="label"><label for="conf_item_copyright">Website copyright (automatically generated, <a href="#conf_item_copyright" onclick="$('#conf_item_copyright').removeAttr('disabled');">modify</a>)</label></span>
+			<span class="field"><input class="long" type="text" id="conf_item_copyright" value="{CONF.copyright|htmlspecialchars}" name="conf[item][copyright]" disabled="disabled"/></span>
+		</div>
+		<!-- END: copyright -->
 		<div class="row">
 			<span class="label"><label>Website credit</label></span>
 			<span class="field"><input class="long" type="text" value="{CONF.credit|htmlspecialchars}" name="conf[item][credit]"/></span>
