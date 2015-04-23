@@ -2,7 +2,7 @@
 /**
  * class common_configuration
  *
- * Copyright (c) 2009-2014 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -164,16 +164,16 @@ class common_configuration extends Onxshop_Model {
 		if (!array_key_exists('html_title_suffix', $conf['global'])) $conf['global']['html_title_suffix'] = 'White Label';
 		if (!array_key_exists('locale', $conf['global'])) $conf['global']['locale'] = 'en_GB.UTF-8';
 		if (!array_key_exists('default_currency', $conf['global'])) $conf['global']['default_currency'] = 'GBP';
-		if (!array_key_exists('author_content', $conf['global'])) $conf['global']['author_content'] = 'White Label, http://www.example.com/';
+		if (!array_key_exists('author_content', $conf['global'])) $conf['global']['author_content'] = 'White Label, http://example.com/';
 		if (!array_key_exists('copyright', $conf['global'])) {
 			$year = date('Y', time());
 			$title = $conf['global']['title'];
 			$conf['global']['copyright'] = "&copy; $year <span>$title</span>";
 		}
-		if (!array_key_exists('credit', $conf['global'])) $conf['global']['credit'] = '<a href="http://www.onxshop.com" title="eCommerce solution"><span>Powered by Onxshop</span></a>';
+		if (!array_key_exists('credit', $conf['global'])) $conf['global']['credit'] = '<a href="https://onxshop.com" title="eCommerce solution"><span>Powered by Onxshop</span></a>';
 		if (!array_key_exists('google_analytics', $conf['global'])) $conf['global']['google_analytics'] = '';
 		if (!array_key_exists('css', $conf['global'])) $conf['global']['css'] = '';
-		 
+		
 		define('GLOBAL_DEFAULT_CURRENCY', $conf['global']['default_currency']);
 		
 		/**
