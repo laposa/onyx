@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2006-2014 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2006-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -14,30 +14,10 @@ class Onxshop_Controller_Uri_Mapping extends Onxshop_Controller {
 	public function mainAction() {
 
 		/**
-		 * check main domain
+		 * first make sure we are on correct domain and using HTTPS if available
 		 */
-	
-		if (defined('ONXSHOP_MAIN_DOMAIN')) {
-			if (array_key_exists('HTTPS', $_SERVER)) $protocol = 'https';
-			else $protocol = 'http';
-			
-			if ($_SERVER['HTTP_HOST'] != ONXSHOP_MAIN_DOMAIN) {
-			    Header( "HTTP/1.1 301 Moved Permanently" );
-			    Header( "Location: $protocol://" . ONXSHOP_MAIN_DOMAIN . "{$_SERVER['REQUEST_URI']}" );
-			    //exit the application immediately 
-			    exit;
-			}
-		}
-
-		/**
-		 * force SSL
-		 */
-		
-		if (!($_SERVER['SSL_PROTOCOL'] || $_SERVER['HTTPS']) && ONXSHOP_CUSTOMER_USE_SSL) {
-			header("HTTP/1.1 301 Moved Permanently");
-		    header("Location: https://{$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}");
-		    exit;
-		}
+		 
+		self::checkForSecurityRedirects();
 
 		/**
 		 * input data
@@ -271,5 +251,38 @@ class Onxshop_Controller_Uri_Mapping extends Onxshop_Controller {
 
 	}
 
+	/**
+	 * checkForSecurityRedirects
+	 */
+	 
+	static function checkForSecurityRedirects() {
+		
+		/**
+		 * check main domain
+		 */
+	
+		if (defined('ONXSHOP_MAIN_DOMAIN')) {
+			if (array_key_exists('HTTPS', $_SERVER)) $protocol = 'https';
+			else $protocol = 'http';
+			
+			if ($_SERVER['HTTP_HOST'] != ONXSHOP_MAIN_DOMAIN) {
+			    Header( "HTTP/1.1 301 Moved Permanently" );
+			    Header( "Location: $protocol://" . ONXSHOP_MAIN_DOMAIN . "{$_SERVER['REQUEST_URI']}" );
+			    //exit the application immediately 
+			    exit;
+			}
+		}
+
+		/**
+		 * force SSL
+		 */
+		
+		if (!($_SERVER['SSL_PROTOCOL'] || $_SERVER['HTTPS']) && ONXSHOP_CUSTOMER_USE_SSL) {
+			header("HTTP/1.1 301 Moved Permanently");
+		    header("Location: https://{$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}");
+		    exit;
+		}
+		
+	}
 }	
 	
