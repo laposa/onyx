@@ -1,3 +1,25 @@
+Onxshop (1.7.2)
+  
+  * improve solving conflicts in URL generation
+  * update default configuration and template
+  * upgrade html2text
+  * allow to use GET along _GET in email templates
+  * allow to use phppgadmin and adminer only from debugging IP address
+  * bug fix which prevented updating nodes without numerical customer_id
+  * allow to search for users with any backoffice role
+  * prevent potential SQL error in news article detail
+  * check customer ID at the start of address_edit component
+  * implement option to filter by published status in getRecipeListForTaxonomy
+  * change sorting in getUsedTaxonomyLabels to priority first
+  * fix sorting in backoffice product list
+  * show SKU in recipe ingredients form
+  * update labels in product add form
+  * new component bo/client/notify
+  * include email in NODE author_detail along the username
+  * allow to use @ and # sign in Twitter configuration
+
+ -- Norbert Laposa <norbert@laposa.co.uk>  2015-04-24
+ 
 Onxshop (1.7.1)
   
   * clean up in msg() function to allow better debugging
