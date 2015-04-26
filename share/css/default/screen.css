@@ -1,9 +1,969 @@
-/* import default CSS for generic HTML tags */
-@import url(src/global.css);
+/**
+ * Global Onxshop style sheet
+ * Norbert @ Laposa Ltd, 2009/09/22
+ *
+ * This will normalise default style
+ * Similar to https://github.com/necolas/normalize.css
+ */
+ 
+*,
+*:before,
+*:after { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
+html { overflow-y: scroll; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; }
+body {padding: 0; margin: 0; font-family: sans-serif; font-size: medium; line-height: 1.5; -webkit-text-size-adjust: none;}
+img {border: 0; -ms-interpolation-mode: bicubic; vertical-align: bottom;}
 
-/* import CSS for layout/grid system */
-@import url(src/layout.css);
+/**
+ * Forms
+ */
+ 
+form {margin: 0 0 2em 0; padding: 0 1em; clear: both;}
+form div.row {margin: 0 0 0.5em; clear: both;}
+form span.label {display: block; float: none; text-align: left; width: auto;}
+form span.field {display: inline-block; width: 95%;}
+form div.submit button {float: none;}
 
-/* import default CSS for id,class specific definitions */
-@import url(src/onxshop.css);
-@import url(src/onxshop_ecommerce.css);
+fieldset {margin: 1em 0 4em 0; padding: 0.5em 0; clear: both; border: 0;}
+fieldset.single {margin-bottom: 0;}
+label {cursor: pointer; cursor: hand; vertical-align: middle;}
+label.error {float: none; color: red; padding-left: .5em; vertical-align: top;}
+legend {font-weight: bold; color: inherit; padding: 0 0.5em; margin: 0 0 1em 0; padding-left: 0;}
+label.radio {float: none; clear: none;}
+input.radio,
+input.checkbox {border: 0; width: auto;}
+input.price {width: 40px;}
+input.placeholder {color: #aaa;}
+input.file,
+input[type=file] {border-width: 0;}
+input.error,
+textarea.error {border-color: red!important;}
+textarea {width: 70%; height: 100px; padding: 2px; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px;}
+textarea.small {height: 50px;}
+textarea.big {width: 100%; height: 400px;}
+optgroup {padding-top: 10px;}
+select {width: auto;}
+select.big {width: 100%;}
+input.text,
+input.email {width: 100%;}
+input, 
+textarea {padding: 4px; border: 2px inset #eee; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px;}
+input:focus, 
+textarea:focus {border: 2px inset white; background: #f1f1f1;}
+input,
+option {padding: 4px; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px;}
+input.title {font-size: 1.4em; font-weight: bold; width: 100%;}
+input.long,
+textarea.long,
+select.long {width: 100%;}
+input.short,
+textarea.short,
+select.short {width: 5em;}
+button {display: inline-block; cursor: pointer; cursor: hand; position: relative; padding: 0 0.5em; overflow: visible; font-family: inherit; font-size: inherit;}
+button span {position: relative; display: block; white-space: nowrap;}
+input.half,
+textarea.half,
+select.half {width: 50%;}
+input.date,
+textarea.date,
+select.date {width: 10em;}
+
+/*2cols forms (can be set on whole form or particular fieldset*/
+form.twoColumns label,
+fieldset.twoColumns label {padding-right: 1em;}
+form.twoColumns span.label,
+fieldset.twoColumns span.label {width: 50%; float: left; text-align: right;}
+form.twoColumns span.field,
+fieldset.twoColumns span.field {width: 47%;} /* 3% reserve in case odd column width*/
+
+/**
+ * Tables 
+ */
+ 
+table {font-size: inherit; clear: both; margin: 1em 0 2em 0; border: 2px solid #ccc; border-radius: 4px;
+	-moz-border-radius: 4px; -webkit-border-radius: 4px; border-spacing: 0;}
+caption {text-align: left; font-weight: bold; font-size: 1.25em;}
+th {text-align: center;}
+th, 
+td {padding: 0.4em; vertical-align: top;}
+th.money,
+td.money,
+td.number {text-align: right;}
+thead th {border-bottom: 2px solid #ccc;}
+tfoot td {border-top: 2px solid #ccc; font-weight: bold;}
+
+/**
+ * Links
+ */
+ 
+a {cursor: pointer; cursor: hand; text-decoration: underline;}
+a:active {text-decoration: none; outline: 0;}
+a:focus {outline: 0;}
+a.button {display: inline-block;}
+a.button,
+a.active {font-weight: bold;}
+a img {border: 0;}
+div.image a {text-decoration: none;}
+
+/**
+ * Headings
+ */
+ 
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+caption {font-family: serif; line-height: 1.2; margin: 1em 0 0.4em 0;}
+
+h1.contentTitle,
+h2.contentTitle,
+h3.contentTitle,
+h4.contentTitle,
+h5.contentTitle,
+h6.contentTitle {margin-top: 0;}
+
+h1 a,
+h2 a,
+h3 a,
+h4 a,
+h5 a,
+h6 a {text-decoration: none;}
+
+h1 {font-size: 2em;}
+h2 {font-size: 1.5em;}
+h3 {font-size: 1.25em;}
+h4 {font-size: 1.15em}
+h5 {font-size: 1em;}
+
+/**
+ * Lists
+ */
+ 
+dl {margin: 1em 0;}
+ul {padding: 0; margin: 1em 0 2em 0;}
+ol {padding: 0; margin: 1em 0 2em 0;}
+ul ul,
+ol ol {margin: 0;}
+li {margin: 0.75em 0 0.75em 20px; vertical-align: middle;}
+
+
+/**
+ * misc
+ */
+ 
+p {margin: 15px 0;}
+hr {height: 0; border: 0; clear: both;}
+code {font-family: monospace;}
+pre {white-space: pre-wrap;}
+
+blockquote {margin: 2em 0; padding: 0 0 0 40px; background: url(/share/images/default/quote_open.png) top left no-repeat;}
+blockquote p {background: url(/share/images/default/quote_close.png) bottom right no-repeat; padding: 0 40px 0 0;}
+
+span.disabled {text-decoration: line-through;}
+/*a clearing div*/
+div.bottom {clear: both;}
+
+
+/**
+ * Messages
+ */
+ 
+div.onxshop_messages {margin: 1em; border: none; background: black; color: white; background: rgba(0,0,0,0.75); padding: 1em; box-shadow: #000000 5px 5px 30px;
+	clear: both; border-radius: 4px; -moz-border-radius: 7px; -webkit-border-radius: 7px;
+	z-index: 1000; position: relative;}
+div.onxshop_messages p {margin: 5px 0; line-height: 1; padding: 0; color: white; font-weight: bold; }
+div.onxshop_messages p.onxshop_ok_msg {}
+div.onxshop_messages p.onxshop_error_msg {background: transparent url(/share/images/famfamfam_icons/exclamation.png) left top no-repeat; padding: 0 0 0 25px;}
+
+/**
+ * Ajax
+ */
+ 
+.ajaxLoad {width: 128px; height: 128px; background: url(/share/images/ajax-indicator/indicator_verybig.gif) no-repeat;}
+
+/**
+ * jGrowl
+ */
+
+div#jGrowl { position: fixed; top: 50px; width: 500px; left: 50%; margin-left: -250px; text-align: center; pointer-events: none; z-index: 9999; }
+div#jGrowl div.onxshop_messages { margin: 0; padding: 10px 30px; }
+div#jGrowl div.jGrowl-notification { display: block; position: relative; z-index: 9999; zoom: 1; text-align: left; pointer-events: all; border: none; background: none;}
+div#jGrowl div.jGrowl-notification.ui-state-highlight { margin: 0 auto 20px auto; display: inline-block; min-width: 260px; }
+div#jGrowl div.jGrowl-notification p { text-align: left; }
+div#jGrowl div.jGrowl-close { position: absolute; right: 5px; top: 5px; color: #ffffff; cursor: pointer; z-index: 10000; font-weight: bold; font-size: 16px; line-height: 16px; }
+div#jGrowl div.jGrowl-closer { background: black; color: white; background: rgba(0,0,0,0.75); width: 100px; margin: 10px auto; border: none; cursor: pointer; text-align: center; pointer-events: all; }
+@media all and (max-width: 600px) {
+	div#jGrowl { width: 80%; left: 10%; margin-left: 0; }
+}/**
+ * Norbert @ Laposa Ltd, 2009/09/22
+ *
+ */
+ 
+/****************************************************************************************/
+/*****************************          node/page           *****************************/
+/****************************************************************************************/
+
+/************ node/page/default.html ****/
+div.rowTop:after,
+div.rowMiddle:after,
+div.rowBottom:after {content: '.'; display: block; height: 0; font-size: 0; clear: both; visibility: hidden;}
+/*IE8 doesn't support last-child, the following block will be ignored*/
+div.rowTop div.node:last-child:after,
+div.rowMiddle div.node:last-child:after,
+div.rowBottom div.node:last-child:after {content: '.'; display: block; height: 0; font-size: 0; clear: both; visibility: hidden;}
+div.page div.pageWrapper {padding: 0;}
+div.page div.rowBottom {clear: both;}
+
+/*default, fobinaci-1-1, 50%/50%*/
+div.twoColumnPage div.columnOne,
+div.twoColumnPage.fibonacci-1-1 div.columnOne {float: left; width: 49.999%; clear: both; overflow: hidden; }
+div.twoColumnPage div.columnTwo,
+div.twoColumnPage.fibonacci-1-1 div.columnTwo {width: 49.999%; float: right; overflow: hidden;}
+/*fibonacci-1-5, 16.6%/83.3%*/
+div.twoColumnPage.fibonacci-1-5 div.columnOne {width: 16.66%;}
+div.twoColumnPage.fibonacci-1-5 div.columnTwo {width: 83.33%;}
+div.twoColumnPage.fibonacci-5-1 div.columnOne {width: 83.33%;}
+div.twoColumnPage.fibonacci-5-1 div.columnTwo {width: 16.66%;}
+/*fibonacci-1-3, 25%/75%*/
+div.twoColumnPage.fibonacci-1-3 div.columnOne {width: 25%;}
+div.twoColumnPage.fibonacci-1-3 div.columnTwo {width: 75%;}
+div.twoColumnPage.fibonacci-3-1 div.columnOne {width: 75%;}
+div.twoColumnPage.fibonacci-3-1 div.columnTwo {width: 25%;}
+/*fibonacci-2-5, 28.6%/71.4%*/
+div.twoColumnPage.fibonacci-2-5 div.columnOne {width: 28.6%;}
+div.twoColumnPage.fibonacci-2-5 div.columnTwo {width: 71.4%;}
+div.twoColumnPage.fibonacci-5-2 div.columnOne {width: 71.4%;}
+div.twoColumnPage.fibonacci-5-2 div.columnTwo {width: 28.6%;}
+/*fibonacci-1-2, 33%/66%*/
+div.twoColumnPage.fibonacci-1-2 div.columnOne {width: 33.3%;}
+div.twoColumnPage.fibonacci-1-2 div.columnTwo {width: 66.6%;}
+div.twoColumnPage.fibonacci-2-1 div.columnOne {width: 66.6%;}
+div.twoColumnPage.fibonacci-2-1 div.columnTwo {width: 33.3%;}
+/*fibonacci-3-5, 38.2%/61.8%*/
+div.twoColumnPage.fibonacci-3-5 div.columnOne {width: 38.2%;}
+div.twoColumnPage.fibonacci-3-5 div.columnTwo {width: 61.77%;}
+div.twoColumnPage.fibonacci-5-3 div.columnOne {width: 61.77%;}
+div.twoColumnPage.fibonacci-5-3 div.columnTwo {width: 38.2%;}
+/*fibonacci-2-3, 40%/60%*/
+div.twoColumnPage.fibonacci-2-3 div.columnOne {width: 40%;}
+div.twoColumnPage.fibonacci-2-3 div.columnTwo {width: 60%;}
+div.twoColumnPage.fibonacci-3-2 div.columnOne {width: 60%;}
+div.twoColumnPage.fibonacci-3-2 div.columnTwo {width: 40%;}
+
+/****************************************************************************************/
+/*****************************          node/layout         *****************************/
+/****************************************************************************************/
+
+div.layout div.bottom {clear: both;}
+
+/********* node/layout/1column.html *********/
+div.oneColumnLayout {clear: both;}
+div.oneColumnLayout div.layoutColumnSingle {float: none; width: auto;}
+
+/********* node/layout/2columns.html *********/
+div.twoColumnLayout {clear: both;}
+
+/*default, fibonacci-1-1, 50%/50%*/
+div.twoColumnLayout div.layoutColumnOne.ofTwo,
+div.twoColumnLayout.fibonacci-1-1 div.layoutColumnOne.ofTwo {float: left; width: 49.999%;}
+div.twoColumnLayout div.layoutColumnTwo.ofTwo,
+div.twoColumnLayout.fibonacci-1-1 div.layoutColumnTwo.ofTwo {width: 49.999%; float: right;}
+/*fibonacci-1-5, 16.6%/83.3%*/
+div.twoColumnLayout.fibonacci-1-5 div.layoutColumnOne.ofTwo {width: 16.66%;}
+div.twoColumnLayout.fibonacci-1-5 div.layoutColumnTwo.ofTwo {width: 83.33%;}
+div.twoColumnLayout.fibonacci-5-1 div.layoutColumnOne.ofTwo {width: 83.33%;}
+div.twoColumnLayout.fibonacci-5-1 div.layoutColumnTwo.ofTwo {width: 16.66%;}
+/*fibonacci-1-3, 25%/75%*/
+div.twoColumnLayout.fibonacci-1-3 div.layoutColumnOne.ofTwo {width: 25%;}
+div.twoColumnLayout.fibonacci-1-3 div.layoutColumnTwo.ofTwo {width: 75%;}
+div.twoColumnLayout.fibonacci-3-1 div.layoutColumnOne.ofTwo {width: 75%;}
+div.twoColumnLayout.fibonacci-3-1 div.layoutColumnTwo.ofTwo {width: 25%;}
+/*fibonacci-2-5, 28.6%/71.4%*/
+div.twoColumnLayout.fibonacci-2-5 div.layoutColumnOne.ofTwo {width: 28.6%;}
+div.twoColumnLayout.fibonacci-2-5 div.layoutColumnTwo.ofTwo {width: 71.4%;}
+div.twoColumnLayout.fibonacci-5-2 div.layoutColumnOne.ofTwo {width: 71.4%;}
+div.twoColumnLayout.fibonacci-5-2 div.layoutColumnTwo.ofTwo {width: 28.6%;}
+/*fibonacci-1-2, 33%/66%*/
+div.twoColumnLayout.fibonacci-1-2 div.layoutColumnOne.ofTwo {width: 33.3%;}
+div.twoColumnLayout.fibonacci-1-2 div.layoutColumnTwo.ofTwo {width: 66.6%;}
+div.twoColumnLayout.fibonacci-2-1 div.layoutColumnOne.ofTwo {width: 66.6%;}
+div.twoColumnLayout.fibonacci-2-1 div.layoutColumnTwo.ofTwo {width: 33.3%;}
+/*fibonacci-3-5, 38.2%/61.8%*/
+div.twoColumnLayout.fibonacci-3-5 div.layoutColumnOne.ofTwo {width: 38.2%;}
+div.twoColumnLayout.fibonacci-3-5 div.layoutColumnTwo.ofTwo {width: 61.8%;}
+div.twoColumnLayout.fibonacci-5-3 div.layoutColumnOne.ofTwo {width: 61.8%;}
+div.twoColumnLayout.fibonacci-5-3 div.layoutColumnTwo.ofTwo {width: 38.2%;}
+/*fibonacci-2-3, 40%/60%*/
+div.twoColumnLayout.fibonacci-2-3 div.layoutColumnOne.ofTwo {width: 40%;}
+div.twoColumnLayout.fibonacci-2-3 div.layoutColumnTwo.ofTwo {width: 60%;}
+div.twoColumnLayout.fibonacci-3-2 div.layoutColumnOne.ofTwo {width: 60%;}
+div.twoColumnLayout.fibonacci-3-2 div.layoutColumnTwo.ofTwo {width: 40%;}
+
+/********* node/layout/3columns.html *********/
+div.threeColumnLayout {clear: both;}
+div.threeColumnLayout div.layoutColumnOne.ofThree, 
+div.threeColumnLayout div.layoutColumnTwo.ofThree, 
+div.threeColumnLayout div.layoutColumnThree.ofThree {width: 33.3334%; overflow: hidden;}
+div.threeColumnLayout div.layoutColumnOne.ofThree, 
+div.threeColumnLayout div.layoutColumnTwo.ofThree {float: left;}
+div.threeColumnLayout div.layoutColumnThree.ofThree {float: right;}
+
+/********* node/layout/4columns.html *********/
+div.fourColumnLayout {clear: both;}
+div.fourColumnLayout div.layoutColumnOne.ofFour, 
+div.fourColumnLayout div.layoutColumnTwo.ofFour, 
+div.fourColumnLayout div.layoutColumnThree.ofFour,
+div.fourColumnLayout div.layoutColumnFour.ofFour {width: 25%; overflow: hidden;}
+div.fourColumnLayout div.layoutColumnOne.ofFour, 
+div.fourColumnLayout div.layoutColumnTwo.ofFour,
+div.fourColumnLayout div.layoutColumnThree.ofFour {float: left;}
+div.fourColumnLayout div.layoutColumnFour.ofFour {float: right;}
+
+/********* node/layout/5columns.html *********/
+div.fiveColumnLayout {clear: both;}
+div.fiveColumnLayout div.layoutColumnOne.ofFive, 
+div.fiveColumnLayout div.layoutColumnTwo.ofFive, 
+div.fiveColumnLayout div.layoutColumnThree.ofFive,
+div.fiveColumnLayout div.layoutColumnFour.ofFive,
+div.fiveColumnLayout div.layoutColumnFive.ofFive {width: 20%; overflow: hidden;}
+div.fiveColumnLayout div.layoutColumnOne.ofFive, 
+div.fiveColumnLayout div.layoutColumnTwo.ofFive,
+div.fiveColumnLayout div.layoutColumnThree.ofFive,
+div.fiveColumnLayout div.layoutColumnFour.ofFive {float: left;}
+div.fiveColumnLayout div.layoutColumnFive.ofFive {float: right;}
+
+/********* node/layout/6columns.html *********/
+div.sixColumnLayout {clear: both;}
+div.sixColumnLayout div.layoutColumnOne.ofSix, 
+div.sixColumnLayout div.layoutColumnTwo.ofSix, 
+div.sixColumnLayout div.layoutColumnThree.ofSix,
+div.sixColumnLayout div.layoutColumnFour.ofSix,
+div.sixColumnLayout div.layoutColumnFive.ofSix,
+div.sixColumnLayout div.layoutColumnSix.ofSix {width: 16.666%; overflow: hidden;}
+div.sixColumnLayout div.layoutColumnOne.ofSix, 
+div.sixColumnLayout div.layoutColumnTwo.ofSix,
+div.sixColumnLayout div.layoutColumnThree.ofSix,
+div.sixColumnLayout div.layoutColumnFour.ofSix,
+div.sixColumnLayout div.layoutColumnFive.ofSix {float: left;}
+div.sixColumnLayout div.layoutColumnSix.ofSix {float: right;}
+
+/********* node/layout/tabs.html *********/
+div.tabsLayout {clear: both;}
+div.tabsLayout ul.tabs li {float: left; list-style-type: none; padding: 0; margin: 0;}
+div.tabsLayout ul.tabs li a {display: block; padding: 7px 15px;}
+div.tabsLayout div.layoutBody {clear: both;}
+
+/**
+ * gutters
+ * set all gutters to 10px on content elements like traditional grid systems, e.g. 960gs
+ */
+ 
+#header {margin: 10px;}
+#primaryNavigation {margin: 10px;}
+div.pageHeaderWrapper {margin: 10px;}
+h2.layoutTitle {margin: 0 10px;}
+div.node_group-content {margin: 10px;}
+/**
+ * Norbert @ Laposa Ltd, 2009/09/22
+ *
+ */
+
+/****************************************************************************************/
+/*****************************          node/site           *****************************/
+/****************************************************************************************/
+
+/********* node/site/default.html *********/
+#pageWrapper {padding: 0.5em;}
+#pageWrapper div.bottom {clear: both;}
+
+#accessibility {display: none;}
+
+#container {width: 960px; margin: 0 auto;}
+
+#header {width: 100%;}
+
+#logo {float: left;}
+#logo a {text-decoration: none; font-size: 4em;}
+
+#search {float: right; clear: right; margin-bottom: 10px;}
+#search form {background: transparent; float: right; border-width: 0; margin: 0; padding: 0;}
+#search input { background: white url(/share/images/search-bg.png) no-repeat 3px center; padding-left: 20px; width: 165px; display: block;}
+#search label {width: auto;}
+#search button {display: none;}
+
+#userbox {float: right; margin-bottom: 1.5em;}
+
+#basket {clear: right; float: right; white-space: nowrap; margin-bottom: 10px;}
+#basketWrapper {display: inline;}
+
+/**
+ * global navigation
+ */
+
+#globalNavigation {float: right; margin: 0 0 15px 0;}
+#globalNavigation ul {margin: 0; padding: 0; line-height: 1em; list-style-type: none;}
+#globalNavigation li {display: inline-block; padding: 0; margin: 0;}
+#globalNavigation a {text-decoration: none; display: block; padding: 7px 15px;}
+#globalNavigation a:active span {text-decoration: underline;}
+
+/**
+ * reveal navigation
+ */
+ 
+#revealNavigationButton {display: none;}
+
+/**
+ * primary navigation
+ */
+
+#primaryNavigation {clear: both; width: 100%;}
+#primaryNavigation ul {margin: 0; padding: 0; line-height: 1em; list-style-type: none;}
+#primaryNavigation li {margin: 0; padding: 0; margin-right: 20px; display: inline-block; zoom: 1;/*zoom for ie6*/}
+#primaryNavigation a {text-decoration: none; display: block; padding: 7px 5px; white-space: pre; zoom: 1;}
+#primaryNavigation a:active span {text-decoration: underline;}
+#primaryNavigation a.open {font-weight: bold;}
+#primaryNavigation ul ul {list-style-type: square; margin-left: 10px;}
+#primaryNavigation ul ul li {padding-left: 0; margin-left: 15px; display: list-item;}
+#primaryNavigation ul ul a {padding-left: 0; font-weight: normal; height: auto;}
+
+/**
+ * footer navigation
+ */
+ 
+#footerNavigation {clear: both; float: left; width: 100%;}
+#footerNavigation ul {margin: 0; padding: 0; line-height: 1em; list-style-type: none;}
+#footerNavigation li {padding: 0; margin: 0; display: inline-block;}
+#footerNavigation a {text-decoration: none; display: block; padding: 7px 15px; white-space: pre;}
+#footerNavigation a:active span {text-decoration: underline;}
+
+/**
+ * content
+ */
+ 
+#content { width: 100%; clear: both; }
+
+/**
+ * footer
+ */
+ 
+#footer {width: 100%; clear: both; margin-top: 30px;}
+
+#copyright {clear: both; float: left; padding: 30px 0 0.5em 0; white-space: nowrap;}
+#credit {float: right; padding: 30px 0 0.5em 0;}
+
+#copyright p,
+#credit p,
+#copyright a,
+#credit a {text-decoration: none; padding: 0; margin: 0;}
+
+/* graphical credit */
+/*#credit a {background: url(/share/images/onxshop-power-master-150.png) no-repeat; display: block; width: 150px; height: 49px;}
+#credit a span {display: none;}
+#copyright p {padding-top: 25px;}*/
+
+#contentSide {width: 150px; margin: 10px; clear: left; float: left;}
+
+#contentBottom {clear: both; width: 100%;}
+
+
+/****************************************************************************************/
+/*****************************          node/page           *****************************/
+/****************************************************************************************/
+
+/********* node/page/default.html *********/
+/********* node/page/product_browse.html *********/
+/********* node/page/news.html *********/
+/********* node/page/product.html *********/
+
+#pageSide {float: left; overflow: hidden;} /*also wrapper to secondaryNavigation*/
+#pageSideWrapper {margin-right: 10px;}
+
+#secondaryNavigation {line-height: 1em; margin-bottom: 20px;}
+#secondaryNavigation ul {padding: 0; margin: 0; list-style-type: none;}
+#secondaryNavigation li {padding: 0; margin: 0; zoom: 1;/*zoom for ie6*/}
+#secondaryNavigation a {display: block; padding: 7px 5px; text-decoration: none; zoom: 1;}
+#secondaryNavigation a:active span {text-decoration: underline;}
+#secondaryNavigation ul ul {list-style-type: disc;}
+#secondaryNavigation ul ul li {padding-left: 0; margin-left: 25px;}
+
+#pageImage {float: right;}
+#pageImage a {text-decoration: none;}
+
+/********* node/page/news.html *********/
+div.news div.note p {margin-top: 0;}
+div.news div.back {clear: both;}
+div.news div.body {margin-bottom: 1em;}
+div.news div.addThisButtons {margin-bottom: 10px;}
+
+/****************************************************************************************/
+/*****************************          node/content        *****************************/
+/****************************************************************************************/
+
+/********* node/content/RTE.html *********/
+div.content-RTE {clear: both;}
+/* do not specify img., conflict with reflection*/
+/* use both cases (TinyMCE/Safari bug)*/
+div.content-RTE .imageLeft,
+div.content-RTE .imageleft {float: left; margin-right: 10px; margin-bottom: 10px;}
+div.content-RTE .imageRight,
+div.content-RTE .imageright {float: right; margin-left: 10px; margin-bottom: 10px;}
+div.content-RTE .imageBorder,
+div.content-RTE .border {border: 1px solid black;}
+
+/*apply for products, other option would be to add .content-RTE class in product detail page description element */
+div.product .imageLeft,
+div.product .imageleft {float: left; margin-right: 10px;}
+div.product .imageRight,
+div.product .imageright {float: right; margin-left: 10px;}
+div.product .imageBorder,
+div.product .border {border: 1px solid black;}
+
+/*apply for news pages, other option would be to add .content-RTE class in news detail page */
+div.news .imageLeft,
+div.news .imageleft {float: left; margin-right: 10px;}
+div.news .imageRight,
+div.news .imageright {float: right; margin-left: 10px;}
+div.news .imageBorder,
+div.news .border {border: 1px solid black;}
+
+
+/********* node/content/divider.html *********/
+div.divider {clear: both; width: 100%; margin: 0 0 1em 0; padding: 0; border-top: 1px dotted grey; height: 1px; font-size: 1em;}
+div.divider hr {display: none;}
+
+/********* node/content/quote.html *********/
+div.quote p.quote {padding: 0 40px 0 0; margin: 0; text-align: center;}
+div.quote p.author {font-family: sans-serif; padding-right: 40px; text-align: center; background: none;}
+
+/********* component/news_list_teaser.html *********/
+div.news_list.teaser div.image {float: left; padding: 0 20px 10px 0;}
+div.news_list.teaser div.image a {text-decoration: none;}
+div.news_list.teaser div.created {font-weight: bold;}
+div.news_list.teaser div.created p {margin-bottom: 1em;}
+
+/********* component/news_list_grid.html *********/
+div.news_list.grid div.item {width: 300px; min-height: 300px; display: block; float: left; margin: 10px;}
+
+/********* node/content/contact_form.html *********/
+div.contact_form textarea {width: 100%;}
+div.contact_form div.submit span.label {display: none;}
+div.contact_form span.mandatory-mark {padding-right: 0.5em;}
+div.contact_form legend {display: none;}
+
+/********* node/content/picture.html *********/
+div.node-content-picture, 
+div.node-content-picture div.item {margin-bottom: 10px;}
+div.node-content-picture div.picture.single div.item {float: left; margin-right: 10px;}
+
+/********* node/content/HTML.html *********/
+div.node-content-HTML {}
+
+/********* node/content/file.html *********/
+div.file span.file_size {white-space: nowrap;}
+
+/****************************************************************************************/
+/*****************************           component          *****************************/
+/****************************************************************************************/
+
+/********* component/feed.html *********/
+div.feed p.pubDate {padding: 0; margin: 0 0 10px 0;}
+div.feed p.copyright {}
+div.feed div.item {margin: 10px 0;}
+div.feed div.item h5 {margin: 0 0 0.5em 0;}
+
+/********* component/breadcrumb.html *********/
+div.breadcrumb {margin-bottom: 10px;}
+
+/********* component/taxonomy.html *********/
+div.taxonomy td.first {font-weight: bold;}
+
+/********* component/searchbox.html *********/
+div.searchbox label {display: none;}
+div.searchbox input.text {margin: 0; width: 185px;}
+
+/********* component/search_result.html *********/
+div.search_result li {clear: both; margin-bottom: 10px;}
+div.search_result li a.last {font-weight: bold;}
+div.search_result li a.image {text-decoration: none; display: block; float: right; padding-left: 5px;}
+div.search_result span.item_description {font-size: small;}
+div.search_result span.keyword_highlight {color: #000000; background: #ff0;}
+
+/********* component/pagination.html *********/
+div.pagination {margin: 5px 0; text-align: center;}
+div.pagination a {text-decoration: none;}
+div.pagination ul {margin: 0; padding: 0;}
+div.pagination li {list-style-type: none; display: inline; padding: 0; margin: 0;}
+div.pagination a {display: inline-block; padding: 2px 5px; border: 0;}
+div.pagination a.active {border: 1px solid #CCCCCC; font-weight: normal; -moz-border-radius: 4px; -webkit-border-radius: 4px;}
+div.pagination li.previous a:hover,
+div.pagination li.next a:hover,
+div.pagination a.show_all:hover {text-decoration: underline;}
+
+/********* component/image_gallery/list.html *********/
+div.image_gallery_list div.thumbnails div.item {display: inline-block; margin: 5px;}
+div.image_gallery_list a {text-decoration: none;}
+
+/********* component/image_gallery/cycle.html *********/
+div.image_gallery_cycle {border: 0; position: relative;}
+div.image_gallery_cycle div.controls {z-index: 1000; position: absolute; top: 0; left: 0; display: none;}
+div.image_gallery_cycle div.controls a.prev,
+div.image_gallery_cycle div.controls a.next {width: 30px; height: 27px; display: block; opacity: 0.9;}
+div.image_gallery_cycle div.controls a span {display: none;}
+div.image_gallery_cycle div.controls a.prev {background: url(/share/images/default/arrow-left.gif) center left no-repeat; float: left;}
+div.image_gallery_cycle div.controls a.next {background: url(/share/images/default/arrow-right.gif) center right no-repeat; float: right;}
+div.image_gallery_cycle div.controls div.pagination {float: left; margin: 0;}
+div.image_gallery_cycle div.controls div.pagination a {float: left; display: block; padding: 3px 7px;}
+div.image_gallery_cycle div.imageInfo {display: none;}
+
+/********* component/image_gallery/cycle2.html *********/
+div.image_gallery_cycle2 {position: relative;}
+div.image_gallery_cycle2 div.item { width: 100%;}
+div.image_gallery_cycle2 div.item div.description {color: white; background: rgba(0,0,0,0.8); padding: 5px 10px; width: 100%; text-align: center; position: absolute; bottom: 0;}
+div.image_gallery_cycle2 div.controls a {color: white; background: rgba(255, 255, 255, 0.5);}
+div.image_gallery_cycle2 div.controls a.prev,
+div.image_gallery_cycle2 div.controls a.next {display: none; position: absolute; left: 1%; top: 40%; z-index: 200; width: 40px; height: 40px; padding: 8px; border-radius: 100px; text-align: center;}
+div.image_gallery_cycle2 div.controls a.prev {padding-left: 5px;}
+div.image_gallery_cycle2 div.controls a.next {left: auto; right: 1%; padding-right: 5px;}
+div.image_gallery_cycle2:hover div.controls a.prev,
+div.image_gallery_cycle2:hover div.controls a.next {display: block}
+div.image_gallery_cycle2 div.controls div.pagination a {font-size: 50px; line-height: 20px; display: inline-block; color: gray;}
+div.image_gallery_cycle2 div.controls div.pagination a.active {color: black; border: 0;}
+div.image_gallery_cycle2.number_of_items_1 div.controls,
+div.image_gallery_cycle2.number_of_items_1 div.pagination {display: none;}
+
+/********* component/image_gallery/fancybox.html *********/
+div.image_gallery_fancybox div.item {float: left; margin-right: 10px;}
+
+/********* component/image_gallery/prettyphoto.html *********/
+div.image_gallery_prettyphoto div.item {float: left; margin-right: 10px;}
+
+/********* component/image_gallery/parallax.html *********/
+div.image_gallery_parallax {text-align: center;}
+div.image_gallery_parallax div.item {display: table; width: 100%; margin: 0; background-repeat: no-repeat; background-size: cover; background-attachment: fixed; background-position-x: center;}
+div.image_gallery_parallax div.item a.image {display: table-cell; vertical-align: middle; width: 100%;}
+div.image_gallery_parallax div.item img {display: none;}
+div.image_gallery_parallax div.sliderCopy {text-align: center;}
+div.image_gallery_parallax a {text-decoration: none;}
+div.image_gallery_parallax div.sliderCopy h3 {text-align: center;}
+
+/********* component/google_picasa_feed.html *********/
+div.googlePicasaFeed div.imageThumbnailsContainer {width: 750px; height: 100px; overflow: auto; white-space: nowrap;}
+div.googlePicasaFeed div.imageThumbnail {float: left; height: 75px; padding-right: 15px;}
+div.googlePicasaFeed div.imageFull {width: 100%; text-align: center; padding-top: 5px;}
+div.googlePicasaFeed div.imageFull div.imageFullWrapper {clear: both;}
+div.googlePicasaFeed table {padding: 0; margin: 0; border-style: none; border-width: 0;}
+div.googlePicasaFeed table td {padding: 0; margin: 0; border-style: none; border-width: 0;}
+
+/********* component/comment_add.html *********/
+div.comment form input {width: 100%;}
+div.comment form textarea {width: 100%;}
+
+/********* comment_UL.html *********/
+ul.comment li {margin-bottom: 10px;}
+ul.comment p.author,
+ul.comment p.created {margin: 0;}
+ul.comment div.bottom {border-bottom: 1px solid #f0f0f0;}
+ul.comment div.item div.content {padding: 10px 0;}
+
+/********* menu_SELECT.html **********/
+div.selectMenu {padding: 5px 0 0 0;}
+
+/** newsletter subcribe **/
+div.newsletter_subscribe_start div.row {margin: 0;}
+div.newsletter_subscribe_start span.label {display: none;}
+div.newsletter_subscribe_start fieldset {width: 70%; float: left; margin: 0; padding: 0;}
+div.newsletter_subscribe_start div.submit  {clear: none; float: right;}
+
+/********* component/rating_stars.html *********/
+div.rating_stars div.star {display: inline-block;}
+div.rating_stars div.text {display: none;}
+/*
+div.rating_stars div.star {background:url("/share/images/default/star.gif") repeat scroll 0 0 transparent; height:17px; width:17px;}
+div.rating_stars div.star span {display: none;}
+*/
+
+/********* component/social_network_share.html *********/
+div.social_network_share ul {margin: 0; padding: 0;}
+div.social_network_share li {list-style-image: none; list-style-type: none; float: left; margin: 0 0 0 10px; padding: 0;}
+div.social_network_share li.twitter a {background: url(/share/images/social_networks/twitter-20x20.png) no-repeat; width: 20px; height: 20px; display: block;}
+div.social_network_share li.twitter a span {display: none;}
+div.social_network_share li.pinterest a {background: url(/share/images/social_networks/pinit-43x21.png) no-repeat; width: 43px; height: 21px; display: block;}
+div.social_network_share li.pinterest a span {display: none;}
+div.social_network_share li.mailto a {background: #ffffff linear-gradient(to bottom, #ffffff 0%,#cbebff 47%,#e6e4e4 100%); border: 1px solid #c9c5c5; border-radius: 4px; display: block; padding: 2px 5px; text-decoration: none; line-height: 1;}
+div.social_network_share li.mailto a span {font-size: 80%;}
+/**
+ * Norbert @ Laposa Ltd, 2009/09/22
+ *
+ */
+
+/****************************************************************************************/
+/*****************************      component/ecommerce     *****************************/
+/****************************************************************************************/
+
+/********* component/ecommerce/product_list_shelf.html *********/
+div.product_list_shelf div.item {margin: 1.5em 0;}
+div.product_list_shelf div.image {float: left; margin-right: 2em;}
+div.product_list_shelf div.description {float: left; width: 50%; }
+div.product_list_shelf h3.name {text-transform: none; font-size: 1.2em; margin-top: 0;}
+div.product_list_shelf div.detail {float: right; width: 20%;}
+div.product_list_shelf div.detail p {padding: 0 1em 0 0;}
+div.product_list_shelf p.stock {margin-top: 0;}
+div.product_list_shelf p.variety {font-weight: bold; margin-top: 0;}
+div.product_list_shelf p.more_details {clear: both; float: left; margin-bottom: 0;}
+div.product_list_shelf div.reviews {clear: both;}
+div.product_list_shelf div.reviews a {text-decoration: none;}
+div.product_list_shelf div.reviews span.review_count {padding-left: 10px; line-height: 1.7; font-size: 85%;}
+
+/********* component/ecommerce/product_list_2columns *********/
+div.product_list_2columns div.item {text-align: center; float: left; clear: none; width: 50%;}
+div.product_list_2columns a {text-decoration: none;}
+div.product_list_2columns div.item.odd {margin-right: 15px}
+div.product_list_2columns div.item h3 {clear: both} 
+div.product_list_2columns div.item div.image a {display: block; margin: 0 auto 1em auto;}
+
+/********* component/ecommerce/product_list_3columns *********/
+div.product_list_3columns a {text-decoration: none;}
+div.product_list_3columns div.item {font-size: 80%; width: 33.33%; text-align: center; float: left; clear: none;}
+div.product_list_3columns div.item h3 {clear: both}
+div.product_list_3columns div.item div.image a {display: block; margin: 0 auto 1em auto;}
+
+/********* component/ecommerce/product_list_4columns *********/
+div.product_list_4columns a {text-decoration: none; }
+div.product_list_4columns div.item {font-size: 80%; width: 25%; text-align: center; float: left; clear: none;}
+div.product_list_4columns div.item h3 {clear: both; padding: 0 1em;}
+div.product_list_4columns div.item div.price {padding: 0 1em;}
+div.product_list_4columns div.item span.price {}
+div.product_list_4columns div.item div.image a {display: block; margin: 0 auto 1em auto;}
+
+/********* component/ecommerce/product_list_5columns *********/
+div.product_list_5columns a {text-decoration: none; }
+div.product_list_5columns div.item {font-size: 80%; width: 20%; text-align: center; float: left; clear: none;}
+div.product_list_5columns div.item h3 {clear: both; padding: 0 1em;}
+div.product_list_5columns div.item div.price {padding: 0 1em;}
+div.product_list_5columns div.item span.price {}
+div.product_list_5columns div.item div.image a {display: block; margin: 0 auto 1em auto;}
+
+/********* component/ecommerce/product_list_6columns *********/
+div.product_list_6columns a {text-decoration: none; }
+div.product_list_6columns div.item {font-size: 80%; width: 16.66%; text-align: center; float: left; clear: none;}
+div.product_list_6columns div.item h3 {clear: both; padding: 0 1em;}
+div.product_list_6columns div.item div.price {padding: 0 1em;}
+div.product_list_6columns div.item span.price {}
+div.product_list_6columns div.item div.image a {display: block; margin: 0 auto 1em auto;}
+
+/********* component/ecommerce/product_list_scroll *********/
+div.product_list_scroll {margin-top: 1em;}
+div.product_list_scroll a {text-decoration: none; font-size: 80%;}
+div.product_list_scroll div.item {width: 120px; text-align: center; float: left; clear: none;}
+div.product_list_scroll div.item h3 {clear: both; margin: 0 0.5em;}
+div.product_list_scroll div.item div.image a {display: block; margin: 0 auto 1em auto;}
+div.product_list_scroll div.item div.image img {margin: 0 10px;}
+div.product_list_scroll a.browse span {display: none;}
+div.product_list_scroll div.scrollable {position:relative; overflow:hidden; width: 360px; height:170px; float: left;}
+div.product_list_scroll div.scrollable div.items {width:20000em; position:absolute; clear:both;}
+div.product_list_scroll div.scrollable div.items div.item {float:left;}
+div.product_list_scroll a.browse {background:url(/share/themes/jquery.tools/images/hori_large.png) no-repeat; display:block; width:30px; height:30px; float:left; margin-top: 60px;}
+div.product_list_scroll a.right {background-position: 0 -30px; clear:right; margin-right: 10px;}
+div.product_list_scroll a.right:hover { background-position:-30px -30px;}
+div.product_list_scroll a.right:active 	{ background-position:-60px -30px;}
+div.product_list_scroll a.left { margin-left: 10px;}
+div.product_list_scroll a.left:hover { background-position:-30px 0;}
+div.product_list_scroll a.left:active { background-position:-60px 0;}
+
+/********* component/ecommerce/product_related.html *********/
+div.product_related {margin-top: 0;}
+
+/********* component/ecommerce/recently_viewed_products.html *********/
+div.recently_viewed {clear: both;}
+
+/********* component/client/address.html *********/
+div.address p.detail {margin-bottom: 0;}
+div.address p.button {margin-top: 0;}
+
+/********* component/client/customer_detail.html *********/
+div.customer_detail td.first {text-align: right;}
+
+/********* component/client/address_edit.html *********/
+div.address_edit div.address_list div.item {padding-bottom: 2em;}
+
+/********* component/ecommerce/basket.html *********/
+div.basket,
+div.basketWrapper {display: inline;}
+div.basket h3 {display: inline; padding: 0 20px 0 0; margin: 0;}
+div.basket div.content {display: none; position: absolute; background: white; z-index: 1000;}
+div.basket td.remove {text-align: right;}
+div.basket a {text-transform: uppercase; text-decoration: none;}
+div.basket div.checkout,
+div.basket p.empty {display: inline; margin: 0;}
+div.basket div.summary {display: inline;}
+div.basket div.go_to_checkout {display: inline;}
+div.basket a.go_to_checkout {padding-left: 15px;}
+
+/********* component/ecommerce/basket_edit.html *********/
+div.basket_edit input.basket_content-quantity {width: 20px;}
+div.basket_edit button.update {float: right;}
+div.basket_edit a.checkout {float: right; margin-bottom: 1em;}
+div.basket_edit a.continue_shopping {float: left; margin-bottom: 1em;}
+div.basket_edit div.image a {text-decoration: none;}
+div.basket_edit table.items {clear: both; width: 100%;}
+div.basket_edit p.top {display: none;}
+div.basket_edit th.action {text-align: left;}
+div.basket_edit th.quanity {text-align: left; padding-left: 5px;}
+div.basket_edit td.quanity {line-height: 0px;}
+div.basket_edit td.discount p {margin: 0; text-align: right;}
+div.basket_edit button.highlightbutton {border: 1px solid red;}
+
+/********* component/ecommerce/basket_detail.html *********/
+div.basket_detail th.price,
+div.basket_detail th.vat,
+div.basket_detail th.total,
+div.basket_detail td.price,
+div.basket_detail td.vat,
+div.basket_detail td.total {text-align: right;}
+div.basket_detail tbody.breakdown {font-weight: bold;}
+
+/********* component/ecommerce/checkout.html *********/
+div.checkout {clear: right;}
+div.checkout form textarea {width: 95%;}
+div.checkout div.payment_type span.label,
+div.checkout div.terms_agreed span.label {text-align: right;}
+div.checkout div.payment_type span.field,
+div.checkout div.terms_agreed span.field {width: auto;}
+div.checkout fieldset.gift_option h3 {display: none;}
+div.checkout fieldset.other_options {float: left; margin-top: 0; padding-top: 0;}
+div.checkout div.submit {padding-right: 0; margin-right: 0; clear: none; float: right;}
+div.checkout div.submit span.field {float: right; width: auto;}
+
+/********* component/ecommerce/checkout_basket.html *********/
+a.button.edit_basket {float: right;}
+
+/********* component/ecommerce/payment/paypal.html *********/
+div.payment button.payment_paypal {background: url(/share/images/payment_gateways/btn_xpressCheckout.gif) no-repeat; width: 145px; height: 42px; border: 0;}
+div.payment button.payment_paypal span {display: none;}
+div.payment div.order_detail p.actions {display: none;}
+
+/********* component/ecommerce/order_detail.html *********/
+div.order_detail div.address div.delivery {float: left; margin-right: 2em;}
+div.order_detail a.button.make_payment,
+div.order_detail a.repeat_order,
+div.order_detail a.button.print_invoice,
+div.order_detail a.button.print_invoice_proforma {float: left; margin: 0 1em 1em 0;}
+
+/********* component/client/userbox.html *********/
+div.userbox div.register {float: left; margin-right: 30px; display: none;}
+div.userbox div.login {float: left; display: none;}
+div.userbox a {text-decoration: none; white-space: pre;}
+div.userbox a.client_area {padding-left: 5px; margin-left: 10px;}
+div.userbox a.logout {padding-left: 5px; margin-left: 10px;}
+
+/********* component/client/login.html *********/
+/********* component/client/registration_start.html *********/
+/**** + registration + delivery_option + checkout ****/
+
+div.address_country select {width: 100%;}
+
+/********* component/client/password_reset.html *********/
+div.password_reset legend {display: none;}
+
+/********* component/client/password_reminder.html *********/
+div.password_reminder legend {display: none;}
+
+
+/********* component/ecommerce/invoice.html *********/
+/********* component/ecommerce/invoice_proforma.html *********/
+div.invoice td.basket table {width: 100%;}
+div.invoice td.basket table td {padding: 5px 15px;}
+div.invoice td.basket table th {text-align: left; padding: 5px 15px;}
+div.invoice th,
+div.invoice td {font-size: 10px;}
+
+/********* component/ecommerce/form_currency.html *********/
+#currency {display: inline;}
+#currency select {width: 100%;}
+
+/********* component/ecommerce/delivery_option.html *********/
+div.delivery_option div.submit,
+div.delivery_option legend {display: none;}
+#content div.delivery_option span.label {float: left; width: 130px;}
+
+/********* component/ecommerce/product_list_sorting.html *********/
+div.sorting {margin-bottom: 1em;}
+div.sorting div.pagination {text-align: left;}
+div.sorting div.title {float: left; padding-right: 10px;}
+div.sorting ul {float: right;}
+div.sorting div.mode {float: left; margin-left: 80px;}
+
+/********* component/ecommerce/review_list.html *********/
+div.review div.content {clear: both;}
+
+/********* component/ecommerce/variety_list_ajax.html *********/
+div.variety_list_ajax tr:hover {cursor: pointer; cursor: hand;}
+div.variety_list_ajax tr.highlight {}
+div.variety_list_ajax a {text-decoration: none; display: block; float: left;}
+div.variety_list_ajax a.add_to_basket {margin-left: 10px; display: block; background: url(/share/images/default/basket-icon.png) no-repeat center left; padding-left: 20px; }
+div.variety_list_ajax a.add_to_basket span {display: block; white-space: nowrap;}
+div.variety_list_ajax a span.name {text-decoration: underline;}
+div.variety_list_ajax p {margin-bottom: 1em;}
+div.variety_list_ajax div.description p {margin: 0 0 2em 0; font-size: 87%;}
+div.variety_list_ajax table {border: 0; margin: 0;}
+div.variety_list_ajax td {border: 0; padding: 3px;}
+
+/********* component/ecommerce/variety_list.html *********/
+div.variety_list {clear: both;}
+div.variety_list span.price {float: right;}
+div.variety_list div.outofstock span.label {text-decoration: line-through;}
+div.variety_list div.outofstock span.outofstock_message {display: none;}
+div.variety_list form span.field,
+div.variety_list form span.label {display: inline; width: auto;}
+div.variety_list form span.field {padding-right: 1em;}
+div.variety_list div.description {padding-left: 4em; font-size: 90%;}
+div.variety_list div.description p {margin: 0; padding: 0;}
+div.variety_list div.item {margin: 1em 0;}
+div.variety_list button.add_to_basket {float: right;}
+div.variety_list div.product_options {float: right; padding-bottom: 1em;}
+div.variety_list p.add_to_basket {clear: both;}
+
+/********* node/page/product.html *********/
+/*tabs product detail*/
+div.product ul.tabs {margin-left: 0; padding-left: 0;}
+div.product ul.tabs li {display: block; float: left; margin-left: 0; margin-bottom: 0; }
+div.product ul.tabs li a {border: 1px solid #ccc;  border-width: 1px 0 1px 1px; display: block; padding: 5px 10px;}
+div.product ul.tabs li.last a {border-width: 1px}
+div.product ul.tabs li a.current {text-decoration: none;}
+div.product div.panes {clear: both; padding: 1em 0;}
+
+/********* component/ecommerce/product_other_data.html *********/
+div.product_other_data dt {clear: both; float: left; font-weight: bold; padding: 0 0 5px 0;}
+div.product_other_data dd {padding: 0 0 5px 20px;}
+
+
+div.promotion_code form.enter h3 {display: none;}
+
+/********* component/ecommerce/gift_card.html *********/
+div.gift_card {width: 7cm; height: 6cm; position: absolute; left: 10.5cm; top: 11cm;}
+div.gift_message p {color: black; white-space: normal; font-family: Arial; font-size: 10pt; padding: 0; margin: 0; line-height: 1.5em;}
+
+/*basket load indicator*/
+div.loading#basket,
+a.add_to_basket.loading {background: url(/share/images/ajax-indicator/indicator_arrows.gif) no-repeat center left;}
+
+/**
+ * component/ecommerce/store_map.html
+ */
+ 
+div.store_map img {max-width: none;}
+
+/**
+ * component/ecommerce/store_locator.html
+ * store locator infoBox
+ */
+
+div.store_locator #mapCanvas div.infoBox,
+div.store_locator #mapCanvas div.infoBox div,
+div.store_locator #mapCanvas div.infoBox span,
+div.store_locator #mapCanvas div.infoBox a {font-family: inherit; font-size: inherit; font-weight: inherit;}
+div.store_locator #mapCanvas div.infoBox p {width: 340px; margin: 0; padding: 0;}
+div.store_locator #mapCanvas div.infoBox p.image {float: left; width: 130px; height: 130px; margin: 0 20px 0 20px; border-radius: 100%; overflow: hidden; }
+div.store_locator #mapCanvas div.infoBox p.image img {width: 130px; border-radius: 100%;}
+div.store_locator #mapCanvas div.infoBox p.address {font-weight: bold;}
