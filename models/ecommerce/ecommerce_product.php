@@ -2,7 +2,7 @@
 /**
  * class ecommerce_product
  *
- * Copyright (c) 2009-2014 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2009-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -464,43 +464,42 @@ CREATE TABLE ecommerce_product (
     
     function getFilteredProductList($filter = null, $currency_code = GLOBAL_DEFAULT_CURRENCY, $price_type = 'common') {
     	
-    	//sanitize input
+    	// sanitize input
     	$filter['keyword'] = pg_escape_string(trim($filter['keyword']));//addslashes or pg_escape_string
     	
     	$add_to_where = '';
 
     	if (is_array($filter)) {
     	
-	    	//node_id
-	    	if (is_array($filter['node_id'])) {
-	    		if ($node_id > 0 && is_numeric($node_id)) $add_to_where = " AND product.id IN (SELECT content FROM common_node WHERE node_group = 'page' AND node_controller ~ 'product' AND parent = $node_id)";
-	    		$x="node.node_group = 'page' AND node.node_controller ~ 'product' AND node.parent = $node_id AND node.publish = 1";
+	    	// node_id (get a list of products sitting (their homepage is) under node_id
+	    	if (is_numeric($filter['node_id']) && $filter['node_id'] > 0) {
+		    	$add_to_where .= " AND product.id IN (SELECT content::int FROM common_node WHERE node_group = 'page' AND node_controller = 'product' AND parent = {$filter['node_id']})";
 	    	}
 	    	
-	    	//keyword
+	    	// keyword
 	    	if (is_numeric($filter['keyword'])) $add_to_where .= " AND product.id = {$filter['keyword']} OR variety.id = {$filter['keyword']} OR variety.sku = '{$filter['keyword']}'";
 	    	else if ($filter['keyword'] != '') $add_to_where .= " AND (variety.sku ILIKE '%{$filter['keyword']}%' OR product.name ILIKE '%{$filter['keyword']}%')";
 	    	else $add_to_where .= " AND (image.role != 'RTE' OR image.role IS NULL) "; //use image filter only when not empty keyword (it allows to find product with one image role RTE)
 	    	
-	    	//stock value
+	    	// stock value
 	    	if (is_numeric($filter['stock']) && $filter['stock'] >= 0) $add_to_where .= " AND variety.stock < {$filter['stock']}";
 	    	
-	    	//publish filter and deprecated disable/enabled option
+	    	// publish filter and deprecated disable/enabled option
 	    	if ($filter['publish'] === 0 || $filter['disabled'] == 'disabled') $add_to_where .= " AND product.publish = 0";
 	    	else if ($filter['publish'] === 1  || $filter['disabled'] == 'enabled') $add_to_where .= " AND product.publish = 1 AND variety.publish = 1";
 	    	
-	    	//specal offer
+	    	// special offer
 	    	if (is_numeric($filter['offer_group_id'])) {
 	    		$add_to_where .= " AND variety.id IN (SELECT product_variety_id FROM ecommerce_offer WHERE offer_group_id = {$filter['offer_group_id']})";
 	    	}
 
-	    	//image role
+	    	// image role
 	    	if ($filter['image_role']) {
 	    		$filter['image_role'] = pg_escape_string($filter['image_role']);
 	    		$add_to_where .= " AND image.role = '{$filter['image_role']}'";
 	    	}
 	    	
-	    	//taxonomy
+	    	// taxonomy
 	    	if ($filter['taxonomy_json']) {
 	    	
 	    		$taxonomy_list = json_decode($filter['taxonomy_json']);
@@ -614,7 +613,7 @@ variety.stock, price.date, product.publish, product.modified, variety.sku, varie
 		
 		if (is_array($records)) {
 			
-			//change node_id to productHomepage
+			// change node_id to productHomepage
 			foreach($records as $k=>$record) {
 				$homepage = $this->getProductHomepage($record['product_id']);
 				$records[$k]['node_id'] = $homepage['id'];

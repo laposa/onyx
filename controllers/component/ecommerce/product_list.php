@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2010-2014 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2010-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -314,6 +314,15 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
 			
 			$filter['keyword'] = $this->addKeywordFilter();
 			
+			/**
+			 * fallback to listing products which homepage is under the node_id
+			 */
+			 
+			if (empty($filter['taxonomy_json']) && empty($filter['keyword']))  {
+				
+				$filter['node_id'] = $node_id;
+				
+			}
 			
 			/**
 			 * get product list
