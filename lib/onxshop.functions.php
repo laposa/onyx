@@ -327,6 +327,19 @@ function xmlentities($string, $quote_style=ENT_QUOTES) {
     
 }
 
+
+/**
+ * Clean UTF8 for XML and JSON
+ *
+ * http://stackoverflow.com/questions/12229572/php-generated-xml-shows-invalid-char-value-27-message
+ */
+
+function utf8_for_xml($string) {
+	
+	return preg_replace('/[^\x{0009}\x{000a}\x{000d}\x{0020}-\x{D7FF}\x{E000}-\x{FFFD}]+/u', ' ', $string);
+
+}
+
 /**
  * Convert HTML to text
  */

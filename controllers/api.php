@@ -74,6 +74,9 @@ class Onxshop_Controller_Api extends Onxshop_Controller {
 		
 		}
 		
+		// clean invalid characters
+		$content_formated = utf8_for_xml($content_formated);
+		
 		return $content_formated;
 	
 	}
