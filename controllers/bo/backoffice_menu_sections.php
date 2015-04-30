@@ -18,15 +18,18 @@ class Onxshop_Controller_Bo_Backoffice_Menu_Sections extends Onxshop_Controller_
 		/**
 		 * Manage Sections Menu
 		 */
+
+		$active_page = 'pages';
+		$active_subpage = '';
 		
 		if (preg_match('/backoffice/', $_SERVER['REQUEST_URI'])) {
 			$active_array = explode("/", $_SERVER['REQUEST_URI']);
-			$active = preg_replace("/\?.*$/", "", $active_array[2]);
-		} else {
-			$active = 'pages';
+			$active_page = preg_replace("/\?.*$/", "", $active_array[2]);
+			if (count($active_array) > 2) $active_subpage = preg_replace("/\?.*$/", "", $active_array[3]);
 		}
-		
-		$this->tpl->assign("ACTIVE_{$active}", 'active');
+
+		$this->tpl->assign("ACTIVE_{$active_page}", 'active');
+		$this->tpl->assign("ACTIVE_{$active_page}_{$active_subpage}", 'active');
 
 		/**
 		 * ACL
