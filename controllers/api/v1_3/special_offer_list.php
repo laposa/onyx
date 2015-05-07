@@ -37,6 +37,7 @@ class Onxshop_Controller_Api_v1_3_Special_Offer_List extends Onxshop_Controller_
 		$item['rondel'] = $this->getRoundelText($original_item);
 		$item['rondel_image_url'] = $this->getRoundelImageSource($original_item);
 		$item['price'] = money_format('%n', $original_item['price']);
+		$item['start_date'] = $original_item['group_schedule_start'];
 		$item['expiry_date'] = $original_item['group_schedule_end'];
 		$item['taxonomy'] = $this->getTaxonomy($original_item['product_id'], $Product);
 		$item['product_id'] = $product_detail['variety'][0]['sku'];//TODO this is showing only first ones
