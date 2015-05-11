@@ -401,9 +401,23 @@ CREATE TABLE ecommerce_price (
 		$Product_Varity = new ecommerce_product_variety();
 		$product_variety = $Product_Varity->getDetail($product_variety_id);
 		$min_price = (int) $product_variety['other_data']['min_price'];
-		
-		$type = "multiplicator_$multiplicator";
+
+		// linear growth by default
+		$exponent = 1;
+
+		if ($this->conf['multiplicator_growth'] == "exponential_over_1") {
+			// need to check if exponent is not set
+			if (is_numeric($product_variety['other_data']['exponent'])) {
+				$exponent = $product_variety['other_data']['exponent'];
+			} else {
+				// otherwise set it as per global configuration
+				if (is_numeric($this->conf['multiplicator_exponent'])) $exponent = $this->conf['multiplicator_exponent'];
+			}
+		}
+
+		$type = "multiplicator_{$multiplicator}";
 		if ($min_price > 0) $type .= "_min_$min_price";
+		if ($exponent != 1) $type .= "_exponent_$exponent";
 		$price_data = $this->getLastPriceForVariety($product_variety_id, GLOBAL_DEFAULT_CURRENCY, $type);
 		$common_price_data = $this->getLastPriceForVariety($product_variety_id);
 		
@@ -419,7 +433,7 @@ CREATE TABLE ecommerce_price (
 			switch ($this->conf['multiplicator_growth']) {
 				case 'exponential_over_1':
 					//exponential for multiplicator value greater than 1, under 1 is linear
-					if ($multiplicator > 1) $price_data['value'] = $common_price_data['value'] * pow($multiplicator, $this->conf['multiplicator_exponent']);
+					if ($multiplicator > 1) $price_data['value'] = $common_price_data['value'] * pow($multiplicator, $exponent);
 					else $price_data['value'] = $common_price_data['value'] * $multiplicator;
 					break;
 				case 'linear':
