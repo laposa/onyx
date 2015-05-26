@@ -18,7 +18,7 @@ $(document).ready(function() {
 <div class="twitter_timeline_slider">
 	
 	<div class="cycle">
-		{ONXSHOP_REQUEST_twitter_timeline #component/client/twitter_timeline}
+		{ONXSHOP_REQUEST_twitter_timeline #component/client/twitter_timeline~limit_from=GET.limit_from:limit_per_page=GET.limit_per_page:limit_fetch=GET.limit_fetch~}
 		<div class="controls">
 		<a href="#" title="previous" class="prev"><span>&#9668;</span></a>
 		<a href="#" title="next" class="next"><span>&#9658;</span></a>
