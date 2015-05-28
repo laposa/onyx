@@ -1,14 +1,16 @@
 <!-- BEGIN: title -->Reviews & Comments<!-- END: title -->
 <!-- BEGIN: content -->
 
-<div id="reviews_page" class="twoColumnPage page">
+<div id="reviews_page" class="twoColumnPage page sidebar">
 	<div class="top"><span></span></div>
 	<div class="content">
 		<div class="pageWrapper">
 
-			<div class="pageHeader">
-				<div class="pageHeaderWrapper">
-					<h1 class="pageTitle"><span>Reviews &amp; Comments</span></h1>
+			<div id="pageHeaderWrapper">
+				<div class="pageHeader">
+					<div class="pageHeaderWrapper">
+						<h1 class="pageTitle"><span>Reviews &amp; Comments</span></h1>
+					</div>
 				</div>
 			</div>
 
@@ -17,10 +19,16 @@
 					<div class="rowTop">
 						<div class="rowWrapper">
 							<div class="columnWrapper">
+								{CONTAINER.0}
+							</div>
+						</div>
+					</div>
+					<div class="rowMiddle">
+						<div class="rowWrapper">
+							<div class="columnOne">
+								<div class="columnWrapper">
 
-								<div class="onxshop_tabs">
-
-									<ul>
+									<ul id="review_type_menu">
 										<li><a href="#product_reviews" data-url="/request/bo/component/ecommerce/product_review_list"><span>Product Reviews</span></a></li>
 										<li><a href="#recipe_reviews" data-url="/request/bo/component/ecommerce/recipe_review_list"><span>Recipe Reviews</span></a></li>
 										<li><a href="#blog_comments" data-url="/request/bo/component/comment_list"><span>Blog Comments</span></a></li>
@@ -28,14 +36,19 @@
 									</ul>
 
 								</div>
+							</div>
+							<div class="columnTwo">
+								<div class="columnWrapper">
 
-								<div id="sub_content">
-									<p>Please select from the menu above...</p>
+									<div id="sub_content">
+										<p>Please select from the menu...</p>
+									</div>
+									
 								</div>
-
 							</div>
 						</div>
 					</div>
+					
 				</div>
 			</div>
 		</div>
@@ -43,12 +56,11 @@
 	<div class="bottom"><span></span></div>
 </div>
 
-
 <script type="text/javascript">
 
 	$(function(){
 
-		$('.onxshop_tabs a').click(function() {
+		$('#review_type_menu a').click(function() {
 			var a = $(this);
 			var li = a.parent();
 			var ul = li.parent();

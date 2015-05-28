@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2010-2011 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2010-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -46,6 +46,10 @@ class Onxshop_Controller_Bo_Component_Comment_List extends Onxshop_Controller {
 					case 1: $item['publish'] = 'approved'; break;
 					case -1: $item['publish'] = 'rejected'; break;
 				}
+				
+				if (trim($item['title']) == '') $item['title'] = 'no title';
+				if (trim($item['author_name']) == '') $item['author_name'] = 'n/a';
+				
 				$this->tpl->assign('ITEM', $item);
 				$this->tpl->parse('content.item');
 			}

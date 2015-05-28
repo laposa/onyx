@@ -12,17 +12,17 @@
 				<th>Title</th>
 				<th>Author</th>
 				<th>Created</th>
-				<th>Product</th>
+				<th>Recipe</th>
 				<th>Published</th>
 			</tr>
 		</thead>
 		<tbody>
 			<!-- BEGIN: item -->
 			<tr>
-				<td><a title="Edit promotion settings" onclick="makeAjaxRequest('#reviews_page', '/request/bo/component/ecommerce/recipe_review_edit~id={ITEM.id}~'); return false" href="#reviews_page">{ITEM.title|htmlspecialchars}</a></td>
-				<td><a href="/backoffice/customers/{ITEM.customer_id}/detail">{ITEM.author_name|htmlspecialchars}</a></td>
+				<td><a title="Edit Review" onclick="makeAjaxRequest('#reviews_page', '/request/bo/component/ecommerce/recipe_review_edit~id={ITEM.id}~'); return false" href="#reviews_page">{ITEM.title|htmlspecialchars}</a></td>
+				<td><a href="/backoffice/customers/{ITEM.customer_id}/detail">{ITEM.author_name|htmlspecialchars} (ID {ITEM.customer_id})</a></td>
 				<td>{ITEM.created}</td>
-				<td><a href="/backoffice/products/{ITEM.node_id}/edit">{ITEM.node_id}</a></td>
+				<td><a href="/backoffice/recipes/{ITEM.node_id}/edit">{ITEM.node_id}</a></td>
 				<td>{ITEM.publish}</td>
 			</tr>
 			<!-- END: item -->
