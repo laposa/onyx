@@ -93,7 +93,9 @@ class Onxshop_Controller_Bo_Component_Server_Browser_Menu extends Onxshop_Contro
 		foreach ($directories as $directory_prefix) {
 		
 			$directory = $directory_prefix . $this->GET['directory'];
-			$list_single = $File->getTree($directory, $find_param);
+
+			if (file_exists($directory) && is_dir($directory)) $list_single = $File->getTree($directory, $find_param);
+			else $list_single = array();
 
 			$list = array_merge($list, $list_single);
 			
