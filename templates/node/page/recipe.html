@@ -47,10 +47,12 @@
 								<div class="recipe_image">
 									{ONXSHOP_REQUEST_image #component/image~node_id=GET.recipe_id:relation=recipe:width=300~}
 								</div>
-								{RECIPE.description}
-								<p>Serves {RECIPE.serving_people} {RECIPE.persons}</p>
-								<p>Cooking time: {RECIPE.cooking_time} {RECIPE.minutes}</p>
-		
+								<div class="recipe_video">
+									{RECIPE_VIDEO}
+								</div>
+								<div class="description">{RECIPE.description}</div>
+								<p class="serves">Serves {RECIPE.serving_people} {RECIPE.persons}</p>
+								<p class="cooking_time">Cooking time: {RECIPE.cooking_time} {RECIPE.minutes}</p>
 								{CONTAINER.0}
 							</div>
 						</div>
@@ -60,7 +62,6 @@
 						<div class="rowWrapper">
 							<div class="columnOne">
 								<div class="columnWrapper">		
-									<h3>Method</h3>
 									<div class="instructions">
 										{RECIPE.instructions}
 									</div>
@@ -71,7 +72,6 @@
 							<div class="columnTwo">
 								<div class="columnWrapper">
 									{ONXSHOP_REQUEST_recipe_ingredients #component/ecommerce/recipe_ingredients~id=GET.recipe_id~}
-									
 									{CONTAINER.2}
 								</div>
 							</div>
