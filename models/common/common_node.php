@@ -292,7 +292,7 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 		//checkout pages (wizard checkout)
 		if (!is_numeric($conf['id_map-checkout_basket'])) $conf['id_map-checkout_basket'] = $conf['id_map-basket'];
 		if (!is_numeric($conf['id_map-checkout_login'])) $conf['id_map-checkout_login'] = 4527;
-		if (!is_numeric($conf['id_map-checkout_delivery_options'])) $conf['id_map-checkout_delivery_options'] = 4512;
+		if (!is_numeric($conf['id_map-checkout_delivery_options'])) $conf['id_map-checkout_delivery_options'] = $conf['id_map-checkout']; // by default same as checkout page
 		if (!is_numeric($conf['id_map-checkout_gift'])) $conf['id_map-checkout_gift'] = 4513;
 		if (!is_numeric($conf['id_map-checkout_summary'])) $conf['id_map-checkout_summary'] = 4515;
 		if (!is_numeric($conf['id_map-checkout_payment'])) $conf['id_map-checkout_payment'] = $conf['id_map-payment'];

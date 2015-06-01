@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2005-2013 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2005-2015 Laposa Ltd (http://laposa.co.uk)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -51,6 +51,7 @@ class Onxshop_Controller_Component_Ecommerce_Basket_Detail extends Onxshop_Contr
 	/**
 	 * set vat flag according to delivery address
 	 */
+	 
 	protected function setVatFlag($customer_id)
 	{
 		$Order = new ecommerce_order();
@@ -69,6 +70,7 @@ class Onxshop_Controller_Component_Ecommerce_Basket_Detail extends Onxshop_Contr
 	/**
 	 * customer calculations
 	 */
+	 
 	protected function processBasketCalculations(&$basket)
 	{
 		$this->prepareAddresses();
@@ -79,6 +81,10 @@ class Onxshop_Controller_Component_Ecommerce_Basket_Detail extends Onxshop_Contr
 
 		$this->Basket->calculateBasketTotals($basket);
 	}
+	
+	/**
+	 * calculateDiscountAndDelivery
+	 */
 
 	protected function calculateDiscountAndDelivery(&$basket)
 	{
@@ -120,24 +126,31 @@ class Onxshop_Controller_Component_Ecommerce_Basket_Detail extends Onxshop_Contr
 				);
 			}
 
+			// this only applies when using wizard checkout
 			if ($basket['delivery'] == false) $this->redirectToDeliveryOptionsPage();
 
 		}
 
 	}
 
+	/**
+	 * redirectToDeliveryOptionsPage
+	 */
+	 
 	protected function redirectToDeliveryOptionsPage()
 	{
 		require_once('models/common/common_node.php');
 		$node_conf = common_node::initConfiguration();
 
 		msg("Sorry, selected delivery method cannot be used. Please choose a different one.");
-		onxshopGoTo("page/{$node_conf['id_map-checkout_delivery_options']}");
+		// forward only if there is a separate checkout delivery options page
+		if ($node_conf['id_map-checkout_delivery_options'] != $_SESSION['active_pages'][0]) onxshopGoTo("page/{$node_conf['id_map-checkout_delivery_options']}");
 	}
 
 	/**
 	 * check if given order is finished and related to given basket
 	 */
+	 
 	protected function orderFinished($basket_id, $order_id)
 	{
 		if (!is_numeric($order_id)) return false;
@@ -149,6 +162,7 @@ class Onxshop_Controller_Component_Ecommerce_Basket_Detail extends Onxshop_Contr
 	/**
 	 * prepare addresses
 	 */
+	 
 	protected function prepareAddresses()
 	{
 		$this->guest_customer = $_SESSION['client']['customer']['guest'];
