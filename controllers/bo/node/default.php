@@ -129,6 +129,9 @@ class Onxshop_Controller_Bo_Node_Default extends Onxshop_Controller {
 		// item_image_properties.html
 		$this->initiateImagePropertiesItem();
 		
+		// preview_token
+		$this->tpl->assign('PREVIEW_TOKEN', $this->Node->getPreviewToken($this->node_data));
+		
 		// node_data
 		$this->tpl->assign('NODE', $this->node_data);
 

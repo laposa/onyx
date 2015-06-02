@@ -68,10 +68,10 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 		$GLOBALS['onxshop_conf'] = $this->array_replace_recursive($GLOBALS['onxshop_conf'], $global_conf_node_overwrites);
 		
 		/**
-		 * check if page is published, but keep it available in edit mode
+		 * check if the page can be viewed
 		 */
 		 
-		if ($node_data['publish'] == 0 && $node_data['node_group'] == 'page' && !Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) {
+		if ($node_data['node_group'] == 'page' && !$this->canViewPage($node_data)) {
 			// display 404 page
 			$_Onxshop_Request = new Onxshop_Request('node~id=' . $this->Node->conf['id_map-404'].'~'); 
 			$node_data['content'] = $_Onxshop_Request->getContent();
@@ -251,6 +251,7 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 		 */
 		 
 		if ($this->Node->checkDisplayPermission($node_data, $force_admin_visibility)) {
+			
 			//don't display hidden node in preview mode
 			if ($node_data['publish'] == 0 && Onxshop_Bo_Authentication::getInstance()->isAuthenticated() && $_SESSION['fe_edit_mode'] == 'preview' ) $visibility1 = false;
 			else $visibility1 = true;
@@ -266,7 +267,12 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 			$visibility2 = false;
 		}
 		
-		if ($visibility1 && $visibility2) return true;
+		/**
+		 * visible only if preview token is provided and all permissions are correct
+		 */
+		 
+		if ($this->checkForValidPreviewToken($node_data)) return true;
+		else if ($visibility1 && $visibility2) return true;
 		else return false;
 	
 	}
@@ -302,6 +308,49 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 	}
 	
 	/**
+	 * canViewPage
+	 * check if page is published, but keep it available in edit mode
+	 * and allow to see when provided GET.preview_token
+	 */
+	 
+	public function canViewPage($node_data) {
+		
+		if ($this->checkForValidPreviewToken($node_data)) {
+			msg("This page is waiting for approval");
+			return true;
+		} else if (Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) {
+			return true;
+		} else {
+			return $node_data['publish'];
+		}
+	}
+	
+	/**
+	 * checkForValidPreviewToken
+	 */
+	 
+	private function checkForValidPreviewToken($node_data) {
+		
+		// currently applies only to pages
+		if ($node_data['node_group'] != 'page') return;
+		
+		if (array_key_exists('preview_token', $_GET)) {
+			
+			if ($this->Node->verifyPreviewToken($node_data, $_GET['preview_token'])) {
+			
+				return true;
+			
+			} else {
+			
+				msg("Invalid preview_token", 'error');
+				return false;
+			}
+		} else {
+			return false;
+		}
+	}
+	
+	/**
 	 * merge array with overwrites (for local configuration overwrites)
 	 * TEMP: native array_replace_recursive function available in PHP 5.3
 	 */
@@ -318,4 +367,5 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 		return $Arr1;
 		
 	}
+	
 }

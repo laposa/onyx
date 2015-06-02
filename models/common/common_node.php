@@ -2018,4 +2018,29 @@ LEFT OUTER JOIN common_taxonomy_label ON (common_taxonomy_tree.label_id = common
 		
 	}
 	
+	/**
+	 * getPreviewToken
+	 */
+	 
+	public function getPreviewToken($node_data) {
+		
+		$preview_token = md5($node_data['created']);
+		
+		return $preview_token;
+		
+	}
+	
+	/**
+	 * verifyPreviewToken
+	 */
+	 
+	public function verifyPreviewToken($node_data, $preview_token) {
+		
+		$correct_preview_token = $this->getPreviewToken($node_data);
+		
+		if ($correct_preview_token == $preview_token) return true;
+		else return false;
+		
+	}
+	
 }
