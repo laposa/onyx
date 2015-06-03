@@ -56,7 +56,7 @@ class Onxshop_Controller_Export_Rss_Node extends Onxshop_Controller {
 		 * latest date
 		 */
 		 
-		$rss_date = date('D, d M Y g:i:s O', time());
+		$rss_date = date('r', time());
 		$this->tpl->assign("RSS_DATE", $rss_date);
 		
 		/**
@@ -99,7 +99,7 @@ class Onxshop_Controller_Export_Rss_Node extends Onxshop_Controller {
 				 * format date
 				 */
 				 
-				$c['rss_date'] = date('D, d M Y G:i:s O', strtotime($c['created']));
+				$c['rss_date'] = date('r', strtotime($c['created']));
 				
 				/**
 				 * get categories
