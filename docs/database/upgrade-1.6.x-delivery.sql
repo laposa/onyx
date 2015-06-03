@@ -16,6 +16,10 @@ CREATE TABLE ecommerce_delivery_carrier_rate (
 CREATE INDEX ecommerce_delivery_carrier_rate_carrier_id_idx ON ecommerce_delivery_carrier_rate USING btree (carrier_id);
 CREATE INDEX ecommerce_delivery_carrier_rate_weight_idx ON ecommerce_delivery_carrier_rate USING btree (weight_from, weight_to);
 
+COMMIT;
+
+BEGIN;
+
 DROP TABLE ecommerce_delivery_carrier_zone_price;
 
 ALTER TABLE ecommerce_delivery_carrier_zone
