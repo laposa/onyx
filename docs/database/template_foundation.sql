@@ -571,7 +571,7 @@ CREATE TABLE common_configuration (
     property character varying(255),
     value text,
     description text,
-    apply_to_children smallint DEFAULT 0::smallint
+    apply_to_children smallint DEFAULT (0)::smallint
 );
 
 
@@ -1262,15 +1262,11 @@ CREATE TABLE ecommerce_delivery_carrier (
     id integer NOT NULL,
     title character varying(255),
     description text,
-    limit_list_countries text,
-    limit_list_products text,
-    limit_list_product_types text,
-    limit_order_value numeric(12,5) DEFAULT 0 NOT NULL,
-    fixed_value numeric(12,5) DEFAULT 0 NOT NULL,
-    fixed_percentage numeric(5,2) DEFAULT 0 NOT NULL,
     priority smallint DEFAULT 0 NOT NULL,
     publish smallint DEFAULT 1 NOT NULL,
-    free_delivery_map text
+    zone_id integer,
+    order_value_from numeric(12,5),
+    order_value_to numeric(12,5)
 );
 
 
@@ -1331,8 +1327,7 @@ ALTER SEQUENCE ecommerce_delivery_carrier_rate_id_seq OWNED BY ecommerce_deliver
 
 CREATE TABLE ecommerce_delivery_carrier_zone (
     id integer NOT NULL,
-    name character varying(255),
-    carrier_id integer DEFAULT 1 NOT NULL
+    name character varying(255)
 );
 
 
@@ -1353,38 +1348,6 @@ CREATE SEQUENCE ecommerce_delivery_carrier_zone_id_seq
 --
 
 ALTER SEQUENCE ecommerce_delivery_carrier_zone_id_seq OWNED BY ecommerce_delivery_carrier_zone.id;
-
-
---
--- Name: ecommerce_delivery_carrier_zone_price; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE ecommerce_delivery_carrier_zone_price (
-    id integer NOT NULL,
-    zone_id integer NOT NULL,
-    weight integer,
-    price numeric(9,2),
-    currency_code character(3)
-);
-
-
---
--- Name: ecommerce_delivery_carrier_zone_price_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE ecommerce_delivery_carrier_zone_price_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: ecommerce_delivery_carrier_zone_price_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE ecommerce_delivery_carrier_zone_price_id_seq OWNED BY ecommerce_delivery_carrier_zone_price.id;
 
 
 --
@@ -3101,13 +3064,6 @@ ALTER TABLE ONLY ecommerce_delivery_carrier_zone ALTER COLUMN id SET DEFAULT nex
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY ecommerce_delivery_carrier_zone_price ALTER COLUMN id SET DEFAULT nextval('ecommerce_delivery_carrier_zone_price_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY ecommerce_delivery_carrier_zone_to_country ALTER COLUMN id SET DEFAULT nextval('ecommerce_delivery_carrier_zone_to_country_id_seq'::regclass);
 
 
@@ -3645,6 +3601,21 @@ SELECT pg_catalog.setval('common_configuration_id_seq', 17, true);
 
 
 --
+-- Data for Name: common_email; Type: TABLE DATA; Schema: public; Owner: -
+--
+
+COPY common_email (id, email_from, name_from, subject, content, template, email_recipient, name_recipient, created, ip) FROM stdin;
+\.
+
+
+--
+-- Name: common_email_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
+--
+
+SELECT pg_catalog.setval('common_email_id_seq', 1, false);
+
+
+--
 -- Data for Name: common_file; Type: TABLE DATA; Schema: public; Owner: -
 --
 
@@ -4125,13 +4096,13 @@ COPY ecommerce_delivery (id, order_id, carrier_id, value_net, vat, vat_rate, req
 -- Data for Name: ecommerce_delivery_carrier; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY ecommerce_delivery_carrier (id, title, description, limit_list_countries, limit_list_products, limit_list_product_types, limit_order_value, fixed_value, fixed_percentage, priority, publish, free_delivery_map) FROM stdin;
-1	Standard	\N	\N	\N	\N	0.00000	5.00000	0.00	0	0	\N
-2	Royal Mail 1st Class Post	\N	\N	\N	\N	0.00000	0.00000	0.00	0	1	\N
-3	DHL Courier	\N	222	\N	\N	0.00000	7.00000	0.00	0	1	\N
-4	UPS	\N	\N	\N	\N	0.00000	0.00000	0.00	0	0	\N
-5	Courier	\N	\N	\N	\N	0.00000	0.00000	0.00	0	0	\N
-6	Download	\N	\N	\N	\N	0.00000	0.00000	0.00	0	0	\N
+COPY ecommerce_delivery_carrier (id, title, description, priority, publish, zone_id, order_value_from, order_value_to) FROM stdin;
+1	Standard	\N	0	0	1	\N	\N
+2	Royal Mail 1st Class Post	\N	0	1	1	\N	\N
+3	DHL Courier	\N	0	1	1	\N	\N
+4	UPS	\N	0	0	1	\N	\N
+5	Courier	\N	0	0	1	\N	\N
+6	Download	\N	0	0	1	\N	\N
 \.
 
 
@@ -4161,10 +4132,11 @@ SELECT pg_catalog.setval('ecommerce_delivery_carrier_rate_id_seq', 1, false);
 -- Data for Name: ecommerce_delivery_carrier_zone; Type: TABLE DATA; Schema: public; Owner: -
 --
 
-COPY ecommerce_delivery_carrier_zone (id, name, carrier_id) FROM stdin;
-1	UK	2
-2	Western Europe	2
-3	Rest of the World	2
+COPY ecommerce_delivery_carrier_zone (id, name) FROM stdin;
+1	Legacy
+2	UK
+3	Europe
+4	World
 \.
 
 
@@ -4172,28 +4144,7 @@ COPY ecommerce_delivery_carrier_zone (id, name, carrier_id) FROM stdin;
 -- Name: ecommerce_delivery_carrier_zone_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('ecommerce_delivery_carrier_zone_id_seq', 3, true);
-
-
---
--- Data for Name: ecommerce_delivery_carrier_zone_price; Type: TABLE DATA; Schema: public; Owner: -
---
-
-COPY ecommerce_delivery_carrier_zone_price (id, zone_id, weight, price, currency_code) FROM stdin;
-1	1	0	1.90	GBP
-2	1	1	1.40	GBP
-3	2	0	2.90	GBP
-4	2	1	3.60	GBP
-5	3	0	3.90	GBP
-6	3	1	7.50	GBP
-\.
-
-
---
--- Name: ecommerce_delivery_carrier_zone_price_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('ecommerce_delivery_carrier_zone_price_id_seq', 6, true);
+SELECT pg_catalog.setval('ecommerce_delivery_carrier_zone_id_seq', 1, true);
 
 
 --
@@ -4201,248 +4152,247 @@ SELECT pg_catalog.setval('ecommerce_delivery_carrier_zone_price_id_seq', 6, true
 --
 
 COPY ecommerce_delivery_carrier_zone_to_country (id, country_id, zone_id) FROM stdin;
-222	222	1
-5	5	2
-14	14	2
-21	21	2
-57	57	2
-70	70	2
-72	72	2
-73	73	2
-80	81	2
-83	84	2
-84	85	2
-97	98	2
-102	103	2
-104	105	2
-121	122	2
-123	124	2
-127	74	2
-141	141	2
-150	150	2
-160	160	2
-171	171	2
-182	182	2
-195	195	2
-203	203	2
-204	204	2
-228	228	2
-1	1	3
+1	222	2
 2	2	3
-3	3	3
-4	4	3
-6	6	3
-7	7	3
-8	8	3
-9	9	3
-10	10	3
-11	11	3
-12	12	3
-13	13	3
-15	15	3
-16	16	3
-17	17	3
-18	18	3
-19	19	3
-20	20	3
-22	22	3
-23	23	3
-24	24	3
-25	25	3
-26	26	3
-27	27	3
-28	28	3
-29	29	3
-30	30	3
-31	31	3
-32	32	3
-33	33	3
-34	34	3
-35	35	3
-36	36	3
-37	37	3
-38	38	3
-39	39	3
-40	40	3
-41	41	3
-42	42	3
-43	43	3
-44	44	3
-45	45	3
-46	46	3
-47	47	3
-48	48	3
-49	49	3
-50	50	3
-51	51	3
-52	52	3
-53	53	3
-54	54	3
-55	55	3
-56	56	3
-58	58	3
-59	59	3
-60	60	3
-61	61	3
-62	62	3
-63	63	3
-64	64	3
-65	65	3
-66	66	3
-67	67	3
-68	68	3
-69	69	3
-71	71	3
-74	75	3
-75	76	3
-76	77	3
-77	78	3
-78	79	3
-79	80	3
-81	82	3
-82	83	3
-85	86	3
-86	87	3
-87	88	3
-88	89	3
-89	90	3
-90	91	3
-91	92	3
-92	93	3
-93	94	3
-94	95	3
-95	96	3
-96	97	3
-98	99	3
-99	100	3
-100	101	3
-101	102	3
-103	104	3
-105	106	3
-106	107	3
-107	108	3
-108	109	3
-109	110	3
-110	111	3
-111	112	3
-112	113	3
-113	114	3
-114	115	3
-115	116	3
-116	117	3
-117	118	3
-118	119	3
-119	120	3
-120	121	3
-122	123	3
-124	125	3
-125	126	3
-126	127	3
-128	128	3
-129	129	3
-130	130	3
-131	131	3
-132	132	3
-133	133	3
-134	134	3
-135	135	3
-136	136	3
-137	137	3
-138	138	3
-139	139	3
-140	140	3
-142	142	3
-143	143	3
-144	144	3
-145	145	3
-146	146	3
-147	147	3
-148	148	3
-149	149	3
-151	151	3
-152	152	3
-153	153	3
-154	154	3
-155	155	3
-156	156	3
-157	157	3
-158	158	3
-159	159	3
-161	161	3
-162	162	3
-163	163	3
-164	164	3
-165	165	3
-166	166	3
-167	167	3
-168	168	3
-169	169	3
-170	170	3
-172	172	3
-173	173	3
-174	174	3
-175	175	3
-176	176	3
-177	177	3
-178	178	3
-179	179	3
-180	180	3
-181	181	3
-183	183	3
-184	184	3
-185	185	3
-186	186	3
-187	187	3
-188	188	3
-189	189	3
-190	190	3
-191	191	3
-192	192	3
-193	193	3
-194	194	3
-196	196	3
-197	197	3
-198	198	3
-199	199	3
-200	200	3
-201	201	3
-202	202	3
-205	205	3
-206	206	3
-207	207	3
-208	208	3
-209	209	3
-210	210	3
-211	211	3
-212	212	3
-213	213	3
-214	214	3
-215	215	3
-216	216	3
-217	217	3
-218	218	3
-219	219	3
-220	220	3
-221	221	3
-223	223	3
-224	224	3
-225	225	3
-226	226	3
-227	227	3
-229	229	3
-230	230	3
-231	231	3
-232	232	3
-233	233	3
-234	234	3
-235	235	3
-236	236	3
-237	237	3
-238	238	3
-239	239	3
-240	240	3
-241	241	3
-242	242	1
+3	5	3
+4	11	3
+5	14	3
+6	15	3
+7	20	3
+8	21	3
+9	33	3
+10	53	3
+11	55	3
+12	56	3
+13	57	3
+14	67	3
+15	72	3
+16	73	3
+17	80	3
+18	81	3
+19	83	3
+20	84	3
+21	85	3
+22	97	3
+23	98	3
+24	103	3
+25	105	3
+26	109	3
+27	115	3
+28	117	3
+29	122	3
+30	123	3
+31	124	3
+32	126	3
+33	74	3
+34	132	3
+35	140	3
+36	141	3
+37	240	3
+38	150	3
+39	160	3
+40	170	3
+41	171	3
+42	175	3
+43	176	3
+44	182	3
+45	241	3
+46	189	3
+47	190	3
+48	195	3
+49	203	3
+50	204	3
+51	207	3
+52	215	3
+53	216	3
+54	220	3
+55	226	3
+56	228	3
+57	1	4
+58	3	4
+59	4	4
+60	6	4
+61	7	4
+62	8	4
+63	9	4
+64	10	4
+65	12	4
+66	13	4
+67	16	4
+68	17	4
+69	18	4
+70	19	4
+71	22	4
+72	23	4
+73	24	4
+74	25	4
+75	26	4
+76	27	4
+77	28	4
+78	29	4
+79	30	4
+80	31	4
+81	32	4
+82	34	4
+83	35	4
+84	36	4
+85	37	4
+86	38	4
+87	39	4
+88	40	4
+89	41	4
+90	42	4
+91	43	4
+92	44	4
+93	45	4
+94	46	4
+95	47	4
+96	48	4
+97	49	4
+98	50	4
+99	51	4
+100	52	4
+101	54	4
+102	58	4
+103	59	4
+104	60	4
+105	61	4
+106	62	4
+107	63	4
+108	64	4
+109	65	4
+110	66	4
+111	68	4
+112	69	4
+113	70	4
+114	71	4
+115	75	4
+116	76	4
+117	77	4
+118	78	4
+119	79	4
+120	82	4
+121	86	4
+122	87	4
+123	88	4
+124	89	4
+125	90	4
+126	91	4
+127	92	4
+128	93	4
+129	94	4
+130	95	4
+131	96	4
+132	99	4
+133	100	4
+134	101	4
+135	102	4
+136	104	4
+137	106	4
+138	107	4
+139	108	4
+140	110	4
+141	111	4
+142	112	4
+143	113	4
+144	114	4
+145	116	4
+146	118	4
+147	119	4
+148	120	4
+149	121	4
+150	125	4
+151	127	4
+152	128	4
+153	129	4
+154	130	4
+155	131	4
+156	133	4
+157	134	4
+158	135	4
+159	136	4
+160	137	4
+161	138	4
+162	139	4
+163	142	4
+164	143	4
+165	144	4
+166	145	4
+167	146	4
+168	147	4
+169	148	4
+170	149	4
+171	151	4
+172	152	4
+173	153	4
+174	154	4
+175	155	4
+176	156	4
+177	157	4
+178	158	4
+179	159	4
+180	161	4
+181	162	4
+182	163	4
+183	164	4
+184	165	4
+185	166	4
+186	167	4
+187	168	4
+188	169	4
+189	172	4
+190	173	4
+191	174	4
+192	177	4
+193	178	4
+194	179	4
+195	180	4
+196	181	4
+197	183	4
+198	184	4
+199	185	4
+200	186	4
+201	187	4
+202	188	4
+203	191	4
+204	192	4
+205	193	4
+206	194	4
+207	196	4
+208	197	4
+209	198	4
+210	199	4
+211	200	4
+212	201	4
+213	202	4
+214	205	4
+215	206	4
+216	208	4
+217	209	4
+218	210	4
+219	211	4
+220	212	4
+221	213	4
+222	214	4
+223	217	4
+224	218	4
+225	219	4
+226	221	4
+227	223	4
+228	224	4
+229	225	4
+230	227	4
+231	229	4
+232	230	4
+233	231	4
+234	232	4
+235	233	4
+236	234	4
+237	235	4
+238	236	4
+239	237	4
+240	238	4
+241	239	4
 \.
 
 
@@ -4450,7 +4400,7 @@ COPY ecommerce_delivery_carrier_zone_to_country (id, country_id, zone_id) FROM s
 -- Name: ecommerce_delivery_carrier_zone_to_country_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
 --
 
-SELECT pg_catalog.setval('ecommerce_delivery_carrier_zone_to_country_id_seq', 242, true);
+SELECT pg_catalog.setval('ecommerce_delivery_carrier_zone_to_country_id_seq', 241, true);
 
 
 --
@@ -5474,12 +5424,6 @@ COPY international_translation (id, locale, original_string, translated_string, 
 
 SELECT pg_catalog.setval('international_translation_id_seq', 1, false);
 
---
--- offer_group_id_product_variety_id_key
--- 
-
-ALTER TABLE ONLY ecommerce_offer ADD CONSTRAINT offer_group_id_product_variety_id_key UNIQUE (offer_group_id, product_variety_id);
-
 
 --
 -- Name: client_action_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
@@ -5783,14 +5727,6 @@ ALTER TABLE ONLY ecommerce_delivery_carrier_rate
 
 ALTER TABLE ONLY ecommerce_delivery_carrier_zone
     ADD CONSTRAINT ecommerce_delivery_carrier_zone_pkey PRIMARY KEY (id);
-
-
---
--- Name: ecommerce_delivery_carrier_zone_price_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY ecommerce_delivery_carrier_zone_price
-    ADD CONSTRAINT ecommerce_delivery_carrier_zone_price_pkey PRIMARY KEY (id);
 
 
 --
@@ -6151,6 +6087,14 @@ ALTER TABLE ONLY international_translation
 
 ALTER TABLE ONLY common_node_taxonomy
     ADD CONSTRAINT node_node_id_taxonomy_tree_id_key UNIQUE (node_id, taxonomy_tree_id);
+
+
+--
+-- Name: offer_group_id_product_variety_id_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY ecommerce_offer
+    ADD CONSTRAINT offer_group_id_product_variety_id_key UNIQUE (offer_group_id, product_variety_id);
 
 
 --
@@ -7076,14 +7020,6 @@ ALTER TABLE ONLY ecommerce_basket
 
 
 --
--- Name: ecommerce_delivery_carrier_country_to_zone_zone_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY ecommerce_delivery_carrier_zone_to_country
-    ADD CONSTRAINT ecommerce_delivery_carrier_country_to_zone_zone_id_fkey FOREIGN KEY (zone_id) REFERENCES ecommerce_delivery_carrier_zone(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
 -- Name: ecommerce_delivery_carrier_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -7100,19 +7036,27 @@ ALTER TABLE ONLY ecommerce_delivery_carrier_rate
 
 
 --
--- Name: ecommerce_delivery_carrier_zone_carrier_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: ecommerce_delivery_carrier_zone_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY ecommerce_delivery_carrier_zone
-    ADD CONSTRAINT ecommerce_delivery_carrier_zone_carrier_id_fkey FOREIGN KEY (carrier_id) REFERENCES ecommerce_delivery_carrier(id) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE ONLY ecommerce_delivery_carrier
+    ADD CONSTRAINT ecommerce_delivery_carrier_zone_id_fkey FOREIGN KEY (zone_id) REFERENCES ecommerce_delivery_carrier_zone(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
--- Name: ecommerce_delivery_carrier_zone_price_zone_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: ecommerce_delivery_carrier_zone_to_country_country_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY ecommerce_delivery_carrier_zone_price
-    ADD CONSTRAINT ecommerce_delivery_carrier_zone_price_zone_id_fkey FOREIGN KEY (zone_id) REFERENCES ecommerce_delivery_carrier_zone(id) ON UPDATE CASCADE ON DELETE CASCADE;
+ALTER TABLE ONLY ecommerce_delivery_carrier_zone_to_country
+    ADD CONSTRAINT ecommerce_delivery_carrier_zone_to_country_country_id_fkey FOREIGN KEY (country_id) REFERENCES international_country(id) ON UPDATE CASCADE ON DELETE CASCADE;
+
+
+--
+-- Name: ecommerce_delivery_carrier_zone_to_country_zone_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY ecommerce_delivery_carrier_zone_to_country
+    ADD CONSTRAINT ecommerce_delivery_carrier_zone_to_country_zone_id_fkey FOREIGN KEY (zone_id) REFERENCES ecommerce_delivery_carrier_zone(id) ON UPDATE CASCADE ON DELETE CASCADE;
 
 
 --
