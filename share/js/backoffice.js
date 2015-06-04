@@ -19,11 +19,8 @@ function openAjaxRequestInDialog(url, title) {
 	})
 	.dialog({
 		width: 560, 
+		position: { my: "center", at: "top+20%", of: window},
 		modal: true, 
-		overlay: {
-			opacity: 0.5, 
-			background: 'black'
-		}, 
 		close: function() {
 			$('#dialog').empty()
 		},
