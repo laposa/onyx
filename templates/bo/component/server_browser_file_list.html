@@ -69,9 +69,9 @@
 				<td>
 					<a class="ui-icon ui-icon-search" style="float: left" title="View {ITEM.name} ({ITEM.size})" href="/view/{BASE}{FOLDER}{ITEM.name}" target="_blank"><span>View</span></a>
 					<a class="ui-icon ui-icon-arrowthickstop-1-s" style="float: left" title="Download {ITEM.name} ({ITEM.size})" href="/download/{BASE}{FOLDER}{ITEM.name}"><span>Download</span></a>
-					<a class="ui-icon ui-icon-info" style="float: left" href="#" title="Size: {ITEM.size}, click to view more details" onclick="openAjaxRequestInDialog('/request/bo/component/file_info~file_path_encoded={ITEM.file_path_encoded}~'); return false"><span>View more details</span></a>
+					<a class="ui-icon ui-icon-info" style="float: left" href="#" title="Size: {ITEM.size}, click to view more details" onclick="openAjaxRequestInDialog('/request/bo/component/file_info~file_path_encoded={ITEM.file_path_encoded}~', 'File Info'); return false"><span>View more details</span></a>
 					
-					<!-- BEGIN: usage --><a href="#" onclick="openAjaxRequestInDialog('/request/bo/component/file_usage~file_path_encoded_relative={ITEM.file_path_encoded_relative}~'); return false" title="Usage">{FILE_USAGE}x</a><!-- END: usage -->
+					<!-- BEGIN: usage --><a href="#" onclick="openAjaxRequestInDialog('/request/bo/component/file_usage~file_path_encoded_relative={ITEM.file_path_encoded_relative}~', 'File Usage'); return false" title="Usage">{FILE_USAGE}x</a><!-- END: usage -->
 				</td>
 				<td>
 					<!-- BEGIN: add_to_node --><a class="button small add" title="Use {ITEM.name}" href="#serverBrowser" onclick="makeAjaxRequest('#serverBrowser', '/request/bo/component/file_add~file_path_encoded={ITEM.file_path_encoded}:type={GET.type}:role={GET.role}:relation={GET.relation}:node_id={GET.node_id}~'); "><span>Use</span></a><br /><!-- END: add_to_node -->
