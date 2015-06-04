@@ -1,5 +1,30 @@
+Onxshop (1.7.3)
+
+  * refactor how cycle2.js is used to prevent conflicts
+  * update license file, include no-warranty statement to sysinfo component
+  * make sure RSS node export is valid
+  * update database templates
+  * add delivery upgrade script
+  * allow to share link for approval without page being published
+  * add a simple protection against infinite forward loop in checkout process
+  * cleaned recipe template
+  * make sure non-existent dir doesn't break the file browser
+  * improve backoffice comments and reviews UI
+  * show configuration sections from the local dir
+  * force recipe lists to 230x130 with fill option
+  * upgrade Zend Framework to 1.12.13
+  * allow custom price multiplicator growth per product
+  * add special offer start date to API v1.3
+  * allow back office menu active class to use subpage
+  * fallback to listing products which homepage is under the node_id
+  * remove UTF8 characters invalid in XML in all API output formats
+  * FB.Canvas.setAutoGrow in Facebook SDK init
+  * make screen.css compiled by default
+
+ -- Norbert Laposa <norbert@laposa.co.uk>  2015-06-04
+
 Onxshop (1.7.2)
-  
+
   * improve solving conflicts in URL generation
   * update default configuration and template
   * upgrade html2text
@@ -19,9 +44,9 @@ Onxshop (1.7.2)
   * allow to use @ and # sign in Twitter configuration
 
  -- Norbert Laposa <norbert@laposa.co.uk>  2015-04-24
- 
+
 Onxshop (1.7.1)
-  
+
   * clean up in msg() function to allow better debugging
   * make sure all auth adapters are returning at least user id, username 
     and email and use email for logs
@@ -99,7 +124,7 @@ Onxshop (1.7.1)
   * performance optimizations
 
  -- Norbert Laposa <norbert@laposa.co.uk>  2015-04-13
- 
+
 Onxshop (1.7.0)
 
   * node rss feed upgrade (filtering by category, images)
@@ -145,7 +170,7 @@ Onxshop (1.7.0)
   * many bug fixes
 
  -- Norbert Laposa <norbert@laposa.co.uk>  2014-12-31
- 
+
 Onxshop (1.6.1)
 
   * add lock for requests with the same session_id to prevent race conditions
@@ -174,7 +199,7 @@ Onxshop (1.6.1)
   * UI improvement for RTE image select
 
  -- Norbert Laposa <norbert@laposa.co.uk>  2014-02-20
- 
+
 Onxshop (1.6.0)
 
   * Multi-file drag&drop upload to media library
