@@ -1,5 +1,6 @@
 <!-- BEGIN: head_once -->
-<!-- Requires jquercy.cycle2 libraries to be added manually i.e. node/site/default, due to conflict with image_gallery/cycle2 -->
+<!-- include cycle2.js in a way which prevents multiple initialization -->
+{ONXSHOP_REQUEST_cycle2 #component/cycle2_js}
 <script type="text/javascript">
 $(document).ready(function() {
 	$('div.twitter_timeline_slider div.cycle').cycle({

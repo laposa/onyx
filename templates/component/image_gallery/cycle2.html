@@ -1,7 +1,6 @@
 <!-- BEGIN: head_once -->
-<!-- this libraries can be included only once on the page -->
-<script type="text/javascript" src="/share/js/jquery/plugins/jquery.cycle2.js"></script>
-<script type="text/javascript" src="/share/js/jquery/plugins/jquery.cycle2.swipe.js"></script>
+<!-- include cycle2.js in a way which prevents multiple initialization -->
+{ONXSHOP_REQUEST_cycle2 #component/cycle2_js}
 <script type="text/javascript">
 $(document).ready(function() {
 	$('div.image_gallery_cycle2').cycle({
