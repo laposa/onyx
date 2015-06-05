@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2012 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2012 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  * this is by default empty, but allows to create project specific other_data in local template

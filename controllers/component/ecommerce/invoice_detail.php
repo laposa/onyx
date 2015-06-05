@@ -3,7 +3,7 @@
  * Invoice Detail
  * only shows invoice who are not canceled (invoice status = 1)
  *
- * Copyright (c) 2008-2014 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2008-2014 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */

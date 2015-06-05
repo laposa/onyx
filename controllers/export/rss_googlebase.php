@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2008-201 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2008-201 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
  

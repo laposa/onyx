@@ -2,7 +2,7 @@
 /**
  * Order list filter
  *
- * Copyright (c) 2008-2014 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2008-2014 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */

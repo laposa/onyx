@@ -5,7 +5,7 @@
  * An entry point for all actions except thumbnails and download handlers (share/*.php scripts),
  * see htaccess for more details. 
  *
- * Copyright (c) 2008-2012 Laposa Ltd (http://laposa.co.uk)
+ * Copyright (c) 2008-2012 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
