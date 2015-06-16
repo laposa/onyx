@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2007-2014 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2007-2015 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -89,14 +89,25 @@ class Onxshop_Controller_Component_Image_Gallery extends Onxshop_Controller_Comp
 				
 				$item['path'] = $image_list[$k]['path'] = $img_path;
 				$item['thumbnail_size'] = $thumbnail_size;
-				$this->tpl->assign('ITEM', $item);
-				$this->tpl->parse('content.thumbnails.item');
-		
+				
+				$this->assignAndParseThumbnailItem($item);
+				
 			}
 		
 			$this->tpl->parse('content.thumbnails');
 		
 		}
+		
+	}
+	
+	/**
+	 * assignAndParseThumbnailItem
+	 */
+	 
+	public function assignAndParseThumbnailItem($item) {
+		
+		$this->tpl->assign('ITEM', $item);
+		$this->tpl->parse('content.thumbnails.item');
 		
 	}
 	
