@@ -113,6 +113,12 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
 		$this->saveBodyCssClass($body_css_class);
 
 		/**
+		 * save node_id to registry
+		 */
+		 	
+		Zend_Registry::set('node_id', $this->GET['id']);
+		
+		/**
 		 * process open graph tags
 		 */
 		 
