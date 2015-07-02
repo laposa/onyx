@@ -55,5 +55,8 @@ https://github.com/laposa/onxshop/blob/master/share/css/default/src/layout.css
 
 TODO: fix inconsistencies in next major release (Onxshop 1.8)
 -------------------------------------------------------------
-- node wrappers like #node_id_1234 should be using dashes
+- node wrappers like #node_id_1234 should be using dashes #node-id-1234
 - div.node_group-content should be div.node-group-content
+- body CSS classes should be using dashes, for example node_id_5 and parent_node_id_88 should be node-id-5 and parent-node-id-88
+- navigation items should be using dashes, for example node_id_1033 should be node-id-1033, has_child should be has-child
+- content-RTE should be content_RTE
