@@ -13,10 +13,10 @@
     <div class="pics">
     	<!-- BEGIN: placeholder --><img class="placeholder" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" width="{DIMENSION_MAX.width}" /><!-- END: placeholder -->
 		<!-- BEGIN: item -->
-		<div class="imageElement">
-			<!-- BEGIN: normal --><span class="imageWrap"><img id="image_id_{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" /></span><!-- END: normal -->
-			<!-- BEGIN: link --><span class="imageWrap"><a href="/page/{ITEM.link_to_node_id}" title="{ITEM.title|htmlspecialchars}"><img id="image_id_{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" /></a></span><!-- END: link -->
-			<div class="imageInfo">
+		<div class="item">
+			<!-- BEGIN: normal --><span class="wrap"><img id="image_id_{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" /></span><!-- END: normal -->
+			<!-- BEGIN: link --><span class="wrap"><a href="/page/{ITEM.link_to_node_id}" title="{ITEM.title|htmlspecialchars}"><img id="image_id_{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" /></a></span><!-- END: link -->
+			<div class="info">
 				<h5>{ITEM.title|htmlspecialchars}</h5>
 				<p>{ITEM.description|htmlspecialchars}</p>
 			</div>
@@ -58,7 +58,7 @@ function activateGalleryCycle{GET.node_id}() {
 	    pause: 1,
 	    fit: 1,
 	    slideResize: 0,
-	    slideExpr: 'div.imageElement',
+	    slideExpr: '#gallery_cycle_{GET.node_id} div.item',
 	    easing: {CYCLE.easing},
 	    next: '#gallery_cycle_{GET.node_id} a.next',
         prev: '#gallery_cycle_{GET.node_id} a.prev',

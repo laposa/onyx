@@ -30,7 +30,7 @@ $(window).load(function() {
 <!-- BEGIN: content -->
 <div class="image_gallery_nivo number_of_items_{IMAGE_COUNT}" id="gallery_nivo_{GET.node_id}">
 	<!-- BEGIN: item -->
-	<div class="item image_id_{GET.relation}{ITEM.id}"><span class="imageWrap"><a class="single_image{GET.relation}{GET.node_id}" rel="single_image{GET.relation}{GET.node_id}" title="{ITEM.title|htmlspecialchars}" href="{FULL_SIZE_IMAGE_WIDTH_PATH}{ITEM.src}"><img id="image_id_{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" /></a></span></div>
+	<div class="item image_id_{GET.relation}{ITEM.id}"><span class="wrap"><a class="single_image{GET.relation}{GET.node_id}" rel="single_image{GET.relation}{GET.node_id}" title="{ITEM.title|htmlspecialchars}" href="{FULL_SIZE_IMAGE_WIDTH_PATH}{ITEM.src}"><img id="image_id_{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" /></a></span></div>
 	<!-- END: item -->
 </div>
 <!-- END: content -->

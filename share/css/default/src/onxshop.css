@@ -277,17 +277,17 @@ div.image_gallery_parallax {text-align: center;}
 div.image_gallery_parallax div.item {display: table; width: 100%; margin: 0; background-repeat: no-repeat; background-size: cover; background-attachment: fixed; background-position-x: center;}
 div.image_gallery_parallax div.item a.image {display: table-cell; vertical-align: middle; width: 100%;}
 div.image_gallery_parallax div.item img {display: none;}
-div.image_gallery_parallax div.sliderCopy {text-align: center;}
+div.image_gallery_parallax div.slider_copy {text-align: center;}
 div.image_gallery_parallax a {text-decoration: none;}
-div.image_gallery_parallax div.sliderCopy h3 {text-align: center;}
+div.image_gallery_parallax div.slider_copy h3 {text-align: center;}
 
 /********* component/google_picasa_feed.html *********/
-div.googlePicasaFeed div.imageThumbnailsContainer {width: 750px; height: 100px; overflow: auto; white-space: nowrap;}
-div.googlePicasaFeed div.imageThumbnail {float: left; height: 75px; padding-right: 15px;}
-div.googlePicasaFeed div.imageFull {width: 100%; text-align: center; padding-top: 5px;}
-div.googlePicasaFeed div.imageFull div.imageFullWrapper {clear: both;}
-div.googlePicasaFeed table {padding: 0; margin: 0; border-style: none; border-width: 0;}
-div.googlePicasaFeed table td {padding: 0; margin: 0; border-style: none; border-width: 0;}
+div.google_picasa_feed div.thumbnails_container {width: 750px; height: 100px; overflow: auto; white-space: nowrap;}
+div.google_picasa_feed div.thumbnail {float: left; height: 75px; padding-right: 15px;}
+div.google_picasa_feed div.full {width: 100%; text-align: center; padding-top: 5px;}
+div.google_picasa_feed div.full div.wrapper {clear: both;}
+div.google_picasa_feed table {padding: 0; margin: 0; border-style: none; border-width: 0;}
+div.google_picasa_feed table td {padding: 0; margin: 0; border-style: none; border-width: 0;}
 
 /********* component/comment_add.html *********/
 div.comment form input {width: 100%;}

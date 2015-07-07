@@ -63,4 +63,4 @@ TODO: fix inconsistencies in next major release (Onxshop 1.8)
 - recipe_list_content should be recipe_list, but there is a problem with another recipe_list in components
 - contentTitle and contentBody should only be used in node/content/*
 - component/news_list_related.html shouldn't be using contentTitle and contentBody
-- span.imageWrap in all galleries should be span.wrap
+
