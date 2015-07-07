@@ -60,3 +60,7 @@ TODO: fix inconsistencies in next major release (Onxshop 1.8)
 - body CSS classes should be using dashes, for example node_id_5 and parent_node_id_88 should be node-id-5 and parent-node-id-88
 - navigation items should be using dashes, for example node_id_1033 should be node-id-1033, has_child should be has-child
 - content-RTE should be content_RTE
+- recipe_list_content should be recipe_list, but there is a problem with another recipe_list in components
+- contentTitle and contentBody should only be used in node/content/*
+- component/news_list_related.html shouldn't be using contentTitle and contentBody
+- span.imageWrap in all galleries should be span.wrap

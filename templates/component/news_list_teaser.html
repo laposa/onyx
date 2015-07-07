@@ -9,7 +9,7 @@
 			<div class="item {ITEM.odd_even_class} {ITEM.taxonomy_class}">
 				<h2 class="title"><a href="/page/{ITEM.id}">{ITEM.title|htmlspecialchars}</a></h2>
 				<div class="created"><p>{ITEM.created|strtotime|strftime('%A %e %B %Y', %s)} {I18N_BY} <span class="author_name">{ITEM.author_detail.name|htmlspecialchars}</span></p></div>
-				<div class="image"><a href="/page/{ITEM.id}"><!-- BEGIN: image --><span class="imageWrap"><img alt="{ITEM.image.title|htmlspecialchars}" title="{ITEM.image.title|htmlspecialchars}" src="{IMAGE_PATH}{ITEM.image.src}{IMAGE_RESIZE_OPTIONS}" /></span><!-- END: image --></a></div>
+				<div class="image"><a href="/page/{ITEM.id}"><!-- BEGIN: image --><span class="wrap"><img alt="{ITEM.image.title|htmlspecialchars}" title="{ITEM.image.title|htmlspecialchars}" src="{IMAGE_PATH}{ITEM.image.src}{IMAGE_RESIZE_OPTIONS}" /></span><!-- END: image --></a></div>
 				<div class="description"><p>{ITEM.description|htmlspecialchars}</p></div>
 				<p class="more"><a href="/page/{ITEM.id}"><span>{I18N_NEWS_LIST_READ_MORE}</span></a></p>
 				<!-- BEGIN: comment -->
