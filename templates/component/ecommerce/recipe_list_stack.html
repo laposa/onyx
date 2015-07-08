@@ -1,0 +1,13 @@
+<!-- BEGIN: content -->
+<div class="recipe_list_stack stack_list">
+	<div class="list">
+		<!-- BEGIN: item -->
+		<div class="item {ITEM.taxonomy_class} recipe_id_{ITEM.id}">
+			<a href="/page/{ITEM.page.id}"><div class="image"><span class="wrap"><img src="/thumbnail/230x230/{ITEM.image.src}?fill=1" alt="{ITEM.image.title|htmlspecialchars}" /></span></div><div class="info"><div class="wrap"><h4 class="title"><span>{ITEM.title|htmlspecialchars}</span></h4><div class="description">{ITEM.description|html2text(%s, 1)}</div></div></div></a>
+		</div>
+		<!-- END: item -->
+	</div>
+	{PAGINATION}
+	<div class="bottom"><span></span></div>
+</div>
+<!-- END: content -->

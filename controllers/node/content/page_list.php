@@ -32,10 +32,12 @@ class Onxshop_Controller_Node_Content_Page_List extends Onxshop_Controller_Node_
 		$node_ids = explode(",", trim($node_data['component']['node_ids']));
 		$content = '';
 
+		$template = $node_data['component']['template'];
+		
 		foreach ($node_ids as $node_id) {
 
 			if (is_numeric($node_id)) {
-				$_Onxshop_Request = new Onxshop_Request("component/teaser~target_node_id={$node_id}:image_width={$image_o['width']}:image_height={$image_o['height']}:image_fill={$image_o['fill']}~");
+				$_Onxshop_Request = new Onxshop_Request("component/teaser_$template~target_node_id={$node_id}:image_width={$image_o['width']}:image_height={$image_o['height']}:image_fill={$image_o['fill']}~");
 				$content .= $_Onxshop_Request->getContent();
 			}
 

@@ -32,6 +32,10 @@ class Onxshop_Controller_Node_Content_Recipe_List extends Onxshop_Controller_Nod
 			case 'shelf':
 				$controller = 'recipe_list_shelf';
 				break;
+				
+			case 'stack':
+				$controller = 'recipe_list_stack';
+				break;
 
 			case '4col':
 				$controller = 'recipe_list_4columns';

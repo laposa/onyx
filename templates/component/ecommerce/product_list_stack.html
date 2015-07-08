@@ -1,0 +1,14 @@
+<!-- BEGIN: content -->
+<div class="product_list_stack stack_list">
+	<div class="top">{SORTING}</div>
+	<div class="list">
+		<!-- BEGIN: item -->
+		<div class="item {ITEM.taxonomy_class} product_id_{ITEM.id}">
+			<a href="/page/{ITEM.node_id}"><div class="image"><span class="roundel"></span><span class="wrap"><img alt="{ITEM.image.title|htmlspecialchars}" title="{ITEM.image.title|htmlspecialchars}" src="/thumbnail/{IMAGE_WIDTH}x{IMAGE_WIDTH}/{ITEM.image_src}{IMAGE_RESIZE_OPTIONS}" /></span></div><div class="info"><div class="wrap"><h4 class="title"><span>{ITEM.product_name|htmlspecialchars}</span></h4><div class="description">{ITEM.product_teaser|html2text(%s, 1)}</div></div></div></a>
+		</div>
+		<!-- END: item -->
+	</div>
+	{PAGINATION}
+	<div class="bottom"><span></span></div>
+</div>
+<!-- END: content -->

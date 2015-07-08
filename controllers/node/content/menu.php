@@ -35,6 +35,9 @@ class Onxshop_Controller_Node_Content_Menu extends Onxshop_Controller_Node_Conte
 			case 'menu_GRID':
 				$template = 'component/menu_grid';
 				break;
+			case 'menu_STACK':
+				$template = 'component/menu_stack';
+				break;
 			default:
 				$template = 'component/menu';
 		}
@@ -50,7 +53,7 @@ class Onxshop_Controller_Node_Content_Menu extends Onxshop_Controller_Node_Conte
 		 * image size
 		 */
 		
-		if ($template == 'component/menu_grid') {
+		if ($template == 'component/menu_grid' || $template == 'component/menu_stack') {
 			
 			$image_o = $this->getImageSizeOptions($node_data);
 					

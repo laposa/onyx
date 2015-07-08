@@ -4,7 +4,11 @@
 	<!-- BEGIN: title --><h3 class="contentTitle"><span>{NODE.title|htmlspecialchars}</span></h3><!-- END: title -->
 	<!-- BEGIN: title_link --><h3 class="contentTitle"><a href="/page/{NODE.link_to_node_id}"><span>{NODE.title|htmlspecialchars}</span></a></h3><!-- END: title_link -->
 	<div class="contentBody">
-		{CONTENT}
+		<div class="page_list_{NODE.component.template} {NODE.component.template}_list">
+			<div class="list">
+				{CONTENT}
+			</div>
+		</div>
 	</div>
 </div>
 <!-- END: content -->
