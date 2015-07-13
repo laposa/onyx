@@ -49,8 +49,8 @@ class Onxshop_Controller_Bo_Component_File_Add extends Onxshop_Controller_Bo_Com
 			$this->tpl->assign('FILE', $file_data);
 		
 		}
-		
-		$this->tpl->assign("SELECTED_{$this->GET['role']}", "selected='selected'");
+		msg($this->GET['role']);
+		$this->tpl->assign("SELECTED_role_{$this->GET['role']}", "selected='selected'");
 
 		return true;
 	}
