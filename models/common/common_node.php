@@ -1584,12 +1584,19 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 					//asking for content or layout, exclude all pages and containers
 					$exclude_query = "node_group != 'page' AND node_group != 'container'";
 				}
+				
+			} else {
+				
+				$exclude_query = '1=1';
 			}
 			
 			//use same sorting as getTree() function
 			$list = $this->listing("parent_container = {$item_data['parent_container']} AND parent = {$item_data['parent']} AND $exclude_query", 'priority DESC, id ASC');
+			
 		} else {
+			
 			return false;
+			
 		}
 		
 		if (is_array($list)) return $list;
