@@ -25,7 +25,7 @@ class Onxshop_Controller_Bo_Component_File_Edit extends Onxshop_Controller_Bo_Co
 		}
 		
 		$detail = $File->getDetail($file_id);
-		$this->tpl->assign("SELECTED_{$detail['role']}", "selected='selected'");
+		$this->tpl->assign("SELECTED_role_{$detail['role']}", "selected='selected'");
 		$this->tpl->assign('FILE', $detail);
 
 		return true;
