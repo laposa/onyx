@@ -1870,6 +1870,7 @@ LEFT OUTER JOIN common_taxonomy_label ON (common_taxonomy_tree.label_id = common
 	
 	/**
 	 * getTeaserImageForNodeId
+	 * If not available, try parent pages
 	 */
 	 
 	public function getTeaserImageForNodeId($node_id, $role = 'teaser') {
@@ -1915,8 +1916,16 @@ LEFT OUTER JOIN common_taxonomy_label ON (common_taxonomy_tree.label_id = common
 			break;
 		}
 		
-		return $Image->getTeaserImageForNodeId($image_node_id, $role);
+		$image_detail = $Image->getTeaserImageForNodeId($image_node_id, $role);
 		
+		/* try parent recursively */
+		if (!$image_detail && $node_detail['parent'] > 0) {
+			
+			$image_detail = $this->getTeaserImageForNodeId($node_detail['parent'], $role);
+
+		}
+		
+		return $image_detail;
 	}
 	
 	/**

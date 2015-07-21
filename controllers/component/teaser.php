@@ -106,18 +106,11 @@ class Onxshop_Controller_Component_Teaser extends Onxshop_Controller {
 
 	/**
 	 * Load Teaser image.
-	 * If not available, try parent pages.
+	 * 
 	 */
 	public function getImage($node)
 	{
 		$image = $this->Node->getTeaserImageForNodeId($node['id']);
-
-		if (!$image && $node['parent'] > 0) {
-
-			$parent = $this->Node->nodeDetail($node['parent']);
-			$image = $this->getImage($parent);
-
-		}
 
 		return $image;
 
