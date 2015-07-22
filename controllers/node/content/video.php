@@ -29,12 +29,15 @@ class Onxshop_Controller_Node_Content_Video extends Onxshop_Controller_Node_Cont
 		 */
 		 
 		if ($node_data['component']['provider'] == '') $node_data['component']['provider'] = 'vimeo';
-				
+		
+		if ($node_data['component']['autoplay']) $autoplay_param = ":autoplay=1";
+		else $autoplay_param = '';
+		
 		/**
 		 * pass to menu component
 		 */
 		 
-		$Onxshop_Request = new Onxshop_Request("component/video_{$node_data['component']['provider']}~video_id={$node_data['component']['video_id']}~");
+		$Onxshop_Request = new Onxshop_Request("component/video_{$node_data['component']['provider']}~video_id={$node_data['component']['video_id']}{$autoplay_param}~");
 		$this->tpl->assign("VIDEO", $Onxshop_Request->getContent());
 		$this->tpl->assign("NODE", $node_data);
 		

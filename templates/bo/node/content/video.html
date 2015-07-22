@@ -30,6 +30,9 @@
 		<span class="label"><label for="component-video_id">Video ID</label></span>
 		<span class="field"><input name="node[component][video_id]" id="component-video_id" value="{NODE.component.video_id|htmlspecialchars}" /></span>
 	</div>
+	<div class="row component autoplay">
+		<input type="checkbox" id="node-component-autoplay" name="node[component][autoplay]" {NODE.component.autoplay} /> <label for="node-component-autoplay">Autoplay</label>
+	</div>
 </fieldset>
 {FILE "bo/node/item_position.html"}
 <div class="twoColumnLayout fibonacci-1-1 advanced">
