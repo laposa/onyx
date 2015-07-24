@@ -30,7 +30,8 @@ class Onxshop_Controller_Node_Content_Teaser extends Onxshop_Controller_Node_Con
 		if (trim($node_data['component']['link_text']) != '') $params .= ":link_text=" . urlencode($node_data['component']['link_text']);
 
 		// check for image override
-		if (trim($node_data['component']['img_src']) != '') $params .= ":img_src=" . urlencode($node_data['component']['img_src']);
+		$image = $this->Node->getTeaserImageForNodeId($this->GET['id']); // in the actual node/content/teaser (not the target page)
+		if ($image) $params .= ":img_src=" . urlencode($image['src']);
 
 		/**
 		 * call controller
