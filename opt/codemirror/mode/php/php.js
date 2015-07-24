@@ -16,40 +16,32 @@
     for (var i = 0; i < words.length; ++i) obj[words[i]] = true;
     return obj;
   }
-  function heredoc(delim) {
-    return function(stream, state) {
-      if (stream.match(delim)) state.tokenize = null;
-      else stream.skipToEnd();
-      return "string";
-    };
-  }
 
-  // Helper for stringWithEscapes
-  function matchSequence(list) {
-    if (list.length == 0) return stringWithEscapes;
+  // Helper for phpString
+  function matchSequence(list, end, escapes) {
+    if (list.length == 0) return phpString(end);
     return function (stream, state) {
       var patterns = list[0];
       for (var i = 0; i < patterns.length; i++) if (stream.match(patterns[i][0])) {
-        state.tokenize = matchSequence(list.slice(1));
+        state.tokenize = matchSequence(list.slice(1), end);
         return patterns[i][1];
       }
-      state.tokenize = stringWithEscapes;
+      state.tokenize = phpString(end, escapes);
       return "string";
     };
   }
-  function stringWithEscapes(stream, state) {
-    var escaped = false, next, end = false;
-
-    if (stream.current() == '"') return "string";
-
+  function phpString(closing, escapes) {
+    return function(stream, state) { return phpString_(stream, state, closing, escapes); };
+  }
+  function phpString_(stream, state, closing, escapes) {
     // "Complex" syntax
-    if (stream.match("${", false) || stream.match("{$", false)) {
+    if (escapes !== false && stream.match("${", false) || stream.match("{$", false)) {
       state.tokenize = null;
       return "string";
     }
 
     // Simple syntax
-    if (stream.match(/\$[a-zA-Z_][a-zA-Z0-9_]*/)) {
+    if (escapes !== false && stream.match(/^\$[a-zA-Z_][a-zA-Z0-9_]*/)) {
       // After the variable name there may appear array or object operator.
       if (stream.match("[", false)) {
         // Match array operator
@@ -59,31 +51,30 @@
            [/\$[a-zA-Z_][a-zA-Z0-9_]*/, "variable-2"],
            [/[\w\$]+/, "variable"]],
           [["]", null]]
-        ]);
+        ], closing, escapes);
       }
       if (stream.match(/\-\>\w/, false)) {
         // Match object operator
         state.tokenize = matchSequence([
           [["->", null]],
           [[/[\w]+/, "variable"]]
-        ]);
+        ], closing, escapes);
       }
       return "variable-2";
     }
 
+    var escaped = false;
     // Normal string
-    while (
-      !stream.eol() &&
-      (!stream.match("{$", false)) &&
-      (!stream.match(/(\$[a-zA-Z_][a-zA-Z0-9_]*|\$\{)/, false) || escaped)
-    ) {
-      next = stream.next();
-      if (!escaped && next == '"') { end = true; break; }
-      escaped = !escaped && next == "\\";
-    }
-    if (end) {
-      state.tokenize = null;
-      state.phpEncapsStack.pop();
+    while (!stream.eol() &&
+           (escaped || escapes === false ||
+            (!stream.match("{$", false) &&
+             !stream.match(/^(\$[a-zA-Z_][a-zA-Z0-9_]*|\$\{)/, false)))) {
+      if (!escaped && stream.match(closing)) {
+        state.tokenize = null;
+        state.tokStack.pop(); state.tokStack.pop();
+        break;
+      }
+      escaped = stream.next() == "\\" && !escaped;
     }
     return "string";
   }
@@ -104,6 +95,7 @@
     helperType: "php",
     keywords: keywords(phpKeywords),
     blockKeywords: keywords("catch do else elseif for foreach if switch try while finally"),
+    defKeywords: keywords("class function interface namespace trait"),
     atoms: keywords(phpAtoms),
     builtin: keywords(phpBuiltin),
     multiLineStrings: true,
@@ -114,9 +106,15 @@
       },
       "<": function(stream, state) {
         if (stream.match(/<</)) {
+          var nowDoc = stream.eat("'");
           stream.eatWhile(/[\w\.]/);
-          state.tokenize = heredoc(stream.current().slice(3));
-          return state.tokenize(stream, state);
+          var delim = stream.current().slice(3 + (nowDoc ? 1 : 0));
+          if (nowDoc) stream.eat("'");
+          if (delim) {
+            (state.tokStack || (state.tokStack = [])).push(delim, 0);
+            state.tokenize = phpString(delim, nowDoc ? false : true);
+            return "string";
+          }
         }
         return false;
       },
@@ -131,22 +129,21 @@
         }
         return false;
       },
-      '"': function(stream, state) {
-        if (!state.phpEncapsStack)
-          state.phpEncapsStack = [];
-        state.phpEncapsStack.push(0);
-        state.tokenize = stringWithEscapes;
-        return state.tokenize(stream, state);
+      '"': function(_stream, state) {
+        (state.tokStack || (state.tokStack = [])).push('"', 0);
+        state.tokenize = phpString('"');
+        return "string";
       },
       "{": function(_stream, state) {
-        if (state.phpEncapsStack && state.phpEncapsStack.length > 0)
-          state.phpEncapsStack[state.phpEncapsStack.length - 1]++;
+        if (state.tokStack && state.tokStack.length)
+          state.tokStack[state.tokStack.length - 1]++;
         return false;
       },
       "}": function(_stream, state) {
-        if (state.phpEncapsStack && state.phpEncapsStack.length > 0)
-          if (--state.phpEncapsStack[state.phpEncapsStack.length - 1] == 0)
-            state.tokenize = stringWithEscapes;
+        if (state.tokStack && state.tokStack.length > 0 &&
+            !--state.tokStack[state.tokStack.length - 1]) {
+          state.tokenize = phpString(state.tokStack[state.tokStack.length - 2]);
+        }
         return false;
       }
     }

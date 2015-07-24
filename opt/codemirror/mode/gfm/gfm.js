@@ -109,14 +109,16 @@ CodeMirror.defineMode("gfm", function(config, modeConfig) {
   var markdownConfig = {
     underscoresBreakWords: false,
     taskLists: true,
-    fencedCodeBlocks: true
+    fencedCodeBlocks: true,
+    strikethrough: true
   };
   for (var attr in modeConfig) {
     markdownConfig[attr] = modeConfig[attr];
   }
   markdownConfig.name = "markdown";
-  CodeMirror.defineMIME("gfmBase", markdownConfig);
-  return CodeMirror.overlayMode(CodeMirror.getMode(config, "gfmBase"), gfmOverlay);
+  return CodeMirror.overlayMode(CodeMirror.getMode(config, markdownConfig), gfmOverlay);
+
 }, "markdown");
 
+  CodeMirror.defineMIME("text/x-gfm", "gfm");
 });

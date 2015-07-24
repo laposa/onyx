@@ -14,7 +14,7 @@
 CodeMirror.defineMode("rust", function() {
   var indentUnit = 4, altIndentUnit = 2;
   var valKeywords = {
-    "if": "if-style", "while": "if-style", "else": "else-style",
+    "if": "if-style", "while": "if-style", "loop": "else-style", "else": "else-style",
     "do": "else-style", "ret": "else-style", "fail": "else-style",
     "break": "atom", "cont": "atom", "const": "let", "resource": "fn",
     "let": "let", "fn": "fn", "for": "for", "alt": "alt", "iface": "iface",
@@ -22,11 +22,11 @@ CodeMirror.defineMode("rust", function() {
     "as": "op", "true": "atom", "false": "atom", "assert": "op", "check": "op",
     "claim": "op", "native": "ignore", "unsafe": "ignore", "import": "else-style",
     "export": "else-style", "copy": "op", "log": "op", "log_err": "op",
-    "use": "op", "bind": "op", "self": "atom"
+    "use": "op", "bind": "op", "self": "atom", "struct": "enum"
   };
   var typeKeywords = function() {
     var keywords = {"fn": "fn", "block": "fn", "obj": "obj"};
-    var atoms = "bool uint int i8 i16 i32 i64 u8 u16 u32 u64 float f32 f64 str char".split(" ");
+    var atoms = "bool i8 i16 i32 i64 u8 u16 u32 u64 f32 f64 str char isize usize".split(" ");
     for (var i = 0, e = atoms.length; i < e; ++i) keywords[atoms[i]] = "atom";
     return keywords;
   }();

@@ -7,17 +7,17 @@
 ## Getting help
 
 Community discussion, questions, and informal bug reporting is done on the
-[CodeMirror Google group](http://groups.google.com/group/codemirror).
+[discuss.CodeMirror forum](http://discuss.codemirror.net).
 
 ## Submitting bug reports
 
 The preferred way to report bugs is to use the
-[GitHub issue tracker](http://github.com/marijnh/CodeMirror/issues). Before
+[GitHub issue tracker](http://github.com/codemirror/CodeMirror/issues). Before
 reporting a bug, read these pointers.
 
 **Note:** The issue tracker is for *bugs*, not requests for help. Questions
 should be asked on the
-[CodeMirror Google group](http://groups.google.com/group/codemirror) instead.
+[discuss.CodeMirror forum](http://discuss.codemirror.net) instead.
 
 ### Reporting bugs effectively
 
@@ -48,7 +48,7 @@ should be asked on the
 ## Contributing code
 
 - Make sure you have a [GitHub Account](https://github.com/signup/free)
-- Fork [CodeMirror](https://github.com/marijnh/CodeMirror/)
+- Fork [CodeMirror](https://github.com/codemirror/CodeMirror/)
   ([how to fork a repo](https://help.github.com/articles/fork-a-repo))
 - Make your changes
 - If your changes are easy to test or likely to regress, add tests.
@@ -61,7 +61,19 @@ should be asked on the
 - Make sure all tests pass. Visit `test/index.html` in your browser to
   run them.
 - Submit a pull request
-([how to create a pull request](https://help.github.com/articles/fork-a-repo))
+([how to create a pull request](https://help.github.com/articles/fork-a-repo)).
+  Don't put more than one feature/fix in a single pull request.
+
+By contributing code to CodeMirror you
+
+ - agree to license the contributed code under CodeMirror's [MIT
+   license](http://codemirror.net/LICENSE).
+
+ - confirm that you have the right to contribute and license the code
+   in question. (Either you hold all rights on the code, or the rights
+   holder has explicitly granted the right to use it like this,
+   through a compatible open source license or through a direct
+   agreement with you.)
 
 ### Coding standards
 

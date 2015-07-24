@@ -6,8 +6,8 @@
 <script type="text/javascript" src="/opt/colorpicker/js/colorpicker.js"></script>
 <link rel="stylesheet" media="screen" type="text/css" href="/opt/colorpicker/css/colorpicker.css" />
 <style type="text/css">
-div.CodeMirror { width: 670px; height: 300px;}
-div.cssEdit fieldset { padding: 20px; margin: 0; width: 690px; }
+.CodeMirror {border: 1px solid #eee; height: auto;}
+div.cssEdit fieldset { padding: 20px; margin: 0; width: 100%; }
 div.cssEdit fieldset div.row { padding: 0; margin: 0; width: 100%; }
 </style>
 <!-- END: head -->
@@ -68,15 +68,22 @@ div.cssEdit fieldset div.row { padding: 0; margin: 0; width: 100%; }
 
 <script type="text/javascript">
 $(document).ready(function() {
-	var editor = CodeMirror.fromTextArea(document.getElementById('code_css'), {});
-	var options = { 
+	// Codemirror
+	var code_mirror_options = {
+		viewportMargin: Infinity
+	}
+	
+	var editor = CodeMirror.fromTextArea(document.getElementById('code_css'), code_mirror_options);
+	
+	// ajax form
+	var ajax_form_options = { 
 		target: '#css_edit_result',
 		beforeSubmit: preSubmit,
 		success: showResponse, 
 		url: '/request/bo/component/css_edit'
 	};
 
-	$('#css_edit').ajaxForm(options);
+	$('#css_edit').ajaxForm(ajax_form_options);
 });
 </script>
 <!-- END: form -->
