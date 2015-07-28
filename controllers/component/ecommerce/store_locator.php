@@ -60,7 +60,7 @@ class Onxshop_Controller_Component_Ecommerce_Store_Locator extends Onxshop_Contr
 				if ($store['id'] == $_SESSION['client']['customer']['store_id']) $store['icon'] = 'false';
 				
 				// adjust bounds (by province/county)
-				if (array_intersect($page_categories, $categories[$store['id']])) {
+				if (is_array($categories[$store['id']]) && array_intersect($page_categories, $categories[$store['id']])) {
 					if ($store['latitude'] > $bounds['latitude']['max']) $bounds['latitude']['max'] = $store['latitude'];
 					if ($store['latitude'] < $bounds['latitude']['min']) $bounds['latitude']['min'] = $store['latitude'];
 					if ($store['longitude'] > $bounds['longitude']['max']) $bounds['longitude']['max'] = $store['longitude'];
