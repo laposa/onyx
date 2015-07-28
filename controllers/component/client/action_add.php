@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2013 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2013-2015 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -15,32 +15,26 @@ class Onxshop_Controller_Component_Client_Action_Add extends Onxshop_Controller 
 	 
 	public function mainAction() {
 
-		$this->customer_id = (int) $_SESSION['client']['customer']['id'];
-
-		if (is_numeric($this->GET['node_id']) 
-			&& !empty($this->GET['action_id'])
-			&& !empty($this->GET['network'])
-			&& !empty($this->GET['action_name'])
-			&& !empty($this->GET['object_name'])
-			&& $this->customer_id > 0) {
-
-			$Actions = new client_action();
-			$Actions->insert(array(
-				'customer_id' => $this->customer_id,
-				'node_id' => $this->GET['node_id'],
-				'action_id' => $this->GET['action_id'],
-				'network' => $this->GET['network'],
-				'action_name' => $this->GET['action_name'],
-				'object_name' => $this->GET['object_name'],
-				'created' => date("c"),
-				'modified' => date("c"),
-				'other_data' => null,
-			));
-
+		$data = array();
+		$data['customer_id'] = (int) $_SESSION['client']['customer']['id']; // mandatory
+		$data['node_id'] = $this->GET['node_id']; // mandatory
+		if (!empty($this->GET['action_id'])) $data['action_id'] = $this->GET['action_id'];
+		if (!empty($this->GET['network'])) $data['network'] = $this->GET['network'];
+		$data['action_name'] = $this->GET['action_name']; // mandatory
+		if (!empty($this->GET['object_name'])) $data['object_name'] = $this->GET['object_name'];
+		
+		$ClientAction = new client_action();
+		
+		if ($ClientAction->insertAction($data)) {
+		
 			msg("Action inserted to the database", "ok", 1);
-
-		} else msg("Unable to insert action to database, missing parameters " . print_r($this->GET, true), "error", 1);
-
+			
+		} else {
+			
+			msg("Unable to insert action to database, missing parameters " . print_r($data, true), "error", 1);
+		
+		}
+		
 		return true;
 	}
 

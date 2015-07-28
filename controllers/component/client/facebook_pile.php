@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2013 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2013-2015 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -36,6 +36,8 @@ class Onxshop_Controller_Component_Client_Facebook_Pile extends Onxshop_Controll
 		$this->Node = new common_node(); // init model
 		$this->commonAction(); // init Facebook SDK
 		
+		$this->ClientAction = new client_action();
+		
 		if ($user = $this->Facebook->getUser()) {
 
 			$friend_user_list = $this->getFriendsAppUsers();
@@ -51,7 +53,7 @@ class Onxshop_Controller_Component_Client_Facebook_Pile extends Onxshop_Controll
 
 				// fetch actions from local database
 				$friends_customer_ids = $this->facebookToCustomerIds($friend_user_list);
-				$actions = $this->getActionsForCustomers($friends_customer_ids, $this->num_displayed_items * 2, $this->action_filter);
+				$actions = $this->ClientAction->getActionsForCustomers($friends_customer_ids, $this->num_displayed_items * 2, $this->action_filter);
 				$parsedItems = $this->parseLocalActions($actions, $this->num_displayed_items);
 
 			}
@@ -202,7 +204,7 @@ class Onxshop_Controller_Component_Client_Facebook_Pile extends Onxshop_Controll
 	 
 	protected function readFriendsStream($friend_user_list) {
 	
-		$friends = $this->prepareListForSql($friend_user_list, true);
+		$friends = $this->ClientAction->prepareListForSql($friend_user_list, true);
 
 		if (!$friends) return false;
 
@@ -244,71 +246,11 @@ class Onxshop_Controller_Component_Client_Facebook_Pile extends Onxshop_Controll
 	{
 		$result = array();
 
-		if (is_array($facebook_ids) && count($facebook_ids) > 0 && $ids = $this->prepareListForSql($facebook_ids, true)) {
+		if (is_array($facebook_ids) && count($facebook_ids) > 0 && $ids = $this->ClientAction->prepareListForSql($facebook_ids, true)) {
 
 			$Customer = new client_customer();
 			$list = $Customer->listing("facebook_id IN ($ids)");
 			if (is_array($list) && count($list) > 0) foreach ($list as $item) $result[] = $item['id'];
-		}
-
-		return $result;
-	}
-
-	/**
-	 * Convert list of identifiers to comma separated values
-	 * @param  Array   $list   Array of values
-	 * @param  boolean $escape Escape values for SQL?
-	 * @return String
-	 */
-	protected function prepareListForSql($list, $escape = false)
-	{
-		$result = false;
-
-		if (is_array($list) && count($list) > 0) {
-
-			$items = array();
-			foreach ($list as $item) {
-				if ($escape) $items[] = pg_escape_string(trim($item));
-				else $items[] = (int) trim($item);
-			}
-
-			$result = implode(",", $items);
-		}
-
-		return $result;
-	}
-
-	/**
-	 * Get list of actions performed by given customers from local database
-	 * 
-	 * @param  array $customer_ids Customers id to query
-	 * @return Array of client_action
-	 */
-	protected function getActionsForCustomers($customer_ids, $num_displayed_items = 3, $filter = false)
-	{
-		$result = array();
-
-		if (is_array($customer_ids) && count($customer_ids) > 0 && $ids = $this->prepareListForSql($customer_ids))  {
-		
-			$Action = new client_action();
-
-			$filter_sql = '';
-			if (is_array($filter) && count($filter) > 0) {
-				$filter_sql = ' AND (';
-				foreach ($filter as $action) {
-					$action = explode("-", $action);
-					if (count($action) == 2) {
-						$filter_sql .= "(action_name = '" . pg_escape_string($action[0]) . "'";
-						$filter_sql .= " AND object_name = '" . pg_escape_string($action[1]) . "') OR ";
-					}
-				}
-				$filter_sql .= '(1 = 0))';
-			}
-
-			$list = $Action->listing("network = 'facebook' AND customer_id IN ($ids) $filter_sql", 
-				"id DESC", "0,{$num_displayed_items}");
-			if (is_array($list) && count($list) > 0) foreach ($list as $item) $result[] = $item;
-
 		}
 
 		return $result;
