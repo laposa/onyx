@@ -56,6 +56,7 @@ $(document).ready(function() {
 				<th class="product_name"><a href="/backoffice/products?product-list-sort-by=product_name&amp;product-list-sort-direction=ASC">Product</a></th>
 				<th class="variety_name"><a href="/backoffice/products?product-list-sort-by=variety_name&amp;product-list-sort-direction=ASC">Variety</a></th>
 				<th class="price"><a href="/backoffice/products?product-list-sort-by=price&amp;product-list-sort-direction=ASC">Price</a></th>
+				<th class="price"><a href="/backoffice/products?product-list-sort-by=price&amp;product-list-sort-direction=ASC">Price Net</a></th>
 				<th class="sku"><a href="/backoffice/products?product-list-sort-by=sku&amp;product-list-sort-direction=ASC">SKU</a></th>
 				<th class="stock last"><a href="/backoffice/products?product-list-sort-by=stock&amp;produc-list-sort-direction=ASC">Stock</a></th>
 				
@@ -75,7 +76,8 @@ $(document).ready(function() {
 					<td {ROWSPAN} class="product_name"><span class="{ITEM.disabled}"><a href="/backoffice/products/{ITEM.product_id}/edit">{ITEM.product_name|htmlspecialchars}</a></span></td>
 				<!-- END: imagetitle -->
 				<td class="variety_name"><a class="title {ITEM.variety_publish}" id="ecommerce_product_variety-name-id-{ITEM.variety_id}" href="#{ITEM.variety_id}">{ITEM.variety_name|htmlspecialchars}</a></td>
-				<td class="price money"><a class="price" id="ecommerce_price-value-product_variety_id-{ITEM.variety_id}" href="#{ITEM.variety_id}">{ITEM.price|money_format('%n', %s)}</a></td>
+				<td class="price money">{ITEM.price|money_format('%n', %s)}</td>
+				<td class="price money"><a class="price" id="ecommerce_price_net-value-product_variety_id-{ITEM.variety_id}" href="#{ITEM.variety_id}">{ITEM.price_net|money_format('%n', %s)}</a></td>
 				<td class="sku number"><a href="#{ITEM.variety_id}" id="ecommerce_product_variety-sku-id-{ITEM.variety_id}">{ITEM.sku}</a></td>
 				<td class="stock number"><a href="#{ITEM.variety_id}" id="ecommerce_product_variety-stock-id-{ITEM.variety_id}" data-original-stock="{ITEM.stock}" data-num-notifications="{ITEM.num_notifications}">{ITEM.stock}</a></td>
 			</tr>
@@ -84,7 +86,7 @@ $(document).ready(function() {
 		<!-- END: list -->
 		<tfoot>
 			<tr>
-				<td colspan="6">
+				<td colspan="7">
 					{PAGINATION}
 				</td>
 			</tr>
