@@ -4,6 +4,7 @@
 
 php 5.2.8
 modules: php5-imap, php5-pgsql, php5-recode or php5-iconv, php5-mbstrings, php5-gettext, php-exif
+optional: php5-mcrypt (for SagePay/Protx)
 
 postgresql 8.1.11
 package: postgresql
