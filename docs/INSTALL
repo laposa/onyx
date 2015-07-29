@@ -6,7 +6,7 @@ Requires a standard Debian Wheezy installation with all default options.
 
 1. install packages 
 
-aptitude install apache2 php5 php-apc php5-recode php5-pgsql php5-tidy php5-gd php5-imagick php5-curl imagemagick rsync ssh  sysstat exim4 vim mc nfs-common sudo mutt bzip2 postgresql locales-all ntp hdparm smartmontools unzip fortunes ca-certificates poppler-utils
+aptitude install apache2 php5 php-apc php5-recode php5-pgsql php5-tidy php5-gd php5-imagick php5-curl php5-mcrypt imagemagick rsync ssh  sysstat exim4 vim mc nfs-common sudo mutt bzip2 postgresql locales-all ntp hdparm smartmontools unzip fortunes ca-certificates poppler-utils
 
 2. setup default locales
 
