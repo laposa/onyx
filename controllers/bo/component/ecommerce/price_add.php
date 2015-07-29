@@ -16,9 +16,6 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Price_Add extends Onxshop_Contro
 		require_once('models/ecommerce/ecommerce_price.php');
 		$Price = new ecommerce_price();
 		
-		if ($Price->conf['backoffice_with_vat']) $this->tpl->assign('VAT_NOTE', I18N_PRICE_INC_VAT);
-		else $this->tpl->assign('VAT_NOTE', I18N_PRICE_EX_VAT);
-		
 		// type
 		$types = $Price->getTypes();
 		

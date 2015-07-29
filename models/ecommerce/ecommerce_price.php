@@ -88,9 +88,6 @@ CREATE TABLE ecommerce_price (
 		if ($conf['multiplicator_exponent'] > 0) $conf['multiplicator_exponent'] = (float) $conf['multiplicator_exponent'];
 		else $conf['multiplicator_exponent'] = 2; // exponential growth is 2 by default
 		
-		if (!array_key_exists('backoffice_with_vat', $conf)) $conf['backoffice_with_vat'] = true;
-		if (!array_key_exists('frontend_with_vat', $conf)) $conf['frontend_with_vat'] = true;
-	
 		return $conf;
 	}
 	
@@ -172,10 +169,8 @@ CREATE TABLE ecommerce_price (
 		
 		$data['date'] = date('c');
 		
-		if ($this->conf['backoffice_with_vat']) {
-			$vat = $this->getVatByVarietyId($data['product_variety_id']);
-			$data['value'] = $data['value'] / (100 + $vat) * 100;
-		}
+		$vat = $this->getVatByVarietyId($data['product_variety_id']);
+		$data['value'] = $data['value'] / (100 + $vat) * 100;
 		
 		if ($id = $this->insert($data)) return $id;
 		else return false;
@@ -243,12 +238,8 @@ CREATE TABLE ecommerce_price (
 		$vat = $this->getVatByPriceId($price['id']);
 		$price['value_net'] = $price['value'];
 		$price['value_gross'] = $price['value'] + $price['value'] * $vat/100;
+		$price['value'] = $price['value_gross'];
 			
-		//set visible price value
-		if (($this->conf['backoffice_with_vat'] && ONXSHOP_IN_BACKOFFICE) || ($this->conf['frontend_with_vat'] && !ONXSHOP_IN_BACKOFFICE)) {
-			$price['value'] = $price['value_gross'];
-		}
-		
 		return $price;
 	}
 	

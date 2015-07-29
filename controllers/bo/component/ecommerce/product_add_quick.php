@@ -23,9 +23,6 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Product_Add_Quick extends Onxsho
 	
 		$this->tpl->assign("VARIETY_CONF", $Product_variety->conf);
 	
-		if ($Price->conf['backoffice_with_vat']) $this->tpl->assign('VAT_NOTE', I18N_PRICE_INC_VAT);
-		else $this->tpl->assign('VAT_NOTE', I18N_PRICE_EX_VAT);
-		
 		if ($_POST['save']) {
 
 			$product_data = $_POST['product'];
