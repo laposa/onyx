@@ -1,9 +1,42 @@
 <!-- BEGIN: title -->Product Variety Add<!-- END: title -->
 <!-- BEGIN: content -->
 <script type="text/javascript">  
-$(function(){  
-	$("#product_variety_add_form").validate();
-});
+	$(function(){  
+		$("#product_variety_add_form").validate();
+
+		/**
+		 * Calculate VAT if available
+		 */
+		var rate_select = $('select[name="product[variety][product_type_id]"]');
+		var no_vat_input = $("#price_without_vat");
+		var vat_input = $("#price_with_vat");
+
+		if (rate_select.length > 0) {
+			no_vat_input.change(updateVatPrice);
+			no_vat_input.keyup(updateVatPrice);
+			no_vat_input.blur(updateVatPrice);
+			vat_input.change(updateNoVatPrice);
+			vat_input.keyup(updateNoVatPrice);
+			vat_input.blur(updateNoVatPrice);
+		} else {
+			no_vat_input.hide();
+		}
+
+		function updateVatPrice() {
+			var price = no_vat_input.val() * 1;
+			var rate = rate_select.find("option:selected").data("vat") * 1;
+			if (isNaN(price) || isNaN(rate)) vat_input.val("-");
+			else vat_input.val(Math.round(price * (100 + rate) / 100 * 100000) / 100000);
+		}
+
+		function updateNoVatPrice() {
+			var price = vat_input.val() * 1;
+			var rate = rate_select.find("option:selected").data("vat") * 1;
+			if (isNaN(price) || isNaN(rate)) no_vat_input.val("-");
+			else no_vat_input.val(Math.round(price / (100 + rate) * 100 * 100000) / 100000);
+		}
+
+	});
 </script>
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 <p><a class="back" href="/backoffice/products/{GET.product_id}/edit"><span>Back to product edit</span></a></p>
@@ -33,10 +66,21 @@ $(function(){
 		<span class="field"><input type="text" class="text short required digits" name="product[variety][stock]" id="product-variety-stock" value="{PRODUCT.variety.stock}"/></span>
 	</div>
 
-	<div class="row">
-		<span class="label"><label>Price Value (excluding VAT) in {GLOBAL_DEFAULT_CURRENCY}</label></span>
-		<span class="field"><input type="text" class="text short required number" name="product[variety][price][value]" value="{PRODUCT.variety.price.value}"/></span>
+	<div class="twoColumnLayout">
+		<div class="layoutColumnOne ofTwo">
+			<div class="row">
+				<span class="label"><label>Price Value (excluding VAT) in {GLOBAL_DEFAULT_CURRENCY}</label></span>
+				<span class="field"><input type="text" id="price_without_vat" class="text half required number" name="product[variety][price][value]" value="{PRODUCT.variety.price.value}"/></span>
+			</div>
+		</div>
+		<div class="layoutColumnTwo ofTwo">
+			<div class="row">
+				<span class="label"><label>Price Value (including VAT) in {GLOBAL_DEFAULT_CURRENCY}</label></span>
+				<span class="field"><input type="text" id="price_with_vat" class="text half required number"/></span>
+			</div>
+		</div>
 	</div>
+
 	<input type="hidden" name="product[variety][price][currency_code]" value="{GLOBAL_DEFAULT_CURRENCY}" />
 	<input type="hidden" name="product[variety][price][type]" value="common" />
 
