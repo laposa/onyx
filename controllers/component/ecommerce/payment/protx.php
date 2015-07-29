@@ -2,7 +2,7 @@
 /** 
  * ProtX aka SagePay
  *
- * Copyright (c) 2009-2011 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2015 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -39,8 +39,6 @@ class Onxshop_Controller_Component_Ecommerce_Payment_Protx extends Onxshop_Contr
 	
 		require_once('models/common/common_node.php');
 		$node_conf = common_node::initConfiguration();
-		//$this->tpl->assign('NODE_CONF', $node_conf);
-		
 		
     	$order_data = $this->Transaction->getOrderDetail($order_id);
     	
@@ -48,8 +46,6 @@ class Onxshop_Controller_Component_Ecommerce_Payment_Protx extends Onxshop_Contr
 		else $protocol = 'http';
 		$server_url = "$protocol://{$_SERVER['HTTP_HOST']}";
 
-    	require_once('lib/protx.functions.php');
-	
 		$protx = array(
 			'URL' => ECOMMERCE_TRANSACTION_PROTX_URL,
 			'VPSProtocol' => ECOMMERCE_TRANSACTION_PROTX_VPSPROTOCOL,
@@ -64,22 +60,37 @@ class Onxshop_Controller_Component_Ecommerce_Payment_Protx extends Onxshop_Contr
 		$protx_amount = $Order->calculatePayableAmount($order_data);
 	
 		$protx['Crypt']['VendorTxCode'] = $order_data['id'] . '_' . time();
-		//basket[total] is without delivery
-		//$protx['Crypt']['Amount'] = $order_data['basket']['total'];
 		$protx['Crypt']['Amount'] = $protx_amount;
 		$protx['Crypt']['Currency'] = GLOBAL_DEFAULT_CURRENCY;
 		$protx['Crypt']['Description'] = "Payment for Basket created {$order_data['basket']['created']}";
 		$protx['Crypt']['SuccessURL'] = "$server_url/page/" . $node_conf['id_map-payment_protx_success'] . "?order_id={$order_data['id']}";
 		$protx['Crypt']['FailureURL'] = "$server_url/page/" . $node_conf['id_map-payment_protx_success'] . "?order_id={$order_data['id']}";
-		//optional
-		$protx['Crypt']['CustomerName'] = $order_data['client']['customer']['title_before'] . ' ' . $order_data['client']['customer']['first_name'] . ' ' . $order_data['client']['customer']['last_name'];
+
 		$protx['Crypt']['CustomerEMail'] = $order_data['client']['customer']['email'];
 		$protx['Crypt']['VendorEMail'] = $protx['VendorEmail'];
 		$protx['Crypt']['eMailMessage'] = ECOMMERCE_TRANSACTION_PROTX_MAIL_MESSAGE;
-		$protx['Crypt']['DeliveryAddress'] = $order_data['address']['delivery']['line_1'];
-		$protx['Crypt']['DeliveryPostCode'] = $order_data['address']['delivery']['post_code'];
-		$protx['Crypt']['BillingAddress'] = $order_data['address']['invoices']['line_1'];
+
+		$protx['Crypt']['BillingSurname'] = $order_data['client']['customer']['last_name'];
+		$protx['Crypt']['BillingFirstNames'] = $order_data['client']['customer']['first_name'];
+		$protx['Crypt']['BillingAddress1'] = $order_data['address']['invoices']['line_1'];
+		$protx['Crypt']['BillingCity'] = $order_data['address']['invoices']['city'];
 		$protx['Crypt']['BillingPostCode'] = $order_data['address']['invoices']['post_code'];
+		$protx['Crypt']['BillingCountry'] = $order_data['address']['invoices']['country']['iso_code2'];
+
+		$protx['Crypt']['DeliverySurname'] = $order_data['client']['customer']['last_name'];
+		$protx['Crypt']['DeliveryFirstNames'] = $order_data['client']['customer']['first_name'];
+
+		$delivery_name = explode(" ", trim($order_data['address']['delivery']['name']));
+		foreach ($delivery_name as $i => $item) {
+			if ($i == 0) $protx['Crypt']['DeliveryFirstNames'] = trim($item);
+			if ($i == count($delivery_name) - 1) $protx['Crypt']['DeliverySurname'] = trim($item);
+		}
+
+		$protx['Crypt']['DeliveryAddress1'] = $order_data['address']['delivery']['line_1'];
+		$protx['Crypt']['DeliveryCity'] = $order_data['address']['delivery']['city'];
+		$protx['Crypt']['DeliveryPostCode'] = $order_data['address']['delivery']['post_code'];
+		$protx['Crypt']['DeliveryCountry'] = $order_data['address']['delivery']['country']['iso_code2'];
+
 		$protx['Crypt']['Basket'] = '';
 	
 		$basket = count($order_data['basket']['items']);
@@ -89,18 +100,14 @@ class Onxshop_Controller_Component_Ecommerce_Payment_Protx extends Onxshop_Contr
 			$basket = $basket . ':' . $item['product']['variety']['sku'] . ' - ' . $item['product']['name'] . ':' . $item['quantity'] . ':' . $item['product']['variety']['price'][GLOBAL_DEFAULT_CURRENCY]['price']['common']['value'] . ':' . $item['product']['variety']['price'][GLOBAL_DEFAULT_CURRENCY]['vat'] . ':' . $item['product']['variety']['price'][GLOBAL_DEFAULT_CURRENCY]['price']['common']['value_vat'] . ':' . $item['total_inc_vat'];
 		}
 	
-		//echo $basket; exit;
 		$protx['Crypt']['Basket'] = $basket;
-	
-		//print_r($protx);
-	
+
 		foreach ($protx['Crypt'] as $key=>$val) {
 			$crypt = $crypt . '&' . $key . '=' . $val; 
 		}
 		$crypt = ltrim($crypt, '&');
-	
-		$protx['Crypt'] = base64_encode(simpleXor($crypt, ECOMMERCE_TRANSACTION_PROTX_PASSWORD));
-		
+
+		$protx['Crypt'] = self::encryptAes($crypt, ECOMMERCE_TRANSACTION_PROTX_PASSWORD);
 		
 		return $protx;
 		
@@ -118,55 +125,24 @@ class Onxshop_Controller_Component_Ecommerce_Payment_Protx extends Onxshop_Contr
 		require_once('models/ecommerce/ecommerce_order.php');
 		$Order = new ecommerce_order();
 
-		require_once('lib/protx.functions.php');
 		//decode crypt
-		$pg_data_x = simpleXor(base64Decode($crypt), ECOMMERCE_TRANSACTION_PROTX_PASSWORD);
+		$decoded = self::decryptAes($crypt, ECOMMERCE_TRANSACTION_PROTX_PASSWORD);
 		//explode protx data
-		$pg_data = getToken($pg_data_x);
-		
-		/**
-		 * PROTX:
-		 * vpstxid [int]
-		 * avscv2 [int]
-		 * txauthno[int]
-		 * vpsstatus[int]
-		 */
-		/*
-		$pg_data_x = explode('&', $pg_data_x);
-		for ($i=1; $i<count($pg_data_x); $i++) {
-		    $param = explode('=', $pg_data_x[$i]);
-	    	$pg_data[$param[0]] = $param[1];
-		}
-		*/
-		//print_r($pg_data);
+		parse_str($decoded, $response);
 
-		// check if $pg_data['VendorTxCode'] = $_GET['order_id']
-
-		$this->msgProtxStatus($pg_data['Status']);
+		$this->msgProtxStatus($response['Status']);
 
 		$order_data = $Order->getOrder($order_id);
-		//print_r($order_data);
-		
-		/**
-		 * optional: save only orders in valid status
-		 */
-		/*
-		if ($order_data['status'] == 1 || $order_data['status'] == 2 || $order_data['status'] == 3 || $order_data['status'] == 4) {
-			msg("Ecommerce_transaction: Order in status New (paid), Dispatched, Completed, Cancelled", 'error', 2);
-			msg("This order (id=$order_id) was already paid before.", 'error');
-		}
-		*/
 
 		$transaction_data['order_id'] = $order_data['id'];
-		$transaction_data['pg_data'] = serialize($pg_data);
+		$transaction_data['pg_data'] = serialize($response);
 		$transaction_data['currency_code'] = GLOBAL_DEFAULT_CURRENCY;
-		if (is_numeric($pg_data['Amount'])) $transaction_data['amount'] = $pg_data['Amount'];
+		if (is_numeric($response['Amount'])) $transaction_data['amount'] = $response['Amount'];
 		else $transaction_data['amount'] = 0;
 		$transaction_data['created'] = date('c');
 		$transaction_data['type'] = 'protx';
-		if ($pg_data['Status'] == 'OK') $transaction_data['status'] = 1;
+		if ($response['Status'] == 'OK') $transaction_data['status'] = 1;
 		else $transaction_data['status'] = 0;
-		
 		
 		/**
 		 * insert
@@ -175,7 +151,7 @@ class Onxshop_Controller_Component_Ecommerce_Payment_Protx extends Onxshop_Contr
 		if ($id = $this->Transaction->insert($transaction_data)) {
 		
 		    // in payment_success must be everytime Status OK
-			if ($pg_data['Status'] == 'OK') {
+			if ($response['Status'] == 'OK') {
 				$Order->setStatus($order_id, 1);
 				
 				//send email to admin
@@ -209,7 +185,7 @@ class Onxshop_Controller_Component_Ecommerce_Payment_Protx extends Onxshop_Contr
 		} else {
 		
 			//to be sure...
-			if ($pg_data['Status'] == 'OK') {
+			if ($response['Status'] == 'OK') {
 				msg("Payment for order $order_id was successfully Authorised, but I cant save the transaction TxAuthNo {$pg_data['TxAuthNo']}!", 'error');
 			}
 			
@@ -243,6 +219,96 @@ class Onxshop_Controller_Component_Ecommerce_Payment_Protx extends Onxshop_Contr
 			msg("Unknown status $status", 'error');
 		}
 		
+    }
+
+    /**
+     * PHP's mcrypt does not have built in PKCS5 Padding, so we use this.
+     *
+     * @param string $input The input string.
+     * @return string The string with padding.
+     */
+
+    static protected function addPKCS5Padding($input)
+    {
+        $blockSize = 16;
+        $padd = "";
+
+        $length = $blockSize - (strlen($input) % $blockSize);
+        for ($i = 1; $i <= $length; $i++) $padd .= chr($length);
+
+        return $input . $padd;
+    }
+
+    /**
+     * Remove PKCS5 Padding from a string.
+     *
+     * @param string $input The decrypted string.
+     * @return string String without the padding.
+     */
+
+    static protected function removePKCS5Padding($input)
+    {
+        $blockSize = 16;
+        $padChar = ord($input[strlen($input) - 1]);
+
+        /* Check for PadChar is less then Block size */
+        if ($padChar > $blockSize) die('Invalid encryption string');
+
+        /* Check by padding by character mask */
+        if (strspn($input, chr($padChar), strlen($input) - $padChar) != $padChar) die('Invalid encryption string');
+
+        $unpadded = substr($input, 0, (-1) * $padChar);
+        /* Chech result for printable characters */
+        if (preg_match('/[[:^print:]]/', $unpadded)) die('Invalid encryption string');
+
+        return $unpadded;
+    }
+
+    /**
+     * Encrypt a string ready to send to SagePay using encryption key.
+     *
+     * @param  string  $string  The unencrypyted string.
+     * @param  string  $key     The encryption key.
+     * @return string The encrypted string.
+     */
+
+    static public function encryptAes($string, $key)
+    {
+        // AES encryption, CBC blocking with PKCS5 padding then HEX encoding.
+        // Add PKCS5 padding to the text to be encypted.
+        $string = self::addPKCS5Padding($string);
+
+        // Perform encryption with PHP's MCRYPT module.
+        $crypt = mcrypt_encrypt(MCRYPT_RIJNDAEL_128, $key, $string, MCRYPT_MODE_CBC, $key);
+
+        // Perform hex encoding and return.
+        return "@" . strtoupper(bin2hex($crypt));
+    }
+
+    /**
+     * Decode a returned string from SagePay.
+     *
+     * @param string $strIn         The encrypted String.
+     * @param string $password      The encyption password used to encrypt the string.
+     * @return string The unecrypted string.
+     */
+
+    static public function decryptAes($strIn, $password)
+    {
+        // HEX decoding then AES decryption, CBC blocking with PKCS5 padding.
+        // Use initialization vector (IV) set from $str_encryption_password.
+        $strInitVector = $password;
+
+        // Remove the first char which is @ to flag this is AES encrypted and HEX decoding.
+        $hex = substr($strIn, 1);
+
+        // Throw exception if string is malformed
+        if (!preg_match('/^[0-9a-fA-F]+$/', $hex)) die('Invalid encryption string');
+        $strIn = pack('H*', $hex);
+
+        // Perform decryption with PHP's MCRYPT module.
+        $string = mcrypt_decrypt(MCRYPT_RIJNDAEL_128, $password, $strIn, MCRYPT_MODE_CBC, $strInitVector);
+        return self::removePKCS5Padding($string);
     }
 	
 }
