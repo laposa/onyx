@@ -222,6 +222,8 @@ CREATE TABLE common_file (
 		
 			msg("File->listFiles: node_id is not numeric", 'error');
 		
+			return false;
+			
 		}
 
 		foreach ($files as $file_detail) {
