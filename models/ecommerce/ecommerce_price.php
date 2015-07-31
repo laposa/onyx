@@ -163,14 +163,11 @@ CREATE TABLE ecommerce_price (
 	function priceInsert($data) {
 
 		if (!is_numeric($data['value'])) {
-			msg('ecommerce_price.priceInsert: Value is not numeric', 'error');
+			msg('ecommerce_price.priceInsert: Net Value is not numeric', 'error');
 			return false;
 		}
 		
 		$data['date'] = date('c');
-		
-		$vat = $this->getVatByVarietyId($data['product_variety_id']);
-		$data['value'] = $data['value'] / (100 + $vat) * 100;
 		
 		if ($id = $this->insert($data)) return $id;
 		else return false;
