@@ -263,7 +263,7 @@ if (!defined('ONXSHOP_BACKOFFICE_REQUIRE_CUSTOMER_LOGIN')) define('ONXSHOP_BACKO
  * allow to upload files to root folder in media library?
  */
 
-if (!defined('ONXSHOP_MEDIA_LIBRARY_ROOT_UPLOAD')) define('ONXSHOP_MEDIA_LIBRARY_ROOT_UPLOAD', true);
+if (!defined('ONXSHOP_MEDIA_LIBRARY_ROOT_UPLOAD')) define('ONXSHOP_MEDIA_LIBRARY_ROOT_UPLOAD', false);
 
 /**
  * mark object as invalid when using null on required attributes?
