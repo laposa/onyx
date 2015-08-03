@@ -12,6 +12,11 @@ display: none;
 </style>
 <!-- END: gift -->
 
+<style type="text/css">
+    th,td { font-size: 10px; padding: 10px;}
+    div.invoice div.basket_detail tr.subtotal { display: none; }
+</style>
+
 <div class="invoice">
 <table border="1" cellpadding="10" cellspacing="0">
 <thead>
@@ -39,7 +44,7 @@ display: none;
 <tbody>
 	<tr>
 		<td style="width: 50%" valign="top" align="left">
-			{INVOICE.address_delivery|htmlspecialchars|nl2br}
+			{INVOICE.address_delivery|ltrim|htmlspecialchars|nl2br}
 			<br />{I18N_CONTACT_TELEPHONE} {ORDER.client.customer.telephone|htmlspecialchars} 
 			<br />{ORDER.note_customer|htmlspecialchars|nl2br}
 		</td>
@@ -49,17 +54,18 @@ display: none;
 				{ECOMMERCE_INVOICE_DELIVERY_LOGO}
 				<!-- END: carrier_id_2 -->
 				<!-- BEGIN: carrier_id_3 -->
-				<h1 style="font-size: 36px;">DHL 24 Hr</h1>
+				<h1 style="font-size: 36px;">DHL Courier</h1>
 				<!-- END: carrier_id_3 -->
 				<!-- BEGIN: carrier_id_7 -->
-				<h1 style="font-size: 36px;">DHL 48 Hr</h1>
+				<h1 style="font-size: 36px;">Free Delivery</h1>
 				<!-- END: carrier_id_7 -->
 			<!-- END: type -->
 		</td>
 	</tr>
 	<tr>
 		<td style="width: 50%" valign="top" align="left">
-			{INVOICE.address_invoice|htmlspecialchars|nl2br}
+			{INVOICE.address_invoice|ltrim|htmlspecialchars|nl2br}
+			<br />Email: {ORDER.client.customer.telephone|htmlspecialchars}
 		</td>
 		<td style="width: 50%" valign="top" align="right">
 			<table>
