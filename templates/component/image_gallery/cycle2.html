@@ -23,7 +23,8 @@ $(document).ready(function() {
 <div class="image_gallery_cycle2 number_of_items_{IMAGE_COUNT}" id="gallery_cycle2_{GET.node_id}">
 	<!-- BEGIN: item -->
 	<div class="item item_id_{GET.node_id}_{ITEM.id}">
-		<a href="/page/{ITEM.link_to_node_id}"><img id="image_id_{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" /></a>
+		<!-- BEGIN: normal --><img id="image_id_{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" /><!-- END: normal -->
+		<!-- BEGIN: link --><a href="/page/{ITEM.link_to_node_id}"><img id="image_id_{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" /></a><!-- END: link -->
 		<div class="description">{ITEM.description|htmlspecialchars}</div>
 	</div>
 	<!-- END: item -->

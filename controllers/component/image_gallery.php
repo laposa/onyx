@@ -101,6 +101,21 @@ class Onxshop_Controller_Component_Image_Gallery extends Onxshop_Controller_Comp
 	}
 	
 	/**
+	 * assignAndParseItem
+	 */
+	
+	public function assignAndParseItem($item) {
+		
+		$this->tpl->assign('ITEM', $item);
+					
+		if (is_numeric($item['link_to_node_id']) && $item['link_to_node_id'] > 0) $this->tpl->parse('content.item.link');
+		else $this->tpl->parse('content.item.normal');
+					
+		$this->tpl->parse('content.item');
+			
+	}
+	
+	/**
 	 * assignAndParseThumbnailItem
 	 */
 	 
