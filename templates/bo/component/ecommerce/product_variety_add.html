@@ -19,20 +19,20 @@
 			vat_input.keyup(updateNoVatPrice);
 			vat_input.blur(updateNoVatPrice);
 		} else {
-			no_vat_input.hide();
+			vat_input.parent().parent().remove();
 		}
 
 		function updateVatPrice() {
 			var price = no_vat_input.val() * 1;
 			var rate = rate_select.find("option:selected").data("vat") * 1;
-			if (isNaN(price) || isNaN(rate)) vat_input.val("-");
+			if (isNaN(price) || isNaN(rate)) vat_input.val("0");
 			else vat_input.val(Math.round(price * (100 + rate) / 100 * 100000) / 100000);
 		}
 
 		function updateNoVatPrice() {
 			var price = vat_input.val() * 1;
 			var rate = rate_select.find("option:selected").data("vat") * 1;
-			if (isNaN(price) || isNaN(rate)) no_vat_input.val("-");
+			if (isNaN(price) || isNaN(rate)) no_vat_input.val("0");
 			else no_vat_input.val(Math.round(price / (100 + rate) * 100 * 100000) / 100000);
 		}
 
@@ -76,7 +76,7 @@
 		<div class="layoutColumnTwo ofTwo">
 			<div class="row">
 				<span class="label"><label>Price Value (including VAT) in {GLOBAL_DEFAULT_CURRENCY}</label></span>
-				<span class="field"><input type="text" id="price_with_vat" class="text half required number"/></span>
+				<span class="field"><input type="text" id="price_with_vat" class="text half number"/></span>
 			</div>
 		</div>
 	</div>

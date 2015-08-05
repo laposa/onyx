@@ -12,32 +12,32 @@
 		/**
 		 * Calculate VAT if available
 		 */
-		var rate_select = $('select[name="product[variety][product_type_id]"]'); // this element isn't part of this component, TODO: remove dependency, or pass product_type_id to price_add component
+		var rate_select = $('select[name="product[variety][product_type_id]"]');
 		var no_vat_input = $("#price_without_vat");
 		var vat_input = $("#price_with_vat");
 
-		//if (rate_select.length > 0) {
+		if (rate_select.length > 0) {
 			no_vat_input.change(updateVatPrice);
 			no_vat_input.keyup(updateVatPrice);
 			no_vat_input.blur(updateVatPrice);
 			vat_input.change(updateNoVatPrice);
 			vat_input.keyup(updateNoVatPrice);
 			vat_input.blur(updateNoVatPrice);
-		//} else {
-			//no_vat_input.hide();
-		//}
+		} else {
+			vat_input.parent().parent().remove();
+		}
 
 		function updateVatPrice() {
 			var price = no_vat_input.val() * 1;
 			var rate = rate_select.find("option:selected").data("vat") * 1;
-			if (isNaN(price) || isNaN(rate)) vat_input.val("-");
+			if (isNaN(price) || isNaN(rate)) vat_input.val("0");
 			else vat_input.val(Math.round(price * (100 + rate) / 100 * 100000) / 100000);
 		}
 
 		function updateNoVatPrice() {
 			var price = vat_input.val() * 1;
 			var rate = rate_select.find("option:selected").data("vat") * 1;
-			if (isNaN(price) || isNaN(rate)) no_vat_input.val("-");
+			if (isNaN(price) || isNaN(rate)) no_vat_input.val("0");
 			else no_vat_input.val(Math.round(price / (100 + rate) * 100 * 100000) / 100000);
 		}
 
@@ -71,7 +71,7 @@
 				<div class="columnTwo ofTwo">
 					<div class="row">
 						<span class="label"><label>Price Value including VAT</label></span>
-						<span class="field"><input id="price_with_vat" type="text" class="text half required number" value=""/></span>
+						<span class="field"><input id="price_with_vat" type="text" class="text half number" value=""/></span>
 					</div>
 				</div>
 			</div>
