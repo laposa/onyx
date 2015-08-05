@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2013 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2013-2015 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -20,18 +20,42 @@ class Onxshop_Controller_Component_Ecommerce_Roundel_Image extends Onxshop_Contr
 	
 	public function mainAction()
 	{
-		$this->initParams();
-		$this->checkCache();
-
-		$this->initCanvas();
-		$this->drawCircle();
-		$this->calculateTextAttibutes();
-		$this->drawText();
-		$this->outputToBrowser();
-
+		
+		if (preg_match("/^IMAGE/", $this->GET['bgcolor'])) {
+			
+			/**
+			 * hard linked roundel image, pass to image_thumbnail script
+			 */
+			 
+			$_GET['image'] = preg_replace("/^IMAGE /", "", $this->GET['bgcolor']);
+			if (!is_numeric($_GET['width'])) $_GET['width'] = 200; // make sure mandatory width parameter is set
+			include ('share/image_thumbnail.php');
+			exit;
+			
+		} else {
+		
+			/**
+			 * standard roundel generator
+			 */
+			 
+			$this->initParams();
+			$this->checkCache();
+	
+			$this->initCanvas();
+			$this->drawCircle();
+			$this->calculateTextAttibutes();
+			$this->drawText();
+			$this->outputToBrowser();
+			
+		}
+		
 		return true;
 		
 	}
+	
+	/**
+	 * initParams
+	 */
 
 	protected function initParams()
 	{
@@ -63,6 +87,10 @@ class Onxshop_Controller_Component_Ecommerce_Roundel_Image extends Onxshop_Contr
 
 		if (count($this->text) == 0) die();
 	}
+	
+	/**
+	 * checkCache
+	 */
 
 	protected function checkCache()
 	{
@@ -88,6 +116,10 @@ class Onxshop_Controller_Component_Ecommerce_Roundel_Image extends Onxshop_Contr
 			exit();
 		}
 	}
+	
+	/**
+	 * initCanvas
+	 */
 
 	protected function initCanvas()
 	{
@@ -109,6 +141,10 @@ class Onxshop_Controller_Component_Ecommerce_Roundel_Image extends Onxshop_Contr
 			$this->getColorComponent($this->text_color_hex, 1), $this->getColorComponent($this->text_color_hex, 2));
 
 	}
+	
+	/**
+	 * drawCircle
+	 */
 
 	protected function drawCircle()
 	{
@@ -116,6 +152,10 @@ class Onxshop_Controller_Component_Ecommerce_Roundel_Image extends Onxshop_Contr
 			$this->width, $this->height, $this->bg_color);
 	}
 
+	/**
+	 * calculateTextAttibutes
+	 */
+	 
 	protected function calculateTextAttibutes()
 	{
 		$size = 10 * $this->aa_factor;
@@ -178,6 +218,10 @@ class Onxshop_Controller_Component_Ecommerce_Roundel_Image extends Onxshop_Contr
 
 	}
 
+	/**
+	 * drawText
+	 */
+	 
 	protected function drawText()
 	{
 		foreach ($this->text as $line) {
@@ -191,6 +235,10 @@ class Onxshop_Controller_Component_Ecommerce_Roundel_Image extends Onxshop_Contr
 		}
 
 	}
+	
+	/**
+	 * isPointInCircle
+	 */
 
 	protected function isPointInCircle($center_x, $center_y, $radius, $x, $y)
 	{
@@ -203,6 +251,11 @@ class Onxshop_Controller_Component_Ecommerce_Roundel_Image extends Onxshop_Contr
         return ($distance_squared <= $radius_squared);
 
 	}
+	
+	/**
+	 * outputToBrowser
+	 */
+	 
 	protected function outputToBrowser()
 	{
 		// init result canvas
@@ -228,6 +281,10 @@ class Onxshop_Controller_Component_Ecommerce_Roundel_Image extends Onxshop_Contr
 		exit();
 	}
 
+	/**
+	 * getColorComponent
+	 */
+	 
 	protected function getColorComponent($hexRGB, $component)
 	{
 		$hexRGB = str_replace("#", "", $hexRGB);

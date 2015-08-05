@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2013 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2013-2015 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -85,6 +85,10 @@ class Onxshop_Controller_Component_Ecommerce_Roundel_CSS extends Onxshop_Control
 		$text = str_replace('__saving__', $offer['saving'], $text);
 		$text = str_replace('__quantity__', $offer['quantity'], $text);
 
+		/**
+		 * options configured at offer level
+		 */
+		 
 		$i = 1;
 		$data = array();
 		$lines = explode("\n", $text);
@@ -95,11 +99,19 @@ class Onxshop_Controller_Component_Ecommerce_Roundel_CSS extends Onxshop_Control
 			$data["size{$i}"] = (int) $matches[1];
 			$i++;
 		}
+		
+		/**
+		 * option configured at category level
+		 */
 
 		$colours = explode("\n", $offer['campaign_category']);
 		if (!empty($colours[0])) $data['bgcolor'] = $colours[0];
 		if (!empty($colours[1])) $data['textcolor'] = $colours[1];
 
+		/**
+		 * all parameters are passed to round_image
+		 */
+		 
 		return '/request/component/ecommerce/roundel_image?' . http_build_query($data);
 	}
 }
