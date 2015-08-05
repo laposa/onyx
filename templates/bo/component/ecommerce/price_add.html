@@ -12,20 +12,20 @@
 		/**
 		 * Calculate VAT if available
 		 */
-		var rate_select = $('select[name="product[variety][product_type_id]"]');
+		var rate_select = $('select[name="product[variety][product_type_id]"]'); // this element isn't part of this component, TODO: remove dependency, or pass product_type_id to price_add component
 		var no_vat_input = $("#price_without_vat");
 		var vat_input = $("#price_with_vat");
 
-		if (rate_select.length > 0) {
+		//if (rate_select.length > 0) {
 			no_vat_input.change(updateVatPrice);
 			no_vat_input.keyup(updateVatPrice);
 			no_vat_input.blur(updateVatPrice);
 			vat_input.change(updateNoVatPrice);
 			vat_input.keyup(updateNoVatPrice);
 			vat_input.blur(updateNoVatPrice);
-		} else {
-			no_vat_input.hide();
-		}
+		//} else {
+			//no_vat_input.hide();
+		//}
 
 		function updateVatPrice() {
 			var price = no_vat_input.val() * 1;
