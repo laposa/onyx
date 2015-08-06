@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2010-2013 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2010-2015 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -21,7 +21,7 @@ class Onxshop_Controller_Bo_Component_Backup extends Onxshop_Controller {
 			
 			if ($filename = $this->createBackup($scope)) {
 			
-				$this->notificationEmail();
+				$this->notificationEmail($filename);
 				onxshopGoTo("/download/var/backup/$filename");
 			
 			} else {
@@ -117,7 +117,7 @@ class Onxshop_Controller_Bo_Component_Backup extends Onxshop_Controller {
 	 * notify about created backup
 	 */
 	 
-	private function notificationEmail() {
+	private function notificationEmail($filename) {
 	
 		require_once('models/common/common_email.php');
 	    $EmailForm = new common_email();
@@ -125,9 +125,10 @@ class Onxshop_Controller_Bo_Component_Backup extends Onxshop_Controller {
 	    $mail_to = ONXSHOP_SUPPORT_EMAIL;
 	    $mail_toname = ONXSHOP_SUPPORT_NAME;
 	    
-	    $content = array();
+	    $file_info = $this->getFileInfo($filename);
+	    $content = print_r($file_info, true);
 	    
-	    if ($EmailForm->sendEmail('backup_created', $content, $mail_to, $mail_toname, $EmailForm->conf['mail_recipient_address'], $EmailForm->conf['mail_recipient_name'])) {
+	    if ($EmailForm->sendEmail('backup_created', $content, $mail_to, $mail_toname)) {
 	    	
 	    	Zend_Registry::set('notify', 'sent');
 	    
@@ -176,5 +177,22 @@ class Onxshop_Controller_Bo_Component_Backup extends Onxshop_Controller {
 		}
 		
 		return true;
+	}
+	
+	/**
+	 * getFileInfo
+	 */
+	 
+	private function getFileInfo($filename) {
+		
+		if (!$filename) return false;
+		$file_path = ONXSHOP_PROJECT_DIR . 'var/backup/' . $filename;
+		if (!file_exists($file_path) && !is_file($file_path)) return false;
+		
+		require_once('models/common/common_file.php');
+		$file_info = common_file::getFileInfo($file_path);
+		
+		return $file_info;
+		
 	}
 }

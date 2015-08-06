@@ -719,13 +719,13 @@ CREATE TABLE common_file (
 	 * file info
 	 */
 	 
-	function getFileInfo($fp, $extra_detail = false) {
+	static function getFileInfo($fp, $extra_detail = false) {
 	
 		$file_info['modified'] = strftime("%c", filemtime($fp));
 		$file_info['mime-type'] = local_exec("file -bi " . escapeshellarg($fp));
 		$file_info['type-detail'] = local_exec("file -b " . escapeshellarg($fp));
 		$file_info['file_path'] = str_replace(ONXSHOP_PROJECT_DIR . 'var/files/', '', $fp);
-		$file_info['size'] = $this->resize_bytes(filesize($fp));
+		$file_info['size'] = self::resize_bytes(filesize($fp));
 		
 		if ($extra_detail) {
 			if (trim($file_info['mime-type']) == 'application/pdf') {
@@ -977,7 +977,7 @@ CREATE TABLE common_file (
 	 * text representation of input size
 	 */
 	 
-	function resize_bytes($size) {
+	static function resize_bytes($size) {
 	
 	   $count = 0;
 	   $format = array("B","KB","MB","GB","TB","PB","EB","ZB","YB");
