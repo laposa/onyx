@@ -75,6 +75,27 @@ class Onxshop_Controller_Component_Ecommerce_Recipe_List extends Onxshop_Control
 	{
 		foreach ($list as $i => $item) {
 			
+			/**
+			 * create taxonomy_class from related_taxonomy
+			 */
+			
+			if ($item['taxonomy']) {
+				$related_taxonomy = explode(',', $item['taxonomy']);
+				
+				$item['taxonomy_class'] = '';
+				
+				if (is_array($related_taxonomy)) {
+					foreach ($related_taxonomy as $t_item) {
+						$item['taxonomy_class'] .= "t{$t_item} ";
+					}
+				}
+				
+			} else {
+				
+				$item['taxonomy_class'] = '';
+				
+			}
+			
 			$this->parseItem($item);
 			
 		}

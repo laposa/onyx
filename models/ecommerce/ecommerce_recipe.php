@@ -485,7 +485,8 @@ CREATE TABLE ecommerce_recipe (
 			$where_recipe_publish = " AND ecommerce_recipe.publish = {$publish_status}";
 		}
 		
-		$sql = "SELECT ecommerce_recipe.*, common_node.share_counter
+		$sql = "SELECT ecommerce_recipe.*, common_node.share_counter,
+				(SELECT array_to_string(array_agg(taxonomy.taxonomy_tree_id), ',') FROM ecommerce_recipe_taxonomy taxonomy WHERE taxonomy.node_id = ecommerce_recipe.id) AS taxonomy
 			FROM ecommerce_recipe
 			INNER JOIN common_node ON (common_node.node_group = 'page' 
 				AND common_node.node_controller = 'recipe'
@@ -494,7 +495,7 @@ CREATE TABLE ecommerce_recipe (
 			WHERE 1=1 $where_recipe_publish $where
 			$order_by
 			$limit";
-	
+
 		$recipes = $this->executeSql($sql);
 		
 		// return empty array if nothing is found
