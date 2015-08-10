@@ -26,7 +26,7 @@ class Onxshop_Controller_Api_v1_0_Store_Location_List extends Onxshop_Controller
 		 * get stores
 		 */
 		
-		$records = $Store->listing("type_id = 1");
+		$records = $Store->listing("type_id = 1 AND publish = 1");
 		
 		$data = array();
 		
