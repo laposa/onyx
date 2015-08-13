@@ -33,7 +33,7 @@ class Onxshop_Controller_Component_Prevnext extends Onxshop_Controller {
 		$current_node_detail = $Node->getDetail($node_id);
 		$parent_node_detail = $Node->getDetail($current_node_detail['parent']);
 		
-		$siblings = $Node->listing("parent = {$current_node_detail['parent']} AND node_group = 'page'", 'priority DESC, id ASC');
+		$siblings = $Node->listing("parent = {$current_node_detail['parent']} AND node_group = 'page' AND publish = 1", 'priority DESC, id ASC');
 		
 		if (is_array($siblings)) {
 			
