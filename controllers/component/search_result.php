@@ -120,12 +120,16 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 	protected function parseResults($results)
 	{
 		foreach ($results as $result) {
+			
+			if ($result['publish']) {
+			
+				$this->parseBreadcrumb($result['path']);
 
-			$this->parseBreadcrumb($result['path']);
-
-			$this->tpl->assign('RESULT', $result);
-			if ($result['image']) $this->tpl->parse('content.result.item.image');
-			$this->tpl->parse('content.result.item');
+				$this->tpl->assign('RESULT', $result);
+				if ($result['image']) $this->tpl->parse('content.result.item.image');
+				$this->tpl->parse('content.result.item');
+			
+			}
 		}
 	}
 
