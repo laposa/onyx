@@ -52,7 +52,7 @@ $(document).ready(function() {
 		
 		<div class="row title">
 			<span class="label"><label>Title *:</label></span>
-			<span class="field"><input class="text title" type="text" name="file[title]" value="{FILE.title}" /></span>
+			<span class="field"><input class="text title" type="text" name="file[title]" value="{FILE.title|htmlspecialchars}" /></span>
 		</div>
 		<div class="row">
 			<span class="label"><label>Role:</label></span>
@@ -64,7 +64,7 @@ $(document).ready(function() {
 		</div>
 		<div class="row">
 			<span class="label"><label>Description:</label></span>
-			<span class="field"><textarea name="file[description]">{FILE.description}</textarea></span>
+			<span class="field"><textarea name="file[description]">{FILE.description|htmlspecialchars}</textarea></span>
 		</div>
 		<p><a href="#file-edit-advanced-{FILE.id}" onclick="$('#file-edit-advanced-{FILE.id}').toggle(); return false;">Show more options</a></p>
 		<div id="file-edit-advanced-{FILE.id}" class="advanced">
