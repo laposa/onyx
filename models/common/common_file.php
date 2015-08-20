@@ -721,6 +721,8 @@ CREATE TABLE common_file (
 	 
 	static function getFileInfo($fp, $extra_detail = false) {
 	
+		if (trim($fp) == '' || !file_exists($fp)) return false;
+		
 		$file_info['modified'] = strftime("%c", filemtime($fp));
 		$file_info['mime-type'] = local_exec("file -bi " . escapeshellarg($fp));
 		$file_info['type-detail'] = local_exec("file -b " . escapeshellarg($fp));

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2008-2011 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2008-2015 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -20,6 +20,11 @@ class Onxshop_Controller_Bo_Component_File_Info extends Onxshop_Controller_Bo_Co
 		
 		if ($this->GET['file_path_encoded']) {
 			$file_path = $File->decode_file_path($this->GET['file_path_encoded']);
+		} else if ($this->GET['file_path']) {
+			$file_path = $this->GET['file_path'];
+		}
+		
+		if ($file_path) {
 			$info = $File->getFileInfo($file_path, true);
 			$this->tpl->assign("ITEM", $info);
 		}
