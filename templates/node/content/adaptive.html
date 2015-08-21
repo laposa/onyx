@@ -1,9 +1,37 @@
+<!-- BEGIN: head_once -->
+<script type="text/javascript" src="/share/js/jquery/plugins/jquery.cookie.js"></script>
+<!-- END: head_once -->
 <!-- BEGIN: content -->
 <div class="adaptive {NODE.css_class}">
-		<!-- BEGIN: title --><h3 class="contentTitle"><span>{NODE.title|htmlspecialchars}</span></h3><!-- END: title -->
-		<!-- BEGIN: title_link --><h3 class="contentTitle"><a href="/page/{NODE.link_to_node_id}"><span>{NODE.title|htmlspecialchars}</span></a></h3><!-- END: title_link -->
-		
-		{SUB_CONTENT}
-		
+	<!-- BEGIN: title --><h3 class="contentTitle"><span>{NODE.title|htmlspecialchars}</span></h3><!-- END: title -->
+	<!-- BEGIN: title_link --><h3 class="contentTitle"><a href="/page/{NODE.link_to_node_id}"><span>{NODE.title|htmlspecialchars}</span></a></h3><!-- END: title_link -->
+	
+	{SUB_CONTENT}
+
 </div>
+
+<!-- BEGIN: random -->
+<script type="text/javascript">
+	var nodes = $('#node_id_{GET.id} div.adaptive > div.node');
+	if (nodes.length > 0) {
+		var keep = Math.floor(Math.random() * nodes.length);
+		nodes.each(function(index) { if (index != keep) $(this).hide(); });
+	}
+</script>
+<!-- END: random -->
+	
+<!-- BEGIN: rotate -->
+<script type="text/javascript">
+	var nodes = $('#node_id_{GET.id} div.adaptive > div.node');
+	if (nodes.length > 0) {
+		var keep = 0;
+		var cookie = $.cookie('adaptive_{GET.id}');
+		if (cookie != undefined) keep = cookie + 1;
+		if (keep >= nodes.length) keep = 0;
+		$.cookie('adaptive_{GET.id}', keep); 
+		nodes.each(function(index) { if (index != keep) $(this).hide(); });
+	}
+</script>
+<!-- END: rotate -->
+
 <!-- END: content -->

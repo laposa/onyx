@@ -63,6 +63,14 @@ class Onxshop_Controller_Node_Content_Adaptive extends Onxshop_Controller_Node_C
 			case "always":
 				return true;
 
+			case "random":
+				$this->tpl->parse("content.random");
+				return true;
+
+			case "rotate":
+				$this->tpl->parse("content.rotate");
+				return true;
+
 			case "customer_returning":
 				return $this->isReturningCustomer();
 

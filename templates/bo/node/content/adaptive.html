@@ -15,6 +15,10 @@
 			<optgroup label="Default">
 				<option value="always" {SELECT_condition_always}>Always displayed</option>
 			</optgroup>
+			<optgroup label="Single Component of Many">
+				<option value="random" {SELECT_condition_random}>Random</option>
+				<option value="rotate" {SELECT_condition_rotate}>Rotate</option>
+			</optgroup>
 			<optgroup label="Customer Status">
 				<option value="customer_returning" {SELECT_condition_customer_returning}>Displayed only to returning customers</option>
 				<option value="customer_new" {SELECT_condition_customer_new}>Displayed only to new customers</option>
@@ -28,6 +32,12 @@
 			<br/>
 			<div class="always">
 				<p>Nested components are displayed at all times.</p>
+			</div>
+			<div class="random">
+				<p>Only one of the nested components is displayed. The displayed component changes on page visit/refresh. The selection is made at random.</p>
+			</div>
+			<div class="rotate">
+				<p>Only one of the nested components is displayed. The displayed component changes on page visit/refresh. The selection is made sequentially.</p>
 			</div>
 			<div class="customer_returning">
 				<p>Nested components are displayed only to customers who:</p>
@@ -82,6 +92,39 @@
 	});
 </script>
 
-{FILE "bo/node/default_bottom.html"}
+<div>
+	<fieldset>
+			<legend style="display: none">List of content</legend>
+			<div class="row child">
+				{ONXSHOP_REQUEST_children_list #bo/component/node_list~id=GET.id~}
+			</div>
+	</fieldset>
+	<div class="advanced">
+		{FILE "bo/node/item_position.html"}
+	</div>
+</div>
+<div class="twoColumnLayout fibonacci-1-1 advanced">
+	<div class="layoutColumnOne ofTwo">
+		<fieldset>
+			{FILE "bo/node/item_display_in_menu.html"}
+			{FILE "bo/node/item_display_permission.html"}
+			{FILE "bo/node/item_display_permission_group_acl.html"}
+			{FILE "bo/node/item_require_login.html"}
+			{FILE "bo/node/item_require_ssl.html"}
+		</fieldset>
+	</div>
+	<div class="layoutColumnTwo ofTwo">
+		<fieldset>
+			{NODE_TYPE}
+			{FILE "bo/node/item_signature.html"}
+			{FILE "bo/node/item_customer.html"}
+			{FILE "bo/node/item_head.html"}
+		</fieldset>
+	</div>
+</div>
+
+{FILE "bo/node/item_publish.html"}
+	
+{FILE "bo/node/form_close.html"}
 
 <!-- END: content -->
