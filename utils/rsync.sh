@@ -25,7 +25,7 @@ echo "Usage: ${0} [YES]";
 echo
 
 if [ "$CONFIRM" != "YES" ]; then
-    echo "Add parameter YES, if you want to write changes.";
+	echo "Add parameter YES, if you want to write changes.";
 	echo
 	echo "Target path: $PROJECT_REMOTE_FULL_PUBLIC_DIR";
 	NOPROCESS="-n";
