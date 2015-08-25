@@ -6,6 +6,3 @@ __MACOSX
 *~
 *.swp
 
-rsync.sh
-rsync-*
-
