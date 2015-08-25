@@ -39,11 +39,11 @@ $(document).ready(function(){
 		<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 		<div id="rt_select">
 			<!-- BEGIN:ptn -->
-				<div>
+			<div>
 				<input type="hidden" name="relation_taxonomy[]" value="{CURRENT.id}" />
-				<button class="remove small" name="" onclick="this.parentNode.parentNode.removeChild(this.parentNode)"><span>Remove</span></button>
+				<button class="remove small" onclick="this.parentNode.parentNode.removeChild(this.parentNode)"><span>Remove</span></button>
 				<div style="display: inline-block" {CURRENT.class}>{BREADCRUMB}</div>
-				</div>
+			</div>
 			<!-- END:ptn -->
 		</div>
 		
@@ -51,12 +51,11 @@ $(document).ready(function(){
 			<p><a class="button add" href="#"><span>Add Relation to a Category...</span></a></p>
 		</div>
 	
-	
-		<div id="template_rt_select" style="visibility: hidden">
+		<div id="template_rt_select" style="display: none">
 			<div>
 				<input type="hidden" name="relation_taxonomy[]" value="__ID__" />
-				<button class="remove small" name="" onclick="this.parentNode.parentNode.removeChild(this.parentNode)"><span>Remove</span></button>
-				<a href="/backoffice/pages/__ID__">__TITLE__</a><br />
+				<button class="remove small" onclick="this.parentNode.parentNode.removeChild(this.parentNode)"><span>Remove</span></button>
+				<div style="display: inline-block; margin-bottom: 8px;"><a href="/backoffice/pages/__ID__">__TITLE__</a></div>
 			</div>
 		</div>
 	</div>
