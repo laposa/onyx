@@ -61,7 +61,7 @@ class Onxshop_Controller_Node_Content_Product_Highlights extends Onxshop_Control
 			if ($node_data['component']['image_role']) $query_raw['image_role'] = $node_data['component']['image_role'];
 
 			// image width
-			if ($node_data['component']['image_width'] > 0) $query_raw['image_width'] = $node_data['component']['image_width'] ;
+			if ($node_data['component']['image_width_override'] > 0) $query_raw['image_width'] = $node_data['component']['image_width_override'];
 			
 			/**
 			 * product_id_list
