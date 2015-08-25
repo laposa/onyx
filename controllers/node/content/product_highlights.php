@@ -5,6 +5,7 @@
  */
 
 require_once('controllers/node/content/default.php');
+require_once('models/ecommerce/ecommerce_product_taxonomy.php');
 
 class Onxshop_Controller_Node_Content_Product_Highlights extends Onxshop_Controller_Node_Content_Default {
 
@@ -22,8 +23,9 @@ class Onxshop_Controller_Node_Content_Product_Highlights extends Onxshop_Control
 		$Node = new common_node();
 		
 		$node_data = $Node->nodeDetail($this->GET['id']);
+		$taxonomy_ids = $Node->getTaxonomyForNode($node_data['id']);
 		
-		if (is_array($node_data['component']['related'])) {
+		if (is_array($node_data['component']['related']) || count($taxonomy_ids) > 0) {
 						
 			/**
 			 * prepare HTTP query for product_list component
@@ -31,10 +33,18 @@ class Onxshop_Controller_Node_Content_Product_Highlights extends Onxshop_Control
 			 
 			$product_id_list = array();
 			
-			foreach ($node_data['component']['related'] as $item) {
-				if (is_numeric($item)) $product_id_list[] = $item;
+
+			if (count($node_data['component']['related']) > 0) {
+				foreach ($node_data['component']['related'] as $item) {
+					if (is_numeric($item)) $product_id_list[] = $item;
+				}
 			}
-			
+
+			/**
+			 * Get product id list by category if catogory specified
+			 */
+			$this->extentProductIdListByTaxonomy($taxonomy_ids, $product_id_list);
+
 			/**
 			 * build query
 			 */
@@ -49,6 +59,9 @@ class Onxshop_Controller_Node_Content_Product_Highlights extends Onxshop_Control
 			
 			// image role
 			if ($node_data['component']['image_role']) $query_raw['image_role'] = $node_data['component']['image_role'];
+
+			// image width
+			if ($node_data['component']['image_width'] > 0) $query_raw['image_width'] = $node_data['component']['image_width'] ;
 			
 			/**
 			 * product_id_list
@@ -67,6 +80,9 @@ class Onxshop_Controller_Node_Content_Product_Highlights extends Onxshop_Control
 	
 			switch ($node_data['component']['template']) {
 			
+				case 'stack':
+					$controller = 'product_list_stack';
+					break;
 				case 'scroll':
 					$controller = 'product_list_scroll';
 					break;
@@ -94,7 +110,6 @@ class Onxshop_Controller_Node_Content_Product_Highlights extends Onxshop_Control
 			/**
 			 * call controller
 			 */
-			
 			$_Onxshop_Request = new Onxshop_Request("component/ecommerce/$controller~{$query}~");
 			$this->tpl->assign('PRODUCT_LIST', $_Onxshop_Request->getContent());
 			
@@ -106,4 +121,26 @@ class Onxshop_Controller_Node_Content_Product_Highlights extends Onxshop_Control
 
 		return true;
 	}
+
+	/**
+	 * extentProductIdListByTaxonomy
+	 */
+
+	function extentProductIdListByTaxonomy($taxonomy_ids, &$product_id_list)
+	{
+		if (is_array($taxonomy_ids) && count($taxonomy_ids) > 0) {
+
+			$Taxonomy = new ecommerce_product_taxonomy();
+
+			$ids = implode(",", $taxonomy_ids);
+			$products = $Taxonomy->listing("taxonomy_tree_id IN ($ids)");
+
+			foreach ($products as $product) {
+				if (!in_array($product['node_id'], $product_id_list)) {
+					$product_id_list[] = $product['node_id'];
+				}
+			}
+		}
+	}
+
 }

@@ -5,8 +5,8 @@ $(function() {
 	$("#related_product_button").click(function() {
 		var template = '<div>' +
 			'<input type="hidden" name="node[component][related][]" value="__ID__" />' +
-			'<button style="float: none;" name="" onclick="this.parentNode.parentNode.removeChild(this.parentNode)"><span>remove</span></button> ' +
-			'<img src="/thumbnail/25x25/__IMAGE__" width="25" height="25" alt="__NAME__"/> ' +
+			'<button style="float: none;" class="small remove" name="" onclick="this.parentNode.parentNode.removeChild(this.parentNode)"><span>Remove</span></button> ' +
+			'<img src="/thumbnail/50x50/__IMAGE__" width="50" height="50" alt="__NAME__"/> ' +
 			'<a class="__CLASS__" href="/page/__ID__">__NAME__</a><br />' +
 			'</div>';
 
@@ -33,66 +33,116 @@ $(function() {
 		<h1 class="pageTitle popup"><span>Product Highlights</span> <span class="info">ID {NODE.id}</span></h1>
 	</div>
 </div>
-{FILE "bo/node/default_top.html"}
 
-<fieldset>
-	<div class="row">
-		<span class="label"><label>*Template (products per line):</label></span>
-		<span class="field">
-			<select name="node[component][template]">
-				<option value="1col" {SELECTED_template_1col}>1 Column</option>
-				<option value="2col" {SELECTED_template_2col}>2 Columns</option>
-				<option value="3col" {SELECTED_template_3col}>3 Columns</option>
-				<option value="4col" {SELECTED_template_4col}>4 Columns</option>
-				<option value="5col" {SELECTED_template_5col}>5 Columns</option>
-				<option value="6col" {SELECTED_template_6col}>6 Columns</option>
-				<option value="scroll" {SELECTED_template_scroll}>Scroll</option>
-			</select>
-		</span>
-	</div>
-	<div class="row">
-		<span class="label"><label>Use only images marked image role:</label></span>
-		<span class="field">
-			<select name="node[component][image_role]">
-				<option value="main" {SELECTED_image_role_main}>main (default)</option>
-				<option value="teaser" {SELECTED_image_role_teaser}>teaser</option>
-				<option value="feature" {SELECTED_image_role_feature}>feature</option>
-				<option value="background" {SELECTED_image_role_background}>background</option>
-				<option value="RTE" {SELECTED_image_role_RTE}>RTE</option>
-			</select>
-		</span>
-	</div>
-		
-	<div class="row">
-		<span class="label"><label for="component-display_sorting">Display sorting:</label></span>
-		<span class="field">
-			<input type="checkbox" id="component-display_sorting" name="node[component][display_sorting]" {NODE.component.display_sorting}/>
-		</span>
-	</div>
-	<!--
-	<div class="row">
-		<span class="label"><label for="component-display_pagination">Display pagination:</label></span>
-		<span class="field">
-			<input type="checkbox" id="component-display_pagination" name="node[component][display_pagination]" {NODE.component.display_pagination}/>
-		</span>
-	</div>
-	-->
-</fieldset>
+{FILE "bo/node/form_open.html"}
 
-<fieldset>
-	<legend>Related products</legend>
-	<div class="row">
-		<div id="related_select">
-			<!-- BEGIN:item -->
-			<div>
-			<input type="hidden" name="node[component][related][]" value="{CURRENT.content}" />
-			<button style="float: none;" class="remove small" name="" onclick="this.parentNode.parentNode.removeChild(this.parentNode)"><span>Remove</span></button>
-			<img src="/thumbnail/25x25/{CURRENT.image_src}" width="25" height="25" alt="{CURRENT.title|htmlspecialchars}"/>
-			<a class="{CURRENT.class}" href="/page/{CURRENT.id}">{CURRENT.title|htmlspecialchars}</a><br />
+<div class="twoColumnLayout fibonacci-1-1">
+	<div class="layoutColumnOne ofTwo">
+		<fieldset>
+			{FILE "bo/node/item_title.html"}
+			<div class="advanced">
+			{FILE "bo/node/item_page_title.html"}
+			{FILE "bo/node/item_uri_title.html"}
+			{FILE "bo/node/item_browser_title.html"}
+			{FILE "bo/node/item_teaser.html"}
+			{FILE "bo/node/item_description.html"}
 			</div>
-			<!-- END:item -->
-		</div>
+		</fieldset>
 	</div>
+	<div class="layoutColumnTwo ofTwo">
+		<fieldset class="advanced">
+			{FILE "bo/node/item_image_list.html"}
+		</fieldset>
+		<fieldset>
+			<div class="advanced">
+			{FILE "bo/node/item_layout_style.html"}
+			</div>
+			{FILE "bo/node/item_css_class.html"}
+		</fieldset>
+	</div>
+</div>
+
+<div class="twoColumnLayout fibonacci-1-1">
+	<div class="layoutColumnOne ofTwo">
+		<fieldset>
+			<div class="row">
+				<span class="label"><label>*Template (products per line):</label></span>
+				<span class="field">
+					<select name="node[component][template]">
+						<option value="1col" {SELECTED_template_1col}>1 Column</option>
+						<option value="2col" {SELECTED_template_2col}>2 Columns</option>
+						<option value="3col" {SELECTED_template_3col}>3 Columns</option>
+						<option value="4col" {SELECTED_template_4col}>4 Columns</option>
+						<option value="5col" {SELECTED_template_5col}>5 Columns</option>
+						<option value="6col" {SELECTED_template_6col}>6 Columns</option>
+						<option value="scroll" {SELECTED_template_scroll}>Scroll</option>
+						<option value="stack" {SELECTED_template_stack}>Stacked List</option>
+					</select>
+				</span>
+			</div>
+			<div class="row">
+				<span class="label"><label>Use only images marked image role:</label></span>
+				<span class="field">
+					<select name="node[component][image_role]">
+						<option value="main" {SELECTED_image_role_main}>main (default)</option>
+						<option value="teaser" {SELECTED_image_role_teaser}>teaser</option>
+						<option value="feature" {SELECTED_image_role_feature}>feature</option>
+						<option value="background" {SELECTED_image_role_background}>background</option>
+						<option value="RTE" {SELECTED_image_role_RTE}>RTE</option>
+					</select>
+				</span>
+			</div>
+			
+			<div class="row">
+				<span class="label"><label for="component-display_sorting">Display sorting:</label></span>
+				<span class="field">
+					<input type="checkbox" id="component-display_sorting" name="node[component][display_sorting]" {NODE.component.display_sorting}/>
+				</span>
+			</div>
+
+
+			<div class="row">
+				<span class="label"><label for="component-image_width">Image width [px]:</label></span>
+				<span class="field">
+					<input type="textinput" class="small" id="component-image_width" name="node[component][image_width]" value="{NODE.component.image_width}"/>
+					<em>(optional)</em>
+				</span>
+			</div>
+
+			<!--
+			<div class="row">
+				<span class="label"><label for="component-display_pagination">Display pagination:</label></span>
+				<span class="field">
+					<input type="checkbox" id="component-display_pagination" name="node[component][display_pagination]" {NODE.component.display_pagination}/>
+				</span>
+			</div>
+			-->
+		</fieldset>
+	</div>
+	<div class="layoutColumnTwo ofTwo">
+		<fieldset>
+			{FILE "bo/node/item_taxonomy.html"}
+
+			<p>When at least one category is specified, the component lists <strong>all products</strong> from that category.</p>
+			<p>Should you need to <strong>prioritise</strong> specific products on the list, please use the <strong>Listed Products</strong> section below.</p>
+
+		</fieldset>
+	</div>
+</div>
+
+<style>
+	div#related_select > div { border-bottom: 1px dotted #ddd; cursor: move; width: 100%; position: relative; } 
+	div#related_select > div img { margin-right: 10px; vertical-align: middle;} 
+	div#related_select > div button { position: absolute; right: 0; top: 14px; } 
+</style>
+<script>
+	$(function() {
+		$('#related_select').sortable();
+	});
+</script>
+<fieldset>
+	<legend>Listed Products</legend>
+	<br/>
 	<div class="row">
 		<a id="related_product_button" class="button add" href="#"><span>Add a Product</span></a>
 		<select id="related_product_select" name="related_product_select">
@@ -104,6 +154,18 @@ $(function() {
 		<script>
 			$("#related_product_select").combobox();
 		</script>
+	</div>
+	<div class="row">
+		<div id="related_select">
+			<!-- BEGIN:item -->
+			<div>
+				<input type="hidden" name="node[component][related][]" value="{CURRENT.content}" />
+				<img src="/thumbnail/50x50/{CURRENT.image_src}" width="50" height="50" alt="{CURRENT.title|htmlspecialchars}"/>
+				<a class="{CURRENT.class}" href="/page/{CURRENT.id}">{CURRENT.title|htmlspecialchars}</a>
+				<button class="remove small" name="" onclick="this.parentNode.parentNode.removeChild(this.parentNode)"><span>Remove</span></button>
+			</div>
+			<!-- END:item -->
+		</div>
 	</div>
 </fieldset>
 
