@@ -339,11 +339,21 @@ class Onxshop_Controller_Bo_Node_Default extends Onxshop_Controller {
 			if ($item['imagesize']['width'] < $image_width) $image_width = ($item['imagesize']['width'] - $item['imagesize']['width'] % 5);
 		}
 		
-		if ($image_width == 9999) $image_width = 800; // default value
+		if ($image_width == 9999) $image_width = $this->getDefaultImageWidth(); // default value
 		
 		return $image_width;
 		
-	}	
+	}
+	
+	/**
+	 * getDefaultImageWidth
+	 */
+	
+	public function getDefaultImageWidth() {
+		
+		return 800;
+		
+	}
 }
 
 		

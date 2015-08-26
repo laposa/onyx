@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2006-2014 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2006-2015 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -85,5 +85,15 @@ class Onxshop_Controller_Bo_Node_Content_Product_highlights extends Onxshop_Cont
 			$this->tpl->assign("PRODUCT", $item);
 			$this->tpl->parse("content.product_select_item");
 		}
+	}
+	
+	/**
+	 * getDefaultImageWidth
+	 */
+	
+	public function getDefaultImageWidth() {
+		
+		return $GLOBALS['onxshop_conf']['global']['product_list_image_width'];
+		
 	}
 }
