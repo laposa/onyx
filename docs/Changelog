@@ -1,3 +1,45 @@
+Onxshop (1.7.4)
+
+  * add rsync.sh example to utils/
+  * allow listing from category in product highlights
+  * update file_role.html with better naming
+  * implemented new adaptive content options (random, rotate)
+  * upgrade jquery cookie plugin
+  * Zend Framework upgraded to v1.12.15
+  * allow to pass file_path as normal string to file_info component
+  * improve detection of YouTube video ID - allow underscores
+  * show only published items in search results
+  * add htmlspecialchars to file edit
+  * fix empty product list table
+  * do not show deleted stores in the store location list API
+  * add taxonomy ids to product list
+  * improve backup notifications
+  * add support for image links to Cycle2 gallery
+  * cleaning in default invoice template
+  * disable file upload to root folder by default
+  * prevent PHP warning in listFiles
+  * show net and gross values in product list
+  * allow to enter price with VAT or without VAT at the same time
+  * update install procedure
+  * upgrade SagePay to version 3.0
+  * prevent PHP warning if logged in user does not have selected store_id
+  * save share_intention to client_action table
+  * Codemirror upgraded to v5.5
+  * new component prevnext
+  * add support for autoplay to video component
+  * make getTeaserImageForNodeId work recursively
+  * hide control from YouTube video player
+  * allow to filter by related taxonomy only in taxonomy_list
+  * bug fixes in image roles
+  * changes to comply with CSS coding standard
+  * remove ref=logo from default site template
+  * add local.js to project_skeleton
+  * add data-node_id to HTML body element for easy lookup from Javascript
+  * included fontawesome
+  * copyright update
+
+ -- Norbert Laposa <norbert@laposa.co.uk>  2015-08-27
+ 
 Onxshop (1.7.3)
 
   * refactor how cycle2.js is used to prevent conflicts
