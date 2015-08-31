@@ -2,7 +2,7 @@
 /**
  * Subscribe to newsletter (prepopulated registration)
  *
- * Copyright (c) 2009-2011 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2015 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -26,30 +26,39 @@ class Onxshop_Controller_Component_Client_Newsletter_Subscribe extends Onxshop_C
 		$Customer = new client_customer();
 		$Customer->setCacheable(false);
 		
-		if (is_array($_POST['client'])) {
-			$this->tpl->assign('CLIENT', $_POST['client']);
+		/**
+		 * input
+		 */
+		 
+		$client_data = $_POST['client'];
+		
+		if (is_array($client_data)) {
+			$this->tpl->assign('CLIENT', $client_data);
 		}
 		
 		/**
 		 * save
 		 */
 		 
-		if ($_POST['client']['customer']['save_newsletter_signup'] && $_POST['client']['customer']['first_name'] && $_POST['client']['customer']['last_name'] && $_POST['client']['customer']['email']) {
+		if ($_POST['save_newsletter_signup'] && $client_data['customer']['first_name'] && $client_data['customer']['last_name'] && $client_data['customer']['email']) {
 				
-			if($id = $Customer->newsletterSubscribe($_POST['client']['customer'])) {	
-				msg("Subscribed {$customer['email']}");
+			if($customer_id = $Customer->newsletterSubscribe($client_data['customer'])) {
+				
+				msg("Subscribed {$client_data['customer']['email']}");
 				$this->tpl->parse('content.thank_you');
 
 				// set status cookie
 				setcookie("newsletter_status", "1", time() + 3600 * 24 * 1000, "/");
 				// set customer status 
-				if ($_POST['client']['customer']['email'] == $_SESSION['client']['customer']['email']) 
+				if ($client_data['customer']['email'] == $_SESSION['client']['customer']['email']) 
 					$_SESSION['client']['customer']['newsletter'] = 1;
 
 			} else {
-				msg("Can't subscribe {$customer['email']}", 'error');
+				
+				msg("Can't subscribe {$client_data['customer']['email']}", 'error');
 				$this->tpl->parse('content.form');
 			}
+			
 		} else {
 			$this->tpl->parse('content.form');
 		}

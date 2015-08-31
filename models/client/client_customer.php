@@ -1478,8 +1478,8 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
 	 * @param bool $force_update
 	 * if true, than client will be updated even he is already subscribed
 	 *
-	 * @return boolean
-	 * result of subscribe
+	 * @return integer
+	 * customer ID or false if not saved
 	 */
 	
 	function newsletterSubscribe($customer, $force_update = false) {
@@ -1491,7 +1491,7 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
 
 			if ($customer_data['newsletter'] > 0) {
 				msg("Client with email {$customer['email']} is already subscribed", 'ok', 1);
-				return true;
+				return $customer_data['id'];
 			}
 
 			if ($force_update) {
@@ -1501,15 +1501,15 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
 			}
 
 			if ($this->updatePreservedCustomer($data_to_save)) {
-				return true;
+				return $customer_data['id'];
 			} else {
 				return false;
 			}
 			
 		} else {
 			//insert new
-			if ($this->insertPreservedCustomer($customer)) {
-				return true;
+			if ($customer_id = $this->insertPreservedCustomer($customer)) {
+				return $customer_id;
 			} else {
 				return false;
 			}
@@ -2051,6 +2051,26 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
 		$this->executeSql($sql);
 
 		return true;
+	}
+	
+	/**
+	 * addCustomerToGroup (if not set already)
+	 * 
+	 * @param  int $customer_id Customer Id
+	 * @param  int $group_id     Group Id
+	 * @return int              Number of updated rows
+	 */
+	 
+	function addCustomerToGroup($customer_id, $group_id) {
+		
+		if (!is_numeric($customer_id)) return false;
+		if (!is_numeric($group_id)) return false;
+
+		require_once('models/client/client_customer_group.php');
+		$CustomerGroup = new client_customer_group();
+		
+		return $CustomerGroup->assignGroupToCustomer($group_id, $customer_id);
+		
 	}
 	
 	/**
