@@ -793,8 +793,9 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 	}
 	
 	/**
-	 * find first parent page
-	 *
+	 * find first parent page in the node tree, starting from root
+	 * use getParentPageId() if you needed nearest parent page
+	 
 	 * @param array $active_pages
 	 * @return int
 	 */
@@ -809,7 +810,7 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 	}
 	
 	/**
-	 * find last parent page
+	 * find last parent page in node tree, starting from root
 	 *
 	 * @param array $active_pages
 	 * @return int
@@ -824,33 +825,31 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 	}
 	
 	/**
-	 * find parent page id
+	 * find (nearest) parent page id
 	 *
-	 * @param unknown_type $id
-	 * @return unknown
+	 * @param integer $id
+	 * @return integer
 	 */
 
 	function getParentPageId($id) {
 	
 		$active_pages = $this->getActivePages($id);
-		$parent_id = $this->getFirstParentPage($active_pages);
+		$parent_id = $this->getLastParentPage($active_pages);
 
 		return $parent_id;
 	}
 	
 	/**
-	 * get parent page id
+	 * DEPRECATED
 	 *
-	 * @param unknown_type $id
-	 * @return unknown
+	 * @param integer $id
+	 * @return integer
 	 */
 	
 	function getParentPageIdOfNode($id) {
 	
-		$active_pages = $this->getActivePages($id);
-		if (is_array($active_pages)) $active_pages = array_reverse($active_pages);
-		$first_parent_page_id = $active_pages[0];
-		return $first_parent_page_id;
+		return $this->getParentPageId($id);
+		
 	}
 
 	/**
