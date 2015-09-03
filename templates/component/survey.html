@@ -31,10 +31,7 @@ label.error { display: none; }
 		<legend>{SURVEY.title|htmlspecialchars}</legend>
 		<!-- BEGIN: question -->
 		<div class="row">
-			<span class="label"><label for="question_id_{QUESTION.id}">{QUESTION.title|htmlspecialchars}</label></span>
-			<!-- BEGIN: description -->
-			<span class="description">{QUESTION.description|htmlspecialchars}</span>
-			<!-- END: description -->
+			<span class="label"><label for="question_id_{QUESTION.id}">{QUESTION.title|htmlspecialchars}</label><!-- BEGIN: description --><span class="description">{QUESTION.description|htmlspecialchars}</span><!-- END: description --></span>
 			<!-- BEGIN: content -->
 			<div class="content">
 				{QUESTION.content}
