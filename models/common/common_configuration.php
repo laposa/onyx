@@ -150,6 +150,9 @@ class common_configuration extends Onxshop_Model {
 	
 	/**
 	 * get default core values
+	 *
+	 * values can be overwritten in common_configuration table as object named "global"
+	 * TODO: we should use object name "common_configuration" instead of "global"
 	 * 
 	 * @param array $conf
 	 * configuration
@@ -222,6 +225,9 @@ class common_configuration extends Onxshop_Model {
 		
 		// CSS selector for elements we want to be ingnored by the internal search indexing
 		if (!array_key_exists('search_index_exclude_selector', $conf['global'])) $conf['global']['search_index_exclude_selector'] = '';
+		
+		// taxonomy_tree_id of parent folder for province structure of a country
+		if (!array_key_exists('province_taxonomy_tree_id', $conf['global'])) $conf['global']['province_taxonomy_tree_id'] = 53;
 		
 		return $conf;
 	}

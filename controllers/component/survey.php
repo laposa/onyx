@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2011-2014 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2011-2015 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -10,8 +10,6 @@ require_once('models/education/education_survey_entry.php');
 require_once('models/client/client_action.php');
 
 class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
-
-	const TAXONOMY_TREE_PROVINCE_ID = 53;
 
 	/**
 	 * main action
@@ -300,7 +298,7 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 			 * TODO: allow to configure or use automatic selection based on data in ecommerce_store
 			 */
 			 
-			if (1 == 1) $this->parseStoreSelect($client_data['customer']['other_data']['county']);
+			if (1 == 1) $this->parseStoreSelect($client_data['customer']['store_id'], 'content.form.require_user_details');
 			else $this->parseLocationSelect($client_data['customer']['other_data']['county']);
 			
 			/**
@@ -622,10 +620,10 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 	 * parseLocationSelect
 	 */
 
-	protected function parseLocationSelect($selected_id)
+	protected function parseLocationSelect($selected_id, $template_block_path = 'content.form')
 	{
 	
-		$provinces = $this->getTaxonomyBranch(self::TAXONOMY_TREE_PROVINCE_ID);
+		$provinces = $this->getTaxonomyBranch($GLOBALS['onxshop_conf']['global']['province_taxonomy_tree_id']);
 
 		foreach ($provinces as $province) {
 
@@ -636,15 +634,15 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 			foreach ($counties as $county) {
 				$county['selected'] = ($selected_id == $county['id'] ? 'selected="selected"' : '');
 				$this->tpl->assign("COUNTY", $county);
-				$this->tpl->parse("content.form.require_user_details.location.county_dropdown.province.county");
+				$this->tpl->parse("$template_block_path.require_user_details.location.county_dropdown.province.county");
 			}
 
-			$this->tpl->parse("content.form.require_user_details.location.county_dropdown.province");
+			$this->tpl->parse("$template_block_path.require_user_details.location.county_dropdown.province");
 
 		}
 
-		$this->tpl->parse("content.form.require_user_details.location.county_dropdown");
-		$this->tpl->parse("content.form.require_user_details.location");
+		$this->tpl->parse("$template_block_path.require_user_details.location.county_dropdown");
+		$this->tpl->parse("$template_block_path.require_user_details.location");
 
 	}
 	
@@ -652,13 +650,13 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 	 * parseStoreSelect
 	 */
 
-	protected function parseStoreSelect($selected_id)
+	protected function parseStoreSelect($selected_id, $template_block_path = 'content.form')
 	{
 		
 		require_once('models/ecommerce/ecommerce_store.php');
 		$Store = new ecommerce_store();
-	
-		$provinces = $this->getTaxonomyBranch(self::TAXONOMY_TREE_PROVINCE_ID);
+		
+		$provinces = $this->getTaxonomyBranch($GLOBALS['onxshop_conf']['global']['province_taxonomy_tree_id']);
 
 		foreach ($provinces as $province) {
 
@@ -670,20 +668,20 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 				$county['selected'] = ($selected_id == $county['id'] ? 'selected="selected"' : '');
 				$this->tpl->assign("COUNTY", $county);
 				// get all stores in this count
-				$store_list = $Store->getFilteredStoreList($county['id'], false, 0, false, false, 1000); //limit to 1000 records per county
+				$store_list = $Store->getFilteredStoreList($county['id'], false, 1, false, false, 1000); //limit to 1000 records per county and type_id=1
 				
 				foreach ($store_list as $store_item) {
 					$this->tpl->assign('STORE', $store_item);
-					$this->tpl->parse("content.form.require_user_details.store.county_dropdown.province.store");
+					$this->tpl->parse("$template_block_path.store.county_dropdown.province.store");
 				}
 			}
 
-			$this->tpl->parse("content.form.require_user_details.store.county_dropdown.province");
+			$this->tpl->parse("$template_block_path.store.county_dropdown.province");
 
 		}
 
-		$this->tpl->parse("content.form.require_user_details.store.county_dropdown");
-		$this->tpl->parse("content.form.require_user_details.store");
+		$this->tpl->parse("$template_block_path.store.county_dropdown");
+		$this->tpl->parse("$template_block_path.store");
 
 	}
 

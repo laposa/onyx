@@ -45,7 +45,8 @@ ALTER TABLE ecommerce_product_taxonomy ADD CONSTRAINT product_node_id_taxonomy_t
 		if (array_key_exists('ecommerce_product_taxonomy', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['ecommerce_product_taxonomy'];
 		else $conf = array();
 		
-		if (!is_numeric($conf['options_id'])) $conf['options_id'] = 2;//33 dolphin, 63 jing (not in use)
+		// any categories associated to this taxonomy ID will be drawn as a dropdown option list in component/ecommerce/product_options
+		if (!is_numeric($conf['options_id'])) $conf['options_id'] = 2; // this value is taxonomy_tree_id
 		
 		return $conf;
 	}
