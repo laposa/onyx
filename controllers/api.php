@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2012-2014 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2012-2015 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  *	Generic API key: abcdefgh
@@ -16,7 +16,7 @@
 
 class Onxshop_Controller_Api extends Onxshop_Controller {
 
-	static $thumbnail_size = "[THUMBNAIL_SIZE]";
+	static $thumbnail_size = 200;
 
 	/**
 	 * main action

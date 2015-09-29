@@ -9,6 +9,8 @@ require_once('controllers/api/v1_2/recipe_search.php');
 
 class Onxshop_Controller_Api_v1_3_Recipe_Search extends Onxshop_Controller_Api_v1_2_Recipe_Search {
 
+	static $thumbnail_size = "[THUMBNAIL_SIZE]";
+	
 	/**
 	 * formatItem
 	 */

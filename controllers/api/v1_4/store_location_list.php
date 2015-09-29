@@ -5,7 +5,7 @@
  * 
  */
 
-require_once('controllers/api/v1_4/store_location_list.php');
+require_once('controllers/api/v1_3/store_location_list.php');
 
 class Onxshop_Controller_Api_v1_4_Store_Location_List extends Onxshop_Controller_Api_v1_3_Store_Location_List {
 	

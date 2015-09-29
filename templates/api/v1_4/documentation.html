@@ -92,7 +92,7 @@
 	<tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
 	<tr><td>format</td><td>string</td><td>Available values: json or xml</td></tr>
 	<tr><td>api_key</td><td>string</td><td>identify API consumer, testing with: abcdefgh</td></tr>
-	<tr><td>thumbnail_size</td><td>int</td><td>requested thumbnail size in pixels, has to be a multiple of 5, e.g. 645, not 639. (if not specified, returned URLs will include <code>[THUMBNAIL_SIZE]</code> placeholder instead of a value)</td></tr>
+	<tr><td>thumbnail_size</td><td>int</td><td>optional parameter, requested thumbnail size in pixels, has to be a multiple of 5, e.g. 645, not 639</td></tr>
 	</table>
 
 	<h2>Response</h2>
@@ -109,7 +109,7 @@
 	<tr><td>format</td><td>string</td><td>Available values: json or xml</td></tr>
 	<tr><td>api_key</td><td>string</td><td>identify API consumer, testing with: abcdefgh</td></tr>
 	<tr><td>recipe_id</td><td>int</td><td>recipe ID, e.g. 1</td></tr>
-	<tr><td>thumbnail_size</td><td>int</td><td>requested thumbnail size in pixels, has to be a multiple of 5, e.g. 645, not 639. (if not specified, returned URLs will include <code>[THUMBNAIL_SIZE]</code> placeholder instead of a value)</td></tr>
+	<tr><td>thumbnail_size</td><td>int</td><td>optional parameter, requested thumbnail size in pixels, has to be a multiple of 5, e.g. 645, not 639</td></tr>
 	</table>
 
 	<h2>Response</h2>
@@ -205,7 +205,7 @@
 	<tr><td>product_id</td><td>string</td><td>will return recipes with ingredients having product_id</td></tr>
 	<tr><td>keyword</td><td>string</td><td>will look into ingredients, recipe title and description</td></tr>
 	<tr><td>ready_time</td><td>int</td><td>preparation_time + cook_time in minutes</td></tr>
-	<tr><td>thumbnail_size</td><td>int</td><td>requested thumbnail size in pixels, has to be a multiple of 5, e.g. 645, not 639. (if not specified, returned URLs will include <code>[THUMBNAIL_SIZE]</code> placeholder instead of a value)</td></tr>
+	<tr><td>thumbnail_size</td><td>int</td><td>optional parameter, requested thumbnail size in pixels, has to be a multiple of 5, e.g. 645, not 639</td></tr>
 	</table>
 
 	<h2>Response</h2>
@@ -269,7 +269,7 @@
 	<tr><td>format</td><td>string</td><td>Available values: json or xml</td></tr>
 	<tr><td>api_key</td><td>string</td><td>identify API consumer, testing with: abcdefgh</td></tr>
 	<tr><td>filter_group_id</td><td>int</td><td>optional parameter, show only offers from this group_id (e.g. filter_group_id=1491 will show "This week offers")</td></tr>
-	<tr><td>thumbnail_size</td><td>int</td><td>requested thumbnail size in pixels, has to be a multiple of 5, e.g. 645, not 639. (if not specified, returned URLs will include <code>[THUMBNAIL_SIZE]</code> placeholder instead of a value)</td></tr>
+	<tr><td>thumbnail_size</td><td>int</td><td>optional parameter, requested thumbnail size in pixels, has to be a multiple of 5, e.g. 645, not 639</td></tr>
 	</table>
 
 	<h2>Response</h2>

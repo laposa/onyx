@@ -9,6 +9,8 @@ require_once('controllers/api/v1_3/special_offer_list.php');
 
 class Onxshop_Controller_Api_v1_4_Special_Offer_List extends Onxshop_Controller_Api_v1_3_Special_Offer_List {
 	
+	static $thumbnail_size = 200;
+	
 	/**
 	 * getOffersList
 	 */

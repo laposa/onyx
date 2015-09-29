@@ -10,6 +10,8 @@ require_once('controllers/api/v1_4/recipe_detail.php');
 
 class Onxshop_Controller_Api_v1_4_Recipe_List extends Onxshop_Controller_Api_v1_3_Recipe_List {
 	
+	static $thumbnail_size = 200;
+	
 	/**
 	 * formatItem
 	 */
