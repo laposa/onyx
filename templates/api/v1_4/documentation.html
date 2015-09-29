@@ -31,7 +31,7 @@
 <body>
 
 	<h1 id="mainHeading">API Documentation</h1>
-	<p>Version 1.3</p>
+	<p>Version 1.4</p>
 
 	<div id="methodList">
 		<h3>Available API methods</h3>
@@ -50,8 +50,8 @@
 	<div class="divider"><hr /></div>
 
 	<h1 id="api_resources">Resources</h1>
-	<h3>GET /api/v1.3/resources</h3>
-	<p>Returns list of resources. This is used in recipe app. <a href="/api/v1.3/resources?format=json&api_key=abcdefgh">Make Example Call</a></p>
+	<h3>GET /api/v1.4/resources</h3>
+	<p>Returns list of resources. This is used in recipe app. <a href="/api/v1.4/resources?format=json&api_key=abcdefgh">Make Example Call</a></p>
 
 	<h2>Request</h2>
 	<table>
@@ -84,15 +84,15 @@
 	<div class="divider"><hr /></div>
 
 	<h1 id="api_recipe_list">Recipe List</h1>
-	<h3>GET /api/v1.3/recipe_list</h3>
-	<p>Returns list of recipes. <a href="/api/v1.3/recipe_list?format=json&api_key=abcdefgh">Make Example Call</a></p>
+	<h3>GET /api/v1.4/recipe_list</h3>
+	<p>Returns list of recipes. <a href="/api/v1.4/recipe_list?format=json&api_key=abcdefgh">Make Example Call</a></p>
 
 	<h2>Request</h2>
 	<table>
 	<tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
 	<tr><td>format</td><td>string</td><td>Available values: json or xml</td></tr>
 	<tr><td>api_key</td><td>string</td><td>identify API consumer, testing with: abcdefgh</td></tr>
-	<tr class="new"><td>thumbnail_size</td><td>int</td><td>requested thumbnail size in pixels, has to be a multiple of 5, e.g. 645, not 639. (if not specified, returned URLs will include <code>[THUMBNAIL_SIZE]</code> placeholder instead of a value)</td></tr>
+	<tr><td>thumbnail_size</td><td>int</td><td>requested thumbnail size in pixels, has to be a multiple of 5, e.g. 645, not 639. (if not specified, returned URLs will include <code>[THUMBNAIL_SIZE]</code> placeholder instead of a value)</td></tr>
 	</table>
 
 	<h2>Response</h2>
@@ -100,8 +100,8 @@
 	<div class="divider"><hr /></div>
 
 	<h1 id="api_recipe_detail">Recipe Detail</h1>
-	<h3>GET /api/v1.3/recipe_detail</h3>
-	<p>Returns detail of single recipe. <a href="/api/v1.3/recipe_detail?format=json&api_key=abcdefgh&recipe_id=1">Make Example Call</a></p>
+	<h3>GET /api/v1.4/recipe_detail</h3>
+	<p>Returns detail of single recipe. <a href="/api/v1.4/recipe_detail?format=json&api_key=abcdefgh&recipe_id=1">Make Example Call</a></p>
 
 	<h2>Request</h2>
 	<table>
@@ -109,7 +109,7 @@
 	<tr><td>format</td><td>string</td><td>Available values: json or xml</td></tr>
 	<tr><td>api_key</td><td>string</td><td>identify API consumer, testing with: abcdefgh</td></tr>
 	<tr><td>recipe_id</td><td>int</td><td>recipe ID, e.g. 1</td></tr>
-	<tr class="new"><td>thumbnail_size</td><td>int</td><td>requested thumbnail size in pixels, has to be a multiple of 5, e.g. 645, not 639. (if not specified, returned URLs will include <code>[THUMBNAIL_SIZE]</code> placeholder instead of a value)</td></tr>
+	<tr><td>thumbnail_size</td><td>int</td><td>requested thumbnail size in pixels, has to be a multiple of 5, e.g. 645, not 639. (if not specified, returned URLs will include <code>[THUMBNAIL_SIZE]</code> placeholder instead of a value)</td></tr>
 	</table>
 
 	<h2>Response</h2>
@@ -146,7 +146,7 @@
 		</table>
 	</td></tr>
 	<tr><td>images</td><td>array</td><td>URLs</td></tr>
-	<tr class="new"><td>thumbnails</td><td>array</td><td>URLs (may include placeholder, see thumbnail_size input paremeter)</td></tr>
+	<tr><td>thumbnails</td><td>array</td><td>URLs (may include placeholder, see thumbnail_size input paremeter)</td></tr>
 	<tr><td>video</td><td>string</td><td>video URL e.g. http://vimeo.com/32329926</td></tr>
 	<tr><td>comments</td><td>array list</td><td>
 		<table>
@@ -187,21 +187,13 @@
 		<tr><td>id</td><td>int</td><td>related offer id</td></tr>
 		</table>
 	</td></tr>
-	<tr><td>meal_types DEPRECATED</td><td>array list</td><td>
-		Course
-		<table>
-		<tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
-		<tr><td>id</td><td>int</td><td>category id</td></tr>
-		<tr><td>title</td><td>string</td><td>category title</td></tr>
-		</table>
-	</td></tr>
 	</table>
 
 	<div class="divider"><hr /></div>
 
 	<h1 id="api_recipe_search">Recipe Search</h1>
-	<h3>GET /api/v1.3/recipe_search</h3>
-	<p>Search for recipes. We'll return list of recipe IDs. <a href="/api/v1.3/recipe_search?format=json&api_key=abcdefgh&category_id=11">Make Example Call</a></p>
+	<h3>GET /api/v1.4/recipe_search</h3>
+	<p>Search for recipes. We'll return list of recipe IDs. <a href="/api/v1.4/recipe_search?format=json&api_key=abcdefgh&category_id=11">Make Example Call</a></p>
 
 	<h2>Request</h2>
 	<table>
@@ -213,7 +205,7 @@
 	<tr><td>product_id</td><td>string</td><td>will return recipes with ingredients having product_id</td></tr>
 	<tr><td>keyword</td><td>string</td><td>will look into ingredients, recipe title and description</td></tr>
 	<tr><td>ready_time</td><td>int</td><td>preparation_time + cook_time in minutes</td></tr>
-	<tr class="new"><td>thumbnail_size</td><td>int</td><td>requested thumbnail size in pixels, has to be a multiple of 5, e.g. 645, not 639. (if not specified, returned URLs will include <code>[THUMBNAIL_SIZE]</code> placeholder instead of a value)</td></tr>
+	<tr><td>thumbnail_size</td><td>int</td><td>requested thumbnail size in pixels, has to be a multiple of 5, e.g. 645, not 639. (if not specified, returned URLs will include <code>[THUMBNAIL_SIZE]</code> placeholder instead of a value)</td></tr>
 	</table>
 
 	<h2>Response</h2>
@@ -222,27 +214,19 @@
 	<tr><td>id</td><td>int</td><td>recipe ID</td></tr>
 	<tr><td>title</td><td>string</td><td>recipe title</td></tr>
 	<tr><td>description</td><td>string</td><td>recipe description (excerpt)</td></tr>
-	<tr class="new"><td>image_thumbnail DEPRECATED</td><td>string</td><td>thumbnail URL</td></tr>
-	<tr class="new"><td>images</td><td>array</td><td>URLs</td></tr>
-	<tr class="new"><td>thumbnails</td><td>array</td><td>URLs (may include placeholder, see thumbnail_size input paremeter)</td></tr>
+	<tr><td>images</td><td>array</td><td>URLs</td></tr>
+	<tr><td>thumbnails</td><td>array</td><td>URLs (may include placeholder, see thumbnail_size input paremeter)</td></tr>
 	<tr><td>video</td><td>string</td><td>video URL e.g. http://vimeo.com/32329926</td></tr>
 	<tr><td>ready_time</td><td>int</td><td>preparation_time + cook_time in minutes</td></tr>
-	<tr><td>meal_types DEPRECATED</td><td>array</td><td>
-		Course
-		<table>
-		<tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
-		<tr><td>id</td><td>int</td><td>category id</td></tr>
-		<tr><td>title</td><td>string</td><td>category title</td></tr>
-		</table>
-	</td></tr>
 	<tr><td>categories</td><td>array</td><td>
-		
 		<table>
 		<tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
 		<tr><td>id</td><td>int</td><td>category id (category title can change, but category id will stay the same)</td></tr>
+		<tr><td>parent</td><td>int</td><td>parent category ID</td></tr>
+		<tr><td>priority</td><td>int</td><td>can be used for sorting</td></tr>
+		<tr><td>publish</td><td>int</td><td>is visible to public?</td></tr>
 		<tr><td>title</td><td>string</td><td>category title, e.g. Chrismas Recipe</td></tr>
-		<tr><td>priority</td><td>string</td><td>can be used for sorting</td></tr>
-		<tr><td>usage_count</td><td>int</td><td>number of all recipes in this category</td></tr>
+		<tr><td>description</td><td>string</td><td>large description</td></tr>
 		</table>
 	</td></tr>
 	<tr><td>url</td><td>url</td><td>recipe location on website</td></tr>
@@ -251,8 +235,8 @@
 	<div class="divider"><hr /></div>
 
 	<h1 id="api_recipe_category_list">Recipe Category List</h1>
-	<h3>GET /api/v1.3/recipe_category_list</h3>
-	<p>Returns list of recipe categories. <a href="/api/v1.3/recipe_category_list?format=json&api_key=abcdefgh">Make Example Call</a></p>
+	<h3>GET /api/v1.4/recipe_category_list</h3>
+	<p>Returns list of recipe categories. <a href="/api/v1.4/recipe_category_list?format=json&api_key=abcdefgh">Make Example Call</a></p>
 
 	<h2>Request</h2>
 	<table>
@@ -265,20 +249,19 @@
 	<table>
 	<tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
 	<tr><td>id</td><td>int</td><td>category id (category title can change, but category id will stay the same)</td></tr>
-	<tr><td>parent</td><td>int</td><td>parent category ID, currently returning always 0, TODO implement</td></tr>
+	<tr><td>parent</td><td>int</td><td>parent category ID</td></tr>
 	<tr><td>title</td><td>string</td><td>category name</td></tr>
 	<tr><td>description</td><td>string</td><td>category description excerpt</td></tr>
 	<tr><td>priority</td><td>int</td><td>can be used for sorting</td></tr>
 	<tr><td>publish</td><td>int</td><td>is visible to public?</td></tr>
 	<tr><td>image_thumbnail</td><td>string</td><td>category thumbnail URL</td></tr>
-	<tr><td>usage_count REMOVED</td><td>int</td><td>how many recipes are in category</td></tr>
 	</table>
 
 	<div class="divider"><hr /></div>
 
 	<h1 id="api_special_offer_list">Special Offer List</h1>
-	<h3>GET /api/v1.3/special_offer_list</h3>
-	<p>Returns list of latest special offers. <a href="/api/v1.3/special_offer_list?format=json&api_key=abcdefgh">Make Example Call</a></p>
+	<h3>GET /api/v1.4/special_offer_list</h3>
+	<p>Returns list of active <span class="new">and scheduled</span> special offers. <a href="/api/v1.4/special_offer_list?format=json&api_key=abcdefgh">Make Example Call</a></p>
 
 	<h2>Request</h2>
 	<table>
@@ -286,7 +269,7 @@
 	<tr><td>format</td><td>string</td><td>Available values: json or xml</td></tr>
 	<tr><td>api_key</td><td>string</td><td>identify API consumer, testing with: abcdefgh</td></tr>
 	<tr><td>filter_group_id</td><td>int</td><td>optional parameter, show only offers from this group_id (e.g. filter_group_id=1491 will show "This week offers")</td></tr>
-	<tr class="new"><td>thumbnail_size</td><td>int</td><td>requested thumbnail size in pixels, has to be a multiple of 5, e.g. 645, not 639. (if not specified, returned URLs will include <code>[THUMBNAIL_SIZE]</code> placeholder instead of a value)</td></tr>
+	<tr><td>thumbnail_size</td><td>int</td><td>requested thumbnail size in pixels, has to be a multiple of 5, e.g. 645, not 639. (if not specified, returned URLs will include <code>[THUMBNAIL_SIZE]</code> placeholder instead of a value)</td></tr>
 	</table>
 
 	<h2>Response</h2>
@@ -300,25 +283,21 @@
 	<tr><td>created</td><td>datetime</td><td>x</td></tr>
 	<tr><td>modified</td><td>datetime</td><td>x</td></tr>
 	<tr><td>images</td><td>array</td><td>list of URLs</td></tr>
-	<tr class="new"><td>thumbnails</td><td>array</td><td>URLs (may include placeholder, see thumbnail_size input paremeter)</td></tr>
+	<tr><td>thumbnails</td><td>array</td><td>URLs (may include placeholder, see thumbnail_size input paremeter)</td></tr>
 	<tr><td>rondel</td><td>string</td><td>e.g. e10, can be empty</td></tr>
 	<tr><td>rondel_image_url</td><td>string</td><td>URL of rondel image, can be empty</td></tr>
 	<tr><td>price</td><td>string</td><td>e.g. Now "€3.14" or "Details Instore"</td></tr>
-	<!-- 
-		leave undocumented, as it only becomes useful in API v1.4, where we show scheduled offers in future
-		<tr class="new"><td>start_date</td><td>datetime</td><td>Exact time when the offer starts to be valid</td></tr>
-	-->
+	<tr class="new"><td>start_date</td><td>datetime</td><td>Exact time when the offer starts to be valid</td></tr>
 	<tr><td>expiry_date</td><td>datetime</td><td>Exact time when the offer expires</td></tr>
-	<tr><td>taxonomy</td><td>array</td><td>
+	<tr class="new"><td>categories</td><td>array</td><td>
 		<table>
 		<tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
-		<tr><td>term_id</td><td>int</td><td>x</td></tr>
-		<tr><td>name</td><td>string</td><td>category name</td></tr>
-		<tr><td>slug</td><td>string</td><td>for constructing URLs</td></tr>
-		<tr><td>term_group</td><td>int</td><td>x</td></tr>
-		<tr><td>term_order</td><td>int</td><td>x</td></tr>
-		<tr><td>usage_count</td><td>int</td><td>how many other offers are in the same group</td></tr>
-		<tr><td>description</td><td>string</td><td>description of the category</td></tr>
+		<tr><td>id</td><td>int</td><td>category id (category title can change, but category id will stay the same)</td></tr>
+		<tr><td>parent</td><td>int</td><td>parent category ID</td></tr>
+		<tr><td>priority</td><td>int</td><td>can be used for sorting</td></tr>
+		<tr><td>publish</td><td>int</td><td>is visible to public?</td></tr>
+		<tr><td>title</td><td>string</td><td>category title, e.g. Off-License</td></tr>
+		<tr><td>description</td><td>string</td><td>large description</td></tr>
 		</table>
 	</td></tr>
 	<tr><td>product_id</td><td>string</td><td>product unique identifier (e.g. stock keeping unit)</td></tr>
@@ -329,8 +308,8 @@
 	<div class="divider"><hr /></div>
 
 	<h1 id="api_store_location_list">Store Location List</h1>
-	<h3>GET /api/v1.3/store_location_list</h3>
-	<p>Returns list of stores address. <a href="/api/v1.3/store_location_list?format=json&api_key=abcdefgh">Make Example Call</a></p>
+	<h3>GET /api/v1.4/store_location_list</h3>
+	<p>Returns list of stores address. <a href="/api/v1.4/store_location_list?format=json&api_key=abcdefgh">Make Example Call</a></p>
 
 	<h2>Request</h2>
 	<table>
@@ -371,8 +350,8 @@
 	<div class="divider"><hr /></div>
 
 	<h1 id="api_recipe_rating">Recipe Rating</h1>
-	<h3>GET /api/v1.3/recipe_rating</h3>
-	<p>Allow to pass rating to recipe. <a href="/api/v1.3/recipe_rating?format=json&api_key=abcdefgh&recipe_id=1&rating=2">Make Example Call</a></p>
+	<h3>GET /api/v1.4/recipe_rating</h3>
+	<p>Allow to pass rating to recipe. <a href="/api/v1.4/recipe_rating?format=json&api_key=abcdefgh&recipe_id=1&rating=2">Make Example Call</a></p>
 
 	<h2>Request</h2>
 	<table>

@@ -114,7 +114,7 @@ class Onxshop_Controller_Api_v1_0_Recipe_Search extends Onxshop_Controller_Api {
 	}
 	
 	/**
-	 * getMealTypes
+	 * getCategories
 	 */
 	 
 	public function getCategories($original_item) {

@@ -17,18 +17,7 @@ class Onxshop_Controller_Api_v1_1_Special_Offer_List extends Onxshop_Controller_
 
 		$data = '';
 		
-		/**
-		 * initialize
-		 */
-		 
-		require_once('models/ecommerce/ecommerce_offer.php');
-		$Offer = new ecommerce_offer();
-		
-		/**
-		 * get special offer list
-		 */
-		
-		$records = $Offer->getActiveOffers();
+		$records = $this->getOffersList();
 		
 		$data = array();
 		

@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2014 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2014-2015 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -19,7 +19,7 @@ class Onxshop_Controller_Api_v1_2_Recipe_Category_List extends Onxshop_Controlle
 
 		$item = array();
 		$item['id'] = $item_original['id'];
-		$item['parent'] = 0; //TODO
+		$item['parent'] = $item_original['parent'];
 		$item['title'] = $item_original['title'];
 		$item['description'] = $item_original['description'];
 		$item['priority'] = $item_original['priority'];

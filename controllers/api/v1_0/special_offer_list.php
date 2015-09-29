@@ -17,19 +17,8 @@ class Onxshop_Controller_Api_v1_0_Special_Offer_List extends Onxshop_Controller_
 
 		$data = '';
 		
-		/**
-		 * initialize
-		 */
-		 
-		require_once('models/ecommerce/ecommerce_offer.php');
-		$Offer = new ecommerce_offer();
-		
-		/**
-		 * get special offer list
-		 */
-		
-		$records = $Offer->getActiveOffers();
-		
+		$records = $this->getOffersList();
+				
 		$data = array();
 		
 		foreach($records as $record) {
@@ -43,6 +32,29 @@ class Onxshop_Controller_Api_v1_0_Special_Offer_List extends Onxshop_Controller_
 		}
 			
 		return $data;
+		
+	}
+	
+	/**
+	 * getOffersList
+	 */
+	 
+	public function getOffersList() {
+
+		/**
+		 * initialize
+		 */
+		 
+		require_once('models/ecommerce/ecommerce_offer.php');
+		$Offer = new ecommerce_offer();
+		
+		/**
+		 * get special offer list
+		 */
+		
+		$records = $Offer->getActiveOffers();
+
+		return $records;
 		
 	}
 	
