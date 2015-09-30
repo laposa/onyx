@@ -922,18 +922,25 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
 	
 	function updateCustomer($customer_data, $send_notify_email = false) {
 	
+		if (!is_numeric($customer_data['id'])) {
+			msg("customer ID is not numeric in client_customer.updateCustomer", 'error', 2);
+			return false;
+		}
+		
 		// clean up attribute which are not part of the model
 		unset($customer_data['group_ids']);
 		unset($customer_data['group_id']);
 		unset($customer_data['role_ids']);
 
-		//make email and username lowercase to avoid duplications
+		// make email and username lowercase to avoid duplications
 		if (array_key_exists('email', $customer_data)) $customer_data['email'] = strtolower($customer_data['email']);
 		if (array_key_exists('username', $customer_data)) $customer_data['username'] = strtolower($customer_data['username']);
+		// record when change happened 
 		$customer_data['modified'] = date('c');
+		// other data is stored as PHP serialized format
 		if (is_array($customer_data['other_data'])) $customer_data['other_data'] = serialize($customer_data['other_data']);
 		
-		//get currently saved data before update
+		// get currently saved data before update
 		$client_current_data = $this->detail($customer_data['id']);
 		
 		/**
@@ -1473,10 +1480,10 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
 	 * newsletter subscribe
 	 * 
 	 * @param array $customer
-	 * customer's information for subscribe to newsleter
+	 * customer's information for subscribe to newsletter
 	 * 
 	 * @param bool $force_update
-	 * if true, than client will be updated even he is already subscribed
+	 * if true, than client will be updated even he is already subscribed, i.e. registered
 	 *
 	 * @return integer
 	 * customer ID or false if not saved
@@ -1489,17 +1496,28 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
 		
 		if ($customer_data = $this->getClientByEmail($customer['email'])) {
 
-			if ($customer_data['newsletter'] > 0) {
-				msg("Client with email {$customer['email']} is already subscribed", 'ok', 1);
-				return $customer_data['id'];
-			}
-
+			/**
+			 * force update can be dangerous, use with caution and always filter input data
+			 * i.e. eliminate passing through attributes like the password field in newsletter_subscribe form
+			 */
+			 
 			if ($force_update) {
+				
 				$data_to_save = $customer;
+				if (!is_numeric($data_to_save['id'])) $data_to_save['id'] = $customer_data['id'];
+				
 			} else {
+				
+				// check if client is already subscribed to newsletter
+				if ($customer_data['newsletter'] > 0) {
+					msg("Client with email {$customer['email']} is already subscribed", 'ok', 1);
+					return $customer_data['id'];
+				}
+
 				$data_to_save = array('id' => $customer_data['id'], 'newsletter' => 1);
 			}
-
+			
+			// finally make the update
 			if ($this->updatePreservedCustomer($data_to_save)) {
 				return $customer_data['id'];
 			} else {
@@ -1507,7 +1525,7 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
 			}
 			
 		} else {
-			//insert new
+			// insert new
 			if ($customer_id = $this->insertPreservedCustomer($customer)) {
 				return $customer_id;
 			} else {
