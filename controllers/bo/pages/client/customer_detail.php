@@ -23,7 +23,7 @@ class Onxshop_Controller_Bo_Pages_Client_Customer_Detail extends Onxshop_Control
 		else $customer_id = 0;
 		
 		$client_data = array();
-		$client_data['customer'] = $this->Customer->detail($customer_id);
+		$client_data = $this->Customer->getClientData($customer_id);
 		
 		$this->tpl->assign('CLIENT', $client_data);
 
