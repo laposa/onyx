@@ -786,9 +786,14 @@ class Onxshop_Db {
 	
 	/**
 	 * get table information
+	 *
+	 * @param table_name string
+	 * @return array
 	 */
 	 
-	public function getTableInformation($table_name) {
+	public function getTableInformation($table_name = false) {
+		
+		if (!$table_name) $table_name = $this->_class_name;
 		
 		return $this->db->describeTable($table_name);
 		

@@ -1840,6 +1840,16 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
 		if (is_array($filter['product_bought'])) $filter['product_bought'] = implode(',', $filter['product_bought']);
 		
 		/**
+		 * local_* fields
+		 */
+		 
+		$table_info = $this->getTableInformation();
+		$local_fields = "";
+		foreach ($table_info as $attribute) {
+			if (preg_match("/^local_/", $attribute['COLUMN_NAME'])) $local_fields .= ", client_customer.{$attribute['COLUMN_NAME']}";
+		}
+		
+		/**
 		 * create SQL query
 		 */
 		
@@ -1891,7 +1901,7 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
 				INNER JOIN ecommerce_price ON (ecommerce_price.id = ecommerce_basket_content.price_id)
 				WHERE ecommerce_basket.customer_id = client_customer.id
 			) AS goods_net
-
+			$local_fields
 			FROM client_customer
 			INNER JOIN ecommerce_basket ON (ecommerce_basket.customer_id = client_customer.id)
 			INNER JOIN ecommerce_basket_content ON (ecommerce_basket_content.basket_id = ecommerce_basket.id AND ecommerce_basket_content.product_variety_id IN
@@ -1911,6 +1921,7 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
 			client_customer.invoices_address_id,
 			client_address.country_id,
 			client_customer.company_id
+			$local_fields
 			ORDER BY client_customer.id";
 		}
 		else
@@ -1935,6 +1946,7 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
 			COUNT(ecommerce_invoice.id) AS count_orders,
 			(SELECT SUM(quantity) FROM ecommerce_basket_content INNER JOIN ecommerce_basket ON (ecommerce_basket.customer_id = client_customer.id AND ecommerce_basket.id = ecommerce_basket_content.basket_id)) AS count_items,
 			SUM(ecommerce_invoice.goods_net) AS goods_net
+			$local_fields
 			FROM client_customer
 			LEFT OUTER JOIN ecommerce_basket ON (ecommerce_basket.customer_id = client_customer.id)
 			LEFT OUTER JOIN ecommerce_order ON (ecommerce_order.basket_id = ecommerce_basket.id)
@@ -1957,6 +1969,7 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
 			client_customer.telephone,
 			client_customer.birthday,
 			client_customer.store_id
+			$local_fields
 			ORDER BY client_customer.id";
 		}
 
