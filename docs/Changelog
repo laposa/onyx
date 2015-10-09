@@ -1,3 +1,21 @@
+Onxshop (1.7.5)
+
+  * update Adminer to 4.2.2
+  * improvements in customer groups management
+  * make sure menu_stack is wrapped in div.list
+  * make prevnext component more flexible, bug fix in getParentPageId
+  * move description inside span.label inside survey
+  * bug fix in Cycle image gallery
+  * update mistakes in API documentation
+  * refactoring store dropdown in surveys for easier re-use
+  * Zend Framework upgraded to v1.12.16
+  * new API v1.4
+  * make force_update option in newsletterSubscribe more flexible
+  * show default avatar in user details if not set in backoffice
+  * include local_* attributes in client list export
+
+ -- Norbert Laposa <norbert@laposa.co.uk>  2015-10-09
+ 
 Onxshop (1.7.4)
 
   * add rsync.sh example to utils/
