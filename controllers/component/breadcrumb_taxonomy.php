@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2009-2011 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2015 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -17,8 +17,8 @@ class Onxshop_Controller_Component_Breadcrumb_Taxonomy extends Onxshop_Controlle
 		$Node = new common_taxonomy_tree();
 		
 		if (!is_numeric($this->GET['id'])) {
-			msg('component/breadcrumb_taxonomy: id must be numeric', 'error', 1);
-			return false;
+			msg('component/breadcrumb_taxonomy: id must be numeric', 'error', 2);
+			return true; // stop here without returning error
 		}
 		
 		$path = $Node->getFullPathDetailForBreadcrumb($this->GET['id']);	
