@@ -14,10 +14,10 @@
 		<!-- END: next -->
 	</ul>
 	<!-- BEGIN: show_all -->
-	<a class="show_all" href="{ITEM.link}?limit_from=0&limit_per_page={GET.count}"><span>{I18N_SHOW_ALL} ({GET.count} {I18N_RECORDS})</span></a>
+	<a class="show_all" href="{ITEM.link}{LIMIT}"><span>{I18N_SHOW_ALL} ({GET.count} {I18N_RECORDS})</span></a>
 	<!-- END: show_all -->
 	<!-- BEGIN: per_page -->
-	<form method="get" action="{URI|htmlspecialchars}">
+	<form method="get" action="{ITEM.link}{LIMIT}">
 	<input type="hidden" name="limit_from" value="{GET.limit_from}" />
 	<label for="per_page">Items per Page:</label>
 	<select name='limit_per_page' id='per_page' class="short per_page" onchange="submit()">
@@ -31,8 +31,8 @@
 		<option value='200' {PAGINATION_selected_200}>200</option>
 		<option value='500' {PAGINATION_selected_500}>500</option>
 		</select>
-	<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
-</form>
+		<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+	</form>
 	<!-- END: per_page -->
 </div>
 
