@@ -36,7 +36,7 @@ class Onxshop_Controller_Component_Ecommerce_Recipe_Search extends Onxshop_Contr
 			// show pagination
 			if ($this->GET['display_pagination'] == 1) {
 				$count = $list[1];
-				$_Onxshop_Request = new Onxshop_Request("component/pagination~limit_from=$limit_from:limit_per_page=$limit_per_page:count=$count:option_show_all=0~");
+				$_Onxshop_Request = new Onxshop_Request("component/pagination~limit_from=$limit_from:limit_per_page=$limit_per_page:count=$count:option_show_all=0:passthrough_get_parameters=1~");
 				$this->tpl->assign('PAGINATION', $_Onxshop_Request->getContent());
 				
 			}
