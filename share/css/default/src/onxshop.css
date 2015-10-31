@@ -326,3 +326,16 @@ div.social_network_share li.pinterest a {background: url(/share/images/social_ne
 div.social_network_share li.pinterest a span {display: none;}
 div.social_network_share li.mailto a {background: #ffffff linear-gradient(to bottom, #ffffff 0%,#cbebff 47%,#e6e4e4 100%); border: 1px solid #c9c5c5; border-radius: 4px; display: block; padding: 2px 5px; text-decoration: none; line-height: 1;}
 div.social_network_share li.mailto a span {font-size: 80%;}
+
+/**
+ * stack_list:
+ * component/news_list_stack.html
+ * component/menu_stack.html
+ * component/ecommerce/recipe_list_stack.html
+ * component/ecommerce/product_list_stack.html
+ * node/content/page_list.html
+ * component/teaser_stack.html
+ */
+
+div.stack_list div.item { display: inline-block; margin: 10px; vertical-align: top;}
+div.stack_list div.item a {text-decoration: none;}
