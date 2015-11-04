@@ -260,7 +260,7 @@ class Onxshop_Controller_Component_Ecommerce_Store_Locator extends Onxshop_Contr
 
 		$Customer->updateCustomer(array(
 			'id' => $customer_id,
-			'other_data' => $_SESSION['client']['customer']['other_data']
+			'store_id' => $_SESSION['client']['customer']['other_data']
 		));
 
 		return true;
