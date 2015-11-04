@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2013 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2013-2015 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -47,11 +47,12 @@ class Onxshop_Controller_Component_Ecommerce_Store_Locator extends Onxshop_Contr
 
 		// display pins
 		foreach ($stores as $store) {
-
+			
 			if ($store['latitude'] != 0 && $store['longitude'] != 0) {
 
 				// find page and url
 				$page = $store_pages[$store['id']];
+				if (!is_numeric($page['id'])) $page['id'] = 5; // if store doesn't have homepage, send to site homepage
 				$store['url'] = $Mapping->stringToSeoUrl("/page/{$page['id']}");
 				$store['node_id'] = $page['id'];
 				$store['icon'] = $store['id'] == $selected_store['id'] ? 'false' : 'true';
