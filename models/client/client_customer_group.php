@@ -119,13 +119,21 @@ class client_customer_group extends Onxshop_Model {
 	}
 
 	/**
+	 * Deprecated in favour of removeCustomerFromGroup
+	 */
+	function removeGroupFromCustomer($group_id, $customer_id)
+	{
+		return removeCustomerFromGroup($group_id, $customer_id);
+	}
+
+	/**
 	 * Remove group from a customer
 	 * 
 	 * @param  int $group_id     Group Id
 	 * @param  int $customer_id Customer Id
 	 * @return int              Number of updated rows
 	 */
-	function removeGroupFromCustomer($group_id, $customer_id)
+	function removeCustomerFromGroup($group_id, $customer_id)
 	{
 		if (!is_numeric($group_id)) return false;
 		if (!is_numeric($customer_id)) return false;
