@@ -2,7 +2,7 @@
 <div class="author_stats">
 	<h4>Author Stats</h4>
 
-	<form action="{URI}" method="POST">
+	<form action="{URI|htmlspecialchars}" method="POST">
 		<select name="customer_id" onchange="$(this).parents('form').submit();">
 			<option value="0">Superuser</option>
 			<!-- BEGIN: item -->
