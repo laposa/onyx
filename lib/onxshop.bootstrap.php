@@ -703,9 +703,9 @@ class Onxshop_Bootstrap {
 		 */
 		 
 		$use_page_cache = true;
-			
+
 		/**
-		 * cache can be disabled on request on within bootstrap
+		 * cache can be disabled on request
 		 */
 		
 		if (isset($_GET['nocache'])) $this->disable_page_cache = $_GET['nocache'];
@@ -733,9 +733,10 @@ class Onxshop_Bootstrap {
 			 * TODO: allow to configure what _GET variables will disable page cache
 			 * disable page cache also when sorting and mode is submitted
 			 * component/ecommerce/product_list_sorting
+			 * or when preview_token is used, i.e. news article preview
 			 */
 			 
-			if (is_array($_GET['sort']) || $_GET['product_list_mode']) $use_page_cache = false;
+			if (is_array($_GET['sort']) || $_GET['product_list_mode'] || $_GET['preview_token']) $use_page_cache = false;
 		
 		}
 		
