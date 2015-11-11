@@ -167,13 +167,51 @@ CREATE INDEX common_comment_node_id_key1 ON common_comment USING btree (node_id)
 	 * @param string $sort
 	 * sorting direction ['ASC'/'DESC']
 	 * 
+	 * @param string $limit
+	 * limit
+	 * 
 	 * @return array
 	 * comments list or false
 	 */
 	 
-	function getCommentList($filter = false, $sort = 'id ASC') {
+	function getCommentList($filter = false, $sort = 'id ASC', $limit = '')
+	{
+		$where = $this->prepareWhereForListing($filter);
+		return $this->listing($where, $sort, $limit);
+	}
 		
-		$add_to_where = '1=1 ';
+	
+		/**
+	 * get number of items within given filter
+	 * 
+	 * @param array $filter
+	 * comments filter with any of keys node_id, relation_subject, customer_id and parent
+	 * 
+	 * @return int
+	 * number of comments
+	 */
+	 
+	function getCommentCount($filter = false)
+	{
+		$where = $this->prepareWhereForListing($filter);
+		return $this->count($where);
+	}
+
+
+
+	/**
+	 * Prepare SQL query for searching
+	 * 
+	 * @param array $filter
+	 * comments filter with any of keys node_id, relation_subject, customer_id and parent
+	 * 
+	 * @return string
+	 * SQL query
+	 */
+	 
+	protected function prepareWhereForListing($filter = false)
+	{
+		$add_to_where = '1 = 1 ';
 	
 		/**
          * query filter
@@ -186,7 +224,7 @@ CREATE INDEX common_comment_node_id_key1 ON common_comment USING btree (node_id)
 	        }
 			
 			if ($filter['relation_subject']) {
-				$add_to_where .= " AND relation_subject = '{$filter['relation_subject']}' ";
+				$add_to_where .= " AND relation_subject LIKE '{$filter['relation_subject']}' ";
 			}
 			
 			if (is_numeric($filter['parent'])) {
@@ -200,14 +238,8 @@ CREATE INDEX common_comment_node_id_key1 ON common_comment USING btree (node_id)
 	        }
 
         }
-		
-		/**
-		 * get list
-		 */
 		 
-		$list = $this->listing($add_to_where, $sort);
-		
-		return $list;
+		return $add_to_where;
 	}
 	
 	
