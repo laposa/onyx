@@ -223,6 +223,16 @@ CREATE INDEX common_comment_node_id_key1 ON common_comment USING btree (node_id)
 	            $add_to_where .= "AND node_id = '{$filter['node_id']}' ";
 	        }
 			
+			if (!empty($filter['query'])) {
+				$query = explode(" ", trim($filter['query']));
+				$query_where = "1 = 0 ";
+				foreach ($query as $item) {
+					$item = $this->db->quote("%" . trim($item) . "%");
+		            $query_where .= "OR title ILIKE $item OR content ILIKE $item OR relation_subject ILIKE $item OR author_name ILIKE $item OR author_email ILIKE $item ";
+				}
+				$add_to_where .= " AND ($query_where)";
+	        }
+			
 			if ($filter['relation_subject']) {
 				$add_to_where .= " AND relation_subject LIKE '{$filter['relation_subject']}' ";
 			}
@@ -439,5 +449,15 @@ CREATE INDEX common_comment_node_id_key1 ON common_comment USING btree (node_id)
 			return false;
 			
 		}
+	}
+
+	/**
+	 * Return all node ids that were used to add a comment
+	 */
+	function getUsedNodeIds() {
+		$sql = "SELECT distinct(node_id) AS node_id FROM common_comment";
+		$records = $this->executeSql($sql);
+		foreach ($records as $item) $result[] = $item['node_id'];
+		return $result;
 	}
 }

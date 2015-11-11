@@ -1,8 +1,37 @@
 <!-- BEGIN: content -->
-
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
-<div class="comment_list">
+
+<div class="horizontalFilter">
+
+	<form method="post" action="{URI|htmlspecialchars}">
+		<fieldset class="single">
+			<div class="row query">
+				<span class="label"><label>Keyword<br /></label></span>
+				<span class="field"><input type="text" class="text" id="comments-filter-query" name="comments-filter[query]" value="{_SESSION.bo.comments-filter.query|htmlspecialchars}" /></span>
+			</div>
+			
+			<div class="row location">
+				<span class="label"><label>Location</label></span>
+				<span class="field">
+					<select id="comments-filter-location" name="comments-filter[location]">
+						<option value="" {SELECTED_group_-1}>all</option>
+						<!-- BEGIN: page_item --><option value="{ITEM.node_id}" {SELECTED}>{ITEM.path|htmlspecialchars}</option><!-- END: page_item -->
+					</select>
+				</span>
+			</div>
+		</fieldset>
+		
+		<div class="row submit">
+			<span class="label"><label>&nbsp;</label></span>
+			<span class="field"><button type="submit" name="search" value="Search"><span>Search</span></button></span>
+		</div>
+		
+		<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+	</form>
 	
+</div>
+	
+<div class="comment_list">
 	
 	<div id="commentEdit"></div>
 	
@@ -12,7 +41,7 @@
 				<th>Title</th>
 				<th>Author</th>
 				<th>Created</th>
-				<th>Node</th>
+				<th>Location</th>
 				<th>Published</th>
 			</tr>
 		</thead>
@@ -22,7 +51,7 @@
 				<td><a class="title" title="Edit comment" onclick="showModalOverlay(); makeAjaxRequest('#modal_overlay_window', '/request/bo/component/comment_edit~id={ITEM.id}~'); return false" href="#reviews_page">{ITEM.title|htmlspecialchars}</a></td>
 				<td><a href="/backoffice/customers/{ITEM.customer_id}/detail">{ITEM.author_name|htmlspecialchars} (ID {ITEM.customer_id})</a></td>
 				<td>{ITEM.created|strtotime||date('d/m/Y H:i', %s)}</td>
-				<td><a href="/backoffice/pages/{ITEM.node_id}" onclick="openEdit('/popup/properties/1058/orig' + window.location.pathname); return false">{ITEM.node_id}</a></td>
+				<td><a href="/backoffice/pages/{ITEM.page.id}">{ITEM.page.path}</a></td>
 				<td>{ITEM.publish}</td>
 			</tr>
 			<!-- END: item -->
