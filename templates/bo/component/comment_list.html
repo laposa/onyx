@@ -21,7 +21,7 @@
 			<tr class="status_{ITEM.publish}">
 				<td><a class="title" title="Edit comment" onclick="showModalOverlay(); makeAjaxRequest('#modal_overlay_window', '/request/bo/component/comment_edit~id={ITEM.id}~'); return false" href="#reviews_page">{ITEM.title|htmlspecialchars}</a></td>
 				<td><a href="/backoffice/customers/{ITEM.customer_id}/detail">{ITEM.author_name|htmlspecialchars} (ID {ITEM.customer_id})</a></td>
-				<td>{ITEM.created|strtotime||date('m/d/Y H:i', %s)}</td>
+				<td>{ITEM.created|strtotime||date('d/m/Y H:i', %s)}</td>
 				<td><a href="/backoffice/pages/{ITEM.node_id}" onclick="openEdit('/popup/properties/1058/orig' + window.location.pathname); return false">{ITEM.node_id}</a></td>
 				<td>{ITEM.publish}</td>
 			</tr>

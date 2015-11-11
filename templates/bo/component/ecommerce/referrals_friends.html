@@ -18,7 +18,7 @@
 		<!-- BEGIN: item -->
 		<tr>
 			<td>{ITEM.friend.title_before|htmlspecialchars} {ITEM.friend.first_name|htmlspecialchars} {ITEM.friend.last_name|htmlspecialchars}</td>
-			<td>{ITEM.friend.created|strtotime|date('m/d/Y', %s)}</td>
+			<td>{ITEM.friend.created|strtotime|date('d/m/Y', %s)}</td>
 			<td><a href="/backoffice/orders/{ITEM.generated_by_order_id}/detail">#{ITEM.generated_by_order_id}</a></td>
 			<td><input type="text" readonly="readonly" onclick="this.select()" class="code_input" value="{ITEM.code_pattern|htmlspecialchars}" /></td>
 			<td>{ITEM.discount_fixed_value|money_format('%n',%s)}</td>
@@ -31,7 +31,7 @@
 		<!-- BEGIN: unfinished -->
 		<tr>
 			<td><a href="/backoffice/customers/{ITEM.friend.id}/detail">{ITEM.friend.title_before|htmlspecialchars} {ITEM.friend.first_name|htmlspecialchars} {ITEM.friend.last_name|htmlspecialchars}</a></td>
-			<td>{ITEM.friend.created|strtotime|date('m/d/Y', %s)}</td>
+			<td>{ITEM.friend.created|strtotime|date('d/m/Y', %s)}</td>
 			<td colspan="7">Order <a href="/backoffice/orders/{ITEM.order.id}/detail">#{ITEM.order.id}</a> has not been paid</td>
 		</tr>
 		<!-- END: unfinished -->

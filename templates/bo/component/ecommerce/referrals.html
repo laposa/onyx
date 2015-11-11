@@ -16,7 +16,7 @@
 		<tr>
 			<td>{PROMOTION.title|htmlspecialchars}</td>
 			<td><input type="text" readonly="readonly" onclick="this.select()" class="code_input" value="{PROMOTION.code_pattern|htmlspecialchars}" /></td>
-			<td>{PROMOTION.created|strtotime||date('m/d/Y', %s)}</td>
+			<td>{PROMOTION.created|strtotime||date('d/m/Y', %s)}</td>
 			<td>{PROMOTION.discount_fixed_value|money_format('%n',%s)}</td>
 			<td>{PROMOTION.limit_to_order_amount|money_format('%n',%s)}</td>
 			<td>{PROMOTION.num_uses}</td>

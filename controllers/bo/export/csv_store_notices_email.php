@@ -81,8 +81,8 @@ class Onxshop_Controller_Bo_Export_CSV_Store_Notices_Email extends Onxshop_Contr
 
 		// send email
 		$GLOBALS['common_email'] = array(
-			'date_from' => date("m/d/Y", strtotime("first day of last month")),
-			'date_to' => date("m/d/Y", strtotime("first day of this month"))
+			'date_from' => date("d/m/Y", strtotime("first day of last month")),
+			'date_to' => date("d/m/Y", strtotime("first day of this month"))
 		);
 
 		$GLOBALS['onxshop_atachments'] = array($export_file);
