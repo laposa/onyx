@@ -37,8 +37,8 @@ class Onxshop_Controller_Component_Ecommerce_Store_Notice extends Onxshop_Contro
 				
 				if ($notice['publish'] == 1 || $isStoreManager) {
 					$notice['classes'] = 'notice_style_' . rand(1, 3);
-					if (strlen($notice['other_data']['text']) < 65 && !$notice['other_data']['image']) $notice['classes'] .= ' notice_layout_less_text';
-					if ($notice['other_data']['image']) $notice['classes'] .= ' notice_layout_with_image';
+					if ((isset($notice['other_data']['text']) && strlen($notice['other_data']['text']) < 65) && !isset($notice['other_data']['image'])) $notice['classes'] .= ' notice_layout_less_text';
+					if (isset($notice['other_data']['image'])) $notice['classes'] .= ' notice_layout_with_image';
 					if ($notice['publish'] == 0 && $isStoreManager) $notice['classes'] .= ' unpublished';
 					$this->tpl->assign('NOTICE', $notice);
 					$this->tpl->parse('content.notice_list.notice');
