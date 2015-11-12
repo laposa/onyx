@@ -7,7 +7,7 @@
 		<fieldset class="single">
 			<div class="row query">
 				<span class="label"><label>Keyword<br /></label></span>
-				<span class="field"><input type="text" class="text" id="comments-filter-query" name="comments-filter[query]" value="{_SESSION.bo.comments-filter.query|htmlspecialchars}" /></span>
+				<span class="field"><input type="text" class="text" id="comments-filter-query" name="comments-filter[query]" value="{QUERY|htmlspecialchars}" /></span>
 			</div>
 			
 			<div class="row location">
@@ -15,7 +15,7 @@
 				<span class="field">
 					<select id="comments-filter-location" name="comments-filter[location]">
 						<option value="" {SELECTED_group_-1}>all</option>
-						<!-- BEGIN: page_item --><option value="{ITEM.node_id}" {SELECTED}>{ITEM.path|htmlspecialchars}</option><!-- END: page_item -->
+						<!-- BEGIN: location_item --><option value="{ITEM.node_id}" {SELECTED}>{ITEM.title|htmlspecialchars}</option><!-- END: location_item -->
 					</select>
 				</span>
 			</div>
@@ -51,7 +51,7 @@
 				<td><a class="title" title="Edit comment" onclick="showModalOverlay(); makeAjaxRequest('#modal_overlay_window', '/request/bo/component/comment_edit~id={ITEM.id}~'); return false" href="#reviews_page">{ITEM.title|htmlspecialchars}</a></td>
 				<td><a href="/backoffice/customers/{ITEM.customer_id}/detail">{ITEM.author_name|htmlspecialchars} (ID {ITEM.customer_id})</a></td>
 				<td>{ITEM.created|strtotime||date('d/m/Y H:i', %s)}</td>
-				<td><a href="/backoffice/pages/{ITEM.page.id}">{ITEM.page.path}</a></td>
+				<td><a href="/backoffice/pages/{ITEM.node_id}">{ITEM.node.title}</a></td>
 				<td>{ITEM.publish}</td>
 			</tr>
 			<!-- END: item -->
@@ -66,7 +66,7 @@
 			<tr>
 				<td colspan="5">
 					<div class="onxshop_pagination">
-			{PAGINATION}
+						{PAGINATION}
 					</div>
 				</td>
 			</tr>

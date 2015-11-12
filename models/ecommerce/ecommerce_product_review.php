@@ -23,24 +23,23 @@ class ecommerce_product_review extends common_comment {
 	 
 	private function getCreateTableSql() {
 	
-		$sql = "
-CREATE TABLE ecommerce_product_review (
-    id serial PRIMARY KEY NOT NULL,
-    parent int REFERENCES ecommerce_product_review ON UPDATE CASCADE ON DELETE CASCADE,
-    node_id int REFERENCES ecommerce_product ON UPDATE CASCADE ON DELETE RESTRICT,
-    title varchar(255),
-    content text,
-    author_name varchar(255),
-    author_email varchar(255),
-    author_website varchar(255),
-	author_ip_address varchar(255),
-    customer_id int NOT NULL REFERENCES client_customer ON UPDATE CASCADE ON DELETE RESTRICT,
-    created timestamp(0) default now(),
-    publish smallint,
-	rating smallint default 0,
-	relation_subject text
-);
-CREATE INDEX ecommerce_product_review_node_id_key1 ON ecommerce_product_review USING btree (node_id);
+		$sql = "CREATE TABLE ecommerce_product_review (
+		    id serial PRIMARY KEY NOT NULL,
+		    parent int REFERENCES ecommerce_product_review ON UPDATE CASCADE ON DELETE CASCADE,
+		    node_id int REFERENCES ecommerce_product ON UPDATE CASCADE ON DELETE RESTRICT,
+		    title varchar(255),
+		    content text,
+		    author_name varchar(255),
+		    author_email varchar(255),
+		    author_website varchar(255),
+			author_ip_address varchar(255),
+		    customer_id int NOT NULL REFERENCES client_customer ON UPDATE CASCADE ON DELETE RESTRICT,
+		    created timestamp(0) default now(),
+		    publish smallint,
+			rating smallint default 0,
+			relation_subject text
+		);
+		CREATE INDEX ecommerce_product_review_node_id_key1 ON ecommerce_product_review USING btree (node_id);
 		";
 		
 		return $sql;
@@ -56,6 +55,17 @@ CREATE INDEX ecommerce_product_review_node_id_key1 ON ecommerce_product_review U
 
 		$records = $this->executeSql($sql);
 
+		return $records;
+	}
+
+	/**
+	 * Return all node ids that were used to add a comment
+	 */
+	function getUsedNodes() {
+		$sql = "SELECT distinct(node_id) AS node_id, ecommerce_product.name AS title FROM ecommerce_product_review
+			LEFT JOIN ecommerce_product ON ecommerce_product.id = node_id
+			ORDER BY ecommerce_product.name ASC";
+		$records = $this->executeSql($sql);
 		return $records;
 	}
 

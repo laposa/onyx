@@ -454,10 +454,12 @@ CREATE INDEX common_comment_node_id_key1 ON common_comment USING btree (node_id)
 	/**
 	 * Return all node ids that were used to add a comment
 	 */
-	function getUsedNodeIds() {
-		$sql = "SELECT distinct(node_id) AS node_id FROM common_comment";
+	function getUsedNodes() {
+		$sql = "SELECT distinct(node_id) AS node_id, common_node.title FROM common_comment
+			LEFT JOIN common_node ON common_node.id = node_id
+			ORDER BY common_node.title ASC";
 		$records = $this->executeSql($sql);
-		foreach ($records as $item) $result[] = $item['node_id'];
-		return $result;
+		return $records;
 	}
+
 }

@@ -19,66 +19,28 @@
 					<div class="rowTop">
 						<div class="rowWrapper">
 							<div class="columnWrapper">
-								{CONTAINER.0}
-							</div>
-						</div>
-					</div>
-					<div class="rowMiddle">
-						<div class="rowWrapper">
-							<div class="columnOne">
-								<div class="columnWrapper">
 
-									<ul id="review_type_menu">
-										<li><a href="#product_reviews" data-url="/request/bo/component/ecommerce/product_review_list"><span>Product Reviews</span></a></li>
-										<li><a href="#recipe_reviews" data-url="/request/bo/component/ecommerce/recipe_review_list"><span>Recipe Reviews</span></a></li>
-										<li><a href="#blog_comments" data-url="/request/bo/component/comment_list"><span>Blog Comments</span></a></li>
-										<li><a href="#forums" data-url="/request/bo/component/comment_list"><span>Forums</span></a></li>
+								<div class="onxshop_tabs">
+									<ul class="tabs">
+										<li class="{ACTIVE.comments}"><a href="/backoffice/comments/"><span>Comments</span></a></li>
+										<li class="{ACTIVE.products}"><a href="/backoffice/comments/products"><span>Product Reviews</span></a></li>
+										<li class="{ACTIVE.recipes}"><a href="/backoffice/comments/recipes"><span>Recipe Reviews</span></a></li>
 									</ul>
-
 								</div>
-							</div>
-							<div class="columnTwo">
-								<div class="columnWrapper">
 
-									<div id="sub_content">
-										<p>Please select from the menu...</p>
-									</div>
-									
+								<div id="sub_content">
+									{SUBCONTENT}
 								</div>
+
 							</div>
 						</div>
 					</div>
-					
 				</div>
 			</div>
+
 		</div>
 	</div>
 	<div class="bottom"><span></span></div>
 </div>
-
-<script type="text/javascript">
-
-	$(function(){
-
-		$('#review_type_menu a').click(function() {
-			var a = $(this);
-			var li = a.parent();
-			var ul = li.parent();
-			ul.find('li').removeClass('active');
-			li.addClass('active');
-			makeAjaxRequest('#sub_content', a.attr('data-url'));
-		}).each(function() {
-			var a = $(this);
-			var li = a.parent();
-			var ul = li.parent();
-			if (window.location.hash == a.attr('href')) {
-				ul.find('li').removeClass('active');
-				li.addClass('active');
-				makeAjaxRequest('#sub_content', a.attr('data-url'));
-			}
-		});
-	});
-
-</script>
 
 <!-- END: content -->
