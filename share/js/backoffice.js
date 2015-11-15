@@ -63,9 +63,11 @@ function showAdvancedSettings(source) {
 	if (label.indexOf("Show") >= 0) {
 		$('div.pageContent .advanced').slideDown(600);
 		span.html('Hide Advanced Settings');
+		if (window.localStorage) localStorage.setItem('showAdvancedSettings', 'true');
 	} else {
 		$('div.pageContent .advanced').slideUp(600);
 		span.html('Show Advanced Settings');
+		if (window.localStorage) localStorage.setItem('showAdvancedSettings', 'false');
 	}
 	return false;
 }
@@ -75,6 +77,26 @@ function showAdvancedSettings(source) {
  */
 
 $(function() {
+
+	/**
+	 * show advanced settings as per saved state
+	 */
+	if (window.localStorage) {
+		if (localStorage.getItem("showAdvancedSettings") == 'true') {
+			$('div.pageContent .advanced').show();
+			$("a.showAdvancedSettings span").html('Hide Advanced Settings');
+		}
+	}
+
+	/**
+	 * hook show advanced settings button click
+	 */
+	$("a.showAdvancedSettings").click(function(e) {
+		showAdvancedSettings(this);
+		e.preventDefault();
+		return false;
+	});
+
 	/**
 	 * mark disabled options
 	 */
