@@ -73,14 +73,11 @@ function showAdvancedSettings(source) {
 }
 
 /**
- * on ready
+ * Hook show advanced settings button click
+ * and set its state as per saved state
  */
+function initAdvancedSettingsButton() {
 
-$(function() {
-
-	/**
-	 * show advanced settings as per saved state
-	 */
 	if (window.localStorage) {
 		if (localStorage.getItem("showAdvancedSettings") == 'true') {
 			$('div.pageContent .advanced').show();
@@ -88,14 +85,20 @@ $(function() {
 		}
 	}
 
-	/**
-	 * hook show advanced settings button click
-	 */
 	$("a.showAdvancedSettings").click(function(e) {
 		showAdvancedSettings(this);
 		e.preventDefault();
 		return false;
 	});
+}
+
+/**
+ * on ready
+ */
+
+$(function() {
+
+	initAdvancedSettingsButton();
 
 	/**
 	 * mark disabled options

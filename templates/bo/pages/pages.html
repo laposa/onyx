@@ -27,6 +27,7 @@ function initialiseMenuPagesTree() {
 			var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
 			makeAjaxRequest("#sub_content", "/request/bo/component/node_edit~id="+node_id+"~", function(data) {  
 				appendHeader();
+				initAdvancedSettingsButton();
 			});
 			$('#button_add_subpage').attr('data-node_id', node_id);
 		},
