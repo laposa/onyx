@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2005-2014 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2005-2015 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -470,11 +470,6 @@ class Onxshop_Controller {
 	function finalOutput() {
 	
 		$output = $this->getContent();
-		
-		if (ONXSHOP_COMPRESS_OUTPUT == 1) {
-			$output = preg_replace("/[\r\n ]{1,}/"," ",$output);
-			$output = preg_replace("/[\t ]{2,}/"," ",$output);
-		}
 
 		return $output;
 				

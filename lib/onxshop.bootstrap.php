@@ -590,6 +590,11 @@ class Onxshop_Bootstrap {
 			$CDN = new Onxshop_Cdn();
 			$content = $CDN->processOutputHtml($content);
 		}
+		
+		// remove unwanted white spaces beetween tags
+		if (ONXSHOP_COMPRESS_OUTPUT == 1) {
+			$content = preg_replace("/>[\s]+</","><", $content);
+		}
 
 		return $content;
 	}
