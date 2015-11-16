@@ -1,9 +1,18 @@
 #!/bin/bash -e
-# Norbert @ Laposa Ltd, 2012/02/05 
+# Norbert @ Laposa Ltd, 2012-2015 
 # Very simple Onxshop websites management script
 
-ACTION=$1
-DOMAIN=$2
+####################
+# input parameters #
+####################
+
+ACTION=$1 # mandatory
+HOSTNAME=$2 # mandatory
+DB_TEMPLATE_FILE=$3 # optional
+PROJECT_SKELETON_DIR=$4 # optional
+PROJECT_DIR=$5 # optional
+#DB_USERNAME=$6 # optional
+#DB_PASSWORD=$7 # optional
 
 #####################
 # prepare functions #
@@ -11,10 +20,9 @@ DOMAIN=$2
 
 usage() {
 cat <<EOF
-$0 ACTION FQDN
+$0 ACTION HOSTNAME [DB_TEMPLATE_FILE] [PROJECT_SKELETON_DIR] [PROJECT_DIR]
 
-Creates Onxshop installation depending on required fully
-qualified domain name(FQDN).
+Creates Onxshop installation and vhost file depending on required hostname.
 
 Example: You want your website to be served from http://example.com
 Then run:
@@ -26,8 +34,30 @@ EOF
 setup_variables() {
 ONXSHOP_VERSION="1.7"
 ONXSHOP_VERSION_DB=$(echo $ONXSHOP_VERSION | sed 's,\.,_,g')
-#USERNAME="test4"
-HOME_DIRECTORY="/srv/$DOMAIN"
+if ! [ $DB_USERNAME ]; then
+	determine_username_from_domainname
+fi
+if ! [ $PROJECT_DIR ]; then
+	PROJECT_DIR="/srv/$HOSTNAME"
+fi
+if ! [ $DB_TEMPLATE_FILE ]; then
+	DB_TEMPLATE_FILE=/opt/onxshop/${ONXSHOP_VERSION}/docs/database/template_en.sql
+fi
+if ! [ $PROJECT_SKELETON_DIR ]; then
+	PROJECT_SKELETON_DIR=/opt/onxshop/$ONXSHOP_VERSION/project_skeleton/
+fi
+
+echo "
+Variables are set to:
+
+ACTION=$ACTION
+HOSTNAME=$HOSTNAME
+DB_TEMPLATE_FILE=$DB_TEMPLATE_FILE
+PROJECT_SKELETON_DIR=$PROJECT_SKELETON_DIR
+PROJECT_DIR=$PROJECT_DIR
+DB_USERNAME=$DB_USERNAME
+"
+
 }
 
 test_input() {
@@ -35,13 +65,12 @@ if ! [ $ACTION ]; then
 	die "ACTION not provided"
 fi
 
-if ! [ $DOMAIN ]; then
-	die "DOMAIN not provided"
+if ! [ $HOSTNAME ]; then
+	die "HOSTNAME not provided"
 fi
 }
 
 create_new_installation() {
-	determine_username_from_domainname
 	random_password
 	copy_files
 	setup_database
@@ -53,60 +82,64 @@ create_new_installation() {
 # Universal function for bailing out
 die() { 
 usage
-echo -e "*** $1\n*** See http://onxshop.com/"; exit 1; 
+echo -e "*** $1\n*** See https//onxshop.com/"; exit 1; 
 }
 
 random_password() {
+# using pwgen if installed
+# DB_PASSWORD="`pwgen -N 1`"
+
 # Generate a random password without Perl
 MATRIX="0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz"
 LENGTH="8"
 while [ "${n:=1}" -le "$LENGTH" ]
 do
-    PASSWORD="$PASSWORD${MATRIX:$(($RANDOM%${#MATRIX})):1}"
+    DB_PASSWORD="$DB_PASSWORD${MATRIX:$(($RANDOM%${#MATRIX})):1}"
 	let n+=1
 done
 }
 
 copy_files() {
-if [ -d $HOME_DIRECTORY ]; then
-	die "Directory $HOME_DIRECTORY already exists"
+if [ -d $PROJECT_DIR ]; then
+	die "Directory $PROJECT_DIR already exists"
 fi
-cp -a /opt/onxshop/$ONXSHOP_VERSION/project_skeleton/ $HOME_DIRECTORY
-rm $HOME_DIRECTORY/onxshop_dir && ln -s /opt/onxshop/$ONXSHOP_VERSION/ $HOME_DIRECTORY/onxshop_dir
-chmod a+w -R $HOME_DIRECTORY/var/
+cp -a $PROJECT_SKELETON_DIR $PROJECT_DIR
+rm $PROJECT_DIR/onxshop_dir && ln -s /opt/onxshop/$ONXSHOP_VERSION/ $PROJECT_DIR/onxshop_dir
+chmod a+w -R $PROJECT_DIR/var/
 }
 
 setup_database() {
-DB_NAME="${USERNAME}-${ONXSHOP_VERSION_DB}"
-sudo -u postgres psql template1 -c "CREATE USER $USERNAME WITH CREATEDB NOCREATEUSER PASSWORD '$PASSWORD'"
-sudo -u postgres psql template1 -c "CREATE DATABASE \"$DB_NAME\" WITH OWNER=\"$USERNAME\" ENCODING='UTF8'"
-export PGPASSWORD=${PASSWORD}
-psql -U ${USERNAME} -h localhost $DB_NAME < /opt/onxshop/$ONXSHOP_VERSION/docs/database/template_en.sql
-psql -U ${USERNAME} -h localhost $DB_NAME -c "UPDATE common_configuration SET value='$USERNAME' WHERE property='title'";
+DB_NAME="${DB_USERNAME}-${ONXSHOP_VERSION_DB}"
+# TODO create user only if doesn't exist
+sudo -u postgres psql template1 -c "CREATE USER $DB_USERNAME WITH CREATEDB NOCREATEUSER PASSWORD '$DB_PASSWORD'"
+sudo -u postgres psql template1 -c "CREATE DATABASE \"$DB_NAME\" WITH OWNER=\"$DB_USERNAME\" ENCODING='UTF8'"
+export PGPASSWORD=${DB_PASSWORD}
+psql -U ${DB_USERNAME} -h localhost $DB_NAME < $DB_TEMPLATE_FILE 
+psql -U ${DB_USERNAME} -h localhost $DB_NAME -c "UPDATE common_configuration SET value='$DB_USERNAME' WHERE property='title'";
 }
 
 change_config() {
-DEPLOYMENT_FILE="$HOME_DIRECTORY/conf/deployment.php"
-sed -i "s/define('ONXSHOP_DB_USER', '')/define('ONXSHOP_DB_USER', '$USERNAME')/g" $DEPLOYMENT_FILE
-sed -i "s/define('ONXSHOP_DB_PASSWORD', '')/define('ONXSHOP_DB_PASSWORD', '$PASSWORD')/g" $DEPLOYMENT_FILE
+DEPLOYMENT_FILE="$PROJECT_DIR/conf/deployment.php"
+sed -i "s/define('ONXSHOP_DB_USER', '')/define('ONXSHOP_DB_USER', '$DB_USERNAME')/g" $DEPLOYMENT_FILE
+sed -i "s/define('ONXSHOP_DB_PASSWORD', '')/define('ONXSHOP_DB_PASSWORD', '$DB_PASSWORD')/g" $DEPLOYMENT_FILE
 sed -i "s/define('ONXSHOP_DB_NAME', '')/define('ONXSHOP_DB_NAME', '$DB_NAME')/g" $DEPLOYMENT_FILE
 }
 
 create_vhost() {
-VHOST_FILE="/etc/apache2/sites-available/${DOMAIN}"
+VHOST_FILE="/etc/apache2/sites-available/${HOSTNAME}.conf"
 if [ -f ${VHOST_FILE} ]; then
     die "Vhost file ${VHOST_FILE} already exists"
 fi
 echo "<VirtualHost *:80>
-	ServerName ${DOMAIN}
-	VirtualDocumentRoot ${HOME_DIRECTORY}/public_html
+	ServerName ${HOSTNAME}
+	VirtualDocumentRoot ${PROJECT_DIR}/public_html
 </VirtualHost>" > ${VHOST_FILE} || die "Couldn't add vhost file"
-a2ensite ${DOMAIN} && /etc/init.d/apache2 reload
+a2ensite ${HOSTNAME} && service apache2 reload
 }
 
-test_domain_name_is_valid() {
-if [ $DOMAIN ] ; then
-ping -c 1 `echo $DOMAIN | sed 's/:[0-9]\+//'` || exit 1
+test_hostname_is_valid() {
+if [ $HOSTNAME ] ; then
+ping -c 1 `echo $HOSTNAME | sed 's/:[0-9]\+//'` || exit 1
 else
    die "provide domain name"
    exit 0
@@ -114,16 +147,16 @@ fi
 }
 
 determine_username_from_domainname() {
-USERNAME=$(echo $DOMAIN | sed 's,\.,,g;s,-,,g')
-echo Constructed database name and user: $USERNAME from $DOMAIN
+DB_USERNAME=$(echo $HOSTNAME | sed 's,\.,,g;s,-,,g')
+echo Constructed database name and user: $DB_USERNAME from $HOSTNAME
 }
 
 show_result() {
-echo "Your Onxshop website is installed in: $HOME_DIRECTORY
+echo "Your Onxshop website is installed in: $PROJECT_DIR
 To edit the website use
-URL: http://${DOMAIN}/edit
-Username: ${USERNAME}
-Password: ${PASSWORD}
+URL: http://${HOSTNAME}/edit
+Username: ${DB_USERNAME}
+Password: ${DB_PASSWORD}
 "
 }
 
@@ -147,9 +180,9 @@ esac
 ##########################
 ## start procedure here ##
 ##########################
-setup_variables
 test_input
-#test_domain_name_is_valid
+setup_variables
+#test_hostname_is_valid
 process_action
 
 
