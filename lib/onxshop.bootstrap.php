@@ -591,9 +591,9 @@ class Onxshop_Bootstrap {
 			$content = $CDN->processOutputHtml($content);
 		}
 		
-		// remove unwanted white spaces beetween tags
+		// remove multiple white spaces beetween tags
 		if (ONXSHOP_COMPRESS_OUTPUT == 1) {
-			$content = preg_replace("/>[\s]+</","><", $content);
+			$content = preg_replace("/>[\s]+</","> <", $content);
 		}
 
 		return $content;
