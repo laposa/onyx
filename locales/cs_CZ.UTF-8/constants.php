@@ -94,6 +94,8 @@ define('I18N_DELIVERY_ADDRESS', 'Adresa pro doručení');
 define('I18N_CHANGE', 'změnit');
 define('I18N_CHANGE_DELIVERY_ADDRESS', 'Změnit doručovací adresu');
 define('I18N_CHANGE_BILLING_ADDRESS', 'Změnit fakturační adresu');
+define('I18N_ADD_DELIVERY_ADDRESS', 'Přidat doručovací adresu');
+define('I18N_ADD_BILLING_ADDRESS', 'Přidat fakturační adresu');
 define('I18N_BILLING_ADDRESS', 'Fakturační adresa');
 //component/ecommerce/address_edit.html
 define('I18N_ADDRESS_List', 'Vaše adresy');

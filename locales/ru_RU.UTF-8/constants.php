@@ -82,6 +82,8 @@ define('I18N_DELIVERY_ADDRESS', 'Delivery Address');
 define('I18N_CHANGE', 'change');
 define('I18N_CHANGE_DELIVERY_ADDRESS', 'Change Delivery Address');
 define('I18N_CHANGE_BILLING_ADDRESS', 'Change Billing Address');
+define('I18N_ADD_DELIVERY_ADDRESS', 'Add Delivery Address');
+define('I18N_ADD_BILLING_ADDRESS', 'Add Billing Address');
 define('I18N_BILLING_ADDRESS', 'Billing Address');
 //component/ecommerce/address_edit.html
 define('I18N_ADDRESS_LIST', 'Address List');

@@ -59,6 +59,8 @@ class Onxshop_Controller_Component_Client_Address extends Onxshop_Controller {
 			if ($addr['invoices']['line_3'] != '') $this->tpl->parse('content.invoices.line_3');
 			if ($this->GET['hide_button'] == 0) $this->tpl->parse('content.invoices.button');
 			$this->tpl->parse('content.invoices');
+		} else {
+			if ($this->GET['hide_button'] == 0) $this->tpl->parse('content.invoices_add_button');
 		}
 		
 		if (is_array($addr['delivery'])) {
@@ -66,6 +68,8 @@ class Onxshop_Controller_Component_Client_Address extends Onxshop_Controller {
 			if ($addr['delivery']['line_3'] != '') $this->tpl->parse('content.delivery.line_3');
 			if ($this->GET['hide_button'] == 0) $this->tpl->parse('content.delivery.button');
 			$this->tpl->parse('content.delivery');
+		} else {
+			if ($this->GET['hide_button'] == 0) $this->tpl->parse('content.delivery_add_button');
 		}
 
 		return true;
