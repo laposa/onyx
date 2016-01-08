@@ -2,7 +2,7 @@
 /**
  * Backoffice customer list
  *
- * Copyright (c) 2008-2014 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2008-2015 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -28,14 +28,15 @@ class Onxshop_Controller_Bo_Component_Client_Customer_List extends Onxshop_Contr
 		
 			 
 		/**
-		 * Get the list
+		 * Get customer list filter
 		 */
+		
 		$customer_filter = $_SESSION['bo']['customer-filter'];
 		
-		// account_type is integer, but we also allow in UI to use it for backoffice users
-		if ($customer_filter['account_type'] == 'backoffice') $customer_filter['backoffice_role_only'] = 1;
+		/**
+		 * get customer list
+		 */
 		
-		// get the list
 		$customer_list = $Customer->getClientList(0, $customer_filter);
 
 		

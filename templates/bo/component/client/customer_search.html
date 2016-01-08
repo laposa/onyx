@@ -28,11 +28,17 @@
 						<option value="0" {SELECTED_account_type_0}>normal accounts</option>
 						<option value="1" {SELECTED_account_type_1}>requested trade</option>
 						<option value="2" {SELECTED_account_type_2}>approved trade</option>
-						<option value="backoffice" {SELECTED_account_type_backoffice}>backoffice user</option>
 					</select>
 				</span>
 			</div>
-			
+			<div class="row backoffice_role_only">
+				<span class="label">
+					<label>&nbsp;</label>
+				</span>
+				<span class="field">
+					<input style="margin-top: 3px;" type="checkbox" name="customer-filter[backoffice_role_only]" value="1" {CHECKED_backoffice_role_only} id="customer-filter-backoffice_role_only" /> <label for="customer-filter-backoffice_role_only">Backoffice Users</label>
+				</span>
+			</div>
 		</fieldset>
 		
 		<div class="row submit">
