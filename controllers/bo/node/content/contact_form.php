@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2006-2014 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2006-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -25,7 +25,7 @@ class Onxshop_Controller_Bo_Node_Content_Contact_form extends Onxshop_Controller
 		require_once('models/common/common_file.php');
 		$File = new common_file();
 
-		$directory = "templates/component/_contact_form/";
+		$directory = "templates/component/contact_form/";
 		$this->tpl->assign('DIRECTORY', $directory);
 		$templates = $File->getFlatArrayFromFsJoin($directory);
 		$templates = array_reverse($templates);

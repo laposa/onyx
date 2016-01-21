@@ -17,6 +17,7 @@ check for local templates/bo/backoffice.html
 check for local templates/bo/node/*
 move local bo/pages/ecommerce/customer* to bo/pages/client/customer*
 move local bo/component/ecommerce/customer* to bo/component/client/customer*
+mv templates/component/_contact_form/ templates/component/contact_form/
 
 add CSRF_TOKEN to all forms "<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />"
 $ find ./templates/ -type f -exec sed -i 's/<\/form>/<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" \/>\n<\/form>/g' {} \;
