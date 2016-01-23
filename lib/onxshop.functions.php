@@ -3,7 +3,7 @@
  * Onxshop global functions
  * KEEP IT SMALL
  *
- * Copyright (c) 2005-2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2005-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -250,6 +250,22 @@ function getTemplateDir($file, $prefix = '') {
 	}
 	
 	return $template_dir;
+}
+
+/**
+ * find whether template file exists
+ *
+ * @param string $template_name
+ * @return boolean
+ *
+ */
+ 
+function templateExists($template_name) {
+	
+	if (file_exists(ONXSHOP_PROJECT_DIR . 'templates/' . $template_name . '.html')) return true;
+	if (file_exists(ONXSHOP_DIR . 'templates/' . $template_name . '.html')) return true;
+	else return false;
+	
 }
 
 /**

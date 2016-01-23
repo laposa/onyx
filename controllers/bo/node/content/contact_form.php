@@ -24,9 +24,22 @@ class Onxshop_Controller_Bo_Node_Content_Contact_form extends Onxshop_Controller
 
 		require_once('models/common/common_file.php');
 		$File = new common_file();
-
+		
+		/**
+		 * contact form template directory name
+		 */
+		 
 		$directory = "templates/component/contact_form/";
 		$this->tpl->assign('DIRECTORY', $directory);
+		
+		// show warning if old _contact_form directory is found
+		$old_directory = 'templates/component/_contact_form/';
+		if (file_exists(ONXSHOP_PROJECT_DIR . $old_directory)) msg("Found deprecated folder name in your installation. Please contact your developers and ask them to rename $old_directory to $directory", 'error');
+		
+		/**
+		 * list templates
+		 */
+		 
 		$templates = $File->getFlatArrayFromFsJoin($directory);
 		$templates = array_reverse($templates);
 
