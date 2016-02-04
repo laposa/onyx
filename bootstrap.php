@@ -14,6 +14,25 @@ set_include_path(ONXSHOP_PROJECT_DIR . PATH_SEPARATOR . ONXSHOP_DIR . PATH_SEPAR
 require_once('lib/onxshop.functions.php');
 
 /**
+ * Setup Tracy
+ */
+require_once('lib/Tracy/tracy.php');
+require_once('lib/Tracy/Onxshop/Onxshop_Extensions.php');
+if (constant('ONXSHOP_IS_DEBUG_HOST')) {
+	$components = array();
+	Tracy\Debugger::enable(Tracy\Debugger::DEVELOPMENT);
+	Tracy\Debugger::getBar()->addPanel(new DBProfilerPanel);
+	Tracy\Debugger::getBar()->addPanel(new ComponentsPanel);
+} else {
+	Tracy\Debugger::enable(Tracy\Debugger::PRODUCTION);
+	Tracy\Debugger::$logSeverity = (E_ALL ^ E_NOTICE);
+	Tracy\Debugger::$logDirectory = ONXSHOP_PROJECT_DIR . "/var/log";
+	if (constant('ONXSHOP_ERROR_EMAIL')) Tracy\Debugger::$email = ONXSHOP_ERROR_EMAIL;
+}
+
+error_reporting(E_ALL ^ E_NOTICE);
+
+/**
  * Debug benchmarking
  */
  
@@ -74,7 +93,7 @@ $Bootstrap->initAction($_GET['request']);
  * test log to firebug
  */
  
-if (ONXSHOP_IS_DEBUG_HOST && ONXSHOP_DEBUG_OUTPUT_FIREBUG) {
+if (isset($channel) && isset($response)) {
 
 	// Flush log data to browser
 	$channel->flush();

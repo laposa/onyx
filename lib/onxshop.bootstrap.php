@@ -155,7 +155,7 @@ class Onxshop_Bootstrap {
 		 * profiler
 		 */
 		 
-		if (ONXSHOP_DB_PROFILER) {
+		if (ONXSHOP_IS_DEBUG_HOST) {
 			$db->getProfiler()->setEnabled(true);
 		}
 		

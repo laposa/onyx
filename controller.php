@@ -54,6 +54,17 @@ class Onxshop_Controller {
 	 
 	public function process($request, &$subOnxshop = false) {
 	
+		if (isset($GLOBALS['components'])) {
+
+			$GLOBALS['components'][] = array(
+				"time" => microtime(true),
+				"controller" => $request
+			);
+
+			$component_index = count($GLOBALS['components']) - 1;
+
+		}
+
 		msg("ONXSHOP_REQUEST: BEGIN $request", "ok", 2);
 		
 		/**
@@ -71,11 +82,9 @@ class Onxshop_Controller {
 		$module = $this->_explodeRequest($request);
 		
 		$this->_module_html = "{$module['view']}.html";
-	
+
 		$this->_template_dir = getTemplateDir($this->_module_html);
-	
-		
-		
+
 		$this->_module_php = ONXSHOP_PROJECT_DIR . "controllers/{$module['controller']}.php";
 		if (!file_exists($this->_module_php)) $this->_module_php = ONXSHOP_DIR . "controllers/{$module['controller']}.php";
 		
@@ -94,12 +103,13 @@ class Onxshop_Controller {
 			Zend_Registry::set('controller_error', $request);
 			msg( "Error in $request", 'error', 1);
 		}
-		
+
 		/**
 		 * subcontent
 		 */
 		
 		if (is_object($subOnxshop)) { 
+
 			$this->tpl->assign('SUB_CONTENT', $subOnxshop->getContent());
 		}
 	
@@ -112,7 +122,7 @@ class Onxshop_Controller {
 		}
 		
 		msg("ONXSHOP_REQUEST: END $request", "ok", 2);
-		
+
 		//if all went OK, return true
 		return true;
 		

@@ -32,7 +32,7 @@ if(in_array($_SERVER["REMOTE_ADDR"], array_keys($debug_hosts)))  {
 	define('ONXSHOP_DEBUG_OUTPUT_ERROR_LOG', true); // use Apache error log, i.e. /var/log/apache2/error.log
 	define('ONXSHOP_BENCHMARK', false);
 	define('ONXSHOP_DB_PROFILER', false);
-	
+	define('ONXSHOP_ERROR_EMAIL', null);
 } else {
 	error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
 	ini_set('display_errors', 0);
@@ -47,7 +47,7 @@ if(in_array($_SERVER["REMOTE_ADDR"], array_keys($debug_hosts)))  {
 	define('ONXSHOP_DEBUG_OUTPUT_ERROR_LOG', true);
 	define('ONXSHOP_BENCHMARK', false);
 	define('ONXSHOP_DB_PROFILER', false);
-	
+	define('ONXSHOP_ERROR_EMAIL', null);
 }
 
 /**
