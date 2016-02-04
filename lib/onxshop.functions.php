@@ -9,7 +9,7 @@
  */
 
 /**
- * Every system message should be process through this function
+ * Every system message should be processed through this function
  *
  * @param string message Text of message.
  * @param string type 'ok' or 'error' message
