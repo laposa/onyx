@@ -616,7 +616,8 @@ function format_time($seconds) {
  * @param  string $title    Variable name to show (optional)
  */
 function bar_dump($variable, $title = null) {
-	Tracy\Debugger::barDump($variable, $title);
+	if (ONXSHOP_TRACY) Tracy\Debugger::barDump($variable, $title);
+	else var_dump($variable);
 }
 
 /**

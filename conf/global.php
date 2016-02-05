@@ -33,6 +33,7 @@ if(in_array($_SERVER["REMOTE_ADDR"], array_keys($debug_hosts)))  {
 	define('ONXSHOP_BENCHMARK', false);
 	define('ONXSHOP_DB_PROFILER', false);
 	define('ONXSHOP_ERROR_EMAIL', null);
+	define('ONXSHOP_TRACY', false);
 } else {
 	error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
 	ini_set('display_errors', 0);
@@ -48,6 +49,7 @@ if(in_array($_SERVER["REMOTE_ADDR"], array_keys($debug_hosts)))  {
 	define('ONXSHOP_BENCHMARK', false);
 	define('ONXSHOP_DB_PROFILER', false);
 	define('ONXSHOP_ERROR_EMAIL', null);
+	define('ONXSHOP_TRACY', false);
 }
 
 /**
