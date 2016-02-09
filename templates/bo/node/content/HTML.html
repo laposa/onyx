@@ -9,10 +9,13 @@
 {FILE "bo/node/default_top.html"}
 
 <script type="text/javascript" src="/opt/codemirror/lib/codemirror.js"></script>
+<script type="text/javascript" src="/opt/codemirror/addon/search/searchcursor.js"></script>
+<script type="text/javascript" src="/opt/codemirror/addon/dialog/dialog.js"></script>
+<script type="text/javascript" src="/opt/codemirror/keymap/sublime.js"></script>
 <link rel="stylesheet" href="/opt/codemirror/lib/codemirror.css">
 <script src="/opt/codemirror/mode/xml/xml.js"></script>
 <style type="text/css">
-.CodeMirror-scroll {height: auto; min-height: 400px; overflow-y: hidden; overflow-x: auto; border: 2px inset;}
+.CodeMirror {border: 1px solid #eee; height: auto;}
 #html_code {width: 90%; min-height: 400px;  border: 1px solid black;}
 </style>
 <fieldset>
@@ -21,11 +24,9 @@
 		<span class="field"><textarea id="html_code" name="node[content]" class="html"><!-- BEGIN: empty --><p>enter your content here</p><!-- END: empty -->{NODE.content|htmlspecialchars}</textarea></span>
 	</div>
 </fieldset>
-
 <script type="text/javascript">
 $(document).ready(function() {
-	//disable due to incorrect line wrapping, wait for Codemirror v3
-	//var editor = CodeMirror.fromTextArea(document.getElementById('html_code'), {lineWrapping: true});
+	var editor = CodeMirror.fromTextArea(document.getElementById('html_code'), {lineWrapping: true, keyMap: "sublime"});
 });
 </script>
 
