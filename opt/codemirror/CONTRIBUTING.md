@@ -1,8 +1,8 @@
 # How to contribute
 
-- [Getting help](#getting-help-)
-- [Submitting bug reports](#submitting-bug-reports-)
-- [Contributing code](#contributing-code-)
+- [Getting help](#getting-help)
+- [Submitting bug reports](#submitting-bug-reports)
+- [Contributing code](#contributing-code)
 
 ## Getting help
 
@@ -78,7 +78,7 @@ By contributing code to CodeMirror you
 ### Coding standards
 
 - 2 spaces per indentation level, no tabs.
-- Include semicolons after statements.
+
 - Note that the linter (`bin/lint`) which is run after each commit
   complains about unused variables and functions. Prefix their names
   with an underscore to muffle it.
