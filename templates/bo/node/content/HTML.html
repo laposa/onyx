@@ -6,7 +6,29 @@
 	</div>
 </div>
 
-{FILE "bo/node/default_top.html"}
+{FILE "bo/node/form_open.html"}
+
+<div class="twoColumnLayout fibonacci-1-1">
+	<div class="layoutColumnOne ofTwo">
+		<fieldset>
+			<div class="row title">
+			<span class="label"><label for="node-title">*Navigation Label:</label></span>
+			<span class="field">
+				<div style="width: 60%; float: left;"><input class="text title" type="text" id="node-title" name="node[title]" value="{NODE.title|htmlspecialchars}" /></div> 
+				<div style="float: left; margin-left: 10px;">
+					<input type="checkbox" name="node[display_title]" id="node.display_title" value="1" {NODE.display_title_check} /> <label for="node.display_title">Display heading</label>
+				</div>
+			</span>
+			<div class="bottom"></div>
+		</div>
+		</fieldset>
+	</div>
+	<div class="layoutColumnTwo ofTwo">
+		<fieldset>
+			{FILE "bo/node/item_css_class.html"}
+		</fieldset>
+	</div>
+</div>
 
 <script type="text/javascript" src="/opt/codemirror/lib/codemirror.js"></script>
 <script type="text/javascript" src="/opt/codemirror/addon/search/searchcursor.js"></script>
@@ -14,22 +36,54 @@
 <script type="text/javascript" src="/opt/codemirror/keymap/sublime.js"></script>
 <link rel="stylesheet" href="/opt/codemirror/lib/codemirror.css">
 <script src="/opt/codemirror/mode/xml/xml.js"></script>
+
 <style type="text/css">
 .CodeMirror {border: 1px solid #eee; height: auto;}
 #html_code {width: 90%; min-height: 400px;  border: 1px solid black;}
 </style>
+
 <fieldset>
 	<div class="row">
 		<span class="label"><label>HTML Source:</label></span>
 		<span class="field"><textarea id="html_code" name="node[content]" class="html"><!-- BEGIN: empty --><p>enter your content here</p><!-- END: empty -->{NODE.content|htmlspecialchars}</textarea></span>
 	</div>
 </fieldset>
+<fieldset>
+<div class="row image">
+	{ONXSHOP_REQUEST_imagelist #bo/component/file_list~type=CSS:relation=node:node_id=GET.id~}
+</div>
+</fieldset>
+	
 <script type="text/javascript">
 $(document).ready(function() {
 	var editor = CodeMirror.fromTextArea(document.getElementById('html_code'), {lineWrapping: true, keyMap: "sublime"});
 });
 </script>
 
-{FILE "bo/node/default_bottom.html"}
+<div class="advanced">
+{FILE "bo/node/item_position.html"}
+</div>
+
+<div class="twoColumnLayout fibonacci-1-1 advanced">
+	<div class="layoutColumnOne ofTwo">
+		<fieldset>
+			{FILE "bo/node/item_display_permission.html"}
+			{FILE "bo/node/item_display_permission_group_acl.html"}
+			{FILE "bo/node/item_require_login.html"}
+		</fieldset>
+	</div>
+	<div class="layoutColumnTwo ofTwo">
+		<fieldset>
+			{NODE_TYPE}
+			{FILE "bo/node/item_signature.html"}
+			{FILE "bo/node/item_customer.html"}
+			{FILE "bo/node/item_head.html"}
+		</fieldset>
+	</div>
+</div>
+
+{FILE "bo/node/item_publish.html"}
+	
+{FILE "bo/node/form_close.html"}
 
 <!-- END: content -->
