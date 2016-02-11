@@ -14,10 +14,30 @@ set_include_path(ONXSHOP_PROJECT_DIR . PATH_SEPARATOR . ONXSHOP_DIR . PATH_SEPAR
 require_once('lib/onxshop.functions.php');
 
 /**
+ * Setup Tracy
+ */
+if (ONXSHOP_TRACY) {
+	require_once('lib/Tracy/tracy.php');
+	require_once('lib/Tracy/Onxshop/Onxshop_Extensions.php');
+	if (constant('ONXSHOP_IS_DEBUG_HOST')) {
+		$components = array();
+		Tracy\Debugger::enable(Tracy\Debugger::DEVELOPMENT);
+		if (ONXSHOP_DB_PROFILER) Tracy\Debugger::getBar()->addPanel(new DBProfilerPanel);
+		if (ONXSHOP_BENCHMARK) Tracy\Debugger::getBar()->addPanel(new ComponentsPanel);
+	} else {
+		Tracy\Debugger::enable(Tracy\Debugger::PRODUCTION);
+		Tracy\Debugger::$logSeverity = (E_ALL ^ E_NOTICE);
+		Tracy\Debugger::$logDirectory = ONXSHOP_PROJECT_DIR . "/var/log";
+		if (constant('ONXSHOP_ERROR_EMAIL')) Tracy\Debugger::$email = ONXSHOP_ERROR_EMAIL;
+	}
+	error_reporting(E_ALL ^ E_NOTICE);
+}
+
+/**
  * Debug benchmarking
  */
  
-if (ONXSHOP_BENCHMARK && ONXSHOP_IS_DEBUG_HOST) {
+if (ONXSHOP_BENCHMARK && ONXSHOP_IS_DEBUG_HOST && !ONXSHOP_TRACY) {
 	$time_start = microtime(true);
 	define("TIME_START", $time_start);
 }
@@ -74,7 +94,7 @@ $Bootstrap->initAction($_GET['request']);
  * test log to firebug
  */
  
-if (ONXSHOP_IS_DEBUG_HOST && ONXSHOP_DEBUG_OUTPUT_FIREBUG) {
+if (ONXSHOP_IS_DEBUG_HOST && isset($channel) && isset($response)) {
 
 	// Flush log data to browser
 	$channel->flush();
@@ -93,7 +113,7 @@ echo $Bootstrap->finalOutput();
  * Debug benchmarking
  */
    
-if (ONXSHOP_BENCHMARK && ONXSHOP_IS_DEBUG_HOST) {
+if (ONXSHOP_BENCHMARK && ONXSHOP_IS_DEBUG_HOST && !ONXSHOP_TRACY) {
     $time_end = microtime(true);
     $time = $time_end - $time_start;
     $time = round($time, 4);
@@ -102,7 +122,7 @@ if (ONXSHOP_BENCHMARK && ONXSHOP_IS_DEBUG_HOST) {
     echo '</div>';
 }
 
-if (ONXSHOP_DB_PROFILER) {
+if (ONXSHOP_DB_PROFILER && !ONXSHOP_TRACY) {
 	$db = Zend_Registry::get('onxshop_db');
 	$profiler = $db->getProfiler();
 	$db_profile = array();

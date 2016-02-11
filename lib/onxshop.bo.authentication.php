@@ -74,8 +74,8 @@ class Onxshop_Bo_Authentication
 		$this->adminAuthAdapter = new ClientAuthAdapter();
 
 		// create instance of client_role_permission
-		$this->Permission = new client_role_permission();
-		$this->Permission->setCacheable(false);
+		self::$Permission = new client_role_permission();
+		self::$Permission->setCacheable(false);
 
 	}
 
@@ -241,7 +241,7 @@ class Onxshop_Bo_Authentication
 		if ($this->isSuperuser()) return true;
 
 		$customer_id = $_SESSION['authentication']['user_details']['id'];
-		return $this->Permission->checkPermissionByCustomer($customer_id, $resource, $operation);
+		return self::$Permission->checkPermissionByCustomer($customer_id, $resource, $operation);
 	}
 
 

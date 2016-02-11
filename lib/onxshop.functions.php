@@ -9,7 +9,7 @@
  */
 
 /**
- * Every system message should be process through this function
+ * Every system message should be processed through this function
  *
  * @param string message Text of message.
  * @param string type 'ok' or 'error' message
@@ -593,4 +593,59 @@ function onxshop_flush_cache() {
 	if ($db_cache_clear_status && $page_cache_clear_status && $file_clear_status) return true;
 	else return false;
 	
+}
+
+/** 
+ * Format time in seconds and
+ * add proper units.
+ * 
+ * 3.552342 => 3.552 s
+ * 0.552342 => 552 ms
+ * 0.000342 => 3.42 ms
+ */
+function format_time($seconds) {
+	if ($seconds > 1) return round($seconds, 3) . " s";
+	$ms = $seconds * 1000;
+	if ($ms > 1) return round($ms) . "&nbsp;ms";
+	return round($ms, 2) . "&nbsp;ms";
+}
+
+/**
+ * Dumps variable to the Tracy's debug bar
+ * @param  mixed  $variable Variable to dump
+ * @param  string $title    Variable name to show (optional)
+ */
+function bar_dump($variable, $title = null) {
+	if (ONXSHOP_TRACY) Tracy\Debugger::barDump($variable, $title);
+	else var_dump($variable);
+}
+
+/**
+ * Dumps variable to the Tracy's debug bar
+ * @param  mixed  $variable Variable to dump
+ * @param  string $title    Variable name to show (optional)
+ */
+function fire_dump($variable, $title = null) {
+
+	if (!is_object($GLOBALS['fb_logger'])) {
+		require_once('Zend/Log/Writer/Firebug.php');
+		require_once('Zend/Log.php');
+		
+		$writer = new Zend_Log_Writer_Firebug();
+		$GLOBALS['fb_logger'] = new Zend_Log($writer);
+		
+		require_once('Zend/Controller/Request/Http.php');
+		$request = new Zend_Controller_Request_Http();
+		require_once('Zend/Controller/Response/Http.php');
+		$GLOBALS['response'] = new Zend_Controller_Response_Http();
+
+		$GLOBALS['channel'] = Zend_Wildfire_Channel_HttpHeaders::getInstance();
+		$GLOBALS['channel']->setRequest($request);
+		$GLOBALS['channel']->setResponse($GLOBALS['response']);
+	}
+
+	if (is_object($GLOBALS['fb_logger'])) {
+		$GLOBALS['fb_logger']->log($variable, Zend_Log::DEBUG);
+	}
+
 }

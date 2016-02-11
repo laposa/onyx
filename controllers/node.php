@@ -160,6 +160,10 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 		 */
 		
 		msg("Node process: $controller", 'ok', 2);
+		if (isset($GLOBALS['components'])) {
+			$GLOBALS['components'][count($GLOBALS['components']) - 1]['node'] = $node_data['title'];
+		}
+
 		$_Onxshop_Request = new Onxshop_Request("$controller_request&id={$node_data['id']}&parent_id={$node_data['parent']}");
 		$node_data['content'] = $_Onxshop_Request->getContent();
 		
