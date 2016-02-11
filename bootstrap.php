@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * Copyright (c) 2005-2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2005-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -22,8 +22,8 @@ if (ONXSHOP_TRACY) {
 	if (constant('ONXSHOP_IS_DEBUG_HOST')) {
 		$components = array();
 		Tracy\Debugger::enable(Tracy\Debugger::DEVELOPMENT);
-		if (ONXSHOP_DB_PROFILER) Tracy\Debugger::getBar()->addPanel(new DBProfilerPanel);
-		if (ONXSHOP_BENCHMARK) Tracy\Debugger::getBar()->addPanel(new ComponentsPanel);
+		if (ONXSHOP_TRACY_DB_PROFILER) Tracy\Debugger::getBar()->addPanel(new DBProfilerPanel);
+		if (ONXSHOP_TRACY_BENCHMARK) Tracy\Debugger::getBar()->addPanel(new ComponentsPanel);
 	} else {
 		Tracy\Debugger::enable(Tracy\Debugger::PRODUCTION);
 		Tracy\Debugger::$logSeverity = (E_ALL ^ E_NOTICE);
@@ -37,7 +37,7 @@ if (ONXSHOP_TRACY) {
  * Debug benchmarking
  */
  
-if (ONXSHOP_BENCHMARK && ONXSHOP_IS_DEBUG_HOST && !ONXSHOP_TRACY) {
+if (ONXSHOP_BENCHMARK && ONXSHOP_IS_DEBUG_HOST) {
 	$time_start = microtime(true);
 	define("TIME_START", $time_start);
 }
@@ -113,7 +113,7 @@ echo $Bootstrap->finalOutput();
  * Debug benchmarking
  */
    
-if (ONXSHOP_BENCHMARK && ONXSHOP_IS_DEBUG_HOST && !ONXSHOP_TRACY) {
+if (ONXSHOP_BENCHMARK && ONXSHOP_IS_DEBUG_HOST) {
     $time_end = microtime(true);
     $time = $time_end - $time_start;
     $time = round($time, 4);
@@ -122,7 +122,7 @@ if (ONXSHOP_BENCHMARK && ONXSHOP_IS_DEBUG_HOST && !ONXSHOP_TRACY) {
     echo '</div>';
 }
 
-if (ONXSHOP_DB_PROFILER && !ONXSHOP_TRACY) {
+if (ONXSHOP_DB_PROFILER) {
 	$db = Zend_Registry::get('onxshop_db');
 	$profiler = $db->getProfiler();
 	$db_profile = array();
