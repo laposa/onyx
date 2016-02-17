@@ -1,3 +1,43 @@
+Onxshop (1.7.6)
+
+  * upgrade jQuery Mousewheel to version 3.1.13
+  * omit error message when taxonomy_breadcrumb is called without ID
+  * new passthrough_get_parameters option for pagination
+  * make recipe_search using passthrough_get_parameters for pagination
+  * prevent autofilling with Safari 9 and provide instructions
+  * add default style for stack_list
+  * avoid Javascript parse error store without it's homepage
+  * bug fix preventing saving user selected store in database
+  * fix incorrectly named function removeCustomerFromGroup
+  * disable cache when using preview_token
+  * fix some usability issues with bo review administration
+  * fix incorrectly formatted date in several BO templates
+  * revamp of the comments/reviews section in the backoffice
+  * check for permission before allowing upload to media library
+  * show modified time in bo/node_list as tooltip
+  * move compressing option to bootstrap with other output filters
+  * allow to change default teaser image for the whole site
+  * save/restore advanced settings visibility in back office
+  * make sure the advanced settings button works well with ajax loaded pages
+  * change compression filter to leave at least one character
+  * add utils/onxshop for managing installations
+  * fix menu stack to show node ID and remove white spaces between items
+  * do not show unpublished store in competition dropdowns
+  * make sure HTML validation accepts HTML5 elements (such as <audio/>)
+  * add htmlspecialchars and htmlentities to various places
+  * show 'add address' button for customers without any address
+  * improve customer search filter UI and bug fixes
+  * renamed templates/component/_contact_form to "contact_form"
+  * create a script to import Irish counties
+  * fix invalid meta for fb:app_id
+  * CodeMirror upgraded to v5.11
+  * simplify  bo/node/content/HTML and enable CodeMirror
+  * disable require SSL option for nodes as it's no longer necessary
+  * implement Tracy debugging
+  * correct spelling of Anonymous
+
+ -- Norbert Laposa <norbert@laposa.co.uk>  2016-02-17
+ 
 Onxshop (1.7.5)
 
   * update Adminer to 4.2.2
