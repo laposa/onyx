@@ -18,7 +18,7 @@ Dear {DATA.customer.first_name},
  </p>
 
 <p>
-	To return to JING Tea, please follow the below link:
+	To return to {CONFIGURATION.global.title|htmlspecialchars}, please follow the below link:
 </p>
 
 <br/>
@@ -37,12 +37,12 @@ Dear {DATA.customer.first_name},
 <br/>
 
 <p>
-	Please let us know if you would like any further information about our teas, Glassware or service by contacting <a style="color: #a39161;" href="{PROTOCOL}://{_SERVER.SERVER_NAME}/contact">customerservices@jingtea.com</a>.
+	Please let us know if you would like any further information about our teas, Glassware or service by contacting <a style="color: #a39161;" href="{PROTOCOL}://{_SERVER.SERVER_NAME}/page/20">{CONFIGURATION.global.admin_email|htmlspecialchars}</a>.
 </p>
 
 <p>
 Kindest regards,<br/>
-<a style="color: #a39161;" href="{PROTOCOL}://{_SERVER.SERVER_NAME}">JING Tea</a>
+<a style="color: #a39161;" href="{PROTOCOL}://{_SERVER.SERVER_NAME}">{CONFIGURATION.global.title|htmlspecialchars}</a>
 </p>
 
 <hr/>

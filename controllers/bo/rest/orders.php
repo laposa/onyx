@@ -2,10 +2,9 @@
 /** 
  * PROTOTYPE: Orders export
  *
- * Copyright (c) 2008-2011 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2008-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
- * http://jing.localdev.onxshop.com/request/bo/export/xml_orders?method=getOrders&who=Davey&when=Day
  */
  
 class serviceClass {

@@ -1,18 +1,17 @@
-<!-- BEGIN: title -->Thank you for inviting {DATA.invited_customer.first_name} to JING Tea<!-- END: title -->
-<!-- BEGIN: content --><p align="center"><img src="{PROTOCOL}://{_SERVER.HTTP_HOST}/images/jing_logo_email.png" alt="JING"/></p>
-
+<!-- BEGIN: title -->Thank you for inviting {DATA.invited_customer.first_name|htmlspecialchars} to {CONFIGURATION.global.title|htmlspecialchars}<!-- END: title -->
+<!-- BEGIN: content -->
 <p>Hello {DATA.rewarded_customer.first_name},</p>
 
-<p>Thank you for sharing JING Tea with your friends and family. The invitation you sent to {DATA.invited_customer.first_name} has been accepted. </p>
+<p>Thank you for sharing {CONFIGURATION.global.title|htmlspecialchars} with your friends and family. The invitation you sent to {DATA.invited_customer.first_name} has been accepted. </p>
 
 <p>As promised, we are pleased to offer you {DATA.discount_value|money_format('%n', %s)} off your next order when you spend over {DATA.minimum_order_amount|money_format('%n', %s)}.</p>
 
 <p>Your new {DATA.discount_value|money_format('%n', %s)} voucher code is: <strong>{DATA.code}</strong></p>
 
-<p>Full details of your JING vouchers, and the friends you have invited can be found in your <a href="{PROTOCOL}://{_SERVER.HTTP_HOST}/my-account/invite-friends">JING Account Page</a>.</p>
+<p>Full details of your {CONFIGURATION.global.title|htmlspecialchars} vouchers, and the friends you have invited can be found in your <a href="{PROTOCOL}://{_SERVER.HTTP_HOST}/my-account/invite-friends">{CONFIGURATION.global.title|htmlspecialchars} Account Page</a>.</p>
 
 <p>Kind regards,<br/>
-JING Tea
+{CONFIGURATION.global.author_content|htmlspecialchars}
 </p>
 
 <!-- END: content -->

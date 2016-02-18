@@ -90,7 +90,7 @@ CREATE TABLE ecommerce_promotion_code (
 
 /*check all promotions codes in ecommerce_order and insert into promotion_code table, than remove*/
 
-/*START only for jing*/
+/*START only for a specific case */
 /*INSERT INTO ecommerce_promotion (title, code_pattern, discount_percentage_value) VALUES ('White Stuff', '168[0-5]{1}[0-5]{1}[0-9]{2}', 15);
 INSERT INTO ecommerce_promotion (title, code_pattern, discount_percentage_value) VALUES ('Twitter Promotion', '168560[1-7]{1}', 15);
 SELECT id, promotion_code FROM ecommerce_order WHERE promotion_code != '' ORDER BY id ASC;
@@ -99,7 +99,7 @@ DROP TABLE ecommerce_shipping;
 ALTER TABLE client_company ADD COLUMN registration_no varchar(255);
 ALTER TABLE client_company ADD COLUMN other_data text;
 */
-/*END only for jing*/
+/*END only for a specific case */
 
 ALTER TABLE ecommerce_order DROP COLUMN promotion_code;
 

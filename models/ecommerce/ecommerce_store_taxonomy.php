@@ -3,7 +3,7 @@
 /**
  * class ecommerce_store_taxonomy
  *
- * Copyright (c) 2009-2011 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -44,7 +44,7 @@ ALTER TABLE ONLY ecommerce_store_taxonomy ADD CONSTRAINT ecommerce_store_taxonom
 		if (array_key_exists('ecommerce_store_taxonomy', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['ecommerce_store_taxonomy'];
 		else $conf = array();
 		
-		if (!is_numeric($conf['options_id'])) $conf['options_id'] = 2;//33 dolphin, 63 jing (not in use)
+		if (!is_numeric($conf['options_id'])) $conf['options_id'] = 2;
 		
 		return $conf;
 	}

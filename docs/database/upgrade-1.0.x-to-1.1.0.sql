@@ -47,7 +47,6 @@ UPDATE common_node SET parent_container = 2 WHERE parent_container = 20 AND pare
 UPDATE common_node SET layout_template = 'default', layout_style = 'seventy-thirty' WHERE layout_template = 'with_navigation';
 
 /*
-JING
 product_browse, commerce, news
 0,2 -> 1
 1 -> 2

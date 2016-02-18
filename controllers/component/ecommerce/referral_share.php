@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2012-2013 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2012-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -42,27 +42,22 @@ class Onxshop_Controller_Component_Ecommerce_Referral_Share extends Onxshop_Cont
 		$discount = money_format("%n", $this->conf['discount_value']);
 
 		$default_message = "Hello," .
-				"\n\n" .
-				"JING sources exceptional teas from across the world, and designs modern and " . 
-				"elegant JINGware specifically designed to infuse their teas." .
-				"\n\n" .
-				"As we all appreciate tea, I have chosen you to receive $discount off when you " .
+				"I have chosen you to receive $discount off when you " .
 				" spend over $min on your first order." .
 				"\n\n" .
 				"Your $discount discount voucher is: $code" .
 				"\n\n" .
 				"If you use this code I shall also receive a $discount discount on my next order over $min" . 
 				"\n\n" .
-				"  Browse JING Tea’s range at http://jingtea.com, and don’t forget to use your code at the checkout." .
-				"\n\n" .
-				"  With warm regards, \n" .
+				"
+
+With warm regards,
+\n" .
 				$_SESSION['client']['customer']['first_name'];
 
-		$jing_message = "\n\n--\n\n" .
+		$custom_message = "\n\n--\n\n" .
 			"This email was sent by " .
-			$_SESSION['client']['customer']['first_name'] . " " .  $_SESSION['client']['customer']['last_name'] .
-			" who already enjoys JING and thought you would be interested in JING’s range of teas and JINGware. " .
-			"If you do not know this person, please let us know by replying to <a href=\"mailto:customerservices@jingtea.com\">customerservices@jingtea.com</a>.";
+			$_SESSION['client']['customer']['first_name'] . " " .  $_SESSION['client']['customer']['last_name'];
 
 		// process form
 		if ($_POST['referral']['send'] == 'send') {
@@ -79,12 +74,8 @@ class Onxshop_Controller_Component_Ecommerce_Referral_Share extends Onxshop_Cont
 
 			// set customer's message (remove CRs so it can be compared)
 			$content = preg_replace("/\r\n/", "\n", $referral['message']);
-			// create jing url clickable
-			$content = str_replace("http://jingtea.com", '<a href="http://jingtea.com">http://jingtea.com</a>', $content);
 
-			// amend message from Jing, if a customer changed the message
-			// if (strcmp($content, $default_message) != 0) $content .= $jing_message2; 
-			$content .= $jing_message;
+			$content .= $custom_message;
 
 			// pass variable to email template
 			$GLOBALS['common_email']['customer'] = $_SESSION['client']['customer'];

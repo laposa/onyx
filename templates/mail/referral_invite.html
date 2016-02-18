@@ -1,6 +1,4 @@
-<!-- BEGIN: title -->{DATA.customer.first_name}'s invitation to JING Tea<!-- END: title -->
+<!-- BEGIN: title -->{DATA.customer.first_name|htmlspecialchars}'s invitation to {CONFIGURATION.global.title|htmlspecialchars}<!-- END: title -->
 <!-- BEGIN: content -->
-<p style="font-family: Calibri, Tahoma, Arial, sans-serif;">
-{EMAIL.content}
-</p>
+<p>{EMAIL.content}</p>
 <!-- END: content -->

@@ -1,9 +1,9 @@
 <?php
 /** 
- * Copyright (c) 2010-2011 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2010-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
- * TODO: fix temp variable for jing gift wrap product id = 238, variety id = 380
+ * TODO: fix temp variable for gift wrap product id = 238, variety id = 380
  */
 
 require_once('controllers/component/ecommerce/checkout_gift.php');
