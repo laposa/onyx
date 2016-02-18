@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2006-2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2006-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -23,9 +23,9 @@ class Onxshop_Controller_Bo_Component_Logs extends Onxshop_Controller {
 		require_once('models/client/client_customer.php');
 		
 		// filter
-		if (isset($this->GET['filter'])) $_SESSION['filter'] = $this->GET['filter'];
+		if (isset($this->GET['filter'])) $_SESSION['bo']['filter'] = $this->GET['filter'];
 		
-		$filter = $_SESSION['filter'];
+		$filter = $_SESSION['bo']['filter'];
 		
 		if ($filter['active'] == 1) {
 			$this->tpl->assign('ACTIVE_selected_1', "selected='selected'");
