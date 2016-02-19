@@ -23,10 +23,10 @@ Via Debian APT repository
 `$ wget -O - https://onxshop.com/debian/conf/signing_key.pub | apt-key add -`
 
 ### 2. Create APT source record
-`$ echo "deb http://onxshop.com/debian/ wheezy main" > /etc/apt/sources.list.d/onxshop.list`
+`$ echo "deb http://onxshop.com/debian/ jessie main" > /etc/apt/sources.list.d/onxshop.list`
 
 ### 3. Install Onxshop
-`$ export LANG=en_GB.UTF-8 && aptitude update && aptitude install onxshop`
+`$ aptitude update && aptitude install onxshop`
 
 ### 4. Create a website
 `$ sudo onxshop create yoursite.com`
