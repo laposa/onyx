@@ -26,10 +26,10 @@ Via Debian APT repository
 `$ echo "deb http://onxshop.com/debian/ jessie main" > /etc/apt/sources.list.d/onxshop.list`
 
 ### 3. Install Onxshop
-`$ aptitude update && aptitude install onxshop`
+`$ apt-get update && apt-get install onxshop-1.7`
 
 ### 4. Create a website
-`$ sudo onxshop create yoursite.com`
+`$ sudo onxshop-1.7 create test.local.onxshop.com`
 
 More Information
 ================
