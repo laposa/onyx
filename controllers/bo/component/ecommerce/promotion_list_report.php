@@ -63,7 +63,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Promotion_List_Report extends On
 		
 		foreach ($promotion_list as $item) {
 			$total_count += $item['count'];
-			$total_goods_net + $item['sum_goods_net'];
+			$total_goods_net += $item['sum_goods_net'];
 			$total_face_value_voucher += $item['sum_face_value_voucher'];
 			$total_discount += $item['sum_discount'];
 		}
