@@ -1,7 +1,7 @@
 <?php
 /** 
  * Zend Search Lucene
- * Copyright (c) 2009-2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -161,7 +161,7 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 		}
 		
 		//use title as fallback if page title isn't available
-		if ($page['page_title'] == '') $page['page_title'] = $page['title'];
+		if (trim($page['page_title']) == '') $page['page_title'] = $page['title'];
 
 	}
 

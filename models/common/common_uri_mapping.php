@@ -2,7 +2,7 @@
 /**
  * class common_uri_mapping
  *
- * Copyright (c) 2009-2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -564,7 +564,7 @@ ALTER TABLE common_uri_mapping ADD UNIQUE (public_uri);
 		
 		if (preg_match('/[^a-zA-Z0-9\._\-\/]/', $uri_path)) {
 			
-			msg("Not a valid URI path ({$uri_path})", 'error');
+			msg("Not a valid URI path ({$uri_path})", 'error', 1);
 			return false;
 			
 		} else {
