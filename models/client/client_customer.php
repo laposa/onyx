@@ -1272,7 +1272,7 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
 				
 			} else {
 			
-				msg('New passwords does not match!', 'error');
+				msg(I18N_COMPONENT_CLIENT_REGISTRATION_PASSWORD_NOT_MATCH, 'error');
 				return false;
 			
 			}

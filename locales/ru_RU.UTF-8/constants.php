@@ -229,7 +229,7 @@ define('I18N_RELATED_PRODUCTS_STATIC', 'We suggest the following');
 //component/client/registration.php
 define('I18N_COMPONENT_CLIENT_REGISTRATION_SUCCESS', 'Customer registration successfully completed"');
 define('I18N_COMPONENT_CLIENT_REGISTRATION_ERROR', 'Please complete all required fields marked with a asterisk (*)');
-define('I18N_COMPONENT_CLIENT_REGISTRATION_PASSWORD_NOT_MATCH', 'Passwords does not match.');
+define('I18N_COMPONENT_CLIENT_REGISTRATION_PASSWORD_NOT_MATCH', 'Passwords do not match.');
 //component/client/registration.html
 define('I18N_R_PERSONAL_DETAILS', 'Personal details');
 define('I18N_R_TITLE', 'Title');
