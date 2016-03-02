@@ -211,6 +211,12 @@ define('I18N_PASSWORD_REMINDER', 'Připomenutí hesla');
 define('I18N_YOUR_EMAIL', 'Váš email');
 define('I18N_SUBMIT', 'Odeslat');
 define('I18N_THANK_YOU_WE_WILL_SEND_ETC', 'Děkujeme. Pošleme Vám email s Vašim heslem.');
+define('I18N_EMAIL_IS_NOT_REGISTERED', 'Email není registrován');
+define('I18N_WRONG_KEY', 'Neplatný klíč!');
+define('I18N_WRONG_EMAIL_ADDRESS', 'Neplatná emailová adresa!');
+define('I18N_PASSWORD_CHANGED_MSG1', 'Vaše heslo bylo úspěšně změněno. Prosím klikněte');
+define('I18N_PASSWORD_CHANGED_MSG3', 'zde');
+define('I18N_PASSWORD_CHANGED_MSG2', 'a přihlaste se s svým novým heslem.');
 //component/ecommerce/password_reset.html
 define('I18N_PASSWORD_RESET', 'Vygenerovat nové heslo');
 define('I18N_A_MESSAGE_HAS_BEEN_SENT_TO', 'Zpráva byla odeslána na');

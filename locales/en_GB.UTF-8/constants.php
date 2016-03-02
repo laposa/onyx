@@ -211,6 +211,12 @@ define('I18N_PASSWORD_REMINDER', 'Password reminder');
 define('I18N_YOUR_EMAIL', 'Your email');
 define('I18N_SUBMIT', 'Submit');
 define('I18N_THANK_YOU_WE_WILL_SEND_ETC', 'Thank you. Will we send you an email shortly with your password.');
+define('I18N_EMAIL_IS_NOT_REGISTERED', 'Email is not registered');
+define('I18N_WRONG_KEY', 'Wrong key!');
+define('I18N_WRONG_EMAIL_ADDRESS', 'Wrong email address!');
+define('I18N_PASSWORD_CHANGED_MSG1', 'You have successfully changed your password. Please click to');
+define('I18N_PASSWORD_CHANGED_MSG3', 'here');
+define('I18N_PASSWORD_CHANGED_MSG2', 'to login with your new password');
 //component/ecommerce/password_reset.html
 define('I18N_PASSWORD_RESET', 'Password reset');
 define('I18N_A_MESSAGE_HAS_BEEN_SENT_TO', 'A message has been sent to');

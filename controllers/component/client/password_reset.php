@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2006-2011 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2006-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -20,12 +20,20 @@ class Onxshop_Controller_Component_Client_Password_Reset extends Onxshop_Control
 		require_once('models/client/client_customer.php');
 		$Customer = new client_customer();
 		$Customer->setCacheable(false);
+
+		/**
+		 * Prefill from GET
+		 */
+		if (strlen($this->GET['email']) > 0) {
+			$client = array('customer' => array('email' => $this->GET['email']));
+			$this->tpl->assign('CLIENT', $client);
+		}
 		
 		/**
 		 * process when submited
 		 */
 		 
-		if ($_POST['submit']) {
+		if ($_POST['submit'] && $_POST['action'] == 'email') {
 		
 			/**
 			 * assign first
@@ -48,21 +56,23 @@ class Onxshop_Controller_Component_Client_Password_Reset extends Onxshop_Control
 			if (is_array($customer_data)) {
 				$current_key = $Customer->getPasswordKey($_POST['client']['customer']['email']);
 				$customer_data['password_key'] = $current_key;
+			} else {
+				msg(I18N_EMAIL_IS_NOT_REGISTERED, 'error');
 			}
-			
+
 			/**
 			 * if key was generated successfully, than send it by email
 			 */
-			 
+
 			if ($current_key) {
-			
+
 				require_once('models/common/common_email.php');
 				$EmailForm = new common_email();
-			
+
 				//this allows use customer data and company data in the mail template
 				//is passed as DATA to template in common_email->_format
 				$GLOBALS['common_email']['customer'] = $customer_data;
-				
+
 				if (!$EmailForm->sendEmail('request_password_change', 'n/a', $customer_data['email'], $customer_data['first_name'] . " " . $customer_data['last_name'])) {
 					msg("Can't send email with request for password reset", 'error');
 				}
@@ -73,19 +83,78 @@ class Onxshop_Controller_Component_Client_Password_Reset extends Onxshop_Control
 		}
 		
 		/**
-		 * reset password when valied email and key is provided
+		 * allow set new password when valid email and key is provided
 		 */
 		 
 		if  ($this->GET['email'] && $this->GET['key']) {
 		
-			if ($Customer->resetPassword($this->GET['email'], $this->GET['key'])) {
-				msg("Password for {$this->GET['email']} has for been renewed.", 'ok', 2);
-				$this->tpl->parse('content.password_changed');
-				$hide_form = 1;
+			$client = $Customer->getClientByEmail($this->GET['email']);
+
+			if (is_array($client)) {
+				$current_key = $Customer->getPasswordKey($this->GET['email']);
+				if ($current_key == $this->GET['key'] && strlen($current_key) == 32) {
+
+
+					if ($_POST['submit'] && $_POST['action'] == 'reset') {
+
+						$customer_data = $_POST['client']['customer'];
+
+						if (strlen($customer_data['password']) > 0) {
+
+							$client_current_data = $Customer->getClientByEmail($this->GET['email']);
+
+							if ($Customer->updatePassword($client_current_data['password'], $customer_data['password'], $customer_data['password1'], $client_current_data)) {
+								
+								$this->tpl->parse('content.new_password_set');
+								$hide_form = 1;
+
+								/**
+								 * send email
+								 */
+								 
+								require_once('models/common/common_email.php');
+			    				$EmailForm = new common_email();
+			    			
+								//this allows use customer data and company data in the mail template
+			    				//is passed as DATA to template in common_email->_format
+				    			$GLOBALS['common_email']['customer'] = $client_current_data;
+								
+								if (!$EmailForm->sendEmail('password_changed', 'n/a', $client_current_data['email'], $client_current_data['first_name'] . " " . $client_current_data['last_name'])) {
+				    				msg('Password reset email sending failed.', 'error');
+			    				}
+
+			    				// login and redirect to My Account page
+								if ($customer_detail = $Customer->login($this->GET['email'], md5($customer_data['password']))) {
+									$_SESSION['client']['customer'] = $customer_detail;
+									if ($_SESSION['to']) {
+										$to = $_SESSION['to'];
+										$_SESSION['to'] = false;
+										onxshopGoTo($to);
+									} else {
+										require_once('models/common/common_node.php');
+										$node_conf = common_node::initConfiguration();
+										onxshopGoTo("page/" . $node_conf['id_map-myaccount']);
+									}
+								}
+
+							}
+
+						} else {
+							msg("No password provided.", 'error');
+						}
+					}
+
+					if ($hide_form == 0) $this->tpl->parse('content.new_password_form');
+					$hide_form = 1;
+
+				} else {
+					msg(I18N_WRONG_KEY, 'error');
+				}
+			} else {
+					msg(I18N_WRONG_EMAIL_ADDRESS, 'error');
 			}
-		
 		}
-		
+
 		/**
 		 * conditional display form
 		 */
