@@ -40,14 +40,14 @@
 									</div>
 									<div class="row telephone">
 										<span class="label"><label for="client-customer-telephone">{I18N_R_TELEPHONE}</label></span>
-										<span class="field"><input class="text" type="text" id="client-customer-telephone" name="client[customer][telephone]" value="{CLIENT.customer.telephone|htmlspecialchars}" title="Contact telephone number"/></span>
+										<span class="field"><input class="text" type="text" id="client-customer-telephone" name="client[customer][telephone]" autocomplete="new-telephone" value="{CLIENT.customer.telephone|htmlspecialchars}" title="Contact telephone number"/></span>
 									</div>
 									
 									<p><a href="#row-password_new" onclick="$('#row-password_new').toggle(); return false;">Do you need to change the password?</a></p>
 									<div class="row password_new" id="row-password_new" style="display: none;"> <!-- don't show to prevent browser autofill -->
 										<p>Please rememebr you can send the user link to <a href="/page/9" target="_blank">password reset page</a> where they can change the passsword on their own. Alternatively change the password using the following field.</p>
 										<span class="label"><label for="client-customer-password_new">{I18N_CHANGE_PASSWORD}</label></span>
-										<span class="field"><input class="text" type="password" id="client-customer-password_new" name="password_new" value="" title="Set customer's new password"  /></span>
+										<span class="field"><input class="text" type="password" id="client-customer-password_new" name="password_new" autocomplete="new-password" value="" title="Set customer's new password"  /></span>
 									</div>
 
 									<!-- BEGIN: status -->
