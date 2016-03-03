@@ -1,26 +1,69 @@
 <!-- BEGIN: title -->CSS Edit<!-- END: title -->
 <!-- BEGIN: head -->
+
 <script type="text/javascript" src="/opt/codemirror/lib/codemirror.js"></script>
+<script type="text/javascript" src="/opt/codemirror/addon/search/searchcursor.js"></script>
+<script type="text/javascript" src="/opt/codemirror/addon/dialog/dialog.js"></script>
+<script type="text/javascript" src="/opt/codemirror/keymap/sublime.js"></script>
 <link rel="stylesheet" href="/opt/codemirror/lib/codemirror.css">
 <script src="/opt/codemirror/mode/css/css.js"></script>
+
 <script type="text/javascript" src="/opt/colorpicker/js/colorpicker.js"></script>
 <link rel="stylesheet" media="screen" type="text/css" href="/opt/colorpicker/css/colorpicker.css" />
+
 <style type="text/css">
-.CodeMirror {border: 1px solid #eee; height: auto;}
-div.cssEdit fieldset { padding: 20px; margin: 0; width: 100%; }
-div.cssEdit fieldset div.row { padding: 0; margin: 0; width: 100%; }
+	html, body { width: 100%; height: 100%; padding: 0; overflow: hidden; }
+	div.popup { padding: 0; }
+	.CodeMirror { width: 100%; height: auto; position: absolute; top: 0; left: 0; right: 0; bottom: 60px; }
+	.colorpicker { z-index: 999999; }
+	#modal_overlay_window { padding: 20px 20px; }
 </style>
 <!-- END: head -->
 <!-- BEGIN: content -->
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 <!-- BEGIN: form -->
-<script type="text/javascript">
-	$(function() {
-		$('#colourpicker').ColorPicker();
-	});
-</script>
 
-<script type="text/javascript"> 
+<form method="post" action="{URI|htmlspecialchars}" id="css_edit">
+
+<div class="page">
+	<div class="top"><span></span></div>
+	<div class="content">
+		<div class="pageWrapper">
+
+			<div class="pageContent">
+				<div class="pageContentWrapper">
+					<div class="rowMiddle">
+						<div class="rowWrapper">
+							<textarea id="code_css" name="configuration[global][css]" class="code css" autofocus="autofocus">{CONFIGURATION.global.css}</textarea></span>
+							<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+						</div>
+					</div>
+					<div class="rowBottom">
+						<div class="rowWrapper">
+							<div class="columnWrapper">
+								<p>
+									<a href="#" class="button" id="mediaGalleryButton"><span>Media Library</span></a>
+									<a href="#" class="button" id="colourPickerButton"><span>Pick a colour</span></a>
+									<button class="save" type="submit" name="submit" value="submit"><span>Save</span></button>
+								</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="bottom"><span></span></div>
+</div>
+
+</form>
+
+<div id="css_edit_result"></div>
+
+<script type="text/javascript">
+
+$(document).ready(function() {
+
 	function saveCSS(id, content) {
 		$('#'+id).val(content);
 		$('#css_edit').submit();
@@ -37,44 +80,24 @@ div.cssEdit fieldset div.row { padding: 0; margin: 0; width: 100%; }
 		refreshOpener('{GET.orig}', {GET.id});
 		<!-- END: refresh_opener -->
 	} 
-</script>
 
-<div class="cssEdit">
-	<form method="post" action="{URI|htmlspecialchars}" id="css_edit">
-		<fieldset class="single">
-			<div class="row">
-				<span class="field"><textarea id="code_css" name="configuration[global][css]" class="code css" autofocus="autofocus">{CONFIGURATION.global.css}</textarea></span>
-			</div>
-			<div class="row submit">
-				<span class="label"><label>&nbsp;</label></span>
-				<span class="field"><button type="submit" name="submit" value="submit"><span>Save</span></button></span>
-			</div>
-		</fieldset>
-	<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
-</form>
-</div>
-
-<p>
-<a href="#mediaLibrary" class="button" style="float: left" onclick="$('#mediaLibrary').toggle();"><span>Media Library</span></a>
-<a href="#" class="button" style="float: right" id="colourpicker"><span>Pick a colour</span></a>
-</p>
-<hr />
-
-<div id="mediaLibrary" style="display: none; padding-top: 1em; clear: both;">
-{ONXSHOP_REQUEST_imagelist #bo/component/file_list~type=CSS:relation=node:node_id=3~}
-</div>
-
-<div id="css_edit_result"></div>
-
-<script type="text/javascript">
-$(document).ready(function() {
 	// Codemirror
 	var code_mirror_options = {
-		viewportMargin: Infinity
+		viewportMargin: Infinity,
+		keyMap: "sublime"
 	}
-	
 	var editor = CodeMirror.fromTextArea(document.getElementById('code_css'), code_mirror_options);
-	
+
+	// Media Libary
+	$("#mediaGalleryButton").click(function() {
+		showModalOverlay();
+		makeAjaxRequest('#modal_overlay_window', '/request/bo/component/file_list~type=CSS:relation=node:node_id=3~');
+		return false;
+	});
+
+	// Color Picker
+	$('#colourPickerButton').ColorPicker();
+
 	// ajax form
 	var ajax_form_options = { 
 		target: '#css_edit_result',
@@ -82,10 +105,10 @@ $(document).ready(function() {
 		success: showResponse, 
 		url: '/request/bo/component/css_edit'
 	};
-
 	$('#css_edit').ajaxForm(ajax_form_options);
+
 });
 </script>
-<!-- END: form -->
 
+<!-- END: form -->
 <!-- END: content -->
