@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2010-2012 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2010-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -14,24 +14,39 @@ class Onxshop_Controller_Bo_Component_Template_Edit extends Onxshop_Controller {
 	 
 	public function mainAction() {
 		
-		//getting detail of model
+		//getting detail of template
 		if ($this->GET['template'] != '') {
-			$model_file = $this->GET['template'];
-			$dir = explode("/", $model_file);
-			$filename = "templates/$model_file";
+			$template_file = $this->GET['template'];
+			$dir = explode("/", $template_file);
+			$filename = "templates/$template_file";
 			$this->tpl->assign('TEMPLATE_FILENAME', $filename);
 			
-			$path = ONXSHOP_DIR . $filename;
+			$path = ONXSHOP_PROJECT_DIR . $filename;
+			if (!file_exists($path)) $path = ONXSHOP_DIR . $filename;
 			//$real_path = realpath($path);
 		
 			if (file_exists($path) && !is_dir($path)) {
-				$content = file_get_contents($path);
-				$content = $this->html_highlight($content);
 				
-				$this->tpl->assign('CONTENT', $content);
+				$content = file_get_contents($path);
+				
+				if (1== 1) {
+					
+					$this->tpl->assign('CONTENT', htmlspecialchars($content));
+					$this->tpl->parse('content.listing.edit');
+					
+				} else {
+					
+					$this->tpl->assign('CONTENT', $this->html_highlight($content));
+					$this->tpl->parse('content.listing.view');
+					
+				}
+				
 				$this->tpl->parse('content.listing');
+			
 			} else {
+			
 				$this->tpl->parse('content.hint');
+			
 			}
 		}
 

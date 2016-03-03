@@ -1,6 +1,13 @@
 <!-- BEGIN: title -->Templates<!-- END: title -->
+<!-- BEGIN: head -->
+<script type="text/javascript" src="/opt/codemirror/lib/codemirror.js"></script>
+<link rel="stylesheet" href="/opt/codemirror/lib/codemirror.css">
+<script src="/opt/codemirror/mode/css/css.js"></script>
+<script src="/opt/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+<!-- END: head -->
 <!-- BEGIN: content -->
 <style type="text/css">
+.CodeMirror {height: auto;}
 code {font-size: 12px;}
 code span.text {color: #000000;}
 code span.comment {color: #008000;}
@@ -8,6 +15,7 @@ code span.tag {color: #0000BB;}
 code span.attribute {color: #DD0000;}
 code span.value {color: #800080;}
 code span.comment span {color: #008000;}
+#template_edit {padding: 10px;}
 </style>
 
 <script type="text/javascript">
@@ -24,7 +32,7 @@ $(document).ready(function(){
 });
 
 function serverBrowserOpenDir(open_dir) {
-	makeAjaxRequest('#template-edit', "/request/bo/component/template_edit~template="+open_dir+":type={GET.type}:relation={GET.relation}:node_id={GET.node_id}~");
+	makeAjaxRequest('#template_edit', "/request/bo/component/template_edit~template="+open_dir+":type={GET.type}:relation={GET.relation}:node_id={GET.node_id}~");
 }
 </script>
 
@@ -55,17 +63,17 @@ function serverBrowserOpenDir(open_dir) {
 		
 					<div class="columnOne">
 						<div class="columnWrapper">
-							<div id="models">
-								{ONXSHOP_REQUEST_menu #bo/component/server_browser_menu~directory=templates/:scope=onxshop:trim_extension=0:expand_all=1~}
+							<div id="template_list">
+								{ONXSHOP_REQUEST_menu #bo/component/server_browser_menu~directory=templates/:scope=project:trim_extension=0:expand_all=1~}
 							</div>
 						</div>
 					</div>
 					<div class="columnTwo">
 						<div class="columnWrapper">
-							<div id="template-edit">
+							<div id="template_edit">
 								{ONXSHOP_REQUEST_template #bo/component/template_edit}
 							</div>
-							{ONXSHOP_REQUEST_css_edit #bo/component/css_edit}
+							{disableONXSHOP_REQUEST_css_edit #bo/component/css_edit}
 						</div>
 					</div>
 					<div class="rowBottom">

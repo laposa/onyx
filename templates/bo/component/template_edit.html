@@ -1,14 +1,48 @@
 <!-- BEGIN: title -->Template Edit<!-- END: title -->
 <!-- BEGIN: content -->
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
-<!-- BEGIN: listing -->
-<form>
-<h2 style="margin-top: 0;">{TEMPLATE_FILENAME}</h2>
-<pre style="margin: 0;"><code class="html">{CONTENT}</code></pre>
-<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
-</form>
-<!-- END: listing -->
-<!-- BEGIN: hint -->
-<p style="margin-left: 10px; margin-top: 10px;">Select a HTML file from the menu on the left.</p>
-<!-- END: hint -->
+<div class="template_edit">
+	<!-- BEGIN: listing -->
+	<form method="post" action="{URI|htmlspecialchars}">
+		<fieldset class="single">
+			<p>{TEMPLATE_FILENAME}</p>
+			<!-- BEGIN: view -->
+			<pre><code class="html">{CONTENT}</code></pre>
+			<!-- END: view -->
+			<!-- BEGIN: edit -->
+			<div class="row">
+				<textarea class="html" id="code_html" name="template_content">{CONTENT}</textarea>
+			</div>
+			<div class="row submit">
+				<span class="label"><label>&nbsp;</label></span>
+				<span class="field"><button type="submit" name="submit" value="submit"><span>Save</span></button></span>
+			</div>
+			<script type="text/javascript">
+				// Codemirror
+				var code_mirror_options = {
+					lineNumbers: true,
+					viewportMargin: Infinity
+				}
+				
+				var editor = CodeMirror.fromTextArea(document.getElementById('code_html'), code_mirror_options);
+				
+				// ajax form
+				var ajax_form_options = { 
+					target: 'div.template_edit',
+					beforeSubmit: preSubmit,
+					success: showResponse, 
+					url: '/request/bo/component/template_edit'
+				};
+			
+				$('div.template_edit form').ajaxForm(ajax_form_options);
+			</script>
+			<!-- END: edit -->
+		</fieldset>
+		<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+	</form>
+	<!-- END: listing -->
+	<!-- BEGIN: hint -->
+	<p>Select a HTML file from the menu on the left.</p>
+	<!-- END: hint -->
+</div>
 <!-- END: content -->
