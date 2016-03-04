@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2009-2013 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -330,7 +330,7 @@ class Onxshop_Controller_Component_Comment extends Onxshop_Controller {
 		
 		if ($_POST['save']) {
 		
-			if ($this->checkData($data)) {
+			if ($this->checkData($data, $options)) {
 			
 				/**
 				 * set customer id
@@ -381,7 +381,7 @@ class Onxshop_Controller_Component_Comment extends Onxshop_Controller {
 		
 		if ($_POST['save']) {
 		
-			if ($this->checkData($data)) {
+			if ($this->checkData($data, $options)) {
 			
 				/**
 				 * check customer id
@@ -425,11 +425,11 @@ class Onxshop_Controller_Component_Comment extends Onxshop_Controller {
 	 * check data
 	 */
 	 
-	public function checkData($data) {
+	public function checkData($data, $options) {
 	
-		if (trim($data['title']) == '' || trim($data['author_name']) == '' || 
-			trim($data['author_email']) == '' || trim($data['title']) == '' || 
-			!is_numeric($data['rating'])) return false;
+		if (trim($data['title']) == '' || !is_numeric($data['rating'])) return false;
+
+		if (!$options['allow_anonymouse_submit'] && (trim($data['author_name']) == '' || trim($data['author_email']) == '')) return false;
 
 		if ($this->enableCaptcha) {
 			$node_id = (int) $this->GET['node_id'];

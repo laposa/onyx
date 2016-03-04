@@ -14,7 +14,11 @@ class Onxshop_Controller_Component_Ecommerce_Recipe_Review_Add extends Onxshop_C
 	 */
 	 
 	public function customCommentAction($data, $options) {
-		
+
+		// enable captcha if captcha field is present in the template
+		$this->enableCaptcha = (strpos($this->tpl->filecontents, 'comment-captcha_') !== FALSE);
+		if ($this->enableCaptcha) $this->tpl->parse("content.comment_insert.invisible_captcha_field");
+
 		$this->displaySubmitForm($data, $options);
 	}
 

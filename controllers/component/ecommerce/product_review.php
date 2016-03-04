@@ -32,15 +32,25 @@ class Onxshop_Controller_Component_Ecommerce_Product_Review extends Onxshop_Cont
 		$this->tpl->assign('REVIEW_ADD', $_Onxshop_Request->getContent());
 		
 	}
-	
-		
+
 	/**
 	 * check data
 	 */
 	 
-	public function checkData($data) {
+	public function checkData($data, $options) {
 	
-		if (trim($data['title']) == '' || trim($data['author_name']) == '' || trim($data['author_email']) == '' || trim($data['title']) == '' || $data['rating'] == 0) return false;
-		else return true;
+		if (trim($data['title']) == '' || $data['rating'] == 0) return false;
+
+		if (!$options['allow_anonymouse_submit'] && (trim($data['author_name']) == '' || trim($data['author_email']) == '')) return false;
+
+		if ($this->enableCaptcha) {
+			$node_id = (int) $this->GET['node_id'];
+			$word = strtolower($_SESSION['captcha'][$node_id]);
+			$isCaptchaValid = strlen($data['captcha']) > 0 && $data['captcha'] == $word;
+			return $isCaptchaValid;
+		}
+
+		return true;
 	}
+			
 }

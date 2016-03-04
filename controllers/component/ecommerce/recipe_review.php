@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2013 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2013-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -33,14 +33,4 @@ class Onxshop_Controller_Component_Ecommerce_Recipe_Review extends Onxshop_Contr
 		
 	}
 	
-		
-	/**
-	 * check data
-	 */
-	 
-	public function checkData($data) {
-	
-		if (trim($data['title']) == '' || trim($data['author_name']) == '' || trim($data['author_email']) == '' || trim($data['title']) == '' || $data['rating'] == 0) return false;
-		else return true;
-	}
 }
