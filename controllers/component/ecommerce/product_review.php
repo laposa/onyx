@@ -39,7 +39,7 @@ class Onxshop_Controller_Component_Ecommerce_Product_Review extends Onxshop_Cont
 	 
 	public function checkData($data, $options) {
 	
-		if (trim($data['title']) == '' || $data['rating'] == 0) return false;
+		if ($data['rating'] == 0) return false;
 
 		if (!$options['allow_anonymouse_submit'] && (trim($data['author_name']) == '' || trim($data['author_email']) == '')) return false;
 

@@ -427,7 +427,7 @@ class Onxshop_Controller_Component_Comment extends Onxshop_Controller {
 	 
 	public function checkData($data, $options) {
 	
-		if (trim($data['title']) == '' || !is_numeric($data['rating'])) return false;
+		if (!is_numeric($data['rating'])) return false;
 
 		if (!$options['allow_anonymouse_submit'] && (trim($data['author_name']) == '' || trim($data['author_email']) == '')) return false;
 
