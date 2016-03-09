@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2005-2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2005-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -801,7 +801,11 @@ class Onxshop_Controller {
 		$classname = self::_prepareCallBack($request);
 		
 		if (!class_exists($classname)) {
+			
 			echo "missing $classname in $request";
+			
+			throw new ErrorException("Missing $classname in $request");
+			
 			return false;
 		}
 		
