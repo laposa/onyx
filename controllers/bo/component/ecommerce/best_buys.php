@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2008-2011 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2008-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -14,7 +14,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Best_Buys extends Onxshop_Contro
 	 * render list
 	 */
 	 
-	public function renderList($product_list) {
+	public function renderList($product_list, $controller = 'product_list_shelf') {
 	
 		if (is_array($product_list)) {
 			

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2010-2013 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2010-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  * this is really node_tree as it depends on common_node
@@ -77,7 +77,7 @@ abstract class Onxshop_Controller_Tree extends Onxshop_Controller {
 	 * get tree in descending order (from root down to given level)
 	 */
 	 
-	public function getTree($publish, $node_group, $parent, $depth, $expand_all)
+	public function getTree($publish = 1, $node_group, $parent, $depth, $expand_all)
 	{
 		$tree = $this->Node->getNodesByParent($publish, $node_group, $parent);
 

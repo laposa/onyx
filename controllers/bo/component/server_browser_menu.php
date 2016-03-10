@@ -15,7 +15,7 @@ class Onxshop_Controller_Bo_Component_Server_Browser_Menu extends Onxshop_Contro
 	 * get tree
 	 */
 	 
-	public function getTree($publish, $node_group, $parent, $depth, $expand_all) {
+	public function getTree($publish = 1, $node_group, $parent, $depth, $expand_all) {
 			
 		/**
 		 * set prefix

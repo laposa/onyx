@@ -2,7 +2,7 @@
 /**
  * Taxonomy tree
  *
- * Copyright (c) 2008-2014 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2008-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -49,7 +49,7 @@ class Onxshop_Controller_Bo_Component_Taxonomy_Menu extends Onxshop_Controller_C
 	/**
 	 * get tree
 	 */
-	public function getTree($publish = 1) {
+	public function getTree($publish = 1, $node_group, $parent, $depth, $expand_all) {
 
 		$list = $this->getList($publish);
 
