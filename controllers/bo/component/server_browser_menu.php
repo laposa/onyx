@@ -2,7 +2,7 @@
 /**
  * Menu of server files
  *
- * Copyright (c) 2006-2013 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2006-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -15,7 +15,7 @@ class Onxshop_Controller_Bo_Component_Server_Browser_Menu extends Onxshop_Contro
 	 * get tree
 	 */
 	 
-	public function getTree() {
+	public function getTree($publish, $node_group, $parent, $depth, $expand_all) {
 			
 		/**
 		 * set prefix

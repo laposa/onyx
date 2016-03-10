@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2013 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2013-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -75,28 +75,6 @@ class Onxshop_Controller_Bo_Component_Scheduler_List extends Onxshop_Controller_
 			if ($id > 0) msg("Scheduled task saved as id=$id");
 
 		}
-	}
-
-
-	/**
-	 * display schedule list
-	 */
-	public function displayListing($jobs)
-	{
-		$statuses = array("Pending", "In progress", "Completed", "Failed", "Cancelled");
-
-		if (is_array($jobs) && count($jobs) > 0) {
-			foreach ($jobs as $job) {
-				$job['status_name'] = $statuses[$job['status']];
-				$this->tpl->assign("ITEM", $job);
-				$this->tpl->parse("content.item");
-			}
-		} else {
-			$this->tpl->parse("content.no_schedule");
-		}
-
-		$this->tpl->assign("TOMORROW", date("d/m/Y", time() + 24 * 3600));
-
 	}
 
 	/**

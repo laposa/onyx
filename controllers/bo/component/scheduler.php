@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2013 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2013-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -40,7 +40,7 @@ class Onxshop_Controller_Bo_Component_Scheduler extends Onxshop_Controller {
 	/**
 	 * display schedule list
 	 */
-	public function displayListing(&$jobs)
+	public function displayListing($jobs)
 	{
 		$statuses = array("Pending", "In progress", "Completed", "Failed", "Cancelled");
 
@@ -53,6 +53,8 @@ class Onxshop_Controller_Bo_Component_Scheduler extends Onxshop_Controller {
 		} else {
 			$this->tpl->parse("content.no_schedule");
 		}
+
+		$this->tpl->assign("TOMORROW", date("d/m/Y", time() + 24 * 3600));
 
 	}
 

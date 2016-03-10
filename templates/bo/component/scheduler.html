@@ -2,7 +2,7 @@
 
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 
-<div class="schduler"> 
+<div class="scheduler"> 
 
 	<div class="twoColumnPage page sidebar">
 		<div class="top"><span></span></div>
@@ -49,7 +49,7 @@
 												<td>{ITEM.created}<br/>{ITEM.modified}</td>
 												<td>{ITEM.result|htmlspecialchars}</td>
 												<td>
-													<a class="onxshop_delete onxshop_icon" title="Cancel job" onclick="if (confirm('Are you sure you want to cancel job {ITEM.id}?')) makeAjaxRequest($('#scheduler_list').parent(), '/request/bo/component/scheduler?cancel={ITEM.id}'); return false;"></a>
+													<a class="onxshop_delete onxshop_icon" title="Cancel job" onclick="if (confirm('Are you sure you want to cancel job {ITEM.id}?')) makeAjaxRequest($('div.scheduler').parent(), '/request/bo/component/scheduler?cancel={ITEM.id}'); return false;"></a>
 												</td>
 											</tr>
 											<!-- END:item -->
