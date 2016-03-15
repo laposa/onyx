@@ -8,7 +8,7 @@
 
 			<div class="pageHeader">
 				<div class="pageHeaderWrapper">
-					<h1 class="pageTitle"><span>Survey Detail</span> <span class="info">{SURVEY.title|htmlspecialchars}</span></h1>
+					<h1 class="pageTitle"><span>Survey Detail</span> <span class="info">ID {SURVEY.id}</span></h1>
 				</div>
 			</div>
 
@@ -17,7 +17,7 @@
 					<div class="rowTop">
 						<div class="rowWrapper">
 							<div class="columnWrapper">
-								
+								<h2>{SURVEY.title|htmlspecialchars}</h2>
 								{disableONXSHOP_REQUEST_menu #bo/component/survey_list@bo/component/survey_menu}
 								<p>{SURVEY.description|htmlspecialchars}</p>
 								<table>
