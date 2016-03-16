@@ -337,5 +337,6 @@ div.social_network_share li.mailto a span {font-size: 80%;}
  * component/teaser_stack.html
  */
 
-div.stack_list div.item { display: inline-block; vertical-align: top; width: 33.333%;}
-div.stack_list div.item a {text-decoration: none; display: block; margin: 10px;}
+div.stack_list {text-align: center;}
+div.stack_list div.item { display: inline-block; vertical-align: top; width: 300px; margin: 10px;}
+div.stack_list div.item a {text-decoration: none; display: block;}
