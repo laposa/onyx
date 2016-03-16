@@ -364,6 +364,13 @@ div.tabsLayout div.layoutBody {clear: both;}
 div.pageHeaderWrapper {margin: 10px;}
 h2.layoutTitle {margin: 0 10px;}
 div.node_group-content {margin: 10px;}
+
+/*
+ * extra CSS classes to be used in CMS
+ * - fullBleed - apply to content or layout
+ */
+
+div.node-fullBleed {margin: 0;}
 /**
  * Norbert @ Laposa Ltd, 2009/09/22
  *
@@ -703,8 +710,9 @@ div.social_network_share li.mailto a span {font-size: 80%;}
  * component/teaser_stack.html
  */
 
-div.stack_list div.item { display: inline-block; vertical-align: top; width: 33.333%;}
-div.stack_list div.item a {text-decoration: none; display: block; margin: 10px;}
+div.stack_list {text-align: center;}
+div.stack_list div.item { display: inline-block; vertical-align: top; width: 300px; margin: 10px;}
+div.stack_list div.item a {text-decoration: none; display: block;}
 /**
  * Norbert @ Laposa Ltd, 2009/09/22
  *
