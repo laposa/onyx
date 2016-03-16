@@ -75,7 +75,7 @@ create_new_installation() {
 	copy_files
 	setup_database
 	change_config
-	create_vhost
+#	create_vhost
 	show_result
 }
 
@@ -154,7 +154,7 @@ echo Constructed database name and user: $DB_USERNAME from $HOSTNAME
 show_result() {
 echo "Your Onxshop website is installed in: $PROJECT_DIR
 To edit the website use
-URL: http://${HOSTNAME}/edit
+URL: https://${HOSTNAME}/edit
 Username: ${DB_USERNAME}
 Password: ${DB_PASSWORD}
 "
