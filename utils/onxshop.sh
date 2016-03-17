@@ -1,5 +1,5 @@
 #!/bin/bash -e
-# Norbert @ Laposa Ltd, 2012-2015 
+# Norbert @ Laposa Ltd, 2012-2016
 # Very simple Onxshop websites management script
 
 ####################
@@ -120,9 +120,9 @@ psql -U ${DB_USERNAME} -h localhost $DB_NAME -c "UPDATE common_configuration SET
 
 change_config() {
 DEPLOYMENT_FILE="$PROJECT_DIR/conf/deployment.php"
-sed -i "s/define('ONXSHOP_DB_USER', '')/define('ONXSHOP_DB_USER', '$DB_USERNAME')/g" $DEPLOYMENT_FILE
-sed -i "s/define('ONXSHOP_DB_PASSWORD', '')/define('ONXSHOP_DB_PASSWORD', '$DB_PASSWORD')/g" $DEPLOYMENT_FILE
-sed -i "s/define('ONXSHOP_DB_NAME', '')/define('ONXSHOP_DB_NAME', '$DB_NAME')/g" $DEPLOYMENT_FILE
+sed -i "s/define('ONXSHOP_DB_USER', '.*')/define('ONXSHOP_DB_USER', '$DB_USERNAME')/g" $DEPLOYMENT_FILE
+sed -i "s/define('ONXSHOP_DB_PASSWORD', '.*')/define('ONXSHOP_DB_PASSWORD', '$DB_PASSWORD')/g" $DEPLOYMENT_FILE
+sed -i "s/define('ONXSHOP_DB_NAME', '.*')/define('ONXSHOP_DB_NAME', '$DB_NAME')/g" $DEPLOYMENT_FILE
 }
 
 create_vhost() {
