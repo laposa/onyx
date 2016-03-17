@@ -165,7 +165,7 @@ div.tabsLayout div.layoutBody {clear: both;}
 #header {margin: 10px;}
 #primaryNavigation {margin: 10px;}
 div.pageHeaderWrapper {margin: 10px;}
-h2.layoutTitle {margin: 0 10px;}
+h2.layoutTitle {margin-left: 10px; margin-right: 10px;}
 div.node_group-content {margin: 10px;}
 
 /*
