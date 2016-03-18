@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2008-2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2008-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -63,29 +63,6 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
 		if (!isset($node_data['display_title'])) $node_data['display_title'] = $GLOBALS['onxshop_conf']['global']['display_title'];
 		if (!isset($node_data['display_secondary_navigation'])) $node_data['display_secondary_navigation'] = $GLOBALS['onxshop_conf']['global']['display_secondary_navigation'];
 		
-		
-		/**
-		 * display page header
-		 */
-		 
-		if ($node_data['display_title'])  {
-			$_Onxshop_Request = new Onxshop_Request("component/page_header~id={$node_data['id']}~");
-			$this->tpl->assign('PAGE_HEADER', $_Onxshop_Request->getContent());
-		}
-		
-		/**
-		 * display secondary navigation
-		 */
-		 
-		if ($node_data['display_secondary_navigation'] == 1) {
-		
-			$first_page_id = $Node->getFirstParentPage($_SESSION['active_pages']);
-			//type=page_and_products
-			$_Onxshop_Request = new Onxshop_Request("component/menu~level=0:expand_all=0:display_teaser=1:id={$first_page_id}:open={$node_data['id']}~");
-			$this->tpl->assign('SECONDARY_NAVIGATION', $_Onxshop_Request->getContent());
-			$this->tpl->parse('content.secondary_navigation');
-		}
-		
 		/**
 		 * get related_taxonomy
 		 */
@@ -119,17 +96,44 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
 		Zend_Registry::set('node_id', $this->GET['id']);
 		
 		/**
+		 * assign to template
+		 */
+		 
+		$this->tpl->assign("NODE", $node_data);
+		
+		/**
 		 * process open graph tags
 		 */
 		 
 		$this->processOpenGraph($node_data);
 		
 		/**
-		 * assign to template
+		 * display page header
 		 */
 		 
-		$this->tpl->assign("NODE", $node_data);
+		if ($node_data['display_title'])  {
+			$_Onxshop_Request = new Onxshop_Request("component/page_header~id={$node_data['id']}~");
+			$this->tpl->assign('PAGE_HEADER', $_Onxshop_Request->getContent());
+			$this->tpl->parse('content.page_header'); // for templates having page header directly within the page template
+		}
 		
+		/**
+		 * display secondary navigation
+		 */
+		 
+		if ($node_data['display_secondary_navigation'] == 1) {
+		
+			$first_page_id = $Node->getFirstParentPage($_SESSION['active_pages']);
+			//type=page_and_products
+			$_Onxshop_Request = new Onxshop_Request("component/menu~level=0:expand_all=0:display_teaser=1:id={$first_page_id}:open={$node_data['id']}~");
+			$this->tpl->assign('SECONDARY_NAVIGATION', $_Onxshop_Request->getContent());
+			$this->tpl->parse('content.secondary_navigation');
+		}
+		
+		/**
+		 * standard return value
+		 */
+		 
 		return true;
 	}
 	
