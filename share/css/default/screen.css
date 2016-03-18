@@ -370,7 +370,7 @@ div.node_group-content {margin: 10px;}
  * - fullBleed - apply to content or layout
  */
 
-div.node-fullBleed {margin: 0;}
+div.node-fullBleed {margin: 0!important;}
 /**
  * Norbert @ Laposa Ltd, 2009/09/22
  *
