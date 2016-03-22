@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2006-2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2006-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -201,7 +201,7 @@ class Onxshop_Controller_Component_Image extends Onxshop_Controller {
 		 */
 		 
 		if (is_numeric($this->GET['width'])) $width = $this->GET['width'];
-		else $width = 100;
+		else $width = 0;
 		
 		/**
 		 * check requested height
