@@ -2,7 +2,7 @@
 /**
  * class ecommerce_recipe
  *
- * Copyright (c) 2013-2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2013-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -287,6 +287,17 @@ CREATE TABLE ecommerce_recipe (
 	 */
 	function getFilteredRecipeList($keywords = false, $ready_time = false, $taxonomy_id = false, $product_variety_sku = false, $limit_per_page = false, $limit_from = false, $order_by = false, $order_dir = false, $publish = 1)
 	{
+		/**
+		 * initialise
+		 */
+    	 
+ 		require_once('models/ecommerce/ecommerce_recipe_review.php');
+		$Review = new ecommerce_recipe_review();
+		
+		/**
+		 * prepare SQL query
+		 */
+		 
 		$where = $this->prepareRecipeFilterSql($keywords, $ready_time, $taxonomy_id, $product_variety_sku, $publish);
 
 		// limits
@@ -321,16 +332,27 @@ CREATE TABLE ecommerce_recipe (
 			$recipe_pages = $Node->listing("node_group = 'page' AND node_controller = 'recipe' AND content ~ '[0-9]+' AND publish = 1");
 
 			foreach ($records as $i => $item) {
+				
+				// images
 				$images = $Image->listFiles($item['id']);
 				if (count($images) > 0) {
 					$records[$i]['image']['src'] = $images[0]['src'];
 					$records[$i]['image']['title'] = $images[0]['title'];
 				}
+				
+				// taxonomy
+				$taxonomy = $this->getTaxonomyForRecipe($item['id']);
+				$records[$i]['taxonomy'] = implode(',', $taxonomy);
+				
+				// recipe homepage
 				foreach ($recipe_pages as $recipe_page) {
 					if ($recipe_page['content'] == $item['id']) {
 						$records[$i]['page'] = $recipe_page;
 					}
 				}
+				
+				// load review
+				$records[$i]['review'] = $Review->getRating($item['id']);
 			}
 
 			return $records;
@@ -572,6 +594,7 @@ CREATE TABLE ecommerce_recipe (
     
     /**
 	 * get taxonomy relation
+	 * @returns array taxonomy IDs only
 	 */
 	 
 	static function getTaxonomyForRecipe($recipe_id) {
@@ -588,6 +611,7 @@ CREATE TABLE ecommerce_recipe (
 	
 	/**
 	 * getRelatedTaxonomy
+	 * @returns array full taxonomy details
 	 */
 	 
 	public function getRelatedTaxonomy($recipe_id) {

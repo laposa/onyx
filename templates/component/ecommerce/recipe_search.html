@@ -14,8 +14,17 @@
 						</span>
 					</div>
 
-					<div class="row cooking_time">
+					<!--
+					<div class="row ingredients">
 						<span class="field">
+							<input type="text" id="recipe-ingredients" name="ingredients" value="{GET.ingredients|htmlspecialchars}" class="text" maxlength="45" placeholder="Ingredients" />
+						</span>
+					</div>
+					-->
+					<div class="row ">
+						
+						
+						<span class="field cooking_time">
 							<select id="recipe-cooking_time" name="time">
 								<option value="">Select Cooking Time</option>
 								<option value="">Any</option>
@@ -28,16 +37,8 @@
 								<option {SELECT_COOK_240}value="240">Up to 4 Hours</option>
 							</select>
 						</span>
-					</div>
-
-					<div class="row ingredients">
-						<span class="field">
-							<input type="text" id="recipe-ingredients" name="ingredients" value="{GET.ingredients|htmlspecialchars}" class="text" maxlength="45" placeholder="Ingredients" />
-						</span>
-					</div>
-
-					<div class="row taxonomy_tree_id">
-						<span class="field">
+						
+						<span class="field taxonomy_tree_id">
 							<select id="recipe-taxonomy_tree_id" name="course">
 								<option value="">Select Course</option>
 								<option value="">Any</option>
