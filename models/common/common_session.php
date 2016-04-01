@@ -5,7 +5,7 @@
  * inspired by article By Tony Marston
  * http://www.developertutorials.com/tutorials/php/saving-php-session-data-database-050711/page2.html
  *
- * Copyright (c) 2009-2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -328,4 +328,21 @@ CREATE TABLE common_session (
 
 	}
 
+	public function findAuthenticatedCustomers() {
+		
+		/*
+			SELECT * FROM common_session WHERE session_data LIKE '%s:12:"authenticity";i:1;%'
+		or
+			SELECT * FROM common_session WHERE php_auth_user IS NOT NULL
+		*/
+		
+	}
+	
+	public function forceLogoutAllAuthenticatedCustomers() {
+		
+		/*
+			UPDATE common_session SET session_id = 'disabled', php_auth_user = 'disabled' WHERE session_data LIKE '%s:12:"authenticity";i:1;%'
+			
+		*/
+	}
 }
