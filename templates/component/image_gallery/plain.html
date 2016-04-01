@@ -1,7 +1,16 @@
 <!-- BEGIN: content -->
 <div class="image_gallery_plain number_of_items_{IMAGE_COUNT}" id="gallery_plain_{GET.node_id}">
 	<!-- BEGIN: item -->
-		<div class="item image_id_{GET.relation}{ITEM.id}"><span class="wrap"><img id="image_id_{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" /></span></div>
-		<!-- END: item -->
+	<div class="item image_id_{GET.relation}{ITEM.id}">
+		<!-- BEGIN: link -->
+		<a href="/page/{ITEM.link_to_node_id}">
+			{FILE "component/image_gallery/plain.item.inc.html"}
+		</a>
+		<!-- END: link -->
+		<!-- BEGIN: normal -->
+		{FILE "component/image_gallery/plain.item.inc.html"}
+		<!-- END: normal -->
+	</div>
+	<!-- END: item -->
 </div>
 <!-- END: content -->

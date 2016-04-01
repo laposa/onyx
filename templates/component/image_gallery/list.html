@@ -2,7 +2,14 @@
 <div class="image_gallery_list number_of_items_{IMAGE_COUNT}" id="gallery_list_{GET.node_id}">
 	<div class="detail">
 		<!-- BEGIN: item -->
-		<div class="item image_id_{GET.relation}{ITEM.id} {FIRST_LAST}"><span class="wrap"><img id="image_id_{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" /></span></div>
+		<div class="item image_id_{GET.relation}{ITEM.id} {FIRST_LAST}">
+			<span class="wrap"><img id="image_id_{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" /></span>
+			<div class="info">
+				<h3><span>{ITEM.title|htmlspacialchars}</span></h3>
+				<p class="description">{ITEM.description|htmlspecialchars|nl2br}</p>
+				<div class="content">{ITEM.content}</div>
+			</div>
+		</div>
 		<!-- END: item -->
 	</div>
 	
