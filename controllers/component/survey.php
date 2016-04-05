@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2011-2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2011-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -683,7 +683,9 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 		}
 
 		$this->tpl->parse("$template_block_path.store.county_dropdown");
-		$this->tpl->parse("$template_block_path.store");
+	
+		// show only if there is at least one store
+		if (count($store_list) > 0) $this->tpl->parse("$template_block_path.store");
 
 	}
 

@@ -12,7 +12,7 @@ $(function() {
 	/*birthday UI date picker*/
 	var current_year = new Date().getFullYear();
 	var last_year = current_year - 1;
-	$('#client_customer_birthday_id').datepicker({firstDay: 1, dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true, yearRange: '1900:' + last_year, maxDate: last_year});
+	$('#client_customer_birthday_id').datepicker({firstDay: 1, dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true, yearRange: '1900:' + current_year, maxDate: current_year});
 	
 	/*birthday validation*/
 	$.validator.addMethod("dateFormat", function(value, element) {
@@ -27,11 +27,11 @@ label.error { display: none; }
 </style>
 
 <form method="post" action="{URI|htmlspecialchars}#node_id_{GET.node_id}" id="survey_form_{GET.node_id}" enctype="multipart/form-data">
-	<fieldset class="single">
+	<fieldset class="single questions">
 		<legend>{SURVEY.title|htmlspecialchars}</legend>
 		<!-- BEGIN: question -->
 		<div class="row">
-			<span class="label"><label for="question_id_{QUESTION.id}">{QUESTION.title|htmlspecialchars}</label><!-- BEGIN: description --><span class="description">{QUESTION.description|htmlspecialchars}</span><!-- END: description --></span>
+			<span class="label"><label for="question_id_{QUESTION.id}">{QUESTION.title|htmlspecialchars}</label> <!-- BEGIN: description --><span class="description">{QUESTION.description|htmlspecialchars}</span><!-- END: description --></span>
 			<!-- BEGIN: content -->
 			<div class="content">
 				{QUESTION.content}
@@ -107,8 +107,10 @@ label.error { display: none; }
 		});
 	</script>
 	<!-- END: invisible_captcha_field -->
-	
-	<button type="submit" name="save" value="save"><span>{I18N_SUBMIT}</span></button>
+
+	<div class="row submit">
+		<span class="field"><button type="submit" name="save" value="save"><span>{I18N_SUBMIT}</span></button></span>
+	</div>
 <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
 <!-- END: form -->

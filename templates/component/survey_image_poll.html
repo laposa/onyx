@@ -37,7 +37,7 @@ $(function() {
 	/*birthday UI date picker*/
 	var current_year = new Date().getFullYear();
 	var last_year = current_year - 1;
-	$('#client_customer_birthday_id').datepicker({firstDay: 1, dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true, yearRange: '1900:' + last_year, maxDate: last_year});
+	$('#client_customer_birthday_id').datepicker({firstDay: 1, dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true, yearRange: '1900:' + current_year, maxDate: current_year});
 	
 	/*birthday validation*/
 	$.validator.addMethod("dateFormat", function(value, element) {
