@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2013 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2013-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -53,7 +53,14 @@ class Onxshop_Controller_Component_Client_Facebook_Pile_Survey extends Onxshop_C
 		 
 		$this->commonAction();
 		
-		$user = $this->Facebook->getUser();
+		/**
+		 * get user
+		 */
+		
+		
+		$user = $this->getUser();
+		
+		//echo 'Name: ' . $user['email']; exit;
 		
 		if ($user) {
 			

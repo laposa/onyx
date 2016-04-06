@@ -2,7 +2,7 @@
 /**
  * class client_customer
  * 
- * Copyright (c) 2009-2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -247,7 +247,7 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
 		//default avatar
 		if (!$conf['default_profile_image_url']) $conf['default_profile_image_url'] = '/share/images/default/avatar.png';
 		//facebook conf
-		if (!$conf['facebook_login_scope']) $conf['facebook_login_scope'] = 'email,user_mobile_phone';
+		if (!$conf['facebook_login_scope']) $conf['facebook_login_scope'] = 'email';
 		
 		return $conf;
 	}

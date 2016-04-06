@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2013-2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2013-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -38,7 +38,7 @@ class Onxshop_Controller_Component_Client_Facebook_Pile extends Onxshop_Controll
 		
 		$this->ClientAction = new client_action();
 		
-		if ($user = $this->Facebook->getUser()) {
+		if ($user = $this->getUser()) {
 
 			$friend_user_list = $this->getFriendsAppUsers();
 			if (count($friend_user_list) == 0) return true; // not friends use this app

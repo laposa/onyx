@@ -1,12 +1,13 @@
 <?php
 /** 
- * Copyright (c) 2013 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2013-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
 
-require_once 'lib/facebook/facebook.php';
-
+require_once 'lib/facebook/autoload.php';
+require_once 'lib/facebook/Helpers/FacebookCanvasHelper.php';
+require_once 'lib/facebook/Helpers/FacebookRedirectLoginHelper.php';
 
 class Onxshop_Controller_Component_Client_Facebook extends Onxshop_Controller {
 
@@ -59,12 +60,12 @@ class Onxshop_Controller_Component_Client_Facebook extends Onxshop_Controller {
 		 * conf in deployment.php
 		 */
 		 
-		$facebook_conf = array(
-			'appId'  => ONXSHOP_FACEBOOK_APP_ID,
-			'secret' => ONXSHOP_FACEBOOK_APP_SECRET
+		$this->facebook_conf = array(
+			'app_id'  => ONXSHOP_FACEBOOK_APP_ID,
+			'app_secret' => ONXSHOP_FACEBOOK_APP_SECRET
 		);
 		
-		$this->Facebook = new Facebook($facebook_conf);
+		$this->Facebook = new Facebook\Facebook($this->facebook_conf);
 		
 	}
 
@@ -72,13 +73,12 @@ class Onxshop_Controller_Component_Client_Facebook extends Onxshop_Controller {
 	 * Invoke the Graph API.
 	 */
 	
-	public function makeOpenGraphApiCall($path, $method = 'GET', $params = array()) {
+	public function makeOpenGraphApiCall($params = array()) {
 
 		$args = func_get_args();
 
 		try {
-
-			return $this->Facebook->api($path, $method, $params);
+			return $this->Facebook->request('GET', $$params['method'], $params);
 
 		} catch (FacebookApiException $e) {
 		
@@ -88,35 +88,13 @@ class Onxshop_Controller_Component_Client_Facebook extends Onxshop_Controller {
 
 	}
 
-	/**
-	 * Invoke the old restserver.php endpoint
-	 */
-	
-	public function makeOldApiCall($params) {
-
-		$args = func_get_args();
-
-		try {
-
-			return $this->Facebook->api($params);
-			
-		} catch (FacebookApiException $e) {
-		
-			msg("FB: " . $e->getMessage(), 'error', 1);
-			return null;
-		}
-
-	}
 
 	public function makeApiCall(/* polymorphic */) {
 
 	    $args = func_get_args();
 
-		if (is_array($args[0])) {
-			return $this->makeOldApiCall($args[0]);
-		} else {
-			 return call_user_func_array(array($this, 'makeOpenGraphApiCall'), $args);
-		}
+		 return call_user_func_array(array($this, 'makeOpenGraphApiCall'), $args);
+		
 
 	}
 
@@ -153,11 +131,7 @@ class Onxshop_Controller_Component_Client_Facebook extends Onxshop_Controller {
 		
 			// cache miss, make call and save to cache
 
-			if (is_array($args[0])) {
-				$response = $this->makeOldApiCall($args[0]);
-			} else {
-				$response = call_user_func_array(array($this, 'makeOpenGraphApiCall'), $args);
-			}
+			$response = call_user_func_array(array($this, 'makeOpenGraphApiCall'), $args);
 
 			// save to cache
 			if (!is_null($response)) $cache->save($response);
@@ -180,6 +154,32 @@ class Onxshop_Controller_Component_Client_Facebook extends Onxshop_Controller {
 		if (array_key_exists('error', $this->GET)) msg("error: {$this->GET['error']}", 'error', 1);
 		if (array_key_exists('error_description', $this->GET)) msg("error_description: {$this->GET['error_description']}", 'error', 1);
 		if (array_key_exists('state', $this->GET)) msg("state: {$this->GET['state']}", 'error', 1);
+		
+	}
+	
+	/**
+	 * getUser
+	 */
+	 
+	public function getUser() {
+		
+		$helper = $this->Facebook->getCanvasHelper();
+		$accessToken = $helper->getAccessToken();
+		
+		if (!$accessToken) return false;
+		
+		try {
+		  // Returns a `Facebook\FacebookResponse` object
+		  $response = $this->Facebook->get('/me?fields=id,name,first_name,last_name,email,gender', $accessToken);
+		} catch(Facebook\Exceptions\FacebookResponseException $e) {
+		  msg('Graph returned an error: ' . $e->getMessage(), 'error');
+		} catch(Facebook\Exceptions\FacebookSDKException $e) {
+		  msg('Facebook SDK returned an error: ' . $e->getMessage(), 'error');
+		}
+		
+		if ($response) $user = $response->getGraphUser();
+		
+		return $user;
 		
 	}
 	

@@ -2,7 +2,7 @@
 /**
  * Registration controller
  *
- * Copyright (c) 2005-2014 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2005-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -313,7 +313,11 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
 			$_POST['client']['customer']['trade'] = '';
 		}
 
-
+		// gender
+		if ($_POST['client']['customer']['gender']) {
+			$this->tpl->assign('gender_checked_' . $_POST['client']['customer']['gender'], 'checked');
+			
+		}
 	}
 
 }
