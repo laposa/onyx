@@ -53,7 +53,7 @@ class Onxshop_Controller_Component_Ecommerce_Recipe_Search extends Onxshop_Contr
 	public function parseCategorySelect($selected_id)
 	{
 		
-		$recipe_categories = $this->Recipe->getRecipeTaxonomy();
+		$recipe_categories = $this->Recipe->getUsedTaxonomy();
 		
 		foreach ($recipe_categories as $item) {
 			

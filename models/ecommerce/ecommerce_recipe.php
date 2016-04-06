@@ -129,7 +129,7 @@ CREATE TABLE ecommerce_recipe (
 		if (array_key_exists('ecommerce_recipe', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['ecommerce_recipe'];
 		else $conf = array();
 		
-		if (!is_numeric($conf['taxonomy_tree_id'])) $conf['taxonomy_tree_id'] = 4; // experimental
+		if (!is_numeric($conf['taxonomy_tree_id'])) $conf['taxonomy_tree_id'] = 0; // set value to force getUsedTaxonomy using only this taxonomy parent
 		
 		return $conf;
 	}
@@ -626,18 +626,84 @@ CREATE TABLE ecommerce_recipe (
 	}
 	
 	/**
-	 * getRecipeTaxonomy
+	 * getUsedTaxonomy
 	 * TODO: this should re-used or merged with /api/v1.3/recipe_category_list
 	 */
 	 
-	public function getRecipeTaxonomy() {
+	public function getUsedTaxonomy() {
 		
 		// get categories from taxonomy
 		require_once('models/common/common_taxonomy.php');
 		$Taxonomy = new common_taxonomy;
+		require_once('models/ecommerce/ecommerce_recipe_taxonomy.php');
+		$RecipeTaxonomy = new ecommerce_recipe_taxonomy();
 		
-		$recipe_categories = $Taxonomy->getChildren($this->conf['taxonomy_tree_id']);
+		//$this->conf['taxonomy_tree_id'] = 4;
 		
+		if ($this->conf['taxonomy_tree_id'] > 0) {
+			$recipe_categories = $Taxonomy->getChildren($this->conf['taxonomy_tree_id']);
+		} else {
+			$recipe_categories = $RecipeTaxonomy->getUsedTaxonomyLabels();
+			foreach ($recipe_categories as $i=>$item) {
+				$recipe_categories[$i]['label'] = $item;
+			}
+		}
+		
+		//print_r($recipe_categories);
+		/*
+			0] => Array
+        (
+            [taxonomy_tree_id] => 247
+            [id] => 247
+            [title] => Fruit
+            [description] => 
+            [priority] => 220
+            [publish] => 0
+            [parent] => 214
+        )
+        
+        
+        [0] => Array
+        (
+            [id] => 9
+            [label_id] => 9
+            [parent] => 4
+            [priority] => 40
+            [publish] => 1
+            [label] => Array
+                (
+                    [id] => 9
+                    [title] => Cakes and Baking
+                    [description] => 
+                    [priority] => 0
+                    [publish] => 1
+                    [image] => Array
+                        (
+                            [0] => Array
+                                (
+                                    [id] => 43
+                                    [src] => var/files/real-food/recipes/baking/baking-recipe.jpg
+                                    [role] => main
+                                    [node_id] => 9
+                                    [title] => Baking recipe
+                                    [description] => 
+                                    [priority] => 0
+                                    [modified] => 2016-01-05 09:28:36
+                                    [author] => 0
+                                    [content] => 
+                                    [other_data] => 
+                                    [link_to_node_id] => 
+                                    [customer_id] => 22810
+                                )
+
+                        )
+
+                )
+
+        )
+
+    [1]
+			*/
 		return $recipe_categories;
 		
 	}
