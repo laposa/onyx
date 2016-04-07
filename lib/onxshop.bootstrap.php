@@ -740,9 +740,10 @@ class Onxshop_Bootstrap {
 			 * component/ecommerce/product_list_sorting
 			 * or when preview_token is used, i.e. news article preview
 			 */
-			 
-			if (is_array($_GET['sort']) || $_GET['product_list_mode'] || $_GET['preview_token']) $use_page_cache = false;
-		
+
+			if (is_array($_GET['sort']) || $_GET['product_list_mode'] || 
+				$_GET['preview_token'] || $_GET['preview_token'] || $_GET['nocache_session']) $use_page_cache = false;
+
 		}
 		
 		return $use_page_cache;
