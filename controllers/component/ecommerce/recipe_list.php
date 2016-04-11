@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2013-2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2013-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -112,18 +112,27 @@ class Onxshop_Controller_Component_Ecommerce_Recipe_List extends Onxshop_Control
 
 			if ($item['image']['src']) $this->tpl->parse("$block_name.image");
 
-			if ($item['review']['count'] > 0) {
-				
-				$rating = round($item['review']['rating']);
-				$_Onxshop_Request = new Onxshop_Request("component/rating_stars~rating={$rating}~");
-				$this->tpl->assign('RATING_STARS', $_Onxshop_Request->getContent());
-				if ($item['review']['count'] == 1) $this->tpl->assign('REVIEWS', 'Review');
-				else $this->tpl->assign('REVIEWS', 'Reviews');
-				
-				$this->tpl->parse("$block_name.reviews");
-			}
+			$this->parseItemReview($item, $block_name);
 
 			$this->tpl->parse("$block_name");
 	}
+	
+	/**
+	 * parseItemReview
+	 */
 
+	public function parseItemReview($item, $block_name = 'content.item') {
+		
+		if ($item['review']['count'] > 0) {
+				
+			$rating = round($item['review']['rating']);
+			$_Onxshop_Request = new Onxshop_Request("component/rating_stars~rating={$rating}~");
+			$this->tpl->assign('RATING_STARS', $_Onxshop_Request->getContent());
+			if ($item['review']['count'] == 1) $this->tpl->assign('REVIEWS', 'Review');
+			else $this->tpl->assign('REVIEWS', 'Reviews');
+				
+			$this->tpl->parse("$block_name.reviews");
+		}
+			
+	}
 }
