@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2012-2014 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2012-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -20,7 +20,7 @@ class Onxshop_Controller_Component_Social_Network_Share extends Onxshop_Controll
 	public $node_id;
 
 	// data structures
-	public $node;
+	public $node_data;
 	public $image;
 
 	/**
@@ -31,14 +31,14 @@ class Onxshop_Controller_Component_Social_Network_Share extends Onxshop_Controll
 		
 		$this->Node = new common_node();
 		$this->node_id = $this->getNodeId();
-		$this->node = $this->getNode($this->node_id);
+		$this->node_data = $this->getNode($this->node_id);
 		
-		if ($this->node['node_controller'] == 'recipe') {
+		if ($this->node_data['node_controller'] == 'recipe') {
 			$this->Image = new ecommerce_recipe_image();
-			$this->image = $this->getImage($this->node['content']);
-		} else if ($this->node['node_controller'] == 'product') {
+			$this->image = $this->getImage($this->node_data['content']);
+		} else if ($this->node_data['node_controller'] == 'product') {
 			$this->Image = new ecommerce_product_image();
-			$this->image = $this->getImage($this->node['content']);
+			$this->image = $this->getImage($this->node_data['content']);
 		} else {
 			$this->Image = new common_image();
 			$this->image = $this->getImage($this->node_id);
@@ -47,8 +47,9 @@ class Onxshop_Controller_Component_Social_Network_Share extends Onxshop_Controll
 		$share_uri = $this->getShareUri();
 
 		$this->tpl->assign('SHARE_URI', $share_uri);
+		$this->tpl->assign('SHARE_MESSAGE', $this->getShareMessage($this->node_data));
 		$this->tpl->assign('IMAGE', $this->image);
-		$this->tpl->assign('NODE', $this->node);
+		$this->tpl->assign('NODE', $this->node_data);
 
 		return true;
 		
@@ -112,6 +113,16 @@ class Onxshop_Controller_Component_Social_Network_Share extends Onxshop_Controll
 		
 		if (is_numeric($_SESSION['active_pages'][0])) return $_SESSION['active_pages'][0];
 		else return false;
+		
+	}
+	
+	/**
+	 * getShareMessage
+	 */
+
+	public function getShareMessage($node_data) {
+		
+		return $node_data['page_title'];
 		
 	}
 }
