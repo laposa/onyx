@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2005-2013 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2005-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -32,9 +32,6 @@ class Onxshop_Controller_Component_Client_Logout extends Onxshop_Controller {
 
 			
 				$this->invalidateToken();
-				
-				//clean facebook auth
-				$this->logoutFromFacebook();
 				
 			} else {
 			
@@ -69,27 +66,4 @@ class Onxshop_Controller_Component_Client_Logout extends Onxshop_Controller {
 		setcookie("onxshop_token", "", time()-60*60*24*100, "/");
 	}
 	
-	
-	/**
-	 * logoutFromFacebook
-	 */
-	 
-	public function logoutFromFacebook() {
-	
-		require_once 'lib/facebook/facebook.php';
-		
-		/**
-		 * conf in deployment.php
-		 */
-		 
-		$facebook_conf = array(
-			'appId'  => ONXSHOP_FACEBOOK_APP_ID,
-			'secret' => ONXSHOP_FACEBOOK_APP_SECRET
-		);
-		
-		$this->Facebook = new Facebook($facebook_conf);
-		
-		$this->Facebook->destroySession();
-	
-	}
 }
