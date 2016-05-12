@@ -119,7 +119,7 @@ label.error { display: none; }
 <div class="thank_you">
 	<p>{MESSAGE_AFTER_SUBMISSION|htmlspecialchars|nl2br}</p>
 	{SURVEY_RESULT_STATS}
-	{ONXSHOP_REQUEST_pile #component/client/facebook_pile_survey~survey_id=GET.survey_id~}
+	{disableONXSHOP_REQUEST_pile #component/client/facebook_pile_survey~survey_id=GET.survey_id~}
 </div>
 <!-- END: result -->
 

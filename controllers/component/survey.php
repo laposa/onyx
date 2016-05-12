@@ -65,7 +65,7 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 					
 						msg("Survey ID {$survey_detail['id']} has been submitted as entry ID $survey_entry_id.", 'ok', 1, 'survey_submitted');
 						
-						$this->createFacebookStory();
+						//$this->createFacebookStory();
 
 						if ($this->GET['href']) {
 							
