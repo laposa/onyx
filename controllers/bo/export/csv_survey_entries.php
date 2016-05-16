@@ -68,11 +68,12 @@ class Onxshop_Controller_Bo_Export_CSV_Survey_Entries extends Onxshop_Controller
 				$item['email'] = $customer['email'];
 				$item['telephone'] = $customer['telephone'];
 				$item['newsletter'] = $customer['newsletter'];
+				$item['gender'] = $customer['gender'];
 				$item['home_store_id'] = $customer['store_id'];
 				$item['home_store_name'] = $customer['home_store_name'];
 				$item['home_store_reference_code'] = $customer['home_store_reference_code'];
 				$item['county'] = $customer['county'];
-
+				
 				// make sure all questions are present in the result (even as empty cells)
 				foreach ($questions as $question) {
 					$question_id = $question['id'];
