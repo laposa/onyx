@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2013 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2013-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -65,6 +65,20 @@ class Onxshop_Controller_Component_Client_Twitter_Auth extends Onxshop_Controlle
 			msg("{$customer_detail['email']} is already registered", 'ok', 1);
 			$_SESSION['client']['customer'] = $customer_detail;	
 			$_SESSION['use_page_cache'] = false;
+			
+			// update profile image
+			if ($customer_detail['profile_image_url'] != $user_profile->profile_image_url_https) {
+				
+				$customer_detail['profile_image_url'] = $user_profile->profile_image_url_https;
+				
+				$data_to_update = array();
+				$data_to_update['id'] = $customer_detail['id'];
+				$data_to_update['profile_image_url'] = $customer_detail['profile_image_url'];
+				
+				if ($Customer->updateCustomer($data_to_update)) msg("Updated profile image from Twitter");
+				else msg("Profile image is different, but update failed", 'error');
+				
+			}
 			
 			// auto login (TODO allow to enable/disable this behaviour)
 			$Customer->generateAndSaveOnxshopToken($customer_detail['id']);
