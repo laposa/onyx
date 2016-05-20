@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2010-2011 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2010-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -99,7 +99,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Store_In_Node extends Onxshop_Co
 		 * prepare node data
 		 */
 		 
-		$store_node['title'] = $store_detail['name'];
+		$store_node['title'] = $store_detail['title'];
 		$store_node['parent'] = $parent_id;
 		$store_node['parent_container'] = 0;
 		$store_node['node_group'] = 'page';
