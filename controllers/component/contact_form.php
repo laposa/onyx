@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2005-2013 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2005-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -16,7 +16,7 @@ class Onxshop_Controller_Component_Contact_Form extends Onxshop_Controller {
 			$this->GET['spam_protection'] == "captcha_text_js") && 
 			strpos($this->tpl->filecontents, 'formdata-captcha_') !== FALSE);
 
-		$this->preProcessEmailForm();
+		$this->preProcessEmailForm($_POST['formdata']);
 
 		if (isset($_POST['send']) && $_POST['node_id'] == $this->GET['node_id']) {
 			
@@ -41,10 +41,12 @@ class Onxshop_Controller_Component_Contact_Form extends Onxshop_Controller {
 	 * preprocess
 	 */
 	 
-	public function preProcessEmailForm() {
+	public function preProcessEmailForm($formdata) {
 		
 		$this->tpl->assign('MAX_FILE_SIZE', ini_get('upload_max_filesize'));
 	
+		$this->parseStoreSelect($formdata['form']['store_id'], 'content');
+		
 	}
 	
 	/**
@@ -118,5 +120,63 @@ class Onxshop_Controller_Component_Contact_Form extends Onxshop_Controller {
 		
 		$this->tpl->parse($template_block);
 		
+	}
+	
+	
+	/**
+	 * parseStoreSelect
+	 */
+
+	protected function parseStoreSelect($selected_id, $template_block_path = 'content.form')
+	{
+		
+		require_once('models/ecommerce/ecommerce_store.php');
+		$Store = new ecommerce_store();
+		
+		$provinces = $this->getTaxonomyBranch($GLOBALS['onxshop_conf']['global']['province_taxonomy_tree_id']);
+
+		$total_store_count = 0;
+		
+		foreach ($provinces as $province) {
+
+			$this->tpl->assign("PROVINCE_NAME", $province['label']['title']);
+
+			$counties = $this->getTaxonomyBranch($province['id']);
+
+			foreach ($counties as $county) {
+				$county['selected'] = ($selected_id == $county['id'] ? 'selected="selected"' : '');
+				$this->tpl->assign("COUNTY", $county);
+				// get all stores in this count
+				$store_list = $Store->getFilteredStoreList($county['id'], false, 1, false, false, 1000); //limit to 1000 records per county and type_id=1
+				
+				foreach ($store_list as $store_item) {
+					if ($store_item['publish']) {
+						$this->tpl->assign('STORE', $store_item);
+						$this->tpl->parse("$template_block_path.store.county_dropdown.province.store");
+						$total_store_count++;
+					}
+				}
+			}
+
+			$this->tpl->parse("$template_block_path.store.county_dropdown.province");
+
+		}
+
+		$this->tpl->parse("$template_block_path.store.county_dropdown");
+		
+		// show only if there is at least one store
+		if (count($total_store_count) > 0) $this->tpl->parse("$template_block_path.store");
+	}
+
+	/**
+	 * getTaxonomyBranch
+	 */
+	 
+	public function getTaxonomyBranch($parent)
+	{
+		require_once('models/common/common_taxonomy.php');
+		$Taxonomy = new common_taxonomy();
+		
+		return $Taxonomy->getChildren($parent);
 	}
 }

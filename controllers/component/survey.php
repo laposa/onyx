@@ -658,6 +658,8 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 		
 		$provinces = $this->getTaxonomyBranch($GLOBALS['onxshop_conf']['global']['province_taxonomy_tree_id']);
 
+		$total_store_count = 0;
+		
 		foreach ($provinces as $province) {
 
 			$this->tpl->assign("PROVINCE_NAME", $province['label']['title']);
@@ -669,6 +671,7 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 				$this->tpl->assign("COUNTY", $county);
 				// get all stores in this count
 				$store_list = $Store->getFilteredStoreList($county['id'], false, 1, false, false, 1000); //limit to 1000 records per county and type_id=1
+				$total_store_count++;
 				
 				foreach ($store_list as $store_item) {
 					if ($store_item['publish']) {
@@ -685,7 +688,7 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 		$this->tpl->parse("$template_block_path.store.county_dropdown");
 	
 		// show only if there is at least one store
-		if (count($store_list) > 0) $this->tpl->parse("$template_block_path.store");
+		if (count($total_store_count) > 0) $this->tpl->parse("$template_block_path.store");
 
 	}
 
