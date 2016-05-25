@@ -14,17 +14,6 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
 	 */
 	 
 	public function mainAction() {
-	
-		//force to nonSSL
-		/*
-		if ($node_data['require_ssl'] == 0) {
-			if (array_key_exists('HTTPS', $_SERVER) && !Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) {
-				header("HTTP/1.1 301 Moved Permanently");
-				header("Location: http://{$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}");
-				exit;
-			}
-		}
-		*/
 		
 		$this->processContainers();
 		$this->processPage();
@@ -47,7 +36,6 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
 		require_once('models/common/common_node.php');
 		$Node = new common_node();
 		$node_data = $Node->nodeDetail($this->GET['id']);
-		
 		
 		/**
 		 * prepare titles
@@ -100,6 +88,12 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
 		 */
 		 
 		$this->tpl->assign("NODE", $node_data);
+		
+		/**
+		 * allow to access extended controllers
+		 */
+		 
+		$this->node_data = $node_data;
 		
 		/**
 		 * process open graph tags

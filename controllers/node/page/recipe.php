@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2013-2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2013-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -47,7 +47,7 @@ class Onxshop_Controller_Node_Page_Recipe extends Onxshop_Controller_Node_Page_D
 		$this->GET['recipe_id'] = $node_data['content'];
 
 		/**
-		 * pass GET.taxonomy_ids into template
+		 * pass GET.taxonomy_tree_id into template
 		 */
 		 
 		$Recipe_Taxonomy = new ecommerce_recipe_taxonomy();
