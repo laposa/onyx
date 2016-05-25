@@ -2,7 +2,7 @@
 /**
  * class ecommerce_store
  *
- * Copyright (c) 2013-2014 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2013-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -242,8 +242,23 @@ CREATE TABLE ecommerce_store (
 		return $conf;
 	}
 
-
-
+	/**
+	 * getDetail
+	 */
+	 
+	public function getDetail($id) {
+		
+		$data = $this->detail($id);
+		
+		if (is_array($data)) {
+			// handle other_data
+			$data['other_data'] = unserialize($data['other_data']);
+		}
+		
+		return $data;
+		
+	}
+	
 	/**
 	 * insert store
 	 */

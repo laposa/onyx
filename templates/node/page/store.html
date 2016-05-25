@@ -7,7 +7,7 @@
 <!-- END: open_graph -->
 <!-- END: head -->
 <!-- BEGIN: content -->
-<div class="twoColumnPage page store_locator {NODE.layout_style} {NODE.css_class} {NODE.taxonomy_class}">
+<div class="twoColumnPage page store_locator {NODE.layout_style} {NODE.css_class} {NODE.taxonomy_class} {STORE.taxonomy_class}">
 	<div class="top"><span></span></div>
 	<div class="content">
 		<div class="pageWrapper">
@@ -18,7 +18,7 @@
 							<div class="columnWrapper">
 								{CONTAINER.0}
 	
-								{ONXSHOP_REQUEST_store_locator #component/ecommerce/store_locator~node_id=GET.id~}
+								{ONXSHOP_REQUEST_store_locator #component/ecommerce/store_locator~node_id=GET.id:store_type_id=GET.store_type_id~}
 							</div>
 						</div>
 					</div>

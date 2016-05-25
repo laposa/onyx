@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2013-2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2013-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -27,7 +27,7 @@ class Onxshop_Controller_Component_Ecommerce_Store_Locator extends Onxshop_Contr
 
 		// load stores, store pages and related categories
 		$store_pages = $this->getStorePages();
-		$stores = $this->getAllStores();
+		$stores = $this->getAllStores($this->GET['store_type_id']);
 		$categories = $this->getAllStoreTaxonomyIds();
 		$selected_store = $this->getStoreAssociatedToNode($node_id);
 		$page_categories = $this->getPageTaxonomyIds($node_id);
@@ -154,9 +154,10 @@ class Onxshop_Controller_Component_Ecommerce_Store_Locator extends Onxshop_Contr
 	 * 
 	 * @return Array
 	 */
-	protected function getAllStores()
+	protected function getAllStores($type_id)
 	{
-		return $this->Store->listing("publish = 1");
+		if (!is_numeric($type_id)) $type_id = 1;
+		return $this->Store->listing("publish = 1 AND type_id = $type_id", "title ASC");
 	}
 
 
