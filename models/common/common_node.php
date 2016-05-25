@@ -287,14 +287,14 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 		if (!is_numeric($conf['id_map-payment_protx_failure'])) $conf['id_map-payment_protx_failure'] = 11;
 		if (!is_numeric($conf['id_map-payment_worldpay_callback'])) $conf['id_map-payment_worldpay_callback'] = 999;
 		if (!is_numeric($conf['id_map-terms'])) $conf['id_map-terms'] = 26;
-		if (!is_numeric($conf['id_map-notifications'])) $conf['id_map-notifications'] = 5932;
+		if (!is_numeric($conf['id_map-notifications'])) $conf['id_map-notifications'] = 0; // TODO add to template and get ID
 		
 		//checkout pages (wizard checkout)
 		if (!is_numeric($conf['id_map-checkout_basket'])) $conf['id_map-checkout_basket'] = $conf['id_map-basket'];
-		if (!is_numeric($conf['id_map-checkout_login'])) $conf['id_map-checkout_login'] = 4527;
+		if (!is_numeric($conf['id_map-checkout_login'])) $conf['id_map-checkout_login'] = 0; // TODO add to template and get ID
 		if (!is_numeric($conf['id_map-checkout_delivery_options'])) $conf['id_map-checkout_delivery_options'] = $conf['id_map-checkout']; // by default same as checkout page
-		if (!is_numeric($conf['id_map-checkout_gift'])) $conf['id_map-checkout_gift'] = 4513;
-		if (!is_numeric($conf['id_map-checkout_summary'])) $conf['id_map-checkout_summary'] = 4515;
+		if (!is_numeric($conf['id_map-checkout_gift'])) $conf['id_map-checkout_gift'] = 0; // TODO add to template and get ID
+		if (!is_numeric($conf['id_map-checkout_summary'])) $conf['id_map-checkout_summary'] = 0; // TODO add to template and get ID
 		if (!is_numeric($conf['id_map-checkout_payment'])) $conf['id_map-checkout_payment'] = $conf['id_map-payment'];
 		if (!is_numeric($conf['id_map-checkout_payment_success'])) $conf['id_map-checkout_payment_success'] = $conf['id_map-payment_protx_success'];
 		if (!is_numeric($conf['id_map-checkout_payment_failure'])) $conf['id_map-checkout_payment_failure'] = $conf['id_map-payment_protx_failure'];
