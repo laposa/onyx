@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2013 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2013-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -17,6 +17,12 @@ class Onxshop_Controller_Component_Ecommerce_Store_Map extends Onxshop_Controlle
 	
 		$taxonomy_id = $this->GET['taxonomy_id'];
 		$store_to_select = $this->GET['store_id'];
+		
+		if (is_numeric($this->GET['store_type_id'])) $this->store_type_id = $this->GET['store_type_id'];
+		else $this->store_type_id = 0;
+		
+		if ($this->GET['store_node_controller']) $this->store_node_controller = $this->GET['store_node_controller'];
+		else $this->store_node_controller = 'store';
 		
 		if (is_numeric($this->GET['zoom'])) $this->tpl->assign('ZOOM', $this->GET['zoom']);
 		else $this->tpl->assign('ZOOM', 13);
@@ -109,7 +115,7 @@ class Onxshop_Controller_Component_Ecommerce_Store_Map extends Onxshop_Controlle
 
 		$Node = new common_node();
 
-		$pages_raw = $Node->listing("node_group = 'page' AND node_controller = 'store' AND content ~ '[0-9]+'");
+		$pages_raw = $Node->listing("node_group = 'page' AND node_controller = '".$this->store_node_controller."' AND content ~ '[0-9]+'");
 
 		$pages = array();
 
@@ -131,11 +137,11 @@ class Onxshop_Controller_Component_Ecommerce_Store_Map extends Onxshop_Controlle
 	{	
 		if (is_numeric($taxonomy_id)) {
 		
-			$store_list = $this->Store->getFilteredStoreList($taxonomy_id, false, 0, false, false, 9999);
+			$store_list = $this->Store->getFilteredStoreList($taxonomy_id, false, $this->store_type_id, false, false, 9999);
 			
 		} else {
 		
-			$store_list = $this->Store->listing("publish = 1");
+			$store_list = $this->Store->listing("publish = 1 AND type_id = {$this->store_type_id}");
 		
 		}
 		
