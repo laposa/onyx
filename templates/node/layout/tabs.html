@@ -4,7 +4,7 @@
 <script type="text/javascript">
 $(function() { 
     // setup ul.tabs to work as tabs for each div directly under div.tabsLayout div.layoutBody 
-    $('div.tabsLayout div.tabsWrapper').easytabs();
+    if ($('div.tabsLayout div.tabsWrapper ul.tabs').length > 0) $('div.tabsLayout div.tabsWrapper').easytabs();
 });
 </script>
 <!-- END: head_once -->
