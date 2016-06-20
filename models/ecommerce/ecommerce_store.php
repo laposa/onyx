@@ -217,6 +217,10 @@ CREATE TABLE ecommerce_store (
     address_post_code varchar(255),
     code varchar(255)
 );
+
+CREATE INDEX ecommerce_store_title_idx ON ecommerce_store (title);
+CREATE INDEX ecommerce_store_publish_idx ON ecommerce_store (publish);
+CREATE INDEX ecommerce_store_type_id_idx ON ecommerce_store (type_id);
 	";
 		
 		return $sql;
