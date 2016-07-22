@@ -302,3 +302,10 @@ if (ONXSHOP_FACEBOOK_WITHIN_APP) $onxshop_pre_actions[] = 'component/client/face
  */
  
 if (!defined('ONXSHOP_CSRF_PROTECTION_ENABLED')) define('ONXSHOP_CSRF_PROTECTION_ENABLED', true);
+
+/**
+ * Google Map Api Key
+ */
+
+if (!defined('ONXSHOP_GOOGLE_API_KEY')) define('ONXSHOP_GOOGLE_API_KEY', '');
+
