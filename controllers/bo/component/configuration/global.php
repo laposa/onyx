@@ -51,6 +51,10 @@ class Onxshop_Controller_Bo_Component_Configuration_Global extends Onxshop_Contr
 		
 		$selected[preg_replace("/\.UTF-8/", "", $conf['global']['locale'])] = "selected='selected'";
 		$selected[$conf['global']['default_currency']] = "selected='selected'";
+
+		$sorting = $conf['global']['product_list_sorting'];
+		$selected['product_list_sorting_' . $sorting] = "selected='selected'";
+
 		$this->tpl->assign("SELECTED", $selected);
 		
 		if ($conf['global']['display_secondary_navigation'] == 1) $CHECKED['display_secondary_navigation'] = 'checked="checked"';
