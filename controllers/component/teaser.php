@@ -39,10 +39,48 @@ class Onxshop_Controller_Component_Teaser extends Onxshop_Controller {
 		if (trim($node['link_text']) == '') $node['link_text'] = "Find Out More";
 
 		/**
-		 * override teaser text and link text if requred
+		 * override teaser text and link text if required
 		 */
 		if (isset($this->GET['teaser_text']) && !empty($this->GET['teaser_text'])) $node['description'] = $this->GET['teaser_text'];
 		if (isset($this->GET['link_text']) && !empty($this->GET['link_text'])) $node['link_text'] = $this->GET['link_text'];
+		
+		/**
+		 * set IMAGE_PATH and IMAGE_RESIZE_OPTIONS
+		 * 
+		 */
+		 
+		$node = $this->setImageOptions($node);		
+				
+		/**
+		 * process the template
+		 */
+
+		$this->tpl->assign("NODE", $node);
+		 
+		if ($node['image']['src']) $this->tpl->parse("content.image");
+
+		return true;
+
+	}
+
+
+	/**
+	 * Load Teaser image.
+	 * 
+	 */
+	public function getImage($node)
+	{
+		$image = $this->Node->getTeaserImageForNodeId($node['id']);
+
+		return $image;
+
+	}
+	
+	/**
+	 * setImageOptions
+	 */
+	 
+	public function setImageOptions($node) {
 		
 		/**
 		 * image size - for generating IMAGE_PATH
@@ -89,31 +127,9 @@ class Onxshop_Controller_Component_Teaser extends Onxshop_Controller {
 		else $image_resize_options['fill'] = 0;
 		
 		if (count($image_resize_options) > 0) $this->tpl->assign('IMAGE_RESIZE_OPTIONS', '?'.http_build_query($image_resize_options));
-		
-				
-		/**
-		 * process the template
-		 */
-
-		$this->tpl->assign("NODE", $node);
-		 
-		if ($node['image']['src']) $this->tpl->parse("content.image");
-
-		return true;
-
-	}
 
 
-	/**
-	 * Load Teaser image.
-	 * 
-	 */
-	public function getImage($node)
-	{
-		$image = $this->Node->getTeaserImageForNodeId($node['id']);
-
-		return $image;
-
+		return $node;
 	}
 
 }

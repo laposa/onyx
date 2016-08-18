@@ -210,7 +210,7 @@ class common_configuration extends Onxshop_Model {
 		if (!array_key_exists('product_list_mode', $conf['global'])) $conf['global']['product_list_mode'] = 'shelf'; //shelf, grid
 		if (!array_key_exists('product_list_grid_columns', $conf['global'])) $conf['global']['product_list_grid_columns'] = 4;
 		if (!array_key_exists('product_detail_image_width', $conf['global'])) $conf['global']['product_detail_image_width'] = 350;
-		if (!array_key_exists('product_list_image_width', $conf['global'])) $conf['global']['product_list_image_width'] = 175;
+		if (!array_key_exists('product_list_image_width', $conf['global'])) $conf['global']['product_list_image_width'] = 175; // for stack list use stack_list_image_width option
 		//can be: gallery_smooth, gallery, simple_list
 		if (!array_key_exists('product_image_gallery', $conf['global'])) $conf['global']['product_image_gallery'] = 'gallery_smooth';
 		
