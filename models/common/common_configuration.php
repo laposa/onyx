@@ -2,7 +2,7 @@
 /**
  * class common_configuration
  *
- * Copyright (c) 2009-2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -213,6 +213,9 @@ class common_configuration extends Onxshop_Model {
 		if (!array_key_exists('product_list_image_width', $conf['global'])) $conf['global']['product_list_image_width'] = 175;
 		//can be: gallery_smooth, gallery, simple_list
 		if (!array_key_exists('product_image_gallery', $conf['global'])) $conf['global']['product_image_gallery'] = 'gallery_smooth';
+		
+		if (!array_key_exists('stack_list_image_width', $conf['global'])) $conf['global']['stack_list_image_width'] = 0;
+		if (!array_key_exists('stack_list_image_height', $conf['global'])) $conf['global']['stack_list_image_height'] = 0;
 		
 		/**
 		 * set default address and name for emails (used for common_email, perhaps it should be moved there)
