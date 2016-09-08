@@ -11,7 +11,7 @@ HOSTNAME=$2 # mandatory
 DB_TEMPLATE_FILE=$3 # optional
 PROJECT_SKELETON_DIR=$4 # optional
 PROJECT_DIR=$5 # optional
-#DB_USERNAME=$6 # optional
+DB_USERNAME=$6 # optional
 #DB_PASSWORD=$7 # optional
 
 #####################
@@ -20,7 +20,7 @@ PROJECT_DIR=$5 # optional
 
 usage() {
 cat <<EOF
-$0 ACTION HOSTNAME [DB_TEMPLATE_FILE] [PROJECT_SKELETON_DIR] [PROJECT_DIR]
+$0 ACTION HOSTNAME [DB_TEMPLATE_FILE] [PROJECT_SKELETON_DIR] [PROJECT_DIR] [DB_USERNAME]
 
 Creates Onxshop installation and vhost file depending on required hostname.
 
