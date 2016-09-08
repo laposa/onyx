@@ -3728,7 +3728,7 @@ COPY common_node (id, title, node_group, node_controller, parent, parent_contain
 6	Basket	page	default	2	0	0		\N		\N			2006-09-30 10:34:35	2016-03-16 12:38:58	0	1	1000		0	\N		fibonacci-2-1	a:1:{s:13:"allow_comment";i:0;}	\N	1	0	0	0		0	0		0	0
 7	Checkout	page	default	2	0	0		\N		\N			2006-09-30 10:34:54	2016-03-16 12:39:04	0	1	1000		0	\N		fibonacci-2-1	a:1:{s:13:"allow_comment";i:0;}	\N	1	0	1	0		0	1		0	0
 8	Login	page	default	2	0	0		\N		\N			2006-09-30 10:35:02	2016-03-16 12:39:10	0	1	1000		0	\N	pageLogin	fibonacci-2-1	a:1:{s:13:"allow_comment";i:0;}	\N	1	0	0	0		0	1		0	0
-9	Password reset	page	default	2	0	0		\N		\N			2006-09-30 10:35:15	2016-03-16 12:39:17	0	1	1000		0	\N		fibonacci-2-1	a:1:{s:13:"allow_comment";i:0;}	\N	1	0	0	0		0	1		0	0
+9	Password reset	page	default	3	0	0		\N		\N			2006-09-30 10:35:15	2016-03-16 12:39:17	1	1	1000		0	\N		fibonacci-2-1	a:1:{s:13:"allow_comment";i:0;}	\N	1	0	0	0		0	1		0	0
 10	Payment	page	default	2	0	0		\N		\N			2006-09-30 10:35:29	2016-03-16 12:39:22	0	1	1000		0	\N		fibonacci-2-1	a:1:{s:13:"allow_comment";i:0;}	\N	1	0	1	0		0	1		0	0
 12	Payment success	page	default	2	0	0		\N		\N			2006-09-30 10:35:59	2016-03-16 12:39:35	0	1	1000		0	\N		fibonacci-2-1	a:1:{s:13:"allow_comment";i:0;}	\N	1	0	1	0		0	1		0	0
 13	Registration	page	default	2	0	0		\N		\N			2006-09-30 10:36:09	2016-03-16 12:39:39	0	1	1000		0	\N		fibonacci-2-1	a:1:{s:13:"allow_comment";i:0;}	\N	1	0	0	0		0	1		0	0
