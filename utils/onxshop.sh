@@ -41,10 +41,10 @@ if ! [ $PROJECT_DIR ]; then
 	PROJECT_DIR="/srv/$HOSTNAME"
 fi
 if ! [ $DB_TEMPLATE_FILE ]; then
-	DB_TEMPLATE_FILE=/opt/onxshop/${ONXSHOP_VERSION}/docs/database/template_en.sql
+	DB_TEMPLATE_FILE=/opt/onxshop/${ONXSHOP_VERSION}/project_skeleton/base_with_blog.sql
 fi
 if ! [ $PROJECT_SKELETON_DIR ]; then
-	PROJECT_SKELETON_DIR=/opt/onxshop/$ONXSHOP_VERSION/project_skeleton/
+	PROJECT_SKELETON_DIR=/opt/onxshop/$ONXSHOP_VERSION/project_skeleton/base_with_blog/
 fi
 
 echo "

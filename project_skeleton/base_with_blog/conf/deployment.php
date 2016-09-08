@@ -2,7 +2,7 @@
 /**
  * Deployment configuration
  *
- * Copyright (c) 2009-2014 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -29,6 +29,14 @@ $debug_hosts = array(
  */
 
 //define('ONXSHOP_MAIN_DOMAIN', 'default.co.uk');
+
+/**
+ * Use SSL?
+ * will force SSL in Onxshop_Controller_Uri_Mapping
+ */
+
+//define('ONXSHOP_EDITOR_USE_SSL', true);
+//define('ONXSHOP_CUSTOMER_USE_SSL', true);
 
 /**
  * Directory paths
@@ -58,7 +66,7 @@ define('ONXSHOP_DB_NAME', '');
  * premium - CMS + eCommerce + available backup download
  */
 
-//define('ONXSHOP_PACKAGE_NAME', 'standard');
+define('ONXSHOP_PACKAGE_NAME', 'basic');
 
 /**
  * Salt used for encryption/hashing

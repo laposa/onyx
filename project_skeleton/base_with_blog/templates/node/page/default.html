@@ -1,0 +1,37 @@
+<!-- BEGIN: title -->{NODE.browser_title}<!-- END: title -->
+<!-- BEGIN: head -->
+<!-- BEGIN: open_graph -->
+<meta property="og:type" content="article" />
+<!-- BEGIN: image --><meta property="og:image" content="http://{_SERVER.HTTP_HOST}/image/{OPENGRAPH_IMAGE.src|htmlspecialchars}" /><!-- END: image -->
+<meta property="og:description" content="{NODE.description|htmlspecialchars}" />
+<!-- END: open_graph -->
+<!-- END: head -->
+<!-- BEGIN: content -->
+<div class="page {NODE.css_class} {NODE.taxonomy_class}">
+	<div class="top"><span></span></div>
+	<div class="content">
+		<div class="pageWrapper">
+			<!-- BEGIN: page_header -->
+			<div class="pageHeader">
+				<div class="pageHeaderWrapper">
+					<h1 class="pageTitle"><span>{NODE.page_title|htmlspecialchars}</span></h1>
+				</div>
+			</div>
+			<!-- END: page_header -->
+			<div class="pageContent">
+				<div class="pageContentWrapper">
+					<div class="rowTop">
+						<div class="rowWrapper">
+							<div class="columnWrapper">
+								{CONTAINER.0}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="bottom"><span></span></div>
+</div>
+
+<!-- END: content -->

@@ -1,0 +1,147 @@
+/**
+ * Norbert @ Laposa Ltd, 2016/02/16
+ *
+ */
+
+@font-face {
+  font-family: 'FontAwesome';
+  src: url('/share/fonts/fontawesome-webfont.eot?v=4.5.0');
+  src: url('/share/fonts/fontawesome-webfont.eot?#iefix&v=4.5.0') format('embedded-opentype'), url('/share/fonts/fontawesome-webfont.woff2?v=4.5.0') format('woff2'), url('/share/fonts/fontawesome-webfont.woff?v=4.5.0') format('woff'), url('/share/fonts/fontawesome-webfont.ttf?v=4.5.0') format('truetype'), url('/share/fonts/fontawesome-webfont.svg?v=4.5.0#fontawesomeregular') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/**
+ * fluid images
+ */
+img {max-width: 100%; height: auto; width: auto; /* ie8 fix*/}
+
+/**
+ * fluid video
+ */
+div.fluid-video {height: 0; padding-top: 25px; padding-bottom: 67.5%; margin-bottom: 10px; position: relative; overflow: hidden;}
+div.fluid-video.widescreen {padding-bottom: 57.25%;}
+div.fluid-video.vimeo {padding-top: 0;}
+div.fluid-video embed,
+div.fluid-video iframe,
+div.fluid-video object,
+div.fluid-video video {top: 0; left: 0; width: 100%; height: 100%; position: absolute;}
+
+/**
+ * form
+ */
+ 
+form {background: #ccc; padding: 10px;}
+form fieldset {margin: 0;}
+
+/**
+ * logo
+ */
+
+#logo {width: auto; margin: 10px; float: none;}
+#logo a {display: block; width: auto; height: 100px; background: url(/image/var/files/placeholder.png);}
+#logo a span {display: none;}
+
+/**
+ * container
+ */
+ 
+#container {width: auto; max-width: 960px; margin: 0 auto;}
+
+/**
+ * pageWrapper
+ */
+
+#pageWrapper {padding: 0;}
+
+
+/**
+ * header
+ */
+ 
+#header {margin: 0;}
+
+/**
+ * primaryNavigation
+ */
+#primaryNavigation {width: auto; margin: 10px; background: #ccc; text-align: center;}
+#primaryNavigation a {padding: 10px;}
+@media all and (max-width: 800px) {
+  #primaryNavigation {display: none;}
+  #primaryNavigation li {display: block;}
+  #primaryNavigation.open {display: block;}
+}
+@media all and (min-width: 801px) {
+  #primaryNavigation {display: block!important;}
+}
+
+/**
+ * revealNavigationButton
+ */
+#revealNavigationButton {display: none; float: right; margin-right: 10px;}
+#revealNavigationButton a {color: white; display: block; background: #ccc; padding: 12px 20px 9px 20px; font-size: 30px; line-height: 30px; text-decoration: none;}
+#revealNavigationButton a.reveal:before {content: '\f0c9'; font-family: 'FontAwesome';}
+#revealNavigationButton a span {display: none;}
+@media all and (max-width: 800px) {
+    #revealNavigationButton {display: block;}
+}
+
+/**
+ * footer
+ */
+#footer {width: 100%; margin: 0;}
+#footerNavigation {width: auto; margin: 10px; display: block; float: none; background: #ccc; text-align: center;}
+
+#copyright {width: 100%; margin: 0; float: none; text-align: center;}
+#copyright p {margin: 10px;}
+
+/**
+ * social_network_share
+ */
+
+div.social_network_share li a {text-decoration: none;}
+div.social_network_share li a:before {font-family: 'FontAwesome'; font-size: 200%;}
+div.social_network_share li a span {display: none;}
+div.social_network_share li.facebook a:before {content: '\f082';}
+div.social_network_share li.twitter a:before {content: '\f081';}
+div.social_network_share li.google a:before {content: '\f0d4';}
+div.social_network_share li.pinterest a:before {content: '\f0d3';}
+div.social_network_share li.mailto a:before {content: '\f199';}
+
+/**
+ * Layouts
+ */
+
+@media all and (max-width: 800px) {
+	div.twoColumnPage div.columnOne, 
+    div.twoColumnPage div.columnTwo,
+    div.twoColumnLayout div.layoutColumnOne.ofTwo,
+    div.twoColumnLayout div.layoutColumnTwo.ofTwo {width: auto!important; float: none!important;}
+    div.twoColumnPage div.columnWrapper {margin: 0!important;}
+    div.threeColumnLayout div.layoutColumnOne.ofThree,
+    div.threeColumnLayout div.layoutColumnTwo.ofThree,
+    div.threeColumnLayout div.layoutColumnThree.ofThree {width: auto; float: none;}
+    div.fourColumnLayout div.layoutColumnOne.ofFour,
+    div.fourColumnLayout div.layoutColumnTwo.ofFour {width: 50%;}
+    div.fourColumnLayout div.layoutColumnThree.ofFour,
+    div.fourColumnLayout div.layoutColumnFour.ofFour {width: 50%;}
+    div.fiveColumnLayout div.layoutColumnOne.ofFive,
+    div.fiveColumnLayout div.layoutColumnTwo.ofFive,
+    div.fiveColumnLayout div.layoutColumnThree.ofFive,
+    div.fiveColumnLayout div.layoutColumnFour.ofFive,
+    div.fiveColumnLayout div.layoutColumnFive.ofFive {width: auto; float: none;}
+    div.sixColumnLayout div.layoutColumnOne.ofSix,
+    div.sixColumnLayout div.layoutColumnTwo.ofSix,
+    div.sixColumnLayout div.layoutColumnThree.ofSix,
+    div.sixColumnLayout div.layoutColumnFour.ofSix,
+    div.sixColumnLayout div.layoutColumnFive.ofSix,
+    div.sixColumnLayout div.layoutColumnSix.ofSix {width: auto; float: none;}
+    div.layoutColumnWrapper {margin: 0!important;}
+}
+
+/**
+ * customise CMS UI
+ */
+ 
+#contentBottom a.onxshop_duplicate,
+#contentBottom a.onxshop_delete {display: none;}
