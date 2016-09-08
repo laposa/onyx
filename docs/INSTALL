@@ -1,226 +1,51 @@
-==================================
-P002 Preparing server environment
-==================================
+# Onxshop install on Debian Jessie (see https://onxshop.com/download)
 
-Requires a standard Debian Wheezy installation with all default options.
+wget -O - https://onxshop.com/debian/conf/signing_key.pub | apt-key add -
+echo "deb http://onxshop.com/debian/ jessie main" > /etc/apt/sources.list.d/onxshop.list
+apt-get update && apt-get install onxshop-1.7
 
-1. install packages 
+# Create new project using utils/onxshop.sh script
+onxshop-1.7 create test.local.onxshop.com
 
-aptitude install apache2 php5 php-apc php5-recode php5-pgsql php5-tidy php5-gd php5-imagick php5-curl php5-mcrypt imagemagick rsync ssh  sysstat exim4 vim mc nfs-common sudo mutt bzip2 postgresql locales-all ntp hdparm smartmontools unzip fortunes ca-certificates poppler-utils
-
-2. setup default locales
-
-dpkg-reconfigure locales
-    choose en_GB.UTF8 as default locale
-
-
-3. configure MTA
-
-vi /etc/aliases
-root: [username]
-
-dpkg-reconfigure exim4-config
- - first question change to: internet site;
- - other values keep as default
-
-4. enable systat
-
-dpkg-reconfigure sysstat
-
-Say Yes to active from cron job
-5. configure Apache
-
-
-a2enmod ssl; a2enmod rewrite; a2enmod expires; a2enmod vhost_alias; a2enmod headers; a2enmod deflate;
-
-vi /etc/apache2/conf.d/expires
-
-<IfModule mod_expires.c>
-
-        ExpiresActive On
-        ExpiresByType image/gif A172800
-        ExpiresByType image/jpg A172800
-        ExpiresByType image/jpeg A172800
-        ExpiresByType image/png A172800
-        ExpiresByType image/x-icon A172800
-        ExpiresByType image/svg+xml A172800
-        ExpiresByType text/javascript A172800
-        ExpiresByType application/javascript A172800
-        ExpiresByType application/x-javascript A172800
-        ExpiresByType application/x-font A172800
-        ExpiresByType text/x-component A172800
-        ExpiresByType text/css A172800
-        ExpiresByType text/plain A172800
-
-        <FilesMatch "\.(ttf|otf|eot|woff)">
-            ExpiresDefault A2592000
-        </FilesMatch>
-
-</IfModule>
-
-vi /etc/apache2/mods-available/deflate.conf
-
-<IfModule mod_deflate.c>
-          # these are known to be safe with MSIE 6
-          AddOutputFilterByType DEFLATE text/html text/plain text/xml
-
-          # everything else may cause problems with MSIE 6
-          AddOutputFilterByType DEFLATE text/css
-          AddOutputFilterByType DEFLATE application/x-javascript application/javascript application/ecmascript text/x-component
-          AddOutputFilterByType DEFLATE application/rss+xml
-
-        # fonts option 1: deflate all in font folder
-        #<Location /share/fonts>
-        #       SetOutputFilter DEFLATE
-        #</Location>
-        # fonts option 2: deflate by filetype
-        <FilesMatch "\.(ttf|otf|woff|eot|svg|svgz)$" >
-                SetOutputFilter DEFLATE
-        </FilesMatch>
-</IfModule>
-
-
-
-vi /etc/apache2/conf.d/onxshop
-
-<Directory "/srv/*">
-    AllowOverride All
-</Directory>
-
-vi /etc/php5/apache2/php.ini
-
-memory_limit = 256M
-
-/etc/init.d/apache2 restart
-
-6. logrotate
-
-vi /etc/logrotate.d/onxshop
-
-/srv/*/var/log/*.log {
-    weekly
-    missingok
-    rotate 5
-    compress
-    delaycompress
-    notifempty
-    create 660 root adm
-    sharedscripts
-    postrotate
-        if [ -f "`. /etc/apache2/envvars ; echo ${APACHE_PID_FILE:-/var/run/apache2.pid}`" ]; then
-            /etc/init.d/apache2 reload > /dev/null
-        fi
-    endscript
-}
-
-7. Postgresql config
-
-vi /etc/postgresql/9.1/main/postgresql.conf 
-# - Connection Settings -
-listen_addresses = '*'
-
-vi /etc/postgresql/8.4/main/pg_hba.conf
-#onxshop
-#skip
-#host    all         all         192.168.1.1/32       md5
-#add for each local IP address as required
-
-/etc/init.d/postgresql restart
-
-
-8. adduser with admin privileges
-
-
-adduser [username]
-adduser [username] sudo
-adduser [username] root
-
-visudo
-%sudo ALL=NOPASSWD: ALL
-
-Test:
-su - [username]
-sudo su -
-
-9. files system permissions
-
-
-chmod g+w /opt/; chmod g+w /srv/;
-
-
-
-
-
-
-
-========================================
-P003 Create a new empty Onxshop project
-========================================
-
-Requires P002 to be completed.
-
-1. get Onxshop package
-
-
-access to Onxshop application package installed in /opt/ (get it with ie: 
-
-
-scp panda:/opt/onxshop-1.4.6.tgz /opt/
-cd /opt/
-tar -zxf onxshop-1.4.6.tgz
-
-ln -s onxshop-1.4.6 onxshop-latest
-
-2. create a project [NEWPROJECT] folder
+# Or create new project manually:
 
 cd /srv/
-cp -a /opt/onxshop-latest/project_skeleton ./
-mv project_skeleton [NEWPROJECT]
-cd [NEWPROJECT]
-chmod a+rwx -R var
+cp -a /opt/onxshop-1.7/project_skeleton/base_with_blog/ ./
+mv project_skeleton [HOSTNAME]
+cd [HOSTNAME]
+chmod a+rwx -R var/
 #create symlink to shared onxshop_dir folder
-ln -s /opt/onxshop-1.6.0 onxshop_dir;
+ln -s /opt/onxshop-1.7 onxshop_dir;
 
-# optionally copy the source code directly under the project folder
-# rm onxshop_dir; cp -a /opt/onxshop-1.6.0 onxshop_dir;
+# configure [HOSTNAME] vhost
 
-3. configure vhost [NEWPROJECT]
-
-
-sudo vi /etc/apache2/sites-available/[NEWPROJECT]
+vi /etc/apache2/sites-available/[HOSTNAME].conf
 
 <VirtualHost *:80>
-    ServerName [NEWPROJECT]
-    ServerAlias www.[NEWPROJECT]
-    VirtualDocumentRoot /srv/[NEWPROJECT]/public_html
+	ServerName [HOSTNAME]
+	VirtualDocumentRoot [PROJECT_DIR]/public_html
 </VirtualHost>
 
 
-enable vhost:
-sudo a2ensite [NEWPROJECT]
-
-sudo /etc/init.d/apache2 reload
+a2ensite [HOSTNAME] && service apache2 reload
 
 
-
-
-2. create a new database user
+# create a new database user
 
 sudo su - postgres
 createuser -SRdP [NEWUSER]
 (choose [NEWPASSWORD])
 exit
 
-Please keep NEWUSER same as NEWPROJECT when possible.
-3. create new database under newly created db user
+# create new database under newly created db user
 
-createdb -U [NEWUSER] -h localhost -E UTF8 [NEWPROJECT]-1_7
+createdb -U [NEWUSER] -h localhost [NEWPROJECT]-1_7
 
-4. populate database with project template
+# populate database with project template
 
-cd /srv/[NEWPROJECT]
-psql -U [NEWUSER] -h localhost [NEWPROJECT]-1_7 < onxshop_dir/docs/database/template_en.sql
-5. modify deployment.php
+psql -U [NEWUSER] -h localhost [NEWPROJECT]-1_7 < onxshop_dir/project_skeleton/base_with_blog.sql
+
+# modify deployment.php
 
 vi conf/deployment.php
 
@@ -235,25 +60,19 @@ define('ONXSHOP_DB_HOST', 'localhost');
 define('ONXSHOP_DB_PORT', 5432);
 define('ONXSHOP_DB_NAME', '[NEWPROJECT]-1_7');
 
-6. test 
 
-/etc/hosts: 
-[YOUR_CLIENT_IP_ADDRESS]        [NEWPROJECT]
-
-access from an outside machine http://[NEWPROJECT]
-
-Website frontend access:
+# Website frontend access:
 
 http://[NEWPROJECT]/
 
-website admin access:
+# website admin access:
 
-http://[NEWPROJECT]/edit
+http://[HOSTNAME]/edit
 username: [NEWUSER]
 password: [NEWPASSWORD]
 
 
-In case of any problem, ie a blank screen, enable debugging for your client IP address:
+In case of any problem, i.e. a blank screen, enable debugging for your client IP address:
 
 vi conf/deployment.php
 
@@ -269,3 +88,5 @@ $debug_hosts = array(
 '[YOUR_CLIENT_IP_ADDRESS]' => 1
 );
 
+
+And also check /var/log/apache2/error.log
