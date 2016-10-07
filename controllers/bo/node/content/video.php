@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2015-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -19,7 +19,6 @@ class Onxshop_Controller_Bo_Node_Content_Video extends Onxshop_Controller_Bo_Nod
 		if ($_POST['node']['component']['autoplay'] == 'on') $_POST['node']['component']['autoplay'] = 1;
 		else $_POST['node']['component']['autoplay'] = 0;
 		
-
 	}
 	
 	/**
@@ -36,6 +35,7 @@ class Onxshop_Controller_Bo_Node_Content_Video extends Onxshop_Controller_Bo_Nod
 		 
 		$this->node_data['component']['autoplay'] = ($this->node_data['component']['autoplay']) ? 'checked="checked"' : '';
 		
+		$this->tpl->assign("SELECTED_provider_{$this->node_data['component']['provider']}", 'selected');
 	}
 }
 
