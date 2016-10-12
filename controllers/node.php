@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2005-2014 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2005-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -324,6 +324,8 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 			return true;
 		} else if (Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) {
 			return true;
+		} else if ($this->Node->isInBin($node_data['id'])) {
+			return false;
 		} else {
 			return $node_data['publish'];
 		}

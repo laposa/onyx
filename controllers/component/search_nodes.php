@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2006-2012 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2006-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -12,26 +12,29 @@ class Onxshop_Controller_Component_Search_Nodes extends Onxshop_Controller {
 	 */
 	 
 	public function mainAction() {
-	
+		
+		require_once('models/common/common_node.php');
+		$this->Node = new common_node();
+				
 		if (isset($this->GET['search_query'])) {
 			
 			$searchQuery = $this->GET['search_query'];
 			$count = strlen(trim($searchQuery));
 			
 			if ($count > 2) {
-				require_once('models/common/common_node.php');
-			
-				$Node = new common_node();
 				
-				$result = $Node->search($searchQuery);
+				$result = $this->Node->search($searchQuery);
 			
 				$added = array();
 			
 				foreach ($result as $r) {
-				
+					
+					// skip bin items
+					if ($this->Node->isInBin($r['id'])) continue;
+						
 					if ($r['node_group'] != 'page') {
-						$active_pages = $Node->getActivePages($r['id']);
-						$r = $Node->detail($active_pages[0]);
+						$active_pages = $this->Node->getActivePages($r['id']);
+						$r = $this->Node->detail($active_pages[0]);
 					}
 				
 					if (!in_array($r['id'], $added) && $r['node_group'] == 'page') {

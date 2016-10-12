@@ -71,7 +71,7 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 						$path = $this->Node->getFullPathDetailForBreadcrumb($node_id);
 						
 						// skip bin items
-						if ($path[0]['id'] == $this->Node->conf['id_map-bin']) continue;
+						if ($this->Node->isInBin($node_id, $path)) continue;
 						
 						$page = end($path);
 

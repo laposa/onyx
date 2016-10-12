@@ -2058,4 +2058,20 @@ LEFT OUTER JOIN common_taxonomy_label ON (common_taxonomy_tree.label_id = common
 		
 	}
 	
+	/**
+	 * isInBin
+	 *
+	 * @param integer $node_id
+	 * @param array $path
+	 * @return bool
+	 */
+	
+	public function isInBin($node_id, $path = false) {
+		
+		if (!is_array($path)) $path = $this->getFullPathDetailForBreadcrumb($node_id);
+		
+		if ($path[0]['id'] == $this->conf['id_map-bin']) return true;
+		else return false;
+		
+	}
 }
