@@ -72,10 +72,13 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 		 */
 		 
 		if ($node_data['node_group'] == 'page' && !$this->canViewPage($node_data)) {
-			// display 404 page
+			// send 403 error code
+			header("HTTP/1.1 403 Forbidden");
+			// display 404 page content
 			$_Onxshop_Request = new Onxshop_Request('node~id=' . $this->Node->conf['id_map-404'].'~'); 
 			$node_data['content'] = $_Onxshop_Request->getContent();
 			$this->tpl->assign('NODE', $node_data);
+			$this->tpl->parse('content.wrapper');
 			return true;
 		}
 		
