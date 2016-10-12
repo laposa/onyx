@@ -2069,8 +2069,9 @@ LEFT OUTER JOIN common_taxonomy_label ON (common_taxonomy_tree.label_id = common
 	public function isInBin($node_id, $path = false) {
 		
 		if (!is_array($path)) $path = $this->getFullPathDetailForBreadcrumb($node_id);
+		$top_level_page_id = $path[0]['id'];
 		
-		if ($path[0]['id'] == $this->conf['id_map-bin']) return true;
+		if ($top_level_page_id == $this->conf['id_map-bin']) return true;
 		else return false;
 		
 	}
