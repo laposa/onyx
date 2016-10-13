@@ -1,10 +1,4 @@
-# Safety rules to ensure PHP processor enabled and browsing is disabled
-AddType application/x-httpd-php .php
-php_value magic_quotes_gpc Off
-php_value register_globals Off
-php_value session.use_trans_sid 0
-php_value session.use_cookies 1
-php_value default_charset UTF-8
+# Safety rule to ensure directory browsing is disabled
 Options -Indexes +FollowSymLinks
 
 # Force IE to the latest version
