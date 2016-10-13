@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2006-2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2006-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -24,11 +24,16 @@ class Onxshop_Controller_Sys_404 extends Onxshop_Controller {
 		}
 		
 		/**
-		 * set 404 header
+		 * set 404 HTTP code
+		 */
+		
+		http_response_code(404);
+		
+		/**
+		 * don't allow to save this request to the cache
 		 */
 		 
-		$this->http_status = '404'; // is this still needed?
-		header("HTTP/1.0 404 Not Found");
+		Zend_Registry::set('omit_cache', true);
 		
 		return true;		
 

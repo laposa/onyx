@@ -72,8 +72,10 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 		 */
 		 
 		if ($node_data['node_group'] == 'page' && !$this->canViewPage($node_data)) {
-			// send 403 error code
-			header("HTTP/1.1 403 Forbidden");
+			// send 403 HTTP code
+			http_response_code(403);
+			// don't allow to save this request to the cache
+			Zend_Registry::set('omit_cache', true);
 			// display 404 page content
 			$_Onxshop_Request = new Onxshop_Request('node~id=' . $this->Node->conf['id_map-404'].'~'); 
 			$node_data['content'] = $_Onxshop_Request->getContent();

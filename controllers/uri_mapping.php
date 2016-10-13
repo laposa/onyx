@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2006-2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2006-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -48,7 +48,8 @@ class Onxshop_Controller_Uri_Mapping extends Onxshop_Controller {
 				
 				$auth = Onxshop_Bo_Authentication::getInstance()->login();
 				if (!$auth) $controller_request = 'sys/401';
-				$_SESSION['use_page_cache'] = false;
+				// don't allow to save this request to the cache
+				Zend_Registry::set('omit_cache', true);
 			}
 			
 		}
@@ -103,8 +104,6 @@ class Onxshop_Controller_Uri_Mapping extends Onxshop_Controller {
 				 */
 				 
 				$action_to_process = $this->Mapper->getRequest($this->Mapper->conf['404_id']);
-		
-				$this->http_status = '404';
 				
 			}
 			

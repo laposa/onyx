@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2005-2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2005-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -756,16 +756,17 @@ class Onxshop_Bootstrap {
 	 
 	public function canBeSavedInCache() {
 		
-		if ($this->Onxshop->http_status != 404
-			&& $this->Onxshop->http_status != 401
-			&& !Zend_Registry::isRegistered('controller_error')
-			&& $_SESSION['use_page_cache']) {
+		if (
+			Zend_Registry::isRegistered('controller_error')
+			|| Zend_Registry::isRegistered('omit_cache')
+			|| $_SESSION['use_page_cache']
+			) {
 			
-			return true;
+			return false;
 		
 		} else {
 			
-			return false;
+			return true;
 		
 		}
 		
