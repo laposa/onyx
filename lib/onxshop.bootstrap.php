@@ -513,6 +513,8 @@ class Onxshop_Bootstrap {
 			}
 		}
 	
+		header("X-Onxshop-From-Cache: 1");
+		
 	}
 	
 	/**
@@ -759,7 +761,7 @@ class Onxshop_Bootstrap {
 		if (
 			Zend_Registry::isRegistered('controller_error')
 			|| Zend_Registry::isRegistered('omit_cache')
-			|| $_SESSION['use_page_cache']
+			|| ($_SESSION['use_page_cache'] == false)
 			) {
 			
 			return false;
