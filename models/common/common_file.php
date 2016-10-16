@@ -724,12 +724,13 @@ CREATE TABLE common_file (
 		if (trim($fp) == '' || !file_exists($fp)) return false;
 		
 		$file_info['modified'] = strftime("%c", filemtime($fp));
-		$file_info['mime-type'] = local_exec("file -bi " . escapeshellarg($fp));
-		$file_info['type-detail'] = local_exec("file -b " . escapeshellarg($fp));
+		$file_info['mime-type'] = mime_content_type($fp);
 		$file_info['file_path'] = str_replace(ONXSHOP_PROJECT_DIR . 'var/files/', '', $fp);
 		$file_info['size'] = self::resize_bytes(filesize($fp));
 		
 		if ($extra_detail) {
+			$file_info['mime-type'] = local_exec("file -bi " . escapeshellarg($fp)); // overwrite the above mime-type with more details
+			$file_info['type-detail'] = local_exec("file -b " . escapeshellarg($fp));
 			if (trim($file_info['mime-type']) == 'application/pdf') {
 				$file_info['extra-detail'] = local_exec("pdfinfo " . escapeshellarg($fp));
 			} else if (preg_match("/^image/", $file_info['mime-type'])) {

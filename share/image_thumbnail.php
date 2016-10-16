@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2005-2014 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2005-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -75,8 +75,8 @@ if ($width > $image_configuration['width_max']) {
 		/**
 		 * get content type
 		 */
-		 
-		$mime_type = local_exec("file -bi " . escapeshellarg(ONXSHOP_PROJECT_DIR . $image_file));
+		
+		$mime_type = mime_content_type(ONXSHOP_PROJECT_DIR . $image_file);
 		$mime_type = trim($mime_type);
 		
 		/**
