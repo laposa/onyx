@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2006-2011 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2006-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -79,10 +79,10 @@ if (!is_readable($file)) {
 	}
 
 	/**
-	 * Detect file type and send to the clien
+	 * Detect file type and send to the client
 	 */
-	 
-	$mimetype = local_exec("file -bi " . escapeshellarg($file));
+	
+	$mimetype = mime_content_type($file);
 	header('Pragma: private');
 	header('Cache-control: private, must-revalidate');
 	header("Content-type: $mimetype");
