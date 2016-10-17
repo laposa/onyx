@@ -256,6 +256,8 @@ class Onxshop_Controller_Uri_Mapping extends Onxshop_Controller {
 	 
 	static function checkForSecurityRedirects() {
 		
+		if (defined('ONXSHOP_HSTS_ENABLE') && ONXSHOP_HSTS_ENABLE === true) header("Strict-Transport-Security: max-age=" . ONXSHOP_HSTS_TTL);
+		
 		/**
 		 * check main domain
 		 */

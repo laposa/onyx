@@ -57,6 +57,13 @@ if(in_array($_SERVER["REMOTE_ADDR"], array_keys($debug_hosts)))  {
 }
 
 /**
+ * Add the httpOnly flag to the cookie, which makes it inaccessible to browser scripting languages such as JavaScript
+ * http://php.net/session.cookie-httponly
+ */
+ 
+ini_set( 'session.cookie_httponly', 1 );
+
+/**
  * Authentication type for backend users
  */
 
@@ -84,6 +91,8 @@ if (!defined('ONXSHOP_REQUIRE_AUTH')) define('ONXSHOP_REQUIRE_AUTH', false);
 
 if (!defined('ONXSHOP_EDITOR_USE_SSL')) define('ONXSHOP_EDITOR_USE_SSL', false);
 if (!defined('ONXSHOP_CUSTOMER_USE_SSL')) define('ONXSHOP_CUSTOMER_USE_SSL', false);
+if (!defined('ONXSHOP_HSTS_ENABLE')) define('ONXSHOP_HSTS_ENABLE', false);
+if (!defined('ONXSHOP_HSTS_TTL')) define('ONXSHOP_HSTS_TTL', 3600);
 
 /**
  * Compress output option (not really important when using Apache Deflate module)
