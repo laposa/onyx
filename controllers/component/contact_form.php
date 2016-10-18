@@ -16,16 +16,18 @@ class Onxshop_Controller_Component_Contact_Form extends Onxshop_Controller {
 			$this->GET['spam_protection'] == "captcha_text_js") && 
 			strpos($this->tpl->filecontents, 'formdata-captcha_') !== FALSE);
 
-		$this->preProcessEmailForm($_POST['formdata']);
+		$formdata = $this->preProcessEmailForm($_POST['formdata']);
 
 		if (isset($_POST['send']) && $_POST['node_id'] == $this->GET['node_id']) {
 			
-			$this->processEmailForm($_POST['formdata']);
+			$formdata = $this->processEmailForm($formdata);
 			
 		}
 
-		$this->postProcessEmailForm();
+		$formdata = $this->postProcessEmailForm($formdata);
 
+		$this->tpl->assign('FORMDATA', $formdata);
+		
 		if ($this->enableCaptcha) {
 			if ($this->GET['spam_protection'] == "captcha_text_js") {
 				$this->tpl->parse("content.invisible_captcha_field");
@@ -46,16 +48,38 @@ class Onxshop_Controller_Component_Contact_Form extends Onxshop_Controller {
 		$this->tpl->assign('MAX_FILE_SIZE', ini_get('upload_max_filesize'));
 	
 		$this->parseStoreSelect($formdata['form']['store_id'], 'content');
+	
+		/**
+		 * pre-populate with customer data if available
+		 */
+		 
+		if ($_SESSION['client']['customer']['id'] > 0) {
+			
+			if (!$formdata['first_name']) $formdata['first_name'] = $formdata['required_first_name'] = $_SESSION['client']['customer']['first_name'];
+			if (!$formdata['last_name']) $formdata['last_name'] = $formdata['required_last_name'] = $_SESSION['client']['customer']['last_name'];
+			if (!$formdata['name']) $formdata['name'] = $formdata['required_name'] = $formdata['first_name'] . " " . $formdata['last_name'];
+			if (!$formdata['email']) $formdata['email'] = $formdata['required_email'] = $_SESSION['client']['customer']['email'];
+			if (!$formdata['telephone']) $formdata['telephone'] = $formdata['required_telephone'] = $_SESSION['client']['customer']['telephone'];
+			
+			$formdata['required_first_name'] = $formdata['first_name'];
+			$formdata['required_last_name'] = $formdata['last_name'];
+			$formdata['required_name'] = $formdata['name'];
+			$formdata['required_email'] = $formdata['email'];
+			$formdata['required_telephone'] = $formdata['telephone'];
+			
+		}
 		
+		return $formdata;
+			
 	}
 	
 	/**
 	 * postprocess
 	 */
 	 
-	public function postProcessEmailForm() {
+	public function postProcessEmailForm($formdata) {
 		
-		return true;
+		return $formdata;
 		
 	}
 	
@@ -70,16 +94,16 @@ class Onxshop_Controller_Component_Contact_Form extends Onxshop_Controller {
 			
 			require_once('models/common/common_email.php');
 		    
-			$EmailForm = new common_email();
+			$Email = new common_email();
 		    
-			$content = $EmailForm->exploreFormData($formdata);
+			$content = $Email->exploreFormData($formdata);
 
 			$node_id = (int) $this->GET['node_id'];
 			$reg_key = "form_notify_" . $node_id;
 
 			if ($this->GET['mail_to'] == '') {
-				$mail_to = $EmailForm->conf['mail_recipient_address'];
-				$mail_toname = $EmailForm->conf['mail_recipient_name'];
+				$mail_to = $Email->conf['mail_recipient_address'];
+				$mail_toname = $Email->conf['mail_recipient_name'];
 			} else {
 				$mail_to = $this->GET['mail_to'];
 				$mail_toname = $this->GET['mail_toname'];
@@ -88,17 +112,17 @@ class Onxshop_Controller_Component_Contact_Form extends Onxshop_Controller {
 			if ($this->enableCaptcha) {
 				$word = strtolower($_SESSION['captcha'][$node_id]);
 				$isCaptchaValid = strlen($formdata['captcha']) > 0 &&  $formdata['captcha'] == $word;
-				$EmailForm->setValid("captcha", $isCaptchaValid);
+				$Email->setValid("captcha", $isCaptchaValid);
 			}
 
-			if ($EmailForm->sendEmail('contact_form', $content, $mail_to, $mail_toname, $formdata['required_email'], $formdata['required_name'])) {
+			if ($Email->sendEmail('contact_form', $content, $mail_to, $mail_toname, $formdata['required_email'], $formdata['required_name'])) {
 				Zend_Registry::set($reg_key, 'sent');
 			} else {
 				Zend_Registry::set($reg_key, 'failed');
-				$this->tpl->assign('FORMDATA', $formdata);
 			}
 
-			return true;
+			return $formdata;
+			
 	}
 	
 	/**
