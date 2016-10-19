@@ -19,6 +19,9 @@
                         {ONXSHOP_REQUEST_main_image #component/image~node_id=GET.id:role=header~}
                     </div>
 					<h1 class="pageTitle"><span>{NODE.page_title|htmlspecialchars}</span></h1>
+					
+					<div class="note {AUTHOR_EMPTY} node_group-content"><p><span class="postedOn">{I18N_POSTED_ON} </span><span class="date">{NODE.created|strtotime|strftime('%A %e %B %Y', %s)} </span><span class="by">{I18N_BY} </span><span class="author_name">{NODE.author_detail.name|htmlspecialchars} </span></p></div>
+					
 				</div>
 			</div>
 			<!-- END: page_header -->
@@ -29,7 +32,6 @@
 							<div class="columnWrapper">
 								<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 								<div class="wrapper">
-									<div class="note {AUTHOR_EMPTY} node_group-content"><p>{I18N_POSTED_ON} {NODE.created|strtotime|strftime('%A %e %B %Y', %s)} <span class="by">{I18N_BY}</span> <span class="author_name">{NODE.author_detail.name|htmlspecialchars}</span></p></div>
 									
 									<div class="body">
 										<div class="node_group-content">{NODE.content}</div>
