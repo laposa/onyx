@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2013-2014 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2013-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -43,10 +43,15 @@ class Onxshop_Controller_Bo_Node_Content_Survey extends Onxshop_Controller_Bo_No
 		// survey dropdown	
 		$Survey = new education_survey();
 
-		$surveys = $Survey->getSurveyList("publish = 1");
-
+		$surveys = $Survey->getSurveyList();
+		
 		foreach ($surveys as $survey) {
+			
 			$survey['selected'] = ($this->node_data['component']['survey_id'] == $survey['id']) ? "selected='selected'" : '';
+			
+			if ($survey['publish'] == 0) $this->tpl->assign('NOT_PUBLISHED', '(Not published)');
+			else $this->tpl->assign('NOT_PUBLISHED', '');
+			
 			$this->tpl->assign("SURVEY_ITEM", $survey);
 			$this->tpl->parse("content.survey_item");
 		}
