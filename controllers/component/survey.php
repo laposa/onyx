@@ -688,7 +688,7 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 		$this->tpl->parse("$template_block_path.store.county_dropdown");
 	
 		// show only if there is at least one store
-		if (count($total_store_count) > 0) $this->tpl->parse("$template_block_path.store");
+		if ($total_store_count > 0) $this->tpl->parse("$template_block_path.store");
 
 	}
 
