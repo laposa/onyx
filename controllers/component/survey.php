@@ -27,6 +27,18 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 			return false;
 		}
 
+		// determine if we'll show the results (stats)
+		if (is_numeric($this->GET['display_results'])) {
+
+			if ($this->GET['display_results'] == 1) $display_results_stats = 1;
+			else $display_results_stats = 0;
+			
+		} else {
+			
+			$display_results_stats = 1;
+		
+		}
+		
 		/**
 		 * initialise
 		 */
@@ -49,7 +61,9 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 				 * display results when voted already
 				 */
 				 
-				$this->displayResultStats($survey_id);
+				if ($display_results_stats) $this->displayResultStats($survey_id);
+				
+				$this->tpl->parse('content.result');
 
 			} else {
 
@@ -73,20 +87,8 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
 							$this->displaySuccessPage($this->GET['href']);
 						
 						} else {
-							
-							// determine if we'll show the results (stats)
-							if (is_numeric($this->GET['display_results'])) {
-			
-								if ($this->GET['display_results'] == 1) $display_results = 1;
-								else $display_results = 0;
-								
-							} else {
-								
-								$display_results = 1;
-							
-							}
 						
-							if ($display_results) $this->displayResultStats($survey_id, $survey_entry_id);
+							if ($display_results_stats) $this->displayResultStats($survey_id, $survey_entry_id);
 							
 							// show message
 							if (strlen($this->GET['message_after_submission']) > 0) {
