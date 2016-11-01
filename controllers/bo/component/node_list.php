@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2007-2011 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2007-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -39,7 +39,7 @@ class Onxshop_Controller_Bo_Component_Node_List extends Onxshop_Controller {
 		$this->tpl->assign("NODE", $node_detail);
 		
 		//get children
-		$children = $Node->getChildren($node_detail['id']);
+		$children = $Node->getChildren($node_detail['id'], 'parent_container ASC, priority DESC');
 		
 		if (is_array($children) && count($children) > 0) { 
 			foreach ($children as $child) {
