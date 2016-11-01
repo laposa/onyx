@@ -1,3 +1,56 @@
+Onxshop (1.7.7)
+
+  * show URL next to URI Title
+  * bug fixes and improvements in survey component
+  * pre-populate contact form for with customer data if available
+  * Add the httpOnly flag to the cookie and HSTS configuration option
+  * reduce number of local_exec
+  * refactoring of how cache is disabled from controllers
+  * remove options preventing running under PHP-FPM (fastcgi)
+  * show 404 page content and send 403 HTTP header for pages not visible
+  * make sure items in bin are not visible
+  * implement selected attribute for video provider list
+  * fix layout of the BO translation table
+  * simplify installation instructions
+  * refactoring of project_skeleton folder to host multiple site templates
+  * make base_with_blog as default template
+  * add new global conf option stack_list_image_width and stack_list_image_height
+  * fix backoffice UI for 2columns layout node edit
+  * add product sorting and count to configuration option to the back office
+  * include empty ONXSHOP_GOOGLE_API_KEY
+  * add some indexes to store table
+  * experimental support for Google Analytics in backoffice
+  * add CSS classes to each item on teaser (page) list
+  * initiate tabs only if there is content
+  * add new input parameters to store_map
+  * bug fixes in store management
+  * update profile picture after Twitter login if changed
+  * add gender to survey entries export
+  * disable Facebook integration on Surveys
+  * small refectoring to allow customised shared messages to be specified in controller
+  * change recipe list template struture
+  * add a new parameter to disable the cache for a session
+  * upgrade Facebook PHP SDK v5
+  * include local.js by default as it's part of project skeleton
+  * show all categories in recipe search and increase image size
+  * include taxonomy_ids (tX classes) and rating in recipe search
+  * update default CSS to include fullBleed class and improve stack_list
+  * allow to use page_header directly within page template
+  * rename Main navigation to Primary navigation in SQL template
+  * enhance deployment configuration script
+  * remove default styling for social_network_share and set only horizontal margins on layoutTitle
+  * jQuery Form Plugin upgraded to v3.51
+  * disable More Info section which was depending on Munin
+  * remove some PHP errors/warning
+  * throw exception if controller class is not found
+  * allow anonymous reviews for recipes and make comment title non-mandatory
+  * add Schema.org photo property to recipe detail page template
+  * prevent unwanted password change when browser autofills it
+  * change password reset process
+  * upgrade Zend Framework to version 1.12.17
+
+ -- Norbert Laposa <norbert@laposa.co.uk>  2016-11-01
+ 
 Onxshop (1.7.6)
 
   * upgrade jQuery Mousewheel to version 3.1.13
