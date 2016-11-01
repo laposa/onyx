@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2008-2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2008-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -72,6 +72,7 @@ class Onxshop_Controller_Bo_Node_Default extends Onxshop_Controller {
 	 
 	function detail() {
 		$this->node_data = $this->Node->nodeDetail($this->GET['id']);
+		$this->tpl->assign('NODE_URL', translateURL("page/".$this->GET['id']));
 	}
 	
 	/**
