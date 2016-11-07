@@ -318,3 +318,9 @@ if (!defined('ONXSHOP_CSRF_PROTECTION_ENABLED')) define('ONXSHOP_CSRF_PROTECTION
 
 if (!defined('ONXSHOP_GOOGLE_API_KEY')) define('ONXSHOP_GOOGLE_API_KEY', '');
 
+/**
+ * Allow Template editing
+ */
+
+if (!defined('ONXSHOP_ALLOW_TEMPLATE_EDITING')) define('ONXSHOP_ALLOW_TEMPLATE_EDITING', false);
+

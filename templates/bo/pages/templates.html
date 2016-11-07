@@ -1,22 +1,24 @@
 <!-- BEGIN: title -->Templates<!-- END: title -->
 <!-- BEGIN: head -->
+
 <script type="text/javascript" src="/opt/codemirror/lib/codemirror.js"></script>
+<!-- <script type="text/javascript" src="/opt/codemirror/addon/search/searchcursor.js"></script> -->
+<!-- <script type="text/javascript" src="/opt/codemirror/addon/dialog/dialog.js"></script> -->
+<!-- <script type="text/javascript" src="/opt/codemirror/keymap/sublime.js"></script> -->
 <link rel="stylesheet" href="/opt/codemirror/lib/codemirror.css">
 <script src="/opt/codemirror/mode/css/css.js"></script>
+<script src="/opt/codemirror/mode/xml/xml.js"></script>
+<script src="/opt/codemirror/mode/javascript/javascript.js"></script>
 <script src="/opt/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+
+<style type="text/css">
+	div.popup { padding: 0; }
+	.CodeMirror { width: auto; height: auto; position: absolute; top: 0; left: 380px; right: 0; bottom: 60px; }
+	.button.save[disabled] {cursor: not-allowed; opacity: 0.5;}
+</style>
+
 <!-- END: head -->
 <!-- BEGIN: content -->
-<style type="text/css">
-.CodeMirror {height: auto;}
-code {font-size: 12px;}
-code span.text {color: #000000;}
-code span.comment {color: #008000;}
-code span.tag {color: #0000BB;}
-code span.attribute {color: #DD0000;}
-code span.value {color: #800080;}
-code span.comment span {color: #008000;}
-#template_edit {padding: 10px;}
-</style>
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -24,14 +26,28 @@ $(document).ready(function(){
 		drag: false,
 		autoclose: true,
 		afterClick:function(node){
-			var open_dir = $('a:first', node).attr('href').replace('#', '');
+			open_dir = $('a:first', node).attr('href').replace('#', '');
 			serverBrowserOpenDir(open_dir);
 			return false;
 		}
 	});
 });
 
-function serverBrowserOpenDir(open_dir) {
+function saveTemplate() {
+	$(".button.save").addClass('saving');
+	var content = editor.getValue();
+	var url = "/request/bo/component/template_edit~template="+open_dir+":type={GET.type}:relation={GET.relation}:node_id={GET.node_id}~";
+	$.post(url, {
+		content: content,
+		csrf_token: $("meta[name=csrf_token]").attr("content")
+	}, function(data) {
+		$(".button.save").removeClass('saving');
+		growlMessage(data);
+	});
+	return false;
+}
+
+function serverBrowserOpenDir() {
 	makeAjaxRequest('#template_edit', "/request/bo/component/template_edit~template="+open_dir+":type={GET.type}:relation={GET.relation}:node_id={GET.node_id}~");
 }
 </script>
@@ -43,7 +59,7 @@ function serverBrowserOpenDir(open_dir) {
 
 			<div class="pageHeader">
 				<div class="pageHeaderWrapper">
-					<h1 class="pageTitle"><span>CSS Editor / Template Viewer</span></h1>
+					<h1 class="pageTitle"><span>Editor</span></h1>
 				</div>
 			</div>
 
@@ -51,13 +67,6 @@ function serverBrowserOpenDir(open_dir) {
 				<div class="pageContentWrapper">
 					<div class="rowTop">
 						<div class="columnWrapper">
-							<!--
-							CSS files: 
-							<a class="button" href="/share/css/default/global.css" target="_blank"><span>global</span></a> | 
-							<a class="button" href="/share/css/default/onxshop.css" target="_blank"><span>onxshop</span></a> | 
-							<a class="button" href="/share/css/default/onxshop_ecommerce.css" target="_blank"><span>onxshop ecommerce</span></a> | 
-							<a class="button" href="/share/css/default/orange.css" target="_blank"><span>Orange style</span></a>
-							-->
 						</div>
 					</div>
 		
@@ -73,12 +82,14 @@ function serverBrowserOpenDir(open_dir) {
 							<div id="template_edit">
 								{ONXSHOP_REQUEST_template #bo/component/template_edit}
 							</div>
-							{disableONXSHOP_REQUEST_css_edit #bo/component/css_edit}
 						</div>
 					</div>
 					<div class="rowBottom">
-						<div class="columnWrapper">
-							{CONTAINER.3}
+						<div class="rowWrapper">
+							<div class="columnWrapper">
+								<p>
+								</p>
+							</div>
 						</div>
 					</div>
 				</div>
