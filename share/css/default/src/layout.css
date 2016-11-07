@@ -157,6 +157,24 @@ div.tabsLayout ul.tabs li {display: inline-block; list-style-type: none; padding
 div.tabsLayout ul.tabs li a {display: inline-block; padding: 7px 15px;}
 div.tabsLayout div.layoutBody {clear: both;}
 
+/********* node/layout/slider.html *********/
+div.sliderLayout .unslider {overflow:auto;margin:0;padding:0;}
+div.sliderLayout .unslider-wrap {position:relative}
+div.sliderLayout .unslider-wrap.unslider-carousel > div.node {float:left}
+div.sliderLayout .unslider-vertical > div.sliderWrapper {height:100%}
+div.sliderLayout .unslider-vertical div.node {float:none;width:100%}
+div.sliderLayout .unslider-fade {position:relative}
+div.sliderLayout .unslider-fade .unslider-wrap div.node {position:absolute;left:0;top:0;right:0;z-index:8}
+div.sliderLayout .unslider-fade .unslider-wrap div.node.unslider-active {z-index:10}
+div.sliderLayout .unslider div.node,
+div.sliderLayout .unslider ol,
+div.sliderLayout .unslider div.sliderWrapper {list-style:none;margin:0;padding:0;border:none}
+div.sliderLayout .unslider-arrow {position:absolute;left:20px;z-index:2;cursor:pointer}
+div.sliderLayout .unslider-arrow.next {left:auto;right:20px}
+div.sliderLayout .unslider-nav ol {list-style: none; text-align: center;}
+div.sliderLayout .unslider-nav ol li {display: inline-block; width: 15px; height: 15px; margin: 0 4px; background: transparent; border-radius: 15px; overflow: hidden; text-indent: -999em; border: 2px solid #fff; cursor: pointer;}
+div.sliderLayout .unslider-nav ol li.unslider-active {background: #fff;cursor: default;}
+
 /**
  * gutters
  * set all gutters to 10px on content elements like traditional grid systems, e.g. 960gs

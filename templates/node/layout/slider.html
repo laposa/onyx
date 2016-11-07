@@ -1,0 +1,41 @@
+<!-- BEGIN: head_once -->
+<script src="/share/js/jquery/plugins/unslider-min.js"></script>
+<script src="/share/js/jquery/plugins/velocity.min.js"></script>
+<script src="/share/js/jquery/plugins/jquery.event.move.js"></script>
+<script src="/share/js/jquery/plugins/jquery.event.swipe.js"></script>
+<script>
+$(function() { 
+    // setup ul.tabs to work as tabs for each div directly under div.tabsLayout div.layoutBody 
+    if ($('div.sliderLayout div.sliderBody').length > 0) {
+	    $('div.sliderLayout div.sliderWrapper').unslider({
+		    selectors: {
+				container: 'div.sliderBody:first',
+				slides: 'div.node'
+			},
+			animation: 'horizontal'
+		});
+	}
+});
+</script>
+<!-- END: head_once -->
+<!-- BEGIN: content -->
+<div class="sliderLayout layout {NODE.layout_style} {NODE.css_class}">
+	<div class="layoutWrapper">
+		<div class="top"><span></span></div>
+		<div class="layoutContent">
+			<div class="layoutContentWrapper ">
+				<!-- BEGIN: title --><h2 class="layoutTitle"><span>{NODE.title|htmlspecialchars}</span></h2><!-- END: title -->
+				<!-- BEGIN: title_link --><h2 class="layoutTitle"><a href="/page/{NODE.link_to_node_id}"><span>{NODE.title|htmlspecialchars}</span></a></h2><!-- END: title_link -->
+				
+				<div class="sliderWrapper">					
+					<div class="layoutBody sliderBody">
+						{CONTAINER.1}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="bottom"><span></span></div>
+	</div>
+</div>
+
+<!-- END: content -->
