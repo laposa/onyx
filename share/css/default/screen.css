@@ -195,7 +195,8 @@ div#jGrowl div.jGrowl-close { position: absolute; right: 5px; top: 5px; color: #
 div#jGrowl div.jGrowl-closer { background: black; color: white; background: rgba(0,0,0,0.75); width: 100px; margin: 10px auto; border: none; cursor: pointer; text-align: center; pointer-events: all; }
 @media all and (max-width: 600px) {
 	div#jGrowl { width: 80%; left: 10%; margin-left: 0; }
-}/**
+}
+/**
  * Norbert @ Laposa Ltd, 2009/09/22
  *
  */
