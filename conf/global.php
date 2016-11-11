@@ -214,6 +214,8 @@ else define('ONXSHOP_FACEBOOK_ENV', '');
 // determine if we are running under Facebook App
 if (ONXSHOP_FACEBOOK_ENV == 'desktop' || ONXSHOP_FACEBOOK_ENV == 'mobile') define('ONXSHOP_FACEBOOK_WITHIN_APP', true);
 else define('ONXSHOP_FACEBOOK_WITHIN_APP', false);
+if (ONXSHOP_FACEBOOK_WITHIN_APP) define('ONXSHOP_FACEBOOK_AUTH', true);
+else define('ONXSHOP_FACEBOOK_AUTH', false);
 
 /**
  * social: Twitter
@@ -304,7 +306,7 @@ if (!defined('ONXSHOP_SIMPLE_TRANSLATION_ENABLED')) define('ONXSHOP_SIMPLE_TRANS
 
 $onxshop_pre_actions = array("autologin", "locales");
 if (ONXSHOP_ALLOW_SCHEDULER) $onxshop_pre_actions[] = "scheduler";
-if (ONXSHOP_FACEBOOK_WITHIN_APP) $onxshop_pre_actions[] = 'component/client/facebook_auth';
+if (ONXSHOP_FACEBOOK_AUTH) $onxshop_pre_actions[] = 'component/client/facebook_auth';
 
 /**
  * CSRF protection
