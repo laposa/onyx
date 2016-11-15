@@ -125,7 +125,7 @@ div.pageContent .advanced { display: none; }
 #onxshopHeader a { line-height: 17px; font-size: 12px; font-family: "Lucida Grande", Helvetica, Arial, sans-serif;  color: #ccc;}
 
 #onxshopMenuBar ul { margin: 0; padding: 10px 0; list-style: none; text-shadow: 1px 1px 1px rgba(0,0,0,0.5); border-top: 1px solid #33373c; box-shadow: 0 -1px 0 #0f1112; }
-#onxshopMenuBar ul li { margin: 0; padding: 0; width: 130px;}
+#onxshopMenuBar ul li { margin: 0; padding: 0; width: 130px; white-space: nowrap;}
 #onxshopMenuBar ul li a { text-decoration: none; font-size: 11px; display: block; width: 130px; height: 28px; line-height: 24px; transition: color 200ms linear; }
 #onxshopMenuBar ul li.active a { color: #fff; margin-top: 0; border-top: 1px solid #6d97d0; background-image: -webkit-linear-gradient(top, #5685c4, #4c6cb8); background-image: -moz-linear-gradient(top, #5685c4, #4c6cb8); background-image: -ms-linear-gradient(top, #5685c4, #4c6cb8); background-image: -o-linear-gradient(top, #5685c4, #4c6cb8); background-image: linear-gradient(to bottom, #5685c4, #4c6cb8); }
 #onxshopMenuBar ul li a:hover { color: #fff !important; }
