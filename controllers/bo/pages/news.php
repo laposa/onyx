@@ -33,8 +33,8 @@ class Onxshop_Controller_Bo_Pages_News extends Onxshop_Controller {
 		 * get detail of blog container node
 		 */
 		 		
-		$news_list_detail = $this->Node->getDetail($blog_node_id);
-		$this->tpl->assign('NEWS_LIST', $news_list_detail);
+		$blog_section_detail = $this->Node->getDetail($blog_node_id);
+		$this->tpl->assign('BLOG_SECTION', $blog_section_detail);
 
 		return true;
 	}

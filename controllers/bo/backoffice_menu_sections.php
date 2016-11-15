@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2014 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2014-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -31,6 +31,14 @@ class Onxshop_Controller_Bo_Backoffice_Menu_Sections extends Onxshop_Controller_
 		$this->tpl->assign("ACTIVE_{$active_page}", 'active');
 		$this->tpl->assign("ACTIVE_{$active_page}_{$active_subpage}", 'active');
 
+		/**
+		 * get title of blog section
+		 */
+		require_once('models/common/common_node.php');
+		$Node = new common_node();
+		$blog_section_detail = $Node->Detail($Node->conf['id_map-blog']);
+		$this->tpl->assign('BLOG_SECTION', $blog_section_detail['title']);
+		
 		/**
 		 * ACL
 		 */

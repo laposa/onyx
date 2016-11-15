@@ -24,7 +24,7 @@ $(document).ready(function(){
 
 				<div class="pageHeader">
 					<div class="pageHeaderWrapper">
-						<h1 class="pageTitle"><span>News</span></h1>
+						<h1 class="pageTitle"><span>{BLOG_SECTION.title|htmlspecialchars}</span></h1>
 						{ONXSHOP_REQUEST_section_select #bo/component/news_section_select}
 					</div>
 				</div>
@@ -65,8 +65,8 @@ $(document).ready(function(){
 								<div class="columnWrapper">
 
 									<p>
-										<a class="button add" title="Add new article to {NEWS_LIST.title|htmlspecialchars}" href="#" onclick="openAjaxRequestInDialog('/request/bo/component/news_add~blog_node_id={NEWS_LIST.id}~', 'Create a news item for {NEWS_LIST.title|htmlspecialchars}'); return false"><span>Add a New Article</span></a>
-										<a class="button rss" title="News RSS Export ({NEWS_LIST.title}" href="/export/rss/node/{NEWS_LIST.id}"><span>Export This List as RSS</span></a>
+										<a class="button add" title="Add new article to {BLOG_SECTION.title|htmlspecialchars}" href="#" onclick="openAjaxRequestInDialog('/request/bo/component/news_add~blog_node_id={BLOG_SECTION.id}~', 'Create a news item for {BLOG_SECTION.title|htmlspecialchars}'); return false"><span>Add a New Article</span></a>
+										<a class="button rss" title="News RSS Export ({BLOG_SECTION.title}" href="/export/rss/node/{BLOG_SECTION.id}"><span>Export This List as RSS</span></a>
 									</p>
 
 								</div>
