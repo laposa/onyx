@@ -2075,4 +2075,36 @@ LEFT OUTER JOIN common_taxonomy_label ON (common_taxonomy_tree.label_id = common
 		else return false;
 		
 	}
+	
+	/**
+	 * list all id_map-blog* configuration options
+	 * @return array
+	 *
+	 */
+	
+	public function getListOfBlogSectionIds() {
+		
+		require_once('models/common/common_configuration.php');
+		$Common_Configuration = new common_configuration();
+		
+		$conf = $Common_Configuration->listing("object = 'common_node' AND property LIKE 'id_map-blog%'");
+		
+		if (is_array($conf) && count($conf) > 0) {
+			
+			foreach ($conf as $item) {
+				$id = (int) $item['value'];
+				$list[$id] = $id;
+			}
+			
+		} else {
+		
+			$default_blog_node_id = (int) $this->conf['id_map-blog'];
+	
+			$list = array($default_blog_node_id => $default_blog_node_id);
+		
+		}
+		
+		return $list;
+		
+	}
 }

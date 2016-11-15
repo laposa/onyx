@@ -32,12 +32,24 @@ class Onxshop_Controller_Bo_Backoffice_Menu_Sections extends Onxshop_Controller_
 		$this->tpl->assign("ACTIVE_{$active_page}_{$active_subpage}", 'active');
 
 		/**
-		 * get title of blog section
+		 * get details of all blog sections
 		 */
+		 
 		require_once('models/common/common_node.php');
 		$Node = new common_node();
-		$blog_section_detail = $Node->Detail($Node->conf['id_map-blog']);
-		$this->tpl->assign('BLOG_SECTION', $blog_section_detail['title']);
+		$blog_section_ids = $Node->getListOfBlogSectionIds();
+		
+		if (count($blog_section_ids) == 1) {
+			
+			$blog_section_detail = $Node->detail(key($blog_section_ids));
+			
+		} else {
+			
+			$blog_section_detail = array('title'=>'Posts');
+			
+		}
+		
+		$this->tpl->assign('BLOG_SECTION', $blog_section_detail);
 		
 		/**
 		 * ACL
