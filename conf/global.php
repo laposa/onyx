@@ -155,12 +155,21 @@ if (!defined('ONXSHOP_PAGE_CACHE_TTL')) define('ONXSHOP_PAGE_CACHE_TTL', 86400);
  * 
  * (basic, standard, premium)
  * 
- * basic - only CMS
+ * basic - CMS only
  * standard - CMS + eCommerce
- * premium - CMS + eCommerce + available backup download
+ * enterprise - CMS + eCommerce + custom licence
  */
 
-if (!defined('ONXSHOP_PACKAGE_NAME')) define('ONXSHOP_PACKAGE_NAME', 'standard');
+if (!defined('ONXSHOP_PACKAGE_NAME')) define('ONXSHOP_PACKAGE_NAME', 'basic');
+
+/**
+ * enable ecommerce
+ * 
+ * enable the product table, including everyting connected to it,
+ * including orders, invoices and also recipes
+ */
+ 
+if (!defined('ONXSHOP_ECOMMERCE')) define('ONXSHOP_ECOMMERCE', false);
 
 /**
  * Onxshop system support email

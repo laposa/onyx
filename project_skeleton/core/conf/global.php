@@ -1,10 +1,12 @@
 <?php
 /**
  * Global configuration
- * This is configuration shared between development and production environment
  *
- * Copyright (c) 2009-2014 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
+ * 
+ * This is configuration shared between development and production environment
+ * For all options look in onxshop_dir/conf/global.php
  *
  */
 
@@ -20,6 +22,15 @@ require_once('deployment.php');
  */
  
 //define('ONXSHOP_MAIN_TEMPLATE','node/site/default');
+
+/**
+ * enable ecommerce
+ * 
+ * enable the product table, including everything connected to it,
+ * i.e. orders, invoices and also recipes, stores
+ */
+ 
+define('ONXSHOP_ECOMMERCE', true);
 
 /**
  * Include default global configuration

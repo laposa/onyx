@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2005-2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2005-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -187,7 +187,7 @@ class Onxshop_Bo_Authentication
 	 */
 	public function isEcommerce()
 	{
-		return (ONXSHOP_PACKAGE_NAME == 'standard' || ONXSHOP_PACKAGE_NAME == 'premium');
+		return ONXSHOP_ECOMMERCE;
 	}
 
 
