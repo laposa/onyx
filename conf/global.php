@@ -153,8 +153,6 @@ if (!defined('ONXSHOP_PAGE_CACHE_TTL')) define('ONXSHOP_PAGE_CACHE_TTL', 86400);
 /**
  * Onxshop package name
  * 
- * (basic, standard, premium)
- * 
  * basic - CMS only
  * standard - CMS + eCommerce
  * enterprise - CMS + eCommerce + custom licence
