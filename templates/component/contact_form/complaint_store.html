@@ -1,0 +1,130 @@
+<!-- BEGIN: content -->
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<style type="text/css">
+@import url(/share/themes/jquery-ui/onxshop/jquery-ui.css);
+</style>
+<script type="text/javascript" src="/share/js/jquery/ui/jquery-ui.all.min.js"></script>
+<script type="text/javascript">  
+$(document).ready(function(){  
+	$("#contact_form_{GET.node_id}").validate();
+	$('#formdata-visit_date_{GET.node_id},#formdata-departure_{GET.node_id}').datepicker({startDate:'01/01/2000', dateFormat: 'D dd M yy', changeMonth: true, changeYear: true, });
+});  
+</script>
+<div class="contact_form_complaint">
+	<form class="contact" id="contact_form_{GET.node_id}" action="{URI|htmlspecialchars}#node_id_{GET.node_id}" method="post">
+	<fieldset class="single">
+		<legend>{I18N_CONTACT_FORM}</legend>
+		
+		<div class="contact_form_header">
+			<h3 style="float: left">Store Details</h3>
+			<p style="float: right">*Mandatory Fields</p>
+		</div>
+		
+		<div class="row visit_date {ERROR.visit}">
+			<span class="label"><label for="formdata-visit_date_{GET.node_id}"><span class="mandatory-mark">*</span>Date of Your Visit:</label></span>
+			<span class="field"><input type="text" class="required text" id="formdata-visit_date_{GET.node_id}" name="formdata[visit_date]" value="{FORMDATA.visit_date|htmlspecialchars}" maxlength="45" /></span>
+		</div>
+		
+		<!-- BEGIN: store -->
+		<div class="row store_id {ERROR.store_id}">
+			<span class="label"><label for="formdata-store_id_{GET.node_id}"><span class="mandatory-mark">*</span>Store You Have Visited:</label></span>
+			<!-- BEGIN: county_dropdown -->
+			<select id="formdata-store_id_{GET.node_id}" name="formdata[store_id]" class="required">
+				<option value="">- please select store -</option>
+				<!-- BEGIN: province -->
+				<optgroup label="{PROVINCE_NAME}">
+					<!-- BEGIN: store -->
+					<option value="{COUNTY.label.title|htmlspecialchars} - {STORE.title|htmlspecialchars}" {STORE.selected}>{COUNTY.label.title|htmlspecialchars} - {STORE.title|htmlspecialchars}</option>
+					<!-- END: store -->
+				</optgroup>
+				<!-- END: province -->
+			</select>
+			<!-- END: county_dropdown -->
+		</div>
+		<!-- END: store -->
+		
+		<div class="row details {ERROR.details}">
+			<span class="label"><label for="formdata-details_{GET.node_id}"><strong>Details of Issue:</strong></label></span>
+			<span class="details"><textarea id="formdata-details_{GET.node_id}" name="formdata[details]" class="textarea" rows="15" cols="45">{FORMDATA.details|htmlspecialchars}</textarea></span>
+		</div>
+		
+		<div class="contact_form_header">
+			<h3>Your Details</h3>
+		</div>
+		
+		<div class="row name {ERROR.name}">
+			<span class="label"><label for="formdata-name_{GET.node_id}"><span class="mandatory-mark">*</span>Your Name:</label></span>
+			<span class="field"><input type="text" class="required text" id="formdata-name_{GET.node_id}" name="formdata[required_name]" value="{FORMDATA.required_name|htmlspecialchars}" maxlength="45" /></span>
+		</div>
+		
+		<div class="row address {ERROR.address}">
+			<span class="label"><label for="formdata-address_{GET.node_id}">Address:</label></span>
+			<span class="field"><input type="text" class="text" id="formdata-address_{GET.node_id}" name="formdata[address]" value="{FORMDATA.address|htmlspecialchars}" maxlength="45" /></span>
+		</div>
+		
+		<div class="row town {ERROR.town}">
+			<span class="label"><label for="formdata-town_{GET.node_id}">Town:</label></span>
+			<span class="field"><input type="text" class="text" id="formdata-town_{GET.node_id}" name="formdata[town]" value="{FORMDATA.town|htmlspecialchars}" maxlength="45" /></span>
+		</div>
+		
+		<div class="row postcode {ERROR.postcode}">
+			<span class="label"><label for="formdata-postcode_{GET.node_id}">Post Code:</label></span>
+			<span class="field"><input type="text" class="text" id="formdata-postcode_{GET.node_id}" name="formdata[postcode]" value="{FORMDATA.postcode|htmlspecialchars}" maxlength="45" /></span>
+		</div>
+		
+		<div class="row email {ERROR.email}">
+			<span class="label"><label for="formdata-email_{GET.node_id}"><span class="mandatory-mark">*</span>{I18N_EMAIL}:</label></span>
+			<span class="field"><input type="text" class="required email text" id="formdata-email_{GET.node_id}" name="formdata[required_email]" value="{FORMDATA.required_email|htmlspecialchars}" maxlength="45" /></span>
+		</div>
+		
+		<div class="row telephone {ERROR.telephone}">
+			<span class="label"><label for="formdata-telephone_{GET.node_id}"><span class="mandatory-mark">*</span>Telephone:</label></span>
+			<span class="field"><input type="text" class="required text" id="formdata-telephone_{GET.node_id}" name="formdata[required_telephone]" value="{FORMDATA.required_telephone|htmlspecialchars}" maxlength="45" /></span>
+		</div>
+		
+		<div class="row consent {ERROR.consent}">
+			<span class="label">
+				<label for="formdata-consent{GET.node_id}">For the purpose of this investigation, I agree to sharing my contact details with the relevant supplier and retailer:</label>
+				<select class="select required" id="formdata-consent_{GET.node_id}" name="formdata[consent]" value="{FORMDATA.consent|htmlspecialchars}">
+					<option value="">-</option>
+					<option class="no" value="No">No</option>
+					<option class="yes" value="Yes">Yes</option>
+				</select>
+			</span>
+		</div>		
+
+		<!-- BEGIN: captcha_field -->
+		<div class="row captcha {ERROR.captcha}">
+			<span class="label"><label for="formdata-captcha_{GET.node_id}">{I18N_CAPTCHA} <img class="captcha" src="/request/component/captcha?id={GET.node_id}" alt="code"/>:</label></span>
+			<span class="field"><input type="text" class="text" id="formdata-captcha_{GET.node_id}" name="formdata[captcha]" value="{FORMDATA.captcha|htmlspecialchars}" maxlength="45" /></span>
+		</div>
+		<!-- END: captcha_field -->
+		<!-- BEGIN: invisible_captcha_field -->
+		<div class="row captcha {ERROR.captcha}">
+			<span class="label"><label for="formdata-captcha_{GET.node_id}">{I18N_CAPTCHA} <em id="code-captcha_{GET.node_id}">###</em>:</label></span>
+			<span class="field"><input type="text" class="text" id="formdata-captcha_{GET.node_id}" name="formdata[captcha]" value="{FORMDATA.captcha|htmlspecialchars}" maxlength="45" /></span>
+		</div>
+		<script type="text/javascript">
+			$(function() {
+				$.get("/request/component/captcha_js?node_id={GET.node_id}&nocache=1&cache_burst=" + Math.random(), function(data) {
+					var input = $("#formdata-captcha_{GET.node_id}");
+					$("#code-captcha_{GET.node_id}").html(data);
+					input.val(data).parent().parent().hide();
+				});
+			});
+		</script>
+		<!-- END: invisible_captcha_field -->
+	
+	</fieldset>
+	
+		<input type="hidden" name="node_id" value="{GET.node_id}" />
+	
+		<div class="row submit">
+			<span class="label"><label>&nbsp;</label></span>
+			<span class="field"><button type="submit" name="send" value="send" class="submit"><span>{I18N_SUBMIT}</span></button></span>
+		</div>
+	
+	<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+</form>
+</div>
+<!-- END: content -->

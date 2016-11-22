@@ -1,0 +1,176 @@
+<!-- BEGIN: content -->
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<style type="text/css">
+@import url(/share/themes/jquery-ui/onxshop/jquery-ui.css);
+</style>
+<script type="text/javascript" src="/share/js/jquery/ui/jquery-ui.all.min.js"></script>
+<script type="text/javascript">  
+$(document).ready(function(){  
+	$("#contact_form_{GET.node_id}").validate();
+	$('#formdata-purchase_date_{GET.node_id},#formdata-departure_{GET.node_id}').datepicker({startDate:'01/01/2000', dateFormat: 'D dd M yy', changeMonth: true, changeYear: true, });
+});  
+</script>
+<div class="contact_form_complaint">
+	<form class="contact" id="contact_form_{GET.node_id}" action="{URI|htmlspecialchars}#node_id_{GET.node_id}" method="post">
+	<fieldset class="single">
+		<legend>{I18N_CONTACT_FORM}</legend>
+		
+		<div class="contact_form_header">
+			<h3 style="float: left">Product Details</h3>
+			<p style="float: right">*Mandatory Fields</p>
+		</div>
+		
+		<div class="row purchase_date {ERROR.purchase}">
+			<span class="label"><label for="formdata-purchase_date_{GET.node_id}"><span class="mandatory-mark">*</span>Purchase Date:</label></span>
+			<span class="field"><input type="text" class="required text" id="formdata-purchase_date_{GET.node_id}" name="formdata[purchase_date]" value="{FORMDATA.purchase_date|htmlspecialchars}" maxlength="45" /></span>
+		</div>
+		
+		<!-- BEGIN: store -->
+		<div class="row store_id {ERROR.store_id}">
+			<span class="label"><label for="formdata-store_id_{GET.node_id}"><span class="mandatory-mark">*</span>Store Purchased From:</label></span>
+			<!-- BEGIN: county_dropdown -->
+			<select id="formdata-store_id_{GET.node_id}" name="formdata[store_id]" class="required">
+				<option value="">- please select store -</option>
+				<!-- BEGIN: province -->
+				<optgroup label="{PROVINCE_NAME}">
+					<!-- BEGIN: store -->
+					<option value="{COUNTY.label.title|htmlspecialchars} - {STORE.title|htmlspecialchars}" {STORE.selected}>{COUNTY.label.title|htmlspecialchars} - {STORE.title|htmlspecialchars}</option>
+					<!-- END: store -->
+				</optgroup>
+				<!-- END: province -->
+			</select>
+			<!-- END: county_dropdown -->
+		</div>
+		<!-- END: store -->
+		
+		<div class="row product_name {ERROR.product_name}">
+			<span class="label"><label for="formdata-product_name_{GET.node_id}"><span class="mandatory-mark">*</span>Product Name:</label></span>
+			<span class="field"><input type="text" class="required text" id="formdata-product_name_{GET.node_id}" name="formdata[required_product_name]" value="{FORMDATA.required_product_name|htmlspecialchars}" maxlength="45" /></span>
+		</div>
+		
+		<div class="row product_barcode {ERROR.product_barcode}">
+			<span class="label"><label for="formdata-product_barcode_{GET.node_id}"><span class="mandatory-mark">*</span>Product Barcode:</label></span>
+			<span class="field"><input type="text" class="required text" id="formdata-product_barcode_{GET.node_id}" name="formdata[required_product_barcode]" value="{FORMDATA.required_product_barcode|htmlspecialchars}" maxlength="45" /></span>
+		</div>
+		
+		<div class="row use_by_best_before {ERROR.use_by}">
+			<span class="label"><label for="formdata-use_by_best_before_{GET.node_id}"><span class="mandatory-mark">*</span>Use By / Best Before:</label></span>
+			<span class="field"><input type="text" class="text" id="formdata-use_by_best_before_{GET.node_id}" name="formdata[required_use_by_best_before]" value="{FORMDATA.required_use_by_best_before|htmlspecialchars}" maxlength="45" /></span>
+		</div>
+		
+		<div class="row any_other_codes {ERROR.any_other_codes}">
+			<span class="label"><label for="formdata-any_other_codes_{GET.node_id}">Any Other Codes:</label></span>
+			<span class="field"><input type="text" class="text" id="formdata-any_other_codes_{GET.node_id}" name="formdata[any_other_codes]" value="{FORMDATA.any_other_codes|htmlspecialchars}" maxlength="45" /></span>
+		</div>
+		
+		<div class="row issue_description {ERROR.issue_with_product}">
+			<span class="label"><label for="formdata-issue_description_{GET.node_id}">Issue Description:</label></span>
+			<select class="select" id="formdata-issue_description_{GET.node_id}" name="formdata[issue_description]" value="{FORMDATA.issue_description|htmlspecialchars}">
+			  <option class="quality" value="Poor Quality">Poor Quality</option>
+			  <option class="off" value="Gone Off">Gone Off</option>
+			  <option class="tough" value="Tough">Tough</option>
+			  <option class="foreignbody" value="Foreign Body">Foreign Body</option>
+			  <option class="componentmissing" value="Component Missing">Component Missing</option>
+			  <option class="other" value="other">Other</option>
+			</select>
+		</div>
+		
+		<div class="row other_issue {ERROR.other_issue}">
+			<span class="label"><label for="formdata-other_issue_{GET.node_id}">If Other Please State:</label></span>
+			<span class="field"><input type="text" class="text" id="formdata-other_issue_{GET.node_id}" name="formdata[other_issue]" value="{FORMDATA.other_issue|htmlspecialchars}" maxlength="45" /></span>
+		</div>
+		
+		<div class="row sample_location {ERROR.sample_location}">
+			<span class="label"><label for="formdata-sample_location_{GET.node_id}">Location of Sample:</label></span>
+			<select class="select" id="formdata-sample_location_{GET.node_id}" name="formdata[sample_location]" value="{FORMDATA.sample_location|htmlspecialchars}">
+			  <option class="home" value="Home">Home</option>
+			  <option class="store" value="Store">Store</option>
+			  <option class="discarded" value="Discarded">Discarded</option>
+			</select>
+		</div>		
+		
+		<div class="row details {ERROR.details}">
+			<span class="label"><label for="formdata-details_{GET.node_id}"><strong>Details of Issue:</strong></label></span>
+			<span class="details"><textarea id="formdata-details_{GET.node_id}" name="formdata[details]" class="textarea" rows="15" cols="45">{FORMDATA.details|htmlspecialchars}</textarea></span>
+		</div>
+		
+		<div class="contact_form_header">
+			<h3>Your Details</h3>
+		</div>
+		
+		<div class="row name {ERROR.name}">
+			<span class="label"><label for="formdata-name_{GET.node_id}"><span class="mandatory-mark">*</span>Your Name:</label></span>
+			<span class="field"><input type="text" class="required text" id="formdata-name_{GET.node_id}" name="formdata[required_name]" value="{FORMDATA.required_name|htmlspecialchars}" maxlength="45" /></span>
+		</div>
+		
+		<div class="row address {ERROR.address}">
+			<span class="label"><label for="formdata-address_{GET.node_id}">Address:</label></span>
+			<span class="field"><input type="text" class="text" id="formdata-address_{GET.node_id}" name="formdata[address]" value="{FORMDATA.address|htmlspecialchars}" maxlength="45" /></span>
+		</div>
+		
+		<div class="row town {ERROR.town}">
+			<span class="label"><label for="formdata-town_{GET.node_id}">Town:</label></span>
+			<span class="field"><input type="text" class="text" id="formdata-town_{GET.node_id}" name="formdata[town]" value="{FORMDATA.town|htmlspecialchars}" maxlength="45" /></span>
+		</div>
+		
+		<div class="row postcode {ERROR.postcode}">
+			<span class="label"><label for="formdata-postcode_{GET.node_id}">Post Code:</label></span>
+			<span class="field"><input type="text" class="text" id="formdata-postcode_{GET.node_id}" name="formdata[postcode]" value="{FORMDATA.postcode|htmlspecialchars}" maxlength="45" /></span>
+		</div>
+		
+		<div class="row email {ERROR.email}">
+			<span class="label"><label for="formdata-email_{GET.node_id}"><span class="mandatory-mark">*</span>{I18N_EMAIL}:</label></span>
+			<span class="field"><input type="text" class="required email text" id="formdata-email_{GET.node_id}" name="formdata[required_email]" value="{FORMDATA.required_email|htmlspecialchars}" maxlength="45" /></span>
+		</div>
+		
+		<div class="row telephone {ERROR.telephone}">
+			<span class="label"><label for="formdata-telephone_{GET.node_id}"><span class="mandatory-mark">*</span>Telephone:</label></span>
+			<span class="field"><input type="text" class="required text" id="formdata-telephone_{GET.node_id}" name="formdata[required_telephone]" value="{FORMDATA.required_telephone|htmlspecialchars}" maxlength="45" /></span>
+		</div>
+		
+		<div class="row consent {ERROR.consent}">
+			<span class="label">
+				<label for="formdata-consent{GET.node_id}">For the purpose of this investigation, I agree to sharing my contact details with the relevant supplier and retailer:</label>
+				<select class="select required" id="formdata-consent_{GET.node_id}" name="formdata[consent]" value="{FORMDATA.consent|htmlspecialchars}">
+					<option value="">-</option>
+					<option class="no" value="No">No</option>
+					<option class="yes" value="Yes">Yes</option>
+				</select>
+			</span>
+		</div>		
+
+		<!-- BEGIN: captcha_field -->
+		<div class="row captcha {ERROR.captcha}">
+			<span class="label"><label for="formdata-captcha_{GET.node_id}">{I18N_CAPTCHA} <img class="captcha" src="/request/component/captcha?id={GET.node_id}" alt="code"/>:</label></span>
+			<span class="field"><input type="text" class="text" id="formdata-captcha_{GET.node_id}" name="formdata[captcha]" value="{FORMDATA.captcha|htmlspecialchars}" maxlength="45" /></span>
+		</div>
+		<!-- END: captcha_field -->
+		<!-- BEGIN: invisible_captcha_field -->
+		<div class="row captcha {ERROR.captcha}">
+			<span class="label"><label for="formdata-captcha_{GET.node_id}">{I18N_CAPTCHA} <em id="code-captcha_{GET.node_id}">###</em>:</label></span>
+			<span class="field"><input type="text" class="text" id="formdata-captcha_{GET.node_id}" name="formdata[captcha]" value="{FORMDATA.captcha|htmlspecialchars}" maxlength="45" /></span>
+		</div>
+		<script type="text/javascript">
+			$(function() {
+				$.get("/request/component/captcha_js?node_id={GET.node_id}&nocache=1&cache_burst=" + Math.random(), function(data) {
+					var input = $("#formdata-captcha_{GET.node_id}");
+					$("#code-captcha_{GET.node_id}").html(data);
+					input.val(data).parent().parent().hide();
+				});
+			});
+		</script>
+		<!-- END: invisible_captcha_field -->
+	
+	</fieldset>
+	
+		<input type="hidden" name="node_id" value="{GET.node_id}" />
+	
+		<div class="row submit">
+			<span class="label"><label>&nbsp;</label></span>
+			<span class="field"><button type="submit" name="send" value="send" class="submit"><span>{I18N_SUBMIT}</span></button></span>
+		</div>
+	
+	<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+</form>
+</div>
+<!-- END: content -->
