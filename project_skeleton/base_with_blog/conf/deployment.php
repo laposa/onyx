@@ -6,7 +6,7 @@
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  * This is configuration specific to the environment, i.e. development or production environment
- * For all options look in onxshop_dir/conf/global.php
+ * For all options and default values look into onxshop_dir/conf/global.php
  *
  */
 

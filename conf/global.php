@@ -1,10 +1,13 @@
 <?php
 /**
- * Global Onxshop configuration
+ * Default Global Onxshop configuration
  *
  * Copyright (c) 2005-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
- * 	
+ *
+ * The constants defined here can be "overwritten" in project_dir/conf/global.php
+ * i.e. the configuration from project_dir is parsed before the configuration
+ * here in the onxshop_dir
  */
 
 /**
