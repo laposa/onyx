@@ -34,6 +34,12 @@ $debug_hosts = array(
 //define('ONXSHOP_MAIN_DOMAIN', 'default.co.uk');
 
 /**
+ * Force HTTPS to all pages
+ */
+
+//define('ONXSHOP_SSL', true);
+
+/**
  * Directory paths
  */
 

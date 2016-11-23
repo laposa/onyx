@@ -92,8 +92,16 @@ if (!defined('ONXSHOP_REQUIRE_AUTH')) define('ONXSHOP_REQUIRE_AUTH', false);
  * will force SSL in Onxshop_Controller_Uri_Mapping
  */
 
-if (!defined('ONXSHOP_EDITOR_USE_SSL')) define('ONXSHOP_EDITOR_USE_SSL', false);
-if (!defined('ONXSHOP_CUSTOMER_USE_SSL')) define('ONXSHOP_CUSTOMER_USE_SSL', false);
+if (!defined('ONXSHOP_SSL')) define('ONXSHOP_SSL', false);
+
+if (!defined('ONXSHOP_EDITOR_USE_SSL')) {
+	if (ONXSHOP_SSL) define('ONXSHOP_EDITOR_USE_SSL', true);
+	else define('ONXSHOP_EDITOR_USE_SSL', false);
+}
+if (!defined('ONXSHOP_CUSTOMER_USE_SSL')) {
+	if (ONXSHOP_SSL) define('ONXSHOP_CUSTOMER_USE_SSL', true);
+	else define('ONXSHOP_CUSTOMER_USE_SSL', false);
+}
 if (!defined('ONXSHOP_HSTS_ENABLE')) define('ONXSHOP_HSTS_ENABLE', false);
 if (!defined('ONXSHOP_HSTS_TTL')) define('ONXSHOP_HSTS_TTL', 3600);
 
