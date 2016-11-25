@@ -17,13 +17,13 @@ img {border: 0; -ms-interpolation-mode: bicubic; vertical-align: bottom;}
  * Forms
  */
  
-form {margin: 0 0 2em 0; padding: 0 1em; clear: both;}
-form div.row {margin: 0 0 0.5em; clear: both;}
-form span.label {display: block; float: none; text-align: left; width: auto;}
-form span.field {display: inline-block; width: 95%;}
+form {margin: 0; padding: 0 1em;}
+form div.row {margin: 0 0 0.5em;}
+form span.label {display: block; }
+form span.field {display: block;}
 form div.submit button {float: none;}
 
-fieldset {margin: 1em 0 4em 0; padding: 0.5em 0; clear: both; border: 0;}
+fieldset {margin: 1em 0 1em 0; padding: 0.5em 0; clear: both; border: 0;}
 fieldset.single {margin-bottom: 0;}
 label {cursor: pointer; cursor: hand; vertical-align: middle;}
 label.error {float: none; color: red; padding-left: .5em; vertical-align: top;}

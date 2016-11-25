@@ -168,7 +168,7 @@
 	<div class="bottom_clear"></div>
 
 	<!-- BEGIN: deliver_to_billing -->
-	<form action="{URI_SAFE|htmlspecialchars}" method="post" class="twoColumns deliver_to_billing">
+	<form action="{URI_SAFE|htmlspecialchars}" method="post" class="deliver_to_billing">
 		<input type="hidden" name="action" value="update_deliver_to_billing"/>
 		<label>
 			<input id="deliver_checkbox" type="checkbox" name="deliver_to_billing" {CHECKED} value="1"/>
@@ -216,7 +216,7 @@
 	</script>
 	<!-- END: deliver_to_billing -->
 
-	<form action="{URI_SAFE|htmlspecialchars}" method="post" id="address_edit_{GET.node_id}" class="twoColumns">	
+	<form action="{URI_SAFE|htmlspecialchars}" method="post" id="address_edit_{GET.node_id}">	
 	
 	<input type="hidden" name="node_id" value="{GET.node_id}"/>
 
