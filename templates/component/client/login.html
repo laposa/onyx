@@ -20,12 +20,10 @@ $(document).ready(function(){
 				<span class="field"><input class="required text" id="client-password" type="password" name="client[customer][password]" value="{CLIENT.customer.password|htmlspecialchars}" placeholder="{I18N_YOUR_PASSWORD_PLACEHOLDER}"/></span>
 			</div>
 			<div class="row autologin checkbox">
-				<span class="label"><label for="autologin">{I18N_AUTOLOGIN}</label></span>
-				<span class="field"><input type="checkbox" class="checkbox" id="autologin" name="autologin" checked="checked" /></span>
+				<span class="field"><input type="checkbox" class="checkbox" id="autologin" name="autologin" checked="checked" /> <label for="autologin">{I18N_AUTOLOGIN}</label></span>
 			</div>
 		</fieldset>
 		<div class="row submit">
-			<span class="label"><label>&nbsp;</label></span>
 			<span class="field"><button type="submit" name="login" value="sent" class="submit"><span>{I18N_SUBMIT}</span></button></span>
 		</div>
 	<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
