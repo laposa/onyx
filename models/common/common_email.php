@@ -2,7 +2,7 @@
 /**
  * class common_email
  *
- * Copyright (c) 2009-2014 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -236,7 +236,7 @@ CREATE TABLE common_email (
 	 * @return boolean
 	 * send status
 	 */
-	function sendEmail($template, $content = 'n/a', $email_recipient = false, $name_recipient = false, $email_from = false, $name_from = false) {
+	function sendEmail($template = 'default', $content = 'n/a', $email_recipient = false, $name_recipient = false, $email_from = false, $name_from = false) {
 		
 		if (!$email_recipient) $email_recipient = $this->conf['mail_recipient_address'];
 		if (!$name_recipient) $name_recipient = $this->conf['mail_recipient_name'];
