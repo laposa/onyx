@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2009-2011 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -59,7 +59,7 @@ class Onxshop_Controller_Bo_Component_Fe_edit_Mode extends Onxshop_Controller {
 		 */
 		 
 		if ($_GET['fe_edit_mode']) {
-			//onxshopGoTo($uri_strip, 2);
+			onxshopGoTo($uri_strip, 2);
 		}
 		
 		return true;
