@@ -173,10 +173,11 @@ pre {white-space: pre-wrap;}
 blockquote {margin: 2em 0; padding: 0 0 0 40px; background: url(/share/images/default/quote_open.png) top left no-repeat;}
 blockquote p {background: url(/share/images/default/quote_close.png) bottom right no-repeat; padding: 0 40px 0 0;}
 
-span.disabled {text-decoration: line-through;}
-/*a clearing div*/
+/* a clearing div */
 div.bottom {clear: both;}
 
+/* disabled, but visible*/
+span.disabled {text-decoration: line-through;}
 
 /**
  * Messages
@@ -213,7 +214,7 @@ div#jGrowl div.jGrowl-closer { background: black; color: white; background: rgba
  * Norbert @ Laposa Ltd, 2009/09/22
  *
  */
- 
+
 /****************************************************************************************/
 /*****************************          node/page           *****************************/
 /****************************************************************************************/
