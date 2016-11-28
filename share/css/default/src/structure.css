@@ -1,0 +1,101 @@
+/**
+ * Norbert @ Laposa Ltd, 2009/09/22
+ *
+ */
+ 
+/****************************************************************************************/
+/*****************************          node/site           *****************************/
+/****************************************************************************************/
+
+/********* node/site/default.html *********/
+#pageWrapper {padding: 0.5em;}
+#pageWrapper div.bottom {clear: both;}
+
+#accessibility {display: none;}
+
+#container {width: 960px; margin: 0 auto;}
+
+#header {width: 100%;}
+
+#logo {float: left;}
+#logo a {text-decoration: none; font-size: 4em;}
+
+#search {float: right; clear: right; margin-bottom: 10px;}
+#search form {background: transparent; float: right; border-width: 0; margin: 0; padding: 0;}
+#search input { background: white url(/share/images/search-bg.png) no-repeat 3px center; padding-left: 20px; width: 165px; display: block;}
+#search label {width: auto;}
+#search button {display: none;}
+
+#userbox {float: right; margin-bottom: 1.5em;}
+
+#basket {clear: right; float: right; white-space: nowrap; margin-bottom: 10px;}
+#basketWrapper {display: inline;}
+
+/**
+ * global navigation
+ */
+
+#globalNavigation {float: right; margin: 0 0 15px 0;}
+#globalNavigation ul {margin: 0; padding: 0; line-height: 1em; list-style-type: none;}
+#globalNavigation li {display: inline-block; padding: 0; margin: 0;}
+#globalNavigation a {text-decoration: none; display: block; padding: 7px 15px;}
+#globalNavigation a:active span {text-decoration: underline;}
+
+/**
+ * reveal navigation
+ */
+ 
+#revealNavigationButton {display: none;}
+
+/**
+ * primary navigation
+ */
+
+#primaryNavigation {clear: both; width: 100%;}
+#primaryNavigation ul {margin: 0; padding: 0; line-height: 1em; list-style-type: none;}
+#primaryNavigation li {margin: 0; padding: 0; margin-right: 20px; display: inline-block; zoom: 1;/*zoom for ie6*/}
+#primaryNavigation a {text-decoration: none; display: block; padding: 7px 5px; white-space: pre; zoom: 1;}
+#primaryNavigation a:active span {text-decoration: underline;}
+#primaryNavigation a.open {font-weight: bold;}
+#primaryNavigation ul ul {list-style-type: square; margin-left: 10px;}
+#primaryNavigation ul ul li {padding-left: 0; margin-left: 15px; display: list-item;}
+#primaryNavigation ul ul a {padding-left: 0; font-weight: normal; height: auto;}
+
+/**
+ * footer navigation
+ */
+ 
+#footerNavigation {clear: both; float: left; width: 100%;}
+#footerNavigation ul {margin: 0; padding: 0; line-height: 1em; list-style-type: none;}
+#footerNavigation li {padding: 0; margin: 0; display: inline-block;}
+#footerNavigation a {text-decoration: none; display: block; padding: 7px 15px; white-space: pre;}
+#footerNavigation a:active span {text-decoration: underline;}
+
+/**
+ * content
+ */
+ 
+#content { width: 100%; clear: both; }
+
+/**
+ * footer
+ */
+ 
+#footer {width: 100%; clear: both; margin-top: 30px;}
+
+#copyright {clear: both; float: left; padding: 30px 0 0.5em 0; white-space: nowrap;}
+#credit {float: right; padding: 30px 0 0.5em 0;}
+
+#copyright p,
+#credit p,
+#copyright a,
+#credit a {text-decoration: none; padding: 0; margin: 0;}
+
+/* graphical credit */
+/*#credit a {background: url(/share/images/onxshop-power-master-150.png) no-repeat; display: block; width: 150px; height: 49px;}
+#credit a span {display: none;}
+#copyright p {padding-top: 25px;}*/
+
+#contentSide {width: 150px; margin: 10px; clear: left; float: left;}
+
+#contentBottom {clear: both; width: 100%;}
