@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2009-2011 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -11,7 +11,7 @@ require_once('models/ecommerce/ecommerce_promotion.php');
 class Onxshop_Controller_Bo_Component_Configuration_Ecommerce_Promotion extends Onxshop_Controller_Bo_Component_Configuration {
 	
 	/**
-	 * custom action
+	 * main action
 	 */
 	
 	public function mainAction() {
