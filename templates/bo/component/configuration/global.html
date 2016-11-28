@@ -6,27 +6,27 @@
 		<legend>Global</legend>
 		<div class="row">
 			<span class="label"><label>Title</label></span>
-			<span class="field"><input type="text" value="{CONF.title|htmlspecialchars}" name="conf[item][title]"/></span>
+			<span class="field"><input type="text" value="{CONF.global.title|htmlspecialchars}" name="conf[item][title]"/></span>
 		</div>
 		
 		<div class="row">
 			<span class="label"><label>Author of content</label></span>
-			<span class="field"><input class="long" type="text" value="{CONF.author_content|htmlspecialchars}" name="conf[item][author_content]"/></span>
+			<span class="field"><input class="long" type="text" value="{CONF.global.author_content|htmlspecialchars}" name="conf[item][author_content]"/></span>
 		</div>
 		<!-- BEGIN: copyright -->
 		<div class="row">
 			<span class="label"><label for="conf_item_copyright">Website copyright (automatically generated, <a href="#conf_item_copyright" onclick="$('#conf_item_copyright').removeAttr('disabled');">modify</a>)</label></span>
-			<span class="field"><input class="long" type="text" id="conf_item_copyright" value="{CONF.copyright|htmlspecialchars}" name="conf[item][copyright]" disabled="disabled"/></span>
+			<span class="field"><input class="long" type="text" id="conf_item_copyright" value="{CONF.global.copyright|htmlspecialchars}" name="conf[item][copyright]" disabled="disabled"/></span>
 		</div>
 		<!-- END: copyright -->
 		<div class="row">
 			<span class="label"><label>Website credit</label></span>
-			<span class="field"><input class="long" type="text" value="{CONF.credit|htmlspecialchars}" name="conf[item][credit]"/></span>
+			<span class="field"><input class="long" type="text" value="{CONF.global.credit|htmlspecialchars}" name="conf[item][credit]"/></span>
 		</div>
 		
 		<div class="row">
 			<span class="label"><label>Html Title Suffix</label></span>
-			<span class="field"><input type="text" value="{CONF.html_title_suffix|htmlspecialchars}" name="conf[item][html_title_suffix]"/></span>
+			<span class="field"><input type="text" value="{CONF.global.html_title_suffix|htmlspecialchars}" name="conf[item][html_title_suffix]"/></span>
 		</div>
 		<!--
 		<div class="row">
@@ -53,52 +53,49 @@
 		-->
 		<div class="row">
 			<span class="label"><label>Admin Email</label></span>
-			<span class="field"><input type="text" value="{CONF.admin_email|htmlspecialchars}" name="conf[item][admin_email]"/></span>
+			<span class="field"><input type="text" value="{CONF.global.admin_email|htmlspecialchars}" name="conf[item][admin_email]"/></span>
 		</div>
 		
 		<div class="row">
 			<span class="label"><label>Google Analytics (UA-XXXXXXX code)</label></span>
-			<span class="field"><input type="text" value="{CONF.google_analytics|htmlspecialchars}" name="conf[item][google_analytics]"/></span>
+			<span class="field"><input type="text" value="{CONF.global.google_analytics|htmlspecialchars}" name="conf[item][google_analytics]"/></span>
 		</div>
 		
 		<div class="row">
 			<span class="label"><label>Google Adwords (must be numeric conversion ID)</label></span>
-			<span class="field"><input type="text" value="{CONF.google_adwords|htmlspecialchars}" name="conf[item][google_adwords]"/></span>
+			<span class="field"><input type="text" value="{CONF.global.google_adwords|htmlspecialchars}" name="conf[item][google_adwords]"/></span>
 		</div>
 
 		<div class="row">
 			<span class="label"><label>Google Tag Manager (GTM-XXXXXX code)</label></span>
-			<span class="field"><input type="text" value="{CONF.google_tag_manager|htmlspecialchars}" name="conf[item][google_tag_manager]"/></span>
+			<span class="field"><input type="text" value="{CONF.global.google_tag_manager|htmlspecialchars}" name="conf[item][google_tag_manager]"/></span>
 		</div>
 		
 		<div class="row">
-			<span class="label"><label for="conf-display_secondary_navigation">Display Secondary Navigation (default setting for a new page and show/hide subitems in primary nav)</label></span>
-			<span class="field"><input type="checkbox" id="conf-display_secondary_navigation" name="conf[item][display_secondary_navigation]" {CHECKED.display_secondary_navigation} /></span>
+			<span class="field"><input type="checkbox" id="conf-display_secondary_navigation" name="conf[item][display_secondary_navigation]" {CHECKED.display_secondary_navigation} /> <label for="conf-display_secondary_navigation">Display Secondary Navigation (default setting for a new page and show/hide subitems in primary nav)</label></span>
 		</div>
 		
 		<div class="row">
-			<span class="label"><label for="conf-display_content_side">Display Content Side</label></span>
-			<span class="field"><input type="checkbox" id="conf-display_content_side" name="conf[item][display_content_side]" {CHECKED.display_content_side} /></span>
+			<span class="field"><input type="checkbox" id="conf-display_content_side" name="conf[item][display_content_side]" {CHECKED.display_content_side} /> <label for="conf-display_content_side">Display Content Side</label></span>
 		</div>
 		
 		<div class="row">
-			<span class="label"><label for="conf-display_content_foot">Display Content Foot</label></span>
-			<span class="field"><input type="checkbox" id="conf-display_content_foot" name="conf[item][display_content_foot]" {CHECKED.display_content_foot} /></span>
+			<span class="field"><input type="checkbox" id="conf-display_content_foot" name="conf[item][display_content_foot]" {CHECKED.display_content_foot} /> <label for="conf-display_content_foot">Display Content Foot</label></span>
 		</div>		
 		
 		<div class="row">
 			<span class="label"><label>Extra Head</label></span>
-			<span class="field"><textarea name="conf[item][extra_head]">{CONF.extra_head|htmlspecialchars}</textarea></span>
+			<span class="field"><textarea name="conf[item][extra_head]">{CONF.global.extra_head|htmlspecialchars}</textarea></span>
 		</div>
 		
 		<div class="row">
 			<span class="label"><label>Extra Body Top</label></span>
-			<span class="field"><textarea name="conf[item][extra_body_top]">{CONF.extra_body_top|htmlspecialchars}</textarea></span>
+			<span class="field"><textarea name="conf[item][extra_body_top]">{CONF.global.extra_body_top|htmlspecialchars}</textarea></span>
 		</div>
 		
 		<div class="row">
 			<span class="label"><label>Extra Body Bottom</label></span>
-			<span class="field"><textarea name="conf[item][extra_body_bottom]">{CONF.extra_body_bottom|htmlspecialchars}</textarea></span>
+			<span class="field"><textarea name="conf[item][extra_body_bottom]">{CONF.global.extra_body_bottom|htmlspecialchars}</textarea></span>
 		</div>
 		
 		<div class="row">
@@ -115,7 +112,7 @@
 		
 		<div class="row">
 			<span class="label"><label>Product List Items Per Page</label></span>
-			<span class="field"><input type="number" name="conf[item][product_list_per_page]" value="{CONF.product_list_per_page|htmlspecialchars}" /></span>
+			<span class="field"><input type="number" name="conf[item][product_list_per_page]" value="{CONF.global.product_list_per_page|htmlspecialchars}" /></span>
 		</div>
 		
 	</fieldset>
@@ -124,10 +121,8 @@
 	<input type="hidden" name="conf[node_id]" value="0" />
 	
 	<div class="row submit">
-		<span class="label"><label>&nbsp;</label></span>
 		<span class="field"><button class="save" type="submit" name="save" value="save"><span>Save</span></button></span>
 	</div>
-<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+	<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
-			
 <!-- END: content -->

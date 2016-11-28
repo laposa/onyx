@@ -1,39 +1,22 @@
 <!-- BEGIN: title -->International Currency Configuration<!-- END: title -->
 <!-- BEGIN: content -->
-<!--
+<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 <form action="{URI|htmlspecialchars}" method="post">
 	<fieldset>
 		<legend>International currency</legend>
 		<div class="row">
-			<span class="label"><label>Mail address for registration notify</label></span>
-			<span class="field"><input type="text" value="{CONF.registration_mail_to_address|htmlspecialchars}" name="conf[item][registration_mail_to_address]"/></span>
-		</div>
-		
-		<div class="row">
-			<span class="label"><label>Mail name for registration notify</label></span>
-			<span class="field"><input class="long" type="text" value="{CONF.registration_mail_to_name|htmlspecialchars}" name="conf[item][registration_mail_to_name]"/></span>
-		</div>
-		
-		<div class="row">
-			<span class="label"><label>Login type</label></span>
-			<span class="field">
-				<select name="conf[item][login_type]">
-					<option value="email" {SELECTED.email}>Email</option>
-					<option value="username" {SELECTED.username}>Username</option>
-				</select>
-			</span>
+			<span class="label"><label>Allowed currencies</label></span>
+			<span class="field"><input type="text" value="{CONF.international_currency.allowed|htmlspecialchars}" name="conf[item][allowed]"/></span>
 		</div>
 		
 	</fieldset>
 	
 	<input type="hidden" name="conf[object]" value="international_currency" />
-	<input type="hidden" name="conf[node_id]" value="{GET.node_id}" />
+	<input type="hidden" name="conf[node_id]" value="0" />
 	
 	<div class="row submit">
-		<span class="label"><label>&nbsp;</label></span>
 		<span class="field"><button class="save" type="submit" name="save" value="save"><span>Save</span></button></span>
 	</div>
-<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+	<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
--->
 <!-- END: content -->

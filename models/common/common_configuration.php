@@ -305,7 +305,7 @@ class common_configuration extends Onxshop_Model {
 			
 		} else {
 		
-			msg("Nothing has changed");
+			msg("Property for {$conf_new['property']} in {$conf_new['object']} did not change");
 			return false;
 		}
 	}

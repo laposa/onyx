@@ -12,12 +12,26 @@ $(document).ready(function(){
 			return false;
 		}
 	});
+	
+	initConfigurationAjaxForm();
 
 });
 
-function serverBrowserOpenDir(open_dir) {
-	makeAjaxRequest('#component_configuration', "/request/bo/component/configuration.bo/component/configuration/" + open_dir);
+function initConfigurationAjaxForm() {
+	var options = { 
+		target: '#component_configuration',
+		success: function(responseText, statusText) {
+			initConfigurationAjaxForm();
+			popupMessage('#component_configuration div.onxshop_messages');
+		}
+	};
+    $('#component_configuration form').ajaxForm(options); 
 }
+
+function serverBrowserOpenDir(open_dir) {
+	makeAjaxRequest('#component_configuration', "/request/bo/component/configuration/" + open_dir, initConfigurationAjaxForm);
+}
+
 </script>
 
 <div class="twoColumnPage page sidebar">

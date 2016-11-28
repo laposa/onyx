@@ -1,7 +1,7 @@
 <?php
 /**
  * 
- * Copyright (c) 2009-2011 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -14,9 +14,8 @@ class Onxshop_Controller_Bo_Component_Configuration extends Onxshop_Controller {
 	 
 	public function mainAction() {
 		
-		//nothing to do
-
-		return true;
+		return $this->standardConfAction();
+		
 	}
 	
 	/**
@@ -100,7 +99,7 @@ class Onxshop_Controller_Bo_Component_Configuration extends Onxshop_Controller {
 	
 	function displayConf($conf) {
 	
-		$this->tpl->assign("CONF", $conf['global']);
+		$this->tpl->assign("CONF", $conf);
 		return true;
 	}
 	
@@ -109,7 +108,6 @@ class Onxshop_Controller_Bo_Component_Configuration extends Onxshop_Controller {
 	 */
 	 
 	function prepareForDisplay($conf) {
-	
 		
 		return $conf;
 	}
