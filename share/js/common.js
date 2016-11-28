@@ -50,6 +50,25 @@ function makeAjaxRequest(jquery_selector, url, complete_callback) {
 	);
 }
 
+/**
+ * make request using Ajax and initiate AjaxForm
+ */
+
+function makeAjaxRequestWithForm(selector, component) {
+	makeAjaxRequest(selector, component, function(){initComponentAjaxForm(selector)});
+}
+
+function initComponentAjaxForm(component_selector) {
+	var options = {
+		target: component_selector,
+		success: function(responseText, statusText) {
+			initComponentAjaxForm(component_selector);
+			popupMessage(component_selector + ' div.onxshop_messages');
+		}
+	};
+    $(component_selector + ' form').ajaxForm(options);
+}
+
 function showModalOverlay() {
 	var html = '<div id="modal_overlay" class="off">' +
 		'<div id="model_click_zone" onclick="hideModalOverlay()"></div>' +

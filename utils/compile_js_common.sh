@@ -2,6 +2,7 @@ cat share/js/jquery/jquery.js > share/js/compiled.js && echo "" >> share/js/comp
 cat share/js/jquery/jquery-migrate.js >> share/js/compiled.js  && echo "" >> share/js/compiled.js
 cat share/js/jquery/plugins/jquery.tools.js >> share/js/compiled.js && echo "" >> share/js/compiled.js
 cat share/js/jquery/plugins/jquery.easing.js >> share/js/compiled.js && echo "" >> share/js/compiled.js
+cat share/js/jquery/plugins/jquery.form.js >> share/js/compiled.js && echo "" >> share/js/compiled.js
 cat share/js/jquery/plugins/jquery.jgrowl.js >> share/js/compiled.js && echo "" >> share/js/compiled.js
 cat share/js/jquery/plugins/jquery.validate.js >> share/js/compiled.js && echo "" >> share/js/compiled.js
 cat share/js/jquery/plugins/reflection.js >> share/js/compiled.js && echo "" >> share/js/compiled.js

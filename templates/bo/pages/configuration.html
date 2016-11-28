@@ -13,23 +13,12 @@ $(document).ready(function(){
 		}
 	});
 	
-	initConfigurationAjaxForm();
+	//initComponentAjaxForm('#component_configuration');
 
 });
 
-function initConfigurationAjaxForm() {
-	var options = { 
-		target: '#component_configuration',
-		success: function(responseText, statusText) {
-			initConfigurationAjaxForm();
-			popupMessage('#component_configuration div.onxshop_messages');
-		}
-	};
-    $('#component_configuration form').ajaxForm(options); 
-}
-
 function serverBrowserOpenDir(open_dir) {
-	makeAjaxRequest('#component_configuration', "/request/bo/component/configuration/" + open_dir, initConfigurationAjaxForm);
+	makeAjaxRequestWithForm('#component_configuration', '/request/bo/component/configuration/' + open_dir);
 }
 
 </script>
