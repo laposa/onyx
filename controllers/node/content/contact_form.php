@@ -22,7 +22,7 @@ class Onxshop_Controller_Node_Content_Contact_Form extends Onxshop_Controller_No
 
 		if (!is_array($node_data['component'])) {
 			$node_data['component'] = array();
-			$node_data['component']['node_controller'] = 'common_simple';
+			$node_data['component']['node_controller'] = $Node->conf['contact_form_default_template'];
 		}
 
 		if ($node_data['component']['sending_failed'] == '') $node_data['component']['sending_failed'] = 'The provided data is not valid! Required items are marked with an asterisk (*)';

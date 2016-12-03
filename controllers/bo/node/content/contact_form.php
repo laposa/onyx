@@ -26,6 +26,12 @@ class Onxshop_Controller_Bo_Node_Content_Contact_form extends Onxshop_Controller
 		$File = new common_file();
 		
 		/**
+		 * set default email template
+		 */
+		
+		if (empty($this->node_data['component']['node_controller'])) $this->node_data['component']['node_controller'] = $this->Node->conf['contact_form_default_template'];
+		
+		/**
 		 * contact form template directory name
 		 */
 		 
@@ -46,7 +52,7 @@ class Onxshop_Controller_Bo_Node_Content_Contact_form extends Onxshop_Controller
 		if (is_array($templates)) {
 			foreach ($templates as $template) {
 				$template['name'] = str_replace('.html', '', $template['name']);
-						
+				
 				if ($template['name'] == $this->node_data['component']['node_controller']) $template['selected'] = "selected='selected'";
 				else $template['selected'] = '';
 	

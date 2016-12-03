@@ -302,8 +302,14 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 		//system pages
 		if (!is_numeric($conf['id_map-404'])) $conf['id_map-404'] = 14;
 		
+		/**
+		 * other settings
+		 */
+		 
 		//unpublish node on duplicate
 		if (!is_numeric($conf['unpublish_on_duplicate'])) $conf['unpublish_on_duplicate'] = 0;
+		//default template for contact forms
+		if (trim($conf['contact_form_default_template']) == '') $conf['contact_form_default_template'] = 'common_simple';
 		
 		return $conf;
 	}
