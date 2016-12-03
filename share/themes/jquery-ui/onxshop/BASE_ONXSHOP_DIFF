@@ -1,7 +1,7 @@
-785,798d784
+885,898d884
 < .ui-widget {
-< 	font-family: Verdana,Arial,sans-serif/*{ffDefault}*/;
-< 	font-size: 1.1em/*{fsDefault}*/;
+< 	font-family: Arial,Helvetica,sans-serif;
+< 	font-size: 1em;
 < }
 < .ui-widget .ui-widget {
 < 	font-size: 1em;
@@ -10,6 +10,6 @@
 < .ui-widget select,
 < .ui-widget textarea,
 < .ui-widget button {
-< 	font-family: Verdana,Arial,sans-serif/*{ffDefault}*/;
+< 	font-family: Arial,Helvetica,sans-serif;
 < 	font-size: 1em;
 < }
