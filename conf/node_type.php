@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * Copyright (c) 2006-2014 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2006-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 	
  */
@@ -48,6 +48,7 @@ $templates_info['layout'] = array(
 	'5columns'=>array('title' => '5-columns', 'description'=>'', 'visibility'=>true),
 	'6columns'=>array('title' => '6-columns', 'description'=>'', 'visibility'=>true),
 	'tabs'=>array('title' => 'Tabs', 'description'=>'', 'visibility'=>true),
+	'slider'=>array('title' => 'Slider', 'description'=>'', 'visibility'=>true),
 	'default_template' => '2columns'
 	);
 		
@@ -61,7 +62,7 @@ $templates_info['page'] = array(
 	'product_browse'=>array('title' => 'Products Browse', 'description'=>'', 'visibility'=>true),
 	'competition'=>array('title' => 'Competition (Survey)', 'description'=>'', 'visibility'=>true),
 	'poll'=>array('title' => 'Poll (Survey)', 'description'=>'', 'visibility'=>true),
-	'symbolic'=>array('title' => 'Alias', 'description'=>'a.k.a. symbolic link page', 'visibility'=>true), 
+	'symbolic'=>array('title' => 'Alias (Redirect)', 'description'=>'a.k.a. symbolic link page or redirect with a record in navigation, i.e. can be shown as part of the navigation', 'visibility'=>true),
 	'default_template' => 'default'
 	);
 		
