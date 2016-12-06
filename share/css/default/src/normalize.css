@@ -59,7 +59,7 @@ input.short,
 textarea.short,
 select.short {width: 5em;}
 button {display: inline-block; cursor: pointer; cursor: hand; position: relative; padding: 0 0.5em; overflow: visible; font-family: inherit; font-size: inherit;}
-button span {position: relative; display: block; white-space: nowrap;}
+button span {position: relative; display: inline-block; white-space: nowrap;}
 input.half,
 textarea.half,
 select.half {width: 50%;}
