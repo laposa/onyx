@@ -40,8 +40,8 @@ class Onxshop_Controller {
 	 * Construct
 	 */
 	 
-	public function __construct($request, &$subOnxshop = false) {
-		return $this->process($request, $subOnxshop);
+	public function __construct($request = false, &$subOnxshop = false) {
+		if ($request) return $this->process($request, $subOnxshop);
 	}
 	
 	/**
