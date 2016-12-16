@@ -58,6 +58,7 @@ form fieldset {margin: 0;}
  */
 #primaryNavigation {width: auto; margin: 10px; background: #ccc; text-align: center;}
 #primaryNavigation a {padding: 10px;}
+#primaryNavigation ul ul {display: none;}
 @media all and (max-width: 800px) {
   #primaryNavigation {display: none;}
   #primaryNavigation li {display: block;}
