@@ -417,7 +417,7 @@ div.node-fullBleed {margin: 0!important;}
 #pageWrapper {padding: 0.5em;}
 #pageWrapper div.bottom {clear: both;}
 
-#accessibility {position: relative;}
+#accessibility {position: relative; display: none; /*disabled by default*/}
 #accessibility li {list-style-type: none;}
 #accessibility a {position: absolute; top: -1000px; left: -1000px; height: 1px; width: 1px; text-align: left; overflow: hidden;}
 #accessibility a:active,
