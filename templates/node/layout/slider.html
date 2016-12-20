@@ -4,12 +4,22 @@
 <script src="/share/js/jquery/plugins/jquery.event.move.js"></script>
 <script src="/share/js/jquery/plugins/jquery.event.swipe.js"></script>
 <script>
-$(function() { 
+$(function() {
+
+	// we need to use a different selector when in editting or sorting mode
+	var fe_edit_mode = '{_SESSION.fe_edit_mode}';
+	
+	if (fe_edit_mode == 'edit' || fe_edit_mode == 'move') {
+		var slider_selector = 'div.sliderBody div.onxshop_layout_container:first';
+	} else {
+		var slider_selector = 'div.sliderBody:first';
+	}
+	
     // setup ul.tabs to work as tabs for each div directly under div.tabsLayout div.layoutBody 
     if ($('div.sliderLayout div.sliderBody').length > 0) {
 	    $('div.sliderLayout div.sliderWrapper').unslider({
 		    selectors: {
-				container: 'div.sliderBody:first',
+				container: slider_selector,
 				slides: 'div.node'
 			},
 			animation: 'horizontal'
