@@ -40,10 +40,20 @@ class Onxshop_Controller_Component_Contact_Form extends Onxshop_Controller {
 	}
 	
 	/**
-	 * preprocess
+	 * preprocess (before any data processing)
 	 */
 	 
 	public function preProcessEmailForm($formdata) {
+		
+		return $formdata;
+			
+	}
+	
+	/**
+	 * postprocess (after data processing, but before parsing any variables to the template)
+	 */
+	 
+	public function postProcessEmailForm($formdata) {
 		
 		$this->tpl->assign('MAX_FILE_SIZE', ini_get('upload_max_filesize'));
 	
@@ -62,16 +72,6 @@ class Onxshop_Controller_Component_Contact_Form extends Onxshop_Controller {
 			if (!$formdata['telephone'] && $_SESSION['client']['customer']['telephone']) $formdata['telephone'] = $formdata['required_telephone'] = $_SESSION['client']['customer']['telephone'];
 			
 		}
-		
-		return $formdata;
-			
-	}
-	
-	/**
-	 * postprocess
-	 */
-	 
-	public function postProcessEmailForm($formdata) {
 		
 		return $formdata;
 		
