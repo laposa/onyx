@@ -55,17 +55,11 @@ class Onxshop_Controller_Component_Contact_Form extends Onxshop_Controller {
 		 
 		if ($_SESSION['client']['customer']['id'] > 0) {
 			
-			if (!$formdata['first_name']) $formdata['first_name'] = $formdata['required_first_name'] = $_SESSION['client']['customer']['first_name'];
-			if (!$formdata['last_name']) $formdata['last_name'] = $formdata['required_last_name'] = $_SESSION['client']['customer']['last_name'];
-			if (!$formdata['name']) $formdata['name'] = $formdata['required_name'] = $formdata['first_name'] . " " . $formdata['last_name'];
-			if (!$formdata['email']) $formdata['email'] = $formdata['required_email'] = $_SESSION['client']['customer']['email'];
-			if (!$formdata['telephone']) $formdata['telephone'] = $formdata['required_telephone'] = $_SESSION['client']['customer']['telephone'];
-			
-			$formdata['required_first_name'] = $formdata['first_name'];
-			$formdata['required_last_name'] = $formdata['last_name'];
-			$formdata['required_name'] = $formdata['name'];
-			$formdata['required_email'] = $formdata['email'];
-			$formdata['required_telephone'] = $formdata['telephone'];
+			if (!$formdata['first_name'] && $_SESSION['client']['customer']['first_name']) $formdata['first_name'] = $formdata['required_first_name'] = $_SESSION['client']['customer']['first_name'];
+			if (!$formdata['last_name'] && $_SESSION['client']['customer']['last_name']) $formdata['last_name'] = $formdata['required_last_name'] = $_SESSION['client']['customer']['last_name'];
+			if (!$formdata['name'] && ($formdata['first_name'] || $formdata['last_name'])) $formdata['name'] = $formdata['required_name'] = $formdata['first_name'] . " " . $formdata['last_name'];
+			if (!$formdata['email'] && $_SESSION['client']['customer']['email']) $formdata['email'] = $formdata['required_email'] = $_SESSION['client']['customer']['email'];
+			if (!$formdata['telephone'] && $_SESSION['client']['customer']['telephone']) $formdata['telephone'] = $formdata['required_telephone'] = $_SESSION['client']['customer']['telephone'];
 			
 		}
 		
