@@ -1,8 +1,36 @@
-Onxshop (1.7.8/dev)
+Onxshop (1.7.8)
 
-  * TODO
+  * bug fixed in contact form
+  * improve #accesibility navigation (kept hidden by default)
+  * new layout type slider
+  * update base_with_blog template
+  * allow to create Onxshop_Controller without any request
+  * more descriptive labels for node types
+  * FontAwesome included in default CSS
+  * new Node conf option - contact_form_default_template
+  * upgrade jQuery v1.12.4 and jQuery UI v1.12.1
+  * add link to latest API in Backoffice / Advanced
+  * add move ajax form to compiles.js and add new function makeAjaxRequestWithForm
+  * refactorinn in backoffice configuration, allow to configure international_currency
+  * refactoring of CSS file structure
+  * remove empty spans and put checkboxes in one element together with label
+  * clear fe_edit_mode GET from the URL
+  * remove twoColumns style from all forms
+  * add default mail template
+  * upgrade jQuery Validation Plugin - v1.15.0
+  * new constannt ONXSHOP_SSL
+  * new contact form templates for complaints
+  * update documentation on configuration options
+  * disable eCommerce in default configuration via new conf option ONXSHOP_ECOMMERCE
+  * show Posts as navigation title in backoffice if multiple blog containers are employed
+  * use blog section title set in CMS in navigation for backoffice
+  * make sure left hand navigation in backoffice will not break with long item names
+  * upgrade Mobile_Detect to v 2.8.23
+  * new constant ONXSHOP_FACEBOOK_AUTH
+  * update Zend Framework to 1.12.20
+  * enable template editing in back office
 
- -- Norbert Laposa <norbert@laposa.co.uk>  2016-11-01
+ -- Norbert Laposa <norbert@laposa.co.uk>  2016-12-21
  
 Onxshop (1.7.7)
 
