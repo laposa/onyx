@@ -24,7 +24,7 @@
 ##         --vhost                       Create Apache vhost file and enable it
 ##         --ssl                         Create SSL certificate (Let's Encrypt via Certbot)
 
-script_dir=$(dirname "$BASH_SOURCE")
+script_dir=$(dirname `realpath "$BASH_SOURCE"`)
 source "${script_dir}/easyoptions.sh" || exit
 
 # Arguments
