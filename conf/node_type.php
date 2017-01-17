@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * Copyright (c) 2006-2016 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2006-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 	
  */
@@ -54,7 +54,7 @@ $templates_info['layout'] = array(
 		
 $templates_info['page'] = array(
 	'default'=>array('title' => 'Default', 'description'=>'', 'visibility'=>true),
-	'blank'=>array('title' => 'Blank', 'description'=>'', 'visibility'=>false),
+	'blank'=>array('title' => 'Blank', 'description'=>'', 'visibility'=>true),
 	'news'=>array('title' => 'News article', 'description'=>'', 'visibility'=>false),
 	'recipe'=>array('title' => 'Recipe', 'description'=>'', 'visibility'=>false),
 	'store'=>array('title' => 'Store', 'description'=>'', 'visibility'=>false),
