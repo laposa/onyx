@@ -2,80 +2,24 @@
 <!-- BEGIN: head -->
 <!-- BEGIN: open_graph -->
 <meta property="og:type" content="article" />
-<!-- BEGIN: image --><meta property="og:image" content="{PROTOCOL}://{_SERVER.HTTP_HOST}/image/{OPENGRAPH_IMAGE.src|htmlspecialchars}" /><!-- END: image -->
+<!-- BEGIN: image --><meta property="og:image" content="http://{_SERVER.HTTP_HOST}/image/{OPENGRAPH_IMAGE.src|htmlspecialchars}" /><!-- END: image -->
 <meta property="og:description" content="{NODE.description|htmlspecialchars}" />
 <!-- END: open_graph -->
 <!-- END: head -->
 <!-- BEGIN: content -->
-
-
-<div id="pageSide">
-	<div id="pageSideWrapper">
-		<!-- BEGIN: secondary_navigation -->
-		<div id="secondaryNavigation">
-			<div id="secondaryNavigationWrapper">
-				<div class="top"><span></span></div>
-				<div class="content">
-					{SECONDARY_NAVIGATION}
+<article class="page {NODE.css_class} {NODE.taxonomy_class}">
+	<div class="page-wrapper">
+			<!-- BEGIN: page_header -->
+			<div class="pageHeader">
+				<div class="pageHeaderWrapper">
+					<h1 class="pageTitle"><span>{NODE.page_title|htmlspecialchars}</span></h1>
 				</div>
-				<div class="bottom"><span></span></div>
 			</div>
-		</div>
-		
-		<div id="containerFour">
-			<div id="containerFourWrapper">
-				<div class="top"><span></span></div>
-				<div class="content">
-					{CONTAINER.4}
-				</div>
-				<div class="bottom"><span></span></div>
-			</div>
-		</div>
-		<!-- END: secondary_navigation -->
-	</div>
-</div>
-
-
-<div class="twoColumnPage page {NODE.layout_style} {NODE.css_class} {NODE.taxonomy_class}">
-	<div class="top"><span></span></div>
-	<div class="content">
-		<div class="pageWrapper">
-			{PAGE_HEADER}
+			<!-- END: page_header -->
 			<div class="pageContent">
-				<div class="pageContentWrapper">
-					<div class="rowTop">
-						<div class="rowWrapper">
-							<div class="columnWrapper">
-								{CONTAINER.0}
-							</div>
-						</div>
-					</div>
-					<div class="rowMiddle">
-						<div class="rowWrapper">
-							<div class="columnOne">
-								<div class="columnWrapper">
-									{CONTAINER.1}
-								</div>
-							</div>
-							<div class="columnTwo">
-								<div class="columnWrapper">
-									{CONTAINER.2}
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="rowBottom">
-						<div class="rowWrapper">
-							<div class="columnWrapper">
-								{CONTAINER.3}
-							</div>
-						</div>
-					</div>
-				</div>
+				{CONTAINER.0}
 			</div>
-		</div>
 	</div>
-	<div class="bottom"><span></span></div>
-</div>
+</article>
 
 <!-- END: content -->
