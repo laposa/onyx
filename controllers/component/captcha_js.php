@@ -33,6 +33,8 @@ class Onxshop_Controller_Component_Captcha_Js extends Onxshop_Controller {
 		$node_data = $Node->nodeDetail($node_id);
 
 		return ($node_data['component']['spam_protection'] =='captcha_text_js' || 
+				$node_data['component']['parameter'] == 'spam_protection=captcha_text_js' ||
+				$node_data['component']['parameter'] == 'spam_protection=captcha_image' ||
 				$node_data['node_controller'] == 'news');
 	}
 

@@ -14,7 +14,11 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
 	 */
 	 
 	public function mainAction() {
-		
+
+		$this->enableCaptcha = (($this->GET['spam_protection'] == "captcha_image" ||
+			$this->GET['spam_protection'] == "captcha_text_js") && 
+			strpos($this->tpl->filecontents, 'formdata-captcha_') !== FALSE);
+
 		$this->commonAction();
 		
 		if ($_POST['save']) $this->saveForm();
@@ -28,6 +32,14 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
 		if ($client_data['customer']['birthday'] != '') $client_data['customer']['birthday'] = strftime('%d/%m/%Y', strtotime($client_data['customer']['birthday']));
 		
 		$this->tpl->assign('CLIENT', $client_data);
+
+		if ($this->enableCaptcha) {
+			if ($this->GET['spam_protection'] == "captcha_text_js") {
+				$this->tpl->parse("content.invisible_captcha_field");
+			} else {
+				$this->tpl->parse("content.captcha_field");
+			}
+		}
 
 		return true;
 	}
@@ -78,7 +90,18 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
 			// Format to ISO
 			$client_customer['birthday'] = strftime('%Y-%m-%d', strtotime(str_replace('/', '-', $client_customer['birthday'])));
 		}
-			
+		
+		// verify captcha
+		if ($this->enableCaptcha) {
+			$node_id = (int) $this->GET['node_id'];
+			$word = strtolower($_SESSION['captcha'][$node_id]);
+			$isCaptchaValid = strlen($_POST['client']['captcha']) > 0 && $_POST['client']['captcha'] == $word;
+			if (!$isCaptchaValid) {
+				msg('Invalid security code', 'error');
+				return false;
+			}
+		}
+	
 		//check validation of submited fields
 		if ($this->Customer->prepareToRegister($client_customer) && $password_match_status) {
 		
