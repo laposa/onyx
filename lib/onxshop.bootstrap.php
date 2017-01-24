@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2005-2016 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2005-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -259,8 +259,8 @@ class Onxshop_Bootstrap {
 		//in PHP5.4 can be used this:
 		//session_register_shutdown();
 				
-		if (!array_key_exists('active_pages', $_SESSION)) $_SESSION['active_pages'] = array();
-		if (!array_key_exists('full_path', $_SESSION)) $_SESSION['full_path'] = array();
+		if (!array_key_exists('active_pages', $_SESSION)) $_SESSION['active_pages'] = array(); // only pages
+		if (!array_key_exists('full_path', $_SESSION)) $_SESSION['full_path'] = array(); // including layouts, containers, etc.
 		if (array_key_exists('HTTPS', $_SERVER)) $protocol = 'https';
 		else $protocol = 'http';
 

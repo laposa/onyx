@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2005-2016 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2005-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -72,6 +72,13 @@ class Onxshop_Controller {
 		 */
 		 
 		$this->GET = $_GET;
+		
+		/**
+		 * make current and parent page ID easily available
+		 */
+		 
+		$this->page_id = $_SESSION['active_pages'][0];
+		$this->parent_page_id = $_SESSION['active_pages'][1];
 		
 		/**
 		 * check request
@@ -771,6 +778,8 @@ class Onxshop_Controller {
 		$this->tpl->assign('_GET', $_GET);
 		$this->tpl->assign('GET', $this->GET);
 		$this->tpl->assign('TIME', time());
+		$this->tpl->assign('PAGE_ID', $this->page_id);
+		$this->tpl->assign('PARENT_PAGE_ID', $this->parent_page_id);
 		
 	}
 
