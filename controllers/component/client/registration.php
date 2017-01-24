@@ -95,7 +95,7 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
 		if ($this->enableCaptcha) {
 			$node_id = (int) $this->GET['node_id'];
 			$word = strtolower($_SESSION['captcha'][$node_id]);
-			$isCaptchaValid = strlen($_POST['client']['captcha']) > 0 && $_POST['client']['captcha'] == $word;
+			$isCaptchaValid = strlen($_POST['formdata']['captcha']) > 0 && $_POST['formdata']['captcha'] == $word;
 			if (!$isCaptchaValid) {
 				msg('Invalid security code', 'error');
 				return false;
