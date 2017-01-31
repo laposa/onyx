@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2013 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2013-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -24,12 +24,12 @@ class Onxshop_Controller_Component_Node_Container_Content extends Onxshop_Contro
 		$Node = new common_node();
 		
 		$content = $Node->parseChildren($node_id, $container);
-		
-		foreach ($content as $item) {
-			
-			$this->tpl->assign('ITEM', $item);
-			$this->tpl->parse('content.item');
-			
+
+		if (is_array($content)) {
+			foreach ($content as $item) {
+				$this->tpl->assign('ITEM', $item);
+				$this->tpl->parse('content.item');
+			}
 		}
 		
 		return true;
