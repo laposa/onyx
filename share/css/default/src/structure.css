@@ -1,5 +1,5 @@
 /**
- * Norbert @ Laposa Ltd, 2009/09/22
+ * Chris Black 2017/01
  *
  */
  
@@ -8,8 +8,6 @@
 /****************************************************************************************/
 
 /********* node/site/default.html *********/
-#pageWrapper {padding: 0.5em;}
-#pageWrapper div.bottom {clear: both;}
 
 #accessibility {position: relative; display: none; /*disabled by default*/}
 #accessibility li {list-style-type: none;}
@@ -33,74 +31,40 @@
 
 #userbox {float: right; margin-bottom: 1.5em;}
 
-#basket {clear: right; float: right; white-space: nowrap; margin-bottom: 10px;}
-#basketWrapper {display: inline;}
-
-/**
- * global navigation
- */
-
-#globalNavigation {float: right; margin: 0 0 15px 0;}
-#globalNavigation ul {margin: 0; padding: 0; line-height: 1em; list-style-type: none;}
-#globalNavigation li {display: inline-block; padding: 0; margin: 0;}
-#globalNavigation a {text-decoration: none; display: block; padding: 7px 15px;}
-#globalNavigation a:active span {text-decoration: underline;}
-
 /**
  * reveal navigation
  */
  
-#revealNavigationButton {display: none;}
+nav#reveal {display: none;}
 
 /**
  * primary navigation
  */
 
-#primaryNavigation {clear: both; width: 100%;}
-#primaryNavigation ul {margin: 0; padding: 0; line-height: 1em; list-style-type: none;}
-#primaryNavigation li {margin: 0; padding: 0; margin-right: 20px; display: inline-block; zoom: 1;/*zoom for ie6*/}
-#primaryNavigation a {text-decoration: none; display: block; padding: 7px 5px; white-space: pre; zoom: 1;}
-#primaryNavigation a:active span {text-decoration: underline;}
-#primaryNavigation a.open {font-weight: bold;}
-#primaryNavigation ul ul {list-style-type: square; margin-left: 10px;}
-#primaryNavigation ul ul li {padding-left: 0; margin-left: 15px; display: list-item;}
-#primaryNavigation ul ul a {padding-left: 0; font-weight: normal; height: auto;}
+nav#primary {clear: both; width: 100%;}
+nav#primary ul {margin: 0; padding: 0; line-height: 1em; list-style-type: none;}
+nav#primary ul li {margin: 0; padding: 0; margin-right: 1em; display: inline-block; zoom: 1;/*zoom for ie6*/}
+nav#primary a {text-decoration: none; display: block; white-space: pre; zoom: 1;}
+nav#primary a:active span {text-decoration: underline;}
+nav#primary a.open {font-weight: bold;}
+nav#primary ul ul {list-style-type: square; margin-left: 10px;}
+nav#primary ul ul li {padding-left: 0; margin-left: 15px; display: list-item;}
+nav#primary ul ul a {padding-left: 0; font-weight: normal; height: auto;}
 
 /**
  * footer navigation
  */
  
-#footerNavigation {clear: both; float: left; width: 100%;}
-#footerNavigation ul {margin: 0; padding: 0; line-height: 1em; list-style-type: none;}
-#footerNavigation li {padding: 0; margin: 0; display: inline-block;}
-#footerNavigation a {text-decoration: none; display: block; padding: 7px 15px; white-space: pre;}
-#footerNavigation a:active span {text-decoration: underline;}
+footer nav {}
 
 /**
  * content
  */
  
-#content { width: 100%; clear: both; }
+main {width: 100%; clear: both;}
 
 /**
  * footer
  */
- 
-#footer {width: 100%; clear: both; margin-top: 30px;}
 
-#copyright {clear: both; float: left; padding: 30px 0 0.5em 0; white-space: nowrap;}
-#credit {float: right; padding: 30px 0 0.5em 0;}
 
-#copyright p,
-#credit p,
-#copyright a,
-#credit a {text-decoration: none; padding: 0; margin: 0;}
-
-/* graphical credit */
-/*#credit a {background: url(/share/images/onxshop-power-master-150.png) no-repeat; display: block; width: 150px; height: 49px;}
-#credit a span {display: none;}
-#copyright p {padding-top: 25px;}*/
-
-#contentSide {width: 150px; margin: 10px; clear: left; float: left;}
-
-#contentBottom {clear: both; width: 100%;}

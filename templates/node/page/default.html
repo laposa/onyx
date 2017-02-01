@@ -7,19 +7,15 @@
 <!-- END: open_graph -->
 <!-- END: head -->
 <!-- BEGIN: content -->
-<article class="page {NODE.css_class} {NODE.taxonomy_class}">
-	<div class="page-wrapper">
-			<!-- BEGIN: page_header -->
-			<div class="pageHeader">
-				<div class="pageHeaderWrapper">
-					<h1 class="pageTitle"><span>{NODE.page_title|htmlspecialchars}</span></h1>
-				</div>
-			</div>
-			<!-- END: page_header -->
-			<div class="pageContent">
-				{CONTAINER.0}
-			</div>
+
+<!-- BEGIN: page_header -->
+<header class="{NODE.node_group} {NODE.css_class} {NODE.taxonomy_class} {NODE.extra_css_class|htmlspecialchars}" data-node-id="{NODE.id}" data-node-controller="{NODE.node_controller}">
+	<div class="wrapper">
+		<h1 class="pageTitle">{NODE.page_title|htmlspecialchars}</h1>
 	</div>
-</article>
+</header>
+<!-- END: page_header -->
+
+{CONTAINER.0}
 
 <!-- END: content -->

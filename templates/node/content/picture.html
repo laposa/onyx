@@ -1,11 +1,11 @@
 <!-- BEGIN: content -->
-<div class="picture type_{NODE.component.template} {NODE.css_class}">
-	<div class="top"><span></span></div>
-	<!-- BEGIN: title --><h3 class="contentTitle"><span>{NODE.title|htmlspecialchars}</span></h3><!-- END: title -->
-	<!-- BEGIN: title_link --><h3 class="contentTitle"><a href="/page/{NODE.link_to_node_id}"><span>{NODE.title|htmlspecialchars}</span></a></h3><!-- END: title_link -->
-	<div class="contentBody">
+<section class="gallery-{NODE.component.template} {NODE.css_class} {NODE.node_controller} {NODE.node_group} {NODE.css_class} {NODE.taxonomy_class} {NODE.extra_css_class|htmlspecialchars}" data-node-id="{NODE.id}" data-node-controller="{NODE.node_controller}" >
+	<div class="wrapper">
+		<header>
+			<!-- BEGIN: title --><h3>{NODE.title|htmlspecialchars}</h3><!-- END: title -->
+			<!-- BEGIN: title_link --><h3><a href="/page/{NODE.link_to_node_id}"><span>{NODE.title|htmlspecialchars}</span></a></h3><!-- END: title_link -->
+		</header>
 		{CONTENT}
 	</div>
-	<div class="bottom"><span></span></div>
-</div>
+</section>
 <!-- END: content -->

@@ -17,8 +17,8 @@
 
 {ONXSHOP_REQUEST_google_analytics #component/google_analytics}
 
-<div id="page_id_{GET.id}" class="site {NODE.css_class} customer-account-type-{_SESSION.client.customer.account_type} locale-{LOCALE|substr(%s, 0, 5)}">
-	<header>
+<header>
+	<div class="wrapper">
 		<div id="logo">
 			<a href="/" title="{I18N_GOTO_HOMEPAGE} {CONFIGURATION.global.title|htmlspecialchars}"><span>{CONFIGURATION.global.title|htmlspecialchars}</span></a>
 		</div>
@@ -28,26 +28,24 @@
 		<nav id="primary">
 			{PRIMARY_NAVIGATION}
 		</nav>
-	</header>
-
-	<main id="content">
-		{SUB_CONTENT}
-	</main>
-
-	<div id="content-bottom">
-		{CONTENT_FOOT}
 	</div>
-	
-	<footer>
-		<nav id="footer">
+</header>
+
+<main class="{NODE.node_group} {NODE.css_class} {NODE.taxonomy_class} {NODE.extra_css_class|htmlspecialchars}" data-node-id="{NODE.id}" data-node-controller="{NODE.node_controller}">
+	{SUB_CONTENT}
+</main>
+
+<footer>
+	<div class="wrapper">
+		<section id="content-bottom">
+			{CONTENT_FOOT}
+		</section>
+		<nav>
 			{FOOTER_NAVIGATION}
 		</nav>
-
-		<div id="copyright">
-			<p>{CONFIGURATION.global.copyright}</p>
-		</div>
-	</footer>
-</div>
+		<small>{CONFIGURATION.global.copyright}</small>
+	</div>
+</footer>
 
 {CONFIGURATION.global.extra_body_bottom}
 <!-- END: content -->

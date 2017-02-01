@@ -1,7 +1,7 @@
 <!-- BEGIN: content -->
-<div class="image_gallery_plain number_of_items_{IMAGE_COUNT}" id="gallery_plain_{GET.node_id}">
+<div class="number-of-items-{IMAGE_COUNT}" id="gallery-plain-{GET.node_id}">
 	<!-- BEGIN: item -->
-	<div class="item image_id_{GET.relation}{ITEM.id}">
+	<figure class="image-id-{GET.relation}{ITEM.id}">
 		<!-- BEGIN: link -->
 		<a href="/page/{ITEM.link_to_node_id}">
 			{FILE "component/image_gallery/plain.item.inc.html"}
@@ -10,7 +10,7 @@
 		<!-- BEGIN: normal -->
 		{FILE "component/image_gallery/plain.item.inc.html"}
 		<!-- END: normal -->
-	</div>
+	</figure>
 	<!-- END: item -->
 </div>
 <!-- END: content -->

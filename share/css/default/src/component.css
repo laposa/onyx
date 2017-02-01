@@ -42,12 +42,11 @@ div.pagination li.next a:hover,
 div.pagination a.show_all:hover {text-decoration: underline;}
 
 /********* component/image_gallery/plain.html *********/
-div.image_gallery_plain div.info {display: none;}
+section.gallery-plain figcaption {display: none;}
 
 /********* component/image_gallery/list.html *********/
-div.image_gallery_list div.thumbnails div.item {display: inline-block; margin: 5px;}
-div.image_gallery_list a {text-decoration: none;}
-div.image_gallery_list div.info {display: none;}
+section.gallery-list div.thumbnails figure {display: inline-block; margin: 5px;}
+section.gallery-list a {text-decoration: none;}
 
 /********* component/image_gallery/cycle.html *********/
 div.image_gallery_cycle {border: 0; position: relative;}
@@ -92,24 +91,9 @@ div.image_gallery_parallax div.slider_copy {text-align: center;}
 div.image_gallery_parallax a {text-decoration: none;}
 div.image_gallery_parallax div.slider_copy h3 {text-align: center;}
 
-/********* component/google_picasa_feed.html *********/
-div.google_picasa_feed div.thumbnails_container {width: 750px; height: 100px; overflow: auto; white-space: nowrap;}
-div.google_picasa_feed div.thumbnail {float: left; height: 75px; padding-right: 15px;}
-div.google_picasa_feed div.full {width: 100%; text-align: center; padding-top: 5px;}
-div.google_picasa_feed div.full div.wrapper {clear: both;}
-div.google_picasa_feed table {padding: 0; margin: 0; border-style: none; border-width: 0;}
-div.google_picasa_feed table td {padding: 0; margin: 0; border-style: none; border-width: 0;}
-
 /********* component/comment_add.html *********/
-div.comment form input {width: 100%;}
-div.comment form textarea {width: 100%;}
-
-/********* comment_UL.html *********/
-ul.comment li {margin-bottom: 10px;}
-ul.comment p.author,
-ul.comment p.created {margin: 0;}
-ul.comment div.bottom {border-bottom: 1px solid #f0f0f0;}
-ul.comment div.item div.content {padding: 10px 0;}
+section.comment form input {width: 100%;}
+section.comment form textarea {width: 100%;}
 
 /********* menu_SELECT.html **********/
 div.selectMenu {padding: 5px 0 0 0;}
@@ -129,16 +113,16 @@ div.rating_stars div.star span {display: none;}
 */
 
 /********* component/social_network_share.html *********/
-div.social_network_share ul {margin: 0; padding: 0;}
-div.social_network_share li {list-style-image: none; list-style-type: none; float: left; margin: 0 0 0 10px; padding: 0;}
-div.social_network_share li a {text-decoration: none;}
-div.social_network_share li a:before {font-family: 'FontAwesome'; font-size: 200%;}
-div.social_network_share li a span {display: none;}
-div.social_network_share li.facebook a:before {content: '\f082';}
-div.social_network_share li.twitter a:before {content: '\f081';}
-div.social_network_share li.google a:before {content: '\f0d4';}
-div.social_network_share li.pinterest a:before {content: '\f0d3';}
-div.social_network_share li.mailto a:before {content: '\f199';}
+div.social-share ul {margin: 0; padding: 0;}
+div.social-share li {list-style-image: none; list-style-type: none; float: left; margin: 0 0 0 10px; padding: 0;}
+div.social-share li a {text-decoration: none;}
+div.social-share li a:before {font-family: 'FontAwesome'; font-size: 200%;}
+div.social-share li a span {display: none;}
+div.social-share li.facebook a:before {content: '\f082';}
+div.social-share li.twitter a:before {content: '\f081';}
+div.social-share li.google a:before {content: '\f0d4';}
+div.social-share li.pinterest a:before {content: '\f0d3';}
+div.social-share li.mailto a:before {content: '\f199';}
 
 /**
  * stack_list:
@@ -150,6 +134,6 @@ div.social_network_share li.mailto a:before {content: '\f199';}
  * component/teaser_stack.html
  */
 
-div.stack_list {text-align: center;}
-div.stack_list div.item { display: inline-block; vertical-align: top; width: 300px; margin: 10px;}
-div.stack_list div.item a {text-decoration: none; display: block;}
+div.stack-list {text-align: center;}
+div.stack-list div.item { display: inline-block; vertical-align: top; width: 300px; margin: 10px;}
+div.stack-list div.item a {text-decoration: none; display: block;}

@@ -8,7 +8,7 @@
 @import url(/share/themes/jquery-ui/onxshop/jquery-ui.css);
 @import url(/share/css/backoffice_icons.css);
 
-#onxshopHeader a { line-height: 17px; font-size: 12px; font-family: "Lucida Grande", Helvetica, Arial, sans-serif; color: #ccc;}
+#onxshopHeader a {line-height: 17px; font-size: 12px; font-family: "Lucida Grande", Helvetica, Arial, sans-serif; color: #ccc;}
 #onxshopHeader li span {font-size: 9px; font-family: "Lucida Grande", Helvetica, Arial, sans-serif;}
 #onxshopHeader li a:before {font-size: 22px;}
 #onxshopHeader { position: fixed; z-index: 2147483647; width: 470px; height: 50px; top: auto; left: auto; left: 50%; margin-left: -230px; bottom: 30px; border-radius: 40px; box-shadow: 1px 1px 20px rgba(0,0,0,0.4); cursor: move; overflow: hidden; background: rgba(50,56,62,1); background: -moz-linear-gradient(top, rgba(50,56,62,1) 0%, rgba(37,38,39,1) 100%); background: -webkit-gradient(left top, left bottom, color-stop(0%, rgba(50,56,62,1)), color-stop(100%, rgba(37,38,39,1))); background: -webkit-linear-gradient(top, rgba(50,56,62,1) 0%, rgba(37,38,39,1) 100%); background: -o-linear-gradient(top, rgba(50,56,62,1) 0%, rgba(37,38,39,1) 100%); background: -ms-linear-gradient(top, rgba(50,56,62,1) 0%, rgba(37,38,39,1) 100%); background: linear-gradient(to bottom, rgba(50,56,62,1) 0%, rgba(37,38,39,1) 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#32383e', endColorstr='#252627', GradientType=0 ); }
@@ -60,7 +60,9 @@ div.node.adaptive {border: 1px dashed #9933CC;}
  */
 
 /*sortable*/
-.droppable-hover {outline: 5px dotted black;}
+
+.droppable-hover {opacity: 0.8; /* outline: 5px dotted black; */}
+.droppable-hover:hover {opacity: 1.0;}
 .ui-sortable .ui-widget-content {border: 1px dotted red; width: auto; height: 150px; overflow: hidden;}
 .ui-sortable div.ui-widget-content.node_group-layout {height: auto;}
 

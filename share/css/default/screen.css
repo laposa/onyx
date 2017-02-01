@@ -11,168 +11,466 @@
   font-weight: normal;
   font-style: normal;
 }
-/**
- * Global Onxshop style sheet
- * Norbert @ Laposa Ltd, 2009/09/22
- *
- * This will normalise default style
- * Similar to https://github.com/necolas/normalize.css
- */
- 
-*,
-*:before,
-*:after { -webkit-box-sizing: border-box; -moz-box-sizing: border-box; box-sizing: border-box; }
-html { overflow-y: scroll; -webkit-text-size-adjust:100%; -ms-text-size-adjust:100%; }
-body {padding: 0; margin: 0; font-family: sans-serif; font-size: medium; line-height: 1.5; -webkit-text-size-adjust: none;}
-img {border: 0; -ms-interpolation-mode: bicubic; vertical-align: bottom;}
+/* source: https://github.com/twbs/bootstrap/blob/v4-dev/dist/css/bootstrap-reboot.css */
 
-/**
- * Forms
- */
- 
-form {margin: 0; padding: 0 1em;}
-form div.row {margin: 0 0 0.5em;}
-form span.label {display: block; }
-form span.field {display: block;}
-form div.submit button {float: none;}
+html {
+  font-family: sans-serif;
+  line-height: 1.15;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
 
-fieldset {margin: 1em 0 1em 0; padding: 0.5em 0; clear: both; border: 0;}
-fieldset.single {margin-bottom: 0;}
-label {cursor: pointer; cursor: hand; vertical-align: middle;}
-label.error {float: none; color: red; padding-left: .5em; vertical-align: top;}
-legend {font-weight: bold; color: inherit; padding: 0 0.5em; margin: 0 0 1em 0; padding-left: 0;}
-label.radio {float: none; clear: none;}
-input.radio,
-input.checkbox {border: 0; width: auto;}
-input.price {width: 40px;}
-input.placeholder {color: #aaa;}
-input.file,
-input[type=file] {border-width: 0;}
-input.error,
-textarea.error {border-color: red!important;}
-textarea {width: 70%; height: 100px; padding: 2px; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px;}
-textarea.small {height: 50px;}
-textarea.big {width: 100%; height: 400px;}
-optgroup {padding-top: 10px;}
-select {width: auto;}
-select.big {width: 100%;}
-input.text,
-input.email {width: 100%;}
-input, 
-textarea {padding: 4px; border: 2px inset #eee; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px;}
-input:focus, 
-textarea:focus {border: 2px inset white; background: #f1f1f1;}
+body {
+  margin: 0;
+}
+
+article,
+aside,
+footer,
+header,
+nav,
+section {
+  display: block;
+}
+
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+figcaption,
+figure,
+main {
+  display: block;
+}
+
+figure {
+  margin: 1em 40px;
+}
+
+hr {
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  height: 0;
+  overflow: visible;
+}
+
+pre {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+
+a {
+  background-color: transparent;
+  -webkit-text-decoration-skip: objects;
+}
+
+a:active,
+a:hover {
+  outline-width: 0;
+}
+
+abbr[title] {
+  border-bottom: none;
+  text-decoration: underline;
+  text-decoration: underline dotted;
+}
+
+b,
+strong {
+  font-weight: inherit;
+}
+
+b,
+strong {
+  font-weight: bolder;
+}
+
+code,
+kbd,
+samp {
+  font-family: monospace, monospace;
+  font-size: 1em;
+}
+
+dfn {
+  font-style: italic;
+}
+
+mark {
+  background-color: #ff0;
+  color: #000;
+}
+
+small {
+  font-size: 80%;
+}
+
+sub,
+sup {
+  font-size: 75%;
+  line-height: 0;
+  position: relative;
+  vertical-align: baseline;
+}
+
+sub {
+  bottom: -0.25em;
+}
+
+sup {
+  top: -0.5em;
+}
+
+audio,
+video {
+  display: inline-block;
+}
+
+audio:not([controls]) {
+  display: none;
+  height: 0;
+}
+
+img {
+  border-style: none;
+}
+
+svg:not(:root) {
+  overflow: hidden;
+}
+
+button,
 input,
-option {padding: 4px; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px;}
-input.title {font-size: 1.4em; font-weight: bold; width: 100%;}
-input.long,
-textarea.long,
-select.long {width: 100%;}
-input.short,
-textarea.short,
-select.short {width: 5em;}
-button {display: inline-block; cursor: pointer; cursor: hand; position: relative; padding: 0 0.5em; overflow: visible; font-family: inherit; font-size: inherit;}
-button span {position: relative; display: inline-block; white-space: nowrap;}
-input.half,
-textarea.half,
-select.half {width: 50%;}
-input.date,
-textarea.date,
-select.date {width: 10em;}
+optgroup,
+select,
+textarea {
+  font-family: sans-serif;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
+}
 
-/*2cols forms (can be set on whole form or particular fieldset*/
-form.twoColumns label,
-fieldset.twoColumns label {padding-right: 1em;}
-form.twoColumns span.label,
-fieldset.twoColumns span.label {width: 50%; float: left; text-align: right;}
-form.twoColumns span.field,
-fieldset.twoColumns span.field {width: 47%;} /* 3% reserve in case odd column width*/
+button,
+input {
+  overflow: visible;
+}
 
-/**
- * Tables 
- */
- 
-table {font-size: inherit; clear: both; margin: 1em 0 2em 0; border: 2px solid #ccc; border-radius: 4px;
-	-moz-border-radius: 4px; -webkit-border-radius: 4px; border-spacing: 0;}
-caption {text-align: left; font-weight: bold; font-size: 1.25em;}
-th {text-align: center;}
-th, 
-td {padding: 0.4em; vertical-align: top;}
-th.money,
-td.money,
-td.number {text-align: right;}
-thead th {border-bottom: 2px solid #ccc;}
-tfoot td {border-top: 2px solid #ccc; font-weight: bold;}
+button,
+select {
+  text-transform: none;
+}
 
-/**
- * Links
- */
- 
-a {cursor: pointer; cursor: hand; text-decoration: underline;}
-a:active {text-decoration: none; outline: 0;}
-a:focus {outline: 0;}
-a.button {display: inline-block;}
-a.button,
-a.active {font-weight: bold;}
-a img {border: 0;}
-div.image a {text-decoration: none;}
+button,
+html [type="button"],
+[type="reset"],
+[type="submit"] {
+  -webkit-appearance: button;
+}
 
-/**
- * Headings
- */
- 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-caption {font-family: serif; line-height: 1.2; margin: 1em 0 0.4em 0;}
+button::-moz-focus-inner,
+[type="button"]::-moz-focus-inner,
+[type="reset"]::-moz-focus-inner,
+[type="submit"]::-moz-focus-inner {
+  border-style: none;
+  padding: 0;
+}
 
-h1.contentTitle,
-h2.contentTitle,
-h3.contentTitle,
-h4.contentTitle,
-h5.contentTitle,
-h6.contentTitle {margin-top: 0;}
+button:-moz-focusring,
+[type="button"]:-moz-focusring,
+[type="reset"]:-moz-focusring,
+[type="submit"]:-moz-focusring {
+  outline: 1px dotted ButtonText;
+}
 
-h1 a,
-h2 a,
-h3 a,
-h4 a,
-h5 a,
-h6 a {text-decoration: none;}
+fieldset {
+  border: 1px solid #c0c0c0;
+  margin: 0 2px;
+  padding: 0.35em 0.625em 0.75em;
+}
 
-h1 {font-size: 2em;}
-h2 {font-size: 1.5em;}
-h3 {font-size: 1.25em;}
-h4 {font-size: 1.15em}
-h5 {font-size: 1em;}
+legend {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  color: inherit;
+  display: table;
+  max-width: 100%;
+  padding: 0;
+  white-space: normal;
+}
 
-/**
- * Lists
- */
- 
-dl {margin: 1em 0;}
-ul {padding: 0; margin: 1em 0 2em 0;}
-ol {padding: 0; margin: 1em 0 2em 0;}
+progress {
+  display: inline-block;
+  vertical-align: baseline;
+}
+
+textarea {
+  overflow: auto;
+}
+
+[type="checkbox"],
+[type="radio"] {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  padding: 0;
+}
+
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
+  height: auto;
+}
+
+[type="search"] {
+  -webkit-appearance: textfield;
+  outline-offset: -2px;
+}
+
+[type="search"]::-webkit-search-cancel-button,
+[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+::-webkit-file-upload-button {
+  -webkit-appearance: button;
+  font: inherit;
+}
+
+details,
+menu {
+  display: block;
+}
+
+summary {
+  display: list-item;
+}
+
+canvas {
+  display: inline-block;
+}
+
+template {
+  display: none;
+}
+
+[hidden] {
+  display: none;
+}
+
+html {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  -webkit-box-sizing: inherit;
+          box-sizing: inherit;
+}
+
+@-ms-viewport {
+  width: device-width;
+}
+
+html {
+  -ms-overflow-style: scrollbar;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: normal;
+  line-height: 1.5;
+  color: #292b2c;
+  background-color: #fff;
+}
+
+[tabindex="-1"]:focus {
+  outline: none !important;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 0;
+  margin-bottom: .5rem;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+abbr[title],
+abbr[data-original-title] {
+  cursor: help;
+}
+
+address {
+  margin-bottom: 1rem;
+  font-style: normal;
+  line-height: inherit;
+}
+
+ol,
+ul,
+dl {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+ol ol,
 ul ul,
-ol ol {margin: 0;}
-li {margin: 0.75em 0 0.75em 20px; vertical-align: middle;}
+ol ul,
+ul ol {
+  margin-bottom: 0;
+}
 
+dt {
+  font-weight: bold;
+}
 
-/**
- * misc
- */
- 
-p {margin: 15px 0;}
-hr {height: 0; border: 0; clear: both;}
-code {font-family: monospace;}
-pre {white-space: pre-wrap;}
+dd {
+  margin-bottom: .5rem;
+  margin-left: 0;
+}
 
-blockquote {margin: 2em 0; padding: 0 0 0 40px; background: url(/share/images/default/quote_open.png) top left no-repeat;}
-blockquote p {background: url(/share/images/default/quote_close.png) bottom right no-repeat; padding: 0 40px 0 0;}
+blockquote {
+  margin: 0 0 1rem;
+}
 
+a {
+  color: #0275d8;
+  text-decoration: none;
+}
+
+a:focus, a:hover {
+  color: #014c8c;
+  text-decoration: underline;
+}
+
+a:not([href]):not([tabindex]) {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:not([href]):not([tabindex]):focus, a:not([href]):not([tabindex]):hover {
+  color: inherit;
+  text-decoration: none;
+}
+
+a:not([href]):not([tabindex]):focus {
+  outline: 0;
+}
+
+pre {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  overflow: auto;
+}
+
+figure {
+  margin: 0 0 1rem;
+}
+
+img {
+  vertical-align: middle;
+}
+
+[role="button"] {
+  cursor: pointer;
+}
+
+a,
+area,
+button,
+[role="button"],
+input,
+label,
+select,
+summary,
+textarea {
+  -ms-touch-action: manipulation;
+      touch-action: manipulation;
+}
+
+table {
+  border-collapse: collapse;
+  background-color: transparent;
+}
+
+caption {
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  color: #636c72;
+  text-align: left;
+  caption-side: bottom;
+}
+
+th {
+  text-align: left;
+}
+
+label {
+  display: inline-block;
+  margin-bottom: .5rem;
+}
+
+button:focus {
+  outline: 1px dotted;
+  outline: 5px auto -webkit-focus-ring-color;
+}
+
+input,
+button,
+select,
+textarea {
+  line-height: inherit;
+}
+
+input[type="radio"]:disabled,
+input[type="checkbox"]:disabled {
+  cursor: not-allowed;
+}
+
+input[type="date"],
+input[type="time"],
+input[type="datetime-local"],
+input[type="month"] {
+  -webkit-appearance: listbox;
+}
+
+textarea {
+  resize: vertical;
+}
+
+fieldset {
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+
+legend {
+  display: block;
+  width: 100%;
+  padding: 0;
+  margin-bottom: .5rem;
+  font-size: 1.5rem;
+  line-height: inherit;
+}
+
+input[type="search"] {
+  -webkit-appearance: none;
+}
+
+output {
+  display: inline-block;
+}
+
+[hidden] {
+  display: none !important;
+}
+/*# sourceMappingURL=bootstrap-reboot.css.map */
 /* a clearing div */
 div.bottom {clear: both;}
 
@@ -211,201 +509,142 @@ div#jGrowl div.jGrowl-closer { background: black; color: white; background: rgba
 	div#jGrowl { width: 80%; left: 10%; margin-left: 0; }
 }
 /**
- * Norbert @ Laposa Ltd, 2009/09/22
+ * Norbert @ Laposa Ltd, 2017/01/11
  *
  */
 
-/****************************************************************************************/
-/*****************************          node/page           *****************************/
-/****************************************************************************************/
-
-/************ node/page/default.html ****/
-div.rowTop:after,
-div.rowMiddle:after,
-div.rowBottom:after {content: '.'; display: block; height: 0; font-size: 0; clear: both; visibility: hidden;}
-/*IE8 doesn't support last-child, the following block will be ignored*/
-div.rowTop div.node:last-child:after,
-div.rowMiddle div.node:last-child:after,
-div.rowBottom div.node:last-child:after {content: '.'; display: block; height: 0; font-size: 0; clear: both; visibility: hidden;}
-div.page div.pageWrapper {padding: 0;}
-div.page div.rowBottom {clear: both;}
-
-/*default, fobinaci-1-1, 50%/50%*/
-div.twoColumnPage div.columnOne,
-div.twoColumnPage.fibonacci-1-1 div.columnOne {float: left; width: 49.999%; clear: both; overflow: hidden; }
-div.twoColumnPage div.columnTwo,
-div.twoColumnPage.fibonacci-1-1 div.columnTwo {width: 49.999%; float: right; overflow: hidden;}
-/*fibonacci-1-5, 16.6%/83.3%*/
-div.twoColumnPage.fibonacci-1-5 div.columnOne {width: 16.66%;}
-div.twoColumnPage.fibonacci-1-5 div.columnTwo {width: 83.33%;}
-div.twoColumnPage.fibonacci-5-1 div.columnOne {width: 83.33%;}
-div.twoColumnPage.fibonacci-5-1 div.columnTwo {width: 16.66%;}
-/*fibonacci-1-3, 25%/75%*/
-div.twoColumnPage.fibonacci-1-3 div.columnOne {width: 25%;}
-div.twoColumnPage.fibonacci-1-3 div.columnTwo {width: 75%;}
-div.twoColumnPage.fibonacci-3-1 div.columnOne {width: 75%;}
-div.twoColumnPage.fibonacci-3-1 div.columnTwo {width: 25%;}
-/*fibonacci-2-5, 28.6%/71.4%*/
-div.twoColumnPage.fibonacci-2-5 div.columnOne {width: 28.6%;}
-div.twoColumnPage.fibonacci-2-5 div.columnTwo {width: 71.4%;}
-div.twoColumnPage.fibonacci-5-2 div.columnOne {width: 71.4%;}
-div.twoColumnPage.fibonacci-5-2 div.columnTwo {width: 28.6%;}
-/*fibonacci-1-2, 33%/66%*/
-div.twoColumnPage.fibonacci-1-2 div.columnOne {width: 33.3%;}
-div.twoColumnPage.fibonacci-1-2 div.columnTwo {width: 66.6%;}
-div.twoColumnPage.fibonacci-2-1 div.columnOne {width: 66.6%;}
-div.twoColumnPage.fibonacci-2-1 div.columnTwo {width: 33.3%;}
-/*fibonacci-3-5, 38.2%/61.8%*/
-div.twoColumnPage.fibonacci-3-5 div.columnOne {width: 38.2%;}
-div.twoColumnPage.fibonacci-3-5 div.columnTwo {width: 61.77%;}
-div.twoColumnPage.fibonacci-5-3 div.columnOne {width: 61.77%;}
-div.twoColumnPage.fibonacci-5-3 div.columnTwo {width: 38.2%;}
-/*fibonacci-2-3, 40%/60%*/
-div.twoColumnPage.fibonacci-2-3 div.columnOne {width: 40%;}
-div.twoColumnPage.fibonacci-2-3 div.columnTwo {width: 60%;}
-div.twoColumnPage.fibonacci-3-2 div.columnOne {width: 60%;}
-div.twoColumnPage.fibonacci-3-2 div.columnTwo {width: 40%;}
 
 /****************************************************************************************/
 /*****************************          node/layout         *****************************/
 /****************************************************************************************/
 
-div.layout div.bottom {clear: both;}
-
 /********* node/layout/1column.html *********/
-div.oneColumnLayout {clear: both;}
-div.oneColumnLayout div.layoutColumnSingle {float: none; width: auto;}
+section.one-column-layout {clear: both;}
+section.one-column-layout div.layoutColumnSingle {float: none; width: auto;}
 
 /********* node/layout/2columns.html *********/
-div.twoColumnLayout {clear: both;}
+section.layout-two-col {clear: both;}
 
 /*default, fibonacci-1-1, 50%/50%*/
-div.twoColumnLayout div.layoutColumnOne.ofTwo,
-div.twoColumnLayout.fibonacci-1-1 div.layoutColumnOne.ofTwo {float: left; width: 49.999%;}
-div.twoColumnLayout div.layoutColumnTwo.ofTwo,
-div.twoColumnLayout.fibonacci-1-1 div.layoutColumnTwo.ofTwo {width: 49.999%; float: right;}
+section.two-column-layout div.col.one,
+section.two-column-layout.fibonacci-1-1 div.col.one {float: left; width: 49.999%;}
+section.two-column-layout div.col.two,
+section.two-column-layout.fibonacci-1-1 div.col.two {width: 49.999%; float: right;}
 /*fibonacci-1-5, 16.6%/83.3%*/
-div.twoColumnLayout.fibonacci-1-5 div.layoutColumnOne.ofTwo {width: 16.66%;}
-div.twoColumnLayout.fibonacci-1-5 div.layoutColumnTwo.ofTwo {width: 83.33%;}
-div.twoColumnLayout.fibonacci-5-1 div.layoutColumnOne.ofTwo {width: 83.33%;}
-div.twoColumnLayout.fibonacci-5-1 div.layoutColumnTwo.ofTwo {width: 16.66%;}
+section.two-column-layout.fibonacci-1-5 div.col.one {width: 16.66%;}
+section.two-column-layout.fibonacci-1-5 div.col.two {width: 83.33%;}
+section.two-column-layout.fibonacci-5-1 div.col.one {width: 83.33%;}
+section.two-column-layout.fibonacci-5-1 div.col.two {width: 16.66%;}
 /*fibonacci-1-3, 25%/75%*/
-div.twoColumnLayout.fibonacci-1-3 div.layoutColumnOne.ofTwo {width: 25%;}
-div.twoColumnLayout.fibonacci-1-3 div.layoutColumnTwo.ofTwo {width: 75%;}
-div.twoColumnLayout.fibonacci-3-1 div.layoutColumnOne.ofTwo {width: 75%;}
-div.twoColumnLayout.fibonacci-3-1 div.layoutColumnTwo.ofTwo {width: 25%;}
+section.two-column-layout.fibonacci-1-3 div.col.one {width: 25%;}
+section.two-column-layout.fibonacci-1-3 div.col.two {width: 75%;}
+section.two-column-layout.fibonacci-3-1 div.col.one {width: 75%;}
+section.two-column-layout.fibonacci-3-1 div.col.two {width: 25%;}
 /*fibonacci-2-5, 28.6%/71.4%*/
-div.twoColumnLayout.fibonacci-2-5 div.layoutColumnOne.ofTwo {width: 28.6%;}
-div.twoColumnLayout.fibonacci-2-5 div.layoutColumnTwo.ofTwo {width: 71.4%;}
-div.twoColumnLayout.fibonacci-5-2 div.layoutColumnOne.ofTwo {width: 71.4%;}
-div.twoColumnLayout.fibonacci-5-2 div.layoutColumnTwo.ofTwo {width: 28.6%;}
+section.two-column-layout.fibonacci-2-5 div.col.one {width: 28.6%;}
+section.two-column-layout.fibonacci-2-5 div.col.two {width: 71.4%;}
+section.two-column-layout.fibonacci-5-2 div.col.one {width: 71.4%;}
+section.two-column-layout.fibonacci-5-2 div.col.two {width: 28.6%;}
 /*fibonacci-1-2, 33%/66%*/
-div.twoColumnLayout.fibonacci-1-2 div.layoutColumnOne.ofTwo {width: 33.3%;}
-div.twoColumnLayout.fibonacci-1-2 div.layoutColumnTwo.ofTwo {width: 66.6%;}
-div.twoColumnLayout.fibonacci-2-1 div.layoutColumnOne.ofTwo {width: 66.6%;}
-div.twoColumnLayout.fibonacci-2-1 div.layoutColumnTwo.ofTwo {width: 33.3%;}
+section.two-column-layout.fibonacci-1-2 div.col.one {width: 33.3%;}
+section.two-column-layout.fibonacci-1-2 div.col.two {width: 66.6%;}
+section.two-column-layout.fibonacci-2-1 div.col.one {width: 66.6%;}
+section.two-column-layout.fibonacci-2-1 div.col.two {width: 33.3%;}
 /*fibonacci-3-5, 38.2%/61.8%*/
-div.twoColumnLayout.fibonacci-3-5 div.layoutColumnOne.ofTwo {width: 38.2%;}
-div.twoColumnLayout.fibonacci-3-5 div.layoutColumnTwo.ofTwo {width: 61.8%;}
-div.twoColumnLayout.fibonacci-5-3 div.layoutColumnOne.ofTwo {width: 61.8%;}
-div.twoColumnLayout.fibonacci-5-3 div.layoutColumnTwo.ofTwo {width: 38.2%;}
+section.two-column-layout.fibonacci-3-5 div.col.one {width: 38.2%;}
+section.two-column-layout.fibonacci-3-5 div.col.two {width: 61.8%;}
+section.two-column-layout.fibonacci-5-3 div.col.one {width: 61.8%;}
+section.two-column-layout.fibonacci-5-3 div.col.two {width: 38.2%;}
 /*fibonacci-2-3, 40%/60%*/
-div.twoColumnLayout.fibonacci-2-3 div.layoutColumnOne.ofTwo {width: 40%;}
-div.twoColumnLayout.fibonacci-2-3 div.layoutColumnTwo.ofTwo {width: 60%;}
-div.twoColumnLayout.fibonacci-3-2 div.layoutColumnOne.ofTwo {width: 60%;}
-div.twoColumnLayout.fibonacci-3-2 div.layoutColumnTwo.ofTwo {width: 40%;}
+section.two-column-layout.fibonacci-2-3 div.col.one {width: 40%;}
+section.two-column-layout.fibonacci-2-3 div.col.two {width: 60%;}
+section.two-column-layout.fibonacci-3-2 div.col.one {width: 60%;}
+section.two-column-layout.fibonacci-3-2 div.col.two {width: 40%;}
 
 /********* node/layout/3columns.html *********/
-div.threeColumnLayout {clear: both;}
-div.threeColumnLayout div.layoutColumnOne.ofThree, 
-div.threeColumnLayout div.layoutColumnTwo.ofThree, 
-div.threeColumnLayout div.layoutColumnThree.ofThree {width: 33.3334%; overflow: hidden;}
-div.threeColumnLayout div.layoutColumnOne.ofThree, 
-div.threeColumnLayout div.layoutColumnTwo.ofThree {float: left;}
-div.threeColumnLayout div.layoutColumnThree.ofThree {float: right;}
+section.three-column-layout {clear: both;}
+section.three-column-layout div.col.one, 
+section.three-column-layout div.col.two, 
+section.three-column-layout div.col.three {width: 33.3334%; overflow: hidden;}
+section.three-column-layout div.col.one, 
+section.three-column-layout div.col.two {float: left;}
+section.three-column-layout div.col.three {float: right;}
 
 /********* node/layout/4columns.html *********/
-div.fourColumnLayout {clear: both;}
-div.fourColumnLayout div.layoutColumnOne.ofFour, 
-div.fourColumnLayout div.layoutColumnTwo.ofFour, 
-div.fourColumnLayout div.layoutColumnThree.ofFour,
-div.fourColumnLayout div.layoutColumnFour.ofFour {width: 25%; overflow: hidden;}
-div.fourColumnLayout div.layoutColumnOne.ofFour, 
-div.fourColumnLayout div.layoutColumnTwo.ofFour,
-div.fourColumnLayout div.layoutColumnThree.ofFour {float: left;}
-div.fourColumnLayout div.layoutColumnFour.ofFour {float: right;}
+section.four-column-layout {clear: both;}
+section.four-column-layout div.col.one, 
+section.four-column-layout div.col.two, 
+section.four-column-layout div.col.three,
+section.four-column-layout div.col.four {width: 25%; overflow: hidden;}
+section.four-column-layout div.col.one, 
+section.four-column-layout div.col.two,
+section.four-column-layout div.col.three {float: left;}
+section.four-column-layout div.col.four {float: right;}
 
 /********* node/layout/5columns.html *********/
-div.fiveColumnLayout {clear: both;}
-div.fiveColumnLayout div.layoutColumnOne.ofFive, 
-div.fiveColumnLayout div.layoutColumnTwo.ofFive, 
-div.fiveColumnLayout div.layoutColumnThree.ofFive,
-div.fiveColumnLayout div.layoutColumnFour.ofFive,
-div.fiveColumnLayout div.layoutColumnFive.ofFive {width: 20%; overflow: hidden;}
-div.fiveColumnLayout div.layoutColumnOne.ofFive, 
-div.fiveColumnLayout div.layoutColumnTwo.ofFive,
-div.fiveColumnLayout div.layoutColumnThree.ofFive,
-div.fiveColumnLayout div.layoutColumnFour.ofFive {float: left;}
-div.fiveColumnLayout div.layoutColumnFive.ofFive {float: right;}
+section.five-column-layout {clear: both;}
+section.five-column-layout div.col.one, 
+section.five-column-layout div.col.two, 
+section.five-column-layout div.col.three,
+section.five-column-layout div.col.four,
+section.five-column-layout div.col.five {width: 20%; overflow: hidden;}
+section.five-column-layout div.col.one, 
+section.five-column-layout div.col.two,
+section.five-column-layout div.col.three,
+section.five-column-layout div.col.four {float: left;}
+section.five-column-layout div.col.five {float: right;}
 
 /********* node/layout/6columns.html *********/
-div.sixColumnLayout {clear: both;}
-div.sixColumnLayout div.layoutColumnOne.ofSix, 
-div.sixColumnLayout div.layoutColumnTwo.ofSix, 
-div.sixColumnLayout div.layoutColumnThree.ofSix,
-div.sixColumnLayout div.layoutColumnFour.ofSix,
-div.sixColumnLayout div.layoutColumnFive.ofSix,
-div.sixColumnLayout div.layoutColumnSix.ofSix {width: 16.666%; overflow: hidden;}
-div.sixColumnLayout div.layoutColumnOne.ofSix, 
-div.sixColumnLayout div.layoutColumnTwo.ofSix,
-div.sixColumnLayout div.layoutColumnThree.ofSix,
-div.sixColumnLayout div.layoutColumnFour.ofSix,
-div.sixColumnLayout div.layoutColumnFive.ofSix {float: left;}
-div.sixColumnLayout div.layoutColumnSix.ofSix {float: right;}
+section.six-column-layout {clear: both;}
+section.six-column-layout div.col.one, 
+section.six-column-layout div.col.two, 
+section.six-column-layout div.col.three,
+section.six-column-layout div.col.four,
+section.six-column-layout div.col.five,
+section.six-column-layout div.col.six {width: 16.666%; overflow: hidden;}
+section.six-column-layout div.col.one, 
+section.six-column-layout div.col.two,
+section.six-column-layout div.col.three,
+section.six-column-layout div.col.four,
+section.six-column-layout div.col.five {float: left;}
+section.six-column-layout div.col.six {float: right;}
 
 /********* node/layout/tabs.html *********/
-div.tabsLayout {clear: both;}
-div.tabsLayout ul.tabs li {display: inline-block; list-style-type: none; padding: 0; margin: 0;}
-div.tabsLayout ul.tabs li a {display: inline-block; padding: 7px 15px;}
-div.tabsLayout div.layoutBody {clear: both;}
+section.tabsLayout {clear: both;}
+section.tabsLayout ul.tabs li {display: inline-block; list-style-type: none; padding: 0; margin: 0;}
+section.tabsLayout ul.tabs li a {display: inline-block; padding: 7px 15px;}
+section.tabsLayout div.layoutBody {clear: both;}
 
 /********* node/layout/slider.html *********/
-div.sliderLayout .unslider {overflow:auto;margin:0;padding:0;}
-div.sliderLayout .unslider-wrap {position:relative}
-div.sliderLayout .unslider-wrap.unslider-carousel > div.node {float:left}
-div.sliderLayout .unslider-vertical > div.sliderWrapper {height:100%}
-div.sliderLayout .unslider-vertical div.node {float:none;width:100%}
-div.sliderLayout .unslider-fade {position:relative}
-div.sliderLayout .unslider-fade .unslider-wrap div.node {position:absolute;left:0;top:0;right:0;z-index:8}
-div.sliderLayout .unslider-fade .unslider-wrap div.node.unslider-active {z-index:10}
-div.sliderLayout .unslider div.node,
-div.sliderLayout .unslider ol,
-div.sliderLayout .unslider div.sliderWrapper {list-style:none;margin:0;padding:0;border:none}
-div.sliderLayout .unslider-arrow {position:absolute;left:20px;z-index:2;cursor:pointer}
-div.sliderLayout .unslider-arrow.next {left:auto;right:20px}
-div.sliderLayout .unslider-nav ol {list-style: none; text-align: center;}
-div.sliderLayout .unslider-nav ol li {display: inline-block; width: 15px; height: 15px; margin: 0 4px; background: transparent; border-radius: 15px; overflow: hidden; text-indent: -999em; border: 2px solid #fff; cursor: pointer;}
-div.sliderLayout .unslider-nav ol li.unslider-active {background: #fff;cursor: default;}
+section.sliderLayout .unslider {overflow:auto;margin:0;padding:0;}
+section.sliderLayout .unslider-wrap {position:relative}
+section.sliderLayout .unslider-wrap.unslider-carousel > div.node {float:left}
+section.sliderLayout .unslider-vertical > div.sliderWrapper {height:100%}
+section.sliderLayout .unslider-vertical div.node {float:none;width:100%}
+section.sliderLayout .unslider-fade {position:relative}
+section.sliderLayout .unslider-fade .unslider-wrap div.node {position:absolute;left:0;top:0;right:0;z-index:8}
+section.sliderLayout .unslider-fade .unslider-wrap div.node.unslider-active {z-index:10}
+section.sliderLayout .unslider div.node,
+section.sliderLayout .unslider ol,
+section.sliderLayout .unslider div.sliderWrapper {list-style:none;margin:0;padding:0;border:none}
+section.sliderLayout .unslider-arrow {position:absolute;left:20px;z-index:2;cursor:pointer}
+section.sliderLayout .unslider-arrow.next {left:auto;right:20px}
+section.sliderLayout .unslider-nav ol {list-style: none; text-align: center;}
+section.sliderLayout .unslider-nav ol li {display: inline-block; width: 15px; height: 15px; margin: 0 4px; background: transparent; border-radius: 15px; overflow: hidden; text-indent: -999em; border: 2px solid #fff; cursor: pointer;}
+section.sliderLayout .unslider-nav ol li.unslider-active {background: #fff;cursor: default;}
 
 /**
- * gutters
- * set all gutters to 10px on content elements like traditional grid systems, e.g. 960gs
- */
- 
-#header {margin: 10px;}
-#primaryNavigation {margin: 10px;}
-div.pageHeaderWrapper {margin: 10px;}
-h2.layoutTitle {margin-left: 10px; margin-right: 10px;}
-div.node_group-content {margin: 10px;}
-
-/*
- * extra CSS classes to be used in CMS
- * - fullBleed - apply to content or layout
+ * 
+ * 
  */
 
-div.node-fullBleed {margin: 0!important;}
+header {}
+
+div.wrapper {max-width: 1200px; margin: 0 auto; padding: 30px;}
+
+section.layout > div.wrapper {padding: 30px 0;}
 /**
- * Norbert @ Laposa Ltd, 2009/09/22
+ * Chris Black 2017/01
  *
  */
  
@@ -414,8 +653,6 @@ div.node-fullBleed {margin: 0!important;}
 /****************************************************************************************/
 
 /********* node/site/default.html *********/
-#pageWrapper {padding: 0.5em;}
-#pageWrapper div.bottom {clear: both;}
 
 #accessibility {position: relative; display: none; /*disabled by default*/}
 #accessibility li {list-style-type: none;}
@@ -439,77 +676,43 @@ div.node-fullBleed {margin: 0!important;}
 
 #userbox {float: right; margin-bottom: 1.5em;}
 
-#basket {clear: right; float: right; white-space: nowrap; margin-bottom: 10px;}
-#basketWrapper {display: inline;}
-
-/**
- * global navigation
- */
-
-#globalNavigation {float: right; margin: 0 0 15px 0;}
-#globalNavigation ul {margin: 0; padding: 0; line-height: 1em; list-style-type: none;}
-#globalNavigation li {display: inline-block; padding: 0; margin: 0;}
-#globalNavigation a {text-decoration: none; display: block; padding: 7px 15px;}
-#globalNavigation a:active span {text-decoration: underline;}
-
 /**
  * reveal navigation
  */
  
-#revealNavigationButton {display: none;}
+nav#reveal {display: none;}
 
 /**
  * primary navigation
  */
 
-#primaryNavigation {clear: both; width: 100%;}
-#primaryNavigation ul {margin: 0; padding: 0; line-height: 1em; list-style-type: none;}
-#primaryNavigation li {margin: 0; padding: 0; margin-right: 20px; display: inline-block; zoom: 1;/*zoom for ie6*/}
-#primaryNavigation a {text-decoration: none; display: block; padding: 7px 5px; white-space: pre; zoom: 1;}
-#primaryNavigation a:active span {text-decoration: underline;}
-#primaryNavigation a.open {font-weight: bold;}
-#primaryNavigation ul ul {list-style-type: square; margin-left: 10px;}
-#primaryNavigation ul ul li {padding-left: 0; margin-left: 15px; display: list-item;}
-#primaryNavigation ul ul a {padding-left: 0; font-weight: normal; height: auto;}
+nav#primary {clear: both; width: 100%;}
+nav#primary ul {margin: 0; padding: 0; line-height: 1em; list-style-type: none;}
+nav#primary ul li {margin: 0; padding: 0; margin-right: 1em; display: inline-block; zoom: 1;/*zoom for ie6*/}
+nav#primary a {text-decoration: none; display: block; white-space: pre; zoom: 1;}
+nav#primary a:active span {text-decoration: underline;}
+nav#primary a.open {font-weight: bold;}
+nav#primary ul ul {list-style-type: square; margin-left: 10px;}
+nav#primary ul ul li {padding-left: 0; margin-left: 15px; display: list-item;}
+nav#primary ul ul a {padding-left: 0; font-weight: normal; height: auto;}
 
 /**
  * footer navigation
  */
  
-#footerNavigation {clear: both; float: left; width: 100%;}
-#footerNavigation ul {margin: 0; padding: 0; line-height: 1em; list-style-type: none;}
-#footerNavigation li {padding: 0; margin: 0; display: inline-block;}
-#footerNavigation a {text-decoration: none; display: block; padding: 7px 15px; white-space: pre;}
-#footerNavigation a:active span {text-decoration: underline;}
+footer nav {}
 
 /**
  * content
  */
  
-#content { width: 100%; clear: both; }
+main {width: 100%; clear: both;}
 
 /**
  * footer
  */
- 
-#footer {width: 100%; clear: both; margin-top: 30px;}
 
-#copyright {clear: both; float: left; padding: 30px 0 0.5em 0; white-space: nowrap;}
-#credit {float: right; padding: 30px 0 0.5em 0;}
 
-#copyright p,
-#credit p,
-#copyright a,
-#credit a {text-decoration: none; padding: 0; margin: 0;}
-
-/* graphical credit */
-/*#credit a {background: url(/share/images/onxshop-power-master-150.png) no-repeat; display: block; width: 150px; height: 49px;}
-#credit a span {display: none;}
-#copyright p {padding-top: 25px;}*/
-
-#contentSide {width: 150px; margin: 10px; clear: left; float: left;}
-
-#contentBottom {clear: both; width: 100%;}
 /****************************************************************************************/
 /*****************************          node/page           *****************************/
 /****************************************************************************************/
@@ -650,12 +853,11 @@ div.pagination li.next a:hover,
 div.pagination a.show_all:hover {text-decoration: underline;}
 
 /********* component/image_gallery/plain.html *********/
-div.image_gallery_plain div.info {display: none;}
+section.gallery-plain figcaption {display: none;}
 
 /********* component/image_gallery/list.html *********/
-div.image_gallery_list div.thumbnails div.item {display: inline-block; margin: 5px;}
-div.image_gallery_list a {text-decoration: none;}
-div.image_gallery_list div.info {display: none;}
+section.gallery-list div.thumbnails figure {display: inline-block; margin: 5px;}
+section.gallery-list a {text-decoration: none;}
 
 /********* component/image_gallery/cycle.html *********/
 div.image_gallery_cycle {border: 0; position: relative;}
@@ -700,24 +902,9 @@ div.image_gallery_parallax div.slider_copy {text-align: center;}
 div.image_gallery_parallax a {text-decoration: none;}
 div.image_gallery_parallax div.slider_copy h3 {text-align: center;}
 
-/********* component/google_picasa_feed.html *********/
-div.google_picasa_feed div.thumbnails_container {width: 750px; height: 100px; overflow: auto; white-space: nowrap;}
-div.google_picasa_feed div.thumbnail {float: left; height: 75px; padding-right: 15px;}
-div.google_picasa_feed div.full {width: 100%; text-align: center; padding-top: 5px;}
-div.google_picasa_feed div.full div.wrapper {clear: both;}
-div.google_picasa_feed table {padding: 0; margin: 0; border-style: none; border-width: 0;}
-div.google_picasa_feed table td {padding: 0; margin: 0; border-style: none; border-width: 0;}
-
 /********* component/comment_add.html *********/
-div.comment form input {width: 100%;}
-div.comment form textarea {width: 100%;}
-
-/********* comment_UL.html *********/
-ul.comment li {margin-bottom: 10px;}
-ul.comment p.author,
-ul.comment p.created {margin: 0;}
-ul.comment div.bottom {border-bottom: 1px solid #f0f0f0;}
-ul.comment div.item div.content {padding: 10px 0;}
+section.comment form input {width: 100%;}
+section.comment form textarea {width: 100%;}
 
 /********* menu_SELECT.html **********/
 div.selectMenu {padding: 5px 0 0 0;}
@@ -737,16 +924,16 @@ div.rating_stars div.star span {display: none;}
 */
 
 /********* component/social_network_share.html *********/
-div.social_network_share ul {margin: 0; padding: 0;}
-div.social_network_share li {list-style-image: none; list-style-type: none; float: left; margin: 0 0 0 10px; padding: 0;}
-div.social_network_share li a {text-decoration: none;}
-div.social_network_share li a:before {font-family: 'FontAwesome'; font-size: 200%;}
-div.social_network_share li a span {display: none;}
-div.social_network_share li.facebook a:before {content: '\f082';}
-div.social_network_share li.twitter a:before {content: '\f081';}
-div.social_network_share li.google a:before {content: '\f0d4';}
-div.social_network_share li.pinterest a:before {content: '\f0d3';}
-div.social_network_share li.mailto a:before {content: '\f199';}
+div.social-share ul {margin: 0; padding: 0;}
+div.social-share li {list-style-image: none; list-style-type: none; float: left; margin: 0 0 0 10px; padding: 0;}
+div.social-share li a {text-decoration: none;}
+div.social-share li a:before {font-family: 'FontAwesome'; font-size: 200%;}
+div.social-share li a span {display: none;}
+div.social-share li.facebook a:before {content: '\f082';}
+div.social-share li.twitter a:before {content: '\f081';}
+div.social-share li.google a:before {content: '\f0d4';}
+div.social-share li.pinterest a:before {content: '\f0d3';}
+div.social-share li.mailto a:before {content: '\f199';}
 
 /**
  * stack_list:
@@ -758,9 +945,9 @@ div.social_network_share li.mailto a:before {content: '\f199';}
  * component/teaser_stack.html
  */
 
-div.stack_list {text-align: center;}
-div.stack_list div.item { display: inline-block; vertical-align: top; width: 300px; margin: 10px;}
-div.stack_list div.item a {text-decoration: none; display: block;}
+div.stack-list {text-align: center;}
+div.stack-list div.item { display: inline-block; vertical-align: top; width: 300px; margin: 10px;}
+div.stack-list div.item a {text-decoration: none; display: block;}
 /**
  * Norbert @ Laposa Ltd, 2009/09/22
  *

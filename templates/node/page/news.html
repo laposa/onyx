@@ -8,66 +8,53 @@
 <!-- END: head -->
 <!-- BEGIN: content -->
 
-<article class="twoColumnPage page news {NODE.layout_style} {NODE.css_class} {NODE.taxonomy_class}">
-	<div class="content">
-		<div class="pageWrapper">
-			<!-- BEGIN: page_header -->
-			<div class="pageHeader">
-				<div class="pageHeaderWrapper">
-					<div class="articleImage">
-                        {ONXSHOP_REQUEST_main_image #component/image~node_id=GET.id:role=header~}
-                    </div>
-					<h1 class="pageTitle"><span>{NODE.page_title|htmlspecialchars}</span></h1>
-					
-					<div class="note {AUTHOR_EMPTY}"><p><span class="postedOn">{I18N_POSTED_ON} </span><span class="date">{NODE.created|strtotime|strftime('%A %e %B %Y', %s)} </span><span class="by">{I18N_BY} </span><span class="author_name">{NODE.author_detail.name|htmlspecialchars} </span></p></div>
-					
-				</div>
+<article class="page news {NODE.layout_style} {NODE.css_class} {NODE.taxonomy_class}">
+	<!-- BEGIN: page_header -->
+	<header class="{NODE.node_group} {NODE.css_class} {NODE.taxonomy_class} {NODE.extra_css_class|htmlspecialchars}" data-node-id="{NODE.id}" data-node-controller="{NODE.node_controller}">
+		<div class="wrapper">
+			<h1>{NODE.page_title|htmlspecialchars}</h1>
+			<p>{ITEM.description|htmlspecialchars}</p>
+			<div class="byline {AUTHOR_EMPTY}">
+				<time datetime="{NODE.created|strtotime|strftime('%Y-%m-%d', %s)}">{NODE.created|strtotime|strftime('%A %e %B %Y', %s)}</time>
+				<address class="author">{ITEM.author_detail.name|htmlspecialchars}</address>
 			</div>
-			<!-- END: page_header -->
-			<div class="pageContent">
-				<div class="pageContentWrapper">
-					<div class="rowTop">
-						<div class="rowWrapper">
-							<div class="columnWrapper">
-								<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
-								<div class="wrapper">
-									
-									<div class="body">
-										<div class="node_group-content">{NODE.content}</div>
-										{CONTAINER.1}
-									</div>
-	
-									<!-- BEGIN: comment -->
-									<div class="comment" id="comment">
-										<h2 class="layoutTitle">{I18N_COMMENT_HEAD}</h2>
-										{COMMENT}
-									</div>
-									<!-- END: comment -->
-							
-								</div>
-							</div>
-						</div>
-					</div>
-		
-
-					<div class="rowBottom">
-						<div class="rowWrapper">
-							<div class="columnWrapper">
-								<div class="share">
-	                                <h2 class="layoutTitle">Share</h2>
-	                                {ONXSHOP_REQUEST_share #component/social_network_share~node_id=GET.id~}
-	                            </div>
-	                            <div class="related_articles">
-	                                <h2 class="layoutTitle">More Like This</h2>
-	                                {ONXSHOP_REQUEST_news_list_teaser #component/news_list_stack~node_id=GET.id:blog_node_id=GET.parent_id:publish=1:limit_from=0:limit_per_page=3:display_teaser_image=true:image_width=300:image_height=300~}
-	                            </div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+			<figure>
+                {ONXSHOP_REQUEST_main_image #component/image~node_id=GET.id:role=header~}
+            </figure>
 		</div>
-	</div>
+	</header>
+	<!-- END: page_header -->
+	
+	<section class="content">
+		<div class="wrapper">
+			<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+			<div class="node_group-content">{NODE.content}</div>
+			{CONTAINER.1}
+		</div>
+	</section>
+	
+	<section class="share">
+		<div class="wrapper">
+            <h2>Share</h2>
+            {ONXSHOP_REQUEST_share #component/social_network_share~node_id=GET.id~}
+        </div>
+	</section>
+	
+	<section class="comment" id="comment">
+		<div class="wrapper">
+			<h2>{I18N_COMMENT_HEAD}</h2>
+			<!-- BEGIN: comment -->
+			{COMMENT}
+			<!-- END: comment -->
+		</div>
+	</section>
+	
+	<section class="related-articles">
+		<div class="wrapper">
+			<h2 class="layoutTitle">More Like This</h2>
+			{ONXSHOP_REQUEST_news_list_teaser #component/news_list_stack~node_id=GET.id:blog_node_id=GET.parent_id:publish=1:limit_from=0:limit_per_page=3:display_teaser_image=true:image_width=300:image_height=300~}
+		</div>
+	</section>
 </article>
 
 <!-- END: content -->
