@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * Copyright (c) 2005-2016 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2005-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -118,7 +118,7 @@ if (ONXSHOP_BENCHMARK && ONXSHOP_IS_DEBUG_HOST) {
     $time = $time_end - $time_start;
     $time = round($time, 4);
     echo "<div class='onxshop_messages'><p class='onxshop_ok_msg'>Script total running time = $time sec.</p>";
-    echo "<p class='onxshop_ok_msg'>Total Memory Usage = " . round((memory_get_usage()/1024)/1024, 2) . "MB</p>";
+    echo "<p class='onxshop_ok_msg'>Total Memory Usage = " . round((memory_get_peak_usage()/1024)/1024, 2) . "MB</p>";
     echo '</div>';
 }
 
