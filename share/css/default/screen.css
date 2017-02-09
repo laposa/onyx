@@ -663,10 +663,9 @@ section.layout > div.wrapper {padding: 30px 0;}
 
 #container {width: 960px; margin: 0 auto;}
 
-#header {width: 100%;}
+header {width: 100%;}
 
-#logo {float: left;}
-#logo a {text-decoration: none; font-size: 4em;}
+.logo a {text-decoration: none; font-size: 4em;}
 
 #search {float: right; clear: right; margin-bottom: 10px;}
 #search form {background: transparent; float: right; border-width: 0; margin: 0; padding: 0;}
@@ -680,21 +679,21 @@ section.layout > div.wrapper {padding: 30px 0;}
  * reveal navigation
  */
  
-nav#reveal {display: none;}
+nav.reveal {display: none;}
 
 /**
- * primary navigation
+ * navigation
  */
 
-nav#primary {clear: both; width: 100%;}
-nav#primary ul {margin: 0; padding: 0; line-height: 1em; list-style-type: none;}
-nav#primary ul li {margin: 0; padding: 0; margin-right: 1em; display: inline-block; zoom: 1;/*zoom for ie6*/}
-nav#primary a {text-decoration: none; display: block; white-space: pre; zoom: 1;}
-nav#primary a:active span {text-decoration: underline;}
-nav#primary a.open {font-weight: bold;}
-nav#primary ul ul {list-style-type: square; margin-left: 10px;}
-nav#primary ul ul li {padding-left: 0; margin-left: 15px; display: list-item;}
-nav#primary ul ul a {padding-left: 0; font-weight: normal; height: auto;}
+nav {width: auto;}
+nav ul {display: inline-block; list-style-type: none; margin: 0; padding: 0;}
+nav ul li {display: inline-block; margin: 0 15px; padding: 0;}
+nav ul li:first-child {margin-left: 0;}
+nav ul li a {display: block; white-space: pre; zoom: 1;}
+nav ul li a.open {font-weight: bold;}
+nav ul li ul {list-style-type: square; margin-left: 10px;}
+nav ul li ul li {padding-left: 0; margin-left: 15px; display: list-item;}
+nav ul li ul a {padding-left: 0; font-weight: normal; height: auto;}
 
 /**
  * footer navigation
@@ -811,6 +810,7 @@ div.file span.file_size {white-space: nowrap;}
 
 /**
  * Norbert @ Laposa Ltd, 2009/09/22
+ * Chris Black 2017/02/07
  *
  */
 
@@ -872,20 +872,29 @@ div.image_gallery_cycle div.controls div.pagination a {float: left; display: blo
 div.image_gallery_cycle div.imageInfo {display: none;}
 
 /********* component/image_gallery/cycle2.html *********/
-div.image_gallery_cycle2 {position: relative;}
-div.image_gallery_cycle2 div.item { width: 100%;}
-div.image_gallery_cycle2 div.item div.description {color: white; background: rgba(0,0,0,0.8); padding: 5px 10px; width: 100%; text-align: center; position: absolute; bottom: 0;}
-div.image_gallery_cycle2 div.controls a {color: white; background: rgba(255, 255, 255, 0.5);}
-div.image_gallery_cycle2 div.controls a.prev,
-div.image_gallery_cycle2 div.controls a.next {display: none; position: absolute; left: 1%; top: 40%; z-index: 200; width: 40px; height: 40px; padding: 8px; border-radius: 100px; text-align: center;}
-div.image_gallery_cycle2 div.controls a.prev {padding-left: 5px;}
-div.image_gallery_cycle2 div.controls a.next {left: auto; right: 1%; padding-right: 5px;}
-div.image_gallery_cycle2:hover div.controls a.prev,
-div.image_gallery_cycle2:hover div.controls a.next {display: block}
-div.image_gallery_cycle2 div.controls div.pagination a {font-size: 50px; line-height: 20px; display: inline-block; color: gray;}
-div.image_gallery_cycle2 div.controls div.pagination a.active {color: black; border: 0;}
-div.image_gallery_cycle2.number_of_items_1 div.controls,
-div.image_gallery_cycle2.number_of_items_1 div.pagination {display: none;}
+section.gallery-cycle2 {position: relative; overflow: visible!important;/* override inline 'overflow: hidden' added by cycle2 plugin */ }  
+section.gallery-cycle2 > div.wrapper {position: relative;}
+section.gallery-cycle2 figure {display: block; width: 100%; margin: 0;}
+section.gallery-cycle2 figure figcaption {position: absolute; width: 33.333%; top: 33.333%; right: 30px;}
+section.gallery-cycle2 div.controls {position: absolute; display: flex; justify-content: space-between; align-items: center; height: 100%; top: 0; right: 0; left: 0; pointer-events: none;}
+section.gallery-cycle2 div.controls a {display: block; color: #0a2861; opacity: 0.7; pointer-events: all;}
+section.gallery-cycle2 div.controls a:hover,
+section.gallery-cycle2 div.controls a.active {opacity: 1.0; text-decoration: none;}
+section.gallery-cycle2 div.controls a:focus {text-decoration: none;}
+section.gallery-cycle2 div.controls a span {display: none;}
+section.gallery-cycle2 div.controls a.prev:before,
+section.gallery-cycle2 div.controls a.next:before {content:''; font-family: 'FontAwesome'; font-size: 36px;}
+section.gallery-cycle2 div.controls a.prev:before {content:'\f104';}
+section.gallery-cycle2 div.controls a.next:before {content:'\f105';}
+section.gallery-cycle2 div.gallery-pagination {position: absolute; z-index: 1000; width: 100%; bottom: 54px; text-align: center;}
+section.gallery-cycle2 div.gallery-pagination a {display: inline-block; width: 12px; height: 12px; margin: 0 5px; border-radius: 50%; background: white; cursor: pointer; opacity: 0.7; transition: opacity 300ms ease;}
+section.gallery-cycle2 div.gallery-pagination a:hover,
+section.gallery-cycle2 div.gallery-pagination a.active {opacity: 1.0;}
+section.gallery-cycle2 div.gallery-pagination a span {display: none;}
+section.gallery-cycle2.number-of-items-1 div.controls,
+section.gallery-cycle2.number-of-items-1 div.pagination {display: none;}
+
+
 
 /********* component/image_gallery/fancybox.html *********/
 div.image_gallery_fancybox div.item {float: left; margin-right: 10px;}

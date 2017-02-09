@@ -69,7 +69,7 @@
  
 .onxshop_edit {background-image: url(/share/images/famfamfam_icons/plugin.png);}
 .onxshop_layout_properties {background-image: url(/share/images/famfamfam_icons/layout.png);}
-.onxshop_page_properties {background-image: url(/share/images/famfamfam_icons/page.png);}
+.onxshop_page_properties {background-image: url(/share/images/famfamfam_icons/page.png); background-repeat: no-repeat;}
 .onxshop_duplicate {background-image: url(/share/images/famfamfam_icons/application_double.png);}
 .onxshop_delete {background-image: url(/share/images/famfamfam_icons/delete.png);}
 .onxshop_edit_source {background-image: url(/share/images/famfamfam_icons/link_edit.png);}

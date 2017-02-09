@@ -18,10 +18,9 @@
 
 #container {width: 960px; margin: 0 auto;}
 
-#header {width: 100%;}
+header {width: 100%;}
 
-#logo {float: left;}
-#logo a {text-decoration: none; font-size: 4em;}
+.logo a {text-decoration: none; font-size: 4em;}
 
 #search {float: right; clear: right; margin-bottom: 10px;}
 #search form {background: transparent; float: right; border-width: 0; margin: 0; padding: 0;}
@@ -35,21 +34,21 @@
  * reveal navigation
  */
  
-nav#reveal {display: none;}
+nav.reveal {display: none;}
 
 /**
- * primary navigation
+ * navigation
  */
 
-nav#primary {clear: both; width: 100%;}
-nav#primary ul {margin: 0; padding: 0; line-height: 1em; list-style-type: none;}
-nav#primary ul li {margin: 0; padding: 0; margin-right: 1em; display: inline-block; zoom: 1;/*zoom for ie6*/}
-nav#primary a {text-decoration: none; display: block; white-space: pre; zoom: 1;}
-nav#primary a:active span {text-decoration: underline;}
-nav#primary a.open {font-weight: bold;}
-nav#primary ul ul {list-style-type: square; margin-left: 10px;}
-nav#primary ul ul li {padding-left: 0; margin-left: 15px; display: list-item;}
-nav#primary ul ul a {padding-left: 0; font-weight: normal; height: auto;}
+nav {width: auto;}
+nav ul {display: inline-block; list-style-type: none; margin: 0; padding: 0;}
+nav ul li {display: inline-block; margin: 0 15px; padding: 0;}
+nav ul li:first-child {margin-left: 0;}
+nav ul li a {display: block; white-space: pre; zoom: 1;}
+nav ul li a.open {font-weight: bold;}
+nav ul li ul {list-style-type: square; margin-left: 10px;}
+nav ul li ul li {padding-left: 0; margin-left: 15px; display: list-item;}
+nav ul li ul a {padding-left: 0; font-weight: normal; height: auto;}
 
 /**
  * footer navigation

@@ -3,15 +3,15 @@
 {ONXSHOP_REQUEST_cycle2 #component/cycle2_js}
 <script type="text/javascript">
 $(document).ready(function() {
-	$('div.image_gallery_cycle2').cycle({
-		speed: 500,
+	$('section.gallery-cycle2 div.image-container ').cycle({
+		speed: 600,
 		timeout: 0,
 		fx: 'scrollHorz',
-		slides: 'div.item',
-		prev: '> div.controls a.prev',
-		next: '> div.controls a.next',
+		slides: 'figure',
+		prev: 'div.controls a.prev',
+		next: 'div.controls a.next',
 		swipe: true,
-		pager: '> div.controls div.pagination',
+		pager: 'div.gallery-pagination',
 		pagerActiveClass: 'active',
 		pagerTemplate: '<a><span>&bull;</span></a>',
 		log: false
@@ -20,18 +20,22 @@ $(document).ready(function() {
 </script>
 <!-- END: head_once -->
 <!-- BEGIN: content -->
-<div class="image_gallery_cycle2 number_of_items_{IMAGE_COUNT}" id="gallery_cycle2_{GET.node_id}">
+<div class="image-container number-of-items-{IMAGE_COUNT}" id="gallery-cycle2-{GET.node_id}">
 	<!-- BEGIN: item -->
-	<div class="item item_id_{GET.node_id}_{ITEM.id}">
-		<!-- BEGIN: normal --><img id="image_id_{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" /><!-- END: normal -->
-		<!-- BEGIN: link --><a href="/page/{ITEM.link_to_node_id}"><img id="image_id_{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" /></a><!-- END: link -->
-		<div class="description">{ITEM.description|htmlspecialchars}</div>
-	</div>
+	<figure class="item-id-{GET.node_id}-{ITEM.id}">
+		<img id="image-id-{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}"/>
+		<figcaption>
+			<h2>{ITEM.title|htmlspecialchars}</h2>
+			<p>{ITEM.description|htmlspecialchars}</p>
+			<!-- BEGIN: link --><a class="button" href="/page/{ITEM.link_to_node_id}"><span>Find out more</span></a><!-- END: link -->
+		</figcaption>
+	</figure>
 	<!-- END: item -->
-	<div class="controls">
-		<a href="#" title="previous" class="prev"><span>&#9668;</span></a>
-		<div class="pagination"></div>
-		<a href="#" title="next" class="next"><span>&#9658;</span></a>
-	</div>
 </div>
+<div class="controls">
+	<a href="#" class="prev"><span>&#9668;</span></a>
+	<a href="#" class="next"><span>&#9658;</span></a>
+</div>
+<div class="gallery-pagination"></div>
 <!-- END: content -->
+
