@@ -210,6 +210,12 @@ div#jGrowl div.jGrowl-closer { background: black; color: white; background: rgba
 @media all and (max-width: 600px) {
 	div#jGrowl { width: 80%; left: 10%; margin-left: 0; }
 }
+
+/**
+ * tracy component
+ */
+ 
+#tracy-debug {z-index: 300000;}
 /**
  * Norbert @ Laposa Ltd, 2009/09/22
  *
