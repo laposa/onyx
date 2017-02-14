@@ -27,30 +27,12 @@ class Onxshop_Controller_Bo_Component_Client_Customer_List extends Onxshop_Contr
 		$customer_filter = $_SESSION['bo']['customer-filter'];
 		
 		/**
-		 * Sorting TODO - removed since Onxshop 1.7.9
+		 * Sorting
 		 */
 		
-		if ($this->GET['customer-list-sort-by']) {
-			$_SESSION['bo']['customer-list-sort-by'] = $this->GET['customer-list-sort-by'];
-		}
-		
-		if ($this->GET['customer-list-sort-direction']) {
-			$_SESSION['bo']['customer-list-sort-direction'] = $this->GET['customer-list-sort-direction'];
-		}
-		
-		if ($_SESSION['bo']['customer-list-sort-by']) {
-			$sortby = $_SESSION['bo']['customer-list-sort-by'];
-		} else {
-			$sortby = "id";
-		}
-		
-		if ($_SESSION['bo']['customer-list-sort-direction']) {
-			$direction = $_SESSION['bo']['customer-list-sort-direction'];
-		} else {
-			$direction = "DESC";
-		}
-		
-		//msg("Sorted by $sortby $direction");
+		$order_by = $this->getOrderBy();
+					
+		//msg("Sorted by $order_by");
 		
 		/**
 		 * Initialize pagination variables
@@ -68,8 +50,8 @@ class Onxshop_Controller_Bo_Component_Client_Customer_List extends Onxshop_Contr
 		 * get customer list
 		 */
 		
-		$customer_list = $Customer->getClientList(0, $customer_filter, $per_page, $from);
-		$customer_list_count = $Customer->getCustomerListCount(0, $customer_filter);		
+		$customer_list = $Customer->getClientList($customer_filter, $order_by, $per_page, $from);
+		$customer_list_count = $Customer->getCustomerListCount($customer_filter);		
 		
 		if (is_array($customer_list) && count($customer_list) > 0) {
 			
@@ -109,5 +91,41 @@ class Onxshop_Controller_Bo_Component_Client_Customer_List extends Onxshop_Contr
 		}
 
 		return true;
+	}
+	
+	/**
+	 * getOrderBy
+	 */
+	 
+	public function getOrderBy() {
+		
+		if ($this->GET['customer-list-sort-by']) {
+			$_SESSION['bo']['customer-list-sort-by'] = $this->GET['customer-list-sort-by'];
+		}
+		
+		if ($this->GET['customer-list-sort-direction']) {
+			$_SESSION['bo']['customer-list-sort-direction'] = $this->GET['customer-list-sort-direction'];
+		}
+		
+		if ($_SESSION['bo']['customer-list-sort-by']) {
+			$sort_by = $_SESSION['bo']['customer-list-sort-by'];
+		} else {
+			$sort_by = "customer_id";
+		}
+		
+		if ($_SESSION['bo']['customer-list-sort-direction']) {
+			$sort_direction = $_SESSION['bo']['customer-list-sort-direction'];
+		} else {
+			$sort_direction = "DESC";
+		}
+		
+		switch ($sort_by) {
+			case 'customer_id';
+			default:
+				$order_by = "client_customer.id $sort_direction";
+		}
+		
+		return $order_by;
+		
 	}
 }
