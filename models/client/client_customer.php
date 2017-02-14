@@ -1613,21 +1613,21 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
 	
 	/**
 	 * get clients orders and details
-	 *
-	 * @param integer $customer_id
-	 * customer's ID
-	 * 0 returns orders of all customers
+	 * this function is currently only used in backoffice
 	 * 
 	 * @param array $filter
 	 * filter rules
-	 * 
+	 * @param string $order_by
+	 * @param integer $limit
+	 * @param integer $offset
+	 
 	 * @return array
 	 * client's orders and details, or false if not found
 	 */
 	 
-	function getClientList($customer_id = 0, $filter = false, $limit = false, $offset = false) {
+	public function getClientList($filter = false, $order_by = 'client_customer.id DESC', $limit = false, $offset = false) {
 	
-		return $this->getClientListHeavy($customer_id, $filter, $limit, $offset);
+		return $this->getClientListHeavy($filter, $order_by, $limit, $offset);
 	
 	}
 	
@@ -1636,12 +1636,15 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
 	 *
 	 * @param array $filter
 	 * filter rules
-	 * 
+	 * @param string $order_by
+	 * @param integer $limit
+	 * @param integer $offset
+	 *
 	 * @return array
 	 * list of clients
 	 */
 	 
-	function getClientListSimple($customer_id = 0, $filter = false, $limit = false, $offset = false) {
+	public function getClientListSimple($filter = false, $order_by = 'client_customer.id DESC', $limit = false, $offset = false) {
 		
 		$add_to_where = '';
 		
@@ -1678,7 +1681,7 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
 		}
 
 		//customer ID
-		if ($customer_id > 0) $add_to_where .= "AND client_customer.id = $customer_id";
+		if (is_numeric($filter['customer_id']) &&  $filter['customer_id'] > 0) $add_to_where .= "AND client_customer.id = {$filter['customer_id']}";
 		
 		/**
 		 * query limit
@@ -1709,7 +1712,7 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
 			FROM client_customer
 			WHERE 1=1 AND client_customer.status < 4 
 			$add_to_where
-			ORDER BY client_customer.id
+			ORDER BY $order_by
 			$add_limit
 			";
 		
@@ -1730,19 +1733,18 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
 	 * the SQL WHERE clause is applied first, and the SQL HAVING clause is applied later to the groups 
 	 * and/or aggregates.
 	 *
-	 * @param integer $customer_id
-	 * ID of customer
-	 * 0 returns orders of all customers
-	 * 
+	 * @param array $filter
+	 * @param string $order_by
+	 * @param integer $limit
+	 * @param integer $offset
+	 *
 	 * @return array
 	 * customer's orders and details, or false if not found
 	 */
 	 
-	function getClientListHeavy($customer_id = 0, $filter = false, $limit = false, $offset = false) {
+	public function getClientListHeavy($filter = false, $order_by = 'client_customer.id DESC', $limit = false, $offset = false) {
 		
-		if (!is_numeric($customer_id)) return false;
-		
-		$sql = $this->prepareCustomerListQuery($customer_id, $filter, $limit, $offset);
+		$sql = $this->prepareCustomerListQuery($filter, $order_by, $limit, $offset);
 		
 		return $this->executeSql($sql);
 		
@@ -1751,13 +1753,15 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
 	/**
 	 * getCustomerListCount
 	 *
+	 * @param integer $customer_id
+	 * @param array $filter
+	 *
+	 * @return integer $count
 	 */
 	 
-	function getCustomerListCount($customer_id = 0, $filter = false) {
+	public function getCustomerListCount($filter = false) {
 		
-		if (!(is_numeric($customer_id) || is_null($customer_id))) return false;
-		
-		$sql = $this->prepareCustomerListQuery($customer_id, $filter);
+		$sql = $this->prepareCustomerListQuery($filter);
 		
 		$sql = "SELECT count(*) as count FROM ($sql) AS subquery";
 
@@ -1768,22 +1772,29 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
 	
 	/**
 	 * prepareCustomerListQuery
+	 *
+	 * @param array $filter
+	 * @param string $order_by
+	 * @param integer $limit
+	 * @param integer $offset
+	 *
+	 * @return string $sql
 	 */
 	 
-	function prepareCustomerListQuery($customer_id = 0, $filter = false, $limit = false, $offset = false)
+	private function prepareCustomerListQuery($filter = false, $order_by = 'client_customer.id DESC', $limit = false, $offset = false)
 	{
 		
 		/**
 		 * prepare WHERE query
 		 */
 		 
-		$add_to_where = $this->prepareCustomerListFilterWhereQuery($customer_id, $filter);
+		$add_to_where = $this->prepareCustomerListFilterWhereQuery($filter);
 		
 		/**
 		 * this limits will be added to the end result
 		 */
 		 
-		$subselect_add_to_where = $this->prepareCustomerListFilterWhereQuerySubselect($customer_id, $filter);
+		$subselect_add_to_where = $this->prepareCustomerListFilterWhereQuerySubselect($filter);
 		
 		//format product filter array to be ready for SQL
 		if (is_array($filter['product_bought'])) $filter['product_bought'] = implode(',', $filter['product_bought']);
@@ -1884,7 +1895,7 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
 			client_address.country_id,
 			client_customer.company_id
 			$local_fields
-			ORDER BY client_customer.id DESC
+			ORDER BY $order_by
 			$add_limit
 			";
 		}
@@ -1934,7 +1945,7 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
 			client_customer.birthday,
 			client_customer.store_id
 			$local_fields
-			ORDER BY client_customer.id DESC
+			ORDER BY $order_by
 			$add_limit
 			";
 			
@@ -1955,8 +1966,14 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
 	
 	/**
 	 * Prepare WHERE part of SQL query according to given filter
+	 *
+	 * @param array $filter
+	 *
+	 * @return string $add_to_where
+	 *
 	 */
-	function prepareCustomerListFilterWhereQuery($customer_id = 0, $filter = false)
+	 
+	private function prepareCustomerListFilterWhereQuery($filter = false)
 	{
 		$add_to_where = 'WHERE 1=1 ';
 		
@@ -2047,7 +2064,7 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
 		}
 		
 		//customer ID
-		if ($customer_id > 0) $add_to_where .= "AND client_customer.id = $customer_id";
+		if (is_numeric($filter['customer_id']) &&  $filter['customer_id'] > 0) $add_to_where .= "AND client_customer.id = {$filter['customer_id']}";
 		
 				
 		return $add_to_where;
@@ -2055,9 +2072,13 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
 	
 	/**
 	 * prepare subselect
+	 *
+	 * @param array $filter
+	 *
+	 * @return string $subselect_add_to_where
 	 */
 	 
-	public function prepareCustomerListFilterWhereQuerySubselect($customer_id = 0, $filter = false)
+	private function prepareCustomerListFilterWhereQuerySubselect($filter = false)
 	{
 		
 		$subselect_add_to_where = false;
