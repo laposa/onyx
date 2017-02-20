@@ -21,7 +21,7 @@
 							<div class="rowWrapper">
 								<div class="columnWrapper">
 
-									<table id="scheduler_list">
+									<table id="scheduler-list">
 										<thead>
 										<tr>
 											<th>Job Id</th>
@@ -38,7 +38,7 @@
 										</thead>
 										<tbody>
 											<!-- BEGIN:item -->
-											<tr class="status_{ITEM.status_name|strtolower}">
+											<tr class="status-{ITEM.status_name|strtolower}">
 												<td>{ITEM.id}</td>
 												<td>{ITEM.controller|str_replace('_', ' ', %s)|ucfirst}</td>
 												<td>{ITEM.parameters|htmlspecialchars}</td>
@@ -49,7 +49,7 @@
 												<td>{ITEM.created}<br/>{ITEM.modified}</td>
 												<td>{ITEM.result|htmlspecialchars}</td>
 												<td>
-													<a class="onxshop_delete onxshop_icon" title="Cancel job" onclick="if (confirm('Are you sure you want to cancel job {ITEM.id}?')) makeAjaxRequest($('div.scheduler').parent(), '/request/bo/component/scheduler?cancel={ITEM.id}'); return false;"></a>
+													<a class="onxshop-delete onxshop-icon" title="Cancel job" onclick="if (confirm('Are you sure you want to cancel job {ITEM.id}?')) makeAjaxRequest($('div.scheduler').parent(), '/request/bo/component/scheduler?cancel={ITEM.id}'); return false;"></a>
 												</td>
 											</tr>
 											<!-- END:item -->

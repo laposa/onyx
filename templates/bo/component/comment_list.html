@@ -1,7 +1,7 @@
 <!-- BEGIN: content -->
-<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<!-- BEGIN: messages --><div class="onxshop-messages">{MESSAGES}</div><!-- END: messages -->
 
-<div class="horizontalFilter">
+<div class="horizontal-filter">
 
 	<form method="post" action="{URI|htmlspecialchars}">
 		<fieldset class="single">
@@ -31,9 +31,9 @@
 	
 </div>
 	
-<div class="comment_list">
+<div class="comment-list">
 	
-	<div id="commentEdit"></div>
+	<div id="comment-edit"></div>
 	
 	<table cellspacing="0">
 		<thead>
@@ -47,8 +47,8 @@
 		</thead>
 		<tbody>
 			<!-- BEGIN: item -->
-			<tr class="status_{ITEM.publish}">
-				<td><a class="title" title="Edit comment" onclick="showModalOverlay(); makeAjaxRequest('#modal_overlay_window', '/request/bo/component/comment_edit~id={ITEM.id}~'); return false" href="#reviews_page">{ITEM.title|htmlspecialchars}</a></td>
+			<tr class="status-{ITEM.publish}">
+				<td><a class="title" title="Edit comment" onclick="showModalOverlay(); makeAjaxRequest('#modal-overlay-window', '/request/bo/component/comment_edit~id={ITEM.id}~'); return false" href="#reviews-page">{ITEM.title|htmlspecialchars}</a></td>
 				<td><a href="/backoffice/customers/{ITEM.customer_id}/detail">{ITEM.author_name|htmlspecialchars} (ID {ITEM.customer_id})</a></td>
 				<td>{ITEM.created|strtotime||date('d/m/Y H:i', %s)}</td>
 				<td><a href="/backoffice/pages/{ITEM.node_id}">{ITEM.node.title}</a></td>
@@ -65,7 +65,7 @@
 		<tfoot>
 			<tr>
 				<td colspan="5">
-					<div class="onxshop_pagination">
+					<div class="onxshop-pagination">
 						{PAGINATION}
 					</div>
 				</td>

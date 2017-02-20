@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2005-2016 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2005-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -234,6 +234,12 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 				//$this->tpl->parse('content.wrapper.layout_add');
 			} else if ($node_data['node_group'] == 'page' && $_SESSION['fe_edit_mode'] == 'edit') {
 				$this->tpl->parse('content.wrapper.fe_page_properties');
+			}
+			
+			// show extra wrappers when in edit or sorting mode
+			if ($_SESSION['fe_edit_mode'] == 'edit' || $_SESSION['fe_edit_mode'] == 'move') {
+				$this->tpl->parse('content.wrapper.backend_wrapper_before');
+				$this->tpl->parse('content.wrapper.backend_wrapper_after');
 			}
 		}
 

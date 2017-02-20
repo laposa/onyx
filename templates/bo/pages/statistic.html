@@ -5,36 +5,36 @@
 $(function() {
 	var options = {
 		url: '/request/bo/component/ecommerce/orders_graph',
-		target: '#orders_graph',
+		target: '#orders-graph',
 		beforeSubmit: function () {
-    		$("#orders_graph").html(onxshop_load_indicator_html_snippet)
+    		$("#orders-graph").html(onxshop_load_indicator_html_snippet)
 		},
 		success: function(responseText, statusText) {
-			popupMessage("#orders_graph div.onxshop_messages");
-			$('#orders_graph form').ajaxForm(options);
+			popupMessage("#orders-graph div.onxshop-messages");
+			$('#orders-graph form').ajaxForm(options);
 		}
 	}; 
 
-    $('#orders_graph form').ajaxForm(options);
+    $('#orders-graph form').ajaxForm(options);
     
     var options1 = {
 		url: '/request/bo/component/ecommerce/reports_filter',
-		target: '#reports_filter',
+		target: '#reports-filter',
 		success: function(responseText, statusText) {
-			popupMessage("#reports_filter div.onxshop_messages");
-			$('#reports_filter form').ajaxForm(options1);
-			makeAjaxRequest('#orders_breakdown', '/request/bo/component/ecommerce/orders_breakdown');
-			makeAjaxRequest('#sales_report', '/request/bo/component/ecommerce/sales_report');
-			makeAjaxRequest('#promotion_report', '/request/bo/component/ecommerce/promotion_list_report');
+			popupMessage("#reports-filter div.onxshop-messages");
+			$('#reports-filter form').ajaxForm(options1);
+			makeAjaxRequest('#orders-breakdown', '/request/bo/component/ecommerce/orders_breakdown');
+			makeAjaxRequest('#sales-report', '/request/bo/component/ecommerce/sales_report');
+			makeAjaxRequest('#promotion-report', '/request/bo/component/ecommerce/promotion_list_report');
 		}
 	}; 
 
-    $('#reports_filter form').ajaxForm(options1);
+    $('#reports-filter form').ajaxForm(options1);
 
 });
 </script>
 
-<div id="reports_page" class="twoColumnPage page">
+<div id="reports-page" class="twoColumnPage page">
 	<div class="top"><span></span></div>
 	<div class="content">
 		<div class="pageWrapper">
@@ -51,23 +51,23 @@ $(function() {
 						<div class="rowWrapper">
 							<div class="columnWrapper">
 
-								<div id="reports_filter" class="horizontalFilter">
+								<div id="reports-filter" class="horizontal-filter">
 									{ONXSHOP_REQUEST_reports_filter #bo/component/ecommerce/reports_filter}
 								</div>
 
-								<div id="orders_breakdown">
+								<div id="orders-breakdown">
 									{ONXSHOP_REQUEST_breakdown #bo/component/ecommerce/orders_breakdown}
 								</div>
 								
-								<div id="sales_report" style="display: none;">
+								<div id="sales-report" style="display: none;">
 									{ONXSHOP_REQUEST_bestbuys #bo/component/ecommerce/sales_report}
 								</div>
 
-								<div id="promotion_report" style="display: none;">
+								<div id="promotion-report" style="display: none;">
 									{ONXSHOP_REQUEST_promotion_report #bo/component/ecommerce/promotion_list_report}
 								</div>
 								
-								<div id="orders_graph">
+								<div id="orders-graph">
 									{ONXSHOP_REQUEST_graph #bo/component/ecommerce/orders_graph}
 								</div>
 
@@ -90,8 +90,8 @@ $(function() {
 						<div class="rowWrapper">
 							<div class="columnWrapper">
 								<p>
-									<a class="button" href="#sales_report" onclick="$('#sales_report').show(); scrollToElement('#sales_report'); return false;"><span>Show Itemised Sales Report</span></a>
-									<a class="button" href="#promotion_report" onclick="$('#promotion_report').show(); scrollToElement('#promotion_report'); return false;"><span>Show Itemised Promotion Report</span></a>
+									<a class="button" href="#sales_report" onclick="$('#sales-report').show(); scrollToElement('#sales-report'); return false;"><span>Show Itemised Sales Report</span></a>
+									<a class="button" href="#promotion_report" onclick="$('#promotion-report').show(); scrollToElement('#promotion-report'); return false;"><span>Show Itemised Promotion Report</span></a>
 								</p>
 							</div>
 						</div>

@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2009-2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -64,7 +64,7 @@ class Onxshop_Controller_Node_Default extends Onxshop_Controller {
 			$min_container_id = 0;
 			$max_container_id = 20;
 			for ($key = $min_container_id; $key < ($max_container_id + 1); $key++) {
-				$container[$key] = "<div class='onxshop_layout_container' id='onxshop_layout_container_{$node_id}_{$key}'>{$container[$key]}</div>";	
+				$container[$key] = "<div class='onxshop-layout-container' id='onxshop-layout-container-{$node_id}-{$key}'>{$container[$key]}</div>";	
 			}
 		}
 			

@@ -8,12 +8,12 @@ span.disabled {text-decoration: line-through;}
  * Messages
  */
  
-div.onxshop_messages {margin: 1em; border: none; background: black; color: white; background: rgba(0,0,0,0.75); padding: 1em; box-shadow: #000000 5px 5px 30px;
+div.onxshop-messages {margin: 1em; border: none; background: black; color: white; background: rgba(0,0,0,0.75); padding: 1em; box-shadow: #000000 5px 5px 30px;
 	clear: both; border-radius: 4px; -moz-border-radius: 7px; -webkit-border-radius: 7px;
 	z-index: 1000; position: relative;}
-div.onxshop_messages p {margin: 5px 0; line-height: 1; padding: 0; color: white; font-weight: bold; }
-div.onxshop_messages p.onxshop_ok_msg {}
-div.onxshop_messages p.onxshop_error_msg {background: transparent url(/share/images/famfamfam_icons/exclamation.png) left top no-repeat; padding: 0 0 0 25px;}
+div.onxshop-messages p {margin: 5px 0; line-height: 1; padding: 0; color: white; font-weight: bold; }
+div.onxshop-messages p.onxshop_ok_msg {}
+div.onxshop-messages p.onxshop_error_msg {background: transparent url(/share/images/famfamfam_icons/exclamation.png) left top no-repeat; padding: 0 0 0 25px;}
 
 /**
  * Ajax

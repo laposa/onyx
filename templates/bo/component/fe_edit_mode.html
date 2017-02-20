@@ -13,10 +13,10 @@ function refreshMenuAdd(selector) {
 
 $(function() {
 	refreshDeleteContent();
-	refreshAddContent('body div.onxshop_layout_container');
-	refreshMenuAdd("#primaryNavigation div.menucontainer");
-	refreshMenuAdd("#globalNavigation div.menucontainer");
-	refreshMenuAdd("#footerNavigation div.menucontainer");
+	refreshAddContent('body div.onxshop-layout-container');
+	refreshMenuAdd("nav#primary div.menucontainer");
+	refreshMenuAdd("nav#global div.menucontainer");
+	refreshMenuAdd("nav#footer div.menucontainer");
 });
 </script>
 <!-- END: fe_edit_mode_edit -->
@@ -29,8 +29,8 @@ $(function() {
 </script>
 
 <style type="text/css">
-	.onxshop_layout_container div.node {cursor: move; }
-	.onxshop_layout_container {border: 1px dotted black; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; padding: 1em;}
+	.onxshop-layout-container > div {cursor: move; }
+	.onxshop-layout-container {border: 1px dotted black; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; padding: 1em;}
 	.ui-sortable {min-height: 5em;}
 	.ui-sortable-placeholder {  visibility: visible !important; height: 50px !important; }
 	.ui-sortable-placeholder * { visibility: hidden; }
@@ -40,7 +40,7 @@ $(function() {
 <!-- BEGIN: fe_edit_mode_preview -->
 <!-- END: fe_edit_mode_preview -->
 
-<ul id="menuEditMode">	
+<ul id="menu-edit-mode">	
 	<li class="preview {ACTIVE_preview} first"><a href="{URI_STRIP}?fe_edit_mode=preview" title="Don't display any editing tools"><span>Preview</span></a></li>
 	<li class="edit {ACTIVE_edit}"><a href="{URI_STRIP}?fe_edit_mode=edit" title="Show all editing tools next to each content element"><span>Editing</span></a></li>
 	<li class="move {ACTIVE_move}"><a href="{URI_STRIP}?fe_edit_mode=move" title="Drag&amp;Drop interface for organising your content"><span>Sorting</span></a></li>

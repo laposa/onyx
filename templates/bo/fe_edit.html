@@ -8,26 +8,26 @@
 <script type="text/javascript" src="/share/js/fe_edit.js"></script>
 <script type="text/javascript" src="/share/js/backoffice.js"></script>
 
-<div id="onxshopHeader" class="frontend minimised" ondblclick="$(this).remove()">
+<div id="onxshop-header" class="frontend minimised" ondblclick="$(this).remove()">
 
-	<div id="onxshopMenuBar">
+	<div id="onxshop-menu-bar">
 
-		<ul id="menuSystem">
-			<li><a class="onxshop_version" href="/" title="{CONFIGURATION.global.title|htmlspecialchars} is using {ONXSHOP_VERSION} {ONXSHOP_PACKAGE_NAME|ucfirst}" onclick="return false;"><span>Onxshop</span></a></li>
+		<ul id="menu-system">
+			<li><a class="onxshop-version" href="/" title="{CONFIGURATION.global.title|htmlspecialchars} is using {ONXSHOP_VERSION} {ONXSHOP_PACKAGE_NAME|ucfirst}" onclick="return false;"><span>Onxshop</span></a></li>
 		</ul>
 
-		<ul id="menuBackOffice">
+		<ul id="menu-backoffice">
 			<li class="backoffice"><a href="/backoffice/pages"><span>Back Office</span></a></li>
 		</ul>
 
-		<ui id="menuEditingMode">
+		<ui id="menu-editing-mode">
 			{ONXSHOP_REQUEST_fe_edit_mode #bo/component/fe_edit_mode~id=GET.id~}
 		</ui>
 
-		<ul id="menuActions">
-			<li class="flush_cache"><a href='/backoffice/advanced/tools?tool=flush_cache' onclick="clearOnxshopCache(this); return false" title="Clear Cache"><span>Clear Cache</span></a></li>
+		<ul id="menu-actions">
+			<li class="flush-cache"><a href='/backoffice/advanced/tools?tool=flush_cache' onclick="clearOnxshopCache(this); return false" title="Clear Cache"><span>Clear Cache</span></a></li>
 			<!--<li class="support"><a href="{ONXSHOP_SUPPORT_WEBSITE_URL}" title="Access to Onxshop support" target="_blank"><span>Support</span></a></li>-->
-			<li class="css_edit"><a class="onxshop_edit_css_edit" href="/backoffice/advanced/templates" title="CSS Edit" onclick="nOpenWin('/popup/css_edit/{GET.id}/orig/{_SESSION.orig}', 900, 600); return false;"><span>CSS</span></a></li>
+			<li class="css-edit"><a class="onxshop-edit-css-edit" href="/backoffice/advanced/templates" title="CSS Edit" onclick="nOpenWin('/popup/css_edit/{GET.id}/orig/{_SESSION.orig}', 900, 600); return false;"><span>CSS</span></a></li>
 			<li class="logout" ><a class="logout" href="/?logout=1" title="Logout user {_SESSION.authentication.user_details.email|htmlspecialchars} from Front Office"><span>Log Out</span></a></li>
 		</ul>
 
@@ -35,14 +35,12 @@
 
 </div>
 
-<div id="onxshop_cms_content">
-	<div class="top"><span></span></div>
+<div id="onxshop-cms-content">
 		{SUB_CONTENT}
-	<div class="bottom"><span></span></div>
 </div>
 
 <script type="text/javascript">
-	$('#onxshopHeader').draggable();
+	$('#onxshop-header').draggable();
 </script>
 
 <!-- END: content -->

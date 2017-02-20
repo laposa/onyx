@@ -1,16 +1,16 @@
 <!-- BEGIN: content -->
 
-<div id="server_browser_file_list_wrapper">
+<div id="server-browser-file-list-wrapper">
 
-	<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+	<!-- BEGIN: messages --><div class="onxshop-messages">{MESSAGES}</div><!-- END: messages -->
 	
-	<div id="server_browser_add">
+	<div id="server-browser-add">
 	
-		<form action="{URI|htmlspecialchars}" method="post" enctype="multipart/form-data" id="add_new_file">
+		<form action="{URI|htmlspecialchars}" method="post" enctype="multipart/form-data" id="add-new-file">
 			
 			<!-- BEGIN: confirm_overwrite -->
 			<p>Do you want to overwrite file {OVERWRITE_FILE.filename}?</p>
-			<fieldset class="confirmOverwrite">
+			<fieldset class="confirm-overwrite">
 				<input type="hidden" name="filename" value="{OVERWRITE_FILE.filename}" />
 				<input type="hidden" name="save_dir" value="{OVERWRITE_FILE.save_dir}" />
 				<input type="hidden" name="temp_file" value="{OVERWRITE_FILE.temp_file}" />
@@ -19,8 +19,8 @@
 			<!-- END: confirm_overwrite -->
 			
 			<!-- BEGIN: add_new -->
-			<div class="addNew">
-				<fieldset class="addFolder single">
+			<div class="add-new">
+				<fieldset class="add-folder single">
 					
 					<div class="row" id="add-folder">
 						{FOLDER_HEAD} <input id="add-folder-input" type="text" name="new_folder" value="{GET.new_folder}" placeholder="New Folder Name" />
@@ -28,7 +28,7 @@
 					</div>
 				</fieldset>
 				<!-- BEGIN: upload_file -->
-				<fieldset class="addNew single dropzone-wrap">
+				<fieldset class="add-new single dropzone-wrap">
 					<div id="add-dropzone" class="row dropzone">
 						<h2>Drop files here</h2>
 						<small>Max. {MAX_FILES} files, {MAX_FILE_SIZE}MB each</small>
@@ -78,7 +78,7 @@
 					<!-- BEGIN: usage --><a href="#" onclick="openAjaxRequestInDialog('/request/bo/component/file_usage~file_path_encoded_relative={ITEM.file_path_encoded_relative}~', 'File Usage'); return false" title="Usage">{FILE_USAGE}x</a><!-- END: usage -->
 				</td>
 				<td>
-					<!-- BEGIN: add_to_node --><a class="button small add" title="Use {ITEM.name}" href="#serverBrowser" onclick="makeAjaxRequest('#serverBrowser', '/request/bo/component/file_add~file_path_encoded={ITEM.file_path_encoded}:type={GET.type}:role={GET.role}:relation={GET.relation}:node_id={GET.node_id}~'); "><span>Use</span></a><br /><!-- END: add_to_node -->
+					<!-- BEGIN: add_to_node --><a class="button small add" title="Use {ITEM.name}" href="#serverBrowser" onclick="makeAjaxRequest('#server-browser', '/request/bo/component/file_add~file_path_encoded={ITEM.file_path_encoded}:type={GET.type}:role={GET.role}:relation={GET.relation}:node_id={GET.node_id}~'); "><span>Use</span></a><br /><!-- END: add_to_node -->
 					<!-- BEGIN: delete --><a class="button small remove" href="{_SERVER.REDIRECT_URL}?delete_file={BASE}{FOLDER}{ITEM.name}" onclick="$('#file-{ITEM.file_path_encoded_relative}').load('/request/bo/component/file_delete~file_path_encoded={ITEM.file_path_encoded_relative}~', function() {popupMessage('#file-{ITEM.file_path_encoded_relative} div.onxshop_messages');}); return false;"><span>Delete</span></a><!-- END: delete -->
 					<!-- BEGIN: database_import --><a class="button add" title="Import {ITEM.name}" href="?data_file={BASE}{FOLDER}{ITEM.name}"><span>Import this ...</span></a><br /><!-- END: database_import --> 
 				</td>
@@ -91,7 +91,7 @@
 			
 	<!-- BEGIN: empty -->
 	<div class="empty">
-		<p style="padding: 2em;">This folder is empty. Do you want to remove this folder? <a class="button delete" href="#" onclick="$('#server_browser_file_list').load('/request/bo/component/server_browser_file_list~delete_file={BASE}{FOLDER}~'); fileTreeRefresh(); return false"><span>Yes, delete?</span></a></p>
+		<p style="padding: 2em;">This folder is empty. Do you want to remove this folder? <a class="button delete" href="#" onclick="$('#server-browser-file-list').load('/request/bo/component/server_browser_file_list~delete_file={BASE}{FOLDER}~'); fileTreeRefresh(); return false"><span>Yes, delete?</span></a></p>
 	</div>
 	<!-- END: empty -->
 				
@@ -104,20 +104,20 @@ this component would be good to split into upload and file list
 	function newFileFormAfterSuccess() {
 		newFileFormInit();
 		fileTreeRefresh();
-		popupMessage('#server_browser_file_list div.onxshop_messages');
+		popupMessage('#server-browser-file-list div.onxshop-messages');
 	}
 	
 	function newFileFormInit() {
 		var options = { 
-			target: '#server_browser_file_list',   // target element(s) to be updated with server response 
+			target: '#server-browser-file-list',   // target element(s) to be updated with server response 
 			beforeSubmit:  function() {
-				$("#server_browser_file_list button span").replaceWith("<span style='background: white; color: black; padding: 5px; display: block; font-size: 125%'><img src='/share/images/ajax-indicator/indicator.gif' alt='Loading ...'/> Saving...</span>");
+				$("#server-browser-file-list button span").replaceWith("<span style='background: white; color: black; padding: 5px; display: block; font-size: 125%'><img src='/share/images/ajax-indicator/indicator.gif' alt='Loading ...'/> Saving...</span>");
 			},  // pre-submit callback 
 			success: newFileFormAfterSuccess,  // post-submit callback
 			url:  "/request/bo/component/server_browser_file_list~open={GET.open}:type={GET.type}:relation={GET.relation}:node_id={GET.node_id}~"
 		}; 
 
-    	$('#add_new_file').ajaxForm(options); 
+    	$('#add-new-file').ajaxForm(options); 
 	}
 	
 	function showFileUploadDialog() {
@@ -144,7 +144,7 @@ this component would be good to split into upload and file list
 
 	function allFilesUploaded() {
 
-		makeAjaxRequest("#server_browser_file_list", "/request/bo/component/server_browser_file_list~open={GET.open}:type={GET.type}:relation={GET.relation}:node_id={GET.node_id}~");
+		makeAjaxRequest("#server-browser-file_list", "/request/bo/component/server_browser_file_list~open={GET.open}:type={GET.type}:relation={GET.relation}:node_id={GET.node_id}~");
 		growlMessage("Uploaded completed.");
 
 	}
@@ -204,8 +204,8 @@ this component would be good to split into upload and file list
 					default:
 						break;
 				}
-				$("#server_browser_add").show();
-				$("#server_browser_file_list_wrapper .progress-total").hide();
+				$("#server-browser-add").show();
+				$("#server-browser-file-list-wrapper .progress-total").hide();
 			},
 			allowedfiletypes: [], // filetypes allowed by Content-Type.  Empty array means no restrictions
 			maxfiles: {MAX_FILES},
@@ -214,12 +214,12 @@ this component would be good to split into upload and file list
 			dragLeave: function() { $("#add-dropzone").removeClass("drag-over"); },
 			drop: function() { 
 				$("#add-dropzone").removeClass("drag-over"); 
-				$("#server_browser_add").hide();
-				$("#server_browser_file_list_wrapper .progress-total").show();
+				$("#server-browser-add").hide();
+				$("#server-browser-file-list-wrapper .progress-total").show();
 			},
 			uploadStarted: function(i, file, len){
 				createImage(file);
-				var num = $("#server_browser_file_list_wrapper .progress-total .num");
+				var num = $("#server-browser-file-list-wrapper .progress-total .num");
 				num.html(1 + (num.text() * 1));
 			},
 			uploadFinished: function(i, file, response, time) {
@@ -258,7 +258,7 @@ this component would be good to split into upload and file list
 				$.data(file).find('progress').val(progress);
 			},
 			globalProgressUpdated: function(progress) {
-				$("#server_browser_file_list_wrapper .progress-total progress").val(progress);
+				$("#server-browser-file-list-wrapper .progress-total progress").val(progress);
 			},
 			afterAll: function() {
 				allFilesUploadedFlag = true;

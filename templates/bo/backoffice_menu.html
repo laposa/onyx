@@ -1,5 +1,5 @@
 <!-- BEGIN: content -->
-<div class="backoffice_menu">
+<div class="backoffice-menu">
 {ONXSHOP_REQUEST_menu_sections #bo/backoffice_menu_sections}
 {ONXSHOP_REQUEST_menu_advanced #bo/backoffice_menu_advanced}
 {ONXSHOP_REQUEST_menu_actions #bo/backoffice_menu_actions}
@@ -9,26 +9,26 @@
 
 	$(function() {
 
-		var menuHeight = $('#menuSections').outerHeight();
-		var advancedMenuHeight = $('#menuAdvanced').outerHeight();
+		var menuHeight = $('#menu-sections').outerHeight();
+		var advancedMenuHeight = $('#menu-advanced').outerHeight();
 
-		$('#menuSections li.advanced a').click(showAdvancedMenu);
-		$('#menuAdvanced li.back a').click(hideAdvancedMenu);
+		$('#menu-sections li.advanced a').click(showAdvancedMenu);
+		$('#menu-advanced li.back a').click(hideAdvancedMenu);
 
-		if ($('#menuAdvanced li.active').length > 0) {
-			$('#menuSections').css("margin-left", -130).css("height", advancedMenuHeight);
-			$('#menuAdvanced').css("margin-left", -130).css("height", advancedMenuHeight);
+		if ($('#menu-advanced li.active').length > 0) {
+			$('#menu-sections').css("margin-left", -130).css("height", advancedMenuHeight);
+			$('#menu-advanced').css("margin-left", -130).css("height", advancedMenuHeight);
 		}
 
 		function showAdvancedMenu(e) {
-			$('#menuSections').css("margin-left", 0).animate({ "margin-left": -130, "height": advancedMenuHeight }, 300);
-			$('#menuAdvanced').css("margin-left", 0).animate({ "margin-left": -130, "height": advancedMenuHeight }, 300);
+			$('#menu-sections').css("margin-left", 0).animate({ "margin-left": -130, "height": advancedMenuHeight }, 300);
+			$('#menu-advanced').css("margin-left", 0).animate({ "margin-left": -130, "height": advancedMenuHeight }, 300);
 			return false;
 		}
 
 		function hideAdvancedMenu(e) {
-			$('#menuSections').css("margin-left", -130).animate({ "margin-left": 0, "height": menuHeight }, 300);
-			$('#menuAdvanced').css("margin-left", -130).animate({ "margin-left": 0, "height": menuHeight }, 300);
+			$('#menu-sections').css("margin-left", -130).animate({ "margin-left": 0, "height": menuHeight }, 300);
+			$('#menu-advanced').css("margin-left", -130).animate({ "margin-left": 0, "height": menuHeight }, 300);
 			return false;
 		}
 

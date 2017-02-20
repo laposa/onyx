@@ -23,7 +23,7 @@ $(function(){
 	if (!jQuery.support.htmlSerialize) {
 		growlMessage("Your browser version is not fully supported,<br />please use Chrome, Safari or Firefox.");
 	}
-	popupMessage("div.onxshop_messages");
+	popupMessage("div.onxshop-messages");
 
 	var buttonToolbar = $('div.rowBottom p:first');
 	if (buttonToolbar.length > 0) buttonToolbar.append($('.extended_toolbar a').detach());
@@ -32,9 +32,9 @@ $(function(){
 <!-- END: head -->
 <!-- BEGIN: content -->
 <div id="backoffice">
-	<div id="backofficeWrapper">
+	<div id="backoffice-wrapper">
 		<div id="container" style="width: auto;"> 
-			<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+			<!-- BEGIN: messages --><div class="onxshop-messages">{MESSAGES}</div><!-- END: messages -->
 			<div id="dialog" class="flora"></div>
 			{SUB_CONTENT}
 		</div>

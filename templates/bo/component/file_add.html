@@ -2,12 +2,12 @@
 <script type="text/javascript"> 
 	function initForm() {
 		var options = { 
-			target: '#file_add_result',   // target element(s) to be updated with server response 
-			beforeSubmit:  function() {$("#file_add .add_button").addClass("saving")}, 
+			target: '#file-add-result',   // target element(s) to be updated with server response 
+			beforeSubmit:  function() {$("#file-add .add-button").addClass("saving")}, 
 			success: showResponse
 		}; 
 
-    	$('#file_add').ajaxForm(options);
+    	$('#file-add').ajaxForm(options);
 	}
 	
 	// wait for the DOM to be loaded 
@@ -17,12 +17,12 @@
  
 // post-submit callback 
 function showResponse(responseText, statusText)  { 
-	var result_message = $("#file_add_result div.onxshop_messages").html();
+	var result_message = $("#file-add-result div.onxshop-messages").html();
 	growlMessage(result_message);
-	$("#file_add .add_button span").removeClass("saving");
+	$("#file-add .add-button span").removeClass("saving");
 	//FIXME: hide when return message == "File inserted", not very safe and doesn't work when debugging is enabled…
-	if ($("#file_add_result div.onxshop_messages p.onxshop_error_msg").text() == '') {
-		$("#file_list").load("/request/bo/component/file_list~type={GET.type}:relation={GET.relation}:node_id={GET.node_id}~");
+	if ($("#file-add-result div.onxshop-messages p.onxshop-error-msg").text() == '') {
+		$("#file-list").load("/request/bo/component/file_list~type={GET.type}:relation={GET.relation}:node_id={GET.node_id}~");
 		hideModalOverlay();
 	}
 }
@@ -31,16 +31,16 @@ function showResponse(responseText, statusText)  {
  * link_to_node_id browse site
  */
  	
-$('a.button.link_to_node_id').click(function() {
+$('a.button.link-to-node-id').click(function() {
 	var file_id = $(this).attr('data-file_id');
-	$('#link_to_node_id_ajax_' + file_id).addClass('ajaxLoad').load('/request/component/menu_js~id=0:expand_all=1:publish=0:node_group=page_and_product~', function() {
-		$('#link_to_node_id_ajax_' + file_id).removeClass('ajaxLoad');
-		$('#link_to_node_id_ajax_' + file_id + ' .simpleTree').simpleTree({
+	$('#link-to-node-id-ajax-' + file_id).addClass('ajax-load').load('/request/component/menu_js~id=0:expand_all=1:publish=0:node_group=page_and_product~', function() {
+		$('#link-to-node-id-ajax-' + file_id).removeClass('ajax-load');
+		$('#link-to-node-id-ajax-' + file_id + ' .simple-tree').simpleTree({
 			drag: false,
 			autoclose: true,
 			afterClick:function(node){
 				var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
-				$('#file-link_to_node_id_' + file_id).attr('value', node_id);
+				$('#file-link-to-node-id-' + file_id).attr('value', node_id);
 			},
 			animate: true,
 			docToFolderConvert: true
@@ -51,11 +51,11 @@ $('a.button.link_to_node_id').click(function() {
 	
 </script> 
 
-<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+<!-- BEGIN: messages --><div class="onxshop-messages">{MESSAGES}</div><!-- END: messages -->
 
-<form action="{URI|htmlspecialchars}" method="post" name="file_ass" id="file_add">
+<form action="{URI|htmlspecialchars}" method="post" name="file-ass" id="file-add">
 
-	<fieldset id="add_to_node" class="file_item_form">
+	<fieldset id="add-to-node" class="file-item-form">
 
 		<legend>Link New File In</legend>
 
@@ -93,10 +93,10 @@ $('a.button.link_to_node_id').click(function() {
 								<span class="label"><label for="file-content">content <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'mceAdvanced', 'file-content-{FILE.id}'); return false;"><span>RTE</span></a></label></span>
 								<span class="field"><textarea id="file-content-{FILE.id}" class="mceAdvanced" name="file[content]">{FILE.content|htmlspecialchars}</textarea></span>
 							</div>
-							<div class="row link_to_node_id">
-								<span class="label"><label for="file-link_to_node_id" title="Link to node id">Link to node ID:</label></span>
-								<span class="field"><input class="text short" type="text" name="file[link_to_node_id]" id="file-link_to_node_id_{FILE.id}" value="{FILE.link_to_node_id}" /> <a class="button link_to_node_id" href="#" data-file_id="{FILE.id}"><span>Browse…</span></a></span>
-								<span style="display: block;" id="link_to_node_id_ajax_{FILE.id}"></span>
+							<div class="row link-to-node-id">
+								<span class="label"><label for="file-link-to-node-id" title="Link to node id">Link to node ID:</label></span>
+								<span class="field"><input class="text short" type="text" name="file[link_to_node_id]" id="file-link_to_node_id_{FILE.id}" value="{FILE.link_to_node_id}" /> <a class="button link-to-node-id" href="#" data-file_id="{FILE.id}"><span>Browse…</span></a></span>
+								<span style="display: block;" id="link-to-node-id-ajax-{FILE.id}"></span>
 							</div>
 							<div class="row">
 								<span class="label"><label>Priority:</label></span>
@@ -118,7 +118,7 @@ $('a.button.link_to_node_id').click(function() {
 				</div>
 				<div class="layoutColumnTwo ofTwo">
 					<div class="layoutColumnWrapper">
-						<a class="image_preview" style="float: right;" href="#" title="View Full Size" onclick="openImg('/image/{FILE.src}'); return false;"><img id="file-preview" src="/thumbnail/200/{FILE.src}" alt="thumbnail preview" /></a>
+						<a class="image-preview" style="float: right;" href="#" title="View Full Size" onclick="openImg('/image/{FILE.src}'); return false;"><img id="file-preview" src="/thumbnail/200/{FILE.src}" alt="thumbnail preview" /></a>
 					</div>
 				</div>
 				<div class="bottom"><span></span></div>
@@ -132,6 +132,6 @@ $('a.button.link_to_node_id').click(function() {
 
 {ONXSHOP_REQUEST_tinymce #bo/tinymce~id=GET.id:relation=node:edit_elements=file-content-GET.file_id:theme=simple~}
 
-<div id="file_add_result" style="display: none"></div>
+<div id="file-add-result" style="display: none"></div>
 
 <!-- END: content -->

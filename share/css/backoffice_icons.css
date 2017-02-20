@@ -16,154 +16,154 @@
 	font-style: normal;
 }
 
-#onxshopHeader li a:before {display: inline-block; font-family: 'onxshop'; font-style: normal; font-weight: normal;  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-size: 1.3em; line-height: 1; margin: 0 8px 0 10px; vertical-align: -15%; width: 1.2em; text-align: center; content: "\f013"; /*default fa-gear*/}
+#onxshop-header li a:before {display: inline-block; font-family: 'onxshop'; font-style: normal; font-weight: normal;  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-size: 1.3em; line-height: 1; margin: 0 8px 0 10px; vertical-align: -15%; width: 1.2em; text-align: center; content: "\f013"; /*default fa-gear*/}
 
-#menuFrontOffice li.frontoffice a:before {content: '\f108';} /*fa-desktop*/
+#menu-frontoffice li.frontoffice a:before {content: '\f108';} /*fa-desktop*/
 
-#menuSections li.pages a:before {content: "\f0e8";} /*fa-sitemap*/
-#menuSections li.news a:before {content: "\f0f6";} /*fa-file-text-o*/
-#menuSections li.products a:before {content: "\f02a";} /*fa-barcode*/
-#menuSections li.recipes a:before {content: "\f0f5";} /*fa-cutlery*/
-#menuSections li.stores a:before {content: "\f1ad";} /*fa-building*/
-#menuSections li.orders a:before {content: "\f07a";} /*fa-shopping-cart*/
-#menuSections li.stock a:before {content: "\f1b3";} /*fa-cubes*/
-#menuSections li.customers a:before {content: "\f0c0";} /*fa-users*/
-#menuSections li.staff a:before {content: "\f0c0";}/*fa-users -------- set as default icon*/
-#menuSections li.clients a:before {content: "\f0e8";} /*fa-sitemap*/
-#menuSections li.stats a:before {content: "\f080";} /*fa-bar-chart-o*/
-#menuSections li.marketing a:before {content: "\f06b";} /*fa-gift*/
-#menuSections li.comments a:before {content: "\f086";} /*fa-comments*/
-#menuSections li.surveys a:before {content: "\f046";} /*fa-check-square-o*/
-#menuSections li.advanced a:before {content: "\f013";} /*fa-gear*/
+#menu-sections li.pages a:before {content: "\f0e8";} /*fa-sitemap*/
+#menu-sections li.news a:before {content: "\f0f6";} /*fa-file-text-o*/
+#menu-sections li.products a:before {content: "\f02a";} /*fa-barcode*/
+#menu-sections li.recipes a:before {content: "\f0f5";} /*fa-cutlery*/
+#menu-sections li.stores a:before {content: "\f1ad";} /*fa-building*/
+#menu-sections li.orders a:before {content: "\f07a";} /*fa-shopping-cart*/
+#menu-sections li.stock a:before {content: "\f1b3";} /*fa-cubes*/
+#menu-sections li.customers a:before {content: "\f0c0";} /*fa-users*/
+#menu-sections li.staff a:before {content: "\f0c0";}/*fa-users -------- set as default icon*/
+#menu-sections li.clients a:before {content: "\f0e8";} /*fa-sitemap*/
+#menu-sections li.stats a:before {content: "\f080";} /*fa-bar-chart-o*/
+#menu-sections li.marketing a:before {content: "\f06b";} /*fa-gift*/
+#menu-sections li.comments a:before {content: "\f086";} /*fa-comments*/
+#menu-sections li.surveys a:before {content: "\f046";} /*fa-check-square-o*/
+#menu-sections li.advanced a:before {content: "\f013";} /*fa-gear*/
 
-#menuAdvanced li.back a:before {content: "\f0a8";} /*arrow-circle-left*/
-#menuAdvanced li.media a:before {content: "\f03e";} /*fa-picture-o*/
-#menuAdvanced li.taxonomy a:before {content: "\f02c";} /*fa-tags*/
-#menuAdvanced li.seo_manager a:before {content: "\f1de";} /*fa-sliders*/
-#menuAdvanced li.database a:before {content: "\f1c0";} /*fa-database*/
-#menuAdvanced li.templates a:before {content: "\f1c9";} /*fa-file-code-o*/
-#menuAdvanced li.scheduler a:before {content: "\f017";} /*fa-clock-o*/
-#menuAdvanced li.currency a:before {content: "\f154";} /*fa-gbp*/
-#menuAdvanced li.search_index a:before {content: "\f002";} /*fa-search*/
-#menuAdvanced li.tools a:before {content: "\f0ad";} /*fa-wrench*/
-#menuAdvanced li.logs a:before {content: "\f1b0";} /*fa-paw*/
-#menuAdvanced li.configuration a:before {content: "\f085";} /*fa-gears*/
+#menu-advanced li.back a:before {content: "\f0a8";} /*arrow-circle-left*/
+#menu-advanced li.media a:before {content: "\f03e";} /*fa-picture-o*/
+#menu-advanced li.taxonomy a:before {content: "\f02c";} /*fa-tags*/
+#menu-advanced li.seo-manager a:before {content: "\f1de";} /*fa-sliders*/
+#menu-advanced li.database a:before {content: "\f1c0";} /*fa-database*/
+#menu-advanced li.templates a:before {content: "\f1c9";} /*fa-file-code-o*/
+#menu-advanced li.scheduler a:before {content: "\f017";} /*fa-clock-o*/
+#menu-advanced li.currency a:before {content: "\f154";} /*fa-gbp*/
+#menu-advanced li.search-index a:before {content: "\f002";} /*fa-search*/
+#menu-advanced li.tools a:before {content: "\f0ad";} /*fa-wrench*/
+#menu-advanced li.logs a:before {content: "\f1b0";} /*fa-paw*/
+#menu-advanced li.configuration a:before {content: "\f085";} /*fa-gears*/
 
-#menuActions li.flush_cache a:before {content: "\f021";} /*fa-refresh*/
-#menuActions li.support a:before {content: "\f059";} /*fa-question-circle*/
-#menuActions li.logout a:before {content: "\f011";} /*fa-power-off*/
+#menu-actions li.flush-cache a:before {content: "\f021";} /*fa-refresh*/
+#menu-actions li.support a:before {content: "\f059";} /*fa-question-circle*/
+#menu-actions li.logout a:before {content: "\f011";} /*fa-power-off*/
 
 /**
  * fe-edit
  */
 
-#menuBackOffice li.backoffice a:before {content: "\f013";} /*fa-gear*/
+#menu-backoffice li.backoffice a:before {content: "\f013";} /*fa-gear*/
 
-#menuEditMode li.preview a:before {content: "\f108";} /*fa-desktop*/
-#menuEditMode li.edit a:before {content: "\f044";} /*fa-edit*/
-#menuEditMode li.move a:before {content: "\f0db";} /*fa-columns*/
+#menu-edit-mode li.preview a:before {content: "\f108";} /*fa-desktop*/
+#menu-edit-mode li.edit a:before {content: "\f044";} /*fa-edit*/
+#menu-edit-mode li.move a:before {content: "\f0db";} /*fa-columns*/
 
 /**
  * General
  */
  
-.onxshop_edit {background-image: url(/share/images/famfamfam_icons/plugin.png);}
-.onxshop_layout_properties {background-image: url(/share/images/famfamfam_icons/layout.png);}
-.onxshop_page_properties {background-image: url(/share/images/famfamfam_icons/page.png); background-repeat: no-repeat;}
-.onxshop_duplicate {background-image: url(/share/images/famfamfam_icons/application_double.png);}
-.onxshop_delete {background-image: url(/share/images/famfamfam_icons/delete.png);}
-.onxshop_edit_source {background-image: url(/share/images/famfamfam_icons/link_edit.png);}
-.onxshop_new_content {background-image: url(/share/images/famfamfam_icons/add.png);}
-.onxshop_new_layout {background-image: url(/share/images/famfamfam_icons/layout_add.png);}
-.onxshop_edit_main_content {background-image: url(/share/images/famfamfam_icons/text_signature.png);}
-.onxshop_edit_page_add {background-image: url(/share/images/famfamfam_icons/page_add.png);}
+.onxshop-edit {background-image: url(/share/images/famfamfam_icons/plugin.png);}
+.onxshop-layout-properties {background-image: url(/share/images/famfamfam_icons/layout.png);}
+.onxshop-page-properties {background-image: url(/share/images/famfamfam_icons/page.png); background-repeat: no-repeat;}
+.onxshop-duplicate {background-image: url(/share/images/famfamfam_icons/application_double.png);}
+.onxshop-delete {background-image: url(/share/images/famfamfam_icons/delete.png);}
+.onxshop-edit_source {background-image: url(/share/images/famfamfam_icons/link_edit.png);}
+.onxshop-new-content {background-image: url(/share/images/famfamfam_icons/add.png);}
+.onxshop-new-layout {background-image: url(/share/images/famfamfam_icons/layout_add.png);}
+.onxshop-edit-main-content {background-image: url(/share/images/famfamfam_icons/text_signature.png);}
+.onxshop-edit-page-add {background-image: url(/share/images/famfamfam_icons/page_add.png);}
 
 /*
 * Container Frontend Icons
 */
 
-option.onxshop_edit_default.container {background-image: url(/share/images/famfamfam_icons/folder.png);}
+option.onxshop-edit-default.container {background-image: url(/share/images/famfamfam_icons/folder.png);}
 
 /*
 * Page Frontend Icons
 */
 
-.onxshop_edit_commerce {background-image: url(/share/images/famfamfam_icons/key.png);}
-.onxshop_edit_partner {background-image: url(/share/images/famfamfam_icons/key.png);}
-.onxshop_edit_product_browse {background-image: url(/share/images/famfamfam_icons/building.png);}
-.onxshop_edit_symbolic {background-image: url(/share/images/famfamfam_icons/page_go.png);}
-.onxshop_edit_blank {background-image: url(/share/images/famfamfam_icons/page.png);}
-.onxshop_edit_default {background-image: url(/share/images/famfamfam_icons/page.png);}
-.onxshop_edit_print {background-image: url(/share/images/famfamfam_icons/printer.png);}
-.onxshop_edit_news {background-image: url(/share/images/famfamfam_icons/newspaper.png);}
-.onxshop_edit_product {background-image: url(/share/images/famfamfam_icons/page_white_ruby.png);}
+.onxshop-edit-commerce {background-image: url(/share/images/famfamfam_icons/key.png);}
+.onxshop-edit-partner {background-image: url(/share/images/famfamfam_icons/key.png);}
+.onxshop-edit-product-browse {background-image: url(/share/images/famfamfam_icons/building.png);}
+.onxshop-edit-symbolic {background-image: url(/share/images/famfamfam_icons/page_go.png);}
+.onxshop-edit-blank {background-image: url(/share/images/famfamfam_icons/page.png);}
+.onxshop-edit-default {background-image: url(/share/images/famfamfam_icons/page.png);}
+.onxshop-edit-print {background-image: url(/share/images/famfamfam_icons/printer.png);}
+.onxshop-edit-news {background-image: url(/share/images/famfamfam_icons/newspaper.png);}
+.onxshop-edit-product {background-image: url(/share/images/famfamfam_icons/page_white_ruby.png);}
 
 
 /*
 * Layout Frontend Icons
 */
 
-.onxshop_edit_layout {clear: both; background-image: url(/share/images/famfamfam_icons/layout.png);}
+.onxshop-edit-layout {clear: both; background-image: url(/share/images/famfamfam_icons/layout.png);}
 
 
 /*
 * Content Frontend Icons
 */
 
-div.onxshop_add_content,
-div.onxshop_edit_content {clear: both; padding: 0 0 50px 5px;}
+div.onxshop-add-content,
+div.onxshop-edit-content {clear: both; padding: 0 0 50px 5px;}
 
-div.onxshop_add_content a.onxshop_new_content,
-div.onxshop_edit_content a,
-div.onxshop_edit_layout a,
-div.onxshop_page_properties a {display: block; width: 30px; height: 19px; float: left; background-repeat: no-repeat; background-position: center;}
+div.onxshop-add-content a.onxshop_new_content,
+div.onxshop-edit-content a,
+div.onxshop-edit-layout a,
+div.onxshop-page-properties a {display: block; width: 30px; height: 19px; float: left; background-repeat: no-repeat; background-position: center;}
 
-div.onxshop_add_content a.onxshop_new_content span,
-div.onxshop_edit_content a span,
-div.onxshop_edit_layout a span,
-div.onxshop_page_properties a span {display: none;}
+div.onxshop-add-content a.onxshop-new-content span,
+div.onxshop-edit-content a span,
+div.onxshop-edit-layout a span,
+div.onxshop-page-properties a span {display: none;}
 
-div.onxshop_page_properties a.verbose {width: auto; text-decoration: none; background-position: left;}
-div.onxshop_page_properties a.verbose span {display: inline; padding: 0 25px;}
+div.onxshop-page-properties a.verbose {width: auto; text-decoration: none; background-position: left;}
+div.onxshop-page-properties a.verbose span {display: inline; padding: 0 25px;}
 
-.onxshop_edit_articlebox {background-image: url(/share/images/famfamfam_icons/page_edit.png);}
-.onxshop_edit_print_article_list {background-image: url(/share/images/famfamfam_icons/newspaper.png);}
-.onxshop_edit_component {background-image: url(/share/images/famfamfam_icons/plugin.png);}
-.onxshop_edit_quote {background-image: url(/share/images/famfamfam_icons/rosette.png);}
-.onxshop_edit_divider {background-image: url(/share/images/famfamfam_icons/text_horizontalrule.png);}
-.onxshop_edit_teaser {background-image: url(/share/images/famfamfam_icons/page_go.png);}
-.onxshop_edit_imagemap {background-image: url(/share/images/famfamfam_icons/map_edit.png);}
-.onxshop_edit_contact_form {background-image: url(/share/images/famfamfam_icons/email.png);}
-.onxshop_edit_comment {background-image: url(/share/images/famfamfam_icons/comment.png);}
-.onxshop_edit_picture {background-image: url(/share/images/famfamfam_icons/photo.png);}
-.onxshop_edit_file {background-image: url(/share/images/famfamfam_icons/disk.png);}
-.onxshop_edit_product_list {background-image: url(/share/images/famfamfam_icons/building.png);}
-.onxshop_edit_feed {background-image: url(/share/images/famfamfam_icons/rss.png);}
-.onxshop_edit_RTE {background-image: url(/share/images/famfamfam_icons/text_signature.png);}
-.onxshop_edit_shared {background-image: url(/share/images/famfamfam_icons/link.png);}
-.onxshop_edit_news_list {background-image: url(/share/images/famfamfam_icons/newspaper.png);}
-.onxshop_edit_menu {background-image: url(/share/images/famfamfam_icons/sitemap_color.png);}
-.onxshop_edit_content_list {background-image: url(/share/images/famfamfam_icons/application_view_list.png);}
-.onxshop_edit_page_list {background-image: url(/share/images/famfamfam_icons/application_view_list.png);}
-.onxshop_edit_HTML {background-image: url(/share/images/famfamfam_icons/html.png);}
-.onxshop_edit_product_highlights {background-image: url(/share/images/famfamfam_icons/award_star_bronze_2.png);}
-.onxshop_edit_special_offer_list {background-image: url(/share/images/famfamfam_icons/money.png);}
-.onxshop_edit_filter {background-image: url(/share/images/famfamfam_icons/page_white_find.png);}
-.onxshop_edit_external_source {background-image: url(/share/images/famfamfam_icons/plugin.png);}
-.onxshop_edit_textile {background-image: url(/share/images/famfamfam_icons/text_signature.png);}
-.onxshop_edit_survey {background-image: url(/share/images/famfamfam_icons/application_form.png);}
-.onxshop_edit_video {background-image: url(/share/images/famfamfam_icons/film.png);}
-.onxshop_edit_recipe_list {background-image: url(/share/images/famfamfam_icons/application_view_list.png);}
-.onxshop_edit_adaptive {background-image: url(/share/images/famfamfam_icons/table_key.png);}
+.onxshop-edit-articlebox {background-image: url(/share/images/famfamfam_icons/page_edit.png);}
+.onxshop-edit-print_article_list {background-image: url(/share/images/famfamfam_icons/newspaper.png);}
+.onxshop-edit-component {background-image: url(/share/images/famfamfam_icons/plugin.png);}
+.onxshop-edit-quote {background-image: url(/share/images/famfamfam_icons/rosette.png);}
+.onxshop-edit-divider {background-image: url(/share/images/famfamfam_icons/text_horizontalrule.png);}
+.onxshop-edit-teaser {background-image: url(/share/images/famfamfam_icons/page_go.png);}
+.onxshop-edit-imagemap {background-image: url(/share/images/famfamfam_icons/map_edit.png);}
+.onxshop-edit-contact_form {background-image: url(/share/images/famfamfam_icons/email.png);}
+.onxshop-edit-comment {background-image: url(/share/images/famfamfam_icons/comment.png);}
+.onxshop-edit-picture {background-image: url(/share/images/famfamfam_icons/photo.png);}
+.onxshop-edit-file {background-image: url(/share/images/famfamfam_icons/disk.png);}
+.onxshop-edit-product_list {background-image: url(/share/images/famfamfam_icons/building.png);}
+.onxshop-edit-feed {background-image: url(/share/images/famfamfam_icons/rss.png);}
+.onxshop-edit-RTE {background-image: url(/share/images/famfamfam_icons/text_signature.png);}
+.onxshop-edit-shared {background-image: url(/share/images/famfamfam_icons/link.png);}
+.onxshop-edit-news_list {background-image: url(/share/images/famfamfam_icons/newspaper.png);}
+.onxshop-edit-menu {background-image: url(/share/images/famfamfam_icons/sitemap_color.png);}
+.onxshop-edit-content_list {background-image: url(/share/images/famfamfam_icons/application_view_list.png);}
+.onxshop-edit-page_list {background-image: url(/share/images/famfamfam_icons/application_view_list.png);}
+.onxshop-edit-HTML {background-image: url(/share/images/famfamfam_icons/html.png);}
+.onxshop-edit-product_highlights {background-image: url(/share/images/famfamfam_icons/award_star_bronze_2.png);}
+.onxshop-edit-special_offer_list {background-image: url(/share/images/famfamfam_icons/money.png);}
+.onxshop-edit-filter {background-image: url(/share/images/famfamfam_icons/page_white_find.png);}
+.onxshop-edit-external_source {background-image: url(/share/images/famfamfam_icons/plugin.png);}
+.onxshop-edit-textile {background-image: url(/share/images/famfamfam_icons/text_signature.png);}
+.onxshop-edit-survey {background-image: url(/share/images/famfamfam_icons/application_form.png);}
+.onxshop-edit-video {background-image: url(/share/images/famfamfam_icons/film.png);}
+.onxshop-edit-recipe_list {background-image: url(/share/images/famfamfam_icons/application_view_list.png);}
+.onxshop-edit-adaptive {background-image: url(/share/images/famfamfam_icons/table_key.png);}
 
 /**
  * Other Icons
  */
 
-a.onxshop_icon {display: block; width: 19px; height: 19px; background-repeat: no-repeat;}
-a.onxshop_icon span {display: none;}
-a.onxshop_magnifier {background-image: url(/share/images/famfamfam_icons/magnifier.png);}
-div.node-node_controller option {background-repeat: no-repeat; background-position: 5px center; padding: 0.2em 0 0.2em 30px; height:1.4em;}
+a.onxshop-icon {display: block; width: 19px; height: 19px; background-repeat: no-repeat;}
+a.onxshop-icon span {display: none;}
+a.onxshop-magnifier {background-image: url(/share/images/famfamfam_icons/magnifier.png);}
+div.node-node-controller option {background-repeat: no-repeat; background-position: 5px center; padding: 0.2em 0 0.2em 30px; height:1.4em;}
 
 /**
  * spinnig effect
