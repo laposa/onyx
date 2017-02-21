@@ -344,3 +344,8 @@ if (!defined('ONXSHOP_GOOGLE_API_KEY')) define('ONXSHOP_GOOGLE_API_KEY', '');
 
 if (!defined('ONXSHOP_ALLOW_TEMPLATE_EDITING')) define('ONXSHOP_ALLOW_TEMPLATE_EDITING', false);
 
+/**
+ * Flick API key
+ */
+if (!defined('ONXSHOP_FLICKR_API_KEY')) define('ONXSHOP_FLICKR_API_KEY', '');
+
