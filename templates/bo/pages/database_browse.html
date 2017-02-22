@@ -2,7 +2,7 @@
 <!-- BEGIN: content -->
 <script type="text/javascript">
 $(document).ready(function(){
-	$('div.server_browser_menu .simpleTree').simpleTree({
+	$('div.server-browser-menu .simple-tree').simpleTree({
 		drag: false,
 		autoclose: true,
 		afterClick:function(node){
@@ -12,23 +12,22 @@ $(document).ready(function(){
 		},
 	});
 	
-	$('#sub_content div.pagination a').live('click', function() {
+	$('#sub-content div.pagination a').live('click', function() {
 		var model = $(this).attr('href').match('model=[a-z_\/]{1,}');
 		var limit_from = $(this).attr('href').match('limit_from=[0-9]{1,}');
 		var limit_per_page = $(this).attr('href').match('limit_per_page=[0-9]{1,}');
-		makeAjaxRequest('#sub_content', '/request/bo/component/database_listing~' + model + '~?' + limit_from + '&' + limit_per_page);
+		makeAjaxRequest('#sub-content', '/request/bo/component/database_listing~' + model + '~?' + limit_from + '&' + limit_per_page);
 		return false;
 	});	
 	
 });
 
 function serverBrowserOpenDir(open_dir) {
-	makeAjaxRequest('#sub_content', "/request/bo/component/database_listing~model=" + open_dir + "~");
+	makeAjaxRequest('#sub-content', "/request/bo/component/database_listing~model=" + open_dir + "~");
 }
 </script>
 
 <div id="database" class="twoColumnPage page sidebar">
-	<div class="top"><span></span></div>
 	<div class="content">
 		<div class="pageWrapper">
 
@@ -83,6 +82,5 @@ function serverBrowserOpenDir(open_dir) {
 			</div>
 		</div>
 	</div>
-	<div class="bottom"><span></span></div>
 </div>
 <!-- END: content -->

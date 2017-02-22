@@ -7,7 +7,7 @@ $(document).ready(function(){
 		autoclose: true,
 		afterClick:function(node){
 			var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
-			$("#news_list").html(onxshop_load_indicator_html_snippet).load("/request/bo/component/news_list~show_all_from_bo=1:taxonomy_tree_id="+node_id+"~");
+			$("#news-list").html(onxshop_load_indicator_html_snippet).load("/request/bo/component/news_list~show_all_from_bo=1:taxonomy_tree_id="+node_id+"~");
 		},
 		animate: true,
 		docToFolderConvert: true
@@ -18,7 +18,6 @@ $(document).ready(function(){
 
 <div id="news">
 	<div class="twoColumnPage page sidebar">
-		<div class="top"><span></span></div>
 		<div class="content">
 			<div class="pageWrapper">
 
@@ -43,7 +42,7 @@ $(document).ready(function(){
 								<div class="columnOne">
 									<div class="columnWrapper">
 
-										<div id="newsTaxonomyFilter">
+										<div id="news-taxonomy-filter">
 											{ONXSHOP_REQUEST_menupages #bo/component/taxonomy_menu~expand_all=1:publish=0~}
 										</div>
 
@@ -52,7 +51,7 @@ $(document).ready(function(){
 								<div class="columnTwo">
 									<div class="columnWrapper">
 
-										<div id="news_list">
+										<div id="news-list">
 											{ONXSHOP_REQUEST_newslist #bo/component/news_list~display_pagination=1~}
 										</div>
 
@@ -76,7 +75,6 @@ $(document).ready(function(){
 				</div>
 			</div>
 		</div>
-		<div class="bottom"><span></span></div>
 	</div>
 </div>
 

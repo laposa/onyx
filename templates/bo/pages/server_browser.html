@@ -1,15 +1,14 @@
 <!-- BEGIN: title -->Server Browser<!-- END: title -->
 <!-- BEGIN: content -->
-<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 
 <script type="text/javascript">
 	$(document).ready(function(){
-		$('div.server_browser_menu .simpleTree li.open').parentsUntil("ul.simpleTree", "li").addClass("open");
+		$('div.server-browser-menu .simple-tree li.open').parentsUntil("ul.simpleTree", "li").addClass("open");
 		initializeServerBrowserMenu();
 	});
 
 	function initializeServerBrowserMenu() {
-		$('div.server_browser_menu .simpleTree').simpleTree({
+		$('div.server-browser-menu .simple-tree').simpleTree({
 			drag: false,
 			autoclose: true,
 			afterClick:function(node){
@@ -36,13 +35,12 @@
 		//replace white space with +
 		open_dir = open_dir.replace(/ /g, '+');
 		var url = "/request/bo/component/server_browser_file_list~open=" + open_dir + ":type={GET.type}:relation={GET.relation}:node_id={GET.node_id}~";
-		makeAjaxRequest('#server_browser_file_list', url);
-		$("#add_new_file").attr('action', '{_SERVER.REDIRECT_URL}?open='+open_dir);
+		makeAjaxRequest('#server-browser-file-list', url);
+		$("#add-new-file").attr('action', '{_SERVER.REDIRECT_URL}?open='+open_dir);
 	}
 </script>
 
-<div id="serverBrowser" class="twoColumnPage page fibonacci-2-5 server_browser">
-	<div class="top"><span></span></div>
+<div id="serverBrowser" class="twoColumnPage page fibonacci-2-5 server-browser">
 	<div class="content page">
 		<div class="contentWrappper page">
 
@@ -69,14 +67,13 @@
 			</div>
 			<div class="columnTwo page">
 				<div class="columnWrapper page">
-					<div id="server_browser_file_list">
+					<div id="server-browser-file-list">
 						{SERVER_BROWSER_FILE_LIST}
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<div class="bottom page"><span></span></div>
 </div>
 
 <!-- END: content -->

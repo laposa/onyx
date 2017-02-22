@@ -2,28 +2,33 @@
 <!-- BEGIN: head -->
 <style type="text/css" media="screen">
 @import url(/share/css/fe_edit.css);
-html,body,#backoffice,#backofficeWrapper,#container,#onxshop_cms_content {height: 100%;}
-div.backoffice_login #login form,
-div.backoffice_login #registration form {background: rgba(237, 237, 237, 0.9); padding: 10px 20px; color: black; border: 1px solid #CCC; border-radius: 5px;}
-div.backoffice_login form span.field {width: 100%;}
-div.backoffice_login {margin: 20px auto; width: 300px; display: table; height: 80%;}
-div.backoffice_login fieldset legend {text-transform: uppercase;}
-div.backoffice_login #login div.login {margin-bottom: 2em;}
-div.backoffice_login #login a,
-div.backoffice_login #registration a {color: white; text-decoration: none;}
-div.backoffice_login #login form a,
-div.backoffice_login #registration form a {color: black; text-decoration: underline;}
-div.backoffice_login #forgot form {display: none;}
-div.backoffice_login div.backoffice_login_wrapper {display: table-cell; vertical-align: middle; }
-div.backoffice_login #registration {display: none;}
-div.backoffice_login div.autologin span.label {float: left;}
-div.backoffice_login div.autologin span.field {width: auto;}
+html,
+body,
+#backoffice,
+#backoffice-wrapper,
+#container,
+#onxshop-cms-content {height: 100%;}
+div.backoffice-login #login form,
+div.backoffice-login #registration form {background: rgba(237, 237, 237, 0.9); padding: 10px 20px; color: black; border: 1px solid #CCC; border-radius: 5px;}
+div.backoffice-login form span.field {width: 100%;}
+div.backoffice-login {margin: 20px auto; width: 300px; display: table; height: 80%;}
+div.backoffice-login fieldset legend {text-transform: uppercase;}
+div.backoffice-login #login div.login {margin-bottom: 2em;}
+div.backoffice-login #login a,
+div.backoffice-login #registration a {color: white; text-decoration: none;}
+div.backoffice-login #login form a,
+div.backoffice-login #registration form a {color: black; text-decoration: underline;}
+div.backoffice-login #forgot form {display: none;}
+div.backoffice-login div.backoffice-login-wrapper {display: table-cell; vertical-align: middle; }
+div.backoffice-login #registration {display: none;}
+div.backoffice-login div.autologin span.label {float: left;}
+div.backoffice-login div.autologin span.field {width: auto;}
 </style>
 
 <script type="text/javascript">
 $(document).ready(function(){
-	$('div.backoffice_login #registration fieldset.delivery_address, div.backoffice_login #registration fieldset.company_details, div.backoffice_login #registration fieldset.account_details').remove();
-	$('div.backoffice_login #login div.login form.failed').parent().effect("shake");
+	$('div.backoffice-login #registration fieldset.delivery-address, div.backoffice-login #registration fieldset.company-details, div.backoffice-login #registration fieldset.account-details').remove();
+	$('div.backoffice-login #login div.login form.failed').parent().effect("shake");
 });
 </script>
 
@@ -34,15 +39,15 @@ $(document).ready(function(){
 <script type="text/javascript" src="/share/js/fe_edit.js"></script>
 <script type="text/javascript" src="/share/js/backoffice.js"></script>
 
-<div id="onxshopHeader">
-	<div id="onxshopSystemBar">
+<div id="onxshop-header">
+	<div id="onxshop-system-bar">
 	
-		<div id="menuSystem">
-			<a class="onxshop_version" href="/" title="{ONXSHOP_VERSION} {ONXSHOP_PACKAGE_NAME|ucfirst}" onclick="openAjaxRequestInDialog('/request/bo/component/sysinfo', '{ONXSHOP_VERSION}'); return false;"><span>Onxshop</span></a> - 
-			<a class="onxshop_client" href="/" title="{CONFIGURATION.global.title|htmlspecialchars} homepage"><span>{CONFIGURATION.global.title|htmlspecialchars}</span></a>
+		<div id="menu-system">
+			<a class="onxshop-version" href="/" title="{ONXSHOP_VERSION} {ONXSHOP_PACKAGE_NAME|ucfirst}" onclick="openAjaxRequestInDialog('/request/bo/component/sysinfo', '{ONXSHOP_VERSION}'); return false;"><span>Onxshop</span></a> - 
+			<a class="onxshop-client" href="/" title="{CONFIGURATION.global.title|htmlspecialchars} homepage"><span>{CONFIGURATION.global.title|htmlspecialchars}</span></a>
 		</div>
 		
-		<div id="menuUser">
+		<div id="menu-user">
 			<a href="{ONXSHOP_SUPPORT_WEBSITE_URL}" title="Access to Onxshop support"><span>Support</span></a> - 
 			<a class="logout" href="/?logout=1" title="Logout from the backoffice"><span>Log Out</span></a>
 		</div>
@@ -51,16 +56,14 @@ $(document).ready(function(){
 	
 </div>
 
-<div id="onxshop_cms_content">
-	<div class="top"><span></span></div>
-
-	<div class="backoffice_login">
-		<div class="backoffice_login_wrapper">
+<div id="onxshop-cms-content">
+	<div class="backoffice-login">
+		<div class="backoffice-login-wrapper">
 			<!-- BEGIN: choose_login_type -->
 			<style>
 				div.backoffice_login #login {display: none;}
 			</style>
-			<div class="choose_login_type">
+			<div class="choose-login-type">
 				<!-- BEGIN: facebook -->
 				{ONXSHOP_REQUEST_facebook #component/client/facebook_auth}
 				<!-- END: facebook -->
@@ -84,8 +87,5 @@ $(document).ready(function(){
 			</div>
 		</div>
 	</div>
-		
-		
-	<div class="bottom"><span></span></div>
 </div>
 <!-- END: content -->

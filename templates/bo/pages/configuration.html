@@ -3,7 +3,7 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	$('div.server_browser_menu .simpleTree').simpleTree({
+	$('div.server-browser-menu .simple-tree').simpleTree({
 		drag: false,
 		autoclose: true,
 		afterClick:function(node){
@@ -18,13 +18,12 @@ $(document).ready(function(){
 });
 
 function serverBrowserOpenDir(open_dir) {
-	makeAjaxRequestWithForm('#component_configuration', '/request/bo/component/configuration/' + open_dir);
+	makeAjaxRequestWithForm('#component-configuration', '/request/bo/component/configuration/' + open_dir);
 }
 
 </script>
 
 <div class="twoColumnPage page sidebar">
-	<div class="top"><span></span></div>
 	<div class="content">
 		<div class="pageWrapper">
 
@@ -42,14 +41,14 @@ function serverBrowserOpenDir(open_dir) {
 
 								<div class="columnOne page">
 									<div class="columnWrapper page">
-										<div id="model_tree">
+										<div id="model-tree">
 											<h3><a href="?object=global"><span>Configuration groups</span></a></h3>
 											{ONXSHOP_REQUEST_menu #bo/component/server_browser_menu~directory=templates/bo/component/configuration/:scope=all:trim_extension=1~}
 										</div>
 									</div>
 								</div>
 								<div class="columnTwo page">
-									<div class="columnWrapper page" id="component_configuration">
+									<div class="columnWrapper page" id="component-configuration">
 										{ONXSHOP_REQUEST_conf #bo/component/configuration}
 									</div>
 								</div>
@@ -72,7 +71,6 @@ function serverBrowserOpenDir(open_dir) {
 			</div>
 		</div>
 	</div>
-	<div class="bottom"><span></span></div>
 </div>
 
 <!-- END: content -->

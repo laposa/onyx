@@ -1,7 +1,6 @@
 <!-- BEGIN: title -->Surveys<!-- END: title -->
 <!-- BEGIN: content -->
 <div class="twoColumnPage page fibonacci-1-5">
-	<div class="top"><span></span></div>
 	<div class="content">
 		<div class="pageWrapper">
 
@@ -17,7 +16,7 @@
 						<div class="rowWrapper">
 							<div class="columnWrapper">
 
-								<div id="sub_content">
+								<div id="sub-content">
 									{ONXSHOP_REQUEST_reviews #bo/component/survey_list}
 								</div>
 
@@ -41,7 +40,7 @@
 							<div class="columnWrapper">
 
 								<p>
-									<a class="button add" title="Add a New Survey" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_add'); return false" href="#sub_content"><span>Add a New Survey</span></a>
+									<a class="button add" title="Add a New Survey" onclick="makeAjaxRequest('#sub-content', '/request/bo/component/survey_add'); return false" href="#sub_content"><span>Add a New Survey</span></a>
 									<a class="button" href="/request/bo/export/csv_surveys"><span>Export Statistics to CSV</span></a>
 								</p>
 
@@ -52,6 +51,5 @@
 			</div>
 		</div>
 	</div>
-	<div class="bottom"><span></span></div>
 </div>
 <!-- END: content -->

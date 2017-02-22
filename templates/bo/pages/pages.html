@@ -7,34 +7,34 @@ $(document).ready(function(){
 });
 
 function appendHeader() {
-	var header = $("#sub_content div.pageHeader").detach();
-	var title = $("#sub_content #node-title").val();
+	var header = $("#sub-content div.pageHeader").detach();
+	var title = $("#sub-content #node-title").val();
 	$('#pageHeaderWrapper').empty().append(header);
 	
 	document.title = title + ' - Pages';
 	
 	var buttonToolbar = $('div.rowBottom p:first');
-	if (buttonToolbar.length > 0) buttonToolbar.append($('.extended_toolbar a').detach());
+	if (buttonToolbar.length > 0) buttonToolbar.append($('.extended-toolbar a').detach());
 
 }
 
 function initialiseMenuPagesTree() {
 
-	$('#menupages_tree .simpleTree').simpleTree({
+	$('#menupages-tree .simple-tree').simpleTree({
 		drag: true,
 		autoclose: false,
 		afterClick:function(node){
 			var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
-			makeAjaxRequest("#sub_content", "/request/bo/component/node_edit~id="+node_id+"~", function(data) {  
+			makeAjaxRequest("#sub-content", "/request/bo/component/node_edit~id="+node_id+"~", function(data) {  
 				appendHeader();
 				initAdvancedSettingsButton();
 			});
-			$('#button_add_subpage').attr('data-node_id', node_id);
+			$('#button-add-subpage').attr('data-node_id', node_id);
 		},
 		afterContextMenu:function(node){
 			var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
-			makeAjaxRequest("#sub_content", "/request/bo/component/node_edit~id="+node_id+"~");
-			$('#button_add_subpage').attr('data-node_id', node_id);
+			makeAjaxRequest("#sub-content", "/request/bo/component/node_edit~id="+node_id+"~");
+			$('#button-add-subpage').attr('data-node_id', node_id);
 		},
 		afterMove:function(destination, source, position){
 			var source_node_id = $('a:first', source).attr('href').match("[0-9]{1,}$");
@@ -54,11 +54,11 @@ function initialiseMenuPagesTree() {
 		animate: true,
 		docToFolderConvert: true /*when false, it will not allow to move page using drag&drop under a page without any children*/
 	});
-	$('#pages_node_menu').addClass('visible');
+	$('#pages-node-menu').addClass('visible');
 }
 
 function hookNodeEditPostUpdate() {
-	$('#pages_node_menu').load("/request/bo/component/node_menu~id=0:open=0:expand_all=1:publish=0~", function() {
+	$('#pages-node-menu').load("/request/bo/component/node_menu~id=0:open=0:expand_all=1:publish=0~", function() {
 		initialiseMenuPagesTree();
 	});
 }
@@ -67,7 +67,6 @@ function hookNodeEditPostUpdate() {
 <div id="pages">
 
 	<div class="twoColumnPage page sidebar">
-		<div class="top"><span></span></div>
 		<div class="content">
 			<div class="pageWrapper">
 
@@ -93,7 +92,7 @@ function hookNodeEditPostUpdate() {
 								<div class="columnOne">
 									<div class="columnWrapper">
 
-										<div id="pages_node_menu">
+										<div id="pages-node-menu">
 											{ONXSHOP_REQUEST_menupages #bo/component/node_menu~id=0:open=GET.open:expand_all=1:publish=0~}
 										</div>
 
@@ -102,7 +101,7 @@ function hookNodeEditPostUpdate() {
 								<div class="columnTwo">
 									<div class="columnWrapper">
 
-										<div id="sub_content">
+										<div id="sub-content">
 											{NODE_EDIT}
 										</div>
 										
@@ -115,7 +114,6 @@ function hookNodeEditPostUpdate() {
 				</div>
 			</div>
 		</div>
-		<div class="bottom"><span></span></div>
 	</div>
 
 </div>

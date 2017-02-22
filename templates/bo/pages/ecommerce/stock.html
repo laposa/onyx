@@ -1,9 +1,7 @@
 <!-- BEGIN: title -->Stock<!-- END: title -->
 <!-- BEGIN: content -->
-<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 
 <div class="twoColumnPage page">
-	<div class="top"><span></span></div>
 	<div class="content">
 		<div class="pageWrapper">
 
@@ -19,11 +17,11 @@
 						<div class="rowWrapper">
 							<div class="columnWrapper">
 
-								<div class="filterBar">
+								<div class="filter-bar">
 									{ONXSHOP_REQUEST_filter #bo/component/ecommerce/product_list_filter}
 								</div>
 
-								<div id="sub_content">
+								<div id="sub-content">
 									{ONXSHOP_REQUEST_stock_list #bo/component/ecommerce/stock}
 								</div>
 
@@ -51,8 +49,8 @@
 									<a class="button" title="export this list as XML" href="/request/bo/export/xml_products"><span>Export List to XML</span></a>
 								</p>
 								<p>
-									<a class="button notification_csv" title="Export notifications as CSV" href="/request/bo/export/csv_notifications"><span>Export Stock Notifications</span></a>
-									<select class="notification_csv">
+									<a class="button notification-csv" title="Export notifications as CSV" href="/request/bo/export/csv_notifications"><span>Export Stock Notifications</span></a>
+									<select class="notification-csv">
 										<option value="">- Select a Period -</option>
 										<!-- BEGIN: stock_period -->
 										<option value="date_from={DATE.from}&amp;date_to={DATE.to}">{DATE.label}</option>
@@ -61,8 +59,8 @@
 
 									<script type="text/javascript">
 										$(function() {
-											$("a.notification_csv").click(function() {
-												var val = $("select.notification_csv").val();
+											$("a.notification-csv").click(function() {
+												var val = $("select.notification-csv").val();
 												if (val == '') alert("Please select a period first.");
 												else window.location = $(this).attr("href") + "?" + val;
 												return false;
@@ -79,6 +77,5 @@
 			</div>
 		</div>
 	</div>
-	<div class="bottom"><span></span></div>
 </div>
 <!-- END: content -->

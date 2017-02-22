@@ -9,12 +9,12 @@ $(document).ready(function(){
 		autoclose: true,
 		afterClick:function(node){
 			var node_id = $('a:first', node).attr('href').match('[0-9]{1,}$');
-			makeAjaxRequest('#sub_content', '/request/bo/component/ecommerce/product_list~taxonomy_tree_id=' + node_id + '~', function() {
-				$('#sub_content div.pagination a').die('click');
-				$('#sub_content div.pagination a').live('click', function() {
+			makeAjaxRequest('#sub-content', '/request/bo/component/ecommerce/product_list~taxonomy_tree_id=' + node_id + '~', function() {
+				$('#sub-content div.pagination a').die('click');
+				$('#sub-content div.pagination a').live('click', function() {
 					var limit_from = $(this).attr('href').match('limit_from=[0-9]{1,}');
 					var limit_per_page = $(this).attr('href').match('limit_per_page=[0-9]{1,}');
-					makeAjaxRequest('#sub_content', '/request/bo/component/ecommerce/product_list~taxonomy_tree_id=' + node_id + ':' + limit_from + ':' + limit_per_page + '~');
+					makeAjaxRequest('#sub-content', '/request/bo/component/ecommerce/product_list~taxonomy_tree_id=' + node_id + ':' + limit_from + ':' + limit_per_page + '~');
 					return false;
 				});
 			});
@@ -23,10 +23,10 @@ $(document).ready(function(){
 		docToFolderConvert: true
 	});
 	
-	$('#sub_content div.pagination a').live('click', function() {
+	$('#sub-content div.pagination a').live('click', function() {
 		var limit_from = $(this).attr('href').match('limit_from=[0-9]{1,}');
 		var limit_per_page = $(this).attr('href').match('limit_per_page=[0-9]{1,}');
-		makeAjaxRequest('#sub_content', '/request/bo/component/ecommerce/product_list~' + limit_from + ':' + limit_per_page + '~');
+		makeAjaxRequest('#sub-content', '/request/bo/component/ecommerce/product_list~' + limit_from + ':' + limit_per_page + '~');
 		return false;
 	});
 	
@@ -36,10 +36,7 @@ $(document).ready(function(){
 
 <div id="products">
 
-	<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
-
 	<div class="twoColumnPage page sidebar">
-		<div class="top"><span></span></div>
 		<div class="content">
 			<div class="pageWrapper">
 
@@ -74,7 +71,7 @@ $(document).ready(function(){
 								<div class="columnTwo">
 									<div class="columnWrapper">
 
-										<div id="sub_content">
+										<div id="sub-content">
 											{SUB_CONTENT}
 										</div>
 
@@ -102,7 +99,6 @@ $(document).ready(function(){
 				</div>
 			</div>
 		</div>
-		<div class="bottom"><span></span></div>
 	</div>
 	
 </div>

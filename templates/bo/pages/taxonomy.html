@@ -3,13 +3,13 @@
 <script type="text/javascript">
 function initialiseMenuTaxonomyTree() {
 	
-	$('#taxonomy_tree_menu .simpleTree').simpleTree({
+	$('#taxonomy-tree-menu .simple-tree').simpleTree({
 		drag: true,
 		autoclose: false,
 		afterClick:function(node){
 			var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
-			makeAjaxRequest('#sub_content', '/request/bo/component/taxonomy_edit~id='+node_id+'~');
-			$('#button_add_subpage').attr('data-node_id', node_id);
+			makeAjaxRequest('#sub-content', '/request/bo/component/taxonomy_edit~id='+node_id+'~');
+			$('#button-add-subpage').attr('data-node_id', node_id);
 			initialiseTaxonomyAddButton();
 		},
 		afterDblClick:function(node){
@@ -33,22 +33,22 @@ function initialiseMenuTaxonomyTree() {
 }
 
 function refreshList() {
-	$('#taxonomy_tree_menu').load('/request/bo/component/taxonomy_menu~expand_all=1:publish=0~', function() {initialiseMenuTaxonomyTree()});
+	$('#taxonomy-tree-menu').load('/request/bo/component/taxonomy_menu~expand_all=1:publish=0~', function() {initialiseMenuTaxonomyTree()});
 }
 
 function initialiseTaxonomyAddButton() {
 	
-	$('#button_add_subpage').show().live('click', function() {
+	$('#button-add-subpage').show().live('click', function() {
 	
 		var node_id = $(this).attr('data-node_id');
 		var url = '/request/bo/component/taxonomy_add~parent=' + node_id + '~';
 
 		$('#dialog').addClass('ajaxLoad').load(url, '', function() {
 						
-			$('#dialog form.taxonomy_add').ajaxForm({ 
-				target: '#dialog form.taxonomy_add',
+			$('#dialog form.taxonomy-add').ajaxForm({ 
+				target: '#dialog form.taxonomy-add',
 				success: function(responseText, statusText) {
-					popupMessage("#dialog form.taxonomy_add div.onxshop_messages");
+					popupMessage("#dialog form.taxonomy-add div.onxshop-messages");
 					refreshList();
 					$('#dialog').empty().dialog('close');
 				}
@@ -63,12 +63,12 @@ function initialiseTaxonomyAddButton() {
 
 $(document).ready(function(){
 	<!-- BEGIN: submenu -->
-	$('#taxonomy_tree_menu .simpleTree a.node_id_{GET.id}').addClass('active open');
-	$('#taxonomy_tree_menu .simpleTree a.node_id_{GET.id}').parent().parent().addClass('active open');
-	$('#taxonomy_tree_menu .simpleTree li.root > a').click(function() {
-		makeAjaxRequest('#sub_content', '/request/bo/component/taxonomy_edit~id={GET.id}~');
+	$('#taxonomy-tree-menu .simple-tree a.node-id-{GET.id}').addClass('active open');
+	$('#taxonomy-tree-menu .simple-tree a.node-id-{GET.id}').parent().parent().addClass('active open');
+	$('#taxonomy-tree-menu .simple-tree li.root > a').click(function() {
+		makeAjaxRequest('#sub-content', '/request/bo/component/taxonomy_edit~id={GET.id}~');
 	});
-	$('#button_add_subpage').show().attr('data-node_id', {GET.id});
+	$('#button-add-subpage').show().attr('data-node-id', {GET.id});
 	initialiseTaxonomyAddButton()
 	<!-- END: submenu -->
 	initialiseMenuTaxonomyTree();
@@ -81,7 +81,6 @@ $(document).ready(function(){
 <div id="categories">
 
 	<div class="twoColumnPage page sidebar">
-		<div class="top"><span></span></div>
 		<div class="content">
 			<div class="pageWrapper">
 
@@ -105,7 +104,7 @@ $(document).ready(function(){
 								<div class="columnOne">
 									<div class="columnWrapper">
 
-										<div id="taxonomy_tree_menu">
+										<div id="taxonomy-tree-menu">
 											{ONXSHOP_REQUEST_menupages #bo/component/taxonomy_menu~expand_all=1:publish=0~}
 										</div>
 
@@ -114,7 +113,7 @@ $(document).ready(function(){
 								<div class="columnTwo">
 									<div class="columnWrapper">
 
-										<div id="sub_content">
+										<div id="sub-content">
 											{SUB_CONTENT}
 										</div>
 
@@ -127,7 +126,7 @@ $(document).ready(function(){
 								<div class="columnWrapper">
 
 									<p>
-										<a class="button add" href="#" id="button_add_subpage" data-node_id="{NODE_ID}" style="margin-left: 10px; display: none;"><span>Add a New Category</span></a>
+										<a class="button add" href="#" id="button-add-subpage" data-node_id="{NODE_ID}" style="margin-left: 10px; display: none;"><span>Add a New Category</span></a>
 									</p>
 
 								</div>
@@ -137,7 +136,6 @@ $(document).ready(function(){
 				</div>
 			</div>
 		</div>
-		<div class="bottom"><span></span></div>
 	</div>
 
 </div>

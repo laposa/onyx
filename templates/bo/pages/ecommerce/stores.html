@@ -4,17 +4,17 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	$('#filterTaxonomy .simpleTree').simpleTree({
+	$('#filter-taxonomy .simple-tree').simpleTree({
 		drag: false,
 		autoclose: true,
 		afterClick:function(node){
 			var node_id = $('a:first', node).attr('href').match('[0-9]{1,}$');
-			makeAjaxRequest('#sub_content', '/request/bo/component/ecommerce/store_list~taxonomy_tree_id=' + node_id + '~', function() {
-				$('#sub_content div.pagination a').die('click');
-				$('#sub_content div.pagination a').live('click', function() {
+			makeAjaxRequest('#sub-content', '/request/bo/component/ecommerce/store_list~taxonomy_tree_id=' + node_id + '~', function() {
+				$('#sub-content div.pagination a').die('click');
+				$('#sub-content div.pagination a').live('click', function() {
 					var limit_from = $(this).attr('href').match('limit_from=[0-9]{1,}');
 					var limit_per_page = $(this).attr('href').match('limit_per_page=[0-9]{1,}');
-					makeAjaxRequest('#sub_content', '/request/bo/component/ecommerce/store_list~taxonomy_tree_id=' + node_id + ':' + limit_from + ':' + limit_per_page + '~');
+					makeAjaxRequest('#sub-content', '/request/bo/component/ecommerce/store_list~taxonomy_tree_id=' + node_id + ':' + limit_from + ':' + limit_per_page + '~');
 					return false;
 				});
 			});
@@ -23,18 +23,18 @@ $(document).ready(function(){
 		docToFolderConvert: true
 	});
 	
-	$('#sub_content div.pagination a').live('click', function() {
+	$('#sub-content div.pagination a').live('click', function() {
 		var limit_from = $(this).attr('href').match('limit_from=[0-9]{1,}');
 		var limit_per_page = $(this).attr('href').match('limit_per_page=[0-9]{1,}');
-		makeAjaxRequest('#sub_content', '/request/bo/component/ecommerce/store_list~' + limit_from + ':' + limit_per_page + '~');
+		makeAjaxRequest('#sub-content', '/request/bo/component/ecommerce/store_list~' + limit_from + ':' + limit_per_page + '~');
 		return false;
 	});	
 
 	// add store popup
 	$('div#stores a.add').live('click', function() {
 		var child_id = $(this).attr('href').replace('#','');;
-		$('#dialog').addClass('ajaxLoad').load('/request/bo/component/ecommerce/store_add', function() {$(this).removeClass('ajaxLoad');});
-		$('#dialog').dialog({width: 500, modal: true, position: {my: "center top", at: "centre top", of: "div.store_list"}, title: 'Add New Item'});
+		$('#dialog').addClass('ajax-load').load('/request/bo/component/ecommerce/store_add', function() {$(this).removeClass('ajax-load');});
+		$('#dialog').dialog({width: 500, modal: true, position: {my: "center top", at: "centre top", of: "div.store-list"}, title: 'Add New Item'});
 		$('#dialog').dialog('open');
 		return false;
 	});
@@ -42,15 +42,15 @@ $(document).ready(function(){
 	// notices report export popup
 	$('div#stores a.report').live('click', function() {
 		var child_id = $(this).attr('href').replace('#','');;
-		$('#dialog').dialog({width: 500, modal: true, position: {my: "center top", at: "centre top", of: "div.store_list"}, title: 'Store Notices Activity Report'});
+		$('#dialog').dialog({width: 500, modal: true, position: {my: "center top", at: "centre top", of: "div.store-list"}, title: 'Store Notices Activity Report'});
 		$('#dialog').html('<form action="/request/bo/export/csv_store_notices" method="get">' +
 			'<div class="row">' +
 				'<span class="label"><label for="export_from">From Date <small>(inclusive)</small></label></span>' +
-				'<span class="field"><input id="export_from" type="text" name="date_from" value=""/></span>' +
+				'<span class="field"><input id="export-from" type="text" name="date_from" value=""/></span>' +
 			'</div>' +
 			'<div class="row">' +
 				'<span class="label"><label for="export_to">To Date <small>(exclusive)</small></label></span>' +
-				'<span class="field"><input id="export_to" type="text" name="date_to" value=""/></span>' +
+				'<span class="field"><input id="export-to" type="text" name="date_to" value=""/></span>' +
 			'</div>' +
 			'<div class="row submit">' +
 				'<span class="label"></span>' +
@@ -58,8 +58,8 @@ $(document).ready(function(){
 			'</div>' +
 			'<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />' +
 			'</form>');
-		$('#export_from').datepicker({firstDay: 1, dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true}).datepicker("setDate", "-7");
-		$('#export_to').datepicker({firstDay: 1, dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true}).datepicker("setDate", "+1");
+		$('#export-from').datepicker({firstDay: 1, dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true}).datepicker("setDate", "-7");
+		$('#export-to').datepicker({firstDay: 1, dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true}).datepicker("setDate", "+1");
 		$('#dialog').dialog('open');
 		return false;
 	});
@@ -70,10 +70,7 @@ $(document).ready(function(){
 
 <div id="stores">
 
-	<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
-
 	<div class="twoColumnPage page sidebar">
-		<div class="top"><span></span></div>
 		<div class="content">
 			<div class="pageWrapper">
 
@@ -88,7 +85,7 @@ $(document).ready(function(){
 						<div class="rowTop">
 							<div class="rowWrapper">
 								<div class="columnWrapper">
-									<div class="filterBar">
+									<div class="filter-bar">
 										{ONXSHOP_REQUEST_filter #bo/component/ecommerce/store_list_filter}
 									</div>
 								</div>
@@ -99,7 +96,7 @@ $(document).ready(function(){
 								<div class="columnOne">
 									<div class="columnWrapper">
 
-										<div id="filterTaxonomy">
+										<div id="filter-taxonomy">
 											{ONXSHOP_REQUEST_menupages #bo/component/taxonomy_menu~id=null:expand_all=1:publish=0~}
 										</div>
 
@@ -108,7 +105,7 @@ $(document).ready(function(){
 								<div class="columnTwo">
 									<div class="columnWrapper">
 
-										<div id="sub_content">
+										<div id="sub-content">
 											{SUB_CONTENT}
 										</div>
 
@@ -132,7 +129,6 @@ $(document).ready(function(){
 				</div>
 			</div>
 		</div>
-		<div class="bottom"><span></span></div>
 	</div>
 	
 </div>
