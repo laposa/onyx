@@ -143,7 +143,6 @@ class Onxshop_Controller_Bo_Component_Client_Customer_Filter extends Onxshop_Con
 		$data = array();
 		if ($_SESSION['bo']['customer-filter-selected_group_id'] > 0) $data['id'] = $_SESSION['bo']['customer-filter-selected_group_id'];
 		$data['name'] = $filter['group_name'];
-		$data['description'] = '';
 		$data['search_filter'] = $filter;
 
 		/**

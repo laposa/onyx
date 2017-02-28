@@ -2,7 +2,7 @@
 /**
  * class client_group
  *
- * Copyright (c) 2011-2014 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2011-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -141,7 +141,7 @@ class client_group extends Onxshop_Model {
 		
 		if (!is_array($data)) return false;
 		
-		$data['search_filter'] = serialize($data['search_filter']);
+		if (array_key_exists('search_filter', $data)) $data['search_filter'] = serialize($data['search_filter']);
 		if (array_key_exists('other_data', $data)) $data['other_data'] = serialize($data['other_data']);
 		
 		return $this->save($data);
