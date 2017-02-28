@@ -54,8 +54,8 @@
 								<p>
 									<a class="button add" title="Add new user" href="/backoffice/customers/add"><span>Add New</span></a>
 									<a class="button" title="Export this list for newsletter" href="/request/bo/export/csv_customers"><span>Export to CSV</span></a>
-									<!-- BEGIN: create_new_group --><a class="button create-customers-group" title="Create a new customers group" href="#" onclick="makeAjaxRequest('#customer_list', '/request/bo/component/client/customer_group_add'); return false;"><span>Advanced Filter</span></a><!-- END: create_new_group -->
-									<!-- BEGIN: modify_group --><a class="button modify-customers-group" title="Modify customers group criteria" href="#" onclick="makeAjaxRequest('#customer_list', '/request/bo/component/client/customer_group_modify'); return false;"><span>Modify Selected Group</span></a><!-- END: modify_group -->
+									<!-- BEGIN: create_new_group --><a class="button create-customers-group" title="Create a new customers group using advanced filter" href="#" onclick="makeAjaxRequest('#customer_list div.pageContent', '/request/bo/component/client/customer_group_add'); return false;"><span>Create Group</span></a><!-- END: create_new_group -->
+									<!-- BEGIN: modify_group --><a class="button modify-customers-group" title="Modify customers group criteria" href="#" onclick="makeAjaxRequest('#customer_list div.pageContent', '/request/bo/component/client/customer_group_modify'); return false;"><span>Modify Selected Group</span></a><!-- END: modify_group -->
 								</p>
 
 							</div>
