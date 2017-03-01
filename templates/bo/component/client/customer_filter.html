@@ -1,5 +1,5 @@
 <!-- BEGIN: content -->
-<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+{MESSAGES}
 
 <!-- BEGIN: form -->
 
@@ -12,7 +12,7 @@ $(document).ready(function(){
 			target: '#customer_filter_form_wrapper',
 			beforeSubmit: function() { return $("#customer_filter_form").valid() },
 			success: function(responseText, statusText) {
-				popupMessage("#customer_filter_form_wrapper div.onxshop_messages");
+				popupMessage("#customer_filter_form_wrapper div.onxshop-messages");
 				if ($('#preview_specified_customers').length == 0) window.location = '/backoffice/customers';
 				makeAjaxRequest('#preview_specified_customers', '/request/bo/component/client/customer_list', function () {
 					initAjaxPagination();

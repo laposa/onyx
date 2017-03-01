@@ -8,7 +8,7 @@ $(document).ready(function(){
 			target: '#customer_list div.pageContent',
 			beforeSubmit: function() { return $("#customer-group-form").valid() },
 			success: function(responseText, statusText) {
-				popupMessage("#customer_list div.onxshop_messages");
+				popupMessage("#customer_list div.onxshop-messages");
 				makeAjaxRequest('#onxshopBackofficeWrapper', '/request/bo/pages/client/customers', function () {
 					//initAjaxPagination();
 				});
@@ -21,7 +21,7 @@ $(document).ready(function(){
 });
 </script>
 
-<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+{MESSAGES}
 
 <div class="customer-group-add">
 	<h2>Create new group</h2>

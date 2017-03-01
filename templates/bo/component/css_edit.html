@@ -20,7 +20,7 @@
 </style>
 <!-- END: head -->
 <!-- BEGIN: content -->
-<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+{MESSAGES}
 <!-- BEGIN: form -->
 
 <form method="post" action="{URI|htmlspecialchars}" id="css_edit">
@@ -75,7 +75,7 @@ $(document).ready(function() {
 
 	function showResponse(responseText, statusText)  {
 		$("#css_edit button").removeClass('saving');
-		popupMessage($("#css_edit_result div.onxshop_messages"));
+		popupMessage($("#css_edit_result div.onxshop-messages"));
 		<!-- BEGIN: refresh_opener -->
 		refreshOpener('{GET.orig}', {GET.id});
 		<!-- END: refresh_opener -->

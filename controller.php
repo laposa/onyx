@@ -707,9 +707,9 @@ class Onxshop_Controller {
 
 		if ($_SESSION['messages']) {
 			
-			if ($this->_checkTemplateBlockExists('content.messages')) {
+			if ($this->_checkTemplateVariableExists('MESSAGES')) {
 			
-				$messages = $_SESSION['messages'];
+				$messages = '<div class="onxshop-messages" role="alert">' . $_SESSION['messages'] . '</div>';
 	
 				$this->tpl->assign('MESSAGES', $messages);
 				$this->tpl->parse('content.messages');
@@ -722,12 +722,23 @@ class Onxshop_Controller {
 	}
 
 	/**
-	 * check block exists
+	 * check block exists in template file
 	 */
 	 
 	function _checkTemplateBlockExists($block_name = '') {
 		
 		if (array_key_exists($block_name, $this->tpl->blocks)) return true;
+		else return false;
+		
+	}
+	
+	/**
+	 * check variable exists in template file
+	 */
+	 
+	function _checkTemplateVariableExists($variable_name) {
+		
+		if (preg_match('/'.$variable_name.'/', $this->tpl->filecontents)) return true;
 		else return false;
 		
 	}

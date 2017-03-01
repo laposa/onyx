@@ -1,5 +1,5 @@
 <!-- BEGIN: content -->
-<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+{MESSAGES}
 
 <div class="twoColumnPage page survey_question_answer_edit fibonacci-2-5">
 
@@ -114,7 +114,7 @@
 				target: '#sub_content',
 				beforeSubmit: function() {return $("#survey_question_answer_edit_form").valid()},
 				success: function(responseText, statusText) {
-					popupMessage("#sub_content div.onxshop_messages");
+					popupMessage("#sub_content div.onxshop-messages");
 					makeAjaxRequest('#sub_content', '/request/bo/component/survey_detail~id={GET.survey_id}~');
 				}
 			});

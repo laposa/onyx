@@ -156,7 +156,7 @@
 				target: '#price_add_form_' + product_variety_id,
 				success: function(responseText, statusText) { 
 					reloadPrices(); 
-					popupMessage("#offerPrice div.onxshop_messages");
+					popupMessage("#offerPrice div.onxshop-messages");
 					$('#offerPrice').empty();
 				}
 			}; 
@@ -168,7 +168,7 @@
 
 </script>
 
-<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+{MESSAGES}
 <form method="post" action="{URI|htmlspecialchars}" id="offer_add_form" class="offer_edit">
 	<div id="offer_edit" class="offer">
 

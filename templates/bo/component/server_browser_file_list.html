@@ -2,7 +2,7 @@
 
 <div id="server-browser-file-list-wrapper">
 
-	<!-- BEGIN: messages --><div class="onxshop-messages">{MESSAGES}</div><!-- END: messages -->
+	{MESSAGES}
 	
 	<div id="server-browser-add">
 	
@@ -79,7 +79,7 @@
 				</td>
 				<td>
 					<!-- BEGIN: add_to_node --><a class="button small add" title="Use {ITEM.name}" href="#serverBrowser" onclick="makeAjaxRequest('#server-browser', '/request/bo/component/file_add~file_path_encoded={ITEM.file_path_encoded}:type={GET.type}:role={GET.role}:relation={GET.relation}:node_id={GET.node_id}~'); "><span>Use</span></a><br /><!-- END: add_to_node -->
-					<!-- BEGIN: delete --><a class="button small remove" href="{_SERVER.REDIRECT_URL}?delete_file={BASE}{FOLDER}{ITEM.name}" onclick="$('#file-{ITEM.file_path_encoded_relative}').load('/request/bo/component/file_delete~file_path_encoded={ITEM.file_path_encoded_relative}~', function() {popupMessage('#file-{ITEM.file_path_encoded_relative} div.onxshop_messages');}); return false;"><span>Delete</span></a><!-- END: delete -->
+					<!-- BEGIN: delete --><a class="button small remove" href="{_SERVER.REDIRECT_URL}?delete_file={BASE}{FOLDER}{ITEM.name}" onclick="$('#file-{ITEM.file_path_encoded_relative}').load('/request/bo/component/file_delete~file_path_encoded={ITEM.file_path_encoded_relative}~', function() {popupMessage('#file-{ITEM.file_path_encoded_relative} div.onxshop-messages');}); return false;"><span>Delete</span></a><!-- END: delete -->
 					<!-- BEGIN: database_import --><a class="button add" title="Import {ITEM.name}" href="?data_file={BASE}{FOLDER}{ITEM.name}"><span>Import this ...</span></a><br /><!-- END: database_import --> 
 				</td>
 			</tr>

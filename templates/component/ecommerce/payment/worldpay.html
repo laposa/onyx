@@ -3,7 +3,7 @@
 
 <form action="{PAYMENT_GATEWAY.URL}" id="worldpay_form" method="post">
 	<h2>Worldpay</h2>
-	<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+	{MESSAGES}
 	<input type=hidden name="instId" value="{PAYMENT_GATEWAY.instId}" />
 	<input type=hidden name="cartId" value="{PAYMENT_GATEWAY.cartId}" />
 	<input type=hidden name="amount" value="{PAYMENT_GATEWAY.amount}" />

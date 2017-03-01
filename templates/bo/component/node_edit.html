@@ -1,5 +1,5 @@
 <!-- BEGIN: content -->
-<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+{MESSAGES}
 
 <!-- BEGIN: form -->
 <div class="node_edit node-{NODE.node_group}-{NODE.node_controller}">
@@ -35,7 +35,7 @@ function showRequestX(formData, jqForm, options) {
 // post-submit callback 
 function showResponse(responseText, statusText)  {
 	
-	popupMessage("#node_properties_edit_result div.onxshop_messages");
+	popupMessage("#node_properties_edit_result div.onxshop-messages");
 	
 	$('button.save').removeClass('saving');
 	

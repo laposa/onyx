@@ -1,6 +1,6 @@
 <!-- BEGIN: content -->
 
-<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+{MESSAGES}
 
 <div class="twoColumnLayout fibonacci-1-2" id="linked-file-{FILE.id}">
 
@@ -19,7 +19,7 @@
 			<a class="ui-icon ui-icon-disk" style="float: left" title="Download" href="/download/{FILE.src}"><span>Download</span></a>
 			<a class="ui-icon ui-icon-info" style="float: left" href="#" title="View more details" onclick="openAjaxRequestInDialog('/request/bo/component/file_info~file_path_encoded={FILE.file_path_encoded}~', '{FILE.src}'); return false"><span>View more details</span></a>
 			&nbsp;
-			<a class="button remove" title="Unlink file" href="#" onclick="if (confirm('Do you really want to unlink {FILE.title|htmlspecialchars|addslashes}?')) {$('#linked-file-{FILE.id}').load('/request/bo/component/file_unlink~relation={GET.relation}:file_id={FILE.id}~', function() { popupMessage('#linked-file-{FILE.id} div.onxshop_messages'); });}; return false"><span>Unlink</span></a>
+			<a class="button remove" title="Unlink file" href="#" onclick="if (confirm('Do you really want to unlink {FILE.title|htmlspecialchars|addslashes}?')) {$('#linked-file-{FILE.id}').load('/request/bo/component/file_unlink~relation={GET.relation}:file_id={FILE.id}~', function() { popupMessage('#linked-file-{FILE.id} div.onxshop-messages'); });}; return false"><span>Unlink</span></a>
 		</p>
 	</div>
 	<div class="layoutColumnTwo ofTwo">

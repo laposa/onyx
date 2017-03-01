@@ -1,5 +1,5 @@
 <!-- BEGIN: content -->
-<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+{MESSAGES}
 <div class="twoColumnPage page comment_edit">
 
 	<form method="post" action="{URI|htmlspecialchars}" id="comment_edit_form">
@@ -114,7 +114,7 @@
 		var options = { 
 			target: '#comment_edit_form_result',
 			success: function(responseText, statusText) {
-				popupMessage("#comment_edit_form_result div.onxshop_messages");
+				popupMessage("#comment_edit_form_result div.onxshop-messages");
 				makeAjaxRequest('#onxshopBackofficeWrapper', '/request/bo/pages/comments');
 			}
 		}; 

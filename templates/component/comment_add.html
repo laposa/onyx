@@ -1,5 +1,5 @@
 <!-- BEGIN: content -->
-<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+{MESSAGES}
 <!-- BEGIN: comment_insert -->
 <script type="text/javascript">  
 $(document).ready(function(){  
@@ -8,7 +8,7 @@ $(document).ready(function(){
 		target: 'div.comment_add_container',
 		beforeSubmit: function() {return $("#comment_form_{GET.node_id}").valid()},
 		success: function(){
-			popupMessage("div.comment_add div.onxshop_messages");
+			popupMessage("div.comment_add div.onxshop-messages");
 		},
 		url: '/request/component/comment_add~node_id={GET.node_id}:allow_anonymouse_submit={GET.allow_anonymouse_submit}~.node/force_config~node_id={GET.node_id}~'
 	}; 
@@ -84,7 +84,7 @@ $(function() {
 	var options = { 
 		target: 'div.comment_add',
 		success: function(){
-			popupMessage("div.comment_add div.onxshop_messages");
+			popupMessage("div.comment_add div.onxshop-messages");
 			$('div.comment_add').load('/request/component/comment_add~node_id={GET.node_id}:allow_anonymouse_submit=0~');
 		},
 		url: '/request/component/client/login~to=ajax~'

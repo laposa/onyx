@@ -15,7 +15,7 @@ function openEdit(url, el, ajax) {
 
 function openAjaxRequestInDialog(url, title) {
 	$('#dialog').html(onxshop_load_indicator_html_snippet).load(url, '', function (responseText, textStatus, XMLHttpRequest) {
-		//popupMessage("#dialog div.onxshop_messages");
+		//popupMessage("#dialog div.onxshop-messages");
 	})
 	.dialog({
 		width: 560, 
@@ -52,7 +52,7 @@ function clearOnxshopCache(button) {
 	$(button).addClass('onxshop-effect-spin');
 	jQuery("#dialog").hide().load('/request/bo/component/tools~tool=flush_cache~', '', 
 		function (responseText, textStatus, XMLHttpRequest) {
-			popupMessage("#dialog div.onxshop_messages");
+			popupMessage("#dialog div.onxshop-messages");
 			$(button).removeClass('onxshop-effect-spin');
 		});
 }

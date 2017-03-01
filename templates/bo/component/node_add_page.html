@@ -1,5 +1,5 @@
 <!-- BEGIN: content -->
-<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+{MESSAGES}
 
 <!-- BEGIN: inserted -->
 <div class="inserted_node_id" style="display: none">{INSERTED_NODE_ID}</div>
@@ -11,7 +11,7 @@ $(function() {
 	var options = { 
 		target: '#node_add_form_{GET.parent}_{GET.container}_wrapper',
 		success: function(responseText, statusText) {
-			popupMessage("#node_add_form_{GET.parent}_{GET.container}_wrapper div.onxshop_messages");
+			popupMessage("#node_add_form_{GET.parent}_{GET.container}_wrapper div.onxshop-messages");
 			var refresh_url = '/request/component/menu~id={GET.parent}~';
 			$('#menu_parent_id_{GET.parent}').load(refresh_url, '', function () {
 			} );	

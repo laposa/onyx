@@ -10,7 +10,7 @@ $(function() {
 	var options = { 
 		target: '#customer_detail_container',
 		success: function(responseText, statusText) {
-			popupMessage("#customer_detail_container div.onxshop_messages");
+			popupMessage("#customer_detail_container div.onxshop-messages");
 			makeAjaxRequest('#customer_detail_container', '/request/component/client/customer_detail');
 		}
 	}; 
@@ -19,7 +19,7 @@ $(function() {
 });
 </script>
 
-<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+{MESSAGES}
 <div class="customer_edit">
 	<h3>{I18N_R_PERSONAL_DETAILS}</h3>
 	<form action="{URI_SAFE|htmlspecialchars}" method="post" class="customer_edit" id="customer_edit_form">

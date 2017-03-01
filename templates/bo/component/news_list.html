@@ -7,7 +7,7 @@ $(function() {
 	$('div.newsList a.onxshop_duplicate').on('click', function() {
 		var child_id = $(this).attr('href').replace('#','');;
 		$.get('/request/bo/component/node_duplicate~id='+child_id+'~', function(data) {
-			popupMessage($(data).find("div.onxshop_messages"));
+			popupMessage($(data).find("div.onxshop-messages"));
 			refreshList();
 		});
 		return false;
@@ -22,7 +22,7 @@ function refreshList() {
 
 </script>
 
-	<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+	{MESSAGES}
 	
 	<!-- BEGIN: list -->
 	<table>

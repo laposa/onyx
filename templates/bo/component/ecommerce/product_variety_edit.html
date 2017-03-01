@@ -10,7 +10,7 @@
 				$("button.save").addClass('saving');
 			},
 			success: function(data) {
-				popupMessage("#product_variety_edit_result div.onxshop_messages");
+				popupMessage("#product_variety_edit_result div.onxshop-messages");
 				$("button.save").removeClass('saving');
 				$('#product_variety_wrapper_{GET.id}').replaceWith(data);
 			}
@@ -23,7 +23,7 @@
 	});
 	</script>
 
-	<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+	{MESSAGES}
 
 	<form method="post" action="{URI|htmlspecialchars}" class="product_variety_edit" id="product_variety_edit_form_{GET.id}">
 

@@ -1,5 +1,5 @@
 <!-- BEGIN: content -->
-<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+{MESSAGES}
 <div class="recipe_review_add review_add">
 	<!-- BEGIN: comment_insert -->
 	<div class="comment_insert">
@@ -11,7 +11,7 @@
 		var options = { 
 			target: 'div.review_add',
 			success: function(){
-				popupMessage("div.review_add div.onxshop_messages");
+				popupMessage("div.review_add div.onxshop-messages");
 			},
 			url: '/request/component/ecommerce/recipe_review_add~node_id={GET.node_id}:allow_anonymouse_submit=0~'
 		}; 

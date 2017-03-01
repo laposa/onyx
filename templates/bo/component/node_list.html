@@ -1,5 +1,5 @@
 <!-- BEGIN: content -->
-<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+{MESSAGES}
 <div id="child_list_{GET.id}">
 <script type="text/javascript">
 $(function() {
@@ -19,7 +19,7 @@ $(function() {
 			$('#node_add_form_'+node_id+'_'+container_id+'_wrapper form').ajaxForm({ 
 				target: '#node_add_form_'+node_id+'_'+container_id+'_wrapper',
 				success: function(responseText, statusText) {
-					popupMessage("#node_add_form_"+node_id+"_"+container_id+"_wrapper div.onxshop_messages");
+					popupMessage("#node_add_form_"+node_id+"_"+container_id+"_wrapper div.onxshop-messages");
 					refreshList();
 					$('#dialog').empty().dialog('close');
 				}
@@ -40,7 +40,7 @@ $(function() {
 	$('#child_list_{GET.id} a.onxshop_duplicate').on('click', function() {
 		var child_id = $(this).attr('href').replace('#','');;
 		$.get('/request/bo/component/node_duplicate~id='+child_id+'~', function(data) {
-			popupMessage($(data).find("div.onxshop_messages"));
+			popupMessage($(data).find("div.onxshop-messages"));
 			refreshList();
 		});
 		return false;

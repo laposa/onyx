@@ -1,5 +1,5 @@
 <!-- BEGIN: content -->
-<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
+{MESSAGES}
 
 <div id="discounts_page" class="twoColumnPage page">
 
@@ -195,7 +195,7 @@
 		var options = { 
 			target: '#discounts_page',
 			success: function(responseText, statusText) {
-				popupMessage("#discounts_page div.onxshop_messages");
+				popupMessage("#discounts_page div.onxshop-messages");
 				makeAjaxRequest('#onxshopBackofficeWrapper', '/request/bo/pages/marketing');
 			}
 		}; 

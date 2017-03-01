@@ -44,7 +44,7 @@ var onxshop_load_indicator_html_snippet = "<div style='width: 100%; padding-top:
  
 function makeAjaxRequest(jquery_selector, url, complete_callback) {
     jQuery(jquery_selector).html(onxshop_load_indicator_html_snippet).load(url, '', function (responseText, textStatus, XMLHttpRequest) {
-			popupMessage( jquery_selector + ' div.onxshop_messages');
+			popupMessage( jquery_selector + ' div.onxshop-messages');
 			if (jQuery.isFunction(complete_callback)) complete_callback();
 		}
 	);
@@ -63,7 +63,7 @@ function initComponentAjaxForm(component_selector) {
 		target: component_selector,
 		success: function(responseText, statusText) {
 			initComponentAjaxForm(component_selector);
-			popupMessage(component_selector + ' div.onxshop_messages');
+			popupMessage(component_selector + ' div.onxshop-messages');
 		}
 	};
     $(component_selector + ' form').ajaxForm(options);
@@ -186,11 +186,11 @@ if (!Array.prototype.indexOf) {
  */
  
 function openAjaxRequestInGrowl(url, title) {
-	jQuery.jGrowl('<div class="onxshop_messages in_jGrowl"><img src="/share/images/ajax-indicator/ajax-loader-bar.gif" alt="Loading ..."/></div>', {
+	jQuery.jGrowl('<div class="onxshop-messages in_jGrowl"><img src="/share/images/ajax-indicator/ajax-loader-bar.gif" alt="Loading ..."/></div>', {
 		beforeOpen: function(e, m, o) {
 			jQuery("#dialog").hide().load(url, '', 
 				function (responseText, textStatus, XMLHttpRequest) {
-					popupMessage("#dialog div.onxshop_messages");
+					popupMessage("#dialog div.onxshop-messages");
 				});
 		}
 	});
@@ -211,7 +211,7 @@ function popupMessage(selector) {
 function growlMessage(message) {
 	var life = 30 * message.length; // 30ms per character
 	if (life < 4000) life = 4000; // 4 sec at min.
-	jQuery.jGrowl("<div class='onxshop_messages in_jGrowl' role='alert'>" + message + "</div>", {life: life})
+	jQuery.jGrowl("<div class='onxshop-messages in_jGrowl' role='alert'>" + message + "</div>", {life: life})
 }
 
 /**

@@ -89,8 +89,8 @@ function msg($msg, $type = "ok", $level = 0, $error_class = '') {
 	    
 		if (!isset($_SESSION['messages'])) $_SESSION['messages'] = '';
 		
-		if ($type == 'error') $_SESSION['messages'] .= "<p class='onxshop_error_msg level_$level $error_class'>". htmlspecialchars($msg) ."</p>\n";
-		else $_SESSION['messages'] .= "<p class='onxshop_ok_msg level_$level $error_class'>". htmlspecialchars($msg) ."</p>\n";
+		if ($type == 'error') $_SESSION['messages'] .= "<p class='onxshop-error-msg level-$level $error_class'>". htmlspecialchars($msg) ."</p>\n";
+		else $_SESSION['messages'] .= "<p class='onxshop-ok-msg level-$level $error_class'>". htmlspecialchars($msg) ."</p>\n";
 		
 	}
 	
