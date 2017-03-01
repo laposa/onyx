@@ -3,8 +3,7 @@
 <!-- END: head_once -->
 <!-- BEGIN: content -->
 <div class="adaptive {NODE.css_class}">
-	<!-- BEGIN: title --><h3 class="contentTitle"><span>{NODE.title|htmlspecialchars}</span></h3><!-- END: title -->
-	<!-- BEGIN: title_link --><h3 class="contentTitle"><a href="/page/{NODE.link_to_node_id}"><span>{NODE.title|htmlspecialchars}</span></a></h3><!-- END: title_link -->
+	<!-- BEGIN: title --><h3 class="content-title"><span>{NODE.title|htmlspecialchars}</span></h3><!-- END: title -->
 	
 	{SUB_CONTENT}
 
@@ -12,7 +11,7 @@
 
 <!-- BEGIN: random -->
 <script type="text/javascript">
-	var nodes = $('#node_id_{GET.id} div.adaptive > div.node');
+	var nodes = $('#node-id-{GET.id} div.adaptive > div.node');
 	if (nodes.length > 0) {
 		var keep = Math.floor(Math.random() * nodes.length);
 		nodes.each(function(index) { if (index != keep) $(this).hide(); });
@@ -22,7 +21,7 @@
 	
 <!-- BEGIN: rotate -->
 <script type="text/javascript">
-	var nodes = $('#node_id_{GET.id} div.adaptive > div.node');
+	var nodes = $('#node-id-{GET.id} div.adaptive > div.node');
 	if (nodes.length > 0) {
 		var keep = 0;
 		var cookie = $.cookie('adaptive_{GET.id}');

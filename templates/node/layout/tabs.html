@@ -3,35 +3,31 @@
 <script type="text/javascript" src="/share/js/jquery/plugins/jquery.easytabs.min.js"></script>
 <script type="text/javascript">
 $(function() { 
-    // setup ul.tabs to work as tabs for each div directly under div.tabsLayout div.layoutBody 
-    if ($('div.tabsLayout div.tabsWrapper ul.tabs').length > 0) $('div.tabsLayout div.tabsWrapper').easytabs();
+    // setup ul.tabs to work as tabs for each div directly under div.tabs-layout div.layout-body 
+    if ($('div.tabs-layout div.tabs-wrapper ul.tabs').length > 0) $('div.tabs-layout div.tabs-wrapper').easytabs();
 });
 </script>
 <!-- END: head_once -->
 <!-- BEGIN: content -->
-<div class="tabsLayout layout {NODE.layout_style} {NODE.css_class}">
-	<div class="layoutWrapper">
-		<div class="top"><span></span></div>
-		<div class="layoutContent">
-			<div class="layoutContentWrapper ">
-				<!-- BEGIN: title --><h2 class="layoutTitle"><span>{NODE.title|htmlspecialchars}</span></h2><!-- END: title -->
-				<!-- BEGIN: title_link --><h2 class="layoutTitle"><a href="/page/{NODE.link_to_node_id}"><span>{NODE.title|htmlspecialchars}</span></a></h2><!-- END: title_link -->
+<div class="tabs-layout layout {NODE.layout_style} {NODE.css_class}">
+	<div class="layout-wrapper">
+		<div class="layout-content">
+			<div class="layout-content-wrapper ">
+				<!-- BEGIN: title --><h2 class="layout-title"><span>{NODE.title|htmlspecialchars}</span></h2><!-- END: title -->
 				
-				<div class="tabsWrapper">
+				<div class="tabs-wrapper">
 					<!-- BEGIN: menu -->
 					<ul class="tabs">
-						<!-- BEGIN: item --><li class="node_id_{ITEM.id} {ITEM.css_class|htmlspecialchars} {FIRST_LAST}"><a href="#node_id_{ITEM.id}"><span>{ITEM.title|htmlspecialchars}</span></a></li><!-- END: item -->
+						<!-- BEGIN: item --><li class="node-id-{ITEM.id} {ITEM.css_class|htmlspecialchars} {FIRST_LAST}"><a href="#node_id_{ITEM.id}"><span>{ITEM.title|htmlspecialchars}</span></a></li><!-- END: item -->
 					</ul>
 					<!-- END: menu -->
 					
-					<div class="layoutBody tabsBody">
+					<div class="layout-body tabs-body">
 						{CONTAINER.1}
-						<div class="bottom"><span></span></div>
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="bottom"><span></span></div>
 	</div>
 </div>
 

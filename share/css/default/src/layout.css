@@ -10,7 +10,6 @@
 
 /********* node/layout/1column.html *********/
 section.one-column-layout {clear: both;}
-section.one-column-layout div.layoutColumnSingle {float: none; width: auto;}
 
 /********* node/layout/2columns.html *********/
 section.layout-two-col {clear: both;}
@@ -100,28 +99,28 @@ section.six-column-layout div.col.five {float: left;}
 section.six-column-layout div.col.six {float: right;}
 
 /********* node/layout/tabs.html *********/
-section.tabsLayout {clear: both;}
-section.tabsLayout ul.tabs li {display: inline-block; list-style-type: none; padding: 0; margin: 0;}
-section.tabsLayout ul.tabs li a {display: inline-block; padding: 7px 15px;}
-section.tabsLayout div.layoutBody {clear: both;}
+section.tabs-layout {clear: both;}
+section.tabs-layout ul.tabs li {display: inline-block; list-style-type: none; padding: 0; margin: 0;}
+section.tabs-layout ul.tabs li a {display: inline-block; padding: 7px 15px;}
+section.tabs-layout div.layout-body {clear: both;}
 
 /********* node/layout/slider.html *********/
-section.sliderLayout .unslider {overflow:auto;margin:0;padding:0;}
-section.sliderLayout .unslider-wrap {position:relative}
-section.sliderLayout .unslider-wrap.unslider-carousel > div.node {float:left}
-section.sliderLayout .unslider-vertical > div.sliderWrapper {height:100%}
-section.sliderLayout .unslider-vertical div.node {float:none;width:100%}
-section.sliderLayout .unslider-fade {position:relative}
-section.sliderLayout .unslider-fade .unslider-wrap div.node {position:absolute;left:0;top:0;right:0;z-index:8}
-section.sliderLayout .unslider-fade .unslider-wrap div.node.unslider-active {z-index:10}
-section.sliderLayout .unslider div.node,
-section.sliderLayout .unslider ol,
-section.sliderLayout .unslider div.sliderWrapper {list-style:none;margin:0;padding:0;border:none}
-section.sliderLayout .unslider-arrow {position:absolute;left:20px;z-index:2;cursor:pointer}
-section.sliderLayout .unslider-arrow.next {left:auto;right:20px}
-section.sliderLayout .unslider-nav ol {list-style: none; text-align: center;}
-section.sliderLayout .unslider-nav ol li {display: inline-block; width: 15px; height: 15px; margin: 0 4px; background: transparent; border-radius: 15px; overflow: hidden; text-indent: -999em; border: 2px solid #fff; cursor: pointer;}
-section.sliderLayout .unslider-nav ol li.unslider-active {background: #fff;cursor: default;}
+section.slider-layout .unslider {overflow:auto;margin:0;padding:0;}
+section.slider-layout .unslider-wrap {position:relative}
+section.slider-layout .unslider-wrap.unslider-carousel > div.node {float:left}
+section.slider-layout .unslider-vertical > div.slider-wrapper {height:100%}
+section.slider-layout .unslider-vertical div.node {float:none;width:100%}
+section.slider-layout .unslider-fade {position:relative}
+section.slider-layout .unslider-fade .unslider-wrap div.node {position:absolute;left:0;top:0;right:0;z-index:8}
+section.slider-layout .unslider-fade .unslider-wrap div.node.unslider-active {z-index:10}
+section.slider-layout .unslider div.node,
+section.slider-layout .unslider ol,
+section.slider-layout .unslider div.slider-wrapper {list-style:none;margin:0;padding:0;border:none}
+section.slider-layout .unslider-arrow {position:absolute;left:20px;z-index:2;cursor:pointer}
+section.slider-layout .unslider-arrow.next {left:auto;right:20px}
+section.slider-layout .unslider-nav ol {list-style: none; text-align: center;}
+section.slider-layout .unslider-nav ol li {display: inline-block; width: 15px; height: 15px; margin: 0 4px; background: transparent; border-radius: 15px; overflow: hidden; text-indent: -999em; border: 2px solid #fff; cursor: pointer;}
+section.slider-layout .unslider-nav ol li.unslider-active {background: #fff;cursor: default;}
 
 /**
  * 

@@ -10,17 +10,17 @@ $(function() {
 	var fe_edit_mode = '{_SESSION.fe_edit_mode}';
 	
 	if (fe_edit_mode == 'edit' || fe_edit_mode == 'move') {
-		var slider_selector = 'div.sliderBody div.onxshop-layout-container:first';
+		var slider_selector = 'section.slider-body div.onxshop-layout-container:first';
 	} else {
-		var slider_selector = 'div.sliderBody:first';
+		var slider_selector = 'section.slider-body:first';
 	}
 	
-    // setup ul.tabs to work as tabs for each div directly under div.tabsLayout div.layoutBody 
-    if ($('div.sliderLayout div.sliderBody').length > 0) {
-	    $('div.sliderLayout div.sliderWrapper').unslider({
+    // setup ul.tabs to work as tabs for each div directly under div.tabs-layout div.layout-body 
+    if ($('section.slider-layout div.slider-body').length > 0) {
+	    $('section.slider-layout div.slider-wrapper').unslider({
 		    selectors: {
 				container: slider_selector,
-				slides: 'div.node'
+				slides: '> *'
 			},
 			animation: 'horizontal'
 		});
@@ -29,23 +29,20 @@ $(function() {
 </script>
 <!-- END: head_once -->
 <!-- BEGIN: content -->
-<div class="sliderLayout layout {NODE.layout_style} {NODE.css_class}">
-	<div class="layoutWrapper">
-		<div class="top"><span></span></div>
-		<div class="layoutContent">
-			<div class="layoutContentWrapper ">
-				<!-- BEGIN: title --><h2 class="layoutTitle"><span>{NODE.title|htmlspecialchars}</span></h2><!-- END: title -->
-				<!-- BEGIN: title_link --><h2 class="layoutTitle"><a href="/page/{NODE.link_to_node_id}"><span>{NODE.title|htmlspecialchars}</span></a></h2><!-- END: title_link -->
+<section class="slider-layout layout {NODE.layout_style} {NODE.css_class}">
+	<div class="layout-wrapper">
+		<div class="layout-content">
+			<div class="layout-content-wrapper ">
+				<!-- BEGIN: title --><h2><span>{NODE.title|htmlspecialchars}</span></h2><!-- END: title -->
 				
-				<div class="sliderWrapper">					
-					<div class="layoutBody sliderBody">
+				<div class="slider-wrapper">					
+					<div class="layout-body slider-body">
 						{CONTAINER.1}
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="bottom"><span></span></div>
 	</div>
-</div>
+</section>
 
 <!-- END: content -->

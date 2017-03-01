@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2006-2011 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2006-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -33,15 +33,8 @@ class Onxshop_Controller_Node_Content_File extends Onxshop_Controller_Node_Conte
 		
 		$this->tpl->assign('NODE', $node_data);
 		
-		/**
-		 * display title
-		 */
-		 
-		if ($node_data['display_title'])  {
-			if ($node_data['link_to_node_id'] > 0) $this->tpl->parse('content.title_link');
-			else $this->tpl->parse('content.title');
-		}
-		
+		$this->displayTitle($node_data);
+			
 		return true;
 	}
 }

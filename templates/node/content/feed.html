@@ -1,16 +1,15 @@
 <!-- BEGIN: content -->
-<div class="feed {NODE.css_class}" id="feednode_id_{GET.id}">
-	<!-- BEGIN: title --><h3 class="contentTitle"><span>{NODE.title|htmlspecialchars}</span></h3><!-- END: title -->
-	<!-- BEGIN: title_link --><h3 class="contentTitle"><a href="/page/{NODE.link_to_node_id}"><span>{NODE.title|htmlspecialchars}</span></a></h3><!-- END: title_link -->
-	<div class="contentBody">
-		<div class="feedNodeContentWrapper">
+<div class="feed {NODE.css_class}" id="feednode-id-{GET.id}">
+	<!-- BEGIN: title --><h3 class="content-title"><span>{NODE.title|htmlspecialchars}</span></h3><!-- END: title -->
+	<div class="content-body">
+		<div class="feed-node-content-wrapper">
 			
 			{RSS_RESULT}
 			
 			<!-- BEGIN: ajax -->
 			<script type="text/javascript">
 			/*nocache GET paremeter is only for global controller caching, not the feed component itself*/
-			makeAjaxRequest('#feednode_id_{GET.id} div.feedNodeContentWrapper', '/request/component/{FEED_CONTROLLER}~url={RSS_OPTIONS.url}:items_limit={RSS_OPTIONS.items_limit}:image={RSS_OPTIONS.image}:copyright={RSS_OPTIONS.copyright}:description={RSS_OPTIONS.description}:pubdate={RSS_OPTIONS.pubdate}~&nocache=1')
+			makeAjaxRequest('#feednode-id-{GET.id} div.feed-node-content-wrapper', '/request/component/{FEED_CONTROLLER}~url={RSS_OPTIONS.url}:items_limit={RSS_OPTIONS.items_limit}:image={RSS_OPTIONS.image}:copyright={RSS_OPTIONS.copyright}:description={RSS_OPTIONS.description}:pubdate={RSS_OPTIONS.pubdate}~&nocache=1')
 			</script>
 			<!-- END: ajax -->
 		</div>
