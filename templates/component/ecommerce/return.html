@@ -3,27 +3,27 @@
 {MESSAGES}
 <script type="text/javascript">  
 $(function(){  
-	//$("#return_form").validate();
+	//$("#return-form").validate();
 });
 </script>
 <style type="text/css">
-div.return div.order_detail p.actions {display: none;}
+div.return div.order-detail p.actions {display: none;}
 </style>
 
 <div class="return">
 
 	<!-- BEGIN: form -->
-	<form id="return_form" action="{URI|htmlspecialchars}#node_id_{GET.node_id}" method="post">
+	<form id="return-form" action="{URI|htmlspecialchars}#node-id-{GET.node_id}" method="post">
 
 		<fieldset class="single">
 		
 			<legend>Product return form</legend>
 			
 			<!-- BEGIN: orders_list -->
-			<div class="row order_id">
-				<span class="label"><label for="return-order_id">Select your order:</label></span>
+			<div class="row order-id">
+				<span class="label"><label for="return-order-id">Select your order:</label></span>
 				<span class="field">
-					<select name="return[order_id]" id="return-order_id" onchange="submit()">
+					<select name="return[order_id]" id="return-order-id" onchange="submit()">
 						<!-- BEGIN: item -->
 						<option value="{ITEM.order_id}" {SELECTED}>Order #{ITEM.order_id} from {ITEM.order_created|strtotime|strftime('%A %e %B %Y', %s)}</option>
 						<!-- END: item -->
@@ -33,15 +33,15 @@ div.return div.order_detail p.actions {display: none;}
 			<!-- END: orders_list -->
 			
 			<!-- BEGIN: full_order_detail -->
-			<p><a class="view_full_order_detail" href="#full_order_detail" onclick="$('#full_order_detail').slideToggle(350); return false;"><span>View full order detail</span></a></p>
-			<div id="full_order_detail" style="display: none;">
+			<p><a class="view-full-order-detail" href="#full-order-detail" onclick="$('#full-order-detail').slideToggle(350); return false;"><span>View full order detail</span></a></p>
+			<div id="full-order-detail" style="display: none;">
 				{FULL_ORDER_DETAIL}
 			</div>
 			<!-- END: full_order_detail -->
 			
 			<!-- BEGIN: basket_list -->
 			<h2>Submit return application for items from this order</h2>
-			<div class="row basket_list">
+			<div class="row basket-list">
 				<span class="label"><label>Select items you wish to return:</label></span>
 				<span class="field">
 					<!-- BEGIN: item -->

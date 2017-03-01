@@ -3,22 +3,22 @@
 <!-- BEGIN: virtual_product -->
 <p>Your gift messaging for this order is already complete.</p>
 <style type="text/css">
-	#gift_options {display: none;}
+	#gift-options {display: none;}
 </style>
 <!-- END: virtual_product -->
 
-<form method="post" action="{URI|htmlspecialchars}" id="gift_options">
+<form method="post" action="{URI|htmlspecialchars}" id="gift-options">
 	<fieldset class="gift_options">
 			
 			<div class="row gift">
-				<input type="checkbox" class="checkbox" name="gift" value="1" id="order-other_data-gift" {CHECKED_gift} onclick="$('#gift_options').submit();" /> <label for="order-other_data-gift" >Do not include details of prices with delivery</label>
+				<input type="checkbox" class="checkbox" name="gift" value="1" id="order-other-data-gift" {CHECKED_gift} onclick="$('#gift_options').submit();" /> <label for="order-other-data-gift" >Do not include details of prices with delivery</label>
 			</div>
-			<div class="row gift_message" style="padding-top: 10px;">
-				<span class="label"><label for="order-other_data-gift_message">Gift Message</label></span>
+			<div class="row gift-message" style="padding-top: 10px;">
+				<span class="label"><label for="order-other-data-gift-message">Gift Message</label></span>
 				<div class="bottom"></div>
 				
 				<span class="field">
-					<textarea class="note_customer" name="gift_message" id="order-other_data-gift_message" rows="10" cols="50">{GIFT_MESSAGE|htmlspecialchars}</textarea>
+					<textarea class="note-customer" name="gift_message" id="order-other-data-gift-message" rows="10" cols="50">{GIFT_MESSAGE|htmlspecialchars}</textarea>
 					<input type="hidden" name="gift_submit" value="gift_submit" />
 					<button type="submit" name="gift_submit" value="gift_submit"><span>Save</span></button>
 				</span>

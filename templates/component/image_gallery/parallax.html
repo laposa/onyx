@@ -13,10 +13,10 @@ $(document).ready(function(){
 </script>
 <!-- END: head_once -->
 <!-- BEGIN: content -->
-<div class="image_gallery_parallax number_of_items_{IMAGE_COUNT}" id="gallery_parallax_{GET.node_id}">
+<div class="image-gallery-parallax number-of-items-{IMAGE_COUNT}" id="gallery-parallax-{GET.node_id}">
 	<!-- BEGIN: item -->
-	<div class="item index_{INDEX}" style="background-image: url({ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS});" data-stellar-background-ratio="0.5">
-		<a class="single_image{GET.relation}{GET.node_id}" rel="single_image{GET.relation}{GET.node_id}" title="{ITEM.title|htmlspecialchars}" href="/page/{ITEM.link_to_node_id}">
+	<div class="item index-{INDEX}" style="background-image: url({ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS});" data-stellar-background-ratio="0.5">
+		<a class="single-image{GET.relation}{GET.node_id}" rel="single-image{GET.relation}{GET.node_id}" title="{ITEM.title|htmlspecialchars}" href="/page/{ITEM.link_to_node_id}">
 		<img src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" />
 		<div class="info">
 			<div class="wrap">

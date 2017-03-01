@@ -1,31 +1,31 @@
 <!-- BEGIN: content -->
 {MESSAGES}
 
-<div id="discounts_page" class="twoColumnPage page">
+<div id="discounts_page" class="two-column-page page">
 
 	<form method="post" action="{URI|htmlspecialchars}" id="promotion_edit_form">
 
 		<div class="content">
-			<div class="pageWrapper">
+			<div class="page-wrapper">
 
-				<div class="pageHeader">
-					<div class="pageHeaderWrapper">
-						<h1 class="pageTitle"><span>Discount Edit</span> <span class="info">ID {PROMOTION.id}</span></h1>
+				<div class="page-header">
+					<div class="page-header-wrapper">
+						<h1 class="page-title"><span>Discount Edit</span> <span class="info">ID {PROMOTION.id}</span></h1>
 					</div>
 				</div>
 
-				<div class="pageContent">
-					<div class="pageContentWrapper">
-						<div class="rowTop">
-							<div class="rowWrapper">
-								<div class="columnWrapper">
+				<div class="page-content">
+					<div class="page-content-wrapper">
+						<div class="row-top">
+							<div class="row-wrapper">
+								<div class="column-wrapper">
 								</div>
 							</div>
 						</div>
-						<div class="rowMiddle">
-							<div class="rowWrapper">
-								<div class="columnOne">
-									<div class="columnWrapper">
+						<div class="row-middle">
+							<div class="row-wrapper">
+								<div class="column-one">
+									<div class="column-wrapper">
 
 										<fieldset>
 											<div class="row title">
@@ -85,8 +85,8 @@
 											
 									</div>
 								</div>
-								<div class="columnTwo withPadding">
-									<div class="columnWrapper">
+								<div class="column-two with-padding">
+									<div class="column-wrapper">
 
 										<fieldset>
 											<div class="row discount_type">
@@ -163,9 +163,9 @@
 								</div>
 							</div>
 						</div>
-						<div class="rowBottom">
-							<div class="rowWrapper">
-								<div class="columnWrapper">
+						<div class="row-bottom">
+							<div class="row-wrapper">
+								<div class="column-wrapper">
 								</div>
 							</div>
 						</div>
@@ -181,7 +181,7 @@
 			<span class="field"><button class="save" type="submit" name="save" value="save"><span>Save</span></button></span>
 		</div>
 
-		<div class="bottom"><span></span></div>
+		
 
 	<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
@@ -196,7 +196,7 @@
 			target: '#discounts_page',
 			success: function(responseText, statusText) {
 				popupMessage("#discounts_page div.onxshop-messages");
-				makeAjaxRequest('#onxshopBackofficeWrapper', '/request/bo/pages/marketing');
+				makeAjaxRequest('#onxshop-backoffice-wrapper', '/request/bo/pages/marketing');
 			}
 		}; 
 

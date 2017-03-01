@@ -17,30 +17,30 @@ $(document).ready(function(){
 </script>
 
 <div id="news">
-	<div class="twoColumnPage page sidebar">
+	<div class="two-column-page page sidebar">
 		<div class="content">
-			<div class="pageWrapper">
+			<div class="page-wrapper">
 
-				<div class="pageHeader">
-					<div class="pageHeaderWrapper">
-						<h1 class="pageTitle"><span>{BLOG_SECTION.title|htmlspecialchars}</span></h1>
+				<div class="page-header">
+					<div class="page-header-wrapper">
+						<h1 class="page-title"><span>{BLOG_SECTION.title|htmlspecialchars}</span></h1>
 						{ONXSHOP_REQUEST_section_select #bo/component/news_section_select}
 					</div>
 				</div>
 
-				<div class="pageContent">
-					<div class="pageContentWrapper">
-						<div class="rowTop">
-							<div class="rowWrapper">
-								<div class="columnWrapper">
+				<div class="page-content">
+					<div class="page-content-wrapper">
+						<div class="row-top">
+							<div class="row-wrapper">
+								<div class="column-wrapper">
 									{CONTAINER.0}
 								</div>
 							</div>
 						</div>
-						<div class="rowMiddle">
-							<div class="rowWrapper">
-								<div class="columnOne">
-									<div class="columnWrapper">
+						<div class="row-middle">
+							<div class="row-wrapper">
+								<div class="column-one">
+									<div class="column-wrapper">
 
 										<div id="news-taxonomy-filter">
 											{ONXSHOP_REQUEST_menupages #bo/component/taxonomy_menu~expand_all=1:publish=0~}
@@ -48,8 +48,8 @@ $(document).ready(function(){
 
 									</div>
 								</div>
-								<div class="columnTwo">
-									<div class="columnWrapper">
+								<div class="column-two">
+									<div class="column-wrapper">
 
 										<div id="news-list">
 											{ONXSHOP_REQUEST_newslist #bo/component/news_list~display_pagination=1~}
@@ -59,9 +59,9 @@ $(document).ready(function(){
 								</div>
 							</div>
 						</div>
-						<div class="rowBottom">
-							<div class="rowWrapper">
-								<div class="columnWrapper">
+						<div class="row-bottom">
+							<div class="row-wrapper">
+								<div class="column-wrapper">
 
 									<p>
 										<a class="button add" title="Add new article to {BLOG_SECTION.title|htmlspecialchars}" href="#" onclick="openAjaxRequestInDialog('/request/bo/component/news_add~blog_node_id={BLOG_SECTION.id}~', 'Create a news item for {BLOG_SECTION.title|htmlspecialchars}'); return false"><span>Add a New Article</span></a>

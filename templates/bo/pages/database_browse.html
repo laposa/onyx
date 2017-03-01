@@ -27,36 +27,36 @@ function serverBrowserOpenDir(open_dir) {
 }
 </script>
 
-<div id="database" class="twoColumnPage page sidebar">
+<div id="database" class="two-column-page page sidebar">
 	<div class="content">
-		<div class="pageWrapper">
+		<div class="page-wrapper">
 
-			<div class="pageHeader">
-				<div class="pageHeaderWrapper">
-					<h1 class="pageTitle"><span>Browse Database</span></h1>
+			<div class="page-header">
+				<div class="page-header-wrapper">
+					<h1 class="page-title"><span>Browse Database</span></h1>
 				</div>
 			</div>
 
-			<div class="pageContent">
-				<div class="pageContentWrapper">
-					<div class="rowTop">
-						<div class="rowWrapper">
-							<div class="columnWrapper">
+			<div class="page-content">
+				<div class="page-content-wrapper">
+					<div class="row-top">
+						<div class="row-wrapper">
+							<div class="column-wrapper">
 							</div>
 						</div>
 					</div>
-					<div class="rowMiddle">
-						<div class="rowWrapper">
-							<div class="columnOne">
-								<div class="columnWrapper">
+					<div class="row-middle">
+						<div class="row-wrapper">
+							<div class="column-one">
+								<div class="column-wrapper">
 									<div id="models">
 										{ONXSHOP_REQUEST_menu #bo/component/server_browser_menu~directory=models/:scope=all:trim_extension=1:expand_all=1~}
 									</div>
 
 								</div>
 							</div>
-							<div class="columnTwo">
-								<div class="columnWrapper">
+							<div class="column-two">
+								<div class="column-wrapper">
 
 									<div id="sub_content" style="overflow: auto;">
 										{ONXSHOP_REQUEST_database_listing #bo/component/database_listing}
@@ -66,9 +66,9 @@ function serverBrowserOpenDir(open_dir) {
 							</div>
 						</div>
 					</div>
-					<div class="rowBottom">
-						<div class="rowWrapper">
-							<div class="columnWrapper">
+					<div class="row-bottom">
+						<div class="row-wrapper">
+							<div class="column-wrapper">
 								<p>
 									<a class="button" href="http://{_SERVER.HTTP_HOST}/share/docs/database/Onxshop.html">Explore DB Schema</a>
 									<a class="button" href="http://{_SERVER.HTTP_HOST}/share/docs/database/Onxshop.pdf">Download DB Schema (PDF)</a>

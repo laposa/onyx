@@ -3,8 +3,8 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$('fieldset.product_in_node a.button.product_in_node').click(function() {
-		$('#product_in_node_tree').addClass('ajaxLoad').load('/request/component/menu_js~id=0:expand_all=1:publish=0~', function() {
-			$('#product_in_node_tree').removeClass('ajaxLoad');
+		$('#product_in_node_tree').addClass('ajax-load').load('/request/component/menu_js~id=0:expand_all=1:publish=0~', function() {
+			$('#product_in_node_tree').removeClass('ajax-load');
 			$('#product_in_node_tree .simpleTree').simpleTree({
 				drag: false,
 				autoclose: true,

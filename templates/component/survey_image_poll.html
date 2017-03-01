@@ -1,33 +1,33 @@
 <!-- BEGIN: content -->
-<div class="survey_image_poll">
+<div class="survey-image-poll">
 <!-- BEGIN: form -->
 <style type="text/css">
 @import url(/share/themes/jquery-ui/onxshop/jquery-ui.css);
-#survey_form_{GET.node_id} fieldset.user_details,
-#survey_form_{GET.node_id} button.submit {display: none;}
+#survey-form-{GET.node_id} fieldset.user_details,
+#survey-form-{GET.node_id} button.submit {display: none;}
 </style>
 <script type="text/javascript" src="/share/js/jquery/ui/jquery-ui.all.min.js"></script>
 <script type="text/javascript">
 $(function() {
 	
-	var form = $('#survey_form_{GET.node_id}');
-	var addional_details = form.find('fieldset.user_details').length > 0 || form.find('div.agreed_with_latest_t_and_c').length > 0;
+	var form = $('#survey-form-{GET.node_id}');
+	var addional_details = form.find('fieldset.user-details').length > 0 || form.find('div.agreed-with-latest-t-and-c').length > 0;
 
 	form.validate();
 	form.find("input[type=radio]").css('opacity', '0');
 	if (!addional_details) form.find("button[type=submit]").hide();
 
-	form.find(".RTEcontent").css("cursor", "pointer").click(function() {
+	form.find(".rte-content").css("cursor", "pointer").click(function() {
 
-		form.find(".RTEcontent").removeClass("selected");
+		form.find(".rte-content").removeClass("selected");
 		$(this).addClass("selected").parent().find("input[type=radio]").attr('checked', true);
 		if (!addional_details) {
 			form.find("button[name=save]").click();
 		} else {
 			$('fieldset.question').hide();
-			$('fieldset.user_details').slideDown();
+			$('fieldset.user-details').slideDown();
 			form.find("button[type=submit]").show();
-			$('#client_customer_first_name_id').focus();
+			$('#client-customer-first-name-id').focus();
 		}
 		
 		return false;
@@ -37,7 +37,7 @@ $(function() {
 	/*birthday UI date picker*/
 	var current_year = new Date().getFullYear();
 	var last_year = current_year - 1;
-	$('#client_customer_birthday_id').datepicker({firstDay: 1, dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true, yearRange: '1900:' + current_year, maxDate: current_year});
+	$('#client-customer-birthday-id').datepicker({firstDay: 1, dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true, yearRange: '1900:' + current_year, maxDate: current_year});
 	
 	/*birthday validation*/
 	$.validator.addMethod("dateFormat", function(value, element) {
@@ -47,7 +47,7 @@ $(function() {
 });
 </script>
 
-<form method="post" action="{URI|htmlspecialchars}#node_id_{GET.node_id}" id="survey_form_{GET.node_id}">
+<form method="post" action="{URI|htmlspecialchars}#node-id-{GET.node_id}" id="survey-form-{GET.node_id}">
 
 	<fieldset class="single question">
 
@@ -63,17 +63,17 @@ $(function() {
 				<!-- BEGIN: answer_list_radio -->
 					<!-- BEGIN: item -->
 					<div class="row">
-						<div class="RTEcontent">{ANSWER.content}</div>
-						<input type="radio" class="{CLASS_REQUIRED}" name="answer[{QUESTION.id}]" value="{ANSWER.id}" {SELECTED} id="answer_id_{ANSWER.id}">
-						<label for="answer_id_{ANSWER.id}">{ANSWER.title|htmlspecialchars}</label><br/>
+						<div class="rte-content">{ANSWER.content}</div>
+						<input type="radio" class="{CLASS_REQUIRED}" name="answer[{QUESTION.id}]" value="{ANSWER.id}" {SELECTED} id="answer-id-{ANSWER.id}">
+						<label for="answer-id-{ANSWER.id}">{ANSWER.title|htmlspecialchars}</label><br/>
 					</div>
 					<!-- END: item -->
-					<div class="error_block">
+					<div class="error-block">
 						<label for="answer[{QUESTION.id}]" class="error">This field is required.</label>
 					</div>
 				<!-- END: answer_list_radio -->
 				<!-- BEGIN: answer_list_select -->
-				<select class="{CLASS_REQUIRED}" name="answer[{QUESTION.id}]" id="question_id_{QUESTION.id}">
+				<select class="{CLASS_REQUIRED}" name="answer[{QUESTION.id}]" id="question-id-{QUESTION.id}">
 					<option value="">-</option>
 					<!-- BEGIN: item -->
 					<option value="{ANSWER.id}" {SELECTED}>{ANSWER.title|htmlspecialchars}</option>
@@ -96,14 +96,14 @@ $(function() {
 
 	<!-- BEGIN: invisible_captcha_field -->
 	<div class="row captcha {ERROR.captcha}">
-		<span class="label"><label for="captcha_input_{GET.node_id}">{I18N_CAPTCHA} <em id="code-captcha_{GET.node_id}">###</em>:</label></span>
-		<span class="field"><input type="text" class="text" id="captcha_input_{GET.node_id}" name="captcha" value="" maxlength="45" /></span>
+		<span class="label"><label for="captcha-input-{GET.node_id}">{I18N_CAPTCHA} <em id="code-captcha-{GET.node_id}">###</em>:</label></span>
+		<span class="field"><input type="text" class="text" id="captcha-input-{GET.node_id}" name="captcha" value="" maxlength="45" /></span>
 	</div>
 	<script type="text/javascript">
 		$.get("/request/component/captcha_js?node_id={GET.node_id}&nocache=1", function(data) {
-			var input = $("#captcha_input_{GET.node_id}");
-			var input = $("#captcha_input_{GET.node_id}");
-			$("#code-captcha_{GET.node_id}").html(data);
+			var input = $("#captcha-input-{GET.node_id}");
+			var input = $("#captcha-input-{GET.node_id}");
+			$("#code-captcha-{GET.node_id}").html(data);
 			input.val(data).parent().parent().hide();
 		});
 	</script>
@@ -118,15 +118,15 @@ $(function() {
 <!-- END: form -->
 
 <!-- BEGIN: result -->
-<div class="thank_you">
+<div class="thank-you">
 	<p>{MESSAGE_AFTER_SUBMISSION|htmlspecialchars|nl2br}</p>
 	{SURVEY_RESULT_STATS}
-	{ONXSHOP_REQUEST_pile #component/client/facebook_pile_survey~survey_id=GET.survey_id~}
+	{disableONXSHOP_REQUEST_pile #component/client/facebook_pile_survey~survey_id=GET.survey_id~}
 </div>
 <!-- END: result -->
 
 <!-- BEGIN: closed -->
-<div class="survey_closed">
+<div class="survey-closed">
 	<p>Survey is closed.</p>
 </div>
 <!-- END: closed -->

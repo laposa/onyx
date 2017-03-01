@@ -15,88 +15,88 @@ section.one-column-layout {clear: both;}
 section.layout-two-col {clear: both;}
 
 /*default, fibonacci-1-1, 50%/50%*/
-section.two-column-layout div.col.one,
-section.two-column-layout.fibonacci-1-1 div.col.one {float: left; width: 49.999%;}
+section.two-column-layout div.col.one.of-two,
+section.two-column-layout.fibonacci-1-1 div.col.one.of-two {float: left; width: 49.999%;}
 section.two-column-layout div.col.two,
-section.two-column-layout.fibonacci-1-1 div.col.two {width: 49.999%; float: right;}
+section.two-column-layout.fibonacci-1-1 div.col.two.of-two {width: 49.999%; float: right;}
 /*fibonacci-1-5, 16.6%/83.3%*/
-section.two-column-layout.fibonacci-1-5 div.col.one {width: 16.66%;}
-section.two-column-layout.fibonacci-1-5 div.col.two {width: 83.33%;}
-section.two-column-layout.fibonacci-5-1 div.col.one {width: 83.33%;}
-section.two-column-layout.fibonacci-5-1 div.col.two {width: 16.66%;}
+section.two-column-layout.fibonacci-1-5 div.col.one.of-two {width: 16.66%;}
+section.two-column-layout.fibonacci-1-5 div.col.two.of-two {width: 83.33%;}
+section.two-column-layout.fibonacci-5-1 div.col.one.of-two {width: 83.33%;}
+section.two-column-layout.fibonacci-5-1 div.col.two.of-two {width: 16.66%;}
 /*fibonacci-1-3, 25%/75%*/
-section.two-column-layout.fibonacci-1-3 div.col.one {width: 25%;}
-section.two-column-layout.fibonacci-1-3 div.col.two {width: 75%;}
-section.two-column-layout.fibonacci-3-1 div.col.one {width: 75%;}
-section.two-column-layout.fibonacci-3-1 div.col.two {width: 25%;}
+section.two-column-layout.fibonacci-1-3 div.col.one.of-two {width: 25%;}
+section.two-column-layout.fibonacci-1-3 div.col.two.of-two {width: 75%;}
+section.two-column-layout.fibonacci-3-1 div.col.one.of-two {width: 75%;}
+section.two-column-layout.fibonacci-3-1 div.col.two.of-two {width: 25%;}
 /*fibonacci-2-5, 28.6%/71.4%*/
-section.two-column-layout.fibonacci-2-5 div.col.one {width: 28.6%;}
-section.two-column-layout.fibonacci-2-5 div.col.two {width: 71.4%;}
-section.two-column-layout.fibonacci-5-2 div.col.one {width: 71.4%;}
-section.two-column-layout.fibonacci-5-2 div.col.two {width: 28.6%;}
+section.two-column-layout.fibonacci-2-5 div.col.one.of-two {width: 28.6%;}
+section.two-column-layout.fibonacci-2-5 div.col.two.of-two {width: 71.4%;}
+section.two-column-layout.fibonacci-5-2 div.col.one.of-two {width: 71.4%;}
+section.two-column-layout.fibonacci-5-2 div.col.two.of-two {width: 28.6%;}
 /*fibonacci-1-2, 33%/66%*/
-section.two-column-layout.fibonacci-1-2 div.col.one {width: 33.3%;}
-section.two-column-layout.fibonacci-1-2 div.col.two {width: 66.6%;}
-section.two-column-layout.fibonacci-2-1 div.col.one {width: 66.6%;}
-section.two-column-layout.fibonacci-2-1 div.col.two {width: 33.3%;}
+section.two-column-layout.fibonacci-1-2 div.col.one.of-two {width: 33.3%;}
+section.two-column-layout.fibonacci-1-2 div.col.two.of-two {width: 66.6%;}
+section.two-column-layout.fibonacci-2-1 div.col.one.of-two {width: 66.6%;}
+section.two-column-layout.fibonacci-2-1 div.col.two.of-two {width: 33.3%;}
 /*fibonacci-3-5, 38.2%/61.8%*/
-section.two-column-layout.fibonacci-3-5 div.col.one {width: 38.2%;}
-section.two-column-layout.fibonacci-3-5 div.col.two {width: 61.8%;}
-section.two-column-layout.fibonacci-5-3 div.col.one {width: 61.8%;}
-section.two-column-layout.fibonacci-5-3 div.col.two {width: 38.2%;}
+section.two-column-layout.fibonacci-3-5 div.col.one.of-two {width: 38.2%;}
+section.two-column-layout.fibonacci-3-5 div.col.two.of-two {width: 61.8%;}
+section.two-column-layout.fibonacci-5-3 div.col.one.of-two {width: 61.8%;}
+section.two-column-layout.fibonacci-5-3 div.col.two.of-two {width: 38.2%;}
 /*fibonacci-2-3, 40%/60%*/
-section.two-column-layout.fibonacci-2-3 div.col.one {width: 40%;}
-section.two-column-layout.fibonacci-2-3 div.col.two {width: 60%;}
-section.two-column-layout.fibonacci-3-2 div.col.one {width: 60%;}
-section.two-column-layout.fibonacci-3-2 div.col.two {width: 40%;}
+section.two-column-layout.fibonacci-2-3 div.col.one.of-two {width: 40%;}
+section.two-column-layout.fibonacci-2-3 div.col.two.of-two {width: 60%;}
+section.two-column-layout.fibonacci-3-2 div.col.one.of-two {width: 60%;}
+section.two-column-layout.fibonacci-3-2 div.col.two.of-two {width: 40%;}
 
 /********* node/layout/3columns.html *********/
 section.three-column-layout {clear: both;}
-section.three-column-layout div.col.one, 
-section.three-column-layout div.col.two, 
-section.three-column-layout div.col.three {width: 33.3334%; overflow: hidden;}
-section.three-column-layout div.col.one, 
-section.three-column-layout div.col.two {float: left;}
-section.three-column-layout div.col.three {float: right;}
+section.three-column-layout div.col.one.of-three, 
+section.three-column-layout div.col.two.of-three, 
+section.three-column-layout div.col.three.of-three {width: 33.3334%; overflow: hidden;}
+section.three-column-layout div.col.one.of-three, 
+section.three-column-layout div.col.two.of-three {float: left;}
+section.three-column-layout div.col.three.of-three {float: right;}
 
 /********* node/layout/4columns.html *********/
 section.four-column-layout {clear: both;}
-section.four-column-layout div.col.one, 
-section.four-column-layout div.col.two, 
-section.four-column-layout div.col.three,
-section.four-column-layout div.col.four {width: 25%; overflow: hidden;}
-section.four-column-layout div.col.one, 
-section.four-column-layout div.col.two,
-section.four-column-layout div.col.three {float: left;}
-section.four-column-layout div.col.four {float: right;}
+section.four-column-layout div.col.one.of-four, 
+section.four-column-layout div.col.two.of-four, 
+section.four-column-layout div.col.three.of-four,
+section.four-column-layout div.col.four.of-four {width: 25%; overflow: hidden;}
+section.four-column-layout div.col.one.of-four, 
+section.four-column-layout div.col.two.of-four,
+section.four-column-layout div.col.three.of-four {float: left;}
+section.four-column-layout div.col.four.of-four {float: right;}
 
 /********* node/layout/5columns.html *********/
 section.five-column-layout {clear: both;}
-section.five-column-layout div.col.one, 
-section.five-column-layout div.col.two, 
-section.five-column-layout div.col.three,
-section.five-column-layout div.col.four,
-section.five-column-layout div.col.five {width: 20%; overflow: hidden;}
-section.five-column-layout div.col.one, 
-section.five-column-layout div.col.two,
-section.five-column-layout div.col.three,
-section.five-column-layout div.col.four {float: left;}
-section.five-column-layout div.col.five {float: right;}
+section.five-column-layout div.col.one.of-five, 
+section.five-column-layout div.col.two.of-five, 
+section.five-column-layout div.col.three.of-five,
+section.five-column-layout div.col.four.of-five,
+section.five-column-layout div.col.five.of-five {width: 20%; overflow: hidden;}
+section.five-column-layout div.col.one.of-five, 
+section.five-column-layout div.col.two.of-five,
+section.five-column-layout div.col.three.of-five,
+section.five-column-layout div.col.four.of-five {float: left;}
+section.five-column-layout div.col.five.of-five {float: right;}
 
 /********* node/layout/6columns.html *********/
 section.six-column-layout {clear: both;}
-section.six-column-layout div.col.one, 
-section.six-column-layout div.col.two, 
-section.six-column-layout div.col.three,
-section.six-column-layout div.col.four,
-section.six-column-layout div.col.five,
-section.six-column-layout div.col.six {width: 16.666%; overflow: hidden;}
-section.six-column-layout div.col.one, 
-section.six-column-layout div.col.two,
-section.six-column-layout div.col.three,
-section.six-column-layout div.col.four,
-section.six-column-layout div.col.five {float: left;}
-section.six-column-layout div.col.six {float: right;}
+section.six-column-layout div.col.one.of-six, 
+section.six-column-layout div.col.two.of-six, 
+section.six-column-layout div.col.three.of-six,
+section.six-column-layout div.col.four.of-six,
+section.six-column-layout div.col.five.of-six,
+section.six-column-layout div.col.six.of-six {width: 16.666%; overflow: hidden;}
+section.six-column-layout div.col.one.of-six, 
+section.six-column-layout div.col.two.of-six,
+section.six-column-layout div.col.three.of-six,
+section.six-column-layout div.col.four.of-six,
+section.six-column-layout div.col.five.of-six {float: left;}
+section.six-column-layout div.col.six.of-six {float: right;}
 
 /********* node/layout/tabs.html *********/
 section.tabs-layout {clear: both;}

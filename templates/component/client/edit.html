@@ -1,11 +1,11 @@
 <!-- BEGIN: content -->
 <script type="text/javascript">  
 $(document).ready(function(){  
-	$("#client_edit").validate({onkeyup: false});  
+	$("#client-edit").validate({onkeyup: false});  
 });  
 </script>
 {MESSAGES}
-<form action="{URI_SAFE|htmlspecialchars}" method="post" id="client_edit" class="client_edit">
+<form action="{URI_SAFE|htmlspecialchars}" method="post" id="client-edit" class="client-edit">
 	
 	<!-- BEGIN: password -->
 	<fieldset>
@@ -14,29 +14,29 @@ $(document).ready(function(){
 			<span class="label"><label for="client-customer-password">{I18N_CURRENT_PASSWORD}</label></span>
 			<span class="field"><input class="text" type="password" id="client-customer-password" name="client[customer][password]" value="" title="You need to type your old password here if you want to set a new password" /></span>
 		</div>
-		<div class="row password_new">
-			<span class="label"><label for="client-customer-password_new">{I18N_NEW_PASSWORD}</label></span>
-			<span class="field"><input class="text" type="password" id="client-customer-password_new" name="client[customer][password_new]" value="" title="Enter a new password if you'd like to change it" /></span>
+		<div class="row password-new">
+			<span class="label"><label for="client-customer-password-new">{I18N_NEW_PASSWORD}</label></span>
+			<span class="field"><input class="text" type="password" id="client-customer-password-new" name="client[customer][password_new]" value="" title="Enter a new password if you'd like to change it" /></span>
 		</div>
-		<div class="row password_new1">
-			<span class="label"><label for="client-customer-password_new1">{I18N_NEW_PASSWORD1}</label></span>
-			<span class="field"><input class="text" type="password" id="client-customer-password_new1" name="client[customer][password_new1]" value="" title="Please repeat your new password" /></span>
+		<div class="row password-new1">
+			<span class="label"><label for="client-customer-password-new1">{I18N_NEW_PASSWORD1}</label></span>
+			<span class="field"><input class="text" type="password" id="client-customer-password-new1" name="client[customer][password_new1]" value="" title="Please repeat your new password" /></span>
 		</div>
 	</fieldset>
 	<!-- END: password -->
 	<fieldset>
 		<legend>{I18N_R_PERSONAL_DETAILS}</legend>
-		<div class="row title_before">
-			<span class="label"><label for="client-customer-title_before"><span class="mandatory-mark">*</span> {I18N_R_TITLE}</label></span>
-			<span class="field"><input class="required text short" type="text" id="client-customer-title_before" name="client[customer][title_before]" value="{CLIENT.customer.title_before|htmlspecialchars}" title="Your title, ie Ms, Mr, Miss, Dr" /></span>
+		<div class="row title-before">
+			<span class="label"><label for="client-customer-title-before"><span class="mandatory-mark">*</span> {I18N_R_TITLE}</label></span>
+			<span class="field"><input class="required text short" type="text" id="client-customer-title-before" name="client[customer][title_before]" value="{CLIENT.customer.title_before|htmlspecialchars}" title="Your title, ie Ms, Mr, Miss, Dr" /></span>
 		</div>
-		<div class="row first_name">
-			<span class="label"><label for="client-customer-first_name"><span class="mandatory-mark">*</span> {I18N_R_FIRST_NAME}</label></span>
-			<span class="field"><input class="required text" type="text" id="client-customer-first_name" name="client[customer][first_name]" value="{CLIENT.customer.first_name|htmlspecialchars}" title="Please type here your first name" /></span>
+		<div class="row first-name">
+			<span class="label"><label for="client-customer-first-name"><span class="mandatory-mark">*</span> {I18N_R_FIRST_NAME}</label></span>
+			<span class="field"><input class="required text" type="text" id="client-customer-first-name" name="client[customer][first_name]" value="{CLIENT.customer.first_name|htmlspecialchars}" title="Please type here your first name" /></span>
 		</div>
-		<div class="row last_name">
-			<span class="label"><label for="client-customer-last_name"><span class="mandatory-mark">*</span> {I18N_R_LAST_NAME}</label></span>
-			<span class="field"><input class="required text" type="text" id="client-customer-last_name" name="client[customer][last_name]" value="{CLIENT.customer.last_name|htmlspecialchars}" title="Your family name" /></span>
+		<div class="row last-name">
+			<span class="label"><label for="client-customer-last-name"><span class="mandatory-mark">*</span> {I18N_R_LAST_NAME}</label></span>
+			<span class="field"><input class="required text" type="text" id="client-customer-last-name" name="client[customer][last_name]" value="{CLIENT.customer.last_name|htmlspecialchars}" title="Your family name" /></span>
 		</div>
 		<div class="row email">
 			<span class="label"><label for="client-customer-email"><span class="mandatory-mark">*</span> {I18N_R_EMAIL}</label></span>
@@ -50,22 +50,22 @@ $(document).ready(function(){
 	
 	<fieldset>
 		<legend>{I18N_R_COMPANY_DETAILS}</legend>
-		<div class="row company_name">
+		<div class="row company-name">
 			<span class="label"><label for="client-company-name">{I18N_R_COMPANY_NAME}</label></span>
 			<span class="field"><input class="text" type="text" id="client-company-name" name="client[company][name]" value="{CLIENT.company.name|htmlspecialchars}" title="If you register as a company, please enter here your company name" /></span>
 		</div>
-		<div class="row company_vat">
-			<span class="label"><label for="client-company-vat_no">{I18N_R_VAT_NO}</label></span>
-			<span class="field"><input class="text" type="text" id="client-company-vat_no" name="client[company][vat_no]" value="{CLIENT.company.vat_no|htmlspecialchars}" title="Please enter your company VAT number" /></span>
+		<div class="row company-vat">
+			<span class="label"><label for="client-company-vat-no">{I18N_R_VAT_NO}</label></span>
+			<span class="field"><input class="text" type="text" id="client-company-vat-no" name="client[company][vat_no]" value="{CLIENT.company.vat_no|htmlspecialchars}" title="Please enter your company VAT number" /></span>
 		</div>
 	</fieldset>
 	
 	<fieldset>
 		<div class="row checbox newsletter">
-			<span class="field"><input type="checkbox" class="checkbox" id="client_customer_newsletter_id" name="client[customer][newsletter]" value="1" {CLIENT.customer.newsletter} /> <label for="client_customer_newsletter_id">{I18N_R_NEWSLETTER}</label></span> 
+			<span class="field"><input type="checkbox" class="checkbox" id="client-customer-newsletter-id" name="client[customer][newsletter]" value="1" {CLIENT.customer.newsletter} /> <label for="client-customer-newsletter-id">{I18N_R_NEWSLETTER}</label></span> 
 		</div>
 		<div class="row currency">
-			<span class="label"><label for="client_customer_currency_code_id">{I18N_R_CURRENCY}</label></span>
+			<span class="label"><label for="client-customer-currency-code-id">{I18N_R_CURRENCY}</label></span>
 			<span class="field">{ONXSHOP_REQUEST_2 #component/ecommerce/currency_switcher_inline}</span>
 		</div>
 	</fieldset>

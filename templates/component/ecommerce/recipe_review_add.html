@@ -1,46 +1,46 @@
 <!-- BEGIN: content -->
 {MESSAGES}
-<div class="recipe_review_add review_add">
+<div class="recipe-review-add review-add">
 	<!-- BEGIN: comment_insert -->
-	<div class="comment_insert">
+	<div class="comment-insert">
 	<script type="text/javascript">
 	$(function() { 
 	
-		$("#review_form_{GET.node_id}").validate();  
+		$("#review-form-{GET.node_id}").validate();  
 	
 		var options = { 
-			target: 'div.review_add',
+			target: 'div.review-add',
 			success: function(){
-				popupMessage("div.review_add div.onxshop-messages");
+				popupMessage("div.review-add div.onxshop-messages");
 			},
 			url: '/request/component/ecommerce/recipe_review_add~node_id={GET.node_id}:allow_anonymouse_submit=0~'
 		}; 
 	
-		$("#review_form_{GET.node_id}").ajaxForm(options); 
+		$("#review-form-{GET.node_id}").ajaxForm(options); 
 	});
 	</script>
 
-	<form id="review_form_{GET.node_id}" class="comment" method="post" action="{URI|htmlspecialchars}#review_form_{GET.node_id}">
+	<form id="review-form-{GET.node_id}" class="comment" method="post" action="{URI|htmlspecialchars}#review-form-{GET.node_id}">
 		<fieldset class="single">
 			<legend>Add a new review</legend>
-			<div class="row author_name">
-				<span class="label"><label for="comment_author_name_{GET.node_id}"><span class="mandatory-mark">*</span> {I18N_AUTHOR_NAME}:</label></span>
-				<span class="field"><input class="required text" type="text" id="comment_author_name_{GET.node_id}" name="comment[author_name]" value="{COMMENT.author_name|htmlspecialchars}" /></span>
+			<div class="row author-name">
+				<span class="label"><label for="comment-author-name-{GET.node_id}"><span class="mandatory-mark">*</span> {I18N_AUTHOR_NAME}:</label></span>
+				<span class="field"><input class="required text" type="text" id="comment-author-name-{GET.node_id}" name="comment[author_name]" value="{COMMENT.author_name|htmlspecialchars}" /></span>
 			</div>
 			<div class="row title">
-				<span class="label"><label for="comment_title_{GET.node_id}"><span class="mandatory-mark">*</span> Short summary:</label></span>
-				<span class="field"><input class="required text" type="text" id="comment_title_{GET.node_id}" name="comment[title]" value="{COMMENT.title|htmlspecialchars}" /></span>
+				<span class="label"><label for="comment-title-{GET.node_id}"><span class="mandatory-mark">*</span> Short summary:</label></span>
+				<span class="field"><input class="required text" type="text" id="comment-title-{GET.node_id}" name="comment[title]" value="{COMMENT.title|htmlspecialchars}" /></span>
 			</div>
 			<div class="row content">
-				<span class="label"><label for="comment_content_{GET.node_id}"><span class="mandatory-mark">*</span> Your review:</label></span>
-				<span class="field"><textarea class="required text" id="comment_content_{GET.node_id}" name="comment[content]" cols="50" rows="10">{COMMENT.content|htmlspecialchars}</textarea></span>
+				<span class="label"><label for="comment-content-{GET.node_id}"><span class="mandatory-mark">*</span> Your review:</label></span>
+				<span class="field"><textarea class="required text" id="comment-content-{GET.node_id}" name="comment[content]" cols="50" rows="10">{COMMENT.content|htmlspecialchars}</textarea></span>
 				
 			</div>
 			
 			<div class="row rating">
-				<span class="label"><label for="comment_rating_{GET.node_id}"><span class="mandatory-mark">*</span> Recipe Rating</label></span>
+				<span class="label"><label for="comment-rating-{GET.node_id}"><span class="mandatory-mark">*</span> Recipe Rating</label></span>
 				<span class="field">
-					<select class="required" name="comment[rating]" id="comment_rating_{GET.node_id}">
+					<select class="required" name="comment[rating]" id="comment-rating-{GET.node_id}">
 						<option value="">-- Select --</option>
 						<option value="1">One Star</option>
 						<option value="2">Two Stars</option>
@@ -53,13 +53,13 @@
 			
 			<!-- BEGIN: invisible_captcha_field -->
 			<div class="row captcha {ERROR.captcha}">
-				<span class="label"><label for="comment-captcha_{GET.node_id}">{I18N_CAPTCHA} <em id="code-captcha_{GET.node_id}">###</em>:</label></span>
-				<span class="field"><input type="text" class="text" id="comment-captcha_{GET.node_id}" name="comment[captcha]" value="{FORMDATA.captcha|htmlspecialchars}" maxlength="45" /></span>
+				<span class="label"><label for="comment-captcha-{GET.node_id}">{I18N_CAPTCHA} <em id="code-captcha-{GET.node_id}">###</em>:</label></span>
+				<span class="field"><input type="text" class="text" id="comment-captcha-{GET.node_id}" name="comment[captcha]" value="{FORMDATA.captcha|htmlspecialchars}" maxlength="45" /></span>
 			</div>
 			<script type="text/javascript">
 				$.get("/request/component/captcha_js?node_id={GET.node_id}&nocache=1", function(data) {
-					var input = $("#comment-captcha_{GET.node_id}");
-					$("#code-captcha_{GET.node_id}").html(data);
+					var input = $("#comment-captcha-{GET.node_id}");
+					$("#code-captcha-{GET.node_id}").html(data);
 					input.val(data).parent().parent().hide();
 				});
 			</script>
@@ -67,7 +67,7 @@
 			
 			<div class="row submit">
 				<span class="label"><label>&nbsp;</label></span>
-				<span class="field"><button type="submit" name="save" class="send_comment" value="send"><span>{I18N_SUBMIT}</span></button></span>
+				<span class="field"><button type="submit" name="save" class="send-comment" value="send"><span>{I18N_SUBMIT}</span></button></span>
 		    </div>
 		    
 			<input type="hidden" name="comment[parent]" value="0" />
@@ -76,18 +76,18 @@
 		</fieldset>
     <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
-    <p class="legal_notice">Please note that all submitted reviews &amp; comments will become the licensed property of {CONFIGURATION.global.author_content|htmlspecialchars}</p>
+    <p class="legal-notice">Please note that all submitted reviews &amp; comments will become the licensed property of {CONFIGURATION.global.author_content|htmlspecialchars}</p>
     </div>
 	<!-- END: comment_insert -->
 	
 	<!-- BEGIN: comment_inserted -->
-	<div class="comment_inserted">
+	<div class="comment-inserted">
 		<p>Thank you for your review.</p>
 	</div>
 	<!-- END: comment_inserted -->
 	
 	<!-- BEGIN: log_to_insert -->
-	<div class="log_to_insert">
+	<div class="log-to-insert">
 		<p><a class="button login" href="/page/8?to=/page/{CURRENT_PAGE_ID}"><span>Login to add a review</span></a></p>
 	</div>
 	<!-- END: log_to_insert -->

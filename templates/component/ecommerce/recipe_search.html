@@ -1,6 +1,6 @@
 <!-- BEGIN: content -->
-<div class="recipe_search">
-	<div class="recipe_search_wrapper">
+<div class="recipe-search">
+	<div class="recipe-search-wrapper">
 
 		<form method="get" action="{URI|htmlspecialchars}">
 
@@ -24,8 +24,8 @@
 					<div class="row ">
 						
 						
-						<span class="field cooking_time">
-							<select id="recipe-cooking_time" name="time">
+						<span class="field cooking-time">
+							<select id="recipe-cooking-time" name="time">
 								<option value="">Select Cooking Time</option>
 								<option value="">Any</option>
 								<option {SELECT_COOK_20}value="20">Up to 20 Minutes</option>
@@ -38,8 +38,8 @@
 							</select>
 						</span>
 						
-						<span class="field taxonomy_tree_id">
-							<select id="recipe-taxonomy_tree_id" name="course">
+						<span class="field taxonomy-tree-id">
+							<select id="recipe-taxonomy-tree-id" name="course">
 								<option value="">Select Category</option>
 								<option value="">Any</option>
 								<!-- BEGIN: taxonomy_item -->
@@ -63,26 +63,26 @@
 
 		</form>
 
-		<div class="recipe_list recipe_list_shelf">
+		<div class="recipe-list recipe-list-shelf">
 
 			<!-- BEGIN: item -->
 			<div class="item {ITEM.taxonomy_class}">
 				
-				<div class="twoColumnLayout fibonacci-2-5">
-					<div class="layoutColumnOne ofTwo">
+				<div class="two-column-layout fibonacci-2-5">
+					<div class="layout-column-one of-two">
 
 						<div class="image">
 							<!-- BEGIN: image --><a href="/page/{ITEM.page.id}" title="{ITEM.title|htmlspecialchars}"><img src="/thumbnail/400x175/{ITEM.image.src}?fill=1" alt="{ITEM.image.title|htmlspecialchars}" /></a><!-- END: image -->
 						</div>
 
 					</div>
-					<div class="layoutColumnTwo ofTwo">
+					<div class="layout-column-two of-two">
 						<div class="description">
 							<h3 class="name"><a href="/page/{ITEM.page.id}" title="{ITEM.recipe.name|htmlspecialchars}"><span>{ITEM.title|htmlspecialchars}</span></a></h3>
 							<p>{ITEM.description|strip_tags}</p>
 							<p><small>Serving people: {ITEM.serving_people}<br />Cooking time:{ITEM.cooking_time}</small></p>
 							<!-- BEGIN: reviews -->
-							<div class="reviews"><a href="/page/{ITEM.page.id}">{RATING_STARS}</a> <span class="review_count">({ITEM.review.count}&nbsp;{REVIEWS})</span></div>
+							<div class="reviews"><a href="/page/{ITEM.page.id}">{RATING_STARS}</a> <span class="review-count">({ITEM.review.count}&nbsp;{REVIEWS})</span></div>
 							<!-- END: reviews -->
 						</div>
 					</div>

@@ -3,9 +3,9 @@
 <!-- END: head -->
 <!-- BEGIN: content -->
 <div class="basket {EMPTY}">
-	<div class="basketWrapper">
+	<div class="basket-wrapper">
 			
-			<h3><a class="basket_detail" href="/page/{NODE_CONF.id_map-basket}"><span>{I18N_SHOPPING_BASKET}</span></a></h3>
+			<h3><a class="basket-detail" href="/page/{NODE_CONF.id_map-basket}"><span>{I18N_SHOPPING_BASKET}</span></a></h3>
 			
 			<!-- BEGIN: basket -->
 				
@@ -28,8 +28,8 @@
 				<div class="summary">
 					{I18N_ITEMS}: <strong>{BASKET.quantity}</strong> <span class="delimiter">|</span> {I18N_TOTAL}: <strong>{BASKET.total|money_format('%n',%s)}</strong> {VAT_NOTE}
 				</div>
-				<div class="go_to_checkout">
-					<a class="go_to_checkout" href="/page/{NODE_CONF.id_map-checkout}"><span>{I18N_CHECKOUT}</span></a>
+				<div class="go-to-checkout">
+					<a href="/page/{NODE_CONF.id_map-checkout}"><span>{I18N_CHECKOUT}</span></a>
 				</div>
 			</div>
 			

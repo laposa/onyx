@@ -29,22 +29,22 @@
 
 	<div id="product_variety_edit">
 
-		<div class="twoColumnPage popup">
-			<div class="top"><span></span></div>
+		<div class="two-column-page popup">
+			
 			<div class="content">
-				<div class="pageWrapper">
+				<div class="page-wrapper">
 
-					<div class="pageHeader">
-						<div class="pageHeaderWrapper">
-							<h1 class="pageTitle"><span>Product Variety Edit</span> <span class="info">ID {GET.id}</span></h1>
+					<div class="page-header">
+						<div class="page-header-wrapper">
+							<h1 class="page-title"><span>Product Variety Edit</span> <span class="info">ID {GET.id}</span></h1>
 						</div>
 					</div>
 
-					<div class="pageContent">
-						<div class="pageContentWrapper">
-							<div class="rowTop">
-								<div class="rowWrapper">
-									<div class="columnWrapper">
+					<div class="page-content">
+						<div class="page-content-wrapper">
+							<div class="row-top">
+								<div class="row-wrapper">
+									<div class="column-wrapper">
 
 										<fieldset>
 											<div class="row title">
@@ -69,8 +69,8 @@
 											</div>
 										</fieldset>
 
-										<div class="twoColumnLayout fibonacci-1-1">
-											<div class="layoutColumnOne ofTwo">
+										<div class="two-column-layout fibonacci-1-1">
+											<div class="layout-column-one of-two">
 												<fieldset>
 													<div class="row">
 														<span class="label"><label>Weight Gross [{VARIETY_CONF.weight_units}]</label></span>
@@ -82,7 +82,7 @@
 													</div>
 												</fieldset>
 											</div>
-											<div class="layoutColumnTwo ofTwo">
+											<div class="layout-column-two of-two">
 												<fieldset>
 													<div class="row">
 														{ONXSHOP_REQUEST_producttype #bo/component/ecommerce/product_type_select~product_variety_id=GET.id~}
@@ -125,13 +125,13 @@
 											<legend>Dimensions</legend>
 
 											<div class="fourColumnLayout">
-												<div class="layoutColumnOne ofFour">
+												<div class="layout-column-one ofFour">
 													<div class="row">
 														<span class="label"><label>Width [{VARIETY_CONF.dimension_units}]</label></span>
 														<span class="field"><input type="text" class="text short" name="product[variety][width]" value="{PRODUCT.variety.width}"/></span>
 													</div>
 												</div>
-												<div class="layoutColumnTwo ofFour">
+												<div class="layout-column-two ofFour">
 													<div class="row">
 														<span class="label"><label>Height [{VARIETY_CONF.dimension_units}]</label></span>
 														<span class="field"><input type="text" class="text short" name="product[variety][height]" value="{PRODUCT.variety.height}"/></span>
@@ -177,21 +177,21 @@
 									</div>
 								</div>
 							</div>
-							<div class="rowMiddle">
-								<div class="rowWrapper">
-									<div class="columnOne">
-										<div class="columnWrapper">
+							<div class="row-middle">
+								<div class="row-wrapper">
+									<div class="column-one">
+										<div class="column-wrapper">
 										</div>
 									</div>
-									<div class="columnTwo">
-										<div class="columnWrapper">
+									<div class="column-two">
+										<div class="column-wrapper">
 										</div>
 									</div>
 								</div>
 							</div>
-							<div class="rowBottom">
-								<div class="rowWrapper">
-									<div class="columnWrapper">
+							<div class="row-bottom">
+								<div class="row-wrapper">
+									<div class="column-wrapper">
 
 										<p>
 											<a class="button showAdvancedSettings" href="#"><span>Show Advanced Settings</span></a>
@@ -204,7 +204,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="bottom"><span></span></div>
+			
 		</div>
 
 		<button class="save" type="submit" name="save" value="save"><span>Save</span></button>

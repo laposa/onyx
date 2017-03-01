@@ -2,13 +2,13 @@
 <script type="text/javascript"> 
 $(function(){ 
 	var options = {
-		target: '#onxshopBackofficeWrapper',
-		beforeSubmit: function () {$("#onxshopBackofficeWrapper").html(onxshop_load_indicator_html_snippet);}
+		target: '#onxshop-backoffice-wrapper',
+		beforeSubmit: function () {$("#onxshop-backoffice-wrapper").html(onxshop_load_indicator_html_snippet);}
 	};
-    $('#systemSearch form').ajaxForm(options);
+    $('#system-search form').ajaxForm(options);
 });
 </script> 
-<div id="systemSearch" style="position: relative; top: 10px; z-index: 20; padding-right: 2em">
+<div id="system-search" style="position: relative; top: 10px; z-index: 20; padding-right: 2em">
 	<form style="float: right; clear: none; background: transparent; margin: 0; padding: 0;" method="get" action="/request/bo/component/search">
 		<div style="float:left;">
 			<label title="search in content" style="display: none">search</label><input class="text" type="text" name="search[query]" style="width: 150px;" title="currently search in pages only" />

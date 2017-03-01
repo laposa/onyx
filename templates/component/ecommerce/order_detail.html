@@ -1,45 +1,45 @@
 <!-- BEGIN: content -->
 {MESSAGES}
-<div class="order_detail">
+<div class="order-detail">
 	<h3>{I18N_ORDER} #{ORDER.id} {I18N_CREATED} {ORDER.created}</h3>
 	
-	<p class="actions extended_toolbar">
+	<p class="actions extended-toolbar">
 		<!-- BEGIN: make_payment -->
-		<a class="button make_payment" href="/page/{NODE_CONF.id_map-payment}?order_id={GET.order_id}&amp;code={ORDER_CODE}"><span>{I18N_BUTTON_MAKE_PAYMENT}</span></a>
+		<a class="button make-payment" href="/page/{NODE_CONF.id_map-payment}?order_id={GET.order_id}&amp;code={ORDER_CODE}"><span>{I18N_BUTTON_MAKE_PAYMENT}</span></a>
 		<!-- END: make_payment -->
-		<a class="button repeat_order" href="/page/{NODE_CONF.id_map-basket}?populate_basket_from_order_id={GET.order_id}"><span>{I18N_BUTTON_REPEAT_ORDER}</span></a>
+		<a class="button repeat-order" href="/page/{NODE_CONF.id_map-basket}?populate_basket_from_order_id={GET.order_id}"><span>{I18N_BUTTON_REPEAT_ORDER}</span></a>
 		<!-- BEGIN: print_invoice -->
-		<a class="button print_invoice" href="/print/invoice/{GET.order_id}?code={ORDER_CODE}"><span>{I18N_BUTTON_PRINT_ORDER}</span></a>
+		<a class="button print-invoice" href="/print/invoice/{GET.order_id}?code={ORDER_CODE}"><span>{I18N_BUTTON_PRINT_ORDER}</span></a>
 		<!-- END: print_invoice -->
 	</p>
 	
 	{BASKET_DETAIL}
 	
-	<div class="twoColumnLayout layout">
-		<div class="layoutWrapper">
-			<div class="top"><span></span></div>
-			<div class="layoutContent">
-				<div class="layoutContentWrapper">
-					<div class="layoutColumnOne ofTwo">
-						<div class="layoutColumnWrapper">
+	<div class="two-column-layout layout">
+		<div class="layout-wrapper">
+			
+			<div class="layout-content">
+				<div class="layout-content-wrapper">
+					<div class="layout-column-one of-two">
+						<div class="layout-column-wrapper">
 							{ADDRESS_DELIVERY}
 						</div>
 					</div>
-					<div class="layoutColumnTwo ofTwo">
-						<div class="layoutColumnWrapper">
+					<div class="layout-column-two of-two">
+						<div class="layout-column-wrapper">
 							{ADDRESS_INVOICES}
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="bottom"><span></span></div>
+			
 		</div>
 	</div>
 	
 	<pre>{ORDER.note_customer|htmlspecialchars}</pre>
 	
 	<!-- BEGIN: other_data -->
-	<div class="other_data">
+	<div class="other-data">
 		<h3>{I18N_OTHER_DATA}</h3>
 		<p>
 		<!-- BEGIN: item -->

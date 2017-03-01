@@ -7,13 +7,13 @@ $(document).ready(function(){
 });
 
 function appendHeader() {
-	var header = $("#sub-content div.pageHeader").detach();
+	var header = $("#sub-content div.page-header").detach();
 	var title = $("#sub-content #node-title").val();
-	$('#pageHeaderWrapper').empty().append(header);
+	$('#page-header-wrapper').empty().append(header);
 	
 	document.title = title + ' - Pages';
 	
-	var buttonToolbar = $('div.rowBottom p:first');
+	var buttonToolbar = $('div.row-bottom p:first');
 	if (buttonToolbar.length > 0) buttonToolbar.append($('.extended-toolbar a').detach());
 
 }
@@ -66,31 +66,31 @@ function hookNodeEditPostUpdate() {
 
 <div id="pages">
 
-	<div class="twoColumnPage page sidebar">
+	<div class="two-column-page page sidebar">
 		<div class="content">
-			<div class="pageWrapper">
+			<div class="page-wrapper">
 
-				<div id="pageHeaderWrapper">
-					<div class="pageHeader">
-						<div class="pageHeaderWrapper">
-							<h1 class="pageTitle"><span>Page</span> <span class="info">ID {NODE_ID}</span></h1>
+				<div id="page-header-wrapper">
+					<div class="page-header">
+						<div class="page-header-wrapper">
+							<h1 class="page-title"><span>Page</span> <span class="info">ID {NODE_ID}</span></h1>
 						</div>
 					</div>
 				</div>
 
-				<div class="pageContent">
-					<div class="pageContentWrapper">
-						<div class="rowTop">
-							<div class="rowWrapper">
-								<div class="columnWrapper">
+				<div class="page-content">
+					<div class="page-content-wrapper">
+						<div class="row-top">
+							<div class="row-wrapper">
+								<div class="column-wrapper">
 									{CONTAINER.0}
 								</div>
 							</div>
 						</div>
-						<div class="rowMiddle">
-							<div class="rowWrapper">
-								<div class="columnOne">
-									<div class="columnWrapper">
+						<div class="row-middle">
+							<div class="row-wrapper">
+								<div class="column-one">
+									<div class="column-wrapper">
 
 										<div id="pages-node-menu">
 											{ONXSHOP_REQUEST_menupages #bo/component/node_menu~id=0:open=GET.open:expand_all=1:publish=0~}
@@ -98,8 +98,8 @@ function hookNodeEditPostUpdate() {
 
 									</div>
 								</div>
-								<div class="columnTwo">
-									<div class="columnWrapper">
+								<div class="column-two">
+									<div class="column-wrapper">
 
 										<div id="sub-content">
 											{NODE_EDIT}

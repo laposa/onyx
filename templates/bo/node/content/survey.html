@@ -1,8 +1,8 @@
 <!-- BEGIN: title -->Survey Edit<!-- END: title -->
 <!-- BEGIN: content -->
-<div class="pageHeader">
-	<div class="pageHeaderWrapper">
-		<h1 class="pageTitle popup"><span>Survey</span> <span class="info">ID {NODE.id}</span></h1>
+<div class="page-header">
+	<div class="page-header-wrapper">
+		<h1 class="page-title popup"><span>Survey</span> <span class="info">ID {NODE.id}</span></h1>
 	</div>
 </div>
 {FILE "bo/node/default_top.html"}
@@ -90,8 +90,8 @@
 		$("#survey_limit_select").change(function() { updateFieldVisibility(); });
 
 		$('div.href a.button').click(function() {
-			$('#href_select').addClass('ajaxLoad').load('/request/component/menu_js~id=0:expand_all=1:publish=0~', function() {
-				$('#href_select').removeClass('ajaxLoad');
+			$('#href_select').addClass('ajax-load').load('/request/component/menu_js~id=0:expand_all=1:publish=0~', function() {
+				$('#href_select').removeClass('ajax-load');
 				$('#href_select .simpleTree').simpleTree({
 					drag: false,
 					autoclose: true,

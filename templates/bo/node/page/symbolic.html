@@ -1,15 +1,15 @@
 <!-- BEGIN: title -->{NODE.title} - Alias (Redirect) Page Edit<!-- END: title -->
 <!-- BEGIN: content -->
-<div class="pageHeader">
-	<div class="pageHeaderWrapper">
-		<h1 class="pageTitle popup"><span>Alias (Redirect) Page</span> <span class="info">ID {NODE.id}</span></h1>
+<div class="page-header">
+	<div class="page-header-wrapper">
+		<h1 class="page-title popup"><span>Alias (Redirect) Page</span> <span class="info">ID {NODE.id}</span></h1>
 	</div>
 </div>
 
 {FILE "bo/node/form_open.html"}
 
-<div class="twoColumnLayout fibonacci-1-1">
-	<div class="layoutColumnOne ofTwo">
+<div class="two-column-layout fibonacci-1-1">
+	<div class="layout-column-one of-two">
 		<fieldset>
 			{FILE "bo/node/item_title.html"}
 			<div class="advanced">
@@ -23,8 +23,8 @@
 		<script type="text/javascript">
 		$(document).ready(function(){
 			$('fieldset.symbolic-form-edit div.href a.button').click(function() {
-				$('#href_select').addClass('ajaxLoad').load('/request/component/menu_js~id=0:expand_all=1:publish=0~', function() {
-					$('#href_select').removeClass('ajaxLoad');
+				$('#href_select').addClass('ajax-load').load('/request/component/menu_js~id=0:expand_all=1:publish=0~', function() {
+					$('#href_select').removeClass('ajax-load');
 					$('#href_select .simpleTree').simpleTree({
 						drag: false,
 						autoclose: true,
@@ -49,7 +49,7 @@
 		</fieldset>
 
 	</div>
-	<div class="layoutColumnTwo ofTwo">
+	<div class="layout-column-two of-two">
 		<fieldset>
 			{FILE "bo/node/item_image_list.html"}
 			{FILE "bo/node/item_description.html"}

@@ -1,22 +1,22 @@
 <!-- BEGIN: title -->{SURVEY.title}<!-- END: title -->
 <!-- BEGIN: content -->
 {MESSAGES}
-<div id="sub_content" class="twoColumnPage page survey_detail fibonacci-1-5">
-	<div class="top"><span></span></div>
+<div id="sub-content" class="two-column-page page survey-detail fibonacci-1-5">
+	
 	<div class="content">
-		<div class="pageWrapper">
+		<div class="page-wrapper">
 
-			<div class="pageHeader">
-				<div class="pageHeaderWrapper">
-					<h1 class="pageTitle"><span>Survey Detail</span> <span class="info">ID {SURVEY.id}</span></h1>
+			<div class="page-header">
+				<div class="page-header-wrapper">
+					<h1 class="page-title"><span>Survey Detail</span> <span class="info">ID {SURVEY.id}</span></h1>
 				</div>
 			</div>
 
-			<div class="pageContent">
-				<div class="pageContentWrapper">
-					<div class="rowTop">
-						<div class="rowWrapper">
-							<div class="columnWrapper">
+			<div class="page-content">
+				<div class="page-content-wrapper">
+					<div class="row-top">
+						<div class="row-wrapper">
+							<div class="column-wrapper">
 								<h2>{SURVEY.title|htmlspecialchars}</h2>
 								{disableONXSHOP_REQUEST_menu #bo/component/survey_list@bo/component/survey_menu}
 								<p>{SURVEY.description|htmlspecialchars}</p>
@@ -34,8 +34,8 @@
 									</thead>
 									<tbody>
 										<!-- BEGIN: question -->
-										<tr class="publish_{QUESTION.publish}">
-											<td><a class="publish_{QUESTION.publish}" title="Edit question" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_question_edit~id={QUESTION.id}:survey_id={QUESTION.survey_id}~'); return false" href="#sub_content"><span><strong>{QUESTION.title|htmlspecialchars}</strong></span></a><br />
+										<tr class="publish-{QUESTION.publish}">
+											<td><a class="publish-{QUESTION.publish}" title="Edit question" onclick="makeAjaxRequest('#sub-content', '/request/bo/component/survey_question_edit~id={QUESTION.id}:survey_id={QUESTION.survey_id}~'); return false" href="#sub_content"><span><strong>{QUESTION.title|htmlspecialchars}</strong></span></a><br />
 												{QUESTION.description|htmlspecialchars}
 											</td>
 											<td class="answers">
@@ -46,7 +46,7 @@
 												{QUESTION.type}
 												<ul>
 													<!-- BEGIN: item -->
-													<li><a class="publish_{ANSWER.publish} is_correct_{ANSWER.is_correct}" title="Edit Answer Option" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_question_answer_edit~id={ANSWER.id}:survey_id={QUESTION.survey_id}~'); return false" href="#sub_content"><span>{ANSWER.title|htmlspecialchars}</span></a> <small>({ANSWER.usage} answers/votes)</small></li>
+													<li><a class="publish-{ANSWER.publish} is-correct-{ANSWER.is_correct}" title="Edit Answer Option" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_question_answer_edit~id={ANSWER.id}:survey_id={QUESTION.survey_id}~'); return false" href="#sub_content"><span>{ANSWER.title|htmlspecialchars}</span></a> <small>({ANSWER.usage} answers/votes)</small></li>
 													<!-- END: item -->
 												</ul>
 												<a class="button add small" style="float: left;" title="Add a New Answer Option" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_question_answer_add~question_id={QUESTION.id}:survey_id={QUESTION.survey_id}~'); return false" href="#sub_content"><span>Add an Answer</span></a>
@@ -65,23 +65,23 @@
 							</div>
 						</div>
 					</div>
-					<div class="rowMiddle">
-						<div class="rowWrapper">
-							<div class="columnOne">
-								<div class="columnWrapper">
+					<div class="row-middle">
+						<div class="row-wrapper">
+							<div class="column-one">
+								<div class="column-wrapper">
 
 								</div>
 							</div>
-							<div class="columnTwo">
-								<div class="columnWrapper">
+							<div class="column-two">
+								<div class="column-wrapper">
 
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="rowBottom">
-						<div class="rowWrapper">
-							<div class="columnWrapper">
+					<div class="row-bottom">
+						<div class="row-wrapper">
+							<div class="column-wrapper">
 
 								<p>
 									<a class="button add" title="Add new question" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_question_add~survey_id={SURVEY.id}~'); return false" href="#sub_content"><span>Add a New Question</span></a>
@@ -96,7 +96,7 @@
 			</div>
 		</div>
 	</div>
-	<div class="bottom"><span></span></div>
+	
 </div>
 </div>
 <!-- END: content -->

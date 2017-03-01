@@ -29,10 +29,10 @@
 		 * Update day selection dropdown with correct number of days in the month
 		 */
 		function updateDays() {
-			var select = $('#ageGate select.day');
+			var select = $('#age-gate select.day');
 			var selected_day = select.val() || current_day;
-			var year = $('#ageGate select.year').val();
-			var month = $('#ageGate select.month').val();
+			var year = $('#age-gate select.year').val();
+			var month = $('#age-gate select.month').val();
 			var max = getDaysInMonth(month, year);
 			var days = '';
 			for (var i = 1; i <= max; i++) {
@@ -47,12 +47,12 @@
 		 */
 		function getAge() {
 			var birth_date;
-			if ($('#ageGate input[type=date]').is(':visible')) {
-				birth_date = $('#ageGate input[type=date]').get(0).valueAsDate;
+			if ($('#age-gate input[type=date]').is(':visible')) {
+				birth_date = $('#age-gate input[type=date]').get(0).valueAsDate;
 			} else {
-				var day = $('#ageGate select.day').val();
-				var year = $('#ageGate select.year').val();
-				var month = $('#ageGate select.month').val();
+				var day = $('#age-gate select.day').val();
+				var year = $('#age-gate select.year').val();
+				var month = $('#age-gate select.month').val();
 				birth_date = new Date(year, month, day);
 			}
 			var age = now.getFullYear() - birth_date.getFullYear();
@@ -64,22 +64,22 @@
 		function submitForm() {
 			customer_age = getAge();
 			if (customer_age >= minimum_age) {
-				$('#ageGate').fadeOut(500, function() {
-					$('#ageGate').remove();
-					$('.pageContent').fadeIn(500);
+				$('#age-gate').fadeOut(500, function() {
+					$('#age-gate').remove();
+					$('.page-content').fadeIn(500);
 					$.cookie('onxshop-customer-age', customer_age, { expires: 7 });
 				});
 			} else {
-				$('#ageGate > div').html('<h3>Sorry, you have to be of legal age to view the page’s content.</h3>');
+				$('#age-gate > div').html('<h3>Sorry, you have to be of legal age to view the page’s content.</h3>');
 			}
 			return false;
 		}
 
 		function showAgeGate() {
 
-			$('.pageContent').hide()
+			$('.page-content').hide()
 
-			var html = '<div id="ageGate"><div id="ageGateWrapper">';
+			var html = '<div id="age-gate"><div id="age-gate-wrapper">';
 			html += '<h3>This page requires that you are of legal drinking age to enter.</h3>';
 			html += '<p>Your Birthday: ';
 			html += '<select class="day"></select>';
@@ -99,15 +99,15 @@
 			html += '</p>';
 			html += '<p><button class="submit">Submit</button></p>';
 			html += '</div></div>';
-			$('.pageContent').after(html);
+			$('.page-content').after(html);
 
 			updateDays();
-			$('#ageGate select.year, #ageGate select.month').change(updateDays);
-			$('#ageGate button.submit').click(submitForm);
+			$('#age-gate select.year, #age-gate select.month').change(updateDays);
+			$('#age-gate button.submit').click(submitForm);
 		};
 
 
-		if (edit_mode) $('.pageContent').prepend('<p style="max-width: 600px; margin: 0 auto; padding: 20px 40px; background: #ff3030; color: #ffffff; font-size: 1.2em; ">This page is secured by the Age Gate. Minimum age has been set to ' + minimum_age + ' years.</p>');
+		if (edit_mode) $('.page-content').prepend('<p style="max-width: 600px; margin: 0 auto; padding: 20px 40px; background: #ff3030; color: #ffffff; font-size: 1.2em; ">This page is secured by the Age Gate. Minimum age has been set to ' + minimum_age + ' years.</p>');
 		else if (customer_age == undefined || customer_age < minimum_age) showAgeGate();
 
 	});

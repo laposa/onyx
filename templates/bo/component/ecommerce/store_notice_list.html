@@ -1,6 +1,6 @@
 <!-- BEGIN: content -->
 {MESSAGES}
-<div id="notice_list_{GET.id}">
+<div id="notice-list-{GET.id}">
 	<!-- BEGIN: children -->
 	<table>
 		<thead>
@@ -8,16 +8,16 @@
 		</thead>
 		<tbody>
 			<!-- BEGIN: item -->
-			<tr id="node_id_{CHILD.id}">
+			<tr id="node-id-{CHILD.id}">
 				<td><a style="width: 400px; display: block;" class="{CHILD.class}" href="javascript:void({CHILD.id})" onclick="openEdit('/popup/properties/{CHILD.id}/orig' + window.location.pathname)">{CHILD.content|strip_tags|htmlspecialchars}</a></td>
 				<td>{CHILD.image}</td>
-				<td class="date_from">{CHILD.other_data.visible_from}</td>
-				<td class="date_to">{CHILD.other_data.visible_to}</td>
+				<td class="date-from">{CHILD.other_data.visible_from}</td>
+				<td class="date-to">{CHILD.other_data.visible_to}</td>
 				<td><div class="actions">
 						<!-- BEGIN: approve -->
-						<a class="onxshop_publish button" title="Schedule Publishing of the Notice on {CHILD.other_data.visible_from}" href="#{CHILD.id}"><span>Approve</span></a>
+						<a class="onxshop-publish button" title="Schedule Publishing of the Notice on {CHILD.other_data.visible_from}" href="#{CHILD.id}"><span>Approve</span></a>
 						<!-- END: approve -->
-						<a class="onxshop_delete button" title="Delete Notice" href="#{CHILD.id}"><span>Delete</span></a>
+						<a class="onxshop-delete button" title="Delete Notice" href="#{CHILD.id}"><span>Delete</span></a>
 					</div>
 				</td>
 			</tr>
@@ -29,15 +29,15 @@
 
 			function refreshNoticeList() {
 				var refresh_url = '/request/bo/component/ecommerce/store_notice_list~store_id={GET.store_id}~';
-				$('#notice_list_{GET.id}').parent().load(refresh_url);
+				$('#notice-list-{GET.id}').parent().load(refresh_url);
 			}
 
-			var list = $('#notice_list_{GET.id}');
-			list.find('a.onxshop_publish').click(function() {
+			var list = $('#notice-list-{GET.id}');
+			list.find('a.onxshop-publish').click(function() {
 
 				var notice_id = $(this).attr('href').replace('#', '');
-				var date_from = $(this).parent().parent().parent().find('td.date_from').text();
-				var date_to = $(this).parent().parent().parent().find('td.date_to').text();
+				var date_from = $(this).parent().parent().parent().find('td.date-from').text();
+				var date_to = $(this).parent().parent().parent().find('td.date-to').text();
 
 				var msg = 'Are you sure you want to schedule the notice for publishing on ' + date_from + '?';
 				if (date_to) msg += ' It will be automatically unpublished on ' + date_to;
@@ -48,9 +48,9 @@
 				return false;
 			});
 
-			$('#notice_list_{GET.id} a.onxshop_delete').live('click', function() {
+			$('#notice-list-{GET.id} a.onxshop-delete').live('click', function() {
 				var child_id = $(this).attr('href').replace('#','');;
-				$('#dialog').addClass('ajaxLoad').load('/request/bo/component/node_delete~id='+child_id+':delete=1~', function() {$(this).removeClass('ajaxLoad');});
+				$('#dialog').addClass('ajax-load').load('/request/bo/component/node_delete~id='+child_id+':delete=1~', function() {$(this).removeClass('ajax-load');});
 				$('#dialog').dialog({width: 500, modal: true, overlay: {opacity: 0.5, background: 'black'}, beforeClose: function( event, ui ) {refreshNoticeList()}});
 				$('#dialog').dialog('open');
 				return false;

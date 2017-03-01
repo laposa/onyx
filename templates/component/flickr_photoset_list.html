@@ -2,11 +2,11 @@
 <script type="text/javascript" src="/share/js/jquery/plugins/jquery.cycle.all.min.js"></script>
 <!-- END: head -->
 <!-- BEGIN: content -->
-<div class="flick_gallery_list" id="flick_gallery_list_{GET.id}">
+<div class="flick-gallery-list" id="flick-gallery-list-{GET.id}">
 
 	<!-- BEGIN: item -->
 	<div class="item" data-photoset-id="{ITEM.id}">
-		<a href="#photoset_id_{ITEM.id}" class="image"><span class="imageWrap"><img src="https://farm{ITEM.farm}.staticflickr.com/{ITEM.server}/{ITEM.primary}_{ITEM.secret}_n.jpg" alt="{ITEM.title._content}"/></span></a>
+		<a href="#photoset-id-{ITEM.id}" class="image"><span class="image-wrap"><img src="https://farm{ITEM.farm}.staticflickr.com/{ITEM.server}/{ITEM.primary}_{ITEM.secret}_n.jpg" alt="{ITEM.title._content}"/></span></a>
 		<div class="meta">
 			<div class="date">{ITEM.date_update|date("jS M, Y", %s)}</div>
 			<h4>{ITEM.title._content}</h4>
@@ -29,51 +29,51 @@
 
 		function loadGallery(photoset_id, element) {
 
-			$('#galleryWrapper').remove();
+			$('#gallery-wrapper').remove();
 
-			var shareButtons = '<div class="socialShareButtons"><a href="#" class="socialIcon facebook">Share On <span>Facebook</span></a>' + 
-				'<a href="#" class="socialIcon twitter">Share On <span>Twitter</span></a></div>';
+			var shareButtons = '<div class="social-share-buttons"><a href="#" class="social-icon facebook">Share On <span>Facebook</span></a>' + 
+				'<a href="#" class="social-icon twitter">Share On <span>Twitter</span></a></div>';
 
-			$(document.body).append('<div id="galleryWrapper" style="dispay: none;">' + 
-				'<div id="galleryContent">' + 
-					'<a id="galleryClose" href="#">X</a>' + 
-					'<div id="galleryTitle">' + element.find(".meta").html() + '</div>' + 
-					'<div id="galleryImages"></div>' + 
+			$(document.body).append('<div id="gallery-wrapper" style="dispay: none;">' + 
+				'<div id="gallery-content">' + 
+					'<a id="gallery-close" href="#">X</a>' + 
+					'<div id="gallery-title">' + element.find(".meta").html() + '</div>' + 
+					'<div id="gallery-images"></div>' + 
 					shareButtons +
 				'</div>' + 
 			'</div>');
 
-			$('#galleryImages').load('/request/component/flickr_photoset_detail?photoset_id=' + photoset_id, function() {
-				$('#galleryWrapper').fadeIn(300);
+			$('#gallery-images').load('/request/component/flickr_photoset_detail?photoset_id=' + photoset_id, function() {
+				$('#gallery-wrapper').fadeIn(300);
 
-				$('#galleryContent').append('<div class="buttons"><a href="#" class="prev">&lt;</a><a href="#" class="next">&gt;</a></div>');
+				$('#gallery-content').append('<div class="buttons"><a href="#" class="prev">&lt;</a><a href="#" class="next">&gt;</a></div>');
 
-				$('#galleryImages > .flick_gallery_detail').cycle({
+				$('#gallery-images > .flick-gallery-detail').cycle({
 					fx: 'fade',
 					fit: true,
 					width: Math.min(670, window.innerWidth),
 					height: Math.min(435, window.innerHeight),
 					timeout: 0, 
-	    			next: '#galleryWrapper a.next',
-        			prev: '#galleryWrapper a.prev',
+	    			next: '#gallery-wrapper a.next',
+        			prev: '#gallery-wrapper a.prev',
         			log: false
 				});
 
-				$('#galleryWrapper, #galleryClose').click(function(e) {
-					if (e.target.id == 'galleryWrapper' || e.target.id == 'galleryClose') {
-						$('#galleryWrapper').remove();
+				$('#gallery-wrapper, #gallery-close').click(function(e) {
+					if (e.target.id == 'gallery-wrapper' || e.target.id == 'gallery-close') {
+						$('#gallery-wrapper').remove();
 						return false;
 					}
 				});
 
-				window.location.hash = '#photoset_id_' + photoset_id;
+				window.location.hash = '#photoset-id-' + photoset_id;
 
-				$("#galleryWrapper div.socialShareButtons a.facebook").click(function() {
+				$("#gallery-wrapper div.social-share-buttons a.facebook").click(function() {
 					nOpenWin('http://www.facebook.com/sharer/sharer.php?u=' + encodeURIComponent(window.location.href), 400, 300);
 					return false;
 				});
 
-				$("#galleryWrapper div.socialShareButtons a.twitter").click(function() {
+				$("#gallery-wrapper div.social-share-buttons a.twitter").click(function() {
 					nOpenWin('https://twitter.com/share?url=' + encodeURIComponent(window.location.href), 400, 300);
 					return false;
 				});
@@ -85,16 +85,16 @@
 		$(function() {
 
 			// load overlay gallery on click
-			$('#flick_gallery_list_{GET.id} .item').click(function() {
+			$('#flick-gallery-list-{GET.id} .item').click(function() {
 				var photoset_id = $(this).attr("data-photoset-id");
 				loadGallery(photoset_id, $(this));
 				return false;
 			});
 
 			// load overlay gallery from url
-			if (window.location.hash.substr(0, 13) == '#photoset_id_') {
-				var found = window.location.hash.match(/#photoset_id_(\d+)/);
-				var item = $('#flick_gallery_list_{GET.id} .item a[href="' + window.location.hash + '"]').parent();
+			if (window.location.hash.substr(0, 13) == '#photoset-id-') {
+				var found = window.location.hash.match(/#photoset-id-(\d+)/);
+				var item = $('#flick-gallery-list-{GET.id} .item a[href="' + window.location.hash + '"]').parent();
 				if (item.length == 1) loadGallery(found[1], item);
 			}
 		});

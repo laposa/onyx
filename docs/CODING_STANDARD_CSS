@@ -1,66 +1,10 @@
-When to use ID or class?
-------------------------
-IDs can be used only in node/page/* and node/site/* templates
-everything else is using classes, because content can be added multiple times to a page
+CSS coding standard since Onxshop 1.8
 
-When to use camel case, underscores and dashed?
------------------------------------------------
-In summary camel case are for CMS users, underscores for HTML template coders 
-and dashes are used by the system.
+- IDs and classes can use only lowercase characters and dashes.
+- multiple selectors are writen on separate lines
+- all properties and values for each selector are one line
 
-Camel Case
-----------
-what is it for: core structure element IDs and class names
-where to find: page and layout templates (templates/node/*)
+Example:
 
-all ID attributes are using camel case, example: #primaryNavigation
-layouts are using camel case, example div.twoColumnLayout
-
-extra CSS class should be using Camel Case
-sectionExample
-pageExampleLanding
-fullBleed
-noMargin
-
-References:
-https://github.com/laposa/onxshop/blob/master/share/css/default/src/layout.css
-
-
-Underscores
------------
-what is it for: representing filenames of controller
-where to find it: component templates (templates/components/*)
-
-every file in templates/component must be wrapped in <div class="file_name">
-component wrappers are using wrappers the same as filenames, example div.
-filenames for templates are using underscores, dashes and spaced are not allowed
-
-References:
-https://github.com/laposa/onxshop/blob/master/share/css/default/src/onxshop_ecommerce.css
-https://github.com/laposa/onxshop/blob/master/share/css/default/src/onxshop.css (needs cleanup)
-
-
-Dashes
--------
-what is it for: parameters
-where to find it: node wrappers added by the CMS system
-
-node wrappers are using dashes, example div.node-page-default (div.node-{node_group}-{NODE.node_controller})
-if developing components to be used outside front-end interface, i.e. backoffice or outside of Onxshop, never use selectors with dashes as they are specific when used in node structure
-parameters of layout are using dashes fibonacci-1-1
-
-References:
-https://github.com/laposa/onxshop/blob/master/share/css/default/src/layout.css
-
-
-TODO: fix inconsistencies in next major release (Onxshop 1.8)
--------------------------------------------------------------
-- node wrappers like #node_id_1234 should be using dashes #node-id-1234
-- div.node_group-content should be div.node-group-content
-- body CSS classes should be using dashes, for example node_id_5 and parent_node_id_88 should be node-id-5 and parent-node-id-88
-- navigation items should be using dashes, for example node_id_1033 should be node-id-1033, has_child should be has-child
-- content-RTE should be content_RTE
-- recipe_list_content should be recipe_list, but there is a problem with another recipe_list in components
-- contentTitle and contentBody should only be used in node/content/*
-- component/news_list_related.html shouldn't be using contentTitle and contentBody
-
+div.content,
+div.content-wrapper {margin: 0; padding: 0;}

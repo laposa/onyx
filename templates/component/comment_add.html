@@ -5,34 +5,34 @@
 $(document).ready(function(){  
 	
 	var options = { 
-		target: 'div.comment_add_container',
-		beforeSubmit: function() {return $("#comment_form_{GET.node_id}").valid()},
+		target: 'div.comment-add-container',
+		beforeSubmit: function() {return $("#comment-form-{GET.node_id}").valid()},
 		success: function(){
-			popupMessage("div.comment_add div.onxshop-messages");
+			popupMessage("div.comment-add div.onxshop-messages");
 		},
 		url: '/request/component/comment_add~node_id={GET.node_id}:allow_anonymouse_submit={GET.allow_anonymouse_submit}~.node/force_config~node_id={GET.node_id}~'
 	}; 
 
-	$("#comment_form_{GET.node_id}").ajaxForm(options); 
+	$("#comment-form-{GET.node_id}").ajaxForm(options); 
 	
 });  
 </script>
 
-<form id="comment_form_{GET.node_id}" class="comment" method="post" action="{URI|htmlspecialchars}#comment_form_{GET.node_id}">
+<form id="comment-form-{GET.node_id}" class="comment" method="post" action="{URI|htmlspecialchars}#comment-form-{GET.node_id}">
 	<fieldset class="single">
 		<!-- BEGIN: identity_show -->
 		<div class="row">
-			<span class="label"><label for="comment_author_name_{GET.node_id}"><span class="mandatory-mark">*</span> {I18N_AUTHOR_NAME}:</label></span>
-			<span class="field"><input class="required text" type="text" id="comment_author_name_{GET.node_id}" name="comment[author_name]" value="{COMMENT.author_name|htmlspecialchars}" {DISABLED.author_name} /></span>
+			<span class="label"><label for="comment-author-name-{GET.node_id}"><span class="mandatory-mark">*</span> {I18N_AUTHOR_NAME}:</label></span>
+			<span class="field"><input class="required text" type="text" id="comment-author-name-{GET.node_id}" name="comment[author_name]" value="{COMMENT.author_name|htmlspecialchars}" {DISABLED.author_name} /></span>
 		</div>
 		<div class="row">
-			<span class="label"><label for="comment_author_email_{GET.node_id}"><span class="mandatory-mark">*</span> {I18N_AUTHOR_EMAIL}:</label></span>
-			<span class="field"><input class="required text" type="text" id="comment_author_email_{GET.node_id}" name="comment[author_email]" value="{COMMENT.author_email|htmlspecialchars}" {DISABLED.author_email} /></span>
+			<span class="label"><label for="comment-author-email-{GET.node_id}"><span class="mandatory-mark">*</span> {I18N_AUTHOR_EMAIL}:</label></span>
+			<span class="field"><input class="required text" type="text" id="comment-author-email-{GET.node_id}" name="comment[author_email]" value="{COMMENT.author_email|htmlspecialchars}" {DISABLED.author_email} /></span>
 		</div>
 			<!-- BEGIN: website -->
 			<div class="row">
-				<span class="label"><label for="comment_author_website_{GET.node_id}">{I18N_AUTHOR_WEBSITE}:</label></span>
-				<span class="field"><input class="text" type="text" id="comment_author_website_{GET.node_id}" name="comment[author_website]" value="{COMMENT.author_website|htmlspecialchars}" {DISABLED.author_website} /></span>
+				<span class="label"><label for="comment-author-website-{GET.node_id}">{I18N_AUTHOR_WEBSITE}:</label></span>
+				<span class="field"><input class="text" type="text" id="comment-author-website-{GET.node_id}" name="comment[author_website]" value="{COMMENT.author_website|htmlspecialchars}" {DISABLED.author_website} /></span>
 			</div>
 			<!-- END: website -->
 		<!-- END: identity_show -->
@@ -41,29 +41,29 @@ $(document).ready(function(){
 		<input type="hidden" name="comment[author_email]" value="anonym@noemail.com" />
 		<!-- END: identity_hidden -->
 		<div class="row">
-			<span class="label"><label for="comment_title_{GET.node_id}"><span class="mandatory-mark">*</span> {I18N_SUBJECT}:</label></span>
-			<span class="field"><input class="required text title" type="text" id="comment_title_{GET.node_id}" name="comment[title]" value="{COMMENT.title|htmlspecialchars}" /></span>
+			<span class="label"><label for="comment-title-{GET.node_id}"><span class="mandatory-mark">*</span> {I18N_SUBJECT}:</label></span>
+			<span class="field"><input class="required text title" type="text" id="comment-title-{GET.node_id}" name="comment[title]" value="{COMMENT.title|htmlspecialchars}" /></span>
 		</div>
 		<div class="row">
-			<span class="label"><label for="comment_content_{GET.node_id}"><span class="mandatory-mark">*</span> {I18N_TEXT}:</label></span>
-			<span class="field"><textarea class="required text" id="comment_content_{GET.node_id}" name="comment[content]" cols="50" rows="10">{COMMENT.content|htmlspecialchars}</textarea></span>
+			<span class="label"><label for="comment-content-{GET.node_id}"><span class="mandatory-mark">*</span> {I18N_TEXT}:</label></span>
+			<span class="field"><textarea class="required text" id="comment-content-{GET.node_id}" name="comment[content]" cols="50" rows="10">{COMMENT.content|htmlspecialchars}</textarea></span>
 		</div>
 		<!-- BEGIN: invisible_captcha_field -->
 		<div class="row captcha {ERROR.captcha}">
-			<span class="label"><label for="comment-captcha_{GET.node_id}">{I18N_CAPTCHA} <em id="code-captcha_{GET.node_id}">###</em>:</label></span>
-			<span class="field"><input type="text" class="text" id="comment-captcha_{GET.node_id}" name="comment[captcha]" value="{FORMDATA.captcha|htmlspecialchars}" maxlength="45" /></span>
+			<span class="label"><label for="comment-captcha-{GET.node_id}">{I18N_CAPTCHA} <em id="code-captcha-{GET.node_id}">###</em>:</label></span>
+			<span class="field"><input type="text" class="text" id="comment-captcha-{GET.node_id}" name="comment[captcha]" value="{FORMDATA.captcha|htmlspecialchars}" maxlength="45" /></span>
 		</div>
 		<script type="text/javascript">
 			$.get("/request/component/captcha_js?node_id={GET.node_id}&nocache=1", function(data) {
-				var input = $("#comment-captcha_{GET.node_id}");
-				$("#code-captcha_{GET.node_id}").html(data);
+				var input = $("#comment-captcha-{GET.node_id}");
+				$("#code-captcha-{GET.node_id}").html(data);
 				input.val(data).parent().parent().hide();
 			});
 		</script>
 		<!-- END: invisible_captcha_field -->
 		<div class="row submit">
 			<span class="label"><label>&nbsp;</label></span>
-			<span class="field"><button type="submit" name="save" class="send_comment" value="send"><span>{I18N_SEND}</span></button></span>
+			<span class="field"><button type="submit" name="save" class="send-comment" value="send"><span>{I18N_SEND}</span></button></span>
 	    </div>
 		<input type="hidden" class="parent" name="comment[parent]" value="0" />
 		<input type="hidden" class="node_id"  name="comment[node_id]" value="{GET.node_id}" />
@@ -73,7 +73,7 @@ $(document).ready(function(){
 <!-- END: comment_insert -->
 
 <!-- BEGIN: comment_inserted -->
-<div class="comment_inserted">
+<div class="comment-inserted">
 	<p>{I18N_COMMENT_THANK_YOU}</p>
 </div>
 <!-- END: comment_inserted -->
@@ -82,21 +82,21 @@ $(document).ready(function(){
 <script type="text/javascript">
 $(function() { 
 	var options = { 
-		target: 'div.comment_add',
+		target: 'div.comment-add',
 		success: function(){
-			popupMessage("div.comment_add div.onxshop-messages");
-			$('div.comment_add').load('/request/component/comment_add~node_id={GET.node_id}:allow_anonymouse_submit=0~');
+			popupMessage("div.comment-add div.onxshop-messages");
+			$('div.comment-add').load('/request/component/comment_add~node_id={GET.node_id}:allow_anonymouse_submit=0~');
 		},
 		url: '/request/component/client/login~to=ajax~'
 	}; 
 
-	$('div.comment_add form').ajaxForm(options); 
+	$('div.comment-add form').ajaxForm(options); 
 });
 </script>
-<div class="comment_login">
+<div class="comment-login">
 	<h3>{I18N_COMMENT_PLEASE_LOGIN}</h3>
 	{LOGIN_BOX}
-	<p class="create_account"><a href="/page/8"><span>{I18N_COMMENT_CREATE_ACCOUNT}</span></a></p>
+	<p class="create-account"><a href="/page/8"><span>{I18N_COMMENT_CREATE_ACCOUNT}</span></a></p>
 </div>
 <!-- END: log_to_insert -->
 <!-- END: content -->

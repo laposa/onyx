@@ -1,8 +1,8 @@
 <!-- BEGIN: title -->Page List<!-- END: title -->
 <!-- BEGIN: content -->
-<div class="pageHeader">
-	<div class="pageHeaderWrapper">
-		<h1 class="pageTitle popup"><span>Page List</span> <span class="info">ID {NODE.id}</span></h1>
+<div class="page-header">
+	<div class="page-header-wrapper">
+		<h1 class="page-title popup"><span>Page List</span> <span class="info">ID {NODE.id}</span></h1>
 	</div>
 </div>
 {FILE "bo/node/default_top.html"}
@@ -36,8 +36,8 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$('fieldset.teaser-form-edit div.node_ids a.button').click(function() {
-		$('#node_id_select').addClass('ajaxLoad').load('/request/component/menu_js~id=0:expand_all=1:publish=0:node_group=page_and_product~', function() {
-			$('#node_id_select').removeClass('ajaxLoad');
+		$('#node_id_select').addClass('ajax-load').load('/request/component/menu_js~id=0:expand_all=1:publish=0:node_group=page_and_product~', function() {
+			$('#node_id_select').removeClass('ajax-load');
 			$('#node_id_select .simpleTree').simpleTree({
 				drag: false,
 				autoclose: true,

@@ -43,7 +43,7 @@ function initialiseTaxonomyAddButton() {
 		var node_id = $(this).attr('data-node_id');
 		var url = '/request/bo/component/taxonomy_add~parent=' + node_id + '~';
 
-		$('#dialog').addClass('ajaxLoad').load(url, '', function() {
+		$('#dialog').addClass('ajax-load').load(url, '', function() {
 						
 			$('#dialog form.taxonomy-add').ajaxForm({ 
 				target: '#dialog form.taxonomy-add',
@@ -80,29 +80,29 @@ $(document).ready(function(){
 
 <div id="categories">
 
-	<div class="twoColumnPage page sidebar">
+	<div class="two-column-page page sidebar">
 		<div class="content">
-			<div class="pageWrapper">
+			<div class="page-wrapper">
 
-				<div class="pageHeader">
-					<div class="pageHeaderWrapper">
-						<h1 class="pageTitle"><span>Categories</span></h1>
+				<div class="page-header">
+					<div class="page-header-wrapper">
+						<h1 class="page-title"><span>Categories</span></h1>
 					</div>
 				</div>
 
-				<div class="pageContent">
-					<div class="pageContentWrapper">
-						<div class="rowTop">
-							<div class="rowWrapper">
-								<div class="columnWrapper">
+				<div class="page-content">
+					<div class="page-content-wrapper">
+						<div class="row-top">
+							<div class="row-wrapper">
+								<div class="column-wrapper">
 									{CONTAINER.0}
 								</div>
 							</div>
 						</div>
-						<div class="rowMiddle">
-							<div class="rowWrapper">
-								<div class="columnOne">
-									<div class="columnWrapper">
+						<div class="row-middle">
+							<div class="row-wrapper">
+								<div class="column-one">
+									<div class="column-wrapper">
 
 										<div id="taxonomy-tree-menu">
 											{ONXSHOP_REQUEST_menupages #bo/component/taxonomy_menu~expand_all=1:publish=0~}
@@ -110,8 +110,8 @@ $(document).ready(function(){
 
 									</div>
 								</div>
-								<div class="columnTwo">
-									<div class="columnWrapper">
+								<div class="column-two">
+									<div class="column-wrapper">
 
 										<div id="sub-content">
 											{SUB_CONTENT}
@@ -121,9 +121,9 @@ $(document).ready(function(){
 								</div>
 							</div>
 						</div>
-						<div class="rowBottom">
-							<div class="rowWrapper">
-								<div class="columnWrapper">
+						<div class="row-bottom">
+							<div class="row-wrapper">
+								<div class="column-wrapper">
 
 									<p>
 										<a class="button add" href="#" id="button-add-subpage" data-node_id="{NODE_ID}" style="margin-left: 10px; display: none;"><span>Add a New Category</span></a>

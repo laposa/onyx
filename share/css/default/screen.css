@@ -492,7 +492,7 @@ div.onxshop-messages p.onxshop-error-msg {background: transparent url(/share/ima
  * Ajax
  */
  
-.ajaxLoad {width: 128px; height: 128px; background: url(/share/images/ajax-indicator/indicator_verybig.gif) no-repeat;}
+.ajax-load {width: 128px; height: 128px; background: url(/share/images/ajax-indicator/indicator_verybig.gif) no-repeat;}
 
 /**
  * jGrowl

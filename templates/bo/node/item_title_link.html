@@ -1,8 +1,8 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$('div.title_options div.link_to_node_id a.button').click(function() {
-		$('#link_to_node_id_ajax').addClass('ajaxLoad').load('/request/component/menu_js~id=0:expand_all=1:publish=0:node_group=page_and_product~', function() {
-			$('#link_to_node_id_ajax').removeClass('ajaxLoad');
+		$('#link_to_node_id_ajax').addClass('ajax-load').load('/request/component/menu_js~id=0:expand_all=1:publish=0:node_group=page_and_product~', function() {
+			$('#link_to_node_id_ajax').removeClass('ajax-load');
 			$('#link_to_node_id_ajax .simpleTree').simpleTree({
 				drag: false,
 				autoclose: true,

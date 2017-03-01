@@ -1,8 +1,8 @@
 <!-- BEGIN: title -->Shared<!-- END: title -->
 <!-- BEGIN: content -->
-<div class="pageHeader">
-	<div class="pageHeaderWrapper">
-		<h1 class="pageTitle popup"><span>Shared Content</span> <span class="info">ID {NODE.id}</span></h1>
+<div class="page-header">
+	<div class="page-header-wrapper">
+		<h1 class="page-title popup"><span>Shared Content</span> <span class="info">ID {NODE.id}</span></h1>
 	</div>
 </div>
 {FILE "bo/node/default_top.html"}
@@ -10,8 +10,8 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$('fieldset.menu-form-edit div.component-node_id a.button').click(function() {
-		$('#href_select').addClass('ajaxLoad').load('/request/component/menu_js~id=0:expand_all=1:publish=0:parent_type=all~', function() {
-			$('#href_select').removeClass('ajaxLoad');
+		$('#href_select').addClass('ajax-load').load('/request/component/menu_js~id=0:expand_all=1:publish=0:parent_type=all~', function() {
+			$('#href_select').removeClass('ajax-load');
 			$('#href_select .simpleTree').simpleTree({
 				drag: false,
 				autoclose: true,

@@ -6,48 +6,48 @@
 <script type="text/javascript" src="/share/js/jquery/ui/jquery-ui.all.min.js"></script>
 <script type="text/javascript">  
 $(document).ready(function(){  
-	$("#contact_form_{GET.node_id}").validate();
-	$('#formdata-arrival_{GET.node_id},#formdata-departure_{GET.node_id}').datepicker({firstDay: 1, dateFormat: 'D dd M yy', changeMonth: true, changeYear: true, minDate: new Date()});
+	$("#contact-form-{GET.node_id}").validate();
+	$('#formdata-arrival-{GET.node_id},#formdata-departure-{GET.node_id}').datepicker({firstDay: 1, dateFormat: 'D dd M yy', changeMonth: true, changeYear: true, minDate: new Date()});
 });  
 </script>
-<div class="contact_form_common">
-	<form class="contact" id="contact_form_{GET.node_id}" action="{URI|htmlspecialchars}#node_id_{GET.node_id}" method="post">
+<div class="contact-form-boooking">
+	<form class="contact" id="contact-form-{GET.node_id}" action="{URI|htmlspecialchars}#node-id-{GET.node_id}" method="post">
 	<fieldset class="single">
 		<legend>{I18N_CONTACT_FORM}</legend>
 		
 		<div class="row name {ERROR.name}">
-			<span class="label"><label for="formdata-name_{GET.node_id}"><span class="mandatory-mark">*</span>Your name:</label></span>
-			<span class="field"><input type="text" class="required text" id="formdata-first_name_{GET.node_id}" name="formdata[required_name]" value="{FORMDATA.required_name|htmlspecialchars}" maxlength="45" /></span>
+			<span class="label"><label for="formdata-name-{GET.node_id}"><span class="mandatory-mark">*</span>Your name:</label></span>
+			<span class="field"><input type="text" class="required text" id="formdata-first-name-{GET.node_id}" name="formdata[required_name]" value="{FORMDATA.required_name|htmlspecialchars}" maxlength="45" /></span>
 		</div>
 		
 		<div class="row country {ERROR.country}">
-			<span class="label"><label for="formdata-country_{GET.node_id}">{I18N_COUNTRY}:</label></span>
-			<span class="field"><input type="text" class="text" id="formdata-country_{GET.node_id}" name="formdata[country]" value="{FORMDATA.country|htmlspecialchars}" maxlength="45" /></span>
+			<span class="label"><label for="formdata-country-{GET.node_id}">{I18N_COUNTRY}:</label></span>
+			<span class="field"><input type="text" class="text" id="formdata-country-{GET.node_id}" name="formdata[country]" value="{FORMDATA.country|htmlspecialchars}" maxlength="45" /></span>
 		</div>
 		
 		<div class="row email {ERROR.email}">
-			<span class="label"><label for="formdata-email_{GET.node_id}"><span class="mandatory-mark">*</span>{I18N_EMAIL}:</label></span>
-			<span class="field"><input type="text" class="required email text" id="formdata-email_{GET.node_id}" name="formdata[required_email]" value="{FORMDATA.required_email|htmlspecialchars}" maxlength="45" /></span>
+			<span class="label"><label for="formdata-email-{GET.node_id}"><span class="mandatory-mark">*</span>{I18N_EMAIL}:</label></span>
+			<span class="field"><input type="email" class="required email text" id="formdata-email-{GET.node_id}" name="formdata[required_email]" value="{FORMDATA.required_email|htmlspecialchars}" maxlength="45" /></span>
 		</div>
 		
 		<div class="row telephone {ERROR.telephone}">
-			<span class="label"><label for="formdata-telephone_{GET.node_id}"><span class="mandatory-mark">*</span>{I18N_TEL}:</label></span>
-			<span class="field"><input type="text" class="required text" id="formdata-telephone_{GET.node_id}" name="formdata[required_telephone]" value="{FORMDATA.required_telephone|htmlspecialchars}" maxlength="45" /></span>
+			<span class="label"><label for="formdata-telephone-{GET.node_id}"><span class="mandatory-mark">*</span>{I18N_TEL}:</label></span>
+			<span class="field"><input type="text" class="required text" id="formdata-telephone-{GET.node_id}" name="formdata[required_telephone]" value="{FORMDATA.required_telephone|htmlspecialchars}" maxlength="45" /></span>
 		</div>
 		
 		<div class="row arrival {ERROR.arrival}">
-			<span class="label"><label for="formdata-arrival_{GET.node_id}"><span class="mandatory-mark">*</span>Arrival Date:</label></span>
-			<span class="field"><input type="text" class="required text" id="formdata-arrival_{GET.node_id}" name="formdata[arrival]" value="{FORMDATA.arrival|htmlspecialchars}" maxlength="45" /></span>
+			<span class="label"><label for="formdata-arrival-{GET.node_id}"><span class="mandatory-mark">*</span>Arrival Date:</label></span>
+			<span class="field"><input type="text" class="required text" id="formdata-arrival-{GET.node_id}" name="formdata[arrival]" value="{FORMDATA.arrival|htmlspecialchars}" maxlength="45" /></span>
 		</div>
 		
 		<div class="row departure {ERROR.departure}">
-			<span class="label"><label for="formdata-departure_{GET.node_id}"><span class="mandatory-mark">*</span>Departure Date:</label></span>
-			<span class="field"><input type="text" class="required text" id="formdata-departure_{GET.node_id}" name="formdata[departure]" value="{FORMDATA.departure|htmlspecialchars}" maxlength="45" /></span>
+			<span class="label"><label for="formdata-departure-{GET.node_id}"><span class="mandatory-mark">*</span>Departure Date:</label></span>
+			<span class="field"><input type="text" class="required text" id="formdata-departure-{GET.node_id}" name="formdata[departure]" value="{FORMDATA.departure|htmlspecialchars}" maxlength="45" /></span>
 		</div>
 		
 		<div class="row notes {ERROR.message}">
-			<span class="label"><label for="formdata-notes_{GET.node_id}">Other notes/requirements:</label></span>
-			<span class="field"><textarea id="formdata-notes_{GET.node_id}" name="formdata[notes]" class="textarea" rows="15" cols="45">{FORMDATA.notes|htmlspecialchars}</textarea></span>
+			<span class="label"><label for="formdata-notes-{GET.node_id}">Other notes/requirements:</label></span>
+			<span class="field"><textarea id="formdata-notes-{GET.node_id}" name="formdata[notes]" class="textarea" rows="15" cols="45">{FORMDATA.notes|htmlspecialchars}</textarea></span>
 		</div>
 
 		{FILE "component/captcha.inc.html"}

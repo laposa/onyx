@@ -1,14 +1,14 @@
 <!-- BEGIN: content -->
 {MESSAGES}
 
-<div class="delivery_option">
-	<form class="delivery_option" action="{URI|htmlspecialchars}#node_id_{GET.node_id}" method="post">
+<div class="delivery-option">
+	<form class="delivery-option" action="{URI|htmlspecialchars}#node-id-{GET.node_id}" method="post">
 		<fieldset class="single">
 			<legend>Delivery Option</legend>
 			<div class="row type">
-				<span class="label"><label for="delivery-carrier_id">Delivery Method</label></span>
+				<span class="label"><label for="delivery-carrier-id">Delivery Method</label></span>
 				<span class="field">
-					<select name="delivery[carrier_id]" id="delivery-carrier_id" onchange="submit()">
+					<select name="delivery[carrier_id]" id="delivery-carrier-id" onchange="submit()">
 						<!-- BEGIN: item -->
 						<option value="{ITEM.id}" {ITEM.selected}>{ITEM.title}</option>
 						<!-- END: item -->
@@ -17,9 +17,9 @@
 			</div>
 			<!-- 
 			<div class="row required_datetime">
-				<span class="label"><label for="delivery-required_datetime">Required Date</label></span>
+				<span class="label"><label for="delivery-required-datetime">Required Date</label></span>
 				<span class="field">
-					<input type="text" name="delivery[required_datetime]" value="{DELIVERY.required_datetime}" id="delivery-required_datetime" />
+					<input type="text" name="delivery[required_datetime]" value="{DELIVERY.required_datetime}" id="delivery-required-datetime" />
 				</span>
 			</div>
 			 -->

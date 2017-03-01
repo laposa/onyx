@@ -3,12 +3,12 @@
 <!-- BEGIN: login_box -->
 <script type="text/javascript">  
 $(document).ready(function(){  
-	$("#login_node_id_{GET.node_id}").validate({onkeyup: false});  
+	$("#login-node-id-{GET.node_id}").validate({onkeyup: false});  
 });  
 </script>
 
 <div class="login">
-	<form class="login via_email {FAILED}" id="login_node_id_{GET.node_id}" method="post" action="{URI_SAFE|htmlspecialchars}#node_id_{GET.node_id}">
+	<form class="login via-email {FAILED}" id="login-node-id-{GET.node_id}" method="post" action="{URI_SAFE|htmlspecialchars}#node-id-{GET.node_id}">
 		<fieldset class="single">
 			<legend>{I18N_EXISTING_CUSTOMER}</legend>
 			<div class="row email">

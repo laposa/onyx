@@ -1,6 +1,6 @@
 <!-- BEGIN: content -->
 {MESSAGES}
-<div class="customer_detail" id="customer_detail_container">
+<div class="customer-detail" id="customer-detail-container">
 	<h3>{I18N_R_PERSONAL_DETAILS}</h3>
 	<table>
 		<tr><td class="first">{I18N_R_TITLE}</td><td>{ITEM.title_before|htmlspecialchars}</td></tr>
@@ -9,6 +9,6 @@
 		<tr><td class="first">{I18N_R_EMAIL}</th><td>{ITEM.email}</td></tr>
 		<tr><td class="first">{I18N_R_TELEPHONE}</td><td>{ITEM.telephone|htmlspecialchars}</td></tr>
 	</table>
-	<p><a href="#customer_detail_container" onclick="makeAjaxRequest('#customer_detail_container', '/request/component/client/customer_edit'); return false;"><span>Edit</span></a></p>
+	<p><a href="#customer-detail-container" onclick="makeAjaxRequest('#customer-detail-container', '/request/component/client/customer_edit'); return false;"><span>Edit</span></a></p>
 </div>
 <!-- END: content -->

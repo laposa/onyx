@@ -5,11 +5,11 @@ $(document).ready(function(){
 	function initGroupAjaxForm() {
 		$("#customer-group-form").validate();
 		$('#customer-group-form').ajaxForm({ 
-			target: '#customer_list div.pageContent',
+			target: '#customer_list div.page-content',
 			beforeSubmit: function() { return $("#customer-group-form").valid() },
 			success: function(responseText, statusText) {
 				popupMessage("#customer_list div.onxshop-messages");
-				makeAjaxRequest('#onxshopBackofficeWrapper', '/request/bo/pages/client/customers', function () {
+				makeAjaxRequest('#onxshop-backoffice-wrapper', '/request/bo/pages/client/customers', function () {
 					//initAjaxPagination();
 				});
 			}
@@ -32,7 +32,7 @@ $(document).ready(function(){
 				<input type="text" class="title required" id="customer-group-name" name="customer-group[name]" value="{CUSTOMER_GROUP.name|htmlspecialchars}" />
 			</span>
 		</div>
-		<p>For creating a group with filter options <a title="Create a new customers group using advanced filter" href="#" onclick="makeAjaxRequest('#customer_list div.pageContent', '/request/bo/component/client/customer_filter'); return false;"><span>Use Advance Filter</span></a></p>
+		<p>For creating a group with filter options <a title="Create a new customers group using advanced filter" href="#" onclick="makeAjaxRequest('#customer_list div.page-content', '/request/bo/component/client/customer_filter'); return false;"><span>Use Advance Filter</span></a></p>
 		<div class="row submit">
 			<span class="field">
 				<button class="save" type="submit" name="save" value="save" onclick="$(this).addClass('saving');"><span>Create</span></button>

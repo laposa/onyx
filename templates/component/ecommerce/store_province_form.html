@@ -3,11 +3,11 @@
 <!-- END: head -->
 <!-- BEGIN: content -->
 
-<div class="store_province_form dropdowns">
+<div class="store-province-form dropdowns">
 
 	<!-- BEGIN: county_dropdown -->
 	<div>
-		<select id="province_dropdown">
+		<select id="province-dropdown">
 			<!-- BEGIN: province -->
 			<optgroup label="{PROVINCE_NAME}">
 				<!-- BEGIN: county -->
@@ -19,9 +19,9 @@
 	</div>
 	<!-- END: county_dropdown -->
 
-	<div id="dublin_dropdown_wrapper">
+	<div id="dublin-dropdown-wrapper">
 		<!-- BEGIN: dublin_dropdown -->
-		<select id="dublin_dropdown">
+		<select id="dublin-dropdown">
 			<option value="" data-href="/page/{DUBLIN_PAGE_ID}">Dublin County</option>
 			<!-- BEGIN: district -->
 			<option value="{DISTRICT.id}" data-href="/page/{DISTRICT.id}" {DISTRICT.selected}>Dublin {DISTRICT.title|htmlspecialchars}</option>
@@ -32,7 +32,7 @@
 
 	<!-- BEGIN: store_dropdown -->
 	<div>
-		<select id="store_dropdown">
+		<select id="store-dropdown">
 			<option value="">Select&nbsp;store&nbsp;&hellip;</option>
 			<!-- BEGIN: store -->
 			<option value="{STORE.id}" data-href="/page/{STORE.id}" {STORE.selected}>{STORE.title|htmlspecialchars}</option>
@@ -49,19 +49,19 @@
 
 		// pre-select Dublin on locator home page
 		if ('{GET.node_id}' == '{PROVINCE_ROOT_PAGE_ID}') {
-			$("#storeProvinceFormWrapper").load('/request/component/ecommerce/store_province_form~store_node_id={DUBLIN_PAGE_ID}~');
+			$("#store-province-form-wrapper").load('/request/component/ecommerce/store_province_form~store_node_id={DUBLIN_PAGE_ID}~');
 			return;
 		}
 
-		$("div.store_province_form select").change(function() {
+		$("div.store-province-form select").change(function() {
 			var page_id = $(this).val();
 			window.location = $(this).find("option:selected").attr("data-href");
 		});
 
-		$('div.store_province_form select').customSelect({mapClass: false, mapStyle: false});
+		$('div.store-province-form select').customSelect({mapClass: false, mapStyle: false});
 		
 		// hide Dublin dropdown if not necessary
-		if ($("#province_dropdown").val() != {DUBLIN_PAGE_ID}) $("#dublin_dropdown_wrapper").hide();
+		if ($("#province-dropdown").val() != {DUBLIN_PAGE_ID}) $("#dublin-dropdown-wrapper").hide();
 
 	});
 

@@ -2,9 +2,9 @@
 <script type="text/javascript">
 $(document).ready(function() {
 
-    $('div.variety_list_ajax tr.onstock').hover(function(){$(this).addClass("highlight");}, function() {$(this).removeClass("highlight");}).click(function(){
+    $('div.variety-list-ajax tr.onstock').hover(function(){$(this).addClass("highlight");}, function() {$(this).removeClass("highlight");}).click(function(){
         
-        var variety_id = $(this).find('a').attr("data-variety_id");
+        var variety_id = $(this).find('a').attr("data-variety-id");
 
         addToBasketAjaxActionFromVarietyList(variety_id);
         
@@ -14,19 +14,19 @@ $(document).ready(function() {
 </script>
 {MESSAGES}
 <!-- BEGIN: variety -->
-<div class="variety_list_ajax">
+<div class="variety-list-ajax">
 	<table>
 		<!-- BEGIN: item -->
 			<!-- BEGIN: onstock -->
-			<tr class="row onstock" id="item_variety_id_{VARIETY.id}">
+			<tr class="row onstock" id="item-variety-id-{VARIETY.id}">
 				<td class="first">
-					<a title="{VARIETY.name|htmlspecialchars}" href="#variety_id_{VARIETY.id}" data-variety_id="{VARIETY.id}"><span class="name">{VARIETY.name|htmlspecialchars}</span> <!-- BEGIN: subtitle --><span class="subtitle">{VARIETY.subtitle|htmlspecialchars}</span><!-- END: subtitle --></a>
+					<a title="{VARIETY.name|htmlspecialchars}" href="#variety-id-{VARIETY.id}" data-variety-id="{VARIETY.id}"><span class="name">{VARIETY.name|htmlspecialchars}</span> <!-- BEGIN: subtitle --><span class="subtitle">{VARIETY.subtitle|htmlspecialchars}</span><!-- END: subtitle --></a>
 				</td>
 				<td>
-					<a title="{VARIETY.name|htmlspecialchars}" href="#variety_id_{VARIETY.id}" data-variety_id="{VARIETY.id}"><span class="price">{PRICE}</span></a>
+					<a title="{VARIETY.name|htmlspecialchars}" href="#variety-id-{VARIETY.id}" data-variety-id="{VARIETY.id}"><span class="price">{PRICE}</span></a>
 				</td>
 				<td class="last">
-					<a class="add_to_basket variety_id_{VARIETY.id}" href="#variety_id_{VARIETY.id}" data-variety_id="{VARIETY.id}" title="Add to basket"><span>{I18N_ADD_TO_BASKET}</span></a>
+					<a class="add-to-basket variety-id-{VARIETY.id}" href="#variety-id-{VARIETY.id}" data-variety-id="{VARIETY.id}" title="Add to basket"><span>{I18N_ADD_TO_BASKET}</span></a>
 				</td>
 			</tr>
 			<tr>
@@ -44,7 +44,7 @@ $(document).ready(function() {
 					<span class="price">{PRICE}</span>
 				</td>
 				<td class="last">
-					<span class="outofstock_message">{I18N_OUT_OF_STOCK}</span>
+					<span class="outofstock-message">{I18N_OUT_OF_STOCK}</span>
 				</td>
 			</tr>
 			<!-- END: outofstock -->

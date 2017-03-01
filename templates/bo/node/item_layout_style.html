@@ -19,7 +19,7 @@
 				step: 1,
 				slide: function(event, ui) { 
 					$('#node-layout_style').prop("selectedIndex", ui.value);
-					$("#layout_style_preview").attr("class", "twoColumnLayout layout " + $('#node-layout_style').val());
+					$("#layout_style_preview").attr("class", "two-column-layout layout " + $('#node-layout_style').val());
 				},
 				start: function(event, ui) {
 					$("#layout_style_preview").show();
@@ -31,7 +31,7 @@
 			
 			$("#node-layout_style").bind("change", function() {
 				$("#sliderUI").slider({value: $('#node-layout_style').prop("selectedIndex")});
-				$("#layout_style_preview").attr("class", "twoColumnLayout layout " + $('#node-layout_style').val());
+				$("#layout_style_preview").attr("class", "two-column-layout layout " + $('#node-layout_style').val());
 			});
 			
 		});
@@ -39,28 +39,28 @@
 		<!-- END: style -->
 	</span>
 </div>
-<div class="twoColumnLayout layout fibonacci-1-1 " id="layout_style_preview">
-	<div class="layoutWrapper">
-		<div class="top"><span></span></div>
-		<div class="layoutContent">
-			<div class="layoutContentWrapper">
+<div class="two-column-layout layout fibonacci-1-1 " id="layout_style_preview">
+	<div class="layout-wrapper">
+		
+		<div class="layout-content">
+			<div class="layout-content-wrapper">
 				
-				<div class="layoutColumnOne ofTwo">
-					<div class="layoutColumnWrapper">
+				<div class="layout-column-one of-two">
+					<div class="layout-column-wrapper">
 						Column One
 					</div>
 				</div>
-				<div class="layoutColumnTwo ofTwo">
-					<div class="layoutColumnWrapper">
+				<div class="layout-column-two of-two">
+					<div class="layout-column-wrapper">
 						Column Two
 					</div>
 				</div>
 			</div>
 		</div>
-		<div class="bottom"><span></span></div>
+		
 	</div>
 </div>
 <style type="text/css">
 #layout_style_preview {display: none;}
-#layout_style_preview div.layoutColumnWrapper {border: 1px solid grey; padding: 1em;}
+#layout_style_preview div.layout-column-wrapper {border: 1px solid grey; padding: 1em;}
 </style>

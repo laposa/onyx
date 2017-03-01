@@ -1,5 +1,5 @@
 /**
- * Norbert @ Laposa Ltd, 2009, 2012
+ * Norbert @ Laposa Ltd, 2009, 2012, 2017
  * TODO: create Onxshop global object and move all functions there
  *
  */
@@ -70,18 +70,18 @@ function initComponentAjaxForm(component_selector) {
 }
 
 function showModalOverlay() {
-	var html = '<div id="modal_overlay" class="off">' +
-		'<div id="model_click_zone" onclick="hideModalOverlay()"></div>' +
-		'<div id="modal_overlay_window"></div></div>';
+	var html = '<div id="modal-overlay" class="off">' +
+		'<div id="model-click-zone" onclick="hideModalOverlay()"></div>' +
+		'<div id="modal-overlay-window"></div></div>';
 	$('html,body').addClass('noscroll');
 	$('#backoffice').append(html);
-	setTimeout(function() { $('#modal_overlay').removeClass('off'); }, 100);
+	setTimeout(function() { $('#modal-overlay').removeClass('off'); }, 100);
 }
 
 function hideModalOverlay() {
-	$('#modal_overlay').addClass('off');
+	$('#modal-overlay').addClass('off');
 	setTimeout(function() { 
-		$('#modal_overlay').remove(); $('html,body').removeClass('noscroll');
+		$('#modal-overlay').remove(); $('html,body').removeClass('noscroll');
 	}, 150);
 }
 
@@ -186,7 +186,7 @@ if (!Array.prototype.indexOf) {
  */
  
 function openAjaxRequestInGrowl(url, title) {
-	jQuery.jGrowl('<div class="onxshop-messages in_jGrowl"><img src="/share/images/ajax-indicator/ajax-loader-bar.gif" alt="Loading ..."/></div>', {
+	jQuery.jGrowl('<div class="onxshop-messages in-jgrowl"><img src="/share/images/ajax-indicator/ajax-loader-bar.gif" alt="Loading ..."/></div>', {
 		beforeOpen: function(e, m, o) {
 			jQuery("#dialog").hide().load(url, '', 
 				function (responseText, textStatus, XMLHttpRequest) {
@@ -211,7 +211,7 @@ function popupMessage(selector) {
 function growlMessage(message) {
 	var life = 30 * message.length; // 30ms per character
 	if (life < 4000) life = 4000; // 4 sec at min.
-	jQuery.jGrowl("<div class='onxshop-messages in_jGrowl' role='alert'>" + message + "</div>", {life: life})
+	jQuery.jGrowl("<div class='onxshop-messages in-jgrowl' role='alert'>" + message + "</div>", {life: life})
 }
 
 /**

@@ -43,9 +43,9 @@
 			
 	<form method="post" action="{URI|htmlspecialchars}" id="product_add_form">
 		<fieldset class="single">
-			<div class="pageHeader">
-				<div class="pageHeaderWrapper">
-					<h1 class="pageTitle"><span>Add New Product</span></h1>
+			<div class="page-header">
+				<div class="page-header-wrapper">
+					<h1 class="page-title"><span>Add New Product</span></h1>
 				</div>
 			</div>
 		
@@ -77,14 +77,14 @@
 			<input type="hidden" name="product[variety][price][currency_code]" value="{GLOBAL_DEFAULT_CURRENCY}" />
 			<input type="hidden" name="product[variety][price][type]" value="common" />
 				
-			<div class="twoColumnLayout layout">
-				<div class="layoutColumnOne ofTwo">
+			<div class="two-column-layout layout">
+				<div class="layout-column-one of-two">
 					<div class="row">
 						<span class="label"><label>Price Value excluding VAT in {GLOBAL_DEFAULT_CURRENCY}</label></span>
 						<span class="field"><input id="price_without_vat" type="text" class="text half required number" name="product[variety][price][value]" value="{PRICE.variety.price.value}"/></span>
 					</div>
 				</div>
-				<div class="layoutColumnTwo ofTwo">
+				<div class="layout-column-two of-two">
 					<div class="row">
 						<span class="label"><label>Price Value including VAT in {GLOBAL_DEFAULT_CURRENCY}</label></span>
 						<span class="field"><input id="price_with_vat" type="text" class="text half number" value=""/></span>

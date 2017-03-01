@@ -3,9 +3,9 @@
 $(document).ready(function(){
 	$('#rt_add_new a.button').live('click', function() {
 	
-		$('#rt_add_new').addClass('ajaxLoad').load('/request/bo/component/taxonomy_menu~expand_all=1:publish=0~', function() {
+		$('#rt_add_new').addClass('ajax-load').load('/request/bo/component/taxonomy_menu~expand_all=1:publish=0~', function() {
 			
-			$(this).removeClass('ajaxLoad');
+			$(this).removeClass('ajax-load');
 			
 			$('#rt_add_new .simpleTree').simpleTree({
 				drag: false,

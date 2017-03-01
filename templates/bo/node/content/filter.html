@@ -1,8 +1,8 @@
 <!-- BEGIN: title -->Filter<!-- END: title -->
 <!-- BEGIN: content -->
-<div class="pageHeader">
-	<div class="pageHeaderWrapper">
-		<h1 class="pageTitle popup"><span>Filter</span> <span class="info">ID {NODE.id}</span></h1>
+<div class="page-header">
+	<div class="page-header-wrapper">
+		<h1 class="page-title popup"><span>Filter</span> <span class="info">ID {NODE.id}</span></h1>
 	</div>
 </div>
 
@@ -11,8 +11,8 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$('fieldset.filter-form-edit div.component-node_id a.button').click(function() {
-		$('#href_select').addClass('ajaxLoad').load('/request/component/taxonomy_menu~expand_all=1:publish=1~', function() {
-			$('#href_select').removeClass('ajaxLoad');
+		$('#href_select').addClass('ajax-load').load('/request/component/taxonomy_menu~expand_all=1:publish=1~', function() {
+			$('#href_select').removeClass('ajax-load');
 			$('#href_select .simpleTree').simpleTree({
 				drag: false,
 				autoclose: true,

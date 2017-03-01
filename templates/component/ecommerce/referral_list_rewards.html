@@ -9,10 +9,10 @@
 <!-- END: friends_list_empty -->
 
 <!-- BEGIN: vouchers_list -->
-<div id="rewardList">
+<div id="reward-list">
 <!-- BEGIN: item -->
-<p class="vouchersList item">
-	<input type="text" readonly="readonly" onclick="this.select()" class="code_input {ITEM.used_class}" value="{ITEM.code_pattern|htmlspecialchars}" />
+<p class="vouchers-list item">
+	<input type="text" readonly="readonly" onclick="this.select()" class="code-input {ITEM.used_class}" value="{ITEM.code_pattern|htmlspecialchars}" />
 	<!-- BEGIN: received -->
 	<small>Received {ITEM.created|strtotime|date('d/m/Y', %s)}</small>
 	<!-- END: received -->

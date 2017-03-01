@@ -6,9 +6,9 @@
 	{MESSAGES}
 	<a id="exportButton" class="button" href="/request/bo/export/csv_database?model={GET.model}"><span>Export Records (CSV)</span></a>
 	<script type="text/javascript">
-		$('#database .rowBottom p.export').empty();
+		$('#database .row-bottom p.export').empty();
 		var button = $('#exportButton').detach();
-		$('#database .rowBottom p.export').append(button);
+		$('#database .row-bottom p.export').append(button);
 	</script>
 	<table cellspacing="0" border="1">
 	<caption>Records of {MODEL}</caption>

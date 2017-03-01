@@ -6,14 +6,14 @@
 <link href='https://fonts.googleapis.com/css?family=Patrick+Hand|Gloria+Hallelujah|Architects+Daughter' rel='stylesheet' type='text/css' />
 <!-- END: head -->
 <!-- BEGIN: content -->
-<div class="store_noticeboard">
+<div class="store-noticeboard">
 
 	<!-- BEGIN: notice_list -->
 	<h3>Community Noticeboard</h3>
 
-	<div class="list_wrapper">
-		<div class="list_wrapper_top"></div>
-		<div class="items_wrapper">
+	<div class="list-wrapper">
+		<div class="list-wrapper-top"></div>
+		<div class="items-wrapper">
 			<!-- BEGIN: notice -->
 			<div class="item">
 				<div class="notice {NOTICE.classes}">
@@ -23,47 +23,47 @@
 			<!-- END: notice -->
 			<div class="bottom"></div>
 		</div>
-		<div class="list_wrapper_bottom"></div>
+		<div class="list-wrapper-bottom"></div>
 		<div class="bottom"></div>
 	</div>
 	<!-- END: notice_list -->
 
 	<!-- BEGIN: store_manager -->
-	<a class="add_notice button" href="#" onclick="$(this).hide().next().slideDown(500); return false;">Add a Notice</a>
+	<a class="add-notice button" href="#" onclick="$(this).hide().next().slideDown(500); return false;">Add a Notice</a>
 
-	<div class="add_notice">
+	<div class="add-notice">
 
-		<div class="twoColumnLayout layout">
-			<div class="layoutWrapper">
-				<div class="layoutColumnOne ofTwo">
-					<div class="layoutColumnWrapper">
+		<div class="two-column-layout layout">
+			<div class="layout-wrapper">
+				<div class="layout-column-one of-two">
+					<div class="layout-column-wrapper">
 
 						<h4>New Notice</h4>
 
-						<form id="newNoticeForm" action="{URI|htmlspecialchars}#node_id_{GET.node_id}" method="post" enctype="multipart/form-data">
+						<form id="new-notice-form" action="{URI|htmlspecialchars}#node_id_{GET.node_id}" method="post" enctype="multipart/form-data">
 
-							<div class="row" id="notice_test">
-								<label for="notice_test-input">Notice Text: *</label>
-								<textarea name="notice[text]" id="notice_text-input" maxlength="170" required>{GET.notice.text}</textarea>
+							<div class="row" id="notice-test">
+								<label for="notice-test-input">Notice Text: *</label>
+								<textarea name="notice[text]" id="notice-text-input" maxlength="170" required>{GET.notice.text}</textarea>
 							</div>
 
 							<div class="row" id="image">
-								<label for="notice_image-input">Image:</label>
-								<input id="notice_image-input" type="file" name="image" class="file" /> 
+								<label for="notice-image-input">Image:</label>
+								<input id="notice-image-input" type="file" name="image" class="file" /> 
 							</div>
 
-							<div class="row" id="visible_from">
-								<label for="notice_visible_from-input">Visible from: *</label>
-								<input id="notice_visible_from-input" type="text" name="notice[visible_from]" maxlength="10" required placeholder="dd/mm/yyyy"/> 
+							<div class="row" id="visible-from">
+								<label for="notice-visible-from-input">Visible from: *</label>
+								<input id="notice-visible-from-input" type="text" name="notice[visible_from]" maxlength="10" required placeholder="dd/mm/yyyy"/> 
 							</div>
 
-							<div class="row" id="visible_to">
-								<label for="notice_visible_to-input">Visible to:</label>
-								<input id="notice_visible_to-input" type="text" name="notice[visible_to]" maxlength="10" placeholder="dd/mm/yyyy"/> 
+							<div class="row" id="visible-to">
+								<label for="notice-visible-to-input">Visible to:</label>
+								<input id="notice-visible-to-input" type="text" name="notice[visible_to]" maxlength="10" placeholder="dd/mm/yyyy"/> 
 							</div>
 
 							<div class="row" id="image">
-								<a href="#" onclick="$('div.add_notice').slideUp(300); $('a.add_notice.button').show(); return false;">Cancel</a>
+								<a href="#" onclick="$('div.add-notice').slideUp(300); $('a.add-notice.button').show(); return false;">Cancel</a>
 								&nbsp; &nbsp;
 								<button type="submit">Submit</button>
 							</div>
@@ -73,20 +73,20 @@
 
 					</div>
 				</div>
-				<div class="layoutColumnTwo ofTwo">
-					<div class="layoutColumnWrapper notice_preview">
+				<div class="layout-column-two of-two">
+					<div class="layout-column-wrapper notice-preview">
 
 						<h4>Preview</h4>
 
 						<p class="select">
-							<a href="#" onclick="$('.notice_preview .notice').removeClass('notice_style_2 notice_style_3').addClass('notice_style_1'); return false;">Style 1</a> |
-							<a href="#" onclick="$('.notice_preview .notice').removeClass('notice_style_1 notice_style_3').addClass('notice_style_2'); return false;">Style 2</a> |
-							<a href="#" onclick="$('.notice_preview .notice').removeClass('notice_style_1 notice_style_2').addClass('notice_style_3'); return false;">Style 3</a>
+							<a href="#" onclick="$('.notice-preview .notice').removeClass('notice-style-2 notice-style-3').addClass('notice-style-1'); return false;">Style 1</a> |
+							<a href="#" onclick="$('.notice-preview .notice').removeClass('notice-style-1 notice-style-3').addClass('notice-style-2'); return false;">Style 2</a> |
+							<a href="#" onclick="$('.notice-preview .notice').removeClass('notice-style-1 notice-style-2').addClass('notice-style-3'); return false;">Style 3</a>
 							<br/>
 							<small><em>Please note style is chosen at random.</em></small>
 						</p>
 
-						<div class="notice notice_style_1 notice_layout_less_text">
+						<div class="notice notice-style-1 notice-layout-less-text">
 							<div class="date">DD/MM/YY</div>
 							<div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit volutpat.</div>
 							<div class="image"></div>
@@ -94,7 +94,7 @@
 
 					</div>
 				</div>
-				<div class="bottom"><span></span></div>
+				
 			</div>
 		</div>
 
@@ -104,10 +104,10 @@
 
 		$(function() {
 
-			var textarea = $('.store_noticeboard textarea#notice_text-input');
-			var image = $('.store_noticeboard input#notice_image-input');
-			var visible_from = $('.store_noticeboard input#notice_visible_from-input');
-			var visible_to = $('.store_noticeboard input#notice_visible_to-input');
+			var textarea = $('.store-noticeboard textarea#notice-text-input');
+			var image = $('.store-noticeboard input#notice-image-input');
+			var visible_from = $('.store-noticeboard input#notice-visible-from-input');
+			var visible_to = $('.store-noticeboard input#notice-visible-to-input');
 			var imageAdded = false;
 
 			visible_from.datepicker({firstDay: 1, dateFormat: 'dd/mm/yy'});
@@ -117,26 +117,26 @@
 
 			function updateText() {
 				var value = textarea.val().replace(/\r|\n/g, '<br/>');
-				var notice = $('.notice_preview div.notice div.text');
+				var notice = $('.notice-preview div.notice div.text');
 				notice.html(value);
 				if (value.length < 65 && !imageAdded) {
-					notice.parent().addClass('notice_layout_less_text');
+					notice.parent().addClass('notice-layout-less-text');
 				} else {
-					notice.parent().removeClass('notice_layout_less_text');
+					notice.parent().removeClass('notice-layout-less-text');
 				}
 			}
 
 			function updateDate() {
 				var value = visible_from.val().replace(/\/20(\d\d)$/, '/$1');
-				var date = $('.notice_preview div.notice div.date');
+				var date = $('.notice-preview div.notice div.date');
 				date.html(value);
 			}
 
 			function updateImage() {
 				var path = this.value;
 				var ext = path.substring(path.lastIndexOf('.') + 1).toLowerCase();  
-				var image = $('.notice_preview div.notice div.image');
-				image.parent().removeClass('notice_layout_with_image');
+				var image = $('.notice-preview div.notice div.image');
+				image.parent().removeClass('notice-layout-with-image');
 				imageAdded = false;
 				textarea.attr('maxlength', 170);
 
@@ -147,7 +147,7 @@
  					reader.onload = function() {
  						preview.attr('src', reader.result);
  						image.html(preview);
- 						image.parent().addClass('notice_layout_with_image');
+ 						image.parent().addClass('notice-layout-with-image');
  						imageAdded = true;
 						textarea.attr('maxlength', 60);
 						textarea.val(textarea.val().substr(0, 60));

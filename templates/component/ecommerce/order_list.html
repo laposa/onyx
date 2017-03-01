@@ -4,11 +4,11 @@
 <table id="orders">
 <caption>{I18N_ORDERS}</caption>
 <colgroup>
-	<col id="orderID" />
-	<col id="DateTime" />
-	<col id="OrderTotal" />
+	<col id="order-id" />
+	<col id="datetime" />
+	<col id="order-total" />
 	<col id="items" />
-	<col id="Status" />
+	<col id="status" />
 	<col id="action" />
 </colgroup>
 <thead>
@@ -33,9 +33,9 @@
 	</td>
 	<td>
 		<!-- BEGIN: make_payment -->
-		<a class="make_payment" href="/page/{NODE_CONF.id_map-payment}?order_id={ITEM.order_id}" title="Make Payment"><span>{I18N_ORDER_PAY}</span></a>
+		<a class="make-payment" href="/page/{NODE_CONF.id_map-payment}?order_id={ITEM.order_id}" title="Make Payment"><span>{I18N_ORDER_PAY}</span></a>
 		<!-- END: make_payment -->
-		<a class="repeat_order" href="/page/{NODE_CONF.id_map-basket}?populate_basket_from_order_id={ITEM.order_id}" title="Repeat Order"><span>{I18N_ORDER_REPEAT}</span></a>
+		<a class="repeat-order" href="/page/{NODE_CONF.id_map-basket}?populate_basket_from_order_id={ITEM.order_id}" title="Repeat Order"><span>{I18N_ORDER_REPEAT}</span></a>
 	</td>
 </tr>
 <!-- END: item -->

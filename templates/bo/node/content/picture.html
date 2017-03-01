@@ -1,20 +1,20 @@
 <!-- BEGIN: title -->Picture Gallery Edit<!-- END: title -->
 <!-- BEGIN: content -->
-<div class="pageHeader">
-	<div class="pageHeaderWrapper">
-		<h1 class="pageTitle popup"><span>Picture Gallery</span> <span class="info">ID {NODE.id}</span></h1>
+<div class="page-header">
+	<div class="page-header-wrapper">
+		<h1 class="page-title popup"><span>Picture Gallery</span> <span class="info">ID {NODE.id}</span></h1>
 	</div>
 </div>
 
 {FILE "bo/node/form_open.html"}
 
-<div class="twoColumnLayout fibonacci-1-1">
-	<div class="layoutColumnOne ofTwo">
+<div class="two-column-layout fibonacci-1-1">
+	<div class="layout-column-one of-two">
 		<fieldset>
 			{FILE "bo/node/item_title.html"}
 		</fieldset>
 	</div>
-	<div class="layoutColumnTwo ofTwo">
+	<div class="layout-column-two of-two">
 		<fieldset>
 		{FILE "bo/node/item_css_class.html"}
 		</fieldset>
@@ -174,8 +174,8 @@ function hookNodeEditPostUpdate() {
 <script type="text/javascript">
 $(document).ready(function(){
 	$('fieldset.gallery_links div.link_to a.button').click(function() {
-		$('#gallery_link_to_node_id_ajax').addClass('ajaxLoad').load('/request/component/menu_js~id=0:expand_all=1:publish=0:node_group=page_and_product~', function() {
-			$('#gallery_link_to_node_id_ajax').removeClass('ajaxLoad');
+		$('#gallery_link_to_node_id_ajax').addClass('ajax-load').load('/request/component/menu_js~id=0:expand_all=1:publish=0:node_group=page_and_product~', function() {
+			$('#gallery_link_to_node_id_ajax').removeClass('ajax-load');
 			$('#gallery_link_to_node_id_ajax .simpleTree').simpleTree({
 				drag: false,
 				autoclose: true,
@@ -197,8 +197,8 @@ $(document).ready(function(){
 	<!-- END: cycle_options -->
 	
 {FILE "bo/node/item_position.html"}
-<div class="twoColumnLayout fibonacci-1-1 advanced">
-	<div class="layoutColumnOne ofTwo">
+<div class="two-column-layout fibonacci-1-1 advanced">
+	<div class="layout-column-one of-two">
 		<fieldset>
 		{FILE "bo/node/item_display_permission.html"}
 		{FILE "bo/node/item_display_permission_group_acl.html"}
@@ -206,7 +206,7 @@ $(document).ready(function(){
 		{FILE "bo/node/item_require_ssl.html"}
 		</fieldset>
 	</div>
-	<div class="layoutColumnTwo ofTwo">
+	<div class="layout-column-two of-two">
 		<fieldset>
 		{NODE_TYPE}
 		{FILE "bo/node/item_signature.html"}

@@ -3,11 +3,11 @@
 
 	<!-- BEGIN: list -->
 	
-		<div class="contentBody">
+		<div class="content-body">
 			<!-- BEGIN: item -->
 			<div class="item {ITEM.odd_even_class} {ITEM.taxonomy_class}">
 				<h2 class="title"><a href="/page/{ITEM.id}">{ITEM.title|htmlspecialchars}</a></h2>
-				<div class="created"><p>{ITEM.created|strtotime|strftime('%A %e %B %Y', %s)} {I18N_BY} <span class="author_name">{ITEM.author_detail.name|htmlspecialchars}</span></p></div>
+				<div class="created"><p>{ITEM.created|strtotime|strftime('%A %e %B %Y', %s)} {I18N_BY} <span class="author-name">{ITEM.author_detail.name|htmlspecialchars}</span></p></div>
 				<div class="content">{ITEM.content}</div>
 				<!-- BEGIN: comment -->
 				<p class="comment"><a href="/page/{ITEM.id}#comment">{I18N_NEWS_LIST_COMMENTS} <span class="count">({COMMENT_COUNT})</span></a></p>

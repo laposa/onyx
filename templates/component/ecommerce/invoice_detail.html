@@ -1,6 +1,6 @@
 <!-- BEGIN: content -->
 {MESSAGES}
-<div class="invoice_detail">
+<div class="invoice-detail">
 	<!-- BEGIN: invoice -->
 	<table>
 		<caption>Invoice #{INVOICE.id}</caption>
@@ -19,12 +19,12 @@
 	</table>
 	<!-- END: invoice -->
 	
-	<div style="clear: both" class="extended_toolbar">
+	<div style="clear: both" class="extended-toolbar">
 		<!-- BEGIN: print_invoice -->
-		<a class="button print_invoice" target="_blank" href="/print/invoice/{INVOICE.order_id}"><span>{I18N_PRINT_INVOICE}</span></a>
+		<a class="button print-invoice" target="_blank" href="/print/invoice/{INVOICE.order_id}"><span>{I18N_PRINT_INVOICE}</span></a>
 		<!-- END: print_invoice -->
 		<!-- BEGIN: print_invoice_proforma -->
-		<a class="button print_invoice_proforma" target="_blank" href="/print/invoice_proforma/{INVOICE.order_id}"><span>{I18N_PRINT_PROFORMA_INVOICE}</span></a>
+		<a class="button print-invoice-proforma" target="_blank" href="/print/invoice_proforma/{INVOICE.order_id}"><span>{I18N_PRINT_PROFORMA_INVOICE}</span></a>
 		<!-- END: print_invoice_proforma -->
 	</div>
 </div>

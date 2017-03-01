@@ -1,10 +1,10 @@
 <!-- BEGIN: content -->
-<div class="basket_detail">
+<div class="basket-detail">
 <!-- BEGIN: basket -->
 <table>
 	<thead>
 		<tr>
-			<th scope="col" class="product_detail">{I18N_PRODUCT_DETAIL}</th>
+			<th scope="col" class="product-detail">{I18N_PRODUCT_DETAIL}</th>
 			<th scope="col" class="qty">{I18N_QTY}</th>
 			<th scope="col" class="price">{I18N_PRICE}</th>
 			<th scope="col" class="price net">Net</th>
@@ -15,7 +15,7 @@
 	<tbody>
 		<!-- BEGIN: item -->
 		<tr class="item">
-			<td class="product_detail"><a href="/product/{ITEM.product.id}" title="{ITEM.product.name|htmlspecialchars}">{ITEM.product.name|htmlspecialchars}</a> - {ITEM.product.variety.name|htmlspecialchars} ({ITEM.product.variety.sku|htmlspecialchars}) {ITEM.other_data|htmlspecialchars}</td>
+			<td class="product-detail"><a href="/product/{ITEM.product.id}" title="{ITEM.product.name|htmlspecialchars}">{ITEM.product.name|htmlspecialchars}</a> - {ITEM.product.variety.name|htmlspecialchars} ({ITEM.product.variety.sku|htmlspecialchars}) {ITEM.other_data|htmlspecialchars}</td>
 			<td class="qty">{ITEM.quantity}</td>
 			<td class="price">{ITEM.unit_price|money_format('%n',%s)}</td>
 			<td class="price net">{ITEM.net|money_format('%n',%s)}</td>

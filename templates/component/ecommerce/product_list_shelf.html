@@ -1,12 +1,12 @@
 <!-- BEGIN: content -->
 {MESSAGES}
-<div class="product_list_shelf product_list image_role_{IMAGE_ROLE}">
+<div class="product-list-shelf product-list image-role-{IMAGE_ROLE}">
 	<div class="top">
 		{SORTING}
 	</div>
 
 	<!-- BEGIN: item -->
-	<div class="item {ITEM.odd_even_class} {ITEM.first_last_class} {ITEM.taxonomy_class} product_id_{ITEM.id}">
+	<div class="item {ITEM.odd_even_class} {ITEM.first_last_class} {ITEM.taxonomy_class} product-id-{ITEM.id}">
 		<div class="image">
 			<a href="/page/{ITEM.node_id}" title="{ITEM.product_name|htmlspecialchars}"><span class="roundel"></span><img src="/thumbnail/{IMAGE_WIDTH}x{IMAGE_WIDTH}/{ITEM.image_src}" alt="{ITEM.image_title|htmlspecialchars}" /></a>
 		</div>
@@ -19,12 +19,12 @@
 		<div class="detail">
 			<p class="variety">{I18N_PRICE_FROM} <span class="price">{ITEM.price|money_format('%n', %s)}</span> {I18N_PRICE_FOR} <span class="variety_name">{ITEM.variety_name|htmlspecialchars}</span></p>
 			<!-- BEGIN: reviews -->
-				<div class="reviews"><a href="/page/{ITEM.node_id}">{RATING_STARS}</a> <span class="review_count">({ITEM.review_count}&nbsp;{REVIEWS})</span></div>
+				<div class="reviews"><a href="/page/{ITEM.node_id}">{RATING_STARS}</a> <span class="review-count">({ITEM.review_count}&nbsp;{REVIEWS})</span></div>
 			<!-- END: reviews -->
-			<p class="more_details"><a class="button more_details" href="/page/{ITEM.node_id}" title="{ITEM.product_name|htmlspecialchars}"><span>{I18N_MORE_DETAILS}</span></a></p>
+			<p class="more-details"><a class="button more-details" href="/page/{ITEM.node_id}" title="{ITEM.product_name|htmlspecialchars}"><span>{I18N_MORE_DETAILS}</span></a></p>
 			
 		</div>
-		<div class="bottom"><span></span></div>
+		
 	</div>
 	
 	<!-- BEGIN: divider -->

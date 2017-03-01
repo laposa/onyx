@@ -12,18 +12,18 @@
 
 	<!-- BEGIN: my_referrals -->
 
-	<div class="node node_group-layout my_referrals">
+	<div class="node node-group-layout my-referrals">
 	<div class="node-layout-2columns">
-	<div class="twoColumnLayout layout fibonacci-5-2">
-	<div class="layoutWrapper">
-		<div class="top"><span></span></div>
-		<div class="layoutContent">
-			<div class="layoutContentWrapper">
-				<div class="layoutBody">
-					<div class="layoutColumnOne ofTwo">
-						<div class="layoutColumnWrapper">
+	<div class="two-column-layout layout fibonacci-5-2">
+	<div class="layout-wrapper">
+		
+		<div class="layout-content">
+			<div class="layout-content-wrapper">
+				<div class="layout-body">
+					<div class="layout-column-one of-two">
+						<div class="layout-column-wrapper">
 
-							<h2 class="start_inviting">Start Inviting</h2>
+							<h2 class="start-inviting">Start Inviting</h2>
 
 							<p>Offer the below {DISCOUNT_VALUE|money_format('%n', %s)} voucher to friends and family to use on their first {CONFIGURATION.global.title|htmlspecialchars} order. You can send as many vouchers as you like.</p>
 
@@ -41,8 +41,8 @@
 
 						</div>
 					</div>
-					<div class="layoutColumnTwo ofTwo">
-						<div class="layoutColumnWrapper">
+					<div class="layout-column-two of-two">
+						<div class="layout-column-wrapper">
 
 							{ONXSHOP_REQUEST_referral_list_rewards #component/ecommerce/referral_list_rewards}
 							{ONXSHOP_REQUEST_referral_list_emails #component/ecommerce/referral_list_emails}
@@ -59,17 +59,17 @@
 
 	<script type="text/javascript">
 		$(function() {
-			if ($("#emailList .item").length > 5) {
-				$("#emailList").append('<a href="#" onclick="return showMore(this)">Show More...</a>');
-				$("#emailList .item:gt(4)").hide();
+			if ($("#email-list .item").length > 5) {
+				$("#email-list").append('<a href="#" onclick="return showMore(this)">Show More...</a>');
+				$("#email-list .item:gt(4)").hide();
 			}
-			if ($("#friendList .item").length > 5) {
-				$("#friendList").append('<a href="#" onclick="return showMore(this)">Show More...</a>');
-				$("#friendList .item:gt(4)").hide();
+			if ($("#friend-list .item").length > 5) {
+				$("#friend-list").append('<a href="#" onclick="return showMore(this)">Show More...</a>');
+				$("#friend-list .item:gt(4)").hide();
 			}
-			if ($("#rewardList .item").length > 5) {
-				$("#rewardList").append('<a href="#" onclick="return showMore(this)">Show More...</a>');
-				$("#rewardList .item:gt(4)").hide();
+			if ($("#reward-list .item").length > 5) {
+				$("#reward-list").append('<a href="#" onclick="return showMore(this)">Show More...</a>');
+				$("#reward-list .item:gt(4)").hide();
 			}
 		});
 

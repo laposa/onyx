@@ -3,37 +3,37 @@
 <script type="text/javascript">  
 $(document).ready(function(){  
 	/*when enabled "use this button" dont work*/
-	/*$("#address_edit").validate(); */ 
+	/*$("#address-edit").validate(); */ 
 });  
 </script>
 
 {MESSAGES}
-<div class="address_edit">
-<form action="{URI_SAFE|htmlspecialchars}" method="post" id="address_edit">	
-<div class="twoColumnLayout layout fibonacci-2-1 {NODE.css_class}">
-	<div class="layoutWrapper">
-		<div class="top"><span></span></div>
-		<div class="layoutContent">
-			<div class="layoutContentWrapper">
-				<div class="layoutColumnOne ofTwo">
-					<div class="layoutColumnWrapper">
+<div class="address-edit">
+<form action="{URI_SAFE|htmlspecialchars}" method="post" id="address-edit">	
+<div class="two-column-layout layout fibonacci-2-1 {NODE.css_class}">
+	<div class="layout-wrapper">
+		
+		<div class="layout-content">
+			<div class="layout-content-wrapper">
+				<div class="layout-column-one of-two">
+					<div class="layout-column-wrapper">
 
-						<div class="address_add">
+						<div class="address-add">
 							<fieldset>
 								<legend>{I18N_ADD_A_NEW_ADDRESS}</legend>
 								<div class="row name">
 									<span class="label"><label><span class="mandatory-mark">*</span> {I18N_NAME}:</label></span>
 									<span class="field"><input class="text required" type="text" name="client[address][name]" value="{client.address.name}" /></span>
 								</div>
-								<div class="row line_1">
+								<div class="row line-1">
 									<span class="label"><label><span class="mandatory-mark">*</span> {I18N_ADDRESS_LINE_1}:</label></span>
 									<span class="field"><input class="text required" type="text" name="client[address][line_1]" value="{client.address.line_1}" /></span>
 								</div>
-								<div class="row line_2">
+								<div class="row line-2">
 									<span class="label"><label>{I18N_ADDRESS_LINE_2}:</label></span>
 									<span class="field"><input class="text" type="text" name="client[address][line_2]" value="{client.address.line_2}" /></span>
 								</div>
-								<div class="row line_3">
+								<div class="row line-3">
 									<span class="label"><label>{I18N_ADDRESS_LINE_3}:</label></span>
 									<span class="field"><input class="text" type="text" name="client[address][line_3]" value="{client.address.line_3}" /></span>
 								</div>
@@ -41,7 +41,7 @@ $(document).ready(function(){
 									<span class="label"><label><span class="mandatory-mark">*</span> {I18N_CITY}:</label></span>
 									<span class="field"><input class="text required" type="text" name="client[address][city]" value="{client.address.city}" /></span>
 								</div>
-								<div class="row post_code">
+								<div class="row post-code">
 									<span class="label"><label><span class="mandatory-mark">*</span> {I18N_POST_CODE}:</label></span>
 									<span class="field"><input class="text required" type="text" name="client[address][post_code]" value="{client.address.post_code}" maxlength="10"/></span>
 								</div>
@@ -49,7 +49,7 @@ $(document).ready(function(){
 									<span class="label"><label>{I18N_COUNTY}:</label></span>
 									<span class="field"><input class="text" type="text" name="client[address][county]" value="{client.address.county}"/></span>
 								</div>
-								<div class="row country_id">
+								<div class="row country-id">
 									<span class="label"><label><span class="mandatory-mark">*</span> {I18N_STATE}:</label></span>
 									<!-- BEGIN: country -->
 									<span class="field">
@@ -65,16 +65,16 @@ $(document).ready(function(){
 								</div>
 								<div class="row submit">
 									<span class="label"><label>&nbsp;</label></span>
-									<span class="field"><button class="add_new_address" type="submit" name="add_address" value="add_address"><span>{I18N_ADD_NEW_ADDRESS}</span></button></span>
+									<span class="field"><button class="add-new-address" type="submit" name="add_address" value="add_address"><span>{I18N_ADD_NEW_ADDRESS}</span></button></span>
 								</div>
 							</fieldset>
 						</div>
 
 					</div>
 				</div>
-				<div class="layoutColumnTwo ofTwo">
-					<div class="layoutColumnWrapper">
-						<div class="address_list">
+				<div class="layout-column-two of-two">
+					<div class="layout-column-wrapper">
+						<div class="address-list">
 							<fieldset>
 								<legend>{I18N_ADDRESS_LIST}</legend>
 								<!-- BEGIN: address -->
@@ -99,11 +99,11 @@ $(document).ready(function(){
 									{address.country.name|htmlspecialchars}<br />
 									
 									<!-- BEGIN: select -->
-									<button type="submit" class="{address.id}_fix select_address" name='select_address' value='{address.id}'><span>{I18N_USE_THIS}</span></button>
+									<button type="submit" class="{address.id}-fix select-address" name='select_address' value='{address.id}'><span>{I18N_USE_THIS}</span></button>
 									<!-- END: select -->
 									
 									<!-- BEGIN: delete -->
-									<button type="submit" class="{address.id}_fix remove_address" name='remove_address' value='{address.id}'><span>{I18N_REMOVE}</span></button>
+									<button type="submit" class="{address.id}-fix remove-address" name='remove_address' value='{address.id}'><span>{I18N_REMOVE}</span></button>
 									<!-- END: delete -->
 								</div>
 								<!-- END: address -->
@@ -114,7 +114,7 @@ $(document).ready(function(){
 				</div>
 			</div>
 		</div>
-		<div class="bottom"><span></span></div>
+		
 	</div>
 </div>
 

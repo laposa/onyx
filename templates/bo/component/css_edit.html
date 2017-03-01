@@ -14,36 +14,36 @@
 <style type="text/css">
 	html, body { width: 100%; height: 100%; padding: 0; overflow: hidden; }
 	div.popup { padding: 0; }
-	.CodeMirror { width: 100%; height: auto; position: absolute; top: 0; left: 0; right: 0; bottom: 60px; }
+	.code-mirror { width: 100%; height: auto; position: absolute; top: 0; left: 0; right: 0; bottom: 60px; }
 	.colorpicker { z-index: 999999; }
-	#modal_overlay_window { padding: 20px 20px; }
+	#modal-overlay-window { padding: 20px 20px; }
 </style>
 <!-- END: head -->
 <!-- BEGIN: content -->
 {MESSAGES}
 <!-- BEGIN: form -->
 
-<form method="post" action="{URI|htmlspecialchars}" id="css_edit">
+<form method="post" action="{URI|htmlspecialchars}" id="css-edit">
 
 <div class="page">
-	<div class="top"><span></span></div>
+	
 	<div class="content">
-		<div class="pageWrapper">
+		<div class="page-wrapper">
 
-			<div class="pageContent">
-				<div class="pageContentWrapper">
-					<div class="rowMiddle">
-						<div class="rowWrapper">
-							<textarea id="code_css" name="configuration[global][css]" class="code css" autofocus="autofocus">{CONFIGURATION.global.css}</textarea></span>
+			<div class="page-content">
+				<div class="page-content-wrapper">
+					<div class="row-middle">
+						<div class="row-wrapper">
+							<textarea id="code-css" name="configuration[global][css]" class="code css" autofocus="autofocus">{CONFIGURATION.global.css}</textarea></span>
 							<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 						</div>
 					</div>
-					<div class="rowBottom">
-						<div class="rowWrapper">
-							<div class="columnWrapper">
+					<div class="row-bottom">
+						<div class="row-wrapper">
+							<div class="column-wrapper">
 								<p>
-									<a href="#" class="button" id="mediaGalleryButton"><span>Media Library</span></a>
-									<a href="#" class="button" id="colourPickerButton"><span>Pick a colour</span></a>
+									<a href="#" class="button" id="media-gallery-button"><span>Media Library</span></a>
+									<a href="#" class="button" id="colour-picker-button"><span>Pick a colour</span></a>
 									<button class="save" type="submit" name="submit" value="submit"><span>Save</span></button>
 								</p>
 							</div>
@@ -53,12 +53,12 @@
 			</div>
 		</div>
 	</div>
-	<div class="bottom"><span></span></div>
+	
 </div>
 
 </form>
 
-<div id="css_edit_result"></div>
+<div id="css-edit-result"></div>
 
 <script type="text/javascript">
 
@@ -66,16 +66,16 @@ $(document).ready(function() {
 
 	function saveCSS(id, content) {
 		$('#'+id).val(content);
-		$('#css_edit').submit();
+		$('#css-edit').submit();
 	}
 
 	function preSubmit() {
-		$("#css_edit button").addClass('saving');
+		$("#css-edit button").addClass('saving');
 	}
 
 	function showResponse(responseText, statusText)  {
-		$("#css_edit button").removeClass('saving');
-		popupMessage($("#css_edit_result div.onxshop-messages"));
+		$("#css-edit button").removeClass('saving');
+		popupMessage($("#css-edit-result div.onxshop-messages"));
 		<!-- BEGIN: refresh_opener -->
 		refreshOpener('{GET.orig}', {GET.id});
 		<!-- END: refresh_opener -->
@@ -86,26 +86,26 @@ $(document).ready(function() {
 		viewportMargin: Infinity,
 		keyMap: "sublime"
 	}
-	var editor = CodeMirror.fromTextArea(document.getElementById('code_css'), code_mirror_options);
+	var editor = CodeMirror.fromTextArea(document.getElementById('code-css'), code_mirror_options);
 
 	// Media Libary
-	$("#mediaGalleryButton").click(function() {
+	$("#media-gallery-button").click(function() {
 		showModalOverlay();
-		makeAjaxRequest('#modal_overlay_window', '/request/bo/component/file_list~type=CSS:relation=node:node_id=3~');
+		makeAjaxRequest('#modal-overlay-window', '/request/bo/component/file_list~type=CSS:relation=node:node_id=3~');
 		return false;
 	});
 
 	// Color Picker
-	$('#colourPickerButton').ColorPicker();
+	$('#colour-picker-button').ColorPicker();
 
 	// ajax form
 	var ajax_form_options = { 
-		target: '#css_edit_result',
+		target: '#css-edit-result',
 		beforeSubmit: preSubmit,
 		success: showResponse, 
 		url: '/request/bo/component/css_edit'
 	};
-	$('#css_edit').ajaxForm(ajax_form_options);
+	$('#css-edit').ajaxForm(ajax_form_options);
 
 });
 </script>

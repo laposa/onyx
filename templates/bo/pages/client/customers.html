@@ -8,21 +8,21 @@
 <!-- BEGIN: title -->Customers<!-- END: title -->
 <!-- BEGIN: content -->
 
-<div id="customer-list" class="twoColumnPage page">
+<div id="customer-list" class="two-column-page page">
 	<div class="content">
-		<div class="pageWrapper">
+		<div class="page-wrapper">
 
-			<div class="pageHeader">
-				<div class="pageHeaderWrapper">
-					<h1 class="pageTitle"><span>Users and Customers</span></h1>
+			<div class="page-header">
+				<div class="page-header-wrapper">
+					<h1 class="page-title"><span>Users and Customers</span></h1>
 				</div>
 			</div>
 
-			<div class="pageContent">
-				<div class="pageContentWrapper">
-					<div class="rowTop">
-						<div class="rowWrapper">
-							<div class="columnWrapper">
+			<div class="page-content">
+				<div class="page-content-wrapper">
+					<div class="row-top">
+						<div class="row-wrapper">
+							<div class="column-wrapper">
 								
 								<div class="horizontal-filter">
 									{ONXSHOP_REQUEST_filter #bo/component/client/customer_search}
@@ -33,27 +33,27 @@
 							</div>
 						</div>
 					</div>
-					<div class="rowMiddle">
-						<div class="rowWrapper">
-							<div class="columnOne">
-								<div class="columnWrapper">
+					<div class="row-middle">
+						<div class="row-wrapper">
+							<div class="column-one">
+								<div class="column-wrapper">
 								</div>
 							</div>
-							<div class="columnTwo">
-								<div class="columnWrapper">
+							<div class="column-two">
+								<div class="column-wrapper">
 								</div>
 							</div>
 						</div>
 					</div>
-					<div class="rowBottom">
-						<div class="rowWrapper">
-							<div class="columnWrapper">
+					<div class="row-bottom">
+						<div class="row-wrapper">
+							<div class="column-wrapper">
 
 								<p>
 									<a class="button add" title="Add new user" href="/backoffice/customers/add"><span>Add New</span></a>
 									<a class="button" title="Export this list for newsletter" href="/request/bo/export/csv_customers"><span>Export to CSV</span></a>
-									<!-- BEGIN: create_new_group --><a class="button create-customers-group" title="Create a new customers group using advanced filter" href="#" onclick="makeAjaxRequest('#customer_list div.pageContent', '/request/bo/component/client/customer_group_add'); return false;"><span>Create Group</span></a><!-- END: create_new_group -->
-									<!-- BEGIN: modify_group --><a class="button modify-customers-group" title="Modify customers group criteria" href="#" onclick="makeAjaxRequest('#customer_list div.pageContent', '/request/bo/component/client/customer_group_modify'); return false;"><span>Modify Selected Group</span></a><!-- END: modify_group -->
+									<!-- BEGIN: create_new_group --><a class="button create-customers-group" title="Create a new customers group using advanced filter" href="#" onclick="makeAjaxRequest('#customer_list div.page-content', '/request/bo/component/client/customer_group_add'); return false;"><span>Create Group</span></a><!-- END: create_new_group -->
+									<!-- BEGIN: modify_group --><a class="button modify-customers-group" title="Modify customers group criteria" href="#" onclick="makeAjaxRequest('#customer_list div.page-content', '/request/bo/component/client/customer_group_modify'); return false;"><span>Modify Selected Group</span></a><!-- END: modify_group -->
 								</p>
 
 							</div>

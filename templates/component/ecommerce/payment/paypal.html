@@ -1,11 +1,11 @@
 <!-- BEGIN: content -->
 <style type="text/css">
-div.order_detail a.make_payment,
-div.order_detail a.repeat_order {display: none;}
+div.order-detail a.make-payment,
+div.order-detail a.repeat-order {display: none;}
 </style>
-<div class="payment_paypal">
-<!-- BEGIN: messages --><div class="nx_messages">{MESSAGES}</div><!-- END: messages -->
-<form action="{ECOMMERCE_TRANSACTION_PAYPAL_URL}" method="post" id="paypal_form">
+<div class="payment-paypal">
+{MESSAGES}
+<form action="{ECOMMERCE_TRANSACTION_PAYPAL_URL}" method="post" id="paypal-form">
 	<input type="hidden" name="cmd" value="_cart" />
 	<input type="hidden" name="upload" value="1" />
 	<input type="hidden" name="business" value="{ECOMMERCE_TRANSACTION_PAYPAL_VENDOR_EMAIL}" />
@@ -30,14 +30,13 @@ div.order_detail a.repeat_order {display: none;}
 	<input type="hidden" name="night_phone_a" value="{PAYMENT_GATEWAY.order_data.client.customer.telephone|htmlspecialchars}" />
 	<input type="hidden" name="email" value="{PAYMENT_GATEWAY.order_data.client.customer.email|htmlspecialchars}" />
 	<!--<input type="hidden" name="notify_url" value="/request/component/ecommerce/payment/paypal_callback" />-->
-	<button class="payment_paypal" type='submit' name='paypal'  value='paypal' /><span>{I18N_MAKE_PAYMENT_WITH_PAYPAL}</span></button> 
-<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+	<button class="payment-paypal" type='submit' name='paypal'  value='paypal' /><span>{I18N_MAKE_PAYMENT_WITH_PAYPAL}</span></button> 
 </form>
 
 <!-- BEGIN: autosubmit -->
 <script type="text/javascript">
 $(window).load(function () {
-$('#paypal_form').submit();
+$('#paypal-form').submit();
 });
 </script>
 <!-- END: autosubmit -->

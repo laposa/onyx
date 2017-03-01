@@ -6,7 +6,7 @@
 
 	<h3>Send your invite by email</h3>
 
-	<form id="return_form" action="{URI|htmlspecialchars}#node_id_{GET.node_id}" method="post">
+	<form id="return-form" action="{URI|htmlspecialchars}#node-id-{GET.node_id}" method="post">
 
 		<fieldset class="single">
 
@@ -37,7 +37,7 @@
 
 	<script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src="//platform.twitter.com/widgets.js";fjs.parentNode.insertBefore(js,fjs);}}(document,"script","twitter-wjs");</script>
 
-	<div class="socialButtons">
+	<div class="social-buttons">
 		<div class="button"><a href="https://twitter.com/share" class="twitter-share-button" data-url="{PROMOTION.code_url|strtolower|htmlspecialchars}" data-text="Explore our range and receive {DISCOUNT_VALUE|money_format('%n', %s)} off your first order. " data-count="none">Tweet</a></div>
 		<div class="button"><div id="fb-root"><script src="//connect.facebook.net/en_US/all.js#xfbml=1"></script><fb:send href="{PROMOTION.code_url|strtolower|htmlspecialchars}"></fb:send></div></div>
 	</div>
@@ -48,7 +48,7 @@
 	<h3>Invite friends with your personal link</h3>
 
 	<p>This is your personal link. You can copy and share it with friends and family in blogs and emails.</p>
-	<input class="text code_input" type="text" value="{PROMOTION.code_url|strtolower|htmlspecialchars}" readonly="readonly" onclick="this.select()"/>
+	<input class="text code-input" type="text" value="{PROMOTION.code_url|strtolower|htmlspecialchars}" readonly="readonly" onclick="this.select()"/>
 	<!-- END: disabled_url_share -->
 
 <!-- END: share -->

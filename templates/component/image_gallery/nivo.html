@@ -4,7 +4,7 @@
 
 <script type="text/javascript">
 $(window).load(function() {
-	$('#gallery_nivo_{GET.node_id}').nivoSlider({
+	$('#gallery-nivo-{GET.node_id}').nivoSlider({
 		effect:'random',
 		slices:15,
 		animSpeed:500,
@@ -28,9 +28,9 @@ $(window).load(function() {
 </script>
 <!-- END: head_once -->
 <!-- BEGIN: content -->
-<div class="image_gallery_nivo number_of_items_{IMAGE_COUNT}" id="gallery_nivo_{GET.node_id}">
+<div class="image-gallery-nivo number-of-items-{IMAGE_COUNT}" id="gallery-nivo-{GET.node_id}">
 	<!-- BEGIN: item -->
-	<div class="item image_id_{GET.relation}{ITEM.id}"><span class="wrap"><a class="single_image{GET.relation}{GET.node_id}" rel="single_image{GET.relation}{GET.node_id}" title="{ITEM.title|htmlspecialchars}" href="{FULL_SIZE_IMAGE_WIDTH_PATH}{ITEM.src}"><img id="image_id_{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" /></a></span></div>
+	<div class="item image-id-{GET.relation}{ITEM.id}"><span class="wrap"><a class="single-image{GET.relation}{GET.node_id}" rel="single-image{GET.relation}{GET.node_id}" title="{ITEM.title|htmlspecialchars}" href="{FULL_SIZE_IMAGE_WIDTH_PATH}{ITEM.src}"><img id="image-id-{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" /></a></span></div>
 	<!-- END: item -->
 </div>
 <!-- END: content -->

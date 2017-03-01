@@ -1,7 +1,7 @@
 <!-- BEGIN: content -->
 
 <style type="text/css">
-form.fileEdit div.row span.label {
+form.file-edit div.row span.label {
 	width: 60px;
 }
 </style>
@@ -21,16 +21,16 @@ $(document).ready(function() {
 	 * link_to_node_id browse site
 	 */
 	 	
-	$('a.button.link_to_node_id').click(function() {
-		var file_id = $(this).attr('data-file_id');
-		$('#link_to_node_id_ajax_' + file_id).addClass('ajaxLoad').load('/request/component/menu_js~id=0:expand_all=1:publish=0:node_group=page_and_product~', function() {
-			$('#link_to_node_id_ajax_' + file_id).removeClass('ajaxLoad');
-			$('#link_to_node_id_ajax_' + file_id + ' .simpleTree').simpleTree({
+	$('a.button.link-to-node-id').click(function() {
+		var file_id = $(this).attr('data-file-id');
+		$('#link-to-node-id-ajax-' + file_id).addClass('ajax-load').load('/request/component/menu_js~id=0:expand_all=1:publish=0:node_group=page_and_product~', function() {
+			$('#link-to-node-id-ajax-' + file_id).removeClass('ajax-load');
+			$('#link-to-node-id-ajax-' + file_id + ' .simple-tree').simpleTree({
 				drag: false,
 				autoclose: true,
 				afterClick:function(node){
 					var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
-					$('#file-link_to_node_id_' + file_id).attr('value', node_id);
+					$('#file-link-to-node-id-' + file_id).attr('value', node_id);
 				},
 				animate: true,
 				docToFolderConvert: true
@@ -43,9 +43,9 @@ $(document).ready(function() {
 </script>
 {MESSAGES}
 
-<form class="fileEdit" action="{URI|htmlspecialchars}" method="post" id="file-edit-{FILE.id}">
+<form class="file-edit" action="{URI|htmlspecialchars}" method="post" id="file-edit-{FILE.id}">
 
-	<fieldset class="file_item_form">
+	<fieldset class="file-item-form">
 		<legend>File Edit</legend>
 		
 		<input class="filename" type="text" readonly value="{FILE.src|htmlspecialchars}"/>
@@ -70,12 +70,12 @@ $(document).ready(function() {
 		<div id="file-edit-advanced-{FILE.id}" class="advanced">
 			<div class="row content">
 				<span class="label"><label for="file-content">content <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'mceAdvanced', 'file-content-{FILE.id}'); return false;"><span>RTE</span></a></label></span>
-				<span class="field"><textarea id="file-content-{FILE.id}" class="mceAdvanced" name="file[content]">{FILE.content|htmlspecialchars}</textarea></span>
+				<span class="field"><textarea id="file-content-{FILE.id}" class="mce-advanced" name="file[content]">{FILE.content|htmlspecialchars}</textarea></span>
 			</div>
-			<div class="row link_to_node_id">
-				<span class="label"><label for="file-link_to_node_id" title="Link to node id">Link to node ID:</label></span>
-				<span class="field"><input class="text short" type="text" name="file[link_to_node_id]" id="file-link_to_node_id_{FILE.id}" value="{FILE.link_to_node_id}" /> <a class="button link_to_node_id" href="#" data-file_id="{FILE.id}"><span>Browse…</span></a></span>
-				<span style="display: block;" id="link_to_node_id_ajax_{FILE.id}"></span>
+			<div class="row link-to-node-id">
+				<span class="label"><label for="file-link-to-node-id" title="Link to node id">Link to node ID:</label></span>
+				<span class="field"><input class="text short" type="text" name="file[link_to_node_id]" id="file-link-to-node-id-{FILE.id}" value="{FILE.link_to_node_id}" /> <a class="button link-to-node-id" href="#" data-file_id="{FILE.id}"><span>Browse…</span></a></span>
+				<span style="display: block;" id="link-to-node-id-ajax-{FILE.id}"></span>
 			</div>
 			<div class="row">
 				<span class="label"><label>Priority:</label></span>
@@ -90,7 +90,7 @@ $(document).ready(function() {
 			<span class="field"><button type="submit" name="update" id="update" value="{FILE.id}" class="{FILE.id}"><span>Save</span></button></span>
 		</div>
 	</fieldset>
-<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+	<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
 
 {ONXSHOP_REQUEST_tinymce #bo/tinymce~id=GET.id:relation=node:edit_elements=file-content-GET.file_id:theme=simple~}

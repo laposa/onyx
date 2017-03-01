@@ -3,7 +3,7 @@
 <link href="/share/themes/flexslider/flexslider.css" rel="stylesheet" type="text/css" />
 <script type="text/javascript">
 $(document).ready(function() {
-  $('div.image_gallery_flexslider').flexslider({
+  $('div.image-gallery-flexslider').flexslider({
     animation: "slide",
     animationLoop: false
   });
@@ -11,11 +11,11 @@ $(document).ready(function() {
 </script>
 <!-- END: head_once -->
 <!-- BEGIN: content -->
-<div class="image_gallery_flexslider number_of_items_{IMAGE_COUNT}" id="gallery_flexslider_{GET.node_id}">
+<div class="image-gallery-flexslider number-of-items-{IMAGE_COUNT}" id="gallery-flexslider-{GET.node_id}">
 	<ul class="slides">
 		<!-- BEGIN: item -->
 		<li>
-			<img id="image_id_{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" />
+			<img id="image-id-{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" />
 			<div class="info">
 				<h5>{ITEM.title|htmlspecialchars}</h5>
 				<p class="description">{ITEM.description|htmlspecialchars}</p>

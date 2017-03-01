@@ -1,7 +1,7 @@
 <!-- BEGIN: content -->
 
 
-<form action="{PAYMENT_GATEWAY.URL}" id="worldpay_form" method="post">
+<form action="{PAYMENT_GATEWAY.URL}" id="worldpay-form" method="post">
 	<h2>Worldpay</h2>
 	{MESSAGES}
 	<input type=hidden name="instId" value="{PAYMENT_GATEWAY.instId}" />
@@ -17,14 +17,13 @@
 	<input type=hidden name="tel" value="{PAYMENT_GATEWAY.tel|htmlspecialchars}" />
 	<input type=hidden name="email" value="{PAYMENT_GATEWAY.email|htmlspecialchars}" />
 	<input type=hidden name="MC_callback" value="{PAYMENT_GATEWAY.MC_callback}" />
-	<button class="payment_worldpay" type='submit' name='worldpay'  value='worldpay'><span>{I18N_MAKE_PAYMENT_WITH_WORLDPAY}</span></button>
-<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+	<button class="payment-worldpay" type='submit' name='worldpay'  value='worldpay'><span>{I18N_MAKE_PAYMENT_WITH_WORLDPAY}</span></button>
 </form>
 
 <!-- BEGIN: autosubmit -->
 <script type="text/javascript">
 $(window).load(function () {
-$('#worldpay_form').submit();
+$('#worldpay-form').submit();
 });
 </script>
 <!-- END: autosubmit -->

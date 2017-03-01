@@ -1,18 +1,18 @@
 <!-- BEGIN: content -->
 
-<div class="row node-node_controller">
-    <span class="label"><label for="node-node_controller" title="Content Type">Type:</label></span>
+<div class="row node-node-controller">
+    <span class="label"><label for="node-node-controller" title="Content Type">Type:</label></span>
     <span class="field">
-        <select name="node[node_controller]" id="node-node_controller-{GET.id}" title="Content Type" onchange="$('input#node-node_group-{GET.id}').attr('value', $(this).find('option:selected').parent().attr('label'));">
+        <select name="node[node_controller]" id="node-node-controller-{GET.id}" title="Content Type" onchange="$('input#node-node-group-{GET.id}').attr('value', $(this).find('option:selected').parent().attr('label'));">
             <!-- BEGIN: group -->
             <optgroup label="{GROUP.name}">
                 <!-- BEGIN: item -->
-                <option class="onxshop_edit_{ITEM.name} {GROUP.name}" value="{ITEM.name}" {ITEM.selected}>{ITEM.title|htmlspecialchars}</option>
+                <option class="onxshop-edit-{ITEM.name} {GROUP.name}" value="{ITEM.name}" {ITEM.selected}>{ITEM.title|htmlspecialchars}</option>
                 <!-- END: item -->
             </optgroup>
             <!-- END: group -->
         </select>
-        <input id="node-node_group-{GET.id}" type="hidden" name="node[node_group]" value="{GET.node_group}" />
+        <input id="node-node-group-{GET.id}" type="hidden" name="node[node_group]" value="{GET.node_group}" />
     </span>
 </div>
 

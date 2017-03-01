@@ -1,32 +1,32 @@
 <!-- BEGIN: content -->
 {MESSAGES}
 
-<div class="twoColumnPage page comment_edit">
+<div class="two-column-page page comment_edit">
 
 	<form method="post" action="{URI|htmlspecialchars}" id="comment_edit_form">
 
 		<div class="content">
-			<div class="pageWrapper">
+			<div class="page-wrapper">
 
-				<div class="pageHeader">
-					<div class="pageHeaderWrapper">
-						<h1 class="pageTitle"><span>Recipe Review Edit</span> <span class="info">ID {COMMENT.id}</span></h1>
+				<div class="page-header">
+					<div class="page-header-wrapper">
+						<h1 class="page-title"><span>Recipe Review Edit</span> <span class="info">ID {COMMENT.id}</span></h1>
 					</div>
 				</div>
 
-				<div class="pageContent">
-					<div class="pageContentWrapper">
-						<div class="rowTop">
-							<div class="rowWrapper">
-								<div class="columnWrapper">
+				<div class="page-content">
+					<div class="page-content-wrapper">
+						<div class="row-top">
+							<div class="row-wrapper">
+								<div class="column-wrapper">
 
 								</div>
 							</div>
 						</div>
-						<div class="rowMiddle">
-							<div class="rowWrapper">
-								<div class="columnOne">
-									<div class="columnWrapper">
+						<div class="row-middle">
+							<div class="row-wrapper">
+								<div class="column-one">
+									<div class="column-wrapper">
 
 										<fieldset>
 											<div class="row title">
@@ -55,8 +55,8 @@
 
 									</div>
 								</div>
-								<div class="columnTwo withPadding">
-									<div class="columnWrapper">
+								<div class="column-two with-padding">
+									<div class="column-wrapper">
 
 										<fieldset>
 											<div class="row author_name">
@@ -82,9 +82,9 @@
 								</div>
 							</div>
 						</div>
-						<div class="rowBottom">
-							<div class="rowWrapper">
-								<div class="columnWrapper">
+						<div class="row-bottom">
+							<div class="row-wrapper">
+								<div class="column-wrapper">
 
 									<div class="row submit">
 										<span class="label"><label>&nbsp;</label></span>
@@ -99,7 +99,7 @@
 			</div>
 		</div>
 
-		<div class="bottom"><span></span></div>
+		
 
 		<input type="hidden" name="comment[id]" value="{COMMENT.id}" />
 		<input type="hidden" name="comment[parent]" value="{COMMENT.parent}" />
@@ -116,7 +116,7 @@
 			target: '#comment_edit_form_result',
 			success: function(responseText, statusText) {
 				popupMessage("#comment_edit_form_result div.onxshop-messages");
-				makeAjaxRequest('#onxshopBackofficeWrapper', '/request/bo/pages/comments');
+				makeAjaxRequest('#onxshop-backoffice-wrapper', '/request/bo/pages/comments');
 			}
 		}; 
 

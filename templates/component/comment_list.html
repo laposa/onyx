@@ -1,7 +1,7 @@
 <!-- BEGIN: content -->
 <!-- BEGIN: comment_list -->
 <!-- BEGIN: item -->
-<article class="item item_id_{ITEM.id}">
+<article class="item item-id-{ITEM.id}">
 	<h4>{ITEM.title|htmlspecialchars}</h4>
 	<div class="byline">
 		<time datetime="{ITEM.created|strtotime|strftime('%Y-%m-%d', %s)}">{ITEM.created|strtotime|strftime('%A %e %B %Y', %s)}</time>
@@ -11,7 +11,7 @@
 	
 	<!-- BEGIN: edit -->
 		<!-- BEGIN: reply -->
-		<p><a href="#comment_form_{GET.node_id}" onclick="$('#comment_form_{GET.node_id} input.title').attr('value', 'Re: ' + $('div.item_id_{ITEM.id} > h4.linkname').text()); $('#comment_form_{GET.node_id} input.parent').attr('value', {ITEM.id});"><span>{I18N_COMMENT_REPLY}</span></a></p>
+		<p><a href="#comment-form-{GET.node_id}" onclick="$('#comment-form-{GET.node_id} input.title').attr('value', 'Re: ' + $('div.item-id-{ITEM.id} > h4.linkname').text()); $('#comment-form-{GET.node_id} input.parent').attr('value', {ITEM.id});"><span>{I18N_COMMENT_REPLY}</span></a></p>
 		<!-- END: reply -->
 		
 		<!-- BEGIN: publish_awaiting -->
