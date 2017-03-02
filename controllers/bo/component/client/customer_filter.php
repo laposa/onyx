@@ -2,7 +2,7 @@
 /**
  * Backoffice customer list filter
  *
- * Copyright (c) 2008-2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2008-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -216,7 +216,7 @@ class Onxshop_Controller_Bo_Component_Client_Customer_Filter extends Onxshop_Con
 		
 		if ($group_filter = $this->getGroupFilter($group_id)) {
 		
-			$customer_list = $Customer->getClientList(0, $group_filter);
+			$customer_list = $Customer->getClientList($group_filter);
 			
 			$list_count = count($customer_list);
 
