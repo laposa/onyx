@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2008-2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2008-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -31,7 +31,7 @@ class Onxshop_Controller_Bo_Export_CSV_Customers extends Onxshop_Controller_Bo_E
 		 * Get customer list
 		 */
 		
-		$records = $this->Customer->getClientList(0, $customer_filter);
+		$records = $this->Customer->getClientList($customer_filter);
 		$stores = $this->getStores();
 		$categories = $this->getCategories();
 
