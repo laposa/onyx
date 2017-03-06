@@ -2,14 +2,14 @@
 <!-- BEGIN: content -->
 <script type="text/javascript">  
 	$(function(){  
-		$("#product_add_form").validate();
+		$("#product-add-form").validate();
 
 		/**
 		 * Calculate VAT if available
 		 */
 		var rate_select = $('select[name="product[variety][product_type_id]"]');
-		var no_vat_input = $("#price_without_vat");
-		var vat_input = $("#price_with_vat");
+		var no_vat_input = $("#price-without-vat");
+		var vat_input = $("#price-with-vat");
 
 		if (rate_select.length > 0) {
 			no_vat_input.change(updateVatPrice);
@@ -39,9 +39,9 @@
 	});
 </script>
 {MESSAGES}
-<div class="product_add">
+<div class="product-add">
 			
-	<form method="post" action="{URI|htmlspecialchars}" id="product_add_form">
+	<form method="post" action="{URI|htmlspecialchars}" id="product-add-form">
 		<fieldset class="single">
 			<div class="page-header">
 				<div class="page-header-wrapper">

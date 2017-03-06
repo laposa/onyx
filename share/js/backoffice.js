@@ -31,15 +31,15 @@ function openAjaxRequestInDialog(url, title) {
 
 
 function refreshOpener(path, id) {
-	newlocation = '/'+path+'#node_id_'+id;
+	newlocation = '/'+path+'#node-id-'+id;
 	opener.window.location.href = newlocation;
 	opener.window.location.reload(true);
 }
 
 function refreshOpenerAjax(path, id) {
-	if (opener.window.document.getElementById('node_id_' + id)) {
-		opener.$('#node_id_' + id).load('/request/node?id=' + id + ' #node_id_' + id + ' > *', function() {
-			opener.refreshAddContent('#node_id_' + id + ' div.onxshop_layout_container');
+	if (opener.window.document.getElementById('node-id-' + id)) {
+		opener.$('#node_id_' + id).load('/request/node?id=' + id + ' #node-id-' + id + ' > *', function() {
+			opener.refreshAddContent('#node-id-' + id + ' div.onxshop-layout-container');
 		});
 	} else {
 		refreshOpener(path, id);
@@ -61,13 +61,13 @@ function showAdvancedSettings(source) {
 	var span = $(source).find('span');
 	var label = span.text();
 	if (label.indexOf("Show") >= 0) {
-		$('div.pageContent .advanced').slideDown(600);
+		$('div.page-content .advanced').slideDown(600);
 		span.html('Hide Advanced Settings');
-		if (window.localStorage) localStorage.setItem('showAdvancedSettings', 'true');
+		if (window.localStorage) localStorage.setItem('show-advanced-settings', 'true');
 	} else {
-		$('div.pageContent .advanced').slideUp(600);
+		$('div.page-content .advanced').slideUp(600);
 		span.html('Show Advanced Settings');
-		if (window.localStorage) localStorage.setItem('showAdvancedSettings', 'false');
+		if (window.localStorage) localStorage.setItem('show-advanced-settings', 'false');
 	}
 	return false;
 }
@@ -79,13 +79,13 @@ function showAdvancedSettings(source) {
 function initAdvancedSettingsButton() {
 
 	if (window.localStorage) {
-		if (localStorage.getItem("showAdvancedSettings") == 'true') {
-			$('div.pageContent .advanced').show();
-			$("a.showAdvancedSettings span").html('Hide Advanced Settings');
+		if (localStorage.getItem("show-advanced-settings") == 'true') {
+			$('div.page-content .advanced').show();
+			$("a.show-advanced-settings span").html('Hide Advanced Settings');
 		}
 	}
 
-	$("a.showAdvancedSettings").click(function(e) {
+	$("a.show-advanced-settings").click(function(e) {
 		showAdvancedSettings(this);
 		e.preventDefault();
 		return false;
@@ -104,11 +104,11 @@ $(function() {
 	 * mark disabled options
 	 */
 	 
-	$('select option.disabled, select option.publish_0').append(' (not public)');
+	$('select option.disabled, select option.publish-0').append(' (not public)');
 
-	$("#menuBackOffice a, #menuEditingMode a, #menuActions a.logout").mousedown(function(e) { 
+	$("#menu-back-office a, #menu-editing-mode a, #menu-actions a.logout").mousedown(function(e) { 
 		if (!e.altKey && !e.ctrlKey && !e.shiftKey && !e.metaKey && e.which == 1) {
-			var body = $("#onxshop_cms_content");
+			var body = $("#onxshop-cms-content");
 			body.fadeOut(500, function() {
 				body.html('<img src="/share/images/ajax-indicator/indicator_facebook.gif" alt="Loading..." style="position: fixed; width: 16px; height: 11px; top: 50%; left: 50%; margin: -5px 0 0 -8px;"/>');
 				body.fadeIn(300);

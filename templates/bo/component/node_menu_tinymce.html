@@ -13,7 +13,7 @@ function chooseLink(href) {
 }
 
 $(document).ready(function(){
-	$('#tree_select .simpleTree').simpleTree({
+	$('#tree-select .simple-tree').simpleTree({
 		drag: false,
 		autoclose: true,
 		afterClick:function(node){
@@ -37,20 +37,20 @@ $(document).ready(function(){
 });
 </script>
 
-<div id="tree_select">
-	<ul class="simpleTree">
+<div id="tree-select">
+	<ul class="simple-tree">
 		<li class="root"><span><a href="#0"><span>Root</span></a></span>
 			
 			<!-- BEGIN: group -->
 			<ul>
 			<!-- BEGIN: item -->
-			<li class='{ITEM.type} {ITEM.css_class} node_id_{ITEM.id}'>
+			<li class='{ITEM.type} {ITEM.css_class} node-id-{ITEM.id}'>
 				
 				<!-- BEGIN:link -->
-				<span><a href="#{ITEM.id}" title="{ITEM.title|htmlspecialchars}" class="{ITEM.css_class} node_id_{ITEM.id}"><span>{ITEM.name|htmlspecialchars}</span><!-- BEGIN: teaser --><br /><span class="teaser">{ITEM.teaser|strip_tags|htmlspecialchars}</span><!-- END: teaser --></a></span>
+				<span><a href="#{ITEM.id}" title="{ITEM.title|htmlspecialchars}" class="{ITEM.css_class} node-id-{ITEM.id}"><span>{ITEM.name|htmlspecialchars}</span><!-- BEGIN: teaser --><br /><span class="teaser">{ITEM.teaser|strip_tags|htmlspecialchars}</span><!-- END: teaser --></a></span>
 				<!-- END:link -->
 				<!-- BEGIN:nolink -->
-				<span><a href="#{ITEM.id}" class="{ITEM.css_class} node_id_{ITEM.id}"><span>{ITEM.name|htmlspecialchars}</span></a></span>
+				<span><a href="#{ITEM.id}" class="{ITEM.css_class} node-id-{ITEM.id}"><span>{ITEM.name|htmlspecialchars}</span></a></span>
 				<!-- END:nolink -->
 				
 				{ITEM.subcontent}

@@ -4,12 +4,12 @@
 
 <script type="text/javascript">  
 	$(document).ready(function(){  
-		$("#profile_edit").validate();  
+		$("#profile-edit").validate();  
 	});  
 </script>
 
 
-<div class="edit_profile">
+<div class="profile-edit">
 
 	<div class="page-header">
 		<div class="page-header-wrapper">
@@ -18,20 +18,20 @@
 	</div>
 
 	<!-- BEGIN: form -->
-	<form action="{URI_SAFE|htmlspecialchars}" method="post" id="edit_profile">
+	<form action="{URI_SAFE|htmlspecialchars}" method="post" id="profile-edit">
 
 		<fieldset>
-			<div class="row title_before">
-				<span class="label"><label for="client-customer-title_before">{I18N_R_TITLE}</label></span>
-				<span class="field"><input class="text short" type="text" id="client-customer-title_before" name="client[customer][title_before]" value="{CLIENT.customer.title_before|htmlspecialchars}" title="Your title, ie Ms, Mr, Miss, Dr" /></span>
+			<div class="row title-before">
+				<span class="label"><label for="client-customer-title-before">{I18N_R_TITLE}</label></span>
+				<span class="field"><input class="text short" type="text" id="client-customer-title-before" name="client[customer][title_before]" value="{CLIENT.customer.title_before|htmlspecialchars}" title="Your title, ie Ms, Mr, Miss, Dr" /></span>
 			</div>
-			<div class="row first_name">
-				<span class="label"><label for="client-customer-first_name"><span class="mandatory-mark">*</span> {I18N_R_FIRST_NAME}</label></span>
-				<span class="field"><input class="required text" type="text" id="client-customer-first_name" name="client[customer][first_name]" value="{CLIENT.customer.first_name|htmlspecialchars}" title="Please type here your first name" /></span>
+			<div class="row first-name">
+				<span class="label"><label for="client-customer-first-name"><span class="mandatory-mark">*</span> {I18N_R_FIRST_NAME}</label></span>
+				<span class="field"><input class="required text" type="text" id="client-customer-first-name" name="client[customer][first_name]" value="{CLIENT.customer.first_name|htmlspecialchars}" title="Please type here your first name" /></span>
 			</div>
-			<div class="row last_name">
-				<span class="label"><label for="client-customer-last_name"><span class="mandatory-mark">*</span> {I18N_R_LAST_NAME}</label></span>
-				<span class="field"><input class="required text" type="text" id="client-customer-last_name" name="client[customer][last_name]" value="{CLIENT.customer.last_name|htmlspecialchars}" title="Your family name" /></span>
+			<div class="row last-name">
+				<span class="label"><label for="client-customer-last-name"><span class="mandatory-mark">*</span> {I18N_R_LAST_NAME}</label></span>
+				<span class="field"><input class="required text" type="text" id="client-customer-last-name" name="client[customer][last_name]" value="{CLIENT.customer.last_name|htmlspecialchars}" title="Your family name" /></span>
 			</div>
 			<div class="row email">
 				<span class="label"><label for="client-customer-email"><span class="mandatory-mark">*</span> {I18N_R_EMAIL}</label></span>
@@ -41,9 +41,9 @@
 				<span class="label"><label for="client-customer-telephone">{I18N_R_TELEPHONE}</label></span>
 				<span class="field"><input class="text" type="text" id="client-customer-telephone" name="client[customer][telephone]" value="{CLIENT.customer.telephone|htmlspecialchars}" title="Contact telephone number"/></span>
 			</div>
-			<div class="row password_new">
-				<span class="label"><label for="client-customer-password_new">{I18N_CHANGE_PASSWORD}</label></span>
-				<span class="field"><!-- input type is set to text to prevent browser autofill --><input class="text" type="text" id="client-customer-password_new" name="password_new" value="" title="Set new password" /></span>
+			<div class="row password-new">
+				<span class="label"><label for="client-customer-password-new">{I18N_CHANGE_PASSWORD}</label></span>
+				<span class="field"><!-- input type is set to text to prevent browser autofill --><input class="text" type="text" id="client-customer-password-new" name="password_new" value="" title="Set new password" /></span>
 			</div>
 		</fieldset>
 

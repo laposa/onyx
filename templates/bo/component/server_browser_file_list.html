@@ -144,7 +144,7 @@ this component would be good to split into upload and file list
 
 	function allFilesUploaded() {
 
-		makeAjaxRequest("#server-browser-file_list", "/request/bo/component/server_browser_file_list~open={GET.open}:type={GET.type}:relation={GET.relation}:node_id={GET.node_id}~");
+		makeAjaxRequest("#server-browser-file-list", "/request/bo/component/server_browser_file_list~open={GET.open}:type={GET.type}:relation={GET.relation}:node_id={GET.node_id}~");
 		growlMessage("Uploaded completed.");
 
 	}

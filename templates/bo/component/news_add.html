@@ -2,18 +2,18 @@
 <script type="text/javascript"> 
 $(document).ready(function() { 
 	var options = { 
-		target:        '#news_add',
+		target:        '#news-add',
 		success:       function() {
-			makeAjaxRequest('#news_list', '/request/bo/component/news_list~blog_node_id={GET.blog_node_id}~');
+			makeAjaxRequest('#news-list', '/request/bo/component/news_list~blog_node_id={GET.blog_node_id}~');
 			$('#dialog').dialog( "close").empty();;
 		}
 	}; 
-	$('#news_add').ajaxForm(options); 
+	$('#news-add').ajaxForm(options); 
 });
 </script> 
 
-<div class="node_add">
-	<form method="post" action="{URI|htmlspecialchars}" id="news_add">
+<div class="node-add">
+	<form method="post" action="{URI|htmlspecialchars}" id="news-add">
 		{MESSAGES}
 		<fieldset>
 			<legend>Add a new article to {NEWS_LIST.title|htmlspecialchars}</legend>
@@ -22,7 +22,7 @@ $(document).ready(function() {
 				<span class="field"><input class="text title" type="text" name="node[title]" value="{NODE.title}" /></span>
 			</div>
 			<div class="row">
-				<span class="label"><label id="layout_icon" class="onxshop_edit_{ACTIVE}">&nbsp;</label></span>
+				<span class="label"><label id="layout-icon" class="onxshop-edit-{ACTIVE}">&nbsp;</label></span>
 				<span class="field"><button type="submit" name="save" value="save"><span>Add {GET.node_group}</span></button></span>
 			</div>
 		</fieldset>

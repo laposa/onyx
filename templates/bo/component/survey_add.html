@@ -1,7 +1,7 @@
 <!-- BEGIN: content -->
 
 {MESSAGES}
-<div class="survey_edit">
+<div class="survey-edit">
 
 	<script type="text/javascript">
 	
@@ -9,12 +9,12 @@
 		
 		function initSurveyEditForm() {
 	
-		    $('#survey_edit_form').ajaxForm({ 
-				target: '#sub_content',
-				beforeSubmit: function() {return $("#survey_edit_form").valid()},
+		    $('#survey-edit-form').ajaxForm({ 
+				target: '#sub-content',
+				beforeSubmit: function() {return $("#survey-edit-form").valid()},
 				success: function(responseText, statusText) {
-					popupMessage("#sub_content div.onxshop-messages");
-					makeAjaxRequest('#sub_content', '/request/bo/component/survey_list');
+					popupMessage("#sub-content div.onxshop-messages");
+					makeAjaxRequest('#sub-content', '/request/bo/component/survey_list');
 				}
 			});
 		}
@@ -24,7 +24,7 @@
 	
 	</script>
 	
-	<form method="post" action="{URI|htmlspecialchars}" id="survey_edit_form">
+	<form method="post" action="{URI|htmlspecialchars}" id="survey-edit-form">
 
 		<fieldset class="single">
 			<div class="row title">

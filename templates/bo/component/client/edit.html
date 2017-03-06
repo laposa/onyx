@@ -4,14 +4,14 @@
 
 <script type="text/javascript">  
 	$(document).ready(function(){  
-		$("#client_customer_edit").validate();  
+		$("#client-customer-edit").validate();  
 	});  
 </script>
 
 
-<div class="client_edit">
+<div class="client-edit">
 
-	<form action="{URI_SAFE|htmlspecialchars}" method="post" id="client_customer_edit" autocomplete="false">
+	<form action="{URI_SAFE|htmlspecialchars}" method="post" id="client-customer-edit" autocomplete="false">
 
 		<div class="two-column-layout layout fibonacci-1-1">
 			<div class="layout-wrapper">
@@ -22,32 +22,32 @@
 							<div class="layout-column-wrapper">
 
 								<fieldset>
-									<div class="row title_before">
-										<span class="label"><label for="client-customer-title_before">{I18N_R_TITLE}</label></span>
-										<span class="field"><input class="text short" type="text" id="client-customer-title_before" name="client[customer][title_before]" value="{CLIENT.customer.title_before|htmlspecialchars}" title="Your title, ie Ms, Mr, Miss, Dr" /></span>
+									<div class="row title-before">
+										<span class="label"><label for="client-customer-title-before">{I18N_R_TITLE}</label></span>
+										<span class="field"><input class="text short" type="text" id="client-customer-title-before" name="client[customer][title_before]" value="{CLIENT.customer.title_before|htmlspecialchars}" title="Your title, ie Ms, Mr, Miss, Dr" /></span>
 									</div>
-									<div class="row first_name">
-										<span class="label"><label for="client-customer-first_name"><span class="mandatory-mark">*</span> {I18N_R_FIRST_NAME}</label></span>
-										<span class="field"><input class="required text" type="text" id="client-customer-first_name" name="client[customer][first_name]" value="{CLIENT.customer.first_name|htmlspecialchars}" title="Please type here your first name" /></span>
+									<div class="row first-name">
+										<span class="label"><label for="client-customer-first-name"><span class="mandatory-mark">*</span> {I18N_R_FIRST_NAME}</label></span>
+										<span class="field"><input class="required text" type="text" id="client-customer-first-name" name="client[customer][first_name]" value="{CLIENT.customer.first_name|htmlspecialchars}" title="Please type here your first name" /></span>
 									</div>
-									<div class="row last_name">
-										<span class="label"><label for="client-customer-last_name"><span class="mandatory-mark">*</span> {I18N_R_LAST_NAME}</label></span>
-										<span class="field"><input class="required text" type="text" id="client-customer-last_name" name="client[customer][last_name]" value="{CLIENT.customer.last_name|htmlspecialchars}" title="Your family name" /></span>
+									<div class="row last-name">
+										<span class="label"><label for="client-customer-last-name"><span class="mandatory-mark">*</span> {I18N_R_LAST_NAME}</label></span>
+										<span class="field"><input class="required text" type="text" id="client-customer-last-name" name="client[customer][last_name]" value="{CLIENT.customer.last_name|htmlspecialchars}" title="Your family name" /></span>
 									</div>
 									<div class="row email">
 										<span class="label"><label for="client-customer-email"><span class="mandatory-mark">*</span> {I18N_R_EMAIL}</label></span>
-										<span class="field"><input class="required text" type="text" id="client-customer-email" name="client[customer][email]" value="{CLIENT.customer.email}" title="Your valid email address" /></span>
+										<span class="field"><input class="required text" type="email" id="client-customer-email" name="client[customer][email]" value="{CLIENT.customer.email}" title="Your valid email address" /></span>
 									</div>
 									<div class="row telephone">
 										<span class="label"><label for="client-customer-telephone">{I18N_R_TELEPHONE}</label></span>
 										<span class="field"><input class="text" type="text" id="client-customer-telephone" name="client[customer][telephone]" autocomplete="new-telephone" value="{CLIENT.customer.telephone|htmlspecialchars}" title="Contact telephone number"/></span>
 									</div>
 									
-									<p><a href="#row-password_new" onclick="$('#row-password_new').toggle(); return false;">Do you need to change the password?</a></p>
-									<div class="row password_new" id="row-password_new" style="display: none;"> <!-- don't show to prevent browser autofill -->
+									<p><a href="#row-password-new" onclick="$('#row-password-new').toggle(); return false;">Do you need to change the password?</a></p>
+									<div class="row password-new" id="row-password-new" style="display: none;"> <!-- don't show to prevent browser autofill -->
 										<p>Please rememebr you can send the user link to <a href="/page/9" target="_blank">password reset page</a> where they can change the passsword on their own. Alternatively change the password using the following field.</p>
-										<span class="label"><label for="client-customer-password_new">{I18N_CHANGE_PASSWORD}</label></span>
-										<span class="field"><input class="text" type="password" id="client-customer-password_new" name="password_new" autocomplete="new-password" value="" title="Set customer's new password"  /></span>
+										<span class="label"><label for="client-customer-password-new">{I18N_CHANGE_PASSWORD}</label></span>
+										<span class="field"><input class="text" type="password" id="client-customer-password-new" name="password_new" autocomplete="new-password" value="" title="Set customer's new password"  /></span>
 									</div>
 
 									<!-- BEGIN: status -->
@@ -75,8 +75,8 @@
 											<span class="label"><label>Back Office Access Role</label></span>
 											<span class="field">
 												<!-- BEGIN: item -->
-												<input type="checkbox" id="role_ids_{ITEM.id}" name="role_ids[]" value="{ITEM.id}" {CHECKED}/>
-												<label for="role_ids_{ITEM.id}">{ITEM.name|htmlspecialchars}</label>
+												<input type="checkbox" id="role-ids-{ITEM.id}" name="role_ids[]" value="{ITEM.id}" {CHECKED}/>
+												<label for="role-ids-{ITEM.id}">{ITEM.name|htmlspecialchars}</label>
 												<br/>
 												<!-- END: item -->
 											</span>
@@ -86,21 +86,21 @@
 								</fieldset>
 
 								<fieldset>
-									<div class="row facebook_id">
-										<span class="label"><label for="client-customer-facebook_id">Facebook Id</label></span>
-										<span class="field"><input class="text" type="text" id="client-customer-facebook_id" name="client[customer][facebook_id]" value="{CLIENT.customer.facebook_id}" /></span>
+									<div class="row facebook-id">
+										<span class="label"><label for="client-customer-facebook-id">Facebook Id</label></span>
+										<span class="field"><input class="text" type="text" id="client-customer-facebook-id" name="client[customer][facebook_id]" value="{CLIENT.customer.facebook_id}" /></span>
 									</div>
-									<div class="row twitter_id">
-										<span class="label"><label for="client-customer-twitter_id">Twitter Id</label></span>
-										<span class="field"><input class="text" type="text" id="client-customer-twitter_id" name="client[customer][twitter_id]" value="{CLIENT.customer.twitter_id}" /></span>
+									<div class="row twitter-id">
+										<span class="label"><label for="client-customer-twitter-id">Twitter Id</label></span>
+										<span class="field"><input class="text" type="text" id="client-customer-twitter-id" name="client[customer][twitter_id]" value="{CLIENT.customer.twitter_id}" /></span>
 									</div>
-									<div class="row google_id">
-										<span class="label"><label for="client-customer-google_id">Google Id</label></span>
-										<span class="field"><input class="text" type="text" id="client-customer-google_id" name="client[customer][google_id]" value="{CLIENT.customer.google_id}" /></span>
+									<div class="row google-id">
+										<span class="label"><label for="client-customer-google-id">Google Id</label></span>
+										<span class="field"><input class="text" type="text" id="client-customer-google-id" name="client[customer][google_id]" value="{CLIENT.customer.google_id}" /></span>
 									</div>
-									<div class="row profile_image_url">
-										<span class="label"><label for="client-customer-profile_image_url">Profile Image URL</label></span>
-										<span class="field"><input class="text" type="text" id="client-customer-profile_image_url" name="client[customer][profile_image_url]" value="{CLIENT.customer.profile_image_url}" /></span>
+									<div class="row profile-image-url">
+										<span class="label"><label for="client-customer-profile-image-url">Profile Image URL</label></span>
+										<span class="field"><input class="text" type="text" id="client-customer-profile-image-url" name="client[customer][profile_image_url]" value="{CLIENT.customer.profile_image_url}" /></span>
 									</div>
 									<div class="row birthday">
 										<span class="label"><label for="client-customer-birthday">Birthday</label></span>
@@ -128,8 +128,8 @@
 											<span class="label"><label>Customer Group</label></span>
 											<span class="field">
 												<!-- BEGIN: item -->
-												<input type="checkbox" id="group_ids_{ITEM.id}" name="group_ids[]" value="{ITEM.id}" {CHECKED}/>
-												<label for="group_ids_{ITEM.id}">{ITEM.name|htmlspecialchars}</label>
+												<input type="checkbox" id="group-ids-{ITEM.id}" name="group_ids[]" value="{ITEM.id}" {CHECKED}/>
+												<label for="group-ids-{ITEM.id}">{ITEM.name|htmlspecialchars}</label>
 												<br/>
 												<!-- END: item -->
 											</span>
@@ -138,23 +138,23 @@
 								</fieldset>
 
 								<fieldset>
-									<div class="row company_name">
+									<div class="row company-name">
 										<span class="label"><label for="client-company-name">{I18N_R_COMPANY_NAME}</label></span>
 										<span class="field"><input class="text" type="text" id="client-company-name" name="client[company][name]" value="{CLIENT.company.name|htmlspecialchars}" title="If you register as a company, please enter here your company name" /></span>
 									</div>
-									<div class="row company_vat">
-										<span class="label"><label for="client-company-vat_no">{I18N_R_VAT_NO}</label></span>
-										<span class="field"><input class="text" type="text" id="client-company-vat_no" name="client[company][vat_no]" value="{CLIENT.company.vat_no|htmlspecialchars}" title="Please enter your company VAT number" /></span>
+									<div class="row company-vat">
+										<span class="label"><label for="client-company-vat-no">{I18N_R_VAT_NO}</label></span>
+										<span class="field"><input class="text" type="text" id="client-company-vat-no" name="client[company][vat_no]" value="{CLIENT.company.vat_no|htmlspecialchars}" title="Please enter your company VAT number" /></span>
 									</div>
-									<div class="row company_web">
+									<div class="row company-web">
 										<span class="label"><label for="client-company-www">Web</label></span>
 										<span class="field"><input class="text" type="text" id="client-company-www" name="client[company][www]" value="{CLIENT.company.www|htmlspecialchars}" /></span>
 									</div>
-									<div class="row company_tel">
+									<div class="row company-tel">
 										<span class="label"><label for="client-company-telephone">Telephone</label></span>
 										<span class="field"><input class="text" type="text" id="client-company-telephone" name="client[company][telephone]" value="{CLIENT.company.telephone|htmlspecialchars}" /></span>
 									</div>
-									<div class="row company_fax">
+									<div class="row company-fax">
 										<span class="label"><label for="client-company-fax">Fax</label></span>
 										<span class="field"><input class="text" type="text" id="client-company-fax" name="client[company][fax]" value="{CLIENT.company.fax|htmlspecialchars}" /></span>
 									</div>
@@ -164,10 +164,10 @@
 
 								<fieldset>
 									<!-- BEGIN: account_type -->
-									<div class="row account_type">
-										<span class="label" for="client-customer-account_type"><label>Account Type</label></span>
+									<div class="row account-type">
+										<span class="label" for="client-customer-account-type"><label>Account Type</label></span>
 										<span class="field">
-											<select id="client-customer-account_type" name="client[customer][account_type]" >
+											<select id="client-customer-account-type" name="client[customer][account_type]" >
 												<option value="0" {SELECTED_account_type_0}>normal account</option>
 												<option value="1" {SELECTED_account_type_1}>requested trade</option>
 												<option value="2" {SELECTED_account_type_2}>approved trade</option>
@@ -176,10 +176,10 @@
 									</div>
 									<!-- END: account_type -->
 									<div class="row checbox newsletter">
-										<span class="field"><input type="checkbox" class="checkbox" id="client_customer_newsletter_id" name="client[customer][newsletter]" value="1" {CLIENT.customer.newsletter} /> <label for="client_customer_newsletter_id">{I18N_R_NEWSLETTER}</label></span>
+										<span class="field"><input type="checkbox" class="checkbox" id="client-customer-newsletter-id" name="client[customer][newsletter]" value="1" {CLIENT.customer.newsletter} /> <label for="client-customer-newsletter-id">{I18N_R_NEWSLETTER}</label></span>
 									</div>
 									<div class="row currency">
-										<span class="label"><label for="client_customer_currency_code_id">{I18N_R_CURRENCY}</label></span>
+										<span class="label"><label for="client-customer-currency-code-id">{I18N_R_CURRENCY}</label></span>
 										<span class="field">{ONXSHOP_REQUEST_2 #component/ecommerce/currency_switcher_inline}</span>
 									</div>
 								</fieldset>
@@ -212,12 +212,12 @@
 			</div>
 		</div>
 
-		<p class="extended_toolbar">
+		<p class="extended-toolbar">
 			<a class="button" href="/backoffice/advanced/logs?&amp;filter[customer_id]={GET.id}&amp;filter[archive]=1"><span>View Sessions</span></a>
 			<a class="button" href="/page/{NODE_CONF.id_map-login}?client[email]={CLIENT.customer.email}"><span>Log In</span></a>
 			<a class="button" title="Export customer's orders to CSV file" href="/request/bo/export/csv_orders?customer_id={GET.customer_id}"><span>Export Orders</span></a>
 			<a class="button" title="Export customer's orders including purchased products (unpaid orders are not included) to CSV file" href="/request/bo/export/csv_orders?inlude_products=1&amp;customer_id={GET.customer_id}"><span>Export Purchased Products</span></a>
-			<a class="button showAdvancedSettings" href="#"><span>Show Advanced Settings</span></a>
+			<a class="button show-advanced-settings" href="#"><span>Show Advanced Settings</span></a>
 		</p>
 
 

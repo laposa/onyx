@@ -2,12 +2,12 @@
 <!-- BEGIN: content -->
 <script type="text/javascript">  
 $(function(){  
-	$("#recipe_add_form").validate();
+	$("#recipe-add-form").validate();
 });
 </script>
 {MESSAGES}
-<div class="recipe_add">
-	<form method="post" action="{URI|htmlspecialchars}" id="recipe_add_form">
+<div class="recipe-add">
+	<form method="post" action="{URI|htmlspecialchars}" id="recipe-add-form">
 		<fieldset>
 			<div class="row title">
 				<span class="label"><label for="recipe-title">Recipe Title</label></span>
@@ -15,11 +15,11 @@ $(function(){
 			</div>
 		</fieldset>
 
-		<fieldset class="recipe_in_node">
+		<fieldset class="recipe-in-node">
 		
 			<p>Recipe page will be created, please select a place for your recipe:</p>
 
-			<input id="recipe-page_node_id" type="hidden" name="recipe[page_node_id]" value="{RECIPE.page_node_id}"/>
+			<input id="recipe-page-node-id" type="hidden" name="recipe[page_node_id]" value="{RECIPE.page_node_id}"/>
 
 			<div id="recipe_in_node_tree">
 			{ONXSHOP_REQUEST_page_node #component/menu_js~id=0:expand_all=1:publish=0~}
@@ -28,12 +28,12 @@ $(function(){
 			<script type="text/javascript">
 
 				$(function() {
-					$('#recipe_in_node_tree .simpleTree').simpleTree({
+					$('#recipe-in-node-tree .simple-tree').simpleTree({
 						drag: false,
 						autoclose: true,
 						afterClick:function(node){
 							var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
-							$("#recipe-page_node_id").val(node_id);
+							$("#recipe-page-node-id").val(node_id);
 						},
 						animate: true,
 						docToFolderConvert: true

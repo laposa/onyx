@@ -1,4 +1,5 @@
 /**
+ * Norbert @ Laposa Ltd, 2009/09/22
  * Chris Black 2017/01
  *
  */
@@ -23,8 +24,8 @@ header {width: 100%;}
 .logo a {text-decoration: none; font-size: 4em;}
 
 #search {float: right; clear: right; margin-bottom: 10px;}
-#search form {background: transparent; float: right; border-width: 0; margin: 0; padding: 0;}
-#search input { background: white url(/share/images/search-bg.png) no-repeat 3px center; padding-left: 20px; width: 165px; display: block;}
+#search form {background: transparent; border-width: 0; margin: 0; padding: 0;}
+#search input {width: 165px;}
 #search label {width: auto;}
 #search button {display: none;}
 

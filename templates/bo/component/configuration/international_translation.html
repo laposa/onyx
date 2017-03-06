@@ -1,6 +1,6 @@
 <!-- BEGIN: title -->International - Translations<!-- END: title -->
 <!-- BEGIN: content -->
-<!-- BEGIN: messages --><div class="onxshop-messages fix">{MESSAGES}</div><!-- END: messages -->
+{MESSAGES}
 <script type="text/javascript">
 
 	function initInPlaceEdit(element) {
@@ -11,12 +11,12 @@
 			select_options: "en_GB.UTF-8,cs_CZ.UTF-8,he_IL.UTF-8,ja_JP.UTF-8,ru_RU.UTF-8",
 			params: "csrf_token=" + getCSRFToken()
 		});
-		element.find("td.original_string span").editInPlace({
+		element.find("td.original-string span").editInPlace({
 			url: "/request/bo/component/single_record_update~model=international_translation:attribute=original_string~",
 			field_type: "textarea",
 			params: "csrf_token=" + getCSRFToken()
 		});
-		element.find("td.translated_string span").editInPlace({
+		element.find("td.translated-string span").editInPlace({
 			url: "/request/bo/component/single_record_update~model=international_translation:attribute=translated_string~",
 			field_type: "textarea",
 			params: "csrf_token=" + getCSRFToken()
@@ -27,7 +27,7 @@
 			select_options: ",separate_text,text_inside_tag,text_inside_span_tag,navigation_label,navigation_url,tag_attribute,link_label,link_url,heading_title",
 			params: "csrf_token=" + getCSRFToken()
 		});
-		element.find("td.node_id span").editInPlace({
+		element.find("td.node-id span").editInPlace({
 			url: "/request/bo/component/single_record_update~model=international_translation:attribute=node_id~",
 			field_type: "text",
 			params: "csrf_token=" + getCSRFToken()
@@ -45,7 +45,7 @@
 
 	function addItem() {
 
-		makeAjaxRequest('#component_configuration', "/request/bo/component/configuration.bo/component/configuration/international_translation?add=true");
+		makeAjaxRequest('#component-configuration', "/request/bo/component/configuration.bo/component/configuration/international_translation?add=true");
 	}
 
 </script>
@@ -80,10 +80,10 @@
 											<!-- BEGIN: item -->
 											<tr>
 												<td class="locale"><span id="international_translation-locale-id-{ITEM.id}">{ITEM.locale|htmlspecialchars}</span></td>
-												<td class="original_string"><span id="international_translation-original_string-id-{ITEM.id}">{ITEM.original_string|htmlspecialchars}</span></td>
-												<td class="translated_string"><span id="international_translation-translated_string-id-{ITEM.id}">{ITEM.translated_string|htmlspecialchars}</span></td>
+												<td class="original-string"><span id="international_translation-original_string-id-{ITEM.id}">{ITEM.original_string|htmlspecialchars}</span></td>
+												<td class="translated-string"><span id="international_translation-translated_string-id-{ITEM.id}">{ITEM.translated_string|htmlspecialchars}</span></td>
 												<td class="context"><span id="international_translation-context-id-{ITEM.id}">{ITEM.context|htmlspecialchars}</span></td>
-												<td class="node_id"><span id="international_translation-node_id-id-{ITEM.id}">{ITEM.node_id|htmlspecialchars}</span></td>
+												<td class="node-id"><span id="international_translation-node_id-id-{ITEM.id}">{ITEM.node_id|htmlspecialchars}</span></td>
 											</tr>
 											<!-- END: item -->
 										</tbody>

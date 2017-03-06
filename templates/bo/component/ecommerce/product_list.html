@@ -2,19 +2,19 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-	$("div.product_list td.variety_name a.title").editInPlace({
+	$("div.product-list td.variety-name a.title").editInPlace({
 		url: "/request/bo/component/single_record_update~model=ecommerce_product_variety:attribute=name~",
 		params: "csrf_token=" + getCSRFToken()
 	});
-	$("div.product_list td.price a.price").editInPlace({
+	$("div.product-list td.price a.price").editInPlace({
 		url: "/request/bo/component/single_record_update~model=ecommerce_price:attribute=value~",
 		params: "csrf_token=" + getCSRFToken()
 	});
-	$("div.product_list td.sku a").editInPlace({
+	$("div.product-list td.sku a").editInPlace({
 		url: "/request/bo/component/single_record_update~model=ecommerce_product_variety:attribute=sku~",
 		params: "csrf_token=" + getCSRFToken()
 	});
-	$("div.product_list td.stock a").editInPlace({
+	$("div.product-list td.stock a").editInPlace({
 		url: "",
 		params: "csrf_token=" + getCSRFToken(),
 		callback: function(idOfEditor, enteredText, orinalHTMLContent) {
@@ -34,10 +34,10 @@ $(document).ready(function() {
 		}
 	});
 
-	$('div.product_list a.add.product').live('click', function() {
+	$('div.product-list a.add.product').live('click', function() {
 		var child_id = $(this).attr('href').replace('#','');;
 		$('#dialog').addClass('ajax-load').load('/request/bo/component/ecommerce/product_add_quick', function() {$(this).removeClass('ajax-load');});
-		$('#dialog').dialog({width: 500, modal: true, position: {my: "center top", at: "centre top", of: "div.product_list"}, title: 'Add new product'});
+		$('#dialog').dialog({width: 500, modal: true, position: {my: "center top", at: "centre top", of: "div.product-list"}, title: 'Add new product'});
 		$('#dialog').dialog('open');
 		return false;
 	});
@@ -46,15 +46,15 @@ $(document).ready(function() {
 </script>
 
 {MESSAGES}
-<div class="product_list">
+<div class="product-list">
 	{ONXSHOP_REQUEST_unfinished #bo/component/ecommerce/unfinished_products}		
 	
 	<table>
 		<thead>
 			<tr>
 				<th class="image first"></th>
-				<th class="product_name"><a href="/backoffice/products?product-list-sort-by=product_name&amp;product-list-sort-direction=ASC">Product</a></th>
-				<th class="variety_name"><a href="/backoffice/products?product-list-sort-by=variety_name&amp;product-list-sort-direction=ASC">Variety</a></th>
+				<th class="product-name"><a href="/backoffice/products?product-list-sort-by=product_name&amp;product-list-sort-direction=ASC">Product</a></th>
+				<th class="variety-name"><a href="/backoffice/products?product-list-sort-by=variety_name&amp;product-list-sort-direction=ASC">Variety</a></th>
 				<th class="price"><a href="/backoffice/products?product-list-sort-by=price&amp;product-list-sort-direction=ASC">Price</a></th>
 				<th class="price"><a href="/backoffice/products?product-list-sort-by=price&amp;product-list-sort-direction=ASC">Price Net</a></th>
 				<th class="sku"><a href="/backoffice/products?product-list-sort-by=sku&amp;product-list-sort-direction=ASC">SKU</a></th>
@@ -75,11 +75,11 @@ $(document).ready(function() {
 					<td {ROWSPAN} class="image"><!--  BEGIN: image --><a href="/backoffice/products/{ITEM.product_id}/edit"><img src="/thumbnail/50x50/{ITEM.image_src}" alt="{ITEM.image_title|htmlspecialchars}" /></a><!--  END: image --></td>
 					<td {ROWSPAN} class="product_name"><span class="{ITEM.disabled}"><a href="/backoffice/products/{ITEM.product_id}/edit">{ITEM.product_name|htmlspecialchars}</a></span></td>
 				<!-- END: imagetitle -->
-				<td class="variety_name"><a class="title {ITEM.variety_publish}" id="ecommerce_product_variety-name-id-{ITEM.variety_id}" href="#{ITEM.variety_id}">{ITEM.variety_name|htmlspecialchars}</a></td>
+				<td class="variety-name"><a class="title {ITEM.variety_publish}" id="ecommerce-product-variety-name-id-{ITEM.variety_id}" href="#{ITEM.variety_id}">{ITEM.variety_name|htmlspecialchars}</a></td>
 				<td class="price money">{ITEM.price|money_format('%n', %s)}</td>
-				<td class="price money"><a class="price" id="ecommerce_price_net-value-product_variety_id-{ITEM.variety_id}" href="#{ITEM.variety_id}">{ITEM.price_net|money_format('%n', %s)}</a></td>
-				<td class="sku number"><a href="#{ITEM.variety_id}" id="ecommerce_product_variety-sku-id-{ITEM.variety_id}">{ITEM.sku}</a></td>
-				<td class="stock number"><a href="#{ITEM.variety_id}" id="ecommerce_product_variety-stock-id-{ITEM.variety_id}" data-original-stock="{ITEM.stock}" data-num-notifications="{ITEM.num_notifications}">{ITEM.stock}</a></td>
+				<td class="price money"><a class="price" id="ecommerce_price-net-value-product-variety-id-{ITEM.variety_id}" href="#{ITEM.variety_id}">{ITEM.price_net|money_format('%n', %s)}</a></td>
+				<td class="sku number"><a href="#{ITEM.variety_id}" id="ecommerce-product-variety-sku-id-{ITEM.variety_id}">{ITEM.sku}</a></td>
+				<td class="stock number"><a href="#{ITEM.variety_id}" id="ecommerce-product-variety-stock-id-{ITEM.variety_id}" data-original-stock="{ITEM.stock}" data-num-notifications="{ITEM.num_notifications}">{ITEM.stock}</a></td>
 			</tr>
 			<!-- END: item -->
 		</tbody>

@@ -1,6 +1,6 @@
 <!-- BEGIN: content -->
 {MESSAGES}
-<div class="scheduler_list">
+<div class="scheduler-list">
 <input type="hidden" name="scheduler_action" value="save"/>
 <table id="scheduler-list">
 	<thead>
@@ -67,7 +67,7 @@
 	 */
 	/*
 	function hookNodeEditPostUpdate() {
-		var block = $("#scheduler_list").parent();
+		var block = $("#scheduler-list").parent();
 		var url = "/request/bo/component/scheduler_list?node_id={GET.node_id}&node_type=common_node";
 		makeAjaxRequest(block, url);
 	}

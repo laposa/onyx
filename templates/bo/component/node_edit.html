@@ -2,20 +2,20 @@
 {MESSAGES}
 
 <!-- BEGIN: form -->
-<div class="node_edit node-{NODE.node_group}-{NODE.node_controller}">
+<div class="node-edit node-{NODE.node_group}-{NODE.node_controller}">
 {SUB_CONTENT}
 </div>
 
 <script type="text/javascript">
 	$(document).ready(function() { 
 		var options = { 
-			target:        '#node_properties_edit_result', 
+			target:        '#node-properties-edit-result', 
 			beforeSubmit:  preSubmit,
 			success:       showResponse, 
 			url:       '/request/bo/component/node_edit~id={GET.id}:orig={GET.orig}:popup=1:ajax=1~'
 		}; 
 
-    	$('#node_edit_{GET.id}').ajaxForm(options);
+    	$('#node-edit-{GET.id}').ajaxForm(options);
 	});
         
 // pre-submit callback 
@@ -35,7 +35,7 @@ function showRequestX(formData, jqForm, options) {
 // post-submit callback 
 function showResponse(responseText, statusText)  {
 	
-	popupMessage("#node_properties_edit_result div.onxshop-messages");
+	popupMessage("#node-properties-edit-result div.onxshop-messages");
 	
 	$('button.save').removeClass('saving');
 	
@@ -44,7 +44,7 @@ function showResponse(responseText, statusText)  {
 	}
 	
 	//reload whole form in case node_group has changed
-	if ($('#node-node_group').attr('value') != '{NODE.node_group}' || $('#node-node_controller').attr('value') != '{NODE.node_controller}') {
+	if ($('#node-node-group').attr('value') != '{NODE.node_group}' || $('#node-node_controller').attr('value') != '{NODE.node_controller}') {
 		window.location.reload();
 	}
 	
@@ -62,7 +62,7 @@ function showResponse(responseText, statusText)  {
 }
 </script>
 
-<div id="node_properties_edit_result" style="display: none;"></div>
+<div id="node-properties-edit-result" style="display: none;"></div>
 
 <!-- END: form -->
 

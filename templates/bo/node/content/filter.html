@@ -10,15 +10,15 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	$('fieldset.filter-form-edit div.component-node_id a.button').click(function() {
-		$('#href_select').addClass('ajax-load').load('/request/component/taxonomy_menu~expand_all=1:publish=1~', function() {
-			$('#href_select').removeClass('ajax-load');
-			$('#href_select .simpleTree').simpleTree({
+	$('fieldset.filter-form-edit div.component-node-id a.button').click(function() {
+		$('#href-select').addClass('ajax-load').load('/request/component/taxonomy_menu~expand_all=1:publish=1~', function() {
+			$('#href-select').removeClass('ajax-load');
+			$('#href-select .simple-tree').simpleTree({
 				drag: false,
 				autoclose: true,
 				afterClick:function(node){
 					var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
-					$('#component-node_id').attr('value', node_id);
+					$('#component-node-id').attr('value', node_id);
 				},
 				animate: true,
 				docToFolderConvert: true
@@ -31,11 +31,11 @@ $(document).ready(function(){
 
 <fieldset class="filter-form-edit">
 	<legend>Menu Edit</legend>
-	<div class="row component-node_id">
+	<div class="row component-node-id">
 		<span class="label"><label>*Menu Root:</label></span>
 		<a style="float: right" class="button" href="/backoffice/advanced/taxonomy" target="_blank"><span>manage categories</span></a>
-		<span class="field"><input type="text" name="node[component][node_id]" id="component-node_id" value="{NODE.component.node_id}" /> <a class="button" href="#"><span>browse categories</span></a></span>
-		<div id="href_select"></div>
+		<span class="field"><input type="text" name="node[component][node_id]" id="component-node-id" value="{NODE.component.node_id}" /> <a class="button" href="#"><span>browse categories</span></a></span>
+		<div id="href-select"></div>
 	</div>
 	<div class="row">
 		<span class="label"><label>*Menu Type:</label></span>

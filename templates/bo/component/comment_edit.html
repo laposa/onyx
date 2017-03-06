@@ -1,9 +1,9 @@
 <!-- BEGIN: content -->
 {MESSAGES}
 
-<div class="two-column-page page comment_edit">
+<div class="two-column-page page comment-edit">
 
-	<form method="post" action="{URI|htmlspecialchars}" id="comment_edit_form">
+	<form method="post" action="{URI|htmlspecialchars}" id="comment-edit-form">
 
 		<div class="content">
 			<div class="page-wrapper">
@@ -59,17 +59,17 @@
 									<div class="column-wrapper">
 
 										<fieldset>
-											<div class="row author_name">
-												<span class="label"><label for="comment-author_name">Author's Name</label></span>
-												<span class="field"><input class="text" id="comment-author_name" type="text" name="comment[author_name]" value="{COMMENT.author_name|htmlspecialchars}" /></span>
+											<div class="row author-name">
+												<span class="label"><label for="comment-author-name">Author's Name</label></span>
+												<span class="field"><input class="text" id="comment-author-name" type="text" name="comment[author_name]" value="{COMMENT.author_name|htmlspecialchars}" /></span>
 											</div>
-											<div class="row author_email">
-												<span class="label"><label for="comment-author_email">Author's Email</label></span>
-												<span class="field"><input class="text" id="comment-author_email" type="text" name="comment[author_email]" value="{COMMENT.author_email|htmlspecialchars}" /></span>
+											<div class="row author-email">
+												<span class="label"><label for="comment-author-email">Author's Email</label></span>
+												<span class="field"><input class="text" id="comment-author-email" type="text" name="comment[author_email]" value="{COMMENT.author_email|htmlspecialchars}" /></span>
 											</div>
-											<div class="row author_website">
-												<span class="label"><label for="comment-author_website">Author's Website</label></span>
-												<span class="field"><input class="text" id="comment-author_website" type="text" name="comment[author_website]" value="{COMMENT.author_website|htmlspecialchars}" /></span>
+											<div class="row author-website">
+												<span class="label"><label for="comment-author-website">Author's Website</label></span>
+												<span class="field"><input class="text" id="comment-author-website" type="text" name="comment[author_website]" value="{COMMENT.author_website|htmlspecialchars}" /></span>
 											</div>
 										</fieldset>
 
@@ -113,17 +113,17 @@
 	$(function() {
 		
 		var options = { 
-			target: '#comment_edit_form_result',
+			target: '#comment-edit-form-result',
 			success: function(responseText, statusText) {
-				popupMessage("#comment_edit_form_result div.onxshop-messages");
+				popupMessage("#comment-edit-form-result div.onxshop-messages");
 				makeAjaxRequest('#onxshop-backoffice-wrapper', '/request/bo/pages/comments');
 			}
 		}; 
 
-	    $('#comment_edit_form').ajaxForm(options); 
+	    $('#comment-edit-form').ajaxForm(options); 
 	});
 </script>
 
-<div id="comment_edit_form_result" style="display: none"></div>
+<div id="comment-edit-form-result" style="display: none"></div>
   
 <!-- END: content -->

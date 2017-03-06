@@ -1,7 +1,7 @@
 <!-- BEGIN: content -->
 <script type="text/javascript">
 $(document).ready(function(){
-	$('#node_parent_tree ul.simpleTree').simpleTree({
+	$('#node-parent-tree ul.simple-tree').simpleTree({
 		drag: false,
 		autoclose: true,
 		afterClick:function(node){
@@ -15,22 +15,22 @@ $(document).ready(function(){
 });
 </script>
 
-<div id="node_parent_tree">
+<div id="node-parent-tree">
 	<p style="padding-top: 20px;">Select target place from the menu bellow and Save after.</p>
 	
-	<ul class="simpleTree">
+	<ul class="simple-tree">
 		<li class="root"><span><a href="#" onclick="$('#node-parent').attr('value', 0); growlMessage('Parent set to node_id: 0'); return false;"><span>Root</span></a></span>
 			
 			<!-- BEGIN: group -->
 			<ul>
 			<!-- BEGIN: item -->
-			<li class='{ITEM.type} {ITEM.css_class} node_id_{ITEM.id}'>
+			<li class='{ITEM.type} {ITEM.css_class} node-id-{ITEM.id}'>
 				
 				<!-- BEGIN:link -->
-				<span><a href="#{ITEM.id}" title="{ITEM.title|htmlspecialchars} ID: {ITEM.id}, Priority: {ITEM.priority}, Type: {ITEM.node_group}, Layout: {ITEM.node_controller}" class="{ITEM.css_class} node_id_{ITEM.id}"><span>{ITEM.name|htmlspecialchars} ({ITEM.node_group}/{ITEM.node_controller})</span><!-- BEGIN: teaser --><br /><span class="teaser">{ITEM.teaser|strip_tags|htmlspecialchars}</span><!-- END: teaser --></a></span>
+				<span><a href="#{ITEM.id}" title="{ITEM.title|htmlspecialchars} ID: {ITEM.id}, Priority: {ITEM.priority}, Type: {ITEM.node_group}, Layout: {ITEM.node_controller}" class="{ITEM.css_class} node-id-{ITEM.id}"><span>{ITEM.name|htmlspecialchars} ({ITEM.node_group}/{ITEM.node_controller})</span><!-- BEGIN: teaser --><br /><span class="teaser">{ITEM.teaser|strip_tags|htmlspecialchars}</span><!-- END: teaser --></a></span>
 				<!-- END:link -->
 				<!-- BEGIN:nolink -->
-				<span><a href="#{ITEM.id}" title="{ITEM.title|htmlspecialchars} ID: {ITEM.id}, Priority: {ITEM.priority}, Type: {ITEM.node_group}, Layout: {ITEM.node_controller}" class="{ITEM.css_class} node_id_{ITEM.id}"><span>{ITEM.name|htmlspecialchars}</span></a></span>
+				<span><a href="#{ITEM.id}" title="{ITEM.title|htmlspecialchars} ID: {ITEM.id}, Priority: {ITEM.priority}, Type: {ITEM.node_group}, Layout: {ITEM.node_controller}" class="{ITEM.css_class} node-id-{ITEM.id}"><span>{ITEM.name|htmlspecialchars}</span></a></span>
 				<!-- END:nolink -->
 				
 				{ITEM.subcontent}

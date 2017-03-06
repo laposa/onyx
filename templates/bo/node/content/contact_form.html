@@ -9,9 +9,9 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$('fieldset.contact-form-edit div.href a.button').click(function() {
-		$('#href_select').addClass('ajax-load').load('/request/component/menu_js~id=0:expand_all=1:publish=0~', function() {
-			$('#href_select').removeClass('ajax-load');
-			$('#href_select .simpleTree').simpleTree({
+		$('#href-select').addClass('ajax-load').load('/request/component/menu_js~id=0:expand_all=1:publish=0~', function() {
+			$('#href-select').removeClass('ajax-load');
+			$('#href-select .simple-tree').simpleTree({
 				drag: false,
 				autoclose: true,
 				afterClick:function(node){
@@ -38,9 +38,9 @@ $(document).ready(function(){
 	<div class="row">
 		<span class="label"><label>* Form Template:</label></span>
 		<span class="field">
-			<select name="node[component][node_controller]" id="component-node_controller">
+			<select name="node[component][node_controller]" id="component-node-controller">
 				<!-- BEGIN: templateitem -->
-				<option class="onxshop_edit_{LAYOUT_TEMPLATE.name}" value="{LAYOUT_TEMPLATE.name}" {LAYOUT_TEMPLATE.selected}>{LAYOUT_TEMPLATE.title}</option>
+				<option class="onxshop-edit-{LAYOUT_TEMPLATE.name}" value="{LAYOUT_TEMPLATE.name}" {LAYOUT_TEMPLATE.selected}>{LAYOUT_TEMPLATE.title}</option>
 				<!-- END: templateitem -->
 			</select> ({DIRECTORY})
 		</span>
@@ -67,7 +67,7 @@ $(document).ready(function(){
 	<div class="row href">
 		<span class="label"><label>Where do you want to redirect client after submit?:</label></span>
 		<span class="field"><input type="text" name="node[component][href]" id="component-href" value="{NODE.component.href}" /> <a class="button" href="#"><span>browse server</span></a></span>
-		<div id="href_select"></div>
+		<div id="href-select"></div>
 	</div>
 </fieldset>
 

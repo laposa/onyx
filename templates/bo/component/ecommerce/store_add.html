@@ -2,12 +2,12 @@
 <!-- BEGIN: content -->
 <script type="text/javascript">  
 $(function(){  
-	$("#store_add_form").validate();
+	$("#store-add-form").validate();
 });
 </script>
 {MESSAGES}
-<div class="store_add">
-	<form method="post" action="{URI|htmlspecialchars}" id="store_add_form">
+<div class="store-add">
+	<form method="post" action="{URI|htmlspecialchars}" id="store-add-form">
 		<fieldset>
 			<div class="row title">
 				<span class="label"><label for="store-title">Store Title</label></span>
@@ -15,25 +15,25 @@ $(function(){
 			</div>
 		</fieldset>
 
-		<fieldset class="store_in_node">
+		<fieldset class="store-in-node">
 		
 			<p>Store page will be created, please select a place for your store:</p>
 
-			<input id="store-page_node_id" type="hidden" name="store[page_node_id]" value="{RECIPE.page_node_id}"/>
+			<input id="store-page-node-id" type="hidden" name="store[page_node_id]" value="{RECIPE.page_node_id}"/>
 
-			<div id="store_in_node_tree">
+			<div id="store-in-node-tree">
 			{ONXSHOP_REQUEST_page_node #component/menu_js~id=0:expand_all=1:publish=0~}
 			</div>
 
 			<script type="text/javascript">
 
 				$(function() {
-					$('#store_in_node_tree .simpleTree').simpleTree({
+					$('#store-in-node-tree .simple-tree').simpleTree({
 						drag: false,
 						autoclose: true,
 						afterClick:function(node){
 							var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
-							$("#store-page_node_id").val(node_id);
+							$("#store-page-node-id").val(node_id);
 						},
 						animate: true,
 						docToFolderConvert: true

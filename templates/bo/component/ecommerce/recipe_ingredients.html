@@ -37,7 +37,7 @@ $(function() {
 				'		of' +
 				'	</td>' +
 				'	<td>' +
-				'		<select id="product_dropdown__NEW__" class="product_dropdown" style="width: 200px;" name="ingredients[__NEW__][product_variety_id]">' +
+				'		<select id="product-dropdown__NEW__" class="product_dropdown" style="width: 200px;" name="ingredients[__NEW__][product_variety_id]">' +
 				'		</select>' +
 				'	</td>' +
 				'	<td>' +
@@ -50,14 +50,14 @@ $(function() {
 				'		<button style="float: none;" class="remove small" name="" onclick="$(this).parent().parent().remove(); return false"><span>Remove</span></button>' +
 				'	</td>' +
 				'</tr>';
-		$("#ingredientsTable").append(template.replace(/__NEW__/g, '__NEW__' + ingredientCounter));
-		updateDropdown($("#product_dropdown__NEW__" + ingredientCounter));
+		$("#ingredients-table").append(template.replace(/__NEW__/g, '__NEW__' + ingredientCounter));
+		updateDropdown($("#product-dropdown__NEW__" + ingredientCounter));
 		ingredientCounter++;
 		return false;
 	}
 
-	$("#ingredientAdd").click(addIngredient);
-	updateDropdown($("select.product_dropdown"));
+	$("#ingredient-add").click(addIngredient);
+	updateDropdown($("select.product-dropdown"));
 });
 
 </script>
@@ -66,8 +66,8 @@ $(function() {
 <fieldset>
 	<legend>Ingredients</legend>
 	{MESSAGES}
-	<div id="related_select">
-		<table id="ingredientsTable">
+	<div id="related-select">
+		<table id="ingredients-table">
 			<tr>
 				<th>Quantity</th>
 				<th>Unit</th>
@@ -93,7 +93,7 @@ $(function() {
 					of
 				</td>
 				<td>
-					<select class="product_dropdown" data-selected="{ITEM.product_variety_id}" style="width: 200px;" name="ingredients[{ITEM.id}][product_variety_id]">
+					<select class="product-dropdown" data-selected="{ITEM.product_variety_id}" style="width: 200px;" name="ingredients[{ITEM.id}][product_variety_id]">
 					</select>
 				</td>
 				<td>
@@ -110,7 +110,7 @@ $(function() {
 		</table>
 	</div>
 	
-	<p><a class="button add" id="ingredientAdd" href="#"><span>Add a New Ingredient</span></a></p>
+	<p><a class="button add" id="ingredient-add" href="#"><span>Add a New Ingredient</span></a></p>
 
 </fieldset>
 

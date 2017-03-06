@@ -1,24 +1,24 @@
 <!-- BEGIN: content -->
 <script type="text/javascript">
 $(document).ready(function(){
-	$('#rt_add_new a.button').live('click', function() {
+	$('#rt-add-new a.button').live('click', function() {
 	
-		$('#rt_add_new').addClass('ajax-load').load('/request/bo/component/taxonomy_menu~expand_all=1:publish=0~', function() {
+		$('#rt-add-new').addClass('ajax-load').load('/request/bo/component/taxonomy_menu~expand_all=1:publish=0~', function() {
 			
 			$(this).removeClass('ajax-load');
 			
-			$('#rt_add_new .simpleTree').simpleTree({
+			$('#rt-add-new .simple-tree').simpleTree({
 				drag: false,
 				autoclose: true,
 				afterClick:function(node){
 					var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
 					var title = $('a:first', node).text();
-					var template = $('#template_rt_select').html();
+					var template = $('#template-rt-select').html();
 					
 					var html_append = template;
 					html_append = html_append.replace('__ID__', node_id);
 					html_append = html_append.replace('__TITLE__', title);
-					$('#rt_select').append(html_append);
+					$('#rt-select').append(html_append);
 					
 				},
 				animate: true,
@@ -37,7 +37,7 @@ $(document).ready(function(){
 	<div class="row">
 		<p>Related to <a href="/backoffice/advanced/taxonomy" target="_blank"><span>categories</span></a></p>
 		{MESSAGES}
-		<div id="rt_select">
+		<div id="rt-select">
 			<!-- BEGIN:ptn -->
 			<div>
 				<input type="hidden" name="relation_taxonomy[]" value="{CURRENT.id}" />
@@ -47,11 +47,11 @@ $(document).ready(function(){
 			<!-- END:ptn -->
 		</div>
 		
-		<div id="rt_add_new">
+		<div id="rt-add-new">
 			<p><a class="button add" href="#"><span>Add Relation to a Category...</span></a></p>
 		</div>
 	
-		<div id="template_rt_select" style="display: none">
+		<div id="template-rt-select" style="display: none">
 			<div>
 				<input type="hidden" name="relation_taxonomy[]" value="__ID__" />
 				<button class="remove small" onclick="this.parentNode.parentNode.removeChild(this.parentNode)"><span>Remove</span></button>

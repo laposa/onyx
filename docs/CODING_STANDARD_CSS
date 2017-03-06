@@ -1,8 +1,9 @@
 CSS coding standard since Onxshop 1.8
 
-- IDs and classes can use only lowercase characters and dashes.
+- IDs and class names can use only lowercase characters and dashes.
 - multiple selectors are writen on separate lines
 - all properties and values for each selector are one line
+- IDs and class names should not be abbreviations or shortened words
 
 Example:
 

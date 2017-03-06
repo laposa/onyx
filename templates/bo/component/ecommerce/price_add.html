@@ -7,14 +7,14 @@
 		 * valide form
 		 */
 		 
-		$("#price_add_form_{GET.product_variety_id}").validate();
+		$("#price-add-form-{GET.product_variety_id}").validate();
 
 		/**
 		 * Calculate VAT if available
 		 */
 		var rate_select = $('select[name="product[variety][product_type_id]"]');
-		var no_vat_input = $("#price_without_vat");
-		var vat_input = $("#price_with_vat");
+		var no_vat_input = $("#price-without-vat");
+		var vat_input = $("#price-with-vat");
 
 		if (rate_select.length > 0) {
 			no_vat_input.change(updateVatPrice);
@@ -43,7 +43,7 @@
 
 	});
 	</script>
-	<form method="post" action="{URI|htmlspecialchars}" id="price_add_form_{GET.product_variety_id}">
+	<form method="post" action="{URI|htmlspecialchars}" id="price-add-form-{GET.product_variety_id}">
 		<fieldset class="single">
 			{MESSAGES}
 			<legend>Add a new price for Variety</legend>
@@ -65,13 +65,13 @@
 				<div class="column-one of-two">
 					<div class="row">
 						<span class="label"><label>Price Value excluding VAT</label></span>
-						<span class="field"><input id="price_without_vat" type="text" class="text half required number" name="price[value]" value="{PRICE.value}"/></span>
+						<span class="field"><input id="price-without-vat" type="text" class="text half required number" name="price[value]" value="{PRICE.value}"/></span>
 					</div>
 				</div>
 				<div class="column-two of-two">
 					<div class="row">
 						<span class="label"><label>Price Value including VAT</label></span>
-						<span class="field"><input id="price_with_vat" type="text" class="text half number" value=""/></span>
+						<span class="field"><input id="price-with-vat" type="text" class="text half number" value=""/></span>
 					</div>
 				</div>
 			</div>

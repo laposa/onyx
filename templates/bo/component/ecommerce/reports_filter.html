@@ -1,18 +1,18 @@
 <!-- BEGIN: content -->
 <script type="text/javascript">
 $(document).ready(function(){
-    $('#breakdown_from,#breakdown_to').datepicker({firstDay: 1, dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true});
+    $('#breakdown-from,#breakdown-to').datepicker({firstDay: 1, dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true});
 });
 </script>
 <form method="get" action="{URI|htmlspecialchars}">
 
 	<div class="row">
 		<span class="label"><label>From Date <small>(inclusive)</small></label></span>
-		<span class="field"><input type="text" class="text" name="reports-filter[from]" id="breakdown_from" value="{REPORTS_FILTER.from}" /></span>
+		<span class="field"><input type="text" class="text" name="reports-filter[from]" id="breakdown-from" value="{REPORTS_FILTER.from}" /></span>
 	</div>
 	<div class="row">
 		<span class="label"><label>To Date <small>(exclusive)</small></label></span>
-		<span class="field"><input type="text" class="text" name="reports-filter[to]" id="breakdown_to" value="{REPORTS_FILTER.to}" /></span>
+		<span class="field"><input type="text" class="text" name="reports-filter[to]" id="breakdown-to" value="{REPORTS_FILTER.to}" /></span>
 	</div>
 	<div class="row submit">
 		<span class="label"><label>&nbsp;</label></span>

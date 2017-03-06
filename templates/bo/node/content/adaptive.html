@@ -11,7 +11,7 @@
 <fieldset>
 	<div class="row">
 		<span class="label"><label>Content Adaption</label></span>
-		<span class="field"><select id="contentConditionSelect" name="node[component][condition]">
+		<span class="field"><select id="content-condition-select" name="node[component][condition]">
 			<optgroup label="Default">
 				<option value="always" {SELECT_condition_always}>Always displayed</option>
 			</optgroup>
@@ -28,7 +28,7 @@
 				<option value="customer_newsletter_not_subscribed" {SELECT_condition_customer_newsletter_not_subscribed}>Displayed only to customers without newletter subscription</option>
 			</optgroup>
 		</select>
-		<div id="conditionInfo" style="display: none;">
+		<div id="condition-info" style="display: none;">
 			<br/>
 			<div class="always">
 				<p>Nested components are displayed at all times.</p>
@@ -39,7 +39,7 @@
 			<div class="rotate">
 				<p>Only one of the nested components is displayed. The displayed component changes on page visit/refresh. The selection is made sequentially.</p>
 			</div>
-			<div class="customer_returning">
+			<div class="customer-returning">
 				<p>Nested components are displayed only to customers who:</p>
 				<ul>
 					<li>have an account and are currently logged in (and not necessarily made an order in the past),</li>
@@ -47,7 +47,7 @@
 					<li>and their account or the cookie is older than 24 hours.</li>
 				</ul>
 			</div>
-			<div class="customer_new">
+			<div class="customer-new">
 				<p>Nested components are displayed only to customers who:</p>
 				<ul>
 					<li>are not currently logged in (however, they could be returning customers, but their status cannot be verified),</li>
@@ -57,14 +57,14 @@
 				<p>
 				</p>
 			</div>
-			<div class="customer_newsletter_subscribed">
+			<div class="customer-newsletter-subscribed">
 				<p>Nested components are displayed only to customers who:</p>
 				<ul>
 					<li>have an account, are logged in and have subscribed to newsletter,</li>
 					<li>or have <code>newsletter_status</code> cookie stored in their browser.</li>
 				</ul>
 			</div>
-			<div class="customer_newsletter_not_subscribed">
+			<div class="customer-newsletter-not-subscribed">
 				<p>Nested components are displayed only to customers who:</p>
 				<ul>
 					<li>are not currently logged in (however, they could be subscribed to newsletter, but their status cannot be verified),</li>
@@ -80,13 +80,13 @@
 	$(function() {
 
 		function showConditionMessage() {
-			var val = $('#contentConditionSelect').val();
-			$("#conditionInfo").show();
-			$("#conditionInfo div").hide();
-			$("#conditionInfo div." + val).show();
+			var val = $('#content-condition-select').val();
+			$("#condition-info").show();
+			$("#condition-info div").hide();
+			$("#condition-info div." + val.replace('_', '-')).show();
 		}
 
-		$('#contentConditionSelect').change(showConditionMessage);
+		$('#content-condition-select').change(showConditionMessage);
 		showConditionMessage();
 
 	});

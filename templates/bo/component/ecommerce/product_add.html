@@ -2,12 +2,12 @@
 <!-- BEGIN: content -->
 <script type="text/javascript">  
 $(function(){  
-	$("#product_add_form").validate();
+	$("#product-add-form").validate();
 });
 </script>
 {MESSAGES}
-<div class="product_add">
-	<form method="post" action="{URI|htmlspecialchars}" id="product_add_form">
+<div class="product-add">
+	<form method="post" action="{URI|htmlspecialchars}" id="product-add-form">
 		<fieldset>
 			<legend>Base product info</legend>
 			<div class="row title">
@@ -16,9 +16,9 @@ $(function(){
 			</div>
 		</fieldset>
 		
-		<p><a href="#" onclick="$('#product_more_details').toggle(); return false">More details</a></p>
+		<p><a href="#" onclick="$('#product-more-details').toggle(); return false">More details</a></p>
 		
-		<div id="product_more_details" style="display: none">
+		<div id="product-more-details" style="display: none">
 			<fieldset>
 				<legend>More details</legend>
 				<div class="row rte">

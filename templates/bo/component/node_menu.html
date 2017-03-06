@@ -1,20 +1,20 @@
 <!-- BEGIN: content -->
 
-<div id="menupages_tree">
+<div id="menupages-tree">
 
-	<ul class="simpleTree">
-		<li class="root"><span><a href="#0" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/node_edit~id=0~', function(){appendHeader()}); $('#button_add_subpage').attr('data-node_id', 0); return false"><span>Nodes</span></a></span>
+	<ul class="simple-tree">
+		<li class="root"><span><a href="#0" onclick="makeAjaxRequest('#sub-content', '/request/bo/component/node_edit~id=0~', function(){appendHeader()}); $('#button-add-subpage').attr('data-node-id', 0); return false"><span>Nodes</span></a></span>
 			
 			<!-- BEGIN: group -->
 			<ul>
 			<!-- BEGIN: item -->
-			<li class="{ITEM.type} {ITEM.css_class} node_id_{ITEM.id}">
+			<li class="{ITEM.type} {ITEM.css_class} node-id-{ITEM.id}">
 				
 				<!-- BEGIN:link -->
-				<span><a href="#{ITEM.id}" title="{ITEM.title|htmlspecialchars} ID: {ITEM.id}, Priority: {ITEM.priority}, Type: {ITEM.node_group}, Controller: {ITEM.node_controller}" class="{ITEM.css_class} node_id_{ITEM.id}"><span>{ITEM.name|htmlspecialchars}</span><!-- BEGIN: teaser --><br /><span class="teaser">{ITEM.teaser|strip_tags|htmlspecialchars}</span><!-- END: teaser --></a></span>
+				<span><a href="#{ITEM.id}" title="{ITEM.title|htmlspecialchars} ID: {ITEM.id}, Priority: {ITEM.priority}, Type: {ITEM.node_group}, Controller: {ITEM.node_controller}" class="{ITEM.css_class} node-id-{ITEM.id}"><span>{ITEM.name|htmlspecialchars}</span><!-- BEGIN: teaser --><br /><span class="teaser">{ITEM.teaser|strip_tags|htmlspecialchars}</span><!-- END: teaser --></a></span>
 				<!-- END:link -->
 				<!-- BEGIN:nolink -->
-				<span><a href="#{ITEM.id}" title="{ITEM.title|htmlspecialchars} ID: {ITEM.id}, Priority: {ITEM.priority}, Type: {ITEM.node_group}, Controller: {ITEM.node_controller}" class="{ITEM.css_class} node_id_{ITEM.id}"><span>{ITEM.name|htmlspecialchars}</span></a></span>
+				<span><a href="#{ITEM.id}" title="{ITEM.title|htmlspecialchars} ID: {ITEM.id}, Priority: {ITEM.priority}, Type: {ITEM.node_group}, Controller: {ITEM.node_controller}" class="{ITEM.css_class} node-id-{ITEM.id}"><span>{ITEM.name|htmlspecialchars}</span></a></span>
 				<!-- END:nolink -->
 				
 				{ITEM.subcontent}

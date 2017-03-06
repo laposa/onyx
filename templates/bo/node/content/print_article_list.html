@@ -18,7 +18,7 @@ div.item-detail {
 	margin: 5px;
 	*/
 }
-#pa_list {
+#pa-list {
 	width: 100%;
 	height: 200px;
 	overflow: auto;
@@ -27,7 +27,7 @@ div.item-detail {
 	
 }
 
-#item_edit {
+#item-edit {
 	width: 100%;
 	height: 230px;
 	overflow: auto;
@@ -43,7 +43,7 @@ div.item-detail {
 function AddToNode(src, title) {
 	$('#file-src').attr('value', src);
 	$('#file-title').attr('value', title);
-	$('#add_to_node').css('display', 'block');
+	$('#add-to-node').css('display', 'block');
 	
 }
 </script>
@@ -51,10 +51,10 @@ function AddToNode(src, title) {
 <fieldset>
 <legend>Current Files</legend>
 <h5>Root/{GET.role}/{GET.node_id}</h5>
-<div id="pa_list">
+<div id="pa-list">
 	<!-- BEGIN: item -->
 	<div class="item-detail">
-	<a title="Click on this file to edit it's properties" href="#{FILE.id}" onclick="$('#edit_file').attr('value', '{FILE.id}'); document.forms[0].submit();" onmouseover="nOHint.show('FILE.extra-detail', this)">{FILE.title}</a> ({FILE.size})<br />
+	<a title="Click on this file to edit it's properties" href="#{FILE.id}" onclick="$('#edit-file').attr('value', '{FILE.id}'); document.forms[0].submit();" onmouseover="nOHint.show('FILE.extra-detail', this)">{FILE.title}</a> ({FILE.size})<br />
 	<!--{FILE.mime-type}<br />{FILE.type-detail}<br />
 	{FILE.modified}<br />
 	Priority: {FILE.priority} -->
@@ -69,13 +69,13 @@ function AddToNode(src, title) {
 </fieldset>
 
 <!-- BEGIN: file_upload -->
-<fieldset id="add_to_node" style="display: none;">
+<fieldset id="add-to-node" style="display: none;">
 <label>Priority:</label>
 <input class="text" style="width: 50px;" type="text" name="file[priority]" value="{FILE.priority}" /><br />
 <label>Short description*:</label>
 <input type="text" id="file-title" name="file[title]" value="{FILE.title}"/><br />
 <label>Type:</label>
-<select name="file[type]" id="file-type" onchange="manage('jtcm_detail')">
+<select name="file[type]" id="file-type" onchange="manage('jtcm-detail')">
 	<option value="article" {SELECTED_article}>Article</option>
 	<option value="abstract" {SELECTED_abstract}>Abstract</option>
 	<option value="review" {SELECTED_review}>Review</option>
@@ -90,7 +90,7 @@ function AddToNode(src, title) {
 <input type="text" id="file-date" name="file[date]" value="{FILE.date}"/><br />
 <label>Publisher:</label>
 <input type="text" name="file[other][publisher]" value="{FILE.other.publisher}"/><br />
-<div id="jtcm_detail" style="display: none">
+<div id="jtcm-detail" style="display: none">
 	<label>JTCM issue:</label>
 	<input type="text" name="file[other][jtcm_issue]" value="{FILE.other.jtcm_issue}"/><br />
 	<label>JTCM Page From:</label>
@@ -106,11 +106,11 @@ function AddToNode(src, title) {
 
 <!-- BEGIN: file_edit -->
 <div style="float: right; padding: 10px;">
-<a class="button" title="Unlink file" href="#" onclick="if (confirm('Do you really want to unlink {FILE.src}?')) {$('#delete_file').attr('value', '{FILE.id})'; $('#files_form').submit();} else this.value=''"><span>Unlink</span></a>
+<a class="button" title="Unlink file" href="#" onclick="if (confirm('Do you really want to unlink {FILE.src}?')) {$('#delete-file').attr('value', '{FILE.id})'; $('#files-form').submit();} else this.value=''"><span>Unlink</span></a>
 </div>
 <h1><a href="/download/{FILE.src}">{FILE.src}</a></h1>
 
-<div id="item_edit">
+<div id="item-edit">
 <fieldset>
 <div style="float: left;">	
 	<div style="float: left; margin-right: 20px;">
@@ -119,7 +119,7 @@ function AddToNode(src, title) {
 		<label>Short description*:</label>
 		<input type="text" id="file-title" name="file[title]" value="{FILE.title}"/><br />
 		<label>Type:</label>
-		<select name="file[type]" id="file-type" onchange="manage('jtcm_detail')">
+		<select name="file[type]" id="file-type" onchange="manage('jtcm-detail')">
 			<option value="article" {SELECTED_article}>Article</option>
 			<option value="abstract" {SELECTED_abstract}>Abstract</option>
 			<option value="review" {SELECTED_review}>Review</option>
@@ -143,7 +143,7 @@ function AddToNode(src, title) {
 		<input type="text" name="file[other][publisher]" value="{FILE.other.publisher}"/><br />
 	</div>
 	
-	<div id="jtcm_detail" style="display: none;">
+	<div id="jtcm-detail" style="display: none;">
 		<label>JTCM issue:</label>
 		<input type="text" name="file[other][jtcm_issue]" value="{FILE.other.jtcm_issue}"/><br />
 		<label>JTCM Page From:</label>
@@ -167,7 +167,7 @@ function AddToNode(src, title) {
 
 <input type="hidden" name="file[role]" value="normal" />
 <input type="hidden" name="file[node_id]" value="{GET.id}" />
-<input type="hidden" name="edit_file" id="edit_file" value="" />
+<input type="hidden" name="edit_file" id="edit-file" value="" />
 
 <br style="clear: both" />
 <div id="server_browser">
@@ -177,7 +177,7 @@ function AddToNode(src, title) {
 if (ie) button_fix = new button_fix();
 
 if ($('#file-type').attr('value') == 'abstract') {
-	$('#jtcm_detail').toggle();
+	$('#jtcm-detail').toggle();
 }
 </script>
 {FILE "bo/node/default_bottom.html"}

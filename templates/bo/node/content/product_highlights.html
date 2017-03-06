@@ -2,7 +2,7 @@
 <!-- BEGIN: head -->
 <script type="text/javascript">
 $(function() {
-	$("#related_product_button").click(function() {
+	$("#related-product-button").click(function() {
 		var template = '<div>' +
 			'<input type="hidden" name="node[component][related][]" value="__ID__" />' +
 			'<button style="float: none;" class="small remove" name="" onclick="this.parentNode.parentNode.removeChild(this.parentNode)"><span>Remove</span></button> ' +
@@ -10,7 +10,7 @@ $(function() {
 			'<a class="__CLASS__" href="/page/__ID__">__NAME__</a><br />' +
 			'</div>';
 
-		var option = $("#related_product_select option:selected");
+		var option = $("#related-product-select option:selected");
 		var id = option.val();
 		if (id > 0) {
 			var name = option.text();
@@ -20,7 +20,7 @@ $(function() {
 			template = template.replace(/__NAME__/g, name);
 			template = template.replace(/__CLASS__/g, className);
 			template = template.replace(/__IMAGE__/g, imageSrc);
-			$("#related_select").append(template);
+			$("#related-select").append(template);
 		}
 		return false;
 	});
@@ -95,24 +95,24 @@ $(function() {
 			
 			<div class="row">
 				<span class="field">
-					<input type="checkbox" id="component-display_sorting" name="node[component][display_sorting]" {NODE.component.display_sorting}/> <label for="component-display_sorting">Display sorting</label>
+					<input type="checkbox" id="component-display-sorting" name="node[component][display_sorting]" {NODE.component.display_sorting}/> <label for="component-display-sorting">Display sorting</label>
 				</span>
 			</div>
 
 
 			<div class="row">
-				<span class="label"><label for="component-image_width">Image width [px]:</label></span>
+				<span class="label"><label for="component-image-width">Image width [px]:</label></span>
 				<span class="field">
-					<input type="textinput" class="small" id="component-image_width" name="node[component][image_width]" value="{NODE.component.image_width}"/>
+					<input type="textinput" class="small" id="component-image-width" name="node[component][image_width]" value="{NODE.component.image_width}"/>
 					<em>(optional)</em>
 				</span>
 			</div>
 
 			<!--
 			<div class="row">
-				<span class="label"><label for="component-display_pagination">Display pagination:</label></span>
+				<span class="label"><label for="component-display-pagination">Display pagination:</label></span>
 				<span class="field">
-					<input type="checkbox" id="component-display_pagination" name="node[component][display_pagination]" {NODE.component.display_pagination}/>
+					<input type="checkbox" id="component-display-pagination" name="node[component][display_pagination]" {NODE.component.display_pagination}/>
 				</span>
 			</div>
 			-->
@@ -130,32 +130,32 @@ $(function() {
 </div>
 
 <style>
-	div#related_select > div { border-bottom: 1px dotted #ddd; cursor: move; width: 100%; position: relative; } 
-	div#related_select > div img { margin-right: 10px; vertical-align: middle;} 
-	div#related_select > div button { position: absolute; right: 0; top: 14px; } 
+	div#related-select > div { border-bottom: 1px dotted #ddd; cursor: move; width: 100%; position: relative; } 
+	div#related-select > div img { margin-right: 10px; vertical-align: middle;} 
+	div#related-select > div button { position: absolute; right: 0; top: 14px; } 
 </style>
 <script>
 	$(function() {
-		$('#related_select').sortable();
+		$('#related-select').sortable();
 	});
 </script>
 <fieldset>
 	<legend>Listed Products</legend>
 	<br/>
 	<div class="row">
-		<a id="related_product_button" class="button add" href="#"><span>Add a Product</span></a>
-		<select id="related_product_select" name="related_product_select">
+		<a id="related-product-button" class="button add" href="#"><span>Add a Product</span></a>
+		<select id="related-product-select" name="related_product_select">
 			<option value="">Please select a product...</option>
 			<!-- BEGIN: product_select_item -->
 			<option value="{PRODUCT.id}" data-class="{PRODUCT.class}" data-image="{PRODUCT.image_src}" {PRODUCT.disabled}>{PRODUCT.name|htmlspecialchars}</option>
 			<!-- END: product_select_item -->
 		</select>
 		<script>
-			$("#related_product_select").combobox();
+			$("#related-product-select").combobox();
 		</script>
 	</div>
 	<div class="row">
-		<div id="related_select">
+		<div id="related-select">
 			<!-- BEGIN:item -->
 			<div>
 				<input type="hidden" name="node[component][related][]" value="{CURRENT.content}" />

@@ -1,23 +1,23 @@
 <script type="text/javascript">
 $(function() {
-	$('#image_width_slider').slider({
+	$('#image-width-slider').slider({
 		value: {NODE.component.image_width},
 		min: {IMAGE_CONF.thumbnail_width_min},
 		max: {IMAGE_CONF.thumbnail_width_max},
 		step: {IMAGE_CONF.thumbnail_step},
-		change: function(event, ui) { $('#image_width_display_size').attr('value', ui.value); },
-		slide : function(event, ui) { $('#image_width_display_size').html(ui.value).attr('selected', true); }
+		change: function(event, ui) { $('#image-width-display-size').attr('value', ui.value); },
+		slide : function(event, ui) { $('#image-width-display-size').html(ui.value).attr('selected', true); }
 	});
 });
 </script>
 
-<div class="image_properties">
+<div class="image-properties">
 	<div style="float: left;">
 		<span class="label"><label>Image Width:</label></span>
 		<span class="field">
 			<select name="node[component][image_width]">
 				<option value="0" {SELECTED_image_width_original}>Original</option>
-				<option id="image_width_display_size" value="{NODE.component.image_width}" {SELECTED_image_width_custom}>{NODE.component.image_width}</option>
+				<option id="image-width-display-size" value="{NODE.component.image_width}" {SELECTED_image_width_custom}>{NODE.component.image_width}</option>
 			</select>
 		</span>
 	</div>
@@ -44,5 +44,5 @@ $(function() {
 	</div>
 	
 	
-	<div style="margin: 10px 0; width: 100%" id="image_width_slider"></div>
+	<div style="margin: 10px 0; width: 100%" id="image-width-slider"></div>
 </div>

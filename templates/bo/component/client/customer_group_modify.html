@@ -5,10 +5,10 @@ $(document).ready(function(){
 	function initGroupAjaxForm() {
 		$("#customer-group-form").validate();
 		$('#customer-group-form').ajaxForm({ 
-			target: '#customer_list div.page-content',
+			target: '#customer-list div.page-content',
 			beforeSubmit: function() { return $("#customer-group-form").valid() },
 			success: function(responseText, statusText) {
-				popupMessage("#customer_list div.onxshop-messages");
+				popupMessage("#customer-list div.onxshop-messages");
 				makeAjaxRequest('#onxshop-backoffice-wrapper', '/request/bo/pages/client/customers', function () {
 					//initAjaxPagination();
 				});
@@ -44,7 +44,7 @@ $(document).ready(function(){
 			<span class="label"><label>Search Filter</label></span>
 			<span class="field">
 				<pre>{CUSTOMER_GROUP.search_filter|print_r(%s, true)}</pre>
-				<p>To modify group with filter options <a title="Create a new customers group using advanced filter" href="#" onclick="makeAjaxRequest('#customer_list div.page-content', '/request/bo/component/client/customer_filter'); return false;"><span>Use Advance Filter</span></a></p>
+				<p>To modify group with filter options <a title="Create a new customers group using advanced filter" href="#" onclick="makeAjaxRequest('#customer-list div.page-content', '/request/bo/component/client/customer_filter'); return false;"><span>Use Advance Filter</span></a></p>
 			</span>
 		</div>
 		

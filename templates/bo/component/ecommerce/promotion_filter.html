@@ -1,17 +1,17 @@
 <!-- BEGIN: content -->
 {MESSAGES}
 
-<div class="customer_filter">
+<div class="customer-filter">
 	<!-- BEGIN: form -->
 
 	<script type="text/javascript">
 	$(document).ready(function(){
-		$('#voucher-filter-created_from,#voucher-filter-created_to,#voucher-filter-activity_from,#voucher-filter-activity_to').datepicker({firstDay: 1, dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true});
+		$('#voucher-filter-created-from,#voucher-filter-created-to,#voucher-filter-activity-from,#voucher-filter-activity-to').datepicker({firstDay: 1, dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true});
 	});
 	</script>
 	
-	<div id="customer_filter_form_wrapper">
-		<form method="post" id="customer_filter_form" action="/backoffice/marketing">
+	<div id="customer-filter-form-wrapper">
+		<form method="post" id="customer-filter-form" action="/backoffice/marketing">
 
 			<fieldset class="single">
 
@@ -28,24 +28,24 @@
 				</div>
 				<!-- END: type -->
 
-				<div class="row text_search">
+				<div class="row text-search">
 					<span class="label"><label>Text search (title/code)</label></span>
 					<span class="field">
-						<input class="text_search" type="text" id="voucher-filter-text_search" name="voucher-filter[text_search]" value="{FILTER.text_search|htmlspecialchars}"/>
+						<input class="text-search" type="text" id="voucher-filter-text-search" name="voucher-filter[text_search]" value="{FILTER.text_search|htmlspecialchars}"/>
 					</span>
 				</div>
 
-				<div class="row created_between">
+				<div class="row created-between">
 					<span class="label"><label>Date From</label></span>
 					<span class="field">
-						<input type="text" class="text date" id="voucher-filter-created_from" name="voucher-filter[created_from]" value="{FILTER.created_from|htmlspecialchars}" />
+						<input type="text" class="text date" id="voucher-filter-created-from" name="voucher-filter[created_from]" value="{FILTER.created_from|htmlspecialchars}" />
 					</span>
 				</div>
 
-				<div class="row created_between">
+				<div class="row created-between">
 					<span class="label"><label>Date To</label></span>
 					<span class="field">
-						<input type="text" class="text date" id="voucher-filter-created_to" name="voucher-filter[created_to]" value="{FILTER.created_to|htmlspecialchars}" />
+						<input type="text" class="text date" id="voucher-filter-created-to" name="voucher-filter[created_to]" value="{FILTER.created_to|htmlspecialchars}" />
 					</span>
 				</div>
 

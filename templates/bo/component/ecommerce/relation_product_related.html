@@ -2,20 +2,20 @@
 <script type="text/javascript">
 function select_related(id, title) {
 
-	var str = $('#template_related_select').html();
+	var str = $('#template-related-select').html();
         
     str = str.replace(/__ID__/g, id);
     str = str.replace(/__TITLE__/g, title);
 
-	$('#related_select').append(str);
-	$('#psearch_block').toggle();
+	$('#related-select').append(str);
+	$('#psearch-block').toggle();
 
 	return void(0);
 }
 
 function search_product() {
-	query = $('#psearch_input').attr('value');
-	if (query.length > 2) $('#search_result').load('/request/bo/component/ecommerce/search_products?search[query]=' + query);
+	query = $('#psearch-input').attr('value');
+	if (query.length > 2) $('#search-result').load('/request/bo/component/ecommerce/search_products?search[query]=' + query);
 	return false;
 }
 </script>
@@ -25,7 +25,7 @@ function search_product() {
 	<legend>Related Products</legend>
 	{MESSAGES}
 	<br/>
-	<div id="related_select">
+	<div id="related-select">
 		<!-- BEGIN:ptn -->
 			<div>
 				<input type="hidden" name="product_related[]" value="{CURRENT.id}" />
@@ -36,15 +36,15 @@ function search_product() {
 		<!-- END:ptn -->
 	</div>
 	
-	<p><a class="button add" href="#" onclick="$('#psearch_block').toggle(); return false"><span>Add New</span></a></p>
-	<div id="psearch_block" style="display: none">
+	<p><a class="button add" href="#" onclick="$('#psearch-block').toggle(); return false"><span>Add New</span></a></p>
+	<div id="psearch-block" style="display: none">
 		<input id="psearch_input" type="text" name="psearch" onkeyup="search_product();" /><br />
 		Search for product name, teaser, description.
 		<!--<a class="button" href="javascript:void(0)" onclick="javascript:search_product();"><span>search</span></a><br />-->
-		<div id="search_result"></div>
+		<div id="search-result"></div>
 	</div>
 
-	<div id="template_related_select" style="visibility: hidden">
+	<div id="template-related-select" style="visibility: hidden">
 		<div>
 			<input type="hidden" name="product_related[]" value="__ID__" />
 			<button class="button remove small" style="float: none;" name="" onclick="this.parentNode.parentNode.removeChild(this.parentNode)"><span>Remove</span></button>

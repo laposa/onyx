@@ -2,14 +2,14 @@
 <!-- BEGIN: content -->
 <script type="text/javascript">  
 	$(function(){  
-		$("#product_variety_add_form").validate();
+		$("#product-variety-add-form").validate();
 
 		/**
 		 * Calculate VAT if available
 		 */
 		var rate_select = $('select[name="product[variety][product_type_id]"]');
-		var no_vat_input = $("#price_without_vat");
-		var vat_input = $("#price_with_vat");
+		var no_vat_input = $("#price-without-vat");
+		var vat_input = $("#price-with-vat");
 
 		if (rate_select.length > 0) {
 			no_vat_input.change(updateVatPrice);
@@ -41,7 +41,7 @@
 {MESSAGES}
 <p><a class="back" href="/backoffice/products/{GET.product_id}/edit"><span>Back to product edit</span></a></p>
 
-<form method="post" action="{URI|htmlspecialchars}" id="product_variety_add_form">
+<form method="post" action="{URI|htmlspecialchars}" id="product-variety-add-form">
 <fieldset>
 	<legend>Variety of product</legend>
 	<div class="row title">
@@ -57,8 +57,8 @@
 	</div>
 
 	<div class="row">
-		<span class="label"><label for="product-variety-weight_gross">Weight Gross [{VARIETY_CONF.weight_units}]</label></span>
-		<span class="field"><input type="text" class="text short required number" name="product[variety][weight_gross]" id="product-variety-weight_gross" value="{PRODUCT.variety.weight_gross}"/> (Used for postage. Zero weight is free postage.)</span>
+		<span class="label"><label for="product-variety-weight-gross">Weight Gross [{VARIETY_CONF.weight_units}]</label></span>
+		<span class="field"><input type="text" class="text short required number" name="product[variety][weight_gross]" id="product-variety-weight-gross" value="{PRODUCT.variety.weight_gross}"/> (Used for postage. Zero weight is free postage.)</span>
 	</div>			
 
 	<div class="row">
@@ -70,7 +70,7 @@
 		<div class="layout-column-one of-two">
 			<div class="row">
 				<span class="label"><label>Price Value (excluding VAT) in {GLOBAL_DEFAULT_CURRENCY}</label></span>
-				<span class="field"><input type="text" id="price_without_vat" class="text half required number" name="product[variety][price][value]" value="{PRODUCT.variety.price.value}"/></span>
+				<span class="field"><input type="text" id="price-without-vat" class="text half required number" name="product[variety][price][value]" value="{PRODUCT.variety.price.value}"/></span>
 			</div>
 		</div>
 		<div class="layout-column-two of-two">
@@ -86,9 +86,9 @@
 
 </fieldset>
 
-<p><a href="#" onclick="$('#variety_more_details').toggle(); return false">More details</a></p>
+<p><a href="#" onclick="$('#variety-more-details').toggle(); return false">More details</a></p>
 
-<div id="variety_more_details" style="display: none">
+<div id="variety-more-details" style="display: none">
 <fieldset>
 	<div class="row rte">
 		<span class="label"><label for="product-variety-description">Description</label></span>

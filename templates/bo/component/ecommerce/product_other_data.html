@@ -5,16 +5,16 @@
 		/* due to a bug in .clone method, copy textarea_value first and paste after clone using .find('textarea').val(textarea_value)
 		 * http://bugs.jquery.com/ticket/11136
 		 */
-		var textarea_value = $('#product_other_data_new textarea').val();
-		$('#product_other_data_new div.item').clone(true, true).appendTo('div.product_other_data').find('textarea').val(textarea_value);
-		$('#product_other_data_new input, #product_other_data_new textarea').val('');
-		$('#product_other_data_new textarea').attr('name', '');
+		var textarea_value = $('#product-other-data-new textarea').val();
+		$('#product-other-data-new div.item').clone(true, true).appendTo('div.product_other_data').find('textarea').val(textarea_value);
+		$('#product-other-data-new input, #product-other-data-new textarea').val('');
+		$('#product-other-data-new textarea').attr('name', '');
 		return false;
 	}
 	
 $().ready(function() {
 	
-	$("div.product_other_data input, #product_other_data_new input").keyup(function () {
+	$("div.product-other-data input, #product-other-data-new input").keyup(function () {
       var value = $(this).val();
       $(this).parent().next().children().attr('name', 'product[other_data]['+value+']');
     });
@@ -27,7 +27,7 @@ $().ready(function() {
 	<legend>Other Data</legend>
 	<div class="row">
 		<!-- BEGIN: other_data -->
-		<div class="product_other_data">
+		<div class="product-other-data">
 			<!-- BEGIN: item -->
 			<div class="item">
 				<span class="label"><input type="text" value="{OTHER_DATA.key|htmlspecialchars}">
@@ -40,8 +40,8 @@ $().ready(function() {
 		<!-- END: other_data -->
 	</div>
 	<div class="row">
-		<a class="button add" href="#" onclick="$('#product_other_data_new').toggle(); return false;"><span>Add a New Attribute</span></a>
-		<div id="product_other_data_new" style="display: none;">
+		<a class="button add" href="#" onclick="$('#product-other-data-new').toggle(); return false;"><span>Add a New Attribute</span></a>
+		<div id="product-other-data-new" style="display: none;">
 			<div class="item">
 				<span class="label"><input type="text" value=""></span>
 				<span class="field"><textarea name=""></textarea>

@@ -17,39 +17,39 @@
 		div.divider { margin: 20px 0 0 0; border-top: 1px solid #ddd; }
 		div.divider hr { display: none; }
 		h1 { margin-top: 0; padding-top: 20px; }
-		h1#mainHeading { font-size: 220%; padding-top: 10px; }
+		h1#main-heading { font-size: 220%; padding-top: 10px; }
 		a { color: #00aee9; }
 
-		div#methodList { position: fixed; left: 0; top: 0; background: #f8f8f8; width: 200px; height: 100%; box-shadow: 2px 0 10px rgba(0,0,0,0.2);}
-		div#methodList ul { list-style: square; line-height: 1.8; margin: 20px 0 0 36px; padding: 0;}
-		div#methodList h3 { margin: 20px 0 0 20px; }
-		div#methodList a { color: #000; text-shadow: 0 1px 0 #ffffff; text-decoration: none; }
+		div#method-list { position: fixed; left: 0; top: 0; background: #f8f8f8; width: 200px; height: 100%; box-shadow: 2px 0 10px rgba(0,0,0,0.2);}
+		div#method-list ul { list-style: square; line-height: 1.8; margin: 20px 0 0 36px; padding: 0;}
+		div#method-list h3 { margin: 20px 0 0 20px; }
+		div#method-list a { color: #000; text-shadow: 0 1px 0 #ffffff; text-decoration: none; }
 	</style>
 
 </head>
 
 <body>
 
-	<h1 id="mainHeading">API Documentation</h1>
+	<h1 id="main-heading">API Documentation</h1>
 	<p>Version 1.3</p>
 
-	<div id="methodList">
+	<div id="method-list">
 		<h3>Available API methods</h3>
 		<ul>
-			<li><a href="#api_resources">Resources</a></li>
-			<li><a href="#api_recipe_list">Recipe List</a></li>
-			<li><a href="#api_recipe_detail">Recipe Detail</a></li>
-			<li><a href="#api_recipe_search">Recipe Search</a></li>
-			<li><a href="#api_recipe_category_list">Recipe Category List</a></li>
-			<li><a href="#api_special_offer_list">Special Offer List</a></li>
-			<li><a href="#api_store_location_list">Store Location List</a></li>
-			<li><a href="#api_recipe_rating">Recipe Rating</a></li>
+			<li><a href="#api-resources">Resources</a></li>
+			<li><a href="#api-recipe-list">Recipe List</a></li>
+			<li><a href="#api-recipe-detail">Recipe Detail</a></li>
+			<li><a href="#api-recipe-search">Recipe Search</a></li>
+			<li><a href="#api-recipe-category-list">Recipe Category List</a></li>
+			<li><a href="#api-special-offer-list">Special Offer List</a></li>
+			<li><a href="#api-store-location-list">Store Location List</a></li>
+			<li><a href="#api-recipe-rating">Recipe Rating</a></li>
 		</ul>
 	</div>
 
 	<div class="divider"><hr /></div>
 
-	<h1 id="api_resources">Resources</h1>
+	<h1 id="api-resources">Resources</h1>
 	<h3>GET /api/v1.3/resources</h3>
 	<p>Returns list of resources. This is used in recipe app. <a href="/api/v1.3/resources?format=json&api_key=abcdefgh">Make Example Call</a></p>
 
@@ -83,7 +83,7 @@
 
 	<div class="divider"><hr /></div>
 
-	<h1 id="api_recipe_list">Recipe List</h1>
+	<h1 id="api-recipe-list">Recipe List</h1>
 	<h3>GET /api/v1.3/recipe_list</h3>
 	<p>Returns list of recipes. <a href="/api/v1.3/recipe_list?format=json&api_key=abcdefgh">Make Example Call</a></p>
 
@@ -99,7 +99,7 @@
 	<p>Array where each item is <a href="#api_recipe_detail">recipe_detail</a></p>
 	<div class="divider"><hr /></div>
 
-	<h1 id="api_recipe_detail">Recipe Detail</h1>
+	<h1 id="api-recipe-detail">Recipe Detail</h1>
 	<h3>GET /api/v1.3/recipe_detail</h3>
 	<p>Returns detail of single recipe. <a href="/api/v1.3/recipe_detail?format=json&api_key=abcdefgh&recipe_id=1">Make Example Call</a></p>
 
@@ -199,7 +199,7 @@
 
 	<div class="divider"><hr /></div>
 
-	<h1 id="api_recipe_search">Recipe Search</h1>
+	<h1 id="api-recipe-search">Recipe Search</h1>
 	<h3>GET /api/v1.3/recipe_search</h3>
 	<p>Search for recipes. We'll return list of recipe IDs. <a href="/api/v1.3/recipe_search?format=json&api_key=abcdefgh&category_id=11">Make Example Call</a></p>
 
@@ -250,7 +250,7 @@
 
 	<div class="divider"><hr /></div>
 
-	<h1 id="api_recipe_category_list">Recipe Category List</h1>
+	<h1 id="api-recipe-category-list">Recipe Category List</h1>
 	<h3>GET /api/v1.3/recipe_category_list</h3>
 	<p>Returns list of recipe categories. <a href="/api/v1.3/recipe_category_list?format=json&api_key=abcdefgh">Make Example Call</a></p>
 
@@ -276,7 +276,7 @@
 
 	<div class="divider"><hr /></div>
 
-	<h1 id="api_special_offer_list">Special Offer List</h1>
+	<h1 id="api-special-offer-list">Special Offer List</h1>
 	<h3>GET /api/v1.3/special_offer_list</h3>
 	<p>Returns list of latest special offers. <a href="/api/v1.3/special_offer_list?format=json&api_key=abcdefgh">Make Example Call</a></p>
 
@@ -328,7 +328,7 @@
 
 	<div class="divider"><hr /></div>
 
-	<h1 id="api_store_location_list">Store Location List</h1>
+	<h1 id="api-store-location-list">Store Location List</h1>
 	<h3>GET /api/v1.3/store_location_list</h3>
 	<p>Returns list of stores address. <a href="/api/v1.3/store_location_list?format=json&api_key=abcdefgh">Make Example Call</a></p>
 
@@ -370,7 +370,7 @@
 
 	<div class="divider"><hr /></div>
 
-	<h1 id="api_recipe_rating">Recipe Rating</h1>
+	<h1 id="api-recipe-rating">Recipe Rating</h1>
 	<h3>GET /api/v1.3/recipe_rating</h3>
 	<p>Allow to pass rating to recipe. <a href="/api/v1.3/recipe_rating?format=json&api_key=abcdefgh&recipe_id=1&rating=2">Make Example Call</a></p>
 

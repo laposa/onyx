@@ -1,29 +1,29 @@
 <!-- BEGIN: content -->
 {MESSAGES}
 
-<div id="priceList{GET.product_variety_id}">
+<div id="price-list-{GET.product_variety_id}">
 	<script type="text/javascript">
 	$(document).ready(function(){
 		/**
 		 * attach click event for price add
 		 */
 		 
-		$('#priceList{GET.product_variety_id} a.button').click(function () {
+		$('#price-list-{GET.product_variety_id} a.button').click(function () {
 			
-			$('#priceEdit{GET.product_variety_id}').load('/request/bo/component/ecommerce/price_add~product_variety_id={GET.product_variety_id}~', '', 
+			$('#price-edit-{GET.product_variety_id}').load('/request/bo/component/ecommerce/price_add~product_variety_id={GET.product_variety_id}~', '', 
 				function() {
 					/**
 					 * ajax form
 					 */
 					 
 					var options = { 
-						target: '#price_add_form_{GET.product_variety_id}',
+						target: '#price-add-form-{GET.product_variety_id}',
 						success: function(responseText, statusText) {
-							$('#priceList{GET.product_variety_id}').load('/request/bo/component/ecommerce/price_list~product_variety_id={GET.product_variety_id}~');
+							$('#price-list-{GET.product_variety_id}').load('/request/bo/component/ecommerce/price_list~product_variety_id={GET.product_variety_id}~');
 						}
 					}; 
 			
-			    	$('#price_add_form_{GET.product_variety_id}').ajaxForm(options);
+			    	$('#price-add-form-{GET.product_variety_id}').ajaxForm(options);
 			    	
 				}
 			);
@@ -56,7 +56,7 @@
 	</table>
 	
 	<p><a class="button add" href="#add_price"><span>Add a New Price...</span></a></p>
-	<div id="priceEdit{GET.product_variety_id}"></div>
+	<div id="price-edit-{GET.product_variety_id}"></div>
 
 </div>
 			

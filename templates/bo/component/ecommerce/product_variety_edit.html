@@ -1,6 +1,6 @@
 <!-- BEGIN: title -->Product Variety Edit<!-- END: title -->
 <!-- BEGIN: content -->
-<div id="product_variety_wrapper_{GET.id}">
+<div id="product-variety-wrapper-{GET.id}">
 
 	<script type="text/javascript">
 	$(document).ready(function(){
@@ -10,24 +10,24 @@
 				$("button.save").addClass('saving');
 			},
 			success: function(data) {
-				popupMessage("#product_variety_edit_result div.onxshop-messages");
+				popupMessage("#product-variety-edit-result div.onxshop-messages");
 				$("button.save").removeClass('saving');
-				$('#product_variety_wrapper_{GET.id}').replaceWith(data);
+				$('#product-variety-wrapper-{GET.id}').replaceWith(data);
 			}
 		};
 
-	    $('#product_variety_edit_form_{GET.id}').ajaxForm(options);
+	    $('#product-variety-edit-form-{GET.id}').ajaxForm(options);
 		 
-		$("#product_variety_edit").tabs();
+		$("#product-variety-edit").tabs();
 		
 	});
 	</script>
 
 	{MESSAGES}
 
-	<form method="post" action="{URI|htmlspecialchars}" class="product_variety_edit" id="product_variety_edit_form_{GET.id}">
+	<form method="post" action="{URI|htmlspecialchars}" class="product-variety-edit" id="product-variety-edit-form-{GET.id}">
 
-	<div id="product_variety_edit">
+	<div id="product-variety-edit">
 
 		<div class="two-column-page popup">
 			
@@ -96,7 +96,7 @@
 										</div>
 
 
-										<fieldset class="price_list">
+										<fieldset class="price-list">
 											<h3>Price list</h3>
 											{ONXSHOP_REQUEST_price #bo/component/ecommerce/price_list~product_variety_id=GET.id~}
 										</fieldset>
@@ -124,26 +124,26 @@
 										<fieldset class="advanced">
 											<legend>Dimensions</legend>
 
-											<div class="fourColumnLayout">
-												<div class="layout-column-one ofFour">
+											<div class="four-column-layout">
+												<div class="layout-column-one of-four">
 													<div class="row">
 														<span class="label"><label>Width [{VARIETY_CONF.dimension_units}]</label></span>
 														<span class="field"><input type="text" class="text short" name="product[variety][width]" value="{PRODUCT.variety.width}"/></span>
 													</div>
 												</div>
-												<div class="layout-column-two ofFour">
+												<div class="layout-column-two of-four">
 													<div class="row">
 														<span class="label"><label>Height [{VARIETY_CONF.dimension_units}]</label></span>
 														<span class="field"><input type="text" class="text short" name="product[variety][height]" value="{PRODUCT.variety.height}"/></span>
 													</div>
 												</div>
-												<div class="layoutColumnThree ofFour">
+												<div class="layout-column-three of-four">
 													<div class="row">
 														<span class="label"><label>Depth [{VARIETY_CONF.dimension_units}]</label></span>
 														<span class="field"><input type="text" class="text short" name="product[variety][depth]" value="{PRODUCT.variety.depth}"/></span>
 													</div>
 												</div>
-												<div class="layoutColumnFour ofFour">
+												<div class="layout-column-four of-four">
 													<div class="row">
 														<span class="label"><label>Diameter [{VARIETY_CONF.dimension_units}]</label></span>
 														<span class="field"><input type="text" class="text short" name="product[variety][diameter]" value="{PRODUCT.variety.diameter}"/></span>
@@ -194,7 +194,7 @@
 									<div class="column-wrapper">
 
 										<p>
-											<a class="button showAdvancedSettings" href="#"><span>Show Advanced Settings</span></a>
+											<a class="button show-advanced-settings" href="#"><span>Show Advanced Settings</span></a>
 										</p>
 
 									</div>

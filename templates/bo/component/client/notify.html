@@ -1,6 +1,6 @@
 <!-- BEGIN: content -->
 {MESSAGES}
-<div class="client_notify">
+<div class="client-notify">
 <!-- BEGIN: outbox -->
 <h3>Emails previously sent to <a href="mailto:{NODE.author_detail.email|htmlspecialchars}">{NODE.author_detail.email|htmlspecialchars}</a></h3>
 <table>
@@ -18,7 +18,7 @@
 	<tr><td>To:</td><td>{NODE.author_detail.name|htmlspecialchars} &lt;<a href="mailto:{NODE.relations.author.email|htmlspecialchars}">{NODE.author_detail.email|htmlspecialchars}</a>&gt;</td></tr>
 </table>
 
-<p><a href="/request/bo/component/client/notify~node_id={GET.node_id}:mail_template={MAIL_TEMPLATE}:confirm=1~" class="button" onclick="makeAjaxRequest('div.client_notify', '/request/bo/component/client/notify~node_id={GET.node_id}:mail_template={MAIL_TEMPLATE}:confirm=1~'); return false;"><span>Send</span></a></p>
+<p><a href="/request/bo/component/client/notify~node_id={GET.node_id}:mail_template={MAIL_TEMPLATE}:confirm=1~" class="button" onclick="makeAjaxRequest('div.client-notify', '/request/bo/component/client/notify~node_id={GET.node_id}:mail_template={MAIL_TEMPLATE}:confirm=1~'); return false;"><span>Send</span></a></p>
 
 <iframe src="/request/mail/{MAIL_TEMPLATE}?node_id={GET.node_id}" style="width: 100%; height: 500px; clear: both;"></iframe>
 <!-- END: preview_email -->

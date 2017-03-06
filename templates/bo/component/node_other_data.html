@@ -5,16 +5,16 @@
 		/* due to a bug in .clone method, copy textarea_value first and paste after clone using .find('textarea').val(textarea_value)
 		 * http://bugs.jquery.com/ticket/11136
 		 */
-		var textarea_value = $('#node_other_data_new textarea').val();
-		$('#node_other_data_new div.item').clone(true, true).appendTo('div.node_other_data').find('textarea').val(textarea_value);
-		$('#node_other_data_new input, #node_other_data_new textarea').val('');
-		$('#node_other_data_new textarea').attr('name', '');
+		var textarea_value = $('#node-other-data-new textarea').val();
+		$('#node-other-data-new div.item').clone(true, true).appendTo('div.node_other_data').find('textarea').val(textarea_value);
+		$('#node-other-data-new input, #node-other-data-new textarea').val('');
+		$('#node-other-data-new textarea').attr('name', '');
 		return false;
 	}
 	
 $().ready(function() {
 	
-	$("div.node_other_data input, #node_other_data_new input").keyup(function () {
+	$("div.node-other-data input, #node-other-data-new input").keyup(function () {
       var value = $(this).val();
       $(this).parent().next().children().attr('name', 'node[other_data]['+value+']');
     });
@@ -27,7 +27,7 @@ $().ready(function() {
 	<legend>Other Data</legend>
 	<div class="row">
 		<!-- BEGIN: other_data -->
-		<div class="node_other_data">
+		<div class="node-other-data">
 			<div class="item">
 			<!-- BEGIN: item_editable -->
 				<span class="label"><input type="text" value="{OTHER_DATA.key|htmlspecialchars}"></span>
@@ -45,8 +45,8 @@ $().ready(function() {
 	
 	<!-- BEGIN: add -->
 	<div class="row">
-		<a href="#" onclick="$('#node_other_data_new').toggle(); return false;"><span>Add a new attribute</span></a>
-		<div id="node_other_data_new" style="display: none;">
+		<a href="#" onclick="$('#node-other-data-new').toggle(); return false;"><span>Add a new attribute</span></a>
+		<div id="node-other-data-new" style="display: none;">
 			<div class="item">
 				<span class="label"><input type="text" value=""></span>
 				<span class="field"><textarea name=""></textarea>

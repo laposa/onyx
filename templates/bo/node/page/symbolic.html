@@ -23,9 +23,9 @@
 		<script type="text/javascript">
 		$(document).ready(function(){
 			$('fieldset.symbolic-form-edit div.href a.button').click(function() {
-				$('#href_select').addClass('ajax-load').load('/request/component/menu_js~id=0:expand_all=1:publish=0~', function() {
-					$('#href_select').removeClass('ajax-load');
-					$('#href_select .simpleTree').simpleTree({
+				$('#href-select').addClass('ajax-load').load('/request/component/menu_js~id=0:expand_all=1:publish=0~', function() {
+					$('#href-select').removeClass('ajax-load');
+					$('#href-select .simple-tree').simpleTree({
 						drag: false,
 						autoclose: true,
 						afterClick:function(node){
@@ -44,7 +44,7 @@
 			<div class="row href">
 				<span class="label"><label>Forward Link: *</label></span>
 				<span class="field"><input type="text" name="node[component][href]" id="component-href" value="{NODE.component.href}" /> <a class="button" href="#"><span>Browse Server</span></a></span>
-				<div id="href_select"></div>
+				<div id="href-select"></div>
 			</div>
 		</fieldset>
 

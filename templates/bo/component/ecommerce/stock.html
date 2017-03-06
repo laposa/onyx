@@ -19,7 +19,7 @@
 			<!-- BEGIN: item -->
 			<tr>
 				<td>{ITEM.variety_id}</td>
-				<td class="{ITEM.disabled}"><a href="#stock_edit" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/ecommerce/stock_edit~id={ITEM.variety_id}~');"><span>{ITEM.product_name} - {ITEM.variety_name}</span></a> </td>
+				<td class="{ITEM.disabled}"><a href="#stock_edit" onclick="makeAjaxRequest('#sub-content', '/request/bo/component/ecommerce/stock_edit~id={ITEM.variety_id}~');"><span>{ITEM.product_name} - {ITEM.variety_name}</span></a> </td>
 				<td>{ITEM.sku}</td>
 				<td>{ITEM.stock}</td>
 				<td>{ITEM.weight_gross}</td>
@@ -34,7 +34,7 @@
 			<!-- END: item -->
 		</tbody>
 	</table>
-	<div class="onxshop_pagination">
+	<div class="onxshop-pagination">
 		{PAGINATION}
 	</div>
 

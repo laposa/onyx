@@ -5,35 +5,35 @@
 
 <style type="text/css">
 
-	#delivery_config { padding: 0 10px; overflow: auto;}
-	#delivery_config h1 { margin: 0 5px 20px 0; } 
-	#delivery_config button.save { float: right; }
-	#delivery_config button.addzone { float: right; }
-	#delivery_config div.zone { width: 275px; float: left; margin: 0 10px 0 0; } 
-	#delivery_config div.heading { border: 1px solid #ccc; background: #eee; border-radius: 10px; padding: 5px 10px; margin-bottom: 15px; } 
-	#delivery_config div.heading h2 { font-family: sans-serif; margin: 0; } 
-	#delivery_config div.heading h2 input { font-family: sans-serif; margin: 0; font-size: 16px; font-weight: bold;} 
-	#delivery_config div.heading h2 button { float: right; font-size: 11px; margin: 0; }
-	#delivery_config div.heading label { display: block;}
-	#delivery_config h3 { font-family: sans-serif; margin: 5px 0; }
-	#delivery_config h3.disabled { text-decoration: none; } 
-	#delivery_config h3.disabled input[type=text] { color: #ddd;} 
-	#delivery_config h3 input[type=text] { font-size: 14px; font-weight: bold; width: 228px; margin: 0;} 
-	#delivery_config h4 { font-family: sans-serif; margin: 15px 0 5px 0;} 
-	#delivery_config div.carrier { border: 1px solid #ccc; background: #f9f9f9; border-radius: 10px; padding: 5px 10px; margin: 15px 0; cursor: move; cursor: grab;}
-	#delivery_config div.carrier textarea { width: 250px; height: 40px; font-size: 12px;}
-	#delivery_config div.carrier a { display: block; font-size: 10px; text-decoration: underline; font-weight: normal; }
-	#delivery_config div.carrier table { border: none; background: none; padding: 0; margin: 0 0 5px 0; }
-	#delivery_config div.carrier table td { border: none; background: none; padding: 0 4px;}
-	#delivery_config div.carrier table th { border: none; background: none; padding: 4px 4px; text-transform: none; text-align: center;}
-	#delivery_config div.carrier table input { width: 60px; margin: 0 2px 0 0; }
-	#delivery_config div.carrier div.data input { text-align: right; }
+	#delivery-config { padding: 0 10px; overflow: auto;}
+	#delivery-config h1 { margin: 0 5px 20px 0; } 
+	#delivery-config button.save { float: right; }
+	#delivery-config button.addzone { float: right; }
+	#delivery-config div.zone { width: 275px; float: left; margin: 0 10px 0 0; } 
+	#delivery-config div.heading { border: 1px solid #ccc; background: #eee; border-radius: 10px; padding: 5px 10px; margin-bottom: 15px; } 
+	#delivery-config div.heading h2 { font-family: sans-serif; margin: 0; } 
+	#delivery-config div.heading h2 input { font-family: sans-serif; margin: 0; font-size: 16px; font-weight: bold;} 
+	#delivery-config div.heading h2 button { float: right; font-size: 11px; margin: 0; }
+	#delivery-config div.heading label { display: block;}
+	#delivery-config h3 { font-family: sans-serif; margin: 5px 0; }
+	#delivery-config h3.disabled { text-decoration: none; } 
+	#delivery-config h3.disabled input[type=text] { color: #ddd;} 
+	#delivery-config h3 input[type=text] { font-size: 14px; font-weight: bold; width: 228px; margin: 0;} 
+	#delivery-config h4 { font-family: sans-serif; margin: 15px 0 5px 0;} 
+	#delivery-config div.carrier { border: 1px solid #ccc; background: #f9f9f9; border-radius: 10px; padding: 5px 10px; margin: 15px 0; cursor: move; cursor: grab;}
+	#delivery-config div.carrier textarea { width: 250px; height: 40px; font-size: 12px;}
+	#delivery-config div.carrier a { display: block; font-size: 10px; text-decoration: underline; font-weight: normal; }
+	#delivery-config div.carrier table { border: none; background: none; padding: 0; margin: 0 0 5px 0; }
+	#delivery-config div.carrier table td { border: none; background: none; padding: 0 4px;}
+	#delivery-config div.carrier table th { border: none; background: none; padding: 4px 4px; text-transform: none; text-align: center;}
+	#delivery-config div.carrier table input { width: 60px; margin: 0 2px 0 0; }
+	#delivery-config div.carrier div.data input { text-align: right; }
 
 	input.hover { background: transparent; border-width: 0; padding: 6px; }
 	input.hover:hover, input.hover:focus { background: white; border-width: 2px; padding: 4px;}
 </style>
 
-<div id="delivery_config" ng-controller="DeliveryCtrl">
+<div id="delivery-config" ng-controller="DeliveryCtrl">
 
 	<button class="save" ng-click="save()">Save</button>
 	<button class="addzone" ng-click="addZone()">Add Zone</button>
@@ -169,13 +169,13 @@
 
 			$scope.save = function() {
 
-				$('#delivery_config button.save').html('Saving...').attr('disabled', 'disabled');
+				$('#delivery-config button.save').html('Saving...').attr('disabled', 'disabled');
 
 				$http.post('{URI|htmlspecialchars}', $scope.data).success(function(data, status) {
 					$scope.data = data;
-					$('#delivery_config button.save').html('Save').attr('disabled', false);
+					$('#delivery-config button.save').html('Save').attr('disabled', false);
 				}).error(function(data, status) {
-					$('#delivery_config button.save').html('Error').attr('disabled', false);
+					$('#delivery-config button.save').html('Error').attr('disabled', false);
 				});
 			};
 

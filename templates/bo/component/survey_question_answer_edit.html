@@ -1,9 +1,9 @@
 <!-- BEGIN: content -->
 {MESSAGES}
 
-<div class="two-column-page page survey_question_answer_edit fibonacci-2-5">
+<div class="two-column-page page survey-question-answer-edit fibonacci-2-5">
 
-	<form method="post" action="{URI|htmlspecialchars}" id="survey_question_answer_edit_form">
+	<form method="post" action="{URI|htmlspecialchars}" id="survey-question-answer-edit-form">
 
 		<div class="content">
 			<div class="page-wrapper">
@@ -44,9 +44,9 @@
 											</div>
 										</fieldset>
 										<fieldset>
-											<div class="row is_correct">
-												<span class="label"><label for="answer-is_correct">Is This Answer Correct?</label></span>
-												<span class="field"><input id="answer-is_correct" type="checkbox" name="answer[is_correct]" value="1" {CHECKED_is_correct} /></span>
+											<div class="row is-correct">
+												<span class="label"><label for="answer-is-correct">Is This Answer Correct?</label></span>
+												<span class="field"><input id="answer-is-correct" type="checkbox" name="answer[is_correct]" value="1" {CHECKED_is_correct} /></span>
 											</div>
 											<div class="row points">
 												<span class="label"><label for="answer-points">Points</label></span>
@@ -81,7 +81,7 @@
 							<div class="row-wrapper">
 								<div class="column-wrapper">
 									<p>
-										<a class="button" href="#sub_content" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_detail~id={GET.survey_id}~'); return false;">Cancel</a>
+										<a class="button" href="#sub_content" onclick="makeAjaxRequest('#sub-content', '/request/bo/component/survey_detail~id={GET.survey_id}~'); return false;">Cancel</a>
 									</p>
 								</div>
 							</div>
@@ -110,12 +110,12 @@
 		
 		function initSurveyEditForm() {
 	
-		    $('#survey_question_answer_edit_form').ajaxForm({ 
-				target: '#sub_content',
-				beforeSubmit: function() {return $("#survey_question_answer_edit_form").valid()},
+		    $('#survey-question-answer-edit-form').ajaxForm({ 
+				target: '#sub-content',
+				beforeSubmit: function() {return $("#survey-question-answer-edit-form").valid()},
 				success: function(responseText, statusText) {
-					popupMessage("#sub_content div.onxshop-messages");
-					makeAjaxRequest('#sub_content', '/request/bo/component/survey_detail~id={GET.survey_id}~');
+					popupMessage("#sub-content div.onxshop-messages");
+					makeAjaxRequest('#sub-content', '/request/bo/component/survey_detail~id={GET.survey_id}~');
 				}
 			});
 		}

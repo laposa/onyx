@@ -1,9 +1,9 @@
 <!-- BEGIN: title -->Product edit<!-- END: title -->
 <!-- BEGIN: content -->
 {MESSAGES}
-<form method="post" action="" class="product_edit">
+<form method="post" action="" class="product-edit">
 
-<div id="product_edit">
+<div id="product-edit">
 
 	<div class="two-column-page page">
 		
@@ -35,8 +35,8 @@
 													<span class="field"><input type="text" class="text long" name="product[name_aka]" value="{PRODUCT.name_aka|htmlspecialchars}" /></span>
 												</div>
 												<div class="row rte">
-													<span class="label"><label>Teaser <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'simple', 'product_teaser'); return false;"><span>RTE</span></a></label></span>
-													<span class="field"><textarea id="product_teaser" name="product[teaser]">{PRODUCT.teaser|htmlspecialchars}</textarea></span>
+													<span class="label"><label>Teaser <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'simple', 'product-teaser'); return false;"><span>RTE</span></a></label></span>
+													<span class="field"><textarea id="product-teaser" name="product[teaser]">{PRODUCT.teaser|htmlspecialchars}</textarea></span>
 												</div>
 												<div class="row rte">
 													<span class="label"><label>Description <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'mceAdvanced', 'product_description'); return false;"><span>RTE</span></a></label></span>
@@ -129,7 +129,7 @@
 							<div class="row-wrapper">
 								<div class="column-wrapper">
 									<p>
-										<a class="button showAdvancedSettings" href="#"><span>Show Advanced Settings</span></a>
+										<a class="button show-advanced-settings" href="#"><span>Show Advanced Settings</span></a>
 									</p>
 								</div>
 							</div>
@@ -149,7 +149,7 @@
 <script type="text/javascript">
 tinyMCE.init({
 	mode : "exact",
-	elements : "product_teaser",
+	elements : "product-teaser",
 	theme : "simple",
 	content_css: "/share/css/tinymce.css",
 	invalid_elements : "span,div,form,input,label,button,script,font",

@@ -9,15 +9,15 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	$('fieldset.menu-form-edit div.component-node_id a.button').click(function() {
-		$('#href_select').addClass('ajax-load').load('/request/component/menu_js~id=0:expand_all=1:publish=0:parent_type=all~', function() {
-			$('#href_select').removeClass('ajax-load');
-			$('#href_select .simpleTree').simpleTree({
+	$('fieldset.menu-form-edit div.component-node-id a.button').click(function() {
+		$('#href-select').addClass('ajax-load').load('/request/component/menu_js~id=0:expand_all=1:publish=0:parent_type=all~', function() {
+			$('#href-select').removeClass('ajax-load');
+			$('#href-select .simple-tree').simpleTree({
 				drag: false,
 				autoclose: true,
 				afterClick:function(node){
 					var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
-					$('#component-node_id').attr('value', node_id);
+					$('#component-node-id').attr('value', node_id);
 				},
 				animate: true,
 				docToFolderConvert: true
@@ -32,10 +32,10 @@ $(document).ready(function(){
 <p>Note: Content element is marked by <img src="/share/images/tree/content.gif" alt="content icon" /> icon.</p>
 
 <fieldset class="menu-form-edit">
-	<div class="row component-node_id">
+	<div class="row component-node-id">
 		<span class="label"><label>*Link to node ID:</label></span>
-		<span class="field"><input type="text" name="node[component][node_id]" id="component-node_id" value="{NODE.component.node_id}" /> <a class="button" href="#"><span>browse server</span></a></span>
-		<div id="href_select"></div>
+		<span class="field"><input type="text" name="node[component][node_id]" id="component-node-id" value="{NODE.component.node_id}" /> <a class="button" href="#"><span>browse server</span></a></span>
+		<div id="href-select"></div>
 	</div>
 </fieldset>
 {FILE "bo/node/default_bottom.html"}

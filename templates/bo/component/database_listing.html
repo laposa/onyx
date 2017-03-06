@@ -4,10 +4,10 @@
 	
 	<h2>Table: <strong>{MODEL}</strong> ({COUNT_RECORD} records, {TABLE_SIZE})</h2>
 	{MESSAGES}
-	<a id="exportButton" class="button" href="/request/bo/export/csv_database?model={GET.model}"><span>Export Records (CSV)</span></a>
+	<a id="export-button" class="button" href="/request/bo/export/csv_database?model={GET.model}"><span>Export Records (CSV)</span></a>
 	<script type="text/javascript">
 		$('#database .row-bottom p.export').empty();
-		var button = $('#exportButton').detach();
+		var button = $('#export-button').detach();
 		$('#database .row-bottom p.export').append(button);
 	</script>
 	<table cellspacing="0" border="1">
@@ -32,7 +32,7 @@
 	</tbody>
 	</table>
 
-	<div class="onxshop_pagination">
+	<div class="onxshop-pagination">
 	    {PAGINATION}
 	</div>
 

@@ -4,8 +4,8 @@
 
 <script type="text/javascript">
 $(function() {
-    $('#sub_content form').ajaxForm({target: '#sub_content', complete: function() {
-    	makeAjaxRequest('#sub_content', '/request/bo/component/ecommerce/stock');
+    $('#sub-content form').ajaxForm({target: '#sub-content', complete: function() {
+    	makeAjaxRequest('#sub-content', '/request/bo/component/ecommerce/stock');
     }}); 
 });
 </script>
@@ -29,11 +29,11 @@ $(function() {
 		</div>
 	</fieldset>
 	
-	<p class="extended_toolbar">
-		<a class="button showAdvancedSettings" href="#"><span>Show Advanced Settings</span></a>
+	<p class="extended-toolbar">
+		<a class="button show-advanced-settings" href="#"><span>Show Advanced Settings</span></a>
 	</p>
 								
-	<div id="variety_more_details" class="advanced">
+	<div id="variety-more-details" class="advanced">
 		<div class="row">
 			<span class="label"><label>Weight Net [{VARIETY_CONF.weight_units}]</label></span>
 			<span class="field"><input type="text" name="product[variety][weight]" value="{PRODUCT.variety.weight}"/></span>

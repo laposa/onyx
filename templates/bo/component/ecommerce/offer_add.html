@@ -1,17 +1,17 @@
 <!-- BEGIN: title -->Add Offer<!-- END: title -->
 <!-- BEGIN: content -->
 <style type="text/css">
-	#offer_edit .custom-combobox-input { width: 600px; }
+	#offer-edit .custom-combobox-input { width: 600px; }
 	body .ui-autocomplete { max-height: 460px; }
 </style>
 <script type="text/javascript">
 
 	$(document).ready(function(){
 
-		$("#product_select").combobox();
+		$("#product-select").combobox();
 
 		// setup product dropdown with autocomplete
-		$("#product_select").on("comboboxselect", function(event, ui) {
+		$("#product-select").on("comboboxselect", function(event, ui) {
 
 			// product change should reload prices and show offer parameters
 			product_variety_id = $(this).val();
@@ -19,16 +19,16 @@
 			if (product_variety_id > 0) {
 
 				reloadPrices();
-				$("#offer_fieldset").show();
+				$("#offer-fieldset").show();
 
 			} else {
 
-				$("#offer_fieldset").hide();
+				$("#offer-fieldset").hide();
 
 			}
 			
 		});
-		$("#offer_fieldset").hide();
+		$("#offer-fieldset").hide();
 
 		// setup ajax form saving
 		var options = { 
@@ -38,14 +38,14 @@
 			success: function(data) {
 				growlMessage(data);
 				$("button.save").removeClass('saving');
-				$("#product_select, #offer_edit .custom-combobox-input").val('');
-				$("#offer_fieldset").hide();
+				$("#product-select, #offer-edit .custom-combobox-input").val('');
+				$("#offer-fieldset").hide();
 			}
 		};
 
-	    $('#offer_add_form').ajaxForm(options);
+	    $('#offer-add-form').ajaxForm(options);
 
-		updateVariableLine($('#offer_edit'));
+		updateVariableLine($('#offer-edit'));
 
 	});
 
@@ -53,14 +53,14 @@
 	var variety_prices = [];
 
 	function updateVariableLine(block) {
-		var roundel = block.find('div.roundel_category_id select option:selected');
+		var roundel = block.find('div.roundel-category-id select option:selected');
 		var html = roundel.attr('data-description');
-		var price_id = block.find("input.price_id").val();
+		var price_id = block.find("input.price-id").val();
 		var quantity = block.find("input.quantity").val();
 		var saving = block.find("input.saving").val();
 		html = html.replace(/\{\d+\}/g, '');
 		html = html.replace(/[\n\r]/g, '<br>');
-		html = html.replace('__price__', '<select class="prices_select" style="vertical-align: middle" onchange="$(this).parents(\'.offer\').find(\'input.price_id\').val($(this).val())"></select><a onclick="addPriceForOffer(); return false;" href="#" title="Add a New Price" style="display: inline-block; width: 16px; height: 16px; vertical-align: middle; background: url(/share/images/famfamfam_icons/add.png)"></a>');
+		html = html.replace('__price__', '<select class="prices-select" style="vertical-align: middle" onchange="$(this).parents(\'.offer\').find(\'input.price-id\').val($(this).val())"></select><a onclick="addPriceForOffer(); return false;" href="#" title="Add a New Price" style="display: inline-block; width: 16px; height: 16px; vertical-align: middle; background: url(/share/images/famfamfam_icons/add.png)"></a>');
 		html = html.replace('__quantity__', '<input type="text" class="text text short" onchange="$(this).parents(\'.offer\').find(\'input.quantity\').val($(this).val())" value="' + quantity + '"/>');
 		html = html.replace('__saving__', '<input type="text" class="text text short" onchange="$(this).parents(\'.offer\').find(\'input.saving\').val($(this).val())" value="' + saving + '"/>');
 		block.find('div.variables span.field span.input').html(html);
@@ -68,11 +68,11 @@
 	}
 
 	function reloadPreview(block) {
-		var campaign = block.find('div.campaign_category_id select option:selected');
-		var roundel = block.find('div.roundel_category_id select option:selected');
+		var campaign = block.find('div.campaign-category-id select option:selected');
+		var roundel = block.find('div.roundel-category-id select option:selected');
 		var text = roundel.attr('data-description');
 		var colors = campaign.attr('data-description').split("\n");
-		var price = formatPrice(block.find("select.prices_select option:selected").text());
+		var price = formatPrice(block.find("select.prices-select option:selected").text());
 		var quantity = block.find("input.quantity").val();
 		var saving = block.find("input.saving").val();
 		var sizes = text.match(/\{(\d+)\}/g);
@@ -139,8 +139,8 @@
 			}
 			optionsHtml += '</optgroup>';
 		}
-		$("select.prices_select").html(optionsHtml);
-		$("select.prices_select").each(function() {
+		$("select.prices-select").html(optionsHtml);
+		$("select.prices-select").each(function() {
 			var input = $(this).parents('.offer').find('input.price_id');
 			$(this).val(input.val());
 			input.val($(this).val());
@@ -151,17 +151,17 @@
 
 		if (!product_variety_id) return false;
 
-		$('#offerPrice').load('/request/bo/component/ecommerce/price_add~product_variety_id=' + product_variety_id + ':type=special_offer~', '', function() {
+		$('#offer-price').load('/request/bo/component/ecommerce/price_add~product_variety_id=' + product_variety_id + ':type=special_offer~', '', function() {
 			var options = { 
-				target: '#price_add_form_' + product_variety_id,
+				target: '#price-add-form-' + product_variety_id,
 				success: function(responseText, statusText) { 
 					reloadPrices(); 
-					popupMessage("#offerPrice div.onxshop-messages");
-					$('#offerPrice').empty();
+					popupMessage("#offer-price div.onxshop-messages");
+					$('#offer-price').empty();
 				}
 			}; 
 
-			$('#price_add_form_' + product_variety_id).ajaxForm(options);
+			$('#price-add-form-' + product_variety_id).ajaxForm(options);
 		    	
 		});
 	}
@@ -169,12 +169,12 @@
 </script>
 
 {MESSAGES}
-<form method="post" action="{URI|htmlspecialchars}" id="offer_add_form" class="offer_edit">
-	<div id="offer_edit" class="offer">
+<form method="post" action="{URI|htmlspecialchars}" id="offer-add-form" class="offer-edit">
+	<div id="offer-edit" class="offer">
 
 		<input type="hidden" name="save" value="save"/>
 		
-		<fieldset id="product_fieldset">
+		<fieldset id="product-fieldset">
 			
 			<div class="page-header">
 				<div class="page-header-wrapper">
@@ -182,7 +182,7 @@
 				</div>
 			</div>
 			
-			<select id="product_select" name='product_variety_id'>
+			<select id="product-select" name='product_variety_id'>
 				<option value=""></option>
 				<!-- BEGIN: product_item -->
 				<option value="{ITEM.id}" data-class="{ITEM.class}" data-image="{ITEM.image_src}" {ITEM.disabled}>{ITEM.product_name|htmlspecialchars} - {ITEM.variety_name|htmlspecialchars}</option>
@@ -190,7 +190,7 @@
 			</select>
 		</fieldset>
 
-		<fieldset id="offer_fieldset">
+		<fieldset id="offer-fieldset">
 			<legend>Special Offer</legend>
 
 			<div class="two-column-layout layout">
@@ -201,7 +201,7 @@
 								<div class="layout-column-one of-two">
 									<div class="layout-column-wrapper">
 
-										<div class="row offer_group_id">
+										<div class="row offer-group-id">
 											<span class="label"><label>Group</label></span>
 											<span class="field">
 												<select name='offer_group_id'>
@@ -217,7 +217,7 @@
 											</span>
 										</div>
 
-										<div class="row campaign_category_id">
+										<div class="row campaign-category-id">
 											<span class="label"><label>Campaign (Roundel Style)</label></span>
 											<span class="field">
 												<select name='campaign_category_id'>
@@ -228,7 +228,7 @@
 											</span>
 										</div>
 
-										<div class="row roundel_category_id">
+										<div class="row roundel-category-id">
 											<span class="label"><label>Offer Type (Roundel Type)</label></span>
 											<span class="field">
 												<select name='roundel_category_id' onchange="updateVariableLine($(this).parents('div.offer'));">
@@ -256,7 +256,7 @@
 											</span>
 										</div>
 
-										<div id="offerPrice"></div>
+										<div id="offer-price"></div>
 
 									</div>
 								</div>
@@ -268,7 +268,7 @@
 
 			</div>
 
-		<input type="hidden" class="price_id" name="price_id" value="{OFFER.price_id|htmlspecialchars}" />
+		<input type="hidden" class="price-id" name="price_id" value="{OFFER.price_id|htmlspecialchars}" />
 		<input type="hidden" class="quantity" name="quantity" value="{OFFER.quantity|htmlspecialchars}" />
 		<input type="hidden" class="saving" name="saving" value="{OFFER.saving|htmlspecialchars}" />
 

@@ -1,22 +1,22 @@
 <!-- BEGIN: title -->SEO manager<!-- END: title -->
 <!-- BEGIN: content -->
-<!-- BEGIN: messages --><div class="fix">{MESSAGES}</div><!-- END: messages -->
+{MESSAGES}
 <script type="text/javascript">
 $(document).ready(function() {
-	$("div.seo_manager td.page_title a").editInPlace({
+	$("div.seo-manager td.page-title a").editInPlace({
 		url: "/request/bo/component/single_record_update~model=common_node:attribute=page_title~",
 		params: "csrf_token=" + getCSRFToken()
 	});
-	$("div.seo_manager td.browser_title a").editInPlace({
+	$("div.seo-manager td.browser-title a").editInPlace({
 		url: "/request/bo/component/single_record_update~model=common_node:attribute=browser_title~",
 		params: "csrf_token=" + getCSRFToken()
 	});
-	$("div.seo_manager td.description a").editInPlace({
+	$("div.seo-manager td.description a").editInPlace({
 		url: "/request/bo/component/single_record_update~model=common_node:attribute=description~",
 		params: "csrf_token=" + getCSRFToken(),
 		field_type: "textarea"
 	});
-	$("div.seo_manager td.keywords a").editInPlace({
+	$("div.seo-manager td.keywords a").editInPlace({
 		url: "/request/bo/component/single_record_update~model=common_node:attribute=keywords~",
 		params: "csrf_token=" + getCSRFToken(),
 		field_type: "textarea"
@@ -24,7 +24,7 @@ $(document).ready(function() {
 });
 </script>
 
-<div class="seo_manager"> 
+<div class="seo-manager"> 
 
 	<div class="two-column-page page sidebar">
 		
@@ -49,11 +49,11 @@ $(document).ready(function() {
 											<!-- BEGIN: item -->
 											<tr>
 												<td><a href="{ITEM.public_uri}" target="_blank">{ITEM.public_uri}</a></td>
-												<td class="page_title"><a href="#{ITEM.id}" id="comon_node-page_title-id-{ITEM.node_id}">{ITEM.page_title|htmlspecialchars}</a></td>
-												<td class="browser_title"><a href="#{ITEM.id}" id="comon_node-browser_title-id-{ITEM.node_id}">{ITEM.browser_title|htmlspecialchars}</a></td>
+												<td class="page-title"><a href="#{ITEM.id}" id="comon-node-page-title-id-{ITEM.node_id}">{ITEM.page_title|htmlspecialchars}</a></td>
+												<td class="browser-title"><a href="#{ITEM.id}" id="comon-node-browser-title-id-{ITEM.node_id}">{ITEM.browser_title|htmlspecialchars}</a></td>
 												<!--<td>{ITEM.teaser|htmlspecialchars}</td>-->
-												<td class="description"><a href="#{ITEM.id}" id="comon_node-description-id-{ITEM.node_id}">{ITEM.description|htmlspecialchars}</a></td>
-												<td class="keywords"><a href="#{ITEM.id}" id="comon_node-keywords-id-{ITEM.node_id}">{ITEM.keywords|htmlspecialchars}</a></td>
+												<td class="description"><a href="#{ITEM.id}" id="comon-node-description-id-{ITEM.node_id}">{ITEM.description|htmlspecialchars}</a></td>
+												<td class="keywords"><a href="#{ITEM.id}" id="comon-node-keywords-id-{ITEM.node_id}">{ITEM.keywords|htmlspecialchars}</a></td>
 											</tr>
 											<!-- END: item -->
 										</tbody>

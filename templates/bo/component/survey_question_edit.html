@@ -1,9 +1,9 @@
 <!-- BEGIN: content -->
 {MESSAGES}
 
-<div class="two-column-page page survey_question_edit fibonacci-2-5">
+<div class="two-column-page page survey-question-edit fibonacci-2-5">
 
-	<form method="post" action="{URI|htmlspecialchars}" id="survey_question_edit_form">
+	<form method="post" action="{URI|htmlspecialchars}" id="survey-question-edit-form">
 
 		<div class="content">
 			<div class="page-wrapper">
@@ -47,7 +47,7 @@
 													<script type="text/javascript">
 														$(function() {
 															var select = $('#question-type');
-															var settings = $('#range_settings');
+															var settings = $('#range-settings');
 															settings.toggle(select.val() == 'range');
 															select.change(function() {
 																settings.toggle(select.val() == 'range');
@@ -81,18 +81,18 @@
 												<span class="field"><input id="question-mandatory" type="checkbox" name="question[mandatory]" value="1" {CHECKED_mandatory_1} /></span>
 											</div>
 										</fieldset>
-										<fieldset id="range_settings">
-											<div class="row other_data_min">
-												<span class="label"><label for="question-other_data_min">Minimum Range Value</label></span>
-												<span class="field"><input class="number short" id="question-other_data_min" type="text" name="question[other_data][min]" value="{QUESTION.other_data.min}" /></span>
+										<fieldset id="range-settings">
+											<div class="row other-data-min">
+												<span class="label"><label for="question-other-data-min">Minimum Range Value</label></span>
+												<span class="field"><input class="number short" id="question-other-data-min" type="text" name="question[other_data][min]" value="{QUESTION.other_data.min}" /></span>
 											</div>
-											<div class="row other_data_max">
-												<span class="label"><label for="question-other_data_max">Maximum Range Value</label></span>
-												<span class="field"><input class="number short" id="question-other_data_max" type="text" name="question[other_data][max]" value="{QUESTION.other_data.max}" /></span>
+											<div class="row other-data-max">
+												<span class="label"><label for="question-other-data-max">Maximum Range Value</label></span>
+												<span class="field"><input class="number short" id="question-other-data-max" type="text" name="question[other_data][max]" value="{QUESTION.other_data.max}" /></span>
 											</div>
-											<div class="row other_data_step">
-												<span class="label"><label for="question-other_data_step">Range Step</label></span>
-												<span class="field"><input class="number short" id="question-other_data_step" type="text" name="question[other_data][step]" value="{QUESTION.other_data.step}" /></span>
+											<div class="row other-data-step">
+												<span class="label"><label for="question-other-data-step">Range Step</label></span>
+												<span class="field"><input class="number short" id="question-other-data-step" type="text" name="question[other_data][step]" value="{QUESTION.other_data.step}" /></span>
 											</div>
 										</fieldset>
 
@@ -121,7 +121,7 @@
 								<div class="column-wrapper">
 
 									<p>
-										<a class="button" href="#sub_content" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_detail~id={QUESTION.survey_id}~'); return false;">Cancel</a>
+										<a class="button" href="#sub_content" onclick="makeAjaxRequest('#sub-content', '/request/bo/component/survey_detail~id={QUESTION.survey_id}~'); return false;">Cancel</a>
 									</p>
 								</div>
 							</div>
@@ -150,12 +150,12 @@
 		
 		function initSurveyEditForm() {
 	
-		    $('#survey_question_edit_form').ajaxForm({ 
-				target: '#sub_content',
-				beforeSubmit: function() {return $("#survey_question_edit_form").valid()},
+		    $('#survey-question-edit-form').ajaxForm({ 
+				target: '#sub-content',
+				beforeSubmit: function() {return $("#survey-question-edit-form").valid()},
 				success: function(responseText, statusText) {
-					popupMessage("#sub_content div.onxshop-messages");
-					makeAjaxRequest('#sub_content', '/request/bo/component/survey_detail~id={QUESTION.survey_id}~');
+					popupMessage("#sub-content div.onxshop-messages");
+					makeAjaxRequest('#sub-content', '/request/bo/component/survey_detail~id={QUESTION.survey_id}~');
 				}
 			});
 		}

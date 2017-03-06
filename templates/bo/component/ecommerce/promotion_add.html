@@ -1,9 +1,9 @@
 <!-- BEGIN: content -->
 {MESSAGES}
 
-<div id="discounts_page" class="two-column-page page">
+<div id="discounts-page" class="two-column-page page">
 
-	<form method="post" action="{URI|htmlspecialchars}" id="promotion_add_form">
+	<form method="post" action="{URI|htmlspecialchars}" id="promotion-add-form">
 
 		<div class="content">
 			<div class="page-wrapper">
@@ -33,8 +33,8 @@
 												<span class="field"><input class="text" id="promotion-title" type="text" name="promotion[title]" value="{PROMOTION.title|htmlspecialchars}" /></span>
 											</div>
 											<div class="row code_pattern">
-												<span class="label"><label for="promotion-code_pattern">Promotion Code</label></span>
-												<span class="field"><input class="text" id="promotion-code_pattern" type="text" name="promotion[code_pattern]" value="{PROMOTION.code_pattern|htmlspecialchars}" /></span>
+												<span class="label"><label for="promotion-code-pattern">Promotion Code</label></span>
+												<span class="field"><input class="text" id="promotion-code-pattern" type="text" name="promotion[code_pattern]" value="{PROMOTION.code_pattern|htmlspecialchars}" /></span>
 											</div>
 										</fieldset>
 
@@ -46,17 +46,17 @@
 									<div class="column-wrapper">
 
 										<fieldset>
-											<div class="row discount_type">
-												<span class="label"><label for="promotion-uses_per_coupon">Discount Type</label></span>
+											<div class="row discount-type">
+												<span class="label"><label for="promotion-uses-per-coupon">Discount Type</label></span>
 												<span class="field"><select disabled="disabled"><option>Discount Coupon</option></select></span>
 											</div>
-											<div class="row discount_percentage_value">
-												<span class="label"><label for="promotion-discount_percentage_value">Percentage Value of Discount</label></span>
-												<span class="field"><input class="text short" id="promotion-discount_percentage_value" type="text" name="promotion[discount_percentage_value]" value="{PROMOTION.discount_percentage_value}" /></span>
+											<div class="row discount-percentage-value">
+												<span class="label"><label for="promotion-discount-percentage-value">Percentage Value of Discount</label></span>
+												<span class="field"><input class="text short" id="promotion-discount-percentage-value" type="text" name="promotion[discount_percentage_value]" value="{PROMOTION.discount_percentage_value}" /></span>
 											</div>
-											<div class="row discount_fixed_value">
-												<span class="label"><label for="promotion-discount_fixed_value">Fixed Value of Discount</label></span>
-												<span class="field"><input class="text short" id="promotion-discount_fixed_value" type="text" name="promotion[discount_fixed_value]" value="{PROMOTION.discount_fixed_value}" /></span>
+											<div class="row discount-fixed-value">
+												<span class="label"><label for="promotion-discount-fixed-value">Fixed Value of Discount</label></span>
+												<span class="field"><input class="text short" id="promotion-discount-fixed-value" type="text" name="promotion[discount_fixed_value]" value="{PROMOTION.discount_fixed_value}" /></span>
 											</div>
 										</fieldset>
 
@@ -95,7 +95,7 @@
 			}
 		}; 
 
-	    $('#promotion_add_form').ajaxForm(options);
+	    $('#promotion-add-form').ajaxForm(options);
 	});
 </script>
 

@@ -1,6 +1,6 @@
 <!-- BEGIN: content -->
 {MESSAGES}
-<div class="revision_list">
+<div class="revision-list">
 	<table cellspacing="0">
 		<caption>Revisions</caption>
 		<thead>
@@ -15,7 +15,7 @@
 		</tfoot>
 		<tbody>
 			<!-- BEGIN: item -->
-			<tr class="status_{ITEM.status}">
+			<tr class="status-{ITEM.status}">
 				<td>{ITEM.id}</td>
 				<td>{ITEM.created|strtotime|date('d/m/Y H:i:s', %s)}</td>
 				<td><a href="/backoffice/customers/{ITEM.customer_id}/detail" target="_blank">{ITEM.customer_id}</a></td>
