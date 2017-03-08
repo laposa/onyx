@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2005-2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2005-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -45,7 +45,13 @@ class Onxshop_Controller_Component_Menu extends Onxshop_Controller_Tree {
 		else $node_id = null; //null if not provided (it's correct value for tree's root elements)
 		
 		//node_group
-		switch ($this->GET['node_group']) {
+		if (isset($this->GET['node_group'])) {
+			$node_group = $this->GET['node_group'];
+		} else {
+			if (ONXSHOP_ECOMMERCE === true) $node_group = 'page'; // don't show products in navigation on ecommerce sites (could have large product database)
+			else $node_group = 'page_and_product'; // should be fine to display also product pages
+		}
+		switch ($node_group) {
 			case 'content':
 				$node_group = 'all';
 				break;
