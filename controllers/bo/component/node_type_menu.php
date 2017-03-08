@@ -200,7 +200,7 @@ class Onxshop_Controller_Bo_Component_Node_Type_Menu extends Onxshop_Controller_
 				$item_visibility_status = $templates_info[$item['parent']][$item['name']]['visibility'];
 				
 				//but show item currently selected
-				if ($selected == $item['name']) $item_visibility_status = true;
+				if ($item['parent'] == $this->GET['node_group'] && $selected == $item['name']) $item_visibility_status = true;
 				
 				if (is_bool($item_visibility_status) && $item_visibility_status === false) {
 					
