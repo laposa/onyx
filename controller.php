@@ -584,7 +584,7 @@ class Onxshop_Controller {
 
 	function _parseTitle() {
 	
-		if ($this->_checkTemplateBlockExists('title')) {
+		if ($this->checkTemplateBlockExists('title')) {
 			
 			$this->tpl->parse('title');
 			return $this->tpl->text('title');
@@ -604,7 +604,7 @@ class Onxshop_Controller {
 
 	function _parseDescription() {
 	
-		if ($this->_checkTemplateBlockExists('description')) {
+		if ($this->checkTemplateBlockExists('description')) {
 			
 			$this->tpl->parse('description');
 			return $this->tpl->text('description');
@@ -624,7 +624,7 @@ class Onxshop_Controller {
 
 	function _parseKeywords() {
 	
-		if ($this->_checkTemplateBlockExists('keywords')) {
+		if ($this->checkTemplateBlockExists('keywords')) {
 			
 			$this->tpl->parse('keywords');
 			return $this->tpl->text('keywords');
@@ -644,7 +644,7 @@ class Onxshop_Controller {
 
 	function _parseHead() {
 	
-		if ($this->_checkTemplateBlockExists('head')) {
+		if ($this->checkTemplateBlockExists('head')) {
 			
 			$this->tpl->parse('head');
 			return $this->tpl->text('head');
@@ -664,7 +664,7 @@ class Onxshop_Controller {
 
 	function _parseHeadOnce() {
 	
-		if ($this->_checkTemplateBlockExists('head_once')) {
+		if ($this->checkTemplateBlockExists('head_once')) {
 			
 			$this->tpl->parse('head_once');
 			return $this->tpl->text('head_once');
@@ -685,7 +685,7 @@ class Onxshop_Controller {
 
 	function _parseContent() {
 	
-		if ($this->_checkTemplateBlockExists('content')) {
+		if ($this->checkTemplateBlockExists('content')) {
 			
 			$this->tpl->parse('content');
 			return $this->tpl->text('content');
@@ -707,7 +707,7 @@ class Onxshop_Controller {
 
 		if ($_SESSION['messages']) {
 			
-			if ($this->_checkTemplateVariableExists('MESSAGES')) {
+			if ($this->checkTemplateVariableExists('MESSAGES')) {
 			
 				$messages = '<div class="onxshop-messages" role="alert">' . $_SESSION['messages'] . '</div>';
 	
@@ -725,7 +725,7 @@ class Onxshop_Controller {
 	 * check block exists in template file
 	 */
 	 
-	function _checkTemplateBlockExists($block_name = '') {
+	function checkTemplateBlockExists($block_name = '') {
 		
 		if (array_key_exists($block_name, $this->tpl->blocks)) return true;
 		else return false;
@@ -736,7 +736,7 @@ class Onxshop_Controller {
 	 * check variable exists in template file
 	 */
 	 
-	function _checkTemplateVariableExists($variable_name) {
+	function checkTemplateVariableExists($variable_name) {
 		
 		if (preg_match('/'.$variable_name.'/', $this->tpl->filecontents)) return true;
 		else return false;

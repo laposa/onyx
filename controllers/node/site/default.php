@@ -48,28 +48,38 @@ class Onxshop_Controller_Node_Site_Default extends Onxshop_Controller {
 		 * global navigation
 		 */
 		 
-		$_Onxshop_Request = new Onxshop_Request("component/menu~id=" . $node_conf['id_map-global_navigation'] . ":level=1:open={$this->GET['id']}~");
-		$this->tpl->assign('GLOBAL_NAVIGATION', $_Onxshop_Request->getContent());
+		if ($this->checkTemplateVariableExists('GLOBAL_NAVIGATION')) {
+			
+			$_Onxshop_Request = new Onxshop_Request("component/menu~id=" . $node_conf['id_map-global_navigation'] . ":level=1:open={$this->GET['id']}~");
+			$this->tpl->assign('GLOBAL_NAVIGATION', $_Onxshop_Request->getContent());
 		
+		}
 		/**
 		 * primary navigation will show all sub items to the active page only if secondary navigation is hidden
 		 */
-		 
-		if ($GLOBALS['onxshop_conf']['global']['display_secondary_navigation'] == 1) {
-			$_Onxshop_Request = new Onxshop_Request("component/menu~level=1:expand_all=0:display_teaser=0:id=" . $node_conf['id_map-primary_navigation'] . ":open={$this->GET['id']}~");
-		} else {
-			$_Onxshop_Request = new Onxshop_Request("component/menu~level=3:expand_all=0:display_teaser=0:id=" . $node_conf['id_map-primary_navigation'] . ":open={$this->GET['id']}~");
-		}
 		
-		$this->tpl->assign('PRIMARY_NAVIGATION', $_Onxshop_Request->getContent());
+		if ($this->checkTemplateVariableExists('PRIMARY_NAVIGATION')) {
+			
+			if ($GLOBALS['onxshop_conf']['global']['display_secondary_navigation'] == 1) {
+				$_Onxshop_Request = new Onxshop_Request("component/menu~id=" . $node_conf['id_map-primary_navigation'] . ":level=1:expand_all=0:display_teaser=0:open={$this->GET['id']}~");
+			} else {
+				$_Onxshop_Request = new Onxshop_Request("component/menu~id=" . $node_conf['id_map-primary_navigation'] . ":level=3:expand_all=0:display_teaser=0:open={$this->GET['id']}~");
+			}
+			
+			$this->tpl->assign('PRIMARY_NAVIGATION', $_Onxshop_Request->getContent());
+			
+		}
 		
 		/**
 		 * footer navigation
 		 */
-		 
-		$_Onxshop_Request = new Onxshop_Request("component/menu~id=" . $node_conf['id_map-footer_navigation'] . ":level=1:open={$this->GET['id']}~");
-		$this->tpl->assign('FOOTER_NAVIGATION', $_Onxshop_Request->getContent());
 		
+		if ($this->checkTemplateVariableExists('FOOTER_NAVIGATION')) {
+			 
+			$_Onxshop_Request = new Onxshop_Request("component/menu~id=" . $node_conf['id_map-footer_navigation'] . ":level=1:open={$this->GET['id']}~");
+			$this->tpl->assign('FOOTER_NAVIGATION', $_Onxshop_Request->getContent());
+		
+		}
 		/**
 		 * content side
 		 */
