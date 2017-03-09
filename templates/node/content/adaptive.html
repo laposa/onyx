@@ -2,11 +2,13 @@
 <script type="text/javascript" src="/share/js/jquery/plugins/jquery.cookie.js"></script>
 <!-- END: head_once -->
 <!-- BEGIN: content -->
-<div class="adaptive {NODE.css_class}">
-	<!-- BEGIN: title --><h3 class="content-title"><span>{NODE.title|htmlspecialchars}</span></h3><!-- END: title -->
-	
-	{SUB_CONTENT}
-
+<div class="content adaptive {NODE.css_class} {NODE.taxonomy_class}">
+	<div class="wrapper">
+		<!-- BEGIN: title --><h3 class="content-title"><span>{NODE.title|htmlspecialchars}</span></h3><!-- END: title -->
+		<div class="content-body">
+			{SUB_CONTENT}
+		</div>
+	</div>
 </div>
 
 <!-- BEGIN: random -->

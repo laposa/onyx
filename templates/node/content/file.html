@@ -1,17 +1,19 @@
 <!-- BEGIN: content -->
-<div class="file {NODE.css_class}">
-	<!-- BEGIN: title --><h3 class="content-title"><span>{NODE.title|htmlspecialchars}</span></h3><!-- END: title -->
-	<div class="content-body">
-		<ul>
-		<!-- BEGIN: item -->
-			<li class="{FILE.info.mime-type|str_replace('/', '-', '%s')}">
-				<a title="
-{FILE.info.type-detail|htmlspecialchars}
-Modified: {FILE.modified|strtotime|strftime('%c', %s)}
-{FILE.info.extra-detail|htmlspecialchars}" href="/download/{FILE.src}">{FILE.title|htmlspecialchars}</a> <span class="file-size">({FILE.info.size})</span>
-			</li>
-		<!-- END: item -->
-		</ul>
+<div class="content file {NODE.css_class} {NODE.taxonomy_class}">
+	<div class="wrapper">
+		<!-- BEGIN: title --><h3 class="content-title"><span>{NODE.title|htmlspecialchars}</span></h3><!-- END: title -->
+		<div class="content-body">
+			<ul>
+			<!-- BEGIN: item -->
+				<li class="{FILE.info.mime-type|str_replace('/', '-', '%s')}">
+					<a title="
+	{FILE.info.type-detail|htmlspecialchars}
+	Modified: {FILE.modified|strtotime|strftime('%c', %s)}
+	{FILE.info.extra-detail|htmlspecialchars}" href="/download/{FILE.src}">{FILE.title|htmlspecialchars}</a> <span class="file-size">({FILE.info.size})</span>
+				</li>
+			<!-- END: item -->
+			</ul>
+		</div>
 	</div>
 </div>
 <!-- END: content -->

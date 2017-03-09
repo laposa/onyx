@@ -14,8 +14,8 @@ h5 {color: black;}
 hr {clear: both;}
 a img {border: 1px solid red;}
 
-img.imageleft {float: left; margin-right: 20px;}
-img.imageright {float: right; margin-left: 20px;}
+img.image-left {float: left; margin-right: 20px;}
+img.image-right {float: right; margin-left: 20px;}
 img.border {border: 1px solid black;}
 img.reflect {border-bottom: 10px solid black;}
 

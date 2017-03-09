@@ -1,5 +1,5 @@
 <!-- BEGIN: content -->
-<div class="social-share">
+<div class="social-network-share">
 	<ul>
 		<li class="facebook"><a title="Share on Facebook" href="#" onclick="nOpenWin('https://www.facebook.com/dialog/feed?app_id={ONXSHOP_FACEBOOK_APP_ID}&amp;link={SHARE_URI|urlencode}&amp;picture=http://{_SERVER.HTTP_HOST}/image/{IMAGE.src}&amp;name={SHARE_MESSAGE|urlencode}&amp;caption={NODE.teaser|urlencode}&amp;description={NODE.description|urlencode}&amp;redirect_uri={SHARE_URI|urlencode}&amp;display=popup', 400, 300); $.ajax('/request/component/share_counter?node_id={NODE.id}&amp;type=facebook&amp;nocache=1'); return false;"><span>Facebook</span></a></li>
 		<li class="twitter"><a title="Share on Twitter" href="https://twitter.com/share?url={SHARE_URI|urlencode}&amp;text={SHARE_MESSAGE|urlencode}&amp;via={ONXSHOP_TWITTER_USERNAME}" onclick="nOpenWin('https://twitter.com/share?url={SHARE_URI|urlencode}&amp;text={SHARE_MESSAGE|urlencode}&amp;via={ONXSHOP_TWITTER_USERNAME}', 400, 300); $.ajax('/request/component/share_counter?node_id={NODE.id}&amp;type=twitter&amp;nocache=1'); return false"><span>Tweet</span></a></li>

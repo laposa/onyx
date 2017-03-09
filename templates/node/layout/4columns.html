@@ -1,20 +1,21 @@
 <!-- BEGIN: content -->
-<section class="four-column-layout {NODE.node_group} {NODE.css_class} {NODE.taxonomy_class} {NODE.extra_css_class|htmlspecialchars}">
+<section class="layout four-column-layout {NODE.layout_style} {NODE.css_class}">
 	<div class="wrapper">
-		<!-- BEGIN: title --><h2>{NODE.title|htmlspecialchars}</h2><!-- END: title -->
-		<div class="col one of-four">
-			{CONTAINER.1}
-		</div>
-		<div class="col two of-four">
-			{CONTAINER.2}
-		</div>
-		<div class="col three of-four">
-			{CONTAINER.3}
-		</div>
-		<div class="col four of-four">
-			{CONTAINER.4}
+		<!-- BEGIN: title --><h2 class="layout-title"><span>{NODE.title|htmlspecialchars}</span></h2><!-- END: title -->
+		<div class="layout-body">
+			<div class="layout-column-one of-four">
+				{CONTAINER.1}
+			</div>	
+			<div class="layout-column-two of-four">
+				{CONTAINER.2}
+			</div>
+			<div class="layout-column-three of-four">
+				{CONTAINER.3}
+			</div>
+			<div class="layout-column-four of-four">
+				{CONTAINER.4}
+			</div>
 		</div>
 	</div>
 </section>
-
 <!-- END: content -->

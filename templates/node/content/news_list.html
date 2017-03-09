@@ -1,8 +1,10 @@
 <!-- BEGIN: content -->
-<section class="news-list {NODE.css_class} {NODE.taxonomy_class} {NODE.extra_css_class|htmlspecialchars}" data-node-id="{NODE.id}" data-node-controller="{NODE.node_controller}">
+<div class="content news-list {NODE.css_class} {NODE.taxonomy_class}">
 	<div class="wrapper">
-		<!-- BEGIN: title --><h3 class="content-title">{NODE.title|htmlspecialchars}</h3><!-- END: title -->
-		{NEWS_LIST}
+		<!-- BEGIN: title --><h3 class="content-title"><span>{NODE.title|htmlspecialchars}</span></h3><!-- END: title -->
+		<div class="content-body">
+			{NEWS_LIST}
+		</div>
 	</div>
-</section>
+</div>
 <!-- END: content -->

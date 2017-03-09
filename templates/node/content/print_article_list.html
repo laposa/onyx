@@ -1,53 +1,55 @@
 <!-- BEGIN: content -->
-<div class="print-article-list {NODE.css_class}">
-	<!-- BEGIN: title --><h3 class="content-title"><span>{NODE.title|htmlspecialchars}</span></h3><!-- END: title -->
-	<div class="contentBody">
-		<p>Click on the title to view the whole <a href="#articles">articles</a>, <a href="#abstracts">abstracts</a> or <a href="#reviews">reviews</a>..</p>
-		<div id="print-article-list">
-		<!-- BEGIN: main_articles -->
-		<a name="articles"></a>
-			<h2>Articles</h2>
-			<!-- BEGIN: item -->
-			<p>
-			<a title="{ARTICLE.title} details" href="/{ARTICLE.src}"> {ARTICLE.title}</a><br /> 
-			By {ARTICLE.authors}, JCM {ARTICLE.issue_number}/{ARTICLE.page_from}<br />
-			{ARTICLE.description}
-			</p>
-			<!-- END: item -->
-			<!-- BEGIN: noitem -->
-			<p>Sorry, there are no articles for this topic.</p>
-			<!-- END: noitem -->
-			<!-- END: main_articles -->
-			
-			<!-- BEGIN: abstracts -->
-			<a name="abstracts"></a>
-			<h2>Abstracts</h2>
-			<!-- BEGIN: item -->
-			<p>
-			<a title="{ARTICLE.title} details" href="/{ARTICLE.src}"> {ARTICLE.title}</a><br /> 
-			By {ARTICLE.authors}, JCM {ARTICLE.issue_number}/{ARTICLE.page_from}, JTCM {ARTICLE.other.jtcm_date}<br />
-			</p>
-			<!-- {ARTICLE.description} -->
-			<!-- END: item -->
-			<!-- BEGIN: noitem -->
-			<p>Sorry, no abstracts for this topic.</p>
-			<!-- END: noitem -->
-			<!-- END: abstracts -->
-			
-			<!-- BEGIN: reviews -->
-			<a name="reviews"></a>
-			<h2>Reviews</h2>
-			<!-- BEGIN: item -->
-			<p>
-			<a title="{REVIEW.title} details" href="/{REVIEW.src}"> {REVIEW.title}</a><br /> 
-			By {REVIEW.authors}, JCM {REWIEW.issue_number}/{REVIEW.page_from}, JTCM {REVIEW.other.jtcm_date}<br />
-			</p>
-			<!-- {ARTICLE.description} -->
-			<!-- END: item -->
-			<!-- BEGIN: noitem -->
-			<p>Sorry, no reviews for this topic.</p>
-			<!-- END: noitem -->
-			<!-- END: reviews -->
+<div class="content print-article-list {NODE.css_class} {NODE.taxonomy_class}">
+	<div class="wrapper">
+		<!-- BEGIN: title --><h3 class="content-title"><span>{NODE.title|htmlspecialchars}</span></h3><!-- END: title -->
+		<div class="content-body">
+			<p>Click on the title to view the whole <a href="#articles">articles</a>, <a href="#abstracts">abstracts</a> or <a href="#reviews">reviews</a>..</p>
+			<div id="print-article-list">
+				<!-- BEGIN: main_articles -->
+				<a name="articles"></a>
+				<h2>Articles</h2>
+				<!-- BEGIN: item -->
+				<p>
+				<a title="{ARTICLE.title} details" href="/{ARTICLE.src}"> {ARTICLE.title}</a><br /> 
+				By {ARTICLE.authors}, JCM {ARTICLE.issue_number}/{ARTICLE.page_from}<br />
+				{ARTICLE.description}
+				</p>
+				<!-- END: item -->
+				<!-- BEGIN: noitem -->
+				<p>Sorry, there are no articles for this topic.</p>
+				<!-- END: noitem -->
+				<!-- END: main_articles -->
+				
+				<!-- BEGIN: abstracts -->
+				<a name="abstracts"></a>
+				<h2>Abstracts</h2>
+				<!-- BEGIN: item -->
+				<p>
+				<a title="{ARTICLE.title} details" href="/{ARTICLE.src}"> {ARTICLE.title}</a><br /> 
+				By {ARTICLE.authors}, JCM {ARTICLE.issue_number}/{ARTICLE.page_from}, JTCM {ARTICLE.other.jtcm_date}<br />
+				</p>
+				<!-- {ARTICLE.description} -->
+				<!-- END: item -->
+				<!-- BEGIN: noitem -->
+				<p>Sorry, no abstracts for this topic.</p>
+				<!-- END: noitem -->
+				<!-- END: abstracts -->
+				
+				<!-- BEGIN: reviews -->
+				<a name="reviews"></a>
+				<h2>Reviews</h2>
+				<!-- BEGIN: item -->
+				<p>
+				<a title="{REVIEW.title} details" href="/{REVIEW.src}"> {REVIEW.title}</a><br /> 
+				By {REVIEW.authors}, JCM {REWIEW.issue_number}/{REVIEW.page_from}, JTCM {REVIEW.other.jtcm_date}<br />
+				</p>
+				<!-- {ARTICLE.description} -->
+				<!-- END: item -->
+				<!-- BEGIN: noitem -->
+				<p>Sorry, no reviews for this topic.</p>
+				<!-- END: noitem -->
+				<!-- END: reviews -->
+			</div>
 		</div>
 	</div>
 </div>

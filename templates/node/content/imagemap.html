@@ -1,13 +1,15 @@
 <!-- BEGIN: content -->
-<div class="imagemap {NODE.css_class}">
-	<!-- BEGIN: title --><h3 class="content-title"><span>{NODE.title|htmlspecialchars}</span></h3><!-- END: title -->
-	<div class="content-body">
-		<map name="imagemap-{GET.id}">
-			{MAP.definition}
-		</map>
-		
-		<h3>{MAP.title}</h3>
-		<img usemap="#imagemap-{GET.id}" src="/image/{IMAGE.src}" alt="{IMAGE.title|htmlspecialchars}" />
+<div class="content imagemap {NODE.css_class} {NODE.taxonomy_class}">
+	<div class="wrapper">
+		<!-- BEGIN: title --><h3 class="content-title"><span>{NODE.title|htmlspecialchars}</span></h3><!-- END: title -->
+		<div class="content-body">
+			<map name="imagemap-{GET.id}">
+				{MAP.definition}
+			</map>
+			
+			<h3>{MAP.title}</h3>
+			<img usemap="#imagemap-{GET.id}" src="/image/{IMAGE.src}" alt="{IMAGE.title|htmlspecialchars}" />
+		</div>
 	</div>
 </div>
 <!-- END: content -->

@@ -1,10 +1,14 @@
 <!-- BEGIN: content -->
-<div class="content-list {NODE.css_class}">
-	<!-- BEGIN: title --><h3 class="content-title"><span>{NODE.title|htmlspecialchars}</span></h3><!-- END: title -->
-	<ul>
-		<!-- BEGIN: item -->
-		<li><a href="/page/{PARENT_PAGE_ID}#node_id_{ITEM.id}">{ITEM.title|htmlspecialchars}</a></li>
-		<!-- END: item -->
-	</ul>
+<div class="content content-list {NODE.css_class} {NODE.taxonomy_class}">
+	<div class="wrapper">
+		<!-- BEGIN: title --><h3 class="content-title"><span>{NODE.title|htmlspecialchars}</span></h3><!-- END: title -->
+		<div class="content-body">
+			<ul>
+				<!-- BEGIN: item -->
+				<li><a href="/page/{PARENT_PAGE_ID}#node_id_{ITEM.id}">{ITEM.title|htmlspecialchars}</a></li>
+				<!-- END: item -->
+			</ul>
+		</div>
+	</div>
 </div>
 <!-- END: content -->

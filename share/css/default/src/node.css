@@ -7,25 +7,13 @@
 /********* node/page/news.html *********/
 /********* node/page/product.html *********/
 
-#pageSide {float: left; overflow: hidden;} /*also wrapper to secondaryNavigation*/
-#pageSideWrapper {margin-right: 10px;}
-
-#secondaryNavigation {line-height: 1em; margin-bottom: 20px;}
-#secondaryNavigation ul {padding: 0; margin: 0; list-style-type: none;}
-#secondaryNavigation li {padding: 0; margin: 0; zoom: 1;/*zoom for ie6*/}
-#secondaryNavigation a {display: block; padding: 7px 5px; text-decoration: none; zoom: 1;}
-#secondaryNavigation a:active span {text-decoration: underline;}
-#secondaryNavigation ul ul {list-style-type: disc;}
-#secondaryNavigation ul ul li {padding-left: 0; margin-left: 25px;}
-
-#pageImage {float: right;}
-#pageImage a {text-decoration: none;}
+/*nothing*/
 
 /********* node/page/news.html *********/
 div.news div.note p {margin-top: 0;}
 div.news div.back {clear: both;}
 div.news div.body {margin-bottom: 1em;}
-div.news div.addThisButtons {margin-bottom: 10px;}
+div.news div.add-this-buttons {margin-bottom: 10px;}
 
 /****************************************************************************************/
 /*****************************          node/content        *****************************/
@@ -43,19 +31,15 @@ div.content-RTE .imageBorder,
 div.content-RTE .border {border: 1px solid black;}
 
 /*apply for products, other option would be to add .content-RTE class in product detail page description element */
-div.product .imageLeft,
-div.product .imageleft {float: left; margin-right: 10px;}
-div.product .imageRight,
-div.product .imageright {float: right; margin-left: 10px;}
-div.product .imageBorder,
+div.product .image-left {float: left; margin-right: 10px;}
+div.product .image-right {float: right; margin-left: 10px;}
+div.product .image-order,
 div.product .border {border: 1px solid black;}
 
 /*apply for news pages, other option would be to add .content-RTE class in news detail page */
-div.news .imageLeft,
-div.news .imageleft {float: left; margin-right: 10px;}
-div.news .imageRight,
-div.news .imageright {float: right; margin-left: 10px;}
-div.news .imageBorder,
+div.news .image-left {float: left; margin-right: 10px;}
+div.news .image-right {float: right; margin-left: 10px;}
+div.news .image-order,
 div.news .border {border: 1px solid black;}
 
 
@@ -68,19 +52,19 @@ div.quote p.quote {padding: 0 40px 0 0; margin: 0; text-align: center;}
 div.quote p.author {font-family: sans-serif; padding-right: 40px; text-align: center; background: none;}
 
 /********* component/news_list_teaser.html *********/
-div.news_list.teaser div.image {float: left; padding: 0 20px 10px 0;}
-div.news_list.teaser div.image a {text-decoration: none;}
-div.news_list.teaser div.created {font-weight: bold;}
-div.news_list.teaser div.created p {margin-bottom: 1em;}
+div.news-list.teaser div.image {float: left; padding: 0 20px 10px 0;}
+div.news-list.teaser div.image a {text-decoration: none;}
+div.news-list.teaser div.created {font-weight: bold;}
+div.news-list.teaser div.created p {margin-bottom: 1em;}
 
 /********* component/news_list_grid.html *********/
-div.news_list.grid div.item {width: 300px; min-height: 300px; display: block; float: left; margin: 10px;}
+div.news-list.grid div.item {width: 300px; min-height: 300px; display: block; float: left; margin: 10px;}
 
 /********* node/content/contact_form.html *********/
-div.contact_form textarea {width: 100%;}
-div.contact_form div.submit span.label {display: none;}
-div.contact_form span.mandatory-mark {padding-right: 0.5em;}
-div.contact_form legend {display: none;}
+div.contact-form textarea {width: 100%;}
+div.contact-form div.submit span.label {display: none;}
+div.contact-form span.mandatory-mark {padding-right: 0.5em;}
+div.contact-form legend {display: none;}
 
 /********* node/content/picture.html *********/
 div.node-content-picture, 
@@ -91,6 +75,6 @@ div.node-content-picture div.picture.single div.item {float: left; margin-right:
 div.node-content-HTML {}
 
 /********* node/content/file.html *********/
-div.file span.file_size {white-space: nowrap;}
+div.file span.file-size {white-space: nowrap;}
 
 

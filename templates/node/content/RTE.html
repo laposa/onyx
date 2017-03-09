@@ -1,8 +1,10 @@
 <!-- BEGIN: content -->
-<section class="rte {NODE.css_class} {NODE.taxonomy_class}">
+<div class="content rte {NODE.css_class} {NODE.taxonomy_class}">
 	<div class="wrapper">
-		<!-- BEGIN: title --><h3>{NODE.title|htmlspecialchars}</h3><!-- END: title -->
-		{NODE.content}
+		<!-- BEGIN: title --><h3 class="content-title"><span>{NODE.title|htmlspecialchars}</span></h3><!-- END: title -->
+		<div class="content-body">
+			{NODE.content}
+		</div>
 	</div>
-</section>
+</div>
 <!-- END: content -->

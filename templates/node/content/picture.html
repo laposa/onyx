@@ -1,10 +1,10 @@
 <!-- BEGIN: content -->
-<section class="gallery-{NODE.component.template} {NODE.css_class} {NODE.taxonomy_class}">
+<div class="content picture gallery-{NODE.component.template} {NODE.css_class} {NODE.taxonomy_class}">
 	<div class="wrapper">
-		<header>
-			<!-- BEGIN: title --><h3>{NODE.title|htmlspecialchars}</h3><!-- END: title -->
-		</header>
-		{CONTENT}
+		<!-- BEGIN: title --><h3 class="content-title"><span>{NODE.title|htmlspecialchars}</span></h3><!-- END: title -->
+		<div class="content-body">
+			{CONTENT}
+		</div>
 	</div>
-</section>
+</div>
 <!-- END: content -->

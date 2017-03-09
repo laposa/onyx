@@ -515,140 +515,214 @@ div#jGrowl div.jGrowl-closer { background: black; color: white; background: rgba
  
 #tracy-debug {z-index: 300000;}
 /**
- * Norbert @ Laposa Ltd, 2017/01/11
+ * Norbert @ Laposa Ltd, 2009 - 2017
  *
  */
 
+/**
+ * gutters
+ * set all gutters to 10px on content elements like traditional grid systems, e.g. 960gs
+ */
+ 
+div.content,
+header.site,
+footer.site,
+nav.primary,
+nav.footer {margin: 10px;}
+h2.layout-litle {margin-left: 10px; margin-right: 10px;}
+
+/*
+ * extra CSS classes to be used in CMS
+ * - full-bleed - apply to content or layout
+ */
+
+div.full-bleed {margin: 0!important;}
+
+
+/****************************************************************************************/
+/*****************************          node/site           *****************************/
+/****************************************************************************************/
+
+header.site > div.wrapper,
+footer.site > div.wrapper {max-width: 1200px; margin: 0 auto; padding: 30px;}
+
+/****************************************************************************************/
+/*****************************          node/page           *****************************/
+/****************************************************************************************/
+
+div.page > div.wrapper {max-width: 1200px; margin: 0 auto; padding: 30px;}
+
+/************ node/page/default.html ****/
+div.row-top:after,
+div.row-middle:after,
+div.row-bottom:after {content: '.'; display: block; height: 0; font-size: 0; clear: both; visibility: hidden;}
+div.row-top div.node:last-child:after,
+div.row-middle div.node:last-child:after,
+div.row-bottom div.node:last-child:after {content: '.'; display: block; height: 0; font-size: 0; clear: both; visibility: hidden;}
+div.page div.page-wrapper {padding: 0;}
+div.page div.row-bottom {clear: both;}
+
+/*default, fobinaci-1-1, 50%/50%*/
+div.two-column-page div.column-one,
+div.two-column-page.fibonacci-1-1 div.column-one {float: left; width: 49.999%; clear: both; overflow: hidden; }
+div.two-column-page div.column-two,
+div.two-column-page.fibonacci-1-1 div.column-two {width: 49.999%; float: right; overflow: hidden;}
+/*fibonacci-1-5, 16.6%/83.3%*/
+div.two-column-page.fibonacci-1-5 div.column-one {width: 16.66%;}
+div.two-column-page.fibonacci-1-5 div.column-two {width: 83.33%;}
+div.two-column-page.fibonacci-5-1 div.column-one {width: 83.33%;}
+div.two-column-page.fibonacci-5-1 div.column-two {width: 16.66%;}
+/*fibonacci-1-3, 25%/75%*/
+div.two-column-page.fibonacci-1-3 div.column-one {width: 25%;}
+div.two-column-page.fibonacci-1-3 div.column-two {width: 75%;}
+div.two-column-page.fibonacci-3-1 div.column-one {width: 75%;}
+div.two-column-page.fibonacci-3-1 div.column-two {width: 25%;}
+/*fibonacci-2-5, 28.6%/71.4%*/
+div.two-column-page.fibonacci-2-5 div.column-one {width: 28.6%;}
+div.two-column-page.fibonacci-2-5 div.column-two {width: 71.4%;}
+div.two-column-page.fibonacci-5-2 div.column-one {width: 71.4%;}
+div.two-column-page.fibonacci-5-2 div.column-two {width: 28.6%;}
+/*fibonacci-1-2, 33%/66%*/
+div.two-column-page.fibonacci-1-2 div.column-one {width: 33.3%;}
+div.two-column-page.fibonacci-1-2 div.column-two {width: 66.6%;}
+div.two-column-page.fibonacci-2-1 div.column-one {width: 66.6%;}
+div.two-column-page.fibonacci-2-1 div.column-two {width: 33.3%;}
+/*fibonacci-3-5, 38.2%/61.8%*/
+div.two-column-page.fibonacci-3-5 div.column-one {width: 38.2%;}
+div.two-column-page.fibonacci-3-5 div.column-two {width: 61.77%;}
+div.two-column-page.fibonacci-5-3 div.column-one {width: 61.77%;}
+div.two-column-page.fibonacci-5-3 div.column-two {width: 38.2%;}
+/*fibonacci-2-3, 40%/60%*/
+div.two-column-page.fibonacci-2-3 div.column-one {width: 40%;}
+div.two-column-page.fibonacci-2-3 div.column-two {width: 60%;}
+div.two-column-page.fibonacci-3-2 div.column-one {width: 60%;}
+div.two-column-page.fibonacci-3-2 div.column-two {width: 40%;}
 
 /****************************************************************************************/
 /*****************************          node/layout         *****************************/
 /****************************************************************************************/
 
+div.wrapper:after {content: '.'; display: block; height: 0; font-size: 0; clear: both; visibility: hidden;}
+
 /********* node/layout/1column.html *********/
-section.one-column-layout {clear: both;}
+.one-column-layout {clear: both;}
+.one-column-layout div.layout-column-single {float: none; width: auto;}
 
 /********* node/layout/2columns.html *********/
-section.layout-two-col {clear: both;}
+.two-column-layout {clear: both;}
+.two-column-layout:after,
+.two-column-layout div.layout-body:after {content: '.'; display: block; height: 0; font-size: 0; clear: both; visibility: hidden;}
 
 /*default, fibonacci-1-1, 50%/50%*/
-section.two-column-layout div.col.one,
-section.two-column-layout.fibonacci-1-1 div.col.one {float: left; width: 49.999%;}
-section.two-column-layout div.col.two,
-section.two-column-layout.fibonacci-1-1 div.col.two {width: 49.999%; float: right;}
+.two-column-layout div.layout-column-one.of-two,
+.two-column-layout.fibonacci-1-1 div.layout-column-one.of-two {float: left; width: 49.999%;}
+.two-column-layout div.layout-column-two.of-two,
+.two-column-layout.fibonacci-1-1 div.layout-column-two.of-two {width: 49.999%; float: right;}
 /*fibonacci-1-5, 16.6%/83.3%*/
-section.two-column-layout.fibonacci-1-5 div.col.one {width: 16.66%;}
-section.two-column-layout.fibonacci-1-5 div.col.two {width: 83.33%;}
-section.two-column-layout.fibonacci-5-1 div.col.one {width: 83.33%;}
-section.two-column-layout.fibonacci-5-1 div.col.two {width: 16.66%;}
+.two-column-layout.fibonacci-1-5 div.layout-column-one.of-two {width: 16.66%;}
+.two-column-layout.fibonacci-1-5 div.layout-column-two.of-two {width: 83.33%;}
+.two-column-layout.fibonacci-5-1 div.layout-column-one.of-two {width: 83.33%;}
+.two-column-layout.fibonacci-5-1 div.layout-column-two.of-two {width: 16.66%;}
 /*fibonacci-1-3, 25%/75%*/
-section.two-column-layout.fibonacci-1-3 div.col.one {width: 25%;}
-section.two-column-layout.fibonacci-1-3 div.col.two {width: 75%;}
-section.two-column-layout.fibonacci-3-1 div.col.one {width: 75%;}
-section.two-column-layout.fibonacci-3-1 div.col.two {width: 25%;}
+.two-column-layout.fibonacci-1-3 div.layout-column-one.of-two {width: 25%;}
+.two-column-layout.fibonacci-1-3 div.layout-column-two.of-two {width: 75%;}
+.two-column-layout.fibonacci-3-1 div.layout-column-one.of-two {width: 75%;}
+.two-column-layout.fibonacci-3-1 div.layout-column-two.of-two {width: 25%;}
 /*fibonacci-2-5, 28.6%/71.4%*/
-section.two-column-layout.fibonacci-2-5 div.col.one {width: 28.6%;}
-section.two-column-layout.fibonacci-2-5 div.col.two {width: 71.4%;}
-section.two-column-layout.fibonacci-5-2 div.col.one {width: 71.4%;}
-section.two-column-layout.fibonacci-5-2 div.col.two {width: 28.6%;}
+.two-column-layout.fibonacci-2-5 div.layout-column-one.of-two {width: 28.6%;}
+.two-column-layout.fibonacci-2-5 div.layout-column-two.of-two {width: 71.4%;}
+.two-column-layout.fibonacci-5-2 div.layout-column-one.of-two {width: 71.4%;}
+.two-column-layout.fibonacci-5-2 div.layout-column-two.of-two {width: 28.6%;}
 /*fibonacci-1-2, 33%/66%*/
-section.two-column-layout.fibonacci-1-2 div.col.one {width: 33.3%;}
-section.two-column-layout.fibonacci-1-2 div.col.two {width: 66.6%;}
-section.two-column-layout.fibonacci-2-1 div.col.one {width: 66.6%;}
-section.two-column-layout.fibonacci-2-1 div.col.two {width: 33.3%;}
+.two-column-layout.fibonacci-1-2 div.layout-column-one.of-two {width: 33.3%;}
+.two-column-layout.fibonacci-1-2 div.layout-column-two.of-two {width: 66.6%;}
+.two-column-layout.fibonacci-2-1 div.layout-column-one.of-two {width: 66.6%;}
+.two-column-layout.fibonacci-2-1 div.layout-column-two.of-two {width: 33.3%;}
 /*fibonacci-3-5, 38.2%/61.8%*/
-section.two-column-layout.fibonacci-3-5 div.col.one {width: 38.2%;}
-section.two-column-layout.fibonacci-3-5 div.col.two {width: 61.8%;}
-section.two-column-layout.fibonacci-5-3 div.col.one {width: 61.8%;}
-section.two-column-layout.fibonacci-5-3 div.col.two {width: 38.2%;}
+.two-column-layout.fibonacci-3-5 div.layout-column-one.of-two {width: 38.2%;}
+.two-column-layout.fibonacci-3-5 div.layout-column-two.of-two {width: 61.8%;}
+.two-column-layout.fibonacci-5-3 div.layout-column-one.of-two {width: 61.8%;}
+.two-column-layout.fibonacci-5-3 div.layout-column-two.of-two {width: 38.2%;}
 /*fibonacci-2-3, 40%/60%*/
-section.two-column-layout.fibonacci-2-3 div.col.one {width: 40%;}
-section.two-column-layout.fibonacci-2-3 div.col.two {width: 60%;}
-section.two-column-layout.fibonacci-3-2 div.col.one {width: 60%;}
-section.two-column-layout.fibonacci-3-2 div.col.two {width: 40%;}
+.two-column-layout.fibonacci-2-3 div.layout-column-one.of-two {width: 40%;}
+.two-column-layout.fibonacci-2-3 div.layout-column-two.of-two {width: 60%;}
+.two-column-layout.fibonacci-3-2 div.layout-column-one.of-two {width: 60%;}
+.two-column-layout.fibonacci-3-2 div.layout-column-two.of-two {width: 40%;}
 
 /********* node/layout/3columns.html *********/
-section.three-column-layout {clear: both;}
-section.three-column-layout div.col.one, 
-section.three-column-layout div.col.two, 
-section.three-column-layout div.col.three {width: 33.3334%; overflow: hidden;}
-section.three-column-layout div.col.one, 
-section.three-column-layout div.col.two {float: left;}
-section.three-column-layout div.col.three {float: right;}
+.three-column-layout {clear: both;}
+.three-column-layout div.layout-column-one.of-three, 
+.three-column-layout div.layout-column-two.of-three, 
+.three-column-layout div.layout-column-three.of-three {width: 33.3334%; overflow: hidden;}
+.three-column-layout div.layout-column-one.of-three, 
+.three-column-layout div.layout-column-two.of-three {float: left;}
+.three-column-layout div.layout-column-three.of-three {float: right;}
 
 /********* node/layout/4columns.html *********/
-section.four-column-layout {clear: both;}
-section.four-column-layout div.col.one, 
-section.four-column-layout div.col.two, 
-section.four-column-layout div.col.three,
-section.four-column-layout div.col.four {width: 25%; overflow: hidden;}
-section.four-column-layout div.col.one, 
-section.four-column-layout div.col.two,
-section.four-column-layout div.col.three {float: left;}
-section.four-column-layout div.col.four {float: right;}
+.four-column-layout {clear: both;}
+.four-column-layout div.layout-column-one.of-four, 
+.four-column-layout div.layout-column-two.of-four, 
+.four-column-layout div.layout-column-three.of-four,
+.four-column-layout div.layout-column-four.of-four {width: 25%; overflow: hidden;}
+.four-column-layout div.layout-column-one.of-four, 
+.four-column-layout div.layout-column-two.of-four,
+.four-column-layout div.layout-column-three.of-four {float: left;}
+.four-column-layout div.layout-column-four.of-four {float: right;}
 
 /********* node/layout/5columns.html *********/
-section.five-column-layout {clear: both;}
-section.five-column-layout div.col.one, 
-section.five-column-layout div.col.two, 
-section.five-column-layout div.col.three,
-section.five-column-layout div.col.four,
-section.five-column-layout div.col.five {width: 20%; overflow: hidden;}
-section.five-column-layout div.col.one, 
-section.five-column-layout div.col.two,
-section.five-column-layout div.col.three,
-section.five-column-layout div.col.four {float: left;}
-section.five-column-layout div.col.five {float: right;}
+.five-column-layout {clear: both;}
+.five-column-layout div.layout-column-one.of-five, 
+.five-column-layout div.layout-column-two.of-five, 
+.five-column-layout div.layout-column-three.of-five,
+.five-column-layout div.layout-column-four.of-five,
+.five-column-layout div.layout-column-five.of-five {width: 20%; overflow: hidden;}
+.five-column-layout div.layout-column-one.of-five, 
+.five-column-layout div.layout-column-two.of-five,
+.five-column-layout div.layout-column-three.of-five,
+.five-column-layout div.layout-column-four.of-five {float: left;}
+.five-column-layout div.layout-column-five.of-five {float: right;}
 
 /********* node/layout/6columns.html *********/
-section.six-column-layout {clear: both;}
-section.six-column-layout div.col.one, 
-section.six-column-layout div.col.two, 
-section.six-column-layout div.col.three,
-section.six-column-layout div.col.four,
-section.six-column-layout div.col.five,
-section.six-column-layout div.col.six {width: 16.666%; overflow: hidden;}
-section.six-column-layout div.col.one, 
-section.six-column-layout div.col.two,
-section.six-column-layout div.col.three,
-section.six-column-layout div.col.four,
-section.six-column-layout div.col.five {float: left;}
-section.six-column-layout div.col.six {float: right;}
+.six-column-layout {clear: both;}
+.six-column-layout div.layout-column-one.of-six, 
+.six-column-layout div.layout-column-two.of-six, 
+.six-column-layout div.layout-column-three.of-six,
+.six-column-layout div.layout-column-four.of-six,
+.six-column-layout div.layout-column-five.of-six,
+.six-column-layout div.layout-column-six.of-six {width: 16.666%; overflow: hidden;}
+.six-column-layout div.layout-column-one.of-six, 
+.six-column-layout div.layout-column-two.of-six,
+.six-column-layout div.layout-column-three.of-six,
+.six-column-layout div.layout-column-four.of-six,
+.six-column-layout div.layout-column-five.of-six {float: left;}
+.six-column-layout div.layout-column-six.of-six {float: right;}
 
 /********* node/layout/tabs.html *********/
-section.tabs-layout {clear: both;}
-section.tabs-layout ul.tabs li {display: inline-block; list-style-type: none; padding: 0; margin: 0;}
-section.tabs-layout ul.tabs li a {display: inline-block; padding: 7px 15px;}
-section.tabs-layout div.layout-body {clear: both;}
+.tabs-layout {clear: both;}
+.tabs-layout ul.tabs li {display: inline-block; list-style-type: none; padding: 0; margin: 0;}
+.tabs-layout ul.tabs li a {display: inline-block; padding: 7px 15px;}
+.tabs-layout div.tabs-body {clear: both;}
 
 /********* node/layout/slider.html *********/
-section.slider-layout .unslider {overflow:auto;margin:0;padding:0;}
-section.slider-layout .unslider-wrap {position:relative}
-section.slider-layout .unslider-wrap.unslider-carousel > div.node {float:left}
-section.slider-layout .unslider-vertical > div.slider-wrapper {height:100%}
-section.slider-layout .unslider-vertical div.node {float:none;width:100%}
-section.slider-layout .unslider-fade {position:relative}
-section.slider-layout .unslider-fade .unslider-wrap div.node {position:absolute;left:0;top:0;right:0;z-index:8}
-section.slider-layout .unslider-fade .unslider-wrap div.node.unslider-active {z-index:10}
-section.slider-layout .unslider div.node,
-section.slider-layout .unslider ol,
-section.slider-layout .unslider div.slider-wrapper {list-style:none;margin:0;padding:0;border:none}
-section.slider-layout .unslider-arrow {position:absolute;left:20px;z-index:2;cursor:pointer}
-section.slider-layout .unslider-arrow.next {left:auto;right:20px}
-section.slider-layout .unslider-nav ol {list-style: none; text-align: center;}
-section.slider-layout .unslider-nav ol li {display: inline-block; width: 15px; height: 15px; margin: 0 4px; background: transparent; border-radius: 15px; overflow: hidden; text-indent: -999em; border: 2px solid #fff; cursor: pointer;}
-section.slider-layout .unslider-nav ol li.unslider-active {background: #fff;cursor: default;}
+.slider-layout .unslider {overflow:auto;margin:0;padding:0;}
+.slider-layout .unslider-wrap {position:relative}
+.slider-layout .unslider-wrap.unslider-carousel > div.node {float:left}
+.slider-layout .unslider-vertical > div.slider-wrapper {height:100%}
+.slider-layout .unslider-vertical div.node {float:none;width:100%}
+.slider-layout .unslider-fade {position:relative}
+.slider-layout .unslider-fade .unslider-wrap div.node {position:absolute;left:0;top:0;right:0;z-index:8}
+.slider-layout .unslider-fade .unslider-wrap div.node.unslider-active {z-index:10}
+.slider-layout .unslider div.node,
+.slider-layout .unslider ol,
+.slider-layout .unslider div.slider-wrapper {list-style:none;margin:0;padding:0;border:none}
+.slider-layout .unslider-arrow {position:absolute;left:20px;z-index:2;cursor:pointer}
+.slider-layout .unslider-arrow.next {left:auto;right:20px}
+.slider-layout .unslider-nav ol {list-style: none; text-align: center;}
+.slider-layout .unslider-nav ol li {display: inline-block; width: 15px; height: 15px; margin: 0 4px; background: transparent; border-radius: 15px; overflow: hidden; text-indent: -999em; border: 2px solid #fff; cursor: pointer;}
+.slider-layout .unslider-nav ol li.unslider-active {background: #fff;cursor: default;}
 
 /**
- * 
- * 
- */
-
-header {}
-
-div.wrapper {max-width: 1200px; margin: 0 auto; padding: 30px;}
-
-section.layout > div.wrapper {padding: 30px 0;}
-/**
+ * Norbert @ Laposa Ltd, 2009/09/22
  * Chris Black 2017/01
  *
  */
@@ -673,8 +747,8 @@ header {width: 100%;}
 .logo a {text-decoration: none; font-size: 4em;}
 
 #search {float: right; clear: right; margin-bottom: 10px;}
-#search form {background: transparent; float: right; border-width: 0; margin: 0; padding: 0;}
-#search input { background: white url(/share/images/search-bg.png) no-repeat 3px center; padding-left: 20px; width: 165px; display: block;}
+#search form {background: transparent; border-width: 0; margin: 0; padding: 0;}
+#search input {width: 165px;}
 #search label {width: auto;}
 #search button {display: none;}
 
@@ -726,25 +800,13 @@ main {width: 100%; clear: both;}
 /********* node/page/news.html *********/
 /********* node/page/product.html *********/
 
-#pageSide {float: left; overflow: hidden;} /*also wrapper to secondaryNavigation*/
-#pageSideWrapper {margin-right: 10px;}
-
-#secondaryNavigation {line-height: 1em; margin-bottom: 20px;}
-#secondaryNavigation ul {padding: 0; margin: 0; list-style-type: none;}
-#secondaryNavigation li {padding: 0; margin: 0; zoom: 1;/*zoom for ie6*/}
-#secondaryNavigation a {display: block; padding: 7px 5px; text-decoration: none; zoom: 1;}
-#secondaryNavigation a:active span {text-decoration: underline;}
-#secondaryNavigation ul ul {list-style-type: disc;}
-#secondaryNavigation ul ul li {padding-left: 0; margin-left: 25px;}
-
-#pageImage {float: right;}
-#pageImage a {text-decoration: none;}
+/*nothing*/
 
 /********* node/page/news.html *********/
 div.news div.note p {margin-top: 0;}
 div.news div.back {clear: both;}
 div.news div.body {margin-bottom: 1em;}
-div.news div.addThisButtons {margin-bottom: 10px;}
+div.news div.add-this-buttons {margin-bottom: 10px;}
 
 /****************************************************************************************/
 /*****************************          node/content        *****************************/
@@ -762,19 +824,15 @@ div.content-RTE .imageBorder,
 div.content-RTE .border {border: 1px solid black;}
 
 /*apply for products, other option would be to add .content-RTE class in product detail page description element */
-div.product .imageLeft,
-div.product .imageleft {float: left; margin-right: 10px;}
-div.product .imageRight,
-div.product .imageright {float: right; margin-left: 10px;}
-div.product .imageBorder,
+div.product .image-left {float: left; margin-right: 10px;}
+div.product .image-right {float: right; margin-left: 10px;}
+div.product .image-order,
 div.product .border {border: 1px solid black;}
 
 /*apply for news pages, other option would be to add .content-RTE class in news detail page */
-div.news .imageLeft,
-div.news .imageleft {float: left; margin-right: 10px;}
-div.news .imageRight,
-div.news .imageright {float: right; margin-left: 10px;}
-div.news .imageBorder,
+div.news .image-left {float: left; margin-right: 10px;}
+div.news .image-right {float: right; margin-left: 10px;}
+div.news .image-order,
 div.news .border {border: 1px solid black;}
 
 
@@ -787,19 +845,19 @@ div.quote p.quote {padding: 0 40px 0 0; margin: 0; text-align: center;}
 div.quote p.author {font-family: sans-serif; padding-right: 40px; text-align: center; background: none;}
 
 /********* component/news_list_teaser.html *********/
-div.news_list.teaser div.image {float: left; padding: 0 20px 10px 0;}
-div.news_list.teaser div.image a {text-decoration: none;}
-div.news_list.teaser div.created {font-weight: bold;}
-div.news_list.teaser div.created p {margin-bottom: 1em;}
+div.news-list.teaser div.image {float: left; padding: 0 20px 10px 0;}
+div.news-list.teaser div.image a {text-decoration: none;}
+div.news-list.teaser div.created {font-weight: bold;}
+div.news-list.teaser div.created p {margin-bottom: 1em;}
 
 /********* component/news_list_grid.html *********/
-div.news_list.grid div.item {width: 300px; min-height: 300px; display: block; float: left; margin: 10px;}
+div.news-list.grid div.item {width: 300px; min-height: 300px; display: block; float: left; margin: 10px;}
 
 /********* node/content/contact_form.html *********/
-div.contact_form textarea {width: 100%;}
-div.contact_form div.submit span.label {display: none;}
-div.contact_form span.mandatory-mark {padding-right: 0.5em;}
-div.contact_form legend {display: none;}
+div.contact-form textarea {width: 100%;}
+div.contact-form div.submit span.label {display: none;}
+div.contact-form span.mandatory-mark {padding-right: 0.5em;}
+div.contact-form legend {display: none;}
 
 /********* node/content/picture.html *********/
 div.node-content-picture, 
@@ -810,7 +868,7 @@ div.node-content-picture div.picture.single div.item {float: left; margin-right:
 div.node-content-HTML {}
 
 /********* node/content/file.html *********/
-div.file span.file_size {white-space: nowrap;}
+div.file span.file-size {white-space: nowrap;}
 
 
 /**
@@ -824,7 +882,7 @@ div.file span.file_size {white-space: nowrap;}
 /****************************************************************************************/
 
 /********* component/feed.html *********/
-div.feed p.pubDate {padding: 0; margin: 0 0 10px 0;}
+div.feed p.pub-date {padding: 0; margin: 0 0 10px 0;}
 div.feed p.copyright {}
 div.feed div.item {margin: 10px 0;}
 div.feed div.item h5 {margin: 0 0 0.5em 0;}
@@ -840,11 +898,11 @@ div.searchbox label {display: none;}
 div.searchbox input.text {margin: 0; width: 185px;}
 
 /********* component/search_result.html *********/
-div.search_result li {clear: both; margin-bottom: 10px;}
-div.search_result li a.last {font-weight: bold;}
-div.search_result li a.image {text-decoration: none; display: block; float: right; padding-left: 5px;}
-div.search_result span.item_description {font-size: small;}
-div.search_result span.keyword_highlight {color: #000000; background: #ff0;}
+div.search-result li {clear: both; margin-bottom: 10px;}
+div.search-result li a.last {font-weight: bold;}
+div.search-result li a.image {text-decoration: none; display: block; float: right; padding-left: 5px;}
+div.search-result span.item-description {font-size: small;}
+div.search-result span.keyword-highlight {color: #000000; background: #ff0;}
 
 /********* component/pagination.html *********/
 div.pagination {margin: 5px 0; text-align: center;}
@@ -858,96 +916,96 @@ div.pagination li.next a:hover,
 div.pagination a.show_all:hover {text-decoration: underline;}
 
 /********* component/image_gallery/plain.html *********/
-section.gallery-plain figcaption {display: none;}
+div.gallery-plain figcaption {display: none;}
 
 /********* component/image_gallery/list.html *********/
-section.gallery-list div.thumbnails figure {display: inline-block; margin: 5px;}
-section.gallery-list a {text-decoration: none;}
+div.gallery-list div.thumbnails figure {display: inline-block; margin: 5px;}
+div.gallery-list a {text-decoration: none;}
 
 /********* component/image_gallery/cycle.html *********/
-div.image_gallery_cycle {border: 0; position: relative;}
-div.image_gallery_cycle div.controls {z-index: 1000; position: absolute; top: 0; left: 0; display: none;}
-div.image_gallery_cycle div.controls a.prev,
-div.image_gallery_cycle div.controls a.next {width: 30px; height: 27px; display: block; opacity: 0.9;}
-div.image_gallery_cycle div.controls a span {display: none;}
-div.image_gallery_cycle div.controls a.prev {background: url(/share/images/default/arrow-left.gif) center left no-repeat; float: left;}
-div.image_gallery_cycle div.controls a.next {background: url(/share/images/default/arrow-right.gif) center right no-repeat; float: right;}
-div.image_gallery_cycle div.controls div.pagination {float: left; margin: 0;}
-div.image_gallery_cycle div.controls div.pagination a {float: left; display: block; padding: 3px 7px;}
-div.image_gallery_cycle div.imageInfo {display: none;}
+div.image-gallery-cycle {border: 0; position: relative;}
+div.image-gallery-cycle div.controls {z-index: 1000; position: absolute; top: 0; left: 0; display: none;}
+div.image-gallery-cycle div.controls a.prev,
+div.image-gallery-cycle div.controls a.next {width: 30px; height: 27px; display: block; opacity: 0.9;}
+div.image-gallery-cycle div.controls a span {display: none;}
+div.image-gallery-cycle div.controls a.prev {background: url(/share/images/default/arrow-left.gif) center left no-repeat; float: left;}
+div.image-gallery-cycle div.controls a.next {background: url(/share/images/default/arrow-right.gif) center right no-repeat; float: right;}
+div.image-gallery-cycle div.controls div.pagination {float: left; margin: 0;}
+div.image-gallery-cycle div.controls div.pagination a {float: left; display: block; padding: 3px 7px;}
+div.image-gallery-cycle div.image-info {display: none;}
 
 /********* component/image_gallery/cycle2.html *********/
-section.gallery-cycle2 {position: relative; overflow: visible!important;/* override inline 'overflow: hidden' added by cycle2 plugin */ }  
-section.gallery-cycle2 > div.wrapper {position: relative;}
-section.gallery-cycle2 figure {display: block; width: 100%; margin: 0;}
-section.gallery-cycle2 figure figcaption {position: absolute; width: 33.333%; top: 33.333%; right: 30px;}
-section.gallery-cycle2 div.controls {position: absolute; display: flex; justify-content: space-between; align-items: center; height: 100%; top: 0; right: 0; left: 0; pointer-events: none;}
-section.gallery-cycle2 div.controls a {display: block; color: #0a2861; opacity: 0.7; pointer-events: all;}
-section.gallery-cycle2 div.controls a:hover,
-section.gallery-cycle2 div.controls a.active {opacity: 1.0; text-decoration: none;}
-section.gallery-cycle2 div.controls a:focus {text-decoration: none;}
-section.gallery-cycle2 div.controls a span {display: none;}
-section.gallery-cycle2 div.controls a.prev:before,
-section.gallery-cycle2 div.controls a.next:before {content:''; font-family: 'FontAwesome'; font-size: 36px;}
-section.gallery-cycle2 div.controls a.prev:before {content:'\f104';}
-section.gallery-cycle2 div.controls a.next:before {content:'\f105';}
-section.gallery-cycle2 div.gallery-pagination {position: absolute; z-index: 1000; width: 100%; bottom: 54px; text-align: center;}
-section.gallery-cycle2 div.gallery-pagination a {display: inline-block; width: 12px; height: 12px; margin: 0 5px; border-radius: 50%; background: white; cursor: pointer; opacity: 0.7; transition: opacity 300ms ease;}
-section.gallery-cycle2 div.gallery-pagination a:hover,
-section.gallery-cycle2 div.gallery-pagination a.active {opacity: 1.0;}
-section.gallery-cycle2 div.gallery-pagination a span {display: none;}
-section.gallery-cycle2.number-of-items-1 div.controls,
-section.gallery-cycle2.number-of-items-1 div.pagination {display: none;}
+div.gallery-cycle2 {position: relative; overflow: visible!important;/* override inline 'overflow: hidden' added by cycle2 plugin */ }  
+div.gallery-cycle2 > div.wrapper {position: relative;}
+div.gallery-cycle2 figure {display: block; width: 100%; margin: 0;}
+div.gallery-cycle2 figure figcaption {position: absolute; width: 33.333%; top: 33.333%; right: 30px;}
+div.gallery-cycle2 div.controls {position: absolute; display: flex; justify-content: space-between; align-items: center; height: 100%; top: 0; right: 0; left: 0; pointer-events: none;}
+div.gallery-cycle2 div.controls a {display: block; color: #0a2861; opacity: 0.7; pointer-events: all;}
+div.gallery-cycle2 div.controls a:hover,
+div.gallery-cycle2 div.controls a.active {opacity: 1.0; text-decoration: none;}
+div.gallery-cycle2 div.controls a:focus {text-decoration: none;}
+div.gallery-cycle2 div.controls a span {display: none;}
+div.gallery-cycle2 div.controls a.prev:before,
+div.gallery-cycle2 div.controls a.next:before {content:''; font-family: 'FontAwesome'; font-size: 36px;}
+div.gallery-cycle2 div.controls a.prev:before {content:'\f104';}
+div.gallery-cycle2 div.controls a.next:before {content:'\f105';}
+div.gallery-cycle2 div.gallery-pagination {position: absolute; z-index: 1000; width: 100%; bottom: 54px; text-align: center;}
+div.gallery-cycle2 div.gallery-pagination a {display: inline-block; width: 12px; height: 12px; margin: 0 5px; border-radius: 50%; background: white; cursor: pointer; opacity: 0.7; transition: opacity 300ms ease;}
+div.gallery-cycle2 div.gallery-pagination a:hover,
+div.gallery-cycle2 div.gallery-pagination a.active {opacity: 1.0;}
+div.gallery-cycle2 div.gallery-pagination a span {display: none;}
+div.gallery-cycle2.number-of-items-1 div.controls,
+div.gallery-cycle2.number-of-items-1 div.pagination {display: none;}
 
 
 
 /********* component/image_gallery/fancybox.html *********/
-div.image_gallery_fancybox div.item {float: left; margin-right: 10px;}
+div.image-gallery-fancybox div.item {float: left; margin-right: 10px;}
 
 /********* component/image_gallery/prettyphoto.html *********/
-div.image_gallery_prettyphoto div.item {float: left; margin-right: 10px;}
+div.image-gallery-prettyphoto div.item {float: left; margin-right: 10px;}
 
 /********* component/image_gallery/parallax.html *********/
-div.image_gallery_parallax {text-align: center;}
-div.image_gallery_parallax div.item {display: table; width: 100%; margin: 0; background-repeat: no-repeat; background-size: cover; background-attachment: fixed; background-position-x: center;}
-div.image_gallery_parallax div.item a.image {display: table-cell; vertical-align: middle; width: 100%;}
-div.image_gallery_parallax div.item img {display: none;}
-div.image_gallery_parallax div.slider_copy {text-align: center;}
-div.image_gallery_parallax a {text-decoration: none;}
-div.image_gallery_parallax div.slider_copy h3 {text-align: center;}
+div.image-gallery-parallax {text-align: center;}
+div.image-gallery-parallax div.item {display: table; width: 100%; margin: 0; background-repeat: no-repeat; background-size: cover; background-attachment: fixed; background-position-x: center;}
+div.image-gallery-parallax div.item a.image {display: table-cell; vertical-align: middle; width: 100%;}
+div.image-gallery-parallax div.item img {display: none;}
+div.image-gallery-parallax div.slider-copy {text-align: center;}
+div.image-gallery-parallax a {text-decoration: none;}
+div.image-gallery-parallax div.slider-copy h3 {text-align: center;}
 
 /********* component/comment_add.html *********/
-section.comment form input {width: 100%;}
-section.comment form textarea {width: 100%;}
+div.comment form input {width: 100%;}
+div.comment form textarea {width: 100%;}
 
 /********* menu_SELECT.html **********/
 div.selectMenu {padding: 5px 0 0 0;}
 
 /** newsletter subcribe **/
-div.newsletter_subscribe_start div.row {margin: 0;}
-div.newsletter_subscribe_start span.label {display: none;}
-div.newsletter_subscribe_start fieldset {width: 70%; float: left; margin: 0; padding: 0;}
-div.newsletter_subscribe_start div.submit  {clear: none; float: right;}
+div.newsletter-subscribe-start div.row {margin: 0;}
+div.newsletter-subscribe-start span.label {display: none;}
+div.newsletter-subscribe-start fieldset {width: 70%; float: left; margin: 0; padding: 0;}
+div.newsletter-subscribe-start div.submit  {clear: none; float: right;}
 
 /********* component/rating_stars.html *********/
-div.rating_stars div.star {display: inline-block;}
-div.rating_stars div.text {display: none;}
+div.rating-stars div.star {display: inline-block;}
+div.rating-stars div.text {display: none;}
 /*
 div.rating_stars div.star {background:url("/share/images/default/star.gif") repeat scroll 0 0 transparent; height:17px; width:17px;}
 div.rating_stars div.star span {display: none;}
 */
 
 /********* component/social_network_share.html *********/
-div.social-share ul {margin: 0; padding: 0;}
-div.social-share li {list-style-image: none; list-style-type: none; float: left; margin: 0 0 0 10px; padding: 0;}
-div.social-share li a {text-decoration: none;}
-div.social-share li a:before {font-family: 'FontAwesome'; font-size: 200%;}
-div.social-share li a span {display: none;}
-div.social-share li.facebook a:before {content: '\f082';}
-div.social-share li.twitter a:before {content: '\f081';}
-div.social-share li.google a:before {content: '\f0d4';}
-div.social-share li.pinterest a:before {content: '\f0d3';}
-div.social-share li.mailto a:before {content: '\f199';}
+div.social-network-share ul {margin: 0; padding: 0;}
+div.social-network-share li {list-style-image: none; list-style-type: none; float: left; margin: 0 0 0 10px; padding: 0;}
+div.social-network-share li a {text-decoration: none;}
+div.social-network-share li a:before {font-family: 'FontAwesome'; font-size: 200%;}
+div.social-network-share li a span {display: none;}
+div.social-network-share li.facebook a:before {content: '\f082';}
+div.social-network-share li.twitter a:before {content: '\f081';}
+div.social-network-share li.google a:before {content: '\f0d4';}
+div.social-network-share li.pinterest a:before {content: '\f0d3';}
+div.social-network-share li.mailto a:before {content: '\f199';}
 
 /**
  * stack_list:

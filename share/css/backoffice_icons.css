@@ -67,16 +67,16 @@
  * General
  */
  
-.onxshop-edit {background-image: url(/share/images/famfamfam_icons/plugin.png);}
-.onxshop-layout-properties {background-image: url(/share/images/famfamfam_icons/layout.png);}
-.onxshop-page-properties {background-image: url(/share/images/famfamfam_icons/page.png); background-repeat: no-repeat;}
-.onxshop-duplicate {background-image: url(/share/images/famfamfam_icons/application_double.png);}
-.onxshop-delete {background-image: url(/share/images/famfamfam_icons/delete.png);}
-.onxshop-edit_source {background-image: url(/share/images/famfamfam_icons/link_edit.png);}
-.onxshop-new-content {background-image: url(/share/images/famfamfam_icons/add.png);}
-.onxshop-new-layout {background-image: url(/share/images/famfamfam_icons/layout_add.png);}
-.onxshop-edit-main-content {background-image: url(/share/images/famfamfam_icons/text_signature.png);}
-.onxshop-edit-page-add {background-image: url(/share/images/famfamfam_icons/page_add.png);}
+a.onxshop-edit {background-image: url(/share/images/famfamfam_icons/plugin.png);}
+a.onxshop-layout-properties {background-image: url(/share/images/famfamfam_icons/layout.png);}
+a.onxshop-page-properties {background-image: url(/share/images/famfamfam_icons/page.png);}
+a.onxshop-duplicate {background-image: url(/share/images/famfamfam_icons/application_double.png);}
+a.onxshop-delete {background-image: url(/share/images/famfamfam_icons/delete.png);}
+a.onxshop-edit-source {background-image: url(/share/images/famfamfam_icons/link_edit.png);}
+a.onxshop-new-content {background-image: url(/share/images/famfamfam_icons/add.png);}
+a.onxshop-new-layout {background-image: url(/share/images/famfamfam_icons/layout_add.png);}
+a.onxshop-edit-main-content {background-image: url(/share/images/famfamfam_icons/text_signature.png);}
+a.onxshop-edit-page-add {background-image: url(/share/images/famfamfam_icons/page_add.png);}
 
 /*
 * Container Frontend Icons
@@ -113,7 +113,7 @@ option.onxshop-edit-default.container {background-image: url(/share/images/famfa
 div.onxshop-add-content,
 div.onxshop-edit-content {clear: both; padding: 0 0 50px 5px;}
 
-div.onxshop-add-content a.onxshop_new_content,
+div.onxshop-add-content a.onxshop-new-content,
 div.onxshop-edit-content a,
 div.onxshop-edit-layout a,
 div.onxshop-page-properties a {display: block; width: 30px; height: 19px; float: left; background-repeat: no-repeat; background-position: center;}
@@ -127,33 +127,33 @@ div.onxshop-page-properties a.verbose {width: auto; text-decoration: none; backg
 div.onxshop-page-properties a.verbose span {display: inline; padding: 0 25px;}
 
 .onxshop-edit-articlebox {background-image: url(/share/images/famfamfam_icons/page_edit.png);}
-.onxshop-edit-print_article_list {background-image: url(/share/images/famfamfam_icons/newspaper.png);}
+.onxshop-edit-print-article-list {background-image: url(/share/images/famfamfam_icons/newspaper.png);}
 .onxshop-edit-component {background-image: url(/share/images/famfamfam_icons/plugin.png);}
 .onxshop-edit-quote {background-image: url(/share/images/famfamfam_icons/rosette.png);}
 .onxshop-edit-divider {background-image: url(/share/images/famfamfam_icons/text_horizontalrule.png);}
 .onxshop-edit-teaser {background-image: url(/share/images/famfamfam_icons/page_go.png);}
 .onxshop-edit-imagemap {background-image: url(/share/images/famfamfam_icons/map_edit.png);}
-.onxshop-edit-contact_form {background-image: url(/share/images/famfamfam_icons/email.png);}
+.onxshop-edit-contact-form {background-image: url(/share/images/famfamfam_icons/email.png);}
 .onxshop-edit-comment {background-image: url(/share/images/famfamfam_icons/comment.png);}
 .onxshop-edit-picture {background-image: url(/share/images/famfamfam_icons/photo.png);}
 .onxshop-edit-file {background-image: url(/share/images/famfamfam_icons/disk.png);}
-.onxshop-edit-product_list {background-image: url(/share/images/famfamfam_icons/building.png);}
+.onxshop-edit-product-list {background-image: url(/share/images/famfamfam_icons/building.png);}
 .onxshop-edit-feed {background-image: url(/share/images/famfamfam_icons/rss.png);}
 .onxshop-edit-RTE {background-image: url(/share/images/famfamfam_icons/text_signature.png);}
 .onxshop-edit-shared {background-image: url(/share/images/famfamfam_icons/link.png);}
-.onxshop-edit-news_list {background-image: url(/share/images/famfamfam_icons/newspaper.png);}
+.onxshop-edit-news-list {background-image: url(/share/images/famfamfam_icons/newspaper.png);}
 .onxshop-edit-menu {background-image: url(/share/images/famfamfam_icons/sitemap_color.png);}
-.onxshop-edit-content_list {background-image: url(/share/images/famfamfam_icons/application_view_list.png);}
-.onxshop-edit-page_list {background-image: url(/share/images/famfamfam_icons/application_view_list.png);}
+.onxshop-edit-content-list {background-image: url(/share/images/famfamfam_icons/application_view_list.png);}
+.onxshop-edit-page-list {background-image: url(/share/images/famfamfam_icons/application_view_list.png);}
 .onxshop-edit-HTML {background-image: url(/share/images/famfamfam_icons/html.png);}
-.onxshop-edit-product_highlights {background-image: url(/share/images/famfamfam_icons/award_star_bronze_2.png);}
-.onxshop-edit-special_offer_list {background-image: url(/share/images/famfamfam_icons/money.png);}
+.onxshop-edit-product-highlights {background-image: url(/share/images/famfamfam_icons/award_star_bronze_2.png);}
+.onxshop-edit-special-offer-list {background-image: url(/share/images/famfamfam_icons/money.png);}
 .onxshop-edit-filter {background-image: url(/share/images/famfamfam_icons/page_white_find.png);}
-.onxshop-edit-external_source {background-image: url(/share/images/famfamfam_icons/plugin.png);}
+.onxshop-edit-external-source {background-image: url(/share/images/famfamfam_icons/plugin.png);}
 .onxshop-edit-textile {background-image: url(/share/images/famfamfam_icons/text_signature.png);}
 .onxshop-edit-survey {background-image: url(/share/images/famfamfam_icons/application_form.png);}
 .onxshop-edit-video {background-image: url(/share/images/famfamfam_icons/film.png);}
-.onxshop-edit-recipe_list {background-image: url(/share/images/famfamfam_icons/application_view_list.png);}
+.onxshop-edit-recipe-list {background-image: url(/share/images/famfamfam_icons/application_view_list.png);}
 .onxshop-edit-adaptive {background-image: url(/share/images/famfamfam_icons/table_key.png);}
 
 /**

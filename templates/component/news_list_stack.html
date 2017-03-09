@@ -1,23 +1,23 @@
 <!-- BEGIN: content -->
-<div>
+<!-- BEGIN: content -->
+<div class="news_list stack stack-list">
 	<!-- BEGIN: list -->
-		<!-- BEGIN: item -->
-		<article class="{ITEM.taxonomy_class} news-id-{ITEM.id}">
-			<a href="/page/{ITEM.id}">
-				<!-- BEGIN: image -->
-				<img alt="{ITEM.image.title|htmlspecialchars}" title="{ITEM.image.title|htmlspecialchars}" src="{IMAGE_PATH}{ITEM.image.src}{IMAGE_RESIZE_OPTIONS}" />
-				<!-- END: image -->
-				<header>
-					<h4>{ITEM.title|htmlspecialchars}</h4>
-					<p>{ITEM.description|htmlspecialchars}</p>
-					<div class="byline {AUTHOR_EMPTY}">
-						<time datetime="{ITEM.created|strtotime|strftime('%Y-%m-%d', %s)}">{ITEM.created|strtotime|strftime('%A %e %B %Y', %s)}</time>
-						<address class="author">{ITEM.author_detail.name|htmlspecialchars}</address>
+		<div class="list">
+			<!-- BEGIN: item --><div class="item {ITEM.taxonomy_class} news-id-{ITEM.id}">
+				<a href="/page/{ITEM.id}">
+					<div class="image"><!-- BEGIN: image --><span class="wrap"><img alt="{ITEM.image.title|htmlspecialchars}" title="{ITEM.image.title|htmlspecialchars}" src="{IMAGE_PATH}{ITEM.image.src}{IMAGE_RESIZE_OPTIONS}" /></span><!-- END: image --></div>
+					<div class="info">
+						<div class="wrap">
+							<h4 class="title"><span>{ITEM.title|htmlspecialchars}</span></h4>
+							<div class="description">{ITEM.description|htmlspecialchars}</div>
+							<div class="created {AUTHOR_EMPTY}"><span class="created">{ITEM.created|strtotime|strftime('%A %e %B %Y', %s)}</span> {I18N_BY} <span class="author_name">{ITEM.author_detail.name|htmlspecialchars}</span></div>
+						</div>
 					</div>
-				</header>
-			</a>
-		</article><!-- END: item -->
+				</a>
+			</div><!-- END: item -->
+		</div>
 	<!-- END: list -->
 	{PAGINATION}
 </div>
+<!-- END: content -->
 <!-- END: content -->

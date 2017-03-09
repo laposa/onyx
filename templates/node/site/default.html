@@ -17,7 +17,7 @@
 
 {ONXSHOP_REQUEST_google_analytics #component/google_analytics}
 
-<header>
+<header class="site">
 	<div class="wrapper">
 		<div class="logo">
 			<a href="/" title="{I18N_GOTO_HOMEPAGE} {CONFIGURATION.global.title|htmlspecialchars}"><span>{CONFIGURATION.global.title|htmlspecialchars}</span></a>
@@ -31,11 +31,13 @@
 	</div>
 </header>
 
-<main class="{NODE.node_group} {NODE.css_class} {NODE.taxonomy_class} {NODE.extra_css_class|htmlspecialchars}" data-node-id="{NODE.id}" data-node-controller="{NODE.node_controller}">
-	{SUB_CONTENT}
+<main class="site {NODE.css_class} {NODE.taxonomy_class}">
+	<div class="wrapper">
+		{SUB_CONTENT}
+	</div>
 </main>
 
-<footer>
+<footer class="site">
 	<div class="wrapper">
 		<section id="content-bottom">
 			{CONTENT_FOOT}

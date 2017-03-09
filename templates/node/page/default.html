@@ -8,14 +8,15 @@
 <!-- END: head -->
 <!-- BEGIN: content -->
 
-<!-- BEGIN: page_header -->
-<header class="{NODE.node_group} {NODE.css_class} {NODE.taxonomy_class} {NODE.extra_css_class|htmlspecialchars}" data-node-id="{NODE.id}" data-node-controller="{NODE.node_controller}">
-	<div class="wrapper">
-		<h1 class="page-title">{NODE.page_title|htmlspecialchars}</h1>
-	</div>
-</header>
-<!-- END: page_header -->
-
-{CONTAINER.0}
-
+<div class="page default {NODE.layout_style} {NODE.css_class} {NODE.taxonomy_class}">
+	<!-- BEGIN: page_header -->
+	<header class="page">
+		<div class="wrapper">
+			<h1 class="page-title">{NODE.page_title|htmlspecialchars}</h1>
+		</div>
+	</header>
+	<!-- END: page_header -->
+	
+	{CONTAINER.0}
+</div>
 <!-- END: content -->

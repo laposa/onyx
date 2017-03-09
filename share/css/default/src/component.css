@@ -9,7 +9,7 @@
 /****************************************************************************************/
 
 /********* component/feed.html *********/
-div.feed p.pubDate {padding: 0; margin: 0 0 10px 0;}
+div.feed p.pub-date {padding: 0; margin: 0 0 10px 0;}
 div.feed p.copyright {}
 div.feed div.item {margin: 10px 0;}
 div.feed div.item h5 {margin: 0 0 0.5em 0;}
@@ -25,11 +25,11 @@ div.searchbox label {display: none;}
 div.searchbox input.text {margin: 0; width: 185px;}
 
 /********* component/search_result.html *********/
-div.search_result li {clear: both; margin-bottom: 10px;}
-div.search_result li a.last {font-weight: bold;}
-div.search_result li a.image {text-decoration: none; display: block; float: right; padding-left: 5px;}
-div.search_result span.item_description {font-size: small;}
-div.search_result span.keyword_highlight {color: #000000; background: #ff0;}
+div.search-result li {clear: both; margin-bottom: 10px;}
+div.search-result li a.last {font-weight: bold;}
+div.search-result li a.image {text-decoration: none; display: block; float: right; padding-left: 5px;}
+div.search-result span.item-description {font-size: small;}
+div.search-result span.keyword-highlight {color: #000000; background: #ff0;}
 
 /********* component/pagination.html *********/
 div.pagination {margin: 5px 0; text-align: center;}
@@ -43,96 +43,96 @@ div.pagination li.next a:hover,
 div.pagination a.show_all:hover {text-decoration: underline;}
 
 /********* component/image_gallery/plain.html *********/
-section.gallery-plain figcaption {display: none;}
+div.gallery-plain figcaption {display: none;}
 
 /********* component/image_gallery/list.html *********/
-section.gallery-list div.thumbnails figure {display: inline-block; margin: 5px;}
-section.gallery-list a {text-decoration: none;}
+div.gallery-list div.thumbnails figure {display: inline-block; margin: 5px;}
+div.gallery-list a {text-decoration: none;}
 
 /********* component/image_gallery/cycle.html *********/
-div.image_gallery_cycle {border: 0; position: relative;}
-div.image_gallery_cycle div.controls {z-index: 1000; position: absolute; top: 0; left: 0; display: none;}
-div.image_gallery_cycle div.controls a.prev,
-div.image_gallery_cycle div.controls a.next {width: 30px; height: 27px; display: block; opacity: 0.9;}
-div.image_gallery_cycle div.controls a span {display: none;}
-div.image_gallery_cycle div.controls a.prev {background: url(/share/images/default/arrow-left.gif) center left no-repeat; float: left;}
-div.image_gallery_cycle div.controls a.next {background: url(/share/images/default/arrow-right.gif) center right no-repeat; float: right;}
-div.image_gallery_cycle div.controls div.pagination {float: left; margin: 0;}
-div.image_gallery_cycle div.controls div.pagination a {float: left; display: block; padding: 3px 7px;}
-div.image_gallery_cycle div.imageInfo {display: none;}
+div.image-gallery-cycle {border: 0; position: relative;}
+div.image-gallery-cycle div.controls {z-index: 1000; position: absolute; top: 0; left: 0; display: none;}
+div.image-gallery-cycle div.controls a.prev,
+div.image-gallery-cycle div.controls a.next {width: 30px; height: 27px; display: block; opacity: 0.9;}
+div.image-gallery-cycle div.controls a span {display: none;}
+div.image-gallery-cycle div.controls a.prev {background: url(/share/images/default/arrow-left.gif) center left no-repeat; float: left;}
+div.image-gallery-cycle div.controls a.next {background: url(/share/images/default/arrow-right.gif) center right no-repeat; float: right;}
+div.image-gallery-cycle div.controls div.pagination {float: left; margin: 0;}
+div.image-gallery-cycle div.controls div.pagination a {float: left; display: block; padding: 3px 7px;}
+div.image-gallery-cycle div.image-info {display: none;}
 
 /********* component/image_gallery/cycle2.html *********/
-section.gallery-cycle2 {position: relative; overflow: visible!important;/* override inline 'overflow: hidden' added by cycle2 plugin */ }  
-section.gallery-cycle2 > div.wrapper {position: relative;}
-section.gallery-cycle2 figure {display: block; width: 100%; margin: 0;}
-section.gallery-cycle2 figure figcaption {position: absolute; width: 33.333%; top: 33.333%; right: 30px;}
-section.gallery-cycle2 div.controls {position: absolute; display: flex; justify-content: space-between; align-items: center; height: 100%; top: 0; right: 0; left: 0; pointer-events: none;}
-section.gallery-cycle2 div.controls a {display: block; color: #0a2861; opacity: 0.7; pointer-events: all;}
-section.gallery-cycle2 div.controls a:hover,
-section.gallery-cycle2 div.controls a.active {opacity: 1.0; text-decoration: none;}
-section.gallery-cycle2 div.controls a:focus {text-decoration: none;}
-section.gallery-cycle2 div.controls a span {display: none;}
-section.gallery-cycle2 div.controls a.prev:before,
-section.gallery-cycle2 div.controls a.next:before {content:''; font-family: 'FontAwesome'; font-size: 36px;}
-section.gallery-cycle2 div.controls a.prev:before {content:'\f104';}
-section.gallery-cycle2 div.controls a.next:before {content:'\f105';}
-section.gallery-cycle2 div.gallery-pagination {position: absolute; z-index: 1000; width: 100%; bottom: 54px; text-align: center;}
-section.gallery-cycle2 div.gallery-pagination a {display: inline-block; width: 12px; height: 12px; margin: 0 5px; border-radius: 50%; background: white; cursor: pointer; opacity: 0.7; transition: opacity 300ms ease;}
-section.gallery-cycle2 div.gallery-pagination a:hover,
-section.gallery-cycle2 div.gallery-pagination a.active {opacity: 1.0;}
-section.gallery-cycle2 div.gallery-pagination a span {display: none;}
-section.gallery-cycle2.number-of-items-1 div.controls,
-section.gallery-cycle2.number-of-items-1 div.pagination {display: none;}
+div.gallery-cycle2 {position: relative; overflow: visible!important;/* override inline 'overflow: hidden' added by cycle2 plugin */ }  
+div.gallery-cycle2 > div.wrapper {position: relative;}
+div.gallery-cycle2 figure {display: block; width: 100%; margin: 0;}
+div.gallery-cycle2 figure figcaption {position: absolute; width: 33.333%; top: 33.333%; right: 30px;}
+div.gallery-cycle2 div.controls {position: absolute; display: flex; justify-content: space-between; align-items: center; height: 100%; top: 0; right: 0; left: 0; pointer-events: none;}
+div.gallery-cycle2 div.controls a {display: block; color: #0a2861; opacity: 0.7; pointer-events: all;}
+div.gallery-cycle2 div.controls a:hover,
+div.gallery-cycle2 div.controls a.active {opacity: 1.0; text-decoration: none;}
+div.gallery-cycle2 div.controls a:focus {text-decoration: none;}
+div.gallery-cycle2 div.controls a span {display: none;}
+div.gallery-cycle2 div.controls a.prev:before,
+div.gallery-cycle2 div.controls a.next:before {content:''; font-family: 'FontAwesome'; font-size: 36px;}
+div.gallery-cycle2 div.controls a.prev:before {content:'\f104';}
+div.gallery-cycle2 div.controls a.next:before {content:'\f105';}
+div.gallery-cycle2 div.gallery-pagination {position: absolute; z-index: 1000; width: 100%; bottom: 54px; text-align: center;}
+div.gallery-cycle2 div.gallery-pagination a {display: inline-block; width: 12px; height: 12px; margin: 0 5px; border-radius: 50%; background: white; cursor: pointer; opacity: 0.7; transition: opacity 300ms ease;}
+div.gallery-cycle2 div.gallery-pagination a:hover,
+div.gallery-cycle2 div.gallery-pagination a.active {opacity: 1.0;}
+div.gallery-cycle2 div.gallery-pagination a span {display: none;}
+div.gallery-cycle2.number-of-items-1 div.controls,
+div.gallery-cycle2.number-of-items-1 div.pagination {display: none;}
 
 
 
 /********* component/image_gallery/fancybox.html *********/
-div.image_gallery_fancybox div.item {float: left; margin-right: 10px;}
+div.image-gallery-fancybox div.item {float: left; margin-right: 10px;}
 
 /********* component/image_gallery/prettyphoto.html *********/
-div.image_gallery_prettyphoto div.item {float: left; margin-right: 10px;}
+div.image-gallery-prettyphoto div.item {float: left; margin-right: 10px;}
 
 /********* component/image_gallery/parallax.html *********/
-div.image_gallery_parallax {text-align: center;}
-div.image_gallery_parallax div.item {display: table; width: 100%; margin: 0; background-repeat: no-repeat; background-size: cover; background-attachment: fixed; background-position-x: center;}
-div.image_gallery_parallax div.item a.image {display: table-cell; vertical-align: middle; width: 100%;}
-div.image_gallery_parallax div.item img {display: none;}
-div.image_gallery_parallax div.slider_copy {text-align: center;}
-div.image_gallery_parallax a {text-decoration: none;}
-div.image_gallery_parallax div.slider_copy h3 {text-align: center;}
+div.image-gallery-parallax {text-align: center;}
+div.image-gallery-parallax div.item {display: table; width: 100%; margin: 0; background-repeat: no-repeat; background-size: cover; background-attachment: fixed; background-position-x: center;}
+div.image-gallery-parallax div.item a.image {display: table-cell; vertical-align: middle; width: 100%;}
+div.image-gallery-parallax div.item img {display: none;}
+div.image-gallery-parallax div.slider-copy {text-align: center;}
+div.image-gallery-parallax a {text-decoration: none;}
+div.image-gallery-parallax div.slider-copy h3 {text-align: center;}
 
 /********* component/comment_add.html *********/
-section.comment form input {width: 100%;}
-section.comment form textarea {width: 100%;}
+div.comment form input {width: 100%;}
+div.comment form textarea {width: 100%;}
 
 /********* menu_SELECT.html **********/
 div.selectMenu {padding: 5px 0 0 0;}
 
 /** newsletter subcribe **/
-div.newsletter_subscribe_start div.row {margin: 0;}
-div.newsletter_subscribe_start span.label {display: none;}
-div.newsletter_subscribe_start fieldset {width: 70%; float: left; margin: 0; padding: 0;}
-div.newsletter_subscribe_start div.submit  {clear: none; float: right;}
+div.newsletter-subscribe-start div.row {margin: 0;}
+div.newsletter-subscribe-start span.label {display: none;}
+div.newsletter-subscribe-start fieldset {width: 70%; float: left; margin: 0; padding: 0;}
+div.newsletter-subscribe-start div.submit  {clear: none; float: right;}
 
 /********* component/rating_stars.html *********/
-div.rating_stars div.star {display: inline-block;}
-div.rating_stars div.text {display: none;}
+div.rating-stars div.star {display: inline-block;}
+div.rating-stars div.text {display: none;}
 /*
 div.rating_stars div.star {background:url("/share/images/default/star.gif") repeat scroll 0 0 transparent; height:17px; width:17px;}
 div.rating_stars div.star span {display: none;}
 */
 
 /********* component/social_network_share.html *********/
-div.social-share ul {margin: 0; padding: 0;}
-div.social-share li {list-style-image: none; list-style-type: none; float: left; margin: 0 0 0 10px; padding: 0;}
-div.social-share li a {text-decoration: none;}
-div.social-share li a:before {font-family: 'FontAwesome'; font-size: 200%;}
-div.social-share li a span {display: none;}
-div.social-share li.facebook a:before {content: '\f082';}
-div.social-share li.twitter a:before {content: '\f081';}
-div.social-share li.google a:before {content: '\f0d4';}
-div.social-share li.pinterest a:before {content: '\f0d3';}
-div.social-share li.mailto a:before {content: '\f199';}
+div.social-network-share ul {margin: 0; padding: 0;}
+div.social-network-share li {list-style-image: none; list-style-type: none; float: left; margin: 0 0 0 10px; padding: 0;}
+div.social-network-share li a {text-decoration: none;}
+div.social-network-share li a:before {font-family: 'FontAwesome'; font-size: 200%;}
+div.social-network-share li a span {display: none;}
+div.social-network-share li.facebook a:before {content: '\f082';}
+div.social-network-share li.twitter a:before {content: '\f081';}
+div.social-network-share li.google a:before {content: '\f0d4';}
+div.social-network-share li.pinterest a:before {content: '\f0d3';}
+div.social-network-share li.mailto a:before {content: '\f199';}
 
 /**
  * stack_list:
