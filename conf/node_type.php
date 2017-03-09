@@ -10,8 +10,6 @@ $templates_info['content'] = array(
 	'default'=>array('title' => 'Default', 'description'=>'', 'visibility'=>false),
 	'textile'=>array('title' => 'Textile', 'description'=>'', 'visibility'=>true),
 	'RTE'=>array('title' => 'Rich Text', 'description'=>'', 'visibility'=>true), 
-	'product_highlights'=>array('title' => 'Product Highlights', 'description'=>'', 'visibility'=>true),
-	'special_offer_list'=>array('title' => 'Special Offers List', 'description'=>'', 'visibility'=>true),
 	'picture'=>array('title' => 'Photo Gallery', 'description'=>'', 'visibility'=>true),
 	'video'=>array('title' => 'Video', 'description'=>'', 'visibility'=>true),
 	'quote'=>array('title' => 'Quote (Testimonial)', 'description'=>'Testimonial', 'visibility'=>true),
@@ -25,7 +23,6 @@ $templates_info['content'] = array(
 	'feed'=>array('title' => 'Remote Feed Resource', 'description'=>'', 'visibility'=>true),
 	'component'=>array('title' => 'Generic Component', 'description'=>'', 'visibility'=>true), 
 	'file'=>array('title' => 'File List (Downloads)', 'description'=>'', 'visibility'=>true),
-	'recipe_list'=>array('title' => 'Recipe List', 'description'=>'', 'visibility'=>true),
 	'survey'=>array('title' => 'Survey (Questionnaire Form)', 'description'=>'', 'visibility'=>true),
 	'external_source'=>array('title' => 'Remote HTML Resource', 'description'=>'', 'visibility'=>false),
 	'print_article_list'=>array('title' => 'Print Article List', 'description'=>'', 'visibility'=>false),
@@ -56,10 +53,6 @@ $templates_info['page'] = array(
 	'default'=>array('title' => 'Default', 'description'=>'', 'visibility'=>true),
 	'blank'=>array('title' => 'Blank', 'description'=>'', 'visibility'=>true),
 	'news'=>array('title' => 'News article', 'description'=>'', 'visibility'=>false),
-	'recipe'=>array('title' => 'Recipe', 'description'=>'', 'visibility'=>false),
-	'store'=>array('title' => 'Store', 'description'=>'', 'visibility'=>false),
-	'product'=>array('title' => 'Product', 'description'=>'', 'visibility'=>false),
-	'product_browse'=>array('title' => 'Products Browse', 'description'=>'', 'visibility'=>true),
 	'competition'=>array('title' => 'Competition (Survey)', 'description'=>'', 'visibility'=>true),
 	'poll'=>array('title' => 'Poll (Survey)', 'description'=>'', 'visibility'=>true),
 	'symbolic'=>array('title' => 'Alias (Redirect)', 'description'=>'a.k.a. symbolic link page or redirect with a record in navigation, i.e. can be shown as part of the navigation', 'visibility'=>true),
@@ -77,3 +70,22 @@ $templates_info['site'] = array(
 	'facebook'=>array('title' => 'Facebook', 'description'=>'', 'visibility'=>false),
 	'default_template' => 'default'
 	);
+
+
+/**
+ * add ecommerce node types when ecommerce is enabled
+ * please note the templates and controllers are only in project_skeleton/ecommerce/
+ */
+
+if (ONXSHOP_ECOMMERCE) {
+	
+	$templates_info['content']['product_highlights'] = array('title' => 'Product Highlights', 'description'=>'', 'visibility'=>true);
+	$templates_info['content']['special_offer_list'] = array('title' => 'Special Offers List', 'description'=>'', 'visibility'=>true);
+	$templates_info['content']['recipe_list'] = array('title' => 'Recipe List', 'description'=>'', 'visibility'=>true);
+
+	$templates_info['page']['recipe'] = array('title' => 'Recipe', 'description'=>'', 'visibility'=>false);
+	$templates_info['page']['store'] = array('title' => 'Store', 'description'=>'', 'visibility'=>false);
+	$templates_info['page']['product'] = array('title' => 'Product', 'description'=>'', 'visibility'=>false);
+	$templates_info['page']['product_browse'] = array('title' => 'Products Browse', 'description'=>'', 'visibility'=>true);
+    
+}
