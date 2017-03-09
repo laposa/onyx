@@ -24,12 +24,11 @@ class Onxshop_Controller_Node_Site_Default extends Onxshop_Controller {
 		if ($node_data['page_title'] == '') $node_data['page_title'] = $node_data['title'];
 		
 		/**
-		 * when display_secondary_navigation is hidden, add extra css class "noSecondaryNavigation"
-		 * make the page span to the full width in the default CSS
+		 * when display_secondary_navigation is used, add extra css class "secondary-navigation"
 		 */
 		 
 		if (!isset($node_data['display_secondary_navigation'])) $node_data['display_secondary_navigation'] = $GLOBALS['onxshop_conf']['global']['display_secondary_navigation'];
-		if ($node_data['display_secondary_navigation'] == 0) $node_data['css_class'] = "{$node_data['css_class']} noSecondaryNavigation";
+		if ($node_data['display_secondary_navigation'] == 1) $node_data['css_class'] = "{$node_data['css_class']} secondary-navigation";
 		
 		/**
 		 * get node conf
