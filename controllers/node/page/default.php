@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2008-2016 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2008-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -73,7 +73,7 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
 		 * save node_controller, page css_class, current node id, breadcrumb and taxonomy_class into registry to be used in sys/(x)html* as body class
 		 */
 		
-		$body_css_class = "{$node_data['node_controller']} {$node_data['css_class']} {$node_data['taxonomy_class']} node_id_{$this->GET['id']} {$node_data['hierarchy_class']}";
+		$body_css_class = "{$node_data['node_controller']} {$node_data['css_class']} {$node_data['taxonomy_class']} node-id-{$this->GET['id']} {$node_data['hierarchy_class']}";
 		
 		$this->saveBodyCssClass($body_css_class);
 
@@ -213,7 +213,7 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
 		
 		foreach ($full_path as $item) {
 		
-			$css_class = "$css_class parent_node_id_$item";
+			$css_class = "$css_class parent-node-id-$item";
 		
 		}
 		
