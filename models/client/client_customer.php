@@ -211,9 +211,9 @@ CREATE TABLE client_customer (
 	verified_email_address smallint NOT NULL DEFAULT 0,
 	oauth text,
 	deleted_date timestamp without time zone,
-	facebook_id bigint,
-	twitter_id bigint,
-	google_id bigint,
+	facebook_id character varying(255),
+	twitter_id character varying(255),
+	google_id character varying(255),
 	profile_image_url text,
 	store_id integer REFERENCES ecommerce_store ON UPDATE CASCADE ON DELETE RESTRICT,
 	janrain_id character varying(255)
