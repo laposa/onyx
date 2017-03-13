@@ -3749,8 +3749,8 @@ COPY common_node (id, title, node_group, node_controller, parent, parent_contain
 22	Sitemap	page	default	94	0	50		\N					2006-09-30 12:08:21	2016-03-16 14:36:18	0	1	1000		0			fibonacci-2-1	a:1:{s:13:"allow_comment";i:0;}		1	0	0	0		0	0		0	0
 1044	View All	content	RTE	5	0	0	\N	<p style="text-align: center;"><a class="button" href="/page/83">View All</a></p>	\N	\N	\N		2016-03-16 14:41:41	2016-03-16 14:41:57	1	1	0	\N	0	\N			a:1:{s:13:"allow_comment";i:0;}	\N	0	0	0	0		0	0		0	0
 1045	layout 1458222030	layout	2columns	20	0	0	\N	\N	\N	\N	\N	\N	2016-03-17 13:40:30	2016-03-17 13:40:30	1	1	0	\N	0	\N		fibonacci-1-1	\N	\N	0	\N	\N	0		0	0	\N	0	0
-1015	Our latest news	content	news_list	83	0	0		\N					2008-08-16 04:02:19	2016-03-17 13:28:39	1	1	1000		0	N;	fullBleed	fibonacci-1-5	a:8:{s:5:"limit";s:1:"5";s:8:"template";s:5:"stack";s:11:"image_width";s:3:"300";s:15:"image_constrain";s:1:"0";s:10:"image_fill";s:1:"1";s:10:"pagination";i:1;s:13:"allow_comment";i:0;s:13:"display_title";i:0;}	N;	0	0	0	0		0	0		0	0
-1043	Our latest news	content	news_list	5	0	0		\N					2016-03-16 14:40:37	2016-03-17 13:28:56	1	1	0		0	N;	fullBleed	fibonacci-1-5	a:8:{s:5:"limit";s:1:"3";s:8:"template";s:5:"stack";s:11:"image_width";s:3:"300";s:15:"image_constrain";s:1:"0";s:10:"image_fill";s:1:"1";s:13:"allow_comment";i:0;s:10:"pagination";i:0;s:13:"display_title";i:0;}	N;	0	0	0	0		0	0		0	0
+1015	Our latest news	content	news_list	83	0	0		\N					2008-08-16 04:02:19	2016-03-17 13:28:39	1	1	1000		0	N;	full-bleed	fibonacci-1-5	a:8:{s:5:"limit";s:1:"5";s:8:"template";s:5:"stack";s:11:"image_width";s:3:"300";s:15:"image_constrain";s:1:"0";s:10:"image_fill";s:1:"1";s:10:"pagination";i:1;s:13:"allow_comment";i:0;s:13:"display_title";i:0;}	N;	0	0	0	0		0	0		0	0
+1043	Our latest news	content	news_list	5	0	0		\N					2016-03-16 14:40:37	2016-03-17 13:28:56	1	1	0		0	N;	full-bleed	fibonacci-1-5	a:8:{s:5:"limit";s:1:"3";s:8:"template";s:5:"stack";s:11:"image_width";s:3:"300";s:15:"image_constrain";s:1:"0";s:10:"image_fill";s:1:"1";s:13:"allow_comment";i:0;s:10:"pagination";i:0;s:13:"display_title";i:0;}	N;	0	0	0	0		0	0		0	0
 \.
 
 

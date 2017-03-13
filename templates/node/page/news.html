@@ -12,7 +12,7 @@
 	<!-- BEGIN: page_header -->
 	<header class="page">
 		<div class="wrapper">
-			<h1>{NODE.page_title|htmlspecialchars}</h1>
+			<h1 class="page-title">{NODE.page_title|htmlspecialchars}</h1>
 			<p>{ITEM.description|htmlspecialchars}</p>
 			<div class="byline {AUTHOR_EMPTY}">
 				<time datetime="{NODE.created|strtotime|strftime('%Y-%m-%d', %s)}">{NODE.created|strtotime|strftime('%A %e %B %Y', %s)}</time>
@@ -28,21 +28,21 @@
 	<section class="content">
 		<div class="wrapper">
 			{MESSAGES}
-			<div class="node_group-content">{NODE.content}</div>
+			<div class="content">{NODE.content}</div>
 			{CONTAINER.1}
 		</div>
 	</section>
 	
 	<section class="share">
 		<div class="wrapper">
-            <h2>Share</h2>
+            <h2 class="layout-title"><span>Share</span></h2>
             {ONXSHOP_REQUEST_share #component/social_network_share~node_id=GET.id~}
         </div>
 	</section>
 	
 	<section class="comment" id="comment">
 		<div class="wrapper">
-			<h2>{I18N_COMMENT_HEAD}</h2>
+			<h2 class="layout-title"><span>{I18N_COMMENT_HEAD}</span></h2>
 			<!-- BEGIN: comment -->
 			{COMMENT}
 			<!-- END: comment -->

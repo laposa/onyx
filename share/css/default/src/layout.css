@@ -11,9 +11,8 @@
 div.content,
 header.site,
 footer.site,
-nav.primary,
-nav.footer {margin: 10px;}
-h2.layout-litle {margin-left: 10px; margin-right: 10px;}
+header.page {margin: 10px;}
+h2.layout-title {margin-left: 10px; margin-right: 10px;}
 
 /*
  * extra CSS classes to be used in CMS
@@ -28,13 +27,12 @@ div.full-bleed {margin: 0!important;}
 /****************************************************************************************/
 
 header.site > div.wrapper,
-footer.site > div.wrapper {max-width: 1200px; margin: 0 auto; padding: 30px;}
+footer.site > div.wrapper,
+main.site > div.wrapper {max-width: 960px; margin: 0 auto;}
 
 /****************************************************************************************/
 /*****************************          node/page           *****************************/
 /****************************************************************************************/
-
-div.page > div.wrapper {max-width: 1200px; margin: 0 auto; padding: 30px;}
 
 /************ node/page/default.html ****/
 div.row-top:after,
@@ -81,6 +79,11 @@ div.two-column-page.fibonacci-2-3 div.column-one {width: 40%;}
 div.two-column-page.fibonacci-2-3 div.column-two {width: 60%;}
 div.two-column-page.fibonacci-3-2 div.column-one {width: 60%;}
 div.two-column-page.fibonacci-3-2 div.column-two {width: 40%;}
+
+@media all and (max-width: 800px) {
+	div.two-column-page div.column-one, 
+	div.two-column-page div.column-two {width: auto!important; float: none!important;}
+}
 
 /****************************************************************************************/
 /*****************************          node/layout         *****************************/
@@ -133,6 +136,11 @@ div.wrapper:after {content: '.'; display: block; height: 0; font-size: 0; clear:
 .two-column-layout.fibonacci-3-2 div.layout-column-one.of-two {width: 60%;}
 .two-column-layout.fibonacci-3-2 div.layout-column-two.of-two {width: 40%;}
 
+@media all and (max-width: 800px) {
+	.two-column-layout div.layout-column-one.of-two,
+	.two-column-layout div.layout-column-two.of-two {width: auto!important; float: none!important;}
+}
+
 /********* node/layout/3columns.html *********/
 .three-column-layout {clear: both;}
 .three-column-layout div.layout-column-one.of-three, 
@@ -141,6 +149,12 @@ div.wrapper:after {content: '.'; display: block; height: 0; font-size: 0; clear:
 .three-column-layout div.layout-column-one.of-three, 
 .three-column-layout div.layout-column-two.of-three {float: left;}
 .three-column-layout div.layout-column-three.of-three {float: right;}
+
+@media all and (max-width: 800px) {   
+	.three-column-layout div.layout-column-one.of-three,
+	.three-column-layout div.layout-column-two.of-three,
+	.three-column-layout div.layout-column-three.of-three {width: auto; float: none;}
+}
 
 /********* node/layout/4columns.html *********/
 .four-column-layout {clear: both;}
@@ -152,6 +166,13 @@ div.wrapper:after {content: '.'; display: block; height: 0; font-size: 0; clear:
 .four-column-layout div.layout-column-two.of-four,
 .four-column-layout div.layout-column-three.of-four {float: left;}
 .four-column-layout div.layout-column-four.of-four {float: right;}
+
+@media all and (max-width: 800px) {   
+	.four-column-layout div.layout-column-one.of-four,
+	.four-column-layout div.layout-column-two.of-four {width: 50%;}
+	.four-column-layout div.layout-column-three.of-four,
+	.four-column-layout div.layout-column-four.of-four {width: 50%;}
+}
 
 /********* node/layout/5columns.html *********/
 .five-column-layout {clear: both;}
@@ -165,6 +186,14 @@ div.wrapper:after {content: '.'; display: block; height: 0; font-size: 0; clear:
 .five-column-layout div.layout-column-three.of-five,
 .five-column-layout div.layout-column-four.of-five {float: left;}
 .five-column-layout div.layout-column-five.of-five {float: right;}
+
+@media all and (max-width: 800px) {
+	.five-column-layout div.layout-column-one.of-five,
+	.five-column-layout div.layout-column-two.of-five,
+	.five-column-layout div.layout-column-three.of-five,
+	.five-column-layout div.layout-column-four.of-five,
+	.five-column-layout div.layout-column-five.of-five {width: auto; float: none;}
+}
 
 /********* node/layout/6columns.html *********/
 .six-column-layout {clear: both;}
@@ -180,6 +209,15 @@ div.wrapper:after {content: '.'; display: block; height: 0; font-size: 0; clear:
 .six-column-layout div.layout-column-four.of-six,
 .six-column-layout div.layout-column-five.of-six {float: left;}
 .six-column-layout div.layout-column-six.of-six {float: right;}
+
+@media all and (max-width: 800px) {	
+	.six-column-layout div.layout-column-one.of-six,
+	.six-column-layout div.layout-column-two.of-six,
+	.six-column-layout div.layout-column-three.of-six,
+	.six-column-layout div.layout-column-four.of-six,
+	.six-column-layout div.layout-column-five.of-six,
+	.six-column-layout div.layout-column-six.of-six {width: auto; float: none;}
+}
 
 /********* node/layout/tabs.html *********/
 .tabs-layout {clear: both;}
@@ -204,4 +242,3 @@ div.wrapper:after {content: '.'; display: block; height: 0; font-size: 0; clear:
 .slider-layout .unslider-nav ol {list-style: none; text-align: center;}
 .slider-layout .unslider-nav ol li {display: inline-block; width: 15px; height: 15px; margin: 0 4px; background: transparent; border-radius: 15px; overflow: hidden; text-indent: -999em; border: 2px solid #fff; cursor: pointer;}
 .slider-layout .unslider-nav ol li.unslider-active {background: #fff;cursor: default;}
-

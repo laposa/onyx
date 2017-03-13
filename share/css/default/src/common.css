@@ -1,4 +1,13 @@
-/* a clearing div */
+/* common elements, starting with little adjustment to normalise.css */
+
+form div.row {margin: 0 0 0.5em;}
+form span.label {display: block; }
+form span.field {display: block;}
+input[type=text],
+input[type=email] {width: 100%;}
+input[type=checkbox] {float: left;}
+
+/* legacy clearing div */
 div.bottom {clear: both;}
 
 /* disabled, but visible*/

@@ -134,6 +134,15 @@ div.social-network-share li.google a:before {content: '\f0d4';}
 div.social-network-share li.pinterest a:before {content: '\f0d3';}
 div.social-network-share li.mailto a:before {content: '\f199';}
 
+/********* component/news_list_teaser.html *********/
+div.news-list-teaser div.image {float: left; padding: 0 20px 10px 0;}
+div.news-list-teaser div.image a {text-decoration: none;}
+div.news-list-teaser div.created {font-weight: bold;}
+div.news-list-teaser div.created p {margin-bottom: 1em;}
+
+/********* component/news_list_grid.html *********/
+div.news-list-grid div.item {width: 300px; min-height: 300px; display: block; float: left; margin: 10px;}
+
 /**
  * stack_list:
  * component/news_list_stack.html

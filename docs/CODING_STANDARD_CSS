@@ -4,8 +4,13 @@ CSS coding standard since Onxshop 1.8
 - multiple selectors are writen on separate lines
 - all properties and values for each selector are one line
 - IDs and class names should not be abbreviations or shortened words
+- responsive rules are written strait after each component rules
 
 Example:
 
 div.content,
 div.content-wrapper {margin: 0; padding: 0;}
+@media all and (max-width: 800px) {   
+    div.content,
+	div.content-wrapper {margin: 10px;}
+}

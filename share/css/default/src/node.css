@@ -39,7 +39,7 @@ div.product .border {border: 1px solid black;}
 /*apply for news pages, other option would be to add .content-RTE class in news detail page */
 div.news .image-left {float: left; margin-right: 10px;}
 div.news .image-right {float: right; margin-left: 10px;}
-div.news .image-order,
+div.news .image-border,
 div.news .border {border: 1px solid black;}
 
 
@@ -51,14 +51,9 @@ div.divider hr {display: none;}
 div.quote p.quote {padding: 0 40px 0 0; margin: 0; text-align: center;}
 div.quote p.author {font-family: sans-serif; padding-right: 40px; text-align: center; background: none;}
 
-/********* component/news_list_teaser.html *********/
-div.news-list.teaser div.image {float: left; padding: 0 20px 10px 0;}
-div.news-list.teaser div.image a {text-decoration: none;}
-div.news-list.teaser div.created {font-weight: bold;}
-div.news-list.teaser div.created p {margin-bottom: 1em;}
-
-/********* component/news_list_grid.html *********/
-div.news-list.grid div.item {width: 300px; min-height: 300px; display: block; float: left; margin: 10px;}
+/********* node/content/news_list.html *********/
+div.content.news-list.stack {margin: 0;}
+div.content.news-list.stack h3.content-title {margin-left: 10px; margin-right: 10px;}
 
 /********* node/content/contact_form.html *********/
 div.contact-form textarea {width: 100%;}

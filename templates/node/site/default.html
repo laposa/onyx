@@ -1,5 +1,6 @@
 <!-- BEGIN: description -->{NODE.description}<!-- END: description -->
 <!-- BEGIN: head -->
+<meta name="viewport" content="width=device-width" />
 <link type="text/css" href="/share/css/default/screen.css" rel="stylesheet" media="screen" />
 <link type="text/css" href="/share/css/default/print.css" rel="stylesheet" media="print" />
 <style type="text/css">
@@ -19,19 +20,19 @@
 
 <header class="site">
 	<div class="wrapper">
-		<div class="logo">
+		<div id="logo">
 			<a href="/" title="{I18N_GOTO_HOMEPAGE} {CONFIGURATION.global.title|htmlspecialchars}"><span>{CONFIGURATION.global.title|htmlspecialchars}</span></a>
 		</div>
 		<nav class="reveal">
-			<a href="nav#primary"><span>Menu</span></a>
+			<a id="reveal-navigation-button" href="#primary-navigation"><span>Menu</span></a>
 		</nav>
-		<nav class="primary">
-			{PRIMARY_NAVIGATION}
+		<nav class="primary" id="primary-navigation">
+			{ONXSHOP_REQUEST_primary_nav #component/menu~id=1:level=1:expand_all=0:display_teaser=0:open=GET.id~}
 		</nav>
 	</div>
 </header>
 
-<main class="site {NODE.css_class} {NODE.taxonomy_class}">
+<main class="site">
 	<div class="wrapper">
 		{SUB_CONTENT}
 	</div>
@@ -42,10 +43,10 @@
 		<section id="content-bottom">
 			{CONTENT_FOOT}
 		</section>
-		<nav class="footer">
-			{FOOTER_NAVIGATION}
+		<nav class="footer" id="footer-navigation">
+			{ONXSHOP_REQUEST_footer_nav #component/menu~id=4:level=1:expand_all=0:display_teaser=0:open=GET.id~}
 		</nav>
-		<small>{CONFIGURATION.global.copyright}</small>
+		<p id="copyright">&copy; {TIME|strftime('%Y', %s)} {CONFIGURATION.global.title|htmlspecialchars}</p>
 	</div>
 </footer>
 
