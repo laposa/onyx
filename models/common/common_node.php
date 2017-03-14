@@ -2,7 +2,7 @@
 /**
  * class common_node
  *
- * Copyright (c) 2009-2016 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -1882,7 +1882,11 @@ LEFT OUTER JOIN common_taxonomy_label ON (common_taxonomy_tree.label_id = common
 		
 		$node_detail = $this->detail($node_id); //don't need to call full nodeDetail
 		
-		switch ($node_detail['node_controller']) {
+		// recognise different image table if ecommerce is enabled
+		if (ONXSHOP_ECOMMERCE) $node_controller = $node_detail['node_controller'];
+		else $node_controller = 'default';
+		
+		switch ($node_controller) {
 			
 			case 'recipe':
 				require_once('models/ecommerce/ecommerce_recipe_image.php');
