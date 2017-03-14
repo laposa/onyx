@@ -4,6 +4,17 @@
  */
 
 /**
+ * wrappers for keeping width
+ */
+ 
+header.site > div.wrapper,
+/*main.site > div.wrapper,*/
+footer.site > div.wrapper,
+section.layout > div.wrapper,
+div.content > div.wrapper,
+article div.wrapper {max-width: 960px; margin: 0 auto;}
+
+/**
  * gutters
  * set all gutters to 10px on content elements like traditional grid systems, e.g. 960gs
  */
@@ -19,16 +30,8 @@ h2.layout-title {margin-left: 10px; margin-right: 10px;}
  * - full-bleed - apply to content or layout
  */
 
-div.full-bleed {margin: 0!important;}
-
-
-/****************************************************************************************/
-/*****************************          node/site           *****************************/
-/****************************************************************************************/
-
-header.site > div.wrapper,
-footer.site > div.wrapper,
-main.site > div.wrapper {max-width: 960px; margin: 0 auto;}
+.full-bleed {margin: 0!important;}
+.full-bleed > div.wrapper {max-width: none!important;}
 
 /****************************************************************************************/
 /*****************************          node/page           *****************************/

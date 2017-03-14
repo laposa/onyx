@@ -1,7 +1,6 @@
 /**
  * backoffice and fe_edit
- * Author: Norbert @ Laposa Ltd 2010, 2012
- * TODO: move to global Onxshop object
+ * Author: Norbert @ Onxshop Ltd 2010, 2012, 2017
  */
  
 function openEdit(url, el, ajax) {
@@ -38,7 +37,7 @@ function refreshOpener(path, id) {
 
 function refreshOpenerAjax(path, id) {
 	if (opener.window.document.getElementById('node-id-' + id)) {
-		opener.$('#node_id_' + id).load('/request/node?id=' + id + ' #node-id-' + id + ' > *', function() {
+		opener.$('#node-id-' + id).load('/request/node?id=' + id + ' #node-id-' + id + ' > *', function() {
 			opener.refreshAddContent('#node-id-' + id + ' div.onxshop-layout-container');
 		});
 	} else {
