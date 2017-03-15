@@ -6,24 +6,24 @@
 /**
  * wrappers for keeping width
  */
- 
-header.site > div.wrapper,
-header.page > div.wrapper,
-footer.site > div.wrapper,
-h2.layout-title,
-div.content > div.wrapper {margin: 10px;}
 
-/**
- * gutters
- * set all gutters to 10px on content elements like traditional grid systems, e.g. 960gs
- */
- 
 header.site,
 header.page,
 footer.site,
 section.layout,
 div.content,
 article {max-width: 960px; margin: 0 auto;}
+
+/**
+ * gutters
+ * set all gutters to 10px on content elements like traditional grid systems, e.g. 960gs
+ */
+
+header.site > div.wrapper,
+header.page > div.wrapper,
+footer.site > div.wrapper,
+h2.layout-title,
+div.content > div.wrapper {margin: 10px;}
 
 /*
  * extra CSS classes to be used in CMS
