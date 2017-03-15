@@ -28,10 +28,11 @@ h2.layout-title {margin-left: 10px; margin-right: 10px;}
 /*
  * extra CSS classes to be used in CMS
  * - full-bleed - apply to content or layout
+ * - full-width
  */
 
 .full-bleed {margin: 0!important;}
-.full-bleed > div.wrapper {max-width: none!important;}
+.full-width > div.wrapper {max-width: none!important;}
 
 /****************************************************************************************/
 /*****************************          node/page           *****************************/

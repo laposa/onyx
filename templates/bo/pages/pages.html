@@ -29,12 +29,12 @@ function initialiseMenuPagesTree() {
 				appendHeader();
 				initAdvancedSettingsButton();
 			});
-			$('#button-add-subpage').attr('data-node_id', node_id);
+			$('#button-add-subpage').attr('data-node-id', node_id);
 		},
 		afterContextMenu:function(node){
 			var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
 			makeAjaxRequest("#sub-content", "/request/bo/component/node_edit~id="+node_id+"~");
-			$('#button-add-subpage').attr('data-node_id', node_id);
+			$('#button-add-subpage').attr('data-node-id', node_id);
 		},
 		afterMove:function(destination, source, position){
 			var source_node_id = $('a:first', source).attr('href').match("[0-9]{1,}$");

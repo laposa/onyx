@@ -22,6 +22,7 @@ $(document).ready(function() {
 <!-- BEGIN: content -->
 <div class="image-container number-of-items-{IMAGE_COUNT}" id="gallery-cycle2-{GET.node_id}">
 	<!-- BEGIN: item -->
+	
 	<figure class="item-id-{GET.node_id}-{ITEM.id}">
 		<img id="image-id-{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}"/>
 		<figcaption>
@@ -30,12 +31,14 @@ $(document).ready(function() {
 			<!-- BEGIN: link --><a class="button" href="/page/{ITEM.link_to_node_id}"><span>Find out more</span></a><!-- END: link -->
 		</figcaption>
 	</figure>
+	
 	<!-- END: item -->
 </div>
 <div class="controls">
 	<a href="#" class="prev"><span>&#9668;</span></a>
+	<div class="gallery-pagination"></div>
 	<a href="#" class="next"><span>&#9658;</span></a>
 </div>
-<div class="gallery-pagination"></div>
+
 <!-- END: content -->
 
