@@ -51,10 +51,6 @@ div.divider hr {display: none;}
 div.quote p.quote {padding: 0 40px 0 0; margin: 0; text-align: center;}
 div.quote p.author {font-family: sans-serif; padding-right: 40px; text-align: center; background: none;}
 
-/********* node/content/news_list.html *********/
-div.content.news-list.stack {margin: 0;}
-div.content.news-list.stack h3.content-title {margin-left: 10px; margin-right: 10px;}
-
 /********* node/content/contact_form.html *********/
 div.contact-form textarea {width: 100%;}
 div.contact-form div.submit span.label {display: none;}

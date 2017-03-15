@@ -54,87 +54,28 @@ form fieldset {margin: 0;}
 #header {margin: 0;}
 
 /**
- * primaryNavigation
+ * primary-navigation
  */
-#primaryNavigation {width: auto; margin: 10px; background: #ccc; text-align: center;}
-#primaryNavigation a {padding: 10px;}
-#primaryNavigation ul ul {display: none;}
-@media all and (max-width: 800px) {
-  #primaryNavigation {display: none;}
-  #primaryNavigation li {display: block;}
-  #primaryNavigation.open {display: block;}
-}
-@media all and (min-width: 801px) {
-  #primaryNavigation {display: block!important;}
-}
+#primary-navigation {background: #ccc; text-align: center; clear: both;}
+#primary-navigation a {padding: 10px; color: white; text-transform: uppercase; font-weight: bold;}
 
 /**
- * revealNavigationButton
+ * reveal-navigation-button
  */
-#revealNavigationButton {display: none; float: right; margin-right: 10px;}
-#revealNavigationButton a {color: white; display: block; background: #ccc; padding: 12px 20px 9px 20px; font-size: 30px; line-height: 30px; text-decoration: none;}
-#revealNavigationButton a.reveal:before {content: '\f0c9'; font-family: 'FontAwesome';}
-#revealNavigationButton a span {display: none;}
-@media all and (max-width: 800px) {
-    #revealNavigationButton {display: block;}
-}
-
+#reveal-navigation-button {float: right; margin-right: 10px;}
+#reveal-navigation-button a {color: white; background: #ccc; padding: 12px 20px 9px 20px;}
 /**
  * footer
  */
 #footer {width: 100%; margin: 0;}
-#footerNavigation {width: auto; margin: 10px; display: block; float: none; background: #ccc; text-align: center;}
+#footer-navigation {width: auto; margin: 10px; display: block; float: none; background: #ccc; text-align: center;}
 
 #copyright {width: 100%; margin: 0; float: none; text-align: center;}
 #copyright p {margin: 10px;}
 
 /**
- * social_network_share
- */
-
-div.social_network_share li a {text-decoration: none;}
-div.social_network_share li a:before {font-family: 'FontAwesome'; font-size: 200%;}
-div.social_network_share li a span {display: none;}
-div.social_network_share li.facebook a:before {content: '\f082';}
-div.social_network_share li.twitter a:before {content: '\f081';}
-div.social_network_share li.google a:before {content: '\f0d4';}
-div.social_network_share li.pinterest a:before {content: '\f0d3';}
-div.social_network_share li.mailto a:before {content: '\f199';}
-
-/**
- * Layouts
- */
-
-@media all and (max-width: 800px) {
-	div.twoColumnPage div.columnOne, 
-    div.twoColumnPage div.columnTwo,
-    div.twoColumnLayout div.layoutColumnOne.ofTwo,
-    div.twoColumnLayout div.layoutColumnTwo.ofTwo {width: auto!important; float: none!important;}
-    div.twoColumnPage div.columnWrapper {margin: 0!important;}
-    div.threeColumnLayout div.layoutColumnOne.ofThree,
-    div.threeColumnLayout div.layoutColumnTwo.ofThree,
-    div.threeColumnLayout div.layoutColumnThree.ofThree {width: auto; float: none;}
-    div.fourColumnLayout div.layoutColumnOne.ofFour,
-    div.fourColumnLayout div.layoutColumnTwo.ofFour {width: 50%;}
-    div.fourColumnLayout div.layoutColumnThree.ofFour,
-    div.fourColumnLayout div.layoutColumnFour.ofFour {width: 50%;}
-    div.fiveColumnLayout div.layoutColumnOne.ofFive,
-    div.fiveColumnLayout div.layoutColumnTwo.ofFive,
-    div.fiveColumnLayout div.layoutColumnThree.ofFive,
-    div.fiveColumnLayout div.layoutColumnFour.ofFive,
-    div.fiveColumnLayout div.layoutColumnFive.ofFive {width: auto; float: none;}
-    div.sixColumnLayout div.layoutColumnOne.ofSix,
-    div.sixColumnLayout div.layoutColumnTwo.ofSix,
-    div.sixColumnLayout div.layoutColumnThree.ofSix,
-    div.sixColumnLayout div.layoutColumnFour.ofSix,
-    div.sixColumnLayout div.layoutColumnFive.ofSix,
-    div.sixColumnLayout div.layoutColumnSix.ofSix {width: auto; float: none;}
-    div.layoutColumnWrapper {margin: 0!important;}
-}
-
-/**
  * customise CMS UI
  */
  
-#contentBottom a.onxshop_duplicate,
-#contentBottom a.onxshop_delete {display: none;}
+#content-bottom a.onxshop-duplicate,
+#content-bottom a.onxshop-delete {display: none;}

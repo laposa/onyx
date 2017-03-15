@@ -2,13 +2,13 @@
  * Norbert @ Laposa Ltd, 2015/06/24
  */
 
-/*revealPrimaryNavigation*/
+/*reveal-primary-navigation*/
 function revealPrimaryNavigation() {
 
-    if ($('#primaryNavigation').hasClass('open')) {
-        $('#primaryNavigation').removeClass('open');
+    if ($('#primary-navigation').hasClass('open')) {
+        $('#primary-navigation').removeClass('open');
     } else {
-        $('#primaryNavigation').addClass('open');
+        $('#primary-navigation').addClass('open');
     }
 }
 
@@ -18,7 +18,7 @@ $(function() {
 	 * show standard Onxshop messages in a popup
 	 */
 	 
-	popupMessage("div.onxshop_messages");
+	popupMessage("div.onxshop-messages");
 	
 	/**
 	 * remove white spaces between selected items to allow precise sizing with inline-block elements
@@ -34,7 +34,7 @@ $(function() {
      * mobile navigation
      */
 
-    $('#revealNavigationButton').click(function() {
+    $('#reveal-navigation-button').click(function() {
         revealPrimaryNavigation();
         return false;
     });

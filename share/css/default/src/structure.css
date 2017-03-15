@@ -19,8 +19,6 @@
 
 #container {width: 960px; margin: 0 auto;}
 
-header {width: 100%;}
-
 .logo a {text-decoration: none; font-size: 4em;}
 
 #search {float: right; clear: right; margin-bottom: 10px;}
@@ -50,6 +48,29 @@ nav ul li a.open {font-weight: bold;}
 nav ul li ul {list-style-type: square; margin-left: 10px;}
 nav ul li ul li {padding-left: 0; margin-left: 15px; display: list-item;}
 nav ul li ul a {padding-left: 0; font-weight: normal; height: auto;}
+
+/**
+ * primary-navigation
+ */
+@media all and (max-width: 800px) {
+  #primary-navigation {display: none;}
+  #primary-navigation li {display: block;}
+  #primary-navigation.open {display: block;}
+}
+@media all and (min-width: 801px) {
+  #primary-navigation {display: block!important;}
+}
+
+/**
+ * reveal-navigation-button
+ */
+#reveal-navigation-button {display: none;}
+#reveal-navigation-button a {display: block; font-size: 30px; line-height: 30px; text-decoration: none;}
+#reveal-navigation-button a.reveal:before {content: '\f0c9'; font-family: 'FontAwesome';}
+#reveal-navigation-button a span {display: none;}
+@media all and (max-width: 800px) {
+    #reveal-navigation-button {display: block;}
+}
 
 /**
  * footer navigation

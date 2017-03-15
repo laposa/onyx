@@ -8,7 +8,7 @@ $(function() {
 	 * show standard Onxshop messages in a popup
 	 */
 	 
-	popupMessage("div.onxshop_messages");
+	popupMessage("div.onxshop-messages");
 	
 	/**
 	 * remove white spaces between selected items to allow precise sizing with inline-block elements

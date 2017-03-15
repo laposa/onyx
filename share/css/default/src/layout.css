@@ -8,22 +8,22 @@
  */
  
 header.site > div.wrapper,
-/*main.site > div.wrapper,*/
+header.page > div.wrapper,
 footer.site > div.wrapper,
-section.layout > div.wrapper,
-div.content > div.wrapper,
-article div.wrapper {max-width: 960px; margin: 0 auto;}
+h2.layout-title,
+div.content > div.wrapper {margin: 10px;}
 
 /**
  * gutters
  * set all gutters to 10px on content elements like traditional grid systems, e.g. 960gs
  */
  
-div.content,
 header.site,
+header.page,
 footer.site,
-header.page {margin: 10px;}
-h2.layout-title {margin-left: 10px; margin-right: 10px;}
+section.layout,
+div.content,
+article {max-width: 960px; margin: 0 auto;}
 
 /*
  * extra CSS classes to be used in CMS
@@ -31,8 +31,9 @@ h2.layout-title {margin-left: 10px; margin-right: 10px;}
  * - full-width
  */
 
-.full-bleed {margin: 0!important;}
-.full-width > div.wrapper {max-width: none!important;}
+.full-bleed > div.wrapper {margin: 0!important;}
+.full-bleed > div.wrapper > h3.content-title {margin-left: 10px; margin-right: 10px;}
+.full-width {max-width: none!important;}
 
 /****************************************************************************************/
 /*****************************          node/page           *****************************/

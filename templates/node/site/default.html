@@ -23,8 +23,8 @@
 		<div id="logo">
 			<a href="/" title="{I18N_GOTO_HOMEPAGE} {CONFIGURATION.global.title|htmlspecialchars}"><span>{CONFIGURATION.global.title|htmlspecialchars}</span></a>
 		</div>
-		<nav class="reveal">
-			<a id="reveal-navigation-button" href="#primary-navigation"><span>Menu</span></a>
+		<nav id="reveal-navigation-button" >
+			<a class="reveal" href="#primary-navigation"><span>Menu</span></a>
 		</nav>
 		<nav class="primary" id="primary-navigation">
 			{ONXSHOP_REQUEST_primary_nav #component/menu~id=1:level=1:expand_all=0:display_teaser=0:open=GET.id~}
