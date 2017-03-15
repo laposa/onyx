@@ -1581,8 +1581,9 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 				
 				if (in_array($item_data['node_group'], array('page', 'container', 'site'))) {
 					
-					// asking for page or container, don't include products, recipes and news
-					$exclude_query = "(node_group = 'page' OR node_group = 'container') AND node_controller != 'product' AND node_controller != 'recipe' AND node_controller != 'news'";
+					// when ecommerce is enabled, inluce page or container, don't include products, recipes and news
+					if (ONXSHOP_ECOMMERCE) $exclude_query = "(node_group = 'page' OR node_group = 'container') AND node_controller != 'product' AND node_controller != 'recipe' AND node_controller != 'news'";
+					else $exclude_query = "(node_group = 'page' OR node_group = 'container')";
 					
 				} else {
 					
