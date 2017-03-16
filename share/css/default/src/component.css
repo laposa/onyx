@@ -140,8 +140,13 @@ div.news-list-teaser div.image a {text-decoration: none;}
 div.news-list-teaser div.created {font-weight: bold;}
 div.news-list-teaser div.created p {margin-bottom: 1em;}
 
+/* page list */
+div.page-list {text-align: center;}
+div.page-list div.item { display: inline-block; vertical-align: top; width: 300px; margin: 10px;}
+
 /********* component/news_list_grid.html *********/
-div.news-list-grid div.item {width: 300px; min-height: 300px; display: block; float: left; margin: 10px;}
+div.news-list-grid {text-align: center;}
+div.news-list-grid div.item { display: inline-block; vertical-align: top; width: 300px; margin: 10px;}
 
 /**
  * stack_list:

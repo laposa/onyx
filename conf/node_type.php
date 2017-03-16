@@ -28,7 +28,7 @@ $templates_info['content'] = array(
 	'print_article_list'=>array('title' => 'Print Article List', 'description'=>'', 'visibility'=>false),
 	'shared'=>array('title' => 'Shared (Linked) Content', 'description'=>'', 'visibility'=>false),
 	'imagemap'=>array('title' => 'Image map', 'description'=>'', 'visibility'=>false), 
-	'teaser'=>array('title' => 'Content Teaser', 'description'=>'', 'visibility'=>false),
+	'teaser'=>array('title' => 'Teaser', 'description'=>'Create a teaser for page and allow to customise image, description and link text', 'visibility'=>false),
 	'page_list'=>array('title' => 'Page List', 'description'=>'', 'visibility'=>true),
 	'filter'=>array('title' => 'Categories Filter', 'description'=>'', 'visibility'=>false),
 	'notice'=>array('title' => 'Notice', 'description'=>'i.e. for stores', 'visibility'=>false),

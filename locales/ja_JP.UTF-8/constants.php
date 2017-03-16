@@ -323,6 +323,9 @@ define('I18N_NEWS_LIST_RELATED', 'Related Articles');
 define('I18N_NEWS_LIST_READ_MORE', 'Read more');
 define('I18N_NEWS_LIST_COMMENTS', 'Comments');
 
+//component/*_list_*.html
+define('I18N_LIST_VIEW_DETAIL', 'Find Out More');
+
 //component/news_categories.html
 define('I18N_NEWS_CATEGORY_UNCATEGORIZED', 'Uncategorized');
 

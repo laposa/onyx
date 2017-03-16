@@ -348,6 +348,9 @@ define('I18N_NEWS_LIST_RELATED', 'Související články');
 define('I18N_NEWS_LIST_READ_MORE', 'Celý článek');
 define('I18N_NEWS_LIST_COMMENTS', 'Komentáře');
 
+//component/*_list_*.html
+define('I18N_LIST_VIEW_DETAIL', 'Celý článek');
+
 //component/news_categories.html
 define('I18N_NEWS_CATEGORY_UNCATEGORIZED', 'Nezařazeno');
 
