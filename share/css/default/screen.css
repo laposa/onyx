@@ -561,6 +561,7 @@ div.content > div.wrapper {margin: 10px;}
 .full-bleed > div.wrapper {margin: 0!important;}
 .full-bleed > div.wrapper > h3.content-title {margin-left: 10px; margin-right: 10px;}
 .full-width {max-width: none!important;}
+.not-responsive {}
 
 /****************************************************************************************/
 /*****************************          node/page           *****************************/
@@ -669,8 +670,8 @@ div.wrapper:after {content: '.'; display: block; height: 0; font-size: 0; clear:
 .two-column-layout.fibonacci-3-2 div.layout-column-two.of-two {width: 40%;}
 
 @media all and (max-width: 800px) {
-	.two-column-layout div.layout-column-one.of-two,
-	.two-column-layout div.layout-column-two.of-two {width: auto!important; float: none!important;}
+	.two-column-layout:not(.not-responsive) div.layout-column-one.of-two,
+	.two-column-layout:not(.not-responsive) div.layout-column-two.of-two {width: auto!important; float: none!important;}
 }
 
 /********* node/layout/3columns.html *********/
@@ -1078,6 +1079,7 @@ div.news-list-teaser div.image a {text-decoration: none;}
 div.news-list-teaser div.created {font-weight: bold;}
 div.news-list-teaser div.created p {margin-bottom: 1em;}
 
+/* page list */
 div.page-list {text-align: center;}
 div.page-list div.item { display: inline-block; vertical-align: top; width: 300px; margin: 10px;}
 
