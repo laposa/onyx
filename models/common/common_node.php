@@ -913,27 +913,12 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 		
 		if ($records = $this->executeSql($sql)) {
 		
-			if ($node_group == "page_and_product") {
-				//leave only homepage of product, this can be removed in version 1.5 (when finished transition to only one product page)
-				//print_r($records);exit;
-				$product_ids = array();
-				foreach ($records as $record) {
-					if ($record['node_controller'] == 'product') {
-						if (!in_array($record['content'], $product_ids)) {
-							$product_ids[] = $record['content'];
-							$node_list[] = $record;
-						}
-					} else {
-						$node_list[] = $record;
-					}
-				}
-			} else {
-				$node_list = $records;
-			}
-
-			return $node_list;
+			return $records;
+		
 		} else {
+			
 			return false;
+		
 		}
 	}
 
