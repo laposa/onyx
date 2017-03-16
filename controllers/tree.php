@@ -79,6 +79,13 @@ abstract class Onxshop_Controller_Tree extends Onxshop_Controller {
 	 
 	public function getTree($publish = 1, $node_group, $parent, $depth, $expand_all)
 	{
+		if (!$parent && $depth == -1 && $expand_all) {
+			// we can hugely optimise this special case 
+			$flat_tree = $this->Node->getTree($publish, $node_group);
+			$flat_tree = $this->processPermission($flat_tree);
+			return $this->buildTree($flat_tree);;
+		}
+
 		$tree = $this->Node->getNodesByParent($publish, $node_group, $parent);
 
 		if (is_array($tree) && count($tree) > 0 && $depth != 0) {
