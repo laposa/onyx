@@ -50,7 +50,7 @@ span.mceEditorContainer select {width: auto;}
 .node.show-at-normal-login {border: 1px dotted red;}
 .node.hide-at-normal-login {border: 1px dotted green;}
 .node.show-at-trade-login {border: 1px solid red;}
-.node.hide0at-trade-login {border: 1px solid green;}
+.node.hide-at-trade-login {border: 1px solid green;}
 .acl-in-use {border: 1px dotted red;}
 .node.not-public {border: 1px solid red;}
 .node.adaptive {border: 1px dashed #9933CC;}

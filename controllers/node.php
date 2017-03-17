@@ -178,6 +178,7 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 		 
 		$node_data['extra_css_class'] = '';
 		
+		/*
 		if (trim($node_data['css_class']) != '') {
 			
 			$css_classes = explode(" ", $node_data['css_class']);
@@ -186,7 +187,7 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 			}
 			
 		}
-		
+		*/
 		/**
 		 * check visibility and than display
 		 */
@@ -197,12 +198,12 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 			
 				//TODO: add and icon with status
 				// we cannot add this css_class to normal node.css_class, because of inheritance
-				if ($node_data['display_permission'] == 1) $node_data['extra_css_class'] = $node_data['extra_css_class'] . ' show_at_normal_login';
-				else if ($node_data['display_permission'] == 2) $node_data['extra_css_class'] = $node_data['extra_css_class'] . ' hide_at_normal_login';
-				else if ($node_data['display_permission'] == 3) $node_data['extra_css_class'] = $node_data['extra_css_class'] . ' show_at_trade_login';
-				else if ($node_data['display_permission'] == 4) $node_data['extra_css_class'] = $node_data['extra_css_class'] . ' hide_at_trade_login';
-				if (is_array($node_data['display_permission_group_acl'])) $node_data['extra_css_class'] = $node_data['extra_css_class'] . ' acl_in_use';
-				if ($node_data['publish'] == 0) $node_data['extra_css_class'] = $node_data['extra_css_class'] . ' not_public';
+				if ($node_data['display_permission'] == 1) $node_data['extra_css_class'] = $node_data['extra_css_class'] . ' show-at-normal-login';
+				else if ($node_data['display_permission'] == 2) $node_data['extra_css_class'] = $node_data['extra_css_class'] . ' hide-at-normal-login';
+				else if ($node_data['display_permission'] == 3) $node_data['extra_css_class'] = $node_data['extra_css_class'] . ' show-at-trade-login';
+				else if ($node_data['display_permission'] == 4) $node_data['extra_css_class'] = $node_data['extra_css_class'] . ' hide-at-trade-login';
+				if (is_array($node_data['display_permission_group_acl'])) $node_data['extra_css_class'] = $node_data['extra_css_class'] . ' acl-in-use';
+				if ($node_data['publish'] == 0) $node_data['extra_css_class'] = $node_data['extra_css_class'] . ' not-public';
 				if ($node_data['node_controller'] == 'adaptive') $node_data['extra_css_class'] = $node_data['extra_css_class'] . ' adaptive';
 			}
 			
