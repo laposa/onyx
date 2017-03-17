@@ -79,7 +79,7 @@ class Onxshop_Controller_Bo_Component_Client_Customer_List extends Onxshop_Contr
 				foreach ($taxonomy as $t) $customer['class'] .= "t$t ";
 				
 				$role_ids = $Customer->getRoleIds($customer['customer_id']);
-				foreach ($role_ids as $r) $customer['class'] .= "role_$r ";
+				foreach ($role_ids as $r) $customer['class'] .= "role-$r ";
 				
 				$this->tpl->assign('ITEM', $customer);
 				$this->tpl->parse('content.list.item');

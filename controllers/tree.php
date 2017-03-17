@@ -138,7 +138,7 @@ abstract class Onxshop_Controller_Tree extends Onxshop_Controller {
 			
 			}
 
-			if (!empty($item['subcontent']) || $item['has_children']) $item['css_class'] = $item['css_class'] . ' has_child';
+			if (!empty($item['subcontent']) || $item['has_children']) $item['css_class'] = $item['css_class'] . ' has-child';
 
 			if ($item_parsed = $this->parseItem($item)) {
 				
@@ -187,7 +187,7 @@ abstract class Onxshop_Controller_Tree extends Onxshop_Controller {
 		 */
 		
 		if (isset($this->GET['publish'])) {
-			if ($item['publish'] == 0) $item['css_class'] .= " onxshop_nopublish";
+			if ($item['publish'] == 0) $item['css_class'] .= " onxshop-nopublish";
 		}
 		
 
