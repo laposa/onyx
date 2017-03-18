@@ -1,9 +1,12 @@
-/* import default CSS for generic HTML tags */
-@import url(src/global.css);
-
-/* import CSS for layout/grid system */
+/**
+ * linked directly to each source file
+ * instead of compiled version by utils/compile_css.sh
+ */
+@import url(src/font.css);
+@import url(src/normalize.css);
+@import url(src/common.css);
 @import url(src/layout.css);
-
-/* import default CSS for id,class specific definitions */
-@import url(src/onxshop.css);
-@import url(src/onxshop_ecommerce.css);
+@import url(src/structure.css);
+@import url(src/node.css);
+@import url(src/component.css);
+@import url(src/component_ecommerce.css);

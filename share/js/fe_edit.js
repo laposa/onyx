@@ -73,7 +73,7 @@ $('a.onxshop-new-content').live('click', function() {
 	var container_id = info[1];
 	//alert("node_id" + node_id + " container_id" + container_id);
 	$($(this).attr('href') + ' > div.new-node').load('/request/bo/component/node_add~node_group=content:parent=' + node_id + ':container=' + container_id + '~', '', function() {
-		var button = '#node-add-form-' + node_id + '_' + container_id + '-wrapper button';
+		var button = '#node-add-form-' + node_id + '-' + container_id + '-wrapper button';
 		var container = '#onxshop-layout-container-' + node_id + '-' + container_id;
 		$(button).after(' or <a href="#" onclick="$(\'' + container + ' div.new-node\').remove(); refreshAddContent(\'' + container + '\'); return false;"><span>cancel</span></a>');
 		

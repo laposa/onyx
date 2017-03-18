@@ -297,7 +297,7 @@ h1 { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 1
 h1 span.info { font-weight: normal; float: right; font-size: 14px; background: #f0f0f0; border: 1px solid #ddd; text-shadow: 0 -1px 0 #fff; border-radius: 20px; padding: 3px 16px; margin: 12px 0 0 0; }
 h2 { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: normal; color: #666;}
 
-#pages-node-menu { overflow-x: scroll; }
+#pages-node-menu { overflow-x: auto; }
 
 /**
  * Special layout - 20-80

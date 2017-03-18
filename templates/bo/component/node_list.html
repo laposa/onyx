@@ -25,8 +25,7 @@ $(function() {
 				}
 			});
 		});
-		$('#dialog').dialog({width: 500, modal: true, overlay: {opacity: 0.5, background: 'black'}, title: 'Add new node'});
-		$('#dialog').dialog('open');
+		$('#dialog').dialog({width: 500, modal: true, overlay: {opacity: 0.5, background: 'black'}, title: 'Add new node'}).dialog('open');
 		return false;
 	});
 	$('#child-list-{GET.id} a.onxshop-delete').on('click', function() {
