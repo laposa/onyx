@@ -44,7 +44,7 @@ $(document).ready(function(){
 		
 		<div class="row details">
 			<label for="formdata-details-{GET.node_id}"><strong>Details of Issue:</strong></label>
-			<span class="details"><textarea id="formdata-details-{GET.node_id}" name="formdata[details]" class="textarea" rows="15" cols="45">{FORMDATA.details|htmlspecialchars}</textarea>
+			<textarea id="formdata-details-{GET.node_id}" name="formdata[details]" class="textarea" rows="15" cols="45">{FORMDATA.details|htmlspecialchars}</textarea>
 		</div>
 		
 		<div class="contact-form-header">
@@ -98,7 +98,7 @@ $(document).ready(function(){
 	
 		<div class="row submit">
 			<label>&nbsp;</label>
-			<button type="submit" name="send" value="send" class="submit"><span>{I18N_SUBMIT}</button>
+			<button type="submit" name="send" value="send" class="submit"><span>{I18N_SUBMIT}</span></button>
 		</div>
 	
 	<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />

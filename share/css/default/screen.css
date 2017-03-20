@@ -478,7 +478,7 @@ form span.label {display: block; }
 form span.field {display: block;}
 input[type=text],
 input[type=email] {width: 100%;}
-input[type=checkbox] {float: left;}
+
 
 label.error {color: red;}
 input.error,

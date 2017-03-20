@@ -90,7 +90,7 @@ $(document).ready(function(){
 		
 		<div class="row details">
 			<label for="formdata-details-{GET.node_id}"><strong>Details of Issue:</strong></label>
-			<span class="details"><textarea id="formdata-details-{GET.node_id}" name="formdata[details]" class="textarea" rows="15" cols="45">{FORMDATA.details|htmlspecialchars}</textarea>
+			<textarea id="formdata-details-{GET.node_id}" name="formdata[details]" class="textarea" rows="15" cols="45">{FORMDATA.details|htmlspecialchars}</textarea>
 		</div>
 		
 		<div class="contact-form-header">
@@ -128,12 +128,12 @@ $(document).ready(function(){
 		</div>
 		
 		<div class="row consent">
-				<label for="formdata-consent-{GET.node_id}">For the purpose of this investigation, I agree to sharing my contact details with the relevant supplier and retailer:</label>
-				<select class="select required" id="formdata-consent-{GET.node_id}" name="formdata[consent]" value="{FORMDATA.consent|htmlspecialchars}">
-					<option value="">-</option>
-					<option class="no" value="No">No</option>
-					<option class="yes" value="Yes">Yes</option>
-				</select>
+			<label for="formdata-consent-{GET.node_id}">For the purpose of this investigation, I agree to sharing my contact details with the relevant supplier and retailer:</label>
+			<select class="select required" id="formdata-consent-{GET.node_id}" name="formdata[consent]" value="{FORMDATA.consent|htmlspecialchars}">
+				<option value="">-</option>
+				<option class="no" value="No">No</option>
+				<option class="yes" value="Yes">Yes</option>
+			</select>
 		</div>		
 
 		{FILE "component/captcha.inc.html"}
@@ -144,7 +144,7 @@ $(document).ready(function(){
 	
 		<div class="row submit">
 			<label>&nbsp;</label>
-			<button type="submit" name="send" value="send" class="submit"><span>{I18N_SUBMIT}</button>
+			<button type="submit" name="send" value="send" class="submit"><span>{I18N_SUBMIT}</span></button>
 		</div>
 	
 	<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
