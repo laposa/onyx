@@ -3,7 +3,7 @@
 	<h4>Author Stats</h4>
 
 	<form action="{URI|htmlspecialchars}" method="POST">
-		<select name="customer-id" onchange="$(this).parents('form').submit();">
+		<select name="customer_id" onchange="$(this).parents('form').submit();">
 			<option value="0">Superuser</option>
 			<!-- BEGIN: item -->
 			<option value="{CUSTOMER.id}" {SELECTED}>{CUSTOMER.first_name|htmlspecialchars} {CUSTOMER.last_name} (id={CUSTOMER.id})</option>
