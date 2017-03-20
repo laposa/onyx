@@ -10,13 +10,13 @@ $(function(){
 	<form class="contact common-file" id="contact-form-{GET.node_id}" action="{URI|htmlspecialchars}#node-id-{GET.node_id}" method="post" enctype="multipart/form-data">
 	<fieldset class="single">
 		<legend>{I18N_CONTACT_FORM}</legend>
-		<div class="row full-name {ERROR.full_name}">
-			<span class="label"><label for="formdata-full-name-{GET.node_id}"><span class="mandatory-mark">*</span>{I18N_YOUR_NAME}:</label></span>
-			<span class="field"><input type="text" id="formdata-full-name-{GET.node_id}" name="formdata[required_full_name]" value="{FORMDATA.required_full_name|htmlspecialchars}" class="required text" maxlength="45" /></span>
+		<div class="row full-name">
+			<label for="formdata-full-name-{GET.node_id}">{I18N_YOUR_NAME}:</label>
+			<input type="text" id="formdata-full-name-{GET.node_id}" name="formdata[required_full_name]" value="{FORMDATA.required_full_name|htmlspecialchars}" class="required text" maxlength="45" />
 		</div>
-		<div class="row email {ERROR.email}">
-			<span class="label"><label for="formdata-email-{GET.node_id}"><span class="mandatory-mark">*</span>{I18N_EMAIL}:</label></span>
-			<span class="field"><input type="email" id="formdata-email-{GET.node_id}" name="formdata[required_email]" value="{FORMDATA.required_email|htmlspecialchars}" class="required email text" maxlength="45" /></span>
+		<div class="row email">
+			<label for="formdata-email-{GET.node_id}">{I18N_EMAIL}:</label>
+			<input type="email" id="formdata-email-{GET.node_id}" name="formdata[required_email]" value="{FORMDATA.required_email|htmlspecialchars}" class="required email text" maxlength="45" />
 		</div>
 
 		{FILE "component/captcha.inc.html"}
@@ -24,7 +24,7 @@ $(function(){
 		<div class="row" id="attachment-file">
 			<label for="attachment-file-input">Add:</label>
 			<input id="attachment-file-input" type="file" name="attachment" class="file" /> 
-			<span class="max_filesize">Max&nbsp;filesize:&nbsp;{MAX_FILE_SIZE}</span>
+			<span class="max_filesize">Max&nbsp;filesize:&nbsp;{MAX_FILE_SIZE}
 		</div>
 		
 	</fieldset>
@@ -32,8 +32,8 @@ $(function(){
 		<input type="hidden" name="node_id" value="{GET.node_id}" />
 		
 		<div class="row submit">
-			<span class="label"><label>&nbsp;</label></span>
-			<span class="field"><button type="submit" name="send" value="send" class="submit"><span>{I18N_SUBMIT}</span></button></span>
+			<label>&nbsp;</label>
+			<button type="submit" name="send" value="send" class="submit"><span>{I18N_SUBMIT}</button>
 		</div>
 	
 	<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
