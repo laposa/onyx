@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2013-2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2013-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -13,6 +13,8 @@ class Onxshop_Controller_Component_Ecommerce_Roundel_Image extends Onxshop_Contr
 	protected $aa_factor;
 	protected $bg_color_hex;
 	protected $text_color_hex;
+	
+	const CACHE_DIRECTORY = ONXSHOP_PROJECT_DIR . "var/roundels/";
 
 	/**
 	 * main action
@@ -107,7 +109,7 @@ class Onxshop_Controller_Component_Ecommerce_Roundel_Image extends Onxshop_Contr
 			'size3' => (int) $this->text[2]['size'],
 		))) . ".png";
 
-		$this->cachedFilePath = ONXSHOP_PROJECT_DIR . "var/roundels/$filename";
+		$this->cachedFilePath = self::CACHE_DIRECTORY . $filename;
 
 		if (file_exists($this->cachedFilePath)) {
 			// cache hit
@@ -272,9 +274,12 @@ class Onxshop_Controller_Component_Ecommerce_Roundel_Image extends Onxshop_Contr
 
 		imagedestroy($this->canvas);
 
+		// save to cache
+		if (!file_exists(self::CACHE_DIRECTORY)) mkdir(self::CACHE_DIRECTORY);
+		if (is_writable(self::CACHE_DIRECTORY)) imagepng($result, $this->cachedFilePath);
+		
 		// output to browser
 		header("Content-Type: image/png");
-		imagepng($result, $this->cachedFilePath);
 		imagepng($result);
 		imagedestroy($result);
 
