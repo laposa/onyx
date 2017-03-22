@@ -121,6 +121,8 @@ class common_node extends Onxshop_Model {
 	var $share_counter;
 	
 	var $customer_id;
+	
+	var $custom_fields;
 
 	/**
 	 * Static variable to speed up hiearchy determination within a single request
@@ -163,7 +165,8 @@ class common_node extends Onxshop_Model {
 		'require_ssl'=>array('label' => '', 'validation'=>'int', 'required'=>false),
 		'display_permission_group_acl'=>array('label' => '', 'validation'=>'serialized', 'required'=>false),
 		'share_counter'=>array('label' => '', 'validation'=>'int', 'required'=>false),
-		'customer_id'=>array('label' => '', 'validation'=>'int', 'required'=>false)
+		'customer_id'=>array('label' => '', 'validation'=>'int', 'required'=>false),
+		'custom_fields'=>array('label' => 'JSON data - binary', 'validation'=>'string', 'required'=>false)
 		);
 	
 	/**
@@ -209,7 +212,8 @@ CREATE TABLE common_node (
 	require_ssl smallint NOT NULL DEFAULT 0,
 	display_permission_group_acl text,
 	share_counter int NOT NULL DEFAULT 0,
-	customer_id integer REFERENCES client_customer ON UPDATE CASCADE ON DELETE RESTRICT
+	customer_id integer REFERENCES client_customer ON UPDATE CASCADE ON DELETE RESTRICT,
+	custom_fields jsonb
 );
 
 CREATE INDEX common_node_display_in_idx ON common_node USING btree (display_in_menu);
@@ -217,6 +221,7 @@ CREATE INDEX common_node_node_group_idx ON common_node USING btree (node_group);
 CREATE INDEX common_node_node_controller_idx ON common_node USING btree (node_controller);
 CREATE INDEX common_node_parent_idx ON common_node USING btree (parent);
 CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
+CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fields);
 		";
 		
 		return $sql;
@@ -471,6 +476,7 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 		$node_data['author_detail'] = $this->getAuthorDetailbyId($node_data['customer_id']);
 	
 		$node_data['other_data'] = unserialize(trim($node_data['other_data']));
+		$node_data['custom_fields'] = json_decode($node_data['custom_fields']);
 		$node_data['component'] = unserialize(trim($node_data['component']));
 		$node_data['relations'] = unserialize(trim($node_data['relations']));
 		$node_data['display_permission_group_acl'] = unserialize($node_data['display_permission_group_acl']);
@@ -524,6 +530,7 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 		$node_data['modified'] = date('c');
 		
 		if (is_array($node_data['other_data'])) $node_data['other_data'] = serialize($node_data['other_data']);
+		if (is_array($node_data['custom_fields'])) $node_data['custom_fields'] = json_encode($node_data['custom_fields']);
 		if (is_array($node_data['component'])) $node_data['component'] = serialize($node_data['component']);
 		if (is_array($node_data['relations'])) $node_data['relations'] = serialize($node_data['relations']);
 		
@@ -612,6 +619,7 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 		else $node_data['layout_style'] = '';
 		
 		if (is_array($node_data['other_data'])) $node_data['other_data'] = serialize($node_data['other_data']);
+		if (is_array($node_data['custom_fields'])) $node_data['custom_fields'] = json_encode($node_data['custom_fields']);
 		if (is_array($node_data['relations'])) $node_data['relations'] = serialize($node_data['relations']);
 		if (is_array($node_data['component'])) $node_data['component'] = serialize($node_data['component']);
 		
