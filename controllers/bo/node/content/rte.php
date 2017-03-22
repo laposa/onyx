@@ -1,13 +1,13 @@
 <?php
 /** 
- * Copyright (c) 2005-2014 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2005-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
 
 require_once('controllers/bo/node/content/default.php');
 
-class Onxshop_Controller_Bo_Node_Content_RTE extends Onxshop_Controller_Bo_Node_Content_Default {
+class Onxshop_Controller_Bo_Node_Content_Rte extends Onxshop_Controller_Bo_Node_Content_Default {
 
 	/**
 	 * post action

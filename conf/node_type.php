@@ -9,7 +9,7 @@
 $templates_info['content'] = array(
 	'default'=>array('title' => 'Default', 'description'=>'', 'visibility'=>false),
 	'textile'=>array('title' => 'Textile', 'description'=>'', 'visibility'=>true),
-	'RTE'=>array('title' => 'Rich Text', 'description'=>'', 'visibility'=>true), 
+	'rte'=>array('title' => 'Rich Text', 'description'=>'', 'visibility'=>true), 
 	'picture'=>array('title' => 'Photo Gallery', 'description'=>'', 'visibility'=>true),
 	'video'=>array('title' => 'Video', 'description'=>'', 'visibility'=>true),
 	'quote'=>array('title' => 'Quote (Testimonial)', 'description'=>'Testimonial', 'visibility'=>true),
@@ -19,7 +19,7 @@ $templates_info['content'] = array(
 	'menu'=>array('title' => 'Menu Navigation', 'description'=>'Menu of Pages', 'visibility'=>true), 
 	'content_list'=>array('title' => 'Content List', 'description'=>'Useful for FAQ list', 'visibility'=>true),
 	'divider'=>array('title' => 'Horizontal Divider', 'description'=>'', 'visibility'=>true),
-	'HTML'=>array('title' => 'Pure HTML', 'description'=>'', 'visibility'=>true),
+	'html'=>array('title' => 'Pure HTML', 'description'=>'', 'visibility'=>true),
 	'feed'=>array('title' => 'Remote Feed Resource', 'description'=>'', 'visibility'=>true),
 	'component'=>array('title' => 'Generic Component', 'description'=>'', 'visibility'=>true), 
 	'file'=>array('title' => 'File List (Downloads)', 'description'=>'', 'visibility'=>true),
@@ -33,7 +33,7 @@ $templates_info['content'] = array(
 	'filter'=>array('title' => 'Categories Filter', 'description'=>'', 'visibility'=>false),
 	'notice'=>array('title' => 'Notice', 'description'=>'i.e. for stores', 'visibility'=>false),
 	'adaptive'=>array('title' => 'Adaptive', 'description'=>'Show only if meets certain conditions', 'visibility'=>true),
-	'default_template' => 'RTE'
+	'default_template' => 'rte'
 	);
 		
 $templates_info['layout'] = array(
