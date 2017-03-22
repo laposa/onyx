@@ -165,9 +165,9 @@ class client_customer extends Onxshop_Model {
 		'verified_email_address'=>array('label' => 'Verified Email Address', 'validation'=>'int', 'required'=>false),
 		'oauth'=>array('label' => 'Oauth storege for tokens', 'validation'=>'serialized', 'required'=>false),
 		'deleted_date'=>array('label' => 'Deleted date', 'validation'=>'datetime', 'required'=>false),
-		'facebook_id'=>array('label' => '', 'validation'=>'int', 'required'=>false),
-		'twitter_id'=>array('label' => '', 'validation'=>'int', 'required'=>false),
-		'google_id'=>array('label' => '', 'validation'=>'int', 'required'=>false),
+		'facebook_id'=>array('label' => '', 'validation'=>'string', 'required'=>false),
+		'twitter_id'=>array('label' => '', 'validation'=>'string', 'required'=>false),
+		'google_id'=>array('label' => '', 'validation'=>'string', 'required'=>false),
 		'profile_image_url'=>array('label' => '', 'validation'=>'string', 'required'=>false),
 		'store_id'=>array('label' => 'Home Store ID', 'validation'=>'int', 'required'=>false),
 		'janrain_id'=>array('label' => 'Janrain UUID', 'validation'=>'string', 'required'=>false)
