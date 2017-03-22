@@ -73,6 +73,8 @@ class Onxshop_Controller_Bo_Node_Default extends Onxshop_Controller {
 	function detail() {
 		$this->node_data = $this->Node->nodeDetail($this->GET['id']);
 		$this->tpl->assign('NODE_URL', translateURL("page/".$this->GET['id']));
+		$CommonUriMapping = new common_uri_mapping();
+		$this->tpl->assign('NODE_URL_LAST_SEGMENT', $CommonUriMapping->cleanTitle($this->node_data['title']));
 	}
 	
 	/**

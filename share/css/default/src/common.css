@@ -11,14 +11,16 @@ label.error {color: red;}
 input.error,
 textarea.error {border-color: red;}
 
-textarea {width: 70%; min-height: 100px;}
+textarea {width: 100%; min-height: 100px;}
 textarea.small {height: 50px;}
-textarea.big {width: 100%; height: 400px;}
-select.big {width: 100%;}
-input.title {font-size: 1.4em; font-weight: bold; width: 100%;}
-input.long,
-textarea.long,
+textarea.big,
+textarea.large,
+textarea.long {height: 400px;}
+select.big,
+select.large,
 select.long {width: 100%;}
+input.title {font-size: 1.4em; font-weight: bold; width: 100%;}
+input.long {width: 100%;}
 input.short,
 textarea.short,
 select.short {width: 5em;}
@@ -52,7 +54,7 @@ div.onxshop-messages p.onxshop-error-msg {background: transparent url(/share/ima
  * jGrowl
  */
 
-div#jGrowl { position: fixed; top: 50px; width: 500px; left: 50%; margin-left: -250px; text-align: center; pointer-events: none; z-index: 9999; }
+div#jGrowl { position: fixed; top: 50px; width: 500px; left: 50%; margin-left: -250px; text-align: center; pointer-events: none; z-index: 9999; -webkit-transform: translateZ(1px);}
 div#jGrowl div.onxshop-messages { margin: 0; padding: 10px 30px; }
 div#jGrowl div.jGrowl-notification { display: block; position: relative; z-index: 9999; zoom: 1; text-align: left; pointer-events: all; border: none; background: none;}
 div#jGrowl div.jGrowl-notification.ui-state-highlight { margin: 0 auto 20px auto; display: inline-block; min-width: 260px; }

@@ -1,5 +1,5 @@
 <div class="row uri-title">
-	<span class="label"><label for="node-uri-title" title="Speaking URL path segment">Title for URI (use only last segment, not full path):</label></span>
-	<span class="field"><input class="text half" type="text" name="node[uri_title]" id="node-uri-title" value="{NODE.uri_title|htmlspecialchars}" title="If empty, navigation title will be used" onchange="var value = $(this).attr('value'); if (value.indexOf('{_SERVER.HTTP_HOST}') != -1) {growlMessage('Invalid title, don\'t use actual URL'); $(this).attr('value', '');}" /></span>
+	<label for="node-uri-title" title="Speaking URL path segment">Title for URI (use only last segment, not full path):</label>
+	<input class="half" type="text" name="node[uri_title]" id="node-uri-title" value="{NODE.uri_title|htmlspecialchars}" title="If empty, navigation title will be used" onchange="var value = $(this).attr('value'); if (value.indexOf('{_SERVER.HTTP_HOST}') != -1) {growlMessage('Invalid title, don\'t use actual URL'); $(this).attr('value', '');}" placeholder="{NODE_URL_LAST_SEGMENT}"/>
 	Current path: {NODE_URL}
 </div>

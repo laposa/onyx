@@ -1,43 +1,41 @@
 <div class="row">
-	<span class="label"><label for="node-layout-style">Layout Style (column one to column two width ratio)</label></span>
-	<span class="field">
-		<!-- BEGIN: style -->
-		<select name="node[layout_style]" id="node-layout-style">
-			<!-- BEGIN: item -->
-				<option class='{STYLE.key}' value="{STYLE.key}" {SELECTED}>{STYLE.title}</option>
-			<!-- END: item -->
-		</select>
+	<label for="node-layout-style">Layout Style (column one to column two width ratio)</label>
+	<!-- BEGIN: style -->
+	<select name="node[layout_style]" id="node-layout-style">
+		<!-- BEGIN: item -->
+			<option class='{STYLE.key}' value="{STYLE.key}" {SELECTED}>{STYLE.title}</option>
+		<!-- END: item -->
+	</select>
+
+	<div style="margin: 10px 0; width: 100%" id="slider-ui"></div>
 	
-		<div style="margin: 10px 0; width: 100%" id="slider-ui"></div>
-		
-		<script type="text/javascript">
-		$(function() {
-			$("#slider-ui").slider({
-				value: $('#node-layout-style').prop("selectedIndex"),
-				min: 0,
-				max: $('#node-layout-style').children().length - 1,
-				step: 1,
-				slide: function(event, ui) { 
-					$('#node-layout-style').prop("selectedIndex", ui.value);
-					$("#layout-style-preview").attr("class", "two-column-layout layout " + $('#node-layout-style').val());
-				},
-				start: function(event, ui) {
-					$("#layout-style-preview").show();
-				},
-				stop: function(event, ui) {
-					$("#layout-style-preview").hide();
-				}
-			});
-			
-			$("#node-layout-style").bind("change", function() {
-				$("#slider-ui").slider({value: $('#node-layout-style').prop("selectedIndex")});
+	<script type="text/javascript">
+	$(function() {
+		$("#slider-ui").slider({
+			value: $('#node-layout-style').prop("selectedIndex"),
+			min: 0,
+			max: $('#node-layout-style').children().length - 1,
+			step: 1,
+			slide: function(event, ui) { 
+				$('#node-layout-style').prop("selectedIndex", ui.value);
 				$("#layout-style-preview").attr("class", "two-column-layout layout " + $('#node-layout-style').val());
-			});
-			
+			},
+			start: function(event, ui) {
+				$("#layout-style-preview").show();
+			},
+			stop: function(event, ui) {
+				$("#layout-style-preview").hide();
+			}
 		});
-		</script>				
-		<!-- END: style -->
-	</span>
+		
+		$("#node-layout-style").bind("change", function() {
+			$("#slider-ui").slider({value: $('#node-layout-style').prop("selectedIndex")});
+			$("#layout-style-preview").attr("class", "two-column-layout layout " + $('#node-layout-style').val());
+		});
+		
+	});
+	</script>				
+	<!-- END: style -->
 </div>
 <div class="two-column-layout layout fibonacci-1-1 " id="layout-style-preview">
 	<div class="layout-wrapper">

@@ -1,11 +1,6 @@
 <div class="row title">
-	<span class="label"><label for="node-title">*Navigation Label:</label></span>
-	<span class="field">
-		<div style="width: 60%; float: left;"><input class="text title" type="text" id="node-title" name="node[title]" value="{NODE.title|htmlspecialchars}" /></div> 
-		<div style="float: left; width: 40%; padding-left: 8px;">
-			<input type="checkbox" name="node[display_title]" id="node-display-title" value="1" {NODE.display_title_check} /> <label for="node-display-title">Display heading</label><br />
-			<span class="advanced"><input type="checkbox" title="When this option is disabled, an extra CSS class noSecondaryNavigation will be added into parent container (helpful for making page full width)" name="node[display_secondary_navigation]" id="node-display-secondary-navigation" {NODE.display_secondary_navigation} /> <label for="node-display-secondary-navigation" title="When this option is disabled, an extra CSS class noSecondaryNavigation will be added into parent container (helpful for making page full width) and CONTAINER.4 will be shown">Secondary Nav.</label></span>
-		</div>
-	</span>
-	<div class="bottom"></div>
+	<label for="node-title">{NODE.node_group|ucfirst} Title:</label>	
+	<input class="title" type="text" id="node-title" name="node[title]" value="{NODE.title|htmlspecialchars}" />
+	<input type="checkbox" name="node[display_title]" id="node-display-title" value="1" {NODE.display_title_check} /> <label for="node-display-title">Display heading</label>
+	<div class="advanced"><input type="checkbox" title="When this option is disabled, an extra CSS class noSecondaryNavigation will be added into parent container (helpful for making page full width)" name="node[display_secondary_navigation]" id="node-display-secondary-navigation" {NODE.display_secondary_navigation} /> <label for="node-display-secondary-navigation" title="When this option is disabled, an extra CSS class noSecondaryNavigation will be added into parent container (helpful for making page full width) and CONTAINER.4 will be shown">Secondary Nav. (if supported by HTML template)</label></div>
 </div>
