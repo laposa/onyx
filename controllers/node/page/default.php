@@ -140,7 +140,7 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
 		/**
 		 * set active pages
 		 */
-		 
+		$this->GET['node_id'] = $this->GET['id'];
 		$this->setActivePages();
 		
 		return true;
