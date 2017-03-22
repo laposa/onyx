@@ -1,16 +1,1 @@
-<!-- BEGIN: content -->
-<div class="component teaser {ITEM.taxonomy_class} node-id-{NODE.id}">
-	<a href="/page/{NODE.id}">
-		<!-- BEGIN: image -->
-		<div class="image">
-			<span class="wrap"><img alt="{NODE.image.title|htmlspecialchars}" title="{NODE.image.title|htmlspecialchars}" src="{IMAGE_PATH}{NODE.image.src}{IMAGE_RESIZE_OPTIONS}" /></span>
-		</div>
-		<!-- END: image -->
-		<div class="content">
-			<h4><span>{NODE.title|htmlspecialchars}</span></h4>
-			<p class="description">{NODE.description|htmlspecialchars}</p>
-		</div>
-		<p class="more"><span>{NODE.link_text|htmlspecialchars}</span></p>
-	</a>
-</div>
-<!-- END: content -->
+{FILE "component/teaser_grid.html"}
