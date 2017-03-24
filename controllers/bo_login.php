@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2013 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2013-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -23,6 +23,9 @@ class Onxshop_Controller_Bo_Login extends Onxshop_Controller {
 		
 		if (ONXSHOP_FACEBOOK_APP_ID || ONXSHOP_TWITTER_APP_ID) $this->tpl->parse('content.choose_login_type');
 		*/
+		
+		//if (Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) msg('Authorised');
+		//else msg('Not authorised');
 		
 		return true;
 		

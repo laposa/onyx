@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2005-2016 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2005-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -285,9 +285,25 @@ class Onxshop_Bo_Authentication
 	private function showHttpAuthDialog()
 	{
 		$_SESSION['authentication'] = array('http_auth_requested' => 1);
-
-		Header("WWW-authenticate: Basic realm=\"CMS\"");
-		Header("HTTP/1.0 401 Unauthorized");
+		
+		/**
+		 * Option 1: show OS/browser native dialog window
+		 */
+		 
+		//Header("WWW-authenticate: Basic realm=\"CMS\"");
+		//Header("HTTP/1.0 401 Unauthorized");
+		
+		/**
+		 * Option 2: show custom dialog window
+		 */
+		 
+		$result = new Onxshop_Router('sys/html5.bo_login');
+		echo $result->Onxshop->getContent();
+	
+		/**
+		 * no more script processing
+		 */
+		 
 		exit;
 	}
 
