@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2006-2016 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2006-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -123,18 +123,22 @@ class Onxshop_Controller_Component_Client_Password_Reset extends Onxshop_Control
 				    				msg('Password reset email sending failed.', 'error');
 			    				}
 
-			    				// login and redirect to My Account page
-								if ($customer_detail = $Customer->login($this->GET['email'], md5($customer_data['password']))) {
-									$_SESSION['client']['customer'] = $customer_detail;
-									if ($_SESSION['to']) {
-										$to = $_SESSION['to'];
-										$_SESSION['to'] = false;
-										onxshopGoTo($to);
-									} else {
-										require_once('models/common/common_node.php');
-										$node_conf = common_node::initConfiguration();
-										onxshopGoTo("page/" . $node_conf['id_map-myaccount']);
+			    				// login and redirect to My Account page (only customers, not backoffice users)
+			    				if ($_SESSION['authentication']['http_auth_requested'] == 0) {
+				    				
+									if ($customer_detail = $Customer->login($this->GET['email'], md5($customer_data['password']))) {
+										$_SESSION['client']['customer'] = $customer_detail;
+										if ($_SESSION['to']) {
+											$to = $_SESSION['to'];
+											$_SESSION['to'] = false;
+											onxshopGoTo($to);
+										} else {
+											require_once('models/common/common_node.php');
+											$node_conf = common_node::initConfiguration();
+											onxshopGoTo("page/" . $node_conf['id_map-myaccount']);
+										}
 									}
+								
 								}
 
 							}
