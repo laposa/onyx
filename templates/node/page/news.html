@@ -25,7 +25,7 @@
 	</header>
 	<!-- END: page_header -->
 	
-	<section class="content">
+	<section class="layout main-content">
 		<div class="wrapper">
 			{MESSAGES}
 			<div class="content">
@@ -37,7 +37,7 @@
 		</div>
 	</section>
 	
-	<section class="share layout">
+	<section class="layout share">
 		<div class="wrapper">
             <h2 class="layout-title"><span>Share</span></h2>
             {ONXSHOP_REQUEST_share #component/social_network_share~node_id=GET.id~}
@@ -45,7 +45,7 @@
 	</section>
 	
 	<!-- BEGIN: comment -->
-	<section class="comment layout" id="comment">
+	<section class="layout comment" id="comment">
 		<div class="wrapper">
 			<h2 class="layout-title"><span>{I18N_COMMENT_HEAD}</span></h2>
 			{COMMENT}
@@ -53,7 +53,7 @@
 	</section>
 	<!-- END: comment -->
 	
-	<section class="related-articles layout">
+	<section class="layout related-articles">
 		<div class="wrapper">
 			<h2 class="layout-title">More Like This</h2>
 			{ONXSHOP_REQUEST_news_list_teaser #component/news_list_stack~node_id=GET.id:blog_node_id=GET.parent_id:publish=1:limit_from=0:limit_per_page=3:display_teaser_image=true:image_width=300:image_height=300~}
