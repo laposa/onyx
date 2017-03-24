@@ -34,6 +34,10 @@ $(document).ready(function(){
 	
 	$("#login form.login").validate({onkeyup: false});  
 	
+	if(window.location.hash == '#forgot' || window.location.search.substr(1).match(/key/)) {
+		$('div.bo-login #forgot form').show();
+	}
+	
 	$('#login form.login').submit(function(){
 		
 		var auth_url = '{PROTOCOL}://{_SERVER.HTTP_HOST}/edit';
@@ -81,7 +85,7 @@ $(document).ready(function(){
 <!-- BEGIN: content -->
 <div id="backoffice">
 	<div id="backoffice-wrapper">
-		<div id="container"> 
+		<div id="container">
 			<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 			<div class="bo-login" id="login">	
 				<div class="login">
