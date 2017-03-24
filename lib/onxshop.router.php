@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2009-2014 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -12,6 +12,15 @@ class Onxshop_Router {
 	var $modules;
 	
 	var $Onxshop;
+	
+	/**
+	 * Construct
+	 */
+
+	public function __construct($request = false)
+	{
+		if ($request) return $this->processAction($request);
+	}
 	
 	/**
 	 * Process Action
