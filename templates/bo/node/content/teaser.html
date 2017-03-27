@@ -36,18 +36,17 @@
 
 <fieldset class="teaser-form-edit">
 	<div class="row node-id">
-		<span class="label"><label>Target Page Id: *</label></span>
-		<span class="field"><input type="text" name="node[component][node_id]" id="component-node-id" value="{NODE.component.node_id}" /> <a class="button" href="#"><span>Browse Server</span></a></span>
+		<label>Target Page Id: *</label>
+		<input type="text" name="node[component][node_id]" id="component-node-id" value="{NODE.component.node_id}" /> <a class="button" href="#"><span>Browse Server</span></a>
 		<div id="node-id-select"></div>
 	</div>
 	<div class="row">
-		<span class="label"><label>Teaser Text:</label></span>
-		<span class="field"><textarea name="node[component][teaser_text]" id="component-text" placeholder="Leave empty to automatically populate from the linked page...">{NODE.component.teaser_text}</textarea>
-		</span>
+		<label>Teaser Text:</label>
+		<textarea name="node[component][teaser_text]" id="component-text" placeholder="Leave empty to automatically populate from the linked page...">{NODE.component.teaser_text|htmlspecialchars}</textarea>
 	</div>
 	<div class="row">
-		<span class="label"><label>Teaser Link Text:</label></span>
-		<span class="field"><input type="text" name="node[component][link_text]" value="{NODE.component.link_text}" placeholder="Find Out More"/></span>
+		<label>Teaser Link Text:</label>
+		<input type="text" name="node[component][link_text]" value="{NODE.component.link_text|htmlspecialchars}" placeholder="Find Out More"/>
 	</div>
 </fieldset>
 

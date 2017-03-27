@@ -9,78 +9,67 @@
 
 <fieldset>
 	<div class="row">
-		<span class="label"><label>Survey:</label></span>
-		<span class="field">
-			<select name="node[component][survey_id]">
-				<!-- BEGIN: survey_item -->
-				<option value="{SURVEY_ITEM.id}" {SURVEY_ITEM.selected}>{SURVEY_ITEM.title|htmlspecialchars} {NOT_PUBLISHED}</option>
-				<!-- END: survey_item -->
-			</select>
-			<a href="/backoffice/surveys" target="_blank"><span>Edit</span></a>
-		</span>
+		<label>Survey:</label>
+		<select name="node[component][survey_id]">
+			<!-- BEGIN: survey_item -->
+			<option value="{SURVEY_ITEM.id}" {SURVEY_ITEM.selected}>{SURVEY_ITEM.title|htmlspecialchars} {NOT_PUBLISHED}</option>
+			<!-- END: survey_item -->
+		</select>
+		<a href="/backoffice/surveys" target="_blank"><span>Edit</span></a>
 	</div>
 	<div class="row">
-		<span class="label"><label>Template:</label></span>
-		<span class="field">
-			<select name="node[component][template]">
-				<option value="survey" {SELECTED_template_survey}>Survey</option>
-				<option value="image_poll" {SELECTED_template_image_poll}>Image Poll</option>
-			</select>
-		</span>
+		<label>Template:</label>
+		<select name="node[component][template]">
+			<option value="survey" {SELECTED_template_survey}>Survey</option>
+			<option value="image_poll" {SELECTED_template_image_poll}>Image Poll</option>
+		</select>
 	</div>
 	<div class="row">
-		<span class="label"><label>Entry limit:</label></span>
-		<span class="field">
-			<select id="survey_limit_select" name="node[component][limit]">
-				<option value="unlimited" {SELECTED_limit_unlimited}>unlimited</option>
-				<option value="once_per_competition" {SELECTED_limit_once_per_competition}>once per competition</option>
-				<option value="once_per_day" {SELECTED_limit_once_per_day}>once per day</option>
-				<option value="num_per_day" {SELECTED_limit_num_per_day}>specific number per day</option>
-			</select>
-		</span>
+		<label>Entry limit:</label>
+		<select id="survey_limit_select" name="node[component][limit]">
+			<option value="unlimited" {SELECTED_limit_unlimited}>unlimited</option>
+			<option value="once_per_competition" {SELECTED_limit_once_per_competition}>once per competition</option>
+			<option value="once_per_day" {SELECTED_limit_once_per_day}>once per day</option>
+			<option value="num_per_day" {SELECTED_limit_num_per_day}>specific number per day</option>
+		</select>
 	</div>
 	<div class="row num-per-day">
-		<span class="label"><label>Number of votes per day:</label></span>
-		<span class="field">
-			<input type="text" class="small" name="node[component][votes_per_day]" value="{NODE.component.votes_per_day|htmlspecialchars}"/>
-		</span>
+		<label>Number of votes per day:</label>
+		<input type="text" class="small" name="node[component][votes_per_day]" value="{NODE.component.votes_per_day|htmlspecialchars}"/>
 	</div>
 	<div class="row restriction-type">
-		<span class="label"><label>Restriction type:</label></span>
-		<span class="field">
-			<select name="node[component][restriction]">
-				<option value="none" {SELECTED_restriction_none}>none</option>
-				<option value="to_customer" disabled {SELECTED_restriction_to_customer}>to customer (require login)</option>
-				<option value="to_session" {SELECTED_restriction_to_session}>to session</option>
-				<option value="to_ip_address" {SELECTED_restriction_to_ip_address}>to IP address</option>
-			</select>
-		</span>
+		<label>Restriction type:</label>
+		<select name="node[component][restriction]">
+			<option value="none" {SELECTED_restriction_none}>none</option>
+			<option value="to_customer" disabled {SELECTED_restriction_to_customer}>to customer (require login)</option>
+			<option value="to_session" {SELECTED_restriction_to_session}>to session</option>
+			<option value="to_ip_address" {SELECTED_restriction_to_ip_address}>to IP address</option>
+		</select>
 	</div>
 	<div class="row">
-		<span class="label"><label for="component-captcha">Anti-spam protection (CAPTCHA):</label></span>
-		<span class="field">
-			<select id="component-captcha" name="node[component][spam_protection]">
-				<option value="none">None</option>
-				<option value="captcha_text_js" {SPAM_PROTECTION.captcha_text_js}>Invisible field</option>
-			</select>
+		<label for="component-captcha">Anti-spam protection (CAPTCHA):</label>
+		<select id="component-captcha" name="node[component][spam_protection]">
+			<option value="none">None</option>
+			<option value="captcha_text_js" {SPAM_PROTECTION.captcha_text_js}>Invisible field</option>
+		</select>
 	</div>
 	<div class="row checkbox">
-		<span class="field"><input type="checkbox" id="component-require-user-details" name="node[component][require_user_details]" {NODE.component.require_user_details} /> <label for="component-require-user-details">Require user details (or login)</label></span>
+		<input type="checkbox" id="component-require-user-details" name="node[component][require_user_details]" {NODE.component.require_user_details} /> <label for="component-require-user-details">Require user details (or login)</label>
 	</div>
 	<div class="row checkbox">
-		<span class="field"><input type="checkbox" id="component-require-t-and-c" name="node[component][require_t_and_c]" {NODE.component.require_t_and_c} /> <label for="component-require-t-and-c">Require Term &amp; Conditions</label></span>
+		<input type="checkbox" id="component-require-t-and-c" name="node[component][require_t_and_c]" {NODE.component.require_t_and_c} /> <label for="component-require-t-and-c">Require Term &amp; Conditions</label>
 	</div>
 	<div class="row checkbox">
-		<span class="field"><input type="checkbox" id="component-display-results" name="node[component][display_results]" {NODE.component.display_results} /> <label for="component-display-results">Display results after submission</label></span>
+		<input type="checkbox" id="component-display-results" name="node[component][display_results]" {NODE.component.display_results} /> <label for="component-display-results">Display results after submission</label>
 	</div>
 	<div class="row href">
-		<span class="label"><label>Where do you want to redirect client after submit?:</label></span>
-		<span class="field"><input type="text" name="node[component][href]" id="component-href" value="{NODE.component.href}" /> <a class="button" href="#"><span>browse server</span></a></span>
+		<label>Where do you want to redirect client after submit?:</label>
+		<input type="text" name="node[component][href]" id="component-href" value="{NODE.component.href}" /> <a class="button" href="#"><span>browse server</span></a>
 		<div id="href_select"></div>
 	</div>
 	<div class="row href">
-		<span class="label"><label>or instead of a redirect, you can show this simple message (HTML is not supported):</label></span>
-		<span class="field"><textarea name="node[component][message_after_submission]" id="component-message-after-submission">{NODE.component.message_after_submission|htmlspecialchars}</textarea></span>
+		<label>or instead of a redirect, you can show this simple message (HTML is not supported):</label>
+		<textarea name="node[component][message_after_submission]" id="component-message-after-submission">{NODE.component.message_after_submission|htmlspecialchars}</textarea>
 	</div>
 </fieldset>
 

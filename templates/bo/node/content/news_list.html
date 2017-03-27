@@ -10,20 +10,18 @@
 
 <fieldset>
 	<div class="row">
-		<span class="label"><label>*Limit:</label></span>
-		<span class="field"><input class="number" type="text" name="node[component][limit]" value="{NODE.component.limit}" /></span>
+		<label>*Limit:</label>
+		<input class="number" type="text" name="node[component][limit]" value="{NODE.component.limit}" />
 	</div>
 	<div class="row">
-		<span class="label"><label>* Type:</label></span>
-		<span class="field">
-			<select name="node[component][template]">
-				<option value="latest" {SELECTED_template_latest}>latest (simple list)</option>
-				<option value="teaser" {SELECTED_template_teaser}>teaser (shelf)</option>
-				<option value="grid" {SELECTED_template_grid}>grid</option>
-				<option value="stack" {SELECTED_template_stack}>stack</option>
-				<option value="full" {SELECTED_template_full}>full</option>
-			</select>
-		</span>
+		<label>* Type:</label>
+		<select name="node[component][template]">
+			<option value="latest" {SELECTED_template_latest}>latest (simple list)</option>
+			<option value="teaser" {SELECTED_template_teaser}>teaser (shelf)</option>
+			<option value="grid" {SELECTED_template_grid}>grid</option>
+			<option value="stack" {SELECTED_template_stack}>stack</option>
+			<option value="full" {SELECTED_template_full}>full</option>
+		</select>
 	</div>
 	
 	<div class="row">
@@ -31,8 +29,7 @@
 	</div>
 	
 	<div class="row">
-		<span class="label"><label for="component-pagination">Display pagination</label></span>
-		<span class="field"><input type="checkbox" id="component-pagination" name="node[component][pagination]" {NODE.component.pagination} /></span>
+		<input type="checkbox" id="component-pagination" name="node[component][pagination]" {NODE.component.pagination} /><label for="component-pagination">Display pagination</label>
 	</div>
 	
 	<div id="news_list">

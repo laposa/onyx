@@ -32,19 +32,17 @@ $(document).ready(function(){
 <fieldset class="filter-form-edit">
 	<legend>Menu Edit</legend>
 	<div class="row component-node-id">
-		<span class="label"><label>*Menu Root:</label></span>
+		<label>*Menu Root:</label>
 		<a style="float: right" class="button" href="/backoffice/advanced/taxonomy" target="_blank"><span>manage categories</span></a>
-		<span class="field"><input type="text" name="node[component][node_id]" id="component-node-id" value="{NODE.component.node_id}" /> <a class="button" href="#"><span>browse categories</span></a></span>
+		<input type="text" name="node[component][node_id]" id="component-node-id" value="{NODE.component.node_id}" /> <a class="button" href="#"><span>browse categories</span></a>
 		<div id="href-select"></div>
 	</div>
 	<div class="row">
-		<span class="label"><label>*Menu Type:</label></span>
-		<span class="field">
-			<select name="node[component][template]">
-				<option value="menu_UL" {SELECTED_menu_UL}>UL</option>
-				<option value="menu_SELECT" {SELECTED_menu_SELECT}>SELECT</option>
-			</select>
-		</span>
+		<label>*Menu Type:</label>
+		<select name="node[component][template]">
+			<option value="menu_UL" {SELECTED_menu_UL}>UL</option>
+			<option value="menu_SELECT" {SELECTED_menu_SELECT}>SELECT</option>
+		</select>
 	</div>
 </fieldset>
 

@@ -28,45 +28,42 @@ $(document).ready(function(){
 </script>
 <fieldset class="contact-form-edit">
 	<div class="row">
-		<span class="label"><label>Recipient Email:</label></span>
-		<span class="field"><input type="text" name="node[component][mail_to]" value="{NODE.component.mail_to}" /> {EMAIL_FORM_CONF.mail_recipient_address} by default</span>
+		<label>Recipient Email:</label>
+		<input type="text" name="node[component][mail_to]" value="{NODE.component.mail_to}" /> {EMAIL_FORM_CONF.mail_recipient_address} by default
 	</div>
 	<div class="row">
-		<span class="label"><label>Recipient Name:</label></span>
-		<span class="field"><input type="text" name="node[component][mail_toname]" value="{NODE.component.mail_toname}" /> {EMAIL_FORM_CONF.mail_recipient_name} by default</span>
+		<label>Recipient Name:</label>
+		<input type="text" name="node[component][mail_toname]" value="{NODE.component.mail_toname}" /> {EMAIL_FORM_CONF.mail_recipient_name} by default
 	</div>
 	<div class="row">
-		<span class="label"><label>* Form Template:</label></span>
-		<span class="field">
-			<select name="node[component][node_controller]" id="component-node-controller">
-				<!-- BEGIN: templateitem -->
-				<option class="onxshop-edit-{LAYOUT_TEMPLATE.name}" value="{LAYOUT_TEMPLATE.name}" {LAYOUT_TEMPLATE.selected}>{LAYOUT_TEMPLATE.title}</option>
-				<!-- END: templateitem -->
-			</select> ({DIRECTORY})
-		</span>
+		<label>* Form Template:</label>
+		<select name="node[component][node_controller]" id="component-node-controller">
+			<!-- BEGIN: templateitem -->
+			<option class="onxshop-edit-{LAYOUT_TEMPLATE.name}" value="{LAYOUT_TEMPLATE.name}" {LAYOUT_TEMPLATE.selected}>{LAYOUT_TEMPLATE.title}</option>
+			<!-- END: templateitem -->
+		</select> ({DIRECTORY})
 	</div>
 
 	<div class="row">
-		<span class="label"><label for="component-captcha">Anti-spam protection (CAPTCHA):</label></span>
-		<span class="field">
-			<select id="component-captcha" name="node[component][spam_protection]">
-				<option value="none">None</option>
-				<option value="captcha_image" {SPAM_PROTECTION.captcha_image}>Captcha image</option>
-				<option value="captcha_text_js" {SPAM_PROTECTION.captcha_text_js}>Invisible field</option>
-			</select>
+		<label for="component-captcha">Anti-spam protection (CAPTCHA):</label>
+		<select id="component-captcha" name="node[component][spam_protection]">
+			<option value="none">None</option>
+			<option value="captcha_image" {SPAM_PROTECTION.captcha_image}>Captcha image</option>
+			<option value="captcha_text_js" {SPAM_PROTECTION.captcha_text_js}>Invisible field</option>
+		</select>
 	</div>
 
 	<div class="row">
-		<span class="label"><label>* Error message:</label></span>
-		<span class="field"><input type="text" class="text long" name="node[component][sending_failed]" value="{NODE.component.sending_failed}" /></span>
+		<label>* Error message:</label>
+		<input type="text" class="text long" name="node[component][sending_failed]" value="{NODE.component.sending_failed}" />
 	</div>
 	<div class="row">
-		<span class="label"><label>* OK message:</label></span>
-		<span class="field"><input type="text" class="text long" name="node[component][text]" value="{NODE.component.text}" /></span>
+		<label>* OK message:</label>
+		<input type="text" class="text long" name="node[component][text]" value="{NODE.component.text}" />
 	</div>
 	<div class="row href">
-		<span class="label"><label>Where do you want to redirect client after submit?:</label></span>
-		<span class="field"><input type="text" name="node[component][href]" id="component-href" value="{NODE.component.href}" /> <a class="button" href="#"><span>browse server</span></a></span>
+		<label>Where do you want to redirect client after submit?:</label>
+		<input type="text" name="node[component][href]" id="component-href" value="{NODE.component.href}" /> <a class="button" href="#"><span>browse server</span></a>
 		<div id="href-select"></div>
 	</div>
 </fieldset>

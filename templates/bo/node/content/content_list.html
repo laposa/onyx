@@ -30,23 +30,21 @@ $(document).ready(function(){
 
 <fieldset class="content-list-form-edit">
 	<div class="row component-node-id">
-		<span class="label"><label>*Menu Root ID:</label></span>
-		<span class="field"><input type="text" name="node[component][node_id]" id="component-node-id" value="{NODE.component.node_id}" /> <a class="button" href="#"><span>browse server</span></a></span>
+		<label>*Menu Root ID:</label>
+		<input type="text" name="node[component][node_id]" id="component-node-id" value="{NODE.component.node_id}" /> <a class="button" href="#"><span>browse server</span></a>
 		<div id="href-select"></div>
 	</div>
 
 	<div class="row">
-		<span class="label"><label>* Container:</label></span>
-		<span class="field">
-			<select name="node[component][container]">
-				<option value="0" {SELECTED_container_0}>0</option>
-				<option value="1" {SELECTED_container_1}>1</option>
-				<option value="2" {SELECTED_container_2}>2</option>
-				<option value="3" {SELECTED_container_3}>3</option>
-				<option value="4" {SELECTED_container_4}>4</option>
-				<option value="5" {SELECTED_container_5}>5</option>
-			</select>
-		</span>
+		<label>* Container:</label>
+		<select name="node[component][container]">
+			<option value="0" {SELECTED_container_0}>0</option>
+			<option value="1" {SELECTED_container_1}>1</option>
+			<option value="2" {SELECTED_container_2}>2</option>
+			<option value="3" {SELECTED_container_3}>3</option>
+			<option value="4" {SELECTED_container_4}>4</option>
+			<option value="5" {SELECTED_container_5}>5</option>
+		</select>
 	</div>
 </fieldset>
 

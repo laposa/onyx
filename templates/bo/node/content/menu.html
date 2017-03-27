@@ -49,20 +49,18 @@ $(document).ready(function(){
 
 <fieldset class="menu-form-edit">
 	<div class="row component-node-id">
-		<span class="label"><label>*Menu Root ID:</label></span>
-		<span class="field"><input type="text" name="node[component][node_id]" id="component-node-id" value="{NODE.component.node_id}" /> <a class="button" href="#"><span>browse server</span></a></span>
+		<label>*Menu Root ID:</label>
+		<input type="text" name="node[component][node_id]" id="component-node-id" value="{NODE.component.node_id}" /> <a class="button" href="#"><span>browse server</span></a>
 		<div id="href-select"></div>
 	</div>
 	<div class="row">
-		<span class="label"><label>*Menu Type:</label></span>
-		<span class="field">
-			<select name="node[component][template]">
-				<option value="menu_UL" {SELECTED_menu_UL}>UL</option>
-				<option value="menu_SELECT" {SELECTED_menu_SELECT}>SELECT</option>
-				<option value="menu_GRID" {SELECTED_menu_GRID}>GRID</option>
-				<option value="menu_STACK" {SELECTED_menu_STACK}>STACK</option>
-			</select>
-		</span>
+		<label>*Menu Type:</label>
+		<select name="node[component][template]">
+			<option value="menu_UL" {SELECTED_menu_UL}>UL</option>
+			<option value="menu_SELECT" {SELECTED_menu_SELECT}>SELECT</option>
+			<option value="menu_GRID" {SELECTED_menu_GRID}>GRID</option>
+			<option value="menu_STACK" {SELECTED_menu_STACK}>STACK</option>
+		</select>
 	</div>
 	
 	<div class="row">
@@ -71,23 +69,23 @@ $(document).ready(function(){
 	</div>
 	
 	<div class="row">
-		<span class="field"><input type="checkbox" id="component-display-title" name="node[component][display_title]" {NODE.component.display_title} /> <label for="component-display-title">Display title</label></span>
+		<input type="checkbox" id="component-display-title" name="node[component][display_title]" {NODE.component.display_title} /> <label for="component-display-title">Display title</label>
 	</div>
 	<div class="row">
-		<span class="field"><input type="checkbox" id="component-display-teaser" name="node[component][display_teaser]" {NODE.component.display_teaser} /> <label for="component-display-teaser">Display teaser</label></span>
-	</div>
-	
-	<div class="row">
-		<span class="field"><input type="checkbox" id="component-display-all" name="node[component][display_all]" {NODE.component.display_all} /> <label for="component-display-all">Display All</label></span>
+		<input type="checkbox" id="component-display-teaser" name="node[component][display_teaser]" {NODE.component.display_teaser} /> <label for="component-display-teaser">Display teaser</label>
 	</div>
 	
 	<div class="row">
-		<span class="label"><label>Starting Level:</label></span>
-		<span class="field"><input class="text short" type="text" name="node[component][level]" id="component-level" value="{NODE.component.level}" /></span>
+		<input type="checkbox" id="component-display-all" name="node[component][display_all]" {NODE.component.display_all} /> <label for="component-display-all">Display All</label>
+	</div>
+	
+	<div class="row">
+		<label>Starting Level:</label>
+		<input class="text short" type="text" name="node[component][level]" id="component-level" value="{NODE.component.level}" />
 	</div>
 	<div class="row component-open">
-		<span class="label"><label>Open menu item ID:</label></span>
-		<span class="field"><input class="text short" type="text" name="node[component][open]" id="component-open" value="{NODE.component.open}" /> <a class="button" href="#"><span>browse server</span></a></span>
+		<label>Open menu item ID:</label>
+		<input class="text short" type="text" name="node[component][open]" id="component-open" value="{NODE.component.open}" /> <a class="button" href="#"><span>browse server</span></a>
 		<div id="href-select2"></div>
 	</div>
 </fieldset>

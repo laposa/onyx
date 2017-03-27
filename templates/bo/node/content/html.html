@@ -12,15 +12,13 @@
 	<div class="layout-column-one of-two">
 		<fieldset>
 			<div class="row title">
-			<span class="label"><label for="node-title">*Navigation Label:</label></span>
-			<span class="field">
+				<label for="node-title">*Navigation Label:</label>
 				<div style="width: 60%; float: left;"><input class="text title" type="text" id="node-title" name="node[title]" value="{NODE.title|htmlspecialchars}" /></div> 
 				<div style="float: left; margin-left: 10px;">
 					<input type="checkbox" name="node[display_title]" id="node-display-title" value="1" {NODE.display_title_check} /> <label for="node-display-title">Display heading</label>
 				</div>
-			</span>
-			<div class="bottom"></div>
-		</div>
+				<div class="bottom"></div>
+			</div>
 		</fieldset>
 	</div>
 	<div class="layout-column-two of-two">
@@ -44,8 +42,8 @@
 
 <fieldset>
 	<div class="row">
-		<span class="label"><label>HTML Source:</label></span>
-		<span class="field"><textarea id="html-code" name="node[content]" class="html"><!-- BEGIN: empty --><p>enter your content here</p><!-- END: empty -->{NODE.content|htmlspecialchars}</textarea></span>
+		<label>HTML Source:</label>
+		<textarea id="html-code" name="node[content]" class="html"><!-- BEGIN: empty --><p>enter your content here</p><!-- END: empty -->{NODE.content|htmlspecialchars}</textarea>
 	</div>
 </fieldset>
 <fieldset>
