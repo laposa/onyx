@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2010-2012 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2010-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -18,14 +18,16 @@ class Onxshop_Controller_Component_News_Archive extends Onxshop_Controller {
 		 */
 		 
 		require_once('models/common/common_node.php');
-		$Node = new common_node();
+		$this->Node = new common_node();
 		
 		/**
 		 * input data
 		 */
 		 
+		// blog_node_id can be provided via GET parameter, find by actual content with fallback to configuration option
 		if (is_numeric($this->GET['blog_node_id'])) $blog_node_id = $this->GET['blog_node_id'];
-		else $blog_node_id = $Node->conf['id_map-blog'];
+		else if ($news_section_current = $this->Node->getCurrentNewsSectionId()) $blog_node_id = $news_section_current;
+		else $blog_node_id = $this->conf['id_map-blog'];
 		
 		if ($this->GET['date_part'] == 'year-month') $date_part = 'year-month';
 		else $date_part = "year";
@@ -38,7 +40,7 @@ class Onxshop_Controller_Component_News_Archive extends Onxshop_Controller {
 		 * process
 		 */
 		 
-		if ($article_archive = $Node->getBlogArticleArchive($blog_node_id, 1, $date_part)) {
+		if ($article_archive = $this->Node->getBlogArticleArchive($blog_node_id, 1, $date_part)) {
 
 			foreach ($article_archive as $item) {
 			

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2014-2016 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2014-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -31,7 +31,7 @@ class Onxshop_Controller_Bo_Component_News_Section_Select extends Onxshop_Contro
 		 *  list all id_map-blog* configuration options
 		 */
 		
-		$list = $Node->getListOfBlogSectionIds();
+		$list = $Node->getListOfNewsSectionIds();
 
 		/**
 		 * parse dropdown

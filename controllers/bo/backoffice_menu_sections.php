@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2014-2016 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2014-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -37,11 +37,11 @@ class Onxshop_Controller_Bo_Backoffice_Menu_Sections extends Onxshop_Controller_
 		 
 		require_once('models/common/common_node.php');
 		$Node = new common_node();
-		$blog_section_ids = $Node->getListOfBlogSectionIds();
+		$news_section_ids = $Node->getListOfNewsSectionIds();
 		
-		if (count($blog_section_ids) == 1) {
+		if (count($news_section_ids) == 1) {
 			
-			$blog_section_detail = $Node->detail(key($blog_section_ids));
+			$blog_section_detail = $Node->detail(key($news_section_ids));
 			
 		} else {
 			

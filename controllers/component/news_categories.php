@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2010-2014 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2010-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -18,14 +18,16 @@ class Onxshop_Controller_Component_News_Categories extends Onxshop_Controller {
 		 */
 		 
 		require_once('models/common/common_node.php');
-		$Node = new common_node();
+		$this->Node = new common_node();
 		
 		/**
 		 * input data
 		 */
-		 
+		
+		// blog_node_id can be provided via GET parameter, find by actual content with fallback to configuration option
 		if (is_numeric($this->GET['blog_node_id'])) $blog_node_id = $this->GET['blog_node_id'];
-		else $blog_node_id = $Node->conf['id_map-blog'];
+		else if ($news_section_current = $this->Node->getCurrentNewsSectionId()) $blog_node_id = $news_section_current;
+		else $blog_node_id = $this->conf['id_map-blog'];
 		
 		if (is_numeric($this->GET['taxonomy_parent_id'])) $taxonomy_parent_id = $this->GET['taxonomy_parent_id'];
 		else $taxonomy_parent_id = false;
@@ -38,13 +40,13 @@ class Onxshop_Controller_Component_News_Categories extends Onxshop_Controller {
 		 * total count
 		 */
 		
-		$this->tpl->assign('COUNT_ALL', $Node->count("node_group = 'page' AND node_controller = 'news' AND parent = $blog_node_id AND publish = 1"));
+		$this->tpl->assign('COUNT_ALL', $this->Node->count("node_group = 'page' AND node_controller = 'news' AND parent = $blog_node_id AND publish = 1"));
 		
 		/**
 		 * process
 		 */
 		 
-		if ($article_archive = $Node->getArticlesCategories($blog_node_id)) {
+		if ($article_archive = $this->Node->getArticlesCategories($blog_node_id)) {
 			
 			foreach ($article_archive as $item) {
 				

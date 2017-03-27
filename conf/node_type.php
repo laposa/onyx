@@ -52,7 +52,7 @@ $templates_info['layout'] = array(
 $templates_info['page'] = array(
 	'default'=>array('title' => 'Default', 'description'=>'', 'visibility'=>true),
 	'blank'=>array('title' => 'Blank', 'description'=>'', 'visibility'=>true),
-	'news'=>array('title' => 'News article', 'description'=>'', 'visibility'=>false),
+	'news'=>array('title' => 'News article', 'description'=>'', 'visibility'=>true),
 	'competition'=>array('title' => 'Competition (Survey)', 'description'=>'', 'visibility'=>true),
 	'poll'=>array('title' => 'Poll (Survey)', 'description'=>'', 'visibility'=>true),
 	'symbolic'=>array('title' => 'Alias (Redirect)', 'description'=>'a.k.a. symbolic link page or redirect with a record in navigation, i.e. can be shown as part of the navigation', 'visibility'=>true),

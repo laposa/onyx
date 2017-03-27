@@ -2081,12 +2081,99 @@ LEFT OUTER JOIN common_taxonomy_label ON (common_taxonomy_tree.label_id = common
 	}
 	
 	/**
-	 * list all id_map-blog* configuration options
+	 * getCurrentNewsSectionId
+	 */
+	 
+	public function getCurrentNewsSectionId() {
+				
+		/**
+		 * find active section and set as section_id if it matches any news section
+		 */
+		 
+		$news_section_ids = $this->getListOfNewsSectionIds();
+		$parent_page_id = $_SESSION['active_pages'][0];
+		//msg($parent_page_id);
+		foreach ($news_section_ids as $item) {
+			
+			if ($item == $parent_page_id) $news_section_id = $item;
+			
+		}
+		
+		if (is_numeric($news_section_id)) return $news_section_id;
+		else return false;
+		
+	}
+	
+	/**
+	 * getListOfNewsSectionIds
 	 * @return array
 	 *
 	 */
 	
-	public function getListOfBlogSectionIds() {
+	public function getListOfNewsSectionIds() {
+		
+		return $this->getListOfNewsSectionIdsFromContent();
+		
+	}
+	
+	/**
+	 * list all pages which have child node type news
+	 * @return array
+	 *
+	 */
+	
+	public function getListOfNewsSectionIdsFromContent() {
+		
+		$list = [];
+		
+		/**
+		 * SQL query
+		 */
+		$sql = "
+			SELECT DISTINCT
+			common_node.parent
+			FROM common_node
+			WHERE node_controller = 'news' and parent != {$this->conf['id_map-bin']}
+			ORDER BY parent
+			";
+		
+		/**
+		 * execute SQL
+		 */
+		 
+		if ($result = $this->executeSql($sql)) {
+			
+			foreach ($result as $item) {
+				$id = (int) $item['parent'];
+				$list[$id] = $id;
+			}
+
+			return $list;
+			
+		} else {
+			
+			return $list;
+		
+		}
+
+		/**
+		 * return array
+		 */
+		 
+		return $list;
+		
+	}
+	
+	/**
+	 * list all id_map-blog* configuration options
+	 * traditional way used pre v 1.8, maybe useful for installation where we'll need more control
+	 * on where can and where cannot be created news articles
+	 *
+	 * @return array
+	 *
+	 */
+	
+	public function getListOfBlogSectionIdsFromConfiguration() {
 		
 		require_once('models/common/common_configuration.php');
 		$Common_Configuration = new common_configuration();

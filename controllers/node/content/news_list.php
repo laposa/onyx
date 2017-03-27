@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2006-2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2006-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -19,21 +19,24 @@ class Onxshop_Controller_Node_Content_News_List extends Onxshop_Controller_Node_
 		 */
 		 
 		require_once('models/common/common_node.php');
-		$Node = new common_node();
+		$this->Node = new common_node();
 		
 		/**
 		 * input data
 		 */
 		
 		$node_id = $this->GET['id'];
+		
+		//blog_node_id can be provided via GET parameter, find by actual content with fallback to configuration option
 		if (is_numeric($this->GET['blog_node_id'])) $blog_node_id = $this->GET['blog_node_id'];
-		else $blog_node_id = $Node->conf['id_map-blog'];
+		else if ($news_section_current = $this->Node->getCurrentNewsSectionId()) $blog_node_id = $news_section_current;
+		else $blog_node_id = $this->conf['id_map-blog'];
 		
 		/**
 		 * get node detail
 		 */
 		 
-		$node_data = $Node->nodeDetail($node_id);
+		$node_data = $this->Node->nodeDetail($node_id);
 		
 		/**
 		 * filtering
@@ -43,7 +46,7 @@ class Onxshop_Controller_Node_Content_News_List extends Onxshop_Controller_Node_
 		 
 		if (is_numeric($this->GET['taxonomy_tree_id'])) {
 			$taxonomy_tree_id = $this->GET['taxonomy_tree_id'];
-		} else if ($taxonomy = $Node->getTaxonomyForNode($node_data['id'])) {
+		} else if ($taxonomy = $this->Node->getTaxonomyForNode($node_data['id'])) {
 			$taxonomy_tree_id = $taxonomy[0];
 		} else {
 			$taxonomy_tree_id = '';

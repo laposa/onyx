@@ -12,7 +12,9 @@ $(document).ready(function(){
 		animate: true,
 		docToFolderConvert: true
 		});
-	
+	$('#news-section-select select').on('change', function() {
+		window.location = '/backoffice/news/' + $(this).val();
+	})
 });
 </script>
 
@@ -23,7 +25,7 @@ $(document).ready(function(){
 				<div class="page-header">
 					<div class="page-header-wrapper">
 						<h1 class="page-title"><span>{BLOG_SECTION.title|htmlspecialchars}</span></h1>
-						{ONXSHOP_REQUEST_section_select #bo/component/news_section_select}
+						<div id="news-section-select" style="position: absolute; top: 26px; right: 20px; ">{ONXSHOP_REQUEST_section_select #bo/component/news_section_select}</div>
 					</div>
 				</div>
 
@@ -64,7 +66,7 @@ $(document).ready(function(){
 
 									<p>
 										<a class="button add" title="Add new article to {BLOG_SECTION.title|htmlspecialchars}" href="#" onclick="openAjaxRequestInDialog('/request/bo/component/news_add~blog_node_id={BLOG_SECTION.id}~', 'Create a news item for {BLOG_SECTION.title|htmlspecialchars}'); return false"><span>Add a New Article</span></a>
-										<a class="button rss" title="News RSS Export ({BLOG_SECTION.title}" href="/export/rss/node/{BLOG_SECTION.id}"><span>Export This List as RSS</span></a>
+										<a class="button rss" title="News RSS Export ({BLOG_SECTION.title|htmlspecialchars}" href="/export/rss/node/{BLOG_SECTION.id}"><span>Export This List as RSS</span></a>
 									</p>
 
 								</div>

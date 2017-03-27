@@ -1,17 +1,11 @@
 <!-- BEGIN: content -->
 <!-- BEGIN: select -->
-<div id="news-section-select" style="position: absolute; top: 26px; right: 20px; ">
-
-<label>
-	Selected blog:
-	<select onchange="window.location = $(this).val();">
-		<option value="/backoffice/news/">-- all --</option>
-		<!-- BEGIN: item -->
-		<option value="/backoffice/news/{NODE.id}" {SELECTED}>{NODE.title|htmlspecialchars} (id={NODE.id})</option>
-		<!-- END: item -->
-	</select>
-</label>
-
-</div>
+<label>Selected news section:</label>
+<select name="node[component][news_section_id]">
+	<option value="">-- all --</option>
+	<!-- BEGIN: item -->
+	<option value="{NODE.id}" {SELECTED}>{NODE.title|htmlspecialchars} (id={NODE.id})</option>
+	<!-- END: item -->
+</select>
 <!-- END: select -->
 <!-- END: content -->
