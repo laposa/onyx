@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2013-2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2013-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -35,6 +35,9 @@ class Onxshop_Controller_Component_Taxonomy_List extends Onxshop_Controller_Comp
 		if (is_numeric($node_id) && $relation) $related_taxonomy_label_list = $this->findOnlyRelated($node_id, $relation);
 		else $related_taxonomy_label_list = false;
 		
+		if (is_numeric($this->GET['link_to_node_id'])) $link_to_node_id = $this->GET['link_to_node_id'];
+		else $link_to_node_id = false;
+		
 		require_once('models/common/common_taxonomy.php');
 		$Taxonomy = new common_taxonomy();
 
@@ -45,7 +48,7 @@ class Onxshop_Controller_Component_Taxonomy_List extends Onxshop_Controller_Comp
 			// process only if filtering by related isn't required or current item is matching
 			if ($related_taxonomy_label_list === false || (is_array($related_taxonomy_label_list) && is_array($related_taxonomy_label_list[$item['label_id']]))) {
 				
-				$this->assignAndParseItem($item);
+				$this->assignAndParseItem($item, $link_to_node_id);
 				
 			}
 		}
@@ -58,9 +61,11 @@ class Onxshop_Controller_Component_Taxonomy_List extends Onxshop_Controller_Comp
 	 * assignAndParseItem
 	 */
 	 
-	public function assignAndParseItem($item) {
+	public function assignAndParseItem($item, $link_to_node_id) {
 
 		if (!is_array($item)) return false;
+		
+		if (is_numeric($link_to_node_id)) $item['link_to_node_id'] = $link_to_node_id;
 		
 		$this->tpl->assign('ITEM', $item);
 				
@@ -74,6 +79,11 @@ class Onxshop_Controller_Component_Taxonomy_List extends Onxshop_Controller_Comp
 			$this->tpl->assign('IMAGE', $image);
 			if (is_numeric($image['link_to_node_id'])) $this->tpl->parse('content.item.image_link');
 			else $this->tpl->parse('content.item.image');
+			
+		} else {
+			
+			if (is_numeric($link_to_node_id)) $this->tpl->parse('content.item.text_link');
+			else $this->tpl->parse('content.item.text');
 		}
 		
 		/**
