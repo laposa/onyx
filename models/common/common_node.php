@@ -1869,10 +1869,33 @@ LEFT OUTER JOIN common_taxonomy_label ON (common_taxonomy_tree.label_id = common
 	
 	/**
 	 * getTeaserImageForNodeId
-	 * If not available, try parent pages
+	 * alias for getImageForNodeId
+	 *
+	 * @param integer $node_id
+	 * @param string $role
+	 * (teaser, background, feature, etc)
+	 *
+	 * @return array
 	 */
 	 
 	public function getTeaserImageForNodeId($node_id, $role = 'teaser') {
+		
+		return $this->getImageForNodeId($node_id, $role = 'teaser');
+		
+	}
+	
+	/**
+	 * getImageForNodeId
+	 * If not available, try parent pages
+	 *
+	 * @param integer $node_id
+	 * @param string $role
+	 * (teaser, background, feature, etc)
+	 *
+	 * @return array
+	 */
+	 
+	public function getImageForNodeId($node_id, $role = 'teaser') {
 		
 		$node_detail = $this->detail($node_id); //don't need to call full nodeDetail
 		
@@ -1919,12 +1942,12 @@ LEFT OUTER JOIN common_taxonomy_label ON (common_taxonomy_tree.label_id = common
 			break;
 		}
 		 
-		if (is_numeric($image_node_id)) $image_detail = $Image->getTeaserImageForNodeId($image_node_id, $role);
+		if (is_numeric($image_node_id)) $image_detail = $Image->getImageForNodeId($image_node_id, $role);
 		
 		/* try parent recursively */
 		if (!$image_detail && is_numeric($node_detail['parent'])) {
 			
-			$image_detail = $this->getTeaserImageForNodeId($node_detail['parent'], $role);
+			$image_detail = $this->getImageForNodeId($node_detail['parent'], $role);
 
 		}
 		
