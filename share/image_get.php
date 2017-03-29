@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2005-2011 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2005-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -66,12 +66,12 @@ set_include_path(get_include_path() . PATH_SEPARATOR . ONXSHOP_DIR);
 if (!isset($_GET['image'])) {
 	$missing = 1;
 } else {
-	$image = $_GET['image'];
+	$image_file = $_GET['image'];
 }
 
-$image = ONXSHOP_PROJECT_DIR . $image;
+$image_file = ONXSHOP_PROJECT_DIR . $image_file;
 
-$realpath = realpath($image);
+$realpath = realpath($image_file);
 
 if ($realpath == false) $missing = 1;
 
@@ -88,34 +88,31 @@ if (!preg_match("/$check/", $realpath) && !$missing) {
 	exit;
 }
 
-if (!is_readable($image) || $missing) {
+if (!is_readable($image_file) || $missing) {
 	//file does not exists
-	$image = ONXSHOP_PROJECT_DIR . "public_html/share/images/missing_image.png";
+	$image_file = ONXSHOP_PROJECT_DIR . "public_html/share/images/missing_image.png";
 	header("HTTP/1.0 404 Not Found");
-	// log it
 }
 
 /**
  * read file info
  */
- 
-$image_type = exif_imagetype($image);
-$modified = filemtime($image);
-$length = filesize($image);
+
+$image_type_mime = finfo_file(finfo_open(FILEINFO_MIME_TYPE), $image_file);
+$modified = filemtime($image_file);
+$length = filesize($image_file);
 
 /**
  * send to the client
  */
  
-if ($image_type) {
-	header("Content-type: " . image_type_to_mime_type($image_type));
+if ($image_type_mime) {
+	header("Content-type: " . $image_type_mime);
 	header("Content-Length: " . $length);
 	doConditionalGet($modified);
-	readfile($image);
+	readfile($image_file);
 } else {
-	//file is not image, attempt to hack?
 	header("HTTP/1.0 403 Forbidden");
 	echo "not an image";
-	// TODO: log it
 }
 

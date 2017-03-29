@@ -1,8 +1,6 @@
 <?php
 /**
- * class common_file
- *
- * Copyright (c) 2009-2016 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -1019,7 +1017,7 @@ CREATE TABLE common_file (
 				
 				return $result;
 			} else {
-				msg("common_image.getImageSize(): $files is not an image", 'error', 1);
+				msg("common_image.getImageSize(): $file is not a bitmap image (perhaps SVG?)", 'error', 1);
 				return false;
 			}
 		} else {

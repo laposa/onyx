@@ -66,7 +66,7 @@
 		<tbody>
 			<!-- BEGIN: item -->
 			<tr id="file-{ITEM.file_path_encoded_relative}">
-				<td><!-- BEGIN: thumbnail --><a style="display: block; min-width: 50px; min-height: 50px;" href="/image/{BASE}{FOLDER}{ITEM.name}" title="View Full Size" onclick="openImg('/image/{BASE}{FOLDER}{ITEM.name}'); return false;"><img src="/thumbnail/50x50/{BASE}{FOLDER}{ITEM.name}" alt="{ITEM.name}" /></a><br /><!-- END: thumbnail --></td>
+				<td><!-- BEGIN: thumbnail --><a style="display: block; min-width: 50px; min-height: 50px; width: 50px;" href="/image/{BASE}{FOLDER}{ITEM.name}" title="View Full Size" onclick="openImg('/image/{BASE}{FOLDER}{ITEM.name}'); return false;"><img src="/thumbnail/50x50/{BASE}{FOLDER}{ITEM.name}" alt="{ITEM.name}" /></a><br /><!-- END: thumbnail --></td>
 				<td>
 					<a href="/download/{BASE}{FOLDER}{ITEM.name}" title="Download {ITEM.name} ({ITEM.size})" style="display: block;">{ITEM.name|str_replace('_', ' ', %s)}</a>
 				</td>

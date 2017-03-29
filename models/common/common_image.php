@@ -1,14 +1,12 @@
 <?php
-require_once('models/common/common_file.php');
-
 /**
- * class common_image
- *
- * Copyright (c) 2009-2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
- 
+
+require_once('models/common/common_file.php');
+
 class common_image  extends common_file {
 
 	var $_metaData = array(
@@ -147,7 +145,10 @@ CREATE TABLE common_image (
 		
 		//determinate real image size
 		$size = common_image::getImageSize($file_rp);
-
+		
+		// i.e. SVG will return false
+		if (!is_array($size)) return false;
+		
 		$width = $required_width;
 		$height = round($required_width/$size['proportion']);
 		msg("Thumbnail will have size $width x $height", 'ok', 3);
@@ -247,6 +248,16 @@ CREATE TABLE common_image (
 	 */
 	 
 	public function getTeaserImageForNodeId($node_id, $role = 'teaser') {
+				 
+		return $this->getImageForNodeId($node_id, $role = 'teaser');
+		
+	}
+	
+	/**
+	 * getImageForNodeId
+	 */
+	 
+	public function getImageForNodeId($node_id, $role = 'teaser') {
 		
 		/**
 		 * try to get explicit "teaser" image role

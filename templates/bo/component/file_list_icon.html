@@ -13,7 +13,7 @@
 		<div class="item" id="linked-file-{FILE.id}" style="float: left; margin-right: 1em;">
 				
 				<!-- BEGIN: default -->
-					<a title="Click on this file to edit its properties" href="#file-list" onclick="$('#file-list').empty().addClass('ajax-load').parent().load('/request/bo/component/file_list~type={GET.type}:role={GET.role}:relation={GET.relation}:node_id={GET.node_id}~'); return false;"><img id="image-thumbnail-{FILE.id}" src="/thumbnail/125/{FILE.src}" title="Role: {FILE.role}. Click on this file to edit its properties" alt="{FILE.title}" /></a>
+					<a title="Click on this file to edit its properties" href="#file-list" onclick="$('#file-list').empty().addClass('ajax-load').parent().load('/request/bo/component/file_list~type={GET.type}:role={GET.role}:relation={GET.relation}:node_id={GET.node_id}~'); return false;"><img id="image-thumbnail-{FILE.id}" src="/thumbnail/125/{FILE.src}" style="width: 125px;" title="Role: {FILE.role}. Click on this file to edit its properties" alt="{FILE.title}" /></a>
 				<!-- END: default -->
 				
 				
