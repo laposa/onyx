@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 ## Onxshop.sh
-## Norbert @ Laposa Ltd, 2012-2016
+## Norbert @ Laposa Ltd, 2012-2017
 ##
 ## Very simple Onxshop websites management script.
 ## Creates Onxshop installation and vhost file depending on required hostname.
@@ -11,7 +11,7 @@
 ##
 ## Example: You want your website to be served from http://example.com
 ## Then run:
-## sudo onxshop create example.com
+## sudo @script.name create example.com
 ##
 ##
 ## Options:
@@ -101,7 +101,8 @@ create_new_installation() {
 # Universal function for bailing out
 die() {
 $0 -h
-echo -e "*** $1\n*** See https//onxshop.com/"; exit 1; 
+echo -e "*** $1\n*** See https//onxshop.com/";
+exit 1; 
 }
 
 get_password() {
