@@ -20,11 +20,9 @@
 </style>
 <script type="text/javascript">
 $(function(){ 
-	if (!jQuery.support.htmlSerialize) {
-		growlMessage("Your browser version is not fully supported,<br />please use Chrome, Safari or Firefox.");
-	}
+	
 	popupMessage("div.onxshop-messages");
-
+	
 	var buttonToolbar = $('div.row-bottom p:first');
 	if (buttonToolbar.length > 0) buttonToolbar.append($('.extended-toolbar a').detach());
 });
@@ -35,7 +33,6 @@ $(function(){
 	<div id="backoffice-wrapper">
 		<div id="container" style="width: auto;"> 
 			{MESSAGES}
-			<div id="dialog" class="flora"></div>
 			{SUB_CONTENT}
 		</div>
 	</div>
