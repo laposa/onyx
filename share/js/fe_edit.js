@@ -40,7 +40,7 @@ function refreshDeleteContent() {
 function duplicateNode(node_id) {
 	$("#dialog").hide().load("/request/bo/component/node_duplicate~id="+node_id+"~", '', function (responseText, textStatus, XMLHttpRequest) {
 			popupMessage("#dialog div.onxshop-messages");
-			$('#node-id-'+node_id).after($("#dialog").html()).hide().slideDown("slow");
+			$('#node-id-'+node_id).next().after($("#dialog").html()).hide().slideDown("slow");
 			//not perfect
 			var inserted_node_id = $('#node-id-'+node_id).next().next().attr('id');
 			refreshAddContent("#" + inserted_node_id + ' div.onxshop-layout-container');
