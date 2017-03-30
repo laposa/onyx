@@ -2,7 +2,7 @@
 /**
  * Frontend edit controller
  *
- * Copyright (c) 2008-2014 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2008-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -14,16 +14,28 @@ class Onxshop_Controller_Bo_Fe_edit extends Onxshop_Controller {
 	 */
 	 
 	public function mainAction() {
-	
+		
+		require_once 'models/common/common_node.php';
+		$this->Node = new common_node();
+
 		//check if we are comming from backoffice
 		if ($_SERVER['REQUEST_URI'] == '/edit') {
+			
 			if (is_array($_SESSION['active_pages']) && count($_SESSION['active_pages']) > 0) {
+			
 				$node_id = $_SESSION['active_pages'][0];
+				
+				// if last visited page (or other resource) was 404, change to homepage to avoid bo_login component reporting error
+				if ($node_id == $this->Node->conf['id_map-404']) $node_id = $this->Node->conf['id_map-homepage'];
+				
 				$request = translateURL("page/$node_id");
 				header("Location: {$request}");
 				exit;
+				
 			} else {
+				
 				header("Location: /");
+			
 			}
 		}
 		
