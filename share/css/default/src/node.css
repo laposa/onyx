@@ -20,7 +20,6 @@ div.news div.add-this-buttons {margin-bottom: 10px;}
 /****************************************************************************************/
 
 /********* node/content/rte.html *********/
-div.content.rte {clear: both;}
 /* do not specify img., conflict with reflection*/
 /* use both cases (TinyMCE/Safari bug)*/
 div.content.rte .imageLeft,

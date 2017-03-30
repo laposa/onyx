@@ -42,9 +42,6 @@ div.content > div.wrapper {margin: 10px;}
 div.row-top:after,
 div.row-middle:after,
 div.row-bottom:after {content: '.'; display: block; height: 0; font-size: 0; clear: both; visibility: hidden;}
-div.row-top div.node:last-child:after,
-div.row-middle div.node:last-child:after,
-div.row-bottom div.node:last-child:after {content: '.'; display: block; height: 0; font-size: 0; clear: both; visibility: hidden;}
 div.page div.page-wrapper {padding: 0;}
 div.page div.row-bottom {clear: both;}
 
@@ -232,13 +229,13 @@ div.wrapper:after {content: '.'; display: block; height: 0; font-size: 0; clear:
 /********* node/layout/slider.html *********/
 .slider-layout .unslider {overflow:auto;margin:0;padding:0;}
 .slider-layout .unslider-wrap {position:relative}
-.slider-layout .unslider-wrap.unslider-carousel > div.node {float:left}
+.slider-layout .unslider-wrap.unslider-carousel > div.content {float:left; clear: none;}
 .slider-layout .unslider-vertical > div.slider-wrapper {height:100%}
-.slider-layout .unslider-vertical div.node {float:none;width:100%}
+.slider-layout .unslider-vertical div.content {float:none; width:100%}
 .slider-layout .unslider-fade {position:relative}
-.slider-layout .unslider-fade .unslider-wrap div.node {position:absolute;left:0;top:0;right:0;z-index:8}
-.slider-layout .unslider-fade .unslider-wrap div.node.unslider-active {z-index:10}
-.slider-layout .unslider div.node,
+.slider-layout .unslider-fade .unslider-wrap div.content {position:absolute;left:0;top:0;right:0;z-index:8}
+.slider-layout .unslider-fade .unslider-wrap div.content.unslider-active {z-index:10}
+.slider-layout .unslider div.content,
 .slider-layout .unslider ol,
 .slider-layout .unslider div.slider-wrapper {list-style:none;margin:0;padding:0;border:none}
 .slider-layout .unslider-arrow {position:absolute;left:20px;z-index:2;cursor:pointer}
