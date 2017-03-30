@@ -39,7 +39,7 @@ class Onxshop_Controller_Component_News_List extends Onxshop_Controller_List {
 		//blog_node_id can be provided via GET parameter, find by actual content with fallback to configuration option
 		if (is_numeric($this->GET['blog_node_id'])) $blog_node_id = $this->GET['blog_node_id'];
 		else if ($news_section_current = $this->Node->getCurrentNewsSectionId()) $blog_node_id = $news_section_current;
-		else $blog_node_id = $this->conf['id_map-blog'];
+		else $blog_node_id = $this->Node->conf['id_map-blog'];
 
 		/**
 		 * check
