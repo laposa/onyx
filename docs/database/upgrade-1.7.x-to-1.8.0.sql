@@ -10,4 +10,6 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
 
 UPDATE common_node SET node_controller = lower(node_controller);
 
+UPDATE common_node SET node_controller = 'image_gallery' WHERE node_controller = 'picture' AND node_group='content';
+
 COMMIT;

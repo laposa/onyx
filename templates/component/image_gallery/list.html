@@ -1,11 +1,11 @@
 <!-- BEGIN: content -->
-<div class="number-of-items-{IMAGE_COUNT}" id="gallery-list-{GET.node_id}">
+<div class="image-gallery-list number-of-items-{IMAGE_COUNT}" id="gallery-list-{GET.node_id}">
 	<div class="selected">
 		<!-- BEGIN: item -->
 		<figure class="image-id-{GET.relation}{ITEM.id} {FIRST_LAST}">
 			<img id="image-id-{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" />
 			<figcaption>
-				<h3>{ITEM.title|htmlspecialchars}</h3>
+				<h4>{ITEM.title|htmlspecialchars}</h4>
 				<p>{ITEM.description|htmlspecialchars|nl2br}</p>
 				<div class="content">{ITEM.content}</div>
 			</figcaption>

@@ -3,7 +3,7 @@
 {ONXSHOP_REQUEST_cycle2 #component/cycle2_js}
 <script type="text/javascript">
 $(document).ready(function() {
-	$('div.gallery-cycle2 div.image-container ').cycle({
+	$('div.image-gallery-cycle2').cycle({
 		speed: 600,
 		timeout: 0,
 		fx: 'scrollHorz',
@@ -20,7 +20,7 @@ $(document).ready(function() {
 </script>
 <!-- END: head_once -->
 <!-- BEGIN: content -->
-<div class="image-container number-of-items-{IMAGE_COUNT}" id="gallery-cycle2-{GET.node_id}">
+<div class="image-gallery-cycle2 number-of-items-{IMAGE_COUNT}" id="gallery-cycle2-{GET.node_id}">
 	<!-- BEGIN: item -->
 	
 	<figure class="item-id-{GET.node_id}-{ITEM.id}">

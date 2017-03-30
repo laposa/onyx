@@ -9,8 +9,9 @@
 $templates_info['content'] = array(
 	'default'=>array('title' => 'Default', 'description'=>'', 'visibility'=>false),
 	'textile'=>array('title' => 'Textile', 'description'=>'', 'visibility'=>true),
-	'rte'=>array('title' => 'Rich Text', 'description'=>'', 'visibility'=>true), 
-	'picture'=>array('title' => 'Photo Gallery', 'description'=>'', 'visibility'=>true),
+	'rte'=>array('title' => 'Rich Text', 'description'=>'', 'visibility'=>true),
+	'image_gallery'=>array('title' => 'Image Gallery', 'description'=>'Multiple images listed in a gallery', 'visibility'=>true),
+	'image'=>array('title' => 'Image', 'description'=>'Single image', 'visibility'=>true),
 	'video'=>array('title' => 'Video', 'description'=>'', 'visibility'=>true),
 	'quote'=>array('title' => 'Quote (Testimonial)', 'description'=>'Testimonial', 'visibility'=>true),
 	'contact_form'=>array('title' => 'Contact Form', 'description'=>'', 'visibility'=>true), 

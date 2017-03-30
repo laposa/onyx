@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2006-2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2006-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  * TODO: rename to image_gallery
@@ -8,7 +8,7 @@
 
 require_once('controllers/node/content/default.php');
 
-class Onxshop_Controller_Node_Content_Picture extends Onxshop_Controller_Node_Content_Default {
+class Onxshop_Controller_Node_Content_Image_Gallery extends Onxshop_Controller_Node_Content_Default {
 
 	/**
 	 * main action

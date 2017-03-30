@@ -56,11 +56,6 @@ div.contact-form div.submit span.label {display: none;}
 div.contact-form span.mandatory-mark {padding-right: 0.5em;}
 div.contact-form legend {display: none;}
 
-/********* node/content/picture.html *********/
-div.node-content-picture, 
-div.node-content-picture div.item {margin-bottom: 10px;}
-div.node-content-picture div.picture.single div.item {float: left; margin-right: 10px;}
-
 /********* node/content/file.html *********/
 div.file span.file-size {white-space: nowrap;}
 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2008-2016 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2008-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -219,6 +219,16 @@ class Onxshop_Controller_Bo_Node_Default extends Onxshop_Controller {
 		$this->node_data['display_secondary_navigation']        = ($this->node_data['display_secondary_navigation']) ? 'checked="checked"'      : '';
 
 		$this->node_data['component']['allow_comment']        = ($this->node_data['component']['allow_comment']) ? 'checked="checked"'      : '';
+		
+		/**
+		 * checkbox status
+		 */
+		 
+		foreach ($this->node_data['component'] as $k=>$c_item) {
+			
+			if ($c_item) $this->tpl->assign('CHECKED_node_component_'.$k, 'checked="checked"');
+			
+		}
 		
 		//layout styles
 		$this->renderLayoutStyles();

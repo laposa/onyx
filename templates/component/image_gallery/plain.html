@@ -1,14 +1,24 @@
 <!-- BEGIN: content -->
-<div class="number-of-items-{IMAGE_COUNT}" id="gallery-plain-{GET.node_id}">
+<div class="image-gallery-plain number-of-items-{IMAGE_COUNT}" id="gallery-plain-{GET.node_id}">
 	<!-- BEGIN: item -->
 	<figure class="image-id-{GET.relation}{ITEM.id}">
 		<!-- BEGIN: link -->
 		<a href="/page/{ITEM.link_to_node_id}">
-			{FILE "component/image_gallery/plain.item.inc.html"}
+			<img id="image-id-{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" />
+			<figcaption>
+				<h4>{ITEM.title|htmlspacialchars}</h4>
+				<p>{ITEM.description|htmlspecialchars|nl2br}</p>
+				<div class="content">{ITEM.content}</div>
+			</figcaption>
 		</a>
 		<!-- END: link -->
 		<!-- BEGIN: normal -->
-		{FILE "component/image_gallery/plain.item.inc.html"}
+		<img id="image-id-{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" />
+		<figcaption>
+			<h3>{ITEM.title|htmlspacialchars}</h3>
+			<p>{ITEM.description|htmlspecialchars|nl2br}</p>
+			<div class="content">{ITEM.content}</div>
+		</figcaption>
 		<!-- END: normal -->
 	</figure>
 	<!-- END: item -->

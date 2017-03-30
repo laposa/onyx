@@ -40,11 +40,11 @@ class Onxshop_Controller_Node_Default extends Onxshop_Controller {
 		 */
 		 
 		require_once('models/common/common_node.php');
-		$Node = new common_node();
-		$node_data = $Node->nodeDetail($node_id);
+		$this->Node = new common_node();
+		$node_data = $this->Node->nodeDetail($node_id);
 		
 		//find child nodes
-		$contentx = $Node->parseChildren($node_id);
+		$contentx = $this->Node->parseChildren($node_id);
 		
 		//assign to this controller as CONTAINER variable
 		if (is_array($contentx)) {

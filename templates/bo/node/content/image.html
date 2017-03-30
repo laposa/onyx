@@ -1,0 +1,50 @@
+<!-- BEGIN: title -->Image<!-- END: title -->
+<!-- BEGIN: content -->
+<div class="page-header">
+	<div class="page-header-wrapper">
+		<h1 class="page-title popup"><span>Image</span> <span class="info">ID {NODE.id}</span></h1>
+	</div>
+</div>
+{FILE "bo/node/form_open.html"}
+
+<div class="two-column-layout fibonacci-1-1">
+	<div class="layout-column-one of-two">
+		<fieldset>
+			{FILE "bo/node/item_title.html"}
+		</fieldset>
+	</div>
+	<div class="layout-column-two of-two">
+		<fieldset class="advanced">
+			{FILE "bo/node/item_taxonomy.html"}
+		</fieldset>
+		<fieldset>
+			{FILE "bo/node/item_css_class.html"}
+		</fieldset>
+	</div>
+</div>
+
+
+<fieldset>
+	{ONXSHOP_REQUEST_imagelist1 #bo/component/file_list~type=add_to_node:relation=node:node_id=GET.id~}
+	<p>Only last associated image will be visible. Use Image Gallery for multiple images. For mixing of differnet content types, like images and vidoes, use Slider Layout.</p>
+</fieldset>
+
+<fieldset>
+	<div class="row">
+		<input type="checkbox" name="node[component][show_caption]" value="1" id="node-component-show-caption" {CHECKED_node_component_show_caption} /> <label for="node-component-show-caption">Show caption</label>
+	</div>
+	
+	<div class="row">
+		<label for="node-teaser">Strapline:</label>
+		<input type="text" name="node[teaser]" id="node-teaser" value="{NODE.teaser|htmlspecialchars}" />
+	</div>
+
+	<div class="row description">
+		<label for="node-description">Description:</label>
+		<textarea name="node[description]" id="node-description" class="small" style="width: 100%;" title="Please try to fit your description into this input box, this will display Google in the search result" cols="50" rows="20">{NODE.description|htmlspecialchars}</textarea>
+	</div>
+	{FILE "bo/node/item_content.html"}
+</fieldset>
+
+{FILE "bo/node/default_bottom.html"}
+<!-- END: content -->
