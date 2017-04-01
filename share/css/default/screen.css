@@ -532,7 +532,7 @@ div#jGrowl div.onxshop-messages { margin: 0; padding: 10px 30px; }
 div#jGrowl div.jGrowl-notification { display: block; position: relative; z-index: 9999; zoom: 1; text-align: left; pointer-events: all; border: none; background: none;}
 div#jGrowl div.jGrowl-notification.ui-state-highlight { margin: 0 auto 20px auto; display: inline-block; min-width: 260px; }
 div#jGrowl div.jGrowl-notification p { text-align: left; }
-div#jGrowl div.jGrowl-close { position: absolute; right: 5px; top: 5px; color: #ffffff; cursor: pointer; z-index: 10000; font-weight: bold; font-size: 16px; line-height: 16px; }
+div#jGrowl button.jGrowl-close { display: none; position: absolute; right: 5px; top: 5px; color: #ffffff; cursor: pointer; z-index: 10000; font-weight: bold; font-size: 16px; line-height: 16px; }
 div#jGrowl div.jGrowl-closer { background: black; color: white; background: rgba(0,0,0,0.75); width: 100px; margin: 10px auto; border: none; cursor: pointer; text-align: center; pointer-events: all; }
 @media all and (max-width: 600px) {
 	div#jGrowl { width: 80%; left: 10%; margin-left: 0; }
@@ -937,11 +937,6 @@ div.contact-form div.submit span.label {display: none;}
 div.contact-form span.mandatory-mark {padding-right: 0.5em;}
 div.contact-form legend {display: none;}
 
-/********* node/content/picture.html *********/
-div.node-content-picture, 
-div.node-content-picture div.item {margin-bottom: 10px;}
-div.node-content-picture div.picture.single div.item {float: left; margin-right: 10px;}
-
 /********* node/content/file.html *********/
 div.file span.file-size {white-space: nowrap;}
 
@@ -1010,27 +1005,27 @@ div.image-gallery-cycle div.controls div.pagination a {float: left; display: blo
 div.image-gallery-cycle div.image-info {display: none;}
 
 /********* component/image_gallery/cycle2.html *********/
-div.gallery-cycle2 {position: relative; overflow: visible!important;/* override inline 'overflow: hidden' added by cycle2 plugin */ }  
-div.gallery-cycle2 > div.wrapper {position: relative;}
-div.gallery-cycle2 figure {display: block; width: 100%; margin: 0;}
-div.gallery-cycle2 figure figcaption {position: absolute; width: 33.333%; top: 33.333%; right: 30px;}
-div.gallery-cycle2 div.controls {position: absolute; display: flex; justify-content: space-between; align-items: center; height: 100%; top: 0; right: 0; left: 0; pointer-events: none;}
-div.gallery-cycle2 div.controls a {display: block; color: #0a2861; opacity: 0.7; pointer-events: all;}
-div.gallery-cycle2 div.controls a:hover,
-div.gallery-cycle2 div.controls a.active {opacity: 1.0; text-decoration: none;}
-div.gallery-cycle2 div.controls a:focus {text-decoration: none;}
-div.gallery-cycle2 div.controls a span {display: none;}
-div.gallery-cycle2 div.controls a.prev:before,
-div.gallery-cycle2 div.controls a.next:before {content:''; font-family: 'FontAwesome'; font-size: 36px;}
-div.gallery-cycle2 div.controls a.prev:before {content:'\f104';}
-div.gallery-cycle2 div.controls a.next:before {content:'\f105';}
-div.gallery-cycle2 div.gallery-pagination {position: absolute; z-index: 1000; width: 100%; bottom: 54px; text-align: center;}
-div.gallery-cycle2 div.gallery-pagination a {display: inline-block; width: 12px; height: 12px; margin: 0 5px; border-radius: 50%; background: white; cursor: pointer; opacity: 0.7; transition: opacity 300ms ease;}
-div.gallery-cycle2 div.gallery-pagination a:hover,
-div.gallery-cycle2 div.gallery-pagination a.active {opacity: 1.0;}
-div.gallery-cycle2 div.gallery-pagination a span {display: none;}
-div.gallery-cycle2.number-of-items-1 div.controls,
-div.gallery-cycle2.number-of-items-1 div.pagination {display: none;}
+div.image-gallery-cycle2 {position: relative; overflow: visible!important;/* override inline 'overflow: hidden' added by cycle2 plugin */ }  
+div.image-gallery-cycle2 > div.wrapper {position: relative;}
+div.image-gallery-cycle2 figure {display: block; width: 100%; margin: 0;}
+div.image-gallery-cycle2 figure figcaption {position: absolute; width: 33.333%; top: 33.333%; right: 30px;}
+div.image-gallery-cycle2 div.controls {position: absolute; display: flex; justify-content: space-between; align-items: center; height: 100%; top: 0; right: 0; left: 0; pointer-events: none;}
+div.image-gallery-cycle2 div.controls a {display: block; color: #0a2861; opacity: 0.7; pointer-events: all;}
+div.image-gallery-cycle2 div.controls a:hover,
+div.image-gallery-cycle2 div.controls a.active {opacity: 1.0; text-decoration: none;}
+div.image-gallery-cycle2 div.controls a:focus {text-decoration: none;}
+div.image-gallery-cycle2 div.controls a span {display: none;}
+div.image-gallery-cycle2 div.controls a.prev:before,
+div.image-gallery-cycle2 div.controls a.next:before {content:''; font-family: 'FontAwesome'; font-size: 36px;}
+div.image-gallery-cycle2 div.controls a.prev:before {content:'\f104';}
+div.image-gallery-cycle2 div.controls a.next:before {content:'\f105';}
+div.image-gallery-cycle2 div.gallery-pagination {position: absolute; z-index: 1000; width: 100%; bottom: 54px; text-align: center;}
+div.image-gallery-cycle2 div.gallery-pagination a {display: inline-block; width: 12px; height: 12px; margin: 0 5px; border-radius: 50%; background: white; cursor: pointer; opacity: 0.7; transition: opacity 300ms ease;}
+div.image-gallery-cycle2 div.gallery-pagination a:hover,
+div.image-gallery-cycle2 div.gallery-pagination a.active {opacity: 1.0;}
+div.image-gallery-cycle2 div.gallery-pagination a span {display: none;}
+div.image-gallery-cycle2.number-of-items-1 div.controls,
+div.image-gallery-cycle2.number-of-items-1 div.pagination {display: none;}
 
 
 
