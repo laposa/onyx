@@ -205,6 +205,7 @@ function popupMessage(selector) {
 	jQuery.each(jQuery(selector), function() {
 		var message = jQuery(this).hide().html();
 		if (message) growlMessage(message);
+		console.log('Onxshop: ' + strip_tags(message));
 	});
 }
 
@@ -228,4 +229,14 @@ function scrollToElement(element) {
  */
 function getCSRFToken() {
 	return $("head > meta[name=csrf_token]").attr("content");
+}
+
+/**
+ * strip tags
+ */
+ 
+function strip_tags(html) {
+	var tmp = document.createElement("DIV");
+	tmp.innerHTML = html;
+	return tmp.textContent || tmp.innerText;
 }
