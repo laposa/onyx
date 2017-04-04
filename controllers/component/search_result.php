@@ -1,7 +1,7 @@
 <?php
 /** 
  * Zend Search Lucene
- * Copyright (c) 2009-2016 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -93,7 +93,10 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 				
 				}			
 
-				if (count($results) > 0) $this->tpl->parse('content.result');
+				$number_of_results = count($results);
+				$this->tpl->assign('NUMBER_OF_RESULTS', $number_of_results);
+				
+				if ($number_of_results > 0) $this->tpl->parse('content.result');
 				else $this->tpl->parse('content.empty_result');
 
 			} else {

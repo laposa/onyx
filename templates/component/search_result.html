@@ -1,19 +1,22 @@
 <!-- BEGIN: content -->
 <div class="search-result">
 	<!-- BEGIN: result -->
+	<div class="number-of-results">
+		<p>{NUMBER_OF_RESULTS} search results</p>
+	</div>
 	<ul>
-	<!-- BEGIN: item -->
-		<li class="{RESULT.node_controller}">
-
-			<h2><a href="/page/{PATH.id}">{RESULT.page_title|htmlspecialchars}</a></h2>
-
-			<p class="excerpt">
-				<!-- BEGIN: image --><a class="image {RESULT.node_controller}" href="/page/{RESULT.id}" title="{RESULT.page_title|htmlspecialchars}"><img src="/thumbnail/100x100/{RESULT.image.src}?fill=1" /></a><!-- END: image -->
-
-				{RESULT.excerpt}
-			</p>
-
-			<div class="navigation">
+		<!-- BEGIN: item -->
+		<li class="item {RESULT.node_controller}">
+			<a class="{RESULT.node_controller}" href="/page/{RESULT.id}" title="{RESULT.page_title|htmlspecialchars}">
+				<!-- BEGIN: image -->
+				<div class="image">
+					<img src="/image/{RESULT.image.src}" />
+				</div>
+				<!-- END: image -->
+				<h3>{RESULT.page_title|htmlspecialchars}</h3>
+				<p>{RESULT.excerpt}</p>
+			</a>
+			<div class="search-breadcrumb">
 				<!-- BEGIN: link -->
 				<a class="middle {PATH.node_controller}" href="/page/{PATH.id}" title="{PATH.description|htmlspecialchars}"><span>{PATH.title|htmlspecialchars}</span></a> &raquo; 
 				<!-- END: link -->
@@ -21,10 +24,8 @@
 				<a class="last {PATH.node_controller}" href="/page/{PATH.id}" title="{PATH.page_title|htmlspecialchars}"><span>{PATH.title|htmlspecialchars}</span></a> 
 				<!-- END: linklast -->
 			</div>
-
-			<br />
 		</li>
-	<!-- END: item -->
+		<!-- END: item -->
 	</ul>
 	<!-- END: result -->
 	
