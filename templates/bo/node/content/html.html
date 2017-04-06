@@ -11,14 +11,8 @@
 <div class="two-column-layout fibonacci-1-1">
 	<div class="layout-column-one of-two">
 		<fieldset>
-			<div class="row title">
-				<label for="node-title">*Navigation Label:</label>
-				<div style="width: 60%; float: left;"><input class="text title" type="text" id="node-title" name="node[title]" value="{NODE.title|htmlspecialchars}" /></div> 
-				<div style="float: left; margin-left: 10px;">
-					<input type="checkbox" name="node[display_title]" id="node-display-title" value="1" {NODE.display_title_check} /> <label for="node-display-title">Display heading</label>
-				</div>
-				<div class="bottom"></div>
-			</div>
+			{FILE "bo/node/item_title.html"}
+			{FILE "bo/node/item_display_title.html"}
 		</fieldset>
 	</div>
 	<div class="layout-column-two of-two">

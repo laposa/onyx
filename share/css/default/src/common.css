@@ -23,7 +23,8 @@ input.title {font-size: 1.4em; font-weight: bold; width: 100%;}
 input.long {width: 100%;}
 input.short,
 textarea.short,
-select.short {width: 5em;}
+select.short {width: 4em;}
+input.number {text-align: right;}
 
 button {cursor: pointer;}
 

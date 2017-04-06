@@ -35,7 +35,7 @@
 <div class="onxshop-page-properties">
 	<div class="wrapper">
 		<div style="float: left;">
-			<a class="onxshop-page-properties onxshop-edit_{NODE.node_controller} verbose" title="Page properties (Controller: {NODE.node_controller}, ID: {NODE.id})" href="#{NODE.id}" 
+			<a class="onxshop-edit-{NODE.node_controller} verbose" title="Page properties (Controller: {NODE.node_controller}, ID: {NODE.id})" href="#{NODE.id}" 
 			onclick="openEdit('/popup/properties/{NODE.id}/orig{_SESSION.orig}'); return false;" 
 			onmouseover="$('#node-id-{NODE.id}').addClass('onxshop-highlight-edit');" 
 			onmouseout="$('#node-id-{NODE.id}').removeClass('onxshop-highlight-edit');">
@@ -43,7 +43,7 @@
 			</a>
 		</div>
 		<div style="float: right">
-			<a class="onxshop-page-properties onxshop-edit-page-add" href='/backoffice/pages/{GET.id}' onclick="openAjaxRequestInDialog('/request/bo/component/node_add_page~node_group=page:parent={GET.id}~', 'Add a new page');return false" title="Add page"><span>Add a New Page</span></a>
+			<a class="onxshop-edit-page-add" href='/backoffice/pages/{GET.id}' onclick="openAjaxRequestInDialog('/request/bo/component/node_add_page~node_group=page:parent={GET.id}~', 'Add a new page');return false" title="Add page"><span>Add a New Page</span></a>
 			<a class="onxshop-delete" title="Delete {NODE.node_group}" href="#{NODE.id}"><span>Delete</span></a>
 		</div>
 	</div>
