@@ -482,7 +482,7 @@ input[type=email] {width: 100%;}
 
 label.error {color: red;}
 input.error,
-textarea.error {border-color: red;}
+textarea.error {border-color: red; /*background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><path fill='none' stroke='red' stroke-width='16' stroke-linecap='round' d='M89,9a81,81 0 1,0 2,0zm1,38v58m0,25v1'/></svg>"); background-repeat: no-repeat; background-size: 20px; background-position-x: 95%; background-position-y: center;*/}
 
 textarea {width: 100%; min-height: 100px;}
 textarea.small {height: 50px;}
@@ -1067,7 +1067,7 @@ div.rating_stars div.star span {display: none;}
 
 /********* component/social_network_share.html *********/
 div.social-network-share ul {margin: 0; padding: 0;}
-div.social-network-share li {list-style-image: none; list-style-type: none; float: left; margin: 0 0 0 10px; padding: 0;}
+div.social-network-share li {list-style-image: none; list-style-type: none; display: inline-block; margin: 10px; padding: 0;}
 div.social-network-share li a {text-decoration: none;}
 div.social-network-share li a:before {font-family: 'FontAwesome'; font-size: 200%;}
 div.social-network-share li a span {display: none;}
@@ -1075,7 +1075,7 @@ div.social-network-share li.facebook a:before {content: '\f082';}
 div.social-network-share li.twitter a:before {content: '\f081';}
 div.social-network-share li.google a:before {content: '\f0d4';}
 div.social-network-share li.pinterest a:before {content: '\f0d3';}
-div.social-network-share li.mailto a:before {content: '\f199';}
+div.social-network-share li.email a:before {content: '\f199';}
 
 /********* component/news_list_teaser.html *********/
 div.news-list-teaser div.image {float: left; padding: 0 20px 10px 0;}
