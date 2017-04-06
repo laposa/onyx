@@ -1,12 +1,14 @@
 <!-- BEGIN: content -->
 <div class="taxonomy-list">
+	<ul>
 	<!-- BEGIN: item -->
-	<div class="item t{ITEM.id}">
+	<li class="t{ITEM.id}">
 		<!-- BEGIN: text -->{ITEM.label.title|htmlspecialchars}<!-- END: text -->
 		<!-- BEGIN: text_link --><a href="/page/{ITEM.link_to_node_id}?taxonomy_tree_id={ITEM.id}"><span>{ITEM.label.title|htmlspecialchars}</span></a><!-- END: text_link -->
 		<!-- BEGIN: image --><div class="image"><img src="/image/{IMAGE.src}" alt="{IMAGE.title|htmlspecialchars}" /></div><!-- END: image -->
 		<!-- BEGIN: image_link --><a href="/page/{IMAGE.link_to_node_id}"><div class="image"><img src="/image/{IMAGE.src}" alt="{IMAGE.title|htmlspecialchars}" /></div></a><!-- END: image_link -->
-	</div>
+	</li>
 	<!-- END: item -->
+	</ul>
 </div>
 <!-- END: content -->
