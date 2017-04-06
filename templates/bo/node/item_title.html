@@ -1,5 +1,5 @@
 <div class="row title">
 	<label for="node-title">{NODE.node_group|ucfirst} Title:</label>	
 	<input class="title" type="text" id="node-title" name="node[title]" value="{NODE.title|htmlspecialchars}" />
-	<input type="checkbox" name="node[display_title]" id="node-display-title" value="1" {NODE.display_title_check} /> <label for="node-display-title">Display heading</label>
+	{FILE "bo/node/item_display_title.html"}
 </div>
