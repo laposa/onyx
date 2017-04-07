@@ -3576,22 +3576,12 @@ SELECT pg_catalog.setval('common_comment_id_seq', 1, false);
 COPY common_configuration (id, node_id, object, property, value, description, apply_to_children) FROM stdin;
 2	0	global	author_content	White Label, http://www.example.com/		0
 5	0	global	locale	en_GB.UTF-8		0
-6	0	global	default_currency	GBP		0
-9	0	global	google_analytics			0
+6	0	global	default_currency	EUR		0
 4	0	global	html_title_suffix	- White Label		0
-10	0	global	google_adwords			0
-13	0	global	extra_body_top			0
-14	0	global	extra_body_bottom			0
-15	0	global	display_secondary_navigation	0		0
-17	5	global	html_title_suffix			0
-3	0	global	credit	<a href="http://onxshop.com" title="Easy web CMS/eCommerce"><span>Powered by Onxshop</span></a>		0
+3	0	global	credit	<a href="https://onxshop.com" title="Easy web CMS/eCommerce"><span>Powered by Onxshop</span></a>		0
 7	0	global	admin_email	test@onxshop.com		0
-18	0	global	google_tag_manager			0
-16	0	global	display_content_foot	1		0
-11	0	global	display_content_side	0		0
-12	0	global	extra_head	<meta name="viewport" content="width=device-width" />		0
 8	0	global	css	@import url(/css/v1.css);		0
-1	0	global	title	test0908ap9c2ldbio		0
+1	0	global	title	White Label		0
 \.
 
 

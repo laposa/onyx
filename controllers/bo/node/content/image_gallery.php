@@ -7,7 +7,7 @@
 require_once('controllers/bo/node/content/default.php');
 require_once('models/common/common_file.php');
 
-class Onxshop_Controller_Bo_Node_Content_Image extends Onxshop_Controller_Bo_Node_Content_Default {
+class Onxshop_Controller_Bo_Node_Content_Image_Gallery extends Onxshop_Controller_Bo_Node_Content_Default {
 	
 	/**
 	 * post
