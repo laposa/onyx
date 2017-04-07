@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2010-2016 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2010-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  * this is really node_tree as it depends on common_node
@@ -202,8 +202,8 @@ abstract class Onxshop_Controller_Tree extends Onxshop_Controller {
 		 * other specific things, should be moved to separate controllers
 		 */
 		 
-		if ($this->GET['display_teaser'] && trim($item['teaser']) != '') {
-			$this->tpl->parse('content.group.item.link.teaser');
+		if ($this->GET['display_strapline'] && trim($item['strapline']) != '') {
+			$this->tpl->parse('content.group.item.link.strapline');
 		}
 		
 		/**

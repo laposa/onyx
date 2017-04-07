@@ -11,7 +11,7 @@
 			<li class="{ITEM.type} {ITEM.css_class} node-id-{ITEM.id}">
 				
 				<!-- BEGIN:link -->
-				<span><a href="#{ITEM.id}" title="{ITEM.title|htmlspecialchars} ID: {ITEM.id}, Priority: {ITEM.priority}, Type: {ITEM.node_group}, Controller: {ITEM.node_controller}" class="{ITEM.css_class} node-id-{ITEM.id}"><span>{ITEM.name|htmlspecialchars}</span><!-- BEGIN: teaser --><br /><span class="teaser">{ITEM.teaser|strip_tags|htmlspecialchars}</span><!-- END: teaser --></a></span>
+				<span><a href="#{ITEM.id}" title="{ITEM.title|htmlspecialchars} ID: {ITEM.id}, Priority: {ITEM.priority}, Type: {ITEM.node_group}, Controller: {ITEM.node_controller}" class="{ITEM.css_class} node-id-{ITEM.id}"><span>{ITEM.name|htmlspecialchars}</span><!-- BEGIN: strapline --><br /><span class="strapline">{ITEM.strapline|strip_tags|htmlspecialchars}</span><!-- END: strapline --></a></span>
 				<!-- END:link -->
 				<!-- BEGIN:nolink -->
 				<span><a href="#{ITEM.id}" title="{ITEM.title|htmlspecialchars} ID: {ITEM.id}, Priority: {ITEM.priority}, Type: {ITEM.node_group}, Controller: {ITEM.node_controller}" class="{ITEM.css_class} node-id-{ITEM.id}"><span>{ITEM.name|htmlspecialchars}</span></a></span>

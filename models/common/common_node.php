@@ -32,9 +32,9 @@ class common_node extends Onxshop_Model {
 	var $priority;
 	
 	/**
-	 * teaser - menu strapline
+	 * headline strapline
 	 */
-	var $teaser;
+	var $strapline;
 
 	/**
 	 * @access private
@@ -137,7 +137,7 @@ class common_node extends Onxshop_Model {
 		'parent'=>array('label' => '', 'validation'=>'int', 'required'=>false), //must be required, violates not null, TODO check everywhere
 		'parent_container'=>array('label' => '', 'validation'=>'int', 'required'=>false), //must be required, violates not null
 		'priority'=>array('label' => '', 'validation'=>'int', 'required'=>false), //must be required, violates not null
-		'teaser'=>array('label' => '', 'validation'=>'string', 'required'=>false),
+		'strapline'=>array('label' => '', 'validation'=>'string', 'required'=>false),
 		'content'=>array('label' => '', 'validation'=>'xhtml', 'required'=>false),
 		'description'=>array('label' => '', 'validation'=>'string', 'required'=>false),
 		'keywords'=>array('label' => '', 'validation'=>'string', 'required'=>false),
@@ -184,7 +184,7 @@ CREATE TABLE common_node (
 	parent integer REFERENCES common_node ON UPDATE CASCADE ON DELETE CASCADE,
 	parent_container smallint DEFAULT 0 NOT NULL,
 	priority integer DEFAULT 0 NOT NULL,
-	teaser text,
+	strapline text,
 	content text,
 	description text,
 	keywords text,
@@ -917,7 +917,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
 	
 		$condition = $this->prepareNodeGroupFilter($publish, $node_group);
 
-		$sql = "SELECT id, content, parent, title as name, page_title as title, node_group, node_controller, display_in_menu, display_permission, publish, priority, teaser, description FROM common_node WHERE publish >= $publish $condition ORDER BY priority DESC, id ASC";
+		$sql = "SELECT id, content, parent, title as name, page_title as title, node_group, node_controller, display_in_menu, display_permission, publish, priority, strapline, description FROM common_node WHERE publish >= $publish $condition ORDER BY priority DESC, id ASC";
 		
 		if ($records = $this->executeSql($sql)) {
 		
@@ -941,7 +941,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
 		else $root = "AND (parent = 0 OR parent IS NULL)";
 		
 		$sql = "SELECT id, content, parent, title as name, page_title as title, node_group, node_controller, 
-				display_in_menu, display_permission, publish, priority, teaser, description 
+				display_in_menu, display_permission, publish, priority, strapline, description 
 			FROM common_node 
 			WHERE publish >= $publish $condition $root
 			ORDER BY priority DESC, id ASC";		
@@ -1255,7 +1255,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
 	function getFlatSitemap() {
 	
 		$sql = "
-		SELECT id, parent, title as name, page_title as title, node_group, node_controller, content, display_in_menu, publish, priority, teaser, display_permission, modified 
+		SELECT id, parent, title as name, page_title as title, node_group, node_controller, content, display_in_menu, publish, priority, strapline, display_permission, modified 
 		FROM common_node 
 		WHERE publish >= 1 AND node_group='page' AND (require_login IS NULL OR require_login = 0) AND display_permission = 0 AND display_in_menu > 0 AND parent != " . $this->conf['id_map-system_navigation'] . " AND parent != " . $this->conf['id_map-ecommerce_navigation'] . " ORDER BY id ASC";
 		

@@ -12,4 +12,6 @@ UPDATE common_node SET node_controller = lower(node_controller);
 
 UPDATE common_node SET node_controller = 'image_gallery' WHERE node_controller = 'picture' AND node_group='content';
 
+ALTER TABLE common_node RENAME COLUMN teaser TO strapline;
+
 COMMIT;

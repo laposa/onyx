@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2006-2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2006-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -63,7 +63,7 @@ class Onxshop_Controller_Node_Content_Menu extends Onxshop_Controller_Node_Conte
 		 * pass to menu component
 		 */
 		 
-		$Onxshop_Request = new Onxshop_Request("$template~id={$node_data['component']['node_id']}:display_teaser={$node_data['component']['display_teaser']}:level={$level}:expand_all={$display_all}:open={$open}:image_width={$image_o['width']}:image_height={$image_o['height']}:image_fill={$image_o['fill']}~");
+		$Onxshop_Request = new Onxshop_Request("$template~id={$node_data['component']['node_id']}:display_strapline={$node_data['component']['display_strapline']}:level={$level}:expand_all={$display_all}:open={$open}:image_width={$image_o['width']}:image_height={$image_o['height']}:image_fill={$image_o['fill']}~");
 		$this->tpl->assign("MENU", $Onxshop_Request->getContent());
 		$this->tpl->assign("NODE", $node_data);
 		

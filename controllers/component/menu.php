@@ -27,9 +27,9 @@ class Onxshop_Controller_Component_Menu extends Onxshop_Controller_Tree {
 		if ($this->GET['expand_all'] == 1) $expand_all = 1;
 		else $expand_all = 0;
 		
-		// 1 parse teaser
-		if ($this->GET['display_teaser'] == 1) $display_teaser = 1;
-		else $display_teaser = 0;
+		// 1 parse strapline
+		if ($this->GET['display_strapline'] == 1) $display_strapline = 1;
+		else $display_strapline = 0;
 		
 		// 1 shows only published items, 0 shows all
 		// possible security flaw, user can see list of not published items if provide the get parameter

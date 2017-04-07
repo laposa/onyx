@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2007-2013 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2007-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -60,9 +60,9 @@ class Onxshop_Controller_Node_Site_Default extends Onxshop_Controller {
 		if ($this->checkTemplateVariableExists('PRIMARY_NAVIGATION')) {
 			
 			if ($GLOBALS['onxshop_conf']['global']['display_secondary_navigation'] == 1) {
-				$_Onxshop_Request = new Onxshop_Request("component/menu~id=" . $node_conf['id_map-primary_navigation'] . ":level=1:expand_all=0:display_teaser=0:open={$this->GET['id']}~");
+				$_Onxshop_Request = new Onxshop_Request("component/menu~id=" . $node_conf['id_map-primary_navigation'] . ":level=1:expand_all=0:display_strapline=0:open={$this->GET['id']}~");
 			} else {
-				$_Onxshop_Request = new Onxshop_Request("component/menu~id=" . $node_conf['id_map-primary_navigation'] . ":level=3:expand_all=0:display_teaser=0:open={$this->GET['id']}~");
+				$_Onxshop_Request = new Onxshop_Request("component/menu~id=" . $node_conf['id_map-primary_navigation'] . ":level=3:expand_all=0:display_strapline=0:open={$this->GET['id']}~");
 			}
 			
 			$this->tpl->assign('PRIMARY_NAVIGATION', $_Onxshop_Request->getContent());

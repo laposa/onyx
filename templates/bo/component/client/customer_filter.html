@@ -108,7 +108,7 @@ $(document).ready(function(){
 						<span class="label"><label>Bought any of a products highlighted in the following list</label></span>
 						<span class="field">
 								<!-- BEGIN: item -->
-								<input type="checkbox" value="{ITEM.id}" id="customer-filter-product-bought-{ITEM.id}" name="customer-filter[product_bought][]" {ITEM.checked}> <label for="customer-filter-product-bought-{ITEM.id}" title="{ITEM.teaser|strip_tags|htmlspecialchars}">{ITEM.name|htmlspecialchars} (id: <a href="/backoffice/products/{ITEM.id}/edit" target="_blank">{ITEM.id}</a>)</label><br />
+								<input type="checkbox" value="{ITEM.id}" id="customer-filter-product-bought-{ITEM.id}" name="customer-filter[product_bought][]" {ITEM.checked}> <label for="customer-filter-product-bought-{ITEM.id}">{ITEM.name|htmlspecialchars} (id: <a href="/backoffice/products/{ITEM.id}/edit" target="_blank">{ITEM.id}</a>)</label><br />
 								<!-- END: item -->
 							</select>
 						</span>
