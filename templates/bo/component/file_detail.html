@@ -2,8 +2,14 @@
 
 {MESSAGES}
 
-<div class="two-column-layout fibonacci-1-2" id="linked-file-{FILE.id}">
+<script type="text/javascript">
+function chooseImage(src, title) {
+	top.tinymce.activeEditor.windowManager.getParams().oninsert(src, title);
+	top.tinymce.activeEditor.windowManager.close();
+}
+</script>
 
+<div class="two-column-layout fibonacci-1-2" id="linked-file-{FILE.id}">
 	
 	<div class="content-title"><h2><a title="Click on this file to edit its properties" href="#" onclick="makeAjaxRequest('#item-detail-{FILE.id}', '/request/bo/component/file_edit~relation={GET.relation}:file_id={FILE.id}:type={GET.type}~'); return false">{FILE.title|htmlspecialchars}</a></h2></div>
 
@@ -32,25 +38,6 @@
 			
 			
 			<!-- BEGIN: RTE_select -->
-				<script language="javascript" type="text/javascript" src="/opt/tiny_mce/tiny_mce_popup.js"></script>
-				<script type="text/javascript">
-				function chooseImage(src, title) {
-					var win = tinyMCEPopup.getWindowArg("window");
-				
-					// insert information now
-					win.document.getElementById('src').value = src;
-					if (win.document.getElementById('alt').value == '') win.document.getElementById('alt').value = title;
-					if (win.document.getElementById('title').value == '') win.document.getElementById('title').value = title;
-				
-					// for image browsers: update image dimensions
-					if (win.ImageDialog.getImageData) win.ImageDialog.getImageData();
-					if (win.ImageDialog.showPreviewImage) win.ImageDialog.showPreviewImage(src);
-				
-					// close popup window
-					tinyMCEPopup.close();
-				}
-				</script>
-				
 				<a href="#" onclick="chooseImage($('#image-thumbnail-{FILE.id}').attr('src') , $('#image-thumbnail-{FILE.id}').attr('title')); return false;"><img id="image-thumbnail-{FILE.id}" src="/thumbnail/125/{FILE.src}" title="{FILE.title}"  alt="{FILE.title}" /></a> <br />
 				
 				<p>Use <a class="button" id="image-size-use-button-{FILE.id}" href="#" onclick="chooseImage($('#image-thumbnail-{FILE.id}').attr('src') , $('#image-thumbnail-{FILE.id}').attr('title')); return false;"><span class="units">125px</span></a>

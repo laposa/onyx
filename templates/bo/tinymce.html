@@ -3,10 +3,9 @@
 <script type="text/javascript">
 
 function tinyMCEinit() {
-	tinyMCE.init({
+	tinymce.init({
+		selector:'#{TINYMCE.edit_elements}',
 		mode : "{TINYMCE.mode}",
-		elements : "{TINYMCE.edit_elements}",
-		theme : "{TINYMCE.theme}",
 		editor_selector: "mceAdvanced",
 		theme_advanced_toolbar_location : "top",
 		theme_advanced_toolbar_align : "left",
@@ -16,7 +15,7 @@ function tinyMCEinit() {
 		apply_source_formatting : true,
 		convert_fonts_to_spans : true,
 		gecko_spellcheck : true, 
-		invalid_elements : "div,form,input,label,button,script,font", /*BUG: when "span" is here, than image insert doesn't work*/
+		invalid_elements : "div,form,input,label,button,script,font",
 		verify_css_classes : false,
 		verify_html : true,
 		inline_styles : true,
@@ -26,12 +25,18 @@ function tinyMCEinit() {
 		relative_urls : false,
 		remove_script_host : true,
 		document_base_url : "{BASE_URI}/",
-		plugins : "table,advimage,advlink,iespell,preview,searchreplace,print,contextmenu,loremipsum,inlinepopups,fullscreen,paste,media,autoresize",
-		theme_advanced_buttons2_add : "media,fullscreen",
-		theme_advanced_buttons3_add_before : "tablecontrols,separator",
-		theme_advanced_buttons3_add : "blockquote,separator,loremipsum,pastetext,pasteword,selectall",
+		plugins: [
+			'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+			'searchreplace wordcount visualblocks visualchars code fullscreen',
+			'insertdatetime media nonbreaking save table contextmenu directionality',
+			'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc autoresize'
+		],
+		toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+		image_advtab: true,
 		advlink_styles: "button=button;viewMore=viewMore",/*for Insert/edit links*/
-		file_browser_callback : "onxshopFileBrowserCallBack_{GET.relation}_{GET.id}",
+		file_picker_callback: function(callback, value, meta) {
+        	onxshopFileBrowserCallBack_{GET.relation}_{GET.id}(callback, value, meta);
+		},
 		paste_auto_cleanup_on_paste : true,
 		paste_strip_class_attributes : "all",
 		paste_use_dialog : false,
@@ -39,35 +44,44 @@ function tinyMCEinit() {
 	});
 }
 
-tinyMCEinit();
 
-function onxshopFileBrowser(field_name, url, type, win, width, height) {
-
-	//alert("Field_Name: " + field_name + "\nURL: " + url + "\nType: " + type + "\nWin: " + win); // debug/testing
-
-	tinyMCE.activeEditor.windowManager.open({
-		file : url,
-		title : 'Onxshop File Browser',
-		width : width,
-		height : height,
-		resizable : "yes",
-		inline : "yes",  // This parameter only has an effect if you use the inlinepopups plugin!
-		close_previous : "no",
-		scrollbars : 1,
-		popup_css : false
-	}, {
-		window : win,
-		input : field_name
-	});
-
-	return false;
-}
-
-function onxshopFileBrowserCallBack_{GET.relation}_{GET.id}(field_name, url, type, win) {
-	if (type == 'image') onxshopFileBrowser(field_name, '/popup/files/{GET.relation}/{GET.id}?type=RTE&role=RTE', type, win, 720, 700);
-	else onxshopFileBrowser(field_name, '/popup_window/bo/component/node_menu_tinymce~id=0:open={GET.id}:expand_all=1:publish=0:node_group=page_and_product~', type, win, 720, 700);
+function onxshopFileBrowserCallBack_{GET.relation}_{GET.id}(callback, value, meta) {
 	
+	if (meta.filetype == 'file') var url = '/popup_window/bo/component/node_menu_tinymce~id=0:open={GET.id}:expand_all=1:publish=0:node_group=page_and_product~';
+	else var url = '/popup/files/{GET.relation}/{GET.id}?type=RTE&role=RTE';
+
+	// Provide file and text for the link dialog
+	if (meta.filetype == 'file') {
+		tinymce.activeEditor.windowManager.open({
+			title: 'Onxshop File Browser',
+			url: url,
+			width: 720,
+			height: 500,
+			}, {
+				oninsert: function (url, title) {
+					callback(url, {text: title});
+				}
+			}
+		)
+	}
+
+	// Provide image and alt text for the image and media dialog
+	if (meta.filetype == 'image' || meta.filetype == 'media') {
+		tinymce.activeEditor.windowManager.open({
+			title: 'Onxshop File Browser',
+			url: url,
+			width: 720,
+			height: 500,
+			}, {
+				oninsert: function (url, title) {
+					callback(url, {alt: title});
+				}
+			}
+		)
+	}
+
 	return false;
+	
 }
 
 function onxshopCustomCleanup(type, value) {
@@ -105,7 +119,7 @@ function onxshopCustomCleanup(type, value) {
 
 	return value;
 }
-
+				
 /**
  * ajax save - make content is saved when using ajaxForm
  */
@@ -144,6 +158,13 @@ function tinyMCEFullscreenOnxshopFix() {
 		
 	}
 }
+
+/**
+ * init
+ */
+ 
+tinyMCEinit();
+
 </script>
 
 <!--  END: init -->

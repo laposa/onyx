@@ -1,15 +1,10 @@
 <!-- BEGIN: content -->
-
-<script language="javascript" type="text/javascript" src="/opt/tiny_mce/tiny_mce_popup.js"></script>
 <script type="text/javascript">
-function chooseLink(href) {
-	var win = tinyMCEPopup.getWindowArg("window");
+function chooseLink(src, title) {
 
-	// insert information now
-	win.document.getElementById('href').value = href;
-
-	// close popup window
-	tinyMCEPopup.close();
+	top.tinymce.activeEditor.windowManager.getParams().oninsert(src, title);
+	top.tinymce.activeEditor.windowManager.close();
+	
 }
 
 $(document).ready(function(){
@@ -18,7 +13,8 @@ $(document).ready(function(){
 		autoclose: true,
 		afterClick:function(node){
 			var node_id = $('a:first', node).attr('href').replace('#', '');
-			chooseLink('/page/' + node_id);
+			var title = $('a:first', node).attr('title');
+			chooseLink('/page/' + node_id, title);
 		},
 		afterDblClick:function(node){
 			alert("text-"+$('span:first',node).text());

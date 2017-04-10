@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2008-2011 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2008-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -49,7 +49,7 @@ class Onxshop_Controller_Bo_Component_File_Add extends Onxshop_Controller_Bo_Com
 			$this->tpl->assign('FILE', $file_data);
 		
 		}
-		msg($this->GET['role']);
+		
 		$this->tpl->assign("SELECTED_role_{$this->GET['role']}", "selected='selected'");
 
 		return true;

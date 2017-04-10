@@ -1,6 +1,15 @@
 <!-- BEGIN: content -->
 
 {MESSAGES}
+
+
+<script type="text/javascript">
+function chooseImage(src, title) {
+	top.tinymce.activeEditor.windowManager.getParams().oninsert(src, title);
+	top.tinymce.activeEditor.windowManager.close();
+}
+</script>
+
 <div id="file-list" class="file-list-icon">
 
 	<!-- BEGIN: empty -->
@@ -18,26 +27,7 @@
 				<!-- END: default -->
 				
 				
-				<!-- BEGIN: RTE_select -->
-					<script language="javascript" type="text/javascript" src="/opt/tiny_mce/tiny_mce_popup.js"></script>
-					<script type="text/javascript">
-					function chooseImage(src, title) {
-						var win = tinyMCEPopup.getWindowArg("window");
-					
-						// insert information now
-						win.document.getElementById('src').value = src;
-						if (win.document.getElementById('alt').value == '') win.document.getElementById('alt').value = title;
-						if (win.document.getElementById('title').value == '') win.document.getElementById('title').value = title;
-					
-						// for image browsers: update image dimensions
-						if (win.ImageDialog.getImageData) win.ImageDialog.getImageData();
-						if (win.ImageDialog.showPreviewImage) win.ImageDialog.showPreviewImage(src);
-					
-						// close popup window
-						tinyMCEPopup.close();
-					}
-					</script>
-					
+				<!-- BEGIN: RTE_select -->		
 					<a href="#" class="image" onclick="chooseImage($('#image-thumbnail-{FILE.id}').attr('src') , $('#image-thumbnail-{FILE.id}').attr('title')); return false;"><img id="image-thumbnail-{FILE.id}" src="/thumbnail/125/{FILE.src}" title="{FILE.title|htmlspecialchars}"  alt="{FILE.title|htmlspecialchars}" /></a> <br />
 					
 					<p>Use <a class="button" id="image-size-use-button-{FILE.id}" href="#" onclick="chooseImage($('#image-thumbnail-{FILE.id}').attr('src') , $('#image-thumbnail-{FILE.id}').attr('title')); return false;"><span class="units">125px</span></a>
