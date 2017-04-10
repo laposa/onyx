@@ -8,12 +8,13 @@
 	<!-- END: empty -->
 	
 	<!--  BEGIN: list -->
+	<div class="list" style="display: flex; align-items: center; justify-content: left;">
 		<!--<p><a class="button" href="#file-list" onclick="$('#file-list').empty().addClass('ajax-load').parent().load('/request/bo/component/file_list~type={GET.type}:role={GET.role}:relation={GET.relation}:node_id={GET.node_id}~'); return false;"><span>View as list</span></a></p>-->
 		<!-- BEGIN: item -->
-		<div class="item" id="linked-file-{FILE.id}" style="float: left; margin: 0 1em 1em 0;">
+		<div class="item" id="linked-file-{FILE.id}" style="margin: 0 1em 1em 0;">
 				
 				<!-- BEGIN: default -->
-					<a title="Click on this file to edit its properties" href="#file-list" onclick="$('#file-list').empty().addClass('ajax-load').parent().load('/request/bo/component/file_list~type={GET.type}:role={GET.role}:relation={GET.relation}:node_id={GET.node_id}~'); return false;"><img id="image-thumbnail-{FILE.id}" src="/thumbnail/125/{FILE.src}" style="width: 125px;" title="Role: {FILE.role}. Click on this file to edit its properties" alt="{FILE.title}" /></a>
+					<a title="Click on this file to edit its properties" href="#file-list" onclick="$('#file-list').empty().addClass('ajax-load').parent().load('/request/bo/component/file_list~type={GET.type}:role={GET.role}:relation={GET.relation}:node_id={GET.node_id}~'); return false;"><img id="image-thumbnail-{FILE.id}" src="/thumbnail/125x125/{FILE.src}" style="width: 125px;" title="Role: {FILE.role}. Click on this file to edit its properties" alt="{FILE.title}" /></a>
 				<!-- END: default -->
 				
 				
@@ -66,6 +67,7 @@
 				<!-- END: CSS_select -->
 		</div>
 		<!-- END: item -->
+	</div>
 	<!-- END: list -->
 
 	<div class="bottom"></div>
