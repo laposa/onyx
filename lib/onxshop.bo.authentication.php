@@ -107,7 +107,7 @@ class Onxshop_Bo_Authentication
 		$username = $_SERVER['PHP_AUTH_USER'];
 		$password = $_SERVER['PHP_AUTH_PW'];
 
-		if (!$_SESSION['authentication']['http_auth_requested'] || !$username) $this->showHttpAuthDialog();
+		if (!$username) $this->showHttpAuthDialog();
 
 		// reset all
 		$_SESSION['authentication'] = null;
@@ -284,7 +284,6 @@ class Onxshop_Bo_Authentication
 	 */
 	private function showHttpAuthDialog()
 	{
-		$_SESSION['authentication'] = array('http_auth_requested' => 1);
 		
 		/**
 		 * Option 1: show OS/browser native dialog window

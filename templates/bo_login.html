@@ -57,13 +57,10 @@ $(document).ready(function(){
 						"Authorization": "Basic " + auth_data
 					},
 					success: function(result,status,xhr) {
-						growlMessage("Success");
 						location.reload();
 					},
 					error: function(xhr,status,error) {
-						//console.log(xhr);
 						$('#login form').effect("shake");
-						growlMessage(error);
 					}
 				});
 			}
@@ -87,7 +84,7 @@ $(document).ready(function(){
 	<div id="backoffice-wrapper">
 		<div id="container">
 			<!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
-			<div class="bo-login" id="login">	
+			<div class="bo-login" id="login">
 				<div class="login">
 					<div class="logo"><a href="https://onxshop.com"><img src="/share/images/onxshop-logo-black.png" /></a></div>
 					<form class="login via-email {FAILED}" method="post">
