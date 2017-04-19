@@ -2,7 +2,7 @@
 /**
  * class ecommerce_recipe
  *
- * Copyright (c) 2013-2016 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2013-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -353,6 +353,9 @@ CREATE TABLE ecommerce_recipe (
 				
 				// load review
 				$records[$i]['review'] = $Review->getRating($item['id']);
+				
+				// total cooking time
+				$records[$i]['total_cooking_time'] = $records[$i]['preparation_time'] + $records[$i]['cooking_time'];
 			}
 
 			return $records;
