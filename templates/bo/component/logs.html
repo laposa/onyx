@@ -19,14 +19,14 @@
 									<div class="filter-bar">
 										
 										<div class="filter horizontal-filter" >
-											<form action="{_SERVER.REDIRECT_URL}" method="get" style="padding: 0;">
+											<form action="{_SERVER.REDIRECT_URL}" method="get">
 												<select name='filter[active]' id='filter-disabled'>
 													<option value='0' {ACTIVE_selected_0}>All Sessions</option>
 													<option value='1' {ACTIVE_selected_1}>Active Sessions Only ({SESSION_TTL}h)</option>
 												</select>
 												&nbsp;
 												<label for="filter-customer_id">Customer ID:</label> 
-												<input id="filter-customer_id" type="text" name="filter[customer_id]" value="{FILTER.customer_id}" />
+												<input id="filter-customer_id" type="text" name="filter[customer_id]" value="{FILTER.customer_id}" class="short" />
 												<button type="submit" name="submit" value="submit"><span>Submit</span></button>
 											<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>

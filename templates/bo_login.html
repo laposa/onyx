@@ -47,6 +47,8 @@ $(document).ready(function(){
 			
 			var auth_data = btoa(username + ':' + password);	
 			
+			console.log('Sending Username ('+username+') and Password to the server');
+			
 			try {
 				$.ajax({
 					'url': auth_url,
@@ -64,6 +66,7 @@ $(document).ready(function(){
 				});
 			}
 			catch(err) {
+				console.log('Ajax error');
 				growlMessage(err.message);
 			}
 			

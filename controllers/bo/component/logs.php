@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2006-2016 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2006-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -57,7 +57,8 @@ class Onxshop_Controller_Bo_Component_Logs extends Onxshop_Controller {
 		$limit = "$from,$per_page";
 		
 		if  (is_numeric($filter['customer_id'])) {
-			$where = "customer_id = {$filter['customer_id']}";
+			$customer_details = $Customer->detail($filter['customer_id']);
+			$where = "customer_id = {$filter['customer_id']} OR php_auth_user = '{$customer_details['email']}'";
 		} else {
 			$where = '';
 		}
@@ -139,4 +140,4 @@ class Onxshop_Controller_Bo_Component_Logs extends Onxshop_Controller {
 	   }
 	   return( $variables );
 	}
-}		
+}
