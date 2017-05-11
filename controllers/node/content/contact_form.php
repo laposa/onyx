@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2006-2016 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2006-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -26,7 +26,7 @@ class Onxshop_Controller_Node_Content_Contact_Form extends Onxshop_Controller_No
 		}
 
 		if ($node_data['component']['sending_failed'] == '') $node_data['component']['sending_failed'] = 'The provided data is not valid! Required items are marked with an asterisk (*)';
-		if ($node_data['component']['text'] == '') $node_data['component']['text'] = "Thank you for your feedback.";
+		if ($node_data['component']['text'] == '') $node_data['component']['text'] = "";
 		
 		$this->tpl->assign("NODE", $node_data);
 		 
@@ -65,7 +65,7 @@ class Onxshop_Controller_Node_Content_Contact_Form extends Onxshop_Controller_No
 		
 			if (Zend_Registry::get($reg_key) == 'sent') {
 				//forward
-				msg($node_data['component']['text'], 'ok');
+				if ($node_data['component']['text']) msg($node_data['component']['text'], 'ok');
 				if ($node_data['component']['href'] != '') onxshopGoTo($node_data['component']['href']);
 			} else if (Zend_Registry::get($reg_key)  == 'failed') {
 				msg($node_data['component']['sending_failed'], 'error');
