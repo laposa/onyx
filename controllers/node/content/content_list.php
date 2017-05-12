@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2010-2011 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2010-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -68,7 +68,7 @@ class Onxshop_Controller_Node_Content_Content_List extends Onxshop_Controller_No
 		if (!is_numeric($list_node_id)) return false;
 		if (!is_numeric($list_container)) return false;
 		
-		if ($list = $this->Node->getList("parent = {$list_node_id} AND parent_container = {$list_container} AND node_group = '{$list_node_group}' AND node_controller = '{$list_node_controller}'")) {
+		if ($list = $this->Node->getList("parent = {$list_node_id} AND parent_container = {$list_container} AND node_group = '{$list_node_group}' AND node_controller = '{$list_node_controller}'", 'priority DESC, id ASC')) {
 				
 			foreach ($list as $item) {
 				
