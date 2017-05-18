@@ -1,3 +1,35 @@
+Onxshop (1.7.9)
+
+  * fix sorting in content list node 
+  * don't show thank you message after submitting contact form unless specified
+  * add total_cooking_time to getFilteredRecipeList
+  * make password reset functionality working better with bo users
+  * use custom CMS login window instead of OS native dialog
+  * add constructor to Onxshop Router
+  * change validation rules to string as per recent db update
+  * create roundels folder if not exists
+  * remove legacy code which caused issues in Non Ecommerce installations
+  * optimise tree for special case when all nodes are displayed
+  * change social account id types from bigint to varchar
+  * bug fix to prevent showing items in node type list which should be hidden
+  * show product type pages in navigation when ecommerce is not enabled
+  * show client group ID in group list and edit
+  * allow to create and modify customer group without advance filter
+  * add flickr components
+  * refactoring in backoffice customer list
+  * simplify backoffice customer list for performance optiomization
+  * make sure Tracy is always visible
+  * use memory_get_peak_usage for reporting memory usage in ONXSHOP_BENCHMARK
+  * get rid of the PHP warning filling out logs
+  * use consitent naming for Alias (Redirect) page, formerly Symbolic Link
+  * make current and parent page ID easily available in templates and controllers
+  * use captcha.inc.html for all forms using Captcha
+  * allow captcha on registration form
+  * separate Google Tag Manager code into HEAD and BODY
+  * use realpath in path detection to allow ysymlinks, i.e. for Debian package
+
+ -- Norbert Laposa <norbert@laposa.co.uk>  2017-05-18
+
 Onxshop (1.7.8)
 
   * bug fixed in contact form
