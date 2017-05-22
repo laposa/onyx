@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2008-2016 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2008-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -119,7 +119,7 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
 		
 			$first_page_id = $Node->getFirstParentPage($_SESSION['active_pages']);
 			//type=page_and_products
-			$_Onxshop_Request = new Onxshop_Request("component/menu~level=0:expand_all=0:display_teaser=1:id={$first_page_id}:open={$node_data['id']}~");
+			$_Onxshop_Request = new Onxshop_Request("component/menu~level=0:expand_all=0:display_teaser=1:id={$first_page_id}:open={$node_data['id']}:node_group=page~");
 			$this->tpl->assign('SECONDARY_NAVIGATION', $_Onxshop_Request->getContent());
 			$this->tpl->parse('content.secondary_navigation');
 		}
