@@ -27,7 +27,7 @@
 			<a class="reveal" href="#primary-navigation"><span>Menu</span></a>
 		</nav>
 		<nav class="primary" id="primary-navigation">
-			{ONXSHOP_REQUEST_primary_nav #component/menu~id=1:level=1:expand_all=0:display_strapline=0:open=GET.id~}
+			{ONXSHOP_REQUEST_primary_nav #component/menu~id=1:level=1:expand_all=0:display_strapline=0:node_group=page:open=GET.id~}
 		</nav>
 	</div>
 </header>
@@ -44,7 +44,7 @@
 			{CONTENT_FOOT}
 		</section>
 		<nav class="footer" id="footer-navigation">
-			{ONXSHOP_REQUEST_footer_nav #component/menu~id=4:level=1:expand_all=0:display_strapline=0:open=GET.id~}
+			{ONXSHOP_REQUEST_footer_nav #component/menu~id=4:level=1:expand_all=0:display_strapline=0:node_group=page:open=GET.id~}
 		</nav>
 		<p id="copyright">&copy; {TIME|strftime('%Y', %s)} {CONFIGURATION.global.title|htmlspecialchars}</p>
 	</div>
