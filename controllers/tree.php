@@ -25,11 +25,11 @@ abstract class Onxshop_Controller_Tree extends Onxshop_Controller {
 	 * standard action
 	 */
 	 
-	public function standardAction($node_id = null, $publish = 1, $max_display_level = 0, $expand_all = 0, $node_group = 'page') {
+	public function standardAction($node_id = null, $publish = 1, $max_display_level = 0, $expand_all = 0, $filter = 'page') {
 
 		$this->Node = new common_node();
 		
-		$tree = $this->getTree($publish, $node_group, $node_id, $max_display_level - 1, $expand_all);
+		$tree = $this->getTree($publish, $filter, $node_id, $max_display_level - 1, $expand_all);
 
 		$end_result = $this->parseTree($tree);
 		$this->tpl->assign('END_RESULT_GROUPS', $end_result);
@@ -77,16 +77,16 @@ abstract class Onxshop_Controller_Tree extends Onxshop_Controller {
 	 * get tree in descending order (from root down to given level)
 	 */
 	 
-	public function getTree($publish = 1, $node_group, $parent, $depth, $expand_all)
+	public function getTree($publish = 1, $filter, $parent, $depth, $expand_all)
 	{
 		if (!$parent && $depth == -1 && $expand_all) {
 			// we can hugely optimise this special case 
-			$flat_tree = $this->Node->getTree($publish, $node_group);
+			$flat_tree = $this->Node->getTree($publish, $filter);
 			$flat_tree = $this->processPermission($flat_tree);
 			return $this->buildTree($flat_tree);;
 		}
 
-		$tree = $this->Node->getNodesByParent($publish, $node_group, $parent);
+		$tree = $this->Node->getNodesByParent($publish, $filter, $parent);
 
 		if (is_array($tree) && count($tree) > 0 && $depth != 0) {
 
@@ -95,7 +95,7 @@ abstract class Onxshop_Controller_Tree extends Onxshop_Controller {
 
 			foreach ($tree as $i => $node) {
 
-				$children = $this->getTree($publish, $node_group, $node['id'], $depth, $expand_all);
+				$children = $this->getTree($publish, $filter, $node['id'], $depth, $expand_all);
 
 				if ($expand_all || $this->isNodeOpen($node) || $this->isNodeActive($node)) {
 					if (is_array($children) && count($children) > 0) $tree[$i]['children'] = $children;
@@ -108,6 +108,10 @@ abstract class Onxshop_Controller_Tree extends Onxshop_Controller {
 		return $tree;
 	}
 
+	/**
+	 * parseTree
+	 */
+	 
 	public function parseTree(&$tree) {
 
 		$count = count($tree);

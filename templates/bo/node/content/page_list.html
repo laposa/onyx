@@ -38,7 +38,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$('fieldset.teaser-form-edit div.node-ids a.button').click(function() {
-		$('#node-id-select').addClass('ajax-load').load('/request/component/menu_js~id=0:expand_all=1:publish=0:node_group=page_and_product~', function() {
+		$('#node-id-select').addClass('ajax-load').load('/request/component/menu_js~id=0:expand_all=1:publish=0~', function() {
 			$('#node-id-select').removeClass('ajax-load');
 			$('#node-id-select .simple-tree').simpleTree({
 				drag: false,

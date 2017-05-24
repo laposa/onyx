@@ -867,55 +867,65 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
 	}
 
 	/**
-	 * prepare SQL filtering query for given node_group
+	 * prepare SQL filtering query for specified filter options
+	 *
+	 * @param integer $publish
+	 * @param string $filter
+	 * @return string @sql
 	 */
-	protected function prepareNodeGroupFilter($publish, $node_group) {
+	protected function prepareNodeGroupFilter($publish, $filter) {
 
-		switch ($node_group) {
-
-			case 'product':
-				return "AND (node_controller ~ 'product' AND node_controller != 'product_browse')";
-				break;
-
-			case 'notproduct':
-				return "AND (node_controller !~ 'product' OR node_controller = 'product_browse')";
-				break;
-
-			case 'page_and_product':
-				if ($publish == 1) return "AND (node_group = 'page' OR node_group = 'container') AND display_in_menu > 0";
-				else return "AND (node_group = 'page' OR node_group = 'container')";
-				break;
+		$sql = '';
+		
+		msg($filter);
+		
+		switch ($filter) {
 
 			case 'all':
 			case 'content':
-				return '';
+				$sql = '';
 				break;
 
 			case 'layout':
-				return "AND ((node_group = 'page' AND node_controller !~ 'product') OR node_group = 'container' OR node_group = 'layout') ";
+				$sql = "AND (node_group = 'layout' OR node_group = 'page' OR node_group = 'container') ";
 				break;
-
+				
 			case 'page':
 			default:
-				$sql = "AND ((node_group = 'page' AND (node_controller !~ 'product' OR node_controller = 'product_browse') AND node_controller != 'recipe' AND node_controller != 'news') OR node_group = 'container') ";
-				if ($publish == 1) $sql .= " AND display_in_menu > 0";
-				return $sql;
+				$sql = "AND (node_group = 'page' OR node_group = 'container')";
+				break;
+			
+			case 'page_exclude_news':
+				$sql = "AND (node_group = 'page' OR node_group = 'container') AND node_controller != 'news'";
+				break;
+				
+			case 'page_exclude_products_recipes':
+				$sql = "AND (node_group = 'page' OR node_group = 'container') AND (node_controller != 'product' AND node_controller != 'recipe')";
+				break;
+			case 'page_exclude_products_recipes_news':
+				$sql = "AND (node_group = 'page' OR node_group = 'container') AND (node_controller != 'product' AND node_controller != 'recipe' AND node_controller != 'news')";
 				break;
 		}
 
+		if ($publish == 1) $sql .= " AND display_in_menu > 0";
+		
+		return $sql;
+		
 	}
 	
 	/**
 	 * get tree (as a flat list)
 	 *
-	 * @param unknown_type $publish
-	 * @param unknown_type $node_group
-	 * @return unknown
+	 * input and output structured for menu (tree) component
+	 *
+	 * @param integer $publish
+	 * @param string $node_group
+	 * @return array $records
 	 */
 
-	function getTree($publish = 1, $node_group = 'page') {
+	function getTree($publish = 1, $filter = 'page') {
 	
-		$condition = $this->prepareNodeGroupFilter($publish, $node_group);
+		$condition = $this->prepareNodeGroupFilter($publish, $filter);
 
 		$sql = "SELECT id, content, parent, title as name, page_title as title, node_group, node_controller, display_in_menu, display_permission, publish, priority, strapline, description FROM common_node WHERE publish >= $publish $condition ORDER BY priority DESC, id ASC";
 		
@@ -953,6 +963,8 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
 
 	/**
 	 * get lazy tree
+	 *
+	 * DEPRECATED
 	 *
 	 * @param unknown_type $from
 	 * @param unknown_type $publish

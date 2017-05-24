@@ -36,42 +36,31 @@ class Onxshop_Controller_Component_Menu extends Onxshop_Controller_Tree {
 		if (is_numeric($this->GET['publish'])) $publish = $this->GET['publish'];
 		else $publish = 1;
 		
-		//open this item (active item)
+		// open this item (active item)
 		if (is_numeric($this->GET['open'])) $open = $this->GET['open'];
 		else $open = null;
 		
-		//node_id
+		// node_id
 		if (is_numeric($this->GET['id'])) $node_id = $this->GET['id'];
 		else $node_id = null; //null if not provided (it's correct value for tree's root elements)
 		
-		//node_group
-		if (isset($this->GET['node_group'])) {
-			$node_group = $this->GET['node_group'];
+		// filter (see common_node->prepareNodeGroupFilter() for available filters)
+		if (isset($this->GET['filter'])) {
+			
+			$filter = $this->GET['filter'];
+			
 		} else {
-			if (ONXSHOP_ECOMMERCE === true) $node_group = 'page'; // don't show products in navigation on ecommerce sites (could have large product database)
-			else $node_group = 'page_and_product'; // should be fine to display also product pages
+			
+			if (ONXSHOP_ECOMMERCE === true) $filter = 'page_exclude_products_recipes'; // don't show products in navigation on ecommerce sites as could have large product database
+			else $filter = 'page';
+			
 		}
-		switch ($node_group) {
-			case 'content':
-				$node_group = 'all';
-				break;
-			case 'layout':
-				$node_group = 'layout';
-				break;
-			case 'page_and_product':
-				$node_group = 'page_and_product';
-				break;
-			case 'page':
-			default:
-				$node_group = 'page';
-				break;
-		}
-
+		
 		/**
 		 * process action
 		 */
 		
-		return $this->standardAction($node_id, $publish, $max_display_level, $expand_all, $node_group);
+		return $this->standardAction($node_id, $publish, $max_display_level, $expand_all, $filter, $node_controller);
 		
 	}
 

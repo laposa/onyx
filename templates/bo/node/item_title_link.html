@@ -1,7 +1,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$('div.title-options div.link-to-node-id a.button').click(function() {
-		$('#link-to-node-id-ajax').addClass('ajax-load').load('/request/component/menu_js~id=0:expand_all=1:publish=0:node_group=page_and_product~', function() {
+		$('#link-to-node-id-ajax').addClass('ajax-load').load('/request/component/menu_js~id=0:expand_all=1:publish=0~', function() {
 			$('#link-to-node-id-ajax').removeClass('ajax-load');
 			$('#link-to-node_id-ajax .simple-tree').simpleTree({
 				drag: false,

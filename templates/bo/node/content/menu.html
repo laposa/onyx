@@ -11,7 +11,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$('fieldset.menu-form-edit div.component-node-id a.button').click(function() {
-		$('#href-select').addClass('ajax-load').load('/request/component/menu_js~id=0:expand_all=1:publish=0:node_group=page~', function() {
+		$('#href-select').addClass('ajax-load').load('/request/component/menu_js~id=0:expand_all=1:publish=0~', function() {
 			$('#href-select').removeClass('ajax-load');
 			$('#href-select .simple-tree').simpleTree({
 				drag: false,
@@ -28,7 +28,7 @@ $(document).ready(function(){
 	});
 	
 	$('fieldset.menu-form-edit div.component-open a.button').click(function() {
-		$('#href-select2').addClass('ajax-load').load('/request/component/menu_js~id=0:expand_all=1:publish=0:node_group=page~', function() {
+		$('#href-select2').addClass('ajax-load').load('/request/component/menu_js~id=0:expand_all=1:publish=0~', function() {
 			$('#href-select2').removeClass('ajax-load');
 			$('#href-select2 .simple-tree').simpleTree({
 				drag: false,

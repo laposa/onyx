@@ -163,7 +163,7 @@ function hookNodeEditPostUpdate() {
 <script type="text/javascript">
 $(document).ready(function(){
 	$('fieldset.gallery-links div.link-to a.button').click(function() {
-		$('#gallery-link-to-node-id-ajax').addClass('ajax-load').load('/request/component/menu_js~id=0:expand_all=1:publish=0:node_group=page_and_product~', function() {
+		$('#gallery-link-to-node-id-ajax').addClass('ajax-load').load('/request/component/menu_js~id=0:expand_all=1:publish=0~', function() {
 			$('#gallery-link-to-node-id-ajax').removeClass('ajax-load');
 			$('#gallery-link-to-node-id-ajax .simple-tree').simpleTree({
 				drag: false,

@@ -10,7 +10,7 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$('fieldset.content-list-form-edit div.component-node-id a.button').click(function() {
-		$('#href-select').addClass('ajax-load').load('/request/component/menu_js~id=0:expand_all=1:publish=0:node_group=l~', function() {
+		$('#href-select').addClass('ajax-load').load('/request/component/menu_js~id=0:expand_all=1:publish=0~', function() {
 			$('#href-select').removeClass('ajax-load');
 			$('#href-select .simple-tree').simpleTree({
 				drag: false,

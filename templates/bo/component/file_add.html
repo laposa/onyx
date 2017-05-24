@@ -33,7 +33,7 @@ function showResponse(responseText, statusText)  {
  	
 $('a.button.link-to-node-id').click(function() {
 	var file_id = $(this).attr('data-file-id');
-	$('#link-to-node-id-ajax-' + file_id).addClass('ajax-load').load('/request/component/menu_js~id=0:expand_all=1:publish=0:node_group=page_and_product~', function() {
+	$('#link-to-node-id-ajax-' + file_id).addClass('ajax-load').load('/request/component/menu_js~id=0:expand_all=1:publish=0~', function() {
 		$('#link-to-node-id-ajax-' + file_id).removeClass('ajax-load');
 		$('#link-to-node-id-ajax-' + file_id + ' .simple-tree').simpleTree({
 			drag: false,

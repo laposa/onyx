@@ -1,7 +1,7 @@
 <?php
 /** 
  * 
- * Copyright (c) 2006-2011 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2006-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -26,22 +26,22 @@ class Onxshop_Controller_Bo_Component_Node_Parent_Menu extends Onxshop_Controlle
 		if ($this->GET['parent_type'] !== '') {
 			switch ($this->GET['parent_type']) {
 				case 'layout':
-					$node_group = 'page';
+					$filter = 'page';
 					break;
 				case 'content':
-					$node_group = 'layout';
+					$filter = 'layout';
 					break;
 				case 'page':
 				default:
-					$node_group = 'page';
+					$filter = 'page';
 					break;
 			}
 		} else {
-			$node_group = 'page';
+			$filter = 'page';
 		}
 		
 		$Node = new common_node();
-		$list = $Node->getTree(0, $node_group);		
+		$list = $Node->getTree(0, $filter);		
 
 		return $list;
 	}
