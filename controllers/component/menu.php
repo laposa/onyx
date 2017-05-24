@@ -48,8 +48,7 @@ class Onxshop_Controller_Component_Menu extends Onxshop_Controller_Tree {
 		if (isset($this->GET['node_group'])) {
 			$node_group = $this->GET['node_group'];
 		} else {
-			if (ONXSHOP_ECOMMERCE === true) $node_group = 'page'; // don't show products in navigation on ecommerce sites (could have large product database)
-			else $node_group = 'page_and_product'; // should be fine to display also product pages
+			$node_group = 'page';
 		}
 		switch ($node_group) {
 			case 'content':
