@@ -877,8 +877,6 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
 
 		$sql = '';
 		
-		msg($filter);
-		
 		switch ($filter) {
 
 			case 'all':
