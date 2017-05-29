@@ -2,7 +2,7 @@
 /**
  * class ecommerce_transaction
  *
- * Copyright (c) 2009-2011 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -78,6 +78,8 @@ CREATE TABLE ecommerce_transaction (
 	type varchar(255),
 	status smallint
 );
+              
+ALTER TABLE ONLY ecommerce_transaction ADD CONSTRAINT ecommerce_transaction_order_id_pg_data_key UNIQUE (order_id, pg_data);
 		";
 		
 		return $sql;
