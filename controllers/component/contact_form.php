@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2005-2016 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2005-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -95,6 +95,7 @@ class Onxshop_Controller_Component_Contact_Form extends Onxshop_Controller {
 			$node_id = (int) $this->GET['node_id'];
 			$reg_key = "form_notify_" . $node_id;
 
+			// mail to
 			if ($this->GET['mail_to'] == '') {
 				$mail_to = $Email->conf['mail_recipient_address'];
 				$mail_toname = $Email->conf['mail_recipient_name'];
@@ -103,13 +104,25 @@ class Onxshop_Controller_Component_Contact_Form extends Onxshop_Controller {
 				$mail_toname = $this->GET['mail_toname'];
 			}
 
+			// mail from
+			if ($formdata['required_email']) $mail_from = $formdata['required_email'];
+			else if ($formdata['email']) $mail_from = $formdata['email'];
+			else $mail_from = false;
+
+			if ($formdata['required_name']) $mail_fromname = $formdata['required_name'];
+			else if ($formdata['name']) $mail_fromname = $formdata['name'];
+			else if ($formdata['first_name'] || $formdata['last_name']) $mail_fromname = "{$formdata['first_name']} {$formdata['last_name']}";
+			else $mail_fromname = false;
+
+			// spam protection
 			if ($this->enableCaptcha) {
 				$word = strtolower($_SESSION['captcha'][$node_id]);
 				$isCaptchaValid = strlen($formdata['captcha']) > 0 &&  $formdata['captcha'] == $word;
 				$Email->setValid("captcha", $isCaptchaValid);
 			}
 
-			if ($Email->sendEmail('contact_form', $content, $mail_to, $mail_toname, $formdata['required_email'], $formdata['required_name'])) {
+			// send out via Common_Email
+			if ($Email->sendEmail('contact_form', $content, $mail_to, $mail_toname, $mail_from, $mail_fromname)) {
 				Zend_Registry::set($reg_key, 'sent');
 			} else {
 				Zend_Registry::set($reg_key, 'failed');
