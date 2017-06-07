@@ -649,3 +649,78 @@ function fire_dump($variable, $title = null) {
 	}
 
 }
+
+/**
+ * Encode integer value using custom character set
+ * @param  int $value Integer value to be encoded
+ * @return string Encoded value
+ */
+function encodeInt($value)
+{
+	$codeset = "QRST12XY34FGwxyzABCDEHIJZ789abcdefpqrs56ijklmnouUVWtghvKLMNOP";
+	$base = strlen($codeset);
+	$encoded = "";
+	while ($value > 0) {
+	  $encoded = substr($codeset, ($value % $base), 1) . $encoded;
+	  $value = floor($value/$base);
+	}
+	return $encoded;
+}
+
+/**
+ * Decode integer from custom character set
+ * @param  string $value Encoded value
+ * @return int Decoded integer value
+ */
+function decodeInt($encoded)
+{
+	$codeset = "QRST12XY34FGwxyzABCDEHIJZ789abcdefpqrs56ijklmnouUVWtghvKLMNOP";
+	$base = strlen($codeset);
+	$c = 0;
+	for ($i = strlen($encoded); $i; $i--) {
+	  $c += strpos($codeset, substr($encoded, (-1 * ( $i - strlen($encoded) )),1)) 
+			* pow($base,$i-1);
+	}
+	return $c;
+}
+
+/**
+ * Encode integer value using custom character set and append
+ * salted MD5 checksum to allow verification
+ */
+function decryptInt($hash, $divider = "0")
+{
+	$divider = "0"; // must not be used in the character set (see encodeInt)
+	$checksum_size = 4; // max. 4 for 32-bit integer
+	if (strpos($hash, $divider) === false) return false;
+	$parts = explode($divider, $hash);
+	$check = (int) decodeInt($parts[0]);
+	$num = (int) decodeInt($parts[1]);
+	$hash = md5($num . ONXSHOP_ENCRYPTION_SALT);
+	$calculated = (int) hexdec(substr($hash, 0, $checksum_size));
+	if ($check != $calculated) return false;
+	return $num;
+}
+
+/**
+ * Encode integer value using custom character set and append
+ * salted MD5 checksum to allow verification. 
+ * 
+ * Please note, this function is not cryptographically safe.
+ * The original integer value can be decoded very easily. The
+ * purpose of the function is to make it harder to iterate
+ * records indexed by the original integer values, but also
+ * keep the encrypted value very small and within specific
+ * character set.
+ *
+ * @param  int    $value   Integer value to be encoded
+ * @return string Encoded integer
+ */
+function encryptInt($value)
+{
+	$divider = "0"; // must not be used in the character set (see encodeInt)
+	$checksum_size = 4; // max. 4 for 32-bit integer
+	$hash = md5($value . ONXSHOP_ENCRYPTION_SALT);
+	$check = (int) hexdec(substr($hash, 0, $checksum_size));
+	return encodeInt($check) . $divider . encodeInt($value);
+}
