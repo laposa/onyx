@@ -14,7 +14,7 @@ class Onxshop_Controller_Component_Contact_Form extends Onxshop_Controller {
 
 		$this->enableCaptcha = (($this->GET['spam_protection'] == "captcha_image" ||
 			$this->GET['spam_protection'] == "captcha_text_js") && 
-			strpos($this->tpl->filecontents, 'formdata-captcha_') !== FALSE);
+			strpos($this->tpl->filecontents, 'formdata-captcha-') !== FALSE);
 
 		$formdata = $this->preProcessEmailForm($_POST['formdata']);
 
