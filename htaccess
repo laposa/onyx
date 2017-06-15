@@ -4,6 +4,10 @@ Options -Indexes +FollowSymLinks
 # Force IE to the latest version
 Header set X-UA-Compatible "IE=edge"
 
+# local rewrite rules
+#RewriteEngine On
+#RewriteRule ^section/sub(.*)$ /another-section$1 [R=301,NC,L]
+
 # BEGIN Onxshop
 RewriteEngine On
 RewriteRule	^image/var/(.*)$   /share/image_get.php?image=var/$1 [L]
