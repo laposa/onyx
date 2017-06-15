@@ -1,7 +1,7 @@
 <?php
 /**
  * Zend Search Index
- * Copyright (c) 2009-2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -17,11 +17,28 @@ class Onxshop_Controller_Bo_Component_Search_Index extends Onxshop_Controller {
 	 
 	public function mainAction() {
 		
+		/**
+		 * initiate
+		 */
+		 
 		$this->index = $this->openIndex();
 		
+		/**
+		 * get info
+		 */
+		 
 		$index_info = $this->getIndexInfo();
 
 		$this->tpl->assign("INDEX_INFO", $index_info);
+		
+		/**
+		 * if requested, optimize index
+		 */
+		
+		if ($this->GET['optimize']) {
+			msg("Index optimization executed");
+			$this->index->optimize();
+		}
 		
 		return true;
 		

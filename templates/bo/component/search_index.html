@@ -1,6 +1,5 @@
 <!-- BEGIN: title -->Search Index<!-- END: title -->
 <!-- BEGIN: content -->
-<!-- BEGIN: messages --><div class="fix">{MESSAGES}</div><!-- END: messages -->
 
 <div class="search-index"> 
 
@@ -21,7 +20,9 @@
 								<div class="column-wrapper">
 
 									<p>Number of indexed documents: {INDEX_INFO.indexSize}</p>
-									<p><a class="button" href="/request/bo/component/search_index_build" onclick="if (confirm('Are you sure? Re-index can take several minutes to complete and you cannot use the website using the same session due to session lock preventing race condition.')) makeAjaxRequest('#crawl_container', this.href); return false" title="Build the Index"><span>Re-build index of the whole site</span></a>
+									<p>
+										<a class="button" href="/request/bo/component/search_index_build" onclick="if (confirm('Are you sure? Re-index can take several minutes to complete and you cannot use the website using the same session due to session lock preventing race condition.')) makeAjaxRequest('#crawl_container', this.href); return false" title="Build the Index"><span>Re-build index of the whole site</span></a>
+										<a class="button" href="/backoffice/advanced/search_index?optimize=1"><span>Optimize index</span></a>
 									</p>
 									<p>
 									<span class="warning">Warning: re-index can take several minutes or even hours to complete</span>
