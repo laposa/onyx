@@ -221,9 +221,9 @@ CREATE TABLE client_customer (
     verified_email_address smallint DEFAULT 0 NOT NULL,
     oauth text,
     deleted_date timestamp without time zone,
-    facebook_id bigint,
-    twitter_id bigint,
-    google_id bigint,
+    facebook_id character varying(255),
+    twitter_id character varying(255),
+    google_id character varying(255),
     profile_image_url text,
     store_id integer,
     janrain_id character varying(255)
@@ -5876,6 +5876,13 @@ ALTER TABLE ONLY ecommerce_store_taxonomy
 ALTER TABLE ONLY ecommerce_store_type
     ADD CONSTRAINT ecommerce_store_type_pkey PRIMARY KEY (id);
 
+
+--
+-- Name: ecommerce_transaction_order_id_pg_data_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY ecommerce_transaction
+    ADD CONSTRAINT ecommerce_transaction_order_id_pg_data_key UNIQUE (order_id, pg_data);
 
 --
 -- Name: ecommerce_transaction_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
