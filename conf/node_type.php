@@ -6,6 +6,12 @@
  * 	
  */
 
+$templates_info['variable'] = array(
+	'default'=>array('title' => 'Default', 'description'=>'', 'visibility'=>false),
+	'text'=>array('title' => 'Text Variable', 'description'=>'', 'visibility'=>true),
+	'default_template' => 'text'
+	);
+	
 $templates_info['content'] = array(
 	'default'=>array('title' => 'Default', 'description'=>'', 'visibility'=>false),
 	'textile'=>array('title' => 'Textile', 'description'=>'', 'visibility'=>true),

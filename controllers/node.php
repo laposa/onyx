@@ -221,7 +221,10 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 		// don't show edit icons when shared parameter is 1 (passed from shared content)
 		// and not authenticated for the backend
 		if ($this->GET['shared'] == 0 && Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) {
-			if ($node_data['node_group'] == 'content' && $_SESSION['fe_edit_mode'] == 'edit') {
+    		
+    		if ($node_data['node_group'] == 'variable' && $_SESSION['fe_edit_mode'] == 'edit') {
+				$this->tpl->parse('content.wrapper.variable_edit');
+			} else if ($node_data['node_group'] == 'content' && $_SESSION['fe_edit_mode'] == 'edit') {
 				if ($node_data['node_controller'] == 'shared')  {
 					$this->tpl->assign("SOURCE", $source);
 					$this->tpl->parse('content.wrapper.fe_edit.edit_source');
@@ -239,8 +242,12 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
 			
 			// show extra wrappers when in edit or sorting mode
 			if ($_SESSION['fe_edit_mode'] == 'edit' || $_SESSION['fe_edit_mode'] == 'move') {
-				$this->tpl->parse('content.wrapper.backend_wrapper_before');
-				$this->tpl->parse('content.wrapper.backend_wrapper_after');
+    			
+    			// node_group variable doesn't have any wrapper
+    			if ($node_data['node_group'] !== 'variable') {
+				    $this->tpl->parse('content.wrapper.backend_wrapper_before');
+                    $this->tpl->parse('content.wrapper.backend_wrapper_after');
+				}
 			}
 		}
 

@@ -147,6 +147,7 @@ class Onxshop_Controller_Bo_Component_Node_Type_Menu extends Onxshop_Controller_
 		$temp[2] = $this->findInMdTree($md_tree, 'page');//page
 		$temp[3] = $this->findInMdTree($md_tree, 'container');//container
 		$temp[4] = $this->findInMdTree($md_tree, 'site');//site
+		$temp[4] = $this->findInMdTree($md_tree, 'element');
 		
 		$md_tree = $temp;
 		
