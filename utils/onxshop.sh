@@ -58,10 +58,10 @@ if ! [ $project_dir ]; then
 	project_dir="/srv/$hostname"
 fi
 if ! [ $db_template_file ]; then
-	db_template_file=/opt/onxshop/${onxshop_version}/project_skeleton/base_with_blog.sql
+	db_template_file=/opt/onxshop/${onxshop_version}/project_skeleton/base.sql
 fi
 if ! [ $project_skeleton_dir ]; then
-	project_skeleton_dir=/opt/onxshop/$onxshop_version/project_skeleton/base_with_blog/
+	project_skeleton_dir=/opt/onxshop/$onxshop_version/project_skeleton/base/
 fi
 
 echo "
