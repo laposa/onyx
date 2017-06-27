@@ -49,7 +49,7 @@ hostname=${arguments[1]} # mandatory
 # prepare functions #
 
 setup_variables() {
-onxshop_version="1.7"
+onxshop_version="1.8"
 onxshop_version_db=$(echo $onxshop_version | sed 's,\.,_,g')
 if ! [ $db_username ]; then
 	determine_username_from_domainname
