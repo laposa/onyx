@@ -3637,7 +3637,6 @@ SELECT pg_catalog.setval('common_file_id_seq', 1, false);
 --
 
 COPY common_image (id, src, role, node_id, title, description, priority, modified, author, content, other_data, link_to_node_id, customer_id) FROM stdin;
-1	var/files/favicon.ico	main	3	Favicon		0	2011-12-13 14:27:55	1000	\N	\N	\N	\N
 2	var/files/placeholder.png	main	1065	Placeholder		0	2012-12-30 15:25:20	1002	\N	\N	\N	\N
 3	var/files/placeholder.png	main	1065	Placeholder		0	2012-12-30 15:25:31	1002	\N	\N	\N	\N
 4	var/files/placeholder.png	main	1065	Placeholder		0	2012-12-30 15:25:38	1002	\N	\N	\N	\N
