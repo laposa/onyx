@@ -307,7 +307,7 @@ class XTemplate {
 	// Date / time modifiers
 	'date', 'idate', 'strtotime', 'strftime', 'getdate', 'gettimeofday',
 	// Number modifiers
-	'number_format', 'money_format',
+	'number_format', 'money_format','convertNumeralArabicToRoman',
 	// Miscellaneous modifiers
 	'var_dump', 'print_r'
 	);

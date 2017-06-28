@@ -52,7 +52,7 @@
 		<nav class="footer" id="footer-navigation">
 			{ONXSHOP_REQUEST_footer_nav #component/menu~id=4:level=1:expand_all=0:display_strapline=0:open=GET.id~}
 		</nav>
-		<p id="copyright">&copy; {TIME|strftime('%Y', %s)} {CONFIGURATION.global.title|htmlspecialchars}</p>
+		<p id="copyright">&copy; {TIME|strftime('%Y', %s)|convertNumeralArabicToRoman(%s)} {CONFIGURATION.global.title|htmlspecialchars}</p>
 	</div>
 </footer>
 

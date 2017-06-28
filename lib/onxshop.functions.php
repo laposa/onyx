@@ -724,3 +724,16 @@ function encryptInt($value)
 	$check = (int) hexdec(substr($hash, 0, $checksum_size));
 	return encodeInt($check) . $divider . encodeInt($value);
 }
+
+/**
+ * convert arabic numbers to roman
+ */
+
+function convertNumeralArabicToRoman($number) {
+	
+	require_once 'lib/Zend/Measure/Number.php';
+	$number = new Zend_Measure_Number($number, Zend_Measure_Number::DECIMAL);
+	$number->convertTo (Zend_Measure_Number::ROMAN);
+	return $number->getValue();
+	
+}
