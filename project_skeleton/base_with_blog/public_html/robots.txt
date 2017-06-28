@@ -1,0 +1,12 @@
+# Global /robots.txt file Onxshop
+
+Sitemap: /sitemap.xml
+
+User-agent: *
+
+Disallow: *?to=
+Disallow: *?product_list_mode=
+Disallow: *?sort*
+Disallow: *?limit_from=
+Disallow: *?limit_per_page=
+Disallow: /request/

@@ -1,0 +1,60 @@
+<!-- BEGIN: description -->{NODE.description}<!-- END: description -->
+<!-- BEGIN: head -->
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+<meta name="theme-color" content="#ffffff">
+<meta name="viewport" content="width=device-width" />
+<link type="text/css" href="/share/css/default/screen.css" rel="stylesheet" media="screen" />
+<link type="text/css" href="/share/css/default/print.css" rel="stylesheet" media="print" />
+<style type="text/css">
+{CONFIGURATION.global.css}
+</style>
+<script type="text/javascript" src="/share/js/compiled.js"></script>
+<script type="text/javascript" src="/js/local.js"></script>
+{ONXSHOP_REQUEST_head #extra_head}
+
+{CONFIGURATION.global.extra_head}
+<!-- END: head -->
+<!-- BEGIN: content -->
+{ONXSHOP_REQUEST_google_tag_manager #component/google_tag_manager}
+{CONFIGURATION.global.extra_body_top}
+
+{ONXSHOP_REQUEST_google_analytics #component/google_analytics}
+
+<header class="site">
+	<div class="wrapper">
+		<div id="logo">
+			<a href="/" title="{I18N_GOTO_HOMEPAGE} {CONFIGURATION.global.title|htmlspecialchars}"><span>{CONFIGURATION.global.title|htmlspecialchars}</span></a>
+		</div>
+		<nav id="reveal-navigation-button" >
+			<a class="reveal" href="#primary-navigation"><span>Menu</span></a>
+		</nav>
+		<nav class="primary" id="primary-navigation">
+			{ONXSHOP_REQUEST_primary_nav #component/menu~id=1:level=1:expand_all=0:display_strapline=0:open=GET.id~}
+		</nav>
+	</div>
+</header>
+
+<main class="site">
+	<div class="wrapper">
+		{SUB_CONTENT}
+	</div>
+</main>
+
+<footer class="site">
+	<div class="wrapper">
+		<section id="content-bottom">
+			{CONTENT_FOOT}
+		</section>
+		<nav class="footer" id="footer-navigation">
+			{ONXSHOP_REQUEST_footer_nav #component/menu~id=4:level=1:expand_all=0:display_strapline=0:open=GET.id~}
+		</nav>
+		<p id="copyright">&copy; {TIME|strftime('%Y', %s)} {CONFIGURATION.global.title|htmlspecialchars}</p>
+	</div>
+</footer>
+
+{CONFIGURATION.global.extra_body_bottom}
+<!-- END: content -->

@@ -1,0 +1,13 @@
+Your project specific images available through public link yourwebsite/images/
+
+This folder is only for static images, e.g. linked from your CSS.
+Please be aware images in this folder cannot be resized automatically.
+
+We have at minimum 3 ways how to store and access images:
+
+1.	Static images (stored in this folder)
+	GET /images/your_file.png
+2.	Full size images stored in media library (var/files/)
+	GET /image/var/files/your_file.png
+3.	Automatically generated thubmnails (generated from original files in var/files/ and cached in var/thumbnails/)
+	GET /thumbnail/100/var/files/you_file.png
