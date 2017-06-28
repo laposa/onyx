@@ -12,4 +12,4 @@ cat ${FULL_PATH}/share/css/default/src/layout.css >> ${SCREEN_CSS};
 cat ${FULL_PATH}/share/css/default/src/structure.css >> ${SCREEN_CSS};
 cat ${FULL_PATH}/share/css/default/src/node.css >> ${SCREEN_CSS};
 cat ${FULL_PATH}/share/css/default/src/component.css >> ${SCREEN_CSS};
-cat ${FULL_PATH}/share/css/default/src/component_ecommerce.css >> ${SCREEN_CSS};
+#cat ${FULL_PATH}/share/css/default/src/component_ecommerce.css >> ${SCREEN_CSS};
