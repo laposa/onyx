@@ -2,7 +2,7 @@
 /**
  * class common_configuration
  *
- * Copyright (c) 2009-2016 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -187,7 +187,7 @@ class common_configuration extends Onxshop_Model {
 		if (!array_key_exists('extra_body_top', $conf['global'])) $conf['global']['extra_body_top'] = '';
 		if (!array_key_exists('extra_body_bottom', $conf['global'])) $conf['global']['extra_body_bottom'] = '';
 		//used only in node/site/default.php
-		if (!array_key_exists('display_content_side', $conf['global'])) $conf['global']['display_content_side'] = 1;
+		if (!array_key_exists('display_content_side', $conf['global'])) $conf['global']['display_content_side'] = 0;
 		if (!array_key_exists('display_content_foot', $conf['global'])) $conf['global']['display_content_foot'] = 0;
 		
 		/**
