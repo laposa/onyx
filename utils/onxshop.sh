@@ -16,6 +16,7 @@
 ##
 ## Options:
 ##     -h, --help                        All client scripts have this, it can be omitted.
+##         --template=VALUE              Project skeleton template, e.g. base_with_blog, default is: base
 ##         --db-template-file=VALUE      Database template
 ##         --project-skeleton-dir=VALUE  Project skeleton to be used
 ##         --project-dir=VALUE           Folder where will be application created
@@ -33,6 +34,7 @@ source "${script_dir}/easyoptions.sh" || exit
 #done
 
 # Boolean and parameter options
+#[[ -n "$template"  ]] && echo "Option specified: --template is $template"
 #[[ -n "$db_template_file"  ]] && echo "Option specified: --db-template-file is $db_template_file"
 #[[ -n "$project_skeleton_dir"  ]] && echo "Option specified: --project-skeleton-dir is $project_skeleton_dir"
 #[[ -n "$project_dir"  ]] && echo "Option specified: --project-dir is $project_dir"
@@ -57,11 +59,14 @@ fi
 if ! [ $project_dir ]; then
 	project_dir="/srv/$hostname"
 fi
+if ! [ $template ]; then
+	template=base
+fi
 if ! [ $db_template_file ]; then
-	db_template_file=/opt/onxshop/${onxshop_version}/project_skeleton/base.sql
+	db_template_file=/opt/onxshop/${onxshop_version}/project_skeleton/${template}.sql
 fi
 if ! [ $project_skeleton_dir ]; then
-	project_skeleton_dir=/opt/onxshop/$onxshop_version/project_skeleton/base/
+	project_skeleton_dir=/opt/onxshop/$onxshop_version/project_skeleton/${template}/
 fi
 
 echo "
@@ -69,6 +74,7 @@ Variables are set to:
 
 action=$action
 hostname=$hostname
+template=$template
 db_template_file=$db_template_file
 project_skeleton_dir=$project_skeleton_dir
 project_dir=$project_dir
