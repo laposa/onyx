@@ -2,6 +2,12 @@
 /** 
  * Copyright (c) 2005-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
+ *
+ * Allows to view image file in var/files directory without initiating a session
+ *
+ * Input variables are:
+ * $_GET['image']
+ *
  */
 
 /**

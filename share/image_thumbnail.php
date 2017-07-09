@@ -2,6 +2,18 @@
 /** 
  * Copyright (c) 2005-2016 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
+ *
+ * Allows to resize and view image file in var/files directory without initiating a session
+ *
+ * Input variables are:
+ * $_GET['image']
+ * $_GET['width']
+ * $_GET['height']
+ * $_GET['method']
+ * $_GET['gravity']
+ * $_GET['fill']
+ * $_GET['width']
+ *
  */
 
 /**
