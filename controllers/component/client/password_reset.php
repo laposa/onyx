@@ -20,6 +20,9 @@ class Onxshop_Controller_Component_Client_Password_Reset extends Onxshop_Control
 		require_once('models/client/client_customer.php');
 		$Customer = new client_customer();
 		$Customer->setCacheable(false);
+		
+		require_once('models/common/common_node.php');
+		$node_conf = common_node::initConfiguration();
 
 		/**
 		 * Prefill from GET
@@ -123,9 +126,16 @@ class Onxshop_Controller_Component_Client_Password_Reset extends Onxshop_Control
 				    				msg('Password reset email sending failed.', 'error');
 			    				}
 
-			    				// login and redirect to My Account page (only customers, not backoffice users)
-			    				if ($_SESSION['authentication']['http_auth_requested'] == 0) {
+			    				/**
+				    			 * backoffice users forward to homepage, for other users execute login and redirect to My Account page
+				    			 */
+				    			 
+			    				if ($this->GET['backoffice'] == 1) {
 				    				
+									onxshopGoTo("/edit");
+								
+								} else {
+									
 									if ($customer_detail = $Customer->login($this->GET['email'], md5($customer_data['password']))) {
 										$_SESSION['client']['customer'] = $customer_detail;
 										if ($_SESSION['to']) {
@@ -133,12 +143,10 @@ class Onxshop_Controller_Component_Client_Password_Reset extends Onxshop_Control
 											$_SESSION['to'] = false;
 											onxshopGoTo($to);
 										} else {
-											require_once('models/common/common_node.php');
-											$node_conf = common_node::initConfiguration();
 											onxshopGoTo("page/" . $node_conf['id_map-myaccount']);
 										}
 									}
-								
+									
 								}
 
 							}

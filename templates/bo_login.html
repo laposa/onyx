@@ -18,12 +18,14 @@
 div.bo-login {margin: 20px auto; width: 300px; display: table; height: 80%;}
 div.bo-login div.logo {text-align: center; margin: 20px;}
 div.bo-login div.logo img {opacity: 0.7;}
-div.bo-login #forgot {margin-top: 2em;}
-div.bo-login #forgot form {display: none;}
+div.bo-login #forgot {display: none; margin-top: 2em;}
 div.bo-login input {width: 100%;}
 div.bo-login button {float: right;}
-div.bo-login fieldset {background: rgba(248,248,248, 0.8)}
-legend {margin: 0.4em 0 1em 0; text-align: center;}
+div.bo-login p.hint {float: left; padding: 5px 0 0 0;}
+div.bo-login div.content {background: rgba(248,248,248, 0.8); border-radius: 5px;}
+fieldset {background: transparent;}
+legend {margin: 0.4em 0 1em 0; text-align: left;}
+p {padding: 10px 20px; margin: 0;}
 </style>
 
 <script type="text/javascript">
@@ -31,13 +33,29 @@ $(document).ready(function(){
 	
 	popupMessage("div.onxshop-messages");
 	
-	$("#login form.login").validate({onkeyup: false});  
+	$("form.login").validate({onkeyup: false});  
 	
 	if(window.location.hash == '#forgot' || window.location.search.substr(1).match(/key/)) {
-		$('div.bo-login #forgot form').show();
+		$('div.bo-login #login').hide();
+		$('div.bo-login #forgot').show();
 	}
 	
-	$('#login form.login').submit(function(){
+	$('#login form p.hint a').on('click', function() {
+		$('div.password-reset div.email input').val($('#username').val());
+		$('#login').slideUp(function() {
+			$('#forgot').slideDown();
+		});
+	});
+	
+	$('#forgot form button').before('<p class="hint"><a href="#login">Show login screen</a></p>');
+	$('#forgot p.notice').after('<p><a href="{URI|htmlspecialchars}">Back to login screen</a></p>');
+	
+	$('#forgot form p.hint a').on('click', function() {
+		$('#login').slideDown();
+		$('#forgot').slideUp();
+	});
+	
+	$('form.login').submit(function(){
 		
 		var auth_url = '{PROTOCOL}://{_SERVER.HTTP_HOST}/edit';
 		var username = $("#username").val();
@@ -61,7 +79,7 @@ $(document).ready(function(){
 						location.reload();
 					},
 					error: function(xhr,status,error) {
-						$('#login form').effect("shake");
+						$('form.login').effect("shake");
 					}
 				});
 			}
@@ -86,31 +104,33 @@ $(document).ready(function(){
 	<div id="backoffice-wrapper">
 		<div id="container">
 			{MESSAGES}
-			<div class="bo-login" id="login">
-				<div class="login">
-					<div class="logo"><a href="https://onxshop.com"><img src="/share/images/onxshop-logo-black.png" /></a></div>
-					<form class="login via-email {FAILED}" method="post">
-						<fieldset class="single">
-							<legend>Onxshop CMS Login</legend>
-							<div class="row email">
-								<span class="field"><input class="required" id="username" type="text" name="username" value="{USERNAME|htmlspecialchars}" placeholder="Username" autofocus/></span>
-							</div>
-							<div class="row password">
-								<span class="field"><input class="required text" id="password" type="password" name="password" value="{PASSWORD|htmlspecialchars}" placeholder="Password"/></span>
-							</div>
+			<div class="bo-login">
+				<div class="logo"><a href="https://onxshop.com"><img src="/share/images/onxshop-logo-black.png" /></a></div>
+				<div class="content">
+					<div id="login">
+						<form class="login via-email {FAILED}" method="post">
+							<fieldset class="single">
+								<legend>Onxshop CMS Login</legend>
+								<div class="row email">
+									<span class="field"><input class="required" id="username" type="text" name="username" value="{USERNAME|htmlspecialchars}" placeholder="Username" autofocus/></span>
+								</div>
+								<div class="row password">
+									<span class="field"><input class="required text" id="password" type="password" name="password" value="{PASSWORD|htmlspecialchars}" placeholder="Password"/></span>
+								</div>
+								
+								<div class="row submit">
+									<p class="hint"><a href="#forgot">Forgot your password?</a></p>
+									<button type="submit" name="login" value="sent" class="submit"><span>{I18N_SUBMIT}</span></button>
+								</div>
 							
-							<div class="row submit">
-								<p style="float: left; padding-top: 5px;"><a href="#forgot" onclick="$('#forgot form').slideToggle();">Forgot your password?</a></p>
-								<button type="submit" name="login" value="sent" class="submit"><span>{I18N_SUBMIT}</span></button>
-							</div>
-						
-						</fieldset>
-						
-						<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
-					</form>
-				</div>
-				<div id="forgot">
-					{ONXSHOP_REQUEST_forgot #component/client/password_reset}
+							</fieldset>
+							
+							<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+						</form>
+					</div>
+					<div id="forgot">
+						{ONXSHOP_REQUEST_forgot #component/client/password_reset~backoffice=1~}
+					</div>
 				</div>
 			</div>
 
@@ -118,14 +138,5 @@ $(document).ready(function(){
 	</div>
 </div>
 
-<script>
-  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-  ga('create', 'UA-2401247-33', 'auto');
-  ga('send', 'pageview');
-
-</script>
+{ONXSHOP_REQUEST_bo_tracking #bo_tracking}
 <!-- END: content -->
