@@ -46,10 +46,10 @@
 												{QUESTION.type}
 												<ul>
 													<!-- BEGIN: item -->
-													<li><a class="publish-{ANSWER.publish} is-correct-{ANSWER.is_correct}" title="Edit Answer Option" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_question_answer_edit~id={ANSWER.id}:survey_id={QUESTION.survey_id}~'); return false" href="#sub_content"><span>{ANSWER.title|htmlspecialchars}</span></a> <small>({ANSWER.usage} answers/votes)</small></li>
+													<li><a class="publish-{ANSWER.publish} is-correct-{ANSWER.is_correct}" title="Edit Answer Option" onclick="makeAjaxRequest('#sub-content', '/request/bo/component/survey_question_answer_edit~id={ANSWER.id}:survey_id={QUESTION.survey_id}~'); return false" href="#sub_content"><span>{ANSWER.title|htmlspecialchars}</span></a> <small>({ANSWER.usage} answers/votes)</small></li>
 													<!-- END: item -->
 												</ul>
-												<a class="button add small" style="float: left;" title="Add a New Answer Option" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_question_answer_add~question_id={QUESTION.id}:survey_id={QUESTION.survey_id}~'); return false" href="#sub_content"><span>Add an Answer</span></a>
+												<a class="button add small" style="float: left;" title="Add a New Answer Option" onclick="makeAjaxRequest('#sub-content', '/request/bo/component/survey_question_answer_add~question_id={QUESTION.id}:survey_id={QUESTION.survey_id}~'); return false" href="#sub_content"><span>Add an Answer</span></a>
 												<!-- END: answer_list -->
 											</td>
 										</tr>
@@ -70,7 +70,7 @@
 							<div class="column-wrapper">
 
 								<p>
-									<a class="button add" title="Add new question" onclick="makeAjaxRequest('#sub_content', '/request/bo/component/survey_question_add~survey_id={SURVEY.id}~'); return false" href="#sub_content"><span>Add a New Question</span></a>
+									<a class="button add" title="Add new question" onclick="makeAjaxRequest('#sub-content', '/request/bo/component/survey_question_add~survey_id={SURVEY.id}~'); return false" href="#sub_content"><span>Add a New Question</span></a>
 									<a class="button edit" title="Edit survey - Update basic information" href="/backoffice/surveys/{SURVEY.id}/edit"><span>Edit Survey Properties</span></a>
 									<a class="button" href="/request/bo/export/csv_survey_entries?survey_id={SURVEY.id}"><span>Export {SURVEY.usage_count} Entries</span></a>
 								</p>
