@@ -1627,8 +1627,9 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
 	 
 	public function getClientList($filter = false, $order_by = 'client_customer.id DESC', $limit = false, $offset = false) {
 	
-		return $this->getClientListHeavy($filter, $order_by, $limit, $offset);
-	
+		if (ONXSHOP_ECOMMERCE) return $this->getClientListHeavy($filter, $order_by, $limit, $offset);
+		else return $this->getClientListSimple($filter, $order_by, $limit, $offset);
+		
 	}
 	
 	/**
@@ -1646,42 +1647,72 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
 	 
 	public function getClientListSimple($filter = false, $order_by = 'client_customer.id DESC', $limit = false, $offset = false) {
 		
-		$add_to_where = '';
+		$sql = $this->prepareCustomerListQuerySimple($filter, $order_by, $limit, $offset);
 		
-		/**
-		 * query filter
-		 * 
-		 */
+		return $this->executeSql($sql);
 		
-		if (is_numeric($filter['query'])) {
+	}
+	
+	
+	/**
+	 * get clients orders and details
+	 *
+	 * @param array $filter
+	 * @param string $order_by
+	 * @param integer $limit
+	 * @param integer $offset
+	 *
+	 * @return array
+	 * customer's orders and details, or false if not found
+	 */
+	 
+	public function getClientListHeavy($filter = false, $order_by = 'client_customer.id DESC', $limit = false, $offset = false) {
 		
-			$add_to_where .= " AND client_customer.id = {$filter['query']}";
+		$sql = $this->prepareCustomerListQueryHeavy($filter, $order_by, $limit, $offset);
 		
-		} else if (isset($filter['query']) && $filter['query'] !== '') {
+		return $this->executeSql($sql);
 		
-			// we could use ILIKE there, but it's not available in mysql
-			$query = strtoupper(addslashes($filter['query']));
-			//try to explode query by space
-			$e_query = explode(" ", $query);
-			
-			if (count($e_query) == 2) {
-			
-				$add_to_where .= " AND (UPPER(first_name) LIKE '%{$e_query[0]}%' OR UPPER(last_name) LIKE '%{$e_query[1]}%')";
-			
-			} else {
-			
-				$add_to_where .= " AND (UPPER(email) LIKE '%$query%' OR UPPER(first_name) LIKE '%$query%' OR UPPER(last_name) LIKE '%$query%' OR UPPER(username) LIKE '%$query%')";
-			
-			}
-		}
+	}
+	
+	/**
+	 * getCustomerListCount
+	 *
+	 * @param integer $customer_id
+	 * @param array $filter
+	 *
+	 * @return integer $count
+	 */
+	 
+	public function getCustomerListCount($filter = false) {
 		
-		//account type (company) filter
-		if (is_numeric($filter['account_type'])) {
-			if ($filter['account_type'] != -1) $add_to_where .= " AND account_type = {$filter['account_type']}";
-		}
+		if (ONXSHOP_ECOMMERCE) $sql = $this->prepareCustomerListQueryHeavy($filter);
+		else $sql = $this->prepareCustomerListQuerySimple($filter);;
+		
+		$sql = "SELECT count(*) as count FROM ($sql) AS subquery";
 
-		//customer ID
-		if (is_numeric($filter['customer_id']) &&  $filter['customer_id'] > 0) $add_to_where .= "AND client_customer.id = {$filter['customer_id']}";
+		$record = $this->executeSql($sql);
+
+		return (int) $record[0]['count'];
+	}
+	
+	/**
+	 * prepareCustomerListQuerySimple
+	 *
+	 * @param array $filter
+	 * @param string $order_by
+	 * @param integer $limit
+	 * @param integer $offset
+	 *
+	 * @return string $sql
+	 */
+
+	private function prepareCustomerListQuerySimple($filter = false, $order_by = 'client_customer.id DESC', $limit = false, $offset = false)
+	{
+		/**
+		 * prepare WHERE query
+		 */
+		 
+		$add_to_where = $this->prepareCustomerListFilterWhereQuery($filter);
 		
 		/**
 		 * query limit
@@ -1710,19 +1741,16 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
 			client_customer.invoices_address_id,
 			client_customer.company_id
 			FROM client_customer
-			WHERE 1=1 AND client_customer.status < 4 
 			$add_to_where
 			ORDER BY $order_by
 			$add_limit
 			";
-		
-		return $this->executeSql($sql);
-		
+			
+		return $sql;
 	}
 	
-	
 	/**
-	 * get clients orders and details
+	 * prepareCustomerListQueryHeavy
 	 *
 	 * TODO: consider using HAVING clause
 	 * There is one important difference between SQL HAVING and SQL WHERE clauses. The SQL WHERE clause
@@ -1738,50 +1766,10 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
 	 * @param integer $limit
 	 * @param integer $offset
 	 *
-	 * @return array
-	 * customer's orders and details, or false if not found
-	 */
-	 
-	public function getClientListHeavy($filter = false, $order_by = 'client_customer.id DESC', $limit = false, $offset = false) {
-		
-		$sql = $this->prepareCustomerListQuery($filter, $order_by, $limit, $offset);
-		
-		return $this->executeSql($sql);
-		
-	}
-	
-	/**
-	 * getCustomerListCount
-	 *
-	 * @param integer $customer_id
-	 * @param array $filter
-	 *
-	 * @return integer $count
-	 */
-	 
-	public function getCustomerListCount($filter = false) {
-		
-		$sql = $this->prepareCustomerListQuery($filter);
-		
-		$sql = "SELECT count(*) as count FROM ($sql) AS subquery";
-
-		$record = $this->executeSql($sql);
-
-		return (int) $record[0]['count'];
-	}
-	
-	/**
-	 * prepareCustomerListQuery
-	 *
-	 * @param array $filter
-	 * @param string $order_by
-	 * @param integer $limit
-	 * @param integer $offset
-	 *
 	 * @return string $sql
 	 */
 	 
-	private function prepareCustomerListQuery($filter = false, $order_by = 'client_customer.id DESC', $limit = false, $offset = false)
+	private function prepareCustomerListQueryHeavy($filter = false, $order_by = 'client_customer.id DESC', $limit = false, $offset = false)
 	{
 		
 		/**
