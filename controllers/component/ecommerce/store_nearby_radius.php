@@ -37,7 +37,7 @@ class Onxshop_Controller_Component_Ecommerce_Store_Nearby_Radius extends Onxshop
 
 					$distances = array();
 					foreach ($stores as $i => $store) {
-						$distance = $this->distance($current_store['latitude'], $current_store['longitude'],
+						$distance = $Store->distance($current_store['latitude'], $current_store['longitude'],
 							$store['latitude'], $store['longitude']);
 						$distances[$i] = $distance;
 					}
@@ -73,36 +73,6 @@ class Onxshop_Controller_Component_Ecommerce_Store_Nearby_Radius extends Onxshop
 		}
 
 		return true;
-	}
-
-	/**
-	 * Get distance between two points on sphere (in km)
-	 * http://en.wikipedia.org/wiki/Haversine_formula
-	 * 
-	 * @param  float $lat1 First point latitude
-	 * @param  float $lng1 First point longitude
-	 * @param  float $lat2 Second point latitude
-	 * @param  float $lng2 Second point longitude
-	 * @return float
-	 */
-	public function distance($lat1, $lng1, $lat2, $lng2)
-	{
-		$earth_radius = 6371;
-
-		$sin_lat = sin(deg2rad($lat2  - $lat1) / 2.0);
-		$sin2_lat = $sin_lat * $sin_lat;
-
-		$sin_lng = sin(deg2rad($lng2 - $lng1) / 2.0);
-		$sin2_lng = $sin_lng * $sin_lng;
-
-		$cos_lat1 = cos($lat1);
-		$cos_lat2 = cos($lat2);
-
-		$sqrt = sqrt($sin2_lat + ($cos_lat1 * $cos_lat2 * $sin2_lng));
-
-		$distance = 2.0 * $earth_radius * asin($sqrt);
-
-		return $distance;
 	}
 
 }

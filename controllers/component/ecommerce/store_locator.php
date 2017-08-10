@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2013-2016 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2013-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -157,7 +157,24 @@ class Onxshop_Controller_Component_Ecommerce_Store_Locator extends Onxshop_Contr
 	protected function getAllStores($type_id)
 	{
 		if (!is_numeric($type_id)) $type_id = 1;
-		return $this->Store->listing("publish = 1 AND type_id = $type_id", "title ASC");
+		$store_list = $this->Store->listing("publish = 1 AND type_id = $type_id", "title ASC");
+		
+		// help old installations with transtion from one address field to multiple fields
+		foreach ($store_list as $i=>$item) {
+			if (trim($item['address']) == '') {
+				if ($item['address_name']) $store_list[$i]['address'] .= $item['address_name'] . ",\n";
+				if ($item['address_line_1']) $store_list[$i]['address'] .= $item['address_line_1'] . ",\n";
+				if ($item['address_line_2']) $store_list[$i]['address'] .= $item['address_line_2'] . ",\n";
+				if ($item['address_line_3']) $store_list[$i]['address'] .= $item['address_line_3'] . ",\n";
+				if ($item['address_city']) $store_list[$i]['address'] .= $item['address_city'] . ",\n";
+				if ($item['address_county']) $store_list[$i]['address'] .= $item['address_county'] . ",\n";
+				if ($item['address_post_code']) $store_list[$i]['address'] .= $item['address_post_code'] . ",\n";
+				
+				$store_list[$i]['address'] = preg_replace("/,$/", "", $store_list[$i]['address']);
+			}
+		}
+		
+		return $store_list;
 	}
 
 
