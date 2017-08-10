@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2013 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2013-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -15,12 +15,15 @@ class Onxshop_Controller_Component_Ecommerce_Store_Taxonomy extends Onxshop_Cont
 	 */
 	public function mainAction()
 	{
+		// initiate
 		$Store = new ecommerce_store();
 		$Taxonomy_Tree = new common_taxonomy_tree();
 
+		// input
 		$store_id = $this->GET['store_id'];
 		if (!is_numeric($store_id)) return false;
 
+		// get list
 		$taxonomy = $Taxonomy_Tree->getRelatedTaxonomy($store_id, "ecommerce_store_taxonomy");
 
 		if (count($taxonomy) > 0) {

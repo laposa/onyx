@@ -2,7 +2,7 @@
 /**
  * class ecommerce_store
  *
- * Copyright (c) 2013-2016 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2013-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -242,6 +242,8 @@ CREATE INDEX ecommerce_store_type_id_idx ON ecommerce_store (type_id);
 		 
 		if (!$conf['latitude']) $conf['latitude'] = 53.344189;
 		if (!$conf['longitude']) $conf['longitude'] = -6.264478;
+		
+		if (!$conf['default_store_url']) $conf['default_store_url'] = '/btq';
 
 		return $conf;
 	}
@@ -286,9 +288,9 @@ CREATE INDEX ecommerce_store_type_id_idx ON ecommerce_store (type_id);
      *
      */
     
-    function getFilteredStoreList($taxonomy_id = false, $keyword = false, $type_id = 0, $order_by = false, $order_dir = false, $per_page = false, $from = false)
+    function getFilteredStoreList($taxonomy_id = false, $keyword = false, $type_id = 0, $order_by = false, $order_dir = false, $per_page = false, $from = false, $publish_only = false)
     {
-    	$where = $this->prepareStoreFilteringSql($taxonomy_id, $keyword, $type_id);
+    	$where = $this->prepareStoreFilteringSql($taxonomy_id, $keyword, $type_id, $publish_only);
 
 		// order
 		if ($order_by == 'title' || $order_by == 'modified') $order = "$order_by";
@@ -302,18 +304,61 @@ CREATE INDEX ecommerce_store_type_id_idx ON ecommerce_store (type_id);
 		if (is_numeric($per_page)) $limit .= ",$per_page";
 		else $limit = false;
 
-		$records = $this->listing($where, $order, $limit);
+		//$records = $this->listing($where, $order, $limit);
 
+        /**
+		 * prepare limit query
+		 */
+		 
+		if (preg_match('/[0-9]*,[0-9]*/', $limit)) {
+			
+			$limit = explode(',', $limit);
+			$limit = " LIMIT {$limit[1]} OFFSET {$limit[0]}";
+			
+		} else {
+			
+			$limit = '';
+			
+		}
+		
+		/**
+         * build SQL query
+         */
+         
+        $sql = "SELECT ecommerce_store.*,
+				(SELECT array_to_string(array_agg(taxonomy.taxonomy_tree_id), ',') FROM ecommerce_store_taxonomy taxonomy WHERE taxonomy.node_id = ecommerce_store.id) AS taxonomy
+			FROM ecommerce_store
+			WHERE $where
+			ORDER BY $order
+			$limit";
+			
+		$records = $this->executeSql($sql);
+		
 		if (is_array($records)) {
 
 			require_once('models/ecommerce/ecommerce_store_image.php');
 			$Image = new ecommerce_store_image();
 
 			foreach ($records as $i => $item) {
+				// add image
 				$images = $Image->listFiles($item['id']);
 				if (count($images) > 0) {
 					$records[$i]['image_src'] = $images[0]['src'];
 					$records[$i]['image_title'] = $images[0]['title'];
+				}
+				
+				// help old installations with transtion from one address field to multiple fields
+				if (trim($item['address']) == '') {
+					if ($item['address_name']) $records[$i]['address'] .= $item['address_name'] . ",\n";
+					if ($item['address_line_1']) $records[$i]['address'] .= $item['address_line_1'] . ",\n";
+					if ($item['address_line_2']) $records[$i]['address'] .= $item['address_line_2'] . ",\n";
+					if ($item['address_line_3']) $records[$i]['address'] .= $item['address_line_3'] . ",\n";
+					if ($item['address_city']) $records[$i]['address'] .= $item['address_city'] . ",\n";
+					if ($item['address_county']) $records[$i]['address'] .= $item['address_county'] . ",\n";
+					if ($item['address_post_code']) $records[$i]['address'] .= $item['address_post_code'] . ",\n";
+					
+					$records[$i]['address'] = preg_replace("/,$/", "", $records[$i]['address']);
+					
 				}
 			}
 
@@ -328,9 +373,9 @@ CREATE INDEX ecommerce_store_type_id_idx ON ecommerce_store (type_id);
      *
      */
     
-    function getFilteredStoreCount($taxonomy_id = false, $keyword = false, $type_id = 0)
+    function getFilteredStoreCount($taxonomy_id = false, $keyword = false, $type_id = 0, $publish_only = false)
     {
-    	$where = $this->prepareStoreFilteringSql($taxonomy_id, $keyword, $type_id);
+    	$where = $this->prepareStoreFilteringSql($taxonomy_id, $keyword, $type_id, $publish_only);
 		return $this->count($where);
     }
 
@@ -338,21 +383,45 @@ CREATE INDEX ecommerce_store_type_id_idx ON ecommerce_store (type_id);
      * prepareStoreFilteringSql
      */
 
-    private function prepareStoreFilteringSql($taxonomy_id, $keyword, $type_id)
+    private function prepareStoreFilteringSql($taxonomy_id, $keyword, $type_id, $publish_only)
     {
     	$sql = '1 = 1';
 
     	$keyword = pg_escape_string(trim($keyword));
 
-    	//keyword
-    	if (is_numeric($keyword)) $sql .= " AND ecommerce_store.id = {$keyword}";
-    	else if ($keyword != '') $sql .= " AND (ecommerce_store.title ILIKE '%{$keyword}%' OR ecommerce_store.description ILIKE '%{$keyword}%' OR ecommerce_store.address ILIKE '%{$keyword}%')";
+    	// keyword
+    	if (is_numeric($keyword)) {
+        	$sql .= " AND (ecommerce_store.id = {$keyword} OR ecommerce_store.code = '{$keyword}')";
+    	} else if ($keyword != '') $sql .= " AND (ecommerce_store.title ILIKE '%{$keyword}%' OR ecommerce_store.description ILIKE '%{$keyword}%' OR ecommerce_store.code ILIKE '%{$keyword}%' OR ecommerce_store.address ILIKE '%{$keyword}%' OR ecommerce_store.address_name ILIKE '%{$keyword}%' OR ecommerce_store.address_line_1 ILIKE '%{$keyword}%' OR ecommerce_store.address_line_2 ILIKE '%{$keyword}%' OR ecommerce_store.address_line_3 ILIKE '%{$keyword}%' OR ecommerce_store.address_city ILIKE '%{$keyword}%' OR ecommerce_store.address_county ILIKE '%{$keyword}%' OR ecommerce_store.address_post_code ILIKE '%{$keyword}%')";
 
-    	//type
+    	// type
     	if (is_numeric($type_id) && $type_id > 0) $sql .= " AND ecommerce_store.type_id = $type_id";
-    	//taxonomy
-    	if ($taxonomy_id > 0) $sql .= " AND ecommerce_store.id IN (SELECT node_id FROM ecommerce_store_taxonomy WHERE taxonomy_tree_id = $taxonomy_id)";
-
+    	
+    	// taxonomy (allowed one single ID or multiple IDs, i.e. 1,2,3)
+    	if ((is_numeric($taxonomy_id) && $taxonomy_id > 0) || ($taxonomy_id != '' && !preg_match('/[^0-9,]/', $taxonomy_id))) {
+	    	
+	    	$taxonomy_method = "AND";
+	    	
+	    	if ($taxonomy_method == 'OR') {
+	    	
+	    		$sql .= " AND ecommerce_store.id IN (SELECT node_id FROM ecommerce_store_taxonomy WHERE taxonomy_tree_id IN ($taxonomy_id))";
+			
+			} else {
+				
+				$num = count(explode(',', $taxonomy_id));
+				$sql .= " AND ecommerce_store.id IN (
+					SELECT node_id FROM (
+						SELECT node_id, count(node_id) AS c FROM ecommerce_store_taxonomy 
+						WHERE taxonomy_tree_id IN ($taxonomy_id) GROUP BY node_id
+					) AS my WHERE c = $num
+				)";
+			}
+			
+        }
+        
+        // publish only 
+        if ($publish_only) $sql .= " AND ecommerce_store.publish = 1";
+        
     	return $sql;
     }
 

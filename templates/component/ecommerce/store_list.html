@@ -1,0 +1,41 @@
+<!-- BEGIN: content -->
+
+<div class="store_list">
+	<div class="header">
+		<h3>Closest Store</h3>
+	</div>
+	<!-- BEGIN: list -->
+	<div class="listing">
+		<!-- BEGIN: item -->
+		<div class="item {OPEN} {ITEM.taxonomy_class}" id="list_item_{ITEM.id}">
+			<div class="shop_info">
+				<a href="#list_item_{ITEM.id}" onclick="$('div.store_list div.listing div.item').removeClass('open'); $('#list_item_{ITEM.id}').addClass('open');">
+					<h4 class="shop_title">{ITEM.title|htmlspecialchars}</h4>
+					<p class="shop_address">{ITEM.address|htmlspecialchars}</p>
+					<p class="shop_distance">{ITEM.distance}km</p>
+				</a>
+			</div>
+			<div class="item_detail">
+				<div class="shop_contact">
+					<ul>
+						<li class="call"><a href="tel:{ITEM.telephone|preg_replace('/ /', '', %s)|urlencode}"><span><i>&#x1F4DE;</i> {ITEM.telephone|htmlspecialchars}</span></a></li>
+						<li class="directions"><a href="https://www.google.com/maps/dir//{ITEM.address|urlencode}"><span><i>&#xE6D0;</i> get directions</span></a></li>
+					</ul>
+				</div>
+				<div class="shop_detail">
+					<div class="shop_opening_hours">
+						<p><span>{ITEM.opening_hours|nl2br}</span></p>
+					</div>
+					{ONXSHOP_REQUEST_taxonomy #component/ecommerce/store_taxonomy~store_id=GET.store_id~}
+				</div>
+			</div>
+		</div>
+		<!-- END: item -->
+	</div>
+	<!-- END: list -->
+	
+	<!-- BEGIN: empty_list -->
+		<p class="empty">No stores found.</p>
+	<!-- END: empty_list -->
+</div>
+<!-- END: content -->
