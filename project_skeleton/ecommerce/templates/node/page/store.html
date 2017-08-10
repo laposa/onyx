@@ -7,52 +7,57 @@
 <!-- END: open_graph -->
 <!-- END: head -->
 <!-- BEGIN: content -->
-<article class="two-column-page page store_locator {NODE.layout_style} {NODE.css_class} {NODE.taxonomy_class} {STORE.taxonomy_class}">
-	<div class="wrapper">
-		<div class="page-content">
-			<div class="page-content-wrapper">
-				<div class="row-top">
-					<div class="row-wrapper">
-						<div class="column-wrapper">
-							{CONTAINER.0}
-
-							{ONXSHOP_REQUEST_store_locator #component/ecommerce/store_locator~node_id=GET.id:store_type_id=GET.store_type_id~}
-						</div>
-					</div>
-				</div>
-				<div class="row-middle">
-					<div class="row-wrapper">
-						<div class="column-one">
-							<div class="column-wrapper">
-								{CONTAINER.1}
-							</div>
-						</div>
-						<div class="column-two">
-							<div class="column-wrapper">
-								{CONTAINER.2}
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row-bottom">
-					<div class="row-wrapper">
-						<div class="column-wrapper">
-							<div id="storeDetailWrapper">
-								{ONXSHOP_REQUEST_store_detail #component/ecommerce/store_detail~node_id=GET.id~}
-							</div>
-							<div id="storeProvinceFormWrapper">
-								{ONXSHOP_REQUEST_store_province_form #component/ecommerce/store_province_form~node_id=GET.id~}
-							</div>
-							<div id="storeNearbyWrapper">
-								{ONXSHOP_REQUEST_store_nearby #component/ecommerce/store_nearby_radius~node_id=GET.id~}
-							</div>
-							{CONTAINER.3}
-						</div>
-					</div>
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	$('div.store-filter form').on('submit', function(){
+		return submitFilterForm();
+	});
+	
+	$('div.store-filter-tags li a').on('click', function(){
+		$(this).toggleClass('selected');
+		return submitFilterForm();
+	});
+	
+	function submitFilterForm() {
+		
+		var keyword = $('div.store-filter form input').val();
+		var taxonomy_tree_ids = getListOfSelectedStoreTaxonomyIds();
+		$('#store-list-container').load('/request/component/ecommerce/store_list~store_id={GET.store_id}:keyword=' + keyword + ':taxonomy_tree_id=' + taxonomy_tree_ids + '~');
+		
+		return false;
+	}
+	
+	function getListOfSelectedStoreTaxonomyIds() {
+		
+		var list = [];
+		
+		$('div.store-filter-tags li a').each(function() {
+			if ($(this).hasClass('selected')) {
+				var taxonomy_tree_id = $(this).data('taxonomy-tree-id');
+				console.log('has selected ' + taxonomy_tree_id);
+				list.push(taxonomy_tree_id);
+			}
+		});
+		
+		return list.join(',');
+		
+	}
+});
+</script>
+    
+<div class="page store store-locator {NODE.css_class} {NODE.taxonomy_class} {STORE.taxonomy_class}">
+	<div class="content">
+		<div class="page-wrapper">
+			<div class="page-content">
+				<div class="page-content-wrapper">
+					{ONXSHOP_REQUEST_store_filter #component/ecommerce/store_filter}
+					{ONXSHOP_REQUEST_store_locator #component/ecommerce/store_locator~node_id=GET.id:store_type_id=GET.store_type_id~}<!--
+					--><div id="store-list-container">{ONXSHOP_REQUEST_store_list #component/ecommerce/store_list~store_id=GET.store_id~}</div>
 				</div>
 			</div>
 		</div>
 	</div>
-</article>
+</div>
 
 <!-- END: content -->

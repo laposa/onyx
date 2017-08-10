@@ -3,21 +3,21 @@
 function toggleStoreFilterButton() {
 	
 	
-	$('div.store_filter_tags').toggle(0, function() {
+	$('div.store-filter-tags').toggle(0, function() {
 		if ($(this).is(":visible")) $('div.control a').html('Close Filters <span>&#x2A2F;</span>');
 		else $('div.control a').html('Open Filters <span>&#x2304;</span>');
 	});
 	
 }
 </script>
-<div class="store_filter">
-	<div class="store_filter_form">
+<div class="store-filter">
+	<div class="store-filter-form">
 		<form><input name="keyword" value="{KEYWORD|htmlspecialchars}" placeholder="search stores" /><button class="search" type="submit" name="submit" value="search">&#x1F50E;<span>Search</span></button></form>
 	</div>
 	<div class="control">
 		<a href="#" onclick="toggleStoreFilterButton()">Open Filters <span>&#x2304;</span></a>
 	</div>
-	<div class="store_filter_tags">
+	<div class="store-filter-tags">
 		<h3>Filter By:</h3><!--
 		--><ul>
 			<!-- BEGIN: item -->
