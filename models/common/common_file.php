@@ -667,6 +667,10 @@ CREATE TABLE common_file (
 	 
 	function getRelations($file) {
 
+		/**
+		 * standard tables
+		 */
+		 
 		require_once('models/common/common_file.php');
 		$CommonFile = new common_file();
 		$file_list['file'] = $CommonFile->getFileLink($file);
@@ -675,34 +679,54 @@ CREATE TABLE common_file (
 		$CommonImage = new common_image();
 		$file_list['node'] = $CommonImage->getFileLink($file);
 		
-		require_once('models/ecommerce/ecommerce_product_image.php');
-		$ProductImage = new ecommerce_product_image();
-		$file_list['product'] = $ProductImage->getFileLink($file);
-		
-		require_once('models/ecommerce/ecommerce_product_variety_image.php');
-		$ProductVarietyImage = new ecommerce_product_variety_image();
-		$file_list['product_variety'] = $ProductVarietyImage->getFileLink($file);
-		
 		require_once('models/common/common_taxonomy_label_image.php');
 		$TaxonomyImage = new common_taxonomy_label_image();
 		$file_list['taxonomy'] = $TaxonomyImage->getFileLink($file);
-
-		require_once('models/ecommerce/ecommerce_recipe_image.php');
-		$RecipeImage = new ecommerce_recipe_image();
-		$file_list['recipe'] = $RecipeImage->getFileLink($file);
-
-		require_once('models/ecommerce/ecommerce_store_image.php');
-		$StoreImage = new ecommerce_store_image();
-		$file_list['store'] = $StoreImage->getFileLink($file);
+		
 		
 		require_once('models/education/education_survey_image.php');
 		$SurveyImage = new education_survey_image();
 		$file_list['survey'] = $SurveyImage->getFileLink($file);
+		
+		/**
+		 * ecommerce tables
+		 */
+		 
+		if (ONXSHOP_ECOMMERCE) {
+			
+			require_once('models/ecommerce/ecommerce_product_image.php');
+			$ProductImage = new ecommerce_product_image();
+			$file_list['product'] = $ProductImage->getFileLink($file);
+		
+			require_once('models/ecommerce/ecommerce_product_variety_image.php');
+			$ProductVarietyImage = new ecommerce_product_variety_image();
+			$file_list['product_variety'] = $ProductVarietyImage->getFileLink($file);
+			
+			require_once('models/ecommerce/ecommerce_recipe_image.php');
+			$RecipeImage = new ecommerce_recipe_image();
+			$file_list['recipe'] = $RecipeImage->getFileLink($file);
+			
+			require_once('models/ecommerce/ecommerce_store_image.php');
+			$StoreImage = new ecommerce_store_image();
+			$file_list['store'] = $StoreImage->getFileLink($file);
+		
+		} else {
+			
+			$file_list['product'] = [];
+			$file_list['product_variety'] = [];
+			$file_list['recipe'] = [];
+			$file_list['store'] = [];
+			
+		}
 
+		/**
+		 * summary
+		 */
+		 
 		$file_list['count'] = count($file_list['file']) + count($file_list['node']) + 
+			count($file_list['store']) + count($file_list['survey']) +
 			count($file_list['product']) + count($file_list['product_variety']) + 
-			count($file_list['taxonomy']) + count($file_list['recipe']) +
-			count($file_list['store']) + count($file_list['survey']);
+			count($file_list['taxonomy']) + count($file_list['recipe']);
 
 		return $file_list;
 	}
