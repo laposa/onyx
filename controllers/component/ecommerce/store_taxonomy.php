@@ -6,7 +6,7 @@
 
 require_once('models/ecommerce/ecommerce_store.php');
 require_once('models/ecommerce/ecommerce_store_taxonomy.php');
-require_once('models/common/common_taxonomy_tree.php');
+require_once('models/common/common_taxonomy.php');
 
 class Onxshop_Controller_Component_Ecommerce_Store_Taxonomy extends Onxshop_Controller {
 
