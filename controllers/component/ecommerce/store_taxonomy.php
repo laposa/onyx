@@ -17,17 +17,17 @@ class Onxshop_Controller_Component_Ecommerce_Store_Taxonomy extends Onxshop_Cont
 	{
 		// initiate
 		$Store = new ecommerce_store();
-		$Taxonomy_Tree = new common_taxonomy_tree();
+		$Taxonomy = new common_taxonomy();
 
 		// input
 		$store_id = $this->GET['store_id'];
 		if (!is_numeric($store_id)) return false;
 
 		// get list
-		$taxonomy = $Taxonomy_Tree->getRelatedTaxonomy($store_id, "ecommerce_store_taxonomy");
+		$taxonomy_list = $Taxonomy->getRelatedTaxonomy($store_id, "ecommerce_store_taxonomy");
 
-		if (count($taxonomy) > 0) {
-			foreach ($taxonomy as $category) {
+		if (count($taxonomy_list) > 0) {
+			foreach ($taxonomy_list as $category) {
 				if ($category['publish'] == 1 && $category['parent'] == ONXSHOP_STORE_FACILITY_TAXONOMY_ID) {
 					$this->tpl->assign("CATEGORY", $category);
 					$this->tpl->parse("content.category");

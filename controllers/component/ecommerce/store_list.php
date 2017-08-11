@@ -42,11 +42,27 @@ class Onxshop_Controller_Component_Ecommerce_Store_List extends Onxshop_Controll
 		// distance
 		foreach ($store_list as $k=>$item) {
 			
-			$distance = $Store->distance($active_store_detail['latitude'], $active_store_detail['longitude'], $item['latitude'], $item['longitude']);
+			// distance_from_selected_store
+			$distance_from_selected_store = $Store->distance($active_store_detail['latitude'], $active_store_detail['longitude'], $item['latitude'], $item['longitude']);
 			
-			if ($distance > 1) $store_list[$k]['distance'] = round($distance);
-			else $store_list[$k]['distance'] = round($distance, 1);
+			if ($distance_from_selected_store > 1) $distance_from_selected_store = round($distance_from_selected_store);
+			else $distance_from_selected_store = round($distance_from_selected_store, 1);
 			
+			// distance_from_client_geoposition
+			if ($client_geoposition) {
+				$distance_from_client_geoposition = $Store->distance($client_geoposition['latitude'], $client_geoposition['longitude'], $item['latitude'], $item['longitude']);
+				if ($distance_from_client_geoposition > 1) $distance_from_client_geoposition = round($distance_from_client_geoposition);
+				else $distance_from_client_geoposition = round($distance_from_client_geoposition, 1);
+			}
+			
+			$store_list[$k]['distance_from_selected_store'] = $distance_from_selected_store;
+			$store_list[$k]['distance_from_client_geoposition'] = $distance_from_client_geoposition;
+		
+			if  ($distance_from_client_geoposition > 0) $distance = $distance_from_client_geoposition;
+			else $distance = $distance_from_selected_store;
+			
+			$store_list[$k]['distance'] = $distance;
+				
 		}
 		
 		// sort by distance
@@ -84,7 +100,10 @@ class Onxshop_Controller_Component_Ecommerce_Store_List extends Onxshop_Controll
 		
 	}
 	
-	
+	/**
+	 * compare distance 
+	 */
+	 
 	static function cmp($a, $b)
 	{
 	    if ($a['distance'] == $b['distance']) {

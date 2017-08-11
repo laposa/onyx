@@ -2,7 +2,7 @@
 /**
  * class common_taxonomy_tree
  *
- * Copyright (c) 2009-2011 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -251,7 +251,7 @@ CREATE TABLE common_taxonomy_tree (
 			'ecommerce_store_taxonomy', 'client_customer_taxonomy'))) return false;
 		
 		$sql = "
-			SELECT tree.id, tree.parent, tree.priority, tree.publish, label.title, label.description  FROM $relation t
+			SELECT tree.id, tree.parent, tree.priority, label.publish, label.title, label.description  FROM $relation t
 LEFT OUTER JOIN common_taxonomy_tree tree ON (t.taxonomy_tree_id = tree.id)
 LEFT OUTER JOIN common_taxonomy_label label ON (tree.label_id = label.id)
 WHERE node_id = $node_id ORDER BY tree.priority DESC, tree.id ASC
