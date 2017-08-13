@@ -18,7 +18,8 @@ class Onxshop_Controller_Component_Ecommerce_Store_List extends Onxshop_Controll
 		
 		$keyword = $this->GET['keyword'];
 		$type_id = 1;
-
+		
+		if (is_array($this->GET['client_geoposition'])) $client_geoposition = $this->GET['client_geoposition'];
 		if (is_numeric($this->GET['store_id']))	$active_store_id = $this->GET['store_id'];
 		
 		// get the list
@@ -37,19 +38,20 @@ class Onxshop_Controller_Component_Ecommerce_Store_List extends Onxshop_Controll
 		// active store details to calculate distance
 		if ($active_store_id) {
 			$active_store_detail = $Store->detail($active_store_id);
+			$this->tpl->assign('ACTIVE_STORE', $active_store_detail);
 		}
 
 		// distance
 		foreach ($store_list as $k=>$item) {
-			
 			// distance_from_selected_store
-			$distance_from_selected_store = $Store->distance($active_store_detail['latitude'], $active_store_detail['longitude'], $item['latitude'], $item['longitude']);
-			
-			if ($distance_from_selected_store > 1) $distance_from_selected_store = round($distance_from_selected_store);
-			else $distance_from_selected_store = round($distance_from_selected_store, 1);
+			if ($active_store_detail) {
+				$distance_from_selected_store = $Store->distance($active_store_detail['latitude'], $active_store_detail['longitude'], $item['latitude'], $item['longitude']);
+				if ($distance_from_selected_store > 1) $distance_from_selected_store = round($distance_from_selected_store);
+				else $distance_from_selected_store = round($distance_from_selected_store, 1);
+			}
 			
 			// distance_from_client_geoposition
-			if ($client_geoposition) {
+			if (is_array($client_geoposition) && $client_geoposition['latitude'] && $client_geoposition['longitude']) {
 				$distance_from_client_geoposition = $Store->distance($client_geoposition['latitude'], $client_geoposition['longitude'], $item['latitude'], $item['longitude']);
 				if ($distance_from_client_geoposition > 1) $distance_from_client_geoposition = round($distance_from_client_geoposition);
 				else $distance_from_client_geoposition = round($distance_from_client_geoposition, 1);
@@ -57,7 +59,7 @@ class Onxshop_Controller_Component_Ecommerce_Store_List extends Onxshop_Controll
 			
 			$store_list[$k]['distance_from_selected_store'] = $distance_from_selected_store;
 			$store_list[$k]['distance_from_client_geoposition'] = $distance_from_client_geoposition;
-		
+			
 			if  ($distance_from_client_geoposition > 0) $distance = $distance_from_client_geoposition;
 			else $distance = $distance_from_selected_store;
 			
@@ -90,6 +92,10 @@ class Onxshop_Controller_Component_Ecommerce_Store_List extends Onxshop_Controll
 			$Onxshop_Request = new Onxshop_Request("component/ecommerce/store_taxonomy~store_id={$item['id']}~");
 			$this->tpl->assign('STORE_TAXONOMY_LIST', $Onxshop_Request->getContent());
 			
+			if (is_numeric($item['distance'])) {
+				if ($item['distance_from_client_geoposition'] == 0) $this->tpl->parse('content.list.item.distance.from_store');
+				$this->tpl->parse('content.list.item.distance');
+			}
 			// parse item
 			$this->tpl->parse('content.list.item');
 		}
