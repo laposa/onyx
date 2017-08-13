@@ -535,30 +535,25 @@ CREATE INDEX ecommerce_store_type_id_idx ON ecommerce_store (type_id);
 	 * Get distance between two points on sphere (in km)
 	 * http://en.wikipedia.org/wiki/Haversine_formula
 	 * 
-	 * @param  float $lat1 First point latitude
-	 * @param  float $lng1 First point longitude
-	 * @param  float $lat2 Second point latitude
-	 * @param  float $lng2 Second point longitude
+	 * @param  float $latitude1 First point latitude
+	 * @param  float $longitude1 First point longitude
+	 * @param  float $latitude2 Second point latitude
+	 * @param  float $longitude2 Second point longitude
 	 * @return float
 	 */
-	public static function distance($lat1, $lng1, $lat2, $lng2)
-	{
-		$earth_radius = 6371;
-
-		$sin_lat = sin(deg2rad($lat2  - $lat1) / 2.0);
-		$sin2_lat = $sin_lat * $sin_lat;
-
-		$sin_lng = sin(deg2rad($lng2 - $lng1) / 2.0);
-		$sin2_lng = $sin_lng * $sin_lng;
-
-		$cos_lat1 = cos($lat1);
-		$cos_lat2 = cos($lat2);
-
-		$sqrt = sqrt($sin2_lat + ($cos_lat1 * $cos_lat2 * $sin2_lng));
-
-		$distance = 2.0 * $earth_radius * asin($sqrt);
-
-		return $distance;
+	function distance($latitude1, $longitude1, $latitude2, $longitude2) {
+    	
+	    $earth_radius = 6371;
+	 
+	    $dLat = deg2rad($latitude2 - $latitude1);
+	    $dLon = deg2rad($longitude2 - $longitude1);
+	 
+	    $a = sin($dLat/2) * sin($dLat/2) + cos(deg2rad($latitude1)) * cos(deg2rad($latitude2)) * sin($dLon/2) * sin($dLon/2);
+	    $c = 2 * asin(sqrt($a));
+	    $d = $earth_radius * $c;
+	 
+	    return $d;
+    
 	}
 	
 	/**
