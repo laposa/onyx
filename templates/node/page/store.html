@@ -7,51 +7,72 @@
 <!-- END: open_graph -->
 <!-- END: head -->
 <!-- BEGIN: content -->
-<div class="twoColumnPage page store_locator {NODE.layout_style} {NODE.css_class} {NODE.taxonomy_class} {STORE.taxonomy_class}">
-	<div class="top"><span></span></div>
+<script type="text/javascript">
+$(document).ready(function(){
+	
+	$('div.store_filter form').on('submit', function(){
+		return submitFilterForm();
+	});
+	
+	$('div.store_filter_tags li a').on('click', function(){
+		$(this).toggleClass('selected');
+		return submitFilterForm();
+	});
+});
+
+function submitFilterForm() {
+	
+	var keyword = $('div.store_filter form input').val();
+	var taxonomy_tree_ids = getListOfSelectedStoreTaxonomyIds();
+	var latitude = localStorage.getItem('client-latitude');
+	var longitude = localStorage.getItem('client-longitude');
+	$('#store_list_container').load('/request/component/ecommerce/store_list~store_id={GET.store_id}:keyword=' + keyword + ':taxonomy_tree_id=' + taxonomy_tree_ids + ':client_geoposition[latitude]=' + latitude + ':client_geoposition[longitude]=' + longitude +'~');
+	
+	return false;
+}
+
+function getListOfSelectedStoreTaxonomyIds() {
+	
+	var list = [];
+	
+	$('div.store_filter_tags li a').each(function() {
+		if ($(this).hasClass('selected')) {
+			var taxonomy_tree_id = $(this).data('taxonomy-tree-id');
+			console.log('has selected ' + taxonomy_tree_id);
+			list.push(taxonomy_tree_id);
+		}
+	});
+	
+	return list.join(',');
+	
+}
+
+/* used in separate store_list component */
+function displayStoreByOnxshopId(onxshop_store_id) {
+	for (var i in map.markers) {
+		if(map.markers[i].store_id == onxshop_store_id) {
+			displayStore(map.markers[i], false);
+			return true;
+		}
+	}
+    return true;
+}
+
+function expandStoreByOnxshopId(onxshop_store_id) {
+    $('div.store_list div.listing div.item').removeClass('open');
+    $('#list_item_' + onxshop_store_id).addClass('open');
+}
+    
+</script>
+    
+<div class="page store {NODE.css_class} {NODE.taxonomy_class} {STORE.taxonomy_class}">
 	<div class="content">
 		<div class="pageWrapper">
 			<div class="pageContent">
 				<div class="pageContentWrapper">
-					<div class="rowTop">
-						<div class="rowWrapper">
-							<div class="columnWrapper">
-								{CONTAINER.0}
-	
-								{ONXSHOP_REQUEST_store_locator #component/ecommerce/store_locator~node_id=GET.id:store_type_id=GET.store_type_id~}
-							</div>
-						</div>
-					</div>
-					<div class="rowMiddle">
-						<div class="rowWrapper">
-							<div class="columnOne">
-								<div class="columnWrapper">
-									{CONTAINER.1}
-								</div>
-							</div>
-							<div class="columnTwo">
-								<div class="columnWrapper">
-									{CONTAINER.2}
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="rowBottom">
-						<div class="rowWrapper">
-							<div class="columnWrapper">
-								<div id="storeDetailWrapper">
-									{ONXSHOP_REQUEST_store_detail #component/ecommerce/store_detail~node_id=GET.id~}
-								</div>
-								<div id="storeProvinceFormWrapper">
-									{ONXSHOP_REQUEST_store_province_form #component/ecommerce/store_province_form~node_id=GET.id~}
-								</div>
-								<div id="storeNearbyWrapper">
-									{ONXSHOP_REQUEST_store_nearby #component/ecommerce/store_nearby_radius~node_id=GET.id~}
-								</div>
-								{CONTAINER.3}
-							</div>
-						</div>
-					</div>
+					{ONXSHOP_REQUEST_store_filter #component/ecommerce/store_filter}
+					{ONXSHOP_REQUEST_store_locator #component/ecommerce/store_locator~node_id=GET.id:store_type_id=GET.store_type_id~}<!--
+					--><div id="store_list_container">{ONXSHOP_REQUEST_store_list #component/ecommerce/store_list~store_id=GET.store_id~}</div>
 				</div>
 			</div>
 		</div>

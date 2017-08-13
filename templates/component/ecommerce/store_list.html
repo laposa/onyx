@@ -9,10 +9,12 @@
 		<!-- BEGIN: item -->
 		<div class="item {OPEN} {ITEM.taxonomy_class}" id="list_item_{ITEM.id}">
 			<div class="shop_info">
-				<a href="#list_item_{ITEM.id}" onclick="$('div.store_list div.listing div.item').removeClass('open'); $('#list_item_{ITEM.id}').addClass('open'); displayStoreByOnxshopId({ITEM.id}); return false;">
+				<a href="#list_item_{ITEM.id}" onclick="expandStoreByOnxshopId({ITEM.id}); displayStoreByOnxshopId({ITEM.id}); return false;">
 					<h4 class="shop_title">{ITEM.title|htmlspecialchars}</h4>
 					<p class="shop_address">{ITEM.address|htmlspecialchars}</p>
-					<!--<p class="shop_distance">{ITEM.distance}km</p>-->
+					<!-- BEGIN: distance -->
+						<p class="shop_distance">{ITEM.distance}km<!-- BEGIN: from_store --> from {ACTIVE_STORE.title|htmlspecialchars}<!-- END: from_store --></p>
+					<!-- END: distance -->
 				</a>
 			</div>
 			<div class="item_detail">

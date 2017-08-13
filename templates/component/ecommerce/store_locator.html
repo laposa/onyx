@@ -1,12 +1,11 @@
 <!-- BEGIN: content -->
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
-<div class="store_locator store_map" id="map">
-<!-- BEGIN: map -->
-<div class="store_map">
-<script src="//maps.googleapis.com/maps/api/js?v=3.exp&amp;sensor=false&amp;key={ONXSHOP_GOOGLE_API_KEY}"></script>
-<script src="/share/js/infobox.js"></script>
-<div id="mapCanvas"></div>
-<div class="mapCanvasBottom"></div>
+<div class="store_locator">
+	<!-- BEGIN: map -->
+	<div class="store_map">
+		<script src="//maps.googleapis.com/maps/api/js?v=3.exp&amp;key={ONXSHOP_GOOGLE_API_KEY}"></script>
+		<script src="/share/js/infobox.js"></script>
+		<div id="mapCanvas"></div>
 
 <script type="text/javascript">
 
@@ -17,15 +16,15 @@
 		if (savedPosition) {
 			url += "&saddr=" + savedPosition.coords.latitude + "," + savedPosition.coords.longitude;
 		}
-		window.open(url);
+		window.location.href = url;
 	}
 
 	$(function() {
 
-		if ('{GET.node_id}' == '1345' && window.navigator && window.navigator.geolocation) {
+		if (window.navigator && window.navigator.geolocation) {
 			var timeoutVal = 10 * 1000 * 1000;
 			window.navigator.geolocation.getCurrentPosition(
-				findNearestStore, 
+				processCurrentLocation, 
 				errorCallback,
 				{ enableHighAccuracy: true, timeout: timeoutVal, maximumAge: 0 }
 				);	
@@ -57,11 +56,11 @@
 
 		<!-- BEGIN: store_marker -->var marker = addMarker({STORE.latitude}, {STORE.longitude}, 
 			'{STORE.title|addslashes}', '{STORE.image|addslashes}', {STORE.address|nl2br|json_encode},
-			{STORE.opening_hours|nl2br|json_encode}, '{STORE.telephone|addslashes}', {STORE.node_id|addslashes},
+			{STORE.opening_hours|nl2br|json_encode}, '{STORE.telephone|addslashes}', {STORE.node_id|addslashes}, {STORE.id|addslashes},
 			'{STORE.url|addslashes}', {STORE.icon|addslashes}, {STORE.open|addslashes});
 		<!-- END: store_marker -->
 
-		function addMarker(latitude, longitude, name, image, address, opening_hours, telephone, node_id, url, icon, open) {
+		function addMarker(latitude, longitude, name, image, address, opening_hours, telephone, node_id, store_id, url, icon, open) {
 
 			var myLatlng = new google.maps.LatLng(latitude, longitude);
 
@@ -71,6 +70,7 @@
 				icon: icon ? '/images/locator-pin.png' : '/images/locator-pin_active.png',
 				image: image,
 				node_id: node_id,
+				store_id: store_id,
 				address: address,
 				opening_hours: opening_hours,
 				telephone: telephone,
@@ -78,26 +78,32 @@
 				map: map
 			});
 
-			if (open) showInfoBox(marker);
+			if (open) displayStore(marker);
 
 			map.markers.push(marker);
 
 			google.maps.event.addListener(marker, 'click', function() {
-				displayStore(marker);
+				displayStore(marker, false);
+				expandStoreByOnxshopId(marker.store_id);
+				document.location.hash = '#list_item_' + marker.store_id;
 			});
 		}
 
 	});
 
-	function displayStore(marker) {
-		$("#storeDetailWrapper").load('/request/component/ecommerce/store_detail~node_id=' + marker.node_id + '~', function() {
-			showInfoBox(marker);
-		});
-		$("#storeNearbyWrapper").load('/request/component/ecommerce/store_nearby_radius~node_id=' + marker.node_id + '~');
-		$("#storeProvinceFormWrapper").load('/request/component/ecommerce/store_province_form~store_node_id=' + marker.node_id + '~');
+	function displayStore(marker, reload_store_list = true) {
+		
+		showInfoBox(marker);
+		
+		if (reload_store_list) {
+			var latitude = localStorage.getItem('client-latitude');
+			var longitude = localStorage.getItem('client-longitude');
+			$('#store_list_container').load('/request/component/ecommerce/store_list~store_id=' + marker.store_id + ':client_geoposition[latitude]=' + latitude + ':client_geoposition[longitude]=' + longitude +'~');
+		}
+		
 		if (history.pushState) history.pushState({ marker: marker.url }, marker.title, marker.url);
 	}
-
+    
 	function showInfoBox(marker) {
 		if (infoWindow) infoWindow.close();
 		
@@ -114,32 +120,60 @@
 			var notice_link = '';
 		}
 		
+		// get distance
+		if (localStorage.getItem('client-latitude') && localStorage.getItem('client-longitude')) {
+		    var d = distanceBetweenPoints(
+				marker.position.lat(), 
+				marker.position.lng(),
+				localStorage.getItem('client-latitude'), 
+				localStorage.getItem('client-longitude')
+			);
+			
+			d = Math.round(d);
+			
+        } else {
+            var d = false;
+        }
+
+		if (d) var distance_line = '<p class="distance">Distance ' + d + 'km</p>';
+		else distance_line = '';
+		
 		infoWindow = new InfoBox({
 			content: "<h3>" + marker.title + "</h3>" +
-				'<p class="image"><img src="' + marker.image + '"/></p>' +
 				'<p class="address">' + marker.address + '</p>' +
-				'<p class="opening_hours">' + marker.opening_hours + '</p>' +
-				'<p class="telephone">' + marker.telephone + '</p>' +
-				'<p class="directions"><a href="#" onclick="getDirections(' + marker.position.lat() + ', ' + marker.position.lng() + '); return false">Directions</a></p>' + notice_link,
+				distance_line +
+				'<p class="image"><img src="/images/store-locator/locator-map-store.png"/></p>' +
+				'<p class="directions"><a href="#" onclick="getDirections(' + marker.position.lat() + ', ' + marker.position.lng() + '); return false">Get Directions</a></p>' + notice_link,
 			boxStyle: {
-				background: "url('/images/map-infobox1.png')",
-				width: "360px",
-				height: "240px"
+				background: "url('/images/store-locator/map-infoboxnew.png')",
+				width: "280px",
+				height: "171px"
 			},
-			closeBoxMargin: "13px 33px 2px 2px",
+			closeBoxMargin: "13px 23px 2px 2px",
 			closeBoxURL: "/images/map-infobox-close_button.png",
-			pixelOffset: new google.maps.Size(-170, -265),
+			pixelOffset: new google.maps.Size(-20, -200),
 			infoBoxClearance: new google.maps.Size(0, 50)
 		});
 		infoWindow.open(map, marker);
 	}
 
+	function processCurrentLocation(position) {
+		saveGeopositionToOnxshop(position);
+		findNearestStore(position);
+	}
+	
+	function saveGeopositionToOnxshop(position) {
+		console.log(position);
+		savedPosition = position;
+		localStorage.setItem('client-latitude', position.coords.latitude);
+		localStorage.setItem('client-longitude', position.coords.longitude);
+	}
+	
 	function findNearestStore(position) {
 
 		var minDistance = -1;
 		var closest = -1;
-		savedPosition = position;
-
+		
 		for (i = 0; i < map.markers.length; i++) {
 			var marker = map.markers[i];
 			var d = distanceBetweenPoints(
@@ -156,7 +190,7 @@
 		}
 
 		//map.markers[closest].setIcon('/images/locator-pin_active.png');
-		displayStore(map.markers[closest]);
+		if ('{GET.node_id}' == '1345') displayStore(map.markers[closest]);
 	}
 
 	function errorCallback(error) {
@@ -203,7 +237,8 @@
 	}
 
 </script>
-</div>
-<!-- END: map -->
+
+	</div>
+	<!-- END: map -->
 </div>
 <!-- END: content -->
