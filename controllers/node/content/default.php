@@ -48,6 +48,13 @@ class Onxshop_Controller_Node_Content_Default extends Onxshop_Controller_Node_De
 		$this->tpl->assign("NODE", $this->node_data);
 		
 		/**
+		 * load related images
+		 */
+		 
+		$images = $this->Node->getImageForNodeId($node_id);
+		$this->tpl->assign("IMAGE", $images);
+		
+		/**
 		 * display title
 		 */
 		 
