@@ -45,11 +45,11 @@ $(document).ready(function(){
 	</div>
 
 	<div class="row">
-		<label for="component-captcha">Anti-spam protection (CAPTCHA):</label>
+		<label for="component-captcha">Anti-spam protection:</label>
 		<select id="component-captcha" name="node[component][spam_protection]">
-			<option value="none">None</option>
-			<option value="captcha_image" {SPAM_PROTECTION.captcha_image}>Captcha image</option>
 			<option value="captcha_text_js" {SPAM_PROTECTION.captcha_text_js}>Invisible field</option>
+			<option value="captcha_image" {SPAM_PROTECTION.captcha_image}>Captcha image</option>
+			<option value="none">None</option>
 		</select>
 	</div>
 
