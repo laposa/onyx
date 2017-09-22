@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2013-2014 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2013-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -48,13 +48,16 @@ class Onxshop_Controller_Bo_Node_Content_Special_Offer_List extends Onxshop_Cont
 		foreach ($templates_global as &$template) $template = str_replace(".html", '', str_replace("product_list_", '', basename($template)));
 
 		$templates = array_unique(array_merge($templates_global, $templates_local));
-
-		foreach ($templates as $template) {
-			if (!preg_match('/sorting/', $template)) {
+        
+        sort($templates);
+        
+		foreach ($templates as $item) {
+    		
+			if (!preg_match('/sorting|filter/', $item)) {
 				$this->tpl->assign('ITEM', array(
-					'id' => $template,
-					'title' => $template,
-					'selected' => ($selected == $template ? 'selected="selected"' : '')
+					'id' => $item,
+					'title' => $item,
+					'selected' => ($selected == $item ? 'selected="selected"' : '')
 				));
 				$this->tpl->parse('content.template_item');
 			}
