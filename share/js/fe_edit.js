@@ -82,7 +82,7 @@ $('a.onxshop-new-content').live('click', function() {
 			success: function(responseText, statusText) {
 				popupMessage("#node-add-form-"+node_id+"-"+container_id+"-wrapper div.onxshop-messages");
 				var refresh_url = '/request/node~id='+node_id+'~';
-				$('#node-id-'+node_id).load(refresh_url, '', function () {
+				$('#node-id-'+node_id).parent().load(refresh_url, '', function () {
 					refreshAddContent('#node-id-'+node_id+' div.onxshop-layout-container');
 				});
 			}

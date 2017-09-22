@@ -63,7 +63,7 @@ span.mceEditorContainer select {width: auto;}
 
 .droppable-hover {opacity: 0.8; /* outline: 5px dotted black; */}
 .droppable-hover:hover {opacity: 1.0;}
-.ui-sortable .ui-widget-content {border: 1px dotted red; width: auto; height: 150px; overflow: hidden;}
+.ui-sortable .ui-widget-content {border: 1px dotted red; width: auto; min-height: 150px; overflow: hidden;}
 .ui-sortable div.ui-widget-content.node_group-layout {height: auto;}
 
 /*dialog*/
