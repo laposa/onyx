@@ -101,8 +101,7 @@ class Onxshop_Db {
 	 */
 	 
 	public function set($attribute, $value) {
-	
-		msg("{$this->_class_name}: Calling set($attribute, $value)", 'ok', 4);
+		// msg("{$this->_class_name}: Calling set($attribute, $value)", 'ok', 4);
 		$validation_type = $this->_metaData[$attribute]['validation'];
 		
 		if ($this->_metaData[$attribute]['required'] == true || $value != '') {
