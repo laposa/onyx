@@ -530,7 +530,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
 		$node_data['modified'] = date('c');
 		
 		if (is_array($node_data['other_data'])) $node_data['other_data'] = serialize($node_data['other_data']);
-		if (is_array($node_data['custom_fields'])) $node_data['custom_fields'] = json_encode($node_data['custom_fields']);
+		if (is_object($node_data['custom_fields'])) $node_data['custom_fields'] = json_encode($node_data['custom_fields']);
 		if (is_array($node_data['component'])) $node_data['component'] = serialize($node_data['component']);
 		if (is_array($node_data['relations'])) $node_data['relations'] = serialize($node_data['relations']);
 		
