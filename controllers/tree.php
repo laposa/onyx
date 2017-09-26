@@ -41,7 +41,7 @@ abstract class Onxshop_Controller_Tree extends Onxshop_Controller {
      * build tree from a 2D array
      */
      
-    function buildTree($nodes, $id = null, $level = 1) {
+    function buildTree($nodes, $id = 0, $level = 1) {
 
         //this function is called again and again
         
@@ -79,6 +79,10 @@ abstract class Onxshop_Controller_Tree extends Onxshop_Controller {
 	 
 	public function getTree($publish = 1, $filter, $parent, $depth, $expand_all)
 	{
+    	/**
+         * try optimised
+         */
+         
 		if (!$parent && $depth == -1 && $expand_all) {
 			// we can hugely optimise this special case 
 			$flat_tree = $this->Node->getTree($publish, $filter);
@@ -86,6 +90,10 @@ abstract class Onxshop_Controller_Tree extends Onxshop_Controller {
 			return $this->buildTree($flat_tree);;
 		}
 
+        /**
+         * heavy, but reliable
+         */
+         
 		$tree = $this->Node->getNodesByParent($publish, $filter, $parent);
 
 		if (is_array($tree) && count($tree) > 0 && $depth != 0) {

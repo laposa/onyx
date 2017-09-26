@@ -70,7 +70,10 @@ ini_set( 'session.cookie_httponly', 1 );
  * Authentication type for backend users
  */
 
-if (!defined('ONXSHOP_AUTH_TYPE')) define('ONXSHOP_AUTH_TYPE', 'postgresql');
+if (!defined('ONXSHOP_AUTH_TYPE')) {
+    if (ONXSHOP_DB_TYPE == 'mysql') define('ONXSHOP_AUTH_TYPE', 'mysql');
+    else define('ONXSHOP_AUTH_TYPE', 'postgresql');
+}
 if (!defined('ONXSHOP_AUTH_SERVER')) define('ONXSHOP_AUTH_SERVER', ONXSHOP_DB_HOST);
 
 /**

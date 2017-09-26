@@ -64,6 +64,11 @@ class Onxshop_Bo_Authentication
 
 				$this->superuserAuthAdapter = new PSQLAuthAdapter();
 				break;
+            
+            case 'mysql':
+
+				$this->superuserAuthAdapter = new MYSQLAuthAdapter();
+				break;
 
 			default:
 
@@ -395,6 +400,35 @@ class PSQLAuthAdapter implements AuthAdapter
 
 }
 
+
+/**
+ * MySQL Authenication Adapter
+ */
+class MYSQLAuthAdapter implements AuthAdapter
+{
+
+	public function authenticate($username, $password)
+	{
+
+        @$dbconn = mysql_connect(ONXSHOP_AUTH_SERVER . ':' . ONXSHOP_DB_PORT, $username, $password);
+
+		if ($dbconn) {
+
+			mysql_close($dbconn);
+
+			return array(
+				'id' => 0,
+				'username' => $username,
+				'email' => $username . '@' . ONXSHOP_AUTH_SERVER
+			);
+
+		}
+
+		return false;
+
+	}
+
+}
 
 
 /**
