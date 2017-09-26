@@ -22,7 +22,7 @@
 							<div class="layout-column-wrapper">
 
 								<fieldset>
-									<div class="row title-before">
+									<div class="row title-before advanced">
 										<span class="label"><label for="client-customer-title-before">{I18N_R_TITLE}</label></span>
 										<span class="field"><input class="text short" type="text" id="client-customer-title-before" name="client[customer][title_before]" value="{CLIENT.customer.title_before|htmlspecialchars}" title="Your title, ie Ms, Mr, Miss, Dr" /></span>
 									</div>
@@ -67,77 +67,8 @@
 									<!-- END: status -->
 
 								</fieldset>
-
-								<fieldset>
-
-									<!-- BEGIN: role -->
-										<div class="row role">
-											<span class="label"><label>Back Office Access Role</label></span>
-											<span class="field">
-												<!-- BEGIN: item -->
-												<input type="checkbox" id="role-ids-{ITEM.id}" name="role_ids[]" value="{ITEM.id}" {CHECKED}/>
-												<label for="role-ids-{ITEM.id}">{ITEM.name|htmlspecialchars}</label>
-												<br/>
-												<!-- END: item -->
-											</span>
-										</div>
-									<!-- END: role -->
-									
-								</fieldset>
-
-								<fieldset>
-									<div class="row facebook-id">
-										<span class="label"><label for="client-customer-facebook-id">Facebook Id</label></span>
-										<span class="field"><input class="text" type="text" id="client-customer-facebook-id" name="client[customer][facebook_id]" value="{CLIENT.customer.facebook_id}" /></span>
-									</div>
-									<div class="row twitter-id">
-										<span class="label"><label for="client-customer-twitter-id">Twitter Id</label></span>
-										<span class="field"><input class="text" type="text" id="client-customer-twitter-id" name="client[customer][twitter_id]" value="{CLIENT.customer.twitter_id}" /></span>
-									</div>
-									<div class="row google-id">
-										<span class="label"><label for="client-customer-google-id">Google Id</label></span>
-										<span class="field"><input class="text" type="text" id="client-customer-google-id" name="client[customer][google_id]" value="{CLIENT.customer.google_id}" /></span>
-									</div>
-									<div class="row profile-image-url">
-										<span class="label"><label for="client-customer-profile-image-url">Profile Image URL</label></span>
-										<span class="field"><input class="text" type="text" id="client-customer-profile-image-url" name="client[customer][profile_image_url]" value="{CLIENT.customer.profile_image_url}" /></span>
-									</div>
-									<div class="row birthday">
-										<span class="label"><label for="client-customer-birthday">Birthday</label></span>
-										<span class="field"><input class="text" type="text" id="client-customer-birthday" name="client[customer][birthday]" value="{CLIENT.customer.birthday}" /></span>
-									</div>
-
-								</fieldset>
-								
-								<fieldset>
-									{ONXSHOP_REQUEST_rt #bo/component/relation_taxonomy~relation=customer:id=GET.id~}
-								</fieldset>
-
-							</div>
-						</div>
-						<div class="layout-column-two of-two with-padding">
-							<div class="layout-column-wrapper">
-
-								<fieldset>
-									{ADDRESS}
-								</fieldset>
-
-								<fieldset>
-									<!-- BEGIN: group -->
-										<div class="row group">
-											<span class="label"><label>Customer Group</label></span>
-											<span class="field">
-												<!-- BEGIN: item -->
-												<input type="checkbox" id="group-ids-{ITEM.id}" name="group_ids[]" value="{ITEM.id}" {CHECKED}/>
-												<label for="group-ids-{ITEM.id}">{ITEM.name|htmlspecialchars}</label>
-												<br/>
-												<!-- END: item -->
-											</span>
-										</div>
-									<!-- END: group -->																	
-								</fieldset>
-
-								<fieldset>
+                                
+                                <fieldset class="advanced">
 									<div class="row company-name">
 										<span class="label"><label for="client-company-name">{I18N_R_COMPANY_NAME}</label></span>
 										<span class="field"><input class="text" type="text" id="client-company-name" name="client[company][name]" value="{CLIENT.company.name|htmlspecialchars}" title="If you register as a company, please enter here your company name" /></span>
@@ -162,6 +93,72 @@
 									<input type="hidden" name="client[company][id]" value="{CLIENT.company.id}">
 								</fieldset>
 
+								<fieldset class="advanced">
+									<div class="row facebook-id">
+										<span class="label"><label for="client-customer-facebook-id">Facebook Id</label></span>
+										<span class="field"><input class="text" type="text" id="client-customer-facebook-id" name="client[customer][facebook_id]" value="{CLIENT.customer.facebook_id}" /></span>
+									</div>
+									<div class="row twitter-id">
+										<span class="label"><label for="client-customer-twitter-id">Twitter Id</label></span>
+										<span class="field"><input class="text" type="text" id="client-customer-twitter-id" name="client[customer][twitter_id]" value="{CLIENT.customer.twitter_id}" /></span>
+									</div>
+									<div class="row google-id">
+										<span class="label"><label for="client-customer-google-id">Google Id</label></span>
+										<span class="field"><input class="text" type="text" id="client-customer-google-id" name="client[customer][google_id]" value="{CLIENT.customer.google_id}" /></span>
+									</div>
+									<div class="row profile-image-url">
+										<span class="label"><label for="client-customer-profile-image-url">Profile Image URL</label></span>
+										<span class="field"><input class="text" type="text" id="client-customer-profile-image-url" name="client[customer][profile_image_url]" value="{CLIENT.customer.profile_image_url}" /></span>
+									</div>
+									<div class="row birthday">
+										<span class="label"><label for="client-customer-birthday">Birthday</label></span>
+										<span class="field"><input class="text" type="text" id="client-customer-birthday" name="client[customer][birthday]" value="{CLIENT.customer.birthday}" /></span>
+									</div>
+
+								</fieldset>
+								
+								<fieldset class="advanced">
+									{ONXSHOP_REQUEST_rt #bo/component/relation_taxonomy~relation=customer:id=GET.id~}
+								</fieldset>
+
+							</div>
+						</div>
+						<div class="layout-column-two of-two with-padding">
+							<div class="layout-column-wrapper">
+								
+                                <fieldset>
+
+									<!-- BEGIN: role -->
+										<div class="row role">
+											<span class="label"><label>Back Office Access Role</label></span>
+											<span class="field">
+												<!-- BEGIN: item -->
+												<input type="checkbox" id="role-ids-{ITEM.id}" name="role_ids[]" value="{ITEM.id}" {CHECKED}/>
+												<label for="role-ids-{ITEM.id}">{ITEM.name|htmlspecialchars}</label>
+												<br/>
+												<!-- END: item -->
+											</span>
+										</div>
+									<!-- END: role -->
+									
+								</fieldset>
+								<fieldset class="advanced">
+									<!-- BEGIN: group -->
+										<div class="row group">
+											<span class="label"><label>Customer Group</label></span>
+											<span class="field">
+												<!-- BEGIN: item -->
+												<input type="checkbox" id="group-ids-{ITEM.id}" name="group_ids[]" value="{ITEM.id}" {CHECKED}/>
+												<label for="group-ids-{ITEM.id}">{ITEM.name|htmlspecialchars}</label>
+												<br/>
+												<!-- END: item -->
+											</span>
+										</div>
+									<!-- END: group -->																	
+								</fieldset>
+
+								
+
 								<fieldset>
 									<!-- BEGIN: account_type -->
 									<div class="row account-type">
@@ -178,10 +175,11 @@
 									<div class="row checbox newsletter">
 										<span class="field"><input type="checkbox" class="checkbox" id="client-customer-newsletter-id" name="client[customer][newsletter]" value="1" {CLIENT.customer.newsletter} /> <label for="client-customer-newsletter-id">{I18N_R_NEWSLETTER}</label></span>
 									</div>
-									<div class="row currency">
-										<span class="label"><label for="client-customer-currency-code-id">{I18N_R_CURRENCY}</label></span>
-										<span class="field">{ONXSHOP_REQUEST_2 #component/ecommerce/currency_switcher_inline}</span>
-									</div>
+								</fieldset>
+								
+								<fieldset class="advanced">
+    								<h3>Customer postal addresses:</h3>
+									{ADDRESS}
 								</fieldset>
 								
 								<!-- BEGIN: other_data -->
@@ -197,7 +195,6 @@
 								
 								<fieldset>
 									<dl>
-										<dt>Store ID:</dt><dd><a href="/backoffice/stores/{CLIENT.customer.store_id}/edit">{CLIENT.customer.store_id}</a>&nbsp;</dd>
 										<dt>Verified:</dt><dd>{CLIENT.customer.verified_email_address}</dd>
 										<dt>Created:</dt><dd>{CLIENT.customer.created}</dd>
 										<dt>Modified:</dt><dd>{CLIENT.customer.modified}</dd>
