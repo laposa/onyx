@@ -5,7 +5,7 @@
  * inspired by article By Tony Marston
  * http://www.developertutorials.com/tutorials/php/saving-php-session-data-database-050711/page2.html
  *
- * Copyright (c) 2009-2016 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -209,6 +209,7 @@ CREATE TABLE common_session (
 
             $array['session_id']   = $session_id;
             
+            // TODO: check for size
             $array['session_data'] = $session_data;
             
 			if (is_numeric($_SESSION['client']['customer']['id'])) $array['customer_id'] = $_SESSION['client']['customer']['id'];
