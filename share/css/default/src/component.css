@@ -161,3 +161,11 @@ div.news-list-grid div.item { display: inline-block; vertical-align: top; width:
 div.stack-list {text-align: center;}
 div.stack-list div.item { display: inline-block; vertical-align: top; width: 300px; margin: 10px;}
 div.stack-list div.item a {text-decoration: none; display: block;}
+
+/********* component/age_gate.html *********/
+#age-gate {text-align: center;}
+#age-gate input {display: none;}
+@media all and (max-width: 480px) {
+    #age-gate select {display: none;}
+    #age-gate input {display: block; margin: 0 auto;}
+}
