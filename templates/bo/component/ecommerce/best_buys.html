@@ -2,26 +2,26 @@
 {MESSAGES}
 
 <div class="best-buys">
-	<table>
-		<thead>
-			<tr>
-				<th>Product name</th>
-				<th>Items</th>
-			</tr>
-		</thead>
-		<tbody>
-			<!-- BEGIN: item -->
-				<tr>
-					<td><a href="/product/{ITEM.product_id}">{ITEM.product_name} / {ITEM.variety_name}</a></td>
-					<td>{ITEM.count}</td>
-				</tr>
-			<!-- END: item -->
-			<!-- BEGIN: empty -->
-				<tr>
-					<td class="empty" colspan="2">The customer hasn't purchased any products yet.</td>
-				</tr>
-			<!-- END: empty -->
-		</tbody>
-	</table>
+    <table>
+        <thead>
+            <tr>
+                <th>Product name</th>
+                <th>Items</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- BEGIN: item -->
+                <tr>
+                    <td><a href="/product/{ITEM.product_id}">{ITEM.product_name} / {ITEM.variety_name}</a></td>
+                    <td>{ITEM.count}</td>
+                </tr>
+            <!-- END: item -->
+            <!-- BEGIN: empty -->
+                <tr>
+                    <td class="empty" colspan="2">The customer hasn't purchased any products yet.</td>
+                </tr>
+            <!-- END: empty -->
+        </tbody>
+    </table>
 </div>
 <!-- END: content -->

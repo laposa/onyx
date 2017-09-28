@@ -10,19 +10,19 @@
  */
 class Onxshop_Request {
 
-	/**
-	 * Construct
-	 */
+    /**
+     * Construct
+     */
 
-	public function __construct($request, &$subOnxshop = false)
-	{
-		$this->Onxshop = Onxshop_Controller::createController($request, $subOnxshop);
-	}
+    public function __construct($request, &$subOnxshop = false)
+    {
+        $this->Onxshop = Onxshop_Controller::createController($request, $subOnxshop);
+    }
 
-	public function getContent()
-	{
-		return $this->Onxshop->getContent();
-	}
+    public function getContent()
+    {
+        return $this->Onxshop->getContent();
+    }
 }
 
 /**
@@ -30,5 +30,5 @@ class Onxshop_Request {
  */
  
 class nSite extends Onxshop_Request {
-	
+    
 }

@@ -25,35 +25,35 @@
 {ONXSHOP_REQUEST_google_analytics #component/google_analytics}
 
 <header class="site">
-	<div class="wrapper">
-		<div id="logo">
-			<a href="/" title="{I18N_GOTO_HOMEPAGE} {CONFIGURATION.global.title|htmlspecialchars}"><span>{CONFIGURATION.global.title|htmlspecialchars}</span></a>
-		</div>
-		<nav id="reveal-navigation-button" >
-			<a class="reveal" href="#primary-navigation"><span>Menu</span></a>
-		</nav>
-		<nav class="primary" id="primary-navigation">
-			{ONXSHOP_REQUEST_primary_nav #component/menu~id=1:level=1:expand_all=0:display_strapline=0:open=GET.id~}
-		</nav>
-	</div>
+    <div class="wrapper">
+        <div id="logo">
+            <a href="/" title="{I18N_GOTO_HOMEPAGE} {CONFIGURATION.global.title|htmlspecialchars}"><span>{CONFIGURATION.global.title|htmlspecialchars}</span></a>
+        </div>
+        <nav id="reveal-navigation-button" >
+            <a class="reveal" href="#primary-navigation"><span>Menu</span></a>
+        </nav>
+        <nav class="primary" id="primary-navigation">
+            {ONXSHOP_REQUEST_primary_nav #component/menu~id=1:level=1:expand_all=0:display_strapline=0:open=GET.id~}
+        </nav>
+    </div>
 </header>
 
 <main class="site">
-	<div class="wrapper">
-		{SUB_CONTENT}
-	</div>
+    <div class="wrapper">
+        {SUB_CONTENT}
+    </div>
 </main>
 
 <footer class="site">
-	<div class="wrapper">
-		<section id="content-bottom">
-			{CONTENT_FOOT}
-		</section>
-		<nav class="footer" id="footer-navigation">
-			{ONXSHOP_REQUEST_footer_nav #component/menu~id=4:level=1:expand_all=0:display_strapline=0:open=GET.id~}
-		</nav>
-		<p id="copyright">&copy; {TIME|strftime('%Y', %s)} {CONFIGURATION.global.title|htmlspecialchars}</p>
-	</div>
+    <div class="wrapper">
+        <section id="content-bottom">
+            {CONTENT_FOOT}
+        </section>
+        <nav class="footer" id="footer-navigation">
+            {ONXSHOP_REQUEST_footer_nav #component/menu~id=4:level=1:expand_all=0:display_strapline=0:open=GET.id~}
+        </nav>
+        <p id="copyright">&copy; {TIME|strftime('%Y', %s)} {CONFIGURATION.global.title|htmlspecialchars}</p>
+    </div>
 </footer>
 
 {CONFIGURATION.global.extra_body_bottom}

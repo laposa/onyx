@@ -3,7 +3,7 @@
 {MESSAGES}
 <script type="text/javascript">  
 $(function(){  
-	//$("#return-form").validate();
+    //$("#return-form").validate();
 });
 </script>
 <style type="text/css">
@@ -12,102 +12,102 @@ div.return div.order-detail p.actions {display: none;}
 
 <div class="return">
 
-	<!-- BEGIN: form -->
-	<form id="return-form" action="{URI|htmlspecialchars}#node-id-{GET.node_id}" method="post">
+    <!-- BEGIN: form -->
+    <form id="return-form" action="{URI|htmlspecialchars}#node-id-{GET.node_id}" method="post">
 
-		<fieldset class="single">
-		
-			<legend>Product return form</legend>
-			
-			<!-- BEGIN: orders_list -->
-			<div class="row order-id">
-				<span class="label"><label for="return-order-id">Select your order:</label></span>
-				<span class="field">
-					<select name="return[order_id]" id="return-order-id" onchange="submit()">
-						<!-- BEGIN: item -->
-						<option value="{ITEM.order_id}" {SELECTED}>Order #{ITEM.order_id} from {ITEM.order_created|strtotime|strftime('%A %e %B %Y', %s)}</option>
-						<!-- END: item -->
-					</select>
-				</span>
-			</div>
-			<!-- END: orders_list -->
-			
-			<!-- BEGIN: full_order_detail -->
-			<p><a class="view-full-order-detail" href="#full-order-detail" onclick="$('#full-order-detail').slideToggle(350); return false;"><span>View full order detail</span></a></p>
-			<div id="full-order-detail" style="display: none;">
-				{FULL_ORDER_DETAIL}
-			</div>
-			<!-- END: full_order_detail -->
-			
-			<!-- BEGIN: basket_list -->
-			<h2>Submit return application for items from this order</h2>
-			<div class="row basket-list">
-				<span class="label"><label>Select items you wish to return:</label></span>
-				<span class="field">
-					<!-- BEGIN: item -->
-					<input type="checkbox" name="return[items][{ITEM.id}][basket_item_id]" value="{ITEM.id}" id="return-items-{ITEM.id}" /> <label for="return-items-{ITEM.id}">{ITEM.product.name|htmlspecialchars} - {ITEM.product.variety.name|htmlspecialchars}</label><!-- BEGIN: quantity -->, Quantity to return: <select name="return[items][{ITEM.id}][quantity]"><!-- BEGIN: item --><option value="{QUANTITY}">{QUANTITY}</option><!-- END: item --></select><!-- END: quantity --><br />
-					<!-- END: item -->
-				</span>
-			</div>
-			<!-- END: basket_list -->
-			
-			<!-- BEGIN: action -->
-			<div class="row action">
-				<span class="label"><label for="return-action">I wish to:</label></span>
-				<span class="field">
-					<select name="return[action]" id="return-action">
-						<option value="refund" {SELECTED_ACTION_refund}>Receive refund</option>
-						<option value="replace" {SELECTED_ACTION_replace}>Replace with same product</option>
-						<option value="exchange" {SELECTED_ACTION_exchange}>Exchange for a different product</option>
-					</select>
-				</span>
-			</div>
-			<!-- END: action -->
-			<!-- BEGIN: reason -->
-			<div class="row reason">
-				<span class="label"><label for="return-reason">Why are you returning this item?</label></span>
-				<span class="field">
-					<select name="return[reason]" id="return-reason">
-						<option value="incorrect_item" {SELECTED_REASON_incorrect_item}>Incorrect item received</option>
-						<option value="faulty" {SELECTED_REASON_faulty}>Faulty</option>
-						<option value="damaged_by_customer" {SELECTED_REASON_damaged_by_customer}>I've damaged it and need a repair</option>
-						<option value="looks_different" {SELECTED_REASON_looks_different}>Looks different to image on site</option>
-						<option value="ordered_more" {SELECTED_REASON_ordered_more}>Ordered more than one</option>
-						<option value="late" {SELECTED_REASON_late}>Arrived to late</option>
-						<option value="damaged_parcel" {SELECTED_REASON_damaged_parcel}>Parcel damaged on arrival</option>
-						<option value="poor_quality" {SELECTED_REASON_poor_quality}>Poor quality</option>
-						<option value="other_reason" {SELECTED_REASON_other_reason}>Other reason</option>
-					</select>
-				</span>
-			</div>
-			<!-- END: reason -->
-			<!-- BEGIN: message -->
-			<div class="row message">
-				<span class="label"><label for="return-message">Additional information</label></span>
-				<span class="field"><textarea id="return-message" class="required" name="return[message]" rows="15" cols="45">{RETURN.message|htmlspecialchars}</textarea></span>
-			</div>
-			<!-- END: message -->
-		
-		</fieldset>
-		
-		<div class="row submit">
-			<span class="label"><label>&nbsp;</label></span>
-			<span class="field"><button type="submit" name="send" value="send" class="submit"><span>{SUBMIT_BUTTON_TEXT}</span></button></span>
-		</div>
-	
-	<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+        <fieldset class="single">
+        
+            <legend>Product return form</legend>
+            
+            <!-- BEGIN: orders_list -->
+            <div class="row order-id">
+                <span class="label"><label for="return-order-id">Select your order:</label></span>
+                <span class="field">
+                    <select name="return[order_id]" id="return-order-id" onchange="submit()">
+                        <!-- BEGIN: item -->
+                        <option value="{ITEM.order_id}" {SELECTED}>Order #{ITEM.order_id} from {ITEM.order_created|strtotime|strftime('%A %e %B %Y', %s)}</option>
+                        <!-- END: item -->
+                    </select>
+                </span>
+            </div>
+            <!-- END: orders_list -->
+            
+            <!-- BEGIN: full_order_detail -->
+            <p><a class="view-full-order-detail" href="#full-order-detail" onclick="$('#full-order-detail').slideToggle(350); return false;"><span>View full order detail</span></a></p>
+            <div id="full-order-detail" style="display: none;">
+                {FULL_ORDER_DETAIL}
+            </div>
+            <!-- END: full_order_detail -->
+            
+            <!-- BEGIN: basket_list -->
+            <h2>Submit return application for items from this order</h2>
+            <div class="row basket-list">
+                <span class="label"><label>Select items you wish to return:</label></span>
+                <span class="field">
+                    <!-- BEGIN: item -->
+                    <input type="checkbox" name="return[items][{ITEM.id}][basket_item_id]" value="{ITEM.id}" id="return-items-{ITEM.id}" /> <label for="return-items-{ITEM.id}">{ITEM.product.name|htmlspecialchars} - {ITEM.product.variety.name|htmlspecialchars}</label><!-- BEGIN: quantity -->, Quantity to return: <select name="return[items][{ITEM.id}][quantity]"><!-- BEGIN: item --><option value="{QUANTITY}">{QUANTITY}</option><!-- END: item --></select><!-- END: quantity --><br />
+                    <!-- END: item -->
+                </span>
+            </div>
+            <!-- END: basket_list -->
+            
+            <!-- BEGIN: action -->
+            <div class="row action">
+                <span class="label"><label for="return-action">I wish to:</label></span>
+                <span class="field">
+                    <select name="return[action]" id="return-action">
+                        <option value="refund" {SELECTED_ACTION_refund}>Receive refund</option>
+                        <option value="replace" {SELECTED_ACTION_replace}>Replace with same product</option>
+                        <option value="exchange" {SELECTED_ACTION_exchange}>Exchange for a different product</option>
+                    </select>
+                </span>
+            </div>
+            <!-- END: action -->
+            <!-- BEGIN: reason -->
+            <div class="row reason">
+                <span class="label"><label for="return-reason">Why are you returning this item?</label></span>
+                <span class="field">
+                    <select name="return[reason]" id="return-reason">
+                        <option value="incorrect_item" {SELECTED_REASON_incorrect_item}>Incorrect item received</option>
+                        <option value="faulty" {SELECTED_REASON_faulty}>Faulty</option>
+                        <option value="damaged_by_customer" {SELECTED_REASON_damaged_by_customer}>I've damaged it and need a repair</option>
+                        <option value="looks_different" {SELECTED_REASON_looks_different}>Looks different to image on site</option>
+                        <option value="ordered_more" {SELECTED_REASON_ordered_more}>Ordered more than one</option>
+                        <option value="late" {SELECTED_REASON_late}>Arrived to late</option>
+                        <option value="damaged_parcel" {SELECTED_REASON_damaged_parcel}>Parcel damaged on arrival</option>
+                        <option value="poor_quality" {SELECTED_REASON_poor_quality}>Poor quality</option>
+                        <option value="other_reason" {SELECTED_REASON_other_reason}>Other reason</option>
+                    </select>
+                </span>
+            </div>
+            <!-- END: reason -->
+            <!-- BEGIN: message -->
+            <div class="row message">
+                <span class="label"><label for="return-message">Additional information</label></span>
+                <span class="field"><textarea id="return-message" class="required" name="return[message]" rows="15" cols="45">{RETURN.message|htmlspecialchars}</textarea></span>
+            </div>
+            <!-- END: message -->
+        
+        </fieldset>
+        
+        <div class="row submit">
+            <span class="label"><label>&nbsp;</label></span>
+            <span class="field"><button type="submit" name="send" value="send" class="submit"><span>{SUBMIT_BUTTON_TEXT}</span></button></span>
+        </div>
+    
+    <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
-	<!-- END: form -->
-	
-	<!-- BEGIN: result -->
-	<p>The return form below was submitted for to the returns team. Please await for their response.</p>
-	<table>
-		<tr><td>Order ID</td><td>{RESULT.order_id}</td></tr>
-		<tr><td>Action</td><td>{RESULT.action|htmlspecialchars}</td></tr>
-		<tr><td>Reason</td><td>{RESULT.reason|htmlspecialchars}</td></tr>
-		<tr><td>Message</td><td>{RESULT.message|htmlspecialchars}</td></tr>
-		<tr><td>Items</td><td><ul><!-- BEGIN: item --><li>{QUANTITY}x {ITEM.product.name|htmlspecialchars} - {ITEM.product.variety.name|htmlspecialchars} ({ITEM.product.variety.sku|htmlspecialchars})</li><!-- END: item --></ul></td></tr>
-	</table>
-	<!-- END: result -->
+    <!-- END: form -->
+    
+    <!-- BEGIN: result -->
+    <p>The return form below was submitted for to the returns team. Please await for their response.</p>
+    <table>
+        <tr><td>Order ID</td><td>{RESULT.order_id}</td></tr>
+        <tr><td>Action</td><td>{RESULT.action|htmlspecialchars}</td></tr>
+        <tr><td>Reason</td><td>{RESULT.reason|htmlspecialchars}</td></tr>
+        <tr><td>Message</td><td>{RESULT.message|htmlspecialchars}</td></tr>
+        <tr><td>Items</td><td><ul><!-- BEGIN: item --><li>{QUANTITY}x {ITEM.product.name|htmlspecialchars} - {ITEM.product.variety.name|htmlspecialchars} ({ITEM.product.variety.sku|htmlspecialchars})</li><!-- END: item --></ul></td></tr>
+    </table>
+    <!-- END: result -->
 </div>
 <!-- END: content -->

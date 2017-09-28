@@ -9,57 +9,57 @@
 <!-- END: head -->
 <!-- BEGIN: content -->
 <article class="two-column-page page product {NODE.layout_style} {NODE.css_class} {NODE.taxonomy_class} {PRODUCT.taxonomy_class} product_id_{PRODUCT.id}">
-	<div class="wrapper">
-		{PAGE_HEADER}
-		<!-- BEGIN: name_aka -->
-		<h2 class="name_aka"><span>{PRODUCT.name_aka|htmlspecialchars}</span></h2>
-		<!-- END: name_aka -->
-		<div class="page-content">
-			<div class="page-content-wrapper">
-				<div class="row-top">
-					<div class="row-wrapper">
-						<div class="column-wrapper">
-							{CONTAINER.0}
-						</div>
-					</div>
-				</div>
-				<div class="row-middle">
-					<div class="row-wrapper">
-						<div class="column-one">
-							<div class="column-wrapper">											
-								<div class="teaser">{PRODUCT.teaser}</div>
-								{ONXSHOP_REQUEST_variety_list #component/ecommerce/variety_list~product_id=GET.product_id~}
-								{PRODUCT.description}
-								{TAXONOMY}
-								{OTHER_DATA}
-								
-								{CONTAINER.1}
-							</div>
-						</div>
-						<div class="column-two">
-							<div class="column-wrapper">
-								<div class="productImage"><span class="roundel"></span>{ONXSHOP_REQUEST_image #component/image_gallery~relation=product:role=main:width=GET.image_width:node_id=GET.product_id~}</div>
-																			
-								{CONTAINER.2}
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="row-bottom">
-					<div class="column-wrapper">
-					
-						{PRODUCT_REVIEW}
-						
-						{disableONXSHOP_REQUEST_recently_viewed #component/ecommerce/recently_viewed_products}
-						{ONXSHOP_REQUEST_related_dynamic #component/ecommerce/product_related~type=dynamic:limit=3:product_node_id=GET.id~}
-						
-						{ONXSHOP_REQUEST_related_static #component/ecommerce/product_related~type=static:limit=2:product_node_id=GET.id~}
-						
-						{CONTAINER.3}
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="wrapper">
+        {PAGE_HEADER}
+        <!-- BEGIN: name_aka -->
+        <h2 class="name_aka"><span>{PRODUCT.name_aka|htmlspecialchars}</span></h2>
+        <!-- END: name_aka -->
+        <div class="page-content">
+            <div class="page-content-wrapper">
+                <div class="row-top">
+                    <div class="row-wrapper">
+                        <div class="column-wrapper">
+                            {CONTAINER.0}
+                        </div>
+                    </div>
+                </div>
+                <div class="row-middle">
+                    <div class="row-wrapper">
+                        <div class="column-one">
+                            <div class="column-wrapper">                                            
+                                <div class="teaser">{PRODUCT.teaser}</div>
+                                {ONXSHOP_REQUEST_variety_list #component/ecommerce/variety_list~product_id=GET.product_id~}
+                                {PRODUCT.description}
+                                {TAXONOMY}
+                                {OTHER_DATA}
+                                
+                                {CONTAINER.1}
+                            </div>
+                        </div>
+                        <div class="column-two">
+                            <div class="column-wrapper">
+                                <div class="productImage"><span class="roundel"></span>{ONXSHOP_REQUEST_image #component/image_gallery~relation=product:role=main:width=GET.image_width:node_id=GET.product_id~}</div>
+                                                                            
+                                {CONTAINER.2}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row-bottom">
+                    <div class="column-wrapper">
+                    
+                        {PRODUCT_REVIEW}
+                        
+                        {disableONXSHOP_REQUEST_recently_viewed #component/ecommerce/recently_viewed_products}
+                        {ONXSHOP_REQUEST_related_dynamic #component/ecommerce/product_related~type=dynamic:limit=3:product_node_id=GET.id~}
+                        
+                        {ONXSHOP_REQUEST_related_static #component/ecommerce/product_related~type=static:limit=2:product_node_id=GET.id~}
+                        
+                        {CONTAINER.3}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </article>
 <!-- END: content -->

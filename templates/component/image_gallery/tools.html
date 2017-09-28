@@ -4,80 +4,80 @@
 <!-- END: head -->
 <!-- BEGIN: content -->
 <script type="text/javascript">
-	$(document).ready(function() {
-		//$("a.single_image{GET.relation}{GET.node_id}").fancybox({});
-		// thumbnail scrollable 
-	    $("#thumbnails").scrollable({size: 2, clickable: false}).find("img").each(function(index) { 
-	 
-	        // thumbnail images trigger the overlay 
-	        $(this).overlay({ 
-	 
-	            effect: 'apple', 
-	            target: '#box', 
-	            expose: {maskId: 'mask'}, 
-	 
-	            /* 
-	                when box is opened, scroll to correct position (in 0 seconds) 
-	                the "images" variable is defined below 
-	            */ 
-	            onLoad: function() { 
-	                images.seekTo(index, 0); 
-	            } 
-	        }); 
-	    });
-	    
-	    // scrollable inside the box. Its API is assigned to the "images" variable 
-	    var images = $("#images").scrollable({size: 1, api:true}); 
-	 
-	     
-	    // enable tooltips for the images 
-	    $("#images img").tooltip({ 
-	        position: "bottom center", 
-	        offset: [-75, -30], 
-	        opacity: 0.8, 
-	        effect: 'fade', 
-	 
-	        // position tooltips relative to the parent scrollable 
-	        relative: true 
-	    });
-	    
-	    // enable reflections 
-    	$("#thumbnails img").reflect({height: 0.5, opacity: 0.6});
-	}); 
+    $(document).ready(function() {
+        //$("a.single_image{GET.relation}{GET.node_id}").fancybox({});
+        // thumbnail scrollable 
+        $("#thumbnails").scrollable({size: 2, clickable: false}).find("img").each(function(index) { 
+     
+            // thumbnail images trigger the overlay 
+            $(this).overlay({ 
+     
+                effect: 'apple', 
+                target: '#box', 
+                expose: {maskId: 'mask'}, 
+     
+                /* 
+                    when box is opened, scroll to correct position (in 0 seconds) 
+                    the "images" variable is defined below 
+                */ 
+                onLoad: function() { 
+                    images.seekTo(index, 0); 
+                } 
+            }); 
+        });
+        
+        // scrollable inside the box. Its API is assigned to the "images" variable 
+        var images = $("#images").scrollable({size: 1, api:true}); 
+     
+         
+        // enable tooltips for the images 
+        $("#images img").tooltip({ 
+            position: "bottom center", 
+            offset: [-75, -30], 
+            opacity: 0.8, 
+            effect: 'fade', 
+     
+            // position tooltips relative to the parent scrollable 
+            relative: true 
+        });
+        
+        // enable reflections 
+        $("#thumbnails img").reflect({height: 0.5, opacity: 0.6});
+    }); 
 </script>
 
 <div class="image-gallery-tools number-of-items-{IMAGE_COUNT}" id="gallery-tools-{GET.node_id}">
 
-	<!-- BEGIN: thumbnails -->
-	<div class="nav prev"></div> 
-	<div id="thumbnails"> 
-	    <div class="items"> 
-	    	<!-- BEGIN: item -->
-	        <div class="item image-id-{GET.relation}{ITEM.id}"><span class="wrap"><img id="image-id-{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" /></span></div>
-	        <!-- END: item -->
-	    </div>
-	</div>
-	<div class="nav next"></div> 
-	<!-- END: thumbnails -->
-	
-	
-	
-	<div id="box"> 
-	    <div id="images"> 
-	        <div class="items"> 
-	            <!-- BEGIN: item --> 
-	            <div> 
-	                <img id="image-full-id-{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="/thumbnail/550/{ITEM.src}" />
-	                <div class="info"> 
-	                    <h3>{ITEM.title|htmlspecialchars}</h3> 
-	                    <p class="description">{ITEM.description|htmlspecialchars|nl2br}</p> 
-	                </div> 
-	            </div> 
-	 			<!-- END: item -->
-	        </div> 
-	    </div> 
-	    <div class="nav prev"></div> 
-	    <div class="nav next"></div> 
-	</div>
+    <!-- BEGIN: thumbnails -->
+    <div class="nav prev"></div> 
+    <div id="thumbnails"> 
+        <div class="items"> 
+            <!-- BEGIN: item -->
+            <div class="item image-id-{GET.relation}{ITEM.id}"><span class="wrap"><img id="image-id-{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" /></span></div>
+            <!-- END: item -->
+        </div>
+    </div>
+    <div class="nav next"></div> 
+    <!-- END: thumbnails -->
+    
+    
+    
+    <div id="box"> 
+        <div id="images"> 
+            <div class="items"> 
+                <!-- BEGIN: item --> 
+                <div> 
+                    <img id="image-full-id-{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="/thumbnail/550/{ITEM.src}" />
+                    <div class="info"> 
+                        <h3>{ITEM.title|htmlspecialchars}</h3> 
+                        <p class="description">{ITEM.description|htmlspecialchars|nl2br}</p> 
+                    </div> 
+                </div> 
+                <!-- END: item -->
+            </div> 
+        </div> 
+        <div class="nav prev"></div> 
+        <div class="nav next"></div> 
+    </div>
 </div>
 <!-- END: content -->

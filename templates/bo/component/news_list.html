@@ -4,64 +4,64 @@
 <script type="text/javascript">
 $(function() {
 
-	$('div.news-list a.onxshop-duplicate').on('click', function() {
-		var child_id = $(this).attr('href').replace('#','');;
-		$.get('/request/bo/component/node_duplicate~id='+child_id+'~', function(data) {
-			popupMessage($(data).find("div.onxshop-messages"));
-			refreshList();
-		});
-		return false;
-	});
+    $('div.news-list a.onxshop-duplicate').on('click', function() {
+        var child_id = $(this).attr('href').replace('#','');;
+        $.get('/request/bo/component/node_duplicate~id='+child_id+'~', function(data) {
+            popupMessage($(data).find("div.onxshop-messages"));
+            refreshList();
+        });
+        return false;
+    });
 
 });
 
 function refreshList() {
-	var refresh_url = '/request/bo/component/news_list~display_pagination=1~';
-	$('div.news-list').parent().load(refresh_url);
+    var refresh_url = '/request/bo/component/news_list~display_pagination=1~';
+    $('div.news-list').parent().load(refresh_url);
 }
 
 </script>
 
-	{MESSAGES}
-	
-	<!-- BEGIN: list -->
-	<table>
-		<thead>
-			<tr>
-				<th>Title</th>
-				<th>Parent</th>
-				<th>Created<br /><a href="?sorting=modified">Modified</a></th>
-				<th>&nbsp;</th>
-			</tr>
-		</thead>
-		<tfoot>
-			<tr>
-				<td colspan="4">
-					<div class="onxshop-pagination">
-						{PAGINATION}
-					</div>
-				</td>
-			</tr>
-		</tfoot>
-		<tbody>
-			<!-- BEGIN: item -->
-			<tr class="{ITEM.class}" id="node-id-{ITEM.id}">
-				<td>
-					<a href="/backoffice/news/edit/{ITEM.node_group}/{ITEM.id}"><span class="{ITEM.class}">{ITEM.title|htmlspecialchars}</span></a>
-				</td>
-				<td>{ITEM.parent}</td>
-				<td>{ITEM.created}<br />{ITEM.modified}</td>
-				<td>
-					<div class="onxshop-edit-content">
-						<a class="onxshop-duplicate" title="Duplicate {ITEM.node_controller}" href="#{ITEM.id}"><span>Duplicate</span></a>
-						<a class="onxshop-delete" title="Delete {ITEM.node_group}" href="#" onclick="openAjaxRequestInDialog('/request/bo/component/node_delete~id={ITEM.id}:delete=1~', 'Delete news item'); return false"><span>Delete</span></a>
-					</div>
-				</td>
-			</tr>
-			<!-- END: item -->
-		</tbody>
-	</table>	
-	<!-- END: list -->
+    {MESSAGES}
+    
+    <!-- BEGIN: list -->
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Parent</th>
+                <th>Created<br /><a href="?sorting=modified">Modified</a></th>
+                <th>&nbsp;</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr>
+                <td colspan="4">
+                    <div class="onxshop-pagination">
+                        {PAGINATION}
+                    </div>
+                </td>
+            </tr>
+        </tfoot>
+        <tbody>
+            <!-- BEGIN: item -->
+            <tr class="{ITEM.class}" id="node-id-{ITEM.id}">
+                <td>
+                    <a href="/backoffice/news/edit/{ITEM.node_group}/{ITEM.id}"><span class="{ITEM.class}">{ITEM.title|htmlspecialchars}</span></a>
+                </td>
+                <td>{ITEM.parent}</td>
+                <td>{ITEM.created}<br />{ITEM.modified}</td>
+                <td>
+                    <div class="onxshop-edit-content">
+                        <a class="onxshop-duplicate" title="Duplicate {ITEM.node_controller}" href="#{ITEM.id}"><span>Duplicate</span></a>
+                        <a class="onxshop-delete" title="Delete {ITEM.node_group}" href="#" onclick="openAjaxRequestInDialog('/request/bo/component/node_delete~id={ITEM.id}:delete=1~', 'Delete news item'); return false"><span>Delete</span></a>
+                    </div>
+                </td>
+            </tr>
+            <!-- END: item -->
+        </tbody>
+    </table>    
+    <!-- END: list -->
 
 </div>
 <!-- END: content -->

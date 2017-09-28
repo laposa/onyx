@@ -5,363 +5,363 @@
 <form method="post" action="" class="store-edit">
 <div id="store-edit">
 
-	<div class="two-column-page page">
-		
-			<div class="page-wrapper">
+    <div class="two-column-page page">
+        
+            <div class="page-wrapper">
 
-				<div class="page-header">
-					<div class="page-header-wrapper">
-						<h1 class="page-title"><span>Store Edit</span> <span class="info">ID {STORE.id}</span></h1>
-					</div>
-				</div>
-
-
-				<div class="page-content">
-					<div class="page-content-wrapper">
-						<div class="row-top">
-							<div class="row-wrapper">
-								<div class="column-wrapper">
-
-									<div class="two-column-layout fibonacci-5-3">
-										<div class="layout-column-one of-two">
-
-											<fieldset>
-												<div class="row title">
-													<span class="label"><label>Store Title</label></span>
-													<span class="field"><input type="text" class="text title long" name="store[title]" value="{STORE.title|htmlspecialchars}" /></span>
-												</div>
-											</fieldset>
-
-											<fieldset>
-												<div class="row description rte">
-													<span class="label"><label>Description <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'simple', 'store-description'); return false;"><span>RTE</span></a></label></span>
-													<span class="field"><textarea id="store-description" name="store[description]">{STORE.description|htmlspecialchars}</textarea></span>
-												</div>
-											</fieldset>
-
-											<fieldset>
-												<div class="row address">
-													<span class="label"><label>Address (one text field for the address is deprecated, new instalaltions should use separate address fields below)</label></span>
-													<span class="field"><textarea id="store-address" name="store[address]">{STORE.address|htmlspecialchars}</textarea></span>
-												</div>
-												
-												<div class="row country-id advanced">
-													<span class="label"><label>country_id</label></span>
-													<span class="field"><input type="text" class="number country-id short" name="store[country_id]" value="{STORE.country_id|htmlspecialchars}" /></span>
-												</div>
-												
-												<div class="row address-name advanced">
-													<span class="label"><label>Address Name</label></span>
-													<span class="field"><input type="text" class="text address-name long" name="store[address_name]" value="{STORE.address_name|htmlspecialchars}" /></span>
-												</div>
-												<div class="row address-line-1">
-													<span class="label"><label>Address Line 1</label></span>
-													<span class="field"><input type="text" class="text address-line-1 long" name="store[address_line_1]" value="{STORE.address_line_1|htmlspecialchars}" /></span>
-												</div>
-												<div class="row address-line-2">
-													<span class="label"><label>Address Line 2</label></span>
-													<span class="field"><input type="text" class="text address-line-2 long" name="store[address_line_2]" value="{STORE.address_line_2|htmlspecialchars}" /></span>
-												</div>
-												<div class="row address-line-3">
-													<span class="label"><label>Address Line 3</label></span>
-													<span class="field"><input type="text" class="text address-line-3 long" name="store[address_line_3]" value="{STORE.address_line_3|htmlspecialchars}" /></span>
-												</div>
-												<div class="row address-city">
-													<span class="label"><label>Address City</label></span>
-													<span class="field"><input type="text" class="text address-city long" name="store[address_city]" value="{STORE.address_city|htmlspecialchars}" /></span>
-												</div>
-												<div class="row address-county">
-													<span class="label"><label>Address County</label></span>
-													<span class="field"><input type="text" class="text address-county long" name="store[address_county]" value="{STORE.address_county|htmlspecialchars}" /></span>
-												</div>
-												<div class="row address-post-code">
-													<span class="label"><label>Address Post Code</label></span>
-													<span class="field"><input type="text" class="text address-post-code long" name="store[address_post_code]" value="{STORE.address_post_code|htmlspecialchars}" /></span>
-												</div>
-												
-												<div class="row opening hours">
-													<span class="label"><label>Opening Hours</label></span>
-													<span class="field"><textarea id="store_opening_hours" name="store[opening_hours]">{STORE.opening_hours|htmlspecialchars}</textarea></span>
-												</div>
-												<div class="row telephone">
-													<span class="label"><label>Telephone</label></span>
-													<span class="field"><input type="text" class="text telephone long" name="store[telephone]" value="{STORE.telephone|htmlspecialchars}" /></span>
-												</div>
-												<div class="row manager-name">
-													<span class="label"><label>Manager Name</label></span>
-													<span class="field"><input type="text" class="text manager-name long" name="store[manager_name]" value="{STORE.manager_name|htmlspecialchars}" /></span>
-												</div>
-												<div class="row email">
-													<span class="label"><label>E-mail</label></span>
-													<span class="field"><input type="text" class="text email long" name="store[email]" value="{STORE.email|htmlspecialchars}" /></span>
-												</div>
-												<div class="row url">
-													<span class="label"><label>URL</label></span>
-													<span class="field"><input type="text" class="text url long" name="store[url]" value="{STORE.url|htmlspecialchars}" /></span>
-												</div>
-												<div class="row code">
-													<span class="label"><label>Reference Code</label></span>
-													<span class="field"><input type="text" class="text code long" name="store[code]" value="{STORE.code|htmlspecialchars}" /></span>
-												</div>
-											</fieldset>
-
-										</div>
-										<div class="layout-column-two of-two">
-
-											<fieldset>
-												<div class="row publish">
-													<span class="field"><input type="checkbox" id="store-publish" name="store[publish]" value="1" {STORE.publish} /> <label for="store-publish">Publish</label></span>
-												</div>
-											</fieldset>
-
-											<!-- BEGIN: type -->
-											<fieldset>
-												<div class="row type">
-													<span class="label"><label>Type</label></span>
-													<span class="field">
-														<select id="store-type-id" name="store[type_id]">
-															<!-- BEGIN: item -->
-															<option value="{ITEM.id}" {ITEM.selected}>{ITEM.title|htmlspecialchars}</option>
-															<!-- END: item -->
-														</select>
-													</span>
-												</div>
-											</fieldset>
-											<!-- END: type -->
-											
-											<fieldset>
-											{ONXSHOP_REQUEST_rt #bo/component/relation_taxonomy~relation=store:id=GET.id~}
-											</fieldset>
-											{ONXSHOP_REQUEST_store_in_node #bo/component/ecommerce/store_in_node~store_id=GET.id~}
+                <div class="page-header">
+                    <div class="page-header-wrapper">
+                        <h1 class="page-title"><span>Store Edit</span> <span class="info">ID {STORE.id}</span></h1>
+                    </div>
+                </div>
 
 
-										</div>
-									</div>
+                <div class="page-content">
+                    <div class="page-content-wrapper">
+                        <div class="row-top">
+                            <div class="row-wrapper">
+                                <div class="column-wrapper">
 
-								</div>
-							</div>
-						</div>
-						<div class="row-middle">
-							<div class="row-wrapper">
-								<div class="column-one">
-									<div class="column-wrapper">
+                                    <div class="two-column-layout fibonacci-5-3">
+                                        <div class="layout-column-one of-two">
 
-										<div class="two-column-layout fibonacci-3-5">
-											<div class="layout-column-one of-two">
-												<div class="layout-column-wrapper">
-													<fieldset>
-														<legend>Location</legend>
+                                            <fieldset>
+                                                <div class="row title">
+                                                    <span class="label"><label>Store Title</label></span>
+                                                    <span class="field"><input type="text" class="text title long" name="store[title]" value="{STORE.title|htmlspecialchars}" /></span>
+                                                </div>
+                                            </fieldset>
 
-														<div class="row coordinates_x">
-															<span class="label"><label>X coordinate</label></span>
-															<span class="field"><input type="text" class="coordinates_x" name="store[coordinates_x]" value="{STORE.coordinates_x|htmlspecialchars}" /></span>
-														</div>
-														<div class="row coordinates_y">
-															<span class="label"><label>Y coordinate</label></span>
-															<span class="field"><input type="text" class="coordinates_y" name="store[coordinates_y]" value="{STORE.coordinates_y|htmlspecialchars}" /></span>
-														</div>
-														<div class="row latitude">
-															<span class="label"><label>Latitude</label></span>
-															<span class="field"><input type="text" class="latitude" name="store[latitude]" value="{STORE.latitude|htmlspecialchars}" /></span>
-														</div>
-														<div class="row longitude">
-															<span class="label"><label>Longitude</label></span>
-															<span class="field"><input type="text" class="longitude" name="store[longitude]" value="{STORE.longitude|htmlspecialchars}" /></span>
-														</div>					
-													</fieldset>
-												</div>
-											</div>
-											<div class="layout-column-two of-two">
-												<div class="layout-column-wrapper">
+                                            <fieldset>
+                                                <div class="row description rte">
+                                                    <span class="label"><label>Description <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'simple', 'store-description'); return false;"><span>RTE</span></a></label></span>
+                                                    <span class="field"><textarea id="store-description" name="store[description]">{STORE.description|htmlspecialchars}</textarea></span>
+                                                </div>
+                                            </fieldset>
 
-													<fieldset>
-														<legend>Google Street View Image</legend>
+                                            <fieldset>
+                                                <div class="row address">
+                                                    <span class="label"><label>Address (one text field for the address is deprecated, new instalaltions should use separate address fields below)</label></span>
+                                                    <span class="field"><textarea id="store-address" name="store[address]">{STORE.address|htmlspecialchars}</textarea></span>
+                                                </div>
+                                                
+                                                <div class="row country-id advanced">
+                                                    <span class="label"><label>country_id</label></span>
+                                                    <span class="field"><input type="text" class="number country-id short" name="store[country_id]" value="{STORE.country_id|htmlspecialchars}" /></span>
+                                                </div>
+                                                
+                                                <div class="row address-name advanced">
+                                                    <span class="label"><label>Address Name</label></span>
+                                                    <span class="field"><input type="text" class="text address-name long" name="store[address_name]" value="{STORE.address_name|htmlspecialchars}" /></span>
+                                                </div>
+                                                <div class="row address-line-1">
+                                                    <span class="label"><label>Address Line 1</label></span>
+                                                    <span class="field"><input type="text" class="text address-line-1 long" name="store[address_line_1]" value="{STORE.address_line_1|htmlspecialchars}" /></span>
+                                                </div>
+                                                <div class="row address-line-2">
+                                                    <span class="label"><label>Address Line 2</label></span>
+                                                    <span class="field"><input type="text" class="text address-line-2 long" name="store[address_line_2]" value="{STORE.address_line_2|htmlspecialchars}" /></span>
+                                                </div>
+                                                <div class="row address-line-3">
+                                                    <span class="label"><label>Address Line 3</label></span>
+                                                    <span class="field"><input type="text" class="text address-line-3 long" name="store[address_line_3]" value="{STORE.address_line_3|htmlspecialchars}" /></span>
+                                                </div>
+                                                <div class="row address-city">
+                                                    <span class="label"><label>Address City</label></span>
+                                                    <span class="field"><input type="text" class="text address-city long" name="store[address_city]" value="{STORE.address_city|htmlspecialchars}" /></span>
+                                                </div>
+                                                <div class="row address-county">
+                                                    <span class="label"><label>Address County</label></span>
+                                                    <span class="field"><input type="text" class="text address-county long" name="store[address_county]" value="{STORE.address_county|htmlspecialchars}" /></span>
+                                                </div>
+                                                <div class="row address-post-code">
+                                                    <span class="label"><label>Address Post Code</label></span>
+                                                    <span class="field"><input type="text" class="text address-post-code long" name="store[address_post_code]" value="{STORE.address_post_code|htmlspecialchars}" /></span>
+                                                </div>
+                                                
+                                                <div class="row opening hours">
+                                                    <span class="label"><label>Opening Hours</label></span>
+                                                    <span class="field"><textarea id="store_opening_hours" name="store[opening_hours]">{STORE.opening_hours|htmlspecialchars}</textarea></span>
+                                                </div>
+                                                <div class="row telephone">
+                                                    <span class="label"><label>Telephone</label></span>
+                                                    <span class="field"><input type="text" class="text telephone long" name="store[telephone]" value="{STORE.telephone|htmlspecialchars}" /></span>
+                                                </div>
+                                                <div class="row manager-name">
+                                                    <span class="label"><label>Manager Name</label></span>
+                                                    <span class="field"><input type="text" class="text manager-name long" name="store[manager_name]" value="{STORE.manager_name|htmlspecialchars}" /></span>
+                                                </div>
+                                                <div class="row email">
+                                                    <span class="label"><label>E-mail</label></span>
+                                                    <span class="field"><input type="text" class="text email long" name="store[email]" value="{STORE.email|htmlspecialchars}" /></span>
+                                                </div>
+                                                <div class="row url">
+                                                    <span class="label"><label>URL</label></span>
+                                                    <span class="field"><input type="text" class="text url long" name="store[url]" value="{STORE.url|htmlspecialchars}" /></span>
+                                                </div>
+                                                <div class="row code">
+                                                    <span class="label"><label>Reference Code</label></span>
+                                                    <span class="field"><input type="text" class="text code long" name="store[code]" value="{STORE.code|htmlspecialchars}" /></span>
+                                                </div>
+                                            </fieldset>
 
-														<div id="google-map-screen">
-														</div>
-													</fieldset>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="column-two with-padding">
-									<div class="column-wrapper">
+                                        </div>
+                                        <div class="layout-column-two of-two">
 
-										<div class="two-column-layout">
-											<div class="layout-column-one of-two" style="width: 50%">
-												<div class="layout-column-wrapper">
+                                            <fieldset>
+                                                <div class="row publish">
+                                                    <span class="field"><input type="checkbox" id="store-publish" name="store[publish]" value="1" {STORE.publish} /> <label for="store-publish">Publish</label></span>
+                                                </div>
+                                            </fieldset>
 
-													<fieldset>
-														<legend>Camera Adjustments</legend>
-														<div class="row heading">
-															<span class="label"><label>Compass Heading (0-360)</label></span>
-															<span class="field"><input type="text" class="google-map-heading" name="store[street_view_options][heading]" value="{STORE.street_view_options.heading|htmlspecialchars}" />
-																<br/><a href="#" class="google-map-button look-left"  onclick="$('input.google-map-heading').val((355 + 1 * $('input.google-map-heading').val()) % 360); updateGoogleImage(); return false;">Left</a>
-																&nbsp;&nbsp;
-																<a href="#" class="google-map-button look-right"  onclick="$('input.google-map-heading').val((5 + 1 * $('input.google-map-heading').val()) % 360); updateGoogleImage(); return false;">Righ</a>
-															</span>
-														</div>
-														<div class="row pitch">
-															<span class="label"><label>Up or Down Angle (-90-90)</label></span>
-															<span class="field"><input type="text" class="google-map-pitch" name="store[street_view_options][pitch]" value="{STORE.street_view_options.pitch|htmlspecialchars}" />
-																<br/><a href="#" class="google-map-button look-up"  onclick="$('input.google-map-pitch').val(5 + 1 * $('input.google-map-pitch').val()); updateGoogleImage(); return false;">Up</a>
-																&nbsp;&nbsp;
-																<a href="#" class="google-map-button look-down"  onclick="$('input.google-map-pitch').val(-5 + 1 * $('input.google-map-pitch').val()); updateGoogleImage(); return false;">Down</a>
-															</span>
-														</div>
-														<div class="row fov">
-															<span class="label"><label>Field of View (0-120)</label></span>
-															<span class="field"><input type="text" class="google-map-fov" name="store[street_view_options][fov]" value="{STORE.street_view_options.fov|htmlspecialchars}" />
-																<br/><a href="#" class="google-map-button zoom-in"  onclick="$('input.google-map-fov').val(-10 + 1 * $('input.google-map-fov').val()); updateGoogleImage(); return false;">Zoom in</a>
-																&nbsp;&nbsp;
-																<a href="#" class="google-map-button zoom-out"  onclick="$('input.google-map-fov').val(10 + 1 * $('input.google-map-fov').val()); updateGoogleImage(); return false;">Zoom out</a>
-															</span>
-														</div>
-													</fieldset>
-
-													<input type="hidden" id="sv-lat" name="store[street_view_options][latitude]" value="{STORE.street_view_options.latitude|htmlspecialchars}" />
-													<input type="hidden" id="sv-lng" name="store[street_view_options][longitude]" value="{STORE.street_view_options.longitude|htmlspecialchars}" />
-
-													<script type="text/javascript">
-
-														var lat = $("#sv-lat").val();
-														var lng = $("#sv-lng").val();
-														if (lat.length == '') $("#sv-lat").val($("input.latitude").val());
-														if (lng.length == '') $("#sv-lng").val($("input.longitude").val());
-
-														function updateGoogleImage() {
-															var lat = $("#sv-lat").val();
-															var lng = $("#sv-lng").val();
-															var fov = $("input.google-map-fov").val();
-															var heading = $("input.google-map-heading").val();
-															var pitch = $("input.google-map-pitch").val();
-
-															if (fov.length > 0) fov = fov * 1; else fov = 90;
-															if (heading.length > 0) heading = heading % 360; else heading = 0;
-															if (pitch.length > 0) pitch = pitch * 1; else pitch = 0;
-															if (isNaN(heading)) heading = 0;
-															if (isNaN(fov) || fov < 0 || fov > 120) fov = 90;
-															if (isNaN(pitch) || pitch < -90 || pitch > 90) pitch = 0;
-
-															$("input.google-map-fov").val(fov);
-															$("input.google-map-heading").val(heading);
-															$("input.google-map-pitch").val(pitch);
-
-															if (lat && lat.length > 0 && lng && lng.length > 0) {
-
-																var url = 'https://maps.googleapis.com/maps/api/streetview?size=200x200';
-																url += '&location=' + lat + ',' + lng;
-																url += '&fov=' + fov;
-																url += '&heading=' + heading;
-																url += '&pitch=' + pitch;
-																url += '&sensor=false';
-																url += '&key={ONXSHOP_GOOGLE_API_KEY}';
-
-																var img = $("#google-map-screen img");
-																if (img.length == 0) {
-																	$("#google-map-screen").append('<img src="' + url + '" />');
-																	img = $("#google-map-screen img");
-																} else {
-																	img.attr("src", url);
-																}
-															}
-														}
-
-														$(function() {
-															updateGoogleImage();
-															$("#google-map-screen").parent().find("input").blur(updateGoogleImage).change(updateGoogleImage);
-														});
-
-													</script>
+                                            <!-- BEGIN: type -->
+                                            <fieldset>
+                                                <div class="row type">
+                                                    <span class="label"><label>Type</label></span>
+                                                    <span class="field">
+                                                        <select id="store-type-id" name="store[type_id]">
+                                                            <!-- BEGIN: item -->
+                                                            <option value="{ITEM.id}" {ITEM.selected}>{ITEM.title|htmlspecialchars}</option>
+                                                            <!-- END: item -->
+                                                        </select>
+                                                    </span>
+                                                </div>
+                                            </fieldset>
+                                            <!-- END: type -->
+                                            
+                                            <fieldset>
+                                            {ONXSHOP_REQUEST_rt #bo/component/relation_taxonomy~relation=store:id=GET.id~}
+                                            </fieldset>
+                                            {ONXSHOP_REQUEST_store_in_node #bo/component/ecommerce/store_in_node~store_id=GET.id~}
 
 
-												</div>
-											</div>
+                                        </div>
+                                    </div>
 
-											<div class="layout-column-two of-two" style="width: 50%">
-												<div class="layout-column-wrapper">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-middle">
+                            <div class="row-wrapper">
+                                <div class="column-one">
+                                    <div class="column-wrapper">
 
-													<fieldset>
-														<legend>&nbsp;</legend>
-														<div class="row google-map-buttons">
-															<span class="label"><label>Move Camera Target</label></span>
-															<br/>
-															<span class="field" >
-																<span style="display: table-cell; padding: 0; vertical-align: middle; text-align: center; width: 80px; height: 80px; background: #f0f0f0; border-radius: 100%; ">
-																	<a href="#" class="move-north" onclick="$('#sv-lat').val($('#sv-lat').val() * 1 + 0.0001); updateGoogleImage(); return false;">N</a>
-																	<br/>
-																	<a href="#" class="move-east"  onclick="$('#sv-lng').val($('#sv-lng').val() * 1 - 0.0001); updateGoogleImage(); return false;">W</a>
-																	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-																	<a href="#" class="move-west"  onclick="$('#sv-lng').val($('#sv-lng').val() * 1 + 0.0001); updateGoogleImage(); return false;">E</a>
-																	<br/>
-																	<a href="#" class="move-south" onclick="$('#sv-lat').val($('#sv-lat').val() * 1 - 0.0001); updateGoogleImage(); return false;">S</a>
-																</center>
-															</span>
-															<style>
-																a.google-map-button,
-																div.google-map-buttons a { padding: 2px 8px; margin-bottom: 4px; display: inline-block; border-radius: 5px; background: #e0e0e0; text-decoration: none; }
-															</style>
-														</div>
+                                        <div class="two-column-layout fibonacci-3-5">
+                                            <div class="layout-column-one of-two">
+                                                <div class="layout-column-wrapper">
+                                                    <fieldset>
+                                                        <legend>Location</legend>
 
-														<div class="row image-type">
-															<br/>
-															<br/>
-															<span class="field" >
-																<label><input type="radio" name="store[street_view_options][image]" value="0" {STREET_VIEW_IMAGE_0}/> Show generic store image</label><br/>
-																<label><input type="radio" name="store[street_view_options][image]" value="1" {STREET_VIEW_IMAGE_1}/> Show Street View image</label><br/>
-																<label><input type="radio" name="store[street_view_options][image]" value="2" {STREET_VIEW_IMAGE_2}/> Show attached image</label><br/>
-															</span>
-														</div>
-													</fieldset>
+                                                        <div class="row coordinates_x">
+                                                            <span class="label"><label>X coordinate</label></span>
+                                                            <span class="field"><input type="text" class="coordinates_x" name="store[coordinates_x]" value="{STORE.coordinates_x|htmlspecialchars}" /></span>
+                                                        </div>
+                                                        <div class="row coordinates_y">
+                                                            <span class="label"><label>Y coordinate</label></span>
+                                                            <span class="field"><input type="text" class="coordinates_y" name="store[coordinates_y]" value="{STORE.coordinates_y|htmlspecialchars}" /></span>
+                                                        </div>
+                                                        <div class="row latitude">
+                                                            <span class="label"><label>Latitude</label></span>
+                                                            <span class="field"><input type="text" class="latitude" name="store[latitude]" value="{STORE.latitude|htmlspecialchars}" /></span>
+                                                        </div>
+                                                        <div class="row longitude">
+                                                            <span class="label"><label>Longitude</label></span>
+                                                            <span class="field"><input type="text" class="longitude" name="store[longitude]" value="{STORE.longitude|htmlspecialchars}" /></span>
+                                                        </div>                  
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                            <div class="layout-column-two of-two">
+                                                <div class="layout-column-wrapper">
 
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
+                                                    <fieldset>
+                                                        <legend>Google Street View Image</legend>
 
-								<fieldset>
-									<legend>Images</legend>
-									<div class="row">
-										<div class="image">
-										{ONXSHOP_REQUEST_imagelist #bo/component/file_list_icon~type=add_to_store:relation=store:node_id=GET.id~}
-										</div>
-									</div>
-								</fieldset>
-								
-								<fieldset>
-									<legend>Noticeboard</legend>
-									<div class="row">
-										<div class="notices">
-										{ONXSHOP_REQUEST_store_notice_list #bo/component/ecommerce/store_notice_list~store_id=GET.id~}
-										</div>
-									</div>
-								</fieldset>
-								
-								<fieldset class="advanced">
-									<p>Store Last Modified {STORE.modified}</p>
-								</fieldset>
+                                                        <div id="google-map-screen">
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="column-two with-padding">
+                                    <div class="column-wrapper">
 
-								<button type="submit" class="save" name="save" value="save"><span>Save</span></button>
+                                        <div class="two-column-layout">
+                                            <div class="layout-column-one of-two" style="width: 50%">
+                                                <div class="layout-column-wrapper">
 
-								<input type="hidden" name="store[id]" value="{GET.id}" />
+                                                    <fieldset>
+                                                        <legend>Camera Adjustments</legend>
+                                                        <div class="row heading">
+                                                            <span class="label"><label>Compass Heading (0-360)</label></span>
+                                                            <span class="field"><input type="text" class="google-map-heading" name="store[street_view_options][heading]" value="{STORE.street_view_options.heading|htmlspecialchars}" />
+                                                                <br/><a href="#" class="google-map-button look-left"  onclick="$('input.google-map-heading').val((355 + 1 * $('input.google-map-heading').val()) % 360); updateGoogleImage(); return false;">Left</a>
+                                                                &nbsp;&nbsp;
+                                                                <a href="#" class="google-map-button look-right"  onclick="$('input.google-map-heading').val((5 + 1 * $('input.google-map-heading').val()) % 360); updateGoogleImage(); return false;">Righ</a>
+                                                            </span>
+                                                        </div>
+                                                        <div class="row pitch">
+                                                            <span class="label"><label>Up or Down Angle (-90-90)</label></span>
+                                                            <span class="field"><input type="text" class="google-map-pitch" name="store[street_view_options][pitch]" value="{STORE.street_view_options.pitch|htmlspecialchars}" />
+                                                                <br/><a href="#" class="google-map-button look-up"  onclick="$('input.google-map-pitch').val(5 + 1 * $('input.google-map-pitch').val()); updateGoogleImage(); return false;">Up</a>
+                                                                &nbsp;&nbsp;
+                                                                <a href="#" class="google-map-button look-down"  onclick="$('input.google-map-pitch').val(-5 + 1 * $('input.google-map-pitch').val()); updateGoogleImage(); return false;">Down</a>
+                                                            </span>
+                                                        </div>
+                                                        <div class="row fov">
+                                                            <span class="label"><label>Field of View (0-120)</label></span>
+                                                            <span class="field"><input type="text" class="google-map-fov" name="store[street_view_options][fov]" value="{STORE.street_view_options.fov|htmlspecialchars}" />
+                                                                <br/><a href="#" class="google-map-button zoom-in"  onclick="$('input.google-map-fov').val(-10 + 1 * $('input.google-map-fov').val()); updateGoogleImage(); return false;">Zoom in</a>
+                                                                &nbsp;&nbsp;
+                                                                <a href="#" class="google-map-button zoom-out"  onclick="$('input.google-map-fov').val(10 + 1 * $('input.google-map-fov').val()); updateGoogleImage(); return false;">Zoom out</a>
+                                                            </span>
+                                                        </div>
+                                                    </fieldset>
 
-							</div>
-						</div>
+                                                    <input type="hidden" id="sv-lat" name="store[street_view_options][latitude]" value="{STORE.street_view_options.latitude|htmlspecialchars}" />
+                                                    <input type="hidden" id="sv-lng" name="store[street_view_options][longitude]" value="{STORE.street_view_options.longitude|htmlspecialchars}" />
 
-						<div class="row-bottom">
-							<div class="row-wrapper">
-								<div class="column-wrapper">
-									<p>
-										<a class="button show-advanced-settings" href="#"><span>Show Advanced Settings</span></a>
-									</p>
-								</div>
-							</div>
-						</div>
+                                                    <script type="text/javascript">
 
-				</div>
-		</div>
+                                                        var lat = $("#sv-lat").val();
+                                                        var lng = $("#sv-lng").val();
+                                                        if (lat.length == '') $("#sv-lat").val($("input.latitude").val());
+                                                        if (lng.length == '') $("#sv-lng").val($("input.longitude").val());
+
+                                                        function updateGoogleImage() {
+                                                            var lat = $("#sv-lat").val();
+                                                            var lng = $("#sv-lng").val();
+                                                            var fov = $("input.google-map-fov").val();
+                                                            var heading = $("input.google-map-heading").val();
+                                                            var pitch = $("input.google-map-pitch").val();
+
+                                                            if (fov.length > 0) fov = fov * 1; else fov = 90;
+                                                            if (heading.length > 0) heading = heading % 360; else heading = 0;
+                                                            if (pitch.length > 0) pitch = pitch * 1; else pitch = 0;
+                                                            if (isNaN(heading)) heading = 0;
+                                                            if (isNaN(fov) || fov < 0 || fov > 120) fov = 90;
+                                                            if (isNaN(pitch) || pitch < -90 || pitch > 90) pitch = 0;
+
+                                                            $("input.google-map-fov").val(fov);
+                                                            $("input.google-map-heading").val(heading);
+                                                            $("input.google-map-pitch").val(pitch);
+
+                                                            if (lat && lat.length > 0 && lng && lng.length > 0) {
+
+                                                                var url = 'https://maps.googleapis.com/maps/api/streetview?size=200x200';
+                                                                url += '&location=' + lat + ',' + lng;
+                                                                url += '&fov=' + fov;
+                                                                url += '&heading=' + heading;
+                                                                url += '&pitch=' + pitch;
+                                                                url += '&sensor=false';
+                                                                url += '&key={ONXSHOP_GOOGLE_API_KEY}';
+
+                                                                var img = $("#google-map-screen img");
+                                                                if (img.length == 0) {
+                                                                    $("#google-map-screen").append('<img src="' + url + '" />');
+                                                                    img = $("#google-map-screen img");
+                                                                } else {
+                                                                    img.attr("src", url);
+                                                                }
+                                                            }
+                                                        }
+
+                                                        $(function() {
+                                                            updateGoogleImage();
+                                                            $("#google-map-screen").parent().find("input").blur(updateGoogleImage).change(updateGoogleImage);
+                                                        });
+
+                                                    </script>
+
+
+                                                </div>
+                                            </div>
+
+                                            <div class="layout-column-two of-two" style="width: 50%">
+                                                <div class="layout-column-wrapper">
+
+                                                    <fieldset>
+                                                        <legend>&nbsp;</legend>
+                                                        <div class="row google-map-buttons">
+                                                            <span class="label"><label>Move Camera Target</label></span>
+                                                            <br/>
+                                                            <span class="field" >
+                                                                <span style="display: table-cell; padding: 0; vertical-align: middle; text-align: center; width: 80px; height: 80px; background: #f0f0f0; border-radius: 100%; ">
+                                                                    <a href="#" class="move-north" onclick="$('#sv-lat').val($('#sv-lat').val() * 1 + 0.0001); updateGoogleImage(); return false;">N</a>
+                                                                    <br/>
+                                                                    <a href="#" class="move-east"  onclick="$('#sv-lng').val($('#sv-lng').val() * 1 - 0.0001); updateGoogleImage(); return false;">W</a>
+                                                                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                    <a href="#" class="move-west"  onclick="$('#sv-lng').val($('#sv-lng').val() * 1 + 0.0001); updateGoogleImage(); return false;">E</a>
+                                                                    <br/>
+                                                                    <a href="#" class="move-south" onclick="$('#sv-lat').val($('#sv-lat').val() * 1 - 0.0001); updateGoogleImage(); return false;">S</a>
+                                                                </center>
+                                                            </span>
+                                                            <style>
+                                                                a.google-map-button,
+                                                                div.google-map-buttons a { padding: 2px 8px; margin-bottom: 4px; display: inline-block; border-radius: 5px; background: #e0e0e0; text-decoration: none; }
+                                                            </style>
+                                                        </div>
+
+                                                        <div class="row image-type">
+                                                            <br/>
+                                                            <br/>
+                                                            <span class="field" >
+                                                                <label><input type="radio" name="store[street_view_options][image]" value="0" {STREET_VIEW_IMAGE_0}/> Show generic store image</label><br/>
+                                                                <label><input type="radio" name="store[street_view_options][image]" value="1" {STREET_VIEW_IMAGE_1}/> Show Street View image</label><br/>
+                                                                <label><input type="radio" name="store[street_view_options][image]" value="2" {STREET_VIEW_IMAGE_2}/> Show attached image</label><br/>
+                                                            </span>
+                                                        </div>
+                                                    </fieldset>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <fieldset>
+                                    <legend>Images</legend>
+                                    <div class="row">
+                                        <div class="image">
+                                        {ONXSHOP_REQUEST_imagelist #bo/component/file_list_icon~type=add_to_store:relation=store:node_id=GET.id~}
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                
+                                <fieldset>
+                                    <legend>Noticeboard</legend>
+                                    <div class="row">
+                                        <div class="notices">
+                                        {ONXSHOP_REQUEST_store_notice_list #bo/component/ecommerce/store_notice_list~store_id=GET.id~}
+                                        </div>
+                                    </div>
+                                </fieldset>
+                                
+                                <fieldset class="advanced">
+                                    <p>Store Last Modified {STORE.modified}</p>
+                                </fieldset>
+
+                                <button type="submit" class="save" name="save" value="save"><span>Save</span></button>
+
+                                <input type="hidden" name="store[id]" value="{GET.id}" />
+
+                            </div>
+                        </div>
+
+                        <div class="row-bottom">
+                            <div class="row-wrapper">
+                                <div class="column-wrapper">
+                                    <p>
+                                        <a class="button show-advanced-settings" href="#"><span>Show Advanced Settings</span></a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                </div>
+        </div>
 
 </div>
 <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
@@ -370,5 +370,5 @@
 <br style="clear: both;" />
 
 {ONXSHOP_REQUEST_tinymce #bo/tinymce~id=GET.id:relation=store:role=RTE_description:mode=exact:edit_elements=store-description:theme=advanced~}
-	
+    
 <!-- END: content -->

@@ -1,9 +1,9 @@
 <!-- BEGIN: title -->Notice Edit<!-- END: title -->
 <!-- BEGIN: content -->
 <div class="page-header">
-	<div class="page-header-wrapper">
-		<h1 class="page-title popup"><span>Notice</span> <span class="info">ID {NODE.id}</span></h1>
-	</div>
+    <div class="page-header-wrapper">
+        <h1 class="page-title popup"><span>Notice</span> <span class="info">ID {NODE.id}</span></h1>
+    </div>
 </div>
 
 {FILE "bo/node/content/default_top.html"}
@@ -16,16 +16,16 @@
 #html-code {width: 90%; min-height: 400px;  border: 1px solid black;}
 </style>
 <fieldset>
-	<div class="row">
-		<label>HTML Source:</label
-		<textarea id="html_code" name="node[content]" class="html"><!-- BEGIN: empty --><p>enter your content here</p><!-- END: empty -->{NODE.content|htmlspecialchars}</textarea>
-	</div>
+    <div class="row">
+        <label>HTML Source:</label
+        <textarea id="html_code" name="node[content]" class="html"><!-- BEGIN: empty --><p>enter your content here</p><!-- END: empty -->{NODE.content|htmlspecialchars}</textarea>
+    </div>
 </fieldset>
 
 <script type="text/javascript">
 $(document).ready(function() {
-	//disable due to incorrect line wrapping, wait for Codemirror v3
-	//var editor = CodeMirror.fromTextArea(document.getElementById('html-code'), {lineWrapping: true});
+    //disable due to incorrect line wrapping, wait for Codemirror v3
+    //var editor = CodeMirror.fromTextArea(document.getElementById('html-code'), {lineWrapping: true});
 });
 </script>
 

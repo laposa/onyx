@@ -12,16 +12,16 @@ $(document).ready(function() {
 <!-- END: head_once -->
 <!-- BEGIN: content -->
 <div class="image-gallery-flexslider number-of-items-{IMAGE_COUNT}" id="gallery-flexslider-{GET.node_id}">
-	<ul class="slides">
-		<!-- BEGIN: item -->
-		<li>
-			<img id="image-id-{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" />
-			<div class="info">
-				<h5>{ITEM.title|htmlspecialchars}</h5>
-				<p class="description">{ITEM.description|htmlspecialchars}</p>
-			</div>
-		</li>
-	<!-- END: item -->
-	</ul>
+    <ul class="slides">
+        <!-- BEGIN: item -->
+        <li>
+            <img id="image-id-{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" />
+            <div class="info">
+                <h5>{ITEM.title|htmlspecialchars}</h5>
+                <p class="description">{ITEM.description|htmlspecialchars}</p>
+            </div>
+        </li>
+    <!-- END: item -->
+    </ul>
 </div>
 <!-- END: content -->

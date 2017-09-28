@@ -4,18 +4,18 @@
 <!-- BEGIN: outbox -->
 <h3>Emails previously sent to <a href="mailto:{NODE.author_detail.email|htmlspecialchars}">{NODE.author_detail.email|htmlspecialchars}</a></h3>
 <table>
-	<tr><th>Subject</th><th>Date</th></tr>
-	<!-- BEGIN: item -->
-	<tr><td>{ITEM.subject|htmlspecialchars}</td><td>{ITEM.created}</td></tr>
-	<!-- END: item -->
+    <tr><th>Subject</th><th>Date</th></tr>
+    <!-- BEGIN: item -->
+    <tr><td>{ITEM.subject|htmlspecialchars}</td><td>{ITEM.created}</td></tr>
+    <!-- END: item -->
 </table>
 <!-- END: outbox -->
 
 <!-- BEGIN: preview_email -->
 <h3>New Email</h3>
 <table>
-	<tr><td>From:</td><td>{CONF.global.admin_email_name|htmlspecialchars} &lt;{CONF.global.admin_email|htmlspecialchars}&gt;</td></tr>
-	<tr><td>To:</td><td>{NODE.author_detail.name|htmlspecialchars} &lt;<a href="mailto:{NODE.relations.author.email|htmlspecialchars}">{NODE.author_detail.email|htmlspecialchars}</a>&gt;</td></tr>
+    <tr><td>From:</td><td>{CONF.global.admin_email_name|htmlspecialchars} &lt;{CONF.global.admin_email|htmlspecialchars}&gt;</td></tr>
+    <tr><td>To:</td><td>{NODE.author_detail.name|htmlspecialchars} &lt;<a href="mailto:{NODE.relations.author.email|htmlspecialchars}">{NODE.author_detail.email|htmlspecialchars}</a>&gt;</td></tr>
 </table>
 
 <p><a href="/request/bo/component/client/notify~node_id={GET.node_id}:mail_template={MAIL_TEMPLATE}:confirm=1~" class="button" onclick="makeAjaxRequest('div.client-notify', '/request/bo/component/client/notify~node_id={GET.node_id}:mail_template={MAIL_TEMPLATE}:confirm=1~'); return false;"><span>Send</span></a></p>

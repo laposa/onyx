@@ -6,39 +6,39 @@
 <script>
 $(function() {
 
-	// we need to use a different selector when in editting or sorting mode
-	var fe_edit_mode = '{_SESSION.fe_edit_mode}';
-	
-	if (fe_edit_mode == 'edit' || fe_edit_mode == 'move') {
-		var slider_selector = 'div.slider-body div.onxshop-layout-container:first';
-		var slider_item_selector = 'div.node';
-	} else {
-		var slider_selector = 'div.slider-body:first';
-		var slider_item_selector = 'div.content';
-	}
-	
+    // we need to use a different selector when in editting or sorting mode
+    var fe_edit_mode = '{_SESSION.fe_edit_mode}';
+    
+    if (fe_edit_mode == 'edit' || fe_edit_mode == 'move') {
+        var slider_selector = 'div.slider-body div.onxshop-layout-container:first';
+        var slider_item_selector = 'div.node';
+    } else {
+        var slider_selector = 'div.slider-body:first';
+        var slider_item_selector = 'div.content';
+    }
+    
     // setup ul.tabs to work as tabs for each div directly under div.tabsLayout div.layoutBody 
     if ($('section.slider-layout div.slider-body > *').length > 0) {
-	    $('section.slider-layout div.slider-wrapper').unslider({
-		    selectors: {
-				container: slider_selector,
-				slides: slider_item_selector
-			},
-			animation: 'horizontal'
-		});
-	}
+        $('section.slider-layout div.slider-wrapper').unslider({
+            selectors: {
+                container: slider_selector,
+                slides: slider_item_selector
+            },
+            animation: 'horizontal'
+        });
+    }
 });
 </script>
 <!-- END: head_once -->
 <!-- BEGIN: content -->
 <section class="layout slider-layout {NODE.layout_style} {NODE.css_class}">
-	<div class="wrapper">
-		<!-- BEGIN: title --><h2 class="layout-title"><span>{NODE.title|htmlspecialchars}</span></h2><!-- END: title -->
-		<div class="slider-wrapper">
-			<div class="slider-body">
-				{CONTAINER.1}
-			</div>
-		</div>
-	</div>
+    <div class="wrapper">
+        <!-- BEGIN: title --><h2 class="layout-title"><span>{NODE.title|htmlspecialchars}</span></h2><!-- END: title -->
+        <div class="slider-wrapper">
+            <div class="slider-body">
+                {CONTAINER.1}
+            </div>
+        </div>
+    </div>
 </section>
 <!-- END: content -->

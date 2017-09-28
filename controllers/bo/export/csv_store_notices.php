@@ -10,27 +10,27 @@ require_once('models/ecommerce/ecommerce_store.php');
 
 class Onxshop_Controller_Bo_Export_CSV_Store_Notices extends Onxshop_Controller_Bo_Export_CSV {
 
-	/**
-	 * main action
-	 */
-	 
-	public function mainAction() {
-		
-		set_time_limit(0);
-		
-		
-		$Store = new ecommerce_store();
-		
-		/**
-		 * Get the list
-		 */
-		
-		$date_from = $this->GET['date_from'];
-		$date_to = $this->GET['date_to'];
+    /**
+     * main action
+     */
+     
+    public function mainAction() {
+        
+        set_time_limit(0);
+        
+        
+        $Store = new ecommerce_store();
+        
+        /**
+         * Get the list
+         */
+        
+        $date_from = $this->GET['date_from'];
+        $date_to = $this->GET['date_to'];
 
-		$records = $Store->getDataForNoticesReport($date_from, $date_to);
-		$this->commonCSVAction($records, 'store_notices');
+        $records = $Store->getDataForNoticesReport($date_from, $date_to);
+        $this->commonCSVAction($records, 'store_notices');
 
-		return true;
-	}
+        return true;
+    }
 }

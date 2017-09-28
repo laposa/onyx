@@ -9,50 +9,50 @@
 <!-- BEGIN: content -->
 
 <article class="two-column-page page recipe fibonacci-5-3 {NODE.css_class} {NODE.taxonomy_class} {RECIPE.taxonomy_class}">
-	<div class="wrapper">
-		{PAGE_HEADER}
-		<div class="page-content">
-			<div class="page-content-wrapper">
-				<div class="row-top">
-					<div class="row-wrapper">
-						<div class="column-wrapper">
-							<div class="recipe_image">
-								<img style="display: none;" itemprop="image" src="{PROTOCOL}://{_SERVER.HTTP_HOST}/image/{OPENGRAPH_IMAGE.src|htmlspecialchars}" />
-								{ONXSHOP_REQUEST_image #component/image~node_id=GET.recipe_id:relation=recipe:width=300~}
-							</div>
-							<div class="recipe_video">
-								{RECIPE_VIDEO}
-							</div>
-							<div class="description">{RECIPE.description}</div>
-							<p class="serves">Serves {RECIPE.serving_people} {RECIPE.persons}</p>
-							<p class="cooking_time">Cooking time: {RECIPE.cooking_time} {RECIPE.minutes}</p>
-							{CONTAINER.0}
-						</div>
-					</div>
-				</div>
-	
-				<div class="row-middle">
-					<div class="row-wrapper">
-						<div class="column-one">
-							<div class="column-wrapper">		
-								<div class="instructions">
-									{RECIPE.instructions}
-								</div>
-								{ONXSHOP_REQUEST_socialshare #component/social_network_share}
-								{CONTAINER.1}
-							</div>
-						</div>
-						<div class="column-two">
-							<div class="column-wrapper">
-								{ONXSHOP_REQUEST_recipe_ingredients #component/ecommerce/recipe_ingredients~id=GET.recipe_id~}
-								{CONTAINER.2}
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="wrapper">
+        {PAGE_HEADER}
+        <div class="page-content">
+            <div class="page-content-wrapper">
+                <div class="row-top">
+                    <div class="row-wrapper">
+                        <div class="column-wrapper">
+                            <div class="recipe_image">
+                                <img style="display: none;" itemprop="image" src="{PROTOCOL}://{_SERVER.HTTP_HOST}/image/{OPENGRAPH_IMAGE.src|htmlspecialchars}" />
+                                {ONXSHOP_REQUEST_image #component/image~node_id=GET.recipe_id:relation=recipe:width=300~}
+                            </div>
+                            <div class="recipe_video">
+                                {RECIPE_VIDEO}
+                            </div>
+                            <div class="description">{RECIPE.description}</div>
+                            <p class="serves">Serves {RECIPE.serving_people} {RECIPE.persons}</p>
+                            <p class="cooking_time">Cooking time: {RECIPE.cooking_time} {RECIPE.minutes}</p>
+                            {CONTAINER.0}
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="row-middle">
+                    <div class="row-wrapper">
+                        <div class="column-one">
+                            <div class="column-wrapper">        
+                                <div class="instructions">
+                                    {RECIPE.instructions}
+                                </div>
+                                {ONXSHOP_REQUEST_socialshare #component/social_network_share}
+                                {CONTAINER.1}
+                            </div>
+                        </div>
+                        <div class="column-two">
+                            <div class="column-wrapper">
+                                {ONXSHOP_REQUEST_recipe_ingredients #component/ecommerce/recipe_ingredients~id=GET.recipe_id~}
+                                {CONTAINER.2}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </article>
 
 <!-- END: content -->

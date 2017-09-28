@@ -11,305 +11,305 @@ require_once('models/client/client_role_permission.php');
 class Onxshop_Bo_Authentication
 {
 
-	/**
-	 * Class instance
-	 */
-	private static $instance = false;
+    /**
+     * Class instance
+     */
+    private static $instance = false;
 
 
 
-	/**
-	 * client_role_permission model instance
-	 */
-	private static $Permission;
+    /**
+     * client_role_permission model instance
+     */
+    private static $Permission;
 
 
 
-	/**
-	 * Superuser emulation flag
-	 */
-	private static $superuserEmulation = false;
+    /**
+     * Superuser emulation flag
+     */
+    private static $superuserEmulation = false;
 
 
 
-	/**
-	 * Superuser Authentication Adapter
-	 */
-	private $superuserAuthAdapter;
+    /**
+     * Superuser Authentication Adapter
+     */
+    private $superuserAuthAdapter;
 
 
 
-	/**
-	 * Admin Authentication Adapter
-	 */
-	private $adminAuthAdapter;
+    /**
+     * Admin Authentication Adapter
+     */
+    private $adminAuthAdapter;
 
 
 
-	/**
-	 * Private constructor to ensure class won't be instantiated.
-	 */
-	private function __construct()
-	{
+    /**
+     * Private constructor to ensure class won't be instantiated.
+     */
+    private function __construct()
+    {
 
-		// instantiate superuser AuthAdapter as per configuration settings
-		switch (ONXSHOP_AUTH_TYPE)  {
+        // instantiate superuser AuthAdapter as per configuration settings
+        switch (ONXSHOP_AUTH_TYPE)  {
 
-			case 'imap':
+            case 'imap':
 
-				$this->superuserAuthAdapter = new IMAPAuthAdapter();
-				break;
+                $this->superuserAuthAdapter = new IMAPAuthAdapter();
+                break;
 
-			case 'postgresql':
+            case 'postgresql':
 
-				$this->superuserAuthAdapter = new PSQLAuthAdapter();
-				break;
+                $this->superuserAuthAdapter = new PSQLAuthAdapter();
+                break;
             
             case 'mysql':
 
-				$this->superuserAuthAdapter = new MYSQLAuthAdapter();
-				break;
+                $this->superuserAuthAdapter = new MYSQLAuthAdapter();
+                break;
 
-			default:
+            default:
 
-				$this->superuserAuthAdapter = new FlatAuthAdapter();
-		}
+                $this->superuserAuthAdapter = new FlatAuthAdapter();
+        }
 
-		// administrators are authenticated using client_customer_acl
-		$this->adminAuthAdapter = new ClientAuthAdapter();
+        // administrators are authenticated using client_customer_acl
+        $this->adminAuthAdapter = new ClientAuthAdapter();
 
-		// create instance of client_role_permission
-		self::$Permission = new client_role_permission();
-		self::$Permission->setCacheable(false);
+        // create instance of client_role_permission
+        self::$Permission = new client_role_permission();
+        self::$Permission->setCacheable(false);
 
-	}
-
-
-
-	/**
-	 * Static instance accessor
-	 * 
-	 * @return Onxshop_Bo_Authentication Class instance
-	 */
-	public static function getInstance()
-	{
-		if (self::$instance === false) self::$instance = new Onxshop_Bo_Authentication();
-		return self::$instance;
-	}
+    }
 
 
 
-	/**
-	 * Login if HTTP Auth credentials present.
-	 * Show HTTP Auth login dialog otherwise.
-	 *
-	 * @return  boolean True on success or if logged in already
-	 */
-	public function login()
-	{
-		if ($this->isAuthenticated()) return true;
-
-		$username = $_SERVER['PHP_AUTH_USER'];
-		$password = $_SERVER['PHP_AUTH_PW'];
-
-		if (!$username) $this->showHttpAuthDialog();
-
-		// reset all
-		$_SESSION['authentication'] = null;
-
-		if ($username && $password) {
-
-			if (filter_var($username, FILTER_VALIDATE_EMAIL)) {
-
-				$user = $this->adminAuthAdapter->authenticate($username, $password);
-				$superuser = false;
-
-			} else {
-
-				$user = $this->superuserAuthAdapter->authenticate($username, $password);
-				$superuser = true;
-
-			}
-
-			if ($user) {
-
-				$_SESSION['authentication']['user_details'] = $user;
-				$_SESSION['authentication']['authenticated'] = 1;
-				$_SESSION['authentication']['superuser'] = $superuser;
-
-				// backwards compatibility
-				$_SESSION['authentication']['authenticity'] = 1;
-				$_SESSION['authentication']['logon'] = 1;
-
-				return true;
-			}
-
-		}
-
-		return false;
-	}
+    /**
+     * Static instance accessor
+     * 
+     * @return Onxshop_Bo_Authentication Class instance
+     */
+    public static function getInstance()
+    {
+        if (self::$instance === false) self::$instance = new Onxshop_Bo_Authentication();
+        return self::$instance;
+    }
 
 
 
-	/**
-	 * Logout from back office
-	 */
-	public function logout()
-	{
-		$_SESSION['authentication'] = null;
-		self::$superuserEmulation = false;
-		msg('Logout completed');
-	}
+    /**
+     * Login if HTTP Auth credentials present.
+     * Show HTTP Auth login dialog otherwise.
+     *
+     * @return  boolean True on success or if logged in already
+     */
+    public function login()
+    {
+        if ($this->isAuthenticated()) return true;
+
+        $username = $_SERVER['PHP_AUTH_USER'];
+        $password = $_SERVER['PHP_AUTH_PW'];
+
+        if (!$username) $this->showHttpAuthDialog();
+
+        // reset all
+        $_SESSION['authentication'] = null;
+
+        if ($username && $password) {
+
+            if (filter_var($username, FILTER_VALIDATE_EMAIL)) {
+
+                $user = $this->adminAuthAdapter->authenticate($username, $password);
+                $superuser = false;
+
+            } else {
+
+                $user = $this->superuserAuthAdapter->authenticate($username, $password);
+                $superuser = true;
+
+            }
+
+            if ($user) {
+
+                $_SESSION['authentication']['user_details'] = $user;
+                $_SESSION['authentication']['authenticated'] = 1;
+                $_SESSION['authentication']['superuser'] = $superuser;
+
+                // backwards compatibility
+                $_SESSION['authentication']['authenticity'] = 1;
+                $_SESSION['authentication']['logon'] = 1;
+
+                return true;
+            }
+
+        }
+
+        return false;
+    }
 
 
 
-	/**
-	 * Is user authenticated within current session?
-	 * 
-	 * @return boolean 
-	 */
-	public function isAuthenticated()
-	{
-		return (bool) $_SESSION['authentication']['authenticated'] || self::$superuserEmulation;
-	}
+    /**
+     * Logout from back office
+     */
+    public function logout()
+    {
+        $_SESSION['authentication'] = null;
+        self::$superuserEmulation = false;
+        msg('Logout completed');
+    }
 
 
 
-	/**
-	 * Is authenticated user a superuser?
-	 * 
-	 * @return boolean 
-	 */
-	public function isSuperuser()
-	{
-		return (bool) $_SESSION['authentication']['superuser'] || self::$superuserEmulation;
-	}
+    /**
+     * Is user authenticated within current session?
+     * 
+     * @return boolean 
+     */
+    public function isAuthenticated()
+    {
+        return (bool) $_SESSION['authentication']['authenticated'] || self::$superuserEmulation;
+    }
 
 
 
-	/**
-	 * Is current instalation of ecommerce type?
-	 */
-	public function isEcommerce()
-	{
-		return ONXSHOP_ECOMMERCE;
-	}
+    /**
+     * Is authenticated user a superuser?
+     * 
+     * @return boolean 
+     */
+    public function isSuperuser()
+    {
+        return (bool) $_SESSION['authentication']['superuser'] || self::$superuserEmulation;
+    }
 
 
 
-	/**
-	 * Get logged user details
-	 * 
-	 * @return Array User details
-	 */
-	public function getUserDetails()
-	{
-		if ($this->isAuthenticated()) {
-
-			return $_SESSION['authentication']['user_details'];
-
-		}
-
-		return false;
-	}
-	
-	/**
-	 * Get user ID
-	 * 
-	 * @return int User ID
-	 */
-	public function getUserId()
-	{
-		if ($this->isAuthenticated()) {
-
-			$user_details = $this->getUserDetails();
-			
-			return $user_details['id'];
-
-		}
-
-		return false;
-	}
+    /**
+     * Is current instalation of ecommerce type?
+     */
+    public function isEcommerce()
+    {
+        return ONXSHOP_ECOMMERCE;
+    }
 
 
 
-	/**
-	 * Has currently authenticated user permission to perform
-	 * a given operation on a given resource?
-	 * 
-	 * @return boolean 
-	 */
-	public function hasPermission($resource, $operation)
-	{
-		if (self::$superuserEmulation) return true;
-		if (!$this->isAuthenticated()) return false;
-		if ($this->isSuperuser()) return true;
+    /**
+     * Get logged user details
+     * 
+     * @return Array User details
+     */
+    public function getUserDetails()
+    {
+        if ($this->isAuthenticated()) {
 
-		$customer_id = $_SESSION['authentication']['user_details']['id'];
-		return self::$Permission->checkPermissionByCustomer($customer_id, $resource, $operation);
-	}
+            return $_SESSION['authentication']['user_details'];
 
+        }
 
+        return false;
+    }
+    
+    /**
+     * Get user ID
+     * 
+     * @return int User ID
+     */
+    public function getUserId()
+    {
+        if ($this->isAuthenticated()) {
 
-	/**
-	 * Has currently authenticated user permission to perform
-	 * at least one single operation on a given resource?
-	 * 
-	 * @return boolean 
-	 */
-	public function hasAnyPermission($resource)
-	{
-		return $this->hasPermission($resource, "_any_");
-	}
+            $user_details = $this->getUserDetails();
+            
+            return $user_details['id'];
 
+        }
 
-
-	/**
-	 * Emulate superuser temporarily (just for the current script run)
-	 */
-	public function emulateSuperuserTemporarily()
-	{
-		self::$superuserEmulation = true;
-	}
+        return false;
+    }
 
 
 
-	/**
-	 * Disable superuser emulation
-	 */
-	public function disableSuperuserEmulation()
-	{
-		self::$superuserEmulation = false;
-	}
+    /**
+     * Has currently authenticated user permission to perform
+     * a given operation on a given resource?
+     * 
+     * @return boolean 
+     */
+    public function hasPermission($resource, $operation)
+    {
+        if (self::$superuserEmulation) return true;
+        if (!$this->isAuthenticated()) return false;
+        if ($this->isSuperuser()) return true;
+
+        $customer_id = $_SESSION['authentication']['user_details']['id'];
+        return self::$Permission->checkPermissionByCustomer($customer_id, $resource, $operation);
+    }
 
 
 
-	/**
-	 * Show HTTP Auth dialog (exists the script)
-	 */
-	private function showHttpAuthDialog()
-	{
-		
-		/**
-		 * Option 1: show OS/browser native dialog window
-		 */
-		 
-		//Header("WWW-authenticate: Basic realm=\"CMS\"");
-		//Header("HTTP/1.0 401 Unauthorized");
-		
-		/**
-		 * Option 2: show custom dialog window
-		 */
-		 
-		$result = new Onxshop_Router('sys/html5.bo_login');
-		echo $result->Onxshop->getContent();
-	
-		/**
-		 * no more script processing
-		 */
-		 
-		exit;
-	}
+    /**
+     * Has currently authenticated user permission to perform
+     * at least one single operation on a given resource?
+     * 
+     * @return boolean 
+     */
+    public function hasAnyPermission($resource)
+    {
+        return $this->hasPermission($resource, "_any_");
+    }
+
+
+
+    /**
+     * Emulate superuser temporarily (just for the current script run)
+     */
+    public function emulateSuperuserTemporarily()
+    {
+        self::$superuserEmulation = true;
+    }
+
+
+
+    /**
+     * Disable superuser emulation
+     */
+    public function disableSuperuserEmulation()
+    {
+        self::$superuserEmulation = false;
+    }
+
+
+
+    /**
+     * Show HTTP Auth dialog (exists the script)
+     */
+    private function showHttpAuthDialog()
+    {
+        
+        /**
+         * Option 1: show OS/browser native dialog window
+         */
+         
+        //Header("WWW-authenticate: Basic realm=\"CMS\"");
+        //Header("HTTP/1.0 401 Unauthorized");
+        
+        /**
+         * Option 2: show custom dialog window
+         */
+         
+        $result = new Onxshop_Router('sys/html5.bo_login');
+        echo $result->Onxshop->getContent();
+    
+        /**
+         * no more script processing
+         */
+         
+        exit;
+    }
 
 }
 
@@ -321,15 +321,15 @@ class Onxshop_Bo_Authentication
 interface AuthAdapter
 {
 
-	/**
-	 * Authenicate function should return user details (array)
-	 * on success and false on failure
-	 * 
-	 * @param  String $username Username
-	 * @param  String $password Password
-	 * @return boolean|Array
-	 */
-	public function authenticate($username, $password);
+    /**
+     * Authenicate function should return user details (array)
+     * on success and false on failure
+     * 
+     * @param  String $username Username
+     * @param  String $password Password
+     * @return boolean|Array
+     */
+    public function authenticate($username, $password);
 
 }
 
@@ -341,26 +341,26 @@ interface AuthAdapter
 class IMAPAuthAdapter implements AuthAdapter
 {
 
-	public function authenticate($username, $password)
-	{
-		$host = "{" . ONXSHOP_AUTH_SERVER . ":143/imap/notls}";
-		@$mailbox = imap_open($host, $username, $password, OP_DEBUG);
+    public function authenticate($username, $password)
+    {
+        $host = "{" . ONXSHOP_AUTH_SERVER . ":143/imap/notls}";
+        @$mailbox = imap_open($host, $username, $password, OP_DEBUG);
 
-		if ($mailbox) {
+        if ($mailbox) {
 
-			imap_close($mailbox);
+            imap_close($mailbox);
 
-			return array(
-				'id' => 0,
-				'username' => $username,
-				'email' => $username . '@' . ONXSHOP_AUTH_SERVER
-			);
+            return array(
+                'id' => 0,
+                'username' => $username,
+                'email' => $username . '@' . ONXSHOP_AUTH_SERVER
+            );
 
-		}
-		
-		return false;
+        }
+        
+        return false;
 
-	}
+    }
 
 }
 
@@ -370,33 +370,33 @@ class IMAPAuthAdapter implements AuthAdapter
 class PSQLAuthAdapter implements AuthAdapter
 {
 
-	public function authenticate($username, $password)
-	{
-		$conn_string = sprintf("host=%s port=%d dbname=%s user=%s password=%s", 
-			ONXSHOP_AUTH_SERVER,
-			ONXSHOP_DB_PORT,
-			ONXSHOP_DB_NAME,
-			$username,
-			$password
-		);
+    public function authenticate($username, $password)
+    {
+        $conn_string = sprintf("host=%s port=%d dbname=%s user=%s password=%s", 
+            ONXSHOP_AUTH_SERVER,
+            ONXSHOP_DB_PORT,
+            ONXSHOP_DB_NAME,
+            $username,
+            $password
+        );
 
-		@$dbconn = pg_connect($conn_string);
+        @$dbconn = pg_connect($conn_string);
 
-		if ($dbconn) {
+        if ($dbconn) {
 
-			pg_close($dbconn);
+            pg_close($dbconn);
 
-			return array(
-				'id' => 0,
-				'username' => $username,
-				'email' => $username . '@' . ONXSHOP_AUTH_SERVER
-			);
+            return array(
+                'id' => 0,
+                'username' => $username,
+                'email' => $username . '@' . ONXSHOP_AUTH_SERVER
+            );
 
-		}
+        }
 
-		return false;
+        return false;
 
-	}
+    }
 
 }
 
@@ -407,26 +407,26 @@ class PSQLAuthAdapter implements AuthAdapter
 class MYSQLAuthAdapter implements AuthAdapter
 {
 
-	public function authenticate($username, $password)
-	{
+    public function authenticate($username, $password)
+    {
 
         @$dbconn = mysql_connect(ONXSHOP_AUTH_SERVER . ':' . ONXSHOP_DB_PORT, $username, $password);
 
-		if ($dbconn) {
+        if ($dbconn) {
 
-			mysql_close($dbconn);
+            mysql_close($dbconn);
 
-			return array(
-				'id' => 0,
-				'username' => $username,
-				'email' => $username . '@' . ONXSHOP_AUTH_SERVER
-			);
+            return array(
+                'id' => 0,
+                'username' => $username,
+                'email' => $username . '@' . ONXSHOP_AUTH_SERVER
+            );
 
-		}
+        }
 
-		return false;
+        return false;
 
-	}
+    }
 
 }
 
@@ -437,23 +437,23 @@ class MYSQLAuthAdapter implements AuthAdapter
 class FlatAuthAdapter implements AuthAdapter
 {
 
-	public function authenticate($username, $password)
-	{
-		if (
-			defined('ONXSHOP_EDITOR_USERNAME') && 
-			$username == constant('ONXSHOP_EDITOR_USERNAME') && 
-			$password == constant('ONXSHOP_EDITOR_PASSWORD')
-		) {
-			
-			return array(
-				'id' => 0,
-				'username' => $username,
-				'email' => $username . '@flat'
-			);
-			
-		} 
+    public function authenticate($username, $password)
+    {
+        if (
+            defined('ONXSHOP_EDITOR_USERNAME') && 
+            $username == constant('ONXSHOP_EDITOR_USERNAME') && 
+            $password == constant('ONXSHOP_EDITOR_PASSWORD')
+        ) {
+            
+            return array(
+                'id' => 0,
+                'username' => $username,
+                'email' => $username . '@flat'
+            );
+            
+        } 
 
-	}
+    }
 
 }
 
@@ -465,23 +465,23 @@ class FlatAuthAdapter implements AuthAdapter
 class ClientAuthAdapter implements AuthAdapter
 {
 
-	public function authenticate($username, $password)
-	{
-		$Client_Customer = new client_customer();
-		$Client_Customer->setCacheable(false);
-		$customer_detail = $Client_Customer->login($username, md5($password));
+    public function authenticate($username, $password)
+    {
+        $Client_Customer = new client_customer();
+        $Client_Customer->setCacheable(false);
+        $customer_detail = $Client_Customer->login($username, md5($password));
 
-		if ($customer_detail) {
+        if ($customer_detail) {
 
-			$Permission = new client_role_permission();
-			$Permission->setCacheable(false);
+            $Permission = new client_role_permission();
+            $Permission->setCacheable(false);
 
-			if ($Permission->isBackofficeUser($customer_detail['id'])) {
-				return $customer_detail;
-			}
-		}
+            if ($Permission->isBackofficeUser($customer_detail['id'])) {
+                return $customer_detail;
+            }
+        }
 
-		return false;
-	}
+        return false;
+    }
 
 }

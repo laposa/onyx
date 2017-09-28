@@ -3,81 +3,81 @@
 
 <div class="two-column-page page survey-edit">
 
-	<form method="post" action="{URI|htmlspecialchars}" id="survey_edit_form">
-			<div class="page-wrapper">
+    <form method="post" action="{URI|htmlspecialchars}" id="survey_edit_form">
+            <div class="page-wrapper">
 
-				<div class="page-header">
-					<div class="page-header-wrapper">
-						<h1 class="page-title"><span>Survey Properties Edit</span> <span class="info">ID {SURVEY.id}</span></h1>
-					</div>
-				</div>
+                <div class="page-header">
+                    <div class="page-header-wrapper">
+                        <h1 class="page-title"><span>Survey Properties Edit</span> <span class="info">ID {SURVEY.id}</span></h1>
+                    </div>
+                </div>
 
-				<div class="page-content">
-					<div class="page-content-wrapper">
-						<div class="row-top">
-							<div class="row-wrapper">
-								<div class="column-wrapper">
-									{CONTAINER.0}
-								</div>
-							</div>
-						</div>
-						<div class="row-middle">
-							<div class="row-wrapper">
-								<div class="column-one">
-									<div class="column-wrapper">
+                <div class="page-content">
+                    <div class="page-content-wrapper">
+                        <div class="row-top">
+                            <div class="row-wrapper">
+                                <div class="column-wrapper">
+                                    {CONTAINER.0}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-middle">
+                            <div class="row-wrapper">
+                                <div class="column-one">
+                                    <div class="column-wrapper">
 
-										<fieldset class="single">
-											<div class="row title">
-												<span class="label"><label for="survey-title">Title</label></span>
-												<span class="field"><input class="required text title" id="survey-title" type="text" name="survey[title]" value="{SURVEY.title|htmlspecialchars}" /></span>
-											</div>
-											<div class="row description">
-												<span class="label"><label for="survey-description">Description</label></span>
-												<span class="field"><textarea id="survey-description" name="survey[description]">{SURVEY.description|htmlspecialchars}</textarea></span>
-											</div>
-											<div class="row publish">
-												<span class="label"><label for="survey-publish">Publish</label></span>
-												<span class="field">
-													<select id="survey-publish" name="survey[publish]">
-														<option value="0" {SELECTED_0}>No</option>
-														<option value="1" {SELECTED_1}>Yes</option>
-														<option value="-1" {SELECTED_-1}>Reject</option>
-													</select>
-												</span>
-											</div>
-											
-										</fieldset>
-			
-									</div>
-								</div>
-								<div class="column-two">
-									<div class="column-wrapper">
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="row-bottom">
-							<div class="row-wrapper">
-								<div class="column-wrapper">
-									<p>
-										<a class="button" href="/backoffice/surveys/{SURVEY.id}/detail">Cancel</a>
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+                                        <fieldset class="single">
+                                            <div class="row title">
+                                                <span class="label"><label for="survey-title">Title</label></span>
+                                                <span class="field"><input class="required text title" id="survey-title" type="text" name="survey[title]" value="{SURVEY.title|htmlspecialchars}" /></span>
+                                            </div>
+                                            <div class="row description">
+                                                <span class="label"><label for="survey-description">Description</label></span>
+                                                <span class="field"><textarea id="survey-description" name="survey[description]">{SURVEY.description|htmlspecialchars}</textarea></span>
+                                            </div>
+                                            <div class="row publish">
+                                                <span class="label"><label for="survey-publish">Publish</label></span>
+                                                <span class="field">
+                                                    <select id="survey-publish" name="survey[publish]">
+                                                        <option value="0" {SELECTED_0}>No</option>
+                                                        <option value="1" {SELECTED_1}>Yes</option>
+                                                        <option value="-1" {SELECTED_-1}>Reject</option>
+                                                    </select>
+                                                </span>
+                                            </div>
+                                            
+                                        </fieldset>
+            
+                                    </div>
+                                </div>
+                                <div class="column-two">
+                                    <div class="column-wrapper">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-bottom">
+                            <div class="row-wrapper">
+                                <div class="column-wrapper">
+                                    <p>
+                                        <a class="button" href="/backoffice/surveys/{SURVEY.id}/detail">Cancel</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-		<div class="row submit">
-			<span class="label"><label>&nbsp;</label></span>
-			<span class="field"><button type="submit" class="save" name="save" value="save"><span>Save</span></button></span>
-		</div>
-		
-		<input type="hidden" name="survey[id]" value="{SURVEY.id}" />
+        <div class="row submit">
+            <span class="label"><label>&nbsp;</label></span>
+            <span class="field"><button type="submit" class="save" name="save" value="save"><span>Save</span></button></span>
+        </div>
+        
+        <input type="hidden" name="survey[id]" value="{SURVEY.id}" />
 
-	<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
-</form>	
+    <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+</form> 
 </div>
 
 <!-- END: content -->

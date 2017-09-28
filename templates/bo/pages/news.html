@@ -2,80 +2,80 @@
 <!-- BEGIN: content -->
 <script type="text/javascript">
 $(document).ready(function(){
-	$('#news-taxonomy-filter .simple-tree').simpleTree({
-		drag: false,
-		autoclose: true,
-		afterClick:function(node){
-			var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
-			$("#news-list").html(onxshop_load_indicator_html_snippet).load("/request/bo/component/news_list~show_all_from_bo=1:taxonomy_tree_id="+node_id+"~");
-		},
-		animate: true,
-		docToFolderConvert: true
-		});
-	$('#news-section-select select').on('change', function() {
-		window.location = '/backoffice/news/' + $(this).val();
-	})
+    $('#news-taxonomy-filter .simple-tree').simpleTree({
+        drag: false,
+        autoclose: true,
+        afterClick:function(node){
+            var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
+            $("#news-list").html(onxshop_load_indicator_html_snippet).load("/request/bo/component/news_list~show_all_from_bo=1:taxonomy_tree_id="+node_id+"~");
+        },
+        animate: true,
+        docToFolderConvert: true
+        });
+    $('#news-section-select select').on('change', function() {
+        window.location = '/backoffice/news/' + $(this).val();
+    })
 });
 </script>
 
 <div id="news">
-	<div class="two-column-page page sidebar">
-			<div class="page-wrapper">
+    <div class="two-column-page page sidebar">
+            <div class="page-wrapper">
 
-				<div class="page-header">
-					<div class="page-header-wrapper">
-						<h1 class="page-title"><span>{BLOG_SECTION.title|htmlspecialchars}</span></h1>
-						<div id="news-section-select" style="position: absolute; top: 26px; right: 20px; ">{ONXSHOP_REQUEST_section_select #bo/component/news_section_select}</div>
-					</div>
-				</div>
+                <div class="page-header">
+                    <div class="page-header-wrapper">
+                        <h1 class="page-title"><span>{BLOG_SECTION.title|htmlspecialchars}</span></h1>
+                        <div id="news-section-select" style="position: absolute; top: 26px; right: 20px; ">{ONXSHOP_REQUEST_section_select #bo/component/news_section_select}</div>
+                    </div>
+                </div>
 
-				<div class="page-content">
-					<div class="page-content-wrapper">
-						<div class="row-top">
-							<div class="row-wrapper">
-								<div class="column-wrapper">
-									{CONTAINER.0}
-								</div>
-							</div>
-						</div>
-						<div class="row-middle">
-							<div class="row-wrapper">
-								<div class="column-one">
-									<div class="column-wrapper">
+                <div class="page-content">
+                    <div class="page-content-wrapper">
+                        <div class="row-top">
+                            <div class="row-wrapper">
+                                <div class="column-wrapper">
+                                    {CONTAINER.0}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-middle">
+                            <div class="row-wrapper">
+                                <div class="column-one">
+                                    <div class="column-wrapper">
 
-										<div id="news-taxonomy-filter">
-											{ONXSHOP_REQUEST_menupages #bo/component/taxonomy_menu~expand_all=1:publish=0~}
-										</div>
+                                        <div id="news-taxonomy-filter">
+                                            {ONXSHOP_REQUEST_menupages #bo/component/taxonomy_menu~expand_all=1:publish=0~}
+                                        </div>
 
-									</div>
-								</div>
-								<div class="column-two">
-									<div class="column-wrapper">
+                                    </div>
+                                </div>
+                                <div class="column-two">
+                                    <div class="column-wrapper">
 
-										<div id="news-list">
-											{ONXSHOP_REQUEST_newslist #bo/component/news_list~display_pagination=1~}
-										</div>
+                                        <div id="news-list">
+                                            {ONXSHOP_REQUEST_newslist #bo/component/news_list~display_pagination=1~}
+                                        </div>
 
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="row-bottom">
-							<div class="row-wrapper">
-								<div class="column-wrapper">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-bottom">
+                            <div class="row-wrapper">
+                                <div class="column-wrapper">
 
-									<p>
-										<a class="button add" title="Add new article to {BLOG_SECTION.title|htmlspecialchars}" href="#" onclick="openAjaxRequestInDialog('/request/bo/component/news_add~blog_node_id={BLOG_SECTION.id}~', 'Create a news item for {BLOG_SECTION.title|htmlspecialchars|addslashes}'); return false"><span>Add a New Article</span></a>
-										<a class="button rss" title="News RSS Export ({BLOG_SECTION.title|htmlspecialchars}" href="/export/rss/node/{BLOG_SECTION.id}"><span>Export This List as RSS</span></a>
-									</p>
+                                    <p>
+                                        <a class="button add" title="Add new article to {BLOG_SECTION.title|htmlspecialchars}" href="#" onclick="openAjaxRequestInDialog('/request/bo/component/news_add~blog_node_id={BLOG_SECTION.id}~', 'Create a news item for {BLOG_SECTION.title|htmlspecialchars|addslashes}'); return false"><span>Add a New Article</span></a>
+                                        <a class="button rss" title="News RSS Export ({BLOG_SECTION.title|htmlspecialchars}" href="/export/rss/node/{BLOG_SECTION.id}"><span>Export This List as RSS</span></a>
+                                    </p>
 
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-	</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
 </div>
 
 <!-- END: content -->

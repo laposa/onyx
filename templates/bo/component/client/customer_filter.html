@@ -6,174 +6,174 @@
 <script type="text/javascript">
 $(document).ready(function(){
 
-	function initFilterAjaxForm() {
-		$("#customer-filter-form").validate();
-		$('#customer-filter-form').ajaxForm({ 
-			target: '#customer-filter-form-wrapper',
-			beforeSubmit: function() { return $("#customer-filter-form").valid() },
-			success: function(responseText, statusText) {
-				popupMessage("#customer-filter-form-wrapper div.onxshop-messages");
-				if ($('#preview-specified-customers').length == 0) window.location = '/backoffice/customers';
-				makeAjaxRequest('#preview-specified-customers', '/request/bo/component/client/customer_list', function () {
-					initAjaxPagination();
-				});
-				initFilterAjaxForm();
-			}
-		});
-	}
+    function initFilterAjaxForm() {
+        $("#customer-filter-form").validate();
+        $('#customer-filter-form').ajaxForm({ 
+            target: '#customer-filter-form-wrapper',
+            beforeSubmit: function() { return $("#customer-filter-form").valid() },
+            success: function(responseText, statusText) {
+                popupMessage("#customer-filter-form-wrapper div.onxshop-messages");
+                if ($('#preview-specified-customers').length == 0) window.location = '/backoffice/customers';
+                makeAjaxRequest('#preview-specified-customers', '/request/bo/component/client/customer_list', function () {
+                    initAjaxPagination();
+                });
+                initFilterAjaxForm();
+            }
+        });
+    }
 
-	function initAjaxPagination() {
+    function initAjaxPagination() {
 
-		$("#preview-specified-customers div.pagination a").click(function() {
-			makeAjaxRequest('#preview-specified-customers', $(this).attr("href"), function() {
-				initAjaxPagination();
-			});
-			return false;
-		});
-	}
+        $("#preview-specified-customers div.pagination a").click(function() {
+            makeAjaxRequest('#preview-specified-customers', $(this).attr("href"), function() {
+                initAjaxPagination();
+            });
+            return false;
+        });
+    }
 
-	initFilterAjaxForm();
-		
-	/**
-	 * date
-	 */
-	 
-	$('#customer-filter-created-from,#customer-filter-created-to,#customer-filter-activity-from,#customer-filter-activity-to').datepicker({firstDay: 1, dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true}); 
+    initFilterAjaxForm();
+        
+    /**
+     * date
+     */
+     
+    $('#customer-filter-created-from,#customer-filter-created-to,#customer-filter-activity-from,#customer-filter-activity-to').datepicker({firstDay: 1, dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true}); 
 
 });
 </script>
 
 <style type="text/css">
-	div.product_bought span.field {display: block; height: 200px; padding: 5px; overflow: auto; border: 1px solid #ccc; background: white;}
+    div.product_bought span.field {display: block; height: 200px; padding: 5px; overflow: auto; border: 1px solid #ccc; background: white;}
 </style>
 
 <div id="customer-filter-form-wrapper">
-	<form method="post" id="customer-filter-form" action="/request/bo/component/client/customer_filter">
+    <form method="post" id="customer-filter-form" action="/request/bo/component/client/customer_filter">
 
-		<div class="customer_filter two-column-layout">
-			
-			<h2>Advanced Customer Filter</h2>
-			
-			<div class="column-one of-two">
+        <div class="customer_filter two-column-layout">
+            
+            <h2>Advanced Customer Filter</h2>
+            
+            <div class="column-one of-two">
 
-				<fieldset class="single">
+                <fieldset class="single">
 
-					<div class="row group-name" style="width: 50%;">
-						<span class="label"><label for="customer-filter-group-name">Group filter name *</label></span>
-						<span class="field">
-							<input type="text" class="text required" id="customer-filter-group-name" name="customer-filter[group_name]" value="{CUSTOMER_FILTER.group_name|htmlspecialchars}" />
-						</span>
-					</div>
+                    <div class="row group-name" style="width: 50%;">
+                        <span class="label"><label for="customer-filter-group-name">Group filter name *</label></span>
+                        <span class="field">
+                            <input type="text" class="text required" id="customer-filter-group-name" name="customer-filter[group_name]" value="{CUSTOMER_FILTER.group_name|htmlspecialchars}" />
+                        </span>
+                    </div>
 
-					<div class="row invoice-status">
-						<span class="label"><label for="customer-filter-invoice-status">Display customers</label></span>
-						<span class="field">
-							<select id="customer-filter-invoice-status" name="customer-filter[invoice_status]">
-								<option value="0" {SELECTED_invoice_status_0}>All</option>
-								<option value="1" {SELECTED_invoice_status_1}>Who made an order</option>
-							</select>
-						</span>
-					</div>
-					
-					<div class="row count-orders">
-						<span class="label"><label for="customer-filter-count-orders">Display customers who made more than</label></span>
-						<span class="field">
-							<input class="digits" type="text" id="customer-filter-count-orders" name="customer-filter[count_orders]" value="{CUSTOMER_FILTER.count_orders}"/> orders
-						</span>
-					</div>
-					
-					<div class="row goods-net">
-						<span class="label"><label for="customer-filter-goods-net">Display customers who made more than</label></span>
-						<span class="field">
-							<input class="number" type="text" id="customer-filter-goods-net" name="customer-filter[goods_net]" value="{CUSTOMER_FILTER.goods_net}"/> {GLOBAL_DEFAULT_CURRENCY}
-						</span>
-					</div>
-										
-					<div class="row country">
-						<span class="label"><label for="customer-filter-country-id">Country</label></span>
-						<span class="field">
-							<!-- BEGIN: country -->
-							<select id="customer-filter-country-id" name="customer-filter[country_id]">
-								<option value="0">All countries</option>
-								<!-- BEGIN: item -->
-								<option value="{ITEM.id}" {ITEM.selected}>{ITEM.name}</option>
-								<!-- END: item -->
-							</select>
-							<!-- END: country --> 
-						</span>
-					</div>
-					
-					<!-- BEGIN: product -->
-					<div class="row product-bought" >
-						<span class="label"><label>Bought any of a products highlighted in the following list</label></span>
-						<span class="field">
-								<!-- BEGIN: item -->
-								<input type="checkbox" value="{ITEM.id}" id="customer-filter-product-bought-{ITEM.id}" name="customer-filter[product_bought][]" {ITEM.checked}> <label for="customer-filter-product-bought-{ITEM.id}">{ITEM.name|htmlspecialchars} (id: <a href="/backoffice/products/{ITEM.id}/edit" target="_blank">{ITEM.id}</a>)</label><br />
-								<!-- END: item -->
-							</select>
-						</span>
-					</div>
-					<div id="filterTaxonomy">
-						{disableONXSHOP_REQUEST_rt #bo/component/relation_taxonomy~relation=product:id=GET.id~}
-					</div>
-					<!-- END: product -->
-
-
-					<div class="row registered-between">
-						<span class="label"><label>Registered between</label></span>
-						<span class="field">
-							<input type="text" class="text date" id="customer-filter-created-from" name="customer-filter[created_from]" value="{CUSTOMER_FILTER.created_from}" />
-							<input type="text" class="text date" id="customer-filter-created-to" name="customer-filter[created_to]" value="{CUSTOMER_FILTER.created_to}" />
-						</span>
-					</div>
-					<div class="row activity-between">
-						<span class="label"><label>Activity between</label></span>
-						<span class="field">
-							<input type="text" class="text date" id="customer-filter-activity-from" name="customer-filter[activity_from]" value="{CUSTOMER_FILTER.activity_from}" />
-							<input type="text" class="text date" id="customer-filter-activity-to" name="customer-filter[activity_to]" value="{CUSTOMER_FILTER.activity_to}" />
-						</span>
-					</div>
-				</fieldset>
-				
-				<input type="hidden" name="customer-filter[group_id]" value="{CUSTOMER_FILTER.group_id}" />
-			
-			</div>
-									
-									
-			<div class="column-two of-two">
-				<!-- BEGIN: group -->
-				<fieldset>
-				<div class="row group">
-					<span class="label"><label>On save, also remove listed customers from the following groups:</label></span>
-					<br/>
-					<span class="field">
-						<!-- BEGIN: item -->
-						<input type="checkbox" id="customer-filter-group-ids-remove-{ITEM.id}" name="customer-filter[group_ids_remove][]" value="{ITEM.id}" {CHECKED}/>
-						<label for="customer-filter-group-ids-remove-{ITEM.id}">{ITEM.name|htmlspecialchars}</label>
-						<br/>
-						<!-- END: item -->
-					</span>
-				</div>
-				</fieldset>
-				<!-- END: group -->
-
-				<div id="preview-specified-customers"></div>
-			</div>
+                    <div class="row invoice-status">
+                        <span class="label"><label for="customer-filter-invoice-status">Display customers</label></span>
+                        <span class="field">
+                            <select id="customer-filter-invoice-status" name="customer-filter[invoice_status]">
+                                <option value="0" {SELECTED_invoice_status_0}>All</option>
+                                <option value="1" {SELECTED_invoice_status_1}>Who made an order</option>
+                            </select>
+                        </span>
+                    </div>
+                    
+                    <div class="row count-orders">
+                        <span class="label"><label for="customer-filter-count-orders">Display customers who made more than</label></span>
+                        <span class="field">
+                            <input class="digits" type="text" id="customer-filter-count-orders" name="customer-filter[count_orders]" value="{CUSTOMER_FILTER.count_orders}"/> orders
+                        </span>
+                    </div>
+                    
+                    <div class="row goods-net">
+                        <span class="label"><label for="customer-filter-goods-net">Display customers who made more than</label></span>
+                        <span class="field">
+                            <input class="number" type="text" id="customer-filter-goods-net" name="customer-filter[goods_net]" value="{CUSTOMER_FILTER.goods_net}"/> {GLOBAL_DEFAULT_CURRENCY}
+                        </span>
+                    </div>
+                                        
+                    <div class="row country">
+                        <span class="label"><label for="customer-filter-country-id">Country</label></span>
+                        <span class="field">
+                            <!-- BEGIN: country -->
+                            <select id="customer-filter-country-id" name="customer-filter[country_id]">
+                                <option value="0">All countries</option>
+                                <!-- BEGIN: item -->
+                                <option value="{ITEM.id}" {ITEM.selected}>{ITEM.name}</option>
+                                <!-- END: item -->
+                            </select>
+                            <!-- END: country --> 
+                        </span>
+                    </div>
+                    
+                    <!-- BEGIN: product -->
+                    <div class="row product-bought" >
+                        <span class="label"><label>Bought any of a products highlighted in the following list</label></span>
+                        <span class="field">
+                                <!-- BEGIN: item -->
+                                <input type="checkbox" value="{ITEM.id}" id="customer-filter-product-bought-{ITEM.id}" name="customer-filter[product_bought][]" {ITEM.checked}> <label for="customer-filter-product-bought-{ITEM.id}">{ITEM.name|htmlspecialchars} (id: <a href="/backoffice/products/{ITEM.id}/edit" target="_blank">{ITEM.id}</a>)</label><br />
+                                <!-- END: item -->
+                            </select>
+                        </span>
+                    </div>
+                    <div id="filterTaxonomy">
+                        {disableONXSHOP_REQUEST_rt #bo/component/relation_taxonomy~relation=product:id=GET.id~}
+                    </div>
+                    <!-- END: product -->
 
 
+                    <div class="row registered-between">
+                        <span class="label"><label>Registered between</label></span>
+                        <span class="field">
+                            <input type="text" class="text date" id="customer-filter-created-from" name="customer-filter[created_from]" value="{CUSTOMER_FILTER.created_from}" />
+                            <input type="text" class="text date" id="customer-filter-created-to" name="customer-filter[created_to]" value="{CUSTOMER_FILTER.created_to}" />
+                        </span>
+                    </div>
+                    <div class="row activity-between">
+                        <span class="label"><label>Activity between</label></span>
+                        <span class="field">
+                            <input type="text" class="text date" id="customer-filter-activity-from" name="customer-filter[activity_from]" value="{CUSTOMER_FILTER.activity_from}" />
+                            <input type="text" class="text date" id="customer-filter-activity-to" name="customer-filter[activity_to]" value="{CUSTOMER_FILTER.activity_to}" />
+                        </span>
+                    </div>
+                </fieldset>
+                
+                <input type="hidden" name="customer-filter[group_id]" value="{CUSTOMER_FILTER.group_id}" />
+            
+            </div>
+                                    
+                                    
+            <div class="column-two of-two">
+                <!-- BEGIN: group -->
+                <fieldset>
+                <div class="row group">
+                    <span class="label"><label>On save, also remove listed customers from the following groups:</label></span>
+                    <br/>
+                    <span class="field">
+                        <!-- BEGIN: item -->
+                        <input type="checkbox" id="customer-filter-group-ids-remove-{ITEM.id}" name="customer-filter[group_ids_remove][]" value="{ITEM.id}" {CHECKED}/>
+                        <label for="customer-filter-group-ids-remove-{ITEM.id}">{ITEM.name|htmlspecialchars}</label>
+                        <br/>
+                        <!-- END: item -->
+                    </span>
+                </div>
+                </fieldset>
+                <!-- END: group -->
 
-			<div class="row submit">
-				<span class="field">
-					<button class="save" type="submit" name="search" value="Search" onclick="$(this).addClass('saving');"><span>Display Specified Customers</span></button>
-					<!-- BEGIN: save -->
-					<a class="button" title="Export this list for newsletter" href="/request/bo/export/csv_customers"><span>Export to CSV</span></a>
-					<button class="save" type="submit" name="save" value="save" onclick="$(this).addClass('saving');" title="Newly matched customers will be added to this group, but bear in mind some customers could be already assigned to other groups."><span>Save and Add Listed Customers to This Group</span></button>
-					<!-- END: save -->
-				</span>
-			</div>
-			
-		</div>
-		<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+                <div id="preview-specified-customers"></div>
+            </div>
+
+
+
+            <div class="row submit">
+                <span class="field">
+                    <button class="save" type="submit" name="search" value="Search" onclick="$(this).addClass('saving');"><span>Display Specified Customers</span></button>
+                    <!-- BEGIN: save -->
+                    <a class="button" title="Export this list for newsletter" href="/request/bo/export/csv_customers"><span>Export to CSV</span></a>
+                    <button class="save" type="submit" name="save" value="save" onclick="$(this).addClass('saving');" title="Newly matched customers will be added to this group, but bear in mind some customers could be already assigned to other groups."><span>Save and Add Listed Customers to This Group</span></button>
+                    <!-- END: save -->
+                </span>
+            </div>
+            
+        </div>
+        <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
 </div>
 <!-- END: form -->

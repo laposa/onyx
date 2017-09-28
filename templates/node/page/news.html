@@ -9,51 +9,51 @@
 <!-- BEGIN: content -->
 
 <article class="page news {NODE.layout_style} {NODE.css_class} {NODE.taxonomy_class}">
-	<!-- BEGIN: page_header -->
-	<header class="page">
-		<div class="wrapper">
-			<h1 class="page-title">{NODE.page_title|htmlspecialchars}</h1>
-			<p>{ITEM.description|htmlspecialchars}</p>
-			<div class="byline {AUTHOR_EMPTY}">
-				<time datetime="{NODE.created|strtotime|strftime('%Y-%m-%d', %s)}">{NODE.created|strtotime|strftime('%A %e %B %Y', %s)}</time>
-				<address class="author">{ITEM.author_detail.name|htmlspecialchars}</address>
-			</div>
-			<figure>
+    <!-- BEGIN: page_header -->
+    <header class="page">
+        <div class="wrapper">
+            <h1 class="page-title">{NODE.page_title|htmlspecialchars}</h1>
+            <p>{ITEM.description|htmlspecialchars}</p>
+            <div class="byline {AUTHOR_EMPTY}">
+                <time datetime="{NODE.created|strtotime|strftime('%Y-%m-%d', %s)}">{NODE.created|strtotime|strftime('%A %e %B %Y', %s)}</time>
+                <address class="author">{ITEM.author_detail.name|htmlspecialchars}</address>
+            </div>
+            <figure>
                 {ONXSHOP_REQUEST_main_image #component/image~node_id=GET.id:role=header~}
             </figure>
-		</div>
-	</header>
-	<!-- END: page_header -->
-	
-	<div class="content">
-		{CONTAINER.0}
-		<div class="wrapper">
-			{NODE.content}
-		</div>
-	</div>
-	
-	<section class="layout share">
-		<div class="wrapper">
+        </div>
+    </header>
+    <!-- END: page_header -->
+    
+    <div class="content">
+        {CONTAINER.0}
+        <div class="wrapper">
+            {NODE.content}
+        </div>
+    </div>
+    
+    <section class="layout share">
+        <div class="wrapper">
             <h2 class="layout-title"><span>Share</span></h2>
             {ONXSHOP_REQUEST_share #component/social_network_share~node_id=GET.id~}
         </div>
-	</section>
-	
-	<!-- BEGIN: comment -->
-	<section class="layout comment" id="comment">
-		<div class="wrapper">
-			<h2 class="layout-title"><span>{I18N_COMMENT_HEAD}</span></h2>
-			{COMMENT}
-		</div>
-	</section>
-	<!-- END: comment -->
-	
-	<section class="layout related-articles">
-		<div class="wrapper">
-			<h2 class="layout-title">More Like This</h2>
-			{ONXSHOP_REQUEST_news_list_teaser #component/news_list_stack~node_id=GET.id:blog_node_id=GET.parent_id:publish=1:limit_from=0:limit_per_page=3:display_teaser_image=true:image_width=300:image_height=300~}
-		</div>
-	</section>
+    </section>
+    
+    <!-- BEGIN: comment -->
+    <section class="layout comment" id="comment">
+        <div class="wrapper">
+            <h2 class="layout-title"><span>{I18N_COMMENT_HEAD}</span></h2>
+            {COMMENT}
+        </div>
+    </section>
+    <!-- END: comment -->
+    
+    <section class="layout related-articles">
+        <div class="wrapper">
+            <h2 class="layout-title">More Like This</h2>
+            {ONXSHOP_REQUEST_news_list_teaser #component/news_list_stack~node_id=GET.id:blog_node_id=GET.parent_id:publish=1:limit_from=0:limit_per_page=3:display_teaser_image=true:image_width=300:image_height=300~}
+        </div>
+    </section>
 </article>
 
 <!-- END: content -->

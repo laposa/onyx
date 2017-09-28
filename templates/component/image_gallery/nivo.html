@@ -4,33 +4,33 @@
 
 <script type="text/javascript">
 $(window).load(function() {
-	$('#gallery-nivo-{GET.node_id}').nivoSlider({
-		effect:'random',
-		slices:15,
-		animSpeed:500,
-		pauseTime:3000,
-		startSlide:0, //Set starting Slide (0 index)
-		directionNav:false, //Next & Prev
-		directionNavHide:true, //Only show on hover
-		controlNav:false, //1,2,3...
-		controlNavThumbs:false, //Use thumbnails for Control Nav
-		controlNavThumbsSearch: '.jpg', //Replace this with...
-		controlNavThumbsReplace: '_thumb.jpg', //...this in thumb Image src
-		keyboardNav:true, //Use left & right arrows
-		pauseOnHover:true, //Stop animation while hovering
-		manualAdvance:false, //Force manual transitions
-		captionOpacity:0, //Universal caption opacity
-		beforeChange: function(){},
-		afterChange: function(){},
-		slideshowEnd: function(){} //Triggers after all slides have been shown
-	});
+    $('#gallery-nivo-{GET.node_id}').nivoSlider({
+        effect:'random',
+        slices:15,
+        animSpeed:500,
+        pauseTime:3000,
+        startSlide:0, //Set starting Slide (0 index)
+        directionNav:false, //Next & Prev
+        directionNavHide:true, //Only show on hover
+        controlNav:false, //1,2,3...
+        controlNavThumbs:false, //Use thumbnails for Control Nav
+        controlNavThumbsSearch: '.jpg', //Replace this with...
+        controlNavThumbsReplace: '_thumb.jpg', //...this in thumb Image src
+        keyboardNav:true, //Use left & right arrows
+        pauseOnHover:true, //Stop animation while hovering
+        manualAdvance:false, //Force manual transitions
+        captionOpacity:0, //Universal caption opacity
+        beforeChange: function(){},
+        afterChange: function(){},
+        slideshowEnd: function(){} //Triggers after all slides have been shown
+    });
 });
 </script>
 <!-- END: head_once -->
 <!-- BEGIN: content -->
 <div class="image-gallery-nivo number-of-items-{IMAGE_COUNT}" id="gallery-nivo-{GET.node_id}">
-	<!-- BEGIN: item -->
-	<div class="item image-id-{GET.relation}{ITEM.id}"><span class="wrap"><a class="single-image{GET.relation}{GET.node_id}" rel="single-image{GET.relation}{GET.node_id}" title="{ITEM.title|htmlspecialchars}" href="{FULL_SIZE_IMAGE_WIDTH_PATH}{ITEM.src}"><img id="image-id-{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" /></a></span></div>
-	<!-- END: item -->
+    <!-- BEGIN: item -->
+    <div class="item image-id-{GET.relation}{ITEM.id}"><span class="wrap"><a class="single-image{GET.relation}{GET.node_id}" rel="single-image{GET.relation}{GET.node_id}" title="{ITEM.title|htmlspecialchars}" href="{FULL_SIZE_IMAGE_WIDTH_PATH}{ITEM.src}"><img id="image-id-{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" /></a></span></div>
+    <!-- END: item -->
 </div>
 <!-- END: content -->

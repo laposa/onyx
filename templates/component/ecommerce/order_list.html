@@ -4,39 +4,39 @@
 <table id="orders">
 <caption>{I18N_ORDERS}</caption>
 <colgroup>
-	<col id="order-id" />
-	<col id="datetime" />
-	<col id="order-total" />
-	<col id="items" />
-	<col id="status" />
-	<col id="action" />
+    <col id="order-id" />
+    <col id="datetime" />
+    <col id="order-total" />
+    <col id="items" />
+    <col id="status" />
+    <col id="action" />
 </colgroup>
 <thead>
 <tr>
-	<th scope="col"><a href="{URI|htmlspecialchars}&order=id">{I18N_ORDER_ID}</a></th>
-	<th scope="col">{I18N_DATA_AND_TIME}</th>
-	<th scope="col">{I18N_TOTAL_PAID}</a></th>
-	<th scope="col">{I18N_STATUS}</th>
-	<th scope="col">&nbsp;</th>
+    <th scope="col"><a href="{URI|htmlspecialchars}&order=id">{I18N_ORDER_ID}</a></th>
+    <th scope="col">{I18N_DATA_AND_TIME}</th>
+    <th scope="col">{I18N_TOTAL_PAID}</a></th>
+    <th scope="col">{I18N_STATUS}</th>
+    <th scope="col">&nbsp;</th>
 </tr>
 </thead>
 <tbody>
 <!-- BEGIN: item -->
 <tr>
-	<td><a href="/page/{NODE_CONF.id_map-order_detail}?order_id={ITEM.order_id}">#{ITEM.order_id}</a></td>
-	<td>{ITEM.order_created}</td>
-	<td class="money">{ITEM.goods_net|money_format('%n',%s)}</td>
-	<td>
-		{ITEM.status_title}
-		
-		
-	</td>
-	<td>
-		<!-- BEGIN: make_payment -->
-		<a class="make-payment" href="/page/{NODE_CONF.id_map-payment}?order_id={ITEM.order_id}" title="Make Payment"><span>{I18N_ORDER_PAY}</span></a>
-		<!-- END: make_payment -->
-		<a class="repeat-order" href="/page/{NODE_CONF.id_map-basket}?populate_basket_from_order_id={ITEM.order_id}" title="Repeat Order"><span>{I18N_ORDER_REPEAT}</span></a>
-	</td>
+    <td><a href="/page/{NODE_CONF.id_map-order_detail}?order_id={ITEM.order_id}">#{ITEM.order_id}</a></td>
+    <td>{ITEM.order_created}</td>
+    <td class="money">{ITEM.goods_net|money_format('%n',%s)}</td>
+    <td>
+        {ITEM.status_title}
+        
+        
+    </td>
+    <td>
+        <!-- BEGIN: make_payment -->
+        <a class="make-payment" href="/page/{NODE_CONF.id_map-payment}?order_id={ITEM.order_id}" title="Make Payment"><span>{I18N_ORDER_PAY}</span></a>
+        <!-- END: make_payment -->
+        <a class="repeat-order" href="/page/{NODE_CONF.id_map-basket}?populate_basket_from_order_id={ITEM.order_id}" title="Repeat Order"><span>{I18N_ORDER_REPEAT}</span></a>
+    </td>
 </tr>
 <!-- END: item -->
 </tbody>

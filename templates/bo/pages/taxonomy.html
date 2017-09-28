@@ -2,77 +2,77 @@
 <!-- BEGIN: content -->
 <script type="text/javascript">
 function initialiseMenuTaxonomyTree() {
-	
-	$('#taxonomy-tree-menu .simple-tree').simpleTree({
-		drag: true,
-		autoclose: false,
-		afterClick:function(node){
-			var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
-			makeAjaxRequest('#sub-content', '/request/bo/component/taxonomy_edit~id='+node_id+'~');
-			$('#button-add-subpage').attr('data-node-id', node_id);
-			initialiseTaxonomyAddButton();
-		},
-		afterDblClick:function(node){
-			//alert("text-"+$('span:first',node).text());
-		},
-		afterMove:function(destination, source, position){
-			var source_node_id = $('a:first', source).attr('href').match("[0-9]{1,}$");
-			var destination_node_id = $('a:first', destination).attr('href').match("[0-9]{1,}$");
-			//alert("moved"+source_node_id+"to"+destination_node_id+"pos"+position);
-			openAjaxRequestInGrowl('/request/bo/component/taxonomy_move~source_node_id='+source_node_id+':destination_node_id='+destination_node_id+':position='+position+'~', 'Move taxonomy label');
-			return false;
-			
-		},
-		afterAjax:function()
-		{
-			alert('Loaded');
-		},
-		animate: true,
-		docToFolderConvert: true
-	});
+    
+    $('#taxonomy-tree-menu .simple-tree').simpleTree({
+        drag: true,
+        autoclose: false,
+        afterClick:function(node){
+            var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
+            makeAjaxRequest('#sub-content', '/request/bo/component/taxonomy_edit~id='+node_id+'~');
+            $('#button-add-subpage').attr('data-node-id', node_id);
+            initialiseTaxonomyAddButton();
+        },
+        afterDblClick:function(node){
+            //alert("text-"+$('span:first',node).text());
+        },
+        afterMove:function(destination, source, position){
+            var source_node_id = $('a:first', source).attr('href').match("[0-9]{1,}$");
+            var destination_node_id = $('a:first', destination).attr('href').match("[0-9]{1,}$");
+            //alert("moved"+source_node_id+"to"+destination_node_id+"pos"+position);
+            openAjaxRequestInGrowl('/request/bo/component/taxonomy_move~source_node_id='+source_node_id+':destination_node_id='+destination_node_id+':position='+position+'~', 'Move taxonomy label');
+            return false;
+            
+        },
+        afterAjax:function()
+        {
+            alert('Loaded');
+        },
+        animate: true,
+        docToFolderConvert: true
+    });
 }
 
 function refreshList() {
-	$('#taxonomy-tree-menu').load('/request/bo/component/taxonomy_menu~expand_all=1:publish=0~', function() {initialiseMenuTaxonomyTree()});
+    $('#taxonomy-tree-menu').load('/request/bo/component/taxonomy_menu~expand_all=1:publish=0~', function() {initialiseMenuTaxonomyTree()});
 }
 
 function initialiseTaxonomyAddButton() {
-	
-	$('#button-add-subpage').show().live('click', function() {
-	
-		var node_id = $(this).attr('data-node-id');
-		var url = '/request/bo/component/taxonomy_add~parent=' + node_id + '~';
+    
+    $('#button-add-subpage').show().live('click', function() {
+    
+        var node_id = $(this).attr('data-node-id');
+        var url = '/request/bo/component/taxonomy_add~parent=' + node_id + '~';
 
-		$('#dialog').addClass('ajax-load').load(url, '', function() {
-						
-			$('#dialog form.taxonomy-add').ajaxForm({ 
-				target: '#dialog form.taxonomy-add',
-				success: function(responseText, statusText) {
-					popupMessage("#dialog form.taxonomy-add div.onxshop-messages");
-					refreshList();
-					$('#dialog').empty().dialog('close');
-				}
-			});
-		});
-		$('#dialog').dialog({title: 'Add New Taxonomy Item', width: 500, modal: true, overlay: {opacity: 0.5, background: 'black'}});
-		$('#dialog').dialog('open');
-		return false;
-	});
-	
+        $('#dialog').addClass('ajax-load').load(url, '', function() {
+                        
+            $('#dialog form.taxonomy-add').ajaxForm({ 
+                target: '#dialog form.taxonomy-add',
+                success: function(responseText, statusText) {
+                    popupMessage("#dialog form.taxonomy-add div.onxshop-messages");
+                    refreshList();
+                    $('#dialog').empty().dialog('close');
+                }
+            });
+        });
+        $('#dialog').dialog({title: 'Add New Taxonomy Item', width: 500, modal: true, overlay: {opacity: 0.5, background: 'black'}});
+        $('#dialog').dialog('open');
+        return false;
+    });
+    
 }
 
 $(document).ready(function(){
-	<!-- BEGIN: submenu -->
-	$('#taxonomy-tree-menu .simple-tree a.node-id-{GET.id}').addClass('active open');
-	$('#taxonomy-tree-menu .simple-tree a.node-id-{GET.id}').parent().parent().addClass('active open');
-	$('#taxonomy-tree-menu .simple-tree li.root > a').click(function() {
-		makeAjaxRequest('#sub-content', '/request/bo/component/taxonomy_edit~id={GET.id}~');
-	});
-	$('#button-add-subpage').show().attr('data-node-id', {GET.id});
-	initialiseTaxonomyAddButton()
-	<!-- END: submenu -->
-	initialiseMenuTaxonomyTree();
-	
+    <!-- BEGIN: submenu -->
+    $('#taxonomy-tree-menu .simple-tree a.node-id-{GET.id}').addClass('active open');
+    $('#taxonomy-tree-menu .simple-tree a.node-id-{GET.id}').parent().parent().addClass('active open');
+    $('#taxonomy-tree-menu .simple-tree li.root > a').click(function() {
+        makeAjaxRequest('#sub-content', '/request/bo/component/taxonomy_edit~id={GET.id}~');
+    });
+    $('#button-add-subpage').show().attr('data-node-id', {GET.id});
+    initialiseTaxonomyAddButton()
+    <!-- END: submenu -->
+    initialiseMenuTaxonomyTree();
+    
 });
 
 
@@ -80,61 +80,61 @@ $(document).ready(function(){
 
 <div id="categories">
 
-	<div class="two-column-page page sidebar">
-			<div class="page-wrapper">
+    <div class="two-column-page page sidebar">
+            <div class="page-wrapper">
 
-				<div class="page-header">
-					<div class="page-header-wrapper">
-						<h1 class="page-title"><span>Categories</span></h1>
-					</div>
-				</div>
+                <div class="page-header">
+                    <div class="page-header-wrapper">
+                        <h1 class="page-title"><span>Categories</span></h1>
+                    </div>
+                </div>
 
-				<div class="page-content">
-					<div class="page-content-wrapper">
-						<div class="row-top">
-							<div class="row-wrapper">
-								<div class="column-wrapper">
-									{CONTAINER.0}
-								</div>
-							</div>
-						</div>
-						<div class="row-middle">
-							<div class="row-wrapper">
-								<div class="column-one">
-									<div class="column-wrapper">
+                <div class="page-content">
+                    <div class="page-content-wrapper">
+                        <div class="row-top">
+                            <div class="row-wrapper">
+                                <div class="column-wrapper">
+                                    {CONTAINER.0}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-middle">
+                            <div class="row-wrapper">
+                                <div class="column-one">
+                                    <div class="column-wrapper">
 
-										<div id="taxonomy-tree-menu">
-											{ONXSHOP_REQUEST_menupages #bo/component/taxonomy_menu~expand_all=1:publish=0~}
-										</div>
+                                        <div id="taxonomy-tree-menu">
+                                            {ONXSHOP_REQUEST_menupages #bo/component/taxonomy_menu~expand_all=1:publish=0~}
+                                        </div>
 
-									</div>
-								</div>
-								<div class="column-two">
-									<div class="column-wrapper">
+                                    </div>
+                                </div>
+                                <div class="column-two">
+                                    <div class="column-wrapper">
 
-										<div id="sub-content">
-											{SUB_CONTENT}
-										</div>
+                                        <div id="sub-content">
+                                            {SUB_CONTENT}
+                                        </div>
 
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="row-bottom">
-							<div class="row-wrapper">
-								<div class="column-wrapper">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-bottom">
+                            <div class="row-wrapper">
+                                <div class="column-wrapper">
 
-									<p>
-										<a class="button add" href="#" id="button-add-subpage" data-node-id="{NODE_ID}" style="margin-left: 10px; display: none;"><span>Add a New Category</span></a>
-									</p>
+                                    <p>
+                                        <a class="button add" href="#" id="button-add-subpage" data-node-id="{NODE_ID}" style="margin-left: 10px; display: none;"><span>Add a New Category</span></a>
+                                    </p>
 
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-	</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
 
 </div>
 <!-- END: content -->

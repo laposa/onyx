@@ -8,14 +8,14 @@ require_once('controllers/bo/node/content/default.php');
 
 class Onxshop_Controller_Bo_Node_Content_Divider extends Onxshop_Controller_Bo_Node_Content_Default {
 
-	/**
-	 * post action
-	 */
+    /**
+     * post action
+     */
 
-	function post() {
-		
-		parent::post();
-		
-		$this->tpl->assign("SELECTED_{$this->component_data['type']}", "selected='selected'");
-	}
+    function post() {
+        
+        parent::post();
+        
+        $this->tpl->assign("SELECTED_{$this->component_data['type']}", "selected='selected'");
+    }
 }

@@ -7,60 +7,60 @@
 </div>
 
 <script type="text/javascript">
-	$(document).ready(function() { 
-		var options = { 
-			target:        '#node-properties-edit-result', 
-			beforeSubmit:  preSubmit,
-			success:       showResponse, 
-			url:       '/request/bo/component/node_edit~id={GET.id}:orig={GET.orig}:popup=1:ajax=1~'
-		}; 
+    $(document).ready(function() { 
+        var options = { 
+            target:        '#node-properties-edit-result', 
+            beforeSubmit:  preSubmit,
+            success:       showResponse, 
+            url:       '/request/bo/component/node_edit~id={GET.id}:orig={GET.orig}:popup=1:ajax=1~'
+        }; 
 
-    	$('#node-edit-{GET.id}').ajaxForm(options);
-    	
-    	$('#node-edit-{GET.id}').validate();
-	});
+        $('#node-edit-{GET.id}').ajaxForm(options);
+        
+        $('#node-edit-{GET.id}').validate();
+    });
         
 // pre-submit callback 
 function preSubmit() {
-	if(typeof hookNodeEditPreUpdate == 'function') {
-		hookNodeEditPreUpdate();
-	}
+    if(typeof hookNodeEditPreUpdate == 'function') {
+        hookNodeEditPreUpdate();
+    }
 }
 
 //debug
 function showRequestX(formData, jqForm, options) { 
-	var queryString = $.param(formData); 
-	alert('About to submit: \n\n' + queryString); 
-	return true; 
+    var queryString = $.param(formData); 
+    alert('About to submit: \n\n' + queryString); 
+    return true; 
 } 
  
 // post-submit callback 
 function showResponse(responseText, statusText)  {
-	
-	popupMessage("#node-properties-edit-result div.onxshop-messages");
-	
-	$('button.save').removeClass('saving');
-	
-	if(typeof hookNodeEditPostUpdate == 'function') {
-		hookNodeEditPostUpdate();
-	}
-	
-	//reload whole form in case node_group has changed
-	if ($('#node-node-group').attr('value') != '{NODE.node_group}' || $('#node-node-controller').attr('value') != '{NODE.node_controller}') {
-		window.location.reload();
-	}
-	
-	//don't reload in context when in backoffice
-	var path = '{GET.orig}';
-	var node_id = {GET.id};
-	if (path.length > 0) {
-		if (path.match(/^backoffice/)) {
-			if (typeof opener.refreshList == 'function') opener.refreshList();
-			else refreshOpener(path, node_id);
-		} else {
-			refreshOpenerAjax(path, node_id);
-		}
-	}
+    
+    popupMessage("#node-properties-edit-result div.onxshop-messages");
+    
+    $('button.save').removeClass('saving');
+    
+    if(typeof hookNodeEditPostUpdate == 'function') {
+        hookNodeEditPostUpdate();
+    }
+    
+    //reload whole form in case node_group has changed
+    if ($('#node-node-group').attr('value') != '{NODE.node_group}' || $('#node-node-controller').attr('value') != '{NODE.node_controller}') {
+        window.location.reload();
+    }
+    
+    //don't reload in context when in backoffice
+    var path = '{GET.orig}';
+    var node_id = {GET.id};
+    if (path.length > 0) {
+        if (path.match(/^backoffice/)) {
+            if (typeof opener.refreshList == 'function') opener.refreshList();
+            else refreshOpener(path, node_id);
+        } else {
+            refreshOpenerAjax(path, node_id);
+        }
+    }
 }
 </script>
 

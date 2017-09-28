@@ -3,19 +3,19 @@
 {MESSAGES}
 <div id="file-list">
 
-	<!-- BEGIN: empty -->
-	<p>No files are currently assigned to this content</p>
-	<!-- END: empty -->
-	
-	<!--  BEGIN: list -->
-		<!--<p><a class="button" href="#file-list" onclick="$('#file-list').empty().addClass('ajax-load').parent().load('/request/bo/component/file_list_icon~type={GET.type}:role={GET.role}:relation={GET.relation}:node_id={GET.node_id}~'); return false;"><span>View as Icons</span></a></p>-->
-		<!-- BEGIN: item -->
-			{FILE_DETAIL}
-			<div class="divider"><div><hr /></div></div>
-		<!-- END: item -->
-	<!-- END: list -->
+    <!-- BEGIN: empty -->
+    <p>No files are currently assigned to this content</p>
+    <!-- END: empty -->
+    
+    <!--  BEGIN: list -->
+        <!--<p><a class="button" href="#file-list" onclick="$('#file-list').empty().addClass('ajax-load').parent().load('/request/bo/component/file_list_icon~type={GET.type}:role={GET.role}:relation={GET.relation}:node_id={GET.node_id}~'); return false;"><span>View as Icons</span></a></p>-->
+        <!-- BEGIN: item -->
+            {FILE_DETAIL}
+            <div class="divider"><div><hr /></div></div>
+        <!-- END: item -->
+    <!-- END: list -->
 
-	<p><a class="button add" title="Add Files ..." href="#" onclick="showModalOverlay(); makeAjaxRequest('#modal-overlay-window', '/request/bo/pages/server_browser~type={GET.type}:role={GET.role}:relation={GET.relation}:node_id={GET.node_id}~'); return false"><span>Add Files...</span></a></p>
+    <p><a class="button add" title="Add Files ..." href="#" onclick="showModalOverlay(); makeAjaxRequest('#modal-overlay-window', '/request/bo/pages/server_browser~type={GET.type}:role={GET.role}:relation={GET.relation}:node_id={GET.node_id}~'); return false"><span>Add Files...</span></a></p>
 
 </div>
 

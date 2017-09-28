@@ -1,93 +1,93 @@
 <!-- BEGIN: title -->Menu Edit<!-- END: title -->
 <!-- BEGIN: content -->
 <div class="page-header">
-	<div class="page-header-wrapper">
-		<h1 class="page-title popup"><span>Menu</span> <span class="info">ID {NODE.id}</span></h1>
-	</div>
+    <div class="page-header-wrapper">
+        <h1 class="page-title popup"><span>Menu</span> <span class="info">ID {NODE.id}</span></h1>
+    </div>
 </div>
 
 {FILE "bo/node/content/default_top.html"}
 
 <script type="text/javascript">
 $(document).ready(function(){
-	$('fieldset.menu-form-edit div.component-node-id a.button').click(function() {
-		$('#href-select').addClass('ajax-load').load('/request/component/menu_js~id=0:expand_all=1:publish=0~', function() {
-			$('#href-select').removeClass('ajax-load');
-			$('#href-select .simple-tree').simpleTree({
-				drag: false,
-				autoclose: true,
-				afterClick:function(node){
-					var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
-					$('#component-node-id').attr('value', node_id);
-				},
-				animate: true,
-				docToFolderConvert: true
-			});
-		});
-		return false;
-	});
-	
-	$('fieldset.menu-form-edit div.component-open a.button').click(function() {
-		$('#href-select2').addClass('ajax-load').load('/request/component/menu_js~id=0:expand_all=1:publish=0~', function() {
-			$('#href-select2').removeClass('ajax-load');
-			$('#href-select2 .simple-tree').simpleTree({
-				drag: false,
-				autoclose: true,
-				afterClick:function(node){
-					var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
-					$('#component-open').attr('value', node_id);
-				},
-				animate: true,
-				docToFolderConvert: true
-			});
-		});
-		return false;
-	});
-	
+    $('fieldset.menu-form-edit div.component-node-id a.button').click(function() {
+        $('#href-select').addClass('ajax-load').load('/request/component/menu_js~id=0:expand_all=1:publish=0~', function() {
+            $('#href-select').removeClass('ajax-load');
+            $('#href-select .simple-tree').simpleTree({
+                drag: false,
+                autoclose: true,
+                afterClick:function(node){
+                    var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
+                    $('#component-node-id').attr('value', node_id);
+                },
+                animate: true,
+                docToFolderConvert: true
+            });
+        });
+        return false;
+    });
+    
+    $('fieldset.menu-form-edit div.component-open a.button').click(function() {
+        $('#href-select2').addClass('ajax-load').load('/request/component/menu_js~id=0:expand_all=1:publish=0~', function() {
+            $('#href-select2').removeClass('ajax-load');
+            $('#href-select2 .simple-tree').simpleTree({
+                drag: false,
+                autoclose: true,
+                afterClick:function(node){
+                    var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
+                    $('#component-open').attr('value', node_id);
+                },
+                animate: true,
+                docToFolderConvert: true
+            });
+        });
+        return false;
+    });
+    
 });
 </script>
 
 <fieldset class="menu-form-edit">
-	<div class="row component-node-id">
-		<label>*Menu Root ID:</label>
-		<input type="text" name="node[component][node_id]" id="component-node-id" value="{NODE.component.node_id}" /> <a class="button" href="#"><span>browse server</span></a>
-		<div id="href-select"></div>
-	</div>
-	<div class="row">
-		<label>*Menu Type:</label>
-		<select name="node[component][template]">
-			<option value="menu_UL" {SELECTED_menu_UL}>UL</option>
-			<option value="menu_SELECT" {SELECTED_menu_SELECT}>SELECT</option>
-			<option value="menu_GRID" {SELECTED_menu_GRID}>GRID</option>
-			<option value="menu_STACK" {SELECTED_menu_STACK}>STACK</option>
-		</select>
-	</div>
-	
-	<div class="row">
-		<p>The image sizing option has only effect for grid and stack menu type.</p>
-		{FILE "bo/node/item_image_properties.html"}
-	</div>
-	
-	<div class="row">
-		<input type="checkbox" id="component-display-title" name="node[component][display_title]" {NODE.component.display_title} /> <label for="component-display-title">Display title</label>
-	</div>
-	<div class="row">
-		<input type="checkbox" id="component-display-strapline" name="node[component][display_strapline]" {NODE.component.display_strapline} /> <label for="component-display-strapline">Display strapline</label>
-	</div>
-	
-	<div class="row">
-		<input type="checkbox" id="component-display-all" name="node[component][display_all]" {NODE.component.display_all} /> <label for="component-display-all">Display All</label>
-	</div>
-	
-	<div class="row">
-		<label>Starting Level:</label>
-		<input class="text short" type="text" name="node[component][level]" id="component-level" value="{NODE.component.level}" />
-	</div>
-	<div class="row component-open">
-		<label>Open menu item ID:</label>
-		<input class="text short" type="text" name="node[component][open]" id="component-open" value="{NODE.component.open}" /> <a class="button" href="#"><span>browse server</span></a>
-		<div id="href-select2"></div>
-	</div>
+    <div class="row component-node-id">
+        <label>*Menu Root ID:</label>
+        <input type="text" name="node[component][node_id]" id="component-node-id" value="{NODE.component.node_id}" /> <a class="button" href="#"><span>browse server</span></a>
+        <div id="href-select"></div>
+    </div>
+    <div class="row">
+        <label>*Menu Type:</label>
+        <select name="node[component][template]">
+            <option value="menu_UL" {SELECTED_menu_UL}>UL</option>
+            <option value="menu_SELECT" {SELECTED_menu_SELECT}>SELECT</option>
+            <option value="menu_GRID" {SELECTED_menu_GRID}>GRID</option>
+            <option value="menu_STACK" {SELECTED_menu_STACK}>STACK</option>
+        </select>
+    </div>
+    
+    <div class="row">
+        <p>The image sizing option has only effect for grid and stack menu type.</p>
+        {FILE "bo/node/item_image_properties.html"}
+    </div>
+    
+    <div class="row">
+        <input type="checkbox" id="component-display-title" name="node[component][display_title]" {NODE.component.display_title} /> <label for="component-display-title">Display title</label>
+    </div>
+    <div class="row">
+        <input type="checkbox" id="component-display-strapline" name="node[component][display_strapline]" {NODE.component.display_strapline} /> <label for="component-display-strapline">Display strapline</label>
+    </div>
+    
+    <div class="row">
+        <input type="checkbox" id="component-display-all" name="node[component][display_all]" {NODE.component.display_all} /> <label for="component-display-all">Display All</label>
+    </div>
+    
+    <div class="row">
+        <label>Starting Level:</label>
+        <input class="text short" type="text" name="node[component][level]" id="component-level" value="{NODE.component.level}" />
+    </div>
+    <div class="row component-open">
+        <label>Open menu item ID:</label>
+        <input class="text short" type="text" name="node[component][open]" id="component-open" value="{NODE.component.open}" /> <a class="button" href="#"><span>browse server</span></a>
+        <div id="href-select2"></div>
+    </div>
 </fieldset>
 
 {FILE "bo/node/content/default_bottom.html"}

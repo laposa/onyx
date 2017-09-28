@@ -2,27 +2,27 @@
 <!-- BEGIN: content -->
 {MESSAGES}
 <div class="template-edit">
-	<!-- BEGIN: listing -->
-		<div class="row">
-			<textarea class="html" id="code-html" name="template_content">{CONTENT}</textarea>
-		</div>
-		<script type="text/javascript">
-			// Codemirror
-			var code_mirror_options = {
-				lineNumbers: true,
-				viewportMargin: Infinity
-			}
-			var editor = CodeMirror.fromTextArea(document.getElementById('code-html'), code_mirror_options);
-			$(".page-content .row-bottom p").html('<button href="#" class="button save" disabled onclick="return saveTemplate()"><span>Save</span></button>');
-		</script>
-		<!-- BEGIN: edit -->
-		<script type="text/javascript">
-			$(".page-content .row-bottom .save").attr("disabled", null);
-		</script>
-		<!-- END: edit -->
-	<!-- END: listing -->
-	<!-- BEGIN: hint -->
-	<p>Select a HTML file from the menu on the left.</p>
-	<!-- END: hint -->
+    <!-- BEGIN: listing -->
+        <div class="row">
+            <textarea class="html" id="code-html" name="template_content">{CONTENT}</textarea>
+        </div>
+        <script type="text/javascript">
+            // Codemirror
+            var code_mirror_options = {
+                lineNumbers: true,
+                viewportMargin: Infinity
+            }
+            var editor = CodeMirror.fromTextArea(document.getElementById('code-html'), code_mirror_options);
+            $(".page-content .row-bottom p").html('<button href="#" class="button save" disabled onclick="return saveTemplate()"><span>Save</span></button>');
+        </script>
+        <!-- BEGIN: edit -->
+        <script type="text/javascript">
+            $(".page-content .row-bottom .save").attr("disabled", null);
+        </script>
+        <!-- END: edit -->
+    <!-- END: listing -->
+    <!-- BEGIN: hint -->
+    <p>Select a HTML file from the menu on the left.</p>
+    <!-- END: hint -->
 </div>
 <!-- END: content -->

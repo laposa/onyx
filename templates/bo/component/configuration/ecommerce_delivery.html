@@ -5,192 +5,192 @@
 
 <style type="text/css">
 
-	#delivery-config { padding: 0 10px; overflow: auto;}
-	#delivery-config h1 { margin: 0 5px 20px 0; } 
-	#delivery-config button.save { float: right; }
-	#delivery-config button.addzone { float: right; }
-	#delivery-config div.zone { width: 275px; float: left; margin: 0 10px 0 0; } 
-	#delivery-config div.heading { border: 1px solid #ccc; background: #eee; border-radius: 10px; padding: 5px 10px; margin-bottom: 15px; } 
-	#delivery-config div.heading h2 { font-family: sans-serif; margin: 0; } 
-	#delivery-config div.heading h2 input { font-family: sans-serif; margin: 0; font-size: 16px; font-weight: bold;} 
-	#delivery-config div.heading h2 button { float: right; font-size: 11px; margin: 0; }
-	#delivery-config div.heading label { display: block;}
-	#delivery-config h3 { font-family: sans-serif; margin: 5px 0; }
-	#delivery-config h3.disabled { text-decoration: none; } 
-	#delivery-config h3.disabled input[type=text] { color: #ddd;} 
-	#delivery-config h3 input[type=text] { font-size: 14px; font-weight: bold; width: 228px; margin: 0;} 
-	#delivery-config h4 { font-family: sans-serif; margin: 15px 0 5px 0;} 
-	#delivery-config div.carrier { border: 1px solid #ccc; background: #f9f9f9; border-radius: 10px; padding: 5px 10px; margin: 15px 0; cursor: move; cursor: grab;}
-	#delivery-config div.carrier textarea { width: 250px; height: 40px; font-size: 12px;}
-	#delivery-config div.carrier a { display: block; font-size: 10px; text-decoration: underline; font-weight: normal; }
-	#delivery-config div.carrier table { border: none; background: none; padding: 0; margin: 0 0 5px 0; }
-	#delivery-config div.carrier table td { border: none; background: none; padding: 0 4px;}
-	#delivery-config div.carrier table th { border: none; background: none; padding: 4px 4px; text-transform: none; text-align: center;}
-	#delivery-config div.carrier table input { width: 60px; margin: 0 2px 0 0; }
-	#delivery-config div.carrier div.data input { text-align: right; }
+    #delivery-config { padding: 0 10px; overflow: auto;}
+    #delivery-config h1 { margin: 0 5px 20px 0; } 
+    #delivery-config button.save { float: right; }
+    #delivery-config button.addzone { float: right; }
+    #delivery-config div.zone { width: 275px; float: left; margin: 0 10px 0 0; } 
+    #delivery-config div.heading { border: 1px solid #ccc; background: #eee; border-radius: 10px; padding: 5px 10px; margin-bottom: 15px; } 
+    #delivery-config div.heading h2 { font-family: sans-serif; margin: 0; } 
+    #delivery-config div.heading h2 input { font-family: sans-serif; margin: 0; font-size: 16px; font-weight: bold;} 
+    #delivery-config div.heading h2 button { float: right; font-size: 11px; margin: 0; }
+    #delivery-config div.heading label { display: block;}
+    #delivery-config h3 { font-family: sans-serif; margin: 5px 0; }
+    #delivery-config h3.disabled { text-decoration: none; } 
+    #delivery-config h3.disabled input[type=text] { color: #ddd;} 
+    #delivery-config h3 input[type=text] { font-size: 14px; font-weight: bold; width: 228px; margin: 0;} 
+    #delivery-config h4 { font-family: sans-serif; margin: 15px 0 5px 0;} 
+    #delivery-config div.carrier { border: 1px solid #ccc; background: #f9f9f9; border-radius: 10px; padding: 5px 10px; margin: 15px 0; cursor: move; cursor: grab;}
+    #delivery-config div.carrier textarea { width: 250px; height: 40px; font-size: 12px;}
+    #delivery-config div.carrier a { display: block; font-size: 10px; text-decoration: underline; font-weight: normal; }
+    #delivery-config div.carrier table { border: none; background: none; padding: 0; margin: 0 0 5px 0; }
+    #delivery-config div.carrier table td { border: none; background: none; padding: 0 4px;}
+    #delivery-config div.carrier table th { border: none; background: none; padding: 4px 4px; text-transform: none; text-align: center;}
+    #delivery-config div.carrier table input { width: 60px; margin: 0 2px 0 0; }
+    #delivery-config div.carrier div.data input { text-align: right; }
 
-	input.hover { background: transparent; border-width: 0; padding: 6px; }
-	input.hover:hover, input.hover:focus { background: white; border-width: 2px; padding: 4px;}
+    input.hover { background: transparent; border-width: 0; padding: 6px; }
+    input.hover:hover, input.hover:focus { background: white; border-width: 2px; padding: 4px;}
 </style>
 
 <div id="delivery-config" ng-controller="DeliveryCtrl">
 
-	<button class="save" ng-click="save()">Save</button>
-	<button class="addzone" ng-click="addZone()">Add Zone</button>
+    <button class="save" ng-click="save()">Save</button>
+    <button class="addzone" ng-click="addZone()">Add Zone</button>
 
-	<h1 >Delivery Settings</h1>
+    <h1 >Delivery Settings</h1>
 
-	<div class="wrapper" style="width: [[300 * data.length]]px">
+    <div class="wrapper" style="width: [[300 * data.length]]px">
 
-		<div class="zone" ng-repeat="zone in data">
+        <div class="zone" ng-repeat="zone in data">
 
-			<div class="heading">
-				<h2>
-					<input class="hover" type="text" ng-model="zone.name" maxlength="64" /> 
-					<button class="button small" ng-click="zone.edit = !zone.edit">Edit</button>
-				</h2>
-				<div ng-show="zone.edit">
-					<label ng-repeat="country in countries">
-						<input type="checkbox" ng-model="zone.countries[country.id]" /> [[country.name]]
-					</label>
-				</div>
-			</div>
+            <div class="heading">
+                <h2>
+                    <input class="hover" type="text" ng-model="zone.name" maxlength="64" /> 
+                    <button class="button small" ng-click="zone.edit = !zone.edit">Edit</button>
+                </h2>
+                <div ng-show="zone.edit">
+                    <label ng-repeat="country in countries">
+                        <input type="checkbox" ng-model="zone.countries[country.id]" /> [[country.name]]
+                    </label>
+                </div>
+            </div>
 
-			<div ui-sortable="sortableOptions" ng-model="zone.carriers">
+            <div ui-sortable="sortableOptions" ng-model="zone.carriers">
 
-				<div class="carrier" ng-repeat="carrier in zone.carriers">
+                <div class="carrier" ng-repeat="carrier in zone.carriers">
 
-					<h3 ng-class="{disabled: carrier.publish == 0}">
-						<input type="checkbox" ng-model="carrier.publish"/> 
-						<input class="hover" type="text" ng-model="carrier.title" maxlength="64" required/>
-					</h3>
+                    <h3 ng-class="{disabled: carrier.publish == 0}">
+                        <input type="checkbox" ng-model="carrier.publish"/> 
+                        <input class="hover" type="text" ng-model="carrier.title" maxlength="64" required/>
+                    </h3>
 
-					<div class="data" ng-show="carrier.publish">
+                    <div class="data" ng-show="carrier.publish">
 
-						<textarea ng-model="carrier.description" placeholder="Description"></textarea>
+                        <textarea ng-model="carrier.description" placeholder="Description"></textarea>
 
-						<h4>Order Value</h4>
+                        <h4>Order Value</h4>
 
-						<table>
-							<tr><th>From (incl.)</th><th>To (excl.)</th></tr>
-							<tr>
-								<td><input type="text" required ng-model="carrier.order_value_from"/>{CURRENCY}</td>
-								<td><input type="text" required ng-model="carrier.order_value_to"/>{CURRENCY}</td>
-							</tr>
-						</table>
+                        <table>
+                            <tr><th>From (incl.)</th><th>To (excl.)</th></tr>
+                            <tr>
+                                <td><input type="text" required ng-model="carrier.order_value_from"/>{CURRENCY}</td>
+                                <td><input type="text" required ng-model="carrier.order_value_to"/>{CURRENCY}</td>
+                            </tr>
+                        </table>
 
-						<h4>Rates</h4>
+                        <h4>Rates</h4>
 
-						<table ng-show="carrier.rates.length > 0">
-							<tr><th>From (incl.)</th><th>To (excl.)</th><th>Rate</th></tr>
-							<tr ng-repeat="rate in carrier.rates">
-								<td><input type="text" ng-model="rate.weight_from"/>g</td>
-								<td><input type="text" ng-model="rate.weight_to"/>g</td>
-								<td><input type="text" ng-model="rate.price"/>{CURRENCY}</td>
-							</tr>
-						</table>
+                        <table ng-show="carrier.rates.length > 0">
+                            <tr><th>From (incl.)</th><th>To (excl.)</th><th>Rate</th></tr>
+                            <tr ng-repeat="rate in carrier.rates">
+                                <td><input type="text" ng-model="rate.weight_from"/>g</td>
+                                <td><input type="text" ng-model="rate.weight_to"/>g</td>
+                                <td><input type="text" ng-model="rate.price"/>{CURRENCY}</td>
+                            </tr>
+                        </table>
 
-						<button ng-click="addRate(carrier)">Add Rate</button>
+                        <button ng-click="addRate(carrier)">Add Rate</button>
 
-						<h4>Warehouse Id</h4>
+                        <h4>Warehouse Id</h4>
 
-						<table>
-							<tr>
-								<td><input type="text" ng-model="carrier.warehouse_id"/></td>
-							</tr>
-						</table>
+                        <table>
+                            <tr>
+                                <td><input type="text" ng-model="carrier.warehouse_id"/></td>
+                            </tr>
+                        </table>
 
-					</div>
+                    </div>
 
-				</div>
+                </div>
 
-				<button ng-click="addCarrier(zone)">Add Carrier for [[zone.name]]</button>
+                <button ng-click="addCarrier(zone)">Add Carrier for [[zone.name]]</button>
 
-			</div>
-		</div>
+            </div>
+        </div>
 
-	</div>
+    </div>
 
 </div>
 
 <script>
-	angular.element(document).ready(function() {
-		
-		var deliveryManagement = angular.module('deliveryManagement', ['ui.sortable']);
+    angular.element(document).ready(function() {
+        
+        var deliveryManagement = angular.module('deliveryManagement', ['ui.sortable']);
 
-		deliveryManagement.controller('DeliveryCtrl', function DeliveryCtrl($scope, $http) {
+        deliveryManagement.controller('DeliveryCtrl', function DeliveryCtrl($scope, $http) {
 
-			$scope.data = {DATA};
-			$scope.countries = {COUNTRIES};
-			$scope.sortableOptions = { axis: 'y'};
+            $scope.data = {DATA};
+            $scope.countries = {COUNTRIES};
+            $scope.sortableOptions = { axis: 'y'};
 
-			$scope.addRate = function(carrier) {
+            $scope.addRate = function(carrier) {
 
-				if (carrier.rates && carrier.rates.length > 0) {
-					var last = carrier.rates[carrier.rates.length - 1];
-					carrier.rates.push({
-						carrier_id: carrier.id,
-						weight_from: Number(last.weight_to),
-						weight_to: 2 * Number(last.weight_to) - Number(last.weight_from),
-						price: Number(last.price)
-					});
-				} else {
-					carrier.rates = [{
-						carrier_id: carrier.id,
-						weight_from: 0,
-						weight_to: 9999,
-						price: 3.00
-					}];
-				}
-			};
+                if (carrier.rates && carrier.rates.length > 0) {
+                    var last = carrier.rates[carrier.rates.length - 1];
+                    carrier.rates.push({
+                        carrier_id: carrier.id,
+                        weight_from: Number(last.weight_to),
+                        weight_to: 2 * Number(last.weight_to) - Number(last.weight_from),
+                        price: Number(last.price)
+                    });
+                } else {
+                    carrier.rates = [{
+                        carrier_id: carrier.id,
+                        weight_from: 0,
+                        weight_to: 9999,
+                        price: 3.00
+                    }];
+                }
+            };
 
-			$scope.addCarrier = function(zone) {
+            $scope.addCarrier = function(zone) {
 
-				if (!zone.carriers) zone.carriers = [];
+                if (!zone.carriers) zone.carriers = [];
 
-				zone.carriers.push({
-					zone_id: zone.id,
-					title: zone.name + ' Delivery',
-					description: zone.name + ' Delivery',
-					order_value_from: 0,
-					order_value_to: 99999,
-					publish: true,
-					rates: []
-				});
-			};
+                zone.carriers.push({
+                    zone_id: zone.id,
+                    title: zone.name + ' Delivery',
+                    description: zone.name + ' Delivery',
+                    order_value_from: 0,
+                    order_value_to: 99999,
+                    publish: true,
+                    rates: []
+                });
+            };
 
-			$scope.addZone = function() {
+            $scope.addZone = function() {
 
-				$scope.data.push({
-					name: 'New Zone',
-					carriers: []
-				});
-			};
+                $scope.data.push({
+                    name: 'New Zone',
+                    carriers: []
+                });
+            };
 
-			$scope.save = function() {
+            $scope.save = function() {
 
-				$('#delivery-config button.save').html('Saving...').attr('disabled', 'disabled');
+                $('#delivery-config button.save').html('Saving...').attr('disabled', 'disabled');
 
-				$http.post('{URI|htmlspecialchars}', $scope.data).success(function(data, status) {
-					$scope.data = data;
-					$('#delivery-config button.save').html('Save').attr('disabled', false);
-				}).error(function(data, status) {
-					$('#delivery-config button.save').html('Error').attr('disabled', false);
-				});
-			};
+                $http.post('{URI|htmlspecialchars}', $scope.data).success(function(data, status) {
+                    $scope.data = data;
+                    $('#delivery-config button.save').html('Save').attr('disabled', false);
+                }).error(function(data, status) {
+                    $('#delivery-config button.save').html('Error').attr('disabled', false);
+                });
+            };
 
-		});
+        });
 
-		deliveryManagement.config(function($interpolateProvider) {
-			$interpolateProvider.startSymbol('[[');
-			$interpolateProvider.endSymbol(']]');
-		});
+        deliveryManagement.config(function($interpolateProvider) {
+            $interpolateProvider.startSymbol('[[');
+            $interpolateProvider.endSymbol(']]');
+        });
 
-		angular.bootstrap(document, ['deliveryManagement']);
+        angular.bootstrap(document, ['deliveryManagement']);
 
-		$("div.column-one.page").css('display', 'none');
-		$("div.column-two.page").css('width', '100%');
-	});
+        $("div.column-one.page").css('display', 'none');
+        $("div.column-two.page").css('width', '100%');
+    });
 </script>
 
 <!-- END: content -->

@@ -10,16 +10,16 @@ require_once('models/ecommerce/ecommerce_recipe.php');
 
 class Onxshop_Controller_Bo_Component_Ecommerce_Recipe_Review_List extends Onxshop_Controller_Bo_Component_Comment_List {
 
-	/**
-	 * Initialize models
-	 */
+    /**
+     * Initialize models
+     */
 
-	public function initModels()
-	{
-		$this->key = "recipe";
-		$this->Comment = new ecommerce_recipe_review();
-		$this->Node = new ecommerce_recipe();
-	}
+    public function initModels()
+    {
+        $this->key = "recipe";
+        $this->Comment = new ecommerce_recipe_review();
+        $this->Node = new ecommerce_recipe();
+    }
 
 }
 

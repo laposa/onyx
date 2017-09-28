@@ -512,8 +512,8 @@ span.disabled {text-decoration: line-through;}
  */
  
 div.onxshop-messages {margin: 1em; border: none; background: black; color: white; background: rgba(0,0,0,0.75); padding: 1em; box-shadow: #000000 5px 5px 30px;
-	clear: both; border-radius: 4px; -moz-border-radius: 7px; -webkit-border-radius: 7px;
-	z-index: 1000; position: relative;}
+    clear: both; border-radius: 4px; -moz-border-radius: 7px; -webkit-border-radius: 7px;
+    z-index: 1000; position: relative;}
 div.onxshop-messages p {margin: 5px 0; line-height: 1; padding: 0; color: white; font-weight: bold; }
 div.onxshop-messages p.onxshop-ok-msg {}
 div.onxshop-messages p.onxshop-error-msg {background: transparent url(/share/images/famfamfam_icons/exclamation.png) left top no-repeat; padding: 0 0 0 25px;}
@@ -536,7 +536,7 @@ div#jGrowl div.jGrowl-notification p { text-align: left; }
 div#jGrowl button.jGrowl-close { display: none; position: absolute; right: 5px; top: 5px; color: #ffffff; cursor: pointer; z-index: 10000; font-weight: bold; font-size: 16px; line-height: 16px; }
 div#jGrowl div.jGrowl-closer { background: black; color: white; background: rgba(0,0,0,0.75); width: 100px; margin: 10px auto; border: none; cursor: pointer; text-align: center; pointer-events: all; }
 @media all and (max-width: 600px) {
-	div#jGrowl { width: 80%; left: 10%; margin-left: 0; }
+    div#jGrowl { width: 80%; left: 10%; margin-left: 0; }
 }
 
 /**
@@ -628,8 +628,8 @@ div.two-column-page.fibonacci-3-2 div.column-one {width: 60%;}
 div.two-column-page.fibonacci-3-2 div.column-two {width: 40%;}
 
 @media all and (max-width: 800px) {
-	div.two-column-page div.column-one, 
-	div.two-column-page div.column-two {width: auto!important; float: none!important;}
+    div.two-column-page div.column-one, 
+    div.two-column-page div.column-two {width: auto!important; float: none!important;}
 }
 
 /****************************************************************************************/
@@ -684,8 +684,8 @@ div.wrapper:after {content: '.'; display: block; height: 0; font-size: 0; clear:
 .two-column-layout.fibonacci-3-2 div.layout-column-two.of-two {width: 40%;}
 
 @media all and (max-width: 800px) {
-	.two-column-layout div.layout-column-one.of-two,
-	.two-column-layout div.layout-column-two.of-two {width: auto!important; float: none!important;}
+    .two-column-layout div.layout-column-one.of-two,
+    .two-column-layout div.layout-column-two.of-two {width: auto!important; float: none!important;}
 }
 
 /********* node/layout/3columns.html *********/
@@ -698,9 +698,9 @@ div.wrapper:after {content: '.'; display: block; height: 0; font-size: 0; clear:
 .three-column-layout div.layout-column-three.of-three {float: right;}
 
 @media all and (max-width: 800px) {   
-	.three-column-layout div.layout-column-one.of-three,
-	.three-column-layout div.layout-column-two.of-three,
-	.three-column-layout div.layout-column-three.of-three {width: auto; float: none;}
+    .three-column-layout div.layout-column-one.of-three,
+    .three-column-layout div.layout-column-two.of-three,
+    .three-column-layout div.layout-column-three.of-three {width: auto; float: none;}
 }
 
 /********* node/layout/4columns.html *********/
@@ -715,10 +715,10 @@ div.wrapper:after {content: '.'; display: block; height: 0; font-size: 0; clear:
 .four-column-layout div.layout-column-four.of-four {float: right;}
 
 @media all and (max-width: 800px) {   
-	.four-column-layout div.layout-column-one.of-four,
-	.four-column-layout div.layout-column-two.of-four {width: 50%;}
-	.four-column-layout div.layout-column-three.of-four,
-	.four-column-layout div.layout-column-four.of-four {width: 50%;}
+    .four-column-layout div.layout-column-one.of-four,
+    .four-column-layout div.layout-column-two.of-four {width: 50%;}
+    .four-column-layout div.layout-column-three.of-four,
+    .four-column-layout div.layout-column-four.of-four {width: 50%;}
 }
 
 /********* node/layout/5columns.html *********/
@@ -735,11 +735,11 @@ div.wrapper:after {content: '.'; display: block; height: 0; font-size: 0; clear:
 .five-column-layout div.layout-column-five.of-five {float: right;}
 
 @media all and (max-width: 800px) {
-	.five-column-layout div.layout-column-one.of-five,
-	.five-column-layout div.layout-column-two.of-five,
-	.five-column-layout div.layout-column-three.of-five,
-	.five-column-layout div.layout-column-four.of-five,
-	.five-column-layout div.layout-column-five.of-five {width: auto; float: none;}
+    .five-column-layout div.layout-column-one.of-five,
+    .five-column-layout div.layout-column-two.of-five,
+    .five-column-layout div.layout-column-three.of-five,
+    .five-column-layout div.layout-column-four.of-five,
+    .five-column-layout div.layout-column-five.of-five {width: auto; float: none;}
 }
 
 /********* node/layout/6columns.html *********/
@@ -757,13 +757,13 @@ div.wrapper:after {content: '.'; display: block; height: 0; font-size: 0; clear:
 .six-column-layout div.layout-column-five.of-six {float: left;}
 .six-column-layout div.layout-column-six.of-six {float: right;}
 
-@media all and (max-width: 800px) {	
-	.six-column-layout div.layout-column-one.of-six,
-	.six-column-layout div.layout-column-two.of-six,
-	.six-column-layout div.layout-column-three.of-six,
-	.six-column-layout div.layout-column-four.of-six,
-	.six-column-layout div.layout-column-five.of-six,
-	.six-column-layout div.layout-column-six.of-six {width: auto; float: none;}
+@media all and (max-width: 800px) { 
+    .six-column-layout div.layout-column-one.of-six,
+    .six-column-layout div.layout-column-two.of-six,
+    .six-column-layout div.layout-column-three.of-six,
+    .six-column-layout div.layout-column-four.of-six,
+    .six-column-layout div.layout-column-five.of-six,
+    .six-column-layout div.layout-column-six.of-six {width: auto; float: none;}
 }
 
 /********* node/layout/tabs.html *********/

@@ -5,22 +5,22 @@
  */
 
 class Onxshop_Controller_Component_Whois extends Onxshop_Controller {
-	
-	/**
-	 * main action
-	 */
-	 
-	public function mainAction() {
-	
-		$str = $this->GET['str'];
-		
-		if (preg_match("/[^a-zA-Z0-9\.]/", $str)) {
-			msg("whois: invalid string");
-		} else {
-			$result = local_exec("whois {$str}");
-			$this->tpl->assign("RESULT", $result);
-		}
+    
+    /**
+     * main action
+     */
+     
+    public function mainAction() {
+    
+        $str = $this->GET['str'];
+        
+        if (preg_match("/[^a-zA-Z0-9\.]/", $str)) {
+            msg("whois: invalid string");
+        } else {
+            $result = local_exec("whois {$str}");
+            $this->tpl->assign("RESULT", $result);
+        }
 
-		return true;
-	}
+        return true;
+    }
 }

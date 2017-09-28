@@ -12,9 +12,9 @@
 <script src="/opt/codemirror/mode/htmlmixed/htmlmixed.js"></script>
 
 <style type="text/css">
-	div.popup { padding: 0; }
-	.CodeMirror { width: auto; height: auto; position: absolute; top: 0; left: 380px; right: 0; bottom: 60px; }
-	.button.save[disabled] {cursor: not-allowed; opacity: 0.5;}
+    div.popup { padding: 0; }
+    .CodeMirror { width: auto; height: auto; position: absolute; top: 0; left: 380px; right: 0; bottom: 60px; }
+    .button.save[disabled] {cursor: not-allowed; opacity: 0.5;}
 </style>
 
 <!-- END: head -->
@@ -22,77 +22,77 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	$('div.server-browser-menu .simple-tree').simpleTree({
-		drag: false,
-		autoclose: true,
-		afterClick:function(node){
-			open_dir = $('a:first', node).attr('href').replace('#', '');
-			serverBrowserOpenDir(open_dir);
-			return false;
-		}
-	});
+    $('div.server-browser-menu .simple-tree').simpleTree({
+        drag: false,
+        autoclose: true,
+        afterClick:function(node){
+            open_dir = $('a:first', node).attr('href').replace('#', '');
+            serverBrowserOpenDir(open_dir);
+            return false;
+        }
+    });
 });
 
 function saveTemplate() {
-	$(".button.save").addClass('saving');
-	var content = editor.getValue();
-	var url = "/request/bo/component/template_edit~template="+open_dir+":type={GET.type}:relation={GET.relation}:node_id={GET.node_id}~";
-	$.post(url, {
-		content: content,
-		csrf_token: $("meta[name=csrf_token]").attr("content")
-	}, function(data) {
-		$(".button.save").removeClass('saving');
-		growlMessage(data);
-	});
-	return false;
+    $(".button.save").addClass('saving');
+    var content = editor.getValue();
+    var url = "/request/bo/component/template_edit~template="+open_dir+":type={GET.type}:relation={GET.relation}:node_id={GET.node_id}~";
+    $.post(url, {
+        content: content,
+        csrf_token: $("meta[name=csrf_token]").attr("content")
+    }, function(data) {
+        $(".button.save").removeClass('saving');
+        growlMessage(data);
+    });
+    return false;
 }
 
 function serverBrowserOpenDir() {
-	makeAjaxRequest('#template-edit', "/request/bo/component/template_edit~template="+open_dir+":type={GET.type}:relation={GET.relation}:node_id={GET.node_id}~");
+    makeAjaxRequest('#template-edit', "/request/bo/component/template_edit~template="+open_dir+":type={GET.type}:relation={GET.relation}:node_id={GET.node_id}~");
 }
 </script>
 
 <div class="two-column-page page fibonacci-1-5">
-		<div class="page-wrapper">
+        <div class="page-wrapper">
 
-			<div class="page-header">
-				<div class="page-header-wrapper">
-					<h1 class="page-title"><span>Editor</span></h1>
-				</div>
-			</div>
+            <div class="page-header">
+                <div class="page-header-wrapper">
+                    <h1 class="page-title"><span>Editor</span></h1>
+                </div>
+            </div>
 
-			<div class="page-content">
-				<div class="page-content-wrapper">
-					<div class="row-top">
-						<div class="column-wrapper">
-						</div>
-					</div>
-		
-					<div class="column-one">
-						<div class="column-wrapper">
-							<div id="template-list">
-								{ONXSHOP_REQUEST_menu #bo/component/server_browser_menu~directory=templates/:scope=project:trim_extension=0:expand_all=1~}
-							</div>
-						</div>
-					</div>
-					<div class="column-two">
-						<div class="column-wrapper">
-							<div id="template-edit">
-								{ONXSHOP_REQUEST_template #bo/component/template_edit}
-							</div>
-						</div>
-					</div>
-					<div class="row-bottom">
-						<div class="row-wrapper">
-							<div class="column-wrapper">
-								<p>
-								</p>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+            <div class="page-content">
+                <div class="page-content-wrapper">
+                    <div class="row-top">
+                        <div class="column-wrapper">
+                        </div>
+                    </div>
+        
+                    <div class="column-one">
+                        <div class="column-wrapper">
+                            <div id="template-list">
+                                {ONXSHOP_REQUEST_menu #bo/component/server_browser_menu~directory=templates/:scope=project:trim_extension=0:expand_all=1~}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column-two">
+                        <div class="column-wrapper">
+                            <div id="template-edit">
+                                {ONXSHOP_REQUEST_template #bo/component/template_edit}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-bottom">
+                        <div class="row-wrapper">
+                            <div class="column-wrapper">
+                                <p>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 </div>
 
 <!-- END: content -->

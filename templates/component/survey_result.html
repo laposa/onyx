@@ -2,45 +2,45 @@
 <div class="survey-result">
 
 <!-- BEGIN: result -->
-	
-	<!-- BEGIN: question -->
-	
-		<!-- BEGIN: answer_list_text -->
-			<ul class="text">
-				<!-- BEGIN: item -->
-				<li>{ANSWER.value|htmlspecialchars}</li>
-				<!-- END: item -->
-			</ul>
-		<!-- END: answer_list_text -->
-		
-		<!-- BEGIN: answer_list_radio -->
-			<ul class="radio">
-			<!-- BEGIN: item -->
-			<li class="item{ANSWER.i}">
-				<div class="rte-content">{ANSWER.content}</div>
-				<div class="bar-area">
-					<div class="bar-container">
-						<span class="percentage" style="bottom: {ANSWER.normalised_usage_scale_percentage|number_format(0)}%">{ANSWER.usage_scale_percentage|number_format(0)}%</span>
-						<span class="bar"><span style="height: {ANSWER.normalised_usage_scale_percentage|number_format(0)}%"></span></span>
-					</div>
-					<span class="title">{ANSWER.title|htmlspecialchars}</span>
-				</div>
-			</li>
-			<!-- END: item -->
-			</ul>
-		<!-- END: answer_list_radio -->
-				
-		<!-- BEGIN: answer_list_select -->
-			<ul class="select">
-			<!-- BEGIN: item -->
-			<li><span class="bar usage-scale-{ANSWER.usage_scale}" title="{ANSWER.usage_scale_percentage|number_format(2)}%"><span></span></span>{ANSWER.title|htmlspecialchars}  ({ANSWER.usage_scale_percentage|number_format(0)}% <span title="{I18N_RESPONDENT_COUNT}">[{ANSWER.usage_count}]</span>)</li>
-			<!-- END: item -->
-			</ul>
-		<!-- END: answer_list_select -->
-		
-	<!-- END: question -->
+    
+    <!-- BEGIN: question -->
+    
+        <!-- BEGIN: answer_list_text -->
+            <ul class="text">
+                <!-- BEGIN: item -->
+                <li>{ANSWER.value|htmlspecialchars}</li>
+                <!-- END: item -->
+            </ul>
+        <!-- END: answer_list_text -->
+        
+        <!-- BEGIN: answer_list_radio -->
+            <ul class="radio">
+            <!-- BEGIN: item -->
+            <li class="item{ANSWER.i}">
+                <div class="rte-content">{ANSWER.content}</div>
+                <div class="bar-area">
+                    <div class="bar-container">
+                        <span class="percentage" style="bottom: {ANSWER.normalised_usage_scale_percentage|number_format(0)}%">{ANSWER.usage_scale_percentage|number_format(0)}%</span>
+                        <span class="bar"><span style="height: {ANSWER.normalised_usage_scale_percentage|number_format(0)}%"></span></span>
+                    </div>
+                    <span class="title">{ANSWER.title|htmlspecialchars}</span>
+                </div>
+            </li>
+            <!-- END: item -->
+            </ul>
+        <!-- END: answer_list_radio -->
+                
+        <!-- BEGIN: answer_list_select -->
+            <ul class="select">
+            <!-- BEGIN: item -->
+            <li><span class="bar usage-scale-{ANSWER.usage_scale}" title="{ANSWER.usage_scale_percentage|number_format(2)}%"><span></span></span>{ANSWER.title|htmlspecialchars}  ({ANSWER.usage_scale_percentage|number_format(0)}% <span title="{I18N_RESPONDENT_COUNT}">[{ANSWER.usage_count}]</span>)</li>
+            <!-- END: item -->
+            </ul>
+        <!-- END: answer_list_select -->
+        
+    <!-- END: question -->
 <!-- END: result -->
-	
-	<div class="bottom"></div>
+    
+    <div class="bottom"></div>
 </div>
 <!-- END: content -->

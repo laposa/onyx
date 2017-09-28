@@ -3,56 +3,56 @@
 {MESSAGES}
 <form method="post" action="" class="offer-edit">
 <div id="offer-edit">
-	
-	<fieldset>
-		<div class="page-header">
-			<div class="page-header-wrapper">
-				<h1 class="page-title"><span>Offer Group</span> <span class="info">ID {OFFER_GROUP.id}</span></h1>
-			</div>
-		</div>
-			
-		<div class="row title">
-			<span class="label"><label>Title</label></span>
-			<span class="field"><input type="text" class="text title long" name="offer_group[title]" value="{OFFER_GROUP.title|htmlspecialchars}" /></span>
-		</div>
-		<div class="row description rte">
-			<span class="label"><label>Description</label></span>
-			<span class="field"><textarea id="offer_group_description" name="offer_group[description]">{OFFER_GROUP.description|htmlspecialchars}</textarea></span>
-		</div>
+    
+    <fieldset>
+        <div class="page-header">
+            <div class="page-header-wrapper">
+                <h1 class="page-title"><span>Offer Group</span> <span class="info">ID {OFFER_GROUP.id}</span></h1>
+            </div>
+        </div>
+            
+        <div class="row title">
+            <span class="label"><label>Title</label></span>
+            <span class="field"><input type="text" class="text title long" name="offer_group[title]" value="{OFFER_GROUP.title|htmlspecialchars}" /></span>
+        </div>
+        <div class="row description rte">
+            <span class="label"><label>Description</label></span>
+            <span class="field"><textarea id="offer_group_description" name="offer_group[description]">{OFFER_GROUP.description|htmlspecialchars}</textarea></span>
+        </div>
 
-		<div class="row start">
-			<span class="label"><label>Scheduled Start Date/Time</label></span>
-			<span class="field"><input type="text" class="date" name="offer_group[start_date]" value="{OFFER_GROUP.schedule_start|strtotime|date('d/m/Y', %s)}" />
-			<input type="text" class="time" style="width: 64px;" name="offer_group[start_time]" value="{OFFER_GROUP.schedule_start|strtotime|date('H:i:s', %s)}" />
-			</span>
-		</div>
-		<div class="row close">
-			<span class="label"><label>Scheduled End Date/Time</label></span>
-			<span class="field"><input type="text" class="date" name="offer_group[end_date]" value="{OFFER_GROUP.schedule_end|strtotime|date('d/m/Y', %s)}" />
-			<input type="text" class="time" style="width: 64px;" name="offer_group[end_time]" value="{OFFER_GROUP.schedule_end|strtotime|date('H:i:s', %s)}" />
-			</span>
-		</div>
+        <div class="row start">
+            <span class="label"><label>Scheduled Start Date/Time</label></span>
+            <span class="field"><input type="text" class="date" name="offer_group[start_date]" value="{OFFER_GROUP.schedule_start|strtotime|date('d/m/Y', %s)}" />
+            <input type="text" class="time" style="width: 64px;" name="offer_group[start_time]" value="{OFFER_GROUP.schedule_start|strtotime|date('H:i:s', %s)}" />
+            </span>
+        </div>
+        <div class="row close">
+            <span class="label"><label>Scheduled End Date/Time</label></span>
+            <span class="field"><input type="text" class="date" name="offer_group[end_date]" value="{OFFER_GROUP.schedule_end|strtotime|date('d/m/Y', %s)}" />
+            <input type="text" class="time" style="width: 64px;" name="offer_group[end_time]" value="{OFFER_GROUP.schedule_end|strtotime|date('H:i:s', %s)}" />
+            </span>
+        </div>
 
-		<div class="layout-column-wrapper">
-			<div class="row publish">
-				<span class="field"><input type="checkbox" id="store-publish" name="offer_group[publish]" value="1" {OFFER_GROUP.publish} /> <label for="store-publish">Publish</label></span>
-			</div>
-		</div>
-	
-		<p>Last Modified: {OFFER_GROUP.modified}</p>
-	</fieldset>
+        <div class="layout-column-wrapper">
+            <div class="row publish">
+                <span class="field"><input type="checkbox" id="store-publish" name="offer_group[publish]" value="1" {OFFER_GROUP.publish} /> <label for="store-publish">Publish</label></span>
+            </div>
+        </div>
+    
+        <p>Last Modified: {OFFER_GROUP.modified}</p>
+    </fieldset>
 
-	<div class="bottom"></div>
+    <div class="bottom"></div>
 
-	<button style="float: right;  margin: 3px;" type="submit" name="save" value="save"><span>Save</span></button>
-	
-	<div class="bottom"></div>
+    <button style="float: right;  margin: 3px;" type="submit" name="save" value="save"><span>Save</span></button>
+    
+    <div class="bottom"></div>
 
-	<script type="text/javascript">
-		$(function() {
-			$('#offer-edit input.date').datepicker({firstDay: 1, dateFormat: 'dd/mm/yy'});
-		});
-	</script>
+    <script type="text/javascript">
+        $(function() {
+            $('#offer-edit input.date').datepicker({firstDay: 1, dateFormat: 'dd/mm/yy'});
+        });
+    </script>
 
 </div>
 <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />

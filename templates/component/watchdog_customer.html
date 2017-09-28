@@ -3,22 +3,22 @@
 <!-- BEGIN: watched_items -->
 
 <p>
-	We will let you know when the below products are available:
+    We will let you know when the below products are available:
 </p>
 <br/>
 <!-- BEGIN: item -->
 <table class="no-borders">
-	<tr>
-		<td><a style="text-decoration: none; border: none;" href="{ITEM.product.url}">{ITEM.product.image}</a></td>
-		<td>&nbsp;</td>
-		<td>
-			<h3><a style="color: #a39161;" href="{ITEM.product.url}">{ITEM.product.name|htmlspecialchars} - {ITEM.product.variety.name|htmlspecialchars}</a></h3>
-			<p>{ITEM.product.teaser|strip_tags|htmlspecialchars}</p>
-			<p>
-				<a class="button" style="width: 100px; font-size: 12px;" href="/page/{NODE_CONF.id_map-notifications}?wid={ITEM.id}&amp;unsubscribe={ITEM.key}">Remove</a>
-			</p>
-		</td>
-	</tr>
+    <tr>
+        <td><a style="text-decoration: none; border: none;" href="{ITEM.product.url}">{ITEM.product.image}</a></td>
+        <td>&nbsp;</td>
+        <td>
+            <h3><a style="color: #a39161;" href="{ITEM.product.url}">{ITEM.product.name|htmlspecialchars} - {ITEM.product.variety.name|htmlspecialchars}</a></h3>
+            <p>{ITEM.product.teaser|strip_tags|htmlspecialchars}</p>
+            <p>
+                <a class="button" style="width: 100px; font-size: 12px;" href="/page/{NODE_CONF.id_map-notifications}?wid={ITEM.id}&amp;unsubscribe={ITEM.key}">Remove</a>
+            </p>
+        </td>
+    </tr>
 </table>
 <!-- BEGIN: divider -->
 <div class="divider"></div>
@@ -29,7 +29,7 @@
 
 <!-- BEGIN: no_watched_items -->
 <p>
-	You have not subscribed to our <em>Back-in-Stock</em> Notifications.
+    You have not subscribed to our <em>Back-in-Stock</em> Notifications.
 </p>
 <!-- END: no_watched_items -->
 

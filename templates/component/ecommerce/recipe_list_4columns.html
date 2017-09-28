@@ -3,23 +3,23 @@
 
 <div class="recipe-list recipe-list-4columns">
 
-	<!-- BEGIN: layout -->
-	<div class="four-column-layout">
-		<!-- BEGIN: item -->
-		<div class="layout-column{COLUMN_NUM} of-four">
-			<div class="item {ITEM.taxonomy_class}">
-				<div class="image">
-					<!-- BEGIN: image --><a href="/page/{ITEM.page.id}" title="{ITEM.title|htmlspecialchars}"><img src="/thumbnail/230x130/{ITEM.image.src}?fill=1" alt="{ITEM.image.title|htmlspecialchars}" /></a><!-- END: image -->
-				</div>	
-				<h3 class="name"><a href="/page/{ITEM.page.id}" title="{ITEM.recipe.name|htmlspecialchars}"><span>{ITEM.title|htmlspecialchars}</span></a></h3>
-			</div>
-		</div>
-		<!-- END: item -->
-	</div>
-	<!-- END: layout -->
-	<div class="bottom"></div>
-	{PAGINATION}
-	<div class="bottom"></div>
+    <!-- BEGIN: layout -->
+    <div class="four-column-layout">
+        <!-- BEGIN: item -->
+        <div class="layout-column{COLUMN_NUM} of-four">
+            <div class="item {ITEM.taxonomy_class}">
+                <div class="image">
+                    <!-- BEGIN: image --><a href="/page/{ITEM.page.id}" title="{ITEM.title|htmlspecialchars}"><img src="/thumbnail/230x130/{ITEM.image.src}?fill=1" alt="{ITEM.image.title|htmlspecialchars}" /></a><!-- END: image -->
+                </div>  
+                <h3 class="name"><a href="/page/{ITEM.page.id}" title="{ITEM.recipe.name|htmlspecialchars}"><span>{ITEM.title|htmlspecialchars}</span></a></h3>
+            </div>
+        </div>
+        <!-- END: item -->
+    </div>
+    <!-- END: layout -->
+    <div class="bottom"></div>
+    {PAGINATION}
+    <div class="bottom"></div>
 
 </div>
 <!-- END: content -->

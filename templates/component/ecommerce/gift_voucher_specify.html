@@ -8,89 +8,89 @@
 <script type="text/javascript">
 $(function(){
 
-	function extract_price(name) {
-		var price = name.match(/£?\d+/);
-		if (price && price.length > 0 && price[0].length > 0) return price[0];
-		return name;
-	}
+    function extract_price(name) {
+        var price = name.match(/£?\d+/);
+        if (price && price.length > 0 && price[0].length > 0) return price[0];
+        return name;
+    }
 
-	$("#gift-voucher-specify").validate();
-	$("#gift-voucher-specify-variety-id").change(function() {
-		var variety_name = $("#gift-voucher-specify-variety-id option:selected").text();
-		if ($(this).val() != '') $("#gift-voucher-variety-name").text(extract_price(variety_name));
-		else $("#gift-voucher-variety-name").text("£…");
-		var variety_description = $("#gift-voucher-specify-variety-id option:selected").attr('title');
-		$("#gift-voucher-variety-description").text(variety_description);
-	});
-	
-	$("#gift-voucher-specify input, #gift-voucher-specify textarea").keyup(function() {
-		var id = $(this).attr('id');
-		target_id = id.replace('gift-voucher-specify', 'gift-voucher');
-		var value = $(this).val();
-		if (value == '') {
-			$("#" + target_id).text('[Enter]');
-		} else {
-			$("#" + target_id).text(value);
-		}
-	});
-	
-	 $('#gift-voucher-specify div.delivery-date input').datepicker({firstDay: 1, dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true, minDate: '0', maxDate: '+1y', onSelect: function(dateText, inst) {
-	 		var d = new Date();
-	 		var day = d.getDate();
-	 		var month = d.getMonth() + 1;
-	 		if (day < 10) day = "0" + day;
-	 		if (month < 10) month = "0" + month;
-	 		var today = day + "/" + month + "/" + d.getFullYear();
-	 		if (today == dateText) $('#gift-voucher-specify div.delivery-date input').val("Now");
-		}});
+    $("#gift-voucher-specify").validate();
+    $("#gift-voucher-specify-variety-id").change(function() {
+        var variety_name = $("#gift-voucher-specify-variety-id option:selected").text();
+        if ($(this).val() != '') $("#gift-voucher-variety-name").text(extract_price(variety_name));
+        else $("#gift-voucher-variety-name").text("£…");
+        var variety_description = $("#gift-voucher-specify-variety-id option:selected").attr('title');
+        $("#gift-voucher-variety-description").text(variety_description);
+    });
+    
+    $("#gift-voucher-specify input, #gift-voucher-specify textarea").keyup(function() {
+        var id = $(this).attr('id');
+        target_id = id.replace('gift-voucher-specify', 'gift-voucher');
+        var value = $(this).val();
+        if (value == '') {
+            $("#" + target_id).text('[Enter]');
+        } else {
+            $("#" + target_id).text(value);
+        }
+    });
+    
+     $('#gift-voucher-specify div.delivery-date input').datepicker({firstDay: 1, dateFormat: 'dd/mm/yy', changeMonth: true, changeYear: true, minDate: '0', maxDate: '+1y', onSelect: function(dateText, inst) {
+            var d = new Date();
+            var day = d.getDate();
+            var month = d.getMonth() + 1;
+            if (day < 10) day = "0" + day;
+            if (month < 10) month = "0" + month;
+            var today = day + "/" + month + "/" + d.getFullYear();
+            if (today == dateText) $('#gift-voucher-specify div.delivery-date input').val("Now");
+        }});
 });
 </script>
 
 <div class="gift-voucher-specify-specify">
-	<div class="gift-voucher-specify-wrapper">
-		{MESSAGES}
-		<form class="gift_voucher-specify" id="gift-voucher-specify" action="{URI|htmlspecialchars}#node-id-{GET.node_id}" method="post">
-			<fieldset class="single">	
-				<div class="row amount">
-					<span class="label"><label for="gift-voucher-specify-variety-id"><span class="mandatory-mark">*</span>Select amount</label></span>
-					<span class="field">
-						<select name="gift_voucher_specify[variety_id]" id="gift_voucher-specify-variety-id" class="required numeric">
-							<option value="">Please select value</option>
-							<!-- BEGIN: item --><option value="{ITEM.id}" title="{ITEM.description|strip_tags|htmlspecialchars}" {SELECTED}>{ITEM.name|htmlspecialchars}</option><!-- END: item -->
-						</select>
-					</span>
-				</div>
-				<div class="row recipient-name">
-					<span class="label"><label for="gift_voucher-specify-recipient-name"><span class="mandatory-mark">*</span>Recipient's name:</label></span>
-					<span class="field"><input type="text" id="gift-voucher-specify-recipient-name" name="gift_voucher_specify[recipient_name]" value="{GIFT_VOUCHER.recipient_name|htmlspecialchars}" class="required text" maxlength="45" /></span>
-				</div>
-				<div class="row recipient-email">
-					<span class="label"><label for="gift-voucher-specify-recipient-email"><span class="mandatory-mark">*</span>Recipient's email:</label></span>
-					<span class="field"><input type="text" id="gift-voucher-specify-recipient-email" name="gift_voucher_specify[recipient_email]" value="{GIFT_VOUCHER.recipient_email|htmlspecialchars}" class="required text email" maxlength="45" /></span>
-				</div>	
-				<div class="row recipient-email-repeat">
-					<span class="label"><label for="gift-voucher-specify-recipient-email-repeat"><span class="mandatory-mark">*</span>Confirm recipient's email:</label></span>
-					<span class="field"><input type="text" id="gift-voucher-specify-recipient-email-repeat" name="gift_voucher_specify[recipient_email_repeat]" value="{GIFT_VOUCHER.recipient_email_repeat|htmlspecialchars}" class="required text email" maxlength="45" /></span>
-				</div>		
-				<div class="row message">
-					<span class="label"><label for="gift-voucher-specify-message">{I18N_YOUR_MESSAGE}:</label></span>
-					<span class="field"><textarea id="gift-voucher-specify-message" name="gift_voucher_specify[message]" rows="15" cols="45">{GIFT_VOUCHER.message|htmlspecialchars}</textarea></span>
-				</div>
-				<div class="row sender-name">
-					<span class="label"><label for="gift-voucher-specify-sender-name"><span class="mandatory-mark">*</span>Your name:</label></span>
-					<span class="field"><input type="text" id="gift-voucher-specify-sender-name" name="gift_voucher_specify[sender_name]" value="{GIFT_VOUCHER.sender_name|htmlspecialchars}" class="required text" maxlength="45" /></span>
-				</div>
-				<div class="row delivery-date">
-					<span class="label"><label for="gift-voucher-specify-delivery-date">When would you like to send your gift voucher?</label></span>
-					<span class="field"><input type="text" id="gift-voucher-specify-delivery-date" name="gift_voucher_specify[delivery_date]" value="{GIFT_VOUCHER.delivery_date|htmlspecialchars}Now or click for further options" class="text" title="Leave empty to send the voucher now" /></span>
-				</div>
-			</fieldset>
-			<div class="row submit">
-				<span class="label"><label>&nbsp;</label></span>
-				<span class="field"><button type="submit" name="send" value="send" class="submit add_to_basket"><span>{I18N_ADD_TO_BASKET}</span></button></span>
-			</div>
-		<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+    <div class="gift-voucher-specify-wrapper">
+        {MESSAGES}
+        <form class="gift_voucher-specify" id="gift-voucher-specify" action="{URI|htmlspecialchars}#node-id-{GET.node_id}" method="post">
+            <fieldset class="single">   
+                <div class="row amount">
+                    <span class="label"><label for="gift-voucher-specify-variety-id"><span class="mandatory-mark">*</span>Select amount</label></span>
+                    <span class="field">
+                        <select name="gift_voucher_specify[variety_id]" id="gift_voucher-specify-variety-id" class="required numeric">
+                            <option value="">Please select value</option>
+                            <!-- BEGIN: item --><option value="{ITEM.id}" title="{ITEM.description|strip_tags|htmlspecialchars}" {SELECTED}>{ITEM.name|htmlspecialchars}</option><!-- END: item -->
+                        </select>
+                    </span>
+                </div>
+                <div class="row recipient-name">
+                    <span class="label"><label for="gift_voucher-specify-recipient-name"><span class="mandatory-mark">*</span>Recipient's name:</label></span>
+                    <span class="field"><input type="text" id="gift-voucher-specify-recipient-name" name="gift_voucher_specify[recipient_name]" value="{GIFT_VOUCHER.recipient_name|htmlspecialchars}" class="required text" maxlength="45" /></span>
+                </div>
+                <div class="row recipient-email">
+                    <span class="label"><label for="gift-voucher-specify-recipient-email"><span class="mandatory-mark">*</span>Recipient's email:</label></span>
+                    <span class="field"><input type="text" id="gift-voucher-specify-recipient-email" name="gift_voucher_specify[recipient_email]" value="{GIFT_VOUCHER.recipient_email|htmlspecialchars}" class="required text email" maxlength="45" /></span>
+                </div>  
+                <div class="row recipient-email-repeat">
+                    <span class="label"><label for="gift-voucher-specify-recipient-email-repeat"><span class="mandatory-mark">*</span>Confirm recipient's email:</label></span>
+                    <span class="field"><input type="text" id="gift-voucher-specify-recipient-email-repeat" name="gift_voucher_specify[recipient_email_repeat]" value="{GIFT_VOUCHER.recipient_email_repeat|htmlspecialchars}" class="required text email" maxlength="45" /></span>
+                </div>      
+                <div class="row message">
+                    <span class="label"><label for="gift-voucher-specify-message">{I18N_YOUR_MESSAGE}:</label></span>
+                    <span class="field"><textarea id="gift-voucher-specify-message" name="gift_voucher_specify[message]" rows="15" cols="45">{GIFT_VOUCHER.message|htmlspecialchars}</textarea></span>
+                </div>
+                <div class="row sender-name">
+                    <span class="label"><label for="gift-voucher-specify-sender-name"><span class="mandatory-mark">*</span>Your name:</label></span>
+                    <span class="field"><input type="text" id="gift-voucher-specify-sender-name" name="gift_voucher_specify[sender_name]" value="{GIFT_VOUCHER.sender_name|htmlspecialchars}" class="required text" maxlength="45" /></span>
+                </div>
+                <div class="row delivery-date">
+                    <span class="label"><label for="gift-voucher-specify-delivery-date">When would you like to send your gift voucher?</label></span>
+                    <span class="field"><input type="text" id="gift-voucher-specify-delivery-date" name="gift_voucher_specify[delivery_date]" value="{GIFT_VOUCHER.delivery_date|htmlspecialchars}Now or click for further options" class="text" title="Leave empty to send the voucher now" /></span>
+                </div>
+            </fieldset>
+            <div class="row submit">
+                <span class="label"><label>&nbsp;</label></span>
+                <span class="field"><button type="submit" name="send" value="send" class="submit add_to_basket"><span>{I18N_ADD_TO_BASKET}</span></button></span>
+            </div>
+        <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
-	</div>
+    </div>
 </div>
 <!-- END: content -->

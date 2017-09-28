@@ -2,30 +2,30 @@
 <rss version ="2.0" xmlns:media="http://search.yahoo.com/mrss/" xmlns:atom="http://www.w3.org/2005/Atom">
 
 <channel>
-	<title>{CONFIGURATION.global.title|htmlspecialchars|xmlentities} - {NODE.title|htmlspecialchars|xmlentities}</title>
-	<link>http://{_SERVER.HTTP_HOST}/page/{NODE.id}</link>
-	<description>{NODE.description|htmlspecialchars|xmlentities}</description>
-	<language>en-gb</language>
-	<pubDate>{RSS_DATE}</pubDate>
-	<lastBuildDate>{RSS_DATE}</lastBuildDate>
-	<generator>{ONXSHOP_VERSION}</generator>
-	<managingEditor>{CONFIGURATION.global.admin_email} ({CONFIGURATION.global.title})</managingEditor>
-	<webMaster>{CONFIGURATION.global.admin_email} ({CONFIGURATION.global.title})</webMaster>
-	<ttl>{ONXSHOP_PAGE_CACHE_TTL}</ttl>
-	<atom:link href="http://{_SERVER.HTTP_HOST}/export/rss/node/{NODE.id}" rel="self" type="application/rss+xml" />
-	<category><!-- BEGIN: category -->{CATEGORY|htmlspecialchars|xmlentities}<!-- END: category --></category>
-	
-	
+    <title>{CONFIGURATION.global.title|htmlspecialchars|xmlentities} - {NODE.title|htmlspecialchars|xmlentities}</title>
+    <link>http://{_SERVER.HTTP_HOST}/page/{NODE.id}</link>
+    <description>{NODE.description|htmlspecialchars|xmlentities}</description>
+    <language>en-gb</language>
+    <pubDate>{RSS_DATE}</pubDate>
+    <lastBuildDate>{RSS_DATE}</lastBuildDate>
+    <generator>{ONXSHOP_VERSION}</generator>
+    <managingEditor>{CONFIGURATION.global.admin_email} ({CONFIGURATION.global.title})</managingEditor>
+    <webMaster>{CONFIGURATION.global.admin_email} ({CONFIGURATION.global.title})</webMaster>
+    <ttl>{ONXSHOP_PAGE_CACHE_TTL}</ttl>
+    <atom:link href="http://{_SERVER.HTTP_HOST}/export/rss/node/{NODE.id}" rel="self" type="application/rss+xml" />
+    <category><!-- BEGIN: category -->{CATEGORY|htmlspecialchars|xmlentities}<!-- END: category --></category>
+    
+    
 <!-- BEGIN: item -->
-	<item>
-		<title>{CHILD.title|htmlspecialchars|xmlentities}</title>
-		<guid>{CHILD.url}</guid>
-		<link>{CHILD.url}</link>
-		<description>{CHILD.description|htmlspecialchars|xmlentities}</description>
-		<pubDate>{CHILD.rss_date}</pubDate>
-<!-- BEGIN: category -->		<category>{CATEGORY.label.title|htmlspecialchars|xmlentities}</category><!-- END: category -->
-<!-- BEGIN: image -->		<media:content medium="image" type="{CHILD.image.type}" url="{CHILD.image.url}" width="{CHILD.image.width}" height="{CHILD.image.height}"/><!-- END: image -->
-	</item>
+    <item>
+        <title>{CHILD.title|htmlspecialchars|xmlentities}</title>
+        <guid>{CHILD.url}</guid>
+        <link>{CHILD.url}</link>
+        <description>{CHILD.description|htmlspecialchars|xmlentities}</description>
+        <pubDate>{CHILD.rss_date}</pubDate>
+<!-- BEGIN: category -->        <category>{CATEGORY.label.title|htmlspecialchars|xmlentities}</category><!-- END: category -->
+<!-- BEGIN: image -->       <media:content medium="image" type="{CHILD.image.type}" url="{CHILD.image.url}" width="{CHILD.image.width}" height="{CHILD.image.height}"/><!-- END: image -->
+    </item>
 <!-- END: item -->
 
 </channel>

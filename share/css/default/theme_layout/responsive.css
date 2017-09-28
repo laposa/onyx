@@ -56,21 +56,21 @@ div.fluid-video video {top: 0; left: 0; width: 100%; height: 100%; position: abs
 
 /* styles for narrow desktop browsers and iPad landscape */
 @media all and (max-width: 1024px) {
-	#contentWrapper { margin: 0; }
+    #contentWrapper { margin: 0; }
 }
 
 /* styles for narrower desktop browsers and iPad portrait */
 @media all and (max-width: 768px) {
-	#content { width: 100%; float: none; clear: both; }
-	#primaryNavigation {width: 100%; margin-bottom: 1em;}
-	#primaryNavigation li {float: left; margin-right: 2em;}
+    #content { width: 100%; float: none; clear: both; }
+    #primaryNavigation {width: 100%; margin-bottom: 1em;}
+    #primaryNavigation li {float: left; margin-right: 2em;}
     #primaryNavigationWrapper {margin-right: 0;}
     #contentSide {position: static!important; width: 100%!important;}
 }
 
 /*make sure primaryNavigation is visibile when interaction with revealNavigationButton */
 @media all and (min-width: 768px) {
-	#primaryNavigation {display: block!important;}
+    #primaryNavigation {display: block!important;}
 }
 
 /* styles for iPhone/Android landscape (and really narrow browser windows) */
@@ -83,14 +83,14 @@ div.fluid-video video {top: 0; left: 0; width: 100%; height: 100%; position: abs
     button,
     a.button {font-size: 200%;}
     /*2cols forms (can be set on whole form or particular fieldset*/
-	form.twoColumns label,
-	fieldset.twoColumns label {padding-right: 0;}
-	form.twoColumns span.label,
-	fieldset.twoColumns span.label {width: auto; float: none; text-align: left;}
-	form.twoColumns span.field,
-	fieldset.twoColumns span.field {width: 100%;}
-	input {font-size: 2em;}
-	div.twoColumnPage div.columnOne, 
+    form.twoColumns label,
+    fieldset.twoColumns label {padding-right: 0;}
+    form.twoColumns span.label,
+    fieldset.twoColumns span.label {width: auto; float: none; text-align: left;}
+    form.twoColumns span.field,
+    fieldset.twoColumns span.field {width: 100%;}
+    input {font-size: 2em;}
+    div.twoColumnPage div.columnOne, 
     div.twoColumnPage div.columnTwo,
     div.twoColumnLayout div.layoutColumnOne.ofTwo,
     div.twoColumnLayout div.layoutColumnTwo.ofTwo {width: auto!important; float: none!important;}
@@ -118,5 +118,5 @@ div.fluid-video video {top: 0; left: 0; width: 100%; height: 100%; position: abs
 
 /* styles for iPhone/Android portrait */
 @media all and (max-width: 320px) {
-	
+    
 }

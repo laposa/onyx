@@ -2,32 +2,32 @@
 
 {MESSAGES}
 
-	<!-- BEGIN: promotion_list -->
-	<table>
-		<tr>
-			<th>User's Description</th>
-			<th>Voucher Code to Promote</th>
-			<th>Created</th>
-			<th>Discount Value</th>
-			<th>Minimum Order</th>
-			<th>Number of Uses</th>
-		</tr>
-		<!-- BEGIN: item -->
-		<tr>
-			<td>{PROMOTION.title|htmlspecialchars}</td>
-			<td><input type="text" readonly="readonly" onclick="this.select()" class="code-input" value="{PROMOTION.code_pattern|htmlspecialchars}" /></td>
-			<td>{PROMOTION.created|strtotime||date('d/m/Y', %s)}</td>
-			<td>{PROMOTION.discount_fixed_value|money_format('%n',%s)}</td>
-			<td>{PROMOTION.limit_to_order_amount|money_format('%n',%s)}</td>
-			<td>{PROMOTION.num_uses}</td>
-		</tr>
-		<!-- END: item -->
-		<!-- BEGIN: empty -->
-		<tr>
-			<td class="empty" colspan="6">This customer has no voucher codes generated.</td>
-		</tr>
-		<!-- END: empty -->
-	</table>
-	<!-- END: promotion_list -->
+    <!-- BEGIN: promotion_list -->
+    <table>
+        <tr>
+            <th>User's Description</th>
+            <th>Voucher Code to Promote</th>
+            <th>Created</th>
+            <th>Discount Value</th>
+            <th>Minimum Order</th>
+            <th>Number of Uses</th>
+        </tr>
+        <!-- BEGIN: item -->
+        <tr>
+            <td>{PROMOTION.title|htmlspecialchars}</td>
+            <td><input type="text" readonly="readonly" onclick="this.select()" class="code-input" value="{PROMOTION.code_pattern|htmlspecialchars}" /></td>
+            <td>{PROMOTION.created|strtotime||date('d/m/Y', %s)}</td>
+            <td>{PROMOTION.discount_fixed_value|money_format('%n',%s)}</td>
+            <td>{PROMOTION.limit_to_order_amount|money_format('%n',%s)}</td>
+            <td>{PROMOTION.num_uses}</td>
+        </tr>
+        <!-- END: item -->
+        <!-- BEGIN: empty -->
+        <tr>
+            <td class="empty" colspan="6">This customer has no voucher codes generated.</td>
+        </tr>
+        <!-- END: empty -->
+    </table>
+    <!-- END: promotion_list -->
 
 <!-- END: content -->

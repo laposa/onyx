@@ -9,17 +9,17 @@ require_once('models/ecommerce/ecommerce_product_review.php');
 require_once('models/ecommerce/ecommerce_product.php');
 
 class Onxshop_Controller_Bo_Component_Ecommerce_Product_Review_List extends Onxshop_Controller_Bo_Component_Comment_List {
-	
-	/**
-	 * Initialize models
-	 */
+    
+    /**
+     * Initialize models
+     */
 
-	public function initModels()
-	{
-		$this->key = "product";
-		$this->Comment = new ecommerce_product_review();
-		$this->Node = new ecommerce_product();
-	}
+    public function initModels()
+    {
+        $this->key = "product";
+        $this->Comment = new ecommerce_product_review();
+        $this->Node = new ecommerce_product();
+    }
 
 }
 

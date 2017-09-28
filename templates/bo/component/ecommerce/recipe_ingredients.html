@@ -2,115 +2,115 @@
 <script type="text/javascript">
 $(function() {
 
-	var ingredientCounter = 0;
-	var productListTable = [
-		<!-- BEGIN: product -->{JSON}<!-- END: product -->
-	];
+    var ingredientCounter = 0;
+    var productListTable = [
+        <!-- BEGIN: product -->{JSON}<!-- END: product -->
+    ];
 
-	function updateDropdown(select) {
+    function updateDropdown(select) {
 
-		for (var i = 0; i < productListTable.length; i++) {
-			var o = productListTable[i];
-			select.append('<option value="' + o.id + '" class="' + (o.publish == 0 ? 'disabled' : '') + '">' + o.name + ' - ' + o.sku +'</option>');
-		}
-		select.each(function() {
-			var selected = $(this).attr("data-selected");
-			$(this).find("option[value=" + selected + "]").prop('selected', true);
-		});
+        for (var i = 0; i < productListTable.length; i++) {
+            var o = productListTable[i];
+            select.append('<option value="' + o.id + '" class="' + (o.publish == 0 ? 'disabled' : '') + '">' + o.name + ' - ' + o.sku +'</option>');
+        }
+        select.each(function() {
+            var selected = $(this).attr("data-selected");
+            $(this).find("option[value=" + selected + "]").prop('selected', true);
+        });
 
-	}
+    }
 
-	function addIngredient() {
-		var template = 
-				'<tr>' +
-				'	<td>' +
-				'		<input type="text" class="short number" name="ingredients[__NEW__][quantity]" value="1"/>' +
-				'	</td>' +
-				'	<td>' +
-				'		<select name="ingredients[__NEW__][units]">' +
-				'			<!-- BEGIN:unit -->	' +
-				'			<option value="{UNIT.id}">{UNIT.title|addslashes}</option>' +
-				'			<!-- END:unit -->' +
-				'		</select>' +
-				'	</td>' +
-				'	<td>' +
-				'		of' +
-				'	</td>' +
-				'	<td>' +
-				'		<select id="product-dropdown__NEW__" class="product_dropdown" style="width: 200px;" name="ingredients[__NEW__][product_variety_id]">' +
-				'		</select>' +
-				'	</td>' +
-				'	<td>' +
-				'		<input type="text" name="ingredients[__NEW__][notes]" value=""/>' +
-				'	</td>' +
-				'	<td>' +
-				'		<input type="text" name="ingredients[__NEW__][group_title]" value=""/>' +
-				'	</td>' +
-				'	<td>' +
-				'		<button style="float: none;" class="remove small" name="" onclick="$(this).parent().parent().remove(); return false"><span>Remove</span></button>' +
-				'	</td>' +
-				'</tr>';
-		$("#ingredients-table").append(template.replace(/__NEW__/g, '__NEW__' + ingredientCounter));
-		updateDropdown($("#product-dropdown__NEW__" + ingredientCounter));
-		ingredientCounter++;
-		return false;
-	}
+    function addIngredient() {
+        var template = 
+                '<tr>' +
+                '   <td>' +
+                '       <input type="text" class="short number" name="ingredients[__NEW__][quantity]" value="1"/>' +
+                '   </td>' +
+                '   <td>' +
+                '       <select name="ingredients[__NEW__][units]">' +
+                '           <!-- BEGIN:unit --> ' +
+                '           <option value="{UNIT.id}">{UNIT.title|addslashes}</option>' +
+                '           <!-- END:unit -->' +
+                '       </select>' +
+                '   </td>' +
+                '   <td>' +
+                '       of' +
+                '   </td>' +
+                '   <td>' +
+                '       <select id="product-dropdown__NEW__" class="product_dropdown" style="width: 200px;" name="ingredients[__NEW__][product_variety_id]">' +
+                '       </select>' +
+                '   </td>' +
+                '   <td>' +
+                '       <input type="text" name="ingredients[__NEW__][notes]" value=""/>' +
+                '   </td>' +
+                '   <td>' +
+                '       <input type="text" name="ingredients[__NEW__][group_title]" value=""/>' +
+                '   </td>' +
+                '   <td>' +
+                '       <button style="float: none;" class="remove small" name="" onclick="$(this).parent().parent().remove(); return false"><span>Remove</span></button>' +
+                '   </td>' +
+                '</tr>';
+        $("#ingredients-table").append(template.replace(/__NEW__/g, '__NEW__' + ingredientCounter));
+        updateDropdown($("#product-dropdown__NEW__" + ingredientCounter));
+        ingredientCounter++;
+        return false;
+    }
 
-	$("#ingredient-add").click(addIngredient);
-	updateDropdown($("select.product-dropdown"));
+    $("#ingredient-add").click(addIngredient);
+    updateDropdown($("select.product-dropdown"));
 });
 
 </script>
 <!-- END: head -->
 <!-- BEGIN: content -->
 <fieldset>
-	<legend>Ingredients</legend>
-	{MESSAGES}
-	<div id="related-select">
-		<table id="ingredients-table">
-			<tr>
-				<th>Quantity</th>
-				<th>Unit</th>
-				<th>&nbsp;</th>
-				<th>Ingredient (product)</th>
-				<th>Note</th>
-				<th>Group Title</th>
-				<th></th>
-			</tr>
-			<!-- BEGIN: item -->
-			<tr>
-				<td>
-					<input type="text" class="short number" name="ingredients[{ITEM.id}][quantity]" value="{ITEM.quantity}"/>
-				</td>
-				<td>
-					<select name="ingredients[{ITEM.id}][units]">
-						<!-- BEGIN:unit -->	
-						<option value="{UNIT.id}" {UNIT.selected}>{UNIT.title|htmlspecialchars}</option>
-						<!-- END:unit -->
-					</select>
-				</td>
-				<td>
-					of
-				</td>
-				<td>
-					<select class="product-dropdown" data-selected="{ITEM.product_variety_id}" style="width: 200px;" name="ingredients[{ITEM.id}][product_variety_id]">
-					</select>
-				</td>
-				<td>
-					<input type="text" name="ingredients[{ITEM.id}][notes]" value="{ITEM.notes}"/>
-				</td>
-				<td>
-					<input type="text" name="ingredients[{ITEM.id}][group_title]" value="{ITEM.group_title}"/>
-				</td>
-				<td>
-					<button style="float: none;" class="remove small" name="" onclick="$(this).parent().parent().remove(); return false"><span>Remove</span></button>
-				</td>
-			</tr>
-			<!-- END: item -->
-		</table>
-	</div>
-	
-	<p><a class="button add" id="ingredient-add" href="#"><span>Add a New Ingredient</span></a></p>
+    <legend>Ingredients</legend>
+    {MESSAGES}
+    <div id="related-select">
+        <table id="ingredients-table">
+            <tr>
+                <th>Quantity</th>
+                <th>Unit</th>
+                <th>&nbsp;</th>
+                <th>Ingredient (product)</th>
+                <th>Note</th>
+                <th>Group Title</th>
+                <th></th>
+            </tr>
+            <!-- BEGIN: item -->
+            <tr>
+                <td>
+                    <input type="text" class="short number" name="ingredients[{ITEM.id}][quantity]" value="{ITEM.quantity}"/>
+                </td>
+                <td>
+                    <select name="ingredients[{ITEM.id}][units]">
+                        <!-- BEGIN:unit --> 
+                        <option value="{UNIT.id}" {UNIT.selected}>{UNIT.title|htmlspecialchars}</option>
+                        <!-- END:unit -->
+                    </select>
+                </td>
+                <td>
+                    of
+                </td>
+                <td>
+                    <select class="product-dropdown" data-selected="{ITEM.product_variety_id}" style="width: 200px;" name="ingredients[{ITEM.id}][product_variety_id]">
+                    </select>
+                </td>
+                <td>
+                    <input type="text" name="ingredients[{ITEM.id}][notes]" value="{ITEM.notes}"/>
+                </td>
+                <td>
+                    <input type="text" name="ingredients[{ITEM.id}][group_title]" value="{ITEM.group_title}"/>
+                </td>
+                <td>
+                    <button style="float: none;" class="remove small" name="" onclick="$(this).parent().parent().remove(); return false"><span>Remove</span></button>
+                </td>
+            </tr>
+            <!-- END: item -->
+        </table>
+    </div>
+    
+    <p><a class="button add" id="ingredient-add" href="#"><span>Add a New Ingredient</span></a></p>
 
 </fieldset>
 

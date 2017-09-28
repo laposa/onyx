@@ -46,7 +46,7 @@ Add to the cron as the database user:
 For restoring from the backup use: utils/db_backup.restore
 
 Usage:
-1.	creating of new database:
-	utils/db_backup.restore ONXSHOP_PROJECT_DIR/conf/deployment.sh database_name backup_file CREATE
-2.	restoring of the database backup to actual database (revert old version):
-	Usage: utils/db_backup.restore ONXSHOP_PROJECT_DIR/conf/deployment.sh database_name backup_file
+1.  creating of new database:
+    utils/db_backup.restore ONXSHOP_PROJECT_DIR/conf/deployment.sh database_name backup_file CREATE
+2.  restoring of the database backup to actual database (revert old version):
+    Usage: utils/db_backup.restore ONXSHOP_PROJECT_DIR/conf/deployment.sh database_name backup_file

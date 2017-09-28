@@ -3,41 +3,41 @@
 
 <div class="search-index"> 
 
-	<div class="two-column-page page sidebar">
-		
-			<div class="page-wrapper">
+    <div class="two-column-page page sidebar">
+        
+            <div class="page-wrapper">
 
-				<div class="page-header">
-					<div class="page-header-wrapper">
-						<h1 class="page-title"><span>Search Index</span></h1>
-					</div>
-				</div>
+                <div class="page-header">
+                    <div class="page-header-wrapper">
+                        <h1 class="page-title"><span>Search Index</span></h1>
+                    </div>
+                </div>
 
-				<div class="page-content">
-					<div class="page-content-wrapper">
-						<div class="row-top">
-							<div class="row-wrapper">
-								<div class="column-wrapper">
+                <div class="page-content">
+                    <div class="page-content-wrapper">
+                        <div class="row-top">
+                            <div class="row-wrapper">
+                                <div class="column-wrapper">
 
-									<p>Number of indexed documents: {INDEX_INFO.indexSize}</p>
-									<p>
-										<a class="button" href="/request/bo/component/search_index_build" onclick="if (confirm('Are you sure? Re-index can take several minutes to complete and you cannot use the website using the same session due to session lock preventing race condition.')) makeAjaxRequest('#crawl_container', this.href); return false" title="Build the Index"><span>Re-build index of the whole site</span></a>
-										<a class="button" href="/backoffice/advanced/search_index?optimize=1"><span>Optimize index</span></a>
-									</p>
-									<p>
-									<span class="warning">Warning: re-index can take several minutes or even hours to complete</span>
-									</p>
-									<div id="crawl_container"></div>
+                                    <p>Number of indexed documents: {INDEX_INFO.indexSize}</p>
+                                    <p>
+                                        <a class="button" href="/request/bo/component/search_index_build" onclick="if (confirm('Are you sure? Re-index can take several minutes to complete and you cannot use the website using the same session due to session lock preventing race condition.')) makeAjaxRequest('#crawl_container', this.href); return false" title="Build the Index"><span>Re-build index of the whole site</span></a>
+                                        <a class="button" href="/backoffice/advanced/search_index?optimize=1"><span>Optimize index</span></a>
+                                    </p>
+                                    <p>
+                                    <span class="warning">Warning: re-index can take several minutes or even hours to complete</span>
+                                    </p>
+                                    <div id="crawl_container"></div>
 
-								</div>
-							</div>
-						</div>
+                                </div>
+                            </div>
+                        </div>
 
-					</div>
-				</div>
-			</div>
-		
-	</div>
+                    </div>
+                </div>
+            </div>
+        
+    </div>
 
 </div>
 

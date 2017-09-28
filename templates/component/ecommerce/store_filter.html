@@ -1,29 +1,29 @@
 <!-- BEGIN: content -->
 <script>
 function toggleStoreFilterButton() {
-	
-	
-	$('div.store-filter-tags').toggle(0, function() {
-		if ($(this).is(":visible")) $('div.control a').html('Close Filters <span>&#x2A2F;</span>');
-		else $('div.control a').html('Open Filters <span>&#x2304;</span>');
-	});
-	
+    
+    
+    $('div.store-filter-tags').toggle(0, function() {
+        if ($(this).is(":visible")) $('div.control a').html('Close Filters <span>&#x2A2F;</span>');
+        else $('div.control a').html('Open Filters <span>&#x2304;</span>');
+    });
+    
 }
 </script>
 <div class="store-filter">
-	<div class="store-filter-form">
-		<form><input name="keyword" value="{KEYWORD|htmlspecialchars}" placeholder="search stores" /><button class="search" type="submit" name="submit" value="search">&#x1F50E;<span>Search</span></button></form>
-	</div>
-	<div class="control">
-		<a href="#" onclick="toggleStoreFilterButton()">Open Filters <span>&#x2304;</span></a>
-	</div>
-	<div class="store-filter-tags">
-		<h3>Filter By:</h3><!--
-		--><ul>
-			<!-- BEGIN: item -->
-			<li><a href="?store_id={GET.store_id}&taxonomy_tree_id={ITEM.id}" class="{SELECTED}" data-taxonomy-tree-id="{ITEM.id}"><span>{ITEM.label.title|htmlspecialchars}</span></a></li>
+    <div class="store-filter-form">
+        <form><input name="keyword" value="{KEYWORD|htmlspecialchars}" placeholder="search stores" /><button class="search" type="submit" name="submit" value="search">&#x1F50E;<span>Search</span></button></form>
+    </div>
+    <div class="control">
+        <a href="#" onclick="toggleStoreFilterButton()">Open Filters <span>&#x2304;</span></a>
+    </div>
+    <div class="store-filter-tags">
+        <h3>Filter By:</h3><!--
+        --><ul>
+            <!-- BEGIN: item -->
+            <li><a href="?store_id={GET.store_id}&taxonomy_tree_id={ITEM.id}" class="{SELECTED}" data-taxonomy-tree-id="{ITEM.id}"><span>{ITEM.label.title|htmlspecialchars}</span></a></li>
             <!-- END: item -->
-		</ul>
-	</div>
+        </ul>
+    </div>
 </div>
 <!-- END: content -->

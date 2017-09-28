@@ -3,28 +3,28 @@
 {MESSAGES}
 <form action="{URI|htmlspecialchars}" method="post">
 
-	<fieldset>
-		<legend>Ecommerce Promotion</legend>
-	</fieldset>
+    <fieldset>
+        <legend>Ecommerce Promotion</legend>
+    </fieldset>
 
-	<div class="row">
-		<span class="label"><label>Minimum Order Value</label></span>
-		<span class="field"><input type="text" value="{CONF.minimum_order_amount|htmlspecialchars}" name="conf[item][minimum_order_amount]"/></span>
-	</div>
+    <div class="row">
+        <span class="label"><label>Minimum Order Value</label></span>
+        <span class="field"><input type="text" value="{CONF.minimum_order_amount|htmlspecialchars}" name="conf[item][minimum_order_amount]"/></span>
+    </div>
 
-	<div class="row">
-		<span class="label"><label>Discount Value</label></span>
-		<span class="field"><input type="text" value="{CONF.discount_value|htmlspecialchars}" name="conf[item][discount_value]"/></span>
-	</div>
+    <div class="row">
+        <span class="label"><label>Discount Value</label></span>
+        <span class="field"><input type="text" value="{CONF.discount_value|htmlspecialchars}" name="conf[item][discount_value]"/></span>
+    </div>
 
-	<input type="hidden" name="conf[object]" value="ecommerce_promotion" />
-	<input type="hidden" name="conf[node_id]" value="0" />
-	
-	<div class="row submit">
-		<span class="label"><label>&nbsp;</label></span>
-		<span class="field"><button class="save" type="submit" name="save" value="save"><span>Save</span></button></span>
-	</div>
+    <input type="hidden" name="conf[object]" value="ecommerce_promotion" />
+    <input type="hidden" name="conf[node_id]" value="0" />
+    
+    <div class="row submit">
+        <span class="label"><label>&nbsp;</label></span>
+        <span class="field"><button class="save" type="submit" name="save" value="save"><span>Save</span></button></span>
+    </div>
 <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
-			
+            
 <!-- END: content -->

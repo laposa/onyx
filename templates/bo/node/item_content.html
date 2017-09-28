@@ -1,5 +1,5 @@
 <div class="row rte content">
-	<label>Content <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'simple', 'component-content'); return false;"><span>RTE</span></a>:</label>
-	<textarea name="node[content]" id="component-content" class="big" style="width: 100%; height: auto;" rows="20" cols="20"><!-- BEGIN: empty --><p>enter your content here</p><!-- END: empty -->{NODE.content|htmlspecialchars}</textarea>
+    <label>Content <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'simple', 'component-content'); return false;"><span>RTE</span></a>:</label>
+    <textarea name="node[content]" id="component-content" class="big" style="width: 100%; height: auto;" rows="20" cols="20"><!-- BEGIN: empty --><p>enter your content here</p><!-- END: empty -->{NODE.content|htmlspecialchars}</textarea>
 </div>
 {ONXSHOP_REQUEST_tinymce1 #bo/tinymce~id=GET.id:relation=node:edit_elements=component-content:theme=advanced~}

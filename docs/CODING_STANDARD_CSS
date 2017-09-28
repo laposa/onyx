@@ -12,5 +12,5 @@ div.content,
 div.content-wrapper {margin: 0; padding: 0;}
 @media all and (max-width: 800px) {   
     div.content,
-	div.content-wrapper {margin: 10px;}
+    div.content-wrapper {margin: 10px;}
 }

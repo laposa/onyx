@@ -1,35 +1,35 @@
 <!-- BEGIN: content -->
 <div class="image-gallery-list number-of-items-{IMAGE_COUNT}" id="gallery-list-{GET.node_id}">
-	<div class="selected">
-		<!-- BEGIN: item -->
-		<figure class="image-id-{GET.relation}{ITEM.id} {FIRST_LAST}">
-			<img id="image-id-{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" />
-			<figcaption>
-				<h4>{ITEM.title|htmlspecialchars}</h4>
-				<p>{ITEM.description|htmlspecialchars|nl2br}</p>
-				<div class="content">{ITEM.content}</div>
-			</figcaption>
-		</figure>
-		<!-- END: item -->
-	</div>
-	
-	<!-- BEGIN: thumbnails -->
-	<div class="thumbnails">
-		<!-- BEGIN: item -->
-		<figure class="image-id-{GET.relation}{ITEM.id} {FIRST_LAST}">
-			<a href="{ITEM.path}/{ITEM.src}" onclick="$('#gallery-list-{GET.node_id} div.selected figure.first img').attr('src', '{ITEM.path}/{ITEM.src}{IMAGE_RESIZE_OPTIONS}').attr('alt', $(this).find('img').attr('alt')).attr('title', $(this).find('img').attr('title')); return false;">
-				<img id="thumbnail-id-{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="/thumbnail/{ITEM.thumbnail_size}/{ITEM.src}{IMAGE_RESIZE_OPTIONS}" />
-			</a>
-		</figure>
-		<!-- END: item -->
-	</div>
-	<!-- END: thumbnails -->
+    <div class="selected">
+        <!-- BEGIN: item -->
+        <figure class="image-id-{GET.relation}{ITEM.id} {FIRST_LAST}">
+            <img id="image-id-{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" />
+            <figcaption>
+                <h4>{ITEM.title|htmlspecialchars}</h4>
+                <p>{ITEM.description|htmlspecialchars|nl2br}</p>
+                <div class="content">{ITEM.content}</div>
+            </figcaption>
+        </figure>
+        <!-- END: item -->
+    </div>
+    
+    <!-- BEGIN: thumbnails -->
+    <div class="thumbnails">
+        <!-- BEGIN: item -->
+        <figure class="image-id-{GET.relation}{ITEM.id} {FIRST_LAST}">
+            <a href="{ITEM.path}/{ITEM.src}" onclick="$('#gallery-list-{GET.node_id} div.selected figure.first img').attr('src', '{ITEM.path}/{ITEM.src}{IMAGE_RESIZE_OPTIONS}').attr('alt', $(this).find('img').attr('alt')).attr('title', $(this).find('img').attr('title')); return false;">
+                <img id="thumbnail-id-{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="/thumbnail/{ITEM.thumbnail_size}/{ITEM.src}{IMAGE_RESIZE_OPTIONS}" />
+            </a>
+        </figure>
+        <!-- END: item -->
+    </div>
+    <!-- END: thumbnails -->
 </div>
 
 <script type="text/javascript">
 $(document).ready(function() {
-	$('#gallery-list-{GET.node_id} div.selected figure').hide();
-	$('#gallery-list-{GET.node_id} div.selected figure.first').show();
+    $('#gallery-list-{GET.node_id} div.selected figure').hide();
+    $('#gallery-list-{GET.node_id} div.selected figure.first').show();
 });
 </script>
 <!-- END: content -->

@@ -1,40 +1,40 @@
 <!-- BEGIN: title -->News List Edit<!-- END: title -->
 <!-- BEGIN: content -->
 <div class="page-header">
-	<div class="page-header-wrapper">
-		<h1 class="page-title popup"><span>News List</span> <span class="info">ID {NODE.id}</span></h1>
-	</div>
+    <div class="page-header-wrapper">
+        <h1 class="page-title popup"><span>News List</span> <span class="info">ID {NODE.id}</span></h1>
+    </div>
 </div>
 
 {FILE "bo/node/content/default_top.html"}
 
 <fieldset>
-	<div class="row">
-		<label>*Limit:</label>
-		<input class="number" type="text" name="node[component][limit]" value="{NODE.component.limit}" />
-	</div>
-	<div class="row">
-		<label>* Type:</label>
-		<select name="node[component][template]">
-			<option value="latest" {SELECTED_template_latest}>latest (simple list)</option>
-			<option value="teaser" {SELECTED_template_teaser}>teaser (shelf)</option>
-			<option value="grid" {SELECTED_template_grid}>grid</option>
-			<option value="stack" {SELECTED_template_stack}>stack</option>
-			<option value="full" {SELECTED_template_full}>full</option>
-		</select>
-	</div>
-	
-	<div class="row">
-		{FILE "bo/node/item_image_properties.html"}
-	</div>
-	
-	<div class="row">
-		<input type="checkbox" id="component-pagination" name="node[component][pagination]" {NODE.component.pagination} /><label for="component-pagination">Display pagination</label>
-	</div>
-	
-	<div id="news_list">
-		{ONXSHOP_REQUEST_list #bo/component/news_list~id=GET.id~}
-	</div>
+    <div class="row">
+        <label>*Limit:</label>
+        <input class="number" type="text" name="node[component][limit]" value="{NODE.component.limit}" />
+    </div>
+    <div class="row">
+        <label>* Type:</label>
+        <select name="node[component][template]">
+            <option value="latest" {SELECTED_template_latest}>latest (simple list)</option>
+            <option value="teaser" {SELECTED_template_teaser}>teaser (shelf)</option>
+            <option value="grid" {SELECTED_template_grid}>grid</option>
+            <option value="stack" {SELECTED_template_stack}>stack</option>
+            <option value="full" {SELECTED_template_full}>full</option>
+        </select>
+    </div>
+    
+    <div class="row">
+        {FILE "bo/node/item_image_properties.html"}
+    </div>
+    
+    <div class="row">
+        <input type="checkbox" id="component-pagination" name="node[component][pagination]" {NODE.component.pagination} /><label for="component-pagination">Display pagination</label>
+    </div>
+    
+    <div id="news_list">
+        {ONXSHOP_REQUEST_list #bo/component/news_list~id=GET.id~}
+    </div>
 </fieldset>
 
 {FILE "bo/node/content/default_bottom.html"}

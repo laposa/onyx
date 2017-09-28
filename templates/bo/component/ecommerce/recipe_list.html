@@ -3,39 +3,39 @@
 {MESSAGES}
 <div class="recipe-list">
 
-	<table>
-		<thead>
-			<tr>
-				<th class="image first"></th>
-				<th class="recipe_title"><a href="/backoffice/recipes?recipe-list-sort-by=title&amp;recipe-list-sort-direction=ASC">Title</a></th>
-				<th class="recipe-modified"><a href="/backoffice/recipes?recipe-list-sort-by=modified&amp;recipe-list-sort-direction=DESC">Modified</a></th>
-			</tr>
-		</thead>
-		
-		<!-- BEGIN: empty_list -->
-		<tbody><tr><td colspan="3" class="empty">No recipes found.</td></tr></tbody>
-		<!-- END: empty_list -->
-		
-		<!-- BEGIN: list -->
-		<tbody>
-			<!-- BEGIN: item -->
-			<tr {CLASS}>
-				<td {ROWSPAN} class="image"><!--  BEGIN: image --><a href="/backoffice/recipes/{ITEM.id}/edit"><img src="/thumbnail/25x25/{ITEM.image.src}" alt="{ITEM.image.title|htmlspecialchars}" /></a><!--  END: image --></td>
-				<td {ROWSPAN} class="recipe-title"><span class="{ITEM.disabled}"><a href="/backoffice/recipes/{ITEM.id}/edit">{ITEM.title|htmlspecialchars}</a></span></td>
-				<td class="modified">{ITEM.modified}</a></td>
-			</tr>
-			<!-- END: item -->
-		</tbody>
-		<!-- END: list -->
-		<tfoot>
-			<tr>
-				<td colspan="6">
-					{PAGINATION}
-				</td>
-			</tr>
-		</tfoot>
-	</table>
-							
+    <table>
+        <thead>
+            <tr>
+                <th class="image first"></th>
+                <th class="recipe_title"><a href="/backoffice/recipes?recipe-list-sort-by=title&amp;recipe-list-sort-direction=ASC">Title</a></th>
+                <th class="recipe-modified"><a href="/backoffice/recipes?recipe-list-sort-by=modified&amp;recipe-list-sort-direction=DESC">Modified</a></th>
+            </tr>
+        </thead>
+        
+        <!-- BEGIN: empty_list -->
+        <tbody><tr><td colspan="3" class="empty">No recipes found.</td></tr></tbody>
+        <!-- END: empty_list -->
+        
+        <!-- BEGIN: list -->
+        <tbody>
+            <!-- BEGIN: item -->
+            <tr {CLASS}>
+                <td {ROWSPAN} class="image"><!--  BEGIN: image --><a href="/backoffice/recipes/{ITEM.id}/edit"><img src="/thumbnail/25x25/{ITEM.image.src}" alt="{ITEM.image.title|htmlspecialchars}" /></a><!--  END: image --></td>
+                <td {ROWSPAN} class="recipe-title"><span class="{ITEM.disabled}"><a href="/backoffice/recipes/{ITEM.id}/edit">{ITEM.title|htmlspecialchars}</a></span></td>
+                <td class="modified">{ITEM.modified}</a></td>
+            </tr>
+            <!-- END: item -->
+        </tbody>
+        <!-- END: list -->
+        <tfoot>
+            <tr>
+                <td colspan="6">
+                    {PAGINATION}
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+                            
 </div>
 
 

@@ -3,136 +3,136 @@
 <script type="text/javascript">
 
 function tinyMCEinit() {
-	tinymce.init({
-		selector:'#{TINYMCE.edit_elements}',
-		mode : "{TINYMCE.mode}",
-		editor_selector: "mceAdvanced",
-		theme_advanced_toolbar_location : "top",
-		theme_advanced_toolbar_align : "left",
-		theme_advanced_resizing: true,
-		remove_linebreaks : false,
-		content_css: "/share/css/tinymce.css",
-		apply_source_formatting : true,
-		convert_fonts_to_spans : true,
-		gecko_spellcheck : true, 
-		invalid_elements : "div,form,input,label,button,script,font",
-		verify_css_classes : false,
-		verify_html : true,
-		inline_styles : true,
-		fix_list_elements : true,
-		fix_table_elements : true,
-		cleanup_callback : "onxshopCustomCleanup",
-		relative_urls : false,
-		remove_script_host : true,
-		document_base_url : "{BASE_URI}/",
-		plugins: [
-			'advlist autolink lists link image charmap print preview hr anchor pagebreak',
-			'searchreplace wordcount visualblocks visualchars code fullscreen',
-			'insertdatetime media nonbreaking save table contextmenu directionality',
-			'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc autoresize'
-		],
-		toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-		image_advtab: true,
-		advlink_styles: "button=button;viewMore=viewMore",/*for Insert/edit links*/
-		file_picker_callback: function(callback, value, meta) {
-        	onxshopFileBrowserCallBack_{GET.relation}_{GET.id}(callback, value, meta);
-		},
-		paste_auto_cleanup_on_paste : true,
-		paste_strip_class_attributes : "all",
-		paste_use_dialog : false,
-		entity_encoding : "raw"
-	});
+    tinymce.init({
+        selector:'#{TINYMCE.edit_elements}',
+        mode : "{TINYMCE.mode}",
+        editor_selector: "mceAdvanced",
+        theme_advanced_toolbar_location : "top",
+        theme_advanced_toolbar_align : "left",
+        theme_advanced_resizing: true,
+        remove_linebreaks : false,
+        content_css: "/share/css/tinymce.css",
+        apply_source_formatting : true,
+        convert_fonts_to_spans : true,
+        gecko_spellcheck : true, 
+        invalid_elements : "div,form,input,label,button,script,font",
+        verify_css_classes : false,
+        verify_html : true,
+        inline_styles : true,
+        fix_list_elements : true,
+        fix_table_elements : true,
+        cleanup_callback : "onxshopCustomCleanup",
+        relative_urls : false,
+        remove_script_host : true,
+        document_base_url : "{BASE_URI}/",
+        plugins: [
+            'advlist autolink lists link image charmap print preview hr anchor pagebreak',
+            'searchreplace wordcount visualblocks visualchars code fullscreen',
+            'insertdatetime media nonbreaking save table contextmenu directionality',
+            'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc autoresize'
+        ],
+        toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+        image_advtab: true,
+        advlink_styles: "button=button;viewMore=viewMore",/*for Insert/edit links*/
+        file_picker_callback: function(callback, value, meta) {
+            onxshopFileBrowserCallBack_{GET.relation}_{GET.id}(callback, value, meta);
+        },
+        paste_auto_cleanup_on_paste : true,
+        paste_strip_class_attributes : "all",
+        paste_use_dialog : false,
+        entity_encoding : "raw"
+    });
 }
 
 
 function onxshopFileBrowserCallBack_{GET.relation}_{GET.id}(callback, value, meta) {
-	
-	if (meta.filetype == 'file') var url = '/popup_window/bo/component/node_menu_tinymce~id=0:open={GET.id}:expand_all=1:publish=0:node_group=page_and_product~';
-	else var url = '/popup/files/{GET.relation}/{GET.id}?type=RTE&role=RTE';
+    
+    if (meta.filetype == 'file') var url = '/popup_window/bo/component/node_menu_tinymce~id=0:open={GET.id}:expand_all=1:publish=0:node_group=page_and_product~';
+    else var url = '/popup/files/{GET.relation}/{GET.id}?type=RTE&role=RTE';
 
-	// Provide file and text for the link dialog
-	if (meta.filetype == 'file') {
-		tinymce.activeEditor.windowManager.open({
-			title: 'Onxshop File Browser',
-			url: url,
-			width: 720,
-			height: 500,
-			}, {
-				oninsert: function (url, title) {
-					callback(url, {text: title});
-				}
-			}
-		)
-	}
+    // Provide file and text for the link dialog
+    if (meta.filetype == 'file') {
+        tinymce.activeEditor.windowManager.open({
+            title: 'Onxshop File Browser',
+            url: url,
+            width: 720,
+            height: 500,
+            }, {
+                oninsert: function (url, title) {
+                    callback(url, {text: title});
+                }
+            }
+        )
+    }
 
-	// Provide image and alt text for the image and media dialog
-	if (meta.filetype == 'image' || meta.filetype == 'media') {
-		tinymce.activeEditor.windowManager.open({
-			title: 'Onxshop File Browser',
-			url: url,
-			width: 720,
-			height: 500,
-			}, {
-				oninsert: function (url, title) {
-					callback(url, {alt: title});
-				}
-			}
-		)
-	}
+    // Provide image and alt text for the image and media dialog
+    if (meta.filetype == 'image' || meta.filetype == 'media') {
+        tinymce.activeEditor.windowManager.open({
+            title: 'Onxshop File Browser',
+            url: url,
+            width: 720,
+            height: 500,
+            }, {
+                oninsert: function (url, title) {
+                    callback(url, {alt: title});
+                }
+            }
+        )
+    }
 
-	return false;
-	
+    return false;
+    
 }
 
 function onxshopCustomCleanup(type, value) {
-	switch (type) {
-		case "get_from_editor":
-			//alert("get_from_editor, Value HTML string: " + value);
-			value = value.replace(/\n/g, ' ').replace(/<!--.*?-->/mgi, ' ');
-			// Do custom cleanup code here
-			break;
-		case "insert_to_editor":
-			//alert("insert_to_editor, Value HTML string: " + value);
-			// Do custom cleanup code here
-			break;
-		case "submit_content":
-			//alert("submit_content, Value HTML Element: " + value);
-			// Do custom cleanup code here
-			break;
-		case "get_from_editor_dom":
-			//alert("get_from_editor_dom, Value DOM Element " + value);
-			// Do custom cleanup code here
-			break;
-		case "insert_to_editor_dom":
-			//alert("insert_to_editor_dom, Value DOM Element: " + value);
-			// Do custom cleanup code here
-			break;
-		case "setup_content_dom":
-			//alert("setup_content_dom, Value DOM Element: " + value);
-			// Do custom cleanup code here
-			break;
-		case "submit_content_dom":
-			//alert("submit_content_dom, Value DOM Element: " + value);
-			// Do custom cleanup code here
-			break;
-	}
+    switch (type) {
+        case "get_from_editor":
+            //alert("get_from_editor, Value HTML string: " + value);
+            value = value.replace(/\n/g, ' ').replace(/<!--.*?-->/mgi, ' ');
+            // Do custom cleanup code here
+            break;
+        case "insert_to_editor":
+            //alert("insert_to_editor, Value HTML string: " + value);
+            // Do custom cleanup code here
+            break;
+        case "submit_content":
+            //alert("submit_content, Value HTML Element: " + value);
+            // Do custom cleanup code here
+            break;
+        case "get_from_editor_dom":
+            //alert("get_from_editor_dom, Value DOM Element " + value);
+            // Do custom cleanup code here
+            break;
+        case "insert_to_editor_dom":
+            //alert("insert_to_editor_dom, Value DOM Element: " + value);
+            // Do custom cleanup code here
+            break;
+        case "setup_content_dom":
+            //alert("setup_content_dom, Value DOM Element: " + value);
+            // Do custom cleanup code here
+            break;
+        case "submit_content_dom":
+            //alert("submit_content_dom, Value DOM Element: " + value);
+            // Do custom cleanup code here
+            break;
+    }
 
-	return value;
+    return value;
 }
-				
+                
 /**
  * ajax save - make content is saved when using ajaxForm
  */
  
 $('form').bind('form-pre-serialize', function(e) {
-	
-	/**
-	 * Saves all contents 
-	 */
-	tinyMCEFullscreenOnxshopFix();
-	
-	tinyMCE.triggerSave();
-	
+    
+    /**
+     * Saves all contents 
+     */
+    tinyMCEFullscreenOnxshopFix();
+    
+    tinyMCE.triggerSave();
+    
 });
 
 /**
@@ -140,7 +140,7 @@ $('form').bind('form-pre-serialize', function(e) {
  */
  
 $('button.save').on('click', function() {
- 	tinyMCEFullscreenOnxshopFix();
+    tinyMCEFullscreenOnxshopFix();
 });
 
 /**
@@ -148,15 +148,15 @@ $('button.save').on('click', function() {
  */
  
 function tinyMCEFullscreenOnxshopFix() {
-	
-	if (tinyMCE.activeEditor.getParam('fullscreen_is_enabled')) {
-		
-		var fullscreenEditor = tinyMCE.activeEditor;
-		var originalEditor = tinyMCE.get(fullscreenEditor.getParam('fullscreen_editor_id'));
-		
-		originalEditor.setContent(fullscreenEditor.getContent({format : 'raw'}), {format : 'raw'});
-		
-	}
+    
+    if (tinyMCE.activeEditor.getParam('fullscreen_is_enabled')) {
+        
+        var fullscreenEditor = tinyMCE.activeEditor;
+        var originalEditor = tinyMCE.get(fullscreenEditor.getParam('fullscreen_editor_id'));
+        
+        originalEditor.setContent(fullscreenEditor.getContent({format : 'raw'}), {format : 'raw'});
+        
+    }
 }
 
 /**

@@ -70,9 +70,9 @@ set_include_path(get_include_path() . PATH_SEPARATOR . ONXSHOP_DIR);
  */
  
 if (!isset($_GET['image'])) {
-	$missing = 1;
+    $missing = 1;
 } else {
-	$image_file = $_GET['image'];
+    $image_file = $_GET['image'];
 }
 
 $image_file = ONXSHOP_PROJECT_DIR . $image_file;
@@ -89,15 +89,15 @@ if ($realpath == false) $missing = 1;
 $check = addcslashes(ONXSHOP_PROJECT_DIR, '/') . 'var\/';
 
 if (!preg_match("/$check/", $realpath) && !$missing) {
-	header("HTTP/1.0 403 Forbidden");
-	echo " forbidden!";
-	exit;
+    header("HTTP/1.0 403 Forbidden");
+    echo " forbidden!";
+    exit;
 }
 
 if (!is_readable($image_file) || $missing) {
-	//file does not exists
-	$image_file = ONXSHOP_PROJECT_DIR . "public_html/share/images/missing_image.png";
-	header("HTTP/1.0 404 Not Found");
+    //file does not exists
+    $image_file = ONXSHOP_PROJECT_DIR . "public_html/share/images/missing_image.png";
+    header("HTTP/1.0 404 Not Found");
 }
 
 /**
@@ -113,12 +113,12 @@ $length = filesize($image_file);
  */
  
 if ($image_type_mime) {
-	header("Content-type: " . $image_type_mime);
-	header("Content-Length: " . $length);
-	doConditionalGet($modified);
-	readfile($image_file);
+    header("Content-type: " . $image_type_mime);
+    header("Content-Length: " . $length);
+    doConditionalGet($modified);
+    readfile($image_file);
 } else {
-	header("HTTP/1.0 403 Forbidden");
-	echo "not an image";
+    header("HTTP/1.0 403 Forbidden");
+    echo "not an image";
 }
 

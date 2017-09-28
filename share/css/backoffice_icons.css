@@ -3,17 +3,17 @@
  
  * using http://fontawesome.io/
  * and http://www.famfamfam.com/
- *	
+ *  
  */
 @font-face {
-	font-family: 'onxshop';
-	src:url('../fonts/onxshop.eot?-yjb9qm');
-	src:url('../fonts/onxshop.eot?#iefix-yjb9qm') format('embedded-opentype'),
-		url('../fonts/onxshop.woff?-yjb9qm') format('woff'),
-		url('../fonts/onxshop.ttf?-yjb9qm') format('truetype'),
-		url('../fonts/onxshop.svg?-yjb9qm#icomoon') format('svg');
-	font-weight: normal;
-	font-style: normal;
+    font-family: 'onxshop';
+    src:url('../fonts/onxshop.eot?-yjb9qm');
+    src:url('../fonts/onxshop.eot?#iefix-yjb9qm') format('embedded-opentype'),
+        url('../fonts/onxshop.woff?-yjb9qm') format('woff'),
+        url('../fonts/onxshop.ttf?-yjb9qm') format('truetype'),
+        url('../fonts/onxshop.svg?-yjb9qm#icomoon') format('svg');
+    font-weight: normal;
+    font-style: normal;
 }
 
 #onxshop-header li a:before {display: inline-block; font-family: 'onxshop'; font-style: normal; font-weight: normal;  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-size: 1.3em; line-height: 1; margin: 0 8px 0 10px; vertical-align: -15%; width: 1.2em; text-align: center; content: "\f013"; /*default fa-gear*/}

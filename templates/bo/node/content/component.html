@@ -2,112 +2,112 @@
 <!-- BEGIN: head -->
 <script type="text/javascript">
 $(document).ready(function(){
-	$('ul.component-template-menu div.server-browser-menu .simple-tree').simpleTree({
-		drag: false,
-		autoclose: true,
-		afterClick:function(node){
-			var open_dir = $('a:first', node).attr('href').replace('#', '');
-			$('#component-template').attr('value', open_dir + '.html');
-			return false;
-		},
-	});
-	
-	$('ul.controller-menu div.server-browser-menu .simple-tree').simpleTree({
-		drag: false,
-		autoclose: true,
-		afterClick:function(node){
-			var open_dir = $('a:first', node).attr('href').replace('#', '');
-			$('#component-controller').attr('value', open_dir + '.php');
-			return false;
-		},
-	});
-	
-	$("#node-edit-component").tabs();
+    $('ul.component-template-menu div.server-browser-menu .simple-tree').simpleTree({
+        drag: false,
+        autoclose: true,
+        afterClick:function(node){
+            var open_dir = $('a:first', node).attr('href').replace('#', '');
+            $('#component-template').attr('value', open_dir + '.html');
+            return false;
+        },
+    });
+    
+    $('ul.controller-menu div.server-browser-menu .simple-tree').simpleTree({
+        drag: false,
+        autoclose: true,
+        afterClick:function(node){
+            var open_dir = $('a:first', node).attr('href').replace('#', '');
+            $('#component-controller').attr('value', open_dir + '.php');
+            return false;
+        },
+    });
+    
+    $("#node-edit-component").tabs();
 });
 
 function serverBrowserOpenDir(open_dir) {
-	//empty, required - part of server_browser_menu
+    //empty, required - part of server_browser_menu
 }
 </script>
 <!-- END: head -->
 <!-- BEGIN: content -->
 
 <div class="page-header">
-	<div class="page-header-wrapper">
-		<h1 class="page-title popup"><span>Component</span> <span class="info">ID {NODE.id}</span></h1>
-	</div>
+    <div class="page-header-wrapper">
+        <h1 class="page-title popup"><span>Component</span> <span class="info">ID {NODE.id}</span></h1>
+    </div>
 </div>
 
 {FILE "bo/node/content/default_top.html"}
-				
-	<div id="node-edit-component" style="clear: both">
-		<ul class="ui-tabs-nav">
-			<li class="active"><a href="#onxshop-template"><span>Template</span></a></li>
-			<li><a href="#onxshop-controller"><span>Controller</span></a></li>
-			<li><a href="#onxshop-parameters"><span>Parameters</span></a></li>
-		</ul>
-	
-	
-		<div id="onxshop-template">
-			<fieldset>
-				<div class="row">
-					<label>Template</label>
-					<input type="text" class="text long" id="component-template" name="node[component][template]" value="{NODE.component.template}" />
-				</div>
-				<div class="row">
-					<div id="template">
-						<ul class="component-template-menu">
-							<li style="margin: 0 0 0 2%; padding: 0; width: 48%; float: left; ">
-								<a href="#"><span>Local</span></a>
-								{ONXSHOP_REQUEST_template_project #bo/component/server_browser_menu~directory=templates/component/:scope=project:trim_extension=1:expand_all=1:id=null~}
-							</li>
-							
-							<li style="margin: 0 0 0 2%; padding: 0; width: 48%; float: left; ">
-								<a href="#"><span>Global</span></a>
-								{ONXSHOP_REQUEST_template_onxshop #bo/component/server_browser_menu~directory=templates/component/:scope=onxshop:trim_extension=1:expand_all=1:id=null~}
-							</li>
-							
-						</ul>	
-					</div>
-				</div>
-			</fieldset>
-		</div>
-		
-		<div id="onxshop-controller">
-			<fieldset>
-				<div class="row">
-					<label>Controller</label>
-					<input type="text" class="text long" id="component-controller" name="node[component][controller]" value="{NODE.component.controller}" />
-				</div>
-				<div class="row">
-					<div id="controller">
-						<ul class="controller-menu">
-							<li style="margin: 0 0 0 2%; padding: 0; width: 48%; float: left; ">
-								<a href="#"><span>Local</span></a>
-								{ONXSHOP_REQUEST_controller_project #bo/component/server_browser_menu~directory=controllers/component/:scope=project:trim_extension=1:expand_all=1:id=null~}
-							</li>
-							<li style="margin: 0 0 0 2%; padding: 0; width: 48%; float: left; ">
-								<a href="#"><span>Global</span></a>
-								{ONXSHOP_REQUEST_controller_onxshop #bo/component/server_browser_menu~directory=controllers/component/:scope=onxshop:trim_extension=1:expand_all=1:id=null~}
-							</li>
-							
-						</ul>
-					</div>
-				</div>
-			</fieldset>
-		</div>
+                
+    <div id="node-edit-component" style="clear: both">
+        <ul class="ui-tabs-nav">
+            <li class="active"><a href="#onxshop-template"><span>Template</span></a></li>
+            <li><a href="#onxshop-controller"><span>Controller</span></a></li>
+            <li><a href="#onxshop-parameters"><span>Parameters</span></a></li>
+        </ul>
+    
+    
+        <div id="onxshop-template">
+            <fieldset>
+                <div class="row">
+                    <label>Template</label>
+                    <input type="text" class="text long" id="component-template" name="node[component][template]" value="{NODE.component.template}" />
+                </div>
+                <div class="row">
+                    <div id="template">
+                        <ul class="component-template-menu">
+                            <li style="margin: 0 0 0 2%; padding: 0; width: 48%; float: left; ">
+                                <a href="#"><span>Local</span></a>
+                                {ONXSHOP_REQUEST_template_project #bo/component/server_browser_menu~directory=templates/component/:scope=project:trim_extension=1:expand_all=1:id=null~}
+                            </li>
+                            
+                            <li style="margin: 0 0 0 2%; padding: 0; width: 48%; float: left; ">
+                                <a href="#"><span>Global</span></a>
+                                {ONXSHOP_REQUEST_template_onxshop #bo/component/server_browser_menu~directory=templates/component/:scope=onxshop:trim_extension=1:expand_all=1:id=null~}
+                            </li>
+                            
+                        </ul>   
+                    </div>
+                </div>
+            </fieldset>
+        </div>
+        
+        <div id="onxshop-controller">
+            <fieldset>
+                <div class="row">
+                    <label>Controller</label>
+                    <input type="text" class="text long" id="component-controller" name="node[component][controller]" value="{NODE.component.controller}" />
+                </div>
+                <div class="row">
+                    <div id="controller">
+                        <ul class="controller-menu">
+                            <li style="margin: 0 0 0 2%; padding: 0; width: 48%; float: left; ">
+                                <a href="#"><span>Local</span></a>
+                                {ONXSHOP_REQUEST_controller_project #bo/component/server_browser_menu~directory=controllers/component/:scope=project:trim_extension=1:expand_all=1:id=null~}
+                            </li>
+                            <li style="margin: 0 0 0 2%; padding: 0; width: 48%; float: left; ">
+                                <a href="#"><span>Global</span></a>
+                                {ONXSHOP_REQUEST_controller_onxshop #bo/component/server_browser_menu~directory=controllers/component/:scope=onxshop:trim_extension=1:expand_all=1:id=null~}
+                            </li>
+                            
+                        </ul>
+                    </div>
+                </div>
+            </fieldset>
+        </div>
 
-		<div id="onxshop-parameters" class="onxshop-tabulatorX ui-tabs-panel">
-			<fieldset>
-				<div class="row">
-					<label>GET parameters:</label>
-					<input type="text" class="text long" name="node[component][parameter]" value="{NODE.component.parameter}" />
-				</div>
-			</fieldset>
-		</div>
-	</div>
+        <div id="onxshop-parameters" class="onxshop-tabulatorX ui-tabs-panel">
+            <fieldset>
+                <div class="row">
+                    <label>GET parameters:</label>
+                    <input type="text" class="text long" name="node[component][parameter]" value="{NODE.component.parameter}" />
+                </div>
+            </fieldset>
+        </div>
+    </div>
 
-	<br/>
+    <br/>
 
 {FILE "bo/node/item_content_list.html"}
 

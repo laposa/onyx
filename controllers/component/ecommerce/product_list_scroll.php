@@ -9,14 +9,14 @@ require_once('controllers/component/ecommerce/product_list.php');
 
 class Onxshop_Controller_Component_Ecommerce_Product_List_Scroll extends Onxshop_Controller_Component_Ecommerce_Product_List {
 
-	/**
-	 * main action
-	 */
-	 
-	public function mainAction() {
-	
-		return $this->processProductList();
-	
-	}
-	
+    /**
+     * main action
+     */
+     
+    public function mainAction() {
+    
+        return $this->processProductList();
+    
+    }
+    
 }

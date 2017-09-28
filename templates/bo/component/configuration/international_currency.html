@@ -2,21 +2,21 @@
 <!-- BEGIN: content -->
 {MESSAGES}
 <form action="{URI|htmlspecialchars}" method="post">
-	<fieldset>
-		<legend>International currency</legend>
-		<div class="row">
-			<span class="label"><label>Allowed currencies</label></span>
-			<span class="field"><input type="text" value="{CONF.international_currency.allowed|htmlspecialchars}" name="conf[item][allowed]"/></span>
-		</div>
-		
-	</fieldset>
-	
-	<input type="hidden" name="conf[object]" value="international_currency" />
-	<input type="hidden" name="conf[node_id]" value="0" />
-	
-	<div class="row submit">
-		<span class="field"><button class="save" type="submit" name="save" value="save"><span>Save</span></button></span>
-	</div>
-	<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+    <fieldset>
+        <legend>International currency</legend>
+        <div class="row">
+            <span class="label"><label>Allowed currencies</label></span>
+            <span class="field"><input type="text" value="{CONF.international_currency.allowed|htmlspecialchars}" name="conf[item][allowed]"/></span>
+        </div>
+        
+    </fieldset>
+    
+    <input type="hidden" name="conf[object]" value="international_currency" />
+    <input type="hidden" name="conf[node_id]" value="0" />
+    
+    <div class="row submit">
+        <span class="field"><button class="save" type="submit" name="save" value="save"><span>Save</span></button></span>
+    </div>
+    <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
 <!-- END: content -->

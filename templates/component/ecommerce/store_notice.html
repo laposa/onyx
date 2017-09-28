@@ -8,166 +8,166 @@
 <!-- BEGIN: content -->
 <div class="store-noticeboard">
 
-	<!-- BEGIN: notice_list -->
-	<h3>Community Noticeboard</h3>
+    <!-- BEGIN: notice_list -->
+    <h3>Community Noticeboard</h3>
 
-	<div class="list-wrapper">
-		<div class="list-wrapper-top"></div>
-		<div class="items-wrapper">
-			<!-- BEGIN: notice -->
-			<div class="item">
-				<div class="notice {NOTICE.classes}">
-					{NOTICE.content}
-				</div>
-			</div>
-			<!-- END: notice -->
-			<div class="bottom"></div>
-		</div>
-		<div class="list-wrapper-bottom"></div>
-		<div class="bottom"></div>
-	</div>
-	<!-- END: notice_list -->
+    <div class="list-wrapper">
+        <div class="list-wrapper-top"></div>
+        <div class="items-wrapper">
+            <!-- BEGIN: notice -->
+            <div class="item">
+                <div class="notice {NOTICE.classes}">
+                    {NOTICE.content}
+                </div>
+            </div>
+            <!-- END: notice -->
+            <div class="bottom"></div>
+        </div>
+        <div class="list-wrapper-bottom"></div>
+        <div class="bottom"></div>
+    </div>
+    <!-- END: notice_list -->
 
-	<!-- BEGIN: store_manager -->
-	<a class="add-notice button" href="#" onclick="$(this).hide().next().slideDown(500); return false;">Add a Notice</a>
+    <!-- BEGIN: store_manager -->
+    <a class="add-notice button" href="#" onclick="$(this).hide().next().slideDown(500); return false;">Add a Notice</a>
 
-	<div class="add-notice">
+    <div class="add-notice">
 
-		<div class="two-column-layout layout">
-			<div class="layout-wrapper">
-				<div class="layout-column-one of-two">
-					<div class="layout-column-wrapper">
+        <div class="two-column-layout layout">
+            <div class="layout-wrapper">
+                <div class="layout-column-one of-two">
+                    <div class="layout-column-wrapper">
 
-						<h4>New Notice</h4>
+                        <h4>New Notice</h4>
 
-						<form id="new-notice-form" action="{URI|htmlspecialchars}#node_id_{GET.node_id}" method="post" enctype="multipart/form-data">
+                        <form id="new-notice-form" action="{URI|htmlspecialchars}#node_id_{GET.node_id}" method="post" enctype="multipart/form-data">
 
-							<div class="row" id="notice-test">
-								<label for="notice-test-input">Notice Text: *</label>
-								<textarea name="notice[text]" id="notice-text-input" maxlength="170" required>{GET.notice.text}</textarea>
-							</div>
+                            <div class="row" id="notice-test">
+                                <label for="notice-test-input">Notice Text: *</label>
+                                <textarea name="notice[text]" id="notice-text-input" maxlength="170" required>{GET.notice.text}</textarea>
+                            </div>
 
-							<div class="row" id="image">
-								<label for="notice-image-input">Image:</label>
-								<input id="notice-image-input" type="file" name="image" class="file" /> 
-							</div>
+                            <div class="row" id="image">
+                                <label for="notice-image-input">Image:</label>
+                                <input id="notice-image-input" type="file" name="image" class="file" /> 
+                            </div>
 
-							<div class="row" id="visible-from">
-								<label for="notice-visible-from-input">Visible from: *</label>
-								<input id="notice-visible-from-input" type="text" name="notice[visible_from]" maxlength="10" required placeholder="dd/mm/yyyy"/> 
-							</div>
+                            <div class="row" id="visible-from">
+                                <label for="notice-visible-from-input">Visible from: *</label>
+                                <input id="notice-visible-from-input" type="text" name="notice[visible_from]" maxlength="10" required placeholder="dd/mm/yyyy"/> 
+                            </div>
 
-							<div class="row" id="visible-to">
-								<label for="notice-visible-to-input">Visible to:</label>
-								<input id="notice-visible-to-input" type="text" name="notice[visible_to]" maxlength="10" placeholder="dd/mm/yyyy"/> 
-							</div>
+                            <div class="row" id="visible-to">
+                                <label for="notice-visible-to-input">Visible to:</label>
+                                <input id="notice-visible-to-input" type="text" name="notice[visible_to]" maxlength="10" placeholder="dd/mm/yyyy"/> 
+                            </div>
 
-							<div class="row" id="image">
-								<a href="#" onclick="$('div.add-notice').slideUp(300); $('a.add-notice.button').show(); return false;">Cancel</a>
-								&nbsp; &nbsp;
-								<button type="submit">Submit</button>
-							</div>
+                            <div class="row" id="image">
+                                <a href="#" onclick="$('div.add-notice').slideUp(300); $('a.add-notice.button').show(); return false;">Cancel</a>
+                                &nbsp; &nbsp;
+                                <button type="submit">Submit</button>
+                            </div>
 
-						<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+                        <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
 
-					</div>
-				</div>
-				<div class="layout-column-two of-two">
-					<div class="layout-column-wrapper notice-preview">
+                    </div>
+                </div>
+                <div class="layout-column-two of-two">
+                    <div class="layout-column-wrapper notice-preview">
 
-						<h4>Preview</h4>
+                        <h4>Preview</h4>
 
-						<p class="select">
-							<a href="#" onclick="$('.notice-preview .notice').removeClass('notice-style-2 notice-style-3').addClass('notice-style-1'); return false;">Style 1</a> |
-							<a href="#" onclick="$('.notice-preview .notice').removeClass('notice-style-1 notice-style-3').addClass('notice-style-2'); return false;">Style 2</a> |
-							<a href="#" onclick="$('.notice-preview .notice').removeClass('notice-style-1 notice-style-2').addClass('notice-style-3'); return false;">Style 3</a>
-							<br/>
-							<small><em>Please note style is chosen at random.</em></small>
-						</p>
+                        <p class="select">
+                            <a href="#" onclick="$('.notice-preview .notice').removeClass('notice-style-2 notice-style-3').addClass('notice-style-1'); return false;">Style 1</a> |
+                            <a href="#" onclick="$('.notice-preview .notice').removeClass('notice-style-1 notice-style-3').addClass('notice-style-2'); return false;">Style 2</a> |
+                            <a href="#" onclick="$('.notice-preview .notice').removeClass('notice-style-1 notice-style-2').addClass('notice-style-3'); return false;">Style 3</a>
+                            <br/>
+                            <small><em>Please note style is chosen at random.</em></small>
+                        </p>
 
-						<div class="notice notice-style-1 notice-layout-less-text">
-							<div class="date">DD/MM/YY</div>
-							<div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit volutpat.</div>
-							<div class="image"></div>
-						</div>
+                        <div class="notice notice-style-1 notice-layout-less-text">
+                            <div class="date">DD/MM/YY</div>
+                            <div class="text">Lorem ipsum dolor sit amet, consectetur adipiscing elit volutpat.</div>
+                            <div class="image"></div>
+                        </div>
 
-					</div>
-				</div>
-				
-			</div>
-		</div>
+                    </div>
+                </div>
+                
+            </div>
+        </div>
 
-	</div>
+    </div>
 
-	<script type="text/javascript">
+    <script type="text/javascript">
 
-		$(function() {
+        $(function() {
 
-			var textarea = $('.store-noticeboard textarea#notice-text-input');
-			var image = $('.store-noticeboard input#notice-image-input');
-			var visible_from = $('.store-noticeboard input#notice-visible-from-input');
-			var visible_to = $('.store-noticeboard input#notice-visible-to-input');
-			var imageAdded = false;
+            var textarea = $('.store-noticeboard textarea#notice-text-input');
+            var image = $('.store-noticeboard input#notice-image-input');
+            var visible_from = $('.store-noticeboard input#notice-visible-from-input');
+            var visible_to = $('.store-noticeboard input#notice-visible-to-input');
+            var imageAdded = false;
 
-			visible_from.datepicker({firstDay: 1, dateFormat: 'dd/mm/yy'});
-			visible_to.datepicker({firstDay: 1, dateFormat: 'dd/mm/yy'});
+            visible_from.datepicker({firstDay: 1, dateFormat: 'dd/mm/yy'});
+            visible_to.datepicker({firstDay: 1, dateFormat: 'dd/mm/yy'});
 
-			$("#newNoticeForm").validate();  
+            $("#newNoticeForm").validate();  
 
-			function updateText() {
-				var value = textarea.val().replace(/\r|\n/g, '<br/>');
-				var notice = $('.notice-preview div.notice div.text');
-				notice.html(value);
-				if (value.length < 65 && !imageAdded) {
-					notice.parent().addClass('notice-layout-less-text');
-				} else {
-					notice.parent().removeClass('notice-layout-less-text');
-				}
-			}
+            function updateText() {
+                var value = textarea.val().replace(/\r|\n/g, '<br/>');
+                var notice = $('.notice-preview div.notice div.text');
+                notice.html(value);
+                if (value.length < 65 && !imageAdded) {
+                    notice.parent().addClass('notice-layout-less-text');
+                } else {
+                    notice.parent().removeClass('notice-layout-less-text');
+                }
+            }
 
-			function updateDate() {
-				var value = visible_from.val().replace(/\/20(\d\d)$/, '/$1');
-				var date = $('.notice-preview div.notice div.date');
-				date.html(value);
-			}
+            function updateDate() {
+                var value = visible_from.val().replace(/\/20(\d\d)$/, '/$1');
+                var date = $('.notice-preview div.notice div.date');
+                date.html(value);
+            }
 
-			function updateImage() {
-				var path = this.value;
-				var ext = path.substring(path.lastIndexOf('.') + 1).toLowerCase();  
-				var image = $('.notice-preview div.notice div.image');
-				image.parent().removeClass('notice-layout-with-image');
-				imageAdded = false;
-				textarea.attr('maxlength', 170);
+            function updateImage() {
+                var path = this.value;
+                var ext = path.substring(path.lastIndexOf('.') + 1).toLowerCase();  
+                var image = $('.notice-preview div.notice div.image');
+                image.parent().removeClass('notice-layout-with-image');
+                imageAdded = false;
+                textarea.attr('maxlength', 170);
 
- 				if (window.FormData !== undefined || ext == "gif" || ext == "jpeg" || ext == "jpg" || ext == "png") {
- 					var preview = $('<img/>');
- 					var file = this.files[0];
- 					var reader = new FileReader();
- 					reader.onload = function() {
- 						preview.attr('src', reader.result);
- 						image.html(preview);
- 						image.parent().addClass('notice-layout-with-image');
- 						imageAdded = true;
-						textarea.attr('maxlength', 60);
-						textarea.val(textarea.val().substr(0, 60));
- 						updateText();
- 					}
- 					if (file) reader.readAsDataURL(file);
- 					else image.html('');
- 				}
-				updateText();
-			}
+                if (window.FormData !== undefined || ext == "gif" || ext == "jpeg" || ext == "jpg" || ext == "png") {
+                    var preview = $('<img/>');
+                    var file = this.files[0];
+                    var reader = new FileReader();
+                    reader.onload = function() {
+                        preview.attr('src', reader.result);
+                        image.html(preview);
+                        image.parent().addClass('notice-layout-with-image');
+                        imageAdded = true;
+                        textarea.attr('maxlength', 60);
+                        textarea.val(textarea.val().substr(0, 60));
+                        updateText();
+                    }
+                    if (file) reader.readAsDataURL(file);
+                    else image.html('');
+                }
+                updateText();
+            }
 
-			textarea.keyup(updateText).change(updateText);
-			image.keyup(updateImage).change(updateImage);
-			visible_from.keyup(updateDate).change(updateDate);
+            textarea.keyup(updateText).change(updateText);
+            image.keyup(updateImage).change(updateImage);
+            visible_from.keyup(updateDate).change(updateDate);
 
-		});
+        });
 
-	</script>
+    </script>
 
-	<!-- END: store_manager -->
+    <!-- END: store_manager -->
 
 </div>
 <!-- END: content -->

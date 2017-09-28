@@ -9,7 +9,7 @@
  */
  
 function nOpenWin(src, width, height) {
-	window.open(src,'nWin'+unixtime(),'width='+width+',height='+height+',toolbar=0,directories=0,menubar=0,status=no,resizable=1,location=0,scrollbars=1,dialog=0,modal=0');
+    window.open(src,'nWin'+unixtime(),'width='+width+',height='+height+',toolbar=0,directories=0,menubar=0,status=no,resizable=1,location=0,scrollbars=1,dialog=0,modal=0');
 }
 
 /**
@@ -26,10 +26,10 @@ function openImg(src) {
  */
  
 function unixtime() {
-	var unixtime = new Date().getTime();
-	unixtime = unixtime/1000;
-	unixtime = parseInt(unixtime);
-	return unixtime;
+    var unixtime = new Date().getTime();
+    unixtime = unixtime/1000;
+    unixtime = parseInt(unixtime);
+    return unixtime;
 }
 
 /**
@@ -44,10 +44,10 @@ var onxshop_load_indicator_html_snippet = "<div style='width: 100%; padding-top:
  
 function makeAjaxRequest(jquery_selector, url, complete_callback) {
     jQuery(jquery_selector).html(onxshop_load_indicator_html_snippet).load(url, '', function (responseText, textStatus, XMLHttpRequest) {
-			popupMessage( jquery_selector + ' div.onxshop-messages');
-			if (jQuery.isFunction(complete_callback)) complete_callback();
-		}
-	);
+            popupMessage( jquery_selector + ' div.onxshop-messages');
+            if (jQuery.isFunction(complete_callback)) complete_callback();
+        }
+    );
 }
 
 /**
@@ -55,34 +55,34 @@ function makeAjaxRequest(jquery_selector, url, complete_callback) {
  */
 
 function makeAjaxRequestWithForm(selector, component) {
-	makeAjaxRequest(selector, component, function(){initComponentAjaxForm(selector)});
+    makeAjaxRequest(selector, component, function(){initComponentAjaxForm(selector)});
 }
 
 function initComponentAjaxForm(component_selector) {
-	var options = {
-		target: component_selector,
-		success: function(responseText, statusText) {
-			initComponentAjaxForm(component_selector);
-			popupMessage(component_selector + ' div.onxshop-messages');
-		}
-	};
+    var options = {
+        target: component_selector,
+        success: function(responseText, statusText) {
+            initComponentAjaxForm(component_selector);
+            popupMessage(component_selector + ' div.onxshop-messages');
+        }
+    };
     $(component_selector + ' form').ajaxForm(options);
 }
 
 function showModalOverlay() {
-	var html = '<div id="modal-overlay" class="off">' +
-		'<div id="model-click-zone" onclick="hideModalOverlay()"></div>' +
-		'<div id="modal-overlay-window"></div></div>';
-	$('html,body').addClass('noscroll');
-	$('#backoffice').append(html);
-	setTimeout(function() { $('#modal-overlay').removeClass('off'); }, 100);
+    var html = '<div id="modal-overlay" class="off">' +
+        '<div id="model-click-zone" onclick="hideModalOverlay()"></div>' +
+        '<div id="modal-overlay-window"></div></div>';
+    $('html,body').addClass('noscroll');
+    $('#backoffice').append(html);
+    setTimeout(function() { $('#modal-overlay').removeClass('off'); }, 100);
 }
 
 function hideModalOverlay() {
-	$('#modal-overlay').addClass('off');
-	setTimeout(function() { 
-		$('#modal-overlay').remove(); $('html,body').removeClass('noscroll');
-	}, 150);
+    $('#modal-overlay').addClass('off');
+    setTimeout(function() { 
+        $('#modal-overlay').remove(); $('html,body').removeClass('noscroll');
+    }, 150);
 }
 
 /*
@@ -127,45 +127,45 @@ function button_fix(onlyInt) {
  */
  
 function placeholder_fix() {
-	
-	// Format all elements with the placeholder attribute and insert it as a value
-	if(!('placeholder'in document.createElement("input"))){
-		$('[placeholder]').each(function() {
-			if ($(this).val() == '') {
-				$(this).val($(this).attr('placeholder'));
-				$(this).addClass('placeholder');
-			}
-			$(this).focus(function() {
-				if ($(this).val() == $(this).attr('placeholder') && $(this).hasClass('placeholder')) {
-					$(this).val('');
-					$(this).removeClass('placeholder');
-				}
-			}).blur(function() {
-				if($(this).val() == '') {
-					$(this).val($(this).attr('placeholder'));
-					$(this).addClass('placeholder');
-				}
-			});
-		});
-		
-		// Clean up any placeholders if the form gets submitted
-		$('[placeholder]').parents('form').submit(function() {
-			$(this).find('[placeholder]').each(function() {
-				if ($(this).val() == $(this).attr('placeholder') && $(this).hasClass('placeholder')) {
-					$(this).val('');
-				}
-			});
-		});
-		
-		// Clean up any placeholders if the page is refreshed
-		window.onbeforeunload = function() {
-			$('[placeholder]').each(function() {
-				if ($(this).val() == $(this).attr('placeholder') && $(this).hasClass('placeholder')) {
-					$(this).val('');
-				}
-			});
-		};
-	}
+    
+    // Format all elements with the placeholder attribute and insert it as a value
+    if(!('placeholder'in document.createElement("input"))){
+        $('[placeholder]').each(function() {
+            if ($(this).val() == '') {
+                $(this).val($(this).attr('placeholder'));
+                $(this).addClass('placeholder');
+            }
+            $(this).focus(function() {
+                if ($(this).val() == $(this).attr('placeholder') && $(this).hasClass('placeholder')) {
+                    $(this).val('');
+                    $(this).removeClass('placeholder');
+                }
+            }).blur(function() {
+                if($(this).val() == '') {
+                    $(this).val($(this).attr('placeholder'));
+                    $(this).addClass('placeholder');
+                }
+            });
+        });
+        
+        // Clean up any placeholders if the form gets submitted
+        $('[placeholder]').parents('form').submit(function() {
+            $(this).find('[placeholder]').each(function() {
+                if ($(this).val() == $(this).attr('placeholder') && $(this).hasClass('placeholder')) {
+                    $(this).val('');
+                }
+            });
+        });
+        
+        // Clean up any placeholders if the page is refreshed
+        window.onbeforeunload = function() {
+            $('[placeholder]').each(function() {
+                if ($(this).val() == $(this).attr('placeholder') && $(this).hasClass('placeholder')) {
+                    $(this).val('');
+                }
+            });
+        };
+    }
 }
 
 /*
@@ -173,12 +173,12 @@ function placeholder_fix() {
  */
  
 if (!Array.prototype.indexOf) {
-	Array.prototype.indexOf = function(obj, start) {
-		for (var i = (start || 0), j = this.length; i < j; i++) {
-			if (this[i] === obj) { return i; }
-		}
-		return -1;
-	}
+    Array.prototype.indexOf = function(obj, start) {
+        for (var i = (start || 0), j = this.length; i < j; i++) {
+            if (this[i] === obj) { return i; }
+        }
+        return -1;
+    }
 }
 
 /**
@@ -186,15 +186,15 @@ if (!Array.prototype.indexOf) {
  */
  
 function openAjaxRequestInGrowl(url, title) {
-	jQuery.jGrowl('<div class="onxshop-messages in-jgrowl"><img src="/share/images/ajax-indicator/ajax-loader-bar.gif" alt="Loading ..."/></div>', {
-		beforeOpen: function(e, m, o) {
-			jQuery("#dialog").hide().load(url, '', 
-				function (responseText, textStatus, XMLHttpRequest) {
-					popupMessage("#dialog div.onxshop-messages");
-				});
-		}
-	});
-	
+    jQuery.jGrowl('<div class="onxshop-messages in-jgrowl"><img src="/share/images/ajax-indicator/ajax-loader-bar.gif" alt="Loading ..."/></div>', {
+        beforeOpen: function(e, m, o) {
+            jQuery("#dialog").hide().load(url, '', 
+                function (responseText, textStatus, XMLHttpRequest) {
+                    popupMessage("#dialog div.onxshop-messages");
+                });
+        }
+    });
+    
 }
 
 /**
@@ -202,33 +202,33 @@ function openAjaxRequestInGrowl(url, title) {
  */
 
 function popupMessage(selector) {
-	jQuery.each(jQuery(selector), function() {
-		var message = jQuery(this).hide().html();
-		if (message) growlMessage(message);
-		console.log('Onxshop: ' + strip_tags(message));
-	});
+    jQuery.each(jQuery(selector), function() {
+        var message = jQuery(this).hide().html();
+        if (message) growlMessage(message);
+        console.log('Onxshop: ' + strip_tags(message));
+    });
 }
 
 function growlMessage(message) {
-	var life = 30 * message.length; // 30ms per character
-	if (life < 4000) life = 4000; // 4 sec at min.
-	jQuery.jGrowl("<div class='onxshop-messages in-jgrowl' role='alert'>" + message + "</div>", {life: life})
+    var life = 30 * message.length; // 30ms per character
+    if (life < 4000) life = 4000; // 4 sec at min.
+    jQuery.jGrowl("<div class='onxshop-messages in-jgrowl' role='alert'>" + message + "</div>", {life: life})
 }
 
 /**
  * Animated scroll to a specific element
  */
 function scrollToElement(element) {
-	$('html, body').animate({
-		scrollTop: $(element).offset().top
-	}), 2000;
+    $('html, body').animate({
+        scrollTop: $(element).offset().top
+    }), 2000;
 }
 
 /**
  * get csrf token
  */
 function getCSRFToken() {
-	return $("head > meta[name=csrf_token]").attr("content");
+    return $("head > meta[name=csrf_token]").attr("content");
 }
 
 /**
@@ -236,7 +236,7 @@ function getCSRFToken() {
  */
  
 function strip_tags(html) {
-	var tmp = document.createElement("DIV");
-	tmp.innerHTML = html;
-	return tmp.textContent || tmp.innerText;
+    var tmp = document.createElement("DIV");
+    tmp.innerHTML = html;
+    return tmp.textContent || tmp.innerText;
 }

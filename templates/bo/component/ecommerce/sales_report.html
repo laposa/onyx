@@ -3,43 +3,43 @@
 
 <div class="sales-report">
 
-	<h3>Sales report</h3>
+    <h3>Sales report</h3>
 
-	<table>
-		<thead>
-			<tr>
-				<th>SKU Code</th>
-				<th>Product name</th>
-				<th>Units sold</th>
-				<th>Net Revenue</th>
-			</tr>
-		</thead>
-		<!-- BEGIN: foot -->
-		<tfoot>
-			<tr>
-				<td></td>
-				<td>Total (before discount):</td>
-				<td>{TOTAL_UNITS}</td>
-				<td class="money">{TOTAL_REVENUE|money_format('%n', %s)}</td>
-			</tr>
-		</tfoot>
-		<!-- END: foot -->
-		<tbody>
-			<!-- BEGIN: item -->
-				<tr>
-					<td><a href="/backoffice/products/variety/{ITEM.variety_id}/edit" onclick="openEdit('/popup_window/bo/component/ecommerce/product_variety_edit~id={ITEM.variety_id}~', this, 0); return false;">{ITEM.variety_sku}</a></td>
-					<td><a href="/product/{ITEM.product_id}">{ITEM.product_name}</a> / <a href="/backoffice/products/variety/{ITEM.variety_id}/edit" onclick="openEdit('/popup_window/bo/component/ecommerce/product_variety_edit~id={ITEM.variety_id}~', this, 0); return false;">{ITEM.variety_name}</a></td>
-					<td>{ITEM.count}</td>
-					<td class="money">{ITEM.revenue|money_format('%n', %s)}</td>
-				</tr>
-			<!-- END: item -->
-			<!-- BEGIN: empty -->
-				<tr>
-					<td class="empty" colspan="4">Sorry, no data available for selected period.</td>
-				</tr>
-			<!-- END: empty -->
-		</tbody>
-	</table>
-	<p><a class="button" title="export" href="/request/bo/export/csv_sales"><span>Export This List</span></a></p>
+    <table>
+        <thead>
+            <tr>
+                <th>SKU Code</th>
+                <th>Product name</th>
+                <th>Units sold</th>
+                <th>Net Revenue</th>
+            </tr>
+        </thead>
+        <!-- BEGIN: foot -->
+        <tfoot>
+            <tr>
+                <td></td>
+                <td>Total (before discount):</td>
+                <td>{TOTAL_UNITS}</td>
+                <td class="money">{TOTAL_REVENUE|money_format('%n', %s)}</td>
+            </tr>
+        </tfoot>
+        <!-- END: foot -->
+        <tbody>
+            <!-- BEGIN: item -->
+                <tr>
+                    <td><a href="/backoffice/products/variety/{ITEM.variety_id}/edit" onclick="openEdit('/popup_window/bo/component/ecommerce/product_variety_edit~id={ITEM.variety_id}~', this, 0); return false;">{ITEM.variety_sku}</a></td>
+                    <td><a href="/product/{ITEM.product_id}">{ITEM.product_name}</a> / <a href="/backoffice/products/variety/{ITEM.variety_id}/edit" onclick="openEdit('/popup_window/bo/component/ecommerce/product_variety_edit~id={ITEM.variety_id}~', this, 0); return false;">{ITEM.variety_name}</a></td>
+                    <td>{ITEM.count}</td>
+                    <td class="money">{ITEM.revenue|money_format('%n', %s)}</td>
+                </tr>
+            <!-- END: item -->
+            <!-- BEGIN: empty -->
+                <tr>
+                    <td class="empty" colspan="4">Sorry, no data available for selected period.</td>
+                </tr>
+            <!-- END: empty -->
+        </tbody>
+    </table>
+    <p><a class="button" title="export" href="/request/bo/export/csv_sales"><span>Export This List</span></a></p>
 </div>
 <!-- END: content -->

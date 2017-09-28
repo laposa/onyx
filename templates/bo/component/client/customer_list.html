@@ -2,29 +2,29 @@
 {MESSAGES}
 <!-- BEGIN: list -->
 <table>
-	<thead>
-		<tr>
-			<th class="first">Name<br />Email address</th>
-			<th>Date joined<br />Last order</th>
-		</tr>
-	</thead>
-	<tbody>
-		<!-- BEGIN: item -->
-		<tr class="{ITEM.class}">
-			<td><a href="/backoffice/customers/{ITEM.customer_id}/detail">{ITEM.title_before|htmlspecialchars} {ITEM.first_name|htmlspecialchars} {ITEM.last_name|htmlspecialchars} {ITEM.title_after|htmlspecialchars}<br />{ITEM.email}</a></td>
-			<td>{ITEM.customer_created}<br />{ITEM.last_order}</td>
-		</tr>
-		<!-- END: item -->
-	</tbody>
-	<tfoot>
-		<tr>
-			<td colspan="5">
-				<div class="onxshop-pagination">
-					{PAGINATION}
-				</div>
-			</td>
-		</tr>
-	</tfoot>
+    <thead>
+        <tr>
+            <th class="first">Name<br />Email address</th>
+            <th>Date joined<br />Last order</th>
+        </tr>
+    </thead>
+    <tbody>
+        <!-- BEGIN: item -->
+        <tr class="{ITEM.class}">
+            <td><a href="/backoffice/customers/{ITEM.customer_id}/detail">{ITEM.title_before|htmlspecialchars} {ITEM.first_name|htmlspecialchars} {ITEM.last_name|htmlspecialchars} {ITEM.title_after|htmlspecialchars}<br />{ITEM.email}</a></td>
+            <td>{ITEM.customer_created}<br />{ITEM.last_order}</td>
+        </tr>
+        <!-- END: item -->
+    </tbody>
+    <tfoot>
+        <tr>
+            <td colspan="5">
+                <div class="onxshop-pagination">
+                    {PAGINATION}
+                </div>
+            </td>
+        </tr>
+    </tfoot>
 </table>
 
 <!-- END: list -->

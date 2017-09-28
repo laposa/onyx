@@ -2,26 +2,26 @@
 <!-- BEGIN: google_analytics -->
 <script type="text/javascript">
 
-	dataLayer = [{
-	    'transactionId': '{ORDER.id}',
-	    'transactionAffiliation': '{CONFIGURATION.global.title|addslashes}',
-	    'transactionTotal': '{ORDER.basket.total}',
-	    'transactionTax': '{ORDER.basket.total_vat}',
-	    'transactionShipping': '{ORDER.basket.delivery.value_net}',
-	    'transactionProducts': [
+    dataLayer = [{
+        'transactionId': '{ORDER.id}',
+        'transactionAffiliation': '{CONFIGURATION.global.title|addslashes}',
+        'transactionTotal': '{ORDER.basket.total}',
+        'transactionTax': '{ORDER.basket.total_vat}',
+        'transactionShipping': '{ORDER.basket.delivery.value_net}',
+        'transactionProducts': [
 
 <!-- BEGIN: item -->
-	    {
-	        'sku': '{ITEM.product.variety.sku|addslashes}',
-	        'name': '{ITEM.product.name|addslashes}',
-	        'category': '{ITEM.product.variety.name|addslashes}',
-	        'price': '{ITEM.price}',
-	        'quantity': '{ITEM.quantity}'
-	    }{COMMA}
+        {
+            'sku': '{ITEM.product.variety.sku|addslashes}',
+            'name': '{ITEM.product.name|addslashes}',
+            'category': '{ITEM.product.variety.name|addslashes}',
+            'price': '{ITEM.price}',
+            'quantity': '{ITEM.quantity}'
+        }{COMMA}
 <!-- END: item -->
 
-	   	]
-	}];
+        ]
+    }];
 
 </script>
 <!-- END: google_analytics -->

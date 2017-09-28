@@ -5,43 +5,43 @@
 <!-- BEGIN: head -->
 <script type="text/javascript">
 $(document).ready(function() {
-	$('#gallery-2columns-{GET.node_id}').cycle({
-		speed: 500,
-		fx: 'scrollHorz',
-		slides: 'div.two-column-layout',
-		prev: '#gallery-2columns-{GET.node_id} div.controls a.prev',
-		next: '#gallery-2columns-{GET.node_id} div.controls a.next',
-		swipe: true,
-		delay: 10000,
-		timeout: 6000,
-		log: false
-	});
+    $('#gallery-2columns-{GET.node_id}').cycle({
+        speed: 500,
+        fx: 'scrollHorz',
+        slides: 'div.two-column-layout',
+        prev: '#gallery-2columns-{GET.node_id} div.controls a.prev',
+        next: '#gallery-2columns-{GET.node_id} div.controls a.next',
+        swipe: true,
+        delay: 10000,
+        timeout: 6000,
+        log: false
+    });
 });
 </script>
 <!-- END: head -->
 <!-- BEGIN: content -->
 <div class="image-gallery-2columns number-of-items-{IMAGE_COUNT}" id="gallery-2columns-{GET.node_id}">
-	<!-- BEGIN: item -->
-	<div class="two-column-layout fibonacci-1-1 item-id-{GET.node_id}-{ITEM.id}">
-		<div class="layout-column-one of-two">
-			<p><a class="single-image{GET.relation}{GET.node_id}" title="{ITEM.title|htmlspecialchars}" href="/page/{ITEM.link_to_node_id}"><img id="image-id-{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" /></a></p>
-		</div>
-		<div class="layout-column-two of-two">
-			<div class="slider-copy">
-				<div class="wrap">
-					<h3><a href="/page/{ITEM.link_to_node_id}"><span>{ITEM.title|htmlspacialchars}</span></a></h3>		
-					<p class="description">{ITEM.description|htmlspecialchars|nl2br}</p>
-				</div>
-				<div class="content"><a href="/page/{ITEM.link_to_node_id}">{ITEM.content}</a></div>
-				<div class="controls">
-					<a href="#" title="previous" class="prev"><span>&#9668;</span></a>
-					<div class="pagination"></div>
-					<a href="#" title="next" class="next"><span>&#9658;</span></a>
-				</div>
-			</div>
-		</div>
-		<div class="bottom"></div>
-	</div>
-	<!-- END: item -->
+    <!-- BEGIN: item -->
+    <div class="two-column-layout fibonacci-1-1 item-id-{GET.node_id}-{ITEM.id}">
+        <div class="layout-column-one of-two">
+            <p><a class="single-image{GET.relation}{GET.node_id}" title="{ITEM.title|htmlspecialchars}" href="/page/{ITEM.link_to_node_id}"><img id="image-id-{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" /></a></p>
+        </div>
+        <div class="layout-column-two of-two">
+            <div class="slider-copy">
+                <div class="wrap">
+                    <h3><a href="/page/{ITEM.link_to_node_id}"><span>{ITEM.title|htmlspacialchars}</span></a></h3>      
+                    <p class="description">{ITEM.description|htmlspecialchars|nl2br}</p>
+                </div>
+                <div class="content"><a href="/page/{ITEM.link_to_node_id}">{ITEM.content}</a></div>
+                <div class="controls">
+                    <a href="#" title="previous" class="prev"><span>&#9668;</span></a>
+                    <div class="pagination"></div>
+                    <a href="#" title="next" class="next"><span>&#9658;</span></a>
+                </div>
+            </div>
+        </div>
+        <div class="bottom"></div>
+    </div>
+    <!-- END: item -->
 </div>
 <!-- END: content -->

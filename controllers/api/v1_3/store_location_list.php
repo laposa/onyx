@@ -8,7 +8,7 @@
 require_once('controllers/api/v1_2/store_location_list.php');
 
 class Onxshop_Controller_Api_v1_3_Store_Location_List extends Onxshop_Controller_Api_v1_2_Store_Location_List {
-	
-	// TODO in v1.4 - start showing separete fields as in ecommerce_store.address_*
-	
+    
+    // TODO in v1.4 - start showing separete fields as in ecommerce_store.address_*
+    
 }

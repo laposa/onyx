@@ -2,21 +2,21 @@
 <script type="text/javascript">
 $(document).ready(function(){
 
-	function initGroupAjaxForm() {
-		$("#customer-group-form").validate();
-		$('#customer-group-form').ajaxForm({ 
-			target: '#customer-list div.page-content',
-			beforeSubmit: function() { return $("#customer-group-form").valid() },
-			success: function(responseText, statusText) {
-				popupMessage("#customer-list div.onxshop-messages");
-				makeAjaxRequest('#onxshop-backoffice-wrapper', '/request/bo/pages/client/customers', function () {
-					//initAjaxPagination();
-				});
-			}
-		});
-	}
+    function initGroupAjaxForm() {
+        $("#customer-group-form").validate();
+        $('#customer-group-form').ajaxForm({ 
+            target: '#customer-list div.page-content',
+            beforeSubmit: function() { return $("#customer-group-form").valid() },
+            success: function(responseText, statusText) {
+                popupMessage("#customer-list div.onxshop-messages");
+                makeAjaxRequest('#onxshop-backoffice-wrapper', '/request/bo/pages/client/customers', function () {
+                    //initAjaxPagination();
+                });
+            }
+        });
+    }
 
-	initGroupAjaxForm();
+    initGroupAjaxForm();
 
 });
 </script>
@@ -24,39 +24,39 @@ $(document).ready(function(){
 {MESSAGES}
 
 <div class="customer-group-modify">
-	<h2>Modify existing group <span class="info">ID {CUSTOMER_GROUP.id}</span></h2>
-	<form method="post" id="customer-group-form" action="{URI|htmlspecialchars}" style="max-width: 400px;">
-		<div class="row">
-			<span class="label"><label>Name</label></span>
-			<span class="field">
-				<input type="text" class="title required" id="customer-group-name" name="customer-group[name]" value="{CUSTOMER_GROUP.name|htmlspecialchars}" />
-			</span>
-		</div>
-		
-		<div class="row">
-			<span class="label"><label>Description</label></span>
-			<span class="field">
-				<textarea name="customer-group[description]">{CUSTOMER_GROUP.description|htmlspecialchars}</textarea>
-			</span>
-		</div>
-		
-		<div class="row">
-			<span class="label"><label>Search Filter</label></span>
-			<span class="field">
-				<pre>{CUSTOMER_GROUP.search_filter|print_r(%s, true)}</pre>
-				<p>To modify group with filter options <a title="Create a new customers group using advanced filter" href="#" onclick="makeAjaxRequest('#customer-list div.page-content', '/request/bo/component/client/customer_filter'); return false;"><span>Use Advance Filter</span></a></p>
-			</span>
-		</div>
-		
-		<input type="hidden" name="customer-group[id]" value="{CUSTOMER_GROUP.id}" />
-		
-		
-		<div class="row submit">
-			<span class="field">
-				<button class="save" type="submit" name="save" value="save" onclick="$(this).addClass('saving');"><span>Update</span></button>
-			</span>
-		</div>
-		<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />	
-	</form>
+    <h2>Modify existing group <span class="info">ID {CUSTOMER_GROUP.id}</span></h2>
+    <form method="post" id="customer-group-form" action="{URI|htmlspecialchars}" style="max-width: 400px;">
+        <div class="row">
+            <span class="label"><label>Name</label></span>
+            <span class="field">
+                <input type="text" class="title required" id="customer-group-name" name="customer-group[name]" value="{CUSTOMER_GROUP.name|htmlspecialchars}" />
+            </span>
+        </div>
+        
+        <div class="row">
+            <span class="label"><label>Description</label></span>
+            <span class="field">
+                <textarea name="customer-group[description]">{CUSTOMER_GROUP.description|htmlspecialchars}</textarea>
+            </span>
+        </div>
+        
+        <div class="row">
+            <span class="label"><label>Search Filter</label></span>
+            <span class="field">
+                <pre>{CUSTOMER_GROUP.search_filter|print_r(%s, true)}</pre>
+                <p>To modify group with filter options <a title="Create a new customers group using advanced filter" href="#" onclick="makeAjaxRequest('#customer-list div.page-content', '/request/bo/component/client/customer_filter'); return false;"><span>Use Advance Filter</span></a></p>
+            </span>
+        </div>
+        
+        <input type="hidden" name="customer-group[id]" value="{CUSTOMER_GROUP.id}" />
+        
+        
+        <div class="row submit">
+            <span class="field">
+                <button class="save" type="submit" name="save" value="save" onclick="$(this).addClass('saving');"><span>Update</span></button>
+            </span>
+        </div>
+        <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />  
+    </form>
 </div>
 <!-- END: content -->

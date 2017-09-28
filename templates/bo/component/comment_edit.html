@@ -3,121 +3,121 @@
 
 <div class="two-column-page page comment-edit">
 
-	<form method="post" action="{URI|htmlspecialchars}" id="comment-edit-form">
+    <form method="post" action="{URI|htmlspecialchars}" id="comment-edit-form">
 
-			<div class="page-wrapper">
+            <div class="page-wrapper">
 
-				<div class="page-header">
-					<div class="page-header-wrapper">
-						<h1 class="page-title"><span>Comment Edit</span> <span class="info">ID {COMMENT.id}</span></h1>
-					</div>
-				</div>
+                <div class="page-header">
+                    <div class="page-header-wrapper">
+                        <h1 class="page-title"><span>Comment Edit</span> <span class="info">ID {COMMENT.id}</span></h1>
+                    </div>
+                </div>
 
-				<div class="page-content">
-					<div class="page-content-wrapper">
-						<div class="row-top">
-							<div class="row-wrapper">
-								<div class="column-wrapper">
+                <div class="page-content">
+                    <div class="page-content-wrapper">
+                        <div class="row-top">
+                            <div class="row-wrapper">
+                                <div class="column-wrapper">
 
-								</div>
-							</div>
-						</div>
-						<div class="row-middle">
-							<div class="row-wrapper">
-								<div class="column-one">
-									<div class="column-wrapper">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-middle">
+                            <div class="row-wrapper">
+                                <div class="column-one">
+                                    <div class="column-wrapper">
 
-										<fieldset>
-											<div class="row title">
-												<span class="label"><label for="comment-title">Title</label></span>
-												<span class="field"><input class="text title" id="comment-title" type="text" name="comment[title]" value="{COMMENT.title|htmlspecialchars}" /></span>
-											</div>
-											<div class="row content">
-												<span class="label"><label for="comment-content">Content</label></span>
-												<span class="field"><textarea id="comment-content" class="large" name="comment[content]">{COMMENT.content|htmlspecialchars}</textarea></span>
-											</div>
-											<div class="row rating">
-												<span class="label"><label for="comment-rating">rating</label></span>
-												<span class="field"><input class="text short" id="comment-rating" type="text" name="comment[rating]" value="{COMMENT.rating|htmlspecialchars}" /></span>
-											</div>
-											<div class="row publish">
-												<span class="label"><label for="comment-publish">Publish</label></span>
-												<span class="field">
-													<select id="comment-publish" name="comment[publish]">
-														<option value="0" {SELECTED_0}>No</option>
-														<option value="1" {SELECTED_1}>Yes</option>
-														<option value="-1" {SELECTED_-1}>Reject</option>
-													</select>
-												</span>
-											</div>
-										</fieldset>
+                                        <fieldset>
+                                            <div class="row title">
+                                                <span class="label"><label for="comment-title">Title</label></span>
+                                                <span class="field"><input class="text title" id="comment-title" type="text" name="comment[title]" value="{COMMENT.title|htmlspecialchars}" /></span>
+                                            </div>
+                                            <div class="row content">
+                                                <span class="label"><label for="comment-content">Content</label></span>
+                                                <span class="field"><textarea id="comment-content" class="large" name="comment[content]">{COMMENT.content|htmlspecialchars}</textarea></span>
+                                            </div>
+                                            <div class="row rating">
+                                                <span class="label"><label for="comment-rating">rating</label></span>
+                                                <span class="field"><input class="text short" id="comment-rating" type="text" name="comment[rating]" value="{COMMENT.rating|htmlspecialchars}" /></span>
+                                            </div>
+                                            <div class="row publish">
+                                                <span class="label"><label for="comment-publish">Publish</label></span>
+                                                <span class="field">
+                                                    <select id="comment-publish" name="comment[publish]">
+                                                        <option value="0" {SELECTED_0}>No</option>
+                                                        <option value="1" {SELECTED_1}>Yes</option>
+                                                        <option value="-1" {SELECTED_-1}>Reject</option>
+                                                    </select>
+                                                </span>
+                                            </div>
+                                        </fieldset>
 
-									</div>
-								</div>
-								<div class="column-two with-padding">
-									<div class="column-wrapper">
+                                    </div>
+                                </div>
+                                <div class="column-two with-padding">
+                                    <div class="column-wrapper">
 
-										<fieldset>
-											<div class="row author-name">
-												<span class="label"><label for="comment-author-name">Author's Name</label></span>
-												<span class="field"><input class="text" id="comment-author-name" type="text" name="comment[author_name]" value="{COMMENT.author_name|htmlspecialchars}" /></span>
-											</div>
-											<div class="row author-email">
-												<span class="label"><label for="comment-author-email">Author's Email</label></span>
-												<span class="field"><input class="text" id="comment-author-email" type="text" name="comment[author_email]" value="{COMMENT.author_email|htmlspecialchars}" /></span>
-											</div>
-											<div class="row author-website">
-												<span class="label"><label for="comment-author-website">Author's Website</label></span>
-												<span class="field"><input class="text" id="comment-author-website" type="text" name="comment[author_website]" value="{COMMENT.author_website|htmlspecialchars}" /></span>
-											</div>
-										</fieldset>
+                                        <fieldset>
+                                            <div class="row author-name">
+                                                <span class="label"><label for="comment-author-name">Author's Name</label></span>
+                                                <span class="field"><input class="text" id="comment-author-name" type="text" name="comment[author_name]" value="{COMMENT.author_name|htmlspecialchars}" /></span>
+                                            </div>
+                                            <div class="row author-email">
+                                                <span class="label"><label for="comment-author-email">Author's Email</label></span>
+                                                <span class="field"><input class="text" id="comment-author-email" type="text" name="comment[author_email]" value="{COMMENT.author_email|htmlspecialchars}" /></span>
+                                            </div>
+                                            <div class="row author-website">
+                                                <span class="label"><label for="comment-author-website">Author's Website</label></span>
+                                                <span class="field"><input class="text" id="comment-author-website" type="text" name="comment[author_website]" value="{COMMENT.author_website|htmlspecialchars}" /></span>
+                                            </div>
+                                        </fieldset>
 
-										<fieldset>
-											<p>Comment created on <a href="/backoffice/pages/{COMMENT.node_id}">content ID {COMMENT.node_id}</a> {COMMENT.relation_subject}</p>
-											<p>Item ID {COMMENT.id} created by <a href="/backoffice/customers/{COMMENT.customer_id}/detail">Customer ID {COMMENT.customer_id}</a> on {COMMENT.created} from <a href="/request/component/whois?str={COMMENT.author_ip_address}" target="_blank">IP address {COMMENT.author_ip_address}</a></p>
-										</fieldset>
+                                        <fieldset>
+                                            <p>Comment created on <a href="/backoffice/pages/{COMMENT.node_id}">content ID {COMMENT.node_id}</a> {COMMENT.relation_subject}</p>
+                                            <p>Item ID {COMMENT.id} created by <a href="/backoffice/customers/{COMMENT.customer_id}/detail">Customer ID {COMMENT.customer_id}</a> on {COMMENT.created} from <a href="/request/component/whois?str={COMMENT.author_ip_address}" target="_blank">IP address {COMMENT.author_ip_address}</a></p>
+                                        </fieldset>
 
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="row-bottom">
-							<div class="row-wrapper">
-								<div class="column-wrapper">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-bottom">
+                            <div class="row-wrapper">
+                                <div class="column-wrapper">
 
-									<div class="row submit">
-										<span class="label"><label>&nbsp;</label></span>
-										<span class="field"><button type="submit" class="save" name="save" value="save"><span>Save</span></button></span>
-									</div>
+                                    <div class="row submit">
+                                        <span class="label"><label>&nbsp;</label></span>
+                                        <span class="field"><button type="submit" class="save" name="save" value="save"><span>Save</span></button></span>
+                                    </div>
 
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-		<input type="hidden" name="comment[id]" value="{COMMENT.id}" />
-		<input type="hidden" name="comment[parent]" value="{COMMENT.parent}" />
-		<input type="hidden" name="comment[node_id]" value="{COMMENT.node_id}" />
+        <input type="hidden" name="comment[id]" value="{COMMENT.id}" />
+        <input type="hidden" name="comment[parent]" value="{COMMENT.parent}" />
+        <input type="hidden" name="comment[node_id]" value="{COMMENT.node_id}" />
 
-	<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+    <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
 </div>
 
 <script type="text/javascript">
-	$(function() {
-		
-		var options = { 
-			target: '#comment-edit-form-result',
-			success: function(responseText, statusText) {
-				popupMessage("#comment-edit-form-result div.onxshop-messages");
-				makeAjaxRequest('#onxshop-backoffice-wrapper', '/request/bo/pages/comments');
-			}
-		}; 
+    $(function() {
+        
+        var options = { 
+            target: '#comment-edit-form-result',
+            success: function(responseText, statusText) {
+                popupMessage("#comment-edit-form-result div.onxshop-messages");
+                makeAjaxRequest('#onxshop-backoffice-wrapper', '/request/bo/pages/comments');
+            }
+        }; 
 
-	    $('#comment-edit-form').ajaxForm(options); 
-	});
+        $('#comment-edit-form').ajaxForm(options); 
+    });
 </script>
 
 <div id="comment-edit-form-result" style="display: none"></div>

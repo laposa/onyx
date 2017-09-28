@@ -3,41 +3,41 @@
 {MESSAGES}
 <div class="store-list">
 
-	<table>
-		<thead>
-			<tr>
-				<th class="image first"></th>
-				<th class="store-title"><a href="/backoffice/stores?store-list-sort-by=title&amp;store-list-sort-direction=ASC">Title</a></th>
-				<th class="store-address">Address</th>
-				<th class="store-modified"><a href="/backoffice/stores?store-list-sort-by=modified&amp;store-list-sort-direction=DESC">Modified</a></th>
-			</tr>
-		</thead>
-		
-		<!-- BEGIN: empty_list -->
-		<tbody><tr><td colspan="4" class="empty">No stores found.</td></tr></tbody>
-		<!-- END: empty_list -->
-		
-		<!-- BEGIN: list -->
-		<tbody>
-			<!-- BEGIN: item -->
-			<tr {CLASS}>
-				<td {ROWSPAN} class="image"><!--  BEGIN: image --><a href="/backoffice/stores/{ITEM.id}/edit"><img src="/thumbnail/25x25/{ITEM.image_src}" alt="{ITEM.image_title|htmlspecialchars}" /></a><!--  END: image --></td>
-				<td {ROWSPAN} class="store_title"><span class="{ITEM.disabled}"><a href="/backoffice/stores/{ITEM.id}/edit">{ITEM.title|htmlspecialchars}</a></span></td>
-				<td {ROWSPAN} class="store-address">{ITEM.address|htmlspecialchars}</td>
-				<td class="modified">{ITEM.modified}</a></td>
-			</tr>
-			<!-- END: item -->
-		</tbody>
-		<!-- END: list -->
-		<tfoot>
-			<tr>
-				<td colspan="4">
-					{PAGINATION}
-				</td>
-			</tr>
-		</tfoot>
-	</table>
-	
+    <table>
+        <thead>
+            <tr>
+                <th class="image first"></th>
+                <th class="store-title"><a href="/backoffice/stores?store-list-sort-by=title&amp;store-list-sort-direction=ASC">Title</a></th>
+                <th class="store-address">Address</th>
+                <th class="store-modified"><a href="/backoffice/stores?store-list-sort-by=modified&amp;store-list-sort-direction=DESC">Modified</a></th>
+            </tr>
+        </thead>
+        
+        <!-- BEGIN: empty_list -->
+        <tbody><tr><td colspan="4" class="empty">No stores found.</td></tr></tbody>
+        <!-- END: empty_list -->
+        
+        <!-- BEGIN: list -->
+        <tbody>
+            <!-- BEGIN: item -->
+            <tr {CLASS}>
+                <td {ROWSPAN} class="image"><!--  BEGIN: image --><a href="/backoffice/stores/{ITEM.id}/edit"><img src="/thumbnail/25x25/{ITEM.image_src}" alt="{ITEM.image_title|htmlspecialchars}" /></a><!--  END: image --></td>
+                <td {ROWSPAN} class="store_title"><span class="{ITEM.disabled}"><a href="/backoffice/stores/{ITEM.id}/edit">{ITEM.title|htmlspecialchars}</a></span></td>
+                <td {ROWSPAN} class="store-address">{ITEM.address|htmlspecialchars}</td>
+                <td class="modified">{ITEM.modified}</a></td>
+            </tr>
+            <!-- END: item -->
+        </tbody>
+        <!-- END: list -->
+        <tfoot>
+            <tr>
+                <td colspan="4">
+                    {PAGINATION}
+                </td>
+            </tr>
+        </tfoot>
+    </table>
+    
 </div>
 
 

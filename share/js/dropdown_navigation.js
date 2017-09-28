@@ -18,11 +18,11 @@ $(document).ready( function(){
 
         },
         function() {
-        	$(this).removeClass('dropdown_open');
+            $(this).removeClass('dropdown_open');
             $('ul', this).css('display', 'none');
         }
     );
 
-	$('#primaryNavigation a').attr('title', '');
-	
+    $('#primaryNavigation a').attr('title', '');
+    
 });

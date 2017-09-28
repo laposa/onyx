@@ -3,29 +3,29 @@
 {ONXSHOP_REQUEST_cycle2 #component/cycle2_js}
 <script type="text/javascript">
 $(document).ready(function() {
-	$('div.twitter-timeline-slider div.cycle').cycle({
-		speed: 500,
-		timeout: 0,
-		fx: 'scrollHorz',
-		slides: 'div.item',
-		prev: 'div.controls a.prev',
-		next: 'div.controls a.next',
-		swipe: true
-	});
+    $('div.twitter-timeline-slider div.cycle').cycle({
+        speed: 500,
+        timeout: 0,
+        fx: 'scrollHorz',
+        slides: 'div.item',
+        prev: 'div.controls a.prev',
+        next: 'div.controls a.next',
+        swipe: true
+    });
 });
 </script>
 <!-- END: head_once -->
 <!-- BEGIN: content -->
 <div class="twitter-timeline-slider">
-	
-	<div class="cycle">
-		{ONXSHOP_REQUEST_twitter_timeline #component/client/twitter_timeline~limit_from=GET.limit_from:limit_per_page=GET.limit_per_page:limit_fetch=GET.limit_fetch~}
-		<div class="controls">
-		<a href="#" title="previous" class="prev"><span>&#9668;</span></a>
-		<a href="#" title="next" class="next"><span>&#9658;</span></a>
-	</div>
-	</div>
-	
-	<p><a href="https://twitter.com/{ONXSHOP_TWITTER_USERNAME}" class="button twitter" target="_blank"><span>Follow @{ONXSHOP_TWITTER_USERNAME}</span></a></p>
+    
+    <div class="cycle">
+        {ONXSHOP_REQUEST_twitter_timeline #component/client/twitter_timeline~limit_from=GET.limit_from:limit_per_page=GET.limit_per_page:limit_fetch=GET.limit_fetch~}
+        <div class="controls">
+        <a href="#" title="previous" class="prev"><span>&#9668;</span></a>
+        <a href="#" title="next" class="next"><span>&#9658;</span></a>
+    </div>
+    </div>
+    
+    <p><a href="https://twitter.com/{ONXSHOP_TWITTER_USERNAME}" class="button twitter" target="_blank"><span>Follow @{ONXSHOP_TWITTER_USERNAME}</span></a></p>
 </div>
 <!-- END: content -->

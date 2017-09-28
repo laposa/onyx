@@ -1,15 +1,15 @@
 <!-- BEGIN: content -->
 <form action='{URI|htmlspecialchars}' method="post" id='form-currency'>
-	<div class="row">
-		<span class="label"><label>Currency</label></span>
-		<span class="field">
-			<select name="client[customer][currency_code]" onchange="$('#form-currency').submit()">
-				<!-- BEGIN: item -->
-				<option value="{currency.code}" {currency.selected}>{currency.name} ({currency.code})</option>
-				<!-- END: item -->
-			</select>
-		</span>
-	</div>
+    <div class="row">
+        <span class="label"><label>Currency</label></span>
+        <span class="field">
+            <select name="client[customer][currency_code]" onchange="$('#form-currency').submit()">
+                <!-- BEGIN: item -->
+                <option value="{currency.code}" {currency.selected}>{currency.name} ({currency.code})</option>
+                <!-- END: item -->
+            </select>
+        </span>
+    </div>
 <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
 <!-- END: content -->

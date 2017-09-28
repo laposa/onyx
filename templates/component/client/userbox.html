@@ -1,28 +1,28 @@
 <!-- BEGIN: content -->
 <div class="userbox">
-	<div class="userbox-wrapper">
-		
-		<div class="content">
-			<!-- BEGIN: register -->
-				<div class="register">
-					<a class="register" accesskey="r" href="/page/{NODE_CONF.id_map-registration}" title="Register"><span>{I18N_CLIENT_REGISTER}</span></a>
-				</div>
-			<!-- END: register -->
-			<!-- BEGIN: login -->
-				<div class="login">
-					<a class="login" accesskey="l" href="/page/{NODE_CONF.id_map-login}?to={_SERVER.REDIRECT_URL|htmlspecialchars}" title="Login"><span>{I18N_CLIENT_LOGIN}</span></a>
-				</div>
-			<!-- END: login -->
-			<!-- BEGIN: customer -->
-				<div class="usermenu">
-					<a class="profile-image" href="/page/{NODE_CONF.id_map-myaccount}"><span><img src="{CUSTOMER.profile_image_url|htmlspecialchars}" /></span></a>
-					<a class="username" href="/page/{NODE_CONF.id_map-myaccount}" title="Client Area"><span>{I18N_LOGGED_IN_AS} <strong>{CUSTOMER.first_name|htmlspecialchars}</strong></span></a>
-					<a class="client-area" href="/page/{NODE_CONF.id_map-myaccount}" title="Client Area"><span>{I18N_CLIENT_AREA}</span></a>
-					<a class="logout" accesskey="q" href="/client/logout" title="Logout"><span>{I18N_LOGOUT}</span></a>
-				</div>
-			<!-- END: customer -->
-		</div>
-		
-	</div>
+    <div class="userbox-wrapper">
+        
+        <div class="content">
+            <!-- BEGIN: register -->
+                <div class="register">
+                    <a class="register" accesskey="r" href="/page/{NODE_CONF.id_map-registration}" title="Register"><span>{I18N_CLIENT_REGISTER}</span></a>
+                </div>
+            <!-- END: register -->
+            <!-- BEGIN: login -->
+                <div class="login">
+                    <a class="login" accesskey="l" href="/page/{NODE_CONF.id_map-login}?to={_SERVER.REDIRECT_URL|htmlspecialchars}" title="Login"><span>{I18N_CLIENT_LOGIN}</span></a>
+                </div>
+            <!-- END: login -->
+            <!-- BEGIN: customer -->
+                <div class="usermenu">
+                    <a class="profile-image" href="/page/{NODE_CONF.id_map-myaccount}"><span><img src="{CUSTOMER.profile_image_url|htmlspecialchars}" /></span></a>
+                    <a class="username" href="/page/{NODE_CONF.id_map-myaccount}" title="Client Area"><span>{I18N_LOGGED_IN_AS} <strong>{CUSTOMER.first_name|htmlspecialchars}</strong></span></a>
+                    <a class="client-area" href="/page/{NODE_CONF.id_map-myaccount}" title="Client Area"><span>{I18N_CLIENT_AREA}</span></a>
+                    <a class="logout" accesskey="q" href="/client/logout" title="Logout"><span>{I18N_LOGOUT}</span></a>
+                </div>
+            <!-- END: customer -->
+        </div>
+        
+    </div>
 </div>
 <!-- END: content -->

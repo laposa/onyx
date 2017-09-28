@@ -2,31 +2,31 @@
 <rss version ="2.0" xmlns:g="http://base.google.com/ns/1.0">
 
 <channel>
-	<title>Products of {CONFIGURATION.global.title|htmlspecialchars}</title>
-	<description>Google Base - Products</description>
-	<link>{URI|htmlspecialchars}</link>
-	
+    <title>Products of {CONFIGURATION.global.title|htmlspecialchars}</title>
+    <description>Google Base - Products</description>
+    <link>{URI|htmlspecialchars}</link>
+    
 <!-- BEGIN: item -->
-	<item>
+    <item>
 
-		<title>{PRODUCT.name|htmlspecialchars} - {VARIETY.name|htmlspecialchars}</title>
-		<description>{PRODUCT.description|htmlspecialchars}</description>
-		<link>{PRODUCT.url}</link>
+        <title>{PRODUCT.name|htmlspecialchars} - {VARIETY.name|htmlspecialchars}</title>
+        <description>{PRODUCT.description|htmlspecialchars}</description>
+        <link>{PRODUCT.url}</link>
 
-		<g:currency>{GLOBAL_DEFAULT_CURRENCY}</g:currency>
-		<g:price>{PRICE.common.value}</g:price>
-		<g:price_type>common</g:price_type>
+        <g:currency>{GLOBAL_DEFAULT_CURRENCY}</g:currency>
+        <g:price>{PRICE.common.value}</g:price>
+        <g:price_type>common</g:price_type>
 
-		
-		
+        
+        
 
-		
-		<g:weight>{VARIETY.weight}</g:weight>
-		<g:quantity>{VARIETY.stock}</g:quantity>
-		
-		<g:tax_percent>{VARIETY.price.vat}</g:tax_percent>
+        
+        <g:weight>{VARIETY.weight}</g:weight>
+        <g:quantity>{VARIETY.stock}</g:quantity>
+        
+        <g:tax_percent>{VARIETY.price.vat}</g:tax_percent>
 
-	</item>
+    </item>
 <!-- END: item -->
 
 </channel>

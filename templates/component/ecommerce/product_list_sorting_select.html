@@ -1,22 +1,22 @@
 <!-- BEGIN: content -->
-	<div class="sorting">
+    <div class="sorting">
 
-		<form method="post" action="{URI|htmlspecialchars}" id="product-list-sort">
-			<select name="sort[by]" onchange="getElementById('product-list-sort').submit()">
-				<option value="popularity">Popularity</option>
-				<option value="price">Price</option>
-				<option value="name">Name</option>
-				<option value="latest">Latest</option>
-			</select>
+        <form method="post" action="{URI|htmlspecialchars}" id="product-list-sort">
+            <select name="sort[by]" onchange="getElementById('product-list-sort').submit()">
+                <option value="popularity">Popularity</option>
+                <option value="price">Price</option>
+                <option value="name">Name</option>
+                <option value="latest">Latest</option>
+            </select>
 
-			<select name="sort[direction]">
-				<option value="DESC">DESC (Most-Less, High-Low, Z-A)</option>
-				<option value="ASC">ASC (Less-Most, Low-High, A-Z)</option>
-			</select>
+            <select name="sort[direction]">
+                <option value="DESC">DESC (Most-Less, High-Low, Z-A)</option>
+                <option value="ASC">ASC (Less-Most, Low-High, A-Z)</option>
+            </select>
 
-			<button style="display: none" type="submit" name="submit" value="submit"><span>Submit</span></button>
-		<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+            <button style="display: none" type="submit" name="submit" value="submit"><span>Submit</span></button>
+        <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
 
-	</div>
+    </div>
 <!-- END: content -->

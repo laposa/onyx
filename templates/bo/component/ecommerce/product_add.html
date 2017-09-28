@@ -2,44 +2,44 @@
 <!-- BEGIN: content -->
 <script type="text/javascript">  
 $(function(){  
-	$("#product-add-form").validate();
+    $("#product-add-form").validate();
 });
 </script>
 {MESSAGES}
 <div class="product-add">
-	<form method="post" action="{URI|htmlspecialchars}" id="product-add-form">
-		<fieldset>
-			<legend>Base product info</legend>
-			<div class="row title">
-				<span class="label"><label for="product-name">Product Name</label></span>
-				<span class="field"><input id="product-name" class="text title required" type="text" name="product[name]" value="{PRODUCT.name}"/></span>
-			</div>
-		</fieldset>
-		
-		<p><a href="#" onclick="$('#product-more-details').toggle(); return false">More details</a></p>
-		
-		<div id="product-more-details" style="display: none">
-			<fieldset>
-				<legend>More details</legend>
-				<div class="row rte">
-					<span class="label"><label for="product-teaser">Teaser</label></span>
-					<span class="field"><textarea id="product-teaser" name="product[teaser]">{PRODUCT.teaser}</textarea></span>
-				</div>
-				<div class="row rte">
-					<span class="label"><label for="edit-content">Description</label></span>
-					<span class="field"><textarea id="edit-content" name="product[description]">{PRODUCT.description}</textarea></span>
-				</div>
-				<!--<label for="">URL</label><input type="text" style="width: 400px;" name="product[url]" value="{product.url}"/><br />-->
-				{BRAND_LIST}
-			</fieldset>
-			{ONXSHOP_REQUEST_tinymce #bo/tinymce~theme=simple:relation=product:edit_elements=product-teaser,edit-content~}
-		</div>
-		
-		<div class="row submit">
-			<span class="label"><label>&nbsp;</label></span>
-			<span class="field"><button type="submit" class="next" name="save" value="save"><span>Next</span></button></span>
-		</div>
-	<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+    <form method="post" action="{URI|htmlspecialchars}" id="product-add-form">
+        <fieldset>
+            <legend>Base product info</legend>
+            <div class="row title">
+                <span class="label"><label for="product-name">Product Name</label></span>
+                <span class="field"><input id="product-name" class="text title required" type="text" name="product[name]" value="{PRODUCT.name}"/></span>
+            </div>
+        </fieldset>
+        
+        <p><a href="#" onclick="$('#product-more-details').toggle(); return false">More details</a></p>
+        
+        <div id="product-more-details" style="display: none">
+            <fieldset>
+                <legend>More details</legend>
+                <div class="row rte">
+                    <span class="label"><label for="product-teaser">Teaser</label></span>
+                    <span class="field"><textarea id="product-teaser" name="product[teaser]">{PRODUCT.teaser}</textarea></span>
+                </div>
+                <div class="row rte">
+                    <span class="label"><label for="edit-content">Description</label></span>
+                    <span class="field"><textarea id="edit-content" name="product[description]">{PRODUCT.description}</textarea></span>
+                </div>
+                <!--<label for="">URL</label><input type="text" style="width: 400px;" name="product[url]" value="{product.url}"/><br />-->
+                {BRAND_LIST}
+            </fieldset>
+            {ONXSHOP_REQUEST_tinymce #bo/tinymce~theme=simple:relation=product:edit_elements=product-teaser,edit-content~}
+        </div>
+        
+        <div class="row submit">
+            <span class="label"><label>&nbsp;</label></span>
+            <span class="field"><button type="submit" class="next" name="save" value="save"><span>Next</span></button></span>
+        </div>
+    <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
 </div>
 

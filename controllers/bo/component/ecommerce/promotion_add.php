@@ -5,38 +5,38 @@
  */
 
 class Onxshop_Controller_Bo_Component_Ecommerce_Promotion_Add extends Onxshop_Controller {
-	
-	/**
-	 * main action
-	 */
-	 
-	public function mainAction() {
-	
-		require_once('models/ecommerce/ecommerce_promotion.php');
-		$Promotion = new ecommerce_promotion();
-		
-		/**
-		 * Save on request
-		 */
-		if (is_array($_POST['promotion'])) {
-			$_POST['promotion']['type'] = 1; // can add discount coupon only
-			if ($Promotion->addPromotion($_POST['promotion'])) {
-				//onxshopGoTo("/backoffice/marketing");
-				msg ('Inserted');
-			} else {
-				msg('Insert failed', 'error');
-			}
-		}
+    
+    /**
+     * main action
+     */
+     
+    public function mainAction() {
+    
+        require_once('models/ecommerce/ecommerce_promotion.php');
+        $Promotion = new ecommerce_promotion();
+        
+        /**
+         * Save on request
+         */
+        if (is_array($_POST['promotion'])) {
+            $_POST['promotion']['type'] = 1; // can add discount coupon only
+            if ($Promotion->addPromotion($_POST['promotion'])) {
+                //onxshopGoTo("/backoffice/marketing");
+                msg ('Inserted');
+            } else {
+                msg('Insert failed', 'error');
+            }
+        }
 
-		/**
-		 * Display Detail
-		 */
+        /**
+         * Display Detail
+         */
 
-		if (count($_POST['promotion']) > 0) {
-			$this->tpl->assign('PROMOTION', $_POST['promotion']);
-		}
-		
-		return true;
-	}
+        if (count($_POST['promotion']) > 0) {
+            $this->tpl->assign('PROMOTION', $_POST['promotion']);
+        }
+        
+        return true;
+    }
 }
 

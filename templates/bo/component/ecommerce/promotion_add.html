@@ -3,95 +3,95 @@
 
 <div id="discounts-page" class="two-column-page page">
 
-	<form method="post" action="{URI|htmlspecialchars}" id="promotion-add-form">
+    <form method="post" action="{URI|htmlspecialchars}" id="promotion-add-form">
 
-			<div class="page-wrapper">
+            <div class="page-wrapper">
 
-				<div class="page-header">
-					<div class="page-header-wrapper">
-						<h1 class="page-title"><span>Add a Discount</span></h1>
-					</div>
-				</div>
+                <div class="page-header">
+                    <div class="page-header-wrapper">
+                        <h1 class="page-title"><span>Add a Discount</span></h1>
+                    </div>
+                </div>
 
-				<div class="page-content">
-					<div class="page-content-wrapper">
-						<div class="row-top">
-							<div class="row-wrapper">
-								<div class="column-wrapper">
-								</div>
-							</div>
-						</div>
-						<div class="row-middle">
-							<div class="row-wrapper">
-								<div class="column-one">
-									<div class="column-wrapper">
+                <div class="page-content">
+                    <div class="page-content-wrapper">
+                        <div class="row-top">
+                            <div class="row-wrapper">
+                                <div class="column-wrapper">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-middle">
+                            <div class="row-wrapper">
+                                <div class="column-one">
+                                    <div class="column-wrapper">
 
-										<fieldset>
-											<div class="row title">
-												<span class="label"><label for="promotion-title">Promotion Title</label></span>
-												<span class="field"><input class="text" id="promotion-title" type="text" name="promotion[title]" value="{PROMOTION.title|htmlspecialchars}" /></span>
-											</div>
-											<div class="row code_pattern">
-												<span class="label"><label for="promotion-code-pattern">Promotion Code</label></span>
-												<span class="field"><input class="text" id="promotion-code-pattern" type="text" name="promotion[code_pattern]" value="{PROMOTION.code_pattern|htmlspecialchars}" /></span>
-											</div>
-										</fieldset>
+                                        <fieldset>
+                                            <div class="row title">
+                                                <span class="label"><label for="promotion-title">Promotion Title</label></span>
+                                                <span class="field"><input class="text" id="promotion-title" type="text" name="promotion[title]" value="{PROMOTION.title|htmlspecialchars}" /></span>
+                                            </div>
+                                            <div class="row code_pattern">
+                                                <span class="label"><label for="promotion-code-pattern">Promotion Code</label></span>
+                                                <span class="field"><input class="text" id="promotion-code-pattern" type="text" name="promotion[code_pattern]" value="{PROMOTION.code_pattern|htmlspecialchars}" /></span>
+                                            </div>
+                                        </fieldset>
 
-										</fieldset>
-											
-									</div>
-								</div>
-								<div class="column-two with-padding">
-									<div class="column-wrapper">
+                                        </fieldset>
+                                            
+                                    </div>
+                                </div>
+                                <div class="column-two with-padding">
+                                    <div class="column-wrapper">
 
-										<fieldset>
-											<div class="row discount-type">
-												<span class="label"><label for="promotion-uses-per-coupon">Discount Type</label></span>
-												<span class="field"><select disabled="disabled"><option>Discount Coupon</option></select></span>
-											</div>
-											<div class="row discount-percentage-value">
-												<span class="label"><label for="promotion-discount-percentage-value">Percentage Value of Discount</label></span>
-												<span class="field"><input class="text short" id="promotion-discount-percentage-value" type="text" name="promotion[discount_percentage_value]" value="{PROMOTION.discount_percentage_value}" /></span>
-											</div>
-											<div class="row discount-fixed-value">
-												<span class="label"><label for="promotion-discount-fixed-value">Fixed Value of Discount</label></span>
-												<span class="field"><input class="text short" id="promotion-discount-fixed-value" type="text" name="promotion[discount_fixed_value]" value="{PROMOTION.discount_fixed_value}" /></span>
-											</div>
-										</fieldset>
+                                        <fieldset>
+                                            <div class="row discount-type">
+                                                <span class="label"><label for="promotion-uses-per-coupon">Discount Type</label></span>
+                                                <span class="field"><select disabled="disabled"><option>Discount Coupon</option></select></span>
+                                            </div>
+                                            <div class="row discount-percentage-value">
+                                                <span class="label"><label for="promotion-discount-percentage-value">Percentage Value of Discount</label></span>
+                                                <span class="field"><input class="text short" id="promotion-discount-percentage-value" type="text" name="promotion[discount_percentage_value]" value="{PROMOTION.discount_percentage_value}" /></span>
+                                            </div>
+                                            <div class="row discount-fixed-value">
+                                                <span class="label"><label for="promotion-discount-fixed-value">Fixed Value of Discount</label></span>
+                                                <span class="field"><input class="text short" id="promotion-discount-fixed-value" type="text" name="promotion[discount_fixed_value]" value="{PROMOTION.discount_fixed_value}" /></span>
+                                            </div>
+                                        </fieldset>
 
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="row-bottom">
-							<div class="row-wrapper">
-								<div class="column-wrapper">
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-bottom">
+                            <div class="row-wrapper">
+                                <div class="column-wrapper">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-		<div class="row submit">
-			<span class="label"><label>&nbsp;</label></span>
-			<span class="field"><button class="save" type="submit" name="save" value="save"><span>Save</span></button></span>
-		</div>
-	<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+        <div class="row submit">
+            <span class="label"><label>&nbsp;</label></span>
+            <span class="field"><button class="save" type="submit" name="save" value="save"><span>Save</span></button></span>
+        </div>
+    <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
 
 </div>
 
 <script type="text/javascript">
-	$(function() {
-		var options = { 
-			success: function(responseText, statusText) {
-				window.location = '/backoffice/marketing';
-			}
-		}; 
+    $(function() {
+        var options = { 
+            success: function(responseText, statusText) {
+                window.location = '/backoffice/marketing';
+            }
+        }; 
 
-	    $('#promotion-add-form').ajaxForm(options);
-	});
+        $('#promotion-add-form').ajaxForm(options);
+    });
 </script>
 
 </div>

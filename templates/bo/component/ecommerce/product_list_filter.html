@@ -1,68 +1,68 @@
 <!-- BEGIN: content -->
 {MESSAGES}
 <div class="product-list-filter horizontal-filter">
-	<!-- BEGIN: unfinished -->
-	<div class="unfinished">
-		<h5>Unfinished products</h5>
-		<ul>
-			<!-- BEGIN: item -->
-			<li><a href="/backoffice/products/{ITEM.id}/edit"><span>{ITEM.name}</span></a></li>
-			<!-- END: item -->
-		</ul>
-	</div>
-	<!-- END: unfinished -->
-	
-	<div class="filter" >
-		<form method="post" action="{URI|htmlspecialchars}">
-			<fieldset class="single">
-				<div class="row filter-keyword">
-					<span class="label"><label for="filter-keyword">Keyword</label></span>
-					<span class="field"><input id="filter-keyword" class="text filter-keyword" type="text" name="product-list-filter[keyword]" value="{FILTER.keyword|htmlspecialchars}" /></span>
-				</div>
-				<div class="row filter-stock">
-					<span class="label"><label for="filter-stock">Where stock is less than</label></span>
-					<span class="field"><input id="filter-stock" class="text filter-stock" type="text" name="product-list-filter[stock]" value="{FILTER.stock|htmlspecialchars}" /></span>
-				</div>
-				<div class="row filter-disabled">
-					<span class="label"><label for="filter-disabled">Public</label></span>
-					<span class="field">
-						<select name='product-list-filter[disabled]' id='filter-disabled'>
-							<option value='all' {DISABLED_selected_all}>All</option>
-							<option value='disabled' {DISABLED_selected_disabled}>Disabled Only</option>
-							<option value='enabled' {DISABLED_selected_enabled}>Enabled Only</option>
-						</select>
-					</span>
-				</div>
-				<div class="row filter-offer-group-id">
-					<span class="label"><label for="filter-offer-group-id">Special Offer Group</label></span>
-					<span class="field">
-						<select name='product-list-filter[offer_group_id]' id='filter-offer-group-id' onchange="submit()">
-							<option value="">All</option>
-							<!-- BEGIN: offer_group_optgroup -->
-							<optgroup label="{GROUP_NAME}">
-								<!-- BEGIN: offer_group_item -->
-								<option value="{ITEM.id}" {ITEM.selected}>{ITEM.title}</option>
-								<!-- END: offer_group_item -->
-							</optgroup>
-							<!-- END: offer_group_optgroup -->
-						</select>
-						<a class="button small" title="Create a New Special Offer Group" href="/backoffice/products/offer_group_add"><span>Add</span></a>
-						<!-- BEGIN: edit_offer_group_button -->
-						<a class="button small" title="Edit selected speciall offer group" href="/backoffice/products/offer_group/{OFFER_GROUP_ID}/edit"><span>Edit</span></a>
-						<!-- END: edit_offer_group_button -->
-					</span>
-				</div>
-			</fieldset>
-			<div class="row submit">
-				<span class="label"><label>&nbsp;</label></span>
-				<span class="field"><button type="submit" name="search" value="search"><span>Search</span></button></span>
-			</div>
-			<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
-		</form>
-		
-	</div>
+    <!-- BEGIN: unfinished -->
+    <div class="unfinished">
+        <h5>Unfinished products</h5>
+        <ul>
+            <!-- BEGIN: item -->
+            <li><a href="/backoffice/products/{ITEM.id}/edit"><span>{ITEM.name}</span></a></li>
+            <!-- END: item -->
+        </ul>
+    </div>
+    <!-- END: unfinished -->
+    
+    <div class="filter" >
+        <form method="post" action="{URI|htmlspecialchars}">
+            <fieldset class="single">
+                <div class="row filter-keyword">
+                    <span class="label"><label for="filter-keyword">Keyword</label></span>
+                    <span class="field"><input id="filter-keyword" class="text filter-keyword" type="text" name="product-list-filter[keyword]" value="{FILTER.keyword|htmlspecialchars}" /></span>
+                </div>
+                <div class="row filter-stock">
+                    <span class="label"><label for="filter-stock">Where stock is less than</label></span>
+                    <span class="field"><input id="filter-stock" class="text filter-stock" type="text" name="product-list-filter[stock]" value="{FILTER.stock|htmlspecialchars}" /></span>
+                </div>
+                <div class="row filter-disabled">
+                    <span class="label"><label for="filter-disabled">Public</label></span>
+                    <span class="field">
+                        <select name='product-list-filter[disabled]' id='filter-disabled'>
+                            <option value='all' {DISABLED_selected_all}>All</option>
+                            <option value='disabled' {DISABLED_selected_disabled}>Disabled Only</option>
+                            <option value='enabled' {DISABLED_selected_enabled}>Enabled Only</option>
+                        </select>
+                    </span>
+                </div>
+                <div class="row filter-offer-group-id">
+                    <span class="label"><label for="filter-offer-group-id">Special Offer Group</label></span>
+                    <span class="field">
+                        <select name='product-list-filter[offer_group_id]' id='filter-offer-group-id' onchange="submit()">
+                            <option value="">All</option>
+                            <!-- BEGIN: offer_group_optgroup -->
+                            <optgroup label="{GROUP_NAME}">
+                                <!-- BEGIN: offer_group_item -->
+                                <option value="{ITEM.id}" {ITEM.selected}>{ITEM.title}</option>
+                                <!-- END: offer_group_item -->
+                            </optgroup>
+                            <!-- END: offer_group_optgroup -->
+                        </select>
+                        <a class="button small" title="Create a New Special Offer Group" href="/backoffice/products/offer_group_add"><span>Add</span></a>
+                        <!-- BEGIN: edit_offer_group_button -->
+                        <a class="button small" title="Edit selected speciall offer group" href="/backoffice/products/offer_group/{OFFER_GROUP_ID}/edit"><span>Edit</span></a>
+                        <!-- END: edit_offer_group_button -->
+                    </span>
+                </div>
+            </fieldset>
+            <div class="row submit">
+                <span class="label"><label>&nbsp;</label></span>
+                <span class="field"><button type="submit" name="search" value="search"><span>Search</span></button></span>
+            </div>
+            <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+        </form>
+        
+    </div>
 
-	<div class="bottom"></div>	
+    <div class="bottom"></div>  
 </div>
 
 

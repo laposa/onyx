@@ -1,14 +1,14 @@
 <!-- BEGIN: content -->
 <div class="product-options">
-	<!-- BEGIN: option -->
-	<div class="option">
-		<select name="other_data[{OPTION.title}]">
-			<option selected="selected" value="{OPTION.title|htmlspecialchars} was not selected">-- {I18N_SELECT_A} {OPTION.title|htmlspecialchars} --</option>
-			<!-- BEGIN: item -->
-				<option value="{ITEM.label.title|htmlspecialchars}" {SELECTED}>{ITEM.label.title|htmlspecialchars}</option>
-			<!-- END: item -->
-		</select>
-	</div>
-	<!-- END: option -->
+    <!-- BEGIN: option -->
+    <div class="option">
+        <select name="other_data[{OPTION.title}]">
+            <option selected="selected" value="{OPTION.title|htmlspecialchars} was not selected">-- {I18N_SELECT_A} {OPTION.title|htmlspecialchars} --</option>
+            <!-- BEGIN: item -->
+                <option value="{ITEM.label.title|htmlspecialchars}" {SELECTED}>{ITEM.label.title|htmlspecialchars}</option>
+            <!-- END: item -->
+        </select>
+    </div>
+    <!-- END: option -->
 </div>
 <!-- END: content -->

@@ -1,17 +1,17 @@
 <!-- BEGIN: title -->File Edit<!-- END: title -->
 <!-- BEGIN: content -->
 <div class="page-header">
-	<div class="page-header-wrapper">
-		<h1 class="page-title popup"><span>File</span> <span class="info">ID {NODE.id}</span></h1>
-	</div>
+    <div class="page-header-wrapper">
+        <h1 class="page-title popup"><span>File</span> <span class="info">ID {NODE.id}</span></h1>
+    </div>
 </div>
 
 {FILE "bo/node/content/default_top.html"}
 
 <fieldset>
-	<div id="file-connector-list">
-		{ONXSHOP_REQUEST_file_connector #bo/component/file_list~relation=file:type=file:node_id=GET.id~}
-	</div>
+    <div id="file-connector-list">
+        {ONXSHOP_REQUEST_file_connector #bo/component/file_list~relation=file:type=file:node_id=GET.id~}
+    </div>
 </fieldset>
 
 {FILE "bo/node/content/default_bottom.html"}

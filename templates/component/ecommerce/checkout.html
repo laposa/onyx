@@ -1,68 +1,68 @@
 <!-- BEGIN: content -->
 <script type="text/javascript">  
 $(function(){  
-	$("#checkout-form").validate();
+    $("#checkout-form").validate();
 });
 </script>
 
 {MESSAGES}
 <div class="checkout">
-	<form class="checkout" action="{URI|htmlspecialchars}#node-id-{GET.node_id}" method="post" id="checkout-form">	
-		
-		<fieldset class="gift-option">
-			<h3>Gift Option</h3>
-			<div class="row gift">
-				<input type="checkbox" class="checkbox" name="order[other_data][gift]" value="1" id="order-other-data-gift"  onclick="$('div.gift_message').slideToggle('slow');" {CHECKED_order-other_data-gift}/> <label for="order-other-data-gift">{I18N_IS_THIS_A_GIFT}</label>
-			</div>
-			<div style="display: {GIFT_DISPLAY}" class="row gift-message">
-				<span class="label"><label for="order-other-data-gift-message">{I18N_GIFT_MESSAGE}</label></span>
-				<span class="field">
-					<textarea class="note-customer" name="order[other_data][gift_message]" id="order-other-data-gift-message" rows="10" cols="50">{ORDER.other_data.gift_message|htmlspecialchars}</textarea>
-				</span>
-			</div>
-		</fieldset>
-		<fieldset class="other-options">
-			<div class="row note-customer">
-				<span class="label"><label for="order-note-customer">{I18N_ORDER_CUSTOMER_NOTE}
+    <form class="checkout" action="{URI|htmlspecialchars}#node-id-{GET.node_id}" method="post" id="checkout-form">  
+        
+        <fieldset class="gift-option">
+            <h3>Gift Option</h3>
+            <div class="row gift">
+                <input type="checkbox" class="checkbox" name="order[other_data][gift]" value="1" id="order-other-data-gift"  onclick="$('div.gift_message').slideToggle('slow');" {CHECKED_order-other_data-gift}/> <label for="order-other-data-gift">{I18N_IS_THIS_A_GIFT}</label>
+            </div>
+            <div style="display: {GIFT_DISPLAY}" class="row gift-message">
+                <span class="label"><label for="order-other-data-gift-message">{I18N_GIFT_MESSAGE}</label></span>
+                <span class="field">
+                    <textarea class="note-customer" name="order[other_data][gift_message]" id="order-other-data-gift-message" rows="10" cols="50">{ORDER.other_data.gift_message|htmlspecialchars}</textarea>
+                </span>
+            </div>
+        </fieldset>
+        <fieldset class="other-options">
+            <div class="row note-customer">
+                <span class="label"><label for="order-note-customer">{I18N_ORDER_CUSTOMER_NOTE}
 </label></span>
-				<span class="field">
-					<textarea class="note-customer" id="order-note-customer" name="order[note_customer]" rows="10" cols="50">{ORDER.note_customer|htmlspecialchars}</textarea>
-				</span>
-			</div>
-			<div class="row order-payment-type">
-				<span class="label"><label for="order-payment-type">{I18N_PLEASE_CHOOSE}</label></span>
-				<span class="field">
-				<select name="order[payment_type]" id="order-payment-type">
-					<!-- BEGIN: paypal --><option value="paypal">{I18N_PAY_BY_PAYPAL}</option><!-- END: paypal -->
-					<!-- BEGIN: protx --><option value="protx">{I18N_PAY_BY_PROTX}</option><!-- END: protx -->
-					<!-- BEGIN: worldpay --><option value="worldpay">{I18N_PAY_BY_WORLDPAY}</option><!-- END: worldpay -->
-					<!-- BEGIN: cheque --><option value="cheque">{I18N_PAY_BY_CHEQUE}</option><!-- END: cheque -->
-					<!-- BEGIN: on_delivery --><option value="on_delivery">{I18N_PAY_BY_ON_DELIVERY}</option><!-- END: on_delivery -->
-					<!-- BEGIN: bank_transfer --><option value="bank_transfer">{I18N_PAY_BY_BANK_TRANSFER}</option><!-- END: bank_transfer -->
-					<!-- BEGIN: custom --><option value="custom">{I18N_PAY_BY_CUSTOM}</option><!-- END: custom -->
-				</select>
-				</span>
-			</div>
-		
-			<div class="row terms-agreed">
-				<input type="hidden" name="order_terms_agreed" value="on" id="order-terms-agreed" />
-				<label for="order-terms-agreed">{I18N_BY_CLICKING_CONFIRM_AUTO} <a href="/page/{NODE_CONF.id_map-terms}" target="_blank">{I18N_TERMS_AND_CONDITIONS}</a></label>
-			</div>
-	
-			<div class="row submit">
-				<span class="label"><label>&nbsp;</label></span>
-				<span class="field"><button class='confirm-order' type="submit" name="submit" value="submit"><span>{I18N_CONFIRM_ORDER}</span></button></span>
-			</div>
-		
-		</fieldset>
-	
-		
-		
-		<input type="hidden" name="confirm" value="1" />
-		
-		
-		
-	<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+                <span class="field">
+                    <textarea class="note-customer" id="order-note-customer" name="order[note_customer]" rows="10" cols="50">{ORDER.note_customer|htmlspecialchars}</textarea>
+                </span>
+            </div>
+            <div class="row order-payment-type">
+                <span class="label"><label for="order-payment-type">{I18N_PLEASE_CHOOSE}</label></span>
+                <span class="field">
+                <select name="order[payment_type]" id="order-payment-type">
+                    <!-- BEGIN: paypal --><option value="paypal">{I18N_PAY_BY_PAYPAL}</option><!-- END: paypal -->
+                    <!-- BEGIN: protx --><option value="protx">{I18N_PAY_BY_PROTX}</option><!-- END: protx -->
+                    <!-- BEGIN: worldpay --><option value="worldpay">{I18N_PAY_BY_WORLDPAY}</option><!-- END: worldpay -->
+                    <!-- BEGIN: cheque --><option value="cheque">{I18N_PAY_BY_CHEQUE}</option><!-- END: cheque -->
+                    <!-- BEGIN: on_delivery --><option value="on_delivery">{I18N_PAY_BY_ON_DELIVERY}</option><!-- END: on_delivery -->
+                    <!-- BEGIN: bank_transfer --><option value="bank_transfer">{I18N_PAY_BY_BANK_TRANSFER}</option><!-- END: bank_transfer -->
+                    <!-- BEGIN: custom --><option value="custom">{I18N_PAY_BY_CUSTOM}</option><!-- END: custom -->
+                </select>
+                </span>
+            </div>
+        
+            <div class="row terms-agreed">
+                <input type="hidden" name="order_terms_agreed" value="on" id="order-terms-agreed" />
+                <label for="order-terms-agreed">{I18N_BY_CLICKING_CONFIRM_AUTO} <a href="/page/{NODE_CONF.id_map-terms}" target="_blank">{I18N_TERMS_AND_CONDITIONS}</a></label>
+            </div>
+    
+            <div class="row submit">
+                <span class="label"><label>&nbsp;</label></span>
+                <span class="field"><button class='confirm-order' type="submit" name="submit" value="submit"><span>{I18N_CONFIRM_ORDER}</span></button></span>
+            </div>
+        
+        </fieldset>
+    
+        
+        
+        <input type="hidden" name="confirm" value="1" />
+        
+        
+        
+    <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
 </div>
 <!-- END: content -->

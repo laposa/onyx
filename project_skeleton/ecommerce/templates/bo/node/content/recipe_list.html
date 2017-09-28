@@ -1,98 +1,98 @@
 <!-- BEGIN: title -->Recipe List Edit<!-- END: title -->
 <!-- BEGIN: content -->
 <div class="page-header">
-	<div class="page-header-wrapper">
-		<h1 class="page-title popup"><span>Recipe List</span> <span class="info">ID {NODE.id}</span></h1>
-	</div>
+    <div class="page-header-wrapper">
+        <h1 class="page-title popup"><span>Recipe List</span> <span class="info">ID {NODE.id}</span></h1>
+    </div>
 </div>
 {FILE "bo/node/form_open.html"}
 
 <div class="two-column-layout fibonacci-1-1">
-	<div class="layout-column-one of-two">
-		<fieldset>
-			{FILE "bo/node/item_title.html"}
-			<div class="advanced">
-			{FILE "bo/node/item_page_title.html"}
-			{FILE "bo/node/item_uri_title.html"}
-			{FILE "bo/node/item_browser_title.html"}
-			{FILE "bo/node/item_teaser.html"}
-			{FILE "bo/node/item_description.html"}
-			</div>
-		</fieldset>
-	</div>
-	<div class="layout-column-two of-two">
-		<fieldset class="advanced">
-			{FILE "bo/node/item_image_list.html"}
-		</fieldset>
-		<fieldset>
-			<div class="advanced">
-			{FILE "bo/node/item_layout_style.html"}
-			</div>
-			{FILE "bo/node/item_css_class.html"}
-			{FILE "bo/node/item_taxonomy.html"}
-		</fieldset>
-	</div>
+    <div class="layout-column-one of-two">
+        <fieldset>
+            {FILE "bo/node/item_title.html"}
+            <div class="advanced">
+            {FILE "bo/node/item_page_title.html"}
+            {FILE "bo/node/item_uri_title.html"}
+            {FILE "bo/node/item_browser_title.html"}
+            {FILE "bo/node/item_teaser.html"}
+            {FILE "bo/node/item_description.html"}
+            </div>
+        </fieldset>
+    </div>
+    <div class="layout-column-two of-two">
+        <fieldset class="advanced">
+            {FILE "bo/node/item_image_list.html"}
+        </fieldset>
+        <fieldset>
+            <div class="advanced">
+            {FILE "bo/node/item_layout_style.html"}
+            </div>
+            {FILE "bo/node/item_css_class.html"}
+            {FILE "bo/node/item_taxonomy.html"}
+        </fieldset>
+    </div>
 </div>
 
 <fieldset>
-	<div class="two-column-layout">
-		<div class="layout-wrapper">
-			<div class="layout-column-one of-two">
-				<div class="layout-column-wrapper">
+    <div class="two-column-layout">
+        <div class="layout-wrapper">
+            <div class="layout-column-one of-two">
+                <div class="layout-column-wrapper">
 
-					<div class="row">
-						<span class="label"><label>*Template:</label></span>
-						<span class="field">
-							<select name="node[component][template]">
-								<option value="4col" {SELECTED_template_4col}>4 Columns</option>
-								<option value="3col" {SELECTED_template_3col}>3 Columns</option>
-								<option value="2col" {SELECTED_template_2col}>2 Columns</option>
-								<option value="stack" {SELECTED_template_stack}>Stack</option>
-								<option value="shelf" {SELECTED_template_shelf}>Shelf</option>
-							</select>
-						</span>
-					</div>
-					<div class="row">
-						<span class="label"><label>Sort By:</label></span>
-						<span class="field">
-							<select name="node[component][sort][by]">
-								<option value="created" {SELECTED_sort_by_created}>Created time</option>
-								<option value="modified" {SELECTED_sort_by_modified}>Modified time</option>
-								<option value="title" {SELECTED_sort_by_title}>Title</option>
-								<option value="priority" {SELECTED_sort_by_priority}>Priority</option>
-								<option value="share_counter" {SELECTED_sort_by_share_counter}>Share counter</option>
-							</select>
-						</span>
-					</div>
-					<div class="row">
-						<span class="label"><label>Sort Direction:</label></span>
-						<span class="field">
-							<select name="node[component][sort][direction]">
-								<option value="DESC" {SELECTED_sort_direction_DESC}>DESC</option>
-								<option value="ASC" {SELECTED_sort_direction_ASC}>ASC</option>
-							</select>
-						</span>
-					</div>
+                    <div class="row">
+                        <span class="label"><label>*Template:</label></span>
+                        <span class="field">
+                            <select name="node[component][template]">
+                                <option value="4col" {SELECTED_template_4col}>4 Columns</option>
+                                <option value="3col" {SELECTED_template_3col}>3 Columns</option>
+                                <option value="2col" {SELECTED_template_2col}>2 Columns</option>
+                                <option value="stack" {SELECTED_template_stack}>Stack</option>
+                                <option value="shelf" {SELECTED_template_shelf}>Shelf</option>
+                            </select>
+                        </span>
+                    </div>
+                    <div class="row">
+                        <span class="label"><label>Sort By:</label></span>
+                        <span class="field">
+                            <select name="node[component][sort][by]">
+                                <option value="created" {SELECTED_sort_by_created}>Created time</option>
+                                <option value="modified" {SELECTED_sort_by_modified}>Modified time</option>
+                                <option value="title" {SELECTED_sort_by_title}>Title</option>
+                                <option value="priority" {SELECTED_sort_by_priority}>Priority</option>
+                                <option value="share_counter" {SELECTED_sort_by_share_counter}>Share counter</option>
+                            </select>
+                        </span>
+                    </div>
+                    <div class="row">
+                        <span class="label"><label>Sort Direction:</label></span>
+                        <span class="field">
+                            <select name="node[component][sort][direction]">
+                                <option value="DESC" {SELECTED_sort_direction_DESC}>DESC</option>
+                                <option value="ASC" {SELECTED_sort_direction_ASC}>ASC</option>
+                            </select>
+                        </span>
+                    </div>
 
-				</div>
-			</div>
-			<div class="layout-column-two of-two">
-				<div class="layout-column-wrapper">
+                </div>
+            </div>
+            <div class="layout-column-two of-two">
+                <div class="layout-column-wrapper">
 
-					<div class="row">
-						<span class="label"><label>*Limit:</label></span>
-						<span class="field"><input class="number" type="text" name="node[component][limit]" value="{NODE.component.limit}" /></span>
-					</div>
-					<div class="row">
-						<span class="label"><label for="component-pagination">Display pagination</label></span>
-						<span class="field"><input type="checkbox" id="component-pagination" name="node[component][pagination]" {NODE.component.pagination} /></span>
-					</div>
+                    <div class="row">
+                        <span class="label"><label>*Limit:</label></span>
+                        <span class="field"><input class="number" type="text" name="node[component][limit]" value="{NODE.component.limit}" /></span>
+                    </div>
+                    <div class="row">
+                        <span class="label"><label for="component-pagination">Display pagination</label></span>
+                        <span class="field"><input type="checkbox" id="component-pagination" name="node[component][pagination]" {NODE.component.pagination} /></span>
+                    </div>
 
-				</div>
-			</div>
-			
-		</div>
-	</div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
 </fieldset>
 
 <div class="advanced">
@@ -100,26 +100,26 @@
 {FILE "bo/node/item_position.html"}
 </div>
 <div class="two-column-layout fibonacci-1-1 advanced">
-	<div class="layout-column-one of-two">
-		<fieldset>
-			{FILE "bo/node/item_display_in_menu.html"}
-			{FILE "bo/node/item_display_permission.html"}
-			{FILE "bo/node/item_display_permission_group_acl.html"}
-			{FILE "bo/node/item_require_login.html"}
-			{FILE "bo/node/item_require_ssl.html"}
-		</fieldset>
-	</div>
-	<div class="layout-column-two of-two">
-		<fieldset>
-			{NODE_TYPE}
-			{FILE "bo/node/item_signature.html"}
-			{FILE "bo/node/item_head.html"}
-		</fieldset>
-	</div>
+    <div class="layout-column-one of-two">
+        <fieldset>
+            {FILE "bo/node/item_display_in_menu.html"}
+            {FILE "bo/node/item_display_permission.html"}
+            {FILE "bo/node/item_display_permission_group_acl.html"}
+            {FILE "bo/node/item_require_login.html"}
+            {FILE "bo/node/item_require_ssl.html"}
+        </fieldset>
+    </div>
+    <div class="layout-column-two of-two">
+        <fieldset>
+            {NODE_TYPE}
+            {FILE "bo/node/item_signature.html"}
+            {FILE "bo/node/item_head.html"}
+        </fieldset>
+    </div>
 </div>
 
 {FILE "bo/node/item_publish.html"}
-	
+    
 {FILE "bo/node/form_close.html"}
 
 <!-- END: content -->

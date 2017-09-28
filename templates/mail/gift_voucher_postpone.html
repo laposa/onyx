@@ -3,17 +3,17 @@
 <p>The gift voucher below was scheduled to {DATA.voucher_data.delivery_date|htmlspecialchars}</p>
 <p>Please forward this email to {DATA.voucher_data.recipient_email|htmlspecialchars} at {DATA.voucher_data.delivery_date|htmlspecialchars}</p>
 <div style="width: 49%; float: left;">
-	<p>Dear {DATA.voucher_data.recipient_name|htmlspecialchars}</p>
-	<p>{DATA.voucher_data.sender_name|htmlspecialchars} has sent you a £{DATA.promotion_data.discount_fixed_value} Gift Card to spend on {CONFIGURATION.global.title|htmlspecialchars}.</p>
-	<p>Click <a href="{PROTOCOL}://{_SERVER.SERVER_NAME}/">here</a> to visit our website and browse our extensive range of products.</p>
-	<p>To redeem your gift voucher please use the unique gift code shown on your voucher when prompted at the online checkout.</p>
-	<p>Your voucher code is: {DATA.promotion_data.code_pattern|htmlspecialchars}</p>
-	<p>You can redeem your voucher at <a href="{PROTOCOL}://{_SERVER.SERVER_NAME}/">{PROTOCOL}://{_SERVER.SERVER_NAME}/</a></p>
-	<p>We hope you enjoy shopping with {CONFIGURATION.global.title|htmlspecialchars}.</p>
-	<p>&copy;{TIME|date('Y', %s)} {CONFIGURATION.global.title|htmlspecialchars}</p>
+    <p>Dear {DATA.voucher_data.recipient_name|htmlspecialchars}</p>
+    <p>{DATA.voucher_data.sender_name|htmlspecialchars} has sent you a £{DATA.promotion_data.discount_fixed_value} Gift Card to spend on {CONFIGURATION.global.title|htmlspecialchars}.</p>
+    <p>Click <a href="{PROTOCOL}://{_SERVER.SERVER_NAME}/">here</a> to visit our website and browse our extensive range of products.</p>
+    <p>To redeem your gift voucher please use the unique gift code shown on your voucher when prompted at the online checkout.</p>
+    <p>Your voucher code is: {DATA.promotion_data.code_pattern|htmlspecialchars}</p>
+    <p>You can redeem your voucher at <a href="{PROTOCOL}://{_SERVER.SERVER_NAME}/">{PROTOCOL}://{_SERVER.SERVER_NAME}/</a></p>
+    <p>We hope you enjoy shopping with {CONFIGURATION.global.title|htmlspecialchars}.</p>
+    <p>&copy;{TIME|date('Y', %s)} {CONFIGURATION.global.title|htmlspecialchars}</p>
 </div>
 <div style="width: 49%; float: right;">
-	<p><img src="{PROTOCOL}://{_SERVER.SERVER_NAME}/image/var/vouchers/{DATA.gift_voucher_filename}" style="width: 100%" /></p>
+    <p><img src="{PROTOCOL}://{_SERVER.SERVER_NAME}/image/var/vouchers/{DATA.gift_voucher_filename}" style="width: 100%" /></p>
 </div>
 <br style="clear: both;" />
 <!-- END: content -->

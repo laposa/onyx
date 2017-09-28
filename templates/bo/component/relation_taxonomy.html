@@ -1,62 +1,62 @@
 <!-- BEGIN: content -->
 <script type="text/javascript">
 $(document).ready(function(){
-	$('#rt-add-new a.button').live('click', function() {
-	
-		$('#rt-add-new').addClass('ajax-load').load('/request/bo/component/taxonomy_menu~expand_all=1:publish=0~', function() {
-			
-			$(this).removeClass('ajax-load');
-			
-			$('#rt-add-new .simple-tree').simpleTree({
-				drag: false,
-				autoclose: true,
-				afterClick:function(node){
-					var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
-					var title = $('a:first', node).text();
-					var template = $('#template-rt-select').html();
-					
-					var html_append = template;
-					html_append = html_append.replace('__ID__', node_id);
-					html_append = html_append.replace('__TITLE__', title);
-					$('#rt-select').append(html_append);
-					
-				},
-				animate: true,
-				docToFolderConvert: true
-			});
-		
-		});
-		
-		return false;
-		
-	});
-	
+    $('#rt-add-new a.button').live('click', function() {
+    
+        $('#rt-add-new').addClass('ajax-load').load('/request/bo/component/taxonomy_menu~expand_all=1:publish=0~', function() {
+            
+            $(this).removeClass('ajax-load');
+            
+            $('#rt-add-new .simple-tree').simpleTree({
+                drag: false,
+                autoclose: true,
+                afterClick:function(node){
+                    var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
+                    var title = $('a:first', node).text();
+                    var template = $('#template-rt-select').html();
+                    
+                    var html_append = template;
+                    html_append = html_append.replace('__ID__', node_id);
+                    html_append = html_append.replace('__TITLE__', title);
+                    $('#rt-select').append(html_append);
+                    
+                },
+                animate: true,
+                docToFolderConvert: true
+            });
+        
+        });
+        
+        return false;
+        
+    });
+    
 });
 </script>
 
-	<div class="row">
-		<p>Related to <a href="/backoffice/advanced/taxonomy" target="_blank"><span>categories</span></a></p>
-		{MESSAGES}
-		<div id="rt-select">
-			<!-- BEGIN:ptn -->
-			<div>
-				<input type="hidden" name="relation_taxonomy[]" value="{CURRENT.id}" />
-				<button class="remove small" onclick="this.parentNode.parentNode.removeChild(this.parentNode)"><span>Remove</span></button>
-				<div style="display: inline-block" {CURRENT.class}>{BREADCRUMB}</div>
-			</div>
-			<!-- END:ptn -->
-		</div>
-		
-		<div id="rt-add-new">
-			<p><a class="button add" href="#"><span>Add Relation to a Category...</span></a></p>
-		</div>
-	
-		<div id="template-rt-select" style="display: none">
-			<div>
-				<input type="hidden" name="relation_taxonomy[]" value="__ID__" />
-				<button class="remove small" onclick="this.parentNode.parentNode.removeChild(this.parentNode)"><span>Remove</span></button>
-				<div style="display: inline-block; margin-bottom: 8px;"><a href="/backoffice/pages/__ID__">__TITLE__</a></div>
-			</div>
-		</div>
-	</div>
+    <div class="row">
+        <p>Related to <a href="/backoffice/advanced/taxonomy" target="_blank"><span>categories</span></a></p>
+        {MESSAGES}
+        <div id="rt-select">
+            <!-- BEGIN:ptn -->
+            <div>
+                <input type="hidden" name="relation_taxonomy[]" value="{CURRENT.id}" />
+                <button class="remove small" onclick="this.parentNode.parentNode.removeChild(this.parentNode)"><span>Remove</span></button>
+                <div style="display: inline-block" {CURRENT.class}>{BREADCRUMB}</div>
+            </div>
+            <!-- END:ptn -->
+        </div>
+        
+        <div id="rt-add-new">
+            <p><a class="button add" href="#"><span>Add Relation to a Category...</span></a></p>
+        </div>
+    
+        <div id="template-rt-select" style="display: none">
+            <div>
+                <input type="hidden" name="relation_taxonomy[]" value="__ID__" />
+                <button class="remove small" onclick="this.parentNode.parentNode.removeChild(this.parentNode)"><span>Remove</span></button>
+                <div style="display: inline-block; margin-bottom: 8px;"><a href="/backoffice/pages/__ID__">__TITLE__</a></div>
+            </div>
+        </div>
+    </div>
 <!-- END: content -->

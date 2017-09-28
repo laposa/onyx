@@ -8,21 +8,21 @@
 require_once('controllers/component/menu.php');
 
 class Onxshop_Controller_Component_Menu_Stack extends Onxshop_Controller_Component_Menu {
-	
-	/**
-	 * parseItem
-	 */
-	 
-	public function parseItem($item)
-	{
-		$image_width = $this->GET['image_width'];
-		$image_height = $this->GET['image_height'];
-		$image_fill = $this->GET['image_fill'];
-		
-		$_Onxshop_Request = new Onxshop_Request("component/teaser_stack~target_node_id={$item['id']}:image_width=$image_width:image_height=$image_height:image_fill=$image_fill~");
-		$item['teaser_content'] = $_Onxshop_Request->getContent();
+    
+    /**
+     * parseItem
+     */
+     
+    public function parseItem($item)
+    {
+        $image_width = $this->GET['image_width'];
+        $image_height = $this->GET['image_height'];
+        $image_fill = $this->GET['image_fill'];
+        
+        $_Onxshop_Request = new Onxshop_Request("component/teaser_stack~target_node_id={$item['id']}:image_width=$image_width:image_height=$image_height:image_fill=$image_fill~");
+        $item['teaser_content'] = $_Onxshop_Request->getContent();
 
-		return parent::parseItem($item);
-	}
+        return parent::parseItem($item);
+    }
 
 }

@@ -8,21 +8,21 @@
  */
 
 class Onxshop_Controller_Component_Client_Newsletter_Subscribe_Start extends Onxshop_Controller {
-		
-	/**
-	 * main action
-	 */
-	 
-	public function mainAction() {
-	
-		/**
-		 * include node configuration
-		 */
-		
-		require_once('models/common/common_node.php');
-		$node_conf = common_node::initConfiguration();
-		$this->tpl->assign('NODE_CONF', $node_conf);
-		
-		return true;
-	}
+        
+    /**
+     * main action
+     */
+     
+    public function mainAction() {
+    
+        /**
+         * include node configuration
+         */
+        
+        require_once('models/common/common_node.php');
+        $node_conf = common_node::initConfiguration();
+        $this->tpl->assign('NODE_CONF', $node_conf);
+        
+        return true;
+    }
 }

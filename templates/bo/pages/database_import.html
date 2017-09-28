@@ -5,12 +5,12 @@
 <p>Data file: {GET.data_file}</p>
 <form action="{URI|htmlspecialchars}" method="post">
 <fieldset>
-	<legend>Import options</legend>
-	<label>Method</label>
-	<select name="method">
-		<option value="initial">initial product CSV (Google Base)</option>
-		<option value="database">database CSV</option>
-	</select>
+    <legend>Import options</legend>
+    <label>Method</label>
+    <select name="method">
+        <option value="initial">initial product CSV (Google Base)</option>
+        <option value="database">database CSV</option>
+    </select>
 </fieldset><br />
 <button class="import" name="submit" type="submit" value="submit"><span>Continue ...</span></button>
 <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />

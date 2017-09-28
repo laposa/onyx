@@ -7,11 +7,11 @@
 
 class Onxshop_Controller_Bo_Pages_Statistic extends Onxshop_Controller {
 
-	/**
-	 * main action
-	 */
-	 
-	public function mainAction() {
-		return true;
-	}
+    /**
+     * main action
+     */
+     
+    public function mainAction() {
+        return true;
+    }
 }

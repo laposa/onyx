@@ -54,19 +54,19 @@ setup_variables() {
 onxshop_version="1.8"
 onxshop_version_db=$(echo $onxshop_version | sed 's,\.,_,g')
 if ! [ $db_username ]; then
-	determine_username_from_domainname
+    determine_username_from_domainname
 fi
 if ! [ $project_dir ]; then
-	project_dir="/srv/$hostname"
+    project_dir="/srv/$hostname"
 fi
 if ! [ $template ]; then
-	template=base
+    template=base
 fi
 if ! [ $db_template_file ]; then
-	db_template_file=/opt/onxshop/${onxshop_version}/project_skeleton/${template}.sql
+    db_template_file=/opt/onxshop/${onxshop_version}/project_skeleton/${template}.sql
 fi
 if ! [ $project_skeleton_dir ]; then
-	project_skeleton_dir=/opt/onxshop/$onxshop_version/project_skeleton/${template}/
+    project_skeleton_dir=/opt/onxshop/$onxshop_version/project_skeleton/${template}/
 fi
 
 echo "
@@ -85,23 +85,23 @@ db_username=$db_username
 
 test_input() {
 if ! [ $action ]; then
-	die "action not provided"
+    die "action not provided"
 fi
 
 if ! [ $hostname ]; then
-	die "hostname not provided"
+    die "hostname not provided"
 fi
 }
 
 create_new_installation() {
-	get_password
-	copy_files
-	setup_database
-	change_config
-	if [ -n "$vhost"  ] ; then
-		create_vhost
-	fi
-	show_result
+    get_password
+    copy_files
+    setup_database
+    change_config
+    if [ -n "$vhost"  ] ; then
+        create_vhost
+    fi
+    show_result
 }
 
 # Universal function for bailing out
@@ -113,7 +113,7 @@ exit 1;
 
 get_password() {
 if ! [ $db_password ]; then
-	random_password
+    random_password
 fi
 }
 
@@ -127,13 +127,13 @@ LENGTH="8"
 while [ "${n:=1}" -le "$LENGTH" ]
 do
     db_password="$db_password${MATRIX:$(($RANDOM%${#MATRIX})):1}"
-	let n+=1
+    let n+=1
 done
 }
 
 copy_files() {
 if [ -d $project_dir ]; then
-	die "Directory $project_dir already exists"
+    die "Directory $project_dir already exists"
 fi
 cp -a $project_skeleton_dir $project_dir
 rm $project_dir/onxshop_dir && ln -s /opt/onxshop/$onxshop_version/ $project_dir/onxshop_dir
@@ -163,19 +163,19 @@ if [ -f ${vhost_file} ]; then
     die "Vhost file ${vhost_file} already exists"
 fi
 echo "<VirtualHost *:80>
-	ServerName ${hostname}
-	VirtualDocumentRoot ${project_dir}/public_html
+    ServerName ${hostname}
+    VirtualDocumentRoot ${project_dir}/public_html
 </VirtualHost>" > ${vhost_file} || die "Couldn't add vhost file ${vhost_file}"
 
 a2ensite ${hostname} && service apache2 reload
 
 if [ -n "$ssl"  ] ; then
-	if which certbot >/dev/null; then
-    	echo 'found certbot, executing'
-    	certbot --apache --redirect --non-interactive --text -d ${hostname} 2>&1
-	else
-		echo "Couldn't create SSL certificate, please insteall Certbot"
-	fi
+    if which certbot >/dev/null; then
+        echo 'found certbot, executing'
+        certbot --apache --redirect --non-interactive --text -d ${hostname} 2>&1
+    else
+        echo "Couldn't create SSL certificate, please insteall Certbot"
+    fi
 fi
 
 }
@@ -197,9 +197,9 @@ echo Constructed database name and user: $db_username from $hostname
 show_result() {
 
 if [ -n "$ssl"  ] ; then 
-	protocol='https';
+    protocol='https';
 else 
-	protocol='http';
+    protocol='http';
 fi
 
 echo "Your Onxshop website is installed in: $project_dir

@@ -3,14 +3,14 @@
 <script type="text/javascript">
 
 function toggleGiftWrap(variety_id) {
-	
-	if ($('input#order-other-data-gift-wrap-' + variety_id).is(':checked')) {
-		addToBasketAjaxAction(variety_id);
-	} else {
-		removeFromBasketVarietyAjaxAction(variety_id);
-	}
-	
-	return false;
+    
+    if ($('input#order-other-data-gift-wrap-' + variety_id).is(':checked')) {
+        addToBasketAjaxAction(variety_id);
+    } else {
+        removeFromBasketVarietyAjaxAction(variety_id);
+    }
+    
+    return false;
 }
 
 </script>
@@ -18,28 +18,28 @@ function toggleGiftWrap(variety_id) {
 <!-- BEGIN: virtual_product -->
 <p>Gift wrap is not available for virtual gift vouchers. Please proceed to checkout.</p>
 <style type="text/css">
-	div.gift-wrap {display: none;}
+    div.gift-wrap {display: none;}
 </style>
 <!-- END: virtual_product -->
 
 <div class="gift-wrap">
 
-	<form method="post" action="{URI|htmlspecialchars}" id="gift-wrap">
-		<!-- BEGIN: item -->
-		<fieldset id="gift-wrap-{ITEM.id}">
-			<div class="row gift">
-				<input type="checkbox" class="checkbox" name="gift_wrap_{ITEM.id}" value="1" id="order-other-data-gift-wrap-{ITEM.id}" {CHECKED_gift_wrap} onclick="toggleGiftWrap({ITEM.id})" /> <label for="order-other_data-gift_wrap_{ITEM.id}">I would like {ITEM.name|htmlspecialchars}<br />(+{ITEM.price.value|money_format('%n',%s)})</label>
-			</div>
-			<div class="image">
-				<a href="#" title="View Full Size" onclick="openImg('/image/{ITEM.image.src}'); return false;"><img id="image-thumbnail-{ITEM.id}" src="/thumbnail/125/{ITEM.image.src}" title="{ITEM.image.title|htmlspecialchars}" alt="{ITEM.image.title|htmlspecialchars}">
-				</a>
-			</div>
-			<div class="description">
-				{ITEM.description}
-			</div>
-		</fieldset>
-		<!-- END: item -->
-	<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+    <form method="post" action="{URI|htmlspecialchars}" id="gift-wrap">
+        <!-- BEGIN: item -->
+        <fieldset id="gift-wrap-{ITEM.id}">
+            <div class="row gift">
+                <input type="checkbox" class="checkbox" name="gift_wrap_{ITEM.id}" value="1" id="order-other-data-gift-wrap-{ITEM.id}" {CHECKED_gift_wrap} onclick="toggleGiftWrap({ITEM.id})" /> <label for="order-other_data-gift_wrap_{ITEM.id}">I would like {ITEM.name|htmlspecialchars}<br />(+{ITEM.price.value|money_format('%n',%s)})</label>
+            </div>
+            <div class="image">
+                <a href="#" title="View Full Size" onclick="openImg('/image/{ITEM.image.src}'); return false;"><img id="image-thumbnail-{ITEM.id}" src="/thumbnail/125/{ITEM.image.src}" title="{ITEM.image.title|htmlspecialchars}" alt="{ITEM.image.title|htmlspecialchars}">
+                </a>
+            </div>
+            <div class="description">
+                {ITEM.description}
+            </div>
+        </fieldset>
+        <!-- END: item -->
+    <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
 </div>
 <!-- END: content -->

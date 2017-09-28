@@ -4,13 +4,13 @@
 <!-- END: head_once -->
 <!-- BEGIN: content -->
 <script type="text/javascript">
-	$(document).ready(function() {
-		$("#gallery-prettyphoto-{GET.node_id} a[rel^='prettyphoto']").prettyPhoto();
-	}); 
+    $(document).ready(function() {
+        $("#gallery-prettyphoto-{GET.node_id} a[rel^='prettyphoto']").prettyPhoto();
+    }); 
 </script>
 <div class="image-gallery-prettyphoto number-of-items-{IMAGE_COUNT}" id="gallery-prettyphoto-{GET.node_id}">
-	<!-- BEGIN: item -->
-	<div class="item image-id-{GET.relation}{ITEM.id}"><span class="wrap"><a class="single-image{GET.relation}{GET.node_id}" title="{ITEM.title|htmlspecialchars}" href="{FULL_SIZE_IMAGE_WIDTH_PATH}{ITEM.src}" rel="prettyphoto[pp_gal]"><img id="image-id-{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" /></a></span></div>
-	<!-- END: item -->
+    <!-- BEGIN: item -->
+    <div class="item image-id-{GET.relation}{ITEM.id}"><span class="wrap"><a class="single-image{GET.relation}{GET.node_id}" title="{ITEM.title|htmlspecialchars}" href="{FULL_SIZE_IMAGE_WIDTH_PATH}{ITEM.src}" rel="prettyphoto[pp_gal]"><img id="image-id-{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" /></a></span></div>
+    <!-- END: item -->
 </div>
 <!-- END: content -->

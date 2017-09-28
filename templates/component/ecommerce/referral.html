@@ -4,90 +4,90 @@
 
 <div class="referrals">
 
-	<!-- BEGIN: referral_generator -->
+    <!-- BEGIN: referral_generator -->
 
-	{ONXSHOP_REQUEST_referral_generator #component/ecommerce/referral_generator}
+    {ONXSHOP_REQUEST_referral_generator #component/ecommerce/referral_generator}
 
-	<!-- END: referral_generator -->
+    <!-- END: referral_generator -->
 
-	<!-- BEGIN: my_referrals -->
+    <!-- BEGIN: my_referrals -->
 
-	<div class="node node-group-layout my-referrals">
-	<div class="node-layout-2columns">
-	<div class="two-column-layout layout fibonacci-5-2">
-	<div class="layout-wrapper">
-		
-		<div class="layout-content">
-			<div class="layout-content-wrapper">
-				<div class="layout-body">
-					<div class="layout-column-one of-two">
-						<div class="layout-column-wrapper">
+    <div class="node node-group-layout my-referrals">
+    <div class="node-layout-2columns">
+    <div class="two-column-layout layout fibonacci-5-2">
+    <div class="layout-wrapper">
+        
+        <div class="layout-content">
+            <div class="layout-content-wrapper">
+                <div class="layout-body">
+                    <div class="layout-column-one of-two">
+                        <div class="layout-column-wrapper">
 
-							<h2 class="start-inviting">Start Inviting</h2>
+                            <h2 class="start-inviting">Start Inviting</h2>
 
-							<p>Offer the below {DISCOUNT_VALUE|money_format('%n', %s)} voucher to friends and family to use on their first {CONFIGURATION.global.title|htmlspecialchars} order. You can send as many vouchers as you like.</p>
+                            <p>Offer the below {DISCOUNT_VALUE|money_format('%n', %s)} voucher to friends and family to use on their first {CONFIGURATION.global.title|htmlspecialchars} order. You can send as many vouchers as you like.</p>
 
-							<!-- BEGIN: promotion -->
-								<input type="text" readonly="readonly" onclick="this.select()" class="code_input {PROMOTION.used_class}" value="{PROMOTION.code_pattern|htmlspecialchars}" />
-								<br/>
-							<!-- END: promotion -->
+                            <!-- BEGIN: promotion -->
+                                <input type="text" readonly="readonly" onclick="this.select()" class="code_input {PROMOTION.used_class}" value="{PROMOTION.code_pattern|htmlspecialchars}" />
+                                <br/>
+                            <!-- END: promotion -->
 
-							<!-- BEGIN: no_referrals_available -->
-								<p>Sorry, you have already invited your limit of {AVAILABLE_REFERRALS_PER_PERSON} friends.</p>
-								<br/>
-							<!-- END: no_referrals_available -->
+                            <!-- BEGIN: no_referrals_available -->
+                                <p>Sorry, you have already invited your limit of {AVAILABLE_REFERRALS_PER_PERSON} friends.</p>
+                                <br/>
+                            <!-- END: no_referrals_available -->
 
-							{ONXSHOP_REQUEST_referral_share #component/ecommerce/referral_share~promotion_id=GET.promotion_id~}
+                            {ONXSHOP_REQUEST_referral_share #component/ecommerce/referral_share~promotion_id=GET.promotion_id~}
 
-						</div>
-					</div>
-					<div class="layout-column-two of-two">
-						<div class="layout-column-wrapper">
+                        </div>
+                    </div>
+                    <div class="layout-column-two of-two">
+                        <div class="layout-column-wrapper">
 
-							{ONXSHOP_REQUEST_referral_list_rewards #component/ecommerce/referral_list_rewards}
-							{ONXSHOP_REQUEST_referral_list_emails #component/ecommerce/referral_list_emails}
-							{ONXSHOP_REQUEST_referral_list_joins #component/ecommerce/referral_list_joins}
+                            {ONXSHOP_REQUEST_referral_list_rewards #component/ecommerce/referral_list_rewards}
+                            {ONXSHOP_REQUEST_referral_list_emails #component/ecommerce/referral_list_emails}
+                            {ONXSHOP_REQUEST_referral_list_joins #component/ecommerce/referral_list_joins}
 
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	</div>
-	</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
+    </div>
 
-	<script type="text/javascript">
-		$(function() {
-			if ($("#email-list .item").length > 5) {
-				$("#email-list").append('<a href="#" onclick="return showMore(this)">Show More...</a>');
-				$("#email-list .item:gt(4)").hide();
-			}
-			if ($("#friend-list .item").length > 5) {
-				$("#friend-list").append('<a href="#" onclick="return showMore(this)">Show More...</a>');
-				$("#friend-list .item:gt(4)").hide();
-			}
-			if ($("#reward-list .item").length > 5) {
-				$("#reward-list").append('<a href="#" onclick="return showMore(this)">Show More...</a>');
-				$("#reward-list .item:gt(4)").hide();
-			}
-		});
+    <script type="text/javascript">
+        $(function() {
+            if ($("#email-list .item").length > 5) {
+                $("#email-list").append('<a href="#" onclick="return showMore(this)">Show More...</a>');
+                $("#email-list .item:gt(4)").hide();
+            }
+            if ($("#friend-list .item").length > 5) {
+                $("#friend-list").append('<a href="#" onclick="return showMore(this)">Show More...</a>');
+                $("#friend-list .item:gt(4)").hide();
+            }
+            if ($("#reward-list .item").length > 5) {
+                $("#reward-list").append('<a href="#" onclick="return showMore(this)">Show More...</a>');
+                $("#reward-list .item:gt(4)").hide();
+            }
+        });
 
-		function showMore(a) {
-			var msg = $(a).text();
-			if (msg == "Show More...") {
-				msg = "Minimise";
-				$(a).text(msg).parent().find(".item").fadeIn(300);
-			} else {
-				msg = "Show More...";
-				$(a).text(msg).parent().find(".item:gt(4)").fadeOut(300);
-			}
-			return false;
-		}
+        function showMore(a) {
+            var msg = $(a).text();
+            if (msg == "Show More...") {
+                msg = "Minimise";
+                $(a).text(msg).parent().find(".item").fadeIn(300);
+            } else {
+                msg = "Show More...";
+                $(a).text(msg).parent().find(".item:gt(4)").fadeOut(300);
+            }
+            return false;
+        }
 
-	</script>
+    </script>
 
-	<!-- END: my_referrals -->
+    <!-- END: my_referrals -->
 
 </div>
 <!-- END: content -->

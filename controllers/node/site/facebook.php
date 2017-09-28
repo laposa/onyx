@@ -9,13 +9,13 @@ require_once('controllers/node/site/default.php');
 
 class Onxshop_Controller_Node_Site_Facebook extends Onxshop_Controller_Node_Site_Default {
 
-	/**
-	 * main action
-	 */
-	 
-	public function mainAction() {
-		
-		return parent::mainAction();
-		
-	}
+    /**
+     * main action
+     */
+     
+    public function mainAction() {
+        
+        return parent::mainAction();
+        
+    }
 }

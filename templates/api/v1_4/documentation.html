@@ -2,384 +2,384 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-	<title>API Documentation</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>API Documentation</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
-	<meta name="robots" content="noindex,nofollow" />
+    <meta name="robots" content="noindex,nofollow" />
 
-	<style type="text/css">
-		body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 12px; padding-left: 210px; color: #444; }
-		.new {color: #d42e1f;}
-		table { border-collapse: collapse; }
-		table th { padding: 5px 10px; background: #eee; text-align: left; }
-		table td { padding: 5px 10px; border-bottom: 1px solid #eee; }
-		table tr:last-child td { border-bottom: none; }
-		div.divider { margin: 20px 0 0 0; border-top: 1px solid #ddd; }
-		div.divider hr { display: none; }
-		h1 { margin-top: 0; padding-top: 20px; }
-		h1#main-heading { font-size: 220%; padding-top: 10px; }
-		a { color: #00aee9; }
+    <style type="text/css">
+        body { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-size: 12px; padding-left: 210px; color: #444; }
+        .new {color: #d42e1f;}
+        table { border-collapse: collapse; }
+        table th { padding: 5px 10px; background: #eee; text-align: left; }
+        table td { padding: 5px 10px; border-bottom: 1px solid #eee; }
+        table tr:last-child td { border-bottom: none; }
+        div.divider { margin: 20px 0 0 0; border-top: 1px solid #ddd; }
+        div.divider hr { display: none; }
+        h1 { margin-top: 0; padding-top: 20px; }
+        h1#main-heading { font-size: 220%; padding-top: 10px; }
+        a { color: #00aee9; }
 
-		div#method-list { position: fixed; left: 0; top: 0; background: #f8f8f8; width: 200px; height: 100%; box-shadow: 2px 0 10px rgba(0,0,0,0.2);}
-		div#method-list ul { list-style: square; line-height: 1.8; margin: 20px 0 0 36px; padding: 0;}
-		div#method-list h3 { margin: 20px 0 0 20px; }
-		div#method-list a { color: #000; text-shadow: 0 1px 0 #ffffff; text-decoration: none; }
-	</style>
+        div#method-list { position: fixed; left: 0; top: 0; background: #f8f8f8; width: 200px; height: 100%; box-shadow: 2px 0 10px rgba(0,0,0,0.2);}
+        div#method-list ul { list-style: square; line-height: 1.8; margin: 20px 0 0 36px; padding: 0;}
+        div#method-list h3 { margin: 20px 0 0 20px; }
+        div#method-list a { color: #000; text-shadow: 0 1px 0 #ffffff; text-decoration: none; }
+    </style>
 
 </head>
 
 <body>
 
-	<h1 id="main-heading">API Documentation</h1>
-	<p>Version 1.4</p>
+    <h1 id="main-heading">API Documentation</h1>
+    <p>Version 1.4</p>
 
-	<div id="method-list">
-		<h3>Available API methods</h3>
-		<ul>
-			<li><a href="#api-resources">Resources</a></li>
-			<li><a href="#api-recipe-list">Recipe List</a></li>
-			<li><a href="#api-recipe-detail">Recipe Detail</a></li>
-			<li><a href="#api-recipe-search">Recipe Search</a></li>
-			<li><a href="#api-recipe-category-list">Recipe Category List</a></li>
-			<li><a href="#api-special-offer-list">Special Offer List</a></li>
-			<li><a href="#api-store-location-list">Store Location List</a></li>
-			<li><a href="#api-recipe-rating">Recipe Rating</a></li>
-		</ul>
-	</div>
+    <div id="method-list">
+        <h3>Available API methods</h3>
+        <ul>
+            <li><a href="#api-resources">Resources</a></li>
+            <li><a href="#api-recipe-list">Recipe List</a></li>
+            <li><a href="#api-recipe-detail">Recipe Detail</a></li>
+            <li><a href="#api-recipe-search">Recipe Search</a></li>
+            <li><a href="#api-recipe-category-list">Recipe Category List</a></li>
+            <li><a href="#api-special-offer-list">Special Offer List</a></li>
+            <li><a href="#api-store-location-list">Store Location List</a></li>
+            <li><a href="#api-recipe-rating">Recipe Rating</a></li>
+        </ul>
+    </div>
 
-	<div class="divider"><hr /></div>
+    <div class="divider"><hr /></div>
 
-	<h1 id="api-resources">Resources</h1>
-	<h3>GET /api/v1.4/resources</h3>
-	<p>Returns list of resources. This is used in recipe app. <a href="/api/v1.4/resources?format=json&api_key=abcdefgh">Make Example Call</a></p>
+    <h1 id="api-resources">Resources</h1>
+    <h3>GET /api/v1.4/resources</h3>
+    <p>Returns list of resources. This is used in recipe app. <a href="/api/v1.4/resources?format=json&api_key=abcdefgh">Make Example Call</a></p>
 
-	<h2>Request</h2>
-	<table>
-	<tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
-	<tr><td>format</td><td>string</td><td>Available values: json or xml</td></tr>
-	<tr><td>api_key</td><td>string</td><td>identify API consumer, testing with: abcdefgh</td></tr>
-	</table>
+    <h2>Request</h2>
+    <table>
+    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+    <tr><td>format</td><td>string</td><td>Available values: json or xml</td></tr>
+    <tr><td>api_key</td><td>string</td><td>identify API consumer, testing with: abcdefgh</td></tr>
+    </table>
 
-	<h2>Response</h2>
-	<table>
-	<tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
-	<tr><td>recipe_list</td><td>string</td><td>Latest URL for recipe_list method</td></tr>
-	<tr><td>recipe_category_list</td><td>string</td><td>Latest URL for recipe_category_list method</td></tr>
-	<tr><td>special_offer_list</td><td>string</td><td>Latest URL for special_offer_list method</td></tr>
-	<tr><td>store_location_list</td><td>string</td><td>Latest URL for store_location_list method</td></tr>
-	<tr><td>recipe_rating</td><td>string</td><td>Latest URL for recipe_rating method</td></tr>
-	<tr><td>css</td><td>string</td><td>Latest URL for CSS file used in recipe app web view.</td></tr>
-	<tr><td>iphone_download_url</td><td>string</td><td>Link to published app in Apple App Store</td></tr>
-	<tr><td>android_download_url</td><td>string</td><td>Link to published app on Google Play</td></tr>
-	<tr><td>landing_page</td><td>string</td><td>Latest URL for css file used in recipe app.</td></tr>
-	<tr><td>theme_version</td><td>int</td><td>Theme for Recipe App</td></tr>
-	<tr><td>data_version</td><td>int</td><td>Helps to utilise cache</td></tr>
-	<tr><td>background_images</td><td>string</td><td>Theme for Recipe App</td></tr>
-	<tr><td>background_main</td><td>string</td><td>Theme for Recipe App</td></tr>
-	<tr><td>background_invisible_header</td><td>string</td><td>Theme for Recipe App</td></tr>
-	<tr><td>background_empty_shopping_list</td><td>string</td><td>Theme for Recipe App</td></tr>
-	<tr><td>mail_template_images</td><td>string</td><td>Theme for Recipe App.</td></tr>
-	</table>
+    <h2>Response</h2>
+    <table>
+    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+    <tr><td>recipe_list</td><td>string</td><td>Latest URL for recipe_list method</td></tr>
+    <tr><td>recipe_category_list</td><td>string</td><td>Latest URL for recipe_category_list method</td></tr>
+    <tr><td>special_offer_list</td><td>string</td><td>Latest URL for special_offer_list method</td></tr>
+    <tr><td>store_location_list</td><td>string</td><td>Latest URL for store_location_list method</td></tr>
+    <tr><td>recipe_rating</td><td>string</td><td>Latest URL for recipe_rating method</td></tr>
+    <tr><td>css</td><td>string</td><td>Latest URL for CSS file used in recipe app web view.</td></tr>
+    <tr><td>iphone_download_url</td><td>string</td><td>Link to published app in Apple App Store</td></tr>
+    <tr><td>android_download_url</td><td>string</td><td>Link to published app on Google Play</td></tr>
+    <tr><td>landing_page</td><td>string</td><td>Latest URL for css file used in recipe app.</td></tr>
+    <tr><td>theme_version</td><td>int</td><td>Theme for Recipe App</td></tr>
+    <tr><td>data_version</td><td>int</td><td>Helps to utilise cache</td></tr>
+    <tr><td>background_images</td><td>string</td><td>Theme for Recipe App</td></tr>
+    <tr><td>background_main</td><td>string</td><td>Theme for Recipe App</td></tr>
+    <tr><td>background_invisible_header</td><td>string</td><td>Theme for Recipe App</td></tr>
+    <tr><td>background_empty_shopping_list</td><td>string</td><td>Theme for Recipe App</td></tr>
+    <tr><td>mail_template_images</td><td>string</td><td>Theme for Recipe App.</td></tr>
+    </table>
 
-	<div class="divider"><hr /></div>
+    <div class="divider"><hr /></div>
 
-	<h1 id="api-recipe-list">Recipe List</h1>
-	<h3>GET /api/v1.4/recipe_list</h3>
-	<p>Returns list of recipes. <a href="/api/v1.4/recipe_list?format=json&api_key=abcdefgh">Make Example Call</a></p>
+    <h1 id="api-recipe-list">Recipe List</h1>
+    <h3>GET /api/v1.4/recipe_list</h3>
+    <p>Returns list of recipes. <a href="/api/v1.4/recipe_list?format=json&api_key=abcdefgh">Make Example Call</a></p>
 
-	<h2>Request</h2>
-	<table>
-	<tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
-	<tr><td>format</td><td>string</td><td>Available values: json or xml</td></tr>
-	<tr><td>api_key</td><td>string</td><td>identify API consumer, testing with: abcdefgh</td></tr>
-	<tr><td>thumbnail_size</td><td>int</td><td>optional parameter, requested thumbnail size in pixels, has to be a multiple of 5, e.g. 645, not 639</td></tr>
-	</table>
+    <h2>Request</h2>
+    <table>
+    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+    <tr><td>format</td><td>string</td><td>Available values: json or xml</td></tr>
+    <tr><td>api_key</td><td>string</td><td>identify API consumer, testing with: abcdefgh</td></tr>
+    <tr><td>thumbnail_size</td><td>int</td><td>optional parameter, requested thumbnail size in pixels, has to be a multiple of 5, e.g. 645, not 639</td></tr>
+    </table>
 
-	<h2>Response</h2>
-	<p>Array where each item is <a href="#api_recipe_detail">recipe_detail</a></p>
-	<div class="divider"><hr /></div>
+    <h2>Response</h2>
+    <p>Array where each item is <a href="#api_recipe_detail">recipe_detail</a></p>
+    <div class="divider"><hr /></div>
 
-	<h1 id="api-recipe-detail">Recipe Detail</h1>
-	<h3>GET /api/v1.4/recipe_detail</h3>
-	<p>Returns detail of single recipe. <a href="/api/v1.4/recipe_detail?format=json&api_key=abcdefgh&recipe_id=1">Make Example Call</a></p>
+    <h1 id="api-recipe-detail">Recipe Detail</h1>
+    <h3>GET /api/v1.4/recipe_detail</h3>
+    <p>Returns detail of single recipe. <a href="/api/v1.4/recipe_detail?format=json&api_key=abcdefgh&recipe_id=1">Make Example Call</a></p>
 
-	<h2>Request</h2>
-	<table>
-	<tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
-	<tr><td>format</td><td>string</td><td>Available values: json or xml</td></tr>
-	<tr><td>api_key</td><td>string</td><td>identify API consumer, testing with: abcdefgh</td></tr>
-	<tr><td>recipe_id</td><td>int</td><td>recipe ID, e.g. 1</td></tr>
-	<tr><td>thumbnail_size</td><td>int</td><td>optional parameter, requested thumbnail size in pixels, has to be a multiple of 5, e.g. 645, not 639</td></tr>
-	</table>
+    <h2>Request</h2>
+    <table>
+    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+    <tr><td>format</td><td>string</td><td>Available values: json or xml</td></tr>
+    <tr><td>api_key</td><td>string</td><td>identify API consumer, testing with: abcdefgh</td></tr>
+    <tr><td>recipe_id</td><td>int</td><td>recipe ID, e.g. 1</td></tr>
+    <tr><td>thumbnail_size</td><td>int</td><td>optional parameter, requested thumbnail size in pixels, has to be a multiple of 5, e.g. 645, not 639</td></tr>
+    </table>
 
-	<h2>Response</h2>
-	<table>
-	<tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
-	<tr><td>id</td><td>int</td><td>recipe ID</td></tr>
-	<tr><td>title</td><td>string</td><td>recipe title</td></tr>
-	<tr><td>description</td><td>string</td><td>recipe description</td></tr>
-	<tr><td>instructions</td><td>string</td><td>how to cook as rich text HTML</td></tr>
-	<tr><td>url</td><td>url</td><td>recipe location on website</td></tr>
-	<tr><td>priority</td><td>int</td><td>can be used for sorting</td></tr>
-	<tr><td>created</td><td>datetime</td><td>x</td></tr>
-	<tr><td>modified</td><td>datetime</td><td>x</td></tr>
-	<tr><td>ingredients</td><td>array</td><td>
-		<table>
-		<tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
-		<tr><td>quantity</td><td>float</td><td>how many units</td></tr>
-		<tr><td>units</td><td>string</td><td>e.g. kg, tbsp, piece</td></tr>
-		<tr><td>title</td><td>string</td><td>ingredient name</td></tr>
-		<tr><td>notes</td><td>string</td><td>e.g. peeled, diced</td></tr>
-		<tr><td>product_id</td><td>string</td><td>product unique identifier (e.g. stock keeping unit)</td></tr>
-		<tr><td>group_title</td><td>string</td><td>should be grouped by this and used as a block title</td></tr>
-		</table>
-	</td></tr>
-	<tr><td>categories</td><td>array</td><td>
-		<table>
-		<tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
-		<tr><td>id</td><td>int</td><td>category id (category title can change, but category id will stay the same)</td></tr>
-		<tr><td>parent</td><td>int</td><td>parent category ID</td></tr>
-		<tr><td>priority</td><td>int</td><td>can be used for sorting</td></tr>
-		<tr><td>publish</td><td>int</td><td>is visible to public?</td></tr>
-		<tr><td>title</td><td>string</td><td>category title, e.g. Chrismas Recipe</td></tr>
-		<tr><td>description</td><td>string</td><td>large description</td></tr>
-		</table>
-	</td></tr>
-	<tr><td>images</td><td>array</td><td>URLs</td></tr>
-	<tr><td>thumbnails</td><td>array</td><td>URLs</td></tr>
-	<tr><td>video</td><td>string</td><td>video URL e.g. http://vimeo.com/32329926</td></tr>
-	<tr><td>comments</td><td>array list</td><td>
-		<table>
-		<tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
-		<tr><td>content</td><td>string</td><td>actuall comment</td></tr>
-		<tr><td>date</td><td>datetime</td><td>time at creation</td></tr>
-		<tr><td>author</td><td>string</td><td>author name</td></tr>
-		</table>
-	</td></tr>
-	<tr><td>rating</td><td>array</td><td>
-		<table>
-		<tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
-		<tr><td>value</td><td>float</td><td>rating value</td></tr>
-		<tr><td>votes_sum</td><td>int</td><td>sum of ratings</td></tr>
-		<tr><td>voters_sum</td><td>int</td><td>sum of voters (number of people voted)</td></tr>
-		</table>
-	</td></tr>
-	<tr><td>serving_people</td><td>int</td><td>how many people this recipe can serve with current ingrediants quantity/units</td></tr>
-	<tr><td>preparation_time</td><td>int</td><td>preparation time in minutes</td></tr>
-	<tr><td>cook_time</td><td>int</td><td>cooking time in minutes</td></tr>
-	<tr><td>recommended_wines</td><td>array</td><td>
-		<table>
-		<tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
-		<tr><td>id</td><td>int</td><td>x</td></tr>
-		<tr><td>title</td><td>sting</td><td>x</td></tr>
-		<tr><td>description</td><td>string</td><td>x</td></tr>
-		<tr><td>wine_type</td><td>string</td><td>e.g. Red</td></tr>
-		<tr><td>grape_variety</td><td>string</td><td>e.g. Merlot</td></tr>
-		<tr><td>country</td><td>string</td><td>Country of origin, e.g. Italy</td></tr>
-		<tr><td>image_url</td><td>string</td><td>URL of image location</td></tr>
-		<tr><td>price_range</td><td>string</td><td>e.g. €6-€8</td></tr>
-		<tr><td>product_id</td><td>string</td><td>product unique identifier (e.g. stock keeping unit)</td></tr>
-		</table>
-	</td></tr>
-	<tr><td>related_offers</td><td>array list</td><td>
-		<table>
-		<tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
-		<tr><td>id</td><td>int</td><td>related offer id</td></tr>
-		</table>
-	</td></tr>
-	</table>
+    <h2>Response</h2>
+    <table>
+    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+    <tr><td>id</td><td>int</td><td>recipe ID</td></tr>
+    <tr><td>title</td><td>string</td><td>recipe title</td></tr>
+    <tr><td>description</td><td>string</td><td>recipe description</td></tr>
+    <tr><td>instructions</td><td>string</td><td>how to cook as rich text HTML</td></tr>
+    <tr><td>url</td><td>url</td><td>recipe location on website</td></tr>
+    <tr><td>priority</td><td>int</td><td>can be used for sorting</td></tr>
+    <tr><td>created</td><td>datetime</td><td>x</td></tr>
+    <tr><td>modified</td><td>datetime</td><td>x</td></tr>
+    <tr><td>ingredients</td><td>array</td><td>
+        <table>
+        <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+        <tr><td>quantity</td><td>float</td><td>how many units</td></tr>
+        <tr><td>units</td><td>string</td><td>e.g. kg, tbsp, piece</td></tr>
+        <tr><td>title</td><td>string</td><td>ingredient name</td></tr>
+        <tr><td>notes</td><td>string</td><td>e.g. peeled, diced</td></tr>
+        <tr><td>product_id</td><td>string</td><td>product unique identifier (e.g. stock keeping unit)</td></tr>
+        <tr><td>group_title</td><td>string</td><td>should be grouped by this and used as a block title</td></tr>
+        </table>
+    </td></tr>
+    <tr><td>categories</td><td>array</td><td>
+        <table>
+        <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+        <tr><td>id</td><td>int</td><td>category id (category title can change, but category id will stay the same)</td></tr>
+        <tr><td>parent</td><td>int</td><td>parent category ID</td></tr>
+        <tr><td>priority</td><td>int</td><td>can be used for sorting</td></tr>
+        <tr><td>publish</td><td>int</td><td>is visible to public?</td></tr>
+        <tr><td>title</td><td>string</td><td>category title, e.g. Chrismas Recipe</td></tr>
+        <tr><td>description</td><td>string</td><td>large description</td></tr>
+        </table>
+    </td></tr>
+    <tr><td>images</td><td>array</td><td>URLs</td></tr>
+    <tr><td>thumbnails</td><td>array</td><td>URLs</td></tr>
+    <tr><td>video</td><td>string</td><td>video URL e.g. http://vimeo.com/32329926</td></tr>
+    <tr><td>comments</td><td>array list</td><td>
+        <table>
+        <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+        <tr><td>content</td><td>string</td><td>actuall comment</td></tr>
+        <tr><td>date</td><td>datetime</td><td>time at creation</td></tr>
+        <tr><td>author</td><td>string</td><td>author name</td></tr>
+        </table>
+    </td></tr>
+    <tr><td>rating</td><td>array</td><td>
+        <table>
+        <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+        <tr><td>value</td><td>float</td><td>rating value</td></tr>
+        <tr><td>votes_sum</td><td>int</td><td>sum of ratings</td></tr>
+        <tr><td>voters_sum</td><td>int</td><td>sum of voters (number of people voted)</td></tr>
+        </table>
+    </td></tr>
+    <tr><td>serving_people</td><td>int</td><td>how many people this recipe can serve with current ingrediants quantity/units</td></tr>
+    <tr><td>preparation_time</td><td>int</td><td>preparation time in minutes</td></tr>
+    <tr><td>cook_time</td><td>int</td><td>cooking time in minutes</td></tr>
+    <tr><td>recommended_wines</td><td>array</td><td>
+        <table>
+        <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+        <tr><td>id</td><td>int</td><td>x</td></tr>
+        <tr><td>title</td><td>sting</td><td>x</td></tr>
+        <tr><td>description</td><td>string</td><td>x</td></tr>
+        <tr><td>wine_type</td><td>string</td><td>e.g. Red</td></tr>
+        <tr><td>grape_variety</td><td>string</td><td>e.g. Merlot</td></tr>
+        <tr><td>country</td><td>string</td><td>Country of origin, e.g. Italy</td></tr>
+        <tr><td>image_url</td><td>string</td><td>URL of image location</td></tr>
+        <tr><td>price_range</td><td>string</td><td>e.g. €6-€8</td></tr>
+        <tr><td>product_id</td><td>string</td><td>product unique identifier (e.g. stock keeping unit)</td></tr>
+        </table>
+    </td></tr>
+    <tr><td>related_offers</td><td>array list</td><td>
+        <table>
+        <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+        <tr><td>id</td><td>int</td><td>related offer id</td></tr>
+        </table>
+    </td></tr>
+    </table>
 
-	<div class="divider"><hr /></div>
+    <div class="divider"><hr /></div>
 
-	<h1 id="api-recipe-search">Recipe Search</h1>
-	<h3>GET /api/v1.4/recipe_search</h3>
-	<p>Search for recipes. We'll return list of recipe IDs. <a href="/api/v1.4/recipe_search?format=json&api_key=abcdefgh&category_id=11">Make Example Call</a></p>
+    <h1 id="api-recipe-search">Recipe Search</h1>
+    <h3>GET /api/v1.4/recipe_search</h3>
+    <p>Search for recipes. We'll return list of recipe IDs. <a href="/api/v1.4/recipe_search?format=json&api_key=abcdefgh&category_id=11">Make Example Call</a></p>
 
-	<h2>Request</h2>
-	<table>
-	<tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
-	<tr><td>format</td><td>string</td><td>Available values: json or xml</td></tr>
-	<tr><td>api_key</td><td>string</td><td>identify API consumer, testing with: abcdefgh</td></tr>
-	<tr><td>meal_type_id</td><td>int</td><td>DEPRECATED, course, e.g. 903 for Desserts</td></tr>
-	<tr><td>category_id</td><td>int</td><td>category id, e.g. 2110 for Weekday Dinners</td></tr>
-	<tr><td>product_id</td><td>string</td><td>will return recipes with ingredients having product_id</td></tr>
-	<tr><td>keyword</td><td>string</td><td>will look into ingredients, recipe title and description</td></tr>
-	<tr><td>ready_time</td><td>int</td><td>preparation_time + cook_time in minutes</td></tr>
-	<tr><td>thumbnail_size</td><td>int</td><td>optional parameter, requested thumbnail size in pixels, has to be a multiple of 5, e.g. 645, not 639</td></tr>
-	</table>
+    <h2>Request</h2>
+    <table>
+    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+    <tr><td>format</td><td>string</td><td>Available values: json or xml</td></tr>
+    <tr><td>api_key</td><td>string</td><td>identify API consumer, testing with: abcdefgh</td></tr>
+    <tr><td>meal_type_id</td><td>int</td><td>DEPRECATED, course, e.g. 903 for Desserts</td></tr>
+    <tr><td>category_id</td><td>int</td><td>category id, e.g. 2110 for Weekday Dinners</td></tr>
+    <tr><td>product_id</td><td>string</td><td>will return recipes with ingredients having product_id</td></tr>
+    <tr><td>keyword</td><td>string</td><td>will look into ingredients, recipe title and description</td></tr>
+    <tr><td>ready_time</td><td>int</td><td>preparation_time + cook_time in minutes</td></tr>
+    <tr><td>thumbnail_size</td><td>int</td><td>optional parameter, requested thumbnail size in pixels, has to be a multiple of 5, e.g. 645, not 639</td></tr>
+    </table>
 
-	<h2>Response</h2>
-	<table>
-	<tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
-	<tr><td>id</td><td>int</td><td>recipe ID</td></tr>
-	<tr><td>title</td><td>string</td><td>recipe title</td></tr>
-	<tr><td>description</td><td>string</td><td>recipe description (excerpt)</td></tr>
-	<tr><td>images</td><td>array</td><td>URLs</td></tr>
-	<tr><td>thumbnails</td><td>array</td><td>URLs</td></tr>
-	<tr><td>video</td><td>string</td><td>video URL e.g. http://vimeo.com/32329926</td></tr>
-	<tr><td>ready_time</td><td>int</td><td>preparation_time + cook_time in minutes</td></tr>
-	<tr><td>categories</td><td>array</td><td>
-		<table>
-		<tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
-		<tr><td>id</td><td>int</td><td>category id (category title can change, but category id will stay the same)</td></tr>
-		<tr><td>parent</td><td>int</td><td>parent category ID</td></tr>
-		<tr><td>priority</td><td>int</td><td>can be used for sorting</td></tr>
-		<tr><td>publish</td><td>int</td><td>is visible to public?</td></tr>
-		<tr><td>title</td><td>string</td><td>category title, e.g. Chrismas Recipe</td></tr>
-		<tr><td>description</td><td>string</td><td>large description</td></tr>
-		</table>
-	</td></tr>
-	<tr><td>url</td><td>url</td><td>recipe location on website</td></tr>
-	</table>
+    <h2>Response</h2>
+    <table>
+    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+    <tr><td>id</td><td>int</td><td>recipe ID</td></tr>
+    <tr><td>title</td><td>string</td><td>recipe title</td></tr>
+    <tr><td>description</td><td>string</td><td>recipe description (excerpt)</td></tr>
+    <tr><td>images</td><td>array</td><td>URLs</td></tr>
+    <tr><td>thumbnails</td><td>array</td><td>URLs</td></tr>
+    <tr><td>video</td><td>string</td><td>video URL e.g. http://vimeo.com/32329926</td></tr>
+    <tr><td>ready_time</td><td>int</td><td>preparation_time + cook_time in minutes</td></tr>
+    <tr><td>categories</td><td>array</td><td>
+        <table>
+        <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+        <tr><td>id</td><td>int</td><td>category id (category title can change, but category id will stay the same)</td></tr>
+        <tr><td>parent</td><td>int</td><td>parent category ID</td></tr>
+        <tr><td>priority</td><td>int</td><td>can be used for sorting</td></tr>
+        <tr><td>publish</td><td>int</td><td>is visible to public?</td></tr>
+        <tr><td>title</td><td>string</td><td>category title, e.g. Chrismas Recipe</td></tr>
+        <tr><td>description</td><td>string</td><td>large description</td></tr>
+        </table>
+    </td></tr>
+    <tr><td>url</td><td>url</td><td>recipe location on website</td></tr>
+    </table>
 
-	<div class="divider"><hr /></div>
+    <div class="divider"><hr /></div>
 
-	<h1 id="api-recipe-category-list">Recipe Category List</h1>
-	<h3>GET /api/v1.4/recipe_category_list</h3>
-	<p>Returns list of recipe categories. <a href="/api/v1.4/recipe_category_list?format=json&api_key=abcdefgh">Make Example Call</a></p>
+    <h1 id="api-recipe-category-list">Recipe Category List</h1>
+    <h3>GET /api/v1.4/recipe_category_list</h3>
+    <p>Returns list of recipe categories. <a href="/api/v1.4/recipe_category_list?format=json&api_key=abcdefgh">Make Example Call</a></p>
 
-	<h2>Request</h2>
-	<table>
-	<tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
-	<tr><td>format</td><td>string</td><td>Available values: json or xml</td></tr>
-	<tr><td>api_key</td><td>string</td><td>identify API consumer, testing with: abcdefgh</td></tr>
-	</table>
+    <h2>Request</h2>
+    <table>
+    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+    <tr><td>format</td><td>string</td><td>Available values: json or xml</td></tr>
+    <tr><td>api_key</td><td>string</td><td>identify API consumer, testing with: abcdefgh</td></tr>
+    </table>
 
-	<h2>Response</h2>
-	<table>
-	<tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
-	<tr><td>id</td><td>int</td><td>category id (category title can change, but category id will stay the same)</td></tr>
-	<tr><td>parent</td><td>int</td><td>parent category ID</td></tr>
-	<tr><td>title</td><td>string</td><td>category name</td></tr>
-	<tr><td>description</td><td>string</td><td>category description excerpt</td></tr>
-	<tr><td>priority</td><td>int</td><td>can be used for sorting</td></tr>
-	<tr><td>publish</td><td>int</td><td>is visible to public?</td></tr>
-	<tr><td>image_thumbnail</td><td>string</td><td>category thumbnail URL</td></tr>
-	</table>
+    <h2>Response</h2>
+    <table>
+    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+    <tr><td>id</td><td>int</td><td>category id (category title can change, but category id will stay the same)</td></tr>
+    <tr><td>parent</td><td>int</td><td>parent category ID</td></tr>
+    <tr><td>title</td><td>string</td><td>category name</td></tr>
+    <tr><td>description</td><td>string</td><td>category description excerpt</td></tr>
+    <tr><td>priority</td><td>int</td><td>can be used for sorting</td></tr>
+    <tr><td>publish</td><td>int</td><td>is visible to public?</td></tr>
+    <tr><td>image_thumbnail</td><td>string</td><td>category thumbnail URL</td></tr>
+    </table>
 
-	<div class="divider"><hr /></div>
+    <div class="divider"><hr /></div>
 
-	<h1 id="api-special-offer-list">Special Offer List</h1>
-	<h3>GET /api/v1.4/special_offer_list</h3>
-	<p>Returns list of active <span class="new">and scheduled</span> special offers. <a href="/api/v1.4/special_offer_list?format=json&api_key=abcdefgh">Make Example Call</a></p>
+    <h1 id="api-special-offer-list">Special Offer List</h1>
+    <h3>GET /api/v1.4/special_offer_list</h3>
+    <p>Returns list of active <span class="new">and scheduled</span> special offers. <a href="/api/v1.4/special_offer_list?format=json&api_key=abcdefgh">Make Example Call</a></p>
 
-	<h2>Request</h2>
-	<table>
-	<tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
-	<tr><td>format</td><td>string</td><td>Available values: json or xml</td></tr>
-	<tr><td>api_key</td><td>string</td><td>identify API consumer, testing with: abcdefgh</td></tr>
-	<tr><td>filter_group_id</td><td>int</td><td>optional parameter, show only offers from this group_id (e.g. filter_group_id=1491 will show "This week offers")</td></tr>
-	<tr><td>thumbnail_size</td><td>int</td><td>optional parameter, requested thumbnail size in pixels, has to be a multiple of 5, e.g. 645, not 639</td></tr>
-	</table>
+    <h2>Request</h2>
+    <table>
+    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+    <tr><td>format</td><td>string</td><td>Available values: json or xml</td></tr>
+    <tr><td>api_key</td><td>string</td><td>identify API consumer, testing with: abcdefgh</td></tr>
+    <tr><td>filter_group_id</td><td>int</td><td>optional parameter, show only offers from this group_id (e.g. filter_group_id=1491 will show "This week offers")</td></tr>
+    <tr><td>thumbnail_size</td><td>int</td><td>optional parameter, requested thumbnail size in pixels, has to be a multiple of 5, e.g. 645, not 639</td></tr>
+    </table>
 
-	<h2>Response</h2>
-	<table>
-	<tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
-	<tr><td>id</td><td>int</td><td>x</td></tr>
-	<tr><td>title</td><td>string</td><td>offer name</td></tr>
-	<tr><td>content</td><td>string</td><td>offer description</td></tr>
-	<tr><td>url</td><td>string</td><td>link to offer details on website</td></tr>
-	<tr><td>priority</td><td>int</td><td>can be used for sorting</td></tr>
-	<tr><td>created</td><td>datetime</td><td>x</td></tr>
-	<tr><td>modified</td><td>datetime</td><td>x</td></tr>
-	<tr><td>images</td><td>array</td><td>list of URLs</td></tr>
-	<tr><td>thumbnails</td><td>array</td><td>URLs</td></tr>
-	<tr><td>rondel</td><td>string</td><td>e.g. e10, can be empty</td></tr>
-	<tr><td>rondel_image_url</td><td>string</td><td>URL of rondel image, can be empty</td></tr>
-	<tr><td>price</td><td>string</td><td>e.g. Now "€3.14" or "Details Instore"</td></tr>
-	<tr class="new"><td>start_date</td><td>datetime</td><td>Exact time when the offer starts to be valid</td></tr>
-	<tr><td>expiry_date</td><td>datetime</td><td>Exact time when the offer expires</td></tr>
-	<tr class="new"><td>categories</td><td>array</td><td>
-		<table>
-		<tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
-		<tr><td>id</td><td>int</td><td>category id (category title can change, but category id will stay the same)</td></tr>
-		<tr><td>parent</td><td>int</td><td>parent category ID</td></tr>
-		<tr><td>priority</td><td>int</td><td>can be used for sorting</td></tr>
-		<tr><td>publish</td><td>int</td><td>is visible to public?</td></tr>
-		<tr><td>title</td><td>string</td><td>category title, e.g. Off-License</td></tr>
-		<tr><td>description</td><td>string</td><td>large description</td></tr>
-		</table>
-	</td></tr>
-	<tr><td>product_id</td><td>string</td><td>product unique identifier (e.g. stock keeping unit)</td></tr>
-	<tr><td>group_id</td><td>int</td><td>offers should be grouped by this. Returns NULL if the offer is not groupped.</td></tr>
-	<tr><td>group_title</td><td>string</td><td>title for the group</td></tr>
-	</table>
+    <h2>Response</h2>
+    <table>
+    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+    <tr><td>id</td><td>int</td><td>x</td></tr>
+    <tr><td>title</td><td>string</td><td>offer name</td></tr>
+    <tr><td>content</td><td>string</td><td>offer description</td></tr>
+    <tr><td>url</td><td>string</td><td>link to offer details on website</td></tr>
+    <tr><td>priority</td><td>int</td><td>can be used for sorting</td></tr>
+    <tr><td>created</td><td>datetime</td><td>x</td></tr>
+    <tr><td>modified</td><td>datetime</td><td>x</td></tr>
+    <tr><td>images</td><td>array</td><td>list of URLs</td></tr>
+    <tr><td>thumbnails</td><td>array</td><td>URLs</td></tr>
+    <tr><td>rondel</td><td>string</td><td>e.g. e10, can be empty</td></tr>
+    <tr><td>rondel_image_url</td><td>string</td><td>URL of rondel image, can be empty</td></tr>
+    <tr><td>price</td><td>string</td><td>e.g. Now "€3.14" or "Details Instore"</td></tr>
+    <tr class="new"><td>start_date</td><td>datetime</td><td>Exact time when the offer starts to be valid</td></tr>
+    <tr><td>expiry_date</td><td>datetime</td><td>Exact time when the offer expires</td></tr>
+    <tr class="new"><td>categories</td><td>array</td><td>
+        <table>
+        <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+        <tr><td>id</td><td>int</td><td>category id (category title can change, but category id will stay the same)</td></tr>
+        <tr><td>parent</td><td>int</td><td>parent category ID</td></tr>
+        <tr><td>priority</td><td>int</td><td>can be used for sorting</td></tr>
+        <tr><td>publish</td><td>int</td><td>is visible to public?</td></tr>
+        <tr><td>title</td><td>string</td><td>category title, e.g. Off-License</td></tr>
+        <tr><td>description</td><td>string</td><td>large description</td></tr>
+        </table>
+    </td></tr>
+    <tr><td>product_id</td><td>string</td><td>product unique identifier (e.g. stock keeping unit)</td></tr>
+    <tr><td>group_id</td><td>int</td><td>offers should be grouped by this. Returns NULL if the offer is not groupped.</td></tr>
+    <tr><td>group_title</td><td>string</td><td>title for the group</td></tr>
+    </table>
 
-	<div class="divider"><hr /></div>
+    <div class="divider"><hr /></div>
 
-	<h1 id="api-store-location-list">Store Location List</h1>
-	<h3>GET /api/v1.4/store_location_list</h3>
-	<p>Returns list of stores address. <a href="/api/v1.4/store_location_list?format=json&api_key=abcdefgh">Make Example Call</a></p>
+    <h1 id="api-store-location-list">Store Location List</h1>
+    <h3>GET /api/v1.4/store_location_list</h3>
+    <p>Returns list of stores address. <a href="/api/v1.4/store_location_list?format=json&api_key=abcdefgh">Make Example Call</a></p>
 
-	<h2>Request</h2>
-	<table>
-	<tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
-	<tr><td>format</td><td>string</td><td>Available values: json or xml</td></tr>
-	<tr><td>api_key</td><td>string</td><td>identify API consumer, testing with: abcdefgh</td></tr>
-	</table>
+    <h2>Request</h2>
+    <table>
+    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+    <tr><td>format</td><td>string</td><td>Available values: json or xml</td></tr>
+    <tr><td>api_key</td><td>string</td><td>identify API consumer, testing with: abcdefgh</td></tr>
+    </table>
 
-	<h2>Response</h2>
-	<table>
-	<tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
-	<tr><td>id</td><td>int</td><td>internal store ID</td></tr>
-	<tr><td>title</td><td>string</td><td>store name</td></tr>
-	<tr><td>address</td><td>string</td><td>street address</td></tr>
-	<tr><td>city</td><td>string</td><td>store city</td></tr>
-	<tr><td>county</td><td>string</td><td>store county</td></tr>
-	<tr><td>country</td><td>string</td><td>country</td></tr>
-	<tr><td>latitude</td><td>float</td><td>e.g. 52.3872369</td></tr>
-	<tr><td>longitude</td><td>float</td><td>e.g. -9.2994745</td></tr>
-	<tr><td>opening_hours</td><td>string</td><td>preformated text</td></tr>
-	<tr><td>phone</td><td>string</td><td>contact telephone number</td></tr>
-	<tr><td>fax</td><td>string</td><td>contact fax number</td></tr>
-	<tr><td>manager</td><td>string</td><td>Mr FirstName LastName</td></tr>
-	<tr><td>modified</td><td>datetime</td><td>last update</td></tr>
-	<tr><td>categories</td><td>array</td><td>
-		<table>
-		<tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
-		<tr><td>id</td><td>int</td><td>category id (category title can change, but category id will stay the same)</td></tr>
-		<tr><td>parent</td><td>int</td><td>parent category ID</td></tr>
-		<tr><td>priority</td><td>int</td><td>can be used for sorting</td></tr>
-		<tr><td>publish</td><td>int</td><td>is visible to public?</td></tr>
-		<tr><td>title</td><td>string</td><td>category title, e.g. Off-License</td></tr>
-		<tr><td>description</td><td>string</td><td>large description</td></tr>
-		</table>
-	</td></tr>
-	</table>
+    <h2>Response</h2>
+    <table>
+    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+    <tr><td>id</td><td>int</td><td>internal store ID</td></tr>
+    <tr><td>title</td><td>string</td><td>store name</td></tr>
+    <tr><td>address</td><td>string</td><td>street address</td></tr>
+    <tr><td>city</td><td>string</td><td>store city</td></tr>
+    <tr><td>county</td><td>string</td><td>store county</td></tr>
+    <tr><td>country</td><td>string</td><td>country</td></tr>
+    <tr><td>latitude</td><td>float</td><td>e.g. 52.3872369</td></tr>
+    <tr><td>longitude</td><td>float</td><td>e.g. -9.2994745</td></tr>
+    <tr><td>opening_hours</td><td>string</td><td>preformated text</td></tr>
+    <tr><td>phone</td><td>string</td><td>contact telephone number</td></tr>
+    <tr><td>fax</td><td>string</td><td>contact fax number</td></tr>
+    <tr><td>manager</td><td>string</td><td>Mr FirstName LastName</td></tr>
+    <tr><td>modified</td><td>datetime</td><td>last update</td></tr>
+    <tr><td>categories</td><td>array</td><td>
+        <table>
+        <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+        <tr><td>id</td><td>int</td><td>category id (category title can change, but category id will stay the same)</td></tr>
+        <tr><td>parent</td><td>int</td><td>parent category ID</td></tr>
+        <tr><td>priority</td><td>int</td><td>can be used for sorting</td></tr>
+        <tr><td>publish</td><td>int</td><td>is visible to public?</td></tr>
+        <tr><td>title</td><td>string</td><td>category title, e.g. Off-License</td></tr>
+        <tr><td>description</td><td>string</td><td>large description</td></tr>
+        </table>
+    </td></tr>
+    </table>
 
-	<div class="divider"><hr /></div>
+    <div class="divider"><hr /></div>
 
-	<h1 id="api-recipe-rating">Recipe Rating</h1>
-	<h3>GET /api/v1.4/recipe_rating</h3>
-	<p>Allow to pass rating to recipe. <a href="/api/v1.4/recipe_rating?format=json&api_key=abcdefgh&recipe_id=1&rating=2">Make Example Call</a></p>
+    <h1 id="api-recipe-rating">Recipe Rating</h1>
+    <h3>GET /api/v1.4/recipe_rating</h3>
+    <p>Allow to pass rating to recipe. <a href="/api/v1.4/recipe_rating?format=json&api_key=abcdefgh&recipe_id=1&rating=2">Make Example Call</a></p>
 
-	<h2>Request</h2>
-	<table>
-	<tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
-	<tr><td>format</td><td>string</td><td>Available values: json or xml</td></tr>
-	<tr><td>api_key</td><td>string</td><td>identify API consumer, testing with: abcdefgh</td></tr>
-	<tr><td>recipe_id</td><td>int</td><td>Valide recipe_id from recipe_list</td></tr>
-	<tr><td>rating</td><td>int</td><td>rating value, valid values are: 1, 2, 3, 4 or 5</td></tr>
-	</table>
+    <h2>Request</h2>
+    <table>
+    <tr><th>Parameter</th><th>Type</th><th>Description</th></tr>
+    <tr><td>format</td><td>string</td><td>Available values: json or xml</td></tr>
+    <tr><td>api_key</td><td>string</td><td>identify API consumer, testing with: abcdefgh</td></tr>
+    <tr><td>recipe_id</td><td>int</td><td>Valide recipe_id from recipe_list</td></tr>
+    <tr><td>rating</td><td>int</td><td>rating value, valid values are: 1, 2, 3, 4 or 5</td></tr>
+    </table>
 
-	<h2>Response</h2>
-	<table>
-	<tr><th>parameter</th><th>type</th><th>description</th></tr>
-	<tr><td>rating_submitted</td><td>int</td><td>Only on success, otherwise now included.</td></tr>
-	<tr><td>rating_submitted</td><td>array</td><td>
-		Only on success, otherwise now included.
-		<table>
-		<tr><th>parameter</th><th>type</th><th>description</th></tr>
-		<tr><td>value</td><td>int</td><td>new rating value</td></tr>
-		<tr><td>votes_sum</td><td>int</td><td>deprecated</td></tr>
-		<tr><td>voters_sum</td><td>int</td><td>count of number of entries</td></tr>
-		</table>
-	</td></tr>
-	<tr><td>message</td><td>string</td><td>Detail about result</td></tr>
-	<tr><td>status</td><td>int</td><td>200 for success, 400 for error</td></tr>
-	</table>
+    <h2>Response</h2>
+    <table>
+    <tr><th>parameter</th><th>type</th><th>description</th></tr>
+    <tr><td>rating_submitted</td><td>int</td><td>Only on success, otherwise now included.</td></tr>
+    <tr><td>rating_submitted</td><td>array</td><td>
+        Only on success, otherwise now included.
+        <table>
+        <tr><th>parameter</th><th>type</th><th>description</th></tr>
+        <tr><td>value</td><td>int</td><td>new rating value</td></tr>
+        <tr><td>votes_sum</td><td>int</td><td>deprecated</td></tr>
+        <tr><td>voters_sum</td><td>int</td><td>count of number of entries</td></tr>
+        </table>
+    </td></tr>
+    <tr><td>message</td><td>string</td><td>Detail about result</td></tr>
+    <tr><td>status</td><td>int</td><td>200 for success, 400 for error</td></tr>
+    </table>
 
-	<div class="divider"><hr /></div>
+    <div class="divider"><hr /></div>
 
 </body>
 </html>

@@ -4,32 +4,32 @@
 
 <div class="server-browser-menu">
 
-	<ul class="simple-tree">
-		<li class="root"><span><a href="#/" onclick="serverBrowserOpenDir('/'); return false;"><span>File Folders</span></a></span>
-			
-			<!-- BEGIN: group -->
-			<ul>
-			<!-- BEGIN: item -->
-			<li class='{ITEM.type} {ITEM.css_class} node-id-{ITEM.id}'>
-				
-				<!-- BEGIN:link -->
-				<span><a href="#{ITEM.id}" title="{ITEM.title|htmlspecialchars}" class="{ITEM.css_class} node-id-{ITEM.id}"><span>{ITEM.name|htmlspecialchars}</span><!-- BEGIN: strapline --><br /><span class="strapline">{ITEM.strapline|strip_tags|htmlspecialchars}</span><!-- END: strapline --></a></span>
-				<!-- END:link -->
-				<!-- BEGIN:nolink -->
-				<span><a href="#" class="{ITEM.css_class} node-id-{ITEM.id}"><span>{ITEM.name|htmlspecialchars}</span></a></span>
-				<!-- END:nolink -->
-				
-				{ITEM.subcontent}
-			</li>
-			<!-- END: item -->
-			{END_RESULT_ITEMS}
-			</ul>
-			<!-- END: group -->
-			{END_RESULT_GROUPS}
-	
-			
-		</li>
-	</ul>
+    <ul class="simple-tree">
+        <li class="root"><span><a href="#/" onclick="serverBrowserOpenDir('/'); return false;"><span>File Folders</span></a></span>
+            
+            <!-- BEGIN: group -->
+            <ul>
+            <!-- BEGIN: item -->
+            <li class='{ITEM.type} {ITEM.css_class} node-id-{ITEM.id}'>
+                
+                <!-- BEGIN:link -->
+                <span><a href="#{ITEM.id}" title="{ITEM.title|htmlspecialchars}" class="{ITEM.css_class} node-id-{ITEM.id}"><span>{ITEM.name|htmlspecialchars}</span><!-- BEGIN: strapline --><br /><span class="strapline">{ITEM.strapline|strip_tags|htmlspecialchars}</span><!-- END: strapline --></a></span>
+                <!-- END:link -->
+                <!-- BEGIN:nolink -->
+                <span><a href="#" class="{ITEM.css_class} node-id-{ITEM.id}"><span>{ITEM.name|htmlspecialchars}</span></a></span>
+                <!-- END:nolink -->
+                
+                {ITEM.subcontent}
+            </li>
+            <!-- END: item -->
+            {END_RESULT_ITEMS}
+            </ul>
+            <!-- END: group -->
+            {END_RESULT_GROUPS}
+    
+            
+        </li>
+    </ul>
 </div>
 
 <!-- END: content -->

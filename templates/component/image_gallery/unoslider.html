@@ -6,12 +6,12 @@
 <!-- BEGIN: content -->
 <script type="text/javascript">
 $(document).ready(function() {
-	$("#gallery-unoslider-{GET.node_id}").unoslider();
+    $("#gallery-unoslider-{GET.node_id}").unoslider();
 }); 
 </script>
 <ul class="image-gallery-unoslider number-of-items-{IMAGE_COUNT}" id="gallery-unoslider-{GET.node_id}">
-	<!-- BEGIN: item -->
-	<li class="item image-id-{GET.relation}{ITEM.id}"><img id="image-id-{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" /></li>
-	<!-- END: item -->
+    <!-- BEGIN: item -->
+    <li class="item image-id-{GET.relation}{ITEM.id}"><img id="image-id-{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" /></li>
+    <!-- END: item -->
 </ul>
 <!-- END: content -->

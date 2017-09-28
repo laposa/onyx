@@ -1,89 +1,89 @@
 <!-- BEGIN: title -->Price Add<!-- END: title -->
 <!-- BEGIN: content -->
-	
-	<script type="text/javascript">  
-	$(function(){  
-		/**
-		 * valide form
-		 */
-		 
-		$("#price-add-form-{GET.product_variety_id}").validate();
+    
+    <script type="text/javascript">  
+    $(function(){  
+        /**
+         * valide form
+         */
+         
+        $("#price-add-form-{GET.product_variety_id}").validate();
 
-		/**
-		 * Calculate VAT if available
-		 */
-		var rate_select = $('select[name="product[variety][product_type_id]"]');
-		var no_vat_input = $("#price-without-vat");
-		var vat_input = $("#price-with-vat");
+        /**
+         * Calculate VAT if available
+         */
+        var rate_select = $('select[name="product[variety][product_type_id]"]');
+        var no_vat_input = $("#price-without-vat");
+        var vat_input = $("#price-with-vat");
 
-		if (rate_select.length > 0) {
-			no_vat_input.change(updateVatPrice);
-			no_vat_input.keyup(updateVatPrice);
-			no_vat_input.blur(updateVatPrice);
-			vat_input.change(updateNoVatPrice);
-			vat_input.keyup(updateNoVatPrice);
-			vat_input.blur(updateNoVatPrice);
-		} else {
-			vat_input.parent().parent().remove();
-		}
+        if (rate_select.length > 0) {
+            no_vat_input.change(updateVatPrice);
+            no_vat_input.keyup(updateVatPrice);
+            no_vat_input.blur(updateVatPrice);
+            vat_input.change(updateNoVatPrice);
+            vat_input.keyup(updateNoVatPrice);
+            vat_input.blur(updateNoVatPrice);
+        } else {
+            vat_input.parent().parent().remove();
+        }
 
-		function updateVatPrice() {
-			var price = no_vat_input.val() * 1;
-			var rate = rate_select.find("option:selected").data("vat") * 1;
-			if (isNaN(price) || isNaN(rate)) vat_input.val("0");
-			else vat_input.val(Math.round(price * (100 + rate) / 100 * 100000) / 100000);
-		}
+        function updateVatPrice() {
+            var price = no_vat_input.val() * 1;
+            var rate = rate_select.find("option:selected").data("vat") * 1;
+            if (isNaN(price) || isNaN(rate)) vat_input.val("0");
+            else vat_input.val(Math.round(price * (100 + rate) / 100 * 100000) / 100000);
+        }
 
-		function updateNoVatPrice() {
-			var price = vat_input.val() * 1;
-			var rate = rate_select.find("option:selected").data("vat") * 1;
-			if (isNaN(price) || isNaN(rate)) no_vat_input.val("0");
-			else no_vat_input.val(Math.round(price / (100 + rate) * 100 * 100000) / 100000);
-		}
+        function updateNoVatPrice() {
+            var price = vat_input.val() * 1;
+            var rate = rate_select.find("option:selected").data("vat") * 1;
+            if (isNaN(price) || isNaN(rate)) no_vat_input.val("0");
+            else no_vat_input.val(Math.round(price / (100 + rate) * 100 * 100000) / 100000);
+        }
 
-	});
-	</script>
-	<form method="post" action="{URI|htmlspecialchars}" id="price-add-form-{GET.product_variety_id}">
-		<fieldset class="single">
-			{MESSAGES}
-			<legend>Add a new price for Variety</legend>
-			<div class="row">
-				<span class="label"><label>Currency</label></span>
-				<span class="field">{ONXSHOP_REQUEST_1 #component/ecommerce/currency_switcher_inline}</span>
-			</div>
-			<div class="row">
-				<span class="label"><label>Price Type</label></span>
-				<span class="field">
-					<select name="price[type]">
-						<!-- BEGIN: type -->
-						<option value="{TYPE}" {SELECTED}>{TYPE}</option>
-						<!-- END: type -->
-					</select>
-				</span>
-			</div>
-			<div class="two-column-layout">
-				<div class="column-one of-two">
-					<div class="row">
-						<span class="label"><label>Price Value excluding VAT</label></span>
-						<span class="field"><input id="price-without-vat" type="text" class="text half required number" name="price[value]" value="{PRICE.value}"/></span>
-					</div>
-				</div>
-				<div class="column-two of-two">
-					<div class="row">
-						<span class="label"><label>Price Value including VAT</label></span>
-						<span class="field"><input id="price-with-vat" type="text" class="text half number" value=""/></span>
-					</div>
-				</div>
-			</div>
-		</fieldset>
-		
-		<input type="hidden" name="price[product_variety_id]" value="{GET.product_variety_id}" />
+    });
+    </script>
+    <form method="post" action="{URI|htmlspecialchars}" id="price-add-form-{GET.product_variety_id}">
+        <fieldset class="single">
+            {MESSAGES}
+            <legend>Add a new price for Variety</legend>
+            <div class="row">
+                <span class="label"><label>Currency</label></span>
+                <span class="field">{ONXSHOP_REQUEST_1 #component/ecommerce/currency_switcher_inline}</span>
+            </div>
+            <div class="row">
+                <span class="label"><label>Price Type</label></span>
+                <span class="field">
+                    <select name="price[type]">
+                        <!-- BEGIN: type -->
+                        <option value="{TYPE}" {SELECTED}>{TYPE}</option>
+                        <!-- END: type -->
+                    </select>
+                </span>
+            </div>
+            <div class="two-column-layout">
+                <div class="column-one of-two">
+                    <div class="row">
+                        <span class="label"><label>Price Value excluding VAT</label></span>
+                        <span class="field"><input id="price-without-vat" type="text" class="text half required number" name="price[value]" value="{PRICE.value}"/></span>
+                    </div>
+                </div>
+                <div class="column-two of-two">
+                    <div class="row">
+                        <span class="label"><label>Price Value including VAT</label></span>
+                        <span class="field"><input id="price-with-vat" type="text" class="text half number" value=""/></span>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+        
+        <input type="hidden" name="price[product_variety_id]" value="{GET.product_variety_id}" />
 
-		<div class="row submit">
-			<span class="label"><label>&nbsp;</label></span>
-			<span class="field"><button type="submit" name="save" value="save"><span>Save</span></button></span>
-		</div>
-	<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+        <div class="row submit">
+            <span class="label"><label>&nbsp;</label></span>
+            <span class="field"><button type="submit" name="save" value="save"><span>Save</span></button></span>
+        </div>
+    <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
 
 <!-- END: content -->

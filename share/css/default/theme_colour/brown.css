@@ -4,7 +4,7 @@
  *
  */
  
-body {	background: #d8e8c2;}
+body {  background: #d8e8c2;}
 body, p, li {color: #575757;}
 
 
@@ -44,7 +44,7 @@ hr {color: #ffffff;}
 #header div.top {background: #b3925d}
 #header div.content div.top,
 #header div.content div.bottom {background: transparent;}
-	
+    
 #logo a {color: #75511a;}
 
 #userbox a {color: white;}
@@ -59,7 +59,7 @@ hr {color: #ffffff;}
 #footerNavigation {background: #75511A
 }
 
-	
+    
 #footerNavigation ul li {border-right: 1px solid white; background: none;}
 #footerNavigation ul a {color: white;}
 

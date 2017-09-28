@@ -2,58 +2,58 @@
 {MESSAGES}
 <!-- BEGIN: variety -->
 <div class="variety-list">
-	
-	
-	<div class="content">
-		<form id="product-form-{GET.product_id}" name="product-form-{GET.product_id}" method="post" action="/page/{NODE_CONF.id_map-basket}">
-		
-			<!-- BEGIN: item -->
-			<div class="item">
-		
-				<!-- BEGIN: onstock -->
-				<div class="row onstock">
-					<span class="field"><input name="add" type="radio" class="radio" value="{VARIETY.id}" id="variety-{VARIETY.id}" {VARIETY.checked} /></span>
-					<span class="label"><label class="radio" for="variety-{VARIETY.id}"><span class="name">{VARIETY.name|htmlspecialchars}</span> <span class="price">{PRICE}</span></label></span>
-				</div>
-				<!-- END: onstock -->
-		
-				<!-- BEGIN: outofstock -->
-				<div class="row outofstock">
-					<span class="field"><input name="add" type="radio" class="radio" value="{VARIETY.id}" id="variety-{VARIETY.id}" {VARIETY.checked} disabled /></span> 
-					<span class="label">
-						<label class="radio" for="variety-{VARIETY.id}" title="{I18N_OUT_OF_STOCK}">
-							<span class="name">{VARIETY.name|htmlspecialchars}</span>
-							<span class="price">{PRICE}</span>
-						</label>
-					</span>
-					<span class="outofstock-message">{I18N_OUT_OF_STOCK}</span>
-				</div>
-				<!-- END: outofstock -->
-		
-				<!-- BEGIN: special -->
-				<div class="special">
-					<span class="field"><input name="add" type="radio" class="radio" value="{VARIETY.id}" id="variety-{VARIETY.id}" {VARIETY.checked}/> 
-					<span class="label"><label class="radio" for="variety-{VARIETY.id}"><span class="name">{VARIETY.name|htmlspecialchars}</span> <span class="price">{PRICE}</span></label></span>
-					{I18N_PAYMENT_BY_CHEQUE_ONLY}
-				</div>
-				<!-- END: special -->
-		
-				<div class="description">{VARIETY.description}</div>
-			</div>
-		
-			<!-- END: item -->
-			
-			{PRODUCT_OPTIONS}
-		
-			<input type="hidden" name="quantity" value="1" />
-			
-			<p class="add-to-basket"><button class="add-to-basket" type="submit" name="submit" value="submit"><span>{I18N_ADD_TO_BASKET}</span></button></p>
-			
-			
-		<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+    
+    
+    <div class="content">
+        <form id="product-form-{GET.product_id}" name="product-form-{GET.product_id}" method="post" action="/page/{NODE_CONF.id_map-basket}">
+        
+            <!-- BEGIN: item -->
+            <div class="item">
+        
+                <!-- BEGIN: onstock -->
+                <div class="row onstock">
+                    <span class="field"><input name="add" type="radio" class="radio" value="{VARIETY.id}" id="variety-{VARIETY.id}" {VARIETY.checked} /></span>
+                    <span class="label"><label class="radio" for="variety-{VARIETY.id}"><span class="name">{VARIETY.name|htmlspecialchars}</span> <span class="price">{PRICE}</span></label></span>
+                </div>
+                <!-- END: onstock -->
+        
+                <!-- BEGIN: outofstock -->
+                <div class="row outofstock">
+                    <span class="field"><input name="add" type="radio" class="radio" value="{VARIETY.id}" id="variety-{VARIETY.id}" {VARIETY.checked} disabled /></span> 
+                    <span class="label">
+                        <label class="radio" for="variety-{VARIETY.id}" title="{I18N_OUT_OF_STOCK}">
+                            <span class="name">{VARIETY.name|htmlspecialchars}</span>
+                            <span class="price">{PRICE}</span>
+                        </label>
+                    </span>
+                    <span class="outofstock-message">{I18N_OUT_OF_STOCK}</span>
+                </div>
+                <!-- END: outofstock -->
+        
+                <!-- BEGIN: special -->
+                <div class="special">
+                    <span class="field"><input name="add" type="radio" class="radio" value="{VARIETY.id}" id="variety-{VARIETY.id}" {VARIETY.checked}/> 
+                    <span class="label"><label class="radio" for="variety-{VARIETY.id}"><span class="name">{VARIETY.name|htmlspecialchars}</span> <span class="price">{PRICE}</span></label></span>
+                    {I18N_PAYMENT_BY_CHEQUE_ONLY}
+                </div>
+                <!-- END: special -->
+        
+                <div class="description">{VARIETY.description}</div>
+            </div>
+        
+            <!-- END: item -->
+            
+            {PRODUCT_OPTIONS}
+        
+            <input type="hidden" name="quantity" value="1" />
+            
+            <p class="add-to-basket"><button class="add-to-basket" type="submit" name="submit" value="submit"><span>{I18N_ADD_TO_BASKET}</span></button></p>
+            
+            
+        <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
-	</div>
-	
-</div>	
+    </div>
+    
+</div>  
 <!-- END: variety -->
 <!-- END: content -->

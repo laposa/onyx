@@ -1,20 +1,20 @@
 <!-- BEGIN: content -->
 
 <script type="text/javascript">
-	function addNewOtherDataAttribute() {
-		/* due to a bug in .clone method, copy textarea_value first and paste after clone using .find('textarea').val(textarea_value)
-		 * http://bugs.jquery.com/ticket/11136
-		 */
-		var textarea_value = $('#node-other-data-new textarea').val();
-		$('#node-other-data-new div.item').clone(true, true).appendTo('div.node_other_data').find('textarea').val(textarea_value);
-		$('#node-other-data-new input, #node-other-data-new textarea').val('');
-		$('#node-other-data-new textarea').attr('name', '');
-		return false;
-	}
-	
+    function addNewOtherDataAttribute() {
+        /* due to a bug in .clone method, copy textarea_value first and paste after clone using .find('textarea').val(textarea_value)
+         * http://bugs.jquery.com/ticket/11136
+         */
+        var textarea_value = $('#node-other-data-new textarea').val();
+        $('#node-other-data-new div.item').clone(true, true).appendTo('div.node_other_data').find('textarea').val(textarea_value);
+        $('#node-other-data-new input, #node-other-data-new textarea').val('');
+        $('#node-other-data-new textarea').attr('name', '');
+        return false;
+    }
+    
 $().ready(function() {
-	
-	$("div.node-other-data input, #node-other-data-new input").keyup(function () {
+    
+    $("div.node-other-data input, #node-other-data-new input").keyup(function () {
       var value = $(this).val();
       $(this).parent().next().children().attr('name', 'node[other_data]['+value+']');
     });
@@ -24,36 +24,36 @@ $().ready(function() {
 </script>
 
 <fieldset>
-	<legend>Other Data</legend>
-	<div class="row">
-		<!-- BEGIN: other_data -->
-		<div class="node-other-data">
-			<div class="item">
-			<!-- BEGIN: item_editable -->
-				<span class="label"><input type="text" value="{OTHER_DATA.key|htmlspecialchars}"></span>
-				<span class="field"><textarea name="node[other_data][{OTHER_DATA.key|htmlspecialchars}]">{OTHER_DATA.value|htmlspecialchars}</textarea>
-				<a href="#" onclick="$(this).parent().parent().remove(); return false;"><span>remove</span></a></span>
-			<!-- END: item_editable -->
-			<!-- BEGIN: item_noneditable -->
-				<span class="label">{OTHER_DATA.key|htmlspecialchars}</span>
-				<span class="field">{OTHER_DATA.value|print_r(%s, true)|htmlspecialchars}</span>
-			<!-- END: item_noneditable -->
-			</div>
-		</div>
-		<!-- END: other_data -->
-	</div>
-	
-	<!-- BEGIN: add -->
-	<div class="row">
-		<a href="#" onclick="$('#node-other-data-new').toggle(); return false;"><span>Add a new attribute</span></a>
-		<div id="node-other-data-new" style="display: none;">
-			<div class="item">
-				<span class="label"><input type="text" value=""></span>
-				<span class="field"><textarea name=""></textarea>
-			</div>
-			<p><a href="#" onclick="return addNewOtherDataAttribute();"><span>Add more</span></a></p>
-		</div>
-	</div>
-	<!-- END: add -->
+    <legend>Other Data</legend>
+    <div class="row">
+        <!-- BEGIN: other_data -->
+        <div class="node-other-data">
+            <div class="item">
+            <!-- BEGIN: item_editable -->
+                <span class="label"><input type="text" value="{OTHER_DATA.key|htmlspecialchars}"></span>
+                <span class="field"><textarea name="node[other_data][{OTHER_DATA.key|htmlspecialchars}]">{OTHER_DATA.value|htmlspecialchars}</textarea>
+                <a href="#" onclick="$(this).parent().parent().remove(); return false;"><span>remove</span></a></span>
+            <!-- END: item_editable -->
+            <!-- BEGIN: item_noneditable -->
+                <span class="label">{OTHER_DATA.key|htmlspecialchars}</span>
+                <span class="field">{OTHER_DATA.value|print_r(%s, true)|htmlspecialchars}</span>
+            <!-- END: item_noneditable -->
+            </div>
+        </div>
+        <!-- END: other_data -->
+    </div>
+    
+    <!-- BEGIN: add -->
+    <div class="row">
+        <a href="#" onclick="$('#node-other-data-new').toggle(); return false;"><span>Add a new attribute</span></a>
+        <div id="node-other-data-new" style="display: none;">
+            <div class="item">
+                <span class="label"><input type="text" value=""></span>
+                <span class="field"><textarea name=""></textarea>
+            </div>
+            <p><a href="#" onclick="return addNewOtherDataAttribute();"><span>Add more</span></a></p>
+        </div>
+    </div>
+    <!-- END: add -->
 </fieldset>
 <!-- END: content -->

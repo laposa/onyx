@@ -2,55 +2,55 @@
 <orders_list>
 <!-- BEGIN: order_item -->
 <order>
-	<document_no>{ORDER_ITEM.invoice.id}</document_no>
-	<document_date>{ORDER_ITEM.invoice.created|strtotime|strftime('%d/%m/%Y', %s)}</document_date>
-	<priority>W</priority> 
-	<document_created_by>web</document_created_by> 
-	<payment_with_order>1</payment_with_order> 
-	<payment_method>{ORDER_ITEM.payment_type}</payment_method> 
-	<payment_type>1</payment_type> 
-	<payment_value>{ORDER_ITEM.basket.total|number_format(%s, 2)}</payment_value> 
-	<subtotal_discount_value>{ORDER_ITEM.basket.discount_net|number_format(%s, 2)}</subtotal_discount_value> 
-	<total_net_value>{ORDER_ITEM.basket.total_sub|number_format(%s, 2)}</total_net_value> 
-	<total_tax_value>{ORDER_ITEM.basket.total_tax|number_format(%s, 2)}</total_tax_value> 
-	<total_gross_value>{ORDER_ITEM.basket.total|number_format(%s, 2)}</total_gross_value> 
-	<postal_name>{ORDER_ITEM.address.delivery.name|htmlspecialchars|xmlentities}</postal_name>
-	<address_line_1>{ORDER_ITEM.address.delivery.line_1|htmlspecialchars|xmlentities}</address_line_1> 
-	<address_line_2> {ORDER_ITEM.address.delivery.line_2|htmlspecialchars|xmlentities}</address_line_2>
-	<address_line_3>{ORDER_ITEM.address.delivery.line_3|htmlspecialchars|xmlentities}</address_line_3> 
-	<address_line_4></address_line_4> 
-	<city>{ORDER_ITEM.address.delivery.city|htmlspecialchars|xmlentities}</city> 
-	<county>{ORDER_ITEM.address.delivery.county|htmlspecialchars|xmlentities}</county> 
-	<country>{ORDER_ITEM.address.delivery.country.name|htmlspecialchars|xmlentities}</country>  
-	<post_code>{ORDER_ITEM.address.delivery.post_code|htmlspecialchars|xmlentities}</post_code> 
-	<contact>{ORDER_ITEM.client.customer.title_before|htmlspecialchars|xmlentities} {ORDER_ITEM.client.customer.first_name|htmlspecialchars|xmlentities} {ORDER_ITEM.client.customer.last_name|htmlspecialchars|xmlentities}</contact>
-	<telephone_no>{ORDER_ITEM.client.customer.telephone|htmlspecialchars|xmlentities}</telephone_no> 
-	<fax_no></fax_no> 
-	<email>{ORDER_ITEM.client.customer.email}</email> 
-	<promotion_code>{ORDER_ITEM.promotion_code|htmlspecialchars|xmlentities}</promotion_code>
-	<web_order_id>{ORDER_ITEM.id}</web_order_id>
-	<items>
-		<!-- BEGIN: basket_item -->
-		<item>
-			<item_code>{BASKET_ITEM.product.variety.sku}</item_code> 
-			<Desc>{BASKET_ITEM.product.name|htmlspecialchars|xmlentities} - {BASKET_ITEM.product.variety.name|htmlspecialchars|xmlentities}</Desc> 
-			<quantity>{BASKET_ITEM.quantity}</quantity> 
-			<unit_price>{BASKET_ITEM.price|number_format(%s, 2)}</unit_price> 
-			<total_price>{BASKET_ITEM.total|number_format(%s, 2)}</total_price> 
-		</item>
-		<!-- END: basket_item -->
-	</items>
-	<charges>
-		<item>
-			<item_code>{ORDER_ITEM.basket.delivery.carrier_detail.title|htmlspecialchars|xmlentities}</item_code> 
-			<price>{ORDER_ITEM.basket.delivery.value_net|number_format(%s, 2)}</price> 
-		</item>
-	</charges>
-	<comments>
-		<item>
-			<description>{ORDER_ITEM.other_data.gift_message|htmlspecialchars|xmlentities}</description> 
-		</item>
-	</comments>
+    <document_no>{ORDER_ITEM.invoice.id}</document_no>
+    <document_date>{ORDER_ITEM.invoice.created|strtotime|strftime('%d/%m/%Y', %s)}</document_date>
+    <priority>W</priority> 
+    <document_created_by>web</document_created_by> 
+    <payment_with_order>1</payment_with_order> 
+    <payment_method>{ORDER_ITEM.payment_type}</payment_method> 
+    <payment_type>1</payment_type> 
+    <payment_value>{ORDER_ITEM.basket.total|number_format(%s, 2)}</payment_value> 
+    <subtotal_discount_value>{ORDER_ITEM.basket.discount_net|number_format(%s, 2)}</subtotal_discount_value> 
+    <total_net_value>{ORDER_ITEM.basket.total_sub|number_format(%s, 2)}</total_net_value> 
+    <total_tax_value>{ORDER_ITEM.basket.total_tax|number_format(%s, 2)}</total_tax_value> 
+    <total_gross_value>{ORDER_ITEM.basket.total|number_format(%s, 2)}</total_gross_value> 
+    <postal_name>{ORDER_ITEM.address.delivery.name|htmlspecialchars|xmlentities}</postal_name>
+    <address_line_1>{ORDER_ITEM.address.delivery.line_1|htmlspecialchars|xmlentities}</address_line_1> 
+    <address_line_2> {ORDER_ITEM.address.delivery.line_2|htmlspecialchars|xmlentities}</address_line_2>
+    <address_line_3>{ORDER_ITEM.address.delivery.line_3|htmlspecialchars|xmlentities}</address_line_3> 
+    <address_line_4></address_line_4> 
+    <city>{ORDER_ITEM.address.delivery.city|htmlspecialchars|xmlentities}</city> 
+    <county>{ORDER_ITEM.address.delivery.county|htmlspecialchars|xmlentities}</county> 
+    <country>{ORDER_ITEM.address.delivery.country.name|htmlspecialchars|xmlentities}</country>  
+    <post_code>{ORDER_ITEM.address.delivery.post_code|htmlspecialchars|xmlentities}</post_code> 
+    <contact>{ORDER_ITEM.client.customer.title_before|htmlspecialchars|xmlentities} {ORDER_ITEM.client.customer.first_name|htmlspecialchars|xmlentities} {ORDER_ITEM.client.customer.last_name|htmlspecialchars|xmlentities}</contact>
+    <telephone_no>{ORDER_ITEM.client.customer.telephone|htmlspecialchars|xmlentities}</telephone_no> 
+    <fax_no></fax_no> 
+    <email>{ORDER_ITEM.client.customer.email}</email> 
+    <promotion_code>{ORDER_ITEM.promotion_code|htmlspecialchars|xmlentities}</promotion_code>
+    <web_order_id>{ORDER_ITEM.id}</web_order_id>
+    <items>
+        <!-- BEGIN: basket_item -->
+        <item>
+            <item_code>{BASKET_ITEM.product.variety.sku}</item_code> 
+            <Desc>{BASKET_ITEM.product.name|htmlspecialchars|xmlentities} - {BASKET_ITEM.product.variety.name|htmlspecialchars|xmlentities}</Desc> 
+            <quantity>{BASKET_ITEM.quantity}</quantity> 
+            <unit_price>{BASKET_ITEM.price|number_format(%s, 2)}</unit_price> 
+            <total_price>{BASKET_ITEM.total|number_format(%s, 2)}</total_price> 
+        </item>
+        <!-- END: basket_item -->
+    </items>
+    <charges>
+        <item>
+            <item_code>{ORDER_ITEM.basket.delivery.carrier_detail.title|htmlspecialchars|xmlentities}</item_code> 
+            <price>{ORDER_ITEM.basket.delivery.value_net|number_format(%s, 2)}</price> 
+        </item>
+    </charges>
+    <comments>
+        <item>
+            <description>{ORDER_ITEM.other_data.gift_message|htmlspecialchars|xmlentities}</description> 
+        </item>
+    </comments>
 </order>
 <!-- END: order_item -->
 </orders_list>

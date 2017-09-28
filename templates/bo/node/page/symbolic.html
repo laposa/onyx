@@ -1,73 +1,73 @@
 <!-- BEGIN: title -->{NODE.title} - Alias (Redirect) Page Edit<!-- END: title -->
 <!-- BEGIN: content -->
 <div class="page-header">
-	<div class="page-header-wrapper">
-		<h1 class="page-title popup"><span>Alias (Redirect) Page</span> <span class="info">ID {NODE.id}</span></h1>
-	</div>
+    <div class="page-header-wrapper">
+        <h1 class="page-title popup"><span>Alias (Redirect) Page</span> <span class="info">ID {NODE.id}</span></h1>
+    </div>
 </div>
 
 {FILE "bo/node/form_open.html"}
 
 <div class="two-column-layout fibonacci-1-1">
-	<div class="layout-column-one of-two">
-		<fieldset>
-			{FILE "bo/node/item_title.html"}
-			<div class="advanced">
-			{FILE "bo/node/item_uri_title.html"}
-			</div>
-		</fieldset>
-		
-		<script type="text/javascript">
-		$(document).ready(function(){
-			$('fieldset.symbolic-form-edit div.href a.button').click(function() {
-				$('#href-select').addClass('ajax-load').load('/request/component/menu_js~id=0:expand_all=1:publish=0~', function() {
-					$('#href-select').removeClass('ajax-load');
-					$('#href-select .simple-tree').simpleTree({
-						drag: false,
-						autoclose: true,
-						afterClick:function(node){
-							var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
-							$('#component-href').attr('value', '/page/' + node_id);
-						},
-						animate: true,
-						docToFolderConvert: true
-					});
-				});
-				return false;
-			});
-		});
-		</script>
-		<fieldset class="symbolic-form-edit">
-			<div class="row href">
-				<label>Forward Link: *</label>
-				<input type="text" name="node[component][href]" id="component-href" value="{NODE.component.href}" /> <a class="button" href="#"><span>Browse Server</span></a>
-				<div id="href-select"></div>
-			</div>
-		</fieldset>
+    <div class="layout-column-one of-two">
+        <fieldset>
+            {FILE "bo/node/item_title.html"}
+            <div class="advanced">
+            {FILE "bo/node/item_uri_title.html"}
+            </div>
+        </fieldset>
+        
+        <script type="text/javascript">
+        $(document).ready(function(){
+            $('fieldset.symbolic-form-edit div.href a.button').click(function() {
+                $('#href-select').addClass('ajax-load').load('/request/component/menu_js~id=0:expand_all=1:publish=0~', function() {
+                    $('#href-select').removeClass('ajax-load');
+                    $('#href-select .simple-tree').simpleTree({
+                        drag: false,
+                        autoclose: true,
+                        afterClick:function(node){
+                            var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
+                            $('#component-href').attr('value', '/page/' + node_id);
+                        },
+                        animate: true,
+                        docToFolderConvert: true
+                    });
+                });
+                return false;
+            });
+        });
+        </script>
+        <fieldset class="symbolic-form-edit">
+            <div class="row href">
+                <label>Forward Link: *</label>
+                <input type="text" name="node[component][href]" id="component-href" value="{NODE.component.href}" /> <a class="button" href="#"><span>Browse Server</span></a>
+                <div id="href-select"></div>
+            </div>
+        </fieldset>
 
-	</div>
+    </div>
 </div>
 
 {FILE "bo/node/item_content_list.html"}
 <div class="two-column-layout fibonacci-1-1 advanced">
-	<div class="layout-column-one of-two">
-		<fieldset>
-			{FILE "bo/node/item_display_in_menu.html"}
-			{FILE "bo/node/item_display_permission.html"}
-			{FILE "bo/node/item_display_permission_group_acl.html"}
-			{FILE "bo/node/item_require_login.html"}
-		</fieldset>
-	</div>
-	<div class="layout-column-two of-two">
-		<fieldset>
-			{FILE "bo/node/item_node_type.html"}
-			{FILE "bo/node/item_signature.html"}
-			{FILE "bo/node/item_customer.html"}
-		</fieldset>
-	</div>
+    <div class="layout-column-one of-two">
+        <fieldset>
+            {FILE "bo/node/item_display_in_menu.html"}
+            {FILE "bo/node/item_display_permission.html"}
+            {FILE "bo/node/item_display_permission_group_acl.html"}
+            {FILE "bo/node/item_require_login.html"}
+        </fieldset>
+    </div>
+    <div class="layout-column-two of-two">
+        <fieldset>
+            {FILE "bo/node/item_node_type.html"}
+            {FILE "bo/node/item_signature.html"}
+            {FILE "bo/node/item_customer.html"}
+        </fieldset>
+    </div>
 </div>
 
 {FILE "bo/node/item_publish.html"}
-	
+    
 {FILE "bo/node/form_close.html"}
 <!-- END: content -->

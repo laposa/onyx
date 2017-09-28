@@ -1,73 +1,73 @@
 <!-- BEGIN: title -->{NODE.title} - News Article Edit<!-- END: title -->
 <!-- BEGIN: content -->
 <div class="page-header">
-	<div class="page-header-wrapper">
-		<h1 class="page-title popup"><span>News Article</span> <span class="info">ID {NODE.id}</span></h1>
-	</div>
+    <div class="page-header-wrapper">
+        <h1 class="page-title popup"><span>News Article</span> <span class="info">ID {NODE.id}</span></h1>
+    </div>
 </div>
 {FILE "bo/node/form_open.html"}
-	
+    
 <div class="two-column-layout fibonacci-1-1">
-	<div class="layout-column-one of-two">
-		<fieldset>
-			{FILE "bo/node/item_title.html"}
-			{FILE "bo/node/item_display_title.html"}
-			{FILE "bo/node/item_page_title.html"}
-			<div class="advanced">
-			{FILE "bo/node/item_uri_title.html"}
-			{FILE "bo/node/item_browser_title.html"}
-			{FILE "bo/node/item_strapline.html"}
-			</div>
-			{FILE "bo/node/item_description.html"}
-			{FILE "bo/node/item_author_name.html"}
-			{FILE "bo/node/item_allow_comment.html"}
-			{FILE "bo/node/item_created.html"}
-		</fieldset>
-	</div>
-	<div class="layout-column-two of-two">
-		<fieldset>
-		{FILE "bo/node/item_image_list.html"}
-		{FILE "bo/node/item_taxonomy.html"}
-		</fieldset>
-		<fieldset>
-			{FILE "bo/node/item_css_class.html"}
-		</fieldset>
-	</div>
+    <div class="layout-column-one of-two">
+        <fieldset>
+            {FILE "bo/node/item_title.html"}
+            {FILE "bo/node/item_display_title.html"}
+            {FILE "bo/node/item_page_title.html"}
+            <div class="advanced">
+            {FILE "bo/node/item_uri_title.html"}
+            {FILE "bo/node/item_browser_title.html"}
+            {FILE "bo/node/item_strapline.html"}
+            </div>
+            {FILE "bo/node/item_description.html"}
+            {FILE "bo/node/item_author_name.html"}
+            {FILE "bo/node/item_allow_comment.html"}
+            {FILE "bo/node/item_created.html"}
+        </fieldset>
+    </div>
+    <div class="layout-column-two of-two">
+        <fieldset>
+        {FILE "bo/node/item_image_list.html"}
+        {FILE "bo/node/item_taxonomy.html"}
+        </fieldset>
+        <fieldset>
+            {FILE "bo/node/item_css_class.html"}
+        </fieldset>
+    </div>
 </div>
 
 <fieldset>
-	{FILE "bo/node/item_content.html"}
+    {FILE "bo/node/item_content.html"}
 </fieldset>
 
 {FILE "bo/node/item_content_list.html"}
 <div class="two-column-layout fibonacci-1-1 advanced">
-	<div class="layout-column-one of-two">
-		<fieldset>
-			{FILE "bo/node/item_display_in_menu.html"}
-			{FILE "bo/node/item_display_permission.html"}
-			{FILE "bo/node/item_display_permission_group_acl.html"}
-			{FILE "bo/node/item_require_login.html"}
-		</fieldset>
-	</div>
-	<div class="layout-column-two of-two">
-		<fieldset>
-			{FILE "bo/node/item_node_type.html"}
-			{FILE "bo/node/item_signature.html"}
-			{FILE "bo/node/item_customer.html"}
-		</fieldset>
-	</div>
+    <div class="layout-column-one of-two">
+        <fieldset>
+            {FILE "bo/node/item_display_in_menu.html"}
+            {FILE "bo/node/item_display_permission.html"}
+            {FILE "bo/node/item_display_permission_group_acl.html"}
+            {FILE "bo/node/item_require_login.html"}
+        </fieldset>
+    </div>
+    <div class="layout-column-two of-two">
+        <fieldset>
+            {FILE "bo/node/item_node_type.html"}
+            {FILE "bo/node/item_signature.html"}
+            {FILE "bo/node/item_customer.html"}
+        </fieldset>
+    </div>
 </div>
 
 <fieldset class="advanced">
-	{FILE "bo/node/item_head.html"}
+    {FILE "bo/node/item_head.html"}
 </fieldset>
 
 {FILE "bo/node/item_publish.html"}
-	
+    
 {FILE "bo/node/form_close.html"}
 
 <p class="extended-toolbar">
-	<a class="button edit" href="/page/{GET.id}?fe_edit_mode=edit" target="_blank" style="margin-left: 10px;"><span>Open in Front-End Editing</span></a>
-	<a class="button edit" href="/page/{GET.id}?preview_token={PREVIEW_TOKEN}" target="_blank" style="margin-left: 10px;"><span>Approval Link</span></a>
+    <a class="button edit" href="/page/{GET.id}?fe_edit_mode=edit" target="_blank" style="margin-left: 10px;"><span>Open in Front-End Editing</span></a>
+    <a class="button edit" href="/page/{GET.id}?preview_token={PREVIEW_TOKEN}" target="_blank" style="margin-left: 10px;"><span>Approval Link</span></a>
 </p>
 <!-- END: content -->

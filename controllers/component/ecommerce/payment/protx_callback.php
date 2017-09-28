@@ -11,26 +11,26 @@ require_once('controllers/component/ecommerce/payment/protx.php');
 
 class Onxshop_Controller_Component_Ecommerce_Payment_Protx_Callback extends Onxshop_Controller_Component_Ecommerce_Payment_Protx {
 
-	/**
-	 * main action
-	 */
-	 
-	public function mainAction() {
-		
-		if ($_SESSION['client']['customer']['id'] == 0) {
-			msg('payment_callback_protx: You must be logged in.');
-			onxshopGoTo("/");
-		}
-		
-		require_once('conf/payment/protx.php');
-		$this->transactionPrepare();
-		
-		if (is_numeric($this->GET['order_id']) && $this->GET['crypt'] != '') {
-		
-			$this->paymentProcess($this->GET['order_id'], $this->GET['crypt']);
-		}
+    /**
+     * main action
+     */
+     
+    public function mainAction() {
+        
+        if ($_SESSION['client']['customer']['id'] == 0) {
+            msg('payment_callback_protx: You must be logged in.');
+            onxshopGoTo("/");
+        }
+        
+        require_once('conf/payment/protx.php');
+        $this->transactionPrepare();
+        
+        if (is_numeric($this->GET['order_id']) && $this->GET['crypt'] != '') {
+        
+            $this->paymentProcess($this->GET['order_id'], $this->GET['crypt']);
+        }
 
-		return true;
-	}
-	
+        return true;
+    }
+    
 }

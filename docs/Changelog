@@ -1137,12 +1137,12 @@ Xsite (1.2.0)
   * component/rss_feed uses Zend/Feed, added support for content attribute from Atom feeds
   * database prepared for implementing delivery cost maintainance, warehouse accounts,
     promotional code management and product reviews
-  	requires upgrade-1.1.7-1.2.0.sql
+    requires upgrade-1.1.7-1.2.0.sql
   * product reviews database prepared for customer's rating
   * database prepared for better delivery rates management
-  *	new models/ecommerce_delivery_carrier.php, ecommerce_promotion.php, ecommerce_promotion_code.php
+  * new models/ecommerce_delivery_carrier.php, ecommerce_promotion.php, ecommerce_promotion_code.php
   * added option to node edit: Show At Wholesale Login, Hide At Wholesale Login
-  * fix double node wrapper after node update, ie on largeText 	
+  * fix double node wrapper after node update, ie on largeText  
   * implemented jquery.validation for contact, login, registration and comments forms
   * title_before is marked as mandatory
   * usage of favicon.ico only
@@ -1510,7 +1510,7 @@ Xsite (1.0.3)
   * Change test of symlink from -a to -h in utils/project.relink
   * Default CSS/template and backoffice CSS update
   * Problem with stealing of messages between controllers
-  	Removed messages block from basket_detail.html and address.html
+    Removed messages block from basket_detail.html and address.html
   * Added option_show_all, option_per_page to component/pagination
   * Added "show all" button to pagination in database browse
   * $order_data['basket']['total_goods_netto'] calculation correction
@@ -1584,6 +1584,6 @@ Xsite (1.0.1)
 Xsite (1.0.0)
 
   * Initial release.
-  	Version 1 codename is Bender.
+    Version 1 codename is Bender.
 
  -- Norbert Laposa <mr@ln5.co.uk>  2007-06-14

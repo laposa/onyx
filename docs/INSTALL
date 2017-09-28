@@ -22,8 +22,8 @@ ln -s /opt/onxshop-1.7 onxshop_dir;
 vi /etc/apache2/sites-available/[HOSTNAME].conf
 
 <VirtualHost *:80>
-	ServerName [HOSTNAME]
-	VirtualDocumentRoot [PROJECT_DIR]/public_html
+    ServerName [HOSTNAME]
+    VirtualDocumentRoot [PROJECT_DIR]/public_html
 </VirtualHost>
 
 

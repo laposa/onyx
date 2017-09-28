@@ -30,70 +30,70 @@ p {padding: 10px 20px; margin: 0;}
 
 <script type="text/javascript">
 $(document).ready(function(){
-	
-	popupMessage("div.onxshop-messages");
-	
-	$("form.login").validate({onkeyup: false});  
-	
-	if(window.location.hash == '#forgot' || window.location.search.substr(1).match(/key/)) {
-		$('div.bo-login #login').hide();
-		$('div.bo-login #forgot').show();
-	}
-	
-	$('#login form p.hint a').on('click', function() {
-		$('div.password-reset div.email input').val($('#username').val());
-		$('#login').slideUp(function() {
-			$('#forgot').slideDown();
-		});
-	});
-	
-	$('#forgot form button').before('<p class="hint"><a href="#login">Show login screen</a></p>');
-	$('#forgot p.notice').after('<p><a href="{URI|htmlspecialchars}">Back to login screen</a></p>');
-	
-	$('#forgot form p.hint a').on('click', function() {
-		$('#login').slideDown();
-		$('#forgot').slideUp();
-	});
-	
-	$('form.login').submit(function(){
-		
-		var auth_url = '{PROTOCOL}://{_SERVER.HTTP_HOST}/edit';
-		var username = $("#username").val();
-		var password = $("#password").val();
-		
-		if (username && password) {
-			
-			var auth_data = btoa(username + ':' + password);	
-			
-			console.log('Sending Username ('+username+') and Password to the server');
-			
-			try {
-				$.ajax({
-					'url': auth_url,
-					//username: $("#username").val(),
-					//password: $("#password").val(),
-					headers: {
-						"Authorization": "Basic " + auth_data
-					},
-					success: function(result,status,xhr) {
-						location.reload();
-					},
-					error: function(xhr,status,error) {
-						$('form.login').effect("shake");
-					}
-				});
-			}
-			catch(err) {
-				console.log('Ajax error');
-				growlMessage(err.message);
-			}
-			
-		} else {
-			growlMessage("Fill in username and password");
-		}
-		
-		return false;
-	});
+    
+    popupMessage("div.onxshop-messages");
+    
+    $("form.login").validate({onkeyup: false});  
+    
+    if(window.location.hash == '#forgot' || window.location.search.substr(1).match(/key/)) {
+        $('div.bo-login #login').hide();
+        $('div.bo-login #forgot').show();
+    }
+    
+    $('#login form p.hint a').on('click', function() {
+        $('div.password-reset div.email input').val($('#username').val());
+        $('#login').slideUp(function() {
+            $('#forgot').slideDown();
+        });
+    });
+    
+    $('#forgot form button').before('<p class="hint"><a href="#login">Show login screen</a></p>');
+    $('#forgot p.notice').after('<p><a href="{URI|htmlspecialchars}">Back to login screen</a></p>');
+    
+    $('#forgot form p.hint a').on('click', function() {
+        $('#login').slideDown();
+        $('#forgot').slideUp();
+    });
+    
+    $('form.login').submit(function(){
+        
+        var auth_url = '{PROTOCOL}://{_SERVER.HTTP_HOST}/edit';
+        var username = $("#username").val();
+        var password = $("#password").val();
+        
+        if (username && password) {
+            
+            var auth_data = btoa(username + ':' + password);    
+            
+            console.log('Sending Username ('+username+') and Password to the server');
+            
+            try {
+                $.ajax({
+                    'url': auth_url,
+                    //username: $("#username").val(),
+                    //password: $("#password").val(),
+                    headers: {
+                        "Authorization": "Basic " + auth_data
+                    },
+                    success: function(result,status,xhr) {
+                        location.reload();
+                    },
+                    error: function(xhr,status,error) {
+                        $('form.login').effect("shake");
+                    }
+                });
+            }
+            catch(err) {
+                console.log('Ajax error');
+                growlMessage(err.message);
+            }
+            
+        } else {
+            growlMessage("Fill in username and password");
+        }
+        
+        return false;
+    });
 });
 </script>
 
@@ -101,41 +101,41 @@ $(document).ready(function(){
 <!-- END: head -->
 <!-- BEGIN: content -->
 <div id="backoffice">
-	<div id="backoffice-wrapper">
-		<div id="container">
-			{MESSAGES}
-			<div class="bo-login">
-				<div class="logo"><a href="https://onxshop.com"><img src="/share/images/onxshop-logo-black.png" /></a></div>
-				<div class="content">
-					<div id="login">
-						<form class="login via-email {FAILED}" method="post">
-							<fieldset class="single">
-								<legend>Onxshop CMS Login</legend>
-								<div class="row email">
-									<span class="field"><input class="required" id="username" type="text" name="username" value="{USERNAME|htmlspecialchars}" placeholder="Username" autofocus/></span>
-								</div>
-								<div class="row password">
-									<span class="field"><input class="required text" id="password" type="password" name="password" value="{PASSWORD|htmlspecialchars}" placeholder="Password"/></span>
-								</div>
-								
-								<div class="row submit">
-									<p class="hint"><a href="#forgot">Forgot your password?</a></p>
-									<button type="submit" name="login" value="sent" class="submit"><span>{I18N_SUBMIT}</span></button>
-								</div>
-							
-							</fieldset>
-							
-							<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
-						</form>
-					</div>
-					<div id="forgot">
-						{ONXSHOP_REQUEST_forgot #component/client/password_reset~backoffice=1~}
-					</div>
-				</div>
-			</div>
+    <div id="backoffice-wrapper">
+        <div id="container">
+            {MESSAGES}
+            <div class="bo-login">
+                <div class="logo"><a href="https://onxshop.com"><img src="/share/images/onxshop-logo-black.png" /></a></div>
+                <div class="content">
+                    <div id="login">
+                        <form class="login via-email {FAILED}" method="post">
+                            <fieldset class="single">
+                                <legend>Onxshop CMS Login</legend>
+                                <div class="row email">
+                                    <span class="field"><input class="required" id="username" type="text" name="username" value="{USERNAME|htmlspecialchars}" placeholder="Username" autofocus/></span>
+                                </div>
+                                <div class="row password">
+                                    <span class="field"><input class="required text" id="password" type="password" name="password" value="{PASSWORD|htmlspecialchars}" placeholder="Password"/></span>
+                                </div>
+                                
+                                <div class="row submit">
+                                    <p class="hint"><a href="#forgot">Forgot your password?</a></p>
+                                    <button type="submit" name="login" value="sent" class="submit"><span>{I18N_SUBMIT}</span></button>
+                                </div>
+                            
+                            </fieldset>
+                            
+                            <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+                        </form>
+                    </div>
+                    <div id="forgot">
+                        {ONXSHOP_REQUEST_forgot #component/client/password_reset~backoffice=1~}
+                    </div>
+                </div>
+            </div>
 
-		</div>
-	</div>
+        </div>
+    </div>
 </div>
 
 {ONXSHOP_REQUEST_bo_tracking #bo_tracking}

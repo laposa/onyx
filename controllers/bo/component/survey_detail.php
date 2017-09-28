@@ -8,100 +8,100 @@ require_once('controllers/bo/component/survey.php');
 
 class Onxshop_Controller_Bo_Component_Survey_Detail extends Onxshop_Controller_Bo_Component_Survey {
 
-	/**
-	 * main action
-	 */
-	 
-	public function mainAction() {
-	
-		if (is_numeric($this->GET['id'])) $survey_id = $this->GET['id'];
-		else {
-			msg("Survey ID is not numeric", 'error');
-			return false;
-		}
-		
-		require_once('models/education/education_survey.php');
-		
-		$this->Survey = new education_survey();
-		
-		$survey_detail = $this->Survey->getFullDetail($survey_id);
-		
-		$this->displaySurvey($survey_detail);
-		
-		return true;
-		
-	}
-	
-	/**
-	 * displaySurvey
-	 */
-	 
-	public function displaySurvey($survey_detail) {
-		
-		if (!is_array($survey_detail)) {
-			msg("Survey detail isn't array", 'error');
-			return false;
-		}
-		
-		foreach ($survey_detail['question_list'] as $item) {
-			
-			$this->displayQuestion($item);
-			
-		}
+    /**
+     * main action
+     */
+     
+    public function mainAction() {
+    
+        if (is_numeric($this->GET['id'])) $survey_id = $this->GET['id'];
+        else {
+            msg("Survey ID is not numeric", 'error');
+            return false;
+        }
+        
+        require_once('models/education/education_survey.php');
+        
+        $this->Survey = new education_survey();
+        
+        $survey_detail = $this->Survey->getFullDetail($survey_id);
+        
+        $this->displaySurvey($survey_detail);
+        
+        return true;
+        
+    }
+    
+    /**
+     * displaySurvey
+     */
+     
+    public function displaySurvey($survey_detail) {
+        
+        if (!is_array($survey_detail)) {
+            msg("Survey detail isn't array", 'error');
+            return false;
+        }
+        
+        foreach ($survey_detail['question_list'] as $item) {
+            
+            $this->displayQuestion($item);
+            
+        }
 
-		if (count($survey_detail['question_list']) == 0) $this->tpl->parse('content.empty');
-		
-		$this->tpl->assign('SURVEY', $survey_detail);
-	
-	}
+        if (count($survey_detail['question_list']) == 0) $this->tpl->parse('content.empty');
+        
+        $this->tpl->assign('SURVEY', $survey_detail);
+    
+    }
 
-	/**
-	 * displayQuestion
-	 */
-	 
-	public function displayQuestion($question_detail) {
-	
-		if (!is_array($question_detail)) {
-			msg("Question detail isn't array", 'error');
-			return false;
-		}
-		
-		$this->tpl->assign('QUESTION', $question_detail);
-		
-		if ($question_detail['type'] == 'text' || $question_detail['type'] == 'file' || $question_detail['type'] == 'range') {
-		
-			$this->tpl->parse('content.question.answer_text');
-		
-		} else {
-			
-			foreach ($question_detail['answer_list'] as $item) {
-				
-				$item['usage'] = $this->Survey->getAnswerUsage($item['id']);
-				$this->displayAnswer($item);
-				
-			}
-			
-			$this->tpl->parse('content.question.answer_list');
-		}
-		
-		$this->tpl->parse('content.question');
-		
-	}
-	
-	
-	/**
-	 * displayAnswer
-	 */
-	 
-	public function displayAnswer($answer_detail) {
-		
-		if (!is_array($answer_detail)) {
-			msg("Answer detail isn't array", 'error');
-			return false;
-		}
-		
-		$this->tpl->assign('ANSWER', $answer_detail);
-		$this->tpl->parse('content.question.answer_list.item');
-	}
+    /**
+     * displayQuestion
+     */
+     
+    public function displayQuestion($question_detail) {
+    
+        if (!is_array($question_detail)) {
+            msg("Question detail isn't array", 'error');
+            return false;
+        }
+        
+        $this->tpl->assign('QUESTION', $question_detail);
+        
+        if ($question_detail['type'] == 'text' || $question_detail['type'] == 'file' || $question_detail['type'] == 'range') {
+        
+            $this->tpl->parse('content.question.answer_text');
+        
+        } else {
+            
+            foreach ($question_detail['answer_list'] as $item) {
+                
+                $item['usage'] = $this->Survey->getAnswerUsage($item['id']);
+                $this->displayAnswer($item);
+                
+            }
+            
+            $this->tpl->parse('content.question.answer_list');
+        }
+        
+        $this->tpl->parse('content.question');
+        
+    }
+    
+    
+    /**
+     * displayAnswer
+     */
+     
+    public function displayAnswer($answer_detail) {
+        
+        if (!is_array($answer_detail)) {
+            msg("Answer detail isn't array", 'error');
+            return false;
+        }
+        
+        $this->tpl->assign('ANSWER', $answer_detail);
+        $this->tpl->parse('content.question.answer_list.item');
+    }
 }
 

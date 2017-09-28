@@ -23,42 +23,42 @@
 <ul id="accessibility"><li><a href="#primaryNavigation">Skip to navigation</a></li><li><a href="#content">Skip to content</a></li></ul>
 
 <div id="site" class="customer_account_type_{_SESSION.client.customer.account_type} locale_{_SESSION.locale|preg_replace('/\.UTF-8/', '', %s)}">
-	<div id="siteWrapper">
-		<div id="page_id_{GET.id}" class="site {NODE.css_class}">
-			<div id="page-wrapper">
-				
-				<div id="container">
-					<div id="containerWrapper">
-						
-						<div id="content">
-							<div id="contentWrapper">
-								
-								<div class="content">
-									{SUB_CONTENT}
-								</div>
-								
-							</div>
-						</div>
-						
-						<div></div> <!-- IE requires this empty div -->
-						<div id="contentBottom">
-							<div id="contentBottomWrapper">
-								
-								<div class="content">
-									{CONTENT_FOOT}
-								</div>
-								
-							</div>
-						</div>
-						
-						
-					</div>
-				</div>
-				
-				
-			</div>
-		</div>
-	</div>
+    <div id="siteWrapper">
+        <div id="page_id_{GET.id}" class="site {NODE.css_class}">
+            <div id="page-wrapper">
+                
+                <div id="container">
+                    <div id="containerWrapper">
+                        
+                        <div id="content">
+                            <div id="contentWrapper">
+                                
+                                <div class="content">
+                                    {SUB_CONTENT}
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                        <div></div> <!-- IE requires this empty div -->
+                        <div id="contentBottom">
+                            <div id="contentBottomWrapper">
+                                
+                                <div class="content">
+                                    {CONTENT_FOOT}
+                                </div>
+                                
+                            </div>
+                        </div>
+                        
+                        
+                    </div>
+                </div>
+                
+                
+            </div>
+        </div>
+    </div>
 </div>
 <div id="dialog" title="Dialog Window"></div>
 {CONFIGURATION.global.extra_body_bottom}

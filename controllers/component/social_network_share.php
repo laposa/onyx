@@ -12,117 +12,117 @@ require_once('models/ecommerce/ecommerce_product_image.php');
 
 class Onxshop_Controller_Component_Social_Network_Share extends Onxshop_Controller {
 
-	// models
-	public $Node;
-	public $Image;
+    // models
+    public $Node;
+    public $Image;
 
-	// key
-	public $node_id;
+    // key
+    public $node_id;
 
-	// data structures
-	public $node_data;
-	public $image;
+    // data structures
+    public $node_data;
+    public $image;
 
-	/**
-	 * main action
-	 */
+    /**
+     * main action
+     */
 
-	public function mainAction() {
-		
-		$this->Node = new common_node();
-		$this->node_id = $this->getNodeId();
-		$this->node_data = $this->getNode($this->node_id);
-		
-		if ($this->node_data['node_controller'] == 'recipe') {
-			$this->Image = new ecommerce_recipe_image();
-			$this->image = $this->getImage($this->node_data['content']);
-		} else if ($this->node_data['node_controller'] == 'product') {
-			$this->Image = new ecommerce_product_image();
-			$this->image = $this->getImage($this->node_data['content']);
-		} else {
-			$this->Image = new common_image();
-			$this->image = $this->getImage($this->node_id);
-		}
+    public function mainAction() {
+        
+        $this->Node = new common_node();
+        $this->node_id = $this->getNodeId();
+        $this->node_data = $this->getNode($this->node_id);
+        
+        if ($this->node_data['node_controller'] == 'recipe') {
+            $this->Image = new ecommerce_recipe_image();
+            $this->image = $this->getImage($this->node_data['content']);
+        } else if ($this->node_data['node_controller'] == 'product') {
+            $this->Image = new ecommerce_product_image();
+            $this->image = $this->getImage($this->node_data['content']);
+        } else {
+            $this->Image = new common_image();
+            $this->image = $this->getImage($this->node_id);
+        }
 
-		$share_uri = $this->getShareUri();
+        $share_uri = $this->getShareUri();
 
-		$this->tpl->assign('SHARE_URI', $share_uri);
-		$this->tpl->assign('SHARE_MESSAGE', $this->getShareMessage($this->node_data));
-		$this->tpl->assign('IMAGE', $this->image);
-		$this->tpl->assign('NODE', $this->node_data);
+        $this->tpl->assign('SHARE_URI', $share_uri);
+        $this->tpl->assign('SHARE_MESSAGE', $this->getShareMessage($this->node_data));
+        $this->tpl->assign('IMAGE', $this->image);
+        $this->tpl->assign('NODE', $this->node_data);
 
-		return true;
-		
-	}
-	
-	/**
-	 * getNodeId
-	 */
+        return true;
+        
+    }
+    
+    /**
+     * getNodeId
+     */
 
-	protected function getNodeId() {
+    protected function getNodeId() {
 
-		if (is_numeric($this->GET['node_id'])) return $this->GET['node_id'];
-		else if ($node_id = $this->detectParentPage()) return $node_id;
-		else return 5; //homepage
+        if (is_numeric($this->GET['node_id'])) return $this->GET['node_id'];
+        else if ($node_id = $this->detectParentPage()) return $node_id;
+        else return 5; //homepage
 
-	}
-	
-	/**
-	 * getNode
-	 */
+    }
+    
+    /**
+     * getNode
+     */
 
-	protected function getNode($node_id) {
+    protected function getNode($node_id) {
 
-		$node_data = $this->Node->nodeDetail($node_id);
-		if ($node_data['page_title'] == '') $node_data['page_title'] = $node_data['title'];
-		return $node_data;
-	}
-	
-	/**
-	 * getImage
-	 */
+        $node_data = $this->Node->nodeDetail($node_id);
+        if ($node_data['page_title'] == '') $node_data['page_title'] = $node_data['title'];
+        return $node_data;
+    }
+    
+    /**
+     * getImage
+     */
 
-	protected function getImage($node_id) {
+    protected function getImage($node_id) {
 
-		$image_list = $this->Image->listFiles($node_id);
-		if (is_array($image_list) && count($image_list) > 0) return $image_list[0];
-		return array('src' => ONXSHOP_FACEBOOK_OG_IMAGE);
+        $image_list = $this->Image->listFiles($node_id);
+        if (is_array($image_list) && count($image_list) > 0) return $image_list[0];
+        return array('src' => ONXSHOP_FACEBOOK_OG_IMAGE);
 
-	}
-	
-	/**
-	 * getShareUri
-	 */
-	
-	public function getShareUri() {
-		
-		if ($_SERVER['SSL_PROTOCOL'] || $_SERVER['HTTPS']) $protocol = 'https';
- 		else $protocol = 'http';
-		
-		if ($this->GET['share_uri']) $share_uri = "$protocol://" . $_SERVER['HTTP_HOST'] . urldecode($this->GET['share_uri']);
-		else $share_uri = "$protocol://" . $_SERVER['HTTP_HOST'] . "/{$this->node_id}";
-		
-		return $share_uri;
-	}
-	
-	/* *
-	 * detectParentPage
-	 */
-	 
-	public function detectParentPage() {
-		
-		if (is_numeric($_SESSION['active_pages'][0])) return $_SESSION['active_pages'][0];
-		else return false;
-		
-	}
-	
-	/**
-	 * getShareMessage
-	 */
+    }
+    
+    /**
+     * getShareUri
+     */
+    
+    public function getShareUri() {
+        
+        if ($_SERVER['SSL_PROTOCOL'] || $_SERVER['HTTPS']) $protocol = 'https';
+        else $protocol = 'http';
+        
+        if ($this->GET['share_uri']) $share_uri = "$protocol://" . $_SERVER['HTTP_HOST'] . urldecode($this->GET['share_uri']);
+        else $share_uri = "$protocol://" . $_SERVER['HTTP_HOST'] . "/{$this->node_id}";
+        
+        return $share_uri;
+    }
+    
+    /* *
+     * detectParentPage
+     */
+     
+    public function detectParentPage() {
+        
+        if (is_numeric($_SESSION['active_pages'][0])) return $_SESSION['active_pages'][0];
+        else return false;
+        
+    }
+    
+    /**
+     * getShareMessage
+     */
 
-	public function getShareMessage($node_data) {
-		
-		return $node_data['page_title'];
-		
-	}
+    public function getShareMessage($node_data) {
+        
+        return $node_data['page_title'];
+        
+    }
 }

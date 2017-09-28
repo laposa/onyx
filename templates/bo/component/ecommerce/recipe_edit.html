@@ -3,7 +3,7 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	$("#recipe-edit-form").validate();
+    $("#recipe-edit-form").validate();
 });
 </script>
 
@@ -11,135 +11,135 @@ $(document).ready(function(){
 <form method="post" action="" class="recipe-edit" id="recipe-edit-form">
 <div id="recipe_edit">
 
-	<div class="two-column-page page">
-		
-			<div class="page-wrapper">
+    <div class="two-column-page page">
+        
+            <div class="page-wrapper">
 
-				<div class="page-header">
-					<div class="page-header-wrapper">
-						<h1 class="page-title"><span>Recipe Edit</span> <span class="info">ID {RECIPE.id}</span></h1>
-					</div>
-				</div>
+                <div class="page-header">
+                    <div class="page-header-wrapper">
+                        <h1 class="page-title"><span>Recipe Edit</span> <span class="info">ID {RECIPE.id}</span></h1>
+                    </div>
+                </div>
 
-				<div class="page-content">
-					<div class="page-content-wrapper">
-						<div class="row-top">
-							<div class="row-wrapper">
-								<div class="column-wrapper">
+                <div class="page-content">
+                    <div class="page-content-wrapper">
+                        <div class="row-top">
+                            <div class="row-wrapper">
+                                <div class="column-wrapper">
 
-									<div class="two-column-layout fibonacci-5-3">
-										<div class="layout-column-one of-two">
+                                    <div class="two-column-layout fibonacci-5-3">
+                                        <div class="layout-column-one of-two">
 
-											<fieldset>
-												<div class="row title">
-													<span class="label"><label>Recipe Title</label></span>
-													<span class="field"><input type="text" class="text title long" name="recipe[title]" value="{RECIPE.title|htmlspecialchars}" /></span>
-												</div>
-											</fieldset>
-											<fieldset>
-												<div class="row rte">
-													<span class="label"><label>Description <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'simple', 'recipe-description'); return false;"><span>RTE</span></a></label></span>
-													<span class="field"><textarea id="recipe-description" name="recipe[description]">{RECIPE.description|htmlspecialchars}</textarea></span>
-												</div>
-												<div class="row rte">
-													<span class="label"><label>Instructions <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'mceAdvanced', 'recipe-instructions'); return false;"><span>RTE</span></a></label></span>
-													<span class="field"><textarea class="big" style="width: 50%;" name="recipe[instructions]" id="recipe-instructions">{RECIPE.instructions|htmlspecialchars}</textarea></span>
-												</div>
-											</fieldset>
+                                            <fieldset>
+                                                <div class="row title">
+                                                    <span class="label"><label>Recipe Title</label></span>
+                                                    <span class="field"><input type="text" class="text title long" name="recipe[title]" value="{RECIPE.title|htmlspecialchars}" /></span>
+                                                </div>
+                                            </fieldset>
+                                            <fieldset>
+                                                <div class="row rte">
+                                                    <span class="label"><label>Description <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'simple', 'recipe-description'); return false;"><span>RTE</span></a></label></span>
+                                                    <span class="field"><textarea id="recipe-description" name="recipe[description]">{RECIPE.description|htmlspecialchars}</textarea></span>
+                                                </div>
+                                                <div class="row rte">
+                                                    <span class="label"><label>Instructions <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'mceAdvanced', 'recipe-instructions'); return false;"><span>RTE</span></a></label></span>
+                                                    <span class="field"><textarea class="big" style="width: 50%;" name="recipe[instructions]" id="recipe-instructions">{RECIPE.instructions|htmlspecialchars}</textarea></span>
+                                                </div>
+                                            </fieldset>
 
-										</div>
-										<div class="layout-column-two of-two">
+                                        </div>
+                                        <div class="layout-column-two of-two">
 
-											<fieldset>
-												<div class="row publish">
-													<span class="field"><input type="checkbox" id="recipe-publish" name="recipe[publish]" value="1" {RECIPE.publish} /> <label for="recipe-publish">Publish</label></span>
-												</div>
-												<div class="row serving-people">
-													<span class="label"><label>Serving People</label></span>
-													<span class="field"><input type="text" class="serving-people number" name="recipe[serving_people]" value="{RECIPE.serving_people|htmlspecialchars}" /> persons</span>
-												</div>
-												<div class="row preparation-time">
-													<span class="label"><label>Preparation time</label></span>
-													<span class="field"><input type="text" class="preparation-time number" name="recipe[preparation_time]" value="{RECIPE.preparation_time|htmlspecialchars}" /> minutes</span>
-												</div>
-												<div class="row cooking-time">
-													<span class="label"><label>Cooking time</label></span>
-													<span class="field"><input type="text" class="cooking-time number" name="recipe[cooking_time]" value="{RECIPE.cooking_time|htmlspecialchars}" /> minutes</span>
-												</div>
-											</fieldset>
-											
-											<fieldset>
-											{ONXSHOP_REQUEST_rt #bo/component/relation_taxonomy~relation=recipe:id=GET.id~}
-											</fieldset>
-											{ONXSHOP_REQUEST_recipe_in_node #bo/component/ecommerce/recipe_in_node~recipe_id=GET.id~}
+                                            <fieldset>
+                                                <div class="row publish">
+                                                    <span class="field"><input type="checkbox" id="recipe-publish" name="recipe[publish]" value="1" {RECIPE.publish} /> <label for="recipe-publish">Publish</label></span>
+                                                </div>
+                                                <div class="row serving-people">
+                                                    <span class="label"><label>Serving People</label></span>
+                                                    <span class="field"><input type="text" class="serving-people number" name="recipe[serving_people]" value="{RECIPE.serving_people|htmlspecialchars}" /> persons</span>
+                                                </div>
+                                                <div class="row preparation-time">
+                                                    <span class="label"><label>Preparation time</label></span>
+                                                    <span class="field"><input type="text" class="preparation-time number" name="recipe[preparation_time]" value="{RECIPE.preparation_time|htmlspecialchars}" /> minutes</span>
+                                                </div>
+                                                <div class="row cooking-time">
+                                                    <span class="label"><label>Cooking time</label></span>
+                                                    <span class="field"><input type="text" class="cooking-time number" name="recipe[cooking_time]" value="{RECIPE.cooking_time|htmlspecialchars}" /> minutes</span>
+                                                </div>
+                                            </fieldset>
+                                            
+                                            <fieldset>
+                                            {ONXSHOP_REQUEST_rt #bo/component/relation_taxonomy~relation=recipe:id=GET.id~}
+                                            </fieldset>
+                                            {ONXSHOP_REQUEST_recipe_in_node #bo/component/ecommerce/recipe_in_node~recipe_id=GET.id~}
 
-										</div>
-									</div>
+                                        </div>
+                                    </div>
 
-									{ONXSHOP_REQUEST_ingredients #bo/component/ecommerce/recipe_ingredients~recipe_id=GET.id~}
-									
-									<fieldset>
-										<legend>Images</legend>
-										<div class="row">
-											<div class="image">
-											{ONXSHOP_REQUEST_imagelist #bo/component/file_list_icon~type=add_to_recipe:relation=recipe:node_id=GET.id~}
-											</div>
-										</div>
-									</fieldset>
-								
-									<fieldset>
-										<legend>Video</legend>
-										<div class="row video-url">
-											<span class="label"><label>Video URL</label></span>
-											<span class="field"><input type="text" class="text video-url long" name="recipe[video_url]" value="{RECIPE.video_url|htmlspecialchars}" /></span>
-										</div>
-									</fieldset>
-									
-									<fieldset>
-										<div class="row">
-											<span class="label"><label for="recipe-priority">Priority. Used when recipe list is sorted by priority (by your suggestion).</label></span>
-											<span class="field"><input type="text" id="recipe-priority" name="recipe[priority]" value="{RECIPE.priority}" /></span>
-										</div>
-										<p>Recipe Last Modified {RECIPE.modified}</p>
-									</fieldset>
+                                    {ONXSHOP_REQUEST_ingredients #bo/component/ecommerce/recipe_ingredients~recipe_id=GET.id~}
+                                    
+                                    <fieldset>
+                                        <legend>Images</legend>
+                                        <div class="row">
+                                            <div class="image">
+                                            {ONXSHOP_REQUEST_imagelist #bo/component/file_list_icon~type=add_to_recipe:relation=recipe:node_id=GET.id~}
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                
+                                    <fieldset>
+                                        <legend>Video</legend>
+                                        <div class="row video-url">
+                                            <span class="label"><label>Video URL</label></span>
+                                            <span class="field"><input type="text" class="text video-url long" name="recipe[video_url]" value="{RECIPE.video_url|htmlspecialchars}" /></span>
+                                        </div>
+                                    </fieldset>
+                                    
+                                    <fieldset>
+                                        <div class="row">
+                                            <span class="label"><label for="recipe-priority">Priority. Used when recipe list is sorted by priority (by your suggestion).</label></span>
+                                            <span class="field"><input type="text" id="recipe-priority" name="recipe[priority]" value="{RECIPE.priority}" /></span>
+                                        </div>
+                                        <p>Recipe Last Modified {RECIPE.modified}</p>
+                                    </fieldset>
 
-									<button class="save" type="submit" name="save" value="save"><span>Save</span></button>
+                                    <button class="save" type="submit" name="save" value="save"><span>Save</span></button>
 
-									<input type="hidden" name="recipe[id]" value="{GET.id}" />
+                                    <input type="hidden" name="recipe[id]" value="{GET.id}" />
 
 
-								</div>
-							</div>
-						</div>
-						<div class="row-bottom">
-							<div class="row-wrapper">
-								<div class="column-wrapper">
-									<p>
-										<a class="button show-advanced-settings" href="#"><span>Show Advanced Settings</span></a>
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-	</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-bottom">
+                            <div class="row-wrapper">
+                                <div class="column-wrapper">
+                                    <p>
+                                        <a class="button show-advanced-settings" href="#"><span>Show Advanced Settings</span></a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
 </div>
 <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
 <br style="clear: both;" />
-	
+    
 {ONXSHOP_REQUEST_tinymce #bo/tinymce~id=GET.id:relation=recipe:role=RTE_description:mode=exact:edit_elements=recipe-instructions:theme=advanced~}
 
 <script type="text/javascript">
 tinyMCE.init({
-	mode : "exact",
-	elements : "recipe-description",
-	theme : "simple",
-	content_css: "/share/css/tinymce.css",
-	invalid_elements : "span,div,form,input,label,button,script,font",
-	plugins : "paste",
-	entity_encoding : "raw"
+    mode : "exact",
+    elements : "recipe-description",
+    theme : "simple",
+    content_css: "/share/css/tinymce.css",
+    invalid_elements : "span,div,form,input,label,button,script,font",
+    plugins : "paste",
+    entity_encoding : "raw"
 });
 </script>
 <!-- END: content -->

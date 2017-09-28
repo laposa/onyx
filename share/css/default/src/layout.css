@@ -82,8 +82,8 @@ div.two-column-page.fibonacci-3-2 div.column-one {width: 60%;}
 div.two-column-page.fibonacci-3-2 div.column-two {width: 40%;}
 
 @media all and (max-width: 800px) {
-	div.two-column-page div.column-one, 
-	div.two-column-page div.column-two {width: auto!important; float: none!important;}
+    div.two-column-page div.column-one, 
+    div.two-column-page div.column-two {width: auto!important; float: none!important;}
 }
 
 /****************************************************************************************/
@@ -138,8 +138,8 @@ div.wrapper:after {content: '.'; display: block; height: 0; font-size: 0; clear:
 .two-column-layout.fibonacci-3-2 div.layout-column-two.of-two {width: 40%;}
 
 @media all and (max-width: 800px) {
-	.two-column-layout div.layout-column-one.of-two,
-	.two-column-layout div.layout-column-two.of-two {width: auto!important; float: none!important;}
+    .two-column-layout div.layout-column-one.of-two,
+    .two-column-layout div.layout-column-two.of-two {width: auto!important; float: none!important;}
 }
 
 /********* node/layout/3columns.html *********/
@@ -152,9 +152,9 @@ div.wrapper:after {content: '.'; display: block; height: 0; font-size: 0; clear:
 .three-column-layout div.layout-column-three.of-three {float: right;}
 
 @media all and (max-width: 800px) {   
-	.three-column-layout div.layout-column-one.of-three,
-	.three-column-layout div.layout-column-two.of-three,
-	.three-column-layout div.layout-column-three.of-three {width: auto; float: none;}
+    .three-column-layout div.layout-column-one.of-three,
+    .three-column-layout div.layout-column-two.of-three,
+    .three-column-layout div.layout-column-three.of-three {width: auto; float: none;}
 }
 
 /********* node/layout/4columns.html *********/
@@ -169,10 +169,10 @@ div.wrapper:after {content: '.'; display: block; height: 0; font-size: 0; clear:
 .four-column-layout div.layout-column-four.of-four {float: right;}
 
 @media all and (max-width: 800px) {   
-	.four-column-layout div.layout-column-one.of-four,
-	.four-column-layout div.layout-column-two.of-four {width: 50%;}
-	.four-column-layout div.layout-column-three.of-four,
-	.four-column-layout div.layout-column-four.of-four {width: 50%;}
+    .four-column-layout div.layout-column-one.of-four,
+    .four-column-layout div.layout-column-two.of-four {width: 50%;}
+    .four-column-layout div.layout-column-three.of-four,
+    .four-column-layout div.layout-column-four.of-four {width: 50%;}
 }
 
 /********* node/layout/5columns.html *********/
@@ -189,11 +189,11 @@ div.wrapper:after {content: '.'; display: block; height: 0; font-size: 0; clear:
 .five-column-layout div.layout-column-five.of-five {float: right;}
 
 @media all and (max-width: 800px) {
-	.five-column-layout div.layout-column-one.of-five,
-	.five-column-layout div.layout-column-two.of-five,
-	.five-column-layout div.layout-column-three.of-five,
-	.five-column-layout div.layout-column-four.of-five,
-	.five-column-layout div.layout-column-five.of-five {width: auto; float: none;}
+    .five-column-layout div.layout-column-one.of-five,
+    .five-column-layout div.layout-column-two.of-five,
+    .five-column-layout div.layout-column-three.of-five,
+    .five-column-layout div.layout-column-four.of-five,
+    .five-column-layout div.layout-column-five.of-five {width: auto; float: none;}
 }
 
 /********* node/layout/6columns.html *********/
@@ -211,13 +211,13 @@ div.wrapper:after {content: '.'; display: block; height: 0; font-size: 0; clear:
 .six-column-layout div.layout-column-five.of-six {float: left;}
 .six-column-layout div.layout-column-six.of-six {float: right;}
 
-@media all and (max-width: 800px) {	
-	.six-column-layout div.layout-column-one.of-six,
-	.six-column-layout div.layout-column-two.of-six,
-	.six-column-layout div.layout-column-three.of-six,
-	.six-column-layout div.layout-column-four.of-six,
-	.six-column-layout div.layout-column-five.of-six,
-	.six-column-layout div.layout-column-six.of-six {width: auto; float: none;}
+@media all and (max-width: 800px) { 
+    .six-column-layout div.layout-column-one.of-six,
+    .six-column-layout div.layout-column-two.of-six,
+    .six-column-layout div.layout-column-three.of-six,
+    .six-column-layout div.layout-column-four.of-six,
+    .six-column-layout div.layout-column-five.of-six,
+    .six-column-layout div.layout-column-six.of-six {width: auto; float: none;}
 }
 
 /********* node/layout/tabs.html *********/

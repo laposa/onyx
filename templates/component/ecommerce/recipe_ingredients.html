@@ -2,35 +2,35 @@
 <script type="text/javascript">
 $(document).ready(function() {
 
-	$('div.recipe-ingredients tr').hover(function(){$(this).addClass("highlight");}, function() {$(this).removeClass("highlight");}).click(function(){
-		
-		var variety_id = $(this).find('a').attr("data-variety-id");
-		
-		addToBasketAjaxActionFromVarietyList(variety_id);
-		
-		return false;
-	});
+    $('div.recipe-ingredients tr').hover(function(){$(this).addClass("highlight");}, function() {$(this).removeClass("highlight");}).click(function(){
+        
+        var variety_id = $(this).find('a').attr("data-variety-id");
+        
+        addToBasketAjaxActionFromVarietyList(variety_id);
+        
+        return false;
+    });
 });
 </script>
 <!-- END: head -->
 <!-- BEGIN: content -->
 <div class="recipe-ingredients">
-	<h3>Ingredients</h3>
-	<table>
-		<!-- BEGIN: ingredient -->
-		<!-- BEGIN: group_title -->
-		<tr class="group-title"><td colspan="2"><strong>{INGREDIENT.group_title}</strong></td></tr>
-		<!-- END: group_title -->
-		<tr>
-			<td>{INGREDIENT.product.name}<br/><small>{INGREDIENT.quantity} {INGREDIENT.units_name}</small>
-			<!-- BEGIN: note -->
-			<small>({INGREDIENT.notes})</small>
-			<!-- END: note -->
-			</td>
-			<td><a class="button add-to-basket variety-id-{INGREDIENT.variety.id}" href="#{INGREDIENT.variety_id}" data-variety-id="{INGREDIENT.variety.id}"><span>Add</span></a></td>
-		</tr>
-		<!-- END: ingredient -->
-		<tr><td>Add all to shopping list</td><td><a class="button add-all" href="#add-all"><span>Add</span></a></td></tr>
-	</table>
+    <h3>Ingredients</h3>
+    <table>
+        <!-- BEGIN: ingredient -->
+        <!-- BEGIN: group_title -->
+        <tr class="group-title"><td colspan="2"><strong>{INGREDIENT.group_title}</strong></td></tr>
+        <!-- END: group_title -->
+        <tr>
+            <td>{INGREDIENT.product.name}<br/><small>{INGREDIENT.quantity} {INGREDIENT.units_name}</small>
+            <!-- BEGIN: note -->
+            <small>({INGREDIENT.notes})</small>
+            <!-- END: note -->
+            </td>
+            <td><a class="button add-to-basket variety-id-{INGREDIENT.variety.id}" href="#{INGREDIENT.variety_id}" data-variety-id="{INGREDIENT.variety.id}"><span>Add</span></a></td>
+        </tr>
+        <!-- END: ingredient -->
+        <tr><td>Add all to shopping list</td><td><a class="button add-all" href="#add-all"><span>Add</span></a></td></tr>
+    </table>
 </div>
 <!-- END: content -->

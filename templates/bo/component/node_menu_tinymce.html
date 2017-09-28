@@ -2,63 +2,63 @@
 <script type="text/javascript">
 function chooseLink(src, title) {
 
-	top.tinymce.activeEditor.windowManager.getParams().oninsert(src, title);
-	top.tinymce.activeEditor.windowManager.close();
-	
+    top.tinymce.activeEditor.windowManager.getParams().oninsert(src, title);
+    top.tinymce.activeEditor.windowManager.close();
+    
 }
 
 $(document).ready(function(){
-	$('#tree-select .simple-tree').simpleTree({
-		drag: false,
-		autoclose: true,
-		afterClick:function(node){
-			var node_id = $('a:first', node).attr('href').replace('#', '');
-			var title = $('a:first', node).attr('title');
-			chooseLink('/page/' + node_id, title);
-		},
-		afterDblClick:function(node){
-			alert("text-"+$('span:first',node).text());
-		},
-		afterMove:function(destination, source, pos){
-			alert("destination-"+$('span:first',destination).text()+" source-"+$('span:first',source).text()+" pos-"+pos);
-		},
-		afterAjax:function()
-		{
-			alert('Loaded');
-		},
-		animate: true,
-		docToFolderConvert: true
-		});
-	
+    $('#tree-select .simple-tree').simpleTree({
+        drag: false,
+        autoclose: true,
+        afterClick:function(node){
+            var node_id = $('a:first', node).attr('href').replace('#', '');
+            var title = $('a:first', node).attr('title');
+            chooseLink('/page/' + node_id, title);
+        },
+        afterDblClick:function(node){
+            alert("text-"+$('span:first',node).text());
+        },
+        afterMove:function(destination, source, pos){
+            alert("destination-"+$('span:first',destination).text()+" source-"+$('span:first',source).text()+" pos-"+pos);
+        },
+        afterAjax:function()
+        {
+            alert('Loaded');
+        },
+        animate: true,
+        docToFolderConvert: true
+        });
+    
 });
 </script>
 
 <div id="tree-select">
-	<ul class="simple-tree">
-		<li class="root"><span><a href="#0"><span>Root</span></a></span>
-			
-			<!-- BEGIN: group -->
-			<ul>
-			<!-- BEGIN: item -->
-			<li class='{ITEM.type} {ITEM.css_class} node-id-{ITEM.id}'>
-				
-				<!-- BEGIN:link -->
-				<span><a href="#{ITEM.id}" title="{ITEM.title|htmlspecialchars}" class="{ITEM.css_class} node-id-{ITEM.id}"><span>{ITEM.name|htmlspecialchars}</span><!-- BEGIN: strapline --><br /><span class="strapline">{ITEM.strapline|strip_tags|htmlspecialchars}</span><!-- END: strapline --></a></span>
-				<!-- END:link -->
-				<!-- BEGIN:nolink -->
-				<span><a href="#{ITEM.id}" class="{ITEM.css_class} node-id-{ITEM.id}"><span>{ITEM.name|htmlspecialchars}</span></a></span>
-				<!-- END:nolink -->
-				
-				{ITEM.subcontent}
-			</li>
-			<!-- END: item -->
-			{END_RESULT_ITEMS}
-			</ul>
-			<!-- END: group -->
-			{END_RESULT_GROUPS}
-			
-		</li>
-	</ul>
+    <ul class="simple-tree">
+        <li class="root"><span><a href="#0"><span>Root</span></a></span>
+            
+            <!-- BEGIN: group -->
+            <ul>
+            <!-- BEGIN: item -->
+            <li class='{ITEM.type} {ITEM.css_class} node-id-{ITEM.id}'>
+                
+                <!-- BEGIN:link -->
+                <span><a href="#{ITEM.id}" title="{ITEM.title|htmlspecialchars}" class="{ITEM.css_class} node-id-{ITEM.id}"><span>{ITEM.name|htmlspecialchars}</span><!-- BEGIN: strapline --><br /><span class="strapline">{ITEM.strapline|strip_tags|htmlspecialchars}</span><!-- END: strapline --></a></span>
+                <!-- END:link -->
+                <!-- BEGIN:nolink -->
+                <span><a href="#{ITEM.id}" class="{ITEM.css_class} node-id-{ITEM.id}"><span>{ITEM.name|htmlspecialchars}</span></a></span>
+                <!-- END:nolink -->
+                
+                {ITEM.subcontent}
+            </li>
+            <!-- END: item -->
+            {END_RESULT_ITEMS}
+            </ul>
+            <!-- END: group -->
+            {END_RESULT_GROUPS}
+            
+        </li>
+    </ul>
 </div>
 
 <!-- END: content -->

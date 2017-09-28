@@ -1,71 +1,71 @@
 <!-- BEGIN: title -->Contact Form Edit<!-- END: title -->
 <!-- BEGIN: content -->
 <div class="page-header">
-	<div class="page-header-wrapper">
-		<h1 class="page-title popup"><span>Contact Form</span> <span class="info">ID {NODE.id}</span></h1>
-	</div>
+    <div class="page-header-wrapper">
+        <h1 class="page-title popup"><span>Contact Form</span> <span class="info">ID {NODE.id}</span></h1>
+    </div>
 </div>
 {FILE "bo/node/content/default_top.html"}
 <script type="text/javascript">
 $(document).ready(function(){
-	$('fieldset.contact-form-edit div.href a.button').click(function() {
-		$('#href-select').addClass('ajax-load').load('/request/component/menu_js~id=0:expand_all=1:publish=0~', function() {
-			$('#href-select').removeClass('ajax-load');
-			$('#href-select .simple-tree').simpleTree({
-				drag: false,
-				autoclose: true,
-				afterClick:function(node){
-					var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
-					$('#component-href').attr('value', '/page/' + node_id);
-				},
-				animate: true,
-				docToFolderConvert: true
-			});
-		});
-		return false;
-	});
+    $('fieldset.contact-form-edit div.href a.button').click(function() {
+        $('#href-select').addClass('ajax-load').load('/request/component/menu_js~id=0:expand_all=1:publish=0~', function() {
+            $('#href-select').removeClass('ajax-load');
+            $('#href-select .simple-tree').simpleTree({
+                drag: false,
+                autoclose: true,
+                afterClick:function(node){
+                    var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
+                    $('#component-href').attr('value', '/page/' + node_id);
+                },
+                animate: true,
+                docToFolderConvert: true
+            });
+        });
+        return false;
+    });
 });
 </script>
 <fieldset class="contact-form-edit">
-	<div class="row">
-		<label>Recipient Email:</label>
-		<input type="text" name="node[component][mail_to]" value="{NODE.component.mail_to}" /> {EMAIL_FORM_CONF.mail_recipient_address} by default
-	</div>
-	<div class="row">
-		<label>Recipient Name:</label>
-		<input type="text" name="node[component][mail_toname]" value="{NODE.component.mail_toname}" /> {EMAIL_FORM_CONF.mail_recipient_name} by default
-	</div>
-	<div class="row">
-		<label>* Form Template:</label>
-		<select name="node[component][node_controller]" id="component-node-controller">
-			<!-- BEGIN: templateitem -->
-			<option class="onxshop-edit-{LAYOUT_TEMPLATE.name}" value="{LAYOUT_TEMPLATE.name}" {LAYOUT_TEMPLATE.selected}>{LAYOUT_TEMPLATE.title}</option>
-			<!-- END: templateitem -->
-		</select> ({DIRECTORY})
-	</div>
+    <div class="row">
+        <label>Recipient Email:</label>
+        <input type="text" name="node[component][mail_to]" value="{NODE.component.mail_to}" /> {EMAIL_FORM_CONF.mail_recipient_address} by default
+    </div>
+    <div class="row">
+        <label>Recipient Name:</label>
+        <input type="text" name="node[component][mail_toname]" value="{NODE.component.mail_toname}" /> {EMAIL_FORM_CONF.mail_recipient_name} by default
+    </div>
+    <div class="row">
+        <label>* Form Template:</label>
+        <select name="node[component][node_controller]" id="component-node-controller">
+            <!-- BEGIN: templateitem -->
+            <option class="onxshop-edit-{LAYOUT_TEMPLATE.name}" value="{LAYOUT_TEMPLATE.name}" {LAYOUT_TEMPLATE.selected}>{LAYOUT_TEMPLATE.title}</option>
+            <!-- END: templateitem -->
+        </select> ({DIRECTORY})
+    </div>
 
-	<div class="row">
-		<label for="component-captcha">Anti-spam protection:</label>
-		<select id="component-captcha" name="node[component][spam_protection]">
-			<option value="captcha_text_js" {SPAM_PROTECTION.captcha_text_js}>Invisible field</option>
-			<option value="captcha_image" {SPAM_PROTECTION.captcha_image}>Captcha image</option>
-			<option value="none">None</option>
-		</select>
-	</div>
+    <div class="row">
+        <label for="component-captcha">Anti-spam protection:</label>
+        <select id="component-captcha" name="node[component][spam_protection]">
+            <option value="captcha_text_js" {SPAM_PROTECTION.captcha_text_js}>Invisible field</option>
+            <option value="captcha_image" {SPAM_PROTECTION.captcha_image}>Captcha image</option>
+            <option value="none">None</option>
+        </select>
+    </div>
 
-	<div class="row">
-		<label>* Error message:</label>
-		<input type="text" class="text long" name="node[component][sending_failed]" value="{NODE.component.sending_failed}" />
-	</div>
-	<div class="row">
-		<label>* OK message:</label>
-		<input type="text" class="text long" name="node[component][text]" value="{NODE.component.text}" />
-	</div>
-	<div class="row href">
-		<label>Where do you want to redirect client after submit?:</label>
-		<input type="text" name="node[component][href]" id="component-href" value="{NODE.component.href}" /> <a class="button" href="#"><span>browse server</span></a>
-		<div id="href-select"></div>
-	</div>
+    <div class="row">
+        <label>* Error message:</label>
+        <input type="text" class="text long" name="node[component][sending_failed]" value="{NODE.component.sending_failed}" />
+    </div>
+    <div class="row">
+        <label>* OK message:</label>
+        <input type="text" class="text long" name="node[component][text]" value="{NODE.component.text}" />
+    </div>
+    <div class="row href">
+        <label>Where do you want to redirect client after submit?:</label>
+        <input type="text" name="node[component][href]" id="component-href" value="{NODE.component.href}" /> <a class="button" href="#"><span>browse server</span></a>
+        <div id="href-select"></div>
+    </div>
 </fieldset>
 
 {FILE "bo/node/content/default_bottom.html"}

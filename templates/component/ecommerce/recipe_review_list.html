@@ -1,46 +1,46 @@
 <!-- BEGIN: content -->
 <div class='recipe-review-list review-list'>
-	
-	<!-- BEGIN: comment_list -->
-	<ul class="comment">
-		<!-- BEGIN: item -->
-		<li class="{ITEM.odd_even_class}">
-			<div class="item">
-				{AUTHOR_AVATAR}
-				<h4 class="linkname">{ITEM.title|htmlspecialchars}</h4>
-				<p class="author">{ITEM.author_name|htmlspecialchars}, {ITEM.created|strtotime|strftime('%e %b %y', %s)}</p>
-				<div class="highlight">
-					{RATING_STARS}
-				</div>
-		
-				<div class="content">{ITEM.content|htmlspecialchars|nl2br}</div>
-				<!-- BEGIN: edit -->
-					
-					<!-- BEGIN: publish_awaiting -->
-					<p><a href="/request/component/ecommerce/recipe_review_approve?comment_id={ITEM.id}&publish=1">{I18N_COMMENT_APPROVE}</a> {I18N_COMMENT_OR} <a href="/request/component/ecommerce/recipe_review_approve?comment_id={ITEM.id}&publish=-1">{I18N_COMMENT_REJECT}</a>.</p>
-					<!-- END: publish_awaiting -->
-					<!-- BEGIN: publish_approved -->
-					<p>{I18N_COMMENT_APPROVED} <a href="/request/component/ecommerce/recipe_review_approve?comment_id={ITEM.id}&publish=-1">{I18N_COMMENT_REJECT_QUESTION}</a>.</p>
-					<!-- END: publish_approved -->
-					<!-- BEGIN: publish_rejected -->
-					<p>{I18N_COMMENT_REJECTED}. <a href="/request/component/ecommerce/recipe_review_approve?comment_id={ITEM.id}&publish=1">{I18N_COMMENT_PUBLISH_QUESTION}</a>.</p>
-					<!-- END: publish_rejected -->
-					
-				<!-- END: edit -->
-				<!-- BEGIN: awaiting --><p><i>{I18N_COMMENT_AWAITING_APPROVAL}</i></p><!-- END: awaiting -->
-				<!-- BEGIN: rejected --><p><i>{I18N_COMMENT_REJECTED_BY_WEBMASTER}</i></p><!-- END: rejected -->
-				
-			</div>
-			
-		</li>
-		<!-- END: item -->
-	</ul>
-	<!-- END: comment_list -->
-	<!-- BEGIN: comment_list_empty -->
-	<div class="empty">
-		<p>{I18N_REVIEW_EMPTY_LIST}</p>
-	</div>
-	<!-- END: comment_list_empty -->
-	
+    
+    <!-- BEGIN: comment_list -->
+    <ul class="comment">
+        <!-- BEGIN: item -->
+        <li class="{ITEM.odd_even_class}">
+            <div class="item">
+                {AUTHOR_AVATAR}
+                <h4 class="linkname">{ITEM.title|htmlspecialchars}</h4>
+                <p class="author">{ITEM.author_name|htmlspecialchars}, {ITEM.created|strtotime|strftime('%e %b %y', %s)}</p>
+                <div class="highlight">
+                    {RATING_STARS}
+                </div>
+        
+                <div class="content">{ITEM.content|htmlspecialchars|nl2br}</div>
+                <!-- BEGIN: edit -->
+                    
+                    <!-- BEGIN: publish_awaiting -->
+                    <p><a href="/request/component/ecommerce/recipe_review_approve?comment_id={ITEM.id}&publish=1">{I18N_COMMENT_APPROVE}</a> {I18N_COMMENT_OR} <a href="/request/component/ecommerce/recipe_review_approve?comment_id={ITEM.id}&publish=-1">{I18N_COMMENT_REJECT}</a>.</p>
+                    <!-- END: publish_awaiting -->
+                    <!-- BEGIN: publish_approved -->
+                    <p>{I18N_COMMENT_APPROVED} <a href="/request/component/ecommerce/recipe_review_approve?comment_id={ITEM.id}&publish=-1">{I18N_COMMENT_REJECT_QUESTION}</a>.</p>
+                    <!-- END: publish_approved -->
+                    <!-- BEGIN: publish_rejected -->
+                    <p>{I18N_COMMENT_REJECTED}. <a href="/request/component/ecommerce/recipe_review_approve?comment_id={ITEM.id}&publish=1">{I18N_COMMENT_PUBLISH_QUESTION}</a>.</p>
+                    <!-- END: publish_rejected -->
+                    
+                <!-- END: edit -->
+                <!-- BEGIN: awaiting --><p><i>{I18N_COMMENT_AWAITING_APPROVAL}</i></p><!-- END: awaiting -->
+                <!-- BEGIN: rejected --><p><i>{I18N_COMMENT_REJECTED_BY_WEBMASTER}</i></p><!-- END: rejected -->
+                
+            </div>
+            
+        </li>
+        <!-- END: item -->
+    </ul>
+    <!-- END: comment_list -->
+    <!-- BEGIN: comment_list_empty -->
+    <div class="empty">
+        <p>{I18N_REVIEW_EMPTY_LIST}</p>
+    </div>
+    <!-- END: comment_list_empty -->
+    
 </div>
 <!-- END: content -->

@@ -1,37 +1,37 @@
 <!-- BEGIN: content -->
 <div class="orders-graph">
 
-	<h3>Graphs</h3>
+    <h3>Graphs</h3>
 
-	<div class="horizontal-filter">
+    <div class="horizontal-filter">
 
-		<form method="post" action="{URI|htmlspecialchars}">
-			<fieldset class="single">
-				<div class="row">
-					<span class="label"><label>Time frame</label></span>
-					<span class="field">
-						<select name="time-frame">
-							<option value="month" {SELECTED_month}>Month</option>
-							<option value="week" {SELECTED_week}>Week</option>
-							<option value="day" {SELECTED_day}>Day</option>
-						</select>
-						<button type="submit" name="submit" value="submit"><span>Submit</span></button>
-					</span>
-				</div>
-			</fieldset>
-		<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+        <form method="post" action="{URI|htmlspecialchars}">
+            <fieldset class="single">
+                <div class="row">
+                    <span class="label"><label>Time frame</label></span>
+                    <span class="field">
+                        <select name="time-frame">
+                            <option value="month" {SELECTED_month}>Month</option>
+                            <option value="week" {SELECTED_week}>Week</option>
+                            <option value="day" {SELECTED_day}>Day</option>
+                        </select>
+                        <button type="submit" name="submit" value="submit"><span>Submit</span></button>
+                    </span>
+                </div>
+            </fieldset>
+        <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
-	</div>
+    </div>
 
-	<a href="/download/var/cache/graph-revenue-{TIME_FRAME}.png"><img src="/image/var/cache/graph-revenue-{TIME_FRAME}.png" /></a>
+    <a href="/download/var/cache/graph-revenue-{TIME_FRAME}.png"><img src="/image/var/cache/graph-revenue-{TIME_FRAME}.png" /></a>
 
-	<br/>
-	<br/>
+    <br/>
+    <br/>
 
-	<a href="/download/var/cache/graph-num_orders-{TIME_FRAME}.png"><img src="/image/var/cache/graph-num_orders-{TIME_FRAME}.png" /></a>
+    <a href="/download/var/cache/graph-num_orders-{TIME_FRAME}.png"><img src="/image/var/cache/graph-num_orders-{TIME_FRAME}.png" /></a>
 
-	<br/>
-	<br/>
+    <br/>
+    <br/>
 
 </div>
 <!-- END: content -->

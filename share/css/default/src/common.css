@@ -39,8 +39,8 @@ span.disabled {text-decoration: line-through;}
  */
  
 div.onxshop-messages {margin: 1em; border: none; background: black; color: white; background: rgba(0,0,0,0.75); padding: 1em; box-shadow: #000000 5px 5px 30px;
-	clear: both; border-radius: 4px; -moz-border-radius: 7px; -webkit-border-radius: 7px;
-	z-index: 1000; position: relative;}
+    clear: both; border-radius: 4px; -moz-border-radius: 7px; -webkit-border-radius: 7px;
+    z-index: 1000; position: relative;}
 div.onxshop-messages p {margin: 5px 0; line-height: 1; padding: 0; color: white; font-weight: bold; }
 div.onxshop-messages p.onxshop-ok-msg {}
 div.onxshop-messages p.onxshop-error-msg {background: transparent url(/share/images/famfamfam_icons/exclamation.png) left top no-repeat; padding: 0 0 0 25px;}
@@ -63,7 +63,7 @@ div#jGrowl div.jGrowl-notification p { text-align: left; }
 div#jGrowl button.jGrowl-close { display: none; position: absolute; right: 5px; top: 5px; color: #ffffff; cursor: pointer; z-index: 10000; font-weight: bold; font-size: 16px; line-height: 16px; }
 div#jGrowl div.jGrowl-closer { background: black; color: white; background: rgba(0,0,0,0.75); width: 100px; margin: 10px auto; border: none; cursor: pointer; text-align: center; pointer-events: all; }
 @media all and (max-width: 600px) {
-	div#jGrowl { width: 80%; left: 10%; margin-left: 0; }
+    div#jGrowl { width: 80%; left: 10%; margin-left: 0; }
 }
 
 /**

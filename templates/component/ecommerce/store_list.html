@@ -1,41 +1,41 @@
 <!-- BEGIN: content -->
 
 <div class="store-list">
-	<div class="header">
-		<h3>Closest Store</h3>
-	</div>
-	<!-- BEGIN: list -->
-	<div class="listing">
-		<!-- BEGIN: item -->
-		<div class="item {OPEN} {ITEM.taxonomy_class}" id="list-item-{ITEM.id}">
-			<div class="shop-info">
-				<a href="#list-item-{ITEM.id}" onclick="$('div.store-list div.listing div.item').removeClass('open'); $('#list-item-{ITEM.id}').addClass('open'); displayStoreByOnxshopId({ITEM.id}); return false;">
-					<h4 class="shop-title">{ITEM.title|htmlspecialchars}</h4>
-					<p class="shop-address">{ITEM.address|htmlspecialchars}</p>
-					<p class="shop-distance">{ITEM.distance}km</p>
-				</a>
-			</div>
-			<div class="item-detail">
-				<div class="shop-contact">
-					<ul>
-						<li class="call"><a href="tel:{ITEM.telephone|preg_replace('/ /', '', %s)|urlencode}"><span><i>&#x1F4DE;</i> {ITEM.telephone|htmlspecialchars}</span></a></li>
-						<li class="directions"><a href="https://www.google.com/maps/dir//{ITEM.address|urlencode}" onclick="getDirections({ITEM.latitude}, {ITEM.longitude}); return false;"><span><i>&#xE6D0;</i> get directions</span></a></li>
-					</ul>
-				</div>
-				<div class="shop-detail">
-					<div class="shop-opening-hours">
-						<p><span>{ITEM.opening_hours|nl2br}</span></p>
-					</div>
-					{STORE_TAXONOMY_LIST}
-				</div>
-			</div>
-		</div>
-		<!-- END: item -->
-	</div>
-	<!-- END: list -->
-	
-	<!-- BEGIN: empty_list -->
-		<p class="empty">No stores found.</p>
-	<!-- END: empty_list -->
+    <div class="header">
+        <h3>Closest Store</h3>
+    </div>
+    <!-- BEGIN: list -->
+    <div class="listing">
+        <!-- BEGIN: item -->
+        <div class="item {OPEN} {ITEM.taxonomy_class}" id="list-item-{ITEM.id}">
+            <div class="shop-info">
+                <a href="#list-item-{ITEM.id}" onclick="$('div.store-list div.listing div.item').removeClass('open'); $('#list-item-{ITEM.id}').addClass('open'); displayStoreByOnxshopId({ITEM.id}); return false;">
+                    <h4 class="shop-title">{ITEM.title|htmlspecialchars}</h4>
+                    <p class="shop-address">{ITEM.address|htmlspecialchars}</p>
+                    <p class="shop-distance">{ITEM.distance}km</p>
+                </a>
+            </div>
+            <div class="item-detail">
+                <div class="shop-contact">
+                    <ul>
+                        <li class="call"><a href="tel:{ITEM.telephone|preg_replace('/ /', '', %s)|urlencode}"><span><i>&#x1F4DE;</i> {ITEM.telephone|htmlspecialchars}</span></a></li>
+                        <li class="directions"><a href="https://www.google.com/maps/dir//{ITEM.address|urlencode}" onclick="getDirections({ITEM.latitude}, {ITEM.longitude}); return false;"><span><i>&#xE6D0;</i> get directions</span></a></li>
+                    </ul>
+                </div>
+                <div class="shop-detail">
+                    <div class="shop-opening-hours">
+                        <p><span>{ITEM.opening_hours|nl2br}</span></p>
+                    </div>
+                    {STORE_TAXONOMY_LIST}
+                </div>
+            </div>
+        </div>
+        <!-- END: item -->
+    </div>
+    <!-- END: list -->
+    
+    <!-- BEGIN: empty_list -->
+        <p class="empty">No stores found.</p>
+    <!-- END: empty_list -->
 </div>
 <!-- END: content -->

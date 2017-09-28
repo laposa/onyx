@@ -3,23 +3,23 @@
 
 <script type="text/javascript">  
 $(document).ready(function(){  
-	$("#registration-start-node-id-{GET.node_id}").validate({onkeyup: false});  
+    $("#registration-start-node-id-{GET.node_id}").validate({onkeyup: false});  
 });  
 </script>
 
 <div class="registration-start">
-	<form class="registration-start" id="registration-start-node-id-{GET.node_id}" method="post" action="{URI_SAFE|htmlspecialchars}#node-id-{GET.node_id}">
-		<fieldset class="single">
-			<legend>{I18N_RS_NEW_CUSTOMER}</legend>
-			<div class="row username">
-				<span class="label"><label for="register">{I18N_RS_YOUR_EMAIL}</label></span>
-				<span class="field"><input class="required email" id="register" type="email" name="client[customer][email]" value="{CLIENT.customer.email|htmlspecialchars}" placeholder="{I18N_RS_YOUR_EMAIL_PLACEHOLDER}"/></span>
-			</div>
-		</fieldset>
-		<div class="row submit">
-			<span class="field"><button type="submit" name="register" value="sent" class="submit"><span>{I18N_RS_SUBMIT}</span></button></span>
-		</div>
-		<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+    <form class="registration-start" id="registration-start-node-id-{GET.node_id}" method="post" action="{URI_SAFE|htmlspecialchars}#node-id-{GET.node_id}">
+        <fieldset class="single">
+            <legend>{I18N_RS_NEW_CUSTOMER}</legend>
+            <div class="row username">
+                <span class="label"><label for="register">{I18N_RS_YOUR_EMAIL}</label></span>
+                <span class="field"><input class="required email" id="register" type="email" name="client[customer][email]" value="{CLIENT.customer.email|htmlspecialchars}" placeholder="{I18N_RS_YOUR_EMAIL_PLACEHOLDER}"/></span>
+            </div>
+        </fieldset>
+        <div class="row submit">
+            <span class="field"><button type="submit" name="register" value="sent" class="submit"><span>{I18N_RS_SUBMIT}</span></button></span>
+        </div>
+        <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
 
 </div>

@@ -22,41 +22,41 @@
  */
  
 if(in_array($_SERVER["REMOTE_ADDR"], array_keys($debug_hosts)))  {
-	error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
-	ini_set('display_errors', 1);
-	define('ONXSHOP_DEBUG_LEVEL', $debug_hosts[$_SERVER["REMOTE_ADDR"]]);
-	define('ONXSHOP_DEBUG_INCLUDE_BACKTRACE', true);
-	define('ONXSHOP_DEBUG_INCLUDE_USER_ID', true);
-	define('ONXSHOP_IS_DEBUG_HOST', true);
-	define('ONXSHOP_DEBUG_OUTPUT_SESSION', false); // save in session and manage output on each controller/template level
-	define('ONXSHOP_DEBUG_OUTPUT_DIRECT', false); // sends directly to client
-	define('ONXSHOP_DEBUG_OUTPUT_FILE', false); // store in var/log/messages/
-	define('ONXSHOP_DEBUG_OUTPUT_FIREBUG', false); // use Firebug
-	define('ONXSHOP_DEBUG_OUTPUT_ERROR_LOG', true); // use Apache error log, i.e. /var/log/apache2/error.log
-	define('ONXSHOP_BENCHMARK', false);
-	define('ONXSHOP_DB_PROFILER', false);
-	define('ONXSHOP_ERROR_EMAIL', null);
-	define('ONXSHOP_TRACY', false);
-	define('ONXSHOP_TRACY_BENCHMARK', true); // only effective if ONXSHOP_TRACY is true
-	define('ONXSHOP_TRACY_DB_PROFILER', true); // only effective if ONXSHOP_TRACY is true
+    error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
+    ini_set('display_errors', 1);
+    define('ONXSHOP_DEBUG_LEVEL', $debug_hosts[$_SERVER["REMOTE_ADDR"]]);
+    define('ONXSHOP_DEBUG_INCLUDE_BACKTRACE', true);
+    define('ONXSHOP_DEBUG_INCLUDE_USER_ID', true);
+    define('ONXSHOP_IS_DEBUG_HOST', true);
+    define('ONXSHOP_DEBUG_OUTPUT_SESSION', false); // save in session and manage output on each controller/template level
+    define('ONXSHOP_DEBUG_OUTPUT_DIRECT', false); // sends directly to client
+    define('ONXSHOP_DEBUG_OUTPUT_FILE', false); // store in var/log/messages/
+    define('ONXSHOP_DEBUG_OUTPUT_FIREBUG', false); // use Firebug
+    define('ONXSHOP_DEBUG_OUTPUT_ERROR_LOG', true); // use Apache error log, i.e. /var/log/apache2/error.log
+    define('ONXSHOP_BENCHMARK', false);
+    define('ONXSHOP_DB_PROFILER', false);
+    define('ONXSHOP_ERROR_EMAIL', null);
+    define('ONXSHOP_TRACY', false);
+    define('ONXSHOP_TRACY_BENCHMARK', true); // only effective if ONXSHOP_TRACY is true
+    define('ONXSHOP_TRACY_DB_PROFILER', true); // only effective if ONXSHOP_TRACY is true
 } else {
-	error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
-	ini_set('display_errors', 0);
-	define('ONXSHOP_DEBUG_LEVEL', 0);
-	define('ONXSHOP_DEBUG_INCLUDE_BACKTRACE', false);
-	define('ONXSHOP_DEBUG_INCLUDE_USER_ID', true);
-	define('ONXSHOP_IS_DEBUG_HOST', false);
-	define('ONXSHOP_DEBUG_OUTPUT_SESSION', false);
-	define('ONXSHOP_DEBUG_OUTPUT_DIRECT', false);
-	define('ONXSHOP_DEBUG_OUTPUT_FILE', false);
-	define('ONXSHOP_DEBUG_OUTPUT_FIREBUG', false);
-	define('ONXSHOP_DEBUG_OUTPUT_ERROR_LOG', true);
-	define('ONXSHOP_BENCHMARK', false);
-	define('ONXSHOP_DB_PROFILER', false);
-	define('ONXSHOP_ERROR_EMAIL', null);
-	define('ONXSHOP_TRACY', false);
-	define('ONXSHOP_TRACY_BENCHMARK', true);
-	define('ONXSHOP_TRACY_DB_PROFILER', true);
+    error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
+    ini_set('display_errors', 0);
+    define('ONXSHOP_DEBUG_LEVEL', 0);
+    define('ONXSHOP_DEBUG_INCLUDE_BACKTRACE', false);
+    define('ONXSHOP_DEBUG_INCLUDE_USER_ID', true);
+    define('ONXSHOP_IS_DEBUG_HOST', false);
+    define('ONXSHOP_DEBUG_OUTPUT_SESSION', false);
+    define('ONXSHOP_DEBUG_OUTPUT_DIRECT', false);
+    define('ONXSHOP_DEBUG_OUTPUT_FILE', false);
+    define('ONXSHOP_DEBUG_OUTPUT_FIREBUG', false);
+    define('ONXSHOP_DEBUG_OUTPUT_ERROR_LOG', true);
+    define('ONXSHOP_BENCHMARK', false);
+    define('ONXSHOP_DB_PROFILER', false);
+    define('ONXSHOP_ERROR_EMAIL', null);
+    define('ONXSHOP_TRACY', false);
+    define('ONXSHOP_TRACY_BENCHMARK', true);
+    define('ONXSHOP_TRACY_DB_PROFILER', true);
 }
 
 /**
@@ -98,12 +98,12 @@ if (!defined('ONXSHOP_REQUIRE_AUTH')) define('ONXSHOP_REQUIRE_AUTH', false);
 if (!defined('ONXSHOP_SSL')) define('ONXSHOP_SSL', false);
 
 if (!defined('ONXSHOP_EDITOR_USE_SSL')) {
-	if (ONXSHOP_SSL) define('ONXSHOP_EDITOR_USE_SSL', true);
-	else define('ONXSHOP_EDITOR_USE_SSL', false);
+    if (ONXSHOP_SSL) define('ONXSHOP_EDITOR_USE_SSL', true);
+    else define('ONXSHOP_EDITOR_USE_SSL', false);
 }
 if (!defined('ONXSHOP_CUSTOMER_USE_SSL')) {
-	if (ONXSHOP_SSL) define('ONXSHOP_CUSTOMER_USE_SSL', true);
-	else define('ONXSHOP_CUSTOMER_USE_SSL', false);
+    if (ONXSHOP_SSL) define('ONXSHOP_CUSTOMER_USE_SSL', true);
+    else define('ONXSHOP_CUSTOMER_USE_SSL', false);
 }
 if (!defined('ONXSHOP_HSTS_ENABLE')) define('ONXSHOP_HSTS_ENABLE', false);
 if (!defined('ONXSHOP_HSTS_TTL')) define('ONXSHOP_HSTS_TTL', 3600);
@@ -134,9 +134,9 @@ if (!defined('ONXSHOP_DEFAULT_LAYOUT')) define('ONXSHOP_DEFAULT_LAYOUT', ONXSHOP
 
 //hack
 if (isset($_GET['preview']) && $_GET['preview'] == 1) {
-	$_SESSION['preview'] = 1;
+    $_SESSION['preview'] = 1;
 } else if (isset($_GET['exit_preview']) && $_GET['exit_preview'] == 1) {
-	$_SESSION['preview'] = 0;
+    $_SESSION['preview'] = 0;
 }
 
 /**

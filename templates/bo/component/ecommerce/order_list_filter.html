@@ -3,44 +3,44 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	$('#order-list-filter-created-from,#order-list-filter-created-to,#order-list-filter-activity-from,#order-list-filter-activity-to').datepicker({firstDay: 1, dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true});
+    $('#order-list-filter-created-from,#order-list-filter-created-to,#order-list-filter-activity-from,#order-list-filter-activity-to').datepicker({firstDay: 1, dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true});
 });
 </script>
 
 <div class="order-list-filter horizontal-filter">
-	<form method="post" action="{URI|htmlspecialchars}" id="order-list-filter">
-		<fieldset class="single">
-			<div class="row search">
-				<span class="label"><label>Order status</label></span>
-				<span class="field" >
-					<select name="order-list-filter[status]" id="filter-status" onchange="submit()">
-						<!-- BEGIN: status -->
-						<option value="{STATUS.id}" {STATUS.selected}>{STATUS.name|htmlspecialchars}</option>
-						<!-- END: status -->
-					</select>
-				</span>
-			</div>
-			<div class="row search">
-				<span class="label"><label>Search query</label></span>
-				<span class="field" ><input type="text" id="query" name="order-list-filter[query]" value="{FILTER.query|htmlspecialchars}" /></span>
-			</div>
-														
-			<div class="row registered-between">
-				<span class="label"><label>Created between</label></span>
-				<span class="field">
-					<input type="text" class="text date" id="order-list-filter-created-from" name="order-list-filter[created_from]" value="{FILTER.created_from|htmlspecialchars}" />
-					<input type="text" class="text date" id="order-list-filter-created-to" name="order-list-filter[created_to]" value="{FILTER.created_to|htmlspecialchars}" />
-				</span>
-			</div>
-		</fieldset>
-		
-		<div class="row submit">
-			<span class="label"><label>&nbsp;</label></span>
-			<span class="field"><button type="submit" name="search" value="search"><span>Search</span></button></span>
-		</div>
+    <form method="post" action="{URI|htmlspecialchars}" id="order-list-filter">
+        <fieldset class="single">
+            <div class="row search">
+                <span class="label"><label>Order status</label></span>
+                <span class="field" >
+                    <select name="order-list-filter[status]" id="filter-status" onchange="submit()">
+                        <!-- BEGIN: status -->
+                        <option value="{STATUS.id}" {STATUS.selected}>{STATUS.name|htmlspecialchars}</option>
+                        <!-- END: status -->
+                    </select>
+                </span>
+            </div>
+            <div class="row search">
+                <span class="label"><label>Search query</label></span>
+                <span class="field" ><input type="text" id="query" name="order-list-filter[query]" value="{FILTER.query|htmlspecialchars}" /></span>
+            </div>
+                                                        
+            <div class="row registered-between">
+                <span class="label"><label>Created between</label></span>
+                <span class="field">
+                    <input type="text" class="text date" id="order-list-filter-created-from" name="order-list-filter[created_from]" value="{FILTER.created_from|htmlspecialchars}" />
+                    <input type="text" class="text date" id="order-list-filter-created-to" name="order-list-filter[created_to]" value="{FILTER.created_to|htmlspecialchars}" />
+                </span>
+            </div>
+        </fieldset>
+        
+        <div class="row submit">
+            <span class="label"><label>&nbsp;</label></span>
+            <span class="field"><button type="submit" name="search" value="search"><span>Search</span></button></span>
+        </div>
 
-		<div class="bottom"></div>
-		<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
-	</form>
+        <div class="bottom"></div>
+        <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+    </form>
 </div>
 <!-- END: content -->

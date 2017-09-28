@@ -2,67 +2,67 @@
 {MESSAGES}
 
 <div class="customer-filter">
-	<!-- BEGIN: form -->
+    <!-- BEGIN: form -->
 
-	<script type="text/javascript">
-	$(document).ready(function(){
-		$('#voucher-filter-created-from,#voucher-filter-created-to,#voucher-filter-activity-from,#voucher-filter-activity-to').datepicker({firstDay: 1, dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true});
-	});
-	</script>
-	
-	<div id="customer-filter-form-wrapper">
-		<form method="post" id="customer-filter-form" action="/backoffice/marketing">
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $('#voucher-filter-created-from,#voucher-filter-created-to,#voucher-filter-activity-from,#voucher-filter-activity-to').datepicker({firstDay: 1, dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true});
+    });
+    </script>
+    
+    <div id="customer-filter-form-wrapper">
+        <form method="post" id="customer-filter-form" action="/backoffice/marketing">
 
-			<fieldset class="single">
+            <fieldset class="single">
 
-				<!-- BEGIN: type -->
-				<div class="row type">
-					<span class="label"><label>Filter by type</label></span>
-					<span class="field">
-						<select id="voucher-filter-type" name="voucher-filter[type]">
-							<!-- BEGIN: item -->
-							<option value="{ITEM.id}" {ITEM.selected}>{ITEM.title|htmlspecialchars}</option>
-							<!-- END: item -->
-						</select>
-					</span>
-				</div>
-				<!-- END: type -->
+                <!-- BEGIN: type -->
+                <div class="row type">
+                    <span class="label"><label>Filter by type</label></span>
+                    <span class="field">
+                        <select id="voucher-filter-type" name="voucher-filter[type]">
+                            <!-- BEGIN: item -->
+                            <option value="{ITEM.id}" {ITEM.selected}>{ITEM.title|htmlspecialchars}</option>
+                            <!-- END: item -->
+                        </select>
+                    </span>
+                </div>
+                <!-- END: type -->
 
-				<div class="row text-search">
-					<span class="label"><label>Text search (title/code)</label></span>
-					<span class="field">
-						<input class="text-search" type="text" id="voucher-filter-text-search" name="voucher-filter[text_search]" value="{FILTER.text_search|htmlspecialchars}"/>
-					</span>
-				</div>
+                <div class="row text-search">
+                    <span class="label"><label>Text search (title/code)</label></span>
+                    <span class="field">
+                        <input class="text-search" type="text" id="voucher-filter-text-search" name="voucher-filter[text_search]" value="{FILTER.text_search|htmlspecialchars}"/>
+                    </span>
+                </div>
 
-				<div class="row created-between">
-					<span class="label"><label>Date From</label></span>
-					<span class="field">
-						<input type="text" class="text date" id="voucher-filter-created-from" name="voucher-filter[created_from]" value="{FILTER.created_from|htmlspecialchars}" />
-					</span>
-				</div>
+                <div class="row created-between">
+                    <span class="label"><label>Date From</label></span>
+                    <span class="field">
+                        <input type="text" class="text date" id="voucher-filter-created-from" name="voucher-filter[created_from]" value="{FILTER.created_from|htmlspecialchars}" />
+                    </span>
+                </div>
 
-				<div class="row created-between">
-					<span class="label"><label>Date To</label></span>
-					<span class="field">
-						<input type="text" class="text date" id="voucher-filter-created-to" name="voucher-filter[created_to]" value="{FILTER.created_to|htmlspecialchars}" />
-					</span>
-				</div>
+                <div class="row created-between">
+                    <span class="label"><label>Date To</label></span>
+                    <span class="field">
+                        <input type="text" class="text date" id="voucher-filter-created-to" name="voucher-filter[created_to]" value="{FILTER.created_to|htmlspecialchars}" />
+                    </span>
+                </div>
 
-			</fieldset>
+            </fieldset>
 
-			<div class="row submit">
-				<span class="label"><label>&nbsp;</label></span>
-				<span class="field">
-					<button type="submit" name="search" value="search"><span>Search</span></button>
-				</span>
-			</div>
-			
-			
-		<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+            <div class="row submit">
+                <span class="label"><label>&nbsp;</label></span>
+                <span class="field">
+                    <button type="submit" name="search" value="search"><span>Search</span></button>
+                </span>
+            </div>
+            
+            
+        <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
-	</div>
-	<!-- END: form -->
-	
+    </div>
+    <!-- END: form -->
+    
 </div>
 <!-- END: content -->

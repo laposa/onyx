@@ -3,75 +3,75 @@
 <div class="scheduler-list">
 <input type="hidden" name="scheduler_action" value="save"/>
 <table id="scheduler-list">
-	<thead>
-	<tr>
-		<th>Action</th>
-		<th>Scheduled date/time</th>
-		<th>Status</th>
-		<th>&nbsp;</th>
-	</tr>
-	</thead>
-	<tbody>
-	<!-- BEGIN:item -->
-		<tr class="status-{ITEM.status_name|strtolower}">
-			<td>{ITEM.controller|str_replace('_', ' ', %s)|ucfirst}</td>
-			<td>{ITEM.scheduled_time|strtotime||date('d/m/Y H:i:s', %s)}</td>
-			<td>{ITEM.status_name}</td>
-			<td>
-				<a class="onxshop-delete onxshop-icon" title="Cancel job" onclick="$(this).parent().parent().remove(); return false;" href="#"><span>Remove</span></a>
-				<input type="hidden" name="job[{ITEM.id}]" value="{ITEM.id}"/>
-			</td>
-		</tr>
-	<!-- END:item -->
-	</tbody>
+    <thead>
+    <tr>
+        <th>Action</th>
+        <th>Scheduled date/time</th>
+        <th>Status</th>
+        <th>&nbsp;</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- BEGIN:item -->
+        <tr class="status-{ITEM.status_name|strtolower}">
+            <td>{ITEM.controller|str_replace('_', ' ', %s)|ucfirst}</td>
+            <td>{ITEM.scheduled_time|strtotime||date('d/m/Y H:i:s', %s)}</td>
+            <td>{ITEM.status_name}</td>
+            <td>
+                <a class="onxshop-delete onxshop-icon" title="Cancel job" onclick="$(this).parent().parent().remove(); return false;" href="#"><span>Remove</span></a>
+                <input type="hidden" name="job[{ITEM.id}]" value="{ITEM.id}"/>
+            </td>
+        </tr>
+    <!-- END:item -->
+    </tbody>
 </table>
 
 <!-- BEGIN: no_schedule -->
 <span id="no-schedule">This content has no publishing schedule.</span>
 <script type="text/javascript">
-	$("#scheduler-list").hide().prev().hide();
+    $("#scheduler-list").hide().prev().hide();
 </script>
 <!-- END: no_schedule -->
 
 <span><a id="scheduler-add-new" href="#"><span>Schedule publishing...</span></a></span>
 
 <script type="text/javascript">
-	$(function() {
-		$("a#scheduler-add-new").click(function() {
+    $(function() {
+        $("a#scheduler-add-new").click(function() {
 
-			var template = '<tr>' +
-				'<td><select name="scheduler[controller][]">' +
-				<!-- BEGIN: controller_item -->
-				'<option value="{ITEM}">{ITEM|ucfirst|preg_replace('/_/', ' ', %s)}</option>' + 
-				<!-- END: controller_item -->
-				'</select></td>' +
-				'<td><input type="text" class="date" style="width: 80px;" name="scheduler[date][]" value="{TOMORROW}" />' +
-				'<input type="text" class="time" style="width: 64px;" name="scheduler[time][]" value="00:00:00" /></td>' +
-				'<td>New</td>' +
-				'<td>' +
-					'<a class="onxshop-delete onxshop-icon" title="Cancel job" onclick="$(this).parent().parent().remove(); return false;" href="#"><span>Remove</span></a>' +
-				'</td>' +
-			'</tr>';
+            var template = '<tr>' +
+                '<td><select name="scheduler[controller][]">' +
+                <!-- BEGIN: controller_item -->
+                '<option value="{ITEM}">{ITEM|ucfirst|preg_replace('/_/', ' ', %s)}</option>' + 
+                <!-- END: controller_item -->
+                '</select></td>' +
+                '<td><input type="text" class="date" style="width: 80px;" name="scheduler[date][]" value="{TOMORROW}" />' +
+                '<input type="text" class="time" style="width: 64px;" name="scheduler[time][]" value="00:00:00" /></td>' +
+                '<td>New</td>' +
+                '<td>' +
+                    '<a class="onxshop-delete onxshop-icon" title="Cancel job" onclick="$(this).parent().parent().remove(); return false;" href="#"><span>Remove</span></a>' +
+                '</td>' +
+            '</tr>';
 
-			$("#scheduler-list tbody").append(template);
-			$('#scheduler-list tbody tr:last input.date').datepicker({firstDay: 1, dateFormat: 'dd/mm/yy'});
-			$("#scheduler-list").show().prev().show();
-			$("#no-schedule").hide();
+            $("#scheduler-list tbody").append(template);
+            $('#scheduler-list tbody tr:last input.date').datepicker({firstDay: 1, dateFormat: 'dd/mm/yy'});
+            $("#scheduler-list").show().prev().show();
+            $("#no-schedule").hide();
 
-			return false;
-		});
-	});
+            return false;
+        });
+    });
 
-	/**
-	 * TODO: fix conflict with hookNodeEditPostUpdate in node/content/picture
-	 */
-	/*
-	function hookNodeEditPostUpdate() {
-		var block = $("#scheduler-list").parent();
-		var url = "/request/bo/component/scheduler_list?node_id={GET.node_id}&node_type=common_node";
-		makeAjaxRequest(block, url);
-	}
-	*/
+    /**
+     * TODO: fix conflict with hookNodeEditPostUpdate in node/content/picture
+     */
+    /*
+    function hookNodeEditPostUpdate() {
+        var block = $("#scheduler-list").parent();
+        var url = "/request/bo/component/scheduler_list?node_id={GET.node_id}&node_type=common_node";
+        makeAjaxRequest(block, url);
+    }
+    */
 </script>
 </div>
 <!-- END: content -->

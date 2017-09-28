@@ -7,4 +7,4 @@
 
 class Onxshop_Controller_Bo_Pages_Database_Browse extends Onxshop_Controller {
 
-}	
+}   

@@ -5,86 +5,86 @@
 <script type="text/javascript">
 $(function() {
     $('#sub-content form').ajaxForm({target: '#sub-content', complete: function() {
-    	makeAjaxRequest('#sub-content', '/request/bo/component/ecommerce/stock');
+        makeAjaxRequest('#sub-content', '/request/bo/component/ecommerce/stock');
     }}); 
 });
 </script>
 
 <form method="post" action="{URI|htmlspecialchars}">
-		
-	<fieldset class="single">
-		<legend>{PRODUCT.name} - {PRODUCT.variety.name}</legend>
+        
+    <fieldset class="single">
+        <legend>{PRODUCT.name} - {PRODUCT.variety.name}</legend>
 
-		<div class="row">
-			<span class="label"><label>Code (SKU)</label></span>
-			<span class="field"><input type="text" name="product[variety][sku]" value="{PRODUCT.variety.sku}"/></span>
-		</div>	
-		<div class="row">
-			<span class="label"><label>Weight Gross [{VARIETY_CONF.weight_units}]</label></span>
-			<span class="field"><input type="text" name="product[variety][weight_gross]" value="{PRODUCT.variety.weight_gross}"/> (used for postage)</span>
-		</div>
-		<div class="row">
-			<span class="label"><label>Stock</label></span>
-			<span class="field"><input type="text" name="product[variety][stock]" value="{PRODUCT.variety.stock}"/></span>
-		</div>
-	</fieldset>
-	
-	<p class="extended-toolbar">
-		<a class="button show-advanced-settings" href="#"><span>Show Advanced Settings</span></a>
-	</p>
-								
-	<div id="variety-more-details" class="advanced">
-		<div class="row">
-			<span class="label"><label>Weight Net [{VARIETY_CONF.weight_units}]</label></span>
-			<span class="field"><input type="text" name="product[variety][weight]" value="{PRODUCT.variety.weight}"/></span>
-		</div>
-	
-		<fieldset>
-			<legend>Dimensions</legend>
-			<div class="row">
-				<span class="label"><label>Width [{VARIETY_CONF.dimension_units}]</label></span>
-				<span class="field"><input type="text" name="product[variety][width]" value="{PRODUCT.variety.width}"/></span>
-			</div>
-			<div class="row">
-				<span class="label"><label>Height [{VARIETY_CONF.dimension_units}]</label></span>
-				<span class="field"><input type="text" name="product[variety][height]" value="{PRODUCT.variety.height}"/></span>
-			</div>
-			<div class="row">
-				<span class="label"><label>Depth [{VARIETY_CONF.dimension_units}]</label></span>
-				<span class="field"><input type="text" name="product[variety][depth]" value="{PRODUCT.variety.depth}"/></span>
-			</div>
-			<div class="row">
-				<span class="label"><label>Diameter [{VARIETY_CONF.dimension_units}]</label></span>
-				<span class="field"><input type="text" name="product[variety][diameter]" value="{PRODUCT.variety.diameter}"/></span>
-			</div>
-		</fieldset>
-	</div>
+        <div class="row">
+            <span class="label"><label>Code (SKU)</label></span>
+            <span class="field"><input type="text" name="product[variety][sku]" value="{PRODUCT.variety.sku}"/></span>
+        </div>  
+        <div class="row">
+            <span class="label"><label>Weight Gross [{VARIETY_CONF.weight_units}]</label></span>
+            <span class="field"><input type="text" name="product[variety][weight_gross]" value="{PRODUCT.variety.weight_gross}"/> (used for postage)</span>
+        </div>
+        <div class="row">
+            <span class="label"><label>Stock</label></span>
+            <span class="field"><input type="text" name="product[variety][stock]" value="{PRODUCT.variety.stock}"/></span>
+        </div>
+    </fieldset>
+    
+    <p class="extended-toolbar">
+        <a class="button show-advanced-settings" href="#"><span>Show Advanced Settings</span></a>
+    </p>
+                                
+    <div id="variety-more-details" class="advanced">
+        <div class="row">
+            <span class="label"><label>Weight Net [{VARIETY_CONF.weight_units}]</label></span>
+            <span class="field"><input type="text" name="product[variety][weight]" value="{PRODUCT.variety.weight}"/></span>
+        </div>
+    
+        <fieldset>
+            <legend>Dimensions</legend>
+            <div class="row">
+                <span class="label"><label>Width [{VARIETY_CONF.dimension_units}]</label></span>
+                <span class="field"><input type="text" name="product[variety][width]" value="{PRODUCT.variety.width}"/></span>
+            </div>
+            <div class="row">
+                <span class="label"><label>Height [{VARIETY_CONF.dimension_units}]</label></span>
+                <span class="field"><input type="text" name="product[variety][height]" value="{PRODUCT.variety.height}"/></span>
+            </div>
+            <div class="row">
+                <span class="label"><label>Depth [{VARIETY_CONF.dimension_units}]</label></span>
+                <span class="field"><input type="text" name="product[variety][depth]" value="{PRODUCT.variety.depth}"/></span>
+            </div>
+            <div class="row">
+                <span class="label"><label>Diameter [{VARIETY_CONF.dimension_units}]</label></span>
+                <span class="field"><input type="text" name="product[variety][diameter]" value="{PRODUCT.variety.diameter}"/></span>
+            </div>
+        </fieldset>
+    </div>
 
-	<button class="save" type="submit" name="save" value="save"><span>Save</span></button>
+    <button class="save" type="submit" name="save" value="save"><span>Save</span></button>
 
-	<input type="hidden" name="product[variety][id]" value="{PRODUCT.variety.id}"/>
-	<input type="hidden" name="product[variety][product_id]" value="{PRODUCT.variety.product_id}"/>
+    <input type="hidden" name="product[variety][id]" value="{PRODUCT.variety.id}"/>
+    <input type="hidden" name="product[variety][product_id]" value="{PRODUCT.variety.product_id}"/>
 
-	<script type="text/javascript">
-		
-		var back_in_stock_notifications_customer = {NOTIFICATIONS.back_in_stock_customer};
+    <script type="text/javascript">
+        
+        var back_in_stock_notifications_customer = {NOTIFICATIONS.back_in_stock_customer};
 
-		$(function() {
-			$("input[name='product[variety][stock]']").blur(function() {
-				var original_stock = '{PRODUCT.variety.stock}' * 1;
-				var new_stock = $(this).val();
-				if (original_stock == 0 && new_stock > 0) {
-					if (confirm("Changing stock levels - " + back_in_stock_notifications_customer + " customer(s) will be notified. Do you want to continue?")) {
-						return true;
-					} else {
-						$(this).val(original_stock);
-						return false;
-					};
-				}
-			});
-		});
+        $(function() {
+            $("input[name='product[variety][stock]']").blur(function() {
+                var original_stock = '{PRODUCT.variety.stock}' * 1;
+                var new_stock = $(this).val();
+                if (original_stock == 0 && new_stock > 0) {
+                    if (confirm("Changing stock levels - " + back_in_stock_notifications_customer + " customer(s) will be notified. Do you want to continue?")) {
+                        return true;
+                    } else {
+                        $(this).val(original_stock);
+                        return false;
+                    };
+                }
+            });
+        });
 
-	</script>
+    </script>
 
 <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>

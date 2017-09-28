@@ -5,11 +5,11 @@ if the website uses delivery, you need to run the following script and then set 
 psql -U {DBUSER} -h localhost {DB-1_7} < onxshop_dir/docs/database/upgrade-1.6.x-delivery.sql
 
 change:
-	$_SESSION['authentication']['logon'],
-	$_SESSION['authentication']['authenticity'] and
-	$_SESSION['authentication']['username'] == ONXSHOP_DB_USER
+    $_SESSION['authentication']['logon'],
+    $_SESSION['authentication']['authenticity'] and
+    $_SESSION['authentication']['username'] == ONXSHOP_DB_USER
 to:
-	Onxshop_Bo_Authentication::getInstance()->isAuthenticated()
+    Onxshop_Bo_Authentication::getInstance()->isAuthenticated()
 
 clean up of htaccess
 

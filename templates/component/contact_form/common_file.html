@@ -2,41 +2,41 @@
 {MESSAGES}
 <script type="text/javascript">  
 $(function(){  
-	$("#contact-form-{GET.node_id}").validate();
+    $("#contact-form-{GET.node_id}").validate();
 });
 </script>
 
 <div class="contact-form-common-file">
-	<form class="contact common-file" id="contact-form-{GET.node_id}" action="{URI|htmlspecialchars}#node-id-{GET.node_id}" method="post" enctype="multipart/form-data">
-	<fieldset class="single">
-		<legend>{I18N_CONTACT_FORM}</legend>
-		<div class="row full-name">
-			<label for="formdata-full-name-{GET.node_id}">{I18N_YOUR_NAME}:</label>
-			<input type="text" id="formdata-full-name-{GET.node_id}" name="formdata[required_full_name]" value="{FORMDATA.required_full_name|htmlspecialchars}" class="required text" maxlength="45" />
-		</div>
-		<div class="row email">
-			<label for="formdata-email-{GET.node_id}">{I18N_EMAIL}:</label>
-			<input type="email" id="formdata-email-{GET.node_id}" name="formdata[required_email]" value="{FORMDATA.required_email|htmlspecialchars}" class="required email text" maxlength="45" />
-		</div>
+    <form class="contact common-file" id="contact-form-{GET.node_id}" action="{URI|htmlspecialchars}#node-id-{GET.node_id}" method="post" enctype="multipart/form-data">
+    <fieldset class="single">
+        <legend>{I18N_CONTACT_FORM}</legend>
+        <div class="row full-name">
+            <label for="formdata-full-name-{GET.node_id}">{I18N_YOUR_NAME}:</label>
+            <input type="text" id="formdata-full-name-{GET.node_id}" name="formdata[required_full_name]" value="{FORMDATA.required_full_name|htmlspecialchars}" class="required text" maxlength="45" />
+        </div>
+        <div class="row email">
+            <label for="formdata-email-{GET.node_id}">{I18N_EMAIL}:</label>
+            <input type="email" id="formdata-email-{GET.node_id}" name="formdata[required_email]" value="{FORMDATA.required_email|htmlspecialchars}" class="required email text" maxlength="45" />
+        </div>
 
-		{FILE "component/captcha.inc.html"}
-		
-		<div class="row" id="attachment-file">
-			<label for="attachment-file-input">Add:</label>
-			<input id="attachment-file-input" type="file" name="attachment" class="file" /> 
-			<span class="max_filesize">Max&nbsp;filesize:&nbsp;{MAX_FILE_SIZE}</span>
-		</div>
-		
-	</fieldset>
-	
-		<input type="hidden" name="node_id" value="{GET.node_id}" />
-		
-		<div class="row submit">
-			<label>&nbsp;</label>
-			<button type="submit" name="send" value="send" class="submit"><span>{I18N_SUBMIT}</span></button>
-		</div>
-	
-	<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+        {FILE "component/captcha.inc.html"}
+        
+        <div class="row" id="attachment-file">
+            <label for="attachment-file-input">Add:</label>
+            <input id="attachment-file-input" type="file" name="attachment" class="file" /> 
+            <span class="max_filesize">Max&nbsp;filesize:&nbsp;{MAX_FILE_SIZE}</span>
+        </div>
+        
+    </fieldset>
+    
+        <input type="hidden" name="node_id" value="{GET.node_id}" />
+        
+        <div class="row submit">
+            <label>&nbsp;</label>
+            <button type="submit" name="send" value="send" class="submit"><span>{I18N_SUBMIT}</span></button>
+        </div>
+    
+    <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
 </div>
 <!-- END: content -->

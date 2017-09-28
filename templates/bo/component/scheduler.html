@@ -4,74 +4,74 @@
 
 <div class="scheduler"> 
 
-	<div class="two-column-page page sidebar">
-		
-			<div class="page-wrapper">
+    <div class="two-column-page page sidebar">
+        
+            <div class="page-wrapper">
 
-				<div class="page-header">
-					<div class="page-header-wrapper">
-						<h1 class="page-title"><span>Scheduled Jobs</span></h1>
-					</div>
-				</div>
+                <div class="page-header">
+                    <div class="page-header-wrapper">
+                        <h1 class="page-title"><span>Scheduled Jobs</span></h1>
+                    </div>
+                </div>
 
-				<div class="page-content">
-					<div class="page-content-wrapper">
-						<div class="row-top">
-							<div class="row-wrapper">
-								<div class="column-wrapper">
+                <div class="page-content">
+                    <div class="page-content-wrapper">
+                        <div class="row-top">
+                            <div class="row-wrapper">
+                                <div class="column-wrapper">
 
-									<table id="scheduler-list">
-										<thead>
-										<tr>
-											<th>Job Id</th>
-											<th>Action</th>
-											<th>Parameters</th>
-											<th>Node Id<br>Node Type</th>
-											<th>Scheduled date/time</th>
-											<th>Status</th>
-											<th>Started<br/>Completed</th>
-											<th>Created<br/>Modified</th>
-											<th>Result</th>
-											<th>&nbsp;</th>
-										</tr>
-										</thead>
-										<tbody>
-											<!-- BEGIN:item -->
-											<tr class="status-{ITEM.status_name|strtolower}">
-												<td>{ITEM.id}</td>
-												<td>{ITEM.controller|str_replace('_', ' ', %s)|ucfirst}</td>
-												<td>{ITEM.parameters|htmlspecialchars}</td>
-												<td>{ITEM.node_id}<br/>{ITEM.node_type}</td>
-												<td>{ITEM.scheduled_time|strtotime||date('d/m/Y H:i:s', %s)}</td>
-												<td>{ITEM.status_name}</td>
-												<td>{ITEM.start_time}<br/>{ITEM.completed_time}</td>
-												<td>{ITEM.created}<br/>{ITEM.modified}</td>
-												<td>{ITEM.result|htmlspecialchars}</td>
-												<td>
-													<a class="onxshop-delete onxshop-icon" title="Cancel job" onclick="if (confirm('Are you sure you want to cancel job {ITEM.id}?')) makeAjaxRequest($('div.scheduler').parent(), '/request/bo/component/scheduler?cancel={ITEM.id}'); return false;"></a>
-												</td>
-											</tr>
-											<!-- END:item -->
-											<!-- BEGIN: no_schedule -->
-											<tr>
-												<td colspan="10" class="empty">There are no scheduled jobs.</td>
-											</tr>
-											<!-- END: no_schedule -->
-										</tbody>
-										<tfoot>
-											<tr>
-												<td colspan="10">{PAGINATION}</td>
-											</tr>
-										</tfoot>
-									</table>
+                                    <table id="scheduler-list">
+                                        <thead>
+                                        <tr>
+                                            <th>Job Id</th>
+                                            <th>Action</th>
+                                            <th>Parameters</th>
+                                            <th>Node Id<br>Node Type</th>
+                                            <th>Scheduled date/time</th>
+                                            <th>Status</th>
+                                            <th>Started<br/>Completed</th>
+                                            <th>Created<br/>Modified</th>
+                                            <th>Result</th>
+                                            <th>&nbsp;</th>
+                                        </tr>
+                                        </thead>
+                                        <tbody>
+                                            <!-- BEGIN:item -->
+                                            <tr class="status-{ITEM.status_name|strtolower}">
+                                                <td>{ITEM.id}</td>
+                                                <td>{ITEM.controller|str_replace('_', ' ', %s)|ucfirst}</td>
+                                                <td>{ITEM.parameters|htmlspecialchars}</td>
+                                                <td>{ITEM.node_id}<br/>{ITEM.node_type}</td>
+                                                <td>{ITEM.scheduled_time|strtotime||date('d/m/Y H:i:s', %s)}</td>
+                                                <td>{ITEM.status_name}</td>
+                                                <td>{ITEM.start_time}<br/>{ITEM.completed_time}</td>
+                                                <td>{ITEM.created}<br/>{ITEM.modified}</td>
+                                                <td>{ITEM.result|htmlspecialchars}</td>
+                                                <td>
+                                                    <a class="onxshop-delete onxshop-icon" title="Cancel job" onclick="if (confirm('Are you sure you want to cancel job {ITEM.id}?')) makeAjaxRequest($('div.scheduler').parent(), '/request/bo/component/scheduler?cancel={ITEM.id}'); return false;"></a>
+                                                </td>
+                                            </tr>
+                                            <!-- END:item -->
+                                            <!-- BEGIN: no_schedule -->
+                                            <tr>
+                                                <td colspan="10" class="empty">There are no scheduled jobs.</td>
+                                            </tr>
+                                            <!-- END: no_schedule -->
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <td colspan="10">{PAGINATION}</td>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
 
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-	</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
 
 </div>
 <!-- END: content -->

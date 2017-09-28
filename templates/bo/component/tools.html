@@ -3,36 +3,36 @@
 
 <!-- BEGIN: menu -->
 <ul style="list-style: square;">
-	<li><a class="button small" href="/backoffice/advanced/tools?tool=uri"><span>Generate Nice URIs</span></a><br />
-	Please do this only if you really know what you are doing. This will generate completely new URL structure.
-	</li>
-	<li><a class="button small" href="/backoffice/advanced/tools?tool=flush_thumb"><span>Flush Thumbnail Cache</span></a><br />
-		Please do this only if you really know what you are doing. This is useful only if you changed some files directly on the filesystem.</li>
-	<li><a class="button small" href="/backoffice/advanced/tools?tool=flush_tmp"><span>Flush Temp Directory</span></a></li>
-	<li><a class="button small" href="/backoffice/advanced/tools?tool=flush_cache"><span>Flush Cache</span></a> (file and <a href="/opt/apc/" title="Only allowed from debug hosts and protected by ONXSHOP_DB_USER and ONXSHOP_DB_PASSWORD">APC user cache</a>)</li>
-	<li><a class="button small" href="/backoffice/advanced/tools?tool=find_hard_links"><span>Find Hard Links</span></a></li>
-	<li><a class="button small" href="/backoffice/advanced/tools?tool=delete_orphaned_baskets"><span>Delete Orphaned Baskets</span></a><br />
-		Will delete baskets created by anonymous user, older than 2 weeks and not converted to an order.</li>
-	<li>Backup: <a class="button small" href="/backoffice/advanced/tools?tool=backup&scope=database"><span>database</span></a> or <a class="button small" href="/backoffice/advanced/tools?tool=backup&scope=project"><span>project</span></a> or <a class="button small" href="/backoffice/advanced/tools?tool=backup&scope=both"><span>both</span></a> (click and wait, it takes some time to process)<br />
-		Creates up-to-date backup and triggers download</li>
+    <li><a class="button small" href="/backoffice/advanced/tools?tool=uri"><span>Generate Nice URIs</span></a><br />
+    Please do this only if you really know what you are doing. This will generate completely new URL structure.
+    </li>
+    <li><a class="button small" href="/backoffice/advanced/tools?tool=flush_thumb"><span>Flush Thumbnail Cache</span></a><br />
+        Please do this only if you really know what you are doing. This is useful only if you changed some files directly on the filesystem.</li>
+    <li><a class="button small" href="/backoffice/advanced/tools?tool=flush_tmp"><span>Flush Temp Directory</span></a></li>
+    <li><a class="button small" href="/backoffice/advanced/tools?tool=flush_cache"><span>Flush Cache</span></a> (file and <a href="/opt/apc/" title="Only allowed from debug hosts and protected by ONXSHOP_DB_USER and ONXSHOP_DB_PASSWORD">APC user cache</a>)</li>
+    <li><a class="button small" href="/backoffice/advanced/tools?tool=find_hard_links"><span>Find Hard Links</span></a></li>
+    <li><a class="button small" href="/backoffice/advanced/tools?tool=delete_orphaned_baskets"><span>Delete Orphaned Baskets</span></a><br />
+        Will delete baskets created by anonymous user, older than 2 weeks and not converted to an order.</li>
+    <li>Backup: <a class="button small" href="/backoffice/advanced/tools?tool=backup&scope=database"><span>database</span></a> or <a class="button small" href="/backoffice/advanced/tools?tool=backup&scope=project"><span>project</span></a> or <a class="button small" href="/backoffice/advanced/tools?tool=backup&scope=both"><span>both</span></a> (click and wait, it takes some time to process)<br />
+        Creates up-to-date backup and triggers download</li>
 </ul>
 <!-- END: menu -->
 
 <!-- BEGIN: hard_links -->
-	<h2>Hard Links</h2>
-	<table>
-		<thead>
-			<tr><th>Title</th><th>Preview</th></tr>
-		</thead>
-		<tbody>
-			<!-- BEGIN: item -->
-			<tr>
-				<td><a href="/node/{ITEM.id}" onclick="openEdit('/popup/edit/content/{ITEM.id}/orig/'); return false">{ITEM.title}</a></td>
-				<td>{ITEM.content}</td>
-			</tr>
-			<!-- END: item -->
-		</tbody>
-	</table>	
+    <h2>Hard Links</h2>
+    <table>
+        <thead>
+            <tr><th>Title</th><th>Preview</th></tr>
+        </thead>
+        <tbody>
+            <!-- BEGIN: item -->
+            <tr>
+                <td><a href="/node/{ITEM.id}" onclick="openEdit('/popup/edit/content/{ITEM.id}/orig/'); return false">{ITEM.title}</a></td>
+                <td>{ITEM.content}</td>
+            </tr>
+            <!-- END: item -->
+        </tbody>
+    </table>    
 <!-- END: hard_links -->
 {SUB_CONTENT}
 <!-- END: content -->

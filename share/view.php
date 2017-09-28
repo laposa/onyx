@@ -36,9 +36,9 @@ require_once('lib/onxshop.functions.php');
  */
  
 if (isset($_GET['file'])) {
-	$file = $_GET['file'];
+    $file = $_GET['file'];
 } else {
-	$file = "public_html/share/images/missing_image.png";
+    $file = "public_html/share/images/missing_image.png";
 }
 
 $file = ONXSHOP_PROJECT_DIR . $file;
@@ -50,44 +50,44 @@ $realpath = realpath($file);
  */
  
 if (!is_readable($file)) {
-	
-	//file does not exists
-	header("HTTP/1.0 404 Not Found");
-	echo "missing";
-	
+    
+    //file does not exists
+    header("HTTP/1.0 404 Not Found");
+    echo "missing";
+    
 } else {
-	
-	//guest user can download only content of var/files
-	$check = addcslashes(ONXSHOP_PROJECT_DIR, '/') . 'var\/files\/';
+    
+    //guest user can download only content of var/files
+    $check = addcslashes(ONXSHOP_PROJECT_DIR, '/') . 'var\/files\/';
 
-	if (!preg_match("/$check/", $realpath)) {
-		header("HTTP/1.0 403 Forbidden");
-		echo "forbidden";
-		exit;
-	}
+    if (!preg_match("/$check/", $realpath)) {
+        header("HTTP/1.0 403 Forbidden");
+        echo "forbidden";
+        exit;
+    }
 
-	/**
-	 * Detect file type and send to the client
-	 */
-	
-	$mimetype = mime_content_type($file);
-	header("Content-type: $mimetype");
-	
-	/**
-	 * Clean (erase) the output buffer and turn off output buffering
-	 */
-	 
-	ob_end_clean();
-	
-	/**
-	 * user rangeDownload function for any client that supports byte-ranges (i.e. Safari browser)
-	 * 
-	 */
-	 
-	if (isset($_SERVER['HTTP_RANGE'])) {
-		rangeDownload($file);
-	} else {
-		header("Content-Length: " . filesize($file));
-		readfile($file);
-	}
+    /**
+     * Detect file type and send to the client
+     */
+    
+    $mimetype = mime_content_type($file);
+    header("Content-type: $mimetype");
+    
+    /**
+     * Clean (erase) the output buffer and turn off output buffering
+     */
+     
+    ob_end_clean();
+    
+    /**
+     * user rangeDownload function for any client that supports byte-ranges (i.e. Safari browser)
+     * 
+     */
+     
+    if (isset($_SERVER['HTTP_RANGE'])) {
+        rangeDownload($file);
+    } else {
+        header("Content-Length: " . filesize($file));
+        readfile($file);
+    }
 }

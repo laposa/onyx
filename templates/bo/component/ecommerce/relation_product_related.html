@@ -2,55 +2,55 @@
 <script type="text/javascript">
 function select_related(id, title) {
 
-	var str = $('#template-related-select').html();
+    var str = $('#template-related-select').html();
         
     str = str.replace(/__ID__/g, id);
     str = str.replace(/__TITLE__/g, title);
 
-	$('#related-select').append(str);
-	$('#psearch-block').toggle();
+    $('#related-select').append(str);
+    $('#psearch-block').toggle();
 
-	return void(0);
+    return void(0);
 }
 
 function search_product() {
-	query = $('#psearch-input').attr('value');
-	if (query.length > 2) $('#search-result').load('/request/bo/component/ecommerce/search_products?search[query]=' + query);
-	return false;
+    query = $('#psearch-input').attr('value');
+    if (query.length > 2) $('#search-result').load('/request/bo/component/ecommerce/search_products?search[query]=' + query);
+    return false;
 }
 </script>
 <!-- END: head -->
 <!-- BEGIN: content -->
 <fieldset>
-	<legend>Related Products</legend>
-	{MESSAGES}
-	<br/>
-	<div id="related-select">
-		<!-- BEGIN:ptn -->
-			<div>
-				<input type="hidden" name="product_related[]" value="{CURRENT.id}" />
-				<button class="button remove small" style="float: none;" name="" onclick="this.parentNode.parentNode.removeChild(this.parentNode)"><span>Remove</span></button>
-				<a {CURRENT.class} href="/backoffice/products/{CURRENT.id}/edit">{CURRENT.name}</a><br />
-			</div>
-			<br/>
-		<!-- END:ptn -->
-	</div>
-	
-	<p><a class="button add" href="#" onclick="$('#psearch-block').toggle(); return false"><span>Add New</span></a></p>
-	<div id="psearch-block" style="display: none">
-		<input id="psearch_input" type="text" name="psearch" onkeyup="search_product();" /><br />
-		Search for product name, teaser, description.
-		<!--<a class="button" href="javascript:void(0)" onclick="javascript:search_product();"><span>search</span></a><br />-->
-		<div id="search-result"></div>
-	</div>
+    <legend>Related Products</legend>
+    {MESSAGES}
+    <br/>
+    <div id="related-select">
+        <!-- BEGIN:ptn -->
+            <div>
+                <input type="hidden" name="product_related[]" value="{CURRENT.id}" />
+                <button class="button remove small" style="float: none;" name="" onclick="this.parentNode.parentNode.removeChild(this.parentNode)"><span>Remove</span></button>
+                <a {CURRENT.class} href="/backoffice/products/{CURRENT.id}/edit">{CURRENT.name}</a><br />
+            </div>
+            <br/>
+        <!-- END:ptn -->
+    </div>
+    
+    <p><a class="button add" href="#" onclick="$('#psearch-block').toggle(); return false"><span>Add New</span></a></p>
+    <div id="psearch-block" style="display: none">
+        <input id="psearch_input" type="text" name="psearch" onkeyup="search_product();" /><br />
+        Search for product name, teaser, description.
+        <!--<a class="button" href="javascript:void(0)" onclick="javascript:search_product();"><span>search</span></a><br />-->
+        <div id="search-result"></div>
+    </div>
 
-	<div id="template-related-select" style="visibility: hidden">
-		<div>
-			<input type="hidden" name="product_related[]" value="__ID__" />
-			<button class="button remove small" style="float: none;" name="" onclick="this.parentNode.parentNode.removeChild(this.parentNode)"><span>Remove</span></button>
-			<a href="/product/__ID__/detail">__TITLE__</a><br />
-		</div>
-	</div>
+    <div id="template-related-select" style="visibility: hidden">
+        <div>
+            <input type="hidden" name="product_related[]" value="__ID__" />
+            <button class="button remove small" style="float: none;" name="" onclick="this.parentNode.parentNode.removeChild(this.parentNode)"><span>Remove</span></button>
+            <a href="/product/__ID__/detail">__TITLE__</a><br />
+        </div>
+    </div>
 </fieldset>
 
 <!-- END: content -->

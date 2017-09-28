@@ -1,43 +1,43 @@
 <!-- BEGIN: content -->
 <div class="search-result">
-	<!-- BEGIN: result -->
-	<div class="number-of-results">
-		<p>{NUMBER_OF_RESULTS} search results</p>
-	</div>
-	<ul>
-		<!-- BEGIN: item -->
-		<li class="item {RESULT.node_controller}">
-			<a class="{RESULT.node_controller}" href="/page/{RESULT.id}" title="{RESULT.page_title|htmlspecialchars}">
-				<!-- BEGIN: image -->
-				<div class="image">
-					<img src="/image/{RESULT.image.src}" />
-				</div>
-				<!-- END: image -->
-				<h3>{RESULT.page_title|htmlspecialchars}</h3>
-				<p>{RESULT.excerpt}</p>
-			</a>
-			<div class="search-breadcrumb">
-				<!-- BEGIN: link -->
-				<a class="middle {PATH.node_controller}" href="/page/{PATH.id}" title="{PATH.description|htmlspecialchars}"><span>{PATH.title|htmlspecialchars}</span></a> &raquo; 
-				<!-- END: link -->
-				<!-- BEGIN: linklast -->
-				<a class="last {PATH.node_controller}" href="/page/{PATH.id}" title="{PATH.page_title|htmlspecialchars}"><span>{PATH.title|htmlspecialchars}</span></a> 
-				<!-- END: linklast -->
-			</div>
-		</li>
-		<!-- END: item -->
-	</ul>
-	<!-- END: result -->
-	
-	<!-- BEGIN: empty_result -->
-	<p><strong>{I18N_SEARCH_RESULT_NOTHING_FOUND_TITLE}</strong></p>
-	<p>{I18N_SEARCH_RESULT_NOTHING_FOUND_SUGGESTIONS}</p>
-	<ul>
-		<li>{I18N_SEARCH_RESULT_NOTHING_FOUND_TIP1}</li>
-		<li>{I18N_SEARCH_RESULT_NOTHING_FOUND_TIP2}</li>
-		<li>{I18N_SEARCH_RESULT_NOTHING_FOUND_TIP3}</li>
-	</ul>
-	<!-- END: empty_result -->
+    <!-- BEGIN: result -->
+    <div class="number-of-results">
+        <p>{NUMBER_OF_RESULTS} search results</p>
+    </div>
+    <ul>
+        <!-- BEGIN: item -->
+        <li class="item {RESULT.node_controller}">
+            <a class="{RESULT.node_controller}" href="/page/{RESULT.id}" title="{RESULT.page_title|htmlspecialchars}">
+                <!-- BEGIN: image -->
+                <div class="image">
+                    <img src="/image/{RESULT.image.src}" />
+                </div>
+                <!-- END: image -->
+                <h3>{RESULT.page_title|htmlspecialchars}</h3>
+                <p>{RESULT.excerpt}</p>
+            </a>
+            <div class="search-breadcrumb">
+                <!-- BEGIN: link -->
+                <a class="middle {PATH.node_controller}" href="/page/{PATH.id}" title="{PATH.description|htmlspecialchars}"><span>{PATH.title|htmlspecialchars}</span></a> &raquo; 
+                <!-- END: link -->
+                <!-- BEGIN: linklast -->
+                <a class="last {PATH.node_controller}" href="/page/{PATH.id}" title="{PATH.page_title|htmlspecialchars}"><span>{PATH.title|htmlspecialchars}</span></a> 
+                <!-- END: linklast -->
+            </div>
+        </li>
+        <!-- END: item -->
+    </ul>
+    <!-- END: result -->
+    
+    <!-- BEGIN: empty_result -->
+    <p><strong>{I18N_SEARCH_RESULT_NOTHING_FOUND_TITLE}</strong></p>
+    <p>{I18N_SEARCH_RESULT_NOTHING_FOUND_SUGGESTIONS}</p>
+    <ul>
+        <li>{I18N_SEARCH_RESULT_NOTHING_FOUND_TIP1}</li>
+        <li>{I18N_SEARCH_RESULT_NOTHING_FOUND_TIP2}</li>
+        <li>{I18N_SEARCH_RESULT_NOTHING_FOUND_TIP3}</li>
+    </ul>
+    <!-- END: empty_result -->
 </div>
 
 <!-- END: content -->

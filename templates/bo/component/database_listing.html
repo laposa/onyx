@@ -1,45 +1,45 @@
 <!-- BEGIN: content -->
 
-	<!-- BEGIN: listing -->
-	
-	<h2>Table: <strong>{MODEL}</strong> ({COUNT_RECORD} records, {TABLE_SIZE})</h2>
-	{MESSAGES}
-	<a id="export-button" class="button" href="/request/bo/export/csv_database?model={GET.model}"><span>Export Records (CSV)</span></a>
-	<script type="text/javascript">
-		$('#database .row-bottom p.export').empty();
-		var button = $('#export-button').detach();
-		$('#database .row-bottom p.export').append(button);
-	</script>
-	<table cellspacing="0" border="1">
-	<caption>Records of {MODEL}</caption>
-	<thead>
-	<tr>
-		<!-- BEGIN: th --><th>{COLUMN.name} [{COLUMN.type}]</th><!-- END: th -->
-		<th>&nbsp;</th>
-		<th>&nbsp;</th>
-	</tr>
-	</thead>
-	<tbody>
-	<!-- BEGIN: item -->
-	<tr>
-		<!-- BEGIN: attribute -->
-		<td>{value|htmlspecialchars}</td>
-		<!-- END: attribute -->
-		<td><a class="edit" style="display: none" href="#"><span>edit</span></a></td>
-		<td><a class="delete" style="display: none" href="#"><span>delete</span></a></td>
-	</tr>
-	<!-- END: item -->
-	</tbody>
-	</table>
+    <!-- BEGIN: listing -->
+    
+    <h2>Table: <strong>{MODEL}</strong> ({COUNT_RECORD} records, {TABLE_SIZE})</h2>
+    {MESSAGES}
+    <a id="export-button" class="button" href="/request/bo/export/csv_database?model={GET.model}"><span>Export Records (CSV)</span></a>
+    <script type="text/javascript">
+        $('#database .row-bottom p.export').empty();
+        var button = $('#export-button').detach();
+        $('#database .row-bottom p.export').append(button);
+    </script>
+    <table cellspacing="0" border="1">
+    <caption>Records of {MODEL}</caption>
+    <thead>
+    <tr>
+        <!-- BEGIN: th --><th>{COLUMN.name} [{COLUMN.type}]</th><!-- END: th -->
+        <th>&nbsp;</th>
+        <th>&nbsp;</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- BEGIN: item -->
+    <tr>
+        <!-- BEGIN: attribute -->
+        <td>{value|htmlspecialchars}</td>
+        <!-- END: attribute -->
+        <td><a class="edit" style="display: none" href="#"><span>edit</span></a></td>
+        <td><a class="delete" style="display: none" href="#"><span>delete</span></a></td>
+    </tr>
+    <!-- END: item -->
+    </tbody>
+    </table>
 
-	<div class="onxshop-pagination">
-	    {PAGINATION}
-	</div>
+    <div class="onxshop-pagination">
+        {PAGINATION}
+    </div>
 
-	<!-- END: listing -->
-	
-	<!-- BEGIN: hint -->
-					<p>Select a database table on the left.</p>
-	<!-- END: hint -->
+    <!-- END: listing -->
+    
+    <!-- BEGIN: hint -->
+                    <p>Select a database table on the left.</p>
+    <!-- END: hint -->
 
 <!-- END: content -->

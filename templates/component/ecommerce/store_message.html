@@ -1,28 +1,28 @@
 <!-- BEGIN: content -->
 <div class="store-message">
-	<div class="store-message-wrapper">
-		<!-- BEGIN: authorised_not_selected -->
-		<p class="authorised-not-selected">
-			<span>Hi {_SESSION.client.customer.first_name}, you haven't selected a store!</span>
-			<a class="button nearest-store" href="/page/1345">Find your nearest store</a>
-		</p>
-		<!-- END: authorised_not_selected -->
-	
-		<!-- BEGIN: authorised_selected -->
-		<p class="authorised-selected">
-			<span>Your local store is </span>
-			<a class="button" href="/page/{STORE_PAGE.id}">{STORE.title}</a>
-		</p>
-		<!-- END: authorised_selected -->
-		
-		<!-- BEGIN: anonymouse -->
-		<p class="find">
-			<span>Don't be a stranger, swing by…</span>
-			<a href="/page/1345" class="button nearest-store">Find your nearest store</a>
-		</p>
-		<!-- END: anonymouse -->
-		
-		
-	</div>
+    <div class="store-message-wrapper">
+        <!-- BEGIN: authorised_not_selected -->
+        <p class="authorised-not-selected">
+            <span>Hi {_SESSION.client.customer.first_name}, you haven't selected a store!</span>
+            <a class="button nearest-store" href="/page/1345">Find your nearest store</a>
+        </p>
+        <!-- END: authorised_not_selected -->
+    
+        <!-- BEGIN: authorised_selected -->
+        <p class="authorised-selected">
+            <span>Your local store is </span>
+            <a class="button" href="/page/{STORE_PAGE.id}">{STORE.title}</a>
+        </p>
+        <!-- END: authorised_selected -->
+        
+        <!-- BEGIN: anonymouse -->
+        <p class="find">
+            <span>Don't be a stranger, swing by…</span>
+            <a href="/page/1345" class="button nearest-store">Find your nearest store</a>
+        </p>
+        <!-- END: anonymouse -->
+        
+        
+    </div>
 </div>
 <!-- END: content -->

@@ -3,12 +3,12 @@
 <!-- BEGIN: confirm -->
 <script type="text/javascript">
 function deleteNode(node_id) {
-	$("#dialog").load("/request/bo/component/node_delete~id="+node_id+":delete=1:confirm={CONFIRMATION_CODE}:ajax=1~", '', function (responseText, textStatus, XMLHttpRequest) {
-			$("#node-id-" + node_id).empty();
-			popupMessage("#dialog div.onxshop-messages");
-			$('#dialog').dialog( "close").empty();
-	});
-	
+    $("#dialog").load("/request/bo/component/node_delete~id="+node_id+":delete=1:confirm={CONFIRMATION_CODE}:ajax=1~", '', function (responseText, textStatus, XMLHttpRequest) {
+            $("#node-id-" + node_id).empty();
+            popupMessage("#dialog div.onxshop-messages");
+            $('#dialog').dialog( "close").empty();
+    });
+    
 }
 </script>
 
@@ -17,21 +17,21 @@ function deleteNode(node_id) {
 <p>Do you really want to delete {NODE.node_group|htmlspecialchars}/{NODE.node_controller|htmlspecialchars} named "{NODE.title|htmlspecialchars}"? <a class="button delete" href="{URI|htmlspecialchars}?confirm={CONFIRMATION_CODE}" onclick="deleteNode({GET.id}); return false;"><span>Yes,&nbsp;Delete</span></a></p>
 
 <!-- BEGIN:children -->
-	<h5>Will delete as well</h5>
-	<ul>
-	<!-- BEGIN: item -->
-		<li><a href="/backoffice/pages/edit/{CHILD.id}">{CHILD.title|htmlspecialchars} <sup>{CHILD.node_group|htmlspecialchars}/{CHILD.node_controller|htmlspecialchars}</sup></a></li>
-	<!-- END: item -->
-	</ul>
+    <h5>Will delete as well</h5>
+    <ul>
+    <!-- BEGIN: item -->
+        <li><a href="/backoffice/pages/edit/{CHILD.id}">{CHILD.title|htmlspecialchars} <sup>{CHILD.node_group|htmlspecialchars}/{CHILD.node_controller|htmlspecialchars}</sup></a></li>
+    <!-- END: item -->
+    </ul>
 <!-- END:children -->
 
 <!-- BEGIN:linked -->
-	<h5>Linked as shared content</h5>
-	<ul>
-	<!-- BEGIN: item -->
-		<li><a href="/backoffice/pages/{LINKED.id}"> {LINKED.title|htmlspecialchars} <sup>{LINKED.node_group|htmlspecialchars}/{LINKED.node_controller|htmlspecialchars}</sup></a></li>
-	<!-- END: item -->
-	</ul>
+    <h5>Linked as shared content</h5>
+    <ul>
+    <!-- BEGIN: item -->
+        <li><a href="/backoffice/pages/{LINKED.id}"> {LINKED.title|htmlspecialchars} <sup>{LINKED.node_group|htmlspecialchars}/{LINKED.node_controller|htmlspecialchars}</sup></a></li>
+    <!-- END: item -->
+    </ul>
 <!-- END:linked -->
 
 </div>

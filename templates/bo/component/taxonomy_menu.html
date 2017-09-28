@@ -1,28 +1,28 @@
 <!-- BEGIN: content -->
 <ul class="simple-tree">
-	<li class="root"><a href="#{ROOT.id}"><span>{ROOT.title|htmlspecialchars}</span></a>
-		
-		<!-- BEGIN: group -->
-		<ul>
-		<!-- BEGIN: item -->
-		<li class='{ITEM.type} {ITEM.css_class} node-id-{ITEM.id}'>
-			
-			<!-- BEGIN:link -->
-			<span><a href="#{ITEM.id}" title="ID: {ITEM.id}, Priority: {ITEM.priority}" class="{ITEM.css_class} node-id-{ITEM.id}"><span>{ITEM.name|htmlspecialchars}</span><!-- BEGIN: strapline --><br /><span class="strapline">{ITEM.strapline|strip_tags|htmlspecialchars}</span><!-- END: strapline --></a></span>
-			<!-- END:link -->
-			<!-- BEGIN:nolink -->
-			<span><a href="#{ITEM.id}" class="{ITEM.css_class} node-id-{ITEM.id}"><span>{ITEM.name|htmlspecialchars}</span></a></span>
-			<!-- END:nolink -->
-			
-			{ITEM.subcontent}
-		</li>
-		<!-- END: item -->
-		{END_RESULT_ITEMS}
-		</ul>
-		<!-- END: group -->
-		{END_RESULT_GROUPS}
+    <li class="root"><a href="#{ROOT.id}"><span>{ROOT.title|htmlspecialchars}</span></a>
+        
+        <!-- BEGIN: group -->
+        <ul>
+        <!-- BEGIN: item -->
+        <li class='{ITEM.type} {ITEM.css_class} node-id-{ITEM.id}'>
+            
+            <!-- BEGIN:link -->
+            <span><a href="#{ITEM.id}" title="ID: {ITEM.id}, Priority: {ITEM.priority}" class="{ITEM.css_class} node-id-{ITEM.id}"><span>{ITEM.name|htmlspecialchars}</span><!-- BEGIN: strapline --><br /><span class="strapline">{ITEM.strapline|strip_tags|htmlspecialchars}</span><!-- END: strapline --></a></span>
+            <!-- END:link -->
+            <!-- BEGIN:nolink -->
+            <span><a href="#{ITEM.id}" class="{ITEM.css_class} node-id-{ITEM.id}"><span>{ITEM.name|htmlspecialchars}</span></a></span>
+            <!-- END:nolink -->
+            
+            {ITEM.subcontent}
+        </li>
+        <!-- END: item -->
+        {END_RESULT_ITEMS}
+        </ul>
+        <!-- END: group -->
+        {END_RESULT_GROUPS}
 
-		
-	</li>
+        
+    </li>
 </ul>
 <!-- END: content -->

@@ -4,65 +4,65 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	$('#filter-taxonomy .simple-tree').simpleTree({
-		drag: false,
-		autoclose: true,
-		afterClick:function(node){
-			var node_id = $('a:first', node).attr('href').match('[0-9]{1,}$');
-			makeAjaxRequest('#sub-content', '/request/bo/component/ecommerce/store_list~taxonomy_tree_id=' + node_id + '~', function() {
-				$('#sub-content div.pagination a').die('click');
-				$('#sub-content div.pagination a').live('click', function() {
-					var limit_from = $(this).attr('href').match('limit_from=[0-9]{1,}');
-					var limit_per_page = $(this).attr('href').match('limit_per_page=[0-9]{1,}');
-					makeAjaxRequest('#sub-content', '/request/bo/component/ecommerce/store_list~taxonomy_tree_id=' + node_id + ':' + limit_from + ':' + limit_per_page + '~');
-					return false;
-				});
-			});
-		},
-		animate: true,
-		docToFolderConvert: true
-	});
-	
-	$('#sub-content div.pagination a').live('click', function() {
-		var limit_from = $(this).attr('href').match('limit_from=[0-9]{1,}');
-		var limit_per_page = $(this).attr('href').match('limit_per_page=[0-9]{1,}');
-		makeAjaxRequest('#sub-content', '/request/bo/component/ecommerce/store_list~' + limit_from + ':' + limit_per_page + '~');
-		return false;
-	});	
+    $('#filter-taxonomy .simple-tree').simpleTree({
+        drag: false,
+        autoclose: true,
+        afterClick:function(node){
+            var node_id = $('a:first', node).attr('href').match('[0-9]{1,}$');
+            makeAjaxRequest('#sub-content', '/request/bo/component/ecommerce/store_list~taxonomy_tree_id=' + node_id + '~', function() {
+                $('#sub-content div.pagination a').die('click');
+                $('#sub-content div.pagination a').live('click', function() {
+                    var limit_from = $(this).attr('href').match('limit_from=[0-9]{1,}');
+                    var limit_per_page = $(this).attr('href').match('limit_per_page=[0-9]{1,}');
+                    makeAjaxRequest('#sub-content', '/request/bo/component/ecommerce/store_list~taxonomy_tree_id=' + node_id + ':' + limit_from + ':' + limit_per_page + '~');
+                    return false;
+                });
+            });
+        },
+        animate: true,
+        docToFolderConvert: true
+    });
+    
+    $('#sub-content div.pagination a').live('click', function() {
+        var limit_from = $(this).attr('href').match('limit_from=[0-9]{1,}');
+        var limit_per_page = $(this).attr('href').match('limit_per_page=[0-9]{1,}');
+        makeAjaxRequest('#sub-content', '/request/bo/component/ecommerce/store_list~' + limit_from + ':' + limit_per_page + '~');
+        return false;
+    }); 
 
-	// add store popup
-	$('div#stores a.add').live('click', function() {
-		var child_id = $(this).attr('href').replace('#','');;
-		$('#dialog').addClass('ajax-load').load('/request/bo/component/ecommerce/store_add', function() {$(this).removeClass('ajax-load');});
-		$('#dialog').dialog({width: 500, modal: true, position: {my: "center top", at: "centre top", of: "div.store-list"}, title: 'Add New Item'});
-		$('#dialog').dialog('open');
-		return false;
-	});
+    // add store popup
+    $('div#stores a.add').live('click', function() {
+        var child_id = $(this).attr('href').replace('#','');;
+        $('#dialog').addClass('ajax-load').load('/request/bo/component/ecommerce/store_add', function() {$(this).removeClass('ajax-load');});
+        $('#dialog').dialog({width: 500, modal: true, position: {my: "center top", at: "centre top", of: "div.store-list"}, title: 'Add New Item'});
+        $('#dialog').dialog('open');
+        return false;
+    });
 
-	// notices report export popup
-	$('div#stores a.report').live('click', function() {
-		var child_id = $(this).attr('href').replace('#','');;
-		$('#dialog').dialog({width: 500, modal: true, position: {my: "center top", at: "centre top", of: "div.store-list"}, title: 'Store Notices Activity Report'});
-		$('#dialog').html('<form action="/request/bo/export/csv_store_notices" method="get">' +
-			'<div class="row">' +
-				'<span class="label"><label for="export-from">From Date <small>(inclusive)</small></label></span>' +
-				'<span class="field"><input id="export-from" type="text" name="date_from" value=""/></span>' +
-			'</div>' +
-			'<div class="row">' +
-				'<span class="label"><label for="export-to">To Date <small>(exclusive)</small></label></span>' +
-				'<span class="field"><input id="export-to" type="text" name="date_to" value=""/></span>' +
-			'</div>' +
-			'<div class="row submit">' +
-				'<span class="label"></span>' +
-				'<span class="field"><button class="button add"><span>Download Report</span></button></span>' +
-			'</div>' +
-			'<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />' +
-			'</form>');
-		$('#export-from').datepicker({firstDay: 1, dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true}).datepicker("setDate", "-7");
-		$('#export-to').datepicker({firstDay: 1, dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true}).datepicker("setDate", "+1");
-		$('#dialog').dialog('open');
-		return false;
-	});
+    // notices report export popup
+    $('div#stores a.report').live('click', function() {
+        var child_id = $(this).attr('href').replace('#','');;
+        $('#dialog').dialog({width: 500, modal: true, position: {my: "center top", at: "centre top", of: "div.store-list"}, title: 'Store Notices Activity Report'});
+        $('#dialog').html('<form action="/request/bo/export/csv_store_notices" method="get">' +
+            '<div class="row">' +
+                '<span class="label"><label for="export-from">From Date <small>(inclusive)</small></label></span>' +
+                '<span class="field"><input id="export-from" type="text" name="date_from" value=""/></span>' +
+            '</div>' +
+            '<div class="row">' +
+                '<span class="label"><label for="export-to">To Date <small>(exclusive)</small></label></span>' +
+                '<span class="field"><input id="export-to" type="text" name="date_to" value=""/></span>' +
+            '</div>' +
+            '<div class="row submit">' +
+                '<span class="label"></span>' +
+                '<span class="field"><button class="button add"><span>Download Report</span></button></span>' +
+            '</div>' +
+            '<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />' +
+            '</form>');
+        $('#export-from').datepicker({firstDay: 1, dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true}).datepicker("setDate", "-7");
+        $('#export-to').datepicker({firstDay: 1, dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true}).datepicker("setDate", "+1");
+        $('#dialog').dialog('open');
+        return false;
+    });
 
 });
 
@@ -70,64 +70,64 @@ $(document).ready(function(){
 
 <div id="stores">
 
-	<div class="two-column-page page sidebar">
-			<div class="page-wrapper">
+    <div class="two-column-page page sidebar">
+            <div class="page-wrapper">
 
-				<div class="page-header">
-					<div class="page-header-wrapper">
-						<h1 class="page-title"><span>Stores</span></h1>
-					</div>
-				</div>
+                <div class="page-header">
+                    <div class="page-header-wrapper">
+                        <h1 class="page-title"><span>Stores</span></h1>
+                    </div>
+                </div>
 
-				<div class="page-content">
-					<div class="page-content-wrapper">
-						<div class="row-top">
-							<div class="row-wrapper">
-								<div class="column-wrapper">
-									<div class="filter-bar">
-										{ONXSHOP_REQUEST_filter #bo/component/ecommerce/store_list_filter}
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="row-middle">
-							<div class="row-wrapper">
-								<div class="column-one">
-									<div class="column-wrapper">
+                <div class="page-content">
+                    <div class="page-content-wrapper">
+                        <div class="row-top">
+                            <div class="row-wrapper">
+                                <div class="column-wrapper">
+                                    <div class="filter-bar">
+                                        {ONXSHOP_REQUEST_filter #bo/component/ecommerce/store_list_filter}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-middle">
+                            <div class="row-wrapper">
+                                <div class="column-one">
+                                    <div class="column-wrapper">
 
-										<div id="filter-taxonomy">
-											{ONXSHOP_REQUEST_menupages #bo/component/taxonomy_menu~id=null:expand_all=1:publish=0~}
-										</div>
+                                        <div id="filter-taxonomy">
+                                            {ONXSHOP_REQUEST_menupages #bo/component/taxonomy_menu~id=null:expand_all=1:publish=0~}
+                                        </div>
 
-									</div>
-								</div>
-								<div class="column-two">
-									<div class="column-wrapper">
+                                    </div>
+                                </div>
+                                <div class="column-two">
+                                    <div class="column-wrapper">
 
-										<div id="sub-content">
-											{SUB_CONTENT}
-										</div>
+                                        <div id="sub-content">
+                                            {SUB_CONTENT}
+                                        </div>
 
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="row-bottom">
-							<div class="row-wrapper">
-								<div class="column-wrapper">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-bottom">
+                            <div class="row-wrapper">
+                                <div class="column-wrapper">
 
-									<p>
-										<a class="button add" title="Add a New Store" href="/backoffice/stores/store_add"><span>Add a New Store</span></a>
-										<a class="button report" title="Store Notices Activity Report" href="#"><span>Store Notices Report</span></a>
-									</p>
+                                    <p>
+                                        <a class="button add" title="Add a New Store" href="/backoffice/stores/store_add"><span>Add a New Store</span></a>
+                                        <a class="button report" title="Store Notices Activity Report" href="#"><span>Store Notices Report</span></a>
+                                    </p>
 
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-	</div>
-	
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    
 </div>
 <!-- END: content -->

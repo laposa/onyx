@@ -3,40 +3,40 @@
 
 <script type="text/javascript">  
 $(function(){   
-	$("#customer-add").validate({onkeyup: false});	
+    $("#customer-add").validate({onkeyup: false});  
 });  
 </script>
 
 <form id="customer-add" action="{URI_SAFE|htmlspecialchars}" method="post">
 
-	<fieldset>
-		
-		<div class="row first-name">
-			<span class="label"><label for="client-customer-first-name"><span class="mandatory-mark">*</span> {I18N_R_FIRST_NAME}</label></span>
-			<span class="field"><input class="required text" type="text" id="client-customer-first-name" name="client[customer][first_name]" value="{CLIENT.customer.first_name|htmlspecialchars}" /></span>
- 		</div>
- 		
-		<div class="row last_name">
-			<span class="label"><label for="client-customer-last-name"><span class="mandatory-mark">*</span> {I18N_R_LAST_NAME}</label></span>
-			<span class="field"><input class="required text" type="text" id="client-customer-last-name" name="client[customer][last_name]" value="{CLIENT.customer.last_name|htmlspecialchars}" /></span>
-		</div>
-		
-		<div class="row email">
-			<span class="label"><label for="client-customer-email"><span class="mandatory-mark">*</span> {I18N_R_EMAIL}</label></span>
-			<span class="field"><input class="required email" type="email" id="client-customer-email" name="client[customer][email]" value="{CLIENT.customer.email|htmlspecialchars}" /></span>
-		</div>
-		
-		<div class="row password">
-			<span class="label"><label for="client-customer-password"><span class="mandatory-mark">*</span> {I18N_R_PASSWORD}</label></span>
-			<span class="field"><input class="required text" type="password" id="client-customer-password" name="client[customer][password]" value="" /></span>
- 		</div>
+    <fieldset>
+        
+        <div class="row first-name">
+            <span class="label"><label for="client-customer-first-name"><span class="mandatory-mark">*</span> {I18N_R_FIRST_NAME}</label></span>
+            <span class="field"><input class="required text" type="text" id="client-customer-first-name" name="client[customer][first_name]" value="{CLIENT.customer.first_name|htmlspecialchars}" /></span>
+        </div>
+        
+        <div class="row last_name">
+            <span class="label"><label for="client-customer-last-name"><span class="mandatory-mark">*</span> {I18N_R_LAST_NAME}</label></span>
+            <span class="field"><input class="required text" type="text" id="client-customer-last-name" name="client[customer][last_name]" value="{CLIENT.customer.last_name|htmlspecialchars}" /></span>
+        </div>
+        
+        <div class="row email">
+            <span class="label"><label for="client-customer-email"><span class="mandatory-mark">*</span> {I18N_R_EMAIL}</label></span>
+            <span class="field"><input class="required email" type="email" id="client-customer-email" name="client[customer][email]" value="{CLIENT.customer.email|htmlspecialchars}" /></span>
+        </div>
+        
+        <div class="row password">
+            <span class="label"><label for="client-customer-password"><span class="mandatory-mark">*</span> {I18N_R_PASSWORD}</label></span>
+            <span class="field"><input class="required text" type="password" id="client-customer-password" name="client[customer][password]" value="" /></span>
+        </div>
 
-	</fieldset>
+    </fieldset>
 
-	<div class="row submit">
-		<span class="label"><label>&nbsp;</label></span>
-		<span class="field"><button class="button save" type="submit" name="save" value="save"><span>Continue</span></button></span>
-	</div>
+    <div class="row submit">
+        <span class="label"><label>&nbsp;</label></span>
+        <span class="field"><button class="button save" type="submit" name="save" value="save"><span>Continue</span></button></span>
+    </div>
 
 <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>

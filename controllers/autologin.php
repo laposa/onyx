@@ -7,63 +7,63 @@
 
 class Onxshop_Controller_Autologin extends Onxshop_Controller {
 
-	/**
-	 * main action
-	 */
-	 
-	public function mainAction() {
-	
-		if ($_SESSION['client']['customer']['id'] == 0) {
+    /**
+     * main action
+     */
+     
+    public function mainAction() {
+    
+        if ($_SESSION['client']['customer']['id'] == 0) {
 
-			$this->checkCookieForToken();
+            $this->checkCookieForToken();
 
-		}
+        }
 
-		return true;
+        return true;
 
-	}
-	
-	/**
-	 * checkCookieForToken
-	 */
+    }
+    
+    /**
+     * checkCookieForToken
+     */
 
-	protected function checkCookieForToken()
-	{
-		if (isset($_COOKIE['onxshop_token'])) {
+    protected function checkCookieForToken()
+    {
+        if (isset($_COOKIE['onxshop_token'])) {
 
-			require_once('models/client/client_customer_token.php');
-			$Token = new client_customer_token();
-			$Token->setCacheable(false);
-		
-			$customer_detail = $Token->getCustomerDetailForToken($_COOKIE['onxshop_token']);
+            require_once('models/client/client_customer_token.php');
+            $Token = new client_customer_token();
+            $Token->setCacheable(false);
+        
+            $customer_detail = $Token->getCustomerDetailForToken($_COOKIE['onxshop_token']);
 
-			if ($customer_detail) {
+            if ($customer_detail) {
 
-				require_once('models/client/client_customer.php');
-				$Customer = new client_customer();
-				$Customer->setCacheable(false);
-				$conf = $Customer::initConfiguration();
+                require_once('models/client/client_customer.php');
+                $Customer = new client_customer();
+                $Customer->setCacheable(false);
+                $conf = $Customer::initConfiguration();
 
-				if ($conf['login_type'] == 'username') $username = $customer_detail['username'];
-				else $username = $customer_detail['email'];
+                if ($conf['login_type'] == 'username') $username = $customer_detail['username'];
+                else $username = $customer_detail['email'];
 
-				$customer_detail = $Customer->login($username);
+                $customer_detail = $Customer->login($username);
 
-				if ($customer_detail) {
-					$_SESSION['client']['customer'] = $customer_detail;
-					$_SESSION['use_page_cache'] = false;
-				} else {
-					msg('Autologin failed', 'error', 1);
-				}
+                if ($customer_detail) {
+                    $_SESSION['client']['customer'] = $customer_detail;
+                    $_SESSION['use_page_cache'] = false;
+                } else {
+                    msg('Autologin failed', 'error', 1);
+                }
 
-			} else {
+            } else {
 
-				msg('Invalid autologin token supplied', 'error', 1);
-				//delete cookie
-				setcookie('onxshop_token', '', time()-3600, '/');
-			}
+                msg('Invalid autologin token supplied', 'error', 1);
+                //delete cookie
+                setcookie('onxshop_token', '', time()-3600, '/');
+            }
 
-		}
-	}
+        }
+    }
 
 }

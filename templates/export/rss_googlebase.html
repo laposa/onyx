@@ -1,25 +1,25 @@
 <!-- BEGIN: content --><!-- BEGIN: generated --><?xml version="1.0" encoding="UTF-8" ?>
 <rss version ="2.0" xmlns:g="http://base.google.com/ns/1.0">
 <channel>
-	<title>Products of {CONFIGURATION.global.title|htmlspecialchars|xmlentities}</title>
-	<description>Google Base - Products</description>
-	<link>{URI|htmlspecialchars}</link>
+    <title>Products of {CONFIGURATION.global.title|htmlspecialchars|xmlentities}</title>
+    <description>Google Base - Products</description>
+    <link>{URI|htmlspecialchars}</link>
 <!-- BEGIN: item -->
-	<item>
-		<title>{PRODUCT.name|htmlspecialchars|xmlentities} - {VARIETY.name|htmlspecialchars|xmlentities}</title>
-		<description>{PRODUCT.teaser|strip_tags|htmlspecialchars|xmlentities}</description>
-		<link>{PRODUCT.link}</link>
-		<g:id>{VARIETY.sku|htmlspecialchars|xmlentities}</g:id>
-		<g:image_link>{PRODUCT.image_src}</g:image_link>
-		<g:currency>{PRICE.currency_code}</g:currency>
-		<g:price>{PRICE.value|number_format(%s, 2)}</g:price>
-		<g:price_type>common</g:price_type>
-		<g:weight>{VARIETY.weight}</g:weight>
-		<g:quantity>{VARIETY.stock}</g:quantity>
-		<g:tax_percent>{PRODUCT.type.vat|number_format(%s, 2)}</g:tax_percent>
-		<g:condition>new</g:condition>
-		<g:availability>{AVAILIBILITY}</g:availability>
-	</item>
+    <item>
+        <title>{PRODUCT.name|htmlspecialchars|xmlentities} - {VARIETY.name|htmlspecialchars|xmlentities}</title>
+        <description>{PRODUCT.teaser|strip_tags|htmlspecialchars|xmlentities}</description>
+        <link>{PRODUCT.link}</link>
+        <g:id>{VARIETY.sku|htmlspecialchars|xmlentities}</g:id>
+        <g:image_link>{PRODUCT.image_src}</g:image_link>
+        <g:currency>{PRICE.currency_code}</g:currency>
+        <g:price>{PRICE.value|number_format(%s, 2)}</g:price>
+        <g:price_type>common</g:price_type>
+        <g:weight>{VARIETY.weight}</g:weight>
+        <g:quantity>{VARIETY.stock}</g:quantity>
+        <g:tax_percent>{PRODUCT.type.vat|number_format(%s, 2)}</g:tax_percent>
+        <g:condition>new</g:condition>
+        <g:availability>{AVAILIBILITY}</g:availability>
+    </item>
 <!-- END: item -->
 </channel>
 </rss>

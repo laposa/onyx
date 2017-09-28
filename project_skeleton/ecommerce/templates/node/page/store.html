@@ -9,55 +9,55 @@
 <!-- BEGIN: content -->
 <script type="text/javascript">
 $(document).ready(function(){
-	
-	$('div.store-filter form').on('submit', function(){
-		return submitFilterForm();
-	});
-	
-	$('div.store-filter-tags li a').on('click', function(){
-		$(this).toggleClass('selected');
-		return submitFilterForm();
-	});
-	
-	function submitFilterForm() {
-		
-		var keyword = $('div.store-filter form input').val();
-		var taxonomy_tree_ids = getListOfSelectedStoreTaxonomyIds();
-		$('#store-list-container').load('/request/component/ecommerce/store_list~store_id={GET.store_id}:keyword=' + keyword + ':taxonomy_tree_id=' + taxonomy_tree_ids + '~');
-		
-		return false;
-	}
-	
-	function getListOfSelectedStoreTaxonomyIds() {
-		
-		var list = [];
-		
-		$('div.store-filter-tags li a').each(function() {
-			if ($(this).hasClass('selected')) {
-				var taxonomy_tree_id = $(this).data('taxonomy-tree-id');
-				console.log('has selected ' + taxonomy_tree_id);
-				list.push(taxonomy_tree_id);
-			}
-		});
-		
-		return list.join(',');
-		
-	}
+    
+    $('div.store-filter form').on('submit', function(){
+        return submitFilterForm();
+    });
+    
+    $('div.store-filter-tags li a').on('click', function(){
+        $(this).toggleClass('selected');
+        return submitFilterForm();
+    });
+    
+    function submitFilterForm() {
+        
+        var keyword = $('div.store-filter form input').val();
+        var taxonomy_tree_ids = getListOfSelectedStoreTaxonomyIds();
+        $('#store-list-container').load('/request/component/ecommerce/store_list~store_id={GET.store_id}:keyword=' + keyword + ':taxonomy_tree_id=' + taxonomy_tree_ids + '~');
+        
+        return false;
+    }
+    
+    function getListOfSelectedStoreTaxonomyIds() {
+        
+        var list = [];
+        
+        $('div.store-filter-tags li a').each(function() {
+            if ($(this).hasClass('selected')) {
+                var taxonomy_tree_id = $(this).data('taxonomy-tree-id');
+                console.log('has selected ' + taxonomy_tree_id);
+                list.push(taxonomy_tree_id);
+            }
+        });
+        
+        return list.join(',');
+        
+    }
 });
 </script>
     
 <div class="page store store-locator {NODE.css_class} {NODE.taxonomy_class} {STORE.taxonomy_class}">
-	<div class="content">
-		<div class="page-wrapper">
-			<div class="page-content">
-				<div class="page-content-wrapper">
-					{ONXSHOP_REQUEST_store_filter #component/ecommerce/store_filter}
-					{ONXSHOP_REQUEST_store_locator #component/ecommerce/store_locator~node_id=GET.id:store_type_id=GET.store_type_id~}<!--
-					--><div id="store-list-container">{ONXSHOP_REQUEST_store_list #component/ecommerce/store_list~store_id=GET.store_id~}</div>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div class="content">
+        <div class="page-wrapper">
+            <div class="page-content">
+                <div class="page-content-wrapper">
+                    {ONXSHOP_REQUEST_store_filter #component/ecommerce/store_filter}
+                    {ONXSHOP_REQUEST_store_locator #component/ecommerce/store_locator~node_id=GET.id:store_type_id=GET.store_type_id~}<!--
+                    --><div id="store-list-container">{ONXSHOP_REQUEST_store_list #component/ecommerce/store_list~store_id=GET.store_id~}</div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- END: content -->

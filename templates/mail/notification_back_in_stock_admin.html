@@ -5,24 +5,24 @@ Please note that the below denomination is now back in stock.
 </p>
 
 <table>
-	<tr>
-		<td><a style="text-decoration: none; border: none;" href="{DATA.product.url}">{DATA.product.image}</a></td>
-		<td>&nbsp;</td>
-		<td>
-			<h3><a style="font-size: 16px; color: #a39161;" href="{DATA.product.url}">{DATA.product.name|htmlspecialchars} - {DATA.product.variety.name|htmlspecialchars}</a></h3>
-			<p>{DATA.product.teaser|strip_tags|htmlspecialchars}</p>
-			<p>SKU: <strong>{DATA.product.variety.sku|htmlspecialchars}</strong></p>
-		</td>
-	</tr>
+    <tr>
+        <td><a style="text-decoration: none; border: none;" href="{DATA.product.url}">{DATA.product.image}</a></td>
+        <td>&nbsp;</td>
+        <td>
+            <h3><a style="font-size: 16px; color: #a39161;" href="{DATA.product.url}">{DATA.product.name|htmlspecialchars} - {DATA.product.variety.name|htmlspecialchars}</a></h3>
+            <p>{DATA.product.teaser|strip_tags|htmlspecialchars}</p>
+            <p>SKU: <strong>{DATA.product.variety.sku|htmlspecialchars}</strong></p>
+        </td>
+    </tr>
 </table>
 
 <p>The stock level changed from {DATA.old_value} to {DATA.new_value}.</p>
 
 <p>
-	Please ensure that this accurately reflects stock level of {DATA.product.name|htmlspecialchars} - {DATA.product.variety.name|htmlspecialchars} ({DATA.product.variety.sku|htmlspecialchars}) and update the product in the back-office accordingly by following the below link. 
-	<br/>
-	<br/>
-	<a style="color: #a39161;" href="{PROTOCOL}://{_SERVER.SERVER_NAME}/backoffice/products/{DATA.product.id}/edit">{PROTOCOL}://{_SERVER.SERVER_NAME}/backoffice/products/{DATA.product.id}/edit</a>
+    Please ensure that this accurately reflects stock level of {DATA.product.name|htmlspecialchars} - {DATA.product.variety.name|htmlspecialchars} ({DATA.product.variety.sku|htmlspecialchars}) and update the product in the back-office accordingly by following the below link. 
+    <br/>
+    <br/>
+    <a style="color: #a39161;" href="{PROTOCOL}://{_SERVER.SERVER_NAME}/backoffice/products/{DATA.product.id}/edit">{PROTOCOL}://{_SERVER.SERVER_NAME}/backoffice/products/{DATA.product.id}/edit</a>
 </p>
 
 <p>

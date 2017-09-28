@@ -1,45 +1,45 @@
 <!-- BEGIN: content -->
 <div class="store-detail">
-	
-	<!-- BEGIN: store -->
-	<p class="store-title">{STORE.title|htmlspecialchars}</p>
+    
+    <!-- BEGIN: store -->
+    <p class="store-title">{STORE.title|htmlspecialchars}</p>
 
-	<a class="save-my-store" href="#" onclick="openAjaxRequestInGrowl('/request/component/ecommerce/store_locator?set_home_store=true&amp;node_id={GET.node_id}', 'Saving...'); if ($('#site').hasClass('customer-account-type-0')) {$(this).html('My selected store')}; return false;">{MY_SELECTED_STORE}</a><br/>
-	<p class="change"> or <a href="/locate/" onclick="return changeLocation()">change location</a></p>
+    <a class="save-my-store" href="#" onclick="openAjaxRequestInGrowl('/request/component/ecommerce/store_locator?set_home_store=true&amp;node_id={GET.node_id}', 'Saving...'); if ($('#site').hasClass('customer-account-type-0')) {$(this).html('My selected store')}; return false;">{MY_SELECTED_STORE}</a><br/>
+    <p class="change"> or <a href="/locate/" onclick="return changeLocation()">change location</a></p>
 
-	{STORE_TAXONOMY}
+    {STORE_TAXONOMY}
 
-	<p class="store-address">{STORE.address|htmlspecialchars}</p>
-	<p class="opening-hours">{STORE.opening_hours|htmlspecialchars}</p>
+    <p class="store-address">{STORE.address|htmlspecialchars}</p>
+    <p class="opening-hours">{STORE.opening_hours|htmlspecialchars}</p>
 
-	<p class="telephone">{STORE.telephone|htmlspecialchars}</p>
-	<p class="get-directions"><a href="#" onclick="getDirections({STORE.latitude}, {STORE.longitude}); return false;" style="text-decoration: none;">Get directions to here</a></p>
+    <p class="telephone">{STORE.telephone|htmlspecialchars}</p>
+    <p class="get-directions"><a href="#" onclick="getDirections({STORE.latitude}, {STORE.longitude}); return false;" style="text-decoration: none;">Get directions to here</a></p>
 
-	{STORE.description}
+    {STORE.description}
 
-	<div id="store-noticeboard">
-		{ONXSHOP_REQUEST_store_notice #component/ecommerce/store_notice~node_id=GET.node_id~}
-	</div>
+    <div id="store-noticeboard">
+        {ONXSHOP_REQUEST_store_notice #component/ecommerce/store_notice~node_id=GET.node_id~}
+    </div>
 
-	<script type="text/javascript">
+    <script type="text/javascript">
 
-		$(function(){
-			$("div.store-province-form").hide();
-		});
+        $(function(){
+            $("div.store-province-form").hide();
+        });
 
-		function changeLocation() {
-			if (infoWindow) infoWindow.close();
-			$("#store-detail-wrapper").html('<div class="store-detail"><p class="store-title">Find your store on the map</p></div>');
-			$("#store-nearby-wrapper").empty();
-			$("div.store-province-form").show();
-			return false;
-		}
-	</script>
-	<!-- END: store -->
+        function changeLocation() {
+            if (infoWindow) infoWindow.close();
+            $("#store-detail-wrapper").html('<div class="store-detail"><p class="store-title">Find your store on the map</p></div>');
+            $("#store-nearby-wrapper").empty();
+            $("div.store-province-form").show();
+            return false;
+        }
+    </script>
+    <!-- END: store -->
 
-	<!-- BEGIN: no_store -->
-	<p class="store-title">Find your store on the map</p>
-	<!-- END: no_store -->
+    <!-- BEGIN: no_store -->
+    <p class="store-title">Find your store on the map</p>
+    <!-- END: no_store -->
 
 </div>
 <!-- END: content -->

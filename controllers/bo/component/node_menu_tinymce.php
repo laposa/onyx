@@ -8,5 +8,5 @@
 require_once('controllers/bo/component/node_menu.php');
 
 class Onxshop_Controller_Bo_Component_Node_Menu_Tinymce extends Onxshop_Controller_Bo_Component_Node_Menu {
-	
+    
 }

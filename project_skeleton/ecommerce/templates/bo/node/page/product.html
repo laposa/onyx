@@ -1,61 +1,61 @@
 <!-- BEGIN: title -->{NODE.title} - Product Page Edit<!-- END: title -->
 <!-- BEGIN: content -->
 <div class="page-header">
-	<div class="page-header-wrapper">
-		<h1 class="page-title popup"><span>Product Page</span> <span class="info">Node ID {NODE.id}, Product ID {NODE.content}</span></h1>
-	</div>
+    <div class="page-header-wrapper">
+        <h1 class="page-title popup"><span>Product Page</span> <span class="info">Node ID {NODE.id}, Product ID {NODE.content}</span></h1>
+    </div>
 </div>
 {FILE "bo/node/form_open.html"}
-	
+    
 <div class="two-column-layout fibonacci-1-1">
-	<div class="layout-column-one of-two">
-		<fieldset>
-		{FILE "bo/node/item_title.html"}
-		{FILE "bo/node/item_page_title.html"}
-		<div class="advanced">
-		{FILE "bo/node/item_uri_title.html"}
-		{FILE "bo/node/item_browser_title.html"}
-		{FILE "bo/node/item_teaser.html"}
-		</div>
-		{FILE "bo/node/item_description.html"}
-		</fieldset>
-	</div>
-	<div class="layout-column-two of-two">
-		<fieldset>
-		<div class="advanced">
-		<p>See product database for related images</p>
-		{FILE "bo/node/item_image_list.html"}
-		{FILE "bo/node/item_taxonomy.html"}
-		{FILE "bo/node/item_layout_style.html"}
-		</div>
-		{FILE "bo/node/item_css_class.html"}
-		</fieldset>
-	</div>
+    <div class="layout-column-one of-two">
+        <fieldset>
+        {FILE "bo/node/item_title.html"}
+        {FILE "bo/node/item_page_title.html"}
+        <div class="advanced">
+        {FILE "bo/node/item_uri_title.html"}
+        {FILE "bo/node/item_browser_title.html"}
+        {FILE "bo/node/item_teaser.html"}
+        </div>
+        {FILE "bo/node/item_description.html"}
+        </fieldset>
+    </div>
+    <div class="layout-column-two of-two">
+        <fieldset>
+        <div class="advanced">
+        <p>See product database for related images</p>
+        {FILE "bo/node/item_image_list.html"}
+        {FILE "bo/node/item_taxonomy.html"}
+        {FILE "bo/node/item_layout_style.html"}
+        </div>
+        {FILE "bo/node/item_css_class.html"}
+        </fieldset>
+    </div>
 </div>
 
 <fieldset class="advanced">
-	<div class="row">
-		<span class="label"><label>Product ID:</label></span>
-		<span class="field"><input class="short" type="text" name="node[content]" value="{NODE.content}" /> <a href="/backoffice/products/{NODE.content}/edit" target="_blank"><span>Edit Product</span></a></span>
-	</div>
+    <div class="row">
+        <span class="label"><label>Product ID:</label></span>
+        <span class="field"><input class="short" type="text" name="node[content]" value="{NODE.content}" /> <a href="/backoffice/products/{NODE.content}/edit" target="_blank"><span>Edit Product</span></a></span>
+    </div>
 </fieldset>
 
 {FILE "bo/node/item_content_list.html"}
 {FILE "bo/node/item_position.html"}
 
 <div class="two-column-layout fibonacci-1-1 advanced">
-	<div class="layout-column-one of-two">
-		{FILE "bo/node/item_display_in_menu.html"}
-		{FILE "bo/node/item_display_permission.html"}
-		{FILE "bo/node/item_display_permission_group_acl.html"}
-		{FILE "bo/node/item_require_login.html"}
-		{FILE "bo/node/item_require_ssl.html"}
-	</div>
-	<div class="layout-column-two of-two">
-		{NODE_TYPE}
-		{FILE "bo/node/item_signature.html"}
-		{FILE "bo/node/item_head.html"}
-	</div>
+    <div class="layout-column-one of-two">
+        {FILE "bo/node/item_display_in_menu.html"}
+        {FILE "bo/node/item_display_permission.html"}
+        {FILE "bo/node/item_display_permission_group_acl.html"}
+        {FILE "bo/node/item_require_login.html"}
+        {FILE "bo/node/item_require_ssl.html"}
+    </div>
+    <div class="layout-column-two of-two">
+        {NODE_TYPE}
+        {FILE "bo/node/item_signature.html"}
+        {FILE "bo/node/item_head.html"}
+    </div>
 </div>
 
 
@@ -65,7 +65,7 @@
 {FILE "bo/node/form_close.html"}
 
 <p class="extended-toolbar">
-	<a class="button add" href="/backoffice/products/{NODE.content}/edit" target="_blank"><span>Edit product</span></a>
-	<a class="button edit" href="/page/{GET.id}?fe_edit_mode=edit" target="_blank" style="margin-left: 10px;"><span>Open in Front-End Editing</span></a>
+    <a class="button add" href="/backoffice/products/{NODE.content}/edit" target="_blank"><span>Edit product</span></a>
+    <a class="button edit" href="/page/{GET.id}?fe_edit_mode=edit" target="_blank" style="margin-left: 10px;"><span>Open in Front-End Editing</span></a>
 </p>
 <!-- END: content -->

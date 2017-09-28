@@ -2,150 +2,150 @@
 
 <script type="text/javascript">  
 
-	function cancelAllDialogs_{GET.node_id}() {
+    function cancelAllDialogs_{GET.node_id}() {
 
-		var block = $('#address-edit-{GET.node_id}');
-		var form = block.find('.address-form');
-		var fielset = block.find('fieldset.alternative');
+        var block = $('#address-edit-{GET.node_id}');
+        var form = block.find('.address-form');
+        var fielset = block.find('fieldset.alternative');
 
-		form.hide();
-		fielset.hide();
-		block.find("p.buttons").show();
-		block.find("fieldset.selected-address").show();
-		block.find(".error").removeClass('error');
-		block.find("p.buttons a").removeClass('open');
+        form.hide();
+        fielset.hide();
+        block.find("p.buttons").show();
+        block.find("fieldset.selected-address").show();
+        block.find(".error").removeClass('error');
+        block.find("p.buttons a").removeClass('open');
 
-	}
+    }
 
-	function selectAltAddress_{GET.node_id}() {
+    function selectAltAddress_{GET.node_id}() {
 
-		var block = $('#address-edit-{GET.node_id}');
-		var form = block.find('.address-form');
-		var fielset = block.find('fieldset.alternative');
+        var block = $('#address-edit-{GET.node_id}');
+        var form = block.find('.address-form');
+        var fielset = block.find('fieldset.alternative');
 
-		if (block.find("p.buttons a.select-alt").hasClass('open')) {
+        if (block.find("p.buttons a.select-alt").hasClass('open')) {
 
-			form.hide();
-			fielset.slideUp(300);
-			block.find("fieldset.selected-address").show();
-			block.find("p.buttons a").removeClass('open');
-			block.find(".error").removeClass('error');
+            form.hide();
+            fielset.slideUp(300);
+            block.find("fieldset.selected-address").show();
+            block.find("p.buttons a").removeClass('open');
+            block.find(".error").removeClass('error');
 
-		} else {
+        } else {
 
-			block.find("p.buttons a").removeClass('open');
-			block.find("p.buttons a.select_alt").addClass('open');
-			block.find("fieldset.selected-address").show();
-			form.hide();
-			fielset.slideDown(300);
+            block.find("p.buttons a").removeClass('open');
+            block.find("p.buttons a.select_alt").addClass('open');
+            block.find("fieldset.selected-address").show();
+            form.hide();
+            fielset.slideDown(300);
 
-		}
+        }
 
-	}
+    }
 
-	function addNewAddress_{GET.node_id}() {
+    function addNewAddress_{GET.node_id}() {
 
-		var block = $('#address-edit-{GET.node_id}');
-		var form = block.find('.address-form');
-		var fielset = block.find('fieldset.alternative');
+        var block = $('#address-edit-{GET.node_id}');
+        var form = block.find('.address-form');
+        var fielset = block.find('fieldset.alternative');
 
-		// hide
-		form.find('input[type=text]').val('');
-		form.find('button.add-new-address').parent().parent().show();
-		form.find('button.edit-selected-address').parent().parent().hide();
-		form.find('h4.edit-title').hide();
-		fielset.hide();
-		block.find("p.buttons").hide();
+        // hide
+        form.find('input[type=text]').val('');
+        form.find('button.add-new-address').parent().parent().show();
+        form.find('button.edit-selected-address').parent().parent().hide();
+        form.find('h4.edit-title').hide();
+        fielset.hide();
+        block.find("p.buttons").hide();
 
-		// show
-		form.fadeIn(800);
-		form.find('h4.add-title').show();
+        // show
+        form.fadeIn(800);
+        form.find('h4.add-title').show();
 
-		// focus
-		form.find("input:first").focus();
-		$("html, body").animate({ scrollTop: block.offset().top - 120 }, 300);
-		block.find("fieldset.selected-address").hide();
-		resetForm_{GET.node_id}();
+        // focus
+        form.find("input:first").focus();
+        $("html, body").animate({ scrollTop: block.offset().top - 120 }, 300);
+        block.find("fieldset.selected-address").hide();
+        resetForm_{GET.node_id}();
 
-	}
+    }
 
-	function editSelectedAddress_{GET.node_id}() {
+    function editSelectedAddress_{GET.node_id}() {
 
-		var block = $('#address-edit-{GET.node_id}');
-		var form = block.find('.address-form');
-		var fielset = block.find('fieldset.alternative');
+        var block = $('#address-edit-{GET.node_id}');
+        var form = block.find('.address-form');
+        var fielset = block.find('fieldset.alternative');
 
-		// hide
-		form.find('button.edit-selected-address').parent().parent().show();
-		form.find('button.add-new-address').parent().parent().hide();
-		block.find("fieldset.selected-address").hide();
-		fielset.hide();
-		block.find("p.buttons").hide();
-		form.find('h4.add-title').hide();
+        // hide
+        form.find('button.edit-selected-address').parent().parent().show();
+        form.find('button.add-new-address').parent().parent().hide();
+        block.find("fieldset.selected-address").hide();
+        fielset.hide();
+        block.find("p.buttons").hide();
+        form.find('h4.add-title').hide();
 
-		// populate fields
-		var selected = block.find("fieldset.selected-address").parent();
-		form.find('input[type=text], select').each(function() {
-			var input = $(this);
-			var id = input.attr("id");
-			var address_line = selected.find("span[class=" + id + "]");
-			var val = address_line.text();
-			if (id == 'client-address-country-id') val = address_line.attr("data-id");
-			input.val(val);
-		});
+        // populate fields
+        var selected = block.find("fieldset.selected-address").parent();
+        form.find('input[type=text], select').each(function() {
+            var input = $(this);
+            var id = input.attr("id");
+            var address_line = selected.find("span[class=" + id + "]");
+            var val = address_line.text();
+            if (id == 'client-address-country-id') val = address_line.attr("data-id");
+            input.val(val);
+        });
 
-		// show
-		form.fadeIn(800);
-		form.find('h4.edit-title').show();
+        // show
+        form.fadeIn(800);
+        form.find('h4.edit-title').show();
 
-		// focus
-		form.find("input:first").focus();
-		$("html, body").animate({ scrollTop: block.offset().top - 120 }, 300);
+        // focus
+        form.find("input:first").focus();
+        $("html, body").animate({ scrollTop: block.offset().top - 120 }, 300);
 
-		resetForm_{GET.node_id}();
+        resetForm_{GET.node_id}();
 
-	}
+    }
 
-	function validateForm_{GET.node_id}() {
+    function validateForm_{GET.node_id}() {
 
-		var block = $("#address-edit-{GET.node_id}");
+        var block = $("#address-edit-{GET.node_id}");
 
-		block.validate({ 
-			highlight: function(element, errorClass) {
-				$(element).addClass("error").parent().prev().find('label').addClass("my_error");
-			},
-			unhighlight: function(element, errorClass) {
-				$(element).removeClass("error").parent().prev().find('label').removeClass("my_error");
-			},
-			invalidHandler: function(event, validator) {
-				var errors = validator.numberOfInvalids();
-				var form = $('#registration-node-id-{GET.node_id}');
-				if (errors) {
-					form.prepend('<p class="error">Please Complete Required Fields</a>');
-				} else {
-					form.find('p.error').remove();
-				}
-			},
-			errorPlacement: function(error, element) {
-				// do not display individal errors 
-			}
-		});
+        block.validate({ 
+            highlight: function(element, errorClass) {
+                $(element).addClass("error").parent().prev().find('label').addClass("my_error");
+            },
+            unhighlight: function(element, errorClass) {
+                $(element).removeClass("error").parent().prev().find('label').removeClass("my_error");
+            },
+            invalidHandler: function(event, validator) {
+                var errors = validator.numberOfInvalids();
+                var form = $('#registration-node-id-{GET.node_id}');
+                if (errors) {
+                    form.prepend('<p class="error">Please Complete Required Fields</a>');
+                } else {
+                    form.find('p.error').remove();
+                }
+            },
+            errorPlacement: function(error, element) {
+                // do not display individal errors 
+            }
+        });
 
-	}
+    }
 
-	function resetForm_{GET.node_id}() {
+    function resetForm_{GET.node_id}() {
 
-		var block = $("#address-edit-{GET.node_id}");
-		block.find('.address-form p.error').remove();
-		block.find('.address-form .error').removeClass("error");
+        var block = $("#address-edit-{GET.node_id}");
+        block.find('.address-form p.error').remove();
+        block.find('.address-form .error').removeClass("error");
 
-	}
+    }
 
-	$(document).ready(function(){
+    $(document).ready(function(){
 
-		validateForm_{GET.node_id}();
+        validateForm_{GET.node_id}();
 
-	});
+    });
 
 </script>
 
@@ -154,202 +154,202 @@
 {MESSAGES}
 
 <!-- BEGIN: virtual_product -->
-	<p>Delivery address is not required as you are only purchasing a virtual gift card.</p>
-	<style type="text/css">
-		div.checkout-address,
-		div.delivery-option {display: none;}
-	</style>
+    <p>Delivery address is not required as you are only purchasing a virtual gift card.</p>
+    <style type="text/css">
+        div.checkout-address,
+        div.delivery-option {display: none;}
+    </style>
 <!-- END: virtual_product -->
 
 <div class="checkout-address type-{TYPE|strtolower}">
 
-	<h3><span>{TYPE} Address</span></h3>
+    <h3><span>{TYPE} Address</span></h3>
 
-	<div class="bottom"></div>
+    <div class="bottom"></div>
 
-	<!-- BEGIN: deliver_to_billing -->
-	<form action="{URI_SAFE|htmlspecialchars}" method="post" class="deliver-to-billing">
-		<input type="hidden" name="action" value="update_deliver_to_billing"/>
-		<label>
-			<input id="deliver_checkbox" type="checkbox" name="deliver_to_billing" {CHECKED} value="1"/>
-			Deliver to Billing Address
-		</label>
-	<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+    <!-- BEGIN: deliver_to_billing -->
+    <form action="{URI_SAFE|htmlspecialchars}" method="post" class="deliver-to-billing">
+        <input type="hidden" name="action" value="update_deliver_to_billing"/>
+        <label>
+            <input id="deliver_checkbox" type="checkbox" name="deliver_to_billing" {CHECKED} value="1"/>
+            Deliver to Billing Address
+        </label>
+    <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
-	<script type="text/javascript">
+    <script type="text/javascript">
 
-		$(function() { 
+        $(function() { 
 
-			var checkbox = $('#deliver-checkbox');
+            var checkbox = $('#deliver-checkbox');
 
-			if (checkbox.is(":checked")) $('#address-edit-{GET.node_id}').hide(); 
+            if (checkbox.is(":checked")) $('#address-edit-{GET.node_id}').hide(); 
 
-			checkbox.change(function() {
+            checkbox.change(function() {
 
-				var block = $('#address-edit-{GET.node_id}');
+                var block = $('#address-edit-{GET.node_id}');
 
-				if (this.checked) {
+                if (this.checked) {
 
-					cancelAllDialogs_{GET.node_id}();
-					block.hide();
+                    cancelAllDialogs_{GET.node_id}();
+                    block.hide();
 
-					var billing_select = $(".checkout-address.type-billing select[name=selected_address_id]");
-					var delivery_select = $(".checkout-address.type-delivery select[name=selected_address_id]");
-					var billing_address_id = billing_select.val();
-					checkbox.parents('.page-wrapper').css('opacity', 0.3).css('cursor', 'wait'); 
-					delivery_select.val(billing_address_id);
-					block.submit();
+                    var billing_select = $(".checkout-address.type-billing select[name=selected_address_id]");
+                    var delivery_select = $(".checkout-address.type-delivery select[name=selected_address_id]");
+                    var billing_address_id = billing_select.val();
+                    checkbox.parents('.page-wrapper').css('opacity', 0.3).css('cursor', 'wait'); 
+                    delivery_select.val(billing_address_id);
+                    block.submit();
 
-				} else {
+                } else {
 
-					cancelAllDialogs_{GET.node_id}();
+                    cancelAllDialogs_{GET.node_id}();
 
-					block.show();
-					block.find('.selection-block table.selected-address').hide();
-					block.find('.selection-block .selected-address h4').hide();
-					block.find('.edit-selected').hide();
-				}
+                    block.show();
+                    block.find('.selection-block table.selected-address').hide();
+                    block.find('.selection-block .selected-address h4').hide();
+                    block.find('.edit-selected').hide();
+                }
 
-			});
+            });
 
-		});
-	</script>
-	<!-- END: deliver_to_billing -->
+        });
+    </script>
+    <!-- END: deliver_to_billing -->
 
-	<form action="{URI_SAFE|htmlspecialchars}" method="post" id="address-edit-{GET.node_id}">	
-	
-	<input type="hidden" name="node_id" value="{GET.node_id}"/>
+    <form action="{URI_SAFE|htmlspecialchars}" method="post" id="address-edit-{GET.node_id}">   
+    
+    <input type="hidden" name="node_id" value="{GET.node_id}"/>
 
-	<div class="address-list">
+    <div class="address-list">
 
-		<div class="selection-block">
+        <div class="selection-block">
 
-			<fieldset class="single selected-address">
+            <fieldset class="single selected-address">
 
-				<!-- BEGIN: selected_address -->
-				<h4>Selected {TYPE} Address:</h4>
-				<table class="selected-address">
-					<tr><td><label class="bold">Name</label></td><td><span class="client-address-name">{ADDRESS.name|htmlspecialchars|suffix(%s,'<br/>')}</span></td></tr>
-					<tr><td><label class="bold">{TYPE} Address</label></td><td>
-						<span class="client-address-line-1">{ADDRESS.line_1|htmlspecialchars|suffix(%s,'<br/>')}</span>
-						<span class="client-address-line-2">{ADDRESS.line_2|htmlspecialchars|suffix(%s,'<br/>')}</span>
-						<span class="client-address-line-3">{ADDRESS.line_3|htmlspecialchars}</span>
-					</td></tr>
-					<tr><td><label class="nobold">City</label></td><td><span class="client-address-city">{ADDRESS.city|htmlspecialchars|suffix(%s,'<br/>')}</span></td></tr>
-					<tr><td><label class="nobold">Post Code</label></td><td><span class="client-address-post-code">{ADDRESS.post_code|htmlspecialchars|suffix(%s,'<br/>')}</span></td></tr>
-					<tr><td><label class="nobold">County / State</label></td><td><span class="client-address-county">{ADDRESS.county|htmlspecialchars|suffix(%s,'<br/>')}</span></td></tr>
-					<tr><td><label class="nobold">Country</label></td><td><span class="client-address-country-id" data-id="{ADDRESS.country_id}">{ADDRESS.country.name|htmlspecialchars|suffix(%s,'<br/>')}</span></td></tr>
-				</table>
-				<!-- END: selected_address -->
+                <!-- BEGIN: selected_address -->
+                <h4>Selected {TYPE} Address:</h4>
+                <table class="selected-address">
+                    <tr><td><label class="bold">Name</label></td><td><span class="client-address-name">{ADDRESS.name|htmlspecialchars|suffix(%s,'<br/>')}</span></td></tr>
+                    <tr><td><label class="bold">{TYPE} Address</label></td><td>
+                        <span class="client-address-line-1">{ADDRESS.line_1|htmlspecialchars|suffix(%s,'<br/>')}</span>
+                        <span class="client-address-line-2">{ADDRESS.line_2|htmlspecialchars|suffix(%s,'<br/>')}</span>
+                        <span class="client-address-line-3">{ADDRESS.line_3|htmlspecialchars}</span>
+                    </td></tr>
+                    <tr><td><label class="nobold">City</label></td><td><span class="client-address-city">{ADDRESS.city|htmlspecialchars|suffix(%s,'<br/>')}</span></td></tr>
+                    <tr><td><label class="nobold">Post Code</label></td><td><span class="client-address-post-code">{ADDRESS.post_code|htmlspecialchars|suffix(%s,'<br/>')}</span></td></tr>
+                    <tr><td><label class="nobold">County / State</label></td><td><span class="client-address-county">{ADDRESS.county|htmlspecialchars|suffix(%s,'<br/>')}</span></td></tr>
+                    <tr><td><label class="nobold">Country</label></td><td><span class="client-address-country-id" data-id="{ADDRESS.country_id}">{ADDRESS.country.name|htmlspecialchars|suffix(%s,'<br/>')}</span></td></tr>
+                </table>
+                <!-- END: selected_address -->
 
-			</fieldset>
+            </fieldset>
 
-			<div class="bottom"></div>
+            <div class="bottom"></div>
 
-			<div class="address-form" style="display: none;">
-				
-					<h4 class="add-title">Add A New {TYPE} Address:</h4>
-					<h4 class="edit-title">Edit Current {TYPE} Address:</h4>
-					<fieldset>
-						<div class="row name">
-							<span class="label"><label for="client-address-name"><span class="mandatory-mark">*</span> Name:</label></span>
-							<span class="field"><input class="text required" type="text" name="client[address][name]" value="{client.address.name}" id="client-address-name" maxlength="32" /></span>
-						</div>
-						<div class="row line-1">
-							<span class="label"><label for="client-address-line-1"><span class="mandatory-mark">*</span> {TYPE} Address:</label></span>
-							<span class="field"><input class="text required" type="text" name="client[address][line_1]" value="{client.address.line_1}" id="client-address-line-1" maxlength="32"/></span>
-						</div>
-						<div class="row line-2">
-							<span class="label"><label for="client-address-line-2">&nbsp;</label></span>
-							<span class="field"><input class="text" type="text" name="client[address][line_2]" value="{client.address.line_2}" id="client-address-line-2" maxlength="32"/></span>
-						</div>
-						<div class="row line-3">
-							<span class="label"><label for="client-address-line-3">&nbsp;</label></span>
-							<span class="field"><input class="text" type="text" name="client[address][line_3]" value="{client.address.line_3}" id="client-address-line-3" maxlength="32"/></span>
-						</div>
-						<div class="row city">
-							<span class="label"><label for="client-address-city"><span class="mandatory-mark">*</span> {I18N_CITY}:</label></span>
-							<span class="field"><input class="text required" type="text" name="client[address][city]" value="{client.address.city}" id="client-address-city" maxlength="32"/></span>
-						</div>
-						<div class="row post-code">
-							<span class="label"><label for="client-address-post-code"><span class="mandatory-mark">*</span> {I18N_POST_CODE}:</label></span>
-							<span class="field"><input class="text post_code required" type="text" name="client[address][post_code]" value="{client.address.post_code}" id="client-address-post-code" maxlength="10"/></span>
-						</div>
-						<div class="row county">
-							<span class="label"><label for="client-address-county">{I18N_COUNTY}:</label></span>
-							<span class="field"><input class="text" type="text" name="client[address][county]" value="{client.address.county}" id="client-address-county" maxlength="32"/></span>
-						</div>
-						<div class="row country-id">
-							<span class="label"><label for="client-address-country-id"><span class="mandatory-mark">*</span> {I18N_STATE}:</label></span>
-							<!-- BEGIN: country -->
-							<span class="field">
-								<select name="client[address][country_id]" id="client-address-country-id" style="width: 170px;">
-								<!-- BEGIN: item -->
-									<option value="{country.id}" {country.selected}>{country.name}</option>
-								<!-- END: item -->
-								</select>
-								<!-- BEGIN: delivery_nb -->
-								<br/>
-								<small>We can only deliver to the above list of countries.</small>
-								<!-- END: delivery_nb -->
-							</span>
-							<!-- END: country -->
-						</div>
-						
-						<div class="row submit">
-							<span class="label"><label>&nbsp;</label></span>
-							<span class="field">
-								<button class="add-new-address" type="submit" name="add_address" value="add_address"><span>Confirm {TYPE} Address</span></button>
-								or <a class="cancel-button" href="#" onclick="cancelAllDialogs_{GET.node_id}(); return false;">Cancel</a>
-							</span>
-						</div>
+            <div class="address-form" style="display: none;">
+                
+                    <h4 class="add-title">Add A New {TYPE} Address:</h4>
+                    <h4 class="edit-title">Edit Current {TYPE} Address:</h4>
+                    <fieldset>
+                        <div class="row name">
+                            <span class="label"><label for="client-address-name"><span class="mandatory-mark">*</span> Name:</label></span>
+                            <span class="field"><input class="text required" type="text" name="client[address][name]" value="{client.address.name}" id="client-address-name" maxlength="32" /></span>
+                        </div>
+                        <div class="row line-1">
+                            <span class="label"><label for="client-address-line-1"><span class="mandatory-mark">*</span> {TYPE} Address:</label></span>
+                            <span class="field"><input class="text required" type="text" name="client[address][line_1]" value="{client.address.line_1}" id="client-address-line-1" maxlength="32"/></span>
+                        </div>
+                        <div class="row line-2">
+                            <span class="label"><label for="client-address-line-2">&nbsp;</label></span>
+                            <span class="field"><input class="text" type="text" name="client[address][line_2]" value="{client.address.line_2}" id="client-address-line-2" maxlength="32"/></span>
+                        </div>
+                        <div class="row line-3">
+                            <span class="label"><label for="client-address-line-3">&nbsp;</label></span>
+                            <span class="field"><input class="text" type="text" name="client[address][line_3]" value="{client.address.line_3}" id="client-address-line-3" maxlength="32"/></span>
+                        </div>
+                        <div class="row city">
+                            <span class="label"><label for="client-address-city"><span class="mandatory-mark">*</span> {I18N_CITY}:</label></span>
+                            <span class="field"><input class="text required" type="text" name="client[address][city]" value="{client.address.city}" id="client-address-city" maxlength="32"/></span>
+                        </div>
+                        <div class="row post-code">
+                            <span class="label"><label for="client-address-post-code"><span class="mandatory-mark">*</span> {I18N_POST_CODE}:</label></span>
+                            <span class="field"><input class="text post_code required" type="text" name="client[address][post_code]" value="{client.address.post_code}" id="client-address-post-code" maxlength="10"/></span>
+                        </div>
+                        <div class="row county">
+                            <span class="label"><label for="client-address-county">{I18N_COUNTY}:</label></span>
+                            <span class="field"><input class="text" type="text" name="client[address][county]" value="{client.address.county}" id="client-address-county" maxlength="32"/></span>
+                        </div>
+                        <div class="row country-id">
+                            <span class="label"><label for="client-address-country-id"><span class="mandatory-mark">*</span> {I18N_STATE}:</label></span>
+                            <!-- BEGIN: country -->
+                            <span class="field">
+                                <select name="client[address][country_id]" id="client-address-country-id" style="width: 170px;">
+                                <!-- BEGIN: item -->
+                                    <option value="{country.id}" {country.selected}>{country.name}</option>
+                                <!-- END: item -->
+                                </select>
+                                <!-- BEGIN: delivery_nb -->
+                                <br/>
+                                <small>We can only deliver to the above list of countries.</small>
+                                <!-- END: delivery_nb -->
+                            </span>
+                            <!-- END: country -->
+                        </div>
+                        
+                        <div class="row submit">
+                            <span class="label"><label>&nbsp;</label></span>
+                            <span class="field">
+                                <button class="add-new-address" type="submit" name="add_address" value="add_address"><span>Confirm {TYPE} Address</span></button>
+                                or <a class="cancel-button" href="#" onclick="cancelAllDialogs_{GET.node_id}(); return false;">Cancel</a>
+                            </span>
+                        </div>
 
-						<div class="row submit">
-							<span class="label"><label>&nbsp;</label></span>
-							<span class="field">
-								<button class="edit-selected-address" type="submit" name="edit_address" value="1"><span>Confirm {TYPE} Address</span></button>
-								or <a class="cancel-button" href="#" onclick="cancelAllDialogs_{GET.node_id}(); return false;">Cancel</a>
-							</span>
-						</div>
+                        <div class="row submit">
+                            <span class="label"><label>&nbsp;</label></span>
+                            <span class="field">
+                                <button class="edit-selected-address" type="submit" name="edit_address" value="1"><span>Confirm {TYPE} Address</span></button>
+                                or <a class="cancel-button" href="#" onclick="cancelAllDialogs_{GET.node_id}(); return false;">Cancel</a>
+                            </span>
+                        </div>
 
-					</fieldset>
-			</div>
+                    </fieldset>
+            </div>
 
-		</div>
+        </div>
 
-		<div class="bottom"></div>
+        <div class="bottom"></div>
 
-		<p class="buttons">
-			<a href="#" onclick="selectAltAddress_{GET.node_id}(); return false;" class="select-alt"><span>Previously Used Addresses</span></a>
-		</p>
+        <p class="buttons">
+            <a href="#" onclick="selectAltAddress_{GET.node_id}(); return false;" class="select-alt"><span>Previously Used Addresses</span></a>
+        </p>
 
-		<fieldset class="alternative">
+        <fieldset class="alternative">
 
-			<select name="selected_address_id" onchange="$(this).parents('.page-wrapper').css('opacity', 0.3).css('cursor', 'wait'); submit()">
-				<!-- BEGIN: address -->
-				<option value="{ADDRESS.id}" {ADDRESS_selected}>
-					{ADDRESS.name|htmlspecialchars}, 
-					{ADDRESS.line_1|htmlspecialchars|suffix(%s,'\, ')} 
-					{ADDRESS.city|htmlspecialchars|suffix(%s,'\, ')} 
-					{ADDRESS.post_code|htmlspecialchars|suffix(%s,'\, ')} 
-					{ADDRESS.county|htmlspecialchars|suffix(%s,'\, ')} 
-					{ADDRESS.country.name|htmlspecialchars}
-				</option>
-				<!-- END: address -->
-			</select>
+            <select name="selected_address_id" onchange="$(this).parents('.page-wrapper').css('opacity', 0.3).css('cursor', 'wait'); submit()">
+                <!-- BEGIN: address -->
+                <option value="{ADDRESS.id}" {ADDRESS_selected}>
+                    {ADDRESS.name|htmlspecialchars}, 
+                    {ADDRESS.line_1|htmlspecialchars|suffix(%s,'\, ')} 
+                    {ADDRESS.city|htmlspecialchars|suffix(%s,'\, ')} 
+                    {ADDRESS.post_code|htmlspecialchars|suffix(%s,'\, ')} 
+                    {ADDRESS.county|htmlspecialchars|suffix(%s,'\, ')} 
+                    {ADDRESS.country.name|htmlspecialchars}
+                </option>
+                <!-- END: address -->
+            </select>
 
-		</fieldset>
+        </fieldset>
 
-		<p class="buttons">
-			<a href="#" onclick="addNewAddress_{GET.node_id}(); return false;" class="add_new"><span>Add a New {TYPE} Address</span></a>
-			<a href="#" onclick="editSelectedAddress_{GET.node_id}(); return false;" class="edit_selected"><span>Edit Selected Address</span></a>
-		</p>
+        <p class="buttons">
+            <a href="#" onclick="addNewAddress_{GET.node_id}(); return false;" class="add_new"><span>Add a New {TYPE} Address</span></a>
+            <a href="#" onclick="editSelectedAddress_{GET.node_id}(); return false;" class="edit_selected"><span>Edit Selected Address</span></a>
+        </p>
 
-		<div class="bottom"></div>
+        <div class="bottom"></div>
 
-	</div>
-	
-	<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+    </div>
+    
+    <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
 
 </div>

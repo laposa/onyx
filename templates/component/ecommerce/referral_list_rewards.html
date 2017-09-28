@@ -12,13 +12,13 @@
 <div id="reward-list">
 <!-- BEGIN: item -->
 <p class="vouchers-list item">
-	<input type="text" readonly="readonly" onclick="this.select()" class="code-input {ITEM.used_class}" value="{ITEM.code_pattern|htmlspecialchars}" />
-	<!-- BEGIN: received -->
-	<small>Received {ITEM.created|strtotime|date('d/m/Y', %s)}</small>
-	<!-- END: received -->
-	<!-- BEGIN: redeemed -->
-	<small>Redeemed {ITEM.redeemed|strtotime|date('d/m/Y', %s)}</small>
-	<!-- END: redeemed -->
+    <input type="text" readonly="readonly" onclick="this.select()" class="code-input {ITEM.used_class}" value="{ITEM.code_pattern|htmlspecialchars}" />
+    <!-- BEGIN: received -->
+    <small>Received {ITEM.created|strtotime|date('d/m/Y', %s)}</small>
+    <!-- END: received -->
+    <!-- BEGIN: redeemed -->
+    <small>Redeemed {ITEM.redeemed|strtotime|date('d/m/Y', %s)}</small>
+    <!-- END: redeemed -->
 </p>
 <!-- END: item -->
 </div>

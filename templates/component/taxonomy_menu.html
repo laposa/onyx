@@ -1,25 +1,25 @@
 <!-- BEGIN: content -->
 <div class="taxonomy-menu">
 
-	<!-- BEGIN: group -->
-	<ul>
-		<!-- BEGIN: item -->
-		<li class='{ITEM.type} {ITEM.css_class} node-id-{ITEM.id}'>
-			
-			<!-- BEGIN:link -->
-			<span><a href="#{ITEM.id}" title="{ITEM.title|htmlspecialchars}" class="{ITEM.css_class} node-id-{ITEM.id}"><span>{ITEM.name|htmlspecialchars}</span><!-- BEGIN: strapline --><br /><span class="strapline">{ITEM.strapline|strip_tags|htmlspecialchars}</span><!-- END: strapline --></a></span>
-			<!-- END:link -->
-			<!-- BEGIN:nolink -->
-			<span><a href="#{ITEM.id}" title="{ITEM.title|htmlspecialchars}" class="{ITEM.css_class} node-id-{ITEM.id}"><span>{ITEM.name|htmlspecialchars}</span></a></span>
-			<!-- END:nolink -->
-			
-			{ITEM.subcontent}
-		</li>
-		<!-- END: item -->
-		{END_RESULT_ITEMS}
-	</ul>
-	<!-- END: group -->
-	{END_RESULT_GROUPS}
+    <!-- BEGIN: group -->
+    <ul>
+        <!-- BEGIN: item -->
+        <li class='{ITEM.type} {ITEM.css_class} node-id-{ITEM.id}'>
+            
+            <!-- BEGIN:link -->
+            <span><a href="#{ITEM.id}" title="{ITEM.title|htmlspecialchars}" class="{ITEM.css_class} node-id-{ITEM.id}"><span>{ITEM.name|htmlspecialchars}</span><!-- BEGIN: strapline --><br /><span class="strapline">{ITEM.strapline|strip_tags|htmlspecialchars}</span><!-- END: strapline --></a></span>
+            <!-- END:link -->
+            <!-- BEGIN:nolink -->
+            <span><a href="#{ITEM.id}" title="{ITEM.title|htmlspecialchars}" class="{ITEM.css_class} node-id-{ITEM.id}"><span>{ITEM.name|htmlspecialchars}</span></a></span>
+            <!-- END:nolink -->
+            
+            {ITEM.subcontent}
+        </li>
+        <!-- END: item -->
+        {END_RESULT_ITEMS}
+    </ul>
+    <!-- END: group -->
+    {END_RESULT_GROUPS}
 
 </div>
 <!-- END: content -->

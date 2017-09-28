@@ -6,47 +6,47 @@
 <!-- beginning of: node_id_{NODE.id} (templates/node/{NODE.node_group}/{NODE.node_controller}.html) -->
 <!-- BEGIN: fe_layout_property -->
 <div class="onxshop-edit-layout">
-	<a class="onxshop-layout-properties" title="{NODE.node_group} properties" href="#{NODE.id}" 
-	onclick="openEdit('/popup/properties/{NODE.id}/orig{_SESSION.orig}'); return false;" 
-	onmouseover="$('#node-id-{NODE.id}').addClass('onxshop-highlight-edit');" 
-	onmouseout="$('#node-id-{NODE.id}').removeClass('onxshop-highlight-edit');">
-	<span>{NODE.node_group} properties</span></a>
-	<!-- BEGIN: edit_shared -->
-	<a class="onxshop-edit-shared" title="Edit {NODE.node_group} ({NODE.node_controller})" href="#{NODE.id}" 
-	onclick="openEdit('/popup/edit/{NODE.node_group}/{NODE.id}/orig{_SESSION.orig}'); return false;">
-	<span>EDIT {NODE.node_controller}</span></a>
-	<!-- END: edit_shared -->
-	<a class="onxshop-duplicate" title="Duplicate content {NODE.title|htmlspecialchars}" href="#{NODE.id}" onclick="duplicateNode({NODE.id}); return false;"><span>Duplicate</span></a>
-	<a class="onxshop-delete" title="Delete {NODE.node_group} ({NODE.node_controller})" href="#{NODE.id}" 
-	onclick="makeAjaxRequest('#dialog', '/request/bo/component/node_delete~id={NODE.id}:delete=1~');
-	$('#dialog').dialog({width: 500, modal: true, overlay: {opacity: 0.5, background: 'black'}, open: function() {$('#node-id-{NODE.id}')
-	.addClass('onxshop-highlight-edit')}, close: function() {$('#node-id-{NODE.id}')
-	.removeClass('onxshop-highlight-edit')}}); return false" 
-	onmouseover="$('#node-id-{NODE.id}')
-	.addClass('onxshop-highlight-delete');" 
-	onmouseout="$('#node-id-{NODE.id}')
-	.removeClass('onxshop-highlight-delete');">
-	<span>Delete</span></a>
+    <a class="onxshop-layout-properties" title="{NODE.node_group} properties" href="#{NODE.id}" 
+    onclick="openEdit('/popup/properties/{NODE.id}/orig{_SESSION.orig}'); return false;" 
+    onmouseover="$('#node-id-{NODE.id}').addClass('onxshop-highlight-edit');" 
+    onmouseout="$('#node-id-{NODE.id}').removeClass('onxshop-highlight-edit');">
+    <span>{NODE.node_group} properties</span></a>
+    <!-- BEGIN: edit_shared -->
+    <a class="onxshop-edit-shared" title="Edit {NODE.node_group} ({NODE.node_controller})" href="#{NODE.id}" 
+    onclick="openEdit('/popup/edit/{NODE.node_group}/{NODE.id}/orig{_SESSION.orig}'); return false;">
+    <span>EDIT {NODE.node_controller}</span></a>
+    <!-- END: edit_shared -->
+    <a class="onxshop-duplicate" title="Duplicate content {NODE.title|htmlspecialchars}" href="#{NODE.id}" onclick="duplicateNode({NODE.id}); return false;"><span>Duplicate</span></a>
+    <a class="onxshop-delete" title="Delete {NODE.node_group} ({NODE.node_controller})" href="#{NODE.id}" 
+    onclick="makeAjaxRequest('#dialog', '/request/bo/component/node_delete~id={NODE.id}:delete=1~');
+    $('#dialog').dialog({width: 500, modal: true, overlay: {opacity: 0.5, background: 'black'}, open: function() {$('#node-id-{NODE.id}')
+    .addClass('onxshop-highlight-edit')}, close: function() {$('#node-id-{NODE.id}')
+    .removeClass('onxshop-highlight-edit')}}); return false" 
+    onmouseover="$('#node-id-{NODE.id}')
+    .addClass('onxshop-highlight-delete');" 
+    onmouseout="$('#node-id-{NODE.id}')
+    .removeClass('onxshop-highlight-delete');">
+    <span>Delete</span></a>
 </div>
 <!-- END: fe_layout_property -->
 
 
 <!-- BEGIN: fe_page_properties -->
 <div class="onxshop-page-properties">
-	<div class="wrapper">
-		<div style="float: left;">
-			<a class="onxshop-edit-{NODE.node_controller} verbose" title="Page properties (Controller: {NODE.node_controller}, ID: {NODE.id})" href="#{NODE.id}" 
-			onclick="openEdit('/popup/properties/{NODE.id}/orig{_SESSION.orig}'); return false;" 
-			onmouseover="$('#node-id-{NODE.id}').addClass('onxshop-highlight-edit');" 
-			onmouseout="$('#node-id-{NODE.id}').removeClass('onxshop-highlight-edit');">
-				<span>Page {NODE.title|htmlspecialchars} ({NODE.node_controller})</span>
-			</a>
-		</div>
-		<div style="float: right">
-			<a class="onxshop-edit-page-add" href='/backoffice/pages/{GET.id}' onclick="openAjaxRequestInDialog('/request/bo/component/node_add_page~node_group=page:parent={GET.id}~', 'Add a new page');return false" title="Add page"><span>Add a New Page</span></a>
-			<a class="onxshop-delete" title="Delete {NODE.node_group}" href="#{NODE.id}"><span>Delete</span></a>
-		</div>
-	</div>
+    <div class="wrapper">
+        <div style="float: left;">
+            <a class="onxshop-edit-{NODE.node_controller} verbose" title="Page properties (Controller: {NODE.node_controller}, ID: {NODE.id})" href="#{NODE.id}" 
+            onclick="openEdit('/popup/properties/{NODE.id}/orig{_SESSION.orig}'); return false;" 
+            onmouseover="$('#node-id-{NODE.id}').addClass('onxshop-highlight-edit');" 
+            onmouseout="$('#node-id-{NODE.id}').removeClass('onxshop-highlight-edit');">
+                <span>Page {NODE.title|htmlspecialchars} ({NODE.node_controller})</span>
+            </a>
+        </div>
+        <div style="float: right">
+            <a class="onxshop-edit-page-add" href='/backoffice/pages/{GET.id}' onclick="openAjaxRequestInDialog('/request/bo/component/node_add_page~node_group=page:parent={GET.id}~', 'Add a new page');return false" title="Add page"><span>Add a New Page</span></a>
+            <a class="onxshop-delete" title="Delete {NODE.node_group}" href="#{NODE.id}"><span>Delete</span></a>
+        </div>
+    </div>
 </div>
 <br style="clear: both" />
 <br style="clear: both" />
@@ -58,31 +58,31 @@
 
 <!-- BEGIN: fe_edit -->
 <div class="onxshop-edit-content">
-	<div class="wrapper">
-		<a class="onxshop-edit onxshop-edit-{NODE.node_controller|str_replace('_','-',%s)}" title="Edit {NODE.node_group} {NODE.title|htmlspecialchars} ({NODE.node_controller})" href="/backoffice/pages/{NODE.id}" 
-			onclick="openEdit('/popup/edit/{NODE.node_group}/{NODE.id}/orig{_SESSION.orig}'); return false;" 
-			onmouseover="$('#node-id-{NODE.id}').addClass('onxshop-highlight-edit');" 
-			onmouseout="$('#node-id-{NODE.id}').removeClass('onxshop-highlight-edit');">
-		<span>Edit {NODE.node_controller}</span></a>
-		<a class="onxshop-duplicate" title="Duplicate content {NODE.title|htmlspecialchars}" href="#{NODE.id}" onclick="duplicateNode({NODE.id}); return false;"><span>Duplicate</span></a>
-		<a class="onxshop-delete" title="Delete {NODE.node_group} {NODE.title|htmlspecialchars} ({NODE.node_controller})" href="#{NODE.id}"><span>Delete</span></a>
-		<!-- BEGIN: edit_source -->
-		<a class="onxshop-edit-source" title="Edit source" href="#{NODE.id}" onclick="openEdit('/popup/edit/content/{SOURCE.content}/orig{_SESSION.orig}')" >
-		<span>Edit Source</span></a>
-		<!-- END: edit_source -->
-	</div>
+    <div class="wrapper">
+        <a class="onxshop-edit onxshop-edit-{NODE.node_controller|str_replace('_','-',%s)}" title="Edit {NODE.node_group} {NODE.title|htmlspecialchars} ({NODE.node_controller})" href="/backoffice/pages/{NODE.id}" 
+            onclick="openEdit('/popup/edit/{NODE.node_group}/{NODE.id}/orig{_SESSION.orig}'); return false;" 
+            onmouseover="$('#node-id-{NODE.id}').addClass('onxshop-highlight-edit');" 
+            onmouseout="$('#node-id-{NODE.id}').removeClass('onxshop-highlight-edit');">
+        <span>Edit {NODE.node_controller}</span></a>
+        <a class="onxshop-duplicate" title="Duplicate content {NODE.title|htmlspecialchars}" href="#{NODE.id}" onclick="duplicateNode({NODE.id}); return false;"><span>Duplicate</span></a>
+        <a class="onxshop-delete" title="Delete {NODE.node_group} {NODE.title|htmlspecialchars} ({NODE.node_controller})" href="#{NODE.id}"><span>Delete</span></a>
+        <!-- BEGIN: edit_source -->
+        <a class="onxshop-edit-source" title="Edit source" href="#{NODE.id}" onclick="openEdit('/popup/edit/content/{SOURCE.content}/orig{_SESSION.orig}')" >
+        <span>Edit Source</span></a>
+        <!-- END: edit_source -->
+    </div>
 </div>
 <!-- END: fe_edit -->
 
 <!-- BEGIN: variable_edit -->
 <div class="onxshop-edit-content">
-	<div class="wrapper">
-		<a class="onxshop-edit onxshop-edit-{NODE.node_controller|str_replace('_','-',%s)}" title="Edit {NODE.node_group} {NODE.title|htmlspecialchars} ({NODE.node_controller})" href="/backoffice/pages/{NODE.id}" 
-			onclick="openEdit('/popup/edit/{NODE.node_group}/{NODE.id}/orig{_SESSION.orig}'); return false;" 
-			onmouseover="$('#node-id-{NODE.id}').addClass('onxshop-highlight-edit');" 
-			onmouseout="$('#node-id-{NODE.id}').removeClass('onxshop-highlight-edit');">
-		<span>Edit {NODE.node_controller}</span></a>
-	</div>
+    <div class="wrapper">
+        <a class="onxshop-edit onxshop-edit-{NODE.node_controller|str_replace('_','-',%s)}" title="Edit {NODE.node_group} {NODE.title|htmlspecialchars} ({NODE.node_controller})" href="/backoffice/pages/{NODE.id}" 
+            onclick="openEdit('/popup/edit/{NODE.node_group}/{NODE.id}/orig{_SESSION.orig}'); return false;" 
+            onmouseover="$('#node-id-{NODE.id}').addClass('onxshop-highlight-edit');" 
+            onmouseout="$('#node-id-{NODE.id}').removeClass('onxshop-highlight-edit');">
+        <span>Edit {NODE.node_controller}</span></a>
+    </div>
 </div>
 <!-- END: variable_edit -->
 

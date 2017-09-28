@@ -8,15 +8,15 @@
 require_once('controllers/bo/component/configuration.php');
 
 class Onxshop_Controller_Bo_Component_Configuration_Common_Node extends Onxshop_Controller_Bo_Component_Configuration {
-	
-	/**
-	 * custom action
-	 */
-	 
-	public function customAction($conf) {
-		
-		return $conf;
-	
-	}
-	
+    
+    /**
+     * custom action
+     */
+     
+    public function customAction($conf) {
+        
+        return $conf;
+    
+    }
+    
 }

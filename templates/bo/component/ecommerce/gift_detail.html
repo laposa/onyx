@@ -1,20 +1,20 @@
 <!-- BEGIN: content -->
 {MESSAGES}
 <div class="gift-detail">
-	<!-- BEGIN: option -->
-	<table>
-		<caption>Gift Option</caption>
-		<tbody>
-			<tr><td>Gift Option</td><td>{ORDER.other_data.gift}</td></tr>
-			<tr><td>Gift Message</td><td><pre style="white-space: normal">{ORDER.other_data.gift_message|htmlspecialchars|nl2br}</pre></td></tr>
-		</tbody>
-	</table>
-	<p><a class="button print-invoice" target="_blank" href="/print/gift_card/{ORDER.id}"><span>Print gift card</span></a></p>
-	<!-- END: option -->
-	
-	<!-- BEGIN: nooption -->
-	<p>No Gift Option</p>
-	<!-- END: nooption -->
+    <!-- BEGIN: option -->
+    <table>
+        <caption>Gift Option</caption>
+        <tbody>
+            <tr><td>Gift Option</td><td>{ORDER.other_data.gift}</td></tr>
+            <tr><td>Gift Message</td><td><pre style="white-space: normal">{ORDER.other_data.gift_message|htmlspecialchars|nl2br}</pre></td></tr>
+        </tbody>
+    </table>
+    <p><a class="button print-invoice" target="_blank" href="/print/gift_card/{ORDER.id}"><span>Print gift card</span></a></p>
+    <!-- END: option -->
+    
+    <!-- BEGIN: nooption -->
+    <p>No Gift Option</p>
+    <!-- END: nooption -->
 
 </div>
 <!-- END: content -->

@@ -2,43 +2,43 @@
 
 {MESSAGES}
 <div class="google-picasa-ffeed">
-	<!-- BEGIN: albums -->
-	<h4><a href="{RSS.link}" title="{RSS.description}">{RSS.title}</a></h4>
-	<div class="list">
-	<!-- BEGIN: item -->
-		<div class="item {ITEM.odd_even_class}">
-			<h5><a href="{URI|htmlspecialchars}?albumId={ITEM.id}#node-id-{GET.node_id}">{ITEM.title} ({ITEM.numPhotos})</a></h5>
-		</div>
-	<!-- END: item -->
-	</div>
-	<!--  END: albums -->
-	
-	<!-- BEGIN: album_detail -->
+    <!-- BEGIN: albums -->
+    <h4><a href="{RSS.link}" title="{RSS.description}">{RSS.title}</a></h4>
+    <div class="list">
+    <!-- BEGIN: item -->
+        <div class="item {ITEM.odd_even_class}">
+            <h5><a href="{URI|htmlspecialchars}?albumId={ITEM.id}#node-id-{GET.node_id}">{ITEM.title} ({ITEM.numPhotos})</a></h5>
+        </div>
+    <!-- END: item -->
+    </div>
+    <!--  END: albums -->
+    
+    <!-- BEGIN: album_detail -->
 
-	<div id="picasa-gallery-{GET.node_id}" class="google-picasa-gallery">
-		<div class="wrapper">
-			<div class="thumbnails-container">
-				<table><tr>
-				<!-- BEGIN: item -->
-				<td>
-				<div class="thumbnail">
-					<div class="wrapper">
-						<span class="wrap"><a href="{ITEM.full}" onclick="$('#image-full-{GET.node_id}').attr('src', '{ITEM.full}'); $('#image-full-{GET.node_id}').attr('title', '{ITEM.title}'); return false"><img id="image-id-{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.thumbnail}" /></a></span>
-					</div>
-				</div>
-				</td>
-				<!-- END: item -->
-				</tr></table>
-			</div>
-			<div class="full layout">
-				<div class="wrapper">
-					<span class="wrap"><img id="image-full-{GET.node_id}" alt="Full size" title="{ITEM.title|htmlspecialchars}" src="{ITEM.full}" /></span>
-				</div>
-			</div>
-		</div>
-	</div>
+    <div id="picasa-gallery-{GET.node_id}" class="google-picasa-gallery">
+        <div class="wrapper">
+            <div class="thumbnails-container">
+                <table><tr>
+                <!-- BEGIN: item -->
+                <td>
+                <div class="thumbnail">
+                    <div class="wrapper">
+                        <span class="wrap"><a href="{ITEM.full}" onclick="$('#image-full-{GET.node_id}').attr('src', '{ITEM.full}'); $('#image-full-{GET.node_id}').attr('title', '{ITEM.title}'); return false"><img id="image-id-{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.thumbnail}" /></a></span>
+                    </div>
+                </div>
+                </td>
+                <!-- END: item -->
+                </tr></table>
+            </div>
+            <div class="full layout">
+                <div class="wrapper">
+                    <span class="wrap"><img id="image-full-{GET.node_id}" alt="Full size" title="{ITEM.title|htmlspecialchars}" src="{ITEM.full}" /></span>
+                </div>
+            </div>
+        </div>
+    </div>
 
-	<!--  END: album_detail -->
-	
+    <!--  END: album_detail -->
+    
 </div>
 <!-- END: content -->

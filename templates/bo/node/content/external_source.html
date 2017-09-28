@@ -1,20 +1,20 @@
 <!-- BEGIN: title -->External Source Edit<!-- END: title -->
 <!-- BEGIN: content -->
 <div class="page-header">
-	<div class="page-header-wrapper">
-		<h1 class="page-title popup"><span>External Source</span> <span class="info">ID {NODE.id}</span></h1>
-	</div>
+    <div class="page-header-wrapper">
+        <h1 class="page-title popup"><span>External Source</span> <span class="info">ID {NODE.id}</span></h1>
+    </div>
 </div>
 {FILE "bo/node/content/default_top.html"}
 <fieldset>
-	<div class="row">
-		<label for="component-image">Display URI</label>
-		<input type="checkbox" id="component-image" name="node[component][image]" {NODE.component.image} />
-	</div>
-	<div class="row">
-		<label for="component-source">URI:</label>
-		<input type="text" class="text long" id="component-source" name="node[component][url]" value="{NODE.component.url}" />
-	</div>
+    <div class="row">
+        <label for="component-image">Display URI</label>
+        <input type="checkbox" id="component-image" name="node[component][image]" {NODE.component.image} />
+    </div>
+    <div class="row">
+        <label for="component-source">URI:</label>
+        <input type="text" class="text long" id="component-source" name="node[component][url]" value="{NODE.component.url}" />
+    </div>
 </fieldset>
 
 {FILE "bo/node/content/default_bottom.html"}

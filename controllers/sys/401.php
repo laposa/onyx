@@ -6,25 +6,25 @@
 
 class Onxshop_Controller_Sys_401 extends Onxshop_Controller {
 
-	/**
-	 * main action
-	 */
-	 
-	public function mainAction() {
-	
-		/**
-		 * set 401 HTTP code
-		 */
-		
-		http_response_code(401);
-		
-		/**
-		 * don't allow to save this request to the cache
-		 */
-		 
-		Zend_Registry::set('omit_cache', true);
-		
-		return true;
+    /**
+     * main action
+     */
+     
+    public function mainAction() {
+    
+        /**
+         * set 401 HTTP code
+         */
+        
+        http_response_code(401);
+        
+        /**
+         * don't allow to save this request to the cache
+         */
+         
+        Zend_Registry::set('omit_cache', true);
+        
+        return true;
 
-	}
+    }
 }

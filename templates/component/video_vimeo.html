@@ -2,50 +2,50 @@
 <script type="text/javascript" src="/share/js/froogaloop.min.js"></script>
 <script type="text/javascript">
 function onPause(id) {
-	/*$('div.node-page-showcase div.row-top h1.overlay').show();*/
-	$('div.video-vimeo button.play-stop').data('player-function', 'play');
-	$('div.video-vimeo button.play-stop span').text('play');
+    /*$('div.node-page-showcase div.row-top h1.overlay').show();*/
+    $('div.video-vimeo button.play-stop').data('player-function', 'play');
+    $('div.video-vimeo button.play-stop span').text('play');
 }
 
 function onFinish(id) {
-	$('div.node-page-showcase div.row-top h1.overlay').show();
-	$('div.video-vimeo button.play-stop').data('player-function', 'play');
-	$('div.video-vimeo button.play-stop span').text('play');
+    $('div.node-page-showcase div.row-top h1.overlay').show();
+    $('div.video-vimeo button.play-stop').data('player-function', 'play');
+    $('div.video-vimeo button.play-stop span').text('play');
 }
 
 function onPlay(id) {
-	$('div.node-page-showcase div.row-top h1.overlay').hide();
-	$('div.video-vimeo button.play-stop').data('player-function', 'pause');
-	$('div.video-vimeo button.play-stop span').text('pause');
+    $('div.node-page-showcase div.row-top h1.overlay').hide();
+    $('div.video-vimeo button.play-stop').data('player-function', 'pause');
+    $('div.video-vimeo button.play-stop span').text('pause');
 }
-	
+    
 $(document).ready(function(){
 
-	var iframe = $('#vimeo-player-id-{GET.video_id}')[0],
-		player = $f(iframe);
-	
-	// When the player is ready, add listeners for pause, finish, and play
-	player.addEvent('ready', function() {
-		player.addEvent('pause', onPause);
-		player.addEvent('finish', onFinish);
-		player.addEvent('play', onPlay);
-	});
-	
-	// Call the API when a button is pressed
-	$('div.video-vimeo button').bind('click', function() {
-		player.api($(this).data('player-function'));
-	});
-	
+    var iframe = $('#vimeo-player-id-{GET.video_id}')[0],
+        player = $f(iframe);
+    
+    // When the player is ready, add listeners for pause, finish, and play
+    player.addEvent('ready', function() {
+        player.addEvent('pause', onPause);
+        player.addEvent('finish', onFinish);
+        player.addEvent('play', onPlay);
+    });
+    
+    // Call the API when a button is pressed
+    $('div.video-vimeo button').bind('click', function() {
+        player.api($(this).data('player-function'));
+    });
+    
 });
 </script> 
 <!-- END: head_onceDISABLE -->
 <!-- BEGIN: content -->
 <div class="video-vimeo">
-	<div class="fluid-video vimeo widescreen">
-		<iframe id="vimeo-player-id-{GET.video_id}" src="//player.vimeo.com/video/{GET.video_id}?api=0&player_id=vimeo_player_id_{GET.video_id}&autoplay={GET.autoplay}" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
-	</div>
-	<!--<p>
-		<button class="play-stop" data-player-function="play"><span>Play</span></button>
-	</p>-->
+    <div class="fluid-video vimeo widescreen">
+        <iframe id="vimeo-player-id-{GET.video_id}" src="//player.vimeo.com/video/{GET.video_id}?api=0&player_id=vimeo_player_id_{GET.video_id}&autoplay={GET.autoplay}" width="500" height="281" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+    </div>
+    <!--<p>
+        <button class="play-stop" data-player-function="play"><span>Play</span></button>
+    </p>-->
 </div>
 <!-- END: content -->

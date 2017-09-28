@@ -1,14 +1,14 @@
 <!-- BEGIN: content -->
 <h3>Available API methods:</h3>
 <ul>
-	<li><a href="#api-resources">resources</a></li>
-	<li><a href="#api-recipe-list">recipe_list</a></li>
-	<li><a href="#api-recipe-detail">recipe_detail</a></li>
-	<li><a href="#api-recipe-search">recipe_search</a></li>
-	<li><a href="#api-recipe-category-list">recipe_category_list</a></li>
-	<li><a href="#api-special-offer-list">special_offer_list</a></li>
-	<li><a href="#api-store-location-list">store_location_list</a></li>
-	<li><a href="#api-recipe-rating">recipe_rating</a></li>
+    <li><a href="#api-resources">resources</a></li>
+    <li><a href="#api-recipe-list">recipe_list</a></li>
+    <li><a href="#api-recipe-detail">recipe_detail</a></li>
+    <li><a href="#api-recipe-search">recipe_search</a></li>
+    <li><a href="#api-recipe-category-list">recipe_category_list</a></li>
+    <li><a href="#api-special-offer-list">special_offer_list</a></li>
+    <li><a href="#api-store-location-list">store_location_list</a></li>
+    <li><a href="#api-recipe-rating">recipe_rating</a></li>
 </ul>
 
 <style type="text/css">
@@ -88,75 +88,75 @@
 <tr><td>created</td><td>datetime</td><td>x</td></tr>
 <tr><td>modified</td><td>datetime</td><td>x</td></tr>
 <tr><td>ingredients</td><td>array</td><td>
-	<table>
-	<tr><th>parameter</th><th>type</th><th>description</th></tr>
-	<tr><td>quantity</td><td>float</td><td>how many units</td></tr>
-	<tr><td>units</td><td>string</td><td>e.g. kg, tbsp, piece</td></tr>
-	<tr><td>title</td><td>string</td><td>ingredient name</td></tr>
-	<tr><td>notes</td><td>string</td><td>e.g. peeled, diced</td></tr>
-	<tr><td>product_id</td><td>string</td><td>product unique identifier (e.g. stock keeping unit)</td></tr>
-	<tr><td>group_title</td><td>string</td><td>should be grouped by this and used as a block title</td></tr>
-	</table>
+    <table>
+    <tr><th>parameter</th><th>type</th><th>description</th></tr>
+    <tr><td>quantity</td><td>float</td><td>how many units</td></tr>
+    <tr><td>units</td><td>string</td><td>e.g. kg, tbsp, piece</td></tr>
+    <tr><td>title</td><td>string</td><td>ingredient name</td></tr>
+    <tr><td>notes</td><td>string</td><td>e.g. peeled, diced</td></tr>
+    <tr><td>product_id</td><td>string</td><td>product unique identifier (e.g. stock keeping unit)</td></tr>
+    <tr><td>group_title</td><td>string</td><td>should be grouped by this and used as a block title</td></tr>
+    </table>
 </td></tr>
 <tr><td>categories</td><td>array</td><td>
-	<table>
-	<tr><th>parameter</th><th>type</th><th>description</th></tr>
-	<tr><td>id</td><td>int</td><td>category id (category title can change, but category id will stay the same)</td></tr>
-	<tr><td class="new">parent</td><td>int</td><td>parent category ID</td></tr>
-	<tr><td>priority</td><td>int</td><td>can be used for sorting</td></tr>
-	<tr><td class="new">publish</td><td>int</td><td>is visible to public?</td></tr>
-	<tr><td>title</td><td>string</td><td>category title, e.g. Chrismas Recipe</td></tr>
-	<tr><td class="new">description</td><td>string</td><td>large description</td></tr>
-	</table>
+    <table>
+    <tr><th>parameter</th><th>type</th><th>description</th></tr>
+    <tr><td>id</td><td>int</td><td>category id (category title can change, but category id will stay the same)</td></tr>
+    <tr><td class="new">parent</td><td>int</td><td>parent category ID</td></tr>
+    <tr><td>priority</td><td>int</td><td>can be used for sorting</td></tr>
+    <tr><td class="new">publish</td><td>int</td><td>is visible to public?</td></tr>
+    <tr><td>title</td><td>string</td><td>category title, e.g. Chrismas Recipe</td></tr>
+    <tr><td class="new">description</td><td>string</td><td>large description</td></tr>
+    </table>
 </td></tr>
 <tr><td>images</td><td>array</td><td>URLs</td></tr>
 <tr class="new"><td>video</td><td>string</td><td>video URL e.g. http://vimeo.com/32329926</td></tr>
 <tr><td>comments</td><td>array list</td><td>
-	<table>
-	<tr><th>parameter</th><th>type</th><th>description</th></tr>
-	<tr><td>content</td><td>string</td><td>actuall comment</td></tr>
-	<tr><td>date</td><td>datetime</td><td>time at creation</td></tr>
-	<tr><td>author</td><td>string</td><td>author name</td></tr>
-	</table>
+    <table>
+    <tr><th>parameter</th><th>type</th><th>description</th></tr>
+    <tr><td>content</td><td>string</td><td>actuall comment</td></tr>
+    <tr><td>date</td><td>datetime</td><td>time at creation</td></tr>
+    <tr><td>author</td><td>string</td><td>author name</td></tr>
+    </table>
 </td></tr>
 <tr><td>rating</td><td>array</td><td>
-	<table>
-	<tr><th>parameter</th><th>type</th><th>description</th></tr>
-	<tr><td>value</td><td>float</td><td>rating value</td></tr>
-	<tr><td>votes_sum</td><td>int</td><td>sum of ratings</td></tr>
-	<tr><td>voters_sum</td><td>int</td><td>sum of voters (number of people voted)</td></tr>
-	</table>
+    <table>
+    <tr><th>parameter</th><th>type</th><th>description</th></tr>
+    <tr><td>value</td><td>float</td><td>rating value</td></tr>
+    <tr><td>votes_sum</td><td>int</td><td>sum of ratings</td></tr>
+    <tr><td>voters_sum</td><td>int</td><td>sum of voters (number of people voted)</td></tr>
+    </table>
 </td></tr>
 <tr><td>serving_people</td><td>int</td><td>how many people this recipe can serve with current ingrediants quantity/units</td></tr>
 <tr><td>preparation_time</td><td>int</td><td>preparation time in minutes</td></tr>
 <tr><td>cook_time</td><td>int</td><td>cooking time in minutes</td></tr>
 <tr><td>recommended_wines</td><td>array</td><td>
-	<table>
-	<tr><th>parameter</th><th>type</th><th>description</th></tr>
-	<tr><td>id</td><td>int</td><td>x</td></tr>
-	<tr><td>title</td><td>sting</td><td>x</td></tr>
-	<tr><td>description</td><td>string</td><td>x</td></tr>
-	<tr><td>wine_type</td><td>string</td><td>e.g. Red</td></tr>
-	<tr><td>grape_variety</td><td>string</td><td>e.g. Merlot</td></tr>
-	<tr><td>country</td><td>string</td><td>Country of origin, e.g. Italy</td></tr>
-	<tr><td>image_url</td><td>string</td><td>URL of image location</td></tr>
-	<tr><td>price_range</td><td>string</td><td>e.g. €6-€8</td></tr>
-	<tr><td>product_id</td><td>string</td><td>product unique identifier (e.g. stock keeping unit)</td></tr>
-	</table>
+    <table>
+    <tr><th>parameter</th><th>type</th><th>description</th></tr>
+    <tr><td>id</td><td>int</td><td>x</td></tr>
+    <tr><td>title</td><td>sting</td><td>x</td></tr>
+    <tr><td>description</td><td>string</td><td>x</td></tr>
+    <tr><td>wine_type</td><td>string</td><td>e.g. Red</td></tr>
+    <tr><td>grape_variety</td><td>string</td><td>e.g. Merlot</td></tr>
+    <tr><td>country</td><td>string</td><td>Country of origin, e.g. Italy</td></tr>
+    <tr><td>image_url</td><td>string</td><td>URL of image location</td></tr>
+    <tr><td>price_range</td><td>string</td><td>e.g. €6-€8</td></tr>
+    <tr><td>product_id</td><td>string</td><td>product unique identifier (e.g. stock keeping unit)</td></tr>
+    </table>
 </td></tr>
 <tr><td>related_offers</td><td>array list</td><td>
-	<table>
-	<tr><th>parameter</th><th>type</th><th>description</th></tr>
-	<tr><td>id</td><td>int</td><td>related offer id</td></tr>
-	</table>
+    <table>
+    <tr><th>parameter</th><th>type</th><th>description</th></tr>
+    <tr><td>id</td><td>int</td><td>related offer id</td></tr>
+    </table>
 </td></tr>
 <tr><td class="new">meal_types DEPRECATED</td><td>array list</td><td>
-	Course
-	<table>
-	<tr><th>parameter</th><th>type</th><th>description</th></tr>
-	<tr><td>id</td><td>int</td><td>category id</td></tr>
-	<tr><td>title</td><td>string</td><td>category title</td></tr>
-	</table>
+    Course
+    <table>
+    <tr><th>parameter</th><th>type</th><th>description</th></tr>
+    <tr><td>id</td><td>int</td><td>category id</td></tr>
+    <tr><td>title</td><td>string</td><td>category title</td></tr>
+    </table>
 </td></tr>
 </table>
 
@@ -188,22 +188,22 @@
 <tr class="new"><td>video</td><td>string</td><td>video URL e.g. http://vimeo.com/32329926</td></tr>
 <tr><td>ready_time</td><td>int</td><td>preparation_time + cook_time in minutes</td></tr>
 <tr><td>meal_types</td><td>array</td><td>
-	Course
-	<table>
-	<tr><th>parameter</th><th>type</th><th>description</th></tr>
-	<tr><td>id</td><td>int</td><td>category id</td></tr>
-	<tr><td>title</td><td>string</td><td>category title</td></tr>
-	</table>
+    Course
+    <table>
+    <tr><th>parameter</th><th>type</th><th>description</th></tr>
+    <tr><td>id</td><td>int</td><td>category id</td></tr>
+    <tr><td>title</td><td>string</td><td>category title</td></tr>
+    </table>
 </td></tr>
 <tr><td>categories</td><td>array</td><td>
-	
-	<table>
-	<tr><th>parameter</th><th>type</th><th>description</th></tr>
-	<tr><td>id</td><td>int</td><td>category id (category title can change, but category id will stay the same)</td></tr>
-	<tr><td>title</td><td>string</td><td>category title, e.g. Chrismas Recipe</td></tr>
-	<tr><td>priority</td><td>string</td><td>can be used for sorting</td></tr>
-	<tr><td>usage_count</td><td>int</td><td>number of all recipes in this category</td></tr>
-	</table>
+    
+    <table>
+    <tr><th>parameter</th><th>type</th><th>description</th></tr>
+    <tr><td>id</td><td>int</td><td>category id (category title can change, but category id will stay the same)</td></tr>
+    <tr><td>title</td><td>string</td><td>category title, e.g. Chrismas Recipe</td></tr>
+    <tr><td>priority</td><td>string</td><td>can be used for sorting</td></tr>
+    <tr><td>usage_count</td><td>int</td><td>number of all recipes in this category</td></tr>
+    </table>
 </td></tr>
 <tr><td>url</td><td>url</td><td>recipe location on website</td></tr>
 </table>
@@ -264,16 +264,16 @@
 <tr><td>price</td><td>string</td><td>e.g. Now "€3.14" or "Details Instore"</td></tr>
 <tr class="new"><td>expiry_date</td><td>datetime</td><td>This is exact time when the offer is taken down from the website.</td></tr>
 <tr><td>taxonomy</td><td>array</td><td>
-	<table>
-	<tr><th>parameter</th><th>type</th><th>description</th></tr>
-	<tr><td>term_id</td><td>int</td><td>x</td></tr>
-	<tr><td>name</td><td>string</td><td>category name</td></tr>
-	<tr><td>slug</td><td>string</td><td>for constructing URLs</td></tr>
-	<tr><td>term_group</td><td>int</td><td>x</td></tr>
-	<tr><td>term_order</td><td>int</td><td>x</td></tr>
-	<tr><td>usage_count</td><td>int</td><td>how many other offers are in the same group</td></tr>
-	<tr><td>description</td><td>string</td><td>description of the category</td></tr>
-	</table>
+    <table>
+    <tr><th>parameter</th><th>type</th><th>description</th></tr>
+    <tr><td>term_id</td><td>int</td><td>x</td></tr>
+    <tr><td>name</td><td>string</td><td>category name</td></tr>
+    <tr><td>slug</td><td>string</td><td>for constructing URLs</td></tr>
+    <tr><td>term_group</td><td>int</td><td>x</td></tr>
+    <tr><td>term_order</td><td>int</td><td>x</td></tr>
+    <tr><td>usage_count</td><td>int</td><td>how many other offers are in the same group</td></tr>
+    <tr><td>description</td><td>string</td><td>description of the category</td></tr>
+    </table>
 </td></tr>
 <tr><td>product_id</td><td>string</td><td>product unique identifier (e.g. stock keeping unit)</td></tr>
 <tr><td>group_id</td><td>int</td><td>offers should be grouped by this, ID will not change and can be used for finding e.g. "This week's specials". Returns NULL if the offer is not groupped.</td></tr>
@@ -310,15 +310,15 @@
 <tr><td>manager</td><td>string</td><td>Mr FirstName LastName</td></tr>
 <tr><td>modified</td><td>datetime</td><td>last update</td></tr>
 <tr class="new"><td>categories</td><td>array</td><td>
-	<table>
-	<tr><th>parameter</th><th>type</th><th>description</th></tr>
-	<tr><td>id</td><td>int</td><td>category id (category title can change, but category id will stay the same)</td></tr>
-	<tr><td>parent</td><td>int</td><td>parent category ID</td></tr>
-	<tr><td>priority</td><td>int</td><td>can be used for sorting</td></tr>
-	<tr><td>publish</td><td>int</td><td>is visible to public?</td></tr>
-	<tr><td>title</td><td>string</td><td>category title, e.g. Off-License</td></tr>
-	<tr><td>description</td><td>string</td><td>large description</td></tr>
-	</table>
+    <table>
+    <tr><th>parameter</th><th>type</th><th>description</th></tr>
+    <tr><td>id</td><td>int</td><td>category id (category title can change, but category id will stay the same)</td></tr>
+    <tr><td>parent</td><td>int</td><td>parent category ID</td></tr>
+    <tr><td>priority</td><td>int</td><td>can be used for sorting</td></tr>
+    <tr><td>publish</td><td>int</td><td>is visible to public?</td></tr>
+    <tr><td>title</td><td>string</td><td>category title, e.g. Off-License</td></tr>
+    <tr><td>description</td><td>string</td><td>large description</td></tr>
+    </table>
 </td></tr>
 </table>
 
@@ -342,13 +342,13 @@
 <tr><th>parameter</th><th>type</th><th>description</th></tr>
 <tr><td>rating_submitted</td><td>int</td><td>Only on success, otherwise now included.</td></tr>
 <tr><td>rating_submitted</td><td>array</td><td>
-	Only on success, otherwise now included.
-	<table>
-	<tr><th>parameter</th><th>type</th><th>description</th></tr>
-	<tr><td>value</td><td>int</td><td>new rating value</td></tr>
-	<tr><td>votes_sum</td><td>int</td><td>deprecated</td></tr>
-	<tr><td>voters_sum</td><td>int</td><td>count of number of entries</td></tr>
-	</table>
+    Only on success, otherwise now included.
+    <table>
+    <tr><th>parameter</th><th>type</th><th>description</th></tr>
+    <tr><td>value</td><td>int</td><td>new rating value</td></tr>
+    <tr><td>votes_sum</td><td>int</td><td>deprecated</td></tr>
+    <tr><td>voters_sum</td><td>int</td><td>count of number of entries</td></tr>
+    </table>
 </td></tr>
 <tr><td>message</td><td>string</td><td>Detail about result</td></tr>
 <tr><td>status</td><td>int</td><td>200 for success, 400 for error</td></tr>

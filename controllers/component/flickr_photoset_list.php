@@ -9,37 +9,37 @@ require_once 'controllers/component/flickr.php';
 class Onxshop_Controller_Component_Flickr_Photoset_List extends Onxshop_Controller_Component_Flickr
 {
 
-	/**
-	 * main action 
-	 */
+    /**
+     * main action 
+     */
 
-	public function mainAction() {
+    public function mainAction() {
 
-		$this->init();
+        $this->init();
 
-		$user_id = $this->getUserIdByUserName($this->GET['username']);
+        $user_id = $this->getUserIdByUserName($this->GET['username']);
 
-		if (is_numeric($this->GET['limit_per_page'])) $limit_per_page = $this->GET['limit_per_page'];
-		else $limit_per_page = 9;
+        if (is_numeric($this->GET['limit_per_page'])) $limit_per_page = $this->GET['limit_per_page'];
+        else $limit_per_page = 9;
 
-		if (is_numeric($this->GET['limit_from'])) $limit_from = floor($this->GET['limit_from'] / $limit_per_page) + 1;
-		else $limit_from = 1;
+        if (is_numeric($this->GET['limit_from'])) $limit_from = floor($this->GET['limit_from'] / $limit_per_page) + 1;
+        else $limit_from = 1;
 
-		$list = $this->getPhotosetList($user_id, $limit_from, $limit_per_page);
+        $list = $this->getPhotosetList($user_id, $limit_from, $limit_per_page);
 
-		if (is_array($list)) {
-			foreach ($list['photoset'] as $item) {
-				$this->tpl->assign('ITEM', $item);
-				$this->tpl->parse('content.item');
-			}
-			if ($list['pages'] > $limit_from && $limit_per_page == 9) {
-				$this->tpl->assign('NEXT_PAGE', $limit_from * $limit_per_page);
-				$this->tpl->parse('content.more');	
-			}
-		}
+        if (is_array($list)) {
+            foreach ($list['photoset'] as $item) {
+                $this->tpl->assign('ITEM', $item);
+                $this->tpl->parse('content.item');
+            }
+            if ($list['pages'] > $limit_from && $limit_per_page == 9) {
+                $this->tpl->assign('NEXT_PAGE', $limit_from * $limit_per_page);
+                $this->tpl->parse('content.more');  
+            }
+        }
 
-		return true;
+        return true;
 
-	}
+    }
 
 }

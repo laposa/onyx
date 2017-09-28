@@ -5,12 +5,12 @@
 <!-- BEGIN: valid_code -->
 <div class="referrals">
 
-	<h1>Welcome to {CONFIGURATION.global.title|htmlspecialchars}</h1>
+    <h1>Welcome to {CONFIGURATION.global.title|htmlspecialchars}</h1>
 
-	<p>As a new customer, we would like to offer you a <strong>£{PROMOTION.discount_fixed_value|number_format(%s, 2)} voucher</strong> 
+    <p>As a new customer, we would like to offer you a <strong>£{PROMOTION.discount_fixed_value|number_format(%s, 2)} voucher</strong> 
 when you spend over {PROMOTION.limit_to_order_amount|money_format('%n',%s)} on your first order of {CONFIGURATION.global.title|htmlspecialchars}. Your £{PROMOTION.discount_fixed_value|number_format(%s, 2)} voucher code is<br/><br/> <span class="code-input">{PROMOTION.code_pattern|htmlspecialchars}</span></p>
 
-	<p>Simply start browsing our site, adding the items you want to your basket. Register a new {CONFIGURATION.global.title|htmlspecialchars} account and remember to enter your discount code at the checkout</p>
+    <p>Simply start browsing our site, adding the items you want to your basket. Register a new {CONFIGURATION.global.title|htmlspecialchars} account and remember to enter your discount code at the checkout</p>
 
 </div>
 <br/>
@@ -20,9 +20,9 @@ when you spend over {PROMOTION.limit_to_order_amount|money_format('%n',%s)} on y
 
 <div class="referrals">
 
-	<h1>Welcome to {CONFIGURATION.global.title|htmlspecialchars}</h1>
+    <h1>Welcome to {CONFIGURATION.global.title|htmlspecialchars}</h1>
 
-	<p>Unfortunately your discount {GET.code|strtoupper|htmlspecial_chars} is not valid. Please read the full details on our <a href="/invite-friends">FAQ section</a>.</p>
+    <p>Unfortunately your discount {GET.code|strtoupper|htmlspecial_chars} is not valid. Please read the full details on our <a href="/invite-friends">FAQ section</a>.</p>
 
 </div>
 <br/>

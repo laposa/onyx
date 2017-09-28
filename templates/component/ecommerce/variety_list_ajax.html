@@ -15,45 +15,45 @@ $(document).ready(function() {
 {MESSAGES}
 <!-- BEGIN: variety -->
 <div class="variety-list-ajax">
-	<table>
-		<!-- BEGIN: item -->
-			<!-- BEGIN: onstock -->
-			<tr class="row onstock" id="item-variety-id-{VARIETY.id}">
-				<td class="first">
-					<a title="{VARIETY.name|htmlspecialchars}" href="#variety-id-{VARIETY.id}" data-variety-id="{VARIETY.id}"><span class="name">{VARIETY.name|htmlspecialchars}</span> <!-- BEGIN: subtitle --><span class="subtitle">{VARIETY.subtitle|htmlspecialchars}</span><!-- END: subtitle --></a>
-				</td>
-				<td>
-					<a title="{VARIETY.name|htmlspecialchars}" href="#variety-id-{VARIETY.id}" data-variety-id="{VARIETY.id}"><span class="price">{PRICE}</span></a>
-				</td>
-				<td class="last">
-					<a class="add-to-basket variety-id-{VARIETY.id}" href="#variety-id-{VARIETY.id}" data-variety-id="{VARIETY.id}" title="Add to basket"><span>{I18N_ADD_TO_BASKET}</span></a>
-				</td>
-			</tr>
-			<tr>
-				<td colspan="3"><div class="description">{VARIETY.description}</div></td>
-			</tr>
-			<!-- END: onstock -->
-	
-			<!-- BEGIN: outofstock -->
-			<tr class="row outofstock">
-				<td class="first">
-					<span class="name">{VARIETY.name|htmlspecialchars}</span>
-					<div class="description">{VARIETY.description}</div>
-				</td>
-				<td>
-					<span class="price">{PRICE}</span>
-				</td>
-				<td class="last">
-					<span class="outofstock-message">{I18N_OUT_OF_STOCK}</span>
-				</td>
-			</tr>
-			<!-- END: outofstock -->
-	
-		<!-- END: item -->
-	</table>
-	
-	{PRODUCT_OPTIONS}
-	
+    <table>
+        <!-- BEGIN: item -->
+            <!-- BEGIN: onstock -->
+            <tr class="row onstock" id="item-variety-id-{VARIETY.id}">
+                <td class="first">
+                    <a title="{VARIETY.name|htmlspecialchars}" href="#variety-id-{VARIETY.id}" data-variety-id="{VARIETY.id}"><span class="name">{VARIETY.name|htmlspecialchars}</span> <!-- BEGIN: subtitle --><span class="subtitle">{VARIETY.subtitle|htmlspecialchars}</span><!-- END: subtitle --></a>
+                </td>
+                <td>
+                    <a title="{VARIETY.name|htmlspecialchars}" href="#variety-id-{VARIETY.id}" data-variety-id="{VARIETY.id}"><span class="price">{PRICE}</span></a>
+                </td>
+                <td class="last">
+                    <a class="add-to-basket variety-id-{VARIETY.id}" href="#variety-id-{VARIETY.id}" data-variety-id="{VARIETY.id}" title="Add to basket"><span>{I18N_ADD_TO_BASKET}</span></a>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3"><div class="description">{VARIETY.description}</div></td>
+            </tr>
+            <!-- END: onstock -->
+    
+            <!-- BEGIN: outofstock -->
+            <tr class="row outofstock">
+                <td class="first">
+                    <span class="name">{VARIETY.name|htmlspecialchars}</span>
+                    <div class="description">{VARIETY.description}</div>
+                </td>
+                <td>
+                    <span class="price">{PRICE}</span>
+                </td>
+                <td class="last">
+                    <span class="outofstock-message">{I18N_OUT_OF_STOCK}</span>
+                </td>
+            </tr>
+            <!-- END: outofstock -->
+    
+        <!-- END: item -->
+    </table>
+    
+    {PRODUCT_OPTIONS}
+    
 </div>
 
 

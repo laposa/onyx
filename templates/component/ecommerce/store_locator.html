@@ -10,197 +10,197 @@
 
 <script type="text/javascript">
 
-	var map, infoWindow, savedPosition;
+    var map, infoWindow, savedPosition;
 
-	function getDirections(lat, lng) {
-		var url = "http://maps.google.com/?daddr=" + lat + "," + lng;
-		if (savedPosition) {
-			url += "&saddr=" + savedPosition.coords.latitude + "," + savedPosition.coords.longitude;
-		}
-		window.open(url);
-	}
+    function getDirections(lat, lng) {
+        var url = "http://maps.google.com/?daddr=" + lat + "," + lng;
+        if (savedPosition) {
+            url += "&saddr=" + savedPosition.coords.latitude + "," + savedPosition.coords.longitude;
+        }
+        window.open(url);
+    }
 
-	$(function() {
+    $(function() {
 
-		if ('{GET.node_id}' == '1345' && window.navigator && window.navigator.geolocation) {
-			var timeoutVal = 10 * 1000 * 1000;
-			window.navigator.geolocation.getCurrentPosition(
-				findNearestStore, 
-				errorCallback,
-				{ enableHighAccuracy: true, timeout: timeoutVal, maximumAge: 0 }
-				);	
-		}
+        if ('{GET.node_id}' == '1345' && window.navigator && window.navigator.geolocation) {
+            var timeoutVal = 10 * 1000 * 1000;
+            window.navigator.geolocation.getCurrentPosition(
+                findNearestStore, 
+                errorCallback,
+                { enableHighAccuracy: true, timeout: timeoutVal, maximumAge: 0 }
+                );  
+        }
 
-		var initLatlng = new google.maps.LatLng({MAP.latitude|htmlspecialchars}, {MAP.longitude|htmlspecialchars});
+        var initLatlng = new google.maps.LatLng({MAP.latitude|htmlspecialchars}, {MAP.longitude|htmlspecialchars});
 
-		var mapOptions = {
-		  zoom: 13,
-		  center: initLatlng,
-		  scrollwheel: false,
-		  mapTypeId: google.maps.MapTypeId.ROADMAP,
-		  mapTypeControlOptions: {
-			mapTypeIds: []
-			}
-		}
+        var mapOptions = {
+          zoom: 13,
+          center: initLatlng,
+          scrollwheel: false,
+          mapTypeId: google.maps.MapTypeId.ROADMAP,
+          mapTypeControlOptions: {
+            mapTypeIds: []
+            }
+        }
 
-		map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
-		map.markers = map.markers || [];
+        map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
+        map.markers = map.markers || [];
 
-		<!-- BEGIN: fit_to_bounds -->
-		// fit and zoom map to bounds
-		var bounds = new google.maps.LatLngBounds();
-		bounds.extend(new google.maps.LatLng({BOUNDS.latitude.min}, {BOUNDS.longitude.min}));
-		bounds.extend(new google.maps.LatLng({BOUNDS.latitude.max}, {BOUNDS.longitude.max}));
-		  
-		map.fitBounds(bounds);
-		<!-- END: fit_to_bounds -->
+        <!-- BEGIN: fit_to_bounds -->
+        // fit and zoom map to bounds
+        var bounds = new google.maps.LatLngBounds();
+        bounds.extend(new google.maps.LatLng({BOUNDS.latitude.min}, {BOUNDS.longitude.min}));
+        bounds.extend(new google.maps.LatLng({BOUNDS.latitude.max}, {BOUNDS.longitude.max}));
+          
+        map.fitBounds(bounds);
+        <!-- END: fit_to_bounds -->
 
-		<!-- BEGIN: store_marker -->var marker = addMarker({STORE.latitude}, {STORE.longitude}, 
-			'{STORE.title|addslashes}', '{STORE.image|addslashes}', {STORE.address|nl2br|json_encode},
-			{STORE.opening_hours|nl2br|json_encode}, '{STORE.telephone|addslashes}', {STORE.node_id|addslashes},
-			'{STORE.url|addslashes}', {STORE.icon|addslashes}, {STORE.open|addslashes});
-		<!-- END: store_marker -->
+        <!-- BEGIN: store_marker -->var marker = addMarker({STORE.latitude}, {STORE.longitude}, 
+            '{STORE.title|addslashes}', '{STORE.image|addslashes}', {STORE.address|nl2br|json_encode},
+            {STORE.opening_hours|nl2br|json_encode}, '{STORE.telephone|addslashes}', {STORE.node_id|addslashes},
+            '{STORE.url|addslashes}', {STORE.icon|addslashes}, {STORE.open|addslashes});
+        <!-- END: store_marker -->
 
-		function addMarker(latitude, longitude, name, image, address, opening_hours, telephone, node_id, url, icon, open) {
+        function addMarker(latitude, longitude, name, image, address, opening_hours, telephone, node_id, url, icon, open) {
 
-			var myLatlng = new google.maps.LatLng(latitude, longitude);
+            var myLatlng = new google.maps.LatLng(latitude, longitude);
 
-			var marker = new google.maps.Marker({
-				position: myLatlng,
-				title: name,
-				icon: icon ? '/images/locator-pin.png' : '/images/locator-pin_active.png',
-				image: image,
-				node_id: node_id,
-				address: address,
-				opening_hours: opening_hours,
-				telephone: telephone,
-				url: url,
-				map: map
-			});
+            var marker = new google.maps.Marker({
+                position: myLatlng,
+                title: name,
+                icon: icon ? '/images/locator-pin.png' : '/images/locator-pin_active.png',
+                image: image,
+                node_id: node_id,
+                address: address,
+                opening_hours: opening_hours,
+                telephone: telephone,
+                url: url,
+                map: map
+            });
 
-			if (open) showInfoBox(marker);
+            if (open) showInfoBox(marker);
 
-			map.markers.push(marker);
+            map.markers.push(marker);
 
-			google.maps.event.addListener(marker, 'click', function() {
-				displayStore(marker);
-			});
-		}
+            google.maps.event.addListener(marker, 'click', function() {
+                displayStore(marker);
+            });
+        }
 
-	});
+    });
 
-	function displayStore(marker) {
-		$("#store-detail-wrapper").load('/request/component/ecommerce/store_detail~node_id=' + marker.node_id + '~', function() {
-			showInfoBox(marker);
-		});
-		$("#store-nearby-wrapper").load('/request/component/ecommerce/store_nearby_radius~node_id=' + marker.node_id + '~');
-		$("#store-province-form-wrapper").load('/request/component/ecommerce/store_province_form~store_node_id=' + marker.node_id + '~');
-		if (history.pushState) history.pushState({ marker: marker.url }, marker.title, marker.url);
-	}
+    function displayStore(marker) {
+        $("#store-detail-wrapper").load('/request/component/ecommerce/store_detail~node_id=' + marker.node_id + '~', function() {
+            showInfoBox(marker);
+        });
+        $("#store-nearby-wrapper").load('/request/component/ecommerce/store_nearby_radius~node_id=' + marker.node_id + '~');
+        $("#store-province-form-wrapper").load('/request/component/ecommerce/store_province_form~store_node_id=' + marker.node_id + '~');
+        if (history.pushState) history.pushState({ marker: marker.url }, marker.title, marker.url);
+    }
 
-	function showInfoBox(marker) {
-		if (infoWindow) infoWindow.close();
-		
-		//count notices
-		var notice_count = $('#store-noticeboard div.item').length;
-		
-		if (notice_count > 0) {
-		
-			if (notice_count > 1) var notice_plural = 's';
-			else var notice_plural = '';
-			
-			var notice_link = '<p class="notice"><a href="#store-noticeboard" onclick=""><span class="title">Notice'+notice_plural+'</span> <span class="count">' + notice_count + '</span></a></p>';
-		} else {
-			var notice_link = '';
-		}
-		
-		infoWindow = new InfoBox({
-			content: "<h3>" + marker.title + "</h3>" +
-				'<p class="image"><img src="' + marker.image + '"/></p>' +
-				'<p class="address">' + marker.address + '</p>' +
-				'<p class="opening-hours">' + marker.opening_hours + '</p>' +
-				'<p class="telephone">' + marker.telephone + '</p>' +
-				'<p class="directions"><a href="#" onclick="getDirections(' + marker.position.lat() + ', ' + marker.position.lng() + '); return false">Directions</a></p>' + notice_link,
-			boxStyle: {
-				background: "url('/images/map-infobox1.png')",
-				width: "360px",
-				height: "240px"
-			},
-			closeBoxMargin: "13px 33px 2px 2px",
-			closeBoxURL: "/images/map-infobox-close_button.png",
-			pixelOffset: new google.maps.Size(-170, -265),
-			infoBoxClearance: new google.maps.Size(0, 50)
-		});
-		infoWindow.open(map, marker);
-	}
+    function showInfoBox(marker) {
+        if (infoWindow) infoWindow.close();
+        
+        //count notices
+        var notice_count = $('#store-noticeboard div.item').length;
+        
+        if (notice_count > 0) {
+        
+            if (notice_count > 1) var notice_plural = 's';
+            else var notice_plural = '';
+            
+            var notice_link = '<p class="notice"><a href="#store-noticeboard" onclick=""><span class="title">Notice'+notice_plural+'</span> <span class="count">' + notice_count + '</span></a></p>';
+        } else {
+            var notice_link = '';
+        }
+        
+        infoWindow = new InfoBox({
+            content: "<h3>" + marker.title + "</h3>" +
+                '<p class="image"><img src="' + marker.image + '"/></p>' +
+                '<p class="address">' + marker.address + '</p>' +
+                '<p class="opening-hours">' + marker.opening_hours + '</p>' +
+                '<p class="telephone">' + marker.telephone + '</p>' +
+                '<p class="directions"><a href="#" onclick="getDirections(' + marker.position.lat() + ', ' + marker.position.lng() + '); return false">Directions</a></p>' + notice_link,
+            boxStyle: {
+                background: "url('/images/map-infobox1.png')",
+                width: "360px",
+                height: "240px"
+            },
+            closeBoxMargin: "13px 33px 2px 2px",
+            closeBoxURL: "/images/map-infobox-close_button.png",
+            pixelOffset: new google.maps.Size(-170, -265),
+            infoBoxClearance: new google.maps.Size(0, 50)
+        });
+        infoWindow.open(map, marker);
+    }
 
-	function findNearestStore(position) {
+    function findNearestStore(position) {
 
-		var minDistance = -1;
-		var closest = -1;
-		savedPosition = position;
+        var minDistance = -1;
+        var closest = -1;
+        savedPosition = position;
 
-		for (i = 0; i < map.markers.length; i++) {
-			var marker = map.markers[i];
-			var d = distanceBetweenPoints(
-				marker.position.lat(), 
-				marker.position.lng(),
-				position.coords.latitude, 
-				position.coords.longitude
-			);
-			if (closest == -1 || minDistance > d) {
-				closest = i;
-				minDistance = d;
-			}
+        for (i = 0; i < map.markers.length; i++) {
+            var marker = map.markers[i];
+            var d = distanceBetweenPoints(
+                marker.position.lat(), 
+                marker.position.lng(),
+                position.coords.latitude, 
+                position.coords.longitude
+            );
+            if (closest == -1 || minDistance > d) {
+                closest = i;
+                minDistance = d;
+            }
 
-		}
+        }
 
-		//map.markers[closest].setIcon('/images/locator-pin_active.png');
-		displayStore(map.markers[closest]);
-	}
+        //map.markers[closest].setIcon('/images/locator-pin_active.png');
+        displayStore(map.markers[closest]);
+    }
 
-	function errorCallback(error) {
+    function errorCallback(error) {
 
-		var message = "";   
+        var message = "";   
 
-		switch (error.code) {
-			case error.PERMISSION_DENIED:
-				message = "This website does not have permission to use " + 
-						  "the Geolocation API";
-				break;
-			case error.POSITION_UNAVAILABLE:
-				message = "The current position could not be determined.";
-				break;
-			case error.PERMISSION_DENIED_TIMEOUT:
-				message = "The current position could not be determined " + 
-						  "within the specified timeout period.";            
-				break;
-		}
+        switch (error.code) {
+            case error.PERMISSION_DENIED:
+                message = "This website does not have permission to use " + 
+                          "the Geolocation API";
+                break;
+            case error.POSITION_UNAVAILABLE:
+                message = "The current position could not be determined.";
+                break;
+            case error.PERMISSION_DENIED_TIMEOUT:
+                message = "The current position could not be determined " + 
+                          "within the specified timeout period.";            
+                break;
+        }
 
-		if (message == "") {
-			var strErrorCode = error.code.toString();
-			message = "The position could not be determined due to " + 
-					  "an unknown error (Code: " + strErrorCode + ").";
-		}
-		if (typeof console != 'undefined' && typeof console.log == 'function') console.log(message);
-	}
+        if (message == "") {
+            var strErrorCode = error.code.toString();
+            message = "The position could not be determined due to " + 
+                      "an unknown error (Code: " + strErrorCode + ").";
+        }
+        if (typeof console != 'undefined' && typeof console.log == 'function') console.log(message);
+    }
 
-	/**
-	 * Calculate geographical distence between points on sphere
-	 * http://en.wikipedia.org/wiki/Haversine_formula
-	 */
-	function distanceBetweenPoints(lat1, lng1, lat2, lng2) {
-		var R = 6371; // equtarial radius
-		var radLat1 = lat1 * (Math.PI / 180);
-		var radLat2 = lat2 * (Math.PI / 180);
-		var deltaLat = (lat2 - lat1) * (Math.PI / 180);
-		var deltaLon = (lng2 - lng1) * (Math.PI / 180);
-		var a = Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2) +
-				Math.sin(deltaLon / 2) * Math.sin(deltaLon / 2) * 
-				Math.cos(radLat1) * Math.cos(radLat2);
-		var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-		return R * c;
-	}
+    /**
+     * Calculate geographical distence between points on sphere
+     * http://en.wikipedia.org/wiki/Haversine_formula
+     */
+    function distanceBetweenPoints(lat1, lng1, lat2, lng2) {
+        var R = 6371; // equtarial radius
+        var radLat1 = lat1 * (Math.PI / 180);
+        var radLat2 = lat2 * (Math.PI / 180);
+        var deltaLat = (lat2 - lat1) * (Math.PI / 180);
+        var deltaLon = (lng2 - lng1) * (Math.PI / 180);
+        var a = Math.sin(deltaLat / 2) * Math.sin(deltaLat / 2) +
+                Math.sin(deltaLon / 2) * Math.sin(deltaLon / 2) * 
+                Math.cos(radLat1) * Math.cos(radLat2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return R * c;
+    }
 
 </script>
 </div>

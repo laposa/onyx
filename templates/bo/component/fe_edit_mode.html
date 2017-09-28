@@ -2,21 +2,21 @@
 <!-- BEGIN: fe_edit_mode_edit -->
 <script type="text/javascript">
 function refreshMenuAdd(selector) {
-	return true; //disable
-	$(selector).hover(
-		function() {
-			var parent_id = $(this).attr('id').replace(/[^0-9]/g, '');
-			openAjaxRequestInDialog('/request/bo/component/node_add_page~node_group=page:parent=' + parent_id + '~', 'Add a new page');
-		}
-	);
+    return true; //disable
+    $(selector).hover(
+        function() {
+            var parent_id = $(this).attr('id').replace(/[^0-9]/g, '');
+            openAjaxRequestInDialog('/request/bo/component/node_add_page~node_group=page:parent=' + parent_id + '~', 'Add a new page');
+        }
+    );
 }
 
 $(function() {
-	refreshDeleteContent();
-	refreshAddContent('body div.onxshop-layout-container');
-	refreshMenuAdd("nav.primary");
-	refreshMenuAdd("nav.global");
-	refreshMenuAdd("nav.footer");
+    refreshDeleteContent();
+    refreshAddContent('body div.onxshop-layout-container');
+    refreshMenuAdd("nav.primary");
+    refreshMenuAdd("nav.global");
+    refreshMenuAdd("nav.footer");
 });
 </script>
 <!-- END: fe_edit_mode_edit -->
@@ -24,26 +24,26 @@ $(function() {
 <!-- BEGIN: fe_edit_mode_move -->
 <script type="text/javascript">
 $(function() {
-	feEditStartDragDrop();
+    feEditStartDragDrop();
 });
 </script>
 
 <style type="text/css">
-	.onxshop-layout-container > div {cursor: move; }
-	.onxshop-layout-container {border: 1px dotted black; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; padding: 1em;}
-	.ui-sortable {min-height: 5em;}
-	.ui-sortable-placeholder {  visibility: visible !important; height: 50px !important; }
-	.ui-sortable-placeholder * { visibility: hidden; }
+    .onxshop-layout-container > div {cursor: move; }
+    .onxshop-layout-container {border: 1px dotted black; border-radius: 4px; -moz-border-radius: 4px; -webkit-border-radius: 4px; padding: 1em;}
+    .ui-sortable {min-height: 5em;}
+    .ui-sortable-placeholder {  visibility: visible !important; height: 50px !important; }
+    .ui-sortable-placeholder * { visibility: hidden; }
 </style>
 <!-- END: fe_edit_mode_move -->
 
 <!-- BEGIN: fe_edit_mode_preview -->
 <!-- END: fe_edit_mode_preview -->
 
-<ul id="menu-edit-mode">	
-	<li class="preview {ACTIVE_preview} first"><a href="{URI_STRIP}?fe_edit_mode=preview" title="Don't display any editing tools"><span>Preview</span></a></li>
-	<li class="edit {ACTIVE_edit}"><a href="{URI_STRIP}?fe_edit_mode=edit" title="Show all editing tools next to each content element"><span>Editing</span></a></li>
-	<li class="move {ACTIVE_move}"><a href="{URI_STRIP}?fe_edit_mode=move" title="Drag&amp;Drop interface for organising your content"><span>Sorting</span></a></li>
+<ul id="menu-edit-mode">    
+    <li class="preview {ACTIVE_preview} first"><a href="{URI_STRIP}?fe_edit_mode=preview" title="Don't display any editing tools"><span>Preview</span></a></li>
+    <li class="edit {ACTIVE_edit}"><a href="{URI_STRIP}?fe_edit_mode=edit" title="Show all editing tools next to each content element"><span>Editing</span></a></li>
+    <li class="move {ACTIVE_move}"><a href="{URI_STRIP}?fe_edit_mode=move" title="Drag&amp;Drop interface for organising your content"><span>Sorting</span></a></li>
 </ul>
-		
+        
 <!-- END: content -->

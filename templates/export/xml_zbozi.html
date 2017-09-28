@@ -1,25 +1,25 @@
 <!-- BEGIN: content --><?xml version="1.0" encoding="utf-8"?>
 <SHOP>
 <!-- BEGIN: item_product -->
-	<SHOPITEM>
-		<PRODUCT>{PRODUCT.name|htmlspecialchars|xmlentities}</PRODUCT>
-		<DESCRIPTION>{PRODUCT.description|htmlspecialchars|xmlentities}</DESCRIPTION>
-		<URL>{PRODUCT.url}</URL>
-		<ITEM_TYPE>{ITEM_TYPE}</ITEM_TYPE>
-		<IMGURL>{IMAGE_PRODUCT}</IMGURL>
-		<DUES>{DUES}</DUES>
-		<DELIVERY_DATE>{DELIVERY_DATE}</DELIVERY_DATE>
-		<TOLLFREE>{TOLLFREE}</TOLLFREE>
-		<!-- BEGIN: item_variety -->
-		<VARIANT>
-			<PRODUCTNAMEEXT>{VARIETY.name|htmlspecialchars|xmlentities}</PRODUCTNAMEEXT>
-			<PRODUCTNO>{VARIETY.sku}</PRODUCTNO>
-			<PRICE>{PRICE.common.value|number_format(%s, 2)}</PRICE>
-			<PRICE_VAT>{PRICE.common.value|number_format(%s, 2)}</PRICE_VAT>
-			<VAT>{PRODUCT.type.vat|number_format(%s, 2)}</VAT>
-     	</VARIANT>
-     	<!-- END: item_variety -->
-	</SHOPITEM>
+    <SHOPITEM>
+        <PRODUCT>{PRODUCT.name|htmlspecialchars|xmlentities}</PRODUCT>
+        <DESCRIPTION>{PRODUCT.description|htmlspecialchars|xmlentities}</DESCRIPTION>
+        <URL>{PRODUCT.url}</URL>
+        <ITEM_TYPE>{ITEM_TYPE}</ITEM_TYPE>
+        <IMGURL>{IMAGE_PRODUCT}</IMGURL>
+        <DUES>{DUES}</DUES>
+        <DELIVERY_DATE>{DELIVERY_DATE}</DELIVERY_DATE>
+        <TOLLFREE>{TOLLFREE}</TOLLFREE>
+        <!-- BEGIN: item_variety -->
+        <VARIANT>
+            <PRODUCTNAMEEXT>{VARIETY.name|htmlspecialchars|xmlentities}</PRODUCTNAMEEXT>
+            <PRODUCTNO>{VARIETY.sku}</PRODUCTNO>
+            <PRICE>{PRICE.common.value|number_format(%s, 2)}</PRICE>
+            <PRICE_VAT>{PRICE.common.value|number_format(%s, 2)}</PRICE_VAT>
+            <VAT>{PRODUCT.type.vat|number_format(%s, 2)}</VAT>
+        </VARIANT>
+        <!-- END: item_variety -->
+    </SHOPITEM>
 <!-- END: item_product -->
 
 </SHOP>

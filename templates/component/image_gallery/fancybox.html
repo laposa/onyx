@@ -4,20 +4,20 @@
 <!-- END: head_once -->
 <!-- BEGIN: content -->
 <script type="text/javascript">
-	$(document).ready(function() {
-		$("a.single-image{GET.relation}{GET.node_id}").fancybox({
-			'hideOnContentClick': true,
-			'zoomSpeedIn': 300, 
-			'zoomSpeedOut': 300,
-			'overlayOpacity': 0.9,
-			'padding': 0
-		});
-	}); 
+    $(document).ready(function() {
+        $("a.single-image{GET.relation}{GET.node_id}").fancybox({
+            'hideOnContentClick': true,
+            'zoomSpeedIn': 300, 
+            'zoomSpeedOut': 300,
+            'overlayOpacity': 0.9,
+            'padding': 0
+        });
+    }); 
 </script>
 
 <div class="image-gallery-fancybox number-of-items-{IMAGE_COUNT}" id="gallery-fancybox-{GET.node_id}">
-	<!-- BEGIN: item -->
-	<div class="item image-id-{GET.relation}{ITEM.id} {FIRST_LAST}"><span class="wrap"><a class="single-image{GET.relation}{GET.node_id}" rel="single-image{GET.relation}{GET.node_id}" title="{ITEM.title|htmlspecialchars}" href="{FULL_SIZE_IMAGE_WIDTH_PATH}{ITEM.src}"><img id="image-id-{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" /></a></span></div>
-	<!-- END: item -->
+    <!-- BEGIN: item -->
+    <div class="item image-id-{GET.relation}{ITEM.id} {FIRST_LAST}"><span class="wrap"><a class="single-image{GET.relation}{GET.node_id}" rel="single-image{GET.relation}{GET.node_id}" title="{ITEM.title|htmlspecialchars}" href="{FULL_SIZE_IMAGE_WIDTH_PATH}{ITEM.src}"><img id="image-id-{GET.relation}{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" /></a></span></div>
+    <!-- END: item -->
 </div>
 <!-- END: content -->

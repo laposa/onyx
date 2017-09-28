@@ -8,21 +8,21 @@
 require_once('controllers/bo/component/configuration.php');
 
 class Onxshop_Controller_Bo_Component_Configuration_Ecommerce_Invoice extends Onxshop_Controller_Bo_Component_Configuration {
-	
-	/**
-	 * custom action
-	 */
-	 
-	public function customAction($conf) {
-		/**
-		ecommerce_invoice 	company_name
-		ecommerce_invoice 	company_logo
-		ecommerce_invoice 	footer
-		ecommerce_invoice 	return_address
-		**/
-		
-		return $conf;
-	
-	}
-	
+    
+    /**
+     * custom action
+     */
+     
+    public function customAction($conf) {
+        /**
+        ecommerce_invoice   company_name
+        ecommerce_invoice   company_logo
+        ecommerce_invoice   footer
+        ecommerce_invoice   return_address
+        **/
+        
+        return $conf;
+    
+    }
+    
 }

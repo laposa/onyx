@@ -2,21 +2,21 @@
 <script type="text/javascript">
 $(document).ready(function(){
 
-	function initGroupAjaxForm() {
-		$("#customer-group-form").validate();
-		$('#customer-group-form').ajaxForm({ 
-			target: '#customer-list div.page-content',
-			beforeSubmit: function() { return $("#customer-group-form").valid() },
-			success: function(responseText, statusText) {
-				popupMessage("#customer-list div.onxshop-messages");
-				makeAjaxRequest('#onxshop-backoffice-wrapper', '/request/bo/pages/client/customers', function () {
-					//initAjaxPagination();
-				});
-			}
-		});
-	}
+    function initGroupAjaxForm() {
+        $("#customer-group-form").validate();
+        $('#customer-group-form').ajaxForm({ 
+            target: '#customer-list div.page-content',
+            beforeSubmit: function() { return $("#customer-group-form").valid() },
+            success: function(responseText, statusText) {
+                popupMessage("#customer-list div.onxshop-messages");
+                makeAjaxRequest('#onxshop-backoffice-wrapper', '/request/bo/pages/client/customers', function () {
+                    //initAjaxPagination();
+                });
+            }
+        });
+    }
 
-	initGroupAjaxForm();
+    initGroupAjaxForm();
 
 });
 </script>
@@ -24,21 +24,21 @@ $(document).ready(function(){
 {MESSAGES}
 
 <div class="customer-group-add">
-	<h2>Create new group</h2>
-	<form method="post" id="customer-group-form" action="{URI|htmlspecialchars}" style="max-width: 400px;">
-		<div class="row group-name">
-			<span class="label"><label>Name</label></span>
-			<span class="field">
-				<input type="text" class="title required" id="customer-group-name" name="customer-group[name]" value="{CUSTOMER_GROUP.name|htmlspecialchars}" />
-			</span>
-		</div>
-		<p>For creating a group with filter options <a title="Create a new customers group using advanced filter" href="#" onclick="makeAjaxRequest('#customer-list div.page-content', '/request/bo/component/client/customer_filter'); return false;"><span>Use Advance Filter</span></a></p>
-		<div class="row submit">
-			<span class="field">
-				<button class="save" type="submit" name="save" value="save" onclick="$(this).addClass('saving');"><span>Create</span></button>
-			</span>
-		</div>
-		<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />	
-	</form>
+    <h2>Create new group</h2>
+    <form method="post" id="customer-group-form" action="{URI|htmlspecialchars}" style="max-width: 400px;">
+        <div class="row group-name">
+            <span class="label"><label>Name</label></span>
+            <span class="field">
+                <input type="text" class="title required" id="customer-group-name" name="customer-group[name]" value="{CUSTOMER_GROUP.name|htmlspecialchars}" />
+            </span>
+        </div>
+        <p>For creating a group with filter options <a title="Create a new customers group using advanced filter" href="#" onclick="makeAjaxRequest('#customer-list div.page-content', '/request/bo/component/client/customer_filter'); return false;"><span>Use Advance Filter</span></a></p>
+        <div class="row submit">
+            <span class="field">
+                <button class="save" type="submit" name="save" value="save" onclick="$(this).addClass('saving');"><span>Create</span></button>
+            </span>
+        </div>
+        <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />  
+    </form>
 </div>
 <!-- END: content -->

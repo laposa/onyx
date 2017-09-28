@@ -3,72 +3,72 @@
 {MESSAGES}
 <script type="text/javascript">
 $(document).ready(function() {
-	$("div.seo-manager td.page-title a").editInPlace({
-		url: "/request/bo/component/single_record_update~model=common_node:attribute=page_title~",
-		params: "csrf_token=" + getCSRFToken()
-	});
-	$("div.seo-manager td.browser-title a").editInPlace({
-		url: "/request/bo/component/single_record_update~model=common_node:attribute=browser_title~",
-		params: "csrf_token=" + getCSRFToken()
-	});
-	$("div.seo-manager td.description a").editInPlace({
-		url: "/request/bo/component/single_record_update~model=common_node:attribute=description~",
-		params: "csrf_token=" + getCSRFToken(),
-		field_type: "textarea"
-	});
-	$("div.seo-manager td.keywords a").editInPlace({
-		url: "/request/bo/component/single_record_update~model=common_node:attribute=keywords~",
-		params: "csrf_token=" + getCSRFToken(),
-		field_type: "textarea"
-	});
+    $("div.seo-manager td.page-title a").editInPlace({
+        url: "/request/bo/component/single_record_update~model=common_node:attribute=page_title~",
+        params: "csrf_token=" + getCSRFToken()
+    });
+    $("div.seo-manager td.browser-title a").editInPlace({
+        url: "/request/bo/component/single_record_update~model=common_node:attribute=browser_title~",
+        params: "csrf_token=" + getCSRFToken()
+    });
+    $("div.seo-manager td.description a").editInPlace({
+        url: "/request/bo/component/single_record_update~model=common_node:attribute=description~",
+        params: "csrf_token=" + getCSRFToken(),
+        field_type: "textarea"
+    });
+    $("div.seo-manager td.keywords a").editInPlace({
+        url: "/request/bo/component/single_record_update~model=common_node:attribute=keywords~",
+        params: "csrf_token=" + getCSRFToken(),
+        field_type: "textarea"
+    });
 });
 </script>
 
 <div class="seo-manager"> 
 
-	<div class="two-column-page page sidebar">
-		
-		<div class="content">
-			<div class="page-wrapper">
+    <div class="two-column-page page sidebar">
+        
+        <div class="content">
+            <div class="page-wrapper">
 
-				<div class="page-header">
-					<div class="page-header-wrapper">
-						<h1 class="page-title"><span>SEO Manager</span></h1>
-					</div>
-				</div>
+                <div class="page-header">
+                    <div class="page-header-wrapper">
+                        <h1 class="page-title"><span>SEO Manager</span></h1>
+                    </div>
+                </div>
 
-				<div class="page-content">
-					<div class="page-content-wrapper">
-						<div class="row-top">
-							<div class="row-wrapper">
-								<div class="column-wrapper">
+                <div class="page-content">
+                    <div class="page-content-wrapper">
+                        <div class="row-top">
+                            <div class="row-wrapper">
+                                <div class="column-wrapper">
 
-									<table>
-										<thead><th>URI</th><th>Page Heading Title</th><th>Browser Title</th><!--<th>Strapline</th>--><th>Excerpt (Description)</th><th>Labels (Keywords)</th></thead>
-										<tbody>
-											<!-- BEGIN: item -->
-											<tr>
-												<td><a href="{ITEM.public_uri}" target="_blank">{ITEM.public_uri}</a></td>
-												<td class="page-title"><a href="#{ITEM.id}" id="comon-node-page-title-id-{ITEM.node_id}">{ITEM.page_title|htmlspecialchars}</a></td>
-												<td class="browser-title"><a href="#{ITEM.id}" id="comon-node-browser-title-id-{ITEM.node_id}">{ITEM.browser_title|htmlspecialchars}</a></td>
-												<!--<td>{ITEM.strapline|htmlspecialchars}</td>-->
-												<td class="description"><a href="#{ITEM.id}" id="comon-node-description-id-{ITEM.node_id}">{ITEM.description|htmlspecialchars}</a></td>
-												<td class="keywords"><a href="#{ITEM.id}" id="comon-node-keywords-id-{ITEM.node_id}">{ITEM.keywords|htmlspecialchars}</a></td>
-											</tr>
-											<!-- END: item -->
-										</tbody>
-									</table>
+                                    <table>
+                                        <thead><th>URI</th><th>Page Heading Title</th><th>Browser Title</th><!--<th>Strapline</th>--><th>Excerpt (Description)</th><th>Labels (Keywords)</th></thead>
+                                        <tbody>
+                                            <!-- BEGIN: item -->
+                                            <tr>
+                                                <td><a href="{ITEM.public_uri}" target="_blank">{ITEM.public_uri}</a></td>
+                                                <td class="page-title"><a href="#{ITEM.id}" id="comon-node-page-title-id-{ITEM.node_id}">{ITEM.page_title|htmlspecialchars}</a></td>
+                                                <td class="browser-title"><a href="#{ITEM.id}" id="comon-node-browser-title-id-{ITEM.node_id}">{ITEM.browser_title|htmlspecialchars}</a></td>
+                                                <!--<td>{ITEM.strapline|htmlspecialchars}</td>-->
+                                                <td class="description"><a href="#{ITEM.id}" id="comon-node-description-id-{ITEM.node_id}">{ITEM.description|htmlspecialchars}</a></td>
+                                                <td class="keywords"><a href="#{ITEM.id}" id="comon-node-keywords-id-{ITEM.node_id}">{ITEM.keywords|htmlspecialchars}</a></td>
+                                            </tr>
+                                            <!-- END: item -->
+                                        </tbody>
+                                    </table>
 
-								</div>
-							</div>
-						</div>
+                                </div>
+                            </div>
+                        </div>
 
-					</div>
-				</div>
-			</div>
-		</div>
-		
-	</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
 
 </div>
 <!-- END: content -->

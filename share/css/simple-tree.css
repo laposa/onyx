@@ -6,37 +6,37 @@
 
 div.twoColumnPage.page .simple-tree
 {
-	padding-bottom: 80px; 
+    padding-bottom: 80px; 
 }
 .simple-tree
 {
-	
-	margin:0;
-	padding:0;
+    
+    margin:0;
+    padding:0;
 }
 .simple-tree li
 {
-	list-style: none;
-	margin:0;
-	padding:0 0 0 34px;
-	line-height: 18px;
-	position: relative;
+    list-style: none;
+    margin:0;
+    padding:0 0 0 34px;
+    line-height: 18px;
+    position: relative;
 }
 .simple-tree li span
 {
-	display: inline;
-	clear: left;
-	white-space: nowrap;
+    display: inline;
+    clear: left;
+    white-space: nowrap;
 }
 .simple-tree ul
 {
-	margin:0; 
-	padding:0;
+    margin:0; 
+    padding:0;
 }
 .simple-tree .root
 {
-	margin-left: -18px;
-	background: none;
+    margin-left: -18px;
+    background: none;
 }
 .simple-tree li.root:before,
 .simple-tree li.folder:before,
@@ -158,156 +158,156 @@ div.twoColumnPage.page .simple-tree
 
 .simple-tree .line
 {
-	margin:0 0 0 -16px;
-	padding:0;
-	line-height: 3px;
-	height:3px;
-	font-size:3px;
-	/*background: url(/share/images/simple-tree/line_bg.gif) 0 0 no-repeat transparent;*/
+    margin:0 0 0 -16px;
+    padding:0;
+    line-height: 3px;
+    height:3px;
+    font-size:3px;
+    /*background: url(/share/images/simple-tree/line_bg.gif) 0 0 no-repeat transparent;*/
 }
 .simple-tree .line-last
 {
-	margin:0 0 0 -16px;
-	padding:0;
-	line-height: 3px;
-	height:3px;
-	font-size:3px;
-	background: url(/share/images/simple-tree/spacer.gif) 0 0 no-repeat transparent;
+    margin:0 0 0 -16px;
+    padding:0;
+    line-height: 3px;
+    height:3px;
+    font-size:3px;
+    background: url(/share/images/simple-tree/spacer.gif) 0 0 no-repeat transparent;
 }
 .simple-tree .line-over
 {
-	margin:0 0 0 -16px;
-	padding:0;
-	line-height: 3px;
-	height:3px;
-	font-size:3px;
-	background: url(/share/images/simple-tree/line_bg_over.gif) 0 0 no-repeat transparent;
+    margin:0 0 0 -16px;
+    padding:0;
+    line-height: 3px;
+    height:3px;
+    font-size:3px;
+    background: url(/share/images/simple-tree/line_bg_over.gif) 0 0 no-repeat transparent;
 }
 .simple-tree .line-over-last
 {
-	margin:0 0 0 -16px;
-	padding:0;
-	line-height: 3px;
-	height:3px;
-	font-size:3px;
-	background: url(/share/images/simple-tree/line_bg_over_last.gif) 0 0 no-repeat transparent;
+    margin:0 0 0 -16px;
+    padding:0;
+    line-height: 3px;
+    height:3px;
+    font-size:3px;
+    background: url(/share/images/simple-tree/line_bg_over_last.gif) 0 0 no-repeat transparent;
 }
 .simple-tree .folder-open
 {
-	margin-left:-16px;
-	/*background: url(/share/images/simple-tree/collapsable.gif) 0 -2px no-repeat;*/
+    margin-left:-16px;
+    /*background: url(/share/images/simple-tree/collapsable.gif) 0 -2px no-repeat;*/
 }
 .simple-tree .folder-open-last
 {
-	margin-left:-16px;
-	/*background: url(/share/images/simple-tree/collapsable-last.gif) 0 -2px no-repeat;*/
+    margin-left:-16px;
+    /*background: url(/share/images/simple-tree/collapsable-last.gif) 0 -2px no-repeat;*/
 }
 .simple-tree .folder-close
 {
-	margin-left:-16px;
-	/*background: url(/share/images/simple-tree/expandable.gif) 0 -2px no-repeat;*/
+    margin-left:-16px;
+    /*background: url(/share/images/simple-tree/expandable.gif) 0 -2px no-repeat;*/
 }
 .simple-tree .folder-close-last
 {
-	margin-left:-16px;
-	/*background: url(/share/images/simple-tree/expandable-last.gif) 0 -2px no-repeat;*/
+    margin-left:-16px;
+    /*background: url(/share/images/simple-tree/expandable-last.gif) 0 -2px no-repeat;*/
 }
 .simple-tree .doc
 {
-	margin-left:-16px;
-	/*background: url(/share/images/simple-tree/leaf.gif) 0 -1px no-repeat;*/
+    margin-left:-16px;
+    /*background: url(/share/images/simple-tree/leaf.gif) 0 -1px no-repeat;*/
 }
 .simple-tree .doc-last
 {
-	margin-left:-16px;
-	/*background: url(/share/images/simple-tree/leaf-last.gif) 0 -1px no-repeat;*/
+    margin-left:-16px;
+    /*background: url(/share/images/simple-tree/leaf-last.gif) 0 -1px no-repeat;*/
 }
 
 .simple-tree .ajax
 {
-	background: url(/share/images/simple-tree/spinner.gif) no-repeat 0 0;
-	height: 16px;
-	display:none;
+    background: url(/share/images/simple-tree/spinner.gif) no-repeat 0 0;
+    height: 16px;
+    display:none;
 }
 .simple-tree .ajax li
 {
-	display:none;
-	margin:0; 
-	padding:0;
+    display:none;
+    margin:0; 
+    padding:0;
 }
 .simple-tree .trigger
 {
-	display:inline;
-	margin-left:-32px;
-	width: 28px;
-	height: 11px;
-	cursor:pointer;
-	position: relative;
-	z-index: 20;
+    display:inline;
+    margin-left:-32px;
+    width: 28px;
+    height: 11px;
+    cursor:pointer;
+    position: relative;
+    z-index: 20;
 }
 .simple-tree .text
 {
-	cursor: default;
+    cursor: default;
 }
 .simple-tree a:active
 {
-	color: #000000;
+    color: #000000;
 }
 .simple-tree .active a:active
 {
-	color: #ffffff;
+    color: #ffffff;
 }
 .simple-tree .active a,
 .simple-tree .active
 {
-	cursor: default;
-	background: #5179bf;
-	color: #ffffff;
-	padding: 3px 5px 4px 5px;
-	font-weight: normal;
-	border-top: 1px solid #6d97d0;
-	border-radius: 2px;
-	text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
+    cursor: default;
+    background: #5179bf;
+    color: #ffffff;
+    padding: 3px 5px 4px 5px;
+    font-weight: normal;
+    border-top: 1px solid #6d97d0;
+    border-radius: 2px;
+    text-shadow: 1px 1px 1px rgba(0,0,0,0.3);
 }
 #drag_container
 {
-	color:#000;
-	border: 1px dashed #767676;
+    color:#000;
+    border: 1px dashed #767676;
 }
 #drag_container ul
 {
-	list-style: none;
-	padding:0;
-	margin:0;
+    list-style: none;
+    padding:0;
+    margin:0;
 }
 
 #drag_container li
 {
-	list-style: none;
-	line-height:18px;
-	white-space: nowrap;
-	padding:1px 1px 0px 16px;
-	margin:0;
+    list-style: none;
+    line-height:18px;
+    white-space: nowrap;
+    padding:1px 1px 0px 16px;
+    margin:0;
 }
 #drag_container li span
 {
-	padding:0;
+    padding:0;
 }
 
 #drag_container li.doc, #drag_container li.doc-last
 {
-	background: url(/share/images/simple-tree/leaf.gif) no-repeat -17px 0;
+    background: url(/share/images/simple-tree/leaf.gif) no-repeat -17px 0;
 }
 #drag_container .folder-close, #drag_container .folder-close-last
 {
-	background: url(/share/images/simple-tree/expandable.gif) no-repeat -17px 0;
+    background: url(/share/images/simple-tree/expandable.gif) no-repeat -17px 0;
 }
 
 #drag_container .folder-open, #drag_container .folder-open-last
 {
-	background: url(/share/images/simple-tree/collapsable.gif) no-repeat -17px 0;
+    background: url(/share/images/simple-tree/collapsable.gif) no-repeat -17px 0;
 }
 .contextMenu
 {
-	display:none;
+    display:none;
 }

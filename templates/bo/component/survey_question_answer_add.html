@@ -3,112 +3,112 @@
 {MESSAGES}
 <div class="two-column-page page survey_question_answer_edit fibonacci-2-3">
 
-	<form method="post" action="{URI|htmlspecialchars}" id="survey-question-answer-edit-form">
+    <form method="post" action="{URI|htmlspecialchars}" id="survey-question-answer-edit-form">
 
-		<div class="content">
-			<div class="page-wrapper">
+        <div class="content">
+            <div class="page-wrapper">
 
-				<div class="page-header">
-					<div class="page-header-wrapper">
-						<h1 class="page-title"><span>Add an Answer</span></h1>
-					</div>
-				</div>
+                <div class="page-header">
+                    <div class="page-header-wrapper">
+                        <h1 class="page-title"><span>Add an Answer</span></h1>
+                    </div>
+                </div>
 
-				<div class="page-content">
-					<div class="page-content-wrapper">
-						<div class="row-top">
-							<div class="row-wrapper">
-								<div class="column-wrapper">
-								</div>
-							</div>
-						</div>
-						<div class="row-middle">
-							<div class="row-wrapper">
-								<div class="column-one">
-									<div class="column-wrapper">
+                <div class="page-content">
+                    <div class="page-content-wrapper">
+                        <div class="row-top">
+                            <div class="row-wrapper">
+                                <div class="column-wrapper">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-middle">
+                            <div class="row-wrapper">
+                                <div class="column-one">
+                                    <div class="column-wrapper">
 
-										<fieldset class="single">
-											<div class="row title">
-												<span class="label"><label for="answer-title">Title</label></span>
-												<span class="field"><input class="required text title" id="answer-title" type="text" name="answer[title]" value="{ANSWER.title|htmlspecialchars}" /></span>
-											</div>
-											<div class="row description">
-												<span class="label"><label for="answer-description">Description</label></span>
-												<span class="field"><textarea id="answer-description" name="answer[description]">{ANSWER.description|htmlspecialchars}</textarea></span>
-											</div>
-											<div class="row is-correct">
-												<span class="field"><input id="answer-is-correct" type="checkbox" name="answer[is_correct]" value="1" {CHECKED_is_correct} /> <label for="answer-is-correct">Is This Answer Correct?</label></span>
-											</div>
-											<div class="row points">
-												<span class="label"><label for="answer-points">Points</label></span>
-												<span class="field"><input class="number short" id="answer-points" type="text" name="answer[points]" value="{ANSWER.points}" /></span>
-											</div>
-										</fieldset>
+                                        <fieldset class="single">
+                                            <div class="row title">
+                                                <span class="label"><label for="answer-title">Title</label></span>
+                                                <span class="field"><input class="required text title" id="answer-title" type="text" name="answer[title]" value="{ANSWER.title|htmlspecialchars}" /></span>
+                                            </div>
+                                            <div class="row description">
+                                                <span class="label"><label for="answer-description">Description</label></span>
+                                                <span class="field"><textarea id="answer-description" name="answer[description]">{ANSWER.description|htmlspecialchars}</textarea></span>
+                                            </div>
+                                            <div class="row is-correct">
+                                                <span class="field"><input id="answer-is-correct" type="checkbox" name="answer[is_correct]" value="1" {CHECKED_is_correct} /> <label for="answer-is-correct">Is This Answer Correct?</label></span>
+                                            </div>
+                                            <div class="row points">
+                                                <span class="label"><label for="answer-points">Points</label></span>
+                                                <span class="field"><input class="number short" id="answer-points" type="text" name="answer[points]" value="{ANSWER.points}" /></span>
+                                            </div>
+                                        </fieldset>
 
-									</div>
-								</div>
-								<div class="column-two with-padding">
-									<div class="column-wrapper">
+                                    </div>
+                                </div>
+                                <div class="column-two with-padding">
+                                    <div class="column-wrapper">
 
-										<fieldset class="single">
-											<div class="row content">
-												<span class="label"><label for="answer-content">Content <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'mceAdvanced', 'answer-content'); return false;"><span>RTE</span></a></label></span>
-												<span class="field"><textarea id="answer-content" name="answer[content]">{ANSWER.content|htmlspecialchars}</textarea></span>
-											</div>
-										</fieldset>
+                                        <fieldset class="single">
+                                            <div class="row content">
+                                                <span class="label"><label for="answer-content">Content <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'mceAdvanced', 'answer-content'); return false;"><span>RTE</span></a></label></span>
+                                                <span class="field"><textarea id="answer-content" name="answer[content]">{ANSWER.content|htmlspecialchars}</textarea></span>
+                                            </div>
+                                        </fieldset>
 
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="row-bottom">
-							<div class="row-wrapper">
-								<div class="column-wrapper">
-									<a class="button" href="#sub_content" onclick="makeAjaxRequest('#sub-content', '/request/bo/component/survey_detail~id={GET.survey_id}~'); return false;">Cancel</a>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-bottom">
+                            <div class="row-wrapper">
+                                <div class="column-wrapper">
+                                    <a class="button" href="#sub_content" onclick="makeAjaxRequest('#sub-content', '/request/bo/component/survey_detail~id={GET.survey_id}~'); return false;">Cancel</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-		
+        
 
-		<div class="row submit">
-			<span class="label"><label>&nbsp;</label></span>
-			<span class="field"><button type="submit" class="save" name="save" value="save"><span>Create a New Answer Option</span></button></span>
-		</div>
-		
-		<input type="hidden" name="answer[publish]" value="1" />
-		<input type="hidden" name="answer[question_id]" value="{GET.question_id}" />
-		
-	<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+        <div class="row submit">
+            <span class="label"><label>&nbsp;</label></span>
+            <span class="field"><button type="submit" class="save" name="save" value="save"><span>Create a New Answer Option</span></button></span>
+        </div>
+        
+        <input type="hidden" name="answer[publish]" value="1" />
+        <input type="hidden" name="answer[question_id]" value="{GET.question_id}" />
+        
+    <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
 
 </div>
 
 <script type="text/javascript">
-	
-	$(function() {
-		
-		function initSurveyEditForm() {
-	
-		    $('#survey-question-answer-edit-form').ajaxForm({ 
-				target: '#sub-content',
-				beforeSubmit: function() {return $("#survey-question-answer-edit-form").valid()},
-				success: function(responseText, statusText) {
-					popupMessage("#sub-content div.onxshop-messages");
-					makeAjaxRequest('#sub-content', '/request/bo/component/survey_detail~id={GET.survey_id}~');
-				}
-			});
-		}
-		
-		initSurveyEditForm();
-	});
-	
+    
+    $(function() {
+        
+        function initSurveyEditForm() {
+    
+            $('#survey-question-answer-edit-form').ajaxForm({ 
+                target: '#sub-content',
+                beforeSubmit: function() {return $("#survey-question-answer-edit-form").valid()},
+                success: function(responseText, statusText) {
+                    popupMessage("#sub-content div.onxshop-messages");
+                    makeAjaxRequest('#sub-content', '/request/bo/component/survey_detail~id={GET.survey_id}~');
+                }
+            });
+        }
+        
+        initSurveyEditForm();
+    });
+    
 </script>
-					
+                    
 {ONXSHOP_REQUEST_tinymce #bo/tinymce~id=GET.survey_id:relation=survey:role=RTE:mode=exact:edit_elements=answer-content:theme=advanced~}
-		
+        
 <!-- END: content -->

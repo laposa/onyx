@@ -13,24 +13,24 @@ function revealPrimaryNavigation() {
 }
 
 $(function() {
-	
-	/**
-	 * show standard Onxshop messages in a popup
-	 */
-	 
-	popupMessage("div.onxshop-messages");
-	
-	/**
-	 * remove white spaces between selected items to allow precise sizing with inline-block elements
-	 */
-	 
-	/* 
-	$("div.stack_list div.list").contents().filter(function() {
-		return this.nodeType = Node.TEXT_NODE && /\S/.test(this.nodeValue) === false;
-	}).remove();
-	*/
-	
-	/**
+    
+    /**
+     * show standard Onxshop messages in a popup
+     */
+     
+    popupMessage("div.onxshop-messages");
+    
+    /**
+     * remove white spaces between selected items to allow precise sizing with inline-block elements
+     */
+     
+    /* 
+    $("div.stack_list div.list").contents().filter(function() {
+        return this.nodeType = Node.TEXT_NODE && /\S/.test(this.nodeValue) === false;
+    }).remove();
+    */
+    
+    /**
      * mobile navigation
      */
 
@@ -39,10 +39,10 @@ $(function() {
         return false;
     });
     
-	/**
-	 * write your own actions below
-	 */
-	
-	/* YOUR CODE HERE */
-	
+    /**
+     * write your own actions below
+     */
+    
+    /* YOUR CODE HERE */
+    
 });

@@ -6,16 +6,16 @@
 
 class Onxshop_Controller_Component_Ecommerce_Product_Review_Approve_Action extends Onxshop_Controller {
 
-	/**
-	 * main action (only a router in this case)
-	 */
-	 
-	public function mainAction() {
+    /**
+     * main action (only a router in this case)
+     */
+     
+    public function mainAction() {
 
-		// implement your custom action to be trigged upon approval
-		// such as email notification	 
-		
-		return true;
-	}
-	
+        // implement your custom action to be trigged upon approval
+        // such as email notification    
+        
+        return true;
+    }
+    
 }

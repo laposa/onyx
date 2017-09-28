@@ -3,163 +3,163 @@
 
 <div class="two-column-page page survey-question-edit fibonacci-2-5">
 
-	<form method="post" action="{URI|htmlspecialchars}" id="survey-question-edit-form">
+    <form method="post" action="{URI|htmlspecialchars}" id="survey-question-edit-form">
 
-			<div class="page-wrapper">
+            <div class="page-wrapper">
 
-				<div class="page-header">
-					<div class="page-header-wrapper">
-						<h1 class="page-title"><span>Question Edit</span></h1>
-					</div>
-				</div>
+                <div class="page-header">
+                    <div class="page-header-wrapper">
+                        <h1 class="page-title"><span>Question Edit</span></h1>
+                    </div>
+                </div>
 
-				<div class="page-content">
-					<div class="page-content-wrapper">
-						<div class="row-top">
-							<div class="row-wrapper">
-								<div class="column-wrapper">
+                <div class="page-content">
+                    <div class="page-content-wrapper">
+                        <div class="row-top">
+                            <div class="row-wrapper">
+                                <div class="column-wrapper">
 
-								</div>
-							</div>
-						</div>
-						<div class="row-middle">
-							<div class="row-wrapper">
-								<div class="column-one">
-									<div class="column-wrapper">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-middle">
+                            <div class="row-wrapper">
+                                <div class="column-one">
+                                    <div class="column-wrapper">
 
-										<fieldset>
-											<div class="row title">
-												<span class="label"><label for="question-title">Title</label></span>
-												<span class="field"><input class="required text title" id="question-title" type="text" name="question[title]" value="{QUESTION.title|htmlspecialchars}" /></span>
-											</div>
-											<div class="row type">
-												<span class="label"><label for="question-type">Type</label></span>
-												<span class="field">
-													<select id="question-type" name="question[type]">
-														<option value="radio" {SELECTED_radio}>radio</option>
-														<option value="select" {SELECTED_select}>select</option>
-														<option value="checkbox" {SELECTED_checkbox}>checkbox</option>
-														<option value="text" {SELECTED_text}>text</option>
-														<option value="file" {SELECTED_file}>file</option>
-														<option value="range" {SELECTED_range}>range</option>
-													</select>
-													<script type="text/javascript">
-														$(function() {
-															var select = $('#question-type');
-															var settings = $('#range-settings');
-															settings.toggle(select.val() == 'range');
-															select.change(function() {
-																settings.toggle(select.val() == 'range');
-															});
-														});
-													</script>
-												</span>
-											</div>
-											<div class="row publish">
-												<span class="label"><label for="question-publish">Publish</label></span>
-												<span class="field">
-													<select id="question-publish" name="question[publish]">
-														<option value="0" {SELECTED_0}>No</option>
-														<option value="1" {SELECTED_1}>Yes</option>
-														<option value="-1" {SELECTED_-1}>Reject</option>
-													</select>
-												</span>
-											</div>
-										</fieldset>
-										<fieldset>
-											<div class="row priority">
-												<span class="label"><label for="question-priority">Priority</label></span>
-												<span class="field"><input class="number short" id="question-priority" type="text" name="question[priority]" value="{QUESTION.priority}" /></span>
-											</div>
-											<div class="row weight">
-												<span class="label"><label for="question-weight">Weight (for weighted mean calculation)</label></span>
-												<span class="field"><input class="number short" id="question-weight" type="text" name="question[weight]" value="{QUESTION.weight}" /></span>
-											</div>
-											<div class="row mandatory">
-												<span class="field"><input id="question-mandatory" type="checkbox" name="question[mandatory]" value="1" {CHECKED_mandatory_1} /> <label for="question-mandatory">Mandatory</label></span>
-											</div>
-										</fieldset>
-										<fieldset id="range-settings">
-											<div class="row other-data-min">
-												<span class="label"><label for="question-other-data-min">Minimum Range Value</label></span>
-												<span class="field"><input class="number short" id="question-other-data-min" type="text" name="question[other_data][min]" value="{QUESTION.other_data.min}" /></span>
-											</div>
-											<div class="row other-data-max">
-												<span class="label"><label for="question-other-data-max">Maximum Range Value</label></span>
-												<span class="field"><input class="number short" id="question-other-data-max" type="text" name="question[other_data][max]" value="{QUESTION.other_data.max}" /></span>
-											</div>
-											<div class="row other-data-step">
-												<span class="label"><label for="question-other-data-step">Range Step</label></span>
-												<span class="field"><input class="number short" id="question-other-data-step" type="text" name="question[other_data][step]" value="{QUESTION.other_data.step}" /></span>
-											</div>
-										</fieldset>
+                                        <fieldset>
+                                            <div class="row title">
+                                                <span class="label"><label for="question-title">Title</label></span>
+                                                <span class="field"><input class="required text title" id="question-title" type="text" name="question[title]" value="{QUESTION.title|htmlspecialchars}" /></span>
+                                            </div>
+                                            <div class="row type">
+                                                <span class="label"><label for="question-type">Type</label></span>
+                                                <span class="field">
+                                                    <select id="question-type" name="question[type]">
+                                                        <option value="radio" {SELECTED_radio}>radio</option>
+                                                        <option value="select" {SELECTED_select}>select</option>
+                                                        <option value="checkbox" {SELECTED_checkbox}>checkbox</option>
+                                                        <option value="text" {SELECTED_text}>text</option>
+                                                        <option value="file" {SELECTED_file}>file</option>
+                                                        <option value="range" {SELECTED_range}>range</option>
+                                                    </select>
+                                                    <script type="text/javascript">
+                                                        $(function() {
+                                                            var select = $('#question-type');
+                                                            var settings = $('#range-settings');
+                                                            settings.toggle(select.val() == 'range');
+                                                            select.change(function() {
+                                                                settings.toggle(select.val() == 'range');
+                                                            });
+                                                        });
+                                                    </script>
+                                                </span>
+                                            </div>
+                                            <div class="row publish">
+                                                <span class="label"><label for="question-publish">Publish</label></span>
+                                                <span class="field">
+                                                    <select id="question-publish" name="question[publish]">
+                                                        <option value="0" {SELECTED_0}>No</option>
+                                                        <option value="1" {SELECTED_1}>Yes</option>
+                                                        <option value="-1" {SELECTED_-1}>Reject</option>
+                                                    </select>
+                                                </span>
+                                            </div>
+                                        </fieldset>
+                                        <fieldset>
+                                            <div class="row priority">
+                                                <span class="label"><label for="question-priority">Priority</label></span>
+                                                <span class="field"><input class="number short" id="question-priority" type="text" name="question[priority]" value="{QUESTION.priority}" /></span>
+                                            </div>
+                                            <div class="row weight">
+                                                <span class="label"><label for="question-weight">Weight (for weighted mean calculation)</label></span>
+                                                <span class="field"><input class="number short" id="question-weight" type="text" name="question[weight]" value="{QUESTION.weight}" /></span>
+                                            </div>
+                                            <div class="row mandatory">
+                                                <span class="field"><input id="question-mandatory" type="checkbox" name="question[mandatory]" value="1" {CHECKED_mandatory_1} /> <label for="question-mandatory">Mandatory</label></span>
+                                            </div>
+                                        </fieldset>
+                                        <fieldset id="range-settings">
+                                            <div class="row other-data-min">
+                                                <span class="label"><label for="question-other-data-min">Minimum Range Value</label></span>
+                                                <span class="field"><input class="number short" id="question-other-data-min" type="text" name="question[other_data][min]" value="{QUESTION.other_data.min}" /></span>
+                                            </div>
+                                            <div class="row other-data-max">
+                                                <span class="label"><label for="question-other-data-max">Maximum Range Value</label></span>
+                                                <span class="field"><input class="number short" id="question-other-data-max" type="text" name="question[other_data][max]" value="{QUESTION.other_data.max}" /></span>
+                                            </div>
+                                            <div class="row other-data-step">
+                                                <span class="label"><label for="question-other-data-step">Range Step</label></span>
+                                                <span class="field"><input class="number short" id="question-other-data-step" type="text" name="question[other_data][step]" value="{QUESTION.other_data.step}" /></span>
+                                            </div>
+                                        </fieldset>
 
-									</div>
-								</div>
-								<div class="column-two with-padding">
-									<div class="column-wrapper">
+                                    </div>
+                                </div>
+                                <div class="column-two with-padding">
+                                    <div class="column-wrapper">
 
-										<fieldset>
-											<div class="row description">
-												<span class="label"><label for="question-description">Description</label></span>
-												<span class="field"><textarea id="question-description" name="question[description]">{QUESTION.description|htmlspecialchars}</textarea></span>
-											</div>
-											<div class="row content">
-												<span class="label"><label for="question-content">Content <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'mceAdvanced', 'question-content'); return false;"><span>RTE</span></a></label></span>
-												<span class="field"><textarea id="question-content" name="question[content]">{QUESTION.content|htmlspecialchars}</textarea></span>
-											</div>
-										</fieldset>
+                                        <fieldset>
+                                            <div class="row description">
+                                                <span class="label"><label for="question-description">Description</label></span>
+                                                <span class="field"><textarea id="question-description" name="question[description]">{QUESTION.description|htmlspecialchars}</textarea></span>
+                                            </div>
+                                            <div class="row content">
+                                                <span class="label"><label for="question-content">Content <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'mceAdvanced', 'question-content'); return false;"><span>RTE</span></a></label></span>
+                                                <span class="field"><textarea id="question-content" name="question[content]">{QUESTION.content|htmlspecialchars}</textarea></span>
+                                            </div>
+                                        </fieldset>
 
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="row-bottom">
-							<div class="row-wrapper">
-								<div class="column-wrapper">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row-bottom">
+                            <div class="row-wrapper">
+                                <div class="column-wrapper">
 
-									<p>
-										<a class="button" href="#sub_content" onclick="makeAjaxRequest('#sub-content', '/request/bo/component/survey_detail~id={QUESTION.survey_id}~'); return false;">Cancel</a>
-									</p>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
+                                    <p>
+                                        <a class="button" href="#sub_content" onclick="makeAjaxRequest('#sub-content', '/request/bo/component/survey_detail~id={QUESTION.survey_id}~'); return false;">Cancel</a>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-		<div class="row submit">
-			<span class="label"><label>&nbsp;</label></span>
-			<span class="field"><button type="submit" class="save" name="save" value="save"><span>Save</span></button></span>
-		</div>
-		
-		<input type="hidden" name="question[id]" value="{QUESTION.id}" />
-		
-		<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
-	</form>
+        <div class="row submit">
+            <span class="label"><label>&nbsp;</label></span>
+            <span class="field"><button type="submit" class="save" name="save" value="save"><span>Save</span></button></span>
+        </div>
+        
+        <input type="hidden" name="question[id]" value="{QUESTION.id}" />
+        
+        <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+    </form>
 </div>
 
 <script type="text/javascript">
-	
-	$(function() {
-		
-		function initSurveyEditForm() {
-	
-		    $('#survey-question-edit-form').ajaxForm({ 
-				target: '#sub-content',
-				beforeSubmit: function() {return $("#survey-question-edit-form").valid()},
-				success: function(responseText, statusText) {
-					popupMessage("#sub-content div.onxshop-messages");
-					makeAjaxRequest('#sub-content', '/request/bo/component/survey_detail~id={QUESTION.survey_id}~');
-				}
-			});
-		}
-		
-		initSurveyEditForm();
-	});
-	
+    
+    $(function() {
+        
+        function initSurveyEditForm() {
+    
+            $('#survey-question-edit-form').ajaxForm({ 
+                target: '#sub-content',
+                beforeSubmit: function() {return $("#survey-question-edit-form").valid()},
+                success: function(responseText, statusText) {
+                    popupMessage("#sub-content div.onxshop-messages");
+                    makeAjaxRequest('#sub-content', '/request/bo/component/survey_detail~id={QUESTION.survey_id}~');
+                }
+            });
+        }
+        
+        initSurveyEditForm();
+    });
+    
 </script>
 
-{ONXSHOP_REQUEST_tinymce #bo/tinymce~id=GET.survey_id:relation=survey:role=RTE:mode=exact:edit_elements=question-content:theme=advanced~}		
+{ONXSHOP_REQUEST_tinymce #bo/tinymce~id=GET.survey_id:relation=survey:role=RTE:mode=exact:edit_elements=question-content:theme=advanced~}       
 
 <!-- END: content -->

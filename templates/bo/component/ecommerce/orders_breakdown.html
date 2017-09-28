@@ -1,95 +1,95 @@
 <!-- BEGIN: content -->
 
 <div class="orders-brakedown">
-	{MESSAGES}
-				
+    {MESSAGES}
+                
 
-	<table>
-		<thead>
-			<tr>
-				<th>&nbsp;</th>
-				<th class="money">Delivery</th>
-				<th class="money">VAT<br/>Rate</th>
-				<th class="money">Gross Value</br>pre Discount</th>
-				<th class="money">Discount</th>
-				<th class="money">Gross Value<br/>post Discount</th>
-				<th class="money">Net Value<br/>post discount</th>
-				<th class="money">VAT</th>
-			</tr>
-		</thead>
+    <table>
+        <thead>
+            <tr>
+                <th>&nbsp;</th>
+                <th class="money">Delivery</th>
+                <th class="money">VAT<br/>Rate</th>
+                <th class="money">Gross Value</br>pre Discount</th>
+                <th class="money">Discount</th>
+                <th class="money">Gross Value<br/>post Discount</th>
+                <th class="money">Net Value<br/>post discount</th>
+                <th class="money">VAT</th>
+            </tr>
+        </thead>
 
-		<!-- BEGIN: result -->
-		<tbody>
-			<!-- BEGIN: row -->
-			<tr>
-				<td>{TYPE_NAME}</td>
-				<td>{ROW.delivery}</td>
-				<td class="money">{ROW.vat_rate}%</td>
-				<td class="money">{ROW.gross_pre_discount|money_format('%n', %s)}</td>
-				<td class="money">{ROW.discount|money_format('%n', %s)}</td>
-				<td class="money">{ROW.gross_post_discount|money_format('%n', %s)}</td>
-				<td class="money">{ROW.net_post_discount|money_format('%n', %s)}</td>
-				<td class="money">{ROW.vat|money_format('%n', %s)}</td>
-			</tr>
-			<!-- END: row -->
-			<!-- BEGIN: delivery -->
-			<tr>
-				<td>{TYPE_NAME}</td>
-				<td>{ROW.delivery}</td>
-				<td class="money">{ROW.vat_rate}%</td>
-				<td class="money">{ROW.gross_pre_discount|money_format('%n', %s)}</td>
-				<td class="money">&nbsp;</td>
-				<td class="money">{ROW.gross_post_discount|money_format('%n', %s)}</td>
-				<td class="money">{ROW.net_post_discount|money_format('%n', %s)}</td>
-				<td class="money">{ROW.vat|money_format('%n', %s)}</td>
-			</tr>
-			<!-- END: delivery -->
-			<tr>
-				<td>Redeemed Gift Vouchers</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-				<td class="money">{FACE_VALUE_VOUCHERS|money_format('%n', %s)}</td>
-				<td>&nbsp;</td>
-				<td>&nbsp;</td>
-			</tr>
-		</tbody>
-		<tbody>
-			<!-- BEGIN: totals -->
-			<tr>
-				<th>TOTAL</th>
-				<th></th>
-				<th></th>
-				<th class="money">{TOTALS.gross_pre_discount|money_format('%n', %s)}</th>
-				<th class="money">{TOTALS.discount|money_format('%n', %s)}</th>
-				<th class="money">{TOTALS.gross_post_discount|money_format('%n', %s)}</th>
-				<th class="money">{TOTALS.net_post_discount|money_format('%n', %s)}</th>
-				<th class="money">{TOTALS.vat|money_format('%n', %s)}</th>
-			</tr>
-			<tr>
-				<th>Check</th>
-				<th></th>
-				<th></th>
-				<th colspan="2"class="money">Invoices<br/>Transactions</th>
-				<th class="money">
-					{INVOICES_TOTAL|money_format('%n', %s)}<br/>
-					{TRANSACTIONS_TOTAL|money_format('%n', %s)}
-				</th>
-				<th></th>
-				<th></th>
-			</tr>
-			<!-- END: totals -->
-		</tbody>
-		<!-- END: result -->
-		<!-- BEGIN: empty -->
-		<tbody>
-			<tr>
-				<td class="empty" colspan="8">Sorry, no data available for selected period.</td>
-			</tr>
-		</tbody>
-		<!-- END: empty -->
-	</table>
+        <!-- BEGIN: result -->
+        <tbody>
+            <!-- BEGIN: row -->
+            <tr>
+                <td>{TYPE_NAME}</td>
+                <td>{ROW.delivery}</td>
+                <td class="money">{ROW.vat_rate}%</td>
+                <td class="money">{ROW.gross_pre_discount|money_format('%n', %s)}</td>
+                <td class="money">{ROW.discount|money_format('%n', %s)}</td>
+                <td class="money">{ROW.gross_post_discount|money_format('%n', %s)}</td>
+                <td class="money">{ROW.net_post_discount|money_format('%n', %s)}</td>
+                <td class="money">{ROW.vat|money_format('%n', %s)}</td>
+            </tr>
+            <!-- END: row -->
+            <!-- BEGIN: delivery -->
+            <tr>
+                <td>{TYPE_NAME}</td>
+                <td>{ROW.delivery}</td>
+                <td class="money">{ROW.vat_rate}%</td>
+                <td class="money">{ROW.gross_pre_discount|money_format('%n', %s)}</td>
+                <td class="money">&nbsp;</td>
+                <td class="money">{ROW.gross_post_discount|money_format('%n', %s)}</td>
+                <td class="money">{ROW.net_post_discount|money_format('%n', %s)}</td>
+                <td class="money">{ROW.vat|money_format('%n', %s)}</td>
+            </tr>
+            <!-- END: delivery -->
+            <tr>
+                <td>Redeemed Gift Vouchers</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+                <td class="money">{FACE_VALUE_VOUCHERS|money_format('%n', %s)}</td>
+                <td>&nbsp;</td>
+                <td>&nbsp;</td>
+            </tr>
+        </tbody>
+        <tbody>
+            <!-- BEGIN: totals -->
+            <tr>
+                <th>TOTAL</th>
+                <th></th>
+                <th></th>
+                <th class="money">{TOTALS.gross_pre_discount|money_format('%n', %s)}</th>
+                <th class="money">{TOTALS.discount|money_format('%n', %s)}</th>
+                <th class="money">{TOTALS.gross_post_discount|money_format('%n', %s)}</th>
+                <th class="money">{TOTALS.net_post_discount|money_format('%n', %s)}</th>
+                <th class="money">{TOTALS.vat|money_format('%n', %s)}</th>
+            </tr>
+            <tr>
+                <th>Check</th>
+                <th></th>
+                <th></th>
+                <th colspan="2"class="money">Invoices<br/>Transactions</th>
+                <th class="money">
+                    {INVOICES_TOTAL|money_format('%n', %s)}<br/>
+                    {TRANSACTIONS_TOTAL|money_format('%n', %s)}
+                </th>
+                <th></th>
+                <th></th>
+            </tr>
+            <!-- END: totals -->
+        </tbody>
+        <!-- END: result -->
+        <!-- BEGIN: empty -->
+        <tbody>
+            <tr>
+                <td class="empty" colspan="8">Sorry, no data available for selected period.</td>
+            </tr>
+        </tbody>
+        <!-- END: empty -->
+    </table>
 
 </div>
 <!-- END: content -->

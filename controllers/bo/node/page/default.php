@@ -8,5 +8,5 @@
 require_once('controllers/bo/node/default.php');
 
 class Onxshop_Controller_Bo_Node_Page_Default extends Onxshop_Controller_Bo_Node_Default {
-	
+    
 }

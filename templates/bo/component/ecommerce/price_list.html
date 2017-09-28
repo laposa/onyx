@@ -2,62 +2,62 @@
 {MESSAGES}
 
 <div id="price-list-{GET.product_variety_id}">
-	<script type="text/javascript">
-	$(document).ready(function(){
-		/**
-		 * attach click event for price add
-		 */
-		 
-		$('#price-list-{GET.product_variety_id} a.button').click(function () {
-			
-			$('#price-edit-{GET.product_variety_id}').load('/request/bo/component/ecommerce/price_add~product_variety_id={GET.product_variety_id}~', '', 
-				function() {
-					/**
-					 * ajax form
-					 */
-					 
-					var options = { 
-						target: '#price-add-form-{GET.product_variety_id}',
-						success: function(responseText, statusText) {
-							$('#price-list-{GET.product_variety_id}').load('/request/bo/component/ecommerce/price_list~product_variety_id={GET.product_variety_id}~');
-						}
-					}; 
-			
-			    	$('#price-add-form-{GET.product_variety_id}').ajaxForm(options);
-			    	
-				}
-			);
-			
-			return false;
-			
-		});
-	});
-	</script>
-	
-	<table class="price">
-		<thead>
-			<tr>
-				<th>Date</th>
-				<th>Net Value</th>
-				<th>Type</th>
-				<th title="How many times added to basket">Usage</th>
-			</tr>
-		</thead>
-		<tbody>
-			<!-- BEGIN: item -->
-			<tr>
-				<td>{ITEM.date}</td>
-				<td>{ITEM.value|number_format(%s, 2)} {ITEM.currency_code}</td>
-				<td>{ITEM.type|htmlspecialchars}</td>
-				<td>{ITEM.usage}</td>
-			</tr>
-			<!-- END: item -->
-		</tbody>
-	</table>
-	
-	<p><a class="button add" href="#add_price"><span>Add a New Price...</span></a></p>
-	<div id="price-edit-{GET.product_variety_id}"></div>
+    <script type="text/javascript">
+    $(document).ready(function(){
+        /**
+         * attach click event for price add
+         */
+         
+        $('#price-list-{GET.product_variety_id} a.button').click(function () {
+            
+            $('#price-edit-{GET.product_variety_id}').load('/request/bo/component/ecommerce/price_add~product_variety_id={GET.product_variety_id}~', '', 
+                function() {
+                    /**
+                     * ajax form
+                     */
+                     
+                    var options = { 
+                        target: '#price-add-form-{GET.product_variety_id}',
+                        success: function(responseText, statusText) {
+                            $('#price-list-{GET.product_variety_id}').load('/request/bo/component/ecommerce/price_list~product_variety_id={GET.product_variety_id}~');
+                        }
+                    }; 
+            
+                    $('#price-add-form-{GET.product_variety_id}').ajaxForm(options);
+                    
+                }
+            );
+            
+            return false;
+            
+        });
+    });
+    </script>
+    
+    <table class="price">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Net Value</th>
+                <th>Type</th>
+                <th title="How many times added to basket">Usage</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- BEGIN: item -->
+            <tr>
+                <td>{ITEM.date}</td>
+                <td>{ITEM.value|number_format(%s, 2)} {ITEM.currency_code}</td>
+                <td>{ITEM.type|htmlspecialchars}</td>
+                <td>{ITEM.usage}</td>
+            </tr>
+            <!-- END: item -->
+        </tbody>
+    </table>
+    
+    <p><a class="button add" href="#add_price"><span>Add a New Price...</span></a></p>
+    <div id="price-edit-{GET.product_variety_id}"></div>
 
 </div>
-			
+            
 <!-- END: content -->

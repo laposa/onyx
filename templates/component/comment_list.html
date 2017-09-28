@@ -2,42 +2,42 @@
 <!-- BEGIN: comment_list -->
 <!-- BEGIN: item -->
 <article class="item item-id-{ITEM.id}">
-	<h4>{ITEM.title|htmlspecialchars}</h4>
-	<div class="byline">
-		<time datetime="{ITEM.created|strtotime|strftime('%Y-%m-%d', %s)}">{ITEM.created|strtotime|strftime('%A %e %B %Y', %s)}</time>
-		<address class="author">{ITEM.author_detail.name|htmlspecialchars}</address>
-	</div>
-	<p>{ITEM.content|htmlspecialchars|nl2br}</p>
-	
-	<!-- BEGIN: edit -->
-		<!-- BEGIN: reply -->
-		<p><a href="#comment-form-{GET.node_id}" onclick="$('#comment-form-{GET.node_id} input.title').attr('value', 'Re: ' + $('div.item-id-{ITEM.id} > h4.linkname').text()); $('#comment-form-{GET.node_id} input.parent').attr('value', {ITEM.id});"><span>{I18N_COMMENT_REPLY}</span></a></p>
-		<!-- END: reply -->
-		
-		<!-- BEGIN: publish_awaiting -->
-		<p><a href="/request/component/comment_approve?comment_id={ITEM.id}&publish=1">{I18N_COMMENT_APPROVE}</a> {I18N_COMMENT_OR} <a href="/request/component/comment_approve?comment_id={ITEM.id}&publish=-1">{I18N_COMMENT_REJECT}</a>.</p>
-		<!-- END: publish_awaiting -->
-		<!-- BEGIN: publish_approved -->
-		<p>{I18N_COMMENT_APPROVED} <a href="/request/component/comment_approve?comment_id={ITEM.id}&publish=-1">{I18N_COMMENT_REJECT_QUESTION}</a>.</p>
-		<!-- END: publish_approved -->
-		<!-- BEGIN: publish_rejected -->
-		<p>{I18N_COMMENT_REJECTED}. <a href="/request/component/comment_approve?comment_id={ITEM.id}&publish=1">{I18N_COMMENT_PUBLISH_QUESTION}</a>.</p>
-		<!-- END: publish_rejected -->
-		
-	<!-- END: edit -->
-	<!-- BEGIN: awaiting --><p><i>{I18N_COMMENT_AWAITING_APPROVAL}</i></p><!-- END: awaiting -->
-	<!-- BEGIN: rejected --><p><i>{I18N_COMMENT_REJECTED_BY_WEBMASTER}</i></p><!-- END: rejected -->
-			
-	<div class="reply-list">
-		{SUB_COMMENTS}
-	</div>
+    <h4>{ITEM.title|htmlspecialchars}</h4>
+    <div class="byline">
+        <time datetime="{ITEM.created|strtotime|strftime('%Y-%m-%d', %s)}">{ITEM.created|strtotime|strftime('%A %e %B %Y', %s)}</time>
+        <address class="author">{ITEM.author_detail.name|htmlspecialchars}</address>
+    </div>
+    <p>{ITEM.content|htmlspecialchars|nl2br}</p>
+    
+    <!-- BEGIN: edit -->
+        <!-- BEGIN: reply -->
+        <p><a href="#comment-form-{GET.node_id}" onclick="$('#comment-form-{GET.node_id} input.title').attr('value', 'Re: ' + $('div.item-id-{ITEM.id} > h4.linkname').text()); $('#comment-form-{GET.node_id} input.parent').attr('value', {ITEM.id});"><span>{I18N_COMMENT_REPLY}</span></a></p>
+        <!-- END: reply -->
+        
+        <!-- BEGIN: publish_awaiting -->
+        <p><a href="/request/component/comment_approve?comment_id={ITEM.id}&publish=1">{I18N_COMMENT_APPROVE}</a> {I18N_COMMENT_OR} <a href="/request/component/comment_approve?comment_id={ITEM.id}&publish=-1">{I18N_COMMENT_REJECT}</a>.</p>
+        <!-- END: publish_awaiting -->
+        <!-- BEGIN: publish_approved -->
+        <p>{I18N_COMMENT_APPROVED} <a href="/request/component/comment_approve?comment_id={ITEM.id}&publish=-1">{I18N_COMMENT_REJECT_QUESTION}</a>.</p>
+        <!-- END: publish_approved -->
+        <!-- BEGIN: publish_rejected -->
+        <p>{I18N_COMMENT_REJECTED}. <a href="/request/component/comment_approve?comment_id={ITEM.id}&publish=1">{I18N_COMMENT_PUBLISH_QUESTION}</a>.</p>
+        <!-- END: publish_rejected -->
+        
+    <!-- END: edit -->
+    <!-- BEGIN: awaiting --><p><i>{I18N_COMMENT_AWAITING_APPROVAL}</i></p><!-- END: awaiting -->
+    <!-- BEGIN: rejected --><p><i>{I18N_COMMENT_REJECTED_BY_WEBMASTER}</i></p><!-- END: rejected -->
+            
+    <div class="reply-list">
+        {SUB_COMMENTS}
+    </div>
 </article>
 <!-- END: item -->
 <!-- END: comment_list -->
 
 <!-- BEGIN: comment_list_empty -->
 <div class="empty">
-	<p>{I18N_COMMENT_EMPTY_LIST}</p>
+    <p>{I18N_COMMENT_EMPTY_LIST}</p>
 </div>
 <!-- END: comment_list_empty -->
 

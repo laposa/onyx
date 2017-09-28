@@ -1,21 +1,21 @@
 <!-- BEGIN: content -->
 <script type="text/javascript"> 
 $(function(){ 
-	var options = {
-		target: '#onxshop-backoffice-wrapper',
-		beforeSubmit: function () {$("#onxshop-backoffice-wrapper").html(onxshop_load_indicator_html_snippet);}
-	};
+    var options = {
+        target: '#onxshop-backoffice-wrapper',
+        beforeSubmit: function () {$("#onxshop-backoffice-wrapper").html(onxshop_load_indicator_html_snippet);}
+    };
     $('#system-search form').ajaxForm(options);
 });
 </script> 
 <div id="system-search" style="position: relative; top: 10px; z-index: 20; padding-right: 2em">
-	<form style="float: right; clear: none; background: transparent; margin: 0; padding: 0;" method="get" action="/request/bo/component/search">
-		<div style="float:left;">
-			<label title="search in content" style="display: none">search</label><input class="text" type="text" name="search[query]" style="width: 150px;" title="currently search in pages only" />
-		</div>
-		<!--<button type="submit" style="margin: 0.2em 0;"><span>Search</span></button>-->
-	<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+    <form style="float: right; clear: none; background: transparent; margin: 0; padding: 0;" method="get" action="/request/bo/component/search">
+        <div style="float:left;">
+            <label title="search in content" style="display: none">search</label><input class="text" type="text" name="search[query]" style="width: 150px;" title="currently search in pages only" />
+        </div>
+        <!--<button type="submit" style="margin: 0.2em 0;"><span>Search</span></button>-->
+    <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
 </div>
-		
+        
 <!-- END: content -->

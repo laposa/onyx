@@ -1,55 +1,55 @@
 <!-- BEGIN: title -->Discounts<!-- END: title -->
 <!-- BEGIN: content -->
 <div id="discounts-page" class="two-column-page page">
-		<div class="page-wrapper">
+        <div class="page-wrapper">
 
-			<div class="page-header">
-				<div class="page-header-wrapper">
-					<h1 class="page-title"><span>Discounts</span></h1>
-				</div>
-			</div>
+            <div class="page-header">
+                <div class="page-header-wrapper">
+                    <h1 class="page-title"><span>Discounts</span></h1>
+                </div>
+            </div>
 
-			<div class="page-content">
-				<div class="page-content-wrapper">
-					<div class="row-top">
-						<div class="row-wrapper">
-							<div class="column-wrapper">
+            <div class="page-content">
+                <div class="page-content-wrapper">
+                    <div class="row-top">
+                        <div class="row-wrapper">
+                            <div class="column-wrapper">
 
-								<div class="horizontal-filter">
-									{ONXSHOP_REQUEST_filter #bo/component/ecommerce/promotion_filter}
-								</div>
+                                <div class="horizontal-filter">
+                                    {ONXSHOP_REQUEST_filter #bo/component/ecommerce/promotion_filter}
+                                </div>
 
-								{ONXSHOP_REQUEST_promotion #bo/component/ecommerce/promotion_list}
+                                {ONXSHOP_REQUEST_promotion #bo/component/ecommerce/promotion_list}
 
-							</div>
-						</div>
-					</div>
-					<div class="row-middle">
-						<div class="row-wrapper">
-							<div class="column-one">
-								<div class="column-wrapper">
-								</div>
-							</div>
-							<div class="column-two">
-								<div class="column-wrapper">
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="row-bottom">
-						<div class="row-wrapper">
-							<div class="column-wrapper">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-middle">
+                        <div class="row-wrapper">
+                            <div class="column-one">
+                                <div class="column-wrapper">
+                                </div>
+                            </div>
+                            <div class="column-two">
+                                <div class="column-wrapper">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-bottom">
+                        <div class="row-wrapper">
+                            <div class="column-wrapper">
 
-								<p>
-									<a class="button add" href="#" onclick="makeAjaxRequest('#discounts-page', '/request/bo/component/ecommerce/promotion_add'); return false"><span>Add a New Coupon</span></a>
-									<a class="button export" href="/request/bo/export/csv_promotion" ><span>Export to CSV</span></a>
-								</p>
+                                <p>
+                                    <a class="button add" href="#" onclick="makeAjaxRequest('#discounts-page', '/request/bo/component/ecommerce/promotion_add'); return false"><span>Add a New Coupon</span></a>
+                                    <a class="button export" href="/request/bo/export/csv_promotion" ><span>Export to CSV</span></a>
+                                </p>
 
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 </div>
 <!-- END: content -->

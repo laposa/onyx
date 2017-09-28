@@ -7,28 +7,28 @@
 require_once('controllers/node/content/default.php');
 
 class Onxshop_Controller_Node_Content_Quote extends Onxshop_Controller_Node_Content_Default {
-	
-	/**
-	 * main action
-	 */
-	 
-	public function mainAction() {
-	
-		require_once('models/common/common_node.php');
-		
-		$Node = new common_node();
-		
-		$node_data = $Node->nodeDetail($this->GET['id']);
-		
-		$quote = $node_data['component'];
-		
-		$this->tpl->assign("QUOTE", $quote);
-		if ($quote['author'] != '') $this->tpl->parse('content.author');
-		
-		$this->tpl->assign('NODE', $node_data);
-		
-		if ($node_data['display_title'])  $this->tpl->parse('content.title');
+    
+    /**
+     * main action
+     */
+     
+    public function mainAction() {
+    
+        require_once('models/common/common_node.php');
+        
+        $Node = new common_node();
+        
+        $node_data = $Node->nodeDetail($this->GET['id']);
+        
+        $quote = $node_data['component'];
+        
+        $this->tpl->assign("QUOTE", $quote);
+        if ($quote['author'] != '') $this->tpl->parse('content.author');
+        
+        $this->tpl->assign('NODE', $node_data);
+        
+        if ($node_data['display_title'])  $this->tpl->parse('content.title');
 
-		return true;
-	}
+        return true;
+    }
 }

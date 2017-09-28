@@ -6,62 +6,62 @@
 <script type="text/javascript" src="/share/js/jquery/ui/jquery-ui.all.min.js"></script>
 <script type="text/javascript">  
 $(document).ready(function(){  
-	$("#contact-form-{GET.node_id}").validate();
-	$('#formdata-arrival-{GET.node_id},#formdata-departure-{GET.node_id}').datepicker({firstDay: 1, dateFormat: 'D dd M yy', changeMonth: true, changeYear: true, minDate: new Date()});
+    $("#contact-form-{GET.node_id}").validate();
+    $('#formdata-arrival-{GET.node_id},#formdata-departure-{GET.node_id}').datepicker({firstDay: 1, dateFormat: 'D dd M yy', changeMonth: true, changeYear: true, minDate: new Date()});
 });  
 </script>
 <div class="contact-form-boooking">
-	<form class="contact" id="contact-form-{GET.node_id}" action="{URI|htmlspecialchars}#node-id-{GET.node_id}" method="post">
-	<fieldset class="single">
-		<legend>{I18N_CONTACT_FORM}</legend>
-		
-		<div class="row name">
-			<label for="formdata-name-{GET.node_id}">Your name:</label>
-			<input type="text" class="required text" id="formdata-first-name-{GET.node_id}" name="formdata[required_name]" value="{FORMDATA.required_name|htmlspecialchars}" maxlength="45" />
-		</div>
-		
-		<div class="row country">
-			<label for="formdata-country-{GET.node_id}">{I18N_COUNTRY}:</label>
-			<input type="text" class="text" id="formdata-country-{GET.node_id}" name="formdata[country]" value="{FORMDATA.country|htmlspecialchars}" maxlength="45" />
-		</div>
-		
-		<div class="row email">
-			<label for="formdata-email-{GET.node_id}">{I18N_EMAIL}:</label>
-			<input type="email" class="required email text" id="formdata-email-{GET.node_id}" name="formdata[required_email]" value="{FORMDATA.required_email|htmlspecialchars}" maxlength="45" />
-		</div>
-		
-		<div class="row telephone">
-			<label for="formdata-telephone-{GET.node_id}">{I18N_TEL}:</label>
-			<input type="text" class="required text" id="formdata-telephone-{GET.node_id}" name="formdata[required_telephone]" value="{FORMDATA.required_telephone|htmlspecialchars}" maxlength="45" />
-		</div>
-		
-		<div class="row arrival">
-			<label for="formdata-arrival-{GET.node_id}">Arrival Date:</label>
-			<input type="text" class="required text" id="formdata-arrival-{GET.node_id}" name="formdata[arrival]" value="{FORMDATA.arrival|htmlspecialchars}" maxlength="45" />
-		</div>
-		
-		<div class="row departure">
-			<label for="formdata-departure-{GET.node_id}">Departure Date:</label>
-			<input type="text" class="required text" id="formdata-departure-{GET.node_id}" name="formdata[departure]" value="{FORMDATA.departure|htmlspecialchars}" maxlength="45" />
-		</div>
-		
-		<div class="row notes {ERROR.message}">
-			<label for="formdata-notes-{GET.node_id}">Other notes/requirements:</label>
-			<textarea id="formdata-notes-{GET.node_id}" name="formdata[notes]" class="textarea" rows="15" cols="45">{FORMDATA.notes|htmlspecialchars}</textarea>
-		</div>
+    <form class="contact" id="contact-form-{GET.node_id}" action="{URI|htmlspecialchars}#node-id-{GET.node_id}" method="post">
+    <fieldset class="single">
+        <legend>{I18N_CONTACT_FORM}</legend>
+        
+        <div class="row name">
+            <label for="formdata-name-{GET.node_id}">Your name:</label>
+            <input type="text" class="required text" id="formdata-first-name-{GET.node_id}" name="formdata[required_name]" value="{FORMDATA.required_name|htmlspecialchars}" maxlength="45" />
+        </div>
+        
+        <div class="row country">
+            <label for="formdata-country-{GET.node_id}">{I18N_COUNTRY}:</label>
+            <input type="text" class="text" id="formdata-country-{GET.node_id}" name="formdata[country]" value="{FORMDATA.country|htmlspecialchars}" maxlength="45" />
+        </div>
+        
+        <div class="row email">
+            <label for="formdata-email-{GET.node_id}">{I18N_EMAIL}:</label>
+            <input type="email" class="required email text" id="formdata-email-{GET.node_id}" name="formdata[required_email]" value="{FORMDATA.required_email|htmlspecialchars}" maxlength="45" />
+        </div>
+        
+        <div class="row telephone">
+            <label for="formdata-telephone-{GET.node_id}">{I18N_TEL}:</label>
+            <input type="text" class="required text" id="formdata-telephone-{GET.node_id}" name="formdata[required_telephone]" value="{FORMDATA.required_telephone|htmlspecialchars}" maxlength="45" />
+        </div>
+        
+        <div class="row arrival">
+            <label for="formdata-arrival-{GET.node_id}">Arrival Date:</label>
+            <input type="text" class="required text" id="formdata-arrival-{GET.node_id}" name="formdata[arrival]" value="{FORMDATA.arrival|htmlspecialchars}" maxlength="45" />
+        </div>
+        
+        <div class="row departure">
+            <label for="formdata-departure-{GET.node_id}">Departure Date:</label>
+            <input type="text" class="required text" id="formdata-departure-{GET.node_id}" name="formdata[departure]" value="{FORMDATA.departure|htmlspecialchars}" maxlength="45" />
+        </div>
+        
+        <div class="row notes {ERROR.message}">
+            <label for="formdata-notes-{GET.node_id}">Other notes/requirements:</label>
+            <textarea id="formdata-notes-{GET.node_id}" name="formdata[notes]" class="textarea" rows="15" cols="45">{FORMDATA.notes|htmlspecialchars}</textarea>
+        </div>
 
-		{FILE "component/captcha.inc.html"}
-	
-	</fieldset>
-	
-		<input type="hidden" name="node_id" value="{GET.node_id}" />
-	
-		<div class="row submit">
-			<label>&nbsp;</label>
-			<button type="submit" name="send" value="send" class="submit"><span>{I18N_SUBMIT}</span></button>
-		</div>
-	
-	<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+        {FILE "component/captcha.inc.html"}
+    
+    </fieldset>
+    
+        <input type="hidden" name="node_id" value="{GET.node_id}" />
+    
+        <div class="row submit">
+            <label>&nbsp;</label>
+            <button type="submit" name="send" value="send" class="submit"><span>{I18N_SUBMIT}</span></button>
+        </div>
+    
+    <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
 </div>
 <!-- END: content -->

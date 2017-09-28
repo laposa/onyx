@@ -8,18 +8,18 @@ require_once('controllers/component/ecommerce/recipe_review.php');
 
 class Onxshop_Controller_Component_Ecommerce_Recipe_Review_List extends Onxshop_Controller_Component_Ecommerce_Recipe_Review {
 
-	/**
-	 * custom comment action
-	 */
-	 
-	public function customCommentAction($data, $options) {
-		
-		/**
-		 * list comments
-		 */
-		
-		$this->listComments($data['node_id'], $options);
-		
-	}
-		
+    /**
+     * custom comment action
+     */
+     
+    public function customCommentAction($data, $options) {
+        
+        /**
+         * list comments
+         */
+        
+        $this->listComments($data['node_id'], $options);
+        
+    }
+        
 }

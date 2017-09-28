@@ -10,16 +10,16 @@ require_once('controllers/node/content/default.php');
 
 class Onxshop_Controller_Node_Content_Image extends Onxshop_Controller_Node_Content_Default {
 
-	/**
-	 * main action
-	 */
-	 
-	public function mainAction() {
-				
-		parent::mainAction();
+    /**
+     * main action
+     */
+     
+    public function mainAction() {
+                
+        parent::mainAction();
 
-		if ($this->node_data['component']['show_caption']) $this->tpl->parse('content.caption');
+        if ($this->node_data['component']['show_caption']) $this->tpl->parse('content.caption');
 
-		return true;
-	}
+        return true;
+    }
 }

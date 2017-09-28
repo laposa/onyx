@@ -20,74 +20,74 @@ display: none;
 <div class="invoice">
 <table border="1" cellpadding="10" cellspacing="0">
 <thead>
-	<tr>
-		<td valign="top" align="left">
-			{CONF.return_address|htmlspecialchars|nl2br}
-		</td>
-		<td valign="top" align="right">
-			<!-- BEGIN: logoimage -->
-			<img width="200" src="{CONF.company_logo}" alt="{CONF.company_name|htmlspecialchars}" />
-			<!-- END: logoimage -->
-			<!-- BEGIN: logotypo -->
-			<h1>{CONF.company_name|htmlspecialchars}</h1>
-			<!-- END: logotypo -->
-		</td>
-	</tr>
+    <tr>
+        <td valign="top" align="left">
+            {CONF.return_address|htmlspecialchars|nl2br}
+        </td>
+        <td valign="top" align="right">
+            <!-- BEGIN: logoimage -->
+            <img width="200" src="{CONF.company_logo}" alt="{CONF.company_name|htmlspecialchars}" />
+            <!-- END: logoimage -->
+            <!-- BEGIN: logotypo -->
+            <h1>{CONF.company_name|htmlspecialchars}</h1>
+            <!-- END: logotypo -->
+        </td>
+    </tr>
 </thead>
 <tfoot>
-	<tr>
-		<td align="left" colspan="2">
-		{CONF.footer|htmlspecialchars|nl2br}
-		</td>
-	</tr>
+    <tr>
+        <td align="left" colspan="2">
+        {CONF.footer|htmlspecialchars|nl2br}
+        </td>
+    </tr>
 </tfoot>
 <tbody>
-	<tr>
-		<td style="width: 50%" valign="top" align="left">
-			{INVOICE.address_delivery|ltrim|htmlspecialchars|nl2br}
-			<br />{I18N_CONTACT_TELEPHONE} {ORDER.client.customer.telephone|htmlspecialchars} 
-			<br />{ORDER.note_customer|htmlspecialchars|nl2br}
-		</td>
-		<td style="width: 50%" valign="top" align="right">
-			<!-- BEGIN: type -->
-				<!-- BEGIN: carrier_id_2 -->
-				<!-- END: carrier_id_2 -->
-				<!-- BEGIN: carrier_id_3 -->
-				<!-- END: carrier_id_3 -->
-				<!-- BEGIN: carrier_id_7 -->
-				<!-- END: carrier_id_7 -->
-			<!-- END: type -->
-		</td>
-	</tr>
-	<tr>
-		<td style="width: 50%" valign="top" align="left">
-			{INVOICE.address_invoice|ltrim|htmlspecialchars|nl2br}
-			<br />Email: {ORDER.client.customer.email|htmlspecialchars}
-		</td>
-		<td style="width: 50%" valign="top" align="right">
-			<table>
-				<caption>{CONF.company_name|htmlspecialchars}</caption>
-				<tr><td>{I18N_INVOICE_NUMBER}</td><td>{INVOICE.id}</td></tr>
-				<tr><td>{I18N_ORDER_NUMBER}</td><td>{INVOICE.order_id}</td></tr>
-				<tr><td>{I18N_BILLING_DATE}</td><td>{INVOICE.created}</td></tr>
-			</table>
-		</td>
+    <tr>
+        <td style="width: 50%" valign="top" align="left">
+            {INVOICE.address_delivery|ltrim|htmlspecialchars|nl2br}
+            <br />{I18N_CONTACT_TELEPHONE} {ORDER.client.customer.telephone|htmlspecialchars} 
+            <br />{ORDER.note_customer|htmlspecialchars|nl2br}
+        </td>
+        <td style="width: 50%" valign="top" align="right">
+            <!-- BEGIN: type -->
+                <!-- BEGIN: carrier_id_2 -->
+                <!-- END: carrier_id_2 -->
+                <!-- BEGIN: carrier_id_3 -->
+                <!-- END: carrier_id_3 -->
+                <!-- BEGIN: carrier_id_7 -->
+                <!-- END: carrier_id_7 -->
+            <!-- END: type -->
+        </td>
+    </tr>
+    <tr>
+        <td style="width: 50%" valign="top" align="left">
+            {INVOICE.address_invoice|ltrim|htmlspecialchars|nl2br}
+            <br />Email: {ORDER.client.customer.email|htmlspecialchars}
+        </td>
+        <td style="width: 50%" valign="top" align="right">
+            <table>
+                <caption>{CONF.company_name|htmlspecialchars}</caption>
+                <tr><td>{I18N_INVOICE_NUMBER}</td><td>{INVOICE.id}</td></tr>
+                <tr><td>{I18N_ORDER_NUMBER}</td><td>{INVOICE.order_id}</td></tr>
+                <tr><td>{I18N_BILLING_DATE}</td><td>{INVOICE.created}</td></tr>
+            </table>
+        </td>
 
-	</tr>
-	<tr>
-		<td class="basket" colspan="2">{INVOICE.basket_detail_enhanced}</td>
-	</tr>
+    </tr>
+    <tr>
+        <td class="basket" colspan="2">{INVOICE.basket_detail_enhanced}</td>
+    </tr>
 
-	
+    
 <!-- BEGIN: other_data -->
-	<tr>
-		<td colspan="2">
-			<h3>{I18N_OTHER}</h3>
-			<!-- BEGIN: item -->
-			<strong>{OTHER_DATA.key|htmlspecialchars}:</strong> {OTHER_DATA.value|htmlspecialchars}<br />
-			<!-- END: item -->
-		</td>
-	</tr>
+    <tr>
+        <td colspan="2">
+            <h3>{I18N_OTHER}</h3>
+            <!-- BEGIN: item -->
+            <strong>{OTHER_DATA.key|htmlspecialchars}:</strong> {OTHER_DATA.value|htmlspecialchars}<br />
+            <!-- END: item -->
+        </td>
+    </tr>
 <!-- END: other_data -->
 </tbody>
 </table>

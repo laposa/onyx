@@ -34,7 +34,7 @@ else $height = '';
 if (array_key_exists('method', $_GET) && $_GET['method']) $method = $_GET['method']; // crop, extend
 if (array_key_exists('gravity', $_GET) && $_GET['gravity']) $gravity = $_GET['gravity']; // northwest, north, northeast, west, center, east, southwest, south, southeast
 if (array_key_exists('fill', $_GET) && is_numeric($_GET['fill'])) $fill = $_GET['fill']; // 0 or 1
-		
+        
 /**
  * include configuration
  */
@@ -66,57 +66,57 @@ if (file_exists($local_configuration_overwrite_file)) include_once($local_config
  
 require_once(ONXSHOP_DIR . "models/common/common_image.php");
 $image_configuration = common_image::initConfiguration();
-	
+    
 /**
  * check requested width
  */
 
 if ($width > $image_configuration['width_max']) {
 
-	$image_file = null;
-	
+    $image_file = null;
+    
 } else {
 
-	if ($width < $image_configuration['thumbnail_width_min']) $image_file = null;
-	if ($width > $image_configuration['thumbnail_width_max']) $image_file = null;
-	if ($width%$image_configuration['thumbnail_step'] > 0) $image_file = null;
-	if (!is_readable(ONXSHOP_PROJECT_DIR . $image_file)) $image_file = null;
+    if ($width < $image_configuration['thumbnail_width_min']) $image_file = null;
+    if ($width > $image_configuration['thumbnail_width_max']) $image_file = null;
+    if ($width%$image_configuration['thumbnail_step'] > 0) $image_file = null;
+    if (!is_readable(ONXSHOP_PROJECT_DIR . $image_file)) $image_file = null;
 
-	if ($image_file) {
+    if ($image_file) {
 
-		/**
-		 * get content type
-		 */
-		
-		$mime_type = mime_content_type(ONXSHOP_PROJECT_DIR . $image_file);
-		$mime_type = trim($mime_type);
-		
-		/**
-		 * check what to display
-		 */
-		 
-		if (preg_match("/image/", $mime_type)) {
-			//if image, process it
-		} else if ($mime_type == 'application/pdf') {
-			$image_file = "public_html/share/images/mimetype/pdf.png";	
-		} else if ($mime_type == 'application/msword') {
-			$image_file = "public_html/share/images/mimetype/document.png";	
-		} else if ($mime_type == 'application/vnd.ms-excel') {
-			$image_file = "public_html/share/images/mimetype/spreadsheet.png";
-		} else {
-			$image_file = "public_html/share/images/mimetype/ascii.png";	
-		}
-		
-		/**
-		 * try
-		 */
-		
-		if ($thumbnail = common_image::resize($image_file, $width, $height, $method, $gravity, $fill)) $image_file = $thumbnail;
-		
-	} else {
+        /**
+         * get content type
+         */
+        
+        $mime_type = mime_content_type(ONXSHOP_PROJECT_DIR . $image_file);
+        $mime_type = trim($mime_type);
+        
+        /**
+         * check what to display
+         */
+         
+        if (preg_match("/image/", $mime_type)) {
+            //if image, process it
+        } else if ($mime_type == 'application/pdf') {
+            $image_file = "public_html/share/images/mimetype/pdf.png";  
+        } else if ($mime_type == 'application/msword') {
+            $image_file = "public_html/share/images/mimetype/document.png"; 
+        } else if ($mime_type == 'application/vnd.ms-excel') {
+            $image_file = "public_html/share/images/mimetype/spreadsheet.png";
+        } else {
+            $image_file = "public_html/share/images/mimetype/ascii.png";    
+        }
+        
+        /**
+         * try
+         */
+        
+        if ($thumbnail = common_image::resize($image_file, $width, $height, $method, $gravity, $fill)) $image_file = $thumbnail;
+        
+    } else {
 
-		$image_file = null;
-	}
+        $image_file = null;
+    }
 }
 
 

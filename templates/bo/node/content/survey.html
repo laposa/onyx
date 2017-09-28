@@ -1,109 +1,109 @@
 <!-- BEGIN: title -->Survey Edit<!-- END: title -->
 <!-- BEGIN: content -->
 <div class="page-header">
-	<div class="page-header-wrapper">
-		<h1 class="page-title popup"><span>Survey</span> <span class="info">ID {NODE.id}</span></h1>
-	</div>
+    <div class="page-header-wrapper">
+        <h1 class="page-title popup"><span>Survey</span> <span class="info">ID {NODE.id}</span></h1>
+    </div>
 </div>
 {FILE "bo/node/content/default_top.html"}
 
 <fieldset>
-	<div class="row">
-		<label>Survey:</label>
-		<select name="node[component][survey_id]">
-			<!-- BEGIN: survey_item -->
-			<option value="{SURVEY_ITEM.id}" {SURVEY_ITEM.selected}>{SURVEY_ITEM.title|htmlspecialchars} {NOT_PUBLISHED}</option>
-			<!-- END: survey_item -->
-		</select>
-		<a href="/backoffice/surveys" target="_blank"><span>Edit</span></a>
-	</div>
-	<div class="row">
-		<label>Template:</label>
-		<select name="node[component][template]">
-			<option value="survey" {SELECTED_template_survey}>Survey</option>
-			<option value="image_poll" {SELECTED_template_image_poll}>Image Poll</option>
-		</select>
-	</div>
-	<div class="row">
-		<label>Entry limit:</label>
-		<select id="survey_limit_select" name="node[component][limit]">
-			<option value="unlimited" {SELECTED_limit_unlimited}>unlimited</option>
-			<option value="once_per_competition" {SELECTED_limit_once_per_competition}>once per competition</option>
-			<option value="once_per_day" {SELECTED_limit_once_per_day}>once per day</option>
-			<option value="num_per_day" {SELECTED_limit_num_per_day}>specific number per day</option>
-		</select>
-	</div>
-	<div class="row num-per-day">
-		<label>Number of votes per day:</label>
-		<input type="text" class="small" name="node[component][votes_per_day]" value="{NODE.component.votes_per_day|htmlspecialchars}"/>
-	</div>
-	<div class="row restriction-type">
-		<label>Restriction type:</label>
-		<select name="node[component][restriction]">
-			<option value="none" {SELECTED_restriction_none}>none</option>
-			<option value="to_customer" disabled {SELECTED_restriction_to_customer}>to customer (require login)</option>
-			<option value="to_session" {SELECTED_restriction_to_session}>to session</option>
-			<option value="to_ip_address" {SELECTED_restriction_to_ip_address}>to IP address</option>
-		</select>
-	</div>
-	<div class="row">
-		<label for="component-captcha">Anti-spam protection (CAPTCHA):</label>
-		<select id="component-captcha" name="node[component][spam_protection]">
-			<option value="none">None</option>
-			<option value="captcha_text_js" {SPAM_PROTECTION.captcha_text_js}>Invisible field</option>
-		</select>
-	</div>
-	<div class="row checkbox">
-		<input type="checkbox" id="component-require-user-details" name="node[component][require_user_details]" {NODE.component.require_user_details} /> <label for="component-require-user-details">Require user details (or login)</label>
-	</div>
-	<div class="row checkbox">
-		<input type="checkbox" id="component-require-t-and-c" name="node[component][require_t_and_c]" {NODE.component.require_t_and_c} /> <label for="component-require-t-and-c">Require Term &amp; Conditions</label>
-	</div>
-	<div class="row checkbox">
-		<input type="checkbox" id="component-display-results" name="node[component][display_results]" {NODE.component.display_results} /> <label for="component-display-results">Display results after submission</label>
-	</div>
-	<div class="row href">
-		<label>Where do you want to redirect client after submit?:</label>
-		<input type="text" name="node[component][href]" id="component-href" value="{NODE.component.href}" /> <a class="button" href="#"><span>browse server</span></a>
-		<div id="href_select"></div>
-	</div>
-	<div class="row href">
-		<label>or instead of a redirect, you can show this simple message (HTML is not supported):</label>
-		<textarea name="node[component][message_after_submission]" id="component-message-after-submission">{NODE.component.message_after_submission|htmlspecialchars}</textarea>
-	</div>
+    <div class="row">
+        <label>Survey:</label>
+        <select name="node[component][survey_id]">
+            <!-- BEGIN: survey_item -->
+            <option value="{SURVEY_ITEM.id}" {SURVEY_ITEM.selected}>{SURVEY_ITEM.title|htmlspecialchars} {NOT_PUBLISHED}</option>
+            <!-- END: survey_item -->
+        </select>
+        <a href="/backoffice/surveys" target="_blank"><span>Edit</span></a>
+    </div>
+    <div class="row">
+        <label>Template:</label>
+        <select name="node[component][template]">
+            <option value="survey" {SELECTED_template_survey}>Survey</option>
+            <option value="image_poll" {SELECTED_template_image_poll}>Image Poll</option>
+        </select>
+    </div>
+    <div class="row">
+        <label>Entry limit:</label>
+        <select id="survey_limit_select" name="node[component][limit]">
+            <option value="unlimited" {SELECTED_limit_unlimited}>unlimited</option>
+            <option value="once_per_competition" {SELECTED_limit_once_per_competition}>once per competition</option>
+            <option value="once_per_day" {SELECTED_limit_once_per_day}>once per day</option>
+            <option value="num_per_day" {SELECTED_limit_num_per_day}>specific number per day</option>
+        </select>
+    </div>
+    <div class="row num-per-day">
+        <label>Number of votes per day:</label>
+        <input type="text" class="small" name="node[component][votes_per_day]" value="{NODE.component.votes_per_day|htmlspecialchars}"/>
+    </div>
+    <div class="row restriction-type">
+        <label>Restriction type:</label>
+        <select name="node[component][restriction]">
+            <option value="none" {SELECTED_restriction_none}>none</option>
+            <option value="to_customer" disabled {SELECTED_restriction_to_customer}>to customer (require login)</option>
+            <option value="to_session" {SELECTED_restriction_to_session}>to session</option>
+            <option value="to_ip_address" {SELECTED_restriction_to_ip_address}>to IP address</option>
+        </select>
+    </div>
+    <div class="row">
+        <label for="component-captcha">Anti-spam protection (CAPTCHA):</label>
+        <select id="component-captcha" name="node[component][spam_protection]">
+            <option value="none">None</option>
+            <option value="captcha_text_js" {SPAM_PROTECTION.captcha_text_js}>Invisible field</option>
+        </select>
+    </div>
+    <div class="row checkbox">
+        <input type="checkbox" id="component-require-user-details" name="node[component][require_user_details]" {NODE.component.require_user_details} /> <label for="component-require-user-details">Require user details (or login)</label>
+    </div>
+    <div class="row checkbox">
+        <input type="checkbox" id="component-require-t-and-c" name="node[component][require_t_and_c]" {NODE.component.require_t_and_c} /> <label for="component-require-t-and-c">Require Term &amp; Conditions</label>
+    </div>
+    <div class="row checkbox">
+        <input type="checkbox" id="component-display-results" name="node[component][display_results]" {NODE.component.display_results} /> <label for="component-display-results">Display results after submission</label>
+    </div>
+    <div class="row href">
+        <label>Where do you want to redirect client after submit?:</label>
+        <input type="text" name="node[component][href]" id="component-href" value="{NODE.component.href}" /> <a class="button" href="#"><span>browse server</span></a>
+        <div id="href_select"></div>
+    </div>
+    <div class="row href">
+        <label>or instead of a redirect, you can show this simple message (HTML is not supported):</label>
+        <textarea name="node[component][message_after_submission]" id="component-message-after-submission">{NODE.component.message_after_submission|htmlspecialchars}</textarea>
+    </div>
 </fieldset>
 
 <script type="text/javascript">
-	$(function() {
-		updateFieldVisibility();
-		$("#survey-limit-select").change(function() { updateFieldVisibility(); });
+    $(function() {
+        updateFieldVisibility();
+        $("#survey-limit-select").change(function() { updateFieldVisibility(); });
 
-		$('div.href a.button').click(function() {
-			$('#href-select').addClass('ajax-load').load('/request/component/menu_js~id=0:expand_all=1:publish=0~', function() {
-				$('#href-select').removeClass('ajax-load');
-				$('#href-select .simple-tree').simpleTree({
-					drag: false,
-					autoclose: true,
-					afterClick:function(node){
-						var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
-						$('#component-href').attr('value', '/page/' + node_id);
-					},
-					animate: true,
-					docToFolderConvert: true
-				});
-			});
-			return false;
-		});
+        $('div.href a.button').click(function() {
+            $('#href-select').addClass('ajax-load').load('/request/component/menu_js~id=0:expand_all=1:publish=0~', function() {
+                $('#href-select').removeClass('ajax-load');
+                $('#href-select .simple-tree').simpleTree({
+                    drag: false,
+                    autoclose: true,
+                    afterClick:function(node){
+                        var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
+                        $('#component-href').attr('value', '/page/' + node_id);
+                    },
+                    animate: true,
+                    docToFolderConvert: true
+                });
+            });
+            return false;
+        });
 
-	});
+    });
 
-	function updateFieldVisibility() {
-		var select = $("#survey-limit-select");
-		if (select.val() == 'unlimited') $(".restriction-type").hide();
-		else $(".restriction-type").show();
-		if (select.val() == 'num_per_day') $(".num-per-day").show();
-		else $(".num_per_day").hide();
-	}
+    function updateFieldVisibility() {
+        var select = $("#survey-limit-select");
+        if (select.val() == 'unlimited') $(".restriction-type").hide();
+        else $(".restriction-type").show();
+        if (select.val() == 'num_per_day') $(".num-per-day").show();
+        else $(".num_per_day").hide();
+    }
 </script>
 
 {FILE "bo/node/content/default_bottom.html"}

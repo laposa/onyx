@@ -3,40 +3,40 @@
 
 <div class="stock">
 
-	<table>
-		<thead>
-			<tr>
-				<th>Variety ID</th>
-				<th>Name</th>
-				<th>SKU</th>
-				<th>Stock</th>
-				<th>Weight</th>
-				<th>Price</th>
-			</tr>
-		</thead>
-	
-		<tbody>
-			<!-- BEGIN: item -->
-			<tr>
-				<td>{ITEM.variety_id}</td>
-				<td class="{ITEM.disabled}"><a href="#stock_edit" onclick="makeAjaxRequest('#sub-content', '/request/bo/component/ecommerce/stock_edit~id={ITEM.variety_id}~');"><span>{ITEM.product_name} - {ITEM.variety_name}</span></a> </td>
-				<td>{ITEM.sku}</td>
-				<td>{ITEM.stock}</td>
-				<td>{ITEM.weight_gross}</td>
-				<td>{ITEM.price|money_format('%n', %s)}</td>
+    <table>
+        <thead>
+            <tr>
+                <th>Variety ID</th>
+                <th>Name</th>
+                <th>SKU</th>
+                <th>Stock</th>
+                <th>Weight</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+    
+        <tbody>
+            <!-- BEGIN: item -->
+            <tr>
+                <td>{ITEM.variety_id}</td>
+                <td class="{ITEM.disabled}"><a href="#stock_edit" onclick="makeAjaxRequest('#sub-content', '/request/bo/component/ecommerce/stock_edit~id={ITEM.variety_id}~');"><span>{ITEM.product_name} - {ITEM.variety_name}</span></a> </td>
+                <td>{ITEM.sku}</td>
+                <td>{ITEM.stock}</td>
+                <td>{ITEM.weight_gross}</td>
+                <td>{ITEM.price|money_format('%n', %s)}</td>
 
-			</tr>
-			<!-- END: item -->
-			<!-- BEGIN: empty -->
-			<tr>
-				<td class="empty" colspan="6">There are currently no products matching given criteria.</td>
-			</tr>
-			<!-- END: item -->
-		</tbody>
-	</table>
-	<div class="onxshop-pagination">
-		{PAGINATION}
-	</div>
+            </tr>
+            <!-- END: item -->
+            <!-- BEGIN: empty -->
+            <tr>
+                <td class="empty" colspan="6">There are currently no products matching given criteria.</td>
+            </tr>
+            <!-- END: item -->
+        </tbody>
+    </table>
+    <div class="onxshop-pagination">
+        {PAGINATION}
+    </div>
 
 </div>
 

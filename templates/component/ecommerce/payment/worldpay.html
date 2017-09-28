@@ -2,22 +2,22 @@
 
 
 <form action="{PAYMENT_GATEWAY.URL}" id="worldpay-form" method="post">
-	<h2>Worldpay</h2>
-	{MESSAGES}
-	<input type=hidden name="instId" value="{PAYMENT_GATEWAY.instId}" />
-	<input type=hidden name="cartId" value="{PAYMENT_GATEWAY.cartId}" />
-	<input type=hidden name="amount" value="{PAYMENT_GATEWAY.amount}" />
-	<input type=hidden name="currency" value="{PAYMENT_GATEWAY.currency}" />
-	<input type=hidden name="desc" value="{PAYMENT_GATEWAY.desc|htmlspecialchars}" />
-	<input type=hidden name="testMode" value="{PAYMENT_GATEWAY.testMode}" />
-	<input type=hidden name="name" value="{PAYMENT_GATEWAY.name|htmlspecialchars}" />
-	<input type=hidden name="address" value="{PAYMENT_GATEWAY.address|htmlspecialchars}" />
-	<input type=hidden name="postcode" value="{PAYMENT_GATEWAY.postcode|htmlspecialchars}" />
-	<input type=hidden name="country" value="{PAYMENT_GATEWAY.country|htmlspecialchars}" />
-	<input type=hidden name="tel" value="{PAYMENT_GATEWAY.tel|htmlspecialchars}" />
-	<input type=hidden name="email" value="{PAYMENT_GATEWAY.email|htmlspecialchars}" />
-	<input type=hidden name="MC_callback" value="{PAYMENT_GATEWAY.MC_callback}" />
-	<button class="payment-worldpay" type='submit' name='worldpay'  value='worldpay'><span>{I18N_MAKE_PAYMENT_WITH_WORLDPAY}</span></button>
+    <h2>Worldpay</h2>
+    {MESSAGES}
+    <input type=hidden name="instId" value="{PAYMENT_GATEWAY.instId}" />
+    <input type=hidden name="cartId" value="{PAYMENT_GATEWAY.cartId}" />
+    <input type=hidden name="amount" value="{PAYMENT_GATEWAY.amount}" />
+    <input type=hidden name="currency" value="{PAYMENT_GATEWAY.currency}" />
+    <input type=hidden name="desc" value="{PAYMENT_GATEWAY.desc|htmlspecialchars}" />
+    <input type=hidden name="testMode" value="{PAYMENT_GATEWAY.testMode}" />
+    <input type=hidden name="name" value="{PAYMENT_GATEWAY.name|htmlspecialchars}" />
+    <input type=hidden name="address" value="{PAYMENT_GATEWAY.address|htmlspecialchars}" />
+    <input type=hidden name="postcode" value="{PAYMENT_GATEWAY.postcode|htmlspecialchars}" />
+    <input type=hidden name="country" value="{PAYMENT_GATEWAY.country|htmlspecialchars}" />
+    <input type=hidden name="tel" value="{PAYMENT_GATEWAY.tel|htmlspecialchars}" />
+    <input type=hidden name="email" value="{PAYMENT_GATEWAY.email|htmlspecialchars}" />
+    <input type=hidden name="MC_callback" value="{PAYMENT_GATEWAY.MC_callback}" />
+    <button class="payment-worldpay" type='submit' name='worldpay'  value='worldpay'><span>{I18N_MAKE_PAYMENT_WITH_WORLDPAY}</span></button>
 </form>
 
 <!-- BEGIN: autosubmit -->

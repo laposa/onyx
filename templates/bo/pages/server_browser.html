@@ -2,78 +2,78 @@
 <!-- BEGIN: content -->
 
 <script type="text/javascript">
-	$(document).ready(function(){
-		$('div.server-browser-menu .simple-tree li.open').parentsUntil("ul.simple-tree", "li").addClass("open");
-		initializeServerBrowserMenu();
-	});
+    $(document).ready(function(){
+        $('div.server-browser-menu .simple-tree li.open').parentsUntil("ul.simple-tree", "li").addClass("open");
+        initializeServerBrowserMenu();
+    });
 
-	function initializeServerBrowserMenu() {
-		$('div.server-browser-menu .simple-tree').simpleTree({
-			drag: false,
-			autoclose: true,
-			afterClick:function(node){
-				var open_dir = $('a:first', node).attr('href').replace('#', '');
-				serverBrowserOpenDir(open_dir);
-				return false;
-			},
-			afterDblClick:function(node){
-				//alert("text-"+$('span:first',node).text());
-			},
-			afterMove:function(destination, source, pos){
-				// alert("destination-"+$('span:first',destination).text()+" source-"+$('span:first',source).text()+" pos-"+pos);
-			},
-			afterAjax:function()
-			{
-				// alert('Loaded');
-			},
-			animate: true,
-			docToFolderConvert: true
-		});
-	}
+    function initializeServerBrowserMenu() {
+        $('div.server-browser-menu .simple-tree').simpleTree({
+            drag: false,
+            autoclose: true,
+            afterClick:function(node){
+                var open_dir = $('a:first', node).attr('href').replace('#', '');
+                serverBrowserOpenDir(open_dir);
+                return false;
+            },
+            afterDblClick:function(node){
+                //alert("text-"+$('span:first',node).text());
+            },
+            afterMove:function(destination, source, pos){
+                // alert("destination-"+$('span:first',destination).text()+" source-"+$('span:first',source).text()+" pos-"+pos);
+            },
+            afterAjax:function()
+            {
+                // alert('Loaded');
+            },
+            animate: true,
+            docToFolderConvert: true
+        });
+    }
 
-	function serverBrowserOpenDir(open_dir) {
-		//replace white space with +
-		open_dir = open_dir.replace(/ /g, '+');
-		var url = "/request/bo/component/server_browser_file_list~open=" + open_dir + ":type={GET.type}:relation={GET.relation}:node_id={GET.node_id}~";
-		makeAjaxRequest('#server-browser-file-list', url);
-		$("#add-new-file").attr('action', '{_SERVER.REDIRECT_URL}?open='+open_dir);
-	}
+    function serverBrowserOpenDir(open_dir) {
+        //replace white space with +
+        open_dir = open_dir.replace(/ /g, '+');
+        var url = "/request/bo/component/server_browser_file_list~open=" + open_dir + ":type={GET.type}:relation={GET.relation}:node_id={GET.node_id}~";
+        makeAjaxRequest('#server-browser-file-list', url);
+        $("#add-new-file").attr('action', '{_SERVER.REDIRECT_URL}?open='+open_dir);
+    }
 </script>
 
 <div id="server-browser" class="two-column-page page fibonacci-2-5 server-browser">
-	<div class="page">
-		<div class="content-wrappper page">
+    <div class="page">
+        <div class="content-wrappper page">
 
-			<div class="page-header">
-				<div class="page-header-wrapper">
-					<h1 class="page-title"><span>Media Library</span></h1>
-				</div>
-			</div>
+            <div class="page-header">
+                <div class="page-header-wrapper">
+                    <h1 class="page-title"><span>Media Library</span></h1>
+                </div>
+            </div>
 
-			<div class="columnTop page">
-				<div class="column-wrapper page">
-				
-				</div>
-			</div>
+            <div class="columnTop page">
+                <div class="column-wrapper page">
+                
+                </div>
+            </div>
 
-			<div class="column-one page">
-				<div class="column-wrapper page">
-					<div id="browser-tree">
-						{SERVER_BROWSER_TREE}
-					</div>
-					<br style="clear: both" />
-					{OPENCLIPART_TREE}
-				</div>
-			</div>
-			<div class="column-two page">
-				<div class="column-wrapper page">
-					<div id="server-browser-file-list">
-						{SERVER_BROWSER_FILE_LIST}
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
+            <div class="column-one page">
+                <div class="column-wrapper page">
+                    <div id="browser-tree">
+                        {SERVER_BROWSER_TREE}
+                    </div>
+                    <br style="clear: both" />
+                    {OPENCLIPART_TREE}
+                </div>
+            </div>
+            <div class="column-two page">
+                <div class="column-wrapper page">
+                    <div id="server-browser-file-list">
+                        {SERVER_BROWSER_FILE_LIST}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- END: content -->

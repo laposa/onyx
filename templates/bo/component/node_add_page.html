@@ -8,42 +8,42 @@
 <!-- BEGIN: form -->
 <script type="text/javascript">
 $(function() {
-	var options = { 
-		target: '#node-add-form-{GET.parent}-{GET.container}-wrapper',
-		success: function(responseText, statusText) {
-			popupMessage("#node-add-form-{GET.parent}-{GET.container}-wrapper div.onxshop-messages");
-			var refresh_url = '/request/component/menu~id={GET.parent}~';
-			$('#menu-parent-id-{GET.parent}').load(refresh_url, '', function () {
-			} );	
-		}
-	}; 
+    var options = { 
+        target: '#node-add-form-{GET.parent}-{GET.container}-wrapper',
+        success: function(responseText, statusText) {
+            popupMessage("#node-add-form-{GET.parent}-{GET.container}-wrapper div.onxshop-messages");
+            var refresh_url = '/request/component/menu~id={GET.parent}~';
+            $('#menu-parent-id-{GET.parent}').load(refresh_url, '', function () {
+            } );    
+        }
+    }; 
 
     $('#node-add-form-{GET.parent}-{GET.container}-wrapper form').ajaxForm(options);
 });
 </script>
 
 <div id="node-add-form-{GET.parent}-{GET.container}-wrapper">
-	<div class="node-add">
-		<form method="post" action="{URI|htmlspecialchars}">
-		
-			<fieldset class="single">
-				<legend>Add a new {GET.node_group}</legend>
-				<div class="row">
-					<span class="label"><label for="node-title" title="Navigation Title">Title:</label></span>
-					<span class="field"><input class="text title" type="text" name="node[title]" id="node-title" title="Navigation Title" value="{NODE.title|htmlspecialchars}" /></span>
-				</div>
-				{NODE_TYPE}
-				<div class="row submit">
-					<span class="label"><label id="layout_icon" class="onxshop_edit_{ACTIVE}">&nbsp;</label></span>
-					<span class="field"><button type="submit" name="save" value="save"><span>Submit</span></button></span>
-				</div>
-			</fieldset>
+    <div class="node-add">
+        <form method="post" action="{URI|htmlspecialchars}">
+        
+            <fieldset class="single">
+                <legend>Add a new {GET.node_group}</legend>
+                <div class="row">
+                    <span class="label"><label for="node-title" title="Navigation Title">Title:</label></span>
+                    <span class="field"><input class="text title" type="text" name="node[title]" id="node-title" title="Navigation Title" value="{NODE.title|htmlspecialchars}" /></span>
+                </div>
+                {NODE_TYPE}
+                <div class="row submit">
+                    <span class="label"><label id="layout_icon" class="onxshop_edit_{ACTIVE}">&nbsp;</label></span>
+                    <span class="field"><button type="submit" name="save" value="save"><span>Submit</span></button></span>
+                </div>
+            </fieldset>
 
-			<input type="hidden" name="node[parent]" value="{GET.parent}" />
-			<input type="hidden" name="node[parent_container]" value="{GET.container}" />
-		<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+            <input type="hidden" name="node[parent]" value="{GET.parent}" />
+            <input type="hidden" name="node[parent_container]" value="{GET.container}" />
+        <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
-	</div>
+    </div>
 </div>
 <!-- END: form -->
 <!-- END: content -->
