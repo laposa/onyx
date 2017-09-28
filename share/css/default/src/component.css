@@ -153,3 +153,14 @@ div.social_network_share li.mailto a:before {content: '\f199';}
 div.stack_list {text-align: center;}
 div.stack_list div.item { display: inline-block; vertical-align: top; width: 300px; margin: 10px;}
 div.stack_list div.item a {text-decoration: none; display: block;}
+
+/**
+ * component/age_gate.html
+ */
+
+#ageGate {text-align: center;}
+#ageGate input {display: none;}
+@media all and (max-width: 480px) {
+	#ageGate select {display: none;}
+	#ageGate input {display: block; margin: 0 auto;}
+}
