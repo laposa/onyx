@@ -2,4 +2,4 @@
 
 #cutting of first line is causing problem, when -type f
 #find $1 $2 -printf "%h/%f;%h;%f\n" | sed -e '1d'| sort
-find "$1" $2 -printf "%h/%f;%h;%f;%s;%c\n" | sort
+/usr/bin/find "$1" $2 -printf "%h/%f;%h;%f;%s;%c\n" | sort

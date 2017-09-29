@@ -1,2 +1,2 @@
 #!/bin/sh
-file $1 "$2"
+/usr/bin/file $1 "$2"
