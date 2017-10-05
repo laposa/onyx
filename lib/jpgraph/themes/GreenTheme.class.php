@@ -102,7 +102,7 @@ class GreenTheme extends Theme
         $graph->subtitle->SetColor($this->font_color);
         $graph->subsubtitle->SetColor($this->font_color);
 
-        //$graph->SetAntiAliasing();
+        $graph->SetAntiAliasing();
     }
 
 
