@@ -1,0 +1,33 @@
+#!/bin/bash
+# Norbert @ Laposa Ltd, 2017/10/11
+
+# settting for boths
+WEB_DIR="/srv/example.com/";
+DB_NAME="example-1_8";
+DB_FILENAME="${DB_NAME}.pg_dump";
+
+# setting standby server environment
+STANDBY_BACKUP_FOLDER="/mnt/backup/example/";
+
+# live server environment
+LIVE_USERNAME="root";
+LIVE_HOSTNAME="example.com";
+
+# copy database
+cd ${STANDBY_BACKUP_FOLDER}
+mv ${DB_FILENAME} ${DB_FILENAME}.previous
+ssh ${LIVE_USERNAME}@${LIVE_HOSTNAME} sudo -u postgres pg_dump --format c ${DB_NAME} > ${STANDBY_BACKUP_FOLDER}${DB_FILENAME}
+
+# restore database
+sudo -u postgres pg_restore -c -d ${DB_NAME} ${STANDBY_BACKUP_FOLDER}${DB_FILENAME}
+
+# copy files
+rsync -avz ${LIVE_USERNAME}@${LIVE_HOSTNAME}:${WEB_DIR} $WEB_DIR
+
+# fix persimission
+#echo "fixing persmissions";
+#sudo chmod a+r -R ${WEB_DIR};
+#sudo chown :www-data -R ${WEB_DIR}var/
+#find ${WEB_DIR}var/files -type f -exec sudo chmod 0664 {} \;
+#find ${WEB_DIR}var/files -type d -exec sudo chmod 2775 {} \;
+
