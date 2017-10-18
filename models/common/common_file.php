@@ -2,7 +2,7 @@
 /**
  * class common_file
  *
- * Copyright (c) 2009-2016 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -389,7 +389,6 @@ CREATE TABLE common_file (
 	}
 
 	/**
-	 * duplicated function from common_uri_mapping
 	 * 
 	 * @param string $string
 	 * text in UTF8 encoding
@@ -399,24 +398,7 @@ CREATE TABLE common_file (
 	 */
 	 
 	static function recodeUTF8ToAscii($string) {
-	
-	    //recode to ASCII
-	    if (function_exists("recode_string")) {
-	        $string = recode_string("utf-8..flat", trim($string));
-	    } else {
-	        //msg($fullpath, 'ok', 2);
-	
-	        //$fullpath = iconv("UTF-8", "ASCII//TRANSLIT", trim($fullpath));
-	
-	        //$fullpath = utf2ascii(trim($fullpath));
-	        $string = mb_convert_encoding($string,"HTML-ENTITIES","UTF-8");
-	
-	        $string = preg_replace('/\&(.)[^;]*;/', "\\1", $string);
-	
-	        //msg($fullpath, 'ok', 2);
-	    }
-	
-	    return $string;
+        return recodeUTF8ToAscii($string);
 	}
 	
 	
