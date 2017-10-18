@@ -3,7 +3,7 @@
  * Onxshop global functions
  * KEEP IT SMALL
  *
- * Copyright (c) 2005-2016 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2005-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -354,6 +354,37 @@ function utf8_for_xml($string) {
     
     return preg_replace('/[^\x{0009}\x{000a}\x{000d}\x{0020}-\x{D7FF}\x{E000}-\x{FFFD}]+/u', ' ', $string);
 
+}
+
+/**
+ * 
+ * @param string $string
+ * text in UTF8 encoding
+ * 
+ * @return string
+ * text recoded into ASCII
+ */
+ 
+function recodeUTF8ToAscii($string) {
+
+    $string = trim($string);
+    
+    if (function_exists("recode_string")) {
+        
+        $string = recode_string("utf-8..flat", $string);
+    
+    } else if (function_exists("iconv")) {
+        
+        $string = iconv("UTF-8", "ASCII//TRANSLIT", $string);
+    
+    } else if (function_exists("mb_convert_encoding")) {
+        
+        $string = mb_convert_encoding($string, "HTML-ENTITIES", "UTF-8");
+        $string = preg_replace('/\&(.)[^;]*;/', "\\1", $string);
+        
+    }
+
+    return $string;
 }
 
 /**

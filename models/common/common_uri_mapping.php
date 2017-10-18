@@ -2,7 +2,7 @@
 /**
  * class common_uri_mapping
  *
- * Copyright (c) 2009-2016 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -537,23 +537,11 @@ ALTER TABLE common_uri_mapping ADD UNIQUE (public_uri);
     }
 
     /**
-     * duplicated function from common_file
+     * recodeUTF8ToAscii
      */
     
     function recodeUTF8ToAscii($string) {
-    
-        $string = trim($string);
-
-        //recode to ASCII
-        if (function_exists("recode_string")) {
-            $string = recode_string("utf-8..flat", $string);
-        } else {
-            //$string = iconv("UTF-8", "ASCII//TRANSLIT", $string);
-            $string = mb_convert_encoding($string, "HTML-ENTITIES", "UTF-8");
-            $string = preg_replace('/\&(.)[^;]*;/', "\\1", $string);
-        }
-    
-        return $string;
+        return recodeUTF8ToAscii($string);
     }
     
     /**
