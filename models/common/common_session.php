@@ -346,4 +346,20 @@ CREATE TABLE common_session (
             
         */
     }
+    
+    /**
+     * findLargeSessions
+     */
+     
+    public function findLargeSessions($limit = 5) {
+        
+        if (!is_numeric($limit)) return false;
+        
+        $class_name = get_class($this);
+        
+        $sql = "SELECT *, max(octet_length(session_data)) AS data_size_in_bytes FROM $class_name GROUP BY id ORDER BY data_size_in_bytes DESC LIMIT $limit";
+        
+        return $this->executeSql($sql);
+        
+    }
 }

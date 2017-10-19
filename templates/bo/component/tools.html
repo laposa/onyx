@@ -15,6 +15,7 @@
         Will delete baskets created by anonymous user, older than 2 weeks and not converted to an order.</li>
     <li>Backup: <a class="button small" href="/backoffice/advanced/tools?tool=backup&scope=database"><span>database</span></a> or <a class="button small" href="/backoffice/advanced/tools?tool=backup&scope=project"><span>project</span></a> or <a class="button small" href="/backoffice/advanced/tools?tool=backup&scope=both"><span>both</span></a> (click and wait, it takes some time to process)<br />
         Creates up-to-date backup and triggers download</li>
+    <li><a class="button small" href="/backoffice/advanced/tools?tool=find_large_sessions"><span>Find Large Sessions</span></a></li>
 </ul>
 <!-- END: menu -->
 
@@ -32,7 +33,60 @@
             </tr>
             <!-- END: item -->
         </tbody>
-    </table>    
+    </table>
 <!-- END: hard_links -->
+
+<!-- BEGIN: large_sessions -->
+    <!-- BEGIN: active -->
+    <h2>Active Sessions</h2>
+    <table>
+        <thead>
+            <tr><th>ID</th><th>Size in kB</th><th>session id</th><th>customer id</th><th>created</th><th>modified</th><th>ip address</th><th>php auth user</th><th>http referer</th><th>http user agent</th></tr>
+        </thead>
+        <tbody>
+            <!-- BEGIN: item -->
+            <tr>
+                <td>{ITEM.id}</td>
+                <td>{ITEM.data_size_in_kb}</td>
+                <td>{ITEM.session_id}</td>
+                <td>{ITEM.customer_id}</td>
+                <td>{ITEM.created}</td>
+                <td>{ITEM.modified}</td>
+                <td>{ITEM.ip_address}</td>
+                <td>{ITEM.php_auth_user|htmlspecialchars}</td>
+                <td>{ITEM.http_referer|htmlspecialchars}</td>
+                <td>{ITEM.http_user_agent|htmlspecialchars}</td>
+            </tr>
+            <!-- END: item -->
+        </tbody>
+    </table>
+    <!-- END: active -->
+    
+    <!-- BEGIN: archive -->
+    <h2>Archived Sessions</h2>
+    <table>
+        <thead>
+            <tr><th>ID</th><th>Size in kB</th><th>session id</th><th>customer id</th><th>created</th><th>modified</th><th>ip address</th><th>php auth user</th><th>http referer</th><th>http user agent</th></tr>
+        </thead>
+        <tbody>
+            <!-- BEGIN: item -->
+            <tr>
+                <td>{ITEM.id}</td>
+                <td>{ITEM.data_size_in_kb}</td>
+                <td>{ITEM.session_id}</td>
+                <td>{ITEM.customer_id}</td>
+                <td>{ITEM.created}</td>
+                <td>{ITEM.modified}</td>
+                <td>{ITEM.ip_address}</td>
+                <td>{ITEM.php_auth_user|htmlspecialchars}</td>
+                <td>{ITEM.http_referer|htmlspecialchars}</td>
+                <td>{ITEM.http_user_agent|htmlspecialchars}</td>
+            </tr>
+            <!-- END: item -->
+        </tbody>
+    </table>
+    <!-- END: archive -->
+<!-- END: large_sessions -->
+
 {SUB_CONTENT}
 <!-- END: content -->

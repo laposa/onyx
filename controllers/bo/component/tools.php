@@ -85,6 +85,37 @@ class Onxshop_Controller_Bo_Component_Tools extends Onxshop_Controller {
                 
             break;
 
+            
+            
+            case 'find_large_sessions':
+            
+                require_once('models/common/common_session.php');
+                require_once('models/common/common_session_archive.php');
+                $Session = new common_session();
+                $SessionArchive = new common_session_archive();
+                
+                $list_active = $Session->findLargeSessions();
+                $list_archive = $SessionArchive->findLargeSessions();
+                
+                foreach ($list_active as $item) {
+                    $item['data_size_in_kb'] = round($item['data_size_in_bytes'] / 1000, 1);
+                    $this->tpl->assign('ITEM', $item);
+                    $this->tpl->parse('content.large_sessions.active.item');
+                }
+                
+                $this->tpl->parse('content.large_sessions.active');
+                
+                foreach ($list_archive as $item) {
+                    $item['data_size_in_kb'] = round($item['data_size_in_bytes'] / 1000, 1);
+                    $this->tpl->assign('ITEM', $item);
+                    $this->tpl->parse('content.large_sessions.archive.item');
+                }
+                
+                $this->tpl->parse('content.large_sessions.archive');
+                
+                $this->tpl->parse('content.large_sessions');
+            break;
+
             case 'delete_orphaned_baskets':
             
                 require_once('models/ecommerce/ecommerce_basket.php');
