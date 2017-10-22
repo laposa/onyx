@@ -1,7 +1,7 @@
 #!/bin/bash
 # Norbert @ Laposa Ltd, 2017/10/11
 
-# setttings for both environments (live and standby)
+# settings for both environments (live and standby)
 WEB_DIR="/srv/example.com/";
 DB_NAME="example-1_8";
 DB_FILENAME="${DB_NAME}.pg_dump";
