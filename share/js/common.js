@@ -69,20 +69,40 @@ function initComponentAjaxForm(component_selector) {
     $(component_selector + ' form').ajaxForm(options);
 }
 
+activeOverlay = null;
+overlayRemovingInProgress = false;
 function showModalOverlay() {
-	var html = '<div id="modal_overlay" class="off">' +
-		'<div id="model_click_zone" onclick="hideModalOverlay()"></div>' +
-		'<div id="modal_overlay_window"></div></div>';
+	var c = "";
+	if (activeOverlay && activeOverlay.length) {
+		c = "secondary";
+		activeOverlay.find(".onxshop-modal-overlay-window").attr("id", "modal_overlay_window_saved");
+	}
+	activeOverlay = $('<div class="onxshop-modal-overlay off ' + c + '">' +
+		'<div class="onxshop-modal-click-zone" onclick="hideModalOverlay()"></div>' +
+		'<div class="onxshop-modal-overlay-window"></div></div>');
 	$('html,body').addClass('noscroll');
-	$('#backoffice').append(html);
-	setTimeout(function() { $('#modal_overlay').removeClass('off'); }, 100);
+	$('#backoffice').append(activeOverlay);
+	activeOverlay.find(".onxshop-modal-overlay-window").attr("id", "modal_overlay_window");
+	setTimeout(function() { activeOverlay.removeClass('off'); }, 100);
 }
 
 function hideModalOverlay() {
-	$('#modal_overlay').addClass('off');
-	setTimeout(function() { 
-		$('#modal_overlay').remove(); $('html,body').removeClass('noscroll');
-	}, 150);
+	if (activeOverlay && !overlayRemovingInProgress) {
+		activeOverlay.addClass('off');
+		overlayRemovingInProgress = true;
+		setTimeout(function() { 
+			activeOverlay.remove();
+			$('html,body').removeClass('noscroll');
+			var saved = $('#modal_overlay_window_saved');
+			if (saved.length) {
+				saved.attr("id", "modal_overlay_window");
+				activeOverlay = saved;
+			} else {
+				activeOverlay = null;
+			}
+			overlayRemovingInProgress = false;
+		}, 150);
+	}
 }
 
 /*
