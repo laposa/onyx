@@ -174,6 +174,14 @@ class Onxshop_Bootstrap {
     function initCache() {
         
         /**
+         * check directory exists
+         */
+        
+		if (!is_dir(ONXSHOP_PAGE_CACHE_DIRECTORY) || !is_writeable(ONXSHOP_PAGE_CACHE_DIRECTORY)) {
+    		if (!mkdir(ONXSHOP_PAGE_CACHE_DIRECTORY)) die(ONXSHOP_PAGE_CACHE_DIRECTORY . ' directory is not writeable');
+		}
+		
+        /**
          * database cache
          */
          
@@ -200,7 +208,7 @@ class Onxshop_Bootstrap {
         'automatic_serialization' => true
         );
         
-        $backendOptions = array('cache_dir' => ONXSHOP_PROJECT_DIR . 'var/cache/');
+        $backendOptions = array('cache_dir' => ONXSHOP_PAGE_CACHE_DIRECTORY);
         
         $this->cache = Zend_Cache::factory('Output', ONXSHOP_PAGE_CACHE_BACKEND, $frontendOptions, $backendOptions);
         
@@ -233,9 +241,17 @@ class Onxshop_Bootstrap {
      
     function initSession() {
     
+        /**
+         * check directory exists
+         */
+         
+	    if (!is_dir(ONXSHOP_SESSION_DIRECTORY) || !is_writeable(ONXSHOP_SESSION_DIRECTORY)) {
+    	    if (!mkdir(ONXSHOP_SESSION_DIRECTORY)) die(ONXSHOP_SESSION_DIRECTORY . ' directory is not writeable');
+	    }
+	    
         switch (ONXSHOP_SESSION_TYPE) {
             case 'file':
-                ini_set('session.save_path', ONXSHOP_PROJECT_DIR . 'var/sessions');
+                ini_set('session.save_path', ONXSHOP_SESSION_DIRECTORY);
             break;
     
             case 'database':
