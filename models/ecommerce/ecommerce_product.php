@@ -412,11 +412,12 @@ CREATE TABLE ecommerce_product (
 	 * search for auto complete
 	 */
 	 
-    function searchForAutocomplete($query) {
+    function searchForAutocomplete($query, $limit = 5) {
 
     	$query = strtolower($query);
     	$query = preg_replace('/[^a-z1-9\-]/', ',', $query);
     	$parts = explode(",", $query);
+    	$limit = (int) $limit;
     	$where = '';
     	foreach ($parts as $part) {
     		$part = pg_escape_string(trim($part));
@@ -434,7 +435,7 @@ CREATE TABLE ecommerce_product (
 			INNER JOIN common_node AS n ON n.content = p.id::text AND n.node_group = 'page' AND n.node_controller LIKE 'product%' AND n.publish = 1
 			WHERE p.publish = 1 $where
 			ORDER BY p.priority DESC
-			LIMIT 5
+			LIMIT $limit
 		) AS r";
 
     	return $this->executeSql($sql);
