@@ -5,7 +5,7 @@
  * inspired by article By Tony Marston
  * http://www.developertutorials.com/tutorials/php/saving-php-session-data-database-050711/page2.html
  *
- * Copyright (c) 2009-2016 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -156,7 +156,7 @@ CREATE TABLE common_session (
 	function read( $session_id ) {
 
 		$session_id = strtr($session_id, "./", "--");  // security measure
-		$this->lock = fopen(ONXSHOP_PROJECT_DIR . "/var/sessions/$session_id.lock", 'w');
+		$this->lock = fopen(ONXSHOP_SESSION_DIRECTORY . "$session_id.lock", 'w');
 		flock($this->lock, LOCK_EX);
 
 		$this->setCacheable(false);

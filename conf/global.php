@@ -2,7 +2,7 @@
 /**
  * Default Global Onxshop configuration
  *
- * Copyright (c) 2005-2016 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2005-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  * The constants defined here can be "overwritten" in project_dir/conf/global.php
@@ -117,7 +117,7 @@ if (!defined('ONXSHOP_COMPRESS_OUTPUT')) define('ONXSHOP_COMPRESS_OUTPUT', 0);
  */
 
 if (!defined('ONXSHOP_SESSION_TYPE')) define('ONXSHOP_SESSION_TYPE', 'database');
-
+if (!defined('ONXSHOP_SESSION_DIRECTORY')) define('ONXSHOP_SESSION_DIRECTORY', ONXSHOP_PROJECT_DIR . 'var/sessions/'); // also used for .lock files
 
 /**
  * Layout settings
@@ -157,9 +157,9 @@ if (!defined('ONXSHOP_DB_QUERY_CACHE_DIRECTORY')) define('ONXSHOP_DB_QUERY_CACHE
  * set 0 to disable
  */
  
+if (!defined('ONXSHOP_PAGE_CACHE_DIRECTORY')) define('ONXSHOP_PAGE_CACHE_DIRECTORY', ONXSHOP_DB_QUERY_CACHE_DIRECTORY); // Same as DB cache
 if (!defined('ONXSHOP_PAGE_CACHE_BACKEND')) define('ONXSHOP_PAGE_CACHE_BACKEND', ONXSHOP_DB_QUERY_CACHE_BACKEND); // Same as DB cache
 if (!defined('ONXSHOP_PAGE_CACHE_TTL')) define('ONXSHOP_PAGE_CACHE_TTL', 86400);
-
 
 /**
  * Onxshop package name
