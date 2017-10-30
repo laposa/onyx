@@ -86,11 +86,19 @@ function showModalOverlay() {
 	setTimeout(function() { activeOverlay.removeClass('off'); }, 100);
 }
 
+function removeTinyMCEEditors(container) {
+	for (var i = 0; i < tinyMCE.editors.length; i++) {
+		var id = tinyMCE.editors[i].id;
+		if (container.find("textarea#" + id).length) tinyMCE.editors[i].remove();
+	}
+}
+
 function hideModalOverlay() {
 	if (activeOverlay && !overlayRemovingInProgress) {
 		activeOverlay.addClass('off');
 		overlayRemovingInProgress = true;
 		setTimeout(function() { 
+			removeTinyMCEEditors(activeOverlay);
 			activeOverlay.remove();
 			$('html,body').removeClass('noscroll');
 			var saved = $('#modal_overlay_window_saved');
