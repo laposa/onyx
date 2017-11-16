@@ -76,7 +76,7 @@ class Onxshop_Controller_Component_Client_Password_Reset extends Onxshop_Control
                 //is passed as DATA to template in common_email->_format
                 $GLOBALS['common_email']['customer'] = $customer_data;
 
-                if (!$EmailForm->sendEmail('request_password_change', 'n/a', $customer_data['email'], $customer_data['first_name'] . " " . $customer_data['last_name'])) {
+                if (!$EmailForm->sendEmail('password_change_request', 'n/a', $customer_data['email'], $customer_data['first_name'] . " " . $customer_data['last_name'])) {
                     msg("Can't send email with request for password reset", 'error');
                 }
                 
@@ -110,7 +110,14 @@ class Onxshop_Controller_Component_Client_Password_Reset extends Onxshop_Control
                                 
                                 $this->tpl->parse('content.new_password_set');
                                 $hide_form = 1;
-
+                                
+                                /**
+                                 * use different login path when password reset was requested from backoffice
+                                 */
+                                 
+                                if ($this->GET['backoffice'] == 1) $login_path = '/edit';
+                                else $login_path = '/page/' . $node_conf['id_map-login'];
+                                
                                 /**
                                  * send email
                                  */
@@ -121,6 +128,7 @@ class Onxshop_Controller_Component_Client_Password_Reset extends Onxshop_Control
                                 //this allows use customer data and company data in the mail template
                                 //is passed as DATA to template in common_email->_format
                                 $GLOBALS['common_email']['customer'] = $client_current_data;
+                                $GLOBALS['common_email']['login_path'] = $login_path;
                                 
                                 if (!$EmailForm->sendEmail('password_changed', 'n/a', $client_current_data['email'], $client_current_data['first_name'] . " " . $client_current_data['last_name'])) {
                                     msg('Password reset email sending failed.', 'error');
