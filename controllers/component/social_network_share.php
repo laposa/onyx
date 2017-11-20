@@ -1,14 +1,17 @@
 <?php
 /** 
- * Copyright (c) 2012-2016 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2012-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
 
 require_once('models/common/common_node.php');
 require_once('models/common/common_image.php');
-require_once('models/ecommerce/ecommerce_recipe_image.php');
-require_once('models/ecommerce/ecommerce_product_image.php');
+
+if (ONXSHOP_ECOMMERCE) {
+    require_once('models/ecommerce/ecommerce_recipe_image.php');
+    require_once('models/ecommerce/ecommerce_product_image.php');
+}
 
 class Onxshop_Controller_Component_Social_Network_Share extends Onxshop_Controller {
 
@@ -33,10 +36,10 @@ class Onxshop_Controller_Component_Social_Network_Share extends Onxshop_Controll
         $this->node_id = $this->getNodeId();
         $this->node_data = $this->getNode($this->node_id);
         
-        if ($this->node_data['node_controller'] == 'recipe') {
+        if (ONXSHOP_ECOMMERCE && ($this->node_data['node_controller'] == 'recipe')) {
             $this->Image = new ecommerce_recipe_image();
             $this->image = $this->getImage($this->node_data['content']);
-        } else if ($this->node_data['node_controller'] == 'product') {
+        } else if (ONXSHOP_ECOMMERCE && ($this->node_data['node_controller'] == 'product')) {
             $this->Image = new ecommerce_product_image();
             $this->image = $this->getImage($this->node_data['content']);
         } else {
