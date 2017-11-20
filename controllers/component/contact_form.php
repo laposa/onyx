@@ -57,7 +57,7 @@ class Onxshop_Controller_Component_Contact_Form extends Onxshop_Controller {
         
         $this->tpl->assign('MAX_FILE_SIZE', ini_get('upload_max_filesize'));
     
-        $this->parseStoreSelect($formdata['form']['store_id'], 'content');
+        if (ONXSHOP_ECOMMERCE) $this->parseStoreSelect($formdata['form']['store_id'], 'content');
     
         /**
          * pre-populate with customer data if available
