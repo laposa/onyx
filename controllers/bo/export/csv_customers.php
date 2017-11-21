@@ -32,7 +32,7 @@ class Onxshop_Controller_Bo_Export_CSV_Customers extends Onxshop_Controller_Bo_E
          */
         
         $records = $this->Customer->getClientList($customer_filter);
-        $stores = $this->getStores();
+        if (ONXSHOP_ECOMMERCE) $stores = $this->getStores();
         $categories = $this->getCategories();
 
         if (is_array($records)) {
@@ -44,8 +44,8 @@ class Onxshop_Controller_Bo_Export_CSV_Customers extends Onxshop_Controller_Bo_E
 
                     $records[$i]['status'] = $this->getStatusName($record['status']);
                     $records[$i]['newsletter'] = $record['newsletter'] == 1 ? 'yes' : 'no';
-                    $records[$i]['store_title'] = $stores[$record['store_id']]['title'];
-                    $records[$i]['store_code'] = $stores[$record['store_id']]['code'];
+                    if (ONXSHOP_ECOMMERCE) $records[$i]['store_title'] = $stores[$record['store_id']]['title'];
+                    if (ONXSHOP_ECOMMERCE) $records[$i]['store_code'] = $stores[$record['store_id']]['code'];
                     if (is_array($categories[$record['customer_id']]))
                         $records[$i]['categories'] = implode(", ", $categories[$record['customer_id']]);
                     else 

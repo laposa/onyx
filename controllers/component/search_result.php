@@ -143,9 +143,9 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
     {
         $page['type_priority'] = 0;
 
-        if (substr($page['node_controller'], 0, 6) == 'recipe') $this->getRecipeDetails($page);
-        if (substr($page['node_controller'], 0, 7) == 'product') $this->getProductDetails($page);
-        if (substr($page['node_controller'], 0, 5) == 'store') $this->getStoreDetails($page);
+        if (ONXSHOP_ECOMMERCE && (substr($page['node_controller'], 0, 6) == 'recipe')) $this->getRecipeDetails($page);
+        if (ONXSHOP_ECOMMERCE && (substr($page['node_controller'], 0, 7) == 'product')) $this->getProductDetails($page);
+        if (ONXSHOP_ECOMMERCE && (substr($page['node_controller'], 0, 5) == 'store')) $this->getStoreDetails($page);
         
         $page['image'] = $this->Node->getTeaserImageForNodeId($page['id']);
         

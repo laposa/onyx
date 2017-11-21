@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2011-2016 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2011-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -300,7 +300,7 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
              * TODO: allow to configure or use automatic selection based on data in ecommerce_store
              */
              
-            if (1 == 1) $this->parseStoreSelect($client_data['customer']['store_id'], 'content.form.require_user_details');
+            if (ONXSHOP_ECOMMERCE) $this->parseStoreSelect($client_data['customer']['store_id'], 'content.form.require_user_details');
             else $this->parseLocationSelect($client_data['customer']['other_data']['county']);
             
             /**

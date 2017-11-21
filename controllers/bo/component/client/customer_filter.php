@@ -101,27 +101,31 @@ class Onxshop_Controller_Bo_Component_Client_Customer_Filter extends Onxshop_Con
          * product list
          */
         
-        require_once('models/ecommerce/ecommerce_product.php');
-        $Product = new ecommerce_product();
+        if (ONXSHOP_ECOMMERCE) {
         
-        $product_list = $Product->listing('publish = 1', 'name ASC');
+            require_once('models/ecommerce/ecommerce_product.php');
+            $Product = new ecommerce_product();
         
-        if (is_array($product_list) && count($product_list) > 0) {
+            $product_list = $Product->listing('publish = 1', 'name ASC');
         
-            foreach ($product_list as $item) {
-                
-                if (is_array($_SESSION['bo']['customer-filter']['product_bought'])) {
-                    if (in_array($item['id'], $customer_filter['product_bought'])) $item['checked'] = "checked='checked'";
-                    else $item['selected'] = '';
-                } else {
-                    $item['selected'] = '';
+            if (is_array($product_list) && count($product_list) > 0) {
+            
+                foreach ($product_list as $item) {
+                    
+                    if (is_array($_SESSION['bo']['customer-filter']['product_bought'])) {
+                        if (in_array($item['id'], $customer_filter['product_bought'])) $item['checked'] = "checked='checked'";
+                        else $item['selected'] = '';
+                    } else {
+                        $item['selected'] = '';
+                    }
+                    
+                    $this->tpl->assign('ITEM', $item);
+                    $this->tpl->parse('content.form.product.item');
                 }
-                
-                $this->tpl->assign('ITEM', $item);
-                $this->tpl->parse('content.form.product.item');
+            
+                $this->tpl->parse('content.form.product');
             }
         
-            $this->tpl->parse('content.form.product');
         }
         
         $this->tpl->parse('content.form');
