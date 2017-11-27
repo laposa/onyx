@@ -82,14 +82,14 @@ function showModalOverlay() {
 	var c = "";
 	if (activeOverlay && activeOverlay.length) {
 		c = "secondary";
-		activeOverlay.find(".onxshop-modal-overlay-window").attr("id", "modal_overlay_window_saved");
+		activeOverlay.find(".onxshop-modal-overlay-window").attr("id", "modal-overlay-window-saved");
 	}
 	activeOverlay = $('<div class="onxshop-modal-overlay off ' + c + '">' +
 		'<div class="onxshop-modal-click-zone" onclick="hideModalOverlay()"></div>' +
 		'<div class="onxshop-modal-overlay-window"></div></div>');
 	$('html,body').addClass('noscroll');
 	$('#backoffice').append(activeOverlay);
-	activeOverlay.find(".onxshop-modal-overlay-window").attr("id", "modal_overlay_window");
+	activeOverlay.find(".onxshop-modal-overlay-window").attr("id", "modal-overlay-window");
 	setTimeout(function() { activeOverlay.removeClass('off'); }, 100);
 }
 
@@ -100,9 +100,9 @@ function hideModalOverlay() {
 		setTimeout(function() { 
 			activeOverlay.remove();
 			$('html,body').removeClass('noscroll');
-			var saved = $('#modal_overlay_window_saved');
+			var saved = $('#modal-overlay-window-saved');
 			if (saved.length) {
-				saved.attr("id", "modal_overlay_window");
+				saved.attr("id", "modal-overlay-window");
 				activeOverlay = saved;
 			} else {
 				activeOverlay = null;
