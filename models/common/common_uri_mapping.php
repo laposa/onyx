@@ -389,44 +389,62 @@ ALTER TABLE common_uri_mapping ADD UNIQUE (public_uri);
 			return $fullpath;
 	}
 	
-	/**
-	 * update single
-	 */
-	 
-	function updateSingle($node_data) {
-	
-		if ($node_data['node_group'] != 'page') return false;
-		
-		$list = $this->listing("node_id = {$node_data['id']} AND type = 'generic'");
-		
-		if (!is_array($list[0]) || !is_numeric($list[0]['id'])) return false;
-		
-		$item = $this->detail($list[0]['id']);
-		
-		$old_uri = $item['public_uri'];
-		$item['public_uri'] = $this->generateSingleURIFullPath($node_data);
-		
-		if ($old_uri != $item['public_uri']) {
-		
-			if ($this->update($item)) {
-		
-				$sql = "UPDATE common_uri_mapping SET public_uri = regexp_replace(public_uri, '{$old_uri}/', '{$item['public_uri']}/') WHERE id != {$item['id']};";
-				$this->executeSql($sql);
-				
-				return true;
-		
-			} else {
-		
-				return false;
-		
-			}
-		
-		} else {
-		
-			return true;
-		
-		}
-	}
+   /**
+     * update single
+     */
+     
+    function updateSingle($node_data) {
+    
+        if ($node_data['node_group'] != 'page') return false;
+        
+        $list = $this->listing("node_id = {$node_data['id']} AND type = 'generic'");
+        
+        if (!is_array($list[0]) || !is_numeric($list[0]['id'])) return false;
+        
+        $item = $this->detail($list[0]['id']);
+        
+        $old_uri = $item['public_uri'];
+        $new_uri = $this->generateSingleURIFullPath($node_data);
+        
+        if ($old_uri != $new_uri) {
+        
+            /**
+             * delete previously created redirects for this new URI path
+             */
+             
+            $sql = "DELETE FROM common_uri_mapping WHERE public_uri = '".$new_uri."' AND type = '301'";
+            if (!is_array($this->executeSql($sql))) msg("Couldn't delete old redirects", 'error');
+            
+            /**
+             * update selected URL
+             */
+            
+            $item['public_uri'] = $new_uri;
+            
+            if ($this->update($item)) {
+       
+                // update the path also in all sub-pages
+                $sql = "UPDATE common_uri_mapping SET public_uri = regexp_replace(public_uri, '{$old_uri}/', '{$new_uri}/') WHERE id != {$item['id']} AND type = 'generic';";
+                if (!is_array($this->executeSql($sql))) msg("Couldn't update sub-pages URLs", 'error');
+                
+                // insert 301 redirect
+                if (!$this->insertRedirect($old_uri, $node_data['id'])) msg('Redirect generator failed', 'error');
+
+                // the update was successful, altough some errors could happen
+                return true;
+        
+            } else {
+        
+                return false;
+        
+            }
+        
+        } else {
+        
+            return true;
+        
+        }
+    }
 	
 	/**
 	 * insert new path
@@ -443,7 +461,32 @@ ALTER TABLE common_uri_mapping ADD UNIQUE (public_uri);
 		if ($id = $this->insert($item)) return $id;
 		else return false;
 	}
-	
+
+    /**
+     * insert redirect
+     *
+     * @param string path
+     * @param int target_node_id
+     * @param string type, optional, 301 default
+     * @return int|bool
+     */
+
+    public function insertRedirect($path, $target_node_id, $type = '301') {
+    
+        if (trim($path) == '') return false;
+        if (!is_numeric($target_node_id)) return false;
+
+        $item = array();
+        $item['node_id'] = $target_node_id;
+        $item['public_uri'] = $path;
+        $item['type'] = $type;
+
+        if ($id = $this->insert($item)) return $id;
+        else return false;
+
+    }
+
+
 	/**
 	 * clean title
 	 */
