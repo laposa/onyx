@@ -5,10 +5,12 @@
     <h2>Table: <strong>{MODEL}</strong> ({COUNT_RECORD} records, {TABLE_SIZE})</h2>
     {MESSAGES}
     <a id="export-button" class="button" href="/request/bo/export/csv_database?model={GET.model}"><span>Export Records (CSV)</span></a>
+    <a id="adminer-button" class="button" href="/opt/adminer/?{ONXSHOP_DB_TYPE}={ONXSHOP_DB_HOST}&username={ONXSHOP_DB_USER}&db={ONXSHOP_DB_NAME}&ns=public&select={MODEL}" target="_blank"><span>Open in Adminer</span></a>
     <script type="text/javascript">
-        $('#database .row-bottom p.export').empty();
-        var button = $('#export-button').detach();
-        $('#database .row-bottom p.export').append(button);
+        $('#database .row-bottom p.component-buttons').empty();
+        var export_button = $('#export-button').detach();
+        var adminer_button = $('#adminer-button').detach();
+        $('#database .row-bottom p.component-buttons').append(export_button, adminer_button);
     </script>
     <table cellspacing="0" border="1">
     <caption>Records of {MODEL}</caption>
