@@ -428,7 +428,8 @@ ALTER TABLE common_uri_mapping ADD UNIQUE (public_uri);
                 if (!is_array($this->executeSql($sql))) msg("Couldn't update sub-pages URLs", 'error');
                 
                 // insert 301 redirect
-                if (!$this->insertRedirect($old_uri, $node_data['id'])) msg('Redirect generator failed', 'error');
+                if ($this->insertRedirect($old_uri, $node_data['id'])) msg("Created 301 redirect for previous path $old_uri");
+                else msg("Redirect generator for previous path $old_uri failed", 'error');
 
                 // the update was successful, altough some errors could happen
                 return true;
