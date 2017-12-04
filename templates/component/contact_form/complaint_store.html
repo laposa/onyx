@@ -6,7 +6,16 @@
 <script type="text/javascript" src="/share/js/jquery/ui/jquery-ui.all.min.js"></script>
 <script type="text/javascript">  
 $(document).ready(function(){  
-    $("#contact-form-{GET.node_id}").validate();
+    $("#contact-form-{GET.node_id}").validate({
+		highlight: function(element) {
+			$(element).addClass("error");
+			$(element).parent().parent().addClass("error");
+		},
+		unhighlight: function(element) {
+			$(element).removeClass("error");
+			$(element).parent().parent().removeClass("error");
+		}
+	});
     $('#formdata-visit-date-{GET.node_id}').datepicker({startDate:'01/01/2000', dateFormat: 'D dd M yy', changeMonth: true, changeYear: true, });
 });  
 </script>
