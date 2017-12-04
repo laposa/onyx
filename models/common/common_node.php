@@ -2,7 +2,7 @@
 /**
  * class common_node
  *
- * Copyright (c) 2009-2016 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -909,7 +909,7 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 	
 		$condition = $this->prepareNodeGroupFilter($publish, $node_group);
 
-		$sql = "SELECT id, content, parent, title as name, page_title as title, node_group, node_controller, display_in_menu, display_permission, publish, priority, teaser, description FROM common_node WHERE publish >= $publish $condition ORDER BY priority DESC, id ASC";
+		$sql = "SELECT id, content, parent, title as name, page_title as title, node_group, node_controller, display_in_menu, display_permission, publish, priority, teaser, description, component FROM common_node WHERE publish >= $publish $condition ORDER BY priority DESC, id ASC";
 		
 		if ($records = $this->executeSql($sql)) {
 		
@@ -933,7 +933,7 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 		else $root = "AND (parent = 0 OR parent IS NULL)";
 		
 		$sql = "SELECT id, content, parent, title as name, page_title as title, node_group, node_controller, 
-				display_in_menu, display_permission, publish, priority, teaser, description 
+				display_in_menu, display_permission, publish, priority, teaser, description, component 
 			FROM common_node 
 			WHERE publish >= $publish $condition $root
 			ORDER BY priority DESC, id ASC";		
