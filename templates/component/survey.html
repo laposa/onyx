@@ -32,7 +32,7 @@ $(function() {
 </script>
 
 <style type="text/css">
-label.error { display: none; }	
+form div.row label.error.placeholder { display: none; }	
 </style>
 
 <form method="post" action="{URI|htmlspecialchars}#node_id_{GET.node_id}" id="survey_form_{GET.node_id}" enctype="multipart/form-data">
@@ -54,7 +54,7 @@ label.error { display: none; }
 					<!-- BEGIN: item -->
 					<div class="row"><input type="radio" class="radio {CLASS_REQUIRED}" name="answer[{QUESTION.id}]" value="{ANSWER.id}" {SELECTED} id="answer_id_{ANSWER.id}"> <label for="answer_id_{ANSWER.id}" class="radio">{ANSWER.title|htmlspecialchars}</label></div>
 					<!-- END: item -->
-					<label for="answer[{QUESTION.id}]" class="error">This field is required.</label>
+					<label for="answer[{QUESTION.id}]" class="error placeholder">This field is required.</label>
 				<!-- END: answer_list_radio -->
 				<!-- BEGIN: answer_list_select -->
 				<select class="{CLASS_REQUIRED}" name="answer[{QUESTION.id}]" id="question_id_{QUESTION.id}">
