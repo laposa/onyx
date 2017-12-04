@@ -68,6 +68,7 @@ class Onxshop_Controller_Component_Menu extends Onxshop_Controller {
      
     public function standardAction($node_id = null, $publish = 1, $max_display_level = 0, $expand_all = 0, $filter = 'page') {
 
+        require_once('models/common/common_node.php');
         $this->Node = new common_node();
         
         $tree = $this->getTree($publish, $filter, $node_id, $max_display_level - 1, $expand_all);

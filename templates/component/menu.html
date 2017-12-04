@@ -4,7 +4,7 @@
 <!-- BEGIN: item -->
 <li class='node-id-{ITEM.id} {ITEM.css_class}'>
     <!-- BEGIN:link -->
-    <a href="{ITEM.href}" class="{ITEM.css_class}"><span>{ITEM.name|htmlspecialchars}</span><!-- BEGIN: strapline --><br /><span class="strapline">{ITEM.strapline|strip_tags|htmlspecialchars}</span><!-- END: strapline --></a>
+    <a href="{ITEM.href|htmlspecialchars}" class="{ITEM.css_class}"><span>{ITEM.name|htmlspecialchars}</span><!-- BEGIN: strapline --><br /><span class="strapline">{ITEM.strapline|strip_tags|htmlspecialchars}</span><!-- END: strapline --></a>
     <!-- END:link -->
     <!-- BEGIN:nolink -->
     <span class="nolink node-id-{ITEM.id} {ITEM.css_class}">{ITEM.name|htmlspecialchars}</span>
