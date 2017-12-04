@@ -76,14 +76,17 @@ class Onxshop_Controller_Uri_Mapping extends Onxshop_Controller {
                  
                 $this->redirectToSeoURLAndExit($node_id);
                 
-            } else if (preg_match('/^\/\b(page|node)\b\/([0-9]*)$/', $translate, $match)) { // URL like /page/1234 or /node/1234
+            } else if (preg_match('/^\/(\b(page|node)\b)\/([0-9]*)$/', $translate, $match)) { // URL like /page/1234 or /node/1234
+
+                $request_type = $match[2];
+                $mapped_node_id = $match[3];
                 
-                $mapped_node_id = $match[2];
-                $action_to_process = $this->getActionToProcessForExistingPage($mapped_node_id);
+                if ($request_type == 'page') $action_to_process = $this->getActionToProcessForPage($mapped_node_id);
+                else $action_to_process = $this->getActionToProcessForNode($mapped_node_id);
                 
             } else if ($mapped_node_id = $this->Mapper->translate($translate)) { // URL like /abc-cbs
             
-                $action_to_process = $this->getActionToProcessForExistingPage($mapped_node_id);
+                $action_to_process = $this->getActionToProcessForPage($mapped_node_id);
                 
             } else if ($redirect_uri = $this->Mapper->getRedirectURI($translate)) { // URL like /abc-cbs
                 
@@ -95,7 +98,7 @@ class Onxshop_Controller_Uri_Mapping extends Onxshop_Controller {
             
             } else if ($translate == '/home') {
                 
-                $action_to_process = $this->getActionToProcessForExistingPage($this->Mapper->conf['homepage_id']);
+                $action_to_process = $this->getActionToProcessForPage($this->Mapper->conf['homepage_id']);
                 
             } else {
                 
@@ -150,10 +153,12 @@ class Onxshop_Controller_Uri_Mapping extends Onxshop_Controller {
     }
     
     /**
-     * getActionToProcessForExistingPage
+     * getActionToProcessForPage
+     * @param int node_id
+     * @return string action_to_process
      */
      
-    public function getActionToProcessForExistingPage($node_id) {
+    public function getActionToProcessForPage($node_id) {
         
         if (!is_numeric($node_id)) return false;
         
@@ -162,6 +167,21 @@ class Onxshop_Controller_Uri_Mapping extends Onxshop_Controller {
         $_SESSION['history'][count($_SESSION['history'])-1]['node_id'] = $node_id;
         
         $action_to_process = $this->Mapper->getRequest($node_id);
+        
+        return $action_to_process;
+    }
+    
+    /**
+     * getActionToProcessForNode
+     * @param int node_id
+     * @return string action_to_process
+     */
+     
+    public function getActionToProcessForNode($node_id) {
+        
+        if (!is_numeric($node_id)) return false;
+                
+        $action_to_process = $this->Mapper->getRequest($node_id, false);
         
         return $action_to_process;
     }

@@ -513,30 +513,53 @@ ALTER TABLE common_uri_mapping ADD UNIQUE (public_uri);
     
     /**
      * get request
+     * @param int node_id
+     * @return string request
      */
      
-    function getRequest($node_id) { 
+    function getRequest($node_id, $render_in_site_template = true) { 
         
         require_once('models/common/common_node.php');
         $Node = new common_node();
         
-        if ($Node->detail($node_id)) {
-            $append = ".node~id=$node_id~";
-            if ($node_id == $this->conf['404_id']) $append = "{$append}.sys/404";
+        if ($node_detail = $Node->detail($node_id)) {
+            
+            // found node ID
+            $request = "node~id=$node_id~";
+            
+            // special case when requested node ID is 404 page itself - add 404 HTTP header
+            if ($node_id == $this->conf['404_id']) $request = "{$request}.sys/404";
+        
         } else {
-            $append = ".node~id=" . $this->conf['404_id'] . "~.sys/404";
+            
+            // node ID doesn't exist
+            $request = "node~id=" . $this->conf['404_id'] . "~.sys/404";
+        
         }
         
-        if (Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) {
-            //hack to pass _SESSION.fe_edit_mode even before it's called again from fe_edit
-            //consider moving this to $Bootstrap->initPreAction
-            //probably this whole block, _GET shouldn't be here!
-            $_Onxshop_Request = new Onxshop_Request('bo/component/fe_edit_mode');   
-            $request = ONXSHOP_DEFAULT_TYPE . "~id=$node_id~.bo/fe_edit~id=$node_id~." . ONXSHOP_MAIN_TEMPLATE . "~id=$node_id~$append";
-        } else {
-            $request = ONXSHOP_DEFAULT_LAYOUT . "~id=$node_id~" . "$append";
+        /**
+         * wrap in site template
+         */
+        if ($render_in_site_template) {
+            
+            if (Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) {
+            
+                //hack to pass _SESSION.fe_edit_mode even before it's called again from fe_edit
+                //consider moving this to $Bootstrap->initPreAction
+                //probably this whole block, _GET shouldn't be here!
+                $_Onxshop_Request = new Onxshop_Request('bo/component/fe_edit_mode');   
+                $prefix = ONXSHOP_DEFAULT_TYPE . "~id=$node_id~.bo/fe_edit~id=$node_id~." . ONXSHOP_MAIN_TEMPLATE . "~id=$node_id~";
+            
+            } else {
+            
+                $prefix = ONXSHOP_DEFAULT_LAYOUT . "~id=$node_id~";
+            
+            }
+         
+            $request = $prefix . '.' . $request;
         }
         
+        // fully built Onxshop request string
         return $request;
     }
 
