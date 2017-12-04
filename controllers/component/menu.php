@@ -172,13 +172,6 @@ class Onxshop_Controller_Component_Menu extends Onxshop_Controller {
             $item['css_class'] = '';
 
             /**
-             * css classes (first/last/middle)
-             */
-            if ($i == 0) $item['css_class'] = 'first';
-            else if ($i == ($count - 1)) $item['css_class'] = 'last';
-            else $item['css_class'] = 'middle';
-
-            /**
              * parse children
              */
             if (is_array($item['children']) && count($item['children']) > 0) {
