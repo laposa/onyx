@@ -205,8 +205,10 @@ class Onxshop_Controller_Bo_Node_Default extends Onxshop_Controller {
         if ($_POST['node']['display_secondary_navigation'] == 'on' || $_POST['node']['display_secondary_navigation'] == 1) $_POST['node']['display_secondary_navigation'] = 1;
         else $_POST['node']['display_secondary_navigation'] = 0;
         
-        if ($_POST['node']['component']['allow_comment'] == 'on') $_POST['node']['component']['allow_comment'] = 1;
-        else $_POST['node']['component']['allow_comment'] = 0;
+        if (is_array($_POST['node']['component']) && array_key_exists('allow_comment', $_POST['node']['component'])) {
+            if ($_POST['node']['component']['allow_comment'] == 'on') $_POST['node']['component']['allow_comment'] = 1;
+            else $_POST['node']['component']['allow_comment'] = 0;
+        }
     }
     
     /**
@@ -216,8 +218,8 @@ class Onxshop_Controller_Bo_Node_Default extends Onxshop_Controller {
     function post() {
 
         if (!is_numeric($this->node_data['display_secondary_navigation'])) $this->node_data['display_secondary_navigation'] = $GLOBALS['onxshop_conf']['global']['display_secondary_navigation'];
+        
         $this->node_data['display_secondary_navigation']        = ($this->node_data['display_secondary_navigation']) ? 'checked="checked"'      : '';
-
         $this->node_data['component']['allow_comment']        = ($this->node_data['component']['allow_comment']) ? 'checked="checked"'      : '';
         
         /**
