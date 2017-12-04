@@ -925,7 +925,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
     
         $condition = $this->prepareNodeGroupFilter($publish, $filter);
 
-        $sql = "SELECT id, content, parent, title as name, page_title as title, node_group, node_controller, display_in_menu, display_permission, publish, priority, strapline, description FROM common_node WHERE publish >= $publish $condition ORDER BY priority DESC, id ASC";
+        $sql = "SELECT id, content, parent, title as name, page_title as title, node_group, node_controller, display_in_menu, display_permission, publish, priority, strapline, description, component FROM common_node WHERE publish >= $publish $condition ORDER BY priority DESC, id ASC";
         
         if ($records = $this->executeSql($sql)) {
         
@@ -949,14 +949,14 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
         else $root = "AND (parent = 0 OR parent IS NULL)";
         
         $sql = "SELECT id, content, parent, title as name, page_title as title, node_group, node_controller, 
-                display_in_menu, display_permission, publish, priority, strapline, description 
+                display_in_menu, display_permission, publish, priority, strapline, description, component 
             FROM common_node 
             WHERE publish >= $publish $condition $root
             ORDER BY priority DESC, id ASC";        
 
-        $tree = $this->executeSql($sql);
+        $records = $this->executeSql($sql);
 
-        return $tree;
+        return $records;
     }
 
     /**
