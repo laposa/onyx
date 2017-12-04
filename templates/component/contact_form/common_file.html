@@ -2,7 +2,16 @@
 <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
 <script type="text/javascript">  
 $(function(){  
-	$("#contact_form_{GET.node_id}").validate();
+	$("#contact_form_{GET.node_id}").validate({
+		highlight: function(element) {
+			$(element).addClass("error");
+			$(element).parent().parent().addClass("error");
+		},
+		unhighlight: function(element) {
+			$(element).removeClass("error");
+			$(element).parent().parent().removeClass("error");
+		}
+	});
 });
 </script>
 

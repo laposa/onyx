@@ -7,7 +7,16 @@
 <script type="text/javascript" src="/share/js/jquery/ui/jquery-ui.all.min.js"></script>
 <script type="text/javascript">
 $(function() {
-	$("#survey_form_{GET.node_id}").validate();
+	$("#survey_form_{GET.node_id}").validate({
+		highlight: function(element) {
+			$(element).addClass("error");
+			$(element).parent().parent().addClass("error");
+		},
+		unhighlight: function(element) {
+			$(element).removeClass("error");
+			$(element).parent().parent().removeClass("error");
+		}
+	});
 
 	/*birthday UI date picker*/
 	var current_year = new Date().getFullYear();
