@@ -71,3 +71,7 @@ div#jGrowl div.jGrowl-closer { background: black; color: white; background: rgba
  */
  
 #tracy-debug {z-index: 300000;}
+#tracy-debug img {width: auto;}
+@media all and (max-width: 600px) {
+    #tracy-debug {display: none!important;}
+}
