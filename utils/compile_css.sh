@@ -5,7 +5,8 @@ SCREEN_CSS="${FULL_PATH}/share/css/default/screen.css";
 echo "------------------------------------------------";
 echo "COMPILING ${SCREEN_CSS}";
 echo "------------------------------------------------";
-cat ${FULL_PATH}/share/css/default/src/font.css > ${SCREEN_CSS};
+echo "/* compiled by utils/compile_css.sh */" > ${SCREEN_CSS}
+cat ${FULL_PATH}/share/css/default/src/font.css >> ${SCREEN_CSS};
 cat ${FULL_PATH}/share/css/default/src/normalize.css >> ${SCREEN_CSS};
 cat ${FULL_PATH}/share/css/default/src/common.css >> ${SCREEN_CSS};
 cat ${FULL_PATH}/share/css/default/src/layout.css >> ${SCREEN_CSS};
