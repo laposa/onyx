@@ -12,7 +12,7 @@
  
 $uri_map = array(
             
-    '^/?$' => '/index.php?request=uri_mapping&translate=/home',
+    '^/?$' => '/index.php?request=uri_mapping&translate=/',
     '^/sitemap.xml$' => '/index.php?request=export/xml_googlesitemap',
     '^/imagesxml/([0-9]*)$' => '/index.php?request=export/imagesxml&role=page&node_id=$1',
     '^/api/v([0-9]*).([a-z0-9-_\.]*)/(.*)$' => '/index.php?request=uri_mapping&controller_request=api/v$1_$2/$3&version=v$1_$2',
