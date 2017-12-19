@@ -57,14 +57,11 @@ if (!is_readable($file)) {
     
 } else {
     
-    //guest user can download only content of var/files
-    $check = addcslashes(ONXSHOP_PROJECT_DIR, '/') . 'var\/files\/';
-
-    if (!preg_match("/$check/", $realpath)) {
-        header("HTTP/1.0 403 Forbidden");
-        echo "forbidden";
-        exit;
-    }
+    /**
+     * security check
+     */
+     
+    onxshopCheckForAllowedPath($realpath);
 
     /**
      * Detect file type and send to the client

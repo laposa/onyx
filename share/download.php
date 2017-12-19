@@ -70,19 +70,7 @@ if (!is_readable($file)) {
     
 } else {
     
-    //admin user can download any content from var/ directory
-    if (Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) {
-        $check = addcslashes(ONXSHOP_PROJECT_DIR, '/') . 'var\/';
-    } else {
-        //guest user can download only content of var/files
-        $check = addcslashes(ONXSHOP_PROJECT_DIR, '/') . 'var\/files\/';
-    }
-
-    if (!preg_match("/$check/", $realpath)) {
-        header("HTTP/1.0 403 Forbidden");
-        echo "forbidden";
-        exit;
-    }
+    onxshopCheckForAllowedPath($realpath);
 
     /**
      * Detect file type and send to the client

@@ -64,6 +64,7 @@ require_once("$dir/../conf/global.php");
  */
  
 set_include_path(get_include_path() . PATH_SEPARATOR . ONXSHOP_DIR);
+require_once('lib/onxshop.functions.php');
 
 /**
  * read input and set paths
@@ -86,14 +87,12 @@ if ($realpath == false) $missing = 1;
  * it's allowed to see only content of var/ directory
  */
  
-$check = addcslashes(ONXSHOP_PROJECT_DIR, '/') . 'var\/';
+if (!$missing) onxshopCheckForAllowedPath($realpath, false);
 
-if (!preg_match("/$check/", $realpath) && !$missing) {
-    header("HTTP/1.0 403 Forbidden");
-    echo " forbidden!";
-    exit;
-}
-
+/**
+ * 404 check
+ */
+ 
 if (!is_readable($image_file) || $missing) {
     //file does not exists
     $image_file = ONXSHOP_PROJECT_DIR . "public_html/share/images/missing_image.png";
