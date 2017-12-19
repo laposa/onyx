@@ -349,3 +349,8 @@ if (!defined('ONXSHOP_ALLOW_TEMPLATE_EDITING')) define('ONXSHOP_ALLOW_TEMPLATE_E
  */
 if (!defined('ONXSHOP_FLICKR_API_KEY')) define('ONXSHOP_FLICKR_API_KEY', '');
 
+/**
+ * Allow other directory than default ONXSHOP_PROJECT_DIR
+ */
+ 
+if (!defined('ONXSHOP_PROJECT_EXTERNAL_DIRECTORIES')) define('ONXSHOP_PROJECT_EXTERNAL_DIRECTORIES', '');

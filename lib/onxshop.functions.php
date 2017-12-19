@@ -682,3 +682,70 @@ function fire_dump($variable, $title = null) {
 	}
 
 }
+
+/**
+ * security check
+ * it's allowed to see only content of var/ directory
+ */
+ 
+function onxshopCheckForAllowedPath($realpath, $restrict_download = true) {
+    
+    $allowed_directories = array();
+    $allowed_directories[] = ONXSHOP_PROJECT_DIR;
+    
+    if (defined('ONXSHOP_PROJECT_EXTERNAL_DIRECTORIES') && ONXSHOP_PROJECT_EXTERNAL_DIRECTORIES != '') {
+        $allowed_directories[] = ONXSHOP_PROJECT_EXTERNAL_DIRECTORIES;
+    }
+    
+    $check_status = array();
+    
+    foreach ($allowed_directories as $directory) {
+
+        // admin user can download any content from var/ directory
+        if ($restrict_download) {
+            
+        	if (class_exists('Onxshop_Bo_Authentication') && Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) {
+        	
+        		$check = addcslashes($directory, '/') . 'var\/';
+        	
+        	} else {
+        	
+        		// guest user can download only content of var/files
+                //$check = addcslashes(ONXSHOP_PROJECT_DIR, '/') . 'var\/images\/';
+                $check = addcslashes($directory, '/') . 'var\/files\/';
+        	}
+        	
+        } else {
+            
+            // we can allow to see files from the whole var/, it's used for for images as there is restriction to see only image types
+            $check = addcslashes($directory, '/') . 'var\/';
+        
+        }
+        
+        /**
+         * make check
+         */
+         
+        if (preg_match("/$check/", $realpath)) {
+            
+            $check_status[$directory] = true;
+            
+        } else {
+            
+            $check_status[$directory] = false;
+            
+        }
+    }
+    
+    /**
+     * allow if at least one check is passed
+     */
+    
+    if (!in_array(true, $check_status)) {
+        
+        header("HTTP/1.0 403 Forbidden");
+        echo "File $realpath is forbidden on this project!";
+        exit;
+        	
+    }
+}

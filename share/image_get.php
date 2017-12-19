@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2005-2011 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2005-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -58,6 +58,7 @@ require_once("$dir/../conf/global.php");
  */
  
 set_include_path(get_include_path() . PATH_SEPARATOR . ONXSHOP_DIR);
+require_once('lib/onxshop.functions.php');
 
 /**
  * read input and set paths
@@ -75,19 +76,12 @@ $realpath = realpath($image);
 
 if ($realpath == false) $missing = 1;
 
+if (!$missing) onxshopCheckForAllowedPath($realpath, false);
+
 /**
- * security check
- * it's allowed to see only content of var/ directory
+ * 404 image
  */
  
-$check = addcslashes(ONXSHOP_PROJECT_DIR, '/') . 'var\/';
-
-if (!preg_match("/$check/", $realpath) && !$missing) {
-	header("HTTP/1.0 403 Forbidden");
-	echo " forbidden!";
-	exit;
-}
-
 if (!is_readable($image) || $missing) {
 	//file does not exists
 	$image = ONXSHOP_PROJECT_DIR . "public_html/share/images/missing_image.png";
