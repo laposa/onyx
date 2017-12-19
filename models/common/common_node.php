@@ -877,6 +877,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
 
         $sql = '';
         
+        // TODO: only backoffice menu and sitemap should display containers
         switch ($filter) {
 
             case 'all':
@@ -941,9 +942,9 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
     /**
      * get list of node by parent id
      */
-    function getNodesByParent($publish = 1, $node_group = 'page', $parent_id)
+    function getNodesByParent($publish = 1, $filter = 'page', $parent_id)
     {
-        $condition = $this->prepareNodeGroupFilter($publish, $node_group);
+        $condition = $this->prepareNodeGroupFilter($publish, $filter);
 
         if (is_numeric($parent_id)) $root = "AND parent = $parent_id";
         else $root = "AND (parent = 0 OR parent IS NULL)";

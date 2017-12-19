@@ -2,7 +2,10 @@
 /** 
  * Copyright (c) 2013-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
- * 
+ *
+ * This component displays content from a selected container, for example from a page or layout
+ * For example: 
+ * {ONXSHOP_REQUEST_special_offer_container0 #component/node_container_content~node_id=1128:container=0~}
  */
 
 class Onxshop_Controller_Component_Node_Container_Content extends Onxshop_Controller {
