@@ -143,7 +143,7 @@ chmod a+w -R $project_dir/var/
 setup_database() {
 db_name="${db_username}-${onxshop_version_db}"
 # TODO create user only if doesn't exist
-sudo -u postgres psql template1 -c "CREATE USER $db_username WITH CREATEDB NOCREATEUSER PASSWORD '$db_password'"
+sudo -u postgres psql template1 -c "CREATE USER $db_username WITH CREATEDB PASSWORD '$db_password'"
 sudo -u postgres psql template1 -c "CREATE DATABASE \"$db_name\" WITH OWNER=\"$db_username\" ENCODING='UTF8'"
 export PGPASSWORD=${db_password}
 psql -U ${db_username} -h localhost $db_name < $db_template_file 
