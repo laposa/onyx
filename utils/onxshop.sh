@@ -107,7 +107,7 @@ create_new_installation() {
 # Universal function for bailing out
 die() {
 $0 -h
-echo -e "*** $1\n*** See https//onxshop.com/";
+echo -e "*** $1\n*** See https://onxshop.com/";
 exit 1; 
 }
 
