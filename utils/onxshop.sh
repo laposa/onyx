@@ -22,6 +22,7 @@
 ##         --project-dir=VALUE           Folder where will be application created
 ##         --db-username=VALUE           Database username to be used or created if doesn't exists
 ##         --db-password=VALUE           Database password to be used
+##         --db-name=VALUE               Database name to be created
 ##         --vhost                       Create Apache vhost file and enable it
 ##         --ssl                         Create SSL certificate (Let's Encrypt via Certbot)
 
@@ -40,6 +41,7 @@ source "${script_dir}/easyoptions.sh" || exit
 #[[ -n "$project_dir"  ]] && echo "Option specified: --project-dir is $project_dir"
 #[[ -n "$db_username"  ]] && echo "Option specified: --db-username is $db_username"
 #[[ -n "$db_password"  ]] && echo "Option specified: --db-password is $db_password"
+#[[ -n "$db_name"  ]] && echo "Option specified: --db-name is $db_name"
 #[[ -n "$vhost"  ]] && echo "Option specified: --vhost"
 #[[ -n "$ssl"  ]] && echo "Option specified: --ssl"
 
@@ -55,6 +57,9 @@ onxshop_version="1.8"
 onxshop_version_db=$(echo $onxshop_version | sed 's,\.,_,g')
 if ! [ $db_username ]; then
     determine_username_from_domainname
+fi
+if ! [ $db_name ]; then
+    db_name="${db_username}-${onxshop_version_db}"
 fi
 if ! [ $project_dir ]; then
     project_dir="/srv/$hostname"
@@ -79,6 +84,7 @@ db_template_file=$db_template_file
 project_skeleton_dir=$project_skeleton_dir
 project_dir=$project_dir
 db_username=$db_username
+db_name=$db_name
 "
 
 }
@@ -141,7 +147,6 @@ chmod a+w -R $project_dir/var/
 }
 
 setup_database() {
-db_name="${db_username}-${onxshop_version_db}"
 # TODO create user only if doesn't exist
 sudo -u postgres psql template1 -c "CREATE USER $db_username WITH CREATEDB PASSWORD '$db_password'"
 sudo -u postgres psql template1 -c "CREATE DATABASE \"$db_name\" WITH OWNER=\"$db_username\" ENCODING='UTF8'"
