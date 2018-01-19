@@ -687,7 +687,9 @@ class Onxshop_Bootstrap {
             if (count($_POST) > 0) {
                 
                 if ($CSRF_TOKEN !== $_POST['csrf_token']) {
-                    trigger_error('CSRF_TOKEN is not valid', E_USER_ERROR);
+                    $error_message = 'CSRF_TOKEN is not valid';
+                    echo $error_message;
+                    trigger_error($error_message, E_USER_ERROR);
                     die();
                 }
                 
