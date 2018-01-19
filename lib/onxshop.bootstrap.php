@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2005-2017 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2005-2018 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -265,9 +265,11 @@ class Onxshop_Bootstrap {
             break;
         }
 
+        
+        // change setting before starting the session
+        session_name(ONXSHOP_SESSION_NAME);
         // disable no-cache headers
         //session_cache_limiter(0);
-        
         //session_set_cookie_params(31536000);// = 3600 * 24 * 365
         session_start();
         //to be sure sessions are written before exit
