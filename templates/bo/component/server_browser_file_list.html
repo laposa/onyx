@@ -185,6 +185,7 @@ this component would be good to split into upload and file list
     $(function() {
         $('#add-dropzone').filedrop({
             fallback_id: 'add-file-input',
+            fallback_dropzoneClick : false,
             url: '/request/bo/component/server_browser_file_list~multiupload=true~',
             paramname: 'file',                // POST parameter name used on serverside to reference file
             withCredentials: true,            // make a cross-origin request with cookies
