@@ -2,7 +2,7 @@
 /**
  * Default Global Onxshop configuration
  *
- * Copyright (c) 2005-2017 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2005-2018 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  * The constants defined here can be "overwritten" in project_dir/conf/global.php
@@ -354,3 +354,9 @@ if (!defined('ONXSHOP_FLICKR_API_KEY')) define('ONXSHOP_FLICKR_API_KEY', '');
  */
  
 if (!defined('ONXSHOP_PROJECT_EXTERNAL_DIRECTORIES')) define('ONXSHOP_PROJECT_EXTERNAL_DIRECTORIES', '');
+
+/**
+ * change from default PHPSESSID, it will be visible in HTTP header Set-Cookie
+ */
+
+if (!defined('ONXSHOP_SESSION_NAME')) define('ONXSHOP_SESSION_NAME', 'OnxshopSID');
