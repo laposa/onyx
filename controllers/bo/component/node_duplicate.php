@@ -1,7 +1,7 @@
 <?php
 /** 
  *
- * Copyright (c) 2009-2014 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2018 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -100,7 +100,7 @@ class Onxshop_Controller_Bo_Component_Node_Duplicate extends Onxshop_Controller 
 		$nested_nodes = $this->Node->listing("parent = $original_node_id");
 		if (is_array($nested_nodes)) {
 			foreach ($nested_nodes as $nested_node) {
-				if ($nested_node['node_group'] != 'page')
+				if (ONXSHOP_ALLOW_TO_DUPLICATE_PAGES_RECURSIVELY || $nested_node['node_group'] != 'page')
 					$this->duplicateNode($nested_node['id'], $new_node_id);
 			}
 		}
