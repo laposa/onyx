@@ -315,6 +315,9 @@ class ecommerce_product_variety extends Onxshop_Model {
 		$variety_data['stock'] = $data['stock'];
 		$variety_data['product_type_id'] = $data['product_type_id'];
 
+		if (!empty($data['upc'])) $variety_data['upc'] = $data['upc'];
+		if (!empty($data['priority'])) $variety_data['priority'] = $data['priority'];
+
 		/**
 		 * insert
 		 */
