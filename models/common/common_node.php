@@ -307,7 +307,10 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
 		 */
 		 
 		//unpublish node on duplicate
-		if (!is_numeric($conf['unpublish_on_duplicate'])) $conf['unpublish_on_duplicate'] = 0;
+		if (!is_numeric($conf['unpublish_on_duplicate'])) $conf['unpublish_on_duplicate'] = 1;
+		if (!isset($conf['duplicate_title_suffix'])) $conf['duplicate_title_suffix'] = '';
+		if (!is_numeric($conf['allow_to_duplicate_pages_recursively'])) $conf['allow_to_duplicate_pages_recursively'] = 0;
+		
 		//default template for contact forms
 		if (trim($conf['contact_form_default_template']) == '') $conf['contact_form_default_template'] = 'common_simple';
 		

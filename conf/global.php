@@ -360,10 +360,3 @@ if (!defined('ONXSHOP_PROJECT_EXTERNAL_DIRECTORIES')) define('ONXSHOP_PROJECT_EX
  */
 
 if (!defined('ONXSHOP_SESSION_NAME')) define('ONXSHOP_SESSION_NAME', 'OnxshopSID');
-
-/**
- * Allow to duplicate sub pages recursively when duplicating nodes
- */
- 
-if (!defined('ONXSHOP_ALLOW_TO_DUPLICATE_PAGES_RECURSIVELY')) define('ONXSHOP_ALLOW_TO_DUPLICATE_PAGES_RECURSIVELY', false);
-

@@ -50,7 +50,7 @@ class Onxshop_Controller_Bo_Component_Node_Duplicate extends Onxshop_Controller 
 		
 		// copy and modify
 		$new_node_data = $original_node_data;
-		$new_node_data['title'] = "{$new_node_data['title']} (copy)";
+		$new_node_data['title'] = "{$new_node_data['title']}" . $this->Node->conf['duplicate_title_suffix'];
 		$new_node_data['created'] = $new_node_data['modified'] = date('c');
 		$new_node_data['customer_id'] = (int) Onxshop_Bo_Authentication::getInstance()->getUserId();
 		if ($new_node_data['uri_title'] != '') $new_node_data['uri_title'] = "{$new_node_data['uri_title']}-copy";
@@ -100,7 +100,7 @@ class Onxshop_Controller_Bo_Component_Node_Duplicate extends Onxshop_Controller 
 		$nested_nodes = $this->Node->listing("parent = $original_node_id");
 		if (is_array($nested_nodes)) {
 			foreach ($nested_nodes as $nested_node) {
-				if (ONXSHOP_ALLOW_TO_DUPLICATE_PAGES_RECURSIVELY || $nested_node['node_group'] != 'page')
+				if ($this->Node->conf['allow_to_duplicate_pages_recursively'] || $nested_node['node_group'] != 'page')
 					$this->duplicateNode($nested_node['id'], $new_node_id);
 			}
 		}
