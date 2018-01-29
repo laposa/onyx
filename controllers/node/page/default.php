@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2008-2017 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2008-2018 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -34,8 +34,8 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
 		 */
 		 
 		require_once('models/common/common_node.php');
-		$Node = new common_node();
-		$node_data = $Node->nodeDetail($this->GET['id']);
+		$this->Node = new common_node();
+		$node_data = $this->Node->nodeDetail($this->GET['id']);
 		
 		/**
 		 * prepare titles
@@ -106,10 +106,10 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
 		 */
 		 
 		if ($node_data['display_title'])  {
-			$_Onxshop_Request = new Onxshop_Request("component/page_header~id={$node_data['id']}~");
-			$this->tpl->assign('PAGE_HEADER', $_Onxshop_Request->getContent());
-			$this->tpl->parse('content.page_header'); // for templates having page header directly within the page template
-		}
+    	
+    		$this->displayHeader($node_data);
+    	
+    	}
 		
 		/**
 		 * display secondary navigation
@@ -117,11 +117,8 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
 		 
 		if ($node_data['display_secondary_navigation'] == 1) {
 		
-			$first_page_id = $Node->getFirstParentPage($_SESSION['active_pages']);
-			//type=page_and_products
-			$_Onxshop_Request = new Onxshop_Request("component/menu~level=0:expand_all=0:display_teaser=1:id={$first_page_id}:open={$node_data['id']}:node_group=page~");
-			$this->tpl->assign('SECONDARY_NAVIGATION', $_Onxshop_Request->getContent());
-			$this->tpl->parse('content.secondary_navigation');
+		    $this->displaySecondaryNavigation($node_data);
+		    
 		}
 		
 		/**
@@ -154,10 +151,10 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
 	public function setActivePages() {
 		
 		require_once('models/common/common_node.php');
-		$Node = new common_node();
+		$this->Node = new common_node();
 		
-		$_SESSION['active_pages'] = $Node->getActivePages($this->GET['id']);
-		$_SESSION['full_path'] = $Node->getFullPath($this->GET['id']);
+		$_SESSION['active_pages'] = $this->Node->getActivePages($this->GET['id']);
+		$_SESSION['full_path'] = $this->Node->getFullPath($this->GET['id']);
 		
 	}
 	
@@ -170,8 +167,8 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
 		if (!is_array($node_data)) return false;
 		
 		require_once('models/common/common_node.php');
-		$Node = new common_node();
-		$related_taxonomy = $Node->getRelatedTaxonomy($node_data['id']);
+		$this->Node = new common_node();
+		$related_taxonomy = $this->Node->getRelatedTaxonomy($node_data['id']);
 		
 		return $related_taxonomy;
 	}
@@ -275,4 +272,35 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
 		
 	}
 	
+	/**
+     * displayHeader
+     * @param array $node_data
+     * @return bool
+     */
+     
+	public function displayHeader($node_data) {
+        
+        $_Onxshop_Request = new Onxshop_Request("component/page_header~id={$node_data['id']}~");
+        $this->tpl->assign('PAGE_HEADER', $_Onxshop_Request->getContent());
+        $this->tpl->parse('content.page_header'); // for templates having page header directly within the page template
+        
+        return true;
+	}
+	
+	/**
+     * displaySecondaryNavigation
+     * @param array $node_data
+     * @return bool
+     */
+     
+	public function displaySecondaryNavigation($node_data) {
+    	
+        $first_page_id = $this->Node->getFirstParentPage($_SESSION['active_pages']);
+        //type=page_and_products
+        $_Onxshop_Request = new Onxshop_Request("component/menu~level=0:expand_all=0:display_teaser=1:id={$first_page_id}:open={$node_data['id']}:node_group=page~");
+        $this->tpl->assign('SECONDARY_NAVIGATION', $_Onxshop_Request->getContent());
+        $this->tpl->parse('content.secondary_navigation');
+
+        return true;
+	}
 }
