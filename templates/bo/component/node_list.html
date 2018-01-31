@@ -65,12 +65,12 @@ function refreshList() {
 			<!-- BEGIN: item -->
 			<tr id="node_id_{CHILD.id}">
 				<td><a class="{CHILD.class}" href="javascript:void({CHILD.id})" onclick="openEdit('/popup/properties/{CHILD.id}/orig' + window.location.pathname)" title="Modified: {CHILD.modified|htmlspecialchars}">{CHILD.title|htmlspecialchars}</a></td>
-				<td>{CHILD.node_group}/{CHILD.node_controller}</td>
+				<td>{CHILD.node_group|htmlspecialchars}/{CHILD.node_controller|htmlspecialchars}</td>
 				<td>{CHILD.parent_container}</td>
 				<td>{CHILD.priority}</td>
 				<td><div class="onxshop_page_properties">
-					<a class="onxshop_duplicate" title="Duplicate {CHILD.node_controller}" href="#{CHILD.id}"><span>Duplicate</span></a>
-					<a class="onxshop_delete" title="Delete {CHILD.node_controller}" href="#{CHILD.id}"><span>Delete</span></a>
+					<a class="onxshop_duplicate" title="Duplicate {CHILD.node_group|htmlspecialchars} {CHILD.title|htmlspecialchars}" href="#{CHILD.id}"><span>Duplicate</span></a>
+					<a class="onxshop_delete" title="Delete {CHILD.node_group|htmlspecialchars} {CHILD.title|htmlspecialchars}" href="#{CHILD.id}"><span>Delete</span></a>
 				</div></td>
 			</tr>
 			<!-- END: item -->
