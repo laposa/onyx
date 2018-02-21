@@ -1,5 +1,5 @@
 <!-- BEGIN: content -->
-<div class="survey">
+<div class="survey" id="survey-node-id-{GET.node_id}">
 <!-- BEGIN: form -->
 <style type="text/css">
 @import url(/share/themes/jquery-ui/onxshop/jquery-ui.css);
@@ -35,7 +35,7 @@ $(function() {
 label.error { display: none; }  
 </style>
 
-<form method="post" action="{URI|htmlspecialchars}#node-id-{GET.node_id}" id="survey-form-{GET.node_id}" enctype="multipart/form-data">
+<form method="post" action="{URI|htmlspecialchars}#survey-node-id-{GET.node_id}" id="survey-form-{GET.node_id}" enctype="multipart/form-data">
     <fieldset class="single questions">
         <legend>{SURVEY.title|htmlspecialchars}</legend>
         <!-- BEGIN: question -->
