@@ -2,7 +2,7 @@
 /**
  * Menu of server files
  *
- * Copyright (c) 2006-2017 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2006-2018 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -57,7 +57,9 @@ class Onxshop_Controller_Bo_Component_Server_Browser_Menu extends Onxshop_Contro
             }
         }
         
-        return $this->buildTree($list);
+        $tree = $this->buildTree($list, '');
+        
+        return $tree;
     }
     
     /**

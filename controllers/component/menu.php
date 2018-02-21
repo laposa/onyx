@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2005-2017 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2005-2018 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -81,31 +81,42 @@ class Onxshop_Controller_Component_Menu extends Onxshop_Controller {
 
     /**
      * build tree from a 2D array
+     * @param array $list flat file structure
+     * @param string|integer $id it's ID when using in common_node or taxonomy tree, but string for filesystem
+     * @parem integer $level 
      */
      
-    function buildTree($nodes, $id = 0, $level = 1) {
+    function buildTree($list, $id = 0, $level = 1) {
 
         //this function is called again and again
         
         $tree = array();
 
-        if(is_array($nodes)) {
+        if(is_array($list)) {
         
-            foreach($nodes as $node) {
+            /**
+             * filter out only items with selected parent ID
+             */
+             
+            foreach($list as $item) {
             
                 // safety check
-                if ($node['parent'] === $node['id']) {
-                        msg("Infinite loop in tree.buildTree (id={$node['id']}, parent={$node['parent']}", 'error');
+                if ($item['parent'] === $item['id']) {
+                        msg("Infinite loop in tree.buildTree (id={$item['id']}, parent={$item['parent']}", 'error');
                         return false;
                 }
                 
-                if ($node["parent"] == $id) array_push($tree, $node);
+                if ($item["parent"] == $id) array_push($tree, $item);
             }
 
+            /**
+             * build tree structure
+             */
+            
             for($x = 0; $x < count($tree); $x++) {
                     
                 $tree[$x]["level"] = $level;
-                $tree[$x]["children"] = $this->buildTree($nodes, $tree[$x]["id"], $level + 1);
+                $tree[$x]["children"] = $this->buildTree($list, $tree[$x]["id"], $level + 1);
 
             }
 
@@ -129,7 +140,7 @@ class Onxshop_Controller_Component_Menu extends Onxshop_Controller {
             // we can hugely optimise this special case 
             $flat_tree = $this->Node->getTree($publish, $filter);
             $flat_tree = $this->processPermission($flat_tree);
-            return $this->buildTree($flat_tree);;
+            return $this->buildTree($flat_tree);
         }
 
         /**
