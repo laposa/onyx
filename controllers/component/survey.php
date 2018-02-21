@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2011-2017 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2011-2018 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -353,6 +353,12 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
                 $this->tpl->parse('content.form.question.answer_text');
             break;
             
+            case 'textshort':
+                if ($selected_value) $this->tpl->assign('SELECTED_VALUE', $selected_value);
+                else  $this->tpl->assign('SELECTED_VALUE', '');
+                $this->tpl->parse('content.form.question.answer_textshort');
+            break;
+            
             case 'radio':
                 foreach ($question_detail['answer_list'] as $item) {
                     if ($selected_value) {
@@ -437,10 +443,10 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
                 $answer['question_id'] = $question_id;
                 
                 /**
-                 * for text, range and file type save as value
+                 * for text, textshort, range and file type save as value
                  */
                  
-                if ($question_detail['type'] == 'text' || $question_detail['type'] == 'file' || $question_detail['type'] == 'range') {
+                if ($question_detail['type'] == 'text' || $question_detail['type'] == 'textshort' || $question_detail['type'] == 'file' || $question_detail['type'] == 'range') {
                 
                     $answer['value'] = $answer_value;
                 
