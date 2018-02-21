@@ -40,12 +40,12 @@ class Onxshop_Controller_Bo_Backoffice_Menu_Advanced extends Onxshop_Controller_
         if ($auth->hasAnyPermission('database')) $this->tpl->parse('content.database');
         if ($auth->hasAnyPermission('templates')) $this->tpl->parse('content.templates');
         if ($auth->hasAnyPermission('scheduler')) $this->tpl->parse('content.scheduler');
-        if ($auth->hasAnyPermission('currency')) $this->tpl->parse('content.currency');
         if ($auth->hasAnyPermission('search_index')) $this->tpl->parse('content.search_index');
-        if ($auth->hasAnyPermission('api')) $this->tpl->parse('content.api');
         if ($auth->hasAnyPermission('tools')) $this->tpl->parse('content.tools');
         if ($auth->hasAnyPermission('logs')) $this->tpl->parse('content.logs');
         if ($auth->hasAnyPermission('configuration')) $this->tpl->parse('content.configuration');
+        if ($auth->hasAnyPermission('currency') && $isEcommerce) $this->tpl->parse('content.currency');
+        if ($auth->hasAnyPermission('api') && $isEcommerce) $this->tpl->parse('content.api');
 
         return true;
         
