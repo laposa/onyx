@@ -355,24 +355,6 @@ CREATE TABLE IF NOT EXISTS `common_node_taxonomy` (
   `taxonomy_tree_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
-CREATE TABLE IF NOT EXISTS `common_print_article` (
-`id` int(11) NOT NULL,
-  `src` varchar(255) DEFAULT NULL,
-  `role` varchar(255) DEFAULT NULL,
-  `node_id` int(11) NOT NULL,
-  `title` varchar(255) NOT NULL,
-  `description` longtext,
-  `priority` int(11) NOT NULL DEFAULT '0',
-  `modified` datetime DEFAULT NULL,
-  `author` int(11) DEFAULT NULL,
-  `type` varchar(255) DEFAULT NULL,
-  `authors` longtext,
-  `issue_number` int(11) DEFAULT NULL,
-  `page_from` int(11) DEFAULT NULL,
-  `date` date DEFAULT NULL,
-  `other` longtext
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
 CREATE TABLE IF NOT EXISTS `common_revision` (
 `id` int(11) NOT NULL,
   `object` varchar(255) NOT NULL,
@@ -894,9 +876,6 @@ ALTER TABLE `common_node`
 ALTER TABLE `common_node_taxonomy`
  ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `node_node_id_taxonomy_tree_id_key` (`node_id`,`taxonomy_tree_id`), ADD KEY `common_node_taxonomy_node_id_idx` (`node_id`), ADD KEY `common_node_taxonomy_taxonomy_tree_id_idx` (`taxonomy_tree_id`);
 
-ALTER TABLE `common_print_article`
- ADD PRIMARY KEY (`id`), ADD KEY `common_print_article_node_id_idx` (`node_id`);
-
 ALTER TABLE `common_revision`
  ADD PRIMARY KEY (`id`), ADD KEY `common_revision_combined_idx` (`object`,`node_id`), ADD KEY `common_revision_customer_id_fkey` (`customer_id`);
 
@@ -986,8 +965,6 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `common_node`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=108;
 ALTER TABLE `common_node_taxonomy`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-ALTER TABLE `common_print_article`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 ALTER TABLE `common_revision`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
@@ -1081,9 +1058,6 @@ ADD CONSTRAINT `common_node_parent_fkey` FOREIGN KEY (`parent`) REFERENCES `comm
 ALTER TABLE `common_node_taxonomy`
 ADD CONSTRAINT `common_node_taxonomy_node_id_fkey` FOREIGN KEY (`node_id`) REFERENCES `common_node` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
 ADD CONSTRAINT `common_node_taxonomy_taxonomy_tree_id_fkey` FOREIGN KEY (`taxonomy_tree_id`) REFERENCES `common_taxonomy_tree` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
-
-ALTER TABLE `common_print_article`
-ADD CONSTRAINT `common_print_article_node_id_fkey` FOREIGN KEY (`node_id`) REFERENCES `common_node` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 ALTER TABLE `common_revision`
 ADD CONSTRAINT `common_revision_customer_id_fkey` FOREIGN KEY (`customer_id`) REFERENCES `client_customer` (`id`) ON UPDATE CASCADE;

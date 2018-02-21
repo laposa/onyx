@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * Copyright (c) 2006-2017 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2006-2018 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *  
  */
@@ -32,7 +32,6 @@ $templates_info['content'] = array(
     'file'=>array('title' => 'File List (Downloads)', 'description'=>'', 'visibility'=>true),
     'survey'=>array('title' => 'Survey (Questionnaire Form)', 'description'=>'', 'visibility'=>true),
     'external_source'=>array('title' => 'Remote HTML Resource', 'description'=>'', 'visibility'=>false),
-    'print_article_list'=>array('title' => 'Print Article List', 'description'=>'', 'visibility'=>false),
     'shared'=>array('title' => 'Shared (Linked) Content', 'description'=>'', 'visibility'=>false),
     'imagemap'=>array('title' => 'Image map', 'description'=>'', 'visibility'=>false), 
     'teaser'=>array('title' => 'Teaser', 'description'=>'Create a teaser for page and allow to customise image, description and link text', 'visibility'=>true),

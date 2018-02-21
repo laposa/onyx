@@ -804,49 +804,6 @@ CREATE SEQUENCE common_node_taxonomy_id_seq
 
 ALTER SEQUENCE common_node_taxonomy_id_seq OWNED BY common_node_taxonomy.id;
 
-
---
--- Name: common_print_article; Type: TABLE; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE TABLE common_print_article (
-    id integer NOT NULL,
-    src character varying(255),
-    role character varying(255),
-    node_id integer NOT NULL,
-    title character varying(255) NOT NULL,
-    description text,
-    priority integer DEFAULT 0 NOT NULL,
-    modified timestamp(0) without time zone,
-    author integer,
-    type character varying(255),
-    authors text,
-    issue_number integer,
-    page_from integer,
-    date date,
-    other text
-);
-
-
---
--- Name: common_print_article_id_seq; Type: SEQUENCE; Schema: public; Owner: -
---
-
-CREATE SEQUENCE common_print_article_id_seq
-    START WITH 1
-    INCREMENT BY 1
-    NO MINVALUE
-    NO MAXVALUE
-    CACHE 1;
-
-
---
--- Name: common_print_article_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: -
---
-
-ALTER SEQUENCE common_print_article_id_seq OWNED BY common_print_article.id;
-
-
 --
 -- Name: common_revision; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
@@ -1595,13 +1552,6 @@ ALTER TABLE ONLY common_node_taxonomy ALTER COLUMN id SET DEFAULT nextval('commo
 -- Name: id; Type: DEFAULT; Schema: public; Owner: -
 --
 
-ALTER TABLE ONLY common_print_article ALTER COLUMN id SET DEFAULT nextval('common_print_article_id_seq'::regclass);
-
-
---
--- Name: id; Type: DEFAULT; Schema: public; Owner: -
---
-
 ALTER TABLE ONLY common_revision ALTER COLUMN id SET DEFAULT nextval('common_revision_id_seq'::regclass);
 
 
@@ -2065,21 +2015,6 @@ COPY common_node_taxonomy (id, node_id, taxonomy_tree_id) FROM stdin;
 --
 
 SELECT pg_catalog.setval('common_node_taxonomy_id_seq', 1, false);
-
-
---
--- Data for Name: common_print_article; Type: TABLE DATA; Schema: public; Owner: -
---
-
-COPY common_print_article (id, src, role, node_id, title, description, priority, modified, author, type, authors, issue_number, page_from, date, other) FROM stdin;
-\.
-
-
---
--- Name: common_print_article_id_seq; Type: SEQUENCE SET; Schema: public; Owner: -
---
-
-SELECT pg_catalog.setval('common_print_article_id_seq', 1, false);
 
 
 --
@@ -2760,14 +2695,6 @@ ALTER TABLE ONLY common_node_taxonomy
 
 
 --
--- Name: common_print_article_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
---
-
-ALTER TABLE ONLY common_print_article
-    ADD CONSTRAINT common_print_article_pkey PRIMARY KEY (id);
-
-
---
 -- Name: common_revision_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -3131,13 +3058,6 @@ CREATE INDEX common_node_taxonomy_taxonomy_tree_id_idx ON common_node_taxonomy U
 
 
 --
--- Name: common_print_article_node_id_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
---
-
-CREATE INDEX common_print_article_node_id_idx ON common_print_article USING btree (node_id);
-
-
---
 -- Name: common_revision_combined_idx; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
@@ -3457,15 +3377,6 @@ ALTER TABLE ONLY common_node_taxonomy
 
 ALTER TABLE ONLY common_node_taxonomy
     ADD CONSTRAINT common_node_taxonomy_taxonomy_tree_id_fkey FOREIGN KEY (taxonomy_tree_id) REFERENCES common_taxonomy_tree(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
-
---
--- Name: common_print_article_node_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY common_print_article
-    ADD CONSTRAINT common_print_article_node_id_fkey FOREIGN KEY (node_id) REFERENCES common_node(id) ON UPDATE CASCADE ON DELETE CASCADE;
-
 
 --
 -- Name: common_revision_customer_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
