@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * Copyright (c) 2010-2011 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2010-2018 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *  
  */
@@ -27,9 +27,9 @@ $layout_style['layout']['styles'] = array(
 $layout_style['layout']['default'] = 'fibonacci-1-1';
 
 $layout_style['page'] = $layout_style['layout'];
-$layout_style['page']['default'] = 'fibonacci-2-1'; //TODO: get defaul value from common_node:conf
+$layout_style['page']['default'] = 'fibonacci-2-1'; //TODO: get default value from common_node:conf
 
 $layout_style['container'] = $layout_style['layout'];
 
 $layout_style['site'] = $layout_style['layout'];
-$layout_style['site']['default'] = 'fibonacci-1-5'; //TODO: get defaul value from common_node:conf
+$layout_style['site']['default'] = 'fibonacci-1-5'; //TODO: get default value from common_node:conf
