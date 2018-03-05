@@ -28,7 +28,6 @@ class Onxshop_Controller_Bo_Component_Database_Listing extends Onxshop_Controlle
 			if (!is_dir(ONXSHOP_DIR . $path) && (is_file(ONXSHOP_DIR . "$path.php") || is_file(ONXSHOP_PROJECT_DIR . "$path.php"))) {
 		
 				require_once("$path.php");
-			
 		
 				//$model = preg_replace('/\.php/', '', $dir[1]);
 				$model = $dir[1];
@@ -40,7 +39,6 @@ class Onxshop_Controller_Bo_Component_Database_Listing extends Onxshop_Controlle
 				 
 				$table_size = $Obj->getTableSize();
 				$this->tpl->assign('TABLE_SIZE', $table_size);
-				
 				$this->tpl->assign('MODEL', $model);
 		
 				/**
