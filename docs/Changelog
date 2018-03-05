@@ -1,3 +1,52 @@
+Onxshop (1.7.10)
+
+  * use URL without other GET params for og:url
+  * add onxshop.db class from branch 1.8, which includes fix for PHP7
+  * improve tooltips in node_list
+  * add teaser input field into video component
+  * small refactoring in default page node controller
+  * move node duplicate options to model configurable in database 
+  * change default behaviour on duplicate to unpublish and keep the same title
+  * new conf option ONXSHOP_ALLOW_TO_DUPLICATE_PAGES_RECURSIVELY
+  * add upc and priority field to insertFullVariety function
+  * change default session name to OnxshopSID
+  * remove NOCREATEUSER which is no longer supported in PostgreSQL 9.6
+  * upgrade adminer
+  * new configuration option ONXSHOP_PROJECT_EXTERNAL_DIRECTORIES
+  * fix for homepage mapping
+  * optimise Tracy debug toolbar for mobile
+  * be more specific on placeholder for errors for surveys
+  * merge tree.php and menu.php, render symbolic page type as target URL
+  * add error class to div.row for all contact forms and surveys
+  * show notification URL redirect was created
+  * create automatically 301 redirects on page URL update
+  * update labels for navigation to be more clear
+  * use cache for getSurveyListStats
+  * remove tinymce editor when closing overlay to avoid error in firefox
+  * allow two modal overlays to be open
+  * create cache and sessions directore if doesn't exist
+  * allow custom limit for product autocomplete function
+  * unify recodeUTF8ToAscii function
+  * remove duplicated default option
+  * JpGraph upgrade to v4.1
+  * add css for age_gate component
+  * bug fix in special offers list template selection
+  * updated store locator
+  * implement both distances - from shop and from client
+  * use different PHP implementation of Haversine formula
+  * change getRelatedTaxonomy to use label publish attribute
+  * improved store locator
+  * include user details in backup notification email
+  * remove outdated bo/pages/edit_template
+  * improved bo_login UX
+  * upgrade-1.7.x-to-1.7.9.sql and upgrade-1.7.x-to-1.7.10.sql in project_skeleton
+  * add support for HTTP byte-ranges to /view/ and /download/ URLs
+  * add example for local rewrite rules to htaccess
+  * allow to optimize index from backoffice/advanced
+  * add unique constraint to ecommerce_transaction for (order_id, pg_data) to prevent duplicates
+
+ -- Norbert Laposa <norbert@laposa.co.uk>  2018-03-05
+ 
 Onxshop (1.7.9)
 
   * fix sorting in content list node 
@@ -26,7 +75,7 @@ Onxshop (1.7.9)
   * use captcha.inc.html for all forms using Captcha
   * allow captcha on registration form
   * separate Google Tag Manager code into HEAD and BODY
-  * use realpath in path detection to allow ysymlinks, i.e. for Debian package
+  * use realpath in path detection to allow symlinks, i.e. for Debian package
 
  -- Norbert Laposa <norbert@laposa.co.uk>  2017-05-18
 
