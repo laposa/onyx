@@ -836,7 +836,7 @@ class XTemplate {
 					if (is_array($callback_funcs) && !empty($callback_funcs)) {
 						foreach ($callback_funcs as $callback) {
 							// See if we've got parameters being used e.g. |str_replace('A', 'B', %s)
-							if (preg_match($this->preg_delimiter . '\((.*?)\)' . $this->preg_delimiter, $callback, $matches)) {
+							if (preg_match($this->preg_delimiter . '\((.*?)\)$' . $this->preg_delimiter, $callback, $matches)) {
 								$parameters = array();
 								/**
 								 * Zero width assertion positive look behind (?<=a)x
@@ -870,7 +870,7 @@ class XTemplate {
 							}
 
 							// Remove the parameters
-							$callback = preg_replace($this->preg_delimiter . '\(.*?\)' . $this->preg_delimiter, '', $callback);
+							$callback = preg_replace($this->preg_delimiter . '\(.*?\)$' . $this->preg_delimiter, '', $callback);
 
 							// Allow callback of methods in a sub-class of XTemplate
 							// e.g. you must my_class extends XTemplate {} if you want to use this feature
