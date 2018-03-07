@@ -112,28 +112,22 @@ function feEditStartDragDrop() {
         scroll: true,
 
         update: function(event, ui) {
-            //growlMessage("update " + $(event.target).attr('id')); 
             //feEditDragDrop(event, ui);
         },
         receive: function(event, ui) {
-            //growlMessage("receive " + $(event.target).attr('id'));
             //feEditDragDrop(event, ui);
         },
         over: function(event, ui) {
             //sortable_selected_id = $(event.target).attr('id');
-            //growlMessage("over " + $(event.target).attr('id'));
         },
         change: function(event, ui) {
             //sortable_selected_id = $(event.target).attr('id');
-            //growlMessage("change " + $(event.target).attr('id'));
         },
         stop: function(event, ui) {
-            //growlMessage(sortable_selected_id);
             feEditDragDrop(event, ui);
-            //growlMessage("stop " + $(event.target).attr('id'));
         },
         activate: function(event, ui) {
-            //growlMessage("activate " + $(event.target).attr('id'));
+            
         }
 
     });
@@ -143,7 +137,7 @@ function feEditStartDragDrop() {
 }
 
 function feEditDragDrop(event, ui) {
-    var source_node_id = $(ui.item).attr('id').replace('node-id-', '');
+    var source_node_id = $(ui.item).find('div').attr('id').replace('node-id-', '');
     var position = $(ui.item).parent().children().index(ui.item);
     var destination_id = $(ui.item).parent().attr('id');
     //var temp = $(event.target).attr('id').replace('onxshop-layout-container-', '').split('-');
@@ -151,7 +145,7 @@ function feEditDragDrop(event, ui) {
     var destination_node_id = temp[0];
     var destination_container_id = temp[1];
 
-    //alert("receive: Source id " + source_node_id + ", Destination id " + destination_node_id + ", Destination container " + destination_container_id + ", Position " + position);
+    console.log("receive: Source id " + source_node_id + ", Destination id " + destination_node_id + ", Destination container " + destination_container_id + ", Position " + position);
     feEditNodeMove(source_node_id, destination_node_id, destination_container_id, position);
     
     return false;
