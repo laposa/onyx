@@ -14,7 +14,6 @@ $templates_info['variable'] = array(
     
 $templates_info['content'] = array(
     'default'=>array('title' => 'Default', 'description'=>'', 'visibility'=>false),
-    'textile'=>array('title' => 'Textile', 'description'=>'', 'visibility'=>true),
     'rte'=>array('title' => 'Rich Text', 'description'=>'', 'visibility'=>true),
     'image_gallery'=>array('title' => 'Image Gallery', 'description'=>'Multiple images listed in a gallery', 'visibility'=>true),
     'image'=>array('title' => 'Image', 'description'=>'Single image', 'visibility'=>true),
