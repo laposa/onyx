@@ -4,7 +4,7 @@
  *
  * custom Active Record Database Pattern and simple validation
  *
- * Copyright (c) 2005-2017 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2005-2018 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -12,7 +12,7 @@
 class Onxshop_Db {
 
     var $conf = array();
-    var $_cacheable = true; // can be overwritten by setCacheable i.e. by default in constructor 
+    var $_cacheable = false; // can be overwritten by setCacheable i.e. by default in constructor 
     var $_valid = array();
     var $_class_name = '';
     var $_public_attributes = array();
@@ -26,7 +26,7 @@ class Onxshop_Db {
     
     function __construct() {
         $this->_class_name = get_class($this);
-        $this->setCacheable(ONXSHOP_DB_QUERY_CACHE);
+        if (defined('ONXSHOP_DB_QUERY_CACHE')) $this->setCacheable(ONXSHOP_DB_QUERY_CACHE);
         $this->generic();
     }
     
