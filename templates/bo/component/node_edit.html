@@ -12,7 +12,7 @@
             target:        '#node-properties-edit-result', 
             beforeSubmit:  preSubmit,
             success:       showResponse, 
-            url:       '/request/bo/component/node_edit~id={GET.id}:orig={GET.orig}:popup=1:ajax=1~'
+            url:       '/request/bo/component/node_edit~id={GET.id}:orig={GET.orig}~'
         }; 
 
         $('#node-edit-{GET.id}').ajaxForm(options);
@@ -27,13 +27,6 @@ function preSubmit() {
     }
 }
 
-//debug
-function showRequestX(formData, jqForm, options) { 
-    var queryString = $.param(formData); 
-    alert('About to submit: \n\n' + queryString); 
-    return true; 
-} 
- 
 // post-submit callback 
 function showResponse(responseText, statusText)  {
     
@@ -46,8 +39,8 @@ function showResponse(responseText, statusText)  {
     }
     
     //reload whole form in case node_group has changed
-    if ($('#node-node-group').attr('value') != '{NODE.node_group}' || $('#node-node-controller').attr('value') != '{NODE.node_controller}') {
-        window.location.reload();
+    if ($('#node-node-group-{GET.id}').attr('value') != '{NODE.node_group}' || $('#node-node-controller-{GET.id}').attr('value') != '{NODE.node_controller}') {
+        if (confirm("You have changed the content type, the browser window will refresh to display the updated fields")) window.location.reload();
     }
     
     //don't reload in context when in backoffice
