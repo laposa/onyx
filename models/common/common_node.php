@@ -521,8 +521,8 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
     /**
      * update node
      *
-     * @param unknown_type $node_data
-     * @return unknown
+     * @param array $node_data
+     * @return bool
      */
     
     function nodeUpdate($node_data) {

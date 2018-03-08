@@ -1023,7 +1023,7 @@ CREATE TABLE common_file (
                 
                 return $result;
             } else {
-                msg("common_image.getImageSize(): $file is not a bitmap image (perhaps SVG?)", 'error', 1);
+                msg("common_image.getImageSize(): $file is not a bitmap image (perhaps SVG?)", 'error', 2);
                 return false;
             }
         } else {
