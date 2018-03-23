@@ -2,7 +2,7 @@
 /**
  * class ecommerce_store
  *
- * Copyright (c) 2013-2017 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2013-2018 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -542,6 +542,11 @@ CREATE INDEX ecommerce_store_type_id_idx ON ecommerce_store (type_id);
      * @return float
      */
     function distance($latitude1, $longitude1, $latitude2, $longitude2) {
+        
+        if (!is_numeric($latitude1)) return false;
+        if (!is_numeric($longitude1)) return false;
+        if (!is_numeric($latitude2)) return false;
+        if (!is_numeric($longitude2)) return false;
         
         $earth_radius = 6371;
      
