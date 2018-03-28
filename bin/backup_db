@@ -8,4 +8,4 @@ DB_NAME=$4;
 PROJECT_DIR=$5;
 FILENAME=$6;
 
-pg_dump --no-owner "user=${DB_USER} password=${DB_PASSWORD} host=${DB_HOST} dbname=${DB_NAME}" |gzip > ${PROJECT_DIR}var/backup/${FILENAME}
+pg_dump --clean --no-owner "user=${DB_USER} password=${DB_PASSWORD} host=${DB_HOST} dbname=${DB_NAME}" |gzip > ${PROJECT_DIR}var/backup/${FILENAME}
