@@ -575,6 +575,27 @@ CREATE INDEX ecommerce_store_type_id_idx ON ecommerce_store (type_id);
         
         return $related_taxonomy;
     }
+    
+    /**
+     * getRelatedTaxonomyIds
+     */
+     
+    public function getRelatedTaxonomyIds($store_id) {
+        
+        if (!is_numeric($store_id)) return false;
+        
+        $related_taxonomy = $this->getRelatedTaxonomy($store_id);
+        
+        $taxonomy_ids = array();
+        
+        foreach ($related_taxonomy as $item) {
+            
+            $taxonomy_ids[] = $item['id'];
+        
+        }
+        
+        return $taxonomy_ids;
+    }
 
     /**
      * getDataForNoticesReport
