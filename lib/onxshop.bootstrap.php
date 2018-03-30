@@ -289,9 +289,9 @@ class Onxshop_Bootstrap {
         
         $_SESSION['use_page_cache'] = $this->isPageCacheAllowed();
 
-        // in the session history we store only new URIs and not the AJAX request (begin with /request/)
-        // and don't store a popup
-        if ($_SESSION['last_item'] != $_SESSION['uri'] && !preg_match('/^\/(request)*(popup)*(popupimage)*(ajax)*\//', $_SERVER['REQUEST_URI'])) {
+        // in session history we store only new page URIs,
+        // exclude paths beginning with /ajax/, /request/, /popup/, /popupimage/, /view/
+        if ($_SESSION['last_item'] != $_SESSION['uri'] && !preg_match('/^\/(ajax)*(request)*(popup)*(popupimage)*(view)*\//', $_SERVER['REQUEST_URI'])) {
             $_SESSION['history'][] = array('time'=>time(), 'uri'=>$_SESSION['uri']);
         }
 
