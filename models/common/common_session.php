@@ -5,7 +5,7 @@
  * inspired by article By Tony Marston
  * http://www.developertutorials.com/tutorials/php/saving-php-session-data-database-050711/page2.html
  *
- * Copyright (c) 2009-2017 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2018 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -299,10 +299,15 @@ CREATE TABLE common_session (
      
     function gc( $max_lifetime ) {
     
+        // delete locks older 2 hours before trying to do garbage collection in db
+        $files = @glob(ONXSHOP_PROJECT_DIR . "/var/sessions/*.lock");
+        foreach($files as $file) {
+            if (is_file($file) && time() - filemtime($file) >= 2 * 60 * 60) @unlink($file);
+        }
+        
+        // prepare date format for database
         $real_now = time();
-
         $dt1 = $real_now - $max_lifetime;
-
         $dt2 = date('Y-m-d H:i:s', $dt1);
         
         //list expired session
@@ -313,12 +318,6 @@ CREATE TABLE common_session (
         $Archive = new common_session_archive();
         foreach ($expired as $e) {
             $Archive->insertSession($e);
-        }
-
-        // delete locks older 2 hours
-        $files = @glob(ONXSHOP_PROJECT_DIR . "/var/sessions/*.lock");
-        foreach($files as $file) {
-            if (is_file($file) && time() - filemtime($file) >= 2 * 60 * 60) @unlink($file);
         }
         
         //delete them from common_session table
