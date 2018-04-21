@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * Copyright (c) 2011-2017 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2011-2018 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -145,9 +145,12 @@ class education_survey extends Onxshop_Model {
     
     /**
      * get full detail
+     * @param int $survey_id
+     * @param boolean $include_stats
+     * @returns array
      */
      
-    public function getFullDetail($survey_id) {
+    public function getFullDetail($survey_id, $include_stats = true) {
     
         if (!is_numeric($survey_id)) {
             msg("Survey ID is not numeric", 'error');
@@ -156,8 +159,11 @@ class education_survey extends Onxshop_Model {
         
         $detail = $this->getDetail($survey_id);
         $detail['question_list'] = $this->getFullQuestionsList($survey_id);
-        $detail['usage_count'] = $this->getSurveyUsageCount($survey_id);
-        $detail['average_rating'] = $this->getAverageRating($survey_id);
+        
+        if ($include_stats) {
+            $detail['usage_count'] = $this->getSurveyUsageCount($survey_id);
+            $detail['average_rating'] = $this->getAverageRating($survey_id);
+        }
         
         return $detail;
     }
