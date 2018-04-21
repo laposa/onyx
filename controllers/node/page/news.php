@@ -8,59 +8,59 @@ require_once('controllers/node/page/default.php');
 
 class Onxshop_Controller_Node_Page_News extends Onxshop_Controller_Node_Page_Default {
 
-	/**
-	 * main action
-	 */
-	 
-	public function mainAction() {
-		
-		//input data
-		if (is_numeric($this->GET['id'])) $node_id = $this->GET['id'];
-		else return false;
-		
-		//initialise
-		require_once('models/common/common_node.php');
-		$Node = new common_node();
-		
-		//get node detail
-		$node_data = $Node->nodeDetail($node_id);
-		
-		//parent page is blog article container
-		$blog_node_id = $node_data['parent'];
-		$this->tpl->assign('BLOG_NODE_ID', $blog_node_id);
-		
-		//show comments only when enabled
-		if ($node_data['component']['allow_comment'] == 1) {
-			$_Onxshop_Request = new Onxshop_Request("component/comment~node_id={$node_id}:allow_anonymouse_submit=1~");
-			$this->tpl->assign("COMMENT", $_Onxshop_Request->getContent());
-			$this->tpl->parse("content.comment");
-		}
-		
-		/**
-		 * empty author helper class
-		 */
-		 
-		if (trim($node_data['component']['author']) == '') {
-			
-			$this->tpl->assign('AUTHOR_EMPTY', 'author_empty');
-			
-		} else {
-			
-			$this->tpl->assign('AUTHOR_EMPTY', '');
-			
-		}
-		
-		/**
-		 * getRelatedTaxonomy
-		 */
-		 
-		$related_taxonomy = $Node->getRelatedTaxonomy($node_id);
-		$this->tpl->assign('TAXONOMY', $related_taxonomy);
-		
-		//standard page actions
-		$this->processContainers();
-		$this->processPage();
+    /**
+     * main action
+     */
+     
+    public function mainAction() {
+        
+        //input data
+        if (is_numeric($this->GET['id'])) $node_id = $this->GET['id'];
+        else return false;
+        
+        //initialise
+        require_once('models/common/common_node.php');
+        $Node = new common_node();
+        
+        //get node detail
+        $node_data = $Node->nodeDetail($node_id);
+        
+        //parent page is blog article container
+        $blog_node_id = $node_data['parent'];
+        $this->tpl->assign('BLOG_NODE_ID', $blog_node_id);
+        
+        //show comments only when enabled
+        if ($node_data['component']['allow_comment'] == 1) {
+            $_Onxshop_Request = new Onxshop_Request("component/comment~node_id={$node_id}:allow_anonymouse_submit=1~");
+            $this->tpl->assign("COMMENT", $_Onxshop_Request->getContent());
+            $this->tpl->parse("content.comment");
+        }
+        
+        /**
+         * empty author helper class
+         */
+         
+        if (trim($node_data['component']['author']) == '') {
+            
+            $this->tpl->assign('AUTHOR_EMPTY', 'author_empty');
+            
+        } else {
+            
+            $this->tpl->assign('AUTHOR_EMPTY', '');
+            
+        }
+        
+        /**
+         * getRelatedTaxonomy
+         */
+         
+        $related_taxonomy = $Node->getRelatedTaxonomy($node_id);
+        $this->tpl->assign('TAXONOMY', $related_taxonomy);
+        
+        //standard page actions
+        $this->processContainers();
+        $this->processPage();
 
-		return true;
-	}
+        return true;
+    }
 }

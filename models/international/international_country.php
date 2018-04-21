@@ -9,42 +9,42 @@
  
 class international_country extends Onxshop_Model {
 
-	/**
-	 * @access private
-	 */
-	var $id;
-	/**
-	 * @access private
-	 */
-	var $name;
-	/**
-	 * @access private
-	 */
-	var $iso_code2;
-	/**
-	 * @access private
-	 */
-	var $iso_code3;
-	/**
-	 * @access private
-	 */
-	var $eu_status;
-	/**
-	 * @access private
-	 */
-	var $currency_code;
-	/**
-	 * @access private
-	 */
-	var $publish;
+    /**
+     * @access private
+     */
+    var $id;
+    /**
+     * @access private
+     */
+    var $name;
+    /**
+     * @access private
+     */
+    var $iso_code2;
+    /**
+     * @access private
+     */
+    var $iso_code3;
+    /**
+     * @access private
+     */
+    var $eu_status;
+    /**
+     * @access private
+     */
+    var $currency_code;
+    /**
+     * @access private
+     */
+    var $publish;
 
-	/**
-	 * create table sql
-	 */
-	 
-	private function getCreateTableSql() {
-	
-		$sql = "
+    /**
+     * create table sql
+     */
+     
+    private function getCreateTableSql() {
+    
+        $sql = "
 CREATE TABLE international_country (
     id serial NOT NULL PRIMARY KEY,
     name character varying(255),
@@ -54,25 +54,25 @@ CREATE TABLE international_country (
     currency_code character(3),
     publish smallint NOT NULL,
 );
-		";
-		
-		return $sql;
-	}
+        ";
+        
+        return $sql;
+    }
 
-	/**
-	 * init configuration
-	 */
-	 
-	static function initConfiguration() {
-		if (array_key_exists('international_country', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['international_country'];
-		else $conf = array();
+    /**
+     * init configuration
+     */
+     
+    static function initConfiguration() {
+        if (array_key_exists('international_country', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['international_country'];
+        else $conf = array();
 
-		// define default country
-		if (!is_numeric($conf['default_id'])) $conf['default_id'] = 222;
-		
-		//better use CODE3 (i.e. GBR)
+        // define default country
+        if (!is_numeric($conf['default_id'])) $conf['default_id'] = 222;
+        
+        //better use CODE3 (i.e. GBR)
 
-		return $conf;
-	}
+        return $conf;
+    }
 
 }

@@ -9,25 +9,25 @@ require_once 'controllers/component/flickr.php';
 class Onxshop_Controller_Component_Flickr_Photoset_Detail extends Onxshop_Controller_Component_Flickr
 {
 
-	/**
-	 * main action 
-	 */
+    /**
+     * main action 
+     */
 
-	public function mainAction() {
+    public function mainAction() {
 
-		$this->init();
+        $this->init();
 
-		$photoset_id = $this->GET['photoset_id'];
+        $photoset_id = $this->GET['photoset_id'];
 
-		$list = $this->getPhotoset($photoset_id);
+        $list = $this->getPhotoset($photoset_id);
 
-		foreach ($list['photoset']['photo'] as $item) {
-			$this->tpl->assign('ITEM', $item);
-			$this->tpl->parse('content.item');
-		}
+        foreach ($list['photoset']['photo'] as $item) {
+            $this->tpl->assign('ITEM', $item);
+            $this->tpl->parse('content.item');
+        }
 
-		return true;
+        return true;
 
-	}
+    }
 
 }

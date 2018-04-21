@@ -8,25 +8,25 @@
 
 class Onxshop_Controller_Bo_Component_Template_Edit extends Onxshop_Controller {
 
-	/**
-	 * main action
-	 */
-	 
-	public function mainAction() {
-		
-		if (!empty($this->GET['template']) && $this->isSafe($this->GET['template'])) {
+    /**
+     * main action
+     */
+     
+    public function mainAction() {
+        
+        if (!empty($this->GET['template']) && $this->isSafe($this->GET['template'])) {
 
-			$path = realpath(ONXSHOP_PROJECT_DIR . "templates/" . $this->GET['template']);
-		
-			if (file_exists($path) && !is_dir($path)) {
-				
-				$content = file_get_contents($path);
+            $path = realpath(ONXSHOP_PROJECT_DIR . "templates/" . $this->GET['template']);
+        
+            if (file_exists($path) && !is_dir($path)) {
+                
+                $content = file_get_contents($path);
                 $this->tpl->assign('CONTENT', htmlspecialchars($content));
-				
-				if (ONXSHOP_ALLOW_TEMPLATE_EDITING && is_writable($path) && $this->hasPermission()) {
+                
+                if (ONXSHOP_ALLOW_TEMPLATE_EDITING && is_writable($path) && $this->hasPermission()) {
 
                     $this->saveContent($path);
-					$this->tpl->parse('content.listing.edit');
+                    $this->tpl->parse('content.listing.edit');
 
                 } else if (isset($_POST['content'])) {
 
@@ -35,18 +35,18 @@ class Onxshop_Controller_Bo_Component_Template_Edit extends Onxshop_Controller {
 
                 }
 
-				$this->tpl->parse('content.listing');
-			
-			} else {
-			
-				$this->tpl->parse('content.hint');
-			
-			}
+                $this->tpl->parse('content.listing');
+            
+            } else {
+            
+                $this->tpl->parse('content.hint');
+            
+            }
 
-		}
+        }
 
-		return true;
-	}
+        return true;
+    }
 
     /**
      * Save content

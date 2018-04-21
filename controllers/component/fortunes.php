@@ -5,21 +5,21 @@
  */
 
 class Onxshop_Controller_Component_Fortunes extends Onxshop_Controller {
-	
-	/**
-	 * main action
-	 */
-	 
-	public function mainAction() {
-	
-		$result = local_exec('fortune');
-		
-		$quote = array();
-		$quote['text'] = $result;
-		
-		$this->tpl->assign("QUOTE", $quote);
+    
+    /**
+     * main action
+     */
+     
+    public function mainAction() {
+    
+        $result = local_exec('fortune');
+        
+        $quote = array();
+        $quote['text'] = $result;
+        
+        $this->tpl->assign("QUOTE", $quote);
 
-		return true;
-	}
+        return true;
+    }
 }
 

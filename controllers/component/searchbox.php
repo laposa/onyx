@@ -5,17 +5,17 @@
  */
 
 class Onxshop_Controller_Component_Searchbox extends Onxshop_Controller {
-	
-	/**
-	 * main action
-	 */
-	 
-	public function mainAction() {
-	
-		require_once('models/common/common_node.php');
-		$node_conf = common_node::initConfiguration();
-		$this->tpl->assign("NODE_CONF", $node_conf);
-		
-		return true;
-	}
+    
+    /**
+     * main action
+     */
+     
+    public function mainAction() {
+    
+        require_once('models/common/common_node.php');
+        $node_conf = common_node::initConfiguration();
+        $this->tpl->assign("NODE_CONF", $node_conf);
+        
+        return true;
+    }
 }

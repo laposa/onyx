@@ -9,13 +9,13 @@ require_once('controllers/component/menu.php');
 
 class Onxshop_Controller_Component_Menu_Select extends Onxshop_Controller_Component_Menu {
 
-	public function parseItem($item)
-	{
-		if (in_array($item['id'], $_SESSION['active_pages'])) {
-			$item['selected'] = 'selected="selected"';
-		}
+    public function parseItem($item)
+    {
+        if (in_array($item['id'], $_SESSION['active_pages'])) {
+            $item['selected'] = 'selected="selected"';
+        }
 
-		return parent::parseItem($item);
-	}
+        return parent::parseItem($item);
+    }
 
 }

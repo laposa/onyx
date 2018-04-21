@@ -21,18 +21,18 @@ echo "------------------------------------------------";
 
 # 1. cleanup
 rsync --recursive --times --cvs-exclude --delete-after --links --safe-links --compress --progress --whole-file --checksum ${1}\
-	--exclude '._*' \
-	--exclude '.*.swp' \
-	--exclude '.DS*' \
-	--exclude 'Thumbs.db' \
-	--exclude 'publish.sh' \
-	--exclude 'rsync.sh' \
-	--exclude 'opt/_rubish/' \
-	--exclude 'ONXSHOP_VERSION' \
-	--exclude '.git/' \
-	--exclude 'project_skeleton/onxshop_dir' \
-	${DEVELOPMENT_VERSION}* \
-	$FULL_PATH
+    --exclude '._*' \
+    --exclude '.*.swp' \
+    --exclude '.DS*' \
+    --exclude 'Thumbs.db' \
+    --exclude 'publish.sh' \
+    --exclude 'rsync.sh' \
+    --exclude 'opt/_rubish/' \
+    --exclude 'ONXSHOP_VERSION' \
+    --exclude '.git/' \
+    --exclude 'project_skeleton/onxshop_dir' \
+    ${DEVELOPMENT_VERSION}* \
+    $FULL_PATH
 
 # 2. all CSS in one file
 SCREEN_CSS="${FULL_PATH}/share/css/default/screen.css";

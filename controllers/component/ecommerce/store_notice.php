@@ -10,158 +10,158 @@ require_once('models/ecommerce/ecommerce_store.php');
 
 class Onxshop_Controller_Component_Ecommerce_Store_Notice extends Onxshop_Controller {
 
-	/**
-	 * main action
-	 */
-	public function mainAction()
-	{
-		$this->Store = new ecommerce_store();
-		$this->Node = new common_node();
-		$this->Image = new common_image();
-		$this->Store->setCacheable(false);
-		$this->Node->setCacheable(false);
-		$this->Image->setCacheable(false);
+    /**
+     * main action
+     */
+    public function mainAction()
+    {
+        $this->Store = new ecommerce_store();
+        $this->Node = new common_node();
+        $this->Image = new common_image();
+        $this->Store->setCacheable(false);
+        $this->Node->setCacheable(false);
+        $this->Image->setCacheable(false);
 
-		$node_id = (int) $this->GET['node_id'];
-		$store = $this->Store->findStoreByNode($node_id);
-		$isStoreManager = $this->isStoreManager($store);
+        $node_id = (int) $this->GET['node_id'];
+        $store = $this->Store->findStoreByNode($node_id);
+        $isStoreManager = $this->isStoreManager($store);
 
-		$notices = $this->Node->listing("parent = $node_id AND node_group = 'content' AND node_controller = 'notice'",
-			'priority DESC', '0,6');
+        $notices = $this->Node->listing("parent = $node_id AND node_group = 'content' AND node_controller = 'notice'",
+            'priority DESC', '0,6');
 
-		if (count($notices) > 0) {
+        if (count($notices) > 0) {
 
-			$displayed = 0;
+            $displayed = 0;
 
-			foreach ($notices as $notice) {
-				
-				if ($notice['publish'] == 1 || $isStoreManager) {
-					$notice['classes'] = 'notice_style_' . rand(1, 3);
-					if ((isset($notice['other_data']['text']) && strlen($notice['other_data']['text']) < 65) && !isset($notice['other_data']['image'])) $notice['classes'] .= ' notice_layout_less_text';
-					if (isset($notice['other_data']['image'])) $notice['classes'] .= ' notice_layout_with_image';
-					if ($notice['publish'] == 0 && $isStoreManager) $notice['classes'] .= ' unpublished';
-					$this->tpl->assign('NOTICE', $notice);
-					$this->tpl->parse('content.notice_list.notice');
-					$displayed++;
-				}
-			}
+            foreach ($notices as $notice) {
+                
+                if ($notice['publish'] == 1 || $isStoreManager) {
+                    $notice['classes'] = 'notice_style_' . rand(1, 3);
+                    if ((isset($notice['other_data']['text']) && strlen($notice['other_data']['text']) < 65) && !isset($notice['other_data']['image'])) $notice['classes'] .= ' notice_layout_less_text';
+                    if (isset($notice['other_data']['image'])) $notice['classes'] .= ' notice_layout_with_image';
+                    if ($notice['publish'] == 0 && $isStoreManager) $notice['classes'] .= ' unpublished';
+                    $this->tpl->assign('NOTICE', $notice);
+                    $this->tpl->parse('content.notice_list.notice');
+                    $displayed++;
+                }
+            }
 
-			if ($displayed > 0) $this->tpl->parse('content.notice_list');
-		}
+            if ($displayed > 0) $this->tpl->parse('content.notice_list');
+        }
 
-		if ($isStoreManager) {
+        if ($isStoreManager) {
 
-			$this->processNewNotice($store, $node_id);
-			$this->tpl->parse('content.store_manager');
+            $this->processNewNotice($store, $node_id);
+            $this->tpl->parse('content.store_manager');
 
-		}
+        }
 
-		return true;
-	}
-
-
-	/**
-	 * is logged user given store manager?
-	 */
-	public function isStoreManager(&$store) {
-
-		return (
-			$_SESSION['client']['customer']['id'] > 0 && // is logged and
-			$store['email'] == $_SESSION['client']['customer']['email'] // his email is store email
-			|| // or
-			$_SESSION['authentication']['authenticity'] // is admin (bo user)
-		);
-	}
+        return true;
+    }
 
 
-	/**
-	 * save submitted form
-	 */
-	public function processNewNotice(&$store, $node_id) {
+    /**
+     * is logged user given store manager?
+     */
+    public function isStoreManager(&$store) {
 
-		if (empty($_POST['notice']['text'])) return false;
+        return (
+            $_SESSION['client']['customer']['id'] > 0 && // is logged and
+            $store['email'] == $_SESSION['client']['customer']['email'] // his email is store email
+            || // or
+            $_SESSION['authentication']['authenticity'] // is admin (bo user)
+        );
+    }
 
-		$image_path = false;
 
-		if (is_uploaded_file($_FILES['image']['tmp_name'])) {
-			$_FILES['image']['name'] = $store['title'] . '-' . $_FILES['image']['name'];
-			$upload = $this->Image->getSingleUpload($_FILES['image'], 'var/files/notices/', true);
-			if (is_string($upload)) $image_path = $upload;
-		}
+    /**
+     * save submitted form
+     */
+    public function processNewNotice(&$store, $node_id) {
 
-		$parts = explode("/", $_POST['notice']['visible_from'], 3);
-		$unix_date = strtotime($parts[2] . "-" . $parts[1] . "-" . $parts[0]);
+        if (empty($_POST['notice']['text'])) return false;
 
-		$html = '';
-		$html .= '<div class="date">' . date("d/m/y", $unix_date) . "</div>\n";
-		$html .= '<div class="text">'  . nl2br($_POST['notice']['text']) . "</div>\n";
-		if ($image_path) $html .= '<div class="image"><img src="/thumbnail/200x110/' . $image_path . '?method=crop" alt=""/></div>';
+        $image_path = false;
 
-		$node = array(
-			'title' => 'Store Notice',
-			'node_group' => 'content',
-			'node_controller' => 'notice',
-			'parent' => $node_id,
-			'parent_container' => 4,
-			'priority' => $unix_date,
-				/*
-					SQL to set the priority retroactively
+        if (is_uploaded_file($_FILES['image']['tmp_name'])) {
+            $_FILES['image']['name'] = $store['title'] . '-' . $_FILES['image']['name'];
+            $upload = $this->Image->getSingleUpload($_FILES['image'], 'var/files/notices/', true);
+            if (is_string($upload)) $image_path = $upload;
+        }
 
-					UPDATE common_node SET priority = 
-						extract(
-							epoch from to_timestamp(
-								(regexp_matches(other_data, 'visible_from.;s:10:.(..........)'))[1], 
-								'DD/MM/YYYY'
-							)
-						)::integer 
-					WHERE node_controller = 'notice'
-				 */
-			'content' => $html,
-			'publish' => 0,
-			'display_in_menu' => 0,
-			'css_class' => 'store',
-			'other_data' => array(
-				'type' => 'store_notice',
-				'text' => $_POST['notice']['text'],
-				'visible_from' => $_POST['notice']['visible_from'],
-				'visible_to' => $_POST['notice']['visible_to'],
-				'image' => $image_path
-			)
-		);
+        $parts = explode("/", $_POST['notice']['visible_from'], 3);
+        $unix_date = strtotime($parts[2] . "-" . $parts[1] . "-" . $parts[0]);
 
-		$new_node_id = $this->Node->nodeInsert($node);
+        $html = '';
+        $html .= '<div class="date">' . date("d/m/y", $unix_date) . "</div>\n";
+        $html .= '<div class="text">'  . nl2br($_POST['notice']['text']) . "</div>\n";
+        if ($image_path) $html .= '<div class="image"><img src="/thumbnail/200x110/' . $image_path . '?method=crop" alt=""/></div>';
 
-		if ($new_node_id && $image_path) $this->Image->insertFile(array(
-			'src' => $image_path,
-			'role' => 'main',
-			'node_id' => $new_node_id,
-			'title' => 'Store Notice Image'
-		));
+        $node = array(
+            'title' => 'Store Notice',
+            'node_group' => 'content',
+            'node_controller' => 'notice',
+            'parent' => $node_id,
+            'parent_container' => 4,
+            'priority' => $unix_date,
+                /*
+                    SQL to set the priority retroactively
 
-		$this->sendAlertEmail($store, $node['other_data']);
+                    UPDATE common_node SET priority = 
+                        extract(
+                            epoch from to_timestamp(
+                                (regexp_matches(other_data, 'visible_from.;s:10:.(..........)'))[1], 
+                                'DD/MM/YYYY'
+                            )
+                        )::integer 
+                    WHERE node_controller = 'notice'
+                 */
+            'content' => $html,
+            'publish' => 0,
+            'display_in_menu' => 0,
+            'css_class' => 'store',
+            'other_data' => array(
+                'type' => 'store_notice',
+                'text' => $_POST['notice']['text'],
+                'visible_from' => $_POST['notice']['visible_from'],
+                'visible_to' => $_POST['notice']['visible_to'],
+                'image' => $image_path
+            )
+        );
 
-		if ($new_node_id) onxshopGoto("/page/$node_id");
-	}
+        $new_node_id = $this->Node->nodeInsert($node);
 
-	/**
-	 * Send email to administrator
-	 */
-	public function sendAlertEmail($store, $notice)
-	{
-		require_once('models/common/common_email.php');
-		$EmailForm = new common_email();
+        if ($new_node_id && $image_path) $this->Image->insertFile(array(
+            'src' => $image_path,
+            'role' => 'main',
+            'node_id' => $new_node_id,
+            'title' => 'Store Notice Image'
+        ));
 
-		$GLOBALS['common_email']['store'] = $store;
-		$GLOBALS['common_email']['notice'] = $notice;
+        $this->sendAlertEmail($store, $node['other_data']);
 
-		$to_email = false; // admin
-		$to_name = false;
-		$email_from = $store['email'];
-		$name_from = $store['manager_name'];
+        if ($new_node_id) onxshopGoto("/page/$node_id");
+    }
 
-		$_FILES = array(); // remove to attach uploaded file
+    /**
+     * Send email to administrator
+     */
+    public function sendAlertEmail($store, $notice)
+    {
+        require_once('models/common/common_email.php');
+        $EmailForm = new common_email();
 
-		$EmailForm->sendEmail('store_notice_notify', 'n/a', $to_email, $to_name);
-	}
+        $GLOBALS['common_email']['store'] = $store;
+        $GLOBALS['common_email']['notice'] = $notice;
+
+        $to_email = false; // admin
+        $to_name = false;
+        $email_from = $store['email'];
+        $name_from = $store['manager_name'];
+
+        $_FILES = array(); // remove to attach uploaded file
+
+        $EmailForm->sendEmail('store_notice_notify', 'n/a', $to_email, $to_name);
+    }
 
 }

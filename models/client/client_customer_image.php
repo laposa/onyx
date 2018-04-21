@@ -9,13 +9,13 @@ require_once('models/common/common_image.php');
  
 class client_customer_image extends common_image {
 
-	/**
-	 * create table sql
-	 */
-	 
-	private function getCreateTableSql() {
-	
-		$sql = "
+    /**
+     * create table sql
+     */
+     
+    private function getCreateTableSql() {
+    
+        $sql = "
 CREATE TABLE client_customer_image (
     id serial NOT NULL PRIMARY KEY,
     src character varying(255),
@@ -31,9 +31,9 @@ CREATE TABLE client_customer_image (
     link_to_node_id integer,
     customer_id integer REFERENCES client_customer ON UPDATE CASCADE ON DELETE RESTRICT
 );
-		";
-		
-		return $sql;
-	}
-	
+        ";
+        
+        return $sql;
+    }
+    
 }

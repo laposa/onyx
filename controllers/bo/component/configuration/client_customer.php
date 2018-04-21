@@ -8,19 +8,19 @@
 require_once('controllers/bo/component/configuration.php');
 
 class Onxshop_Controller_Bo_Component_Configuration_Client_Customer extends Onxshop_Controller_Bo_Component_Configuration {
-	
-	/**
-	 * custom action
-	 */
-	 
-	public function customAction($conf) {
-	
-		//specifix to "client_customer" object
-		$selected[$conf['global']['login_type']] = "selected='selected'";
-		$this->tpl->assign("SELECTED", $selected);
-		
-		return $conf;
-	
-	}
-	
+    
+    /**
+     * custom action
+     */
+     
+    public function customAction($conf) {
+    
+        //specifix to "client_customer" object
+        $selected[$conf['global']['login_type']] = "selected='selected'";
+        $this->tpl->assign("SELECTED", $selected);
+        
+        return $conf;
+    
+    }
+    
 }

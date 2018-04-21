@@ -6,15 +6,15 @@
  */
 
 class Onxshop_Controller_Bo_Backoffice_Wrapper extends Onxshop_Controller {
-	
-	/**
-	 * main action
-	 */
-	 
-	public function mainAction() {
-	
-		header('X-Frame-Options: SAMEORIGIN');
+    
+    /**
+     * main action
+     */
+     
+    public function mainAction() {
+    
+        header('X-Frame-Options: SAMEORIGIN');
 
-		return true;
-	}
+        return true;
+    }
 }

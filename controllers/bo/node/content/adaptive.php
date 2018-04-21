@@ -8,15 +8,15 @@ require_once('controllers/bo/node/content/default.php');
 
 class Onxshop_Controller_Bo_Node_Content_Adaptive extends Onxshop_Controller_Bo_Node_Content_Default {
 
-	/**
-	 * post action
-	 */
+    /**
+     * post action
+     */
 
-	function post() {
-	
-		parent::post();
+    function post() {
+    
+        parent::post();
 
-		$this->tpl->assign("SELECT_condition_" . $this->node_data['component']['condition'], 'selected="selected"');		
-	}
+        $this->tpl->assign("SELECT_condition_" . $this->node_data['component']['condition'], 'selected="selected"');        
+    }
 }
 

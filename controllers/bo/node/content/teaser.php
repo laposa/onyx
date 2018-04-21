@@ -8,14 +8,14 @@ require_once('controllers/bo/node/content/default.php');
 
 class Onxshop_Controller_Bo_Node_Content_Teaser extends Onxshop_Controller_Bo_Node_Content_Default {
 
-	/**
-	 * pre action
-	 */
+    /**
+     * pre action
+     */
 
-	function pre() {
-		
-		parent::pre();
-		
-		$_POST['node']['content'] = serialize($_POST['component']);
-	}
+    function pre() {
+        
+        parent::pre();
+        
+        $_POST['node']['content'] = serialize($_POST['component']);
+    }
 }

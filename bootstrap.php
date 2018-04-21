@@ -17,20 +17,20 @@ require_once('lib/onxshop.functions.php');
  * Setup Tracy
  */
 if (ONXSHOP_TRACY) {
-	require_once('lib/Tracy/tracy.php');
-	require_once('lib/Tracy/Onxshop/Onxshop_Extensions.php');
-	if (constant('ONXSHOP_IS_DEBUG_HOST')) {
-		$components = array();
-		Tracy\Debugger::enable(Tracy\Debugger::DEVELOPMENT);
-		if (ONXSHOP_TRACY_DB_PROFILER) Tracy\Debugger::getBar()->addPanel(new DBProfilerPanel);
-		if (ONXSHOP_TRACY_BENCHMARK) Tracy\Debugger::getBar()->addPanel(new ComponentsPanel);
-	} else {
-		Tracy\Debugger::enable(Tracy\Debugger::PRODUCTION);
-		Tracy\Debugger::$logSeverity = (E_ALL ^ E_NOTICE);
-		Tracy\Debugger::$logDirectory = ONXSHOP_PROJECT_DIR . "/var/log";
-		if (constant('ONXSHOP_ERROR_EMAIL')) Tracy\Debugger::$email = ONXSHOP_ERROR_EMAIL;
-	}
-	error_reporting(E_ALL ^ E_NOTICE);
+    require_once('lib/Tracy/tracy.php');
+    require_once('lib/Tracy/Onxshop/Onxshop_Extensions.php');
+    if (constant('ONXSHOP_IS_DEBUG_HOST')) {
+        $components = array();
+        Tracy\Debugger::enable(Tracy\Debugger::DEVELOPMENT);
+        if (ONXSHOP_TRACY_DB_PROFILER) Tracy\Debugger::getBar()->addPanel(new DBProfilerPanel);
+        if (ONXSHOP_TRACY_BENCHMARK) Tracy\Debugger::getBar()->addPanel(new ComponentsPanel);
+    } else {
+        Tracy\Debugger::enable(Tracy\Debugger::PRODUCTION);
+        Tracy\Debugger::$logSeverity = (E_ALL ^ E_NOTICE);
+        Tracy\Debugger::$logDirectory = ONXSHOP_PROJECT_DIR . "/var/log";
+        if (constant('ONXSHOP_ERROR_EMAIL')) Tracy\Debugger::$email = ONXSHOP_ERROR_EMAIL;
+    }
+    error_reporting(E_ALL ^ E_NOTICE);
 }
 
 /**
@@ -38,8 +38,8 @@ if (ONXSHOP_TRACY) {
  */
  
 if (ONXSHOP_BENCHMARK && ONXSHOP_IS_DEBUG_HOST) {
-	$time_start = microtime(true);
-	define("TIME_START", $time_start);
+    $time_start = microtime(true);
+    define("TIME_START", $time_start);
 }
 
 /**
@@ -54,21 +54,21 @@ require_once('lib/onxshop.bootstrap.php');
  
 if (ONXSHOP_IS_DEBUG_HOST && ONXSHOP_DEBUG_OUTPUT_FIREBUG) {
 
-	require_once('Zend/Log/Writer/Firebug.php');
-	require_once('Zend/Log.php');
-	
-	// Place this in your bootstrap file before dispatching your front controller
-	$writer = new Zend_Log_Writer_Firebug();
-	$GLOBALS['fb_logger'] = new Zend_Log($writer);
-	
-	require_once('Zend/Controller/Request/Http.php');
-	$request = new Zend_Controller_Request_Http();
-	require_once('Zend/Controller/Response/Http.php');
-	$response = new Zend_Controller_Response_Http();
+    require_once('Zend/Log/Writer/Firebug.php');
+    require_once('Zend/Log.php');
+    
+    // Place this in your bootstrap file before dispatching your front controller
+    $writer = new Zend_Log_Writer_Firebug();
+    $GLOBALS['fb_logger'] = new Zend_Log($writer);
+    
+    require_once('Zend/Controller/Request/Http.php');
+    $request = new Zend_Controller_Request_Http();
+    require_once('Zend/Controller/Response/Http.php');
+    $response = new Zend_Controller_Response_Http();
 
-	$channel = Zend_Wildfire_Channel_HttpHeaders::getInstance();
-	$channel->setRequest($request);
-	$channel->setResponse($response);
+    $channel = Zend_Wildfire_Channel_HttpHeaders::getInstance();
+    $channel->setRequest($request);
+    $channel->setResponse($response);
 }
 
 
@@ -87,7 +87,7 @@ $Bootstrap->initPreAction($onxshop_pre_actions);
 /**
  * Init action
  */
-	
+    
 $Bootstrap->initAction($_GET['request']);
 
 /**
@@ -96,9 +96,9 @@ $Bootstrap->initAction($_GET['request']);
  
 if (ONXSHOP_IS_DEBUG_HOST && isset($channel) && isset($response)) {
 
-	// Flush log data to browser
-	$channel->flush();
-	$response->sendHeaders();  
+    // Flush log data to browser
+    $channel->flush();
+    $response->sendHeaders();  
 }
 
 
@@ -123,21 +123,21 @@ if (ONXSHOP_BENCHMARK && ONXSHOP_IS_DEBUG_HOST) {
 }
 
 if (ONXSHOP_DB_PROFILER) {
-	$db = Zend_Registry::get('onxshop_db');
-	$profiler = $db->getProfiler();
-	$db_profile = array();
-	$db_profile['total_num_queries'] = $profiler->getTotalNumQueries();
-	$db_profile['total_elapsed_secs'] = $profiler->getTotalElapsedSecs();
-	$db_profile['query_list'] = array();
-	
-	foreach ($profiler->getQueryProfiles() as $k=>$item) {
-	
-		$db_profile['query_list'][$k]['query'] = $item->getQuery();
-		$db_profile['query_list'][$k]['query_params'] = $item->getQueryParams();
-		$db_profile['query_list'][$k]['elapsed_secs'] = $item->getElapsedSecs();
-	}
-	
-	echo "<pre>" . htmlspecialchars(print_r($db_profile, true)) . "</pre>";
+    $db = Zend_Registry::get('onxshop_db');
+    $profiler = $db->getProfiler();
+    $db_profile = array();
+    $db_profile['total_num_queries'] = $profiler->getTotalNumQueries();
+    $db_profile['total_elapsed_secs'] = $profiler->getTotalElapsedSecs();
+    $db_profile['query_list'] = array();
+    
+    foreach ($profiler->getQueryProfiles() as $k=>$item) {
+    
+        $db_profile['query_list'][$k]['query'] = $item->getQuery();
+        $db_profile['query_list'][$k]['query_params'] = $item->getQueryParams();
+        $db_profile['query_list'][$k]['elapsed_secs'] = $item->getElapsedSecs();
+    }
+    
+    echo "<pre>" . htmlspecialchars(print_r($db_profile, true)) . "</pre>";
 }
 
 

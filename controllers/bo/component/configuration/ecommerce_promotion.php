@@ -9,72 +9,72 @@ require_once('controllers/bo/component/configuration.php');
 require_once('models/ecommerce/ecommerce_promotion.php');
 
 class Onxshop_Controller_Bo_Component_Configuration_Ecommerce_Promotion extends Onxshop_Controller_Bo_Component_Configuration {
-	
-	/**
-	 * main action
-	 */
-	
-	public function mainAction() {
+    
+    /**
+     * main action
+     */
+    
+    public function mainAction() {
 
-		$this->standardConfAction();
+        $this->standardConfAction();
 
-		return true;
-	
-	}	
+        return true;
+    
+    }   
 
-	/**
-	 * display
-	 */
-	
-	function displayConf($conf) {
-	
-		$this->tpl->assign("CONF", $conf['ecommerce_promotion']);
-		return true;
-	}
+    /**
+     * display
+     */
+    
+    function displayConf($conf) {
+    
+        $this->tpl->assign("CONF", $conf['ecommerce_promotion']);
+        return true;
+    }
 
 
-	/**
-	 * save
-	 */
-	
-	function saveConfiguration($conf) {
-		
-		if (is_array($conf)) {
-		
-			msg("Saving config");
-			
-			foreach ($conf['item'] as $property=>$value) {
-				
-				if ($this->Configuration->saveConfig($conf['object'], $property, $value, $conf['node_id'])) {
-					if ($property == 'minimum_order_amount') $this->updateVouchers('minimum_order_amount', $value);
-					if ($property == 'discount_value') $this->updateVouchers('discount_value', $value);
-					msg("Saved $property $value");
-				}
-			}
-		}
-	}
+    /**
+     * save
+     */
+    
+    function saveConfiguration($conf) {
+        
+        if (is_array($conf)) {
+        
+            msg("Saving config");
+            
+            foreach ($conf['item'] as $property=>$value) {
+                
+                if ($this->Configuration->saveConfig($conf['object'], $property, $value, $conf['node_id'])) {
+                    if ($property == 'minimum_order_amount') $this->updateVouchers('minimum_order_amount', $value);
+                    if ($property == 'discount_value') $this->updateVouchers('discount_value', $value);
+                    msg("Saved $property $value");
+                }
+            }
+        }
+    }
 
-	function updateVouchers($property, $value) {
+    function updateVouchers($property, $value) {
 
-		switch ($property) {
+        switch ($property) {
 
-			case 'minimum_order_amount': 
-				$column = 'limit_to_order_amount';
-				break;
+            case 'minimum_order_amount': 
+                $column = 'limit_to_order_amount';
+                break;
 
-			case 'discount_value':
-				$column = 'discount_fixed_value';
-				break;
+            case 'discount_value':
+                $column = 'discount_fixed_value';
+                break;
 
-			default:
-				return;
-		}
+            default:
+                return;
+        }
 
-		$Promotion = new ecommerce_promotion();
-		$value = pg_escape_string($value);
-		$sql = "UPDATE ecommerce_promotion SET $column = '$value' WHERE type = 2";
-		$Promotion->executeSql($sql);
+        $Promotion = new ecommerce_promotion();
+        $value = pg_escape_string($value);
+        $sql = "UPDATE ecommerce_promotion SET $column = '$value' WHERE type = 2";
+        $Promotion->executeSql($sql);
 
-	}
+    }
 
 }

@@ -9,21 +9,21 @@ require_once('controllers/component/ecommerce/product_list.php');
 
 class Onxshop_Controller_Component_Ecommerce_Product_List_2columns extends Onxshop_Controller_Component_Ecommerce_Product_List {
 
-	/**
-	 * main action
-	 */
-	 
-	public function mainAction() {
-	
-		return $this->processProductList();
-	
-	}
-	
-	/**
-	 * process items
-	 */
-	 
-	function processItems($product_list, $image_width, $from, $per_page, $divide_after = 2) {
-		return $this->_displayItems($product_list, $image_width, $from, $per_page, $divide_after);
-	}
+    /**
+     * main action
+     */
+     
+    public function mainAction() {
+    
+        return $this->processProductList();
+    
+    }
+    
+    /**
+     * process items
+     */
+     
+    function processItems($product_list, $image_width, $from, $per_page, $divide_after = 2) {
+        return $this->_displayItems($product_list, $image_width, $from, $per_page, $divide_after);
+    }
 }

@@ -8,17 +8,17 @@
 require_once('controllers/bo/node/content/default.php');
 
 class Onxshop_Controller_Bo_Node_Content_Component extends Onxshop_Controller_Bo_Node_Content_Default {
-	
-	/**
-	 * pre action
-	 */
-	 
-	function pre() {
-		
-		parent::pre();
-		
-		$_POST['node']['component']['template'] = trim($_POST['node']['component']['template']);
-		$_POST['node']['component']['controller'] = trim($_POST['node']['component']['controller']);
-		$_POST['node']['component']['parameter'] = trim($_POST['node']['component']['parameter']);
-	}
+    
+    /**
+     * pre action
+     */
+     
+    function pre() {
+        
+        parent::pre();
+        
+        $_POST['node']['component']['template'] = trim($_POST['node']['component']['template']);
+        $_POST['node']['component']['controller'] = trim($_POST['node']['component']['controller']);
+        $_POST['node']['component']['parameter'] = trim($_POST['node']['component']['parameter']);
+    }
 }
