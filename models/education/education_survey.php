@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * Copyright (c) 2011-2013 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2011-2017 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -97,17 +97,29 @@ class education_survey extends Onxshop_Model {
     }
     
     /**
-     * getSurveyListStats
+     * getSurveyListStats (cached)
      */
      
     public function getSurveyListStats($where = '', $sort = 'priority ASC, id DESC') {
     
-        $list = $this->getSurveyList($where, $sort);
+        $cache_id = 'getSurveyListStats';
         
-        foreach ($list as $k=>$item) {
+        if ($records = $this->cache->load($cache_id)) {
+            
+            $list = unserialize($records);
         
-            $list[$k]['usage_count'] = $this->getSurveyUsageCount($item['id']);
-            $list[$k]['average_rating'] = $this->getAverageRating($item['id']);
+        } else {
+
+            $list = $this->getSurveyList($where, $sort);
+            
+            foreach ($list as $k=>$item) {
+            
+                $list[$k]['usage_count'] = $this->getSurveyUsageCount($item['id']);
+                $list[$k]['average_rating'] = $this->getAverageRating($item['id']);
+                
+            }
+            
+            $this->cache->save(serialize($list), $cache_id);
             
         }
         
