@@ -68,6 +68,7 @@
 					$('#ageGate').remove();
 					$('.pageContent').fadeIn(500);
 					$.cookie('onxshop-customer-age', customer_age, { expires: 7 });
+					$('#over18_id').attr('checked', 'checked');
 				});
 			} else {
 				$('#ageGate > div').html('<h3>Sorry, you have to be of legal age to view the page’s content.</h3>');
