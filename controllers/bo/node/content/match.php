@@ -10,19 +10,19 @@ require_once('models/common/common_taxonomy.php');
 
 class Onxshop_Controller_Bo_Node_Content_Match extends Onxshop_Controller_Bo_Node_Content_Default {
 
-    const ONXSHOP_COMPETITION_ROOT_TAXONOMY_TREE_ID = 633;
-    const ONXSHOP_ROUND_ROOT_TAXONOMY_TREE_ID = 635;
-    const ONXSHOP_VENUE_ROOT_TAXONOMY_TREE_ID = 636;
-    const ONXSHOP_TEAM_ROOT_TAXONOMY_TREE_ID = 634;
-
-    const ONXSHOP_RESULTS_PAGE_NODE_ID = 21751;
-    
     /**
      * pre action
      */
 
     function pre() {
-    
+
+        $this->competition_root_taxonomy_tree_id = ONXSHOP_COMPETITION_ROOT_TAXONOMY_TREE_ID;
+        $this->team_root_taxonomy_tree_id = ONXSHOP_TEAM_ROOT_TAXONOMY_TREE_ID;
+        $this->round_root_taxonomy_tree_id = ONXSHOP_ROUND_ROOT_TAXONOMY_TREE_ID;
+        $this->venue_root_taxonomy_tree_id = ONXSHOP_VENUE_ROOT_TAXONOMY_TREE_ID;
+        
+        $this->results_page_node_id = ONXSHOP_RESULTS_PAGE_NODE_ID;
+        
         parent::pre();
     }
     
@@ -35,11 +35,11 @@ class Onxshop_Controller_Bo_Node_Content_Match extends Onxshop_Controller_Bo_Nod
 
         if (trim($this->node_data['component']['date']) == '') $this->node_data['component']['date'] = strftime('%Y-%m-%d');
         
-        $this->parseCategoryDropdown(self::ONXSHOP_COMPETITION_ROOT_TAXONOMY_TREE_ID, 'competition');
-        $this->parseCategoryDropdown(self::ONXSHOP_ROUND_ROOT_TAXONOMY_TREE_ID, 'round');
-        $this->parseCategoryDropdown(self::ONXSHOP_VENUE_ROOT_TAXONOMY_TREE_ID, 'venue');
-        $this->parseCategoryDropdown(self::ONXSHOP_TEAM_ROOT_TAXONOMY_TREE_ID, 'home_team');
-        $this->parseCategoryDropdown(self::ONXSHOP_TEAM_ROOT_TAXONOMY_TREE_ID, 'away_team');
+        $this->parseCategoryDropdown($this->competition_root_taxonomy_tree_id, 'competition');
+        $this->parseCategoryDropdown($this->round_root_taxonomy_tree_id, 'round');
+        $this->parseCategoryDropdown($this->venue_root_taxonomy_tree_id, 'venue');
+        $this->parseCategoryDropdown($this->team_root_taxonomy_tree_id, 'home_team');
+        $this->parseCategoryDropdown($this->team_root_taxonomy_tree_id, 'away_team');
     
         parent::post();    
     }
@@ -52,7 +52,7 @@ class Onxshop_Controller_Bo_Node_Content_Match extends Onxshop_Controller_Bo_Nod
     function save() {
 
         if (!empty($_POST['node']['component']['home_team_result'])) {
-            $_POST['node']['parent'] = self::ONXSHOP_RESULTS_PAGE_NODE_ID;
+            $_POST['node']['parent'] = $this->results_page_node_id;
         }
 
         parent::save();
