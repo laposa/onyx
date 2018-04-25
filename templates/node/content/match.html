@@ -1,0 +1,34 @@
+<!-- BEGIN: content -->
+<div class="match" data-timestamp="{NODE.component.date|strtotime}" data-date="{NODE.component.date|strtotime|date('l d F', %s)}" data-competition="{COMPETITION.title|htmlspecialchars}" data-home-team="{HOME_TEAM.title|htmlspecialchars}" data-away-team="{AWAY_TEAM.title|htmlspecialchars}">
+    <div class="fixture">
+        <div class="championship">
+            <span class="name">{COMPETITION.title|htmlspecialchars}</span>
+            <span class="round">{ROUND.title|htmlspecialchars}</span>
+        </div>
+        <div class="teams">
+            <div class="team home">
+                <span class="badge"><!-- BEGIN: home_team_image --><img src="/image/{HOME_TEAM.image.0.src}" alt="{HOME_TEAM.image.0.title|htmlspecialchars}"/><!-- END: home_team_image --></span>
+                <span class="name">{HOME_TEAM.title|htmlspecialchars}</span>
+                <span class="result">{NODE.component.home_team_result|htmlspecialchars}</span>
+            </div>
+            <div class="versus"><span class="character">&ndash;</span></div>
+            <div class="team away">
+                <span class="badge"><!-- BEGIN: away_team_image --><img src="/image/{AWAY_TEAM.image.0.src}" alt="{HOME_TEAM.image.0.title|htmlspecialchars}"/><!-- END: away_team_image --></span>
+                <span class="name">{AWAY_TEAM.title|htmlspecialchars}</span>
+                <span class="result">{NODE.component.away_team_result|htmlspecialchars}</span>
+            </div>
+        </div>
+        <div class="when-where">
+            <span class="date-time">{NODE.component.date|strtotime|date("jS M Y", %s)} - {NODE.component.time|htmlspecialchars|suffix(%s,'<span></span>')}</span>
+            <span class="venue">{VENUE.title|htmlspecialchars}</span>
+        </div>
+    </div>
+    <!-- BEGIN: action -->
+    <div class="action">
+        <a href="{NODE.component.action.url|htmlspecialchars}" class="button"><span>{NODE.component.action.title|htmlspecialchars}</span></a>
+    </div>
+    <!-- END: action -->
+</div>
+
+
+<!-- END: content -->

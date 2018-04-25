@@ -1,0 +1,94 @@
+<!-- BEGIN: content -->
+<div class="match-filter">
+    <div class="wrapper">
+        
+        <h3>View the latest matches below</h3>
+        
+        <form method="GET" action="">
+            
+            <select name="match_date" id="match-date">
+                <option value="" disabled selected>Date&hellip;</option>
+            </select>
+            
+            <select name="competition" id="match-competition">
+                <option value="" disabled selected>Championship&hellip;</option>
+            </select>
+            
+            <select name="team" id="match-team">
+                <option value="" disabled selected>Team&hellip;</option>
+            </select>
+            
+            <a href="" class="button clear">Clear Filters</a>
+            
+        </form>
+        
+    </div>
+</div>
+
+<div class="matchs">
+</div>
+
+<script type="text/javascript">
+    $(function() {
+        
+        createDropdownOptions('competition');
+        createDropdownOptions('date');
+        createDropdownTeamOptions();
+
+        function createDropdownOptions(name) {
+            var items = [];
+            $("div.match").each(function() {
+                if (items.indexOf($(this).data(name)) == -1) items.push($(this).data(name));
+            });
+            items.sort();
+            
+            var options = '';
+            for (var i = 0; i < items.length; i++) {
+                options += '<option value="'+ items[i] +'">' + items[i] + "</option>";
+            }
+            $("select#match-" + name).append(options);
+        }
+        
+        function createDropdownTeamOptions() {
+            var items = [];
+            $("div.match").each(function() {
+                if (items.indexOf($(this).data('home-team')) == -1) items.push($(this).data('home-team'));
+            });
+             $("div.match").each(function() {
+                if (items.indexOf($(this).data('away-team')) == -1) items.push($(this).data('away-team'));
+            });
+            items.sort();
+            
+            var options = '';
+            for (var i = 0; i < items.length; i++) {
+                options += '<option value="'+ items[i] +'">' + items[i] + "</option>";
+            }
+            $("select#match-team").append(options);
+        }
+        
+        function filtermatchItems() {
+            $("div.match").fadeOut(400);
+            setTimeout(function() {
+                
+                var competitionQuery = $("#match-competition").val();
+                var dateQuery = $("#match-date").val();
+                var teamQuery = $("#match-team").val();
+                
+                $("div.match").each(function() {
+                    
+                    if (($(this).data('competition') == competitionQuery || competitionQuery === null) && 
+                        ($(this).data('date') == dateQuery || dateQuery === null) &&
+                        ($(this).data('home-team') == teamQuery || $(this).data('away-team') == teamQuery || teamQuery === null)) $(this).show();
+                    else $(this).hide();
+                });
+                //$("div.match").fadeIn(400);
+            }, 500);
+        }
+
+        $("div.match-filter select").change(function() {
+            filtermatchItems();
+        });
+
+    }); 
+</script>
+<!-- END: content -->

@@ -1,0 +1,209 @@
+<!-- BEGIN: title -->content/match<!-- END: title -->
+<!-- BEGIN: content -->
+<div class="pageHeader">
+    <div class="pageHeaderWrapper">
+        <h1 class="pageTitle popup"><span>Match Content</span> <span class="info">ID {NODE.id}</span></h1>
+    </div>
+</div>
+
+{FILE "bo/node/form_open.html"}
+
+<div class="advanced">
+{FILE "bo/node/item_title.html"}
+</div>
+<div class="twoColumnLayout fibonacci-1-1">
+    <div class="layoutColumnOne ofTwo">
+        <fieldset>
+
+            <div class="twoColumnLayout fibonacci-1-1">
+                <div class="layoutColumnOne ofTwo">
+
+                    <div class="row component_date">
+                        <span class="label"><label for="node_component_date">Match Date:</label></span>
+                        <span class="field"><input class="date" type="text" name="node[component][date]" id="node_component_date" value="{NODE.component.date}" /></span>
+                        <script type="text/javascript">
+                            $('div.row.component_date input.date').datepicker({firstDay: 1, dateFormat: 'yy-mm-dd'});
+                        </script>
+                    </div>
+                </div>
+                <div class="layoutColumnTwo ofTwo">
+
+                    <div class="row time">
+                        <span class="label"><label for="node_component_time">Match Time:</label></span>
+                        <span class="field"><input class="text short" type="text" name="node[component][time]" id="node_component_time" value="{NODE.component.time|htmlspecialchars}" /></span>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="row venue">
+                <span class="label"><label for="node_component_venue">Venue:</label></span>
+                <span class="field"><select name="node[component][venue]" id="node_component_venue">
+                    <!-- BEGIN: venue -->
+                    <option value="{ITEM.id}" {ITEM.selected}>{ITEM.label.title|htmlspecialchars}</option>
+                    <!-- END: venue -->
+                </select>
+                </span>
+            </div>
+
+        </fieldset>
+    </div>
+    <div class="layoutColumnTwo ofTwo">
+        <fieldset>
+            
+            <div class="row competition">
+                <span class="label"><label for="node_component_competition">Competition:</label></span>
+                <span class="field"><select name="node[component][competition]" id="node_component_competition">
+                    <!-- BEGIN: competition -->
+                    <option value="{ITEM.id}" {ITEM.selected}>{ITEM.label.title|htmlspecialchars}</option>
+                    <!-- END: competition -->
+                </select>
+                </span>
+            </div>
+            <div class="row round">
+                <span class="label"><label for="node_component_round">Round:</label></span>
+                <span class="field"><select name="node[component][round]" id="node_component_round">
+                    <!-- BEGIN: round -->
+                    <option value="{ITEM.id}" {ITEM.selected}>{ITEM.label.title|htmlspecialchars}</option>
+                    <!-- END: round -->
+                </select>
+                </span>
+            </div>
+
+        </fieldset>
+    </div>
+</div>
+
+<div class="twoColumnLayout fibonacci-1-1">
+    <div class="layoutColumnOne ofTwo">
+        <fieldset>
+            <div class="row home_team">
+                <span class="label"><label for="node_component_home_team">Home Team:</label></span>
+                <span class="field"><select name="node[component][home_team]" id="node_component_home_team">
+                    <!-- BEGIN: home_team -->
+                    <option value="{ITEM.id}" {ITEM.selected}>{ITEM.label.title|htmlspecialchars}</option>
+                    <!-- END: home_team -->
+                </select>
+                </span>
+            </div>
+        </fieldset>
+    </div>
+    <div class="layoutColumnTwo ofTwo">
+        <fieldset>
+
+            <div class="row away_team">
+                <span class="label"><label for="node_component_away_team">Away Team:</label></span>
+                <span class="field"><select name="node[component][away_team]" id="node_component_away_team">
+                    <!-- BEGIN: away_team -->
+                    <option value="{ITEM.id}" {ITEM.selected}>{ITEM.label.title|htmlspecialchars}</option>
+                    <!-- END: away_team -->
+                </select>
+                </span>
+            </div>
+        </fieldset>
+    </div>
+</div>
+
+<div class="bottom"></div>
+
+<div>
+    <a id="setResultsButton" class="button" href="#" onclick="$(this).parent().hide(300); $('#resultsLayout').show(300); return false;">Set Results...</a>
+    <div class="bottom"></div>
+    <br/>
+</div>
+
+<div id="resultsLayout" class="twoColumnLayout fibonacci-1-1">
+    <div class="layoutColumnOne ofTwo">
+        <fieldset>
+            <div class="row home_team_result">
+                <span class="label"><label for="home_team_result">Home Team Result:</label></span>
+                <span class="field"><input class="text" type="text" name="node[component][home_team_result]" id="home_team_result" value="{NODE.component.home_team_result|htmlspecialchars}" /></span>
+            </div>
+        </fieldset>
+    </div>
+    <div class="layoutColumnTwo ofTwo">
+        <fieldset>
+            <div class="row away_team_result">
+                <span class="label"><label for="away_team_result">Away Team Result:</label></span>
+                <span class="field"><input class="text" type="text" name="node[component][away_team_result]" id="away_team_result" value="{NODE.component.away_team_result|htmlspecialchars}" /></span>
+            </div>
+        </fieldset>
+    </div>
+</div>
+
+<script>
+    if ($("#home_team_result").val().length > 0) {
+        $("#setResultsButton").parent().hide();
+        $('#resultsLayout').show();
+    } else {
+        $('#resultsLayout').hide();
+    }
+</script>
+
+<fieldset>
+    <div class="twoColumnLayout fibonacci-1-1">
+    	<div class="row href layoutColumnOne ofTwo">
+    		<span class="label"><label>CTA Button URL:</label></span>
+    		<span class="field"><input type="text" name="node[component][action][url]" id="component-href" value="{NODE.component.action.url|htmlspecialchars}" placeholder="e.g. https://example.com/" /> <a class="button" href="#"><span>Browse Server</span></a></span>
+    		<div id="href-container-select"></div>
+    	</div>
+    	<div class="row action-title layoutColumnTwo ofTwo">
+    	    <span class="label"><label>CTA Button Title:</label></span>
+    	    <span class="field"><input type="text" name="node[component][action][title]" id="component-action-title" value="{NODE.component.action.title|htmlspecialchars}" placeholder="e.g. Buy Tickets" /></span>
+    	</div>
+    </div>
+</fieldset>
+
+<script type="text/javascript">
+$(document).ready(function(){
+	$('div.href a.button').click(function() {
+		$('#href-container-select').addClass('ajaxLoad').load('/request/component/menu_js~id=0:expand_all=1:publish=0~', function() {
+			$('#href-container-select').removeClass('ajaxLoad');
+			$('#href-container-select .simpleTree').simpleTree({
+				drag: false,
+				autoclose: true,
+				afterClick:function(node){
+					var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
+					$('#component-href').attr('value', '/page/' + node_id);
+					$('#href-container-select .simpleTree').remove();
+				},
+				animate: true,
+				docToFolderConvert: true
+			});
+		});
+		return false;
+	});
+});
+</script>
+
+<fieldset class="advanced">
+    {FILE "bo/node/item_css_class.html"}
+    {FILE "bo/node/item_taxonomy.html"}
+</fieldset>
+
+{FILE "bo/node/item_position.html"}
+<div class="twoColumnLayout fibonacci-1-1 advanced">
+    <div class="layoutColumnOne ofTwo">
+        <fieldset>
+            {FILE "bo/node/item_display_in_menu.html"}
+            {FILE "bo/node/item_display_permission.html"}
+            {FILE "bo/node/item_display_permission_group_acl.html"}
+            {FILE "bo/node/item_require_login.html"}
+            {FILE "bo/node/item_require_ssl.html"}
+        </fieldset>
+    </div>
+    <div class="layoutColumnTwo ofTwo">
+        <fieldset>
+            {NODE_TYPE}
+            {FILE "bo/node/item_signature.html"}
+            {FILE "bo/node/item_head.html"}
+        </fieldset>
+    </div>
+</div>
+
+{FILE "bo/node/item_publish.html"}
+    
+{FILE "bo/node/form_close.html"}
+
+
+<!-- END: content -->
