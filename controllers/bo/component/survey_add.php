@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2011 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2011-2018 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -23,7 +23,7 @@ class Onxshop_Controller_Bo_Component_Survey_Add extends Onxshop_Controller_Bo_C
         if ($_POST['save'] && is_array($_POST['survey'])) {
         
             $this->saveSurvey($_POST['survey']);
-            
+            onxshop_flush_cache(); // flush cache due to backoffice survey list caching
         }
         
         /**
