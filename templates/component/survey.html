@@ -48,9 +48,12 @@ form div.row label.error.placeholder { display: none; }
 			<!-- END: content -->
 			<span class="field">
 				<!-- BEGIN: answer_text -->
-				<textarea class="{CLASS_REQUIRED}" name="answer[{QUESTION.id}]">{SELECTED_VALUE}</textarea>
-				<!-- END: answer_text -->
-				<!-- BEGIN: answer_list_radio -->
+				<textarea class="{CLASS_REQUIRED}" name="answer[{QUESTION.id}]">{SELECTED_VALUE|htmlspecialchars}</textarea>
+                <!-- END: answer_text -->
+                <!-- BEGIN: answer_textshort -->
+                <input type="text" class="{CLASS_REQUIRED}" name="answer[{QUESTION.id}]" value="{SELECTED_VALUE|htmlspecialchars}" />
+                <!-- END: answer_textshort -->
+                <!-- BEGIN: answer_list_radio -->
 					<!-- BEGIN: item -->
 					<div class="row"><input type="radio" class="radio {CLASS_REQUIRED}" name="answer[{QUESTION.id}]" value="{ANSWER.id}" {SELECTED} id="answer_id_{ANSWER.id}"> <label for="answer_id_{ANSWER.id}" class="radio">{ANSWER.title|htmlspecialchars}</label></div>
 					<!-- END: item -->
