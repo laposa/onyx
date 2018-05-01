@@ -1,6 +1,10 @@
 <?php
 /** 
+<<<<<<< HEAD
  * Copyright (c) 2008-2017 Onxshop Ltd (https://onxshop.com)
+=======
+ * Copyright (c) 2008-2018 Onxshop Ltd (https://onxshop.com)
+>>>>>>> b223d9b2... improved debugging messages in file_add
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -22,8 +26,8 @@ class Onxshop_Controller_Bo_Component_File_Add extends Onxshop_Controller_Bo_Com
         
         if ($_POST['add'] == 'add') {
         
-            if ($File->insertFile($_POST['file'])) {
-                msg('File inserted');
+            if ($id = $File->insertFile($_POST['file'])) {
+                msg("File $relation/$id inserted");
             }
         
             $this->tpl->assign('FILE', $_POST['file']);
