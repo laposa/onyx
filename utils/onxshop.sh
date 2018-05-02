@@ -1,7 +1,7 @@
 #!/bin/bash -e
 
 ## Onxshop.sh
-## Norbert @ Laposa Ltd, 2012-2017
+## Norbert @ Laposa Ltd, 2012-2018
 ##
 ## Very simple Onxshop websites management script.
 ## Creates Onxshop installation and vhost file depending on required hostname.
@@ -20,6 +20,7 @@
 ##         --db-template-file=VALUE      Database template
 ##         --project-skeleton-dir=VALUE  Project skeleton to be used
 ##         --project-dir=VALUE           Folder where will be application created
+##         --db-hostname=VALUE           Database hostname to be used for connection
 ##         --db-username=VALUE           Database username to be used or created if doesn't exists
 ##         --db-password=VALUE           Database password to be used
 ##         --db-name=VALUE               Database name to be created
@@ -39,6 +40,7 @@ source "${script_dir}/easyoptions.sh" || exit
 #[[ -n "$db_template_file"  ]] && echo "Option specified: --db-template-file is $db_template_file"
 #[[ -n "$project_skeleton_dir"  ]] && echo "Option specified: --project-skeleton-dir is $project_skeleton_dir"
 #[[ -n "$project_dir"  ]] && echo "Option specified: --project-dir is $project_dir"
+#[[ -n "$db_hostname"  ]] && echo "Option specified: --db-hostname is $db_hostname"
 #[[ -n "$db_username"  ]] && echo "Option specified: --db-username is $db_username"
 #[[ -n "$db_password"  ]] && echo "Option specified: --db-password is $db_password"
 #[[ -n "$db_name"  ]] && echo "Option specified: --db-name is $db_name"
@@ -55,6 +57,9 @@ hostname=${arguments[1]} # mandatory
 setup_variables() {
 onxshop_version="1.8"
 onxshop_version_db=$(echo $onxshop_version | sed 's,\.,_,g')
+if ! [ $db_hostname ]; then
+    db_hostname='localhost';
+fi
 if ! [ $db_username ]; then
     determine_username_from_domainname
 fi
@@ -83,6 +88,7 @@ template=$template
 db_template_file=$db_template_file
 project_skeleton_dir=$project_skeleton_dir
 project_dir=$project_dir
+db_hostname=$db_hostname
 db_username=$db_username
 db_name=$db_name
 "
@@ -147,12 +153,12 @@ chmod a+w -R $project_dir/var/
 }
 
 setup_database() {
-# TODO create user only if doesn't exist
+# TODO create user only if doesn't exist, only works on localhost
 sudo -u postgres psql template1 -c "CREATE USER $db_username WITH CREATEDB PASSWORD '$db_password'"
 sudo -u postgres psql template1 -c "CREATE DATABASE \"$db_name\" WITH OWNER=\"$db_username\" ENCODING='UTF8'"
 export PGPASSWORD=${db_password}
-psql -U ${db_username} -h localhost $db_name < $db_template_file 
-psql -U ${db_username} -h localhost $db_name -c "UPDATE common_configuration SET value='$db_username' WHERE property='title'";
+psql -U $db_username -h $db_hostname $db_name < $db_template_file 
+psql -U $db_username -h $db_hostname $db_name -c "UPDATE common_configuration SET value='$db_username' WHERE property='title'";
 }
 
 change_config() {
