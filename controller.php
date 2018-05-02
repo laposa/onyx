@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2005-2017 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2005-2018 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -767,26 +767,35 @@ class Onxshop_Controller {
 
     function _initTemplateVariables() {
     
+        $registry = $this->_getRegistryAsArray();
+        
+        // detect SSL
         if ($_SERVER['SSL_PROTOCOL'] || $_SERVER['HTTPS']) $protocol = 'https';
         else $protocol = 'http';
         
-        $this->tpl->assign('PROTOCOL', $protocol);
-        $this->tpl->assign('BASE_URI', "$protocol://{$_SERVER['SERVER_NAME']}");
-        $uri = "$protocol://{$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}";
-        $this->tpl->assign('URI', $uri);
-        if (ONXSHOP_CUSTOMER_USE_SSL) $this->tpl->assign('URI_SAFE', "https://{$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}");
-        else $this->tpl->assign('URI_SAFE', $uri);
-        $this->tpl->assign('REQUEST_URI', "$protocol://{$_SERVER['SERVER_NAME']}{$_SERVER['SCRIPT_NAME']}?request={$_GET['request']}");
-        $this->tpl->assign('_SERVER', $_SERVER);
-        $this->tpl->assign('CONFIGURATION', $GLOBALS['onxshop_conf']);
+        // detect non standard port
+        if ($protocol == 'https' && $_SERVER['SERVER_PORT'] == 443) $port = '';
+        else if ($protocol == 'http' && $_SERVER['SERVER_PORT'] == 80) $port = '';
+        else $port = ":{$_SERVER['SERVER_PORT']}";
         
-        $registry = $this->_getRegistryAsArray();
+        // build URI
+        $uri = "$protocol://{$_SERVER['SERVER_NAME']}$port{$_SERVER['REQUEST_URI']}";
+        
+        // assign
+        $this->tpl->assign('PROTOCOL', $protocol);
+        $this->tpl->assign('URI', $uri);
+        $this->tpl->assign('URI_SAFE', $uri); // deprecated
+        $this->tpl->assign('BASE_URI', "$protocol://{$_SERVER['SERVER_NAME']}$port");
+        $this->tpl->assign('REQUEST_URI', "$protocol://{$_SERVER['SERVER_NAME']}$port{$_SERVER['SCRIPT_NAME']}?request={$_GET['request']}");
+        $this->tpl->assign('CONFIGURATION', $GLOBALS['onxshop_conf']);
         $this->tpl->assign('REGISTRY', $registry);
         $this->tpl->assign('CSRF_TOKEN', $registry['CSRF_TOKEN']);
         
+        $this->tpl->assign('_SERVER', $_SERVER);
         $this->tpl->assign('_SESSION', $_SESSION);
         $this->tpl->assign('_POST', $_POST);
         $this->tpl->assign('_GET', $_GET);
+        
         $this->tpl->assign('GET', $this->GET);
         $this->tpl->assign('TIME', time());
         $this->tpl->assign('PAGE_ID', $this->page_id);
