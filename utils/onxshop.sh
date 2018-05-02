@@ -26,6 +26,8 @@
 ##         --db-name=VALUE               Database name to be created
 ##         --vhost                       Create Apache vhost file and enable it
 ##         --ssl                         Create SSL certificate (Let's Encrypt via Certbot)
+##         --create-db-user              Create database user
+##         --create-db                   Create database
 
 script_dir=$(dirname `realpath "$BASH_SOURCE"`)
 source "${script_dir}/easyoptions.sh" || exit
@@ -46,6 +48,8 @@ source "${script_dir}/easyoptions.sh" || exit
 #[[ -n "$db_name"  ]] && echo "Option specified: --db-name is $db_name"
 #[[ -n "$vhost"  ]] && echo "Option specified: --vhost"
 #[[ -n "$ssl"  ]] && echo "Option specified: --ssl"
+#[[ -n "$create_db_user"  ]] && echo "Option specified: --create-db-user"
+#[[ -n "$create_db"  ]] && echo "Option specified: --create-db"
 
 # input parameters #
 
@@ -108,6 +112,12 @@ fi
 create_new_installation() {
     get_password
     copy_files
+    if [ -n "$create_db_user"  ] ; then
+        create_database_user
+    fi
+    if [ -n "$create_db"  ] ; then
+        create_database
+    fi
     setup_database
     change_config
     if [ -n "$vhost"  ] ; then
@@ -152,10 +162,17 @@ rm $project_dir/onxshop_dir && ln -s /opt/onxshop/$onxshop_version/ $project_dir
 chmod a+w -R $project_dir/var/
 }
 
-setup_database() {
+create_database_user() {
 # TODO create user only if doesn't exist, only works on localhost
 sudo -u postgres psql template1 -c "CREATE USER $db_username WITH CREATEDB PASSWORD '$db_password'"
-sudo -u postgres psql template1 -c "CREATE DATABASE \"$db_name\" WITH OWNER=\"$db_username\" ENCODING='UTF8'"
+}
+
+create_database() {
+export PGPASSWORD=${db_password}
+psql -U $db_username -h $db_hostname template1 -c "CREATE DATABASE \"$db_name\" WITH OWNER=\"$db_username\" ENCODING='UTF8'"
+}
+
+setup_database() {
 export PGPASSWORD=${db_password}
 psql -U $db_username -h $db_hostname $db_name < $db_template_file 
 psql -U $db_username -h $db_hostname $db_name -c "UPDATE common_configuration SET value='$db_username' WHERE property='title'";
