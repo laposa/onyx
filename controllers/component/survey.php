@@ -310,7 +310,7 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
             if(isset($client_data['customer']['newsletter'])) {
                 $client_data['customer']['newsletter'] = ($client_data['customer']['newsletter'] == 1) ? 'checked="checked" ' : '';
             } else {
-                $client_data['customer']['newsletter'] = 'checked="checked" ';
+                $client_data['customer']['newsletter'] = '';
             }
             
             $this->tpl->assign('CLIENT', $client_data);
