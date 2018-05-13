@@ -2,7 +2,7 @@
 /**
  * class client_customer
  * 
- * Copyright (c) 2009-2017 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2018 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -140,8 +140,8 @@ class client_customer extends Onxshop_Model {
     var $_metaData = array(
         'id'=>array('label' => 'ID', 'validation'=>'int', 'required'=>true), 
         'title_before'=>array('label' => 'Title', 'validation'=>'string', 'required'=>false),
-        'first_name'=>array('label' => 'First name', 'validation'=>'string', 'required'=>true),
-        'last_name'=>array('label' => 'Last name', 'validation'=>'string', 'required'=>true),
+        'first_name'=>array('label' => 'First name', 'validation'=>'string', 'required'=>false),
+        'last_name'=>array('label' => 'Last name', 'validation'=>'string', 'required'=>false),
         'title_after'=>array('label' => 'Title (after)', 'validation'=>'string', 'required'=>false),
         'email'=>array('label' => 'Email', 'validation'=>'email', 'required'=>true),
         'username'=>array('label' => 'Username', 'validation'=>'string', 'required'=>false),
