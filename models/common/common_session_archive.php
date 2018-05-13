@@ -4,7 +4,7 @@ require_once('models/common/common_session.php');
 /**
  * class common_session_archive
  *
- * Copyright (c) 2009-2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2018 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -45,9 +45,11 @@ CREATE TABLE common_session_archive (
         if (array_key_exists('common_session_archive', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['common_session_archive'];
         else $conf = array();
         
-        //time to live of anonymouse users: 1 week
         $conf['keep_anonymouse'] = false;
-    
+        $conf['keep_customer'] = true;
+        $conf['keep_customer_session_data'] = false;
+        $conf['keep_bo_user'] = true;
+        
         return $conf;
     }
     
@@ -57,15 +59,24 @@ CREATE TABLE common_session_archive (
      
     function insertSession($session) {
         
-        if ($this->conf['keep_anonymouse'] == true) {
-            //archive all
-            $id = $this->insert($session);
-        } else {
-            //archive only users and editors sessions
-            if ($session['customer_id'] > 0 || $session['php_auth_user'] != '') {
-                $id = $this->insert($session);
-            }
+        $to_be_archived = false;
+        
+        if ($this->conf['keep_anonymouse'] == true && $session['customer_id'] == 0) {
+            
+            $to_be_archived = true;
+            
+        } else if ($this->conf['keep_customer'] == true && $session['customer_id'] > 0) {
+            
+            $to_be_archived = true;
+            if ($this->conf['keep_customer_session_data'] == false) unset($session['session_data']);
+            
+        } else if ($this->conf['keep_bo_user'] == true && $session['php_auth_user'] != '') {
+            
+            $to_be_archived = true;
+        
         }
+        
+        if ($to_be_archived) $id = $this->insert($session);
         
         return $id;
     }

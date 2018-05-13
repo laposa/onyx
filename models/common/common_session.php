@@ -101,8 +101,8 @@ CREATE TABLE common_session (
         //$conf = $GLOBALS['onxshop_conf']['common_session'];
         $conf = array();
         
-        //default 1day
-        $conf['ttl'] = 86400;
+        $conf['ttl'] = 86400; // default 1day
+        $conf['gc_rand'] = 100; // perform garbage collection on average after every 100 request
     
         return $conf;
     }
@@ -133,7 +133,7 @@ CREATE TABLE common_session (
         if (!empty($this->fieldarray)) {
 
             // perform garbage collection on average after every 100 request
-            if (mt_rand(1, 100) == 1) $result = $this->gc($this->conf['ttl']);
+            if (mt_rand(1, $this->conf['gc_rand']) == 1) $result = $this->gc($this->conf['ttl']);
             else $result = true;
             
             return $result;
