@@ -822,42 +822,96 @@ class Onxshop_Controller {
 
     /**
      * Factory method for creating new controller using request URI
+     * @param string $request
+     * @param object $subOnxshop
+     * @return object
      */
     
     public static function createController($request, &$subOnxshop = false) {
         
-        $classname = self::_prepareCallBack($request);
+        $file = self::_getControllerFile($request);
+        $classname = self::_getControllerClassname($file);
+        $classname_local = $classname . '_Local';
         
-        if (!class_exists($classname)) {
+        if (file_exists(ONXSHOP_PROJECT_DIR . $file)) {
             
-            echo "missing $classname in $request";
+            $controller_exists = 1;
             
-            throw new ErrorException("Missing $classname in $request");
+            require_once(ONXSHOP_PROJECT_DIR . $file);
+            
+            if (class_exists($classname_local)) {
+                
+                return new $classname_local($request, $subOnxshop);
+                
+            } else if (class_exists($classname)) {
+                
+                return new $classname($request, $subOnxshop);
+                
+            }
+            
+        } else if (file_exists(ONXSHOP_DIR . $file)) {
+            
+            $controller_exists = 1;
+            
+            require_once(ONXSHOP_DIR . $file);
+            
+             if (class_exists($classname)) {
+            
+                return new $classname($request, $subOnxshop);
+                
+            }
+        }
+
+        if ($controller_exists) {
+                 
+            // factory didn't produce any class                            
+            $error_message = "Missing $classname or $classname_local in $request";
+            echo $error_message;
+            
+            throw new ErrorException($error_message);
             
             return false;
-        }
+            
+        } else {
         
-        //Yes, we can do this in PHP :)
-        return new $classname($request, $subOnxshop);
-
+            return new $classname($request, $subOnxshop);
+        
+        }
     }
 
     /**
-     * prepare CallBack function
+     * _getControllerClassname
+     * @param string $file
+     * @return string $classname
      */
 
-    private static function _prepareCallBack($request) {
-
-        $file = preg_replace("/([A-Za-z0-9_\/]*).*/", "\\1", $request);
-        if (file_exists(ONXSHOP_DIR . "controllers/{$file}.php") || file_exists(ONXSHOP_PROJECT_DIR . "controllers/{$file}.php")) {
-            require_once("controllers/{$file}.php");
-            $classname = "Onxshop_Controller_" . preg_replace("/\//", "_", $file);
+    private static function _getControllerClassname($file) {
+        
+        if (file_exists(ONXSHOP_DIR . $file) || file_exists(ONXSHOP_PROJECT_DIR . $file)) {
+            $name = preg_replace('/^controllers\/(.*).php$/', '\1', $file);
+            $classname = "Onxshop_Controller_" . preg_replace("/\//", "_", $name);
         } else {
             $classname = "Onxshop_Controller";
         }
-        
         return $classname;
         
     }
+    
+    /**
+     * _getControllerFile
+     * @param string $request
+     * @return string $file
+     */
+
+    private static function _getControllerFile($request) {
+
+        $filename = preg_replace("/([A-Za-z0-9_\/]*).*/", "\\1", $request);
+        $file = "controllers/{$filename}.php";
+        
+        return $file;
+        
+    }
+    
+    
 
 }
