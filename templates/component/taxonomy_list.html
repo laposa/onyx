@@ -1,10 +1,12 @@
 <!-- BEGIN: content -->
 <div class="taxonomy_list">
-    <ul>
-	    <li class="all"><a class="button" href="/page/{PAGE_ID}"><span>{I18N_VIEW_ALL}</span></a></li>
-		<!-- BEGIN: item -->
-		<li class="t{ITEM.id}"><a class="button" href="?t={ITEM.id}" title="{ITEM.description|htmlspecialchars}"><span>{ITEM.label.title|htmlspecialchars|nl2br}</span></a></li>
-		<!-- END: item -->
-    </ul>
+	<!-- BEGIN: item -->
+	<div class="item t{ITEM.id}">
+        <!-- BEGIN: text --><span>{ITEM.label.title|htmlspecialchars}</span><!-- END: text -->
+        <!-- BEGIN: text_link --><a href="/page/{ITEM.link_to_node_id}?taxonomy_tree_id={ITEM.id}"><span>{ITEM.label.title|htmlspecialchars}</span></a><!-- END: text_link -->
+        <!-- BEGIN: image --><span class="item"><span class="image"><img src="/image/{IMAGE.src}" alt="{IMAGE.title|htmlspecialchars}" title="{ITEM.label.title|htmlspecialchars|nl2br}"></span></span><!-- END: image -->
+		<!-- BEGIN: image_link --><span class="item"><a href="/page/{IMAGE.link_to_node_id}"><span class="image"><img src="/image/{IMAGE.src}" alt="{IMAGE.title|htmlspecialchars}" title="{ITEM.label.title|htmlspecialchars|nl2br}"></span></a></span><!-- END: image_link -->
+	</div>
+	<!-- END: item -->
 </div>
 <!-- END: content -->
