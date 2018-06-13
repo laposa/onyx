@@ -177,10 +177,10 @@ class Onxshop_Bootstrap {
          * check directory exists
          */
         
-		if (!is_dir(ONXSHOP_PAGE_CACHE_DIRECTORY) || !is_writeable(ONXSHOP_PAGE_CACHE_DIRECTORY)) {
-    		if (!mkdir(ONXSHOP_PAGE_CACHE_DIRECTORY)) die(ONXSHOP_PAGE_CACHE_DIRECTORY . ' directory is not writeable');
-		}
-		
+        if (!is_dir(ONXSHOP_PAGE_CACHE_DIRECTORY) || !is_writeable(ONXSHOP_PAGE_CACHE_DIRECTORY)) {
+            if (!mkdir(ONXSHOP_PAGE_CACHE_DIRECTORY)) die(ONXSHOP_PAGE_CACHE_DIRECTORY . ' directory is not writeable');
+        }
+        
         /**
          * database cache
          */
@@ -245,10 +245,10 @@ class Onxshop_Bootstrap {
          * check directory exists
          */
          
-	    if (!is_dir(ONXSHOP_SESSION_DIRECTORY) || !is_writeable(ONXSHOP_SESSION_DIRECTORY)) {
-    	    if (!mkdir(ONXSHOP_SESSION_DIRECTORY)) die(ONXSHOP_SESSION_DIRECTORY . ' directory is not writeable');
-	    }
-	    
+        if (!is_dir(ONXSHOP_SESSION_DIRECTORY) || !is_writeable(ONXSHOP_SESSION_DIRECTORY)) {
+            if (!mkdir(ONXSHOP_SESSION_DIRECTORY)) die(ONXSHOP_SESSION_DIRECTORY . ' directory is not writeable');
+        }
+        
         switch (ONXSHOP_SESSION_TYPE) {
             case 'file':
                 ini_set('session.save_path', ONXSHOP_SESSION_DIRECTORY);
