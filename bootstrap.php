@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * Copyright (c) 2005-2017 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2005-2018 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -10,7 +10,7 @@
  * Set include paths
  */
 
-set_include_path(ONXSHOP_PROJECT_DIR . PATH_SEPARATOR . ONXSHOP_DIR . PATH_SEPARATOR . ONXSHOP_DIR . 'lib/' . PATH_SEPARATOR . get_include_path());
+set_include_path(ONXSHOP_PROJECT_DIR . PATH_SEPARATOR . ONXSHOP_DIR . PATH_SEPARATOR . ONXSHOP_DIR . 'lib/' . PATH_SEPARATOR . '.');
 require_once('lib/onxshop.functions.php');
 
 /**
