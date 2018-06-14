@@ -177,7 +177,7 @@ class Onxshop_Bootstrap {
          * check directory exists
          */
         
-        if (!is_dir(ONXSHOP_PAGE_CACHE_DIRECTORY) || !is_writeable(ONXSHOP_PAGE_CACHE_DIRECTORY)) {
+        if (!is_dir(ONXSHOP_PAGE_CACHE_DIRECTORY)) {
             if (!mkdir(ONXSHOP_PAGE_CACHE_DIRECTORY)) die(ONXSHOP_PAGE_CACHE_DIRECTORY . ' directory is not writeable');
         }
         
@@ -245,7 +245,7 @@ class Onxshop_Bootstrap {
          * check directory exists
          */
          
-        if (!is_dir(ONXSHOP_SESSION_DIRECTORY) || !is_writeable(ONXSHOP_SESSION_DIRECTORY)) {
+        if (!is_dir(ONXSHOP_SESSION_DIRECTORY)) {
             if (!mkdir(ONXSHOP_SESSION_DIRECTORY)) die(ONXSHOP_SESSION_DIRECTORY . ' directory is not writeable');
         }
         
@@ -279,7 +279,8 @@ class Onxshop_Bootstrap {
                 
         if (!array_key_exists('active_pages', $_SESSION)) $_SESSION['active_pages'] = array(); // only pages
         if (!array_key_exists('full_path', $_SESSION)) $_SESSION['full_path'] = array(); // including layouts, containers, etc.
-        if (array_key_exists('HTTPS', $_SERVER)) $protocol = 'https';
+        if ($_SERVER['HTTP_X_FORWARDED_PROTO']) $protocol = $_SERVER['HTTP_X_FORWARDED_PROTO'];
+        else if (array_key_exists('HTTPS', $_SERVER)) $protocol = 'https';
         else $protocol = 'http';
 
         $_SESSION['uri'] = "$protocol://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
