@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2009-2017 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2018 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -53,6 +53,13 @@ class Onxshop_Controller_Node_Layout_Default extends Onxshop_Controller_Node_Def
         if (!isset($node_data['display_title'])) $node_data['display_title'] = $GLOBALS['onxshop_conf']['global']['display_title'];
         
         $this->tpl->assign("NODE", $node_data);
+        
+        /**
+         * load related image with role 'background'
+         */
+         
+        $image = $this->Node->getImageForNodeId($node_data['id'], 'background');
+        $this->tpl->assign("IMAGE", $image);
         
         /**
          * display title

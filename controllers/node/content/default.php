@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2009-2017 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2018 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -48,11 +48,11 @@ class Onxshop_Controller_Node_Content_Default extends Onxshop_Controller_Node_De
         $this->tpl->assign("NODE", $this->node_data);
         
         /**
-         * load related images
+         * load related image with role 'background'
          */
          
-        $images = $this->Node->getImageForNodeId($node_id);
-        $this->tpl->assign("IMAGE", $images);
+        $image = $this->Node->getImageForNodeId($node_id, 'background');
+        $this->tpl->assign("IMAGE", $image);
         
         /**
          * display title
