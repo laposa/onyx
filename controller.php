@@ -770,7 +770,8 @@ class Onxshop_Controller {
         $registry = $this->_getRegistryAsArray();
         
         // detect SSL
-        if ($_SERVER['SSL_PROTOCOL'] || $_SERVER['HTTPS']) $protocol = 'https';
+        if ($_SERVER['HTTP_X_FORWARDED_PROTO']) $protocol = $_SERVER['HTTP_X_FORWARDED_PROTO'];
+        else if ($_SERVER['SSL_PROTOCOL'] || $_SERVER['HTTPS']) $protocol = 'https';
         else $protocol = 'http';
         
         // detect non standard port
