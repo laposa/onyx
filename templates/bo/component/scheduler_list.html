@@ -63,15 +63,14 @@
     });
 
     /**
-     * TODO: fix conflict with hookNodeEditPostUpdate in node/content/picture
+     * called from bo/component/node_edit
      */
-    /*
-    function hookNodeEditPostUpdate() {
-        var block = $("#scheduler-list").parent();
+    
+    function hookNodeEditPostUpdateScheduler() {
         var url = "/request/bo/component/scheduler_list?node_id={GET.node_id}&node_type=common_node";
-        makeAjaxRequest(block, url);
+        makeAjaxRequest('div.row.schedule', url);
     }
-    */
+    
 </script>
 </div>
 <!-- END: content -->

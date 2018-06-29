@@ -92,11 +92,11 @@ function initAdvancedSettingsButton() {
 }
 
 /**
- * on ready
+ * called on every init and update of backoffice forms
  */
-
-$(function() {
-
+ 
+function initBackofficeUI() {
+    
     initAdvancedSettingsButton();
 
     /**
@@ -124,6 +124,15 @@ $(function() {
     $('button.save').on('click', function() {
         $(this).addClass('saving');
     });
+}
+
+/**
+ * on ready
+ */
+
+$(function() {
+
+    initBackofficeUI();
 
 });
     
