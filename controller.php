@@ -775,8 +775,9 @@ class Onxshop_Controller {
         else $protocol = 'http';
         
         // detect non standard port
-        if ($protocol == 'https' && $_SERVER['SERVER_PORT'] == 443) $port = '';
-        else if ($protocol == 'http' && $_SERVER['SERVER_PORT'] == 80) $port = '';
+        if ($protocol == 'https' && ($_SERVER['SERVER_PORT'] == 443 || $_SERVER['HTTP_X_FORWARDED_PORT'] == 443)) $port = '';
+        else if ($protocol == 'http' && ($_SERVER['SERVER_PORT'] == 80 || $_SERVER['HTTP_X_FORWARDED_PORT'] == 80)) $port = '';
+        else if (is_numeric($_SERVER['HTTP_X_FORWARDED_PORT'])) $port = ":{$_SERVER['HTTP_X_FORWARDED_PORT']}";
         else $port = ":{$_SERVER['SERVER_PORT']}";
         
         // build URI
