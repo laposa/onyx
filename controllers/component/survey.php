@@ -61,9 +61,7 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
                  * display results when voted already
                  */
                  
-                if ($display_results_stats) $this->displayResultStats($survey_id);
-                
-                $this->tpl->parse('content.result');
+                $this->displayResult($survey_id, $display_results_stats);
 
             } else {
 
@@ -88,23 +86,7 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
                         
                         } else {
                         
-                            if ($display_results_stats) $this->displayResultStats($survey_id, $survey_entry_id);
-                            
-                            // show message
-                            if (strlen($this->GET['message_after_submission']) > 0) {
-                                
-                                $message_after_submission = urldecode($this->GET['message_after_submission']);
-                                
-                            } else {
-                                
-                                $message_after_submission = 'Thank you for your entry!';
-                                
-                            }
-                            
-                            $this->tpl->assign('MESSAGE_AFTER_SUBMISSION', $message_after_submission);
-                            
-                            // parse the block
-                            $this->tpl->parse('content.result');
+                            $this->displayResult($survey_id, $display_results_stats);
                             
                         }
 
@@ -133,6 +115,31 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
         
     }
     
+    /**
+     * display result
+     */
+     
+    public function displayResult($survey_id, $display_results_stats = false) {
+        
+        if ($display_results_stats) $this->displayResultStats($survey_id, $survey_entry_id);
+        
+        // show message
+        if (strlen($this->GET['message_after_submission']) > 0) {
+            
+            $message_after_submission = urldecode($this->GET['message_after_submission']);
+            
+        } else {
+            
+            $message_after_submission = 'Thank you for your entry!';
+            
+        }
+        
+        $this->tpl->assign('MESSAGE_AFTER_SUBMISSION', $message_after_submission);
+        
+        // parse the block
+        $this->tpl->parse('content.result');
+        
+    }
     /**
      * displayResultStats
      */
