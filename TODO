@@ -1,0 +1,1 @@
+INSERT INTO common_configuration (node_id, object, property, value) VALUES (5, 'global', 'html_title_suffix', '');
