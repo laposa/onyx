@@ -9,7 +9,7 @@
 <script type="text/javascript">
     $(document).ready(function() { 
         var options = { 
-            target:        '#node-properties-edit', 
+            target:        '#node-properties-edit-response', 
             beforeSubmit:  preSubmit,
             success:       showResponse, 
             url:       '/request/bo/component/node_edit~id={GET.id}:orig={GET.orig}~ #node-properties-edit'
@@ -30,7 +30,7 @@ function preSubmit() {
 // post-submit callback 
 function showResponse(responseText, statusText)  {
     
-    popupMessage("#node-properties-edit div.onxshop-messages");
+    popupMessage("#node-properties-edit-response div.onxshop-messages");
     
     $('button.save').removeClass('saving');
     
@@ -67,7 +67,7 @@ function showResponse(responseText, statusText)  {
 }
 </script>
 
-<div id="node-properties-edit" style="display: none;"></div>
+<div id="node-properties-edit-response" style="display: none;"></div>
 
 <!-- END: form -->
 
