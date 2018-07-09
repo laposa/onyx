@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2008-2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2008-2018 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -14,21 +14,23 @@ class Onxshop_Controller_Bo_Component_File_List extends Onxshop_Controller_Bo_Co
      
     public function mainAction() {
     
+        parent::mainAction();
+        
+        $file_id = $this->GET['file_id'];
         $type = $this->GET['type'];
+        $role = $this->GET['role'];
         $relation = $this->GET['relation'];
         
-        $File = $this->initializeFile($relation);
-
-        $this->tpl->assign('IMAGE_CONF', $File->conf);
-        
-        
-        $role = $this->GET['role'];
         if (!is_numeric($this->GET['node_id'])) $this->GET['node_id'] = $_POST['file']['node_id'];
-        if (is_numeric($this->GET['node_id'])) $files = $File->listFiles($this->GET['node_id']); // don't filter listing by role
+        if (is_numeric($this->GET['node_id'])) $files = $this->File->listFiles($this->GET['node_id']); // don't filter listing by role
         
         if (is_array($files)) {
-            if (count($files) == 0) $this->tpl->parse('content.empty');
-            else {
+        
+            if (count($files) == 0) {
+            
+                $this->tpl->parse('content.empty');
+            
+            } else {
 
                 foreach ($files as $file_detail) {
                     
@@ -48,11 +50,25 @@ class Onxshop_Controller_Bo_Component_File_List extends Onxshop_Controller_Bo_Co
      */
     
     public function parseItem($file_detail, $type, $relation) {
-        
-        $_Onxshop = new Onxshop_Request("bo/component/file_detail~file_id={$file_detail['id']}:type=$type:relation=$relation~");
                     
-        $this->tpl->assign('FILE_DETAIL', $_Onxshop->getContent());
-                                        
+        $this->tpl->assign('FILE', $file_detail);
+        
+        switch ($type) {
+        
+            case'RTE':
+                $this->tpl->parse("content.list.item.RTE_select");
+            break;
+            case 'CSS':
+                $this->tpl->parse("content.list.item.CSS_select");
+            break;
+            case 'file':
+                //nothing
+            break;
+            default:
+                $this->tpl->parse("content.list.item.default");
+            break;
+        }
+            
         $this->tpl->parse("content.list.item");
     }
 }

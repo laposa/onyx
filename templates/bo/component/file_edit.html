@@ -1,5 +1,5 @@
 <!-- BEGIN: content -->
-
+    
 <style type="text/css">
 form.file-edit div.row span.label {
     width: 60px;
@@ -15,7 +15,7 @@ $(document).ready(function() {
      * item detail
      */
      
-    $('#file-edit-{FILE.id}').ajaxForm({target: '#item-detail-{FILE.id}', success:    function() {$('#linked-file-{FILE.id}').load('/request/bo/component/file_detail~file_id={FILE.id}:type={GET.type}:relation={GET.relation}~"')}});
+    $('#file-edit-{FILE.id}').ajaxForm({target: '#file-edit-{FILE.id}', success: function() {hideModalOverlay()}});
 
     /**
      * link_to_node_id browse site
@@ -45,11 +45,7 @@ $(document).ready(function() {
 
 <form class="file-edit" action="{URI|htmlspecialchars}" method="post" id="file-edit-{FILE.id}">
 
-    <fieldset class="file-item-form">
-        <legend>File Edit</legend>
-        
-        <input class="filename" type="text" readonly value="{FILE.src|htmlspecialchars}"/>
-        
+    <fieldset class="file-item-form">        
         <div class="row title">
             <span class="label"><label>Title *:</label></span>
             <span class="field"><input class="text title" type="text" name="file[title]" value="{FILE.title|htmlspecialchars}" /></span>
@@ -66,21 +62,9 @@ $(document).ready(function() {
             <span class="label"><label>Description:</label></span>
             <span class="field"><textarea name="file[description]">{FILE.description|htmlspecialchars}</textarea></span>
         </div>
-        <p><a href="#file-edit-advanced-{FILE.id}" onclick="$('#file-edit-advanced-{FILE.id}').toggle(); return false;">Show more options</a></p>
-        <div id="file-edit-advanced-{FILE.id}" class="advanced">
-            <div class="row content">
-                <span class="label"><label for="file-content">content <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'mceAdvanced', 'file-content-{FILE.id}'); return false;"><span>RTE</span></a></label></span>
-                <span class="field"><textarea id="file-content-{FILE.id}" class="mce-advanced" name="file[content]">{FILE.content|htmlspecialchars}</textarea></span>
-            </div>
-            <div class="row link-to-node-id">
-                <span class="label"><label for="file-link-to-node-id" title="Link to node id">Link to node ID:</label></span>
-                <span class="field"><input class="text short" type="text" name="file[link_to_node_id]" id="file-link-to-node-id-{FILE.id}" value="{FILE.link_to_node_id}" /> <a class="button link-to-node-id" href="#" data-file_id="{FILE.id}"><span>Browse…</span></a></span>
-                <span style="display: block;" id="link-to-node-id-ajax-{FILE.id}"></span>
-            </div>
-            <div class="row">
-                <span class="label"><label>Priority:</label></span>
-                <span class="field"><input class="text" style="width: 50px;" type="text" name="file[priority]" value="{FILE.priority}" /></span>
-            </div>
+        <div class="row advanced">
+            <span class="label"><label>Priority:</label></span>
+            <span class="field"><input class="text" style="width: 50px;" type="text" name="file[priority]" value="{FILE.priority}" /></span>
         </div>
         
         <input type="hidden" name="file[id]" value="{FILE.id}" />
@@ -93,6 +77,5 @@ $(document).ready(function() {
     <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
 
-{ONXSHOP_REQUEST_tinymce #bo/tinymce~id=GET.id:relation=node:edit_elements=file-content-GET.file_id:theme=simple~}
 </div>
 <!-- END: content -->

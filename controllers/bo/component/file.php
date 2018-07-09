@@ -12,13 +12,11 @@ class Onxshop_Controller_Bo_Component_File extends Onxshop_Controller {
      
     public function mainAction() {
     
-        $file_id = $this->GET['file_id'];
-        $type = $this->GET['type'];
         $relation = $this->GET['relation'];
         
-        $File = $this->initializeFile($relation);
+        $this->File = $this->initializeFile($relation);
 
-        $this->tpl->assign('IMAGE_CONF', $File->conf);
+        $this->tpl->assign('IMAGE_CONF', $this->File->conf);
 
 
         return true;
