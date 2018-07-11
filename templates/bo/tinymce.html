@@ -46,12 +46,12 @@ function tinyMCEinit() {
 
 
 function onxshopFileBrowserCallBack_{GET.relation}_{GET.id}(callback, value, meta) {
-    
-    if (meta.filetype == 'file') var url = '/popup_window/bo/component/node_menu_tinymce~id=0:open={GET.id}:expand_all=1:publish=0:node_group=page_and_product~';
-    else var url = '/popup/files/{GET.relation}/{GET.id}?type=RTE&role=RTE';
 
     // Provide file and text for the link dialog
     if (meta.filetype == 'file') {
+        
+        var url = '/popup_window/bo/component/node_menu_tinymce~id=0:open={GET.id}:expand_all=1:publish=0:node_group=page_and_product~';
+        
         tinymce.activeEditor.windowManager.open({
             title: 'Onxshop File Browser',
             url: url,
@@ -67,6 +67,9 @@ function onxshopFileBrowserCallBack_{GET.relation}_{GET.id}(callback, value, met
 
     // Provide image and alt text for the image and media dialog
     if (meta.filetype == 'image' || meta.filetype == 'media') {
+        
+        var url = '/popup/files/{GET.relation}/{GET.id}?type=RTE&role=RTE';
+        
         tinymce.activeEditor.windowManager.open({
             title: 'Onxshop File Browser',
             url: url,
