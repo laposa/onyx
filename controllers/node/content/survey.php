@@ -60,6 +60,10 @@ class Onxshop_Controller_Node_Content_Survey extends Onxshop_Controller_Node_Con
 
         if ($node_data['display_title'])  $this->tpl->parse('content.title');
 
+        if ($node_data['component']['age_gate']) {
+            $age_gate = new Onxshop_Request('component/age_gate');
+            $this->tpl->assign('AGE_GATE', $age_gate->getContent());
+        }
         return true;
     }
 }

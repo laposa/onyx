@@ -60,8 +60,8 @@
 		<span class="label"><label for="component-captcha">Anti-spam protection (CAPTCHA):</label></span>
 		<span class="field">
 			<select id="component-captcha" name="node[component][spam_protection]">
+    			<option value="captcha_text_js" {SPAM_PROTECTION.captcha_text_js}>Invisible field</option>
 				<option value="none">None</option>
-				<option value="captcha_text_js" {SPAM_PROTECTION.captcha_text_js}>Invisible field</option>
 			</select>
 	</div>
 	<div class="row checkbox">
@@ -69,6 +69,9 @@
 	</div>
 	<div class="row checkbox">
 		<span class="field"><input type="checkbox" id="component-require_t_and_c" name="node[component][require_t_and_c]" {NODE.component.require_t_and_c} /> <label for="component-require_t_and_c">Require Term &amp; Conditions</label></span>
+	</div>
+	<div class="row checkbox">
+		<span class="field"><input type="checkbox" id="component-age-gate" name="node[component][age_gate]" {NODE.component.age_gate} /> <label for="component-age-gate">Age Gate (18 years)</label></span>
 	</div>
 	<div class="row checkbox">
 		<span class="field"><input type="checkbox" id="component-display_results" name="node[component][display_results]" {NODE.component.display_results} /> <label for="component-display_results">Display results after submission</label></span>
