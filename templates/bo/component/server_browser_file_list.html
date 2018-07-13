@@ -30,8 +30,8 @@
                 <!-- BEGIN: upload_file -->
                 <fieldset class="add-new single dropzone-wrap">
                     <div id="add-dropzone" class="row dropzone">
-                        <h2>Drop files here</h2>
-                        <small>Max. {MAX_FILES} files, {MAX_FILE_SIZE}MB each</small>
+                        <h2>Drop files here or click to upload.</h2>
+                        <p class="limits">{MAX_FILES} files max, {MAX_FILE_SIZE}MB each</p>
                     </div>
                     <div class="row" id="add-file">
                         <input id="add-file-input" type="file" name="file" class="file multi" multiple /> 
@@ -57,36 +57,40 @@
 </form>
     </div>
     <div class="progress-total">
-        Please wait, uploading <span class="num">0</span> file(s)...<br/>
-        <progress value="0" max="100">0%</progress>
+        <div class="wrapper">
+            <p>Please wait, uploading <span class="num">0</span> file(s)...</p>
+            <progress value="0" max="100">0%</progress>
+        </div>
     </div>
     
     <!-- BEGIN: list -->
-    <table class="server-browser">
-        <tbody>
+    <div class="server-browser">
+        <div class="wrapper">
             <!-- BEGIN: item -->
-            <tr id="file-{ITEM.file_path_encoded_relative}">
-                <td><!-- BEGIN: thumbnail --><a style="display: block; min-width: 50px; min-height: 50px; width: 50px;" href="/image/{BASE}{FOLDER}{ITEM.name}" title="View Full Size" onclick="openImg('/image/{BASE}{FOLDER}{ITEM.name}'); return false;"><img src="/thumbnail/50x50/{BASE}{FOLDER}{ITEM.name}" alt="{ITEM.name}" /></a><br /><!-- END: thumbnail --></td>
-                <td>
-                    <a href="/download/{BASE}{FOLDER}{ITEM.name}" title="Download {ITEM.name} ({ITEM.size})" style="display: block;">{ITEM.name|str_replace('_', ' ', %s)}</a>
-                </td>
-                <td>
-                    <a class="ui-icon ui-icon-search" style="float: left" title="View {ITEM.name} ({ITEM.size})" href="/view/{BASE}{FOLDER}{ITEM.name}" target="_blank"><span>View</span></a>
-                    <a class="ui-icon ui-icon-arrowthickstop-1-s" style="float: left" title="Download {ITEM.name} ({ITEM.size})" href="/download/{BASE}{FOLDER}{ITEM.name}"><span>Download</span></a>
-                    <a class="ui-icon ui-icon-info" style="float: left" href="#" title="Size: {ITEM.size}, click to view more details" onclick="openAjaxRequestInDialog('/request/bo/component/file_info~file_path_encoded={ITEM.file_path_encoded}~', 'File Info'); return false"><span>View more details</span></a>
+            <div id="file-{ITEM.file_path_encoded_relative}">
+                <!-- BEGIN: thumbnail --><img src="/thumbnail/200/{BASE}{FOLDER}{ITEM.name}" alt="{ITEM.name}" /><!-- END: thumbnail -->
+                <div class="overlay">
+                    <!--<a href="/download/{BASE}{FOLDER}{ITEM.name}" title="Download {ITEM.name} ({ITEM.size})" style="display: block;">{ITEM.name|str_replace('_', ' ', %s)}</a>-->
+                    <div class="file-info">
+                        <a class="view" title="View {ITEM.name} ({ITEM.size})" href="/view/{BASE}{FOLDER}{ITEM.name}" target="_blank"><span>View</span></a>
+                        <a class="download" title="Download {ITEM.name} ({ITEM.size})" href="/download/{BASE}{FOLDER}{ITEM.name}"><span>Download</span></a>
+                        <a class="info" href="#" title="Size: {ITEM.size}, click to view more details" onclick="openAjaxRequestInDialog('/request/bo/component/file_info~file_path_encoded={ITEM.file_path_encoded}~', 'File Info'); return false"><span>View more details</span></a>
+                    </div>
                     
-                    <!-- BEGIN: usage --><a href="#" onclick="openAjaxRequestInDialog('/request/bo/component/file_usage~file_path_encoded_relative={ITEM.file_path_encoded_relative}~', 'File Usage'); return false" title="Usage">{FILE_USAGE}x</a><!-- END: usage -->
-                </td>
-                <td>
+                    <!-- BEGIN: usage --><a class="usage" href="#" onclick="openAjaxRequestInDialog('/request/bo/component/file_usage~file_path_encoded_relative={ITEM.file_path_encoded_relative}~', 'File Usage'); return false" title="Usage">This file has been used<br>{FILE_USAGE} times</a><!-- END: usage -->
+                    
+                    <div class="file-actions">
                     <!-- BEGIN: add_to_node --><a class="button small add" title="Use {ITEM.name}" href="#serverBrowser" onclick="makeAjaxRequest('#server-browser', '/request/bo/component/file_add~file_path_encoded={ITEM.file_path_encoded}:type={GET.type}:role={GET.role}:relation={GET.relation}:node_id={GET.node_id}~'); "><span>Use</span></a><br /><!-- END: add_to_node -->
                     <!-- BEGIN: delete --><a class="button small remove" href="{_SERVER.REDIRECT_URL}?delete_file={BASE}{FOLDER}{ITEM.name}" onclick="$('#file-{ITEM.file_path_encoded_relative}').load('/request/bo/component/file_delete~file_path_encoded={ITEM.file_path_encoded_relative}~', function() {popupMessage('#file-{ITEM.file_path_encoded_relative} div.onxshop-messages');}); return false;"><span>Delete</span></a><!-- END: delete -->
                     <!-- BEGIN: database_import --><a class="button add" title="Import {ITEM.name}" href="?data_file={BASE}{FOLDER}{ITEM.name}"><span>Import this ...</span></a><br /><!-- END: database_import --> 
-                </td>
-            </tr>
+                </div>
+                    
+                </div>
+            </div>
             <!-- END: item -->
-        </tbody>
+        </div>
         
-    </table>
+    </div>
     <!-- END: list -->
             
     <!-- BEGIN: empty -->
