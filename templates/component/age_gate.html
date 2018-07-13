@@ -66,7 +66,7 @@
 			if (customer_age >= minimum_age) {
 				$('#ageGate').fadeOut(500, function() {
 					$('#ageGate').remove();
-					$('.pageContent').fadeIn(500);
+					$('#content').fadeIn(500);
 					$.cookie('onxshop-customer-age', customer_age, { expires: 7 });
 					$('#over18_id').attr('checked', 'checked');
 				});
@@ -78,7 +78,7 @@
 
 		function showAgeGate() {
 
-			$('.pageContent').hide()
+			$('#content').hide()
 
 			var html = '<div id="ageGate"><div id="ageGateWrapper">';
 			html += '<h3>This page requires that you are of legal drinking age to enter.</h3>';
@@ -100,7 +100,7 @@
 			html += '</p>';
 			html += '<p><button class="submit">Submit</button></p>';
 			html += '</div></div>';
-			$('.pageContent').after(html);
+			$('#content').after(html);
 
 			updateDays();
 			$('#ageGate select.year, #ageGate select.month').change(updateDays);
@@ -108,7 +108,7 @@
 		};
 
 
-		if (edit_mode) $('.pageContent').prepend('<p style="max-width: 600px; margin: 0 auto; padding: 20px 40px; background: #ff3030; color: #ffffff; font-size: 1.2em; ">This page is secured by the Age Gate. Minimum age has been set to ' + minimum_age + ' years.</p>');
+		if (edit_mode) $('#content').prepend('<p style="max-width: 600px; margin: 0 auto; padding: 20px 40px; background: #ff3030; color: #ffffff; font-size: 1.2em; ">This page is secured by the Age Gate. Minimum age has been set to ' + minimum_age + ' years.</p>');
 		else if (customer_age == undefined || customer_age < minimum_age) showAgeGate();
 
 	});
