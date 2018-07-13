@@ -262,13 +262,7 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
      
     public function getOpenGraphImage($node_id, $content = false) {
         
-        require_once('models/common/common_image.php');
-        $Image = new common_image();
-        
-        $image_list = $Image->listFiles($node_id , 'opengraph');
-        
-        if (is_array($image_list) && count($image_list) > 0) return $image_list[0];
-        else return false;
+        return $this->Node->getTeaserImageForNodeId($node_id, 'opengraph');
         
     }
     
