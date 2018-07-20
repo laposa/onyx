@@ -7,7 +7,7 @@ function openEdit(url, el, ajax) {
     if (ajax) {
         openAjaxRequestInDialog(url, '');
     } else {
-        nOpenWin(url, 820, 800);
+        nOpenWin(url, 825, 800);
     }
     
 }
