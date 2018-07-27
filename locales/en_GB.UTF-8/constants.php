@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2005-2014 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2005-2018 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
  
@@ -254,7 +254,7 @@ define('I18N_RELATED_PRODUCTS_DYNAMIC', 'Customers who purchased this product al
 define('I18N_RELATED_PRODUCTS_STATIC', 'We suggest the following');
 //component/client/registration.php
 define('I18N_COMPONENT_CLIENT_REGISTRATION_SUCCESS', 'Customer registration successfully completed"');
-define('I18N_COMPONENT_CLIENT_REGISTRATION_ERROR', 'Please complete all required fields marked with a asterisk (*)');
+define('I18N_COMPONENT_CLIENT_REGISTRATION_ERROR', 'Please complete all required fields');
 define('I18N_COMPONENT_CLIENT_REGISTRATION_PASSWORD_NOT_MATCH', 'Passwords do not match.');
 //component/client/registration.html
 define('I18N_R_PERSONAL_DETAILS', 'Personal details');

@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2006-2017 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2006-2018 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -27,7 +27,7 @@ class Onxshop_Controller_Node_Content_Contact_Form extends Onxshop_Controller_No
             $node_data['component']['spam_protection'] = 'captcha_text_js';
         }
 
-        if ($node_data['component']['sending_failed'] == '') $node_data['component']['sending_failed'] = 'The provided data is not valid! Required items are marked with an asterisk (*)';
+        if ($node_data['component']['sending_failed'] == '') $node_data['component']['sending_failed'] = 'The provided data is not valid!';
         if ($node_data['component']['text'] == '') $node_data['component']['text'] = "";
         
         $this->tpl->assign("NODE", $node_data);
