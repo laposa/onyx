@@ -17,14 +17,21 @@
 //define('ONXSHOP_MAIN_DOMAIN', 'default.co.uk');
 
 /**
+ * HTTP client IP
+ */
+ 
+if (array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER)) $http_client_ip = $_SERVER["HTTP_X_FORWARDED_FOR"];
+else $http_client_ip = $_SERVER["REMOTE_ADDR"];
+
+/**
  * Can the remote host see debugging messages?
  * see lib/onxshop.functions.php: msg() function for documentation
  */
- 
-if(in_array($_SERVER["REMOTE_ADDR"], array_keys($debug_hosts)))  {
+
+if(in_array($http_client_ip, array_keys($debug_hosts)))  {
     error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
     ini_set('display_errors', 1);
-    define('ONXSHOP_DEBUG_LEVEL', $debug_hosts[$_SERVER["REMOTE_ADDR"]]);
+    define('ONXSHOP_DEBUG_LEVEL', $debug_hosts[$http_client_ip]);
     define('ONXSHOP_DEBUG_INCLUDE_BACKTRACE', true);
     define('ONXSHOP_DEBUG_INCLUDE_USER_ID', true);
     define('ONXSHOP_IS_DEBUG_HOST', true);
