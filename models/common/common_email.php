@@ -2,7 +2,7 @@
 /**
  * class common_email
  *
- * Copyright (c) 2009-2016 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2018 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -103,6 +103,9 @@ CREATE TABLE common_email (
         /**
          * set default values if empty
          */
+        // allow sender email address to be overwritten, for example in contact form
+        // to allow sending emials on behalf of customer
+        if ($conf['sender_overwrite_allowed'] == '') $conf['sender_overwrite_allowed'] = true;
         // what is default email FROM address?
         if ($conf['mail_sender_address'] == '') $conf['mail_sender_address'] = $GLOBALS['onxshop_conf']['global']['admin_email'];
         if ($conf['mail_sender_name'] == '') $conf['mail_sender_name'] = $GLOBALS['onxshop_conf']['global']['admin_email_name'];
@@ -321,7 +324,9 @@ CREATE TABLE common_email (
             
             if ($this->conf['smtp_server_username'] && $this->conf['smtp_server_password']) {
                 msg('using SMTP auth', 'ok', 2);
-                $config = array('auth' => 'login',
+                $config = array(
+                            'ssl' => 'tls',
+                            'auth' => 'login',
                             'username' => $this->conf['smtp_server_username'],
                             'password' => $this->conf['smtp_server_password']);
             } else {
@@ -411,15 +416,35 @@ CREATE TABLE common_email (
         $mail->setBodyHtml($email_data['content']['html']);
 
         /**
-         * send
+         * try to send
          */
          
-        if(!$mail->send()) {
-            msg('The email was not sent! Some problem with email sending.', 'error');
-            return false;
-        } else {
+        $email_sent = false;
+        
+        try {
+            
+            $email_sent = $mail->send();
+        
+        } catch (Zend_Exception $e) {
+            
+            msg($e->getMessage(), 'error', 1);
+        
+        }
+        
+        /**
+         * return status
+         */
+         
+        if($email_sent) {
+            
             msg("The email to {$this->email_recipient} has been sent successfully.", 'ok', 2);
             return true;
+        
+        } else {
+        
+            msg('The email was not sent! Some problem with email sending.', 'error');
+            return false;
+        
         }
     }
 

@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2005-2017 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2005-2018 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -105,15 +105,24 @@ class Onxshop_Controller_Component_Contact_Form extends Onxshop_Controller {
             }
 
             // mail from
-            if ($formdata['required_email']) $mail_from = $formdata['required_email'];
-            else if ($formdata['email']) $mail_from = $formdata['email'];
-            else $mail_from = false;
-
-            if ($formdata['required_name']) $mail_fromname = $formdata['required_name'];
-            else if ($formdata['name']) $mail_fromname = $formdata['name'];
-            else if ($formdata['first_name'] || $formdata['last_name']) $mail_fromname = "{$formdata['first_name']} {$formdata['last_name']}";
-            else $mail_fromname = false;
-
+            if ($Email->conf['sender_overwrite_allowed']) {
+                
+                if ($formdata['required_email']) $mail_from = $formdata['required_email'];
+                else if ($formdata['email']) $mail_from = $formdata['email'];
+                else $mail_from = false;
+    
+                if ($formdata['required_name']) $mail_fromname = $formdata['required_name'];
+                else if ($formdata['name']) $mail_fromname = $formdata['name'];
+                else if ($formdata['first_name'] || $formdata['last_name']) $mail_fromname = "{$formdata['first_name']} {$formdata['last_name']}";
+                else $mail_fromname = false;
+            
+            } else {
+                
+                $mail_from = false;
+                $mail_fromname = false;
+                
+            }
+            
             // spam protection
             if ($this->enableCaptcha) {
                 $word = strtolower($_SESSION['captcha'][$node_id]);
