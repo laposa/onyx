@@ -17,14 +17,21 @@
 //define('ONXSHOP_MAIN_DOMAIN', 'default.co.uk');
 
 /**
+ * HTTP client IP
+ */
+ 
+if (array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER)) $http_client_ip = $_SERVER["HTTP_X_FORWARDED_FOR"];
+else $http_client_ip = $_SERVER["REMOTE_ADDR"];
+
+/**
  * Can the remote host see debugging messages?
  * see lib/onxshop.functions.php: msg() function for documentation
  */
- 
-if(in_array($_SERVER["REMOTE_ADDR"], array_keys($debug_hosts)))  {
+
+if(in_array($http_client_ip, array_keys($debug_hosts)))  {
     error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
     ini_set('display_errors', 1);
-    define('ONXSHOP_DEBUG_LEVEL', $debug_hosts[$_SERVER["REMOTE_ADDR"]]);
+    define('ONXSHOP_DEBUG_LEVEL', $debug_hosts[$http_client_ip]);
     define('ONXSHOP_DEBUG_INCLUDE_BACKTRACE', true);
     define('ONXSHOP_DEBUG_INCLUDE_USER_ID', true);
     define('ONXSHOP_IS_DEBUG_HOST', true);
@@ -70,7 +77,10 @@ ini_set( 'session.cookie_httponly', 1 );
  * Authentication type for backend users
  */
 
-if (!defined('ONXSHOP_AUTH_TYPE')) define('ONXSHOP_AUTH_TYPE', 'postgresql');
+if (!defined('ONXSHOP_AUTH_TYPE')) {
+    if (ONXSHOP_DB_TYPE == 'mysql') define('ONXSHOP_AUTH_TYPE', 'mysql');
+    else define('ONXSHOP_AUTH_TYPE', 'postgresql');
+}
 if (!defined('ONXSHOP_AUTH_SERVER')) define('ONXSHOP_AUTH_SERVER', ONXSHOP_DB_HOST);
 
 /**
@@ -154,12 +164,13 @@ if (!defined('ONXSHOP_DB_QUERY_CACHE_DIRECTORY')) define('ONXSHOP_DB_QUERY_CACHE
 
 /*
  * Zend Cache for whole page
- * set 0 to disable
+ * 
  */
  
 if (!defined('ONXSHOP_PAGE_CACHE_DIRECTORY')) define('ONXSHOP_PAGE_CACHE_DIRECTORY', ONXSHOP_DB_QUERY_CACHE_DIRECTORY); // Same as DB cache
 if (!defined('ONXSHOP_PAGE_CACHE_BACKEND')) define('ONXSHOP_PAGE_CACHE_BACKEND', ONXSHOP_DB_QUERY_CACHE_BACKEND); // Same as DB cache
-if (!defined('ONXSHOP_PAGE_CACHE_TTL')) define('ONXSHOP_PAGE_CACHE_TTL', 86400);
+if (!defined('ONXSHOP_PAGE_CACHE_TTL')) define('ONXSHOP_PAGE_CACHE_TTL', 86400); // set 0 to disable
+
 
 /**
  * Onxshop package name
@@ -351,6 +362,7 @@ if (!defined('ONXSHOP_FLICKR_API_KEY')) define('ONXSHOP_FLICKR_API_KEY', '');
 
 /**
  * Allow other directory than default ONXSHOP_PROJECT_DIR
+ * it's useful for sharing media library across multiple projects
  */
  
 if (!defined('ONXSHOP_PROJECT_EXTERNAL_DIRECTORIES')) define('ONXSHOP_PROJECT_EXTERNAL_DIRECTORIES', '');
@@ -360,3 +372,4 @@ if (!defined('ONXSHOP_PROJECT_EXTERNAL_DIRECTORIES')) define('ONXSHOP_PROJECT_EX
  */
 
 if (!defined('ONXSHOP_SESSION_NAME')) define('ONXSHOP_SESSION_NAME', 'OnxshopSID');
+
