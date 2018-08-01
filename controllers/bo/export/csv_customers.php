@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2008-2017 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2008-2018 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -16,6 +16,7 @@ class Onxshop_Controller_Bo_Export_CSV_Customers extends Onxshop_Controller_Bo_E
     public function mainAction() {
         
         set_time_limit(0);
+        ini_set('memory_limit', '1024M');
         
         require_once('models/client/client_customer.php');
         
