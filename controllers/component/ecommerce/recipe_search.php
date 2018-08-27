@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2015-2016 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2015-2018 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -93,8 +93,16 @@ class Onxshop_Controller_Component_Ecommerce_Recipe_Search extends Onxshop_Contr
         if (!empty($this->GET['sku'])) if (!empty($product_variety_sku)) $product_variety_sku .= "," . $this->GET['sku'];
         else $product_variety_sku = $this->GET['sku'];
 
+        // order_by
+        if (!empty($this->GET['order_by'])) $order_by = $this->GET['order_by'];
+        else $order_by = false;
+        
+        // order_dir
+        if (!empty($this->GET['order_dir'])) $order_dir = $this->GET['order_dir'];
+        else $order_by = false;
+        
         return array(
-            $this->Recipe->getFilteredRecipeList($keywords, $time, $taxonomy_id, $product_variety_sku, $limit_per_page, $limit_from, false, false, true),
+            $this->Recipe->getFilteredRecipeList($keywords, $time, $taxonomy_id, $product_variety_sku, $limit_per_page, $limit_from, $order_by, $order_dir, true),
             $this->Recipe->getFilteredRecipeCount($keywords, $time, $taxonomy_id, $product_variety_sku, true)
         );
     }
