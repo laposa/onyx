@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2012-2013 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2012-2018 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -46,7 +46,7 @@ class Onxshop_Controller_Bo_Export_CSV extends Onxshop_Controller {
      * parseCSVTemplate
      */
      
-    public function parseCSVTemplate($records) {
+    public function parseCSVTemplate($records, $quot = '"') {
         
         if (!is_array($records)) return false;
         
@@ -77,7 +77,7 @@ class Onxshop_Controller_Bo_Export_CSV extends Onxshop_Controller {
             
                 if (!is_numeric($val)) {
             
-                    $val = addslashes($val);
+                    $val=str_replace(array($quot, "\n"), array($quot.$quot,  ''), $val);
                     $val = '"' . $val . '"';
                     $val = preg_replace("/[\n\r]/", ' \n ', $val);
                 }
