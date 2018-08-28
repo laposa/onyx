@@ -77,7 +77,7 @@ class Onxshop_Controller_Bo_Export_CSV extends Onxshop_Controller {
             
                 if (!is_numeric($val)) {
             
-                    $val=str_replace(array($quot, "\n"), array($quot.$quot,  ''), $val);
+                    $val = str_replace(array($quot, "\n"), array($quot.$quot,  ''), $val);
                     $val = '"' . $val . '"';
                     $val = preg_replace("/[\n\r]/", ' \n ', $val);
                 }
