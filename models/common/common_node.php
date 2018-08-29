@@ -2,7 +2,7 @@
 /**
  * class common_node
  *
- * Copyright (c) 2009-2017 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2018 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -1275,8 +1275,10 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
         if (is_array($records)) {
             
             //filter only homepages of products
-            require_once("models/ecommerce/ecommerce_product.php");
-            $Product = new ecommerce_product();
+            if (ONXSHOP_ECOMMERCE) {
+                require_once("models/ecommerce/ecommerce_product.php");
+                $Product = new ecommerce_product();
+            }
             
             foreach ($records as $record) {
                 //add only pages which are under published pages
@@ -1288,7 +1290,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
                 }
                 
                 if ($disable == 0) {
-                    if ($record['node_group'] == 'page' && $record['node_controller'] == 'product') {
+                    if (ONXSHOP_ECOMMERCE && $record['node_group'] == 'page' && $record['node_controller'] == 'product') {
                         $homepage = $Product->getProductHomepage($record['content']);
                         if ($homepage['id'] == $record['id']) $sitemap[] = $record;
                     } else {
@@ -1585,7 +1587,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
                 
                 if (in_array($item_data['node_group'], array('page', 'container', 'site'))) {
                     
-                    // when ecommerce is enabled, inluce page or container, don't include products, recipes and news
+                    // when ecommerce is enabled, include page or container, don't include products, recipes and news
                     if (ONXSHOP_ECOMMERCE) $exclude_query = "(node_group = 'page' OR node_group = 'container') AND node_controller != 'product' AND node_controller != 'recipe' AND node_controller != 'news'";
                     else $exclude_query = "(node_group = 'page' OR node_group = 'container')";
                     
