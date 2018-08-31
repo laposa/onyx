@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * Copyright (c) 2011-2013 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2011-2018 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -183,7 +183,10 @@ WHERE education_survey_entry.relation_subject LIKE '{$relation_subject}' AND edu
         require_once('models/common/common_file.php');
         //getSingleUpload could be a static method
         $CommonFile = new common_file();
-        $upload = $CommonFile->getSingleUpload($file_single, "var/surveys/$survey_id/");
+        
+        // process only files uploaded with no errors
+        if ($file_single['error'] === 0) $upload = $CommonFile->getSingleUpload($file_single, "var/surveys/$survey_id/");
+        else return false;
         
         /**
          * array indicated the same file name already exists in the var/tmp/ folder
