@@ -344,7 +344,7 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
      * @return array
      */
      
-    function getNodeList($filter = false, $sort = 'common_node.priority DESC, common_node.id DESC') {
+    function getNodeList($filter = false, $sort = 'common_node.priority DESC, common_node.id ASC') {
         
         $add_to_where = '';
         
