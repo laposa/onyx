@@ -339,11 +339,8 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
     public function canViewPage($node_data) {
         
         if ($this->checkForValidPreviewToken($node_data)) {
-			if ($node_data['publish']) {
-                msg("The URL you've openned has preview_token parameter. This page is already published. Please remove the preview_token parameter before sharing.", 'error');
-            } else {
-                msg("This page is waiting for an approval");
-            }
+            msg("This page is waiting for approval");
+            return true;
         } else if (Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) {
             return true;
         } else if ($this->Node->isInBin($node_data['id'])) {
