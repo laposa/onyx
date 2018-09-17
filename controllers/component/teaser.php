@@ -1,11 +1,12 @@
 <?php
 /** 
- * Copyright (c) 2015-2016 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2015-2018 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
 
 require_once('models/common/common_node.php');
+require_once('controllers/node/page/default.php');
 
 class Onxshop_Controller_Component_Teaser extends Onxshop_Controller {
 
@@ -50,7 +51,14 @@ class Onxshop_Controller_Component_Teaser extends Onxshop_Controller {
          */
          
         $node = $this->setImageOptions($node);      
-                
+        
+        /**
+         * related taxonomy
+         */
+         
+        $related_taxonomy = $this->Node->getRelatedTaxonomy($node['id']);
+        $node['taxonomy_class'] = Onxshop_Controller_Node_Page_Default::createTaxonomyClass($related_taxonomy);
+        
         /**
          * process the template
          */

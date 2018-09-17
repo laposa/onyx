@@ -177,7 +177,7 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
      * createTaxonomyClass from $related_taxonomy array
      */
      
-    public function createTaxonomyClass($related_taxonomy) {
+    static function createTaxonomyClass($related_taxonomy) {
     
         if (!is_array($related_taxonomy)) return false;
         
