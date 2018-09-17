@@ -18,7 +18,7 @@ $templates_info['content'] = array(
     'contact_form'=>array('title' => 'Contact Form', 'description'=>'', 'visibility'=>true), 
     'comment'=>array('title' => 'Forum - User comments', 'description'=>'', 'visibility'=>true),
     'news_list'=>array('title' => 'News List', 'description'=>'', 'visibility'=>true),
-    'menu'=>array('title' => 'Menu Navigation', 'description'=>'Menu of Pages', 'visibility'=>true), 
+    'menu'=>array('title' => 'Menu Navigation', 'description'=>'Menu of Pages', 'visibility'=>false), 
     'content_list'=>array('title' => 'Content List', 'description'=>'Useful for FAQ list', 'visibility'=>true),
     'divider'=>array('title' => 'Horizontal Divider', 'description'=>'', 'visibility'=>true),
     'HTML'=>array('title' => 'Pure HTML', 'description'=>'', 'visibility'=>true),
