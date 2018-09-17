@@ -57,6 +57,7 @@ class Onxshop_Controller_Component_Teaser extends Onxshop_Controller {
          */
          
         $related_taxonomy = $this->Node->getRelatedTaxonomy($node['id']);
+        $node['taxonomy'] = $related_taxonomy;
         $node['taxonomy_class'] = Onxshop_Controller_Node_Page_Default::createTaxonomyClass($related_taxonomy);
         
         /**

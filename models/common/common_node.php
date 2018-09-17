@@ -1683,16 +1683,42 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
     
     /**
      * get taxonomy relation
+     * @returns array taxonomy IDs only
      */
      
     function getTaxonomyForNode($node_id) {
     
         if (!is_numeric($node_id)) return false;
         
-        require_once('models/common/common_node_taxonomy.php');
-        $Taxonomy = new common_node_taxonomy();
+        $node_detail = $this->detail($node_id); //don't need to call full nodeDetail
         
-        $relations = $Taxonomy->getRelationsToNode($node_id);
+        switch ($node_detail['node_controller']) {
+            
+            case 'recipe':
+                require_once('models/ecommerce/ecommerce_recipe_taxonomy.php');
+                $Taxonomy = new ecommerce_recipe_taxonomy();
+                $relations = $Taxonomy->getRelationsToRecipe($node_detail['content']);
+            break;
+            
+            case 'product':
+                require_once('models/ecommerce/ecommerce_product_taxonomy.php');
+                $Taxonomy = new ecommerce_product_taxonomy();
+                $relations = $Taxonomy->getRelationsToProduct($node_detail['content']);    
+            break;
+            
+            case 'store':
+                require_once('models/ecommerce/ecommerce_store_taxonomy.php');
+                $Taxonomy = new ecommerce_store_taxonomy();
+                $relations = $Taxonomy->getRelationsToStore($node_detail['content']);
+            break;
+            
+            case 'default':
+            default:
+                require_once('models/common/common_node_taxonomy.php');
+                $Taxonomy = new common_node_taxonomy();
+                $relations = $Taxonomy->getRelationsToNode($node_id);
+            break;
+        }
         
         return $relations;
     }
@@ -1778,6 +1804,7 @@ LEFT OUTER JOIN common_taxonomy_label ON (common_taxonomy_tree.label_id = common
     
     /**
      * getRelatedTaxonomy
+     * @returns taxonomy vith labels
      */
      
     public function getRelatedTaxonomy($node_id) {
@@ -1786,8 +1813,8 @@ LEFT OUTER JOIN common_taxonomy_label ON (common_taxonomy_tree.label_id = common
         
         require_once('models/common/common_node_taxonomy.php');
         $Taxonomy = new common_node_taxonomy();
-        
-        $related_taxonomy_ids = $Taxonomy->getRelationsToNode($node_id);
+
+        $related_taxonomy_ids = $this->getTaxonomyForNode($node_id);
         
         $related_taxonomy = array();
         
