@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2014 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2014-2018 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -19,7 +19,7 @@ class Onxshop_Controller_Node_Force_Config extends Onxshop_Controller_Node {
 
         if (is_numeric($node_id)) {
             $global_conf_node_overwrites = $this->initGlobalNodeConfigurationOverwrites($node_id);
-            $GLOBALS['onxshop_conf'] = $this->array_replace_recursive($GLOBALS['onxshop_conf'], $global_conf_node_overwrites);
+            $GLOBALS['onxshop_conf'] = array_replace_recursive($GLOBALS['onxshop_conf'], $global_conf_node_overwrites);
         }
 
         return true;

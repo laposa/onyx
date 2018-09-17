@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2005-2016 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2005-2018 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -65,7 +65,7 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
          * merge
          */
         
-        $GLOBALS['onxshop_conf'] = $this->array_replace_recursive($GLOBALS['onxshop_conf'], $global_conf_node_overwrites);
+        $GLOBALS['onxshop_conf'] = array_replace_recursive($GLOBALS['onxshop_conf'], $global_conf_node_overwrites);
         
         /**
          * check if the page can be viewed
@@ -363,24 +363,6 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
         } else {
             return false;
         }
-    }
-    
-    /**
-     * merge array with overwrites (for local configuration overwrites)
-     * TEMP: native array_replace_recursive function available in PHP 5.3
-     */
-     
-    function array_replace_recursive($Arr1, $Arr2) {
-    
-        foreach($Arr2 as $key => $Value) {
-            
-            if(array_key_exists($key, $Arr1) && is_array($Value)) $Arr1[$key] = $this->array_replace_recursive($Arr1[$key], $Arr2[$key]);
-            else $Arr1[$key] = $Value;
-    
-        }
-        
-        return $Arr1;
-        
     }
     
 }
