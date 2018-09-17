@@ -56,7 +56,8 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
          */
         
         $related_taxonomy = $this->getNodeRelatedTaxonomy($node_data);
-        
+        $node_data['taxonomy'] = $related_taxonomy;
+
         /**
          * create taxonomy class
          */
