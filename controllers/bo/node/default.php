@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2008-2016 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2008-2018 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -18,6 +18,8 @@ class Onxshop_Controller_Bo_Node_Default extends Onxshop_Controller {
      
     public function mainAction() {
     
+        $this->loadNodeConfiguration($this->GET['id']);
+        
         require_once('models/common/common_node.php');
         $this->Node = new common_node();    
         $this->pre();
@@ -202,7 +204,7 @@ class Onxshop_Controller_Bo_Node_Default extends Onxshop_Controller {
     
         if ($_POST['node']['display_secondary_navigation'] == 'on' || $_POST['node']['display_secondary_navigation'] == 1) $_POST['node']['display_secondary_navigation'] = 1;
         else $_POST['node']['display_secondary_navigation'] = 0;
-        
+
         if ($_POST['node']['component']['allow_comment'] == 'on') $_POST['node']['component']['allow_comment'] = 1;
         else $_POST['node']['component']['allow_comment'] = 0;
     }
@@ -355,6 +357,45 @@ class Onxshop_Controller_Bo_Node_Default extends Onxshop_Controller {
         return 800;
         
     }
+    
+    /**
+     * loadNodeConfiguration
+     */
+     
+    public function loadNodeConfiguration($node_id) {
+        
+        /**
+         * Initialise node configuration overwrites 
+         */
+
+        $global_conf_node_overwrites = $this->initGlobalNodeConfigurationOverwrites($node_id);
+        
+        /**
+         * merge
+         */
+        
+        $GLOBALS['onxshop_conf'] = array_replace_recursive($GLOBALS['onxshop_conf'], $global_conf_node_overwrites);
+        
+    }
+    
+    /**
+     * Initialise configuration overwrites from database
+     */
+     
+    function initGlobalNodeConfigurationOverwrites($node_id) {
+    
+        if (!is_numeric($node_id)) return false;
+        
+        $conf = array();
+
+        require_once ('models/common/common_configuration.php');
+        $Configuration = new common_configuration();
+        
+        $conf = $Configuration->getConfiguration($node_id);
+        
+        return $conf;
+    }
+
 }
 
         
