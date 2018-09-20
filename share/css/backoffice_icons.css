@@ -68,8 +68,8 @@
  */
  
 a.onxshop-edit {background-image: url(/share/images/famfamfam_icons/plugin.png);}
-a.onxshop-layout-properties {background-image: url(/share/images/famfamfam_icons/layout.png);}
-a.onxshop-page-properties {background-image: url(/share/images/famfamfam_icons/page.png);}
+a.onxshop-edit-layout {background-image: url(/share/images/famfamfam_icons/layout.png);}
+a.onxshop-edit-page {background-image: url(/share/images/famfamfam_icons/page.png);}
 a.onxshop-duplicate {background-image: url(/share/images/famfamfam_icons/application_double.png);}
 a.onxshop-delete {background-image: url(/share/images/famfamfam_icons/delete.png);}
 a.onxshop-edit-source {background-image: url(/share/images/famfamfam_icons/link_edit.png);}
@@ -109,15 +109,15 @@ div.onxshop-edit-content {clear: both; padding: 0 0 50px 5px;}
 div.onxshop-add-content a.onxshop-new-content,
 div.onxshop-edit-content a,
 div.onxshop-edit-layout a,
-div.onxshop-page-properties a {display: block; width: 30px; height: 19px; float: left; background-repeat: no-repeat; background-position: center;}
+div.onxshop-edit-page a {display: block; width: 30px; height: 19px; float: left; background-repeat: no-repeat; background-position: center;}
 
 div.onxshop-add-content a.onxshop-new-content span,
 div.onxshop-edit-content a span,
 div.onxshop-edit-layout a span,
-div.onxshop-page-properties a span {display: none;}
+div.onxshop-edit-page a span {display: none;}
 
-div.onxshop-page-properties a.verbose {width: auto; text-decoration: none; background-position: left;}
-div.onxshop-page-properties a.verbose span {display: inline; padding: 0 25px;}
+div.onxshop-edit-page a.verbose {width: auto; text-decoration: none; background-position: left;}
+div.onxshop-edit-page a.verbose span {display: inline; padding: 0 25px;}
 
 a.onxshop-edit-articlebox {background-image: url(/share/images/famfamfam_icons/page_edit.png);}
 a.onxshop-edit-print-article-list {background-image: url(/share/images/famfamfam_icons/newspaper.png);}

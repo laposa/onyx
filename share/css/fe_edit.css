@@ -76,4 +76,5 @@ ul.ui-tabs-nav li {padding-bottom: 0;}
 
 
 div.onxshop-edit-layout::after,
-div.onxshop-page-properties::after {content: ' '; display: inline-block; clear: both;}
+div.onxshop-edit-page::after {content: ' '; display: inline-block; clear: both;}
+div.onxshop-edit-page a.onxshop-delete {float: right;}
