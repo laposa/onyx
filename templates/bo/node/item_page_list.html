@@ -1,0 +1,29 @@
+<div class="row node-ids">
+    <label>Target Page IDs:</label>
+    <input type="text" class="text" name="node[component][node_ids]" id="component-node-ids" value="{NODE.component.node_ids}" /> <a class="button" href="#"><span>Browse Server</span></a>
+    <div id="node-id-select"></div>
+    
+    <script type="text/javascript">
+    $(document).ready(function(){
+        $('div.node-ids a.button').click(function() {
+            $('#node-id-select').addClass('ajax-load').load('/request/component/menu_js~id=0:expand_all=1:publish=0~', function() {
+                $('#node-id-select').removeClass('ajax-load');
+                $('#node-id-select .simple-tree').simpleTree({
+                    drag: false,
+                    autoclose: true,
+                    afterClick:function(node){
+                        var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
+                        var input = $('#component-node-ids');
+                        var ids = input.val();
+                        if (ids && ids.length > 0) input.val(ids + "," + node_id);
+                        else input.attr("value", node_id);
+                    },
+                    animate: true,
+                    docToFolderConvert: true
+                });
+            });
+            return false;
+        });
+    });
+    </script>
+</div>
