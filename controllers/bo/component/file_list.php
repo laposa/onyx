@@ -62,8 +62,6 @@ class Onxshop_Controller_Bo_Component_File_List extends Onxshop_Controller_Bo_Co
                 $this->tpl->parse("content.list.item.CSS_select");
             break;
             case 'file':
-                //nothing
-            break;
             default:
                 $this->tpl->parse("content.list.item.default");
             break;
