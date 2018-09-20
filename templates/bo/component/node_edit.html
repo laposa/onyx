@@ -49,7 +49,7 @@ function showResponse(responseText, statusText)  {
     }
     
     //reload whole form in case node_group has changed
-    if ($('#node-node-group-{GET.id}').attr('value') != '{NODE.node_group}' || $('#node-node-controller-{GET.id}').attr('value') != '{NODE.node_controller}') {
+    if ($('#node-node-group-{GET.id}').length && ($('#node-node-group-{GET.id}').attr('value') != '{NODE.node_group}' || $('#node-node-controller-{GET.id}').attr('value') != '{NODE.node_controller}')) {
         if (confirm("You have changed the content type, the browser window will refresh to display the updated fields")) window.location.reload();
     }
     

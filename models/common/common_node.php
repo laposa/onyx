@@ -556,7 +556,9 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
          */
         
         if ($this->update($node_data)) {
-            if ($node_data['node_group'] == 'page') {
+            // load full data in case the UI didn't have node_group option
+            $node_data_full = $this->detail($node_data['id']);
+            if ($node_data_full['node_group'] == 'page') {
                     // update existing or insert a new one
                     if (!$this->updateSingleURI($node_data)) $this->insertNewMappingURI($node_data);
             }
