@@ -2,7 +2,7 @@
 /**
  * class common_configuration
  *
- * Copyright (c) 2009-2016 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2018 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -291,6 +291,8 @@ class common_configuration extends Onxshop_Model {
             // save (update or insert)
             if ($id = $this->save($conf_new)) {
             
+                $conf_new['id'] = $id;
+                
                 // insertRevision
                 $this->insertRevision($conf_new);
                 
