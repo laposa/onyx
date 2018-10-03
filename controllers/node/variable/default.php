@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2017 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2017-2018 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -29,7 +29,7 @@ class Onxshop_Controller_Node_Variable_Default extends Onxshop_Controller_Node_D
         $node_id = $this->GET['id'];
         
         if (!is_numeric($node_id)) {
-            msg('node/element/default: id not numeric', 'error');
+            msg('node/variable/default: id not numeric', 'error');
             return false;
         }
         

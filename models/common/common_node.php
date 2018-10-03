@@ -1053,7 +1053,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
         
             if (is_numeric($container)) $limit_to_container = "AND parent_container = $container";
             
-            $children = $this->listing("parent = $id AND (node_group = 'layout' OR node_group = 'content') $limit_to_container", "priority DESC, id ASC");
+            $children = $this->listing("parent = $id AND (node_group = 'layout' OR node_group = 'content' OR node_group = 'variable') $limit_to_container", "priority DESC, id ASC");
             
             foreach ($children as $key=>$child) {
                 if ($this->checkDisplayPermission($child)) {
