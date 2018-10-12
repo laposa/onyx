@@ -1913,6 +1913,7 @@ COPY common_configuration (id, node_id, object, property, value, description, ap
 3	0	global	credit	<a href="https://onxshop.com" title="Easy web CMS/eCommerce"><span>Powered by Onxshop</span></a>		0
 7	0	global	admin_email	test@onxshop.com		0
 8	0	global	css	@import url(/css/v1.css);		0
+9	5	global	html_title_suffix			0
 1	0	global	title	White Label		0
 \.
 

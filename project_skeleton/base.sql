@@ -1917,6 +1917,7 @@ COPY common_configuration (id, node_id, object, property, value, description, ap
 14	0	global	extra_body_bottom			0
 15	0	global	display_secondary_navigation	0		0
 16	0	global	display_content_foot	0		0
+17	5	global	html_title_suffix			0
 7	0	global	admin_email	test@onxshop.com		0
 12	0	global	extra_head			0
 11	0	global	display_content_side	0		0
