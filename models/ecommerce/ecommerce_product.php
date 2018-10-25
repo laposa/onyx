@@ -2,7 +2,7 @@
 /**
  * class ecommerce_product
  *
- * Copyright (c) 2009-2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2018 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -241,6 +241,7 @@ CREATE TABLE ecommerce_product (
             if (is_array($product_homepage) && count($product_homepage) > 0) {
             
                 $product_homepage['publish'] = $data['publish'];
+                $product_homepage['priority'] = $data['priority'];
                 
                 require_once('models/common/common_node.php');
                 $Node = new common_node();

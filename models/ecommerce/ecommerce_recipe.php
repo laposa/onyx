@@ -2,7 +2,7 @@
 /**
  * class ecommerce_recipe
  *
- * Copyright (c) 2013-2017 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2013-2018 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -197,6 +197,7 @@ CREATE TABLE ecommerce_recipe (
             if (is_array($recipe_homepage) && count($recipe_homepage) > 0) {
             
                 $recipe_homepage['publish'] = $data['publish'];
+                $recipe_homepage['priority'] = $data['priority'];
                 
                 require_once('models/common/common_node.php');
                 $Node = new common_node();
