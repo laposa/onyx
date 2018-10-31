@@ -113,7 +113,7 @@ if (!defined('ONXSHOP_CUSTOMER_USE_SSL')) {
     else define('ONXSHOP_CUSTOMER_USE_SSL', false);
 }
 if (!defined('ONXSHOP_HSTS_ENABLE')) define('ONXSHOP_HSTS_ENABLE', false);
-if (!defined('ONXSHOP_HSTS_TTL')) define('ONXSHOP_HSTS_TTL', 3600);
+if (!defined('ONXSHOP_HSTS_TTL')) define('ONXSHOP_HSTS_TTL', 3600 * 24 * 60);
 
 /**
  * Compress output option (not really important when using Apache Deflate module)
