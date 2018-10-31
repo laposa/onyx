@@ -116,6 +116,16 @@ if (!defined('ONXSHOP_HSTS_ENABLE')) define('ONXSHOP_HSTS_ENABLE', false);
 if (!defined('ONXSHOP_HSTS_TTL')) define('ONXSHOP_HSTS_TTL', 3600 * 24 * 60);
 
 /**
+ * send X-XSS-Protection HTTP header
+ */
+if (!defined('ONXSHOP_XSS_PROTECTION_ENABLE')) define('ONXSHOP_XSS_PROTECTION_ENABLE', true);
+
+/**
+ * send X-Content-Type-Options HTTP header
+ */
+if (!defined('ONXSHOP_CONTENT_TYPE_OPTIONS_ENABLE')) define('ONXSHOP_CONTENT_TYPE_OPTIONS_ENABLE', true);
+
+/**
  * Compress output option (not really important when using Apache Deflate module)
  */
  

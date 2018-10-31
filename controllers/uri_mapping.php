@@ -277,6 +277,8 @@ class Onxshop_Controller_Uri_Mapping extends Onxshop_Controller {
     static function checkForSecurityRedirects() {
         
         if (defined('ONXSHOP_HSTS_ENABLE') && ONXSHOP_HSTS_ENABLE === true) header("Strict-Transport-Security: max-age=" . ONXSHOP_HSTS_TTL);
+        if (defined('ONXSHOP_XSS_PROTECTION_ENABLE') && ONXSHOP_XSS_PROTECTION_ENABLE === true) header("X-XSS-Protection: 1; mode=block");
+        if (defined('ONXSHOP_CONTENT_TYPE_OPTIONS_ENABLE') && ONXSHOP_CONTENT_TYPE_OPTIONS_ENABLE === true) header("X-Content-Type-Options: nosniff");
         
         /**
          * check main domain
