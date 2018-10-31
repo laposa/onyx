@@ -552,7 +552,9 @@ class Onxshop_Bootstrap {
             if (
                 preg_match('/^Content-Type/i', $item) || 
                 preg_match('/^Access-Control-Allow-Origin/i', $item) || 
-                preg_match('/^Strict-Transport-Security/i', $item)
+                preg_match('/^Strict-Transport-Security/i', $item) ||
+                preg_match('/^X-XSS-Protection/i', $item) ||
+                preg_match('/^X-Content-Type-Options/i', $item)
             ) $public_headers[] = $item;
             
         }
