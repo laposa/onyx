@@ -35,45 +35,45 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
          
         require_once('models/common/common_node.php');
         $this->Node = new common_node();
-        $node_data = $this->Node->nodeDetail($this->GET['id']);
+        $this->node_data = $this->Node->nodeDetail($this->GET['id']);
         
         /**
          * prepare titles
          */
          
-        if (trim($node_data['page_title']) == '') $node_data['page_title'] = $node_data['title']; // page title is also used component/page_header, this will be effective only if page_title is directly in page template
-        if (trim($node_data['browser_title']) == '') $node_data['browser_title'] = $node_data['page_title'];
+        if (trim($this->node_data['page_title']) == '') $this->node_data['page_title'] = $this->node_data['title']; // page title is also used component/page_header, this will be effective only if page_title is directly in page template
+        if (trim($this->node_data['browser_title']) == '') $this->node_data['browser_title'] = $this->node_data['page_title'];
         
         /**
          * fallback on options to global configuration
          */
          
-        if (!isset($node_data['display_title'])) $node_data['display_title'] = $GLOBALS['onxshop_conf']['global']['display_title'];
-        if (!isset($node_data['display_secondary_navigation'])) $node_data['display_secondary_navigation'] = $GLOBALS['onxshop_conf']['global']['display_secondary_navigation'];
+        if (!isset($this->node_data['display_title'])) $this->node_data['display_title'] = $GLOBALS['onxshop_conf']['global']['display_title'];
+        if (!isset($this->node_data['display_secondary_navigation'])) $this->node_data['display_secondary_navigation'] = $GLOBALS['onxshop_conf']['global']['display_secondary_navigation'];
         
         /**
          * get related_taxonomy
          */
         
-        $related_taxonomy = $this->getNodeRelatedTaxonomy($node_data);
+        $related_taxonomy = $this->getNodeRelatedTaxonomy($this->node_data);
         
         /**
          * create taxonomy class
          */
          
-        $node_data['taxonomy_class'] = $this->createTaxonomyClass($related_taxonomy);
+        $this->node_data['taxonomy_class'] = $this->createTaxonomyClass($related_taxonomy);
         
         /**
          * create hierarchy CSS class
          */
          
-        $node_data['hierarchy_class'] = $this->createHierarchyClass($_SESSION['full_path']);
+        $this->node_data['hierarchy_class'] = $this->createHierarchyClass($_SESSION['full_path']);
         
         /**
          * save node_controller, page css_class, current node id, breadcrumb and taxonomy_class into registry to be used in sys/(x)html* as body class
          */
         
-        $body_css_class = "{$node_data['node_controller']} {$node_data['css_class']} {$node_data['taxonomy_class']} node-id-{$this->GET['id']} {$node_data['hierarchy_class']}";
+        $body_css_class = "{$this->node_data['node_controller']} {$this->node_data['css_class']} {$this->node_data['taxonomy_class']} node-id-{$this->GET['id']} {$this->node_data['hierarchy_class']}";
         
         $this->saveBodyCssClass($body_css_class);
 
@@ -87,38 +87,40 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
          * assign to template
          */
          
-        $this->tpl->assign("NODE", $node_data);
+        $this->tpl->assign("NODE", $this->node_data);
         
         /**
-         * allow to access extended controllers
+         * load related image with role 'background'
          */
          
-        $this->node_data = $node_data;
+        $image = $this->Node->getImageForNodeId($this->node_data['id'], 'background');
+        $this->tpl->assign("IMAGE", $image);
         
         /**
          * process open graph tags
          */
          
-        $this->processOpenGraph($node_data);
+        $this->processOpenGraph($this->node_data);
         
         /**
          * display page header
          */
          
-        if ($node_data['display_title'])  {
-            $_Onxshop_Request = new Onxshop_Request("component/page_header~id={$node_data['id']}~");
+        if ($this->node_data['display_title'])  {
+            $_Onxshop_Request = new Onxshop_Request("component/page_header~id={$this->node_data['id']}~");
             $this->tpl->assign('PAGE_HEADER', $_Onxshop_Request->getContent());
             $this->tpl->parse('content.page_header'); // for templates having page header directly within the page template
+            $this->tpl->parse('content.title'); // for templates using simple title block same way as layouts and content
         }
         
         /**
          * display secondary navigation
          */
          
-        if ($node_data['display_secondary_navigation'] == 1) {
+        if ($this->node_data['display_secondary_navigation'] == 1) {
         
             $first_page_id = $this->Node->getFirstParentPage($_SESSION['active_pages']);
-            $_Onxshop_Request = new Onxshop_Request("component/menu~level=0:expand_all=0:display_strapline=1:id={$first_page_id}:open={$node_data['id']}~");
+            $_Onxshop_Request = new Onxshop_Request("component/menu~level=0:expand_all=0:display_strapline=1:id={$first_page_id}:open={$this->node_data['id']}~");
             $this->tpl->assign('SECONDARY_NAVIGATION', $_Onxshop_Request->getContent());
             $this->tpl->parse('content.secondary_navigation');
         }
