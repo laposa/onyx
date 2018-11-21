@@ -3,7 +3,7 @@
  * Onxshop global functions
  * KEEP IT SMALL
  *
- * Copyright (c) 2005-2017 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2005-2018 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -148,6 +148,19 @@ function msg($msg, $type = "ok", $level = 0, $error_class = '') {
 }
 
 /**
+ * onxshopDetectProtocol to find if we are using SSL
+ */
+ 
+function onxshopDetectProtocol() {
+    
+    if ($_SERVER['HTTP_X_FORWARDED_PROTO']) $protocol = $_SERVER['HTTP_X_FORWARDED_PROTO'];
+    else if ($_SERVER['SSL_PROTOCOL'] || $_SERVER['HTTPS']) $protocol = 'https';
+    else $protocol = 'http';
+        
+    return $protocol;
+}
+
+/**
  * onxshop aware http forward
  *
  * @param unknown_type $request
@@ -162,9 +175,8 @@ function onxshopGoTo($request, $type = 0) {
     msg("calling onxshopGoTo($request, $type)", 'ok', 2);
     
     session_write_close();
-    
-    if ($_SERVER['HTTPS']) $protocol = 'https';
-    else $protocol = 'http';
+
+    $protocol = onxshopDetectProtocol();
 
     //protection against HTTP CRLF injection
     $request = preg_replace("/\r\n/", "", $request);
