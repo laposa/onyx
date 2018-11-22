@@ -37,4 +37,46 @@ class Onxshop_Model extends Onxshop_Db {
         
     }
 
+    public function isRevisionEnabled() {
+        
+        $enabled = ['common_node', 'common_configuration', 'client_customer', 'ecommerce_offer', 'ecommerce_offer_group', 'ecommerce_product', 'ecommerce_product_variety', 'ecommerce_price', 'ecommerce_recipe', 'ecommerce_offer_product_variety', 'ecommerce_offer_taxonomy'];
+        
+        if (in_array($this->_class_name, $enabled)) return true;
+        else return false;
+    
+    }
+    
+    /**
+     * insert a record
+     *
+     * @param array $data
+     * @return integer
+     */
+     
+    public function insert($data) {
+        
+        $result = parent::insert($data);
+        
+        if ($result && $this->isRevisionEnabled()) $this->insertRevision($data);
+        
+        return $result;
+        
+    }
+    
+    /**
+     * update a record
+     *
+     * @param array $data
+     * @return integer
+     */
+     
+    public function update($data) {
+        
+        $result = parent::update($data);
+        
+        if ($result && $this->isRevisionEnabled()) $this->insertRevision($data);
+        
+        return $result;
+        
+    }
 }

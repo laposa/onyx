@@ -532,7 +532,7 @@ class Onxshop_Db {
      * @return integer
      */
      
-    public function update($data = array()) {
+    public function update($data) {
         
         msg("{$this->_class_name}: Calling update() " . print_r($data, true), 'ok', 3);
 

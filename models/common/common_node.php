@@ -556,7 +556,6 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
                     // update existing or insert a new one
                     if (!$this->updateSingleURI($node_data)) $this->insertNewMappingURI($node_data);
             }
-            $this->insertRevision($node_data);
             return true;
         } else {
             $node_group = ucfirst($node_data['node_group']);
@@ -625,8 +624,6 @@ CREATE INDEX common_node_publish_idx ON common_node USING btree (publish);
             $node_data['id'] = $id;
             
             if ($node_data['node_group'] == 'page') $this->insertNewMappingURI($node_data);
-            
-            $this->insertRevision($node_data);
             
             return $id;
         } else {
