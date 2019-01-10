@@ -73,7 +73,9 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
          * save node_controller, page css_class, current node id, breadcrumb and taxonomy_class into registry to be used in sys/(x)html* as body class
          */
         
-        $body_css_class = "{$this->node_data['node_controller']} {$this->node_data['css_class']} {$this->node_data['taxonomy_class']} node-id-{$this->GET['id']} {$this->node_data['hierarchy_class']}";
+        $node_controller_css_class = preg_replace('/_/', '-', $this->node_data['node_controller']);
+        
+        $body_css_class = "$node_controller_css_class {$this->node_data['css_class']} {$this->node_data['taxonomy_class']} node-id-{$this->GET['id']} {$this->node_data['hierarchy_class']}";
         
         $this->saveBodyCssClass($body_css_class);
 
