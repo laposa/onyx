@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2013-2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2013-2019 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -25,7 +25,8 @@ class Onxshop_Controller_Component_Share_Counter extends Onxshop_Controller {
          */
          
         if (!is_numeric($node_id)) return false;
-        
+        if (preg_match('/[^a-z0-1\-_]/', $type)) return false;
+
         /**
          * initialize
          */
