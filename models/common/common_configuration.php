@@ -96,7 +96,7 @@ class common_configuration extends Onxshop_Model {
         }
 
         /**
-         * Cache configuration wihtin a single HTTP request
+         * Cache configuration within a single HTTP request
          */
         if (!self::$localCache) {
             self::$localCache = array();
@@ -310,6 +310,35 @@ class common_configuration extends Onxshop_Model {
             msg("Property for {$conf_new['property']} in {$conf_new['object']} did not change");
             return false;
         }
+    }
+    
+    /**
+     * delete configuration variable by object/property
+     * - this will delete all records with specific name
+     * 
+     * @param string $object
+     * 
+     * @param string $property
+     * 
+     * @return boolean
+     */
+
+    public function deleteRecords($object, $property) {
+
+        if (strlen($object) == 0) return false;
+        if (strlen($property) == 0) return false;
+
+        $object = $this->db->quote($object);
+        $property = $this->db->quote($property);
+
+        $sql = "DELETE FROM common_configuration WHERE object = $object AND property = $property";
+        
+        $result =  $this->executeSql($sql);
+
+        // invalidate cache
+        self::$localCache = false;
+
+        return $result;
     }
     
     /**
