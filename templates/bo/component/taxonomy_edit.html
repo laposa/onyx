@@ -4,7 +4,14 @@
 <div id="taxonomy-edit-{GET.id}-wrapper">
 <script type="text/javascript"> 
 $(document).ready(function() { 
-    $('#taxonomy-edit-{GET.id}').ajaxForm({target: '#sub-content'}); 
+    $('#taxonomy-edit-{GET.id}').ajaxForm({
+        target: '#sub-content',
+        success: function(responseText, statusText) {
+            popupMessage("#sub-content div.onxshop-messages");
+            refreshList();
+            appendHeader();
+        }
+    }); 
 });
 </script>
 
@@ -13,14 +20,17 @@ $(document).ready(function() {
 <!-- BEGIN: editor -->
 <form method="post" action="{URI|htmlspecialchars}" id="taxonomy-edit-{GET.id}">
 
-    <p>{ONXSHOP_REQUEST_taxonomy #component/breadcrumb_taxonomy~id=GET.id~}</p>
+    <div class="page-header">
+        <div class="page-header-wrapper">
+            <h1 class="page-title popup"><span>Category Edit</span> <span class="info">ID {GET.id}</span></h1>
+        </div>
+    </div>
 
     <div id="taxonomy-edit">
     
         <button class="save" type="submit" name="save" value="save"><span>Save</span></button>
         
         <fieldset>
-            <legend>Taxonomy item</legend>
             
             <div class="row">
                 <span class="label"><label for="taxonomy-label-title" title="Category title">Name</label></span>

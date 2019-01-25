@@ -8,7 +8,7 @@ function initialiseMenuTaxonomyTree() {
         autoclose: false,
         afterClick:function(node){
             var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
-            makeAjaxRequest('#sub-content', '/request/bo/component/taxonomy_edit~id='+node_id+'~');
+            makeAjaxRequest('#sub-content', '/request/bo/component/taxonomy_edit~id='+node_id+'~', function(data) {appendHeader()});
             $('#button-add-subpage').attr('data-node-id', node_id);
             initialiseTaxonomyAddButton();
         },
@@ -61,21 +61,27 @@ function initialiseTaxonomyAddButton() {
     
 }
 
+function appendHeader() {
+    var header = $("#sub-content div.page-header").detach();
+    var title = $("#sub-content #taxonomy-label-title").val();
+    $('#page-header-wrapper').empty().append(header);
+
+}
+
 $(document).ready(function(){
     <!-- BEGIN: submenu -->
     $('#taxonomy-tree-menu .simple-tree a.node-id-{GET.id}').addClass('active open');
     $('#taxonomy-tree-menu .simple-tree a.node-id-{GET.id}').parent().parent().addClass('active open');
     $('#taxonomy-tree-menu .simple-tree li.root > a').click(function() {
-        makeAjaxRequest('#sub-content', '/request/bo/component/taxonomy_edit~id={GET.id}~');
+        makeAjaxRequest('#sub-content', '/request/bo/component/taxonomy_edit~id={GET.id}~', function(data) {appendHeader()});
     });
     $('#button-add-subpage').show().attr('data-node-id', {GET.id});
     initialiseTaxonomyAddButton()
     <!-- END: submenu -->
+
     initialiseMenuTaxonomyTree();
     
 });
-
-
 </script>
 
 <div id="categories">
@@ -83,9 +89,11 @@ $(document).ready(function(){
     <div class="two-column-page page sidebar">
             <div class="page-wrapper">
 
-                <div class="page-header">
-                    <div class="page-header-wrapper">
-                        <h1 class="page-title"><span>Categories</span></h1>
+                <div id="page-header-wrapper">
+                    <div class="page-header">
+                        <div class="page-header-wrapper">
+                            <h1 class="page-title"><span>Categories</span></h1>
+                        </div>
                     </div>
                 </div>
 
