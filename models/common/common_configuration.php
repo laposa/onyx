@@ -293,9 +293,6 @@ class common_configuration extends Onxshop_Model {
             
                 $conf_new['id'] = $id;
                 
-                // insertRevision
-                $this->insertRevision($conf_new);
-                
                 // return ID
                 return $id;
             

@@ -976,12 +976,6 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
          */
          
         if ($this->update($customer_data)) {
-        
-            /**
-             * insertRevision
-             */
-             
-            $this->insertRevision($customer_data);
             
             /**
              * initialise common_email

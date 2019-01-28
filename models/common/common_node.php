@@ -562,7 +562,6 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
                     // update existing or insert a new one
                     if (!$this->updateSingleURI($node_data)) $this->insertNewMappingURI($node_data);
             }
-            $this->insertRevision($node_data);
             return true;
         } else {
             $node_group = ucfirst($node_data['node_group']);
@@ -632,8 +631,6 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
             $node_data['id'] = $id;
             
             if ($node_data['node_group'] == 'page') $this->insertNewMappingURI($node_data);
-            
-            $this->insertRevision($node_data);
             
             return $id;
         } else {
