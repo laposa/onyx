@@ -57,8 +57,11 @@ class Onxshop_Model extends Onxshop_Db {
         
         $result = parent::insert($data);
         
-        if ($result && $this->isRevisionEnabled()) $this->insertRevision($data);
-        
+        if ($result && $this->isRevisionEnabled()) {
+            $data['id'] = $result;
+            $this->insertRevision($data);
+        }
+
         return $result;
         
     }
