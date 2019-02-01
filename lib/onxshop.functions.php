@@ -955,3 +955,47 @@ function onxshopCheckForAllowedPath($realpath, $restrict_download = true) {
         	
     }
 }
+
+/**
+ * Format a timestamp to display its age (5 days ago, in 3 days, etc.).
+ * https://stackoverflow.com/questions/8629788/php-strtotime-reverse
+ * @param   int     $timestamp
+ * @param   int     $now
+ * @return  string
+ */
+function timetostr($timestamp, $now = null) {
+    $age = ($now ?: time()) - $timestamp;
+    $future = ($age < 0);
+    $age = abs($age);
+
+    $age = (int)($age / 60);        // minutes ago
+    if ($age == 0) return $future ? "momentarily" : "just now";
+
+    $scales = [
+        ["minute", "minutes", 60],
+        ["hour", "hours", 24],
+        ["day", "days", 7],
+        ["week", "weeks", 4.348214286],     // average with leap year every 4 years
+        ["month", "months", 12],
+        ["year", "years", 10],
+        ["decade", "decades", 10],
+        ["century", "centuries", 1000],
+        ["millenium", "millenia", PHP_INT_MAX]
+    ];
+
+    foreach ($scales as list($singular, $plural, $factor)) {
+        if ($age == 0)
+            return $future
+                ? "in less than 1 $singular"
+                : "less than 1 $singular ago";
+        if ($age == 1)
+            return $future
+                ? "in 1 $singular"
+                : "1 $singular ago";
+        if ($age < $factor)
+            return $future
+                ? "in $age $plural"
+                : "$age $plural ago";
+        $age = (int)($age / $factor);
+    }
+}

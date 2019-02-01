@@ -305,7 +305,7 @@ class XTemplate {
 	'urlencode', 'urldecode','xmlentities','html2text','textile','json_encode','json_decode',
 	'makeHash',
 	// Date / time modifiers
-	'date', 'idate', 'strtotime', 'strftime', 'getdate', 'gettimeofday',
+	'date', 'idate', 'strtotime', 'strftime', 'getdate', 'gettimeofday', 'timetostr',
 	// Number modifiers
 	'number_format', 'money_format','convertNumeralArabicToRoman',
 	// Miscellaneous modifiers
