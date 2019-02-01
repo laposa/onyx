@@ -7,13 +7,13 @@
 </div>
 {FILE "bo/node/content/default_top.html"}
 
-<fieldset class="teaser-form-edit">
+<fieldset class="page_list-form-edit">
     <div class="row">
         <label>* Type:</label>
         <select name="node[component][template]">
-            <!-- BEGIN: teaser_template_item -->
-            <option value="{TEASER_TEMPLATE}" {SELECTED}>{TEASER_TEMPLATE}</option>
-            <!-- END: teaser_template_item -->
+            <!-- BEGIN: page_list_template_item -->
+            <option value="{page_list_TEMPLATE}" {SELECTED}>{PAGE_LIST_TEMPLATE}</option>
+            <!-- END: page_list_template_item -->
         </select>
     </div>
     
@@ -34,7 +34,7 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-    $('fieldset.teaser-form-edit div.node-ids a.button').click(function() {
+    $('fieldset.page_list-form-edit div.node-ids a.button').click(function() {
         $('#node-id-select').addClass('ajax-load').load('/request/component/menu_js~id=0:expand_all=1:publish=0~', function() {
             $('#node-id-select').removeClass('ajax-load');
             $('#node-id-select .simple-tree').simpleTree({
