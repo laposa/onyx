@@ -2,7 +2,7 @@
 /**
  * class ecommerce_store
  *
- * Copyright (c) 2013-2018 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2013-2019 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -280,8 +280,6 @@ CREATE INDEX ecommerce_store_type_id_idx ON ecommerce_store (type_id);
             return false;
         }
     }
-
-
 
     /**
      * get filtered store list
@@ -598,6 +596,27 @@ CREATE INDEX ecommerce_store_type_id_idx ON ecommerce_store (type_id);
     }
 
     /**
+     * getRelatedTaxonomyIds
+     */
+     
+    public function getRelatedTaxonomyIds($store_id) {
+        
+        if (!is_numeric($store_id)) return false;
+        
+        $related_taxonomy = $this->getRelatedTaxonomy($store_id);
+        
+        $taxonomy_ids = array();
+        
+        foreach ($related_taxonomy as $item) {
+            
+            $taxonomy_ids[] = $item['id'];
+        
+        }
+        
+        return $taxonomy_ids;
+    }
+    
+    /**
      * getDataForNoticesReport
      */
 
@@ -656,4 +675,49 @@ CREATE INDEX ecommerce_store_type_id_idx ON ecommerce_store (type_id);
         return $result;
     }
 
+    /**
+     * insert store to node
+     */
+    
+    public function insertNewStoreToNode($store_id, $parent_id) {
+    
+        if (!is_numeric($store_id)) return false;
+        if (!is_numeric($parent_id)) return false;
+        
+        require_once 'models/common/common_node.php';
+        $Node = new common_node();
+        
+        /**
+         * get store detail
+         */
+         
+        $store_detail = $this->detail($store_id);
+         
+        /**
+         * prepare node data
+         */
+         
+        $store_node['title'] = $store_detail['title'];
+        $store_node['parent'] = $parent_id;
+        $store_node['parent_container'] = 0;
+        $store_node['node_group'] = 'page';
+        $store_node['node_controller'] = 'store';
+        $store_node['content'] = $store_id;
+        //$store_node['layout_style'] = $Node->conf['page_store_layout_style'];
+        //this need to be updated on each store update
+        $store_node['priority'] = $store_detail['priority'];
+        $store_node['publish'] = $store_detail['publish'];
+
+        /**
+         * insert node
+         */
+         
+        if ($store_homepage_node_id = $Node->nodeInsert($store_node)) {
+            return $store_homepage_node_id;
+        } else {
+            msg("Can't add store to node.", 'error');
+            return false;
+        }
+        
+    }
 }
