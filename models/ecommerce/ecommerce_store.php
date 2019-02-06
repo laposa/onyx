@@ -282,6 +282,36 @@ CREATE INDEX ecommerce_store_type_id_idx ON ecommerce_store (type_id);
     }
 
     /**
+     * updateStore
+     * 
+     * @param array $data
+     * @return integer $id
+     */
+
+    public function storeUpdate($data) {
+        
+        $store_id = $this->update($data);
+
+        if (array_key_exists('publish', $data)) {
+
+            // update node publishing info (if node exists)
+            $store_homepage = $this->getStoreHomepage($store_id);
+            
+            if (is_array($store_homepage) && count($store_homepage) > 0) {
+                
+                $store_homepage['publish'] = $data['publish'];
+                
+                require_once('models/common/common_node.php');
+                $Node = new common_node();
+                
+                $Node->nodeUpdate($store_homepage);
+                
+            }
+        }
+
+        return $store_id;
+    }
+    /**
      * get filtered store list
      *
      */
@@ -699,4 +729,5 @@ CREATE INDEX ecommerce_store_type_id_idx ON ecommerce_store (type_id);
         }
         
     }
+
 }
