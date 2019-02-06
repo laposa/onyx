@@ -39,22 +39,9 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Store_Edit extends Onxshop_Contr
             if (!is_numeric($_POST['store']['country_id'])) unset($_POST['store']['country_id']);
             
             // update store
-            if($id = $Store->update($_POST['store'])) {
+            if($id = $Store->storeUpdate($_POST['store'])) {
             
                 msg("Store ID=$id updated");
-            
-                // update node info (if exists)
-                $store_homepage = $Store->getStoreHomepage($_POST['store']['id']);
-            
-                if (is_array($store_homepage) && count($store_homepage) > 0) {
-                    $store_homepage['publish'] = $_POST['store']['publish'];
-                    
-                    require_once('models/common/common_node.php');
-                    $Node = new common_node();
-                    
-                    $Node->nodeUpdate($store_homepage);
-                    
-                }
                 
                 // forward to store list main page and exit
                 onxshopGoTo("/backoffice/stores");
