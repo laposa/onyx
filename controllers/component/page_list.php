@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2017 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2017-2019 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -53,6 +53,14 @@ class Onxshop_Controller_Component_Page_List extends Onxshop_Controller_List {
                 $item_node_data['image'] = $this->Node->getTeaserImageForNodeId($node_id);;
                 $item_node_data['link_text'] = $link_text;
                 
+                /**
+                 * related taxonomy
+                 */
+
+                $related_taxonomy = $this->Node->getRelatedTaxonomy($node_id);
+                $item_node_data['taxonomy'] = $related_taxonomy;
+                $item_node_data['taxonomy_class'] = Onxshop_Controller_Node_Page_Default::createTaxonomyClass($related_taxonomy);
+
                 $this->tpl->assign('ITEM', $item_node_data);
                 if ($item_node_data['image']['src']) $this->tpl->parse("content.item.image");
                 $this->tpl->parse('content.item');
