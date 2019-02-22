@@ -183,7 +183,7 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
      * createTaxonomyClass from $related_taxonomy array
      */
      
-    public function createTaxonomyClass($related_taxonomy) {
+    public static function createTaxonomyClass($related_taxonomy) {
     
         if (!is_array($related_taxonomy)) return false;
         
@@ -205,7 +205,7 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
      * createHierarchyClass
      */
     
-    public function createHierarchyClass($full_path) {
+    public static function createHierarchyClass($full_path) {
         
         if (!is_array($full_path)) return false;
         
