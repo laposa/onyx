@@ -28,8 +28,6 @@ class Onxshop_Controller_Node_Content_Content_List extends Onxshop_Controller_No
         
         $list_node_id = $node_data['component']['node_id'];
         $list_container = $node_data['component']['container'];
-        $list_node_group = 'content';
-        $list_node_controller = 'RTE';
         
         /**
          * get parent page
@@ -44,7 +42,7 @@ class Onxshop_Controller_Node_Content_Content_List extends Onxshop_Controller_No
          * generate list
          */
          
-        $this->generateList($list_node_id, $list_container, $list_node_group, $list_node_controller);
+        $this->generateList($list_node_id, $list_container);
         
                 
         $this->tpl->assign("NODE", $node_data);
@@ -63,12 +61,12 @@ class Onxshop_Controller_Node_Content_Content_List extends Onxshop_Controller_No
      * get list
      */
      
-    public function generateList($list_node_id, $list_container, $list_node_group, $list_node_controller) {
+    public function generateList($list_node_id, $list_container, $list_node_group = false, $list_node_controller = false) {
         
         if (!is_numeric($list_node_id)) return false;
         if (!is_numeric($list_container)) return false;
         
-        if ($list = $this->Node->getList("parent = {$list_node_id} AND parent_container = {$list_container} AND node_group = '{$list_node_group}' AND node_controller = '{$list_node_controller}'", 'priority DESC, id ASC')) {
+        if ($list = $this->Node->getList("parent = {$list_node_id} AND parent_container = {$list_container}", 'priority DESC, id ASC')) {
                 
             foreach ($list as $item) {
                 
