@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2014-2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2014-2019 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -20,6 +20,7 @@ class Onxshop_Controller_Api_v1_2_Store_Location_List extends Onxshop_Controller
         $address_detail = $this->getAddressDetail($record);
             
         $item['id'] = $record['id'];
+        $item['code'] = $record['code'];
         $item['title'] = (string)$record['title'];
         $item['address'] = (string)$address_detail['address'];
         $item['city'] = (string)$address_detail['city'];
