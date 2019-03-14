@@ -1,44 +1,87 @@
-<!-- BEGIN: title -->Database<!-- END: title -->
+<!-- BEGIN: title -->Browse<!-- END: title -->
 <!-- BEGIN: content -->
+<script type="text/javascript">
+$(document).ready(function(){
+    $('div.server-browser-menu .simple-tree').simpleTree({
+        drag: false,
+        autoclose: true,
+        afterClick:function(node){
+            var open_dir = $('a:first', node).attr('href').replace('#', '');
+            serverBrowserOpenDir(open_dir);
+            return false;
+        },
+    });
+    
+    $('#sub-content div.pagination a').live('click', function() {
+        var model = $(this).attr('href').match('model=[a-z_\/]{1,}');
+        var limit_from = $(this).attr('href').match('limit_from=[0-9]{1,}');
+        var limit_per_page = $(this).attr('href').match('limit_per_page=[0-9]{1,}');
+        makeAjaxRequest('#sub-content', '/request/bo/component/database_listing~' + model + '~?' + limit_from + '&' + limit_per_page);
+        return false;
+    }); 
+    
+});
 
-    <div class="two-column-page page sidebar">
-            <div class="page-wrapper">
+function serverBrowserOpenDir(open_dir) {
+    makeAjaxRequest('#sub-content', "/request/bo/component/database_listing~model=" + open_dir + "~");
+}
+</script>
 
-                <div class="page-header">
-                    <div class="page-header-wrapper">
-                        <h1 class="page-title"><span>Database</span></h1>
-                    </div>
+<div id="database" class="two-column-page page sidebar">
+        <div class="page-wrapper">
+
+            <div class="page-header">
+                <div class="page-header-wrapper">
+                    <h1 class="page-title"><span>Database</span></h1>
                 </div>
+            </div>
 
-                <div class="page-content">
-                    <div class="page-content-wrapper">
-                        <div class="row-top">
-                            <div class="row-wrapper">
+            <div class="page-content">
+                <div class="page-content-wrapper">
+                    <div class="row-top">
+                        <div class="row-wrapper">
+                            <div class="column-wrapper">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row-middle">
+                        <div class="row-wrapper">
+                            <div class="column-one">
                                 <div class="column-wrapper">
-
-                                    <div class="onxshop-tabs">
-                                        <ul class="tabs">
-                                            <li><a class="{GET.active.page_manager}" href="/backoffice/advanced/database/browse"><span>Browse</span></a></li>
-                                            <li><a class="{GET.active.page_manager}" href="/backoffice/advanced/database/export"><span>Export</span></a></li>
-                                            <li><a class="{GET.active.edit_mode}" href="/backoffice/advanced/database/import"><span>Import</span></a></li>
-                                            <li><a class="{GET.active.preview_mode}" href="/opt/adminer/?{ONXSHOP_DB_TYPE}={ONXSHOP_DB_HOST}&username={ONXSHOP_DB_USER}&db={ONXSHOP_DB_NAME}&ns=public" target="_blank"><span>Adminer</span></a></li>
-                                        </ul>
+                                    <div id="models">
+                                        {ONXSHOP_REQUEST_menu #bo/component/server_browser_menu~directory=models/:scope=all:trim_extension=1:expand_all=1~}
                                     </div>
 
-                                    <div id="sub-content">
-                                        <p>Please select from the menu above...</p>
+                                </div>
+                            </div>
+                            <div class="column-two">
+                                <div class="column-wrapper">
+
+                                    <div id="sub-content" style="overflow: auto;">
+                                        {ONXSHOP_REQUEST_database_listing #bo/component/database_listing}
                                     </div>
 
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="row-bottom">
+                        <div class="row-wrapper">
+                            <div class="column-wrapper">
+                                <p>
+                                    <a class="button" href="/share/docs/database/Onxshop.html">Explore DB Schema</a>
+                                    <a class="button" href="/share/docs/database/Onxshop.pdf">Download DB Schema (PDF)</a>
+                                    <a class="button" href="/request/bo/component/export" onclick="return openAjaxRequestInOverlayWindow('/request/bo/component/export')">Export</a>
+                                    <a class="button" href="/opt/adminer/?{ONXSHOP_DB_TYPE}={ONXSHOP_DB_HOST}&username={ONXSHOP_DB_USER}&db={ONXSHOP_DB_NAME}&ns=public" target="_blank">Adminer</a>
+                                    <a class="button" href="/backoffice/advanced/database/graphql">GraphQL</a>
+                                </p>
+                                <p class="component-buttons">
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
             </div>
-    </div>
-
-
-{SUB_CONTENT}
-
+        </div>
+</div>
 <!-- END: content -->

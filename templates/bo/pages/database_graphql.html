@@ -1,0 +1,39 @@
+<!-- BEGIN: title -->GraphQL<!-- END: title -->
+<!-- BEGIN: head -->
+<script src="https://unpkg.com/vue"></script>
+<script src="/opt/vuejs-graphql-crud/VueGraphqlCrud.umd.min.js"></script>
+<link rel="stylesheet" href="/opt/vuejs-graphql-crud/VueGraphqlCrud.css" />
+<!-- END: head -->
+<!-- BEGIN: content -->
+<div id="database" class="two-column-page page sidebar">
+    <div class="page-wrapper">
+
+        <div class="page-header">
+            <div class="page-header-wrapper">
+                <h1 class="page-title"><span>GraphQL</span></h1>
+            </div>
+        </div>
+
+        <div class="page-content">
+            <div class="page-content-wrapper">
+                <div id="app">
+                    <demo :apollo-client-options="{httpEndpoint: '{ONXSHOP_GRAPHQL_ENDPOINT}', authentication: {username: '{ONXSHOP_GRAPHQL_USERNAME}', password: '{ONXSHOP_GRAPHQL_PASSWORD}'}}"></demo>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    new Vue({
+        components: {
+            demo: VueGraphqlCrud
+        }
+    }).$mount('#app')
+</script>
+
+<style>
+#app {margin: 0;}
+#tableContainer {overflow: unset!important;}
+</style>
+<!-- END: content -->
