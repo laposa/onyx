@@ -419,6 +419,14 @@ function hideModalOverlay() {
 	}
 }
 
+function openAjaxRequestInOverlayWindow(request) {
+    showModalOverlay();
+    makeAjaxRequest('#modal-overlay-window', request);
+    return false;
+}
+
+
+
 /*
 IE6, IE7 but IE8 BUTTON FIX 
 used in 
