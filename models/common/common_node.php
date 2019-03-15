@@ -1922,7 +1922,7 @@ LEFT OUTER JOIN common_taxonomy_label ON (common_taxonomy_tree.label_id = common
      
     public function getTeaserImageForNodeId($node_id, $role = 'teaser') {
         
-        return $this->getImageForNodeId($node_id, $role = 'teaser');
+        return $this->getImageForNodeId($node_id, $role);
         
     }
     
