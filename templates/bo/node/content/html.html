@@ -48,7 +48,10 @@
     
 <script type="text/javascript">
 $(document).ready(function() {
-    var editor = CodeMirror.fromTextArea(document.getElementById('html-code'), {lineWrapping: true, keyMap: "sublime"});
+    if (typeof(code_mirror_editor_initialized) == 'undefined') {
+        code_mirror_editor_initialized = true;
+        var editor = CodeMirror.fromTextArea(document.getElementById('html-code'), {lineWrapping: true, keyMap: "sublime"});
+    }
 });
 </script>
 
