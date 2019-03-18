@@ -290,6 +290,7 @@ CREATE INDEX ecommerce_store_type_id_idx ON ecommerce_store (type_id);
 
     public function storeUpdate($data) {
         
+        $data['modified'] = date('c');
         $store_id = $this->update($data);
 
         if (array_key_exists('publish', $data)) {
