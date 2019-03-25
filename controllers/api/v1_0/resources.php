@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2012-2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2012-2019 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -25,8 +25,7 @@ class Onxshop_Controller_Api_v1_0_Resources extends Onxshop_Controller_Api {
             $version_string = preg_replace('/\_/', '.', $version);
             $version_string = ltrim($version_string, 'v');
             
-            if ($_SERVER['SSL_PROTOCOL'] || $_SERVER['HTTPS']) $protocol = 'https';
-            else $protocol = 'http';
+            $protocol = onxshopDetectProtocol();
             
             $base_api_url = "$protocol://{$_SERVER['HTTP_HOST']}/api/v{$version_string}/";
             $standard_params = "?format={$format}&api_key={$api_key}";

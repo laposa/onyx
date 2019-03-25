@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2013-2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2013-2019 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -72,8 +72,7 @@ class Onxshop_Controller_Api_v1_0_Special_Offer_List extends Onxshop_Controller_
         $product_detail = $Product->getProductDetail($original_item['product_id']);
         //print_r($product_detail); exit;
         
-        if ($_SERVER['SSL_PROTOCOL'] || $_SERVER['HTTPS']) $protocol = 'https';
-        else $protocol = 'http';
+        $protocol = onxshopDetectProtocol();
         
         $item['id'] = (string)$original_item['offer_id']; // from historic reason we need to make this string
         $item['title'] = $product_detail['name'];
@@ -126,8 +125,7 @@ class Onxshop_Controller_Api_v1_0_Special_Offer_List extends Onxshop_Controller_
         require_once('controllers/component/ecommerce/roundel_css.php');
         $image_src = Onxshop_Controller_Component_Ecommerce_Roundel_CSS::getRoundelImageSource($offer);
         
-        if ($_SERVER['SSL_PROTOCOL'] || $_SERVER['HTTPS']) $protocol = 'https';
-        else $protocol = 'http';
+        $protocol = onxshopDetectProtocol();
         
         $image_src = ltrim($image_src, '/');
         $image_src = "$protocol://{$_SERVER['HTTP_HOST']}/$image_src";

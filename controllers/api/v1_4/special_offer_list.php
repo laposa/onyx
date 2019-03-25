@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2015-2019 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -47,8 +47,7 @@ class Onxshop_Controller_Api_v1_4_Special_Offer_List extends Onxshop_Controller_
         $Product = new ecommerce_product();
         $product_detail = $Product->getProductDetail($original_item['product_id']);
         
-        if ($_SERVER['SSL_PROTOCOL'] || $_SERVER['HTTPS']) $protocol = 'https';
-        else $protocol = 'http';
+        $protocol = onxshopDetectProtocol();
         
         $item['id'] = $original_item['offer_id'];
         $item['title'] = $product_detail['name'];

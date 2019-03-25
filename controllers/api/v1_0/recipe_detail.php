@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2013-2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2013-2019 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -77,8 +77,7 @@ class Onxshop_Controller_Api_v1_0_Recipe_Detail extends Onxshop_Controller_Api {
         
         $item = array();
         
-        if ($_SERVER['SSL_PROTOCOL'] || $_SERVER['HTTPS']) $protocol = 'https';
-        else $protocol = 'http';
+        $protocol = onxshopDetectProtocol();
             
         $item['id'] = (int)$original_item['id'];
         $item['title'] = $original_item['title'];
