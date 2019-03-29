@@ -118,6 +118,7 @@ class Onxshop_Controller_Component_Ecommerce_Store_Locator extends Onxshop_Contr
             $map['longitude'] = $this->Store->conf['longitude'];
         }
 
+        $this->tpl->assign("NODE_ID", $node_id);
         $this->tpl->assign("MAP", $map);
         $this->tpl->parse("content.map");
 
