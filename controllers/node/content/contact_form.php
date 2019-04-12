@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2006-2018 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2006-2019 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -56,8 +56,13 @@ class Onxshop_Controller_Node_Content_Contact_Form extends Onxshop_Controller_No
         /**
          * execute controller
          */
-         
-        $Form = new Onxshop_Request("component/contact_form@$template_name&amp;node_id={$node_data['id']}&amp;mail_to={$node_data['component']['mail_to']}&amp;mail_toname={$node_data['component']['mail_toname']}&amp;spam_protection={$node_data['component']['spam_protection']}");
+        $template_name = trim($template_name);
+        $node_id = $node_data['id'];
+        $mail_to = trim($node_data['component']['mail_to']);
+        $mail_toname = trim($node_data['component']['mail_toname']);
+        $spam_protection = trim($node_data['component']['spam_protection']);
+
+        $Form = new Onxshop_Request("component/contact_form@$template_name&amp;node_id={$node_id}&amp;mail_to={$mail_to}&amp;mail_toname={$mail_toname}&amp;spam_protection={$spam_protection}");
         
         $this->tpl->assign("FORM", $Form->getContent());
         
