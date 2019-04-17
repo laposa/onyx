@@ -408,7 +408,7 @@ class Onxshop_Controller {
                 
                 //because of stupid parseContentTagsAfter(), we have to check if it isn't already assigned 
                 if ($this->tpl->vars["ONXSHOP_REQUEST_{$matches[1][$key]}"] == '') {
-                    $this->tpl->assign("ONXSHOP_REQUEST_{$matches[1][$key]}", $_xrequest->getContent());
+                    $this->tpl->assign("ONXSHOP_REQUEST_{$matches[1][$key]}", trim($_xrequest->getContent()));
                 }
                 
             }
