@@ -1,0 +1,20 @@
+<!-- BEGIN: title -->content/default<!-- END: title -->
+<!-- BEGIN: content -->
+<div class="page-header">
+    <div class="page-header-wrapper">
+        <h1 class="page-title popup"><span>{NODE.node_controller|ucfirst} Variable</span> <span class="info">ID {NODE.id}</span></h1>
+    </div>
+</div>
+{FILE "bo/node/form_open.html"}
+
+<fieldset>
+    {FILE "bo/node/item_image_list.html"}
+</fieldset>
+
+<fieldset class="advanced">
+    {FILE "bo/node/item_title.html"}
+    {FILE "bo/node/item_position.html"}
+</fieldset>
+
+{FILE "bo/node/content/default_bottom.html"}
+<!-- END: content -->
