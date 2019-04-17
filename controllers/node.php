@@ -218,9 +218,13 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
          * node add are inserted in controller/node/default
          */
          
-        // don't show edit icons when shared parameter is 1 (passed from shared content)
+        // don't show edit icons when disable_fe_edit or shared parameter is 1 (i.e. passed from shared content)
         // and not authenticated for the backend
-        if ($this->GET['shared'] == 0 && Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) {
+        $show_fe_edit = false;
+        if (Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) $show_fe_edit = true;
+        if ($this->GET['disable_fe_edit'] || $this->GET['shared']) $show_fe_edit = false;
+
+        if ($show_fe_edit == true) {
             
             if ($node_data['node_group'] == 'variable' && $_SESSION['fe_edit_mode'] == 'edit') {
                 $this->tpl->parse('content.wrapper.variable_edit');
