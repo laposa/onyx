@@ -20,13 +20,13 @@ $templates_info['content'] = array(
     'video'=>array('title' => 'Video', 'description'=>'', 'visibility'=>true),
     'quote'=>array('title' => 'Quote (Testimonial)', 'description'=>'Testimonial', 'visibility'=>true),
     'contact_form'=>array('title' => 'Contact Form', 'description'=>'', 'visibility'=>true), 
-    'comment'=>array('title' => 'Forum - User comments', 'description'=>'', 'visibility'=>true),
+    'comment'=>array('title' => 'Forum - User comments', 'description'=>'', 'visibility'=>false),
     'news_list'=>array('title' => 'News List', 'description'=>'', 'visibility'=>true),
     'menu'=>array('title' => 'Menu Navigation', 'description'=>'Menu of Pages', 'visibility'=>true), 
     'content_list'=>array('title' => 'Content List', 'description'=>'Useful for FAQ list', 'visibility'=>true),
-    'divider'=>array('title' => 'Horizontal Divider', 'description'=>'', 'visibility'=>true),
+    'divider'=>array('title' => 'Horizontal Divider', 'description'=>'', 'visibility'=>false),
     'html'=>array('title' => 'Pure HTML', 'description'=>'', 'visibility'=>true),
-    'feed'=>array('title' => 'Remote Feed Resource', 'description'=>'', 'visibility'=>true),
+    'feed'=>array('title' => 'Remote Feed Resource', 'description'=>'', 'visibility'=>false),
     'component'=>array('title' => 'Generic Component', 'description'=>'', 'visibility'=>true), 
     'file'=>array('title' => 'File List (Downloads)', 'description'=>'', 'visibility'=>true),
     'survey'=>array('title' => 'Survey (Questionnaire Form)', 'description'=>'', 'visibility'=>true),
@@ -37,7 +37,7 @@ $templates_info['content'] = array(
     'page_list'=>array('title' => 'Page List', 'description'=>'', 'visibility'=>true),
     'filter'=>array('title' => 'Categories Filter', 'description'=>'', 'visibility'=>false),
     'notice'=>array('title' => 'Notice', 'description'=>'i.e. for stores', 'visibility'=>false),
-    'adaptive'=>array('title' => 'Adaptive', 'description'=>'Show only if meets certain conditions', 'visibility'=>true),
+    'adaptive'=>array('title' => 'Adaptive', 'description'=>'Show only if meets certain conditions', 'visibility'=>false),
     'default_template' => 'rte'
     );
         
