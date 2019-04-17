@@ -57,7 +57,7 @@ function showResponse(responseText, statusText)  {
     var path = '{GET.orig}';
     var node_id = {GET.id};
     if (path.length > 0) {
-        if (path.match(/^backoffice/)) {
+        if (path.match(/^backoffice/) || path.match(/popup\/edit/)) {
             if (typeof opener.refreshList == 'function') opener.refreshList();
             else refreshOpener(path, node_id);
         } else {
