@@ -39,7 +39,16 @@ function serverBrowserOpenDir(open_dir) {
 </div>
 
 {FILE "bo/node/content/default_top.html"}
-                
+    
+    <!-- BEGIN: variables -->
+        <h3>Content Variables</h3>
+        <!-- BEGIN: item -->
+        <ul>
+            <li><a class="{ITEM.class}" href="javascript:void({ITEM.id})" onclick="openEdit('/popup/properties/{ITEM.id}/orig' + window.location.pathname)" title="Modified: {ITEM.modified|htmlspecialchars}">{ITEM.title|htmlspecialchars}</a>
+        </ul>
+        <!-- END: item -->
+    <!-- END: variables -->
+    
     <div id="node-edit-component" style="clear: both">
         <ul class="ui-tabs-nav">
             <li class="active"><a href="#onxshop-template"><span>Template</span></a></li>
@@ -109,7 +118,8 @@ function serverBrowserOpenDir(open_dir) {
 
     <br/>
 
+<div class="advanced">
 {FILE "bo/node/item_content_list.html"}
-
+</div>
 {FILE "bo/node/content/default_bottom.html"}
 <!-- END: content -->
