@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2006-2014 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2006-2019 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -26,10 +26,12 @@ class Onxshop_Controller_Bo_Node_Content_Component extends Onxshop_Controller_Bo
          */
          
         $children = $this->Node->getChildren($this->GET['id']);
-        foreach ($children as $item) {
-            $this->tpl->assign ('ITEM', $item);
-            $this->tpl->parse('content.variables.item');
+        if (count($children) > 0) {
+            foreach ($children as $item) {
+                $this->tpl->assign ('ITEM', $item);
+                $this->tpl->parse('content.variables.item');
+            }
+            $this->tpl->parse('content.variables');
         }
-        $this->tpl->parse('content.variables');
     }
 }
