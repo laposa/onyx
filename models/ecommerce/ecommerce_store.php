@@ -273,7 +273,8 @@ CREATE INDEX ecommerce_store_type_id_idx ON ecommerce_store (type_id);
         $data['publish'] = 0;
         $data['created'] = date('c');
         $data['modified'] = date('c');
-
+        if (is_array($data['other_data'])) $data['other_data'] = serialize($data['other_data']);
+        
         if ($id = $this->insert($data)) {
             return $id;
         } else {
@@ -291,6 +292,7 @@ CREATE INDEX ecommerce_store_type_id_idx ON ecommerce_store (type_id);
     public function storeUpdate($data) {
         
         $data['modified'] = date('c');
+        if (is_array($data['other_data'])) $data['other_data'] = serialize($data['other_data']);
         $store_id = $this->update($data);
 
         if (array_key_exists('publish', $data)) {
