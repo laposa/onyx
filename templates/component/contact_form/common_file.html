@@ -21,11 +21,11 @@ $(function(){
         <legend>{I18N_CONTACT_FORM}</legend>
         <div class="row full-name">
             <label for="formdata-full-name-{GET.node_id}">{I18N_YOUR_NAME}:</label>
-            <input type="text" id="formdata-full-name-{GET.node_id}" name="formdata[required_full_name]" value="{FORMDATA.required_full_name|htmlspecialchars}" class="required text" maxlength="45" />
+            <input type="text" id="formdata-full-name-{GET.node_id}" name="formdata[required_full_name]" value="{FORMDATA.required_full_name|htmlspecialchars}" class="required text" />
         </div>
         <div class="row email">
             <label for="formdata-email-{GET.node_id}">{I18N_EMAIL}:</label>
-            <input type="email" id="formdata-email-{GET.node_id}" name="formdata[required_email]" value="{FORMDATA.required_email|htmlspecialchars}" class="required email text" maxlength="45" />
+            <input type="email" id="formdata-email-{GET.node_id}" name="formdata[required_email]" value="{FORMDATA.required_email|htmlspecialchars}" class="required email text" />
         </div>
 
         {FILE "component/captcha.inc.html"}
@@ -33,7 +33,7 @@ $(function(){
         <div class="row" id="attachment-file">
             <label for="attachment-file-input">Add:</label>
             <input id="attachment-file-input" type="file" name="attachment" class="file" /> 
-            <span class="max_filesize">Max&nbsp;filesize:&nbsp;{MAX_FILE_SIZE}</span>
+            <span class="max-filesize">Max&nbsp;filesize:&nbsp;{MAX_FILE_SIZE}</span>
         </div>
         
     </fieldset>

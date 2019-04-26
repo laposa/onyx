@@ -21,15 +21,15 @@ $(function(){
         <legend>{I18N_CONTACT_FORM}</legend>
         <div class="row name">
             <label for="formdata-name-{GET.node_id}">{I18N_YOUR_NAME}:</label>
-            <input type="text" id="formdata-name-{GET.node_id}" name="formdata[required_name]" value="{FORMDATA.required_name|htmlspecialchars}" class="required text" maxlength="45" />
+            <input type="text" id="formdata-name-{GET.node_id}" name="formdata[required_name]" value="{FORMDATA.required_name|htmlspecialchars}" class="required text" />
         </div>
         <div class="row email">
             <label for="formdata-email-{GET.node_id}">{I18N_EMAIL}:</label>
-            <input type="email" id="formdata-email-{GET.node_id}" name="formdata[required_email]" value="{FORMDATA.required_email|htmlspecialchars}" class="required email text" maxlength="45" />
+            <input type="email" id="formdata-email-{GET.node_id}" name="formdata[required_email]" value="{FORMDATA.required_email|htmlspecialchars}" class="required email text" />
         </div>
         <div class="row subject">
             <label for="formdata-subject-{GET.node_id}">{I18N_SUBJECT}:</label>
-            <input type="text" id="formdata-subject-{GET.node_id}" name="formdata[required_subject]" value="{FORMDATA.required_subject|htmlspecialchars}" class="required text" maxlength="45" />
+            <input type="text" id="formdata-subject-{GET.node_id}" name="formdata[required_subject]" value="{FORMDATA.required_subject|htmlspecialchars}" class="required text" />
         </div>
         
         <div class="row message">
