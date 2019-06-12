@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2013-2014 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2013-2019 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -33,6 +33,9 @@ class Onxshop_Controller_Node_Content_Survey extends Onxshop_Controller_Node_Con
                 $component = 'survey_image_poll';
                 break;
 
+            case 'survey_2':
+                $component = 'survey_2';
+                break;
             case 'survey':
             default:
                 $component = 'survey';
