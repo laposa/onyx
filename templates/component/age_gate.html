@@ -66,22 +66,22 @@
             if (customer_age >= minimum_age) {
                 $('#age-gate').fadeOut(500, function() {
                     $('#age-gate').remove();
-                    $('.page-content').fadeIn(500);
+                    $('main.site').fadeIn(500);
                     $.cookie('onxshop-customer-age', customer_age, { expires: 7 });
                 });
             } else {
-                $('#age-gate > div').html('<h3>Sorry, you have to be of legal age to view the page’s content.</h3>');
+                $('#age-gate > div').html('<h3>Sorry, you must be 18 years old to view this page.</h3>');
             }
             return false;
         }
 
         function showAgeGate() {
 
-            $('.page-content').hide()
+            $('main.site').hide()
 
-            var html = '<div id="age-gate"><div id="age-gate-wrapper">';
-            html += '<h3>This page requires that you are of legal drinking age to enter.</h3>';
-            html += '<p>Your Birthday: ';
+            var html = '<div id="age-gate"><div class="wrapper">';
+            html += '<h3>You must be at least 18 years old to view this page.</h3>';
+            html += '<p>Please verify your birthday: ';
             html += '<select class="day"></select>';
             html += '<select class="month">';
             for (var i = 0; i < 12; i++) {
@@ -99,7 +99,7 @@
             html += '</p>';
             html += '<p><button class="submit">Submit</button></p>';
             html += '</div></div>';
-            $('.page-content').after(html);
+            $('main.site').after(html);
 
             updateDays();
             $('#age-gate select.year, #age-gate select.month').change(updateDays);
@@ -107,7 +107,7 @@
         };
 
 
-        if (edit_mode) $('.page-content').prepend('<p style="max-width: 600px; margin: 0 auto; padding: 20px 40px; background: #ff3030; color: #ffffff; font-size: 1.2em; ">This page is secured by the Age Gate. Minimum age has been set to ' + minimum_age + ' years.</p>');
+        if (edit_mode) $('main.site').prepend('<p style="max-width: 600px; margin: 0 auto; padding: 20px 40px; background: #ff3030; color: #ffffff; font-size: 1.2em; ">This page is secured by the Age Gate. Minimum age has been set to ' + minimum_age + ' years.</p>');
         else if (customer_age == undefined || customer_age < minimum_age) showAgeGate();
 
     });
