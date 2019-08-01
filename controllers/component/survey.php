@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2011-2018 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2011-2019 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -82,7 +82,7 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
                         if ($this->GET['href']) {
                             
                             // forward to another page
-                            $this->displaySuccessPage($this->GET['href']);
+                            $this->displaySuccessPage($this->GET['href'], $survey_entry_id);
                         
                         } else {
                         
@@ -156,7 +156,7 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
     /**
      * Forward to thank you page
      */
-    public function displaySuccessPage($href) {
+    public function displaySuccessPage($href, $survey_entry_id) {
 
         onxshopGoTo($href);
 
