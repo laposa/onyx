@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * Copyright (c) 2011-2013 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2011-2019 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -288,6 +288,7 @@ CREATE TABLE education_survey_entry (
      */
      
     public function saveFiles($survey_entry_id) {
+        
         /**
          * attachment(s) via upload
          */
@@ -296,23 +297,16 @@ CREATE TABLE education_survey_entry (
         
             foreach ($_FILES as $key=>$file) {
                 
-                foreach ($file['name'] as $question_id=>$single_name) {
-                    
-                    $file_single = array();
-                    $file_single['name'] = $file['name'][$question_id];
-                    $file_single['type'] = $file['type'][$question_id];
-                    $file_single['tmp_name'] = $file['tmp_name'][$question_id];
-                    $file_single['error'] = $file['error'][$question_id];
-                    $file_single['size'] = $file['size'][$question_id];
+                if (is_uploaded_file($file['tmp_name'])) {
                     
                     require_once('models/education/education_survey_entry_answer.php');
                     $EntryAnswer = new education_survey_entry_answer();
                     
-                    $answer['question_id'] = $question_id;
+                    $answer['question_id'] = str_replace('question-id-', '', $key);
                     $answer['survey_entry_id'] = $survey_entry_id;
-                    $answer['value'] = $file_single['name'];
+                    $answer['value'] = $file['name'];
                     
-                    if (!$EntryAnswer->saveAnswer($answer, $file_single)) {
+                    if (!$EntryAnswer->saveAnswer($answer, $file)) {
                     
                         msg("Error occured in saving " . print_r($answer, true));
                         $error_occured = true;
