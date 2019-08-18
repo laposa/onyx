@@ -29,6 +29,7 @@ class Onxshop_Controller_Node_Site_Default extends Onxshop_Controller {
          
         if (!isset($node_data['display_secondary_navigation'])) $node_data['display_secondary_navigation'] = $GLOBALS['onxshop_conf']['global']['display_secondary_navigation'];
         if ($node_data['display_secondary_navigation'] == 1) $node_data['css_class'] = "{$node_data['css_class']} secondary-navigation";
+        else $node_data['css_class'] = "{$node_data['css_class']} no-secondary-navigation";
         
         /**
          * get node conf
