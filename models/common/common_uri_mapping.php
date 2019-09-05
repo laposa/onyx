@@ -499,7 +499,7 @@ ALTER TABLE common_uri_mapping ADD UNIQUE (public_uri);
         $title = strtolower($title);
         $title = preg_replace("/\s/", "-", $title);
         $title = preg_replace("/&[^([a-zA-Z;)]/", $this->conf['and_string'] . '-', $title);
-        $title = preg_replace("/[^\w-\/\.]/", '', $title);
+        $title = preg_replace("/[^\w\-\/\.]/", '', $title);
         $title = preg_replace("/\-{2,}/", '-', $title);
         $title = trim($title, '-'); 
         
