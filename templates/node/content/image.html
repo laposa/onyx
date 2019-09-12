@@ -4,7 +4,15 @@
         <!-- BEGIN: title --><h3 class="content-title"><span>{NODE.title|htmlspecialchars}</span></h3><!-- END: title -->
         <div class="content-body">
             <figure>
+                <!-- BEGIN: image_with_link -->
+                <a href="/page/{NODE.link_to_node_id}">
                 {ONXSHOP_REQUEST_image #component/image~node_id=GET.id~}
+                </a>
+                <!-- BEGIN: image_with_link -->
+                <!-- BEGIN: image_with_no_link -->
+                {ONXSHOP_REQUEST_image #component/image~node_id=GET.id~}
+                <!-- END: image_with_no_link -->
+                
                 <!-- BEGIN: caption -->
                 <figcaption>
                     <h4>{NODE.strapline|htmlspacialchars}</h4>
