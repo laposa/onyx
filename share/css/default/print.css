@@ -1,19 +1,16 @@
 /**
  * Print Style Sheet
  *
- * Norbert @ Laposa Ltd, 2009/09/22
+ * Norbert @ Laposa Ltd, 2009 - 2019
  *
  */
 
 @import url(screen.css);
 
-#onxshopHeader,
 #accessibility,
-#header,
-#globalNavigation,
-#primaryNavigation,
-#secondaryNavigation,
-#footer {
+header,
+nav,
+footer {
     display: none;
 }
 
