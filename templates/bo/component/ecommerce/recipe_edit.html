@@ -128,17 +128,15 @@ $(document).ready(function(){
 <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
 <br style="clear: both;" />
-    
+
 {ONXSHOP_REQUEST_tinymce #bo/tinymce~id=GET.id:relation=recipe:role=RTE_description:mode=exact:edit_elements=recipe-instructions:theme=advanced~}
 
 <script type="text/javascript">
-tinyMCE.init({
-    mode : "exact",
-    elements : "recipe-description",
-    theme : "simple",
-    content_css: "/share/css/tinymce.css",
+tinymce.init({
+    selector: "#recipe-description",
+    menubar: "false",
+    toolbar: "bold",
     invalid_elements : "span,div,form,input,label,button,script,font",
-    plugins : "paste",
     entity_encoding : "raw"
 });
 </script>
