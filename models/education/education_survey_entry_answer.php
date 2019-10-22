@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * Copyright (c) 2011-2018 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2011-2019 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -73,16 +73,18 @@ class education_survey_entry_answer extends Onxshop_Model {
     private function getCreateTableSql() {
     
         $sql = "
-CREATE TABLE education_survey_entry_answer (
-    id serial PRIMARY KEY NOT NULL,
-    survey_entry_id int NOT NULL REFERENCES education_survey_entry ON UPDATE CASCADE ON DELETE CASCADE,
-    question_id int NOT NULL REFERENCES education_survey_question ON UPDATE CASCADE ON DELETE RESTRICT,
-    question_answer_id int REFERENCES education_survey_question_answer ON UPDATE CASCADE ON DELETE RESTRICT,
-    value text,
-    created timestamp(0) without time zone DEFAULT now() NOT NULL,
-    modified timestamp(0) without time zone DEFAULT now(),
-    publish smallint DEFAULT 0
-);
+        CREATE TABLE education_survey_entry_answer (
+            id serial PRIMARY KEY NOT NULL,
+            survey_entry_id int NOT NULL REFERENCES education_survey_entry ON UPDATE CASCADE ON DELETE CASCADE,
+            question_id int NOT NULL REFERENCES education_survey_question ON UPDATE CASCADE ON DELETE RESTRICT,
+            question_answer_id int REFERENCES education_survey_question_answer ON UPDATE CASCADE ON DELETE RESTRICT,
+            value text,
+            created timestamp(0) without time zone DEFAULT now() NOT NULL,
+            modified timestamp(0) without time zone DEFAULT now(),
+            publish smallint DEFAULT 0
+        );
+        
+        CREATE INDEX education_survey_entry_answer_survey_entry_id_fkey ON education_survey_entry_answer USING btree(survey_entry_id);
         ";
         
         return $sql;

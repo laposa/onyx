@@ -84,19 +84,20 @@ class education_survey_entry extends Onxshop_Model {
     private function getCreateTableSql() {
     
         $sql = "
-CREATE TABLE education_survey_entry (
-    id serial PRIMARY KEY NOT NULL,
-    survey_id int NOT NULL REFERENCES education_survey ON UPDATE CASCADE ON DELETE RESTRICT,
-    customer_id int NOT NULL REFERENCES client_customer ON UPDATE CASCADE ON DELETE RESTRICT,
-    relation_subject text,
-    created timestamp(0) without time zone DEFAULT now() NOT NULL,
-    modified timestamp(0) without time zone DEFAULT now(),
-    publish smallint DEFAULT 0,
-    ip_address character varying(255),
-    session_id character varying(32),
-    other_data  text
-    UNIQUE (survey_id, customer_id, relation_subject)
-);
+        CREATE TABLE education_survey_entry (
+            id serial PRIMARY KEY NOT NULL,
+            survey_id int NOT NULL REFERENCES education_survey ON UPDATE CASCADE ON DELETE RESTRICT,
+            customer_id int NOT NULL REFERENCES client_customer ON UPDATE CASCADE ON DELETE RESTRICT,
+            relation_subject text,
+            created timestamp(0) without time zone DEFAULT now() NOT NULL,
+            modified timestamp(0) without time zone DEFAULT now(),
+            publish smallint DEFAULT 0,
+            ip_address character varying(255),
+            session_id character varying(32),
+            other_data  text
+            UNIQUE (survey_id, customer_id, relation_subject)
+        );
+        CREATE INDEX education_survey_entry_survey_id_fkey ON education_survey_entry USING btree(survey_id);
         ";
         
         return $sql;

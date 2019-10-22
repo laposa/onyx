@@ -7362,3 +7362,5 @@ GRANT ALL ON SCHEMA public TO PUBLIC;
 -- PostgreSQL database dump complete
 --
 
+CREATE INDEX education_survey_entry_survey_id_fkey ON education_survey_entry USING btree(survey_id);
+CREATE INDEX education_survey_entry_answer_survey_entry_id_fkey ON education_survey_entry_answer USING btree(survey_entry_id);
