@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2006-2016 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2006-2019 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -99,6 +99,10 @@ class Onxshop_Controller_Uri_Mapping extends Onxshop_Controller {
             } else if ($translate == '/') { // root folder
                 
                 $action_to_process = $this->getActionToProcessForPage($this->Mapper->conf['homepage_id']);
+                
+            } else if ($mapped_node_id = $this->Mapper->translate($translate, false)) { // URL like /Abc-Cbs
+                
+                $this->redirectToSeoURLAndExit($mapped_node_id);
                 
             } else {
                 
