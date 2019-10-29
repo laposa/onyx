@@ -2,7 +2,7 @@
 /**
  * class common_uri_mapping
  *
- * Copyright (c) 2009-2017 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2019 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -183,14 +183,14 @@ ALTER TABLE common_uri_mapping ADD UNIQUE (public_uri);
     
     /**
      * translate
-     * @param string $string
-     * URL path, e.g. /contact-us
+     * @param string $string URL path, e.g. /contact-us
+     * @param boolean $case_sensitive
      *
      * @returns int
      * page node_id
      */
      
-    function translate($string) {
+    function translate($string, $case_sensitive = true) {
         
         if (is_numeric($node_id = trim($string, '/'))) {
             
@@ -223,7 +223,11 @@ ALTER TABLE common_uri_mapping ADD UNIQUE (public_uri);
              * search for URL string
              */
              
-            if (is_array($this->_rewrite_table)) $node_id = array_search($string, $this->_rewrite_table);
+            if ($case_sensitive) {
+                if (is_array($this->_rewrite_table)) $node_id = array_search($string, $this->_rewrite_table);
+            } else {
+                if (is_array($this->_rewrite_table)) $node_id = array_search(strtolower($string), array_map('strtolower',$this->_rewrite_table));
+            } 
         
         }
         
