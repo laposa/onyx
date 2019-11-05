@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2009-2017 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2019 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -119,13 +119,16 @@ CREATE TABLE common_image (
         //first check file exists and is readable
         if (!is_readable(ONXSHOP_PROJECT_DIR . $file)) return false;
         
+        $thumbnails_directory =  "var/thumbnails/";
+        $thumbnails_directory_rp = ONXSHOP_PROJECT_DIR . $thumbnails_directory;
+        
         //prepare variables
         if (is_numeric($required_height)) {
-            $directory = ONXSHOP_PROJECT_DIR ."var/thumbnails/{$required_width}x{$required_height}";
-            $thumb_file = "var/thumbnails/{$required_width}x{$required_height}/" . md5($file);
+            $directory =  "{$thumbnails_directory_rp}{$required_width}x{$required_height}";
+            $thumb_file = "{$thumbnails_directory}{$required_width}x{$required_height}/" . md5($file);
         } else {
-            $directory = ONXSHOP_PROJECT_DIR ."var/thumbnails/$required_width";
-            $thumb_file = "var/thumbnails/$required_width/" . md5($file);
+            $directory = "{$thumbnails_directory_rp}$required_width";
+            $thumb_file = "{$thumbnails_directory}$required_width/" . md5($file);
         }
         
         $file_rp = ONXSHOP_PROJECT_DIR . $file;
@@ -136,8 +139,16 @@ CREATE TABLE common_image (
         
         $thumb_file_rp = ONXSHOP_PROJECT_DIR . $thumb_file;
         
-        //check if the destination directory exits
+        //check if the destination directory exists
         if (!is_readable($directory)) {
+            
+            //check if thumbnails directory exists
+            if (!is_readable($thumbnails_directory_rp)) {
+                if (!mkdir($thumbnails_directory_rp)) {
+                    msg("common_image.resize(): Cannot create folder $thumbnails_directory_rp", 'error');
+                }
+            }
+            
             if (!mkdir($directory)) {
                 msg("common_image.resize(): Cannot create folder $directory", 'error');
             }
