@@ -725,12 +725,16 @@ CREATE TABLE common_file (
      * file info
      */
      
-    static function getFileInfo($fp, $extra_detail = false) {
+    static function getFileInfo($fp, $extra_detail = false, $fast = true) {
     
         if (trim($fp) == '' || !file_exists($fp)) return false;
         
+        $file_info = array();
+        
+        if ($fast) $file_info['mime-type'] = mime_content_type_fast($fp);
+        else $file_info['mime-type'] = mime_content_type($fp);
+        
         $file_info['modified'] = strftime("%c", filemtime($fp));
-        $file_info['mime-type'] = mime_content_type($fp);
         $file_info['file_path'] = str_replace(ONXSHOP_PROJECT_DIR . 'var/files/', '', $fp);
         $file_info['size'] = self::resize_bytes(filesize($fp));
         
