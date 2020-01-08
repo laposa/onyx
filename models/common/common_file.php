@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2009-2018 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2020 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -160,12 +160,13 @@ CREATE TABLE common_file (
      * 
      * @param array $file_detail
      * file information
+     * @param boolean $include_image_size
      * 
      * @return array
      * extended file detail
      */
      
-    public function populateAdditionalInfo($file_detail) {
+    public function populateAdditionalInfo($file_detail, $include_image_size = false) {
         
         $full_path = ONXSHOP_PROJECT_DIR . $file_detail['src'];
         
@@ -177,7 +178,7 @@ CREATE TABLE common_file (
             msg("File $full_path", 'error', 1);
         }
         
-        if (preg_match('/^image/', $file_detail['info']['mime-type'])) {
+        if ($include_image_size && preg_match('/^image/', $file_detail['info']['mime-type'])) {
             $file_detail['imagesize'] = $this->getImageSize($full_path);
         }
             
@@ -720,6 +721,8 @@ CREATE TABLE common_file (
      *
      * @param string $fp
      * file name
+     * @param boolean $extra_info
+     * @param boolean $fast
      * 
      * @return array
      * file info
