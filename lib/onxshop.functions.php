@@ -889,9 +889,7 @@ function rangeDownload($file) {
  * it's allowed to see only content of var/ directory
  */
  
-function onxshopCheckForAllowedPath($realpath, $restrict_download = true) {
-
-    return true; // quick hack to allow symlink to var/files on dev
+function onxshopCheckForAllowedPath($realpath, $restrict_download = false) {
 
     $allowed_directories = array();
     $allowed_directories[] = ONXSHOP_PROJECT_DIR;
