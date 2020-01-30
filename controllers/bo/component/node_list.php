@@ -39,7 +39,7 @@ class Onxshop_Controller_Bo_Component_Node_List extends Onxshop_Controller {
         $this->tpl->assign("NODE", $node_detail);
         
         //get children
-        $children = $Node->getChildren($node_detail['id'], 'parent_container ASC, priority DESC');
+        $children = $Node->getChildren($node_detail['id'], 'parent_container ASC, title ASC');
         
         if (is_array($children) && count($children) > 0) { 
             foreach ($children as $child) {
