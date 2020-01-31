@@ -2,7 +2,7 @@
 /**
  * Default Global Onxshop configuration
  *
- * Copyright (c) 2005-2018 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2005-2020 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  * The constants defined here can be "overwritten" in project_dir/conf/global.php
@@ -112,7 +112,10 @@ if (!defined('ONXSHOP_CUSTOMER_USE_SSL')) {
     if (ONXSHOP_SSL) define('ONXSHOP_CUSTOMER_USE_SSL', true);
     else define('ONXSHOP_CUSTOMER_USE_SSL', false);
 }
-if (!defined('ONXSHOP_HSTS_ENABLE')) define('ONXSHOP_HSTS_ENABLE', false);
+if (!defined('ONXSHOP_HSTS_ENABLE')) {
+    if (ONXSHOP_SSL) define('ONXSHOP_HSTS_ENABLE', true);
+    else define('ONXSHOP_HSTS_ENABLE', false);
+}    
 if (!defined('ONXSHOP_HSTS_TTL')) define('ONXSHOP_HSTS_TTL', 3600 * 24 * 60);
 
 /**
