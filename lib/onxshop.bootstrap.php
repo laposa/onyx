@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2005-2018 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2005-2020 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -268,6 +268,13 @@ class Onxshop_Bootstrap {
         
         // change setting before starting the session
         session_name(ONXSHOP_SESSION_NAME);
+        $current_cookie_params = session_get_cookie_params();
+
+        if (ONXSHOP_SSL) $secure = true;
+        else $secure = false;
+        
+        session_set_cookie_params($current_cookie_params['lifetime'], $current_cookie_params['path'], $current_cookie_params['domain'], $secure,  $current_cookie_params['httponly']);
+        
         // disable no-cache headers
         //session_cache_limiter(0);
         //session_set_cookie_params(31536000);// = 3600 * 24 * 365
