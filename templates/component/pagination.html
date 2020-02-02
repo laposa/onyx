@@ -14,11 +14,11 @@
         <!-- END: next -->
     </ul>
     <!-- BEGIN: show_all -->
-    <a class="show-all" href="{ITEM.link}{LIMIT}"><span>{I18N_SHOW_ALL} ({GET.count} {I18N_RECORDS})</span></a>
+    <a class="show-all" href="{ITEM.link}{LIMIT}"><span>{I18N_SHOW_ALL} ({GET.count|htmlspecialchars} {I18N_RECORDS})</span></a>
     <!-- END: show_all -->
     <!-- BEGIN: per_page -->
     <form method="get" action="{ITEM.link}{LIMIT}">
-    <input type="hidden" name="limit_from" value="{GET.limit_from}" />
+    <input type="hidden" name="limit_from" value="{GET.limit_from|htmlspecialchars}" />
     <label for="per-page">Items per Page:</label>
     <select name='limit_per_page' id='per-page' class="short per-page" onchange="submit()">
         <option value='5' {PAGINATION_selected_5}>5</option>
