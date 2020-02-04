@@ -3,7 +3,7 @@
  * Onxshop global functions
  * KEEP IT SMALL
  *
- * Copyright (c) 2005-2018 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2005-2020 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -950,7 +950,7 @@ function onxshopCheckForAllowedPath($realpath, $restrict_download = false) {
     if (!in_array(true, $check_status)) {
         
         header("HTTP/1.0 403 Forbidden");
-        echo "File $realpath is forbidden on this project!";
+        echo "This path is forbidden!";
         exit;
         	
     }
