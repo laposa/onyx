@@ -1,8 +1,6 @@
 <?php
 /**
- * class common_email
- *
- * Copyright (c) 2009-2019 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2020 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -124,7 +122,7 @@ CREATE TABLE common_email (
         else if ($conf['smtp_server_username'] == '') $conf['smtp_server_username'] = false;
         if (getenv('ONXSHOP_SMTP_SERVER_PASSWORD')) $conf['smtp_server_password'] = getenv('ONXSHOP_SMTP_SERVER_PASSWORD');
         else if ($conf['smtp_server_password'] == '') $conf['smtp_server_password'] = false;
-
+        // DELETE FROM common_email WHERE created < CURRENT_DATE + INTERVAL '7 days';
         return $conf;
     }
     
@@ -364,7 +362,7 @@ CREATE TABLE common_email (
                     require_once('models/common/common_file.php');
                     //getSingleUpload could be static method
                     $CommonFile = new common_file();
-                    $upload = $CommonFile->getSingleUpload($file, 'var/tmp/');
+                    $upload = $CommonFile->getSingleUpload($file, 'var/tmp/', true);
                     
                     /**
                      * array indicated the same file name already exists in the var/tmp/ folder
@@ -445,6 +443,7 @@ CREATE TABLE common_email (
         if($email_sent) {
             
             msg("The email to {$this->email_recipient} has been sent successfully.", 'ok', 2);
+            unlink($attachment_saved_file);
             return true;
         
         } else {

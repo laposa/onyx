@@ -309,7 +309,7 @@ CREATE TABLE common_file (
      * false returned on failure
      */
      
-    function getSingleUpload($file = array(), $save_dir, $overwrite = 0) {
+    function getSingleUpload($file = array(), $save_dir, $overwrite = true) {
     
         $upload_file = $file['tmp_name'];
         $safe_filename = $this->nameToSafe($file['name']);
@@ -327,19 +327,23 @@ CREATE TABLE common_file (
         
             if (file_exists($save_file_full)) {
             
-                msg("File '$save_file_full' already exists!", 'error');
-                $temp_file = "var/tmp/$safe_filename";
-                msg("Saving as $temp_file", 'ok', 2);
+                if (!$overwrite) {
+                    msg("File already exists and ovewrite is not allowed.", "error");
+                    return false;
+                }
                 
-                if (copy($upload_file, ONXSHOP_PROJECT_DIR . $temp_file)) {
+                msg("File '$save_file_full' already exists and is being overwritten", 'error', 1);
+                msg("Saving as $save_file", 'ok', 2);
+                
+                if (copy($upload_file, ONXSHOP_PROJECT_DIR . $save_file)) {
                 
                     //array type for result (indicates overwrite)
-                    $result = array( 'filename'=> $safe_filename, 'save_dir'=> $save_dir, "temp_file"=>$temp_file);
+                    $result = array( 'filename'=> $safe_filename, 'save_dir'=> $save_dir, "temp_file"=>$save_file);
                     return $result;
                 
                 } else {
                 
-                    msg("common_file.getSingleUpload(): Cannot copy $upload_file to temp location " . ONXSHOP_PROJECT_DIR . $temp_file, 'error');
+                    msg("common_file.getSingleUpload(): Cannot copy $upload_file to temp location " . ONXSHOP_PROJECT_DIR . $save_file, 'error', 1);
                     return false;
                     
                 }
