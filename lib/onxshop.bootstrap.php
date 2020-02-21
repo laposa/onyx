@@ -270,7 +270,7 @@ class Onxshop_Bootstrap {
         session_name(ONXSHOP_SESSION_NAME);
         $current_cookie_params = session_get_cookie_params();
 
-        if (ONXSHOP_SSL) $secure = true;
+        if (onxshopDetectProtocol() == 'https') $secure = true;
         else $secure = false;
         
         session_set_cookie_params($current_cookie_params['lifetime'], $current_cookie_params['path'], $current_cookie_params['domain'], $secure,  $current_cookie_params['httponly']);
