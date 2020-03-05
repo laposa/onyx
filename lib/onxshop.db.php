@@ -4,7 +4,7 @@
  *
  * custom Active Record Database Pattern and simple validation
  *
- * Copyright (c) 2005-2018 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2005-2020 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -266,8 +266,7 @@ class Onxshop_Db {
                 }
             break;
             case 'email':
-                $regex = '/^([*+!.&#$|\'\\%\/0-9a-z^_`{}=?~:-]+)@(([0-9a-z-]+\.)+[0-9a-z]{2,32})$/i';
-                if (preg_match($regex, $value, $matches)) {
+                if (filter_var($value, FILTER_VALIDATE_EMAIL)) {
                     $this->setValid($attribute, true);
                     return true;
                 } else {
@@ -277,8 +276,7 @@ class Onxshop_Db {
                 }
             break;
             case 'url':
-                $regex = '/^(http:\/\/|ftp:\/\/)/i';
-                if (preg_match($regex, $value, $matches)) {
+                if (filter_var($value, FILTER_VALIDATE_URL)) {
                     $this->setValid($attribute, true);
                     return true;
                 } else {
