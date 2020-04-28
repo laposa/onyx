@@ -214,7 +214,7 @@ if (!Array.prototype.indexOf) {
  */
  
 function openAjaxRequestInGrowl(url, title) {
-	jQuery.jGrowl('<div class="onxshop_messages in_jGrowl"><img src="/share/images/ajax-indicator/ajax-loader-bar.gif" alt="Loading ..."/></div>', {
+	jQuery.jGrowl("<div class='onxshop_messages in_jGrowl' role='alert'><img src='/share/images/ajax-indicator/ajax-loader-bar.gif' alt='Loading ...'/></div>", {
 		beforeOpen: function(e, m, o) {
 			jQuery("#dialog").hide().load(url, '', 
 				function (responseText, textStatus, XMLHttpRequest) {
@@ -239,7 +239,7 @@ function popupMessage(selector) {
 function growlMessage(message) {
 	var life = 30 * message.length; // 30ms per character
 	if (life < 4000) life = 4000; // 4 sec at min.
-	jQuery.jGrowl("<div class='onxshop_messages in_jGrowl'>" + message + "</div>", {life: life})
+	jQuery.jGrowl("<div class='onxshop_messages in_jGrowl' role='alert'>" + message + "</div>", {life: life})
 }
 
 /**
