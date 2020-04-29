@@ -443,7 +443,7 @@ CREATE TABLE common_email (
         if($email_sent) {
             
             msg("The email to {$this->email_recipient} has been sent successfully.", 'ok', 2);
-            unlink($attachment_saved_file);
+            if (file_exists($attachment_saved_file)) unlink($attachment_saved_file);
             return true;
         
         } else {
