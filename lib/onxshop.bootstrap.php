@@ -150,7 +150,7 @@ class Onxshop_Bootstrap {
             header("HTTP/1.1 503 Service Unavailable");
             die('Our site is temporarily unavailable, please try again later.');
         }
-        
+
         /**
          * profiler
          */

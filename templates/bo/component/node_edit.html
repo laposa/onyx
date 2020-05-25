@@ -8,6 +8,7 @@
 
 <script type="text/javascript">
     $(document).ready(function() { 
+    console.log('READY!');
         var options = { 
             target:        '#node-properties-edit-response', 
             beforeSubmit:  preSubmit,
@@ -22,6 +23,7 @@
         
 // pre-submit callback 
 function preSubmit() {
+    console.log('READY FOR SUBMSSION!');
     if(typeof hookNodeEditPreUpdate == 'function') {
         hookNodeEditPreUpdate();
     }

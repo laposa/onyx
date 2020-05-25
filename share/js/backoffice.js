@@ -122,6 +122,7 @@ function initBackofficeUI() {
      */
      
     $('button.save').on('click', function() {
+        console.log('SAVING CLASS : A');
         $(this).addClass('saving');
     });
 }

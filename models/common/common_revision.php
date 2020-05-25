@@ -147,6 +147,15 @@ class common_revision extends Onxshop_Model {
 
         return $list;
     }
+
+    /**
+     * get revision by id
+     */
+     
+    public function getRevisionById($id) {
+        $item = $this->detail($id);
+        return $item;
+    }
     
     /**
      * getAllowedRevisionObjects

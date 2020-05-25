@@ -32,8 +32,11 @@ class Onxshop_Controller_Bo_Component_Revision_List extends Onxshop_Controller {
     public function parseList($list) {
     
         if (count($list) > 0) {
+            require_once('models/client/client_customer.php');
+            $Client_Customer = new client_customer();
+
             foreach ($list as $item) {
-                
+                $item['customer'] = $Client_Customer->getDetail($item['customer_id']);
                 $this->tpl->assign('ITEM', $item);
                 $this->tpl->parse('content.item');
             }
