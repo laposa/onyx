@@ -580,8 +580,8 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
      */
 
     function restoreRevision($revision_data) {
-        $node_data = $revision_data['content'];
-
+        $node_data = unserialize($revision_data['content']);
+        
         $node_data['modified'] = date('c');
         
         // set owner only if empty

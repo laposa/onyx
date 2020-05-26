@@ -46,21 +46,43 @@ class Onxshop_Controller_Bo_Component_Revision_Compare extends Onxshop_Controlle
                     foreach($item['details']['content'] as $key=>$row) {
                         $item['details']['content'][$key] = $row;
                         if(!isset($prev[$key])) {
-                            $item['details']['content'][$key] .= " *NEW*";
+                            $item['details']['content'][$key] = "*NEW* ".$item['details']['content'][$key];
                         } elseif($item['details']['content'][$key] != $prev[$key]) {
-                            $item['details']['content'][$key] .= " *MODIFIED*";
+                            $item['details']['content'][$key] = "*MODIFIED* ".$item['details']['content'][$key];
                         }
                     }
                     // LOOK FOR REMOVED
                     foreach($prev as $key=>$row) {
                         if(!isset($item['details']['content'][$key])) {
-                            $item['details']['content'][$key] = $prev[$key]." *REMOVED*";
+                            $item['details']['content'][$key] = "*REMOVED* ".$prev[$key];
                         }
                     }
                 }
                 $prev = $item['details']['content'];
 
                 $item['client_customer'] = $Client_Customer->getDetail($item['details']['customer_id']);
+                foreach($item['details']['content'] as $key=>$line) {
+                    if (strpos($line, "*NEW*") !== false) {
+                        $this->tpl->assign('CSS_CLASS', 'highlight new');
+                        $line = str_replace("*NEW* ", "", $line);
+                    }
+                    elseif (strpos($line, "*MODIFIED*") !== false) {
+                        $this->tpl->assign('CSS_CLASS', 'highlight modified');
+                        $line = str_replace("*MODIFIED* ", "", $line);
+                    }
+                    elseif (strpos($line, "*REMOVED*") !== false) {
+                        $this->tpl->assign('CSS_CLASS', 'highlight removed');
+                        $line = str_replace("*REMOVED* ", "", $line);
+                    }
+                    else {
+                        $this->tpl->assign('CSS_CLASS', '');
+                    }
+                    $this->tpl->assign('LINE', $key.": ".$line);
+                    $this->tpl->parse('content.item.line');
+
+                }
+
+
                 $this->tpl->assign('ITEM', $item);
                 $this->tpl->assign('WIDTH', (100 / count($list)));
                 $this->tpl->parse('content.item');

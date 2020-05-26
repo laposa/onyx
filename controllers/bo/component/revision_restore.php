@@ -18,10 +18,10 @@ class Onxshop_Controller_Bo_Component_Revision_Restore extends Onxshop_Controlle
         $Revision = new common_revision();
 
         if (is_numeric($this->GET['id'])) $id = $this->GET['id'];
-        $revision_list = $Revision->detail($id);
+        $revision_detail = $Revision->detail($id);
 
-        if(isset($revision_list['id'])) {
-            return $Node->restoreRevision($revision_list);
+        if(isset($revision_detail['id'])) {
+            return $Node->restoreRevision($revision_detail);
         } else {
             return false;
         }
