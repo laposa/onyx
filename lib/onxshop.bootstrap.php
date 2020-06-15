@@ -138,8 +138,10 @@ class Onxshop_Bootstrap {
             $db->getConnection();
         }  catch (Zend_Db_Adapter_Exception $e) {
             // perhaps a failed login credential, or perhaps the RDBMS is not running
+            msg($e->getMessage(), 'error');
         } catch (Zend_Exception $e) {
             // perhaps factory() failed to load the specified Adapter class
+            msg($e->getMessage(), 'error');
         }
         
         /**
