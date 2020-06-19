@@ -122,7 +122,7 @@ if (ONXSHOP_BENCHMARK && ONXSHOP_IS_DEBUG_HOST) {
     echo '</div>';
 }
 
-if (ONXSHOP_DB_PROFILER) {
+if (ONXSHOP_DB_PROFILER && ONXSHOP_IS_DEBUG_HOST) {
     $db = Zend_Registry::get('onxshop_db');
     $profiler = $db->getProfiler();
     $db_profile = array();

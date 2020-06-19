@@ -157,7 +157,7 @@ class Onxshop_Bootstrap {
          * profiler
          */
          
-        if (ONXSHOP_IS_DEBUG_HOST) {
+        if (ONXSHOP_DB_PROFILER && ONXSHOP_IS_DEBUG_HOST) {
             $db->getProfiler()->setEnabled(true);
         }
         
@@ -167,6 +167,17 @@ class Onxshop_Bootstrap {
          
         Zend_Registry::set('onxshop_db', $db);
         
+    }
+    
+    /**
+     * close database connection
+     */
+    
+    function closeDatabase() {
+        
+        $db = Zend_Registry::get( 'onxshop_db' ); 
+        $db->closeConnection(); 
+    
     }
     
     /**
@@ -308,6 +319,16 @@ class Onxshop_Bootstrap {
 
         $_SESSION['last_diff'] = $_SESSION['last_item'];
 
+    }
+    
+    /**
+     * close session
+     */
+     
+    function closeSession() {
+        
+        session_write_close();
+    
     }
 
 
@@ -605,7 +626,8 @@ class Onxshop_Bootstrap {
     
         $result = $this->getOutput();
         
-        session_write_close();
+        $this->closeSession();
+        $this->closeDatabase();
         
         return $result;
     }
