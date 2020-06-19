@@ -1,0 +1,88 @@
+<!-- BEGIN: content -->
+{MESSAGES}
+<div class="compare-list">
+    <!-- BEGIN: item -->
+<div class="compare-list-item" style="width:{WIDTH}%">
+        <div class="row">
+            <h3>Revision {ITEM.details.id}</h3>
+            <p>{ITEM.details.created|strtotime|date('d/m/Y H:i:s', %s)} by <a href="/backoffice/customers/{ITEM.details.customer_id}/detail" target="_blank">{ITEM.client_customer.username} ({ITEM.client_customer.email})</a></p>
+        </div>
+        <div class="code">
+            <!-- BEGIN: line -->
+                <div class="item {CSS_CLASS}">
+                    {LINE|htmlspecialchars}
+                </div>
+            <!-- END: line -->
+        </div>
+        <div class="btn-wrap">
+            <button onclick="restore({ITEM.details.id})" class="button add">Restore {ITEM.details.id}</button>
+        </div>
+    </div>       
+    <!-- END: item -->
+    <!-- BEGIN: empty -->
+    <p><span class="note">No Revisions Selected</span></p>
+    <!-- END: empty -->
+
+</div>
+<style>
+    .compare-list {
+        display: flex;
+        height:100vh;
+    }
+    .compare-list-item {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+    flex-grow: 1;
+    flex-basis: 0;
+    }
+    .compare-list-item:nth-child(even) {
+        background:#eee;
+    }
+    .row {
+        padding:10px 15px 0;
+    }
+    .code {
+        max-width:100%;
+        overflow: scroll;
+        flex-grow: 1;
+        padding:10px 15px;
+        width:90%;
+    }
+    .code .item {
+        margin-bottom:7px;
+    }
+    .code .highlight.new {
+        color:#399839;
+    }
+    .code .highlight.modified {
+        color:#a9a722;
+    }
+    .code .highlight.removed {
+        color:#bc1b0f;
+    }
+    .btn-wrap {
+        padding:10px 15px;
+
+    }
+    .button {
+    
+    }
+
+</style>
+<script type="text/javascript">
+    // TRIGGER ALERT
+    function restore(id) {
+        var res = confirm("Are you sure you want to restore revision " + id + "?");
+        if (res == true) {
+            $.ajax({
+                url: '/request/bo/component/revision_restore?id=' + id
+            }).done(function(response) {
+                console.log('RESPONSE: ', response);
+            });
+
+        }
+    }
+
+</script>
+<!-- END: content -->

@@ -34,6 +34,7 @@ $(document).ready(function(){
 });
 
 function saveTemplate() {
+    console.log('SAVING CLASS : B');
     $(".button.save").addClass('saving');
     var content = editor.getValue();
     var url = "/request/bo/component/template_edit~template="+open_dir+":type={GET.type}:relation={GET.relation}:node_id={GET.node_id}~";

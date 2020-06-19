@@ -569,6 +569,56 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
             return false;
         }
     }
+
+
+    
+    /**
+     * restore revision node
+     *
+     * @param array $revision_data
+     * @return bool
+     */
+
+    function restoreRevision($revision_data) {
+        $node_data = unserialize($revision_data['content']);
+        
+        $node_data['modified'] = date('c');
+        
+        // set owner only if empty
+        if (!is_numeric($node_data['customer_id'])) $node_data['customer_id'] = (int) $_SESSION['client']['customer']['id'];;
+        
+        //populate only if ACL in use, otherwise save as empty
+        if (is_array($node_data['display_permission_group_acl'])) {
+            if (in_array('0', $node_data['display_permission_group_acl']) || in_array('1', $node_data['display_permission_group_acl'])) $node_data['display_permission_group_acl'] = serialize($node_data['display_permission_group_acl']);
+            else $node_data['display_permission_group_acl'] = '';
+        } else {
+            $node_data['display_permission_group_acl'] = '';
+        }
+        
+        /**
+         * valid parent
+         */
+         
+        if (!$this->validateParent($node_data['id'], $node_data['parent'])) return false;
+        
+        /**
+         * commit update
+         */
+        
+        if ($this->update($node_data)) {
+            // load full data in case the UI didn't have node_group option
+            $node_data_full = $this->detail($node_data['id']);
+            if ($node_data_full['node_group'] == 'page') {
+                    // update existing or insert a new one
+                    if (!$this->updateSingleURI($node_data)) $this->insertNewMappingURI($node_data);
+            }
+            return true;
+        } else {
+            $node_group = ucfirst($node_data['node_group']);
+            msg("$node_group (id={$node_data['id']}) can't be restored to revision {$revision_data['id']}", 'error');
+            return false;
+        }
+    }
     
     /**
      * insert a new node
