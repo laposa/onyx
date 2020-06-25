@@ -104,6 +104,7 @@ CREATE TABLE common_email (
         // allow sender email address to be overwritten, for example in contact form
         // to allow sending emails on behalf of the customer
         if ($conf['sender_overwrite_allowed'] == '') $conf['sender_overwrite_allowed'] = false;
+        if ($conf['retention_days'] == '') $conf['retention_days'] = 7;
         // what is default email FROM address?
         if ($conf['mail_sender_address'] == '') $conf['mail_sender_address'] = $GLOBALS['onxshop_conf']['global']['admin_email'];
         if ($conf['mail_sender_name'] == '') $conf['mail_sender_name'] = $GLOBALS['onxshop_conf']['global']['admin_email_name'];
@@ -122,7 +123,6 @@ CREATE TABLE common_email (
         else if ($conf['smtp_server_username'] == '') $conf['smtp_server_username'] = false;
         if (getenv('ONXSHOP_SMTP_SERVER_PASSWORD')) $conf['smtp_server_password'] = getenv('ONXSHOP_SMTP_SERVER_PASSWORD');
         else if ($conf['smtp_server_password'] == '') $conf['smtp_server_password'] = false;
-        // DELETE FROM common_email WHERE created < CURRENT_DATE + INTERVAL '7 days';
         return $conf;
     }
     
@@ -277,13 +277,14 @@ CREATE TABLE common_email (
                 //temp
                 $email_data['subject'] = $this->get('subject');
                 
-                if ($this->insert($email_data)) {
-                    return true;
-                } else {
-                    //TODO: notify admin
-                    msg("Can't insert email record into the database", "error", 1);
+                // save to db if email retention is more than 0 days
+                if (is_numeric($this->conf['retention_days']) > 0) {
+                    if ($this->insert($email_data)) {
+                        return true;
+                    } else {
+                        msg("Can't insert email record into the database", "error", 1);
+                    }
                 }
-        
             } else {
                 //TODO: notify admin
                 msg("Can't send email using mail->send()", "error");
@@ -304,6 +305,9 @@ CREATE TABLE common_email (
      
     function send() {
     
+        // delete old emails first - concide move it to a garbace collecter together with session gc
+        $this->deleteOldEmails();
+        
         $email_data = $this->_format($this->template);
         $this->set('subject', $email_data['title']);
 
@@ -549,5 +553,45 @@ CREATE TABLE common_email (
         $html = preg_replace("/action=[\"\'](?!JavaScript)(?!http)(.*)[\"\']/i","action=\"$url\\1\"",$html);
         //$abs_html = preg_replace( "/(?<!href=\")((http|ftp)+(s)?:\/\/[^<>\s]+)/i", "href=\"$url\\0\"", $html );
         return $html;
+    }
+    
+    /**
+     * deleteOldEmails
+     *
+     * @return boolean
+     * indicate success operation
+     */
+     
+    public function deleteOldEmails() {
+        
+        $days = $this->conf['retention_days'];
+        
+        if ($this->deleteEmailsOlderThan($days)) return true;
+        else return false;
+        
+    }
+    
+    /**
+     * delete old emails to reduce amount of personal data stored
+     *
+     * @param int $days
+     * emails older than this number of days
+     * 
+     * @return integer
+     * number of deleted emails
+     */
+     
+    function deleteEmailsOlderThan($days) {
+        
+        if (!is_numeric($days)) return false;
+        if ($days < 0) return false;
+        
+        $sql = "DELETE FROM common_email WHERE created < CURRENT_DATE - INTERVAL '$days days';";
+        
+        if ($result = $this->executeSql($sql)) {
+            return count($result);
+        } else {
+            return false;
+        }
     }
 }
