@@ -794,7 +794,7 @@ class Onxshop_Bootstrap {
              * disable page cache for whole session after a user interaction and for backoffice users
              */
              
-            if (count($_POST) > 0 || Onxshop_Bo_Authentication::getInstance()->isAuthenticated() || $_SESSION['client']['customer']['id'] > 0) $use_page_cache = false;
+            if (count($_POST) > 0 || Onxshop_Bo_Authentication::getInstance()->isAuthenticated() || $_SESSION['client']['customer']['id'] > 0 || $_COOKIE['identity_access_token']) $use_page_cache = false;
             
             /**
              * TODO: allow to configure what _GET variables will disable page cache
