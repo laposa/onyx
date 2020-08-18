@@ -2,7 +2,7 @@
 /**
  * class client_customer
  * 
- * Copyright (c) 2009-2018 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2020 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -2216,7 +2216,11 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
         $token = $Token->generateToken($customer_id);
         
         if ($token) {
-            setcookie("onxshop_token", $token, time()+3600*24*600, "/");
+            
+            if (onxshopDetectProtocol() == 'https') $secure = true;
+        else $secure = false;
+
+            setcookie("onxshop_token", $token, time()+3600*24*600, "/", "", $secure, true);
             return true;
         } else {
             return false;
