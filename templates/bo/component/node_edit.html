@@ -7,54 +7,59 @@
 </div>
 
 <script type="text/javascript">
-    $(document).ready(function() { 
+    $(document).ready(function() {
     console.log('READY!');
-        var options = { 
-            target:        '#node-properties-edit-response', 
+        var options = {
+            target:        '#node-properties-edit-response',
             beforeSubmit:  preSubmit,
-            success:       showResponse, 
+            success:       showResponse,
             url:       '/request/bo/component/node_edit~id={GET.id}:orig={GET.orig}~ #node-properties-edit'
-        }; 
+        };
 
         $('#node-edit-{GET.id}').ajaxForm(options);
-        
+
         $('#node-edit-{GET.id}').validate();
     });
-        
-// pre-submit callback 
-function preSubmit() {
+
+// pre-submit callback
+function preSubmit(arr, $form, options) {
+    if (!$form[0].checkValidity()) {
+      $('button.save').removeClass('saving');
+      return false;
+    }
+
     console.log('READY FOR SUBMSSION!');
     if(typeof hookNodeEditPreUpdate == 'function') {
         hookNodeEditPreUpdate();
     }
 }
 
-// post-submit callback 
+// post-submit callback
 function showResponse(responseText, statusText)  {
-    
+
     popupMessage("#node-properties-edit-response div.onxshop-messages");
-    
+
     $('button.save').removeClass('saving');
-    
+
     initBackofficeUI();
-    
+
     if(typeof hookNodeEditPostUpdate == 'function') {
         hookNodeEditPostUpdate();
     }
-    
-    /** 
+
+    /**
      * bo/component/scheduler_list specific
      * TODO: create hook registry to allow multiple hooks
      */
     if(typeof hookNodeEditPostUpdateScheduler == 'function') {
         hookNodeEditPostUpdateScheduler();
     }
-    
+
     //reload whole form in case node_group has changed
     if ($('#node-node-group-{GET.id}').length && ($('#node-node-group-{GET.id}').attr('value') != '{NODE.node_group}' || $('#node-node-controller-{GET.id}').attr('value') != '{NODE.node_controller}')) {
         if (confirm("You have changed the content type, the browser window will refresh to display the updated fields")) window.location.reload();
     }
-    
+
     //don't reload in context when in backoffice
     var path = '{GET.orig}';
     var node_id = {GET.id};
