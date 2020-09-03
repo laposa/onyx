@@ -304,7 +304,7 @@ class Onxshop_Bootstrap {
         else $protocol = 'http';
 
         $_SESSION['uri'] = "$protocol://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
-        $_SESSION['last_item'] = $_SESSION['history'][count($_SESSION['history'])-1]['uri'];
+        if (is_array($_SESSION['history'])) $_SESSION['last_item'] = $_SESSION['history'][count($_SESSION['history'])-1]['uri'];
         $_SESSION['orig'] = $_SERVER['REQUEST_URI'];
         
         
