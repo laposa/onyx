@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2006-2016 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2006-2020 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -37,7 +37,7 @@ class Onxshop_Controller_Component_Search_Nodes extends Onxshop_Controller {
                         $r = $this->Node->detail($active_pages[0]);
                     }
                 
-                    if (!in_array($r['id'], $added) && $r['node_group'] == 'page') {
+                    if (!in_array($r['id'], $added) && $r['node_group'] == 'page' && $r['publish'] == 1) {
                         $this->tpl->assign('RESULT', $r);
                         $this->tpl->parse('content.result.item');
                         $added[] = $r['id'];
