@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2006-2019 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2006-2020 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -288,7 +288,7 @@ class Onxshop_Controller_Uri_Mapping extends Onxshop_Controller {
          * check main domain
          */
     
-        if (defined('ONXSHOP_MAIN_DOMAIN')) {
+        if (defined('ONXSHOP_MAIN_DOMAIN') && strlen(ONXSHOP_MAIN_DOMAIN) > 0) {
             if (array_key_exists('HTTPS', $_SERVER)) $protocol = 'https';
             else $protocol = 'http';
             
