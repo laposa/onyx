@@ -3,7 +3,12 @@ Options -Indexes +FollowSymLinks
 
 # Force IE to the latest version
 Header set X-UA-Compatible "IE=edge"
+
+# Prevent Clickjacking
 Header set X-Frame-Options SAMEORIGIN
+
+# Allow load resources from other location, i.e. localhost
+# Header add Access-Control-Allow-Origin "*"
 
 # local rewrite rules
 #RewriteEngine On
