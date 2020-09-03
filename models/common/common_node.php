@@ -2,7 +2,7 @@
 /**
  * class common_node
  *
- * Copyright (c) 2009-2019 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2020 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -1281,28 +1281,24 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
         
         foreach ($qs as $q) {
         
-            if (is_numeric($q)) {
-        
-                $where_query .= "(id = $q OR content ILIKE '%$q%')";
-        
-            } else {
-        
-                $q = "%$q%";
-                $where_query .= "(title ILIKE '$q' OR
-                    page_title ILIKE '$q' OR 
-                    ( node_group = 'content' AND content ILIKE '$q' ) OR
-                    description ILIKE '$q' OR
-                    keywords ILIKE '$q' OR
-                    component ILIKE '$q')";
-            }
-        
-            $where_query .=  " AND publish = 1 AND ";
+            $where_query .= "
+                SELECT *
+                FROM common_node
+                WHERE to_tsvector('english', 
+                    title || ' ' || 
+                    coalesce(page_title, '') || ' ' || 
+                    coalesce(description, '')  || ' ' || 
+                    coalesce(keywords, '')  || ' ' || 
+                    coalesce(content, '')
+                    ) @@ to_tsquery('english', '$q')
+                AND node_controller != 'symbolic' AND publish = 1
+                ORDER BY modified DESC;
+            ";
         
         }
         
-        $where_query = rtrim($where_query, "AND ");
         //msg($where_query);
-        $result = $this->listing($where_query);
+        $result = $this->executeSQL($where_query);
         
         return $result;
     }
