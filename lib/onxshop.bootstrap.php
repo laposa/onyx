@@ -42,6 +42,12 @@ class Onxshop_Bootstrap {
         $this->initDatabase();
         
         /**
+         * Initialise media library folder
+         */
+
+        $this->initFiles();
+
+        /**
          * Initialise cache backend connection
          */
         
@@ -177,6 +183,23 @@ class Onxshop_Bootstrap {
     
     }
     
+    /**
+     * initFiles
+     */
+
+    function initFiles() {
+
+        /**
+         * check directory exists
+         */
+        
+        $directory = ONXSHOP_PROJECT_DIR . 'var/files/';
+
+        if (!is_dir($directory)) {
+            if (!mkdir($directory)) die($directory . ' directory is not writeable');
+        }
+    }
+
     /**
      * initCache
      */
