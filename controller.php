@@ -795,6 +795,7 @@ class Onxshop_Controller {
         $this->tpl->assign('_SESSION', $_SESSION);
         $this->tpl->assign('_POST', $_POST);
         $this->tpl->assign('_GET', $_GET);
+        $this->tpl->assign('_ENV', $_ENV);
         
         $this->tpl->assign('GET', $this->GET);
         $this->tpl->assign('TIME', time());
