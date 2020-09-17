@@ -29,7 +29,7 @@ class Onxshop_Controller_Autologin extends Onxshop_Controller {
 
     protected function checkCookieForToken()
     {
-        if (isset($_COOKIE['onxshop_token'])) {
+        if (isset($_COOKIE[ONXSHOP_TOKEN_NAME])) {
 
             require_once('models/client/client_customer_token.php');
             $Token = new client_customer_token();
@@ -60,7 +60,7 @@ class Onxshop_Controller_Autologin extends Onxshop_Controller {
 
                 msg('Invalid autologin token supplied', 'error', 1);
                 //delete cookie
-                setcookie('onxshop_token', '', time()-3600, '/');
+                setcookie(ONXSHOP_TOKEN_NAME, '', time()-3600, '/');
             }
 
         }

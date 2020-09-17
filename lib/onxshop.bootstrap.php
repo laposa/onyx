@@ -44,16 +44,14 @@ class Onxshop_Bootstrap {
         /**
          * Initialise cache backend connection
          */
-         
+        
         $this->initCache();
     
         /**
          * Initialise session
          */
-        if ($this->isSessionRequired()) {
-            
+        if (ONXSHOP_SESSION_START_FOR_ALL_USERS || $this->isSessionRequired()) {
             $this->initSession();
-            
         }
         
         /**
@@ -94,7 +92,6 @@ class Onxshop_Bootstrap {
         }
     
     }
-
 
     /**
      * Initialise database connection
@@ -569,7 +566,7 @@ class Onxshop_Bootstrap {
     
     /**
      * getPublicHeaders
-     * store in cache only public headers, definitely not "Set-Cookie: PHPSESSID=2vom6fgga2lp0cg5d9gspqomv0; path=/" header!!!
+     * store in cache only public headers, definitely not Set-Cookie header!!!
      */
      
     public function getPublicHeaders() {
@@ -750,11 +747,14 @@ class Onxshop_Bootstrap {
         if (array_key_exists('translate', $_GET) && in_array($_GET['translate'], $exceptions)) return false;
         
         /**
-         * don't need session for cached pages when client doesn't have PHPSESSID
+         * don't need session for cached pages
          */
         
-        //if ($this->isPageCacheAllowed() && !isset($_COOKIE['PHPSESSID'])) return false;
-        
+        if ($this->isPageCacheAllowed()) return false;
+
+        /**
+         * default value
+         */
         return true;
         
     }
@@ -768,7 +768,7 @@ class Onxshop_Bootstrap {
         /**
          * default value
          */
-         
+        
         $use_page_cache = true;
 
         /**
@@ -782,6 +782,10 @@ class Onxshop_Bootstrap {
             
             $use_page_cache = false;
         
+        } else if (array_key_exists(ONXSHOP_SESSION_NAME, $_COOKIE) || array_key_exists(ONXSHOP_TOKEN_NAME, $_COOKIE) || $_COOKIE['identity_access_token']) {
+            
+            $use_page_cache = false;
+
         } else {
         
             /**
@@ -794,7 +798,7 @@ class Onxshop_Bootstrap {
              * disable page cache for whole session after a user interaction and for backoffice users
              */
              
-            if (count($_POST) > 0 || Onxshop_Bo_Authentication::getInstance()->isAuthenticated() || $_SESSION['client']['customer']['id'] > 0 || $_COOKIE['identity_access_token']) $use_page_cache = false;
+            if ($_SERVER['REQUEST_METHOD'] === 'POST' || Onxshop_Bo_Authentication::getInstance()->isAuthenticated() || $_SESSION['client']['customer']['id'] > 0) $use_page_cache = false;
             
             /**
              * TODO: allow to configure what _GET variables will disable page cache

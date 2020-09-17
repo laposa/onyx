@@ -54,16 +54,16 @@ class Onxshop_Controller_Component_Client_Logout extends Onxshop_Controller {
 
         // invalidate token in database
 
-        if (isset($_COOKIE['onxshop_token'])) {
+        if (isset($_COOKIE[ONXSHOP_TOKEN_NAME])) {
             require_once('models/client/client_customer_token.php');
             $Token = new client_customer_token();
             $Token->setCacheable(false);
-            $Token->invalidateToken($_COOKIE['onxshop_token']);
+            $Token->invalidateToken($_COOKIE[ONXSHOP_TOKEN_NAME]);
         }
 
         // invalidate token in cookie
 
-        setcookie("onxshop_token", "", time()-60*60*24*100, "/");
+        setcookie(ONXSHOP_TOKEN_NAME, "", time()-60*60*24*100, "/");
     }
     
 }

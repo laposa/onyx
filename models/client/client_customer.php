@@ -2220,7 +2220,7 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
             if (onxshopDetectProtocol() == 'https') $secure = true;
         else $secure = false;
 
-            setcookie("onxshop_token", $token, time()+3600*24*600, "/", "", $secure, true);
+            setcookie(ONXSHOP_TOKEN_NAME, $token, time()+3600*24*600, "/", "", $secure, true);
             return true;
         } else {
             return false;

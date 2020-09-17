@@ -67,13 +67,6 @@ if(in_array($http_client_ip, array_keys($debug_hosts)))  {
 }
 
 /**
- * Add the httpOnly flag to the cookie, which makes it inaccessible to browser scripting languages such as JavaScript
- * http://php.net/session.cookie-httponly
- */
- 
-ini_set( 'session.cookie_httponly', 1 );
-
-/**
  * Authentication type for backend users
  */
 
@@ -141,6 +134,26 @@ if (!defined('ONXSHOP_COMPRESS_OUTPUT')) define('ONXSHOP_COMPRESS_OUTPUT', 0);
 
 if (!defined('ONXSHOP_SESSION_TYPE')) define('ONXSHOP_SESSION_TYPE', 'database');
 if (!defined('ONXSHOP_SESSION_DIRECTORY')) define('ONXSHOP_SESSION_DIRECTORY', ONXSHOP_PROJECT_DIR . 'var/sessions/'); // also used for .lock files
+
+/**
+ * Add the httpOnly flag to the cookie, which makes it inaccessible to browser scripting languages such as JavaScript
+ * http://php.net/session.cookie-httponly
+ */
+ 
+ini_set( 'session.cookie_httponly', 1 );
+
+/**
+ * change from default PHPSESSID, it will be visible in HTTP header Set-Cookie
+ */
+
+if (!defined('ONXSHOP_SESSION_NAME')) define('ONXSHOP_SESSION_NAME', 'OnxshopSID');
+
+/**
+ * start session for all users
+ * if false, session will start only if necessary
+ */
+
+if (!defined('ONXSHOP_SESSION_START_FOR_ALL_USERS')) define('ONXSHOP_SESSION_START_FOR_ALL_USERS', true);
 
 /**
  * Layout settings
@@ -381,8 +394,8 @@ if (!defined('ONXSHOP_FLICKR_API_KEY')) define('ONXSHOP_FLICKR_API_KEY', '');
 if (!defined('ONXSHOP_PROJECT_EXTERNAL_DIRECTORIES')) define('ONXSHOP_PROJECT_EXTERNAL_DIRECTORIES', '');
 
 /**
- * change from default PHPSESSID, it will be visible in HTTP header Set-Cookie
+ * Token for permanent login
  */
 
-if (!defined('ONXSHOP_SESSION_NAME')) define('ONXSHOP_SESSION_NAME', 'OnxshopSID');
+if (!defined('ONXSHOP_TOKEN_NAME')) define('ONXSHOP_TOKEN_NAME', 'onxshop_token'); 
 
