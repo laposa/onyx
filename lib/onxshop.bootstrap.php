@@ -199,7 +199,18 @@ class Onxshop_Bootstrap {
         'lifetime' => ONXSHOP_DB_QUERY_CACHE_TTL,
         'automatic_serialization' => false
         );
-        $backendOptions = array('cache_dir' => ONXSHOP_DB_QUERY_CACHE_DIRECTORY);
+
+        switch (ONXSHOP_DB_QUERY_CACHE_BACKEND) {
+            case 'File':
+                $backendOptions = array('cache_dir' => ONXSHOP_DB_QUERY_CACHE_DIRECTORY);
+            break;
+            case 'Libmemcached':
+                $backendOptions = array('host' => ONXSHOP_CACHE_BACKEND_LIBMEMCACHED_HOST, 'port' => ONXSHOP_CACHE_BACKEND_LIBMEMCACHED_PORT,);
+            break;
+            case 'Apc':
+            default:
+                $backendOptions = array();
+        }
         
         $cache = Zend_Cache::factory('Core', ONXSHOP_DB_QUERY_CACHE_BACKEND, $frontendOptions, $backendOptions);
         

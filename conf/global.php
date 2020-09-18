@@ -197,6 +197,14 @@ if (!defined('ONXSHOP_PAGE_CACHE_DIRECTORY')) define('ONXSHOP_PAGE_CACHE_DIRECTO
 if (!defined('ONXSHOP_PAGE_CACHE_BACKEND')) define('ONXSHOP_PAGE_CACHE_BACKEND', ONXSHOP_DB_QUERY_CACHE_BACKEND); // Same as DB cache
 if (!defined('ONXSHOP_PAGE_CACHE_TTL')) define('ONXSHOP_PAGE_CACHE_TTL', 86400); // set 0 to disable
 
+/**
+ * Libmemcached configuration
+ */
+
+if (!defined('ONXSHOP_CACHE_BACKEND_LIBMEMCACHED_HOST')) define('ONXSHOP_CACHE_BACKEND_LIBMEMCACHED_HOST', 'localhost');
+if (!defined('ONXSHOP_CACHE_BACKEND_LIBMEMCACHED_PORT')) define('ONXSHOP_CACHE_BACKEND_LIBMEMCACHED_PORT', 11211);
+
+
 
 /**
  * Onxshop package name
