@@ -30,7 +30,7 @@ $uri_map = array(
         '^/backoffice/?$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/summary',
         '^/backoffice/my$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/generic.bo/component/client/edit_profile',
         '^/backoffice/pages$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/pages',
-        '^/backoffice/publish$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/publish',
+        '^/backoffice/build$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/build',
         '^/backoffice/pages/([0-9]*)$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice~id=$1~.bo/pages/pages~id=$1~',
         '^/backoffice/news$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/news',
         '^/backoffice/news/([0-9]*)$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/news&blog_node_id=$1',

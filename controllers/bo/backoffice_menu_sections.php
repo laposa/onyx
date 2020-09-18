@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2014-2017 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2014-2020 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -61,6 +61,7 @@ class Onxshop_Controller_Bo_Backoffice_Menu_Sections extends Onxshop_Controller_
         if ($auth->hasAnyPermission('front_office')) $this->tpl->parse('content.fe_edit');
         if ($auth->hasAnyPermission('nodes')) $this->tpl->parse('content.pages');
         if ($auth->hasAnyPermission('nodes')) $this->tpl->parse('content.news');
+        if ($auth->hasAnyPermission('build')) $this->tpl->parse('content.build');
         if ($auth->hasAnyPermission('products') && $isEcommerce) $this->tpl->parse('content.products');
         if ($auth->hasAnyPermission('recipes') && $isEcommerce) $this->tpl->parse('content.recipes');
         if ($auth->hasAnyPermission('stores') && $isEcommerce) $this->tpl->parse('content.stores');

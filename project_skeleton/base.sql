@@ -69,7 +69,8 @@ CREATE TYPE acl_resource AS ENUM (
     'tools',
     'logs',
     'configuration',
-    'permissions'
+    'permissions',
+    'build'
 );
 
 
@@ -1876,6 +1877,7 @@ COPY client_role_permission (id, role_id, resource, operation, scope, created, m
 28	5	surveys	_all_	\N	2014-12-31 20:29:08.138829	2014-12-31 20:29:08.138829	\N
 29	5	discounts	_all_	\N	2014-12-31 20:29:08.138829	2014-12-31 20:29:08.138829	\N
 30	6	stock	_all_	\N	2014-12-31 20:29:08.138829	2014-12-31 20:29:08.138829	\N
+31	3	build	_all_	\N	2020-09-18 16:00:00.000000	2020-09-18 16:00:00.000000	\N
 \.
 
 
