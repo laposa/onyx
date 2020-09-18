@@ -1,35 +1,36 @@
 <?php
-/** 
+/**
  * Copyright (c) 2014 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  * this file contains mapping of URLs to Onxshop component requests
  * see also model/uri_mapping for URLs mapped in CMS
- * 
+ *
  * syntax as htaccess RewriteRule, only extra root / is necessary
  * on the right hand side is expected either "request" or "controller_request"
  */
- 
+
 $uri_map = array(
-            
+
     '^/?$' => '/index.php?request=uri_mapping&translate=/',
     '^/sitemap.xml$' => '/index.php?request=export/xml_googlesitemap',
     '^/imagesxml/([0-9]*)$' => '/index.php?request=export/imagesxml&role=page&node_id=$1',
     '^/api/v([0-9]*).([a-z0-9-_\.]*)/(.*)$' => '/index.php?request=uri_mapping&controller_request=api/v$1_$2/$3&version=v$1_$2',
     '^/api/(.*)$' => '/index.php?request=uri_mapping&controller_request=api/$1',
-    
+
     '^/product/([0-9]*)$' => '/index.php?request=forward&product_id=$1',
     '^/recipe/([0-9]*)$' => '/index.php?request=forward&recipe_id=$1',
     '^/store/([0-9]*)$' => '/index.php?request=forward&store_id=$1',
     '^/client/logout$' => '/index.php?request=component/client/logout',
-    
+
     '^/request/(.*)$' => '/index.php?request=uri_mapping&controller_request=$1',
     '^/edit/?$' => '/index.php?request=bo/fe_edit',
-    
+
     '^/backoffice' => array(
         '^/backoffice/?$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/summary',
         '^/backoffice/my$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/generic.bo/component/client/edit_profile',
         '^/backoffice/pages$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/pages',
+        '^/backoffice/publish$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/publish',
         '^/backoffice/pages/([0-9]*)$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice~id=$1~.bo/pages/pages~id=$1~',
         '^/backoffice/news$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/news',
         '^/backoffice/news/([0-9]*)$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/news&blog_node_id=$1',
@@ -81,7 +82,7 @@ $uri_map = array(
         '^/backoffice/customers/add$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/client/customer_add',
         '^/backoffice/customers/([0-9]*)/detail$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/client/customer_detail&id=$1'
     ),
-    
+
     '^/popup' => array(
         '^/popup_window/(.*)$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/popup.$1',
         '^/popup/edit/([a-z]*)/([0-9]*)/orig/(.*)$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/popup.bo/component/node_edit~id=$2~&orig=$3&popup=1',
@@ -94,17 +95,17 @@ $uri_map = array(
         '^/popup/logs$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/popup.bo/component/logs',
         '^/popupimage/(.*)$' => '/index.php?request=sys/html5.component/popimage&src=$1'
     ),
-    
+
     '^/ajax/add/' => array(
         '^/ajax/add/([a-z]*)/([0-9]*)$' => '/index.php?request=bo/component/node_add&parent=$2&container=$3&node_group=$1&ajax=1&dontforward=1',
         '^/ajax/add/([a-z]*)/([0-9]*)/([0-9]*)/orig/(.*)$' => '/index.php?request=bo/component/node_add&parent=$2&container=$3&node_group=$1&orig=$4&ajax=1&dontforward=1'
     ),
-    
+
     '^/export/' => array(
         '^/export/([a-z]*)/([a-z]*)$' => '/index.php?request=export/$1_$2',
         '^/export/([a-z]*)/([a-z]*)/([0-9]*)$' => '/index.php?request=export/$1_$2&id=$3',
     ),
-    
+
     '^/print' => array(
         '^/print/invoice/(.*)$' => '/index.php?request=sys/html5.node/site/print.component/ecommerce/invoice&id=$1',
         '^/print/invoice_proforma/(.*)$' => '/index.php?request=sys/html5.node/site/print.component/ecommerce/invoice@component/ecommerce/invoice_proforma&id=$1',
