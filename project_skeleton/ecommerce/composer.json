@@ -1,0 +1,8 @@
+{
+  "name": "musgrave/identity",
+  "type": "project",
+  "require": {
+      "laposa/onyx": "dev-master",
+      "vlucas/phpdotenv": "^4.1"
+  }
+}
