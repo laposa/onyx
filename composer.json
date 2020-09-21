@@ -1,9 +1,12 @@
 {
   "name": "laposa/onyx",
   "description": "CMS",
+  "config": {
+      "php": "7.0.33"
+  },
   "require": {
-      "php": "^7",
+      "php": "7.0.33",
       "zendframework/zendframework1": "1.12.20",
-      "tracy/tracy": "v2.3"
+      "tracy/tracy": "v2.5.9"
   }
 }
