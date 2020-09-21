@@ -820,6 +820,10 @@ class Onxshop_Bootstrap {
             
             $use_page_cache = false;
 
+        } else if (!isset($_SERVER['PHP_AUTH_USER'])) {
+            
+            $use_page_cache = false;
+
         } else {
         
             /**
