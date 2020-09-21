@@ -228,20 +228,20 @@ class Onxshop_Bootstrap {
                 $backendOptions = array('cache_dir' => ONXSHOP_DB_QUERY_CACHE_DIRECTORY);
             break;
             case 'Libmemcached':
-                $backendOptions = array('host' => ONXSHOP_CACHE_BACKEND_LIBMEMCACHED_HOST, 'port' => ONXSHOP_CACHE_BACKEND_LIBMEMCACHED_PORT,);
+                $backendOptions = array('host' => ONXSHOP_CACHE_BACKEND_LIBMEMCACHED_HOST, 'port' => ONXSHOP_CACHE_BACKEND_LIBMEMCACHED_PORT);
             break;
             case 'Apc':
             default:
                 $backendOptions = array();
         }
         
-        $cache = Zend_Cache::factory('Core', ONXSHOP_DB_QUERY_CACHE_BACKEND, $frontendOptions, $backendOptions);
+        $db_cache = Zend_Cache::factory('Core', ONXSHOP_DB_QUERY_CACHE_BACKEND, $frontendOptions, $backendOptions);
         
         /**
          * store db cache in registry
          */
          
-        Zend_Registry::set('onxshop_db_cache', $cache);
+        Zend_Registry::set('onxshop_db_cache', $db_cache);
         
         /**
          * page cache
@@ -251,8 +251,6 @@ class Onxshop_Bootstrap {
         'lifetime' => ONXSHOP_PAGE_CACHE_TTL,
         'automatic_serialization' => true
         );
-        
-        $backendOptions = array('cache_dir' => ONXSHOP_PAGE_CACHE_DIRECTORY);
         
         $this->cache = Zend_Cache::factory('Output', ONXSHOP_PAGE_CACHE_BACKEND, $frontendOptions, $backendOptions);
         
@@ -515,11 +513,10 @@ class Onxshop_Bootstrap {
 
         if (!is_array($data = $this->cache->load($id))) {
             // cache miss
-            
             $this->processAction($request);
             
             if ($this->canBeSavedInCache()) {
-
+                
                 $data_to_cache = array();
                 $data_to_cache['output_headers'] = $this->headers;
                 $data_to_cache['output_body'] = $this->output;
@@ -819,11 +816,11 @@ class Onxshop_Bootstrap {
         } else if (array_key_exists(ONXSHOP_SESSION_NAME, $_COOKIE) || array_key_exists(ONXSHOP_TOKEN_NAME, $_COOKIE) || $_COOKIE['identity_access_token']) {
             
             $use_page_cache = false;
-
-        } else if (!isset($_SERVER['PHP_AUTH_USER'])) {
+            
+        } else if (isset($_SERVER['PHP_AUTH_USER'])) {
             
             $use_page_cache = false;
-
+            
         } else {
         
             /**
@@ -863,7 +860,7 @@ class Onxshop_Bootstrap {
         if (
             Zend_Registry::isRegistered('controller_error')
             || Zend_Registry::isRegistered('omit_cache')
-            || ($_SESSION['use_page_cache'] == false)
+            || (array_key_exists('use_page_cache', $_SESSION) && $_SESSION['use_page_cache'] == false)
             ) {
             
             return false;
