@@ -666,7 +666,7 @@ Onyx (1.5.0)
   * backoffice customer list is forced to use DB cache
   * thumbnail_step changed from 25px to 5px
   * moved to Git and https://github.com/laposa/onyx
-  * removed project_skeleton/onyx_dir symlink from dev version, left only in testing
+  * removed project_skeleton/onyx symlink from dev version, left only in testing
   * nx_* renamed to onyx_*
   * GLOBAL_ constants renamed to ONYX_
   * onyx.authentication improved _checkAccess
@@ -945,7 +945,7 @@ Onyx (1.4.0)
   * created a new component bo/component/backup and linked from tools (optionally available)
   * created new constant ONYX_PACKAGE_NAME (gold, silver and bronze), bronze as default
     gold and silver allows download whole backup
-  * Xsite rebranded as Onyx, xsite_dir renamed to onyx_dir, most of references updated
+  * Xsite rebranded as Onyx, xsite_dir renamed to onyx, most of references updated
   * Zend Framework upgraded to version 1.10.2
   * improved basket detail component, fixed list of VAT in basket
   * new ajax basket component

@@ -14,8 +14,8 @@ cp -a /opt/onyx-1.7/project_skeleton/base_with_blog/ ./
 mv project_skeleton [HOSTNAME]
 cd [HOSTNAME]
 chmod a+rwx -R var/
-#create symlink to shared onyx_dir folder
-ln -s /opt/onyx-1.7 onyx_dir;
+#create symlink to shared onyx folder
+ln -s /opt/onyx-1.7 onyx;
 
 # configure [HOSTNAME] vhost
 
@@ -43,7 +43,7 @@ createdb -U [NEWUSER] -h localhost [NEWPROJECT]-1_7
 
 # populate database with project template
 
-psql -U [NEWUSER] -h localhost [NEWPROJECT]-1_7 < onyx_dir/project_skeleton/base_with_blog.sql
+psql -U [NEWUSER] -h localhost [NEWPROJECT]-1_7 < onyx/project_skeleton/base_with_blog.sql
 
 # modify deployment.php
 

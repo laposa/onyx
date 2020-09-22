@@ -158,7 +158,7 @@ if [ -d $project_dir ]; then
     die "Directory $project_dir already exists"
 fi
 cp -a $project_skeleton_dir $project_dir
-rm $project_dir/onyx_dir && ln -s /opt/onyx/$onyx_version/ $project_dir/onyx_dir
+rm $project_dir/onyx && ln -s /opt/onyx/$onyx_version/ $project_dir/onyx
 chmod a+w -R $project_dir/var/
 }
 

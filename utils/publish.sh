@@ -30,7 +30,7 @@ rsync --recursive --times --cvs-exclude --delete-after --links --safe-links --co
     --exclude 'opt/_rubish/' \
     --exclude 'ONYX_VERSION' \
     --exclude '.git/' \
-    --exclude 'project_skeleton/onyx_dir' \
+    --exclude 'project_skeleton/onyx' \
     ${DEVELOPMENT_VERSION}* \
     $FULL_PATH
 
@@ -53,7 +53,7 @@ cd $DEVELOPMENT_VERSION && utils/compile_js_common.sh
 
 # 4. change symlink
 #echo "------------------------------------------------";
-#echo "CREATING onyx_dir SYMLINK IN PROJECT SKELETON";
+#echo "CREATING onyx SYMLINK IN PROJECT SKELETON";
 #echo "------------------------------------------------";
-#ln -s /opt/onyx/latest $FULL_PATH/project_skeleton/onyx_dir
+#ln -s /opt/onyx/latest $FULL_PATH/project_skeleton/onyx
 
