@@ -1,6 +1,6 @@
 /**
  * backoffice and fe_edit
- * Author: Norbert @ Onxshop Ltd 2010, 2012, 2017
+ * Author: Norbert @ Laposa Limited 2010-2020
  */
  
 function openEdit(url, el, ajax) {

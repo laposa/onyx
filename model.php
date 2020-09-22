@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2014-2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2014-2015 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  * please note all local attribute should use "local_" prefix, i.e. client_customer.local_my_own_attribute.

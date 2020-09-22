@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2006-2017 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2006-2017 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  * This script is initiating sessiona as it's doing ACL check

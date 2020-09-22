@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2005-2016 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2005-2016 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  * Allows to resize and view image file in var/files directory without initiating a session

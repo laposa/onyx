@@ -2,7 +2,7 @@
 /**
  * class common_taxonomy_tree
  *
- * Copyright (c) 2009-2017 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2017 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */

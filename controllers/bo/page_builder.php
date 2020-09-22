@@ -3,7 +3,7 @@
  * Page builder from content tags
  * shouldn't be used on any project at the moment 
  *
- * Copyright (c) 2006-2011 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2006-2011 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */

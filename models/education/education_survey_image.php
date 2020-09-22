@@ -4,7 +4,7 @@ require_once('models/common/common_image.php');
 /**
  * class education_survey_image
  *
- * Copyright (c) 2013-2014 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2013-2014 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */

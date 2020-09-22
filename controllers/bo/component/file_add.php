@@ -1,9 +1,9 @@
 <?php
 /** 
 <<<<<<< HEAD
- * Copyright (c) 2008-2017 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2008-2017 Laposa Limited (https://laposa.ie)
 =======
- * Copyright (c) 2008-2018 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2008-2018 Laposa Limited (https://laposa.ie)
 >>>>>>> b223d9b2... improved debugging messages in file_add
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */

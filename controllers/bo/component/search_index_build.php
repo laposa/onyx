@@ -1,7 +1,7 @@
 <?php
 /**
  * Rebuild search index for Zend Lucene using common_uri_mapping
- * Copyright (c) 2013-2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2013-2015 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
