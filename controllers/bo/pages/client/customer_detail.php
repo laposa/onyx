@@ -9,7 +9,7 @@
 
 require_once('models/client/client_customer.php');
 
-class Onxshop_Controller_Bo_Pages_Client_Customer_Detail extends Onxshop_Controller {
+class Onyx_Controller_Bo_Pages_Client_Customer_Detail extends Onyx_Controller {
     
     /**
      * main action

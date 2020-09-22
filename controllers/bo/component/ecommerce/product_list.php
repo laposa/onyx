@@ -7,7 +7,7 @@
  *
  */
 
-class Onxshop_Controller_Bo_Component_Ecommerce_Product_List extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Ecommerce_Product_List extends Onyx_Controller {
 
     /**
      * main action
@@ -45,8 +45,8 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Product_List extends Onxshop_Con
          * Sorting
          */
         
-        //$_Onxshop_Request = new Onxshop_Request("component/ecommerce/product_list_sorting");
-        //$this->tpl->assign('SORTING', $_Onxshop_Request->getContent());
+        //$_Onyx_Request = new Onyx_Request("component/ecommerce/product_list_sorting");
+        //$this->tpl->assign('SORTING', $_Onyx_Request->getContent());
         
         if ($this->GET['product-list-sort-by']) {
             $_SESSION['bo']['product-list-sort-by'] = $this->GET['product-list-sort-by'];
@@ -139,8 +139,8 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Product_List extends Onxshop_Con
         //$link = "/page/" . $_SESSION['active_pages'][0];
         $count = count($product_list);
         
-        $_Onxshop_Request = new Onxshop_Request("component/pagination~link=/request/bo/component/ecommerce/product_list:limit_from=$from:limit_per_page=$per_page:count=$count~");
-        $this->tpl->assign('PAGINATION', $_Onxshop_Request->getContent());
+        $_Onyx_Request = new Onyx_Request("component/pagination~link=/request/bo/component/ecommerce/product_list:limit_from=$from:limit_per_page=$per_page:count=$count~");
+        $this->tpl->assign('PAGINATION', $_Onyx_Request->getContent());
             
             
         

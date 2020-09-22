@@ -7,7 +7,7 @@
 
 require_once('controllers/component/ecommerce/best_buys.php');
 
-class Onxshop_Controller_Bo_Component_Ecommerce_Best_Buys extends Onxshop_Controller_Component_Ecommerce_Best_Buys {
+class Onyx_Controller_Bo_Component_Ecommerce_Best_Buys extends Onyx_Controller_Component_Ecommerce_Best_Buys {
 
     
     /**

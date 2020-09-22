@@ -7,7 +7,7 @@
 
 require_once('models/common/common_node.php');
 
-class Onxshop_Controller_Component_Teaser extends Onxshop_Controller {
+class Onyx_Controller_Component_Teaser extends Onyx_Controller {
 
 
     /**
@@ -88,10 +88,10 @@ class Onxshop_Controller_Component_Teaser extends Onxshop_Controller {
          */
         
         if (is_numeric($this->GET['image_width']) && $this->GET['image_width'] > 0) $image_width = $this->GET['image_width'];
-        else $image_width = $GLOBALS['onxshop_conf']['global']['stack_list_image_width'];
+        else $image_width = $GLOBALS['onyx_conf']['global']['stack_list_image_width'];
         
         if (is_numeric($this->GET['image_height']) && $this->GET['image_height'] > 0) $image_height = $this->GET['image_height'];
-        else $image_height = $GLOBALS['onxshop_conf']['global']['stack_list_image_height'];
+        else $image_height = $GLOBALS['onyx_conf']['global']['stack_list_image_height'];
 
         /**
          * load image

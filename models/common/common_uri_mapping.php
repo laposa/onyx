@@ -7,7 +7,7 @@
  *
  */
  
-class common_uri_mapping extends Onxshop_Model {
+class common_uri_mapping extends Onyx_Model {
 
     /**
      * @access private
@@ -66,7 +66,7 @@ ALTER TABLE common_uri_mapping ADD UNIQUE (public_uri);
      
     static function initConfiguration() {
     
-        if (array_key_exists('common_uri_mapping', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['common_uri_mapping'];
+        if (array_key_exists('common_uri_mapping', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['common_uri_mapping'];
         else $conf = array();
     
         require_once('models/common/common_node.php');
@@ -152,7 +152,7 @@ ALTER TABLE common_uri_mapping ADD UNIQUE (public_uri);
      
     function to_cms_url($html) {
     
-        $html = preg_replace("/href=[\"\'](?!JavaScript)(?!http)\/index.php\?request=" . addcslashes(ONXSHOP_DEFAULT_LAYOUT, '/') . ".page~id=([^\~]*)~[\"\']/i", "href=\"/page/\\1\"", $html);
+        $html = preg_replace("/href=[\"\'](?!JavaScript)(?!http)\/index.php\?request=" . addcslashes(ONYX_DEFAULT_LAYOUT, '/') . ".page~id=([^\~]*)~[\"\']/i", "href=\"/page/\\1\"", $html);
         //fix home URI
         if ($this->conf['rewrite_home']) $html = preg_replace("/href=[\"\'](?!JavaScript)(?!http)\/page\/".$this->conf['homepage_id'].'"/', "href=\"/\"", $html);
         
@@ -546,24 +546,24 @@ ALTER TABLE common_uri_mapping ADD UNIQUE (public_uri);
          */
         if ($render_in_site_template) {
             
-            if (Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) {
+            if (Onyx_Bo_Authentication::getInstance()->isAuthenticated()) {
             
                 //hack to pass _SESSION.fe_edit_mode even before it's called again from fe_edit
                 //consider moving this to $Bootstrap->initPreAction
                 //probably this whole block, _GET shouldn't be here!
-                $_Onxshop_Request = new Onxshop_Request('bo/component/fe_edit_mode');   
-                $prefix = ONXSHOP_DEFAULT_TYPE . "~id=$node_id~.bo/fe_edit~id=$node_id~." . ONXSHOP_MAIN_TEMPLATE . "~id=$node_id~";
+                $_Onyx_Request = new Onyx_Request('bo/component/fe_edit_mode');   
+                $prefix = ONYX_DEFAULT_TYPE . "~id=$node_id~.bo/fe_edit~id=$node_id~." . ONYX_MAIN_TEMPLATE . "~id=$node_id~";
             
             } else {
             
-                $prefix = ONXSHOP_DEFAULT_LAYOUT . "~id=$node_id~";
+                $prefix = ONYX_DEFAULT_LAYOUT . "~id=$node_id~";
             
             }
          
             $request = $prefix . '.' . $request;
         }
         
-        // fully built Onxshop request string
+        // fully built Onyx request string
         return $request;
     }
 

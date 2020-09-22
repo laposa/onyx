@@ -8,7 +8,7 @@
 require_once('controllers/bo/export/csv.php');
 require_once('models/ecommerce/ecommerce_store.php');
 
-class Onxshop_Controller_Bo_Export_CSV_Store_Notices extends Onxshop_Controller_Bo_Export_CSV {
+class Onyx_Controller_Bo_Export_CSV_Store_Notices extends Onyx_Controller_Bo_Export_CSV {
 
     /**
      * main action

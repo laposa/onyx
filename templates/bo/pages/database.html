@@ -49,7 +49,7 @@ function serverBrowserOpenDir(open_dir) {
                             <div class="column-one">
                                 <div class="column-wrapper">
                                     <div id="models">
-                                        {ONXSHOP_REQUEST_menu #bo/component/server_browser_menu~directory=models/:scope=all:trim_extension=1:expand_all=1~}
+                                        {ONYX_REQUEST_menu #bo/component/server_browser_menu~directory=models/:scope=all:trim_extension=1:expand_all=1~}
                                     </div>
 
                                 </div>
@@ -58,7 +58,7 @@ function serverBrowserOpenDir(open_dir) {
                                 <div class="column-wrapper">
 
                                     <div id="sub-content" style="overflow: auto;">
-                                        {ONXSHOP_REQUEST_database_listing #bo/component/database_listing}
+                                        {ONYX_REQUEST_database_listing #bo/component/database_listing}
                                     </div>
 
                                 </div>
@@ -69,10 +69,10 @@ function serverBrowserOpenDir(open_dir) {
                         <div class="row-wrapper">
                             <div class="column-wrapper">
                                 <p>
-                                    <a class="button" href="/share/docs/database/Onxshop.html">Explore DB Schema</a>
-                                    <a class="button" href="/share/docs/database/Onxshop.pdf">Download DB Schema (PDF)</a>
+                                    <a class="button" href="/share/docs/database/Onyx.html">Explore DB Schema</a>
+                                    <a class="button" href="/share/docs/database/Onyx.pdf">Download DB Schema (PDF)</a>
                                     <a class="button" href="/request/bo/component/export" onclick="return openAjaxRequestInOverlayWindow('/request/bo/component/export')">Export</a>
-                                    <a class="button" href="/opt/adminer/?{ONXSHOP_DB_TYPE}={ONXSHOP_DB_HOST}&username={ONXSHOP_DB_USER}&db={ONXSHOP_DB_NAME}&ns=public" target="_blank">Adminer</a>
+                                    <a class="button" href="/opt/adminer/?{ONYX_DB_TYPE}={ONYX_DB_HOST}&username={ONYX_DB_USER}&db={ONYX_DB_NAME}&ns=public" target="_blank">Adminer</a>
                                     <a class="button" href="/backoffice/advanced/database/graphql">GraphQL</a>
                                 </p>
                                 <p class="component-buttons">

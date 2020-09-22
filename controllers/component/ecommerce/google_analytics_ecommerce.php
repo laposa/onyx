@@ -5,7 +5,7 @@
  * 
  */
 
-class Onxshop_Controller_Component_Ecommerce_Google_Analytics_Ecommerce extends Onxshop_Controller {
+class Onyx_Controller_Component_Ecommerce_Google_Analytics_Ecommerce extends Onyx_Controller {
 
     /**
      * main action
@@ -13,7 +13,7 @@ class Onxshop_Controller_Component_Ecommerce_Google_Analytics_Ecommerce extends 
      
     public function mainAction() {
 
-        setlocale(LC_MONETARY, $GLOBALS['onxshop_conf']['global']['locale']);
+        setlocale(LC_MONETARY, $GLOBALS['onyx_conf']['global']['locale']);
 
         if (is_numeric($this->GET['order_id'])) {
 

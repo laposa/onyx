@@ -12,7 +12,7 @@ $(document).ready(function(){
             target: '#customer-filter-form-wrapper',
             beforeSubmit: function() { return $("#customer-filter-form").valid() },
             success: function(responseText, statusText) {
-                popupMessage("#customer-filter-form-wrapper div.onxshop-messages");
+                popupMessage("#customer-filter-form-wrapper div.onyx-messages");
                 if ($('#preview-specified-customers').length == 0) window.location = '/backoffice/customers';
                 makeAjaxRequest('#preview-specified-customers', '/request/bo/component/client/customer_list', function () {
                     initAjaxPagination();
@@ -114,7 +114,7 @@ $(document).ready(function(){
                         </span>
                     </div>
                     <div id="filterTaxonomy">
-                        {disableONXSHOP_REQUEST_rt #bo/component/relation_taxonomy~relation=product:id=GET.id~}
+                        {disableONYX_REQUEST_rt #bo/component/relation_taxonomy~relation=product:id=GET.id~}
                     </div>
                     <!-- END: product -->
 

@@ -7,7 +7,7 @@
  * 
  */
 
-class Onxshop_Controller_Bo_Pages_Pages extends Onxshop_Controller {
+class Onyx_Controller_Bo_Pages_Pages extends Onyx_Controller {
     
     /**
      * main action
@@ -19,8 +19,8 @@ class Onxshop_Controller_Bo_Pages_Pages extends Onxshop_Controller {
         
         $this->tpl->assign('NODE_ID', $content_id);
         
-        $_Onxshop_Request = new Onxshop_Request("bo/component/node_edit~id=$content_id~");
-        $node_detail = $_Onxshop_Request->getContent();
+        $_Onyx_Request = new Onyx_Request("bo/component/node_edit~id=$content_id~");
+        $node_detail = $_Onyx_Request->getContent();
         $this->tpl->assign("NODE_EDIT", $node_detail);
 
         return true;

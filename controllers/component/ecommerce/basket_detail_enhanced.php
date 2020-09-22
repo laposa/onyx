@@ -6,6 +6,6 @@
 
 require_once('controllers/component/ecommerce/basket_detail.php');
 
-class Onxshop_Controller_Component_Ecommerce_Basket_Detail_Enhanced extends Onxshop_Controller_Component_Ecommerce_Basket_Detail {
+class Onyx_Controller_Component_Ecommerce_Basket_Detail_Enhanced extends Onyx_Controller_Component_Ecommerce_Basket_Detail {
 
 }

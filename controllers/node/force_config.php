@@ -7,7 +7,7 @@
 
 require_once("controllers/node.php");
 
-class Onxshop_Controller_Node_Force_Config extends Onxshop_Controller_Node {
+class Onyx_Controller_Node_Force_Config extends Onyx_Controller_Node {
 
     /**
      * main action
@@ -19,7 +19,7 @@ class Onxshop_Controller_Node_Force_Config extends Onxshop_Controller_Node {
 
         if (is_numeric($node_id)) {
             $global_conf_node_overwrites = $this->initGlobalNodeConfigurationOverwrites($node_id);
-            $GLOBALS['onxshop_conf'] = $this->array_replace_recursive($GLOBALS['onxshop_conf'], $global_conf_node_overwrites);
+            $GLOBALS['onyx_conf'] = $this->array_replace_recursive($GLOBALS['onyx_conf'], $global_conf_node_overwrites);
         }
 
         return true;

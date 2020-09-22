@@ -9,7 +9,7 @@
 
 require_once('controllers/component/ecommerce/payment/protx.php');
 
-class Onxshop_Controller_Component_Ecommerce_Payment_Protx_Callback extends Onxshop_Controller_Component_Ecommerce_Payment_Protx {
+class Onyx_Controller_Component_Ecommerce_Payment_Protx_Callback extends Onyx_Controller_Component_Ecommerce_Payment_Protx {
 
     /**
      * main action
@@ -19,7 +19,7 @@ class Onxshop_Controller_Component_Ecommerce_Payment_Protx_Callback extends Onxs
         
         if ($_SESSION['client']['customer']['id'] == 0) {
             msg('payment_callback_protx: You must be logged in.');
-            onxshopGoTo("/");
+            onyxGoTo("/");
         }
         
         require_once('conf/payment/protx.php');

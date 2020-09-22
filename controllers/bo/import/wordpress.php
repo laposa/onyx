@@ -9,7 +9,7 @@ require_once('models/common/common_node.php');
 require_once('models/common/common_image.php');
 require_once('models/common/common_comment.php');
 
-class Onxshop_Controller_Bo_Import_Wordpress extends Onxshop_Controller {
+class Onyx_Controller_Bo_Import_Wordpress extends Onyx_Controller {
 
     /**
      * main action
@@ -23,7 +23,7 @@ class Onxshop_Controller_Bo_Import_Wordpress extends Onxshop_Controller {
         define('WORDPRESS_FILES_DOMAIN_NAME', 'www.example.com');
         define('WORDPRESS_CONTENT_PATH', '/wp-content/uploads/');
                 
-        $import_file = ONXSHOP_PROJECT_DIR . '/example.2014-03-28.xml';
+        $import_file = ONYX_PROJECT_DIR . '/example.2014-03-28.xml';
         
         if (!file_exists($import_file)) {
             msg("Wordpress file $import_file doesn't exists", 'error');
@@ -34,7 +34,7 @@ class Onxshop_Controller_Bo_Import_Wordpress extends Onxshop_Controller {
         
         $data_to_import = $this->prepareForImport($data_to_import);
         //print_r($data_to_import);
-        $data_to_import = $this->insertToOnxshop($data_to_import);
+        $data_to_import = $this->insertToOnyx($data_to_import);
         
         //output
         $result = print_r($data_to_import, true);
@@ -115,16 +115,16 @@ class Onxshop_Controller_Bo_Import_Wordpress extends Onxshop_Controller {
     
     
     /**
-     * prepareForOnxshop
+     * prepareForOnyx
      */
      
-    public function insertToOnxshop($items) {
+    public function insertToOnyx($items) {
         
         $formated = array();
         
         foreach ($items as $key=>$item) {
         
-            $common_node = $this->formatPostForOnxshop($item);
+            $common_node = $this->formatPostForOnyx($item);
             
             if ($node_id = $this->insertNode($common_node)) {
                 
@@ -136,14 +136,14 @@ class Onxshop_Controller_Bo_Import_Wordpress extends Onxshop_Controller {
                     
                     foreach ($item['attachment'] as $image) {
                     
-                        if ($downloaded_image = $this->downloadFile($image['attachment_url'][0], ONXSHOP_PROJECT_DIR . 'var/files/blog/')) msg("Downloaded {$image['attachment_url'][0]} to $downloaded_image");
+                        if ($downloaded_image = $this->downloadFile($image['attachment_url'][0], ONYX_PROJECT_DIR . 'var/files/blog/')) msg("Downloaded {$image['attachment_url'][0]} to $downloaded_image");
                     }
                     
                     /**
-                     * format for Onxshop
+                     * format for Onyx
                      */
                      
-                    $images = $this->formatAttachmentForOnxshop($item['attachment'], $node_id);
+                    $images = $this->formatAttachmentForOnyx($item['attachment'], $node_id);
                     
                     foreach ($images as $common_image) {
                         //insert
@@ -153,14 +153,14 @@ class Onxshop_Controller_Bo_Import_Wordpress extends Onxshop_Controller {
                 
                 if (is_array($item['comment'])) {
                     
-                    $comments = $this->formatCommentForOnxshop($item['comment'], $node_id);
+                    $comments = $this->formatCommentForOnyx($item['comment'], $node_id);
                     
                     foreach ($comments as $common_comment) {
                         $this->insertComment($common_comment);
                     }
                 }
             } else {
-                msg("Cannot insert WP post id {$item['post_id']} to Onxshop", 'error');
+                msg("Cannot insert WP post id {$item['post_id']} to Onyx", 'error');
             }
         }
         
@@ -168,10 +168,10 @@ class Onxshop_Controller_Bo_Import_Wordpress extends Onxshop_Controller {
     }
     
     /**
-     * formatPostForOnxshop
+     * formatPostForOnyx
      */
      
-    public function formatPostForOnxshop($item) {
+    public function formatPostForOnyx($item) {
         
         $formated = array();
         
@@ -203,10 +203,10 @@ class Onxshop_Controller_Bo_Import_Wordpress extends Onxshop_Controller {
     }
     
     /**
-     * formatAttachmentForOnxshop
+     * formatAttachmentForOnyx
      */
      
-    public function formatAttachmentForOnxshop($attachments, $node_id) {
+    public function formatAttachmentForOnyx($attachments, $node_id) {
         
         $formated = array();
         $formated_item = array();
@@ -231,10 +231,10 @@ class Onxshop_Controller_Bo_Import_Wordpress extends Onxshop_Controller {
     }
     
     /**
-     * formatCommentForOnxshop
+     * formatCommentForOnyx
      */
      
-    public function formatCommentForOnxshop($comments, $node_id) {
+    public function formatCommentForOnyx($comments, $node_id) {
         
         $formated = array();
         $formated_item = array();
@@ -329,7 +329,7 @@ class Onxshop_Controller_Bo_Import_Wordpress extends Onxshop_Controller {
     
     function downloadFile($url, $local_path = false, $new_filename = false) {
         
-        if ($local_path == false) $local_path = ONXSHOP_PROJECT_DIR . 'var/files/';
+        if ($local_path == false) $local_path = ONYX_PROJECT_DIR . 'var/files/';
         
         $url_info = parse_url($url);
         $file_info = pathinfo($url_info['path']);

@@ -5,7 +5,7 @@
  */
 
 
-class Onxshop_Controller_Component_News_Categories extends Onxshop_Controller {
+class Onyx_Controller_Component_News_Categories extends Onyx_Controller {
     
     /**
      * main action

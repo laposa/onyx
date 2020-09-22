@@ -7,7 +7,7 @@
  *
  */
 
-class international_translation extends Onxshop_Model {
+class international_translation extends Onyx_Model {
 
     /**
      * @access private
@@ -77,7 +77,7 @@ class international_translation extends Onxshop_Model {
 
     static function initConfiguration() {
 
-        if (array_key_exists('international_translation', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['international_translation'];
+        if (array_key_exists('international_translation', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['international_translation'];
         else $conf = array();
 
         $conf['default'] = GLOBAL_DEFAULT_CURRENCY;

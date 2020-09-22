@@ -5,7 +5,7 @@
  * 
  */
 
-class Onxshop_Controller_Bo_Component_Node_Delete extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Node_Delete extends Onyx_Controller {
 
     /**
      * main action
@@ -56,8 +56,8 @@ class Onxshop_Controller_Bo_Component_Node_Delete extends Onxshop_Controller {
                         
                             //if it was a "page", than go to parent page
                             if ($this->GET['ajax'] == 0) {
-                                if ($node_data['node_group'] == 'page') onxshopGoTo("/page/{$node_data['parent']}");
-                                else onxshopGoTo($_SESSION['last_diff'], 2);
+                                if ($node_data['node_group'] == 'page') onyxGoTo("/page/{$node_data['parent']}");
+                                else onyxGoTo($_SESSION['last_diff'], 2);
                             }
                         
                         } else {

@@ -8,7 +8,7 @@
  *
  */
 
-class Onxshop_Controller_Bo_Page_Builder extends Onxshop_Controller {
+class Onyx_Controller_Bo_Page_Builder extends Onyx_Controller {
 
     /**
      * main action
@@ -20,8 +20,8 @@ class Onxshop_Controller_Bo_Page_Builder extends Onxshop_Controller {
         $node_controller = $this->GET['node_controller'];
         $parent = $this->GET['parent'];
         
-        $_Onxshop_Request = new Onxshop_Request("node/{$node_group}/{$node_controller}~id={$parent}~");
-        $template = $_Onxshop_Request->tpl->filecontents;
+        $_Onyx_Request = new Onyx_Request("node/{$node_group}/{$node_controller}~id={$parent}~");
+        $template = $_Onyx_Request->tpl->filecontents;
         
         $tags = $this->findContainerTags($template);
         
@@ -35,7 +35,7 @@ class Onxshop_Controller_Bo_Page_Builder extends Onxshop_Controller {
                 $node['parent'] = $parent;
                 $node['parent_container'] = $container_id;
                 $_POST['node'] = $node;
-                $_Onxshop_Request1 = new Onxshop_Request("bo/component/node_add@blank&parent={$parent}&dontforward=1");
+                $_Onyx_Request1 = new Onyx_Request("bo/component/node_add@blank&parent={$parent}&dontforward=1");
             }
         }
 

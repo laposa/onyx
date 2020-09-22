@@ -130,9 +130,9 @@
                                             <!-- END: type -->
                                             
                                             <fieldset>
-                                            {ONXSHOP_REQUEST_rt #bo/component/relation_taxonomy~relation=store:id=GET.id~}
+                                            {ONYX_REQUEST_rt #bo/component/relation_taxonomy~relation=store:id=GET.id~}
                                             </fieldset>
-                                            {ONXSHOP_REQUEST_store_in_node #bo/component/ecommerce/store_in_node~store_id=GET.id~}
+                                            {ONYX_REQUEST_store_in_node #bo/component/ecommerce/store_in_node~store_id=GET.id~}
 
 
                                         </div>
@@ -256,7 +256,7 @@
                                                                 url += '&heading=' + heading;
                                                                 url += '&pitch=' + pitch;
                                                                 url += '&sensor=false';
-                                                                url += '&key={ONXSHOP_GOOGLE_API_KEY}';
+                                                                url += '&key={ONYX_GOOGLE_API_KEY}';
 
                                                                 var img = $("#google-map-screen img");
                                                                 if (img.length == 0) {
@@ -325,7 +325,7 @@
                                     <legend>Images</legend>
                                     <div class="row">
                                         <div class="image">
-                                        {ONXSHOP_REQUEST_imagelist #bo/component/file_list~type=add_to_store:relation=store:node_id=GET.id~}
+                                        {ONYX_REQUEST_imagelist #bo/component/file_list~type=add_to_store:relation=store:node_id=GET.id~}
                                         </div>
                                     </div>
                                 </fieldset>
@@ -334,7 +334,7 @@
                                     <legend>Noticeboard</legend>
                                     <div class="row">
                                         <div class="notices">
-                                        {ONXSHOP_REQUEST_store_notice_list #bo/component/ecommerce/store_notice_list~store_id=GET.id~}
+                                        {ONYX_REQUEST_store_notice_list #bo/component/ecommerce/store_notice_list~store_id=GET.id~}
                                         </div>
                                     </div>
                                 </fieldset>
@@ -369,6 +369,6 @@
 
 <br style="clear: both;" />
 
-{ONXSHOP_REQUEST_tinymce #bo/tinymce~id=GET.id:relation=store:role=RTE_description:mode=exact:edit_elements=store-description:theme=advanced~}
+{ONYX_REQUEST_tinymce #bo/tinymce~id=GET.id:relation=store:role=RTE_description:mode=exact:edit_elements=store-description:theme=advanced~}
     
 <!-- END: content -->

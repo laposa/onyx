@@ -6,7 +6,7 @@
  *
  */
  
-class ecommerce_offer extends Onxshop_Model {
+class ecommerce_offer extends Onyx_Model {
 
     var $_metaData = array(
         'id'=>array('label' => '', 'validation'=>'int', 'required'=>true),
@@ -61,7 +61,7 @@ class ecommerce_offer extends Onxshop_Model {
      
     static function initConfiguration() {
     
-        if (array_key_exists('ecommerce_offer', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['ecommerce_offer'];
+        if (array_key_exists('ecommerce_offer', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['ecommerce_offer'];
         else $conf = array();
         
         if (!is_numeric($conf['campaign_category_parent_id'])) $conf['campaign_category_parent_id'] = false;

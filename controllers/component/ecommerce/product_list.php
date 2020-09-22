@@ -7,7 +7,7 @@
 
 require_once('controllers/list.php');
 
-class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Controller_List {
+class Onyx_Controller_Component_Ecommerce_Product_List extends Onyx_Controller_List {
 
     /**
      * main action (only a router in this case)
@@ -35,7 +35,7 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
         
         } else {
         
-            $product_list_mode = $GLOBALS['onxshop_conf']['global']['product_list_mode']; //setting from database common_configuration, object: global, property: product_list_mode
+            $product_list_mode = $GLOBALS['onyx_conf']['global']['product_list_mode']; //setting from database common_configuration, object: global, property: product_list_mode
         
         }
         
@@ -53,7 +53,7 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
             
             case 'grid':
             
-                if (is_numeric($GLOBALS['onxshop_conf']['global']['product_list_grid_columns'])) $number_of_columns = $GLOBALS['onxshop_conf']['global']['product_list_grid_columns']; //setting from database common_configuration, object: global, property: product_list_grid_columns
+                if (is_numeric($GLOBALS['onyx_conf']['global']['product_list_grid_columns'])) $number_of_columns = $GLOBALS['onyx_conf']['global']['product_list_grid_columns']; //setting from database common_configuration, object: global, property: product_list_grid_columns
                 else $number_of_columns = 4;
                 
                 $mode = $number_of_columns . 'columns';
@@ -76,8 +76,8 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
          * call sub controller
          */
         
-        $_Onxshop_Request = new Onxshop_Request("component/ecommerce/product_list_$mode~$http_get_query~");
-        $this->tpl->assign('PRODUCT_LIST', $_Onxshop_Request->getContent());
+        $_Onyx_Request = new Onyx_Request("component/ecommerce/product_list_$mode~$http_get_query~");
+        $this->tpl->assign('PRODUCT_LIST', $_Onyx_Request->getContent());
     
         return true;
     }
@@ -100,7 +100,7 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
          */
         
         if (is_numeric($this->GET['image_width'])) $image_width = $this->GET['image_width'];
-        else $image_width = $GLOBALS['onxshop_conf']['global']['product_list_image_width']; // see also stack_list_image_width and setImageOptions()
+        else $image_width = $GLOBALS['onyx_conf']['global']['product_list_image_width']; // see also stack_list_image_width and setImageOptions()
         
         /**
          * get product variety list
@@ -179,7 +179,7 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
         if  (is_numeric($this->GET['limit_from'])) $from = $this->GET['limit_from'];
         else $from = 0;
         if (is_numeric($this->GET['limit_per_page'])) $per_page = $this->GET['limit_per_page'];
-        else $per_page = $GLOBALS['onxshop_conf']['global']['product_list_per_page'];
+        else $per_page = $GLOBALS['onyx_conf']['global']['product_list_per_page'];
         
         
         $limit = "$from,$per_page";
@@ -195,8 +195,8 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
         if ($display_pagination) {
             //$link = "/page/" . $_SESSION['active_pages'][0];
             $count = count($product_list);
-            $_Onxshop_Request = new Onxshop_Request("component/pagination~limit_from=$from:limit_per_page=$per_page:count=$count~");
-            $this->tpl->assign('PAGINATION', $_Onxshop_Request->getContent());
+            $_Onyx_Request = new Onyx_Request("component/pagination~limit_from=$from:limit_per_page=$per_page:count=$count~");
+            $this->tpl->assign('PAGINATION', $_Onyx_Request->getContent());
         }
         
         /**
@@ -487,8 +487,8 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
          
         if ($item['review_count'] > 0) {
             $rating = round($item['review_rating']);
-            $_Onxshop_Request = new Onxshop_Request("component/rating_stars~rating={$rating}~");
-            $this->tpl->assign('RATING_STARS', $_Onxshop_Request->getContent());
+            $_Onyx_Request = new Onyx_Request("component/rating_stars~rating={$rating}~");
+            $this->tpl->assign('RATING_STARS', $_Onyx_Request->getContent());
             if ($item['review_count'] == 1) $this->tpl->assign('REVIEWS', 'Review');
             else $this->tpl->assign('REVIEWS', 'Reviews');
             $this->tpl->parse("content.$item_block.reviews");
@@ -518,7 +518,7 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
         } else if (!$_SESSION['product_list-sort-by']) {
         
             //default
-            $sortby = $GLOBALS['onxshop_conf']['global']['product_list_sorting'];//set in global configuration
+            $sortby = $GLOBALS['onyx_conf']['global']['product_list_sorting'];//set in global configuration
         
         } else {
 
@@ -658,8 +658,8 @@ class Onxshop_Controller_Component_Ecommerce_Product_List extends Onxshop_Contro
          * call and assign result from the sorting interface controller
          */
          
-        $_Onxshop_Request = new Onxshop_Request("component/ecommerce/product_list_sorting~sort[by]={$sortby}:sort[direction]={$direction}~");
-        $this->tpl->assign('SORTING', $_Onxshop_Request->getContent());
+        $_Onyx_Request = new Onyx_Request("component/ecommerce/product_list_sorting~sort[by]={$sortby}:sort[direction]={$direction}~");
+        $this->tpl->assign('SORTING', $_Onyx_Request->getContent());
             
     }
     

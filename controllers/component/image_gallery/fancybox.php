@@ -7,6 +7,6 @@
 
 require_once('controllers/component/image_gallery.php');
 
-class Onxshop_Controller_Component_Image_Gallery_Fancybox extends Onxshop_Controller_Component_Image_Gallery {
+class Onyx_Controller_Component_Image_Gallery_Fancybox extends Onyx_Controller_Component_Image_Gallery {
     
 }

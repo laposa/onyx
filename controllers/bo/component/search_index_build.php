@@ -8,7 +8,7 @@
 require_once('controllers/bo/component/search_index.php');
 require_once('models/common/common_node.php');
 
-class Onxshop_Controller_Bo_Component_Search_Index_Build extends Onxshop_Controller_Bo_Component_Search_Index {
+class Onyx_Controller_Bo_Component_Search_Index_Build extends Onyx_Controller_Bo_Component_Search_Index {
 
     protected $profile;
     protected $index;
@@ -111,7 +111,7 @@ class Onxshop_Controller_Bo_Component_Search_Index_Build extends Onxshop_Control
                  * this is DEPRECATED approach how to customise indexable content, use getExcludes() instead
                  * remember that you need also to create controller for the template
                  */
-                if (file_exists(ONXSHOP_PROJECT_DIR . "templates/node/page/{$page['node_controller']}_indexable.html")) {
+                if (file_exists(ONYX_PROJECT_DIR . "templates/node/page/{$page['node_controller']}_indexable.html")) {
                     $toFetch = "request/sys/html5.node/page/{$page['node_controller']}_indexable~id={$page['id']}~";
                 } else {
                     $toFetch = "request/sys/html5.node~id={$page['id']}~";
@@ -201,7 +201,7 @@ class Onxshop_Controller_Bo_Component_Search_Index_Build extends Onxshop_Control
      
     public function getExcludes() {
         
-        $excludes = $GLOBALS['onxshop_conf']['global']['search_index_exclude_selector']; // CSS selector, i.e. body.product div.rowBottom
+        $excludes = $GLOBALS['onyx_conf']['global']['search_index_exclude_selector']; // CSS selector, i.e. body.product div.rowBottom
         
         return $excludes;
         

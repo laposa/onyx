@@ -10,7 +10,7 @@ require_once "models/ecommerce/ecommerce_promotion_code.php";
 require_once "models/client/client_customer.php";
 require_once 'models/common/common_email.php';
 
-class Onxshop_Controller_Component_Ecommerce_Referral extends Onxshop_Controller {
+class Onyx_Controller_Component_Ecommerce_Referral extends Onyx_Controller {
 
     /**
      * Configuration
@@ -111,7 +111,7 @@ class Onxshop_Controller_Component_Ecommerce_Referral extends Onxshop_Controller
     {
         if (!is_numeric($customer_id)) {
             msg('component/ecommerce/referral: login required', 'error');
-            onxshopGoTo("/");
+            onyxGoTo("/");
             return false;
         }
 
@@ -148,7 +148,7 @@ class Onxshop_Controller_Component_Ecommerce_Referral extends Onxshop_Controller
     
         if ($_SESSION['client']['customer']['id'] > 0) {
             $customer_id = $_SESSION['client']['customer']['id'];
-        } else if (Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) {
+        } else if (Onyx_Bo_Authentication::getInstance()->isAuthenticated()) {
             $customer_id = $this->GET['customer_id'];
         } else {
             $customer_id = false;

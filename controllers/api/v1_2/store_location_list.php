@@ -7,7 +7,7 @@
 
 require_once('controllers/api/v1_1/store_location_list.php');
 
-class Onxshop_Controller_Api_v1_2_Store_Location_List extends Onxshop_Controller_Api_v1_1_Store_Location_List {
+class Onyx_Controller_Api_v1_2_Store_Location_List extends Onyx_Controller_Api_v1_1_Store_Location_List {
 
     /**
      * formatItem

@@ -7,7 +7,7 @@
  *
  */
  
-class ecommerce_promotion extends Onxshop_Model {
+class ecommerce_promotion extends Onyx_Model {
 
     /**
      * @access private
@@ -187,7 +187,7 @@ class ecommerce_promotion extends Onxshop_Model {
      
     static function initConfiguration() {
     
-        if (array_key_exists('ecommerce_promotion', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['ecommerce_promotion'];
+        if (array_key_exists('ecommerce_promotion', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['ecommerce_promotion'];
         else $conf = array();
 
         // Total number of referrals every customer can have.

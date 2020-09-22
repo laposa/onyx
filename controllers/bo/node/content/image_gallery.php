@@ -7,7 +7,7 @@
 require_once('controllers/bo/node/content/default.php');
 require_once('models/common/common_file.php');
 
-class Onxshop_Controller_Bo_Node_Content_Image_Gallery extends Onxshop_Controller_Bo_Node_Content_Default {
+class Onyx_Controller_Bo_Node_Content_Image_Gallery extends Onyx_Controller_Bo_Node_Content_Default {
     
     /**
      * post
@@ -67,7 +67,7 @@ class Onxshop_Controller_Bo_Node_Content_Image_Gallery extends Onxshop_Controlle
     function displayLocalImageGalleryTemplates() {
         
         $File = new common_file();
-        $templates = $File->getFlatArrayFromFs(ONXSHOP_PROJECT_DIR . 'templates/component/image_gallery');
+        $templates = $File->getFlatArrayFromFs(ONYX_PROJECT_DIR . 'templates/component/image_gallery');
         
         if (is_array($templates)) {
 

@@ -7,7 +7,7 @@
 
 require_once 'controllers/component/client/facebook.php';
 
-class Onxshop_Controller_Component_Client_Facebook_Profile extends Onxshop_Controller_Component_Client_Facebook {
+class Onyx_Controller_Component_Client_Facebook_Profile extends Onyx_Controller_Component_Client_Facebook {
 
     /**
      * main action

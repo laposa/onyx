@@ -6,6 +6,6 @@
 
 require_once('controllers/node/layout/default.php');
 
-class Onxshop_Controller_Node_Layout_3columns extends Onxshop_Controller_Node_Layout_Default {
+class Onyx_Controller_Node_Layout_3columns extends Onyx_Controller_Node_Layout_Default {
 
 }

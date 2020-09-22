@@ -5,7 +5,7 @@
  *
  */
 
-class Onxshop_Controller_Bo_Node extends Onxshop_Controller {
+class Onyx_Controller_Bo_Node extends Onyx_Controller {
 
     /**
      * main action
@@ -15,8 +15,8 @@ class Onxshop_Controller_Bo_Node extends Onxshop_Controller {
     
         $node_id = $this->GET['id'];
             
-        $_Onxshop_Request = new Onxshop_Request("node~id=$node_id~");
-        $node_data['content'] = $_Onxshop_Request->getContent();
+        $_Onyx_Request = new Onyx_Request("node~id=$node_id~");
+        $node_data['content'] = $_Onyx_Request->getContent();
         $this->tpl->assign('NODE', $node_data);
 
         return true;

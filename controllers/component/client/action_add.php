@@ -7,7 +7,7 @@
 
 require_once 'models/client/client_action.php';
 
-class Onxshop_Controller_Component_Client_Action_Add extends Onxshop_Controller {
+class Onyx_Controller_Component_Client_Action_Add extends Onyx_Controller {
 
     /**
      * main action

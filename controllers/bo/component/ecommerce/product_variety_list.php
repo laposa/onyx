@@ -5,7 +5,7 @@
  * 
  */
 
-class Onxshop_Controller_Bo_Component_Ecommerce_Product_Variety_List extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Ecommerce_Product_Variety_List extends Onyx_Controller {
     
     /**
      * main action
@@ -33,7 +33,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Product_Variety_List extends Onx
                 if  ($variety['publish'] == 0) $this->tpl->assign('DISABLED', 'disabled');
                 else $this->tpl->assign('DISABLED', '');
                 
-                $Image = new Onxshop_Request("component/image&relation=product_variety&node_id={$variety['id']}");
+                $Image = new Onyx_Request("component/image&relation=product_variety&node_id={$variety['id']}");
                 $this->tpl->assign('IMAGE', $Image->getContent());
                 $this->tpl->assign('VARIETY', $variety);
                 $this->tpl->parse('content.variety');

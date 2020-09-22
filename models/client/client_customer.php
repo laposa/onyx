@@ -7,7 +7,7 @@
  *
  */
 
-class client_customer extends Onxshop_Model {
+class client_customer extends Onyx_Model {
 
     /**
      * primary key
@@ -233,14 +233,14 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
      
     static function initConfiguration() {
     
-        if (array_key_exists('client_customer', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['client_customer'];
+        if (array_key_exists('client_customer', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['client_customer'];
         else $conf = array();
         
         /**
          * set default values if empty
          */
-        if ($conf['registration_mail_to_address'] == '') $conf['registration_mail_to_address'] = $GLOBALS['onxshop_conf']['global']['admin_email'];
-        if ($conf['registration_mail_to_name'] == '') $conf['registration_mail_to_name'] = $GLOBALS['onxshop_conf']['global']['admin_email_name'];
+        if ($conf['registration_mail_to_address'] == '') $conf['registration_mail_to_address'] = $GLOBALS['onyx_conf']['global']['admin_email'];
+        if ($conf['registration_mail_to_name'] == '') $conf['registration_mail_to_name'] = $GLOBALS['onyx_conf']['global']['admin_email_name'];
         if ($conf['registration_mail_send_to_customer'] == '') $conf['registration_mail_send_to_customer'] = 1;
         //what is the username for authentication? Can be email or username
         if (!($conf['login_type'] == 'email' || $conf['login_type'] == 'username')) $conf['login_type'] = 'email';
@@ -772,7 +772,7 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
                     
                     //send it to the customer registration admin email
                     /*
-                    if ($GLOBALS['onxshop_conf']['global']['admin_email'] != $this->conf['registration_mail_to_address']) {
+                    if ($GLOBALS['onyx_conf']['global']['admin_email'] != $this->conf['registration_mail_to_address']) {
                         if (!$EmailForm->sendEmail('registration', 'n/a', $this->conf['registration_mail_to_address'], $this->conf['registration_mail_to_name'])) {
                             msg('New customer email sending failed.', 'error');
                         }
@@ -1621,7 +1621,7 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
      
     public function getClientList($filter = false, $order_by = 'client_customer.id DESC', $limit = false, $offset = false) {
     
-        if (ONXSHOP_ECOMMERCE) return $this->getClientListHeavy($filter, $order_by, $limit, $offset);
+        if (ONYX_ECOMMERCE) return $this->getClientListHeavy($filter, $order_by, $limit, $offset);
         else return $this->getClientListSimple($filter, $order_by, $limit, $offset);
         
     }
@@ -1679,7 +1679,7 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
      
     public function getCustomerListCount($filter = false) {
         
-        if (ONXSHOP_ECOMMERCE) $sql = $this->prepareCustomerListQueryHeavy($filter);
+        if (ONYX_ECOMMERCE) $sql = $this->prepareCustomerListQueryHeavy($filter);
         else $sql = $this->prepareCustomerListQuerySimple($filter);;
         
         $sql = "SELECT count(*) as count FROM ($sql) AS subquery";
@@ -2204,10 +2204,10 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
     }
     
     /**
-     * generateAndSaveOnxshopToken
+     * generateAndSaveOnyxToken
      */
      
-    public function generateAndSaveOnxshopToken($customer_id) {
+    public function generateAndSaveOnyxToken($customer_id) {
         
         require_once('models/client/client_customer_token.php');
         $Token = new client_customer_token();
@@ -2217,10 +2217,10 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
         
         if ($token) {
             
-            if (onxshopDetectProtocol() == 'https') $secure = true;
+            if (onyxDetectProtocol() == 'https') $secure = true;
         else $secure = false;
 
-            setcookie(ONXSHOP_TOKEN_NAME, $token, time()+3600*24*600, "/", "", $secure, true);
+            setcookie(ONYX_TOKEN_NAME, $token, time()+3600*24*600, "/", "", $secure, true);
             return true;
         } else {
             return false;

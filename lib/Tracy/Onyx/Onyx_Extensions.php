@@ -12,7 +12,7 @@ class DBProfilerPanel implements Tracy\IBarPanel
 
 	function getPanel()
 	{
-		$db = Zend_Registry::get('onxshop_db');
+		$db = Zend_Registry::get('onyx_db');
 		$profiler = $db->getProfiler();
 
 		$content = '<h1>Database Profiler</h1><div class="tracy-inner">';

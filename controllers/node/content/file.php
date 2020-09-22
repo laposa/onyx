@@ -6,7 +6,7 @@
 
 require_once('controllers/node/content/default.php');
 
-class Onxshop_Controller_Node_Content_File extends Onxshop_Controller_Node_Content_Default {
+class Onyx_Controller_Node_Content_File extends Onyx_Controller_Node_Content_Default {
 
     /**
      * main action

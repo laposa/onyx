@@ -7,6 +7,6 @@
 
 require_once('controllers/api/v1_1/resources.php');
 
-class Onxshop_Controller_Api_v1_2_Resources extends Onxshop_Controller_Api_v1_1_Resources {
+class Onyx_Controller_Api_v1_2_Resources extends Onyx_Controller_Api_v1_1_Resources {
 
 }

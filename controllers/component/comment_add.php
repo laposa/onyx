@@ -6,7 +6,7 @@
 
 require_once('controllers/component/comment.php');
 
-class Onxshop_Controller_Component_Comment_Add extends Onxshop_Controller_Component_Comment {
+class Onyx_Controller_Component_Comment_Add extends Onyx_Controller_Component_Comment {
 
     /**
      * custom comment action

@@ -1,6 +1,6 @@
 <?php
 /**
- * Onxshop_Db class definition
+ * Onyx_Db class definition
  *
  * custom Active Record Database Pattern and simple validation
  *
@@ -9,7 +9,7 @@
  *
  */
 
-class Onxshop_Db {
+class Onyx_Db {
 
     var $conf = array();
     var $_cacheable = false; // can be overwritten by setCacheable i.e. by default in constructor 
@@ -26,7 +26,7 @@ class Onxshop_Db {
     
     function __construct() {
         $this->_class_name = get_class($this);
-        if (defined('ONXSHOP_DB_QUERY_CACHE')) $this->setCacheable(ONXSHOP_DB_QUERY_CACHE);
+        if (defined('ONYX_DB_QUERY_CACHE')) $this->setCacheable(ONYX_DB_QUERY_CACHE);
         $this->generic();
     }
     
@@ -52,8 +52,8 @@ class Onxshop_Db {
         
         msg("{$this->_class_name}: Calling generic()", 'ok', 3);
         
-        if (Zend_Registry::isRegistered('onxshop_db')) $this->db = Zend_Registry::get('onxshop_db');
-        if (Zend_Registry::isRegistered('onxshop_db_cache')) $this->cache = Zend_Registry::get('onxshop_db_cache');
+        if (Zend_Registry::isRegistered('onyx_db')) $this->db = Zend_Registry::get('onyx_db');
+        if (Zend_Registry::isRegistered('onyx_db_cache')) $this->cache = Zend_Registry::get('onyx_db_cache');
         
         $vars = get_object_vars($this);
         
@@ -138,8 +138,8 @@ class Onxshop_Db {
                 if (key_exists($key, $data)) {
                     $this->set($key, $data[$key]);
                 } else if ($this->_metaData[$key]['required'] == true) {
-                    msg("{$this->_class_name} key $key is required, but not set", 'error', ONXSHOP_MODEL_STRICT_VALIDATION ? 1 : 2);
-                    if (ONXSHOP_MODEL_STRICT_VALIDATION) $this->setValid($key, false);
+                    msg("{$this->_class_name} key $key is required, but not set", 'error', ONYX_MODEL_STRICT_VALIDATION ? 1 : 2);
+                    if (ONYX_MODEL_STRICT_VALIDATION) $this->setValid($key, false);
                 }
             }
             
@@ -317,7 +317,7 @@ class Onxshop_Db {
      
     public function getValid() {
     
-        msg('Onxshop_Model.getValid', 'ok', 2);
+        msg('Onyx_Model.getValid', 'ok', 2);
         //todo: add checking if are required fields filled in
         $notvalid = 0;
         
@@ -410,7 +410,7 @@ class Onxshop_Db {
         msg("{$this->_class_name}: Calling detail($id)", 'ok', 3);
         
         if (!is_numeric($id)) {
-            msg("Onxshop_Model.detail(): id of {$this->_class_name} is not numeric", 'error', 1);
+            msg("Onyx_Model.detail(): id of {$this->_class_name} is not numeric", 'error', 1);
             return false;
         }
         
@@ -433,7 +433,7 @@ class Onxshop_Db {
             $this->setAll($records);
             return $records;
         } else {
-            msg("Onxshop_Model.detail(): record id=$id does not exists in {$this->_class_name}", 'error', 1);
+            msg("Onyx_Model.detail(): record id=$id does not exists in {$this->_class_name}", 'error', 1);
             return false;
         }
         
@@ -496,7 +496,7 @@ class Onxshop_Db {
                      * PostgreSQL returns the OID from lastInsertId
                      */
                      
-                    if (ONXSHOP_DB_TYPE == 'pgsql') {
+                    if (ONYX_DB_TYPE == 'pgsql') {
                         $id = $this->db->lastInsertId($this->_class_name, "id");
                     } else {
                         $id = $this->db->lastInsertId();
@@ -535,7 +535,7 @@ class Onxshop_Db {
         msg("{$this->_class_name}: Calling update() " . print_r($data, true), 'ok', 3);
 
         if (!is_numeric($data['id'])) {
-            msg("Onxshop_Model.update: {$this->_class_name} id is not numeric", 'error');
+            msg("Onyx_Model.update: {$this->_class_name} id is not numeric", 'error');
             return false;
         }
         
@@ -559,7 +559,7 @@ class Onxshop_Db {
         
         } else {
         
-            msg("Onxshop_Model.update: {$this->_class_name} data are not valid", 'error');
+            msg("Onyx_Model.update: {$this->_class_name} data are not valid", 'error');
             return false;
             
         }
@@ -711,7 +711,7 @@ class Onxshop_Db {
     public function executeSqlCached($sql) {
         
         // create cache key
-        $cache_id = preg_replace('/\W/', '', $_SERVER['HTTP_HOST']) . "_SQL_{$this->_class_name}_" . md5(ONXSHOP_DB_HOST . ONXSHOP_DB_PORT . ONXSHOP_DB_NAME . $sql); // include hostname and database connection details to prevent conflict in shared cache engine environment
+        $cache_id = preg_replace('/\W/', '', $_SERVER['HTTP_HOST']) . "_SQL_{$this->_class_name}_" . md5(ONYX_DB_HOST . ONYX_DB_PORT . ONYX_DB_NAME . $sql); // include hostname and database connection details to prevent conflict in shared cache engine environment
         
         if ($records = $this->cache->load($cache_id)) {
             
@@ -738,7 +738,7 @@ class Onxshop_Db {
      
     public function flushCache() {
         
-        switch (ONXSHOP_DB_QUERY_CACHE_BACKEND) {
+        switch (ONYX_DB_QUERY_CACHE_BACKEND) {
             
             case 'Apc':         
             case 'Libmemcached':
@@ -747,9 +747,9 @@ class Onxshop_Db {
             
             case 'File':
             default:
-                $mask = ONXSHOP_DB_QUERY_CACHE_DIRECTORY . "zend_cache---*_SQL_{$this->_class_name}_*";
+                $mask = ONYX_DB_QUERY_CACHE_DIRECTORY . "zend_cache---*_SQL_{$this->_class_name}_*";
                 array_map("unlink", glob( $mask ));
-                $mask = ONXSHOP_DB_QUERY_CACHE_DIRECTORY . "zend_cache---internal-metadatas---*_SQL_{$this->_class_name}_*";
+                $mask = ONYX_DB_QUERY_CACHE_DIRECTORY . "zend_cache---internal-metadatas---*_SQL_{$this->_class_name}_*";
                 array_map("unlink", glob( $mask ));
             break;
         }

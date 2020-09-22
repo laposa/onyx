@@ -8,7 +8,7 @@
 
 require_once('controllers/node/content/default.php');
 
-class Onxshop_Controller_Node_Content_External_Source extends Onxshop_Controller_Node_Content_Default {
+class Onyx_Controller_Node_Content_External_Source extends Onyx_Controller_Node_Content_Default {
 
     /**
      * main action
@@ -17,7 +17,7 @@ class Onxshop_Controller_Node_Content_External_Source extends Onxshop_Controller
     public function mainAction() {      
         
         // set transparent cache
-        //$rss->cache_dir = ONXSHOP_PROJECT_DIR . 'var/tmp/'; 
+        //$rss->cache_dir = ONYX_PROJECT_DIR . 'var/tmp/'; 
         //$rss->cache_time = 3600; // one hour
     
         require_once('models/common/common_node.php');
@@ -33,8 +33,8 @@ class Onxshop_Controller_Node_Content_External_Source extends Onxshop_Controller
         
         $wget_url = base64_encode($url);
         
-        $_Onxshop_Request = new Onxshop_Request("component/wget&url=$wget_url");
-        $source = $_Onxshop_Request->getContent();
+        $_Onyx_Request = new Onyx_Request("component/wget&url=$wget_url");
+        $source = $_Onyx_Request->getContent();
         
         $source = translateLinks("", $source);
         

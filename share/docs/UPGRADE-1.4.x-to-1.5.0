@@ -1,43 +1,43 @@
 createdb -U {DBUSER} -h localhost -E UTF8 -T {DB-1_4} {DB-1_5}
-psql -U {DBUSER} -h localhost {DB-1_5} < onxshop_dir/docs/database/upgrade-1.4.x-to-1.5.0.sql
+psql -U {DBUSER} -h localhost {DB-1_5} < onyx_dir/docs/database/upgrade-1.4.x-to-1.5.0.sql
 
 In case DB upgrade fails, than find duplicates in URL and fix manually:
 SELECT public_uri, count(*) FROM common_uri_mapping GROUP BY public_uri HAVING count(*) > 1;
 
 vi conf/deployment.php:
-rename GLOBAL_MAIN_DOMAIN to ONXSHOP_MAIN_DOMAIN in conf/deployment.php
-rename GLOBAL_ONXSHOP_DIR to ONXSHOP_DIR in conf/deployment.php
-rename GLOBAL_PROJECT_DIR to ONXSHOP_PROJECT_DIR in conf/deployment.php
+rename GLOBAL_MAIN_DOMAIN to ONYX_MAIN_DOMAIN in conf/deployment.php
+rename GLOBAL_ONYX_DIR to ONYX_DIR in conf/deployment.php
+rename GLOBAL_PROJECT_DIR to ONYX_PROJECT_DIR in conf/deployment.php
 
-rename DATABASE_TYPE to ONXSHOP_DB_TYPE in conf/deployment.php
-rename DATABASE_USER to ONXSHOP_DB_USER in conf/deployment.php
-rename DATABASE_PASSWORD to ONXSHOP_DB_PASSWORD in conf/deployment.php
-rename DATABASE_HOST to ONXSHOP_DB_HOST in conf/deployment.php
-rename DATABASE_PORT to ONXSHOP_DB_PORT in conf/deployment.php
-rename DATABASE_NAME to ONXSHOP_DB_NAME in conf/deployment.php
+rename DATABASE_TYPE to ONYX_DB_TYPE in conf/deployment.php
+rename DATABASE_USER to ONYX_DB_USER in conf/deployment.php
+rename DATABASE_PASSWORD to ONYX_DB_PASSWORD in conf/deployment.php
+rename DATABASE_HOST to ONYX_DB_HOST in conf/deployment.php
+rename DATABASE_PORT to ONYX_DB_PORT in conf/deployment.php
+rename DATABASE_NAME to ONYX_DB_NAME in conf/deployment.php
 
-rename or remove AUTH_TYPE to ONXSHOP_AUTH_TYPE
-rename or remove AUTH_SERVER to ONXSHOP_AUTH_SERVER
-rename or remove EDITOR_USERNAME to ONXSHOP_EDITOR_USERNAME
-rename or remove EDITOR_PASSWORD to ONXSHOP_EDITOR_PASSWORD
-rename or remove GLOBAL_REQUIRE_AUTH to ONXSHOP_REQUIRE_AUTH
-rename or remove BO_USE_HTTPS to ONXSHOP_EDITOR_USE_SSL
-rename or remove FE_USE_HTTPS to ONXSHOP_CUSTOMER_USE_SSL
+rename or remove AUTH_TYPE to ONYX_AUTH_TYPE
+rename or remove AUTH_SERVER to ONYX_AUTH_SERVER
+rename or remove EDITOR_USERNAME to ONYX_EDITOR_USERNAME
+rename or remove EDITOR_PASSWORD to ONYX_EDITOR_PASSWORD
+rename or remove GLOBAL_REQUIRE_AUTH to ONYX_REQUIRE_AUTH
+rename or remove BO_USE_HTTPS to ONYX_EDITOR_USE_SSL
+rename or remove FE_USE_HTTPS to ONYX_CUSTOMER_USE_SSL
 
 vi conf/global.php:
-rename GLOBAL_ONXSHOP_DIR to ONXSHOP_DIR in conf/global.php
+rename GLOBAL_ONYX_DIR to ONYX_DIR in conf/global.php
 
-Update all files in ONXSHOP_PROJECT_DIR/models/ directory:
-rename "extends generic" to "extends Onxshop_Model"
+Update all files in ONYX_PROJECT_DIR/models/ directory:
+rename "extends generic" to "extends Onyx_Model"
 
-Update all files in ONXSHOP_PROJECT_DIR/controllers/ directory:
-rename Xsite_Controller to Onxshop_Controller
+Update all files in ONYX_PROJECT_DIR/controllers/ directory:
+rename Xsite_Controller to Onyx_Controller
 
-Update all files in ONXSHOP_PROJECT_DIR/templates/ directory:
-rename XSITE_REQUEST to ONXSHOP_REQUEST
-rename nx_messages to onxshop_messages
-rename nx_error_msg to onxshop_error_msg
-rename nx_ok_msg to onxshop_ok_msg
+Update all files in ONYX_PROJECT_DIR/templates/ directory:
+rename XSITE_REQUEST to ONYX_REQUEST
+rename nx_messages to onyx_messages
+rename nx_error_msg to onyx_error_msg
+rename nx_ok_msg to onyx_ok_msg
 
 if .htaccess was locally modified, than merge manually
 

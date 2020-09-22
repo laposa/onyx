@@ -1,7 +1,7 @@
 createdb -U {DBUSER} -h localhost -E UTF8 -T {DB-1_7} {DB-1_8}
-psql -U {DBUSER} -h localhost {DB-1_8} < onxshop_dir/share/docs/database/upgrade-1.7.x-to-1.7.9.sql
-psql -U {DBUSER} -h localhost {DB-1_8} < onxshop_dir/share/docs/database/upgrade-1.7.x-to-1.7.10.sql
-psql -U {DBUSER} -h localhost {DB-1_8} < onxshop_dir/share/docs/database/upgrade-1.7.x-to-1.8.0.sql
+psql -U {DBUSER} -h localhost {DB-1_8} < onyx_dir/share/docs/database/upgrade-1.7.x-to-1.7.9.sql
+psql -U {DBUSER} -h localhost {DB-1_8} < onyx_dir/share/docs/database/upgrade-1.7.x-to-1.7.10.sql
+psql -U {DBUSER} -h localhost {DB-1_8} < onyx_dir/share/docs/database/upgrade-1.7.x-to-1.8.0.sql
 
 if using new approach with only one page container run:
 
@@ -17,8 +17,8 @@ WHERE common_node.parent = subquery.id;
 
 
 in conf/deployment.php
-from: define('ONXSHOP_DB_NAME', '{DB-1_7}');
-to: define('ONXSHOP_DB_NAME', '{DB-1_8}');
+from: define('ONYX_DB_NAME', '{DB-1_7}');
+to: define('ONYX_DB_NAME', '{DB-1_8}');
 
 
 if symlink public_html/docs
@@ -27,15 +27,15 @@ if symlink public_html/docs
 
 if symlink public_html/index.php
     rm public_html/index.php
-    cp onxshop_dir/project_skeleton/base/public_html/index.php public_html/
+    cp onyx_dir/project_skeleton/base/public_html/index.php public_html/
 
 if symlink public_html/robots.txt
     rm public_html/robots.txt
-    cp onxshop_dir/project_skeleton/base/public_html/robots.txt public_html/
+    cp onyx_dir/project_skeleton/base/public_html/robots.txt public_html/
 
 if symlink public_html/.htaccess
     rm public_html/.htaccess
-    cp onxshop_dir/project_skeleton/base/public_html/.htaccess public_html/
+    cp onyx_dir/project_skeleton/base/public_html/.htaccess public_html/
     
 if symlink public_html/favicon.ico
     rm public_html/favicon.ico

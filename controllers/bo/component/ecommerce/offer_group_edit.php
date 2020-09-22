@@ -9,7 +9,7 @@
 
 require_once('models/ecommerce/ecommerce_offer_group.php');
 
-class Onxshop_Controller_Bo_Component_Ecommerce_Offer_Group_Edit extends Onxshop_Controller
+class Onyx_Controller_Bo_Component_Ecommerce_Offer_Group_Edit extends Onyx_Controller
 {
     
     /**
@@ -28,7 +28,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Offer_Group_Edit extends Onxshop
             $_POST['offer_group']['schedule_end'] = $this->dateAndTimeToFull($_POST['offer_group']['end_date'], $_POST['offer_group']['end_time']);
 
             $offer_group_id = $this->processForm($_POST['offer_group'], $offer_group_id);
-            onxshopGoTo("/backoffice/products");
+            onyxGoTo("/backoffice/products");
 
         } else {
 

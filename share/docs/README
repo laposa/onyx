@@ -1,5 +1,5 @@
 ###############
-### Onxshop ###
+### Onyx ###
 ###############
 
 Note: For the installation instructions please refer to the Installation file.
@@ -8,45 +8,45 @@ Note: For the installation instructions please refer to the Installation file.
 Overview
 --------
 
-!!! Don't change any of the files in the ONXSHOP_DIR directory !!!
+!!! Don't change any of the files in the ONYX_DIR directory !!!
 
 Global configuration settings are located in:
-ONXSHOP_DIR/conf/
+ONYX_DIR/conf/
 
 Local configuration settings specific to this project are located in:
-ONXSHOP_PROJECT_DIR/conf/
+ONYX_PROJECT_DIR/conf/
 
 If you wish to change any of the configuration settings defined in the
-ONXSHOP_DIR/conf/ directory copy the configuration file over to the
-ONXSHOP_PROJECT_DIR/conf/ directory and override the settings there.
+ONYX_DIR/conf/ directory copy the configuration file over to the
+ONYX_PROJECT_DIR/conf/ directory and override the settings there.
 
-The directory ONXSHOP_PROJECT_DIR/var/ must be writeable by the www-server.
+The directory ONYX_PROJECT_DIR/var/ must be writeable by the www-server.
 You can achieve this by running the following shell command:
-chmod -R a+w ONXSHOP_PROJECT_DIR/var/
+chmod -R a+w ONYX_PROJECT_DIR/var/
 
 The configuration files for the deployment are:
-ONXSHOP_PROJECT_DIR/conf/deployment.php
-ONXSHOP_PROJECT_DIR/conf/deployment.sh
+ONYX_PROJECT_DIR/conf/deployment.php
+ONYX_PROJECT_DIR/conf/deployment.sh
 
 
 Database
 --------
 
-Schema is in ONXSHOP_DIR/docs/database/Onxshop.pdf
+Schema is in ONYX_DIR/docs/database/Onyx.pdf
 
 PhpPgAdmin is installed on:
 https://www.domainname.com/opt/phppgadmin/
 
 To backup the database run: 
-ONXSHOP_DIR/utils/db_backup.create
+ONYX_DIR/utils/db_backup.create
 
 Add to the cron as the database user:
-5 6 * * * ONXSHOP_PROJECT_DIR/utils/db_backup.create ONXSHOP_PROJECT_DIR/conf/deployment.sh databasename
+5 6 * * * ONYX_PROJECT_DIR/utils/db_backup.create ONYX_PROJECT_DIR/conf/deployment.sh databasename
 
 For restoring from the backup use: utils/db_backup.restore
 
 Usage:
 1.  creating of new database:
-    utils/db_backup.restore ONXSHOP_PROJECT_DIR/conf/deployment.sh database_name backup_file CREATE
+    utils/db_backup.restore ONYX_PROJECT_DIR/conf/deployment.sh database_name backup_file CREATE
 2.  restoring of the database backup to actual database (revert old version):
-    Usage: utils/db_backup.restore ONXSHOP_PROJECT_DIR/conf/deployment.sh database_name backup_file
+    Usage: utils/db_backup.restore ONYX_PROJECT_DIR/conf/deployment.sh database_name backup_file

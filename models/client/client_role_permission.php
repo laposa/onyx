@@ -6,7 +6,7 @@
  *
  */
 
-class client_role_permission extends Onxshop_Model {
+class client_role_permission extends Onyx_Model {
 
     /**
      * Permission cache to prevent multiple request in single script run

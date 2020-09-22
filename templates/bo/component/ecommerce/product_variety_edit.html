@@ -10,7 +10,7 @@
                 $("button.save").addClass('saving');
             },
             success: function(data) {
-                popupMessage("#product-variety-edit-result div.onxshop-messages");
+                popupMessage("#product-variety-edit-result div.onyx-messages");
                 $("button.save").removeClass('saving');
                 $('#product-variety-wrapper-{GET.id}').replaceWith(data);
             }
@@ -84,7 +84,7 @@
                                             <div class="layout-column-two of-two">
                                                 <fieldset>
                                                     <div class="row">
-                                                        {ONXSHOP_REQUEST_producttype #bo/component/ecommerce/product_type_select~product_variety_id=GET.id~}
+                                                        {ONYX_REQUEST_producttype #bo/component/ecommerce/product_type_select~product_variety_id=GET.id~}
                                                     </div>
                                                     <div class="row">
                                                         <span class="label"><label>Stock</label></span>
@@ -97,20 +97,20 @@
 
                                         <fieldset class="price-list">
                                             <h3>Price list</h3>
-                                            {ONXSHOP_REQUEST_price #bo/component/ecommerce/price_list~product_variety_id=GET.id~}
+                                            {ONYX_REQUEST_price #bo/component/ecommerce/price_list~product_variety_id=GET.id~}
                                         </fieldset>
 
                                         <div id="images">
                                             <fieldset>
                                                 <legend>List of images</legend>
                                                 <div class="row image">
-                                                    {ONXSHOP_REQUEST_imagelist #bo/component/file_list~type=add_to_product_variety:relation=product_variety:node_id=GET.id~}
+                                                    {ONYX_REQUEST_imagelist #bo/component/file_list~type=add_to_product_variety:relation=product_variety:node_id=GET.id~}
                                                 </div>
                                             </fieldset>
                                         </div>
                                                 
                                         <div class="row">
-                                            {ONXSHOP_REQUEST_rt #bo/component/relation_taxonomy~relation=variety:id=GET.id~}
+                                            {ONYX_REQUEST_rt #bo/component/relation_taxonomy~relation=variety:id=GET.id~}
                                         </div>
 
                                         <fieldset class="advanced">
@@ -164,12 +164,12 @@
                                         </fieldset>
                                         
                                         <div class="advanced">
-                                            {ONXSHOP_REQUEST_variety_other_data #bo/component/ecommerce/product_variety_other_data~id=GET.id~}
+                                            {ONYX_REQUEST_variety_other_data #bo/component/ecommerce/product_variety_other_data~id=GET.id~}
                                         </div>
 
                                         <fieldset class="advanced">
                                             <legend>Special Offers</legend>
-                                            {ONXSHOP_REQUEST_special_offers #bo/component/ecommerce/product_special_offers~id=GET.id~}
+                                            {ONYX_REQUEST_special_offers #bo/component/ecommerce/product_special_offers~id=GET.id~}
                                         </fieldset>
 
 
@@ -213,7 +213,7 @@
 </form>
 
 
-    {ONXSHOP_REQUEST_tinymce #bo/tinymce~id=GET.id:relation=product_variety:theme=simple~}
+    {ONYX_REQUEST_tinymce #bo/tinymce~id=GET.id:relation=product_variety:theme=simple~}
 
     <script type="text/javascript">
         

@@ -5,7 +5,7 @@
  *
  */
 
-class Onxshop_Cdn {
+class Onyx_Cdn {
 
     /**
      * Process output HTML code and remap static content URIs
@@ -16,10 +16,10 @@ class Onxshop_Cdn {
     public function processOutputHtml($html)
     {
         $allowed_tags = array();
-        if (strpos(ONXSHOP_CDN_ALLOWED_CONTEXT, 'img') !== FALSE) $allowed_tags[] = '<img.*?src="';
-        if (strpos(ONXSHOP_CDN_ALLOWED_CONTEXT, 'link') !== FALSE) $allowed_tags[] = '<link.*?href="';
-        if (strpos(ONXSHOP_CDN_ALLOWED_CONTEXT, 'a') !== FALSE) $allowed_tags[] = '<a.*?href="';
-        if (strpos(ONXSHOP_CDN_ALLOWED_CONTEXT, 'script') !== FALSE) $allowed_tags[] = '<script.*?src="';
+        if (strpos(ONYX_CDN_ALLOWED_CONTEXT, 'img') !== FALSE) $allowed_tags[] = '<img.*?src="';
+        if (strpos(ONYX_CDN_ALLOWED_CONTEXT, 'link') !== FALSE) $allowed_tags[] = '<link.*?href="';
+        if (strpos(ONYX_CDN_ALLOWED_CONTEXT, 'a') !== FALSE) $allowed_tags[] = '<a.*?href="';
+        if (strpos(ONYX_CDN_ALLOWED_CONTEXT, 'script') !== FALSE) $allowed_tags[] = '<script.*?src="';
 
         // html tag and attribute, shloud be available as $matches[1]
         $regexp_tag = "(" . implode("|", $allowed_tags) . ")";
@@ -45,7 +45,7 @@ class Onxshop_Cdn {
     {
         $type = $this->getContentType($matches[2]);
 
-        if (strlen($type) == 0 || strpos(ONXSHOP_CDN_ALLOWED_TYPES, $type) === FALSE) 
+        if (strlen($type) == 0 || strpos(ONYX_CDN_ALLOWED_TYPES, $type) === FALSE) 
             return $matches[0];
 
         $result = $matches[1] . 
@@ -89,7 +89,7 @@ class Onxshop_Cdn {
      */
     protected function getServiceNodeUrl($relativeUri, $context)
     {
-        return ONXSHOP_CDN_HOST;
+        return ONYX_CDN_HOST;
     }
 
 }

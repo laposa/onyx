@@ -5,7 +5,7 @@
  *
  */
 
-class Onxshop_Controller_Bo_Component_Ecommerce_Orders_Breakdown extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Ecommerce_Orders_Breakdown extends Onyx_Controller {
 
     protected $home_country_name;
     protected $home_country_id;

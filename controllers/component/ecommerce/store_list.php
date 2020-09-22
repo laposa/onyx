@@ -5,7 +5,7 @@
  *
  */
 
-class Onxshop_Controller_Component_Ecommerce_Store_List extends Onxshop_Controller {
+class Onyx_Controller_Component_Ecommerce_Store_List extends Onyx_Controller {
 
     /**
      * main action
@@ -68,7 +68,7 @@ class Onxshop_Controller_Component_Ecommerce_Store_List extends Onxshop_Controll
         }
         
         // sort by distance
-        usort($store_list, ['Onxshop_Controller_Component_Ecommerce_Store_List', 'cmp']);
+        usort($store_list, ['Onyx_Controller_Component_Ecommerce_Store_List', 'cmp']);
         
         // parse items
         foreach ($store_list as $k=>$item) {
@@ -89,8 +89,8 @@ class Onxshop_Controller_Component_Ecommerce_Store_List extends Onxshop_Controll
             else $this->tpl->assign('OPEN', '');
             
             // taxonomy
-            $Onxshop_Request = new Onxshop_Request("component/ecommerce/store_taxonomy~store_id={$item['id']}~");
-            $this->tpl->assign('STORE_TAXONOMY_LIST', $Onxshop_Request->getContent());
+            $Onyx_Request = new Onyx_Request("component/ecommerce/store_taxonomy~store_id={$item['id']}~");
+            $this->tpl->assign('STORE_TAXONOMY_LIST', $Onyx_Request->getContent());
             
             if (is_numeric($item['distance'])) {
                 if ($item['distance_from_client_geoposition'] == 0) $this->tpl->parse('content.list.item.distance.from_store');

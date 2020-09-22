@@ -1,5 +1,5 @@
 createdb -U {DBUSER} -h localhost -E UTF8 -T {DB-1_2} {DB-1_3}
-psql -U {DBUSER} -h localhost {DB-1_3} < onxshop_dir/docs/database/upgrade-1.2.2-to-1.3.0.sql
+psql -U {DBUSER} -h localhost {DB-1_3} < onyx_dir/docs/database/upgrade-1.2.2-to-1.3.0.sql
 
 
 add  Application Debug settings to conf/deployment.php

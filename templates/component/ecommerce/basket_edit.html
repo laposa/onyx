@@ -27,7 +27,7 @@
             <tfoot>
                 <tr>
                     <td colspan="2" class="discount">
-                        {ONXSHOP_REQUEST_discount #component/ecommerce/promotion_code_basket}
+                        {ONYX_REQUEST_discount #component/ecommerce/promotion_code_basket}
                     </td>
                     <td class="update"><button class="update" type="submit" name="update" value="Update"><span>{I18N_UPDATE}</span></button></td>
                     <td colspan="2" class="sub_total money">{I18N_SUB_TOTAL} {VAT_NOTE} {BASKET.sub_total.price|money_format('%n',%s)}<!-- BEGIN: face_value_voucher --><br />{I18N_GIFT_VOUCHER_OF} {BASKET.face_value_voucher_claim|money_format('%n',%s)|str_replace('.00', '', %s)} -{BASKET.face_value_voucher|money_format('%n',%s)}<br />

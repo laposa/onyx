@@ -63,8 +63,8 @@ require_once("$dir/../conf/global.php");
  * Set include paths
  */
  
-set_include_path(get_include_path() . PATH_SEPARATOR . ONXSHOP_DIR);
-require_once('lib/onxshop.functions.php');
+set_include_path(get_include_path() . PATH_SEPARATOR . ONYX_DIR);
+require_once('lib/onyx.functions.php');
 
 /**
  * read input and set paths
@@ -76,7 +76,7 @@ if (!isset($_GET['image'])) {
     $image_file = $_GET['image'];
 }
 
-$image_file = ONXSHOP_PROJECT_DIR . $image_file;
+$image_file = ONYX_PROJECT_DIR . $image_file;
 
 $realpath = realpath($image_file);
 
@@ -87,7 +87,7 @@ if ($realpath == false) $missing = 1;
  * it's allowed to see only content of var/ directory
  */
  
-if (!$missing) onxshopCheckForAllowedPath($realpath, false);
+if (!$missing) onyxCheckForAllowedPath($realpath, false);
 
 /**
  * 404 check
@@ -95,7 +95,7 @@ if (!$missing) onxshopCheckForAllowedPath($realpath, false);
  
 if (!is_readable($image_file) || $missing) {
     //file does not exists
-    $image_file = ONXSHOP_PROJECT_DIR . "public_html/share/images/missing_image.png";
+    $image_file = ONYX_PROJECT_DIR . "public_html/share/images/missing_image.png";
     header("HTTP/1.0 404 Not Found");
 }
 

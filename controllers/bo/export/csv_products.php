@@ -8,7 +8,7 @@
 
 require_once('controllers/bo/export/xml_products.php');
 
-class Onxshop_Controller_Bo_Export_CSV_Products extends Onxshop_Controller_Bo_Export_Xml_Products {
+class Onyx_Controller_Bo_Export_CSV_Products extends Onyx_Controller_Bo_Export_Xml_Products {
     
     /**
      * output

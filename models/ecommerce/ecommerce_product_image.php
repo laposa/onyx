@@ -46,7 +46,7 @@ CREATE TABLE ecommerce_product_image (
     
         $image_default_conf = common_image::initImageDefaultConfiguration();
         
-        if (array_key_exists('ecommerce_product_image', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['ecommerce_product_image'];
+        if (array_key_exists('ecommerce_product_image', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['ecommerce_product_image'];
         else $conf = array();
 
         if (is_array($conf)) $conf = array_merge($image_default_conf, $conf);

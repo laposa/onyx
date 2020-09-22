@@ -4,7 +4,7 @@
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
-class Onxshop_Controller_Sys_404 extends Onxshop_Controller {
+class Onyx_Controller_Sys_404 extends Onyx_Controller {
     
     /**
      * main action

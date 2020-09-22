@@ -1,7 +1,7 @@
-P006 Restore Onxshop project from backup
+P006 Restore Onyx project from backup
 
 This procedure is written for backup file created and downloaded from /backoffice/advance/ tools/backup
-(available only if ./conf/deployment.php: define('ONXSHOP_PACKAGE_NAME', 'premium');)
+(available only if ./conf/deployment.php: define('ONYX_PACKAGE_NAME', 'premium');)
 
 1. unpack backup file
 download to /tmp folder on the target server:
@@ -16,7 +16,7 @@ cd /srv/[SERVER_NAME}
 
 3. customise deployment configuration
 vi conf/deployment.php
-- disable or edit ONXSHOP_MAIN_DOMAIN - customize database detail
+- disable or edit ONYX_MAIN_DOMAIN - customize database detail
 - customize SSL setting
 
 4. create database and import structure and data

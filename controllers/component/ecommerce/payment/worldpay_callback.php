@@ -8,7 +8,7 @@
 
 require_once('controllers/component/ecommerce/payment/worldpay.php');
 
-class Onxshop_Controller_Component_Ecommerce_Payment_Worldpay_Callback extends Onxshop_Controller_Component_Ecommerce_Payment_Worldpay {
+class Onyx_Controller_Component_Ecommerce_Payment_Worldpay_Callback extends Onyx_Controller_Component_Ecommerce_Payment_Worldpay {
 
     /**
      * main action
@@ -22,9 +22,9 @@ class Onxshop_Controller_Component_Ecommerce_Payment_Worldpay_Callback extends O
             
             // we need this to allow get order detail with WorldPay
             // we should check Worlpay IP address here
-            Onxshop_Bo_Authentication::getInstance()->emulateSuperuserTemporarily();
+            Onyx_Bo_Authentication::getInstance()->emulateSuperuserTemporarily();
             $transaction_id = $this->paymentProcess($this->GET['order_id'], $_POST);
-            Onxshop_Bo_Authentication::getInstance()->disableSuperuserEmulation();
+            Onyx_Bo_Authentication::getInstance()->disableSuperuserEmulation();
         }
 
         return true;

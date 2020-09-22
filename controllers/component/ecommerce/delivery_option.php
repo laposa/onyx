@@ -14,7 +14,7 @@ require_once('models/ecommerce/ecommerce_delivery_carrier.php');
 require_once('models/ecommerce/ecommerce_delivery_carrier_zone.php');
 require_once('models/ecommerce/ecommerce_order.php');
 
-class Onxshop_Controller_Component_Ecommerce_Delivery_Option extends Onxshop_Controller {
+class Onyx_Controller_Component_Ecommerce_Delivery_Option extends Onyx_Controller {
 
     /**
      * main action
@@ -22,7 +22,7 @@ class Onxshop_Controller_Component_Ecommerce_Delivery_Option extends Onxshop_Con
      
     public function mainAction() {
 
-        setlocale(LC_MONETARY, $GLOBALS['onxshop_conf']['global']['locale']);
+        setlocale(LC_MONETARY, $GLOBALS['onyx_conf']['global']['locale']);
 
         $this->initModels();         
         $options = $this->getInputOrDefaults();

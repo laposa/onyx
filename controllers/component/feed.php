@@ -5,7 +5,7 @@
  *
  */
 
-class Onxshop_Controller_Component_Feed extends Onxshop_Controller {
+class Onyx_Controller_Component_Feed extends Onyx_Controller {
 
     /**
      * main action
@@ -81,7 +81,7 @@ class Onxshop_Controller_Component_Feed extends Onxshop_Controller {
          * cache init
          */
         $frontendOptions = array('lifetime' => 60*5,'automatic_serialization' => true);
-        $backendOptions = array('cache_dir' => ONXSHOP_PROJECT_DIR . 'var/cache/');
+        $backendOptions = array('cache_dir' => ONYX_PROJECT_DIR . 'var/cache/');
  
         $cache = Zend_Cache::factory('Core', 'File', $frontendOptions, $backendOptions);
         

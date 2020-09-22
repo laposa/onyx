@@ -5,7 +5,7 @@
  * 
  */
 
-class Onxshop_Controller_Component_Ecommerce_Roundel_Image extends Onxshop_Controller {
+class Onyx_Controller_Component_Ecommerce_Roundel_Image extends Onyx_Controller {
 
     protected $font_path;
     protected $width;
@@ -14,7 +14,7 @@ class Onxshop_Controller_Component_Ecommerce_Roundel_Image extends Onxshop_Contr
     protected $bg_color_hex;
     protected $text_color_hex;
     
-    const CACHE_DIRECTORY = ONXSHOP_PROJECT_DIR . "var/roundels/";
+    const CACHE_DIRECTORY = ONYX_PROJECT_DIR . "var/roundels/";
 
     /**
      * main action
@@ -73,7 +73,7 @@ class Onxshop_Controller_Component_Ecommerce_Roundel_Image extends Onxshop_Contr
         $this->text_color_hex = (isset($this->GET['textcolor']) ? $this->GET['textcolor'] : 'FF0000');
 
         // font
-        $this->font_path = ONXSHOP_PROJECT_DIR . '/public_html/fonts/roundels.ttf';
+        $this->font_path = ONYX_PROJECT_DIR . '/public_html/fonts/roundels.ttf';
 
         // text
         $this->text = array();

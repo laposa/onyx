@@ -7,7 +7,7 @@
  * 
  */
 
-class Onxshop_Controller_Bo_Fe_edit extends Onxshop_Controller {
+class Onyx_Controller_Bo_Fe_edit extends Onyx_Controller {
 
     /**
      * main action

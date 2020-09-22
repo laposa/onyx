@@ -51,9 +51,9 @@ $(document).ready(function(){
         <div class="page-wrapper">
             <div class="page-content">
                 <div class="page-content-wrapper">
-                    {ONXSHOP_REQUEST_store_filter #component/ecommerce/store_filter}
-                    {ONXSHOP_REQUEST_store_locator #component/ecommerce/store_locator~node_id=GET.id:store_type_id=GET.store_type_id~}<!--
-                    --><div id="store-list-container">{ONXSHOP_REQUEST_store_list #component/ecommerce/store_list~store_id=GET.store_id~}</div>
+                    {ONYX_REQUEST_store_filter #component/ecommerce/store_filter}
+                    {ONYX_REQUEST_store_locator #component/ecommerce/store_locator~node_id=GET.id:store_type_id=GET.store_type_id~}<!--
+                    --><div id="store-list-container">{ONYX_REQUEST_store_list #component/ecommerce/store_list~store_id=GET.store_id~}</div>
                 </div>
             </div>
         </div>

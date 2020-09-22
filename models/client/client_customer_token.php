@@ -8,7 +8,7 @@
  
 require_once('models/common/common_node_taxonomy.php');
 
-class client_customer_token extends Onxshop_Model {
+class client_customer_token extends Onyx_Model {
 
     /**
      * @access private
@@ -111,7 +111,7 @@ class client_customer_token extends Onxshop_Model {
      */
      
     static function initConfiguration() {
-        if (array_key_exists('client_customer_token', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['client_customer_token'];
+        if (array_key_exists('client_customer_token', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['client_customer_token'];
         else $conf = array();
         
         return $conf;

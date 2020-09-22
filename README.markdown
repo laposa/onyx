@@ -2,14 +2,14 @@ Onyx
 =======
 This CMS/eCommerce is unique in strict separation of PHP, HTML, CSS and Javascript code, which makes it easy to customise for any type of web project. State of the art on page editing interface using maximum of flexible layout system will allow you to design in browser.
 
-Multisite design allows to run multiple website and share one Onyx installation (onxshop_dir).
+Multisite design allows to run multiple website and share one Onyx installation (onyx_dir).
 
 Typical web project files (project_skeleton)
 --------------------------------------------
 * conf/
 * controllers/
 * models/
-* onxshop_dir -> /opt/onxshop/1.7
+* onyx_dir -> /opt/onyx/1.7
 * public_html/
 * templates/
 * var/
@@ -23,13 +23,13 @@ Via Debian APT repository
 `$ wget -O - https://onxshop.com/debian/conf/signing_key.pub | apt-key add -`
 
 ### 2. Create APT source record
-`$ echo "deb http://onxshop.com/debian/ jessie main" > /etc/apt/sources.list.d/onxshop.list`
+`$ echo "deb http://onxshop.com/debian/ jessie main" > /etc/apt/sources.list.d/onyx.list`
 
 ### 3. Install Onyx
-`$ apt-get update && apt-get install onxshop-1.7`
+`$ apt-get update && apt-get install onyx-1.7`
 
 ### 4. Create a website
-`$ sudo onxshop-1.7 create test.local.onxshop.com`
+`$ sudo onyx-1.7 create test.local.onxshop.com`
 
 More Information
 ================

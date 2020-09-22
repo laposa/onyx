@@ -9,7 +9,7 @@
 
 require_once('controllers/component/client/registration.php');
 
-class Onxshop_Controller_Component_Client_Newsletter_Subscribe extends Onxshop_Controller {
+class Onyx_Controller_Component_Client_Newsletter_Subscribe extends Onyx_Controller {
 
     /**
      * main action

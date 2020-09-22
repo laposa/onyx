@@ -22,24 +22,24 @@
                             <div class="row-wrapper">
                                 <div class="column-wrapper">
 
-                                    {ONXSHOP_REQUEST_edit #bo/component/client/edit~id=GET.id~}
+                                    {ONYX_REQUEST_edit #bo/component/client/edit~id=GET.id~}
 
                                     <div class="advanced">
 
                                         <h3 class="title">Orders</h3>
-                                        {ONXSHOP_REQUEST_orders #bo/component/ecommerce/order_list~customer_id=GET.id:limit_per_page=1000~}
+                                        {ONYX_REQUEST_orders #bo/component/ecommerce/order_list~customer_id=GET.id:limit_per_page=1000~}
 
                                         <h3 class="title">Purchased Products</h3>
-                                        {ONXSHOP_REQUEST_products_by_customer #bo/component/ecommerce/product_list_by_customer~period_limit=0:customer_id=GET.id~}
+                                        {ONYX_REQUEST_products_by_customer #bo/component/ecommerce/product_list_by_customer~period_limit=0:customer_id=GET.id~}
 
                                         <h3 class="title">Favourite Products (incl. orphaned baskets)</h3>
-                                        {ONXSHOP_REQUEST_bestbuys #bo/component/ecommerce/best_buys~period_limit=0:customer_id=GET.id~}
+                                        {ONYX_REQUEST_bestbuys #bo/component/ecommerce/best_buys~period_limit=0:customer_id=GET.id~}
 
                                         <h3 class="title">Generated Referral Voucher Codes</h3>
-                                        {ONXSHOP_REQUEST_referrals #bo/component/ecommerce/referrals~customer_id=GET.id~}
+                                        {ONYX_REQUEST_referrals #bo/component/ecommerce/referrals~customer_id=GET.id~}
 
                                         <h3 class="title">Accepted Invites</h3>
-                                        {ONXSHOP_REQUEST_referrals_friends #bo/component/ecommerce/referrals_friends~customer_id=GET.id~}
+                                        {ONYX_REQUEST_referrals_friends #bo/component/ecommerce/referrals_friends~customer_id=GET.id~}
                                     </div>
 
                                 </div>

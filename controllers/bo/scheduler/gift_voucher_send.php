@@ -7,7 +7,7 @@
 
 require_once('controllers/bo/scheduler/action_base.php');
 
-class Onxshop_Controller_Bo_Scheduler_Gift_Voucher_Send extends Onxshop_Controller_Scheduler_Action_Base {
+class Onyx_Controller_Bo_Scheduler_Gift_Voucher_Send extends Onyx_Controller_Scheduler_Action_Base {
 
     /**
      * main action
@@ -19,7 +19,7 @@ class Onxshop_Controller_Bo_Scheduler_Gift_Voucher_Send extends Onxshop_Controll
 
         if (is_numeric($promotion_id)) {
 
-            $request = new Onxshop_Request("component/ecommerce/gift_voucher_send~promotion_id={$promotion_id}~");
+            $request = new Onyx_Request("component/ecommerce/gift_voucher_send~promotion_id={$promotion_id}~");
             $result = $request->getContent();
             $this->setActionStatus(true);
 

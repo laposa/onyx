@@ -7,7 +7,7 @@
 
 require_once('controllers/api/v1_2/recipe_detail.php');
 
-class Onxshop_Controller_Api_v1_3_Recipe_Detail extends Onxshop_Controller_Api_v1_2_Recipe_Detail {
+class Onyx_Controller_Api_v1_3_Recipe_Detail extends Onyx_Controller_Api_v1_2_Recipe_Detail {
 
     static $thumbnail_size = "[THUMBNAIL_SIZE]";
     
@@ -21,7 +21,7 @@ class Onxshop_Controller_Api_v1_3_Recipe_Detail extends Onxshop_Controller_Api_v
         
         $item = array();
         
-        $protocol = onxshopDetectProtocol();
+        $protocol = onyxDetectProtocol();
         
         $item['id'] = (int)$original_item['id'];
         $item['title'] = $original_item['title'];

@@ -1,4 +1,4 @@
-CSS coding standard since Onxshop 1.8
+CSS coding standard since Onyx 1.8
 
 - IDs and class names can use only lowercase characters and dashes.
 - multiple selectors are writen on separate lines

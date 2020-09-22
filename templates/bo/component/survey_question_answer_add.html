@@ -98,7 +98,7 @@
                 target: '#sub-content',
                 beforeSubmit: function() {return $("#survey-question-answer-edit-form").valid()},
                 success: function(responseText, statusText) {
-                    popupMessage("#sub-content div.onxshop-messages");
+                    popupMessage("#sub-content div.onyx-messages");
                     makeAjaxRequest('#sub-content', '/request/bo/component/survey_detail~id={GET.survey_id}~');
                 }
             });
@@ -109,6 +109,6 @@
     
 </script>
                     
-{ONXSHOP_REQUEST_tinymce #bo/tinymce~id=GET.survey_id:relation=survey:role=RTE:mode=exact:edit_elements=answer-content:theme=advanced~}
+{ONYX_REQUEST_tinymce #bo/tinymce~id=GET.survey_id:relation=survey:role=RTE:mode=exact:edit_elements=answer-content:theme=advanced~}
         
 <!-- END: content -->

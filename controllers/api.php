@@ -14,7 +14,7 @@
  * 
  */
 
-class Onxshop_Controller_Api extends Onxshop_Controller {
+class Onyx_Controller_Api extends Onyx_Controller {
 
     static $thumbnail_size = 200;
 

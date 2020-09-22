@@ -5,7 +5,7 @@
  *
  */
 
-class Onxshop_Controller_Component_Search_Nodes extends Onxshop_Controller {
+class Onyx_Controller_Component_Search_Nodes extends Onyx_Controller {
     
     /**
      * main action

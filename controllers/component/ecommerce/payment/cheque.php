@@ -7,7 +7,7 @@
 
 require_once('controllers/component/ecommerce/payment.php');
 
-class Onxshop_Controller_Component_Ecommerce_Payment_Cheque extends Onxshop_Controller_Component_Ecommerce_Payment {
+class Onyx_Controller_Component_Ecommerce_Payment_Cheque extends Onyx_Controller_Component_Ecommerce_Payment {
     
     /**
      * main action
@@ -33,8 +33,8 @@ class Onxshop_Controller_Component_Ecommerce_Payment_Cheque extends Onxshop_Cont
         
         $EmailForm = new common_email();
         
-        $_Onxshop_Request = new Onxshop_Request("component/ecommerce/order_detail~order_id={$order_data['id']}~");
-        $order_data['order_detail'] = $_Onxshop_Request->getContent();
+        $_Onyx_Request = new Onyx_Request("component/ecommerce/order_detail~order_id={$order_data['id']}~");
+        $order_data['order_detail'] = $_Onyx_Request->getContent();
                     
         //this allows use customer data and company data in the mail template
         //is passed as DATA to template in common_email->_format

@@ -5,7 +5,7 @@
  *
  */
 
-class Onxshop_Controller_Bo_Component_CSS_Edit extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_CSS_Edit extends Onyx_Controller {
 
     /**
      * main action
@@ -21,7 +21,7 @@ class Onxshop_Controller_Bo_Component_CSS_Edit extends Onxshop_Controller {
             $Configuration = new Common_configuration();
             
             if ($Configuration->saveConfig('global', 'css', $_POST['configuration']['global']['css'])) {
-                $GLOBALS['onxshop_conf']['global']['css'] = $_POST['configuration']['global']['css'];
+                $GLOBALS['onyx_conf']['global']['css'] = $_POST['configuration']['global']['css'];
                 msg("CSS has been updated");
             }
         } else {

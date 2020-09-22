@@ -8,7 +8,7 @@
 require_once('controllers/api.php');
 require_once('models/common/common_revision.php');
 
-class Onxshop_Controller_Api_v1_0_Resources extends Onxshop_Controller_Api {
+class Onyx_Controller_Api_v1_0_Resources extends Onyx_Controller_Api {
 
     /**
      * get data
@@ -25,7 +25,7 @@ class Onxshop_Controller_Api_v1_0_Resources extends Onxshop_Controller_Api {
             $version_string = preg_replace('/\_/', '.', $version);
             $version_string = ltrim($version_string, 'v');
             
-            $protocol = onxshopDetectProtocol();
+            $protocol = onyxDetectProtocol();
             
             $base_api_url = "$protocol://{$_SERVER['HTTP_HOST']}/api/v{$version_string}/";
             $standard_params = "?format={$format}&api_key={$api_key}";
@@ -65,13 +65,13 @@ class Onxshop_Controller_Api_v1_0_Resources extends Onxshop_Controller_Api {
      
     public function getDataVersion() {
          
-        if (is_numeric($GLOBALS['onxshop_conf']['common_configuration']['api_data_version'])) {
+        if (is_numeric($GLOBALS['onyx_conf']['common_configuration']['api_data_version'])) {
             
             /**
              * read from config
              */
 
-            $data_version = $GLOBALS['onxshop_conf']['common_configuration']['api_data_version'];
+            $data_version = $GLOBALS['onyx_conf']['common_configuration']['api_data_version'];
         
         } else {
             
@@ -94,9 +94,9 @@ class Onxshop_Controller_Api_v1_0_Resources extends Onxshop_Controller_Api {
      
     public function getThemeVersion() {
         
-        if (is_numeric($GLOBALS['onxshop_conf']['common_configuration']['api_theme_version'])) {
+        if (is_numeric($GLOBALS['onyx_conf']['common_configuration']['api_theme_version'])) {
             
-            $theme_version = $GLOBALS['onxshop_conf']['common_configuration']['api_theme_version'];
+            $theme_version = $GLOBALS['onyx_conf']['common_configuration']['api_theme_version'];
             
         } else {
             

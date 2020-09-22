@@ -7,7 +7,7 @@ $(document).ready(function() {
     $('#taxonomy-edit-{GET.id}').ajaxForm({
         target: '#sub-content',
         success: function(responseText, statusText) {
-            popupMessage("#sub-content div.onxshop-messages");
+            popupMessage("#sub-content div.onyx-messages");
             refreshList();
             appendHeader();
         }
@@ -52,7 +52,7 @@ $(document).ready(function() {
         <fieldset>
             <legend>Images</legend>
             <div class="row">
-                {ONXSHOP_REQUEST_imagelist #bo/component/file_list~type=add_to_taxonomy:relation=taxonomy:node_id=GET.id~}
+                {ONYX_REQUEST_imagelist #bo/component/file_list~type=add_to_taxonomy:relation=taxonomy:node_id=GET.id~}
             </div>
         </fieldset>
         

@@ -7,6 +7,6 @@
 
 require_once('controllers/node/layout/tabs.php');
 
-class Onxshop_Controller_Node_Layout_Slider extends Onxshop_Controller_Node_Layout_Tabs {
+class Onyx_Controller_Node_Layout_Slider extends Onyx_Controller_Node_Layout_Tabs {
 
 }

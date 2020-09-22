@@ -9,7 +9,7 @@ require_once('models/education/education_survey.php');
 require_once('models/education/education_survey_entry.php');
 require_once('models/client/client_action.php');
 
-class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
+class Onyx_Controller_Component_Survey extends Onyx_Controller {
 
     /**
      * main action
@@ -148,8 +148,8 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
         
         if (!is_numeric($survey_id)) return false;
         
-        $_Onxshop_Request = new Onxshop_Request("component/survey_result~survey_id=$survey_id~");
-        $this->tpl->assign('SURVEY_RESULT_STATS', $_Onxshop_Request->getContent());
+        $_Onyx_Request = new Onyx_Request("component/survey_result~survey_id=$survey_id~");
+        $this->tpl->assign('SURVEY_RESULT_STATS', $_Onyx_Request->getContent());
         
     }
 
@@ -158,7 +158,7 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
      */
     public function displaySuccessPage($href, $survey_entry_id) {
 
-        onxshopGoTo($href);
+        onyxGoTo($href);
 
     }
 
@@ -307,7 +307,7 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
              * TODO: allow to configure or use automatic selection based on data in ecommerce_store
              */
              
-            if (ONXSHOP_ECOMMERCE) $this->parseStoreSelect($client_data['customer']['store_id'], 'content.form.require_user_details');
+            if (ONYX_ECOMMERCE) $this->parseStoreSelect($client_data['customer']['store_id'], 'content.form.require_user_details');
             else $this->parseLocationSelect($client_data['customer']['other_data']['county']);
             
             /**
@@ -638,7 +638,7 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
     protected function parseLocationSelect($selected_id, $template_block_path = 'content.form')
     {
     
-        $provinces = $this->getTaxonomyBranch($GLOBALS['onxshop_conf']['global']['province_taxonomy_tree_id']);
+        $provinces = $this->getTaxonomyBranch($GLOBALS['onyx_conf']['global']['province_taxonomy_tree_id']);
 
         foreach ($provinces as $province) {
 
@@ -671,7 +671,7 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
         require_once('models/ecommerce/ecommerce_store.php');
         $Store = new ecommerce_store();
         
-        $provinces = $this->getTaxonomyBranch($GLOBALS['onxshop_conf']['global']['province_taxonomy_tree_id']);
+        $provinces = $this->getTaxonomyBranch($GLOBALS['onyx_conf']['global']['province_taxonomy_tree_id']);
 
         $total_store_count = 0;
         
@@ -722,7 +722,7 @@ class Onxshop_Controller_Component_Survey extends Onxshop_Controller {
     protected function createFacebookStory()
     {
         if (client_action::hasOpenGraphStory('enter', 'competition')) {
-            $request = new Onxshop_Request("component/client/facebook_story_create~" 
+            $request = new Onyx_Request("component/client/facebook_story_create~" 
                 . "action=enter"
                 . ":object=competition"
                 . ":node_id=" . $_SESSION['active_pages'][0]

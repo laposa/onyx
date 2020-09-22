@@ -8,7 +8,7 @@ require_once('models/ecommerce/ecommerce_store.php');
 require_once('models/ecommerce/ecommerce_store_taxonomy.php');
 require_once('models/common/common_taxonomy_tree.php');
 
-class Onxshop_Controller_Component_Ecommerce_Store_Detail extends Onxshop_Controller {
+class Onyx_Controller_Component_Ecommerce_Store_Detail extends Onyx_Controller {
 
     /**
      * main action
@@ -28,8 +28,8 @@ class Onxshop_Controller_Component_Ecommerce_Store_Detail extends Onxshop_Contro
              * get store taxonomy print out
              */
              
-            $_Onxshop_Request = new Onxshop_Request("component/ecommerce/store_taxonomy~store_id={$store['id']}~");
-            $this->tpl->assign("STORE_TAXONOMY", $_Onxshop_Request->getContent());
+            $_Onyx_Request = new Onyx_Request("component/ecommerce/store_taxonomy~store_id={$store['id']}~");
+            $this->tpl->assign("STORE_TAXONOMY", $_Onyx_Request->getContent());
 
             /**
              * text depending if my selected store

@@ -7,7 +7,7 @@
  *
  */
  
-class ecommerce_basket extends Onxshop_Model {
+class ecommerce_basket extends Onyx_Model {
 
     /**
      * @access public
@@ -75,7 +75,7 @@ class ecommerce_basket extends Onxshop_Model {
      
     static function initConfiguration() {
     
-        if (array_key_exists('ecommerce_basket', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['ecommerce_basket'];
+        if (array_key_exists('ecommerce_basket', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['ecommerce_basket'];
         else $conf = array();
         
         return $conf;

@@ -7,7 +7,7 @@
 
 require_once('controllers/node/content/default.php');
 
-class Onxshop_Controller_Node_Content_Comment extends Onxshop_Controller_Node_Content_Default {
+class Onyx_Controller_Node_Content_Comment extends Onyx_Controller_Node_Content_Default {
 
     /**
      * main action
@@ -21,8 +21,8 @@ class Onxshop_Controller_Node_Content_Comment extends Onxshop_Controller_Node_Co
         
         $node_data = $Node->nodeDetail($this->GET['id']);
         
-        $_Onxshop_Request = new Onxshop_Request("component/comment~node_id={$node_data['id']}:allow_anonymouse_submit={$node_data['component']['allow_anonymouse_submit']}~");
-        $node_data['content'] = $_Onxshop_Request->getContent();
+        $_Onyx_Request = new Onyx_Request("component/comment~node_id={$node_data['id']}:allow_anonymouse_submit={$node_data['component']['allow_anonymouse_submit']}~");
+        $node_data['content'] = $_Onyx_Request->getContent();
         
         $this->tpl->assign("NODE", $node_data);
         

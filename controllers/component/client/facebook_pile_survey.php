@@ -7,7 +7,7 @@
 
 require_once 'controllers/component/client/facebook_pile.php';
 
-class Onxshop_Controller_Component_Client_Facebook_Pile_Survey extends Onxshop_Controller_Component_Client_Facebook_Pile {
+class Onyx_Controller_Component_Client_Facebook_Pile_Survey extends Onyx_Controller_Component_Client_Facebook_Pile {
 
     /**
      * main action

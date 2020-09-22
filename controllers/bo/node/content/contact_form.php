@@ -7,7 +7,7 @@
 
 require_once('controllers/bo/node/content/default.php');
 
-class Onxshop_Controller_Bo_Node_Content_Contact_form extends Onxshop_Controller_Bo_Node_Content_Default {
+class Onyx_Controller_Bo_Node_Content_Contact_form extends Onyx_Controller_Bo_Node_Content_Default {
     
     /**
      * post action
@@ -40,7 +40,7 @@ class Onxshop_Controller_Bo_Node_Content_Contact_form extends Onxshop_Controller
         
         // show warning if old _contact_form directory is found
         $old_directory = 'templates/component/_contact_form/';
-        if (file_exists(ONXSHOP_PROJECT_DIR . $old_directory)) msg("Found deprecated folder name in your installation. Please contact your developers and ask them to rename $old_directory to $directory", 'error');
+        if (file_exists(ONYX_PROJECT_DIR . $old_directory)) msg("Found deprecated folder name in your installation. Please contact your developers and ask them to rename $old_directory to $directory", 'error');
         
         /**
          * list templates

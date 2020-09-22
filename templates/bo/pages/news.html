@@ -7,7 +7,7 @@ $(document).ready(function(){
         autoclose: true,
         afterClick:function(node){
             var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
-            $("#news-list").html(onxshop_load_indicator_html_snippet).load("/request/bo/component/news_list~show_all_from_bo=1:taxonomy_tree_id="+node_id+"~");
+            $("#news-list").html(onyx_load_indicator_html_snippet).load("/request/bo/component/news_list~show_all_from_bo=1:taxonomy_tree_id="+node_id+"~");
         },
         animate: true,
         docToFolderConvert: true
@@ -25,7 +25,7 @@ $(document).ready(function(){
                 <div class="page-header">
                     <div class="page-header-wrapper">
                         <h1 class="page-title"><span>{BLOG_SECTION.title|htmlspecialchars}</span></h1>
-                        <div id="news-section-select" style="position: absolute; top: 26px; right: 20px; ">{ONXSHOP_REQUEST_section_select #bo/component/news_section_select}</div>
+                        <div id="news-section-select" style="position: absolute; top: 26px; right: 20px; ">{ONYX_REQUEST_section_select #bo/component/news_section_select}</div>
                     </div>
                 </div>
 
@@ -44,7 +44,7 @@ $(document).ready(function(){
                                     <div class="column-wrapper">
 
                                         <div id="news-taxonomy-filter">
-                                            {ONXSHOP_REQUEST_menupages #bo/component/taxonomy_menu~expand_all=1:publish=0~}
+                                            {ONYX_REQUEST_menupages #bo/component/taxonomy_menu~expand_all=1:publish=0~}
                                         </div>
 
                                     </div>
@@ -53,7 +53,7 @@ $(document).ready(function(){
                                     <div class="column-wrapper">
 
                                         <div id="news-list">
-                                            {ONXSHOP_REQUEST_newslist #bo/component/news_list~display_pagination=1~}
+                                            {ONYX_REQUEST_newslist #bo/component/news_list~display_pagination=1~}
                                         </div>
 
                                     </div>

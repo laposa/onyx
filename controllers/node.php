@@ -5,7 +5,7 @@
  *
  */
 
-class Onxshop_Controller_Node extends Onxshop_Controller {
+class Onyx_Controller_Node extends Onyx_Controller {
 
     /**
      * main action
@@ -65,7 +65,7 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
          * merge
          */
         
-        $GLOBALS['onxshop_conf'] = $this->array_replace_recursive($GLOBALS['onxshop_conf'], $global_conf_node_overwrites);
+        $GLOBALS['onyx_conf'] = $this->array_replace_recursive($GLOBALS['onyx_conf'], $global_conf_node_overwrites);
         
         /**
          * check if the page can be viewed
@@ -77,8 +77,8 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
             // don't allow to save this request to the cache
             Zend_Registry::set('omit_cache', true);
             // display 404 page content
-            $_Onxshop_Request = new Onxshop_Request('node~id=' . $this->Node->conf['id_map-404'].'~'); 
-            $node_data['content'] = $_Onxshop_Request->getContent();
+            $_Onyx_Request = new Onyx_Request('node~id=' . $this->Node->conf['id_map-404'].'~'); 
+            $node_data['content'] = $_Onyx_Request->getContent();
             $this->tpl->assign('NODE', $node_data);
             $this->tpl->parse('content.wrapper');
             return true;
@@ -95,18 +95,18 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
             if ($parsed_url['query']) $_SESSION['to'] = "page/{$node_id}?{$parsed_url['query']}";
             else $_SESSION['to'] = "page/{$node_id}";
             
-            onxshopGoTo("page/" . $this->Node->conf['id_map-login']);//will exit immediatelly
+            onyxGoTo("page/" . $this->Node->conf['id_map-login']);//will exit immediatelly
         }
         
         /**
          * force SSL
-         * this is no longer effective since Onxshop 1.7 when we force SSL for all pages
-         * when ONXSHOP_CUSTOMER_USE_SSL is set to "true"
+         * this is no longer effective since Onyx 1.7 when we force SSL for all pages
+         * when ONYX_CUSTOMER_USE_SSL is set to "true"
          * kept here for transitional period
          */
         
         if ($node_data['require_ssl'] == 1) {
-            if (!($_SERVER['SSL_PROTOCOL'] || $_SERVER['HTTPS']) && ONXSHOP_CUSTOMER_USE_SSL) {
+            if (!($_SERVER['SSL_PROTOCOL'] || $_SERVER['HTTPS']) && ONYX_CUSTOMER_USE_SSL) {
                 //don't exit in this case, just say "next time use SSL"
                 header("Location: https://{$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}");
             }
@@ -114,14 +114,14 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
         
         
         /**
-         * check if template file exists in ONXSHOP_DIR or in ONXSHOP_PROJECT_DIR
+         * check if template file exists in ONYX_DIR or in ONYX_PROJECT_DIR
          */
          
         $template_path = "node/{$node_data['node_group']}/{$node_data['node_controller']}";
         
         $template_file_path = "templates/{$template_path}.html";
         
-        if (file_exists(ONXSHOP_DIR . $template_file_path) || file_exists(ONXSHOP_PROJECT_DIR . $template_file_path)) {
+        if (file_exists(ONYX_DIR . $template_file_path) || file_exists(ONYX_PROJECT_DIR . $template_file_path)) {
 
             $template = $template_path;
             
@@ -142,7 +142,7 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
         
         $controller_file_path = "controllers/{$controller_path}.php";
         
-        if (file_exists(ONXSHOP_DIR . $controller_file_path) || file_exists(ONXSHOP_PROJECT_DIR . $controller_file_path)) {
+        if (file_exists(ONYX_DIR . $controller_file_path) || file_exists(ONYX_PROJECT_DIR . $controller_file_path)) {
 
             $controller = $controller_path;
             
@@ -169,8 +169,8 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
             $GLOBALS['components'][count($GLOBALS['components']) - 1]['node'] = $node_data['title'];
         }
 
-        $_Onxshop_Request = new Onxshop_Request("$controller_request&id={$node_data['id']}&parent_id={$node_data['parent']}");
-        $node_data['content'] = $_Onxshop_Request->getContent();
+        $_Onyx_Request = new Onyx_Request("$controller_request&id={$node_data['id']}&parent_id={$node_data['parent']}");
+        $node_data['content'] = $_Onyx_Request->getContent();
         
         /**
          * add extra_css_class
@@ -221,7 +221,7 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
         // don't show edit icons when disable_fe_edit or shared parameter is 1 (i.e. passed from shared content)
         // and not authenticated for the backend
         $show_fe_edit = false;
-        if (Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) $show_fe_edit = true;
+        if (Onyx_Bo_Authentication::getInstance()->isAuthenticated()) $show_fe_edit = true;
         if ($this->GET['disable_fe_edit'] || $this->GET['shared']) $show_fe_edit = false;
 
         if ($show_fe_edit == true) {
@@ -280,7 +280,7 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
         if ($this->Node->checkDisplayPermission($node_data, $force_admin_visibility)) {
             
             //don't display hidden node in preview mode
-            if ($node_data['publish'] == 0 && Onxshop_Bo_Authentication::getInstance()->isAuthenticated() && $_SESSION['fe_edit_mode'] == 'preview' ) $visibility1 = false;
+            if ($node_data['publish'] == 0 && Onyx_Bo_Authentication::getInstance()->isAuthenticated() && $_SESSION['fe_edit_mode'] == 'preview' ) $visibility1 = false;
             else $visibility1 = true;
         }
         
@@ -311,7 +311,7 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
     public function _checkPermissionForExtraCSS($node_data) {
     
         //add css class when when logged in and using edit or move mode
-        if (Onxshop_Bo_Authentication::getInstance()->isAuthenticated() && ($_SESSION['fe_edit_mode'] == 'edit' || $_SESSION['fe_edit_mode'] == 'move')) return true;
+        if (Onyx_Bo_Authentication::getInstance()->isAuthenticated() && ($_SESSION['fe_edit_mode'] == 'edit' || $_SESSION['fe_edit_mode'] == 'move')) return true;
         else return false;
         
     }
@@ -345,7 +345,7 @@ class Onxshop_Controller_Node extends Onxshop_Controller {
         if ($this->checkForValidPreviewToken($node_data)) {
             msg("This page is waiting for approval");
             return true;
-        } else if (Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) {
+        } else if (Onyx_Bo_Authentication::getInstance()->isAuthenticated()) {
             return true;
         } else if ($this->Node->isInBin($node_data['id'])) {
             return false;

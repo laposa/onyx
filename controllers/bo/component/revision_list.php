@@ -4,7 +4,7 @@
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
-class Onxshop_Controller_Bo_Component_Revision_List extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Revision_List extends Onyx_Controller {
 
     /**
      * main action

@@ -5,7 +5,7 @@
  * 
  */
 
-class Onxshop_Controller_Bo_Component_Node_Add extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Node_Add extends Onyx_Controller {
 
     /**
      * main action
@@ -50,7 +50,7 @@ class Onxshop_Controller_Bo_Component_Node_Add extends Onxshop_Controller {
             if($id = $Node->nodeInsert($node_data)) {
                 
                 //quick pages builder
-                //is broken :) $Page_builder = new Onxshop_Request("bo/page_builder@blank&parent=$id&node_group={$node_data['node_group']}&node_controller={$node_data['node_controller']}");
+                //is broken :) $Page_builder = new Onyx_Request("bo/page_builder@blank&parent=$id&node_group={$node_data['node_group']}&node_controller={$node_data['node_controller']}");
         
                 msg(ucfirst($node_data['node_group']) . " ". $node_data['title'] . " has been added.");
                 $this->tpl->assign("INSERTED_NODE_ID", $id);
@@ -76,7 +76,7 @@ class Onxshop_Controller_Bo_Component_Node_Add extends Onxshop_Controller {
         if ($node_group == 'container') $node_group = 'page';
         
         // get the list of node types
-        $Node_type = new Onxshop_Request("bo/component/node_type_menu~id=new:open={$node_controller}:node_group={$node_group}:expand_all=$expand_all~");
+        $Node_type = new Onyx_Request("bo/component/node_type_menu~id=new:open={$node_controller}:node_group={$node_group}:expand_all=$expand_all~");
         $this->tpl->assign("NODE_TYPE", $Node_type->getContent());
 
         $this->tpl->parse('content.form');

@@ -8,7 +8,7 @@
  */
 
 
-class Onxshop_Controller_Bo_Component_Node_Bin extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Node_Bin extends Onyx_Controller {
 
     /**
      * main action

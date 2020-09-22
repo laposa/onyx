@@ -1,5 +1,5 @@
 #!/bin/bash -e
-# Onxshop backup using CMS backup facility
+# Onyx backup using CMS backup facility
 # Norbert Laposa, 2013-2015
 
 # Configure

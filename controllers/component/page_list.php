@@ -7,7 +7,7 @@
 require_once('controllers/list.php');
 require_once('models/common/common_node.php');
 
-class Onxshop_Controller_Component_Page_List extends Onxshop_Controller_List {
+class Onyx_Controller_Component_Page_List extends Onyx_Controller_List {
 
     /**
      * main action
@@ -59,7 +59,7 @@ class Onxshop_Controller_Component_Page_List extends Onxshop_Controller_List {
 
                 $related_taxonomy = $this->Node->getRelatedTaxonomy($node_id);
                 $item_node_data['taxonomy'] = $related_taxonomy;
-                $item_node_data['taxonomy_class'] = Onxshop_Controller_Node_Page_Default::createTaxonomyClass($related_taxonomy);
+                $item_node_data['taxonomy_class'] = Onyx_Controller_Node_Page_Default::createTaxonomyClass($related_taxonomy);
 
                 $this->tpl->assign('ITEM', $item_node_data);
                 if ($item_node_data['image']['src']) $this->tpl->parse("content.item.image");

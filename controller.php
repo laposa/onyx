@@ -5,7 +5,7 @@
  *
  */
 
-class Onxshop_Controller {
+class Onyx_Controller {
 
     /**
      * request GET parameter.
@@ -40,19 +40,19 @@ class Onxshop_Controller {
      * Construct
      */
      
-    public function __construct($request = false, &$subOnxshop = false) {
-        if ($request) return $this->process($request, $subOnxshop);
+    public function __construct($request = false, &$subOnyx = false) {
+        if ($request) return $this->process($request, $subOnyx);
     }
     
     /**
      * process
      *
      * @param string $request
-     * @param object $subOnxshop
+     * @param object $subOnyx
      * @return boolean
      */
      
-    public function process($request, &$subOnxshop = false) {
+    public function process($request, &$subOnyx = false) {
     
         if (isset($GLOBALS['components'])) {
 
@@ -65,7 +65,7 @@ class Onxshop_Controller {
 
         }
 
-        msg("ONXSHOP_REQUEST: BEGIN $request", "ok", 2);
+        msg("ONYX_REQUEST: BEGIN $request", "ok", 2);
         
         /**
          * save copy or GET request to local variable
@@ -92,16 +92,16 @@ class Onxshop_Controller {
 
         $this->_template_dir = getTemplateDir($this->_module_html);
 
-        $this->_module_php = ONXSHOP_PROJECT_DIR . "controllers/{$module['controller']}.php";
-        if (!file_exists($this->_module_php)) $this->_module_php = ONXSHOP_DIR . "controllers/{$module['controller']}.php";
+        $this->_module_php = ONYX_PROJECT_DIR . "controllers/{$module['controller']}.php";
+        if (!file_exists($this->_module_php)) $this->_module_php = ONYX_DIR . "controllers/{$module['controller']}.php";
         
         if ($this->_template_dir != '') $this->_initTemplate($this->_module_html);
     
-        //look for the Onxshop tags
+        //look for the Onyx tags
         $this->parseContentTagsBefore();
     
         // main action controller
-        // if some error comes from controller, save it into registry, this will not allow save cache in onxshop.bootstrap
+        // if some error comes from controller, save it into registry, this will not allow save cache in onyx.bootstrap
         
         msg("mainAction html: " . $this->_template_dir . $this->_module_html, 'ok', 2);
         msg("mainAction php: " . $this->_module_php, 'ok', 2);
@@ -115,9 +115,9 @@ class Onxshop_Controller {
          * subcontent
          */
         
-        if (is_object($subOnxshop)) { 
+        if (is_object($subOnyx)) { 
 
-            $this->tpl->assign('SUB_CONTENT', $subOnxshop->getContent());
+            $this->tpl->assign('SUB_CONTENT', $subOnyx->getContent());
         }
     
         if ($this->_template_dir != '') {   
@@ -128,7 +128,7 @@ class Onxshop_Controller {
             msg("{$this->_module_html} " . 'does not exists.', 'error', 2);
         }
         
-        msg("ONXSHOP_REQUEST: END $request", "ok", 2);
+        msg("ONYX_REQUEST: END $request", "ok", 2);
 
         //if all went OK, return true
         return true;
@@ -404,11 +404,11 @@ class Onxshop_Controller {
                     $xrequest = str_replace("{$v}", $this->GET[$m[1][$k]], $xrequest);
                 }
                 
-                $_xrequest = new Onxshop_Request($xrequest);
+                $_xrequest = new Onyx_Request($xrequest);
                 
                 //because of stupid parseContentTagsAfter(), we have to check if it isn't already assigned 
-                if ($this->tpl->vars["ONXSHOP_REQUEST_{$matches[1][$key]}"] == '') {
-                    $this->tpl->assign("ONXSHOP_REQUEST_{$matches[1][$key]}", trim($_xrequest->getContent()));
+                if ($this->tpl->vars["ONYX_REQUEST_{$matches[1][$key]}"] == '') {
+                    $this->tpl->assign("ONYX_REQUEST_{$matches[1][$key]}", trim($_xrequest->getContent()));
                 }
                 
             }
@@ -440,7 +440,7 @@ class Onxshop_Controller {
     }
         
     /**
-     * find onxshop request tags
+     * find onyx request tags
      *
      * @param string $content
      * @return array
@@ -448,7 +448,7 @@ class Onxshop_Controller {
 
     function findTags($content) {
     
-        preg_match_all('/\{ONXSHOP_REQUEST_([^\}]*) #([^\}]*)\}/', $content, $matches);
+        preg_match_all('/\{ONYX_REQUEST_([^\}]*) #([^\}]*)\}/', $content, $matches);
         
         if (count($matches[0]) > 0) {
             return $matches;
@@ -709,7 +709,7 @@ class Onxshop_Controller {
             
             if ($this->checkTemplateVariableExists('MESSAGES')) {
             
-                $messages = '<div class="onxshop-messages" role="alert">' . $_SESSION['messages'] . '</div>';
+                $messages = '<div class="onyx-messages" role="alert">' . $_SESSION['messages'] . '</div>';
     
                 $this->tpl->assign('MESSAGES', $messages);
                 $this->tpl->parse('content.messages');
@@ -752,8 +752,8 @@ class Onxshop_Controller {
      function _initTemplate($template_file) {
     
         // core template engine
-        // initialize with option to look for files in local (project) and global (onxshop) directory
-        $this->tpl = new XTemplate ($template_file, array(ONXSHOP_PROJECT_DIR . 'templates/', ONXSHOP_DIR . 'templates/'));
+        // initialize with option to look for files in local (project) and global (onyx) directory
+        $this->tpl = new XTemplate ($template_file, array(ONYX_PROJECT_DIR . 'templates/', ONYX_DIR . 'templates/'));
         
         // set base variables
         $this->_initTemplateVariables();
@@ -770,7 +770,7 @@ class Onxshop_Controller {
         $registry = $this->_getRegistryAsArray();
         
         // detect SSL
-        $protocol = onxshopDetectProtocol();
+        $protocol = onyxDetectProtocol();
         
         // detect non standard port
         if ($protocol == 'https' && ($_SERVER['SERVER_PORT'] == 443 || $_SERVER['HTTP_X_FORWARDED_PORT'] == 443)) $port = '';
@@ -787,7 +787,7 @@ class Onxshop_Controller {
         $this->tpl->assign('URI_SAFE', $uri); // deprecated
         $this->tpl->assign('BASE_URI', "$protocol://{$_SERVER['SERVER_NAME']}$port");
         $this->tpl->assign('REQUEST_URI', "$protocol://{$_SERVER['SERVER_NAME']}$port{$_SERVER['SCRIPT_NAME']}?request={$_GET['request']}");
-        $this->tpl->assign('CONFIGURATION', $GLOBALS['onxshop_conf']);
+        $this->tpl->assign('CONFIGURATION', $GLOBALS['onyx_conf']);
         $this->tpl->assign('REGISTRY', $registry);
         $this->tpl->assign('CSRF_TOKEN', $registry['CSRF_TOKEN']);
         
@@ -824,41 +824,41 @@ class Onxshop_Controller {
     /**
      * Factory method for creating new controller using request URI
      * @param string $request
-     * @param object $subOnxshop
+     * @param object $subOnyx
      * @return object
      */
     
-    public static function createController($request, &$subOnxshop = false) {
+    public static function createController($request, &$subOnyx = false) {
         
         $file = self::_getControllerFile($request);
         $classname = self::_getControllerClassname($file);
         $classname_local = $classname . '_Local';
         
-        if (file_exists(ONXSHOP_PROJECT_DIR . $file)) {
+        if (file_exists(ONYX_PROJECT_DIR . $file)) {
             
             $controller_exists = 1;
             
-            require_once(ONXSHOP_PROJECT_DIR . $file);
+            require_once(ONYX_PROJECT_DIR . $file);
             
             if (class_exists($classname_local)) {
                 
-                return new $classname_local($request, $subOnxshop);
+                return new $classname_local($request, $subOnyx);
                 
             } else if (class_exists($classname)) {
                 
-                return new $classname($request, $subOnxshop);
+                return new $classname($request, $subOnyx);
                 
             }
             
-        } else if (file_exists(ONXSHOP_DIR . $file)) {
+        } else if (file_exists(ONYX_DIR . $file)) {
             
             $controller_exists = 1;
             
-            require_once(ONXSHOP_DIR . $file);
+            require_once(ONYX_DIR . $file);
             
              if (class_exists($classname)) {
             
-                return new $classname($request, $subOnxshop);
+                return new $classname($request, $subOnyx);
                 
             }
         }
@@ -875,7 +875,7 @@ class Onxshop_Controller {
             
         } else {
         
-            return new $classname($request, $subOnxshop);
+            return new $classname($request, $subOnyx);
         
         }
     }
@@ -888,11 +888,11 @@ class Onxshop_Controller {
 
     private static function _getControllerClassname($file) {
         
-        if (file_exists(ONXSHOP_DIR . $file) || file_exists(ONXSHOP_PROJECT_DIR . $file)) {
+        if (file_exists(ONYX_DIR . $file) || file_exists(ONYX_PROJECT_DIR . $file)) {
             $name = preg_replace('/^controllers\/(.*).php$/', '\1', $file);
-            $classname = "Onxshop_Controller_" . preg_replace("/\//", "_", $name);
+            $classname = "Onyx_Controller_" . preg_replace("/\//", "_", $name);
         } else {
-            $classname = "Onxshop_Controller";
+            $classname = "Onyx_Controller";
         }
         return $classname;
         

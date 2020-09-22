@@ -7,7 +7,7 @@
 
 require_once('controllers/node/page/default.php');
 
-class Onxshop_Controller_Node_Container_Default extends Onxshop_Controller_Node {
+class Onyx_Controller_Node_Container_Default extends Onyx_Controller_Node {
     
     /**
      * main action
@@ -30,12 +30,12 @@ class Onxshop_Controller_Node_Container_Default extends Onxshop_Controller_Node 
         
         if (is_numeric($first_parent_page_id) && $first_parent_page_id > 0) {
             
-            onxshopGoTo("page/" . $first_parent_page_id);
+            onyxGoTo("page/" . $first_parent_page_id);
         
         } else {
             
             // there is no parent page to this container, forward to homepage
-            onxshopGoto("page/" . $Node->conf['id_map-homepage']);
+            onyxGoto("page/" . $Node->conf['id_map-homepage']);
         
         }
         

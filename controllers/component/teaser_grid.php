@@ -7,6 +7,6 @@
 
 require_once('controllers/component/teaser.php');
 
-class Onxshop_Controller_Component_Teaser_Grid extends Onxshop_Controller_Component_Teaser {
+class Onyx_Controller_Component_Teaser_Grid extends Onyx_Controller_Component_Teaser {
 
 }

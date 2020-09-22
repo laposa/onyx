@@ -7,7 +7,7 @@
  *
  */
  
-class ecommerce_basket_content extends Onxshop_Model {
+class ecommerce_basket_content extends Onyx_Model {
 
     /**
      * @access private
@@ -72,7 +72,7 @@ CREATE TABLE ecommerce_basket_content (
      
     static function initConfiguration() {
     
-        if (array_key_exists('ecommerce_basket_content', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['ecommerce_basket_content'];
+        if (array_key_exists('ecommerce_basket_content', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['ecommerce_basket_content'];
         else $conf = array();
         
         if (!is_numeric($conf['allow_out_of_stock_item'])) $conf['allow_out_of_stock_item'] = 0;

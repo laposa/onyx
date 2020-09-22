@@ -5,7 +5,7 @@
  *
  */
 
-class Onxshop_Controller_Bo_Component_Ecommerce_Store_In_Node extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Ecommerce_Store_In_Node extends Onyx_Controller {
 
     /**
      * main action
@@ -63,12 +63,12 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Store_In_Node extends Onxshop_Co
             $this->tpl->assign("PARENT_DETAIL", $parent_detail);
             
             //breadcrumb
-            $_Onxshop_Request = new Onxshop_Request("component/breadcrumb~id={$store_homepage['id']}:create_last_link=1~");
-            $this->tpl->assign('BREADCRUMB', $_Onxshop_Request->getContent());
+            $_Onyx_Request = new Onyx_Request("component/breadcrumb~id={$store_homepage['id']}:create_last_link=1~");
+            $this->tpl->assign('BREADCRUMB', $_Onyx_Request->getContent());
             
             //children node list
-            $_Onxshop_Request = new Onxshop_Request("bo/component/node_list~id={$store_homepage['id']}:node_group=content~");
-            $this->tpl->assign('NODE_LIST', $_Onxshop_Request->getContent());
+            $_Onyx_Request = new Onyx_Request("bo/component/node_list~id={$store_homepage['id']}:node_group=content~");
+            $this->tpl->assign('NODE_LIST', $_Onyx_Request->getContent());
             
             //parse
             $this->tpl->parse('content.store_node');

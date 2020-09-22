@@ -5,7 +5,7 @@
  * 
  */
 
-class Onxshop_Controller_Component_Ecommerce_Payment extends Onxshop_Controller {
+class Onyx_Controller_Component_Ecommerce_Payment extends Onyx_Controller {
 
     /**
      * main action
@@ -40,7 +40,7 @@ class Onxshop_Controller_Component_Ecommerce_Payment extends Onxshop_Controller 
     
     public function mainPaymentAction() {
 
-        setlocale(LC_MONETARY, $GLOBALS['onxshop_conf']['global']['locale']);
+        setlocale(LC_MONETARY, $GLOBALS['onyx_conf']['global']['locale']);
 
         /**
          * check input values
@@ -50,7 +50,7 @@ class Onxshop_Controller_Component_Ecommerce_Payment extends Onxshop_Controller 
             $order_id = $this->GET['order_id'];
         } else {
             msg('Payment: Missing order_id', 'error', 1);
-            onxshopGoTo("/page/" .$node_conf['id_map-404']);
+            onyxGoTo("/page/" .$node_conf['id_map-404']);
             return false;
         }
         
@@ -75,7 +75,7 @@ class Onxshop_Controller_Component_Ecommerce_Payment extends Onxshop_Controller 
          * google analytics
          */
         //TODO: NOTE: Do not include the square brackets when setting the values for the form. In addition, do not use commas to separate the thousands place in your total, tax, and shipping fields - any digits after the comma will be dropped.
-        if ($GLOBALS['onxshop_conf']['global']['google_analytics'] != '') {
+        if ($GLOBALS['onyx_conf']['global']['google_analytics'] != '') {
                 
             foreach ($order_data['basket']['items'] as $item) {
                 $this->tpl->assign("ITEM", $item);
@@ -89,7 +89,7 @@ class Onxshop_Controller_Component_Ecommerce_Payment extends Onxshop_Controller 
          * Google Adwords, must be numeric
          */
          
-        if (is_numeric($GLOBALS['onxshop_conf']['global']['google_adwords'])) {
+        if (is_numeric($GLOBALS['onyx_conf']['global']['google_adwords'])) {
             $this->tpl->parse('content.google_adwords');
         }
         
@@ -115,7 +115,7 @@ class Onxshop_Controller_Component_Ecommerce_Payment extends Onxshop_Controller 
          */
         
         $is_owner = $order_data['basket']['customer_id'] == $_SESSION['client']['customer']['id'];
-        $is_bo_user = Onxshop_Bo_Authentication::getInstance()->isAuthenticated();
+        $is_bo_user = Onyx_Bo_Authentication::getInstance()->isAuthenticated();
         $is_guest_user = $order_data['client']['customer']['status'] == 5;
         $is_same_session = $order_data['php_session_id'] == session_id() || $order_data['php_session_id'] == $this->GET['php_session_id'];
         $has_code = !empty($this->GET['code']) && verifyHash($order_data['id'], $this->GET['code']);
@@ -141,8 +141,8 @@ class Onxshop_Controller_Component_Ecommerce_Payment extends Onxshop_Controller 
                 } else {
                 
                     //process payment method as subcontent
-                    $_Onxshop_Request = new Onxshop_Request("component/ecommerce/payment/$payment_type~order_id=$order_id~");
-                    $this->tpl->assign("RESULT", $_Onxshop_Request->getContent());
+                    $_Onyx_Request = new Onyx_Request("component/ecommerce/payment/$payment_type~order_id=$order_id~");
+                    $this->tpl->assign("RESULT", $_Onyx_Request->getContent());
                 
                 }
             } else {
@@ -159,11 +159,11 @@ class Onxshop_Controller_Component_Ecommerce_Payment extends Onxshop_Controller 
              */
             if ($_SESSION['client']['customer']['id'] == 0) {
                 msg('You must login first.');
-                onxshopGoTo("/page/" .$node_conf['id_map-login']);
+                onyxGoTo("/page/" .$node_conf['id_map-login']);
             }
 
             msg('Unauthorised access to order detail');
-            onxshopGoTo("/page/" .$node_conf['id_map-404']);
+            onyxGoTo("/page/" .$node_conf['id_map-404']);
             return false;
 
         }

@@ -62,7 +62,7 @@ rsync --recursive --backup --backup-dir=$BACKUP_PATH --times --perms -e 'ssh -p 
     --exclude 'conf/payment/' \
     --exclude '.git/' \
     --exclude 'deployment.php' \
-    --exclude 'onxshop_dir' \
+    --exclude 'onyx_dir' \
     --exclude 'fix_permissions.sh' \
     --exclude '.gitignore' \
     $PROJECT_LOCAL_PATH \

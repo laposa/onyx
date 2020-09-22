@@ -4,7 +4,7 @@
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
-class Onxshop_Controller_Export_Xml_Image extends Onxshop_Controller {
+class Onyx_Controller_Export_Xml_Image extends Onyx_Controller {
     
     /**
      * main action

@@ -5,7 +5,7 @@
  * 
  */
 
-class Onxshop_Controller_Component_Ecommerce_Promotion_code extends Onxshop_Controller {
+class Onyx_Controller_Component_Ecommerce_Promotion_code extends Onyx_Controller {
 
     /**
      * main action
@@ -28,12 +28,12 @@ class Onxshop_Controller_Component_Ecommerce_Promotion_code extends Onxshop_Cont
         if ($_POST['promotion_code_add'] && $code) {
 
             $_SESSION['promotion_code'] = $code;
-            onxshopGoTo("/page/{$_SESSION['active_pages'][0]}");
+            onyxGoTo("/page/{$_SESSION['active_pages'][0]}");
             
         } else if ($_POST['promotion_code_remove']) {
 
             $_SESSION['promotion_code'] = false;
-            onxshopGoTo("/page/{$_SESSION['active_pages'][0]}");
+            onyxGoTo("/page/{$_SESSION['active_pages'][0]}");
         }
         
         /**

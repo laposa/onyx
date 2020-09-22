@@ -7,6 +7,6 @@
 
 require_once 'controllers/bo/backoffice_menu.php';
 
-class Onxshop_Controller_Bo_Backoffice_Menu_Actions extends Onxshop_Controller_Bo_Backoffice_Menu {
+class Onyx_Controller_Bo_Backoffice_Menu_Actions extends Onyx_Controller_Bo_Backoffice_Menu {
 
 }

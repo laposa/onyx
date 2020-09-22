@@ -1,7 +1,7 @@
 <!-- BEGIN: title -->{NODE.browser_title}<!-- END: title -->
 <!-- BEGIN: head -->
 <!-- BEGIN: open_graph -->
-<meta property="og:type" content="{ONXSHOP_FACEBOOK_APP_NAMESPACE}:recipe" />
+<meta property="og:type" content="{ONYX_FACEBOOK_APP_NAMESPACE}:recipe" />
 <!-- BEGIN: image --><meta property="og:image" content="{PROTOCOL}://{_SERVER.HTTP_HOST}/image/{OPENGRAPH_IMAGE.src|htmlspecialchars}" /><!-- END: image -->
 <meta property="og:description" content="{RECIPE.description|strip_tags|htmlspecialchars}" />
 <!-- END: open_graph -->
@@ -18,7 +18,7 @@
                         <div class="column-wrapper">
                             <div class="recipe_image">
                                 <img style="display: none;" itemprop="image" src="{PROTOCOL}://{_SERVER.HTTP_HOST}/image/{OPENGRAPH_IMAGE.src|htmlspecialchars}" />
-                                {ONXSHOP_REQUEST_image #component/image~node_id=GET.recipe_id:relation=recipe:width=300~}
+                                {ONYX_REQUEST_image #component/image~node_id=GET.recipe_id:relation=recipe:width=300~}
                             </div>
                             <div class="recipe_video">
                                 {RECIPE_VIDEO}
@@ -38,18 +38,18 @@
                                 <div class="instructions">
                                     {RECIPE.instructions}
                                 </div>
-                                {ONXSHOP_REQUEST_socialshare #component/social_network_share}
+                                {ONYX_REQUEST_socialshare #component/social_network_share}
                                 {CONTAINER.1}
                             </div>
                         </div>
                         <div class="column-two">
                             <div class="column-wrapper">
-                                {ONXSHOP_REQUEST_recipe_ingredients #component/ecommerce/recipe_ingredients~id=GET.recipe_id~}
+                                {ONYX_REQUEST_recipe_ingredients #component/ecommerce/recipe_ingredients~id=GET.recipe_id~}
                                 {CONTAINER.2}
                             </div>
                         </div>
                         <div class="related-recipes">
-                            {ONXSHOP_REQUEST_related_recipes #component/ecommerce/recipe_list_stack~taxonomy_tree_id=GET.taxonomy_tree_id:limit_per_page=3:image_role=main:conjunction=0~}
+                            {ONYX_REQUEST_related_recipes #component/ecommerce/recipe_list_stack~taxonomy_tree_id=GET.taxonomy_tree_id:limit_per_page=3:image_role=main:conjunction=0~}
                         </div>
                     </div>
                 </div>

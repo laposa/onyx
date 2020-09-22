@@ -7,7 +7,7 @@
  *
  */
  
-class ecommerce_product_variety extends Onxshop_Model {
+class ecommerce_product_variety extends Onyx_Model {
 
     /**
      * @access private
@@ -160,7 +160,7 @@ class ecommerce_product_variety extends Onxshop_Model {
      
     static function initConfiguration() {
     
-        if (array_key_exists('ecommerce_product_variety', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['ecommerce_product_variety'];
+        if (array_key_exists('ecommerce_product_variety', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['ecommerce_product_variety'];
         else $conf = array();
         
         /*

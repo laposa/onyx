@@ -8,7 +8,7 @@
  *
  */
  
-class ecommerce_invoice extends Onxshop_Model {
+class ecommerce_invoice extends Onyx_Model {
 
     /**
      * @access private
@@ -144,7 +144,7 @@ CREATE TABLE ecommerce_invoice (
      */
      
     static function initConfiguration() {
-        if (array_key_exists('ecommerce_invoice', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['ecommerce_invoice'];
+        if (array_key_exists('ecommerce_invoice', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['ecommerce_invoice'];
         else $conf = array();
         
         if (!$conf['company_name']) $conf['company_name'] = 'EXAMPLE COMPANY LTD';
@@ -222,17 +222,17 @@ CREATE TABLE ecommerce_invoice (
          */
         //get HTML content
         //basket_detail
-        $_Onxshop_Request = new Onxshop_Request("component/ecommerce/basket_detail~id={$order_data['basket_id']}:order_id={$order_id}:delivery_address_id={$order_data['delivery_address_id']}:delivery_options[carrier_id]={$order_data['other_data']['delivery_options']['carrier_id']}~");
-        $invoice['basket_detail'] =  $_Onxshop_Request->getContent();
-        $_Onxshop_Request = new Onxshop_Request("component/ecommerce/basket_detail_enhanced~id={$order_data['basket_id']}:order_id={$order_id}:delivery_address_id={$order_data['delivery_address_id']}:delivery_options[carrier_id]={$order_data['other_data']['delivery_options']['carrier_id']}~");
-        $invoice['basket_detail_enhanced'] =  $_Onxshop_Request->getContent();
+        $_Onyx_Request = new Onyx_Request("component/ecommerce/basket_detail~id={$order_data['basket_id']}:order_id={$order_id}:delivery_address_id={$order_data['delivery_address_id']}:delivery_options[carrier_id]={$order_data['other_data']['delivery_options']['carrier_id']}~");
+        $invoice['basket_detail'] =  $_Onyx_Request->getContent();
+        $_Onyx_Request = new Onyx_Request("component/ecommerce/basket_detail_enhanced~id={$order_data['basket_id']}:order_id={$order_id}:delivery_address_id={$order_data['delivery_address_id']}:delivery_options[carrier_id]={$order_data['other_data']['delivery_options']['carrier_id']}~");
+        $invoice['basket_detail_enhanced'] =  $_Onyx_Request->getContent();
         
         //address_invoice
-        $_Onxshop_Request = new Onxshop_Request("component/client/address~invoices_address_id={$order_data['invoices_address_id']}:hide_button=1~");
-        $invoice['address_invoice'] = $_Onxshop_Request->getContent();
+        $_Onyx_Request = new Onyx_Request("component/client/address~invoices_address_id={$order_data['invoices_address_id']}:hide_button=1~");
+        $invoice['address_invoice'] = $_Onyx_Request->getContent();
         //address_delivery
-        $_Onxshop_Request = new Onxshop_Request("component/client/address~delivery_address_id={$order_data['delivery_address_id']}:hide_button=1~");
-        $invoice['address_delivery'] = $_Onxshop_Request->getContent();
+        $_Onyx_Request = new Onyx_Request("component/client/address~delivery_address_id={$order_data['delivery_address_id']}:hide_button=1~");
+        $invoice['address_delivery'] = $_Onyx_Request->getContent();
         
         //get the text version
         $invoice['address_invoice'] = html2text($invoice['address_invoice']);

@@ -4,7 +4,7 @@
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
-class Onxshop_Controller_Component_Ecommerce_Product_Review_Approve_Action extends Onxshop_Controller {
+class Onyx_Controller_Component_Ecommerce_Product_Review_Approve_Action extends Onyx_Controller {
 
     /**
      * main action (only a router in this case)

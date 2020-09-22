@@ -42,7 +42,7 @@ CREATE INDEX client_customer_taxonomy_taxonomy_tree_id_key ON client_customer_ta
      */
      
     static function initConfiguration() {
-        if (array_key_exists('client_customer_taxonomy', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['client_customer_taxonomy'];
+        if (array_key_exists('client_customer_taxonomy', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['client_customer_taxonomy'];
         else $conf = array();
         
         return $conf;

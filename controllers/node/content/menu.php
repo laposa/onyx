@@ -6,7 +6,7 @@
 
 require_once('controllers/node/content/default.php');
 
-class Onxshop_Controller_Node_Content_Menu extends Onxshop_Controller_Node_Content_Default {
+class Onyx_Controller_Node_Content_Menu extends Onyx_Controller_Node_Content_Default {
 
     /**
      * main action
@@ -63,8 +63,8 @@ class Onxshop_Controller_Node_Content_Menu extends Onxshop_Controller_Node_Conte
          * pass to menu component
          */
          
-        $Onxshop_Request = new Onxshop_Request("$template~id={$node_data['component']['node_id']}:display_strapline={$node_data['component']['display_strapline']}:level={$level}:expand_all={$display_all}:open={$open}:image_width={$image_o['width']}:image_height={$image_o['height']}:image_fill={$image_o['fill']}~");
-        $this->tpl->assign("MENU", $Onxshop_Request->getContent());
+        $Onyx_Request = new Onyx_Request("$template~id={$node_data['component']['node_id']}:display_strapline={$node_data['component']['display_strapline']}:level={$level}:expand_all={$display_all}:open={$open}:image_width={$image_o['width']}:image_height={$image_o['height']}:image_fill={$image_o['fill']}~");
+        $this->tpl->assign("MENU", $Onyx_Request->getContent());
         $this->tpl->assign("NODE", $node_data);
         
         if ($node_data['display_title'])  $this->tpl->parse('content.title');

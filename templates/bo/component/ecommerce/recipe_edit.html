@@ -69,20 +69,20 @@ $(document).ready(function(){
                                             </fieldset>
                                             
                                             <fieldset>
-                                            {ONXSHOP_REQUEST_rt #bo/component/relation_taxonomy~relation=recipe:id=GET.id~}
+                                            {ONYX_REQUEST_rt #bo/component/relation_taxonomy~relation=recipe:id=GET.id~}
                                             </fieldset>
-                                            {ONXSHOP_REQUEST_recipe_in_node #bo/component/ecommerce/recipe_in_node~recipe_id=GET.id~}
+                                            {ONYX_REQUEST_recipe_in_node #bo/component/ecommerce/recipe_in_node~recipe_id=GET.id~}
 
                                         </div>
                                     </div>
 
-                                    {ONXSHOP_REQUEST_ingredients #bo/component/ecommerce/recipe_ingredients~recipe_id=GET.id~}
+                                    {ONYX_REQUEST_ingredients #bo/component/ecommerce/recipe_ingredients~recipe_id=GET.id~}
                                     
                                     <fieldset>
                                         <legend>Images</legend>
                                         <div class="row">
                                             <div class="image">
-                                            {ONXSHOP_REQUEST_imagelist #bo/component/file_list~type=add_to_recipe:relation=recipe:node_id=GET.id~}
+                                            {ONYX_REQUEST_imagelist #bo/component/file_list~type=add_to_recipe:relation=recipe:node_id=GET.id~}
                                             </div>
                                         </div>
                                     </fieldset>
@@ -129,7 +129,7 @@ $(document).ready(function(){
 </form>
 <br style="clear: both;" />
 
-{ONXSHOP_REQUEST_tinymce #bo/tinymce~id=GET.id:relation=recipe:role=RTE_description:mode=exact:edit_elements=recipe-instructions:theme=advanced~}
+{ONYX_REQUEST_tinymce #bo/tinymce~id=GET.id:relation=recipe:role=RTE_description:mode=exact:edit_elements=recipe-instructions:theme=advanced~}
 
 <script type="text/javascript">
 tinymce.init({

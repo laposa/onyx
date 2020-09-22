@@ -7,7 +7,7 @@
  *
  */
 
-class Onxshop_Controller_Component_Client_Newsletter_Subscribe_Start extends Onxshop_Controller {
+class Onyx_Controller_Component_Client_Newsletter_Subscribe_Start extends Onyx_Controller {
         
     /**
      * main action

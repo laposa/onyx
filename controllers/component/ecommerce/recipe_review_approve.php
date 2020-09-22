@@ -6,7 +6,7 @@
 
 require_once('controllers/component/ecommerce/recipe_review.php');
 
-class Onxshop_Controller_Component_Ecommerce_Recipe_Review_Approve extends Onxshop_Controller_Component_Ecommerce_Recipe_Review {
+class Onyx_Controller_Component_Ecommerce_Recipe_Review_Approve extends Onyx_Controller_Component_Ecommerce_Recipe_Review {
 
     /**
      * custom comment action
@@ -29,7 +29,7 @@ class Onxshop_Controller_Component_Ecommerce_Recipe_Review_Approve extends Onxsh
             
                 if ($publish == 1) msg("Recipe review ID $comment_id approved by client ID {$_SESSION['client']['customer']['id']}");
                 else if ($publish == -1) msg("Recipe review ID $comment_id rejected by client ID {$_SESSION['client']['customer']['id']}");
-                onxshopGoTo($_SESSION['referer'], 2);
+                onyxGoTo($_SESSION['referer'], 2);
             }
             
         }

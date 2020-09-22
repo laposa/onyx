@@ -5,7 +5,7 @@
  * 
  */
 
-class Onxshop_Controller_Bo_Component_Node_Other_Data extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Node_Other_Data extends Onyx_Controller {
 
     /**
      * main action

@@ -7,7 +7,7 @@
  *
  */
 
-class Onxshop_Controller_Bo_Pages_Server_Browser extends Onxshop_Controller {
+class Onyx_Controller_Bo_Pages_Server_Browser extends Onyx_Controller {
     
     /**
      * main action
@@ -32,11 +32,11 @@ class Onxshop_Controller_Bo_Pages_Server_Browser extends Onxshop_Controller {
         else $relation = 'node';
         
         
-        $_Onxshop_Request = new Onxshop_Request("bo/component/server_browser_menu~directory=$base_folder:type=$type:role=$role:node_id=$node_id:relation=$relation:expand_all=1:type=d~");
-        $this->tpl->assign("SERVER_BROWSER_TREE", $_Onxshop_Request->getContent());
+        $_Onyx_Request = new Onyx_Request("bo/component/server_browser_menu~directory=$base_folder:type=$type:role=$role:node_id=$node_id:relation=$relation:expand_all=1:type=d~");
+        $this->tpl->assign("SERVER_BROWSER_TREE", $_Onyx_Request->getContent());
         
-        $_Onxshop_Request = new Onxshop_Request("bo/component/server_browser_file_list~type=$type:role=$role:node_id=$node_id:relation=$relation~");
-        $this->tpl->assign("SERVER_BROWSER_FILE_LIST", $_Onxshop_Request->getContent());
+        $_Onyx_Request = new Onyx_Request("bo/component/server_browser_file_list~type=$type:role=$role:node_id=$node_id:relation=$relation~");
+        $this->tpl->assign("SERVER_BROWSER_FILE_LIST", $_Onyx_Request->getContent());
 
         return true;
     }

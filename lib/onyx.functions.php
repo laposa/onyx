@@ -1,6 +1,6 @@
 <?php
 /**
- * Onxshop global functions
+ * Onyx global functions
  * KEEP IT SMALL
  *
  * Copyright (c) 2005-2020 Laposa Limited (https://laposa.ie)
@@ -21,7 +21,7 @@
  
 function msg($msg, $type = "ok", $level = 0, $error_class = '') {
     
-    if ($level > ONXSHOP_DEBUG_LEVEL) return false; // process only if matching log level
+    if ($level > ONYX_DEBUG_LEVEL) return false; // process only if matching log level
     
     global $_SESSION;
     
@@ -35,7 +35,7 @@ function msg($msg, $type = "ok", $level = 0, $error_class = '') {
      * including timing for benchmark
      */
      
-    if (ONXSHOP_BENCHMARK && ONXSHOP_IS_DEBUG_HOST) {
+    if (ONYX_BENCHMARK && ONYX_IS_DEBUG_HOST) {
         $time_current = microtime(true);
         $time = $time_current - TIME_START;
         $time = round($time, 4);
@@ -46,7 +46,7 @@ function msg($msg, $type = "ok", $level = 0, $error_class = '') {
      * include backtrace (only with errors)
      */
      
-    if (ONXSHOP_DEBUG_INCLUDE_BACKTRACE && $type == 'error') {
+    if (ONYX_DEBUG_INCLUDE_BACKTRACE && $type == 'error') {
     
         $backtrace = debug_backtrace();
         
@@ -65,7 +65,7 @@ function msg($msg, $type = "ok", $level = 0, $error_class = '') {
      * include user info
      */
      
-    if (ONXSHOP_DEBUG_INCLUDE_USER_ID) {
+    if (ONYX_DEBUG_INCLUDE_USER_ID) {
         
         $user_info = '';
         
@@ -85,12 +85,12 @@ function msg($msg, $type = "ok", $level = 0, $error_class = '') {
      * level 0 messages are always saved to session to be shown in template
      */
     
-    if (ONXSHOP_DEBUG_OUTPUT_SESSION || $level == 0) {
+    if (ONYX_DEBUG_OUTPUT_SESSION || $level == 0) {
         
         if (!isset($_SESSION['messages'])) $_SESSION['messages'] = '';
         
-        if ($type == 'error') $_SESSION['messages'] .= "<p class='onxshop-error-msg level-$level $error_class'>". htmlspecialchars($msg) ."</p>\n";
-        else $_SESSION['messages'] .= "<p class='onxshop-ok-msg level-$level $error_class'>". htmlspecialchars($msg) ."</p>\n";
+        if ($type == 'error') $_SESSION['messages'] .= "<p class='onyx-error-msg level-$level $error_class'>". htmlspecialchars($msg) ."</p>\n";
+        else $_SESSION['messages'] .= "<p class='onyx-ok-msg level-$level $error_class'>". htmlspecialchars($msg) ."</p>\n";
         
     }
     
@@ -98,7 +98,7 @@ function msg($msg, $type = "ok", $level = 0, $error_class = '') {
      * firebug
      */
      
-    if (ONXSHOP_DEBUG_OUTPUT_FIREBUG) {
+    if (ONYX_DEBUG_OUTPUT_FIREBUG) {
         
         if (is_object($GLOBALS['fb_logger'])) {
             
@@ -113,15 +113,15 @@ function msg($msg, $type = "ok", $level = 0, $error_class = '') {
      * direct output - send immediatelly to client
      */
      
-    if (ONXSHOP_DEBUG_OUTPUT_DIRECT) echo $msg;
+    if (ONYX_DEBUG_OUTPUT_DIRECT) echo $msg;
     
     /**
      * write to debug file
      */
      
-    if (ONXSHOP_DEBUG_OUTPUT_FILE) {
+    if (ONYX_DEBUG_OUTPUT_FILE) {
         
-        $messages_dir = ONXSHOP_PROJECT_DIR . "var/log/messages/";
+        $messages_dir = ONYX_PROJECT_DIR . "var/log/messages/";
         
         if (!is_dir($messages_dir)) mkdir($messages_dir);
         
@@ -138,7 +138,7 @@ function msg($msg, $type = "ok", $level = 0, $error_class = '') {
      * send to standard PHP error log
      */
      
-    if (ONXSHOP_DEBUG_OUTPUT_ERROR_LOG) {
+    if (ONYX_DEBUG_OUTPUT_ERROR_LOG) {
         
         error_log($user_info . $msg . $backtrace_formatted);
         
@@ -148,10 +148,10 @@ function msg($msg, $type = "ok", $level = 0, $error_class = '') {
 }
 
 /**
- * onxshopDetectProtocol to find if we are using SSL
+ * onyxDetectProtocol to find if we are using SSL
  */
  
-function onxshopDetectProtocol() {
+function onyxDetectProtocol() {
     
     if ($_SERVER['HTTP_X_FORWARDED_PROTO']) $protocol = $_SERVER['HTTP_X_FORWARDED_PROTO'];
     else if ($_SERVER['SSL_PROTOCOL'] || $_SERVER['HTTPS']) $protocol = 'https';
@@ -161,7 +161,7 @@ function onxshopDetectProtocol() {
 }
 
 /**
- * onxshop aware http forward
+ * onyx aware http forward
  *
  * @param unknown_type $request
  * @param unknown_type $type
@@ -170,13 +170,13 @@ function onxshopDetectProtocol() {
  * type = 2: external URL
  */
  
-function onxshopGoTo($request, $type = 0) {
+function onyxGoTo($request, $type = 0) {
 
-    msg("calling onxshopGoTo($request, $type)", 'ok', 2);
+    msg("calling onyxGoTo($request, $type)", 'ok', 2);
     
     session_write_close();
     
-    $protocol = onxshopDetectProtocol();
+    $protocol = onyxDetectProtocol();
     
     //protection against HTTP CRLF injection
     $request = preg_replace("/\r\n/", "", $request);
@@ -199,11 +199,11 @@ function onxshopGoTo($request, $type = 0) {
         
     } else if ($type == 1) {
 
-        $router = new Onxshop_Router();
+        $router = new Onyx_Router();
         
-        $Onxshop = $router->processAction($request);
+        $Onyx = $router->processAction($request);
         
-        $output = $Onxshop->finalOutput();
+        $output = $Onyx->finalOutput();
 
         echo $output;
         
@@ -253,10 +253,10 @@ function translateURL($request) {
 
 function getTemplateDir($file, $prefix = '') {
 
-    if (file_exists(ONXSHOP_PROJECT_DIR . "templates/$prefix$file")) {
-        $template_dir = ONXSHOP_PROJECT_DIR . "templates/$prefix";
-    } else if (file_exists(ONXSHOP_DIR . "templates/$prefix$file")) {
-        $template_dir = ONXSHOP_DIR . "templates/$prefix";
+    if (file_exists(ONYX_PROJECT_DIR . "templates/$prefix$file")) {
+        $template_dir = ONYX_PROJECT_DIR . "templates/$prefix";
+    } else if (file_exists(ONYX_DIR . "templates/$prefix$file")) {
+        $template_dir = ONYX_DIR . "templates/$prefix";
     } else {
         $template_dir = '';
     }
@@ -274,8 +274,8 @@ function getTemplateDir($file, $prefix = '') {
  
 function templateExists($template_name) {
     
-    if (file_exists(ONXSHOP_PROJECT_DIR . 'templates/' . $template_name . '.html')) return true;
-    if (file_exists(ONXSHOP_DIR . 'templates/' . $template_name . '.html')) return true;
+    if (file_exists(ONYX_PROJECT_DIR . 'templates/' . $template_name . '.html')) return true;
+    if (file_exists(ONYX_DIR . 'templates/' . $template_name . '.html')) return true;
     else return false;
     
 }
@@ -295,12 +295,12 @@ function local_exec($command) {
     //explode to get filename
     $c = explode(" ", $command);
 
-    $command_file = ONXSHOP_PROJECT_DIR . 'bin/' . $c[0];
-    $command_full = ONXSHOP_PROJECT_DIR . 'bin/' . $command;
+    $command_file = ONYX_PROJECT_DIR . 'bin/' . $c[0];
+    $command_full = ONYX_PROJECT_DIR . 'bin/' . $command;
 
     if (!file_exists($command_file)) {
-        $command_file = ONXSHOP_DIR . 'bin/' . $c[0];
-        $command_full = ONXSHOP_DIR . 'bin/' . $command;
+        $command_file = ONYX_DIR . 'bin/' . $c[0];
+        $command_full = ONYX_DIR . 'bin/' . $command;
     }
 
     if (file_exists($command_file)) {
@@ -558,37 +558,37 @@ function suffix($str, $suffix)
 
 /**
  * Create hash from a given string
- * Uses ONXSHOP_ENCRYPTION_SALT as a salt.
- * Returs false if ONXSHOP_ENCRYPTION_SALT is not set or empty.
+ * Uses ONYX_ENCRYPTION_SALT as a salt.
+ * Returs false if ONYX_ENCRYPTION_SALT is not set or empty.
  * 
  * @return String Hashed value (sha256)
  */
 function makeHash($value)
 {
-    if (!defined('ONXSHOP_ENCRYPTION_SALT') || ONXSHOP_ENCRYPTION_SALT == '') {
-        msg("ONXSHOP_ENCRYPTION_SALT not set", "error", 1);
+    if (!defined('ONYX_ENCRYPTION_SALT') || ONYX_ENCRYPTION_SALT == '') {
+        msg("ONYX_ENCRYPTION_SALT not set", "error", 1);
         return false;
     }
 
-    return hash('sha256', ONXSHOP_HASH_SALT . ( (string) $value ));
+    return hash('sha256', ONYX_HASH_SALT . ( (string) $value ));
 }
 
 /**
  * Compare a given string with its hash
- * Uses ONXSHOP_ENCRYPTION_SALT as a salt.
- * Returs false if ONXSHOP_ENCRYPTION_SALT is not set or empty
+ * Uses ONYX_ENCRYPTION_SALT as a salt.
+ * Returs false if ONYX_ENCRYPTION_SALT is not set or empty
  * or if the hashes don't match.
  * 
  * @return Boolean
  */
 function verifyHash($value, $hash)
 {
-    if (!defined('ONXSHOP_ENCRYPTION_SALT') || ONXSHOP_ENCRYPTION_SALT == '') {
-        msg("ONXSHOP_ENCRYPTION_SALT not set", "error", 1);
+    if (!defined('ONYX_ENCRYPTION_SALT') || ONYX_ENCRYPTION_SALT == '') {
+        msg("ONYX_ENCRYPTION_SALT not set", "error", 1);
         return false;
     }
 
-    return (hash('sha256', ONXSHOP_HASH_SALT . ( (string) $value )) == strtolower(trim($hash)));
+    return (hash('sha256', ONYX_HASH_SALT . ( (string) $value )) == strtolower(trim($hash)));
 }
 
 /**
@@ -602,12 +602,12 @@ function isValidDate($date)
 }
 
 /**
- * onxshop_flush_cache
+ * onyx_flush_cache
  *
  * @return Boolean
  */
  
-function onxshop_flush_cache() {
+function onyx_flush_cache() {
     
     /**
      * clean cache using Zend_Cache method
@@ -615,9 +615,9 @@ function onxshop_flush_cache() {
      
     $registry = Zend_Registry::getInstance();
     
-    $db_cache_clear_status = $registry['onxshop_db_cache']->clean(Zend_Cache::CLEANING_MODE_ALL);
+    $db_cache_clear_status = $registry['onyx_db_cache']->clean(Zend_Cache::CLEANING_MODE_ALL);
     
-    if (ONXSHOP_DB_QUERY_CACHE_BACKEND !== ONXSHOP_PAGE_CACHE_BACKEND) $page_cache_clear_status = $registry['onxshop_page_cache']->clean(Zend_Cache::CLEANING_MODE_ALL);
+    if (ONYX_DB_QUERY_CACHE_BACKEND !== ONYX_PAGE_CACHE_BACKEND) $page_cache_clear_status = $registry['onyx_page_cache']->clean(Zend_Cache::CLEANING_MODE_ALL);
     else $page_cache_clear_status = true;
     
     /**
@@ -626,7 +626,7 @@ function onxshop_flush_cache() {
      
     require_once('models/common/common_file.php');
     $File = new common_file();
-    if ($File->rm(ONXSHOP_PROJECT_DIR . "var/cache/*")) $file_clear_status = true;
+    if ($File->rm(ONYX_PROJECT_DIR . "var/cache/*")) $file_clear_status = true;
     else $file_clear_status = false;
 
     /**
@@ -659,7 +659,7 @@ function format_time($seconds) {
  * @param  string $title    Variable name to show (optional)
  */
 function bar_dump($variable, $title = null) {
-    if (ONXSHOP_TRACY) Tracy\Debugger::barDump($variable, $title);
+    if (ONYX_TRACY) Tracy\Debugger::barDump($variable, $title);
     else var_dump($variable);
 }
 
@@ -739,7 +739,7 @@ function decryptInt($hash, $divider = "0")
     $parts = explode($divider, $hash);
     $check = (int) decodeInt($parts[0]);
     $num = (int) decodeInt($parts[1]);
-    $hash = md5($num . ONXSHOP_ENCRYPTION_SALT);
+    $hash = md5($num . ONYX_ENCRYPTION_SALT);
     $calculated = (int) hexdec(substr($hash, 0, $checksum_size));
     if ($check != $calculated) return false;
     return $num;
@@ -763,7 +763,7 @@ function encryptInt($value)
 {
     $divider = "0"; // must not be used in the character set (see encodeInt)
     $checksum_size = 4; // max. 4 for 32-bit integer
-    $hash = md5($value . ONXSHOP_ENCRYPTION_SALT);
+    $hash = md5($value . ONYX_ENCRYPTION_SALT);
     $check = (int) hexdec(substr($hash, 0, $checksum_size));
     return encodeInt($check) . $divider . encodeInt($value);
 }
@@ -889,13 +889,13 @@ function rangeDownload($file) {
  * it's allowed to see only content of var/ directory
  */
  
-function onxshopCheckForAllowedPath($realpath, $restrict_download = false) {
+function onyxCheckForAllowedPath($realpath, $restrict_download = false) {
 
     $allowed_directories = array();
-    $allowed_directories[] = ONXSHOP_PROJECT_DIR;
+    $allowed_directories[] = ONYX_PROJECT_DIR;
     
-    if (defined('ONXSHOP_PROJECT_EXTERNAL_DIRECTORIES') && ONXSHOP_PROJECT_EXTERNAL_DIRECTORIES != '') {
-        $allowed_directories[] = ONXSHOP_PROJECT_EXTERNAL_DIRECTORIES;
+    if (defined('ONYX_PROJECT_EXTERNAL_DIRECTORIES') && ONYX_PROJECT_EXTERNAL_DIRECTORIES != '') {
+        $allowed_directories[] = ONYX_PROJECT_EXTERNAL_DIRECTORIES;
     }
     
     $check_status = array();
@@ -910,7 +910,7 @@ function onxshopCheckForAllowedPath($realpath, $restrict_download = false) {
          
         if ($restrict_download) {
             
-        	if (class_exists('Onxshop_Bo_Authentication') && Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) {
+        	if (class_exists('Onyx_Bo_Authentication') && Onyx_Bo_Authentication::getInstance()->isAuthenticated()) {
         	
         	    // backoffice user can download any content from var/ directory
         		$check = addcslashes($directory, '/') . 'var\/';

@@ -5,7 +5,7 @@
  * 
  */
 
-class Onxshop_Controller_Component_Ecommerce_Checkout_Confirm_Address extends Onxshop_Controller {
+class Onyx_Controller_Component_Ecommerce_Checkout_Confirm_Address extends Onyx_Controller {
 
     /**
      * main action

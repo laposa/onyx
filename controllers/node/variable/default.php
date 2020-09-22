@@ -7,7 +7,7 @@
 
 require_once('controllers/node/default.php');
 
-class Onxshop_Controller_Node_Variable_Default extends Onxshop_Controller_Node_Default {
+class Onyx_Controller_Node_Variable_Default extends Onyx_Controller_Node_Default {
 
     /**
      * main action

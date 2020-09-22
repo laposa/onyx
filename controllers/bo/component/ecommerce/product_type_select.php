@@ -5,7 +5,7 @@
  * 
  */
 
-class Onxshop_Controller_Bo_Component_Ecommerce_Product_Type_Select extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Ecommerce_Product_Type_Select extends Onyx_Controller {
 
     /**
      * main action

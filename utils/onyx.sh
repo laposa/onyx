@@ -1,10 +1,10 @@
 #!/bin/bash -e
 
-## Onxshop.sh
+## Onyx.sh
 ## Norbert @ Laposa Ltd, 2012-2018
 ##
-## Very simple Onxshop websites management script.
-## Creates Onxshop installation and vhost file depending on required hostname.
+## Very simple Onyx websites management script.
+## Creates Onyx installation and vhost file depending on required hostname.
 ## Usage:
 ##
 ##     @script.name ACTION HOSTNAME [options]
@@ -59,8 +59,8 @@ hostname=${arguments[1]} # mandatory
 # prepare functions #
 
 setup_variables() {
-onxshop_version="1.8"
-onxshop_version_db=$(echo $onxshop_version | sed 's,\.,_,g')
+onyx_version="1.8"
+onyx_version_db=$(echo $onyx_version | sed 's,\.,_,g')
 if ! [ $db_hostname ]; then
     db_hostname='localhost';
 fi
@@ -68,7 +68,7 @@ if ! [ $db_username ]; then
     determine_username_from_domainname
 fi
 if ! [ $db_name ]; then
-    db_name="${db_username}-${onxshop_version_db}"
+    db_name="${db_username}-${onyx_version_db}"
 fi
 if ! [ $project_dir ]; then
     project_dir="/srv/$hostname"
@@ -77,10 +77,10 @@ if ! [ $template ]; then
     template=base
 fi
 if ! [ $db_template_file ]; then
-    db_template_file=/opt/onxshop/${onxshop_version}/project_skeleton/${template}.sql
+    db_template_file=/opt/onyx/${onyx_version}/project_skeleton/${template}.sql
 fi
 if ! [ $project_skeleton_dir ]; then
-    project_skeleton_dir=/opt/onxshop/$onxshop_version/project_skeleton/${template}/
+    project_skeleton_dir=/opt/onyx/$onyx_version/project_skeleton/${template}/
 fi
 
 echo "
@@ -158,7 +158,7 @@ if [ -d $project_dir ]; then
     die "Directory $project_dir already exists"
 fi
 cp -a $project_skeleton_dir $project_dir
-rm $project_dir/onxshop_dir && ln -s /opt/onxshop/$onxshop_version/ $project_dir/onxshop_dir
+rm $project_dir/onyx_dir && ln -s /opt/onyx/$onyx_version/ $project_dir/onyx_dir
 chmod a+w -R $project_dir/var/
 }
 
@@ -180,9 +180,9 @@ psql -U $db_username -h $db_hostname $db_name -c "UPDATE common_configuration SE
 
 change_config() {
 deployment_file="$project_dir/conf/deployment.php"
-sed -i "s/define('ONXSHOP_DB_USER', '.*')/define('ONXSHOP_DB_USER', '$db_username')/g" $deployment_file
-sed -i "s/define('ONXSHOP_DB_PASSWORD', '.*')/define('ONXSHOP_DB_PASSWORD', '$db_password')/g" $deployment_file
-sed -i "s/define('ONXSHOP_DB_NAME', '.*')/define('ONXSHOP_DB_NAME', '$db_name')/g" $deployment_file
+sed -i "s/define('ONYX_DB_USER', '.*')/define('ONYX_DB_USER', '$db_username')/g" $deployment_file
+sed -i "s/define('ONYX_DB_PASSWORD', '.*')/define('ONYX_DB_PASSWORD', '$db_password')/g" $deployment_file
+sed -i "s/define('ONYX_DB_NAME', '.*')/define('ONYX_DB_NAME', '$db_name')/g" $deployment_file
 }
 
 create_vhost() {
@@ -230,7 +230,7 @@ else
     protocol='http';
 fi
 
-echo "Your Onxshop website is installed in: $project_dir
+echo "Your Onyx website is installed in: $project_dir
 To edit the website use
 URL: ${protocol}://${hostname}/edit
 Username: ${db_username}

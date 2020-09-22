@@ -10,7 +10,7 @@
  *
  */
  
-class ecommerce_price extends Onxshop_Model {
+class ecommerce_price extends Onyx_Model {
 
     /**
      * @access private
@@ -75,10 +75,10 @@ CREATE TABLE ecommerce_price (
      
     static function initConfiguration() {
     
-        if (array_key_exists('ecommerce_price', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['ecommerce_price'];
+        if (array_key_exists('ecommerce_price', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['ecommerce_price'];
         else $conf = array();
 
-        $conf['default_currency'] = $GLOBALS['onxshop_conf']['global']['default_currency'];
+        $conf['default_currency'] = $GLOBALS['onyx_conf']['global']['default_currency'];
 
         if (empty($conf['type'])) $conf['type'] = array('common');      
         else $conf['type'] = explode(",", $conf['type']);

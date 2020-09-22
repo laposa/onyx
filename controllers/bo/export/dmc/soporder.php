@@ -9,6 +9,6 @@
 
 require_once('controllers/bo/export/xml_orders.php');
 
-class Onxshop_Controller_Bo_Export_DMC_SOPOrder extends Onxshop_Controller_Bo_Export_Xml_Orders {
+class Onyx_Controller_Bo_Export_DMC_SOPOrder extends Onyx_Controller_Bo_Export_Xml_Orders {
 
 }

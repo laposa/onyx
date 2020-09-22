@@ -5,7 +5,7 @@
  * 
  */
 
-class Onxshop_Controller_Component_Age_Gate extends Onxshop_Controller {
+class Onyx_Controller_Component_Age_Gate extends Onyx_Controller {
     
     /**
      * main action

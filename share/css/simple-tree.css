@@ -48,7 +48,7 @@ div.twoColumnPage.page .simple-tree
 .simple-tree li.doc-last:before
 {
   display: inline-block;
-  font-family: 'onxshop';
+  font-family: 'onyx';
   font-style: normal;
   font-weight: normal;
   line-height: 1;
@@ -133,7 +133,7 @@ div.twoColumnPage.page .simple-tree
 {
   content: "\f0d7"; /* right arrow (open) */
   display: inline-block;
-  font-family: 'onxshop';
+  font-family: 'onyx';
   font-style: normal;
   font-weight: normal;
   line-height: 1;

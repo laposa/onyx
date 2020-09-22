@@ -13,8 +13,8 @@ function openEdit(url, el, ajax) {
 }
 
 function openAjaxRequestInDialog(url, title) {
-    $('#dialog').html(onxshop_load_indicator_html_snippet).load(url, '', function (responseText, textStatus, XMLHttpRequest) {
-        //popupMessage("#dialog div.onxshop-messages");
+    $('#dialog').html(onyx_load_indicator_html_snippet).load(url, '', function (responseText, textStatus, XMLHttpRequest) {
+        //popupMessage("#dialog div.onyx-messages");
     })
     .dialog({
         width: 560, 
@@ -38,21 +38,21 @@ function refreshOpener(path, id) {
 function refreshOpenerAjax(path, id) {
     if (opener.window.document.getElementById('node-id-' + id)) {
         opener.$('#node-id-' + id).load('/request/node?id=' + id + ' #node-id-' + id + ' > *', function() {
-            opener.refreshAddContent('#node-id-' + id + ' div.onxshop-layout-container');
+            opener.refreshAddContent('#node-id-' + id + ' div.onyx-layout-container');
         });
     } else {
         refreshOpener(path, id);
     }
 }
  
-function clearOnxshopCache(button) {
+function clearOnyxCache(button) {
     var buttonIcon = $(button).find('a');
     
-    $(button).addClass('onxshop-effect-spin');
+    $(button).addClass('onyx-effect-spin');
     jQuery("#dialog").hide().load('/request/bo/component/tools~tool=flush_cache~', '', 
         function (responseText, textStatus, XMLHttpRequest) {
-            popupMessage("#dialog div.onxshop-messages");
-            $(button).removeClass('onxshop-effect-spin');
+            popupMessage("#dialog div.onyx-messages");
+            $(button).removeClass('onyx-effect-spin');
         });
 }
 
@@ -107,7 +107,7 @@ function initBackofficeUI() {
 
     $("#menu-back-office a, #menu-editing-mode a, #menu-actions a.logout").mousedown(function(e) { 
         if (!e.altKey && !e.ctrlKey && !e.shiftKey && !e.metaKey && e.which == 1) {
-            var body = $("#onxshop-cms-content");
+            var body = $("#onyx-cms-content");
             body.fadeOut(500, function() {
                 body.html('<img src="/share/images/ajax-indicator/indicator_facebook.gif" alt="Loading..." style="position: fixed; width: 16px; height: 11px; top: 50%; left: 50%; margin: -5px 0 0 -8px;"/>');
                 body.fadeIn(300);

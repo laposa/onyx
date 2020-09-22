@@ -5,7 +5,7 @@
  * 
  */
 
-class Onxshop_Controller_Component_Video extends Onxshop_Controller {
+class Onyx_Controller_Component_Video extends Onyx_Controller {
 
     /**
      * main action
@@ -31,13 +31,13 @@ class Onxshop_Controller_Component_Video extends Onxshop_Controller {
 
         if ($vimeo_video_id) {
 
-            $_Onxshop_Request = new Onxshop_Request("component/video_vimeo~video_id={$vimeo_video_id}:autoplay=$autoplay~");
-            $this->tpl->assign('CONTENT', $_Onxshop_Request->getContent());
+            $_Onyx_Request = new Onyx_Request("component/video_vimeo~video_id={$vimeo_video_id}:autoplay=$autoplay~");
+            $this->tpl->assign('CONTENT', $_Onyx_Request->getContent());
 
         } else if ($youtube_video_id) {
 
-            $_Onxshop_Request = new Onxshop_Request("component/video_youtube~video_id={$youtube_video_id}:autoplay=$autoplay~");
-            $this->tpl->assign('CONTENT', $_Onxshop_Request->getContent());
+            $_Onyx_Request = new Onyx_Request("component/video_youtube~video_id={$youtube_video_id}:autoplay=$autoplay~");
+            $this->tpl->assign('CONTENT', $_Onyx_Request->getContent());
 
         }
 

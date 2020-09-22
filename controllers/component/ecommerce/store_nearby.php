@@ -6,7 +6,7 @@
 
 require_once('models/common/common_node.php');
 
-class Onxshop_Controller_Component_Ecommerce_Store_Nearby extends Onxshop_Controller {
+class Onyx_Controller_Component_Ecommerce_Store_Nearby extends Onyx_Controller {
 
     /**
      * main action

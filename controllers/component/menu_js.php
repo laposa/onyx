@@ -7,5 +7,5 @@
 
 require_once('controllers/component/menu.php');
 
-class Onxshop_Controller_Component_Menu_Js extends Onxshop_Controller_Component_Menu {
+class Onyx_Controller_Component_Menu_Js extends Onyx_Controller_Component_Menu {
 }

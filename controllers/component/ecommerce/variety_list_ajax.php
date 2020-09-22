@@ -7,6 +7,6 @@
 
 require_once('controllers/component/ecommerce/variety_list.php');
 
-class Onxshop_Controller_Component_Ecommerce_Variety_List_Ajax extends Onxshop_Controller_Component_Ecommerce_Variety_List {
+class Onyx_Controller_Component_Ecommerce_Variety_List_Ajax extends Onyx_Controller_Component_Ecommerce_Variety_List {
 
 }

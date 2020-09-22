@@ -5,7 +5,7 @@
  * 
  */
 
-class Onxshop_Controller_Bo_Component_Ecommerce_Currency_Rate extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Ecommerce_Currency_Rate extends Onyx_Controller {
 
     /**
      * main action

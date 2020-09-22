@@ -75,7 +75,7 @@ div.fluid-video video {top: 0; left: 0; width: 100%; height: 100%; position: abs
 
 /* styles for iPhone/Android landscape (and really narrow browser windows) */
 @media all and (max-width: 480px) {
-    #onxshop_cms_content { width: 100%; overflow: hidden; }
+    #onyx_cms_content { width: 100%; overflow: hidden; }
     #logo {margin-bottom: 1em;}
     #globalNavigation {clear: both; float: none;}
     #globalNavigation li {float: none;}

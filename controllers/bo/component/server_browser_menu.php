@@ -9,7 +9,7 @@
  
 require_once('controllers/component/menu_js.php');
 
-class Onxshop_Controller_Bo_Component_Server_Browser_Menu extends Onxshop_Controller_Component_Menu_Js {
+class Onyx_Controller_Bo_Component_Server_Browser_Menu extends Onyx_Controller_Component_Menu_Js {
     
     /**
      * get tree
@@ -23,15 +23,15 @@ class Onxshop_Controller_Bo_Component_Server_Browser_Menu extends Onxshop_Contro
             
         switch ($this->GET['scope']) {
         
-            case 'onxshop':
-                $directories = array(ONXSHOP_DIR);
+            case 'onyx':
+                $directories = array(ONYX_DIR);
             break;
             case 'all':
-                $directories = array(ONXSHOP_DIR, ONXSHOP_PROJECT_DIR);
+                $directories = array(ONYX_DIR, ONYX_PROJECT_DIR);
             break;
             case 'project':
             default:
-                $directories = array(ONXSHOP_PROJECT_DIR);
+                $directories = array(ONYX_PROJECT_DIR);
             break;
         
         }

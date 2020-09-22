@@ -5,7 +5,7 @@
  * 
  */
 
-class Onxshop_Controller_Bo_Component_Client_Customer_Add extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Client_Customer_Add extends Onyx_Controller {
 
     /**
      * main action
@@ -20,8 +20,8 @@ class Onxshop_Controller_Bo_Component_Client_Customer_Add extends Onxshop_Contro
             
             if ($id = $Customer->registerCustomer($customer_data)) {
                 
-                onxshop_flush_cache();
-                onxshopGoTo("/backoffice/customers/$id/detail");
+                onyx_flush_cache();
+                onyxGoTo("/backoffice/customers/$id/detail");
                 
             } else {
                 

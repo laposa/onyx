@@ -6,7 +6,7 @@
  
 //http://www.google.com/base/products.html
 
-class Onxshop_Controller_Export_Rss_Googlebase extends Onxshop_Controller {
+class Onyx_Controller_Export_Rss_Googlebase extends Onyx_Controller {
     
     /**
      * main action
@@ -66,7 +66,7 @@ class Onxshop_Controller_Export_Rss_Googlebase extends Onxshop_Controller {
         
         //save it to the file
         $this->tpl->parse("content.generated");
-        file_put_contents(ONXSHOP_PROJECT_DIR . "var/files/googlebase.xml", $this->tpl->text("content.generated"));
+        file_put_contents(ONYX_PROJECT_DIR . "var/files/googlebase.xml", $this->tpl->text("content.generated"));
 
         return true;
     }

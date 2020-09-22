@@ -48,7 +48,7 @@
                                                 <td>{ITEM.created}<br/>{ITEM.modified}</td>
                                                 <td>{ITEM.result|htmlspecialchars}</td>
                                                 <td>
-                                                    <a class="onxshop-delete onxshop-icon" title="Cancel job" onclick="if (confirm('Are you sure you want to cancel job {ITEM.id}?')) makeAjaxRequest($('div.scheduler').parent(), '/request/bo/component/scheduler?cancel={ITEM.id}'); return false;"></a>
+                                                    <a class="onyx-delete onyx-icon" title="Cancel job" onclick="if (confirm('Are you sure you want to cancel job {ITEM.id}?')) makeAjaxRequest($('div.scheduler').parent(), '/request/bo/component/scheduler?cancel={ITEM.id}'); return false;"></a>
                                                 </td>
                                             </tr>
                                             <!-- END:item -->

@@ -7,7 +7,7 @@
 
 require_once('controllers/bo/component/search_index.php');
 
-class Onxshop_Controller_Bo_Component_Search_Index_Crawl extends Onxshop_Controller_Bo_Component_Search_Index {
+class Onyx_Controller_Bo_Component_Search_Index_Crawl extends Onyx_Controller_Bo_Component_Search_Index {
 
     protected $profile;
     protected $index;

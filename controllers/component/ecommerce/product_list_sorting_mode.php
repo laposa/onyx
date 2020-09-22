@@ -7,7 +7,7 @@
 
 require_once('controllers/component/ecommerce/product_list_sorting.php');
 
-class Onxshop_Controller_Component_Ecommerce_Product_List_Sorting_Mode extends Onxshop_Controller_Component_Ecommerce_Product_List_Sorting {
+class Onyx_Controller_Component_Ecommerce_Product_List_Sorting_Mode extends Onyx_Controller_Component_Ecommerce_Product_List_Sorting {
     
     /**
      * main action

@@ -5,7 +5,7 @@
  *
  */
 
-class Onxshop_Controller_Bo_Component_Single_Record_Update extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Single_Record_Update extends Onyx_Controller {
 
     /**
      * main action

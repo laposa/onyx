@@ -5,7 +5,7 @@
  *
  */
 
-class Onxshop_Controller_Bo_Component_Ecommerce_Promotion_List extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Ecommerce_Promotion_List extends Onyx_Controller {
 
     /**
      * main action
@@ -32,8 +32,8 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Promotion_List extends Onxshop_C
 
         if ($count > 0) {       
 
-            $_Onxshop_Request = new Onxshop_Request("component/pagination~limit_from=$from:limit_per_page=$per_page:count=$count~");
-            $this->tpl->assign('PAGINATION', $_Onxshop_Request->getContent());
+            $_Onyx_Request = new Onyx_Request("component/pagination~limit_from=$from:limit_per_page=$per_page:count=$count~");
+            $this->tpl->assign('PAGINATION', $_Onyx_Request->getContent());
         }
 
         return true;

@@ -7,7 +7,7 @@
  *
  */
  
-class ecommerce_delivery_carrier_zone extends Onxshop_Model {
+class ecommerce_delivery_carrier_zone extends Onyx_Model {
 
     /**
      * PRIMARY KEY

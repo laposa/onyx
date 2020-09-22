@@ -7,7 +7,7 @@
  *
  */
  
-class ecommerce_product_to_product extends Onxshop_Model {
+class ecommerce_product_to_product extends Onyx_Model {
 
     /**
      * @access private

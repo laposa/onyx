@@ -6,7 +6,7 @@
 
 require_once('controllers/component/comment.php');
 
-class Onxshop_Controller_Component_Comment_Approve extends Onxshop_Controller_Component_Comment {
+class Onyx_Controller_Component_Comment_Approve extends Onyx_Controller_Component_Comment {
 
     /**
      * custom comment action
@@ -29,7 +29,7 @@ class Onxshop_Controller_Component_Comment_Approve extends Onxshop_Controller_Co
             
                 if ($publish == 1) msg("Comment ID $comment_id approved by client ID {$_SESSION['client']['customer']['id']}");
                 else if ($publish == -1) msg("Comment ID $comment_id rejected by client ID {$_SESSION['client']['customer']['id']}");
-                onxshopGoTo($_SESSION['referer'], 2);
+                onyxGoTo($_SESSION['referer'], 2);
             }
             
         }

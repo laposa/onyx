@@ -7,7 +7,7 @@
 
 require_once "controllers/component/ecommerce/referral.php";
 
-class Onxshop_Controller_Component_Ecommerce_Referral_Share extends Onxshop_Controller_Component_Ecommerce_Referral {
+class Onyx_Controller_Component_Ecommerce_Referral_Share extends Onyx_Controller_Component_Ecommerce_Referral {
 
     /**
      * main action

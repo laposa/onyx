@@ -421,7 +421,7 @@ ALTER TABLE ONLY ecommerce_store ADD CONSTRAINT ecommerce_store_type_id_fkey FOR
 
 COMMIT;
 
-/*this only applies to installation made earlier than Onxshop 1.5 */
+/*this only applies to installation made earlier than Onyx 1.5 */
 BEGIN;
 ALTER INDEX "shipping_wz_zone_price_zone_id_fkey" RENAME TO "ecommerce_delivery_carrier_zone_price_zone_id_fkey";
 ALTER INDEX "shipping_wz_country_to_zone_zone_id_fkey" RENAME TO "ecommerce_delivery_carrier_country_to_zone_zone_id_fkey";

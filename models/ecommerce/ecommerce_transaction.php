@@ -7,7 +7,7 @@
  *
  */
  
-class ecommerce_transaction extends Onxshop_Model {
+class ecommerce_transaction extends Onyx_Model {
 
     /**
      * @access private
@@ -91,7 +91,7 @@ ALTER TABLE ONLY ecommerce_transaction ADD CONSTRAINT ecommerce_transaction_orde
      
     static function initConfiguration() {
     
-        if (array_key_exists('ecommerce_transaction', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['ecommerce_transaction'];
+        if (array_key_exists('ecommerce_transaction', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['ecommerce_transaction'];
         else $conf = array();
 
         //what payment types are allow? possible values: protx,worldpay,cheque,paypal

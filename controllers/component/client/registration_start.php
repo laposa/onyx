@@ -7,7 +7,7 @@
  *
  */
 
-class Onxshop_Controller_Component_Client_Registration_Start extends Onxshop_Controller {
+class Onyx_Controller_Component_Client_Registration_Start extends Onyx_Controller {
 
     /**
      * main action
@@ -53,6 +53,6 @@ class Onxshop_Controller_Component_Client_Registration_Start extends Onxshop_Con
      
     function dispatchToRegistration($node_conf) {
         if ($this->GET['to']) $_SESSION['to'] = $this->GET['to'];
-        onxshopGoTo('/page/'.$node_conf['id_map-registration']);
+        onyxGoTo('/page/'.$node_conf['id_map-registration']);
     }
 }

@@ -4,7 +4,7 @@
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
  
-//lib/onxshop.db.php
+//lib/onyx.db.php
 define('I18N_ERROR_INVALID_VALUE_FOR', 'Nesprávná hodnota pro ');
 define('I18N_ERROR_INVALID_PRODUCT_CODE', 'Neplatný kód produktu!');
 define('I18N_ERROR_WRONG_URL', 'Neplatné URL!');

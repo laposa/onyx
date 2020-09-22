@@ -5,7 +5,7 @@
  * 
  */
 
-class Onxshop_Controller_Bo_Component_Taxonomy_Move extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Taxonomy_Move extends Onyx_Controller {
     
     /**
      * main action

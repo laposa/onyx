@@ -5,7 +5,7 @@
  *
  */
 
-class Onxshop_Controller_Bo_Backoffice extends Onxshop_Controller {
+class Onyx_Controller_Bo_Backoffice extends Onyx_Controller {
 
     /**
      * main action
@@ -14,7 +14,7 @@ class Onxshop_Controller_Bo_Backoffice extends Onxshop_Controller {
     public function mainAction() {
     
         //force SSL
-        if (!$_SERVER['HTTPS'] && ONXSHOP_EDITOR_USE_SSL) {
+        if (!$_SERVER['HTTPS'] && ONYX_EDITOR_USE_SSL) {
             header("Location: https://{$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}");
         }
 

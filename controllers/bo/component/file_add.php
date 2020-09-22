@@ -10,7 +10,7 @@
 
 require_once('controllers/bo/component/file.php');
 
-class Onxshop_Controller_Bo_Component_File_Add extends Onxshop_Controller_Bo_Component_File {
+class Onyx_Controller_Bo_Component_File_Add extends Onyx_Controller_Bo_Component_File {
 
     /**
      * main action
@@ -34,12 +34,12 @@ class Onxshop_Controller_Bo_Component_File_Add extends Onxshop_Controller_Bo_Com
             
         } else {
         
-            $file_data['src'] = str_replace(ONXSHOP_PROJECT_DIR, "", $File->decode_file_path($this->GET['file_path_encoded']));
+            $file_data['src'] = str_replace(ONYX_PROJECT_DIR, "", $File->decode_file_path($this->GET['file_path_encoded']));
             $file_data['node_id'] = $this->GET['node_id'];
             $file_data['relation'] = $this->GET['relation'];
         
             if (trim($file_data['title']) == '') {
-                $file_info = $File->getFileInfo(ONXSHOP_PROJECT_DIR . $file_data['src']);
+                $file_info = $File->getFileInfo(ONYX_PROJECT_DIR . $file_data['src']);
                 $file_data['title'] = $file_info['filename'];
                 
                 /**

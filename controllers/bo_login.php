@@ -5,7 +5,7 @@
  * 
  */
 
-class Onxshop_Controller_Bo_Login extends Onxshop_Controller {
+class Onyx_Controller_Bo_Login extends Onyx_Controller {
 
     /**
      * main action
@@ -18,13 +18,13 @@ class Onxshop_Controller_Bo_Login extends Onxshop_Controller {
          */
         
         /**
-        if (ONXSHOP_FACEBOOK_APP_ID) $this->tpl->parse('content.choose_login_type.facebook');
-        if (ONXSHOP_TWITTER_APP_ID) $this->tpl->parse('content.choose_login_type.twitter');
+        if (ONYX_FACEBOOK_APP_ID) $this->tpl->parse('content.choose_login_type.facebook');
+        if (ONYX_TWITTER_APP_ID) $this->tpl->parse('content.choose_login_type.twitter');
         
-        if (ONXSHOP_FACEBOOK_APP_ID || ONXSHOP_TWITTER_APP_ID) $this->tpl->parse('content.choose_login_type');
+        if (ONYX_FACEBOOK_APP_ID || ONYX_TWITTER_APP_ID) $this->tpl->parse('content.choose_login_type');
         */
         
-        //if (Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) msg('Authorised');
+        //if (Onyx_Bo_Authentication::getInstance()->isAuthenticated()) msg('Authorised');
         //else msg('Not authorised');
         
         return true;

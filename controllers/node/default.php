@@ -5,7 +5,7 @@
  * 
  */
 
-class Onxshop_Controller_Node_Default extends Onxshop_Controller {
+class Onyx_Controller_Node_Default extends Onyx_Controller {
 
     /**
      * main action
@@ -64,7 +64,7 @@ class Onxshop_Controller_Node_Default extends Onxshop_Controller {
             $min_container_id = 0;
             $max_container_id = 20;
             for ($key = $min_container_id; $key < ($max_container_id + 1); $key++) {
-                $container[$key] = "<div class='onxshop-layout-container' id='onxshop-layout-container-{$node_id}-{$key}'>{$container[$key]}</div>";    
+                $container[$key] = "<div class='onyx-layout-container' id='onyx-layout-container-{$node_id}-{$key}'>{$container[$key]}</div>";    
             }
         }
             

@@ -5,7 +5,7 @@
  * 
  */
 
-class Onxshop_Controller_Component_Ecommerce_Return extends Onxshop_Controller {
+class Onyx_Controller_Component_Ecommerce_Return extends Onyx_Controller {
 
     /**
      * main action
@@ -21,7 +21,7 @@ class Onxshop_Controller_Component_Ecommerce_Return extends Onxshop_Controller {
 
         if (!is_numeric($customer_id)) {
             msg('component/ecommerce/return: login required', 'error');
-            onxshopGoTo("/");
+            onyxGoTo("/");
             return false;
         }
         
@@ -214,7 +214,7 @@ class Onxshop_Controller_Component_Ecommerce_Return extends Onxshop_Controller {
     
         if ($_SESSION['client']['customer']['id'] > 0) {
             $customer_id = $_SESSION['client']['customer']['id'];
-        } else if (Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) {
+        } else if (Onyx_Bo_Authentication::getInstance()->isAuthenticated()) {
             $customer_id = $this->GET['customer_id'];
         } else {
             $customer_id = false;
@@ -356,8 +356,8 @@ class Onxshop_Controller_Component_Ecommerce_Return extends Onxshop_Controller {
          * get full order detail
          */
          
-        $_Onxshop_Request = new Onxshop_Request("component/ecommerce/order_detail~order_id=$order_id~");
-        $this->tpl->assign('FULL_ORDER_DETAIL', $_Onxshop_Request->getContent());
+        $_Onyx_Request = new Onyx_Request("component/ecommerce/order_detail~order_id=$order_id~");
+        $this->tpl->assign('FULL_ORDER_DETAIL', $_Onyx_Request->getContent());
         
         /**
          * show full order detail

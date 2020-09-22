@@ -9,7 +9,7 @@ require_once 'lib/Zend/Oauth.php';
 require_once 'lib/Zend/Service/Twitter.php';
 
 
-class Onxshop_Controller_Component_Client_Twitter extends Onxshop_Controller {
+class Onyx_Controller_Component_Client_Twitter extends Onyx_Controller {
 
     /**
      * mainAction
@@ -159,8 +159,8 @@ class Onxshop_Controller_Component_Client_Twitter extends Onxshop_Controller {
         $config = array(
             
             'callbackUrl' => "$protocol://{$_SERVER['HTTP_HOST']}/page/8",
-            'consumerKey' => ONXSHOP_TWITTER_APP_ID,
-            'consumerSecret' => ONXSHOP_TWITTER_APP_SECRET,
+            'consumerKey' => ONYX_TWITTER_APP_ID,
+            'consumerSecret' => ONYX_TWITTER_APP_SECRET,
             'siteUrl' => 'https://api.twitter.com/oauth'
         );
 
@@ -262,7 +262,7 @@ class Onxshop_Controller_Component_Client_Twitter extends Onxshop_Controller {
     
         // username should be taken from client_customer.oauth.twitter
         // TODO: create client_customer.twitter_username field, but what if client will change it?
-        return ONXSHOP_TWITTER_USERNAME;
+        return ONYX_TWITTER_USERNAME;
         
     }
     
@@ -274,17 +274,17 @@ class Onxshop_Controller_Component_Client_Twitter extends Onxshop_Controller {
         
         $twitter = new Zend_Service_Twitter(array( 
             'accessToken' => array(
-                'token' => ONXSHOP_TWITTER_ACCESS_TOKEN,
-                'secret' => ONXSHOP_TWITTER_ACCESS_TOKEN_SECRET,
+                'token' => ONYX_TWITTER_ACCESS_TOKEN,
+                'secret' => ONYX_TWITTER_ACCESS_TOKEN_SECRET,
             ),
             'oauthOptions' => array(
-                'consumerKey' => ONXSHOP_TWITTER_APP_ID,
-                'consumerSecret' => ONXSHOP_TWITTER_APP_SECRET,
+                'consumerKey' => ONYX_TWITTER_APP_ID,
+                'consumerSecret' => ONYX_TWITTER_APP_SECRET,
             )
         ));
         
         $options = array( 
-            "screen_name"   => ONXSHOP_TWITTER_USERNAME
+            "screen_name"   => ONYX_TWITTER_USERNAME
         );
         $response = $twitter->statuses->userTimeline($options);
         

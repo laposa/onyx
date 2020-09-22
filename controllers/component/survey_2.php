@@ -7,7 +7,7 @@
 
 require_once('controllers/component/survey.php');
 
-class Onxshop_Controller_Component_Survey_2 extends Onxshop_Controller_Component_Survey {
+class Onyx_Controller_Component_Survey_2 extends Onyx_Controller_Component_Survey {
 
 
 }

@@ -7,7 +7,7 @@
 
 require_once('controllers/component/ecommerce/checkout.php');
 
-class Onxshop_Controller_Component_Ecommerce_Checkout_Gift extends Onxshop_Controller_Component_Ecommerce_Checkout {
+class Onyx_Controller_Component_Ecommerce_Checkout_Gift extends Onyx_Controller_Component_Ecommerce_Checkout {
 
     /**
      * public action

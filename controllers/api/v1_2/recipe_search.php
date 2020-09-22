@@ -7,7 +7,7 @@
 
 require_once('controllers/api/v1_1/recipe_search.php');
 
-class Onxshop_Controller_Api_v1_2_Recipe_Search extends Onxshop_Controller_Api_v1_1_Recipe_Search {
+class Onyx_Controller_Api_v1_2_Recipe_Search extends Onyx_Controller_Api_v1_1_Recipe_Search {
 
     /**
      * formatItem
@@ -17,7 +17,7 @@ class Onxshop_Controller_Api_v1_2_Recipe_Search extends Onxshop_Controller_Api_v
         
         if (!is_array($original_item)) return false;
         
-        $protocol = onxshopDetectProtocol();
+        $protocol = onyxDetectProtocol();
         
         $item = array();
         $item['id'] = $original_item['id'];

@@ -6,7 +6,7 @@
 
 require_once('controllers/bo/component/survey.php');
 
-class Onxshop_Controller_Bo_Component_Survey_Edit extends Onxshop_Controller_Bo_Component_Survey {
+class Onyx_Controller_Bo_Component_Survey_Edit extends Onyx_Controller_Bo_Component_Survey {
 
     /**
      * main action
@@ -24,7 +24,7 @@ class Onxshop_Controller_Bo_Component_Survey_Edit extends Onxshop_Controller_Bo_
         
             $this->saveSurvey($_POST['survey']);
             $id = (int) $this->GET['id'];
-            onxshopGoto("/backoffice/surveys/$id/detail");
+            onyxGoto("/backoffice/surveys/$id/detail");
             
         }
         

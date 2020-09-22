@@ -7,7 +7,7 @@
 
 require_once('controllers/node/page/default.php');
 
-class Onxshop_Controller_Node_Page_Product extends Onxshop_Controller_Node_Page_Default {
+class Onyx_Controller_Node_Page_Product extends Onyx_Controller_Node_Page_Default {
 
     /**
      * main action
@@ -76,29 +76,29 @@ class Onxshop_Controller_Node_Page_Product extends Onxshop_Controller_Node_Page_
          * varieties
          */
 
-        //$Variety_list = new Onxshop_Request("component/ecommerce/variety_list_ajax~product_id={$product_id}~");
+        //$Variety_list = new Onyx_Request("component/ecommerce/variety_list_ajax~product_id={$product_id}~");
         //$this->tpl->assign('VARIETY_LIST', $Variety_list->getContent());
         
         /**
          * taxonomy
          */
         
-        $_Onxshop_Request = new Onxshop_Request("component/taxonomy~relation=product:id={$product_id}:hide_root=1~");
-        $this->tpl->assign('TAXONOMY', $_Onxshop_Request->getContent());
+        $_Onyx_Request = new Onyx_Request("component/taxonomy~relation=product:id={$product_id}:hide_root=1~");
+        $this->tpl->assign('TAXONOMY', $_Onyx_Request->getContent());
                 
         /**
          * other product attributes
          */
          
-        $_Onxshop_Request = new Onxshop_Request("component/ecommerce/product_other_data~id={$product_id}~");
-        $this->tpl->assign('OTHER_DATA', $_Onxshop_Request->getContent());
+        $_Onyx_Request = new Onyx_Request("component/ecommerce/product_other_data~id={$product_id}~");
+        $this->tpl->assign('OTHER_DATA', $_Onyx_Request->getContent());
         
         /**
          * product reviews
          */
          
-        $_Onxshop_Request = new Onxshop_Request("component/ecommerce/product_review~node_id={$product_id}:allow_anonymouse_submit=0~");
-        $this->tpl->assign('PRODUCT_REVIEW', $_Onxshop_Request->getContent());
+        $_Onyx_Request = new Onyx_Request("component/ecommerce/product_review~node_id={$product_id}:allow_anonymouse_submit=0~");
+        $this->tpl->assign('PRODUCT_REVIEW', $_Onyx_Request->getContent());
         
         
         /**
@@ -149,7 +149,7 @@ class Onxshop_Controller_Node_Page_Product extends Onxshop_Controller_Node_Page_
         $ecommerce_product_image_conf = ecommerce_product_image::initConfiguration();
 
         if (is_numeric($this->GET['image_width'])) $image_width = $this->GET['image_width'];
-        else $image_width = $GLOBALS['onxshop_conf']['global']['product_detail_image_width'];
+        else $image_width = $GLOBALS['onyx_conf']['global']['product_detail_image_width'];
         
         $this->GET['image_width'] = $image_width;
         

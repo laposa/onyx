@@ -7,7 +7,7 @@
 
 require_once('controllers/component/ecommerce/recipe_list.php');
 
-class Onxshop_Controller_Component_Ecommerce_Recipe_List_3columns extends Onxshop_Controller_Component_Ecommerce_Recipe_List {
+class Onyx_Controller_Component_Ecommerce_Recipe_List_3columns extends Onyx_Controller_Component_Ecommerce_Recipe_List {
 
     /**
      * Parse recipe list items

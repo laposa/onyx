@@ -10,7 +10,7 @@ require_once('controllers/node/page/default.php');
 require_once('models/ecommerce/ecommerce_store.php');
 require_once('models/ecommerce/ecommerce_store_taxonomy.php');
 
-class Onxshop_Controller_Node_Page_Store extends Onxshop_Controller_Node_Page_Default {
+class Onyx_Controller_Node_Page_Store extends Onyx_Controller_Node_Page_Default {
 
     /**
      * main action

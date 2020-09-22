@@ -6,7 +6,7 @@
 
 require_once('controllers/bo/component/comment_edit.php');
 
-class Onxshop_Controller_Bo_Component_Ecommerce_Recipe_Review_Edit extends Onxshop_Controller_Bo_Component_Comment_Edit {
+class Onyx_Controller_Bo_Component_Ecommerce_Recipe_Review_Edit extends Onyx_Controller_Bo_Component_Comment_Edit {
 
     /**
      * initialize comment

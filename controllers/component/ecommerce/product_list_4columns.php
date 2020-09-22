@@ -7,7 +7,7 @@
 
 require_once('controllers/component/ecommerce/product_list.php');
 
-class Onxshop_Controller_Component_Ecommerce_Product_List_4columns extends Onxshop_Controller_Component_Ecommerce_Product_List {
+class Onyx_Controller_Component_Ecommerce_Product_List_4columns extends Onyx_Controller_Component_Ecommerce_Product_List {
 
     /**
      * main action

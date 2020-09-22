@@ -5,7 +5,7 @@
  * 
  */
 
-class Onxshop_Controller_Bo_Component_Database_Listing extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Database_Listing extends Onyx_Controller {
 
     /**
      * main action
@@ -25,7 +25,7 @@ class Onxshop_Controller_Bo_Component_Database_Listing extends Onxshop_Controlle
             $path = "models/$model_file";
             //$real_path = realpath($path);
         
-            if (!is_dir(ONXSHOP_DIR . $path) && (is_file(ONXSHOP_DIR . "$path.php") || is_file(ONXSHOP_PROJECT_DIR . "$path.php"))) {
+            if (!is_dir(ONYX_DIR . $path) && (is_file(ONYX_DIR . "$path.php") || is_file(ONYX_PROJECT_DIR . "$path.php"))) {
         
                 require_once("$path.php");
             
@@ -99,8 +99,8 @@ class Onxshop_Controller_Bo_Component_Database_Listing extends Onxshop_Controlle
                 $this->tpl->assign('COUNT_RECORD', $count);
         
                 //pagination
-                $_Onxshop_Request = new Onxshop_Request("component/pagination~limit_from=$from:limit_per_page=$per_page:count=$count~");
-                $this->tpl->assign('PAGINATION', $_Onxshop_Request->getContent());
+                $_Onyx_Request = new Onyx_Request("component/pagination~limit_from=$from:limit_per_page=$per_page:count=$count~");
+                $this->tpl->assign('PAGINATION', $_Onyx_Request->getContent());
         
         
                 $this->tpl->parse('content.listing');

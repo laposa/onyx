@@ -29,7 +29,7 @@ https://cms.paypal.com/us/cgi-bin/?&cmd=_render-content&content_ID=developer/e_h
 
 require_once('controllers/component/ecommerce/payment/paypal.php');
 
-class Onxshop_Controller_Component_Ecommerce_Payment_PayPal_Callback extends Onxshop_Controller_Component_Ecommerce_Payment_PayPal {
+class Onyx_Controller_Component_Ecommerce_Payment_PayPal_Callback extends Onyx_Controller_Component_Ecommerce_Payment_PayPal {
 
     /**
      * main action

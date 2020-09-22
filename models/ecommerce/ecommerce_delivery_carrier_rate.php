@@ -7,7 +7,7 @@
  *
  */
  
-class ecommerce_delivery_carrier_rate extends Onxshop_Model {
+class ecommerce_delivery_carrier_rate extends Onyx_Model {
 
     /**
      * @access private

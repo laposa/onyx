@@ -7,7 +7,7 @@
 require_once('controllers/node/content/default.php');
 require_once('models/ecommerce/ecommerce_product_taxonomy.php');
 
-class Onxshop_Controller_Node_Content_Product_Highlights extends Onxshop_Controller_Node_Content_Default {
+class Onyx_Controller_Node_Content_Product_Highlights extends Onyx_Controller_Node_Content_Default {
 
     /**
      * main action
@@ -110,8 +110,8 @@ class Onxshop_Controller_Node_Content_Product_Highlights extends Onxshop_Control
             /**
              * call controller
              */
-            $_Onxshop_Request = new Onxshop_Request("component/ecommerce/$controller~{$query}~");
-            $this->tpl->assign('PRODUCT_LIST', $_Onxshop_Request->getContent());
+            $_Onyx_Request = new Onyx_Request("component/ecommerce/$controller~{$query}~");
+            $this->tpl->assign('PRODUCT_LIST', $_Onyx_Request->getContent());
             
         }
         

@@ -15,4 +15,4 @@ define('ECOMMERCE_TRANSACTION_WORLDPAY_TESTMODE', 100);
 define('ECOMMERCE_TRANSACTION_WORLDPAY_URL', 'https://secure-test.wp3.rbsworldpay.com/wcc/purchase');
 //define('ECOMMERCE_TRANSACTION_WORLDPAY_URL', 'https://select.worldpay.com/wcc/purchase');
 define('ECOMMERCE_TRANSACTION_WORLDPAY_INSID', 0);
-define('ECOMMERCE_TRANSACTION_WORLDPAY_DESCRIPTION', "{$GLOBALS['onxshop_conf']['global']['title']} order ID {$_GET['order_id']}");
+define('ECOMMERCE_TRANSACTION_WORLDPAY_DESCRIPTION', "{$GLOBALS['onyx_conf']['global']['title']} order ID {$_GET['order_id']}");

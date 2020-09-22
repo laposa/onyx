@@ -6,17 +6,17 @@
  *  
  */
 @font-face {
-    font-family: 'onxshop';
-    src:url('../fonts/onxshop.eot?-yjb9qm');
-    src:url('../fonts/onxshop.eot?#iefix-yjb9qm') format('embedded-opentype'),
-        url('../fonts/onxshop.woff?-yjb9qm') format('woff'),
-        url('../fonts/onxshop.ttf?-yjb9qm') format('truetype'),
-        url('../fonts/onxshop.svg?-yjb9qm#icomoon') format('svg');
+    font-family: 'onyx';
+    src:url('../fonts/onyx.eot?-yjb9qm');
+    src:url('../fonts/onyx.eot?#iefix-yjb9qm') format('embedded-opentype'),
+        url('../fonts/onyx.woff?-yjb9qm') format('woff'),
+        url('../fonts/onyx.ttf?-yjb9qm') format('truetype'),
+        url('../fonts/onyx.svg?-yjb9qm#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
 }
 
-#onxshop-header li a:before {display: inline-block; font-family: 'onxshop'; font-style: normal; font-weight: normal;  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-size: 1.3em; line-height: 1; margin: 0 8px 0 10px; vertical-align: -15%; width: 1.2em; text-align: center; content: "\f013"; /*default fa-gear*/}
+#onyx-header li a:before {display: inline-block; font-family: 'onyx'; font-style: normal; font-weight: normal;  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; font-size: 1.3em; line-height: 1; margin: 0 8px 0 10px; vertical-align: -15%; width: 1.2em; text-align: center; content: "\f013"; /*default fa-gear*/}
 
 #menu-frontoffice li.frontoffice a:before {content: '\f108';} /*fa-desktop*/
 
@@ -67,103 +67,103 @@
  * General
  */
  
-a.onxshop-edit {background-image: url(/share/images/famfamfam_icons/plugin.png);}
-a.onxshop-edit-layout {background-image: url(/share/images/famfamfam_icons/layout.png);}
-a.onxshop-edit-page {background-image: url(/share/images/famfamfam_icons/page.png);}
-a.onxshop-duplicate {background-image: url(/share/images/famfamfam_icons/application_double.png);}
-a.onxshop-delete {background-image: url(/share/images/famfamfam_icons/delete.png);}
-a.onxshop-edit-source {background-image: url(/share/images/famfamfam_icons/link_edit.png);}
-a.onxshop-new-content {background-image: url(/share/images/famfamfam_icons/add.png);}
-a.onxshop-new-layout {background-image: url(/share/images/famfamfam_icons/layout_add.png);}
-a.onxshop-edit-main-content {background-image: url(/share/images/famfamfam_icons/text_signature.png);}
-a.onxshop-edit-page-add {background-image: url(/share/images/famfamfam_icons/page_add.png);}
+a.onyx-edit {background-image: url(/share/images/famfamfam_icons/plugin.png);}
+a.onyx-edit-layout {background-image: url(/share/images/famfamfam_icons/layout.png);}
+a.onyx-edit-page {background-image: url(/share/images/famfamfam_icons/page.png);}
+a.onyx-duplicate {background-image: url(/share/images/famfamfam_icons/application_double.png);}
+a.onyx-delete {background-image: url(/share/images/famfamfam_icons/delete.png);}
+a.onyx-edit-source {background-image: url(/share/images/famfamfam_icons/link_edit.png);}
+a.onyx-new-content {background-image: url(/share/images/famfamfam_icons/add.png);}
+a.onyx-new-layout {background-image: url(/share/images/famfamfam_icons/layout_add.png);}
+a.onyx-edit-main-content {background-image: url(/share/images/famfamfam_icons/text_signature.png);}
+a.onyx-edit-page-add {background-image: url(/share/images/famfamfam_icons/page_add.png);}
 
 /*
 * Container Frontend Icons
 */
 
-option.onxshop-edit-default.container {background-image: url(/share/images/famfamfam_icons/folder.png);}
+option.onyx-edit-default.container {background-image: url(/share/images/famfamfam_icons/folder.png);}
 
 /*
 * Page Frontend Icons
 */
 
-.onxshop-edit-commerce {background-image: url(/share/images/famfamfam_icons/key.png);}
-.onxshop-edit-partner {background-image: url(/share/images/famfamfam_icons/key.png);}
-.onxshop-edit-product-browse {background-image: url(/share/images/famfamfam_icons/building.png);}
-.onxshop-edit-symbolic {background-image: url(/share/images/famfamfam_icons/page_go.png);}
-.onxshop-edit-blank {background-image: url(/share/images/famfamfam_icons/page.png);}
-.onxshop-edit-default {background-image: url(/share/images/famfamfam_icons/page.png);}
-.onxshop-edit-print {background-image: url(/share/images/famfamfam_icons/printer.png);}
-.onxshop-edit-news {background-image: url(/share/images/famfamfam_icons/newspaper.png);}
-.onxshop-edit-product {background-image: url(/share/images/famfamfam_icons/page_white_ruby.png);}
+.onyx-edit-commerce {background-image: url(/share/images/famfamfam_icons/key.png);}
+.onyx-edit-partner {background-image: url(/share/images/famfamfam_icons/key.png);}
+.onyx-edit-product-browse {background-image: url(/share/images/famfamfam_icons/building.png);}
+.onyx-edit-symbolic {background-image: url(/share/images/famfamfam_icons/page_go.png);}
+.onyx-edit-blank {background-image: url(/share/images/famfamfam_icons/page.png);}
+.onyx-edit-default {background-image: url(/share/images/famfamfam_icons/page.png);}
+.onyx-edit-print {background-image: url(/share/images/famfamfam_icons/printer.png);}
+.onyx-edit-news {background-image: url(/share/images/famfamfam_icons/newspaper.png);}
+.onyx-edit-product {background-image: url(/share/images/famfamfam_icons/page_white_ruby.png);}
 
 
 /*
 * Content Frontend Icons
 */
 
-div.onxshop-add-content,
-div.onxshop-edit-content {clear: both; padding: 0 0 50px 5px;}
+div.onyx-add-content,
+div.onyx-edit-content {clear: both; padding: 0 0 50px 5px;}
 
-div.onxshop-add-content a.onxshop-new-content,
-div.onxshop-edit-content a,
-div.onxshop-edit-layout a,
-div.onxshop-edit-page a {display: block; width: 30px; height: 19px; float: left; background-repeat: no-repeat; background-position: center;}
+div.onyx-add-content a.onyx-new-content,
+div.onyx-edit-content a,
+div.onyx-edit-layout a,
+div.onyx-edit-page a {display: block; width: 30px; height: 19px; float: left; background-repeat: no-repeat; background-position: center;}
 
-div.onxshop-add-content a.onxshop-new-content span,
-div.onxshop-edit-content a span,
-div.onxshop-edit-layout a span,
-div.onxshop-edit-page a span {display: none;}
+div.onyx-add-content a.onyx-new-content span,
+div.onyx-edit-content a span,
+div.onyx-edit-layout a span,
+div.onyx-edit-page a span {display: none;}
 
-div.onxshop-edit-page a.verbose {width: auto; text-decoration: none; background-position: left;}
-div.onxshop-edit-page a.verbose span {display: inline; padding: 0 25px;}
+div.onyx-edit-page a.verbose {width: auto; text-decoration: none; background-position: left;}
+div.onyx-edit-page a.verbose span {display: inline; padding: 0 25px;}
 
-a.onxshop-edit-articlebox {background-image: url(/share/images/famfamfam_icons/page_edit.png);}
-a.onxshop-edit-print-article-list {background-image: url(/share/images/famfamfam_icons/newspaper.png);}
-a.onxshop-edit-component {background-image: url(/share/images/famfamfam_icons/plugin.png);}
-a.onxshop-edit-quote {background-image: url(/share/images/famfamfam_icons/rosette.png);}
-a.onxshop-edit-divider {background-image: url(/share/images/famfamfam_icons/text_horizontalrule.png);}
-a.onxshop-edit-teaser {background-image: url(/share/images/famfamfam_icons/page_go.png);}
-a.onxshop-edit-imagemap {background-image: url(/share/images/famfamfam_icons/map_edit.png);}
-a.onxshop-edit-contact-form {background-image: url(/share/images/famfamfam_icons/email.png);}
-a.onxshop-edit-comment {background-image: url(/share/images/famfamfam_icons/comment.png);}
-a.onxshop-edit-image-gallery {background-image: url(/share/images/famfamfam_icons/photo.png);}
-a.onxshop-edit-image {background-image: url(/share/images/famfamfam_icons/photo.png);}
-a.onxshop-edit-file {background-image: url(/share/images/famfamfam_icons/disk.png);}
-a.onxshop-edit-product-list {background-image: url(/share/images/famfamfam_icons/building.png);}
-a.onxshop-edit-feed {background-image: url(/share/images/famfamfam_icons/rss.png);}
-a.onxshop-edit-rte {background-image: url(/share/images/famfamfam_icons/text_signature.png);}
-a.onxshop-edit-shared {background-image: url(/share/images/famfamfam_icons/link.png);}
-a.onxshop-edit-news-list {background-image: url(/share/images/famfamfam_icons/newspaper.png);}
-a.onxshop-edit-menu {background-image: url(/share/images/famfamfam_icons/sitemap_color.png);}
-a.onxshop-edit-content-list {background-image: url(/share/images/famfamfam_icons/application_view_list.png);}
-a.onxshop-edit-page-list {background-image: url(/share/images/famfamfam_icons/application_view_list.png);}
-a.onxshop-edit-html {background-image: url(/share/images/famfamfam_icons/html.png);}
-a.onxshop-edit-product-highlights {background-image: url(/share/images/famfamfam_icons/award_star_bronze_2.png);}
-a.onxshop-edit-special-offer-list {background-image: url(/share/images/famfamfam_icons/money.png);}
-a.onxshop-edit-filter {background-image: url(/share/images/famfamfam_icons/page_white_find.png);}
-a.onxshop-edit-external-source {background-image: url(/share/images/famfamfam_icons/plugin.png);}
-a.onxshop-edit-textile {background-image: url(/share/images/famfamfam_icons/text_signature.png);}
-a.onxshop-edit-survey {background-image: url(/share/images/famfamfam_icons/application_form.png);}
-a.onxshop-edit-video {background-image: url(/share/images/famfamfam_icons/film.png);}
-a.onxshop-edit-recipe-list {background-image: url(/share/images/famfamfam_icons/application_view_list.png);}
-a.onxshop-edit-adaptive {background-image: url(/share/images/famfamfam_icons/table_key.png);}
-a.onxshop-edit-text {background-image: url(/share/images/famfamfam_icons/text_signature.png);}
+a.onyx-edit-articlebox {background-image: url(/share/images/famfamfam_icons/page_edit.png);}
+a.onyx-edit-print-article-list {background-image: url(/share/images/famfamfam_icons/newspaper.png);}
+a.onyx-edit-component {background-image: url(/share/images/famfamfam_icons/plugin.png);}
+a.onyx-edit-quote {background-image: url(/share/images/famfamfam_icons/rosette.png);}
+a.onyx-edit-divider {background-image: url(/share/images/famfamfam_icons/text_horizontalrule.png);}
+a.onyx-edit-teaser {background-image: url(/share/images/famfamfam_icons/page_go.png);}
+a.onyx-edit-imagemap {background-image: url(/share/images/famfamfam_icons/map_edit.png);}
+a.onyx-edit-contact-form {background-image: url(/share/images/famfamfam_icons/email.png);}
+a.onyx-edit-comment {background-image: url(/share/images/famfamfam_icons/comment.png);}
+a.onyx-edit-image-gallery {background-image: url(/share/images/famfamfam_icons/photo.png);}
+a.onyx-edit-image {background-image: url(/share/images/famfamfam_icons/photo.png);}
+a.onyx-edit-file {background-image: url(/share/images/famfamfam_icons/disk.png);}
+a.onyx-edit-product-list {background-image: url(/share/images/famfamfam_icons/building.png);}
+a.onyx-edit-feed {background-image: url(/share/images/famfamfam_icons/rss.png);}
+a.onyx-edit-rte {background-image: url(/share/images/famfamfam_icons/text_signature.png);}
+a.onyx-edit-shared {background-image: url(/share/images/famfamfam_icons/link.png);}
+a.onyx-edit-news-list {background-image: url(/share/images/famfamfam_icons/newspaper.png);}
+a.onyx-edit-menu {background-image: url(/share/images/famfamfam_icons/sitemap_color.png);}
+a.onyx-edit-content-list {background-image: url(/share/images/famfamfam_icons/application_view_list.png);}
+a.onyx-edit-page-list {background-image: url(/share/images/famfamfam_icons/application_view_list.png);}
+a.onyx-edit-html {background-image: url(/share/images/famfamfam_icons/html.png);}
+a.onyx-edit-product-highlights {background-image: url(/share/images/famfamfam_icons/award_star_bronze_2.png);}
+a.onyx-edit-special-offer-list {background-image: url(/share/images/famfamfam_icons/money.png);}
+a.onyx-edit-filter {background-image: url(/share/images/famfamfam_icons/page_white_find.png);}
+a.onyx-edit-external-source {background-image: url(/share/images/famfamfam_icons/plugin.png);}
+a.onyx-edit-textile {background-image: url(/share/images/famfamfam_icons/text_signature.png);}
+a.onyx-edit-survey {background-image: url(/share/images/famfamfam_icons/application_form.png);}
+a.onyx-edit-video {background-image: url(/share/images/famfamfam_icons/film.png);}
+a.onyx-edit-recipe-list {background-image: url(/share/images/famfamfam_icons/application_view_list.png);}
+a.onyx-edit-adaptive {background-image: url(/share/images/famfamfam_icons/table_key.png);}
+a.onyx-edit-text {background-image: url(/share/images/famfamfam_icons/text_signature.png);}
 /**
  * Other Icons
  */
 
-a.onxshop-icon {display: block; width: 19px; height: 19px; background-repeat: no-repeat;}
-a.onxshop-icon span {display: none;}
-a.onxshop-magnifier {background-image: url(/share/images/famfamfam_icons/magnifier.png);}
+a.onyx-icon {display: block; width: 19px; height: 19px; background-repeat: no-repeat;}
+a.onyx-icon span {display: none;}
+a.onyx-magnifier {background-image: url(/share/images/famfamfam_icons/magnifier.png);}
 div.node-node-controller option {background-repeat: no-repeat; background-position: 5px center; padding: 0.2em 0 0.2em 30px; height:1.4em;}
 
 /**
  * spinnig effect
  */
  
-.onxshop-effect-spin:before {-webkit-animation: spin 2s infinite linear; -moz-animation: spin 2s infinite linear; -o-animation: spin 2s infinite linear; animation: spin 2s infinite linear;}
+.onyx-effect-spin:before {-webkit-animation: spin 2s infinite linear; -moz-animation: spin 2s infinite linear; -o-animation: spin 2s infinite linear; animation: spin 2s infinite linear;}
 @-moz-keyframes spin {
   0% {-moz-transform: rotate(0deg);}
   100% {-moz-transform: rotate(359deg);}

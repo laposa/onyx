@@ -42,7 +42,7 @@ ALTER TABLE ecommerce_product_taxonomy ADD CONSTRAINT product_node_id_taxonomy_t
      */
      
     static function initConfiguration() {
-        if (array_key_exists('ecommerce_product_taxonomy', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['ecommerce_product_taxonomy'];
+        if (array_key_exists('ecommerce_product_taxonomy', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['ecommerce_product_taxonomy'];
         else $conf = array();
         
         // any categories associated to this taxonomy ID will be drawn as a dropdown option list in component/ecommerce/product_options

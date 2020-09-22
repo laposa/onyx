@@ -1,6 +1,6 @@
 {
 	"metadata": {
-		"name": "Onxshop",
+		"name": "Onyx",
 		"lastOpened": 1410785590450,
 		"created": 1410783702639
 	},
@@ -12,7 +12,7 @@
 					"id": 2,
 					"prevSize": 32,
 					"code": 58880,
-					"name": "onxshop-code-commander",
+					"name": "onyx-code-commander",
 					"tempChar": "",
 					"ligatures": ""
 				},
@@ -30,19 +30,19 @@
 					"id": 3,
 					"prevSize": 32,
 					"code": 58882,
-					"name": "powered-by-onxshop",
+					"name": "powered-by-onyx",
 					"tempChar": "",
 					"ligatures": ""
 				}
 			],
 			"id": 0,
 			"metadata": {
-				"name": "Onxshop",
+				"name": "Onyx",
 				"url": "http://onxshop.com",
 				"designer": "Neal McCullough",
 				"designerURL": "http://handdrawncreative.co.uk/",
 				"license": "BSD",
-				"licenseURL": "https://github.com/laposa/onxshop/blob/master/LICENSE.txt"
+				"licenseURL": "https://github.com/laposa/onyx/blob/master/LICENSE.txt"
 			},
 			"height": 1024,
 			"prevSize": 32,
@@ -84,7 +84,7 @@
 					"width": 1654,
 					"grid": 0,
 					"tags": [
-						"onxshop-code-commander"
+						"onyx-code-commander"
 					]
 				},
 				{
@@ -100,7 +100,7 @@
 					"width": 1021,
 					"grid": 0,
 					"tags": [
-						"onxshop-pawn"
+						"onyx-pawn"
 					]
 				},
 				{
@@ -114,7 +114,7 @@
 					"width": 3062,
 					"grid": 0,
 					"tags": [
-						"powered-by-onxshop"
+						"powered-by-onyx"
 					]
 				}
 			],

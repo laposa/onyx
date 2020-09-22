@@ -7,7 +7,7 @@
  *
  */
  
-class common_node extends Onxshop_Model {
+class common_node extends Onyx_Model {
 
     /**
      * @access private
@@ -233,7 +233,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
      
     static function initConfiguration() {
     
-        if (array_key_exists('common_node', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['common_node'];
+        if (array_key_exists('common_node', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['common_node'];
         else $conf = array();
         
         /**
@@ -499,8 +499,8 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
         if ($author_id == 0) return array(
             'id' => 1000,
             'username' => "superuser",
-            'email' => $GLOBALS['onxshop_conf']['global']['admin_email'],
-            'name' => $GLOBALS['onxshop_conf']['global']['admin_email_name']
+            'email' => $GLOBALS['onyx_conf']['global']['admin_email'],
+            'name' => $GLOBALS['onyx_conf']['global']['admin_email_name']
         );
 
         require_once('models/client/client_customer.php');
@@ -651,11 +651,11 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
         if (!is_numeric($node_data['parent_container'])) $node_data['parent_container'] = 0;
         if (!is_numeric($node_data['priority'])) $node_data['priority'] = 0;
         
-        $bo_user_id = Onxshop_Bo_Authentication::getInstance()->getUserId();
+        $bo_user_id = Onyx_Bo_Authentication::getInstance()->getUserId();
         if (is_numeric($bo_user_id)) $node_data['customer_id'] = $bo_user_id;
         else $node_data['customer_id'] = (int) $_SESSION['client']['customer']['id'];
         
-        $node_data['author'] = $node_data['customer_id']; // deprecated as of Onxshop 1.7
+        $node_data['author'] = $node_data['customer_id']; // deprecated as of Onyx 1.7
         if (!is_numeric($node_data['display_in_menu'])) $node_data['display_in_menu'] = 1;
         if (!is_numeric($node_data['display_permission'])) $node_data['display_permission'] = 0;
         if (!$node_data['css_class']) $node_data['css_class'] = '';
@@ -1104,8 +1104,8 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
             
             foreach ($children as $key=>$child) {
                 if ($this->checkDisplayPermission($child)) {
-                    $_nOnxshop = new Onxshop_Request("node&id={$child['id']}&no_parent=1");
-                    $contentx[$child['id']]['content'] = $_nOnxshop->getContent();
+                    $_nOnyx = new Onyx_Request("node&id={$child['id']}&no_parent=1");
+                    $contentx[$child['id']]['content'] = $_nOnyx->getContent();
                     $contentx[$child['id']]['container'] = $child['parent_container'];
                 }
             }
@@ -1130,7 +1130,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
     static function checkDisplayPermission($node_data, $force_admin_visibility = true) {
     
         //for editor show allways
-        if (Onxshop_Bo_Authentication::getInstance()->isAuthenticated() && $force_admin_visibility) {
+        if (Onyx_Bo_Authentication::getInstance()->isAuthenticated() && $force_admin_visibility) {
         
             return true;
         
@@ -1193,7 +1193,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
         // return true in case display permission are not set
         if (!is_array($node_data['display_permission_group_acl'])) return true;
         
-        if (Onxshop_Bo_Authentication::getInstance()->isAuthenticated() && $force_admin_visibility) {
+        if (Onyx_Bo_Authentication::getInstance()->isAuthenticated() && $force_admin_visibility) {
         
             return true;
         
@@ -1320,7 +1320,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
         if (is_array($records)) {
             
             //filter only homepages of products
-            if (ONXSHOP_ECOMMERCE) {
+            if (ONYX_ECOMMERCE) {
                 require_once("models/ecommerce/ecommerce_product.php");
                 $Product = new ecommerce_product();
             }
@@ -1335,7 +1335,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
                 }
                 
                 if ($disable == 0) {
-                    if (ONXSHOP_ECOMMERCE && $record['node_group'] == 'page' && $record['node_controller'] == 'product') {
+                    if (ONYX_ECOMMERCE && $record['node_group'] == 'page' && $record['node_controller'] == 'product') {
                         $homepage = $Product->getProductHomepage($record['content']);
                         if ($homepage['id'] == $record['id']) $sitemap[] = $record;
                     } else {
@@ -1633,7 +1633,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
                 if (in_array($item_data['node_group'], array('page', 'container', 'site'))) {
                     
                     // when ecommerce is enabled, include page or container, don't include products, recipes and news
-                    if (ONXSHOP_ECOMMERCE) $exclude_query = "(node_group = 'page' OR node_group = 'container') AND node_controller != 'product' AND node_controller != 'recipe' AND node_controller != 'news'";
+                    if (ONYX_ECOMMERCE) $exclude_query = "(node_group = 'page' OR node_group = 'container') AND node_controller != 'product' AND node_controller != 'recipe' AND node_controller != 'news'";
                     else $exclude_query = "(node_group = 'page' OR node_group = 'container')";
                     
                 } else {
@@ -1756,7 +1756,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
         
         $node_detail = $this->detail($node_id); //don't need to call full nodeDetail
         
-        if (ONXSHOP_ECOMMERCE) $controller =  $node_detail['node_controller'];
+        if (ONYX_ECOMMERCE) $controller =  $node_detail['node_controller'];
         else $controller = 'default';
         
         switch ($controller) {
@@ -1988,7 +1988,7 @@ LEFT OUTER JOIN common_taxonomy_label ON (common_taxonomy_tree.label_id = common
         $node_detail = $this->detail($node_id); //don't need to call full nodeDetail
         
         // recognise different image table if ecommerce is enabled
-        if (ONXSHOP_ECOMMERCE) $node_controller = $node_detail['node_controller'];
+        if (ONYX_ECOMMERCE) $node_controller = $node_detail['node_controller'];
         else $node_controller = 'default';
         
         switch ($node_controller) {

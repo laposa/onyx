@@ -6,7 +6,7 @@
  */
 
 
-class Onxshop_Controller_Bo_Component_Template_Edit extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Template_Edit extends Onyx_Controller {
 
     /**
      * main action
@@ -16,14 +16,14 @@ class Onxshop_Controller_Bo_Component_Template_Edit extends Onxshop_Controller {
         
         if (!empty($this->GET['template']) && $this->isSafe($this->GET['template'])) {
 
-            $path = realpath(ONXSHOP_PROJECT_DIR . "templates/" . $this->GET['template']);
+            $path = realpath(ONYX_PROJECT_DIR . "templates/" . $this->GET['template']);
         
             if (file_exists($path) && !is_dir($path)) {
                 
                 $content = file_get_contents($path);
                 $this->tpl->assign('CONTENT', htmlspecialchars($content));
                 
-                if (ONXSHOP_ALLOW_TEMPLATE_EDITING && is_writable($path) && $this->hasPermission()) {
+                if (ONYX_ALLOW_TEMPLATE_EDITING && is_writable($path) && $this->hasPermission()) {
 
                     $this->saveContent($path);
                     $this->tpl->parse('content.listing.edit');

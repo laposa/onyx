@@ -5,7 +5,7 @@
  *
  */
 
-class Onxshop_Controller_Component_Page_Header extends Onxshop_Controller {
+class Onyx_Controller_Component_Page_Header extends Onyx_Controller {
 
     /**
      * main action

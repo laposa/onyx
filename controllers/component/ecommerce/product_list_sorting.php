@@ -5,7 +5,7 @@
  *
  */
 
-class Onxshop_Controller_Component_Ecommerce_Product_List_Sorting extends Onxshop_Controller {
+class Onyx_Controller_Component_Ecommerce_Product_List_Sorting extends Onyx_Controller {
     
     /**
      * main action

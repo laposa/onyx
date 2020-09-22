@@ -7,7 +7,7 @@
  *
  */
  
-class ecommerce_promotion_code extends Onxshop_Model {
+class ecommerce_promotion_code extends Onyx_Model {
 
     /**
      * @access private

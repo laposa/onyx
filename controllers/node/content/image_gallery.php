@@ -8,7 +8,7 @@
 
 require_once('controllers/node/content/default.php');
 
-class Onxshop_Controller_Node_Content_Image_Gallery extends Onxshop_Controller_Node_Content_Default {
+class Onyx_Controller_Node_Content_Image_Gallery extends Onyx_Controller_Node_Content_Default {
 
     /**
      * main action
@@ -96,8 +96,8 @@ class Onxshop_Controller_Node_Content_Image_Gallery extends Onxshop_Controller_N
          * what controller
          */
          
-        if (file_exists(ONXSHOP_PROJECT_DIR . "controllers/component/image_gallery/{$node_data['component']['template']}.php") ||
-            file_exists(ONXSHOP_DIR . "controllers/component/image_gallery/{$node_data['component']['template']}.php")) {
+        if (file_exists(ONYX_PROJECT_DIR . "controllers/component/image_gallery/{$node_data['component']['template']}.php") ||
+            file_exists(ONYX_DIR . "controllers/component/image_gallery/{$node_data['component']['template']}.php")) {
         
             $image_controller = 'component/image_gallery/' . $node_data['component']['template'];
         
@@ -111,8 +111,8 @@ class Onxshop_Controller_Node_Content_Image_Gallery extends Onxshop_Controller_N
          * what template
          */
          
-        if (file_exists(ONXSHOP_PROJECT_DIR . "templates/component/image_gallery/{$node_data['component']['template']}.html") ||
-            file_exists(ONXSHOP_DIR . "templates/component/image_gallery/{$node_data['component']['template']}.html")) {
+        if (file_exists(ONYX_PROJECT_DIR . "templates/component/image_gallery/{$node_data['component']['template']}.html") ||
+            file_exists(ONYX_DIR . "templates/component/image_gallery/{$node_data['component']['template']}.html")) {
         
             $image_template = 'component/image_gallery/' . $node_data['component']['template'];
         
@@ -155,8 +155,8 @@ class Onxshop_Controller_Node_Content_Image_Gallery extends Onxshop_Controller_N
          * call controller
          */
          
-        $Onxshop_Request = new Onxshop_Request("{$image_controller}@{$image_template}~relation=node:role=main:width={$image_width}:height={$image_height}:fill=$fill:node_id={$node_data['id']}:limit={$image_limit}:cycle_fx={$cycle['fx']}:cycle_easing={$cycle['easing']}:cycle_timeout={$cycle['timeout']}:cycle_speed={$cycle['speed']}:cycle_link_to_node_id={$cycle['link_to_node_id']}~");
-        $this->tpl->assign("CONTENT", $Onxshop_Request->getContent());
+        $Onyx_Request = new Onyx_Request("{$image_controller}@{$image_template}~relation=node:role=main:width={$image_width}:height={$image_height}:fill=$fill:node_id={$node_data['id']}:limit={$image_limit}:cycle_fx={$cycle['fx']}:cycle_easing={$cycle['easing']}:cycle_timeout={$cycle['timeout']}:cycle_speed={$cycle['speed']}:cycle_link_to_node_id={$cycle['link_to_node_id']}~");
+        $this->tpl->assign("CONTENT", $Onyx_Request->getContent());
         
         $this->tpl->assign('NODE', $node_data);
         $this->tpl->assign('IMAGE_CONF', $common_image_conf);

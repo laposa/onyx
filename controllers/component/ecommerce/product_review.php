@@ -6,7 +6,7 @@
 
 require_once('controllers/component/comment.php');
 
-class Onxshop_Controller_Component_Ecommerce_Product_Review extends Onxshop_Controller_Component_Comment {
+class Onyx_Controller_Component_Ecommerce_Product_Review extends Onyx_Controller_Component_Comment {
     
     /**
      * initialize comment
@@ -25,11 +25,11 @@ class Onxshop_Controller_Component_Ecommerce_Product_Review extends Onxshop_Cont
      
     public function customCommentAction($data, $options) {
     
-        $_Onxshop_Request = new Onxshop_Request("component/ecommerce/product_review_list~node_id={$data['node_id']}:allow_anonymouse_submit={$options['allow_anonymouse_submit']}~");
-        $this->tpl->assign('REVIEW_LIST', $_Onxshop_Request->getContent());
+        $_Onyx_Request = new Onyx_Request("component/ecommerce/product_review_list~node_id={$data['node_id']}:allow_anonymouse_submit={$options['allow_anonymouse_submit']}~");
+        $this->tpl->assign('REVIEW_LIST', $_Onyx_Request->getContent());
         
-        $_Onxshop_Request = new Onxshop_Request("component/ecommerce/product_review_add~node_id={$data['node_id']}:allow_anonymouse_submit={$options['allow_anonymouse_submit']}~");
-        $this->tpl->assign('REVIEW_ADD', $_Onxshop_Request->getContent());
+        $_Onyx_Request = new Onyx_Request("component/ecommerce/product_review_add~node_id={$data['node_id']}:allow_anonymouse_submit={$options['allow_anonymouse_submit']}~");
+        $this->tpl->assign('REVIEW_ADD', $_Onyx_Request->getContent());
         
     }
 

@@ -48,7 +48,7 @@ function initialiseTaxonomyAddButton() {
             $('#dialog form.taxonomy-add').ajaxForm({ 
                 target: '#dialog form.taxonomy-add',
                 success: function(responseText, statusText) {
-                    popupMessage("#dialog form.taxonomy-add div.onxshop-messages");
+                    popupMessage("#dialog form.taxonomy-add div.onyx-messages");
                     refreshList();
                     $('#dialog').empty().dialog('close');
                 }
@@ -112,7 +112,7 @@ $(document).ready(function(){
                                     <div class="column-wrapper">
 
                                         <div id="taxonomy-tree-menu">
-                                            {ONXSHOP_REQUEST_menupages #bo/component/taxonomy_menu~expand_all=1:publish=0~}
+                                            {ONYX_REQUEST_menupages #bo/component/taxonomy_menu~expand_all=1:publish=0~}
                                         </div>
 
                                     </div>

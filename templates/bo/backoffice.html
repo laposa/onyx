@@ -1,25 +1,25 @@
 <!-- BEGIN: content -->
-<div id="onxshop-header">
+<div id="onyx-header">
     
-    <div id="onxshop-menu-bar">
+    <div id="onyx-menu-bar">
 
         <ul id="menu-system">
-            <li><a class="onxshop-version" href="/" title="{CONFIGURATION.global.title|htmlspecialchars} using {ONXSHOP_VERSION} {ONXSHOP_PACKAGE_NAME|ucfirst}" onclick="openAjaxRequestInDialog('/request/bo/component/sysinfo', '{ONXSHOP_VERSION}'); return false;"><span>Onxshop<br />{CONFIGURATION.global.title|htmlspecialchars}</span></a></li>
+            <li><a class="onyx-version" href="/" title="{CONFIGURATION.global.title|htmlspecialchars} using {ONYX_VERSION} {ONYX_PACKAGE_NAME|ucfirst}" onclick="openAjaxRequestInDialog('/request/bo/component/sysinfo', '{ONYX_VERSION}'); return false;"><span>Onyx<br />{CONFIGURATION.global.title|htmlspecialchars}</span></a></li>
         </ul>
         
         <ul id="menu-frontoffice">
             <li class="frontoffice"><a href="/edit"><span>Front Office</span></a></li>
         </ul>
 
-        {ONXSHOP_REQUEST_menu #bo/backoffice_menu}
+        {ONYX_REQUEST_menu #bo/backoffice_menu}
         
     </div>
 
 </div>
 
-<div id="onxshop-backoffice">
+<div id="onyx-backoffice">
 
-    <div id="onxshop-backoffice-wrapper">
+    <div id="onyx-backoffice-wrapper">
         {MESSAGES}
         {SUB_CONTENT}
     </div>

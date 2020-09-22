@@ -7,7 +7,7 @@
  *
  */
 
-class common_watchdog extends Onxshop_Model {
+class common_watchdog extends Onyx_Model {
 
     /**
      * @access public
@@ -95,7 +95,7 @@ class common_watchdog extends Onxshop_Model {
     static function initConfiguration()
     {
     
-        if (array_key_exists('common_watchdog', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['common_watchdog'];
+        if (array_key_exists('common_watchdog', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['common_watchdog'];
         else $conf = array();
 
         return $conf;
@@ -229,7 +229,7 @@ class common_watchdog extends Onxshop_Model {
         $product = $Product->productDetail($variety['product_id']);
         $homepage = $Product->getProductHomepage($variety['product_id']);
         $product['url'] = translateURL('page/' . $homepage['id']);
-        $Image = new Onxshop_Request("component/image&relation=product&role=main&width=120&node_id={$product['id']}&limit=0,1");
+        $Image = new Onyx_Request("component/image&relation=product&role=main&width=120&node_id={$product['id']}&limit=0,1");
 
         $product['variety'] = $variety;
         $product['image'] = $Image->getContent();

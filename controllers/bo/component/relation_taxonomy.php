@@ -7,7 +7,7 @@
  * taxonomy_manager_node, taxonomy_manager_product
  */
 
-class Onxshop_Controller_Bo_Component_Relation_Taxonomy extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Relation_Taxonomy extends Onyx_Controller {
 
     /**
      * main action
@@ -114,8 +114,8 @@ class Onxshop_Controller_Bo_Component_Relation_Taxonomy extends Onxshop_Controll
                     //print_r($taxonomy_data);
                     //check, if there is product_list_container ??
                     $this->tpl->assign("CURRENT", $taxonomy_data);
-                    $_Onxshop_Request = new Onxshop_Request("component/breadcrumb_taxonomy~id={$taxonomy_data['id']}~");
-                    $this->tpl->assign('BREADCRUMB', $_Onxshop_Request->getContent());
+                    $_Onyx_Request = new Onyx_Request("component/breadcrumb_taxonomy~id={$taxonomy_data['id']}~");
+                    $this->tpl->assign('BREADCRUMB', $_Onyx_Request->getContent());
                     $this->tpl->parse("content.ptn");
                 }
             }

@@ -4,7 +4,7 @@
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
-class Onxshop_Controller_Component_Rating_Stars extends Onxshop_Controller {
+class Onyx_Controller_Component_Rating_Stars extends Onyx_Controller {
 
     /** 
      * main action 

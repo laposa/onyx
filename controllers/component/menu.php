@@ -5,7 +5,7 @@
  *
  */
 
-class Onxshop_Controller_Component_Menu extends Onxshop_Controller {
+class Onyx_Controller_Component_Menu extends Onyx_Controller {
 
     /**
      * main action
@@ -49,7 +49,7 @@ class Onxshop_Controller_Component_Menu extends Onxshop_Controller {
             
         } else {
             
-            if (ONXSHOP_ECOMMERCE === true) $filter = 'page_exclude_products_recipes'; // don't show products in navigation on ecommerce sites as could have large product database
+            if (ONYX_ECOMMERCE === true) $filter = 'page_exclude_products_recipes'; // don't show products in navigation on ecommerce sites as could have large product database
             else $filter = 'page';
             
         }
@@ -245,7 +245,7 @@ class Onxshop_Controller_Component_Menu extends Onxshop_Controller {
          */
         
         if (isset($this->GET['publish'])) {
-            if ($item['publish'] == 0) $item['css_class'] .= " onxshop-nopublish";
+            if ($item['publish'] == 0) $item['css_class'] .= " onyx-nopublish";
         }
         
 

@@ -8,12 +8,12 @@
 <script type="text/javascript" src="/share/js/fe_edit.js"></script>
 <script type="text/javascript" src="/share/js/backoffice.js"></script>
 
-<div id="onxshop-header" class="frontend minimised" ondblclick="$(this).remove()">
+<div id="onyx-header" class="frontend minimised" ondblclick="$(this).remove()">
 
-    <div id="onxshop-menu-bar">
+    <div id="onyx-menu-bar">
 
         <ul id="menu-system">
-            <li><a class="onxshop-version" href="/" title="{CONFIGURATION.global.title|htmlspecialchars} is using {ONXSHOP_VERSION} {ONXSHOP_PACKAGE_NAME|ucfirst}" onclick="return false;"><span>Onxshop</span></a></li>
+            <li><a class="onyx-version" href="/" title="{CONFIGURATION.global.title|htmlspecialchars} is using {ONYX_VERSION} {ONYX_PACKAGE_NAME|ucfirst}" onclick="return false;"><span>Onyx</span></a></li>
         </ul>
 
         <ul id="menu-backoffice">
@@ -21,13 +21,13 @@
         </ul>
 
         <ui id="menu-editing-mode">
-            {ONXSHOP_REQUEST_fe_edit_mode #bo/component/fe_edit_mode~id=GET.id~}
+            {ONYX_REQUEST_fe_edit_mode #bo/component/fe_edit_mode~id=GET.id~}
         </ui>
 
         <ul id="menu-actions">
-            <li class="flush-cache"><a href='/backoffice/advanced/tools?tool=flush_cache' onclick="clearOnxshopCache(this); return false" title="Clear Cache"><span>Clear Cache</span></a></li>
-            <!--<li class="support"><a href="{ONXSHOP_SUPPORT_WEBSITE_URL}" title="Access to Onxshop support" target="_blank"><span>Support</span></a></li>-->
-            <li class="css-edit"><a class="onxshop-edit-css-edit" href="/backoffice/advanced/templates" title="CSS Edit" onclick="nOpenWin('/popup/css_edit/{GET.id}/orig/{_SESSION.orig}', 900, 600); return false;"><span>CSS</span></a></li>
+            <li class="flush-cache"><a href='/backoffice/advanced/tools?tool=flush_cache' onclick="clearOnyxCache(this); return false" title="Clear Cache"><span>Clear Cache</span></a></li>
+            <!--<li class="support"><a href="{ONYX_SUPPORT_WEBSITE_URL}" title="Access to Onyx support" target="_blank"><span>Support</span></a></li>-->
+            <li class="css-edit"><a class="onyx-edit-css-edit" href="/backoffice/advanced/templates" title="CSS Edit" onclick="nOpenWin('/popup/css_edit/{GET.id}/orig/{_SESSION.orig}', 900, 600); return false;"><span>CSS</span></a></li>
             <li class="logout" ><a class="logout" href="/?logout=1" title="Logout user {_SESSION.authentication.user_details.email|htmlspecialchars} from Front Office"><span>Log Out</span></a></li>
         </ul>
 
@@ -35,12 +35,12 @@
 
 </div>
 
-<div id="onxshop-cms-content">
+<div id="onyx-cms-content">
         {SUB_CONTENT}
 </div>
 
 <script type="text/javascript">
-    $('#onxshop-header').draggable();
+    $('#onyx-header').draggable();
 </script>
 
 <!-- END: content -->

@@ -7,7 +7,7 @@
 
 require_once('controllers/component/client/login.php');
 
-class Onxshop_Controller_Component_Client_Login_Or_Register extends Onxshop_Controller_Component_Client_Login {
+class Onyx_Controller_Component_Client_Login_Or_Register extends Onyx_Controller_Component_Client_Login {
 
     /**
      * main action
@@ -71,6 +71,6 @@ class Onxshop_Controller_Component_Client_Login_Or_Register extends Onxshop_Cont
      
     function dispatchToRegistration($node_conf) {
         if ($this->GET['to']) $_SESSION['to'] = $this->GET['to'];
-        onxshopGoTo('/page/'.$node_conf['id_map-registration']);
+        onyxGoTo('/page/'.$node_conf['id_map-registration']);
     }
 }

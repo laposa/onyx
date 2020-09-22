@@ -7,7 +7,7 @@
 require_once('models/ecommerce/ecommerce_store.php');
 require_once('models/common/common_node.php');
 
-class Onxshop_Controller_Component_Ecommerce_Store_Map extends Onxshop_Controller {
+class Onyx_Controller_Component_Ecommerce_Store_Map extends Onyx_Controller {
 
     /**
      * main action

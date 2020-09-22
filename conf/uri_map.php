@@ -3,7 +3,7 @@
  * Copyright (c) 2014 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
- * this file contains mapping of URLs to Onxshop component requests
+ * this file contains mapping of URLs to Onyx component requests
  * see also model/uri_mapping for URLs mapped in CMS
  *
  * syntax as htaccess RewriteRule, only extra root / is necessary

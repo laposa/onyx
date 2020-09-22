@@ -5,9 +5,9 @@
  *
  */
 
-class Onxshop_Bootstrap {
+class Onyx_Bootstrap {
 
-    public $Onxshop;
+    public $Onyx;
     
     public $headers;
     
@@ -16,7 +16,7 @@ class Onxshop_Bootstrap {
     /**
      * constructor
      *
-     * @return OnxshopBootstrap
+     * @return OnyxBootstrap
      */
      
     function __construct() {
@@ -27,10 +27,10 @@ class Onxshop_Bootstrap {
          
         require_once('xtemplate.class.php');
         require_once('controller.php');
-        require_once('onxshop.request.php');
+        require_once('onyx.request.php');
         require_once('model.php');
-        require_once('onxshop.router.php');
-        require_once('onxshop.bo.authentication.php');
+        require_once('onyx.router.php');
+        require_once('onyx.bo.authentication.php');
         require_once('Zend/Db.php');
         require_once('Zend/Registry.php');
         require_once('Zend/Cache.php');
@@ -56,7 +56,7 @@ class Onxshop_Bootstrap {
         /**
          * Initialise session
          */
-        if (ONXSHOP_SESSION_START_FOR_ALL_USERS || $this->isSessionRequired()) {
+        if (ONYX_SESSION_START_FOR_ALL_USERS || $this->isSessionRequired()) {
             $this->initSession();
         }
         
@@ -64,35 +64,35 @@ class Onxshop_Bootstrap {
          * csrfCheck
          */
          
-        if (ONXSHOP_CSRF_PROTECTION_ENABLED) $this->csrfCheck();
+        if (ONYX_CSRF_PROTECTION_ENABLED) $this->csrfCheck();
     
         /**
          * Disable DB cache when logged in as editor
          */
          
-        if (Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) {
-            define('ONXSHOP_DB_QUERY_CACHE', false);
+        if (Onyx_Bo_Authentication::getInstance()->isAuthenticated()) {
+            define('ONYX_DB_QUERY_CACHE', false);
         } else {
-            define('ONXSHOP_DB_QUERY_CACHE', true);
+            define('ONYX_DB_QUERY_CACHE', true);
         }
         
         /**
          * Initialise site configuration
          */
 
-        $GLOBALS['onxshop_conf'] = $this->initConfiguration();
+        $GLOBALS['onyx_conf'] = $this->initConfiguration();
 
         /**
          * Initialise A/B testing
          */
-        if (defined('ONXSHOP_ENABLE_AB_TESTING') && ONXSHOP_ENABLE_AB_TESTING == true) {
+        if (defined('ONYX_ENABLE_AB_TESTING') && ONYX_ENABLE_AB_TESTING == true) {
             if  ($_SESSION['ab_test_group'] !== 0 && $_SESSION['ab_test_group'] !== 1)
                 $_SESSION['ab_test_group'] = mt_rand(0, 1);
         }
     
         //hack
         if ($_GET['logout'] == 1) {
-            Onxshop_Bo_Authentication::getInstance()->logout();
+            Onyx_Bo_Authentication::getInstance()->logout();
             header("Location: http://{$_SERVER['SERVER_NAME']}/");
             exit;
         }
@@ -109,7 +109,7 @@ class Onxshop_Bootstrap {
          * determine adapter name
          */
          
-        switch (ONXSHOP_DB_TYPE) {
+        switch (ONYX_DB_TYPE) {
             case 'mysql':
                 $adapter_name = 'Pdo_Mysql';
             break;
@@ -124,11 +124,11 @@ class Onxshop_Bootstrap {
          */
         
         $connection_parameters =  array(
-            'host'     => ONXSHOP_DB_HOST,
-            'username' => ONXSHOP_DB_USER,
-            'password' => ONXSHOP_DB_PASSWORD,
-            'dbname'   => ONXSHOP_DB_NAME,
-            'port'     => ONXSHOP_DB_PORT,
+            'host'     => ONYX_DB_HOST,
+            'username' => ONYX_DB_USER,
+            'password' => ONYX_DB_PASSWORD,
+            'dbname'   => ONYX_DB_NAME,
+            'port'     => ONYX_DB_PORT,
             'charset'  => 'UTF8'
         );
     
@@ -160,7 +160,7 @@ class Onxshop_Bootstrap {
          * profiler
          */
          
-        if (ONXSHOP_DB_PROFILER && ONXSHOP_IS_DEBUG_HOST) {
+        if (ONYX_DB_PROFILER && ONYX_IS_DEBUG_HOST) {
             $db->getProfiler()->setEnabled(true);
         }
         
@@ -168,7 +168,7 @@ class Onxshop_Bootstrap {
          * store in registry
          */
          
-        Zend_Registry::set('onxshop_db', $db);
+        Zend_Registry::set('onyx_db', $db);
         
     }
     
@@ -178,7 +178,7 @@ class Onxshop_Bootstrap {
     
     function closeDatabase() {
         
-        $db = Zend_Registry::get( 'onxshop_db' ); 
+        $db = Zend_Registry::get( 'onyx_db' ); 
         $db->closeConnection(); 
     
     }
@@ -193,7 +193,7 @@ class Onxshop_Bootstrap {
          * check directory exists
          */
         
-        $directory = ONXSHOP_PROJECT_DIR . 'var/files/';
+        $directory = ONYX_PROJECT_DIR . 'var/files/';
 
         if (!is_dir($directory)) {
             if (!mkdir($directory)) die($directory . ' directory is not writeable');
@@ -210,8 +210,8 @@ class Onxshop_Bootstrap {
          * check directory exists
          */
         
-        if (!is_dir(ONXSHOP_PAGE_CACHE_DIRECTORY)) {
-            if (!mkdir(ONXSHOP_PAGE_CACHE_DIRECTORY)) die(ONXSHOP_PAGE_CACHE_DIRECTORY . ' directory is not writeable');
+        if (!is_dir(ONYX_PAGE_CACHE_DIRECTORY)) {
+            if (!mkdir(ONYX_PAGE_CACHE_DIRECTORY)) die(ONYX_PAGE_CACHE_DIRECTORY . ' directory is not writeable');
         }
         
         /**
@@ -219,46 +219,46 @@ class Onxshop_Bootstrap {
          */
          
         $frontendOptions = array(
-        'lifetime' => ONXSHOP_DB_QUERY_CACHE_TTL,
+        'lifetime' => ONYX_DB_QUERY_CACHE_TTL,
         'automatic_serialization' => false
         );
 
-        switch (ONXSHOP_DB_QUERY_CACHE_BACKEND) {
+        switch (ONYX_DB_QUERY_CACHE_BACKEND) {
             case 'File':
-                $backendOptions = array('cache_dir' => ONXSHOP_DB_QUERY_CACHE_DIRECTORY);
+                $backendOptions = array('cache_dir' => ONYX_DB_QUERY_CACHE_DIRECTORY);
             break;
             case 'Libmemcached':
-                $backendOptions = array('host' => ONXSHOP_CACHE_BACKEND_LIBMEMCACHED_HOST, 'port' => ONXSHOP_CACHE_BACKEND_LIBMEMCACHED_PORT);
+                $backendOptions = array('host' => ONYX_CACHE_BACKEND_LIBMEMCACHED_HOST, 'port' => ONYX_CACHE_BACKEND_LIBMEMCACHED_PORT);
             break;
             case 'Apc':
             default:
                 $backendOptions = array();
         }
         
-        $db_cache = Zend_Cache::factory('Core', ONXSHOP_DB_QUERY_CACHE_BACKEND, $frontendOptions, $backendOptions);
+        $db_cache = Zend_Cache::factory('Core', ONYX_DB_QUERY_CACHE_BACKEND, $frontendOptions, $backendOptions);
         
         /**
          * store db cache in registry
          */
          
-        Zend_Registry::set('onxshop_db_cache', $db_cache);
+        Zend_Registry::set('onyx_db_cache', $db_cache);
         
         /**
          * page cache
          */
         
         $frontendOptions = array(
-        'lifetime' => ONXSHOP_PAGE_CACHE_TTL,
+        'lifetime' => ONYX_PAGE_CACHE_TTL,
         'automatic_serialization' => true
         );
         
-        $this->cache = Zend_Cache::factory('Output', ONXSHOP_PAGE_CACHE_BACKEND, $frontendOptions, $backendOptions);
+        $this->cache = Zend_Cache::factory('Output', ONYX_PAGE_CACHE_BACKEND, $frontendOptions, $backendOptions);
         
         /**
          * store page cache in registry
          */
          
-        Zend_Registry::set('onxshop_page_cache', $this->cache);
+        Zend_Registry::set('onyx_page_cache', $this->cache);
     }
 
     /**
@@ -287,13 +287,13 @@ class Onxshop_Bootstrap {
          * check directory exists
          */
          
-        if (!is_dir(ONXSHOP_SESSION_DIRECTORY)) {
-            if (!mkdir(ONXSHOP_SESSION_DIRECTORY)) die(ONXSHOP_SESSION_DIRECTORY . ' directory is not writeable');
+        if (!is_dir(ONYX_SESSION_DIRECTORY)) {
+            if (!mkdir(ONYX_SESSION_DIRECTORY)) die(ONYX_SESSION_DIRECTORY . ' directory is not writeable');
         }
         
-        switch (ONXSHOP_SESSION_TYPE) {
+        switch (ONYX_SESSION_TYPE) {
             case 'file':
-                ini_set('session.save_path', ONXSHOP_SESSION_DIRECTORY);
+                ini_set('session.save_path', ONYX_SESSION_DIRECTORY);
             break;
     
             case 'database':
@@ -309,10 +309,10 @@ class Onxshop_Bootstrap {
 
         
         // change setting before starting the session
-        session_name(ONXSHOP_SESSION_NAME);
+        session_name(ONYX_SESSION_NAME);
         $current_cookie_params = session_get_cookie_params();
 
-        if (onxshopDetectProtocol() == 'https') $secure = true;
+        if (onyxDetectProtocol() == 'https') $secure = true;
         else $secure = false;
         
         session_set_cookie_params($current_cookie_params['lifetime'], $current_cookie_params['path'], $current_cookie_params['domain'], $secure,  $current_cookie_params['httponly']);
@@ -367,14 +367,14 @@ class Onxshop_Bootstrap {
     
     function processAuthentication($request) {
     
-        if (!$_SERVER['HTTPS'] && ONXSHOP_EDITOR_USE_SSL) {
+        if (!$_SERVER['HTTPS'] && ONYX_EDITOR_USE_SSL) {
             header("Location: https://{$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}");
             exit;
         }
         
-        if (!Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) {
+        if (!Onyx_Bo_Authentication::getInstance()->isAuthenticated()) {
 
-            if (Onxshop_Bo_Authentication::getInstance()->login()) {
+            if (Onyx_Bo_Authentication::getInstance()->login()) {
                 
                 msg('Successful Login to the backoffice', 'ok', 1);
             
@@ -385,18 +385,18 @@ class Onxshop_Bootstrap {
             
             }
             
-        } else if (!Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) {
+        } else if (!Onyx_Bo_Authentication::getInstance()->isAuthenticated()) {
             
-            Onxshop_Bo_Authentication::getInstance()->login();
+            Onyx_Bo_Authentication::getInstance()->login();
             return false;
         
         }
         
         /**
-         * deprecated since Onxshop 1.7
+         * deprecated since Onyx 1.7
          */
         
-        if ($_SESSION['client']['customer']['id'] < 1 && ONXSHOP_BACKOFFICE_REQUIRE_CUSTOMER_LOGIN) {
+        if ($_SESSION['client']['customer']['id'] < 1 && ONYX_BACKOFFICE_REQUIRE_CUSTOMER_LOGIN) {
             
             $_SESSION['to'] = $_SERVER['REQUEST_URI'];
             
@@ -433,7 +433,7 @@ class Onxshop_Bootstrap {
         }
         
         //force login when specified
-        if (ONXSHOP_REQUIRE_AUTH && !ONXSHOP_IS_DEBUG_HOST) {
+        if (ONYX_REQUIRE_AUTH && !ONYX_IS_DEBUG_HOST) {
         
             $auth_is_required = true;
             
@@ -492,12 +492,12 @@ class Onxshop_Bootstrap {
     
     function processAction($request) {
     
-        $router = new Onxshop_Router();
+        $router = new Onyx_Router();
         
-        $this->Onxshop = $router->processAction($request);
+        $this->Onyx = $router->processAction($request);
         
         $this->headers = $this->getPublicHeaders();
-        $this->output = $this->Onxshop->finalOutput();
+        $this->output = $this->Onyx->finalOutput();
 
     }
     
@@ -508,8 +508,8 @@ class Onxshop_Bootstrap {
     function processActionCached($request) {
         
         // create cache key
-        $id = preg_replace('/\W/', '', $_SERVER['HTTP_HOST']) . '_GET_' . md5(ONXSHOP_DB_HOST . ONXSHOP_DB_PORT . ONXSHOP_DB_NAME . $request . serialize($_GET) . isset($_SERVER['HTTPS'])); // include hostname and database connection details to prevent conflicts in shared cache engine environment
-        if (defined('ONXSHOP_ENABLE_AB_TESTING') && ONXSHOP_ENABLE_AB_TESTING == true) $id .= $_SESSION['ab_test_group'];
+        $id = preg_replace('/\W/', '', $_SERVER['HTTP_HOST']) . '_GET_' . md5(ONYX_DB_HOST . ONYX_DB_PORT . ONYX_DB_NAME . $request . serialize($_GET) . isset($_SERVER['HTTPS'])); // include hostname and database connection details to prevent conflicts in shared cache engine environment
+        if (defined('ONYX_ENABLE_AB_TESTING') && ONYX_ENABLE_AB_TESTING == true) $id .= $_SESSION['ab_test_group'];
 
         if (!is_array($data = $this->cache->load($id))) {
             // cache miss
@@ -526,7 +526,7 @@ class Onxshop_Bootstrap {
                 // but not when search_query is submitted (don't index search results)
                 // and not when forward "to" is provided
                 // TODO: canonise the request before submitting for indexing
-                if (ONXSHOP_ALLOW_SEARCH_INDEX_AUTOUPDATE && !array_key_exists('search_query', $_GET) && !array_key_exists('to', $_GET)) $this->indexContent($_GET['translate'], $this->output);
+                if (ONYX_ALLOW_SEARCH_INDEX_AUTOUPDATE && !array_key_exists('search_query', $_GET) && !array_key_exists('to', $_GET)) $this->indexContent($_GET['translate'], $this->output);
             }
 
         } else {
@@ -548,7 +548,7 @@ class Onxshop_Bootstrap {
     
         require_once('Zend/Search/Lucene.php');
 
-        $index_location = ONXSHOP_PROJECT_DIR . 'var/index';
+        $index_location = ONYX_PROJECT_DIR . 'var/index';
         
         if (is_dir($index_location)) {
             // Open existing index
@@ -591,7 +591,7 @@ class Onxshop_Bootstrap {
             }
         }
     
-        header("X-Onxshop-From-Cache: 1");
+        header("X-Onyx-From-Cache: 1");
         
     }
     
@@ -634,7 +634,7 @@ class Onxshop_Bootstrap {
         $result = $this->outputFilterPublic($result);
         
         //hack
-        if ($Onxshop->http_status != '404') {
+        if ($Onyx->http_status != '404') {
             if ($_SERVER['HTTP_REFERER'] != $_SESSION['uri'] && $_SERVER['HTTP_REFERER'] != '') {
                 $_SESSION['referer'] = $_SERVER['HTTP_REFERER'];
             }
@@ -673,14 +673,14 @@ class Onxshop_Bootstrap {
         $content = $Mapper->system_uri2public_uri($content);
 
         // CDN rewrites for URLs
-        if (ONXSHOP_CDN && (ONXSHOP_CDN_USE_WHEN_SSL || !isset($_SERVER['HTTPS']))) {
-            require_once('lib/onxshop.cdn.php');
-            $CDN = new Onxshop_Cdn();
+        if (ONYX_CDN && (ONYX_CDN_USE_WHEN_SSL || !isset($_SERVER['HTTPS']))) {
+            require_once('lib/onyx.cdn.php');
+            $CDN = new Onyx_Cdn();
             $content = $CDN->processOutputHtml($content);
         }
         
         // remove multiple white spaces beetween tags
-        if (ONXSHOP_COMPRESS_OUTPUT == 1) {
+        if (ONYX_COMPRESS_OUTPUT == 1) {
             $content = preg_replace("/>[\s]+</","> <", $content);
         }
 
@@ -699,7 +699,7 @@ class Onxshop_Bootstrap {
          */
         
         //only when not logged in backoffice
-        if (!Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) {
+        if (!Onyx_Bo_Authentication::getInstance()->isAuthenticated()) {
             if ($_SESSION['client']['customer']['id'] > 0) {
                 $content = preg_replace("/{{customer.first_name}}/", htmlspecialchars($_SESSION['client']['customer']['first_name']), $content);
             } else {
@@ -709,10 +709,10 @@ class Onxshop_Bootstrap {
         }
 
         // translations
-        if (ONXSHOP_SIMPLE_TRANSLATION_ENABLED && !ONXSHOP_IN_BACKOFFICE) {
+        if (ONYX_SIMPLE_TRANSLATION_ENABLED && !ONYX_IN_BACKOFFICE) {
 
             $locale = $_SESSION['locale'];
-            $default_locale = $GLOBALS['onxshop_conf']['global']['locale'];
+            $default_locale = $GLOBALS['onyx_conf']['global']['locale'];
 
             if ($locale != $default_locale) {
                 require_once('models/international/international_translation.php');
@@ -735,7 +735,7 @@ class Onxshop_Bootstrap {
          * generate
          */
          
-        $CSRF_TOKEN = hash_hmac('md5', session_id(), ONXSHOP_ENCRYPTION_SALT);
+        $CSRF_TOKEN = hash_hmac('md5', session_id(), ONYX_ENCRYPTION_SALT);
         
         /**
          * save
@@ -748,7 +748,7 @@ class Onxshop_Bootstrap {
          * for testing period limited only to backoffice users
          */
          
-        if (Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) {
+        if (Onyx_Bo_Authentication::getInstance()->isAuthenticated()) {
             
             if (count($_POST) > 0) {
                 
@@ -809,11 +809,11 @@ class Onxshop_Bootstrap {
         if (isset($_GET['nocache'])) $this->disable_page_cache = $_GET['nocache'];
         
         // check if explicitly disabled
-        if ($this->disable_page_cache || ONXSHOP_PAGE_CACHE_TTL == 0) {
+        if ($this->disable_page_cache || ONYX_PAGE_CACHE_TTL == 0) {
             
             $use_page_cache = false;
         
-        } else if (array_key_exists(ONXSHOP_SESSION_NAME, $_COOKIE) || array_key_exists(ONXSHOP_TOKEN_NAME, $_COOKIE) || $_COOKIE['identity_access_token']) {
+        } else if (array_key_exists(ONYX_SESSION_NAME, $_COOKIE) || array_key_exists(ONYX_TOKEN_NAME, $_COOKIE) || $_COOKIE['identity_access_token']) {
             
             $use_page_cache = false;
             
@@ -833,7 +833,7 @@ class Onxshop_Bootstrap {
              * disable page cache for whole session after a user interaction and for backoffice users
              */
              
-            if ($_SERVER['REQUEST_METHOD'] === 'POST' || Onxshop_Bo_Authentication::getInstance()->isAuthenticated() || $_SESSION['client']['customer']['id'] > 0) $use_page_cache = false;
+            if ($_SERVER['REQUEST_METHOD'] === 'POST' || Onyx_Bo_Authentication::getInstance()->isAuthenticated() || $_SESSION['client']['customer']['id'] > 0) $use_page_cache = false;
             
             /**
              * TODO: allow to configure what _GET variables will disable page cache

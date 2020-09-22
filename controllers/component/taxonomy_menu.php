@@ -9,7 +9,7 @@
 
 require_once('controllers/component/menu_js.php');
 
-class Onxshop_Controller_Component_Taxonomy_Menu extends Onxshop_Controller_Component_Menu_Js {
+class Onyx_Controller_Component_Taxonomy_Menu extends Onyx_Controller_Component_Menu_Js {
 
     /**
      * get tree

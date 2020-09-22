@@ -7,7 +7,7 @@
  * 
  */
 
-class Onxshop_Controller_Component_Ecommerce_Checkout extends Onxshop_Controller {
+class Onyx_Controller_Component_Ecommerce_Checkout extends Onyx_Controller {
 
     /**
      * main action
@@ -83,8 +83,8 @@ class Onxshop_Controller_Component_Ecommerce_Checkout extends Onxshop_Controller
                                 $_SESSION['basket']['id'] = null;
                                 
                                 //forward to payment page with pre-selected payment method
-                                //onxshopGoTo("page/" . $node_conf['id_map-payment'] . "?order_id=$inserted_order_id&selected_poyment_type={$order_data['payment_type']}");
-                                onxshopGoTo("page/" . $node_conf['id_map-payment'] . "?order_id=$inserted_order_id");
+                                //onyxGoTo("page/" . $node_conf['id_map-payment'] . "?order_id=$inserted_order_id&selected_poyment_type={$order_data['payment_type']}");
+                                onyxGoTo("page/" . $node_conf['id_map-payment'] . "?order_id=$inserted_order_id");
                             }
                         } else {
                             msg("Can't insert an empty order.", 'error');
@@ -122,7 +122,7 @@ class Onxshop_Controller_Component_Ecommerce_Checkout extends Onxshop_Controller
         } else {
             //msg('You must be logged in first.', 'error');
             $_SESSION['to'] = "page/" . $node_conf['id_map-checkout'];
-            onxshopGoTo("page/" . $node_conf['id_map-login']);
+            onyxGoTo("page/" . $node_conf['id_map-login']);
         }
         
         $this->tpl->assign("ORDER", $_POST['order']);

@@ -6,7 +6,7 @@
  *
  */
 
-class Onxshop_Controller_Bo_Component_Ecommerce_Recipe_List extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Ecommerce_Recipe_List extends Onyx_Controller {
 
     /**
      * main action

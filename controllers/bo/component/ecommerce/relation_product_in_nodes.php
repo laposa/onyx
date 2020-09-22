@@ -6,7 +6,7 @@
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
-class Onxshop_Controller_Bo_Component_Ecommerce_Relation_Product_In_Nodes extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Ecommerce_Relation_Product_In_Nodes extends Onyx_Controller {
     
     /**
      * main action
@@ -34,8 +34,8 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Relation_Product_In_Nodes extend
                 if ($key > 0) {
                     if ($node_data['publish'] == 0) $node_data['class'] = "class='disabled'";
                     $this->tpl->assign("ITEM", $node_data);
-                    $_Onxshop_Request = new Onxshop_Request("component/breadcrumb~id={$node_data['id']}:create_last_link=1~");
-                    $this->tpl->assign('BREADCRUMB', $_Onxshop_Request->getContent());
+                    $_Onyx_Request = new Onyx_Request("component/breadcrumb~id={$node_data['id']}:create_last_link=1~");
+                    $this->tpl->assign('BREADCRUMB', $_Onyx_Request->getContent());
                     $this->tpl->parse("content.multiple.item");
                 }
             }

@@ -7,7 +7,7 @@
 
 require_once('controllers/api.php');
 
-class Onxshop_Controller_Api_v1_0_Recipe_Detail extends Onxshop_Controller_Api {
+class Onyx_Controller_Api_v1_0_Recipe_Detail extends Onyx_Controller_Api {
 
     /**
      * get data
@@ -77,7 +77,7 @@ class Onxshop_Controller_Api_v1_0_Recipe_Detail extends Onxshop_Controller_Api {
         
         $item = array();
         
-        $protocol = onxshopDetectProtocol();
+        $protocol = onyxDetectProtocol();
             
         $item['id'] = (int)$original_item['id'];
         $item['title'] = $original_item['title'];

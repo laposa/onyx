@@ -5,7 +5,7 @@
   *
   */
 
-class Onxshop_Controller_Bo_Component_Ecommerce_Search_Products extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Ecommerce_Search_Products extends Onyx_Controller {
     
     /**
      * main action

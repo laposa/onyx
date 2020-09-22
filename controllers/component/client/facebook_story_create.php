@@ -7,7 +7,7 @@
 
 require_once 'controllers/component/client/facebook.php';
 
-class Onxshop_Controller_Component_Client_Facebook_Story_Create extends Onxshop_Controller_Component_Client_Facebook {
+class Onyx_Controller_Component_Client_Facebook_Story_Create extends Onyx_Controller_Component_Client_Facebook {
 
     /**
      * main action
@@ -74,7 +74,7 @@ class Onxshop_Controller_Component_Client_Facebook_Story_Create extends Onxshop_
     public function postFacebookAction()
     {
         $response = $this->makeApiCall(
-            'me/' . ONXSHOP_FACEBOOK_APP_NAMESPACE . ":" . $this->action, 'POST',
+            'me/' . ONYX_FACEBOOK_APP_NAMESPACE . ":" . $this->action, 'POST',
             array($this->object => $this->getShareUri())
         );
 
@@ -145,7 +145,7 @@ class Onxshop_Controller_Component_Client_Facebook_Story_Create extends Onxshop_
 
             msg("Story created with id = {$response['id']}", 'ok', 1);
 
-            $request = new Onxshop_Request("component/client/action_add~" 
+            $request = new Onyx_Request("component/client/action_add~" 
                 . "node_id=" . $this->node_id
                 . ":action_id=" . $response['id']
                 . ":network=facebook"
@@ -154,7 +154,7 @@ class Onxshop_Controller_Component_Client_Facebook_Story_Create extends Onxshop_
                 . "~");
 
             if ($this->GET['redirect_to_post']) {
-                onxshopGoTo("https://www.facebook.com/me/activity/{$response['id']}/", 2);
+                onyxGoTo("https://www.facebook.com/me/activity/{$response['id']}/", 2);
             }
 
         } else {

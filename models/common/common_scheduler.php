@@ -7,7 +7,7 @@
  *
  */
  
-class common_scheduler extends Onxshop_Model {
+class common_scheduler extends Onyx_Model {
 
     /**
      * @access private
@@ -108,7 +108,7 @@ CREATE TABLE common_scheduler (
      
     static function initConfiguration() {
     
-        if (array_key_exists('common_scheduler', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['common_node'];
+        if (array_key_exists('common_scheduler', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['common_node'];
         else $conf = array();
         
         return $conf;
@@ -266,8 +266,8 @@ CREATE TABLE common_scheduler (
 
     public function getSchedulerActions()
     {
-        $local_files = @scandir(ONXSHOP_PROJECT_DIR . "/controllers/bo/scheduler");
-        $files = @scandir(ONXSHOP_DIR . "/controllers/bo/scheduler");
+        $local_files = @scandir(ONYX_PROJECT_DIR . "/controllers/bo/scheduler");
+        $files = @scandir(ONYX_DIR . "/controllers/bo/scheduler");
 
         if (!is_array($local_files)) $local_files = array();
         if (!is_array($files)) $files = array();

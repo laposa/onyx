@@ -6,7 +6,7 @@
 
 require_once('models/ecommerce/ecommerce_recipe_ingredients.php');
 
-class Onxshop_Controller_Component_Ecommerce_Recipe_Ingredients extends Onxshop_Controller {
+class Onyx_Controller_Component_Ecommerce_Recipe_Ingredients extends Onyx_Controller {
 
     /**
      * main action

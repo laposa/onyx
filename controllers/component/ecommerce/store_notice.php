@@ -8,7 +8,7 @@ require_once('models/common/common_node.php');
 require_once('models/common/common_image.php');
 require_once('models/ecommerce/ecommerce_store.php');
 
-class Onxshop_Controller_Component_Ecommerce_Store_Notice extends Onxshop_Controller {
+class Onyx_Controller_Component_Ecommerce_Store_Notice extends Onyx_Controller {
 
     /**
      * main action
@@ -140,7 +140,7 @@ class Onxshop_Controller_Component_Ecommerce_Store_Notice extends Onxshop_Contro
 
         $this->sendAlertEmail($store, $node['other_data']);
 
-        if ($new_node_id) onxshopGoto("/page/$node_id");
+        if ($new_node_id) onyxGoto("/page/$node_id");
     }
 
     /**

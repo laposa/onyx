@@ -7,7 +7,7 @@
 require_once('models/common/common_node.php');
 require_once('models/ecommerce/ecommerce_recipe.php');
 
-class Onxshop_Controller_Bo_Component_Ecommerce_Recipe_Add extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Ecommerce_Recipe_Add extends Onyx_Controller {
     
     /**
      * main action
@@ -27,7 +27,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Recipe_Add extends Onxshop_Contr
                 $recipe_homepage = $this->insertNewRecipeToNode($id, $page_node_id);
 
                 msg("Recipe has been added.");
-                onxshopGoTo("backoffice/recipes/$id/edit");
+                onyxGoTo("backoffice/recipes/$id/edit");
             } else {
                 msg("Adding of Recipe Failed.", 'error');
             }

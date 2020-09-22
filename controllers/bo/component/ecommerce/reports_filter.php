@@ -5,7 +5,7 @@
  *
  */
 
-class Onxshop_Controller_Bo_Component_Ecommerce_Reports_Filter extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Ecommerce_Reports_Filter extends Onyx_Controller {
 
     /**
      * main action

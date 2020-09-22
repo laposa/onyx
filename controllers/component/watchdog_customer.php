@@ -8,7 +8,7 @@ require_once('models/common/common_watchdog.php');
 require_once('models/common/common_node.php');
 require_once('models/ecommerce/ecommerce_product.php');
 
-class Onxshop_Controller_Component_Watchdog_Customer extends Onxshop_Controller {
+class Onyx_Controller_Component_Watchdog_Customer extends Onyx_Controller {
 
     public function mainAction()
     {
@@ -51,7 +51,7 @@ class Onxshop_Controller_Component_Watchdog_Customer extends Onxshop_Controller 
                 msg("Please login to register your interest in $fullname.");
             }
             $_SESSION['to'] = $redirect;
-            onxshopGoTo("page/" . $this->node_conf['id_map-login']);
+            onyxGoTo("page/" . $this->node_conf['id_map-login']);
         }
     }
 
@@ -87,7 +87,7 @@ class Onxshop_Controller_Component_Watchdog_Customer extends Onxshop_Controller 
                 if ($update) msg("You have already expressed an interest in $fullname. We will notify you once it is back in stock. To remove yourself from receiving these emails please visit My Account, Notifications.");
                 else msg("We will let you know as soon as our $fullname come(s) back into stock. To remove yourself from receiving these emails please visit My Account, Notifications.");
 
-                onxshopGoTo($product['url']);
+                onyxGoTo($product['url']);
 
             } else {
 
@@ -110,8 +110,8 @@ class Onxshop_Controller_Component_Watchdog_Customer extends Onxshop_Controller 
 
                 msg("{$product['name']} - {$product['variety']['name']} has been removed from your watch list. We will no longer notify you regarding this product.");
                 
-                if ($customer_id == $detail['customer_id']) onxshopGoTo("page/" . $this->node_conf['id_map-notifications']);
-                else onxshopGoTo($product['url']);
+                if ($customer_id == $detail['customer_id']) onyxGoTo("page/" . $this->node_conf['id_map-notifications']);
+                else onyxGoTo($product['url']);
 
             }
         }
@@ -153,7 +153,7 @@ class Onxshop_Controller_Component_Watchdog_Customer extends Onxshop_Controller 
         $product = $this->Product->productDetail($variety['product_id']);
         $homepage = $this->Product->getProductHomepage($variety['product_id']);
         $product['url'] = translateURL('page/' . $homepage['id']);
-        $Image = new Onxshop_Request("component/image&relation=product&role=main&width=120&node_id={$product['id']}&limit=0,1");
+        $Image = new Onyx_Request("component/image&relation=product&role=main&width=120&node_id={$product['id']}&limit=0,1");
 
         $product['variety'] = $variety;
         $product['image'] = $Image->getContent();

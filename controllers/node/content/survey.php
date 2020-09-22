@@ -6,7 +6,7 @@
 
 require_once('controllers/node/content/default.php');
 
-class Onxshop_Controller_Node_Content_Survey extends Onxshop_Controller_Node_Content_Default {
+class Onyx_Controller_Node_Content_Survey extends Onyx_Controller_Node_Content_Default {
 
     /**
      * main action
@@ -56,8 +56,8 @@ class Onxshop_Controller_Node_Content_Survey extends Onxshop_Controller_Node_Con
          * call controller
          */
 
-        $_Onxshop_Request = new Onxshop_Request("component/$component~node_id={$node_data['id']}:survey_id=$survey_id:limit=$limit:votes_per_day=$votes_per_day:restriction=$restriction:spam_protection=$spam_protection:require_user_details=$require_user_details:require_t_and_c=$require_t_and_c:display_results=$display_results:href=$href:message_after_submission=$message_after_submission~");
-        $this->tpl->assign('SURVEY', $_Onxshop_Request->getContent());
+        $_Onyx_Request = new Onyx_Request("component/$component~node_id={$node_data['id']}:survey_id=$survey_id:limit=$limit:votes_per_day=$votes_per_day:restriction=$restriction:spam_protection=$spam_protection:require_user_details=$require_user_details:require_t_and_c=$require_t_and_c:display_results=$display_results:href=$href:message_after_submission=$message_after_submission~");
+        $this->tpl->assign('SURVEY', $_Onyx_Request->getContent());
 
         $this->tpl->assign('NODE', $node_data);
 

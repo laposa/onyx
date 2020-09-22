@@ -7,7 +7,7 @@
 
 require_once('controllers/bo/component/ecommerce/promotion_list.php');
 
-class Onxshop_Controller_Bo_Component_Ecommerce_Promotion_List_Report extends Onxshop_Controller_Bo_Component_Ecommerce_Promotion_List {
+class Onyx_Controller_Bo_Component_Ecommerce_Promotion_List_Report extends Onyx_Controller_Bo_Component_Ecommerce_Promotion_List {
 
     /**
      * main action

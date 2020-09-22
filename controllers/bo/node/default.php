@@ -5,7 +5,7 @@
  *
  */
 
-class Onxshop_Controller_Bo_Node_Default extends Onxshop_Controller {
+class Onyx_Controller_Bo_Node_Default extends Onyx_Controller {
 
     var $name;
     var $Node;
@@ -91,7 +91,7 @@ class Onxshop_Controller_Bo_Node_Default extends Onxshop_Controller {
         }
 
         //display title
-        if (!is_numeric($this->node_data['display_title'])) $this->node_data['display_title'] = $GLOBALS['onxshop_conf']['global']['display_title'];
+        if (!is_numeric($this->node_data['display_title'])) $this->node_data['display_title'] = $GLOBALS['onyx_conf']['global']['display_title'];
 
         if ($this->node_data['display_title'] == 1) {
             $this->node_data['display_title_check'] = 'checked="checked"';
@@ -126,7 +126,7 @@ class Onxshop_Controller_Bo_Node_Default extends Onxshop_Controller {
         
 
         // get the list of node types
-        $Node_type = new Onxshop_Request("bo/component/node_type_menu~id={$this->node_data['id']}:open={$this->node_data['node_controller']}:node_group={$this->node_data['node_group']}:expand_all=1~");
+        $Node_type = new Onyx_Request("bo/component/node_type_menu~id={$this->node_data['id']}:open={$this->node_data['node_controller']}:node_group={$this->node_data['node_group']}:expand_all=1~");
         $this->tpl->assign("NODE_TYPE", $Node_type->getContent());
         
         // item_image_properties.html
@@ -217,7 +217,7 @@ class Onxshop_Controller_Bo_Node_Default extends Onxshop_Controller {
 
     function post() {
 
-        if (!is_numeric($this->node_data['display_secondary_navigation'])) $this->node_data['display_secondary_navigation'] = $GLOBALS['onxshop_conf']['global']['display_secondary_navigation'];
+        if (!is_numeric($this->node_data['display_secondary_navigation'])) $this->node_data['display_secondary_navigation'] = $GLOBALS['onyx_conf']['global']['display_secondary_navigation'];
         
         $this->node_data['display_secondary_navigation']        = ($this->node_data['display_secondary_navigation']) ? 'checked="checked"'      : '';
         $this->node_data['component']['allow_comment']        = ($this->node_data['component']['allow_comment']) ? 'checked="checked"'      : '';

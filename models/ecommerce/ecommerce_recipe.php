@@ -7,7 +7,7 @@
  *
  */
 
-class ecommerce_recipe extends Onxshop_Model {
+class ecommerce_recipe extends Onyx_Model {
 
     /**
      * @access public
@@ -126,7 +126,7 @@ CREATE TABLE ecommerce_recipe (
     static function initConfiguration()
     {
     
-        if (array_key_exists('ecommerce_recipe', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['ecommerce_recipe'];
+        if (array_key_exists('ecommerce_recipe', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['ecommerce_recipe'];
         else $conf = array();
         
         if (!is_numeric($conf['taxonomy_tree_id'])) $conf['taxonomy_tree_id'] = 0; // set value to force getUsedTaxonomy using only this taxonomy parent

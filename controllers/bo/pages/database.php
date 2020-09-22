@@ -5,6 +5,6 @@
  *
  */
 
-class Onxshop_Controller_Bo_Pages_Database extends Onxshop_Controller {
+class Onyx_Controller_Bo_Pages_Database extends Onyx_Controller {
 
 }   

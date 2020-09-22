@@ -7,6 +7,6 @@
 
 require_once('controllers/api/v1_0/recipe_search.php');
 
-class Onxshop_Controller_Api_v1_1_Recipe_Search extends Onxshop_Controller_Api_v1_0_Recipe_Search {
+class Onyx_Controller_Api_v1_1_Recipe_Search extends Onyx_Controller_Api_v1_0_Recipe_Search {
 
 }

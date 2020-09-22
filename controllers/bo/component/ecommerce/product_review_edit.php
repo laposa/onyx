@@ -6,7 +6,7 @@
 
 require_once('controllers/bo/component/comment_edit.php');
 
-class Onxshop_Controller_Bo_Component_Ecommerce_Product_Review_Edit extends Onxshop_Controller_Bo_Component_Comment_Edit {
+class Onyx_Controller_Bo_Component_Ecommerce_Product_Review_Edit extends Onyx_Controller_Bo_Component_Comment_Edit {
 
     /**
      * initialize comment
@@ -52,7 +52,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Product_Review_Edit extends Onxs
 
     public function runCustomApproveAction($comment_id)
     {
-        $request = new Onxshop_Request("component/ecommerce/product_review_approve_action~comment_id=$comment_id~");
+        $request = new Onyx_Request("component/ecommerce/product_review_approve_action~comment_id=$comment_id~");
         return $request->getContent();
     }
 }

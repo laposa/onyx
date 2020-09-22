@@ -2,7 +2,7 @@
 <div class="survey" id="survey-node-id-{GET.node_id}">
 <!-- BEGIN: form -->
 <style type="text/css">
-@import url(/share/themes/jquery-ui/onxshop/jquery-ui.css);
+@import url(/share/themes/jquery-ui/onyx/jquery-ui.css);
 </style>
 <script type="text/javascript" src="/share/js/jquery/ui/jquery-ui.all.min.js"></script>
 <script type="text/javascript">
@@ -131,7 +131,7 @@ label.error { display: none; }
 <div class="thank-you">
     <p>{MESSAGE_AFTER_SUBMISSION|htmlspecialchars|nl2br}</p>
     {SURVEY_RESULT_STATS}
-    {disableONXSHOP_REQUEST_pile #component/client/facebook_pile_survey~survey_id=GET.survey_id~}
+    {disableONYX_REQUEST_pile #component/client/facebook_pile_survey~survey_id=GET.survey_id~}
 </div>
 <!-- END: result -->
 

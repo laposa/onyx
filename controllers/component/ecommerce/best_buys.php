@@ -5,7 +5,7 @@
  * 
  */
 
-class Onxshop_Controller_Component_Ecommerce_Best_Buys extends Onxshop_Controller {
+class Onyx_Controller_Component_Ecommerce_Best_Buys extends Onyx_Controller {
 
     /**
      * main action
@@ -152,8 +152,8 @@ class Onxshop_Controller_Component_Ecommerce_Best_Buys extends Onxshop_Controlle
              * call controller
              */
              
-            $_Onxshop_Request = new Onxshop_Request("component/ecommerce/$controller~{$query}~");
-            $this->tpl->assign('ITEMS', $_Onxshop_Request->getContent());
+            $_Onyx_Request = new Onyx_Request("component/ecommerce/$controller~{$query}~");
+            $this->tpl->assign('ITEMS', $_Onyx_Request->getContent());
             $this->tpl->parse('content.best_buys');
         }
     }

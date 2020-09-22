@@ -5,10 +5,10 @@
  *
  */
 
-require_once (ONXSHOP_DIR . "lib/jpgraph/jpgraph.php");
-require_once (ONXSHOP_DIR . "lib/jpgraph/jpgraph_bar.php");
+require_once (ONYX_DIR . "lib/jpgraph/jpgraph.php");
+require_once (ONYX_DIR . "lib/jpgraph/jpgraph_bar.php");
 
-class Onxshop_Controller_Bo_Component_Ecommerce_Orders_Graph extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Ecommerce_Orders_Graph extends Onyx_Controller {
 
     /**
      * main action
@@ -56,7 +56,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Orders_Graph extends Onxshop_Con
                 'title' => "Order Figures Report",
                 'x-title' => $time_frame,
                 'y-title' => "The Number of Orders",
-                'file' => ONXSHOP_PROJECT_DIR . "var/cache/graph-num_orders-$time_frame.png"
+                'file' => ONYX_PROJECT_DIR . "var/cache/graph-num_orders-$time_frame.png"
             )
         );
         $this->tpl->assign('GRAPH', $graph);
@@ -144,7 +144,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Orders_Graph extends Onxshop_Con
                 'title' => "Revenue Figures Report",
                 'x-title' => $time_frame,
                 'y-title' => "Revenue",
-                'file' => ONXSHOP_PROJECT_DIR . "var/cache/graph-revenue-$time_frame.png"
+                'file' => ONYX_PROJECT_DIR . "var/cache/graph-revenue-$time_frame.png"
             )
         );
         $this->tpl->assign('GRAPH', $graph);

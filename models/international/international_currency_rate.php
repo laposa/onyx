@@ -7,7 +7,7 @@
  *
  */
  
-class international_currency_rate extends Onxshop_Model {
+class international_currency_rate extends Onyx_Model {
 
     /**
      * @access private
@@ -70,7 +70,7 @@ CREATE TABLE international_currency_rate (
      */
     static function initConfiguration() {
     
-        if (array_key_exists('international_currency_rate', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['international_currency_rate'];
+        if (array_key_exists('international_currency_rate', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['international_currency_rate'];
         else $conf = array();
         
         return $conf;

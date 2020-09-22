@@ -7,7 +7,7 @@
 
 require_once('controllers/component/image.php');
 
-class Onxshop_Controller_Component_Image_Gallery extends Onxshop_Controller_Component_Image {
+class Onyx_Controller_Component_Image_Gallery extends Onyx_Controller_Component_Image {
 
     /**
      * main action

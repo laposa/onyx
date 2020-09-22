@@ -7,7 +7,7 @@
  
 require_once('controllers/component/ecommerce/basket.php');
 
-class Onxshop_Controller_Component_Ecommerce_Basket_Edit extends Onxshop_Controller_Component_Ecommerce_Basket {
+class Onyx_Controller_Component_Ecommerce_Basket_Edit extends Onyx_Controller_Component_Ecommerce_Basket {
 
     /**
      * main action

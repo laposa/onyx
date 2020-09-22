@@ -12,7 +12,7 @@ require_once('models/ecommerce/ecommerce_delivery_carrier_rate.php');
 require_once('models/ecommerce/ecommerce_delivery_carrier_zone_to_country.php');
 require_once('models/international/international_country.php');
 
-class Onxshop_Controller_Bo_Component_Configuration_Ecommerce_Delivery extends Onxshop_Controller_Bo_Component_Configuration {
+class Onyx_Controller_Bo_Component_Configuration_Ecommerce_Delivery extends Onyx_Controller_Bo_Component_Configuration {
 
     /* model instances */
     protected $Delivery_Carrier;
@@ -75,7 +75,7 @@ class Onxshop_Controller_Bo_Component_Configuration_Ecommerce_Delivery extends O
     {
         $this->tpl->assign('DATA', json_encode($data));
         $this->tpl->assign('COUNTRIES', json_encode($this->Country->listing('', 'name ASC')));
-        $this->tpl->assign("CURRENCY", $GLOBALS['onxshop_conf']['global']['default_currency']);
+        $this->tpl->assign("CURRENCY", $GLOBALS['onyx_conf']['global']['default_currency']);
     }
 
     protected function readData()

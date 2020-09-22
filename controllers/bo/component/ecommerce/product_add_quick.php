@@ -5,7 +5,7 @@
  *
  */
 
-class Onxshop_Controller_Bo_Component_Ecommerce_Product_Add_Quick extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Ecommerce_Product_Add_Quick extends Onyx_Controller {
 
     /**
      * main action
@@ -35,7 +35,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Product_Add_Quick extends Onxsho
                 msg("Product id=$product_id interted.");
                 
                 //TODO: implement two options: 1. save end this, 2. save and add another
-                onxshopGoTo("backoffice/products/{$product_id}/edit");
+                onyxGoTo("backoffice/products/{$product_id}/edit");
                 //empty
                 $product_data = array();
             } else {

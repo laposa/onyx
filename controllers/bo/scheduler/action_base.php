@@ -5,7 +5,7 @@
  * 
  */
 
-abstract class Onxshop_Controller_Scheduler_Action_Base extends Onxshop_Controller {
+abstract class Onyx_Controller_Scheduler_Action_Base extends Onyx_Controller {
 
     /**
      * Main action
@@ -119,7 +119,7 @@ abstract class Onxshop_Controller_Scheduler_Action_Base extends Onxshop_Controll
      
     public function flushCache()
     {
-        onxshop_flush_cache();
+        onyx_flush_cache();
     }
 
 }

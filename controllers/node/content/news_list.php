@@ -6,7 +6,7 @@
 
 require_once('controllers/node/content/default.php');
 
-class Onxshop_Controller_Node_Content_News_List extends Onxshop_Controller_Node_Content_Default {
+class Onyx_Controller_Node_Content_News_List extends Onyx_Controller_Node_Content_Default {
 
     /**
      * main action
@@ -107,8 +107,8 @@ class Onxshop_Controller_Node_Content_News_List extends Onxshop_Controller_Node_
          * call controller
          */
         
-        $_Onxshop = new Onxshop_Request("component/$template~blog_node_id=$blog_node_id:id=$node_id:limit_from=$limit_from:limit_per_page=$limit_per_page:display_pagination=$display_pagination:publish=1:taxonomy_tree_id={$taxonomy_tree_id}:image_width={$image_o['width']}:image_height={$image_o['height']}:image_fill={$image_o['fill']}~");
-        $this->tpl->assign('NEWS_LIST', $_Onxshop->getContent());
+        $_Onyx = new Onyx_Request("component/$template~blog_node_id=$blog_node_id:id=$node_id:limit_from=$limit_from:limit_per_page=$limit_per_page:display_pagination=$display_pagination:publish=1:taxonomy_tree_id={$taxonomy_tree_id}:image_width={$image_o['width']}:image_height={$image_o['height']}:image_fill={$image_o['fill']}~");
+        $this->tpl->assign('NEWS_LIST', $_Onyx->getContent());
         
         $this->tpl->assign('NODE', $node_data);
         

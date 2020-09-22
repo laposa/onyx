@@ -6,5 +6,5 @@
 
 require_once('controllers/component/ecommerce/currency_switcher.php');
 
-class Onxshop_Controller_Component_Ecommerce_Currency_Switcher_Inline extends Onxshop_Controller_Component_Ecommerce_Currency_Switcher {
+class Onyx_Controller_Component_Ecommerce_Currency_Switcher_Inline extends Onyx_Controller_Component_Ecommerce_Currency_Switcher {
 }

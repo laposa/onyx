@@ -7,7 +7,7 @@
 require_once('controllers/node/content/default.php');
 require_once('models/common/common_node.php');
 
-class Onxshop_Controller_Node_Content_Teaser extends Onxshop_Controller_Node_Content_Default {
+class Onyx_Controller_Node_Content_Teaser extends Onyx_Controller_Node_Content_Default {
 
     /**
      * main action
@@ -37,8 +37,8 @@ class Onxshop_Controller_Node_Content_Teaser extends Onxshop_Controller_Node_Con
          * call controller
          */
 
-        $_Onxshop_Request = new Onxshop_Request("component/teaser~target_node_id={$node_data['component']['node_id']}{$params}~");
-        $this->tpl->assign('CONTENT', $_Onxshop_Request->getContent());
+        $_Onyx_Request = new Onyx_Request("component/teaser~target_node_id={$node_data['component']['node_id']}{$params}~");
+        $this->tpl->assign('CONTENT', $_Onyx_Request->getContent());
 
         $this->tpl->assign('NODE', $node_data);
 

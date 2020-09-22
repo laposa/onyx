@@ -7,7 +7,7 @@
  */
 
 
-class Onxshop_Controller_Bo_Component_Seo_Manager extends Onxshop_Controller {  
+class Onyx_Controller_Bo_Component_Seo_Manager extends Onyx_Controller {  
     
     /**
      * main action

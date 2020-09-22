@@ -5,7 +5,7 @@
  *
  */
 
-class Onxshop_Controller_Component_Prevnext extends Onxshop_Controller {
+class Onyx_Controller_Component_Prevnext extends Onyx_Controller {
     
     /**
      * main action

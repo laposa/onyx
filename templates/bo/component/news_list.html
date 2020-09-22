@@ -4,10 +4,10 @@
 <script type="text/javascript">
 $(function() {
 
-    $('div.news-list a.onxshop-duplicate').on('click', function() {
+    $('div.news-list a.onyx-duplicate').on('click', function() {
         var child_id = $(this).attr('href').replace('#','');;
         $.get('/request/bo/component/node_duplicate~id='+child_id+'~', function(data) {
-            popupMessage($(data).find("div.onxshop-messages"));
+            popupMessage($(data).find("div.onyx-messages"));
             refreshList();
         });
         return false;
@@ -37,7 +37,7 @@ function refreshList() {
         <tfoot>
             <tr>
                 <td colspan="4">
-                    <div class="onxshop-pagination">
+                    <div class="onyx-pagination">
                         {PAGINATION}
                     </div>
                 </td>
@@ -52,9 +52,9 @@ function refreshList() {
                 <td>{ITEM.parent}</td>
                 <td>{ITEM.created}<br />{ITEM.modified}</td>
                 <td>
-                    <div class="onxshop-edit-content">
-                        <a class="onxshop-duplicate" title="Duplicate {ITEM.node_controller}" href="#{ITEM.id}"><span>Duplicate</span></a>
-                        <a class="onxshop-delete" title="Delete {ITEM.node_group}" href="#" onclick="openAjaxRequestInDialog('/request/bo/component/node_delete~id={ITEM.id}:delete=1~', 'Delete news item'); return false"><span>Delete</span></a>
+                    <div class="onyx-edit-content">
+                        <a class="onyx-duplicate" title="Duplicate {ITEM.node_controller}" href="#{ITEM.id}"><span>Duplicate</span></a>
+                        <a class="onyx-delete" title="Delete {ITEM.node_group}" href="#" onclick="openAjaxRequestInDialog('/request/bo/component/node_delete~id={ITEM.id}:delete=1~', 'Delete news item'); return false"><span>Delete</span></a>
                     </div>
                 </td>
             </tr>

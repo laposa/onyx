@@ -6,7 +6,7 @@
 
 require_once('controllers/list.php');
 
-class Onxshop_Controller_Component_News_List extends Onxshop_Controller_List {
+class Onyx_Controller_Component_News_List extends Onyx_Controller_List {
 
     /**
      * main action
@@ -348,8 +348,8 @@ class Onxshop_Controller_Component_News_List extends Onxshop_Controller_List {
                 
         $count = count($full_news_list);
                 
-        $_Onxshop_Request = new Onxshop_Request("component/pagination~limit_from=$limit_from:limit_per_page=$limit_per_page:count=$count~");
-        $this->tpl->assign('PAGINATION', $_Onxshop_Request->getContent());
+        $_Onyx_Request = new Onyx_Request("component/pagination~limit_from=$limit_from:limit_per_page=$limit_per_page:count=$count~");
+        $this->tpl->assign('PAGINATION', $_Onyx_Request->getContent());
                 
     }
     

@@ -7,7 +7,7 @@
 
 require_once 'controllers/component/client/twitter.php';
 
-class Onxshop_Controller_Component_Client_Twitter_Profile extends Onxshop_Controller_Component_Client_Twitter {
+class Onyx_Controller_Component_Client_Twitter_Profile extends Onyx_Controller_Component_Client_Twitter {
 
     /**
      * main action

@@ -6,7 +6,7 @@
  *
  */
  
-class education_survey extends Onxshop_Model {
+class education_survey extends Onyx_Model {
 
     /**
      * PRIMARY KEY

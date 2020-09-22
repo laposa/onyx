@@ -83,7 +83,7 @@ $templates_info['site'] = array(
  * please note the templates and controllers are only in project_skeleton/ecommerce/
  */
 
-if (ONXSHOP_ECOMMERCE) {
+if (ONYX_ECOMMERCE) {
     
     $templates_info['content']['product_highlights'] = array('title' => 'Product Highlights', 'description'=>'', 'visibility'=>true);
     $templates_info['content']['special_offer_list'] = array('title' => 'Special Offers List', 'description'=>'', 'visibility'=>true);

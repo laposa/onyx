@@ -7,7 +7,7 @@
 
 require_once('controllers/component/ecommerce/payment.php');
 
-class Onxshop_Controller_Component_Ecommerce_Payment_On_Delivery extends Onxshop_Controller_Component_Ecommerce_Payment {
+class Onyx_Controller_Component_Ecommerce_Payment_On_Delivery extends Onyx_Controller_Component_Ecommerce_Payment {
     
     /**
      * main action

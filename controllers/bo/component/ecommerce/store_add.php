@@ -7,7 +7,7 @@
 require_once('models/common/common_node.php');
 require_once('models/ecommerce/ecommerce_store.php');
 
-class Onxshop_Controller_Bo_Component_Ecommerce_Store_Add extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Ecommerce_Store_Add extends Onyx_Controller {
     
     /**
      * main action
@@ -27,7 +27,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Store_Add extends Onxshop_Contro
                 $store_homepage_node_id = $Store->insertNewStoreToNode($id, $page_node_id);
 
                 msg("Store has been added.");
-                onxshopGoTo("backoffice/stores/$id/edit");
+                onyxGoTo("backoffice/stores/$id/edit");
             } else {
                 msg("Adding of store failed.", 'error');
             }

@@ -5,7 +5,7 @@
  *
  */
 
-class Onxshop_Controller_Forward extends Onxshop_Controller {
+class Onyx_Controller_Forward extends Onyx_Controller {
 
     /**
      * main action
@@ -16,7 +16,7 @@ class Onxshop_Controller_Forward extends Onxshop_Controller {
         if ($this->GET['to']) {
             
             header("HTTP/1.1 301 Moved Permanently");
-            onxshopGoTo($this->GET['to']);
+            onyxGoTo($this->GET['to']);
             
         } else if (is_numeric($this->GET['product_id'])) {
         
@@ -28,12 +28,12 @@ class Onxshop_Controller_Forward extends Onxshop_Controller {
             
             if (is_array($product_homepage)) {
             
-                onxshopGoTo("/page/{$product_homepage['id']}");
+                onyxGoTo("/page/{$product_homepage['id']}");
             
             } else {
             
                 msg("Product no longer available");
-                onxshopGoTo("/");
+                onyxGoTo("/");
             
             }
             
@@ -47,12 +47,12 @@ class Onxshop_Controller_Forward extends Onxshop_Controller {
             
             if (is_array($recipe_homepage)) {
             
-                onxshopGoTo("/page/{$recipe_homepage['id']}");
+                onyxGoTo("/page/{$recipe_homepage['id']}");
             
             } else {
             
                 msg("Recipe no longer available");
-                onxshopGoTo("/");
+                onyxGoTo("/");
             
             }
             
@@ -66,12 +66,12 @@ class Onxshop_Controller_Forward extends Onxshop_Controller {
             
             if (is_array($store_homepage)) {
             
-                onxshopGoTo("/page/{$store_homepage['id']}");
+                onyxGoTo("/page/{$store_homepage['id']}");
             
             } else {
             
                 msg("Store no longer available");
-                onxshopGoTo("/");
+                onyxGoTo("/");
             
             }
         }

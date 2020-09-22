@@ -7,7 +7,7 @@
 
 require_once('models/ecommerce/ecommerce_offer.php');
 
-class Onxshop_Controller_Component_Ecommerce_Special_Offer_list extends Onxshop_Controller {
+class Onyx_Controller_Component_Ecommerce_Special_Offer_list extends Onyx_Controller {
 
     /**
      * main action
@@ -64,8 +64,8 @@ class Onxshop_Controller_Component_Ecommerce_Special_Offer_list extends Onxshop_
              * call product_list component
              */
              
-            $_Onxshop_Request = new Onxshop_Request("component/ecommerce/product_list_$template~$query~");
-            $this->tpl->assign('PRODUCT_LIST', $_Onxshop_Request->getContent());
+            $_Onyx_Request = new Onyx_Request("component/ecommerce/product_list_$template~$query~");
+            $this->tpl->assign('PRODUCT_LIST', $_Onyx_Request->getContent());
         }
 
         return true;

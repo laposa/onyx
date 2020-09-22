@@ -2,7 +2,7 @@
 <div class="survey-image-poll">
 <!-- BEGIN: form -->
 <style type="text/css">
-@import url(/share/themes/jquery-ui/onxshop/jquery-ui.css);
+@import url(/share/themes/jquery-ui/onyx/jquery-ui.css);
 #survey-form-{GET.node_id} fieldset.user-details,
 #survey-form-{GET.node_id} button.submit {display: none;}
 </style>
@@ -121,7 +121,7 @@ $(function() {
 <div class="thank-you">
     <p>{MESSAGE_AFTER_SUBMISSION|htmlspecialchars|nl2br}</p>
     {SURVEY_RESULT_STATS}
-    {disableONXSHOP_REQUEST_pile #component/client/facebook_pile_survey~survey_id=GET.survey_id~}
+    {disableONYX_REQUEST_pile #component/client/facebook_pile_survey~survey_id=GET.survey_id~}
 </div>
 <!-- END: result -->
 

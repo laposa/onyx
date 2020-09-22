@@ -6,7 +6,7 @@
  *
  */
  
-class ecommerce_offer_group extends Onxshop_Model {
+class ecommerce_offer_group extends Onyx_Model {
 
     var $_metaData = array(
         'id'=>array('label' => '', 'validation'=>'int', 'required'=>true),

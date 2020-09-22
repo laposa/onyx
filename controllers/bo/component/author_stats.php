@@ -5,7 +5,7 @@
  * 
  */
 
-class Onxshop_Controller_Bo_Component_Author_Stats extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Author_Stats extends Onyx_Controller {
 
     /**
      * main action

@@ -8,12 +8,12 @@
 require_once('models/common/common_node.php');
 require_once('models/common/common_image.php');
 
-if (ONXSHOP_ECOMMERCE) {
+if (ONYX_ECOMMERCE) {
     require_once('models/ecommerce/ecommerce_recipe_image.php');
     require_once('models/ecommerce/ecommerce_product_image.php');
 }
 
-class Onxshop_Controller_Component_Social_Network_Share extends Onxshop_Controller {
+class Onyx_Controller_Component_Social_Network_Share extends Onyx_Controller {
 
     // models
     public $Node;
@@ -36,10 +36,10 @@ class Onxshop_Controller_Component_Social_Network_Share extends Onxshop_Controll
         $this->node_id = $this->getNodeId();
         $this->node_data = $this->getNode($this->node_id);
         
-        if (ONXSHOP_ECOMMERCE && ($this->node_data['node_controller'] == 'recipe')) {
+        if (ONYX_ECOMMERCE && ($this->node_data['node_controller'] == 'recipe')) {
             $this->Image = new ecommerce_recipe_image();
             $this->image = $this->getImage($this->node_data['content']);
-        } else if (ONXSHOP_ECOMMERCE && ($this->node_data['node_controller'] == 'product')) {
+        } else if (ONYX_ECOMMERCE && ($this->node_data['node_controller'] == 'product')) {
             $this->Image = new ecommerce_product_image();
             $this->image = $this->getImage($this->node_data['content']);
         } else {
@@ -89,7 +89,7 @@ class Onxshop_Controller_Component_Social_Network_Share extends Onxshop_Controll
 
         $image_list = $this->Image->listFiles($node_id);
         if (is_array($image_list) && count($image_list) > 0) return $image_list[0];
-        return array('src' => ONXSHOP_FACEBOOK_OG_IMAGE);
+        return array('src' => ONYX_FACEBOOK_OG_IMAGE);
 
     }
     

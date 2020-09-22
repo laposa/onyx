@@ -7,7 +7,7 @@
 
 require_once('controllers/bo/export/csv.php');
 
-class Onxshop_Controller_Bo_Export_CSV_Orders extends Onxshop_Controller_Bo_Export_CSV {
+class Onyx_Controller_Bo_Export_CSV_Orders extends Onyx_Controller_Bo_Export_CSV {
 
     /**
      * main action

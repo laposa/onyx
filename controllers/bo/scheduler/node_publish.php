@@ -6,7 +6,7 @@
 
 require_once('controllers/bo/scheduler/action_base.php');
 
-class Onxshop_Controller_Bo_Scheduler_Node_Publish extends Onxshop_Controller_Scheduler_Action_Base {
+class Onyx_Controller_Bo_Scheduler_Node_Publish extends Onyx_Controller_Scheduler_Action_Base {
 
     /**
      * main action

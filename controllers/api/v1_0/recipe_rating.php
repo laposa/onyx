@@ -7,7 +7,7 @@
 
 require_once('controllers/api.php');
 
-class Onxshop_Controller_Api_v1_0_Recipe_Rating extends Onxshop_Controller_Api {
+class Onyx_Controller_Api_v1_0_Recipe_Rating extends Onyx_Controller_Api {
 
     /**
      * get data

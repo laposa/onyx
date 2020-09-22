@@ -512,12 +512,12 @@ span.disabled {text-decoration: line-through;}
  * Messages
  */
  
-div.onxshop-messages {margin: 1em; border: none; background: black; color: white; background: rgba(0,0,0,0.75); padding: 1em; box-shadow: #000000 5px 5px 30px;
+div.onyx-messages {margin: 1em; border: none; background: black; color: white; background: rgba(0,0,0,0.75); padding: 1em; box-shadow: #000000 5px 5px 30px;
     clear: both; border-radius: 4px; -moz-border-radius: 7px; -webkit-border-radius: 7px;
     z-index: 1000; position: relative;}
-div.onxshop-messages p {margin: 5px 0; line-height: 1; padding: 0; color: white; font-weight: bold; }
-div.onxshop-messages p.onxshop-ok-msg {}
-div.onxshop-messages p.onxshop-error-msg {background: transparent url(/share/images/famfamfam_icons/exclamation.png) left top no-repeat; padding: 0 0 0 25px;}
+div.onyx-messages p {margin: 5px 0; line-height: 1; padding: 0; color: white; font-weight: bold; }
+div.onyx-messages p.onyx-ok-msg {}
+div.onyx-messages p.onyx-error-msg {background: transparent url(/share/images/famfamfam_icons/exclamation.png) left top no-repeat; padding: 0 0 0 25px;}
 
 /**
  * Ajax
@@ -530,7 +530,7 @@ div.onxshop-messages p.onxshop-error-msg {background: transparent url(/share/ima
  */
 
 div#jGrowl { position: fixed; top: 50px; width: 500px; left: 50%; margin-left: -250px; text-align: center; pointer-events: none; z-index: 9999; -webkit-transform: translateZ(1px);}
-div#jGrowl div.onxshop-messages { margin: 0; padding: 10px 30px; }
+div#jGrowl div.onyx-messages { margin: 0; padding: 10px 30px; }
 div#jGrowl div.jGrowl-notification { display: block; position: relative; z-index: 9999; zoom: 1; text-align: left; pointer-events: all; border: none; background: none;}
 div#jGrowl div.jGrowl-notification.ui-state-highlight { margin: 0 auto 20px auto; display: inline-block; min-width: 260px; }
 div#jGrowl div.jGrowl-notification p { text-align: left; }

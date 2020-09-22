@@ -30,7 +30,7 @@ pre {font-size: 200%;}
                             <div class="column-one">
                                 <div class="column-wrapper">
                                     <fieldset>
-                                        {ONXSHOP_REQUEST_order_detail #component/ecommerce/order_detail~order_id=GET.id~}
+                                        {ONYX_REQUEST_order_detail #component/ecommerce/order_detail~order_id=GET.id~}
                                     </fieldset>
                                     <!-- BEGIN: accounting_detail -->
                                     <div class="two-column-layout layout">
@@ -40,14 +40,14 @@ pre {font-size: 200%;}
                                                     <div class="layout-column-one of-two">
                                                         <div class="layout-column-wrapper">
                                                             <fieldset>
-                                                                {ONXSHOP_REQUEST_invoice_detail #component/ecommerce/invoice_detail~order_id=GET.id~}
+                                                                {ONYX_REQUEST_invoice_detail #component/ecommerce/invoice_detail~order_id=GET.id~}
                                                             </fieldset>
                                                         </div>
                                                     </div>
                                                     <div class="layout-column-two of-two with-padding">
                                                         <div class="layout-column-wrapper">
                                                             <fieldset>
-                                                                {ONXSHOP_REQUEST_transaction_detail #component/ecommerce/transaction_detail~order_id=GET.id~}
+                                                                {ONYX_REQUEST_transaction_detail #component/ecommerce/transaction_detail~order_id=GET.id~}
                                                             </fieldset>
                                                         </div>
                                                     </div>
@@ -64,17 +64,17 @@ pre {font-size: 200%;}
                                                     <div class="layout-column-one of-two">
                                                         <div class="layout-column-wrapper">
                                                             <fieldset>
-                                                                {ONXSHOP_REQUEST_delivery_detail #component/ecommerce/delivery_detail~order_id=GET.id~}
+                                                                {ONYX_REQUEST_delivery_detail #component/ecommerce/delivery_detail~order_id=GET.id~}
                                                             </fieldset>
                                                         </div>
                                                     </div>
                                                     <div class="layout-column-two of-two with-padding">
                                                         <div class="layout-column-wrapper">
                                                             <fieldset>
-                                                                {ONXSHOP_REQUEST_tracking_information #component/ecommerce/delivery_tracking~order_id=GET.id~}
+                                                                {ONYX_REQUEST_tracking_information #component/ecommerce/delivery_tracking~order_id=GET.id~}
                                                             </fieldset>
                                                             <fieldset>
-                                                                {ONXSHOP_REQUEST_gift_detail #bo/component/ecommerce/gift_detail~order_id=GET.id~}
+                                                                {ONYX_REQUEST_gift_detail #bo/component/ecommerce/gift_detail~order_id=GET.id~}
                                                             </fieldset>
                                                         </div>
                                                     </div>
@@ -109,7 +109,7 @@ pre {font-size: 200%;}
                                                     </tr>
                                                 </tbody>
                                             </table>
-                                            {ONXSHOP_REQUEST_resend_email #bo/component/ecommerce/order_resend_email~order_id=GET.id~}
+                                            {ONYX_REQUEST_resend_email #bo/component/ecommerce/order_resend_email~order_id=GET.id~}
                                         </fieldset>
 
                                         <fieldset>

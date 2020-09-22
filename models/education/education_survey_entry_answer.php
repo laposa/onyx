@@ -6,7 +6,7 @@
  *
  */
  
-class education_survey_entry_answer extends Onxshop_Model {
+class education_survey_entry_answer extends Onyx_Model {
 
     /**
      * PRIMARY KEY
@@ -197,11 +197,11 @@ WHERE education_survey_entry.relation_subject LIKE '{$relation_subject}' AND edu
          
         if (is_array($upload)) {
         
-            $attachment_saved_file = ONXSHOP_PROJECT_DIR . $upload['temp_file'];
+            $attachment_saved_file = ONYX_PROJECT_DIR . $upload['temp_file'];
         
         } else {
         
-            $attachment_saved_file = ONXSHOP_PROJECT_DIR . $upload;
+            $attachment_saved_file = ONYX_PROJECT_DIR . $upload;
         
         }
         

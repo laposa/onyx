@@ -5,7 +5,7 @@
  * 
  */
 
-class Onxshop_Controller_Component_Image extends Onxshop_Controller {
+class Onyx_Controller_Component_Image extends Onyx_Controller {
 
     /**
      * main action

@@ -8,7 +8,7 @@
 
 require_once('controllers/component/menu.php');
 
-class Onxshop_Controller_Bo_Component_Node_Type_Menu extends Onxshop_Controller_Component_Menu {
+class Onyx_Controller_Bo_Component_Node_Type_Menu extends Onyx_Controller_Component_Menu {
     
     /**
      * main action
@@ -112,7 +112,7 @@ class Onxshop_Controller_Bo_Component_Node_Type_Menu extends Onxshop_Controller_
         require_once('models/common/common_file.php');
         $File = new common_file();
         
-        //getting list of templates, joing project and onxshop node dir
+        //getting list of templates, joing project and onyx node dir
         $list = $File->getFlatArrayFromFsJoin("templates/node/");
         
         //remove .html, .php
@@ -241,23 +241,23 @@ class Onxshop_Controller_Bo_Component_Node_Type_Menu extends Onxshop_Controller_
     public function retrieveTemplateInfo() {
     
         //include always general
-        require_once(ONXSHOP_DIR . "conf/node_type.php");
-        $templates_info_onxshop = $templates_info;
+        require_once(ONYX_DIR . "conf/node_type.php");
+        $templates_info_onyx = $templates_info;
         
         //local overwrites/extensions
-        if (file_exists(ONXSHOP_PROJECT_DIR . "conf/node_type.php")) {
+        if (file_exists(ONYX_PROJECT_DIR . "conf/node_type.php")) {
             $templates_info = false;
-            require_once(ONXSHOP_PROJECT_DIR . "conf/node_type.php");
+            require_once(ONYX_PROJECT_DIR . "conf/node_type.php");
         }
         
         //merge
         if (is_array($templates_info)) {
         
-            $templates_info = $this->array_merge_recursive_distinct($templates_info_onxshop, $templates_info);
+            $templates_info = $this->array_merge_recursive_distinct($templates_info_onyx, $templates_info);
             
         } else {
         
-            $templates_info = $templates_info_onxshop;
+            $templates_info = $templates_info_onyx;
         
         }
         

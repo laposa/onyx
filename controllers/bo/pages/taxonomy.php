@@ -5,7 +5,7 @@
  *
  */
 
-class Onxshop_Controller_Bo_Pages_Taxonomy extends Onxshop_Controller {
+class Onyx_Controller_Bo_Pages_Taxonomy extends Onyx_Controller {
     
     /**
      * main action

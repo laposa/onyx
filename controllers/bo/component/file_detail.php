@@ -6,7 +6,7 @@
 
 require_once('controllers/bo/component/file.php');
 
-class Onxshop_Controller_Bo_Component_File_Detail extends Onxshop_Controller_Bo_Component_File {
+class Onyx_Controller_Bo_Component_File_Detail extends Onyx_Controller_Bo_Component_File {
 
     /**
      * main action
@@ -45,12 +45,12 @@ class Onxshop_Controller_Bo_Component_File_Detail extends Onxshop_Controller_Bo_
         }
 
         // full details
-        $_Onxshop = new Onxshop_Request("bo/component/file_info~file_path_encoded={$file_detail['file_path_encoded']}~");
-        $this->tpl->assign('FULL_DETAILS', $_Onxshop->getContent());
+        $_Onyx = new Onyx_Request("bo/component/file_info~file_path_encoded={$file_detail['file_path_encoded']}~");
+        $this->tpl->assign('FULL_DETAILS', $_Onyx->getContent());
         
         // properties edit
-        $_Onxshop = new Onxshop_Request("bo/component/file_edit~file_id={$file_detail['id']}:type=$type:relation=$relation~");
-        $this->tpl->assign('PROPERTIES_EDIT_FORM', $_Onxshop->getContent());
+        $_Onyx = new Onyx_Request("bo/component/file_edit~file_id={$file_detail['id']}:type=$type:relation=$relation~");
+        $this->tpl->assign('PROPERTIES_EDIT_FORM', $_Onyx->getContent());
 
         return true;
     }

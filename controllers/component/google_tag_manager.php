@@ -4,7 +4,7 @@
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
-class Onxshop_Controller_Component_Google_Tag_Manager extends Onxshop_Controller {
+class Onyx_Controller_Component_Google_Tag_Manager extends Onyx_Controller {
     
     /**
      * main action
@@ -12,7 +12,7 @@ class Onxshop_Controller_Component_Google_Tag_Manager extends Onxshop_Controller
      
     public function mainAction() {
         
-        if (trim($GLOBALS['onxshop_conf']['global']['google_tag_manager']) != '') {
+        if (trim($GLOBALS['onyx_conf']['global']['google_tag_manager']) != '') {
 
             $this->tpl->parse('head.gtm');
             $this->tpl->parse('content.gtm');

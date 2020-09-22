@@ -4,7 +4,7 @@
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
-class Onxshop_Controller_Component_Ecommerce_Product_Related_to_customer extends Onxshop_Controller {
+class Onyx_Controller_Component_Ecommerce_Product_Related_to_customer extends Onyx_Controller {
     
     /**
      * main action
@@ -105,8 +105,8 @@ class Onxshop_Controller_Component_Ecommerce_Product_Related_to_customer extends
              * call controller
              */
              
-            $_Onxshop_Request = new Onxshop_Request("component/ecommerce/$controller~{$query}~");
-            $this->tpl->assign('ITEMS', $_Onxshop_Request->getContent());
+            $_Onyx_Request = new Onyx_Request("component/ecommerce/$controller~{$query}~");
+            $this->tpl->assign('ITEMS', $_Onyx_Request->getContent());
             $this->tpl->parse('content.product_related');
         }
 

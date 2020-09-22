@@ -8,7 +8,7 @@
 require_once 'controllers/component/client/twitter.php';
 
 
-class Onxshop_Controller_Component_Client_Twitter_Auth extends Onxshop_Controller_Component_Client_Twitter {
+class Onyx_Controller_Component_Client_Twitter_Auth extends Onyx_Controller_Component_Client_Twitter {
 
     /**
      * mainAction
@@ -29,7 +29,7 @@ class Onxshop_Controller_Component_Client_Twitter_Auth extends Onxshop_Controlle
                 
                 if (is_numeric($user_profile->id)) {
                     //try to login
-                    $this->loginToOnxshop($user_profile);
+                    $this->loginToOnyx($user_profile);
                 }
                 
             } else {
@@ -50,10 +50,10 @@ class Onxshop_Controller_Component_Client_Twitter_Auth extends Onxshop_Controlle
     }
     
     /**
-     * loginToOnxshop
+     * loginToOnyx
      */
      
-    public function loginToOnxshop($user_profile) {
+    public function loginToOnyx($user_profile) {
         
         require_once('models/client/client_customer.php');
         $Customer = new client_customer();
@@ -81,36 +81,36 @@ class Onxshop_Controller_Component_Client_Twitter_Auth extends Onxshop_Controlle
             }
             
             // auto login (TODO allow to enable/disable this behaviour)
-            $Customer->generateAndSaveOnxshopToken($customer_detail['id']);
+            $Customer->generateAndSaveOnyxToken($customer_detail['id']);
             
         } else {
         
             msg("Twitter ID {$user_profile->id} sucessfully authorised, but must register locally", 'ok', 1);
             
             //forward to registration
-            $this->mapUserToOnxshop($user_profile);
-            onxshopGoTo("/page/13");//TODO get node_id from conf
+            $this->mapUserToOnyx($user_profile);
+            onyxGoTo("/page/13");//TODO get node_id from conf
         
         }
     }
     
     /**
-     * mapUserToOnxshop
+     * mapUserToOnyx
      */
      
-    public function mapUserToOnxshop($user_profile) {
+    public function mapUserToOnyx($user_profile) {
         
-        //map to Onxshop schema
-        $onxshop_client_customer = array();
+        //map to Onyx schema
+        $onyx_client_customer = array();
         $name = explode(" ", $user_profile->name);
         
-        $onxshop_client_customer['first_name'] = $name[0];
-        $onxshop_client_customer['last_name'] = $name[1];
-        $onxshop_client_customer['twitter_id'] = $user_profile->id;
-        $onxshop_client_customer['profile_image_url'] = $user_profile->profile_image_url_https;
+        $onyx_client_customer['first_name'] = $name[0];
+        $onyx_client_customer['last_name'] = $name[1];
+        $onyx_client_customer['twitter_id'] = $user_profile->id;
+        $onyx_client_customer['profile_image_url'] = $user_profile->profile_image_url_https;
         
         //save to session
-        $_SESSION['r_client']['customer'] = $onxshop_client_customer;
+        $_SESSION['r_client']['customer'] = $onyx_client_customer;
         
     }
 

@@ -7,7 +7,7 @@
  *
  */
 
-class common_revision extends Onxshop_Model {
+class common_revision extends Onyx_Model {
 
     /**
      * @access public
@@ -100,7 +100,7 @@ class common_revision extends Onxshop_Model {
     static function initConfiguration()
     {
     
-        if (array_key_exists('common_revision', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['common_revision'];
+        if (array_key_exists('common_revision', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['common_revision'];
         else $conf = array();
 
         return $conf;
@@ -126,7 +126,7 @@ class common_revision extends Onxshop_Model {
          * customer_id
          */
          
-        $bo_user_id = Onxshop_Bo_Authentication::getInstance()->getUserId();
+        $bo_user_id = Onyx_Bo_Authentication::getInstance()->getUserId();
         if (is_numeric($bo_user_id)) $data['customer_id'] = $bo_user_id;
         else $data['customer_id'] = (int) $_SESSION['client']['customer']['id'];
         

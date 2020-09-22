@@ -7,7 +7,7 @@
 require_once('controllers/component/ecommerce/recipe_list.php');
 require_once('models/ecommerce/ecommerce_recipe.php');
 
-class Onxshop_Controller_Component_Ecommerce_Recipe_Search extends Onxshop_Controller_Component_Ecommerce_Recipe_List {
+class Onyx_Controller_Component_Ecommerce_Recipe_Search extends Onyx_Controller_Component_Ecommerce_Recipe_List {
 
     /**
      * main action
@@ -36,8 +36,8 @@ class Onxshop_Controller_Component_Ecommerce_Recipe_Search extends Onxshop_Contr
             // show pagination
             if ($this->GET['display_pagination'] == 1) {
                 $count = $list[1];
-                $_Onxshop_Request = new Onxshop_Request("component/pagination~limit_from=$limit_from:limit_per_page=$limit_per_page:count=$count:option_show_all=0:passthrough_get_parameters=1~");
-                $this->tpl->assign('PAGINATION', $_Onxshop_Request->getContent());
+                $_Onyx_Request = new Onyx_Request("component/pagination~limit_from=$limit_from:limit_per_page=$limit_per_page:count=$count:option_show_all=0:passthrough_get_parameters=1~");
+                $this->tpl->assign('PAGINATION', $_Onyx_Request->getContent());
                 
             }
 

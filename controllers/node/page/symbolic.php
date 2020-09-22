@@ -6,7 +6,7 @@
 
 require_once('controllers/node/page/default.php');
 
-class Onxshop_Controller_Node_Page_Symbolic extends Onxshop_Controller_Node_Page_Default {
+class Onyx_Controller_Node_Page_Symbolic extends Onyx_Controller_Node_Page_Default {
 
     /**
      * main action
@@ -25,8 +25,8 @@ class Onxshop_Controller_Node_Page_Symbolic extends Onxshop_Controller_Node_Page
         if ($node_data['component']['href'] != '') {
             header("HTTP/1.1 301 Moved Permanently");
             
-            if (preg_match('/\:\/\//', $node_data['component']['href'])) onxshopGoTo($node_data['component']['href'], 2);
-            else onxshopGoTo($node_data['component']['href']);
+            if (preg_match('/\:\/\//', $node_data['component']['href'])) onyxGoTo($node_data['component']['href'], 2);
+            else onyxGoTo($node_data['component']['href']);
         }
 
         return true;

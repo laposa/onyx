@@ -6,7 +6,7 @@
  *
  */
 
-class Onxshop_Controller_Bo_Pages_Client_Customers extends Onxshop_Controller {
+class Onyx_Controller_Bo_Pages_Client_Customers extends Onyx_Controller {
     
     /**
      * main action

@@ -44,7 +44,7 @@ CREATE INDEX ecommerce_recipe_taxonomy_taxonomy_tree_id_key ON ecommerce_recipe_
      
     static function initConfiguration() {
     
-        if (array_key_exists('ecommerce_recipe_taxonomy', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['ecommerce_recipe_taxonomy'];
+        if (array_key_exists('ecommerce_recipe_taxonomy', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['ecommerce_recipe_taxonomy'];
         else $conf = array();
         
         return $conf;

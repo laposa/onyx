@@ -7,7 +7,7 @@
  *
  */
  
-class ecommerce_order extends Onxshop_Model {
+class ecommerce_order extends Onyx_Model {
 
     /**
      * @access private
@@ -108,7 +108,7 @@ class ecommerce_order extends Onxshop_Model {
      
     static function initConfiguration() {
     
-        if (array_key_exists('ecommerce_order', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['ecommerce_order'];
+        if (array_key_exists('ecommerce_order', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['ecommerce_order'];
         else $conf = array();
         
         //order of the status is important, don't change it! you can only add a new one at the end
@@ -118,11 +118,11 @@ class ecommerce_order extends Onxshop_Model {
             $conf['status'] = array('New (unpaid)', 'New (paid)', 'Dispatched', 'Completed', 'Cancelled', 'Failed payment', 'In Progress');
         }
         
-        $conf['mail_to_address'] = $GLOBALS['onxshop_conf']['global']['admin_email'];
-        $conf['mail_to_name'] = $GLOBALS['onxshop_conf']['global']['admin_email_name'];
+        $conf['mail_to_address'] = $GLOBALS['onyx_conf']['global']['admin_email'];
+        $conf['mail_to_name'] = $GLOBALS['onyx_conf']['global']['admin_email_name'];
         
-        if ($conf['product_returns_mail_to_address'] == '') $conf['product_returns_mail_to_address'] = $GLOBALS['onxshop_conf']['global']['admin_email'];
-        if ($conf['product_returns_mail_to_name'] == '') $conf['product_returns_mail_to_name'] = $GLOBALS['onxshop_conf']['global']['admin_email_name'];
+        if ($conf['product_returns_mail_to_address'] == '') $conf['product_returns_mail_to_address'] = $GLOBALS['onyx_conf']['global']['admin_email'];
+        if ($conf['product_returns_mail_to_name'] == '') $conf['product_returns_mail_to_name'] = $GLOBALS['onyx_conf']['global']['admin_email_name'];
         
         //show print proforma invoice to customer?
         if ($conf['proforma_invoice'] == 'false') $conf['proforma_invoice'] = false;
@@ -592,7 +592,7 @@ class ecommerce_order extends Onxshop_Model {
          * calling controllers from model isn't exactly my concept of MVC, let's see it as a HACK for now
          */
          
-        $_Onxshop_Request = new Onxshop_Request("component/ecommerce/order_status_change_action~order_id={$order_id}:status={$status}~");
+        $_Onyx_Request = new Onyx_Request("component/ecommerce/order_status_change_action~order_id={$order_id}:status={$status}~");
         
         return true;
         
@@ -676,8 +676,8 @@ class ecommerce_order extends Onxshop_Model {
     
             $EmailForm = new common_email();
 
-            $_Onxshop_Request = new Onxshop_Request("component/ecommerce/order_detail~order_id={$order_data['id']}~");
-            $order_data['order_detail'] = $_Onxshop_Request->getContent();
+            $_Onyx_Request = new Onyx_Request("component/ecommerce/order_detail~order_id={$order_data['id']}~");
+            $order_data['order_detail'] = $_Onyx_Request->getContent();
     
             //this allows use customer data and company data in the mail template
             //is passed as DATA to template in common_email->_format

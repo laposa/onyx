@@ -7,7 +7,7 @@
 
 require_once('controllers/component/ecommerce/gift_voucher.php');
 
-class Onxshop_Controller_Component_Ecommerce_Gift_Voucher_Specify extends Onxshop_Controller_Component_Ecommerce_Gift_Voucher {
+class Onyx_Controller_Component_Ecommerce_Gift_Voucher_Specify extends Onyx_Controller_Component_Ecommerce_Gift_Voucher {
 
     /**
      * custom action
@@ -45,8 +45,8 @@ class Onxshop_Controller_Component_Ecommerce_Gift_Voucher_Specify extends Onxsho
              * image
              */
              
-            //$_Onxshop_Request = new Onxshop_Request("component/image~relation=product_variety:node_id={$variety['id']}:limit=0,1~");
-            //$this->tpl->assign('IMAGE', $_Onxshop_Request->getContent());
+            //$_Onyx_Request = new Onyx_Request("component/image~relation=product_variety:node_id={$variety['id']}:limit=0,1~");
+            //$this->tpl->assign('IMAGE', $_Onyx_Request->getContent());
             
             //$variety['image'] = $this->getImage($variety['id']);
             
@@ -93,7 +93,7 @@ class Onxshop_Controller_Component_Ecommerce_Gift_Voucher_Specify extends Onxsho
         if (preg_match("/[0-9]{1,2}\/[0-9]{1,2}\/[0-9]{4}/", $data['delivery_date'])) $_POST['other_data']['delivery_date'] = $data['delivery_date'];
         
         //will be handled by global basket
-        $_Onxshop_Request = new Onxshop_Request('component/ecommerce/basket');
-        OnxshopGoTo("/checkout/basket");
+        $_Onyx_Request = new Onyx_Request('component/ecommerce/basket');
+        OnyxGoTo("/checkout/basket");
     }
 }

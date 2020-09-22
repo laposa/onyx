@@ -8,7 +8,7 @@
 require_once('controllers/api.php');
 require_once('controllers/api/v1_0/recipe_detail.php');
 
-class Onxshop_Controller_Api_v1_0_Recipe_List extends Onxshop_Controller_Api {
+class Onyx_Controller_Api_v1_0_Recipe_List extends Onyx_Controller_Api {
 
     /**
      * get data
@@ -46,7 +46,7 @@ class Onxshop_Controller_Api_v1_0_Recipe_List extends Onxshop_Controller_Api {
      
     public function formatItem($item) {
         
-        return Onxshop_Controller_Api_v1_0_Recipe_Detail::formatItem($item);
+        return Onyx_Controller_Api_v1_0_Recipe_Detail::formatItem($item);
         
     }
     

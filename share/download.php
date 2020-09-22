@@ -29,20 +29,20 @@ set_time_limit(86400);
  * Set include paths
  */
 
-set_include_path(ONXSHOP_PROJECT_DIR . PATH_SEPARATOR . ONXSHOP_DIR . PATH_SEPARATOR . ONXSHOP_DIR . 'lib/' . PATH_SEPARATOR . get_include_path());
-require_once('lib/onxshop.functions.php');
+set_include_path(ONYX_PROJECT_DIR . PATH_SEPARATOR . ONYX_DIR . PATH_SEPARATOR . ONYX_DIR . 'lib/' . PATH_SEPARATOR . get_include_path());
+require_once('lib/onyx.functions.php');
 
 /**
  * Include Bootstrap
  */
 
-require_once("lib/onxshop.bootstrap.php");
+require_once("lib/onyx.bootstrap.php");
 
 /**
  * Init Bootstrap
  */
 
-$Bootstrap = new Onxshop_Bootstrap();
+$Bootstrap = new Onyx_Bootstrap();
 
 /**
  * Get input and set file path
@@ -54,7 +54,7 @@ if (isset($_GET['file'])) {
     $file = "public_html/share/images/missing_image.png";
 }
 
-$file = ONXSHOP_PROJECT_DIR . $file;
+$file = ONYX_PROJECT_DIR . $file;
 
 $realpath = realpath($file);
 
@@ -70,7 +70,7 @@ if (!is_readable($file)) {
     
 } else {
     
-    onxshopCheckForAllowedPath($realpath);
+    onyxCheckForAllowedPath($realpath);
 
     /**
      * Detect file type and send to the client

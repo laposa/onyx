@@ -6,7 +6,7 @@
  */
 
 
-class Onxshop_Controller_Component_Ecommerce_Product_Options extends Onxshop_Controller {
+class Onyx_Controller_Component_Ecommerce_Product_Options extends Onyx_Controller {
     
     /**
      * main action

@@ -8,7 +8,7 @@
  */
 require_once('models/ecommerce/ecommerce_order.php');
 
-class Onxshop_Controller_Bo_Component_Ecommerce_Order_Resend_Email extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Ecommerce_Order_Resend_Email extends Onyx_Controller {
     
     /**
      * main action
@@ -34,7 +34,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Order_Resend_Email extends Onxsh
 
                 // implement in your installation
 
-                onxshopGoto("/backoffice/orders/{$order_data['id']}/detail");
+                onyxGoto("/backoffice/orders/{$order_data['id']}/detail");
 
             }
         }

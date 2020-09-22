@@ -7,7 +7,7 @@
 
 require_once 'controllers/component/client/twitter.php';
 
-class Onxshop_Controller_Component_Client_Twitter_Timeline extends Onxshop_Controller_Component_Client_Twitter {
+class Onyx_Controller_Component_Client_Twitter_Timeline extends Onyx_Controller_Component_Client_Twitter {
 
     /**
      * main action
@@ -19,8 +19,8 @@ class Onxshop_Controller_Component_Client_Twitter_Timeline extends Onxshop_Contr
          * input
          */
          
-        $username = ltrim(ONXSHOP_TWITTER_USERNAME, "@"); // allow to use leading "at" sign i.e. @onxshop
-        $hashtag = ltrim(ONXSHOP_TWITTER_HASHTAG, "#"); // allow to use leading "hash" sign i.e. #cms
+        $username = ltrim(ONYX_TWITTER_USERNAME, "@"); // allow to use leading "at" sign i.e. @onyx
+        $hashtag = ltrim(ONYX_TWITTER_HASHTAG, "#"); // allow to use leading "hash" sign i.e. #cms
         
         if (is_numeric($this->GET['limit_from'])) $limit_from = $this->GET['limit_from'];
         if (is_numeric($this->GET['limit_per_page'])) $limit_per_page = $this->GET['limit_per_page'];
@@ -33,8 +33,8 @@ class Onxshop_Controller_Component_Client_Twitter_Timeline extends Onxshop_Contr
          */
          
         $token = array(
-            'token' => ONXSHOP_TWITTER_ACCESS_TOKEN,
-            'secret' => ONXSHOP_TWITTER_ACCESS_TOKEN_SECRET,
+            'token' => ONYX_TWITTER_ACCESS_TOKEN,
+            'secret' => ONYX_TWITTER_ACCESS_TOKEN_SECRET,
         );
             
         $this->initTwitter($username, $token);
@@ -51,7 +51,7 @@ class Onxshop_Controller_Component_Client_Twitter_Timeline extends Onxshop_Contr
             
             require_once('Zend/Cache.php');
             $frontendOptions = array('lifetime' => 60*5,'automatic_serialization' => true);
-            $backendOptions = array('cache_dir' => ONXSHOP_PROJECT_DIR . 'var/cache/');
+            $backendOptions = array('cache_dir' => ONYX_PROJECT_DIR . 'var/cache/');
             $cache = Zend_Cache::factory('Core', 'File', $frontendOptions, $backendOptions);
             $cache_id = "twitter_statuses_userTimeline_$username";
             

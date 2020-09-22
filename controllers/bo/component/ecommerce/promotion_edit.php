@@ -4,7 +4,7 @@
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
-class Onxshop_Controller_Bo_Component_Ecommerce_Promotion_Edit extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Ecommerce_Promotion_Edit extends Onyx_Controller {
     
     /**
      * main action

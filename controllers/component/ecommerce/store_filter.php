@@ -9,7 +9,7 @@ require_once('models/ecommerce/ecommerce_store_taxonomy.php');
 require_once('models/common/common_taxonomy_tree.php');
 require_once('models/common/common_taxonomy.php');
 
-class Onxshop_Controller_Component_Ecommerce_Store_Filter extends Onxshop_Controller {
+class Onyx_Controller_Component_Ecommerce_Store_Filter extends Onyx_Controller {
 
     /**
      * main action
@@ -39,7 +39,7 @@ class Onxshop_Controller_Component_Ecommerce_Store_Filter extends Onxshop_Contro
                     
                     $taxonomy_all_ids[] = $category['id'];
                     
-                    if ($category['publish'] == 1 && $category['parent'] == ONXSHOP_STORE_FACILITY_TAXONOMY_ID) {
+                    if ($category['publish'] == 1 && $category['parent'] == ONYX_STORE_FACILITY_TAXONOMY_ID) {
                         $this->tpl->assign("CATEGORY", $category);
                         $this->tpl->parse("content.category");
                     }
@@ -49,7 +49,7 @@ class Onxshop_Controller_Component_Ecommerce_Store_Filter extends Onxshop_Contro
         }
 
         // get all taxonomy list
-        $taxonomy_all = $Taxonomy->getChildren(ONXSHOP_STORE_FACILITY_TAXONOMY_ID, 'priority DESC, id ASC', true);
+        $taxonomy_all = $Taxonomy->getChildren(ONYX_STORE_FACILITY_TAXONOMY_ID, 'priority DESC, id ASC', true);
         
         foreach ($taxonomy_all as $item) {
             

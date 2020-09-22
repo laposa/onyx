@@ -7,7 +7,7 @@
  *
  */
 
-class Onxshop_Controller_Export_Xml_Googlesitemap extends Onxshop_Controller {
+class Onyx_Controller_Export_Xml_Googlesitemap extends Onyx_Controller {
 
     /**
      * main action

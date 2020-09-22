@@ -9,7 +9,7 @@ require_once('Zend/Http/Client.php');
 require_once('Zend/Search/Lucene.php'); 
 require_once('Zend/Search/Lucene/Document/Html.php'); 
 
-class Onxshop_Controller_Bo_Component_Search_Index extends Onxshop_Controller { 
+class Onyx_Controller_Bo_Component_Search_Index extends Onyx_Controller { 
     
     /**
      * main action
@@ -55,7 +55,7 @@ class Onxshop_Controller_Bo_Component_Search_Index extends Onxshop_Controller {
 
         $profile = array(
             'uri'           => "$protocol://{$_SERVER['SERVER_NAME']}/",
-            'path'          => ONXSHOP_PROJECT_DIR . 'var/index/',
+            'path'          => ONYX_PROJECT_DIR . 'var/index/',
         );
         
         return $profile;

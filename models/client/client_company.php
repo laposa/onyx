@@ -7,7 +7,7 @@
  *
  */
  
-class client_company extends Onxshop_Model {
+class client_company extends Onyx_Model {
 
     /**
      * @access private
@@ -91,7 +91,7 @@ CREATE TABLE client_company (
      */
          
     static function initConfiguration() {
-        if (array_key_exists('client_company', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['client_company'];
+        if (array_key_exists('client_company', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['client_company'];
         else $conf = array();
 
         return $conf;

@@ -5,7 +5,7 @@
  * 
  */
 
-class Onxshop_Controller_Bo_Component_Client_Notify extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Client_Notify extends Onyx_Controller {
 
     /**
      * main action
@@ -27,7 +27,7 @@ class Onxshop_Controller_Bo_Component_Client_Notify extends Onxshop_Controller {
         $node_detail = $Node->getDetail($node_id);
         
         $this->tpl->assign('NODE', $node_detail);
-        $this->tpl->assign('CONF', $GLOBALS['onxshop_conf']);
+        $this->tpl->assign('CONF', $GLOBALS['onyx_conf']);
         
         if ($this->GET['confirm'] == 1) {
             $this->sendEmail($node_detail);

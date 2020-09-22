@@ -7,7 +7,7 @@
 
 require_once('controllers/component/breadcrumb.php');
 
-class Onxshop_Controller_Component_Breadcrumb_History extends Onxshop_Controller_Component_Breadcrumb {
+class Onyx_Controller_Component_Breadcrumb_History extends Onyx_Controller_Component_Breadcrumb {
     
     
     /**

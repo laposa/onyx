@@ -7,7 +7,7 @@
 
 require_once('controllers/api/v1_3/special_offer_list.php');
 
-class Onxshop_Controller_Api_v1_4_Special_Offer_List extends Onxshop_Controller_Api_v1_3_Special_Offer_List {
+class Onyx_Controller_Api_v1_4_Special_Offer_List extends Onyx_Controller_Api_v1_3_Special_Offer_List {
     
     static $thumbnail_size = 200;
     
@@ -47,7 +47,7 @@ class Onxshop_Controller_Api_v1_4_Special_Offer_List extends Onxshop_Controller_
         $Product = new ecommerce_product();
         $product_detail = $Product->getProductDetail($original_item['product_id']);
         
-        $protocol = onxshopDetectProtocol();
+        $protocol = onyxDetectProtocol();
         
         $item['id'] = $original_item['offer_id'];
         $item['title'] = $product_detail['name'];

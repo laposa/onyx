@@ -7,7 +7,7 @@
  *
  */
  
-class ecommerce_delivery_carrier_zone_to_country extends Onxshop_Model {
+class ecommerce_delivery_carrier_zone_to_country extends Onyx_Model {
 
     /**
      * PRIMARY KEY

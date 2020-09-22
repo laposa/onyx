@@ -7,7 +7,7 @@
 
 require_once 'controllers/bo/backoffice_menu.php';
 
-class Onxshop_Controller_Bo_Backoffice_Menu_Sections extends Onxshop_Controller_Bo_Backoffice_Menu {
+class Onyx_Controller_Bo_Backoffice_Menu_Sections extends Onyx_Controller_Bo_Backoffice_Menu {
     
     /**
      * main action
@@ -55,7 +55,7 @@ class Onxshop_Controller_Bo_Backoffice_Menu_Sections extends Onxshop_Controller_
          * ACL
          */
 
-        $auth = Onxshop_Bo_Authentication::getInstance();
+        $auth = Onyx_Bo_Authentication::getInstance();
         $isEcommerce = $auth->isEcommerce();
 
         if ($auth->hasAnyPermission('front_office')) $this->tpl->parse('content.fe_edit');

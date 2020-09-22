@@ -5,7 +5,7 @@
  * 
  */
 
-class Onxshop_Controller_Component_Client_Edit extends Onxshop_Controller {
+class Onyx_Controller_Component_Client_Edit extends Onyx_Controller {
 
     /**
      * main action
@@ -13,9 +13,9 @@ class Onxshop_Controller_Component_Client_Edit extends Onxshop_Controller {
      
     public function mainAction() {
     
-        if ($_SESSION['client']['customer']['id'] == 0 && !Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) {
+        if ($_SESSION['client']['customer']['id'] == 0 && !Onyx_Bo_Authentication::getInstance()->isAuthenticated()) {
             msg('client_edit: You must be logged in first.', 'error');
-            onxshopGoTo("/");
+            onyxGoTo("/");
         }
         
         require_once('models/client/client_customer.php');

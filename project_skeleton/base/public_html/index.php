@@ -1,6 +1,6 @@
 <?php
 /**
- * Onxshop index / dispatcher
+ * Onyx index / dispatcher
  *
  * An entry point for all actions except thumbnails and download handlers (share/*.php scripts),
  * see htaccess for more details. 
@@ -25,10 +25,10 @@ require_once('../conf/global.php');
  * Set version
  */
 
-define("ONXSHOP_VERSION", trim(file_get_contents(ONXSHOP_DIR . 'ONXSHOP_VERSION')));
+define("ONYX_VERSION", trim(file_get_contents(ONYX_DIR . 'ONYX_VERSION')));
 
 /**
  * Include bootstrap file
  */
 
-require_once(ONXSHOP_DIR . 'bootstrap.php');
+require_once(ONYX_DIR . 'bootstrap.php');

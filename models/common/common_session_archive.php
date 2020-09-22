@@ -42,7 +42,7 @@ CREATE TABLE common_session_archive (
      */
      
     static function initConfiguration() {
-        if (array_key_exists('common_session_archive', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['common_session_archive'];
+        if (array_key_exists('common_session_archive', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['common_session_archive'];
         else $conf = array();
         
         $conf['keep_anonymouse'] = false;

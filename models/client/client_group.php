@@ -7,7 +7,7 @@
  *
  */
  
-class client_group extends Onxshop_Model {
+class client_group extends Onyx_Model {
 
     /**
      * primary key (serial)
@@ -74,7 +74,7 @@ class client_group extends Onxshop_Model {
      
     static function initConfiguration() {
     
-        if (array_key_exists('client_group', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['client_group'];
+        if (array_key_exists('client_group', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['client_group'];
         else $conf = array();
 
         return $conf;

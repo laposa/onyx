@@ -5,7 +5,7 @@
  * 
  */
 
-class Onxshop_Controller_Component_Ecommerce_Order_Status_Change extends Onxshop_Controller {
+class Onyx_Controller_Component_Ecommerce_Order_Status_Change extends Onyx_Controller {
 
     /**
      * main action
@@ -14,7 +14,7 @@ class Onxshop_Controller_Component_Ecommerce_Order_Status_Change extends Onxshop
     public function mainAction() {
     
         if (!is_numeric($this->GET['order_id']) || !is_numeric($this->GET['status'])) {
-            msg("Onxshop_Controller_Component_Ecommerce_Order_Status_Change: order_id or status isn't numeric");
+            msg("Onyx_Controller_Component_Ecommerce_Order_Status_Change: order_id or status isn't numeric");
             return false;
         }
         
@@ -69,7 +69,7 @@ class Onxshop_Controller_Component_Ecommerce_Order_Status_Change extends Onxshop
          */
         /*
         if ($status == 1) {
-            $_Onxshop_Request = new Onxshop_Request("component/ecommerce/your_warehouse_integration_controller~order_id={$order_id}~");
+            $_Onyx_Request = new Onyx_Request("component/ecommerce/your_warehouse_integration_controller~order_id={$order_id}~");
         }*/
         
         return true;
@@ -88,7 +88,7 @@ class Onxshop_Controller_Component_Ecommerce_Order_Status_Change extends Onxshop
          * try to generate gift voucher
          */
          
-        $_Onxshop_Request = new Onxshop_Request("component/ecommerce/gift_voucher_generate~order_id={$order_id}~");
+        $_Onyx_Request = new Onyx_Request("component/ecommerce/gift_voucher_generate~order_id={$order_id}~");
         
         return true;         
         

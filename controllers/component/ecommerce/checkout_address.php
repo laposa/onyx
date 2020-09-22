@@ -7,7 +7,7 @@
 
 require_once('controllers/component/ecommerce/checkout.php');
 
-class Onxshop_Controller_Component_Ecommerce_Checkout_Address extends Onxshop_Controller_Component_Ecommerce_Checkout {
+class Onyx_Controller_Component_Ecommerce_Checkout_Address extends Onyx_Controller_Component_Ecommerce_Checkout {
 
     /**
      * public action
@@ -255,7 +255,7 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Address extends Onxshop_Co
             if ($original_address != $other_address) $this->Address->deleteAddress($original_address);
 
             msg("{$this->getAddressType()} address has been successfully updated.");
-            onxshopGoto("page/{$_SESSION['active_pages'][0]}");
+            onyxGoto("page/{$_SESSION['active_pages'][0]}");
 
 
         } else {

@@ -3,9 +3,9 @@
 <script type="text/javascript">
     $(function() {
 
-        var customer_age = $.cookie('onxshop-customer-age');
+        var customer_age = $.cookie('onyx-customer-age');
         var minimum_age = '{MIN_AGE}' * 1;
-        var edit_mode = $('div.onxshop-edit-page').length > 0;
+        var edit_mode = $('div.onyx-edit-page').length > 0;
 
         var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 
             'September', 'October', 'November', 'December'];
@@ -67,7 +67,7 @@
                 $('#age-gate').fadeOut(500, function() {
                     $('#age-gate').remove();
                     $('main.site').fadeIn(500);
-                    $.cookie('onxshop-customer-age', customer_age, { expires: 7 });
+                    $.cookie('onyx-customer-age', customer_age, { expires: 7 });
                 });
             } else {
                 $('#age-gate > div').html('<h3>Sorry, you must be 18 years old to view this page.</h3>');

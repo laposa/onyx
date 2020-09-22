@@ -8,20 +8,20 @@
 /**
  * Factory for creating new controller using request URI
  */
-class Onxshop_Request {
+class Onyx_Request {
 
     /**
      * Construct
      */
 
-    public function __construct($request, &$subOnxshop = false)
+    public function __construct($request, &$subOnyx = false)
     {
-        $this->Onxshop = Onxshop_Controller::createController($request, $subOnxshop);
+        $this->Onyx = Onyx_Controller::createController($request, $subOnyx);
     }
 
     public function getContent()
     {
-        return $this->Onxshop->getContent();
+        return $this->Onyx->getContent();
     }
 }
 
@@ -29,6 +29,6 @@ class Onxshop_Request {
  * compatibility nSite class
  */
  
-class nSite extends Onxshop_Request {
+class nSite extends Onyx_Request {
     
 }

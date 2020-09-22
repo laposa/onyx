@@ -7,7 +7,7 @@
 
 require_once('controllers/node/site/default.php');
 
-class Onxshop_Controller_Node_Site_Facebook extends Onxshop_Controller_Node_Site_Default {
+class Onyx_Controller_Node_Site_Facebook extends Onyx_Controller_Node_Site_Default {
 
     /**
      * main action

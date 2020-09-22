@@ -5,7 +5,7 @@
  *
  */
 
-class Onxshop_Controller_Bo_Component_Ecommerce_Stock_Edit extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Ecommerce_Stock_Edit extends Onyx_Controller {
     
     /**
      * main action
@@ -26,7 +26,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Stock_Edit extends Onxshop_Contr
             
             if($id = $Product_variety->updateVariety($_POST['product']['variety'])) {
                 msg("Product variety updated.");
-                /*onxshopGoTo($_SESSION['last_diff'], 2);*/
+                /*onyxGoTo($_SESSION['last_diff'], 2);*/
             } else {
                 msg ("Can't add the product variety, is you product SKU unique?");
             }

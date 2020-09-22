@@ -4,7 +4,7 @@
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
-class Onxshop_Controller_Component_Captcha extends Onxshop_Controller {
+class Onyx_Controller_Component_Captcha extends Onyx_Controller {
     
     /**
      * main action
@@ -67,7 +67,7 @@ class Onxshop_Controller_Component_Captcha extends Onxshop_Controller {
         imagefilledrectangle($img, 0, 0, $width, $height, $back);
 
         // draw text
-        $font = ONXSHOP_DIR . "/share/fonts/VeraMoBd.ttf";
+        $font = ONYX_DIR . "/share/fonts/VeraMoBd.ttf";
         $box = imagettfbbox($fontSize, 0, $font, $word);
         $textWidth = $box[2] - $box[0];
         $y = ($height / 2) + ($fontSize / 2);

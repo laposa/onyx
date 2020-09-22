@@ -5,7 +5,7 @@
  *
  */
 
-class Onxshop_Controller_Uri_Mapping extends Onxshop_Controller {
+class Onyx_Controller_Uri_Mapping extends Onyx_Controller {
 
     /**
      * main action
@@ -38,15 +38,15 @@ class Onxshop_Controller_Uri_Mapping extends Onxshop_Controller {
             $translate = false;
             
             //force login when request is from bo/ folder
-            //similar check is done in Onxshop_Bootstrap
+            //similar check is done in Onyx_Bootstrap
             if (preg_match('/bo\//', $controller_request)) {
                 
-                if (!$_SERVER['HTTPS'] && ONXSHOP_EDITOR_USE_SSL) {
+                if (!$_SERVER['HTTPS'] && ONYX_EDITOR_USE_SSL) {
                     header("Location: https://{$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}");
                     exit;
                 }
                 
-                $auth = Onxshop_Bo_Authentication::getInstance()->login();
+                $auth = Onyx_Bo_Authentication::getInstance()->login();
                 if (!$auth) $controller_request = 'sys/401';
                 // don't allow to save this request to the cache
                 Zend_Registry::set('omit_cache', true);
@@ -200,11 +200,11 @@ class Onxshop_Controller_Uri_Mapping extends Onxshop_Controller {
          * process action
          */
         
-        $Onxshop_Router = new Onxshop_Router();
+        $Onyx_Router = new Onyx_Router();
         
-        $Onxshop = $Onxshop_Router->processAction($action_to_process);
+        $Onyx = $Onyx_Router->processAction($action_to_process);
         
-        if (is_object($Onxshop)) $page_data['content'] = $Onxshop->getContent();
+        if (is_object($Onyx)) $page_data['content'] = $Onyx->getContent();
         
         if ($page_data['content'] == "") $page_data['content'] = $this->content;
 
@@ -268,8 +268,8 @@ class Onxshop_Controller_Uri_Mapping extends Onxshop_Controller {
      
     public function getFileRules() {
         
-        require_once(ONXSHOP_DIR . 'conf/uri_map.php');
-        if (file_exists(ONXSHOP_PROJECT_DIR . 'conf/uri_map.php')) require_once(ONXSHOP_PROJECT_DIR . 'conf/uri_map.php');
+        require_once(ONYX_DIR . 'conf/uri_map.php');
+        if (file_exists(ONYX_PROJECT_DIR . 'conf/uri_map.php')) require_once(ONYX_PROJECT_DIR . 'conf/uri_map.php');
         return $uri_map;
 
     }
@@ -280,21 +280,21 @@ class Onxshop_Controller_Uri_Mapping extends Onxshop_Controller {
      
     static function checkForSecurityRedirects() {
         
-        if (defined('ONXSHOP_HSTS_ENABLE') && ONXSHOP_HSTS_ENABLE === true) header("Strict-Transport-Security: max-age=" . ONXSHOP_HSTS_TTL);
-        if (defined('ONXSHOP_XSS_PROTECTION_ENABLE') && ONXSHOP_XSS_PROTECTION_ENABLE === true) header("X-XSS-Protection: 1; mode=block");
-        if (defined('ONXSHOP_CONTENT_TYPE_OPTIONS_ENABLE') && ONXSHOP_CONTENT_TYPE_OPTIONS_ENABLE === true) header("X-Content-Type-Options: nosniff");
+        if (defined('ONYX_HSTS_ENABLE') && ONYX_HSTS_ENABLE === true) header("Strict-Transport-Security: max-age=" . ONYX_HSTS_TTL);
+        if (defined('ONYX_XSS_PROTECTION_ENABLE') && ONYX_XSS_PROTECTION_ENABLE === true) header("X-XSS-Protection: 1; mode=block");
+        if (defined('ONYX_CONTENT_TYPE_OPTIONS_ENABLE') && ONYX_CONTENT_TYPE_OPTIONS_ENABLE === true) header("X-Content-Type-Options: nosniff");
         
         /**
          * check main domain
          */
     
-        if (defined('ONXSHOP_MAIN_DOMAIN') && strlen(ONXSHOP_MAIN_DOMAIN) > 0) {
+        if (defined('ONYX_MAIN_DOMAIN') && strlen(ONYX_MAIN_DOMAIN) > 0) {
             if (array_key_exists('HTTPS', $_SERVER)) $protocol = 'https';
             else $protocol = 'http';
             
-            if ($_SERVER['HTTP_HOST'] != ONXSHOP_MAIN_DOMAIN) {
+            if ($_SERVER['HTTP_HOST'] != ONYX_MAIN_DOMAIN) {
                 Header( "HTTP/1.1 301 Moved Permanently" );
-                Header( "Location: $protocol://" . ONXSHOP_MAIN_DOMAIN . "{$_SERVER['REQUEST_URI']}" );
+                Header( "Location: $protocol://" . ONYX_MAIN_DOMAIN . "{$_SERVER['REQUEST_URI']}" );
                 //exit the application immediately 
                 exit;
             }
@@ -304,7 +304,7 @@ class Onxshop_Controller_Uri_Mapping extends Onxshop_Controller {
          * force SSL
          */
         
-        if (!($_SERVER['SSL_PROTOCOL'] || $_SERVER['HTTPS']) && ONXSHOP_CUSTOMER_USE_SSL) {
+        if (!($_SERVER['SSL_PROTOCOL'] || $_SERVER['HTTPS']) && ONYX_CUSTOMER_USE_SSL) {
             header("HTTP/1.1 301 Moved Permanently");
             header("Location: https://{$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}");
             exit;

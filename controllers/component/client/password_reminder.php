@@ -5,7 +5,7 @@
  * 
  */
 
-class Onxshop_Controller_Component_Client_Password_Reminder extends Onxshop_Controller {
+class Onyx_Controller_Component_Client_Password_Reminder extends Onyx_Controller {
     
     /**
      * main action

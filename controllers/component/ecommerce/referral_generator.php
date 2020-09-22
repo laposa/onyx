@@ -7,7 +7,7 @@
 
 require_once "controllers/component/ecommerce/referral.php";
 
-class Onxshop_Controller_Component_Ecommerce_Referral_Generator extends Onxshop_Controller_Component_Ecommerce_Referral {
+class Onyx_Controller_Component_Ecommerce_Referral_Generator extends Onyx_Controller_Component_Ecommerce_Referral {
 
     /**
      * main action
@@ -28,7 +28,7 @@ class Onxshop_Controller_Component_Ecommerce_Referral_Generator extends Onxshop_
             $this->createCodeByCustomer($this->customer_id, $title, $this->conf['discount_value']);
 
             // redirect to itself
-            onxshopGoTo($this->GET["translate"]);
+            onyxGoTo($this->GET["translate"]);
         }
 
         return true;

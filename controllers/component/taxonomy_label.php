@@ -7,7 +7,7 @@
 
 require_once('controllers/component/taxonomy.php');
 
-class Onxshop_Controller_Component_Taxonomy_Label extends Onxshop_Controller_Component_Taxonomy {
+class Onyx_Controller_Component_Taxonomy_Label extends Onyx_Controller_Component_Taxonomy {
 
     /**
      * parse to template
@@ -24,8 +24,8 @@ class Onxshop_Controller_Component_Taxonomy_Label extends Onxshop_Controller_Com
         
             if ($label_id == $item['parent']) {
                 
-                $_Onxshop_Request = new Onxshop_Request("component/image&amp;relation=taxonomy&amp;width=250&amp;nolink=1&amp;node_id={$item['id']}");
-                $this->tpl->assign("IMAGE", $_Onxshop_Request->getContent());
+                $_Onyx_Request = new Onyx_Request("component/image&amp;relation=taxonomy&amp;width=250&amp;nolink=1&amp;node_id={$item['id']}");
+                $this->tpl->assign("IMAGE", $_Onyx_Request->getContent());
                 
                 $this->tpl->assign('ITEM', $item);
             

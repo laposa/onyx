@@ -5,13 +5,13 @@
  *
  */
 
-class Onxshop_Router {
+class Onyx_Router {
 
     var $request;
     
     var $modules;
     
-    var $Onxshop;
+    var $Onyx;
     
     /**
      * Construct
@@ -24,7 +24,7 @@ class Onxshop_Router {
     
     /**
      * Process Action
-     * return Onxshop object
+     * return Onyx object
      */
     
     function processAction($request) {
@@ -37,14 +37,14 @@ class Onxshop_Router {
         
         if (!is_array($modules)) {
             
-            die("Onxshop_Router: Can't explodeRequest " . htmlspecialchars($request));
+            die("Onyx_Router: Can't explodeRequest " . htmlspecialchars($request));
         
         }
         
         $this->setModules($modules);
 
         /**
-         * Initialise Onxshop object(s)
+         * Initialise Onyx object(s)
          */
         
         if (count($modules) > 1) {
@@ -53,25 +53,25 @@ class Onxshop_Router {
             foreach ($descendants as $key=>$descendant) {
                 
                 if ($key > 0) {
-                    $subOnxshop = $_Onxshop[$key - 1];
+                    $subOnyx = $_Onyx[$key - 1];
                 } else {
-                    $subOnxshop = false;
+                    $subOnyx = false;
                 }
                 
                 $classname = $this->_prepareCallBack($descendant);
-                $_Onxshop[$key] = new $classname($descendant, $subOnxshop);
+                $_Onyx[$key] = new $classname($descendant, $subOnyx);
             }
             
-            $this->Onxshop = $_Onxshop[count($descendants) - 1];
+            $this->Onyx = $_Onyx[count($descendants) - 1];
             
         } else {
         
             $classname = $this->_prepareCallBack($modules[0]);
-            $this->Onxshop = new $classname($modules[0]);
+            $this->Onyx = new $classname($modules[0]);
         
         }
         
-        return $this->Onxshop;
+        return $this->Onyx;
     }
     
     /**
@@ -81,11 +81,11 @@ class Onxshop_Router {
     private function _prepareCallBack($request) {
     
         $file = preg_replace("/([A-Za-z0-9_\/]*).*/", "\\1", $request);
-        if (file_exists(ONXSHOP_DIR . "controllers/{$file}.php") || file_exists(ONXSHOP_PROJECT_DIR . "controllers/{$file}.php")) {
+        if (file_exists(ONYX_DIR . "controllers/{$file}.php") || file_exists(ONYX_PROJECT_DIR . "controllers/{$file}.php")) {
             require_once("controllers/{$file}.php");
-            $classname = "Onxshop_Controller_" . preg_replace("/\//", "_", $file);
+            $classname = "Onyx_Controller_" . preg_replace("/\//", "_", $file);
         } else {
-            $classname = "Onxshop_Controller";
+            $classname = "Onyx_Controller";
         }
         
         return $classname;
@@ -116,7 +116,7 @@ class Onxshop_Router {
         }
 
         //little protection against DOS
-        if (count($modules) > 20) trigger_error('Onxshop: too many modules in one request', E_USER_ERROR);
+        if (count($modules) > 20) trigger_error('Onyx: too many modules in one request', E_USER_ERROR);
 
         //print_r($modules);
         

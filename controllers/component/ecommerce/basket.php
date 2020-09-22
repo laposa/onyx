@@ -11,7 +11,7 @@ require_once('models/ecommerce/ecommerce_basket_content.php');
 require_once('models/ecommerce/ecommerce_price.php');
 require_once('models/ecommerce/ecommerce_order.php');
 
-class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
+class Onyx_Controller_Component_Ecommerce_Basket extends Onyx_Controller {
 
     /**
      * main action
@@ -399,7 +399,7 @@ class Onxshop_Controller_Component_Ecommerce_Basket extends Onxshop_Controller {
     {
         if (is_numeric($this->GET['image_size'])) $size = $this->GET['image_size'];
         else $size = 50;
-        $Image_Controller = new Onxshop_Request("component/image~relation=product:role=main:width=$size:height=$size:node_id={$product_id}:limit=0,1~");
+        $Image_Controller = new Onyx_Request("component/image~relation=product:role=main:width=$size:height=$size:node_id={$product_id}:limit=0,1~");
         return $Image_Controller->getContent();
     }
 

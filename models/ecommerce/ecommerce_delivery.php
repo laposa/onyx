@@ -13,7 +13,7 @@
  * -size
  */
  
-class ecommerce_delivery extends Onxshop_Model {
+class ecommerce_delivery extends Onyx_Model {
 
     /**
      * PRIMARY KEY

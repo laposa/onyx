@@ -7,7 +7,7 @@
  
 require_once('controllers/bo/export/csv.php');
 
-class Onxshop_Controller_Bo_Export_CSV_Survey_Entries extends Onxshop_Controller_Bo_Export_CSV {
+class Onyx_Controller_Bo_Export_CSV_Survey_Entries extends Onyx_Controller_Bo_Export_CSV {
 
     /**
      * main action
@@ -22,7 +22,7 @@ class Onxshop_Controller_Bo_Export_CSV_Survey_Entries extends Onxshop_Controller
         require_once('models/education/education_survey_entry.php');
         require_once('models/education/education_survey_entry_answer.php');
         require_once('models/client/client_customer.php');
-        if (ONXSHOP_ECOMMERCE) require_once('models/ecommerce/ecommerce_store.php');
+        if (ONYX_ECOMMERCE) require_once('models/ecommerce/ecommerce_store.php');
         require_once('models/common/common_taxonomy_tree.php');
         
         $this->Survey = new education_survey();
@@ -30,7 +30,7 @@ class Onxshop_Controller_Bo_Export_CSV_Survey_Entries extends Onxshop_Controller
         $this->Survey_Entry = new education_survey_entry();
         $this->Survey_Entry_Anwer = new education_survey_entry_answer();
         $this->Customer = new client_customer();
-        if (ONXSHOP_ECOMMERCE) $this->Store = new ecommerce_store();
+        if (ONYX_ECOMMERCE) $this->Store = new ecommerce_store();
         $this->Taxonomy_Tree = new common_taxonomy_tree();
         
         /**
@@ -69,9 +69,9 @@ class Onxshop_Controller_Bo_Export_CSV_Survey_Entries extends Onxshop_Controller
                 $item['telephone'] = $customer['telephone'];
                 $item['newsletter'] = $customer['newsletter'];
                 $item['gender'] = $customer['gender'];
-                if (ONXSHOP_ECOMMERCE) $item['home_store_id'] = $customer['store_id'];
-                if (ONXSHOP_ECOMMERCE) $item['home_store_name'] = $customer['home_store_name'];
-                if (ONXSHOP_ECOMMERCE) $item['home_store_reference_code'] = $customer['home_store_reference_code'];
+                if (ONYX_ECOMMERCE) $item['home_store_id'] = $customer['store_id'];
+                if (ONYX_ECOMMERCE) $item['home_store_name'] = $customer['home_store_name'];
+                if (ONYX_ECOMMERCE) $item['home_store_reference_code'] = $customer['home_store_reference_code'];
                 $item['county'] = $customer['county'];
                 
                 // make sure all questions are present in the result (even as empty cells)
@@ -97,7 +97,7 @@ class Onxshop_Controller_Bo_Export_CSV_Survey_Entries extends Onxshop_Controller
                     // include uploaded file
                     $save_filename = $this->Survey_Entry_Anwer->getFilenameToSave($qa_item['answer_value'], $entry['id'], $question_id, $entry_answer_id);
                     $file = "var/surveys/$survey_id/{$save_filename}";
-                    if (is_file(ONXSHOP_PROJECT_DIR . $file)) $item['answer_value_'.$question_id] = "http://" . $_SERVER['HTTP_HOST'] . "/download/$file";
+                    if (is_file(ONYX_PROJECT_DIR . $file)) $item['answer_value_'.$question_id] = "http://" . $_SERVER['HTTP_HOST'] . "/download/$file";
                         
                 }
                 
@@ -124,7 +124,7 @@ class Onxshop_Controller_Bo_Export_CSV_Survey_Entries extends Onxshop_Controller
         $customer['other_data'] = unserialize($customer['other_data']);
         
         // get customer's home store
-        if (ONXSHOP_ECOMMERCE && ($customer['store_id'] > 0)) {
+        if (ONYX_ECOMMERCE && ($customer['store_id'] > 0)) {
             $store = $this->Store->detail($customer['store_id']);
             $customer['home_store_name'] = $store['title'];
             $customer['home_store_reference_code'] = $store['code'];

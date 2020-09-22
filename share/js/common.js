@@ -1,6 +1,6 @@
 /**
  * Norbert @ Laposa Ltd, 2009, 2012, 2017
- * TODO: create Onxshop global object and move all functions there
+ * TODO: create Onyx global object and move all functions there
  *
  */
 
@@ -36,15 +36,15 @@ function unixtime() {
  * HTML snippet for AJAX loader
  */
  
-var onxshop_load_indicator_html_snippet = "<div style='width: 100%; padding-top: 10px; text-align: center;'><img src='/share/images/ajax-indicator/indicator_facebook.gif' alt='Loading ...'/></div>";
+var onyx_load_indicator_html_snippet = "<div style='width: 100%; padding-top: 10px; text-align: center;'><img src='/share/images/ajax-indicator/indicator_facebook.gif' alt='Loading ...'/></div>";
 
 /**
  * ajax loader
  */
  
 function makeAjaxRequest(jquery_selector, url, complete_callback) {
-    jQuery(jquery_selector).html(onxshop_load_indicator_html_snippet).load(url, '', function (responseText, textStatus, XMLHttpRequest) {
-            popupMessage( jquery_selector + ' div.onxshop-messages');
+    jQuery(jquery_selector).html(onyx_load_indicator_html_snippet).load(url, '', function (responseText, textStatus, XMLHttpRequest) {
+            popupMessage( jquery_selector + ' div.onyx-messages');
             if (jQuery.isFunction(complete_callback)) complete_callback();
         }
     );
@@ -63,7 +63,7 @@ function initComponentAjaxForm(component_selector) {
         target: component_selector,
         success: function(responseText, statusText) {
             initComponentAjaxForm(component_selector);
-            popupMessage(component_selector + ' div.onxshop-messages');
+            popupMessage(component_selector + ' div.onyx-messages');
         }
     };
     $(component_selector + ' form').ajaxForm(options);
@@ -82,14 +82,14 @@ function showModalOverlay() {
 	var c = "";
 	if (activeOverlay && activeOverlay.length) {
 		c = "secondary";
-		activeOverlay.find(".onxshop-modal-overlay-window").attr("id", "modal-overlay-window-saved");
+		activeOverlay.find(".onyx-modal-overlay-window").attr("id", "modal-overlay-window-saved");
 	}
-	activeOverlay = $('<div class="onxshop-modal-overlay off ' + c + '">' +
-		'<div class="onxshop-modal-click-zone" onclick="hideModalOverlay()"></div>' +
-		'<div class="onxshop-modal-overlay-window"></div></div>');
+	activeOverlay = $('<div class="onyx-modal-overlay off ' + c + '">' +
+		'<div class="onyx-modal-click-zone" onclick="hideModalOverlay()"></div>' +
+		'<div class="onyx-modal-overlay-window"></div></div>');
 	$('html,body').addClass('noscroll');
 	$('#backoffice').append(activeOverlay);
-	activeOverlay.find(".onxshop-modal-overlay-window").attr("id", "modal-overlay-window");
+	activeOverlay.find(".onyx-modal-overlay-window").attr("id", "modal-overlay-window");
 	setTimeout(function() { activeOverlay.removeClass('off'); }, 100);
 }
 
@@ -221,11 +221,11 @@ if (!Array.prototype.indexOf) {
  */
  
 function openAjaxRequestInGrowl(url, title) {
-    jQuery.jGrowl('<div class="onxshop-messages in-jgrowl"><img src="/share/images/ajax-indicator/ajax-loader-bar.gif" alt="Loading ..."/></div>', {
+    jQuery.jGrowl('<div class="onyx-messages in-jgrowl"><img src="/share/images/ajax-indicator/ajax-loader-bar.gif" alt="Loading ..."/></div>', {
         beforeOpen: function(e, m, o) {
             jQuery("#dialog").hide().load(url, '', 
                 function (responseText, textStatus, XMLHttpRequest) {
-                    popupMessage("#dialog div.onxshop-messages");
+                    popupMessage("#dialog div.onyx-messages");
                 });
         }
     });
@@ -240,14 +240,14 @@ function popupMessage(selector) {
     jQuery.each(jQuery(selector), function() {
         var message = jQuery(this).hide().html();
         if (message) growlMessage(message);
-        console.log('Onxshop: ' + strip_tags(message));
+        console.log('Onyx: ' + strip_tags(message));
     });
 }
 
 function growlMessage(message) {
     var life = 30 * message.length; // 30ms per character
     if (life < 4000) life = 4000; // 4 sec at min.
-    jQuery.jGrowl("<div class='onxshop-messages in-jgrowl' role='alert'>" + message + "</div>", {life: life})
+    jQuery.jGrowl("<div class='onyx-messages in-jgrowl' role='alert'>" + message + "</div>", {life: life})
 }
 
 /**

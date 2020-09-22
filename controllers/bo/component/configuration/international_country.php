@@ -7,7 +7,7 @@
 
 require_once('controllers/bo/component/configuration.php');
 
-class Onxshop_Controller_Bo_Component_Configuration_International_Country extends Onxshop_Controller_Bo_Component_Configuration {
+class Onyx_Controller_Bo_Component_Configuration_International_Country extends Onyx_Controller_Bo_Component_Configuration {
     
     /**
      * custom action

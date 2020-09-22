@@ -8,7 +8,7 @@
 
 require_once('controllers/component/ecommerce/checkout_gift.php');
 
-class Onxshop_Controller_Component_Ecommerce_Checkout_Gift_Wrap extends Onxshop_Controller_Component_Ecommerce_Checkout_Gift {
+class Onyx_Controller_Component_Ecommerce_Checkout_Gift_Wrap extends Onyx_Controller_Component_Ecommerce_Checkout_Gift {
 
     /**
      * public action
@@ -16,7 +16,7 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Gift_Wrap extends Onxshop_
      
     public function mainAction() {
 
-        setlocale(LC_MONETARY, $GLOBALS['onxshop_conf']['global']['locale']);
+        setlocale(LC_MONETARY, $GLOBALS['onyx_conf']['global']['locale']);
     
         /**
          * get product conf
@@ -52,8 +52,8 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Gift_Wrap extends Onxshop_
              * image
              */
              
-            //$_Onxshop_Request = new Onxshop_Request("component/image~relation=product_variety:node_id={$variety['id']}:limit=0,1~");
-            //$this->tpl->assign('IMAGE', $_Onxshop_Request->getContent());
+            //$_Onyx_Request = new Onyx_Request("component/image~relation=product_variety:node_id={$variety['id']}:limit=0,1~");
+            //$this->tpl->assign('IMAGE', $_Onyx_Request->getContent());
             
             $variety['image'] = $this->getImage($variety['id']);
             

@@ -1,4 +1,4 @@
-<!-- BEGIN: title-->Onxshop CMS Login<!-- END: title -->
+<!-- BEGIN: title-->Onyx CMS Login<!-- END: title -->
 <!-- BEGIN: head -->
 <script type="text/javascript" src="/share/js/jquery/jquery.js"></script>
 <script type="text/javascript" src="/share/js/jquery/ui/jquery-ui.all.min.js"></script>
@@ -31,7 +31,7 @@ p {padding: 10px 20px; margin: 0;}
 <script type="text/javascript">
 $(document).ready(function(){
     
-    popupMessage("div.onxshop-messages");
+    popupMessage("div.onyx-messages");
     
     $("form.login").validate({onkeyup: false});  
     
@@ -105,12 +105,12 @@ $(document).ready(function(){
         <div id="container">
             {MESSAGES}
             <div class="bo-login">
-                <div class="logo"><a href="https://onxshop.com"><img src="/share/images/onxshop-logo-black.png" /></a></div>
+                <div class="logo"><a href="https://onxshop.com"><img src="/share/images/onyx-logo-black.png" /></a></div>
                 <div class="content">
                     <div id="login">
                         <form class="login via-email {FAILED}" method="post">
                             <fieldset class="single">
-                                <legend>Onxshop CMS Login</legend>
+                                <legend>Onyx CMS Login</legend>
                                 <div class="row email">
                                     <span class="field"><input class="required" id="username" type="text" name="username" value="{USERNAME|htmlspecialchars}" placeholder="Username" autofocus/></span>
                                 </div>
@@ -129,7 +129,7 @@ $(document).ready(function(){
                         </form>
                     </div>
                     <div id="forgot">
-                        {ONXSHOP_REQUEST_forgot #component/client/password_reset~backoffice=1~}
+                        {ONYX_REQUEST_forgot #component/client/password_reset~backoffice=1~}
                     </div>
                 </div>
             </div>
@@ -138,5 +138,5 @@ $(document).ready(function(){
     </div>
 </div>
 
-{ONXSHOP_REQUEST_bo_tracking #bo_tracking}
+{ONYX_REQUEST_bo_tracking #bo_tracking}
 <!-- END: content -->

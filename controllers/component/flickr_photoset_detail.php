@@ -6,7 +6,7 @@
 
 require_once 'controllers/component/flickr.php';
 
-class Onxshop_Controller_Component_Flickr_Photoset_Detail extends Onxshop_Controller_Component_Flickr
+class Onyx_Controller_Component_Flickr_Photoset_Detail extends Onyx_Controller_Component_Flickr
 {
 
     /**

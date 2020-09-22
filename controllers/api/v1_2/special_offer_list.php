@@ -7,6 +7,6 @@
 
 require_once('controllers/api/v1_1/special_offer_list.php');
 
-class Onxshop_Controller_Api_v1_2_Special_Offer_List extends Onxshop_Controller_Api_v1_1_Special_Offer_List {
+class Onyx_Controller_Api_v1_2_Special_Offer_List extends Onyx_Controller_Api_v1_1_Special_Offer_List {
 
 }

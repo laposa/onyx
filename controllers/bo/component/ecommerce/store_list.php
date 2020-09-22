@@ -7,7 +7,7 @@
  *
  */
 
-class Onxshop_Controller_Bo_Component_Ecommerce_Store_List extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Ecommerce_Store_List extends Onyx_Controller {
 
     /**
      * main action
@@ -50,8 +50,8 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Store_List extends Onxshop_Contr
         }
 
         // display pagination
-        $_Onxshop_Request = new Onxshop_Request("component/pagination~link=/request/bo/component/ecommerce/store_list:limit_from=$from:limit_per_page=$per_page:count=$count~");
-        $this->tpl->assign('PAGINATION', $_Onxshop_Request->getContent());
+        $_Onyx_Request = new Onyx_Request("component/pagination~link=/request/bo/component/ecommerce/store_list:limit_from=$from:limit_per_page=$per_page:count=$count~");
+        $this->tpl->assign('PAGINATION', $_Onyx_Request->getContent());
 
         // parse items
         foreach ($store_list as $item) {

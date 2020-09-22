@@ -6,7 +6,7 @@
  * 
  */
 
-class Onxshop_Controller_Component_Ecommerce_Gift_Voucher extends Onxshop_Controller {
+class Onyx_Controller_Component_Ecommerce_Gift_Voucher extends Onyx_Controller {
 
     /**
      * main action
@@ -161,7 +161,7 @@ class Onxshop_Controller_Component_Ecommerce_Gift_Voucher extends Onxshop_Contro
             }
         }
         
-        //email validation regex copied from onxshop.model
+        //email validation regex copied from onyx.model
         $regex = '/^([*+!.&#$|\'\\%\/0-9a-z^_`{}=?~:-]+)@(([0-9a-z-]+\.)+[0-9a-z]{2,4})$/i';
         if (!preg_match($regex, $data['recipient_email'])) {
             msg("Gift Voucher: recipient_email is not valid email address", 'error');
@@ -248,7 +248,7 @@ class Onxshop_Controller_Component_Ecommerce_Gift_Voucher extends Onxshop_Contro
     public function sendEmail($promotion_data, $voucher_data, $gift_voucher_filename) {
         
         $GLOBALS['common_email'] = array('promotion_data'=>$promotion_data, 'voucher_data'=>$voucher_data, 'gift_voucher_filename'=>$gift_voucher_filename);
-        //$GLOBALS['onxshop_atachments'] = array($gift_voucher_filename_fullpath);
+        //$GLOBALS['onyx_atachments'] = array($gift_voucher_filename_fullpath);
         
         require_once('models/common/common_email.php');
         $EmailForm = new common_email();
@@ -258,12 +258,12 @@ class Onxshop_Controller_Component_Ecommerce_Gift_Voucher extends Onxshop_Contro
         $email_recipient = $voucher_data['recipient_email'];
         $name_recipient = $voucher_data['recipient_name'];
         $email_from = false;
-        $name_from = "{$GLOBALS['onxshop_conf']['global']['title']} Gifts";
+        $name_from = "{$GLOBALS['onyx_conf']['global']['title']} Gifts";
 
         $email_sent_status = $EmailForm->sendEmail($template, $content, $email_recipient, $name_recipient, $email_from, $name_from);
         
         unset($GLOBALS['common_email']);
-        //unset($GLOBALS['onxshop_atachments']);
+        //unset($GLOBALS['onyx_atachments']);
         
         return $email_sent_status;
     }

@@ -5,7 +5,7 @@
  *
  */
  
-class common_file extends Onxshop_Model {
+class common_file extends Onyx_Model {
 
     /**
      * PRIMARY KEY
@@ -168,7 +168,7 @@ CREATE TABLE common_file (
      
     public function populateAdditionalInfo($file_detail, $include_image_size = false) {
         
-        $full_path = ONXSHOP_PROJECT_DIR . $file_detail['src'];
+        $full_path = ONYX_PROJECT_DIR . $file_detail['src'];
         
         $file_detail['file_path_encoded'] = $this->encode_file_path($full_path);
             
@@ -263,15 +263,15 @@ CREATE TABLE common_file (
      
     function insertFile($file = array()) {
     
-        $src = ONXSHOP_PROJECT_DIR . $file['src'];
+        $src = ONYX_PROJECT_DIR . $file['src'];
         
         if (is_readable($src)) {
             
             if (!is_numeric($file['priority'])) $file['priority'] = 0;
             $file['modified'] = date('c');
-            if (!is_numeric($file['author'])) $file['author'] = 0; // deprecated as of Onxshop 1.7
+            if (!is_numeric($file['author'])) $file['author'] = 0; // deprecated as of Onyx 1.7
             if (!is_numeric($file['customer_id'])) {
-                $bo_user_id = Onxshop_Bo_Authentication::getInstance()->getUserId();
+                $bo_user_id = Onyx_Bo_Authentication::getInstance()->getUserId();
                 if (is_numeric($bo_user_id)) $file['customer_id'] = $bo_user_id;
                 else $file['customer_id'] = (int) $_SESSION['client']['customer']['id'];
             }
@@ -314,8 +314,8 @@ CREATE TABLE common_file (
         $upload_file = $file['tmp_name'];
         $safe_filename = $this->nameToSafe($file['name']);
         $save_file = $save_dir . $safe_filename;
-        $save_file_full = ONXSHOP_PROJECT_DIR . $save_file;
-        $save_dir_full = ONXSHOP_PROJECT_DIR . $save_dir;
+        $save_file_full = ONYX_PROJECT_DIR . $save_file;
+        $save_dir_full = ONYX_PROJECT_DIR . $save_dir;
     
         if (!file_exists($save_dir_full)) {
             if (!mkdir($save_dir_full)) {
@@ -335,7 +335,7 @@ CREATE TABLE common_file (
                 msg("File '$save_file_full' already exists and is being overwritten", 'error', 1);
                 msg("Saving as $save_file", 'ok', 2);
                 
-                if (copy($upload_file, ONXSHOP_PROJECT_DIR . $save_file)) {
+                if (copy($upload_file, ONYX_PROJECT_DIR . $save_file)) {
                 
                     //array type for result (indicates overwrite)
                     $result = array( 'filename'=> $safe_filename, 'save_dir'=> $save_dir, "temp_file"=>$save_file);
@@ -343,7 +343,7 @@ CREATE TABLE common_file (
                 
                 } else {
                 
-                    msg("common_file.getSingleUpload(): Cannot copy $upload_file to temp location " . ONXSHOP_PROJECT_DIR . $save_file, 'error', 1);
+                    msg("common_file.getSingleUpload(): Cannot copy $upload_file to temp location " . ONYX_PROJECT_DIR . $save_file, 'error', 1);
                     return false;
                     
                 }
@@ -429,7 +429,7 @@ CREATE TABLE common_file (
         
         if ($result) {
             
-            $thumbnails_dir = ONXSHOP_PROJECT_DIR . "var/thumbnails/";
+            $thumbnails_dir = ONYX_PROJECT_DIR . "var/thumbnails/";
             $sizes = scandir($thumbnails_dir);
             
             foreach ($sizes as $size) {
@@ -485,9 +485,9 @@ CREATE TABLE common_file (
      
     function _overwriteFile($filename, $save_dir, $temp_file) {
     
-        //$src_file_full = ONXSHOP_PROJECT_DIR . "var/tmp/" . $filename;
-        $src_file_full = ONXSHOP_PROJECT_DIR . $temp_file;
-        $save_file_full = ONXSHOP_PROJECT_DIR . $save_dir . $filename;
+        //$src_file_full = ONYX_PROJECT_DIR . "var/tmp/" . $filename;
+        $src_file_full = ONYX_PROJECT_DIR . $temp_file;
+        $save_file_full = ONYX_PROJECT_DIR . $save_dir . $filename;
 
         if (copy($src_file_full, $save_file_full)) {
             if (is_readable($save_file_full)) return true;
@@ -532,7 +532,7 @@ CREATE TABLE common_file (
      
     function deleteFile( $file ) {
     
-        $file_full_path = ONXSHOP_PROJECT_DIR . $file;
+        $file_full_path = ONYX_PROJECT_DIR . $file;
         if (file_exists($file_full_path)) {
             if (is_dir($file_full_path)) {
                 if (rmdir($file_full_path)) msg("Directory has been removed");
@@ -681,7 +681,7 @@ CREATE TABLE common_file (
          * ecommerce tables
          */
          
-        if (ONXSHOP_ECOMMERCE) {
+        if (ONYX_ECOMMERCE) {
             
             require_once('models/ecommerce/ecommerce_product_image.php');
             $ProductImage = new ecommerce_product_image();
@@ -742,7 +742,7 @@ CREATE TABLE common_file (
         else $file_info['mime-type'] = mime_content_type($fp);
         
         $file_info['modified'] = strftime("%c", filemtime($fp));
-        $file_info['file_path'] = str_replace(ONXSHOP_PROJECT_DIR . 'var/files/', '', $fp);
+        $file_info['file_path'] = str_replace(ONYX_PROJECT_DIR . 'var/files/', '', $fp);
         $file_info['size'] = self::resize_bytes(filesize($fp));
         
         if ($extra_detail) {
@@ -931,7 +931,7 @@ CREATE TABLE common_file (
     }
     
     /**
-     * get joined list of files from ONXSHOP_DIR and ONXSHOP_PROJECT_DIR
+     * get joined list of files from ONYX_DIR and ONYX_PROJECT_DIR
      *
      * @param string $directory
      * from this subdirectory
@@ -942,10 +942,10 @@ CREATE TABLE common_file (
      
     function getFlatArrayFromFsJoin ($directory) {
         
-        $global_templates_dir = ONXSHOP_DIR . $directory;
+        $global_templates_dir = ONYX_DIR . $directory;
         $global_templates = $this->getFlatArrayFromFs($global_templates_dir);
     
-        $application_templates_dir = ONXSHOP_PROJECT_DIR . $directory;
+        $application_templates_dir = ONYX_PROJECT_DIR . $directory;
         if (is_dir($application_templates_dir)) $application_templates = $this->getFlatArrayFromFs($application_templates_dir);
         else $application_templates = array();
     

@@ -7,7 +7,7 @@
  *
  */
 
-class Onxshop_Controller_Bo_Component_Ecommerce_Gift_Detail extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Ecommerce_Gift_Detail extends Onyx_Controller {
 
     /**
      * main action

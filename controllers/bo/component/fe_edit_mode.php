@@ -5,7 +5,7 @@
  * 
  */
 
-class Onxshop_Controller_Bo_Component_Fe_edit_Mode extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Fe_edit_Mode extends Onyx_Controller {
 
     /**
      * main action
@@ -59,7 +59,7 @@ class Onxshop_Controller_Bo_Component_Fe_edit_Mode extends Onxshop_Controller {
          */
          
         if ($_GET['fe_edit_mode']) {
-            onxshopGoTo($uri_strip, 2);
+            onyxGoTo($uri_strip, 2);
         }
         
         return true;

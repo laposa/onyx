@@ -6,7 +6,7 @@
 
 require_once('controllers/bo/component/survey.php');
 
-class Onxshop_Controller_Bo_Component_Survey_Add extends Onxshop_Controller_Bo_Component_Survey {
+class Onyx_Controller_Bo_Component_Survey_Add extends Onyx_Controller_Bo_Component_Survey {
 
     /**
      * main action
@@ -23,7 +23,7 @@ class Onxshop_Controller_Bo_Component_Survey_Add extends Onxshop_Controller_Bo_C
         if ($_POST['save'] && is_array($_POST['survey'])) {
         
             $this->saveSurvey($_POST['survey']);
-            onxshop_flush_cache(); // flush cache due to backoffice survey list caching
+            onyx_flush_cache(); // flush cache due to backoffice survey list caching
         }
         
         /**

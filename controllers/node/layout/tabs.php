@@ -7,7 +7,7 @@
 
 require_once('controllers/node/layout/default.php');
 
-class Onxshop_Controller_Node_Layout_Tabs extends Onxshop_Controller_Node_Layout_Default {
+class Onyx_Controller_Node_Layout_Tabs extends Onyx_Controller_Node_Layout_Default {
 
     /**
      * main action

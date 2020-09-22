@@ -4,7 +4,7 @@
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
-class Onxshop_Controller_Bo_Component_Ecommerce_Product_Add extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Ecommerce_Product_Add extends Onyx_Controller {
     
     /**
      * main action
@@ -20,7 +20,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Product_Add extends Onxshop_Cont
         if ($_POST['save']) {
             if($id = $Product->insertProduct($product_data)) {
                 msg("Product has been added.");
-                onxshopGoTo("backoffice/products/$id/variety_add");
+                onyxGoTo("backoffice/products/$id/variety_add");
             } else {
                 msg("Adding of Product Failed.", 'error');
             }

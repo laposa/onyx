@@ -7,7 +7,7 @@
 
 require_once('controllers/node/default.php');
 
-class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Default {
+class Onyx_Controller_Node_Page_Default extends Onyx_Controller_Node_Default {
 
     /**
      * main action
@@ -48,8 +48,8 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
          * fallback on options to global configuration
          */
          
-        if (!isset($this->node_data['display_title'])) $this->node_data['display_title'] = $GLOBALS['onxshop_conf']['global']['display_title'];
-        if (!isset($this->node_data['display_secondary_navigation'])) $this->node_data['display_secondary_navigation'] = $GLOBALS['onxshop_conf']['global']['display_secondary_navigation'];
+        if (!isset($this->node_data['display_title'])) $this->node_data['display_title'] = $GLOBALS['onyx_conf']['global']['display_title'];
+        if (!isset($this->node_data['display_secondary_navigation'])) $this->node_data['display_secondary_navigation'] = $GLOBALS['onyx_conf']['global']['display_secondary_navigation'];
         
         /**
          * get related_taxonomy
@@ -109,8 +109,8 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
          */
          
         if ($this->node_data['display_title'])  {
-            $_Onxshop_Request = new Onxshop_Request("component/page_header~id={$this->node_data['id']}~");
-            $this->tpl->assign('PAGE_HEADER', $_Onxshop_Request->getContent());
+            $_Onyx_Request = new Onyx_Request("component/page_header~id={$this->node_data['id']}~");
+            $this->tpl->assign('PAGE_HEADER', $_Onyx_Request->getContent());
             $this->tpl->parse('content.page_header'); // for templates having page header directly within the page template
             $this->tpl->parse('content.title'); // for templates using simple title block same way as layouts and content
         }
@@ -122,8 +122,8 @@ class Onxshop_Controller_Node_Page_Default extends Onxshop_Controller_Node_Defau
         if ($this->node_data['display_secondary_navigation'] == 1) {
         
             $first_page_id = $this->Node->getFirstParentPage($_SESSION['active_pages']);
-            $_Onxshop_Request = new Onxshop_Request("component/menu~level=0:expand_all=0:display_strapline=1:id={$first_page_id}:open={$this->node_data['id']}~");
-            $this->tpl->assign('SECONDARY_NAVIGATION', $_Onxshop_Request->getContent());
+            $_Onyx_Request = new Onyx_Request("component/menu~level=0:expand_all=0:display_strapline=1:id={$first_page_id}:open={$this->node_data['id']}~");
+            $this->tpl->assign('SECONDARY_NAVIGATION', $_Onyx_Request->getContent());
             $this->tpl->parse('content.secondary_navigation');
         }
         

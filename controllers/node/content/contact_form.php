@@ -6,7 +6,7 @@
 
 require_once('controllers/node/content/default.php');
 
-class Onxshop_Controller_Node_Content_Contact_Form extends Onxshop_Controller_Node_Content_Default {
+class Onyx_Controller_Node_Content_Contact_Form extends Onyx_Controller_Node_Content_Default {
 
     /**
      * main action
@@ -42,7 +42,7 @@ class Onxshop_Controller_Node_Content_Contact_Form extends Onxshop_Controller_No
         
         if (!templateExists($template_name)) {
             
-            // try fallback to old _contact_form folder in case it was locally created (used prior to Onxshop 1.7.6)
+            // try fallback to old _contact_form folder in case it was locally created (used prior to Onyx 1.7.6)
             $template_folder = "component/_contact_form/";
             $template_name = "$template_folder{$node_data['component']['node_controller']}";
             
@@ -62,7 +62,7 @@ class Onxshop_Controller_Node_Content_Contact_Form extends Onxshop_Controller_No
         $mail_toname = urlencode(trim($node_data['component']['mail_toname']));
         $spam_protection = urlencode(trim($node_data['component']['spam_protection']));
 
-        $Form = new Onxshop_Request("component/contact_form@$template_name&amp;node_id={$node_id}&amp;mail_to={$mail_to}&amp;mail_toname={$mail_toname}&amp;spam_protection={$spam_protection}");
+        $Form = new Onyx_Request("component/contact_form@$template_name&amp;node_id={$node_id}&amp;mail_to={$mail_to}&amp;mail_toname={$mail_toname}&amp;spam_protection={$spam_protection}");
         
         $this->tpl->assign("FORM", $Form->getContent());
         
@@ -73,7 +73,7 @@ class Onxshop_Controller_Node_Content_Contact_Form extends Onxshop_Controller_No
             if (Zend_Registry::get($reg_key) == 'sent') {
                 //forward
                 if ($node_data['component']['text']) msg($node_data['component']['text'], 'ok');
-                if ($node_data['component']['href'] != '') onxshopGoTo($node_data['component']['href']);
+                if ($node_data['component']['href'] != '') onyxGoTo($node_data['component']['href']);
             } else if (Zend_Registry::get($reg_key)  == 'failed') {
                 msg($node_data['component']['sending_failed'], 'error');
                 $this->tpl->parse('content.form');

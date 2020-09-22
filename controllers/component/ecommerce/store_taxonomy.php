@@ -8,7 +8,7 @@ require_once('models/ecommerce/ecommerce_store.php');
 require_once('models/ecommerce/ecommerce_store_taxonomy.php');
 require_once('models/common/common_taxonomy.php');
 
-class Onxshop_Controller_Component_Ecommerce_Store_Taxonomy extends Onxshop_Controller {
+class Onyx_Controller_Component_Ecommerce_Store_Taxonomy extends Onyx_Controller {
 
     /**
      * main action
@@ -28,7 +28,7 @@ class Onxshop_Controller_Component_Ecommerce_Store_Taxonomy extends Onxshop_Cont
 
         if (count($taxonomy_list) > 0) {
             foreach ($taxonomy_list as $category) {
-                if ($category['publish'] == 1 && $category['parent'] == ONXSHOP_STORE_FACILITY_TAXONOMY_ID) {
+                if ($category['publish'] == 1 && $category['parent'] == ONYX_STORE_FACILITY_TAXONOMY_ID) {
                     $this->tpl->assign("CATEGORY", $category);
                     $this->tpl->parse("content.category");
                 }

@@ -8,7 +8,7 @@ $(document).ready(function(){
         target: 'div.comment-add-container',
         beforeSubmit: function() {return $("#comment-form-{GET.node_id}").valid()},
         success: function(){
-            popupMessage("div.comment-add div.onxshop-messages");
+            popupMessage("div.comment-add div.onyx-messages");
         },
         url: '/request/component/comment_add~node_id={GET.node_id}:allow_anonymouse_submit={GET.allow_anonymouse_submit}~.node/force_config~node_id={GET.node_id}~'
     }; 
@@ -84,7 +84,7 @@ $(function() {
     var options = { 
         target: 'div.comment-add',
         success: function(){
-            popupMessage("div.comment-add div.onxshop-messages");
+            popupMessage("div.comment-add div.onyx-messages");
             $('div.comment-add').load('/request/component/comment_add~node_id={GET.node_id}:allow_anonymouse_submit=0~');
         },
         url: '/request/component/client/login~to=ajax~'

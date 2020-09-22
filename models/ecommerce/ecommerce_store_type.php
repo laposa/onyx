@@ -7,7 +7,7 @@
  *
  */
  
-class ecommerce_store_type extends Onxshop_Model {
+class ecommerce_store_type extends Onyx_Model {
 
     /**
      * @access private
@@ -79,7 +79,7 @@ class ecommerce_store_type extends Onxshop_Model {
      */
      
     static function initConfiguration() {
-        if (array_key_exists('ecommerce_store', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['ecommerce_store'];
+        if (array_key_exists('ecommerce_store', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['ecommerce_store'];
         else $conf = array();
         return $conf;
     }

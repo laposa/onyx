@@ -6,7 +6,7 @@
 
 require_once('controllers/bo/node/content/default.php');
 
-class Onxshop_Controller_Bo_Node_Content_Page_List extends Onxshop_Controller_Bo_Node_Content_Default {
+class Onyx_Controller_Bo_Node_Content_Page_List extends Onyx_Controller_Bo_Node_Content_Default {
 
     /**
      * post action
@@ -35,7 +35,7 @@ class Onxshop_Controller_Bo_Node_Content_Page_List extends Onxshop_Controller_Bo
     function renderPageListTemplatesDropdown() {
         $page_list_templates = [];
 
-        $dir = new DirectoryIterator(ONXSHOP_PROJECT_DIR . "/templates/component");
+        $dir = new DirectoryIterator(ONYX_PROJECT_DIR . "/templates/component");
         foreach ($dir as $fileinfo) {
             $filename = $fileinfo->getFilename();
             if (!$fileinfo->isDot() && substr($filename, 0, 10) == "page_list_") {
@@ -43,7 +43,7 @@ class Onxshop_Controller_Bo_Node_Content_Page_List extends Onxshop_Controller_Bo
             }
         }
 
-        $dir = new DirectoryIterator(ONXSHOP_DIR . "/templates/component");
+        $dir = new DirectoryIterator(ONYX_DIR . "/templates/component");
         foreach ($dir as $fileinfo) {
             $filename = $fileinfo->getFilename();
             if (!$fileinfo->isDot() && substr($filename, 0, 10) == "page_list_") {

@@ -3304,7 +3304,7 @@ SELECT pg_catalog.setval('client_action_id_seq', 1, false);
 --
 
 COPY client_address (id, customer_id, country_id, name, line_1, line_2, line_3, post_code, city, county, telephone, comment, is_deleted) FROM stdin;
-1	1	222	Mr Onxshop Tester	58 Howard Street			BT1 6PJ	Belfast	\N	\N	\N	\N
+1	1	222	Mr Onyx Tester	58 Howard Street			BT1 6PJ	Belfast	\N	\N	\N	\N
 \.
 
 
@@ -3336,7 +3336,7 @@ SELECT pg_catalog.setval('client_company_id_seq', 1, false);
 
 COPY client_customer (id, title_before, first_name, last_name, title_after, email, username, telephone, mobilephone, nickname, password, company_id, invoices_address_id, delivery_address_id, gender, created, currency_code, status, newsletter, birthday, other_data, modified, account_type, agreed_with_latest_t_and_c, verified_email_address, oauth, deleted_date, facebook_id, twitter_id, google_id, profile_image_url, store_id, janrain_id) FROM stdin;
 0		Anonym	Anonymous		anonym@noemail.noemail	anonymous	notelephone			9ce21d8f3992d89a325aa9dcf520a591	0	1	1	 	2011-12-13 14:00:00	GBP	0	0	2007-06-14		2011-12-13 14:00:00	0	0	0	\N	\N	\N	\N	\N	\N	\N	\N
-1	Ing.	Onxshop	Tester	\N	test@onxshop.com	\N	+44(0) 2890 328 988	\N	\N	b3f61bf1cb26243ef478a3c181dd0aa2	0	1	1	\N	2011-12-13 14:00:00	CZK	1	0	\N		2011-12-13 14:00:00	0	0	0	\N	\N	\N	\N	\N	\N	\N	\N
+1	Ing.	Onyx	Tester	\N	test@onxshop.com	\N	+44(0) 2890 328 988	\N	\N	b3f61bf1cb26243ef478a3c181dd0aa2	0	1	1	\N	2011-12-13 14:00:00	CZK	1	0	\N		2011-12-13 14:00:00	0	0	0	\N	\N	\N	\N	\N	\N	\N	\N
 \.
 
 
@@ -3540,7 +3540,7 @@ COPY common_configuration (id, node_id, object, property, value, description, ap
 16	0	global	display_content_foot	0		0
 17	5	global	html_title_suffix			0
 7	0	global	admin_email	test@onxshop.com		0
-3	0	global	credit	<a href="http://onxshop.com" title="Easy web CMS/eCommerce"><span>Powered by Onxshop</span></a>		0
+3	0	global	credit	<a href="http://onxshop.com" title="Easy web CMS/eCommerce"><span>Powered by Onyx</span></a>		0
 \.
 
 

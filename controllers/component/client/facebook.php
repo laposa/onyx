@@ -9,7 +9,7 @@ require_once 'lib/facebook/autoload.php';
 require_once 'lib/facebook/Helpers/FacebookCanvasHelper.php';
 require_once 'lib/facebook/Helpers/FacebookRedirectLoginHelper.php';
 
-class Onxshop_Controller_Component_Client_Facebook extends Onxshop_Controller {
+class Onyx_Controller_Component_Client_Facebook extends Onyx_Controller {
 
     /**
      * main action
@@ -61,8 +61,8 @@ class Onxshop_Controller_Component_Client_Facebook extends Onxshop_Controller {
          */
          
         $this->facebook_conf = array(
-            'app_id'  => ONXSHOP_FACEBOOK_APP_ID,
-            'app_secret' => ONXSHOP_FACEBOOK_APP_SECRET
+            'app_id'  => ONYX_FACEBOOK_APP_ID,
+            'app_secret' => ONYX_FACEBOOK_APP_SECRET
         );
         
         $this->Facebook = new Facebook\Facebook($this->facebook_conf);
@@ -110,11 +110,11 @@ class Onxshop_Controller_Component_Client_Facebook extends Onxshop_Controller {
         require_once 'Zend/Cache.php';
         
         $frontendOptions = array(
-        'lifetime' => ONXSHOP_PAGE_CACHE_TTL,
+        'lifetime' => ONYX_PAGE_CACHE_TTL,
         'automatic_serialization' => true
         );
         
-        $backendOptions = array('cache_dir' => ONXSHOP_PROJECT_DIR . 'var/cache/');
+        $backendOptions = array('cache_dir' => ONYX_PROJECT_DIR . 'var/cache/');
         $cache = Zend_Cache::factory('Output', 'File', $frontendOptions, $backendOptions);
         
         // create cache key

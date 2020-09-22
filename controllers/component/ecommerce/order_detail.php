@@ -7,7 +7,7 @@
  * 
  */
 
-class Onxshop_Controller_Component_Ecommerce_Order_Detail extends Onxshop_Controller {
+class Onyx_Controller_Component_Ecommerce_Order_Detail extends Onyx_Controller {
     
     /**
      * main action
@@ -47,7 +47,7 @@ class Onxshop_Controller_Component_Ecommerce_Order_Detail extends Onxshop_Contro
         
         //security check of the owner
         $is_owner = $order_data['basket']['customer_id'] == $_SESSION['client']['customer']['id'];
-        $is_bo_user = Onxshop_Bo_Authentication::getInstance()->isAuthenticated();
+        $is_bo_user = Onyx_Bo_Authentication::getInstance()->isAuthenticated();
         $is_guest_user = $order_data['client']['customer']['status'] == 5;
         $is_same_session = $order_data['php_session_id'] == session_id() || $order_data['php_session_id'] == $this->GET['php_session_id'];
         $has_code = !empty($this->GET['code']) && verifyHash($order_data['id'], $this->GET['code']);
@@ -63,11 +63,11 @@ class Onxshop_Controller_Component_Ecommerce_Order_Detail extends Onxshop_Contro
              * get address detail
              */
              
-            $_Onxshop_Request = new Onxshop_Request("component/client/address~invoices_address_id={$order_data['invoices_address_id']}:hide_button=1~");
-            $this->tpl->assign("ADDRESS_INVOICES", $_Onxshop_Request->getContent());
+            $_Onyx_Request = new Onyx_Request("component/client/address~invoices_address_id={$order_data['invoices_address_id']}:hide_button=1~");
+            $this->tpl->assign("ADDRESS_INVOICES", $_Onyx_Request->getContent());
             
-            $_Onxshop_Request = new Onxshop_Request("component/client/address~delivery_address_id={$order_data['delivery_address_id']}:hide_button=1~");
-            $this->tpl->assign("ADDRESS_DELIVERY", $_Onxshop_Request->getContent());
+            $_Onyx_Request = new Onyx_Request("component/client/address~delivery_address_id={$order_data['delivery_address_id']}:hide_button=1~");
+            $this->tpl->assign("ADDRESS_DELIVERY", $_Onyx_Request->getContent());
         
             /**
              * basket detail
@@ -83,8 +83,8 @@ class Onxshop_Controller_Component_Ecommerce_Order_Detail extends Onxshop_Contro
                 $this->tpl->assign("BASKET_DETAIL", $invoice_data['basket_detail']);
                 $this->tpl->parse("content.print_invoice");
             } else {
-                $_Onxshop_Request = new Onxshop_Request("component/ecommerce/basket_detail~id={$order_data['basket_id']}:order_id={$order_id}:delivery_address_id={$order_data['delivery_address_id']}:delivery_options[carrier_id]={$order_data['other_data']['delivery_options']['carrier_id']}~");
-                $this->tpl->assign("BASKET_DETAIL", $_Onxshop_Request->getContent());
+                $_Onyx_Request = new Onyx_Request("component/ecommerce/basket_detail~id={$order_data['basket_id']}:order_id={$order_id}:delivery_address_id={$order_data['delivery_address_id']}:delivery_options[carrier_id]={$order_data['other_data']['delivery_options']['carrier_id']}~");
+                $this->tpl->assign("BASKET_DETAIL", $_Onyx_Request->getContent());
             }
         
             //other data

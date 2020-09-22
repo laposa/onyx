@@ -60,5 +60,5 @@ footer.site nav {background: #ccc; margin-bottom: 10px;}
  * customise CMS UI
  */
  
-#content-bottom a.onxshop-duplicate,
-#content-bottom a.onxshop-delete {display: none;}
+#content-bottom a.onyx-duplicate,
+#content-bottom a.onyx-delete {display: none;}

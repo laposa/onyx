@@ -9,7 +9,7 @@
 
 require_once('controllers/component/ecommerce/checkout.php');
 
-class Onxshop_Controller_Component_Ecommerce_Checkout_Basket extends Onxshop_Controller_Component_Ecommerce_Checkout {
+class Onyx_Controller_Component_Ecommerce_Checkout_Basket extends Onyx_Controller_Component_Ecommerce_Checkout {
     
     /**
      * main action
@@ -29,8 +29,8 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Basket extends Onxshop_Con
          * basket
          */
         if (is_numeric($_SESSION['basket']['id']) && $this->customerData()) {
-            $_Onxshop_Request = new Onxshop_Request("component/ecommerce/basket_detail");
-            $this->tpl->assign("BASKET_DETAIL", $_Onxshop_Request->getContent());
+            $_Onyx_Request = new Onyx_Request("component/ecommerce/basket_detail");
+            $this->tpl->assign("BASKET_DETAIL", $_Onyx_Request->getContent());
         }
 
         return true;

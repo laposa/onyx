@@ -7,7 +7,7 @@
  * 
  */
 
-class Onxshop_Controller_Bo_Pages_Ecommerce_Order_Detail extends Onxshop_Controller {
+class Onyx_Controller_Bo_Pages_Ecommerce_Order_Detail extends Onyx_Controller {
     
     /**
      * main action
@@ -53,7 +53,7 @@ class Onxshop_Controller_Bo_Pages_Ecommerce_Order_Detail extends Onxshop_Control
                 if (!$Order->setStatus($order_id, $_POST['order']['status'])) {
                     msg("Cannot update order status (Order ID $order_id)", 'error');
                 }
-                onxshopGoTo("/backoffice/orders/$order_id/detail");
+                onyxGoTo("/backoffice/orders/$order_id/detail");
             }
                 
         }

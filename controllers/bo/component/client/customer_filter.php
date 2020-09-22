@@ -7,7 +7,7 @@
  * 
  */
 
-class Onxshop_Controller_Bo_Component_Client_Customer_Filter extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Client_Customer_Filter extends Onyx_Controller {
 
     /**
      * main action
@@ -101,7 +101,7 @@ class Onxshop_Controller_Bo_Component_Client_Customer_Filter extends Onxshop_Con
          * product list
          */
         
-        if (ONXSHOP_ECOMMERCE) {
+        if (ONYX_ECOMMERCE) {
         
             require_once('models/ecommerce/ecommerce_product.php');
             $Product = new ecommerce_product();

@@ -8,7 +8,7 @@
 require_once('models/client/client_customer.php');
 require_once('models/client/client_role_permission.php');
 
-class Onxshop_Bo_Authentication
+class Onyx_Bo_Authentication
 {
 
     /**
@@ -53,7 +53,7 @@ class Onxshop_Bo_Authentication
     {
 
         // instantiate superuser AuthAdapter as per configuration settings
-        switch (ONXSHOP_AUTH_TYPE)  {
+        switch (ONYX_AUTH_TYPE)  {
 
             case 'imap':
 
@@ -89,11 +89,11 @@ class Onxshop_Bo_Authentication
     /**
      * Static instance accessor
      * 
-     * @return Onxshop_Bo_Authentication Class instance
+     * @return Onyx_Bo_Authentication Class instance
      */
     public static function getInstance()
     {
-        if (self::$instance === false) self::$instance = new Onxshop_Bo_Authentication();
+        if (self::$instance === false) self::$instance = new Onyx_Bo_Authentication();
         return self::$instance;
     }
 
@@ -192,7 +192,7 @@ class Onxshop_Bo_Authentication
      */
     public function isEcommerce()
     {
-        return ONXSHOP_ECOMMERCE;
+        return ONYX_ECOMMERCE;
     }
 
 
@@ -301,8 +301,8 @@ class Onxshop_Bo_Authentication
          * Option 2: show custom dialog window
          */
          
-        $result = new Onxshop_Router('sys/html5.bo_login');
-        echo $result->Onxshop->getContent();
+        $result = new Onyx_Router('sys/html5.bo_login');
+        echo $result->Onyx->getContent();
     
         /**
          * no more script processing
@@ -343,7 +343,7 @@ class IMAPAuthAdapter implements AuthAdapter
 
     public function authenticate($username, $password)
     {
-        $host = "{" . ONXSHOP_AUTH_SERVER . ":143/imap/notls}";
+        $host = "{" . ONYX_AUTH_SERVER . ":143/imap/notls}";
         @$mailbox = imap_open($host, $username, $password, OP_DEBUG);
 
         if ($mailbox) {
@@ -353,7 +353,7 @@ class IMAPAuthAdapter implements AuthAdapter
             return array(
                 'id' => 0,
                 'username' => $username,
-                'email' => $username . '@' . ONXSHOP_AUTH_SERVER
+                'email' => $username . '@' . ONYX_AUTH_SERVER
             );
 
         }
@@ -373,9 +373,9 @@ class PSQLAuthAdapter implements AuthAdapter
     public function authenticate($username, $password)
     {
         $conn_string = sprintf("host=%s port=%d dbname=%s user=%s password=%s", 
-            ONXSHOP_AUTH_SERVER,
-            ONXSHOP_DB_PORT,
-            ONXSHOP_DB_NAME,
+            ONYX_AUTH_SERVER,
+            ONYX_DB_PORT,
+            ONYX_DB_NAME,
             $username,
             $password
         );
@@ -389,7 +389,7 @@ class PSQLAuthAdapter implements AuthAdapter
             return array(
                 'id' => 0,
                 'username' => $username,
-                'email' => $username . '@' . ONXSHOP_AUTH_SERVER
+                'email' => $username . '@' . ONYX_AUTH_SERVER
             );
 
         }
@@ -410,7 +410,7 @@ class MYSQLAuthAdapter implements AuthAdapter
     public function authenticate($username, $password)
     {
 
-        @$dbconn = mysql_connect(ONXSHOP_AUTH_SERVER . ':' . ONXSHOP_DB_PORT, $username, $password);
+        @$dbconn = mysql_connect(ONYX_AUTH_SERVER . ':' . ONYX_DB_PORT, $username, $password);
 
         if ($dbconn) {
 
@@ -419,7 +419,7 @@ class MYSQLAuthAdapter implements AuthAdapter
             return array(
                 'id' => 0,
                 'username' => $username,
-                'email' => $username . '@' . ONXSHOP_AUTH_SERVER
+                'email' => $username . '@' . ONYX_AUTH_SERVER
             );
 
         }
@@ -440,9 +440,9 @@ class FlatAuthAdapter implements AuthAdapter
     public function authenticate($username, $password)
     {
         if (
-            defined('ONXSHOP_EDITOR_USERNAME') && 
-            $username == constant('ONXSHOP_EDITOR_USERNAME') && 
-            $password == constant('ONXSHOP_EDITOR_PASSWORD')
+            defined('ONYX_EDITOR_USERNAME') && 
+            $username == constant('ONYX_EDITOR_USERNAME') && 
+            $password == constant('ONYX_EDITOR_PASSWORD')
         ) {
             
             return array(

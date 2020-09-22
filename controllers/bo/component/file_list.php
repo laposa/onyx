@@ -6,7 +6,7 @@
 
 require_once('controllers/bo/component/file.php');
 
-class Onxshop_Controller_Bo_Component_File_List extends Onxshop_Controller_Bo_Component_File {
+class Onyx_Controller_Bo_Component_File_List extends Onyx_Controller_Bo_Component_File {
 
     /**
      * main action

@@ -5,7 +5,7 @@
  * 
  */
 
-class Onxshop_Controller_Component_Share_Counter extends Onxshop_Controller {
+class Onyx_Controller_Component_Share_Counter extends Onyx_Controller {
 
     /**
      * main action

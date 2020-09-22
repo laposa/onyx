@@ -10,7 +10,7 @@ require_once('models/common/common_node.php');
 require_once('models/ecommerce/ecommerce_recipe.php');
 require_once('models/ecommerce/ecommerce_recipe_taxonomy.php');
 
-class Onxshop_Controller_Node_Page_Recipe extends Onxshop_Controller_Node_Page_Default {
+class Onyx_Controller_Node_Page_Recipe extends Onyx_Controller_Node_Page_Default {
 
     /**
      * main action
@@ -65,8 +65,8 @@ class Onxshop_Controller_Node_Page_Recipe extends Onxshop_Controller_Node_Page_D
         if ($review_data['count'] > 0) {
                 
                 $rating = round($review_data['rating']);
-                $_Onxshop_Request = new Onxshop_Request("component/rating_stars~rating={$rating}~");
-                $this->tpl->assign('RATING_STARS', $_Onxshop_Request->getContent());
+                $_Onyx_Request = new Onyx_Request("component/rating_stars~rating={$rating}~");
+                $this->tpl->assign('RATING_STARS', $_Onyx_Request->getContent());
                 if ($review_data['count'] == 1) $this->tpl->assign('REVIEWS', 'Review');
                 else $this->tpl->assign('REVIEWS', 'Reviews');
                 
@@ -118,8 +118,8 @@ class Onxshop_Controller_Node_Page_Recipe extends Onxshop_Controller_Node_Page_D
             if (!empty($recipe['video_url'])) {
 
                 $video_url = urlencode($recipe['video_url']);
-                $_Onxshop_Request = new Onxshop_Request("component/video~video_url={$video_url}~");
-                $this->tpl->assign('RECIPE_VIDEO', $_Onxshop_Request->getContent());
+                $_Onyx_Request = new Onyx_Request("component/video~video_url={$video_url}~");
+                $this->tpl->assign('RECIPE_VIDEO', $_Onyx_Request->getContent());
 
             }
         }

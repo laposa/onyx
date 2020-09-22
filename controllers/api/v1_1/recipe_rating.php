@@ -7,6 +7,6 @@
 
 require_once('controllers/api/v1_0/recipe_rating.php');
 
-class Onxshop_Controller_Api_v1_1_Recipe_Rating extends Onxshop_Controller_Api_v1_0_Recipe_Rating {
+class Onyx_Controller_Api_v1_1_Recipe_Rating extends Onyx_Controller_Api_v1_0_Recipe_Rating {
 
 }

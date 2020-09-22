@@ -5,7 +5,7 @@
  * 
  */
 
-class Onxshop_Controller_Bo_Component_Logs extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Logs extends Onyx_Controller {
 
     /**
      * main action
@@ -109,8 +109,8 @@ class Onxshop_Controller_Bo_Component_Logs extends Onxshop_Controller {
             else $this->tpl->assign('CUSTOMER', '');
             
             // show messages
-            if (ONXSHOP_DEBUG_OUTPUT_FILE) {
-                $messages_file = ONXSHOP_PROJECT_DIR . "var/log/messages/{$s['ip_address']}-{$s['session_id']}.log";
+            if (ONYX_DEBUG_OUTPUT_FILE) {
+                $messages_file = ONYX_PROJECT_DIR . "var/log/messages/{$s['ip_address']}-{$s['session_id']}.log";
                 if (file_exists($messages_file)) {
                     $s['messages'] = file_get_contents($messages_file);
                 }
@@ -125,8 +125,8 @@ class Onxshop_Controller_Bo_Component_Logs extends Onxshop_Controller {
         //$link = "/backoffice/advanced/logs";
         $link = $_SERVER['REDIRECT_URL'];
         
-        $_Onxshop_Request = new Onxshop_Request("component/pagination~limit_from=$from:limit_per_page=$per_page:count=$count:link=$link:option_show_all=1:option_per_page=1~");
-        $this->tpl->assign('PAGINATION', $_Onxshop_Request->getContent());
+        $_Onyx_Request = new Onyx_Request("component/pagination~limit_from=$from:limit_per_page=$per_page:count=$count:link=$link:option_show_all=1:option_per_page=1~");
+        $this->tpl->assign('PAGINATION', $_Onyx_Request->getContent());
 
         return true;
     }

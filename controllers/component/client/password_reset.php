@@ -5,7 +5,7 @@
  * 
  */
 
-class Onxshop_Controller_Component_Client_Password_Reset extends Onxshop_Controller {
+class Onyx_Controller_Component_Client_Password_Reset extends Onyx_Controller {
     
     /**
      * main action
@@ -140,7 +140,7 @@ class Onxshop_Controller_Component_Client_Password_Reset extends Onxshop_Control
                                  
                                 if ($this->GET['backoffice'] == 1) {
                                     
-                                    onxshopGoTo("/edit");
+                                    onyxGoTo("/edit");
                                 
                                 } else {
                                     
@@ -149,9 +149,9 @@ class Onxshop_Controller_Component_Client_Password_Reset extends Onxshop_Control
                                         if ($_SESSION['to']) {
                                             $to = $_SESSION['to'];
                                             $_SESSION['to'] = false;
-                                            onxshopGoTo($to);
+                                            onyxGoTo($to);
                                         } else {
-                                            onxshopGoTo("page/" . $node_conf['id_map-myaccount']);
+                                            onyxGoTo("page/" . $node_conf['id_map-myaccount']);
                                         }
                                     }
                                     

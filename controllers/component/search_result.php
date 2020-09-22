@@ -6,7 +6,7 @@
  *
  */
 
-class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
+class Onyx_Controller_Component_Search_Result extends Onyx_Controller {
 
     /**
      * main action
@@ -27,7 +27,7 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
 
             if ($count > 2) {
             
-                $index_location = ONXSHOP_PROJECT_DIR . 'var/index';
+                $index_location = ONYX_PROJECT_DIR . 'var/index';
                 
                 try {
                     $index = Zend_Search_Lucene::open($index_location);
@@ -143,9 +143,9 @@ class Onxshop_Controller_Component_Search_Result extends Onxshop_Controller {
     {
         $page['type_priority'] = 0;
 
-        if (ONXSHOP_ECOMMERCE && (substr($page['node_controller'], 0, 6) == 'recipe')) $this->getRecipeDetails($page);
-        if (ONXSHOP_ECOMMERCE && (substr($page['node_controller'], 0, 7) == 'product')) $this->getProductDetails($page);
-        if (ONXSHOP_ECOMMERCE && (substr($page['node_controller'], 0, 5) == 'store')) $this->getStoreDetails($page);
+        if (ONYX_ECOMMERCE && (substr($page['node_controller'], 0, 6) == 'recipe')) $this->getRecipeDetails($page);
+        if (ONYX_ECOMMERCE && (substr($page['node_controller'], 0, 7) == 'product')) $this->getProductDetails($page);
+        if (ONYX_ECOMMERCE && (substr($page['node_controller'], 0, 5) == 'store')) $this->getStoreDetails($page);
         
         $page['image'] = $this->Node->getTeaserImageForNodeId($page['id']);
         

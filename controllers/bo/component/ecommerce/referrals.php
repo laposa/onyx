@@ -9,7 +9,7 @@ require_once('controllers/bo/component/ecommerce/promotion_list.php');
 require_once "models/ecommerce/ecommerce_promotion.php";
 require_once "models/client/client_customer.php";
 
-class Onxshop_Controller_Bo_Component_Ecommerce_Referrals extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Ecommerce_Referrals extends Onyx_Controller {
 
     /**
      * Model instance

@@ -6,7 +6,7 @@
 
 require_once('controllers/bo/export/csv.php');
 
-class Onxshop_Controller_Bo_Export_CSV_Database extends Onxshop_Controller_Bo_Export_CSV {
+class Onyx_Controller_Bo_Export_CSV_Database extends Onyx_Controller_Bo_Export_CSV {
 
     /**
      * main action
@@ -16,7 +16,7 @@ class Onxshop_Controller_Bo_Export_CSV_Database extends Onxshop_Controller_Bo_Ex
     
         set_time_limit(0);
     
-        if (file_exists(ONXSHOP_DIR . "models/{$this->GET['model']}.php")) $table = $this->GET['model'];
+        if (file_exists(ONYX_DIR . "models/{$this->GET['model']}.php")) $table = $this->GET['model'];
         else $table = '';
         
         
@@ -28,7 +28,7 @@ class Onxshop_Controller_Bo_Export_CSV_Database extends Onxshop_Controller_Bo_Ex
             $path = "models/$model_file";
             //$real_path = realpath($path);
         
-            if (!is_dir(ONXSHOP_DIR . "$path.php")) {
+            if (!is_dir(ONYX_DIR . "$path.php")) {
         
                 require_once("$path.php");
             

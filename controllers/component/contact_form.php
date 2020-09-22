@@ -4,7 +4,7 @@
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
-class Onxshop_Controller_Component_Contact_Form extends Onxshop_Controller {
+class Onyx_Controller_Component_Contact_Form extends Onyx_Controller {
     
     /**
      * main action
@@ -57,7 +57,7 @@ class Onxshop_Controller_Component_Contact_Form extends Onxshop_Controller {
         
         $this->tpl->assign('MAX_FILE_SIZE', ini_get('upload_max_filesize'));
     
-        if (ONXSHOP_ECOMMERCE) $this->parseStoreSelect($formdata['form']['store_id'], 'content');
+        if (ONYX_ECOMMERCE) $this->parseStoreSelect($formdata['form']['store_id'], 'content');
     
         /**
          * pre-populate with customer data if available
@@ -173,7 +173,7 @@ class Onxshop_Controller_Component_Contact_Form extends Onxshop_Controller {
         require_once('models/ecommerce/ecommerce_store.php');
         $Store = new ecommerce_store();
         
-        $provinces = $this->getTaxonomyBranch($GLOBALS['onxshop_conf']['global']['province_taxonomy_tree_id']);
+        $provinces = $this->getTaxonomyBranch($GLOBALS['onyx_conf']['global']['province_taxonomy_tree_id']);
 
         $total_store_count = 0;
         

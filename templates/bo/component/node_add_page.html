@@ -11,7 +11,7 @@ $(function() {
     var options = { 
         target: '#node-add-form-{GET.parent}-{GET.container}-wrapper',
         success: function(responseText, statusText) {
-            popupMessage("#node-add-form-{GET.parent}-{GET.container}-wrapper div.onxshop-messages");
+            popupMessage("#node-add-form-{GET.parent}-{GET.container}-wrapper div.onyx-messages");
             var refresh_url = '/request/component/menu~id={GET.parent}~';
             $('#menu-parent-id-{GET.parent}').load(refresh_url, '', function () {
             } );    
@@ -34,7 +34,7 @@ $(function() {
                 </div>
                 {NODE_TYPE}
                 <div class="row submit">
-                    <span class="label"><label id="layout_icon" class="onxshop_edit_{ACTIVE}">&nbsp;</label></span>
+                    <span class="label"><label id="layout_icon" class="onyx_edit_{ACTIVE}">&nbsp;</label></span>
                     <span class="field"><button type="submit" name="save" value="save"><span>Submit</span></button></span>
                 </div>
             </fieldset>

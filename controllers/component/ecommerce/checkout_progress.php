@@ -9,7 +9,7 @@
 
 require_once('controllers/component/ecommerce/checkout.php');
 
-class Onxshop_Controller_Component_Ecommerce_Checkout_Progress extends Onxshop_Controller_Component_Ecommerce_Checkout {
+class Onyx_Controller_Component_Ecommerce_Checkout_Progress extends Onyx_Controller_Component_Ecommerce_Checkout {
 
     /**
      * main action

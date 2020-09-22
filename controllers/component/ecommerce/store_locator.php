@@ -11,7 +11,7 @@ require_once('models/common/common_node_taxonomy.php');
 require_once('models/common/common_uri_mapping.php');
 require_once('models/client/client_customer.php');
 
-class Onxshop_Controller_Component_Ecommerce_Store_Locator extends Onxshop_Controller {
+class Onyx_Controller_Component_Ecommerce_Store_Locator extends Onyx_Controller {
 
     /**
      * main action
@@ -82,7 +82,7 @@ class Onxshop_Controller_Component_Ecommerce_Store_Locator extends Onxshop_Contr
                             . '&heading=' . ((int) $store['street_view_options']['heading'])
                             . '&pitch=' . ((int) $store['street_view_options']['pitch'])
                             . '&sensor=false'
-                            . '&key=' . ONXSHOP_GOOGLE_API_KEY;
+                            . '&key=' . ONYX_GOOGLE_API_KEY;
                         break;
                     case 2:
                         $store['image'] = "/thumbnail/130x130/" . $this->getStoreImage($store['id']) . '?fill=1';

@@ -10,7 +10,7 @@ require_once('models/common/common_node.php');
 require_once('models/common/common_image.php');
 require_once('models/common/common_node_taxonomy.php');
 
-class Onxshop_Controller_Bo_Component_Node_Duplicate extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Node_Duplicate extends Onyx_Controller {
 
     /**
      * main action
@@ -31,8 +31,8 @@ class Onxshop_Controller_Bo_Component_Node_Duplicate extends Onxshop_Controller 
         if ($new_node_id) {
             msg("Content successfully duplicated.");
 
-            $_Onxshop_Request = new Onxshop_Request("node~id=$new_node_id~");
-            $this->tpl->assign('NODE_DETAIL', $_Onxshop_Request->getContent());
+            $_Onyx_Request = new Onyx_Request("node~id=$new_node_id~");
+            $this->tpl->assign('NODE_DETAIL', $_Onyx_Request->getContent());
         }
 
         return $new_node_id > 0;
@@ -52,7 +52,7 @@ class Onxshop_Controller_Bo_Component_Node_Duplicate extends Onxshop_Controller 
         $new_node_data = $original_node_data;
         $new_node_data['title'] = "{$new_node_data['title']} (copy)";
         $new_node_data['created'] = $new_node_data['modified'] = date('c');
-        $new_node_data['customer_id'] = (int) Onxshop_Bo_Authentication::getInstance()->getUserId();
+        $new_node_data['customer_id'] = (int) Onyx_Bo_Authentication::getInstance()->getUserId();
         if ($new_node_data['uri_title'] != '') $new_node_data['uri_title'] = "{$new_node_data['uri_title']}-copy";
         if ($new_parent_id > 0) $new_node_data['parent'] = $new_parent_id;
         else {
@@ -77,7 +77,7 @@ class Onxshop_Controller_Bo_Component_Node_Duplicate extends Onxshop_Controller 
                 $new_image = $image;
                 $new_image['node_id'] = $new_node_id;
                 $new_image['modified'] = date('c');
-                $new_image['customer_id'] = (int) Onxshop_Bo_Authentication::getInstance()->getUserId();
+                $new_image['customer_id'] = (int) Onyx_Bo_Authentication::getInstance()->getUserId();
                 unset($new_image['id']);
                 $image_id = $this->Image->insert($new_image);
             }

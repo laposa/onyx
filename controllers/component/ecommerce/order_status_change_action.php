@@ -7,7 +7,7 @@
 
 require_once('controllers/component/ecommerce/order_status_change.php');
 
-class Onxshop_Controller_Component_Ecommerce_Order_Status_Change_Action extends Onxshop_Controller_Component_Ecommerce_Order_Status_Change {
+class Onyx_Controller_Component_Ecommerce_Order_Status_Change_Action extends Onyx_Controller_Component_Ecommerce_Order_Status_Change {
     
     /**
      * customStatusChangeAction
@@ -22,7 +22,7 @@ class Onxshop_Controller_Component_Ecommerce_Order_Status_Change_Action extends 
          */
         /*
         if ($status == 1) {
-            $_Onxshop_Request = new Onxshop_Request("component/ecommerce/your_warehouse_integration_controller~order_id={$order_id}~");
+            $_Onyx_Request = new Onyx_Request("component/ecommerce/your_warehouse_integration_controller~order_id={$order_id}~");
         }*/
         
         return true;

@@ -7,7 +7,7 @@
  *
  */
  
-class ecommerce_delivery_carrier extends Onxshop_Model {
+class ecommerce_delivery_carrier extends Onyx_Model {
 
     /**
      * @access private
@@ -93,7 +93,7 @@ class ecommerce_delivery_carrier extends Onxshop_Model {
      
     static function initConfiguration() {
     
-        if (array_key_exists('ecommerce_delivery_carrier', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['ecommerce_delivery_carrier'];
+        if (array_key_exists('ecommerce_delivery_carrier', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['ecommerce_delivery_carrier'];
         else $conf = array();
     
         if (!is_numeric($conf['default_carrier_id'])) $conf['default_carrier_id'] = 1; //Standard - fixed value

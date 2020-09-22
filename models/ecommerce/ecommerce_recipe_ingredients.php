@@ -8,7 +8,7 @@
  *
  */
  
-class ecommerce_recipe_ingredients extends Onxshop_Model {
+class ecommerce_recipe_ingredients extends Onyx_Model {
 
     /**
      * @access private
@@ -77,7 +77,7 @@ CREATE TABLE ecommerce_recipe_ingredients (
      
     static function initConfiguration() {
 
-        if (array_key_exists('ecommerce_recipe_ingredients', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['ecommerce_recipe_ingredients'];
+        if (array_key_exists('ecommerce_recipe_ingredients', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['ecommerce_recipe_ingredients'];
         else $conf = array();
 
         if (!is_numeric($conf['units_taxonomy_tree_id'])) $conf['units_taxonomy_tree_id'] = 74;

@@ -8,7 +8,7 @@
  
 require_once('models/common/common_node_taxonomy.php');
 
-class client_action extends Onxshop_Model {
+class client_action extends Onyx_Model {
 
     /**
      * @private
@@ -104,7 +104,7 @@ class client_action extends Onxshop_Model {
      */
      
     static function initConfiguration() {
-        if (array_key_exists('client_action', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['client_action'];
+        if (array_key_exists('client_action', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['client_action'];
         else $conf = array();
         
         return $conf;
@@ -192,9 +192,9 @@ class client_action extends Onxshop_Model {
      */
     static function hasOpenGraphStory($action, $object)
     {
-        if (defined('ONXSHOP_FACEBOOK_APP_OG_STORIES')) {
+        if (defined('ONYX_FACEBOOK_APP_OG_STORIES')) {
 
-            $stories = explode(',', ONXSHOP_FACEBOOK_APP_OG_STORIES);
+            $stories = explode(',', ONYX_FACEBOOK_APP_OG_STORIES);
             $action = strtolower(trim($action));
             $object = strtolower(trim($object));
     

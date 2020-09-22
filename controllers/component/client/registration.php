@@ -7,7 +7,7 @@
  *
  */
 
-class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controller {
+class Onyx_Controller_Component_Client_Registration extends Onyx_Controller {
 
     /**
      * main action
@@ -138,7 +138,7 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
                 }
                 
                 // auto login (TODO allow to enable/disable this behaviour)
-                $this->Customer->generateAndSaveOnxshopToken($id);
+                $this->Customer->generateAndSaveOnyxToken($id);
                 
                 /**
                  * forward
@@ -202,14 +202,14 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
             if ($this->GET['to'] == 'ajax') {
                 return true;
             } else {
-                onxshopGoTo($this->GET['to']);
+                onyxGoTo($this->GET['to']);
             }
         } else if ($_SESSION['to']) {
             $to = $_SESSION['to'];
             $_SESSION['to'] = false;
-            onxshopGoTo($to);
+            onyxGoTo($to);
         } else {
-            onxshopGoTo("page/" . $node_conf['id_map-myaccount']);
+            onyxGoTo("page/" . $node_conf['id_map-myaccount']);
         }
             
     }
@@ -264,7 +264,7 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
          * check if we have some old information for this email address
          */
          
-        if (is_array($_POST['client']['customer']) && ONXSHOP_CUSTOMER_ALLOW_ACCOUNT_MERGE) {
+        if (is_array($_POST['client']['customer']) && ONYX_CUSTOMER_ALLOW_ACCOUNT_MERGE) {
             if ($current_customer_data = $this->Customer->getClientByEmail($_POST['client']['customer']['email'])) {
                 
                 $_POST['client']['customer'] = array_merge($current_customer_data, $_POST['client']['customer']);

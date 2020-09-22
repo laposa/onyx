@@ -1,4 +1,4 @@
-# Global /robots.txt file Onxshop
+# Global /robots.txt file Onyx
 
 Sitemap: /sitemap.xml
 

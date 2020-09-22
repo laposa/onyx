@@ -53,7 +53,7 @@
         <span class="field"><input type="text" class="text required" name="product[variety][sku]" id="product-variety-sku" value="{PRODUCT.variety.sku}"/></span>
     </div>
     <div class="row">
-        {ONXSHOP_REQUEST_producttype #bo/component/ecommerce/product_type_select}
+        {ONYX_REQUEST_producttype #bo/component/ecommerce/product_type_select}
     </div>
 
     <div class="row">
@@ -128,5 +128,5 @@
 <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
 
-{ONXSHOP_REQUEST_tinymce #bo/tinymce~theme=simple:relation=product_variety:edit_elements=product-variety-description~}
+{ONYX_REQUEST_tinymce #bo/tinymce~theme=simple:relation=product_variety:edit_elements=product-variety-description~}
 <!-- END: content -->

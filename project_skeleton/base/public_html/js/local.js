@@ -15,10 +15,10 @@ function revealPrimaryNavigation() {
 $(function() {
     
     /**
-     * show standard Onxshop messages in a popup
+     * show standard Onyx messages in a popup
      */
      
-    popupMessage("div.onxshop-messages");
+    popupMessage("div.onyx-messages");
     
     /**
      * remove white spaces between selected items to allow precise sizing with inline-block elements

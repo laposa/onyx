@@ -7,7 +7,7 @@
 require_once('controllers/node/content/default.php');
 require_once('models/common/common_node.php');
 
-class Onxshop_Controller_Node_Content_Page_List extends Onxshop_Controller_Node_Content_Default {
+class Onyx_Controller_Node_Content_Page_List extends Onyx_Controller_Node_Content_Default {
 
     /**
      * main action
@@ -34,8 +34,8 @@ class Onxshop_Controller_Node_Content_Page_List extends Onxshop_Controller_Node_
         $template = $node_data['component']['template'];
         $link_text = $node_data['component']['link_text'];
         
-        $_Onxshop_Request = new Onxshop_Request("component/page_list_$template~node_ids={$node_ids}:link_text=$link_text:image_width={$image_o['width']}:image_height={$image_o['height']}:image_fill={$image_o['fill']}~");
-        $content = $_Onxshop_Request->getContent();
+        $_Onyx_Request = new Onyx_Request("component/page_list_$template~node_ids={$node_ids}:link_text=$link_text:image_width={$image_o['width']}:image_height={$image_o['height']}:image_fill={$image_o['fill']}~");
+        $content = $_Onyx_Request->getContent();
 
         /**
          * assign to template

@@ -7,7 +7,7 @@
  *
  */
  
-class international_country extends Onxshop_Model {
+class international_country extends Onyx_Model {
 
     /**
      * @access private
@@ -64,7 +64,7 @@ CREATE TABLE international_country (
      */
      
     static function initConfiguration() {
-        if (array_key_exists('international_country', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['international_country'];
+        if (array_key_exists('international_country', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['international_country'];
         else $conf = array();
 
         // define default country

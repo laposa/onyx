@@ -5,7 +5,7 @@
  * 
  */
 
-class Onxshop_Controller_Bo_Component_Ecommerce_Price_List_Ajax extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Ecommerce_Price_List_Ajax extends Onyx_Controller {
     
     /**
      * main action

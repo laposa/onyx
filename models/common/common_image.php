@@ -69,7 +69,7 @@ CREATE TABLE common_image (
      
     static function initImageDefaultConfiguration() {
     
-        if (array_key_exists('common_image', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['common_image'];
+        if (array_key_exists('common_image', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['common_image'];
         else $conf = array();
         
         
@@ -79,11 +79,11 @@ CREATE TABLE common_image (
          * This settings doesn't have any effect in share/image_thumbnail.php
          * due to missing database connection for better performance.
          *
-         * See https://github.com/laposa/onxshop/issues/8
+         * See https://github.com/laposa/onyx/issues/8
          * 
-         * You can create local overwrite in ONXSHOP_PROJECT_DIR . 'conf/common_image.php':
+         * You can create local overwrite in ONYX_PROJECT_DIR . 'conf/common_image.php':
          *
-         *  $GLOBALS['onxshop_conf']['common_image'] = array(
+         *  $GLOBALS['onyx_conf']['common_image'] = array(
          *      'width_max' => 1600,
          *      'thumbnail_width_max' => 1600
          *  );
@@ -117,10 +117,10 @@ CREATE TABLE common_image (
     static function resize($file, $required_width, $required_height = false, $method = 'extent', $gravity = 'center', $fill = false){
     
         //first check file exists and is readable
-        if (!is_readable(ONXSHOP_PROJECT_DIR . $file)) return false;
+        if (!is_readable(ONYX_PROJECT_DIR . $file)) return false;
         
         $thumbnails_directory =  "var/thumbnails/";
-        $thumbnails_directory_rp = ONXSHOP_PROJECT_DIR . $thumbnails_directory;
+        $thumbnails_directory_rp = ONYX_PROJECT_DIR . $thumbnails_directory;
         
         //prepare variables
         if (is_numeric($required_height)) {
@@ -131,13 +131,13 @@ CREATE TABLE common_image (
             $thumb_file = "{$thumbnails_directory}$required_width/" . md5($file);
         }
         
-        $file_rp = ONXSHOP_PROJECT_DIR . $file;
+        $file_rp = ONYX_PROJECT_DIR . $file;
         
         $image_resize_options = "_{$method}_{$gravity}_{$fill}"; // TODO check valid options
         if ($image_resize_options == "___") $image_resize_options = "";
         if ($image_resize_options) $thumb_file = $thumb_file . $image_resize_options;
         
-        $thumb_file_rp = ONXSHOP_PROJECT_DIR . $thumb_file;
+        $thumb_file_rp = ONYX_PROJECT_DIR . $thumb_file;
         
         //check if the destination directory exists
         if (!is_readable($directory)) {

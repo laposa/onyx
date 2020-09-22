@@ -5,7 +5,7 @@
  * 
  */
 
-class Onxshop_Controller_Bo_Export_CSV extends Onxshop_Controller {
+class Onyx_Controller_Bo_Export_CSV extends Onyx_Controller {
 
     /**
      * main action

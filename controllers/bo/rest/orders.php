@@ -42,7 +42,7 @@ class serviceClass {
 }
 
 
-class Onxshop_Controller_Bo_REST_Orders extends Onxshop_Controller {
+class Onyx_Controller_Bo_REST_Orders extends Onyx_Controller {
 
     public function mainAction() {
         /**

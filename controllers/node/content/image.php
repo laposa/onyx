@@ -8,7 +8,7 @@
 
 require_once('controllers/node/content/default.php');
 
-class Onxshop_Controller_Node_Content_Image extends Onxshop_Controller_Node_Content_Default {
+class Onyx_Controller_Node_Content_Image extends Onyx_Controller_Node_Content_Default {
 
     /**
      * main action

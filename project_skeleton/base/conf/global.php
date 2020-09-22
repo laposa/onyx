@@ -6,7 +6,7 @@
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  * This is configuration shared between development and production environment
- * For all options and default values look into onxshop_dir/conf/global.php
+ * For all options and default values look into onyx_dir/conf/global.php
  *
  */
 
@@ -33,7 +33,7 @@ if (file_exists(__DIR__ . "/../.env")) {
  * 5 - Full debugging
  *
  * to enable direct debugging use:
- * define('ONXSHOP_DEBUG_DIRECT', true);
+ * define('ONYX_DEBUG_DIRECT', true);
  * 
  */
 
@@ -46,25 +46,25 @@ $debug_hosts = array(
  * Directory paths
  */
 
-define('ONXSHOP_DIR', realpath(dirname(__FILE__) . '/../onyx/') . '/');
-define('ONXSHOP_PROJECT_DIR', realpath(dirname(__FILE__) . '/../') . '/');
+define('ONYX_DIR', realpath(dirname(__FILE__) . '/../onyx/') . '/');
+define('ONYX_PROJECT_DIR', realpath(dirname(__FILE__) . '/../') . '/');
 
 /**
  * Database connection
  */
 
-define('ONXSHOP_DB_TYPE', 'pgsql');
-define('ONXSHOP_DB_USER', getenv('ONYX_DB_USER'));
-define('ONXSHOP_DB_PASSWORD', getenv('ONYX_DB_PASSWORD'));
-define('ONXSHOP_DB_HOST', getenv('ONYX_DB_HOST'));
-define('ONXSHOP_DB_PORT', 5432);
-define('ONXSHOP_DB_NAME', getenv('ONYX_DB_NAME'));
+define('ONYX_DB_TYPE', 'pgsql');
+define('ONYX_DB_USER', getenv('ONYX_DB_USER'));
+define('ONYX_DB_PASSWORD', getenv('ONYX_DB_PASSWORD'));
+define('ONYX_DB_HOST', getenv('ONYX_DB_HOST'));
+define('ONYX_DB_PORT', 5432);
+define('ONYX_DB_NAME', getenv('ONYX_DB_NAME'));
 
 /**
  * Salt used for encryption/hashing
  */
 
-define('ONXSHOP_ENCRYPTION_SALT', '');
+define('ONYX_ENCRYPTION_SALT', '');
 
 /**
  * enable ecommerce
@@ -73,11 +73,11 @@ define('ONXSHOP_ENCRYPTION_SALT', '');
  * i.e. orders, invoices and also recipes, stores
  */
  
-define('ONXSHOP_ECOMMERCE', false);
+define('ONYX_ECOMMERCE', false);
 
 /**
  * Include default global configuration
  */
 
-require_once(ONXSHOP_DIR . "conf/global.php");
+require_once(ONYX_DIR . "conf/global.php");
 

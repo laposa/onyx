@@ -7,7 +7,7 @@
 
 require_once('models/ecommerce/ecommerce_promotion_type.php');
 
-class Onxshop_Controller_Bo_Component_Ecommerce_Promotion_Filter extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Ecommerce_Promotion_Filter extends Onyx_Controller {
 
     /**
      * main action
@@ -20,7 +20,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Promotion_Filter extends Onxshop
          */
         if (isset($_POST['voucher-filter'])) {
             $_SESSION['bo']['voucher-filter'] = $_POST['voucher-filter'];
-            onxshopGoTo('/backoffice/marketing');
+            onyxGoTo('/backoffice/marketing');
         } else {
             if (!isset($_SESSION['bo']['voucher-filter']['type'])) $_SESSION['bo']['voucher-filter']['type'] = 1;
         }

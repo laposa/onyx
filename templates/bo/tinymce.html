@@ -21,7 +21,7 @@ function tinyMCEinit() {
         inline_styles : true,
         fix_list_elements : true,
         fix_table_elements : true,
-        cleanup_callback : "onxshopCustomCleanup",
+        cleanup_callback : "onyxCustomCleanup",
         relative_urls : false,
         remove_script_host : true,
         document_base_url : "{BASE_URI}/",
@@ -35,7 +35,7 @@ function tinyMCEinit() {
         image_advtab: true,
         advlink_styles: "button=button;viewMore=viewMore",/*for Insert/edit links*/
         file_picker_callback: function(callback, value, meta) {
-            onxshopFileBrowserCallBack_{GET.relation}_{GET.id}(callback, value, meta);
+            onyxFileBrowserCallBack_{GET.relation}_{GET.id}(callback, value, meta);
         },
         paste_auto_cleanup_on_paste : true,
         paste_strip_class_attributes : "all",
@@ -45,7 +45,7 @@ function tinyMCEinit() {
 }
 
 
-function onxshopFileBrowserCallBack_{GET.relation}_{GET.id}(callback, value, meta) {
+function onyxFileBrowserCallBack_{GET.relation}_{GET.id}(callback, value, meta) {
 
     // Provide file and text for the link dialog
     if (meta.filetype == 'file') {
@@ -53,7 +53,7 @@ function onxshopFileBrowserCallBack_{GET.relation}_{GET.id}(callback, value, met
         var url = '/popup_window/bo/component/node_menu_tinymce~id=0:open={GET.id}:expand_all=1:publish=0:node_group=page_and_product~';
         
         tinymce.activeEditor.windowManager.open({
-            title: 'Onxshop File Browser',
+            title: 'Onyx File Browser',
             url: url,
             width: 720,
             height: 500,
@@ -71,7 +71,7 @@ function onxshopFileBrowserCallBack_{GET.relation}_{GET.id}(callback, value, met
         var url = '/popup/files/{GET.relation}/{GET.id}?type=RTE&role=RTE';
         
         tinymce.activeEditor.windowManager.open({
-            title: 'Onxshop File Browser',
+            title: 'Onyx File Browser',
             url: url,
             width: 720,
             height: 500,
@@ -87,7 +87,7 @@ function onxshopFileBrowserCallBack_{GET.relation}_{GET.id}(callback, value, met
     
 }
 
-function onxshopCustomCleanup(type, value) {
+function onyxCustomCleanup(type, value) {
     switch (type) {
         case "get_from_editor":
             //alert("get_from_editor, Value HTML string: " + value);
@@ -132,7 +132,7 @@ $('form').bind('form-pre-serialize', function(e) {
     /**
      * Saves all contents 
      */
-    tinyMCEFullscreenOnxshopFix();
+    tinyMCEFullscreenOnyxFix();
     
     tinyMCE.triggerSave();
     
@@ -143,14 +143,14 @@ $('form').bind('form-pre-serialize', function(e) {
  */
  
 $('button.save').on('click', function() {
-    tinyMCEFullscreenOnxshopFix();
+    tinyMCEFullscreenOnyxFix();
 });
 
 /**
  * allow direct saving in fullscreen mode
  */
  
-function tinyMCEFullscreenOnxshopFix() {
+function tinyMCEFullscreenOnyxFix() {
     
     if (tinyMCE.activeEditor.getParam('fullscreen_is_enabled')) {
         

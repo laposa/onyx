@@ -4,7 +4,7 @@
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
-class Onxshop_Controller_Component_Google_Analytics extends Onxshop_Controller {
+class Onyx_Controller_Component_Google_Analytics extends Onyx_Controller {
     
     /**
      * main action
@@ -12,9 +12,9 @@ class Onxshop_Controller_Component_Google_Analytics extends Onxshop_Controller {
      
     public function mainAction() {
         
-        if (trim($GLOBALS['onxshop_conf']['global']['google_analytics']) != '') {
+        if (trim($GLOBALS['onyx_conf']['global']['google_analytics']) != '') {
 
-            if (defined('ONXSHOP_ENABLE_AB_TESTING') && ONXSHOP_ENABLE_AB_TESTING == true) {
+            if (defined('ONYX_ENABLE_AB_TESTING') && ONYX_ENABLE_AB_TESTING == true) {
                 $this->tpl->assign('TEST_GROUP', $_SESSION['ab_test_group'] == 0 ? 'A': 'B');
                 $this->tpl->parse('content.googleanalytics.abtesting');
             }

@@ -19,7 +19,7 @@ require_once 'models/client/client_customer.php';
  *  fetch_stream - fetch actions directly from facebook stream instead of local client_action database
  *  
  */
-class Onxshop_Controller_Component_Client_Facebook_Pile extends Onxshop_Controller_Component_Client_Facebook {
+class Onyx_Controller_Component_Client_Facebook_Pile extends Onyx_Controller_Component_Client_Facebook {
 
     protected $num_displayed_items = 3;
     protected $action_filter = null;
@@ -216,7 +216,7 @@ class Onxshop_Controller_Component_Client_Facebook_Pile extends Onxshop_Controll
                 FROM stream_filter 
                 WHERE uid = me()
             ) AND actor_id IN ($friends)
-            AND app_id = " . ONXSHOP_FACEBOOK_APP_ID . " LIMIT 3";
+            AND app_id = " . ONYX_FACEBOOK_APP_ID . " LIMIT 3";
     
         $response = $this->makeApiCallCached(array(
                 'method' => 'fql.query',

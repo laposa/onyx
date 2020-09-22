@@ -45,26 +45,26 @@ require_once("$dir/../conf/global.php");
  * Set include paths
  */
  
-set_include_path(ONXSHOP_PROJECT_DIR . PATH_SEPARATOR . ONXSHOP_DIR . PATH_SEPARATOR . ONXSHOP_DIR . 'lib/' . PATH_SEPARATOR . get_include_path());
+set_include_path(ONYX_PROJECT_DIR . PATH_SEPARATOR . ONYX_DIR . PATH_SEPARATOR . ONYX_DIR . 'lib/' . PATH_SEPARATOR . get_include_path());
 
-require_once('lib/onxshop.functions.php');
+require_once('lib/onyx.functions.php');
 require_once('model.php');
 
 /**
- * onxshop_conf local overwrite due to missing database connection
- * See https://github.com/laposa/onxshop/issues/8
+ * onyx_conf local overwrite due to missing database connection
+ * See https://github.com/laposa/onyx/issues/8
  */
 
-$GLOBALS['onxshop_conf'] = array();
+$GLOBALS['onyx_conf'] = array();
  
-$local_configuration_overwrite_file = ONXSHOP_PROJECT_DIR . 'conf/common_image.php';
+$local_configuration_overwrite_file = ONYX_PROJECT_DIR . 'conf/common_image.php';
 if (file_exists($local_configuration_overwrite_file)) include_once($local_configuration_overwrite_file);
 
 /**
  * get common_image configuration
  */
  
-require_once(ONXSHOP_DIR . "models/common/common_image.php");
+require_once(ONYX_DIR . "models/common/common_image.php");
 $image_configuration = common_image::initConfiguration();
     
 /**
@@ -80,7 +80,7 @@ if ($width > $image_configuration['width_max']) {
     if ($width < $image_configuration['thumbnail_width_min']) $image_file = null;
     if ($width > $image_configuration['thumbnail_width_max']) $image_file = null;
     if ($width%$image_configuration['thumbnail_step'] > 0) $image_file = null;
-    if (!is_readable(ONXSHOP_PROJECT_DIR . $image_file)) $image_file = null;
+    if (!is_readable(ONYX_PROJECT_DIR . $image_file)) $image_file = null;
 
     if ($image_file) {
 
@@ -88,7 +88,7 @@ if ($width > $image_configuration['width_max']) {
          * get content type
          */
         
-        $mime_type = mime_content_type(ONXSHOP_PROJECT_DIR . $image_file);
+        $mime_type = mime_content_type(ONYX_PROJECT_DIR . $image_file);
         $mime_type = trim($mime_type);
         
         /**

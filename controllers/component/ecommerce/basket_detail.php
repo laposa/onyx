@@ -9,7 +9,7 @@ require_once('models/ecommerce/ecommerce_delivery.php');
 require_once('models/ecommerce/ecommerce_order.php');
 require_once('models/ecommerce/ecommerce_promotion.php');
 
-class Onxshop_Controller_Component_Ecommerce_Basket_Detail extends Onxshop_Controller_Component_Ecommerce_Basket {
+class Onyx_Controller_Component_Ecommerce_Basket_Detail extends Onyx_Controller_Component_Ecommerce_Basket {
 
     /**
      * main action
@@ -18,7 +18,7 @@ class Onxshop_Controller_Component_Ecommerce_Basket_Detail extends Onxshop_Contr
     public function mainAction() {
 
         // show only in default currency
-        setlocale(LC_MONETARY, $GLOBALS['onxshop_conf']['global']['locale']);
+        setlocale(LC_MONETARY, $GLOBALS['onyx_conf']['global']['locale']);
 
         $this->initModels();
 
@@ -144,7 +144,7 @@ class Onxshop_Controller_Component_Ecommerce_Basket_Detail extends Onxshop_Contr
 
         msg("Sorry, selected delivery method cannot be used. Please choose a different one.");
         // forward only if there is a separate checkout delivery options page
-        if ($node_conf['id_map-checkout_delivery_options'] != $_SESSION['active_pages'][0]) onxshopGoTo("page/{$node_conf['id_map-checkout_delivery_options']}");
+        if ($node_conf['id_map-checkout_delivery_options'] != $_SESSION['active_pages'][0]) onyxGoTo("page/{$node_conf['id_map-checkout_delivery_options']}");
     }
 
     /**

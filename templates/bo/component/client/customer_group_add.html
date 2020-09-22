@@ -8,8 +8,8 @@ $(document).ready(function(){
             target: '#customer-list div.page-content',
             beforeSubmit: function() { return $("#customer-group-form").valid() },
             success: function(responseText, statusText) {
-                popupMessage("#customer-list div.onxshop-messages");
-                makeAjaxRequest('#onxshop-backoffice-wrapper', '/request/bo/pages/client/customers', function () {
+                popupMessage("#customer-list div.onyx-messages");
+                makeAjaxRequest('#onyx-backoffice-wrapper', '/request/bo/pages/client/customers', function () {
                     //initAjaxPagination();
                 });
             }

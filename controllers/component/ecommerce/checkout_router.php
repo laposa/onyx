@@ -7,7 +7,7 @@
 
 require_once('controllers/component/ecommerce/checkout.php');
 
-class Onxshop_Controller_Component_Ecommerce_Checkout_Router extends Onxshop_Controller_Component_Ecommerce_Checkout {
+class Onyx_Controller_Component_Ecommerce_Checkout_Router extends Onyx_Controller_Component_Ecommerce_Checkout {
 
     /**
      * main action
@@ -19,9 +19,9 @@ class Onxshop_Controller_Component_Ecommerce_Checkout_Router extends Onxshop_Con
         $node_conf = common_node::initConfiguration();
         
         if ($_SESSION['client']['customer']['id'] > 0) {
-            onxshopGoTo("page/{$node_conf['id_map-checkout_delivery_options']}");
+            onyxGoTo("page/{$node_conf['id_map-checkout_delivery_options']}");
         } else {
-            onxshopGoTo("page/{$node_conf['id_map-checkout_login']}");
+            onyxGoTo("page/{$node_conf['id_map-checkout_login']}");
         }
         
         return true;

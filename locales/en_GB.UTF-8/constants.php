@@ -4,7 +4,7 @@
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
  
-//lib/onxshop.db.php
+//lib/onyx.db.php
 define('I18N_ERROR_INVALID_VALUE_FOR', 'Invalid value for ');
 define('I18N_ERROR_INVALID_PRODUCT_CODE', 'Invalid Product Code!');
 define('I18N_ERROR_WRONG_URL', 'Wrong URL!');

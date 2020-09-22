@@ -19,7 +19,7 @@
                 <address class="author">{ITEM.author_detail.name|htmlspecialchars}</address>
             </div>
             <figure>
-                {ONXSHOP_REQUEST_main_image #component/image~node_id=GET.id:role=header~}
+                {ONYX_REQUEST_main_image #component/image~node_id=GET.id:role=header~}
             </figure>
         </div>
     </header>
@@ -35,7 +35,7 @@
     <section class="layout share">
         <div class="wrapper">
             <h2 class="layout-title"><span>Share</span></h2>
-            {ONXSHOP_REQUEST_share #component/social_network_share~node_id=GET.id~}
+            {ONYX_REQUEST_share #component/social_network_share~node_id=GET.id~}
         </div>
     </section>
     
@@ -51,7 +51,7 @@
     <section class="layout related-articles">
         <div class="wrapper">
             <h2 class="layout-title">More Like This</h2>
-            {ONXSHOP_REQUEST_news_list_teaser #component/news_list_stack~node_id=GET.id:blog_node_id=GET.parent_id:publish=1:limit_from=0:limit_per_page=3:display_teaser_image=true:image_width=300:image_height=300~}
+            {ONYX_REQUEST_news_list_teaser #component/news_list_stack~node_id=GET.id:blog_node_id=GET.parent_id:publish=1:limit_from=0:limit_per_page=3:display_teaser_image=true:image_width=300:image_height=300~}
         </div>
     </section>
 </article>

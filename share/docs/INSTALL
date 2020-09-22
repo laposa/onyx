@@ -1,21 +1,21 @@
-# Onxshop install on Debian Jessie (see https://onxshop.com/download)
+# Onyx install on Debian Jessie (see https://onxshop.com/download)
 
 wget -O - https://onxshop.com/debian/conf/signing_key.pub | apt-key add -
-echo "deb http://onxshop.com/debian/ jessie main" > /etc/apt/sources.list.d/onxshop.list
-apt-get update && apt-get install onxshop-1.7
+echo "deb http://onxshop.com/debian/ jessie main" > /etc/apt/sources.list.d/onyx.list
+apt-get update && apt-get install onyx-1.7
 
-# Create new project using utils/onxshop.sh script
-onxshop-1.7 create test.local.onxshop.com
+# Create new project using utils/onyx.sh script
+onyx-1.7 create test.local.onxshop.com
 
 # Or create new project manually:
 
 cd /srv/
-cp -a /opt/onxshop-1.7/project_skeleton/base_with_blog/ ./
+cp -a /opt/onyx-1.7/project_skeleton/base_with_blog/ ./
 mv project_skeleton [HOSTNAME]
 cd [HOSTNAME]
 chmod a+rwx -R var/
-#create symlink to shared onxshop_dir folder
-ln -s /opt/onxshop-1.7 onxshop_dir;
+#create symlink to shared onyx_dir folder
+ln -s /opt/onyx-1.7 onyx_dir;
 
 # configure [HOSTNAME] vhost
 
@@ -43,7 +43,7 @@ createdb -U [NEWUSER] -h localhost [NEWPROJECT]-1_7
 
 # populate database with project template
 
-psql -U [NEWUSER] -h localhost [NEWPROJECT]-1_7 < onxshop_dir/project_skeleton/base_with_blog.sql
+psql -U [NEWUSER] -h localhost [NEWPROJECT]-1_7 < onyx_dir/project_skeleton/base_with_blog.sql
 
 # modify deployment.php
 
@@ -53,12 +53,12 @@ vi conf/deployment.php
  * Database connection
  */
 
-define('ONXSHOP_DB_TYPE', 'pgsql');
-define('ONXSHOP_DB_USER', '[NEWUSER]');
-define('ONXSHOP_DB_PASSWORD', ''[NEWPASSWORD);
-define('ONXSHOP_DB_HOST', 'localhost');
-define('ONXSHOP_DB_PORT', 5432);
-define('ONXSHOP_DB_NAME', '[NEWPROJECT]-1_7');
+define('ONYX_DB_TYPE', 'pgsql');
+define('ONYX_DB_USER', '[NEWUSER]');
+define('ONYX_DB_PASSWORD', ''[NEWPASSWORD);
+define('ONYX_DB_HOST', 'localhost');
+define('ONYX_DB_PORT', 5432);
+define('ONYX_DB_NAME', '[NEWPROJECT]-1_7');
 
 
 # Website frontend access:

@@ -7,7 +7,7 @@
 
 require_once('controllers/bo/component/scheduler.php');
 
-class Onxshop_Controller_Bo_Component_Scheduler_List extends Onxshop_Controller_Bo_Component_Scheduler {
+class Onyx_Controller_Bo_Component_Scheduler_List extends Onyx_Controller_Bo_Component_Scheduler {
 
     /**
      * main action

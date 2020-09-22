@@ -14,15 +14,15 @@
 </style>
 <script type="text/javascript" src="/share/js/compiled.js"></script>
 <script type="text/javascript" src="/js/local.js"></script>
-{ONXSHOP_REQUEST_head #extra_head}
+{ONYX_REQUEST_head #extra_head}
 
 {CONFIGURATION.global.extra_head}
 <!-- END: head -->
 <!-- BEGIN: content -->
-{ONXSHOP_REQUEST_google_tag_manager #component/google_tag_manager}
+{ONYX_REQUEST_google_tag_manager #component/google_tag_manager}
 {CONFIGURATION.global.extra_body_top}
 
-{ONXSHOP_REQUEST_google_analytics #component/google_analytics}
+{ONYX_REQUEST_google_analytics #component/google_analytics}
 
 <header class="site">
     <div class="wrapper">
@@ -33,7 +33,7 @@
             <a class="reveal" href="#primary-navigation"><span>Menu</span></a>
         </nav>
         <nav class="primary" id="primary-navigation">
-            {ONXSHOP_REQUEST_primary_nav #component/menu~id=1:level=1:expand_all=0:display_strapline=0:open=GET.id~}
+            {ONYX_REQUEST_primary_nav #component/menu~id=1:level=1:expand_all=0:display_strapline=0:open=GET.id~}
         </nav>
     </div>
 </header>
@@ -50,7 +50,7 @@
             {CONTENT_FOOT}
         </section>
         <nav class="footer" id="footer-navigation">
-            {ONXSHOP_REQUEST_footer_nav #component/menu~id=4:level=1:expand_all=0:display_strapline=0:open=GET.id~}
+            {ONYX_REQUEST_footer_nav #component/menu~id=4:level=1:expand_all=0:display_strapline=0:open=GET.id~}
         </nav>
         <p id="copyright">&copy; {TIME|strftime('%Y', %s)} {CONFIGURATION.global.title|htmlspecialchars}</p>
     </div>

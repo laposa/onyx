@@ -10,7 +10,7 @@ $(function() {
     var options = { 
         target: '#customer-detail-container',
         success: function(responseText, statusText) {
-            popupMessage("#customer-detail-container div.onxshop-messages");
+            popupMessage("#customer-detail-container div.onyx-messages");
             makeAjaxRequest('#customer-detail-container', '/request/component/client/customer_detail');
         }
     }; 

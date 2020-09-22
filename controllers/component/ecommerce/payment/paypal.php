@@ -30,7 +30,7 @@ https://cms.paypal.com/uk/cgi-bin/?cmd=_render-content&content_ID=developer/e_ho
 
 require_once('controllers/component/ecommerce/payment.php');
 
-class Onxshop_Controller_Component_Ecommerce_Payment_Paypal extends Onxshop_Controller_Component_Ecommerce_Payment {
+class Onyx_Controller_Component_Ecommerce_Payment_Paypal extends Onyx_Controller_Component_Ecommerce_Payment {
     
     /**
      * main action

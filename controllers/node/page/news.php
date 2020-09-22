@@ -6,7 +6,7 @@
 
 require_once('controllers/node/page/default.php');
 
-class Onxshop_Controller_Node_Page_News extends Onxshop_Controller_Node_Page_Default {
+class Onyx_Controller_Node_Page_News extends Onyx_Controller_Node_Page_Default {
 
     /**
      * main action
@@ -31,8 +31,8 @@ class Onxshop_Controller_Node_Page_News extends Onxshop_Controller_Node_Page_Def
         
         //show comments only when enabled
         if ($node_data['component']['allow_comment'] == 1) {
-            $_Onxshop_Request = new Onxshop_Request("component/comment~node_id={$node_id}:allow_anonymouse_submit=1~");
-            $this->tpl->assign("COMMENT", $_Onxshop_Request->getContent());
+            $_Onyx_Request = new Onyx_Request("component/comment~node_id={$node_id}:allow_anonymouse_submit=1~");
+            $this->tpl->assign("COMMENT", $_Onyx_Request->getContent());
             $this->tpl->parse("content.comment");
         }
         

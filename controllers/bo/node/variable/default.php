@@ -7,6 +7,6 @@
 
 require_once('controllers/bo/node/default.php');
 
-class Onxshop_Controller_Bo_Node_Variable_Default extends Onxshop_Controller_Bo_Node_Default {
+class Onyx_Controller_Bo_Node_Variable_Default extends Onyx_Controller_Bo_Node_Default {
 
 }

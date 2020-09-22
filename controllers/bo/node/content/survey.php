@@ -7,7 +7,7 @@
 require_once('controllers/bo/node/content/default.php');
 require_once('models/education/education_survey.php');
 
-class Onxshop_Controller_Bo_Node_Content_Survey extends Onxshop_Controller_Bo_Node_Content_Default {
+class Onyx_Controller_Bo_Node_Content_Survey extends Onyx_Controller_Bo_Node_Content_Default {
 
     /**
      * pre action

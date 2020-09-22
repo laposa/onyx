@@ -7,7 +7,7 @@
  * 
  */
 
-class Onxshop_Controller_Bo_Pages_Comments extends Onxshop_Controller {
+class Onyx_Controller_Bo_Pages_Comments extends Onyx_Controller {
     
     /**
      * main action
@@ -26,7 +26,7 @@ class Onxshop_Controller_Bo_Pages_Comments extends Onxshop_Controller {
             $active['comments'] = "active";
         }
 
-        $list = new Onxshop_Request($controller);
+        $list = new Onyx_Request($controller);
         $this->tpl->assign('ACTIVE', $active);
         $this->tpl->assign('SUBCONTENT', $list->getContent());
 

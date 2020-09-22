@@ -7,7 +7,7 @@
  *
  */
  
-class common_taxonomy_label extends Onxshop_Model {
+class common_taxonomy_label extends Onyx_Model {
 
     /**
      * @access private

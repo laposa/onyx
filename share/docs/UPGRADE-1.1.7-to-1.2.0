@@ -1,2 +1,2 @@
 createdb -U {DBUSER} -h localhost -E UTF8 -T {DB-1_1} {DB-1_2}
-psql -U {DBUSER} -h localhost {DB-1_2} < onxshop_dir/docs/database/upgrade-1.1.7-to-1.2.0.sql
+psql -U {DBUSER} -h localhost {DB-1_2} < onyx_dir/docs/database/upgrade-1.1.7-to-1.2.0.sql

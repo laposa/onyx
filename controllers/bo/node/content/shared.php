@@ -7,7 +7,7 @@
 
 require_once('controllers/bo/node/content/default.php');
 
-class Onxshop_Controller_Bo_Node_Content_Shared extends Onxshop_Controller_Bo_Node_Content_Default {
+class Onyx_Controller_Bo_Node_Content_Shared extends Onyx_Controller_Bo_Node_Content_Default {
 
     /**
      * pre action

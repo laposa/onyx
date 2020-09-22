@@ -7,7 +7,7 @@
 
 require_once('models/common/common_node.php');
 
-class Onxshop_Controller_Component_Ecommerce_Store_Province_Form extends Onxshop_Controller
+class Onyx_Controller_Component_Ecommerce_Store_Province_Form extends Onyx_Controller
 {
 
     const PROVINCE_ROOT_PAGE_ID = 1345;

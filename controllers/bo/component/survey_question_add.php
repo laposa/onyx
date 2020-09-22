@@ -6,7 +6,7 @@
 
 require_once('controllers/bo/component/survey.php');
 
-class Onxshop_Controller_Bo_Component_Survey_Question_Add extends Onxshop_Controller_Bo_Component_Survey {
+class Onyx_Controller_Bo_Component_Survey_Question_Add extends Onyx_Controller_Bo_Component_Survey {
 
     /**
      * main action

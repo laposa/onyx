@@ -5,7 +5,7 @@
  *
  */
 
-class Onxshop_Controller_Export_Rss_Node extends Onxshop_Controller {
+class Onyx_Controller_Export_Rss_Node extends Onyx_Controller {
     
     /**
      * main action

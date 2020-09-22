@@ -7,7 +7,7 @@
 
 require_once('controllers/component/ecommerce/gift_voucher.php');
 
-class Onxshop_Controller_Component_Ecommerce_Gift_Voucher_Send extends Onxshop_Controller_Component_Ecommerce_Gift_Voucher
+class Onyx_Controller_Component_Ecommerce_Gift_Voucher_Send extends Onyx_Controller_Component_Ecommerce_Gift_Voucher
 {
 
     /**
@@ -17,7 +17,7 @@ class Onxshop_Controller_Component_Ecommerce_Gift_Voucher_Send extends Onxshop_C
     public function mainAction()
     {
         if (!is_numeric($this->GET['promotion_id'])) {
-            msg("Onxshop_Controller_Component_Ecommerce_Gift_Voucher_Generate: promotion_id isn't numeric");
+            msg("Onyx_Controller_Component_Ecommerce_Gift_Voucher_Generate: promotion_id isn't numeric");
             return false;
         }
 
@@ -33,7 +33,7 @@ class Onxshop_Controller_Component_Ecommerce_Gift_Voucher_Send extends Onxshop_C
 
             if ($promotion_data) {
 
-                $gift_voucher_directory = ONXSHOP_PROJECT_DIR . "var/vouchers/";
+                $gift_voucher_directory = ONYX_PROJECT_DIR . "var/vouchers/";
                 $gift_voucher_filename = "{$promotion_data['code_pattern']}.png";
                 $gift_voucher_filename_fullpath = $gift_voucher_directory . $gift_voucher_filename;
 

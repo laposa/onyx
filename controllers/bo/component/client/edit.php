@@ -13,7 +13,7 @@ require_once('models/client/client_group.php');
 require_once('models/client/client_role.php');
 require_once('models/client/client_company.php');
 
-class Onxshop_Controller_Bo_Component_Client_Edit extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Client_Edit extends Onyx_Controller {
     
     /**
      * main action
@@ -26,7 +26,7 @@ class Onxshop_Controller_Bo_Component_Client_Edit extends Onxshop_Controller {
         $this->Customer->setCacheable(false);
         $this->Company->setCacheable(false);
 
-        $this->auth = Onxshop_Bo_Authentication::getInstance();
+        $this->auth = Onyx_Bo_Authentication::getInstance();
 
         if (is_numeric($this->GET['id'])) $customer_id = $this->GET['id'];
         else $customer_id = 0;
@@ -133,8 +133,8 @@ class Onxshop_Controller_Bo_Component_Client_Edit extends Onxshop_Controller {
 
         if (is_numeric($client['customer']['delivery_address_id']) && $client['customer']['delivery_address_id'] > 0) {
             
-            $_Onxshop_Request = new Onxshop_Request("component/client/address~delivery_address_id={$client['customer']['delivery_address_id']}:invoices_address_id={$client['customer']['invoices_address_id']}~");
-            $address = $_Onxshop_Request->getContent();
+            $_Onyx_Request = new Onyx_Request("component/client/address~delivery_address_id={$client['customer']['delivery_address_id']}:invoices_address_id={$client['customer']['invoices_address_id']}~");
+            $address = $_Onyx_Request->getContent();
             $this->tpl->assign('ADDRESS', $address);
         
         }

@@ -5,7 +5,7 @@
  * 
  */
 
-class Onxshop_Controller_Component_Ecommerce_Currency_Switcher extends Onxshop_Controller {
+class Onyx_Controller_Component_Ecommerce_Currency_Switcher extends Onyx_Controller {
 
     /**
      * main action

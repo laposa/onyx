@@ -7,7 +7,7 @@
 
 require_once('models/ecommerce/ecommerce_offer.php');
 
-class Onxshop_Controller_Component_Ecommerce_Roundel_CSS extends Onxshop_Controller {
+class Onyx_Controller_Component_Ecommerce_Roundel_CSS extends Onyx_Controller {
 
     /**
      * main action

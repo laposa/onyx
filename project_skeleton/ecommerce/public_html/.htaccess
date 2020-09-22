@@ -9,7 +9,7 @@ Header set X-Frame-Options SAMEORIGIN
 #RewriteEngine On
 #RewriteRule ^section/sub(.*)$ /another-section$1 [R=301,NC,L]
 
-# BEGIN Onxshop
+# BEGIN Onyx
 RewriteEngine On
 RewriteRule	^image/var/(.*)$   /share/image_get.php?image=var/$1 [L]
 RewriteRule	^thumbnail/([0-9]*)/var/(.*)$   /share/image_thumbnail.php?&width=$1&image=var/$2 [L]
@@ -20,4 +20,4 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_FILENAME} !-l
 RewriteRule ^(.*)$    /index.php?request=uri_mapping&translate=/$1 [L,QSA]
-# END Onxshop
+# END Onyx

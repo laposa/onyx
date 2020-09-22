@@ -7,7 +7,7 @@
  *
  */
  
-class ecommerce_order_log extends Onxshop_Model {
+class ecommerce_order_log extends Onyx_Model {
 
     /**
      * @access private

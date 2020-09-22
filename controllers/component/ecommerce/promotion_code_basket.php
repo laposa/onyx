@@ -7,6 +7,6 @@
 
 require_once('controllers/component/ecommerce/promotion_code.php');
 
-class Onxshop_Controller_Component_Ecommerce_Promotion_Code_Basket extends Onxshop_Controller_Component_Ecommerce_Promotion_Code {
+class Onyx_Controller_Component_Ecommerce_Promotion_Code_Basket extends Onyx_Controller_Component_Ecommerce_Promotion_Code {
     
 }

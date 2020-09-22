@@ -8,7 +8,7 @@
 require_once('controllers/bo/component/configuration.php');
 require_once('models/international/international_translation.php');
 
-class Onxshop_Controller_Bo_Component_Configuration_International_Translation extends Onxshop_Controller_Bo_Component_Configuration {
+class Onyx_Controller_Bo_Component_Configuration_International_Translation extends Onyx_Controller_Bo_Component_Configuration {
 
     /**
      * custom action
@@ -24,7 +24,7 @@ class Onxshop_Controller_Bo_Component_Configuration_International_Translation ex
                 unset($last_item[0]['id']);
             } else {
                 $last_item[0] = array(
-                    "locale" => $GLOBALS['onxshop_conf']['global']['locale']
+                    "locale" => $GLOBALS['onyx_conf']['global']['locale']
                 );
             }
             $last_item[0]['original_string'] = "";

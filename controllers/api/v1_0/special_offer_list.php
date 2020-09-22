@@ -7,7 +7,7 @@
 
 require_once('controllers/api.php');
 
-class Onxshop_Controller_Api_v1_0_Special_Offer_List extends Onxshop_Controller_Api {
+class Onyx_Controller_Api_v1_0_Special_Offer_List extends Onyx_Controller_Api {
 
     /**
      * get data
@@ -72,7 +72,7 @@ class Onxshop_Controller_Api_v1_0_Special_Offer_List extends Onxshop_Controller_
         $product_detail = $Product->getProductDetail($original_item['product_id']);
         //print_r($product_detail); exit;
         
-        $protocol = onxshopDetectProtocol();
+        $protocol = onyxDetectProtocol();
         
         $item['id'] = (string)$original_item['offer_id']; // from historic reason we need to make this string
         $item['title'] = $product_detail['name'];
@@ -103,7 +103,7 @@ class Onxshop_Controller_Api_v1_0_Special_Offer_List extends Onxshop_Controller_
     function formatPrice($value, $currency_code)
     {
         require_once('controllers/component/ecommerce/roundel_css.php');
-        return Onxshop_Controller_Component_Ecommerce_Roundel_CSS::formatPrice($value, $currency_code);
+        return Onyx_Controller_Component_Ecommerce_Roundel_CSS::formatPrice($value, $currency_code);
     }
     
     /**
@@ -113,7 +113,7 @@ class Onxshop_Controller_Api_v1_0_Special_Offer_List extends Onxshop_Controller_
     public function getRoundelText($offer)
     {
         require_once('controllers/component/ecommerce/roundel_css.php');
-        return Onxshop_Controller_Component_Ecommerce_Roundel_CSS::getRoundelText($offer);
+        return Onyx_Controller_Component_Ecommerce_Roundel_CSS::getRoundelText($offer);
     }
     
     /**
@@ -123,9 +123,9 @@ class Onxshop_Controller_Api_v1_0_Special_Offer_List extends Onxshop_Controller_
     public function getRoundelImageSource($offer)
     {
         require_once('controllers/component/ecommerce/roundel_css.php');
-        $image_src = Onxshop_Controller_Component_Ecommerce_Roundel_CSS::getRoundelImageSource($offer);
+        $image_src = Onyx_Controller_Component_Ecommerce_Roundel_CSS::getRoundelImageSource($offer);
         
-        $protocol = onxshopDetectProtocol();
+        $protocol = onyxDetectProtocol();
         
         $image_src = ltrim($image_src, '/');
         $image_src = "$protocol://{$_SERVER['HTTP_HOST']}/$image_src";

@@ -10,7 +10,7 @@
  *
  */
  
-class common_session extends Onxshop_Model {
+class common_session extends Onyx_Model {
 
     /**
      * NOT NULL PRIMARY KEY
@@ -98,7 +98,7 @@ CREATE TABLE common_session (
      
     static function initConfiguration() {
     
-        //$conf = $GLOBALS['onxshop_conf']['common_session'];
+        //$conf = $GLOBALS['onyx_conf']['common_session'];
         $conf = array();
         
         $conf['ttl'] = 86400; // default 1day
@@ -156,7 +156,7 @@ CREATE TABLE common_session (
     function read( $session_id ) {
 
         $session_id = strtr($session_id, "./", "--");  // security measure
-        $this->lock = fopen(ONXSHOP_SESSION_DIRECTORY . "$session_id.lock", 'w');
+        $this->lock = fopen(ONYX_SESSION_DIRECTORY . "$session_id.lock", 'w');
         flock($this->lock, LOCK_EX);
 
         $this->setCacheable(false);
@@ -300,7 +300,7 @@ CREATE TABLE common_session (
     function gc( $max_lifetime ) {
     
         // delete locks older 2 hours before trying to do garbage collection in db
-        $files = @glob(ONXSHOP_PROJECT_DIR . "/var/sessions/*.lock");
+        $files = @glob(ONYX_PROJECT_DIR . "/var/sessions/*.lock");
         foreach($files as $file) {
             if (is_file($file) && time() - filemtime($file) >= 2 * 60 * 60) @unlink($file);
         }

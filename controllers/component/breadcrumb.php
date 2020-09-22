@@ -5,7 +5,7 @@
  *
  */
 
-class Onxshop_Controller_Component_Breadcrumb extends Onxshop_Controller {
+class Onyx_Controller_Component_Breadcrumb extends Onyx_Controller {
     
     /**
      * main action

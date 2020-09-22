@@ -7,7 +7,7 @@
 
 require_once('controllers/component/taxonomy.php');
 
-class Onxshop_Controller_Component_Taxonomy_List extends Onxshop_Controller_Component_Taxonomy {
+class Onyx_Controller_Component_Taxonomy_List extends Onyx_Controller_Component_Taxonomy {
 
     /**
      * main action

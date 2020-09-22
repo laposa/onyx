@@ -5,7 +5,7 @@
  * 
  */
 
-class Onxshop_Controller_Bo_Component_Node_Edit extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Node_Edit extends Onyx_Controller {
     
     /**
      * main action
@@ -39,15 +39,15 @@ class Onxshop_Controller_Bo_Component_Node_Edit extends Onxshop_Controller {
             $controller_html = $controller;
         }
         
-        if (file_exists(ONXSHOP_DIR . "controllers/{$controller}.php") || file_exists(ONXSHOP_PROJECT_DIR . "controllers/{$controller}.php")) {
+        if (file_exists(ONYX_DIR . "controllers/{$controller}.php") || file_exists(ONYX_PROJECT_DIR . "controllers/{$controller}.php")) {
             $controller_php = $controller;
         } else {
             $controller_php = "bo/node/{$node_data['node_group']}/default";
         }
         
-        $_Onxshop_Request = new Onxshop_Request("{$controller_php}@{$controller_html}&id={$node_id}&orig={$this->GET['orig']}&popup={$this->GET['popup']}", $this);
+        $_Onyx_Request = new Onyx_Request("{$controller_php}@{$controller_html}&id={$node_id}&orig={$this->GET['orig']}&popup={$this->GET['popup']}", $this);
                 
-        $this->setContent($_Onxshop_Request->getContent());
+        $this->setContent($_Onyx_Request->getContent());
         $this->tpl->assign("SUB_CONTENT", $this->content);
 
         if ($this->GET['ajax'] == 0) $this->tpl->parse('content.form');

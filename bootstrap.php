@@ -10,25 +10,25 @@
  * Set include paths
  */
 
-set_include_path(ONXSHOP_PROJECT_DIR . PATH_SEPARATOR . ONXSHOP_DIR . PATH_SEPARATOR . ONXSHOP_DIR . 'lib/' . PATH_SEPARATOR . get_include_path());
-require_once('lib/onxshop.functions.php');
+set_include_path(ONYX_PROJECT_DIR . PATH_SEPARATOR . ONYX_DIR . PATH_SEPARATOR . ONYX_DIR . 'lib/' . PATH_SEPARATOR . get_include_path());
+require_once('lib/onyx.functions.php');
 
 /**
  * Setup Tracy
  */
-if (ONXSHOP_TRACY) {
+if (ONYX_TRACY) {
     require_once('lib/Tracy/tracy.php');
-    require_once('lib/Tracy/Onxshop/Onxshop_Extensions.php');
-    if (constant('ONXSHOP_IS_DEBUG_HOST')) {
+    require_once('lib/Tracy/Onyx/Onyx_Extensions.php');
+    if (constant('ONYX_IS_DEBUG_HOST')) {
         $components = array();
         Tracy\Debugger::enable(Tracy\Debugger::DEVELOPMENT);
-        if (ONXSHOP_TRACY_DB_PROFILER) Tracy\Debugger::getBar()->addPanel(new DBProfilerPanel);
-        if (ONXSHOP_TRACY_BENCHMARK) Tracy\Debugger::getBar()->addPanel(new ComponentsPanel);
+        if (ONYX_TRACY_DB_PROFILER) Tracy\Debugger::getBar()->addPanel(new DBProfilerPanel);
+        if (ONYX_TRACY_BENCHMARK) Tracy\Debugger::getBar()->addPanel(new ComponentsPanel);
     } else {
         Tracy\Debugger::enable(Tracy\Debugger::PRODUCTION);
         Tracy\Debugger::$logSeverity = (E_ALL ^ E_NOTICE);
-        Tracy\Debugger::$logDirectory = ONXSHOP_PROJECT_DIR . "/var/log";
-        if (constant('ONXSHOP_ERROR_EMAIL')) Tracy\Debugger::$email = ONXSHOP_ERROR_EMAIL;
+        Tracy\Debugger::$logDirectory = ONYX_PROJECT_DIR . "/var/log";
+        if (constant('ONYX_ERROR_EMAIL')) Tracy\Debugger::$email = ONYX_ERROR_EMAIL;
     }
     error_reporting(E_ALL ^ E_NOTICE);
 }
@@ -37,7 +37,7 @@ if (ONXSHOP_TRACY) {
  * Debug benchmarking
  */
  
-if (ONXSHOP_BENCHMARK && ONXSHOP_IS_DEBUG_HOST) {
+if (ONYX_BENCHMARK && ONYX_IS_DEBUG_HOST) {
     $time_start = microtime(true);
     define("TIME_START", $time_start);
 }
@@ -46,13 +46,13 @@ if (ONXSHOP_BENCHMARK && ONXSHOP_IS_DEBUG_HOST) {
  * Include Bootstrap
  */
 
-require_once('lib/onxshop.bootstrap.php');
+require_once('lib/onyx.bootstrap.php');
 
 /**
  * log to firebug
  */
  
-if (ONXSHOP_IS_DEBUG_HOST && ONXSHOP_DEBUG_OUTPUT_FIREBUG) {
+if (ONYX_IS_DEBUG_HOST && ONYX_DEBUG_OUTPUT_FIREBUG) {
 
     require_once('Zend/Log/Writer/Firebug.php');
     require_once('Zend/Log.php');
@@ -76,13 +76,13 @@ if (ONXSHOP_IS_DEBUG_HOST && ONXSHOP_DEBUG_OUTPUT_FIREBUG) {
  * Init Bootstrap
  */
 
-$Bootstrap = new Onxshop_Bootstrap();
+$Bootstrap = new Onyx_Bootstrap();
 
 /**
  * Init pre-action (standard pre-actions defined as global variable in conf/global.php)
  */
 
-$Bootstrap->initPreAction($onxshop_pre_actions);
+$Bootstrap->initPreAction($onyx_pre_actions);
 
 /**
  * Init action
@@ -94,7 +94,7 @@ $Bootstrap->initAction($_GET['request']);
  * test log to firebug
  */
  
-if (ONXSHOP_IS_DEBUG_HOST && isset($channel) && isset($response)) {
+if (ONYX_IS_DEBUG_HOST && isset($channel) && isset($response)) {
 
     // Flush log data to browser
     $channel->flush();
@@ -113,17 +113,17 @@ echo $Bootstrap->finalOutput();
  * Debug benchmarking
  */
    
-if (ONXSHOP_BENCHMARK && ONXSHOP_IS_DEBUG_HOST) {
+if (ONYX_BENCHMARK && ONYX_IS_DEBUG_HOST) {
     $time_end = microtime(true);
     $time = $time_end - $time_start;
     $time = round($time, 4);
-    echo "<div class='onxshop_messages'><p class='onxshop_ok_msg'>Script total running time = $time sec.</p>";
-    echo "<p class='onxshop_ok_msg'>Total Memory Usage = " . round((memory_get_peak_usage()/1024)/1024, 2) . "MB</p>";
+    echo "<div class='onyx_messages'><p class='onyx_ok_msg'>Script total running time = $time sec.</p>";
+    echo "<p class='onyx_ok_msg'>Total Memory Usage = " . round((memory_get_peak_usage()/1024)/1024, 2) . "MB</p>";
     echo '</div>';
 }
 
-if (ONXSHOP_DB_PROFILER && ONXSHOP_IS_DEBUG_HOST) {
-    $db = Zend_Registry::get('onxshop_db');
+if (ONYX_DB_PROFILER && ONYX_IS_DEBUG_HOST) {
+    $db = Zend_Registry::get('onyx_db');
     $profiler = $db->getProfiler();
     $db_profile = array();
     $db_profile['total_num_queries'] = $profiler->getTotalNumQueries();

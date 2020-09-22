@@ -7,6 +7,6 @@
 
 require_once('controllers/component/page_list.php');
 
-class Onxshop_Controller_Component_Page_List_Grid extends Onxshop_Controller_Component_Page_List {
+class Onyx_Controller_Component_Page_List_Grid extends Onyx_Controller_Component_Page_List {
 
 }

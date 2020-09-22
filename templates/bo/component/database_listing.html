@@ -5,7 +5,7 @@
     <h2>Table: <strong>{MODEL}</strong> ({COUNT_RECORD} records, {TABLE_SIZE})</h2>
     {MESSAGES}
     <a id="export-button" class="button" href="/request/bo/export/csv_database?model={GET.model}"><span>Export Records (CSV)</span></a>
-    <a id="adminer-button" class="button" href="/opt/adminer/?{ONXSHOP_DB_TYPE}={ONXSHOP_DB_HOST}&username={ONXSHOP_DB_USER}&db={ONXSHOP_DB_NAME}&ns=public&select={MODEL}" target="_blank"><span>Open in Adminer</span></a>
+    <a id="adminer-button" class="button" href="/opt/adminer/?{ONYX_DB_TYPE}={ONYX_DB_HOST}&username={ONYX_DB_USER}&db={ONYX_DB_NAME}&ns=public&select={MODEL}" target="_blank"><span>Open in Adminer</span></a>
     <script type="text/javascript">
         $('#database .row-bottom p.component-buttons').empty();
         var export_button = $('#export-button').detach();
@@ -34,7 +34,7 @@
     </tbody>
     </table>
 
-    <div class="onxshop-pagination">
+    <div class="onyx-pagination">
         {PAGINATION}
     </div>
 

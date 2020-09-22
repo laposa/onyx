@@ -5,7 +5,7 @@
  *
  */
  
-class common_comment extends Onxshop_Model {
+class common_comment extends Onyx_Model {
 
     /**
      * PRIMARY KEY

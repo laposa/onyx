@@ -1,16 +1,16 @@
-Onxshop (1.8.0)
+Onyx (1.8.0)
 
   * TODO
 
  -- Norbert Laposa <norbert@laposa.co.uk>  2016-12-21
  
-Onxshop (1.7.8)
+Onyx (1.7.8)
 
   * bug fixed in contact form
   * improve #accesibility navigation (kept hidden by default)
   * new layout type slider
   * update base_with_blog template
-  * allow to create Onxshop_Controller without any request
+  * allow to create Onyx_Controller without any request
   * more descriptive labels for node types
   * FontAwesome included in default CSS
   * new Node conf option - contact_form_default_template
@@ -24,21 +24,21 @@ Onxshop (1.7.8)
   * remove twoColumns style from all forms
   * add default mail template
   * upgrade jQuery Validation Plugin - v1.15.0
-  * new constannt ONXSHOP_SSL
+  * new constannt ONYX_SSL
   * new contact form templates for complaints
   * update documentation on configuration options
-  * disable eCommerce in default configuration via new conf option ONXSHOP_ECOMMERCE
+  * disable eCommerce in default configuration via new conf option ONYX_ECOMMERCE
   * show Posts as navigation title in backoffice if multiple blog containers are employed
   * use blog section title set in CMS in navigation for backoffice
   * make sure left hand navigation in backoffice will not break with long item names
   * upgrade Mobile_Detect to v 2.8.23
-  * new constant ONXSHOP_FACEBOOK_AUTH
+  * new constant ONYX_FACEBOOK_AUTH
   * update Zend Framework to 1.12.20
   * enable template editing in back office
 
  -- Norbert Laposa <norbert@laposa.co.uk>  2016-12-21
  
-Onxshop (1.7.7)
+Onyx (1.7.7)
 
   * show URL next to URI Title
   * bug fixes and improvements in survey component
@@ -57,7 +57,7 @@ Onxshop (1.7.7)
   * add new global conf option stack_list_image_width and stack_list_image_height
   * fix backoffice UI for 2columns layout node edit
   * add product sorting and count to configuration option to the back office
-  * include empty ONXSHOP_GOOGLE_API_KEY
+  * include empty ONYX_GOOGLE_API_KEY
   * add some indexes to store table
   * experimental support for Google Analytics in backoffice
   * add CSS classes to each item on teaser (page) list
@@ -91,7 +91,7 @@ Onxshop (1.7.7)
 
  -- Norbert Laposa <norbert@laposa.co.uk>  2016-11-01
  
-Onxshop (1.7.6)
+Onyx (1.7.6)
 
   * upgrade jQuery Mousewheel to version 3.1.13
   * omit error message when taxonomy_breadcrumb is called without ID
@@ -113,7 +113,7 @@ Onxshop (1.7.6)
   * save/restore advanced settings visibility in back office
   * make sure the advanced settings button works well with ajax loaded pages
   * change compression filter to leave at least one character
-  * add utils/onxshop for managing installations
+  * add utils/onyx for managing installations
   * fix menu stack to show node ID and remove white spaces between items
   * do not show unpublished store in competition dropdowns
   * make sure HTML validation accepts HTML5 elements (such as <audio/>)
@@ -131,7 +131,7 @@ Onxshop (1.7.6)
 
  -- Norbert Laposa <norbert@laposa.co.uk>  2016-02-17
  
-Onxshop (1.7.5)
+Onyx (1.7.5)
 
   * update Adminer to 4.2.2
   * improvements in customer groups management
@@ -149,7 +149,7 @@ Onxshop (1.7.5)
 
  -- Norbert Laposa <norbert@laposa.co.uk>  2015-10-09
  
-Onxshop (1.7.4)
+Onyx (1.7.4)
 
   * add rsync.sh example to utils/
   * allow listing from category in product highlights
@@ -191,7 +191,7 @@ Onxshop (1.7.4)
 
  -- Norbert Laposa <norbert@laposa.co.uk>  2015-08-27
  
-Onxshop (1.7.3)
+Onyx (1.7.3)
 
   * refactor how cycle2.js is used to prevent conflicts
   * update license file, include no-warranty statement to sysinfo component
@@ -216,7 +216,7 @@ Onxshop (1.7.3)
 
  -- Norbert Laposa <norbert@laposa.co.uk>  2015-06-04
 
-Onxshop (1.7.2)
+Onyx (1.7.2)
 
   * improve solving conflicts in URL generation
   * update default configuration and template
@@ -238,7 +238,7 @@ Onxshop (1.7.2)
 
  -- Norbert Laposa <norbert@laposa.co.uk>  2015-04-24
 
-Onxshop (1.7.1)
+Onyx (1.7.1)
 
   * clean up in msg() function to allow better debugging
   * make sure all auth adapters are returning at least user id, username 
@@ -318,7 +318,7 @@ Onxshop (1.7.1)
 
  -- Norbert Laposa <norbert@laposa.co.uk>  2015-04-13
 
-Onxshop (1.7.0)
+Onyx (1.7.0)
 
   * node rss feed upgrade (filtering by category, images)
   * move to Bin instead of deleting
@@ -330,7 +330,7 @@ Onxshop (1.7.0)
   * implement simple translation filter
   * new node/content/adaptive
   * refactored backoffice authentication and new backoffice ACL
-  * force SSL for all pages when ONXSHOP_CUSTOMER_USE_SSL
+  * force SSL for all pages when ONYX_CUSTOMER_USE_SSL
   * improve integration with Facebook if used as an App
   * update jQuery Cycle2 plugin
   * include component for importing articles, images and comments from Wordpress
@@ -364,10 +364,10 @@ Onxshop (1.7.0)
 
  -- Norbert Laposa <norbert@laposa.co.uk>  2014-12-31
 
-Onxshop (1.6.1)
+Onyx (1.6.1)
 
   * add lock for requests with the same session_id to prevent race conditions
-  * new option ONXSHOP_MEDIA_LIBRARY_ROOT_UPLOAD
+  * new option ONYX_MEDIA_LIBRARY_ROOT_UPLOAD
   * refactored delivery_option component
   * enhance automatic basket refresh
   * scheduler bug fixes
@@ -393,7 +393,7 @@ Onxshop (1.6.1)
 
  -- Norbert Laposa <norbert@laposa.co.uk>  2014-02-20
 
-Onxshop (1.6.0)
+Onyx (1.6.0)
 
   * Multi-file drag&drop upload to media library
   * Recursive content duplication
@@ -415,13 +415,13 @@ Onxshop (1.6.0)
 
  -- Norbert Laposa <norbert@laposa.co.uk>  2013-11-23
 
-Onxshop (1.5.5)
+Onyx (1.5.5)
 
   * New release
 
  -- Norbert Laposa <norbert@laposa.co.uk>  2012-09-26
 
-Onxshop (1.5.4)
+Onyx (1.5.4)
 
   * use raw entity_encoding option in TinyMCE
   * HTML validation fixes
@@ -457,7 +457,7 @@ Onxshop (1.5.4)
   * Zend Framework upgrade to version 1.11.12
   * include HTML version of DB schema (now available in PDF and HTML)
   * update database schema documentation with dbschema.com
-  * customize for new default location /opt/onxshop/
+  * customize for new default location /opt/onyx/
   * use rawurlencode in share via email (preserve white spaces)
   * add support for error CSS classes and first use on registration
   * fix pagination problem with Next button on many entries and option per page
@@ -465,7 +465,7 @@ Onxshop (1.5.4)
 
  -- Norbert Laposa <norbert@laposa.co.uk>  2012-09-26
 
-Onxshop (1.5.3)
+Onyx (1.5.3)
 
   * add lowercase to checkLoginId()
   * make email address and username lowercase on registration
@@ -481,7 +481,7 @@ Onxshop (1.5.3)
   * show Surveys to all account types
   * add taxonomy ID to each menu item title
   * add taxonomy class to product list and news list
-  * bug fix: use $GLOBALS['onxshop_conf'] for default sorting in product list
+  * bug fix: use $GLOBALS['onyx_conf'] for default sorting in product list
   * add getRelatedTaxonomy method to common_taxonomy and ecommerce_product
   * improve other_data and relations serialized fields in common_node
   * unserialize other data in news_list
@@ -492,7 +492,7 @@ Onxshop (1.5.3)
   * add username class into backoffice_wrapper and fe_edit
   * don't reload node in context when in backoffice
   * social_nework_share improvements
-  * add constant ONXSHOP_SUPPORT_WEBSITE_URL
+  * add constant ONYX_SUPPORT_WEBSITE_URL
   * replace HTML entity for ampersand with it's unicode entity in xmlentities()
   * use comma instead of semicolons in CSV exports
   * change AJAX indicator image
@@ -501,7 +501,7 @@ Onxshop (1.5.3)
 
  -- Norbert Laposa <norbert@laposa.co.uk>  2012-07-01
 
-Onxshop (1.5.2)
+Onyx (1.5.2)
 
   * improve bo/posts UI and multiple containers support
   * move file list in Basic (first) tab in node edit
@@ -566,9 +566,9 @@ Onxshop (1.5.2)
 
  -- Norbert Laposa <norbert@laposa.co.uk>  2012-05-20
 
-Onxshop (1.5.1)
+Onyx (1.5.1)
 
-  * make page cache distinguish requests with the same _GET (needed for Onxshop Wordpress plugin)
+  * make page cache distinguish requests with the same _GET (needed for Onyx Wordpress plugin)
   * add mail validation in front-end
   * new contact form template: booking
   * improve validation for URI path
@@ -577,7 +577,7 @@ Onxshop (1.5.1)
   * add news_list_teaser
   * rename component googleanalytics to google_analytics
   * add comments for Doxygen
-  * allow backup download by default (ONXSHOP_ALLOW_BACKUP_DOWNLOAD)
+  * allow backup download by default (ONYX_ALLOW_BACKUP_DOWNLOAD)
   * make sure Add New Product button is available when product list is empty
   * removed unused file templates/component/slideshow.html
   * remove unnecessary CDATA comment
@@ -606,7 +606,7 @@ Onxshop (1.5.1)
   
  -- Norbert Laposa <norbert@laposa.co.uk>  2012-03-22
 
-Onxshop (1.5.0)
+Onyx (1.5.0)
 
   * add print button to order detail in the front-end
   * add locales for russian and hebrew language
@@ -654,25 +654,25 @@ Onxshop (1.5.0)
     to allow reliable funcionality when using uses_per_customer promotion code setting
   * customer database use md5 passwords by default
   * improve js popupMessage() with iterator to show all messages from different blocks
-  * improve debugging and add new ONXSHOP_DEBUG_FIREBUG constant to enable/disable log to Firebug
+  * improve debugging and add new ONYX_DEBUG_FIREBUG constant to enable/disable log to Firebug
   * add group ACL to node edit and display
   * customer group by filter support
   * add support for complete_callback to makeAjaxRequest()
   * added zebra to default table style and CSS other fixes
   * default CSS: removed forced scrollbar in browsers and other improvements
-  * add protection against CRLF HTTP injection into onxshopGoTo function
+  * add protection against CRLF HTTP injection into onyxGoTo function
   * force backoffice customer list to use cache
   * documentation update
   * backoffice customer list is forced to use DB cache
   * thumbnail_step changed from 25px to 5px
-  * moved to Git and https://github.com/laposa/onxshop
-  * removed project_skeleton/onxshop_dir symlink from dev version, left only in testing
-  * nx_* renamed to onxshop_*
-  * GLOBAL_ constants renamed to ONXSHOP_
-  * onxshop.authentication improved _checkAccess
+  * moved to Git and https://github.com/laposa/onyx
+  * removed project_skeleton/onyx_dir symlink from dev version, left only in testing
+  * nx_* renamed to onyx_*
+  * GLOBAL_ constants renamed to ONYX_
+  * onyx.authentication improved _checkAccess
   * big cleaning in share/ directory
-  * finished Xsite -> Onxshop name transition
-  * using Zend_Db instead of ADOdb, much improved Onxshop_Model
+  * finished Xsite -> Onyx name transition
+  * using Zend_Db instead of ADOdb, much improved Onyx_Model
   * upgrade jquery.mousewheel to version 3.0.4
   * upgrade jquery.fancybox to version 1.3.4
   * jQuery Form upgraded to version 2.95
@@ -685,7 +685,7 @@ Onxshop (1.5.0)
 
  -- Norbert Laposa <norbert@laposa.co.uk>  2012-02-08
 
-Onxshop (1.4.7)
+Onyx (1.4.7)
   
   * improved component/feed
   * added default divider visible dotted grey border
@@ -706,13 +706,13 @@ Onxshop (1.4.7)
   * added first_last_class to product_list
   * added 4columns layout and tweaked margins on 3columns
   * docs/INSTALL updated for Debian Squeeze 
-  * Debian Squeeze compatibility (goTo renamed to onxshopGoTo, pass by reference,
+  * Debian Squeeze compatibility (goTo renamed to onyxGoTo, pass by reference,
     split to preg_split, ereg to preg_match, ereg_replace to preg_replace)
   * updated product edit teaser RTE with paste plugin 
 
  -- Norbert Laposa <norbert@laposa.co.uk>  2011-05-21
 
-Onxshop (1.4.6)
+Onyx (1.4.6)
   
   * cleaned opt/ directory
   * updated database templates using --no-owner pg_dump option
@@ -721,7 +721,7 @@ Onxshop (1.4.6)
 
  -- Norbert Laposa <norbert@laposa.co.uk>  2011-04-23
 
-Onxshop (1.4.5)
+Onyx (1.4.5)
   
   * fixed cheque payment method
   * updated cz_CZ locale
@@ -773,7 +773,7 @@ Onxshop (1.4.5)
   
  -- Norbert Laposa <norbert@laposa.co.uk>  2011-04-01
 
-Onxshop (1.4.4)
+Onyx (1.4.4)
   
   * added <meta name="viewport" content="width=1024" /> to project_skeleton extra_head
   * added Privacy Policy page into the template
@@ -798,7 +798,7 @@ Onxshop (1.4.4)
   
  -- Norbert Laposa <norbert@laposa.co.uk>  2011-01-16
  
-Onxshop (1.4.3)  
+Onyx (1.4.3)  
   
   * new pre-built common_file contact form - file upload form
   * added file support to contact forms
@@ -847,7 +847,7 @@ Onxshop (1.4.3)
     
  -- Norbert Laposa <norbert@laposa.co.uk>  2010-12-05
  
-Onxshop (1.4.2)
+Onyx (1.4.2)
   
   * sending notification to admin after new comment added
   * added SEO manager backoffice/advanced/seo_manager 
@@ -871,7 +871,7 @@ Onxshop (1.4.2)
     
  -- Norbert Laposa <norbert@laposa.co.uk>  2010-08-30
  
-Onxshop (1.4.1)
+Onyx (1.4.1)
   
   * add extra check if address isn't active before removing from address list
   * added voucher code net spent and discount given fields into bo/component/ecommerce/promotion_list
@@ -894,7 +894,7 @@ Onxshop (1.4.1)
   
  -- Norbert Laposa <norbert@laposa.co.uk>  2010-07-19
 
-Onxshop (1.4.0)
+Onyx (1.4.0)
 
   * new Reviews&Comments section in backoffice
   * added new general template block head_once
@@ -943,9 +943,9 @@ Onxshop (1.4.0)
     ecommerce_node_taxonomy, ecommerce_product_variety_taxonomy, ecommerce_delivery_carrier_zone_to_country
   * added new node/content/textile
   * created a new component bo/component/backup and linked from tools (optionally available)
-  * created new constant ONXSHOP_PACKAGE_NAME (gold, silver and bronze), bronze as default
+  * created new constant ONYX_PACKAGE_NAME (gold, silver and bronze), bronze as default
     gold and silver allows download whole backup
-  * Xsite rebranded as Onxshop, xsite_dir renamed to onxshop_dir, most of references updated
+  * Xsite rebranded as Onyx, xsite_dir renamed to onyx_dir, most of references updated
   * Zend Framework upgraded to version 1.10.2
   * improved basket detail component, fixed list of VAT in basket
   * new ajax basket component

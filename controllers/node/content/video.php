@@ -6,7 +6,7 @@
 
 require_once('controllers/node/content/default.php');
 
-class Onxshop_Controller_Node_Content_Video extends Onxshop_Controller_Node_Content_Default {
+class Onyx_Controller_Node_Content_Video extends Onyx_Controller_Node_Content_Default {
     
         /**
      * main action
@@ -37,8 +37,8 @@ class Onxshop_Controller_Node_Content_Video extends Onxshop_Controller_Node_Cont
          * pass to menu component
          */
          
-        $Onxshop_Request = new Onxshop_Request("component/video_{$node_data['component']['provider']}~video_id={$node_data['component']['video_id']}{$autoplay_param}~");
-        $this->tpl->assign("VIDEO", $Onxshop_Request->getContent());
+        $Onyx_Request = new Onyx_Request("component/video_{$node_data['component']['provider']}~video_id={$node_data['component']['video_id']}{$autoplay_param}~");
+        $this->tpl->assign("VIDEO", $Onyx_Request->getContent());
         $this->tpl->assign("NODE", $node_data);
         
         if ($node_data['display_title'])  $this->tpl->parse('content.title');

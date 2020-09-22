@@ -7,7 +7,7 @@
 
 require_once('controllers/bo/component/client/edit.php');
 
-class Onxshop_Controller_Bo_Component_Client_Edit_Profile extends Onxshop_Controller_Bo_Component_Client_Edit {
+class Onyx_Controller_Bo_Component_Client_Edit_Profile extends Onyx_Controller_Bo_Component_Client_Edit {
 
     /**
      * main action
@@ -17,7 +17,7 @@ class Onxshop_Controller_Bo_Component_Client_Edit_Profile extends Onxshop_Contro
         
         $this->Customer = new client_customer();
         
-        $this->auth = Onxshop_Bo_Authentication::getInstance();
+        $this->auth = Onyx_Bo_Authentication::getInstance();
         
         $customer_id = $this->auth->getUserId();    
         if (!is_numeric($customer_id)) {

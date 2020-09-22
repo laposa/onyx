@@ -4,7 +4,7 @@
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
-class Onxshop_Controller_Component_Comment extends Onxshop_Controller {
+class Onyx_Controller_Component_Comment extends Onyx_Controller {
 
     /** 
      * main action 
@@ -65,11 +65,11 @@ class Onxshop_Controller_Component_Comment extends Onxshop_Controller {
      
     public function customCommentAction($data, $options) {
     
-        $_Onxshop_Request = new Onxshop_Request("component/comment_list~node_id={$data['node_id']}:allow_anonymouse_submit={$options['allow_anonymouse_submit']}~");
-        $this->tpl->assign('COMMENT_LIST', $_Onxshop_Request->getContent());
+        $_Onyx_Request = new Onyx_Request("component/comment_list~node_id={$data['node_id']}:allow_anonymouse_submit={$options['allow_anonymouse_submit']}~");
+        $this->tpl->assign('COMMENT_LIST', $_Onyx_Request->getContent());
         
-        $_Onxshop_Request = new Onxshop_Request("component/comment_add~node_id={$data['node_id']}:allow_anonymouse_submit={$options['allow_anonymouse_submit']}~");
-        $this->tpl->assign('COMMENT_ADD', $_Onxshop_Request->getContent());
+        $_Onyx_Request = new Onyx_Request("component/comment_add~node_id={$data['node_id']}:allow_anonymouse_submit={$options['allow_anonymouse_submit']}~");
+        $this->tpl->assign('COMMENT_ADD', $_Onyx_Request->getContent());
         
     }
     
@@ -141,8 +141,8 @@ class Onxshop_Controller_Component_Comment extends Onxshop_Controller {
                  
                 if ($item['rating'] > 0) {
                     $rating = round($item['rating']);
-                    $_Onxshop_Request = new Onxshop_Request("component/rating_stars~rating={$rating}~");
-                    $this->tpl->assign('RATING_STARS', $_Onxshop_Request->getContent());
+                    $_Onyx_Request = new Onyx_Request("component/rating_stars~rating={$rating}~");
+                    $this->tpl->assign('RATING_STARS', $_Onyx_Request->getContent());
                 } else {
                     $this->tpl->assign('RATING_STARS', '');
                 }
@@ -151,14 +151,14 @@ class Onxshop_Controller_Component_Comment extends Onxshop_Controller {
                  * avatar
                  */
                 
-                $_Onxshop_Request = new Onxshop_Request("component/client/avatar~customer_id={$item['customer_id']}~");
-                $this->tpl->assign('AUTHOR_AVATAR', $_Onxshop_Request->getContent());
+                $_Onyx_Request = new Onyx_Request("component/client/avatar~customer_id={$item['customer_id']}~");
+                $this->tpl->assign('AUTHOR_AVATAR', $_Onyx_Request->getContent());
                 
                 //sub comments
                 $component = 'component/comment_list';
                 if (strpos($this->request, 'component/ecommerce/product_review_list') === 0) $component = 'component/ecommerce/product_review_list';
-                $_Onxshop_Request = new Onxshop_Request("$component~node_id={$this->GET['node_id']}:parent={$item['id']}~");
-                $this->tpl->assign("SUB_COMMENTS", $_Onxshop_Request->getContent());
+                $_Onyx_Request = new Onyx_Request("$component~node_id={$this->GET['node_id']}:parent={$item['id']}~");
+                $this->tpl->assign("SUB_COMMENTS", $_Onyx_Request->getContent());
                 
                 //parse item block
                 $this->tpl->parse('content.comment_list.item');
@@ -197,7 +197,7 @@ class Onxshop_Controller_Component_Comment extends Onxshop_Controller {
     public function checkViewPermission($item) {
         
         if ($item['customer_id'] == $_SESSION['client']['customer']['id'] && $_SESSION['client']['customer']['id'] > 0 ) return true;
-        if (Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) return true;
+        if (Onyx_Bo_Authentication::getInstance()->isAuthenticated()) return true;
         
         return false;
         
@@ -209,7 +209,7 @@ class Onxshop_Controller_Component_Comment extends Onxshop_Controller {
     
     public function checkEditPermission($item) {
     
-        if (Onxshop_Bo_Authentication::getInstance()->isAuthenticated()) return true;
+        if (Onyx_Bo_Authentication::getInstance()->isAuthenticated()) return true;
         
         return false;
     }
@@ -272,8 +272,8 @@ class Onxshop_Controller_Component_Comment extends Onxshop_Controller {
             
         } else {
             
-            $_Onxshop_Request = new Onxshop_Request("component/client/login");
-            $this->tpl->assign('LOGIN_BOX', $_Onxshop_Request->getContent());
+            $_Onyx_Request = new Onyx_Request("component/client/login");
+            $this->tpl->assign('LOGIN_BOX', $_Onyx_Request->getContent());
             $this->tpl->assign('CURRENT_PAGE_ID', $_SESSION['active_pages'][0]);
             
             $this->tpl->parse('content.log_to_insert');

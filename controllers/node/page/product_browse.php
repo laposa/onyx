@@ -6,6 +6,6 @@
 
 require_once('controllers/node/page/default.php');
 
-class Onxshop_Controller_Node_Page_Product_Browse extends Onxshop_Controller_Node_Page_Default {
+class Onyx_Controller_Node_Page_Product_Browse extends Onyx_Controller_Node_Page_Default {
     
 }

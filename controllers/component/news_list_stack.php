@@ -6,6 +6,6 @@
 
 require_once('controllers/component/news_list.php');
 
-class Onxshop_Controller_Component_News_List_Stack extends Onxshop_Controller_Component_News_List {
+class Onyx_Controller_Component_News_List_Stack extends Onyx_Controller_Component_News_List {
 
 }

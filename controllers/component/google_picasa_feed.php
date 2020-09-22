@@ -5,7 +5,7 @@
  *
  */
 
-class Onxshop_Controller_Component_Google_Picasa_Feed extends Onxshop_Controller {
+class Onyx_Controller_Component_Google_Picasa_Feed extends Onyx_Controller {
 
     /**
      * main action

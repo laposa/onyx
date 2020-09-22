@@ -9,7 +9,7 @@
 
 require_once('controllers/bo/export/xml_orders.php');
 
-class Onxshop_Controller_Bo_Export_Acuity_Orders extends Onxshop_Controller_Bo_Export_Xml_Orders {
+class Onyx_Controller_Bo_Export_Acuity_Orders extends Onyx_Controller_Bo_Export_Xml_Orders {
 //TODO: remove tabs before parsing
 
     /**

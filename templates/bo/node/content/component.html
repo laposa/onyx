@@ -51,13 +51,13 @@ function serverBrowserOpenDir(open_dir) {
     
     <div id="node-edit-component" style="clear: both">
         <ul class="ui-tabs-nav">
-            <li class="active"><a href="#onxshop-template"><span>Template</span></a></li>
-            <li><a href="#onxshop-controller"><span>Controller</span></a></li>
-            <li><a href="#onxshop-parameters"><span>Parameters</span></a></li>
+            <li class="active"><a href="#onyx-template"><span>Template</span></a></li>
+            <li><a href="#onyx-controller"><span>Controller</span></a></li>
+            <li><a href="#onyx-parameters"><span>Parameters</span></a></li>
         </ul>
     
     
-        <div id="onxshop-template">
+        <div id="onyx-template">
             <fieldset>
                 <div class="row">
                     <label>Template</label>
@@ -68,12 +68,12 @@ function serverBrowserOpenDir(open_dir) {
                         <ul class="component-template-menu">
                             <li style="margin: 0 0 0 2%; padding: 0; width: 48%; float: left; ">
                                 <a href="#"><span>Local</span></a>
-                                {ONXSHOP_REQUEST_template_project #bo/component/server_browser_menu~directory=templates/component/:scope=project:trim_extension=1:expand_all=1:id=null~}
+                                {ONYX_REQUEST_template_project #bo/component/server_browser_menu~directory=templates/component/:scope=project:trim_extension=1:expand_all=1:id=null~}
                             </li>
                             
                             <li style="margin: 0 0 0 2%; padding: 0; width: 48%; float: left; ">
                                 <a href="#"><span>Global</span></a>
-                                {ONXSHOP_REQUEST_template_onxshop #bo/component/server_browser_menu~directory=templates/component/:scope=onxshop:trim_extension=1:expand_all=1:id=null~}
+                                {ONYX_REQUEST_template_onyx #bo/component/server_browser_menu~directory=templates/component/:scope=onyx:trim_extension=1:expand_all=1:id=null~}
                             </li>
                             
                         </ul>   
@@ -82,7 +82,7 @@ function serverBrowserOpenDir(open_dir) {
             </fieldset>
         </div>
         
-        <div id="onxshop-controller">
+        <div id="onyx-controller">
             <fieldset>
                 <div class="row">
                     <label>Controller</label>
@@ -93,11 +93,11 @@ function serverBrowserOpenDir(open_dir) {
                         <ul class="controller-menu">
                             <li style="margin: 0 0 0 2%; padding: 0; width: 48%; float: left; ">
                                 <a href="#"><span>Local</span></a>
-                                {ONXSHOP_REQUEST_controller_project #bo/component/server_browser_menu~directory=controllers/component/:scope=project:trim_extension=1:expand_all=1:id=null~}
+                                {ONYX_REQUEST_controller_project #bo/component/server_browser_menu~directory=controllers/component/:scope=project:trim_extension=1:expand_all=1:id=null~}
                             </li>
                             <li style="margin: 0 0 0 2%; padding: 0; width: 48%; float: left; ">
                                 <a href="#"><span>Global</span></a>
-                                {ONXSHOP_REQUEST_controller_onxshop #bo/component/server_browser_menu~directory=controllers/component/:scope=onxshop:trim_extension=1:expand_all=1:id=null~}
+                                {ONYX_REQUEST_controller_onyx #bo/component/server_browser_menu~directory=controllers/component/:scope=onyx:trim_extension=1:expand_all=1:id=null~}
                             </li>
                             
                         </ul>
@@ -106,7 +106,7 @@ function serverBrowserOpenDir(open_dir) {
             </fieldset>
         </div>
 
-        <div id="onxshop-parameters" class="onxshop-tabulatorX ui-tabs-panel">
+        <div id="onyx-parameters" class="onyx-tabulatorX ui-tabs-panel">
             <fieldset>
                 <div class="row">
                     <label>GET parameters:</label>

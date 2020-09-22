@@ -11,7 +11,7 @@ require_once('models/ecommerce/ecommerce_offer.php');
 require_once('models/ecommerce/ecommerce_offer_group.php');
 require_once('models/ecommerce/ecommerce_price.php');
 
-class Onxshop_Controller_Bo_Component_Ecommerce_Product_Special_Offers extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Ecommerce_Product_Special_Offers extends Onyx_Controller {
     
     /**
      * main action

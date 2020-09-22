@@ -5,7 +5,7 @@
  * 
  */
 
-class Onxshop_Controller_Bo_Component_Sysinfo extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Sysinfo extends Onyx_Controller {
 
     /**
      * main action
@@ -26,7 +26,7 @@ class Onxshop_Controller_Bo_Component_Sysinfo extends Onxshop_Controller {
          */
         
         /*
-        if (!ONXSHOP_IS_DEBUG_HOST) {
+        if (!ONYX_IS_DEBUG_HOST) {
             msg('Need to be listed as $debug_hosts in conf/deployment.php', 'error');
             return false;
         }

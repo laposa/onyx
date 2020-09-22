@@ -7,7 +7,7 @@
  *
  */
  
-class common_node_taxonomy extends Onxshop_Model {
+class common_node_taxonomy extends Onyx_Model {
 
     /**
      * @access private

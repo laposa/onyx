@@ -7,7 +7,7 @@
  *
  */
  
-class international_currency extends Onxshop_Model {
+class international_currency extends Onyx_Model {
 
     var $id;
     
@@ -61,7 +61,7 @@ CREATE TABLE international_currency (
      
     static function initConfiguration() {
     
-        if (array_key_exists('international_currency', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['international_currency'];
+        if (array_key_exists('international_currency', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['international_currency'];
         else $conf = array();
         
         $conf['default'] = GLOBAL_DEFAULT_CURRENCY;

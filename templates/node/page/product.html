@@ -2,7 +2,7 @@
 <!-- BEGIN: description -->{PRODUCT.teaser|html2text(%s, 1)}<!-- END: description -->
 <!-- BEGIN: head -->
 <!-- BEGIN: open_graph -->
-<meta property="og:type" content="{ONXSHOP_FACEBOOK_APP_NAMESPACE}:product" />
+<meta property="og:type" content="{ONYX_FACEBOOK_APP_NAMESPACE}:product" />
 <!-- BEGIN: image --><meta property="og:image" content="{PROTOCOL}://{_SERVER.HTTP_HOST}/image/{OPENGRAPH_IMAGE.src|htmlspecialchars}" /><!-- END: image -->
 <meta property="og:description" content="{PRODUCT.description|strip_tags|htmlspecialchars}" />
 <!-- END: open_graph -->
@@ -28,7 +28,7 @@
                         <div class="column-one">
                             <div class="column-wrapper">                                            
                                 <div class="teaser">{PRODUCT.teaser}</div>
-                                {ONXSHOP_REQUEST_variety_list #component/ecommerce/variety_list~product_id=GET.product_id~}
+                                {ONYX_REQUEST_variety_list #component/ecommerce/variety_list~product_id=GET.product_id~}
                                 {PRODUCT.description}
                                 {TAXONOMY}
                                 {OTHER_DATA}
@@ -38,7 +38,7 @@
                         </div>
                         <div class="column-two">
                             <div class="column-wrapper">
-                                <div class="productImage"><span class="roundel"></span>{ONXSHOP_REQUEST_image #component/image_gallery~relation=product:role=main:width=GET.image_width:node_id=GET.product_id~}</div>
+                                <div class="productImage"><span class="roundel"></span>{ONYX_REQUEST_image #component/image_gallery~relation=product:role=main:width=GET.image_width:node_id=GET.product_id~}</div>
                                                                             
                                 {CONTAINER.2}
                             </div>
@@ -50,10 +50,10 @@
                     
                         {PRODUCT_REVIEW}
                         
-                        {disableONXSHOP_REQUEST_recently_viewed #component/ecommerce/recently_viewed_products}
-                        {ONXSHOP_REQUEST_related_dynamic #component/ecommerce/product_related~type=dynamic:limit=3:product_node_id=GET.id~}
+                        {disableONYX_REQUEST_recently_viewed #component/ecommerce/recently_viewed_products}
+                        {ONYX_REQUEST_related_dynamic #component/ecommerce/product_related~type=dynamic:limit=3:product_node_id=GET.id~}
                         
-                        {ONXSHOP_REQUEST_related_static #component/ecommerce/product_related~type=static:limit=2:product_node_id=GET.id~}
+                        {ONYX_REQUEST_related_static #component/ecommerce/product_related~type=static:limit=2:product_node_id=GET.id~}
                         
                         {CONTAINER.3}
                     </div>

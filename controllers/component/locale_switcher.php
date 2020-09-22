@@ -5,7 +5,7 @@
  * 
  */
 
-class Onxshop_Controller_Component_Locale_Switcher extends Onxshop_Controller {
+class Onyx_Controller_Component_Locale_Switcher extends Onyx_Controller {
     
     /**
      * main action

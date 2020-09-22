@@ -6,7 +6,7 @@
 
 require_once('controllers/component/ecommerce/product_review.php');
 
-class Onxshop_Controller_Component_Ecommerce_Product_Review_Approve extends Onxshop_Controller_Component_Ecommerce_Product_Review {
+class Onyx_Controller_Component_Ecommerce_Product_Review_Approve extends Onyx_Controller_Component_Ecommerce_Product_Review {
 
     /**
      * custom comment action
@@ -31,7 +31,7 @@ class Onxshop_Controller_Component_Ecommerce_Product_Review_Approve extends Onxs
                 else if ($publish == -1) msg("Product review ID $comment_id rejected by client ID {$_SESSION['client']['customer']['id']}");
                 
                 if ($publish == 1) $this->runCustomApproveAction($comment_id);
-                onxshopGoTo($_SESSION['referer'], 2);
+                onyxGoTo($_SESSION['referer'], 2);
             }
             
         }
@@ -41,7 +41,7 @@ class Onxshop_Controller_Component_Ecommerce_Product_Review_Approve extends Onxs
 
     public function runCustomApproveAction($comment_id)
     {
-        $request = new Onxshop_Request("component/ecommerce/product_review_approve_action~comment_id=$comment_id~");
+        $request = new Onyx_Request("component/ecommerce/product_review_approve_action~comment_id=$comment_id~");
         return $request->getContent();
     }
     

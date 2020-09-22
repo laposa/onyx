@@ -6,7 +6,7 @@
 
 require_once('controllers/component/ecommerce/recipe_review.php');
 
-class Onxshop_Controller_Component_Ecommerce_Recipe_Review_List extends Onxshop_Controller_Component_Ecommerce_Recipe_Review {
+class Onyx_Controller_Component_Ecommerce_Recipe_Review_List extends Onyx_Controller_Component_Ecommerce_Recipe_Review {
 
     /**
      * custom comment action

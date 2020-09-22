@@ -7,7 +7,7 @@
 
 require_once('controllers/bo/component/ecommerce/sales_report.php');
 
-class Onxshop_Controller_Bo_Export_CSV_Sales extends Onxshop_Controller_Bo_Component_Ecommerce_Sales_Report {
+class Onyx_Controller_Bo_Export_CSV_Sales extends Onyx_Controller_Bo_Component_Ecommerce_Sales_Report {
 
     /**
      * render list

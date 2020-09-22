@@ -7,7 +7,7 @@
  * 
  */
 
-class Onxshop_Controller_Bo_Component_Server_Browser_File_List extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Server_Browser_File_List extends Onyx_Controller {
 
     /**
      * main action
@@ -46,7 +46,7 @@ class Onxshop_Controller_Bo_Component_Server_Browser_File_List extends Onxshop_C
          * 
          */
         
-        $base_folder_full = ONXSHOP_PROJECT_DIR . $base_folder;
+        $base_folder_full = ONYX_PROJECT_DIR . $base_folder;
         $fullpath = $base_folder_full . urldecode($open_folder);
         
         $pathinfo = pathinfo($fullpath);
@@ -172,14 +172,14 @@ class Onxshop_Controller_Bo_Component_Server_Browser_File_List extends Onxshop_C
          * allow to upload only in non-root folder
          */
         
-        if (($relative_folder_path || ONXSHOP_MEDIA_LIBRARY_ROOT_UPLOAD) && is_writable($fullpath)) {
+        if (($relative_folder_path || ONYX_MEDIA_LIBRARY_ROOT_UPLOAD) && is_writable($fullpath)) {
             
             $this->tpl->parse('content.add_new.upload_file');
             
         } else {
             
             if (!is_writable($fullpath)) $this->tpl->parse('content.add_new.upload_instruction.permission');
-            else if (ONXSHOP_MEDIA_LIBRARY_ROOT_UPLOAD == false) $this->tpl->parse('content.add_new.upload_instruction.root');
+            else if (ONYX_MEDIA_LIBRARY_ROOT_UPLOAD == false) $this->tpl->parse('content.add_new.upload_instruction.root');
             
             $this->tpl->parse('content.add_new.upload_instruction');
             
@@ -214,8 +214,8 @@ class Onxshop_Controller_Bo_Component_Server_Browser_File_List extends Onxshop_C
                 } else {
                     $this->tpl->assign("FILE_USAGE", $relations_list['count']);
                     $this->tpl->parse('content.list.item.usage');
-                    //$_Onxshop_Request = new Onxshop_Request("bo/component/file_usage~file_path_encoded_relative={$l['file_path_encoded_relative']}~");
-                    //$this->tpl->assign("FILE_USAGE", $_Onxshop_Request->getContent());
+                    //$_Onyx_Request = new Onyx_Request("bo/component/file_usage~file_path_encoded_relative={$l['file_path_encoded_relative']}~");
+                    //$this->tpl->assign("FILE_USAGE", $_Onyx_Request->getContent());
                 }
         
                 //if (preg_match('/^image\/.*/', $l['mime-type'])) 

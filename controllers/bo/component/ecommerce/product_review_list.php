@@ -8,7 +8,7 @@ require_once('controllers/bo/component/comment_list.php');
 require_once('models/ecommerce/ecommerce_product_review.php');
 require_once('models/ecommerce/ecommerce_product.php');
 
-class Onxshop_Controller_Bo_Component_Ecommerce_Product_Review_List extends Onxshop_Controller_Bo_Component_Comment_List {
+class Onyx_Controller_Bo_Component_Ecommerce_Product_Review_List extends Onyx_Controller_Bo_Component_Comment_List {
     
     /**
      * Initialize models

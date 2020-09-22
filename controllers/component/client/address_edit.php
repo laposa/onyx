@@ -5,7 +5,7 @@
  * 
  */
 
-class Onxshop_Controller_Component_Client_Address_Edit extends Onxshop_Controller {
+class Onyx_Controller_Component_Client_Address_Edit extends Onyx_Controller {
 
     /**
      * main action
@@ -67,7 +67,7 @@ class Onxshop_Controller_Component_Client_Address_Edit extends Onxshop_Controlle
             if ($Customer->update($customer_detail)) {
             
                 $_SESSION['client']['customer'] = $customer_detail;
-                onxshopGoTo($_SESSION['referer'], 2);
+                onyxGoTo($_SESSION['referer'], 2);
             
             } else {
             

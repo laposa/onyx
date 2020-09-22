@@ -7,6 +7,6 @@
 
 require_once('controllers/component/teaser.php');
 
-class Onxshop_Controller_Component_Teaser_Stack extends Onxshop_Controller_Component_Teaser {
+class Onyx_Controller_Component_Teaser_Stack extends Onyx_Controller_Component_Teaser {
 
 }

@@ -9,7 +9,7 @@
 
 set_time_limit(0);
 
-class Onxshop_Controller_Bo_Export_Xml_Orders extends Onxshop_Controller {
+class Onyx_Controller_Bo_Export_Xml_Orders extends Onyx_Controller {
 
     /**
      * main action

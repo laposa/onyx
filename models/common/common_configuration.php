@@ -7,7 +7,7 @@
  *
  */
  
-class common_configuration extends Onxshop_Model {
+class common_configuration extends Onyx_Model {
 
     /**
      * NOT NULL PRIMARY KEY
@@ -173,7 +173,7 @@ class common_configuration extends Onxshop_Model {
             $title = $conf['global']['title'];
             $conf['global']['copyright'] = "&copy; $year <span>$title</span>";
         }
-        if (!array_key_exists('credit', $conf['global'])) $conf['global']['credit'] = '<a href="https://onxshop.com" title="eCommerce solution"><span>Powered by Onxshop</span></a>';
+        if (!array_key_exists('credit', $conf['global'])) $conf['global']['credit'] = '<a href="https://onxshop.com" title="eCommerce solution"><span>Powered by Onyx</span></a>';
         if (!array_key_exists('google_analytics', $conf['global'])) $conf['global']['google_analytics'] = '';
         if (!array_key_exists('css', $conf['global'])) $conf['global']['css'] = '';
         
@@ -223,7 +223,7 @@ class common_configuration extends Onxshop_Model {
         if (!array_key_exists('admin_email', $conf['global'])) $conf['global']['admin_email'] = 'test@onxshop.com';
         if ($conf['global']['admin_email_name'] == '') $conf['global']['admin_email_name'] = $conf['global']['title'];
         
-        //addthis tracking configuration, by default uses shared Onxshop profile
+        //addthis tracking configuration, by default uses shared Onyx profile
         if (!array_key_exists('addthis_profile', $conf['global'])) $conf['global']['addthis_profile'] = 'ra-51114b69066f0fe4';
         
         // CSS selector for elements we want to be ingnored by the internal search indexing

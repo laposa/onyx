@@ -7,7 +7,7 @@
 
 require_once 'controllers/component/client/facebook.php';
 
-class Onxshop_Controller_Component_Client_Facebook_Auth extends Onxshop_Controller_Component_Client_Facebook {
+class Onyx_Controller_Component_Client_Facebook_Auth extends Onyx_Controller_Component_Client_Facebook {
 
     /**
      * main action
@@ -29,7 +29,7 @@ class Onxshop_Controller_Component_Client_Facebook_Auth extends Onxshop_Controll
     
             $login_conf = $this->getLoginConf();
             $fb_login_url = $this->Facebook->getLoginUrl($login_conf);
-            OnxshopGoto($fb_login_url, 2);
+            OnyxGoto($fb_login_url, 2);
             
         }
         
@@ -52,7 +52,7 @@ class Onxshop_Controller_Component_Client_Facebook_Auth extends Onxshop_Controll
                 
                 if ($user_profile['id']) {
                     //try to login if currently logged in facebook_id isn't the same as authorised one 
-                    if ($_SESSION['client']['customer']['facebook_id'] != $user_profile['id']) $this->loginToOnxshop($user_profile);
+                    if ($_SESSION['client']['customer']['facebook_id'] != $user_profile['id']) $this->loginToOnyx($user_profile);
                 }
                 
             } catch (FacebookApiException $e) {
@@ -72,7 +72,7 @@ class Onxshop_Controller_Component_Client_Facebook_Auth extends Onxshop_Controll
         
         } else {
         
-            if (ONXSHOP_FACEBOOK_WITHIN_APP) {
+            if (ONYX_FACEBOOK_WITHIN_APP) {
                 
                 $login_conf = $this->getLoginConf();
                 
@@ -107,12 +107,12 @@ class Onxshop_Controller_Component_Client_Facebook_Auth extends Onxshop_Controll
         $scope = explode(",", $client_customer_conf['facebook_login_scope']);
         $conf = array('scope' => $scope);
         
-        $redirect_uri = ONXSHOP_FACEBOOK_CANVAS_PAGE . $_GET['translate'];
+        $redirect_uri = ONYX_FACEBOOK_CANVAS_PAGE . $_GET['translate'];
         
-        if (ONXSHOP_FACEBOOK_WITHIN_APP) {
+        if (ONYX_FACEBOOK_WITHIN_APP) {
             
             // desktop is using canvas, mobile is using direct URL
-            if (ONXSHOP_FACEBOOK_ENV == 'desktop') $conf['redirect_uri'] = $redirect_uri;
+            if (ONYX_FACEBOOK_ENV == 'desktop') $conf['redirect_uri'] = $redirect_uri;
             
             // save location where to forward after login or registration completed
             // see controllers/client/login and controllers/client/registration for reference
@@ -123,10 +123,10 @@ class Onxshop_Controller_Component_Client_Facebook_Auth extends Onxshop_Controll
     }
     
     /**
-     * loginToOnxshop
+     * loginToOnyx
      */
      
-    public function loginToOnxshop($user_profile) {
+    public function loginToOnyx($user_profile) {
         
         require_once('models/client/client_customer.php');
         $Customer = new client_customer();
@@ -140,37 +140,37 @@ class Onxshop_Controller_Component_Client_Facebook_Auth extends Onxshop_Controll
             $_SESSION['use_page_cache'] = false;
             
             // auto login (TODO allow to enable/disable this behaviour)
-            $Customer->generateAndSaveOnxshopToken($customer_detail['id']);
+            $Customer->generateAndSaveOnyxToken($customer_detail['id']);
                         
         } else {
         
             msg("{$user_profile['email']} (FB ID {$user_profile['id']}) successfully authorised over Facebook, but must register locally", 'ok', 1);
             
             //forward to registration
-            $this->mapUserToOnxshop($user_profile);
-            onxshopGoTo("/page/13");//TODO get node_id from common_node.conf
+            $this->mapUserToOnyx($user_profile);
+            onyxGoTo("/page/13");//TODO get node_id from common_node.conf
         
         }
     }
     
     /**
-     * mapUserToOnxshop
+     * mapUserToOnyx
      */
      
-    public function mapUserToOnxshop($user_profile) {
+    public function mapUserToOnyx($user_profile) {
         
-        //map to Onxshop schema
-        $onxshop_client_customer = array();
-        $onxshop_client_customer['first_name'] = $user_profile['first_name'];
-        $onxshop_client_customer['last_name'] = $user_profile['last_name'];
-        $onxshop_client_customer['email'] = $user_profile['email'];
-        $onxshop_client_customer['gender'] = substr($user_profile['gender'], 0, 1);
-        if ($user_profile['birthday']) $onxshop_client_customer['birthday'] = strftime('%F', strtotime($user_profile['birthday']));
-        $onxshop_client_customer['facebook_id'] = $user_profile['id'];
-        $onxshop_client_customer['profile_image_url'] = "https://graph.facebook.com/{$user_profile['id']}/picture";
+        //map to Onyx schema
+        $onyx_client_customer = array();
+        $onyx_client_customer['first_name'] = $user_profile['first_name'];
+        $onyx_client_customer['last_name'] = $user_profile['last_name'];
+        $onyx_client_customer['email'] = $user_profile['email'];
+        $onyx_client_customer['gender'] = substr($user_profile['gender'], 0, 1);
+        if ($user_profile['birthday']) $onyx_client_customer['birthday'] = strftime('%F', strtotime($user_profile['birthday']));
+        $onyx_client_customer['facebook_id'] = $user_profile['id'];
+        $onyx_client_customer['profile_image_url'] = "https://graph.facebook.com/{$user_profile['id']}/picture";
         
         //save to session
-        $_SESSION['r_client']['customer'] = $onxshop_client_customer;
+        $_SESSION['r_client']['customer'] = $onyx_client_customer;
         
     }
     

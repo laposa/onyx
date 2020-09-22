@@ -8,7 +8,7 @@
 require_once('controllers/bo/component/configuration.php');
 require_once('models/ecommerce/ecommerce_promotion.php');
 
-class Onxshop_Controller_Bo_Component_Configuration_Ecommerce_Promotion extends Onxshop_Controller_Bo_Component_Configuration {
+class Onyx_Controller_Bo_Component_Configuration_Ecommerce_Promotion extends Onyx_Controller_Bo_Component_Configuration {
     
     /**
      * main action

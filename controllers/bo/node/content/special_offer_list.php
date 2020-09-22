@@ -10,7 +10,7 @@ require_once('models/ecommerce/ecommerce_offer.php');
 require_once('models/ecommerce/ecommerce_offer_group.php');
 require_once('models/ecommerce/ecommerce_product_image.php');
 
-class Onxshop_Controller_Bo_Node_Content_Special_Offer_List extends Onxshop_Controller_Bo_Node_Content_Default {
+class Onyx_Controller_Bo_Node_Content_Special_Offer_List extends Onyx_Controller_Bo_Node_Content_Default {
     
     /**
      * post action
@@ -42,9 +42,9 @@ class Onxshop_Controller_Bo_Node_Content_Special_Offer_List extends Onxshop_Cont
 
     protected function parseTemplatesSelect($selected) {
 
-        $templates_local = glob(ONXSHOP_PROJECT_DIR . "templates/component/ecommerce/product_list_*.html");
+        $templates_local = glob(ONYX_PROJECT_DIR . "templates/component/ecommerce/product_list_*.html");
         foreach ($templates_local as &$template) $template = str_replace(".html", '', str_replace("product_list_", '', basename($template)));
-        $templates_global = glob(ONXSHOP_DIR . "templates/component/ecommerce/product_list_*.html");
+        $templates_global = glob(ONYX_DIR . "templates/component/ecommerce/product_list_*.html");
         foreach ($templates_global as &$template) $template = str_replace(".html", '', str_replace("product_list_", '', basename($template)));
 
         $templates = array_unique(array_merge($templates_global, $templates_local));

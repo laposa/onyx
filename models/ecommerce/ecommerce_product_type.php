@@ -8,7 +8,7 @@
  *
  */
  
-class ecommerce_product_type extends Onxshop_Model {
+class ecommerce_product_type extends Onyx_Model {
 
     /**
      * @access private
@@ -56,7 +56,7 @@ CREATE TABLE ecommerce_product_type (
      */
      
     static function initConfiguration() {
-        if (array_key_exists('ecommerce_price', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['ecommerce_price'];
+        if (array_key_exists('ecommerce_price', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['ecommerce_price'];
         else $conf = array();
         
         $conf['default_id'] = 9;

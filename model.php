@@ -8,9 +8,9 @@
  * 
  */
 
-require_once 'lib/onxshop.db.php';
+require_once 'lib/onyx.db.php';
 
-class Onxshop_Model extends Onxshop_Db {
+class Onyx_Model extends Onyx_Db {
 
     /**
      * insertRevision

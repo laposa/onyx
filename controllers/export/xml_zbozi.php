@@ -7,7 +7,7 @@
  * http://napoveda.seznam.cz/cz/specifikace-xml.html
  */
 
-class Onxshop_Controller_Export_Xml_Zbozi extends Onxshop_Controller {
+class Onyx_Controller_Export_Xml_Zbozi extends Onyx_Controller {
     
     /**
      * main action

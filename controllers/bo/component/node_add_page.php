@@ -7,5 +7,5 @@
 
 require_once('controllers/bo/component/node_add.php');
 
-class Onxshop_Controller_Bo_Component_Node_Add_Page extends Onxshop_Controller_Bo_Component_Node_Add {
+class Onyx_Controller_Bo_Component_Node_Add_Page extends Onyx_Controller_Bo_Component_Node_Add {
 }

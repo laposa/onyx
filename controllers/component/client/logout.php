@@ -5,7 +5,7 @@
  *
  */
 
-class Onxshop_Controller_Component_Client_Logout extends Onxshop_Controller {
+class Onyx_Controller_Component_Client_Logout extends Onyx_Controller {
     
     /**
      * main action
@@ -41,7 +41,7 @@ class Onxshop_Controller_Component_Client_Logout extends Onxshop_Controller {
         }
 
         //forward to the homepage
-        onxshopGoTo(AFTER_CLIENT_LOGOUT_URL);
+        onyxGoTo(AFTER_CLIENT_LOGOUT_URL);
 
         return true;
     }
@@ -54,16 +54,16 @@ class Onxshop_Controller_Component_Client_Logout extends Onxshop_Controller {
 
         // invalidate token in database
 
-        if (isset($_COOKIE[ONXSHOP_TOKEN_NAME])) {
+        if (isset($_COOKIE[ONYX_TOKEN_NAME])) {
             require_once('models/client/client_customer_token.php');
             $Token = new client_customer_token();
             $Token->setCacheable(false);
-            $Token->invalidateToken($_COOKIE[ONXSHOP_TOKEN_NAME]);
+            $Token->invalidateToken($_COOKIE[ONYX_TOKEN_NAME]);
         }
 
         // invalidate token in cookie
 
-        setcookie(ONXSHOP_TOKEN_NAME, "", time()-60*60*24*100, "/");
+        setcookie(ONYX_TOKEN_NAME, "", time()-60*60*24*100, "/");
     }
     
 }

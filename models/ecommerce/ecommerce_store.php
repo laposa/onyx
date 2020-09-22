@@ -7,7 +7,7 @@
  *
  */
 
-class ecommerce_store extends Onxshop_Model {
+class ecommerce_store extends Onyx_Model {
 
     /**
      * @access public
@@ -233,7 +233,7 @@ CREATE INDEX ecommerce_store_type_id_idx ON ecommerce_store (type_id);
     static function initConfiguration()
     {
     
-        if (array_key_exists('ecommerce_store', $GLOBALS['onxshop_conf'])) $conf = $GLOBALS['onxshop_conf']['ecommerce_store'];
+        if (array_key_exists('ecommerce_store', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['ecommerce_store'];
         else $conf = array();
         
         /**

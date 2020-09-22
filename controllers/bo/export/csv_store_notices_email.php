@@ -8,7 +8,7 @@
 require_once('controllers/bo/export/csv_store_notices.php');
 require_once('models/common/common_email.php');
 
-class Onxshop_Controller_Bo_Export_CSV_Store_Notices_Email extends Onxshop_Controller_Bo_Export_CSV_Store_Notices {
+class Onyx_Controller_Bo_Export_CSV_Store_Notices_Email extends Onyx_Controller_Bo_Export_CSV_Store_Notices {
 
     /**
      * main action
@@ -76,7 +76,7 @@ class Onxshop_Controller_Bo_Export_CSV_Store_Notices_Email extends Onxshop_Contr
         $this->tpl->parse('content');
         $text = $this->tpl->text('content');
 
-        $export_file = ONXSHOP_PROJECT_DIR . "var/tmp/$filename.csv";
+        $export_file = ONYX_PROJECT_DIR . "var/tmp/$filename.csv";
         file_put_contents($export_file, $text);
 
         // send email
@@ -85,7 +85,7 @@ class Onxshop_Controller_Bo_Export_CSV_Store_Notices_Email extends Onxshop_Contr
             'date_to' => date("d/m/Y", strtotime("first day of this month"))
         );
 
-        $GLOBALS['onxshop_atachments'] = array($export_file);
+        $GLOBALS['onyx_atachments'] = array($export_file);
 
         $EmailForm = new common_email();
 
@@ -99,7 +99,7 @@ class Onxshop_Controller_Bo_Export_CSV_Store_Notices_Email extends Onxshop_Contr
         $email_sent_status = $EmailForm->sendEmail($template, $content, $email_recipient, $name_recipient, $email_from, $name_from);
         
         unset($GLOBALS['common_email']);
-        unset($GLOBALS['onxshop_atachments']);
+        unset($GLOBALS['onyx_atachments']);
         
         return $email_sent_status;
 

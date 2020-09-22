@@ -8,7 +8,7 @@
 require_once('models/client/client_customer.php');
 require_once('models/client/client_customer_token.php');
 
-class Onxshop_Controller_Component_Client_Login extends Onxshop_Controller {
+class Onyx_Controller_Component_Client_Login extends Onyx_Controller {
 
     /**
      * main action
@@ -26,7 +26,7 @@ class Onxshop_Controller_Component_Client_Login extends Onxshop_Controller {
         if ($_SESSION['client']['customer']['id'] > 0 && !$this->GET['client']['email']) {
         
             //msg('you are in');
-            //onxshopGoTo($this->GET['to']);
+            //onyxGoTo($this->GET['to']);
         
         } else {
         
@@ -42,7 +42,7 @@ class Onxshop_Controller_Component_Client_Login extends Onxshop_Controller {
                     if (isset($_POST['autologin'])) {
                         
                         // auto login (TODO allow to enable/disable this behaviour globally)
-                        $Customer->generateAndSaveOnxshopToken($customer_detail['id']);
+                        $Customer->generateAndSaveOnyxToken($customer_detail['id']);
                     
                     }
                     
@@ -55,7 +55,7 @@ class Onxshop_Controller_Component_Client_Login extends Onxshop_Controller {
             }
             
             /* log in as client from backoffice */
-            if (Onxshop_Bo_Authentication::getInstance()->isAuthenticated() && $this->GET['client']['email']) {
+            if (Onyx_Bo_Authentication::getInstance()->isAuthenticated() && $this->GET['client']['email']) {
                 
                 $customer_detail = $Customer->getClientByEmail($this->GET['client']['email']);
                 
@@ -138,13 +138,13 @@ class Onxshop_Controller_Component_Client_Login extends Onxshop_Controller {
             if ($this->GET['to'] == 'ajax') {
                 $this->tpl->parse('content.userbox');
                 return true;
-            } else onxshopGoTo($this->GET['to']);
+            } else onyxGoTo($this->GET['to']);
         } else if ($_SESSION['to']) {
             $to = $_SESSION['to'];
             $_SESSION['to'] = false;
-            onxshopGoTo($to);
+            onyxGoTo($to);
         } else {
-            onxshopGoTo("page/" . $node_conf['id_map-myaccount']);
+            onyxGoTo("page/" . $node_conf['id_map-myaccount']);
         }
             
     }

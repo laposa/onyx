@@ -6,7 +6,7 @@
 
 require_once('models/common/common_scheduler.php');
 
-class Onxshop_Controller_Scheduler extends Onxshop_Controller {
+class Onyx_Controller_Scheduler extends Onyx_Controller {
 
     /**
      * main action
@@ -56,7 +56,7 @@ class Onxshop_Controller_Scheduler extends Onxshop_Controller {
         if (strlen($job_data['parameters']) > 0) $request .= ":" . $job_data['parameters'];
         $request .= "~";
 
-        $job = new Onxshop_Request($request);
+        $job = new Onyx_Request($request);
         $content = $job->getContent();
         $result = json_decode($content);
         if ($result === null) msg("Invalid JSON response from bo/scheduler/" . $job_data['controller'], 2);

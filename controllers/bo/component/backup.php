@@ -4,7 +4,7 @@
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
-class Onxshop_Controller_Bo_Component_Backup extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Backup extends Onyx_Controller {
 
     /**
      * main action
@@ -15,14 +15,14 @@ class Onxshop_Controller_Bo_Component_Backup extends Onxshop_Controller {
         if (in_array($this->GET['scope'], array('database', 'project', 'both'))) $scope = $this->GET['scope'];
         else $scope = 'both';
         
-        if (ONXSHOP_ALLOW_BACKUP_DOWNLOAD) {
+        if (ONYX_ALLOW_BACKUP_DOWNLOAD) {
             
             set_time_limit(0);
             
             if ($filename = $this->createBackup($scope)) {
             
                 $this->notificationEmail($filename);
-                onxshopGoTo("/download/var/backup/$filename");
+                onyxGoTo("/download/var/backup/$filename");
             
             } else {
                 
@@ -101,7 +101,7 @@ class Onxshop_Controller_Bo_Component_Backup extends Onxshop_Controller {
         if ($this->checkPermission($setting)) {
         
             local_exec("backup_project {$setting['PROJECT_DIR']}  $filename");
-            //local_exec("backup_onxshop {$setting['ONXSHOP_DIR']}  $setting['PROJECT_DIR'] . 'var/backups/onxshop.tgz'");
+            //local_exec("backup_onyx {$setting['ONYX_DIR']}  $setting['PROJECT_DIR'] . 'var/backups/onyx.tgz'");
         
             return $filename;
             
@@ -122,8 +122,8 @@ class Onxshop_Controller_Bo_Component_Backup extends Onxshop_Controller {
         require_once('models/common/common_email.php');
         $EmailForm = new common_email();
         
-        $mail_to = ONXSHOP_SUPPORT_EMAIL;
-        $mail_toname = ONXSHOP_SUPPORT_NAME;
+        $mail_to = ONYX_SUPPORT_EMAIL;
+        $mail_toname = ONYX_SUPPORT_NAME;
         
         $file_info = $this->getFileInfo($filename);
         $content = print_r($file_info, true);
@@ -147,14 +147,14 @@ class Onxshop_Controller_Bo_Component_Backup extends Onxshop_Controller {
     
         $setting = array();
         
-        $setting['USER'] = ONXSHOP_DB_USER;
-        $setting['PASSWORD'] = ONXSHOP_DB_PASSWORD;
-        $setting['HOST'] = ONXSHOP_DB_HOST;
-        //$setting['PORT'] = ONXSHOP_DB_PORT;
-        $setting['DBNAME'] = ONXSHOP_DB_NAME;
+        $setting['USER'] = ONYX_DB_USER;
+        $setting['PASSWORD'] = ONYX_DB_PASSWORD;
+        $setting['HOST'] = ONYX_DB_HOST;
+        //$setting['PORT'] = ONYX_DB_PORT;
+        $setting['DBNAME'] = ONYX_DB_NAME;
         
-        $setting['PROJECT_DIR'] = ONXSHOP_PROJECT_DIR;
-        $setting['ONXSHOP_DIR'] = ONXSHOP_DIR;
+        $setting['PROJECT_DIR'] = ONYX_PROJECT_DIR;
+        $setting['ONYX_DIR'] = ONYX_DIR;
         
         return $setting;
         
@@ -171,8 +171,8 @@ class Onxshop_Controller_Bo_Component_Backup extends Onxshop_Controller {
             return false;
         }
         
-        if (!is_readable($setting['ONXSHOP_DIR'])) {
-            msg("backup: directory {$setting['ONXSHOP_DIR']} is not readable", 'error');
+        if (!is_readable($setting['ONYX_DIR'])) {
+            msg("backup: directory {$setting['ONYX_DIR']} is not readable", 'error');
             return false;
         }
         
@@ -186,7 +186,7 @@ class Onxshop_Controller_Bo_Component_Backup extends Onxshop_Controller {
     private function getFileInfo($filename) {
         
         if (!$filename) return false;
-        $file_path = ONXSHOP_PROJECT_DIR . 'var/backup/' . $filename;
+        $file_path = ONYX_PROJECT_DIR . 'var/backup/' . $filename;
         if (!file_exists($file_path) && !is_file($file_path)) return false;
         
         require_once('models/common/common_file.php');

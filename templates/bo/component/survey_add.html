@@ -13,7 +13,7 @@
                 target: '#sub-content',
                 beforeSubmit: function() {return $("#survey-edit-form").valid()},
                 success: function(responseText, statusText) {
-                    popupMessage("#sub-content div.onxshop-messages");
+                    popupMessage("#sub-content div.onyx-messages");
                     makeAjaxRequest('#sub-content', '/request/bo/component/survey_list');
                 }
             });

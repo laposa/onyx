@@ -6,7 +6,7 @@
 
 require_once('controllers/node/content/default.php');
 
-class Onxshop_Controller_Node_Content_Recipe_List extends Onxshop_Controller_Node_Content_Default {
+class Onyx_Controller_Node_Content_Recipe_List extends Onyx_Controller_Node_Content_Default {
 
     /**
      * main action
@@ -94,8 +94,8 @@ class Onxshop_Controller_Node_Content_Recipe_List extends Onxshop_Controller_Nod
          * call controller
          */
 
-        $_Onxshop_Request = new Onxshop_Request("component/ecommerce/$controller~taxonomy_tree_id=$taxonomy_ids:sort[by]=$sort_by:sort[direction]=$sort_direction:limit_from=$limit_from:limit_per_page=$limit_per_page:display_pagination=$display_pagination~");
-        $this->tpl->assign('RECIPE_LIST', $_Onxshop_Request->getContent());
+        $_Onyx_Request = new Onyx_Request("component/ecommerce/$controller~taxonomy_tree_id=$taxonomy_ids:sort[by]=$sort_by:sort[direction]=$sort_direction:limit_from=$limit_from:limit_per_page=$limit_per_page:display_pagination=$display_pagination~");
+        $this->tpl->assign('RECIPE_LIST', $_Onyx_Request->getContent());
         
         $this->tpl->assign('NODE', $node_data);
 

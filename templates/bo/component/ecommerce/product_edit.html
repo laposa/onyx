@@ -44,8 +44,8 @@
                                             </fieldset>
 
                                             <div>
-                                                {ONXSHOP_REQUEST_product_in_node #bo/component/ecommerce/product_in_node~product_id=GET.id~}
-                                                {ONXSHOP_REQUEST_ptn #bo/component/ecommerce/relation_product_in_nodes}
+                                                {ONYX_REQUEST_product_in_node #bo/component/ecommerce/product_in_node~product_id=GET.id~}
+                                                {ONYX_REQUEST_ptn #bo/component/ecommerce/relation_product_in_nodes}
                                             </div>
 
                                             <fieldset class="advanced">
@@ -64,22 +64,22 @@
                                                     <span class="field"><input type="checkbox" id="product-publish" name="product[publish]" value="1" {PRODUCT.publish} /> <label for="product-publish">Publish</label></span>
                                                 </div>
                                                 <div class="row schedule">
-                                                    {ONXSHOP_REQUEST_scheduler #bo/component/scheduler_list~node_id=GET.id:node_type=ecommerce_product:~}
+                                                    {ONYX_REQUEST_scheduler #bo/component/scheduler_list~node_id=GET.id:node_type=ecommerce_product:~}
                                                 </div>
                                             </fieldset>
 
                                             <fieldset>
                                                 <legend>Product Varieties</legend>
                                                 <div class="row">
-                                                    {ONXSHOP_REQUEST_detail #bo/component/ecommerce/product_variety_list~id=GET.id~}
+                                                    {ONYX_REQUEST_detail #bo/component/ecommerce/product_variety_list~id=GET.id~}
                                                 </div>
                                             </fieldset>
 
                                             <fieldset>
-                                            {ONXSHOP_REQUEST_rt #bo/component/relation_taxonomy~relation=product:id=GET.id~}
+                                            {ONYX_REQUEST_rt #bo/component/relation_taxonomy~relation=product:id=GET.id~}
                                             </fieldset>
                                             
-                                            {ONXSHOP_REQUEST_related #bo/component/ecommerce/relation_product_related}
+                                            {ONYX_REQUEST_related #bo/component/ecommerce/relation_product_related}
 
                                             <fieldset class="advanced">
                                                 <div class="row">
@@ -96,13 +96,13 @@
                                         <legend>Product Images</legend>
                                         <div class="row">
                                             <div class="image">
-                                            {ONXSHOP_REQUEST_imagelist #bo/component/file_list~type=add_to_product:relation=product:node_id=GET.id~}
+                                            {ONYX_REQUEST_imagelist #bo/component/file_list~type=add_to_product:relation=product:node_id=GET.id~}
                                             </div>
                                         </div>
                                     </fieldset>
 
                                     <div class="row advanced">
-                                        {ONXSHOP_REQUEST_other_data #bo/component/ecommerce/product_other_data~id=GET.id~}
+                                        {ONYX_REQUEST_other_data #bo/component/ecommerce/product_other_data~id=GET.id~}
                                     </div>
                                                                     
                                     <button class="save" type="submit" name="save" value="save"><span>Save</span></button>
@@ -129,7 +129,7 @@
     <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
 
-{ONXSHOP_REQUEST_tinymce #bo/tinymce~id=GET.id:relation=product:role=RTE_description:mode=exact:edit_elements=product_description:theme=advanced~}
+{ONYX_REQUEST_tinymce #bo/tinymce~id=GET.id:relation=product:role=RTE_description:mode=exact:edit_elements=product_description:theme=advanced~}
 
 <script type="text/javascript">
 tinymce.init({

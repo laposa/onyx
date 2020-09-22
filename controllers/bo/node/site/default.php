@@ -7,7 +7,7 @@
 
 require_once('controllers/bo/node/default.php');
 
-class Onxshop_Controller_Bo_Node_Site_Default extends Onxshop_Controller_Bo_Node_Default {
+class Onyx_Controller_Bo_Node_Site_Default extends Onyx_Controller_Bo_Node_Default {
 
     /**
      * pre action
@@ -24,7 +24,7 @@ class Onxshop_Controller_Bo_Node_Site_Default extends Onxshop_Controller_Bo_Node
      
     function post() {
 
-        if (!is_numeric($this->node_data['display_secondary_navigation'])) $this->node_data['display_secondary_navigation'] = $GLOBALS['onxshop_conf']['global']['display_secondary_navigation'];
+        if (!is_numeric($this->node_data['display_secondary_navigation'])) $this->node_data['display_secondary_navigation'] = $GLOBALS['onyx_conf']['global']['display_secondary_navigation'];
         $this->node_data['display_secondary_navigation']        = ($this->node_data['display_secondary_navigation']) ? 'checked="checked"'      : '';
 
         //style

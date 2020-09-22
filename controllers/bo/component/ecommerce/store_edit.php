@@ -6,7 +6,7 @@
 
 require_once('models/ecommerce/ecommerce_store_type.php');
 
-class Onxshop_Controller_Bo_Component_Ecommerce_Store_Edit extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Ecommerce_Store_Edit extends Onyx_Controller {
 
     /**
      * main action
@@ -44,7 +44,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Store_Edit extends Onxshop_Contr
                 msg("Store ID=$id updated");
                 
                 // forward to store list main page and exit
-                onxshopGoTo("/backoffice/stores");
+                onyxGoTo("/backoffice/stores");
                 return true;
                 
             } else {

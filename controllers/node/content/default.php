@@ -7,7 +7,7 @@
 
 require_once('controllers/node/default.php');
 
-class Onxshop_Controller_Node_Content_Default extends Onxshop_Controller_Node_Default {
+class Onyx_Controller_Node_Content_Default extends Onyx_Controller_Node_Default {
 
     /**
      * main action
@@ -43,7 +43,7 @@ class Onxshop_Controller_Node_Content_Default extends Onxshop_Controller_Node_De
             $this->node_data['page_title'] = $node_data['title'];
         }
         
-        if (!isset($this->node_data['display_title'])) $this->node_data['display_title'] = $GLOBALS['onxshop_conf']['global']['display_title'];
+        if (!isset($this->node_data['display_title'])) $this->node_data['display_title'] = $GLOBALS['onyx_conf']['global']['display_title'];
         
         $this->tpl->assign("NODE", $this->node_data);
         

@@ -4,7 +4,7 @@
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
-class Onxshop_Controller_Locales extends Onxshop_Controller {
+class Onyx_Controller_Locales extends Onyx_Controller {
 
     /**
      * main action
@@ -17,7 +17,7 @@ class Onxshop_Controller_Locales extends Onxshop_Controller {
          */
         if (preg_match("/\.bo\/backoffice\./", $this->GET['request'])) {
         
-            $locale = $GLOBALS['onxshop_conf']['global']['locale'];
+            $locale = $GLOBALS['onyx_conf']['global']['locale'];
         
         } else {
         
@@ -32,7 +32,7 @@ class Onxshop_Controller_Locales extends Onxshop_Controller {
             
             } else {
             
-                if ($GLOBALS['onxshop_conf']['global']['locale'] != '') $locale = $GLOBALS['onxshop_conf']['global']['locale'];
+                if ($GLOBALS['onyx_conf']['global']['locale'] != '') $locale = $GLOBALS['onyx_conf']['global']['locale'];
                 else $locale = 'en_GB.UTF-8';
             
             }
@@ -50,7 +50,7 @@ class Onxshop_Controller_Locales extends Onxshop_Controller {
         
             msg ("Invalid Locale", "error", 1);
             
-            if ($GLOBALS['onxshop_conf']['global']['locale'] != '') $locale = $GLOBALS['onxshop_conf']['global']['locale'];
+            if ($GLOBALS['onyx_conf']['global']['locale'] != '') $locale = $GLOBALS['onyx_conf']['global']['locale'];
             else $locale = 'en_GB.UTF-8';
         
         }
@@ -81,12 +81,12 @@ class Onxshop_Controller_Locales extends Onxshop_Controller {
     function setLocale($locale = LOCALE) {
         
         //detect if local file with language string constants is available and load it
-        $local_constants_file = ONXSHOP_PROJECT_DIR . "locales/$locale/constants.php";
+        $local_constants_file = ONYX_PROJECT_DIR . "locales/$locale/constants.php";
         if (file_exists($local_constants_file)) require_once($local_constants_file);
         
         //load global language string constants file with fallback to en_GB
-        $global_constants_file = ONXSHOP_DIR . "locales/$locale/constants.php";
-        if (!file_exists($global_constants_file)) $global_constants_file = ONXSHOP_DIR . "locales/en_GB.UTF-8/constants.php";
+        $global_constants_file = ONYX_DIR . "locales/$locale/constants.php";
+        if (!file_exists($global_constants_file)) $global_constants_file = ONYX_DIR . "locales/en_GB.UTF-8/constants.php";
         require_once($global_constants_file);
         
         //now set system locale

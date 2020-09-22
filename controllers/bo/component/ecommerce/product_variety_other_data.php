@@ -7,7 +7,7 @@
  * simply create 
  */
  
-class Onxshop_Controller_Bo_Component_Ecommerce_Product_Variety_Other_Data extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Ecommerce_Product_Variety_Other_Data extends Onyx_Controller {
 
     /**
      * main action

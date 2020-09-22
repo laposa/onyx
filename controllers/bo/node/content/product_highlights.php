@@ -7,7 +7,7 @@
 require_once('controllers/bo/node/content/default.php');
 require_once('models/ecommerce/ecommerce_product_image.php');
 
-class Onxshop_Controller_Bo_Node_Content_Product_highlights extends Onxshop_Controller_Bo_Node_Content_Default {
+class Onyx_Controller_Bo_Node_Content_Product_highlights extends Onyx_Controller_Bo_Node_Content_Default {
 
     /**
      * pre action
@@ -93,7 +93,7 @@ class Onxshop_Controller_Bo_Node_Content_Product_highlights extends Onxshop_Cont
     
     public function getDefaultImageWidth() {
         
-        return $GLOBALS['onxshop_conf']['global']['product_list_image_width'];
+        return $GLOBALS['onyx_conf']['global']['product_list_image_width'];
         
     }
 }

@@ -5,7 +5,7 @@
  *
  */
 
-class Onxshop_Controller_Component_Pagination extends Onxshop_Controller {
+class Onyx_Controller_Component_Pagination extends Onyx_Controller {
 
     /**
      * main action
@@ -58,11 +58,11 @@ class Onxshop_Controller_Component_Pagination extends Onxshop_Controller {
             $current_page = floor($from / $per_page) + 1;
 
             // setup cycle range
-            $first = max(1, $current_page - round(ONXSHOP_PAGINATION_SHOW_ITEMS / 2));
-            $last = $first + (ONXSHOP_PAGINATION_SHOW_ITEMS - 1);
+            $first = max(1, $current_page - round(ONYX_PAGINATION_SHOW_ITEMS / 2));
+            $last = $first + (ONYX_PAGINATION_SHOW_ITEMS - 1);
             if ($last > $pages_total) {
                 $last = $pages_total;
-                $first = max(1, $last - (ONXSHOP_PAGINATION_SHOW_ITEMS - 1));
+                $first = max(1, $last - (ONYX_PAGINATION_SHOW_ITEMS - 1));
             }
 
             for ($i = $first; $i <= $last; $i++) {

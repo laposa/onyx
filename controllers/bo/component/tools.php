@@ -4,7 +4,7 @@
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
-class Onxshop_Controller_Bo_Component_Tools extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Tools extends Onyx_Controller {
 
     /**
      * main action
@@ -32,28 +32,28 @@ class Onxshop_Controller_Bo_Component_Tools extends Onxshop_Controller {
             
             case 'flush_thumb':
             
-                if  ($File->rm(ONXSHOP_PROJECT_DIR . "var/thumbnails/*")) msg("All image thumbnails have been deleted");
+                if  ($File->rm(ONYX_PROJECT_DIR . "var/thumbnails/*")) msg("All image thumbnails have been deleted");
                 else ("Flushing thumbnails failed");
             
             break;
             
             case 'flush_tmp':
             
-                if ($File->rm(ONXSHOP_PROJECT_DIR . "var/tmp/*")) msg("Temp directory has been cleaned");
+                if ($File->rm(ONYX_PROJECT_DIR . "var/tmp/*")) msg("Temp directory has been cleaned");
                 else ("Flushing temp dir failed");
             
             break;
             
             case 'flush_cache':
             
-                if (onxshop_flush_cache()) msg("Cache has been refreshed");
+                if (onyx_flush_cache()) msg("Cache has been refreshed");
                 else msg("Flushing cache failed");
                 
             break;
             
             case 'flush_api_cache':
                 
-                if (is_numeric($GLOBALS['onxshop_conf']['common_configuration']['api_data_version'])) $current_api_data_version = $GLOBALS['onxshop_conf']['common_configuration']['api_data_version'];
+                if (is_numeric($GLOBALS['onyx_conf']['common_configuration']['api_data_version'])) $current_api_data_version = $GLOBALS['onyx_conf']['common_configuration']['api_data_version'];
                 else $current_api_data_version = 1;
                 
                 $api_data_version = $current_api_data_version + 1;
@@ -64,7 +64,7 @@ class Onxshop_Controller_Bo_Component_Tools extends Onxshop_Controller {
                     
                     msg("Data version of API has increased to $api_data_version");
                     
-                    if (onxshop_flush_cache()) msg("Cache has been refreshed");
+                    if (onyx_flush_cache()) msg("Cache has been refreshed");
                     else msg("Flushing cache failed");
                     
                 }
@@ -129,8 +129,8 @@ class Onxshop_Controller_Bo_Component_Tools extends Onxshop_Controller {
             
             case 'backup':
             
-                $_Onxshop = new Onxshop_Request("bo/component/backup");
-                $this->tpl->assign('SUB_CONTENT', $_Onxshop->getContent());
+                $_Onyx = new Onyx_Request("bo/component/backup");
+                $this->tpl->assign('SUB_CONTENT', $_Onyx->getContent());
             
             break;
 

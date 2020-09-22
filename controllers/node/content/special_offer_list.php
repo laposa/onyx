@@ -6,7 +6,7 @@
 
 require_once('controllers/node/content/default.php');
 
-class Onxshop_Controller_Node_Content_Special_Offer_List extends Onxshop_Controller_Node_Content_Default {
+class Onyx_Controller_Node_Content_Special_Offer_List extends Onyx_Controller_Node_Content_Default {
 
     /**
      * main action
@@ -51,8 +51,8 @@ class Onxshop_Controller_Node_Content_Special_Offer_List extends Onxshop_Control
          * call special offer component
          */
          
-        $_Onxshop_Request = new Onxshop_Request("component/ecommerce/special_offer_list~{$query}~");
-        $content = $_Onxshop_Request->getContent();
+        $_Onyx_Request = new Onyx_Request("component/ecommerce/special_offer_list~{$query}~");
+        $content = $_Onyx_Request->getContent();
         if (empty($content)) return true;
         $this->tpl->assign('PRODUCT_LIST', $content);
         $this->tpl->assign('NODE', $node_data);

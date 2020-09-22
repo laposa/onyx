@@ -8,7 +8,7 @@
 require_once('controllers/list.php');
 require_once('models/ecommerce/ecommerce_recipe.php');
 
-class Onxshop_Controller_Component_Ecommerce_Recipe_List extends Onxshop_Controller_List {
+class Onyx_Controller_Component_Ecommerce_Recipe_List extends Onyx_Controller_List {
 
     /**
      * main action (only a router in this case)
@@ -61,8 +61,8 @@ class Onxshop_Controller_Component_Ecommerce_Recipe_List extends Onxshop_Control
         if ($this->GET['display_pagination'] == 1) {
         
             $count = $Recipe->getRecipeCountForTaxonomy($taxonomy_ids);
-            $_Onxshop_Request = new Onxshop_Request("component/pagination~limit_from=$limit_from:limit_per_page=$limit_per_page:count=$count~");
-            $this->tpl->assign('PAGINATION', $_Onxshop_Request->getContent());
+            $_Onyx_Request = new Onyx_Request("component/pagination~limit_from=$limit_from:limit_per_page=$limit_per_page:count=$count~");
+            $this->tpl->assign('PAGINATION', $_Onyx_Request->getContent());
             
         }
 
@@ -129,8 +129,8 @@ class Onxshop_Controller_Component_Ecommerce_Recipe_List extends Onxshop_Control
         if ($item['review']['count'] > 0) {
                 
             $rating = round($item['review']['rating']);
-            $_Onxshop_Request = new Onxshop_Request("component/rating_stars~rating={$rating}~");
-            $this->tpl->assign('RATING_STARS', $_Onxshop_Request->getContent());
+            $_Onyx_Request = new Onyx_Request("component/rating_stars~rating={$rating}~");
+            $this->tpl->assign('RATING_STARS', $_Onyx_Request->getContent());
             if ($item['review']['count'] == 1) $this->tpl->assign('REVIEWS', 'Review');
             else $this->tpl->assign('REVIEWS', 'Reviews');
                 

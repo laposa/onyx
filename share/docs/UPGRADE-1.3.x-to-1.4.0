@@ -1,27 +1,27 @@
-rm xsite_dir; ln -s /opt/onxshop-dev onxshop_dir
+rm xsite_dir; ln -s /opt/onyx-dev onyx_dir
 
 createdb -U {DBUSER} -h localhost -E UTF8 -T {DB-1_3} {DB-1_4}
-psql -U {DBUSER} -h localhost {DB-1_4} < onxshop_dir/docs/database/upgrade-1.3.x-to-1.4.0.sql
+psql -U {DBUSER} -h localhost {DB-1_4} < onyx_dir/docs/database/upgrade-1.3.x-to-1.4.0.sql
 
 vi conf/deployment.php
 change:
 define('GLOBAL_XSITE_DIR', realpath(dirname(__FILE__) . '/../xsite_dir/') . '/');
 to:
-define('GLOBAL_ONXSHOP_DIR', realpath(dirname(__FILE__) . '/../onxshop_dir/') . '/');
-optionally add ONXSHOP_PACKAGE_NAME 
+define('GLOBAL_ONYX_DIR', realpath(dirname(__FILE__) . '/../onyx_dir/') . '/');
+optionally add ONYX_PACKAGE_NAME 
 
 vi conf/global.php
 change:
 require_once(GLOBAL_XSITE_DIR . "conf/global.php");
 to:
-require_once(GLOBAL_ONXSHOP_DIR . "conf/global.php");
+require_once(GLOBAL_ONYX_DIR . "conf/global.php");
 
 cd public_html/
 ls -la
 (update symbolic links only)
-rm favicon.ico; ln -s ../onxshop_dir/share/images/favicon.ico
-rm .htaccess ; ln -s ../onxshop_dir/htaccess .htaccess
-rm index.php ; ln -s ../onxshop_dir/index.php
-rm opt; ln -s ../onxshop_dir/opt/
-rm robots.txt ; ln -s ../onxshop_dir/robots.txt
-rm share; ln -s ../onxshop_dir/share/
+rm favicon.ico; ln -s ../onyx_dir/share/images/favicon.ico
+rm .htaccess ; ln -s ../onyx_dir/htaccess .htaccess
+rm index.php ; ln -s ../onyx_dir/index.php
+rm opt; ln -s ../onyx_dir/opt/
+rm robots.txt ; ln -s ../onyx_dir/robots.txt
+rm share; ln -s ../onyx_dir/share/

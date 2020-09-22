@@ -4,7 +4,7 @@
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
-class Onxshop_Controller_Bo_Component_Ecommerce_Promotion_Add extends Onxshop_Controller {
+class Onyx_Controller_Bo_Component_Ecommerce_Promotion_Add extends Onyx_Controller {
     
     /**
      * main action
@@ -21,7 +21,7 @@ class Onxshop_Controller_Bo_Component_Ecommerce_Promotion_Add extends Onxshop_Co
         if (is_array($_POST['promotion'])) {
             $_POST['promotion']['type'] = 1; // can add discount coupon only
             if ($Promotion->addPromotion($_POST['promotion'])) {
-                //onxshopGoTo("/backoffice/marketing");
+                //onyxGoTo("/backoffice/marketing");
                 msg ('Inserted');
             } else {
                 msg('Insert failed', 'error');

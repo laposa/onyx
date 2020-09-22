@@ -6,7 +6,7 @@
 
 require_once 'lib/phpFlickr/phpFlickr.php';
 
-class Onxshop_Controller_Component_Flickr extends Onxshop_Controller
+class Onyx_Controller_Component_Flickr extends Onyx_Controller
 {
 
     /**
@@ -21,8 +21,8 @@ class Onxshop_Controller_Component_Flickr extends Onxshop_Controller
 
     public function init()
     {
-        $this->flickr = new phpFlickr(ONXSHOP_FLICKR_API_KEY);
-        $this->flickr->enableCache("fs", ONXSHOP_PROJECT_DIR . "var/cache");
+        $this->flickr = new phpFlickr(ONYX_FLICKR_API_KEY);
+        $this->flickr->enableCache("fs", ONYX_PROJECT_DIR . "var/cache");
     }
 
     public function getUserIdByUserName($username)
