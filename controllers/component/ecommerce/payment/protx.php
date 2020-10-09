@@ -58,7 +58,8 @@ class Onxshop_Controller_Component_Ecommerce_Payment_Protx extends Onxshop_Contr
         require_once('models/ecommerce/ecommerce_order.php');
         $Order = new ecommerce_order();     
         $protx_amount = $Order->calculatePayableAmount($order_data);
-    
+   
+        $protx['Crypt'] = array(); 
         $protx['Crypt']['VendorTxCode'] = $order_data['id'] . '_' . time();
         $protx['Crypt']['Amount'] = $protx_amount;
         $protx['Crypt']['Currency'] = GLOBAL_DEFAULT_CURRENCY;
@@ -107,7 +108,7 @@ class Onxshop_Controller_Component_Ecommerce_Payment_Protx extends Onxshop_Contr
         }
         $crypt = ltrim($crypt, '&');
 
-        $protx['Crypt'] = self::encryptAes($crypt, ECOMMERCE_TRANSACTION_PROTX_PASSWORD);
+        $protx['Crypt'] = self::encryptAes($crypt, $this->padKey(ECOMMERCE_TRANSACTION_PROTX_PASSWORD));
         
         return $protx;
         
@@ -126,7 +127,7 @@ class Onxshop_Controller_Component_Ecommerce_Payment_Protx extends Onxshop_Contr
         $Order = new ecommerce_order();
 
         //decode crypt
-        $decoded = self::decryptAes($crypt, ECOMMERCE_TRANSACTION_PROTX_PASSWORD);
+        $decoded = self::decryptAes($crypt, $this->padKey(ECOMMERCE_TRANSACTION_PROTX_PASSWORD));
         //explode protx data
         parse_str($decoded, $response);
 
@@ -310,5 +311,25 @@ class Onxshop_Controller_Component_Ecommerce_Payment_Protx extends Onxshop_Contr
         $string = mcrypt_decrypt(MCRYPT_RIJNDAEL_128, $password, $strIn, MCRYPT_MODE_CBC, $strInitVector);
         return self::removePKCS5Padding($string);
     }
-    
+
+    /**
+     * add padding to the right of key
+     */
+
+    function padKey($key) 
+    {
+        // Get the current key size
+        $keySize = strlen($key);
+
+        // Set an array containing the valid sizes
+        $validSizes = [16,24,32];
+
+        // Loop through sizes and return correct padded $key
+        foreach($validSizes as $validSize) {
+            if ($keySize <= $validSize) return str_pad($key, $validSize, "\0");
+        }
+
+        // Throw an exception if the key is greater than the max size
+        throw new Exception("Key size is too large"); 
+    }
 }
