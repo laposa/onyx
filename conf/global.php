@@ -226,6 +226,15 @@ if (!defined('ONYX_PACKAGE_NAME')) define('ONYX_PACKAGE_NAME', 'basic');
 if (!defined('ONYX_ECOMMERCE')) define('ONYX_ECOMMERCE', false);
 
 /**
+ * enable/disable static file generator
+ *
+ * allow to use a separate build&publish worklow
+ */
+
+if (!defined('ONYX_STATIC_FILE_GENERATOR')) define('ONYX_STATIC_FILE_GENERATOR', false);
+
+
+/**
  * Onyx system support email
  */
 

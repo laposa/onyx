@@ -61,7 +61,7 @@ class Onyx_Controller_Bo_Backoffice_Menu_Sections extends Onyx_Controller_Bo_Bac
         if ($auth->hasAnyPermission('front_office')) $this->tpl->parse('content.fe_edit');
         if ($auth->hasAnyPermission('nodes')) $this->tpl->parse('content.pages');
         if ($auth->hasAnyPermission('nodes')) $this->tpl->parse('content.news');
-        if ($auth->hasAnyPermission('build')) $this->tpl->parse('content.build');
+        if ($auth->hasAnyPermission('build') && ONYX_STATIC_FILE_GENERATOR) $this->tpl->parse('content.build');
         if ($auth->hasAnyPermission('products') && $isEcommerce) $this->tpl->parse('content.products');
         if ($auth->hasAnyPermission('recipes') && $isEcommerce) $this->tpl->parse('content.recipes');
         if ($auth->hasAnyPermission('stores') && $isEcommerce) $this->tpl->parse('content.stores');
@@ -71,7 +71,7 @@ class Onyx_Controller_Bo_Backoffice_Menu_Sections extends Onyx_Controller_Bo_Bac
         if ($auth->hasAnyPermission('reports') && $isEcommerce) $this->tpl->parse('content.stats');
         if ($auth->hasAnyPermission('discounts') && $isEcommerce) $this->tpl->parse('content.marketing');
         if ($auth->hasAnyPermission('comments')) $this->tpl->parse('content.comments');
-        if ($auth->hasAnyPermission('surveys')) $this->tpl->parse('content.surveys');
+        if ($auth->hasAnyPermission('surveys') && $isEcommerce) $this->tpl->parse('content.surveys');
         if ($auth->hasAnyPermission('_all_')) $this->tpl->parse('content.advanced');
 
         return true;
