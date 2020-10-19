@@ -243,9 +243,7 @@ class Onyx_Controller_Bo_Component_Server_Browser_File_List extends Onyx_Control
             
         } else {
             // contains no files, check if there aren't some folders, otherwise allow delete
-            msg($actual_folder);
             $list = glob($actual_folder . "*");
-            msg($list);
             if (count($list) == 0) $this->tpl->parse('content.empty');
         }
 
