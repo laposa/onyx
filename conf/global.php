@@ -11,6 +11,13 @@
  */
 
 /**
+ * can be used as GET parameter in loading resources in browser
+ * to for loading an updated version
+ */
+
+define('ONYX_CACHE_VERSION', '20');
+
+/**
  * Force using only one domain (in Onyx_Controller_Uri_Mapping)
  */
 
