@@ -245,8 +245,8 @@ if (!defined('ONYX_STATIC_FILE_GENERATOR')) define('ONYX_STATIC_FILE_GENERATOR',
  * Onyx system support email
  */
 
-if (!defined('ONYX_SUPPORT_WEBSITE_URL')) define('ONYX_SUPPORT_WEBSITE_URL', 'https://onxshop.com/support');
-if (!defined('ONYX_SUPPORT_EMAIL')) define('ONYX_SUPPORT_EMAIL', 'support@onxshop.com');
+if (!defined('ONYX_SUPPORT_EMAIL')) define('ONYX_SUPPORT_EMAIL', 'support@laposa.ie');
+if (!defined('ONYX_SUPPORT_URL')) define('ONYX_SUPPORT_URL', 'mailto:' . ONYX_SUPPORT_EMAIL);
 if (!defined('ONYX_SUPPORT_NAME')) define('ONYX_SUPPORT_NAME', 'Onyx support team');
 
 
