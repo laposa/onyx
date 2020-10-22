@@ -227,7 +227,7 @@ CREATE TABLE common_image (
             ///usr/bin/convert "$1" -colorspace RGB -depth 8 -quality $QUALITY -thumbnail $2x$3^ $6 "$4"
             
             $colorspace = self::isOldImageMagickVersion() ? 'RGB' : 'sRGB';
-            $shell_command = "convert {$file_rp_escaped} -colorspace {$colorspace} -depth 8 -quality {$jpeg_quality} -thumbnail {$width}x{$height}{$fill} {$other_im_params} {$thumb_file_rp_escaped}";
+            $shell_command = "convert {$file_rp_escaped} -auto-orient -colorspace {$colorspace} -depth 8 -quality {$jpeg_quality} -thumbnail {$width}x{$height}{$fill} {$other_im_params} {$thumb_file_rp_escaped}";
             
             $result = local_exec($shell_command);
             
