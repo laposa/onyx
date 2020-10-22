@@ -2,7 +2,7 @@
 /**
  * Server filesystem browser
  *
- * Copyright (c) 2006-2015 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2006-2020 Onxshop Ltd (https://onxshop.com)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -74,7 +74,6 @@ class Onxshop_Controller_Bo_Component_Server_Browser_File_List extends Onxshop_C
         //$new_folder = strtolower($new_folder);
         $new_folder = preg_replace("/\s/", "-", $new_folder);
         $new_folder = preg_replace("/&[^([a-zA-Z;)]/", 'and-', $new_folder);
-        $new_folder = preg_replace("/[^\w-\/]/", '', $new_folder);
         $new_folder = preg_replace("/\-{2,}/", '-', $new_folder);
         
         
