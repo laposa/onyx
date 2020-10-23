@@ -5,8 +5,9 @@ This CMS/eCommerce is unique in strict separation of PHP, HTML, CSS and Javascri
 Demo
 ====
 https://demo.onxshop.com/edit
-username: demo
-password: demo
+
+* username: demo
+* password: demo
 
 Use Onyx for your website project
 ==================================
