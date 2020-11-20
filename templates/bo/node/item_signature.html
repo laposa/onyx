@@ -3,6 +3,7 @@
         <tbody>
             <tr><td>Node ID</td><td>{NODE.id}</td></tr>
             <tr><td>Parent ID</td><td><a href="javascript:void({NODE.parent})" onclick="openEdit('/popup/properties/{NODE.parent}/orig/page/{GET.id}')">{NODE.parent}</a></td></tr>
+            <tr><td>Current Type</td><td>{NODE.node_group|htmlspecialchars}/{NODE.node_controller|htmlspecialchars}</td></tr>
             <tr><td>Created</td><td>{NODE.created} by <a href="/backoffice/customers/{NODE.customer_id}/detail">{NODE.customer_id}</a></td></tr>
             <tr><td>Last Modified</td><td>{NODE.modified}</td></tr>
         </tbody>

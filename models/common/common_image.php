@@ -271,7 +271,7 @@ CREATE TABLE common_image (
     public function getImageForNodeId($node_id, $role = 'teaser') {
         
         /**
-         * try to get explicit "teaser" image role
+         * try to get explicit image role
          */
          
         $file_list = $this->listFiles($node_id, $role);
