@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2009-2017 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2009-2020 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -22,7 +22,7 @@ class Onyx_Controller_Node_Default extends Onyx_Controller {
      * process containers
      */
     
-    public function processContainers() {
+    public function processContainers($disable_fe_edit = false) {
     
         /**
          * check node id value
@@ -44,7 +44,7 @@ class Onyx_Controller_Node_Default extends Onyx_Controller {
         $node_data = $this->Node->nodeDetail($node_id);
         
         //find child nodes
-        $contentx = $this->Node->parseChildren($node_id);
+        $contentx = $this->Node->parseChildren($node_id, false, $disable_fe_edit);
         
         //assign to this controller as CONTAINER variable
         if (is_array($contentx)) {
@@ -60,12 +60,14 @@ class Onyx_Controller_Node_Default extends Onyx_Controller {
          */
          
         if ($_SESSION['fe_edit_mode'] == 'edit' || $_SESSION['fe_edit_mode'] == 'move') {
-            //normally we support container.0 to container.6 in default templates, but why not to have some reserve, e.g. 20
-            $min_container_id = 0;
-            $max_container_id = 20;
-            for ($key = $min_container_id; $key < ($max_container_id + 1); $key++) {
-                $container[$key] = "<div class='onyx-layout-container' id='onyx-layout-container-{$node_id}-{$key}'>{$container[$key]}</div>";    
-            }
+            if ($disable_fe_edit == false) {
+                //normally we support container.0 to container.6 in default templates, but why not to have some reserve, e.g. 20
+                $min_container_id = 0;
+                $max_container_id = 20;
+                for ($key = $min_container_id; $key < ($max_container_id + 1); $key++) {
+                    $container[$key] = "<div class='onyx-layout-container' id='onyx-layout-container-{$node_id}-{$key}'>{$container[$key]}</div>";    
+                }
+            } 
         }
             
         $this->tpl->assign("CONTAINER", $container);

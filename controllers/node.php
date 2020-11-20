@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2005-2017 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2005-2020 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -249,6 +249,7 @@ class Onyx_Controller_Node extends Onyx_Controller {
                 
                 // node_group variable doesn't have any wrapper
                 if ($node_data['node_group'] !== 'variable') {
+                    /** check parent isn't page or layout */
                     $this->tpl->parse('content.wrapper.backend_wrapper_before');
                     $this->tpl->parse('content.wrapper.backend_wrapper_after');
                 }

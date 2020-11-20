@@ -10,10 +10,10 @@ function refreshDeleteContent() {
             title: 'Delete content',
             modal: true,
             open: function() {
-                $('#node-id-'+node_id).addClass('onyx-highlight-edit')
+                $('#onyx-fe-edit-node-id-'+node_id).addClass('onyx-highlight-edit')
             }, 
             close: function() {
-                $('#node-id-'+node_id).removeClass('onyx-highlight-edit');
+                $('#onyx-fe-edit-node-id-'+node_id).removeClass('onyx-highlight-edit');
                 $('#dialog').empty();
             }
         });
@@ -24,10 +24,10 @@ function refreshDeleteContent() {
         
     }).live('mouseover', function(){
         var node_id = $(this).attr('href').replace('#','');
-        $('#node-id-'+node_id).addClass("onyx-highlight-delete"); 
+        $('#onyx-fe-edit-node-id-'+node_id).addClass("onyx-highlight-delete"); 
     }).live('mouseout', function(){ 
         var node_id = $(this).attr('href').replace('#','');
-        $('#node-id-'+node_id).removeClass("onyx-highlight-delete"); 
+        $('#onyx-fe-edit-node-id-'+node_id).removeClass("onyx-highlight-delete"); 
     });
 
 }
@@ -40,10 +40,7 @@ function refreshDeleteContent() {
 function duplicateNode(node_id) {
     $("#dialog").hide().load("/request/bo/component/node_duplicate~id="+node_id+"~", '', function (responseText, textStatus, XMLHttpRequest) {
             popupMessage("#dialog div.onyx-messages");
-            $('#node-id-'+node_id).next().after($("#dialog").html()).hide().slideDown("slow");
-            //not perfect
-            var inserted_node_id = $('#node-id-'+node_id).next().next().attr('id');
-            refreshAddContent("#" + inserted_node_id + ' div.onyx-layout-container');
+            $('#onyx-fe-edit-node-id-'+node_id).parent().after($("#dialog").html()).hide().slideDown("slow");
     });
 }
 
@@ -61,7 +58,7 @@ function refreshAddContent(selector) {
 function addNode(parent_node_id) {
     $("#dialog").hide().load("/request/bo/component/node_add~parent="+parent_node_id+"~", '', function (responseText, textStatus, XMLHttpRequest) {
             popupMessage("#dialog div.onyx-messages");
-            $('#node-id-'+node_id).append($("#dialog").html()).hide().slideDown("slow");
+            $('#onyx-fe-edit-node-id-'+node_id).parent().append($("#dialog").html()).hide().slideDown("slow");
     });
 }
 
@@ -82,8 +79,8 @@ $('a.onyx-new-content').live('click', function() {
             success: function(responseText, statusText) {
                 popupMessage("#node-add-form-"+node_id+"-"+container_id+"-wrapper div.onyx-messages");
                 var refresh_url = '/request/node~id='+node_id+'~';
-                $('#node-id-'+node_id).parent().load(refresh_url, '', function () {
-                    refreshAddContent('#node-id-'+node_id+' div.onyx-layout-container');
+                $('#onyx-fe-edit-node-id-'+node_id).parent().load(refresh_url, '', function () {
+                    refreshAddContent('#onyx-fe-edit-node-id-'+node_id+' div.onyx-layout-container');
                 });
             }
         });
@@ -137,7 +134,7 @@ function feEditStartDragDrop() {
 }
 
 function feEditDragDrop(event, ui) {
-    var source_node_id = $(ui.item).find('div').attr('id').replace('node-id-', '');
+    var source_node_id = $(ui.item).find('div').attr('id').replace('onyx-fe-edit-node-id-', '');
     var position = $(ui.item).parent().children().index(ui.item);
     var destination_id = $(ui.item).parent().attr('id');
     //var temp = $(event.target).attr('id').replace('onyx-layout-container-', '').split('-');

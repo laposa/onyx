@@ -36,9 +36,9 @@ function refreshOpener(path, id) {
 }
 
 function refreshOpenerAjax(path, id) {
-    if (opener.window.document.getElementById('node-id-' + id)) {
-        opener.$('#node-id-' + id).load('/request/node?id=' + id + ' #node-id-' + id + ' > *', function() {
-            opener.refreshAddContent('#node-id-' + id + ' div.onyx-layout-container');
+    if (opener.window.document.getElementById('fe-edit-node-id-' + id)) {
+        opener.$('#fe-edit-node-id-' + id).load('/request/node?id=' + id + ' #fe-edit-node-id-' + id + ' > *', function() {
+            opener.refreshAddContent('#fe-edit-node-id-' + id + ' div.onyx-layout-container');
         });
     } else {
         refreshOpener(path, id);

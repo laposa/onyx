@@ -1094,7 +1094,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
      * @return unknown
      */
      
-    function parseChildren($id, $container = false) {
+    function parseChildren($id, $container = false, $disable_fe_edit) {
     
         if (is_numeric($id)) {
         
@@ -1104,7 +1104,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
             
             foreach ($children as $key=>$child) {
                 if ($this->checkDisplayPermission($child)) {
-                    $_nOnyx = new Onyx_Request("node&id={$child['id']}&no_parent=1");
+                    $_nOnyx = new Onyx_Request("node&id={$child['id']}&no_parent=1&disable_fe_edit=$disable_fe_edit");
                     $contentx[$child['id']]['content'] = $_nOnyx->getContent();
                     $contentx[$child['id']]['container'] = $child['parent_container'];
                 }

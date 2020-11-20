@@ -77,7 +77,7 @@ class Onyx_Controller_Node_Content_Default extends Onyx_Controller_Node_Default 
          */
         
         if ($this->checkTemplateVariableExists('CONTAINER')) {
-            $this->processContainers();
+            $this->processContainers(true); // true for disable_fe_edit
         }
 
         return true;
