@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2009-2018 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2009-2020 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -50,16 +50,35 @@ class Onyx_Controller_Node_Content_Default extends Onyx_Controller_Node_Default 
         /**
          * load related image with role 'background'
          */
-         
-        $image = $this->Node->getImageForNodeId($node_id, 'background');
-        $this->tpl->assign("IMAGE", $image);
         
+        if ($this->checkTemplateVariableExists('IMAGE')) {
+            $image = $this->Node->getImageForNodeId($node_id, 'background');
+            $this->tpl->assign("IMAGE", $image);
+        }
+
+        /**
+         * all files
+         * TODO: check if FILES variable is in template
+         */
+
+        if ($this->checkTemplateVariableExists('FILES')) {
+            $files = $this->Node->getFilesForNodeId($node_id);
+            $this->tpl->assign('FILES', $files);
+        }
+
         /**
          * display title
          */
          
         $this->displayTitle($this->node_data);
 
+        /**
+         * subcontent 
+         */
+        
+        if ($this->checkTemplateVariableExists('CONTAINER')) {
+            $this->processContainers();
+        }
 
         return true;
     }
