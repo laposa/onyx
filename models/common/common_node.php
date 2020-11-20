@@ -2041,6 +2041,19 @@ LEFT OUTER JOIN common_taxonomy_label ON (common_taxonomy_tree.label_id = common
         
         return $image_detail;
     }
+
+    /**
+     * getFilesForNodeId
+     */
+     
+    public function getFilesForNodeId($node_id, $role = false) {
+        
+        require_once('models/common/common_image.php');
+        $Image = new common_image();
+
+        return $Image->listFiles($node_id, $role);
+        
+    }
     
     /**
      * incrementShareCounter
