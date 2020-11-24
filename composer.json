@@ -4,6 +4,7 @@
   "require": {
       "php": "^7.0.33",
       "zendframework/zendframework1": "1.12.20",
-      "tracy/tracy": "v2.5.9"
+      "tracy/tracy": "v2.5.9",
+      "doctrine/dbal": "^3.0"
   }
 }
