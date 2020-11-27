@@ -5,7 +5,7 @@
  *
  * Copyright (c) 2005-2020 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
- * 
+ *
  */
 
 /**
@@ -18,23 +18,23 @@
  * @return boolean
  * @access public
  */
- 
+
 function msg($msg, $type = "ok", $level = 0, $error_class = '') {
-    
+
     if ($level > ONYX_DEBUG_LEVEL) return false; // process only if matching log level
-    
+
     global $_SESSION;
-    
+
     /**
      * convert array or object to string
      */
-     
+
     if (is_array($msg) || is_object($msg)) $msg = print_r($msg, true);
 
     /**
      * including timing for benchmark
      */
-     
+
     if (ONYX_BENCHMARK && ONYX_IS_DEBUG_HOST) {
         $time_current = microtime(true);
         $time = $time_current - TIME_START;
@@ -45,86 +45,86 @@ function msg($msg, $type = "ok", $level = 0, $error_class = '') {
     /**
      * include backtrace (only with errors)
      */
-     
+
     if (ONYX_DEBUG_INCLUDE_BACKTRACE && $type == 'error') {
-    
+
         $backtrace = debug_backtrace();
-        
+
         // format same way as debug_print_backtrace, i.e. #0  c() called at [/tmp/include.php:10]
         $backtrace_formatted = '';
-        
+
         foreach ($backtrace as $k=>$item) {
-            
+
             $backtrace_formatted .= " #$k  {$item['function']} called at [{$item['file']}:{$item['line']}]";
-            
+
         }
-        
+
     }
-    
+
     /**
      * include user info
      */
-     
+
     if (ONYX_DEBUG_INCLUDE_USER_ID) {
-        
+
         $user_info = '';
-        
+
         if ($backoffice_user_email = $_SESSION['authentication']['user_details']['email']) {
             $user_info .= "BO user: {$backoffice_user_email} ";
         }
-        
+
         if ($customer_id = $_SESSION['client']['customer']['id']) {
             $user_info .= "Customer ID: $customer_id ";
         }
-        
+
         if ($user_info) $user_info = "(" . rtrim($user_info) . ") ";
     }
-    
+
     /**
      * store in session and manage in controller where message can be parsed to the template
      * level 0 messages are always saved to session to be shown in template
      */
-    
+
     if (ONYX_DEBUG_OUTPUT_SESSION || $level == 0) {
-        
+
         if (!isset($_SESSION['messages'])) $_SESSION['messages'] = '';
-        
+
         if ($type == 'error') $_SESSION['messages'] .= "<p class='onyx-error-msg level-$level $error_class'>". htmlspecialchars($msg) ."</p>\n";
         else $_SESSION['messages'] .= "<p class='onyx-ok-msg level-$level $error_class'>". htmlspecialchars($msg) ."</p>\n";
-        
+
     }
-    
+
     /**
      * firebug
      */
-     
+
     if (ONYX_DEBUG_OUTPUT_FIREBUG) {
-        
+
         if (is_object($GLOBALS['fb_logger'])) {
-            
+
             if ($type == 'error') $GLOBALS['fb_logger']->log($msg, Zend_Log::ERR);
             else $GLOBALS['fb_logger']->log($msg, Zend_Log::INFO);
-        
+
         }
-    
+
     }
-    
+
     /**
      * direct output - send immediatelly to client
      */
-     
+
     if (ONYX_DEBUG_OUTPUT_DIRECT) echo $msg;
-    
+
     /**
      * write to debug file
      */
-     
+
     if (ONYX_DEBUG_OUTPUT_FILE) {
-        
+
         $messages_dir = ONYX_PROJECT_DIR . "var/log/messages/";
-        
+
         if (!is_dir($messages_dir)) mkdir($messages_dir);
-        
+
         if (is_dir($messages_dir) && is_writable($messages_dir)) {
             $time = strftime("%F %T", time()); // use ISO date format to allow easy sorting
             $session_id = session_id();
@@ -133,15 +133,15 @@ function msg($msg, $type = "ok", $level = 0, $error_class = '') {
             file_put_contents($filename, "$time $type: $msg\n", FILE_APPEND);
         }
     }
-    
+
     /**
      * send to standard PHP error log
      */
-     
+
     if (ONYX_DEBUG_OUTPUT_ERROR_LOG) {
-        
+
         error_log($user_info . $msg . $backtrace_formatted);
-        
+
     }
 
     return true;
@@ -150,13 +150,13 @@ function msg($msg, $type = "ok", $level = 0, $error_class = '') {
 /**
  * onyxDetectProtocol to find if we are using SSL
  */
- 
+
 function onyxDetectProtocol() {
-    
+
     if ($_SERVER['HTTP_X_FORWARDED_PROTO']) $protocol = $_SERVER['HTTP_X_FORWARDED_PROTO'];
     else if ($_SERVER['SSL_PROTOCOL'] || $_SERVER['HTTPS']) $protocol = 'https';
     else $protocol = 'http';
-        
+
     return $protocol;
 }
 
@@ -169,54 +169,54 @@ function onyxDetectProtocol() {
  * type = 1: router syntax
  * type = 2: external URL
  */
- 
+
 function onyxGoTo($request, $type = 0) {
 
     msg("calling onyxGoTo($request, $type)", 'ok', 2);
-    
+
     session_write_close();
-    
+
     $protocol = onyxDetectProtocol();
-    
+
     //protection against HTTP CRLF injection
     $request = preg_replace("/\r\n/", "", $request);
-    
+
     if ($type == 0) {
-    
+
         $request = ltrim($request, '/');
-        
+
         if (preg_match('/^(page\/[0-9]{1,})(.*)$/', $request, $matches)) {
-            
+
             $request_path = translateURL($matches[1]);
             $request_params = $matches[2];
-            
+
             header("Location: $protocol://{$_SERVER['HTTP_HOST']}{$request_path}{$request_params}");
-        
+
         } else {
-            
+
             header("Location: $protocol://{$_SERVER['HTTP_HOST']}/$request");
         }
-        
+
     } else if ($type == 1) {
 
         $router = new Onyx_Router();
-        
+
         $Onyx = $router->processAction($request);
-        
+
         $output = $Onyx->finalOutput();
 
         echo $output;
-        
+
     } else if ($type == 2) {
-    
+
         header("Location: $request");
-    
+
     } else {
-    
+
         header("Location: $protocol://{$_SERVER['HTTP_HOST']}/$request");
-    
+
     }
-    
+
     //exit application processing immediately
     exit;
 }
@@ -227,19 +227,19 @@ function onyxGoTo($request, $type = 0) {
  * @param unknown_type $request
  * @return unknown
  */
- 
+
 function translateURL($request) {
 
     require_once('models/common/common_uri_mapping.php');
     $Mapping = new common_uri_mapping();
-    
+
     if ($Mapping->conf['seo']) {
         $seo = $Mapping->stringToSeoUrl("/$request");
         return $seo;
     } else {
         return "/$request";
     }
-            
+
 }
 
 /**
@@ -260,7 +260,7 @@ function getTemplateDir($file, $prefix = '') {
     } else {
         $template_dir = '';
     }
-    
+
     return $template_dir;
 }
 
@@ -271,13 +271,13 @@ function getTemplateDir($file, $prefix = '') {
  * @return boolean
  *
  */
- 
+
 function templateExists($template_name) {
-    
+
     if (file_exists(ONYX_PROJECT_DIR . 'templates/' . $template_name . '.html')) return true;
     if (file_exists(ONYX_DIR . 'templates/' . $template_name . '.html')) return true;
     else return false;
-    
+
 }
 
 /**
@@ -286,10 +286,10 @@ function templateExists($template_name) {
  * @param unknown_type $command
  * @return unknown
  */
- 
+
 function local_exec($command) {
 
-    
+
     $command = escapeshellcmd($command);
     msg("Calling: local_exec($command)", "ok", 2);
     //explode to get filename
@@ -318,7 +318,7 @@ function local_exec($command) {
             msg("Command $command_file is not executable", 'error');
             return false;
         }
-        
+
     } else {
         msg("Command $command_file not found", 'error');
         return false;
@@ -332,12 +332,12 @@ function local_exec($command) {
  * @param unknown_type $quote_style
  * @return unknown
  */
- 
+
 function xmlentities($string, $quote_style=ENT_QUOTES) {
-    
+
     static $utf8Entities, $htmlEntities;
-    
-    if(!isset($utf8Entities)) {     
+
+    if(!isset($utf8Entities)) {
         $table = get_html_translation_table(HTML_ENTITIES, ENT_QUOTES);
         $htmlEntities = array_values($table);
         $entitiesDecoded = array_keys($table);
@@ -345,14 +345,14 @@ function xmlentities($string, $quote_style=ENT_QUOTES) {
             $utf8Entities[$u] = '&#'.ord($entitiesDecoded[$u]).';';
         }
     }
-    
+
     $string = str_replace($htmlEntities, $utf8Entities, $string);
-    
-    $search = array('&lsquo;', '&rsquo;', '&ldquo;', '&rdquo;', '&mdash;', '&ndash;', '&amp;'); 
-    $replace = array("&#8216;", "&#8217;", '&#8220;', '&#8221;', '&#8212;', '&#8211;', '&#38;'); 
-    
+
+    $search = array('&lsquo;', '&rsquo;', '&ldquo;', '&rdquo;', '&mdash;', '&ndash;', '&amp;');
+    $replace = array("&#8216;", "&#8217;", '&#8220;', '&#8221;', '&#8212;', '&#8211;', '&#38;');
+
     return str_replace($search, $replace, $string);
-    
+
 }
 
 
@@ -363,37 +363,37 @@ function xmlentities($string, $quote_style=ENT_QUOTES) {
  */
 
 function utf8_for_xml($string) {
-    
+
     return preg_replace('/[^\x{0009}\x{000a}\x{000d}\x{0020}-\x{D7FF}\x{E000}-\x{FFFD}]+/u', ' ', $string);
 
 }
 
 /**
- * 
+ *
  * @param string $string
  * text in UTF8 encoding
- * 
+ *
  * @return string
  * text recoded into ASCII
  */
- 
+
 function recodeUTF8ToAscii($string) {
 
     $string = trim($string);
-    
+
     if (function_exists("recode_string")) {
-        
+
         $string = recode_string("utf-8..flat", $string);
-    
+
     } else if (function_exists("iconv")) {
-        
+
         $string = iconv("UTF-8", "ASCII//TRANSLIT", $string);
-    
+
     } else if (function_exists("mb_convert_encoding")) {
-        
+
         $string = mb_convert_encoding($string, "HTML-ENTITIES", "UTF-8");
         $string = preg_replace('/\&(.)[^;]*;/', "\\1", $string);
-        
+
     }
 
     return $string;
@@ -408,24 +408,24 @@ function html2text($input, $remove_new_lines = false){
     require_once('lib/Html2Text.php');
     $html = new \Html2Text\Html2Text($input);
     $plain_text = $html->getText();
-    
+
     if ($remove_new_lines) $plain_text = preg_replace('/\n/', ' ', $plain_text);
-    
+
     return $plain_text;
 }
 
 /**
  * parse textile
  */
-     
+
 function textile($text) {
 
     require_once('Zend/Markup.php');
-    
+
     // Creates instance of Zend_Markup_Renderer_Html,
     // with Zend_Markup_Parser_BbCode as its parser
     $textilecode = Zend_Markup::factory('Textile');
-    
+
     return $textilecode->render($text);
 }
 
@@ -438,18 +438,18 @@ function textile($text) {
 //        $keys,  array(array(key=>col1, sort=>desc), array(key=>col2, type=>numeric))
 
 function php_multisort($data,$keys){
-    
+
     if (!is_array($data)) return false;
- 
+
     if (count($data) == 0) return array();
-    
+
     // List As Columns
     foreach ($data as $key => $row) {
         foreach ($keys as $k){
             $cols[$k['key']][$key] = $row[$k['key']];
         }
     }
-    
+
     // List original keys
     $idkeys=array_keys($data);
     // Sort Expression
@@ -469,9 +469,9 @@ function php_multisort($data,$keys){
     foreach($idkeys as $idkey){
         $result[$idkey]=$data[$idkey];
     }
-    
+
     return $result;
-} 
+}
 
 /**
  * Limits the string based on the character count. Preserves complete words
@@ -560,7 +560,7 @@ function suffix($str, $suffix)
  * Create hash from a given string
  * Uses ONYX_ENCRYPTION_SALT as a salt.
  * Returs false if ONYX_ENCRYPTION_SALT is not set or empty.
- * 
+ *
  * @return String Hashed value (sha256)
  */
 function makeHash($value)
@@ -578,7 +578,7 @@ function makeHash($value)
  * Uses ONYX_ENCRYPTION_SALT as a salt.
  * Returs false if ONYX_ENCRYPTION_SALT is not set or empty
  * or if the hashes don't match.
- * 
+ *
  * @return Boolean
  */
 function verifyHash($value, $hash)
@@ -606,42 +606,27 @@ function isValidDate($date)
  *
  * @return Boolean
  */
- 
 function onyx_flush_cache() {
-    
-    /**
-     * clean cache using Zend_Cache method
-     */
-     
+    // clean Symfony cache
     $registry = Zend_Registry::getInstance();
-    
-    $db_cache_clear_status = $registry['onyx_db_cache']->clean(Zend_Cache::CLEANING_MODE_ALL);
-    
-    if (ONYX_DB_QUERY_CACHE_BACKEND !== ONYX_PAGE_CACHE_BACKEND) $page_cache_clear_status = $registry['onyx_page_cache']->clean(Zend_Cache::CLEANING_MODE_ALL);
-    else $page_cache_clear_status = true;
-    
-    /**
-     * remove all files in cache directory
-     */
-     
+    $dbCacheClearStatus = $registry['onyx_db_cache']->clear();
+    $pageCacheClearStatus = $registry['onyx_page_cache']->clear();
+    $generalCacheClearStatus = $registry['onyx_cache']->clear();
+
+    // remove all files in cache directory
     require_once('models/common/common_file.php');
     $File = new common_file();
-    if ($File->rm(ONYX_PROJECT_DIR . "var/cache/*")) $file_clear_status = true;
-    else $file_clear_status = false;
+    if ($File->rm(ONYX_PROJECT_DIR . "var/cache/*")) $fileClearStatus = true;
+    else $fileClearStatus = false;
 
-    /**
-     * return true only if all cache was cleared
-     */
-     
-    if ($db_cache_clear_status && $page_cache_clear_status && $file_clear_status) return true;
+    if ($dbCacheClearStatus && $pageCacheClearStatus && $generalCacheClearStatus && $fileClearStatus) return true;
     else return false;
-    
 }
 
-/** 
+/**
  * Format time in seconds and
  * add proper units.
- * 
+ *
  * 3.552342 => 3.552 s
  * 0.552342 => 552 ms
  * 0.000342 => 3.42 ms
@@ -673,10 +658,10 @@ function fire_dump($variable, $title = null) {
     if (!is_object($GLOBALS['fb_logger'])) {
         require_once('Zend/Log/Writer/Firebug.php');
         require_once('Zend/Log.php');
-        
+
         $writer = new Zend_Log_Writer_Firebug();
         $GLOBALS['fb_logger'] = new Zend_Log($writer);
-        
+
         require_once('Zend/Controller/Request/Http.php');
         $request = new Zend_Controller_Request_Http();
         require_once('Zend/Controller/Response/Http.php');
@@ -721,7 +706,7 @@ function decodeInt($encoded)
     $base = strlen($codeset);
     $c = 0;
     for ($i = strlen($encoded); $i; $i--) {
-      $c += strpos($codeset, substr($encoded, (-1 * ( $i - strlen($encoded) )),1)) 
+      $c += strpos($codeset, substr($encoded, (-1 * ( $i - strlen($encoded) )),1))
             * pow($base,$i-1);
     }
     return $c;
@@ -747,8 +732,8 @@ function decryptInt($hash, $divider = "0")
 
 /**
  * Encode integer value using custom character set and append
- * salted MD5 checksum to allow verification. 
- * 
+ * salted MD5 checksum to allow verification.
+ *
  * Please note, this function is not cryptographically safe.
  * The original integer value can be decoded very easily. The
  * purpose of the function is to make it harder to iterate
@@ -773,23 +758,23 @@ function encryptInt($value)
  */
 
 function convertNumeralArabicToRoman($number) {
-    
+
     require_once 'lib/Zend/Measure/Number.php';
     $number = new Zend_Measure_Number($number, Zend_Measure_Number::DECIMAL);
     $number->convertTo (Zend_Measure_Number::ROMAN);
     return $number->getValue();
-    
+
 }
 
 /**
  * rangeDownload
  * source: https://mobiforge.com/design-development/content-delivery-mobile-devices
  */
- 
+
 function rangeDownload($file) {
- 
+
     $fp = @fopen($file, 'rb');
- 
+
     $size   = filesize($file); // File size
     $length = $size;           // Content length
     $start  = 0;               // Start byte
@@ -811,14 +796,14 @@ function rangeDownload($file) {
     // multipart/byteranges
     // http://www.w3.org/Protocols/rfc2616/rfc2616-sec19.html#sec19.2
     if (isset($_SERVER['HTTP_RANGE'])) {
-    
+
         $c_start = $start;
         $c_end   = $end;
         // Extract the range string
         list(, $range) = explode('=', $_SERVER['HTTP_RANGE'], 2);
         // Make sure the client hasn't sent us a multibyte range
         if (strpos($range, ',') !== false) {
-        
+
             // (?) Shoud this be issued here, or should the first
             // range be used? Or should the header be ignored and
             // we output the whole content?
@@ -831,12 +816,12 @@ function rangeDownload($file) {
         // If not, we forward the file pointer
         // And make sure to get the end byte if spesified
         if ($range0 == '-') {
-        
+
             // The n-number of the last bytes is requested
             $c_start = $size - substr($range, 1);
         }
         else {
-        
+
             $range  = explode('-', $range);
             $c_start = $range[0];
             $c_end   = (isset($range[1]) && is_numeric($range[1])) ? $range[1] : $size;
@@ -848,7 +833,7 @@ function rangeDownload($file) {
         $c_end = ($c_end > $end) ? $end : $c_end;
         // Validate the requested range and return an error if it's not correct.
         if ($c_start > $c_end || $c_start > $size - 1 || $c_end >= $size) {
-        
+
             header('HTTP/1.1 416 Requested Range Not Satisfiable');
             header("Content-Range: bytes $start-$end/$size");
             // (?) Echo some info to the client?
@@ -863,13 +848,13 @@ function rangeDownload($file) {
     // Notify the client the byte range we'll be outputting
     header("Content-Range: bytes $start-$end/$size");
     header("Content-Length: $length");
- 
+
     // Start buffered download
     $buffer = 1024 * 8;
     while(!feof($fp) && ($p = ftell($fp)) <= $end) {
-    
+
         if ($p + $buffer > $end) {
-        
+
             // In case we're only outputtin a chunk, make sure we don't
             // read past the length
             $buffer = $end - $p + 1;
@@ -878,9 +863,9 @@ function rangeDownload($file) {
         echo fread($fp, $buffer);
         flush(); // Free up memory. Otherwise large files will trigger PHP's memory limit.
     }
- 
+
     fclose($fp);
-                  
+
 }
 
 
@@ -888,18 +873,18 @@ function rangeDownload($file) {
  * security check
  * it's allowed to see only content of var/ directory
  */
- 
+
 function onyxCheckForAllowedPath($realpath, $restrict_download = false) {
 
     $allowed_directories = array();
     $allowed_directories[] = ONYX_PROJECT_DIR;
-    
+
     if (defined('ONYX_PROJECT_EXTERNAL_DIRECTORIES') && ONYX_PROJECT_EXTERNAL_DIRECTORIES != '') {
         $allowed_directories[] = ONYX_PROJECT_EXTERNAL_DIRECTORIES;
     }
-    
+
     $check_status = array();
-    
+
     foreach ($allowed_directories as $directory) {
 
         /**
@@ -907,52 +892,52 @@ function onyxCheckForAllowedPath($realpath, $restrict_download = false) {
          * it needs to be disabled for viewing images as they are also stored in other directories
          * for example in thumbnails or vouchers
          */
-         
+
         if ($restrict_download) {
-            
+
         	if (class_exists('Onyx_Bo_Authentication') && Onyx_Bo_Authentication::getInstance()->isAuthenticated()) {
-        	
+
         	    // backoffice user can download any content from var/ directory
         		$check = addcslashes($directory, '/') . 'var\/';
-        	
+
         	} else {
-        	
+
         		// guest user can download only content of var/files
                 $check = addcslashes($directory, '/') . 'var\/files\/';
         	}
-        	
+
         } else {
-            
+
             // we can allow to see files from the whole var/, it's used for for images as there is restriction to see only image types
             $check = addcslashes($directory, '/') . 'var\/';
-        
+
         }
-        
+
         /**
          * make check
          */
-         
+
         if (preg_match("/$check/", $realpath)) {
-            
+
             $check_status[$directory] = true;
-            
+
         } else {
-            
+
             $check_status[$directory] = false;
-            
+
         }
     }
-    
+
     /**
      * allow if at least one check is passed
      */
-    
+
     if (!in_array(true, $check_status)) {
-        
+
         header("HTTP/1.0 403 Forbidden");
         echo "This path is forbidden!";
         exit;
-        	
+
     }
 }
 
@@ -1065,18 +1050,18 @@ function mime_content_type_fast($filename) {
     );
 
     $ext = strtolower(array_pop(explode('.',$filename)));
-    
+
     if (array_key_exists($ext, $mime_types)) {
-        
+
         return $mime_types[$ext];
-    
+
     } else if (function_exists('mime_content_type')) {
-        
+
         return mime_content_type($filename);
-    
+
     } else {
-    
+
         return 'application/octet-stream';
-    
+
     }
 }

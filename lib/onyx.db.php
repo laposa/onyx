@@ -1,4 +1,7 @@
 <?php
+
+use Symfony\Contracts\Cache\ItemInterface;
+
 /**
  * Onyx_Db class definition
  *
@@ -8,16 +11,17 @@
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
-
 class Onyx_Db {
-    var $conf = [];
-    var $_cacheable = false; // can be overwritten by setCacheable i.e. by default in constructor
-    var $_valid = [];
-    var $_class_name = '';
-    var $_public_attributes = [];
-    var $_metaData;
+    public $conf = [];
+    public $_cacheable = false; // can be overwritten by setCacheable i.e. by default in constructor
+    public $_valid = [];
+    public $_class_name = '';
+    public $_public_attributes = [];
+    public $_metaData;
     /** @var Doctrine\DBAL\Connection */
-    var $db;
+    public $db;
+    /** @var Symfony\Component\Cache\Adapter\TagAwareAdapter */
+    public $cache;
 
     /**
      * Constructor
@@ -549,44 +553,21 @@ class Onyx_Db {
      */
     public function executeSqlCached($sql) {
         // create cache key
-        $cache_id = preg_replace('/\W/', '', $_SERVER['HTTP_HOST']) . "_SQL_{$this->_class_name}_" . md5(ONYX_DB_HOST . ONYX_DB_PORT . ONYX_DB_NAME . $sql); // include hostname and database connection details to prevent conflict in shared cache engine environment
-
-        if ($records = $this->cache->load($cache_id)) {
-            $records = unserialize($records);
-        } else {
+        $cacheId = "SQL_{$this->_class_name}_" . md5($sql);
+        $records = $this->cache->get($cacheId, function (ItemInterface $item) use ($sql) {
+            $item->tag($this->_class_name);
             $records = $this->executeSqlOnDatabase($sql);
-            $this->cache->save(serialize($records), $cache_id);
-        }
-
-        return $records;
+            return serialize($records);
+        });
+        return unserialize($records);
     }
 
     /**
      * flush cache (for this object)
-     * TODO: this should be using $this->cache->clean(Zend_Cache::CLEANING_MODE_MATCHING_TAG, array('tagA', 'tagC'));
-     * or $cache->remove('idToRemove');
-     *
-     * currently only File backend deletes files related to this object and Apc and Libmemcached will flush complete DB cache
      */
     public function flushCache() {
-        switch (ONYX_DB_QUERY_CACHE_BACKEND) {
-            case 'Apc':
-            case 'Libmemcached':
-                $this->cache->clean(Zend_Cache::CLEANING_MODE_ALL);
-                break;
-
-            case 'File':
-            default:
-                $mask = ONYX_DB_QUERY_CACHE_DIRECTORY . "zend_cache---*_SQL_{$this->_class_name}_*";
-                array_map("unlink", glob($mask));
-                $mask = ONYX_DB_QUERY_CACHE_DIRECTORY . "zend_cache---internal-metadatas---*_SQL_{$this->_class_name}_*";
-                array_map("unlink", glob($mask));
-                break;
-        }
-
-        return true;
+        return $this->cache->invalidateTags($this->_class_name);
     }
-
 
     /**
      * validate SQL query

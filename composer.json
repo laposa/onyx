@@ -2,9 +2,10 @@
   "name": "laposa/onyx",
   "description": "CMS",
   "require": {
-      "php": "^7.0.33",
-      "zendframework/zendframework1": "1.12.20",
-      "tracy/tracy": "v2.5.9",
-      "doctrine/dbal": "^3.0"
+    "php": "^7.0.33",
+    "zendframework/zendframework1": "1.12.20",
+    "tracy/tracy": "v2.5.9",
+    "doctrine/dbal": "^3.0",
+    "symfony/cache": "^5.1"
   }
 }

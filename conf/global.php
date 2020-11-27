@@ -26,7 +26,7 @@ if (!defined('ONYX_CACHE_VERSION')) define('ONYX_CACHE_VERSION', '20');
 /**
  * HTTP client IP
  */
- 
+
 if (array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER)) $http_client_ip = $_SERVER["HTTP_X_FORWARDED_FOR"];
 else $http_client_ip = $_SERVER["REMOTE_ADDR"];
 
@@ -115,7 +115,7 @@ if (!defined('ONYX_CUSTOMER_USE_SSL')) {
 if (!defined('ONYX_HSTS_ENABLE')) {
     if (ONYX_SSL) define('ONYX_HSTS_ENABLE', true);
     else define('ONYX_HSTS_ENABLE', false);
-}    
+}
 if (!defined('ONYX_HSTS_TTL')) define('ONYX_HSTS_TTL', 3600 * 24 * 60);
 
 /**
@@ -131,7 +131,7 @@ if (!defined('ONYX_CONTENT_TYPE_OPTIONS_ENABLE')) define('ONYX_CONTENT_TYPE_OPTI
 /**
  * Compress output option (not really important when using Apache Deflate module)
  */
- 
+
 if (!defined('ONYX_COMPRESS_OUTPUT')) define('ONYX_COMPRESS_OUTPUT', 0);
 
 
@@ -146,7 +146,7 @@ if (!defined('ONYX_SESSION_DIRECTORY')) define('ONYX_SESSION_DIRECTORY', ONYX_PR
  * Add the httpOnly flag to the cookie, which makes it inaccessible to browser scripting languages such as JavaScript
  * http://php.net/session.cookie-httponly
  */
- 
+
 ini_set( 'session.cookie_httponly', 1 );
 
 /**
@@ -165,7 +165,7 @@ if (!defined('ONYX_SESSION_START_FOR_ALL_USERS')) define('ONYX_SESSION_START_FOR
 /**
  * Layout settings
  */
- 
+
 if (!defined('ONYX_DEFAULT_TYPE')) define('ONYX_DEFAULT_TYPE', 'sys/html5');
 if (!defined('ONYX_MAIN_TEMPLATE')) define('ONYX_MAIN_TEMPLATE', 'node/site/default');
 if (!defined('ONYX_PAGE_TEMPLATE')) define('ONYX_PAGE_TEMPLATE', 'node/page/default');
@@ -190,32 +190,36 @@ else define('ONYX_IN_BACKOFFICE', false);
  * Shared hosting should be using only File backend
  * Apc and Libmemcached should be used only on dedicated servers
  */
- 
 if (!defined('ONYX_DB_QUERY_CACHE_BACKEND')) define('ONYX_DB_QUERY_CACHE_BACKEND', 'File'); // change of this will change also ONYX_PAGE_CACHE_BACKEND, see below
 if (!defined('ONYX_DB_QUERY_CACHE_TTL')) define('ONYX_DB_QUERY_CACHE_TTL', 3600);
 if (!defined('ONYX_DB_QUERY_CACHE_DIRECTORY')) define('ONYX_DB_QUERY_CACHE_DIRECTORY', ONYX_PROJECT_DIR . 'var/cache/');
 
 /*
- * Zend Cache for whole page
- * 
+ * Cache for whole page
+ *
  */
- 
 if (!defined('ONYX_PAGE_CACHE_DIRECTORY')) define('ONYX_PAGE_CACHE_DIRECTORY', ONYX_DB_QUERY_CACHE_DIRECTORY); // Same as DB cache
 if (!defined('ONYX_PAGE_CACHE_BACKEND')) define('ONYX_PAGE_CACHE_BACKEND', ONYX_DB_QUERY_CACHE_BACKEND); // Same as DB cache
 if (!defined('ONYX_PAGE_CACHE_TTL')) define('ONYX_PAGE_CACHE_TTL', 86400); // set 0 to disable
 
+/*
+ * General usage cache
+ *
+ */
+if (!defined('ONYX_GENERAL_CACHE_DIRECTORY')) define('ONYX_GENERAL_CACHE_DIRECTORY', ONYX_DB_QUERY_CACHE_DIRECTORY); // Same as DB cache
+if (!defined('ONYX_GENERAL_CACHE_BACKEND')) define('ONYX_GENERAL_CACHE_BACKEND', ONYX_DB_QUERY_CACHE_BACKEND); // Same as DB cache
+if (!defined('ONYX_GENERAL_CACHE_TTL')) define('ONYX_GENERAL_CACHE_TTL', 3600); // set 0 to disable
+
 /**
  * Libmemcached configuration
  */
-
 if (!defined('ONYX_CACHE_BACKEND_LIBMEMCACHED_HOST')) define('ONYX_CACHE_BACKEND_LIBMEMCACHED_HOST', 'localhost');
 if (!defined('ONYX_CACHE_BACKEND_LIBMEMCACHED_PORT')) define('ONYX_CACHE_BACKEND_LIBMEMCACHED_PORT', 11211);
 
 
-
 /**
  * Onyx package name
- * 
+ *
  * basic - CMS only
  * standard - CMS + eCommerce
  * enterprise - CMS + eCommerce + custom licence
@@ -225,11 +229,11 @@ if (!defined('ONYX_PACKAGE_NAME')) define('ONYX_PACKAGE_NAME', 'basic');
 
 /**
  * enable ecommerce
- * 
+ *
  * enable the product table, including everyting connected to it,
  * including orders, invoices and also recipes
  */
- 
+
 if (!defined('ONYX_ECOMMERCE')) define('ONYX_ECOMMERCE', false);
 
 /**
@@ -259,7 +263,7 @@ if (!defined('ONYX_ALLOW_BACKUP_DOWNLOAD')) define('ONYX_ALLOW_BACKUP_DOWNLOAD',
 /**
  * forwarding URLs
  */
- 
+
 if (!defined('BASKET_CONTINUE_SHOPPING_URL')) define('BASKET_CONTINUE_SHOPPING_URL', '/');
 if (!defined('AFTER_CLIENT_LOGOUT_URL')) define('AFTER_CLIENT_LOGOUT_URL', '/');
 
@@ -278,7 +282,7 @@ if (!defined('ONYX_ALLOW_SEARCH_INDEX_AUTOUPDATE')) define('ONYX_ALLOW_SEARCH_IN
 /**
  * social: Facebook
  */
- 
+
 if (!defined('ONYX_FACEBOOK_APP_ID')) define('ONYX_FACEBOOK_APP_ID', 0);
 if (!defined('ONYX_FACEBOOK_APP_SECRET')) define('ONYX_FACEBOOK_APP_SECRET', '');
 if (!defined('ONYX_FACEBOOK_APP_NAMESPACE')) define('ONYX_FACEBOOK_APP_NAMESPACE', '');
@@ -299,7 +303,7 @@ else define('ONYX_FACEBOOK_AUTH', false);
 /**
  * social: Twitter
  */
- 
+
 if (!defined('ONYX_TWITTER_APP_ID')) define('ONYX_TWITTER_APP_ID', '');
 if (!defined('ONYX_TWITTER_APP_SECRET')) define('ONYX_TWITTER_APP_SECRET', '');
 if (!defined('ONYX_TWITTER_USERNAME')) define('ONYX_TWITTER_USERNAME', 'onyx');
@@ -310,7 +314,7 @@ if (!defined('ONYX_TWITTER_ACCESS_TOKEN_SECRET')) define('ONYX_TWITTER_ACCESS_TO
 /**
  * pagination
  */
- 
+
 if (!defined('ONYX_PAGINATION_SHOW_ITEMS')) define('ONYX_PAGINATION_SHOW_ITEMS', 10);
 
 /**
@@ -344,7 +348,7 @@ if (!defined('ONYX_CDN_ALLOWED_TYPES')) define('ONYX_CDN_ALLOWED_TYPES', 'jpg, g
 /**
  * recaptcha
  */
- 
+
 if (!defined('ONYX_RECAPTCHA_PUBLIC_KEY')) define('ONYX_RECAPTCHA_PUBLIC_KEY', '');
 if (!defined('ONYX_RECAPTCHA_PRIVATE_KEY')) define('ONYX_RECAPTCHA_PRIVATE_KEY', '');
 
@@ -390,7 +394,7 @@ if (ONYX_FACEBOOK_AUTH) $onyx_pre_actions[] = 'component/client/facebook_auth';
 /**
  * CSRF protection
  */
- 
+
 if (!defined('ONYX_CSRF_PROTECTION_ENABLED')) define('ONYX_CSRF_PROTECTION_ENABLED', true);
 
 /**
@@ -414,12 +418,12 @@ if (!defined('ONYX_FLICKR_API_KEY')) define('ONYX_FLICKR_API_KEY', '');
  * Allow other directory than default ONYX_PROJECT_DIR
  * it's useful for sharing media library across multiple projects
  */
- 
+
 if (!defined('ONYX_PROJECT_EXTERNAL_DIRECTORIES')) define('ONYX_PROJECT_EXTERNAL_DIRECTORIES', '');
 
 /**
  * Token for permanent login
  */
 
-if (!defined('ONYX_TOKEN_NAME')) define('ONYX_TOKEN_NAME', 'onyx_token'); 
+if (!defined('ONYX_TOKEN_NAME')) define('ONYX_TOKEN_NAME', 'onyx_token');
 

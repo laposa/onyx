@@ -6,11 +6,20 @@
  */
 
 use Doctrine\DBAL\DriverManager;
+use Symfony\Component\Cache\Adapter\FilesystemAdapter;
+use Symfony\Component\Cache\Adapter\MemcachedAdapter;
+use Symfony\Component\Cache\Adapter\ApcuAdapter;
+use Symfony\Component\Cache\Adapter\TagAwareAdapter;
+use Symfony\Contracts\Cache\ItemInterface;
 
 class Onyx_Bootstrap {
     public $Onyx;
     public $headers;
     public $output;
+    /** @var Symfony\Component\Cache\Adapter\TagAwareAdapter */
+    public $cache;
+    /** @var Memcached */
+    public $memcachedClient;
 
     /**
      * constructor
@@ -24,7 +33,6 @@ class Onyx_Bootstrap {
         require_once('onyx.router.php');
         require_once('onyx.bo.authentication.php');
         require_once('Zend/Registry.php');
-        require_once('Zend/Cache.php');
 
         // Initialise database connection object
         $this->initDatabase();
@@ -136,34 +144,47 @@ class Onyx_Bootstrap {
             if (!mkdir(ONYX_PAGE_CACHE_DIRECTORY)) die(ONYX_PAGE_CACHE_DIRECTORY . ' directory is not writeable');
         }
 
-        // database cache
-        $frontendOptions = [
-            'lifetime'                => ONYX_DB_QUERY_CACHE_TTL,
-            'automatic_serialization' => false,
-        ];
+        $dbCache = $this->initCacheAdapter(ONYX_DB_QUERY_CACHE_BACKEND, 'DB', ONYX_DB_QUERY_CACHE_TTL, ONYX_DB_QUERY_CACHE_DIRECTORY);
+        $pageCache = $this->initCacheAdapter(ONYX_PAGE_CACHE_BACKEND, 'PAGE', ONYX_PAGE_CACHE_TTL, ONYX_PAGE_CACHE_DIRECTORY);
+        $generalCache = $this->initCacheAdapter(ONYX_GENERAL_CACHE_BACKEND, 'GENERAL', ONYX_GENERAL_CACHE_TTL, ONYX_GENERAL_CACHE_BACKEND);
 
-        switch (ONYX_DB_QUERY_CACHE_BACKEND) {
-            case 'File':
-                $backendOptions = ['cache_dir' => ONYX_DB_QUERY_CACHE_DIRECTORY];
-                break;
-            case 'Libmemcached':
-                $backendOptions = ['host' => ONYX_CACHE_BACKEND_LIBMEMCACHED_HOST, 'port' => ONYX_CACHE_BACKEND_LIBMEMCACHED_PORT];
-                break;
-            case 'Apc':
-            default:
-                $backendOptions = [];
+        $this->cache = $pageCache;
+        Zend_Registry::set('onyx_db_cache', $dbCache);
+        Zend_Registry::set('onyx_page_cache', $pageCache);
+        Zend_Registry::set('onyx_cache', $generalCache);
+    }
+
+    /**
+     * Creates Memecached, Apc or File cache adapter
+     * @param string $adapterType can be one of: Libmemcached, Apc, File (defaults to File)
+     * @param string $namespace
+     * @param integer $ttl
+     * @param string $cacheDirectory
+     * @return TagAwareAdapter
+     */
+    function initCacheAdapter($adapterType, $namespace, $ttl, $cacheDirectory = '') {
+        if ($adapterType === 'Libmemcached') {
+            $namespace = $namespace . "_" . preg_replace('/\W/', '', $_SERVER['HTTP_HOST']) . ONYX_DB_HOST . ONYX_DB_PORT . ONYX_DB_NAME;
+            return new TagAwareAdapter(new MemcachedAdapter($this->getMemcachedClient(), $namespace, $ttl));
         }
 
-        $db_cache = Zend_Cache::factory('Core', ONYX_DB_QUERY_CACHE_BACKEND, $frontendOptions, $backendOptions);
-        Zend_Registry::set('onyx_db_cache', $db_cache);
+        if ($adapterType === 'Apc') {
+            return new TagAwareAdapter(new ApcuAdapter($namespace, $ttl));
+        }
 
-        // page cache
-        $frontendOptions = [
-            'lifetime'                => ONYX_PAGE_CACHE_TTL,
-            'automatic_serialization' => true,
-        ];
-        $this->cache = Zend_Cache::factory('Output', ONYX_PAGE_CACHE_BACKEND, $frontendOptions, $backendOptions);
-        Zend_Registry::set('onyx_page_cache', $this->cache);
+        return new TagAwareAdapter(new FilesystemAdapter($namespace, $ttl, $cacheDirectory));
+    }
+
+    /**
+     * Creates Memcached client for cache adapters
+     * @return Memcached
+     */
+    function getMemcachedClient() {
+        if (!$this->memcachedClient) {
+            $this->memcachedClient = MemcachedAdapter::createConnection(ONYX_CACHE_BACKEND_LIBMEMCACHED_HOST + ":" + ONYX_CACHE_BACKEND_LIBMEMCACHED_PORT);
+        }
+
+        return $this->memcachedClient;
     }
 
     /**
@@ -355,30 +376,31 @@ class Onyx_Bootstrap {
      */
     function processActionCached($request) {
         // create cache key
-        $id = preg_replace('/\W/', '', $_SERVER['HTTP_HOST']) . '_GET_' . md5(ONYX_DB_HOST . ONYX_DB_PORT . ONYX_DB_NAME . $request . serialize($_GET) . isset($_SERVER['HTTPS'])); // include hostname and database connection details to prevent conflicts in shared cache engine environment
+        $id = 'GET_' . md5($request . serialize($_GET) . isset($_SERVER['HTTPS']));
         if (defined('ONYX_ENABLE_AB_TESTING') && ONYX_ENABLE_AB_TESTING == true) $id .= $_SESSION['ab_test_group'];
-
-        if (!is_array($data = $this->cache->load($id))) {
-            // cache miss
+        if (!$this->canBeSavedInCache()) {
             $this->processAction($request);
-
-            if ($this->canBeSavedInCache()) {
-                $data_to_cache = [];
-                $data_to_cache['output_headers'] = $this->headers;
-                $data_to_cache['output_body'] = $this->output;
-                $this->cache->save($data_to_cache);
-
-                // update index immediately if enabled in the configuration,
-                // but not when search_query is submitted (don't index search results)
-                // and not when forward "to" is provided
-                // TODO: canonise the request before submitting for indexing
-                if (ONYX_ALLOW_SEARCH_INDEX_AUTOUPDATE && !array_key_exists('search_query', $_GET) && !array_key_exists('to', $_GET)) $this->indexContent($_GET['translate'], $this->output);
-            }
-        } else {
-            $this->headers = $data['output_headers'];
-            $this->output = $data['output_body'];
-            $this->restoreHeaders();
+            return;
         }
+
+        $data = $this->cache->get($id, function (ItemInterface $item) use ($request) {
+            $this->processAction($request);
+            $dataToCache = ['output_headers' => $this->headers, 'output_body' => $this->output];
+
+            // update index immediately if enabled in the configuration,
+            // but not when search_query is submitted (don't index search results)
+            // and not when forward "to" is provided
+            // TODO: canonise the request before submitting for indexing
+            if (ONYX_ALLOW_SEARCH_INDEX_AUTOUPDATE && !array_key_exists('search_query', $_GET) && !array_key_exists('to', $_GET)) {
+                $this->indexContent($_GET['translate'], $this->output);
+            }
+
+            return $dataToCache;
+        });
+
+        $this->headers = $data['output_headers'];
+        $this->output = $data['output_body'];
+        $this->restoreHeaders();
     }
 
     /**
@@ -619,8 +641,8 @@ class Onyx_Bootstrap {
      * canBeSavedInCache
      */
     public function canBeSavedInCache() {
-        return Zend_Registry::isRegistered('controller_error')
+        return !(Zend_Registry::isRegistered('controller_error')
             || Zend_Registry::isRegistered('omit_cache')
-            || (array_key_exists('use_page_cache', $_SESSION) && $_SESSION['use_page_cache'] == false);
+            || (array_key_exists('use_page_cache', $_SESSION) && $_SESSION['use_page_cache'] == false));
     }
 }
