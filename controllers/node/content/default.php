@@ -58,7 +58,6 @@ class Onyx_Controller_Node_Content_Default extends Onyx_Controller_Node_Default 
 
         /**
          * all files
-         * TODO: check if FILES variable is in template
          */
 
         if ($this->checkTemplateVariableExists('FILES')) {

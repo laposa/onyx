@@ -34,7 +34,7 @@ $uri_map = array(
         '^/backoffice/pages/([0-9]*)$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice~id=$1~.bo/pages/pages~id=$1~',
         '^/backoffice/news$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/news',
         '^/backoffice/news/([0-9]*)$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/news&blog_node_id=$1',
-        '^/backoffice/news/edit/([a-z]*)/([0-9]*)$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/news_edit~id=$2~.bo/component/node_edit~id=$2~',
+        '^/backoffice/news/edit/([a-z]*)/([0-9]*)$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/pages/news_edit~id=$2~.bo/component/node_edit~id=$2~',
         '^/backoffice/comments$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/comments',
         '^/backoffice/comments/products$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/comments&products=1',
         '^/backoffice/comments/recipes$' => '/index.php?request=sys/html5.bo/backoffice_wrapper.bo/backoffice.bo/pages/comments&recipes=1',

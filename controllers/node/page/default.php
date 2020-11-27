@@ -37,6 +37,8 @@ class Onyx_Controller_Node_Page_Default extends Onyx_Controller_Node_Default {
         $this->Node = new common_node();
         $this->node_data = $this->Node->nodeDetail($this->GET['id']);
         
+        $node_id = $this->node_data['id'];
+        
         /**
          * prepare titles
          */
@@ -94,9 +96,20 @@ class Onyx_Controller_Node_Page_Default extends Onyx_Controller_Node_Default {
         /**
          * load related image with role 'background'
          */
-         
-        $image = $this->Node->getImageForNodeId($this->node_data['id'], 'background');
-        $this->tpl->assign("IMAGE", $image);
+        
+        if ($this->checkTemplateVariableExists('IMAGE')) {
+            $image = $this->Node->getImageForNodeId($node_id, 'background');
+            $this->tpl->assign("IMAGE", $image);
+        }
+
+        /**
+         * all files
+         */
+
+        if ($this->checkTemplateVariableExists('FILES')) {
+            $files = $this->Node->getFilesForNodeId($node_id);
+            $this->tpl->assign('FILES', $files);
+        }
         
         /**
          * process open graph tags
