@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2005-2013 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2005-2020 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -23,12 +23,8 @@ class Onyx_Request {
     {
         return $this->Onyx->getContent();
     }
-}
 
-/**
- * compatibility nSite class
- */
- 
-class nSite extends Onyx_Request {
-    
+    public function __toString() {
+        return (string) $this->getContent();
+    }
 }

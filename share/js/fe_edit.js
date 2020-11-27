@@ -55,13 +55,6 @@ function refreshAddContent(selector) {
     });
 }
 
-function addNode(parent_node_id) {
-    $("#dialog").hide().load("/request/bo/component/node_add~parent="+parent_node_id+"~", '', function (responseText, textStatus, XMLHttpRequest) {
-            popupMessage("#dialog div.onyx-messages");
-            $('#onyx-fe-edit-node-id-'+node_id).parent().append($("#dialog").html()).hide().slideDown("slow");
-    });
-}
-
 $('a.onyx-new-content').live('click', function() {
     $($(this).attr('href') + ' > div.new-node').removeClass("onyx-highlight-new");
     var temp = $(this).attr('href').replace('#onyx-layout-container-','');
@@ -69,22 +62,7 @@ $('a.onyx-new-content').live('click', function() {
     var node_id = info[0];
     var container_id = info[1];
     //alert("node_id" + node_id + " container_id" + container_id);
-    $($(this).attr('href') + ' > div.new-node').load('/request/bo/component/node_add~node_group=content:parent=' + node_id + ':container=' + container_id + '~', '', function() {
-        var button = '#node-add-form-' + node_id + '-' + container_id + '-wrapper button';
-        var container = '#onyx-layout-container-' + node_id + '-' + container_id;
-        $(button).after(' or <a href="#" onclick="$(\'' + container + ' div.new-node\').remove(); refreshAddContent(\'' + container + '\'); return false;"><span>cancel</span></a>');
-        
-        $('#node-add-form-'+node_id+'-'+container_id+'-wrapper form').ajaxForm({ 
-            target: '#node-add-form-'+node_id+'-'+container_id+'-wrapper',
-            success: function(responseText, statusText) {
-                popupMessage("#node-add-form-"+node_id+"-"+container_id+"-wrapper div.onyx-messages");
-                var refresh_url = '/request/node~id='+node_id+'~';
-                $('#onyx-fe-edit-node-id-'+node_id).parent().load(refresh_url, '', function () {
-                    refreshAddContent('#onyx-fe-edit-node-id-'+node_id+' div.onyx-layout-container');
-                });
-            }
-        });
-    });
+    window.location = "/component-library?fe_edit_mode=preview&add_to_node_id=" + node_id;
     return false;
 }).live('mouseover', function(){
     var temp = $(this).attr('href').replace('#onyx-layout-container-','');

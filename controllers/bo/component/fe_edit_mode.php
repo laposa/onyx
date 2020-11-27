@@ -58,7 +58,7 @@ class Onyx_Controller_Bo_Component_Fe_edit_Mode extends Onyx_Controller {
          * optionally forward to stripped URL
          */
          
-        if ($_GET['fe_edit_mode']) {
+        if ($_GET['fe_edit_mode'] && !is_numeric($_GET['add_to_node_id'])) {
             onyxGoTo($uri_strip, 2);
         }
         
