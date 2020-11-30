@@ -181,7 +181,7 @@ class Onyx_Bootstrap {
      */
     function getMemcachedClient() {
         if (!$this->memcachedClient) {
-            $this->memcachedClient = MemcachedAdapter::createConnection(ONYX_CACHE_BACKEND_LIBMEMCACHED_HOST + ":" + ONYX_CACHE_BACKEND_LIBMEMCACHED_PORT);
+            $this->memcachedClient = MemcachedAdapter::createConnection("memcached://" . ONYX_CACHE_BACKEND_LIBMEMCACHED_HOST . ":" . ONYX_CACHE_BACKEND_LIBMEMCACHED_PORT);
         }
 
         return $this->memcachedClient;
