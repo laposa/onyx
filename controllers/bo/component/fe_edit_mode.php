@@ -19,8 +19,8 @@ class Onyx_Controller_Bo_Component_Fe_edit_Mode extends Onyx_Controller {
          
         if ($_POST['fe_edit_mode']) {
             $mode = $_POST['fe_edit_mode'];
-        } else if ($_GET['fe_edit_mode']) {
-            $mode = $_GET['fe_edit_mode'];
+        } else if ($this->GET['fe_edit_mode']) {
+            $mode = $this->GET['fe_edit_mode'];
         } else if ($_SESSION['fe_edit_mode']) {
             $mode = $_SESSION['fe_edit_mode'];
         } else {
@@ -58,7 +58,7 @@ class Onyx_Controller_Bo_Component_Fe_edit_Mode extends Onyx_Controller {
          * optionally forward to stripped URL
          */
          
-        if ($_GET['fe_edit_mode'] && !is_numeric($_GET['add_to_node_id'])) {
+        if ($_GET['fe_edit_mode']) {
             onyxGoTo($uri_strip, 2);
         }
         

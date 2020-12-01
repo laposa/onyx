@@ -545,21 +545,7 @@ ALTER TABLE common_uri_mapping ADD UNIQUE (public_uri);
          * wrap in site template
          */
         if ($render_in_site_template) {
-            
-            if (Onyx_Bo_Authentication::getInstance()->isAuthenticated()) {
-            
-                //hack to pass _SESSION.fe_edit_mode even before it's called again from fe_edit
-                //consider moving this to $Bootstrap->initPreAction
-                //probably this whole block, _GET shouldn't be here!
-                $_Onyx_Request = new Onyx_Request('bo/component/fe_edit_mode');   
-                $prefix = "bo/fe_edit~id=$node_id~." . ONYX_SITE_TEMPLATE . "~id=$node_id~";
-            
-            } else {
-            
-                $prefix = ONYX_SITE_TEMPLATE . "~id=$node_id~";
-            
-            }
-         
+            $prefix = ONYX_SITE_TEMPLATE . "~id=$node_id~";
             $request = $prefix . '.' . $request;
         }
         

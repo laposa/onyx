@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2007-2017 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2007-2020 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -96,6 +96,15 @@ class Onyx_Controller_Node_Site_Default extends Onyx_Controller {
         if ($GLOBALS['onyx_conf']['global']['display_content_foot'] == 1) {
             $_Onyx_Request = new Onyx_Request("node~id={$node_conf['id_map-content_foot']}~");
             $this->tpl->assign('CONTENT_FOOT', $_Onyx_Request->getContent());
+        }
+
+        /**
+         * fe_edit
+         */
+         
+        if (Onyx_Bo_Authentication::getInstance()->isAuthenticated()) {
+            $_Onyx_Request = new Onyx_Request("bo/fe_edit");
+            $this->tpl->assign('FE_EDIT', $_Onyx_Request->getContent());
         }
 
         return true;

@@ -15,6 +15,12 @@ class Onyx_Controller_Component_Library extends Onyx_Controller {
     public function mainAction()
     {
 
+        // hack to pass _SESSION.fe_edit_mode even before it's called again from fe_edit
+        // consider moving this to $Bootstrap->initPreAction
+        if (Onyx_Bo_Authentication::getInstance()->isAuthenticated()) {
+            $_Onyx_Request = new Onyx_Request('bo/component/fe_edit_mode~fe_edit_mode=preview~');
+        }
+
         // get input variables
         
         if (is_numeric($this->GET['source_node_id'])) $source_node_id = (int) $this->GET['source_node_id'];
