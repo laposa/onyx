@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2005-2018 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2005-2020 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -205,7 +205,7 @@ class Onyx_Controller_Component_Contact_Form extends Onyx_Controller {
         $this->tpl->parse("$template_block_path.store.county_dropdown");
         
         // show only if there is at least one store
-        if (count($total_store_count) > 0) $this->tpl->parse("$template_block_path.store");
+        if ($total_store_count > 0) $this->tpl->parse("$template_block_path.store");
     }
 
     /**
