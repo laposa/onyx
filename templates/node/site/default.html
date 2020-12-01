@@ -8,13 +8,6 @@
 <meta name="generator" content="{ONYX_VERSION}" />
 <meta name="description" content="{NODE.description|htmlspecialchars}" />
 <meta name="csrf_token" content="{CSRF_TOKEN}" />
-<link rel="icon" href="/favicon.ico" type="image/x-icon" />
-<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-<meta property="og:url" content="{URI|preg_replace('/\?.*$/', '', %s)|htmlspecialchars}" />
-<meta property="og:site_name" content="{CONFIGURATION.global.title|htmlspecialchars}" />
-<meta property="og:title" content="{REGISTRY.browser_title|htmlspecialchars}" />
-<meta property="fb:app_id" content="{ONYX_FACEBOOK_APP_ID}" />
-<meta property="og:locale" content="{LOCALE_OPENGRAPH}" />
 {REGISTRY.head}
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
@@ -63,13 +56,7 @@
 
 <footer class="site">
     <div class="wrapper">
-        <section id="content-bottom">
-            {CONTENT_FOOT}
-        </section>
-        <nav class="footer" id="footer-navigation">
-            {ONYX_REQUEST_footer_nav #component/menu~id=4:level=1:expand_all=0:display_strapline=0:open=GET.id~}
-        </nav>
-        <p id="copyright">&copy; {TIME|strftime('%Y', %s)} {CONFIGURATION.global.title|htmlspecialchars}</p>
+        <p id="copyright">&copy; {TIME|strftime('%Y', %s)|convertNumeralArabicToRoman(%s)} {CONFIGURATION.global.title|htmlspecialchars}</p>
     </div>
 </footer>
 
