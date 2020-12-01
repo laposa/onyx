@@ -1,5 +1,21 @@
-<!-- BEGIN: description -->{NODE.description}<!-- END: description -->
-<!-- BEGIN: head -->
+<!-- BEGIN: content -->
+<!DOCTYPE html>
+<html lang="{LOCALE|substr(%s, 0, 2)}">
+<head>
+<title>{REGISTRY.browser_title|htmlspecialchars} {CONFIGURATION.global.html_title_suffix|htmlspecialchars}</title>
+<meta charset="UTF-8">
+<meta name="author" content="{CONFIGURATION.global.author_content|htmlspecialchars}" />
+<meta name="generator" content="{ONYX_VERSION}" />
+<meta name="description" content="{NODE.description|htmlspecialchars}" />
+<meta name="csrf_token" content="{CSRF_TOKEN}" />
+<link rel="icon" href="/favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+<meta property="og:url" content="{URI|preg_replace('/\?.*$/', '', %s)|htmlspecialchars}" />
+<meta property="og:site_name" content="{CONFIGURATION.global.title|htmlspecialchars}" />
+<meta property="og:title" content="{REGISTRY.browser_title|htmlspecialchars}" />
+<meta property="fb:app_id" content="{ONYX_FACEBOOK_APP_ID}" />
+<meta property="og:locale" content="{LOCALE_OPENGRAPH}" />
+{REGISTRY.head}
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -17,8 +33,9 @@
 {ONYX_REQUEST_head #extra_head}
 
 {CONFIGURATION.global.extra_head}
-<!-- END: head -->
-<!-- BEGIN: content -->
+</head>
+<body class="{NODE.body_css_class|htmlspecialchars}" data-node-id="{NODE.node_id}">
+{MESSAGES}
 {ONYX_REQUEST_google_tag_manager #component/google_tag_manager}
 {CONFIGURATION.global.extra_body_top}
 
@@ -57,4 +74,6 @@
 </footer>
 
 {CONFIGURATION.global.extra_body_bottom}
+</body>
+</html>
 <!-- END: content -->

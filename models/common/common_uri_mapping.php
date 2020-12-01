@@ -2,7 +2,7 @@
 /**
  * class common_uri_mapping
  *
- * Copyright (c) 2009-2019 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2009-2020 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -152,7 +152,7 @@ ALTER TABLE common_uri_mapping ADD UNIQUE (public_uri);
      
     function to_cms_url($html) {
     
-        $html = preg_replace("/href=[\"\'](?!JavaScript)(?!http)\/index.php\?request=" . addcslashes(ONYX_DEFAULT_LAYOUT, '/') . ".page~id=([^\~]*)~[\"\']/i", "href=\"/page/\\1\"", $html);
+        $html = preg_replace("/href=[\"\'](?!JavaScript)(?!http)\/index.php\?request=" . addcslashes(ONYX_SITE_TEMPLATE, '/') . ".page~id=([^\~]*)~[\"\']/i", "href=\"/page/\\1\"", $html);
         //fix home URI
         if ($this->conf['rewrite_home']) $html = preg_replace("/href=[\"\'](?!JavaScript)(?!http)\/page\/".$this->conf['homepage_id'].'"/', "href=\"/\"", $html);
         
@@ -552,11 +552,11 @@ ALTER TABLE common_uri_mapping ADD UNIQUE (public_uri);
                 //consider moving this to $Bootstrap->initPreAction
                 //probably this whole block, _GET shouldn't be here!
                 $_Onyx_Request = new Onyx_Request('bo/component/fe_edit_mode');   
-                $prefix = ONYX_DEFAULT_TYPE . "~id=$node_id~.bo/fe_edit~id=$node_id~." . ONYX_MAIN_TEMPLATE . "~id=$node_id~";
+                $prefix = "bo/fe_edit~id=$node_id~." . ONYX_SITE_TEMPLATE . "~id=$node_id~";
             
             } else {
             
-                $prefix = ONYX_DEFAULT_LAYOUT . "~id=$node_id~";
+                $prefix = ONYX_SITE_TEMPLATE . "~id=$node_id~";
             
             }
          

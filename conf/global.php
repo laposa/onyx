@@ -166,11 +166,7 @@ if (!defined('ONYX_SESSION_START_FOR_ALL_USERS')) define('ONYX_SESSION_START_FOR
  * Layout settings
  */
 
-if (!defined('ONYX_DEFAULT_TYPE')) define('ONYX_DEFAULT_TYPE', 'sys/html5');
-if (!defined('ONYX_MAIN_TEMPLATE')) define('ONYX_MAIN_TEMPLATE', 'node/site/default');
-if (!defined('ONYX_PAGE_TEMPLATE')) define('ONYX_PAGE_TEMPLATE', 'node/page/default');
-if (!defined('ONYX_DEFAULT_LAYOUT')) define('ONYX_DEFAULT_LAYOUT', ONYX_DEFAULT_TYPE . '.' . ONYX_MAIN_TEMPLATE);
-
+if (!defined('ONYX_SITE_TEMPLATE')) define('ONYX_SITE_TEMPLATE', 'node/site/default');
 
 //hack
 if (isset($_GET['preview']) && $_GET['preview'] == 1) {

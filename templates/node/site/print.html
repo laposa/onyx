@@ -1,14 +1,31 @@
-<!-- BEGIN: head -->
+<!-- BEGIN: content -->
+<!DOCTYPE html>
+<html lang="{LOCALE|substr(%s, 0, 2)}">
+<head>
+<title>{REGISTRY.browser_title|htmlspecialchars} {CONFIGURATION.global.html_title_suffix|htmlspecialchars}</title>
+<meta charset="UTF-8">
+<meta name="author" content="{CONFIGURATION.global.author_content|htmlspecialchars}" />
+<meta name="generator" content="{ONYX_VERSION}" />
+<meta name="description" content="{NODE.description|htmlspecialchars}" />
+<meta name="csrf_token" content="{CSRF_TOKEN}" />
+<link rel="icon" href="/favicon.ico" type="image/x-icon" />
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
+<meta property="og:url" content="{URI|preg_replace('/\?.*$/', '', %s)|htmlspecialchars}" />
+<meta property="og:site_name" content="{CONFIGURATION.global.title|htmlspecialchars}" />
+<meta property="og:title" content="{REGISTRY.browser_title|htmlspecialchars}" />
+<meta property="fb:app_id" content="{ONYX_FACEBOOK_APP_ID}" />
+<meta property="og:locale" content="{LOCALE_OPENGRAPH}" />
+{REGISTRY.head}
 <link type="text/css" href="/share/css/default/screen.css" rel="stylesheet" media="screen" />
 <link type="text/css" href="/share/css/default/print.css" rel="stylesheet" media="print" />
-<style type="text/css">
-{CONFIGURATION.global.css}
-</style>
 <script type="text/javascript" src="/share/js/jquery/jquery.js"></script>
 <script type="text/javascript">
-    $(window).load(function() {window.print()});
+	$(window).load(function() {window.print()});
 </script>
-<!-- END: head -->
-<!-- BEGIN: content -->
+</head>
+<body class="{NODE.body_css_class|htmlspecialchars}" data-node-id="{NODE.node_id}">
+{MESSAGES}
 {SUB_CONTENT}
+</body>
+</html>
 <!-- END: content -->
