@@ -68,7 +68,7 @@ class Onyx_Controller_Component_Client_Facebook extends Onyx_Controller {
         $args = func_get_args();
 
         /** @var Symfony\Component\Cache\Adapter\TagAwareAdapter $cache */
-        $cache = Zend_registry::get('onyx_cache');
+        $cache = $this->container->get('onyx_cache');
         $cacheKey = "Facebook_{$_SESSION['client']['customer']['facebook_id']}_" . md5(serialize($args));
 
         $data = $cache->get($cacheKey, function (ItemInterface $item) use ($args) {

@@ -2,6 +2,8 @@
 
 use Symfony\Contracts\Cache\ItemInterface;
 
+require_once('lib/onyx.container.php');
+
 /**
  * Onyx_Db class definition
  *
@@ -22,11 +24,13 @@ class Onyx_Db {
     public $db;
     /** @var Symfony\Component\Cache\Adapter\TagAwareAdapter */
     public $cache;
+    /** @var Onyx_Container */
+    protected $container;
 
     /**
      * Constructor
      */
-    function __construct() {
+    public function __construct() {
         $this->_class_name = get_class($this);
         if (defined('ONYX_DB_QUERY_CACHE')) $this->setCacheable(ONYX_DB_QUERY_CACHE);
         $this->generic();
@@ -43,10 +47,13 @@ class Onyx_Db {
      * default method called from constructor
      */
     public function generic() {
+        // Get instance of dependency injection container
+        $this->container = Onyx_Container::getInstance();
+
         msg("{$this->_class_name}: Calling generic()", 'ok', 3);
 
-        if (Zend_Registry::isRegistered('onyx_db')) $this->db = Zend_Registry::get('onyx_db');
-        if (Zend_Registry::isRegistered('onyx_db_cache')) $this->cache = Zend_Registry::get('onyx_db_cache');
+        if ($this->container->has('onyx_db')) $this->db = $this->container->get('onyx_db');
+        if ($this->container->has('onyx_db_cache')) $this->cache = $this->container->get('onyx_db_cache');
 
         $vars = get_object_vars($this);
 

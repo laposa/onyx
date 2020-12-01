@@ -8,6 +8,8 @@
  *
  */
 
+require_once('lib/onyx.container.php');
+
 /**
  * Every system message should be processed through this function
  *
@@ -608,10 +610,10 @@ function isValidDate($date)
  */
 function onyx_flush_cache() {
     // clean Symfony cache
-    $registry = Zend_Registry::getInstance();
-    $dbCacheClearStatus = $registry['onyx_db_cache']->clear();
-    $pageCacheClearStatus = $registry['onyx_page_cache']->clear();
-    $generalCacheClearStatus = $registry['onyx_cache']->clear();
+    $registry = Onyx_Container::getInstance();
+    $dbCacheClearStatus = $registry->get('onyx_db_cache')->clear();
+    $pageCacheClearStatus = $registry->get('onyx_page_cache')->clear();
+    $generalCacheClearStatus = $registry->get('onyx_cache')->clear();
 
     // remove all files in cache directory
     require_once('models/common/common_file.php');

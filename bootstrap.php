@@ -1,20 +1,15 @@
 <?php
 /**
  *
- * Copyright (c) 2005-2017 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2005-2020 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
-
-/**
- * Set include paths
- */
+// Set include paths
 set_include_path(ONYX_PROJECT_DIR . PATH_SEPARATOR . ONYX_DIR . PATH_SEPARATOR . ONYX_DIR . 'lib/' . PATH_SEPARATOR . get_include_path());
 require_once('lib/onyx.functions.php');
 
-/**
- * Setup Tracy
- */
+// Setup Tracy
 if (ONYX_TRACY) {
     require_once('lib/Tracy/tracy.php');
     require_once('lib/Tracy/Onyx/Onyx_Extensions.php');
@@ -32,24 +27,14 @@ if (ONYX_TRACY) {
     error_reporting(E_ALL ^ E_NOTICE);
 }
 
-/**
- * Debug benchmarking
- */
+// Debug benchmarking
 if (ONYX_BENCHMARK && ONYX_IS_DEBUG_HOST) {
     $time_start = microtime(true);
     define("TIME_START", $time_start);
 }
 
-/**
- * Include Bootstrap
- */
-require_once('lib/onyx.bootstrap.php');
-
-/**
- * log to firebug
- */
+// Log to firebug
 if (ONYX_IS_DEBUG_HOST && ONYX_DEBUG_OUTPUT_FIREBUG) {
-
     require_once('Zend/Log/Writer/Firebug.php');
     require_once('Zend/Log.php');
 
@@ -67,42 +52,32 @@ if (ONYX_IS_DEBUG_HOST && ONYX_DEBUG_OUTPUT_FIREBUG) {
     $channel->setResponse($response);
 }
 
-/**
- * Init Bootstrap
- */
-$Bootstrap = new Onyx_Bootstrap();
+// Include & init dependency injection container
+require_once('lib/onyx.container.php');
+$container = Onyx_Container::getInstance();
 
-/**
- * Init pre-action (standard pre-actions defined as global variable in conf/global.php)
- */
-$Bootstrap->initPreAction($onyx_pre_actions);
+// Include & init Bootstrap
+require_once('lib/onyx.bootstrap.php');
+$bootstrap = new Onyx_Bootstrap();
 
-/**
- * Init action
- */
-$Bootstrap->initAction($_GET['request']);
+// Init pre-action (standard pre-actions defined as global variable in conf/global.php)
+if (!isset($onyx_pre_actions)) $onyx_pre_actions = [];
+$bootstrap->initPreAction($onyx_pre_actions);
 
-/**
- * test log to firebug
- */
+// Init action
+$bootstrap->initAction($_GET['request']);
+
+// Test log to firebug
 if (ONYX_IS_DEBUG_HOST && isset($channel) && isset($response)) {
-
     // Flush log data to browser
     $channel->flush();
     $response->sendHeaders();
 }
 
+// Output content
+echo $bootstrap->finalOutput();
 
-/**
- * Output content
- */
-
-echo $Bootstrap->finalOutput();
-
-
-/**
- * Debug benchmarking
- */
+// Debug benchmarking
 if (ONYX_BENCHMARK && ONYX_IS_DEBUG_HOST) {
     $time_end = microtime(true);
     $time = $time_end - $time_start;
@@ -113,7 +88,7 @@ if (ONYX_BENCHMARK && ONYX_IS_DEBUG_HOST) {
 }
 
 if (ONYX_DB_PROFILER && ONYX_IS_DEBUG_HOST) {
-    $db = Zend_Registry::get('onyx_db');
+    $db = $container->get('onyx_db');
     $profiler = $db->getProfiler();
     $db_profile = [];
     $db_profile['total_num_queries'] = $profiler->getTotalNumQueries();

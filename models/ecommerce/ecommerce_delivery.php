@@ -12,7 +12,7 @@
  * -weight and zone (WZ)
  * -size
  */
- 
+
 class ecommerce_delivery extends Onyx_Model {
 
     /**
@@ -26,7 +26,7 @@ class ecommerce_delivery extends Onyx_Model {
      */
     var $order_id;
     /**
-     * 
+     *
      * @access private
      */
     var $carrier_id;
@@ -58,11 +58,11 @@ class ecommerce_delivery extends Onyx_Model {
      * @access private
      */
     var $other_data;
-    
+
     var $weight;
 
     var $_metaData = array(
-        'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
+        'id'=>array('label' => '', 'validation'=>'int', 'required'=>true),
         'order_id'=>array('label' => '', 'validation'=>'int', 'required'=>true),
         'carrier_id'=>array('label' => '', 'validation'=>'int', 'required'=>true),
         'value_net'=>array('label' => '', 'validation'=>'decimal', 'required'=>true),
@@ -74,13 +74,13 @@ class ecommerce_delivery extends Onyx_Model {
         'other_data'=>array('label' => '', 'validation'=>'string', 'required'=>false),
         'weight'=>array('label' => '', 'validation'=>'int', 'required'=>true)
         );
-    
+
     /**
      * create table sql
      */
-     
+
     private function getCreateTableSql() {
-    
+
         $sql = "CREATE TABLE ecommerce_delivery (
             id serial NOT NULL PRIMARY KEY,
             order_id int REFERENCES ecommerce_order ON UPDATE CASCADE ON DELETE RESTRICT,
@@ -95,14 +95,14 @@ class ecommerce_delivery extends Onyx_Model {
             weight integer NOT NULL DEFAULT 0
         );
         ";
-        
+
         return $sql;
     }
-    
+
     /**
      * insert delivery
      */
-     
+
     function insertDelivery($delivery_data) {
         $delivery_data['other_data'] = serialize($delivery_data['other_data']);
 
@@ -113,50 +113,50 @@ class ecommerce_delivery extends Onyx_Model {
     /**
      * get delivery list for an order
      */
-     
+
     function getDeliveryListByOrderId($order_id) {
         if (!is_numeric($order_id)) {
             msg("ecommerce_delivery.getDeliveryListByOrderId(): order_id is not numeric", 'error', 1);
             return false;
         }
-        
+
         $list = $this->listing("order_id = $order_id");
         foreach ($list as $key=>$val) {
             $list[$key]['carrier_detail'] = $this->getCarrierDetail($val['carrier_id']);
         }
         return $list;
     }
-    
+
     /**
      * get delivery by order id
      */
-     
+
     function getDeliveryByOrderId($order_id) {
-        
+
         $list = $this->getDeliveryListByOrderId($order_id);
-        
+
         $delivery = $list[0];
         $delivery['value'] = $delivery['value_net'] + $delivery['vat'];
-        
+
         return $delivery;
     }
-    
+
     /**
      * get carrier detail
      */
-     
+
     function getCarrierDetail($carrier_id) {
         require_once('models/ecommerce/ecommerce_delivery_carrier.php');
         $Carrier = new ecommerce_delivery_carrier();
         $detail = $Carrier->getDetail($carrier_id);
-        
+
         return $detail;
     }
 
     /**
      * Calculate delivery rate for given carrier and basket content
-     * 
-     * @param  Array  $basket              Basket content 
+     *
+     * @param  Array  $basket              Basket content
      * @param  int    $carrier_id          Carrier id
      * @param  int    $delivery_address_id Delivery address id
      * @return Array                       Delivery rate and VAT
@@ -173,8 +173,8 @@ class ecommerce_delivery extends Onyx_Model {
 
     /**
      * Calculate delivery rate for given carrier and basket content
-     * 
-     * @param  Array  $basket              Basket content 
+     *
+     * @param  Array  $basket              Basket content
      * @param  int    $carrier_id          Carrier id
      * @param  int    $country_id          Delivery Country id
      * @return Array                       Delivery rate and VAT
@@ -192,7 +192,7 @@ class ecommerce_delivery extends Onyx_Model {
 
         // check if the delivery is available for given order value and weight
         $price = $Delivery_Carrier->getDeliveryRate(
-            $carrier_id, 
+            $carrier_id,
             $basket['sub_total']['price'],
             $basket['total_weight_gross']
         );
@@ -208,7 +208,7 @@ class ecommerce_delivery extends Onyx_Model {
         $Promotion = new ecommerce_promotion();
         $Promotion->setCacheable(false);
 
-        if ($Promotion->freeDeliveryAvailable($carrier_id, $country_id, $promotion_detail)) 
+        if ($Promotion->freeDeliveryAvailable($carrier_id, $country_id, $promotion_detail))
             return $this->getFreeDelivery($basket['total_weight_gross']);
 
         return array(
@@ -241,9 +241,9 @@ class ecommerce_delivery extends Onyx_Model {
      * @param unknown_type $basket
      * @return unknown
      */
-     
+
     function findVATEligibility($basket) {
-    
+
         if (!is_array($basket)) return false;
         foreach ($basket['items'] as $item) {
             if ($item['vat_rate'] > 0) {
@@ -251,7 +251,7 @@ class ecommerce_delivery extends Onyx_Model {
                 return $vat_rate;
             }
         }
-        
+
         return 0;
     }
 
@@ -287,13 +287,11 @@ class ecommerce_delivery extends Onyx_Model {
         }
 
         if (count($products) > 0) {
-    
-            if (!Zend_Registry::isRegistered('ecommerce_delivery:not_deliverable_products_message')) {
-    
+            if (!$this->container->has('ecommerce_delivery:not_deliverable_products_message')) {
                 msg("Sorry, we're not able to deliver the following products to your country: " . implode(" ,", $products), 'error');
-                Zend_Registry::set('ecommerce_delivery:not_deliverable_products_message', true);
+                $this->container->set('ecommerce_delivery:not_deliverable_products_message', true);
             }
-    
+
             return false;
         }
 

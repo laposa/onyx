@@ -1,33 +1,33 @@
 <?php
-/** 
+/**
  * Copyright (c) 2005-2020 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
 class Onyx_Controller_Component_Contact_Form extends Onyx_Controller {
-    
+
     /**
      * main action
      */
-     
+
     public function mainAction() {
 
         $this->enableCaptcha = (($this->GET['spam_protection'] == "captcha_image" ||
-            $this->GET['spam_protection'] == "captcha_text_js") && 
+            $this->GET['spam_protection'] == "captcha_text_js") &&
             strpos($this->tpl->filecontents, 'formdata-captcha-') !== FALSE);
 
         $formdata = $this->preProcessEmailForm($_POST['formdata']);
 
         if (isset($_POST['send']) && $_POST['node_id'] == $this->GET['node_id']) {
-            
+
             $formdata = $this->processEmailForm($formdata);
-            
+
         }
 
         $formdata = $this->postProcessEmailForm($formdata);
 
         $this->tpl->assign('FORMDATA', $formdata);
-        
+
         if ($this->enableCaptcha) {
             if ($this->GET['spam_protection'] == "captcha_text_js") {
                 $this->tpl->parse("content.invisible_captcha_field");
@@ -38,58 +38,58 @@ class Onyx_Controller_Component_Contact_Form extends Onyx_Controller {
 
         return true;
     }
-    
+
     /**
      * preprocess (before any data processing)
      */
-     
+
     public function preProcessEmailForm($formdata) {
-        
+
         return $formdata;
-            
+
     }
-    
+
     /**
      * postprocess (after data processing, but before parsing any variables to the template)
      */
-     
+
     public function postProcessEmailForm($formdata) {
-        
+
         $this->tpl->assign('MAX_FILE_SIZE', ini_get('upload_max_filesize'));
-    
+
         if (ONYX_ECOMMERCE) $this->parseStoreSelect($formdata['form']['store_id'], 'content');
-    
+
         /**
          * pre-populate with customer data if available
          */
-         
+
         if ($_SESSION['client']['customer']['id'] > 0) {
-            
+
             if (!$formdata['first_name'] && $_SESSION['client']['customer']['first_name']) $formdata['first_name'] = $formdata['required_first_name'] = $_SESSION['client']['customer']['first_name'];
             if (!$formdata['last_name'] && $_SESSION['client']['customer']['last_name']) $formdata['last_name'] = $formdata['required_last_name'] = $_SESSION['client']['customer']['last_name'];
             if (!$formdata['name'] && ($formdata['first_name'] || $formdata['last_name'])) $formdata['name'] = $formdata['required_name'] = $formdata['first_name'] . " " . $formdata['last_name'];
             if (!$formdata['email'] && $_SESSION['client']['customer']['email']) $formdata['email'] = $formdata['required_email'] = $_SESSION['client']['customer']['email'];
             if (!$formdata['telephone'] && $_SESSION['client']['customer']['telephone']) $formdata['telephone'] = $formdata['required_telephone'] = $_SESSION['client']['customer']['telephone'];
-            
+
         }
-        
+
         return $formdata;
-        
+
     }
-    
-    
+
+
     /**
      * process form send action
      */
-     
+
     public function processEmailForm($formdata) {
-    
+
             if (!is_array($formdata)) return false;
-            
+
             require_once('models/common/common_email.php');
-            
+
             $Email = new common_email();
-            
+
             $content = $Email->exploreFormData($formdata);
 
             $node_id = (int) $this->GET['node_id'];
@@ -106,23 +106,23 @@ class Onyx_Controller_Component_Contact_Form extends Onyx_Controller {
 
             // mail from
             if ($Email->conf['sender_overwrite_allowed']) {
-                
+
                 if ($formdata['required_email']) $mail_from = $formdata['required_email'];
                 else if ($formdata['email']) $mail_from = $formdata['email'];
                 else $mail_from = false;
-    
+
                 if ($formdata['required_name']) $mail_fromname = $formdata['required_name'];
                 else if ($formdata['name']) $mail_fromname = $formdata['name'];
                 else if ($formdata['first_name'] || $formdata['last_name']) $mail_fromname = "{$formdata['first_name']} {$formdata['last_name']}";
                 else $mail_fromname = false;
-            
+
             } else {
-                
+
                 $mail_from = false;
                 $mail_fromname = false;
-                
+
             }
-            
+
             // spam protection
             if ($this->enableCaptcha) {
                 $word = strtolower($_SESSION['captcha'][$node_id]);
@@ -132,51 +132,51 @@ class Onyx_Controller_Component_Contact_Form extends Onyx_Controller {
 
             // send out via Common_Email
             if ($Email->sendEmail('contact_form', $content, $mail_to, $mail_toname, $mail_from, $mail_fromname)) {
-                Zend_Registry::set($reg_key, 'sent');
+                $this->container->set($reg_key, 'sent');
             } else {
-                Zend_Registry::set($reg_key, 'failed');
+                $this->container->set($reg_key, 'failed');
             }
 
             return $formdata;
-            
+
     }
-    
+
     /**
      * parse country list
      */
-     
+
     public function parseCountryList($template_block = 'content.country') {
-        
+
         require_once('models/international/international_country.php');
         $Country = new international_country();
         $countries = $Country->listing();
-        
+
         foreach ($countries as $c) {
             if ($c['id'] == $_POST['formdata']['country_id']) $c['selected'] = "selected='selected'";
             else $c['selected'] = '';
             $this->tpl->assign('COUNTRY', $c);
             $this->tpl->parse("{$template_block}.item");
         }
-        
+
         $this->tpl->parse($template_block);
-        
+
     }
-    
-    
+
+
     /**
      * parseStoreSelect
      */
 
     protected function parseStoreSelect($selected_id, $template_block_path = 'content.form')
     {
-        
+
         require_once('models/ecommerce/ecommerce_store.php');
         $Store = new ecommerce_store();
-        
+
         $provinces = $this->getTaxonomyBranch($GLOBALS['onyx_conf']['global']['province_taxonomy_tree_id']);
 
         $total_store_count = 0;
-        
+
         foreach ($provinces as $province) {
 
             $this->tpl->assign("PROVINCE_NAME", $province['label']['title']);
@@ -188,7 +188,7 @@ class Onyx_Controller_Component_Contact_Form extends Onyx_Controller {
                 $this->tpl->assign("COUNTY", $county);
                 // get all stores in this count
                 $store_list = $Store->getFilteredStoreList($county['id'], false, 1, false, false, 1000); //limit to 1000 records per county and type_id=1
-                
+
                 foreach ($store_list as $store_item) {
                     if ($store_item['publish']) {
                         $this->tpl->assign('STORE', $store_item);
@@ -203,7 +203,7 @@ class Onyx_Controller_Component_Contact_Form extends Onyx_Controller {
         }
 
         $this->tpl->parse("$template_block_path.store.county_dropdown");
-        
+
         // show only if there is at least one store
         if ($total_store_count > 0) $this->tpl->parse("$template_block_path.store");
     }
@@ -211,12 +211,12 @@ class Onyx_Controller_Component_Contact_Form extends Onyx_Controller {
     /**
      * getTaxonomyBranch
      */
-     
+
     public function getTaxonomyBranch($parent)
     {
         require_once('models/common/common_taxonomy.php');
         $Taxonomy = new common_taxonomy();
-        
+
         return $Taxonomy->getChildren($parent);
     }
 }

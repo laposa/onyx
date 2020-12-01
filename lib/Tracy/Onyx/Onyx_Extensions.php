@@ -1,6 +1,7 @@
 <?php
 
 require_once("lib/SqlFormatter/SqlFormatter.php");
+require_once('lib/onyx.container.php');
 
 class DBProfilerPanel implements Tracy\IBarPanel
 {
@@ -12,7 +13,7 @@ class DBProfilerPanel implements Tracy\IBarPanel
 
 	function getPanel()
 	{
-		$db = Zend_Registry::get('onyx_db');
+		$db = Onyx_Container::getInstance()->get('onyx_db');
 		$profiler = $db->getProfiler();
 
 		$content = '<h1>Database Profiler</h1><div class="tracy-inner">';
@@ -24,7 +25,7 @@ class DBProfilerPanel implements Tracy\IBarPanel
 
 		foreach ($profiler->getQueryProfiles() as $item) {
 
-			while (isset($GLOBALS['components'][$i]) && 
+			while (isset($GLOBALS['components'][$i]) &&
 				$GLOBALS['components'][$i]['time'] < $item->getStartedMicrotime()) {
 				$controller = $GLOBALS['components'][$i]['controller'];
 				$i++;
@@ -78,7 +79,7 @@ class ComponentsPanel implements Tracy\IBarPanel
 		$content .= "<tr><th>Node Title</th><th>Controller</th><th>Duration</th>";
 		foreach ($GLOBALS['components'] as $i => $component) {
 			if (isset($GLOBALS['components'][$i + 1])) $time = $GLOBALS['components'][$i + 1]['time'] - $component['time'];
-			else $time = microtime(true) - $component['time']; 
+			else $time = microtime(true) - $component['time'];
 			$content .= "<tr>";
 			$content .= "<td>" . $component['node'] . "</td>";
 			$content .= "<td>" . $component['controller'] . "</td>";

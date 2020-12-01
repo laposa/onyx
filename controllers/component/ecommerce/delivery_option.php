@@ -4,7 +4,7 @@
  *
  * Copyright (c) 2008-2013 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
- * 
+ *
  */
 
 require_once('models/client/client_address.php');
@@ -19,12 +19,12 @@ class Onyx_Controller_Component_Ecommerce_Delivery_Option extends Onyx_Controlle
     /**
      * main action
      */
-     
+
     public function mainAction() {
 
         setlocale(LC_MONETARY, $GLOBALS['onyx_conf']['global']['locale']);
 
-        $this->initModels();         
+        $this->initModels();
         $options = $this->getInputOrDefaults();
         $address_detail = $this->getAddress();
         $zone_id = (int) $this->Delivery_Carrier_Zone->getZoneIdByCountry($address_detail['country']['id']);
@@ -35,11 +35,11 @@ class Onyx_Controller_Component_Ecommerce_Delivery_Option extends Onyx_Controlle
         if (count($carrier_list) > 0) {
 
             foreach ($carrier_list as $i => $item) {
-                
+
                 if ($options['carrier_id']) {
                     if ($item['id'] == $options['carrier_id']) $item['selected'] = "checked='checked'";
                     else $item['selected'] = '';
-                }               
+                }
                 $this->tpl->assign("ITEM", $item);
                 $this->tpl->parse('content.item');
 
@@ -47,20 +47,20 @@ class Onyx_Controller_Component_Ecommerce_Delivery_Option extends Onyx_Controlle
 
         } else {
 
-            if (!Zend_Registry::isRegistered('ecommerce_delivery:not_deliverable_products_message')) {
+            if (!$this->container->has('ecommerce_delivery:not_deliverable_products_message')) {
                 msg("Sorry, there is no delivery method available for your order value and weight.");
             }
             $options['carrier_id'] = false;
 
         }
-        
+
         $_SESSION['delivery_options'] = $options;
 
         setlocale(LC_MONETARY, LOCALE);
 
         return true;
     }
-    
+
     protected function initModels()
     {
         $this->Address = new client_address();

@@ -35,7 +35,7 @@ class Onyx_Controller_Component_Client_Twitter_Timeline extends Onyx_Controller_
         if (!$token) return true;
 
         /** @var Symfony\Component\Cache\Adapter\TagAwareAdapter $cache */
-        $cache = Zend_registry::get('onyx_cache');
+        $cache = $this->container->get('onyx_cache');
 
         $timeline = $cache->get("twitter_statuses_userTimeline_$username", function(ItemInterface  $item) use ($username, $limit_fetch) {
             $timeline = $this->twitterCallExtend('statuses', 'user_timeline', ["screen_name" => $username, "count" => $limit_fetch]);

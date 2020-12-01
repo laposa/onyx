@@ -12,6 +12,8 @@ use Symfony\Component\Cache\Adapter\ApcuAdapter;
 use Symfony\Component\Cache\Adapter\TagAwareAdapter;
 use Symfony\Contracts\Cache\ItemInterface;
 
+require_once('lib/onyx.container.php');
+
 class Onyx_Bootstrap {
     public $Onyx;
     public $headers;
@@ -19,12 +21,15 @@ class Onyx_Bootstrap {
     /** @var Symfony\Component\Cache\Adapter\TagAwareAdapter */
     public $cache;
     /** @var Memcached */
-    public $memcachedClient;
+    protected $memcachedClient;
+    /** @var Onyx_Container */
+    protected $container;
 
     /**
      * constructor
      */
-    function __construct() {
+    public function __construct()
+    {
         // Include default libraries
         require_once('xtemplate.class.php');
         require_once('controller.php');
@@ -33,6 +38,9 @@ class Onyx_Bootstrap {
         require_once('onyx.router.php');
         require_once('onyx.bo.authentication.php');
         require_once('Zend/Registry.php');
+
+        // Get instance of dependency injection container
+        $this->container = Onyx_Container::getInstance();
 
         // Initialise database connection object
         $this->initDatabase();
@@ -78,7 +86,8 @@ class Onyx_Bootstrap {
     /**
      * Initialise database connection
      */
-    function initDatabase() {
+    public function initDatabase()
+    {
         // determine adapter name
         $adapterName = ONYX_DB_TYPE === 'mysql' ? 'pdo_mysql' : 'pdo_pgsql';
 
@@ -113,21 +122,23 @@ class Onyx_Bootstrap {
         }
 
         // store in registry
-        Zend_Registry::set('onyx_db', $db);
+        $this->container->set('onyx_db', $db);
     }
 
     /**
      * close database connection
      */
-    function closeDatabase() {
-        $db = Zend_Registry::get('onyx_db');
+    public function closeDatabase()
+    {
+        $db = $this->container->get('onyx_db');
         $db->close();
     }
 
     /**
      * initFiles
      */
-    function initFiles() {
+    public function initFiles()
+    {
         // check if directory exists
         $directory = ONYX_PROJECT_DIR . 'var/files/';
         if (!is_dir($directory)) {
@@ -138,7 +149,8 @@ class Onyx_Bootstrap {
     /**
      * initCache
      */
-    function initCache() {
+    public function initCache()
+    {
         // check if directory exists
         if (!is_dir(ONYX_PAGE_CACHE_DIRECTORY)) {
             if (!mkdir(ONYX_PAGE_CACHE_DIRECTORY)) die(ONYX_PAGE_CACHE_DIRECTORY . ' directory is not writeable');
@@ -149,9 +161,9 @@ class Onyx_Bootstrap {
         $generalCache = $this->initCacheAdapter(ONYX_GENERAL_CACHE_BACKEND, 'GENERAL', ONYX_GENERAL_CACHE_TTL, ONYX_GENERAL_CACHE_BACKEND);
 
         $this->cache = $pageCache;
-        Zend_Registry::set('onyx_db_cache', $dbCache);
-        Zend_Registry::set('onyx_page_cache', $pageCache);
-        Zend_Registry::set('onyx_cache', $generalCache);
+        $this->container->set('onyx_db_cache', $dbCache);
+        $this->container->set('onyx_page_cache', $pageCache);
+        $this->container->set('onyx_cache', $generalCache);
     }
 
     /**
@@ -162,7 +174,8 @@ class Onyx_Bootstrap {
      * @param string $cacheDirectory
      * @return TagAwareAdapter
      */
-    function initCacheAdapter($adapterType, $namespace, $ttl, $cacheDirectory = '') {
+    protected function initCacheAdapter($adapterType, $namespace, $ttl, $cacheDirectory = '')
+    {
         if ($adapterType === 'Libmemcached') {
             $namespace = $namespace . "_" . preg_replace('/\W/', '', $_SERVER['HTTP_HOST']) . ONYX_DB_HOST . ONYX_DB_PORT . ONYX_DB_NAME;
             return new TagAwareAdapter(new MemcachedAdapter($this->getMemcachedClient(), $namespace, $ttl));
@@ -179,7 +192,8 @@ class Onyx_Bootstrap {
      * Creates Memcached client for cache adapters
      * @return Memcached
      */
-    function getMemcachedClient() {
+    protected function getMemcachedClient()
+    {
         if (!$this->memcachedClient) {
             $this->memcachedClient = MemcachedAdapter::createConnection("memcached://" . ONYX_CACHE_BACKEND_LIBMEMCACHED_HOST . ":" . ONYX_CACHE_BACKEND_LIBMEMCACHED_PORT);
         }
@@ -190,7 +204,8 @@ class Onyx_Bootstrap {
     /**
      * Initialise configuration from database
      */
-    function initConfiguration() {
+    public function initConfiguration()
+    {
         require_once('models/common/common_configuration.php');
         $Configuration = new common_configuration();
         return $Configuration->getConfiguration();
@@ -199,7 +214,8 @@ class Onyx_Bootstrap {
     /**
      * Initialise session
      */
-    function initSession() {
+    public function initSession()
+    {
         // check if directory exists
         if (!is_dir(ONYX_SESSION_DIRECTORY)) {
             if (!mkdir(ONYX_SESSION_DIRECTORY)) die(ONYX_SESSION_DIRECTORY . ' directory is not writeable');
@@ -220,7 +236,6 @@ class Onyx_Bootstrap {
                 if (!$result) die("Can't init session!");
                 break;
         }
-
 
         // change setting before starting the session
         session_name(ONYX_SESSION_NAME);
@@ -266,15 +281,16 @@ class Onyx_Bootstrap {
     /**
      * close session
      */
-    function closeSession() {
+    public function closeSession()
+    {
         session_write_close();
     }
-
 
     /**
      * User authentication
      */
-    function processAuthentication($request) {
+    public function processAuthentication($request)
+    {
         if (!$_SERVER['HTTPS'] && ONYX_EDITOR_USE_SSL) {
             header("Location: https://{$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}");
             exit;
@@ -305,10 +321,10 @@ class Onyx_Bootstrap {
 
     /**
      * check is authentication is required
-     *
      * similar check is done in controllers/uri_mapping
      */
-    public function isRequiredAuthentication($request) {
+    public function isRequiredAuthentication($request)
+    {
         $auth_is_required = false;
 
         // force login when request is from bo/ folder
@@ -332,9 +348,9 @@ class Onyx_Bootstrap {
 
     /**
      * Init pre action controllers
-     *
      */
-    function initPreAction($requests = []) {
+    public function initPreAction($requests = [])
+    {
         foreach ($requests as $request) {
             $this->processAction($request);
         }
@@ -343,7 +359,8 @@ class Onyx_Bootstrap {
     /**
      * Init Action
      */
-    function initAction($request = 'uri_mapping') {
+    public function initAction($request = 'uri_mapping')
+    {
         if (!$request) $request = 'uri_mapping';
 
         // User authentication required for certain actions
@@ -363,8 +380,8 @@ class Onyx_Bootstrap {
     /**
      * Process Action
      */
-
-    function processAction($request) {
+    public function processAction($request)
+    {
         $router = new Onyx_Router();
         $this->Onyx = $router->processAction($request);
         $this->headers = $this->getPublicHeaders();
@@ -374,7 +391,8 @@ class Onyx_Bootstrap {
     /**
      * page (snippet) output cache
      */
-    function processActionCached($request) {
+    public function processActionCached($request)
+    {
         // create cache key
         $id = 'GET_' . md5($request . serialize($_GET) . isset($_SERVER['HTTPS']));
         if (defined('ONYX_ENABLE_AB_TESTING') && ONYX_ENABLE_AB_TESTING == true) $id .= $_SESSION['ab_test_group'];
@@ -409,7 +427,8 @@ class Onyx_Bootstrap {
      * @param string $uri
      * @param string $htmlString
      */
-    function indexContent($uri, $htmlString) {
+    public function indexContent($uri, $htmlString)
+    {
         require_once('Zend/Search/Lucene.php');
         $index_location = ONYX_PROJECT_DIR . 'var/index';
 
@@ -444,7 +463,8 @@ class Onyx_Bootstrap {
      * restoreHeaders
      * will resend original headers for cached pages
      */
-    public function restoreHeaders() {
+    public function restoreHeaders()
+    {
         if (is_array($this->headers)) {
             foreach ($this->headers as $header) {
                 header($header);
@@ -458,7 +478,8 @@ class Onyx_Bootstrap {
      * getPublicHeaders
      * store in cache only public headers, definitely not Set-Cookie header!!!
      */
-    public function getPublicHeaders() {
+    public function getPublicHeaders()
+    {
         $all_headers = headers_list();
         $public_headers = [];
 
@@ -479,7 +500,8 @@ class Onyx_Bootstrap {
     /**
      * getOutput
      */
-    public function getOutput() {
+    public function getOutput()
+    {
         $result = $this->output;
 
         $result = $this->outputFilterGlobal($result);
@@ -501,7 +523,8 @@ class Onyx_Bootstrap {
     /**
      * Final output content
      */
-    function finalOutput() {
+    public function finalOutput()
+    {
         $result = $this->getOutput();
         $this->closeSession();
         $this->closeDatabase();
@@ -512,7 +535,8 @@ class Onyx_Bootstrap {
     /**
      * outputFilterGlobal
      */
-    public function outputFilterGlobal($content) {
+    public function outputFilterGlobal($content)
+    {
         require_once('models/common/common_uri_mapping.php');
         $Mapper = new common_uri_mapping();
 
@@ -537,7 +561,8 @@ class Onyx_Bootstrap {
     /**
      * Output filter for public clients (this filter should only apply when in frontend preview mode)
      */
-    public function outputFilterPublic($content) {
+    public function outputFilterPublic($content)
+    {
         // Substitute constants in the output for logged in users
         // TODO: highlight in documentation!
 
@@ -570,10 +595,11 @@ class Onyx_Bootstrap {
     /**
      * csrfCheck
      */
-    public function csrfCheck() {
+    public function csrfCheck()
+    {
         // generate & save csrfToken
         $CSRF_TOKEN = hash_hmac('md5', session_id(), ONYX_ENCRYPTION_SALT);
-        Zend_Registry::set('CSRF_TOKEN', $CSRF_TOKEN);
+        $this->container->set('CSRF_TOKEN', $CSRF_TOKEN);
 
         // check if POST data are submitted
         // for testing period limited only to backoffice users
@@ -592,7 +618,8 @@ class Onyx_Bootstrap {
     /**
      * isSessionRequired
      */
-    public function isSessionRequired() {
+    public function isSessionRequired()
+    {
         // exceptions
         $exceptions = ['/request/component/ecommerce/roundel_image'];
         if (array_key_exists('translate', $_GET) && in_array($_GET['translate'], $exceptions)) return false;
@@ -606,7 +633,8 @@ class Onyx_Bootstrap {
     /**
      * isPageCacheAllowed
      */
-    public function isPageCacheAllowed() {
+    public function isPageCacheAllowed()
+    {
         $use_page_cache = true;
 
         // cache can be disabled on request
@@ -640,9 +668,10 @@ class Onyx_Bootstrap {
     /**
      * canBeSavedInCache
      */
-    public function canBeSavedInCache() {
-        return !(Zend_Registry::isRegistered('controller_error')
-            || Zend_Registry::isRegistered('omit_cache')
+    public function canBeSavedInCache()
+    {
+        return !($this->container->has('controller_error')
+            || $this->container->has('omit_cache')
             || (array_key_exists('use_page_cache', $_SESSION) && $_SESSION['use_page_cache'] == false));
     }
 }

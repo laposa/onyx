@@ -1,8 +1,8 @@
 <?php
-/** 
+/**
  * Copyright (c) 2005-2014 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
- * 
+ *
  */
 
 require_once('models/common/common_node.php');
@@ -16,7 +16,7 @@ class Onyx_Controller_Component_Ecommerce_Basket extends Onyx_Controller {
     /**
      * main action
      */
-     
+
     public function mainAction() {
 
         $this->initModels();
@@ -53,7 +53,7 @@ class Onyx_Controller_Component_Ecommerce_Basket extends Onyx_Controller {
 
             }
 
-        } 
+        }
 
         $this->displayEmptyBasket();
 
@@ -64,12 +64,12 @@ class Onyx_Controller_Component_Ecommerce_Basket extends Onyx_Controller {
     /**
      * init basket
      */
-     
+
     protected function initModels()
     {
         $node_conf = common_node::initConfiguration();
         $this->tpl->assign('NODE_CONF', $node_conf);
-        
+
         $this->Basket = new ecommerce_basket();
         $this->Basket->setCacheable(false);
 
@@ -142,7 +142,7 @@ class Onyx_Controller_Component_Ecommerce_Basket extends Onyx_Controller {
     protected function processInputData()
     {
         // don't process if some other basket on the same page did a job
-        if (Zend_Registry::isRegistered('component_ecommerce_basket_processed')) return false;
+        if ($this->container->has('component_ecommerce_basket_processed')) return false;
 
         // populate basket action
         if (is_numeric($this->GET['populate_basket_from_order_id'])) return array(
@@ -196,7 +196,7 @@ class Onyx_Controller_Component_Ecommerce_Basket extends Onyx_Controller {
             case 'add':
 
                 if (!is_numeric($this->basket_id)) $this->createBasketSession();
-                if (is_numeric($input['other_data']['multiplicator'])) 
+                if (is_numeric($input['other_data']['multiplicator']))
                     $price_id = $this->getCustomPriceId($input['product_variety_id'], $input['other_data']['multiplicator']);
                 $this->addItem($input['product_variety_id'], $input['quantity'], $input['other_data'], $price_id);
                 break;
@@ -218,25 +218,24 @@ class Onyx_Controller_Component_Ecommerce_Basket extends Onyx_Controller {
         }
 
         // mark basket action as processed
-        Zend_Registry::set('component_ecommerce_basket_processed', true);
-
+        $this->container->set('component_ecommerce_basket_processed', true);
     }
 
     /**
      * create basket session
      */
-     
+
     protected function createBasketSession()
     {
         //prepare array to insert
         $basket_data = array(
-            'customer_id' => $this->customer_id, 
+            'customer_id' => $this->customer_id,
             'created' => date('c'),
-            'note' => '', 
-            'ip_address' => $_SERVER['REMOTE_ADDR'], 
+            'note' => '',
+            'ip_address' => $_SERVER['REMOTE_ADDR'],
             'face_value_voucher' => 0
         );
-        
+
         //insert and return basket session array on success
         if (is_numeric($this->basket_id = $this->Basket->insert($basket_data))) {
             $_SESSION['basket'] = array('id' => $this->basket_id);
@@ -249,7 +248,7 @@ class Onyx_Controller_Component_Ecommerce_Basket extends Onyx_Controller {
     /**
      * add to basket action
      */
-     
+
     protected function addItem($product_variety_id, $quantity, $other_data = array(), $price_id = false)
     {
         if ($this->Basket->addToBasket($this->basket_id, $product_variety_id, $quantity, $other_data, $price_id)) {
@@ -259,11 +258,11 @@ class Onyx_Controller_Component_Ecommerce_Basket extends Onyx_Controller {
         }
 
     }
-    
+
     /**
      * remove from basket action
      */
-     
+
     protected function removeItem($basket_content_id)
     {
         if ($this->Basket->removeFromBasket($this->basket_id, $basket_content_id)) {
@@ -274,24 +273,24 @@ class Onyx_Controller_Component_Ecommerce_Basket extends Onyx_Controller {
             return false;
         }
     }
-    
+
     /**
      * remove variety_id from basket action (remove basket items by variety id)
      */
-     
+
     protected function removeVariety($variety_id)
     {
         $items = $this->Basket_content->getItems($this->basket_id);
         foreach ($items as $item) {
             if ($item['product_variety_id'] == $variety_id) $this->removeItem($item['id']);
         }
-        
+
     }
-    
+
     /**
      * update items in basket action
      */
-     
+
     protected function updateItems($basket_content)
     {
         foreach ($basket_content as $basket_content_id => $item) {
@@ -303,12 +302,12 @@ class Onyx_Controller_Component_Ecommerce_Basket extends Onyx_Controller {
     /**
      * repopulate basket with items from another order
      */
-    
+
     protected function populateBasketFromOrderId($order_id)
     {
         if (!is_numeric($order_id)) return false;
         if (!is_numeric($this->basket_id)) return false;
-        
+
         $basket_detail = $this->Basket->getBasketByOrderId($order_id);
 
         $items_added = array();
@@ -324,20 +323,20 @@ class Onyx_Controller_Component_Ecommerce_Basket extends Onyx_Controller {
     /**
      * get or create custom price_id
      */
-     
-    protected function getCustomPriceId($product_variety_id, $multiplicator) 
+
+    protected function getCustomPriceId($product_variety_id, $multiplicator)
     {
         if (!is_numeric($product_variety_id)) return false;
         if (!is_numeric($multiplicator)) return false;
-        
+
         require_once('models/ecommerce/ecommerce_price.php');
         $Price = new ecommerce_price();
         $Price->setCacheable(false);
-        
+
         $price_id = $Price->getCustomPriceIdByMultiplicator($product_variety_id, $multiplicator);
-        
+
         if (is_numeric($price_id)) return $price_id;
-        else return false;  
+        else return false;
     }
 
 
@@ -437,7 +436,7 @@ class Onyx_Controller_Component_Ecommerce_Basket extends Onyx_Controller {
         foreach ($currentState as $varietyId => $item) {
             $currentQty = (int) $item['quantity'];
             $prevQty = (int) $prevState[$varietyId]['quantity'];
-            if ($currentQty > $prevQty) $addedItems[$varietyId] = $currentQty - $prevQty; 
+            if ($currentQty > $prevQty) $addedItems[$varietyId] = $currentQty - $prevQty;
         }
 
         // check for removals
@@ -445,7 +444,7 @@ class Onyx_Controller_Component_Ecommerce_Basket extends Onyx_Controller {
         foreach ($prevState as $varietyId => $item) {
             $prevQty = (int) $item['quantity'];
             $currentQty = (int) $currentState[$varietyId]['quantity'];
-            if ($currentQty < $prevQty) $removedItems[$varietyId] = $prevQty - $currentQty; 
+            if ($currentQty < $prevQty) $removedItems[$varietyId] = $prevQty - $currentQty;
         }
 
         foreach ($addedItems as $varietyId => $qty) {
@@ -485,7 +484,7 @@ class Onyx_Controller_Component_Ecommerce_Basket extends Onyx_Controller {
         $pages = $Node->getFullPathDetailForBreadcrumb($node_id);
 
         if (!is_array($pages)) return false;
-        
+
         $result = array();
         foreach ($pages as $page) {
             if ($page['id'] != 1 && $page['id'] != $node_id) $result[] = $page['title'];
@@ -496,7 +495,7 @@ class Onyx_Controller_Component_Ecommerce_Basket extends Onyx_Controller {
 
     /**
      * Check whether the basket has been
-     * submitted as an order 
+     * submitted as an order
      */
     public function canEditBasket()
     {

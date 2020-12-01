@@ -6,7 +6,7 @@
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
- 
+
 class ecommerce_promotion extends Onyx_Model {
 
     /**
@@ -51,17 +51,17 @@ class ecommerce_promotion extends Onyx_Model {
     public $code_pattern;
 
     /**
-     * 
+     *
      * @access private
      */
     public $discount_fixed_value;
 
     /**
-     * 
+     *
      * @access private
      */
     public $discount_percentage_value;
-    
+
     /**
      * @access private
      */
@@ -89,20 +89,20 @@ class ecommerce_promotion extends Onyx_Model {
     public $other_data;
 
     public $limit_delivery_country_id;
-    
+
     public $limit_delivery_carrier_id;
-    
+
     public $generated_by_order_id;
-    
+
     /* voucher author */
     public $generated_by_customer_id;
-    
+
     /* voucher limited to specific customer (reward for inviting) */
     public $limit_by_customer_id;
-    
+
     /* voucher limited to first order */
     public $limit_to_first_order;
-    
+
     /* voucher limited to minim order amount */
     public $limit_to_order_amount;
 
@@ -116,7 +116,7 @@ class ecommerce_promotion extends Onyx_Model {
     public $free_promo_products;
 
     public $_metaData = array(
-        'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
+        'id'=>array('label' => '', 'validation'=>'int', 'required'=>true),
         'title'=>array('label' => '', 'validation'=>'string', 'required'=>true),
         'description'=>array('label' => '', 'validation'=>'string', 'required'=>false),
         'publish'=>array('label' => '', 'validation'=>'int', 'required'=>false),
@@ -142,13 +142,13 @@ class ecommerce_promotion extends Onyx_Model {
         'limit_cumulative_discount'=>array('label' => '', 'validation'=>'decimal', 'required'=>false),
         'free_promo_products'=>array('label' => '', 'validation'=>'string', 'required'=>false)
         );
-    
+
     /**
      * create table sql
      */
-     
+
     private function getCreateTableSql() {
-    
+
         $sql = "CREATE TABLE ecommerce_promotion (
             id serial NOT NULL PRIMARY KEY,
             title varchar(255) ,
@@ -177,16 +177,16 @@ class ecommerce_promotion extends Onyx_Model {
             free_promo_products text
             );
         ";
-        
+
         return $sql;
     }
 
     /**
      * init configuration
      */
-     
+
     static function initConfiguration() {
-    
+
         if (array_key_exists('ecommerce_promotion', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['ecommerce_promotion'];
         else $conf = array();
 
@@ -204,14 +204,14 @@ class ecommerce_promotion extends Onyx_Model {
 
         return $conf;
     }
-    
+
     /**
      * list
      */
-        
+
     public function getList($offset = 0, $limit = 20, $filter = array()) {
 
-        // set filtering criteria   
+        // set filtering criteria
         $where = $this->prepareWhereConditions($filter);
 
         // create sql query
@@ -236,7 +236,7 @@ class ecommerce_promotion extends Onyx_Model {
         foreach ($list as $key=>$item) {
             $list[$key]['usage'] = $this->getUsage($item['id']);
         }
-        
+
         return $list;
     }
 
@@ -244,10 +244,10 @@ class ecommerce_promotion extends Onyx_Model {
     /**
      * filtered count
      */
-        
+
     public function getFilteredCount($filter) {
 
-        // set filtering criteria   
+        // set filtering criteria
         $where = $this->prepareWhereConditions($filter);
 
         // create sql query
@@ -266,7 +266,7 @@ class ecommerce_promotion extends Onyx_Model {
 
     /**
      * Prapare SQL where conditions
-     * 
+     *
      * @param  Array  $filter Filtering parameters
      * @return String Part of SQL query
      */
@@ -308,11 +308,11 @@ class ecommerce_promotion extends Onyx_Model {
     /**
      * get advance list
      */
-    
+
     public function getAdvanceList($filter = array()) {
-    
+
         $add_to_where = '';
-        
+
         //created between filter
         if ($filter['created_from'] != false && $filter['created_to'] != false) {
             if  (!preg_match('/^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$/', $filter['created_from']) || !preg_match('/^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$/', $filter['created_to'])) {
@@ -321,7 +321,7 @@ class ecommerce_promotion extends Onyx_Model {
             }
             $add_to_where .=" AND invoice.created BETWEEN '{$filter['created_from']}' AND '{$filter['created_to']}'";
         }
-    
+
         $sql =
             "SELECT promotion.id, promotion.title, promotion.code_pattern, count(invoice.id) as count, 
                 sum(invoice.goods_net) as sum_goods_net, sum(basket.face_value_voucher) as sum_face_value_voucher, 
@@ -363,14 +363,14 @@ class ecommerce_promotion extends Onyx_Model {
             return false;
         }
     }
-    
-    
+
+
     /**
      * detail
      */
-        
+
     public function getDetail($id) {
-        
+
         $detail = $this->detail($id);
         $detail['other_data'] = unserialize($detail['other_data']);
         $detail['free_promo_products'] = unserialize($detail['free_promo_products']);
@@ -379,18 +379,18 @@ class ecommerce_promotion extends Onyx_Model {
         $Type = new ecommerce_promotion_type();
         $type = $Type->detail($detail['type']);
         $detail['type_title'] = $type['title'];
-        
+
         return $detail;
     }
-    
+
     /**
      * add
      */
-    
+
     public function addPromotion($data) {
-        
+
         if (!$this->codeExists($data['code_pattern'])) {
-        
+
             if (!is_numeric($data['publish'])) $data['publish'] = 0;
             $data['created'] = date('c');
             $data['modified'] = date('c');
@@ -402,44 +402,44 @@ class ecommerce_promotion extends Onyx_Model {
             if (!is_numeric($data['uses_per_customer'])) $data['uses_per_customer'] = 0;
             if (!is_numeric($data['limit_delivery_country_id'])) $data['limit_delivery_country_id'] = 0;
             if (!is_numeric($data['limit_delivery_carrier_id'])) $data['limit_delivery_carrier_id'] = 0;
-            
+
             if (is_array($data['other_data'])) $data['other_data'] = serialize($data['other_data']);
-            
+
             if ($id = $this->insert($data)) return $id;
             else return false;
-        
+
         } else {
-        
+
             msg('This code is in conflict with other promotion code', 'error');
             return false;
-        
+
         }
     }
-    
+
     /**
      * update
      */
-     
+
     public function updatePromotion($data) {
-    
+
         if ($this->codeExists($data['code_pattern'], $data['id'])) {
             msg('This code is in conflict with other promotion code', 'error');
             return false;
         }
-        
+
         $data['other_data'] = serialize($data['other_data']);
         $data['free_promo_products'] = serialize($data['free_promo_products']);
-        
+
         if ($this->update($data)) return true;
         else return false;
     }
-    
+
     /**
      * check if code exists
      */
-    
+
     public function codeExists($code, $promotion_id = 0) {
-    
+
         $code = pg_escape_string($code);
         $where = "code_pattern = '$code'";
         if (is_numeric($promotion_id) && $promotion_id > 0) $where .= " AND id <> $promotion_id";
@@ -449,30 +449,30 @@ class ecommerce_promotion extends Onyx_Model {
         return (count($records) > 0);
 
     }
-    
+
     /**
      * check code match
      */
 
     public function checkCodeMatch($code, $only_public = 1) {
-    
+
         $records = $this->listing();
-        
+
         foreach ($records as $record) {
 
             if ($record['publish'] == 1 || $only_public == 0) {
-                
+
                 if (strtolower($code) == strtolower($record['code_pattern'])) {
-                    
+
                     $promotion_data = $record;
                     $promotion_data['other_data'] = unserialize($promotion_data['other_data']);
                     $promotion_data['free_promo_products'] = unserialize($promotion_data['free_promo_products']);
-                    
+
                     return $promotion_data;
                 }
             }
         }
-        
+
         return false;
     }
 
@@ -481,24 +481,24 @@ class ecommerce_promotion extends Onyx_Model {
      */
 
     public function checkCodeMatchPartially($code, $only_public = 1) {
-    
+
         $records = $this->listing();
-        
+
         foreach ($records as $record) {
 
             if ($record['publish'] == 1 || $only_public == 0) {
-                
+
                 if (strtolower($code) == strtolower(substr($record['code_pattern'], 0, strlen($code)))) {
-                    
+
                     $promotion_data = $record;
                     $promotion_data['other_data'] = unserialize($promotion_data['other_data']);
                     $promotion_data['free_promo_products'] = unserialize($promotion_data['free_promo_products']);
-                    
+
                     return $promotion_data;
                 }
             }
         }
-        
+
         return false;
     }
 
@@ -514,20 +514,20 @@ class ecommerce_promotion extends Onyx_Model {
         if ($promotion_detail['discount_free_delivery'] != 1) return false;
 
         // delivery country restriction
-        if ($promotion_detail['limit_delivery_country_id'] > 0 && 
+        if ($promotion_detail['limit_delivery_country_id'] > 0 &&
             $promotion_detail['limit_delivery_country_id'] != $country_id) return false;
 
         // delivery method restriction
-        if ($promotion_detail['limit_delivery_carrier_id'] > 0 && 
+        if ($promotion_detail['limit_delivery_carrier_id'] > 0 &&
             $promotion_detail['limit_delivery_carrier_id'] != $carrier_id) return false;
 
         return true;
     }
-    
+
     /**
      * check if existing code can be used
      */
-     
+
     public function checkCodeBeforeApply($code, $customer_id, $basket, $customer_email = '') {
 
         if ($promotion_data = $this->checkCodeMatch($code)) {
@@ -541,7 +541,7 @@ class ecommerce_promotion extends Onyx_Model {
             if ($customer_id == 0 && ($promotion_data['uses_per_customer'] > 0 || $promotion_data['limit_cumulative_discount'] > 0 ||
                 $promotion_data['generated_by_customer_id'] > 0 || $promotion_data['limit_by_customer_id'] > 0)) {
 
-                if (!Zend_Registry::isRegistered('ecommerce_promotion:login_needed')) {
+                if (!$this->container->has('ecommerce_promotion:login_needed')) {
 
                     if ($_SESSION['client']['customer']['guest']) {
                         msg("We're sorry, but this voucher code cannot be used in conjunction with “Guest Checkout”. Please go to" .
@@ -550,29 +550,29 @@ class ecommerce_promotion extends Onyx_Model {
                         msg("You have to login or register to use your voucher code.", 'error');
                     }
 
-                    Zend_Registry::set('ecommerce_promotion:login_needed', true);
+                    $this->container->set('ecommerce_promotion:login_needed', true);
                 }
 
                 return false;
             }
-        
+
             /**
              * first order
              */
             if ($promotion_data['limit_to_first_order'] > 0) {
                 if ($this->getNumCustomersOrders($customer_id, $customer_email) > 0) {
                     if ($this->getNumCustomersPaidOrders($customer_id, $customer_email) == 0) {
-                        if (!Zend_Registry::isRegistered('ecommerce_promotion:first_order_unpaid')) {
-                            msg("Code \"$code\" can only be applied to your first order. If you cancelled " . 
-                                "your previous order, please either return to it in “My Account” or contact " . 
-                                "customer services if you wish to continue with your current order.", 
+                        if (!$this->container->has('ecommerce_promotion:first_order_unpaid')) {
+                            msg("Code \"$code\" can only be applied to your first order. If you cancelled " .
+                                "your previous order, please either return to it in “My Account” or contact " .
+                                "customer services if you wish to continue with your current order.",
                                 'error');
-                            Zend_Registry::set('ecommerce_promotion:first_order_unpaid', true);
+                            $this->container->set('ecommerce_promotion:first_order_unpaid', true);
                         }
                     } else {
-                        if (!Zend_Registry::isRegistered('ecommerce_promotion:first_order')) {
+                        if (!$this->container->has('ecommerce_promotion:first_order')) {
                             msg("We are sorry, this voucher is only valid on your first order", 'error');
-                            Zend_Registry::set('ecommerce_promotion:first_order', true);
+                            $this->container->set('ecommerce_promotion:first_order', true);
                         }
                     }
                     return false;
@@ -582,13 +582,13 @@ class ecommerce_promotion extends Onyx_Model {
             /**
              *  uses_per_coupon
              */
-             
+
             if ($promotion_data['uses_per_coupon'] > 0) {
                 if (($this->getCountUsageOfSingleCode($code) + 1) > $promotion_data['uses_per_coupon']) {
                     if (substr($promotion_data['code_pattern'], 0, 4) != "REF-") { // referral codes validity is extended automatically
-                        if (!Zend_Registry::isRegistered('ecommerce_promotion:total_usage_exceeded')) {
+                        if (!$this->container->has('ecommerce_promotion:total_usage_exceeded')) {
                             msg("Code \"$code\" usage exceed number of allowed applications", 'error');
-                            Zend_Registry::set('ecommerce_promotion:total_usage_exceeded', true);
+                            $this->container->set('ecommerce_promotion:total_usage_exceeded', true);
                         }
                         return false;
                     }
@@ -600,11 +600,11 @@ class ecommerce_promotion extends Onyx_Model {
              */
 
             if ($promotion_data['uses_per_customer'] > 0) {
-                
+
                 if (($this->getCountUsageOfSingleCode($code, $customer_id) + 1) > $promotion_data['uses_per_customer']) {
-                    if (!Zend_Registry::isRegistered('ecommerce_promotion:per_user_usage_exceeded')) {
+                    if (!$this->container->has('ecommerce_promotion:per_user_usage_exceeded')) {
                         msg("Code \"$code\" usage exceed number of allowed applications per one customer", 'error');
-                        Zend_Registry::set('ecommerce_promotion:per_user_usage_exceeded', true);
+                        $this->container->set('ecommerce_promotion:per_user_usage_exceeded', true);
                     }
                     return false;
                 }
@@ -623,7 +623,7 @@ class ecommerce_promotion extends Onyx_Model {
                 if ($usage && ($usage['sum_discount'] + $basket['discount']) > $promotion_data['limit_cumulative_discount']) {
                     $limit = money_format("%n", $promotion_data['limit_cumulative_discount']);
                     $provided = money_format("%n", $usage['sum_discount']);
-                    if (!Zend_Registry::isRegistered('ecommerce_promotion:limit_cumulative_discount_exceeded')) {
+                    if (!$this->container->has('ecommerce_promotion:limit_cumulative_discount_exceeded')) {
                         $msg = "Code \"$code\" is limited to maximum discount value of $limit. " .
                             "You’ve already used of {$provided}";
                         if ($promotion_data['discount_percentage_value'] > 0) {
@@ -636,7 +636,7 @@ class ecommerce_promotion extends Onyx_Model {
                         }
                         $msg .= ".";
                         msg($msg, 'error');
-                        Zend_Registry::set('ecommerce_promotion:limit_cumulative_discount_exceeded', true);
+                        $this->container->set('ecommerce_promotion:limit_cumulative_discount_exceeded', true);
                     }
                     return false;
                 }
@@ -646,9 +646,9 @@ class ecommerce_promotion extends Onyx_Model {
              * not using self-generated code
              */
             if ($promotion_data['generated_by_customer_id'] > 0 && $promotion_data['generated_by_customer_id'] == $customer_id) {
-                if (!Zend_Registry::isRegistered('ecommerce_promotion:own_code')) {
+                if (!$this->container->has('ecommerce_promotion:own_code')) {
                     msg("You are not allowed to redeem your own code!");
-                    Zend_Registry::set('ecommerce_promotion:own_code', true);
+                    $this->container->set('ecommerce_promotion:own_code', true);
                 }
                 return false;
             }
@@ -657,9 +657,9 @@ class ecommerce_promotion extends Onyx_Model {
              * code limited to customer_id
              */
             if ($promotion_data['limit_by_customer_id'] > 0 && $promotion_data['limit_by_customer_id'] != $customer_id) {
-                if (!Zend_Registry::isRegistered('ecommerce_promotion:limit_by_customer_id')) {
+                if (!$this->container->has('ecommerce_promotion:limit_by_customer_id')) {
                     msg("You are not allowed to redeem the code!");
-                    Zend_Registry::set('ecommerce_promotion:limit_by_customer_id', true);
+                    $this->container->set('ecommerce_promotion:limit_by_customer_id', true);
                 }
                 return false;
             }
@@ -669,11 +669,11 @@ class ecommerce_promotion extends Onyx_Model {
              */
             if ($promotion_data['limit_to_order_amount'] > 0) {
                 if ($order_value < $promotion_data['limit_to_order_amount']) {
-                    if (!Zend_Registry::isRegistered('ecommerce_promotion:order_amount')) {
+                    if (!$this->container->has('ecommerce_promotion:order_amount')) {
                         $amount = money_format("%n", $promotion_data['limit_to_order_amount']);
                         $sub_total = money_format("%n", $order_value);
                         msg("The voucher code \"$code\" is restricted to orders in amount of $amount. You have only $sub_total in you basket.", 'error');
-                        Zend_Registry::set('ecommerce_promotion:order_amount', true);
+                        $this->container->set('ecommerce_promotion:order_amount', true);
                     }
                     return false;
                 }
@@ -687,9 +687,9 @@ class ecommerce_promotion extends Onyx_Model {
                 if ($gift_voucher_product_id > 0 && count($basket['items']) > 0) {
                     foreach ($basket['items'] as $item) {
                         if ($item['product']['id'] == $gift_voucher_product_id) {
-                            if (!Zend_Registry::isRegistered('ecommerce_promotion:gift_in_basket')) {
+                            if (!$this->container->has('ecommerce_promotion:gift_in_basket')) {
                                 msg("Sorry, voucher codes cannot be used to buy Gift Voucher Codes.");
-                                Zend_Registry::set('ecommerce_promotion:gift_in_basket', true);
+                                $this->container->set('ecommerce_promotion:gift_in_basket', true);
                             }
                             return false;
                         }
@@ -709,9 +709,9 @@ class ecommerce_promotion extends Onyx_Model {
                     }
                 }
                 if ($prod == 0) {
-                    if (!Zend_Registry::isRegistered('ecommerce_promotion:limit_to_products')) {
+                    if (!$this->container->has('ecommerce_promotion:limit_to_products')) {
                         msg("Sorry, the voucher code \"$code\" is limited to certain products, which you don't have in your basket.");
-                        Zend_Registry::set('ecommerce_promotion:limit_to_products', true);
+                        $this->container->set('ecommerce_promotion:limit_to_products', true);
                     }
                     return false;
                 }
@@ -727,18 +727,18 @@ class ecommerce_promotion extends Onyx_Model {
             $promotion_data['type'] = $Type->detail($promotion_data['type']);
 
             return $promotion_data;
-            
+
         } else {
-        
+
             return false;
         }
-        
+
     }
 
     /**
      * checkForFreePromoItem
      */
-    
+
     public function checkForFreePromoItem($promotion_data, $order_value) {
 
         if (is_array($promotion_data)) {
@@ -762,25 +762,25 @@ class ecommerce_promotion extends Onyx_Model {
     /**
      * getGiftVoucherProductId
      */
-     
+
     public function getGiftVoucherProductId() {
-        
+
         /**
          * get product conf
          */
-         
+
         require_once('models/ecommerce/ecommerce_product.php');
         $ecommerce_product_conf = ecommerce_product::initConfiguration();
-        
+
         /**
          * check gift voucher product ID is set
          */
-         
+
         if (!is_numeric($ecommerce_product_conf['gift_voucher_product_id']) || $ecommerce_product_conf['gift_voucher_product_id']  == 0) {
-            
+
             return false;
         }
-        
+
         return $ecommerce_product_conf['gift_voucher_product_id'];
     }
 
@@ -844,9 +844,9 @@ class ecommerce_promotion extends Onyx_Model {
     /**
      * get usage
      */
-    
+
     public function getUsage($id, $customer_id = false) {
-    
+
         if (is_numeric($customer_id)) $customer_sql = "AND customer_id = $customer_id";
         else $customer_sql = '';
 
@@ -879,17 +879,17 @@ class ecommerce_promotion extends Onyx_Model {
             return false;
         }
     }
-    
+
     /**
      * count usage
      */
-    
+
     public function getCountUsageOfSingleCode($code, $customer_id = false) {
-    
+
         require_once('models/ecommerce/ecommerce_promotion_code.php');
         $Promotion_code = new ecommerce_promotion_code();
         $Promotion_code->setCacheable(false);
-        
+
         $usage_list = $Promotion_code->getUsageOfSingleCode($code, $customer_id);
 
         if (is_array($usage_list)) {
@@ -902,25 +902,25 @@ class ecommerce_promotion extends Onyx_Model {
             return false;
         }
     }
-    
+
     /**
      * get code for an order
      */
-    
+
     public function getPromotionCodeForOrder($order_id) {
-    
+
         if (!is_numeric($order_id)) return false;
-        
+
         require_once('models/ecommerce/ecommerce_promotion_code.php');
         $Promotion_code = new ecommerce_promotion_code();
-        
+
         return $Promotion_code->getPromotionCodeForOrder($order_id);
-        
+
     }
 
     /**
      * Try to reward inviting user in referreal system
-     * 
+     *
      * @param  int $order_id Order to check
      * @return boolean If attempt was successfull
      */
@@ -948,7 +948,7 @@ class ecommerce_promotion extends Onyx_Model {
             if (count($rewarded_codes) == 0) {
 
                 // automatically extend to 20 invites
-                if ($promotion['uses_per_coupon'] > 0 && $usage > $promotion['uses_per_coupon'] && $usage < 20) 
+                if ($promotion['uses_per_coupon'] > 0 && $usage > $promotion['uses_per_coupon'] && $usage < 20)
                 {
                     $promotion['uses_per_coupon'] += 10;
                     $this->updatePromotion($promotion);
