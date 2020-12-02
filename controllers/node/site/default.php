@@ -103,7 +103,7 @@ class Onyx_Controller_Node_Site_Default extends Onyx_Controller {
          */
          
         if (Onyx_Bo_Authentication::getInstance()->isAuthenticated()) {
-            $_Onyx_Request = new Onyx_Request("bo/fe_edit");
+            $_Onyx_Request = new Onyx_Request("bo/fe_edit~node_id={$node_data['id']}~");
             $this->tpl->assign('FE_EDIT', $_Onyx_Request->getContent());
         }
 

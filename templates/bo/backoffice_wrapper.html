@@ -8,13 +8,6 @@
 <meta name="generator" content="{ONYX_VERSION}" />
 <meta name="description" content="{REGISTRY.description|htmlspecialchars}" />
 <meta name="csrf_token" content="{CSRF_TOKEN}" />
-<link rel="icon" href="/favicon.ico" type="image/x-icon" />
-<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon" />
-<meta property="og:url" content="{URI|preg_replace('/\?.*$/', '', %s)|htmlspecialchars}" />
-<meta property="og:site_name" content="{CONFIGURATION.global.title|htmlspecialchars}" />
-<meta property="og:title" content="{REGISTRY.browser_title|htmlspecialchars}" />
-<meta property="fb:app_id" content="{ONYX_FACEBOOK_APP_ID}" />
-<meta property="og:locale" content="{LOCALE_OPENGRAPH}" />
 <script type="text/javascript" src="/share/js/jquery/jquery.js?{ONYX_CACHE_VERSION}"></script>
 <script type="text/javascript" src="/share/js/jquery/jquery-migrate.js?{ONYX_CACHE_VERSION}"></script>
 <script type="text/javascript" src="/share/js/jquery/plugins/jquery.tools.js?{ONYX_CACHE_VERSION}"></script>
@@ -43,6 +36,7 @@ $(function(){
     if (buttonToolbar.length > 0) buttonToolbar.append($('.extended-toolbar a').detach());
 });
 </script>
+{REGISTRY.head}
 </head>
 <body>
 {MESSAGES}
