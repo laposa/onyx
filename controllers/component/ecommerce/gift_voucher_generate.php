@@ -150,7 +150,7 @@ class Onyx_Controller_Component_Ecommerce_Gift_Voucher_Generate extends Onyx_Con
          * create the voucher file
          */
          
-        $url = "http://{$_SERVER['SERVER_NAME']}/request/sys/html5.node/site/print.component/ecommerce/gift_voucher~voucher_code={$promotion_data['code_pattern']}~";
+        $url = "http://{$_SERVER['SERVER_NAME']}/request/node/site/print.component/ecommerce/gift_voucher~voucher_code={$promotion_data['code_pattern']}~";
         $gift_voucher_directory = ONYX_PROJECT_DIR . "var/vouchers/";
         $gift_voucher_filename = "{$promotion_data['code_pattern']}.png";
         $gift_voucher_filename_fullpath = $gift_voucher_directory . $gift_voucher_filename;

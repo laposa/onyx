@@ -43,19 +43,19 @@ function initialiseTaxonomyAddButton() {
         var node_id = $(this).attr('data-node-id');
         var url = '/request/bo/component/taxonomy_add~parent=' + node_id + '~';
 
-        $('#dialog').addClass('ajax-load').load(url, '', function() {
+        $('#onyx-dialog').addClass('ajax-load').load(url, '', function() {
                         
-            $('#dialog form.taxonomy-add').ajaxForm({ 
-                target: '#dialog form.taxonomy-add',
+            $('#onyx-dialog form.taxonomy-add').ajaxForm({ 
+                target: '#onyx-dialog form.taxonomy-add',
                 success: function(responseText, statusText) {
-                    popupMessage("#dialog form.taxonomy-add div.onyx-messages");
+                    popupMessage("#onyx-dialog form.taxonomy-add div.onyx-messages");
                     refreshList();
-                    $('#dialog').empty().dialog('close');
+                    $('#onyx-dialog').empty().dialog('close');
                 }
             });
         });
-        $('#dialog').dialog({title: 'Add New Taxonomy Item', width: 500, modal: true, overlay: {opacity: 0.5, background: 'black'}});
-        $('#dialog').dialog('open');
+        $('#onyx-dialog').dialog({title: 'Add New Taxonomy Item', width: 500, modal: true, overlay: {opacity: 0.5, background: 'black'}});
+        $('#onyx-dialog').dialog('open');
         return false;
     });
     

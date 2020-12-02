@@ -1,10 +1,48 @@
+function initFrontofficeEditUI() {
+
+    $('a.onyx-new-content').live('click', function() {
+        $($(this).attr('href') + ' > div.new-node').removeClass("onyx-highlight-new");
+        var temp = $(this).attr('href').replace('#onyx-layout-container-','');
+        var info = temp.split('-');
+        var node_id = info[0];
+        var container_id = info[1];
+        //alert("node_id" + node_id + " container_id" + container_id);
+        window.location = "/component-library?add_to_node_id=" + node_id;
+        return false;
+    }).live('mouseover', function(){
+        var temp = $(this).attr('href').replace('#onyx-layout-container-','');
+        var info = temp.split('-');
+        var node_id = info[0];
+        var container_id = info[1];
+        $($(this).attr('href') + ' > div.new-node').addClass("onyx-highlight-new"); 
+    }).live('mouseout', function(){ 
+        var temp = $(this).attr('href').replace('#onyx-layout-container-','');
+        var info = temp.split('-');
+        var node_id = info[0];
+        var container_id = info[1];
+        $($(this).attr('href') + ' > div.new-node').removeClass("onyx-highlight-new"); 
+    });
+
+}
+
+/**
+ * on ready
+ */
+
+$(function() {
+
+    // all done in bo/component/fe_edit_mode
+
+});
+
 /**
  * Delete node icon
  */
 function refreshDeleteContent() {
+    
     $('a.onyx-delete').live('click', function() {
         var node_id = $(this).attr('href').replace('#','');
-        $("#dialog").dialog({
+        $("#onyx-dialog").dialog({
             bgiframe: true,
             autoOpen: false,
             title: 'Delete content',
@@ -14,12 +52,12 @@ function refreshDeleteContent() {
             }, 
             close: function() {
                 $('#onyx-fe-edit-node-id-'+node_id).removeClass('onyx-highlight-edit');
-                $('#dialog').empty();
+                $('#onyx-dialog').empty();
             }
         });
 
-        $('#dialog').load('/request/bo/component/node_delete~id=' + node_id + ':delete=1~');
-        $('#dialog').dialog('open');
+        $('#onyx-dialog').load('/request/bo/component/node_delete~id=' + node_id + ':delete=1~');
+        $('#onyx-dialog').dialog('open');
         return false;
         
     }).live('mouseover', function(){
@@ -38,9 +76,9 @@ function refreshDeleteContent() {
 
 
 function duplicateNode(node_id) {
-    $("#dialog").hide().load("/request/bo/component/node_duplicate~id="+node_id+"~", '', function (responseText, textStatus, XMLHttpRequest) {
-            popupMessage("#dialog div.onyx-messages");
-            $('#onyx-fe-edit-node-id-'+node_id).parent().after($("#dialog").html()).hide().slideDown("slow");
+    $("#onyx-dialog").hide().load("/request/bo/component/node_duplicate~id="+node_id+"~", '', function (responseText, textStatus, XMLHttpRequest) {
+            popupMessage("#onyx-dialog div.onyx-messages");
+            $('#onyx-fe-edit-node-id-'+node_id).parent().after($("#onyx-dialog").html()).hide().slideDown("slow");
     });
 }
 
@@ -54,30 +92,6 @@ function refreshAddContent(selector) {
         $("a.onyx-new-content", this).attr("href", "#" + this.id);
     });
 }
-
-$('a.onyx-new-content').live('click', function() {
-    $($(this).attr('href') + ' > div.new-node').removeClass("onyx-highlight-new");
-    var temp = $(this).attr('href').replace('#onyx-layout-container-','');
-    var info = temp.split('-');
-    var node_id = info[0];
-    var container_id = info[1];
-    //alert("node_id" + node_id + " container_id" + container_id);
-    window.location = "/component-library?add_to_node_id=" + node_id;
-    return false;
-}).live('mouseover', function(){
-    var temp = $(this).attr('href').replace('#onyx-layout-container-','');
-    var info = temp.split('-');
-    var node_id = info[0];
-    var container_id = info[1];
-    $($(this).attr('href') + ' > div.new-node').addClass("onyx-highlight-new"); 
-}).live('mouseout', function(){ 
-    var temp = $(this).attr('href').replace('#onyx-layout-container-','');
-    var info = temp.split('-');
-    var node_id = info[0];
-    var container_id = info[1];
-    $($(this).attr('href') + ' > div.new-node').removeClass("onyx-highlight-new"); 
-});
-
 
 function feEditStartDragDrop() {
     $(".onyx-layout-container").sortable({

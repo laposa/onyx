@@ -4,9 +4,9 @@
 $(function() {
     $('div.multiple-pages a.delete').live('click', function() {
         var child_id = $(this).attr('href').replace('#','');;
-        $('#dialog').addClass('ajax-load').load('/request/bo/component/node_delete~id='+child_id+':delete=1~', function() {$(this).removeClass('ajax-load');});
-        $('#dialog').dialog({width: 500, modal: true, overlay: {opacity: 0.5, background: 'black'}});
-        $('#dialog').dialog('open');
+        $('#onyx-dialog').addClass('ajax-load').load('/request/bo/component/node_delete~id='+child_id+':delete=1~', function() {$(this).removeClass('ajax-load');});
+        $('#onyx-dialog').dialog({width: 500, modal: true, overlay: {opacity: 0.5, background: 'black'}});
+        $('#onyx-dialog').dialog('open');
         return false;
     });
 });

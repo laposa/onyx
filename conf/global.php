@@ -15,7 +15,7 @@
  * to force an updated version
  */
 
-if (!defined('ONYX_CACHE_VERSION')) define('ONYX_CACHE_VERSION', '20');
+if (!defined('ONYX_CACHE_VERSION')) define('ONYX_CACHE_VERSION', '2.0.pre1');
 
 /**
  * Force using only one domain (in Onyx_Controller_Uri_Mapping)

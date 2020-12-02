@@ -5,7 +5,7 @@ $(document).ready(function() {
         target:        '#news-add',
         success:       function() {
             makeAjaxRequest('#news-list', '/request/bo/component/news_list~blog_node_id={GET.blog_node_id}~');
-            $('#dialog').dialog( "close").empty();;
+            $('#onyx-dialog').dialog( "close").empty();;
         }
     }; 
     $('#news-add').ajaxForm(options); 

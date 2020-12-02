@@ -223,9 +223,9 @@ if (!Array.prototype.indexOf) {
 function openAjaxRequestInGrowl(url, title) {
     jQuery.jGrowl('<div class="onyx-messages in-jgrowl"><img src="/share/images/ajax-indicator/ajax-loader-bar.gif" alt="Loading ..."/></div>', {
         beforeOpen: function(e, m, o) {
-            jQuery("#dialog").hide().load(url, '', 
+            jQuery("#onyx-dialog").hide().load(url, '', 
                 function (responseText, textStatus, XMLHttpRequest) {
-                    popupMessage("#dialog div.onyx-messages");
+                    popupMessage("#onyx-dialog div.onyx-messages");
                 });
         }
     });

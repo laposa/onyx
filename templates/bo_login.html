@@ -1,5 +1,11 @@
-<!-- BEGIN: title-->Onyx CMS Login<!-- END: title -->
-<!-- BEGIN: head -->
+<!-- BEGIN: content --><!DOCTYPE html>
+<html lang="{LOCALE|substr(%s, 0, 2)}">
+<head>
+<title>Onyx CMS Login {CONFIGURATION.global.html_title_suffix|htmlspecialchars}</title>
+<meta charset="UTF-8">
+<meta name="author" content="{CONFIGURATION.global.author_content|htmlspecialchars}" />
+<meta name="generator" content="{ONYX_VERSION}" />
+<meta name="csrf_token" content="{CSRF_TOKEN}" />
 <script type="text/javascript" src="/share/js/jquery/jquery.js?{ONYX_CACHE_VERSION}"></script>
 <script type="text/javascript" src="/share/js/jquery/ui/jquery-ui.all.min.js?{ONYX_CACHE_VERSION}"></script>
 <script type="text/javascript" src="/share/js/jquery/plugins/jquery.jgrowl.js?{ONYX_CACHE_VERSION}"></script>
@@ -96,10 +102,9 @@ $(document).ready(function(){
     });
 });
 </script>
-
-
-<!-- END: head -->
-<!-- BEGIN: content -->
+</head>
+<body class="bo-login">
+{MESSAGES}
 <div id="backoffice">
     <div id="backoffice-wrapper">
         <div id="container">
@@ -139,4 +144,7 @@ $(document).ready(function(){
 </div>
 
 {ONYX_REQUEST_bo_tracking #bo_tracking}
+
+</body>
+</html>
 <!-- END: content -->

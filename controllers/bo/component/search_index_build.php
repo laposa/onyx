@@ -112,9 +112,9 @@ class Onyx_Controller_Bo_Component_Search_Index_Build extends Onyx_Controller_Bo
                  * remember that you need also to create controller for the template
                  */
                 if (file_exists(ONYX_PROJECT_DIR . "templates/node/page/{$page['node_controller']}_indexable.html")) {
-                    $toFetch = "request/sys/html5.node/page/{$page['node_controller']}_indexable~id={$page['id']}~";
+                    $toFetch = "request/node/page/{$page['node_controller']}_indexable~id={$page['id']}~";
                 } else {
-                    $toFetch = "request/sys/html5.node~id={$page['id']}~";
+                    $toFetch = "request/node~id={$page['id']}~";
                 }
 
                 msg("Fetching page {$page['id']}: $uri using $toFetch");

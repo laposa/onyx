@@ -3,11 +3,11 @@
 <!-- BEGIN: confirm -->
 <script type="text/javascript">
 function deleteNode(node_id) {
-    $("#dialog").load("/request/bo/component/node_delete~id="+node_id+":delete=1:confirm={CONFIRMATION_CODE}:ajax=1~", '', function (responseText, textStatus, XMLHttpRequest) {
+    $("#onyx-dialog").load("/request/bo/component/node_delete~id="+node_id+":delete=1:confirm={CONFIRMATION_CODE}:ajax=1~", '', function (responseText, textStatus, XMLHttpRequest) {
             $("#node-id-" + node_id).empty(); // in backoffice
             $("#onyx-fe-edit-node-id-" + node_id).empty(); // in frontoffice
-            popupMessage("#dialog div.onyx-messages");
-            $('#dialog').dialog( "close").empty();
+            popupMessage("#onyx-dialog div.onyx-messages");
+            $('#onyx-dialog').dialog( "close").empty();
     });
     
 }

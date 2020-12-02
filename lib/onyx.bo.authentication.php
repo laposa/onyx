@@ -301,7 +301,7 @@ class Onyx_Bo_Authentication
          * Option 2: show custom dialog window
          */
          
-        $result = new Onyx_Router('sys/html5.bo_login');
+        $result = new Onyx_Router('bo_login');
         echo $result->Onyx->getContent();
     
         /**

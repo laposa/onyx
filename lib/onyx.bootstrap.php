@@ -313,7 +313,7 @@ class Onyx_Bootstrap {
          */
         if ($_SESSION['client']['customer']['id'] < 1 && ONYX_BACKOFFICE_REQUIRE_CUSTOMER_LOGIN) {
             $_SESSION['to'] = $_SERVER['REQUEST_URI'];
-            $request = 'sys/html5.bo/backoffice_wrapper.bo/login';
+            $request = 'bo/backoffice_wrapper.bo/login';
         }
 
         return $request;

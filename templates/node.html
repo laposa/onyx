@@ -18,8 +18,8 @@
     <!-- END: edit_shared -->
     <a class="onyx-duplicate" title="Duplicate content {NODE.title|htmlspecialchars}" href="#{NODE.id}" onclick="duplicateNode({NODE.id}); return false;"><span>Duplicate</span></a>
     <a class="onyx-delete" title="Delete {NODE.node_group} ({NODE.node_controller})" href="#{NODE.id}" 
-    onclick="makeAjaxRequest('#dialog', '/request/bo/component/node_delete~id={NODE.id}:delete=1~');
-    $('#dialog').dialog({width: 500, modal: true, overlay: {opacity: 0.5, background: 'black'}, open: function() {$('#node-id-{NODE.id}')
+    onclick="makeAjaxRequest('#onyx-dialog', '/request/bo/component/node_delete~id={NODE.id}:delete=1~');
+    $('#onyx-dialog').dialog({width: 500, modal: true, overlay: {opacity: 0.5, background: 'black'}, open: function() {$('#node-id-{NODE.id}')
     .addClass('onyx-highlight-edit')}, close: function() {$('#node-id-{NODE.id}')
     .removeClass('onyx-highlight-edit')}}); return false" 
     onmouseover="$('#node-id-{NODE.id}')

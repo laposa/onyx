@@ -13,15 +13,15 @@ function openEdit(url, el, ajax) {
 }
 
 function openAjaxRequestInDialog(url, title) {
-    $('#dialog').html(onyx_load_indicator_html_snippet).load(url, '', function (responseText, textStatus, XMLHttpRequest) {
-        //popupMessage("#dialog div.onyx-messages");
+    $('#onyx-dialog').html(onyx_load_indicator_html_snippet).load(url, '', function (responseText, textStatus, XMLHttpRequest) {
+        //popupMessage("#onyx-dialog div.onyx-messages");
     })
     .dialog({
         width: 560, 
         position: { my: "center", at: "top+20%", of: window},
         modal: true, 
         close: function() {
-            $('#dialog').empty()
+            $('#onyx-dialog').empty()
         },
         title: title
     })
@@ -49,9 +49,9 @@ function clearOnyxCache(button) {
     var buttonIcon = $(button).find('a');
     
     $(button).addClass('onyx-effect-spin');
-    jQuery("#dialog").hide().load('/request/bo/component/tools~tool=flush_cache~', '', 
+    jQuery("#onyx-dialog").hide().load('/request/bo/component/tools~tool=flush_cache~', '', 
         function (responseText, textStatus, XMLHttpRequest) {
-            popupMessage("#dialog div.onyx-messages");
+            popupMessage("#onyx-dialog div.onyx-messages");
             $(button).removeClass('onyx-effect-spin');
         });
 }
@@ -99,10 +99,7 @@ function initBackofficeUI() {
     
     initAdvancedSettingsButton();
 
-    /**
-     * mark disabled options
-     */
-     
+    // mark disabled options
     $('select option.disabled, select option.publish-0').append(' (not public)');
 
     $("#menu-back-office a, #menu-editing-mode a, #menu-actions a.logout").mousedown(function(e) { 
@@ -117,14 +114,14 @@ function initBackofficeUI() {
         }
     });
     
-    /**
-     * add feedback on save button
-     */
-     
+    // add feedback on save button
     $('button.save').on('click', function() {
         console.log('SAVING CLASS : A');
         $(this).addClass('saving');
     });
+
+    // create dialog
+    $("<div/>").attr('id','onyx-dialog').appendTo('body');
 }
 
 /**
