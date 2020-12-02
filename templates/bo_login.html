@@ -23,7 +23,7 @@
 
 div.bo-login {margin: 20px auto; width: 300px; display: table; height: 80%;}
 div.bo-login div.logo {text-align: center; margin: 20px;}
-div.bo-login div.logo img {opacity: 0.7;}
+div.bo-login div.logo img {opacity: 0.7; width: 80px; height: 80px;}
 div.bo-login #forgot {display: none; margin-top: 2em;}
 div.bo-login input {width: 100%;}
 div.bo-login button {float: right;}
@@ -74,6 +74,7 @@ $(document).ready(function(){
             console.log('Sending Username ('+username+') and Password to the server');
             
             try {
+                $('div.logo img').attr('src', '/share/images/ajax-indicator/indicator_verybig.gif');
                 $.ajax({
                     'url': auth_url,
                     //username: $("#username").val(),
@@ -86,6 +87,7 @@ $(document).ready(function(){
                     },
                     error: function(xhr,status,error) {
                         $('form.login').effect("shake");
+                        $('div.logo img').attr('src', '/share/images/onyx-logo-black.png');
                     }
                 });
             }
