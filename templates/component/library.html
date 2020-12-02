@@ -1,23 +1,26 @@
 <!-- BEGIN: content -->
 <style>
-  div.component-library-item {margin: 90px 0;}
-  div.component-library-item > div.wrapper {margin: 30px 0;}
-  div.component-library-item > header {display: flex; justify-content: space-between;}
-  header.site, footer.site {display: none;}
-  #onyx-header {display: none;;}
+    div.onyx-component-library {padding: 20px;}
+    div.onyx-component-library-item {margin: 90px 0;}
+    div.onyx-component-library-item > div.wrapper {margin: 30px 0;}
+    div.onyx-component-library-item > header {display: flex; justify-content: space-between;}
+    header.site, footer.site {display: none;}
+    #onyx-header {display: none;;}
 </style>
-<h1 class="component-library-title">Component library</h1>
-<a class="button" href="/page/{GET.add_to_node_id|htmlspecialchars}?fe_edit_mode=edit"><span>Cancel</span></a>
-<!-- BEGIN: item -->
-<div class="component-library-item">
-  <header>
-    <h2 class="component-library-item-title" title="Example node-id = {ITEM.id}">{ITEM.node_controller}</h2>
-    <!-- BEGIN: action --><a class="button" href="/component-library?source_node_id={ITEM.id}&add_to_node_id={GET.add_to_node_id}&add_to_container={GET.add_to_container}"><span>Use this</span></a><!-- END: action-->
-  </header>
-  <div class="wrapper">
-    {ITEM.example}
-  </div>
+<div class="onyx-component-library">
+    <h1 class="onyx-component-library-title">Component library</h1>
+    <a class="button" href="/page/{GET.add_to_node_id|htmlspecialchars}?fe_edit_mode=edit"><span>Cancel</span></a>
+    <!-- BEGIN: item -->
+    <div class="onyx-component-library-item">
+        <header>
+            <h2 class="onyx-component-library-item-title" title="Example node-id = {ITEM.id}">{ITEM.node_controller}</h2>
+            <!-- BEGIN: action --><a class="button" href="/component-library?source_node_id={ITEM.id}&add_to_node_id={GET.add_to_node_id}&add_to_container={GET.add_to_container}"><span>Use this</span></a><!-- END: action-->
+        </header>
+        <div class="wrapper">
+            {ITEM.example}
+        </div>
+    </div>
+    <!-- END: item -->
 </div>
-<!-- END: item -->
 <!-- END: content -->
 
