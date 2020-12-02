@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * Copyright (c) 2013-2014 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2013-2020 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -48,8 +48,8 @@ class Onyx_Controller_Bo_Component_Ecommerce_Recipe_List extends Onyx_Controller
         }
 
         // display pagination
-        $_nSite = new nSite("component/pagination~link=/request/bo/component/ecommerce/recipe_list:limit_from=$from:limit_per_page=$per_page:count=$count~");
-        $this->tpl->assign('PAGINATION', $_nSite->getContent());
+        $request = new Onyx_Request("component/pagination~link=/request/bo/component/ecommerce/recipe_list:limit_from=$from:limit_per_page=$per_page:count=$count~");
+        $this->tpl->assign('PAGINATION', $request->getContent());
 
         // parse items
         foreach ($recipe_list as $item) {
