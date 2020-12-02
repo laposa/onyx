@@ -2,7 +2,7 @@
 /**
  * Backoffice product list filter
  *
- * Copyright (c) 2008-2014 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2008-2020 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -44,6 +44,10 @@ class Onyx_Controller_Bo_Component_Ecommerce_Product_List_Filter extends Onyx_Co
         require_once('models/ecommerce/ecommerce_offer_group.php');
         $Group = new ecommerce_offer_group();
 
+        $groups = $Group->listing("", "id DESC");
+        $this->parseOffersSelectGroup($groups, 'List only producs in offer group', $selected_id);
+
+        /*
         $groups = $Group->listing("schedule_start > NOW()", "id DESC");
         $this->parseOffersSelectGroup($groups, 'Future', $selected_id);
 
@@ -52,7 +56,7 @@ class Onyx_Controller_Bo_Component_Ecommerce_Product_List_Filter extends Onyx_Co
 
         $groups = $Group->listing("(schedule_start < NOW() OR schedule_start IS NULL) AND schedule_end IS NOT NULL AND schedule_end < NOW()", "id DESC");
         $this->parseOffersSelectGroup($groups, 'Past', $selected_id);
-
+        */
     }
 
     /**
