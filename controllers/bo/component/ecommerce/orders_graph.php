@@ -1,12 +1,10 @@
 <?php
 /** 
- * Copyright (c) 2006-2013 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2006-2020 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
+ * TODO: refactor since JpGraph removal
  */
-
-require_once (ONYX_DIR . "lib/jpgraph/jpgraph.php");
-require_once (ONYX_DIR . "lib/jpgraph/jpgraph_bar.php");
 
 class Onyx_Controller_Bo_Component_Ecommerce_Orders_Graph extends Onyx_Controller {
 
@@ -16,6 +14,9 @@ class Onyx_Controller_Bo_Component_Ecommerce_Orders_Graph extends Onyx_Controlle
      
     public function mainAction() {
     
+        // disable
+        return false;
+
         require_once('models/ecommerce/ecommerce_order.php');
         $Order = new ecommerce_order();
         
