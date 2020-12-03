@@ -3,7 +3,6 @@
   "description": "CMS",
   "require": {
     "php": "^7.3",
-    "zendframework/zendframework1": "1.12.20",
     "tracy/tracy": "v2.5.9",
     "doctrine/dbal": "^3.0",
     "symfony/cache": "^5.2",
