@@ -421,15 +421,14 @@ class Onyx_Bootstrap {
     }
 
     /**
-     * Index with Zend_Lucene
+     * Index - consider removal
      *
      * @param string $uri
      * @param string $htmlString
      */
     public function indexContent($uri, $htmlString)
     {
-        require_once('Zend/Search/Lucene.php');
-        $index_location = ONYX_PROJECT_DIR . 'var/index';
+        return false;
 
         if (is_dir($index_location)) {
             // Open existing index
