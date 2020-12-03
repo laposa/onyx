@@ -37,7 +37,6 @@ class Onyx_Bootstrap {
         require_once('model.php');
         require_once('onyx.router.php');
         require_once('onyx.bo.authentication.php');
-        require_once('Zend/Registry.php');
 
         // Get instance of dependency injection container
         $this->container = Onyx_Container::getInstance();
