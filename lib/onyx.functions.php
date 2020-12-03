@@ -97,21 +97,6 @@ function msg($msg, $type = "ok", $level = 0, $error_class = '') {
     }
 
     /**
-     * firebug
-     */
-
-    if (ONYX_DEBUG_OUTPUT_FIREBUG) {
-
-        if (is_object($GLOBALS['fb_logger'])) {
-
-            if ($type == 'error') $GLOBALS['fb_logger']->log($msg, Zend_Log::ERR);
-            else $GLOBALS['fb_logger']->log($msg, Zend_Log::INFO);
-
-        }
-
-    }
-
-    /**
      * direct output - send immediatelly to client
      */
 
@@ -416,22 +401,6 @@ function html2text($input, $remove_new_lines = false){
     return $plain_text;
 }
 
-/**
- * parse textile
- */
-
-function textile($text) {
-
-    require_once('Zend/Markup.php');
-
-    // Creates instance of Zend_Markup_Renderer_Html,
-    // with Zend_Markup_Parser_BbCode as its parser
-    $textilecode = Zend_Markup::factory('Textile');
-
-    return $textilecode->render($text);
-}
-
-
 ##                ##
 ##  PHPMultiSort  ##
 ##                ##
@@ -651,36 +620,6 @@ function bar_dump($variable, $title = null) {
 }
 
 /**
- * Dumps variable to the Tracy's debug bar
- * @param  mixed  $variable Variable to dump
- * @param  string $title    Variable name to show (optional)
- */
-function fire_dump($variable, $title = null) {
-
-    if (!is_object($GLOBALS['fb_logger'])) {
-        require_once('Zend/Log/Writer/Firebug.php');
-        require_once('Zend/Log.php');
-
-        $writer = new Zend_Log_Writer_Firebug();
-        $GLOBALS['fb_logger'] = new Zend_Log($writer);
-
-        require_once('Zend/Controller/Request/Http.php');
-        $request = new Zend_Controller_Request_Http();
-        require_once('Zend/Controller/Response/Http.php');
-        $GLOBALS['response'] = new Zend_Controller_Response_Http();
-
-        $GLOBALS['channel'] = Zend_Wildfire_Channel_HttpHeaders::getInstance();
-        $GLOBALS['channel']->setRequest($request);
-        $GLOBALS['channel']->setResponse($GLOBALS['response']);
-    }
-
-    if (is_object($GLOBALS['fb_logger'])) {
-        $GLOBALS['fb_logger']->log($variable, Zend_Log::DEBUG);
-    }
-
-}
-
-/**
  * Encode integer value using custom character set
  * @param  int $value Integer value to be encoded
  * @return string Encoded value
@@ -758,14 +697,22 @@ function encryptInt($value)
 /**
  * convert arabic numbers to roman
  */
-
 function convertNumeralArabicToRoman($number) {
+    $n = intval($number);
+    $lookup = [
+        'M' => 1000, 'CM' => 900, 'D' => 500, 'CD' => 400, 'C' => 100, 'XC' => 90, 'L' => 50, 'XL' => 40,
+        'X' => 10, 'IX' => 9, 'V' => 5, 'IV' => 4, 'I' => 1
+    ];
 
-    require_once 'lib/Zend/Measure/Number.php';
-    $number = new Zend_Measure_Number($number, Zend_Measure_Number::DECIMAL);
-    $number->convertTo (Zend_Measure_Number::ROMAN);
-    return $number->getValue();
+    $result = '';
+    foreach ($lookup as $roman => $value)
+    {
+        $matches = intval($n / $value);
+        $result .= str_repeat($roman, $matches);
+        $n = $n % $value;
+    }
 
+    return $result;
 }
 
 /**

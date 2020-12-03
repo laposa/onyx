@@ -45,7 +45,6 @@ if(in_array($http_client_ip, array_keys($debug_hosts)))  {
     define('ONYX_DEBUG_OUTPUT_SESSION', false); // save in session and manage output on each controller/template level
     define('ONYX_DEBUG_OUTPUT_DIRECT', false); // sends directly to client
     define('ONYX_DEBUG_OUTPUT_FILE', false); // store in var/log/messages/
-    define('ONYX_DEBUG_OUTPUT_FIREBUG', false); // use Firebug
     define('ONYX_DEBUG_OUTPUT_ERROR_LOG', true); // use Apache error log, i.e. /var/log/apache2/error.log
     define('ONYX_BENCHMARK', false);
     define('ONYX_DB_PROFILER', false);
@@ -63,7 +62,6 @@ if(in_array($http_client_ip, array_keys($debug_hosts)))  {
     define('ONYX_DEBUG_OUTPUT_SESSION', false);
     define('ONYX_DEBUG_OUTPUT_DIRECT', false);
     define('ONYX_DEBUG_OUTPUT_FILE', false);
-    define('ONYX_DEBUG_OUTPUT_FIREBUG', false);
     define('ONYX_DEBUG_OUTPUT_ERROR_LOG', true);
     define('ONYX_BENCHMARK', false);
     define('ONYX_DB_PROFILER', false);

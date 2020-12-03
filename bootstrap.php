@@ -33,25 +33,6 @@ if (ONYX_BENCHMARK && ONYX_IS_DEBUG_HOST) {
     define("TIME_START", $time_start);
 }
 
-// Log to firebug
-if (ONYX_IS_DEBUG_HOST && ONYX_DEBUG_OUTPUT_FIREBUG) {
-    require_once('Zend/Log/Writer/Firebug.php');
-    require_once('Zend/Log.php');
-
-    // Place this in your bootstrap file before dispatching your front controller
-    $writer = new Zend_Log_Writer_Firebug();
-    $GLOBALS['fb_logger'] = new Zend_Log($writer);
-
-    require_once('Zend/Controller/Request/Http.php');
-    $request = new Zend_Controller_Request_Http();
-    require_once('Zend/Controller/Response/Http.php');
-    $response = new Zend_Controller_Response_Http();
-
-    $channel = Zend_Wildfire_Channel_HttpHeaders::getInstance();
-    $channel->setRequest($request);
-    $channel->setResponse($response);
-}
-
 // Include & init dependency injection container
 require_once('lib/onyx.container.php');
 $container = Onyx_Container::getInstance();
