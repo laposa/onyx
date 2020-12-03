@@ -1,9 +1,9 @@
 <?php
 /** 
- * Zend Search Lucene
- * Copyright (c) 2009-2017 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2009-2020 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
+ * TODO: this needs refactoring using DB fulltext search since we dropped Zend
  */
 
 class Onyx_Controller_Component_Search_Result extends Onyx_Controller {
@@ -16,7 +16,6 @@ class Onyx_Controller_Component_Search_Result extends Onyx_Controller {
         
         if (isset($this->GET['search_query'])) {
         
-            require_once('Zend/Search/Lucene.php');
             require_once('models/common/common_node.php');
             require_once('models/common/common_uri_mapping.php');
             $this->Node = new common_node();
@@ -26,26 +25,17 @@ class Onyx_Controller_Component_Search_Result extends Onyx_Controller {
             $count = strlen($query);
 
             if ($count > 2) {
-            
-                $index_location = ONYX_PROJECT_DIR . 'var/index';
-                
-                try {
-                    $index = Zend_Search_Lucene::open($index_location);
-                } catch(Exception $e) {
-                    msg("Cannot open Lucene index", 'error');
-                    return false;
-                }   
 
                 $this->keywords = $this->getKeywords($query);
 
-                $search_query = Zend_Search_Lucene_Search_QueryParser::parse(htmlentities($query), 'UTF-8');
+                //TODO: $search_query = search::parse(htmlentities($query), 'UTF-8');
                 $hits = $index->find($search_query);
 
                 try {
                     // try fuzzy search if keyword search does not return anything
                     if (count($hits) == 0) {
                         $query = $query . '~0.6';
-                        $search_query = Zend_Search_Lucene_Search_QueryParser::parse(htmlentities($query), 'UTF-8');
+                        //TODO: $search_query = search::parse(htmlentities($query), 'UTF-8');
                         $hits = $index->find($search_query);
                     }               
                 } catch (Exception $e) {

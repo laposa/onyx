@@ -57,7 +57,6 @@ $uri_map = array(
         '^/backoffice/advanced/database/graphql$' => '/index.php?request=bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/pages/database_graphql',
         '^/backoffice/advanced/tools$' => '/index.php?request=bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/pages/tools',
         '^/backoffice/advanced/api$' => '/index.php?request=bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/pages/api',
-        '^/backoffice/advanced/search_index$' => '/index.php?request=bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/component/search_index',
         '^/backoffice/advanced/scheduler$' => '/index.php?request=bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/component/scheduler',
         '^/backoffice/advanced/seo_manager$' => '/index.php?request=bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/component/seo_manager',
         '^/backoffice/stock$' => '/index.php?request=bo/backoffice_wrapper.bo/backoffice.bo/pages/ecommerce/stock',
