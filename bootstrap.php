@@ -11,13 +11,13 @@ require_once('lib/onyx.functions.php');
 
 // Setup Tracy
 if (ONYX_TRACY) {
-    require_once('lib/Tracy/tracy.php');
-    require_once('lib/Tracy/Onyx/Onyx_Extensions.php');
+    require_once('lib/Tracy/OnyxComponentsPanel.php');
+    require_once('lib/Tracy/OnyxDBProfilerPanel.php');
     if (constant('ONYX_IS_DEBUG_HOST')) {
         $components = [];
         Tracy\Debugger::enable(Tracy\Debugger::DEVELOPMENT);
-        if (ONYX_TRACY_DB_PROFILER) Tracy\Debugger::getBar()->addPanel(new DBProfilerPanel);
-        if (ONYX_TRACY_BENCHMARK) Tracy\Debugger::getBar()->addPanel(new ComponentsPanel);
+        if (ONYX_TRACY_DB_PROFILER) Tracy\Debugger::getBar()->addPanel(new OnyxDBProfilerPanel());
+        if (ONYX_TRACY_BENCHMARK) Tracy\Debugger::getBar()->addPanel(new OnyxComponentsPanel());
     } else {
         Tracy\Debugger::enable(Tracy\Debugger::PRODUCTION);
         Tracy\Debugger::$logSeverity = (E_ALL ^ E_NOTICE);
@@ -70,16 +70,16 @@ if (ONYX_BENCHMARK && ONYX_IS_DEBUG_HOST) {
 
 if (ONYX_DB_PROFILER && ONYX_IS_DEBUG_HOST) {
     $db = $container->get('onyx_db');
-    $profiler = $db->getProfiler();
+    $logger = $db->getConfiguration()->getSQLLogger();
     $db_profile = [];
-    $db_profile['total_num_queries'] = $profiler->getTotalNumQueries();
-    $db_profile['total_elapsed_secs'] = $profiler->getTotalElapsedSecs();
+    $db_profile['total_num_queries'] = count($logger->queries);
+    $db_profile['total_elapsed_secs'] = $logger->totalExecutionMS;
     $db_profile['query_list'] = [];
 
-    foreach ($profiler->getQueryProfiles() as $k => $item) {
-        $db_profile['query_list'][$k]['query'] = $item->getQuery();
-        $db_profile['query_list'][$k]['query_params'] = $item->getQueryParams();
-        $db_profile['query_list'][$k]['elapsed_secs'] = $item->getElapsedSecs();
+    foreach ($logger->queries as $k => $item) {
+        $db_profile['query_list'][$k]['query'] = $item['sql'];
+        $db_profile['query_list'][$k]['query_params'] = $item['params'];
+        $db_profile['query_list'][$k]['elapsed_secs'] = $item['executionMS'];
     }
 
     echo "<pre>" . htmlspecialchars(print_r($db_profile, true)) . "</pre>";

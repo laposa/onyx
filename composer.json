@@ -3,10 +3,12 @@
   "description": "CMS",
   "require": {
     "php": "^7.3",
-    "tracy/tracy": "v2.5.9",
+    "tracy/tracy": "^2.7",
     "doctrine/dbal": "^3.0",
     "symfony/cache": "^5.2",
     "symfony/mailer": "^5.2",
-    "symfony/dependency-injection": "^5.2"
+    "symfony/dependency-injection": "^5.2",
+    "jdorn/sql-formatter": "^1.2",
+    "html2text/html2text": "^4.3"
   }
 }

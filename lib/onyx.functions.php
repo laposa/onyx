@@ -391,8 +391,6 @@ function recodeUTF8ToAscii($string) {
  */
 
 function html2text($input, $remove_new_lines = false){
-
-    require_once('lib/Html2Text.php');
     $html = new \Html2Text\Html2Text($input);
     $plain_text = $html->getText();
 

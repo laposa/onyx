@@ -116,8 +116,9 @@ class Onyx_Bootstrap {
         }
 
         // enable profiler
-        if (ONYX_DB_PROFILER && ONYX_IS_DEBUG_HOST) {
-            $db->getProfiler()->setEnabled(true);
+        if (ONYX_IS_DEBUG_HOST && (ONYX_DB_PROFILER || ONYX_TRACY_DB_PROFILER)) {
+            require_once('lib/Doctrine/OnyxSQLLogger.php');
+            $db->getConfiguration()->setSQLLogger(new OnyxSQLLogger());
         }
 
         // store in registry

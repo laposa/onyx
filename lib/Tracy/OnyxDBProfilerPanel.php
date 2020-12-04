@@ -1,9 +1,8 @@
 <?php
 
-require_once("lib/SqlFormatter/SqlFormatter.php");
 require_once('lib/onyx.container.php');
 
-class DBProfilerPanel implements Tracy\IBarPanel
+class OnyxDBProfilerPanel implements \Tracy\IBarPanel
 {
 
 	function getTab()
@@ -13,8 +12,8 @@ class DBProfilerPanel implements Tracy\IBarPanel
 
 	function getPanel()
 	{
+	    /** @var \Doctrine\DBAL\Connection $db */
 		$db = Onyx_Container::getInstance()->get('onyx_db');
-		$profiler = $db->getProfiler();
 
 		$content = '<h1>Database Profiler</h1><div class="tracy-inner">';
 		$content .= "<table>";
@@ -23,10 +22,12 @@ class DBProfilerPanel implements Tracy\IBarPanel
 		$previous_controller = false;
 		$i = 0;
 
-		foreach ($profiler->getQueryProfiles() as $item) {
+		/** @var OnyxSQLLogger $sqlLogger */
+		$sqlLogger = $db->getConfiguration()->getSQLLogger();
+		foreach ($sqlLogger->queries as $item) {
 
 			while (isset($GLOBALS['components'][$i]) &&
-				$GLOBALS['components'][$i]['time'] < $item->getStartedMicrotime()) {
+				$GLOBALS['components'][$i]['time'] < $item['startMS']) {
 				$controller = $GLOBALS['components'][$i]['controller'];
 				$i++;
 			}
@@ -38,9 +39,9 @@ class DBProfilerPanel implements Tracy\IBarPanel
 				$content .= '</tr>';
 			}
 
-			$sql = $this->format(trim($item->getQuery()));
+			$sql = $this->format(trim($item['sql']));
 			$sql = str_replace('background-color: white', 'background-color: none', $sql);
-			$elapsed = $item->getElapsedSecs();
+			$elapsed = $item['executionMS'];
 
 			$content .= "<tr>";
 			if ($elapsed > 1) $content .= '<td><img src="/share/images/famfamfam_icons/exclamation.png" /></td>';
@@ -51,8 +52,8 @@ class DBProfilerPanel implements Tracy\IBarPanel
 			$content .= "</tr>";
 		}
 
-		$content .= "<tr><th></th><th>Total " . $profiler->getTotalNumQueries() . " queries</th>";
-		$content .= "<th>" . format_time($profiler->getTotalElapsedSecs()) . "</th>";
+		$content .= "<tr><th></th><th>Total " . count($sqlLogger->queries) . " queries</th>";
+		$content .= "<th>" . format_time($sqlLogger->totalExecutionMS) . "</th>";
 		$content .= "</table></div>";
 
 		return $content;
@@ -61,33 +62,5 @@ class DBProfilerPanel implements Tracy\IBarPanel
 	function format($sql) {
 		if (strlen($sql) > 100 || strpos($sql, "\n")) return SqlFormatter::format($sql);
 		else return SqlFormatter::highlight($sql);
-	}
-}
-
-class ComponentsPanel implements Tracy\IBarPanel
-	{
-
-	function getTab()
-	{
-		return '<img src="/share/images/famfamfam_icons/bricks.png"/> <span>Components</span>';
-	}
-
-	function getPanel()
-	{
-		$content = '<h1>Components</h1><div class="tracy-inner">';
-		$content .= "<table>";
-		$content .= "<tr><th>Node Title</th><th>Controller</th><th>Duration</th>";
-		foreach ($GLOBALS['components'] as $i => $component) {
-			if (isset($GLOBALS['components'][$i + 1])) $time = $GLOBALS['components'][$i + 1]['time'] - $component['time'];
-			else $time = microtime(true) - $component['time'];
-			$content .= "<tr>";
-			$content .= "<td>" . $component['node'] . "</td>";
-			$content .= "<td>" . $component['controller'] . "</td>";
-			$content .= "<td>" . format_time($time) . "</td>";
-			$content .= "</tr>";
-		}
-		$content .= "</table></div>";
-
-		return $content;
 	}
 }
