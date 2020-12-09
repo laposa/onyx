@@ -167,8 +167,9 @@ class Onyx_Controller_Uri_Mapping extends Onyx_Controller {
         if (!is_numeric($node_id)) return false;
 
         //save node_id to last record in history
-        $_SESSION['orig'] = "/page/$node_id";
-        $_SESSION['history'][count($_SESSION['history'])-1]['node_id'] = $node_id;
+        if (is_array($_SESSION)) {
+            $_SESSION['orig'] = "/page/$node_id";
+        }
 
         $action_to_process = $this->Mapper->getRequest($node_id);
 

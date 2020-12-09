@@ -262,7 +262,6 @@ class Onyx_Bootstrap {
         else $protocol = 'http';
 
         $_SESSION['uri'] = "$protocol://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
-        if (is_array($_SESSION['history'])) $_SESSION['last_item'] = $_SESSION['history'][count($_SESSION['history']) - 1]['uri'];
         $_SESSION['orig'] = $_SERVER['REQUEST_URI'];
 
 
@@ -505,16 +504,6 @@ class Onyx_Bootstrap {
 
         $result = $this->outputFilterGlobal($result);
         $result = $this->outputFilterPublic($result);
-
-        //hack
-        if ($Onyx->http_status != '404') {
-            if ($_SERVER['HTTP_REFERER'] != $_SESSION['uri'] && $_SERVER['HTTP_REFERER'] != '') {
-                $_SESSION['referer'] = $_SERVER['HTTP_REFERER'];
-            }
-        } else {
-            array_pop($_SESSION['history']);
-            $_SESSION['last_diff'] = $_SESSION['history'][count($_SESSION['history']) - 1]['uri'];
-        }
 
         return $result;
     }
