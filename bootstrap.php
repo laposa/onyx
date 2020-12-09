@@ -6,7 +6,7 @@
  */
 
 // Set include paths
-set_include_path(ONYX_PROJECT_DIR . PATH_SEPARATOR . ONYX_DIR . PATH_SEPARATOR . ONYX_DIR . 'lib/' . PATH_SEPARATOR . get_include_path());
+set_include_path(ONYX_PROJECT_DIR . PATH_SEPARATOR . ONYX_DIR . PATH_SEPARATOR . ONYX_PROJECT_DIR . 'lib/' . PATH_SEPARATOR . ONYX_DIR . 'lib/' . PATH_SEPARATOR . get_include_path());
 require_once('lib/onyx.functions.php');
 
 // Setup Tracy
