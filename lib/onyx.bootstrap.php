@@ -178,14 +178,17 @@ class Onyx_Bootstrap {
     {
         if ($adapterType === 'Libmemcached') {
             $namespace = $namespace . "_" . preg_replace('/\W/', '', $_SERVER['HTTP_HOST']) . ONYX_DB_HOST . ONYX_DB_PORT . ONYX_DB_NAME;
-            return new TagAwareAdapter(new MemcachedAdapter($this->getMemcachedClient(), $namespace, $ttl));
+            $adapter = new TagAwareAdapter(new MemcachedAdapter($this->getMemcachedClient(), $namespace, $ttl));
+        } else if ($adapterType === 'Apc') {
+            $adapter = new TagAwareAdapter(new ApcuAdapter($namespace, $ttl));
+        } else {
+            $adapter = new TagAwareAdapter(new FilesystemAdapter($namespace, $ttl, $cacheDirectory));
         }
 
-        if ($adapterType === 'Apc') {
-            return new TagAwareAdapter(new ApcuAdapter($namespace, $ttl));
-        }
-
-        return new TagAwareAdapter(new FilesystemAdapter($namespace, $ttl, $cacheDirectory));
+        // disable stampede prevention by file locking (allows multiple processes to compute the same key)
+        // when enabled some locks weren't released properly leaving hanging processes
+        $adapter->setCallbackWrapper(null);
+        return $adapter;
     }
 
     /**
