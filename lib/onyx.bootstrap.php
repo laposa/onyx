@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2005-2020 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2005-2021 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -370,7 +370,7 @@ class Onyx_Bootstrap {
             $this->disable_page_cache = 1;
 
             if (!$request = $this->processAuthentication($request)) {
-                $request = 'sys/xhtml.sys/401';
+                $request = 'sys/401';
             }
         }
 

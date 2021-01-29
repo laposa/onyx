@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2014-2020 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2014-2021 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  * this file contains mapping of URLs to Onyx component requests
@@ -68,7 +68,7 @@ $uri_map = array(
         '^/backoffice/products/([0-9]*)/variety_add$' => '/index.php?request=bo/backoffice_wrapper.bo/backoffice.bo/component/ecommerce/product_variety_add&product_id=$1',
         '^/backoffice/products/([0-9]*)/edit$' => '/index.php?request=bo/backoffice_wrapper.bo/backoffice.bo/component/ecommerce/product_edit&id=$1',
         '^/backoffice/products/offer/([0-9]*)/edit$' => '/index.php?request=bo/backoffice_wrapper.bo/backoffice.bo/component/ecommerce/offer_group_edit&id=$1',
-        '^/backoffice/products/variety/([0-9]*)/edit$' => '/index.php?request=bo/backoffice_wrapper.bo/backoffice.bo/component/ecommerce/product_variety_edit&id=$1',
+        '^/backoffice/products/variety/([0-9]*)/edit$' => '/index.php?request=bo/backoffice_wrapper.bo/component/ecommerce/product_variety_edit&id=$1',
         '^/backoffice/recipes$' => '/index.php?request=bo/backoffice_wrapper.bo/backoffice.bo/pages/ecommerce/recipes.bo/component/ecommerce/recipe_list',
         '^/backoffice/recipes/recipe_add$' => '/index.php?request=bo/backoffice_wrapper.bo/backoffice.bo/component/ecommerce/recipe_add',
         '^/backoffice/recipes/([0-9]*)/edit$' => '/index.php?request=bo/backoffice_wrapper.bo/backoffice.bo/component/ecommerce/recipe_edit&id=$1',
