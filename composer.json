@@ -9,6 +9,7 @@
     "symfony/mailer": "^5.2",
     "symfony/dependency-injection": "^5.2",
     "jdorn/sql-formatter": "^1.2",
-    "html2text/html2text": "^4.3"
+    "html2text/html2text": "^4.3",
+    "symfony/http-client": "^5.2"
   }
 }

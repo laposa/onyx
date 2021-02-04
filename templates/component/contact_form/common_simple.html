@@ -1,7 +1,7 @@
 <!-- BEGIN: content -->
 {MESSAGES}
-<script type="text/javascript">  
-$(function(){  
+<script type="text/javascript">
+$(function(){
     $("#contact-form-{GET.node_id}").validate({
 		highlight: function(element) {
 			$(element).addClass("error");
@@ -10,7 +10,16 @@ $(function(){
 		unhighlight: function(element) {
 			$(element).removeClass("error");
 			$(element).parent().parent().removeClass("error");
-		}
+		},
+    submitHandler: function(form) {
+      if (window.grecaptcha) {
+        window.grecaptchaForm = form;
+        grecaptcha.execute();
+        return;
+      }
+
+      form.submit();
+    },
 	});
 });
 </script>
@@ -31,7 +40,7 @@ $(function(){
             <label for="formdata-subject-{GET.node_id}">{I18N_SUBJECT}:</label>
             <input type="text" id="formdata-subject-{GET.node_id}" name="formdata[required_subject]" value="{FORMDATA.required_subject|htmlspecialchars}" class="required text" />
         </div>
-        
+
         <div class="row message">
             <label for="formdata-message-{GET.node_id}">{I18N_YOUR_MESSAGE}:</label>
             <textarea id="formdata-message-{GET.node_id}" class="required" name="formdata[required_message]" rows="15" cols="45">{FORMDATA.required_message|htmlspecialchars}</textarea>
@@ -40,14 +49,14 @@ $(function(){
         {FILE "component/captcha.inc.html"}
 
     </fieldset>
-    
-        <input type="hidden" name="node_id" value="{GET.node_id}" />
-        
-        <div class="row submit">
-            <label>&nbsp;</label>
-            <button type="submit" name="send" value="send" class="submit"><span>{I18N_SUBMIT}</span></button>
-        </div>
-    
+
+    <div class="row submit">
+        <label>&nbsp;</label>
+        <button type="submit" class="submit"><span>{I18N_SUBMIT}</span></button>
+    </div>
+
+    <input type="hidden" name="node_id" value="{GET.node_id}" />
+    <input type="hidden" name="send" value="send" />
     <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
 </div>

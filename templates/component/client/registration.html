@@ -1,28 +1,39 @@
 <!-- BEGIN: content -->
 {MESSAGES}
 
-<script type="text/javascript">  
-$(document).ready(function(){  
-    $("#registration-node-id-{GET.node_id}").validate({onkeyup: false});  
-});  
+<script type="text/javascript">
+$(document).ready(function(){
+    $("#registration-node-id-{GET.node_id}").validate({
+        onkeyup: false,
+        submitHandler: function(form) {
+            if (window.grecaptcha) {
+                window.grecaptchaForm = form;
+                grecaptcha.execute();
+                return;
+            }
+
+            form.submit();
+        },
+    });
+});
 </script>
 
 <form class="registration" id="registration-node-id-{GET.node_id}" action="{URI_SAFE|htmlspecialchars}#node-id-{GET.node_id}" method="post">
 
     <fieldset class="personal_details">
-    
+
         <legend>{I18N_R_PERSONAL_DETAILS}</legend>
-        
+
         <div class="row title-before">
             <span class="label"><label for="client-customer-title-before"><span class="mandatory-mark">*</span> {I18N_R_TITLE}</label></span>
             <span class="field"><input class="required text short" type="text" id="client-customer-title-before" name="client[customer][title_before]" value="{CLIENT.customer.title_before|htmlspecialchars}" title="Your title, ie Ms, Mr, Miss, Dr"/></span>
         </div>
-        
+
         <div class="row first-name">
             <span class="label"><label for="client-customer-first-name"><span class="mandatory-mark">*</span> {I18N_R_FIRST_NAME}</label></span>
             <span class="field"><input class="required text" type="text" id="client-customer-first-name" name="client[customer][first_name]" value="{CLIENT.customer.first_name|htmlspecialchars}"/></span>
         </div>
-        
+
         <div class="row last-name">
             <span class="label"><label for="client-customer-last-name"><span class="mandatory-mark">*</span> {I18N_R_LAST_NAME}</label></span>
             <span class="field"><input class="required text" type="text" id="client-customer-last-name" name="client[customer][last_name]" value="{CLIENT.customer.last_name|htmlspecialchars}"/></span>
@@ -37,66 +48,66 @@ $(document).ready(function(){
             <span class="label"><label for="client-customer-telephone"><span class="mandatory-mark">*</span> {I18N_R_TELEPHONE}</label></span>
             <span class="field"><input class="required text" type="tel" id="client-customer-telephone" name="client[customer][telephone]" value="{CLIENT.customer.telephone|htmlspecialchars}"/></span>
         </div>
-        
+
     </fieldset>
-    
+
     <!-- BEGIN: password -->
     <fieldset class="password">
-    
+
         <legend>{I18N_R_CHOOSE_YOUR_PASSWORD}</legend>
-        
+
         <div class="row password">
             <span class="label"><label for="client-customer-password"><span class="mandatory-mark">*</span> {I18N_R_PASSWORD}</label></span>
             <span class="field"><input class="required text" type="password" id="client-customer-password" name="client[customer][password]" value="" /></span>
         </div>
-        
+
         <div class="row password1">
             <span class="label"><label for="client-customer-password1"><span class="mandatory-mark">*</span> {I18N_R_CONFIRM_PASSWORD}</label></span>
             <span class="field"><input class="required text" type="password" id="client-customer-password1" name="client[customer][password1]" value="" /></span>
         </div>
-            
+
     </fieldset>
     <!-- END: password -->
-    
+
     <fieldset class="delivery-address">
-    
+
         <legend>{I18N_DELIVERY_ADDRESS}</legend>
-        
+
         <div class="row address-name">
             <span class="label"><label for="client-address-delivery-name"><span class="mandatory-mark">*</span> {I18N_NAME}</label></span>
             <span class="field"><input class="required text" type="text" id="client-address-delivery-name" name="client[address][delivery][name]" value="{CLIENT.address.delivery.name|htmlspecialchars}"/></span>
         </div>
-            
+
         <div class="row address-line1">
             <span class="label"><label for="client-address-delivery-line-1"><span class="mandatory-mark">*</span> {I18N_ADDRESS_LINE_1}</label></span>
             <span class="field"><input class="required text" type="text" id="client-address-delivery-line-1" name="client[address][delivery][line_1]" value="{CLIENT.address.delivery.line_1|htmlspecialchars}"/></span>
         </div>
-        
+
         <div class="row address-line2">
             <span class="label"><label for="client-address-delivery-line-2">{I18N_ADDRESS_LINE_2}</label></span>
             <span class="field"><input class="text" type="text" id="client-address-delivery-line-2" name="client[address][delivery][line_2]" value="{CLIENT.address.delivery.line_2|htmlspecialchars}"/></span>
         </div>
-            
+
         <div class="row address-line3">
             <span class="label"><label for="client-address-delivery-line-3">{I18N_ADDRESS_LINE_3}</label></span>
             <span class="field"><input class="text" type="text" id="client-address-delivery-line-3" name="client[address][delivery][line_3]" value="{CLIENT.address.delivery.line_3|htmlspecialchars}"/></span>
         </div>
-        
+
         <div class="row address-city">
             <span class="label"><label for="client-address-delivery-city-id"><span class="mandatory-mark">*</span> {I18N_CITY}</label></span>
             <span class="field"><input class="required text" type="text" id="client-address-delivery-city" name="client[address][delivery][city]" value="{CLIENT.address.delivery.city|htmlspecialchars}"/></span>
         </div>
-        
+
         <div class="row address-post-code">
             <span class="label"><label for="client-address-delivery-post-code"><span class="mandatory-mark">*</span> {I18N_POST_CODE}</label></span>
             <span class="field"><input class="required text" type="text" id="client-address-delivery-post-code" name="client[address][delivery][post_code]" value="{CLIENT.address.delivery.post_code|htmlspecialchars}" maxlength="10"/></span>
         </div>
-        
+
         <div class="row address-county">
             <span class="label"><label for="client-address-delivery-county">{I18N_COUNTY}</label></span>
             <span class="field"><input class="text" type="text" id="client-address-delivery-county" name="client[address][delivery][county]" value="{CLIENT.address.delivery.county|htmlspecialchars}"/></span>
         </div>
-        
+
         <div class="row address-country">
             <span class="label"><label for="client-address-delivery-country"><span class="mandatory-mark">*</span> {I18N_COUNTRY}</label></span>
             <span class="field">
@@ -109,18 +120,18 @@ $(document).ready(function(){
                 <!-- END: country_delivery -->
             </span>
         </div>
-        
+
     </fieldset>
 
     <fieldset class="company-details">
-    
+
         <legend>{I18N_R_COMPANY_DETAILS}</legend>
-        
+
         <div class="row company-name">
             <span class="label"><label for="client-company-name">{I18N_R_COMPANY_NAME}</label></span>
             <span class="field"><input class="text" type="text" id="client-company-name" name="client[company][name]" value="{CLIENT.company.name|htmlspecialchars}"/></span>
         </div>
-        
+
         <div class="row company-vat">
             <span class="label"><label for="client-company-vat-no">{I18N_R_VAT_NO}</label></span>
             <span class="field"><input class="text" type="text" id="client-company-vat-no" name="client[company][vat_no]" value="{CLIENT.company.vat_no|htmlspecialchars}"/></span>
@@ -130,29 +141,30 @@ $(document).ready(function(){
         </div>
 
         {FILE "component/captcha.inc.html"}
-    
+
     </fieldset>
-    
+
     <fieldset class="account-details">
-    
+
         <legend>{I18N_R_ACCOUNT_DETAILS}</legend>
-        
+
         <div class="row checkbox newsletter">
             <span class="field"><input type="checkbox" class="checkbox" id="client-customer-newsletter" name="client[customer][newsletter]" value="1" {CLIENT.customer.newsletter} /> <label for="client-customer-newsletter">{I18N_R_NEWSLETTER}</label></span>
         </div>
-        
+
         <div class="row currency">
             <span class="label"><label for="client-customer-currency-code">{I18N_R_CURRENCY}</label></span>
             <span class="field">{ONYX_REQUEST_currency #component/ecommerce/currency_switcher_inline}</span>
         </div>
-        
+
     </fieldset>
 
     <div class="row submit">
-        <span class="field"><button class="button register" type="submit" name="save" value="save"><span>{I18N_R_SUBMIT}</span></button></span>
+        <span class="field"><button class="button register" type="submit"><span>{I18N_R_SUBMIT}</span></button></span>
     </div>
 
-<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+    <input type="hidden" name="save" value="save" />
+    <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
 
 <!-- END: content -->

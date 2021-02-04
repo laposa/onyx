@@ -9,6 +9,7 @@
  */
 
 require_once('lib/onyx.container.php');
+use Symfony\Component\HttpClient\HttpClient;
 
 /**
  * Every system message should be processed through this function
@@ -747,7 +748,7 @@ function rangeDownload($file) {
         $c_start = $start;
         $c_end   = $end;
         // Extract the range string
-        list(, $range) = explode('=', $_SERVER['HTTP_RANGE'], 2);
+        [, $range] = explode('=', $_SERVER['HTTP_RANGE'], 2);
         // Make sure the client hasn't sent us a multibyte range
         if (strpos($range, ',') !== false) {
 
@@ -915,7 +916,7 @@ function timetostr($timestamp, $now = null) {
         ["millenium", "millenia", PHP_INT_MAX]
     ];
 
-    foreach ($scales as list($singular, $plural, $factor)) {
+    foreach ($scales as [$singular, $plural, $factor]) {
         if ($age == 0)
             return $future
                 ? "in less than 1 $singular"
@@ -1010,5 +1011,22 @@ function mime_content_type_fast($filename) {
 
         return 'application/octet-stream';
 
+    }
+}
+
+/**
+ * Verifies passed token against google recaptcha
+ * @param $token
+ */
+function verifyReCaptchaToken($token) {
+    try {
+        $client = HttpClient::create();
+        $response = $client->request('POST', 'https://www.google.com/recaptcha/api/siteverify', [
+            'body' => ['secret' => ONYX_RECAPTCHA_PRIVATE_KEY, 'response' => $token],
+        ]);
+        $response = $response->toArray();
+        return $response['success'];
+    } catch (Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface $e) {
+        return false;
     }
 }

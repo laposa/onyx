@@ -4,8 +4,8 @@
 @import url(/share/themes/jquery-ui/onyx/jquery-ui.css);
 </style>
 <script type="text/javascript" src="/share/js/jquery/ui/jquery-ui.all.min.js"></script>
-<script type="text/javascript">  
-$(document).ready(function(){  
+<script type="text/javascript">
+$(document).ready(function(){
     $("#contact-form-{GET.node_id}").validate({
 		highlight: function(element) {
 			$(element).addClass("error");
@@ -14,25 +14,34 @@ $(document).ready(function(){
 		unhighlight: function(element) {
 			$(element).removeClass("error");
 			$(element).parent().parent().removeClass("error");
-		}
+		},
+    submitHandler: function(form) {
+      if (window.grecaptcha) {
+        window.grecaptchaForm = form;
+        grecaptcha.execute();
+        return;
+      }
+
+      form.submit();
+    },
 	});
     $('#formdata-visit-date-{GET.node_id}').datepicker({startDate:'01/01/2000', dateFormat: 'D dd M yy', changeMonth: true, changeYear: true, });
-});  
+});
 </script>
 <div class="contact-form-complaint">
     <form class="contact" id="contact-form-{GET.node_id}" action="{URI|htmlspecialchars}#node-id-{GET.node_id}" method="post">
     <fieldset class="single">
         <legend>{I18N_CONTACT_FORM}</legend>
-        
+
         <div class="contact-form-header">
             <h3>Store Details</h3>
         </div>
-        
+
         <div class="row visit-date">
             <label for="formdata-visit-date-{GET.node_id}">Date of Your Visit:</label>
             <input type="text" class="required text" id="formdata-visit-date-{GET.node_id}" name="formdata[visit_date]" value="{FORMDATA.visit_date|htmlspecialchars}" />
         </div>
-        
+
         <!-- BEGIN: store -->
         <div class="row store-id">
             <label for="formdata-store-id-{GET.node_id}">Store You Have Visited:</label>
@@ -50,46 +59,46 @@ $(document).ready(function(){
             <!-- END: county_dropdown -->
         </div>
         <!-- END: store -->
-        
+
         <div class="row details">
             <label for="formdata-details-{GET.node_id}"><strong>Details of Issue:</strong></label>
             <textarea id="formdata-details-{GET.node_id}" name="formdata[details]" class="textarea" rows="15" cols="45">{FORMDATA.details|htmlspecialchars}</textarea>
         </div>
-        
+
         <div class="contact-form-header">
             <h3>Your Details</h3>
         </div>
-        
+
         <div class="row name">
             <label for="formdata-name-{GET.node_id}">Your Name:</label>
             <input type="text" class="required text" id="formdata-name-{GET.node_id}" name="formdata[required_name]" value="{FORMDATA.required_name|htmlspecialchars}" />
         </div>
-        
+
         <div class="row address">
             <label for="formdata-address-{GET.node_id}">Address:</label>
             <input type="text" class="text" id="formdata-address-{GET.node_id}" name="formdata[address]" value="{FORMDATA.address|htmlspecialchars}" />
         </div>
-        
+
         <div class="row town">
             <label for="formdata-town-{GET.node_id}">Town:</label>
             <input type="text" class="text" id="formdata-town-{GET.node_id}" name="formdata[town]" value="{FORMDATA.town|htmlspecialchars}" />
         </div>
-        
+
         <div class="row postcode">
             <label for="formdata-postcode-{GET.node_id}">Post Code:</label>
             <input type="text" class="text" id="formdata-postcode-{GET.node_id}" name="formdata[postcode]" value="{FORMDATA.postcode|htmlspecialchars}" />
         </div>
-        
+
         <div class="row email">
             <label for="formdata-email-{GET.node_id}">{I18N_EMAIL}:</label>
             <input type="email" class="required email text" id="formdata-email-{GET.node_id}" name="formdata[required_email]" value="{FORMDATA.required_email|htmlspecialchars}" />
         </div>
-        
+
         <div class="row telephone">
             <label for="formdata-telephone-{GET.node_id}">Telephone:</label>
             <input type="text" class="required text" id="formdata-telephone-{GET.node_id}" name="formdata[required_telephone]" value="{FORMDATA.required_telephone|htmlspecialchars}" />
         </div>
-        
+
         <div class="row consent">
                 <label for="formdata-consent-{GET.node_id}">For the purpose of this investigation, I agree to sharing my contact details with the relevant supplier and retailer:</label>
                 <select class="select required" id="formdata-consent-{GET.node_id}" name="formdata[consent]" value="{FORMDATA.consent|htmlspecialchars}">
@@ -97,19 +106,19 @@ $(document).ready(function(){
                     <option class="no" value="No">No</option>
                     <option class="yes" value="Yes">Yes</option>
                 </select>
-        </div>      
+        </div>
 
         {FILE "component/captcha.inc.html"}
-    
+
     </fieldset>
-    
-        <input type="hidden" name="node_id" value="{GET.node_id}" />
-    
-        <div class="row submit">
-            <label>&nbsp;</label>
-            <button type="submit" name="send" value="send" class="submit"><span>{I18N_SUBMIT}</span></button>
-        </div>
-    
+
+    <div class="row submit">
+        <label>&nbsp;</label>
+        <button type="submit" class="submit"><span>{I18N_SUBMIT}</span></button>
+    </div>
+
+    <input type="hidden" name="node_id" value="{GET.node_id}" />
+    <input type="hidden" name="send" value="send" />
     <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
 </div>

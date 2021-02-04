@@ -1,7 +1,7 @@
 <!-- BEGIN: content -->
 {MESSAGES}
-<script type="text/javascript">  
-$(document).ready(function(){  
+<script type="text/javascript">
+$(document).ready(function(){
     $("#contact-form-{GET.node_id}").validate({
 		highlight: function(element) {
 			$(element).addClass("error");
@@ -10,9 +10,18 @@ $(document).ready(function(){
 		unhighlight: function(element) {
 			$(element).removeClass("error");
 			$(element).parent().parent().removeClass("error");
-		}
-	});  
-});  
+		},
+    submitHandler: function(form) {
+      if (window.grecaptcha) {
+        window.grecaptchaForm = form;
+        grecaptcha.execute();
+        return;
+      }
+
+      form.submit();
+    },
+	});
+});
 </script>
 <div class="contact-form-common">
     <form class="contact" id="contact-form-{GET.node_id}" action="{URI|htmlspecialchars}#node-id-{GET.node_id}" method="post">
@@ -22,7 +31,7 @@ $(document).ready(function(){
             <label for="formdata-title-{GET.node_id}">{I18N_TITLE}:</label>
             <input class="text short" type="text" id="formdata-title-{GET.node_id}" name="formdata[title]" value="{FORMDATA.title|htmlspecialchars}" />
         </div>
-        
+
         <div class="row first-name">
             <label for="formdata-first-name-{GET.node_id}">{I18N_FIRST_NAME}:</label>
             <input type="text" class="required text" id="formdata-first-name-{GET.node_id}" name="formdata[required_first_name]" value="{FORMDATA.required_first_name|htmlspecialchars}" />
@@ -35,53 +44,53 @@ $(document).ready(function(){
             <label for="formdata-company-{GET.node_id}">{I18N_COMPANY}:</label>
             <input type="text" class="text" id="formdata-company-{GET.node_id}" name="formdata[company]" value="{FORMDATA.company|htmlspecialchars}" />
         </div>
-        
+
         <div class="row address">
             <label for="formdata-address-{GET.node_id}">{I18N_ADDRESS}:</label>
             <input type="text" class="text" id="formdata-address-{GET.node_id}" name="formdata[address]" value="{FORMDATA.address|htmlspecialchars}" />
         </div>
-        
+
         <div class="row city">
             <label for="formdata-city-{GET.node_id}">{I18N_CITY}:</label>
             <input type="text" class="text" id="formdata-city-{GET.node_id}" name="formdata[city]" value="{FORMDATA.city|htmlspecialchars}" />
         </div>
-        
+
         <div class="row post-code">
             <label for="formdata-post-code-{GET.node_id}">{I18N_POSTAL_CODE}:</label>
             <input type="text" class="text short" id="formdata-post-code-{GET.node_id}" name="formdata[post_code]" value="{FORMDATA.post_code|htmlspecialchars}" />
         </div>
-        
+
         <div class="row country">
             <label for="formdata-country-{GET.node_id}">{I18N_COUNTRY}:</label>
             <input type="text" class="text" id="formdata-country-{GET.node_id}" name="formdata[country]" value="{FORMDATA.country|htmlspecialchars}" />
         </div>
-        
+
         <div class="row email">
             <label for="formdata-email-{GET.node_id}">{I18N_EMAIL}:</label>
             <input type="email" class="required email text" id="formdata-email-{GET.node_id}" name="formdata[required_email]" value="{FORMDATA.required_email|htmlspecialchars}" />
         </div>
-        
+
         <div class="row telephone">
             <label for="formdata-telephone-{GET.node_id}">{I18N_TEL}:</label>
             <input type="text" class="required text" id="formdata-telephone-{GET.node_id}" name="formdata[required_telephone]" value="{FORMDATA.required_telephone|htmlspecialchars}" />
         </div>
-        
+
         <div class="row message">
             <label for="formdata-message-{GET.node_id}">{I18N_YOUR_MESSAGE}:</label>
             <textarea id="formdata-message-{GET.node_id}" name="formdata[required_message]" class="required textarea" rows="15" cols="45">{FORMDATA.required_message|htmlspecialchars}</textarea>
         </div>
 
         {FILE "component/captcha.inc.html"}
-    
+
     </fieldset>
-    
-        <input type="hidden" name="node_id" value="{GET.node_id}" />
-    
-        <div class="row submit">
-            <label>&nbsp;</label>
-            <button type="submit" name="send" value="send" class="submit"><span>{I18N_SUBMIT}</span></button>
-        </div>
-    
+
+    <div class="row submit">
+        <label>&nbsp;</label>
+        <button type="submit" class="submit"><span>{I18N_SUBMIT}</span></button>
+    </div>
+
+    <input type="hidden" name="node_id" value="{GET.node_id}" />
+    <input type="hidden" name="send" value="send" />
     <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
 </div>

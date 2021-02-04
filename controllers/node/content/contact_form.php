@@ -11,20 +11,16 @@ class Onyx_Controller_Node_Content_Contact_Form extends Onyx_Controller_Node_Con
     /**
      * main action
      */
-
     public function mainAction() {
-
         require_once('models/common/common_node.php');
-
         $Node = new common_node();
 
         $node_data = $Node->nodeDetail($this->GET['id']);
 
-        /* default values */
+        // default values
         if (!is_array($node_data['component'])) {
             $node_data['component'] = array();
             $node_data['component']['node_controller'] = $Node->conf['contact_form_default_template'];
-            $node_data['component']['spam_protection'] = 'captcha_text_js';
         }
 
         if ($node_data['component']['sending_failed'] == '') $node_data['component']['sending_failed'] = 'The provided data are not valid!';
@@ -35,13 +31,8 @@ class Onyx_Controller_Node_Content_Contact_Form extends Onyx_Controller_Node_Con
         $template_folder = "component/contact_form/";
         $template_name = "$template_folder{$node_data['component']['node_controller']}";
 
-        /**
-         * check template file exists
-         */
-
-
+        // check template file exists
         if (!templateExists($template_name)) {
-
             // try fallback to old _contact_form folder in case it was locally created (used prior to Onyx 1.7.6)
             $template_folder = "component/_contact_form/";
             $template_name = "$template_folder{$node_data['component']['node_controller']}";
@@ -52,20 +43,14 @@ class Onyx_Controller_Node_Content_Contact_Form extends Onyx_Controller_Node_Con
             }
         }
 
-
-        /**
-         * execute controller
-         */
+        // execute controller
         $template_name = trim($template_name);
         $node_id = $node_data['id'];
         $mail_to = urlencode(trim($node_data['component']['mail_to']));
         $mail_toname = urlencode(trim($node_data['component']['mail_toname']));
-        $spam_protection = urlencode(trim($node_data['component']['spam_protection']));
 
-        $Form = new Onyx_Request("component/contact_form@$template_name&amp;node_id={$node_id}&amp;mail_to={$mail_to}&amp;mail_toname={$mail_toname}&amp;spam_protection={$spam_protection}");
-
+        $Form = new Onyx_Request("component/contact_form@$template_name&amp;node_id={$node_id}&amp;mail_to={$mail_to}&amp;mail_toname={$mail_toname}");
         $this->tpl->assign("FORM", $Form->getContent());
-
         $reg_key = "form_notify_" . $node_data['id'];
 
         if ($this->container->has($reg_key)) {
@@ -79,15 +64,11 @@ class Onyx_Controller_Node_Content_Contact_Form extends Onyx_Controller_Node_Con
             } else {
                 $this->tpl->parse('content.form');
             }
-
         } else {
-
             $this->tpl->parse('content.form');
-
         }
 
         if ($node_data['display_title'])  $this->tpl->parse('content.title');
-
         return true;
     }
 }

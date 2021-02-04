@@ -45,15 +45,6 @@ $(document).ready(function(){
     </div>
 
     <div class="row">
-        <label for="component-captcha">Anti-spam protection:</label>
-        <select id="component-captcha" name="node[component][spam_protection]">
-            <option value="captcha_text_js" {SPAM_PROTECTION.captcha_text_js}>Invisible field</option>
-            <option value="captcha_image" {SPAM_PROTECTION.captcha_image}>Captcha image</option>
-            <option value="none">None</option>
-        </select>
-    </div>
-
-    <div class="row">
         <label>* Error message:</label>
         <input type="text" class="text long" name="node[component][sending_failed]" value="{NODE.component.sending_failed}" />
     </div>
