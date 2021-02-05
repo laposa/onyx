@@ -1,14 +1,24 @@
 <!-- BEGIN: content -->
-<script type="text/javascript">  
-$(function(){  
-    $("#checkout-form").validate();
+<script type="text/javascript">
+$(function(){
+    $("#checkout-form").validate({
+      submitHandler: function(form) {
+        if (window.grecaptcha) {
+          window.grecaptchaForm = form;
+          grecaptcha.execute();
+          return;
+        }
+
+        form.submit();
+      },
+    });
 });
 </script>
 
 {MESSAGES}
 <div class="checkout">
-    <form class="checkout" action="{URI|htmlspecialchars}#node-id-{GET.node_id}" method="post" id="checkout-form">  
-        
+    <form class="checkout" action="{URI|htmlspecialchars}#node-id-{GET.node_id}" method="post" id="checkout-form">
+
         <fieldset class="gift-option">
             <h3>Gift Option</h3>
             <div class="row gift">
@@ -43,26 +53,23 @@ $(function(){
                 </select>
                 </span>
             </div>
-        
+
             <div class="row terms-agreed">
                 <input type="hidden" name="order_terms_agreed" value="on" id="order-terms-agreed" />
                 <label for="order-terms-agreed">{I18N_BY_CLICKING_CONFIRM_AUTO} <a href="/page/{NODE_CONF.id_map-terms}" target="_blank">{I18N_TERMS_AND_CONDITIONS}</a></label>
             </div>
-    
-            <div class="row submit">
+
+          {FILE "component/captcha.inc.html"}
+
+          <div class="row submit">
                 <span class="label"><label>&nbsp;</label></span>
-                <span class="field"><button class='confirm-order' type="submit" name="submit" value="submit"><span>{I18N_CONFIRM_ORDER}</span></button></span>
+                <span class="field"><button class='confirm-order' type="submit"><span>{I18N_CONFIRM_ORDER}</span></button></span>
             </div>
-        
+
         </fieldset>
-    
-        
-        
-        <input type="hidden" name="confirm" value="1" />
-        
-        
-        
-    <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+
+      <input type="hidden" name="confirm" value="1" />
+      <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
 </div>
 <!-- END: content -->
