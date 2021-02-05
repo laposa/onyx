@@ -6,6 +6,7 @@
 
 require_once('controllers/list.php');
 require_once('models/common/common_node.php');
+require_once('controllers/node/page/default.php');
 
 class Onyx_Controller_Component_Page_List extends Onyx_Controller_List {
 
