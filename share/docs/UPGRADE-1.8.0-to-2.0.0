@@ -1,0 +1,24 @@
+# UPGRADE-1.8.0-to-2.0.0
+
+curl -O https://raw.githubusercontent.com/laposa/onyx-project-skeleton/main/composer.json
+composer install
+rm onxshop_dir
+ln -s vendor/laposa/onyx/
+
+curl -O https://raw.githubusercontent.com/laposa/onyx-project-skeleton/main/.env
+edit .env
+
+edit public_html/.htaccess as per https://github.com/laposa/onyx-project-skeleton/blob/main/public_html/.htaccess
+edit public_html/index.php
+
+
+rm public_html/opt && ln -s ../onyx/opt public_html/opt 
+rm public_html/share && ln -s ../onyx/share public_html/share
+
+merge conf/deployment.php and conf/global.php into one single https://github.com/laposa/onyx-project-skeleton/blob/main/conf/global.php and .env file
+
+update .gitignore, make sure it contains .env* as per https://github.com/laposa/onyx-project-skeleton/blob/main/.gitignoreEXAMPLE
+
+rename Onxshop to Onyx in all controllers and templates
+
+merge node/site/default

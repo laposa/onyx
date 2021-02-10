@@ -41,3 +41,6 @@ if symlink public_html/favicon.ico
     rm public_html/favicon.ico
     
 
+update CSS classes and IDs in public_html/css and templates/ as per https://github.com/laposa/onyx/blob/master/share/docs/CODING_STANDARD_CSS
+
+remove all <!-- BEGIN: messages --><div class="onxshop_messages">{MESSAGES}</div><!-- END: messages -->
