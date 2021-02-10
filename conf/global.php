@@ -258,7 +258,6 @@ if (!defined('ONYX_ALLOW_BACKUP_DOWNLOAD')) define('ONYX_ALLOW_BACKUP_DOWNLOAD',
  * forwarding URLs
  */
 
-if (!defined('BASKET_CONTINUE_SHOPPING_URL')) define('BASKET_CONTINUE_SHOPPING_URL', '/');
 if (!defined('AFTER_CLIENT_LOGOUT_URL')) define('AFTER_CLIENT_LOGOUT_URL', '/');
 
 /**

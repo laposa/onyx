@@ -58,7 +58,7 @@
 </form>
     
     <p class="bottom">
-        <a class="button continue-shopping" href="{BASKET_CONTINUE_SHOPPING_URL}"><span>{I18N_CONTINUE_SHOPPING}</span></a>
+        <a class="button continue-shopping" href="{BASKET_CONTINUE_SHOPPING_URL}" onclick="history.back(); return false;"><span>{I18N_CONTINUE_SHOPPING}</span></a>
         <a class="button checkout" href="/page/{NODE_CONF.id_map-checkout}"><span>{I18N_PROCEED_TO_CHECKOUT}</span></a>
     </p>
     

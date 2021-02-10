@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2005-2014 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2005-2021 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -21,6 +21,8 @@ class Onyx_Controller_Component_Ecommerce_Basket_Edit extends Onyx_Controller_Co
             $this->tpl->assign('CSS_CLASS_SHARED', 'shared');
         
         }
+
+        $this->tpl->assign('BASKET_CONTINUE_SHOPPING_URL', '/');
                 
         return parent::mainAction();
         
