@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2010-2017 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2010-2021 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -121,16 +121,28 @@ class Onyx_Controller_Component_Ecommerce_Product_List extends Onyx_Controller_L
          * reformat list
          */
         
-        $product_id_list = array();
-        
+        $product_id_list = [];
+        $product_list = [];
+
         foreach ($product_variety_list AS $item) {
+            
+            $item['price_max'] = 0; 
+            
             if ($item['node_publish']) {
                 if (!in_array($item['product_id'], $product_id_list)) {
+                    // new item
                     $product_list[$item['product_id']] = $item;
                     $product_id_list[] = $item['product_id'];
-                //if it's a different variety and price is smaller, use this
-                } else if ($product_list[$item['product_id']]['price'] > $item['price'] && $product_list[$item['product_id']]['variety_id'] != $item['variety_id']) {
-                    $product_list[$item['product_id']] = $item;
+
+                } else if ($item['variety_id'] != $product_list[$item['product_id']]['variety_id']) {
+                    // existing item, but different variety
+                    if ($item['price'] > $product_list[$item['product_id']]['price']) {
+                        // save max price
+                        $product_list[$item['product_id']]['price_max'] = $item['price'];
+                    } else if ($item['price'] < $product_list[$item['product_id']]['price']) {
+                        // use variety item with smaller price
+                        $product_list[$item['product_id']] = $item;
+                    }
                 }
             }
         }
@@ -139,7 +151,7 @@ class Onyx_Controller_Component_Ecommerce_Product_List extends Onyx_Controller_L
          * don't continue if product list is empty, but don't return false
          */
         
-        if (!is_array($product_list)) {
+        if (count($product_list) == 0) {
             return true;
         }
         
@@ -496,7 +508,10 @@ class Onyx_Controller_Component_Ecommerce_Product_List extends Onyx_Controller_L
             $this->tpl->assign('RATING_STARS', '');
         }
         
-        
+        if ($item['price_max'] > 0) {
+            $this->tpl->parse("content.$item_block.price_max");
+        }
+
         $this->tpl->parse("content.$item_block");
                 
     }
