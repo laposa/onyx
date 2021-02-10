@@ -30,6 +30,9 @@ cd $PROJECT_DIR
 echo "Changing owner to $USER:$GROUP on $FILES_ALL"
 sudo chown $USER:$GROUP -R $FILES_ALL
 
+echo "Make files in $PROJECT_DIR group writeable"
+sudo chmod g+w $PROJECT_DIR/*
+
 for i in $FILES_ALL
     do
         echo "Fixing permissions in $i"
@@ -38,8 +41,12 @@ for i in $FILES_ALL
     done
 
 echo "Making var directory world writeable"
-sudo chmod a+w -R var/
+sudo chmod a+w -R $PROJECT_DIR/var/
 
 echo "Making files in bin directory executable"
-sudo chmod a+x -R bin/*
+sudo chmod a+x -R $PROJECT_DIR/bin/*
+
+echo "Making files in onyx/bin and onyx/utils/ directories executable"
+sudo chmod a+x $PROJECT_DIR/onyx/bin/*
+sudo chmod a+x $PROJECT_DIR/onyx/utils/*
 
