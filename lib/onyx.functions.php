@@ -3,7 +3,7 @@
  * Onyx global functions
  * KEEP IT SMALL
  *
- * Copyright (c) 2005-2020 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2005-2021 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -540,7 +540,7 @@ function makeHash($value)
         return false;
     }
 
-    return hash('sha256', ONYX_HASH_SALT . ( (string) $value ));
+    return hash('sha256', ONYX_ENCRYPTION_SALT . ( (string) $value ));
 }
 
 /**
@@ -558,7 +558,7 @@ function verifyHash($value, $hash)
         return false;
     }
 
-    return (hash('sha256', ONYX_HASH_SALT . ( (string) $value )) == strtolower(trim($hash)));
+    return (hash('sha256', ONYX_ENCRYPTION_SALT . ( (string) $value )) == strtolower(trim($hash)));
 }
 
 /**
