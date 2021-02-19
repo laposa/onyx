@@ -55,7 +55,7 @@
 									<tbody>
 										<!-- BEGIN: item -->
 										<tr>
-											<td><a href="/backoffice/customers/{CUSTOMER.id}/detail">{CUSTOMER.first_name} {CUSTOMER.last_name}</a><br /><a href="/request/component/whois?str={SESSION.ip_address}" target="_blank">{SESSION.ip_address}</a><br />{SESSION.php_auth_user}</td>
+											<td><a href="/backoffice/customers/{CUSTOMER.id}/detail">{CUSTOMER.first_name|htmlspecialchars} {CUSTOMER.last_name|htmlspecialchars}</a><br /><a href="/request/component/whois?str={SESSION.ip_address|htmlspecialchars}" target="_blank">{SESSION.ip_address|htmlspecialchars}</a><br />{SESSION.php_auth_user|htmlspecialchars}</td>
 											<td>
 												<!-- BEGIN: history -->{HISTORY.time} <a href="{HISTORY.uri|htmlspecialchars}" target="_blank">{HISTORY.uri|htmlspecialchars}</a><br /><!-- END: history -->
 												<!-- BEGIN: session_messages -->{SESSION.messages|htmlspecialchars|nl2br}<!-- END: session_messages -->
