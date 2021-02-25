@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2005-2018 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2005-2021 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -187,23 +187,6 @@ class Onyx_Controller {
     }
 
     /**
-     * set keywords
-     *
-     * @param string $value
-     * @return boolean
-     */
-    public function setKeywords($value)
-    {
-        $value = trim($value);
-        if ($value == '') return false;
-
-        $this->keywords = $value;
-        $this->container->append('keywords', $value, ' - ');
-
-        return true;
-    }
-
-    /**
      * get title
      *
      * @return string
@@ -221,16 +204,6 @@ class Onyx_Controller {
     public function getDescription()
     {
         return $this->description;
-    }
-
-    /**
-     * get keywords
-     *
-     * @return string
-     */
-    public function getKeywords()
-    {
-        return $this->keywords;
     }
 
 
