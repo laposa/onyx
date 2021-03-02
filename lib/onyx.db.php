@@ -9,7 +9,7 @@ require_once('lib/onyx.container.php');
  *
  * custom Active Record Database Pattern and simple validation
  *
- * Copyright (c) 2005-2020 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2005-2021 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -322,6 +322,8 @@ class Onyx_Db {
         if (preg_match('/[0-9]*,[0-9]*/', $limit)) {
             $limit = explode(',', $limit);
             $limit = " LIMIT {$limit[1]} OFFSET {$limit[0]}";
+        } else if (is_numeric($limit)) {
+            $limit = " LIMIT $limit";
         } else {
             $limit = '';
         }
