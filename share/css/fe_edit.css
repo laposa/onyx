@@ -47,13 +47,13 @@ span.mceEditorContainer select {width: auto;}
 /**
  * Display permission
  */
-.node.show-at-normal-login {border: 1px dotted red;}
-.node.hide-at-normal-login {border: 1px dotted green;}
-.node.show-at-trade-login {border: 1px solid red;}
-.node.hide-at-trade-login {border: 1px solid green;}
-.acl-in-use {border: 1px dotted red;}
-.node.not-public {border: 1px solid red;}
-.node.adaptive {border: 1px dashed #9933CC;}
+.onyx-fe-edit-node-container.show-at-normal-login {border: 1px dotted red;}
+.onyx-fe-edit-node-container.hide-at-normal-login {border: 1px dotted green;}
+.onyx-fe-edit-node-container.show-at-trade-login {border: 1px solid red;}
+.onyx-fe-edit-node-container.hide-at-trade-login {border: 1px solid green;}
+.onyx-fe-edit-node-container.acl-in-use {border: 1px dotted red;}
+.onyx-fe-edit-node-container.not-public {border: 1px solid red;}
+.onyx-fe-edit-node-container.adaptive {border: 1px dashed #9933CC;}
 
 /**
  * jQuery UI
