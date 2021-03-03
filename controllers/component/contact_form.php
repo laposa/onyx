@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2005-2020 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2005-2021 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -14,7 +14,7 @@ class Onyx_Controller_Component_Contact_Form extends Onyx_Controller {
         $this->enableReCaptcha = ONYX_RECAPTCHA_PUBLIC_KEY && ONYX_RECAPTCHA_PRIVATE_KEY;
 
         $formdata = $this->preProcessEmailForm($_POST['formdata']);
-        if (isset($_POST['send']) && $_POST['node_id'] == $this->GET['node_id']) {
+        if (is_array($formdata) && $_POST['node_id'] == $this->GET['node_id']) {
             $formdata = $this->processEmailForm($formdata);
         }
 
