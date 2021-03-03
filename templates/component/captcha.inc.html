@@ -1,12 +1,23 @@
 <!-- BEGIN: recaptcha_field -->
-<div id='recaptcha' class="g-recaptcha"
-     data-sitekey="{ONYX_RECAPTCHA_PUBLIC_KEY}"
-     data-callback="reCaptchaOnSubmit"
-     data-size="invisible"></div>
-<script src="https://www.google.com/recaptcha/api.js"></script>
+<input type="hidden" name="g-recaptcha-response" class="g-recaptcha-response">
 <script type="text/javascript">
-function reCaptchaOnSubmit(token) {
-  window.grecaptchaForm.submit();
-}
+  if (!window.injectReCaptchaToForm) {
+    // load recaptcha library only once
+    var script = document.createElement('script');
+    script.src = 'https://www.google.com/recaptcha/api.js?render={ONYX_RECAPTCHA_PUBLIC_KEY}';
+    document.head.append(script);
+
+    // inject recaptcha response to the form
+    window.injectReCaptchaToForm = function(form) {
+      grecaptcha.ready(function() {
+        grecaptcha.execute('{ONYX_RECAPTCHA_PUBLIC_KEY}', { action: 'submit' }).then(function(token) {
+          var input = form.getElementsByClassName('g-recaptcha-response')[0];
+          input.value = token;
+
+          form.submit();
+        });
+      });
+    }
+  }
 </script>
 <!-- END: recaptcha_field -->

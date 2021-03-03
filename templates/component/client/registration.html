@@ -7,8 +7,7 @@ $(document).ready(function(){
         onkeyup: false,
         submitHandler: function(form) {
             if (window.grecaptcha) {
-                window.grecaptchaForm = form;
-                grecaptcha.execute();
+                window.injectReCaptchaToForm(form);
                 return;
             }
 

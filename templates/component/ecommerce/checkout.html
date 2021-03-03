@@ -4,8 +4,7 @@ $(function(){
     $("#checkout-form").validate({
       submitHandler: function(form) {
         if (window.grecaptcha) {
-          window.grecaptchaForm = form;
-          grecaptcha.execute();
+          window.injectReCaptchaToForm(form);
           return;
         }
 

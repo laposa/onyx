@@ -12,13 +12,12 @@ $(document).ready(function(){
 			$(element).parent().parent().removeClass("error");
 		},
     submitHandler: function(form) {
-      if (window.grecaptcha) {
-        window.grecaptchaForm = form;
-        grecaptcha.execute();
-        return;
-      }
+        if (window.grecaptcha) {
+            window.injectReCaptchaToForm(form);
+            return;
+        }
 
-      form.submit();
+        form.submit();
     },
 	});
 });
