@@ -7,7 +7,8 @@ $(document).ready(function(){
         onkeyup: false,
         submitHandler: function(form) {
             if (window.grecaptcha) {
-                window.injectReCaptchaToForm(form);
+                window.grecaptchaForm = form;
+                grecaptcha.execute();
                 return;
             }
 
@@ -122,41 +123,7 @@ $(document).ready(function(){
 
     </fieldset>
 
-    <fieldset class="company-details">
-
-        <legend>{I18N_R_COMPANY_DETAILS}</legend>
-
-        <div class="row company-name">
-            <span class="label"><label for="client-company-name">{I18N_R_COMPANY_NAME}</label></span>
-            <span class="field"><input class="text" type="text" id="client-company-name" name="client[company][name]" value="{CLIENT.company.name|htmlspecialchars}"/></span>
-        </div>
-
-        <div class="row company-vat">
-            <span class="label"><label for="client-company-vat-no">{I18N_R_VAT_NO}</label></span>
-            <span class="field"><input class="text" type="text" id="client-company-vat-no" name="client[company][vat_no]" value="{CLIENT.company.vat_no|htmlspecialchars}"/></span>
-        </div>
-        <div class="row checkbox trade">
-            <span class="field"><input type="checkbox" id="client-customer-trade" name="client[customer][trade]" value="1" {CLIENT.customer.trade} /> <label for="client-customer-trade">{I18N_R_APPLY_FOR_TRADE}</label></span>
-        </div>
-
-        {FILE "component/captcha.inc.html"}
-
-    </fieldset>
-
-    <fieldset class="account-details">
-
-        <legend>{I18N_R_ACCOUNT_DETAILS}</legend>
-
-        <div class="row checkbox newsletter">
-            <span class="field"><input type="checkbox" class="checkbox" id="client-customer-newsletter" name="client[customer][newsletter]" value="1" {CLIENT.customer.newsletter} /> <label for="client-customer-newsletter">{I18N_R_NEWSLETTER}</label></span>
-        </div>
-
-        <div class="row currency">
-            <span class="label"><label for="client-customer-currency-code">{I18N_R_CURRENCY}</label></span>
-            <span class="field">{ONYX_REQUEST_currency #component/ecommerce/currency_switcher_inline}</span>
-        </div>
-
-    </fieldset>
+    {FILE "component/captcha.inc.html"}
 
     <div class="row submit">
         <span class="field"><button class="button register" type="submit"><span>{I18N_R_SUBMIT}</span></button></span>

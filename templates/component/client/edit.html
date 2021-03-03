@@ -48,28 +48,6 @@ $(document).ready(function(){
         </div>
     </fieldset>
     
-    <fieldset>
-        <legend>{I18N_R_COMPANY_DETAILS}</legend>
-        <div class="row company-name">
-            <span class="label"><label for="client-company-name">{I18N_R_COMPANY_NAME}</label></span>
-            <span class="field"><input class="text" type="text" id="client-company-name" name="client[company][name]" value="{CLIENT.company.name|htmlspecialchars}" title="If you register as a company, please enter here your company name" /></span>
-        </div>
-        <div class="row company-vat">
-            <span class="label"><label for="client-company-vat-no">{I18N_R_VAT_NO}</label></span>
-            <span class="field"><input class="text" type="text" id="client-company-vat-no" name="client[company][vat_no]" value="{CLIENT.company.vat_no|htmlspecialchars}" title="Please enter your company VAT number" /></span>
-        </div>
-    </fieldset>
-    
-    <fieldset>
-        <div class="row checbox newsletter">
-            <span class="field"><input type="checkbox" class="checkbox" id="client-customer-newsletter-id" name="client[customer][newsletter]" value="1" {CLIENT.customer.newsletter} /> <label for="client-customer-newsletter-id">{I18N_R_NEWSLETTER}</label></span> 
-        </div>
-        <div class="row currency">
-            <span class="label"><label for="client-customer-currency-code-id">{I18N_R_CURRENCY}</label></span>
-            <span class="field">{ONYX_REQUEST_2 #component/ecommerce/currency_switcher_inline}</span>
-        </div>
-    </fieldset>
-    
     <div class="row submit">
         <span class="field"><button class="button save" type="submit" name="save" value="save" title="Click to save your records"><span>{I18N_SAVE}</span></button></span>
     </div>
