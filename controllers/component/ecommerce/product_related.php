@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2006-2011 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2006-2021 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -69,8 +69,10 @@ class Onyx_Controller_Component_Ecommerce_Product_Related extends Onyx_Controlle
                 $product_list_template = 'product_list_4columns';
             break;
             case '3columns':
-            default:
                 $product_list_template = 'product_list_3columns';
+            break;
+            default:
+                $product_list_template = 'product_list_shelf';
             break;
         }
         
