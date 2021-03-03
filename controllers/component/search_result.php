@@ -29,14 +29,14 @@ class Onyx_Controller_Component_Search_Result extends Onyx_Controller {
                 $this->keywords = $this->getKeywords($query);
 
                 //TODO: $search_query = search::parse(htmlentities($query), 'UTF-8');
-                $hits = $index->find($search_query);
+                //TODO $hits = $index->find($search_query);
 
                 try {
                     // try fuzzy search if keyword search does not return anything
                     if (count($hits) == 0) {
                         $query = $query . '~0.6';
                         //TODO: $search_query = search::parse(htmlentities($query), 'UTF-8');
-                        $hits = $index->find($search_query);
+                        //TODO $hits = $index->find($search_query);
                     }               
                 } catch (Exception $e) {
                     $hits = array();
