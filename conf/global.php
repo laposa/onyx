@@ -2,7 +2,7 @@
 /**
  * Default Global Onyx configuration
  *
- * Copyright (c) 2005-2020 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2005-2021 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  * The constants defined here can be "overwritten" in project_dir/conf/global.php
@@ -344,6 +344,7 @@ if (!defined('ONYX_CDN_ALLOWED_TYPES')) define('ONYX_CDN_ALLOWED_TYPES', 'jpg, g
 
 if (!defined('ONYX_RECAPTCHA_PUBLIC_KEY')) define('ONYX_RECAPTCHA_PUBLIC_KEY', '');
 if (!defined('ONYX_RECAPTCHA_PRIVATE_KEY')) define('ONYX_RECAPTCHA_PRIVATE_KEY', '');
+if (!defined('ONYX_RECAPTCHA_MIN_SCORE')) define('ONYX_RECAPTCHA_MIN_SCORE', 0.5);
 
 /**
  * is backoffice user account required?

@@ -1025,7 +1025,12 @@ function verifyReCaptchaToken($token) {
             'body' => ['secret' => ONYX_RECAPTCHA_PRIVATE_KEY, 'response' => $token],
         ]);
         $response = $response->toArray();
-        return $response['success'];
+        if ($response['success']) {
+            if ($response['score'] < ONYX_RECAPTCHA_MIN_SCORE) return false;
+            else return true;
+        } else {
+            return false;
+        }
     } catch (Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface $e) {
         return false;
     }
