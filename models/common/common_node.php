@@ -2,7 +2,7 @@
 /**
  * class common_node
  *
- * Copyright (c) 2009-2020 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2009-2021 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -458,10 +458,28 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
     }
     
     /**
+     * get list of nodes and associated files
+     *
+     * @param array $filter
+     * @return array
+     */
+     
+    function getNodeListIncludingFiles($filter, $sort) {
+        
+        $node_list = $this->getNodeList($filter, $sort);
+
+        foreach ($node_list as $k=>$item) {
+            $node_list[$k]['files'] = $this->getFilesForNodeId($item['id']);
+        }
+
+        return $node_list;
+    }
+
+    /**
      * node detail
      *
-     * @param unknown_type $id
-     * @return unknown
+     * @param int $id
+     * @return array
      */
         
     function nodeDetail($id) {
@@ -488,6 +506,23 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
         self::$parentNodeIdCache[$id] = $node_data['parent'];
 
         return $node_data;
+    }
+
+    /**
+     * node detail including related files
+     *
+     * @param int $id
+     * @return array
+     */
+
+    public function getNodeDetailIncludingFiles($id) {
+
+        if (!is_numeric($id)) return false;
+
+        $detail = $this->nodeDetail($id);
+        $detail['files'] = $this->getFilesForNodeId($id);
+
+        return $detail;
     }
     
     /**
