@@ -1,7 +1,0 @@
-#!/bin/bash
-
-URL=$1;
-FILENAME=$2;
-
-xvfb-run -- wkhtmltopdf ${URL} ${FILENAME}
-

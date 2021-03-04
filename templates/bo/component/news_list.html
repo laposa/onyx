@@ -61,9 +61,7 @@ function refreshList() {
             <!-- END: item -->
         </tbody>
     </table>
-
-    <p><a class="button add" title="Add new article to {BLOG_SECTION.title|htmlspecialchars}" href="#" onclick="openAjaxRequestInDialog('/request/bo/component/news_add~blog_node_id={GET.blog_node_id}~', 'Create a news item for {BLOG_SECTION.title|htmlspecialchars|addslashes}'); return false"><span>Add a New Article</span></a></p>
     <!-- END: list -->
-
+    <p><a class="button add" title="Add new article to {BLOG_SECTION.title|htmlspecialchars}" href="#" onclick="openAjaxRequestInDialog('/request/bo/component/news_add~blog_node_id={GET.blog_node_id}:node_controller={GET.node_controller}~', 'Create a news item for {BLOG_SECTION.title|htmlspecialchars|addslashes}'); return false"><span>Add a New Article</span></a></p>
 </div>
 <!-- END: content -->

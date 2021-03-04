@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2010-2017 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2010-2021 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -40,6 +40,9 @@ class Onyx_Controller_Component_News_List extends Onyx_Controller_List {
         if (is_numeric($this->GET['blog_node_id'])) $blog_node_id = $this->GET['blog_node_id'];
         else if ($news_section_current = $this->Node->getCurrentNewsSectionId()) $blog_node_id = $news_section_current;
         else $blog_node_id = $this->Node->conf['id_map-blog'];
+
+        if (count_chars(trim($this->GET['node_controller'])) > 0) $node_controller = $this->GET['node_controller'];
+        else $node_controller = 'news';
 
         /**
          * check
@@ -107,14 +110,14 @@ class Onyx_Controller_Component_News_List extends Onyx_Controller_List {
         }
         
         $limit = "$limit_from,$limit_per_page";
-        
+
         /**
          * prepare filter
          */
          
         $filter = array(
             'node_group' => 'page',
-            'node_controller' => 'news',
+            'node_controller' => $node_controller,
             'parent' => $blog_node_id,
             'publish' => $publish,
             'created' => $created,

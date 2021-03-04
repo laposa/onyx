@@ -1,2 +1,0 @@
-#!/bin/sh
-/usr/bin/wget --no-check-certificate --append-output=$1 --debug -O - --cookies=on --keep-session-cookies --load-cookies $2 --save-cookies $3 "$4" $5

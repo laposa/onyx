@@ -272,37 +272,6 @@ if (!defined('ONYX_ALLOW_SCHEDULER')) define('ONYX_ALLOW_SCHEDULER', true);
 
 if (!defined('ONYX_ALLOW_SEARCH_INDEX_AUTOUPDATE')) define('ONYX_ALLOW_SEARCH_INDEX_AUTOUPDATE', false);
 
-/**
- * social: Facebook
- */
-
-if (!defined('ONYX_FACEBOOK_APP_ID')) define('ONYX_FACEBOOK_APP_ID', 0);
-if (!defined('ONYX_FACEBOOK_APP_SECRET')) define('ONYX_FACEBOOK_APP_SECRET', '');
-if (!defined('ONYX_FACEBOOK_APP_NAMESPACE')) define('ONYX_FACEBOOK_APP_NAMESPACE', '');
-if (!defined('ONYX_FACEBOOK_APP_OG_STORIES')) define('ONYX_FACEBOOK_APP_OG_STORIES', '');
-if (!defined('ONYX_FACEBOOK_OG_IMAGE')) define('ONYX_FACEBOOK_OG_IMAGE', 'var/files/favicon.ico');
-// Canvas Facebook Page is defined by APP_NAMESPACE
-define('ONYX_FACEBOOK_CANVAS_PAGE', 'https://apps.facebook.com/' . ONYX_FACEBOOK_APP_NAMESPACE);
-// determine environment (desktop vs mobile)
-if (($_POST['signed_request'] && $_POST['fb_locale'])) define('ONYX_FACEBOOK_ENV', 'desktop');
-else if ($_GET['ref'] == 'web_canvas') define('ONYX_FACEBOOK_ENV', 'mobile');
-else define('ONYX_FACEBOOK_ENV', '');
-// determine if we are running under Facebook App
-if (ONYX_FACEBOOK_ENV == 'desktop' || ONYX_FACEBOOK_ENV == 'mobile') define('ONYX_FACEBOOK_WITHIN_APP', true);
-else define('ONYX_FACEBOOK_WITHIN_APP', false);
-if (ONYX_FACEBOOK_WITHIN_APP) define('ONYX_FACEBOOK_AUTH', true);
-else define('ONYX_FACEBOOK_AUTH', false);
-
-/**
- * social: Twitter
- */
-
-if (!defined('ONYX_TWITTER_APP_ID')) define('ONYX_TWITTER_APP_ID', '');
-if (!defined('ONYX_TWITTER_APP_SECRET')) define('ONYX_TWITTER_APP_SECRET', '');
-if (!defined('ONYX_TWITTER_USERNAME')) define('ONYX_TWITTER_USERNAME', 'onyx');
-if (!defined('ONYX_TWITTER_HASHTAG')) define('ONYX_TWITTER_HASHTAG', ''); //without hash
-if (!defined('ONYX_TWITTER_ACCESS_TOKEN')) define('ONYX_TWITTER_ACCESS_TOKEN', '');
-if (!defined('ONYX_TWITTER_ACCESS_TOKEN_SECRET')) define('ONYX_TWITTER_ACCESS_TOKEN_SECRET', '');
 
 /**
  * pagination
@@ -383,7 +352,6 @@ if (!defined('ONYX_SIMPLE_TRANSLATION_ENABLED')) define('ONYX_SIMPLE_TRANSLATION
 
 $onyx_pre_actions = array("autologin", "locales");
 if (ONYX_ALLOW_SCHEDULER) $onyx_pre_actions[] = "scheduler";
-if (ONYX_FACEBOOK_AUTH) $onyx_pre_actions[] = 'component/client/facebook_auth';
 
 /**
  * CSRF protection
