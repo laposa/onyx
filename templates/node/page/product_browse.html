@@ -16,28 +16,7 @@
                     <div class="row-wrapper">
                         <div class="column-wrapper">
                             {CONTAINER.0}
-                        </div>
-                    </div>
-                </div>
-                <div class="row-middle">
-                    <div class="row-wrapper">
-                        <div class="column-one">
-                            <div class="column-wrapper">
-                                {CONTAINER.1}
-                            </div>
-                        </div>
-                        <div class="column-two">
-                            <div class="column-wrapper">
-                                {CONTAINER.2}
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row-bottom">
-                    <div class="row-wrapper">
-                        <div class="column-wrapper">
-                            {ONYX_REQUEST_product_list #component/ecommerce/product_list~id=GET.id:display_sorting=1~}
-                            {CONTAINER.3}
+                            {ONYX_REQUEST_product_list #component/ecommerce/product_list~node_id=GET.id:display_sorting=1~}
                         </div>
                     </div>
                 </div>

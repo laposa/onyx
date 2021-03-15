@@ -62,17 +62,12 @@ class Onyx_Controller_Component_Ecommerce_Product_Related extends Onyx_Controlle
         
         switch ($this->GET['product_list_template']) {
         
-            case '2columns':
-                $product_list_template = 'product_list_2columns';
-            break;
-            case '4columns':
-                $product_list_template = 'product_list_4columns';
-            break;
-            case '3columns':
-                $product_list_template = 'product_list_3columns';
-            break;
-            default:
+            case 'shelf':
                 $product_list_template = 'product_list_shelf';
+            break;
+            case 'stack':
+            default:
+                $product_list_template = 'product_list_stack';
             break;
         }
         

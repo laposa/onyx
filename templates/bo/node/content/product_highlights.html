@@ -34,34 +34,7 @@ $(function() {
     </div>
 </div>
 
-{FILE "bo/node/form_open.html"}
-
-<div class="two-column-layout fibonacci-1-1">
-    <div class="layout-column-one of-two">
-        <fieldset>
-            {FILE "bo/node/item_title.html"}
-            {FILE "bo/node/item_display_title.html"}
-            <div class="advanced">
-            {FILE "bo/node/item_page_title.html"}
-            {FILE "bo/node/item_uri_title.html"}
-            {FILE "bo/node/item_browser_title.html"}
-            {FILE "bo/node/item_strapline.html"}
-            {FILE "bo/node/item_description.html"}
-            </div>
-        </fieldset>
-    </div>
-    <div class="layout-column-two of-two">
-        <fieldset class="advanced">
-            {FILE "bo/node/item_image_list.html"}
-        </fieldset>
-        <fieldset>
-            <div class="advanced">
-            {FILE "bo/node/item_layout_style.html"}
-            </div>
-            {FILE "bo/node/item_css_class.html"}
-        </fieldset>
-    </div>
-</div>
+{FILE "bo/node/content/default_top.html"}
 
 <div class="two-column-layout fibonacci-1-1">
     <div class="layout-column-one of-two">
@@ -71,12 +44,6 @@ $(function() {
                 <span class="field">
                     <select name="node[component][template]">
                         <option value="1col" {SELECTED_template_1col}>1 Column</option>
-                        <option value="2col" {SELECTED_template_2col}>2 Columns</option>
-                        <option value="3col" {SELECTED_template_3col}>3 Columns</option>
-                        <option value="4col" {SELECTED_template_4col}>4 Columns</option>
-                        <option value="5col" {SELECTED_template_5col}>5 Columns</option>
-                        <option value="6col" {SELECTED_template_6col}>6 Columns</option>
-                        <option value="scroll" {SELECTED_template_scroll}>Scroll</option>
                         <option value="stack" {SELECTED_template_stack}>Stacked List</option>
                     </select>
                 </span>
@@ -169,5 +136,5 @@ $(function() {
     </div>
 </fieldset>
 
-{FILE "bo/node/default_bottom.html"}
+{FILE "bo/node/content/default_bottom.html"}
 <!-- END: content -->
