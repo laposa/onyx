@@ -426,7 +426,7 @@ function php_multisort($data,$keys){
     $i=0;
     foreach ($keys as $k){
         if($i>0){$sort.=',';}
-        $sort.='$cols['.$k['key'].']';
+        $sort.="\$cols['".$k['key']."']";
         if($k['sort']){$sort.=',SORT_'.strtoupper($k['sort']);}
         if($k['type']){$sort.=',SORT_'.strtoupper($k['type']);}
         $i++;
