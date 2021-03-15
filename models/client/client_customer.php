@@ -2,7 +2,7 @@
 /**
  * class client_customer
  * 
- * Copyright (c) 2009-2020 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2009-2021 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -341,6 +341,8 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
      
     function prepareToRegister($customer_data) {
         
+        if (!is_array($customer_data)) return false;
+        
         //make email and username lowercase to avoid duplications
         $customer_data['email'] = strtolower($customer_data['email']);
         $customer_data['username'] = strtolower($customer_data['username']);
@@ -350,7 +352,11 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
         $customer_data['delivery_address_id'] = 0;
         $customer_data['created'] = date('c');
         $customer_data['modified'] = date('c');
-        if ($customer_data['status'] != 5) $customer_data['status'] = 1; // set as standard account except the guest account
+        if (empty(trim($customer_data['password']))) {
+            $customer_data['status'] = 5; // guest account
+        } else {
+            $customer_data['status'] = 1; // standard account
+        }
         $customer_data['other_data'] = serialize($customer_data['other_data']);
         if (!is_numeric($customer_data['account_type'])) $customer_data['account_type'] = 0;
         $customer_data['agreed_with_latest_t_and_c'] = 1;
@@ -480,6 +486,17 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
     public function isSocialAccount($customer_data) {
     
         if (is_numeric($customer_data['facebook_id']) || is_numeric($customer_data['twitter_id']) || is_numeric($customer_data['google_id'])) return true;
+        else return false;
+        
+    }
+
+    /**
+     * isGuestAccount
+     */
+     
+    public function isGuestAccount($customer_data) {
+    
+        if ($customer_data['status'] == 5) return true;
         else return false;
         
     }

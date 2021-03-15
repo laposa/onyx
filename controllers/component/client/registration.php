@@ -2,7 +2,7 @@
 /**
  * Registration controller
  *
- * Copyright (c) 2005-2016 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2005-2021 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -81,12 +81,12 @@ class Onyx_Controller_Component_Client_Registration extends Onyx_Controller {
                 return false;
             }
         }
-
+        
         // check validation of submited fields
-        if ($this->Customer->prepareToRegister($client_customer) && $password_match_status) {
+        $client_customer = $this->Customer->prepareToRegister($client_customer);
 
-            // when required some other step for registering, store fields in session
-            // $_SESSION['r_client'] = $_POST['client'];
+        if ($client_customer && $password_match_status) {
+            
             if (is_array($client_address) && trim($client_address['delivery']['name']) == '') {
                 $client_address['delivery']['name'] = "{$client_customer['title_before']} {$client_customer['first_name']} {$client_customer['last_name']}";
             }
@@ -99,11 +99,9 @@ class Onyx_Controller_Component_Client_Registration extends Onyx_Controller {
                 msg(str_replace('%s', $id, I18N_COMPONENT_CLIENT_REGISTRATION_SUCCESS));
 
                 // login
-                if ($this->Customer->isSocialAccount($client_customer)) {
-                    //msg("social account", 'ok', 1);
+                if ($this->Customer->isSocialAccount($client_customer) || $this->Customer->isGuestAccount($client_customer)) {
                     $this->login($client_customer['email']);
                 } else {
-                    //msg("not social account", 'ok', 1);
                     $this->login($client_customer['email'], $client_customer['password']);
                 }
 

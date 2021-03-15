@@ -51,17 +51,18 @@ $(document).ready(function(){
     </fieldset>
 
     <!-- BEGIN: password -->
-    <fieldset class="password">
+    <p><a href="#" onclick="$('fieldset.password').slideToggle(); return false;">Do you want to create an account?</a></p>
+    <fieldset class="password" style="display: none;">
 
         <legend>{I18N_R_CHOOSE_YOUR_PASSWORD}</legend>
 
         <div class="row password">
-            <span class="label"><label for="client-customer-password"><span class="mandatory-mark">*</span> {I18N_R_PASSWORD}</label></span>
+            <span class="label"><label for="client-customer-password">{I18N_R_PASSWORD}</label></span>
             <span class="field"><input class="required text" type="password" id="client-customer-password" name="client[customer][password]" value="" /></span>
         </div>
 
         <div class="row password1">
-            <span class="label"><label for="client-customer-password1"><span class="mandatory-mark">*</span> {I18N_R_CONFIRM_PASSWORD}</label></span>
+            <span class="label"><label for="client-customer-password1">{I18N_R_CONFIRM_PASSWORD}</label></span>
             <span class="field"><input class="required text" type="password" id="client-customer-password1" name="client[customer][password1]" value="" /></span>
         </div>
 
