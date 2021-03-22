@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2015-2017 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2015-2021 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -31,10 +31,9 @@ class Onyx_Controller_Node_Content_Page_List extends Onyx_Controller_Node_Conten
 
         $content = '';
         $node_ids = $node_data['component']['node_ids'];
-        $template = $node_data['component']['template'];
         $link_text = $node_data['component']['link_text'];
         
-        $_Onyx_Request = new Onyx_Request("component/page_list_$template~node_ids={$node_ids}:link_text=$link_text:image_width={$image_o['width']}:image_height={$image_o['height']}:image_fill={$image_o['fill']}~");
+        $_Onyx_Request = new Onyx_Request("component/page_list~node_ids={$node_ids}:link_text=$link_text:image_width={$image_o['width']}:image_height={$image_o['height']}:image_fill={$image_o['fill']}~");
         $content = $_Onyx_Request->getContent();
 
         /**
