@@ -11,21 +11,7 @@
 <fieldset>
     <div class="row">
         <label>*Limit:</label>
-        <input class="number" type="text" name="node[component][limit]" value="{NODE.component.limit}" />
-    </div>
-    <div class="row">
-        <label>* Type:</label>
-        <select name="node[component][template]">
-            <option value="latest" {SELECTED_template_latest}>latest (simple list)</option>
-            <option value="teaser" {SELECTED_template_teaser}>teaser (shelf)</option>
-            <option value="grid" {SELECTED_template_grid}>grid</option>
-            <option value="stack" {SELECTED_template_stack}>stack</option>
-            <option value="full" {SELECTED_template_full}>full</option>
-        </select>
-    </div>
-    
-    <div class="row">
-        {FILE "bo/node/item_image_properties.html"}
+        <input class="number short" type="text" name="node[component][limit]" value="{NODE.component.limit}" />
     </div>
     
     <div class="row">
@@ -33,7 +19,7 @@
     </div>
     
     <div id="news_list">
-        {ONYX_REQUEST_list #bo/component/news_list~id=GET.id~}
+        {ONYX_REQUEST_list #bo/component/news_list~id=GET.id:pagination=1~}
     </div>
 </fieldset>
 

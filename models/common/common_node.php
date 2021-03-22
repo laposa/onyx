@@ -469,6 +469,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
         $node_list = $this->getNodeList($filter, $sort);
 
         foreach ($node_list as $k=>$item) {
+            $node_list[$k] = $this->unpackDetail($item);
             $node_list[$k]['files'] = $this->getFilesForNodeId($item['id']);
         }
 
@@ -491,6 +492,25 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
             return false;
         }
         
+        $node_data = $this->unpackDetail($node_data);
+
+        // store parent into static variable, for caching
+        self::$parentNodeIdCache[$id] = $node_data['parent'];
+
+        return $node_data;
+    }
+
+    /**
+     * unpack details
+     *
+     * @param array $node_data
+     * @return array
+     */
+
+    public function unpackDetail($node_data) {
+
+        if (!is_array($node_data)) return false;
+
         $node_data['author_detail'] = $this->getAuthorDetailbyId($node_data['customer_id']);
     
         $node_data['other_data'] = unserialize(trim($node_data['other_data']));
@@ -502,12 +522,9 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
         //overwrite author (allowed in bo/node/news edit interface)
         if (is_array($node_data['component']) && $node_data['component']['author'] != '') $node_data['author_detail']['name'] = $node_data['component']['author'];
 
-        // store parent into static variable, it may because handy
-        self::$parentNodeIdCache[$id] = $node_data['parent'];
-
         return $node_data;
     }
-
+    
     /**
      * node detail including related files
      *
@@ -519,8 +536,8 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
 
         if (!is_numeric($id)) return false;
 
-        $detail = $this->nodeDetail($id);
-        $detail['files'] = $this->getFilesForNodeId($id);
+        $node_data = $this->nodeDetail($id);
+        $node_data['files'] = $this->getFilesForNodeId($id);
 
         return $detail;
     }

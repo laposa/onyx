@@ -64,30 +64,6 @@ class Onyx_Controller_Node_Content_News_List extends Onyx_Controller_Node_Conten
         }
         
         /**
-         * template
-         */
-        
-        switch ($node_data['component']['template']) {
-        
-            case 'full';
-                $template = 'news_list';
-            break;
-            case 'teaser';
-                $template = 'news_list_teaser';
-            break;
-            case 'grid';
-                $template = 'news_list_grid';
-            break;
-            case 'stack';
-                $template = 'news_list_stack';
-            break;
-            case 'latest';
-            default:
-                $template = 'news_list_latest';
-            break;
-        }
-        
-        /**
          * pagination
          */
          
@@ -107,7 +83,7 @@ class Onyx_Controller_Node_Content_News_List extends Onyx_Controller_Node_Conten
          * call controller
          */
         
-        $_Onyx = new Onyx_Request("component/$template~blog_node_id=$blog_node_id:id=$node_id:limit_from=$limit_from:limit_per_page=$limit_per_page:display_pagination=$display_pagination:publish=1:taxonomy_tree_id={$taxonomy_tree_id}:image_width={$image_o['width']}:image_height={$image_o['height']}:image_fill={$image_o['fill']}~");
+        $_Onyx = new Onyx_Request("component/news_list~blog_node_id=$blog_node_id:id=$node_id:limit_from=$limit_from:limit_per_page=$limit_per_page:display_pagination=$display_pagination:publish=1:taxonomy_tree_id={$taxonomy_tree_id}:image_width={$image_o['width']}:image_height={$image_o['height']}:image_fill={$image_o['fill']}~");
         $this->tpl->assign('NEWS_LIST', $_Onyx->getContent());
         
         $this->tpl->assign('NODE', $node_data);
