@@ -272,7 +272,7 @@ define('I18N_R_VAT_NO', 'VAT no.');
 define('I18N_R_ACCOUNT_DETAILS', 'Account details');
 define('I18N_R_NEWSLETTER', 'Sign up to our \'Free\' Newsletter');
 define('I18N_R_CURRENCY', 'Prefered currency');
-define('I18N_R_SUBMIT', 'Create Account');
+define('I18N_R_SUBMIT', 'Submit');
 define('I18N_R_APPLY_FOR_TRADE', 'Apply for trade account');
 //component/client/registration_start.html
 //component/client/login_or_register.html
