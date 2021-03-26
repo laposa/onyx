@@ -26,25 +26,17 @@
     <!-- END: page_header -->
     
     <div class="content">
-        {CONTAINER.0}
         <div class="wrapper">
             {NODE.content}
         </div>
     </div>
     
-    <!-- BEGIN: comment -->
-    <section class="layout comment" id="comment">
-        <div class="wrapper">
-            <h2 class="layout-title"><span>{I18N_COMMENT_HEAD}</span></h2>
-            {COMMENT}
-        </div>
-    </section>
-    <!-- END: comment -->
+    {CONTAINER.0}
     
     <section class="layout related-articles">
         <div class="wrapper">
             <h2 class="layout-title">More Like This</h2>
-            {ONYX_REQUEST_news_list_teaser #component/news_list_stack~node_id=GET.id:blog_node_id=GET.parent_id:publish=1:limit_from=0:limit_per_page=3:display_teaser_image=true:image_width=300:image_height=300~}
+            {ONYX_REQUEST_news_list_teaser #component/news_list_related~node_id=GET.id:blog_node_id=GET.parent_id:publish=1:limit_from=0:limit_per_page=3:display_teaser_image=true:image_width=300:image_height=300~}
         </div>
     </section>
 </article>

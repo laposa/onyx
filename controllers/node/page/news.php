@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2006-2012 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2006-2021 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -28,13 +28,6 @@ class Onyx_Controller_Node_Page_News extends Onyx_Controller_Node_Page_Default {
         //parent page is blog article container
         $blog_node_id = $node_data['parent'];
         $this->tpl->assign('BLOG_NODE_ID', $blog_node_id);
-        
-        //show comments only when enabled
-        if ($node_data['component']['allow_comment'] == 1) {
-            $_Onyx_Request = new Onyx_Request("component/comment~node_id={$node_id}:allow_anonymouse_submit=1~");
-            $this->tpl->assign("COMMENT", $_Onyx_Request->getContent());
-            $this->tpl->parse("content.comment");
-        }
         
         /**
          * empty author helper class
