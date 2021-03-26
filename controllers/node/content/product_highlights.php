@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2006-2015 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2006-2021 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -82,24 +82,6 @@ class Onyx_Controller_Node_Content_Product_Highlights extends Onyx_Controller_No
             
                 case 'stack':
                     $controller = 'product_list_stack';
-                    break;
-                case 'scroll':
-                    $controller = 'product_list_scroll';
-                    break;
-                case '6col':
-                    $controller = 'product_list_6columns';
-                    break;
-                case '5col':
-                    $controller = 'product_list_5columns';
-                    break;
-                case '4col':
-                    $controller = 'product_list_4columns';
-                    break;
-                case '3col':
-                    $controller = 'product_list_3columns';
-                    break;
-                case '2col':
-                    $controller = 'product_list_2columns';
                     break;
                 case '1col':
                 default:

@@ -4,7 +4,7 @@
         <div class="list">
             <!-- BEGIN: item --><div class="item {ITEM.taxonomy_class} news-id-{ITEM.id}">
                 <a href="/page/{ITEM.id}">
-                    <div class="image"><!-- BEGIN: image --><span class="wrap"><img alt="{ITEM.image.title|htmlspecialchars}" title="{ITEM.image.title|htmlspecialchars}" src="{IMAGE_PATH}{ITEM.image.src}{IMAGE_RESIZE_OPTIONS}" /></span><!-- END: image --></div>
+                    <div class="image"><!-- BEGIN: image --><span class="wrap"><img alt="{ITEM.image.title|htmlspecialchars}" title="{ITEM.image.title|htmlspecialchars}" src="/thumbnail/600x400/{ITEM.image.src}?fill=1" /></span><!-- END: image --></div>
                     <div class="info">
                         <div class="wrap">
                             <h4 class="title"><span>{ITEM.title|htmlspecialchars}</span></h4>

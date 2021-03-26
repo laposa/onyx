@@ -2,24 +2,26 @@
 <div class="product-list-shelf product-list image-role-{IMAGE_ROLE}">
 	<div class="sorting">{SORTING}</div>
 
-	<!-- BEGIN: item -->
-	<div class="item {ITEM.odd_even_class} {ITEM.first_last_class} {ITEM.taxonomy_class} product-id-{ITEM.id}">
-		<div class="image">
-			<a href="/page/{ITEM.node_id}" title="{ITEM.product_name|htmlspecialchars}"><span class="roundel"></span><img src="/thumbnail/600x600/{ITEM.image_src}" alt="{ITEM.image_title|htmlspecialchars}" /></a>
-		</div>
-		<div class="text">
-			<h3 class="name"><a href="/page/{ITEM.node_id}"><span>{ITEM.product_name|htmlspecialchars}</span></a></h3>
-			<div class="teaser">{ITEM.product_teaser}</div>
-			<div class="detail">
-				<p class="price">
-					<!-- BEGIN: price_single -->{ITEM.price|money_format('%n', %s)}<!-- END: price_single -->
-					<!-- BEGIN: price_range -->From {ITEM.price_min|money_format('%n', %s)} to {ITEM.price_max|money_format('%n', %s)}<!-- END: price_range -->
-				</p>
-				<a class="button more-details" href="/page/{ITEM.node_id}" title="{ITEM.product_name|htmlspecialchars}"><span>{I18N_MORE_DETAILS}</span></a>
+	<div class="items">
+		<!-- BEGIN: item -->
+		<div class="item {ITEM.odd_even_class} {ITEM.first_last_class} {ITEM.taxonomy_class} product-id-{ITEM.id}">
+			<div class="image">
+				<a href="/page/{ITEM.node_id}" title="{ITEM.product_name|htmlspecialchars}"><span class="roundel"></span><img src="/thumbnail/600x600/{ITEM.image_src}" alt="{ITEM.image_title|htmlspecialchars}" /></a>
+			</div>
+			<div class="text">
+				<h3 class="name"><a href="/page/{ITEM.node_id}"><span>{ITEM.product_name|htmlspecialchars}</span></a></h3>
+				<div class="teaser">{ITEM.product_teaser}</div>
+				<div class="detail">
+					<p class="price">
+						<!-- BEGIN: price_single -->{ITEM.price|money_format('%n', %s)}<!-- END: price_single -->
+						<!-- BEGIN: price_range -->From {ITEM.price_min|money_format('%n', %s)} to {ITEM.price_max|money_format('%n', %s)}<!-- END: price_range -->
+					</p>
+					<a class="button more-details" href="/page/{ITEM.node_id}" title="{ITEM.product_name|htmlspecialchars}"><span>{I18N_MORE_DETAILS}</span></a>
+				</div>
 			</div>
 		</div>
+		<!-- END: item -->
 	</div>
-	<!-- END: item -->
 
 	<div class="pagination">{PAGINATION}</div>
 </div>

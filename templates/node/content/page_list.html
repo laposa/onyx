@@ -1,9 +1,19 @@
 <!-- BEGIN: content -->
-<div id="node-id-{NODE.id}" class="content page-list {NODE.component.template|preg_replace('/_/', '-', %s)}-list {NODE.css_class} {NODE.taxonomy_class}">
+<div id="node-id-{NODE.id}" class="content page-list {NODE.css_class} {NODE.taxonomy_class}">
     <div class="wrapper">
         <!-- BEGIN: title --><h3 class="content-title"><span>{NODE.title|htmlspecialchars}</span></h3><!-- END: title -->
         <div class="content-body">
-            {CONTENT}
+            <!-- BEGIN: item --><div class="item {ITEM.taxonomy_class} node-id-{ITEM.id}">
+                <a href="/page/{ITEM.id}">
+                    <div class="image"><img alt="{ITEM.image.title|htmlspecialchars}" title="{ITEM.image.title|htmlspecialchars}" src="/thumbnail/600x400/{ITEM.image.src}?fill=1" /></div>
+                    <div class="info">
+                        <div class="wrap">
+                            <h4 class="title"><span>{ITEM.title|htmlspecialchars}</span></h4>
+                            <div class="description">{ITEM.description|htmlspecialchars}</div>
+                        </div>
+                    </div>
+                </a>
+            </div><!-- END: item -->
         </div>
     </div>
 </div>
