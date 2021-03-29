@@ -26,24 +26,13 @@
     {FILE "bo/node/item_image_list.html"}
 </fieldset>
 
-<script type="text/javascript">
-function hookNodeEditPostUpdate() {
-    opener.window.location.reload(true);
-}
-</script>
 
     <fieldset>
-        
-        <div class="row">
-            {FILE "bo/node/item_image_properties_main.html"}
-        </div>
         
         <div class="row">
             <label>* Type:</label>
             <select name="node[component][template]">
                 <optgroup label="Built-In">
-                    <option value="fancybox" {SELECTED_template_fancybox}>Fancybox (Lightbox)</option>
-                    <option value="cycle2" {SELECTED_template_cycle2}>Cycle2</option>
                     <option value="plain" {SELECTED_template_plain}>plain</option>
                 </optgroup>
                 <!-- BEGIN: local_templates -->

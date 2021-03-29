@@ -4,7 +4,7 @@
     <figure class="image-id-{ITEM.id}">
         <!-- BEGIN: link -->
         <a href="/page/{ITEM.link_to_node_id}">
-            <img id="image-id-{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" />
+            <img id="image-id-{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="/image/{ITEM.src}" />
             <figcaption>
                 <h4>{ITEM.title|htmlspacialchars}</h4>
                 <p>{ITEM.description|htmlspecialchars|nl2br}</p>
@@ -13,7 +13,7 @@
         </a>
         <!-- END: link -->
         <!-- BEGIN: normal -->
-        <img id="image-id-{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="{ITEM.path}{ITEM.src}{IMAGE_RESIZE_OPTIONS}" />
+        <img id="image-id-{ITEM.id}" alt="{ITEM.title|htmlspecialchars}" title="{ITEM.title|htmlspecialchars}" src="/image/{ITEM.src}" />
         <figcaption>
             <h3>{ITEM.title|htmlspacialchars}</h3>
             <p>{ITEM.description|htmlspecialchars|nl2br}</p>
