@@ -4,7 +4,7 @@
     <div class="list">
         <!-- BEGIN: item --><div class="item {ITEM.taxonomy_class} product-id-{ITEM.id}">
             <a href="/page/{ITEM.node_id}">
-                <div class="image"><span class="roundel"></span><span class="wrap"><img alt="{ITEM.image.title|htmlspecialchars}" title="{ITEM.image.title|htmlspecialchars}" src="/thumbnail/600x600/{IMAGE_PATH}{ITEM.image_src}{IMAGE_RESIZE_OPTIONS}" /></span></div>
+                <div class="image"><span class="roundel"></span><span class="wrap"><img alt="{ITEM.image.title|htmlspecialchars}" title="{ITEM.image.title|htmlspecialchars}" src="/thumbnail/600x600/{ITEM.image_src}?gravity=north" /></span></div>
                 <div class="info">
                     <div class="wrap">
                         <h4 class="title"><span>{ITEM.product_name|htmlspecialchars}</span></h4>
