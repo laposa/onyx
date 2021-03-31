@@ -158,7 +158,7 @@ if (!defined('ONYX_SESSION_NAME')) define('ONYX_SESSION_NAME', 'OnyxSID');
  * if false, session will start only if necessary
  */
 
-if (!defined('ONYX_SESSION_START_FOR_ALL_USERS')) define('ONYX_SESSION_START_FOR_ALL_USERS', true);
+if (!defined('ONYX_SESSION_START_FOR_ALL_USERS')) define('ONYX_SESSION_START_FOR_ALL_USERS', false);
 
 /**
  * Layout settings
