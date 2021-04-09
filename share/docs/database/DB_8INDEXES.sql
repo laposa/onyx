@@ -35,6 +35,8 @@ CREATE INDEX ecommerce_product_product_type_id_idx ON ecommerce_product (product
 CREATE INDEX ecommerce_product_publish_idx ON ecommerce_product (publish);
 
 CREATE INDEX ecommerce_product_variety_product_id_idx ON ecommerce_product_variety (product_id);
+CREATE INDEX ecommerce_product_variety_product_ean13_idx ON ecommerce_product_variety(ean13);
+CREATE INDEX ecommerce_product_variety_product_upc_idx ON ecommerce_product_variety(upc);
 
 CREATE INDEX ecommerce_price_product_variety_id_idx ON ecommerce_price (product_variety_id);
 CREATE INDEX ecommerce_price_currency_code_idx ON ecommerce_price (currency_code);

@@ -5645,12 +5645,25 @@ ALTER TABLE ONLY ecommerce_product_type
 
 
 --
--- Name: ecommerce_product_variety_code_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+-- Name: ecommerce_product_variety_sku_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY ecommerce_product_variety
     ADD CONSTRAINT ecommerce_product_variety_code_key UNIQUE (sku);
 
+--
+-- Name: ecommerce_product_variety_ean13_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY ecommerce_product_variety
+    ADD CONSTRAINT ecommerce_product_variety_ean13_key UNIQUE (ean13);
+
+--
+-- Name: ecommerce_product_variety_upc_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
+--
+
+ALTER TABLE ONLY ecommerce_product_variety
+    ADD CONSTRAINT ecommerce_product_variety_upc_key UNIQUE (upc);
 
 --
 -- Name: ecommerce_product_variety_image_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 

@@ -2,7 +2,7 @@
 /**
  * class ecommerce_product_variety
  *
- * Copyright (c) 2009-2011 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2009-2021 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -141,6 +141,8 @@ class ecommerce_product_variety extends Onyx_Model {
             modified timestamp(0) without time zone DEFAULT now() NOT NULL,
             publish smallint DEFAULT 0 NOT NULL,
             display_permission integer NOT NULL DEFAULT 0,
+            ean13 character varying(255),
+            upc character varying(255),
             condition smallint NOT NULL DEFAULT 0,
             wholesale smallint,
             reward_points integer,
@@ -149,6 +151,8 @@ class ecommerce_product_variety extends Onyx_Model {
         );
 
         ALTER TABLE ecommerce_product_variety ADD UNIQUE (\"sku\");
+        ALTER TABLE ecommerce_product_variety ADD UNIQUE (\"ean13\");
+        ALTER TABLE ecommerce_product_variety ADD UNIQUE (\"upc\");
         ";
         
         return $sql;
