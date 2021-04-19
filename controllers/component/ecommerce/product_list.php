@@ -128,10 +128,10 @@ class Onyx_Controller_Component_Ecommerce_Product_List extends Onyx_Controller_L
                 } else if ($item['variety_id'] != $product_list[$item['product_id']]['variety_id']) {
 
                     // existing item, but different variety
-                    if ($item['price'] > $product_list[$item['product_id']]['price']) {
+                    if ($item['price'] > $product_list[$item['product_id']]['price_max']) {
                         // save max price
                         $product_list[$item['product_id']]['price_max'] = $item['price'];
-                    } else if ($item['price'] < $product_list[$item['product_id']]['price']) {
+                    } else if ($item['price'] < $product_list[$item['product_id']]['price_min']) {
                         // save min price
                         $product_list[$item['product_id']]['price_min'] = $item['price'];
                     }
