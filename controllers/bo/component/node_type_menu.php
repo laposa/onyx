@@ -1,7 +1,7 @@
 <?php
 /** 
  *
- * Copyright (c) 2009-2013 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2009-2021 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -241,13 +241,13 @@ class Onyx_Controller_Bo_Component_Node_Type_Menu extends Onyx_Controller_Compon
     public function retrieveTemplateInfo() {
     
         //include always general
-        require_once(ONYX_DIR . "conf/node_type.php");
+        require(ONYX_DIR . "conf/node_type.php");
         $templates_info_onyx = $templates_info;
         
         //local overwrites/extensions
         if (file_exists(ONYX_PROJECT_DIR . "conf/node_type.php")) {
             $templates_info = false;
-            require_once(ONYX_PROJECT_DIR . "conf/node_type.php");
+            require(ONYX_PROJECT_DIR . "conf/node_type.php");
         }
         
         //merge
