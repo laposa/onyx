@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2013-2016 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2013-2021 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -64,10 +64,6 @@ class Onyx_Controller_Bo_Node_Content_Survey extends Onyx_Controller_Bo_Node_Con
 
         // limit dropdown   
         $this->tpl->assign("SELECTED_limit_{$this->node_data['component']['limit']}", "selected='selected'");
-
-        $this->tpl->assign("SPAM_PROTECTION", array(
-            'captcha_text_js' => ($this->node_data['component']['spam_protection'] == 'captcha_text_js' ? 'selected="selected"' : '')
-        ));
 
     }
 }

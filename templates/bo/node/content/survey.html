@@ -47,13 +47,6 @@
             <option value="to_ip_address" {SELECTED_restriction_to_ip_address}>to IP address</option>
         </select>
     </div>
-    <div class="row">
-        <label for="component-captcha">Anti-spam protection (CAPTCHA):</label>
-        <select id="component-captcha" name="node[component][spam_protection]">
-            <option value="captcha_text_js" {SPAM_PROTECTION.captcha_text_js}>Invisible field</option>
-            <option value="none">None</option>
-        </select>
-    </div>
     <div class="row checkbox">
         <input type="checkbox" id="component-require-user-details" name="node[component][require_user_details]" {NODE.component.require_user_details} /> <label for="component-require-user-details">Require user details (or login)</label>
     </div>

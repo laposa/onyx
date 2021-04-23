@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2011-2019 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2011-2021 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -27,6 +27,9 @@ class Onyx_Controller_Component_Survey extends Onyx_Controller {
             return false;
         }
 
+        // check if spam protection is available
+        $this->enableReCaptcha = ONYX_RECAPTCHA_PUBLIC_KEY && ONYX_RECAPTCHA_PRIVATE_KEY;
+        
         // determine if we'll show the results (stats)
         if (is_numeric($this->GET['display_results'])) {
 
@@ -69,7 +72,7 @@ class Onyx_Controller_Component_Survey extends Onyx_Controller {
                  * Save on request
                  */
                 
-                if ($this->checkVoteEligibility($survey_id) && $_POST['save'] && is_array($_POST['answer'])) {
+                if ($this->checkVoteEligibility($survey_id) && is_array($_POST['answer'])) {
 
                     $survey_entry_id = $this->processAndSaveForm($survey_id);
 
@@ -169,9 +172,9 @@ class Onyx_Controller_Component_Survey extends Onyx_Controller {
     public function processAndSaveForm($survey_id) {
 
         // check captcha
-        $word = strtolower($_SESSION['captcha'][$this->GET['node_id']]);
-        $isCaptchaValid = strlen($_POST['captcha']) > 0 && $_POST['captcha'] == $word;
-        $captchaEnabled = ($this->GET['spam_protection'] == "captcha_text_js");
+        if ($this->enableReCaptcha) {
+            $isCaptchaValid = verifyReCaptchaToken($_POST['g-recaptcha-response']);
+        }
 
         if ($captchaEnabled && !$isCaptchaValid) {
             msg("Please enter correct code", 'error');
@@ -290,8 +293,8 @@ class Onyx_Controller_Component_Survey extends Onyx_Controller {
             
         }
 
-        if ($this->GET['spam_protection'] == "captcha_text_js") {
-            $this->tpl->parse("content.form.invisible_captcha_field");
+        if ($this->enableReCaptcha) {
+            $this->tpl->parse("content.form.recaptcha_field");
         }
 
         if ($this->areUserDetailsRequired()) {
