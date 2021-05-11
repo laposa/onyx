@@ -21,7 +21,7 @@ if (!defined('ONYX_CACHE_VERSION')) define('ONYX_CACHE_VERSION', '2.0.pre1');
  * Force using only one domain (in Onyx_Controller_Uri_Mapping)
  */
 
-//define('ONYX_MAIN_DOMAIN', 'default.co.uk');
+if (!defined('ONYX_MAIN_DOMAIN') && strlen(getenv('ONYX_MAIN_DOMAIN')) > 0) define('ONYX_MAIN_DOMAIN', getenv('ONYX_MAIN_DOMAIN'));
 
 /**
  * HTTP client IP
