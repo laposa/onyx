@@ -49,8 +49,8 @@ class Onyx_Controller_Component_Library extends Onyx_Controller {
     
     public function addItem($source_node_id, $add_to_node_id, $add_to_container)
     {
-        msg("adding $source_node_id, $add_to_node_id, $add_to_containe");
-        $new_node_id = $this->Node->duplicateNode($source_node_id, $add_to_node_id, 0);
+        msg("Adding $source_node_id to node $add_to_node_id container $add_to_container");
+        $new_node_id = $this->Node->duplicateNode($source_node_id, $add_to_node_id, 0, $add_to_container);
         if (is_numeric($new_node_id)) OnyxGoTo("page/$add_to_node_id?fe_edit_mode=edit#onyx-fe-edit-node-id-$new_node_id");
     }
 

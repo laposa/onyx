@@ -7,7 +7,7 @@ function initFrontofficeEditUI() {
         var node_id = info[0];
         var container_id = info[1];
         //alert("node_id" + node_id + " container_id" + container_id);
-        window.location = "/component-library?add_to_node_id=" + node_id;
+        window.location = "/component-library?add_to_node_id=" + node_id + "&add_to_container=" + container_id;
         return false;
     }).live('mouseover', function(){
         var temp = $(this).attr('href').replace('#onyx-layout-container-','');

@@ -2379,7 +2379,7 @@ LEFT OUTER JOIN common_taxonomy_label ON (common_taxonomy_tree.label_id = common
      * recursivelly duplicate node and its contens
      */
 
-    public function duplicateNode($original_node_id, $new_parent_id = false, $new_priority = false)
+    public function duplicateNode($original_node_id, $new_parent_id = false, $new_priority = false, $new_parent_container = false)
     {
         require_once('models/common/common_image.php');
         require_once('models/common/common_node_taxonomy.php');
@@ -2398,6 +2398,7 @@ LEFT OUTER JOIN common_taxonomy_label ON (common_taxonomy_tree.label_id = common
         if (is_numeric($new_priority)) $new_node_data['priority'] = $new_priority;
         if ($new_node_data['uri_title'] != '') $new_node_data['uri_title'] = "{$new_node_data['uri_title']}-copy";
         if ($new_parent_id > 0) $new_node_data['parent'] = $new_parent_id;
+        if (is_numeric($new_parent_container)) $new_node_data['parent_container'] = $new_parent_container;
         else {
             //top level element can be forced to be unpublished via common_node.conf option
             if ($this->conf['unpublish_on_duplicate']) $new_node_data['publish'] = 0;
