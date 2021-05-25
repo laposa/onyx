@@ -19,7 +19,10 @@ class Onyx_Controller_Component_Ecommerce_Product_List extends Onyx_Controller_L
         if (is_array($this->GET['product_id_list'])) $product_id_list = $this->GET['product_id_list'];
         if (is_numeric($this->GET['node_id'])) $node_id = $this->GET['node_id'];
         if ($this->GET['product_id_list_force_sorting_as_listed']) $force_sorting_as_listed = true;
-        
+        if (is_array($this->GET['sort'])) {
+            $sort_by = $this->GET['sort']['by'];
+            $sort_direction = $this->GET['sort']['direction'];
+        }
         // initialize product
         require_once('models/ecommerce/ecommerce_product.php');
         $this->Product = new ecommerce_product();
@@ -29,6 +32,12 @@ class Onyx_Controller_Component_Ecommerce_Product_List extends Onyx_Controller_L
         else if ($product_id_list) $product_variety_list = $this->getProductVarietyListByProductIds($product_id_list, $force_sorting_as_listed);
 
         $product_list = $this->reformatList($product_variety_list);
+        
+        // sorting
+        if ($sort_by == 'priority') {
+            if ($sort_direction == 'ASC') usort($product_list , function ($a, $b) {return $a['priority'] > $b['priority'];});
+            else usort($product_list , function ($a, $b) {return $a['priority'] < $b['priority'];});
+        }
 
         // display
         foreach ($product_list as $item) {
