@@ -1146,7 +1146,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
      * @return unknown
      */
      
-    function parseChildren($id, $container = false, $disable_fe_edit) {
+    function parseChildren($id, $container = false, $disable_fe_edit = false) {
     
         if (is_numeric($id)) {
         
