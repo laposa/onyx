@@ -85,7 +85,7 @@ class Onyx_Controller {
         $this->_module_php = ONYX_PROJECT_DIR . "controllers/{$module['controller']}.php";
 
         if (!file_exists($this->_module_php)) $this->_module_php = ONYX_DIR . "controllers/{$module['controller']}.php";
-        if ($this->_template_dir != '') $this->_initTemplate($this->_module_html);
+        $this->_initTemplate($this->_module_html);
 
         //look for the Onyx tags
         $this->parseContentTagsBefore();
@@ -560,7 +560,9 @@ class Onyx_Controller {
         // core template engine
         // initialize with option to look for files in local (project) and global (onyx) directory
         $this->tpl = new XTemplate ($template_file, [ONYX_PROJECT_DIR . 'templates/', ONYX_DIR . 'templates/']);
-
+        if (!is_object($this->tpl)) {
+            $this->tpl = new stdClass();
+        }
         // set base variables
         $this->_initTemplateVariables();
     }
