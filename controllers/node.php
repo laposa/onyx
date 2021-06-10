@@ -94,6 +94,7 @@ class Onyx_Controller_Node extends Onyx_Controller {
 
             if ($parsed_url['query']) $_SESSION['to'] = "page/{$node_id}?{$parsed_url['query']}";
             else $_SESSION['to'] = "page/{$node_id}";
+            $_SESSION['to_raw'] = $_SERVER['REQUEST_URI'];
 
             onyxGoTo("page/" . $this->Node->conf['id_map-login']);//will exit immediatelly
         }
