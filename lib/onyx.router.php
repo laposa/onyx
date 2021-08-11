@@ -40,7 +40,7 @@ class Onyx_Router {
             die("Onyx_Router: Can't explodeRequest " . htmlspecialchars($request));
         
         }
-        
+
         $this->setModules($modules);
 
         /**

@@ -124,7 +124,35 @@ class Onyx_Controller_Bo_Component_Node_Type_Menu extends Onyx_Controller_Compon
             $list[$k]['parent'] = preg_replace('/\.html$/', '', $list[$k]['parent']);
             $list[$k]['parent'] = preg_replace('/\.php$/', '', $list[$k]['parent']);
         }
-                
+
+        // add non-existing custom node types from conf/node_type.php
+        if (file_exists(ONYX_PROJECT_DIR . "conf/node_type.php")) {
+            $templates_info = false;
+            require(ONYX_PROJECT_DIR . "conf/node_type.php");
+            if (is_array($templates_info)) {
+                foreach ($templates_info as $type => $nodes) {
+                    foreach ($nodes as $name => $node) {
+                        $exists = false;
+                        foreach ($list as $file) {
+                            if ($file['id'] == "$type/$name") $exists = true;
+                        }
+                        if (!$exists) {
+                            $list[] = [
+                                "id" => "$type/$name",
+                                "parent" => $type,
+                                "name" => $name,
+                                "parent" => $type,
+                                "name" => $name,
+                                "title" => $name,
+                                "node_group" => "file",
+                                "publish" => 1
+                            ];
+                        }
+                    }
+                }
+            }
+        }
+
         return $list;
     }
     
@@ -220,7 +248,7 @@ class Onyx_Controller_Bo_Component_Node_Type_Menu extends Onyx_Controller_Compon
                 $filtered_list[] = $item;
             }
         }
-        
+  
         /**
          * mark selected item
          */

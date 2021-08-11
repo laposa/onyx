@@ -32,6 +32,7 @@ class Onyx_Bootstrap {
     {
         // Include default libraries
         require_once('xtemplate.class.php');
+        require_once('controller_base.php');
         require_once('controller.php');
         require_once('onyx.request.php');
         require_once('model.php');

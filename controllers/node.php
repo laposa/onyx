@@ -11,7 +11,8 @@ class Onyx_Controller_Node extends Onyx_Controller {
      * main action
      */
 
-    public function mainAction() {
+    public function mainAction()
+    {
         if ($this->processNode()) return true;
         else return false;
     }
@@ -20,7 +21,8 @@ class Onyx_Controller_Node extends Onyx_Controller {
      * process node
      */
 
-    public function processNode() {
+    public function processNode()
+    {
 
         /**
          * check node id value
@@ -59,7 +61,7 @@ class Onyx_Controller_Node extends Onyx_Controller {
          * Initialise node configuration overwrites
          */
 
-        $global_conf_node_overwrites = $this->initGlobalNodeConfigurationOverwrites($node_id );
+        $global_conf_node_overwrites = $this->initGlobalNodeConfigurationOverwrites($node_id);
 
         /**
          * merge
@@ -77,7 +79,7 @@ class Onyx_Controller_Node extends Onyx_Controller {
             // don't allow to save this request to the cache
             $this->container->set('omit_cache', true);
             // display 404 page content
-            $_Onyx_Request = new Onyx_Request('node~id=' . $this->Node->conf['id_map-404'].'~');
+            $_Onyx_Request = new Onyx_Request('node~id=' . $this->Node->conf['id_map-404'] . '~');
             $node_data['content'] = $_Onyx_Request->getContent();
             $this->tpl->assign('NODE', $node_data);
             $this->tpl->parse('content.wrapper');
@@ -154,23 +156,54 @@ class Onyx_Controller_Node extends Onyx_Controller {
         }
 
         /**
+         * check for custom templating engine
+         */
+        $hasCustomController = false;
+        if (file_exists(ONYX_PROJECT_DIR . "conf/node_type.php")) {
+            $templates_info = false;
+            require(ONYX_PROJECT_DIR . "conf/node_type.php");
+
+            $info = $templates_info[$node_data['node_group']][$node_data['node_controller']];
+
+            // Twig
+            if (isset($info['engine']) && $info['engine'] == 'twig') {
+                if (!empty($info['template']) && file_exists(ONYX_PROJECT_DIR . $info['template'])) {
+                    $template = $info['template'];
+                } else {
+                    msg("missing {$info['template']}", 'error', 1);
+                }
+
+                if (!empty($info['controller']) && file_exists(ONYX_PROJECT_DIR . $info['controller'])) {
+                    $controller = $info['controller'];
+                    $hasCustomController = true;
+                } else {
+                    $controller = 'twig';
+                }
+            }
+        }
+
+        /**
          * check if we need to use default_controller@specic_template
          */
-
         if ($template == $controller) $controller_request = $template;
         else $controller_request = "{$controller}@{$template}";
+        $controller_request = "$controller_request&id={$node_data['id']}&parent_id={$node_data['parent']}";
 
         /**
          * process controller referred from this node
          */
-
         msg("Node process: $controller", 'ok', 2);
         if (isset($GLOBALS['components'])) {
             $GLOBALS['components'][count($GLOBALS['components']) - 1]['node'] = $node_data['title'];
         }
 
-        $_Onyx_Request = new Onyx_Request("$controller_request&id={$node_data['id']}&parent_id={$node_data['parent']}");
-        $node_data['content'] = $_Onyx_Request->getContent();
+        if ($hasCustomController) {
+            $customController = Onyx_Controller::createCustomController($controller_request);
+            $node_data['content'] = $customController->getContent();
+        } else {
+            $_Onyx_Request = new Onyx_Request($controller_request);
+            $node_data['content'] = $_Onyx_Request->getContent();
+        }
 
         /**
          * add extra_css_class
@@ -199,9 +232,9 @@ class Onyx_Controller_Node extends Onyx_Controller {
                 //TODO: add and icon with status
                 // we cannot add this css_class to normal node.css_class, because of inheritance
                 if ($node_data['display_permission'] == 1) $node_data['extra_css_class'] = $node_data['extra_css_class'] . ' show-at-normal-login';
-                else if ($node_data['display_permission'] == 2) $node_data['extra_css_class'] = $node_data['extra_css_class'] . ' hide-at-normal-login';
-                else if ($node_data['display_permission'] == 3) $node_data['extra_css_class'] = $node_data['extra_css_class'] . ' show-at-trade-login';
-                else if ($node_data['display_permission'] == 4) $node_data['extra_css_class'] = $node_data['extra_css_class'] . ' hide-at-trade-login';
+                elseif ($node_data['display_permission'] == 2) $node_data['extra_css_class'] = $node_data['extra_css_class'] . ' hide-at-normal-login';
+                elseif ($node_data['display_permission'] == 3) $node_data['extra_css_class'] = $node_data['extra_css_class'] . ' show-at-trade-login';
+                elseif ($node_data['display_permission'] == 4) $node_data['extra_css_class'] = $node_data['extra_css_class'] . ' hide-at-trade-login';
                 if (is_array($node_data['display_permission_group_acl'])) $node_data['extra_css_class'] = $node_data['extra_css_class'] . ' acl-in-use';
                 if ($node_data['publish'] == 0) $node_data['extra_css_class'] = $node_data['extra_css_class'] . ' not-public';
                 if ($node_data['node_controller'] == 'adaptive') $node_data['extra_css_class'] = $node_data['extra_css_class'] . ' adaptive';
@@ -210,7 +243,6 @@ class Onyx_Controller_Node extends Onyx_Controller {
             $this->tpl->assign("NODE", $node_data);
 
         }
-
 
 
         /**
@@ -228,19 +260,19 @@ class Onyx_Controller_Node extends Onyx_Controller {
 
             if ($node_data['node_group'] == 'variable' && $_SESSION['fe_edit_mode'] == 'edit') {
                 $this->tpl->parse('content.wrapper.variable_edit');
-            } else if ($node_data['node_group'] == 'content' && $_SESSION['fe_edit_mode'] == 'edit') {
-                if ($node_data['node_controller'] == 'shared')  {
+            } elseif ($node_data['node_group'] == 'content' && $_SESSION['fe_edit_mode'] == 'edit') {
+                if ($node_data['node_controller'] == 'shared') {
                     $this->tpl->assign("SOURCE", $source);
                     $this->tpl->parse('content.wrapper.fe_edit.edit_source');
                 }
                 $this->tpl->parse('content.wrapper.fe_edit');
-            } else if ($node_data['node_group'] == 'layout' && $_SESSION['fe_edit_mode'] == 'edit') {
-                if ($node_data['node_controller'] == 'shared')  {
+            } elseif ($node_data['node_group'] == 'layout' && $_SESSION['fe_edit_mode'] == 'edit') {
+                if ($node_data['node_controller'] == 'shared') {
                     $this->tpl->parse('content.wrapper.fe_layout_property.edit_shared');
                 }
                 $this->tpl->parse('content.wrapper.fe_layout_property');
                 //$this->tpl->parse('content.wrapper.layout_add');
-            } else if ($node_data['node_group'] == 'page' && $_SESSION['fe_edit_mode'] == 'edit') {
+            } elseif ($node_data['node_group'] == 'page' && $_SESSION['fe_edit_mode'] == 'edit') {
                 $this->tpl->parse('content.wrapper.fe_page_properties');
             }
 
@@ -267,7 +299,8 @@ class Onyx_Controller_Node extends Onyx_Controller {
      * checkVisibility
      */
 
-    public function checkVisibility($node_data) {
+    public function checkVisibility($node_data)
+    {
 
         $visibility = false;
         //force visibility for admin, only when in edit or preview mode
@@ -281,7 +314,7 @@ class Onyx_Controller_Node extends Onyx_Controller {
         if ($this->Node->checkDisplayPermission($node_data, $force_admin_visibility)) {
 
             //don't display hidden node in preview mode
-            if ($node_data['publish'] == 0 && Onyx_Bo_Authentication::getInstance()->isAuthenticated() && $_SESSION['fe_edit_mode'] == 'preview' ) $visibility1 = false;
+            if ($node_data['publish'] == 0 && Onyx_Bo_Authentication::getInstance()->isAuthenticated() && $_SESSION['fe_edit_mode'] == 'preview') $visibility1 = false;
             else $visibility1 = true;
         }
 
@@ -300,7 +333,7 @@ class Onyx_Controller_Node extends Onyx_Controller {
          */
 
         if ($this->checkForValidPreviewToken($node_data)) return true;
-        else if ($visibility1 && $visibility2) return true;
+        elseif ($visibility1 && $visibility2) return true;
         else return false;
 
     }
@@ -309,7 +342,8 @@ class Onyx_Controller_Node extends Onyx_Controller {
      * check if add CSS highlight
      */
 
-    public function _checkPermissionForExtraCSS($node_data) {
+    public function _checkPermissionForExtraCSS($node_data)
+    {
 
         //add css class when when logged in and using edit or move mode
         if (Onyx_Bo_Authentication::getInstance()->isAuthenticated() && ($_SESSION['fe_edit_mode'] == 'edit' || $_SESSION['fe_edit_mode'] == 'move')) return true;
@@ -321,13 +355,14 @@ class Onyx_Controller_Node extends Onyx_Controller {
      * Initialise configuration overwrites from database
      */
 
-    function initGlobalNodeConfigurationOverwrites($node_id) {
+    function initGlobalNodeConfigurationOverwrites($node_id)
+    {
 
         if (!is_numeric($node_id)) return false;
 
-        $conf = array();
+        $conf = [];
 
-        require_once ('models/common/common_configuration.php');
+        require_once('models/common/common_configuration.php');
         $Configuration = new common_configuration();
 
         $conf = $Configuration->getConfiguration($node_id);
@@ -341,14 +376,15 @@ class Onyx_Controller_Node extends Onyx_Controller {
      * and allow to see when provided GET.preview_token
      */
 
-    public function canViewPage($node_data) {
+    public function canViewPage($node_data)
+    {
 
         if ($this->checkForValidPreviewToken($node_data)) {
             msg("This page is waiting for approval");
             return true;
-        } else if (Onyx_Bo_Authentication::getInstance()->isAuthenticated()) {
+        } elseif (Onyx_Bo_Authentication::getInstance()->isAuthenticated()) {
             return true;
-        } else if ($this->Node->isInBin($node_data['id'])) {
+        } elseif ($this->Node->isInBin($node_data['id'])) {
             return false;
         } else {
             return $node_data['publish'];
@@ -359,7 +395,8 @@ class Onyx_Controller_Node extends Onyx_Controller {
      * checkForValidPreviewToken
      */
 
-    private function checkForValidPreviewToken($node_data) {
+    private function checkForValidPreviewToken($node_data)
+    {
 
         // currently applies only to pages
         if ($node_data['node_group'] != 'page') return;
@@ -385,11 +422,12 @@ class Onyx_Controller_Node extends Onyx_Controller {
      * TEMP: native array_replace_recursive function available in PHP 5.3
      */
 
-    function array_replace_recursive($Arr1, $Arr2) {
+    function array_replace_recursive($Arr1, $Arr2)
+    {
 
-        foreach($Arr2 as $key => $Value) {
+        foreach ($Arr2 as $key => $Value) {
 
-            if(array_key_exists($key, $Arr1) && is_array($Value)) $Arr1[$key] = $this->array_replace_recursive($Arr1[$key], $Arr2[$key]);
+            if (array_key_exists($key, $Arr1) && is_array($Value)) $Arr1[$key] = $this->array_replace_recursive($Arr1[$key], $Arr2[$key]);
             else $Arr1[$key] = $Value;
 
         }

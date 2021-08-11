@@ -7,7 +7,7 @@
 
 require_once('lib/onyx.container.php');
 
-class Onyx_Controller {
+class Onyx_Controller implements Onyx_Controller_Base {
 
     /** request GET parameter. */
     public $request;
@@ -88,7 +88,7 @@ class Onyx_Controller {
         if ($this->_template_dir != '') $this->_initTemplate($this->_module_html);
 
         //look for the Onyx tags
-        $this->parseContentTagsBefore();
+        $this->parseContentTagsBefore($this->tpl->filecontents);
 
         // main action controller
         // if some error comes from controller, save it into registry, this will not allow save cache in onyx.bootstrap
@@ -281,9 +281,8 @@ class Onyx_Controller {
      * Parse Content Tags
      * @return string
      */
-    public function parseContentTags()
+    public function parseContentTags($content)
     {
-        $content = $this->tpl->filecontents;
 
         if ($matches = $this->findTags($content)) {
             //contentx is used for layout mapping
@@ -298,7 +297,7 @@ class Onyx_Controller {
 
                 $_xrequest = new Onyx_Request($xrequest);
 
-                //because of stupid parseContentTagsAfter(), we have to check if it isn't already assigned
+                //check if it isn't already assigned
                 if ($this->tpl->vars["ONYX_REQUEST_{$matches[1][$key]}"] == '') {
                     $this->tpl->assign("ONYX_REQUEST_{$matches[1][$key]}", trim($_xrequest->getContent()));
                 }
@@ -311,10 +310,10 @@ class Onyx_Controller {
     /**
      * Parse content tags before module
      */
-    public function parseContentTagsBefore()
+    public function parseContentTagsBefore($content)
     {
-        $this->parseContentTagsBeforeHook();
-        $this->parseContentTags();
+        $this->parseContentTagsBeforeHook($content);
+        $this->parseContentTags($content);
     }
 
     /**
@@ -338,7 +337,7 @@ class Onyx_Controller {
     }
 
     /**
-     * find containers
+     * find containers - NOT USED?
      *
      * @param string $content
      * @return array
@@ -346,7 +345,7 @@ class Onyx_Controller {
     public function findContainerTags($content)
     {
         //{CONTAINER.0.content.content #RTE}
-        preg_match_all('/\{CONTAINER\.([0-9]*)\.([a-zA-Z]*).[^\}]* #([^\}]*)\}/', $content, $matches);
+        preg_match_all('/\{.?CONTAINER\.([0-9]*)\.([a-zA-Z]*).[^\}]* #([^\}]*)\.?}/', $content, $matches);
         return count($matches[0]) > 0 ? $matches : false;
     }
 
@@ -661,6 +660,28 @@ class Onyx_Controller {
     }
 
     /**
+     * Factory method for creating new controller using request URI
+     * @param string $request
+     * @param object $subOnyx
+     */
+    public static function createCustomController($request, &$subOnyx = false)
+    {
+        $requestParts = explode('@', $request);
+        $controllerPath = $requestParts[0];
+        $classname = self::_getControllerShortClassname($controllerPath);
+
+        if (file_exists(ONYX_PROJECT_DIR . $controllerPath)) {
+            require_once(ONYX_PROJECT_DIR . $controllerPath);
+            return new $classname($request, $subOnyx);
+        }
+
+        $error_message = "Missing $classname or in $request";
+        echo $error_message;
+        throw new ErrorException($error_message);
+        return false;
+    }
+
+    /**
      * _getControllerClassname
      * @param string $file
      * @return string $classname
@@ -670,6 +691,23 @@ class Onyx_Controller {
         if (file_exists(ONYX_DIR . $file) || file_exists(ONYX_PROJECT_DIR . $file)) {
             $name = preg_replace('/^controllers\/(.*).php$/', '\1', $file);
             $classname = "Onyx_Controller_" . preg_replace("/\//", "_", $name);
+        } else {
+            $classname = "Onyx_Controller";
+        }
+        return $classname;
+    }
+
+    /**
+     * Gets controller classname using only file name
+     * @param string $file
+     * @return string $classname
+     */
+    private static function _getControllerShortClassname($file)
+    {
+        if (file_exists(ONYX_DIR . $file) || file_exists(ONYX_PROJECT_DIR . $file)) {
+            $name = explode('/', $file);
+            $name = str_replace('.php', '', end($name));
+            $classname = "Onyx_Controller_" . str_replace(['.', '-'], '_', $name);
         } else {
             $classname = "Onyx_Controller";
         }

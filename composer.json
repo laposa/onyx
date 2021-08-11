@@ -10,6 +10,8 @@
     "symfony/dependency-injection": "^5.2",
     "jdorn/sql-formatter": "^1.2",
     "html2text/html2text": "^4.3",
-    "symfony/http-client": "^5.2"
+    "symfony/http-client": "^5.2",
+    "twig/twig": "^3.0",
+    "twig/string-extra": "^3.3"
   }
 }
