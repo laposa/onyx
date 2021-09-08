@@ -94,7 +94,7 @@ CREATE TABLE common_image (
         
         if (!is_numeric($conf['thumbnail_width_min'])) $conf['thumbnail_width_min'] = 25;
         if (!is_numeric($conf['thumbnail_width_max'])) $conf['thumbnail_width_max'] = 2000;
-        if (!is_numeric($conf['thumbnail_step'])) $conf['thumbnail_step'] = 5;
+        if (!is_numeric($conf['thumbnail_step'])) $conf['thumbnail_step'] = 1;
         
         if (!is_numeric($conf['jpeg_quality'])) $conf['jpeg_quality'] = 80;
                 
