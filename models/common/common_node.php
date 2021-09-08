@@ -911,6 +911,27 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
      * find first parent page in the node tree, starting from root
      * use getParentPageId() if you needed nearest parent page
      
+     * @param int $id
+     * @return int
+     */
+    
+    function getFirstParentPageId($id) {
+    
+        if (!is_numeric($id)) return false;
+        
+        $active_pages = $this->getActivePages($id);
+
+        //first page in path
+        if (is_array($active_pages)) $active_pages = array_reverse($active_pages);
+        $first_parent_page_id = $active_pages[0];
+        
+        return $first_parent_page_id;
+    }
+
+    /**
+     * find first parent page in the node tree, starting from root
+     * use getParentPageId() if you needed nearest parent page
+     
      * @param array $active_pages
      * @return int
      */
