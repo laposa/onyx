@@ -2,7 +2,7 @@
 /**
  * class common_uri_mapping
  *
- * Copyright (c) 2009-2020 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2009-2021 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -502,17 +502,9 @@ ALTER TABLE common_uri_mapping ADD UNIQUE (public_uri);
      */
     
     function cleanTitle($title) {
-    
-        $title = str_replace('/', '-', trim($title));
-        $title = $this->recodeUTF8ToAscii($title);
-        $title = strtolower($title);
-        $title = preg_replace("/\s/", "-", $title);
-        $title = preg_replace("/&[^([a-zA-Z;)]/", $this->conf['and_string'] . '-', $title);
-        $title = preg_replace("/[^\w\-\/\.]/", '', $title);
-        $title = preg_replace("/\-{2,}/", '-', $title);
-        $title = trim($title, '-'); 
         
-        return $title;
+        return onyxSlug($title, $this->conf['and_string']);
+
     }
     
     /**

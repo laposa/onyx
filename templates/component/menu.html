@@ -2,7 +2,7 @@
 <!-- BEGIN: group -->
 <ul>
 <!-- BEGIN: item -->
-<li class='node-id-{ITEM.id} {ITEM.css_class}'>
+<li class='node-id-{ITEM.id} {ITEM.name|onyxSlug} {ITEM.css_class}'>
     <!-- BEGIN:link -->
     <a href="{ITEM.href|htmlspecialchars}" class="{ITEM.css_class}"><span>{ITEM.name|htmlspecialchars}</span><!-- BEGIN: strapline --><br /><span class="strapline">{ITEM.strapline|strip_tags|htmlspecialchars}</span><!-- END: strapline --></a>
     <!-- END:link -->

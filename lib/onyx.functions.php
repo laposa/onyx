@@ -231,6 +231,28 @@ function translateURL($request) {
 }
 
 /**
+ * global function to getting clean title using common_uri_mapping
+ *
+ * @param string $text
+ * @param string $and_string
+ * @return string
+ */
+
+function onyxSlug($text, $and_string = I18N_AND) {
+
+    $slug = str_replace('/', '-', trim($text));
+    $slug = recodeUTF8ToAscii($slug);
+    $slug = strtolower($slug);
+    $slug = preg_replace("/\s/", "-", $slug);
+    $slug = preg_replace("/&[^([a-zA-Z;)]/", $and_string . '-', $slug);
+    $slug = preg_replace("/[^\w\-\/\.]/", '', $slug);
+    $slug = preg_replace("/\-{2,}/", '-', $slug);
+    $slug = trim($slug, '-');
+
+    return $slug;
+}
+
+/**
  * return active template directory
  *
  * @param unknown_type $file
