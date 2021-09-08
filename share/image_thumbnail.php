@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2005-2016 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2005-2021 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  * Allows to resize and view image file in var/files directory without initiating a session
@@ -34,6 +34,7 @@ else $height = '';
 if (array_key_exists('method', $_GET) && $_GET['method']) $method = $_GET['method']; // crop, extend
 if (array_key_exists('gravity', $_GET) && $_GET['gravity']) $gravity = $_GET['gravity']; // northwest, north, northeast, west, center, east, southwest, south, southeast
 if (array_key_exists('fill', $_GET) && is_numeric($_GET['fill'])) $fill = $_GET['fill']; // 0 or 1
+else $fill = 1;
         
 /**
  * include configuration
