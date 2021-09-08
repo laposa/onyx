@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2009-2017 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2009-2021 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -80,10 +80,10 @@ class Onyx_Router {
     
     private function _prepareCallBack($request) {
     
-        $file = preg_replace("/([A-Za-z0-9_\/]*).*/", "\\1", $request);
+        $file = preg_replace("/([A-Za-z0-9_\-\/]*).*/", "\\1", $request);
         if (file_exists(ONYX_DIR . "controllers/{$file}.php") || file_exists(ONYX_PROJECT_DIR . "controllers/{$file}.php")) {
             require_once("controllers/{$file}.php");
-            $classname = "Onyx_Controller_" . preg_replace("/\//", "_", $file);
+            $classname = "Onyx_Controller_" . preg_replace("/[\/\-]/", "_", $file);
         } else {
             $classname = "Onyx_Controller";
         }

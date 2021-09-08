@@ -671,7 +671,7 @@ class Onyx_Controller {
     {
         if (file_exists(ONYX_DIR . $file) || file_exists(ONYX_PROJECT_DIR . $file)) {
             $name = preg_replace('/^controllers\/(.*).php$/', '\1', $file);
-            $classname = "Onyx_Controller_" . preg_replace("/\//", "_", $name);
+            $classname = "Onyx_Controller_" . preg_replace("/[\/\-]/", "_", $name);
         } else {
             $classname = "Onyx_Controller";
         }
@@ -685,7 +685,7 @@ class Onyx_Controller {
      */
     private static function _getControllerFile($request)
     {
-        $filename = preg_replace("/([A-Za-z0-9_\/]*).*/", "\\1", $request);
+        $filename = preg_replace("/([A-Za-z0-9_\-\/]*).*/", "\\1", $request);
         return "controllers/{$filename}.php";
     }
 }
