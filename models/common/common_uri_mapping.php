@@ -96,7 +96,6 @@ ALTER TABLE common_uri_mapping ADD UNIQUE (public_uri);
         
     function __construct() {
     
-        $this->_class_name = get_class($this);
         $this->generic();
         
         $this->_rewrite_table = $this->getGenericURITable();

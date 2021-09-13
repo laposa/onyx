@@ -1,9 +1,4 @@
 <?php
-
-use Symfony\Contracts\Cache\ItemInterface;
-
-require_once('lib/onyx.container.php');
-
 /**
  * Onyx_Db class definition
  *
@@ -13,6 +8,11 @@ require_once('lib/onyx.container.php');
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
+
+use Symfony\Contracts\Cache\ItemInterface;
+
+require_once('lib/onyx.container.php');
+
 class Onyx_Db {
     public $conf = [];
     public $_cacheable = false; // can be overwritten by setCacheable i.e. by default in constructor
@@ -31,8 +31,6 @@ class Onyx_Db {
      * Constructor
      */
     public function __construct() {
-        $this->_class_name = get_class($this);
-        if (defined('ONYX_DB_QUERY_CACHE')) $this->setCacheable(ONYX_DB_QUERY_CACHE);
         $this->generic();
     }
 
@@ -47,6 +45,10 @@ class Onyx_Db {
      * default method called from constructor
      */
     public function generic() {
+
+        $this->_class_name = get_class($this);
+        if (defined('ONYX_DB_QUERY_CACHE')) $this->setCacheable(ONYX_DB_QUERY_CACHE);
+
         // Get instance of dependency injection container
         $this->container = Onyx_Container::getInstance();
 
