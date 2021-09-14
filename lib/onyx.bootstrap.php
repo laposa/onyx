@@ -41,17 +41,14 @@ class Onyx_Bootstrap {
         // Get instance of dependency injection container
         $this->container = Onyx_Container::getInstance();
 
-        // Initialise database connection object
-        $this->initDatabase();
-
         // Initialise media library folder
         $this->initFiles();
 
         // Initialise cache backend connection
         $this->initCache();
 
-        // Initialise session
         if (ONYX_SESSION_START_FOR_ALL_USERS || $this->isSessionRequired()) {
+            $this->initialiseDatabaseAndConfig();
             $this->initSession();
         }
 
@@ -64,9 +61,6 @@ class Onyx_Bootstrap {
         } else {
             define('ONYX_DB_QUERY_CACHE', true);
         }
-
-        // Initialise site configuration
-        $GLOBALS['onyx_conf'] = $this->initConfiguration();
 
         // Initialise A/B testing
         if (defined('ONYX_ENABLE_AB_TESTING') && ONYX_ENABLE_AB_TESTING == true) {
@@ -211,7 +205,7 @@ class Onyx_Bootstrap {
     {
         require_once('models/common/common_configuration.php');
         $Configuration = new common_configuration();
-        return $Configuration->getConfiguration();
+        $GLOBALS['onyx_conf'] = $Configuration->getConfiguration();
     }
 
     /**
@@ -368,6 +362,7 @@ class Onyx_Bootstrap {
         // User authentication required for certain actions
         if ($this->isRequiredAuthentication($request)) {
             $this->disable_page_cache = 1;
+            $this->initialiseDatabaseAndConfig();
 
             if (!$request = $this->processAuthentication($request)) {
                 $request = 'sys/401';
@@ -384,9 +379,17 @@ class Onyx_Bootstrap {
      */
     public function processAction($request)
     {
+        if ($request == 'uri_mapping') {
+            $this->initialiseDatabaseAndConfig();
+        }
+
         $router = new Onyx_Router();
         $this->Onyx = $router->processAction($request);
         $this->headers = $this->getPublicHeaders();
+        if ($request == 'uri_mapping') {
+            $this->output = $this->outputFilterGlobal($result);
+            $this->output = $this->outputFilterPublic($result);
+        }
         $this->output = $this->Onyx->finalOutput();
     }
 
@@ -505,9 +508,6 @@ class Onyx_Bootstrap {
     {
         $result = $this->output;
 
-        $result = $this->outputFilterGlobal($result);
-        $result = $this->outputFilterPublic($result);
-
         return $result;
     }
 
@@ -517,8 +517,12 @@ class Onyx_Bootstrap {
     public function finalOutput()
     {
         $result = $this->getOutput();
-        $this->closeSession();
-        $this->closeDatabase();
+
+        if (ONYX_SESSION_START_FOR_ALL_USERS || $this->isSessionRequired()) {
+            $this->closeSession();
+        }
+
+        if (is_object($this->container->get('onyx_db'))) $this->closeDatabase();
 
         return $result;
     }
@@ -663,6 +667,18 @@ class Onyx_Bootstrap {
     {
         return !($this->container->has('controller_error')
             || $this->container->has('omit_cache')
-            || (array_key_exists('use_page_cache', $_SESSION) && $_SESSION['use_page_cache'] == false));
+            || (is_array($_SESSION) && (array_key_exists('use_page_cache', $_SESSION) && $_SESSION['use_page_cache'] == false)));
+    }
+
+    /**
+     * initialiseDatabaseAndConfig
+     */
+    public function initialiseDatabaseAndConfig() {
+
+        // Initialise database connection object
+        if (!is_object($this->container->get('onyx_db'))) $this->initDatabase();
+        
+        // Initialise site configuration
+        if (!array_key_exists('onyx_conf', $GLOBALS)) $this->initConfiguration();
     }
 }
