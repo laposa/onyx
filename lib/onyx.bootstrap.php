@@ -52,6 +52,10 @@ class Onyx_Bootstrap {
             $this->initSession();
         }
 
+        if (ONYX_ALLOW_SCHEDULER) {
+            $this->initialiseDatabaseAndConfig();
+        }
+
         // enable csrfCheck
         if (ONYX_CSRF_PROTECTION_ENABLED) $this->csrfCheck();
 

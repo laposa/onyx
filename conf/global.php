@@ -262,9 +262,11 @@ if (!defined('AFTER_CLIENT_LOGOUT_URL')) define('AFTER_CLIENT_LOGOUT_URL', '/');
 
 /**
  * allow scheduler
+ * if not enabled for all, enable for 1% requests
  */
 
-if (!defined('ONYX_ALLOW_SCHEDULER')) define('ONYX_ALLOW_SCHEDULER', true);
+if (!defined('ONYX_ALLOW_SCHEDULER') && (rand(0, 100) == 1)) define('ONYX_ALLOW_SCHEDULER', true);
+else define('ONYX_ALLOW_SCHEDULER', false);
 
 /**
  * allow search index update on cache save event
