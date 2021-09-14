@@ -2,7 +2,7 @@
 /**
  * class ecommerce_recipe
  *
- * Copyright (c) 2013-2017 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2013-2021 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -546,6 +546,9 @@ CREATE TABLE ecommerce_recipe (
                     
                     // load review
                     $recipe['review'] = $Review->getRating($recipe['id']);
+
+                    // get author name
+                    $recipe['author_name'] = $this->getRecipeAuthorName($recipe);
                     
                 }
             }
@@ -555,6 +558,33 @@ CREATE TABLE ecommerce_recipe (
         return $recipes;
 
     }
+
+    /**
+     * getRecipeAuthorName
+     * @param array $item
+     * @return string author name
+     */
+
+    public function getRecipeAuthorName($item)
+	{
+        //if (!is_array($item)) return false;
+
+        require_once('models/common/common_taxonomy.php');
+
+        $this->Taxonomy = new common_taxonomy();
+
+        if (!is_array($this->authors)) $this->authors = $this->Taxonomy->getChildren(96);
+
+		$ids = explode(",", $item['taxonomy']);
+
+		foreach ($ids as $id) {
+			foreach ($this->authors as $taxonomy) {
+				if ($taxonomy['id'] == $id) return  $taxonomy['label']['title'];
+			}
+		}
+
+		return $GLOBALS['onyx_conf']['global']['title'];
+	}
 
     /**
      * getRecipeCountForTaxonomy
