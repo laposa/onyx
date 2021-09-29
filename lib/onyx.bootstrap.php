@@ -390,10 +390,7 @@ class Onyx_Bootstrap {
         $router = new Onyx_Router();
         $this->Onyx = $router->processAction($request);
         $this->headers = $this->getPublicHeaders();
-        if ($request == 'uri_mapping') {
-            $this->output = $this->outputFilterGlobal($result);
-            $this->output = $this->outputFilterPublic($result);
-        }
+
         $this->output = $this->Onyx->finalOutput();
     }
 
@@ -412,7 +409,7 @@ class Onyx_Bootstrap {
 
         $data = $this->cache->get($id, function (ItemInterface $item) use ($request) {
             $this->processAction($request);
-            $dataToCache = ['output_headers' => $this->headers, 'output_body' => $this->output];
+            $dataToCache = ['output_headers' => $this->headers, 'output_body' => $this->getOutput()];
 
             // update index immediately if enabled in the configuration,
             // but not when search_query is submitted (don't index search results)
@@ -511,6 +508,11 @@ class Onyx_Bootstrap {
     public function getOutput()
     {
         $result = $this->output;
+
+        if (is_object($this->container->get('onyx_db'))) {
+            $result = $this->outputFilterGlobal($result);
+            $result = $this->outputFilterPublic($result);
+        }
 
         return $result;
     }
