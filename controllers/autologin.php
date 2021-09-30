@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2008-2013 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2008-2021 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -35,7 +35,7 @@ class Onyx_Controller_Autologin extends Onyx_Controller {
             $Token = new client_customer_token();
             $Token->setCacheable(false);
         
-            $customer_detail = $Token->getCustomerDetailForToken($_COOKIE['onyx_token']);
+            $customer_detail = $Token->getCustomerDetailForToken($_COOKIE[ONYX_TOKEN_NAME]);
 
             if ($customer_detail) {
 
