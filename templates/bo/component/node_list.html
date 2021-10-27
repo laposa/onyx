@@ -57,13 +57,13 @@ function refreshList() {
     <!-- BEGIN: children -->
     <table>
         <thead>
-            <tr><th>Title</th><th>Type</th><th>Container</th><th>Priority</th><th></th></tr>
+            <tr><th>Content Type</th><th>ID</th><th>Container</th><th>Priority</th><th></th></tr>
         </thead>
         <tbody>
             <!-- BEGIN: item -->
             <tr id="node-id-{CHILD.id}">
-                <td><a class="{CHILD.class}" href="javascript:void({CHILD.id})" onclick="openEdit('/popup/properties/{CHILD.id}/orig' + window.location.pathname)" title="Modified: {CHILD.modified|htmlspecialchars}">{CHILD.title|htmlspecialchars}</a></td>
-                <td>{CHILD.node_group}/{CHILD.node_controller}</td>
+                <td><a class="{CHILD.class}" href="javascript:void({CHILD.id})" onclick="openEdit('/popup/properties/{CHILD.id}/orig' + window.location.pathname)" title="Modified: {CHILD.modified|htmlspecialchars}">{CHILD.node_group}/{CHILD.node_controller}</a></td>
+                <td>{CHILD.id}</td>
                 <td>{CHILD.parent_container}</td>
                 <td>{CHILD.priority}</td>
                 <td><div class="onyx-edit-page">
