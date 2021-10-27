@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2005-2020 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2005-2021 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -72,8 +72,8 @@ class Onyx_Controller_Node extends Onyx_Controller {
          */
 
         if ($node_data['node_group'] == 'page' && !$this->canViewPage($node_data)) {
-            // send 403 HTTP code
-            http_response_code(403);
+            // send 404 HTTP code
+            http_response_code(404);
             // don't allow to save this request to the cache
             $this->container->set('omit_cache', true);
             // display 404 page content
