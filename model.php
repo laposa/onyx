@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2014-2015 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2014-2021 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  * please note all local attribute should use "local_" prefix, i.e. client_customer.local_my_own_attribute.
@@ -39,7 +39,7 @@ class Onyx_Model extends Onyx_Db {
 
     public function isRevisionEnabled() {
         
-        $enabled = ['common_node', 'common_configuration', 'client_customer', 'ecommerce_offer', 'ecommerce_offer_group', 'ecommerce_product', 'ecommerce_product_variety', 'ecommerce_price', 'ecommerce_recipe', 'ecommerce_offer_product_variety', 'ecommerce_offer_taxonomy'];
+        $enabled = ['common_node', 'common_configuration', 'ecommerce_offer', 'ecommerce_offer_group', 'ecommerce_product', 'ecommerce_product_variety', 'ecommerce_price', 'ecommerce_recipe', 'ecommerce_offer_product_variety', 'ecommerce_offer_taxonomy'];
         
         if (in_array($this->_class_name, $enabled)) return true;
         else return false;
