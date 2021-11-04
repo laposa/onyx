@@ -151,6 +151,22 @@ CREATE TABLE ecommerce_recipe (
         
     }
 
+    /**
+     * get recipe images
+     */
+
+    public function getRecipeImages($recipe_id) {
+
+        if (!is_numeric($recipe_id)) return false;
+
+        require_once('models/ecommerce/ecommerce_recipe_image.php');
+        $Image = new ecommerce_recipe_image();
+
+        $image_list = $Image->listFiles($recipe_id);
+
+        return $image_list;
+        
+    }
 
     /**
      * insert recipe
