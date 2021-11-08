@@ -184,7 +184,7 @@ class Onyx_Controller_Bo_Component_Node_Type_Menu extends Onyx_Controller_Compon
          * set selected item
          */
         
-        if ($this->GET['open'] && array_key_exists($this->GET['open'], $templates_info[$this->GET['node_group']])) $selected = $this->GET['open'];
+        if ($this->GET['open']) $selected = $this->GET['open'];
         else $selected = $templates_info[$this->GET['node_group']]['default_template'];
 
         /**
