@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * Copyright (c) 2006-2018 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2006-2021 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *  
  */
@@ -10,7 +10,7 @@ $templates_info['variable'] = array(
     'default'=>array('title' => 'Default', 'description'=>'', 'visibility'=>false),
     'text'=>array('title' => 'Text Variable', 'description'=>'', 'visibility'=>true),
     'image'=>array('title' => 'Image Variable', 'description'=>'', 'visibility'=>true),
-    'default_template' => 'text'
+    'default_template' => 'default'
     );
     
 $templates_info['content'] = array(
@@ -39,7 +39,7 @@ $templates_info['content'] = array(
     'filter'=>array('title' => 'Categories Filter', 'description'=>'', 'visibility'=>false),
     'notice'=>array('title' => 'Notice', 'description'=>'i.e. for stores', 'visibility'=>false),
     'adaptive'=>array('title' => 'Adaptive', 'description'=>'Show only if meets certain conditions', 'visibility'=>false),
-    'default_template' => 'rte'
+    'default_template' => 'default'
     );
         
 $templates_info['layout'] = array(
@@ -52,7 +52,7 @@ $templates_info['layout'] = array(
     '6columns'=>array('title' => '6-columns', 'description'=>'', 'visibility'=>true),
     'tabs'=>array('title' => 'Tabs', 'description'=>'', 'visibility'=>true),
     'slider'=>array('title' => 'Slider', 'description'=>'', 'visibility'=>true),
-    'default_template' => '2columns'
+    'default_template' => 'default'
     );
         
 $templates_info['page'] = array(
