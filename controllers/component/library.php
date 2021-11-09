@@ -63,7 +63,12 @@ class Onyx_Controller_Component_Library extends Onyx_Controller {
             
             $this->tpl->assign('ITEM', $item);
             if ($add_to_node_id) $this->tpl->parse('content.item.action');
-            if (!preg_match("/_item$/", $item['node_controller'])) $this->tpl->parse('content.item');
+            if (!preg_match("/_item$/", $item['node_controller'])) {
+                // breakdown
+                $this->tpl->parse('content.breakdown_item');
+                // full item
+                $this->tpl->parse('content.item');
+            }
         }
     }
 }

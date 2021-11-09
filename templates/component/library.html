@@ -10,8 +10,13 @@
 <div class="onyx-component-library">
     <h1 class="onyx-component-library-title">Component library</h1>
     <a class="button" href="/page/{GET.add_to_node_id|htmlspecialchars}?fe_edit_mode=edit"><span>Cancel</span></a>
+    <ul>
+    <!-- BEGIN: breakdown_item -->
+        <li><a href="#node-controller-{ITEM.node_controller}">{ITEM.node_controller}</a></li>
+    <!-- END: breakdown_item -->
+    </ul>
     <!-- BEGIN: item -->
-    <div class="onyx-component-library-item">
+    <div class="onyx-component-library-item" id="node-controller-{ITEM.node_controller}">
         <header>
             <h2 class="onyx-component-library-item-title" title="Example node-id = {ITEM.id}">{ITEM.node_controller}</h2>
             <!-- BEGIN: action --><a class="button" href="/component-library?source_node_id={ITEM.id}&add_to_node_id={GET.add_to_node_id}&add_to_container={GET.add_to_container}"><span>Use this</span></a><!-- END: action-->
