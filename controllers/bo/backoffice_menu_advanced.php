@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2014 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2014-2021 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -34,9 +34,6 @@ class Onyx_Controller_Bo_Backoffice_Menu_Advanced extends Onyx_Controller_Bo_Bac
         $auth = Onyx_Bo_Authentication::getInstance();
         $isEcommerce = $auth->isEcommerce();
 
-        if ($auth->hasAnyPermission('media')) $this->tpl->parse('content.media');
-        if ($auth->hasAnyPermission('taxonomy')) $this->tpl->parse('content.taxonomy');
-        if ($auth->hasAnyPermission('seo_manager')) $this->tpl->parse('content.seo_manager');
         if ($auth->hasAnyPermission('database')) $this->tpl->parse('content.database');
         if ($auth->hasAnyPermission('templates')) $this->tpl->parse('content.templates');
         if ($auth->hasAnyPermission('scheduler')) $this->tpl->parse('content.scheduler');

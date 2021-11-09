@@ -72,6 +72,9 @@ class Onyx_Controller_Bo_Backoffice_Menu_Sections extends Onyx_Controller_Bo_Bac
         if ($auth->hasAnyPermission('discounts') && $isEcommerce) $this->tpl->parse('content.marketing');
         if ($auth->hasAnyPermission('comments')) $this->tpl->parse('content.comments');
         if ($auth->hasAnyPermission('surveys') && $isEcommerce) $this->tpl->parse('content.surveys');
+        if ($auth->hasAnyPermission('media')) $this->tpl->parse('content.media');
+        if ($auth->hasAnyPermission('taxonomy')) $this->tpl->parse('content.taxonomy');
+        if ($auth->hasAnyPermission('seo_manager')) $this->tpl->parse('content.seo_manager');
         if ($auth->hasAnyPermission('_all_')) $this->tpl->parse('content.advanced');
 
         return true;
