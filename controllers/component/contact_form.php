@@ -136,7 +136,10 @@ class Onyx_Controller_Component_Contact_Form extends Onyx_Controller {
         $Store = new ecommerce_store();
         $provinces = $this->getTaxonomyBranch($GLOBALS['onyx_conf']['global']['province_taxonomy_tree_id']);
 
-        $total_store_count = 0;
+        $all_stores = $Store->getFilteredStoreList(false, false, 1, false, false, false, false, true);
+        $processed_store_count = 0;
+        $stores_with_county = [];
+
         foreach ($provinces as $province) {
             $this->tpl->assign("PROVINCE_NAME", $province['label']['title']);
             $counties = $this->getTaxonomyBranch($province['id']);
@@ -145,22 +148,48 @@ class Onyx_Controller_Component_Contact_Form extends Onyx_Controller {
                 $county['selected'] = ($selected_id == $county['id'] ? 'selected="selected"' : '');
                 $this->tpl->assign("COUNTY", $county);
                 // get all stores in this count
-                $store_list = $Store->getFilteredStoreList($county['id'], false, 1, false, false, 1000); //limit to 1000 records per county and type_id=1
+                $store_list = $Store->getFilteredStoreList($county['id'], false, 1, false, false, false, false, true);
 
                 foreach ($store_list as $store_item) {
                     if ($store_item['publish']) {
                         $this->tpl->assign('STORE', $store_item);
                         $this->tpl->parse("$template_block_path.store.county_dropdown.province.store");
-                        $total_store_count++;
+                        $processed_store_count++;
+                        $stores_with_county[$store_item['id']] = $store_item;
                     }
                 }
             }
+
             $this->tpl->parse("$template_block_path.store.county_dropdown.province");
         }
+
+        // check if there are stores with no county category
+        if (count($all_stores) > $processed_store_count) {
+            
+            $this->tpl->assign("PROVINCE_NAME", 'Unknown province');
+            $this->tpl->assign("COUNTY", 'Unassigned county');
+
+            $store_without_county = [];
+
+            foreach($all_stores as $all_stores_item) {
+                if (!array_key_exists($all_stores_item['id'], $stores_with_county)) {
+                    $store_without_county[] = $all_stores_item;
+                }
+            }
+
+            foreach($store_without_county as $store_item) {
+                $this->tpl->assign('STORE', $store_item);
+                $this->tpl->parse("$template_block_path.store.county_dropdown.province.store");
+            }
+
+            $this->tpl->parse("$template_block_path.store.county_dropdown.province");
+        }
+
+        // parse block
         $this->tpl->parse("$template_block_path.store.county_dropdown");
 
         // show only if there is at least one store
-        if ($total_store_count > 0) $this->tpl->parse("$template_block_path.store");
+        if ($processed_store_count > 0) $this->tpl->parse("$template_block_path.store");
     }
 
     /**
