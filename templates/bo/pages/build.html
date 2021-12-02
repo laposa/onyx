@@ -1,6 +1,53 @@
+<!-- BEGIN: head -->
+<style>
+table tr:hover td {background: green; cursor: pointer;}
+</style>
+<!-- END: head -->
 <!-- BEGIN: content -->
-<div class="two-column-page">
-    <h1>Build &amp; Publish</h1>
-    <p>This site is not using static builder. All changes are published immediatelly.</p>
+<div style="padding: 20px;">
+<h1>Build &amp; Publish</h1>
+
+  <form action="" method="post">
+    <p>
+      <button type="submit" name="action" value="new-build">Create new build</button>
+    </p>
+
+    <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+  </form>
+
+  <table>
+    <thead>
+    <tr>
+      <th>Version</th>
+      <th>Build date</th>
+      <th>Owner</th>
+      <th>Preview</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- BEGIN: item -->
+    <tr>
+      <td>{ITEM.versionName}</td>
+      <td>{ITEM.created}</td>
+      <td>{ITEM.author|htmlspecialchars}</td>
+      <td>
+        <a href="/preview/{ITEM.versionName}/master">Master branch</a>
+      </td>
+      <td>{ITEM.status}</td>
+      <td>
+        <!-- BEGIN: publish -->
+        <form action="" method="post">
+          <button type="submit" name="action" value="publish-build">publish</button>
+          <input type="hidden" name="version" value="{ITEM.versionName}" />
+          <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+        </form>
+        <!-- END: publish -->
+      </td>
+    </tr>
+    <!-- END: item -->
+  </tbody>
+  </table>
 </div>
 <!-- END: content -->
