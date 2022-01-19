@@ -75,6 +75,9 @@ class Onyx_Controller_Bo_Node_Default extends Onyx_Controller {
         $this->tpl->assign('NODE_URL', translateURL("page/".$this->GET['id']));
         $CommonUriMapping = new common_uri_mapping();
         $this->tpl->assign('NODE_URL_LAST_SEGMENT', $CommonUriMapping->cleanTitle($this->node_data['title']));
+
+        if (Onyx_Bo_Authentication::getInstance()->hasAnyPermission('advance_settings')) $this->tpl->assign('ALLOW_ADVANCE_SETTINGS_CSS_DISPLAY_PROPERTY', '');
+        else $this->tpl->assign('ALLOW_ADVANCE_SETTINGS_CSS_DISPLAY_PROPERTY', 'none');
     }
     
     /**
