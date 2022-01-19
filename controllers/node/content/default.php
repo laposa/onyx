@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2009-2020 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2009-2022 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -62,6 +62,12 @@ class Onyx_Controller_Node_Content_Default extends Onyx_Controller_Node_Default 
 
         if ($this->checkTemplateVariableExists('FILES')) {
             $files = $this->Node->getFilesForNodeId($node_id);
+            // if empty 2nd or 3rd item, prepropulate with 1st item as fallback
+            if (count($files) > 0 && count($files) < 3) {
+                for ($i=0; $i<3; $i++) {
+                    if (!array_key_exists($i, $files)) $files[$i] = $files[0];
+                }
+            }
             $this->tpl->assign('FILES', $files);
         }
 
