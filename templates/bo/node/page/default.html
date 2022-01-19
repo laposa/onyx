@@ -2,7 +2,7 @@
 <!-- BEGIN: content -->
 <div class="page-header">
     <div class="page-header-wrapper">
-        <h1 class="page-title popup"><span>Page</span> <span class="info">ID {NODE.id}</span></h1>
+        <h1 class="page-title popup"><span>{NODE.node_controller|htmlspecialchars|ucfirst} Page</span> <span class="info">ID {NODE.id}</span></h1>
     </div>
 </div>
 
@@ -15,13 +15,11 @@
             {FILE "bo/node/item_display_title.html"}
             <div class="advanced">
                 {FILE "bo/node/item_page_title.html"}
-            </div>
-            <div class="advanced">
                 {FILE "bo/node/item_uri_title.html"}
                 {FILE "bo/node/item_browser_title.html"}
                 {FILE "bo/node/item_strapline.html"}
-                {FILE "bo/node/item_description.html"}
             </div>
+            {FILE "bo/node/item_description.html"}
         </fieldset>
     </div>
     <div class="layout-column-two of-two">
