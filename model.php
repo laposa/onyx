@@ -39,7 +39,7 @@ class Onyx_Model extends Onyx_Db {
 
     public function isRevisionEnabled() {
         
-        $enabled = ['common_node', 'common_configuration', 'ecommerce_offer', 'ecommerce_offer_group', 'ecommerce_product', 'ecommerce_product_variety', 'ecommerce_price', 'ecommerce_recipe', 'ecommerce_offer_product_variety', 'ecommerce_offer_taxonomy'];
+        $enabled = ['common_node', 'common_file', 'common_image', 'common_configuration', 'ecommerce_offer', 'ecommerce_offer_group', 'ecommerce_product', 'ecommerce_product_image', 'ecommerce_product_variety', 'ecommerce_price', 'ecommerce_recipe', 'ecommerce_recipe_image','ecommerce_offer_product_variety', 'ecommerce_offer_taxonomy', 'ecommerce_store', 'ecommerce_store_image'];
         
         if (in_array($this->_class_name, $enabled)) return true;
         else return false;
