@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2020 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2020-2022 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -44,6 +44,9 @@ class Onyx_Controller_Component_Library extends Onyx_Controller {
             $this->listItems($add_to_node_id);
         }
 
+        // show cancel button only when editing
+        if (Onyx_Bo_Authentication::getInstance()->isAuthenticated()) $this->tpl->parse('content.cancel');
+
         return true;
     }
     
@@ -58,17 +61,38 @@ class Onyx_Controller_Component_Library extends Onyx_Controller {
     {
         $used_content_types = $this->Node->getUsedContentTypes();
 
+        // filter
+        require_once('controllers/bo/component/node_type_menu.php');
+        $Node_Type_Menu = new Onyx_Controller_Bo_Component_Node_Type_Menu();
+        $templates_info = $Node_Type_Menu->retrieveTemplateInfo();
+
+        $list = [];
         foreach ($used_content_types as $item) {
+
+            // show only content types with visibility attribute set to true, or not set at all
+            if ($templates_info['content'][$item['node_controller']]['visibility'] == true || $templates_info['content'][$item['node_controller']]['visibility'] === NULL) {
+                
+                $list_item = $item;
+                
+                // add content info
+                if (array_key_exists($item['node_controller'], $templates_info['content'])) $list_item['info'] = $templates_info['content'][$item['node_controller']];
+                else $list_item['info'] = array('title'=>$item['node_controller']);
+                
+                // don't show any *-item content types
+                if (!preg_match('/[-_]item$/', $item['node_controller'])) array_push($list, $list_item);
+            }
+        }
+
+        foreach ($list as $item) {
+            
             $item['example'] = new Onyx_Request("node~id={$item['id']}~");
             
             $this->tpl->assign('ITEM', $item);
             if ($add_to_node_id) $this->tpl->parse('content.item.action');
-            if (!preg_match("/_item$/", $item['node_controller'])) {
-                // breakdown
-                $this->tpl->parse('content.breakdown_item');
-                // full item
-                $this->tpl->parse('content.item');
-            }
+            // breakdown
+            $this->tpl->parse('content.breakdown_item');
+            // full item
+            $this->tpl->parse('content.item');
         }
     }
 }

@@ -2490,7 +2490,10 @@ LEFT OUTER JOIN common_taxonomy_label ON (common_taxonomy_tree.label_id = common
             SELECT
             DISTINCT ON (node_controller) node_controller, id 
             FROM common_node
-            WHERE node_group = 'content' AND parent != {$this->conf['id_map-bin']} AND node_controller != 'component'
+            WHERE node_group = 'content'
+            AND parent != {$this->conf['id_map-bin']}
+            AND publish = 1
+            AND node_controller != 'component'
             ORDER BY node_controller, id ASC
             ";
         

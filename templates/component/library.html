@@ -9,16 +9,16 @@
 </style>
 <div class="onyx-component-library">
     <h1 class="onyx-component-library-title">Component library</h1>
-    <a class="button" href="/page/{GET.add_to_node_id|htmlspecialchars}?fe_edit_mode=edit"><span>Cancel</span></a>
+    <!-- BEGIN: cancel --><a class="button" href="/page/{GET.add_to_node_id|htmlspecialchars}?fe_edit_mode=edit"><span>Cancel</span></a><!-- END: cancel -->
     <ul>
     <!-- BEGIN: breakdown_item -->
-        <li><a href="#node-controller-{ITEM.node_controller}">{ITEM.node_controller}</a></li>
+        <li><a href="#node-controller-{ITEM.node_controller}">{ITEM.info.title|htmlspecialchars}</a></li>
     <!-- END: breakdown_item -->
     </ul>
     <!-- BEGIN: item -->
     <div class="onyx-component-library-item" id="node-controller-{ITEM.node_controller}">
         <header>
-            <h2 class="onyx-component-library-item-title" title="Example node-id = {ITEM.id}">{ITEM.node_controller}</h2>
+            <h2 class="onyx-component-library-item-title" title="Example node_controller = {ITEM.node_controller}, node-id = {ITEM.id}">{ITEM.info.title|htmlspecialchars}</h2>
             <!-- BEGIN: action --><a class="button" href="/component-library?source_node_id={ITEM.id}&add_to_node_id={GET.add_to_node_id}&add_to_container={GET.add_to_container}"><span>Use this</span></a><!-- END: action-->
         </header>
         <div class="wrapper">
