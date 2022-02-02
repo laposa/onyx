@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2014-2015 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2014-2022 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -17,7 +17,7 @@ class Onyx_Controller_Bo_Component_Node_List_Recent extends Onyx_Controller {
         
         $Node = new common_node();
         
-        $node_list = $Node->listing('', 'modified DESC', '0,20');
+        $node_list = $Node->listing('', 'modified DESC', '0,500');
                 
         foreach ($node_list as $item) {
             

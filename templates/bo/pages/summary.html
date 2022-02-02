@@ -11,36 +11,10 @@
 
             <div class="page-content">
                 <div class="page-content-wrapper">
-                    <div class="row-top">
-                        <div class="row-wrapper">
-                            <div class="column-wrapper">
-                                
-                                
-
-                            </div>
-                        </div>
-                    </div>
                     <div class="row-middle">
                         <div class="row-wrapper">
-                            <div class="column-one">
-                                <div class="column-wrapper">
-                                    {ONYX_REQUEST_authorstats #bo/component/author_stats}
-                                </div>
-                            </div>
-                            <div class="column-two">
-                                <div class="column-wrapper">
-                                    {ONYX_REQUEST_recent #bo/component/node_list_recent}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row-bottom">
-                        <div class="row-wrapper">
-                            <div class="column-wrapper">
-
-                                
-
-                            </div>
+                            {ONYX_REQUEST_authorstats #bo/component/author_stats}
+                            {ONYX_REQUEST_recent #bo/component/node_list_recent}
                         </div>
                     </div>
                 </div>
