@@ -47,7 +47,9 @@
         <label for="node-description">Description:</label>
         <textarea name="node[description]" id="node-description" class="small" style="width: 100%;" title="Please try to fit your description into this input box, this will display Google in the search result" cols="50" rows="20">{NODE.description|htmlspecialchars}</textarea>
     </div>
-    {FILE "bo/node/item_content.html"}
+    <div class="advanced">
+        {FILE "bo/node/item_content.html"}
+    </div>
 </fieldset>
 
 <fieldset class="advanced">
