@@ -12,7 +12,7 @@
         <label>Survey:</label>
         <select name="node[component][survey_id]">
             <!-- BEGIN: survey_item -->
-            <option value="{SURVEY_ITEM.id}" {SURVEY_ITEM.selected}>{SURVEY_ITEM.title|htmlspecialchars} {NOT_PUBLISHED}</option>
+            <option value="{SURVEY_ITEM.id}" {SURVEY_ITEM.selected}>{SURVEY_ITEM.title|htmlspecialchars} (id={SURVEY_ITEM.id}) {NOT_PUBLISHED}</option>
             <!-- END: survey_item -->
         </select>
         <a href="/backoffice/surveys" target="_blank"><span>Edit</span></a>
