@@ -38,7 +38,9 @@ $templates_info['content'] = [
     'page_list'=>['title' => 'Page List', 'description'=>'', 'visibility'=>true],
     'filter'=>['title' => 'Categories Filter', 'description'=>'', 'visibility'=>false],
     'notice'=>['title' => 'Notice', 'description'=>'i.e. for stores', 'visibility'=>false],
+    'textile'=>['title' => 'Textile', 'description'=>'', 'visibility'=>false],
     'adaptive'=>['title' => 'Adaptive', 'description'=>'Show only if meets certain conditions', 'visibility'=>false],
+    
     'default_template' => 'default'
     ];
         
