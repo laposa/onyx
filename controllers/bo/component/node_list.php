@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2007-2021 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2007-2022 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -45,8 +45,7 @@ class Onyx_Controller_Bo_Component_Node_List extends Onyx_Controller {
             foreach ($children as $child) {
                 if ($child['publish'] == 0)  $child['class'] = 'disabled';
                 $this->tpl->assign("CHILD", $child);
-                if (in_array($child['node_group'], ['page', 'container'])) continue;
-                else $this->tpl->parse('content.children.item');
+                $this->tpl->parse('content.children.item');
             }
             $this->tpl->parse('content.children');
         } else {
