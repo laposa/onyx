@@ -78,6 +78,7 @@ ALTER TABLE common_uri_mapping ADD UNIQUE (public_uri);
          
         if (!array_key_exists('homepage_id', $conf)) $conf['homepage_id'] = $node_conf['id_map-homepage'];
         if (!array_key_exists('404_id', $conf)) $conf['404_id'] = $node_conf['id_map-404'];
+        if (!array_key_exists('bin_id', $conf)) $conf['bin_id'] = $node_conf['id_map-bin'];
         
         if (!array_key_exists('seo', $conf)) $conf['seo'] = true;
         if (!array_key_exists('rewrite_home', $conf)) $conf['rewrite_home'] = true;
@@ -436,10 +437,11 @@ ALTER TABLE common_uri_mapping ADD UNIQUE (public_uri);
                 $sql = "UPDATE common_uri_mapping SET public_uri = regexp_replace(public_uri, '{$old_uri}/', '{$new_uri}/') WHERE id != {$item['id']} AND type = 'generic';";
                 if (!is_array($this->executeSql($sql))) msg("Couldn't update sub-pages URLs", 'error');
                 
-                // insert 301 redirect
-                if ($this->insertRedirect($old_uri, $node_data['id'])) msg("Created 301 redirect for previous path $old_uri");
-                else msg("Redirect generator for previous path $old_uri failed", 'error');
-
+                // insert 301 redirect, not for pages moved to bin
+                if ($node_data['parent'] != $this->conf['bin_id']) {
+                    if ($this->insertRedirect($old_uri, $node_data['id'])) msg("Created 301 redirect for previous path $old_uri");
+                    else msg("Redirect generator for previous path $old_uri failed", 'error');
+                }
                 // the update was successful, altough some errors could happen
                 return true;
         
