@@ -1,0 +1,38 @@
+<!-- BEGIN: content -->
+<script type="text/javascript"> 
+$(document).ready(function() { 
+    var options = { 
+        target:        '#node-item-add',
+        success:       function() {
+            refreshList();
+            $('#onyx-dialog').dialog( "close").empty();
+        }
+    }; 
+    $('#node-item-add').ajaxForm(options); 
+});
+</script> 
+
+<div class="node-add">
+    <form method="post" action="{URI|htmlspecialchars}" id="node-item-add">
+        {MESSAGES}
+        <fieldset>
+            <legend>Add new {GET.node_controller} to {PARENT_NODE.title|htmlspecialchars}</legend>
+            <div class="row">
+                <span class="label"><label>{GET.node_controller|ucfirst} title:</label></span>
+                <span class="field"><input class="text title" type="text" name="node[title]" value="{NODE.title}" /></span>
+            </div>
+            <div class="row">
+                <span class="label"><label id="layout-icon" class="onyx-edit-{ACTIVE}">&nbsp;</label></span>
+                <span class="field"><button type="submit" name="save" value="save"><span>Add {GET.node_controller}</span></button></span>
+            </div>
+        </fieldset>
+        
+        <input type="hidden" name="node[parent]" value="{GET.parent}" />
+        <input type="hidden" name="node[parent_container]" value="0" />
+        <input type="hidden" name="node[node_group]" value="{GET.node_group}" />
+        <input type="hidden" name="node[node_controller]" value="{GET.node_controller}" />
+        <input type="hidden" name="node[publish]" value="0" />
+    <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+</form>
+</div>
+<!-- END: content -->

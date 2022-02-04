@@ -5,6 +5,7 @@
 function deleteNode(node_id) {
     $("#onyx-dialog").load("/request/bo/component/node_delete~id="+node_id+":delete=1:confirm={CONFIRMATION_CODE}:ajax=1~", '', function (responseText, textStatus, XMLHttpRequest) {
             $("#node-id-" + node_id).empty(); // in backoffice
+            $("#node-item-id-" + node_id).empty(); // in backoffice
             $("#onyx-fe-edit-node-id-" + node_id).empty(); // in frontoffice
             popupMessage("#onyx-dialog div.onyx-messages");
             $('#onyx-dialog').dialog( "close").empty();

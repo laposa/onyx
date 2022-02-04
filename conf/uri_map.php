@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2014-2021 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2014-2022 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  * this file contains mapping of URLs to Onyx component requests
@@ -33,7 +33,7 @@ $uri_map = array(
         '^/backoffice/pages$' => '/index.php?request=bo/backoffice_wrapper.bo/backoffice.bo/pages/pages',
         '^/backoffice/build$' => '/index.php?request=bo/backoffice_wrapper.bo/backoffice.bo/pages/build',
         '^/backoffice/pages/([0-9]*)$' => '/index.php?request=bo/backoffice_wrapper.bo/backoffice~id=$1~.bo/pages/pages~id=$1~',
-        '^/backoffice/node/([0-9]*)$' => '/index.php?request=bo/backoffice_wrapper.bo/backoffice~id=$1~.bo/pages/pages~id=$1~',
+        '^/backoffice/node/([0-9]*)$' => '/index.php?request=bo/backoffice_wrapper.bo/backoffice~id=$1~.bo/pages/generic.bo/component/node_edit~id=$1~',
         '^/backoffice/news$' => '/index.php?request=bo/backoffice_wrapper.bo/backoffice.bo/pages/news',
         '^/backoffice/news/([0-9]*)$' => '/index.php?request=bo/backoffice_wrapper.bo/backoffice.bo/pages/news&blog_node_id=$1',
         '^/backoffice/news/edit/([a-z]*)/([0-9]*)$' => '/index.php?request=bo/backoffice_wrapper.bo/pages/news_edit~id=$2~.bo/component/node_edit~id=$2~',

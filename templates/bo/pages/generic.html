@@ -1,11 +1,16 @@
 <!-- BEGIN: content -->
 <div class="two-column-page page">
     <div class="page-wrapper">
-        {SUB_CONTENT}
-        <div class="row-bottom">
-            <div class="row-wrapper">
-                <div class="column-wrapper">
-                </div>
+        <!-- BEGIN: header -->
+        <div class="page-header">
+            <div class="page-header-wrapper">
+                <h1 class="page-title"><span>{GET.title|htmlspecialchars}</span></h1>
+            </div>
+        </div>
+        <!-- END: header -->
+        <div class="page-content">
+            <div class="page-content-wrapper">
+                {SUB_CONTENT}
             </div>
         </div>
     </div>
