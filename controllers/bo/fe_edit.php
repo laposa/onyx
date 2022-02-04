@@ -38,12 +38,6 @@ class Onyx_Controller_Bo_Fe_edit extends Onyx_Controller {
             
             }
         }
-
-        // permission check
-        $auth = Onyx_Bo_Authentication::getInstance();
-        if ($auth->hasAnyPermission('back_office')) $this->tpl->parse('content.backoffice');
-        if ($auth->hasAnyPermission('_all_')) $this->tpl->parse('content.css_edit');
-        
         
         return true;
     }

@@ -1,0 +1,19 @@
+<!-- BEGIN: content -->
+<div id="onyx-menu-bar">
+
+    <ul id="menu-system">
+        <li><a class="onyx-version" href="/" title="{CONFIGURATION.global.title|htmlspecialchars} is using {ONYX_VERSION} {ONYX_PACKAGE_NAME|ucfirst}" onclick="return false;"><span>Onyx</span></a></li>
+    </ul>
+    <!-- BEGIN: backoffice -->
+    <ul id="menu-backoffice">
+        <li class="backoffice"><a href="/backoffice/pages"><span>Back Office</span></a></li>
+    </ul>
+    <!-- END: backoffice -->
+    <ui id="menu-editing-mode">
+        {ONYX_REQUEST_fe_edit_mode #bo/component/fe_edit_mode~id=GET.id~}
+    </ui>
+
+    {ONYX_REQUEST_fe_menu_actions #bo/fe_menu_actions}
+
+</div>
+<!-- END: content -->
