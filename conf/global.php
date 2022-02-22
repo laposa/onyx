@@ -2,7 +2,7 @@
 /**
  * Default Global Onyx configuration
  *
- * Copyright (c) 2005-2021 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2005-2022 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  * The constants defined here can be "overwritten" in project_dir/conf/global.php
@@ -70,6 +70,13 @@ if(in_array($http_client_ip, array_keys($debug_hosts)))  {
     define('ONYX_TRACY_BENCHMARK', true);
     define('ONYX_TRACY_DB_PROFILER', true);
 }
+
+/**
+ * restrict access to backoffice from listed source range
+ * comma separated CIDR notation, example: '192.168.1.1,10.0.0.0/16'
+ */
+
+if (!defined('ONYX_AUTH_CIDR_WHITELIST') && strlen(getenv('ONYX_AUTH_CIDR_WHITELIST')) > 0) define('ONYX_AUTH_CIDR_WHITELIST', getenv('ONYX_AUTH_CIDR_WHITELIST'));
 
 /**
  * Authentication type for backend users

@@ -10,6 +10,12 @@
     "symfony/dependency-injection": "^5.2",
     "jdorn/sql-formatter": "^1.2",
     "html2text/html2text": "^4.3",
-    "symfony/http-client": "^5.2"
+    "symfony/http-client": "^5.2",
+    "symfony/http-foundation": "^5.4"
+  },
+  "config": {
+    "allow-plugins": {
+      "composer/package-versions-deprecated": true
+    }
   }
 }

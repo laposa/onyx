@@ -1,12 +1,14 @@
 <?php
 /**
- * Copyright (c) 2005-2017 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2005-2022 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
 
 require_once('models/client/client_customer.php');
 require_once('models/client/client_role_permission.php');
+
+use Symfony\Component\HttpFoundation\IpUtils;
 
 class Onyx_Bo_Authentication
 {
@@ -97,7 +99,25 @@ class Onyx_Bo_Authentication
         return self::$instance;
     }
 
+    /**
+     * checkIpWhitelist
+     */
+    public function checkIpWhitelist() {
 
+        if (!defined('ONYX_AUTH_CIDR_WHITELIST')) return true; //whitelist not set, allow access to everyone
+        
+        $whitelist = explode(',', ONYX_AUTH_CIDR_WHITELIST);
+        $http_client_ip = $_SERVER["REMOTE_ADDR"];
+
+        foreach($whitelist as $cidr) {
+            if (IpUtils::checkIp($http_client_ip, $cidr)) {
+                return true;
+            }
+        }
+
+        return false;
+        
+    }
 
     /**
      * Login if HTTP Auth credentials present.
@@ -107,6 +127,12 @@ class Onyx_Bo_Authentication
      */
     public function login()
     {
+
+        if (!$this->checkIpWhitelist()) {
+            http_response_code(401);
+            die('access to backoffice denied');
+        }
+        
         if ($this->isAuthenticated()) return true;
 
         $username = $_SERVER['PHP_AUTH_USER'];
