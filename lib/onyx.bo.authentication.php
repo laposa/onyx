@@ -130,7 +130,9 @@ class Onyx_Bo_Authentication
 
         if (!$this->checkIpWhitelist()) {
             http_response_code(401);
-            die('access to backoffice denied');
+            $msg = "Access to backoffice denied. Recorded IP address is {$_SERVER["REMOTE_ADDR"]}";
+            error_log($msg);
+            die($msg);
         }
         
         if ($this->isAuthenticated()) return true;
