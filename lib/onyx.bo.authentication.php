@@ -104,7 +104,7 @@ class Onyx_Bo_Authentication
      */
     public function checkIpWhitelist() {
 
-        if (!defined('ONYX_AUTH_CIDR_WHITELIST')) return true; //whitelist not set, allow access to everyone
+        if (!defined('ONYX_AUTH_CIDR_WHITELIST') || ONYX_AUTH_CIDR_WHITELIST === false) return true; //whitelist not set, allow access to everyone
         
         $whitelist = explode(',', ONYX_AUTH_CIDR_WHITELIST);
         $http_client_ip = $_SERVER["REMOTE_ADDR"];
