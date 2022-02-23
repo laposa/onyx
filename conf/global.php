@@ -10,18 +10,35 @@
  * here in the onyx
  */
 
+ /**
+ * onyxGlobalConfSetValue
+ * @param $name constant name
+ * @param $value
+ */
+
+function onyxGlobalConfSetValue($name, $value) {
+
+    if (defined($name)) {
+        return false; // already set
+    }
+
+    // check env variable
+    if (strlen(getenv($name)) > 0) define($name, getenv($name));
+    else define($name, $value);
+}
+
 /**
  * can be used as GET parameter when loading resources in browser
  * to force an updated version
  */
 
-if (!defined('ONYX_CACHE_VERSION')) define('ONYX_CACHE_VERSION', '2.0.pre1');
+onyxGlobalConfSetValue('ONYX_CACHE_VERSION', '2.0.pre1');
 
 /**
  * Force using only one domain (in Onyx_Controller_Uri_Mapping)
  */
 
-if (!defined('ONYX_MAIN_DOMAIN') && strlen(getenv('ONYX_MAIN_DOMAIN')) > 0) define('ONYX_MAIN_DOMAIN', getenv('ONYX_MAIN_DOMAIN'));
+onyxGlobalConfSetValue('ONYX_MAIN_DOMAIN', false);
 
 /**
  * HTTP client IP
@@ -76,7 +93,7 @@ if(in_array($http_client_ip, array_keys($debug_hosts)))  {
  * comma separated CIDR notation, example: '192.168.1.1,10.0.0.0/16'
  */
 
-if (!defined('ONYX_AUTH_CIDR_WHITELIST') && strlen(getenv('ONYX_AUTH_CIDR_WHITELIST')) > 0) define('ONYX_AUTH_CIDR_WHITELIST', getenv('ONYX_AUTH_CIDR_WHITELIST'));
+onyxGlobalConfSetValue('ONYX_AUTH_CIDR_WHITELIST', false);
 
 /**
  * Authentication type for backend users
@@ -86,28 +103,28 @@ if (!defined('ONYX_AUTH_TYPE')) {
     if (ONYX_DB_TYPE == 'mysql') define('ONYX_AUTH_TYPE', 'mysql');
     else define('ONYX_AUTH_TYPE', 'postgresql');
 }
-if (!defined('ONYX_AUTH_SERVER')) define('ONYX_AUTH_SERVER', ONYX_DB_HOST);
+onyxGlobalConfSetValue('ONYX_AUTH_SERVER', ONYX_DB_HOST);
 
 /**
  * HardCoded user/password for backend users
  *
  */
 
-//if (!defined('ONYX_EDITOR_USERNAME')) define('ONYX_EDITOR_USERNAME', 'site_editor_username');
-//if (!defined('ONYX_EDITOR_PASSWORD')) define('ONYX_EDITOR_PASSWORD', 'site_password_password');
+//onyxGlobalConfSetValue('ONYX_EDITOR_USERNAME', 'site_editor_username');
+//onyxGlobalConfSetValue('ONYX_EDITOR_PASSWORD', 'site_password_password');
 
 /**
  * Is authentication always required?
  */
 
-if (!defined('ONYX_REQUIRE_AUTH')) define('ONYX_REQUIRE_AUTH', false);
+onyxGlobalConfSetValue('ONYX_REQUIRE_AUTH', false);
 
 /**
  * Use SSL?
  * will force SSL in Onyx_Controller_Uri_Mapping
  */
 
-if (!defined('ONYX_SSL')) define('ONYX_SSL', false);
+onyxGlobalConfSetValue('ONYX_SSL', false);
 
 if (!defined('ONYX_EDITOR_USE_SSL')) {
     if (ONYX_SSL) define('ONYX_EDITOR_USE_SSL', true);
@@ -121,31 +138,31 @@ if (!defined('ONYX_HSTS_ENABLE')) {
     if (ONYX_SSL) define('ONYX_HSTS_ENABLE', true);
     else define('ONYX_HSTS_ENABLE', false);
 }
-if (!defined('ONYX_HSTS_TTL')) define('ONYX_HSTS_TTL', 3600 * 24 * 60);
+onyxGlobalConfSetValue('ONYX_HSTS_TTL', 3600 * 24 * 60);
 
 /**
  * send X-XSS-Protection HTTP header
  */
-if (!defined('ONYX_XSS_PROTECTION_ENABLE')) define('ONYX_XSS_PROTECTION_ENABLE', true);
+onyxGlobalConfSetValue('ONYX_XSS_PROTECTION_ENABLE', true);
 
 /**
  * send X-Content-Type-Options HTTP header
  */
-if (!defined('ONYX_CONTENT_TYPE_OPTIONS_ENABLE')) define('ONYX_CONTENT_TYPE_OPTIONS_ENABLE', true);
+onyxGlobalConfSetValue('ONYX_CONTENT_TYPE_OPTIONS_ENABLE', true);
 
 /**
  * Compress output option (not really important when using Apache Deflate module)
  */
 
-if (!defined('ONYX_COMPRESS_OUTPUT')) define('ONYX_COMPRESS_OUTPUT', 0);
+onyxGlobalConfSetValue('ONYX_COMPRESS_OUTPUT', 0);
 
 
 /**
  * Session type (database, file)
  */
 
-if (!defined('ONYX_SESSION_TYPE')) define('ONYX_SESSION_TYPE', 'database');
-if (!defined('ONYX_SESSION_DIRECTORY')) define('ONYX_SESSION_DIRECTORY', ONYX_PROJECT_DIR . 'var/sessions/'); // also used for .lock files
+onyxGlobalConfSetValue('ONYX_SESSION_TYPE', 'database');
+onyxGlobalConfSetValue('ONYX_SESSION_DIRECTORY', ONYX_PROJECT_DIR . 'var/sessions/'); // also used for .lock files
 
 /**
  * Add the httpOnly flag to the cookie, which makes it inaccessible to browser scripting languages such as JavaScript
@@ -158,20 +175,20 @@ ini_set( 'session.cookie_httponly', 1 );
  * change from default PHPSESSID, it will be visible in HTTP header Set-Cookie
  */
 
-if (!defined('ONYX_SESSION_NAME')) define('ONYX_SESSION_NAME', 'OnyxSID');
+onyxGlobalConfSetValue('ONYX_SESSION_NAME', 'OnyxSID');
 
 /**
  * start session for all users
  * if false, session will start only if necessary
  */
 
-if (!defined('ONYX_SESSION_START_FOR_ALL_USERS')) define('ONYX_SESSION_START_FOR_ALL_USERS', false);
+onyxGlobalConfSetValue('ONYX_SESSION_START_FOR_ALL_USERS', false);
 
 /**
  * Layout settings
  */
 
-if (!defined('ONYX_SITE_TEMPLATE')) define('ONYX_SITE_TEMPLATE', 'node/site/default');
+onyxGlobalConfSetValue('ONYX_SITE_TEMPLATE', 'node/site/default');
 
 //hack
 if (isset($_GET['preview']) && $_GET['preview'] == 1) {
@@ -191,31 +208,31 @@ else define('ONYX_IN_BACKOFFICE', false);
  * Shared hosting should be using only File backend
  * Apc and Libmemcached should be used only on dedicated servers
  */
-if (!defined('ONYX_DB_QUERY_CACHE_BACKEND')) define('ONYX_DB_QUERY_CACHE_BACKEND', 'File'); // change of this will change also ONYX_PAGE_CACHE_BACKEND, see below
-if (!defined('ONYX_DB_QUERY_CACHE_TTL')) define('ONYX_DB_QUERY_CACHE_TTL', 3600);
-if (!defined('ONYX_DB_QUERY_CACHE_DIRECTORY')) define('ONYX_DB_QUERY_CACHE_DIRECTORY', ONYX_PROJECT_DIR . 'var/cache/');
+onyxGlobalConfSetValue('ONYX_DB_QUERY_CACHE_BACKEND', 'File'); // change of this will change also ONYX_PAGE_CACHE_BACKEND, see below
+onyxGlobalConfSetValue('ONYX_DB_QUERY_CACHE_TTL', 3600);
+onyxGlobalConfSetValue('ONYX_DB_QUERY_CACHE_DIRECTORY', ONYX_PROJECT_DIR . 'var/cache/');
 
 /*
  * Cache for whole page
  *
  */
-if (!defined('ONYX_PAGE_CACHE_DIRECTORY')) define('ONYX_PAGE_CACHE_DIRECTORY', ONYX_DB_QUERY_CACHE_DIRECTORY); // Same as DB cache
-if (!defined('ONYX_PAGE_CACHE_BACKEND')) define('ONYX_PAGE_CACHE_BACKEND', ONYX_DB_QUERY_CACHE_BACKEND); // Same as DB cache
-if (!defined('ONYX_PAGE_CACHE_TTL')) define('ONYX_PAGE_CACHE_TTL', 86400); // set 0 to disable
+onyxGlobalConfSetValue('ONYX_PAGE_CACHE_DIRECTORY', ONYX_DB_QUERY_CACHE_DIRECTORY); // Same as DB cache
+onyxGlobalConfSetValue('ONYX_PAGE_CACHE_BACKEND', ONYX_DB_QUERY_CACHE_BACKEND); // Same as DB cache
+onyxGlobalConfSetValue('ONYX_PAGE_CACHE_TTL', 86400); // set 0 to disable
 
 /*
  * General usage cache
  *
  */
-if (!defined('ONYX_GENERAL_CACHE_DIRECTORY')) define('ONYX_GENERAL_CACHE_DIRECTORY', ONYX_DB_QUERY_CACHE_DIRECTORY); // Same as DB cache
-if (!defined('ONYX_GENERAL_CACHE_BACKEND')) define('ONYX_GENERAL_CACHE_BACKEND', ONYX_DB_QUERY_CACHE_BACKEND); // Same as DB cache
-if (!defined('ONYX_GENERAL_CACHE_TTL')) define('ONYX_GENERAL_CACHE_TTL', 3600); // set 0 to disable
+onyxGlobalConfSetValue('ONYX_GENERAL_CACHE_DIRECTORY', ONYX_DB_QUERY_CACHE_DIRECTORY); // Same as DB cache
+onyxGlobalConfSetValue('ONYX_GENERAL_CACHE_BACKEND', ONYX_DB_QUERY_CACHE_BACKEND); // Same as DB cache
+onyxGlobalConfSetValue('ONYX_GENERAL_CACHE_TTL', 3600); // set 0 to disable
 
 /**
  * Libmemcached configuration
  */
-if (!defined('ONYX_CACHE_BACKEND_LIBMEMCACHED_HOST')) define('ONYX_CACHE_BACKEND_LIBMEMCACHED_HOST', 'localhost');
-if (!defined('ONYX_CACHE_BACKEND_LIBMEMCACHED_PORT')) define('ONYX_CACHE_BACKEND_LIBMEMCACHED_PORT', 11211);
+onyxGlobalConfSetValue('ONYX_CACHE_BACKEND_LIBMEMCACHED_HOST', 'localhost');
+onyxGlobalConfSetValue('ONYX_CACHE_BACKEND_LIBMEMCACHED_PORT', 11211);
 
 
 /**
@@ -226,7 +243,7 @@ if (!defined('ONYX_CACHE_BACKEND_LIBMEMCACHED_PORT')) define('ONYX_CACHE_BACKEND
  * enterprise - CMS + eCommerce + custom licence
  */
 
-if (!defined('ONYX_PACKAGE_NAME')) define('ONYX_PACKAGE_NAME', 'basic');
+onyxGlobalConfSetValue('ONYX_PACKAGE_NAME', 'basic');
 
 /**
  * enable ecommerce
@@ -235,7 +252,7 @@ if (!defined('ONYX_PACKAGE_NAME')) define('ONYX_PACKAGE_NAME', 'basic');
  * including orders, invoices and also recipes
  */
 
-if (!defined('ONYX_ECOMMERCE')) define('ONYX_ECOMMERCE', false);
+onyxGlobalConfSetValue('ONYX_ECOMMERCE', false);
 
 /**
  * enable/disable static file generator
@@ -243,29 +260,29 @@ if (!defined('ONYX_ECOMMERCE')) define('ONYX_ECOMMERCE', false);
  * allow to use a separate build&publish worklow
  */
 
-if (!defined('ONYX_STATIC_FILE_GENERATOR')) define('ONYX_STATIC_FILE_GENERATOR', false);
+onyxGlobalConfSetValue('ONYX_STATIC_FILE_GENERATOR', false);
 
 
 /**
  * Onyx system support email
  */
 
-if (!defined('ONYX_SUPPORT_EMAIL')) define('ONYX_SUPPORT_EMAIL', 'support@laposa.ie');
-if (!defined('ONYX_SUPPORT_URL')) define('ONYX_SUPPORT_URL', 'mailto:' . ONYX_SUPPORT_EMAIL);
-if (!defined('ONYX_SUPPORT_NAME')) define('ONYX_SUPPORT_NAME', 'Onyx support team');
+onyxGlobalConfSetValue('ONYX_SUPPORT_EMAIL', 'support@laposa.ie');
+onyxGlobalConfSetValue('ONYX_SUPPORT_URL', 'mailto:' . ONYX_SUPPORT_EMAIL);
+onyxGlobalConfSetValue('ONYX_SUPPORT_NAME', 'Onyx support team');
 
 
 /**
  * allow backup download
  */
 
-if (!defined('ONYX_ALLOW_BACKUP_DOWNLOAD')) define('ONYX_ALLOW_BACKUP_DOWNLOAD', true);
+onyxGlobalConfSetValue('ONYX_ALLOW_BACKUP_DOWNLOAD', true);
 
 /**
  * forwarding URLs
  */
 
-if (!defined('AFTER_CLIENT_LOGOUT_URL')) define('AFTER_CLIENT_LOGOUT_URL', '/');
+onyxGlobalConfSetValue('AFTER_CLIENT_LOGOUT_URL', '/');
 
 /**
  * allow scheduler
@@ -279,26 +296,26 @@ else define('ONYX_ALLOW_SCHEDULER', false);
  * allow search index update on cache save event
  */
 
-if (!defined('ONYX_ALLOW_SEARCH_INDEX_AUTOUPDATE')) define('ONYX_ALLOW_SEARCH_INDEX_AUTOUPDATE', false);
+onyxGlobalConfSetValue('ONYX_ALLOW_SEARCH_INDEX_AUTOUPDATE', false);
 
 
 /**
  * pagination
  */
 
-if (!defined('ONYX_PAGINATION_SHOW_ITEMS')) define('ONYX_PAGINATION_SHOW_ITEMS', 10);
+onyxGlobalConfSetValue('ONYX_PAGINATION_SHOW_ITEMS', 10);
 
 /**
  * Salt used for encryption/hashing
  */
 
-if (!defined('ONYX_ENCRYPTION_SALT'))  define('ONYX_ENCRYPTION_SALT', '');
+onyxGlobalConfSetValue('ONYX_ENCRYPTION_SALT', '');
 
 /**
  * enable A/B testing
  */
 
-if (!defined('ONYX_ENABLE_AB_TESTING')) define('ONYX_ENABLE_AB_TESTING', false);
+onyxGlobalConfSetValue('ONYX_ENABLE_AB_TESTING', false);
 
 /**
  * CDN for images
@@ -310,50 +327,50 @@ if (!defined('ONYX_ENABLE_AB_TESTING')) define('ONYX_ENABLE_AB_TESTING', false);
  * ONYX_CDN_ALLOWED_TYPES - comma seperated list of file extensions (e.g. 'jpg, gif, png')
  */
 
-if (!defined('ONYX_CDN')) define('ONYX_CDN', false);
-if (!defined('ONYX_CDN_HOST')) define('ONYX_CDN_HOST', 'http://static-image.server.my');
-if (!defined('ONYX_CDN_USE_WHEN_SSL')) define('ONYX_CDN_USE_WHEN_SSL', false);
-if (!defined('ONYX_CDN_ALLOWED_CONTEXT')) define('ONYX_CDN_ALLOWED_CONTEXT', 'img');
-if (!defined('ONYX_CDN_ALLOWED_TYPES')) define('ONYX_CDN_ALLOWED_TYPES', 'jpg, gif, png');
+onyxGlobalConfSetValue('ONYX_CDN', false);
+onyxGlobalConfSetValue('ONYX_CDN_HOST', 'http://static-image.server.my');
+onyxGlobalConfSetValue('ONYX_CDN_USE_WHEN_SSL', false);
+onyxGlobalConfSetValue('ONYX_CDN_ALLOWED_CONTEXT', 'img');
+onyxGlobalConfSetValue('ONYX_CDN_ALLOWED_TYPES', 'jpg, gif, png');
 
 /**
  * recaptcha
  */
 
-if (!defined('ONYX_RECAPTCHA_PUBLIC_KEY')) define('ONYX_RECAPTCHA_PUBLIC_KEY', '');
-if (!defined('ONYX_RECAPTCHA_PRIVATE_KEY')) define('ONYX_RECAPTCHA_PRIVATE_KEY', '');
-if (!defined('ONYX_RECAPTCHA_MIN_SCORE')) define('ONYX_RECAPTCHA_MIN_SCORE', 0.5);
+onyxGlobalConfSetValue('ONYX_RECAPTCHA_PUBLIC_KEY', '');
+onyxGlobalConfSetValue('ONYX_RECAPTCHA_PRIVATE_KEY', '');
+onyxGlobalConfSetValue('ONYX_RECAPTCHA_MIN_SCORE', 0.5);
 
 /**
  * is backoffice user account required?
  * deprecated since Onyx 1.7
  */
 
-if (!defined('ONYX_BACKOFFICE_REQUIRE_CUSTOMER_LOGIN')) define('ONYX_BACKOFFICE_REQUIRE_CUSTOMER_LOGIN', false);
+onyxGlobalConfSetValue('ONYX_BACKOFFICE_REQUIRE_CUSTOMER_LOGIN', false);
 
 /**
  * allow to upload files to root folder in media library?
  */
 
-if (!defined('ONYX_MEDIA_LIBRARY_ROOT_UPLOAD')) define('ONYX_MEDIA_LIBRARY_ROOT_UPLOAD', false);
+onyxGlobalConfSetValue('ONYX_MEDIA_LIBRARY_ROOT_UPLOAD', false);
 
 /**
  * mark object as invalid when using null on required attributes?
  */
 
-if (!defined('ONYX_MODEL_STRICT_VALIDATION')) define('ONYX_MODEL_STRICT_VALIDATION', false);
+onyxGlobalConfSetValue('ONYX_MODEL_STRICT_VALIDATION', false);
 
 /**
  * allow to merge newly registred account with previous one
  */
 
-if (!defined('ONYX_CUSTOMER_ALLOW_ACCOUNT_MERGE')) define('ONYX_CUSTOMER_ALLOW_ACCOUNT_MERGE', false);
+onyxGlobalConfSetValue('ONYX_CUSTOMER_ALLOW_ACCOUNT_MERGE', false);
 
 /**
  * simple translation (output regex filter)
  */
 
-if (!defined('ONYX_SIMPLE_TRANSLATION_ENABLED')) define('ONYX_SIMPLE_TRANSLATION_ENABLED', false);
+onyxGlobalConfSetValue('ONYX_SIMPLE_TRANSLATION_ENABLED', false);
 
 /**
  * Set pre-action list as array, used in bootstrap.php
@@ -366,35 +383,35 @@ if (ONYX_ALLOW_SCHEDULER) $onyx_pre_actions[] = "scheduler";
  * CSRF protection
  */
 
-if (!defined('ONYX_CSRF_PROTECTION_ENABLED')) define('ONYX_CSRF_PROTECTION_ENABLED', true);
+onyxGlobalConfSetValue('ONYX_CSRF_PROTECTION_ENABLED', true);
 
 /**
  * Google Map Api Key
  */
 
-if (!defined('ONYX_GOOGLE_API_KEY')) define('ONYX_GOOGLE_API_KEY', '');
+onyxGlobalConfSetValue('ONYX_GOOGLE_API_KEY', '');
 
 /**
  * Allow Template editing
  */
 
-if (!defined('ONYX_ALLOW_TEMPLATE_EDITING')) define('ONYX_ALLOW_TEMPLATE_EDITING', false);
+onyxGlobalConfSetValue('ONYX_ALLOW_TEMPLATE_EDITING', false);
 
 /**
  * Flick API key
  */
-if (!defined('ONYX_FLICKR_API_KEY')) define('ONYX_FLICKR_API_KEY', '');
+onyxGlobalConfSetValue('ONYX_FLICKR_API_KEY', '');
 
 /**
  * Allow other directory than default ONYX_PROJECT_DIR
  * it's useful for sharing media library across multiple projects
  */
 
-if (!defined('ONYX_PROJECT_EXTERNAL_DIRECTORIES')) define('ONYX_PROJECT_EXTERNAL_DIRECTORIES', '');
+onyxGlobalConfSetValue('ONYX_PROJECT_EXTERNAL_DIRECTORIES', '');
 
 /**
  * Token for permanent login
  */
 
-if (!defined('ONYX_TOKEN_NAME')) define('ONYX_TOKEN_NAME', 'onyx_token');
+onyxGlobalConfSetValue('ONYX_TOKEN_NAME', 'onyx_token');
 
