@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2015-2021 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2015-2022 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -27,10 +27,13 @@ class Onyx_Controller_Node_Content_Page_List extends Onyx_Controller_Node_Conten
             if (is_numeric($node_id)) {
                 
                 $item_node_data = $this->Node->nodeDetail($node_id);
-                $item_node_data['image'] = $this->Node->getTeaserImageForNodeId($node_id);;
 
-                $this->tpl->assign('ITEM', $item_node_data);
-                $this->tpl->parse('content.item');
+                if ($item_node_data['publish'] == 1) {
+                    $item_node_data['image'] = $this->Node->getTeaserImageForNodeId($node_id);;
+
+                    $this->tpl->assign('ITEM', $item_node_data);
+                    $this->tpl->parse('content.item');
+                }
                 
             }
 
