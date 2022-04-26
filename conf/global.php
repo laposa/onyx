@@ -286,10 +286,10 @@ onyxGlobalConfSetValue('AFTER_CLIENT_LOGOUT_URL', '/');
 
 /**
  * allow scheduler
- * if not enabled for all, enable for 1% requests
+ * if not enabled for all, enable for 2% requests
  */
 
-if (!defined('ONYX_ALLOW_SCHEDULER') && (rand(0, 100) == 1)) define('ONYX_ALLOW_SCHEDULER', true);
+if (!defined('ONYX_ALLOW_SCHEDULER') && (rand(1, 50) == 1)) define('ONYX_ALLOW_SCHEDULER', true);
 else define('ONYX_ALLOW_SCHEDULER', false);
 
 /**

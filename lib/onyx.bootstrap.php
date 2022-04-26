@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2005-2021 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2005-2022 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -118,6 +118,9 @@ class Onyx_Bootstrap {
             require_once('lib/Doctrine/OnyxSQLLogger.php');
             $db->getConfiguration()->setSQLLogger(new OnyxSQLLogger());
         }
+
+        // set timezone
+        $db->exec("SET TIMEZONE='" . date_default_timezone_get() . "'");
 
         // store in registry
         $this->container->set('onyx_db', $db);
