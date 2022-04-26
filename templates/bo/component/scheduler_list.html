@@ -45,7 +45,7 @@
                 '<option value="{ITEM}">{ITEM|ucfirst|preg_replace('/_/', ' ', %s)}</option>' + 
                 <!-- END: controller_item -->
                 '</select></td>' +
-                '<td><input type="text" class="date" style="width: 80px;" name="scheduler[date][]" value="{TOMORROW}" />' +
+                '<td><input type="text" class="date1" style="width: 80px;" name="scheduler[date][]" value="{TOMORROW}" />' +
                 '<input type="text" class="time" style="width: 64px;" name="scheduler[time][]" value="00:00:00" /></td>' +
                 '<td>New</td>' +
                 '<td>' +
@@ -54,7 +54,7 @@
             '</tr>';
 
             $("#scheduler-list tbody").append(template);
-            $('#scheduler-list tbody tr:last input.date').datepicker({firstDay: 1, dateFormat: 'dd/mm/yy'});
+            $('#scheduler-list tbody tr:last input.date1').datepicker({firstDay: 1, dateFormat: 'dd/mm/yy'});
             $("#scheduler-list").show().prev().show();
             $("#no-schedule").hide();
 
