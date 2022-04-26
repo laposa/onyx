@@ -375,6 +375,11 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
         if (is_numeric($filter['publish'])) {
             $add_to_where .= " AND common_node.publish = {$filter['publish']}";
         }
+
+        // navigation status
+        if (is_numeric($filter['display_in_menu'])) {
+            $add_to_where .= " AND common_node.display_in_menu = {$filter['display_in_menu']}";
+        }
         
         //created filter (only year-month)
         if (is_numeric($filter['created'])) {
