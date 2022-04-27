@@ -789,7 +789,7 @@
 
 
 
-body {font-size: 70%; color: black; font-family: "Lucida Grande", "Helvetica Neue", Helvetica, Arial, sans-serif; background: white;}
+body {font-size: 70%; color: black; font-family: "Lucida Grande", "Helvetica Neue", Helvetica, Arial, sans-serif; background: white; margin-bottom: 100px;}
 h2 a, h3 a, h4 a {color: white;}
 p:first-child {margin-top: 0;}
 caption, h3, h4 { font-family: "Lucida Grande", "Helvetica Neue", Helvetica, Arial, sans-serif; }
