@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2009-2020 Onxshop Ltd (https://onxshop.com)
+ * Copyright (c) 2009-2022 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -390,6 +390,7 @@ CREATE TABLE common_file (
     static function nameToSafe($name, $maxlen=250) {
     
         $name = self::recodeUTF8ToAscii($name);
+        $name = preg_replace('/%20/', '-', $name);
         return preg_replace('/[^a-zA-Z0-9._-]/', '-', $name);
     }
 
