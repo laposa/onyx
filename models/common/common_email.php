@@ -103,8 +103,8 @@ CREATE TABLE common_email (
          */
         // allow sender email address to be overwritten, for example in contact form
         // to allow sending emails on behalf of the customer
-        if ($conf['sender_overwrite_allowed'] == '') $conf['sender_overwrite_allowed'] = false;
-        if ($conf['retention_days'] == '') $conf['retention_days'] = 7;
+        if ($conf['sender_overwrite_allowed'] == '') $conf['sender_overwrite_allowed'] = true;
+        if ($conf['retention_days'] == '') $conf['retention_days'] = 356;
         // what is default email FROM address?
         if ($conf['mail_sender_address'] == '') $conf['mail_sender_address'] = $GLOBALS['onxshop_conf']['global']['admin_email'];
         if ($conf['mail_sender_name'] == '') $conf['mail_sender_name'] = $GLOBALS['onxshop_conf']['global']['admin_email_name'];
