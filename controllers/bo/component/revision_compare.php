@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2014 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2014-2022 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -30,7 +30,7 @@ class Onyx_Controller_Bo_Component_Revision_Compare extends Onyx_Controller {
      */
     
     public function parseList($list) {
-    
+        
         if (count($list) > 0) {
             require_once('models/client/client_customer.php');
             require_once('models/common/common_revision.php');
@@ -41,6 +41,7 @@ class Onyx_Controller_Bo_Component_Revision_Compare extends Onyx_Controller {
             foreach ($list as $id) {
                 $item['details'] = $Common_Revision->getRevisionById($id);
                 $item['details']['content'] = unserialize($item['details']['content']);
+                ksort($item['details']['content']);
                 if($prev != false) {
                     // LOOK FOR NEW AND MODIFIED KEYS
                     foreach($item['details']['content'] as $key=>$row) {
