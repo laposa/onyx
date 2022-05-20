@@ -1,5 +1,5 @@
 <div class="row uri-title">
     <label for="node-uri-title" title="Speaking URL path segment">Slug:</label>
     <input class="half" type="text" name="node[uri_title]" id="node-uri-title" value="{NODE.uri_title|htmlspecialchars}" title="If empty, navigation title will be used" onchange="var value = $(this).attr('value'); if (value.indexOf('{_SERVER.HTTP_HOST}') != -1) {growlMessage('Invalid slug, don\'t use actual URL'); $(this).attr('value', '');}" placeholder="{NODE_URL_LAST_SEGMENT}"/>
-    Current full path: {NODE_URL}
+    Current full path: <a href="{NODE_URL}" id="node-full-path-url" target="_blank">{NODE_URL}</a>
 </div>
