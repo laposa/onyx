@@ -415,3 +415,9 @@ onyxGlobalConfSetValue('ONYX_PROJECT_EXTERNAL_DIRECTORIES', '');
 
 onyxGlobalConfSetValue('ONYX_TOKEN_NAME', 'onyx_token');
 
+/**
+ * Fallback to missing image
+ * e.g. when Media Library is not available
+ */
+
+onyxGlobalConfSetValue('ONYX_MISSING_IMAGE', 'public_html/share/images/missing_image.png');

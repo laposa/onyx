@@ -51,7 +51,7 @@ $Bootstrap = new Onyx_Bootstrap();
 if (isset($_GET['file'])) {
     $file = $_GET['file'];
 } else {
-    $file = "public_html/share/images/missing_image.png";
+    $file = ONYX_MISSING_IMAGE;
 }
 
 $file = ONYX_PROJECT_DIR . $file;

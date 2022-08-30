@@ -95,7 +95,7 @@ if (!$missing) onyxCheckForAllowedPath($realpath, false);
  
 if (!is_readable($image_file) || $missing) {
     //file does not exists
-    $image_file = ONYX_PROJECT_DIR . "public_html/share/images/missing_image.png";
+    $image_file = ONYX_PROJECT_DIR . ONYX_MISSING_IMAGE;
     header("HTTP/1.0 404 Not Found");
 }
 
