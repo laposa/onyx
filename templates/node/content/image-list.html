@@ -1,20 +1,9 @@
 <!-- BEGIN: content -->
-<div id="node-id-{NODE.id}" class="container image-gallery {NODE.css_class} {NODE.taxonomy_class}">
+<div id="node-id-{NODE.id}" class="content image-list {NODE.css_class} {NODE.taxonomy_class}">
     <div class="wrapper">
-        <div id="gallery-plain-{GET.node_id}" class="container image-gallery-plain">
-            <div class="wrapper">
-                <!-- BEGIN: item -->
-                <figure class="item image-id-{ITEM.id}">
-                    <img src="/image/{ITEM.src}" alt="{ITEM.title|htmlspecialchars}" id="image-id-{ITEM.id}" />
-                    <figcaption>
-                        <h3>{ITEM.title|htmlspacialchars}</h3>
-                        <p>{ITEM.description|htmlspecialchars|nl2br}</p>
-                        <div class="content">{ITEM.content}</div>
-                    </figcaption>
-                </figure>
-                <!-- END: item -->
-            </div>
-        </div>
+        <!-- BEGIN: item -->
+        <img src="/image/{ITEM.src}" alt="{ITEM.title|htmlspecialchars}" id="image-id-{ITEM.id}" />
+        <!-- END: item -->
     </div>
 </div>
 <!-- END: content -->
