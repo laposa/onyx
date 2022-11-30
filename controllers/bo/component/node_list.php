@@ -44,6 +44,8 @@ class Onyx_Controller_Bo_Component_Node_List extends Onyx_Controller {
         if (is_array($children) && count($children) > 0) { 
             foreach ($children as $child) {
                 if ($child['publish'] == 0)  $child['class'] = 'disabled';
+                if ($child['node_group'] == 'page' && ($child['node_controller'] == 'recipe' || $child['node_controller'] == 'product'))  $child['class'] = $child['class'] . 'advanced';
+
                 $this->tpl->assign("CHILD", $child);
                 $this->tpl->parse('content.children.item');
             }

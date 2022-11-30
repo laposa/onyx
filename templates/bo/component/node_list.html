@@ -61,7 +61,7 @@ function refreshList() {
         </thead>
         <tbody>
             <!-- BEGIN: item -->
-            <tr id="node-id-{CHILD.id}">
+            <tr id="node-id-{CHILD.id}" class="{CHILD.class}">
                 <td><a class="{CHILD.class}" href="javascript:void({CHILD.id})" onclick="openEdit('/popup/properties/{CHILD.id}/orig' + window.location.pathname)" title="Modified: {CHILD.modified|htmlspecialchars}">{CHILD.title|htlmspecialchars}</a></td>
                 <td><a class="{CHILD.class}" href="javascript:void({CHILD.id})" onclick="openEdit('/popup/properties/{CHILD.id}/orig' + window.location.pathname)" title="Modified: {CHILD.modified|htmlspecialchars}">{CHILD.node_group}/{CHILD.node_controller}</a></td>
                 <td>{CHILD.id}</td>
