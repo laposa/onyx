@@ -101,7 +101,13 @@ class Onxshop_Controller_Component_Client_Registration extends Onxshop_Controlle
                 return false;
             }
         }
-    
+   
+        // don't allow to use http(s):// in first name and last name
+        if (preg_match('/https?:\/\//', $client_customer['first_name']) || preg_match('/https?:\/\//', $client_customer['last_name'])) {
+            msg('error code 1234');
+            return false;
+        } 
+
         //check validation of submited fields
         if ($this->Customer->prepareToRegister($client_customer) && $password_match_status) {
         
