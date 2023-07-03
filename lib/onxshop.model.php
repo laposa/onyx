@@ -14,7 +14,7 @@ require_once 'Zend/Cache.php';
 class Onxshop_Model {
 
 	var $conf = array();
-	var $_cacheable = ONXSHOP_DB_QUERY_CACHE;
+	var $_cacheable = true; // can be overwritten by setCacheable i.e. by default in constructor
 	var $_valid = array();
 	var $_class_name = '';
 	var $_public_attributes = array();
@@ -27,7 +27,8 @@ class Onxshop_Model {
 	 */
 		
 	function __construct() {
-		$this->_class_name = get_class($this);
+        $this->_class_name = get_class($this);
+        $this->setCacheable(ONXSHOP_DB_QUERY_CACHE);
 		$this->generic();
 	}
 	

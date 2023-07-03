@@ -28,7 +28,6 @@ class Onxshop_Controller_Bo_Component_File_List_Icon extends Onxshop_Controller_
 				$this->tpl->parse("content.list.item.image_view_full");
 				$this->tpl->parse("content.list.item.CSS_select");
 			break;
-			default:
 			case 'file':
 				//nothing
 			break;

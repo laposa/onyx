@@ -1,10 +1,5 @@
 #for safety to ensure PHP processor
 AddType application/x-httpd-php .php
-php_value magic_quotes_gpc Off
-php_value register_globals Off
-php_value session.use_trans_sid 0
-php_value session.use_cookies 1
-php_value default_charset UTF-8
 Options -Indexes +FollowSymLinks
 
 
