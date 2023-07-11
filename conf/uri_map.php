@@ -93,6 +93,7 @@ $uri_map = array(
         '^/popup/add/([a-z]*)/([0-9]*)/([0-9]*)/orig/(.*)$' => '/index.php?request=bo/backoffice_wrapper.bo/popup.bo/component/node_add&parent=$2&container=$3&node_group=$1&orig=$4&popup=1',
         '^/popup/files/([a-z_]*)/([0-9]*)$' => '/index.php?request=bo/backoffice_wrapper.bo/popup.bo/component/file_list~relation=$1:node_id=$2~',
         '^/popup/css_edit/([0-9]*)/orig/(.*)$' => '/index.php?request=bo/backoffice_wrapper.bo/popup.bo/component/css_edit~popup=1:orig=$2:id=$1~',
+        '^/popup/css_edit/?$' => '/index.php?request=bo/backoffice_wrapper.bo/popup.bo/component/css_edit~popup=1~',
         '^/popup/logs$' => '/index.php?request=bo/backoffice_wrapper.bo/popup.bo/component/logs',
         '^/popupimage/(.*)$' => '/index.php?request=component/popimage&src=$1'
     ),
