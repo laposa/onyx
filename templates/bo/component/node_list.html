@@ -7,8 +7,18 @@ $(function() {
     $('#child-list-{GET.id} a.add, #button-add-subpage').on('click', function() {
         $('#onyx-dialog').empty();
         var node_id = $(this).attr('data-node-id');
-        var container_id = 0;
         var node_group = $(this).attr('data-node-group');
+
+        if (node_group == 'layout') {
+            var container_id = prompt("Please enter container number you want to use for the new content.", "1");
+            if (isNaN(container_id)) {
+                alert(container_id + ' is not a valid number. It should be 1 or 2 for two columns layout.');
+                return false;
+            }
+        } else {
+            var container_id = 0;
+        }
+
         var url = '/request/bo/component/node_add~node_group='+node_group+':parent=' + node_id + ':container=' + container_id + ':expand_all=1~';
 
         $('#onyx-dialog').addClass('ajax-load').load(url, '', function() {

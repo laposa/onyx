@@ -1,9 +1,9 @@
-<div class="advanced">
+<div>
     <label for="node-priority">Priority:</label>
     <input class="short" type="text" name="node[priority]" id="node-priority" value="{NODE.priority}" />
     <label for="node-parent-container">Parent Container:</label>
     <input class="short" type="text" name="node[parent_container]" id="node-parent-container" value="{NODE.parent_container}" />
-    <label><a class="button" href="#" onclick="$('#parent-ajax').addClass('ajax-load').load('/request/bo/component/node_parent_menu~id=0:expand_all=1:publish=0:parent_type={NODE.node_group}~', function() {$(this).removeClass('ajax-load')}); return false"><span>Move...</span></a></label>
+    <label><a class="button" href="#" onclick="$('#parent-ajax').addClass('ajax-load').load('/request/bo/component/node_parent_menu~id=0:expand_all=1:publish=0:parent_type={NODE.node_group}~', function() {$(this).removeClass('ajax-load')}); return false"><span title="Move to a different page or layout">Move...</span></a></label>
     <span style="display: block;" id="parent-ajax"></span>
     <input type="hidden" id="node-parent" name="node[parent]" value="{NODE.parent}" />
 </div>
