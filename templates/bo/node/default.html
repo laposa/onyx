@@ -1,7 +1,7 @@
 <!-- BEGIN: content -->
 <div class="page-header">
     <div class="page-header-wrapper">
-        <h1 class="page-title popup"><span>Component</span> <span class="info">ID {NODE.id}</span></h1>
+        <h1 class="page-title popup"><span>{NODE.node_controller|htmlspecialchars|ucfirst}</span> <span class="info" title="{NODE.node_group|htmlspecialchars}/{NODE.node_controller|htmlspecialchars}">ID {NODE.id}</span></h1>
     </div>
 </div>
 {FILE "bo/node/form_open.html"}
