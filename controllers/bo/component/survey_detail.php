@@ -13,16 +13,21 @@ class Onyx_Controller_Bo_Component_Survey_Detail extends Onyx_Controller_Bo_Comp
      */
      
     public function mainAction() {
-    
+
         if (is_numeric($this->GET['id'])) $survey_id = $this->GET['id'];
         else {
             msg("Survey ID is not numeric", 'error');
             return false;
         }
-        
+
         require_once('models/education/education_survey.php');
         
         $this->Survey = new education_survey();
+
+        if ($_SERVER['REQUEST_METHOD'] === "POST" && $_POST['action'] == 'delete-entries') {
+            $this->deleteEntries($survey_id);
+            return true;
+        }
         
         $survey_detail = $this->Survey->getFullDetail($survey_id);
         
@@ -102,6 +107,10 @@ class Onyx_Controller_Bo_Component_Survey_Detail extends Onyx_Controller_Bo_Comp
         
         $this->tpl->assign('ANSWER', $answer_detail);
         $this->tpl->parse('content.question.answer_list.item');
+    }
+
+    public function deleteEntries($survey_id) {
+        $this->Survey->deleteEntries($survey_id);
     }
 }
 
