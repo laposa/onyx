@@ -2,7 +2,18 @@
 <!-- BEGIN: content -->
 {MESSAGES}
 <div id="sub-content" class="two-column-page page survey-detail fibonacci-1-5">
+    <script type="text/javascript">
     
+        $(function() {
+            var form = document.querySelector('.delete-entries-form');
+            if (form) {
+                form.addEventListener("submit", function(e) {
+                    return confirm("Are you sure you want to delete all entries?") ? true : e.preventDefault();
+                })
+            }
+        });
+        
+        </script>
     <div class="content">
         <div class="page-wrapper">
 
@@ -73,6 +84,11 @@
                                     <a class="button add" title="Add new question" onclick="makeAjaxRequest('#sub-content', '/request/bo/component/survey_question_add~survey_id={SURVEY.id}~'); return false" href="#sub_content"><span>Add a New Question</span></a>
                                     <a class="button edit" title="Edit survey - Update basic information" href="/backoffice/surveys/{SURVEY.id}/edit"><span>Edit Survey Properties</span></a>
                                     <a class="button" href="/request/bo/export/csv_survey_entries?survey_id={SURVEY.id}"><span>Export {SURVEY.usage_count} Entries</span></a>
+                                    <form style="display: inline;" class="delete-entries-form" method="post">
+                                        <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+                                        <input type="hidden" name="action" value="delete-entries">
+                                        <button type="submit" class="button remove" href="/request/bo/export/csv_survey_entries?survey_id={SURVEY.id}"><span>Delete entries</span></button>
+                                    </form>
                                 </p>
 
                             </div>

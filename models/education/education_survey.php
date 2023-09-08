@@ -374,4 +374,17 @@ ORDER BY education_survey_entry.relation_subject, education_survey_question.id";
         } else return false;
     }
 
+
+    public function deleteEntries($survey_id)
+    {
+        if (!is_numeric($survey_id)) return false;
+
+        $sql = "DELETE FROM education_survey_entry WHERE survey_id = $survey_id";
+
+        msg("Deleted entries for survey $survey_id");
+
+        $this->executeSql($sql);
+
+        return true;
+    }
 }
