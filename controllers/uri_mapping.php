@@ -290,14 +290,18 @@ class Onyx_Controller_Uri_Mapping extends Onyx_Controller {
          */
 
         if (defined('ONYX_MAIN_DOMAIN') && strlen(ONYX_MAIN_DOMAIN) > 0) {
-            if (array_key_exists('HTTPS', $_SERVER)) $protocol = 'https';
+            if (array_key_exists('HTTPS', $_SERVER) || $_SERVER['HTTP_X_FORWARDED_PROTO'] == 'https') $protocol = 'https';
             else $protocol = 'http';
 
-            if ($_SERVER['HTTP_HOST'] != ONYX_MAIN_DOMAIN) {
-                Header( "HTTP/1.1 301 Moved Permanently" );
-                Header( "Location: $protocol://" . ONYX_MAIN_DOMAIN . "{$_SERVER['REQUEST_URI']}" );
-                //exit the application immediately
-                exit;
+            // server itself isn't running on main domain
+            if ($_SERVER['HTTP_HOST'] != ONYX_MAIN_DOMAIN && $_SERVER['HTTP_X_FORWARDED_HOST'] != ONYX_MAIN_DOMAIN) {
+                // it's not behind a proxy
+                if ($_SERVER['HTTP_X_FORWARDED_HOST'] != ONYX_MAIN_DOMAIN) {
+                    Header( "HTTP/1.1 301 Moved Permanently" );
+                    Header( "Location: $protocol://" . ONYX_MAIN_DOMAIN . "{$_SERVER['REQUEST_URI']}" );
+                    //exit the application immediately
+                    exit;
+                }
             }
         }
 
