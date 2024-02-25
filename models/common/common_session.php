@@ -5,7 +5,7 @@
  * inspired by article By Tony Marston
  * http://www.developertutorials.com/tutorials/php/saving-php-session-data-database-050711/page2.html
  *
- * Copyright (c) 2009-2018 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2009-2024 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -67,6 +67,10 @@ class common_session extends Onyx_Model {
     );
     
     var $_cacheable = false;
+
+    var $lock;
+
+    var $fieldarray;
 
     /**
      * create table sql

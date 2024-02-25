@@ -1,11 +1,15 @@
 <?php
 /**
- * Copyright (c) 2005-2021 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2005-2024 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
 
 class Onyx_Controller_Node extends Onyx_Controller {
+
+    var $Node;
+
+    var $temp;
 
     /**
      * main action
@@ -216,7 +220,7 @@ class Onyx_Controller_Node extends Onyx_Controller {
         // and not authenticated for the backend
         $show_fe_edit = false;
         if (Onyx_Bo_Authentication::getInstance()->isAuthenticated()) $show_fe_edit = true;
-        if ($this->GET['disable_fe_edit'] || $this->GET['shared']) $show_fe_edit = false;
+        if (array_key_exists('disable_fe_edit', $this->GET) && $this->GET['disable_fe_edit'] == true) $show_fe_edit = false;
 
         if ($show_fe_edit == true) {
 

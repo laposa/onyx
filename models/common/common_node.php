@@ -2,7 +2,7 @@
 /**
  * class common_node
  *
- * Copyright (c) 2009-2021 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2009-2024 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -233,8 +233,40 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
      
     static function initConfiguration() {
     
-        if (array_key_exists('common_node', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['common_node'];
-        else $conf = array();
+        $conf = array_fill_keys(array(
+            'default_status_publish',
+            'layout_layout_style',
+            'page_layout_style',
+            'page_product_layout_style',
+            'id_map-root',
+            'id_map-global_navigation',
+            'id_map-primary_navigation',
+            'id_map-ecommerce_navigation',
+            'id_map-system_navigation',
+            'id_map-footer_navigation',
+            'id_map-content_bits',
+            'id_map-content_side',
+            'id_map-content_foot',
+            'id_map-bin',
+            'id_map-homepage',
+            'id_map-search',
+            'id_map-contact',
+            'id_map-sitemap',
+            'id_map-blog',
+            'id_map-login',
+            'id_map-registration',
+            'id_map-passwordreset',
+            'id_map-myaccount',
+            'id_map-addressedit',
+            'id_map-personal_details',
+            'id_map-newsletter_subscribe',
+            'id_map-newsletter_unsubscribe',
+            'id_map-404',
+            'unpublish_on_duplicate',
+            'contact_form_default_template'
+        ), '');
+
+        if (array_key_exists('common_node', $GLOBALS['onyx_conf'])) $conf = array_merge($conf. $GLOBALS['onyx_conf']['common_node']);
         
         /**
          * default new node settings
@@ -282,28 +314,29 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
         if (!is_numeric($conf['id_map-newsletter_subscribe'])) $conf['id_map-newsletter_subscribe'] = 90;
         if (!is_numeric($conf['id_map-newsletter_unsubscribe'])) $conf['id_map-newsletter_unsubscribe'] = 92;
         
-        //ecommerce pages (onepage checkout)
-        if (!is_numeric($conf['id_map-myorders'])) $conf['id_map-myorders'] = 17;
-        if (!is_numeric($conf['id_map-order_detail'])) $conf['id_map-order_detail'] = 19;
-        if (!is_numeric($conf['id_map-basket'])) $conf['id_map-basket'] = 6;
-        if (!is_numeric($conf['id_map-checkout'])) $conf['id_map-checkout'] = 7;
-        if (!is_numeric($conf['id_map-payment'])) $conf['id_map-payment'] = 10;
-        if (!is_numeric($conf['id_map-payment_protx_success'])) $conf['id_map-payment_protx_success'] = 12;
-        if (!is_numeric($conf['id_map-payment_protx_failure'])) $conf['id_map-payment_protx_failure'] = 11;
-        if (!is_numeric($conf['id_map-payment_worldpay_callback'])) $conf['id_map-payment_worldpay_callback'] = 999;
-        if (!is_numeric($conf['id_map-terms'])) $conf['id_map-terms'] = 26;
-        if (!is_numeric($conf['id_map-notifications'])) $conf['id_map-notifications'] = 0; // TODO add to template and get ID
-        
-        //checkout pages (wizard checkout)
-        if (!is_numeric($conf['id_map-checkout_basket'])) $conf['id_map-checkout_basket'] = $conf['id_map-basket'];
-        if (!is_numeric($conf['id_map-checkout_login'])) $conf['id_map-checkout_login'] = 0; // TODO add to template and get ID
-        if (!is_numeric($conf['id_map-checkout_delivery_options'])) $conf['id_map-checkout_delivery_options'] = $conf['id_map-checkout']; // by default same as checkout page
-        if (!is_numeric($conf['id_map-checkout_gift'])) $conf['id_map-checkout_gift'] = 0; // TODO add to template and get ID
-        if (!is_numeric($conf['id_map-checkout_summary'])) $conf['id_map-checkout_summary'] = 0; // TODO add to template and get ID
-        if (!is_numeric($conf['id_map-checkout_payment'])) $conf['id_map-checkout_payment'] = $conf['id_map-payment'];
-        if (!is_numeric($conf['id_map-checkout_payment_success'])) $conf['id_map-checkout_payment_success'] = $conf['id_map-payment_protx_success'];
-        if (!is_numeric($conf['id_map-checkout_payment_failure'])) $conf['id_map-checkout_payment_failure'] = $conf['id_map-payment_protx_failure'];
-        
+        if (ONYX_ECOMMERCE) {
+            //ecommerce pages (onepage checkout)
+            if (!is_numeric($conf['id_map-myorders'])) $conf['id_map-myorders'] = 17;
+            if (!is_numeric($conf['id_map-order_detail'])) $conf['id_map-order_detail'] = 19;
+            if (!is_numeric($conf['id_map-basket'])) $conf['id_map-basket'] = 6;
+            if (!is_numeric($conf['id_map-checkout'])) $conf['id_map-checkout'] = 7;
+            if (!is_numeric($conf['id_map-payment'])) $conf['id_map-payment'] = 10;
+            if (!is_numeric($conf['id_map-payment_protx_success'])) $conf['id_map-payment_protx_success'] = 12;
+            if (!is_numeric($conf['id_map-payment_protx_failure'])) $conf['id_map-payment_protx_failure'] = 11;
+            if (!is_numeric($conf['id_map-payment_worldpay_callback'])) $conf['id_map-payment_worldpay_callback'] = 999;
+            if (!is_numeric($conf['id_map-terms'])) $conf['id_map-terms'] = 26;
+            if (!is_numeric($conf['id_map-notifications'])) $conf['id_map-notifications'] = 0; // TODO add to template and get ID
+            
+            //checkout pages (wizard checkout)
+            if (!is_numeric($conf['id_map-checkout_basket'])) $conf['id_map-checkout_basket'] = $conf['id_map-basket'];
+            if (!is_numeric($conf['id_map-checkout_login'])) $conf['id_map-checkout_login'] = 0; // TODO add to template and get ID
+            if (!is_numeric($conf['id_map-checkout_delivery_options'])) $conf['id_map-checkout_delivery_options'] = $conf['id_map-checkout']; // by default same as checkout page
+            if (!is_numeric($conf['id_map-checkout_gift'])) $conf['id_map-checkout_gift'] = 0; // TODO add to template and get ID
+            if (!is_numeric($conf['id_map-checkout_summary'])) $conf['id_map-checkout_summary'] = 0; // TODO add to template and get ID
+            if (!is_numeric($conf['id_map-checkout_payment'])) $conf['id_map-checkout_payment'] = $conf['id_map-payment'];
+            if (!is_numeric($conf['id_map-checkout_payment_success'])) $conf['id_map-checkout_payment_success'] = $conf['id_map-payment_protx_success'];
+            if (!is_numeric($conf['id_map-checkout_payment_failure'])) $conf['id_map-checkout_payment_failure'] = $conf['id_map-payment_protx_failure'];
+        }
         //system pages
         if (!is_numeric($conf['id_map-404'])) $conf['id_map-404'] = 14;
         
@@ -518,11 +551,11 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
 
         $node_data['author_detail'] = $this->getAuthorDetailbyId($node_data['customer_id']);
     
-        $node_data['other_data'] = unserialize(trim($node_data['other_data']));
-        $node_data['custom_fields'] = json_decode($node_data['custom_fields']);
-        $node_data['component'] = unserialize(trim($node_data['component']));
-        $node_data['relations'] = unserialize(trim($node_data['relations']));
-        $node_data['display_permission_group_acl'] = unserialize($node_data['display_permission_group_acl']);
+        if (!is_null($node_data['other_data'])) $node_data['other_data'] = unserialize(trim($node_data['other_data']));
+        if (!is_null($node_data['custom_fields'])) $node_data['custom_fields'] = json_decode($node_data['custom_fields']);
+        if (!is_null($node_data['component'])) $node_data['component'] = unserialize(trim($node_data['component']));
+        if (!is_null($node_data['relations'])) $node_data['relations'] = unserialize(trim($node_data['relations']));
+        if (!is_null($node_data['display_permission_group_acl'])) $node_data['display_permission_group_acl'] = unserialize($node_data['display_permission_group_acl']);
         
         //overwrite author (allowed in bo/node/news edit interface)
         if (is_array($node_data['component']) && $node_data['component']['author'] != '') $node_data['author_detail']['name'] = $node_data['component']['author'];
@@ -1069,7 +1102,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
     /**
      * get list of node by parent id
      */
-    function getNodesByParent($publish = 1, $filter = 'page', $parent_id)
+    function getNodesByParent($publish = 1, $filter = 'page', $parent_id = false)
     {
         $condition = $this->prepareNodeGroupFilter($publish, $filter);
 

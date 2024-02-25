@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2005-2022 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2005-2024 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -73,7 +73,7 @@ class Onyx_Bootstrap {
         }
 
         //hack
-        if ($_GET['logout'] == 1) {
+        if (array_key_exists('logout', $_GET) && $_GET['logout'] == 1) {
             Onyx_Bo_Authentication::getInstance()->logout();
             header("Location: http://{$_SERVER['SERVER_NAME']}/");
             exit;
@@ -261,9 +261,9 @@ class Onyx_Bootstrap {
 
         if (!array_key_exists('active_pages', $_SESSION)) $_SESSION['active_pages'] = []; // only pages
         if (!array_key_exists('full_path', $_SESSION)) $_SESSION['full_path'] = []; // including layouts, containers, etc.
-        if ($_SERVER['HTTP_X_FORWARDED_PROTO']) $protocol = $_SERVER['HTTP_X_FORWARDED_PROTO'];
-        elseif (array_key_exists('HTTPS', $_SERVER)) $protocol = 'https';
-        else $protocol = 'http';
+        
+        // detect SSL
+        $protocol = onyxDetectProtocol();
 
         $_SESSION['uri'] = "$protocol://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
         $_SESSION['orig'] = $_SERVER['REQUEST_URI'];
@@ -271,14 +271,11 @@ class Onyx_Bootstrap {
 
         $_SESSION['use_page_cache'] = $this->isPageCacheAllowed();
 
-        // in session history we store only new page URIs,
-        // exclude paths beginning with /ajax/, /request/, /popup/, /popupimage/, /view/
-        if ($_SESSION['last_item'] != $_SESSION['uri'] && !preg_match('/^\/(ajax)*(request)*(popup)*(popupimage)*(view)*\//', $_SERVER['REQUEST_URI'])) {
+        // in session history we exclude paths beginning with /ajax/, /request/, /popup/, /popupimage/, /view/
+        if (!preg_match('/^\/(ajax)*(request)*(popup)*(popupimage)*(view)*\//', $_SERVER['REQUEST_URI'])) {
             $uri = substr($_SESSION['uri'], 0, 2048); // prevent oversized database when request URI is very long i.e. under penetration test
             $_SESSION['history'][] = ['time' => time(), 'uri' => $uri];
         }
-
-        $_SESSION['last_diff'] = $_SESSION['last_item'];
     }
 
     /**
@@ -337,7 +334,7 @@ class Onyx_Bootstrap {
         }
 
         // force login when controller_request in uri_mapping is from bo/ folder
-        if ($_GET['controller_request']) {
+        if (array_key_exists('controller_request', $_GET)) {
             if (preg_match('/bo\//', $_GET['controller_request'])) $auth_is_required = true;
         }
 
@@ -645,7 +642,7 @@ class Onyx_Bootstrap {
         if (isset($_GET['nocache'])) $this->disable_page_cache = $_GET['nocache'];
 
         // check if explicitly disabled
-        if ($this->disable_page_cache || ONYX_PAGE_CACHE_TTL == 0) {
+        if (isset($this->disable_page_cache) || ONYX_PAGE_CACHE_TTL == 0) {
             $use_page_cache = false;
         } elseif (array_key_exists(ONYX_SESSION_NAME, $_COOKIE) || array_key_exists(ONYX_TOKEN_NAME, $_COOKIE) || $_COOKIE['identity_access_token']) {
             $use_page_cache = false;

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2009-2022 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2009-2024 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -40,7 +40,7 @@ class Onyx_Controller_Node_Content_Default extends Onyx_Controller_Node_Default 
         $this->node_data = $this->Node->nodeDetail($node_id);
         
         if ($this->node_data['page_title'] == '') {
-            $this->node_data['page_title'] = $node_data['title'];
+            $this->node_data['page_title'] = $this->node_data['title'];
         }
         
         if (!isset($this->node_data['display_title'])) $this->node_data['display_title'] = $GLOBALS['onyx_conf']['global']['display_title'];

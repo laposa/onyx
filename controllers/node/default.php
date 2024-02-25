@@ -1,11 +1,14 @@
 <?php
 /** 
- * Copyright (c) 2009-2020 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2009-2024 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
 
 class Onyx_Controller_Node_Default extends Onyx_Controller {
+
+    var $Node;
+    var $node_data;
 
     /**
      * main action
