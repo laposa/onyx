@@ -12,13 +12,5 @@
     "html2text/html2text": "^4.3",
     "symfony/http-client": "^5.2",
     "symfony/http-foundation": "^5.4"
-  },
-  "config": {
-    "platform": {
-      "php": "7.3.31"
-    },
-    "allow-plugins": {
-      "composer/package-versions-deprecated": true
-    }
   }
 }
