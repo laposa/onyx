@@ -2,7 +2,7 @@
 /**
  * Default Global Onyx configuration
  *
- * Copyright (c) 2005-2022 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2005-2024 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  * The constants defined here can be "overwritten" in project_dir/conf/global.php
@@ -70,7 +70,7 @@ if(in_array($http_client_ip, array_keys($debug_hosts)))  {
     define('ONYX_TRACY_BENCHMARK', true); // only effective if ONYX_TRACY is true
     define('ONYX_TRACY_DB_PROFILER', false); // only effective if ONYX_TRACY is true
 } else {
-    error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
+    error_reporting(E_ALL & ~E_DEPRECATED & ~E_STRICT & ~E_WARNING);
     ini_set('display_errors', 0);
     define('ONYX_DEBUG_LEVEL', 0);
     define('ONYX_DEBUG_INCLUDE_BACKTRACE', false);
@@ -376,7 +376,7 @@ onyxGlobalConfSetValue('ONYX_SIMPLE_TRANSLATION_ENABLED', false);
  * Set pre-action list as array, used in bootstrap.php
  */
 
-$onyx_pre_actions = array("autologin", "locales");
+$onyx_pre_actions = array("locales");
 if (ONYX_ALLOW_SCHEDULER) $onyx_pre_actions[] = "scheduler";
 
 /**
