@@ -1,11 +1,13 @@
 <?php
 /**
- * Copyright (c) 2006-2020 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2006-2024 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
 
 class Onyx_Controller_Uri_Mapping extends Onyx_Controller {
+
+    var $Mapper;
 
     /**
      * main action
@@ -26,7 +28,7 @@ class Onyx_Controller_Uri_Mapping extends Onyx_Controller {
         $translate = trim($this->GET['translate']);
         if ($translate != "/") $translate = rtrim($translate, '/');
 
-        if ($this->GET['controller_request']) $controller_request = trim($this->GET['controller_request']);
+        if (array_key_exists('controller_request', $this->GET)) $controller_request = trim($this->GET['controller_request']);
 
         /**
          * file stored rules
@@ -223,14 +225,22 @@ class Onyx_Controller_Uri_Mapping extends Onyx_Controller {
         $apply = $this->proccessFileRulesItems($translate, $uri_map);
 
         $parsed = parse_url($apply);
-        parse_str($parsed['query'], $query);
 
-        foreach ($query as $k=>$item) {
-            $_GET[$k] = $item;
+        if (array_key_exists('query', $parsed)) {
+            parse_str($parsed['query'], $query);
+
+            foreach ($query as $k=>$item) {
+                $_GET[$k] = $item;
+            }
+
+            if (array_key_exists('controller_request', $query)) return $query['controller_request'];
+            else return $query['request'];
+
+        } else {
+
+            return false;
+
         }
-
-        if (array_key_exists('controller_request', $query)) return $query['controller_request'];
-        else return $query['request'];
 
     }
 
@@ -240,7 +250,7 @@ class Onyx_Controller_Uri_Mapping extends Onyx_Controller {
 
     public function proccessFileRulesItems($translate, $uri_map) {
 
-        if (!is_array($uri_map)) return false;
+        if (!is_array($uri_map)) return '';
 
         foreach ($uri_map as $rule=>$apply) {
 
@@ -286,7 +296,7 @@ class Onyx_Controller_Uri_Mapping extends Onyx_Controller {
         if (defined('ONYX_CONTENT_TYPE_OPTIONS_ENABLE') && ONYX_CONTENT_TYPE_OPTIONS_ENABLE === true) header("X-Content-Type-Options: nosniff");
 
         /**
-         * check main domain
+         * force domain
          */
 
         if (defined('ONYX_MAIN_DOMAIN') && strlen(ONYX_MAIN_DOMAIN) > 0) {
@@ -307,13 +317,15 @@ class Onyx_Controller_Uri_Mapping extends Onyx_Controller {
 
         /**
          * force SSL
+         * this is usually done by the server or proxy
          */
 
+        /*
         if (!($_SERVER['SSL_PROTOCOL'] || $_SERVER['HTTPS']) && ONYX_CUSTOMER_USE_SSL) {
             header("HTTP/1.1 301 Moved Permanently");
             header("Location: https://{$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}");
             exit;
-        }
+        }*/
 
     }
 }

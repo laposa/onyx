@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2009-2020 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2009-2024 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -15,10 +15,10 @@ class Onyx_Controller_Locales extends Onyx_Controller {
         if (preg_match("/\.bo\/backoffice\./", $this->GET['request'])) {
             $locale = $GLOBALS['onyx_conf']['global']['locale'];
         } else {
-            if ($_POST['locale']) {
+            if (is_array($_POST) && array_key_exists('locale', $_POST)) {
                 $locale_map = ['', 'en_GB.UTF-8', 'en_US.UTF-8', 'en_IE.UTF-8', 'cs_CZ.UTF-8', 'de_DE.UTF-8', 'en_AU.UTF-8', 'ja_JP.UTF-8', 'en_CA.UTF-8', 'en_HK.UTF-8', 'en_NZ.UTF-8', 'ru_RU.UTF-8', 'he_IL.UTF-8'];
                 $locale = $locale_map[$_POST['locale']];
-            } elseif ($_SESSION['locale']) {
+            } elseif (is_array($_SESSION) && array_key_exists('locale', $_SESSION)) {
                 $locale = $_SESSION['locale'];
             } else {
                 if ($GLOBALS['onyx_conf']['global']['locale'] != '') $locale = $GLOBALS['onyx_conf']['global']['locale'];

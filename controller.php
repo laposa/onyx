@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2005-2021 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2005-2024 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -74,8 +74,12 @@ class Onyx_Controller {
         $this->GET = $_GET;
 
         // make current and parent page ID easily available
-        $this->page_id = $_SESSION['active_pages'][0];
-        $this->parent_page_id = $_SESSION['active_pages'][1];
+        if (is_array($_SESSION)) {
+            if (array_key_exists('active_pages', $_SESSION)) {
+                if (count($_SESSION['active_pages']) > 0) $this->page_id = $_SESSION['active_pages'][0];
+                if (count($_SESSION['active_pages']) > 1) $this->parent_page_id = $_SESSION['active_pages'][1];
+            }
+        }
 
         // check request
         $this->setRequest($request);
@@ -284,6 +288,7 @@ class Onyx_Controller {
     public function parseContentTags()
     {
         $content = $this->tpl->filecontents;
+        $contentx = array();
 
         if ($matches = $this->findTags($content)) {
             //contentx is used for layout mapping
@@ -520,7 +525,7 @@ class Onyx_Controller {
      */
     public function _parseMessages()
     {
-        if ($_SESSION['messages']) {
+        if (array_key_exists('messages', $_SESSION) && $_SESSION['messages'] != '') {
             if ($this->checkTemplateVariableExists('MESSAGES')) {
                 $messages = '<div class="onyx-messages" role="alert">' . $_SESSION['messages'] . '</div>';
 
@@ -579,10 +584,7 @@ class Onyx_Controller {
         $protocol = onyxDetectProtocol();
 
         // detect non standard port
-        if ($protocol == 'https' && ($_SERVER['SERVER_PORT'] == 443 || $_SERVER['HTTP_X_FORWARDED_PORT'] == 443)) $port = '';
-        elseif ($protocol == 'http' && ($_SERVER['SERVER_PORT'] == 80 || $_SERVER['HTTP_X_FORWARDED_PORT'] == 80)) $port = '';
-        elseif (is_numeric($_SERVER['HTTP_X_FORWARDED_PORT'])) $port = ":{$_SERVER['HTTP_X_FORWARDED_PORT']}";
-        else $port = ":{$_SERVER['SERVER_PORT']}";
+        $port = onyxDetectPort($protocol);
 
         // build URI
         $uri = "$protocol://{$_SERVER['SERVER_NAME']}$port{$_SERVER['REQUEST_URI']}";

@@ -2,7 +2,7 @@
 /**
  * class common_uri_mapping
  *
- * Copyright (c) 2009-2021 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2009-2024 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -33,6 +33,8 @@ class common_uri_mapping extends Onyx_Model {
      */
       
     var $type;
+
+    var $_rewrite_table;
     
     var $_metaData = array(
         'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 

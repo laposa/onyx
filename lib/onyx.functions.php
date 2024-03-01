@@ -3,7 +3,7 @@
  * Onyx global functions
  * KEEP IT SMALL
  *
- * Copyright (c) 2005-2021 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2005-2024 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -141,11 +141,33 @@ function msg($msg, $type = "ok", $level = 0, $error_class = '') {
 
 function onyxDetectProtocol() {
 
-    if ($_SERVER['HTTP_X_FORWARDED_PROTO']) $protocol = $_SERVER['HTTP_X_FORWARDED_PROTO'];
-    else if ($_SERVER['SSL_PROTOCOL'] || $_SERVER['HTTPS']) $protocol = 'https';
+    if (array_key_exists('HTTP_X_FORWARDED_PROTO', $_SERVER)) $protocol = $_SERVER['HTTP_X_FORWARDED_PROTO'];
+    else if (array_key_exists('SSL_PROTOCOL', $_SERVER) || array_key_exists('HTTPS', $_SERVER)) $protocol = 'https';
     else $protocol = 'http';
 
     return $protocol;
+}
+
+/**
+ * onyxDetectProtocol to find if we are using SSL
+ */
+
+ function onyxDetectPort($protocol = false) {
+
+    if (!$protocol) $protocol = onyxDetectProtocol();
+
+    if (array_key_exists('SERVER_PORT', $_SERVER)) $SERVER_PORT = $_SERVER['SERVER_PORT'];
+    else $SERVER_PORT = false;
+
+    if (array_key_exists('HTTP_X_FORWARDED_PORT', $_SERVER)) $HTTP_X_FORWARDED_PORT = $_SERVER['HTTP_X_FORWARDED_PORT'];
+    else $HTTP_X_FORWARDED_PORT = false;
+
+    if ($protocol == 'https' && ($SERVER_PORT == 443 || $HTTP_X_FORWARDED_PORT == 443)) $port = '';
+    elseif ($protocol == 'http' && ($SERVER_PORT == 80 || $HTTP_X_FORWARDED_PORT == 80)) $port = '';
+    elseif (is_numeric($HTTP_X_FORWARDED_PORT)) $port = ":$HTTP_X_FORWARDED_PORT";
+    else $port = ":$SERVER_PORT";
+
+    return $port;
 }
 
 /**
@@ -1019,7 +1041,8 @@ function mime_content_type_fast($filename) {
         'ods' => 'application/vnd.oasis.opendocument.spreadsheet',
     );
 
-    $ext = strtolower(array_pop(explode('.',$filename)));
+    $filename_parts = explode('.',$filename);
+    $ext = strtolower(array_pop($filename_parts));
 
     if (array_key_exists($ext, $mime_types)) {
 

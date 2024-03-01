@@ -750,26 +750,26 @@ class XTemplate {
 
 					//$var = trim($var);
 					switch (true) {
-						case preg_match($this->preg_delimiter . "^\n" . $this->preg_delimiter, $var) && preg_match($this->preg_delimiter . "\n$" .$this->preg_delimiter, $var):
+						case @preg_match($this->preg_delimiter . "^\n" . $this->preg_delimiter, $var) && preg_match($this->preg_delimiter . "\n$" .$this->preg_delimiter, $var):
 							$var = substr($var, 1, -1);
 							break;
 
-						case preg_match($this->preg_delimiter . "^\n" . $this->preg_delimiter, $var):
+						case @preg_match($this->preg_delimiter . "^\n" . $this->preg_delimiter, $var):
 							$var = substr($var, 1);
 							break;
 
-						case preg_match($this->preg_delimiter . "\n$" . $this->preg_delimiter, $var):
+						case @preg_match($this->preg_delimiter . "\n$" . $this->preg_delimiter, $var):
 							$var = substr($var, 0, -1);
 							break;
 					}
 
 					// SF Bug no. 810773 - thanks anonymous
-					$var = str_replace('\\', '\\\\', $var);
+					$var = @str_replace('\\', '\\\\', $var);
 					// Ensure dollars in strings are not evaluated reported by SadGeezer 31/3/04
-					$var = str_replace('$', '\\$', $var);
+					$var = @str_replace('$', '\\$', $var);
 					// Replaced str_replaces with preg_quote
 					//$var = preg_quote($var);
-					$var = str_replace('\\|', '|', $var);
+					$var = @str_replace('\\|', '|', $var);
 					$copy = preg_replace($this->preg_delimiter . $this->tag_start_delim . $v . $this->tag_end_delim . $this->preg_delimiter . 'm', "$var", $copy);
 
 					if (preg_match($this->preg_delimiter . "^\n" . $this->preg_delimiter, $copy) && preg_match($this->preg_delimiter . "\n$" . $this->preg_delimiter, $copy)) {

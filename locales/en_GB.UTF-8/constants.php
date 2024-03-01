@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2005-2018 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2005-2024 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
  
@@ -106,7 +106,6 @@ define('I18N_NAME', 'Recipient Name');
 define('I18N_ADDRESS_LINE_1', 'Address Line 1');
 define('I18N_ADDRESS_LINE_2', 'Address Line 2');
 define('I18N_ADDRESS_LINE_3', 'Address Line 3');
-define('I18N_CITY', 'City');
 define('I18N_POST_CODE', 'Post Code');
 define('I18N_COUNTY', 'County/State');
 define('I18N_STATE', 'Country');
@@ -132,7 +131,6 @@ define('I18N_TOTAL', 'Total');
 define('I18N_VAT', 'VAT');
 define('I18N_SUB_TOTAL', 'Sub Total');
 define('I18N_DELIVERY', 'Delivery');
-define('I18N_YOUR_BASKET_IS_EMPTY', 'Your basket is empty.');
 define('I18N_DISCOUNT', 'Discount');
 define('I18N_DISCOUNT_OF', 'of');
 define('I18N_AFTER_DISCOUNT', 'After Discount');
@@ -140,14 +138,12 @@ define('I18N_AFTER_DISCOUNT', 'After Discount');
 define('I18N_PROMOTION_CODE_REMOVE', 'Remove Code');
 define('I18N_PROMOTION_CODE_HAVE_CODE', 'Have a promotion code? Enter it here');
 //component/ecommerce/basket_edit.html
-define('I18N_REMOVE', 'Remove');
 define('I18N_UPDATE', 'Update');
 define('I18N_PROCEED_TO_CHECKOUT', 'Proceed to Checkout');
 define('I18N_CONTINUE_SHOPPING', 'Continue Shopping');
 //component/ecommerce/checkout.html
 define('I18N_PLEASE_READ_ABOUT_DELIVERY', 'Please read about our ');
 define('I18N_PLEASE_CHOOSE', 'Please Choose');
-define('I18N_DELIVERY', 'Delivery');
 define('I18N_CONFIRM_ORDER', 'Confirm Order and Continue to Payment');
 define('I18N_BY_CLICKING_CONFIRM', 'I agree with the');
 define('I18N_BY_CLICKING_CONFIRM_AUTO', 'By pressing “' . I18N_CONFIRM_ORDER . '” you agree with ');
@@ -181,7 +177,6 @@ define('I18N_YOUR_EMAIL_PLACEHOLDER', 'e.g. you@example.com');
 define('I18N_YOUR_PASSWORD', 'Your password');
 define('I18N_YOUR_PASSWORD_PLACEHOLDER', 'your password');
 define('I18N_AUTOLOGIN', 'Remember me');
-define('I18N_SUBMIT', 'Submit');
 define('I18N_LOGIN_FAILED', 'Login failed. Please try again.');
 //component/ecommerce/order_detail.html
 define('I18N_ORDER', 'Order');
@@ -193,7 +188,6 @@ define('I18N_BUTTON_MAKE_PAYMENT', 'Make Payment');
 define('I18N_BUTTON_REPEAT_ORDER', 'Repeat');
 define('I18N_BUTTON_PRINT_ORDER', 'Print');
 //component/ecommerce/order_list.html
-define('I18N_YOUR_ORDER_SUMMARY', 'Your order summary');
 define('I18N_ORDERS', 'Displayed below are your orders with us:');
 define('I18N_ORDER_ID', 'Order ID');
 define('I18N_DATA_AND_TIME', 'Date &amp; Time');
@@ -208,8 +202,6 @@ define('I18N_ORDER_REPEAT', 'Repeat');
 //component/ecommerce/password_reset.html
 define('I18N_PLEASE_ENTER_YOUR_EMAIL_ETC', 'Please enter your email and we will email it to you.');
 define('I18N_PASSWORD_REMINDER', 'Password reminder');
-define('I18N_YOUR_EMAIL', 'Your email');
-define('I18N_SUBMIT', 'Submit');
 define('I18N_THANK_YOU_WE_WILL_SEND_ETC', 'Thank you. Will we send you an email shortly with your password.');
 define('I18N_EMAIL_IS_NOT_REGISTERED', 'Email is not registered');
 define('I18N_WRONG_KEY', 'Wrong key!');

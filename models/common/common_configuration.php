@@ -2,7 +2,7 @@
 /**
  * class common_configuration
  *
- * Copyright (c) 2009-2018 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2009-2024 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -108,7 +108,7 @@ class common_configuration extends Onyx_Model {
 
         $conf = array();
             
-        if (is_array(self::$localCache[$node_id])) {
+        if (array_key_exists($node_id, self::$localCache) && is_array(self::$localCache[$node_id])) {
             foreach (self::$localCache[$node_id] as $c) {
                 $conf[$c['object']][$c['property']] = $c['value'];
             }
@@ -135,7 +135,7 @@ class common_configuration extends Onyx_Model {
 
             for ($i = 1; $i < count($path); $i++) {
                 $parent_id = $path[$i];
-                if (is_array(self::$localCache[$parent_id])) {
+                if (array_key_exists($parent_id, self::$localCache) && is_array(self::$localCache[$parent_id])) {
                     foreach (self::$localCache[$parent_id] as $c) {
                         if (!isset($conf[$c['object']][$c['property']]) && $c['apply_to_children'])
                             $conf[$c['object']][$c['property']] = $c['value'];
@@ -221,7 +221,7 @@ class common_configuration extends Onyx_Model {
          * set default address and name for emails (used for common_email, perhaps it should be moved there)
          */
         if (!array_key_exists('admin_email', $conf['global'])) $conf['global']['admin_email'] = 'test@onxshop.com';
-        if ($conf['global']['admin_email_name'] == '') $conf['global']['admin_email_name'] = $conf['global']['title'];
+        if (!array_key_exists('admin_email_name', $conf['global'])) $conf['global']['admin_email_name'] = $conf['global']['title'];
         
         //addthis tracking configuration, by default uses shared Onyx profile
         if (!array_key_exists('addthis_profile', $conf['global'])) $conf['global']['addthis_profile'] = 'ra-51114b69066f0fe4';

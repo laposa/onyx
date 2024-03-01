@@ -4,7 +4,7 @@
  *
  * custom Active Record Database Pattern and simple validation
  *
- * Copyright (c) 2005-2021 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2005-2024 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -126,7 +126,7 @@ class Onyx_Db {
             foreach ($this->_public_attributes as $key => $value) {
                 if (key_exists($key, $data)) {
                     $this->set($key, $data[$key]);
-                } elseif ($this->_metaData[$key]['required'] == true) {
+                } elseif (key_exists($key, $this->_metaData) && $this->_metaData[$key]['required'] == true) {
                     msg("{$this->_class_name} key $key is required, but not set", 'error', ONYX_MODEL_STRICT_VALIDATION ? 1 : 2);
                     if (ONYX_MODEL_STRICT_VALIDATION) $this->setValid($key, false);
                 }
@@ -221,7 +221,7 @@ class Onyx_Db {
                     msg("Tidy warning: $result_message", "error", 2);
                 }
 
-                if ($error != '') {
+                if (isset($error)) {
                     msg($error, 'error');
                     $this->setValid($attribute, false);
                     return false;
