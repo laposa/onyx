@@ -1036,7 +1036,10 @@ div.file-list-icon div.item a.image {display: block; max-height: 120px; overflow
 #server-browser-file-list div.server-browser div[id^="file-"] > div.file_delete::before {content:'\f00d'; font-family: 'onyx'; font-size: 20px; color: #cc0000;}
 #server-browser-file-list div.server-browser div[id^="file-"] > div.file_delete::after {content:'Deleted'; font-size: 10px; color: #cc0000; text-transform: uppercase; }
 
-
+#server-browser-file-list .file-uploads {display: flex;justify-content: center;flex-wrap: wrap;gap: 10px; margin-top: 20px;overflow-y: auto;}
+#server-browser-file-list .file-upload-preview {width: 200px; height: 200px; position: relative; background-color: white;}
+#server-browser-file-list .file-upload-preview img {position: absolute; height: 100%; width: 100%; object-fit: contain; top: 0; left: 0;}
+#server-browser-file-list .file-upload-preview .file-overlay {position: absolute; width: 100%; z-index: 100; bottom: 0; padding: 10px 0; background-color: rgba(0,0,0,0.5);}
 
 
 /**
