@@ -542,7 +542,7 @@
    * jGrowl
    */
   
-  div#jGrowl { position: fixed; top: 50px; width: 500px; left: 50%; margin-left: -250px; text-align: center; pointer-events: none; z-index: 9999; -webkit-transform: translateZ(1px);}
+  div#jGrowl { position: fixed; top: 50px; width: 500px; left: 50%; margin-left: -250px; text-align: center; pointer-events: none; z-index: 999999; -webkit-transform: translateZ(1px);}
   div#jGrowl div.onyx-messages { margin: 0; padding: 10px 30px; }
   div#jGrowl div.jGrowl-notification { display: block; position: relative; z-index: 9999; zoom: 1; text-align: left; pointer-events: all; border: none; background: none;}
   div#jGrowl div.jGrowl-notification.ui-state-highlight { margin: 0 auto 20px auto; display: inline-block; min-width: 260px; }
@@ -1179,3 +1179,13 @@ body.noscroll #backoffice { overflow: hidden; width: 100%; height: 100%; }
 div.comment-list tr.status-rejected td a,
 div.comment-list tr.status-rejected td { color: #d0d0d0; }
 div.comment-list tr.status-new a.title { font-weight: bold; }
+
+/**
+* File replace
+*/
+
+#file-replace .row {display: flex; align-items: center; width: 100%; justify-content: center; column-gap: 40px; margin-top: 40px;}
+#file-replace .row .field {width: auto;}
+#file-replace .replace-preview {width: 100%; display: flex; align-items: center; justify-content: center; column-gap: 40px;}
+#file-replace .replace-preview .img-wrap img {width: 200px; height: auto; background-image: linear-gradient(45deg, #efefef 25%, transparent 25%), linear-gradient(-45deg, #efefef 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #efefef 75%), linear-gradient(-45deg, transparent 75%, #efefef 75%); background-size: 20px 20px; background-position: 0 0, 0 10px, 10px -10px, -10px 0px;}
+#file-replace .replace-preview .img-wrap {display: flex; flex-direction: column; align-items: center; justify-content: center; width: 200px; height: 200px; padding: 10px; border: 1px solid #cccccc; overflow: hidden;}

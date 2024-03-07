@@ -1,0 +1,71 @@
+<!-- BEGIN: content -->
+<script type="text/javascript"> 
+    function initForm() {
+        var options = { 
+            target: '#file-replace-result',   // target element(s) to be updated with server response 
+            beforeSubmit:  function() {$("#file-replace .replace-button").addClass("saving")}, 
+            success: showResponse
+        }; 
+
+        $('#file-replace').ajaxForm(options);
+    }
+    
+    // wait for the DOM to be loaded 
+    $(document).ready(function() { 
+        initForm();
+    });
+ 
+// post-submit callback 
+function showResponse(responseText, statusText)  { 
+    var result_message = $("#file-replace-result div.onyx-messages").html();
+    growlMessage(result_message);
+    $("#file-replace .replace-button span").removeClass("saving");
+    if ($("#file-replace-result div.onyx-messages p.onyx-error-msg").text() == '') {
+        hideModalOverlay();
+        $("#file-list").load("/request/bo/component/file_list~type={GET.type}:relation={GET.relation}:node_id={GET.node_id}~");
+        $('#onyx-dialog').dialog('close');
+        $('.replace-file .onyx-modal-overlay-window').load('/request/bo/component/file_detail~file_id={GET.file_id}:role={GET.role}:relation={GET.relation}:node_id={GET.node_id}~');
+    }
+}
+</script> 
+
+{MESSAGES}
+
+<form action="{URI|htmlspecialchars}" method="post" name="file-replace" id="file-replace">
+    <fieldset id="replace-file-in-node" class="file-item-form">
+
+        <legend>File to replace</legend>
+
+        <div class="replace-preview">
+            <input type="hidden" id="file-src" name="file[src]" value="{FILE.src}" />
+            <input type="hidden" name="file[node_id]" value="{FILE.node_id}" />
+            
+            <div class="before">
+                <span>Old file:</span>
+                <div class="img-wrap before">
+                    <img src="/thumbnail/200/{OLD_FILE}" alt="thumbnail preview" />
+                </div>
+            </div>
+
+            <div class="after">
+                <span>New file:</span>
+                <div class="img-wrap after">
+                    <img id="file-preview" src="/thumbnail/200/{FILE.src}" alt="thumbnail preview" />
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row submit">
+            <span class="field"><button type="submit" name="replace" class="replace-button" value="replace"><span>Yes</span></button></span>
+            <button class="button remove" onclick="$('#onyx-dialog').dialog('close')">No</button>
+        </div>
+
+    </fieldset>
+
+<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+</form>
+
+<div id="file-replace-result" style="display: none"></div>
+
+<!-- END: content -->
