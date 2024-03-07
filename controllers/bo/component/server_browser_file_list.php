@@ -235,6 +235,9 @@ class Onyx_Controller_Bo_Component_Server_Browser_File_List extends Onyx_Control
                     case 'database_import':
                         $this->tpl->parse('content.list.item.database_import');
                     break;
+                    case 'replace_file':
+                        $this->tpl->parse('content.list.item.replace_file');
+                    break;
                 }
                 $this->tpl->parse('content.list.item');
             }

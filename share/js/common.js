@@ -78,13 +78,15 @@ function removeTinyMCEEditors(container) {
 
 activeOverlay = null;
 overlayRemovingInProgress = false;
-function showModalOverlay() {
+function showModalOverlay(optionalClass = "") {
+    activeOverlay = !activeOverlay && $('.onyx-modal-overlay') ? $('.onyx-modal-overlay') : activeOverlay;
+
 	var c = "";
 	if (activeOverlay && activeOverlay.length) {
 		c = "secondary";
 		activeOverlay.find(".onyx-modal-overlay-window").attr("id", "modal-overlay-window-saved");
 	}
-	activeOverlay = $('<div class="onyx-modal-overlay off ' + c + '">' +
+	activeOverlay = $('<div class="onyx-modal-overlay off ' + c + ' ' + optionalClass +'">' +
 		'<div class="onyx-modal-click-zone" onclick="hideModalOverlay()"></div>' +
 		'<div class="onyx-modal-overlay-window"></div></div>');
 	$('html,body').addClass('noscroll');
@@ -94,18 +96,22 @@ function showModalOverlay() {
 }
 
 function hideModalOverlay() {
+    activeOverlay = !activeOverlay && $('.onyx-modal-overlay') ? $('.onyx-modal-overlay') : activeOverlay;
+
 	if (activeOverlay && !overlayRemovingInProgress) {
 		activeOverlay.addClass('off');
+        activeOverlay.closest('.onyx-modal-overlay').addClass('off');
 		overlayRemovingInProgress = true;
 		setTimeout(function() { 
-			activeOverlay.remove();
+            activeOverlay.closest('.onyx-modal-overlay').remove();
+            activeOverlay.remove();
 			$('html,body').removeClass('noscroll');
 			var saved = $('#modal-overlay-window-saved');
 			if (saved.length) {
 				saved.attr("id", "modal-overlay-window");
 				activeOverlay = saved;
 			} else {
-				activeOverlay = null;
+                activeOverlay = null;
 			}
 			overlayRemovingInProgress = false;
 		}, 150);
