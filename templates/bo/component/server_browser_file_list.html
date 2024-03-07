@@ -60,6 +60,7 @@
         <div class="wrapper">
             <p>Please wait, uploading <span class="num">0</span> file(s)...</p>
             <progress value="0" max="100">0%</progress>
+            <div class="file-uploads"></div>
         </div>
     </div>
     
@@ -70,7 +71,7 @@
             <div id="file-{ITEM.file_path_encoded_relative}">
                 <!-- BEGIN: thumbnail --><img src="/thumbnail/200/{BASE}{FOLDER}{ITEM.name}" alt="{ITEM.name}" /><!-- END: thumbnail -->
                 <div class="overlay">
-                    <!--<a href="/download/{BASE}{FOLDER}{ITEM.name}" title="Download {ITEM.name} ({ITEM.size})" style="display: block;">{ITEM.name|str_replace('_', ' ', %s)}</a>-->
+                    <p style="display: block;">{ITEM.name|str_replace('_', ' ', %s)}</p>
                     <div class="file-info">
                         <a class="view" title="View {ITEM.name} ({ITEM.size})" href="/view/{BASE}{FOLDER}{ITEM.name}" target="_blank"><span>View</span></a>
                         <a class="download" title="Download {ITEM.name} ({ITEM.size})" href="/download/{BASE}{FOLDER}{ITEM.name}"><span>Download</span></a>
@@ -149,25 +150,23 @@ this component would be good to split into upload and file list
     function allFilesUploaded() {
 
         makeAjaxRequest("#server-browser-file-list", "/request/bo/component/server_browser_file_list~open={GET.open}:type={GET.type}:relation={GET.relation}:node_id={GET.node_id}~");
-        growlMessage("Uploaded completed.");
+        growlMessage("Upload completed.");
 
     }
 
     var template =
-        '<tr id="file-id">' +
-            '<td><img/></td>' +
-            '<td>' +
+        '<div class="file-upload-preview">' +
+            '<img/>' +
+            '<div class="file-overlay">' +
                 '<span class="title"></span>&nbsp;<small class="speed"></small><br />' +
                 '<progress value="0" max="100">0%</progress>' +
                 '<div class="overwrite" style="display: none;">' +
-                'File already exists. Do you want to overwrite it?<br/>' +
-                '<button class="overwrite">Yes</button>' +
-                '<button class="keep">No</button>' +
+                    'File already exists. Do you want to overwrite it?<br/>' +
+                    '<button class="overwrite">Yes</button>' +
+                    '<button class="keep">No</button>' +
                 '</div>' +
-            '</td>' +
-            '<td>' +
-            '</td>' +
-        '</tr>';
+            '</div>' +
+        '</div>';
 
     function createImage(file) {
 
@@ -176,13 +175,11 @@ this component would be good to split into upload and file list
 
         var reader = new FileReader();
 
-        image.css('width', 50);
-        image.css('height', 50);
         $(".title", preview).text(file.name);
 
         reader.onload = function(e) { image.attr('src', e.target.result); };
         reader.readAsDataURL(file);
-        $('table.server-browser tbody').prepend(preview);
+        $('.progress-total .file-uploads').prepend(preview);
         $.data(file, preview);
     }
 
