@@ -62,6 +62,8 @@ class Onyx_Controller_Bo_Component_Sysinfo extends Onyx_Controller {
         $sysinfo['all'] = $this->resize_bytes($sysinfo['all_bits']);
         $sysinfo['used'] = $this->resize_bytes($sysinfo['all_bits'] - $sysinfo['free_bits']);
         $sysinfo['os'] = PHP_OS;
+        $sysinfo['db_host'] = getenv('ONYX_DB_HOST');
+        $sysinfo['db_name'] = getenv('ONYX_DB_NAME');
     
         return $sysinfo;
 
