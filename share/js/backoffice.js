@@ -122,6 +122,29 @@ function initBackofficeUI() {
 
     // create dialog
     $("<div/>").attr('id','onyx-dialog').appendTo('body');
+
+    // rewrite url on page select
+    $('#pages-node-menu a').on('click', function() {
+        let newLink = window.location.origin + '/backoffice/pages/' + $(this).attr('href').replace('#', '');
+
+        if(window.history.pushState) {
+            window.history.pushState({}, $(this).find('span').html(), newLink);
+        }
+    });
+
+    // rewrite url on media browser
+    $('#browser-tree a').on('click', function() {
+        let newLink = window.location.origin + '/backoffice/media/' + $(this).attr('href').replace('#', '');
+
+        if(window.history.pushState) {
+            window.history.pushState({}, $(this).find('span').html(), newLink);
+        }
+    });
+
+    // fix for history.pushState so page refreshes on back button
+    $(window).bind("popstate", function() {
+        window.location = location.href
+    });
 }
 
 /**

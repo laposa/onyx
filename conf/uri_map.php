@@ -45,6 +45,7 @@ $uri_map = array(
         '^/backoffice/surveys/([0-9]*)/edit$' => '/index.php?request=bo/backoffice_wrapper.bo/backoffice.bo/component/survey_edit&id=$1',
         '^/backoffice/marketing$' => '/index.php?request=bo/backoffice_wrapper.bo/backoffice.bo/pages/marketing',
         '^/backoffice/media$' => '/index.php?request=bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/pages/server_browser',
+        '^/backoffice/media/([a-zA-Z0-9_.-/]*)$' => '/index.php?request=bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/pages/server_browser~open=$1~',
         '^/backoffice/taxonomy$' => '/index.php?request=bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/pages/taxonomy.bo/component/taxonomy_edit',
         '^/backoffice/advanced/taxonomy/properties/([0-9]*)$' => '/index.php?request=bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/pages/taxonomy~id=$1~.bo/component/taxonomy_edit~id=$1~',
         '^/backoffice/advanced/taxonomy/add/([0-9]*)$' => '/index.php?request=bo/backoffice_wrapper.bo/backoffice.bo/pages/advanced.bo/pages/taxonomy~id=$1~.bo/component/taxonomy_add~parent=$1~',
