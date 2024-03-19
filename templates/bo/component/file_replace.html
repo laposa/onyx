@@ -22,7 +22,7 @@ function showResponse(responseText, statusText)  {
     $("#file-replace .replace-button span").removeClass("saving");
     if ($("#file-replace-result div.onyx-messages p.onyx-error-msg").text() == '') {
         hideModalOverlay();
-        $("#file-list").load("/request/bo/component/file_list~type={GET.type}:relation={GET.relation}:node_id={GET.node_id}~");
+        $("#file-list-{GET.node_id}").parent().load("/request/bo/component/file_list~type={GET.type}:relation={GET.relation}:node_id={GET.node_id}~");
         $('#onyx-dialog').dialog('close');
         $('.replace-file .onyx-modal-overlay-window').load('/request/bo/component/file_detail~file_id={GET.file_id}:role={GET.role}:relation={GET.relation}:node_id={GET.node_id}~');
     }

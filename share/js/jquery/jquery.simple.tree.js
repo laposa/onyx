@@ -179,8 +179,9 @@ $.fn.simpleTree = function(opt){
 				var LI = $(this).parent();
 				if(TREE.option.drag)
 				{
+					dragClass = $(this).closest('#content-pods').length > 0 ? 'clean' : '';
 					$('>ul', cloneNode).hide();
-					$('body').append('<div id="drag_container"><ul></ul></div>');
+					$('body').append('<div id="drag_container" class="'+dragClass+'"><ul></ul></div>');
 					$('#drag_container').hide().css({opacity:'0.8'});
 					$('#drag_container >ul').append(cloneNode);
 					$("<img>").attr({id	: "tree_plus",src	: "/share/images/simple-tree/plus.gif"}).css({width: "7px",display: "block",position: "absolute",left	: "5px",top: "5px", display:'none'}).appendTo("body");
@@ -228,7 +229,7 @@ $.fn.simpleTree = function(opt){
 					this.className = setClassName + ($(this).is(':last-child')? '-last':'');
 				}
 			}).before('<li class="line">&nbsp;</li>')
-			.filter(':last-child').after('<li class="line-last"></li>');
+			.filter(':last-child').after('<li class="line-last line">&nbsp;</li>');
 			TREE.setEventLine($('.line, .line-last', obj));
 		};
 		TREE.setTrigger = function(node){
@@ -324,14 +325,14 @@ $.fn.simpleTree = function(opt){
 		};
 		TREE.setEventLine = function(obj){
 			obj.mouseover(function(){
-				if(this.className.indexOf('over')<0 && mousePressed && mouseMoved)
+				if(!this.classList.contains('line-over') && mousePressed && mouseMoved)
 				{
-					this.className = this.className.replace('line','line-over');
+					this.classList.add('line-over');
 				}
 			}).mouseout(function(){
-				if(this.className.indexOf('over')>=0)
+				if(this.classList.contains('line-over'))
 				{
-					this.className = this.className.replace('-over','');
+					this.classList.remove('line-over');
 				}
 			}).mouseup(function(){
 				if(mousePressed && dragNode_source && mouseMoved)
@@ -413,7 +414,7 @@ $.fn.simpleTree = function(opt){
 			var line = $(dragNode_source).prev('.line');
 			$(node).before(dragNode_source);
 			$(dragNode_source).before(line);
-			node.className = node.className.replace('-over','');
+			node.className.remove('line-over');
 			var nodeSize = $('>ul >li', parent).not('.line, .line-last').filter(':visible').size();
 			if(TREE.option.docToFolderConvert && nodeSize==0)
 			{

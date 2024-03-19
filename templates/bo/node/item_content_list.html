@@ -1,7 +1,28 @@
+            <script type="text/javascript">
+                $(document).ready(function(){
+                    $('.view-switch').on('click', 'div:not(.active)', function(){
+                        $('.view-switch .active').removeClass('active');
+                        $(this).addClass('active');
+                        if($(this).hasClass('table-view')){
+                            $('#pod-view').hide();
+                            $('#table-view').show();
+                        }else{
+                            $('#pod-view').show();
+                            $('#table-view').hide();
+                        }
+                    });
+                });
+            </script>
             <fieldset>
-                    <legend style="display: none">List of content</legend>
-                    <div class="row child">
-                        {ONYX_REQUEST_children_list #bo/component/node_list~id=GET.id~}
-                    </div>
+                <legend style="display: none">List of content</legend>
+                <div class="row child" id="table-view">
+                    {ONYX_REQUEST_children_list #bo/component/node_list~id=GET.id~}
+                </div>
+                <div class="row child" id="pod-view" style="display: none">
+                    {ONYX_REQUEST_content_list #bo/component/node_list_content~id=GET.id~}
+                </div>
+                <div class="view-switch">
+                    <div class="table-view active" title="Table View"><span class="ico"></span></div>
+                    <div class="pod-view" title="Content Pods View"><span class="ico"></span></div>
+                </div>
             </fieldset>
-            

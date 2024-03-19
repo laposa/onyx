@@ -1189,3 +1189,264 @@ div.comment-list tr.status-new a.title { font-weight: bold; }
 #file-replace .replace-preview {width: 100%; display: flex; align-items: center; justify-content: center; column-gap: 40px;}
 #file-replace .replace-preview .img-wrap img {width: 200px; height: auto; background-image: linear-gradient(45deg, #efefef 25%, transparent 25%), linear-gradient(-45deg, #efefef 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #efefef 75%), linear-gradient(-45deg, transparent 75%, #efefef 75%); background-size: 20px 20px; background-position: 0 0, 0 10px, 10px -10px, -10px 0px;}
 #file-replace .replace-preview .img-wrap {display: flex; flex-direction: column; align-items: center; justify-content: center; width: 200px; height: 200px; padding: 10px; border: 1px solid #cccccc; overflow: hidden;}
+
+/**
+* Content pods
+*/
+
+ul#content-pods {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  list-style-type: none;
+  padding-left: 0;
+
+  & ul {
+    list-style-type: none;
+    padding-left: 0;
+  }
+
+  & .line {
+    position: relative;
+    padding-bottom: 10px;
+
+    &:after {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      top: 0;
+      left: 0;
+      width: 100%;
+      position: relative;
+      content: "Move here";
+      transition: 0.5s ease;
+      opacity: 0;
+      max-height: 0;
+      height: 50px;
+      color: #999;
+      border: 2px dashed transparent;
+      border-radius: 10px;
+    }
+  }
+
+  & .line-over {
+    
+    &:after {
+      max-height: 50px;
+      opacity: 1;
+      border-color: #999;
+    }
+  }
+}
+
+div.content-pods__item {
+  width: 100%;
+  padding: 15px;
+  border-radius: 10px;
+  border: 2px solid #999;
+  background-color: white;
+  margin-bottom: 30px;
+  cursor: pointer;
+  display: flex;
+  position: relative;
+  border-bottom-left-radius: 0;
+  cursor: grab;
+
+  & p {
+    margin: 0;
+  }
+
+  > a {
+    flex-grow: 1;
+    width: 100%;
+    cursor: grab;
+  }
+}
+
+div.content-pods__item--images {
+  margin-left: auto;
+  width: 250px;
+
+  & .list {
+    position: relative;
+  }
+
+  & .button {
+    display: none;
+  }
+
+  & .item {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: 0.25s ease;
+    z-index: 1;
+    border: 1px solid #eee;
+    background: white;
+    width: 125px;
+    height: 125px;
+
+    & img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    &:hover {
+      opacity: 0.7;
+    }
+
+    &:nth-of-type(2) {
+      top: 20px;
+      left: 20px;
+      z-index: 2;
+    }
+
+    &:nth-of-type(3) {
+      top: 40px;
+      left: 40px;
+      z-index: 3;
+    }
+
+    &:nth-of-type(n+4) {
+      display: none;
+    }
+  }
+}
+
+div.content-pods__item--actions {
+  display: flex;
+  position: absolute;
+  top: 100%;
+  left: -2px;
+  padding: 0.25rem 0.5rem;
+  background: white;
+  border: 2px solid #999;
+  border-top-width: 0px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  justify-content: space-between;
+
+  & a {
+    transition: 0.25s ease;
+
+    &:hover {
+      opacity: 0.6;
+    }
+  }
+}
+
+div#drag_container.clean {
+  border: none;
+
+  &:before {
+    content: none;
+  }
+
+  & li {
+    background: none;
+    padding: 0;
+  }
+}
+
+div#node-properties-edit fieldset {position: relative; }
+
+div.view-switch {
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+
+div.table-view, div.pod-view {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  background: white;
+  box-shadow: 0 0 6px 2px rgba(0,0,0,0.025);
+  transition: 0.25s ease;
+  margin-left: 10px;
+  cursor: pointer;
+
+  &.active, &:hover {
+    background: #bbb;
+
+    & .ico {
+      border-color: white;
+
+      &:before, &:after {
+        background: white;
+      }
+    }
+  }
+}
+
+div.table-view .ico {
+  position: relative;
+  border: 2px solid #bbb;
+  width: 20px;
+  height: 20px;
+  transition: 0.25s ease;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: 0;
+    width: 18px;
+    height: 2px;
+    background: #bbb;
+    transition: 0.25s ease;
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    top: 10px;
+    left: 0;
+    width: 18px;
+    height: 2px;
+    background: #bbb;
+    transition: 0.25s ease;
+  }
+}
+
+div.pod-view .ico {
+  position: relative;
+  width: 20px;
+  height: 20px;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 20px;
+    height: 8px;
+    background: #bbb;
+  }
+
+  &:after {
+    content: "";
+    position: absolute;
+    top: 12px;
+    left: 0;
+    width: 20px;
+    height: 8px;
+    background: #bbb;
+  }
+}
+
+a.fakelink {text-decoration: none;}
+a.fakelink:hover {text-decoration: none; color:inherit;}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    max-height: 0;
+  }
+  to {
+    opacity: 1;
+    max-height: 50px;
+  }
+}

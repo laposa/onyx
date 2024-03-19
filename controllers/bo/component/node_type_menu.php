@@ -142,12 +142,18 @@ class Onyx_Controller_Bo_Component_Node_Type_Menu extends Onyx_Controller_Compon
         
         //reorder
         $temp = array();
-        $temp[0] = $this->findInMdTree($md_tree, 'content');//content
-        $temp[1] = $this->findInMdTree($md_tree, 'layout');//layout
-        $temp[2] = $this->findInMdTree($md_tree, 'page');//page
-        $temp[3] = $this->findInMdTree($md_tree, 'container');//container
-        $temp[4] = $this->findInMdTree($md_tree, 'site');//site
-        $temp[4] = $this->findInMdTree($md_tree, 'variable');
+
+        if($this->GET['only_group'] !== "") {
+            $temp[0] = $this->findInMdTree($md_tree, $this->GET['only_group']);
+        } else {
+            $temp[0] = $this->findInMdTree($md_tree, 'content');//content
+            $temp[1] = $this->findInMdTree($md_tree, 'layout');//layout
+            $temp[2] = $this->findInMdTree($md_tree, 'page');//page
+            $temp[3] = $this->findInMdTree($md_tree, 'container');//container
+            $temp[4] = $this->findInMdTree($md_tree, 'site');//site
+            $temp[4] = $this->findInMdTree($md_tree, 'variable');
+        }
+        
         
         $md_tree = $temp;
         
