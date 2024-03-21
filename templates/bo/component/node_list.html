@@ -31,7 +31,6 @@ $(function() {
                 success: function(responseText, statusText) {
                     popupMessage("#node-add-form-"+node_id+"-"+container_id+"-wrapper div.onyx-messages");
                     refreshList();
-                    refreshPodsList();
                     $('#onyx-dialog').empty().dialog('close');
                 }
             });
@@ -45,7 +44,6 @@ $(function() {
         $('#onyx-dialog').addClass('ajax-load').load('/request/bo/component/node_delete~id='+child_id+':delete=1~', function() {$(this).removeClass('ajax-load');});
         $('#onyx-dialog').dialog({width: 500, modal: true, overlay: {opacity: 0.5, background: 'black'}, title: 'Delete node', beforeClose: function( event, ui ) {
             refreshList()
-            refreshPodsList();
         }}).dialog('open');
         return false;
     });
@@ -54,7 +52,6 @@ $(function() {
         $.get('/request/bo/component/node_duplicate~id='+child_id+'~', function(data) {
             popupMessage($(data).find("div.onyx-messages"));
             refreshList();
-            refreshPodsList();
         });
         return false;
     });

@@ -143,7 +143,7 @@ class Onyx_Controller_Bo_Component_Node_Type_Menu extends Onyx_Controller_Compon
         //reorder
         $temp = array();
 
-        if($this->GET['only_group'] !== "") {
+        if($this->GET['only_group'] && $this->GET['only_group'] !== "") {
             $temp[0] = $this->findInMdTree($md_tree, $this->GET['only_group']);
         } else {
             $temp[0] = $this->findInMdTree($md_tree, 'content');//content

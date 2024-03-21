@@ -47,7 +47,6 @@ $(function() {
                 success: function(responseText, statusText) {
                     popupMessage("#node-add-form-"+node_id+"-"+container_id+"-wrapper div.onyx-messages");
                     refreshPodsList();
-                    refreshList();
                     $('#onyx-dialog').empty().dialog('close');
                 }
             });
@@ -62,7 +61,6 @@ $(function() {
         $('#onyx-dialog').addClass('ajax-load').load('/request/bo/component/node_delete~id='+child_id+':delete=1~', function() {$(this).removeClass('ajax-load');});
         $('#onyx-dialog').dialog({width: 500, modal: true, overlay: {opacity: 0.5, background: 'black'}, title: 'Delete node', beforeClose: function( event, ui ) {
             refreshPodsList();
-            refreshList();
         }}).dialog('open');
         return false;
     });
@@ -72,7 +70,6 @@ $(function() {
         $.get('/request/bo/component/node_duplicate~id='+child_id+'~', function(data) {
             popupMessage($(data).find("div.onyx-messages"));
             refreshPodsList();
-            refreshList();
         });
         return false;
     });
@@ -80,7 +77,7 @@ $(function() {
 });
 
 function refreshPodsList() {
-    var refresh_url = '/request/bo/component/node_list_content~id={GET.id}:node_group={NODE_GROUP}~';
+    var refresh_url = '/request/bo/component/node_list_cards~id={GET.id}:node_group={NODE_GROUP}~';
     $('#content-list-{GET.id}').parent().load(refresh_url);
     $('#pages-node-menu').load('/request/bo/component/node_menu~id=0:open=0:expand_all=1:publish=0~', function() {initialiseMenuPagesTree()});
 }
@@ -95,25 +92,39 @@ function refreshPodsList() {
                 <!-- BEGIN: item -->
                 <li>
                     <span>
-                        <a href="#{CHILD.id}" class="fakelink">
+                        <a href="#{CHILD.id}" class="fakelink" title="Created: {CHILD.created} &#013;Last Modified: {CHILD.modified}">
                             <div class="content-pods__item">
                                 <div class="content-pods__item--content">
-                                    <strong>Title: {CHILD.title|htlmspecialchars}</strong>
-                                    <p>Type: {CHILD.node_controller}</p>
-                                    <p>ID: {CHILD.id}</p>
-                                    <p>Modified: {CHILD.modified}</p>
-                                    <p>Created: {CHILD.created}</p>
-                                    <p>CSS_Class: {CHILD.css_class}</p>
-                                    <p>Content: {CONTENT_EXCERPT}</p>
-                                    <p>Description: {CHILD.description}</p>
-                                    <p>Custom Fields: </p> <pre class="custom-fields">{CHILD.custom_fields|htlmspecialchars}</pre>
-                                    <p>Sub items: {SUB_ITEMS}</p>
+                                    <span class="pill">ID {CHILD.id}</span>
+                                    <span class="heading">
+                                        <strong>{CHILD.title|htlmspecialchars}</strong>
+                                        <p>({CHILD.node_controller})</p>
+                                    </span>
+                                    <!-- BEGIN: css_class -->
+                                        <span class="label">CSS Classes:</span><p>{CHILD.css_class}</p>
+                                    <!-- END: css_class -->
+
+                                    <!-- BEGIN: content_excerpt -->
+                                        <span class="label">Content:</span><p>{CONTENT_EXCERPT}</p>
+                                    <!-- END: content_excerpt -->
+
+                                    <!-- BEGIN: description -->
+                                        <span class="label">Description:</span><p>{CHILD.description}</p>
+                                    <!-- END: description -->
+
+                                    <!-- BEGIN: custom_fields -->
+                                        <span class="label">Custom Fields:</span><pre class="custom-fields">{CHILD.custom_fields|htlmspecialchars}</pre>
+                                    <!-- END: custom_fields -->
+
+                                    <!-- BEGIN: sub_items -->
+                                        <p><span class="label">Sub items: {SUB_ITEMS}</span></p>
+                                    <!-- END: sub_items -->
                                 </div>
                                 <div class="content-pods__item--images">
                                     {FILE_LIST}
                                 </div>
                                 <div class="content-pods__item--actions onyx-edit-page">
-                                    <a class="onyx-edit" title="Edit Content ..." href="javascript:void({CHILD.id})" onclick="openEdit('/popup/properties/{CHILD.id}/orig' + window.location.pathname)"><span>Add Content ...</span></a>
+                                    <a class="onyx-edit" title="Edit Content ..." href="javascript:void({CHILD.id})" onclick="openEdit('/popup/properties/{CHILD.id}/orig' + window.location.pathname)"><span>Edit Content ...</span></a>
                                     <a class="onyx-new-content" title="Add Content ..." data-node-id="{GET.id}" data-node-group="{NODE_GROUP}" data-position="{INDEX}" href="#content-list-{GET.id}" ><span>Add Content ...</span></a>
                                     <a class="onyx-duplicate" title="Duplicate {CHILD.node_controller}" href="#{CHILD.id}"><span>Duplicate</span></a>
                                     <a class="onyx-delete" title="Delete {CHILD.node_controller}" href="#{CHILD.id}"><span>Delete</span></a>
@@ -143,7 +154,6 @@ function refreshPodsList() {
                             popupMessage(data);
                     });
                     refreshPodsList();
-                    refreshList();
                 },
                 animate: true,
             });
