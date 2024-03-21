@@ -10,7 +10,7 @@ function chooseImage(src, title) {
 }
 </script>
 
-<div id="file-list">
+<div id="file-list-{GET.node_id}">
 
     <!-- BEGIN: empty -->
     <p>No files are currently assigned to this content</p>
@@ -22,7 +22,7 @@ function chooseImage(src, title) {
         <div class="item" id="linked-file-{FILE.id}" style="margin: 0 1em 1em 0;">
                 
                 <!-- BEGIN: default -->
-                    <a title="Click on this file to edit its properties" href="#file-list" onclick="showModalOverlay('replace-file'); makeAjaxRequest('#modal-overlay-window', '/request/bo/component/file_detail~file_id={FILE.id}:type={GET.type}:role={GET.role}:relation={GET.relation}:node_id={GET.node_id}~'); return false;"><img id="image-thumbnail-{FILE.id}" src="/image/{FILE.src}" style="width: 125px;" title="Role: {FILE.role}. Click on this file to edit its properties" alt="{FILE.title}" /></a>
+                    <a title="Click on this file to edit its properties" href="#file-list-{GET.node_id}" onclick="showModalOverlay('replace-file'); makeAjaxRequest('#modal-overlay-window', '/request/bo/component/file_detail~file_id={FILE.id}:type={GET.type}:role={GET.role}:relation={GET.relation}:node_id={GET.node_id}~'); return false;"><img id="image-thumbnail-{FILE.id}" src="/image/{FILE.src}" style="width: 125px;" title="Role: {FILE.role}. Click on this file to edit its properties" alt="{FILE.title}" /></a>
                 <!-- END: default -->
                 
                 

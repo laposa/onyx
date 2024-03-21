@@ -717,7 +717,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
      * @return integer $id
      */
     
-    function nodeInsert($node_data) {
+    function nodeInsert($node_data, $position = null) {
         
         //if title is empty, create a generic title and don't display it
         if  ($node_data['title'] == '') {
@@ -771,6 +771,10 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
             $node_data['id'] = $id;
             
             if ($node_data['node_group'] == 'page') $this->insertNewMappingURI($node_data);
+
+            if($position) {
+                $this->changePosition($id, $position);
+            }
             
             return $id;
         } else {
