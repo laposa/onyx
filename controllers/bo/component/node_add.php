@@ -27,6 +27,7 @@ class Onyx_Controller_Bo_Component_Node_Add extends Onyx_Controller {
         require_once('models/common/common_node.php');
         
         $node_data = $_POST['node'];
+        $position = $_POST['position'] ?? null;
         
         $Node = new common_node();
 
@@ -46,8 +47,7 @@ class Onyx_Controller_Bo_Component_Node_Add extends Onyx_Controller {
             /**
              * insert a new node
              */
-            
-            if($id = $Node->nodeInsert($node_data)) {
+            if($id = $Node->nodeInsert($node_data, $position)) {
                 
                 //quick pages builder
                 //is broken :) $Page_builder = new Onyx_Request("bo/page_builder@blank&parent=$id&node_group={$node_data['node_group']}&node_controller={$node_data['node_controller']}");
@@ -73,10 +73,11 @@ class Onyx_Controller_Bo_Component_Node_Add extends Onyx_Controller {
          
         $node_controller = $node_data['node_controller'];
         $node_group = $this->GET['node_group'];
+        $only_group = $this->GET['only_group'];
         if ($node_group == 'container') $node_group = 'page';
         
         // get the list of node types
-        $Node_type = new Onyx_Request("bo/component/node_type_menu~id=new:open={$node_controller}:node_group={$node_group}:expand_all=$expand_all~");
+        $Node_type = new Onyx_Request("bo/component/node_type_menu~id=new:open={$node_controller}:node_group={$node_group}:expand_all=$expand_all:only_group=$only_group~");
         $this->tpl->assign("NODE_TYPE", $Node_type->getContent());
 
         $this->tpl->parse('content.form');
