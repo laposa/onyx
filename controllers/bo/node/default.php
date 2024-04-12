@@ -19,7 +19,16 @@ class Onyx_Controller_Bo_Node_Default extends Onyx_Controller {
     public function mainAction() {
     
         require_once('models/common/common_node.php');
+        common_node::initConfiguration();
         $this->Node = new common_node();    
+
+        $scope = $this->Node->getFullPath($this->GET['id']);
+        $auth = Onyx_Bo_Authentication::getInstance();
+        if (!$auth->hasPermission('nodes', 'view', $scope) || ($_POST['save'] && !$auth->hasPermission('nodes', 'edit', $scope))) {
+            msg("You do not have permission to " . ($_POST['save'] ? 'edit' : 'view') . " this page", 'error');
+            return true;
+        } 
+
         $this->pre();
         if ($_POST['save']) $this->save();
         $this->detail();
