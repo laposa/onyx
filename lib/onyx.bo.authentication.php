@@ -267,14 +267,14 @@ class Onyx_Bo_Authentication
      * 
      * @return boolean 
      */
-    public function hasPermission($resource, $operation)
+    public function hasPermission($resource, $operation, $scope = null)
     {
         if (self::$superuserEmulation) return true;
         if (!$this->isAuthenticated()) return false;
         if ($this->isSuperuser()) return true;
 
         $customer_id = $_SESSION['authentication']['user_details']['id'];
-        return self::$Permission->checkPermissionByCustomer($customer_id, $resource, $operation);
+        return self::$Permission->checkPermissionByCustomer($customer_id, $resource, $operation, $scope);
     }
 
 
