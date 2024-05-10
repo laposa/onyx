@@ -23,7 +23,6 @@ $templates_info['content'] = [
     'contact_form'=>['title' => 'Contact Form', 'description'=>'', 'visibility'=>true], 
     'comment'=>['title' => 'Forum - User comments', 'description'=>'', 'visibility'=>false],
     'news_list'=>['title' => 'News List', 'description'=>'', 'visibility'=>true],
-    'news_list_content'=>['title' => 'News List Content', 'description'=>'', 'visibility'=>true],
     'menu'=>['title' => 'Menu Navigation', 'description'=>'Menu of Pages', 'visibility'=>true], 
     'content_list'=>['title' => 'Content List', 'description'=>'Useful for FAQ list', 'visibility'=>true],
     'divider'=>['title' => 'Horizontal Divider', 'description'=>'', 'visibility'=>false],
