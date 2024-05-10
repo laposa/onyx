@@ -15,7 +15,7 @@ $(function() {
 });
 
 function refreshNewsList() {
-    var refresh_url = '/request/bo/component/news_list~blog_node_id={GET.blog_node_id}:display_pagination=1~';
+    var refresh_url = '/request/bo/component/news_list_content~blog_node_id={ITEM.parent}:display_pagination=1~';
     $('#news-list').load(refresh_url);
 }
 
@@ -61,6 +61,6 @@ function refreshNewsList() {
         </tbody>
     </table>
     <!-- END: list -->
-    <p><a class="button add" title="Add new article to {BLOG_SECTION.title|htmlspecialchars}" href="#" onclick="openAjaxRequestInDialog('/request/bo/component/news_add~blog_node_id={GET.blog_node_id}:node_controller={GET.node_controller}~', 'Create a news item for {BLOG_SECTION.title|htmlspecialchars|addslashes}'); return false"><span>Add a New Article</span></a></p>
+    <p><a class="button add test" title="Add new article to {BLOG_SECTION.title|htmlspecialchars}" href="#" onclick="openAjaxRequestInDialog('/request/bo/component/news_add~blog_node_id={ITEM.parent}:node_controller={GET.node_controller}:display_pagination=1~', 'Create a news item for {BLOG_SECTION.title|htmlspecialchars|addslashes}'); return false"><span>Add a New Article</span></a></p>
 </div>
 <!-- END: content -->

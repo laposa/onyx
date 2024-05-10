@@ -4,8 +4,8 @@ $(document).ready(function() {
     var options = { 
         target:        '#news-add',
         success:       function() {
-            makeAjaxRequest('#news-list', '/request/bo/component/news_list~blog_node_id={GET.blog_node_id}:node_controller={GET.node_controller}~');
-            $('#onyx-dialog').dialog( "close").empty();;
+            refreshNewsList();
+            $('#onyx-dialog').dialog( "close").empty();
         }
     }; 
     $('#news-add').ajaxForm(options); 
@@ -30,7 +30,7 @@ $(document).ready(function() {
         <input type="hidden" name="node[parent]" value="{NEWS_LIST.id}" />
         <input type="hidden" name="node[parent_container]" value="0" />
         <input type="hidden" name="node[node_group]" value="page" />
-        <input type="hidden" name="node[node_controller]" value="{GET.node_controller}" />
+        <input type="hidden" name="node[node_controller]" value="news" />
         <input type="hidden" name="node[publish]" value="0" />
     <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
