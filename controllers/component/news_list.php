@@ -134,7 +134,7 @@ class Onyx_Controller_Component_News_List extends Onyx_Controller_List {
             
             if ($display_pagination == 1) {
             
-                $this->displayPagination($filter, $limit_from, $limit_per_page, $blog_node_id);
+                $this->displayPagination($filter, $limit_from, $limit_per_page);
                 
             }
             
