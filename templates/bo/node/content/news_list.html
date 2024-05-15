@@ -18,8 +18,8 @@
         <input type="checkbox" id="component-pagination" name="node[component][pagination]" {NODE.component.pagination} /><label for="component-pagination">Display pagination</label>
     </div>
     
-    <div id="news_list">
-        {ONYX_REQUEST_list #bo/component/news_list~id=GET.id:pagination=1~}
+    <div id="news-list">
+        {ONYX_REQUEST_list #bo/component/news_list~id=GET.id:display_pagination=1~}
     </div>
 </fieldset>
 

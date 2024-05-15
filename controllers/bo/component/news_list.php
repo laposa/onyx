@@ -18,7 +18,6 @@ class Onyx_Controller_Bo_Component_News_List extends Onyx_Controller_Component_N
         // remove filter on parent when blog_node_id is not provided - show all
         // and we are outside of node tree (GET.id is not set)
         if (!is_numeric($this->GET['blog_node_id']) && !is_numeric($this->GET['id'])) $filter['parent'] = false;
-        
         if ($this->GET['sorting'] == 'modified') $sorting = 'common_node.modified DESC, id DESC';
         
         $news_list = $this->Node->getNodeList($filter, $sorting);
@@ -26,6 +25,13 @@ class Onyx_Controller_Bo_Component_News_List extends Onyx_Controller_Component_N
         foreach ($news_list as $k=>$item) {
             $relations = unserialize($item['relations']);
             $news_list[$k]['relations'] = $relations;
+        }
+
+        if($filter['parent']) {
+            $Node = new common_node();
+            $blog_section_detail = $Node->detail($filter['parent']);
+
+            $this->tpl->assign('BLOG_SECTION', $blog_section_detail);
         }
         
         return $news_list;

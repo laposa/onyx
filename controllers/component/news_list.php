@@ -350,7 +350,7 @@ class Onyx_Controller_Component_News_List extends Onyx_Controller_List {
         $full_news_list = $this->getNewsListAll($filter);
                 
         $count = count($full_news_list);
-                
+
         $_Onyx_Request = new Onyx_Request("component/pagination~limit_from=$limit_from:limit_per_page=$limit_per_page:count=$count~");
         $this->tpl->assign('PAGINATION', $_Onyx_Request->getContent());
                 
