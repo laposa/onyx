@@ -414,7 +414,7 @@ $.fn.simpleTree = function(opt){
 			var line = $(dragNode_source).prev('.line');
 			$(node).before(dragNode_source);
 			$(dragNode_source).before(line);
-			node.className.remove('line-over');
+			node.classList.remove('line-over');
 			var nodeSize = $('>ul >li', parent).not('.line, .line-last').filter(':visible').size();
 			if(TREE.option.docToFolderConvert && nodeSize==0)
 			{

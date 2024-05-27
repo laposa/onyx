@@ -40,13 +40,13 @@ $(function() {
         $('#onyx-dialog').addClass('ajax-load').load(url, '', function() {
             var button = '#node-add-form-' + node_id + '-' + container_id + '-wrapper button';
             var container = '#node-add-form-' + node_id + '-' + container_id + '-wrapper';
-            $(button).after(' or <a href="#" onclick="$(\'' + container + '\').remove(); return false;"><span>cancel</span></a>');
+            $(button).after(' <a href="#" class="button remove" onclick="$(\'' + container + '\').closest(\'.ui-dialog\').remove(); return false;"><span>Cancel</span></a>');
             
             $('#node-add-form-'+node_id+'-'+container_id+'-wrapper form').ajaxForm({ 
                 target: '#node-add-form-'+node_id+'-'+container_id+'-wrapper',
                 success: function(responseText, statusText) {
                     popupMessage("#node-add-form-"+node_id+"-"+container_id+"-wrapper div.onyx-messages");
-                    refreshPodsList();
+                    refreshList();
                     $('#onyx-dialog').empty().dialog('close');
                 }
             });
@@ -60,7 +60,7 @@ $(function() {
         var child_id = $(this).attr('href').replace('#','');;
         $('#onyx-dialog').addClass('ajax-load').load('/request/bo/component/node_delete~id='+child_id+':delete=1~', function() {$(this).removeClass('ajax-load');});
         $('#onyx-dialog').dialog({width: 500, modal: true, overlay: {opacity: 0.5, background: 'black'}, title: 'Delete node', beforeClose: function( event, ui ) {
-            refreshPodsList();
+            refreshList();
         }}).dialog('open');
         return false;
     });
@@ -69,18 +69,12 @@ $(function() {
         var child_id = $(this).attr('href').replace('#','');;
         $.get('/request/bo/component/node_duplicate~id='+child_id+'~', function(data) {
             popupMessage($(data).find("div.onyx-messages"));
-            refreshPodsList();
+            refreshList();
         });
         return false;
     });
 
 });
-
-function refreshPodsList() {
-    var refresh_url = '/request/bo/component/node_list_cards~id={GET.id}:node_group={NODE_GROUP}~';
-    $('#content-list-{GET.id}').parent().load(refresh_url);
-    $('#pages-node-menu').load('/request/bo/component/node_menu~id=0:open=0:expand_all=1:publish=0~', function() {initialiseMenuPagesTree()});
-}
 </script>
    
     <!-- BEGIN: children -->
@@ -125,7 +119,7 @@ function refreshPodsList() {
                                 </div>
                                 <div class="content-pods__item--actions onyx-edit-page">
                                     <a class="onyx-edit" title="Edit Content ..." href="javascript:void({CHILD.id})" onclick="openEdit('/popup/properties/{CHILD.id}/orig' + window.location.pathname)"><span>Edit Content ...</span></a>
-                                    <a class="onyx-new-content" title="Add Content ..." data-node-id="{GET.id}" data-node-group="{NODE_GROUP}" data-position="{INDEX}" href="#content-list-{GET.id}" ><span>Add Content ...</span></a>
+                                    <a class="onyx-new-content" title="Add Content ..." data-node-id="{GET.id}" data-node-group="{NODE_GROUP}" data-position="{INDEX}" href="#" ><span>Add Content ...</span></a>
                                     <a class="onyx-duplicate" title="Duplicate {CHILD.node_controller}" href="#{CHILD.id}"><span>Duplicate</span></a>
                                     <a class="onyx-delete" title="Delete {CHILD.node_controller}" href="#{CHILD.id}"><span>Delete</span></a>
                                 </div> 
@@ -140,22 +134,48 @@ function refreshPodsList() {
     </ul>
     <script type="text/javascript">
         $(document).ready(function(){
-            $('#content-pods').simpleTree({
-                drag: true,
-                afterMove:function(destination, source, position){
-                    var source_node_id = $('a:first', source).attr('href').match("[0-9]{1,}$");
-                    var destination_node_id = $('a:first', destination).attr('href').match("[0-9]{1,}$");
-                    
-                    $.post("/request/bo/component/node_move", {
+            function repositionNode(event, ui) {
+                var source_node_id = $(ui.item).find('.fakelink').attr('href').match("[0-9]{1,}$");
+                var destination_node_id = $(ui.item).closest('.root').find('.fakelink').attr('href').match("[0-9]{1,}$");
+                var position = $(ui.item).parent().children().index(ui.item);
+                setLoading(true);
+                
+                $.post(
+                    "/request/bo/component/node_move", 
+                    {
                         csrf_token: getCSRFToken(),
                         source_node_id: source_node_id[0],
                         destination_node_id: destination_node_id[0],
-                        position: position}, function (data) {
-                            popupMessage(data);
-                    });
-                    refreshPodsList();
+                        position: position
+                    }, 
+                    function (data) {
+                        popupMessage(data);
+                        refreshList();
+                    }
+                );
+            }
+
+            $("#content-pods ul").sortable({
+                scroll: true,
+                placeholder: 'placeholder',
+
+                update: function(event, ui) {
+                    //feEditDragDrop(event, ui);
                 },
-                animate: true,
+                receive: function(event, ui) {
+                    //feEditDragDrop(event, ui);
+                },
+                over: function(event, ui) {
+                    //sortable_selected_id = $(event.target).attr('id');
+                },
+                change: function(event, ui) {
+                    //sortable_selected_id = $(event.target).attr('id');
+                },
+                stop: function(event, ui) {
+                    repositionNode(event, ui);
+                },
+                activate: function(event, ui) {
+                }
             });
         });
     </script>

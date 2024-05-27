@@ -56,6 +56,15 @@ function initialiseMenuPagesTree() {
         docToFolderConvert: true /*when false, it will not allow to move page using drag&drop under a page without any children*/
     });
     $('#pages-node-menu').addClass('visible');
+
+    // rewrite url on page select
+    $('#pages-node-menu a').on('click', function() {
+        let newLink = window.location.origin + '/backoffice/pages/' + $(this).attr('href').replace('#', '');
+
+        if(window.history.pushState) {
+            window.history.pushState({}, $(this).find('span').html(), newLink);
+        }
+    });
 }
 
 function hookNodeEditPostUpdate() {
