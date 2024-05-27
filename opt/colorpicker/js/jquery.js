@@ -1227,7 +1227,7 @@ jQuery.each({
 	},
 
 	removeClass: function( classNames ) {
-		jQuery.classList.remove( this, classNames );
+		jQuery.className.remove( this, classNames );
 	},
 
 	toggleClass: function( classNames, state ) {
