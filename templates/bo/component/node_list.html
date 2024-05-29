@@ -24,7 +24,8 @@ $(function() {
         $('#onyx-dialog').addClass('ajax-load').load(url, '', function() {
             var button = '#node-add-form-' + node_id + '-' + container_id + '-wrapper button';
             var container = '#node-add-form-' + node_id + '-' + container_id + '-wrapper';
-            $(button).after(' or <a href="#" onclick="$(\'' + container + '\').remove(); return false;"><span>cancel</span></a>');
+            $(button).after(' <a href="#" class="button remove" onclick="$(\'' + container + '\').closest(\'.ui-dialog\').remove(); return false;"><span>Cancel</span></a>');
+            setLoading(true);
             
             $('#node-add-form-'+node_id+'-'+container_id+'-wrapper form').ajaxForm({ 
                 target: '#node-add-form-'+node_id+'-'+container_id+'-wrapper',
@@ -39,6 +40,7 @@ $(function() {
         return false;
     });
     $('#child-list-{GET.id} a.onyx-delete').on('click', function() {
+        setLoading(true);
         $('#onyx-dialog').empty();
         var child_id = $(this).attr('href').replace('#','');;
         $('#onyx-dialog').addClass('ajax-load').load('/request/bo/component/node_delete~id='+child_id+':delete=1~', function() {$(this).removeClass('ajax-load');});
@@ -48,6 +50,7 @@ $(function() {
         return false;
     });
     $('#child-list-{GET.id} a.onyx-duplicate').on('click', function() {
+        setLoading(true);
         var child_id = $(this).attr('href').replace('#','');;
         $.get('/request/bo/component/node_duplicate~id='+child_id+'~', function(data) {
             popupMessage($(data).find("div.onyx-messages"));
@@ -59,9 +62,18 @@ $(function() {
 });
 
 function refreshList() {
-    var refresh_url = '/request/bo/component/node_list~id={GET.id}:node_group={NODE_GROUP}~';
-    $('#child-list-{GET.id}').parent().load(refresh_url);
-    $('#pages-node-menu').load('/request/bo/component/node_menu~id=0:open=0:expand_all=1:publish=0~', function() {initialiseMenuPagesTree()});
+    setLoading(true);
+    if($('#child-list-{GET.id}').length > 0) {
+        var refresh_url = '/request/bo/component/node_list~id={GET.id}:node_group={NODE_GROUP}~';
+        $('#child-list-{GET.id}').parent().load(refresh_url);
+        $('#pages-node-menu').load('/request/bo/component/node_menu~id=0:open=0:expand_all=1:publish=0~', function() {initialiseMenuPagesTree();setLoading(false)});
+    }
+
+    if ($('#content-list-{GET.id}').length > 0) {
+        var pods_refresh_url = '/request/bo/component/node_list_cards~id={GET.id}:node_group={NODE_GROUP}~';
+        $('#content-list-{GET.id}').parent().load(pods_refresh_url);
+        $('#pages-node-menu').load('/request/bo/component/node_menu~id=0:open=0:expand_all=1:publish=0~', function() {initialiseMenuPagesTree();setLoading(false)});
+    }
 }
 
 </script>
@@ -91,7 +103,7 @@ function refreshList() {
     <!-- BEGIN: empty -->
     <p>This node contains no children</p>
     <!-- END: empty -->
-    <p><a class="button add" title="Add Content ..." data-node-id="{GET.id}" data-node-group="{NODE_GROUP}" href="#child-list-{GET.id}" ><span>Add Content ...</span></a></p>
+    <p><a class="button add" title="Add Content ..." data-node-id="{GET.id}" data-node-group="{NODE_GROUP}" href="#" ><span>Add Content ...</span></a></p>
 </div>
 
 <!-- END: content -->
