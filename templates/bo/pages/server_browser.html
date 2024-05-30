@@ -29,6 +29,15 @@
             animate: true,
             docToFolderConvert: true
         });
+
+        // rewrite url on media browser
+        $('#browser-tree a').on('click', function() {
+            let newLink = window.location.origin + '/backoffice/media/' + $(this).attr('href').replace('#', '');
+
+            if(window.history.pushState) {
+                window.history.pushState({}, $(this).find('span').html(), newLink);
+            }
+        });
     }
 
     function serverBrowserOpenDir(open_dir) {
