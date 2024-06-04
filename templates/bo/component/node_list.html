@@ -24,7 +24,7 @@ $(function() {
         $('#onyx-dialog').addClass('ajax-load').load(url, '', function() {
             var button = '#node-add-form-' + node_id + '-' + container_id + '-wrapper button';
             var container = '#node-add-form-' + node_id + '-' + container_id + '-wrapper';
-            $(button).after(' <a href="#" class="button remove" onclick="$(\'' + container + '\').closest(\'.ui-dialog\').remove(); return false;"><span>Cancel</span></a>');
+            $(button).after(' <a href="#" class="button remove" onclick="$(\'#onyx-dialog\').empty().dialog(\'close\'); return false;"><span>Cancel</span></a>');
             
             $('#node-add-form-'+node_id+'-'+container_id+'-wrapper form').ajaxForm({ 
                 target: '#node-add-form-'+node_id+'-'+container_id+'-wrapper',
