@@ -673,11 +673,6 @@ CREATE TABLE common_file (
         $TaxonomyImage = new common_taxonomy_label_image();
         $file_list['taxonomy'] = $TaxonomyImage->getFileLink($file);
         
-        
-        require_once('models/education/education_survey_image.php');
-        $SurveyImage = new education_survey_image();
-        $file_list['survey'] = $SurveyImage->getFileLink($file);
-        
         /**
          * ecommerce tables
          */
@@ -699,6 +694,10 @@ CREATE TABLE common_file (
             require_once('models/ecommerce/ecommerce_store_image.php');
             $StoreImage = new ecommerce_store_image();
             $file_list['store'] = $StoreImage->getFileLink($file);
+
+            require_once('models/education/education_survey_image.php');
+            $SurveyImage = new education_survey_image();
+            $file_list['survey'] = $SurveyImage->getFileLink($file);
         
         } else {
             
@@ -706,6 +705,7 @@ CREATE TABLE common_file (
             $file_list['product_variety'] = [];
             $file_list['recipe'] = [];
             $file_list['store'] = [];
+            $file_list['survey'] = [];
             
         }
 

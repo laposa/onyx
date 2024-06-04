@@ -36,20 +36,12 @@ $(function(){
     if (buttonToolbar.length > 0) buttonToolbar.append($('.extended-toolbar a').detach());
 });
 
-function setLoading(value) {
-    if(value) {
-        $('#backoffice-loading').addClass('active');
-    } else {
-        $('#backoffice-loading').removeClass('active');
-    }
-}
 </script>
 {REGISTRY.head}
 </head>
 <body>
 {MESSAGES}
 <div id="backoffice">
-    <div id="backoffice-loading"></div>
     <div id="backoffice-wrapper">
         <div id="container" style="width: auto;"> 
             {MESSAGES}

@@ -1,4 +1,19 @@
 <!-- BEGIN: content -->
+<script type="text/javascript">
+    function setLoading(selector, value = true) {
+        if(typeof selector === 'string' && selector.length > 0) {
+            if(value) {
+                $(selector).addClass('loading');
+            } else {
+                $(selector).addClass('done');
+                setTimeout(function() {
+                    $(selector).removeClass('loading');
+                    $(selector).removeClass('done');
+                }, 500);
+            }
+        }
+    }
+</script>
 <div id="onyx-header">
     
     <div id="onyx-menu-bar">

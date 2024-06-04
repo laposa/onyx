@@ -138,7 +138,8 @@ $(function() {
                 var source_node_id = $(ui.item).find('.fakelink').attr('href').match("[0-9]{1,}$");
                 var destination_node_id = $(ui.item).closest('.root').find('.fakelink').attr('href').match("[0-9]{1,}$");
                 var position = $(ui.item).parent().children().index(ui.item);
-                setLoading(true);
+                setLoading('#content-list', true);
+                setLoading('#node-list', true);
                 
                 $.post(
                     "/request/bo/component/node_move", 
