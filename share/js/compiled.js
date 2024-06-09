@@ -337,11 +337,13 @@ var onyx_load_indicator_html_snippet = "<div style='width: 100%; padding-top: 10
  */
  
 function makeAjaxRequest(jquery_selector, url, complete_callback) {
-    jQuery(jquery_selector).html(onyx_load_indicator_html_snippet).load(url, '', function (responseText, textStatus, XMLHttpRequest) {
-            popupMessage( jquery_selector + ' div.onyx-messages');
-            if (jQuery.isFunction(complete_callback)) complete_callback();
-        }
-    );
+
+    jQuery(jquery_selector).html(onyx_load_indicator_html_snippet);
+
+    htmx.ajax('GET', url, jquery_selector).then(() => {
+        popupMessage( jquery_selector + ' div.onyx-messages');
+        if (jQuery.isFunction(complete_callback)) complete_callback();
+    });
 }
 
 /**
@@ -372,13 +374,15 @@ function removeTinyMCEEditors(container) {
 
 activeOverlay = null;
 overlayRemovingInProgress = false;
-function showModalOverlay() {
+function showModalOverlay(optionalClass = "") {
+    activeOverlay = !activeOverlay && $('.onyx-modal-overlay') ? $('.onyx-modal-overlay') : activeOverlay;
+
 	var c = "";
 	if (activeOverlay && activeOverlay.length) {
 		c = "secondary";
 		activeOverlay.find(".onyx-modal-overlay-window").attr("id", "modal-overlay-window-saved");
 	}
-	activeOverlay = $('<div class="onyx-modal-overlay off ' + c + '">' +
+	activeOverlay = $('<div class="onyx-modal-overlay off ' + c + ' ' + optionalClass +'">' +
 		'<div class="onyx-modal-click-zone" onclick="hideModalOverlay()"></div>' +
 		'<div class="onyx-modal-overlay-window"></div></div>');
 	$('html,body').addClass('noscroll');
@@ -388,18 +392,22 @@ function showModalOverlay() {
 }
 
 function hideModalOverlay() {
+    activeOverlay = !activeOverlay && $('.onyx-modal-overlay') ? $('.onyx-modal-overlay') : activeOverlay;
+
 	if (activeOverlay && !overlayRemovingInProgress) {
 		activeOverlay.addClass('off');
+        activeOverlay.closest('.onyx-modal-overlay').addClass('off');
 		overlayRemovingInProgress = true;
 		setTimeout(function() { 
-			activeOverlay.remove();
+            activeOverlay.closest('.onyx-modal-overlay').remove();
+            activeOverlay.remove();
 			$('html,body').removeClass('noscroll');
 			var saved = $('#modal-overlay-window-saved');
 			if (saved.length) {
 				saved.attr("id", "modal-overlay-window");
 				activeOverlay = saved;
 			} else {
-				activeOverlay = null;
+                activeOverlay = null;
 			}
 			overlayRemovingInProgress = false;
 		}, 150);

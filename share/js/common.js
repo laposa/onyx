@@ -43,11 +43,13 @@ var onyx_load_indicator_html_snippet = "<div style='width: 100%; padding-top: 10
  */
  
 function makeAjaxRequest(jquery_selector, url, complete_callback) {
-    jQuery(jquery_selector).html(onyx_load_indicator_html_snippet).load(url, '', function (responseText, textStatus, XMLHttpRequest) {
-            popupMessage( jquery_selector + ' div.onyx-messages');
-            if (jQuery.isFunction(complete_callback)) complete_callback();
-        }
-    );
+
+    jQuery(jquery_selector).html(onyx_load_indicator_html_snippet);
+
+    htmx.ajax('GET', url, jquery_selector).then(() => {
+        popupMessage( jquery_selector + ' div.onyx-messages');
+        if (jQuery.isFunction(complete_callback)) complete_callback();
+    });
 }
 
 /**
