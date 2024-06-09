@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2008-2017 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2008-2024 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -62,6 +62,7 @@ class Onyx_Controller_Bo_Node_Default extends Onyx_Controller {
         
         if($this->Node->nodeUpdate($node_data)) {
             msg("{$node_data['node_group']} (id={$node_data['id']}) has been updated");
+            header('HX-Trigger: nodeUpdated');
         } else {
             msg("Cannot update node {$node_data['node_group']} (id={$node_data['id']})", 'error');
         }
