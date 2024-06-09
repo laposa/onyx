@@ -13,17 +13,6 @@
         popupMessage("#node-properties-edit div.onyx-messages");
 
         $('button.save').removeClass('saving');
-
-        if(typeof hookNodeEditPostUpdate == 'function') {
-            hookNodeEditPostUpdate();
-        }
-        /**
-         * bo/component/scheduler_list specific
-         * TODO: create hook registry to allow multiple hooks
-         */
-        if(typeof hookNodeEditPostUpdateScheduler == 'function') {
-            hookNodeEditPostUpdateScheduler();
-        }
     };
 </script>
 <div class="node-edit node-{NODE.node_group}-{NODE.node_controller}" id="node-properties-edit" hx-on::before-request="beforeNodeEditRequest()" hx-on::after-swap="afterNodeEditRequest()">
