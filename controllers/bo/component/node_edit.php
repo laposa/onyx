@@ -52,6 +52,7 @@ class Onyx_Controller_Bo_Component_Node_Edit extends Onyx_Controller {
 
         if ($this->GET['ajax'] == 0) $this->tpl->parse('content.form');
         
+        header('HX-Trigger: nodeUpdated');
         return true;
     }
     
