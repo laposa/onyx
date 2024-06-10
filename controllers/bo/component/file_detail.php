@@ -38,7 +38,6 @@ class Onxshop_Controller_Bo_Component_File_Detail extends Onxshop_Controller_Bo_
 					$this->tpl->parse("content.image_view_full");
 					$this->tpl->parse("content.CSS_select");
 				break;
-				default:
 				case 'file':
 					//nothing
 				break;
