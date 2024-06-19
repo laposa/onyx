@@ -51,7 +51,7 @@ class Onyx_Controller_Bo_Component_Node_Edit extends Onyx_Controller {
         $this->tpl->assign("SUB_CONTENT", $this->content);
 
         if ($this->GET['ajax'] == 0) $this->tpl->parse('content.form');
-        
+
         return true;
     }
     

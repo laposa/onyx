@@ -803,7 +803,7 @@ a.remove,
 a.delete {background-image: url(/share/images/famfamfam_icons/delete.png); padding-left: 20px; height: 20px; display: inline-block; color: red;}
 a:active {color: #555;}
 a.button,
-button { box-shadow: inset 0px 1px 0px 0px #fffaff, 1px 1px 3px rgba(0,0,0,0.2); -moz-box-shadow: inset 0px 1px 0px 0px #fffaff, 1px 1px 3px rgba(0,0,0,0.2); -webkit-box-shadow: inset 0px 1px 0px 0px #fffaff, 1px 1px 3px rgba(0,0,0,0.2); background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #e6e6e6), color-stop(1, #cfcfcf) ); background: -moz-linear-gradient( center top, #e6e6e6 5%, #cfcfcf 100% ); filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#e6e6e6', endColorstr='#cfcfcf'); background-color: #e6e6e6; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; text-indent: 0px; border: 1px solid #c7c5c7; display: inline-block; color: #757575; font-size: 12px; font-weight: bold; font-style: normal; height: 28px; line-height: 28px; text-decoration: none; text-align: center; text-shadow: 1px 1px 0px #eee; padding: 0 20px; -webkit-transition: background 200s ease-out; -moz-transition: background 200s ease-out; -o-transition: background 200s ease-out; transition: background 200s ease-out; background-size: 1px 40px; white-space: nowrap; }
+button { box-shadow: inset 0px 1px 0px 0px #fffaff, 1px 1px 3px rgba(0,0,0,0.2); -moz-box-shadow: inset 0px 1px 0px 0px #fffaff, 1px 1px 3px rgba(0,0,0,0.2); -webkit-box-shadow: inset 0px 1px 0px 0px #fffaff, 1px 1px 3px rgba(0,0,0,0.2); background: -webkit-gradient( linear, left top, left bottom, color-stop(0.05, #e6e6e6), color-stop(1, #cfcfcf) ); background: -moz-linear-gradient( center top, #e6e6e6 5%, #cfcfcf 100% ); filter: progid: DXImageTransform.Microsoft.gradient(startColorstr='#e6e6e6', endColorstr='#cfcfcf'); background-color: #e6e6e6; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; text-indent: 0px; border: 1px solid #c7c5c7; display: inline-block; color: #757575; font-size: 12px; font-weight: bold; font-style: normal; height: 28px; line-height: 28px; text-decoration: none; text-align: center; text-shadow: 1px 1px 0px #eee; padding: 0 20px; -webkit-transition: background 200s ease-out; -moz-transition: background 200s ease-out; -o-transition: background 200s ease-out; transition: background 200s ease-out; background-size: 1px 40px; white-space: nowrap; cursor: pointer; }
 a.button:active,
 button:active { outline: none; -webkit-transform: translateY(1px); -moz-transform: translateY(1px); -ms-transform: translateY(1px); transform: translateY(1px); }
 a.button:focus,
@@ -1040,6 +1040,85 @@ div.file-list-icon div.item a.image {display: block; max-height: 120px; overflow
 #server-browser-file-list .file-upload-preview {width: 200px; height: 200px; position: relative; background-color: white;}
 #server-browser-file-list .file-upload-preview img {position: absolute; height: 100%; width: 100%; object-fit: contain; top: 0; left: 0;}
 #server-browser-file-list .file-upload-preview .file-overlay {position: absolute; width: 100%; z-index: 100; bottom: 0; padding: 10px 0; background-color: rgba(0,0,0,0.5);}
+
+#add-folder {
+  display: flex;
+}
+
+#server-browser-file-list .media-breadcrumbs {
+  margin-top: 5px;
+  margin-bottom: 10px;
+}
+
+#server-browser-file-list .media-breadcrumbs .root-folder {
+  position: relative;
+  display: inline-flex;
+  width: 8px;
+  height: 8px;
+  left: 4px;
+  margin-right: 10px;
+  background-color: rgb(100, 100, 100);
+  border-top-right-radius: 5px;
+  border-top-left-radius: 5px;
+}
+
+#server-browser-file-list .media-breadcrumbs .root-folder:before {
+  content: "";
+  position:relative;
+  bottom: 2px;
+  left: -3px;
+  width: 0px;
+  height: 0px;
+  border-bottom: 7px solid rgb(100, 100, 100);
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+}
+
+#server-browser-file-list .media-breadcrumbs .root-folder:after {
+  content: "";
+  position: absolute;
+  bottom: 0px;
+  width: 2px;
+  height: 3px;
+  background-color: white;
+  z-index: 10;
+  left: 3px;
+}
+
+#server-browser-file-list .media-subfolders {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+#server-browser-file-list .media-subfolders a {
+  display: flex;
+  align-items: center;
+  padding: 5px 10px;
+  background-color: rgb(242, 242, 242);
+  border: 1px solid rgb(208, 208, 208);
+  font-weight: 500;
+  border-radius: 5px;
+  transition: 0.3s ease;
+
+  &:before {
+    content:"";
+    position: relative;
+    height: 13px;
+    width: 13px;
+    background-image: url(/share/images/folder.svg);
+    background-size: 13px;
+    background-repeat: no-repeat;
+    display: inline-block;
+    margin-right: 5px;
+  }
+
+  &:hover {
+    text-decoration: none;
+    background-color: rgb(214, 214, 214);
+    color: black;
+  }
+}
 
 
 /**

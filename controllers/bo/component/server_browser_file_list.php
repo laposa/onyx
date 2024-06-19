@@ -152,9 +152,35 @@ class Onyx_Controller_Bo_Component_Server_Browser_File_List extends Onyx_Control
         /**
          * prepare folder head string
          */
-        
-        $folder_head = str_replace('/', ' / ', $relative_folder_path);
-        $folder_head = '/ ' . $folder_head;
+
+        $breadcrumbs = explode('/', $relative_folder_path);
+        $folder_head = '<a href="/backoffice/media//" class="root-folder"></a>/ ';
+        if(count($breadcrumbs) > 0) {
+            foreach($breadcrumbs as $key => $breadcrumb) {
+                $path .= $breadcrumb . '/';
+                $folder_head .= '<a href="/backoffice/media/' . $path . '">' . $breadcrumb . '</a>';
+                if($key < count($breadcrumbs) - 2) {
+                    $folder_head .= ' / ';
+                }
+            }
+        }
+
+        /**
+         * Add subfolders
+         * 
+         */
+
+
+        $subfolders = $File->getTree($actual_folder, '-type d');
+        $subfolders = array_filter($subfolders, function($item) {
+            return $item['parent'] === '';
+        });
+        $subfolders_str = '';
+        if(is_array($subfolders) && count($subfolders) > 0) {
+            foreach($subfolders as $subfolder) {
+                $subfolders_str .= '<a href="/backoffice/media/' . $relative_folder_path . $subfolder['name'] . '" class="folder">' . $subfolder['name'] . '</a>';
+            }
+        }
         
         /**
          * Assign template variables
@@ -166,6 +192,7 @@ class Onyx_Controller_Bo_Component_Server_Browser_File_List extends Onyx_Control
         $this->tpl->assign('FOLDER', $relative_folder_path);
         $this->tpl->assign('MAX_FILE_SIZE', round($File->convertBytes(ini_get('upload_max_filesize')) / 1048576));
         $this->tpl->assign('MAX_FILES', ini_get('max_file_uploads'));
+        $this->tpl->assign('SUBFOLDERS', $subfolders_str);
         
         /**
          * allow to upload only in non-root folder

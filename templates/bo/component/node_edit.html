@@ -2,80 +2,22 @@
 {MESSAGES}
 
 <!-- BEGIN: form -->
-<div class="node-edit node-{NODE.node_group}-{NODE.node_controller}" id="node-properties-edit">
+<script type="text/javascript">
+    function beforeNodeEditRequest(evt) {
+        console.log('beforeNodeEditRequest');
+        $('button.save').addClass('saving');
+    };
+    
+    function afterNodeEditRequest(evt) {
+        console.log('afterNodeEditRequest');
+        popupMessage("#node-properties-edit div.onyx-messages");
+
+        $('button.save').removeClass('saving');
+    };
+</script>
+<div class="node-edit node-{NODE.node_group}-{NODE.node_controller}" id="node-properties-edit" hx-on::before-request="beforeNodeEditRequest()" hx-on::after-swap="afterNodeEditRequest()">
 {SUB_CONTENT}
 </div>
-
-<script type="text/javascript">
-    $(document).ready(function() {
-    console.log('READY!');
-        var options = {
-            target:        '#node-properties-edit-response',
-            beforeSubmit:  preSubmit,
-            success:       showResponse,
-            url:       '/request/bo/component/node_edit~id={GET.id}:orig={GET.orig}~#node-properties-edit'
-        };
-
-        $('#node-edit-{GET.id}').ajaxForm(options);
-
-        $('#node-edit-{GET.id}').validate();
-    });
-
-// pre-submit callback
-function preSubmit(arr, $form, options) {
-    if (!$form[0].checkValidity()) {
-      $('button.save').removeClass('saving');
-      return false;
-    }
-
-    console.log('READY FOR SUBMSSION!');
-    if(typeof hookNodeEditPreUpdate == 'function') {
-        hookNodeEditPreUpdate();
-    }
-}
-
-// post-submit callback
-function showResponse(responseText, statusText)  {
-
-    popupMessage("#node-properties-edit-response div.onyx-messages");
-
-    $('button.save').removeClass('saving');
-
-    initBackofficeUI();
-
-    if(typeof hookNodeEditPostUpdate == 'function') {
-        hookNodeEditPostUpdate();
-    }
-
-    /**
-     * bo/component/scheduler_list specific
-     * TODO: create hook registry to allow multiple hooks
-     */
-    if(typeof hookNodeEditPostUpdateScheduler == 'function') {
-        hookNodeEditPostUpdateScheduler();
-    }
-
-    //reload whole form in case node_group has changed
-    if ($('#node-node-group-{GET.id}').length && ($('#node-node-group-{GET.id}').attr('value') != '{NODE.node_group}' || $('#node-node-controller-{GET.id}').attr('value') != '{NODE.node_controller}')) {
-        if (confirm("You have changed the content type, the browser window will refresh to display the updated fields")) window.location.reload();
-    }
-
-    //don't reload in context when in backoffice
-    var path = '{GET.orig}';
-    var node_id = {GET.id};
-    if (path.length > 0) {
-        if (path.match(/^backoffice/) || path.match(/popup\/edit/)) {
-            if (typeof opener.refreshList == 'function') opener.refreshList();
-            else refreshOpener(path, node_id);
-        } else {
-            refreshOpenerAjax(path, node_id);
-        }
-    }
-}
-</script>
-
-<div id="node-properties-edit-response" style="display: none;"></div>
-
 <!-- END: form -->
 
 <!-- END: content -->

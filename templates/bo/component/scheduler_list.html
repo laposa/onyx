@@ -61,15 +61,6 @@
             return false;
         });
     });
-
-    /**
-     * called from bo/component/node_edit
-     */
-    
-    function hookNodeEditPostUpdateScheduler() {
-        var url = "/request/bo/component/scheduler_list?node_id={GET.node_id}&node_type=common_node";
-        makeAjaxRequest('div.row.schedule', url);
-    }
     
 </script>
 </div>

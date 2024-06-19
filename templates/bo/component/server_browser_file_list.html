@@ -22,10 +22,14 @@
             <div class="add-new">
                 <fieldset class="add-folder single">
                     
+                    <div class="media-breadcrumbs">{FOLDER_HEAD}</div>
+
                     <div class="row" id="add-folder">
-                        {FOLDER_HEAD} <input id="add-folder-input" type="text" name="new_folder" value="{GET.new_folder}" placeholder="New Folder Name" />
+                        <input id="add-folder-input" type="text" name="new_folder" value="{GET.new_folder}" placeholder="New Folder Name" />
                         <button type="submit" name="create" value="create" class="create"><span>Create</span></button>
                     </div>
+
+                    <div class="media-subfolders">{SUBFOLDERS}</div>
                 </fieldset>
                 <!-- BEGIN: upload_file -->
                 <fieldset class="add-new single dropzone-wrap">
@@ -68,7 +72,7 @@
     <div class="server-browser">
         <div class="wrapper">
             <!-- BEGIN: item -->
-            <div id="file-{ITEM.file_path_encoded_relative}">
+            <div id="file-{ITEM.file_path_encoded_relative}" class="file">
                 <!-- BEGIN: thumbnail --><img src="/thumbnail/200/{BASE}{FOLDER}{ITEM.name}" alt="{ITEM.name}" /><!-- END: thumbnail -->
                 <div class="overlay">
                     <p style="display: block;">{ITEM.name|str_replace('_', ' ', %s)}</p>
@@ -83,7 +87,7 @@
                     <div class="file-actions">
                     <!-- BEGIN: add_to_node --><a class="button small add" title="Use {ITEM.name}" href="#serverBrowser" onclick="makeAjaxRequest('#server-browser', '/request/bo/component/file_add~file_path_encoded={ITEM.file_path_encoded}:type={GET.type}:role={GET.role}:relation={GET.relation}:node_id={GET.node_id}~'); "><span>Use</span></a><br /><!-- END: add_to_node -->
                     <!-- BEGIN: replace_file --><a class="button small add" title="Use {ITEM.name}" href="#serverBrowser" onclick="openAjaxRequestInDialog('/request/bo/component/file_replace~file_path_encoded={ITEM.file_path_encoded}:type={GET.type}:relation={GET.relation}:node_id={GET.node_id}:file_id={GET.file_id}~', 'Replace file'); "><span>Use</span></a><br /><!-- END: replace_file -->
-                    <!-- BEGIN: delete --><a class="button small remove" href="{_SERVER.REDIRECT_URL}?delete_file={BASE}{FOLDER}{ITEM.name}" onclick="$('#file-{ITEM.file_path_encoded_relative}').load('/request/bo/component/file_delete~file_path_encoded={ITEM.file_path_encoded_relative}~', function() {popupMessage('#file-{ITEM.file_path_encoded_relative} div.onyx-messages');}); return false;"><span>Delete</span></a><!-- END: delete -->
+                    <!-- BEGIN: delete --><a class="button small remove" onclick="deleteFile('{ITEM.file_path_encoded_relative}');"><span>Delete</span></a><!-- END: delete -->
                     <!-- BEGIN: database_import --><a class="button add" title="Import {ITEM.name}" href="?data_file={BASE}{FOLDER}{ITEM.name}"><span>Import this ...</span></a><br /><!-- END: database_import --> 
                 </div>
                     
@@ -97,7 +101,7 @@
             
     <!-- BEGIN: empty -->
     <div class="empty">
-        <p style="padding: 2em;">This folder is empty. Do you want to remove this folder? <br><br><a class="button delete remove" href="#" onclick="$('#server-browser-file-list').load('/request/bo/component/server_browser_file_list~delete_file={BASE}{FOLDER}~'); fileTreeRefresh(); return false"><span>Yes, delete?</span></a></p>
+        <p style="padding: 2em;">This folder is empty. Do you want to remove this folder? <br><br><a class="button delete remove" onclick="deleteFolder()"><span>Yes, delete?</span></a></p>
     </div>
     <!-- END: empty -->
                 
@@ -109,8 +113,49 @@ this component would be good to split into upload and file list
     
     function newFileFormAfterSuccess() {
         newFileFormInit();
-        fileTreeRefresh();
         popupMessage('#server-browser-file-list div.onyx-messages');
+    }
+
+    function deleteFile(file) {
+        $('#file-' + file).load(
+            '/request/bo/component/file_delete~file_path_encoded='+file+'~', 
+            function() {
+                popupMessage('#file-{ITEM.file_path_encoded_relative} div.onyx-messages'); 
+                $('#file-' + file).addClass('deleted')
+                checkEmptyFolder();
+            }
+        );
+
+        return false;
+    }
+
+    function deleteFolder() {
+        makeAjaxRequest('#server-browser-file-list', '/request/bo/component/server_browser_file_list~delete_file={BASE}{FOLDER}~', function() {
+            const folder = '{FOLDER}';
+            let parentFolder = folder.substring(0, folder.length - 1);
+            parentFolder = parentFolder.substring(0, parentFolder.lastIndexOf('/'));
+            let newLink = window.location.origin + '/backoffice/media/' + parentFolder;
+
+            if(window.history.pushState && '{GET.type}' != 'replace_file') {
+                window.history.pushState({}, "", newLink);
+            }
+
+            var url = "/request/bo/component/server_browser_file_list~open=" + parentFolder + ":type={GET.type}:relation={GET.relation}:node_id={GET.node_id}:file_id={GET.file_id}~";
+            makeAjaxRequest('#server-browser-file-list', url, function() {
+                $("#add-new-file").attr('action', '{_SERVER.REDIRECT_URL}?open='+parentFolder);
+            }, true);
+        });
+
+        return false;
+    }
+
+    function checkEmptyFolder() {
+        let files = $('#server-browser-file-list .server-browser .file').length;
+        let deletedFiles = $('#server-browser-file-list .server-browser .file.deleted').length;
+
+        if (files == deletedFiles) {
+            makeAjaxRequest('#server-browser-file-list', "/request/bo/component/server_browser_file_list~open={GET.open}:type={GET.type}:relation={GET.relation}:node_id={GET.node_id}:file_id={GET.file_id}~");
+        }
     }
     
     function newFileFormInit() {
@@ -139,10 +184,6 @@ this component would be good to split into upload and file list
             $('#add-file').show();
         }
         newFileFormInit();
-    }
-    
-    function fileTreeRefresh() {
-        $("#browser-tree").load("/request/bo/component/server_browser_menu~directory={BASE}:type={GET.type}:node_id={GET.node_id}:relation={GET.relation}:file_id={GET.file_id}:expand_all=1:type=d~", function() {initializeServerBrowserMenu()});
     }
 
     var overwriteDialogsOpen = 0;

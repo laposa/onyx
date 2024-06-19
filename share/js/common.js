@@ -36,18 +36,22 @@ function unixtime() {
  * HTML snippet for AJAX loader
  */
  
-var onyx_load_indicator_html_snippet = "<div style='width: 100%; padding-top: 10px; text-align: center;'><img src='/share/images/ajax-indicator/indicator_facebook.gif' alt='Loading ...'/></div>";
+var onyx_load_indicator_html_snippet = "<div style='width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; min-height: 500px; animation: fadeIn 0.3s ease forwards;'><img style='max-width: 50px'; src='/share/images/loading.svg' alt='Loading ...'/></div>";
 
 /**
  * ajax loader
  */
  
-function makeAjaxRequest(jquery_selector, url, complete_callback) {
-    jQuery(jquery_selector).html(onyx_load_indicator_html_snippet).load(url, '', function (responseText, textStatus, XMLHttpRequest) {
-            popupMessage( jquery_selector + ' div.onyx-messages');
-            if (jQuery.isFunction(complete_callback)) complete_callback();
-        }
-    );
+function makeAjaxRequest(jquery_selector, url, complete_callback, omit_loading = false) {
+
+    if($(jquery_selector).length > 0 && jquery_selector && !omit_loading) {
+        $(jquery_selector).html(onyx_load_indicator_html_snippet);
+    }
+
+    htmx.ajax('GET', url, jquery_selector).then(() => {
+        popupMessage( jquery_selector + ' div.onyx-messages');
+        if (jQuery.isFunction(complete_callback)) complete_callback();
+    });
 }
 
 /**

@@ -3,53 +3,23 @@
 
 <script type="text/javascript">
     $(document).ready(function(){
-        $('div.server-browser-menu .simple-tree li.open').parentsUntil("ul.simple-tree", "li").addClass("open");
-        initializeServerBrowserMenu();
-    });
+        $(document).on('click', '.media-breadcrumbs a, .media-subfolders a', function(e) {
+            e.preventDefault();
+            let newLink = window.location.origin + $(this).attr('href');
 
-    function initializeServerBrowserMenu() {
-        $('div.server-browser-menu .simple-tree').simpleTree({
-            drag: false,
-            autoclose: true,
-            afterClick:function(node){
-                var open_dir = $('a:first', node).attr('href').replace('#', '');
-                serverBrowserOpenDir(open_dir);
-                return false;
-            },
-            afterDblClick:function(node){
-                //alert("text-"+$('span:first',node).text());
-            },
-            afterMove:function(destination, source, pos){
-                // alert("destination-"+$('span:first',destination).text()+" source-"+$('span:first',source).text()+" pos-"+pos);
-            },
-            afterAjax:function()
-            {
-                // alert('Loaded');
-            },
-            animate: true,
-            docToFolderConvert: true
-        });
-
-        // rewrite url on media browser
-        $('#browser-tree a').on('click', function() {
-            let newLink = window.location.origin + '/backoffice/media/' + $(this).attr('href').replace('#', '');
-
-            if(window.history.pushState) {
-                window.history.pushState({}, $(this).find('span').html(), newLink);
+            if(window.history.pushState && '{GET.type}' === '') {
+                window.history.pushState({}, "", newLink);
             }
-        });
-    }
 
-    function serverBrowserOpenDir(open_dir) {
-        //replace white space with +
-        open_dir = open_dir.replace(/ /g, '+');
-        var url = "/request/bo/component/server_browser_file_list~open=" + open_dir + ":type={GET.type}:relation={GET.relation}:node_id={GET.node_id}:file_id={GET.file_id}~";
-        makeAjaxRequest('#server-browser-file-list', url);
-        $("#add-new-file").attr('action', '{_SERVER.REDIRECT_URL}?open='+open_dir);
-    }
+            openDir = $(this).attr('href').replace('/backoffice/media/', '');
+            var url = "/request/bo/component/server_browser_file_list~open=" + openDir + ":type={GET.type}:relation={GET.relation}:node_id={GET.node_id}:file_id={GET.file_id}~";
+            makeAjaxRequest('#server-browser-file-list', url);
+            $("#add-new-file").attr('action', '{_SERVER.REDIRECT_URL}?open='+openDir);
+        });
+    });
 </script>
 
-<div id="server-browser" class="two-column-page page fibonacci-2-5 server-browser">
+<div id="server-browser" class="two-column-page page server-browser">
     <div class="page">
         <div class="content-wrappper page">
 
@@ -59,22 +29,7 @@
                 </div>
             </div>
 
-            <div class="columnTop page">
-                <div class="column-wrapper page">
-                
-                </div>
-            </div>
-
-            <div class="column-one page">
-                <div class="column-wrapper page">
-                    <div id="browser-tree">
-                        {SERVER_BROWSER_TREE}
-                    </div>
-                    <br style="clear: both" />
-                    {OPENCLIPART_TREE}
-                </div>
-            </div>
-            <div class="column-two page">
+            <div class="page">
                 <div class="column-wrapper page">
                     <div id="server-browser-file-list">
                         {SERVER_BROWSER_FILE_LIST}
