@@ -191,7 +191,7 @@ class Onyx_Controller_Bo_Component_Server_Browser_File_List extends Onyx_Control
         $this->tpl->assign('FOLDER_HEAD', $folder_head);
         $this->tpl->assign('FOLDER', $relative_folder_path);
         $this->tpl->assign('MAX_FILE_SIZE', round($File->convertBytes(ini_get('upload_max_filesize')) / 1048576));
-        $this->tpl->assign('MAX_FILES', ini_get('max_file_uploads') ?? 20);
+        $this->tpl->assign('MAX_FILES', ini_get('max_file_uploads'));
         $this->tpl->assign('SUBFOLDERS', $subfolders_str);
         
         /**
