@@ -45,7 +45,8 @@
         $('#pages-node-menu').addClass('visible');
     
         // rewrite url on page select
-        $('#pages-node-menu a').on('click', function() {
+        $('#pages-node-menu a').on('click', function(e) {
+            e.preventDefault();
             let newLink = window.location.origin + '/backoffice/pages/' + $(this).attr('href').replace('#', '');
     
             if(window.history.pushState) {

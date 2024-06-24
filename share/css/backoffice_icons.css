@@ -67,11 +67,11 @@
  * General
  */
  
-a.onyx-edit {background-image: url(/share/images/famfamfam_icons/plugin.png);}
+a.onyx-edit, button.onyx-edit {background-image: url(/share/images/famfamfam_icons/plugin.png);}
 a.onyx-edit-layout {background-image: url(/share/images/famfamfam_icons/layout.png);}
 a.onyx-edit-page {background-image: url(/share/images/famfamfam_icons/page.png);}
-a.onyx-duplicate {background-image: url(/share/images/famfamfam_icons/application_double.png);}
-a.onyx-delete {background-image: url(/share/images/famfamfam_icons/delete.png);}
+a.onyx-duplicate, button.onyx-duplicate {background-image: url(/share/images/famfamfam_icons/application_double.png);}
+a.onyx-delete, button.onyx-delete {background-image: url(/share/images/famfamfam_icons/delete.png);}
 a.onyx-edit-source {background-image: url(/share/images/famfamfam_icons/link_edit.png);}
 a.onyx-new-content {background-image: url(/share/images/famfamfam_icons/add.png);}
 a.onyx-new-layout {background-image: url(/share/images/famfamfam_icons/layout_add.png);}
@@ -109,7 +109,10 @@ div.onyx-edit-content {clear: both; padding: 0 0 50px 5px;}
 div.onyx-add-content a.onyx-new-content,
 div.onyx-edit-content a,
 div.onyx-edit-layout a,
-div.onyx-edit-page a {display: block; width: 30px; height: 19px; float: left; background-repeat: no-repeat; background-position: center;}
+div.onyx-edit-page a,
+div.onyx-edit-page button {display: block; cursor:pointer; width: 30px; height: 19px; float: left; background-repeat: no-repeat; background-position: center;}
+
+div.onyx-edit-page button {background-color: transparent; border: none; outline: none; box-shadow: none;}
 
 div.onyx-add-content a.onyx-new-content span,
 div.onyx-edit-content a span,

@@ -52,7 +52,7 @@ class Onyx_Controller_Bo_Component_Node_List_Cards extends Onyx_Controller {
                     $content_excerpt = "";
                     if($child['content'] != "") {
                         $content = strip_tags($child['content']);
-                        $content_excerpt = strlen($content > 200) ? substr($content, 0, 200) . "..." : $content;
+                        $content_excerpt = strlen($content) > 500 ? substr($content, 0, 500) . "..." : $content;
                     }
                     $sub_items = $Node->getChildren($child['id'], 'parent_container ASC, priority DESC, id ASC');
                     

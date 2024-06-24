@@ -85,8 +85,8 @@ function initAdvancedSettingsButton() {
     }
 
     $("a.show-advanced-settings").click(function(e) {
-        showAdvancedSettings(this);
         e.preventDefault();
+        showAdvancedSettings(this);
         return false;
     });
 }
@@ -235,4 +235,88 @@ $.widget("custom.combobox", {
         this.wrapper.remove();
         this.element.show();
     }
+});
+
+
+/** 
+*   Onyx Node Actions
+*/
+
+function duplicateNode(id, parent_id, node_group) {
+    $.get('/request/bo/component/node_duplicate~id='+id+'~', function(data) {
+        popupMessage($(data).find("div.onyx-messages"));
+        refreshNodeList(parent_id, node_group);
+    });
+    return false;
+}
+
+function deleteNode(id) {
+    $('#onyx-dialog').empty();
+    $('#onyx-dialog').dialog({
+        width: 500, 
+        modal: true, 
+        overlay: {
+            opacity: 0.5, 
+            background: 'black'
+        }, 
+        title: 'Delete node', 
+        close: function() {
+            $('#onyx-dialog').empty();
+        },
+    });
+
+    makeAjaxRequest('#onyx-dialog', '/request/bo/component/node_delete~id='+id+':delete=1~');
+    $('#onyx-dialog').dialog('open');
+    return false;
+}
+
+function addNode(node_id, node_group, specific_node_group = '') {
+    $('#onyx-dialog').empty();
+    if (node_group == 'layout') {
+        var container_id = prompt("Please enter container number you want to use for the new content.", "1");
+        if (isNaN(container_id)) {
+            alert(container_id + ' is not a valid number. It should be 1 or 2 for two columns layout.');
+            return false;
+        }
+    } else {
+        var container_id = 0;
+    }
+
+    var url = '/request/bo/component/node_add~node_group='+node_group+':parent=' + node_id + ':container=' + container_id + ':expand_all=1:only_group=' + specific_node_group + '~';
+
+    makeAjaxRequest('#onyx-dialog', url, function() {
+        var button = '#node-add-form-' + node_id + '-' + container_id + '-wrapper button';
+        $(button).after(' <a href="#" class="button remove" onclick="$(\'#onyx-dialog\').empty().dialog(\'close\'); return false;"><span>Cancel</span></a>');
+        
+        $('#node-add-form-'+node_id+'-'+container_id+'-wrapper form').ajaxForm({ 
+            target: '#node-add-form-'+node_id+'-'+container_id+'-wrapper',
+            success: function(responseText, statusText) {
+                popupMessage("#node-add-form-"+node_id+"-"+container_id+"-wrapper div.onyx-messages");
+                refreshNodeList(node_id, node_group);
+                $('#onyx-dialog').empty().dialog('close');
+            }
+        });
+    });
+    $('#onyx-dialog').dialog({width: 500, modal: true, overlay: {opacity: 0.5, background: 'black'}, title: 'Add new node'}).dialog('open');
+    return false;
+}
+
+function refreshNodeList(id, node_group) {
+    if($('#child-list-' + id).length > 0) {
+        var refresh_url = '/request/bo/component/node_list~id=' + id + ':node_group=' + node_group + '~';
+        makeAjaxRequest('#child-list-' + id, refresh_url);
+    }
+
+    if ($('#content-list-' + id).length > 0) {
+        var pods_refresh_url = '/request/bo/component/node_list_cards~id=' + id + ':node_group=' + node_group + '~';
+        makeAjaxRequest('#content-list-' + id, pods_refresh_url);
+    }
+
+    if(node_group == 'page') {
+        makeAjaxRequest('#pages-node-menu', '/request/bo/component/node_menu~id=0:open=0:expand_all=1:publish=0~');
+    }
+}
+
+$(document).on('click', '.fakelink', function(e) {
+    e.preventDefault();
 });

@@ -1464,8 +1464,9 @@ div.content-pods__item--actions {
   padding: 0.25rem 0.5rem;
   background: white;
 
-  & a {
+  & button {
     transition: 0.25s ease;
+    padding-right: 10px;
 
     &:hover {
       opacity: 0.6;
