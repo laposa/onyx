@@ -302,21 +302,43 @@ function addNode(node_id, node_group, specific_node_group = '') {
 }
 
 function refreshNodeList(id, node_group) {
-    if($('#child-list-' + id).length > 0) {
-        var refresh_url = '/request/bo/component/node_list~id=' + id + ':node_group=' + node_group + '~';
-        makeAjaxRequest('#child-list-' + id, refresh_url);
-    }
 
+    switch(node_group) {
+        case 'content':
+            refreshCards(id);
+            break;
+        case 'page':
+            refreshPages(id);
+            break;
+        default:
+            break;
+    }
+    refreshNodes(id);
+}
+
+function refreshCards(id) {
     if ($('#content-list-' + id).length > 0) {
-        var pods_refresh_url = '/request/bo/component/node_list_cards~id=' + id + ':node_group=' + node_group + '~';
+        var pods_refresh_url = '/request/bo/component/node_list_cards~id=' + id + ':node_group=content~';
         makeAjaxRequest('#content-list-' + id, pods_refresh_url);
-    }
-
-    if(node_group == 'page') {
-        makeAjaxRequest('#pages-node-menu', '/request/bo/component/node_menu~id=0:open=0:expand_all=1:publish=0~');
     }
 }
 
-$(document).on('click', '.fakelink', function(e) {
+function refreshNodes(id) {
+    if($('#child-list-' + id).length > 0) {
+        var refresh_url = '/request/bo/component/node_list~id=' + id + '~';
+        makeAjaxRequest('#child-list-' + id, refresh_url);
+    }
+}
+
+function refreshPages(id) {
+    if ($('#page-list-' + id).length > 0) {
+        var pages_refresh_url = '/request/bo/component/node_list_pages~id=' + id + ':node_group=page~';
+        makeAjaxRequest('#page-list-' + id, pages_refresh_url, function() {
+            makeAjaxRequest('#pages-node-menu', '/request/bo/component/node_menu~id=0:open=0:expand_all=1:publish=0~');
+        });
+    }
+}
+
+$(document).on('click', '.fakelink, #content-list button, #page-list button, #node-list button', function(e) {
     e.preventDefault();
 });

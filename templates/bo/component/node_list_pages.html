@@ -1,18 +1,17 @@
 <!-- BEGIN: content -->
 {MESSAGES}
-<div id="child-list-{GET.id}">
+<div id="page-list-{GET.id}">
     <!-- BEGIN: children -->
     <table>
         <thead>
-            <tr><th>Title</th><th>Content Type</th><th>ID</th><th>Container</th><th>Priority</th><th></th></tr>
+            <tr><th>Title</th><th>Page Type</th><th>ID</th><th>Priority</th><th></th></tr>
         </thead>
         <tbody>
             <!-- BEGIN: item -->
             <tr id="node-id-{CHILD.id}" class="{CHILD.class}">
                 <td><a class="{CHILD.class}" onclick="openEdit('/popup/properties/{CHILD.id}/orig' + window.location.pathname)" title="Modified: {CHILD.modified|htmlspecialchars}">{CHILD.title|htlmspecialchars}</a></td>
-                <td><a class="{CHILD.class}" onclick="openEdit('/popup/properties/{CHILD.id}/orig' + window.location.pathname)" title="Modified: {CHILD.modified|htmlspecialchars}">{CHILD.node_group}/{CHILD.node_controller}</a></td>
+                <td><a class="{CHILD.class}" onclick="openEdit('/popup/properties/{CHILD.id}/orig' + window.location.pathname)" title="Modified: {CHILD.modified|htmlspecialchars}">{CHILD.node_controller}</a></td>
                 <td>{CHILD.id}</td>
-                <td>{CHILD.parent_container}</td>
                 <td>{CHILD.priority}</td>
                 <td>
                     <div class="onyx-edit-page">
@@ -28,7 +27,7 @@
     <!-- BEGIN: empty -->
     <p>This node contains no children</p>
     <!-- END: empty -->
-    <p><button class="button add" title="Add Node" onclick="addNode('{GET.id}', '{NODE_GROUP}')">Add Node</button></p>
+    <p><button class="button add" title="Add Node" onclick="addNode('{GET.id}', 'page', 'page')">Add Page</button></p>
 </div>
 
 <!-- END: content -->
