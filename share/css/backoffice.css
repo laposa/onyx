@@ -1273,6 +1273,13 @@ div.comment-list tr.status-new a.title { font-weight: bold; }
 * Content pods
 */
 
+#content-list, #page-list, #node-list {
+
+  & a {
+    cursor: pointer;
+  }
+}
+
 #content-list {
   padding: 20px 20px 10px;
 }

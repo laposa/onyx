@@ -339,6 +339,26 @@ function refreshPages(id) {
     }
 }
 
+function repositionNode(event, ui, node_group = '') {
+    var source_node_id = $(ui.item).find('.fakelink').attr('href').match("[0-9]{1,}$");
+    var destination_node_id = $(ui.item).closest('.root').find('.fakelink').attr('href').match("[0-9]{1,}$");
+    var position = $(ui.item).parent().children().index(ui.item);
+    
+    $.post(
+        "/request/bo/component/node_move", 
+        {
+            csrf_token: getCSRFToken(),
+            source_node_id: source_node_id[0],
+            destination_node_id: destination_node_id[0],
+            position: position
+        }, 
+        function (data) {
+            popupMessage(data);
+            refreshNodeList(destination_node_id, node_group);
+        }
+    );
+}
+
 $(document).on('click', '.fakelink, #content-list button, #page-list button, #node-list button', function(e) {
     e.preventDefault();
 });
