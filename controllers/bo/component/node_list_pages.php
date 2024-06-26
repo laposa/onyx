@@ -40,14 +40,15 @@ class Onyx_Controller_Bo_Component_Node_List_Pages extends Onyx_Controller {
         
         //get children
         $children = $Node->getChildren($node_detail['id'], 'parent_container ASC, priority DESC, id ASC');
-        
+        $children = array_filter($children, function($child) {
+            return $child['node_group'] == 'page';
+        });
+
         if (is_array($children) && count($children) > 0) { 
             foreach ($children as $child) {
-                if ($child['node_group'] == 'page') {
-                    if ($child['publish'] == 0)  $child['class'] = 'disabled';
-                    $this->tpl->assign("CHILD", $child);
-                    $this->tpl->parse('content.children.item');
-                }
+                if ($child['publish'] == 0)  $child['class'] = 'disabled';
+                $this->tpl->assign("CHILD", $child);
+                $this->tpl->parse('content.children.item');
             }
             $this->tpl->parse('content.children');
         } else {

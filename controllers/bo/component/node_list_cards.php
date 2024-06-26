@@ -42,41 +42,43 @@ class Onyx_Controller_Bo_Component_Node_List_Cards extends Onyx_Controller {
         
         //get children
         $children = $Node->getChildren($node_detail['id'], 'parent_container ASC, priority DESC, id ASC');
+        $children = array_filter($children, function($child) {
+            return $child['node_group'] == 'content';
+        });
         $count = 0;
         
         if (is_array($children) && count($children) > 0) { 
             foreach ($children as $key=>$child) {
                 if ($child['publish'] == 0)  $child['class'] = 'disabled';
-                if ($child['node_group'] == 'content') {
-                    $count++;
-                    $content_excerpt = "";
-                    if($child['content'] != "") {
-                        $content = strip_tags($child['content']);
-                        $content_excerpt = strlen($content) > 500 ? substr($content, 0, 500) . "..." : $content;
-                    }
-                    $sub_items = $Node->getChildren($child['id'], 'parent_container ASC, priority DESC, id ASC');
-                    
-                    $_Onyx_Request = new Onyx_Request("bo/component/file_list~type=add_to_node:node_id={$child['id']}:relation=node~");
-                    $this->tpl->assign('FILE_LIST', $_Onyx_Request->getContent());
-                    $this->tpl->assign("CHILD", $child);
-                    $this->tpl->assign("INDEX", $key + 1);
+                
+                $count++;
+                $content_excerpt = "";
+                if($child['content'] != "") {
+                    $content = strip_tags($child['content']);
+                    $content_excerpt = strlen($content) > 500 ? substr($content, 0, 500) . "..." : $content;
+                }
+                $sub_items = $Node->getChildren($child['id'], 'parent_container ASC, priority DESC, id ASC');
+                
+                $_Onyx_Request = new Onyx_Request("bo/component/file_list~type=add_to_node:node_id={$child['id']}:relation=node~");
+                $this->tpl->assign('FILE_LIST', $_Onyx_Request->getContent());
+                $this->tpl->assign("CHILD", $child);
+                $this->tpl->assign("INDEX", $key + 1);
 
-                    if($child['description']) { $this->tpl->parse('content.children.item.description'); }
-                    if($child['css_class']) { $this->tpl->parse('content.children.item.css_class'); }
-                    if($child['custom_fields']) { $this->tpl->parse('content.children.item.custom_fields'); }
+                if($child['description']) { $this->tpl->parse('content.children.item.description'); }
+                if($child['css_class']) { $this->tpl->parse('content.children.item.css_class'); }
+                if($child['custom_fields']) { $this->tpl->parse('content.children.item.custom_fields'); }
 
-                    if($content_excerpt) {
-                        $this->tpl->assign("CONTENT_EXCERPT", $content_excerpt);
-                        $this->tpl->parse('content.children.item.content_excerpt');
-                    }
+                if($content_excerpt) {
+                    $this->tpl->assign("CONTENT_EXCERPT", $content_excerpt);
+                    $this->tpl->parse('content.children.item.content_excerpt');
+                }
 
-                    if(count($sub_items) > 0) {
-                        $this->tpl->assign("SUB_ITEMS", count($sub_items) ?? 0);
-                        $this->tpl->parse('content.children.item.sub_items');
-                    }
+                if(count($sub_items) > 0) {
+                    $this->tpl->assign("SUB_ITEMS", count($sub_items) ?? 0);
+                    $this->tpl->parse('content.children.item.sub_items');
+                }
 
-                    $this->tpl->parse('content.children.item');
-                };
+                $this->tpl->parse('content.children.item');
             }
 
             if($count > 0) {
