@@ -106,7 +106,7 @@ function initBackofficeUI() {
         if (!e.altKey && !e.ctrlKey && !e.shiftKey && !e.metaKey && e.which == 1) {
             var body = $("#onyx-cms-content");
             body.fadeOut(500, function() {
-                body.html('<img src="/share/images/ajax-indicator/indicator_facebook.gif" alt="Loading..." style="position: fixed; width: 16px; height: 11px; top: 50%; left: 50%; margin: -5px 0 0 -8px;"/>');
+                body.html('<img src="/share/images/loading.svg" alt="Loading..." style="position: fixed; width: 16px; height: 11px; top: 50%; left: 50%; margin: -5px 0 0 -8px;"/>');
                 body.fadeIn(300);
             }); 
             var targetUrl = $(this).attr("href");

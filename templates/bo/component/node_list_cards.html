@@ -1,24 +1,8 @@
 <!-- BEGIN: content -->
 {MESSAGES}
 <div id="content-list-{GET.id}">
-<script type="text/javascript">
-$(function() {
-
-    // code styling of JSON in custom fields
-    $(".custom-fields").each(function(index, element) {
-        if ($(element).text() == '') {
-            return;
-        }
-        const obj = JSON.parse($(element).text());
-        if (obj) {
-            $(element).text(JSON.stringify(obj, undefined, 2));
-        }
-    });
-});
-</script>
-   
+    <h2>Content List</h2>
     <!-- BEGIN: children -->
-
     <ul class="content-pods" id="content-pods">
         <li class="root folder-open">
             <a href="#{GET.id}" class="fakelink"></a>
@@ -26,20 +10,17 @@ $(function() {
                 <!-- BEGIN: item -->
                 <li>
                     <span>
-                        <a href="#{CHILD.id}" class="fakelink" title="Created: {CHILD.created} &#013;Last Modified: {CHILD.modified}">
+                        <a href="#{CHILD.id}" class="fakelink" title="Type: {CHILD.node_controller} &#013;Created: {CHILD.created} &#013;Last Modified: {CHILD.modified}">
                             <div class="content-pods__item">
                                 <div class="content-pods__item--content">
                                     <span class="pill">ID {CHILD.id}</span>
-                                    <span class="heading">
-                                        <strong>{CHILD.title|htlmspecialchars}</strong>
-                                        <p>({CHILD.node_controller})</p>
-                                    </span>
+                                    <strong>{CHILD.title|htlmspecialchars}</strong>
                                     <!-- BEGIN: css_class -->
                                         <span class="label">CSS Classes:</span><p>{CHILD.css_class}</p>
                                     <!-- END: css_class -->
 
                                     <!-- BEGIN: content_excerpt -->
-                                        <span class="label">Content:</span><p>{CONTENT_EXCERPT}</p>
+                                        <p>{CONTENT_EXCERPT}</p>
                                     <!-- END: content_excerpt -->
 
                                     <!-- BEGIN: description -->
@@ -47,7 +28,7 @@ $(function() {
                                     <!-- END: description -->
 
                                     <!-- BEGIN: custom_fields -->
-                                        <span class="label">Custom Fields:</span><pre class="custom-fields">{CHILD.custom_fields|htlmspecialchars}</pre>
+                                        <p class="custom-fields">{CHILD.custom_fields|htlmspecialchars}</p>
                                     <!-- END: custom_fields -->
 
                                     <!-- BEGIN: sub_items -->
@@ -88,7 +69,7 @@ $(function() {
     <!-- BEGIN: empty -->
     <p>This node contains no children of content type</p>
     <!-- END: empty -->
-    <button class="button add" title="Add Content"  onclick="addNode('{GET.id}', '{NODE_GROUP}', 'content')">Add Content</button>
+    <p><button class="button add" title="Add Content"  onclick="addNode('{GET.id}', '{NODE_GROUP}', 'content')">Add Content</button></p>
 </div>
 
 <!-- END: content -->
