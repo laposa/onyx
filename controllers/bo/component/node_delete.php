@@ -12,13 +12,15 @@ class Onyx_Controller_Bo_Component_Node_Delete extends Onyx_Controller {
      */
      
     public function mainAction() {
-    
+        
         require_once('models/common/common_node.php');
         $Node = new common_node();
         
         if (is_numeric($this->GET['id'])) $delete_id = $this->GET['id'];
         else return false;
         
+        $node_data = $Node->detail($delete_id);
+
         //delete
         if ($this->GET['delete'] && is_numeric($delete_id)) {
         
@@ -30,6 +32,8 @@ class Onyx_Controller_Bo_Component_Node_Delete extends Onyx_Controller {
             
             $confirmation_code = md5($delete_id . session_id()); 
             $this->tpl->assign('CONFIRMATION_CODE', $confirmation_code);
+            $this->tpl->assign('NODE_GROUP', $node_data['node_group']);
+            $this->tpl->assign('PARENT', $node_data['parent']);
             
             /**
              * safety check we are not trying to delete some core page
@@ -37,7 +41,6 @@ class Onyx_Controller_Bo_Component_Node_Delete extends Onyx_Controller {
              
             if (!array_search($delete_id, $id_map)) {
             
-                $node_data = $Node->detail($delete_id);
     
                 if (!is_array($node_data)) {
                     msg("Content ID {$delete_id} does not exists", 'error');

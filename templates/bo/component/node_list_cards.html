@@ -1,84 +1,8 @@
 <!-- BEGIN: content -->
 {MESSAGES}
 <div id="content-list-{GET.id}">
-<script type="text/javascript">
-$(function() {
-
-    // code styling of JSON in custom fields
-    $(".custom-fields").each(function(index, element) {
-        if ($(element).text() == '') {
-            return;
-        }
-        const obj = JSON.parse($(element).text());
-        if (obj) {
-            $(element).text(JSON.stringify(obj, undefined, 2));
-        }
-    });
-
-    $(".fakelink").on('click', function(e) {
-        e.preventDefault();
-    });
-
-
-    $('#content-list-{GET.id} .onyx-new-content, #content-list-{GET.id} a.add',).on('click', function() {
-        $('#onyx-dialog').empty();
-        var node_id = $(this).attr('data-node-id');
-        var node_group = $(this).attr('data-node-group');
-
-        if (node_group == 'layout') {
-            var container_id = prompt("Please enter container number you want to use for the new content.", "1");
-            if (isNaN(container_id)) {
-                alert(container_id + ' is not a valid number. It should be 1 or 2 for two columns layout.');
-                return false;
-            }
-        } else {
-            var container_id = 0;
-        }
-
-        var url = '/request/bo/component/node_add~node_group='+node_group+':parent=' + node_id + ':container=' + container_id + ':expand_all=1:only_group=content:position=' + $(this).data('position') + '~';
-
-        $('#onyx-dialog').addClass('ajax-load').load(url, '', function() {
-            var button = '#node-add-form-' + node_id + '-' + container_id + '-wrapper button';
-            var container = '#node-add-form-' + node_id + '-' + container_id + '-wrapper';
-            $(button).after(' <a href="#" class="button remove" onclick="$(\'' + container + '\').closest(\'.ui-dialog\').remove(); return false;"><span>Cancel</span></a>');
-            
-            $('#node-add-form-'+node_id+'-'+container_id+'-wrapper form').ajaxForm({ 
-                target: '#node-add-form-'+node_id+'-'+container_id+'-wrapper',
-                success: function(responseText, statusText) {
-                    popupMessage("#node-add-form-"+node_id+"-"+container_id+"-wrapper div.onyx-messages");
-                    refreshList();
-                    $('#onyx-dialog').empty().dialog('close');
-                }
-            });
-        });
-        $('#onyx-dialog').dialog({width: 500, modal: true, overlay: {opacity: 0.5, background: 'black'}, title: 'Add new node'}).dialog('open');
-        return false;
-    });
-
-    $('#content-list-{GET.id} a.onyx-delete').on('click', function() {
-        $('#onyx-dialog').empty();
-        var child_id = $(this).attr('href').replace('#','');;
-        $('#onyx-dialog').addClass('ajax-load').load('/request/bo/component/node_delete~id='+child_id+':delete=1~', function() {$(this).removeClass('ajax-load');});
-        $('#onyx-dialog').dialog({width: 500, modal: true, overlay: {opacity: 0.5, background: 'black'}, title: 'Delete node', beforeClose: function( event, ui ) {
-            refreshList();
-        }}).dialog('open');
-        return false;
-    });
-
-    $('#content-list-{GET.id} a.onyx-duplicate').on('click', function() {
-        var child_id = $(this).attr('href').replace('#','');;
-        $.get('/request/bo/component/node_duplicate~id='+child_id+'~', function(data) {
-            popupMessage($(data).find("div.onyx-messages"));
-            refreshList();
-        });
-        return false;
-    });
-
-});
-</script>
-   
+    <h2>Content List</h2>
     <!-- BEGIN: children -->
-
     <ul class="content-pods" id="content-pods">
         <li class="root folder-open">
             <a href="#{GET.id}" class="fakelink"></a>
@@ -86,20 +10,17 @@ $(function() {
                 <!-- BEGIN: item -->
                 <li>
                     <span>
-                        <a href="#{CHILD.id}" class="fakelink" title="Created: {CHILD.created} &#013;Last Modified: {CHILD.modified}">
+                        <a href="#{CHILD.id}" class="fakelink" title="Type: {CHILD.node_controller} &#013;Created: {CHILD.created} &#013;Last Modified: {CHILD.modified}">
                             <div class="content-pods__item">
                                 <div class="content-pods__item--content">
                                     <span class="pill">ID {CHILD.id}</span>
-                                    <span class="heading">
-                                        <strong>{CHILD.title|htlmspecialchars}</strong>
-                                        <p>({CHILD.node_controller})</p>
-                                    </span>
+                                    <strong>{CHILD.title|htlmspecialchars}</strong>
                                     <!-- BEGIN: css_class -->
                                         <span class="label">CSS Classes:</span><p>{CHILD.css_class}</p>
                                     <!-- END: css_class -->
 
                                     <!-- BEGIN: content_excerpt -->
-                                        <span class="label">Content:</span><p>{CONTENT_EXCERPT}</p>
+                                        <p>{CONTENT_EXCERPT}</p>
                                     <!-- END: content_excerpt -->
 
                                     <!-- BEGIN: description -->
@@ -107,7 +28,7 @@ $(function() {
                                     <!-- END: description -->
 
                                     <!-- BEGIN: custom_fields -->
-                                        <span class="label">Custom Fields:</span><pre class="custom-fields">{CHILD.custom_fields|htlmspecialchars}</pre>
+                                        <p class="custom-fields">{CHILD.custom_fields|htlmspecialchars}</p>
                                     <!-- END: custom_fields -->
 
                                     <!-- BEGIN: sub_items -->
@@ -118,10 +39,9 @@ $(function() {
                                     {FILE_LIST}
                                 </div>
                                 <div class="content-pods__item--actions onyx-edit-page">
-                                    <a class="onyx-edit" title="Edit Content ..." href="javascript:void({CHILD.id})" onclick="openEdit('/popup/properties/{CHILD.id}/orig' + window.location.pathname)"><span>Edit Content ...</span></a>
-                                    <a class="onyx-new-content" title="Add Content ..." data-node-id="{GET.id}" data-node-group="{NODE_GROUP}" data-position="{INDEX}" href="#" ><span>Add Content ...</span></a>
-                                    <a class="onyx-duplicate" title="Duplicate {CHILD.node_controller}" href="#{CHILD.id}"><span>Duplicate</span></a>
-                                    <a class="onyx-delete" title="Delete {CHILD.node_controller}" href="#{CHILD.id}"><span>Delete</span></a>
+                                    <button class="onyx-edit" title="Edit {CHILD.title}" onclick="openEdit('/popup/properties/{CHILD.id}/orig' + window.location.pathname)"></button>
+                                    <button class="onyx-duplicate" title="Duplicate {CHILD.title}" onclick="duplicateNode('{CHILD.id}', '{CHILD.parent}', '{CHILD.node_group}')"></button>
+                                    <button class="onyx-delete" title="Delete {CHILD.title}" onclick="deleteNode('{CHILD.id}')"></button>
                                 </div> 
                             </div>
                         </a>
@@ -130,53 +50,17 @@ $(function() {
                 <!-- END: item -->
             </ul>
         </li>
-        
     </ul>
+    
     <script type="text/javascript">
         $(document).ready(function(){
-            function repositionNode(event, ui) {
-                var source_node_id = $(ui.item).find('.fakelink').attr('href').match("[0-9]{1,}$");
-                var destination_node_id = $(ui.item).closest('.root').find('.fakelink').attr('href').match("[0-9]{1,}$");
-                var position = $(ui.item).parent().children().index(ui.item);
-                setLoading('#content-list', true);
-                setLoading('#node-list', true);
-                
-                $.post(
-                    "/request/bo/component/node_move", 
-                    {
-                        csrf_token: getCSRFToken(),
-                        source_node_id: source_node_id[0],
-                        destination_node_id: destination_node_id[0],
-                        position: position
-                    }, 
-                    function (data) {
-                        popupMessage(data);
-                        refreshList();
-                    }
-                );
-            }
-
             $("#content-pods ul").sortable({
                 scroll: true,
                 placeholder: 'placeholder',
 
-                update: function(event, ui) {
-                    //feEditDragDrop(event, ui);
-                },
-                receive: function(event, ui) {
-                    //feEditDragDrop(event, ui);
-                },
-                over: function(event, ui) {
-                    //sortable_selected_id = $(event.target).attr('id');
-                },
-                change: function(event, ui) {
-                    //sortable_selected_id = $(event.target).attr('id');
-                },
                 stop: function(event, ui) {
-                    repositionNode(event, ui);
+                    repositionNode(event, ui, 'content');
                 },
-                activate: function(event, ui) {
-                }
             });
         });
     </script>
@@ -184,9 +68,8 @@ $(function() {
     <!-- END:children -->
     <!-- BEGIN: empty -->
     <p>This node contains no children of content type</p>
-    <p><a class="button add" title="Add Content ..." data-node-id="{GET.id}" data-node-group="{NODE_GROUP}" href="#content-list-{GET.id}" ><span>Add Content ...</span></a></p>
     <!-- END: empty -->
-    <p></p>
+    <p><button class="button add" title="Add Content"  onclick="addNode('{GET.id}', '{NODE_GROUP}', 'content')">Add Content</button></p>
 </div>
 
 <!-- END: content -->

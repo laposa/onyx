@@ -2,21 +2,21 @@
 {MESSAGES}
 <!-- BEGIN: confirm -->
 <script type="text/javascript">
-function deleteNode(node_id) {
-    $("#onyx-dialog").load("/request/bo/component/node_delete~id="+node_id+":delete=1:confirm={CONFIRMATION_CODE}:ajax=1~", '', function (responseText, textStatus, XMLHttpRequest) {
-            $("#node-id-" + node_id).empty(); // in backoffice
-            $("#node-item-id-" + node_id).empty(); // in backoffice
-            $("#onyx-fe-edit-node-id-" + node_id).empty(); // in frontoffice
-            popupMessage("#onyx-dialog div.onyx-messages");
-            $('#onyx-dialog').dialog( "close").empty();
+function confirmDeleteNode(node_id) {
+    makeAjaxRequest('#onyx-dialog', '/request/bo/component/node_delete~id=' + node_id + ':delete=1:confirm={CONFIRMATION_CODE}:ajax=1~', function() {
+        $("#node-id-" + node_id).empty(); // in backoffice
+        $("#node-item-id-" + node_id).empty(); // in backoffice
+        $("#onyx-fe-edit-node-id-" + node_id).empty(); // in frontoffice
+        $('#onyx-dialog').dialog( "close").empty();
+        refreshNodeList('{PARENT}', '{NODE_GROUP}');
     });
-    
+    return false;
 }
 </script>
 
 <div style="padding: 10px;">
 <p><em>Note: this operation is irreversible</em></p>
-<p>Do you really want to delete {NODE.node_group|htmlspecialchars}/{NODE.node_controller|htmlspecialchars} named "{NODE.title|htmlspecialchars}"? <br><br><a class="button delete remove" href="{URI|htmlspecialchars}?confirm={CONFIRMATION_CODE}" onclick="deleteNode({GET.id}); return false;"><span>Yes,&nbsp;Delete</span></a></p>
+<p>Do you really want to delete {NODE.node_group|htmlspecialchars}/{NODE.node_controller|htmlspecialchars} named "{NODE.title|htmlspecialchars}"? <br><br><button class="button delete remove fakelink" onclick="confirmDeleteNode('{GET.id}');">Yes,&nbsp;Delete</button></p>
 
 <!-- BEGIN:children -->
     <h5>Will delete as well</h5>

@@ -36,7 +36,7 @@ function unixtime() {
  * HTML snippet for AJAX loader
  */
  
-var onyx_load_indicator_html_snippet = "<div style='width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; min-height: 500px; animation: fadeIn 0.3s ease forwards;'><img style='max-width: 50px'; src='/share/images/loading.svg' alt='Loading ...'/></div>";
+var onyx_load_indicator_html_snippet = "<div style='width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; min-height: 300px; animation: fadeIn 0.3s ease forwards;'><img style='max-width: 50px'; src='/share/images/loading.svg' alt='Loading ...'/></div>";
 
 /**
  * ajax loader

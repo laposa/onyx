@@ -85,8 +85,8 @@ function initAdvancedSettingsButton() {
     }
 
     $("a.show-advanced-settings").click(function(e) {
-        showAdvancedSettings(this);
         e.preventDefault();
+        showAdvancedSettings(this);
         return false;
     });
 }
@@ -106,7 +106,7 @@ function initBackofficeUI() {
         if (!e.altKey && !e.ctrlKey && !e.shiftKey && !e.metaKey && e.which == 1) {
             var body = $("#onyx-cms-content");
             body.fadeOut(500, function() {
-                body.html('<img src="/share/images/ajax-indicator/indicator_facebook.gif" alt="Loading..." style="position: fixed; width: 16px; height: 11px; top: 50%; left: 50%; margin: -5px 0 0 -8px;"/>');
+                body.html('<img src="/share/images/loading.svg" alt="Loading..." style="position: fixed; width: 16px; height: 11px; top: 50%; left: 50%; margin: -5px 0 0 -8px;"/>');
                 body.fadeIn(300);
             }); 
             var targetUrl = $(this).attr("href");
@@ -235,4 +235,130 @@ $.widget("custom.combobox", {
         this.wrapper.remove();
         this.element.show();
     }
+});
+
+
+/** 
+*   Onyx Node Actions
+*/
+
+function duplicateNode(id, parent_id, node_group) {
+    $.get('/request/bo/component/node_duplicate~id='+id+'~', function(data) {
+        popupMessage($(data).find("div.onyx-messages"));
+        refreshNodeList(parent_id, node_group);
+    });
+    return false;
+}
+
+function deleteNode(id) {
+    $('#onyx-dialog').empty();
+    $('#onyx-dialog').dialog({
+        width: 500, 
+        modal: true, 
+        overlay: {
+            opacity: 0.5, 
+            background: 'black'
+        }, 
+        title: 'Delete node', 
+        close: function() {
+            $('#onyx-dialog').empty();
+        },
+    });
+
+    makeAjaxRequest('#onyx-dialog', '/request/bo/component/node_delete~id='+id+':delete=1~');
+    $('#onyx-dialog').dialog('open');
+    return false;
+}
+
+function addNode(node_id, node_group, specific_node_group = '') {
+    $('#onyx-dialog').empty();
+    if (node_group == 'layout') {
+        var container_id = prompt("Please enter container number you want to use for the new content.", "1");
+        if (isNaN(container_id)) {
+            alert(container_id + ' is not a valid number. It should be 1 or 2 for two columns layout.');
+            return false;
+        }
+    } else {
+        var container_id = 0;
+    }
+
+    var url = '/request/bo/component/node_add~node_group='+node_group+':parent=' + node_id + ':container=' + container_id + ':expand_all=1:only_group=' + specific_node_group + '~';
+
+    makeAjaxRequest('#onyx-dialog', url, function() {
+        var button = '#node-add-form-' + node_id + '-' + container_id + '-wrapper button';
+        $(button).after(' <a href="#" class="button remove" onclick="$(\'#onyx-dialog\').empty().dialog(\'close\'); return false;"><span>Cancel</span></a>');
+        
+        $('#node-add-form-'+node_id+'-'+container_id+'-wrapper form').ajaxForm({ 
+            target: '#node-add-form-'+node_id+'-'+container_id+'-wrapper',
+            success: function(responseText, statusText) {
+                popupMessage("#node-add-form-"+node_id+"-"+container_id+"-wrapper div.onyx-messages");
+                refreshNodeList(node_id, node_group);
+                $('#onyx-dialog').empty().dialog('close');
+            }
+        });
+    });
+    $('#onyx-dialog').dialog({width: 500, modal: true, overlay: {opacity: 0.5, background: 'black'}, title: 'Add new node'}).dialog('open');
+    return false;
+}
+
+function refreshNodeList(id, node_group) {
+
+    switch(node_group) {
+        case 'content':
+            refreshCards(id);
+            break;
+        case 'page':
+            refreshPages(id);
+            break;
+        default:
+            break;
+    }
+    refreshNodes(id);
+}
+
+function refreshCards(id) {
+    if ($('#content-list-' + id).length > 0) {
+        var pods_refresh_url = '/request/bo/component/node_list_cards~id=' + id + ':node_group=content~';
+        makeAjaxRequest('#content-list-' + id, pods_refresh_url);
+    }
+}
+
+function refreshNodes(id) {
+    if($('#child-list-' + id).length > 0) {
+        var refresh_url = '/request/bo/component/node_list~id=' + id + '~';
+        makeAjaxRequest('#child-list-' + id, refresh_url);
+    }
+}
+
+function refreshPages(id) {
+    if ($('#page-list-' + id).length > 0) {
+        var pages_refresh_url = '/request/bo/component/node_list_pages~id=' + id + ':node_group=page~';
+        makeAjaxRequest('#page-list-' + id, pages_refresh_url, function() {
+            makeAjaxRequest('#pages-node-menu', '/request/bo/component/node_menu~id=0:open=0:expand_all=1:publish=0~');
+        });
+    }
+}
+
+function repositionNode(event, ui, node_group = '') {
+    var source_node_id = $(ui.item).find('.fakelink').attr('href').match("[0-9]{1,}$");
+    var destination_node_id = $(ui.item).closest('.root').find('.fakelink').attr('href').match("[0-9]{1,}$");
+    var position = $(ui.item).parent().children().index(ui.item);
+    
+    $.post(
+        "/request/bo/component/node_move", 
+        {
+            csrf_token: getCSRFToken(),
+            source_node_id: source_node_id[0],
+            destination_node_id: destination_node_id[0],
+            position: position
+        }, 
+        function (data) {
+            popupMessage(data);
+            refreshNodeList(destination_node_id, node_group);
+        }
+    );
+}
+
+$(document).on('click', '.fakelink, #content-list button, #page-list button, #node-list button', function(e) {
+    e.preventDefault();
 });

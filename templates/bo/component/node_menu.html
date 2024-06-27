@@ -35,6 +35,7 @@
                     destination_node_id: destination_node_id[0],
                     position: position}, function (data) {
                         popupMessage(data);
+                        refreshNodeList(destination_node_id[0], 'page');
                     });
                 
                 return false;
@@ -45,7 +46,8 @@
         $('#pages-node-menu').addClass('visible');
     
         // rewrite url on page select
-        $('#pages-node-menu a').on('click', function() {
+        $('#pages-node-menu a').on('click', function(e) {
+            e.preventDefault();
             let newLink = window.location.origin + '/backoffice/pages/' + $(this).attr('href').replace('#', '');
     
             if(window.history.pushState) {

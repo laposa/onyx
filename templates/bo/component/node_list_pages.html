@@ -1,0 +1,49 @@
+<!-- BEGIN: content -->
+{MESSAGES}
+<div id="page-list-{GET.id}" class="root">
+    <h2>Page List</h2>
+    <a href="#{GET.id}" class="fakelink"></a>
+    <!-- BEGIN: children -->
+    <table id="content-pages">
+        <thead>
+            <tr><th>Title</th><th>Page Type</th><th>ID</th><th>Priority</th><th></th></tr>
+        </thead>
+        <tbody>
+            <!-- BEGIN: item -->
+            <tr id="node-id-{CHILD.id}" class="{CHILD.class}">
+                <td><a class="{CHILD.class} fakelink page-edit" href="{CHILD.id}" onclick="openEdit('/popup/properties/{CHILD.id}/orig' + window.location.pathname)" title="Modified: {CHILD.modified|htmlspecialchars}">{CHILD.title|htlmspecialchars}</a></td>
+                <td>{CHILD.node_controller}</td>
+                <td>{CHILD.id}</td>
+                <td>{CHILD.priority}</td>
+                <td>
+                    <div class="onyx-edit-page">
+                        <button class="onyx-duplicate" title="Duplicate {CHILD.title}" onclick="duplicateNode('{CHILD.id}','{CHILD.parent}', '{CHILD.node_group}')"></button>
+                        <button class="onyx-delete" title="Delete {CHILD.title}" onclick="deleteNode('{CHILD.id}')"></button>
+                    </div>
+                </td>
+            </tr>
+            <!-- END: item -->
+        </tbody>
+    </table>
+    
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("#content-pages tbody").sortable({
+                scroll: true,
+                placeholder: 'placeholder',
+                
+                stop: function(event, ui) {
+                    repositionNode(event, ui, 'page');
+                },
+            });
+        });
+    </script>
+
+    <!-- END:children -->
+    <!-- BEGIN: empty -->
+    <p>This node contains no children</p>
+    <!-- END: empty -->
+    <p><button class="button add" title="Add Node" onclick="addNode('{GET.id}', 'page', 'page')">Add Page</button></p>
+</div>
+
+<!-- END: content -->

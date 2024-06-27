@@ -1,93 +1,6 @@
 <!-- BEGIN: content -->
 {MESSAGES}
 <div id="child-list-{GET.id}">
-<script type="text/javascript">
-$(function() {
-
-    $('#child-list-{GET.id} a.add, #button-add-subpage').on('click', function() {
-        $('#onyx-dialog').empty();
-        var node_id = $(this).attr('data-node-id');
-        var node_group = $(this).attr('data-node-group');
-
-        if (node_group == 'layout') {
-            var container_id = prompt("Please enter container number you want to use for the new content.", "1");
-            if (isNaN(container_id)) {
-                alert(container_id + ' is not a valid number. It should be 1 or 2 for two columns layout.');
-                return false;
-            }
-        } else {
-            var container_id = 0;
-        }
-
-        var url = '/request/bo/component/node_add~node_group='+node_group+':parent=' + node_id + ':container=' + container_id + ':expand_all=1~';
-
-        $('#onyx-dialog').addClass('ajax-load').load(url, '', function() {
-            var button = '#node-add-form-' + node_id + '-' + container_id + '-wrapper button';
-            var container = '#node-add-form-' + node_id + '-' + container_id + '-wrapper';
-            $(button).after(' <a href="#" class="button remove" onclick="$(\'#onyx-dialog\').empty().dialog(\'close\'); return false;"><span>Cancel</span></a>');
-            
-            $('#node-add-form-'+node_id+'-'+container_id+'-wrapper form').ajaxForm({ 
-                target: '#node-add-form-'+node_id+'-'+container_id+'-wrapper',
-                success: function(responseText, statusText) {
-                    popupMessage("#node-add-form-"+node_id+"-"+container_id+"-wrapper div.onyx-messages");
-                    refreshList();
-                    $('#onyx-dialog').empty().dialog('close');
-                }
-            });
-        });
-        $('#onyx-dialog').dialog({width: 500, modal: true, overlay: {opacity: 0.5, background: 'black'}, title: 'Add new node'}).dialog('open');
-        return false;
-    });
-    $('#child-list-{GET.id} a.onyx-delete').on('click', function() {
-        $('#onyx-dialog').empty();
-        var child_id = $(this).attr('href').replace('#','');;
-        $('#onyx-dialog').addClass('ajax-load').load('/request/bo/component/node_delete~id='+child_id+':delete=1~', function() {$(this).removeClass('ajax-load');});
-        $('#onyx-dialog').dialog({width: 500, modal: true, overlay: {opacity: 0.5, background: 'black'}, title: 'Delete node', beforeClose: function( event, ui ) {
-            refreshList()
-        }}).dialog('open');
-        return false;
-    });
-    $('#child-list-{GET.id} a.onyx-duplicate').on('click', function() {
-        var child_id = $(this).attr('href').replace('#','');;
-        $.get('/request/bo/component/node_duplicate~id='+child_id+'~', function(data) {
-            popupMessage($(data).find("div.onyx-messages"));
-            refreshList();
-        });
-        return false;
-    });
-
-});
-
-function refreshList() {
-    if($('#child-list-{GET.id}').length > 0) {
-        setLoading('#node-list', true);
-        var refresh_url = '/request/bo/component/node_list~id={GET.id}:node_group={NODE_GROUP}~';
-        $('#child-list-{GET.id}').parent().load(refresh_url);
-        $('#pages-node-menu').load(
-            '/request/bo/component/node_menu~id=0:open=0:expand_all=1:publish=0~', 
-            function() {
-                initialiseMenuPagesTree();
-                setLoading('#node-list', false)
-            }
-        );
-    }
-
-    if ($('#content-list-{GET.id}').length > 0) {
-        setLoading('#content-list', true);
-        var pods_refresh_url = '/request/bo/component/node_list_cards~id={GET.id}:node_group={NODE_GROUP}~';
-        $('#content-list-{GET.id}').parent().load(pods_refresh_url);
-        $('#pages-node-menu').load(
-            '/request/bo/component/node_menu~id=0:open=0:expand_all=1:publish=0~', 
-            function() {
-                initialiseMenuPagesTree();
-                setLoading('#content-list', false);
-            }
-        );
-    }
-}
-
-</script>
-
     <!-- BEGIN: children -->
     <table>
         <thead>
@@ -96,15 +9,17 @@ function refreshList() {
         <tbody>
             <!-- BEGIN: item -->
             <tr id="node-id-{CHILD.id}" class="{CHILD.class}">
-                <td><a class="{CHILD.class}" href="javascript:void({CHILD.id})" onclick="openEdit('/popup/properties/{CHILD.id}/orig' + window.location.pathname)" title="Modified: {CHILD.modified|htmlspecialchars}">{CHILD.title|htlmspecialchars}</a></td>
-                <td><a class="{CHILD.class}" href="javascript:void({CHILD.id})" onclick="openEdit('/popup/properties/{CHILD.id}/orig' + window.location.pathname)" title="Modified: {CHILD.modified|htmlspecialchars}">{CHILD.node_group}/{CHILD.node_controller}</a></td>
+                <td><a class="{CHILD.class}" onclick="openEdit('/popup/properties/{CHILD.id}/orig' + window.location.pathname)" title="Modified: {CHILD.modified|htmlspecialchars}">{CHILD.title|htlmspecialchars}</a></td>
+                <td><a class="{CHILD.class}" onclick="openEdit('/popup/properties/{CHILD.id}/orig' + window.location.pathname)" title="Modified: {CHILD.modified|htmlspecialchars}">{CHILD.node_group}/{CHILD.node_controller}</a></td>
                 <td>{CHILD.id}</td>
                 <td>{CHILD.parent_container}</td>
                 <td>{CHILD.priority}</td>
-                <td><div class="onyx-edit-page">
-                    <a class="onyx-duplicate" title="Duplicate {CHILD.node_controller}" href="#{CHILD.id}"><span>Duplicate</span></a>
-                    <a class="onyx-delete" title="Delete {CHILD.node_controller}" href="#{CHILD.id}"><span>Delete</span></a>
-                </div></td>
+                <td>
+                    <div class="onyx-edit-page">
+                        <button class="onyx-duplicate" title="Duplicate {CHILD.title}" onclick="duplicateNode('{CHILD.id}','{CHILD.parent}', '{CHILD.node_group}')"></button>
+                        <button class="onyx-delete" title="Delete {CHILD.title}" onclick="deleteNode('{CHILD.id}')"></button>
+                    </div>
+                </td>
             </tr>
             <!-- END: item -->
         </tbody>
@@ -113,7 +28,7 @@ function refreshList() {
     <!-- BEGIN: empty -->
     <p>This node contains no children</p>
     <!-- END: empty -->
-    <p><a class="button add" title="Add Content ..." data-node-id="{GET.id}" data-node-group="{NODE_GROUP}" href="#" ><span>Add Content ...</span></a></p>
+    <p><button class="button add" title="Add Node" onclick="addNode('{GET.id}', '{NODE_GROUP}')">Add Node</button></p>
 </div>
 
 <!-- END: content -->

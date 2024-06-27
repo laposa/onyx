@@ -3,10 +3,8 @@
 $(document).ready(function(){
     $('#rt-add-new a.button').live('click', function() {
     
-        $('#rt-add-new').addClass('ajax-load').load('/request/bo/component/taxonomy_menu~expand_all=1:publish=0~', function() {
-            
-            $(this).removeClass('ajax-load');
-            
+        makeAjaxRequest('#rt-add-new', '/request/bo/component/taxonomy_menu~expand_all=1:publish=0~', function() {
+           
             $('#rt-add-new .simple-tree').simpleTree({
                 drag: false,
                 autoclose: true,
@@ -24,7 +22,7 @@ $(document).ready(function(){
                 animate: true,
                 docToFolderConvert: true
             });
-        
+            
         });
         
         return false;
