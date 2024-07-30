@@ -1491,3 +1491,29 @@ a.fakelink:hover {text-decoration: none;}
 .revision-list {
   margin-top: 15px;
 }
+
+/*
+* QR
+*
+*/
+
+.qrcode {
+  .download {
+    span {
+      display: flex;
+    }
+
+    span::before {
+      content: '\f019';
+      font-family: 'onyx';
+      margin-right: 5px;
+    }
+  }
+
+  > div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}
