@@ -27,7 +27,7 @@ class Onyx_Controller_Bo_Component_Qr_Code extends Onyx_Controller {
 
         if (!file_exists(self::CACHE_DIRECTORY)) mkdir(self::CACHE_DIRECTORY);
 
-        if (!file_exists($cached_file_path)) {
+        if (!file_exists($cached_file_path) && is_writeable($cached_file_path)) {
             $qrcode = new QRCode($options);
             $qrcode = $qrcode->render($url, $cached_file_path);
         }
