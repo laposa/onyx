@@ -23,7 +23,8 @@
 <script type="text/javascript" src="/share/js/compiled.js?{ONYX_CACHE_VERSION}"></script>
 <script type="text/javascript" src="/js/local.js?{ONYX_CACHE_VERSION}"></script>
 {REGISTRY.head}
-{ONYX_REQUEST_head #extra_head~id=GET.id~}
+{ONYX_REQUEST_head #extra_head}
+{ONYX_REQUEST_head #deeplink_tags~id=GET.id~}
 {CONFIGURATION.global.extra_head}
 </head>
 <body class="{NODE.body_css_class|htmlspecialchars}" data-node-id="{NODE.node_id}">
