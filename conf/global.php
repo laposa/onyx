@@ -421,3 +421,11 @@ onyxGlobalConfSetValue('ONYX_TOKEN_NAME', 'onyx_token');
  */
 
 onyxGlobalConfSetValue('ONYX_MISSING_IMAGE', 'public_html/share/images/missing_image.png');
+
+/**
+ * Mobile App Deeplinks
+ */
+onyxGlobalConfSetValue('ONYX_MOBILE_APP_URL', false);
+onyxGlobalConfSetValue('ONYX_MOBILE_APP_APP_STORE_ID', false);
+onyxGlobalConfSetValue('ONYX_MOBILE_APP_NAME', false);
+onyxGlobalConfSetValue('ONYX_MOBILE_APP_PACKAGE', false);
