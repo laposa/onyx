@@ -29,11 +29,6 @@ class Onyx_Controller_Bo_Tinymce extends Onyx_Controller {
         else $tinymce['theme'] = $this->GET['theme'];
         
         $this->tpl->assign('TINYMCE', $tinymce);
-        
-        //hack for ajax form saving
-        if (!$_POST['save']) {
-            $this->tpl->parse("content.init");
-        }
 
         return true;
     }

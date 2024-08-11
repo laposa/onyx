@@ -1,8 +1,8 @@
 <!-- BEGIN: content -->
-<!--  BEGIN: init -->
 <script type="text/javascript">
 
 function tinyMCEinit() {
+
     tinymce.init({
         selector:'#{TINYMCE.edit_elements}',
         mode : "{TINYMCE.mode}",
@@ -40,7 +40,10 @@ function tinyMCEinit() {
         paste_auto_cleanup_on_paste : true,
         paste_strip_class_attributes : "all",
         paste_use_dialog : false,
-        entity_encoding : "raw"
+        entity_encoding : "raw",
+        'setup': editor => {
+            editor.on('blur', () => editor.save())
+        }
     });
 }
 
@@ -122,53 +125,13 @@ function onyxCustomCleanup(type, value) {
 
     return value;
 }
-                
-/**
- * ajax save - make content is saved when using ajaxForm
- */
- 
-$('form').bind('form-pre-serialize', function(e) {
-    
-    /**
-     * Saves all contents 
-     */
-    tinyMCEFullscreenOnyxFix();
-    
-    tinyMCE.triggerSave();
-    
-});
-
-/**
- * non-ajax save
- */
- 
-$('button.save').on('click', function() {
-    tinyMCEFullscreenOnyxFix();
-});
-
-/**
- * allow direct saving in fullscreen mode
- */
- 
-function tinyMCEFullscreenOnyxFix() {
-    
-    if (tinyMCE.activeEditor.getParam('fullscreen_is_enabled')) {
-        
-        var fullscreenEditor = tinyMCE.activeEditor;
-        var originalEditor = tinyMCE.get(fullscreenEditor.getParam('fullscreen_editor_id'));
-        
-        originalEditor.setContent(fullscreenEditor.getContent({format : 'raw'}), {format : 'raw'});
-        
-    }
-}
 
 /**
  * init
  */
- 
+
 tinyMCEinit();
 
 </script>
 
-<!--  END: init -->
 <!-- END: content -->
