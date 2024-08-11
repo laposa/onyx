@@ -1,8 +1,8 @@
 <!-- BEGIN: content -->
 
 <div id="qr-code-{GET.node_id}">
-    <label>QR Code: </label>
-    <img src="/view/{QRCODE}" alt="QR Code" />
+    <label>QR Code for URL <a href="{QRCODE_URL}">{QRCODE_URL}</a></label>
+    <img src="/view/{QRCODE}" alt="QR Code" width="200" height="200"/>
     <a class="download button primary" title="Download QR Code" href="/download/{QRCODE}"><span>PNG</span></a>
 </div>
 

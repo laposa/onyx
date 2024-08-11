@@ -16,22 +16,26 @@ class Onyx_Controller_Bo_Component_Qr_Code extends Onyx_Controller {
      
     public function mainAction() {
 
-        $options = new QROptions([
+        $options = [
             'imageTransparent' => false,
-        ]);
+            'scale' => 20,
+        ];
 
-        $url = $_SERVER['HTTP_REFERER'] . $this->GET['node_id'];
-        $filename = base64_encode($url) . ".png";
+        $qr_options = new QROptions($options);
+
+        $url = 'https://' . $_SERVER['HTTP_HOST'] . '/'. $this->GET['node_id'];
+        $filename = base64_encode($url . implode(',', $options)) . ".png";
 
         $cached_file_path = self::CACHE_DIRECTORY . $filename;
 
         if (!file_exists(self::CACHE_DIRECTORY)) mkdir(self::CACHE_DIRECTORY);
 
         if (!file_exists($cached_file_path) && is_writeable(self::CACHE_DIRECTORY)) {
-            $qrcode = new QRCode($options);
+            $qrcode = new QRCode($qr_options);
             $qrcode = $qrcode->render($url, $cached_file_path);
         }
         
+        $this->tpl->assign('QRCODE_URL', $url);
         $this->tpl->assign('QRCODE', 'var/qr-code/' . $filename);
         return true;
     }
