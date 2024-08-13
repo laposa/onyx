@@ -2,6 +2,9 @@
 <script type="text/javascript">
 
 function tinyMCEinit() {
+    if (tinymce.EditorManager.editors.length > 0 && tinymce.EditorManager.editors['{TINYMCE.edit_elements}']) {
+        tinymce.EditorManager.editors['{TINYMCE.edit_elements}'].destroy();
+    }
 
     tinymce.init({
         selector:'#{TINYMCE.edit_elements}',
