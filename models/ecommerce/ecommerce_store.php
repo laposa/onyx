@@ -243,7 +243,7 @@ CREATE INDEX ecommerce_store_type_id_idx ON ecommerce_store (type_id);
         if (!$conf['latitude']) $conf['latitude'] = 53.344189;
         if (!$conf['longitude']) $conf['longitude'] = -6.264478;
         
-        if (!$conf['default_store_url']) $conf['default_store_url'] = '/btq';
+        if (!$conf['default_store_url']) $conf['default_store_url'] = '/beat-the-queue';
 
         return $conf;
     }
