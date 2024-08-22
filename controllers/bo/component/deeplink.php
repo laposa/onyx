@@ -4,7 +4,6 @@
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
-require_once(ONYX_DIR . "conf/global.php");
 class Onyx_Controller_Bo_Component_Deeplink extends Onyx_Controller {
     
     /**
@@ -41,7 +40,9 @@ class Onyx_Controller_Bo_Component_Deeplink extends Onyx_Controller {
             $this->tpl->assign('PATTERN', ONYX_MOBILE_APP_DEEPLINK_VALIDATION_REGEX);
             $this->tpl->assign('PLACEHOLDER', ONYX_MOBILE_APP_URL . '...');
         } else {
-            return false;
+            // return empty content
+            $this->tpl->blocks = [];
+            return true;
         }
     }
 }
