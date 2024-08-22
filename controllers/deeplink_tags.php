@@ -31,8 +31,34 @@ class Onyx_Controller_Deeplink_Tags extends Onyx_Controller {
      */
     public function processDeeplink($node_data) {
         if ($node_data['custom_fields']->deeplink) {
-            $this->tpl->assign('DEEPLINK_URL', $node_data['custom_fields']->deeplink);
+
+
+            $url = parse_url($node_data['custom_fields']->deeplink);
+            $url_str = $url['scheme'] . '://' . $url['host'] . $url['path'];
+            if(!empty($this->combineQueries($url['query'], $_SERVER['QUERY_STRING']))) {
+                $url_str .= '?' . $this->combineQueries($url['query'], $_SERVER['QUERY_STRING']);
+            }
+
+            $this->tpl->assign('DEEPLINK_URL', $url_str);
             $this->tpl->parse('head.deeplink');
         }
+    }
+
+    function combineQueries($query1, $query2) {
+        $query1 = explode('&', $query1);
+        $query2 = explode('&', $query2);
+        $query = array_merge($query1, $query2);
+        $query_combined = [];
+
+        foreach($query as $param) {
+            $parts = explode('=', $param);
+    
+            $key = $parts[0];
+            $val = $parts[1];
+    
+            if(!array_key_exists($key, $query_combined) && !empty($val))
+                $query_combined[$key] = $val;
+        }
+        return http_build_query($query_combined);
     }
 }
