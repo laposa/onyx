@@ -266,7 +266,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
             'contact_form_default_template'
         ), '');
 
-        if (array_key_exists('common_node', $GLOBALS['onyx_conf'])) $conf = array_merge($conf. $GLOBALS['onyx_conf']['common_node']);
+        if (array_key_exists('common_node', $GLOBALS['onyx_conf'])) $conf = array_merge($conf, $GLOBALS['onyx_conf']['common_node']);
         
         /**
          * default new node settings
