@@ -429,3 +429,4 @@ onyxGlobalConfSetValue('ONYX_MOBILE_APP_URL', false);
 onyxGlobalConfSetValue('ONYX_MOBILE_APP_APP_STORE_ID', false);
 onyxGlobalConfSetValue('ONYX_MOBILE_APP_NAME', false);
 onyxGlobalConfSetValue('ONYX_MOBILE_APP_PACKAGE', false);
+onyxGlobalConfSetValue('ONYX_MOBILE_APP_DEEPLINK_SET_URL', false);

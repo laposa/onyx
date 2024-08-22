@@ -16,6 +16,15 @@ class Onyx_Controller_Bo_Component_Deeplink extends Onyx_Controller {
         require_once('models/common/common_node.php');
         $Node = new common_node();
 
+        if(ONYX_MOBILE_APP_DEEPLINK_SET_URL) {
+            $data = json_decode(file_get_contents(ONYX_MOBILE_APP_DEEPLINK_SET_URL), true);
+            foreach($data as $item) {
+                $this->tpl->assign('ITEM', $item);
+                $this->tpl->parse('content.list.item');
+            }
+            $this->tpl->parse('content.list');
+        }
+
         if(ONYX_MOBILE_APP_URL) {
             $pattern = '^' . str_replace('/', '\/',ONYX_MOBILE_APP_URL) . '.*';
 
