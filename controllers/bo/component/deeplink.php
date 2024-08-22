@@ -26,10 +26,19 @@ class Onyx_Controller_Bo_Component_Deeplink extends Onyx_Controller {
         }
 
         if(ONYX_MOBILE_APP_URL) {
-            $pattern = '^' . str_replace('/', '\/',ONYX_MOBILE_APP_URL) . '.*';
 
-            $this->tpl->assign('NODE', $Node->nodeDetail($this->GET['node_id']));
-            $this->tpl->assign('PATTERN', $pattern);
+            /**
+             * make sure latest data are used during form save action
+             * this is needed as sub component called at https://github.com/laposa/onyx/blob/master/templates/bo/node/item_deeplink.html#L2
+             * is processed before saving data to the database
+             *
+             * consider passing the node_detail array instead
+             */
+            if (array_key_exists('node', $_POST) && is_array($_POST['node'])) $node_detail = $_POST['node'];
+            else $node_detail = $Node->nodeDetail($this->GET['node_id']);
+
+            $this->tpl->assign('NODE', $node_detail);
+            $this->tpl->assign('PATTERN', ONYX_MOBILE_APP_DEEPLINK_VALIDATION_REGEX);
             $this->tpl->assign('PLACEHOLDER', ONYX_MOBILE_APP_URL . '...');
         } else {
             return false;
