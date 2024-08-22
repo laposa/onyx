@@ -35,7 +35,7 @@ class Onyx_Controller_Deeplink_Tags extends Onyx_Controller {
 
             $url = parse_url($node_data['custom_fields']->deeplink);
             $url_str = $url['scheme'] . '://' . $url['host'] . $url['path'];
-            if(!empty($this->combineQueries($url['query'], $_SERVER['QUERY_STRING']))) {
+            if($this->combineQueries($url['query'], $_SERVER['QUERY_STRING'])) {
                 $url_str .= '?' . $this->combineQueries($url['query'], $_SERVER['QUERY_STRING']);
             }
 
