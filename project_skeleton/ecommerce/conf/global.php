@@ -26,23 +26,6 @@ if (file_exists(__DIR__ . "/../.env")) {
 }
 
 /**
- * Application debug settings
- *
- * 0 - No debugging
- * 1 - Basic debugging
- * 5 - Full debugging
- *
- * to enable direct debugging use:
- * define('ONYX_DEBUG_DIRECT', true);
- * 
- */
-
-$debug_hosts = array(
-'x10.0.0.1' => 1,
-'x192.168.0.1' => 1
-);
-
-/**
  * Directory paths
  */
 

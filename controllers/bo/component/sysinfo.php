@@ -25,13 +25,6 @@ class Onyx_Controller_Bo_Component_Sysinfo extends Onyx_Controller {
          * available only to debug hosts
          */
         
-        /*
-        if (!ONYX_IS_DEBUG_HOST) {
-            msg('Need to be listed as $debug_hosts in conf/deployment.php', 'error');
-            return false;
-        }
-        */
-        
         $sysinfo = $this->getSysInfo();
         $this->tpl->assign('SYSINFO', $sysinfo);
             

@@ -84,9 +84,7 @@ vi conf/deployment.php
  * 5 - Full debugging (direct ouput)
  */
 
-$debug_hosts = array(
-'[YOUR_CLIENT_IP_ADDRESS]' => 1
-);
+Set ONYX_DEBUG_CIDR_WHITELIST env variable.
 
 
 And also check /var/log/apache2/error.log

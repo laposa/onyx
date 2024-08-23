@@ -10,6 +10,8 @@
  * here in the onyx
  */
 
+ use Symfony\Component\HttpFoundation\IpUtils;
+
  /**
  * onyxGlobalConfSetValue
  * @param $name constant name
@@ -48,14 +50,39 @@ if (array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER)) $http_client_ip = $_SERV
 else $http_client_ip = $_SERVER["REMOTE_ADDR"];
 
 /**
+ * Application debug settings
+ *
+ * 0 - No debugging
+ * 1 - Basic debugging
+ * 5 - Full debugging
+ *
+ * to enable direct debugging use:
+ * define('ONYX_DEBUG_DIRECT', true);
+ *
+ */
+
+$debug = false;
+
+$debug_whitelist = explode(',', getenv('ONYX_DEBUG_CIDR_WHITELIST'));
+
+if (is_array($debug_whitelist)) {
+   
+    foreach($debug_whitelist as $cidr) {
+        if (IpUtils::checkIp($http_client_ip, $cidr)) {
+            $debug = true;
+        }
+    }
+}
+
+/**
  * Can the remote host see debugging messages?
  * see lib/onyx.functions.php: msg() function for documentation
  */
 
-if(in_array($http_client_ip, array_keys($debug_hosts)))  {
+if($debug)  {
     error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT);
     ini_set('display_errors', 1);
-    define('ONYX_DEBUG_LEVEL', $debug_hosts[$http_client_ip]);
+    define('ONYX_DEBUG_LEVEL', getenv('ONYX_DEBUG_LEVEL'));
     define('ONYX_DEBUG_INCLUDE_BACKTRACE', true);
     define('ONYX_DEBUG_INCLUDE_USER_ID', true);
     define('ONYX_IS_DEBUG_HOST', true);
@@ -66,26 +93,26 @@ if(in_array($http_client_ip, array_keys($debug_hosts)))  {
     define('ONYX_BENCHMARK', false);
     define('ONYX_DB_PROFILER', false);
     define('ONYX_ERROR_EMAIL', null);
-    define('ONYX_TRACY', false);
+    define('ONYX_TRACY', true);
     define('ONYX_TRACY_BENCHMARK', true); // only effective if ONYX_TRACY is true
-    define('ONYX_TRACY_DB_PROFILER', false); // only effective if ONYX_TRACY is true
+    define('ONYX_TRACY_DB_PROFILER', true); // only effective if ONYX_TRACY is true
 } else {
     error_reporting(E_ALL & ~E_NOTICE & ~E_STRICT & ~E_DEPRECATED & ~E_WARNING);
     ini_set('display_errors', 0);
     define('ONYX_DEBUG_LEVEL', 0);
     define('ONYX_DEBUG_INCLUDE_BACKTRACE', false);
-    define('ONYX_DEBUG_INCLUDE_USER_ID', true);
+    define('ONYX_DEBUG_INCLUDE_USER_ID', false);
     define('ONYX_IS_DEBUG_HOST', false);
     define('ONYX_DEBUG_OUTPUT_SESSION', false);
     define('ONYX_DEBUG_OUTPUT_DIRECT', false);
     define('ONYX_DEBUG_OUTPUT_FILE', false);
-    define('ONYX_DEBUG_OUTPUT_ERROR_LOG', true);
+    define('ONYX_DEBUG_OUTPUT_ERROR_LOG', false);
     define('ONYX_BENCHMARK', false);
     define('ONYX_DB_PROFILER', false);
     define('ONYX_ERROR_EMAIL', null);
     define('ONYX_TRACY', false);
-    define('ONYX_TRACY_BENCHMARK', true);
-    define('ONYX_TRACY_DB_PROFILER', true);
+    define('ONYX_TRACY_BENCHMARK', false);
+    define('ONYX_TRACY_DB_PROFILER', false);
 }
 
 /**
