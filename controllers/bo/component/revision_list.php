@@ -35,8 +35,13 @@ class Onyx_Controller_Bo_Component_Revision_List extends Onyx_Controller {
             require_once('models/client/client_customer.php');
             $Client_Customer = new client_customer();
 
+            $_cache = [];
+
             foreach ($list as $item) {
-                $item['customer'] = $Client_Customer->getDetail($item['customer_id']);
+                
+                if (!array_key_exists($item['customer_id'], $_cache)) $_cache[$item['customer_id']] = $Client_Customer->detail($item['customer_id']);
+                $item['customer'] = $_cache[$item['customer_id']];
+
                 $this->tpl->assign('ITEM', $item);
                 $this->tpl->parse('content.item');
             }

@@ -20,7 +20,7 @@
                     <td><input type="checkbox" class="compare_chk" name="compare[]" onchange="countChecked()" value="{ITEM.id}" /></td>
                     <td>{ITEM.id}</td>
                     <td>{ITEM.created|strtotime|date('d/m/Y H:i:s', %s)}</td>
-                    <td><a href="/backoffice/customers/{ITEM.customer_id}/detail" target="_blank">{ITEM.customer.username} ({ITEM.customer.email})</a></td>
+                    <td><a href="/backoffice/customers/{ITEM.customer_id}/detail" target="_blank">{ITEM.customer.email}</a></td>
                 </tr>
                 <!-- END: item -->
                 <!-- BEGIN: empty -->
