@@ -70,19 +70,21 @@ if (ONYX_BENCHMARK && ONYX_IS_DEBUG_HOST) {
 
 if (ONYX_DB_PROFILER && ONYX_IS_DEBUG_HOST) {
     $db = $container->get('onyx_db');
-    $logger = $db->getConfiguration()->getSQLLogger();
-    $db_profile = [];
-    $db_profile['total_num_queries'] = count($logger->queries);
-    $db_profile['total_elapsed_secs'] = $logger->totalExecutionMS;
-    $db_profile['query_list'] = [];
+    if ($db) {
+        $logger = $db->getConfiguration()->getSQLLogger();
+        $db_profile = [];
+        $db_profile['total_num_queries'] = count($logger->queries);
+        $db_profile['total_elapsed_secs'] = $logger->totalExecutionMS;
+        $db_profile['query_list'] = [];
 
-    foreach ($logger->queries as $k => $item) {
-        $db_profile['query_list'][$k]['query'] = $item['sql'];
-        $db_profile['query_list'][$k]['query_params'] = $item['params'];
-        $db_profile['query_list'][$k]['elapsed_secs'] = $item['executionMS'];
+        foreach ($logger->queries as $k => $item) {
+            $db_profile['query_list'][$k]['query'] = $item['sql'];
+            $db_profile['query_list'][$k]['query_params'] = $item['params'];
+            $db_profile['query_list'][$k]['elapsed_secs'] = $item['executionMS'];
+        }
+
+        echo "<pre>" . htmlspecialchars(print_r($db_profile, true)) . "</pre>";
     }
-
-    echo "<pre>" . htmlspecialchars(print_r($db_profile, true)) . "</pre>";
 }
 
 
