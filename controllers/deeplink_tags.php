@@ -32,11 +32,15 @@ class Onyx_Controller_Deeplink_Tags extends Onyx_Controller {
     public function processDeeplink($node_data) {
         if ($node_data['custom_fields']->deeplink) {
 
+            $link_get = $_GET;
+            unset($link_get['translate'], $link_get['request']);
 
+            $link_get_str = http_build_query($link_get);
+            
             $url = parse_url($node_data['custom_fields']->deeplink);
             $url_str = $url['scheme'] . '://' . $url['host'] . $url['path'];
-            if(!empty($this->combineQueries($url['query'], $_SERVER['QUERY_STRING']))) {
-                $url_str .= '?' . $this->combineQueries($url['query'], $_SERVER['QUERY_STRING']);
+            if(!empty($this->combineQueries($url['query'], $link_get_str))) {
+                $url_str .= '?' . $this->combineQueries($url['query'], $link_get_str);
             }
 
             $this->tpl->assign('DEEPLINK_URL', $url_str);
