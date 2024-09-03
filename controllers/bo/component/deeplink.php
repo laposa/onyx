@@ -24,7 +24,7 @@ class Onyx_Controller_Bo_Component_Deeplink extends Onyx_Controller {
             $this->tpl->parse('content.list');
         }
 
-        if(ONYX_MOBILE_APP_URL) {
+        if(ONYX_MOBILE_APP_SCHEMA) {
 
             /**
              * make sure latest data are used during form save action
@@ -38,7 +38,7 @@ class Onyx_Controller_Bo_Component_Deeplink extends Onyx_Controller {
 
             $this->tpl->assign('NODE', $node_detail);
             $this->tpl->assign('PATTERN', ONYX_MOBILE_APP_DEEPLINK_VALIDATION_REGEX);
-            $this->tpl->assign('PLACEHOLDER', ONYX_MOBILE_APP_URL . '...');
+            $this->tpl->assign('PLACEHOLDER', ONYX_MOBILE_APP_SCHEMA . '...');
         } else {
             // return empty content
             $this->tpl->blocks = [];

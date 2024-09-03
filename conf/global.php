@@ -452,9 +452,10 @@ onyxGlobalConfSetValue('ONYX_MISSING_IMAGE', 'public_html/share/images/missing_i
 /**
  * Mobile App Deeplinks
  */
-onyxGlobalConfSetValue('ONYX_MOBILE_APP_URL', false);
+onyxGlobalConfSetValue('ONYX_MOBILE_APP_SCHEMA', false);
 onyxGlobalConfSetValue('ONYX_MOBILE_APP_APP_STORE_ID', false);
 onyxGlobalConfSetValue('ONYX_MOBILE_APP_NAME', false);
 onyxGlobalConfSetValue('ONYX_MOBILE_APP_PACKAGE', false);
 onyxGlobalConfSetValue('ONYX_MOBILE_APP_DEEPLINK_SET_URL', false);
 onyxGlobalConfSetValue('ONYX_MOBILE_APP_DEEPLINK_VALIDATION_REGEX', false);
+onyxGlobalConfSetValue('ONYX_MOBILE_APP_ASSOCIATED_HOSTNAME', false);
