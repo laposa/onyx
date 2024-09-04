@@ -234,8 +234,8 @@ function onyxGoTo($request, $type = 0) {
 /**
  * global function to translate URLs using common_uri_mapping
  *
- * @param unknown_type $request
- * @return unknown
+ * @param string $request
+ * @return string
  */
 
 function translateURL($request) {

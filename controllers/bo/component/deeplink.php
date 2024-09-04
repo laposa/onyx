@@ -37,6 +37,7 @@ class Onyx_Controller_Bo_Component_Deeplink extends Onyx_Controller {
             else $node_detail = $Node->nodeDetail($this->GET['node_id']);
 
             $this->tpl->assign('NODE', $node_detail);
+            $this->tpl->assign('NODE_PATH', translateURL("page/" . $node_detail['id']));
             $this->tpl->assign('PATTERN', ONYX_MOBILE_APP_DEEPLINK_VALIDATION_REGEX);
             $this->tpl->assign('PLACEHOLDER', ONYX_MOBILE_APP_SCHEMA . '...');
         } else {

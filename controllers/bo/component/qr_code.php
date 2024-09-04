@@ -23,7 +23,10 @@ class Onyx_Controller_Bo_Component_Qr_Code extends Onyx_Controller {
 
         $qr_options = new QROptions($options);
 
-        $url = 'https://' . $_SERVER['HTTP_HOST'] . '/'. $this->GET['node_id'];
+        if (strlen(getenv('ONYX_MOBILE_APP_ASSOCIATED_HOSTNAME')) > 0) $hostname = getenv('ONYX_MOBILE_APP_ASSOCIATED_HOSTNAME');
+        else $hostname = $_SERVER['HTTP_HOST'];
+
+        $url = 'https://' . $hostname . '/'. $this->GET['node_id'];
         $filename = base64_encode($url . implode(',', $options)) . ".png";
 
         $cached_file_path = self::CACHE_DIRECTORY . $filename;
