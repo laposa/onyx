@@ -73,7 +73,6 @@ class Onyx_Controller_Uri_Mapping extends Onyx_Controller {
 
                 /**
                  * short URL redirects
-                 * TODO: allow to pass GET parameters
                  */
 
                 $this->redirectToSeoURLAndExit($node_id);
@@ -154,6 +153,10 @@ class Onyx_Controller_Uri_Mapping extends Onyx_Controller {
         if (!is_numeric($node_id)) return false;
 
         $seo_redirect_uri = $this->Mapper->stringToSeoUrl("/page/{$node_id}");
+        $get_parameters = $_GET;
+        unset($get_parameters['translate'], $get_parameters['request']);
+        $get_parameters_str = http_build_query($get_parameters);
+        $seo_redirect_uri = $get_parameters_str ? $seo_redirect_uri . '?' . $get_parameters_str : $seo_redirect_uri;
         header("Location: $seo_redirect_uri", true, 301);
         exit;
     }
