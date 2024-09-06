@@ -16,7 +16,7 @@
         <img src="/view/{QRCODE}" alt="QR Code" width="200" height="200"/>
 
         <label for="qrcode_parameters">Additional parameters (parameter=value&amp;parameter2=value2...)</label>
-        <input type="text" id="qrcode_parameters" name="node[custom_fields][qrcode_params]" value="{NODE.custom_fields.qrcode_params|htmlspecialchars}" />
+        <input type="text" id="qrcode_parameters" name="node[custom_fields][qrcode_params]" value="{NODE.custom_fields.qrcode_params|htmlspecialchars}" placeholder="utm_source=circulator&utm_medium=email&utm_campaign=offers-040924"/>
 
         <div class="qrcode_actions">
             <a class="download button" title="Download QR Code" href="/download/{QRCODE}"><span>PNG</span></a>
