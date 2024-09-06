@@ -813,7 +813,8 @@ a.button:focus,
 button:focus { outline: none; }
 a.add,
 button.add,
-button { background: cadetblue; color: #ffffff; border: 1px solid cadetblue;}
+button,
+a.button.primary { background: cadetblue; color: #ffffff; border: 1px solid cadetblue;}
 a.button.remove,
 button.remove { background: #d74343; color: #ffffff; border: 1px solid #d74343; }
 a.button.remove:hover,
@@ -1515,6 +1516,22 @@ a.fakelink:hover {text-decoration: none;}
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
+  }
+
+  img {
+    margin-bottom: 10px;
+  }
+
+  .qrcode_actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .error {
+    padding-top: 10px;
+    color: #d74343;
   }
 }
 

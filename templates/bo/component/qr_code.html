@@ -1,9 +1,33 @@
 <!-- BEGIN: content -->
+<div id="qr-code-generator">
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#qr-regenerate').on('click', function() {
+                let params = $('#qrcode_parameters').val();
+                makeAjaxRequest('#qr-code-generator', '/request/bo/component/qr_code?node_id={GET.node_id}&regenerate=true&params='+ encodeURIComponent(params), function() {
+                    $('#qrcode_parameters').val(params);
+                });
+            });
+        });
+    </script>
+    
+    <div id="qr-code-{GET.node_id}">
+        <label>QR Code for URL <a href="{QRCODE_URL}">{QRCODE_URL}</a></label>
+        <img src="/view/{QRCODE}" alt="QR Code" width="200" height="200"/>
 
-<div id="qr-code-{GET.node_id}">
-    <label>QR Code for URL <a href="{QRCODE_URL}">{QRCODE_URL}</a></label>
-    <img src="/view/{QRCODE}" alt="QR Code" width="200" height="200"/>
-    <a class="download button primary" title="Download QR Code" href="/download/{QRCODE}"><span>PNG</span></a>
+        <label for="qrcode_parameters">Additional parameters (parameter=value&amp;parameter2=value2...)</label>
+        <input type="text" id="qrcode_parameters" name="node[custom_fields][qrcode_params]" value="{NODE.custom_fields.qrcode_params|htmlspecialchars}" />
+
+        <div class="qrcode_actions">
+            <a class="download button" title="Download QR Code" href="/download/{QRCODE}"><span>PNG</span></a>
+            <a class="button primary" title="Regenerate QR Code" id="qr-regenerate">Re-generate QR Code</a>
+        </div>
+
+        <!-- BEGIN: fail -->
+        <div class="error">
+            <p>Failed to generate QR Code</p>
+        </div>
+        <!-- END: fail -->
+    </div>
 </div>
-
 <!-- END: content -->
