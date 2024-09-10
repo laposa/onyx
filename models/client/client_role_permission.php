@@ -70,7 +70,45 @@ class client_role_permission extends Onyx_Model {
      
     private function getCreateTableSql() {
     
-        $sql = "CREATE TABLE client_role_permission (
+        $sql = "
+        CREATE TYPE acl_operation AS ENUM (
+            '_all_',
+            'view',
+            'edit',
+            'add',
+            'delete',
+            'publish'
+        );
+        CREATE TYPE acl_resource AS ENUM (
+            '_all_',
+            'front_office',
+            'back_office',
+            'nodes',
+            'products',
+            'recipes',
+            'stores',
+            'orders',
+            'stock',
+            'customers',
+            'reports',
+            'discounts',
+            'comments',
+            'surveys',
+            'media',
+            'taxonomy',
+            'seo_manager',
+            'database',
+            'templates',
+            'scheduler',
+            'currency',
+            'search_index',
+            'tools',
+            'logs',
+            'configuration',
+            'permissions',
+            'build'
+        );
+        CREATE TABLE client_role_permission (
             id serial NOT NULL PRIMARY KEY,
             role_id integer NOT NULL REFERENCES client_role ON UPDATE CASCADE ON DELETE CASCADE,
             resource acl_resource,
