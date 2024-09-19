@@ -12,12 +12,14 @@
     </script>
     
     <div id="qr-code-{GET.node_id}">
-        <label>QR Code for URL <a href="{QRCODE_URL}">{QRCODE_URL}</a></label>
-        <img src="/view/{QRCODE}" alt="QR Code" width="200" height="200"/>
-
-        <label for="qrcode_parameters">Additional parameters (parameter=value&amp;parameter2=value2...)</label>
-        <input type="text" id="qrcode_parameters" name="node[custom_fields][qrcode_params]" value="{NODE.custom_fields.qrcode_params|htmlspecialchars}" placeholder="utm_source=circulator&utm_medium=email&utm_campaign=offers-040924"/>
-
+        <div>
+            <label style="display: block;">QR Code for URL <a href="{QRCODE_URL}">{QRCODE_URL}</a></label>
+            <img src="/view/{QRCODE}" alt="QR Code" width="200" height="200"/>
+        </div>
+        <div>
+            <label for="qrcode_parameters">Additional parameters (parameter=value&amp;parameter2=value2...)</label>
+            <input type="text" id="qrcode_parameters" name="node[custom_fields][qrcode_params]" value="{NODE.custom_fields.qrcode_params|htmlspecialchars}" placeholder="utm_source=circulator&utm_medium=email&utm_campaign=offers-040924"/>
+        </div>
         <div class="qrcode_actions">
             <a class="download button" title="Download QR Code" href="/download/{QRCODE}"><span>PNG</span></a>
             <a class="button primary" title="Regenerate QR Code" id="qr-regenerate">Re-generate QR Code</a>
