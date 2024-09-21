@@ -60,7 +60,7 @@ class Onyx_Controller_Bo_Component_Node_Add extends Onyx_Controller {
                 // clean
                 $node_data['title'] = '';
                 
-                //return true;
+                header('HX-Trigger: nodeUpdated');
             }
         }
         
