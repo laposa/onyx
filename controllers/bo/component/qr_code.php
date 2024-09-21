@@ -49,7 +49,7 @@ class Onyx_Controller_Bo_Component_Qr_Code extends Onyx_Controller {
             return true;
         }
 
-        $filename = base64_encode($url . implode(',', $options)) . ".png";
+        $filename = md5($url . implode(',', $options)) . ".png";
         $cached_file_path = self::CACHE_DIRECTORY . $filename;
 
         if (!file_exists(self::CACHE_DIRECTORY)) mkdir(self::CACHE_DIRECTORY);
