@@ -270,9 +270,9 @@ function deleteNode(id) {
     return false;
 }
 
-function addNode(node_id, node_group, specific_node_group = '') {
+function addNode(node_id, parent_node_group, specific_node_group = '') {
     $('#onyx-dialog').empty();
-    if (node_group == 'layout') {
+    if (parent_node_group == 'layout') {
         var container_id = prompt("Please enter container number you want to use for the new content.", "1");
         if (isNaN(container_id)) {
             alert(container_id + ' is not a valid number. It should be 1 or 2 for two columns layout.');
@@ -282,20 +282,11 @@ function addNode(node_id, node_group, specific_node_group = '') {
         var container_id = 0;
     }
 
-    var url = '/request/bo/component/node_add~node_group='+node_group+':parent=' + node_id + ':container=' + container_id + ':expand_all=1:only_group=' + specific_node_group + '~';
+    var url = '/request/bo/component/node_add~node_group='+parent_node_group+':parent=' + node_id + ':container=' + container_id + ':expand_all=1:only_group=' + specific_node_group + '~';
 
     makeAjaxRequest('#onyx-dialog', url, function() {
         var button = '#node-add-form-' + node_id + '-' + container_id + '-wrapper button';
         $(button).after(' <a href="#" class="button remove" onclick="$(\'#onyx-dialog\').empty().dialog(\'close\'); return false;"><span>Cancel</span></a>');
-        
-        $('#node-add-form-'+node_id+'-'+container_id+'-wrapper form').ajaxForm({ 
-            target: '#node-add-form-'+node_id+'-'+container_id+'-wrapper',
-            success: function(responseText, statusText) {
-                popupMessage("#node-add-form-"+node_id+"-"+container_id+"-wrapper div.onyx-messages");
-                refreshNodeList(node_id, node_group);
-                $('#onyx-dialog').empty().dialog('close');
-            }
-        });
     });
     $('#onyx-dialog').dialog({width: 500, modal: true, overlay: {opacity: 0.5, background: 'black'}, title: 'Add new node'}).dialog('open');
     return false;

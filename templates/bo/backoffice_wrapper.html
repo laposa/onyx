@@ -23,7 +23,7 @@
 <script type="text/javascript" src="/share/js/angular.min.js?{ONYX_CACHE_VERSION}"></script>
 <script type="text/javascript" src="/share/js/common.js?{ONYX_CACHE_VERSION}"></script>
 <script type="text/javascript" src="/share/js/backoffice.js?{ONYX_CACHE_VERSION}"></script>
-<script type="text/javascript" src="/share/js/htmx.min.js"></script>
+<script type="text/javascript" src="/share/js/htmx.min.js?{ONYX_CACHE_VERSION}"></script>
 <style type="text/css" media="all">
 @import url(/share/css/backoffice.css?{ONYX_CACHE_VERSION});
 {CONFIGURATION.global.backoffice_css}
@@ -35,7 +35,18 @@ $(function(){
     
     var buttonToolbar = $('div.row-bottom p:first');
     if (buttonToolbar.length > 0) buttonToolbar.append($('.extended-toolbar a').detach());
+
+    //htmx.logAll();
+
+    document.body.addEventListener("htmx:afterRequest", (ev) => {
+        console.log('got it1');
+        if (ev.detail.xhr.getResponseHeader("HX-Trigger")) {
+            console.log('got it2')
+        }
+        })
 });
+
+
 
 </script>
 {REGISTRY.head}

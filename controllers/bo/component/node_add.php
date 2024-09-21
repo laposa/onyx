@@ -74,6 +74,8 @@ class Onyx_Controller_Bo_Component_Node_Add extends Onyx_Controller {
         $node_controller = $node_data['node_controller'];
         $node_group = $this->GET['node_group'];
         $only_group = $this->GET['only_group'];
+
+        if ($only_group) $node_group = $only_group;
         if ($node_group == 'container') $node_group = 'page';
         
         // get the list of node types

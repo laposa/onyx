@@ -1,6 +1,5 @@
 <!-- BEGIN: content -->
 {MESSAGES}
-
 <!-- BEGIN: inserted -->
 <div class="inserted-node-id" style="display: none">{INSERTED_NODE_ID}</div>
 <!-- END: inserted -->
@@ -12,8 +11,9 @@ $(function(){
 </script>
 <!-- BEGIN: form -->
 <div id="node-add-form-{GET.parent}-{GET.container}-wrapper">
+    
     <div class="node-add">
-        <form method="post" action="{URI|htmlspecialchars}">
+        <form hx-post="{URI|htmlspecialchars}" hx-on::after-request="$('#onyx-dialog').empty().dialog('close');">
         
             <fieldset class="single">
                 <legend>Add a new {GET.node_group}</legend>

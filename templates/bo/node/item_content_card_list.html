@@ -1,6 +1,6 @@
 <fieldset id="content-list">
     <legend style="display: none">Content List</legend>
-    <div class="row child">
+    <div class="row child" id="content-list-cards-wrapper" hx-get="/request/bo/component/node_list_cards~id={GET.id}~" hx-target="#content-list-cards-wrapper" hx-trigger="nodeUpdated from:body">
         {ONYX_REQUEST_content_list #bo/component/node_list_cards~id=GET.id~}
     </div>
 </fieldset>
