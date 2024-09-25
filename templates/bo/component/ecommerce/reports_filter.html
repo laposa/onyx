@@ -3,8 +3,16 @@
 $(document).ready(function(){
     $('#breakdown-from,#breakdown-to').datepicker({firstDay: 1, dateFormat: 'yy-mm-dd', changeMonth: true, changeYear: true});
 });
+
+function onReportFilterSuccess() {
+    popupMessage("#reports-filter div.onyx-messages");
+    makeAjaxRequest('#orders-breakdown', '/request/bo/component/ecommerce/orders_breakdown');
+    makeAjaxRequest('#sales-report', '/request/bo/component/ecommerce/sales_report');
+    makeAjaxRequest('#promotion-report', '/request/bo/component/ecommerce/promotion_list_report');
+}
 </script>
-<form method="get" action="{URI|htmlspecialchars}">
+
+<form hx-get="/request/bo/component/ecommerce/reports_filter" hx-on::after-request="onReportFilterSuccess();">
 
     <div class="row">
         <span class="label"><label>From Date <small>(inclusive)</small></label></span>
@@ -19,6 +27,6 @@ $(document).ready(function(){
         <span class="field"><button type="submit" name="submit" value="submit"><span>Submit</span></button></span>
     </div>
                                 
-<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+    <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
 <!-- END: content -->

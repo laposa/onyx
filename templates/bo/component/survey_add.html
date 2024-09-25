@@ -3,33 +3,12 @@
 {MESSAGES}
 <div class="survey-edit">
 
-    <script type="text/javascript">
-    
-    $(function() {
-        
-        function initSurveyEditForm() {
-    
-            $('#survey-edit-form').ajaxForm({ 
-                target: '#sub-content',
-                beforeSubmit: function() {return $("#survey-edit-form").valid()},
-                success: function(responseText, statusText) {
-                    popupMessage("#sub-content div.onyx-messages");
-                    makeAjaxRequest('#sub-content', '/request/bo/component/survey_list');
-                }
-            });
-        }
-        
-        initSurveyEditForm();
-    });
-    
-    </script>
-    
-    <form method="post" action="{URI|htmlspecialchars}" id="survey-edit-form">
+    <form hx-post="{URI|htmlspecialchars}" id="survey-edit-form" hx-on::after-request="popupMessage('#sub-content div.onyx-messages');makeAjaxRequest('#sub-content', '/request/bo/component/survey_list');">
 
         <fieldset class="single">
             <div class="row title">
                 <span class="label"><label for="survey-title">Title</label></span>
-                <span class="field"><input class="required text title" id="survey-title" type="text" name="survey[title]" value="{SURVEY.title|htmlspecialchars}" /></span>
+                <span class="field"><input class="text title" required id="survey-title" type="text" name="survey[title]" value="{SURVEY.title|htmlspecialchars}" /></span>
             </div>
             <div class="row description">
                 <span class="label"><label for="survey-description">Description</label></span>
@@ -42,8 +21,8 @@
             <span class="field"><button type="submit" class="save" name="save" value="save"><span>Create a New Survey</span></button></span>
         </div>
         
-    <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
-</form>
+        <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+    </form>
         
 </div>
 <!-- END: content -->

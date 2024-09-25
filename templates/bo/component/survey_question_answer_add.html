@@ -2,8 +2,7 @@
 
 {MESSAGES}
 <div class="two-column-page page survey_question_answer_edit fibonacci-2-3">
-
-    <form method="post" action="{URI|htmlspecialchars}" id="survey-question-answer-edit-form">
+    <form hx-post="{URI|htmlspecialchars}" id="survey-question-answer-edit-form" hx-on::after-request="popupMessage('#sub-content div.onyx-messages');makeAjaxRequest('#sub-content', '/request/bo/component/survey_detail~id={GET.survey_id}~');">
 
         <div class="content">
             <div class="page-wrapper">
@@ -30,7 +29,7 @@
                                         <fieldset class="single">
                                             <div class="row title">
                                                 <span class="label"><label for="answer-title">Title</label></span>
-                                                <span class="field"><input class="required text title" id="answer-title" type="text" name="answer[title]" value="{ANSWER.title|htmlspecialchars}" /></span>
+                                                <span class="field"><input class="text title" required id="answer-title" type="text" name="answer[title]" value="{ANSWER.title|htmlspecialchars}" /></span>
                                             </div>
                                             <div class="row description">
                                                 <span class="label"><label for="answer-description">Description</label></span>
@@ -83,31 +82,10 @@
         <input type="hidden" name="answer[publish]" value="1" />
         <input type="hidden" name="answer[question_id]" value="{GET.question_id}" />
         
-    <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
-</form>
+        <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+    </form>
 
 </div>
-
-<script type="text/javascript">
-    
-    $(function() {
-        
-        function initSurveyEditForm() {
-    
-            $('#survey-question-answer-edit-form').ajaxForm({ 
-                target: '#sub-content',
-                beforeSubmit: function() {return $("#survey-question-answer-edit-form").valid()},
-                success: function(responseText, statusText) {
-                    popupMessage("#sub-content div.onyx-messages");
-                    makeAjaxRequest('#sub-content', '/request/bo/component/survey_detail~id={GET.survey_id}~');
-                }
-            });
-        }
-        
-        initSurveyEditForm();
-    });
-    
-</script>
                     
 {ONYX_REQUEST_tinymce #bo/tinymce~id=GET.survey_id:relation=survey:role=RTE:mode=exact:edit_elements=answer-content:theme=advanced~}
         

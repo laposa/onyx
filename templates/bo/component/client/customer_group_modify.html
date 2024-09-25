@@ -1,35 +1,13 @@
 <!-- BEGIN: content -->
-<script type="text/javascript">
-$(document).ready(function(){
-
-    function initGroupAjaxForm() {
-        $("#customer-group-form").validate();
-        $('#customer-group-form').ajaxForm({ 
-            target: '#customer-list div.page-content',
-            beforeSubmit: function() { return $("#customer-group-form").valid() },
-            success: function(responseText, statusText) {
-                popupMessage("#customer-list div.onyx-messages");
-                makeAjaxRequest('#onyx-backoffice-wrapper', '/request/bo/pages/client/customers', function () {
-                    //initAjaxPagination();
-                });
-            }
-        });
-    }
-
-    initGroupAjaxForm();
-
-});
-</script>
-
 {MESSAGES}
 
 <div class="customer-group-modify">
     <h2>Modify existing group <span class="info">ID {CUSTOMER_GROUP.id}</span></h2>
-    <form method="post" id="customer-group-form" action="{URI|htmlspecialchars}" style="max-width: 400px;">
+    <form id="customer-group-form" hx-post="{URI|htmlspecialchars}" style="max-width: 400px;" hx-on::after-request="popupMessage('#customer-list div.onyx-messages');makeAjaxRequest('#onyx-backoffice-wrapper', '/request/bo/pages/client/customers');">
         <div class="row">
             <span class="label"><label>Name</label></span>
             <span class="field">
-                <input type="text" class="title required" id="customer-group-name" name="customer-group[name]" value="{CUSTOMER_GROUP.name|htmlspecialchars}" />
+                <input type="text" class="title" required id="customer-group-name" name="customer-group[name]" value="{CUSTOMER_GROUP.name|htmlspecialchars}" />
             </span>
         </div>
         

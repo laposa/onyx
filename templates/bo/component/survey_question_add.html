@@ -3,7 +3,7 @@
 
 <div class="two-column-page page survey-question-edit fibonacci-5-1">
 
-    <form method="post" action="{URI|htmlspecialchars}" id="survey-question-edit-form">
+    <form hx-post="{URI|htmlspecialchars}" id="survey-question-edit-form" hx-on::after-request="popupMessage('#sub-content div.onyx-messages');makeAjaxRequest('#sub-content', '/request/bo/component/survey_detail~id={GET.survey_id}~');">
 
         <div class="content">
             <div class="page-wrapper">
@@ -18,8 +18,7 @@
                     <div class="page-content-wrapper">
                         <div class="row-top">
                             <div class="row-wrapper">
-                                <div class="column-wrapper">
-                                </div>
+                                <div class="column-wrapper"></div>
                             </div>
                         </div>
                         <div class="row-middle">
@@ -30,7 +29,7 @@
                                         <fieldset>
                                             <div class="row title">
                                                 <span class="label"><label for="question-title">Title</label></span>
-                                                <span class="field"><input class="required text title" id="question-title" type="text" name="question[title]" value="{QUESTION.title|htmlspecialchars}" /></span>
+                                                <span class="field"><input class="text title" required id="question-title" type="text" name="question[title]" value="{QUESTION.title|htmlspecialchars}" /></span>
                                             </div>
                                             <div class="row description">
                                                 <span class="label"><label for="question-description">Description</label></span>
@@ -83,8 +82,7 @@
                                     </div>
                                 </div>
                                 <div class="column-two">
-                                    <div class="column-wrapper">
-                                    </div>
+                                    <div class="column-wrapper"></div>
                                 </div>
                             </div>
                         </div>
@@ -111,31 +109,10 @@
         <input type="hidden" name="question[publish]" value="1" />
         <input type="hidden" name="question[survey_id]" value="{GET.survey_id}" />
 
-    <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
-</form>
+        <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+    </form>
 
 </div>
-
-<script type="text/javascript">
-    
-    $(function() {
-        
-        function initSurveyEditForm() {
-    
-            $('#survey-question-edit-form').ajaxForm({ 
-                target: '#sub-content',
-                beforeSubmit: function() {return $("#survey-question-edit-form").valid()},
-                success: function(responseText, statusText) {
-                    popupMessage("#sub-content div.onyx-messages");
-                    makeAjaxRequest('#sub-content', '/request/bo/component/survey_detail~id={GET.survey_id}~');
-                }
-            });
-        }
-        
-        initSurveyEditForm();
-    });
-    
-</script>
     
 {ONYX_REQUEST_tinymce #bo/tinymce~id=GET.survey_id:relation=survey:role=RTE:mode=exact:edit_elements=question-content:theme=advanced~}       
         
