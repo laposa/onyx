@@ -5,7 +5,7 @@
 
     <div class="horizontal-filter">
 
-        <form method="post" action="{URI|htmlspecialchars}">
+        <form hx-post="/request/bo/component/ecommerce/orders_graph" hx-on::after-request="popupMessage('#orders-graph div.onyx-messages');">
             <fieldset class="single">
                 <div class="row">
                     <span class="label"><label>Time frame</label></span>
@@ -19,8 +19,8 @@
                     </span>
                 </div>
             </fieldset>
-        <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
-</form>
+            <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+        </form>
     </div>
 
     <a href="/download/var/cache/graph-revenue-{TIME_FRAME}.png"><img src="/image/var/cache/graph-revenue-{TIME_FRAME}.png" /></a>

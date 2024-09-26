@@ -14,7 +14,7 @@ function openEdit(url, el, ajax) {
 
 function openAjaxRequestInDialog(url, title) {
     $('#onyx-dialog').html(onyx_load_indicator_html_snippet).load(url, '', function (responseText, textStatus, XMLHttpRequest) {
-        //popupMessage("#onyx-dialog div.onyx-messages");
+        htmx.process('#onyx-dialog');
     })
     .dialog({
         width: 560, 

@@ -1,17 +1,5 @@
+<!-- DEPRECATED -->
 <!-- BEGIN: content -->
-<script type="text/javascript"> 
-$(document).ready(function() { 
-    var options = { 
-        target:        '#node-item-add',
-        success:       function() {
-            refreshNodeList('{GET.id}', '{GET.node_group}');
-            $('#onyx-dialog').dialog( "close").empty();
-        }
-    }; 
-    $('#node-item-add').ajaxForm(options); 
-});
-</script> 
-
 <div class="node-add">
     <form method="post" action="{URI|htmlspecialchars}" id="node-item-add">
         {MESSAGES}

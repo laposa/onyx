@@ -1,81 +1,42 @@
 <!-- BEGIN: content -->
-    
-<style type="text/css">
-form.file-edit div.row span.label {
-    width: 60px;
-}
-</style>
-
 <div id="file-edit-{FILE.id}-wrapper">
 
-<script type="text/javascript"> 
-$(document).ready(function() {
-    
-    /**
-     * item detail
-     */
-     
-    $('#file-edit-{FILE.id}').ajaxForm({target: '#file-edit-{FILE.id}', success: function() {hideModalOverlay()}});
+    {MESSAGES}
 
-    /**
-     * link_to_node_id browse site
-     */
-        
-    $('a.button.link-to-node-id').click(function() {
-        var file_id = $(this).attr('data-file-id');
-        $('#link-to-node-id-ajax-' + file_id).addClass('ajax-load').load('/request/component/menu_js~id=0:expand_all=1:publish=0~', function() {
-            $('#link-to-node-id-ajax-' + file_id).removeClass('ajax-load');
-            $('#link-to-node-id-ajax-' + file_id + ' .simple-tree').simpleTree({
-                drag: false,
-                autoclose: true,
-                afterClick:function(node){
-                    var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
-                    $('#file-link-to-node-id-' + file_id).attr('value', node_id);
-                },
-                animate: true,
-                docToFolderConvert: true
-            });
-        });
-        return false;
-    });
-    
-});
-</script>
-{MESSAGES}
+    <form class="file-edit" hx-post="{URI|htmlspecialchars}" id="file-edit-{FILE.id}" hx-on::after-request="popupMessage('div.onyx-messages');hideModalOverlay();">
+        <fieldset class="file-item-form">        
+            <div class="row title">
+                <span class="label"><label>Title *:</label></span>
+                <span class="field"><input class="text title" type="text" name="file[title]" value="{FILE.title|htmlspecialchars}" /></span>
+            </div>
 
-<form class="file-edit" action="{URI|htmlspecialchars}" method="post" id="file-edit-{FILE.id}">
+            <div class="row">
+                <span class="label"><label>Role:</label></span>
+                <span class="field">
+                    <select name="file[role]">
+                        {FILE "bo/component/file_role.html"}
+                    </select>
+                </span>
+            </div>
 
-    <fieldset class="file-item-form">        
-        <div class="row title">
-            <span class="label"><label>Title *:</label></span>
-            <span class="field"><input class="text title" type="text" name="file[title]" value="{FILE.title|htmlspecialchars}" /></span>
-        </div>
-        <div class="row">
-            <span class="label"><label>Role:</label></span>
-            <span class="field">
-                <select name="file[role]">
-                    {FILE "bo/component/file_role.html"}
-                </select>
-            </span>
-        </div>
-        <div class="row">
-            <span class="label"><label>Description:</label></span>
-            <span class="field"><textarea name="file[description]">{FILE.description|htmlspecialchars}</textarea></span>
-        </div>
-        <div class="row advanced">
-            <span class="label"><label>Priority:</label></span>
-            <span class="field"><input class="text" style="width: 50px;" type="text" name="file[priority]" value="{FILE.priority}" /></span>
-        </div>
-        
-        <input type="hidden" name="file[id]" value="{FILE.id}" />
-        
-        <div class="row submit">
-            <span class="label"><label>&nbsp;</label></span>
-            <span class="field"><button type="submit" name="update" id="update" value="{FILE.id}" class="{FILE.id}"><span>Save</span></button></span>
-        </div>
-    </fieldset>
-    <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
-</form>
-
+            <div class="row">
+                <span class="label"><label>Description:</label></span>
+                <span class="field"><textarea name="file[description]">{FILE.description|htmlspecialchars}</textarea></span>
+            </div>
+            
+            <div class="row advanced">
+                <span class="label"><label>Priority:</label></span>
+                <span class="field"><input class="text" style="width: 50px;" type="text" name="file[priority]" value="{FILE.priority}" /></span>
+            </div>
+            
+            <input type="hidden" name="file[id]" value="{FILE.id}" />
+            
+            <div class="row submit">
+                <span class="label"><label>&nbsp;</label></span>
+                <span class="field"><button type="submit" name="update" id="update" value="{FILE.id}" class="{FILE.id}"><span>Save</span></button></span>
+            </div>
+        </fieldset>
+        <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+    </form>
 </div>
 <!-- END: content -->

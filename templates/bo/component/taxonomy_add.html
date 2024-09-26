@@ -1,10 +1,16 @@
 <!-- BEGIN: content -->
 
+<script type="text/javascript">
+    function afterTaxonomyAddSuccess() {
+        popupMessage("#onyx-dialog form.taxonomy-add div.onyx-messages");
+        refreshTaxonomyList();
+        $('#onyx-dialog').empty().dialog('close');
+    }
+</script>
 
-<form method="post" action="{URI|htmlspecialchars}" class="taxonomy-add">
-    {MESSAGES}
+{MESSAGES}
+<form hx-post="{URI|htmlspecialchars}" class="taxonomy-add" hx-target="#onyx-dialog form.taxonomy-add" hx-on::after-request="afterTaxonomyAddSuccess()">
     <p>{ONYX_REQUEST_taxonomy #component/breadcrumb_taxonomy~id=GET.parent~}</p>
-    
     <div style="display: block" id="onyx-basicinfo" class="onyx-tabulator">
         <fieldset class="single">
             <legend>Taxonomy Item Add</legend>
@@ -31,7 +37,7 @@
         <span class="label"><label>&nbsp;</label></span>
         <span class="field"><button type="submit" name="save" value="save"><span>Add</span></button></span>
     </div>
-<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+    <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
 
 
