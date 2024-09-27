@@ -1,3 +1,4 @@
+<!-- DEPRECATED - DISABLED IN FE_EDIT JS -->
 <!-- BEGIN: content -->
 {MESSAGES}
 
@@ -7,24 +8,23 @@
 
 <!-- BEGIN: form -->
 <script type="text/javascript">
-$(function() {
-    var options = { 
-        target: '#node-add-form-{GET.parent}-{GET.container}-wrapper',
-        success: function(responseText, statusText) {
-            popupMessage("#node-add-form-{GET.parent}-{GET.container}-wrapper div.onyx-messages");
-            var refresh_url = '/request/component/menu~id={GET.parent}~';
-            $('#menu-parent-id-{GET.parent}').load(refresh_url, '', function () {
-            } );    
-        }
-    }; 
 
-    $('#node-add-form-{GET.parent}-{GET.container}-wrapper form').ajaxForm(options);
-});
+    function afterAddPageRequest () {
+        popupMessage("#node-add-form-{GET.parent}-{GET.container}-wrapper div.onyx-messages");
+        var refresh_url = '/request/component/menu~id={GET.parent}~';
+        $('#menu-parent-id-{GET.parent}').load(refresh_url, '', function () {
+            htmx.process('#menu-parent-id-{GET.parent}');
+        });
+    }
+
 </script>
 
 <div id="node-add-form-{GET.parent}-{GET.container}-wrapper">
     <div class="node-add">
-        <form method="post" action="{URI|htmlspecialchars}">
+        <form hx-post="{URI|htmlspecialchars}"
+            hx-target="#node-add-form-{GET.parent}-{GET.container}-wrapper"
+            hx-on::after-request="afterAddPageRequest()"
+        >
         
             <fieldset class="single">
                 <legend>Add a new {GET.node_group}</legend>
@@ -41,8 +41,9 @@ $(function() {
 
             <input type="hidden" name="node[parent]" value="{GET.parent}" />
             <input type="hidden" name="node[parent_container]" value="{GET.container}" />
-        <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
-</form>
+            
+            <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+        </form>
     </div>
 </div>
 <!-- END: form -->

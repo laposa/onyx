@@ -1,67 +1,55 @@
+<!-- TODO NOT ACCESSIBLE? -->
 <!-- BEGIN: content -->
 {MESSAGES}
 <div class="product-review-add review-add">
     <!-- BEGIN: comment_insert -->
     <div class="comment_insert">
-    <script type="text/javascript">
-    $(function() { 
-    
-        $("#review-form-{GET.node_id}").validate();  
-    
-        var options = { 
-            target: 'div.review-add',
-            success: function(){
-                popupMessage("div.review-add div.onyx-messages");
-            },
-            url: '/request/component/ecommerce/product_review_add~node_id={GET.node_id}:allow_anonymouse_submit=0~'
-        }; 
-    
-        $("#review-form-{GET.node_id}").ajaxForm(options); 
-    });
-    </script>
-
-    <form id="review-form-{GET.node_id}" class="comment" method="post" action="{URI|htmlspecialchars}#review-form-{GET.node_id}">
-        <fieldset class="single">
-            <legend>Add a new review</legend>
-            <div class="row author-name">
-                <span class="label"><label for="comment-author-name-{GET.node_id}"><span class="mandatory-mark">*</span> {I18N_AUTHOR_NAME}:</label></span>
-                <span class="field"><input class="required text" type="text" id="comment-author-name-{GET.node_id}" name="comment[author_name]" value="{COMMENT.author_name|htmlspecialchars}" /></span>
-            </div>
-            <div class="row title">
-                <span class="label"><label for="comment-title-{GET.node_id}"><span class="mandatory-mark">*</span> Short summary:</label></span>
-                <span class="field"><input class="required text" type="text" id="comment-title-{GET.node_id}" name="comment[title]" value="{COMMENT.title|htmlspecialchars}" /></span>
-            </div>
-            <div class="row content">
-                <span class="label"><label for="comment-content-{GET.node_id}"><span class="mandatory-mark">*</span> Your review:</label></span>
-                <span class="field"><textarea class="required text" id="comment-content-{GET.node_id}" name="comment[content]" cols="50" rows="10">{COMMENT.content|htmlspecialchars}</textarea></span>
+        <form id="review-form-{GET.node_id}" class="comment" 
+            hx-post="/request/component/ecommerce/product_review_add~node_id={GET.node_id}:allow_anonymouse_submit=0~"
+            hx-target="div.review-add"
+            hx-on::after-request="popupMessage('div.review-add div.onyx-messages');"
+        >
+            <fieldset class="single">
+                <legend>Add a new review</legend>
+                <div class="row author-name">
+                    <span class="label"><label for="comment-author-name-{GET.node_id}"><span class="mandatory-mark">*</span> {I18N_AUTHOR_NAME}:</label></span>
+                    <span class="field"><input class="text" required type="text" id="comment-author-name-{GET.node_id}" name="comment[author_name]" value="{COMMENT.author_name|htmlspecialchars}" /></span>
+                </div>
+                <div class="row title">
+                    <span class="label"><label for="comment-title-{GET.node_id}"><span class="mandatory-mark">*</span> Short summary:</label></span>
+                    <span class="field"><input class="text" required type="text" id="comment-title-{GET.node_id}" name="comment[title]" value="{COMMENT.title|htmlspecialchars}" /></span>
+                </div>
+                <div class="row content">
+                    <span class="label"><label for="comment-content-{GET.node_id}"><span class="mandatory-mark">*</span> Your review:</label></span>
+                    <span class="field"><textarea class="text" required id="comment-content-{GET.node_id}" name="comment[content]" cols="50" rows="10">{COMMENT.content|htmlspecialchars}</textarea></span>
+                    
+                </div>
                 
-            </div>
-            
-            <div class="row rating">
-                <span class="label"><label for="comment-rating-{GET.node_id}"><span class="mandatory-mark">*</span> Product Rating</label></span>
-                <span class="field">
-                    <select name="comment[rating]" id="comment-rating-{GET.node_id}">
-                        <option value="0">-- Select --</option>
-                        <option value="1">One Star</option>
-                        <option value="2">Two Stars</option>
-                        <option value="3">Three Stars</option>
-                        <option value="4">Four Stars</option>
-                        <option value="5">Five Stars</option>
-                    </select>
-                </span>
-            </div>
-            
-            <div class="row submit">
-                <span class="label"><label>&nbsp;</label></span>
-                <span class="field"><button type="submit" name="save" class="send_comment" value="send"><span>{I18N_SUBMIT}</span></button></span>
-            </div>
-            
-            <input type="hidden" name="comment[parent]" value="0" />
-            <input type="hidden" name="comment[node_id]" value="{GET.node_id}" />
-            <input type="hidden" name="comment[author_email]" value="{COMMENT.author_email|htmlspecialchars}" />
-        </fieldset>
-    <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
-</form>
+                <div class="row rating">
+                    <span class="label"><label for="comment-rating-{GET.node_id}"><span class="mandatory-mark">*</span> Product Rating</label></span>
+                    <span class="field">
+                        <select name="comment[rating]" id="comment-rating-{GET.node_id}">
+                            <option value="0">-- Select --</option>
+                            <option value="1">One Star</option>
+                            <option value="2">Two Stars</option>
+                            <option value="3">Three Stars</option>
+                            <option value="4">Four Stars</option>
+                            <option value="5">Five Stars</option>
+                        </select>
+                    </span>
+                </div>
+                
+                <div class="row submit">
+                    <span class="label"><label>&nbsp;</label></span>
+                    <span class="field"><button type="submit" name="save" class="send_comment" value="send"><span>{I18N_SUBMIT}</span></button></span>
+                </div>
+                
+                <input type="hidden" name="comment[parent]" value="0" />
+                <input type="hidden" name="comment[node_id]" value="{GET.node_id}" />
+                <input type="hidden" name="comment[author_email]" value="{COMMENT.author_email|htmlspecialchars}" />
+            </fieldset>
+            <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+        </form>
     <p class="legal-notice">Please note that all submitted reviews &amp; comments will become the licensed property of {CONFIGURATION.global.author_content|htmlspecialchars}</p>
     </div>
     <!-- END: comment_insert -->
