@@ -2,7 +2,7 @@
 <script type="text/javascript"> 
  
 // post-submit callback 
-function afterFileReplace()  { 
+function afterFileReplaceRequest()  { 
     var result_message = $("#file-replace-result div.onyx-messages").html();
     growlMessage(result_message);
     $("#file-replace .replace-button span").removeClass("saving");
@@ -16,8 +16,7 @@ function afterFileReplace()  {
 </script> 
 
 {MESSAGES}
-<!-- TODO not working, clicking on file to replace -> maximum call stack size exceeded -->
-<form hx-post="{URI|htmlspecialchars}" id="file-replace" hx-target="#file-replace-result" hx-on::after-request="afterFileReplace()">
+<form hx-post="{URI|htmlspecialchars}" id="file-replace" hx-target="#file-replace-result" hx-on::after-request="afterFileReplaceRequest()">
     <fieldset id="replace-file-in-node" class="file-item-form">
 
         <legend>File to replace</legend>

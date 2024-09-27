@@ -1,14 +1,14 @@
 <!-- BEGIN: title -->Price Add<!-- END: title -->
 <!-- BEGIN: content -->
     
-    <script type="text/javascript">  
-    $(function(){  
-        /**
-         * valide form
-         */
-         
-        $("#price-add-form-{GET.product_variety_id}").validate();
+<script type="text/javascript">  
 
+    function onPriceAddSuccess() {
+        popupMessage('#price-add-form-{GET.product_variety_id} div.onyx-messages')
+        $('#price-list-{GET.product_variety_id}').load('/request/bo/component/ecommerce/price_list~product_variety_id={GET.product_variety_id}~');
+    }
+
+    $(function(){  
         /**
          * Calculate VAT if available
          */
@@ -42,48 +42,52 @@
         }
 
     });
-    </script>
-    <form method="post" action="{URI|htmlspecialchars}" id="price-add-form-{GET.product_variety_id}">
-        <fieldset class="single">
-            {MESSAGES}
-            <legend>Add a new price for Variety</legend>
-            <div class="row">
-                <span class="label"><label>Currency</label></span>
-                <span class="field">{ONYX_REQUEST_1 #component/ecommerce/currency_switcher_inline}</span>
-            </div>
-            <div class="row">
-                <span class="label"><label>Price Type</label></span>
-                <span class="field">
-                    <select name="price[type]">
-                        <!-- BEGIN: type -->
-                        <option value="{TYPE}" {SELECTED}>{TYPE}</option>
-                        <!-- END: type -->
-                    </select>
-                </span>
-            </div>
-            <div class="two-column-layout">
-                <div class="column-one of-two">
-                    <div class="row">
-                        <span class="label"><label>Price Value excluding VAT</label></span>
-                        <span class="field"><input id="price-without-vat" type="text" class="text half required number" name="price[value]" value="{PRICE.value}"/></span>
-                    </div>
-                </div>
-                <div class="column-two of-two">
-                    <div class="row">
-                        <span class="label"><label>Price Value including VAT</label></span>
-                        <span class="field"><input id="price-with-vat" type="text" class="text half number" value=""/></span>
-                    </div>
-                </div>
-            </div>
-        </fieldset>
-        
-        <input type="hidden" name="price[product_variety_id]" value="{GET.product_variety_id}" />
+</script>
 
-        <div class="row submit">
-            <span class="label"><label>&nbsp;</label></span>
-            <span class="field"><button type="submit" name="save" value="save"><span>Save</span></button></span>
+<form id="price-add-form-{GET.product_variety_id}"
+    hx-post="{URI|htmlspecialchars}"
+    hx-target="#price-add-form-{GET.product_variety_id}"
+    hx-on::after-request="onPriceAddSuccess()"
+>
+    <fieldset class="single">
+        {MESSAGES}
+        <legend>Add a new price for Variety</legend>
+        <div class="row">
+            <span class="label"><label>Currency</label></span>
+            <span class="field">{ONYX_REQUEST_1 #component/ecommerce/currency_switcher_inline}</span>
         </div>
+        <div class="row">
+            <span class="label"><label>Price Type</label></span>
+            <span class="field">
+                <select name="price[type]">
+                    <!-- BEGIN: type -->
+                    <option value="{TYPE}" {SELECTED}>{TYPE}</option>
+                    <!-- END: type -->
+                </select>
+            </span>
+        </div>
+        <div class="two-column-layout">
+            <div class="column-one of-two">
+                <div class="row">
+                    <span class="label"><label>Price Value excluding VAT</label></span>
+                    <span class="field"><input id="price-without-vat" type="text" class="text half number" required name="price[value]" value="{PRICE.value}"/></span>
+                </div>
+            </div>
+            <div class="column-two of-two">
+                <div class="row">
+                    <span class="label"><label>Price Value including VAT</label></span>
+                    <span class="field"><input id="price-with-vat" type="text" class="text half number" value=""/></span>
+                </div>
+            </div>
+        </div>
+    </fieldset>
+    
+    <input type="hidden" name="price[product_variety_id]" value="{GET.product_variety_id}" />
+
+    <div class="row submit">
+        <span class="label"><label>&nbsp;</label></span>
+        <span class="field"><button type="submit" name="save" value="save"><span>Save</span></button></span>
+    </div>
     <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
-
 <!-- END: content -->

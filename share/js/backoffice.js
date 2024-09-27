@@ -124,9 +124,10 @@ function initBackofficeUI() {
     $("<div/>").attr('id','onyx-dialog').appendTo('body');
 
     // fix for history.pushState so page refreshes on back button
-    $(window).bind("popstate", function() {
-        window.location = location.href
-    });
+    // TODO temporarily disabled, causes "Maximum call stack size exceeded" error   
+    // $(window).bind("popstate", function() {
+    //     window.location = location.href
+    // });
 }
 
 /**
@@ -250,7 +251,8 @@ function duplicateNode(id, parent_id, node_group) {
     return false;
 }
 
-function deleteNode(id) {
+function deleteNode(event, id) {
+    event.preventDefault();
     $('#onyx-dialog').empty();
     $('#onyx-dialog').dialog({
         width: 500, 
@@ -270,7 +272,8 @@ function deleteNode(id) {
     return false;
 }
 
-function addNode(node_id, parent_node_group, specific_node_group = '') {
+function addNode(event, node_id, parent_node_group, specific_node_group = '') {
+    event.preventDefault();
     $('#onyx-dialog').empty();
     if (parent_node_group == 'layout') {
         var container_id = prompt("Please enter container number you want to use for the new content.", "1");

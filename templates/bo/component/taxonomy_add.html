@@ -1,7 +1,7 @@
 <!-- BEGIN: content -->
 
 <script type="text/javascript">
-    function afterTaxonomyAddSuccess() {
+    function afterTaxonomyAddRequest() {
         popupMessage("#onyx-dialog form.taxonomy-add div.onyx-messages");
         refreshTaxonomyList();
         $('#onyx-dialog').empty().dialog('close');
@@ -9,7 +9,7 @@
 </script>
 
 {MESSAGES}
-<form hx-post="{URI|htmlspecialchars}" class="taxonomy-add" hx-target="#onyx-dialog form.taxonomy-add" hx-on::after-request="afterTaxonomyAddSuccess()">
+<form hx-post="{URI|htmlspecialchars}" class="taxonomy-add" hx-target="#onyx-dialog form.taxonomy-add" hx-on::after-request="afterTaxonomyAddRequest()">
     <p>{ONYX_REQUEST_taxonomy #component/breadcrumb_taxonomy~id=GET.parent~}</p>
     <div style="display: block" id="onyx-basicinfo" class="onyx-tabulator">
         <fieldset class="single">

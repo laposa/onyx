@@ -1,19 +1,9 @@
 <!-- BEGIN: content -->
-<script type="text/javascript"> 
-$(document).ready(function() { 
-    var options = { 
-        target:        '#news-add',
-        success:       function() {
-            refreshNewsList();
-            $('#onyx-dialog').dialog( "close").empty();
-        }
-    }; 
-    $('#news-add').ajaxForm(options); 
-});
-</script> 
-
 <div class="node-add">
-    <form method="post" action="{URI|htmlspecialchars}" id="news-add">
+    <form id="news-add"
+        hx-post="{URI|htmlspecialchars}"
+        hx-on::after-request="refreshNewsList();$('#onyx-dialog').dialog('close').empty();"
+    >
         {MESSAGES}
         <fieldset>
             <legend>Add a new article to {NEWS_LIST.title|htmlspecialchars}</legend>
@@ -32,7 +22,8 @@ $(document).ready(function() {
         <input type="hidden" name="node[node_group]" value="page" />
         <input type="hidden" name="node[node_controller]" value="news" />
         <input type="hidden" name="node[publish]" value="0" />
-    <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
-</form>
+        
+        <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+    </form>
 </div>
 <!-- END: content -->

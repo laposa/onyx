@@ -23,7 +23,7 @@
 {MESSAGES}
 <!-- BEGIN: form -->
 
-<form hx-post="/request/bo/component/css_edit" id="css-edit" hx-target="#css-edit-result" hx-on::after-request="afterCssSubmit()" hx-on::before-request="preCssSubmit()">
+<form hx-post="/request/bo/component/css_edit" id="css-edit" hx-target="#css-edit-result" hx-on::after-request="afterCssEditRequest()" hx-on::before-request="preCssSubmit()">
 
     <div class="page">
         <div class="content">
@@ -65,7 +65,7 @@ function preCssSubmit() {
     $("#css-edit button").addClass('saving');
 }
 
-function afterCssSubmit()  {
+function afterCssEditRequest()  {
     $("#css-edit button").removeClass('saving');
     popupMessage($("#css-edit-result div.onyx-messages"));
     <!-- BEGIN: refresh_opener -->

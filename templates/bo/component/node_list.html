@@ -17,7 +17,7 @@
                 <td>
                     <div class="onyx-edit-page">
                         <button class="onyx-duplicate" title="Duplicate {CHILD.title}" onclick="duplicateNode('{CHILD.id}','{CHILD.parent}', '{CHILD.node_group}')"></button>
-                        <button class="onyx-delete" title="Delete {CHILD.title}" onclick="deleteNode('{CHILD.id}')"></button>
+                        <button class="onyx-delete" title="Delete {CHILD.title}" onclick="deleteNode(event, '{CHILD.id}')"></button>
                     </div>
                 </td>
             </tr>
@@ -28,7 +28,7 @@
     <!-- BEGIN: empty -->
     <p>This node contains no children</p>
     <!-- END: empty -->
-    <p><button class="button add" title="Add Node" onclick="addNode('{GET.id}', '{NODE_GROUP}')">Add Node</button></p>
+    <p><button class="button add" title="Add Node" onclick="addNode(event, '{GET.id}', '{NODE_GROUP}')">Add Node</button></p>
 </div>
 
 <!-- END: content -->

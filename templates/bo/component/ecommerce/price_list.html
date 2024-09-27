@@ -8,28 +8,13 @@
          * attach click event for price add
          */
          
-        $('#price-list-{GET.product_variety_id} a.button').click(function () {
-            
+        $('#price-list-{GET.product_variety_id} a.button').on('click', function () {
             $('#price-edit-{GET.product_variety_id}').load('/request/bo/component/ecommerce/price_add~product_variety_id={GET.product_variety_id}~', '', 
                 function() {
-                    /**
-                     * ajax form
-                     */
-                     
-                    var options = { 
-                        target: '#price-add-form-{GET.product_variety_id}',
-                        success: function(responseText, statusText) {
-                            $('#price-list-{GET.product_variety_id}').load('/request/bo/component/ecommerce/price_list~product_variety_id={GET.product_variety_id}~');
-                        }
-                    }; 
-            
-                    $('#price-add-form-{GET.product_variety_id}').ajaxForm(options);
-                    
+                    htmx.process('#price-edit-{GET.product_variety_id}');
                 }
             );
-            
             return false;
-            
         });
     });
     </script>

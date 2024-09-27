@@ -32,7 +32,7 @@ class Onyx_Controller_Bo_Component_Ecommerce_Promotion_Add extends Onyx_Controll
          * Display Detail
          */
 
-        if (count($_POST['promotion']) > 0) {
+        if ($_POST['promotion'] && count($_POST['promotion']) > 0) {
             $this->tpl->assign('PROMOTION', $_POST['promotion']);
         }
         
