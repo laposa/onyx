@@ -227,7 +227,7 @@ if (isset($_GET['preview']) && $_GET['preview'] == 1) {
 /**
  * detect if any backoffice controller is called
  */
-if (preg_match("/^\/(backoffice|request\/bo)\//", $_GET['translate'])) define('ONYX_IN_BACKOFFICE', true);
+if (array_key_exists('translate', $_GET) && preg_match("/^\/(backoffice|request\/bo)\//", $_GET['translate'])) define('ONYX_IN_BACKOFFICE', true);
 else define('ONYX_IN_BACKOFFICE', false);
 
 /**
