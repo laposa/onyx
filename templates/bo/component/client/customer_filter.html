@@ -7,7 +7,6 @@
 $(document).ready(function(){
 
     function initFilterAjaxForm() {
-        $("#customer-filter-form").validate();
         $('#customer-filter-form').ajaxForm({ 
             target: '#customer-filter-form-wrapper',
             beforeSubmit: function() { return $("#customer-filter-form").valid() },
@@ -48,7 +47,9 @@ $(document).ready(function(){
 </style>
 
 <div id="customer-filter-form-wrapper">
-    <form method="post" id="customer-filter-form" action="/request/bo/component/client/customer_filter">
+    <form id="customer-filter-form" 
+        hx-post="/request/bo/component/client/customer_filter"
+    >
 
         <div class="customer_filter two-column-layout">
             
@@ -61,7 +62,7 @@ $(document).ready(function(){
                     <div class="row group-name" style="width: 50%;">
                         <span class="label"><label for="customer-filter-group-name">Group filter name *</label></span>
                         <span class="field">
-                            <input type="text" class="text required" id="customer-filter-group-name" name="customer-filter[group_name]" value="{CUSTOMER_FILTER.group_name|htmlspecialchars}" />
+                            <input type="text" class="text" required id="customer-filter-group-name" name="customer-filter[group_name]" value="{CUSTOMER_FILTER.group_name|htmlspecialchars}" />
                         </span>
                     </div>
 

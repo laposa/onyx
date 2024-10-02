@@ -3,17 +3,24 @@
 
 var variety_prices = {VARIETY_PRICES};
 
+// TODO not tested, inaccessible
+document.body.addEventListener("addPrice", function(evt){
+    reloadPrices();    
+});
+
 function updateVariableLine(block) {
     var roundel = block.find('div.roundel-category-id select option:selected');
     var html = roundel.attr('data-description');
     var price_id = block.find("input.price-id").val();
     var quantity = block.find("input.quantity").val();
     var saving = block.find("input.saving").val();
-    html = html.replace(/\{\d+\}/g, '');
-    html = html.replace(/[\n\r]/g, '<br>');
-    html = html.replace('__price__', '<select class="prices-select" style="vertical-align: middle" onchange="$(this).parents(\'.offer\').find(\'input.price-id\').val($(this).val())"></select><a onclick="addPriceForOffer(); return false;" href="#" title="Add a New Price" style="display: inline-block; width: 16px; height: 16px; vertical-align: middle; background: url(/share/images/famfamfam_icons/add.png)"></a>');
-    html = html.replace('__quantity__', '<input type="text" class="text text short" onchange="$(this).parents(\'.offer\').find(\'input.quantity\').val($(this).val())" value="' + quantity + '"/>');
-    html = html.replace('__saving__', '<input type="text" class="text text short" onchange="$(this).parents(\'.offer\').find(\'input.saving\').val($(this).val())" value="' + saving + '"/>');
+    if(html) {
+        html = html.replace(/\{\d+\}/g, '');
+        html = html.replace(/[\n\r]/g, '<br>');
+        html = html.replace('__price__', '<select class="prices-select" style="vertical-align: middle" onchange="$(this).parents(\'.offer\').find(\'input.price-id\').val($(this).val())"></select><a onclick="addPriceForOffer(); return false;" href="#" title="Add a New Price" style="display: inline-block; width: 16px; height: 16px; vertical-align: middle; background: url(/share/images/famfamfam_icons/add.png)"></a>');
+        html = html.replace('__quantity__', '<input type="text" class="text text short" onchange="$(this).parents(\'.offer\').find(\'input.quantity\').val($(this).val())" value="' + quantity + '"/>');
+        html = html.replace('__saving__', '<input type="text" class="text text short" onchange="$(this).parents(\'.offer\').find(\'input.saving\').val($(this).val())" value="' + saving + '"/>');
+    }
     block.find('div.variables span.field span.input').html(html);
     updatePriceSelects();
 }
@@ -27,11 +34,13 @@ function reloadPreview(block) {
     var quantity = block.find("input.quantity").val();
     var saving = block.find("input.saving").val();
     var sizes = text.match(/\{(\d+)\}/g);
-    text = text.replace(/\{\d+\}/g, '');
-    text = text.replace('__price__', price);
-    text = text.replace('__quantity__', quantity);
-    text = text.replace('__saving__', saving);
-    text = text.split("\n");
+    if(text) {
+        text = text.replace(/\{\d+\}/g, '');
+        text = text.replace('__price__', price);
+        text = text.replace('__quantity__', quantity);
+        text = text.replace('__saving__', saving);
+        text = text.split("\n");
+    }
     var query = '';
     for (var i = 0; i < text.length; i++) {
         query += '&text' + (i + 1) + '=' + encodeURIComponent(text[i]);
@@ -98,13 +107,7 @@ function updatePriceSelects() {
 
 function addPriceForOffer() {
     $('#offer-price-{GET.id}').load('/request/bo/component/ecommerce/price_add~product_variety_id={GET.id}:type=special_offer~', '', function() {
-        var options = { 
-            target: '#price-add-form-{GET.id}',
-            success: function(responseText, statusText) { reloadPrices() }
-        }; 
-
-        $('#price-add-form-{GET.id}').ajaxForm(options);
-            
+        htmx.process('#offer-price-{GET.id}');
     });
 }
 

@@ -78,13 +78,14 @@ function showAdvancedSettings(source) {
 function initAdvancedSettingsButton() {
 
     if (window.localStorage) {
+        // TODO doesn't set after requests in certain components (product variety edit as an example) - probably in all modals?
         if (localStorage.getItem("show-advanced-settings") == 'true') {
             $('div.page-content .advanced').show();
             $("a.show-advanced-settings span").html('Hide Advanced Settings');
         }
     }
 
-    $("a.show-advanced-settings").click(function(e) {
+    $(document).on('click', 'a.show-advanced-settings', function(e) {
         e.preventDefault();
         showAdvancedSettings(this);
         return false;

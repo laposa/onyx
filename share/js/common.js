@@ -54,25 +54,6 @@ function makeAjaxRequest(jquery_selector, url, complete_callback, omit_loading =
     });
 }
 
-/**
- * make request using Ajax and initiate AjaxForm
- */
-
-function makeAjaxRequestWithForm(selector, component) {
-    makeAjaxRequest(selector, component, function(){initComponentAjaxForm(selector)});
-}
-
-function initComponentAjaxForm(component_selector) {
-    var options = {
-        target: component_selector,
-        success: function(responseText, statusText) {
-            initComponentAjaxForm(component_selector);
-            popupMessage(component_selector + ' div.onyx-messages');
-        }
-    };
-    $(component_selector + ' form').ajaxForm(options);
-}
-
 function removeTinyMCEEditors(container) {
     for (var i = 0; i < tinyMCE.editors.length; i++) {
         var id = tinyMCE.editors[i].id;

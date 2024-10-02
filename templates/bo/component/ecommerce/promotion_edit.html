@@ -7,7 +7,7 @@
 
     <form id="promotion-edit-form" 
         hx-post="{URI|htmlspecialchars}" 
-        hx-on::after-request="console.log('hello?');popupMessage('#discounts-page div.onyx-messages');makeAjaxRequest('#onyx-backoffice-wrapper', '/request/bo/pages/marketing');"
+        hx-on::after-request="popupMessage('#discounts-page div.onyx-messages');makeAjaxRequest('#onyx-backoffice-wrapper', '/request/bo/pages/marketing');"
     >
         <div class="page-wrapper">
 

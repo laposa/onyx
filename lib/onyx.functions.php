@@ -575,7 +575,7 @@ function suffix($str, $suffix)
  * Uses ONYX_ENCRYPTION_SALT as a salt.
  * Returs false if ONYX_ENCRYPTION_SALT is not set or empty.
  *
- * @return String Hashed value (sha256)
+ * @return string Hashed value (sha256)
  */
 function makeHash($value)
 {
@@ -593,7 +593,7 @@ function makeHash($value)
  * Returs false if ONYX_ENCRYPTION_SALT is not set or empty
  * or if the hashes don't match.
  *
- * @return Boolean
+ * @return bool
  */
 function verifyHash($value, $hash)
 {
@@ -618,7 +618,7 @@ function isValidDate($date)
 /**
  * onyx_flush_cache
  *
- * @return Boolean
+ * @return bool
  */
 function onyx_flush_cache() {
     // clean Symfony cache
@@ -630,7 +630,7 @@ function onyx_flush_cache() {
     // remove all files in cache directory
     require_once('models/common/common_file.php');
     $File = new common_file();
-    if ($File->rm(ONYX_PROJECT_DIR . "var/cache/*")) $fileClearStatus = true;
+    if ($File->rm(ONYX_PROJECT_DIR . "var/cache/*") && $File->rm(ONYX_PROJECT_DIR . "var/tmp/*")) $fileClearStatus = true;
     else $fileClearStatus = false;
 
     if ($dbCacheClearStatus && $pageCacheClearStatus && $generalCacheClearStatus && $fileClearStatus) return true;
@@ -643,7 +643,7 @@ function onyx_flush_cache() {
  *
  * 3.552342 => 3.552 s
  * 0.552342 => 552 ms
- * 0.000342 => 3.42 ms
+ * 0.000342 => 0.34 ms
  */
 function format_time($seconds) {
     if ($seconds > 1) return round($seconds, 3) . " s";

@@ -6,18 +6,13 @@
     
     <div id="server-browser-add">
     
-        <form hx-post="/request/bo/component/server_browser_file_list~open={GET.open}:type={GET.type}:relation={GET.relation}:node_id={GET.node_id}:file_id={GET.file_id}~" enctype="multipart/form-data" id="add-new-file" hx-on::after-request="popupMessage('#server-browser-file-list div.onyx-messages');" hx-on::before-request="beforeRequest()" hx-target="#server-browser-file-list-wrapper">
-            
-            <!-- BEGIN: confirm_overwrite -->
-            <p>Do you want to overwrite file {OVERWRITE_FILE.filename}?</p>
-            <fieldset class="confirm-overwrite">
-                <input type="hidden" name="filename" value="{OVERWRITE_FILE.filename}" />
-                <input type="hidden" name="save_dir" value="{OVERWRITE_FILE.save_dir}" />
-                <input type="hidden" name="temp_file" value="{OVERWRITE_FILE.temp_file}" />
-                <button type="submit" name="overwrite" value="overwrite" title="Overwrite file {OVERWRITE_FILE.filename}?"><span>Yes, overwrite it.</span></button>
-            </fieldset>
-            <!-- END: confirm_overwrite -->
-            
+        <form id="add-new-file"
+            hx-post="/request/bo/component/server_browser_file_list~open={GET.open}:type={GET.type}:relation={GET.relation}:node_id={GET.node_id}:file_id={GET.file_id}~" 
+            enctype="multipart/form-data" 
+            hx-on::after-request="popupMessage('#server-browser-file-list div.onyx-messages');" 
+            hx-on::before-request="beforeRequest()" 
+            hx-target="#server-browser-file-list-wrapper"
+        >
             <!-- BEGIN: add_new -->
             <div class="add-new">
                 <fieldset class="add-folder single">
@@ -148,8 +143,6 @@
             }
         }
         
-        // TODO
-    
         function beforeRequest() {
             $("#server-browser-file-list button span").replaceWith("<span style='background: white; color: black; padding: 5px; display: block; font-size: 125%'><img src='/share/images/ajax-indicator/indicator.gif' alt='Loading ...'/> Saving...</span>");
         }
@@ -172,10 +165,8 @@
         var allFilesUploadedFlag = false;
     
         function allFilesUploaded() {
-    
             makeAjaxRequest("#server-browser-file-list", "/request/bo/component/server_browser_file_list~open={GET.open}:type={GET.type}:relation={GET.relation}:node_id={GET.node_id}:file_id={GET.file_id}~");
             growlMessage("Uploaded completed.");
-    
         }
     
         var template =

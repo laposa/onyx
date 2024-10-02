@@ -15,7 +15,9 @@ $(document).ready(function(){
 });
 
 function serverBrowserOpenDir(open_dir) {
-    makeAjaxRequestWithForm('#component-configuration', '/request/bo/component/configuration/' + open_dir);
+    makeAjaxRequest('#component-configuration', '/request/bo/component/configuration/' + open_dir, '', function() {
+        htmx.process('#component-configuration');
+    });
 }
 
 </script>

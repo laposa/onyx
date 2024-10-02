@@ -3,214 +3,210 @@
 <div id="product-variety-wrapper-{GET.id}">
 
     <script type="text/javascript">
-    $(document).ready(function(){
-        
-        var options = { 
-            beforeSubmit: function() {
-                $("button.save").addClass('saving');
-            },
-            success: function(data) {
-                popupMessage("#product-variety-edit-result div.onyx-messages");
-                $("button.save").removeClass('saving');
-                $('#product-variety-wrapper-{GET.id}').replaceWith(data);
-            }
-        };
 
-        $('#product-variety-edit-form-{GET.id}').ajaxForm(options);
-         
-        $("#product-variety-edit").tabs();
-        
-    });
+        function beforeVarietyEditRequest() {
+            $("button.save").addClass('saving');
+        }
+
+        function afterVarietyEditRequest() {
+            popupMessage("div.onyx-messages");
+            $("button.save").removeClass('saving');
+        }
+
     </script>
 
     {MESSAGES}
+    <form class="product-variety-edit" id="product-variety-edit-form-{GET.id}"
+        hx-post="{URI|htmlspecialchars}"  
+        hx-on::before-request="beforeVarietyEditRequest()" 
+        hx-on::after-request="afterVarietyEditRequest()"
+        hx-target="#product-variety-edit-form-{GET.id}"
+    >
 
-    <form method="post" action="{URI|htmlspecialchars}" class="product-variety-edit" id="product-variety-edit-form-{GET.id}">
+        <div id="product-variety-edit">
 
-    <div id="product-variety-edit">
+            <div class="two-column-page popup">
+                
+                    <div class="page-wrapper">
 
-        <div class="two-column-page popup">
-            
-                <div class="page-wrapper">
-
-                    <div class="page-header">
-                        <div class="page-header-wrapper">
-                            <h1 class="page-title"><span>Product Variety Edit</span> <span class="info">ID {GET.id}</span></h1>
+                        <div class="page-header">
+                            <div class="page-header-wrapper">
+                                <h1 class="page-title"><span>Product Variety Edit</span> <span class="info">ID {GET.id}</span></h1>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="page-content">
-                        <div class="page-content-wrapper">
-                            <div class="row-top">
-                                <div class="row-wrapper">
-                                    <div class="column-wrapper">
+                        <div class="page-content">
+                            <div class="page-content-wrapper">
+                                <div class="row-top">
+                                    <div class="row-wrapper">
+                                        <div class="column-wrapper">
 
-                                        <fieldset>
-                                            <div class="row title">
-                                                <span class="label"><label>Variety Name</label></span>
-                                                <span class="field"><input type="text" class="text title" name="product[variety][name]" value="{PRODUCT.variety.name|htmlspecialchars}"/></span>
-                                            </div>
-                                            <div class="row subtitle">
-                                                <span class="label"><label>Subtitle</label></span>
-                                                <span class="field"><input type="text" class="text subtitle" name="product[variety][subtitle]" value="{PRODUCT.variety.subtitle|htmlspecialchars}"/></span>
-                                            </div>
-                                            <div class="row">
-                                                <span class="label"><label>Code (SKU)</label></span>
-                                                <span class="field"><input type="text" class="text" name="product[variety][sku]" value="{PRODUCT.variety.sku|htmlspecialchars}"/></span>
-                                            </div>  
-                                            <div class="row rte">
-                                                <span class="label"><label for="product-variety-description">Description <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'simple', 'edit-content'); return false;"><span>RTE</span></a></label></span>
-                                                <span class="field"><textarea id="edit-content" name="product[variety][description]">{PRODUCT.variety.description|htmlspecialchars}</textarea></span>
-                                            </div>
-                                            <div class="row">
-                                                <span class="label"><label for="product-variety-publish">Publish</label></span>
-                                                <span class="field"><input type="checkbox" id="product-variety-publish" name="product[variety][publish]" value="1" {PRODUCT.variety.publish} /></span>
-                                            </div>
-                                        </fieldset>
-
-                                        <div class="two-column-layout fibonacci-1-1">
-                                            <div class="layout-column-one of-two">
-                                                <fieldset>
-                                                    <div class="row">
-                                                        <span class="label"><label>Weight Gross [{VARIETY_CONF.weight_units}]</label></span>
-                                                        <span class="field"><input type="text" class="text short" name="product[variety][weight_gross]" value="{PRODUCT.variety.weight_gross}"/> (Used for postage. Zero weight is free postage.)</span>
-                                                    </div>
-                                                    <div class="row">
-                                                        <span class="label"><label>Priority:</label></span>
-                                                        <span class="field"><input class="text short" type="text" name="product[variety][priority]" value="{PRODUCT.variety.priority|htmlspecialchars}" /></span>
-                                                    </div>
-                                                </fieldset>
-                                            </div>
-                                            <div class="layout-column-two of-two">
-                                                <fieldset>
-                                                    <div class="row">
-                                                        {ONYX_REQUEST_producttype #bo/component/ecommerce/product_type_select~product_variety_id=GET.id~}
-                                                    </div>
-                                                    <div class="row">
-                                                        <span class="label"><label>Stock</label></span>
-                                                        <span class="field"><input type="text" class="text short" name="product[variety][stock]" value="{PRODUCT.variety.stock}"/></span>
-                                                    </div>
-                                                </fieldset>
-                                            </div>
-                                        </div>
-
-
-                                        <fieldset class="price-list">
-                                            <h3>Price list</h3>
-                                            {ONYX_REQUEST_price #bo/component/ecommerce/price_list~product_variety_id=GET.id~}
-                                        </fieldset>
-
-                                        <div id="images">
                                             <fieldset>
-                                                <legend>List of images</legend>
-                                                <div class="row image">
-                                                    {ONYX_REQUEST_imagelist #bo/component/file_list~type=add_to_product_variety:relation=product_variety:node_id=GET.id~}
+                                                <div class="row title">
+                                                    <span class="label"><label>Variety Name</label></span>
+                                                    <span class="field"><input type="text" class="text title" name="product[variety][name]" value="{PRODUCT.variety.name|htmlspecialchars}"/></span>
+                                                </div>
+                                                <div class="row subtitle">
+                                                    <span class="label"><label>Subtitle</label></span>
+                                                    <span class="field"><input type="text" class="text subtitle" name="product[variety][subtitle]" value="{PRODUCT.variety.subtitle|htmlspecialchars}"/></span>
+                                                </div>
+                                                <div class="row">
+                                                    <span class="label"><label>Code (SKU)</label></span>
+                                                    <span class="field"><input type="text" class="text" name="product[variety][sku]" value="{PRODUCT.variety.sku|htmlspecialchars}"/></span>
+                                                </div>  
+                                                <div class="row rte">
+                                                    <span class="label"><label for="product-variety-description">Description <a href="#" onclick="tinyMCE.execCommand('mceToggleEditor', 'simple', 'edit-content'); return false;"><span>RTE</span></a></label></span>
+                                                    <span class="field"><textarea id="edit-content" name="product[variety][description]">{PRODUCT.variety.description|htmlspecialchars}</textarea></span>
+                                                </div>
+                                                <div class="row">
+                                                    <span class="label"><label for="product-variety-publish">Publish</label></span>
+                                                    <span class="field"><input type="checkbox" id="product-variety-publish" name="product[variety][publish]" value="1" {PRODUCT.variety.publish} /></span>
                                                 </div>
                                             </fieldset>
-                                        </div>
+
+                                            <div class="two-column-layout fibonacci-1-1">
+                                                <div class="layout-column-one of-two">
+                                                    <fieldset>
+                                                        <div class="row">
+                                                            <span class="label"><label>Weight Gross [{VARIETY_CONF.weight_units}]</label></span>
+                                                            <span class="field"><input type="text" class="text short" name="product[variety][weight_gross]" value="{PRODUCT.variety.weight_gross}"/> (Used for postage. Zero weight is free postage.)</span>
+                                                        </div>
+                                                        <div class="row">
+                                                            <span class="label"><label>Priority:</label></span>
+                                                            <span class="field"><input class="text short" type="text" name="product[variety][priority]" value="{PRODUCT.variety.priority|htmlspecialchars}" /></span>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                                <div class="layout-column-two of-two">
+                                                    <fieldset>
+                                                        <div class="row">
+                                                            {ONYX_REQUEST_producttype #bo/component/ecommerce/product_type_select~product_variety_id=GET.id~}
+                                                        </div>
+                                                        <div class="row">
+                                                            <span class="label"><label>Stock</label></span>
+                                                            <span class="field"><input type="text" class="text short" name="product[variety][stock]" value="{PRODUCT.variety.stock}"/></span>
+                                                        </div>
+                                                    </fieldset>
+                                                </div>
+                                            </div>
+
+
+                                            <fieldset class="price-list">
+                                                <h3>Price list</h3>
+                                                {ONYX_REQUEST_price #bo/component/ecommerce/price_list~product_variety_id=GET.id~}
+                                            </fieldset>
+
+                                            <div id="images">
+                                                <fieldset>
+                                                    <legend>List of images</legend>
+                                                    <div class="row image">
+                                                        {ONYX_REQUEST_imagelist #bo/component/file_list~type=add_to_product_variety:relation=product_variety:node_id=GET.id~}
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                                    
+                                            <div class="row">
+                                                {ONYX_REQUEST_rt #bo/component/relation_taxonomy~relation=variety:id=GET.id~}
+                                            </div>
+
+                                            <fieldset class="advanced">
+                                                <div class="row">
+                                                    <span class="label"><label>Weight Net [{VARIETY_CONF.weight_units}]</label></span>
+                                                    <span class="field"><input type="text" class="text short" name="product[variety][weight]" value="{PRODUCT.variety.weight}"/></span>
+                                                </div>
+                                            </fieldset>
+
+                                            <fieldset class="advanced">
+                                                <legend>Dimensions</legend>
+
+                                                <div class="four-column-layout">
+                                                    <div class="layout-column-one of-four">
+                                                        <div class="row">
+                                                            <span class="label"><label>Width [{VARIETY_CONF.dimension_units}]</label></span>
+                                                            <span class="field"><input type="text" class="text short" name="product[variety][width]" value="{PRODUCT.variety.width}"/></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="layout-column-two of-four">
+                                                        <div class="row">
+                                                            <span class="label"><label>Height [{VARIETY_CONF.dimension_units}]</label></span>
+                                                            <span class="field"><input type="text" class="text short" name="product[variety][height]" value="{PRODUCT.variety.height}"/></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="layout-column-three of-four">
+                                                        <div class="row">
+                                                            <span class="label"><label>Depth [{VARIETY_CONF.dimension_units}]</label></span>
+                                                            <span class="field"><input type="text" class="text short" name="product[variety][depth]" value="{PRODUCT.variety.depth}"/></span>
+                                                        </div>
+                                                    </div>
+                                                    <div class="layout-column-four of-four">
+                                                        <div class="row">
+                                                            <span class="label"><label>Diameter [{VARIETY_CONF.dimension_units}]</label></span>
+                                                            <span class="field"><input type="text" class="text short" name="product[variety][diameter]" value="{PRODUCT.variety.diameter}"/></span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </fieldset>
                                                 
-                                        <div class="row">
-                                            {ONYX_REQUEST_rt #bo/component/relation_taxonomy~relation=variety:id=GET.id~}
-                                        </div>
-
-                                        <fieldset class="advanced">
-                                            <div class="row">
-                                                <span class="label"><label>Weight Net [{VARIETY_CONF.weight_units}]</label></span>
-                                                <span class="field"><input type="text" class="text short" name="product[variety][weight]" value="{PRODUCT.variety.weight}"/></span>
-                                            </div>
-                                        </fieldset>
-
-                                        <fieldset class="advanced">
-                                            <legend>Dimensions</legend>
-
-                                            <div class="four-column-layout">
-                                                <div class="layout-column-one of-four">
-                                                    <div class="row">
-                                                        <span class="label"><label>Width [{VARIETY_CONF.dimension_units}]</label></span>
-                                                        <span class="field"><input type="text" class="text short" name="product[variety][width]" value="{PRODUCT.variety.width}"/></span>
-                                                    </div>
+                                            <fieldset class="advanced">
+                                                <legend>Codes</legend>
+                                                <div class="row">
+                                                    <span class="label"><label>EAN (European Article Number)</label></span>
+                                                    <span class="field"><input type="text" class="text" name="product[variety][ean13]" value="{PRODUCT.variety.ean13|htmlspecialchars}"/></span>
                                                 </div>
-                                                <div class="layout-column-two of-four">
-                                                    <div class="row">
-                                                        <span class="label"><label>Height [{VARIETY_CONF.dimension_units}]</label></span>
-                                                        <span class="field"><input type="text" class="text short" name="product[variety][height]" value="{PRODUCT.variety.height}"/></span>
-                                                    </div>
+                                                <div class="row">
+                                                    <span class="label"><label>UPC (Universal Product Code)</label></span>
+                                                    <span class="field"><input type="text" class="text" name="product[variety][upc]" value="{PRODUCT.variety.upc|htmlspecialchars}"/></span>
                                                 </div>
-                                                <div class="layout-column-three of-four">
-                                                    <div class="row">
-                                                        <span class="label"><label>Depth [{VARIETY_CONF.dimension_units}]</label></span>
-                                                        <span class="field"><input type="text" class="text short" name="product[variety][depth]" value="{PRODUCT.variety.depth}"/></span>
-                                                    </div>
-                                                </div>
-                                                <div class="layout-column-four of-four">
-                                                    <div class="row">
-                                                        <span class="label"><label>Diameter [{VARIETY_CONF.dimension_units}]</label></span>
-                                                        <span class="field"><input type="text" class="text short" name="product[variety][diameter]" value="{PRODUCT.variety.diameter}"/></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
+                                            </fieldset>
                                             
-                                        <fieldset class="advanced">
-                                            <legend>Codes</legend>
-                                            <div class="row">
-                                                <span class="label"><label>EAN (European Article Number)</label></span>
-                                                <span class="field"><input type="text" class="text" name="product[variety][ean13]" value="{PRODUCT.variety.ean13|htmlspecialchars}"/></span>
+                                            <div class="advanced">
+                                                {ONYX_REQUEST_variety_other_data #bo/component/ecommerce/product_variety_other_data~id=GET.id~}
                                             </div>
-                                            <div class="row">
-                                                <span class="label"><label>UPC (Universal Product Code)</label></span>
-                                                <span class="field"><input type="text" class="text" name="product[variety][upc]" value="{PRODUCT.variety.upc|htmlspecialchars}"/></span>
-                                            </div>
-                                        </fieldset>
-                                        
-                                        <div class="advanced">
-                                            {ONYX_REQUEST_variety_other_data #bo/component/ecommerce/product_variety_other_data~id=GET.id~}
-                                        </div>
 
-                                        <fieldset class="advanced">
-                                            <legend>Special Offers</legend>
-                                            {ONYX_REQUEST_special_offers #bo/component/ecommerce/product_special_offers~id=GET.id~}
-                                        </fieldset>
+                                            <fieldset class="advanced">
+                                                <legend>Special Offers</legend>
+                                                {ONYX_REQUEST_special_offers #bo/component/ecommerce/product_special_offers~id=GET.id~}
+                                            </fieldset>
 
-
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row-middle">
-                                <div class="row-wrapper">
-                                    <div class="column-one">
-                                        <div class="column-wrapper">
-                                        </div>
-                                    </div>
-                                    <div class="column-two">
-                                        <div class="column-wrapper">
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row-bottom">
-                                <div class="row-wrapper">
-                                    <div class="column-wrapper">
+                                <div class="row-middle">
+                                    <div class="row-wrapper">
+                                        <div class="column-one">
+                                            <div class="column-wrapper">
+                                            </div>
+                                        </div>
+                                        <div class="column-two">
+                                            <div class="column-wrapper">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row-bottom">
+                                    <div class="row-wrapper">
+                                        <div class="column-wrapper">
 
-                                        <p>
-                                            <a class="button show-advanced-settings" href="#"><span>Show Advanced Settings</span></a>
-                                        </p>
+                                            <p>
+                                                <a class="button show-advanced-settings" href="#"><span>Show Advanced Settings</span></a>
+                                            </p>
 
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+            </div>
+
+            <button class="save" type="submit" name="save" value="save"><span>Save</span></button>
+
+            <input type="hidden" name="product[variety][id]" value="{PRODUCT.variety.id}"/>
+            <input type="hidden" name="product[variety][product_id]" value="{PRODUCT.variety.product_id}"/>
         </div>
 
-        <button class="save" type="submit" name="save" value="save"><span>Save</span></button>
-
-        <input type="hidden" name="product[variety][id]" value="{PRODUCT.variety.id}"/>
-        <input type="hidden" name="product[variety][product_id]" value="{PRODUCT.variety.product_id}"/>
-
-    <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
-</form>
+        <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+    </form>
 
 
     {ONYX_REQUEST_tinymce #bo/tinymce~id=GET.id:relation=product_variety:theme=simple~}

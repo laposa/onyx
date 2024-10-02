@@ -35,7 +35,6 @@ $(document).ready(function(){
         $('div.store-filter-tags li a').each(function() {
             if ($(this).hasClass('selected')) {
                 var taxonomy_tree_id = $(this).data('taxonomy-tree-id');
-                console.log('has selected ' + taxonomy_tree_id);
                 list.push(taxonomy_tree_id);
             }
         });

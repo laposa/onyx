@@ -137,7 +137,6 @@ class Onyx_Controller_Bo_Component_Server_Browser_File_List extends Onyx_Control
 
                     if ($multiupload) $this->jsonResponse("file_exists", $upload);
 
-                    $this->tpl->parse("content.confirm_overwrite");
                     $overwrite_show = 1;
                     
                 } else if ($upload) {
