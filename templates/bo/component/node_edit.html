@@ -4,12 +4,10 @@
 <!-- BEGIN: form -->
 <script type="text/javascript">
     function beforeNodeEditRequest(evt) {
-        console.log('beforeNodeEditRequest');
         $('button.save').addClass('saving');
     };
     
     function afterNodeEditRequest(evt) {
-        console.log('afterNodeEditRequest');
         popupMessage("#node-properties-edit div.onyx-messages");
 
         $('button.save').removeClass('saving');

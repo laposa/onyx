@@ -6,6 +6,23 @@
 </style>
 <script type="text/javascript">
 
+    // TODO not tested, inaccessible
+    document.body.addEventListener("addPrice", function(evt){
+        reloadPrices(); 
+        popupMessage("#offer-price div.onyx-messages");
+        $('#offer-price').empty();});
+
+    function beforeOfferAddSend() {
+        $("button.save").addClass('saving');
+    }
+
+    function afterOfferAddRequest(event) {
+        $("button.save").removeClass('saving');
+        popupMessage('div.offer-add.onyx-messages');
+        $("#product-select, #offer-edit .custom-combobox-input").val('');
+        $("#offer-fieldset").hide();
+    }
+
     $(document).ready(function(){
 
         $("#product-select").combobox();
@@ -30,23 +47,7 @@
         });
         $("#offer-fieldset").hide();
 
-        // setup ajax form saving
-        var options = { 
-            beforeSubmit: function() {
-                $("button.save").addClass('saving');
-            },
-            success: function(data) {
-                growlMessage(data);
-                $("button.save").removeClass('saving');
-                $("#product-select, #offer-edit .custom-combobox-input").val('');
-                $("#offer-fieldset").hide();
-            }
-        };
-
-        $('#offer-add-form').ajaxForm(options);
-
         updateVariableLine($('#offer-edit'));
-
     });
 
     var product_variety_id = 0;
@@ -58,11 +59,13 @@
         var price_id = block.find("input.price-id").val();
         var quantity = block.find("input.quantity").val();
         var saving = block.find("input.saving").val();
-        html = html.replace(/\{\d+\}/g, '');
-        html = html.replace(/[\n\r]/g, '<br>');
-        html = html.replace('__price__', '<select class="prices-select" style="vertical-align: middle" onchange="$(this).parents(\'.offer\').find(\'input.price-id\').val($(this).val())"></select><a onclick="addPriceForOffer(); return false;" href="#" title="Add a New Price" style="display: inline-block; width: 16px; height: 16px; vertical-align: middle; background: url(/share/images/famfamfam_icons/add.png)"></a>');
-        html = html.replace('__quantity__', '<input type="text" class="text text short" onchange="$(this).parents(\'.offer\').find(\'input.quantity\').val($(this).val())" value="' + quantity + '"/>');
-        html = html.replace('__saving__', '<input type="text" class="text text short" onchange="$(this).parents(\'.offer\').find(\'input.saving\').val($(this).val())" value="' + saving + '"/>');
+        if(html) {
+            html = html.replace(/\{\d+\}/g, '');
+            html = html.replace(/[\n\r]/g, '<br>');
+            html = html.replace('__price__', '<select class="prices-select" style="vertical-align: middle" onchange="$(this).parents(\'.offer\').find(\'input.price-id\').val($(this).val())"></select><a onclick="addPriceForOffer(); return false;" href="#" title="Add a New Price" style="display: inline-block; width: 16px; height: 16px; vertical-align: middle; background: url(/share/images/famfamfam_icons/add.png)"></a>');
+            html = html.replace('__quantity__', '<input type="text" class="text text short" onchange="$(this).parents(\'.offer\').find(\'input.quantity\').val($(this).val())" value="' + quantity + '"/>');
+            html = html.replace('__saving__', '<input type="text" class="text text short" onchange="$(this).parents(\'.offer\').find(\'input.saving\').val($(this).val())" value="' + saving + '"/>');
+        }
         block.find('div.variables span.field span.input').html(html);
         updatePriceSelects();
     }
@@ -71,16 +74,18 @@
         var campaign = block.find('div.campaign-category-id select option:selected');
         var roundel = block.find('div.roundel-category-id select option:selected');
         var text = roundel.attr('data-description');
-        var colors = campaign.attr('data-description').split("\n");
+        var colors = campaign ? campaign.attr('data-description').split("\n") : '';
         var price = formatPrice(block.find("select.prices-select option:selected").text());
         var quantity = block.find("input.quantity").val();
         var saving = block.find("input.saving").val();
         var sizes = text.match(/\{(\d+)\}/g);
-        text = text.replace(/\{\d+\}/g, '');
-        text = text.replace('__price__', price);
-        text = text.replace('__quantity__', quantity);
-        text = text.replace('__saving__', saving);
-        text = text.split("\n");
+        if(text) {
+            text = text.replace(/\{\d+\}/g, '');
+            text = text.replace('__price__', price);
+            text = text.replace('__quantity__', quantity);
+            text = text.replace('__saving__', saving);
+            text = text.split("\n");
+        }
         var query = '';
         for (var i = 0; i < text.length; i++) {
             query += '&text' + (i + 1) + '=' + encodeURIComponent(text[i]);
@@ -152,24 +157,19 @@
         if (!product_variety_id) return false;
 
         $('#offer-price').load('/request/bo/component/ecommerce/price_add~product_variety_id=' + product_variety_id + ':type=special_offer~', '', function() {
-            var options = { 
-                target: '#price-add-form-' + product_variety_id,
-                success: function(responseText, statusText) { 
-                    reloadPrices(); 
-                    popupMessage("#offer-price div.onyx-messages");
-                    $('#offer-price').empty();
-                }
-            }; 
-
-            $('#price-add-form-' + product_variety_id).ajaxForm(options);
-                
+            htmx.process('#offer-price');
         });
     }
 
 </script>
-
 {MESSAGES}
-<form method="post" action="{URI|htmlspecialchars}" id="offer-add-form" class="offer-edit">
+<div class="offer-add onyx-messages"></div>
+<form id="offer-add-form" class="offer-edit"
+    hx-post="{URI|htmlspecialchars}" 
+    hx-target=".offer-add.onyx-messages" 
+    hx-on::after-request="afterOfferAddRequest(event)" 
+    hx-on::before-request="beforeOfferAddSend()"
+>
     <div id="offer-edit" class="offer">
 
         <input type="hidden" name="save" value="save"/>

@@ -23,38 +23,37 @@
 {MESSAGES}
 <!-- BEGIN: form -->
 
-<form method="post" action="{URI|htmlspecialchars}" id="css-edit">
+<form hx-post="/request/bo/component/css_edit" id="css-edit" hx-target="#css-edit-result" hx-on::after-request="afterCssEditRequest()" hx-on::before-request="preCssSubmit()">
 
-<div class="page">
-    
-    <div class="content">
-        <div class="page-wrapper">
+    <div class="page">
+        <div class="content">
+            <div class="page-wrapper">
 
-            <div class="page-content">
-                <div class="page-content-wrapper">
-                    <div class="row-middle">
-                        <div class="row-wrapper">
-                            <textarea id="code-css" name="configuration[global][css]" class="code css" autofocus="autofocus">{CONFIGURATION.global.css}</textarea></span>
-                            <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+                <div class="page-content">
+                    <div class="page-content-wrapper">
+                        <div class="row-middle">
+                            <div class="row-wrapper">
+                                <textarea id="code-css" name="configuration[global][css]" class="code css" autofocus="autofocus">{CONFIGURATION.global.css}</textarea></span>
+                                <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+                            </div>
                         </div>
-                    </div>
-                    <div class="row-bottom">
-                        <div class="row-wrapper">
-                            <div class="column-wrapper">
-                                <p>
-                                    <a href="#" class="button" id="media-gallery-button"><span>Media Library</span></a>
-                                    <a href="#" class="button" id="colour-picker-button"><span>Pick a colour</span></a>
-                                    <button class="save" type="submit" name="submit" value="submit"><span>Save</span></button>
-                                </p>
+                        <div class="row-bottom">
+                            <div class="row-wrapper">
+                                <div class="column-wrapper">
+                                    <p>
+                                        <a href="#" class="button" id="media-gallery-button"><span>Media Library</span></a>
+                                        <a href="#" class="button" id="colour-picker-button"><span>Pick a colour</span></a>
+                                        <button class="save" type="submit" name="submit" value="submit"><span>Save</span></button>
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        
     </div>
-    
-</div>
 
 </form>
 
@@ -62,32 +61,27 @@
 
 <script type="text/javascript">
 
+function preCssSubmit() {
+    $("#css-edit button").addClass('saving');
+}
+
+function afterCssEditRequest()  {
+    $("#css-edit button").removeClass('saving');
+    popupMessage($("#css-edit-result div.onyx-messages"));
+    <!-- BEGIN: refresh_opener -->
+    refreshOpener('{GET.orig}', {GET.id});
+    <!-- END: refresh_opener -->
+} 
+
+// Codemirror
+var code_mirror_options = {
+    viewportMargin: Infinity,
+    keyMap: "sublime"
+}
+var editor = CodeMirror.fromTextArea(document.getElementById('code-css'), code_mirror_options);
+
 $(document).ready(function() {
-
-    function saveCSS(id, content) {
-        $('#'+id).val(content);
-        $('#css-edit').submit();
-    }
-
-    function preSubmit() {
-        $("#css-edit button").addClass('saving');
-    }
-
-    function showResponse(responseText, statusText)  {
-        $("#css-edit button").removeClass('saving');
-        popupMessage($("#css-edit-result div.onyx-messages"));
-        <!-- BEGIN: refresh_opener -->
-        refreshOpener('{GET.orig}', {GET.id});
-        <!-- END: refresh_opener -->
-    } 
-
-    // Codemirror
-    var code_mirror_options = {
-        viewportMargin: Infinity,
-        keyMap: "sublime"
-    }
-    var editor = CodeMirror.fromTextArea(document.getElementById('code-css'), code_mirror_options);
-
+    // TODO: not working as intended?
     // Media Libary
     $("#media-gallery-button").click(function() {
         showModalOverlay();
@@ -97,16 +91,6 @@ $(document).ready(function() {
 
     // Color Picker
     $('#colour-picker-button').ColorPicker();
-
-    // ajax form
-    var ajax_form_options = { 
-        target: '#css-edit-result',
-        beforeSubmit: preSubmit,
-        success: showResponse, 
-        url: '/request/bo/component/css_edit'
-    };
-    $('#css-edit').ajaxForm(ajax_form_options);
-
 });
 </script>
 

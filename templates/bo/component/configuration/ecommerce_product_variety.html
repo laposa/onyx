@@ -1,7 +1,7 @@
 <!-- BEGIN: title -->Ecommerce Product Variety Configuration<!-- END: title -->
 <!-- BEGIN: content -->
 {MESSAGES}
-<form action="{URI|htmlspecialchars}" method="post">
+<form hx-post="{URI|htmlspecialchars}" hx-on::after-request="popupMessage('div.onyx-messages');">
 
     <fieldset>
         <legend>Ecommerce Product Variety</legend>
@@ -14,7 +14,8 @@
         <span class="label"><label>&nbsp;</label></span>
         <span class="field"><button class="save" type="submit" name="save" value="save"><span>Save</span></button></span>
     </div>
-<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+
+    <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
             
 <!-- END: content -->

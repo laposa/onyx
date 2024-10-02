@@ -1,22 +1,10 @@
 <!-- BEGIN: content -->
 <script type="text/javascript"> 
-    function initForm() {
-        var options = { 
-            target: '#file-add-result',   // target element(s) to be updated with server response 
-            beforeSubmit:  function() {$("#file-add .add-button").addClass("saving")}, 
-            success: showResponse
-        }; 
+function beforeSubmit() {
+    $("#file-add .add-button").addClass("saving")
+}
 
-        $('#file-add').ajaxForm(options);
-    }
-    
-    // wait for the DOM to be loaded 
-    $(document).ready(function() { 
-        initForm();
-    });
- 
-// post-submit callback 
-function showResponse(responseText, statusText)  { 
+function showResponse()  { 
     var result_message = $("#file-add-result div.onyx-messages").html();
     growlMessage(result_message);
     $("#file-add .add-button span").removeClass("saving");
@@ -26,34 +14,11 @@ function showResponse(responseText, statusText)  {
         hideModalOverlay();
     }
 }
-
-/**
- * link_to_node_id browse site
- */
-    
-$('a.button.link-to-node-id').click(function() {
-    var file_id = $(this).attr('data-file-id');
-    $('#link-to-node-id-ajax-' + file_id).addClass('ajax-load').load('/request/component/menu_js~id=0:expand_all=1:publish=0~', function() {
-        $('#link-to-node-id-ajax-' + file_id).removeClass('ajax-load');
-        $('#link-to-node-id-ajax-' + file_id + ' .simple-tree').simpleTree({
-            drag: false,
-            autoclose: true,
-            afterClick:function(node){
-                var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
-                $('#file-link-to-node-id-' + file_id).attr('value', node_id);
-            },
-            animate: true,
-            docToFolderConvert: true
-        });
-    });
-    return false;
-});
-    
 </script> 
 
 {MESSAGES}
 
-<form action="{URI|htmlspecialchars}" method="post" name="file-add" id="file-add">
+<form hx-post="{URI|htmlspecialchars}" name="file-add" id="file-add" hx-on::after-request="showResponse()" hx-on::before-request="beforeSubmit()">
 
     <fieldset id="add-to-node" class="file-item-form">
 

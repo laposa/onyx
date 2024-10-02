@@ -126,7 +126,7 @@ class Onyx_Db {
             foreach ($this->_public_attributes as $key => $value) {
                 if (key_exists($key, $data)) {
                     $this->set($key, $data[$key]);
-                } elseif (key_exists($key, $this->_metaData) && $this->_metaData[$key]['required'] == true) {
+                } elseif (is_array($this->_metaData) && key_exists($key, $this->_metaData) && $this->_metaData[$key]['required'] == true) {
                     msg("{$this->_class_name} key $key is required, but not set", 'error', ONYX_MODEL_STRICT_VALIDATION ? 1 : 2);
                     if (ONYX_MODEL_STRICT_VALIDATION) $this->setValid($key, false);
                 }

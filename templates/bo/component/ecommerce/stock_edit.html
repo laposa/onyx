@@ -2,16 +2,12 @@
 
 {MESSAGES}
 
-<script type="text/javascript">
-$(function() {
-    $('#sub-content form').ajaxForm({target: '#sub-content', complete: function() {
-        makeAjaxRequest('#sub-content', '/request/bo/component/ecommerce/stock');
-    }}); 
-});
-</script>
+<!-- TODO cannot create/add new stock? -->
 
-<form method="post" action="{URI|htmlspecialchars}">
-        
+<form 
+    hx-post="{URI|htmlspecialchars}" 
+    hx-on::after-request="popupMessage('div.onyx-messages');makeAjaxRequest('#sub-content', '/request/bo/component/ecommerce/stock')"
+>
     <fieldset class="single">
         <legend>{PRODUCT.name} - {PRODUCT.variety.name}</legend>
 
@@ -30,7 +26,8 @@ $(function() {
     </fieldset>
     
     <p class="extended-toolbar">
-        <a class="button show-advanced-settings" href="#"><span>Show Advanced Settings</span></a>
+        <!-- TODO not working? -->
+        <button class="secondary show-advanced-settings">Show Advanced Settings</button>
     </p>
                                 
     <div id="variety-more-details" class="advanced">
@@ -86,7 +83,7 @@ $(function() {
 
     </script>
 
-<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+    <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
 
 <!-- END: content -->

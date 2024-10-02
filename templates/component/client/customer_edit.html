@@ -1,24 +1,9 @@
+<!-- DEPRECATED -->
 <!-- BEGIN: content -->
 <style type="text/css">
 div.customer-detail th {text-align: right;}
 div.customer-detail span.label {width: 100px;}
 </style>
-
-<script type="text/javascript">
-$(function() {
-    
-    var options = { 
-        target: '#customer-detail-container',
-        success: function(responseText, statusText) {
-            popupMessage("#customer-detail-container div.onyx-messages");
-            makeAjaxRequest('#customer-detail-container', '/request/component/client/customer_detail');
-        }
-    }; 
-
-    $('#customer-edit-form').ajaxForm(options); 
-});
-</script>
-
 {MESSAGES}
 <div class="customer-edit">
     <h3>{I18N_R_PERSONAL_DETAILS}</h3>
@@ -49,8 +34,7 @@ $(function() {
         <div class="row submit">
             <span class="field"><button class="button save" type="submit" name="save" value="save" title="Click to save your records"><span>{I18N_SAVE}</span></button> or <a href="#customer-detail-container" onclick="makeAjaxRequest('#customer-detail-container', '/request/component/client/customer_detail'); return false;"><span>Cancel</span></a></span>
         </div>
-    <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
-</form>
-    
+        <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+    </form>
 </div>
 <!-- END: content -->

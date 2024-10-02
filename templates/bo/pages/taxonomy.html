@@ -32,7 +32,7 @@ function initialiseMenuTaxonomyTree() {
     });
 }
 
-function refreshList() {
+function refreshTaxonomyList() {
     $('#taxonomy-tree-menu').load('/request/bo/component/taxonomy_menu~expand_all=1:publish=0~', function() {initialiseMenuTaxonomyTree()});
 }
 
@@ -44,15 +44,7 @@ function initialiseTaxonomyAddButton() {
         var url = '/request/bo/component/taxonomy_add~parent=' + node_id + '~';
 
         $('#onyx-dialog').addClass('ajax-load').load(url, '', function() {
-                        
-            $('#onyx-dialog form.taxonomy-add').ajaxForm({ 
-                target: '#onyx-dialog form.taxonomy-add',
-                success: function(responseText, statusText) {
-                    popupMessage("#onyx-dialog form.taxonomy-add div.onyx-messages");
-                    refreshList();
-                    $('#onyx-dialog').empty().dialog('close');
-                }
-            });
+            htmx.process('#onyx-dialog');
         });
         $('#onyx-dialog').dialog({title: 'Add New Taxonomy Item', width: 500, modal: true, overlay: {opacity: 0.5, background: 'black'}});
         $('#onyx-dialog').dialog('open');

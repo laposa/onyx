@@ -313,6 +313,7 @@ CREATE TABLE common_file (
     
         $upload_file = $file['tmp_name'];
         $safe_filename = $this->nameToSafe($file['name']);
+        $tmp_file = ONYX_PROJECT_DIR . "var/tmp/" . $safe_filename;
         $save_file = $save_dir . $safe_filename;
         $save_file_full = ONYX_PROJECT_DIR . $save_file;
         $save_dir_full = ONYX_PROJECT_DIR . $save_dir;
@@ -334,11 +335,12 @@ CREATE TABLE common_file (
                 
                 msg("File '$save_file_full' already exists and is being overwritten", 'error', 1);
                 msg("Saving as $save_file", 'ok', 2);
+
+                if (!file_exists(ONYX_PROJECT_DIR . "var/tmp/")) mkdir(ONYX_PROJECT_DIR . "var/tmp/");
                 
-                if (copy($upload_file, ONYX_PROJECT_DIR . $save_file)) {
-                
+                if (copy($upload_file, $tmp_file)) {
                     //array type for result (indicates overwrite)
-                    $result = array( 'filename'=> $safe_filename, 'save_dir'=> $save_dir, "temp_file"=>$save_file);
+                    $result = array( 'filename'=> $safe_filename, 'save_dir'=> $save_dir, "temp_file"=>$tmp_file);
                     return $result;
                 
                 } else {
@@ -490,7 +492,7 @@ CREATE TABLE common_file (
         $src_file_full = ONYX_PROJECT_DIR . $temp_file;
         $save_file_full = ONYX_PROJECT_DIR . $save_dir . $filename;
 
-        if (copy($src_file_full, $save_file_full)) {
+        if (copy($temp_file, $save_file_full)) {
             if (is_readable($save_file_full)) return true;
             else return false;
         } else {

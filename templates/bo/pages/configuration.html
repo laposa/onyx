@@ -12,63 +12,61 @@ $(document).ready(function(){
             return false;
         }
     });
-    
-    //initComponentAjaxForm('#component_configuration');
-
 });
 
 function serverBrowserOpenDir(open_dir) {
-    makeAjaxRequestWithForm('#component-configuration', '/request/bo/component/configuration/' + open_dir);
+    makeAjaxRequest('#component-configuration', '/request/bo/component/configuration/' + open_dir, '', function() {
+        htmx.process('#component-configuration');
+    });
 }
 
 </script>
 
 <div class="two-column-page page sidebar">
-        <div class="page-wrapper">
+    <div class="page-wrapper">
 
-            <div class="page-header">
-                <div class="page-header-wrapper">
-                    <h1 class="page-title"><span>Advanced Configuration</span></h1>
-                </div>
+        <div class="page-header">
+            <div class="page-header-wrapper">
+                <h1 class="page-title"><span>Advanced Configuration</span></h1>
             </div>
+        </div>
 
-            <div class="page-content">
-                <div class="page-content-wrapper">
-                    <div class="row-top">
-                        <div class="row-wrapper">
-                            <div class="column-wrapper">
+        <div class="page-content">
+            <div class="page-content-wrapper">
+                <div class="row-top">
+                    <div class="row-wrapper">
+                        <div class="column-wrapper">
 
-                                <div class="column-one page">
-                                    <div class="column-wrapper page">
-                                        <div id="model-tree">
-                                            <h3><a href="?object=global"><span>Configuration groups</span></a></h3>
-                                            {ONYX_REQUEST_menu #bo/component/server_browser_menu~directory=templates/bo/component/configuration/:scope=all:trim_extension=1~}
-                                        </div>
+                            <div class="column-one page">
+                                <div class="column-wrapper page">
+                                    <div id="model-tree">
+                                        <h3><a href="?object=global"><span>Configuration groups</span></a></h3>
+                                        {ONYX_REQUEST_menu #bo/component/server_browser_menu~directory=templates/bo/component/configuration/:scope=all:trim_extension=1~}
                                     </div>
                                 </div>
-                                <div class="column-two page">
-                                    <div class="column-wrapper page" id="component-configuration">
-                                        {ONYX_REQUEST_conf #bo/component/configuration}
-                                    </div>
+                            </div>
+                            <div class="column-two page">
+                                <div class="column-wrapper page" id="component-configuration">
+                                    {ONYX_REQUEST_conf #bo/component/configuration}
                                 </div>
+                            </div>
 
-                                <div class="row-bottom">
-                                    <div class="row-wrapper">
-                                        <div class="column-wrapper">
+                            <div class="row-bottom">
+                                <div class="row-wrapper">
+                                    <div class="column-wrapper">
 
-                                            <p>
-                                            </p>
+                                        <p></p>
 
-                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
+
             </div>
         </div>
+    </div>
 </div>
 
 <!-- END: content -->

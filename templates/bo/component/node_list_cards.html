@@ -41,7 +41,7 @@
                                 <div class="content-pods__item--actions onyx-edit-page">
                                     <button class="onyx-edit" title="Edit {CHILD.title}" onclick="openEdit('/popup/properties/{CHILD.id}/orig' + window.location.pathname)"></button>
                                     <button class="onyx-duplicate" title="Duplicate {CHILD.title}" onclick="duplicateNode('{CHILD.id}', '{CHILD.parent}', '{CHILD.node_group}')"></button>
-                                    <button class="onyx-delete" title="Delete {CHILD.title}" onclick="deleteNode('{CHILD.id}')"></button>
+                                    <button class="onyx-delete" title="Delete {CHILD.title}" onclick="deleteNode(event, '{CHILD.id}')"></button>
                                 </div> 
                             </div>
                         </a>
@@ -69,7 +69,7 @@
     <!-- BEGIN: empty -->
     <p>This node contains no children of content type</p>
     <!-- END: empty -->
-    <p><button class="button add" title="Add Content"  onclick="addNode('{GET.id}', '{NODE_GROUP}', 'content')">Add Content</button></p>
+    <p><button class="button add" title="Add Content"  onclick="addNode(event, '{GET.id}', '{NODE_GROUP}', 'content')">Add Content</button></p>
 </div>
 
 <!-- END: content -->

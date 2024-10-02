@@ -2,7 +2,7 @@
 <!-- BEGIN: content -->
 {MESSAGES}
 <!--
-<form action="{URI|htmlspecialchars}" method="post">
+<form hx-post="{URI|htmlspecialchars}" hx-on::after-request="popupMessage('div.onyx-messages');">
 
     <fieldset>
         <legend>Thumbnails</legend>

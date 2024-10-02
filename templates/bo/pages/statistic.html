@@ -1,101 +1,67 @@
 <!-- BEGIN: title -->Reports<!-- END: title -->
 <!-- BEGIN: content -->
-
-<script type="text/javascript">
-$(function() {
-    var options = {
-        url: '/request/bo/component/ecommerce/orders_graph',
-        target: '#orders-graph',
-        beforeSubmit: function () {
-            $("#orders-graph").html(onyx_load_indicator_html_snippet)
-        },
-        success: function(responseText, statusText) {
-            popupMessage("#orders-graph div.onyx-messages");
-            $('#orders-graph form').ajaxForm(options);
-        }
-    }; 
-
-    $('#orders-graph form').ajaxForm(options);
-    
-    var options1 = {
-        url: '/request/bo/component/ecommerce/reports_filter',
-        target: '#reports-filter',
-        success: function(responseText, statusText) {
-            popupMessage("#reports-filter div.onyx-messages");
-            $('#reports-filter form').ajaxForm(options1);
-            makeAjaxRequest('#orders-breakdown', '/request/bo/component/ecommerce/orders_breakdown');
-            makeAjaxRequest('#sales-report', '/request/bo/component/ecommerce/sales_report');
-            makeAjaxRequest('#promotion-report', '/request/bo/component/ecommerce/promotion_list_report');
-        }
-    }; 
-
-    $('#reports-filter form').ajaxForm(options1);
-
-});
-</script>
-
 <div id="reports-page" class="two-column-page page">
-        <div class="page-wrapper">
+    <div class="page-wrapper">
 
-            <div class="page-header">
-                <div class="page-header-wrapper">
-                    <h1 class="page-title"><span>Reports</span></h1>
-                </div>
+        <div class="page-header">
+            <div class="page-header-wrapper">
+                <h1 class="page-title"><span>Reports</span></h1>
             </div>
+        </div>
 
-            <div class="page-content">
-                <div class="page-content-wrapper">
-                    <div class="row-top">
-                        <div class="row-wrapper">
+        <div class="page-content">
+            <div class="page-content-wrapper">
+                <div class="row-top">
+                    <div class="row-wrapper">
+                        <div class="column-wrapper">
+
+                            <div id="reports-filter" class="horizontal-filter">
+                                {ONYX_REQUEST_reports_filter #bo/component/ecommerce/reports_filter}
+                            </div>
+
+                            <div id="orders-breakdown">
+                                {ONYX_REQUEST_breakdown #bo/component/ecommerce/orders_breakdown}
+                            </div>
+                            
+                            <div id="sales-report" style="display: none;">
+                                {ONYX_REQUEST_bestbuys #bo/component/ecommerce/sales_report}
+                            </div>
+
+                            <div id="promotion-report" style="display: none;">
+                                {ONYX_REQUEST_promotion_report #bo/component/ecommerce/promotion_list_report}
+                            </div>
+                            
+                            <div id="orders-graph">
+                                {ONYX_REQUEST_graph #bo/component/ecommerce/orders_graph}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="row-middle">
+                    <div class="row-wrapper">
+                        <div class="column-one">
                             <div class="column-wrapper">
-
-                                <div id="reports-filter" class="horizontal-filter">
-                                    {ONYX_REQUEST_reports_filter #bo/component/ecommerce/reports_filter}
-                                </div>
-
-                                <div id="orders-breakdown">
-                                    {ONYX_REQUEST_breakdown #bo/component/ecommerce/orders_breakdown}
-                                </div>
-                                
-                                <div id="sales-report" style="display: none;">
-                                    {ONYX_REQUEST_bestbuys #bo/component/ecommerce/sales_report}
-                                </div>
-
-                                <div id="promotion-report" style="display: none;">
-                                    {ONYX_REQUEST_promotion_report #bo/component/ecommerce/promotion_list_report}
-                                </div>
-                                
-                                <div id="orders-graph">
-                                    {ONYX_REQUEST_graph #bo/component/ecommerce/orders_graph}
-                                </div>
-
+                            </div>
+                        </div>
+                        <div class="column-two">
+                            <div class="column-wrapper">
                             </div>
                         </div>
                     </div>
-                    <div class="row-middle">
-                        <div class="row-wrapper">
-                            <div class="column-one">
-                                <div class="column-wrapper">
-                                </div>
-                            </div>
-                            <div class="column-two">
-                                <div class="column-wrapper">
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row-bottom">
-                        <div class="row-wrapper">
-                            <div class="column-wrapper">
-                                <p>
-                                    <a class="button" href="#sales_report" onclick="$('#sales-report').show(); scrollToElement('#sales-report'); return false;"><span>Show Itemised Sales Report</span></a>
-                                    <a class="button" href="#promotion_report" onclick="$('#promotion-report').show(); scrollToElement('#promotion-report'); return false;"><span>Show Itemised Promotion Report</span></a>
-                                </p>
-                            </div>
+                </div>
+                <div class="row-bottom">
+                    <div class="row-wrapper">
+                        <div class="column-wrapper">
+                            <p>
+                                <a class="button" href="#sales_report" onclick="$('#sales-report').show(); scrollToElement('#sales-report'); return false;"><span>Show Itemised Sales Report</span></a>
+                                <a class="button" href="#promotion_report" onclick="$('#promotion-report').show(); scrollToElement('#promotion-report'); return false;"><span>Show Itemised Promotion Report</span></a>
+                            </p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 </div>
 <!-- END: content -->

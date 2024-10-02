@@ -1,22 +1,8 @@
 <!-- BEGIN: content -->
 <script type="text/javascript"> 
-    function initForm() {
-        var options = { 
-            target: '#file-replace-result',   // target element(s) to be updated with server response 
-            beforeSubmit:  function() {$("#file-replace .replace-button").addClass("saving")}, 
-            success: showResponse
-        }; 
-
-        $('#file-replace').ajaxForm(options);
-    }
-    
-    // wait for the DOM to be loaded 
-    $(document).ready(function() { 
-        initForm();
-    });
  
 // post-submit callback 
-function showResponse(responseText, statusText)  { 
+function afterFileReplaceRequest()  { 
     var result_message = $("#file-replace-result div.onyx-messages").html();
     growlMessage(result_message);
     $("#file-replace .replace-button span").removeClass("saving");
@@ -30,8 +16,7 @@ function showResponse(responseText, statusText)  {
 </script> 
 
 {MESSAGES}
-
-<form action="{URI|htmlspecialchars}" method="post" name="file-replace" id="file-replace">
+<form hx-post="{URI|htmlspecialchars}" id="file-replace" hx-target="#file-replace-result" hx-on::after-request="afterFileReplaceRequest()">
     <fieldset id="replace-file-in-node" class="file-item-form">
 
         <legend>File to replace</legend>
@@ -63,7 +48,7 @@ function showResponse(responseText, statusText)  {
 
     </fieldset>
 
-<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+    <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
 
 <div id="file-replace-result" style="display: none"></div>
