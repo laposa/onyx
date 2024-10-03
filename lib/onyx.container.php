@@ -19,9 +19,14 @@ class Onyx_Container {
     /**
      * Prevent from creating the class manually
      */
+    /*
+     * disabled as it's showing warning in PHP8
+     * Warning: The magic method Onyx_Container::__wakeup() must have public visibility in /var/www/vendor/laposa/onyx/lib/onyx.container.php on line 24
+     *
     protected function __construct() { }
     protected function __clone() { }
     protected function __wakeup() { }
+    */
 
     /**
      * Onyx_Container singleton constructor

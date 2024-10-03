@@ -569,7 +569,7 @@ class Onyx_Bootstrap {
 
         //only when not logged in backoffice
         if (!Onyx_Bo_Authentication::getInstance()->isAuthenticated()) {
-            if ($_SESSION['client']['customer']['id'] > 0) {
+            if (array_key_exists('client', $_SESSION) && $_SESSION['client']['customer']['id'] > 0) {
                 $content = preg_replace("/{{customer.first_name}}/", htmlspecialchars($_SESSION['client']['customer']['first_name']), $content);
             } else {
                 //assign empty string
