@@ -890,7 +890,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
 
     function getFullPath($id) {
     
-        if (!is_numeric($id)) return false;
+        if (!is_numeric($id)) return [];
 
         $result = array((int) $id);
         $parent_id = $this->getParentNodeId($id);
@@ -912,7 +912,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
      
     function getFullPathDetail($id) {
     
-        if (!is_numeric($id)) return false;
+        if (!is_numeric($id)) return [];
         
         msg("Calling getFullPathDetail($id)", 'error', 2);
         
