@@ -22,7 +22,7 @@ class Onyx_Controller_Bo_Component_Ecommerce_Offer_Group_Edit extends Onyx_Contr
 
         $offer_group_id = (int) $this->GET['offer_group_id'];
 
-        if ($_POST['save']) {
+        if ($_POST['save'] ?? false) {
 
             $_POST['offer_group']['schedule_start'] = $this->dateAndTimeToFull($_POST['offer_group']['start_date'], $_POST['offer_group']['start_time']);
             $_POST['offer_group']['schedule_end'] = $this->dateAndTimeToFull($_POST['offer_group']['end_date'], $_POST['offer_group']['end_time']);

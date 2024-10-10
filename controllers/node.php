@@ -222,28 +222,38 @@ class Onyx_Controller_Node extends Onyx_Controller {
         if (Onyx_Bo_Authentication::getInstance()->isAuthenticated()) $show_fe_edit = true;
         if (array_key_exists('disable_fe_edit', $this->GET) && $this->GET['disable_fe_edit'] == true) $show_fe_edit = false;
 
-        if ($show_fe_edit == true) {
+        if ($show_fe_edit == true && isset($_SESSION['fe_edit_mode']) && $_SESSION['fe_edit_mode'] == 'edit') {
 
-            if ($node_data['node_group'] == 'variable' && $_SESSION['fe_edit_mode'] == 'edit') {
-                $this->tpl->parse('content.wrapper.variable_edit');
-            } else if ($node_data['node_group'] == 'content' && $_SESSION['fe_edit_mode'] == 'edit') {
-                if ($node_data['node_controller'] == 'shared')  {
-                    $this->tpl->assign("SOURCE", $source);
-                    $this->tpl->parse('content.wrapper.fe_edit.edit_source');
-                }
-                $this->tpl->parse('content.wrapper.fe_edit');
-            } else if ($node_data['node_group'] == 'layout' && $_SESSION['fe_edit_mode'] == 'edit') {
-                if ($node_data['node_controller'] == 'shared')  {
-                    $this->tpl->parse('content.wrapper.fe_layout_property.edit_shared');
-                }
-                $this->tpl->parse('content.wrapper.fe_layout_property');
-                //$this->tpl->parse('content.wrapper.layout_add');
-            } else if ($node_data['node_group'] == 'page' && $_SESSION['fe_edit_mode'] == 'edit') {
-                $this->tpl->parse('content.wrapper.fe_page_properties');
+            switch($node_data['node_group']) {
+                case 'variable':
+                    $this->tpl->parse('content.wrapper.variable_edit');
+                    break;
+
+                case 'content':
+                    if ($node_data['node_controller'] == 'shared')  {
+                        $this->tpl->assign("SOURCE", $source);
+                        $this->tpl->parse('content.wrapper.fe_edit.edit_source');
+                    }
+                    $this->tpl->parse('content.wrapper.fe_edit');
+                    break;
+
+                case 'layout':
+                    if ($node_data['node_controller'] == 'shared')  {
+                        $this->tpl->parse('content.wrapper.fe_layout_property.edit_shared');
+                    }
+                    $this->tpl->parse('content.wrapper.fe_layout_property');
+                    break;
+
+                case 'page':
+                    $this->tpl->parse('content.wrapper.fe_page_properties');
+                    break;
+
+                default:
+                    break;
             }
 
             // show extra wrappers when in edit or sorting mode
-            if ($_SESSION['fe_edit_mode'] == 'edit' || $_SESSION['fe_edit_mode'] == 'move') {
+            if (isset($_SESSION['fe_edit_mode']) && ($_SESSION['fe_edit_mode'] == 'edit' || $_SESSION['fe_edit_mode'] == 'move')) {
 
                 // node_group variable doesn't have any wrapper
                 if ($node_data['node_group'] !== 'variable') {
@@ -269,7 +279,7 @@ class Onyx_Controller_Node extends Onyx_Controller {
 
         $visibility = false;
         //force visibility for admin, only when in edit or preview mode
-        if ($_SESSION['fe_edit_mode'] == 'edit' || $_SESSION['fe_edit_mode'] == 'move') $force_admin_visibility = true;
+        if (isset($_SESSION['fe_edit_mode']) && ($_SESSION['fe_edit_mode'] == 'edit' || $_SESSION['fe_edit_mode'] == 'move')) $force_admin_visibility = true;
         else $force_admin_visibility = false;
 
         /**

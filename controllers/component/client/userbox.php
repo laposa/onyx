@@ -28,7 +28,7 @@ class Onyx_Controller_Component_Client_Userbox extends Onyx_Controller {
          * Display
          */
          
-        if ($_SESSION['client']['customer']['id'] > 0 && is_numeric($_SESSION['client']['customer']['id'])) {
+        if (isset($_SESSION['client']['customer']['id']) && $_SESSION['client']['customer']['id'] > 0 && is_numeric($_SESSION['client']['customer']['id'])) {
             $customer_detail = $Customer->getDetail($_SESSION['client']['customer']['id']);
             $this->tpl->assign('CUSTOMER', $customer_detail);
             $this->tpl->parse('content.customer');

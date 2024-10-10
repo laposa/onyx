@@ -23,7 +23,7 @@ class Onyx_Controller_Bo_Component_Ecommerce_Product_Add_Quick extends Onyx_Cont
     
         $this->tpl->assign("VARIETY_CONF", $Product_variety->conf);
     
-        if ($_POST['save']) {
+        if ($_POST['save'] ?? false) {
 
             $product_data = $_POST['product'];
             

@@ -85,7 +85,7 @@ CREATE TABLE ecommerce_price (
         
         if (!array_key_exists('allow_multiplicator', $conf)) $conf['allow_multiplicator'] = 0;//disabled multiplicator functionality by default
         if (!array_key_exists('multiplicator_growth', $conf)) $conf['multiplicator_growth'] = 'linear';//linear or exponential_over_1
-        if ($conf['multiplicator_exponent'] > 0) $conf['multiplicator_exponent'] = (float) $conf['multiplicator_exponent'];
+        if (isset($conf['multiplicator_exponent']) && $conf['multiplicator_exponent'] > 0) $conf['multiplicator_exponent'] = (float) $conf['multiplicator_exponent'];
         else $conf['multiplicator_exponent'] = 2; // exponential growth is 2 by default
         
         return $conf;

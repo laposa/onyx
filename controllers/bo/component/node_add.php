@@ -26,13 +26,13 @@ class Onyx_Controller_Bo_Component_Node_Add extends Onyx_Controller {
 
         require_once('models/common/common_node.php');
         
-        $node_data = $_POST['node'];
+        $node_data = $_POST['node'] ?? null;
         $position = $_POST['position'] ?? null;
         
         $Node = new common_node();
 
         
-        if ($_POST['save']) {
+        if ($_POST['save'] ?? false) {
             //$parent_data = $Node->getDetail($this->GET['parent']);
 
             if ($node_data['parent'] == $Node->conf['id_map-homepage'] && $node_data['node_group'] == 'page') {
@@ -71,9 +71,9 @@ class Onyx_Controller_Bo_Component_Node_Add extends Onyx_Controller {
          * prepare
          */
          
-        $node_controller = $node_data['node_controller'];
-        $node_group = $this->GET['node_group'];
-        $only_group = $this->GET['only_group'];
+        $node_controller = $node_data['node_controller'] ?? '';
+        $node_group = $this->GET['node_group'] ?? '';
+        $only_group = $this->GET['only_group'] ?? '';
 
         if ($only_group) $node_group = $only_group;
         if ($node_group == 'container') $node_group = 'page';

@@ -14,7 +14,7 @@ class Onyx_Controller_Bo_Backoffice extends Onyx_Controller {
     public function mainAction() {
     
         //force SSL
-        if (!$_SERVER['HTTPS'] && ONYX_EDITOR_USE_SSL) {
+        if ((!isset($_SERVER['HTTPS']) || !$_SERVER['HTTPS']) && ONYX_EDITOR_USE_SSL) {
             header("Location: https://{$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}");
         }
 

@@ -74,7 +74,7 @@ class Onyx_Controller {
         $this->GET = $_GET;
 
         // make current and parent page ID easily available
-        if (is_array($_SESSION)) {
+        if (is_array($_SESSION ?? null)) {
             if (array_key_exists('active_pages', $_SESSION)) {
                 if (count($_SESSION['active_pages']) > 0) $this->page_id = $_SESSION['active_pages'][0];
                 if (count($_SESSION['active_pages']) > 1) $this->parent_page_id = $_SESSION['active_pages'][1];
@@ -298,14 +298,14 @@ class Onyx_Controller {
                 preg_match_all('/GET\.([^\&~:]*)[\&]*/', $xrequest, $m);
 
                 foreach ($m[0] as $k => $v) {
-                    $xrequest = str_replace("{$v}", $this->GET[$m[1][$k]], $xrequest);
+                    $xrequest = str_replace("{$v}", $this->GET[$m[1][$k]] ?? '', $xrequest);
                 }
 
                 $_xrequest = new Onyx_Request($xrequest);
 
                 //because of stupid parseContentTagsAfter(), we have to check if it isn't already assigned
-                if ($this->tpl->vars["ONYX_REQUEST_{$matches[1][$key]}"] == '') {
-                    $this->tpl->assign("ONYX_REQUEST_{$matches[1][$key]}", trim($_xrequest->getContent()));
+                if (!isset($this->tpl->vars["ONYX_REQUEST_{$matches[1][$key]}"]) || $this->tpl->vars["ONYX_REQUEST_{$matches[1][$key]}"] == '') {
+                    $this->tpl->assign("ONYX_REQUEST_{$matches[1][$key]}", $_xrequest->getContent() ? trim($_xrequest->getContent()) : '');
                 }
             }
         }
@@ -525,7 +525,7 @@ class Onyx_Controller {
      */
     public function _parseMessages()
     {
-        if (array_key_exists('messages', $_SESSION) && $_SESSION['messages'] != '') {
+        if (isset($_SESSION['messages']) && $_SESSION['messages'] != '') {
             if ($this->checkTemplateVariableExists('MESSAGES')) {
                 $messages = '<div class="onyx-messages" role="alert">' . $_SESSION['messages'] . '</div>';
 
@@ -594,13 +594,13 @@ class Onyx_Controller {
         $this->tpl->assign('URI', $uri);
         $this->tpl->assign('URI_SAFE', $uri); // deprecated
         $this->tpl->assign('BASE_URI', "$protocol://{$_SERVER['SERVER_NAME']}$port");
-        $this->tpl->assign('REQUEST_URI', "$protocol://{$_SERVER['SERVER_NAME']}$port{$_SERVER['SCRIPT_NAME']}?request={$_GET['request']}");
-        $this->tpl->assign('CONFIGURATION', $GLOBALS['onyx_conf']);
+        if (isset($_GET['request'])) $this->tpl->assign('REQUEST_URI', "$protocol://{$_SERVER['SERVER_NAME']}$port{$_SERVER['SCRIPT_NAME']}?request={$_GET['request']}");
+        if (isset($_GLOBALS['onyx_conf'])) $this->tpl->assign('CONFIGURATION', $GLOBALS['onyx_conf']);
         $this->tpl->assign('REGISTRY', $registry);
         $this->tpl->assign('CSRF_TOKEN', $registry['CSRF_TOKEN']);
 
         $this->tpl->assign('_SERVER', $_SERVER);
-        $this->tpl->assign('_SESSION', $_SESSION);
+        if(isset($_SESSION)) $this->tpl->assign('_SESSION', $_SESSION);
         $this->tpl->assign('_POST', $_POST);
         $this->tpl->assign('_GET', $_GET);
         $this->tpl->assign('_ENV', $_ENV);

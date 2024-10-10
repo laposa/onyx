@@ -13,21 +13,12 @@ class Onyx_Controller_Bo_Tinymce extends Onyx_Controller {
      
     public function mainAction() {
     
-        if ($this->GET['mode'] == '') $tinymce['mode'] = 'exact';
-        else $tinymce['mode'] = $this->GET['mode'];
-        
-        if ($this->GET['edit_elements'] == '') $tinymce['edit_elements'] = 'edit-content';
-        else $tinymce['edit_elements'] = $this->GET['edit_elements'];
-        
-        if ($this->GET['relation'] == '') $tinymce['relation'] = 'node';
-        else $tinymce['relation'] = $this->GET['relation'];
-        
-        if ($this->GET['role'] == '') $tinymce['role'] = 'RTE';
-        else $tinymce['role'] = $this->GET['role'];
-        
-        if ($this->GET['theme'] == '') $tinymce['theme'] = 'advanced';
-        else $tinymce['theme'] = $this->GET['theme'];
-        
+        $tinymce['mode'] = isset($this->GET['mode']) ? ($this->GET['mode'] == '' ? 'exact' : $this->GET['mode']) : '';
+        $tinymce['edit_elements'] = isset($this->GET['edit_elements']) ? ($this->GET['edit_elements'] == '' ? 'edit-content' : $this->GET['edit_elements']) : '';
+        $tinymce['relation'] = isset($this->GET['relation']) ? ($this->GET['relation'] == '' ? 'node' : $this->GET['relation']) : '';
+        $tinymce['role'] = isset($this->GET['role']) ? ($this->GET['role'] == '' ? 'RTE' : $this->GET['role']) : '';
+        $tinymce['theme'] = isset($this->GET['theme']) ? ($this->GET['theme'] == '' ? 'advanced' : $this->GET['theme']) : '';
+
         $this->tpl->assign('TINYMCE', $tinymce);
 
         return true;

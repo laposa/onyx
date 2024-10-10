@@ -7,12 +7,15 @@
 
 class Onyx_Controller_Component_Image extends Onyx_Controller {
 
+    public $Image;
+
     /**
      * main action
      */
      
     public function mainAction() {
-    
+        // TODO check if we need assignAndParseItem which cycles item list but we need only one, also there is undefined variable
+        // cannot check now due to unavailability to chose node type to add
         /**
          * INPUT options:
             node_id (mandatory)
@@ -55,13 +58,13 @@ class Onyx_Controller_Component_Image extends Onyx_Controller {
          * setting input variables
          */
     
-        if ($this->GET['relation']) $relation = preg_replace('/[^a-zA-Z_-]/', '', $this->GET['relation']);
+        if ($this->GET['relation'] ?? false) $relation = preg_replace('/[^a-zA-Z_-]/', '', $this->GET['relation']);
         else $relation = '';
         
-        if ($this->GET['role']) $role = preg_replace('/[^a-zA-Z_-]/', '', $this->GET['role']);
+        if ($this->GET['role'] ?? false) $role = preg_replace('/[^a-zA-Z_-]/', '', $this->GET['role']);
         else $role = false;
 
-        if (is_numeric($this->GET['node_id'])) {
+        if (is_numeric($this->GET['node_id'] ?? null)) {
         
             $node_id = $this->GET['node_id'];
         
@@ -72,9 +75,7 @@ class Onyx_Controller_Component_Image extends Onyx_Controller {
         
         }
 
-        if ($this->GET['limit']) $limit = $this->GET['limit'];
-        else $limit = "";
-        
+        $limit = $this->GET['limit'] ?? '';
         
         /**
          * creating image object
@@ -112,36 +113,45 @@ class Onyx_Controller_Component_Image extends Onyx_Controller {
     public function assignAndParse($image_list) {
         
         $img_path = $this->getImagePath();
+
+        $image_count = count($image_list);
         
-        /**
-         * set full width based on restrictions in Image->conf
-         */
-         
-        if ($this->Image->conf['width_max'] > 0 && is_numeric($this->Image->conf['width_max'])) $this->tpl->assign('FULL_SIZE_IMAGE_WIDTH_PATH', "/thumbnail/{$this->Image->conf['width_max']}/");
-        else $this->tpl->assign('FULL_SIZE_IMAGE_WIDTH_PATH', "/image/");
+        $this->tpl->assign('IMAGE_COUNT', $image_count);
         
-        /**
-         * save first image in template variable as helper for a placeholder
-         */
-         
-        $this->tpl->assign('FIRST_IMAGE', $image_list[0]);
+        if ($image_count > 1) {
         
-        /**
-         * assign & parse each item to template
-         */
-         
-        foreach ($image_list as $k=>$item) {
+            /**
+             * set full width based on restrictions in Image->conf
+             */
             
-            if ($k == 0) $this->tpl->assign('FIRST_LAST', 'first');
-            else if ($k == ($image_count - 1)) $this->tpl->assign('FIRST_LAST', 'last');
-            else $this->tpl->assign('FIRST_LAST', '');
+            if (isset($this->Image->conf['width_max']) && $this->Image->conf['width_max'] > 0 && is_numeric($this->Image->conf['width_max'])) $this->tpl->assign('FULL_SIZE_IMAGE_WIDTH_PATH', "/thumbnail/{$this->Image->conf['width_max']}/");
+            else $this->tpl->assign('FULL_SIZE_IMAGE_WIDTH_PATH', "/image/");
+            
+            /**
+             * save first image in template variable as helper for a placeholder
+             */
+            
+            if(isset($image_list[0])) {
+                $this->tpl->assign('FIRST_IMAGE', $image_list[0]);
+            }
+            
+            /**
+             * assign & parse each item to template
+             */
+            
+            foreach ($image_list as $k=>$item) {
                 
-            $item['path'] = $image_list[$k]['path'] = $img_path;
-            
-            $this->tpl->assign('INDEX', $k);
-            
-            $this->assignAndParseItem($item);
-            
+                if ($k == 0) $this->tpl->assign('FIRST_LAST', 'first');
+                else if ($k == ($image_count - 1)) $this->tpl->assign('FIRST_LAST', 'last');
+                else $this->tpl->assign('FIRST_LAST', '');
+                    
+                $item['path'] = $image_list[$k]['path'] = $img_path;
+                
+                $this->tpl->assign('INDEX', $k);
+                
+                $this->assignAndParseItem($item);
+                
+            }
         }
         
         return true;
@@ -213,14 +223,14 @@ class Onyx_Controller_Component_Image extends Onyx_Controller {
          * check requested width - for generating IMAGE_PATH
          */
          
-        if (is_numeric($this->GET['width'])) $width = $this->GET['width'];
+        if (is_numeric($this->GET['width'] ?? null)) $width = $this->GET['width'];
         else $width = 0;
         
         /**
          * check requested height
          */
          
-        if (is_numeric($this->GET['height']) && $this->GET['height'] > 0) $height = $this->GET['height'];
+        if (is_numeric($this->GET['height'] ?? null) && $this->GET['height'] > 0) $height = $this->GET['height'];
         else $height = 0;
         
         /**
@@ -237,9 +247,9 @@ class Onyx_Controller_Component_Image extends Onyx_Controller {
         
         $image_resize_options = array();
         
-        if ($this->GET['method']) $image_resize_options['method'] = $this->GET['method'];
-        if ($this->GET['gravity']) $image_resize_options['gravity'] = $this->GET['gravity'];
-        if ($this->GET['fill']) $image_resize_options['fill'] = $this->GET['fill'];
+        $image_resize_options['method'] = $this->GET['method'] ?? null;
+        $image_resize_options['gravity'] = $this->GET['gravity'] ?? null;
+        $image_resize_options['fill'] = $this->GET['fill'] ?? null;
         
         if (count($image_resize_options) > 0) $this->tpl->assign('IMAGE_RESIZE_OPTIONS', '?'.http_build_query($image_resize_options));
         

@@ -38,13 +38,13 @@ class Onyx_Controller_Component_Pagination extends Onyx_Controller {
         if ($this->GET['link'])  $link = $this->GET['link'];
         else $link = $_SERVER['REDIRECT_URL'];
 
-        if (is_numeric($this->GET['passthrough_get_parameters'])) $passthrough_get_parameters = $this->GET['passthrough_get_parameters'];
+        if (is_numeric($this->GET['passthrough_get_parameters'] ?? null)) $passthrough_get_parameters = $this->GET['passthrough_get_parameters'];
         else $passthrough_get_parameters = 0;
         
         // display options
-        if (is_numeric($this->GET['option_show_all'])) $option_show_all = $this->GET['option_show_all'];
+        if (is_numeric($this->GET['option_show_all'] ?? null)) $option_show_all = $this->GET['option_show_all'];
         else $option_show_all = 1;
-        if (is_numeric($this->GET['option_per_page'])) $option_per_page = $this->GET['option_per_page'];
+        if (is_numeric($this->GET['option_per_page'] ?? null)) $option_per_page = $this->GET['option_per_page'];
         else $option_per_page = 0;
         
         /**

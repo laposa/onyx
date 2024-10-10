@@ -17,7 +17,7 @@ class Onyx_Controller_Bo_Component_Ecommerce_Product_Type_Select extends Onyx_Co
          * input
          */
          
-        if (is_numeric($this->GET['product_variety_id'])) $product_variety_id = $this->GET['product_variety_id'];
+        if (is_numeric($this->GET['product_variety_id'] ?? null)) $product_variety_id = $this->GET['product_variety_id'];
         else $product_variety_id = false;
         
         /**
@@ -39,7 +39,7 @@ class Onyx_Controller_Bo_Component_Ecommerce_Product_Type_Select extends Onyx_Co
          * prepare product type id (either for requested product variety or default one)
          */
          
-        if (is_numeric($product_variety['product_type_id'])) $product_type_id = $product_variety['product_type_id'];
+        if (is_numeric($product_variety['product_type_id'] ?? null)) $product_type_id = $product_variety['product_type_id'];
         else $product_type_id = $ProductType->conf['default_id'];
         
         /**

@@ -24,7 +24,7 @@ class Onyx_Controller_Bo_Component_Client_Edit_Profile extends Onyx_Controller_B
                 return false;
         }
                 
-        if ($_POST['save']) {
+        if ($_POST['save'] ?? false) {
         
             $_POST['client']['customer']['id'] = $customer_id;
             

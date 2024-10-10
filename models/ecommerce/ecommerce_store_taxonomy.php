@@ -44,7 +44,7 @@ ALTER TABLE ONLY ecommerce_store_taxonomy ADD CONSTRAINT ecommerce_store_taxonom
         if (array_key_exists('ecommerce_store_taxonomy', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['ecommerce_store_taxonomy'];
         else $conf = array();
         
-        if (!is_numeric($conf['options_id'])) $conf['options_id'] = 2;
+        if (!isset($conf['options_id']) || !is_numeric($conf['options_id'])) $conf['options_id'] = 2;
         
         return $conf;
     }

@@ -27,7 +27,7 @@ class Onyx_Controller_Bo_Component_Ecommerce_Relation_Product_Related extends On
          * saving
          */
          
-        if (is_array($_POST['product_related'])) {
+        if (is_array($_POST['product_related'] ?? null)) {
         
             $current = $PtP->listing("product_id = $product_id");
         

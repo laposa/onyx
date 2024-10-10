@@ -21,7 +21,7 @@ class Onyx_Controller_Bo_Component_Ecommerce_Recipe_Add extends Onyx_Controller 
         $page_node_id = $recipe_data['page_node_id'];
         unset($recipe_data['page_node_id']);
 
-        if ($_POST['save']) {
+        if ($_POST['save'] ?? false) {
             if ($id = $Recipe->insertRecipe($recipe_data)) {
 
                 $recipe_homepage = $this->insertNewRecipeToNode($id, $page_node_id);

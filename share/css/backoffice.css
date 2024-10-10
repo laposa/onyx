@@ -803,7 +803,7 @@ caption, h3, h4 { font-family: "Lucida Grande", "Helvetica Neue", Helvetica, Ari
  
 a {color: black;}
 a.remove,
-a.delete {background-image: url(/share/images/famfamfam_icons/delete.png); padding-left: 20px; height: 20px; display: inline-block; color: red;}
+a.delete {padding-left: 20px; height: 20px; display: inline-block; color: #d74343;}
 a:active {color: #555;}
 a.button,
 button, button.secondary { background-color: white; border-radius: 3px; -webkit-border-radius: 3px; -moz-border-radius: 3px; text-indent: 0px; border: 1px solid #c7c5c7; display: inline-block; color: #757575; font-size: 12px; font-weight: bold; font-style: normal; height: 28px; line-height: 28px; text-decoration: none; text-align: center; padding: 0 20px; -webkit-transition: 0.3s ease-out; -moz-transition: 0.3s ease-out; -o-transition: 0.3s ease-out; transition: 0.3s ease-out;  white-space: nowrap; cursor: pointer; }

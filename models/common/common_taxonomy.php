@@ -11,6 +11,9 @@
  */
 
 class common_taxonomy {
+
+    public $TaxonomyLabel;
+    public $TaxonomyTree;
     
     /**
      * init

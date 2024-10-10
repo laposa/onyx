@@ -644,7 +644,7 @@ class Onyx_Bootstrap {
         // check if explicitly disabled
         if (isset($this->disable_page_cache) || ONYX_PAGE_CACHE_TTL == 0) {
             $use_page_cache = false;
-        } elseif (array_key_exists(ONYX_SESSION_NAME, $_COOKIE) || array_key_exists(ONYX_TOKEN_NAME, $_COOKIE) || $_COOKIE['identity_access_token']) {
+        } elseif (array_key_exists(ONYX_SESSION_NAME, $_COOKIE) || array_key_exists(ONYX_TOKEN_NAME, $_COOKIE) || (isset($_COOKIE['identity_access_token']) && $_COOKIE['identity_access_token'])) {
             $use_page_cache = false;
         } elseif (isset($_SERVER['PHP_AUTH_USER'])) {
             $use_page_cache = false;
@@ -653,14 +653,17 @@ class Onyx_Bootstrap {
             if (isset($_SESSION['use_page_cache'])) $use_page_cache = $_SESSION['use_page_cache'];
 
             // disable page cache for whole session after a user interaction and for backoffice users
-            if ($_SERVER['REQUEST_METHOD'] === 'POST' || Onyx_Bo_Authentication::getInstance()->isAuthenticated() || $_SESSION['client']['customer']['id'] > 0) $use_page_cache = false;
+            if ($_SERVER['REQUEST_METHOD'] === 'POST' || Onyx_Bo_Authentication::getInstance()->isAuthenticated() || (isset($_SESSION['client']['customer']['id']) && $_SESSION['client']['customer']['id'] > 0)) $use_page_cache = false;
 
             // TODO: allow to configure what _GET variables will disable page cache
             // disable page cache also when sorting and mode is submitted
             // component/ecommerce/product_list_sorting
             // or when preview_token is used, i.e. news article preview
-            if (is_array($_GET['sort']) || $_GET['product_list_mode'] ||
-                $_GET['preview_token'] || $_GET['preview_token'] || $_GET['nocache_session']) $use_page_cache = false;
+            if ((isset($_GET['sort']) && is_array($_GET['sort'])) 
+                || (isset($_GET['product_list_mode']) && $_GET['product_list_mode']) 
+                || (isset($_GET['preview_token']) && $_GET['preview_token']) 
+                || (isset($_GET['nocache_session']) && $_GET['nocache_session'])
+            ) $use_page_cache = false;
         }
 
         return $use_page_cache;
@@ -673,7 +676,7 @@ class Onyx_Bootstrap {
     {
         return !($this->container->has('controller_error')
             || $this->container->has('omit_cache')
-            || (is_array($_SESSION) && (array_key_exists('use_page_cache', $_SESSION) && $_SESSION['use_page_cache'] == false)));
+            || (isset($_SESSION) && is_array($_SESSION) && (array_key_exists('use_page_cache', $_SESSION) && $_SESSION['use_page_cache'] == false)));
     }
 
     /**

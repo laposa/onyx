@@ -75,6 +75,7 @@ class ecommerce_recipe extends Onyx_Model {
      * @access public
      */
     var $other_data;
+    var $_cache_recipe_in_node;
     
     var $_metaData = array(
         'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
@@ -129,7 +130,7 @@ CREATE TABLE ecommerce_recipe (
         if (array_key_exists('ecommerce_recipe', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['ecommerce_recipe'];
         else $conf = array();
         
-        if (!is_numeric($conf['taxonomy_tree_id'])) $conf['taxonomy_tree_id'] = 0; // set value to force getUsedTaxonomy using only this taxonomy parent
+        if (!isset($conf['taxonomy_tree_id']) || !is_numeric($conf['taxonomy_tree_id'])) $conf['taxonomy_tree_id'] = 0; // set value to force getUsedTaxonomy using only this taxonomy parent
         
         return $conf;
     }
@@ -203,7 +204,7 @@ CREATE TABLE ecommerce_recipe (
         $data['cooking_time'] = (int)$data['cooking_time'];
             
         // handle other_data
-        $data['other_data'] = serialize($data['other_data']);
+        $data['other_data'] = serialize($data['other_data'] ?? '');
 
         if ($id = $this->update($data)) {
         

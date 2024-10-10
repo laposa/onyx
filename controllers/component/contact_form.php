@@ -13,8 +13,8 @@ class Onyx_Controller_Component_Contact_Form extends Onyx_Controller {
     public function mainAction() {
         $this->enableReCaptcha = ONYX_RECAPTCHA_PUBLIC_KEY && ONYX_RECAPTCHA_PRIVATE_KEY;
 
-        $formdata = $this->preProcessEmailForm($_POST['formdata']);
-        if (is_array($formdata) && $_POST['node_id'] == $this->GET['node_id']) {
+        $formdata = isset($_POST['formdata']) ? $this->preProcessEmailForm($_POST['formdata']) : [];
+        if (is_array($formdata) && isset($_POST['node_id']) && $_POST['node_id'] == $this->GET['node_id']) {
             $formdata = $this->processEmailForm($formdata);
         }
 
@@ -31,6 +31,8 @@ class Onyx_Controller_Component_Contact_Form extends Onyx_Controller {
     /**
      * preprocess (before any data processing)
      */
+
+    // TODO Does this have any function? (undefined array key on line 16)
     public function preProcessEmailForm($formdata) {
         return $formdata;
     }

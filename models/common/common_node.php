@@ -266,6 +266,29 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
             'contact_form_default_template'
         ), '');
 
+        if (ONYX_ECOMMERCE) {
+            $conf = array_merge($conf, array_fill_keys(array(
+                'id_map-myorders',
+                'id_map-order_detail',
+                'id_map-basket',
+                'id_map-checkout',
+                'id_map-payment',
+                'id_map-payment_protx_success',
+                'id_map-payment_protx_failure',
+                'id_map-payment_worldpay_callback',
+                'id_map-terms',
+                'id_map-notifications',
+                'id_map-checkout_basket',
+                'id_map-checkout_login',
+                'id_map-checkout_delivery_options',
+                'id_map-checkout_gift',
+                'id_map-checkout_summary',
+                'id_map-checkout_payment',
+                'id_map-checkout_payment_success',
+                'id_map-checkout_payment_failure'
+            ), ''));
+        }
+
         if (array_key_exists('common_node', $GLOBALS['onyx_conf'])) $conf = array_merge($conf, $GLOBALS['onyx_conf']['common_node']);
         
         /**
@@ -558,7 +581,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
         if (!is_null($node_data['display_permission_group_acl'])) $node_data['display_permission_group_acl'] = unserialize($node_data['display_permission_group_acl']);
         
         //overwrite author (allowed in bo/node/news edit interface)
-        if (is_array($node_data['component']) && $node_data['component']['author'] != '') $node_data['author_detail']['name'] = $node_data['component']['author'];
+        if (is_array($node_data['component']) && isset($node_data['component']['author']) && $node_data['component']['author'] != '') $node_data['author_detail']['name'] = $node_data['component']['author'];
 
         return $node_data;
     }
@@ -619,16 +642,16 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
     
         $node_data['modified'] = date('c');
         
-        if (is_array($node_data['other_data'])) $node_data['other_data'] = serialize($node_data['other_data']);
-        if (is_object($node_data['custom_fields']) || is_array($node_data['custom_fields'])) $node_data['custom_fields'] = json_encode($node_data['custom_fields']);
-        if (is_array($node_data['component'])) $node_data['component'] = serialize($node_data['component']);
-        if (is_array($node_data['relations'])) $node_data['relations'] = serialize($node_data['relations']);
+        if (is_array($node_data['other_data'] ?? null)) $node_data['other_data'] = serialize($node_data['other_data']);
+        if (is_object($node_data['custom_fields'] ?? null) || is_array($node_data['custom_fields'] ?? null)) $node_data['custom_fields'] = json_encode($node_data['custom_fields']);
+        if (is_array($node_data['component'] ?? null)) $node_data['component'] = serialize($node_data['component']);
+        if (is_array($node_data['relations'] ?? null)) $node_data['relations'] = serialize($node_data['relations']);
         
         // set owner only if empty
-        if (!is_numeric($node_data['customer_id'])) $node_data['customer_id'] = (int) $_SESSION['client']['customer']['id'];;
+        if (isset($_SESSION['client']['customer']['id']) && (!isset($node_data['customer_id']) || !is_numeric($node_data['customer_id']))) $node_data['customer_id'] = (int) $_SESSION['client']['customer']['id'];
         
         //populate only if ACL in use, otherwise save as empty
-        if (is_array($node_data['display_permission_group_acl'])) {
+        if (is_array($node_data['display_permission_group_acl'] ?? null)) {
             if (in_array('0', $node_data['display_permission_group_acl']) || in_array('1', $node_data['display_permission_group_acl'])) $node_data['display_permission_group_acl'] = serialize($node_data['display_permission_group_acl']);
             else $node_data['display_permission_group_acl'] = '';
         } else {
@@ -720,6 +743,8 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
     function nodeInsert($node_data, $position = null) {
         
         //if title is empty, create a generic title and don't display it
+        $node_data['display_title'] = $node_data['display_title'] ?? '';
+        $node_data['title'] = $node_data['title'] ?? '';
         if  ($node_data['title'] == '') {
             $node_data['title'] = "{$node_data['node_group']} " . time();
             $node_data['display_title'] = 0;
@@ -730,6 +755,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
         $node_data['created'] = date('c');
         $node_data['modified'] = date('c');
     
+        $node_data['publish'] = $node_data['publish'] ?? '';
         if (!is_numeric($node_data['publish'])) {
             if ($node_data['node_group'] == 'page' || $node_data['node_group'] == 'container') {
                 $node_data['publish'] = $this->conf['default_status_publish'];
@@ -738,31 +764,31 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
             }
         }
     
-        if (!is_numeric($node_data['parent_container'])) $node_data['parent_container'] = 0;
-        if (!is_numeric($node_data['priority'])) $node_data['priority'] = 0;
+        if (!isset($node_data['parent_container']) || !is_numeric($node_data['parent_container'])) $node_data['parent_container'] = 0;
+        if (!isset($node_data['priority']) || !is_numeric($node_data['priority'])) $node_data['priority'] = 0;
         
         $bo_user_id = Onyx_Bo_Authentication::getInstance()->getUserId();
         if (is_numeric($bo_user_id)) $node_data['customer_id'] = $bo_user_id;
         else $node_data['customer_id'] = (int) $_SESSION['client']['customer']['id'];
         
         $node_data['author'] = $node_data['customer_id']; // deprecated as of Onyx 1.7
-        if (!is_numeric($node_data['display_in_menu'])) $node_data['display_in_menu'] = 1;
-        if (!is_numeric($node_data['display_permission'])) $node_data['display_permission'] = 0;
-        if (!$node_data['css_class']) $node_data['css_class'] = '';
-        if (!is_numeric($node_data['display_breadcrumb'])) $node_data['display_breadcrumb'] = 0;
-        if (!$node_data['browser_title']) $node_data['browser_title'] = '';
-        if (!is_numeric($node_data['link_to_node_id'])) $node_data['link_to_node_id'] = 0;
-        if (!is_numeric($node_data['require_ssl'])) $node_data['require_ssl'] = 0;
+        $node_data['css_class'] = $node_data['css_class'] ?? '';
+        $node_data['browser_title'] = $node_data['browser_title'] ?? '';
+        if (!isset($node_data['display_in_menu']) || !is_numeric($node_data['display_in_menu'])) $node_data['display_in_menu'] = 1;
+        if (!isset($node_data['display_permission']) || !is_numeric($node_data['display_permission'])) $node_data['display_permission'] = 0;
+        if (!isset($node_data['display_breadcrumb']) || !is_numeric($node_data['display_breadcrumb'])) $node_data['display_breadcrumb'] = 0;
+        if (!isset($node_data['link_to_node_id']) || !is_numeric($node_data['link_to_node_id'])) $node_data['link_to_node_id'] = 0;
+        if (!isset($node_data['require_ssl']) || !is_numeric($node_data['require_ssl'])) $node_data['require_ssl'] = 0;
         
         if ($node_data['node_group'] == 'layout') $node_data['layout_style'] = $this->conf['layout_layout_style'];
         else if ($node_data['node_group'] == 'page' && $node_data['node_controller'] == 'product') $node_data['layout_style'] = $this->conf['page_product_layout_style'];
         else if ($node_data['node_group'] == 'page') $node_data['layout_style'] = $this->conf['page_layout_style'];
         else $node_data['layout_style'] = '';
         
-        if (is_array($node_data['other_data'])) $node_data['other_data'] = serialize($node_data['other_data']);
-        if (is_array($node_data['custom_fields'])) $node_data['custom_fields'] = json_encode($node_data['custom_fields']);
-        if (is_array($node_data['relations'])) $node_data['relations'] = serialize($node_data['relations']);
-        if (is_array($node_data['component'])) $node_data['component'] = serialize($node_data['component']);
+        if (is_array($node_data['other_data'] ?? null)) $node_data['other_data'] = serialize($node_data['other_data']);
+        if (is_array($node_data['custom_fields'] ?? null)) $node_data['custom_fields'] = json_encode($node_data['custom_fields']);
+        if (is_array($node_data['relations'] ?? null)) $node_data['relations'] = serialize($node_data['relations']);
+        if (is_array($node_data['component'] ?? null)) $node_data['component'] = serialize($node_data['component']);
         
         //TODO: before insert, do a check, that node_data[title] is unique
         
@@ -1213,7 +1239,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
     
         if (is_numeric($id)) {
         
-            if (is_numeric($container)) $limit_to_container = "AND parent_container = $container";
+            $limit_to_container = is_numeric($container) ? "AND parent_container = $container" : '';
             
             $children = $this->listing("parent = $id AND (node_group = 'layout' OR node_group = 'content' OR node_group = 'variable') $limit_to_container", "priority DESC, id ASC");
             
@@ -1374,6 +1400,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
     function getChildren($parent_id, $sort_by = 'node_group DESC, node_controller DESC, parent_container ASC, priority DESC', $published_only = false) {
         
         if ($published_only) $published_only_constraint = 'AND publish = 1';
+        else $published_only_constraint = '';
         
         $children = array();
 

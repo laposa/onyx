@@ -17,17 +17,18 @@ class Onyx_Controller_Bo_Component_Ecommerce_Product_List_Filter extends Onyx_Co
         // filter
         if (isset($_POST['product-list-filter'])) $_SESSION['bo']['product-list-filter'] = $_POST['product-list-filter'];
         
-        $filter = $_SESSION['bo']['product-list-filter'];
-        
-        $this->tpl->assign('FILTER', $filter);
-        $this->tpl->assign("DISABLED_selected_{$filter['disabled']}", "selected='selected'");
+        $filter = $_SESSION['bo']['product-list-filter'] ?? [];
+        $disabled = $filter['disabled'] ?? '';
 
-        $this->parseOffersSelect($filter['offer_group_id']);
+        $this->tpl->assign('FILTER', $filter);
+        $this->tpl->assign("DISABLED_selected_{$disabled}", "selected='selected'");
+
+        $this->parseOffersSelect($filter['offer_group_id'] ?? false);
 
         /**
          * Show edit selected offer button if an offer is active
          */
-        if ((int) $filter['offer_group_id'] > 0) {
+        if (isset($filter['offer_group_id']) && (int) $filter['offer_group_id'] > 0) {
             $this->tpl->assign("OFFER_GROUP_ID", (int) $filter['offer_group_id']);
             $this->tpl->parse("content.edit_offer_group_button");
         }

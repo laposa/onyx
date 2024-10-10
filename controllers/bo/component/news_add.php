@@ -21,7 +21,7 @@ class Onyx_Controller_Bo_Component_News_Add extends Onyx_Controller {
 
         $node_data = $_POST['node'];
         
-        if ($_POST['save']) {
+        if ($_POST['save'] ?? false) {
         
             /**
              * pre-populate content

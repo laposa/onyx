@@ -109,7 +109,7 @@ class common_watchdog extends Onyx_Model {
      */
     public function checkWatchDog($name, $id, $old_value, $new_value, $no_action = false)
     {
-        $name = pg_escape_string($name);
+        //TODO: pg_escape_string() function deprecated? may cause security issues?
 
         if (is_numeric($id)) $where = "AND (watched_item_id = $id OR watched_item_id IS NULL)";
         else $where = "AND watched_item_id IS NULL";

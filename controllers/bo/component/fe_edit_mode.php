@@ -17,11 +17,11 @@ class Onyx_Controller_Bo_Component_Fe_edit_Mode extends Onyx_Controller {
          * get input
          */
          
-        if ($_POST['fe_edit_mode']) {
+        if ($_POST['fe_edit_mode'] ?? false) {
             $mode = $_POST['fe_edit_mode'];
-        } else if ($this->GET['fe_edit_mode']) {
+        } else if ($this->GET['fe_edit_mode'] ?? false) {
             $mode = $this->GET['fe_edit_mode'];
-        } else if ($_SESSION['fe_edit_mode']) {
+        } else if ($_SESSION['fe_edit_mode'] ?? false) {
             $mode = $_SESSION['fe_edit_mode'];
         } else {
             $mode = 'preview';
@@ -58,7 +58,7 @@ class Onyx_Controller_Bo_Component_Fe_edit_Mode extends Onyx_Controller {
          * optionally forward to stripped URL
          */
          
-        if ($_GET['fe_edit_mode']) {
+        if (isset($_GET['fe_edit_mode']) && $_GET['fe_edit_mode']) {
             onyxGoTo($uri_strip, 2);
         }
         

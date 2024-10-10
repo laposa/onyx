@@ -21,13 +21,13 @@ class Onyx_Controller_Bo_Component_Ecommerce_Price_Add extends Onyx_Controller {
         
         foreach ($types as $type) {
             $this->tpl->assign('TYPE', $type);
-            if ($type == $_POST['price']['type'] || $type == $this->GET['type']) $this->tpl->assign('SELECTED', "selected='selected'");
+            if (isset($_POST['price']['type']) && isset($this->GET['type']) && ($type == $_POST['price']['type'] || $type == $this->GET['type'])) $this->tpl->assign('SELECTED', "selected='selected'");
             else $this->tpl->assign('SELECTED', "");
             $this->tpl->parse('content.type');
         }
         
         
-        if ($_POST['save']) {
+        if ($_POST['save'] ?? false) {
             $price_data = $_POST['price'];
             
             // FIXME: form_currency_inline hack
@@ -43,7 +43,7 @@ class Onyx_Controller_Bo_Component_Ecommerce_Price_Add extends Onyx_Controller {
             }
         }
         
-        $this->tpl->assign('PRICE', $_POST['price']);
+        $this->tpl->assign('PRICE', $_POST['price'] ?? '');
 
         return true;
     }

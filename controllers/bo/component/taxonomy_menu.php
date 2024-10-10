@@ -21,7 +21,7 @@ class Onyx_Controller_Bo_Component_Taxonomy_Menu extends Onyx_Controller_Compone
          * root folder name
          */
          
-        if (is_numeric($this->GET['id'])) {
+        if (is_numeric($this->GET['id'] ?? null)) {
             
             require_once('models/common/common_taxonomy.php');
             $Taxonomy = new common_taxonomy();
@@ -50,7 +50,7 @@ class Onyx_Controller_Bo_Component_Taxonomy_Menu extends Onyx_Controller_Compone
      * get tree
      */
      
-    public function getTree($publish = 1, $filter, $parent, $depth, $expand_all) {
+    public function getTree($publish, $filter, $parent, $depth, $expand_all) {
 
         $list = $this->getList($publish);
 

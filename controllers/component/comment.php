@@ -246,7 +246,7 @@ class Onyx_Controller_Component_Comment extends Onyx_Controller {
                 $data['author_email'] = $_SESSION['client']['customer']['email'];
             }
             
-            if ($_POST['save']) {
+            if ($_POST['save'] ?? false) {
             
                 /**
                  * insert comment
@@ -328,7 +328,7 @@ class Onyx_Controller_Component_Comment extends Onyx_Controller {
      
     function insertComment($data, $options = false) {
         
-        if ($_POST['save']) {
+        if ($_POST['save'] ?? false) {
         
             if ($this->checkData($data, $options)) {
             
@@ -379,7 +379,7 @@ class Onyx_Controller_Component_Comment extends Onyx_Controller {
      
     function updateComment($data, $options = false) {
         
-        if ($_POST['save']) {
+        if ($_POST['save'] ?? false) {
         
             if ($this->checkData($data, $options)) {
             

@@ -23,7 +23,7 @@ class Onyx_Controller_Bo_Component_Ecommerce_Product_Edit extends Onyx_Controlle
          * save
          */
          
-        if ($_POST['save']) {
+        if ($_POST['save'] ?? false) {
         
             $product_data = $_POST['product'];
             

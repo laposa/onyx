@@ -27,13 +27,13 @@ class Onyx_Controller_Bo_Component_Server_Browser_File_List extends Onyx_Control
          * 
          */
         
-        if ($this->GET['directory']) $base_folder = $this->GET['directory'];
-        else $base_folder = 'var/files/';
-        if ($this->GET['open']) $open_folder = $this->GET['open'];
-        else if ($_POST['open']) $open_folder = $_POST['open'];
-        else if ($_SESSION['server_browser_last_open_folder'] != '') $open_folder = urlencode($_SESSION['server_browser_last_open_folder']);
+        $base_folder = $this->GET['directory'] ?? 'var/files/';
+        
+        if (isset($this->GET['open']) && $this->GET['open']) $open_folder = $this->GET['open'];
+        else if (isset($_POST['open']) && $_POST['open']) $open_folder = $_POST['open'];
+        else if (isset($_SESSION['server_browser_last_open_folder']) && $_SESSION['server_browser_last_open_folder'] != '') $open_folder = urlencode($_SESSION['server_browser_last_open_folder']);
         else $open_folder = "";
-        $multiupload = ($this->GET['multiupload'] == 'true');
+        $multiupload = (isset($this->GET['multipload']) && $this->GET['multiupload'] == 'true');
         
         /**
          * Store opened folder to session
@@ -59,6 +59,8 @@ class Onyx_Controller_Bo_Component_Server_Browser_File_List extends Onyx_Control
         }
         $relative_folder_path = str_replace($base_folder_full, '', $actual_folder);
         
+        //TODO check overwrite functionality without debug. behaves weirdly
+        $overwrite_show = 0;
         
         /**
          * Cleaning
@@ -66,9 +68,9 @@ class Onyx_Controller_Bo_Component_Server_Browser_File_List extends Onyx_Control
          */
         //stolen from common_uri_mapping
         if (function_exists("recode_string")) {
-            $new_folder = recode_string("utf-8..flat", trim($_POST['new_folder']));
+            $new_folder = isset($_POST['new_Folder']) ? recode_string("utf-8..flat", trim($_POST['new_folder'])) : '';
         } else {
-            $new_folder = iconv("UTF-8", "ASCII//IGNORE", trim($_POST['new_folder']));
+            $new_folder = isset($_POST['new_folder']) ? iconv("UTF-8", "ASCII//IGNORE", trim($_POST['new_folder'])) : '';
         }
         
         //$new_folder = strtolower($new_folder);
@@ -95,7 +97,7 @@ class Onyx_Controller_Bo_Component_Server_Browser_File_List extends Onyx_Control
          * Delete file
          */
         
-        if ($this->GET['delete_file']) {
+        if ($this->GET['delete_file'] ?? false) {
             $File->deleteFile($this->GET['delete_file']);
             return true;
         }
@@ -105,7 +107,7 @@ class Onyx_Controller_Bo_Component_Server_Browser_File_List extends Onyx_Control
          * Confirm overwrite
          */
         
-        if ($_POST['overwrite'] == 'overwrite') {
+        if (isset($_POST['overwrite']) && $_POST['overwrite'] == 'overwrite') {
             if ($File->overwriteFile($_POST['filename'], $_POST['save_dir'], $_POST['temp_file']) ) {
 
                 if ($multiupload) $this->jsonResponse("success");
@@ -152,6 +154,7 @@ class Onyx_Controller_Bo_Component_Server_Browser_File_List extends Onyx_Control
          * prepare folder head string
          */
 
+        $path = '';
         $breadcrumbs = explode('/', $relative_folder_path);
         $folder_head = '<a href="/backoffice/media//" class="root-folder"></a>/ ';
         if(count($breadcrumbs) > 0) {

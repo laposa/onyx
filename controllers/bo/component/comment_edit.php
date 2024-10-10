@@ -18,7 +18,7 @@ class Onyx_Controller_Bo_Component_Comment_Edit extends Onyx_Controller {
          * Save on request
          */
          
-        if ($_POST['save']) {
+        if ($_POST['save'] ?? false) {
         
             $this->saveComment($_POST['comment']);
             

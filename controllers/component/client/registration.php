@@ -18,7 +18,7 @@ class Onyx_Controller_Component_Client_Registration extends Onyx_Controller {
 
         $this->commonAction();
 
-        if ($_POST['save']) $this->saveForm();
+        if ($_POST['save'] ?? false) $this->saveForm();
 
         $this->generateCountryList();
         $this->prepareCheckboxes();

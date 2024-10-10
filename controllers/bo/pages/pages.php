@@ -8,6 +8,7 @@
  */
 
 class Onyx_Controller_Bo_Pages_Pages extends Onyx_Controller {
+    private $Node;
     
     /**
      * main action
@@ -32,7 +33,7 @@ class Onyx_Controller_Bo_Pages_Pages extends Onyx_Controller {
      
     public function getContentId() {
         
-        if (is_numeric($this->GET['id'])) {
+        if (is_numeric($this->GET['id'] ?? null)) {
             $content_id = $this->GET['id'];
         } else if (count($_SESSION['active_pages']) > 0) {
             $last_page_id = $this->Node->getLastParentPage($_SESSION['active_pages']);

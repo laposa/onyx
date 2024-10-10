@@ -17,7 +17,7 @@ class Onyx_Controller_Bo_Component_Ecommerce_Recipe_Edit extends Onyx_Controller
         $Recipe = new ecommerce_recipe();
         
         // save      
-        if ($_POST['save']) {
+        if ($_POST['save'] ?? false) {
         
             // update recipe
             if($recipe_id = $Recipe->updateRecipe($_POST['recipe'])) {

@@ -228,12 +228,12 @@ class ecommerce_product_variety extends Onyx_Model {
         $data['display_permission'] = 0;
         $data['condition'] = 0;
         
-        if (!$data['width']) $data['width'] = 0;
-        if (!$data['height']) $data['height'] = 0;
-        if (!$data['depth']) $data['depth'] = 0;
-        if (!$data['diameter']) $data['diameter'] = 0;
+        if (!isset($data['width']) || !$data['width']) $data['width'] = 0;
+        if (!isset($data['height']) || !$data['height']) $data['height'] = 0;
+        if (!isset($data['depth']) || !$data['depth']) $data['depth'] = 0;
+        if (!isset($data['diameter']) || !$data['diameter']) $data['diameter'] = 0;
         
-        if (is_array($data['other_data'])) $data['other_data'] = serialize($data['other_data']);
+        if (isset($data['other_data']) && is_array($data['other_data'])) $data['other_data'] = serialize($data['other_data']);
         
         $data['weight'] = $this->convertWeight($data['weight'], $this->conf['weight_units'], 'g');
         $data['weight_gross'] = $this->convertWeight($data['weight_gross'], $this->conf['weight_units'], 'g');
@@ -353,7 +353,7 @@ class ecommerce_product_variety extends Onyx_Model {
      
     function updateVariety($data) {
     
-        if (is_array($data['other_data'])) $data['other_data'] = serialize($data['other_data']);
+        if (is_array($data['other_data'] ?? null)) $data['other_data'] = serialize($data['other_data']);
         $data['weight'] = $this->convertWeight($data['weight'], $this->conf['weight_units'], 'g');
         $data['weight_gross'] = $this->convertWeight($data['weight_gross'], $this->conf['weight_units'], 'g');
         $data['modified'] = date('c');

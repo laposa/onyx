@@ -30,8 +30,8 @@ class Onyx_Controller_Bo_Component_Ecommerce_Product_In_Node extends Onyx_Contro
         /**
          * allow to insert new
          */
-         
-        if (!is_array($product_homepage) && !is_numeric($this->GET['add_to_parent'])) {
+
+        if (!is_array($product_homepage) && !is_numeric($this->GET['add_to_parent'] ?? null)) {
             $this->tpl->parse('content.not_exists');
         }
         
@@ -39,7 +39,7 @@ class Onyx_Controller_Bo_Component_Ecommerce_Product_In_Node extends Onyx_Contro
          * move page if requested
          */
          
-        if (is_numeric($this->GET['add_to_parent'])) {
+        if (is_numeric($this->GET['add_to_parent'] ?? null)) {
             if (is_array($product_homepage )) {
                 //moving
                 $product_homepage = $this->moveProductNode($product_id, $this->GET['add_to_parent']);

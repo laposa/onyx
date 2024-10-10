@@ -183,7 +183,7 @@ ALTER TABLE common_uri_mapping ADD UNIQUE (public_uri);
         $id = preg_replace("/\/page\//", '', $string);
         
         if ($id == $this->conf['homepage_id']) $seo_url = "/";
-        else $seo_url = $this->_rewrite_table[$id];
+        else $seo_url = $this->_rewrite_table[$id] ?? '';
         
         if ($seo_url != '') return $seo_url;
         else return $string; // seo_url doesn't exists

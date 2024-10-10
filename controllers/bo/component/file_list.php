@@ -8,6 +8,8 @@ require_once('controllers/bo/component/file.php');
 
 class Onyx_Controller_Bo_Component_File_List extends Onyx_Controller_Bo_Component_File {
 
+    public $File;
+
     /**
      * main action
      */
@@ -15,10 +17,11 @@ class Onyx_Controller_Bo_Component_File_List extends Onyx_Controller_Bo_Componen
     public function mainAction() {
     
         parent::mainAction();
+
+        // TODO test?
+        $this->File = new common_file();
         
-        $file_id = $this->GET['file_id'];
         $type = $this->GET['type'];
-        $role = $this->GET['role'];
         $relation = $this->GET['relation'];
         
         if (!is_numeric($this->GET['node_id'])) $this->GET['node_id'] = $_POST['file']['node_id'];

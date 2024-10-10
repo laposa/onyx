@@ -25,7 +25,7 @@ class Onyx_Controller_Bo_Backoffice_Menu_Sections extends Onyx_Controller_Bo_Bac
         if (preg_match('/backoffice/', $_SERVER['REQUEST_URI'])) {
             $active_array = explode("/", $_SERVER['REQUEST_URI']);
             $active_page = preg_replace("/\?.*$/", "", $active_array[2]);
-            if (count($active_array) > 2) $active_subpage = preg_replace("/\?.*$/", "", $active_array[3]);
+            if (count($active_array) > 2) $active_subpage = preg_replace("/\?.*$/", "", $active_array[3] ?? '');
         }
 
         $this->tpl->assign("ACTIVE_{$active_page}", 'active');

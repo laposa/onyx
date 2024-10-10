@@ -19,10 +19,10 @@ class Onyx_Controller_Bo_Component_Ecommerce_Product_List extends Onyx_Controlle
          * Get input variables
          */
          
-        if ($_POST['product-list-filter']) $filter = $_POST['product-list-filter'];
-        else $filter = $_SESSION['bo']['product-list-filter'];
+        if ($_POST['product-list-filter'] ?? false) $filter = $_POST['product-list-filter'];
+        else $filter = $_SESSION['bo']['product-list-filter'] ?? [];
 
-        if (is_numeric($this->GET['taxonomy_tree_id'])) $filter['taxonomy_json'] = json_encode(array($this->GET['taxonomy_tree_id']));
+        if (is_numeric($this->GET['taxonomy_tree_id'] ?? null)) $filter['taxonomy_json'] = json_encode(array($this->GET['taxonomy_tree_id']));
         else $filter['taxonomy_json'] = false;
         
         /**
@@ -48,21 +48,21 @@ class Onyx_Controller_Bo_Component_Ecommerce_Product_List extends Onyx_Controlle
         //$_Onyx_Request = new Onyx_Request("component/ecommerce/product_list_sorting");
         //$this->tpl->assign('SORTING', $_Onyx_Request->getContent());
         
-        if ($this->GET['product-list-sort-by']) {
+        if ($this->GET['product-list-sort-by'] ?? false) {
             $_SESSION['bo']['product-list-sort-by'] = $this->GET['product-list-sort-by'];
         }
         
-        if ($this->GET['product-list-sort-direction']) {
+        if ($this->GET['product-list-sort-direction'] ?? false) {
             $_SESSION['bo']['product-list-sort-direction'] = $this->GET['product-list-sort-direction'];
         }
         
-        if ($_SESSION['bo']['product-list-sort-by']) {
+        if ($_SESSION['bo']['product-list-sort-by'] ?? false) {
             $sortby = $_SESSION['bo']['product-list-sort-by'];
         } else {
             $sortby = "modified";
         }
         
-        if ($_SESSION['bo']['product-list-sort-direction']) {
+        if ($_SESSION['bo']['product-list-sort-direction'] ?? false) {
             $direction = $_SESSION['bo']['product-list-sort-direction'];
         } else {
             $direction = "DESC";
@@ -123,9 +123,9 @@ class Onyx_Controller_Bo_Component_Ecommerce_Product_List extends Onyx_Controlle
          * Initialize pagination variables
          */
         
-        if  (is_numeric($this->GET['limit_from'])) $from = $this->GET['limit_from'];
+        if (is_numeric($this->GET['limit_from'] ?? null)) $from = $this->GET['limit_from'];
         else $from = 0;
-        if (is_numeric($this->GET['limit_per_page'])) $per_page = $this->GET['limit_per_page'];
+        if (is_numeric($this->GET['limit_per_page'] ?? null)) $per_page = $this->GET['limit_per_page'];
         else $per_page = 25;
         
         
@@ -151,6 +151,7 @@ class Onyx_Controller_Bo_Component_Ecommerce_Product_List extends Onyx_Controlle
         
         //print_r($product_list); exit;
          
+        $even_odd = '';
         
         foreach ($product_list as $i=>$p_item) {
             

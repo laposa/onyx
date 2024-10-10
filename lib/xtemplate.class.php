@@ -889,7 +889,11 @@ class XTemplate {
 									unset($parameters);
 								} else {
 									// Standard form e.g. {tag|callback}
-									$var = call_user_func($callback, $var);
+									// TODO some callbacks may cause warning/deprecated. such as htmlspecialchars() (happening on dolphinpools, supervalu, ...)
+									// TODO better give a deeper check on this one, alternate fix would be checking on concrete templates where this is caused
+									if(!(str_contains($callback, 'htmlspecialchars') && !$var)) {
+										$var = call_user_func($callback, $var);
+									}
 								}
 							}
 						}

@@ -7,6 +7,8 @@
 
 class Onyx_Controller_Node_Site_Default extends Onyx_Controller {
 
+    public $Node;
+
     /**
      * main action
      */

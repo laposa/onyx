@@ -19,7 +19,7 @@ class Onyx_Controller_Bo_Component_Ecommerce_Store_Edit extends Onyx_Controller 
         $Store = new ecommerce_store();
         
         // save      
-        if ($_POST['save']) {
+        if ($_POST['save'] ?? false) {
 
             // set values
             if (!isset($_POST['store']['publish'])) $_POST['store']['publish'] = 0;
@@ -61,7 +61,7 @@ class Onyx_Controller_Bo_Component_Ecommerce_Store_Edit extends Onyx_Controller 
         $this->tpl->assign('STORE', $store);
         $this->tpl->assign('STREET_VIEW_IMAGE_' . ((int) $store['street_view_options']['image']), 'checked="checked"');
 
-        $this->parseTypeSelect($store['type_id']);
+        $this->parseTypeSelect($store['type_id'] ?? null);
 
         return true;
     }

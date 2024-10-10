@@ -46,7 +46,7 @@ ALTER TABLE ecommerce_product_taxonomy ADD CONSTRAINT product_node_id_taxonomy_t
         else $conf = array();
         
         // any categories associated to this taxonomy ID will be drawn as a dropdown option list in component/ecommerce/product_options
-        if (!is_numeric($conf['options_id'])) $conf['options_id'] = 2; // this value is taxonomy_tree_id
+        if (!isset($conf['options_id']) || !is_numeric($conf['options_id'])) $conf['options_id'] = 2; // this value is taxonomy_tree_id
         
         return $conf;
     }
