@@ -15,26 +15,26 @@ class Onyx_Controller_Bo_Pages_Server_Browser extends Onyx_Controller {
      
     public function mainAction() {
 
-        if ($this->GET['directory']) $base_folder = $this->GET['directory'];
+        if ($this->GET['directory'] ?? false) $base_folder = $this->GET['directory'];
         else $base_folder = 'var/files/';
 
-        if ($this->GET['role']) $role = $this->GET['role'];
+        if ($this->GET['role'] ?? false) $role = $this->GET['role'];
         else $role = 'main';
         
         //type: add_to_node, RTE
-        if ($this->GET['type']) $type = $this->GET['type'];
+        if ($this->GET['type'] ?? false) $type = $this->GET['type'];
         else $type = '';
         
-        if ($this->GET['node_id']) $node_id = $this->GET['node_id'];
+        if ($this->GET['node_id'] ?? false) $node_id = $this->GET['node_id'];
         else $node_id = 0;
         
-        if ($this->GET['relation']) $relation = $this->GET['relation'];
+        if ($this->GET['relation'] ?? false) $relation = $this->GET['relation'];
         else $relation = 'node';
 
-        if ($this->GET['file_id']) $file_id = $this->GET['file_id'];
+        if ($this->GET['file_id'] ?? false) $file_id = $this->GET['file_id'];
         else $file_id = 0;
 
-        if ($this->GET['open']) $open = $this->GET['open'];
+        if ($this->GET['open'] ?? false) $open = $this->GET['open'];
         else $open = null;
 
         if ($type === 'replace_file') $keep_url = true;

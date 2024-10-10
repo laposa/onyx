@@ -278,7 +278,7 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
             $CustomerGroup = new client_customer_group();
 
             $data['group_ids'] = $CustomerGroup->getCustomersGroupIds($id);
-            $data['group_id'] = (int) $data['group_ids'][0]; // backwards compatibility
+            $data['group_id'] = isset($data['group_ids'][0]) ? (int) $data['group_ids'][0] : ''; // backwards compatibility
 
             // load roles
             require_once('models/client/client_customer_role.php');
@@ -286,7 +286,7 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
 
             $data['role_ids'] = $CustomerRole->getCustomersRoleIds($id);
         
-            if (empty($data['profile_image_url'])) $data['profile_image_url'] = $this->conf['default_profile_image_url']; 
+            if (!isset($data['profile_image_url']) || empty($data['profile_image_url'])) $data['profile_image_url'] = $this->conf['default_profile_image_url']; 
         
         }
         

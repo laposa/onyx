@@ -20,7 +20,7 @@ class Onyx_Controller_Bo_Backoffice_Menu_Advanced extends Onyx_Controller_Bo_Bac
          */
         if (preg_match('/backoffice/', $_SERVER['REQUEST_URI'])) {
             $active_array = explode("/", $_SERVER['REQUEST_URI']);
-            $active = preg_replace("/\?.*$/", "", $active_array[3]);
+            $active = preg_replace("/\?.*$/", "", $active_array[3] ?? '');
         } else {
             $active = 'configuration';
         }
