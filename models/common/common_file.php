@@ -745,7 +745,7 @@ CREATE TABLE common_file (
         if ($fast) $file_info['mime-type'] = mime_content_type_fast($fp);
         else $file_info['mime-type'] = mime_content_type($fp);
         
-        $file_info['modified'] = strftime("%c", filemtime($fp));
+        $file_info['modified'] = (new DateTime())->setTimestamp(filemtime($fp))->format('c');
         $file_info['file_path'] = str_replace(ONYX_PROJECT_DIR . 'var/files/', '', $fp);
         $file_info['size'] = self::resize_bytes(filesize($fp));
         

@@ -16,9 +16,9 @@ class Onyx_Controller_Bo_Component_Node_Type_Menu extends Onyx_Controller_Compon
     
     public function mainAction() {
     
-        $list = $this->getList($publish);
+        $list = $this->getList(1);
         $list = $this->filterAndAssignInfo($list);
-        $md_tree = $this->buildTree($list, $node_id);
+        $md_tree = $this->buildTree($list, null);
         $this->generateSelectMenu($md_tree);
         
         return true;

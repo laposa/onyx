@@ -43,7 +43,7 @@ class Onyx_Controller_Uri_Mapping extends Onyx_Controller {
             //similar check is done in Onyx_Bootstrap
             if (preg_match('/bo\//', $controller_request)) {
 
-                if (!$_SERVER['HTTPS'] && ONYX_EDITOR_USE_SSL) {
+                if ((!isset($_SERVER['HTTPS']) || !$_SERVER['HTTPS']) && ONYX_EDITOR_USE_SSL) {
                     header("Location: https://{$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}");
                     exit;
                 }
@@ -284,8 +284,8 @@ class Onyx_Controller_Uri_Mapping extends Onyx_Controller {
 
         require_once(ONYX_DIR . 'conf/uri_map.php');
         if (file_exists(ONYX_PROJECT_DIR . 'conf/uri_map.php')) require_once(ONYX_PROJECT_DIR . 'conf/uri_map.php');
+        // TODO: undefined variable?
         return $uri_map;
-
     }
 
     /**

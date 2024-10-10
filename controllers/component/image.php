@@ -6,6 +6,7 @@
  */
 
 class Onyx_Controller_Component_Image extends Onyx_Controller {
+
     public $Image;
 
     /**
@@ -13,7 +14,8 @@ class Onyx_Controller_Component_Image extends Onyx_Controller {
      */
      
     public function mainAction() {
-    
+        // TODO check if we need assignAndParseItem which cycles item list but we need only one, also there is undefined variable
+        // cannot check now due to unavailability to chose node type to add
         /**
          * INPUT options:
             node_id (mandatory)
@@ -111,36 +113,45 @@ class Onyx_Controller_Component_Image extends Onyx_Controller {
     public function assignAndParse($image_list) {
         
         $img_path = $this->getImagePath();
+
+        $image_count = count($image_list);
         
-        /**
-         * set full width based on restrictions in Image->conf
-         */
-         
-        if ($this->Image->conf['width_max'] > 0 && is_numeric($this->Image->conf['width_max'])) $this->tpl->assign('FULL_SIZE_IMAGE_WIDTH_PATH', "/thumbnail/{$this->Image->conf['width_max']}/");
-        else $this->tpl->assign('FULL_SIZE_IMAGE_WIDTH_PATH', "/image/");
+        $this->tpl->assign('IMAGE_COUNT', $image_count);
         
-        /**
-         * save first image in template variable as helper for a placeholder
-         */
-         
-        $this->tpl->assign('FIRST_IMAGE', $image_list[0]);
+        if ($image_count > 1) {
         
-        /**
-         * assign & parse each item to template
-         */
-         
-        foreach ($image_list as $k=>$item) {
+            /**
+             * set full width based on restrictions in Image->conf
+             */
             
-            if ($k == 0) $this->tpl->assign('FIRST_LAST', 'first');
-            else if ($k == ($image_count - 1)) $this->tpl->assign('FIRST_LAST', 'last');
-            else $this->tpl->assign('FIRST_LAST', '');
+            if (isset($this->Image->conf['width_max']) && $this->Image->conf['width_max'] > 0 && is_numeric($this->Image->conf['width_max'])) $this->tpl->assign('FULL_SIZE_IMAGE_WIDTH_PATH', "/thumbnail/{$this->Image->conf['width_max']}/");
+            else $this->tpl->assign('FULL_SIZE_IMAGE_WIDTH_PATH', "/image/");
+            
+            /**
+             * save first image in template variable as helper for a placeholder
+             */
+            
+            if(isset($image_list[0])) {
+                $this->tpl->assign('FIRST_IMAGE', $image_list[0]);
+            }
+            
+            /**
+             * assign & parse each item to template
+             */
+            
+            foreach ($image_list as $k=>$item) {
                 
-            $item['path'] = $image_list[$k]['path'] = $img_path;
-            
-            $this->tpl->assign('INDEX', $k);
-            
-            $this->assignAndParseItem($item);
-            
+                if ($k == 0) $this->tpl->assign('FIRST_LAST', 'first');
+                else if ($k == ($image_count - 1)) $this->tpl->assign('FIRST_LAST', 'last');
+                else $this->tpl->assign('FIRST_LAST', '');
+                    
+                $item['path'] = $image_list[$k]['path'] = $img_path;
+                
+                $this->tpl->assign('INDEX', $k);
+                
+                $this->assignAndParseItem($item);
+                
+            }
         }
         
         return true;

@@ -239,9 +239,9 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
         /**
          * set default values if empty
          */
-        if ($conf['registration_mail_to_address'] == '') $conf['registration_mail_to_address'] = $GLOBALS['onyx_conf']['global']['admin_email'];
-        if ($conf['registration_mail_to_name'] == '') $conf['registration_mail_to_name'] = $GLOBALS['onyx_conf']['global']['admin_email_name'];
-        if ($conf['registration_mail_send_to_customer'] == '') $conf['registration_mail_send_to_customer'] = 1;
+        if (isset($conf['registration_mail_to_address']) && $conf['registration_mail_to_address'] == '') $conf['registration_mail_to_address'] = $GLOBALS['onyx_conf']['global']['admin_email'];
+        if (isset($conf['registration_mail_to_name']) && $conf['registration_mail_to_name'] == '') $conf['registration_mail_to_name'] = $GLOBALS['onyx_conf']['global']['admin_email_name'];
+        if (isset($conf['registration_mail_send_to_customer']) && $conf['registration_mail_send_to_customer'] == '') $conf['registration_mail_send_to_customer'] = 1;
         //what is the username for authentication? Can be email or username
         if (isset($conf['login_type']) && !($conf['login_type'] == 'email' || $conf['login_type'] == 'username')) $conf['login_type'] = 'email';
         //default avatar

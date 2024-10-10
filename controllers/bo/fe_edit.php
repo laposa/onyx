@@ -9,6 +9,8 @@
 
 class Onyx_Controller_Bo_Fe_edit extends Onyx_Controller {
 
+    private $Node;
+
     /**
      * main action
      */
