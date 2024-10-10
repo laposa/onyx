@@ -12,6 +12,19 @@ require_once('models/ecommerce/ecommerce_offer_group.php');
 require_once('models/ecommerce/ecommerce_product.php');
 
 class Onyx_Controller_Bo_Component_Ecommerce_Offer_Add extends Onyx_Controller {
+
+    public $Offer;
+    public $Offer_Group;
+    public $Taxonomy;
+    public $Product;
+    public $conf;
+    public $groups_in_progress;
+    public $groups_scheduled;
+    public $groups_past;
+    public $campaign_categories;
+    public $roundel_categories;
+    public $products;
+
     
     /**
      * main action
@@ -20,7 +33,7 @@ class Onyx_Controller_Bo_Component_Ecommerce_Offer_Add extends Onyx_Controller {
     public function mainAction()
     {
         $this->initModels();
-        if ($_POST['save']) $this->saveData($_POST);
+        if ($_POST['save'] ?? false) $this->saveData($_POST);
         $this->loadData();
         $this->parseForm($_POST);
 
@@ -49,11 +62,11 @@ class Onyx_Controller_Bo_Component_Ecommerce_Offer_Add extends Onyx_Controller {
 
     protected function parseForm($offer)
     {
-        $this->parseOffersSelectGroup($this->groups_in_progress, 'In Progress', $offer['offer_group_id']);
-        $this->parseOffersSelectGroup($this->groups_scheduled, 'Scheduled', $offer['offer_group_id']);
-        $this->parseOffersSelectGroup($this->groups_past, 'Past', $offer['offer_group_id']);
-        $this->parseCategorySelect($this->campaign_categories, $offer['campaign_category_id'], 'campaign_category_item');
-        $this->parseCategorySelect($this->roundel_categories, $offer['roundel_category_id'], 'roundel_category_item');
+        $this->parseOffersSelectGroup($this->groups_in_progress, 'In Progress', $offer['offer_group_id'] ?? null);
+        $this->parseOffersSelectGroup($this->groups_scheduled, 'Scheduled', $offer['offer_group_id'] ?? null);
+        $this->parseOffersSelectGroup($this->groups_past, 'Past', $offer['offer_group_id'] ?? null);
+        $this->parseCategorySelect($this->campaign_categories, $offer['campaign_category_id'] ?? null, 'campaign_category_item');
+        $this->parseCategorySelect($this->roundel_categories, $offer['roundel_category_id'] ?? null, 'roundel_category_item');
         $this->parseProductSelect();
     }
 

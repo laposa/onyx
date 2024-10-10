@@ -24,6 +24,8 @@ use Symfony\Component\HttpClient\HttpClient;
 
 function msg($msg, $type = "ok", $level = 0, $error_class = '') {
 
+    $backtrace_formatted = '';
+
     if ($level > ONYX_DEBUG_LEVEL) return false; // process only if matching log level
 
     global $_SESSION;
@@ -54,7 +56,6 @@ function msg($msg, $type = "ok", $level = 0, $error_class = '') {
         $backtrace = debug_backtrace();
 
         // format same way as debug_print_backtrace, i.e. #0  c() called at [/tmp/include.php:10]
-        $backtrace_formatted = '';
 
         foreach ($backtrace as $k=>$item) {
 
@@ -72,11 +73,11 @@ function msg($msg, $type = "ok", $level = 0, $error_class = '') {
 
         $user_info = '';
 
-        if ($backoffice_user_email = $_SESSION['authentication']['user_details']['email']) {
+        if (isset($_SESSION['authentication']['user_details']['email']) && $backoffice_user_email = $_SESSION['authentication']['user_details']['email']) {
             $user_info .= "BO user: {$backoffice_user_email} ";
         }
 
-        if ($customer_id = $_SESSION['client']['customer']['id']) {
+        if (isset($_SESSION['client']['customer']['id']) && $customer_id = $_SESSION['client']['customer']['id']) {
             $user_info .= "Customer ID: $customer_id ";
         }
 
@@ -470,9 +471,10 @@ function php_multisort($data,$keys){
     $i=0;
     foreach ($keys as $k){
         if($i>0){$sort.=',';}
+        else {$sort='';}
         $sort.="\$cols['".$k['key']."']";
-        if($k['sort']){$sort.=',SORT_'.strtoupper($k['sort']);}
-        if($k['type']){$sort.=',SORT_'.strtoupper($k['type']);}
+        if($k['sort'] ?? null){$sort.=',SORT_'.strtoupper($k['sort']);}
+        if($k['type'] ?? null){$sort.=',SORT_'.strtoupper($k['type']);}
         $i++;
     }
     $sort.=',$idkeys';

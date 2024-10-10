@@ -16,7 +16,7 @@ class Onyx_Controller_Bo_Component_Taxonomy_Add extends Onyx_Controller {
         require_once('models/common/common_taxonomy.php');
         $Taxonomy = new common_taxonomy();
         
-        if ($_POST['save']) {   
+        if ($_POST['save'] ?? false) {   
             
             if($id = $Taxonomy->labelInsert($_POST['taxonomy']['label'])) {
                 msg("Taxonomy label inserted.");

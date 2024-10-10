@@ -39,7 +39,7 @@ class Onyx_Controller_Bo_Component_Ecommerce_Recipe_In_Node extends Onyx_Control
          * move page if requested
          */
          
-        if (is_numeric($this->GET['add_to_parent'])) {
+        if (is_numeric($this->GET['add_to_parent'] ?? null)) {
             if (is_array($recipe_homepage )) {
                 //moving
                 $recipe_homepage = $this->moveRecipeNode($recipe_id, $this->GET['add_to_parent']);

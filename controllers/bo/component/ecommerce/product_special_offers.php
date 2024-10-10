@@ -12,6 +12,20 @@ require_once('models/ecommerce/ecommerce_offer_group.php');
 require_once('models/ecommerce/ecommerce_price.php');
 
 class Onyx_Controller_Bo_Component_Ecommerce_Product_Special_Offers extends Onyx_Controller {
+
+    public $Offer;
+    public $Offer_Group;
+    public $Taxonomy;
+    public $Price;
+    public $conf;
+    public $product_variety_id;
+    public $offers;
+    public $groups_in_progress;
+    public $groups_scheduled;
+    public $groups_past;
+    public $campaign_categories;
+    public $roundel_categories;
+    public $prices;
     
     /**
      * main action
@@ -21,7 +35,7 @@ class Onyx_Controller_Bo_Component_Ecommerce_Product_Special_Offers extends Onyx
     {
         $this->initModels();
         $this->product_variety_id = (int) $this->GET['id'];
-        if ($_POST['save'] == 'save') $this->saveData($_POST['product']);
+        if (isset($_POST['save']) && $_POST['save'] == 'save') $this->saveData($_POST['product']);
         $this->loadData();
         $this->parseOffers();
 
@@ -44,8 +58,8 @@ class Onyx_Controller_Bo_Component_Ecommerce_Product_Special_Offers extends Onyx
         $this->groups_in_progress = $this->Offer_Group->listing("schedule_start <= NOW() AND (schedule_end IS NULL OR schedule_end >= NOW())", "id DESC");
         $this->groups_scheduled = $this->Offer_Group->listing("schedule_start > NOW()", "id DESC");
         $this->groups_past = $this->Offer_Group->listing("(schedule_start < NOW() OR schedule_start IS NULL) AND schedule_end IS NOT NULL AND schedule_end < NOW()", "id DESC");
-        $this->campaign_categories = $this->Taxonomy->getChildren($this->conf['campaign_category_parent_id']);
-        $this->roundel_categories = $this->Taxonomy->getChildren($this->conf['roundel_category_parent_id']);
+        $this->campaign_categories = $this->Taxonomy->getChildren($this->conf['campaign_category_parent_id'] ?? false);
+        $this->roundel_categories = $this->Taxonomy->getChildren($this->conf['roundel_category_parent_id'] ?? false);
         $this->prices = $this->Price->getPriceList($this->product_variety_id);
     }
 

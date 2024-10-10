@@ -16,8 +16,8 @@ class OnyxComponentsPanel implements \Tracy\IBarPanel {
             if (isset($GLOBALS['components'][$i + 1])) $time = $GLOBALS['components'][$i + 1]['time'] - $component['time'];
             else $time = microtime(true) - $component['time'];
             $content .= "<tr>";
-            $content .= "<td>" . $component['node'] . "</td>";
-            $content .= "<td>" . $component['controller'] . "</td>";
+            $content .= isset($component['node']) ? "<td>" . $component['node'] . "</td>" : '';
+            $content .= isset($component['controller']) ? "<td>" . $component['controller'] . "</td>" : '';
             $content .= "<td>" . format_time($time) . "</td>";
             $content .= "</tr>";
         }

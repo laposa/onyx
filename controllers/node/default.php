@@ -52,7 +52,12 @@ class Onyx_Controller_Node_Default extends Onyx_Controller {
         //assign to this controller as CONTAINER variable
         if (is_array($contentx)) {
             foreach ($contentx as $content) {
-                $container[$content['container']] .= $content['content'];
+                // TODO undefined variable from require_once
+                if(isset($container[$content['container']])) {
+                    $container[$content['container']] .= $content['content'];
+                } else {
+                    $container[$content['container']] = $content['content'];
+                }
             }
         }
         
@@ -62,7 +67,7 @@ class Onyx_Controller_Node_Default extends Onyx_Controller {
          *  
          */
          
-        if ($_SESSION['fe_edit_mode'] == 'edit' || $_SESSION['fe_edit_mode'] == 'move') {
+        if (isset($_SESSION['fe_edit_mode']) && ($_SESSION['fe_edit_mode'] == 'edit' || $_SESSION['fe_edit_mode'] == 'move')) {
             if ($disable_fe_edit == false) {
                 //normally we support container.0 to container.6 in default templates, but why not to have some reserve, e.g. 20
                 $min_container_id = 0;

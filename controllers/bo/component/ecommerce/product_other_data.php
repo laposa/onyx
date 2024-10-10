@@ -32,7 +32,7 @@ class Onyx_Controller_Bo_Component_Ecommerce_Product_Other_Data extends Onyx_Con
          * other data (attributes) list
          */
          
-        $product['other_data'] = unserialize($product['other_data']);
+        $product['other_data'] = unserialize($product['other_data'] ?? '');
         
         if (is_array($product['other_data'])) {
             foreach ($product['other_data'] as $key=>$value) {

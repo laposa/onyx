@@ -46,7 +46,7 @@ if (!isset($onyx_pre_actions)) $onyx_pre_actions = [];
 $bootstrap->initPreAction($onyx_pre_actions);
 
 // Init action
-$bootstrap->initAction($_GET['request']);
+$bootstrap->initAction($_GET['request'] ?? '');
 
 // Test log to firebug
 if (ONYX_IS_DEBUG_HOST && isset($channel) && isset($response)) {

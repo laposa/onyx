@@ -267,10 +267,10 @@ CREATE TABLE common_file (
         
         if (is_readable($src)) {
             
-            if (!is_numeric($file['priority'])) $file['priority'] = 0;
+            if (!isset($file['priority']) || !is_numeric($file['priority'])) $file['priority'] = 0;
             $file['modified'] = date('c');
-            if (!is_numeric($file['author'])) $file['author'] = 0; // deprecated as of Onyx 1.7
-            if (!is_numeric($file['customer_id'])) {
+            if (!isset($file['author']) || !is_numeric($file['author'])) $file['author'] = 0; // deprecated as of Onyx 1.7
+            if (!isset($file['customer_id']) || !is_numeric($file['customer_id'])) {
                 $bo_user_id = Onyx_Bo_Authentication::getInstance()->getUserId();
                 if (is_numeric($bo_user_id)) $file['customer_id'] = $bo_user_id;
                 else $file['customer_id'] = (int) $_SESSION['client']['customer']['id'];
@@ -309,8 +309,9 @@ CREATE TABLE common_file (
      * false returned on failure
      */
      
-    function getSingleUpload($file = array(), $save_dir, $overwrite = true) {
+    function getSingleUpload($file, $save_dir, $overwrite = true) {
     
+        $file = $file ?? [];
         $upload_file = $file['tmp_name'];
         $safe_filename = $this->nameToSafe($file['name']);
         $tmp_file = ONYX_PROJECT_DIR . "var/tmp/" . $safe_filename;
@@ -893,7 +894,7 @@ CREATE TABLE common_file (
             return false;
         }
         
-        $csv_list = local_exec("csv_from_fs " . escapeshellarg($directory) . " " . escapeshellarg($attrs));
+        $csv_list = local_exec("csv_from_fs " . escapeshellarg($directory ?? '') . " " . escapeshellarg($attrs ?? ''));
         //FIND2GLOB PATCH:  $csv_list = $this->csv_from_glob($directory, $type, $recursive);
         
         $csv_list = str_replace(rtrim($directory, '/'), '', $csv_list);
@@ -928,7 +929,7 @@ CREATE TABLE common_file (
             }
         }
         
-        if (!is_array($csvf)) $csvf = array();
+        if (!isset($csvf) || !is_array($csvf)) $csvf = [];
         
         return $csvf;
     }

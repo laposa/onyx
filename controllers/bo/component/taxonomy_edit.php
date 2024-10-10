@@ -16,7 +16,7 @@ class Onyx_Controller_Bo_Component_Taxonomy_Edit extends Onyx_Controller {
         require_once('models/common/common_taxonomy.php');
         $Taxonomy = new common_taxonomy();
         
-        if ($_POST['save']) {
+        if ($_POST['save'] ?? false) {
             if ($_POST['taxonomy']['label']['publish'] == 'on' || $_POST['taxonomy']['label']['publish'] == 1) $_POST['taxonomy']['label']['publish'] = 1;
             else $_POST['taxonomy']['label']['publish'] = 0;
                 

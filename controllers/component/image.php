@@ -6,6 +6,7 @@
  */
 
 class Onyx_Controller_Component_Image extends Onyx_Controller {
+    public $Image;
 
     /**
      * main action
@@ -55,13 +56,13 @@ class Onyx_Controller_Component_Image extends Onyx_Controller {
          * setting input variables
          */
     
-        if ($this->GET['relation']) $relation = preg_replace('/[^a-zA-Z_-]/', '', $this->GET['relation']);
+        if ($this->GET['relation'] ?? false) $relation = preg_replace('/[^a-zA-Z_-]/', '', $this->GET['relation']);
         else $relation = '';
         
-        if ($this->GET['role']) $role = preg_replace('/[^a-zA-Z_-]/', '', $this->GET['role']);
+        if ($this->GET['role'] ?? false) $role = preg_replace('/[^a-zA-Z_-]/', '', $this->GET['role']);
         else $role = false;
 
-        if (is_numeric($this->GET['node_id'])) {
+        if (is_numeric($this->GET['node_id'] ?? null)) {
         
             $node_id = $this->GET['node_id'];
         
@@ -72,9 +73,7 @@ class Onyx_Controller_Component_Image extends Onyx_Controller {
         
         }
 
-        if ($this->GET['limit']) $limit = $this->GET['limit'];
-        else $limit = "";
-        
+        $limit = $this->GET['limit'] ?? '';
         
         /**
          * creating image object
@@ -213,14 +212,14 @@ class Onyx_Controller_Component_Image extends Onyx_Controller {
          * check requested width - for generating IMAGE_PATH
          */
          
-        if (is_numeric($this->GET['width'])) $width = $this->GET['width'];
+        if (is_numeric($this->GET['width'] ?? null)) $width = $this->GET['width'];
         else $width = 0;
         
         /**
          * check requested height
          */
          
-        if (is_numeric($this->GET['height']) && $this->GET['height'] > 0) $height = $this->GET['height'];
+        if (is_numeric($this->GET['height'] ?? null) && $this->GET['height'] > 0) $height = $this->GET['height'];
         else $height = 0;
         
         /**
@@ -237,9 +236,9 @@ class Onyx_Controller_Component_Image extends Onyx_Controller {
         
         $image_resize_options = array();
         
-        if ($this->GET['method']) $image_resize_options['method'] = $this->GET['method'];
-        if ($this->GET['gravity']) $image_resize_options['gravity'] = $this->GET['gravity'];
-        if ($this->GET['fill']) $image_resize_options['fill'] = $this->GET['fill'];
+        $image_resize_options['method'] = $this->GET['method'] ?? null;
+        $image_resize_options['gravity'] = $this->GET['gravity'] ?? null;
+        $image_resize_options['fill'] = $this->GET['fill'] ?? null;
         
         if (count($image_resize_options) > 0) $this->tpl->assign('IMAGE_RESIZE_OPTIONS', '?'.http_build_query($image_resize_options));
         

@@ -9,6 +9,11 @@ require_once('controllers/bo/component/scheduler.php');
 
 class Onyx_Controller_Bo_Component_Scheduler_List extends Onyx_Controller_Bo_Component_Scheduler {
 
+    // TODO might need testing? (might be calling $this->...() on null error)
+    public $Scheduler;
+    public $node_id;
+    public $node_type;
+
     /**
      * main action
      */
@@ -16,8 +21,8 @@ class Onyx_Controller_Bo_Component_Scheduler_List extends Onyx_Controller_Bo_Com
     public function mainAction() {
         
         $this->Scheduler = new common_scheduler();
-        $this->node_id =  $this->GET['node_id'];
-        $this->node_type =  $this->GET['node_type'];
+        $this->node_id =  $this->GET['node_id'] ?? null;
+        $this->node_type =  $this->GET['node_type'] ?? null;
         
         if (!is_numeric($this->node_id)) return false;
 
@@ -38,9 +43,9 @@ class Onyx_Controller_Bo_Component_Scheduler_List extends Onyx_Controller_Bo_Com
      */
     public function deleteRemovedJobs($jobs)
     {
-        if ($_POST['scheduler_action'] !== 'save') return;
+        if (!isset($_POST['scheduler_action']) || $_POST['scheduler_action'] !== 'save') return;
 
-        $old_jobs = (array) $_POST['job'];
+        $old_jobs = isset($_POST['job']) ? (array) $_POST['job'] : [];
 
         foreach ($jobs as $job) {
             if (!in_array($job['id'], $old_jobs)) $this->Scheduler->cancelJob($job['id']);
@@ -53,8 +58,8 @@ class Onyx_Controller_Bo_Component_Scheduler_List extends Onyx_Controller_Bo_Com
      */
     public function saveAddedJobs()
     {
-        $new_jobs = $_POST['scheduler'];
-        if ($_POST['scheduler_action'] !== 'save' || !is_array($new_jobs)) return;
+        $new_jobs = $_POST['scheduler'] ?? null;
+        if ((array_key_exists('scheduler_action', $_POST) && $_POST['scheduler_action'] !== 'save') || !is_array($new_jobs)) return;
 
         foreach ($new_jobs['controller'] as $i => $controller) {
 

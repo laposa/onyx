@@ -28,7 +28,7 @@ class Onyx_Controller_Bo_Component_Node_Edit extends Onyx_Controller {
         $_SESSION['active_pages'] = $Node->getActiveNodes($node_id, array('page', 'container'));
         $_SESSION['full_path'] = $Node->getFullPath($node_id);
         
-        if ($_POST['node']['node_controller'] != '') $node_controller = $_POST['node']['node_controller'];
+        if (isset($_POST['node']['node_controller']) && $_POST['node']['node_controller'] != '') $node_controller = $_POST['node']['node_controller'];
         else $node_controller = $node_data['node_controller'];
         
         $controller = "bo/node/{$node_data['node_group']}/{$node_controller}";
@@ -45,12 +45,14 @@ class Onyx_Controller_Bo_Component_Node_Edit extends Onyx_Controller {
             $controller_php = "bo/node/{$node_data['node_group']}/default";
         }
         
-        $_Onyx_Request = new Onyx_Request("{$controller_php}@{$controller_html}&id={$node_id}&orig={$this->GET['orig']}&popup={$this->GET['popup']}", $this);
+        $popup = $this->GET['popup'] ?? '';
+        $orig = $this->GET['orig'] ?? '';
+        $_Onyx_Request = new Onyx_Request("{$controller_php}@{$controller_html}&id={$node_id}&orig={$orig}&popup={$popup}", $this);
                 
         $this->setContent($_Onyx_Request->getContent());
         $this->tpl->assign("SUB_CONTENT", $this->content);
 
-        if ($this->GET['ajax'] == 0) $this->tpl->parse('content.form');
+        if (!isset($this->GET['ajax']) || $this->GET['ajax'] == 0) $this->tpl->parse('content.form');
 
         return true;
     }

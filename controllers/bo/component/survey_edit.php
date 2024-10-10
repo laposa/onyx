@@ -8,6 +8,8 @@ require_once('controllers/bo/component/survey.php');
 
 class Onyx_Controller_Bo_Component_Survey_Edit extends Onyx_Controller_Bo_Component_Survey {
 
+    public $Survey;
+
     /**
      * main action
      */
@@ -20,7 +22,7 @@ class Onyx_Controller_Bo_Component_Survey_Edit extends Onyx_Controller_Bo_Compon
          * Save on request
          */
          
-        if ($_POST['save'] && is_array($_POST['survey'])) {
+        if (isset($_POST['save']) && $_POST['save'] && is_array($_POST['survey'])) {
         
             $this->saveSurvey($_POST['survey']);
             $id = (int) $this->GET['id'];

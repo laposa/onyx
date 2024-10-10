@@ -38,7 +38,7 @@ class Onyx_Controller_Bo_Component_Ecommerce_Product_Variety_Edit extends Onyx_C
          * update variety
          */
          
-        if ($_POST['save'] == 'save') {
+        if (isset($_POST['save']) && $_POST['save'] == 'save') {
 
             if (!isset($_POST['product']['variety']['publish'])) $_POST['product']['variety']['publish'] = 0;
             

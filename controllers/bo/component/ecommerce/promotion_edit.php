@@ -18,7 +18,7 @@ class Onyx_Controller_Bo_Component_Ecommerce_Promotion_Edit extends Onyx_Control
         /**
          * Save on request
          */
-        if ($_POST['save']) {
+        if ($_POST['save'] ?? false) {
             $promotion_data = $_POST['promotion'];
             
             if ($promotion_data['publish'] == 'on' || $promotion_data['publish'] == 1) $promotion_data['publish'] = 1;

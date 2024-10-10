@@ -21,7 +21,7 @@ class Onyx_Controller_Bo_Component_Ecommerce_Unfinished_Products extends Onyx_Co
         
         //delete product
         //TODO make it safer
-        if (is_numeric($this->GET['delete_product_id'])) {
+        if (is_numeric($this->GET['delete_product_id'] ?? null)) {
             if ($Product->productDelete($this->GET['delete_product_id'])) msg("Product ID {$this->GET['delete_product_id']} has been deleted");
             else msg("Cannot delete product ID {$this->GET['delete_product_id']}", 'error');
         }

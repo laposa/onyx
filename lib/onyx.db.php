@@ -408,7 +408,7 @@ class Onyx_Db {
         try {
             $this->db->insert($this->_class_name, $data);
 
-            if (is_numeric($data['id'])) {
+            if (is_numeric($data['id'] ?? null)) {
                 $id = $data['id'];
             } else {
                 $id = $this->db->lastInsertId();

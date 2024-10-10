@@ -39,7 +39,7 @@ class Onyx_Controller_Bo_Component_Ecommerce_Store_In_Node extends Onyx_Controll
          * move page if requested
          */
          
-        if (is_numeric($this->GET['add_to_parent'])) {
+        if (is_numeric($this->GET['add_to_parent'] ?? null)) {
             if (is_array($store_homepage )) {
                 //moving
                 $store_homepage = $this->moveStoreNode($store_id, $this->GET['add_to_parent']);

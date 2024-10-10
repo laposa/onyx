@@ -17,7 +17,7 @@ class Onyx_Controller_Bo_Component_Ecommerce_Product_Add extends Onyx_Controller
         
         $product_data = $_POST['product'];
         
-        if ($_POST['save']) {
+        if ($_POST['save'] ?? false) {
             if($id = $Product->insertProduct($product_data)) {
                 msg("Product has been added.");
                 onyxGoTo("backoffice/products/$id/variety_add");

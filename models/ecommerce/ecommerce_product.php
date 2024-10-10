@@ -60,6 +60,8 @@ class ecommerce_product extends Onyx_Model {
         'name_aka'=>array('label' => '', 'validation'=>'string', 'required'=>false)
     );
 
+    private $_cache_product_in_node;
+
     /**
      * create table sql
      */
@@ -94,8 +96,8 @@ CREATE TABLE ecommerce_product (
         if (array_key_exists('ecommerce_product', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['ecommerce_product'];
         else $conf = array();
 
-        if (!is_numeric($conf['gift_wrap_product_id'])) $conf['gift_wrap_product_id'] = 0; //set to numeric id > 0, to enable gift wrap option on checkout
-        if (!is_numeric($conf['gift_voucher_product_id'])) $conf['gift_voucher_product_id'] = 0; //set to numeric id > 0, to enable gift vouchers
+        if (!isset($conf['gift_wrap_product_id']) || !is_numeric($conf['gift_wrap_product_id'])) $conf['gift_wrap_product_id'] = 0; //set to numeric id > 0, to enable gift wrap option on checkout
+        if (!isset($conf['gift_voucher_product_id']) || !is_numeric($conf['gift_voucher_product_id'])) $conf['gift_voucher_product_id'] = 0; //set to numeric id > 0, to enable gift vouchers
 
         return $conf;
     }
@@ -222,7 +224,7 @@ CREATE TABLE ecommerce_product (
          * handle other_data
          */
 
-        $data['other_data'] = serialize($data['other_data']);
+        $data['other_data'] = serialize($data['other_data'] ?? '');
 
         /**
          * update product
@@ -267,7 +269,7 @@ CREATE TABLE ecommerce_product (
 
         $product_detail = $this->detail($id);
         //other data
-        $product_detail['other_data'] = unserialize($product_detail['other_data']);
+        $product_detail['other_data'] = unserialize($product_detail['other_data'] ?? '');
 
         return $product_detail;
 
@@ -327,6 +329,7 @@ CREATE TABLE ecommerce_product (
 
         require_once('models/ecommerce/ecommerce_product_variety.php');
         $ProductVariety = new ecommerce_product_variety();
+        $variety = [];
 
         $varieties = $ProductVariety->listing("product_id = $product_id", 'priority DESC, id ASC');
 
@@ -472,29 +475,31 @@ CREATE TABLE ecommerce_product (
         if (is_array($filter)) {
 
             // node_id (get a list of products sitting (their homepage is) under node_id
-            if (is_numeric($filter['node_id']) && $filter['node_id'] > 0) {
+            if (isset($filter['node_id']) && is_numeric($filter['node_id']) && $filter['node_id'] > 0) {
                 $add_to_where .= " AND product.id IN (SELECT content::int FROM common_node WHERE node_group = 'page' AND node_controller = 'product' AND parent = {$filter['node_id']})";
             }
 
             // keyword
-            if (is_numeric($filter['keyword'])) $add_to_where .= " AND product.id = {$filter['keyword']} OR variety.id = {$filter['keyword']} OR variety.sku = '{$filter['keyword']}'";
+            if (is_numeric($filter['keyword'] ?? null)) $add_to_where .= " AND product.id = {$filter['keyword']} OR variety.id = {$filter['keyword']} OR variety.sku = '{$filter['keyword']}'";
             else if ($filter['keyword'] != '') $add_to_where .= " AND (variety.sku ILIKE '%{$filter['keyword']}%' OR product.name ILIKE '%{$filter['keyword']}%')";
             else $add_to_where .= " AND (image.role != 'RTE' OR image.role IS NULL) "; //use image filter only when not empty keyword (it allows to find product with one image role RTE)
 
             // stock value
-            if (is_numeric($filter['stock']) && $filter['stock'] >= 0) $add_to_where .= " AND variety.stock < {$filter['stock']}";
+            if (isset($filter['stock']) && is_numeric($filter['stock']) && $filter['stock'] >= 0) $add_to_where .= " AND variety.stock < {$filter['stock']}";
 
             // publish filter and deprecated disable/enabled option
-            if ($filter['publish'] === 0 || $filter['disabled'] == 'disabled') $add_to_where .= " AND product.publish = 0";
-            else if ($filter['publish'] === 1  || $filter['disabled'] == 'enabled') $add_to_where .= " AND product.publish = 1 AND variety.publish = 1";
+            if(isset($filter['publish']) && isset($filter['disabled'])) {
+                if ($filter['publish'] === 0 || $filter['disabled'] == 'disabled') $add_to_where .= " AND product.publish = 0";
+                else if ($filter['publish'] === 1  || $filter['disabled'] == 'enabled') $add_to_where .= " AND product.publish = 1 AND variety.publish = 1";
+            }
 
             // special offer
-            if (is_numeric($filter['offer_group_id'])) {
+            if (is_numeric($filter['offer_group_id'] ?? null)) {
                 $add_to_where .= " AND variety.id IN (SELECT product_variety_id FROM ecommerce_offer WHERE offer_group_id = {$filter['offer_group_id']})";
             }
 
             // image role
-            if ($filter['image_role']) {
+            if ($filter['image_role'] ?? false) {
                 $filter['image_role'] = pg_escape_string($filter['image_role']);
                 $add_to_where .= " AND image.role = '{$filter['image_role']}'";
             }
@@ -549,7 +554,7 @@ CREATE TABLE ecommerce_product (
              * show only some particular products defined by their id
              */
 
-            if (is_array($filter['product_id_list'])) {
+            if (is_array($filter['product_id_list'] ?? null)) {
 
                 $product_id_list = array();
 
@@ -616,8 +621,10 @@ variety.stock, price.date, product.publish, product.modified, variety.sku, varie
             // change node_id to productHomepage
             foreach($records as $k=>$record) {
                 $homepage = $this->getProductHomepage($record['product_id']);
-                $records[$k]['node_id'] = $homepage['id'];
-                $records[$k]['node_publish'] = $homepage['publish'];
+                if(is_array($homepage)) {
+                    $records[$k]['node_id'] = $homepage['id'];
+                    $records[$k]['node_publish'] = $homepage['publish'];
+                }
             }
 
             return $records;

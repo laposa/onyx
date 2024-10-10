@@ -15,7 +15,7 @@ class Onyx_Controller_Bo_Pages_Generic extends Onyx_Controller {
      
     public function mainAction() {
 
-        if (strlen($this->GET['title']) > 0 ) $this->tpl->parse('content.header');
+        if (isset($this->GET['title']) && strlen($this->GET['title']) > 0 ) $this->tpl->parse('content.header');
 
         return true;
     }

@@ -25,7 +25,7 @@ class Onyx_Controller_Uri_Mapping extends Onyx_Controller {
          * input data
          */
 
-        $translate = trim($this->GET['translate']);
+        $translate = trim($this->GET['translate'] ?? '');
         if ($translate != "/") $translate = rtrim($translate, '/');
 
         if (array_key_exists('controller_request', $this->GET)) $controller_request = trim($this->GET['controller_request']);
@@ -227,7 +227,7 @@ class Onyx_Controller_Uri_Mapping extends Onyx_Controller {
 
         $apply = $this->proccessFileRulesItems($translate, $uri_map);
 
-        $parsed = parse_url($apply);
+        $parsed = parse_url($apply ?? '');
 
         if (array_key_exists('query', $parsed)) {
             parse_str($parsed['query'], $query);

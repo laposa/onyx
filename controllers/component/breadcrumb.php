@@ -6,6 +6,8 @@
  */
 
 class Onyx_Controller_Component_Breadcrumb extends Onyx_Controller {
+
+    public $Node;
     
     /**
      * main action

@@ -37,9 +37,9 @@ class Onyx_Controller_Bo_Component_Qr_Code extends Onyx_Controller {
         $url = 'https://' . $hostname . '/'. $this->GET['node_id'];
 
         // QR Code regenerating
-        if($this->GET['regenerate'] == 'true') {
+        if(isset($this->GET['regenerate']) && $this->GET['regenerate'] == 'true') {
             $url = $this->GET['params'] ? $url . '?' . urldecode($this->GET['params']) : $url;
-        } else if ($node_detail['custom_fields']['qrcode_params']) {
+        } else if ($node_detail['custom_fields']['qrcode_params'] ?? false) {
             $url .= '?' . $node_detail['custom_fields']['qrcode_params'];
         }
 

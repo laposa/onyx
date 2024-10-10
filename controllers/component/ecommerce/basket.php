@@ -103,10 +103,10 @@ class Onyx_Controller_Component_Ecommerce_Basket extends Onyx_Controller {
         $result = $_SESSION['basket']['id'];
 
         // parameter may override session
-        if (is_numeric($this->GET['id'])) {
+        if (is_numeric($this->GET['id'] ?? null)) {
 
             // is the parameter from $_GET or from parent component?
-            if ($_GET['id'] == $this->GET['id']) {
+            if (isset($_GET['id']) && $_GET['id'] == $this->GET['id']) {
 
                 // for security reasons do not allow to override the id by
                 // $_GET parameter if valid security code is not present

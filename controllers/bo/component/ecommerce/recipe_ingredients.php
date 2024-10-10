@@ -27,7 +27,7 @@ class Onyx_Controller_Bo_Component_Ecommerce_Recipe_Ingredients extends Onyx_Con
          * saving
          */
          
-        if (is_array($_POST['ingredients'])) {
+        if (is_array($_POST['ingredients'] ?? null)) {
 
             $current = $Ingredients->listing("recipe_id = $recipe_id");
             $keep = array_keys($_POST['ingredients']);

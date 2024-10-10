@@ -15,13 +15,10 @@ class Onyx_Controller_Component_Ecommerce_Currency_Switcher extends Onyx_Control
     
         require_once('models/international/international_currency.php');
         $Currency = new international_currency();
-        
-        if ($_POST['client']['customer']['currency_code']) $_SESSION['client']['customer']['currency_code'] = $_POST['client']['customer']['currency_code'];
-        else $_SESSION['client']['customer']['currency_code'] = $Currency->conf['default'];
+
+        $_SESSION['client']['customer']['currency_code'] = $_POST['client']['customer']['currency_code'] ?? $Currency->conf['default'];
         
         $selected = $_SESSION['client']['customer']['currency_code'];
-        
-        
         
         $allowed = $Currency->conf['allowed'];
         $allowed_count = count($allowed);

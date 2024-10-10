@@ -55,7 +55,7 @@ class Onyx_Controller_Bo_Component_Client_Edit extends Onyx_Controller {
 
     protected function saveForm($customer_id)
     {
-        if ($_POST['save'] && $this->auth->hasPermission('customers', 'edit')) {
+        if (isset($_POST['save']) && $_POST['save'] && $this->auth->hasPermission('customers', 'edit')) {
 
             $client_data = $_POST['client'];
             

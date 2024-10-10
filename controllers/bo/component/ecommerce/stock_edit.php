@@ -22,7 +22,7 @@ class Onyx_Controller_Bo_Component_Ecommerce_Stock_Edit extends Onyx_Controller 
         
         $Product_variety->set('id', $this->GET['id']);
         
-        if ($_POST['save'] == 'save') {
+        if (isset($_POST['save']) && $_POST['save'] == 'save') {
             
             if($id = $Product_variety->updateVariety($_POST['product']['variety'])) {
                 msg("Product variety updated.");

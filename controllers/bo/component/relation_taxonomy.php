@@ -62,7 +62,7 @@ class Onyx_Controller_Bo_Component_Relation_Taxonomy extends Onyx_Controller {
          * saving
          */
         
-        if (is_array($_POST['relation_taxonomy']) && is_numeric($node_id)) {
+        if (isset($_POST['relation_taxonomy']) && is_array($_POST['relation_taxonomy']) && is_numeric($node_id)) {
 
             $current = array();
             $submitted = array();

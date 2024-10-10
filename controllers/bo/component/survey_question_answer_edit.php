@@ -8,6 +8,9 @@ require_once('controllers/bo/component/survey.php');
 
 class Onyx_Controller_Bo_Component_Survey_Question_Answer_Edit extends Onyx_Controller_Bo_Component_Survey {
 
+    // TODO could be modal window?
+    public $QuestionAnswer;
+    
     /**
      * main action
      */
@@ -20,7 +23,7 @@ class Onyx_Controller_Bo_Component_Survey_Question_Answer_Edit extends Onyx_Cont
          * Save on request
          */
          
-        if ($_POST['save'] && is_array($_POST['answer'])) {
+        if (is_array($_POST['answer'] ?? null)) {
         
             $this->saveQuestionAnswer($_POST['answer']);
             

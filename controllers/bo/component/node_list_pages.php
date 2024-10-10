@@ -33,7 +33,7 @@ class Onyx_Controller_Bo_Component_Node_List_Pages extends Onyx_Controller {
          * set node group as parent if not provided
          */
         
-        if ($this->GET['node_group'] != '') $this->tpl->assign('NODE_GROUP', $this->GET['node_group']);
+        if (isset($this->GET['node_group']) && $this->GET['node_group'] != '') $this->tpl->assign('NODE_GROUP', $this->GET['node_group']);
         else $this->tpl->assign('NODE_GROUP', $node_detail['node_group']);
         
         $this->tpl->assign("NODE", $node_detail);

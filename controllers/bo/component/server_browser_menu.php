@@ -15,13 +15,15 @@ class Onyx_Controller_Bo_Component_Server_Browser_Menu extends Onyx_Controller_C
      * get tree
      */
      
-    public function getTree($publish = 1, $filter, $parent, $depth, $expand_all) {
+    public function getTree($publish, $filter, $parent, $depth, $expand_all) {
             
         /**
          * set prefix
          */
-            
-        switch ($this->GET['scope']) {
+
+        $directories = [];
+
+        switch ($this->GET['scope'] ?? '') {
         
             case 'onyx':
                 $directories = array(ONYX_DIR);
@@ -46,7 +48,7 @@ class Onyx_Controller_Bo_Component_Server_Browser_Menu extends Onyx_Controller_C
          * trim extension
          */
          
-        if ($this->GET['trim_extension']) {
+        if ($this->GET['trim_extension'] ?? false) {
             foreach ($list as $k=>$item) {
                 $list[$k]['name'] = preg_replace('/\.html$/', '', $list[$k]['name']);
                 $list[$k]['name'] = preg_replace('/\.php$/', '', $list[$k]['name']);
@@ -74,7 +76,7 @@ class Onyx_Controller_Bo_Component_Server_Browser_Menu extends Onyx_Controller_C
          * pass find param
          */
         
-        switch ($this->GET['type']) {
+        switch ($this->GET['type'] ?? '') {
             case 'd':
                 $find_param = '-type d';
             break;

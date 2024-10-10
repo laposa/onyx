@@ -7,6 +7,8 @@
 
 class Onyx_Controller_Component_Menu extends Onyx_Controller {
 
+    public $Node;
+
     /**
      * main action
      */
@@ -26,20 +28,20 @@ class Onyx_Controller_Component_Menu extends Onyx_Controller {
         else $expand_all = 0;
         
         // 1 parse strapline
-        if ($this->GET['display_strapline'] == 1) $display_strapline = 1;
+        if (isset($this->GET['display_strapline']) && $this->GET['display_strapline'] == 1) $display_strapline = 1;
         else $display_strapline = 0;
         
         // 1 shows only published items, 0 shows all
         // possible security flaw, user can see list of not published items if provide the get parameter
-        if (is_numeric($this->GET['publish'])) $publish = $this->GET['publish'];
+        if (is_numeric($this->GET['publish'] ?? null)) $publish = $this->GET['publish'];
         else $publish = 1;
         
         // open this item (active item)
-        if (is_numeric($this->GET['open'])) $open = $this->GET['open'];
+        if (is_numeric($this->GET['open'] ?? null)) $open = $this->GET['open'];
         else $open = null;
         
         // node_id
-        if (is_numeric($this->GET['id'])) $node_id = $this->GET['id'];
+        if (is_numeric($this->GET['id'] ?? null)) $node_id = $this->GET['id'];
         else $node_id = null; //null if not provided (it's correct value for tree's root elements)
         
         // filter (see common_node->prepareNodeGroupFilter() for available filters)
@@ -58,7 +60,7 @@ class Onyx_Controller_Component_Menu extends Onyx_Controller {
          * process action
          */
         
-        return $this->standardAction($node_id, $publish, $max_display_level, $expand_all, $filter, $node_controller);
+        return $this->standardAction($node_id, $publish, $max_display_level, $expand_all, $filter);
         
     }
 
@@ -130,7 +132,7 @@ class Onyx_Controller_Component_Menu extends Onyx_Controller {
      * get tree in descending order (from root down to given level)
      */
      
-    public function getTree($publish = 1, $filter, $parent, $depth, $expand_all)
+    public function getTree($publish, $filter, $parent, $depth, $expand_all)
     {
         /**
          * try optimised
@@ -176,6 +178,7 @@ class Onyx_Controller_Component_Menu extends Onyx_Controller {
     public function parseTree(&$tree) {
 
         $count = count($tree);
+        $end_result_items = '';
 
         if ($count == 0) return '';
 
@@ -186,7 +189,7 @@ class Onyx_Controller_Component_Menu extends Onyx_Controller {
             /**
              * parse children
              */
-            if (is_array($item['children']) && count($item['children']) > 0) {
+            if (isset($item['children']) && is_array($item['children']) && count($item['children']) > 0) {
 
                 $item['subcontent'] = $this->parseTree($item['children']);
 
@@ -196,7 +199,7 @@ class Onyx_Controller_Component_Menu extends Onyx_Controller {
             
             }
 
-            if (!empty($item['subcontent']) || $item['has_children']) $item['css_class'] = $item['css_class'] . ' has-child';
+            if (!empty($item['subcontent']) || (isset($item['has_children']) && $item['has_children'])) $item['css_class'] = $item['css_class'] . ' has-child';
 
             if ($item_parsed = $this->parseItem($item)) {
                 
@@ -228,7 +231,7 @@ class Onyx_Controller_Component_Menu extends Onyx_Controller {
          * or set HTML title as item name if not available
          */
          
-        if ($item['description'] != '') $item['title'] = $item['description'];
+        if (isset($item['description']) && $item['description'] != '') $item['title'] = $item['description'];
         else if ($item['title'] == '') $item['title'] = $item['name'];
         
         /**
@@ -253,21 +256,24 @@ class Onyx_Controller_Component_Menu extends Onyx_Controller {
          * symbolic (a.k.a. alias or redirect) page type will user href as target page
          */
          
-        if ($item['node_controller'] == 'symbolic' && $item['node_group'] == 'page') {
+        if (isset($item['node_controller']) && isset($item['node_group']) && ($item['node_controller'] == 'symbolic' && $item['node_group'] == 'page')) {
             
             $component_data = unserialize($item['component']);
-            
-            if (is_numeric($component_data['href'])) $href = "/page/{$component_data['href']}";
-            else if (trim($component_data['href']) != '') $href = $component_data['href'];
-            else $href = false;
-            
+
+            if(isset($component_data['href'])) {
+                if (is_numeric($component_data['href'])) $href = "/page/{$component_data['href']}";
+                else if (trim($component_data['href']) != '') $href = $component_data['href'];
+                else $href = false;
+            } else {
+                $href = false;
+            }
         }
 
         /**
          * create href
          */
          
-        if ($href) $item['href'] = $href;
+        if ($href ?? false) $item['href'] = $href;
         else $item['href'] = "/page/{$item['id']}";
         
         /**
@@ -281,7 +287,7 @@ class Onyx_Controller_Component_Menu extends Onyx_Controller {
          * other specific things, should be moved to separate controllers
          */
          
-        if ($this->GET['display_strapline'] && trim($item['strapline']) != '') {
+        if (isset($this->GET['display_strapline']) && $this->GET['display_strapline'] && trim($item['strapline']) != '') {
             $this->tpl->parse('content.group.item.link.strapline');
         }
         
@@ -289,7 +295,7 @@ class Onyx_Controller_Component_Menu extends Onyx_Controller {
          * parse no link block if appropriate
          */
         
-        if ($item['display_in_menu'] == 2 || $item['node_group'] == 'container') {
+        if (isset($item['display_in_menu']) && isset($item['node_group']) && ($item['display_in_menu'] == 2 || $item['node_group'] == 'container')) {
             $this->tpl->parse('content.group.item.nolink');
         } else {
             $this->tpl->parse('content.group.item.link');
@@ -357,7 +363,7 @@ class Onyx_Controller_Component_Menu extends Onyx_Controller {
      */
     protected function isNodeActive(&$item)
     {
-        if (is_numeric($this->GET['active_page'])) {
+        if (is_numeric($this->GET['active_page'] ?? null)) {
             if ($item['id'] == $this->GET['active_page']) return true;
         } else {
             return (in_array($item['id'], $_SESSION['active_pages']));
@@ -369,7 +375,7 @@ class Onyx_Controller_Component_Menu extends Onyx_Controller {
      */
     protected function isNodeOpen(&$item)
     {
-        if (is_numeric($this->GET['open']) && $item['id'] == $this->GET['open']) return true;
+        if (is_numeric($this->GET['open'] ?? null) && $item['id'] == $this->GET['open']) return true;
         return ($item['id'] == $_SESSION['active_pages'][0]);
     }
     

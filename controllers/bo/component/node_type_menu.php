@@ -74,7 +74,7 @@ class Onyx_Controller_Bo_Component_Node_Type_Menu extends Onyx_Controller_Compon
             ) {             
                 $this->tpl->assign('GROUP', $group);
                 
-                if (is_array($group['children']) && count($group['children']) > 0) {
+                if (isset($group['children']) && is_array($group['children']) && count($group['children']) > 0) {
                 
                     $this->iterateThroughItems($group['children']);
                 }
@@ -143,7 +143,7 @@ class Onyx_Controller_Bo_Component_Node_Type_Menu extends Onyx_Controller_Compon
         //reorder
         $temp = array();
 
-        if($this->GET['only_group'] && $this->GET['only_group'] !== "") {
+        if(isset($this->GET['only_group']) && $this->GET['only_group'] && $this->GET['only_group'] !== "") {
             $temp[0] = $this->findInMdTree($md_tree, $this->GET['only_group']);
         } else {
             $temp[0] = $this->findInMdTree($md_tree, 'content');//content
@@ -204,7 +204,7 @@ class Onyx_Controller_Bo_Component_Node_Type_Menu extends Onyx_Controller_Compon
             if (array_key_exists($item['parent'], $templates_info)) {
                 
                 //dont' show items with visibility false
-                $item_visibility_status = $templates_info[$item['parent']][$item['name']]['visibility'];
+                $item_visibility_status = $templates_info[$item['parent']][$item['name']]['visibility'] ?? null;
                 
                 //but show item currently selected
                 if ($item['parent'] == $this->GET['node_group'] && $selected == $item['name']) $item_visibility_status = true;
@@ -216,7 +216,7 @@ class Onyx_Controller_Bo_Component_Node_Type_Menu extends Onyx_Controller_Compon
                 } else {
                     
                     //use template info title if available
-                    $templates_info_item_title = trim($templates_info[$item['parent']][$item['name']]['title']);
+                    $templates_info_item_title = trim($templates_info[$item['parent']][$item['name']]['title'] ?? '');
                     if ($templates_info_item_title !== '') $item['title'] = $templates_info_item_title;
                     else $item['title'] = $item['name'];
                 

@@ -15,7 +15,7 @@ class Onyx_Controller_Bo_Component_Ecommerce_Recipe_List_Filter extends Onyx_Con
         
         if (isset($_POST['recipe-list-filter'])) $_SESSION['bo']['recipe-list-filter'] = $_POST['recipe-list-filter'];
 
-        $filter = $_SESSION['bo']['recipe-list-filter'];
+        $filter = $_SESSION['bo']['recipe-list-filter'] ?? [];
         $this->tpl->assign('FILTER', $filter);
         
         return true;

@@ -24,13 +24,13 @@ class Onyx_Controller_Bo_Node_Default extends Onyx_Controller {
 
         $scope = $this->Node->getFullPath($this->GET['id']);
         $auth = Onyx_Bo_Authentication::getInstance();
-        if (!$auth->hasPermission('nodes', 'view', $scope) || ($_POST['save'] && !$auth->hasPermission('nodes', 'edit', $scope))) {
+        if (!$auth->hasPermission('nodes', 'view', $scope) || (($_POST['save'] ?? false) && !$auth->hasPermission('nodes', 'edit', $scope))) {
             msg("You do not have permission to " . ($_POST['save'] ? 'edit' : 'view') . " this page", 'error');
             return true;
         } 
 
         $this->pre();
-        if ($_POST['save']) $this->save();
+        if ($_POST['save'] ?? false) $this->save();
         $this->detail();
         $this->post();
         $this->assign();
@@ -48,16 +48,16 @@ class Onyx_Controller_Bo_Node_Default extends Onyx_Controller {
         
         $node_data = $_POST['node']; 
 
-        if ($node_data['publish'] == 'on' || $node_data['publish'] == 1) $node_data['publish'] = 1;
+        if (isset($node_data['publish']) && ($node_data['publish'] == 'on' || $node_data['publish'] == 1)) $node_data['publish'] = 1;
         else $node_data['publish'] = 0;
 
-        if ($node_data['display_title'] == 'on' || $node_data['display_title'] == 1) $node_data['display_title'] = 1;
+        if (isset($node_data['display_title']) && ($node_data['display_title'] == 'on' || $node_data['display_title'] == 1)) $node_data['display_title'] = 1;
         else $node_data['display_title'] = 0;
         
-        if ($node_data['require_login'] == 'on' || $node_data['require_login'] == 1) $node_data['require_login'] = 1;
+        if (isset($node_data['require_login']) && ($node_data['require_login'] == 'on' || $node_data['require_login'] == 1)) $node_data['require_login'] = 1;
         else $node_data['require_login'] = 0;
         
-        if ($node_data['require_ssl'] == 'on' || $node_data['require_ssl'] == 1) $node_data['require_ssl'] = 1;
+        if (isset($node_data['require_ssl']) && ($node_data['require_ssl'] == 'on' || $node_data['require_ssl'] == 1)) $node_data['require_ssl'] = 1;
         else $node_data['require_ssl'] = 0;
         
         if($this->Node->nodeUpdate($node_data)) {
@@ -215,10 +215,10 @@ class Onyx_Controller_Bo_Node_Default extends Onyx_Controller {
      
     function pre() {
     
-        if ($_POST['node']['display_secondary_navigation'] == 'on' || $_POST['node']['display_secondary_navigation'] == 1) $_POST['node']['display_secondary_navigation'] = 1;
+        if (isset($_POST['node']['display_secondary_navigation']) && ($_POST['node']['display_secondary_navigation'] == 'on' || $_POST['node']['display_secondary_navigation'] == 1)) $_POST['node']['display_secondary_navigation'] = 1;
         else $_POST['node']['display_secondary_navigation'] = 0;
         
-        if (is_array($_POST['node']['component']) && array_key_exists('allow_comment', $_POST['node']['component'])) {
+        if (isset($POST['node']['component']) && is_array($_POST['node']['component']) && array_key_exists('allow_comment', $_POST['node']['component'])) {
             if ($_POST['node']['component']['allow_comment'] == 'on') $_POST['node']['component']['allow_comment'] = 1;
             else $_POST['node']['component']['allow_comment'] = 0;
         }
@@ -232,8 +232,8 @@ class Onyx_Controller_Bo_Node_Default extends Onyx_Controller {
 
         if (!is_numeric($this->node_data['display_secondary_navigation'])) $this->node_data['display_secondary_navigation'] = $GLOBALS['onyx_conf']['global']['display_secondary_navigation'];
         
-        $this->node_data['display_secondary_navigation']        = ($this->node_data['display_secondary_navigation']) ? 'checked="checked"'      : '';
-        $this->node_data['component']['allow_comment']        = ($this->node_data['component']['allow_comment']) ? 'checked="checked"'      : '';
+        $this->node_data['display_secondary_navigation'] = (isset($this->node_data['display_secondary_navigation']) && $this->node_data['display_secondary_navigation']) ? 'checked="checked"' : '';
+        $this->node_data['component']['allow_comment'] = (isset($this->node_data['component']['allow_comment']) && $this->node_data['component']['allow_comment']) ? 'checked="checked"' : '';
         
         /**
          * checkbox status
@@ -296,7 +296,7 @@ class Onyx_Controller_Bo_Node_Default extends Onyx_Controller {
          * image width
          */
         
-        if ($this->node_data['component']['image_width'] == 0) {
+        if (isset($this->node_data['component']['image_width']) && $this->node_data['component']['image_width'] == 0) {
             
             $this->tpl->assign("SELECTED_image_width_original", "selected='selected'");
             $this->node_data['component']['image_width'] = $this->getLargestAssociatedImageWidth($this->node_data['id']);;
@@ -311,15 +311,15 @@ class Onyx_Controller_Bo_Node_Default extends Onyx_Controller {
          * image ratio constrain
          */
          
-        $this->tpl->assign("SELECTED_image_constrain_{$this->node_data['component']['image_constrain']}", "selected='selected'");
-        
-        
+        if(isset($this->node_data['component']['image_constrain'])) {
+            $this->tpl->assign("SELECTED_image_constrain_{$this->node_data['component']['image_constrain']}", "selected='selected'");
+        }
         
         /**
          * main image width (TODO merge with image_width)
          */
         
-        if ($this->node_data['component']['main_image_width'] == 0) {
+        if (isset($this->node_data['component']['main_image_width']) && $this->node_data['component']['main_image_width'] == 0) {
             
             $this->tpl->assign("SELECTED_main_image_width_original", "selected='selected'");
             $this->node_data['component']['main_image_width'] = $this->getLargestAssociatedImageWidth($this->node_data['id']);
@@ -334,13 +334,17 @@ class Onyx_Controller_Bo_Node_Default extends Onyx_Controller {
          * main image ratio constrain (TODO: merge with image_width)
          */
         
-        $this->tpl->assign("SELECTED_main_image_constrain_{$this->node_data['component']['main_image_constrain']}", "selected='selected'");
+        if(isset($this->node_data['component']['main_image_constrain'])) {
+            $this->tpl->assign("SELECTED_main_image_constrain_{$this->node_data['component']['main_image_constrain']}", "selected='selected'");
+        }
         
         /**
          * fill option
          */
-         
-        $this->tpl->assign("SELECTED_image_fill_{$this->node_data['component']['image_fill']}", "selected='selected'");
+        
+        if(isset($this->node_data['component']['image_fill'])) {
+            $this->tpl->assign("SELECTED_image_fill_{$this->node_data['component']['image_fill']}", "selected='selected'");
+        }
         
     }
     
@@ -364,7 +368,7 @@ class Onyx_Controller_Bo_Node_Default extends Onyx_Controller {
         $image_width = 9999;
         
         foreach ($image_list as $item) {
-            if ($item['imagesize']['width'] < $image_width) $image_width = ($item['imagesize']['width'] - $item['imagesize']['width'] % 5);
+            if (isset($item['imagesize']['width']) && $item['imagesize']['width'] < $image_width) $image_width = ($item['imagesize']['width'] - $item['imagesize']['width'] % 5);
         }
         
         if ($image_width == 9999) $image_width = $this->getDefaultImageWidth(); // default value

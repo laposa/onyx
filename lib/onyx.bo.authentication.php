@@ -137,8 +137,8 @@ class Onyx_Bo_Authentication
         
         if ($this->isAuthenticated()) return true;
 
-        $username = $_SERVER['PHP_AUTH_USER'];
-        $password = $_SERVER['PHP_AUTH_PW'];
+        $username = $_SERVER['PHP_AUTH_USER'] ?? '';
+        $password = $_SERVER['PHP_AUTH_PW'] ?? '';
 
         if (!$username) $this->showHttpAuthDialog();
 
@@ -198,7 +198,10 @@ class Onyx_Bo_Authentication
      */
     public function isAuthenticated()
     {
-        return (bool) $_SESSION['authentication']['authenticated'] || self::$superuserEmulation;
+        if(isset($_SESSION['authentication'])) {
+            return (bool) $_SESSION['authentication']['authenticated'] || self::$superuserEmulation;
+        }
+        return false;
     }
 
 

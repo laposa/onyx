@@ -64,8 +64,8 @@ class ecommerce_offer extends Onyx_Model {
         if (array_key_exists('ecommerce_offer', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['ecommerce_offer'];
         else $conf = array();
         
-        if (!is_numeric($conf['campaign_category_parent_id'])) $conf['campaign_category_parent_id'] = false;
-        if (!is_numeric($conf['roundel_category_parent_id'])) $conf['roundel_category_parent_id'] = false;
+        if (!isset($conf['campaign_category_parent_id']) || !is_numeric($conf['campaign_category_parent_id'])) $conf['campaign_category_parent_id'] = false;
+        if (!isset($conf['roundel_category_parent_id']) || !is_numeric($conf['roundel_category_parent_id'])) $conf['roundel_category_parent_id'] = false;
         
         return $conf;
     }

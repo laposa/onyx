@@ -8,6 +8,8 @@ require_once('controllers/bo/component/survey.php');
 
 class Onyx_Controller_Bo_Component_Survey_Question_Edit extends Onyx_Controller_Bo_Component_Survey {
 
+    public $Question;
+
     /**
      * main action
      */
@@ -20,7 +22,7 @@ class Onyx_Controller_Bo_Component_Survey_Question_Edit extends Onyx_Controller_
          * Save on request
          */
          
-        if ($_POST['save'] && is_array($_POST['question'])) {
+        if (is_array($_POST['question'] ?? null)) {
             
             $question_data = $_POST['question'];
             if (!is_numeric($question_data['mandatory'])) $question_data['mandatory'] = 0;

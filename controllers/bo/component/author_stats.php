@@ -16,9 +16,7 @@ class Onyx_Controller_Bo_Component_Author_Stats extends Onyx_Controller {
         /**
          * input
          */
-         
-        if (is_numeric($_POST['customer_id'])) $customer_id = $_POST['customer_id'];
-        else $customer_id = 0;
+        $customer_id = is_numeric($_POST['customer_id'] ?? null) ? $_POST['customer_id'] : 0;
         
         /**
          * bo users list

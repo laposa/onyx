@@ -14,9 +14,9 @@ class Onyx_Controller_Component_Ecommerce_Store_List extends Onyx_Controller {
     public function mainAction() {
 
         // initialize filter variables
-        $taxonomy_id = $this->GET['taxonomy_tree_id'];
+        $taxonomy_id = $this->GET['taxonomy_tree_id'] ?? null;
         
-        $keyword = $this->GET['keyword'];
+        $keyword = $this->GET['keyword'] ?? '';
         $type_id = 1;
         
         if (is_array($this->GET['client_geoposition'])) $client_geoposition = $this->GET['client_geoposition'];

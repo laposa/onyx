@@ -21,7 +21,7 @@ class Onyx_Controller_Bo_Component_Ecommerce_Store_Add extends Onyx_Controller {
         $page_node_id = $store_data['page_node_id'];
         unset($store_data['page_node_id']);
         
-        if ($_POST['save']) {
+        if ($_POST['save'] ?? false) {
             if($id = $Store->insertStore($store_data)) {
 
                 $store_homepage_node_id = $Store->insertNewStoreToNode($id, $page_node_id);

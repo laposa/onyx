@@ -7,6 +7,7 @@
 require_once('controllers/bo/component/survey.php');
 
 class Onyx_Controller_Bo_Component_Survey_Detail extends Onyx_Controller_Bo_Component_Survey {
+    public $Survey;
 
     /**
      * main action

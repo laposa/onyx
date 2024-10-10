@@ -25,7 +25,7 @@ class Onyx_Controller_Component_Client_Edit extends Onyx_Controller {
         $customer_id = $_SESSION['client']['customer']['id'];   
         if (!is_numeric($customer_id)) return false;
         
-        if ($_POST['save']) {
+        if ($_POST['save'] ?? false) {
         
             $_POST['client']['customer']['id'] = $customer_id;
 

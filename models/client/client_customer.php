@@ -243,11 +243,11 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
         if ($conf['registration_mail_to_name'] == '') $conf['registration_mail_to_name'] = $GLOBALS['onyx_conf']['global']['admin_email_name'];
         if ($conf['registration_mail_send_to_customer'] == '') $conf['registration_mail_send_to_customer'] = 1;
         //what is the username for authentication? Can be email or username
-        if (!($conf['login_type'] == 'email' || $conf['login_type'] == 'username')) $conf['login_type'] = 'email';
+        if (isset($conf['login_type']) && !($conf['login_type'] == 'email' || $conf['login_type'] == 'username')) $conf['login_type'] = 'email';
         //default avatar
-        if (!$conf['default_profile_image_url']) $conf['default_profile_image_url'] = '/share/images/default/avatar.png';
+        if (!isset($conf['default_profile_image_url']) || !$conf['default_profile_image_url']) $conf['default_profile_image_url'] = '/share/images/default/avatar.png';
         //facebook conf
-        if (!$conf['facebook_login_scope']) $conf['facebook_login_scope'] = 'email';
+        if (!isset($conf['facebook_login_scope']) || !$conf['facebook_login_scope']) $conf['facebook_login_scope'] = 'email';
         
         return $conf;
     }
@@ -1063,7 +1063,7 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
          * check username/password and existance of account
          */
          
-        if ($this->conf['login_type'] == 'username') {
+        if (isset($this->conf['login_type']) && $this->conf['login_type'] == 'username') {
             if ($md5_password) $customer_detail = $this->loginByUsername($username, $md5_password);
             else $customer_detail = $this->getClientByUsername($username);
         } else {

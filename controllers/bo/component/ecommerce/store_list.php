@@ -16,7 +16,7 @@ class Onyx_Controller_Bo_Component_Ecommerce_Store_List extends Onyx_Controller 
     public function mainAction() {
 
         // initialize filter variables
-        $taxonomy_id = $this->GET['taxonomy_tree_id'];
+        $taxonomy_id = $this->GET['taxonomy_tree_id'] ?? null;
         if (isset($_POST['store-list-filter'])) $_SESSION['bo']['store-list-filter'] = $_POST['store-list-filter'];
         $keyword = $_SESSION['bo']['store-list-filter']['keyword'];
         $type_id = $_SESSION['bo']['store-list-filter']['type_id'];

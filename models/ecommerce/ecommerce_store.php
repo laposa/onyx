@@ -148,6 +148,8 @@ class ecommerce_store extends Onyx_Model {
      * @access public
      */
     var $code;
+
+    public $_cache_store_in_node;
     
     var $_metaData = array(
         'id'=>array('label' => '', 'validation' => 'int', 'required' => true),
@@ -240,10 +242,10 @@ CREATE INDEX ecommerce_store_type_id_idx ON ecommerce_store (type_id);
          * default values
          */
          
-        if (!$conf['latitude']) $conf['latitude'] = 53.344189;
-        if (!$conf['longitude']) $conf['longitude'] = -6.264478;
+        $conf['latitude'] = $conf['latitude'] ?? 53.344189;
+        $conf['longitude'] = $conf['longitude'] ?? -6.264478;
         
-        if (!$conf['default_store_url']) $conf['default_store_url'] = '/beat-the-queue';
+        $conf['default_store_url'] = $conf['default_store_url'] ?? '/beat-the-queue';
 
         return $conf;
     }

@@ -101,7 +101,7 @@ class Onyx_Controller_Bo_Component_Survey extends Onyx_Controller {
         
         if (!is_array($question_answer_data)) return false;
     
-        if (!is_numeric($question_answer_data['is_correct'])) $question_answer_data['is_correct'] = 0;
+        if (!is_numeric($question_answer_data['is_correct'] ?? null)) $question_answer_data['is_correct'] = 0;
         
         if ($answer_id = $this->QuestionAnswer->saveAnswer($question_answer_data)) msg("Answer id={$answer_id} saved");
         else msg("Answer id={$question_answer_data['id']} save failed", 'error');
@@ -159,9 +159,12 @@ class Onyx_Controller_Bo_Component_Survey extends Onyx_Controller {
         $question_answer_detail = $this->QuestionAnswer->getDetail($id);
 
         if (count($question_answer_detail) > 0) {
+
+            $publish = $question_answer_detail['publish'] ?? '';
+            $type = $question_answer_detail['type'] ?? '';
             
-            $this->tpl->assign("SELECTED_{$question_answer_detail['publish']}", "selected='selected'");
-            $this->tpl->assign("SELECTED_{$question_answer_detail['type']}", "selected='selected'");
+            $this->tpl->assign("SELECTED_{$publish}", "selected='selected'");
+            $this->tpl->assign("SELECTED_{$type}", "selected='selected'");
             
             if ($question_answer_detail['is_correct']) $this->tpl->assign('CHECKED_is_correct', 'checked="checked"');
             

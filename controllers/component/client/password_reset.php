@@ -24,10 +24,12 @@ class Onyx_Controller_Component_Client_Password_Reset extends Onyx_Controller {
         require_once('models/common/common_node.php');
         $node_conf = common_node::initConfiguration();
 
+        $hide_form = 1;
+
         /**
          * Prefill from GET
          */
-        if (strlen($this->GET['email']) > 0) {
+        if (strlen($this->GET['email'] ?? '') > 0) {
             $client = array('customer' => array('email' => $this->GET['email']));
             $this->tpl->assign('CLIENT', $client);
         }
@@ -36,7 +38,7 @@ class Onyx_Controller_Component_Client_Password_Reset extends Onyx_Controller {
          * process when submited
          */
          
-        if ($_POST['submit'] && $_POST['action'] == 'email') {
+        if (isset($_POST['submit']) && $_POST['submit'] && $_POST['action'] == 'email') {
         
             /**
              * assign first
@@ -89,7 +91,7 @@ class Onyx_Controller_Component_Client_Password_Reset extends Onyx_Controller {
          * allow set new password when valid email and key is provided
          */
          
-        if  ($this->GET['email'] && $this->GET['key']) {
+        if  (isset($this->GET['email']) && $this->GET['email'] && isset($this->GET['key']) && $this->GET['key']) {
         
             $client = $Customer->getClientByEmail($this->GET['email']);
 

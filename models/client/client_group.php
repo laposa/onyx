@@ -117,7 +117,7 @@ class client_group extends Onyx_Model {
         
         foreach ($list as $item) {
         
-            $item['search_filter'] = unserialize($item['search_filter']);
+            $item['search_filter'] = unserialize($item['search_filter'] ?? '');
             if ($item['other_data']) $item['other_data'] = unserialize($item['other_data']);
             
             $final_list[] = $item;

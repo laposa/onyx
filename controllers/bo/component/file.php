@@ -6,6 +6,8 @@
 
 class Onyx_Controller_Bo_Component_File extends Onyx_Controller {
 
+    public $File;
+
     /**
      * main action
      */
