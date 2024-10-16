@@ -235,20 +235,14 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
     
         if (array_key_exists('client_customer', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['client_customer'];
         else $conf = array();
-        
-        /**
-         * set default values if empty
-         */
-        if (isset($conf['registration_mail_to_address']) && $conf['registration_mail_to_address'] == '') $conf['registration_mail_to_address'] = $GLOBALS['onyx_conf']['global']['admin_email'];
-        if (isset($conf['registration_mail_to_name']) && $conf['registration_mail_to_name'] == '') $conf['registration_mail_to_name'] = $GLOBALS['onyx_conf']['global']['admin_email_name'];
-        if (isset($conf['registration_mail_send_to_customer']) && $conf['registration_mail_send_to_customer'] == '') $conf['registration_mail_send_to_customer'] = 1;
-        //what is the username for authentication? Can be email or username
-        if (isset($conf['login_type']) && !($conf['login_type'] == 'email' || $conf['login_type'] == 'username')) $conf['login_type'] = 'email';
-        //default avatar
-        if (!isset($conf['default_profile_image_url']) || !$conf['default_profile_image_url']) $conf['default_profile_image_url'] = '/share/images/default/avatar.png';
-        //facebook conf
-        if (!isset($conf['facebook_login_scope']) || !$conf['facebook_login_scope']) $conf['facebook_login_scope'] = 'email';
-        
+
+        self::setConfDefaults($conf, 'registration_mail_to_address', $GLOBALS['onyx_conf']['global']['admin_email']);
+        self::setConfDefaults($conf, 'registration_mail_to_name', $GLOBALS['onyx_conf']['global']['admin_email_name']);
+        self::setConfDefaults($conf, 'registration_mail_send_to_customer', 1);
+        self::setConfDefaults($conf, 'login_type', 'email', [ 'email', 'username' ]);
+        self::setConfDefaults($conf, 'default_profile_image_url', '/share/images/default/avatar.png');
+        self::setConfDefaults($conf, 'facebook_login_scope', '/share/images/default/avatar.png');
+
         return $conf;
     }
     
