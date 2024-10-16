@@ -82,4 +82,27 @@ class Onyx_Model extends Onyx_Db {
         return $result;
         
     }
+
+    /**
+     * set default values for $conf array
+     * optionally validates existing set values against valid values (if $valid is provided)
+     * 
+     * @param string $key name of the configuration value
+     * @param mixed $value default value
+     * @param array $valid array of possible values
+     * @return void
+     */
+    protected static function setConfDefaults(&$conf, $key, $default = null, $valid = [])
+    {
+        if (empty($key)) return;
+        if (!is_array($conf)) return;
+
+        $valueNotSet = empty($conf[$key]);
+        $validValueNotSet = is_array($valid) && !empty($valid) && !in_array($conf[$key], $valid);
+
+        if ($valueNotSet || $validValueNotSet) {
+            $conf[$key] = $default;
+        }
+    }
+
 }
