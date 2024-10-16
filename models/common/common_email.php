@@ -107,7 +107,7 @@ CREATE TABLE common_email (
         $content = '';
         if (count($items) > 0) {
             //check for require items and creating of message
-            while (list ($key, $val) = each($items)) {
+            foreach ($items as $key => $val) {
                 if (preg_match('/required/', $key) && trim($val) == "") {
                     $key = $this->_formatKey($key);
                     msg("Missing: $key", 'error');
