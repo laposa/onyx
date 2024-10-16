@@ -31,10 +31,13 @@ $image_file = $_GET['image'];
 if (array_key_exists('height', $_GET) && is_numeric($_GET['height'])) $height = $_GET['height'];
 else $height = '';
 
-if (array_key_exists('method', $_GET) && $_GET['method']) $method = $_GET['method']; // crop, extend
+$method = '';
+$gravity = '';
+$fill = 1;
+
+if (array_key_exists('method', $_GET) && $_GET['method']) $method = $_GET['method']; // crop, extent
 if (array_key_exists('gravity', $_GET) && $_GET['gravity']) $gravity = $_GET['gravity']; // northwest, north, northeast, west, center, east, southwest, south, southeast
 if (array_key_exists('fill', $_GET) && is_numeric($_GET['fill'])) $fill = $_GET['fill']; // 0 or 1
-else $fill = 1;
         
 /**
  * include configuration
@@ -111,12 +114,13 @@ if ($width > $image_configuration['width_max']) {
         /**
          * try
          */
-        
+
         if ($thumbnail = common_image::resize($image_file, $width, $height, $method, $gravity, $fill)) $image_file = $thumbnail;
         
     } else {
 
         $image_file = null;
+
     }
 }
 
@@ -124,7 +128,6 @@ if ($width > $image_configuration['width_max']) {
 /**
  * send image to the client through our image get script
  */
- 
+
 $_GET['image'] = $image_file;
 include("image_get.php");
-

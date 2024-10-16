@@ -74,6 +74,7 @@ if (!isset($_GET['image'])) {
     $missing = 1;
 } else {
     $image_file = $_GET['image'];
+    $missing = 0;
 }
 
 $image_file = ONYX_PROJECT_DIR . $image_file;
@@ -120,4 +121,3 @@ if ($image_type_mime) {
     header("HTTP/1.0 403 Forbidden");
     echo "not an image";
 }
-
