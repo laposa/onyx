@@ -29,8 +29,8 @@ class Onyx_Controller_Bo_Component_Server_Browser_File_List extends Onyx_Control
         
         $base_folder = $this->GET['directory'] ?? 'var/files/';
         
-        if (isset($this->GET['open']) && $this->GET['open']) $open_folder = $this->GET['open'];
-        else if (isset($_POST['open']) && $_POST['open']) $open_folder = $_POST['open'];
+        if ($this->GET['open'] ?? false) $open_folder = $this->GET['open'];
+        else if ($_POST['open'] ?? false) $open_folder = $_POST['open'];
         else if (isset($_SESSION['server_browser_last_open_folder']) && $_SESSION['server_browser_last_open_folder'] != '') $open_folder = urlencode($_SESSION['server_browser_last_open_folder']);
         else $open_folder = "";
         $multiupload = (isset($this->GET['multipload']) && $this->GET['multiupload'] == 'true');

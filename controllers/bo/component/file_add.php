@@ -18,7 +18,7 @@ class Onyx_Controller_Bo_Component_File_Add extends Onyx_Controller_Bo_Component
         
         $File = $this->initializeFile($relation);
         
-        if(isset($_POST['file']['link_to_node_id']) && !is_numeric($_POST['file']['link_to_node_id'])) unset($_POST['file']['link_to_node_id']);
+        if(!isset($_POST['file']['link_to_node_id']) || !is_numeric($_POST['file']['link_to_node_id'])) unset($_POST['file']['link_to_node_id']);
         
         if (isset($_POST['add']) && $_POST['add'] == 'add') {
         
@@ -34,7 +34,7 @@ class Onyx_Controller_Bo_Component_File_Add extends Onyx_Controller_Bo_Component
             $file_data['node_id'] = $this->GET['node_id'];
             $file_data['relation'] = $this->GET['relation'];
         
-            if (trim($file_data['title'] ?? '') == '') {
+            if (trim($file_data['title'] ?? null) == '') {
                 $file_info = $File->getFileInfo(ONYX_PROJECT_DIR . $file_data['src']);
                 $file_data['title'] = $file_info['filename'];
                 
