@@ -296,7 +296,7 @@ class Onyx_Controller_Bo_Node_Default extends Onyx_Controller {
          * image width
          */
         
-        if (isset($this->node_data['component']['image_width']) && $this->node_data['component']['image_width'] == 0) {
+        if (!isset($this->node_data['component']['image_width']) || $this->node_data['component']['image_width'] == 0) {
             
             $this->tpl->assign("SELECTED_image_width_original", "selected='selected'");
             $this->node_data['component']['image_width'] = $this->getLargestAssociatedImageWidth($this->node_data['id']);;
@@ -319,7 +319,7 @@ class Onyx_Controller_Bo_Node_Default extends Onyx_Controller {
          * main image width (TODO merge with image_width)
          */
         
-        if (isset($this->node_data['component']['main_image_width']) && $this->node_data['component']['main_image_width'] == 0) {
+        if (!isset($this->node_data['component']['main_image_width']) || $this->node_data['component']['main_image_width'] == 0) {
             
             $this->tpl->assign("SELECTED_main_image_width_original", "selected='selected'");
             $this->node_data['component']['main_image_width'] = $this->getLargestAssociatedImageWidth($this->node_data['id']);

@@ -23,7 +23,7 @@ class Onyx_Controller_Bo_Component_Ecommerce_Product_List_Filter extends Onyx_Co
         $this->tpl->assign('FILTER', $filter);
         $this->tpl->assign("DISABLED_selected_{$disabled}", "selected='selected'");
 
-        $this->parseOffersSelect($filter['offer_group_id'] ?? false);
+        $this->parseOffersSelect($filter['offer_group_id'] ?? null);
 
         /**
          * Show edit selected offer button if an offer is active

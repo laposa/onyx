@@ -98,7 +98,7 @@ class Onyx_Model extends Onyx_Db {
         if (!is_array($conf)) return;
 
         $valueNotSet = empty($conf[$key]);
-        $validValueNotSet = is_array($valid) && !empty($valid) && !in_array($conf[$key], $valid);
+        $validValueNotSet = is_array($valid) && !empty($valid) && !in_array($conf[$key] ?? [], $valid);
 
         if ($valueNotSet || $validValueNotSet) {
             $conf[$key] = $default;

@@ -89,12 +89,12 @@ CREATE TABLE common_image (
          *  );
          */
         
-        if (!isset($conf['width_max']) || !is_numeric($conf['width_max'])) $conf['width_max'] = 2000;
-        if (!isset($conf['height_max']) || !is_numeric($conf['height_max'])) $conf['height_max'] = 1000;
-        if (!isset($conf['thumbnail_width_min']) || !is_numeric($conf['thumbnail_width_min'])) $conf['thumbnail_width_min'] = 25;
-        if (!isset($conf['thumbnail_width_max']) || !is_numeric($conf['thumbnail_width_max'])) $conf['thumbnail_width_max'] = 2000;
-        if (!isset($conf['thumbnail_step']) || !is_numeric($conf['thumbnail_step'])) $conf['thumbnail_step'] = 1;
-        if (!isset($conf['jpeg_quality']) || !is_numeric($conf['jpeg_quality'])) $conf['jpeg_quality'] = 80;
+        if (!is_numeric($conf['width_max'] ?? null)) $conf['width_max'] = 2000;
+        if (!is_numeric($conf['height_max'] ?? null)) $conf['height_max'] = 1000;
+        if (!is_numeric($conf['thumbnail_width_min'] ?? null)) $conf['thumbnail_width_min'] = 25;
+        if (!is_numeric($conf['thumbnail_width_max'] ?? null)) $conf['thumbnail_width_max'] = 2000;
+        if (!is_numeric($conf['thumbnail_step'] ?? null)) $conf['thumbnail_step'] = 1;
+        if (!is_numeric($conf['jpeg_quality'] ?? null)) $conf['jpeg_quality'] = 80;
                 
         return $conf;
         
