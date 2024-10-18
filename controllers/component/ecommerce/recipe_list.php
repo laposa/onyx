@@ -113,7 +113,7 @@ class Onyx_Controller_Component_Ecommerce_Recipe_List extends Onyx_Controller_Li
             
             $this->setImageOptions();
 
-            if ($item['image']['src']) $this->tpl->parse("$block_name.image");
+            if ($item['image']['src'] ?? null) $this->tpl->parse("$block_name.image");
 
             $this->parseItemReview($item, $block_name);
 

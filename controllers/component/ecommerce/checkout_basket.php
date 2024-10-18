@@ -38,7 +38,7 @@ class Onyx_Controller_Component_Ecommerce_Checkout_Basket extends Onyx_Controlle
 
     protected function customerData() {
 
-        return $_SESSION['client']['customer']['id'] > 0 || $_SESSION['client']['customer']['guest'];
+        return !empty($_SESSION['client']['customer']['id']) || $_SESSION['client']['customer']['guest'];
     }
 }
     

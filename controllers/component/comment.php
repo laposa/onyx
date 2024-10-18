@@ -196,7 +196,7 @@ class Onyx_Controller_Component_Comment extends Onyx_Controller {
      
     public function checkViewPermission($item) {
         
-        if ($item['customer_id'] == $_SESSION['client']['customer']['id'] && $_SESSION['client']['customer']['id'] > 0 ) return true;
+        if ($item['customer_id'] == $_SESSION['client']['customer']['id'] && !empty($_SESSION['client']['customer']['id']) ) return true;
         if (Onyx_Bo_Authentication::getInstance()->isAuthenticated()) return true;
         
         return false;
@@ -242,7 +242,7 @@ class Onyx_Controller_Component_Comment extends Onyx_Controller {
                 $this->tpl->parse('content.comment_insert.email');
             }
 
-            if ($_SESSION['client']['customer']['id'] > 0) {
+            if (!empty($_SESSION['client']['customer']['id'])) {
                 $data['author_email'] = $_SESSION['client']['customer']['email'];
             }
             
@@ -291,7 +291,7 @@ class Onyx_Controller_Component_Comment extends Onyx_Controller {
          * prepopulate data
          */
             
-        if (is_numeric($_SESSION['client']['customer']['id']) && $_SESSION['client']['customer']['id'] > 0) {
+        if (is_numeric($_SESSION['client']['customer']['id']) && !empty($_SESSION['client']['customer']['id'])) {
         
             $data['customer_id'] = $_SESSION['client']['customer']['id'];
             $customer_detail = $this->Comment->getCustomerDetail($data['customer_id']);
@@ -336,7 +336,7 @@ class Onyx_Controller_Component_Comment extends Onyx_Controller {
                  * set customer id
                  */
                  
-                if (is_numeric($_SESSION['client']['customer']['id']) && $_SESSION['client']['customer']['id'] > 0) {
+                if (is_numeric($_SESSION['client']['customer']['id']) && !empty($_SESSION['client']['customer']['id'])) {
         
                     $data['customer_id'] = $_SESSION['client']['customer']['id'];
             
@@ -387,7 +387,7 @@ class Onyx_Controller_Component_Comment extends Onyx_Controller {
                  * check customer id
                  */
                  
-                if ($_SESSION['client']['customer']['id'] > 0 && $data['customer_id'] == $_SESSION['client']['customer']['id']) {
+                if (!empty($_SESSION['client']['customer']['id']) && $data['customer_id'] == $_SESSION['client']['customer']['id']) {
         
                     unset($data['captcha']);
 

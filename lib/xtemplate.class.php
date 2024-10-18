@@ -892,6 +892,7 @@ class XTemplate {
 									// TODO some callbacks may cause warning/deprecated. such as htmlspecialchars() (happening on dolphinpools, supervalu, ...)
 									// TODO better give a deeper check on this one, alternate fix would be checking on concrete templates where this is caused
 									if(!(str_contains($callback, 'htmlspecialchars') && !$var)) {
+										if ($var === null) $var = '';
 										$var = call_user_func($callback, $var);
 									}
 								}

@@ -48,7 +48,7 @@ class Onyx_Controller_Bo_Component_Ecommerce_Product_List_By_Customer extends On
          
         if (is_numeric($this->GET['customer_id'])) $customer_id = $this->GET['customer_id'];
         else if ($this->GET['customer_id'] == 'session') {
-            if ($_SESSION['client']['customer']['id'] > 0) {
+            if (!empty($_SESSION['client']['customer']['id'])) {
                 $customer_id = $_SESSION['client']['customer']['id'];
             } else {
                 msg("You are not logged in as a customer, displaying normal best buys");

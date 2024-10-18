@@ -212,7 +212,7 @@ class Onyx_Controller_Component_Ecommerce_Return extends Onyx_Controller {
      
     public function getActiveCustomerId() {
     
-        if ($_SESSION['client']['customer']['id'] > 0) {
+        if (!empty($_SESSION['client']['customer']['id'])) {
             $customer_id = $_SESSION['client']['customer']['id'];
         } else if (Onyx_Bo_Authentication::getInstance()->isAuthenticated()) {
             $customer_id = $this->GET['customer_id'];

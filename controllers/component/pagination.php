@@ -7,6 +7,7 @@
 
 class Onyx_Controller_Component_Pagination extends Onyx_Controller {
 
+    public $params_http_query;
     /**
      * main action
      */
@@ -35,7 +36,7 @@ class Onyx_Controller_Component_Pagination extends Onyx_Controller {
          * Optional input variables
          */ 
         
-        if ($this->GET['link'])  $link = $this->GET['link'];
+        if ($this->GET['link'] ?? null) $link = $this->GET['link'];
         else $link = $_SERVER['REDIRECT_URL'];
 
         if (is_numeric($this->GET['passthrough_get_parameters'] ?? null)) $passthrough_get_parameters = $this->GET['passthrough_get_parameters'];

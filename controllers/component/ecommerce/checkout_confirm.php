@@ -49,7 +49,7 @@ class Onyx_Controller_Component_Ecommerce_Checkout_Confirm extends Onyx_Controll
             $currency_code = $_SESSION['client']['customer']['currency_code'];
         }
                 
-        if ($_SESSION['client']['customer']['id'] > 0) {
+        if (!empty($_SESSION['client']['customer']['id'])) {
         
             if (is_numeric($basket_id = $_SESSION['basket']['id'])) {
         

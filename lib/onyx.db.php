@@ -359,7 +359,7 @@ class Onyx_Db {
         if ($this->isCacheable()) $records = $this->executeSqlCached($sql);
         else $records = $this->executeSql($sql);
 
-        $records = $records[0];
+        $records = $records[0] ?? null;
         if (is_array($records)) {
             $this->setAll($records);
             return $records;

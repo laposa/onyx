@@ -18,7 +18,7 @@ class Onyx_Controller_Component_Ecommerce_Checkout_Router extends Onyx_Controlle
         require_once('models/common/common_node.php');
         $node_conf = common_node::initConfiguration();
         
-        if ($_SESSION['client']['customer']['id'] > 0) {
+        if (!empty($_SESSION['client']['customer']['id'])) {
             onyxGoTo("page/{$node_conf['id_map-checkout_delivery_options']}");
         } else {
             onyxGoTo("page/{$node_conf['id_map-checkout_login']}");

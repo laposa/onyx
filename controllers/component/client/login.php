@@ -23,7 +23,7 @@ class Onyx_Controller_Component_Client_Login extends Onyx_Controller {
         $Customer = new client_customer();
         $Customer->setCacheable(false);
         
-        if ($_SESSION['client']['customer']['id'] > 0 && !$this->GET['client']['email']) {
+        if (!empty($_SESSION['client']['customer']['id']) && !$this->GET['client']['email']) {
         
             //msg('you are in');
             //onyxGoTo($this->GET['to']);
@@ -75,7 +75,7 @@ class Onyx_Controller_Component_Client_Login extends Onyx_Controller {
          * check status
          */
          
-        if ($_SESSION['client']['customer']['id'] > 0 && is_numeric($_SESSION['client']['customer']['id'])) {
+        if (!empty($_SESSION['client']['customer']['id']) && is_numeric($_SESSION['client']['customer']['id'])) {
             
             $this->actionAfterLogin();
             

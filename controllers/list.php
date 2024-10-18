@@ -12,12 +12,12 @@ class Onyx_Controller_List extends Onyx_Controller {
      
     public function getTaxonomyList() {
         
-        if (is_numeric($this->GET['taxonomy_tree_id'])) {
-            $taxonomy_tree_id_list = $this->GET['taxonomy_tree_id'];
-        } else if (is_numeric($this->GET['product_id'])) {
-            $taxonomy_tree_id_list = $this->getTaxonomyListFromProduct($this->GET['product_id']);
-        } else if (is_numeric($this->GET['node_id'])) {
-            $taxonomy_tree_id_list = $this->getTaxonomyListFromNode($this->GET['node_id']);
+        if (is_numeric($this->GET['taxonomy_tree_id'] ?? null)) {
+            $taxonomy_tree_id_list = $this->GET['taxonomy_tree_id'] ?? null;
+        } else if (is_numeric($this->GET['product_id'] ?? null)) {
+            $taxonomy_tree_id_list = $this->getTaxonomyListFromProduct($this->GET['product_id'] ?? null);
+        } else if (is_numeric($this->GET['node_id'] ?? null)) {
+            $taxonomy_tree_id_list = $this->getTaxonomyListFromNode($this->GET['node_id'] ?? null);
         } else {
             $taxonomy_tree_id_list = '';
         }
@@ -65,11 +65,11 @@ class Onyx_Controller_List extends Onyx_Controller {
          * image size - for generating IMAGE_PATH
          */
          
-        if (is_numeric($this->GET['image_width']) && $this->GET['image_width'] > 0) $image_width = $this->GET['image_width'];
-        else $image_width = $GLOBALS['onyx_conf']['global']['stack_list_image_width'];
+        if (is_numeric($this->GET['image_width'] ?? null) && $this->GET['image_width'] > 0) $image_width = $this->GET['image_width'];
+        else $image_width = $GLOBALS['onyx_conf']['global']['stack_list_image_width'] ?? null;
         
-        if (is_numeric($this->GET['image_height']) && $this->GET['image_height'] > 0) $image_height = $this->GET['image_height'];
-        else $image_height = $GLOBALS['onyx_conf']['global']['stack_list_image_height'];
+        if (is_numeric($this->GET['image_height'] ?? null) && $this->GET['image_height'] > 0) $image_height = $this->GET['image_height'];
+        else $image_height = $GLOBALS['onyx_conf']['global']['stack_list_image_height'] ?? null;
         
         /**
          * set image path
@@ -87,9 +87,9 @@ class Onyx_Controller_List extends Onyx_Controller {
         
         $image_resize_options = array();
         
-        if ($this->GET['image_method']) $image_resize_options['method'] = $this->GET['image_method'];
-        if ($this->GET['image_gravity']) $image_resize_options['gravity'] = $this->GET['image_gravity'];
-        if ($this->GET['image_fill']) $image_resize_options['fill'] = $this->GET['image_fill'];
+        if ($this->GET['image_method'] ?? null) $image_resize_options['method'] = $this->GET['image_method'];
+        if ($this->GET['image_gravity'] ?? null) $image_resize_options['gravity'] = $this->GET['image_gravity'];
+        if ($this->GET['image_fill'] ?? null) $image_resize_options['fill'] = $this->GET['image_fill'];
         else $image_resize_options['fill'] = 1;
         
         if (count($image_resize_options) > 0) $this->tpl->assign('IMAGE_RESIZE_OPTIONS', '?'.http_build_query($image_resize_options));

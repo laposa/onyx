@@ -66,7 +66,7 @@ class Onyx_Controller_Component_Ecommerce_Store_Notice extends Onyx_Controller {
     public function isStoreManager(&$store) {
 
         return (
-            $_SESSION['client']['customer']['id'] > 0 && // is logged and
+            !empty($_SESSION['client']['customer']['id']) && // is logged and
             $store['email'] == $_SESSION['client']['customer']['email'] // his email is store email
             || // or
             $_SESSION['authentication']['authenticity'] // is admin (bo user)

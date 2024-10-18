@@ -33,7 +33,7 @@ class Onyx_Controller_Component_Ecommerce_Product_Related_to_customer extends On
         else $limit = 5;
         
         if (is_numeric($this->GET['customer_id'])) $customer_id = $this->GET['customer_id'];
-        else if ($this->GET['customer_id'] == 'session' && $_SESSION['client']['customer']['id'] > 0) $customer_id = $_SESSION['client']['customer']['id'];
+        else if ($this->GET['customer_id'] == 'session' && !empty($_SESSION['client']['customer']['id'])) $customer_id = $_SESSION['client']['customer']['id'];
         else $customer_id = false;
         
         /**

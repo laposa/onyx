@@ -18,7 +18,7 @@ class Onyx_Controller_Component_Ecommerce_Checkout_Address_List extends Onyx_Con
 
         parent::mainAction();
 
-        if ($_SESSION['client']['customer']['id'] == 0) {
+        if (empty($_SESSION['client']['customer']['id'])) {
             $node_conf = common_node::initConfiguration();
             onyxGoto($node_conf['id_map-checkout_login']);
         }

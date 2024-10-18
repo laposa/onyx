@@ -239,7 +239,7 @@ CREATE TABLE common_session (
             $array = $this->fieldarray;
 
             //if it's real user, than set customer_id, but don't overwrite it if user logged out
-            if (isset($_SESSION['client']['customer']['id']) && $_SESSION['client']['customer']['id'] > 0) {
+            if (isset($_SESSION['client']['customer']['id']) && !empty($_SESSION['client']['customer']['id'])) {
                 $array['customer_id']  = $_SESSION['client']['customer']['id'];
             }
 

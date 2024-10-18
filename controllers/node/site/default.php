@@ -23,7 +23,7 @@ class Onyx_Controller_Node_Site_Default extends Onyx_Controller {
          */
          
         $node_data = $this->Node->nodeDetail($this->GET['id']);
-        if ($node_data['page_title'] == '') $node_data['page_title'] = $node_data['title'];
+        if (is_array($node_data) && $node_data['page_title'] == '') $node_data['page_title'] = $node_data['title'];
         
         /**
          * when display_secondary_navigation is used, add extra css class "secondary-navigation"

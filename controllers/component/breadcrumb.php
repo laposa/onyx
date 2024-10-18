@@ -29,7 +29,7 @@ class Onyx_Controller_Component_Breadcrumb extends Onyx_Controller {
             return false;
         }
         
-        if (is_numeric($this->GET['create_last_link']) && $this->GET['create_last_link'] == 1) $create_last_link = 1;
+        if (!empty($this->GET['create_last_link']) && $this->GET['create_last_link'] == 1) $create_last_link = 1;
         else $create_last_link = 0;
         
         /**

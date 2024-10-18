@@ -569,7 +569,7 @@ class Onyx_Bootstrap {
 
         //only when not logged in backoffice
         if (!Onyx_Bo_Authentication::getInstance()->isAuthenticated()) {
-            if (array_key_exists('client', $_SESSION) && $_SESSION['client']['customer']['id'] > 0) {
+            if (array_key_exists('client', $_SESSION) && !empty($_SESSION['client']['customer']['id'])) {
                 $content = preg_replace("/{{customer.first_name}}/", htmlspecialchars($_SESSION['client']['customer']['first_name']), $content);
             } else {
                 //assign empty string
@@ -653,7 +653,7 @@ class Onyx_Bootstrap {
             if (isset($_SESSION['use_page_cache'])) $use_page_cache = $_SESSION['use_page_cache'];
 
             // disable page cache for whole session after a user interaction and for backoffice users
-            if ($_SERVER['REQUEST_METHOD'] === 'POST' || Onyx_Bo_Authentication::getInstance()->isAuthenticated() || (isset($_SESSION['client']['customer']['id']) && $_SESSION['client']['customer']['id'] > 0)) $use_page_cache = false;
+            if ($_SERVER['REQUEST_METHOD'] === 'POST' || Onyx_Bo_Authentication::getInstance()->isAuthenticated() || (isset($_SESSION['client']['customer']['id']) && !empty($_SESSION['client']['customer']['id']))) $use_page_cache = false;
 
             // TODO: allow to configure what _GET variables will disable page cache
             // disable page cache also when sorting and mode is submitted

@@ -56,7 +56,7 @@ class Onyx_Controller_Component_Client_Login_Or_Register extends Onyx_Controller
          * check status
          */
         
-        if ($_SESSION['client']['customer']['id'] > 0 && is_numeric($_SESSION['client']['customer']['id'])) {
+        if (!empty($_SESSION['client']['customer']['id']) && is_numeric($_SESSION['client']['customer']['id'])) {
             
             $this->actionAfterLogin();
             

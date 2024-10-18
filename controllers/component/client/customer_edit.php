@@ -17,7 +17,7 @@ class Onyx_Controller_Component_Client_Customer_Edit extends Onyx_Controller {
          * check input
          */
          
-        if ($_SESSION['client']['customer']['id'] == 0 && !Onyx_Bo_Authentication::getInstance()->isAuthenticated()) {
+        if (empty($_SESSION['client']['customer']['id']) && !Onyx_Bo_Authentication::getInstance()->isAuthenticated()) {
             msg('controllers/client/customer_detail: You must logged in.', 'error');
             onyxGoTo("/");
         } else {

@@ -16,7 +16,7 @@ class Onyx_Controller_Component_Ecommerce_Store_Message extends Onyx_Controller 
      
     public function mainAction() {
     
-        if ($_SESSION['client']['customer']['id'] > 0) {
+        if (!empty($_SESSION['client']['customer']['id'])) {
 
             $store_id = (int) $_SESSION['client']['customer']['store_id']; 
 

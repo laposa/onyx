@@ -92,7 +92,7 @@ class Onyx_Controller_Node extends Onyx_Controller {
          * force login
          */
 
-        if ($node_data['require_login'] == 1 && $_SESSION['client']['customer']['id'] == 0) {
+        if ($node_data['require_login'] == 1 && empty($_SESSION['client']['customer']['id'])) {
             onyxGoTo("page/" . $this->Node->conf['id_map-login'] . "?to=" . urlencode($_SERVER['REQUEST_URI']));//will exit immediatelly
         }
 

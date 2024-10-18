@@ -265,7 +265,8 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
         
         if ($data = $this->detail($id)) {
 
-            $data['other_data'] = unserialize($data['other_data']);
+            if (!empty($data['other_data'])) $data['other_data'] = unserialize($data['other_data']);
+            else $data['other_data'] = [];
 
             // load groups
             require_once('models/client/client_customer_group.php');

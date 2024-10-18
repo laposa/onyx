@@ -420,7 +420,8 @@ CREATE INDEX ecommerce_store_type_id_idx ON ecommerce_store (type_id);
     {
         $sql = '1 = 1';
 
-        $keyword = pg_escape_string(trim($keyword));
+        $keyword = trim($keyword);
+        $keyword = preg_replace('/[^A-Za-z0-9_]/', '', $keyword);
 
         // keyword
         if (is_numeric($keyword)) {
@@ -525,7 +526,7 @@ CREATE INDEX ecommerce_store_type_id_idx ON ecommerce_store (type_id);
 
             $nodes = $Node->listing("node_group = 'page' AND node_controller = 'store' AND id = '{$node_id}'", 'id ASC');
             
-            $store_id = $nodes[0]['content'];
+            $store_id = $nodes[0]['content'] ?? null;
             if (is_numeric($store_id) && $store_id > 0) return $this->detail($store_id);
 
         } else {

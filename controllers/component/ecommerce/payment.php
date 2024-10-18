@@ -157,7 +157,7 @@ class Onyx_Controller_Component_Ecommerce_Payment extends Onyx_Controller {
             /**
              * forward to login
              */
-            if ($_SESSION['client']['customer']['id'] == 0) {
+            if (empty($_SESSION['client']['customer']['id'])) {
                 msg('You must login first.');
                 onyxGoTo("/page/" .$node_conf['id_map-login']);
             }

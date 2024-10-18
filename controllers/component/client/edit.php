@@ -13,7 +13,7 @@ class Onyx_Controller_Component_Client_Edit extends Onyx_Controller {
      
     public function mainAction() {
     
-        if ($_SESSION['client']['customer']['id'] == 0 && !Onyx_Bo_Authentication::getInstance()->isAuthenticated()) {
+        if (empty($_SESSION['client']['customer']['id']) && !Onyx_Bo_Authentication::getInstance()->isAuthenticated()) {
             msg('client_edit: You must be logged in first.', 'error');
             onyxGoTo("/");
         }

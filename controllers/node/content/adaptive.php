@@ -97,7 +97,7 @@ class Onyx_Controller_Node_Content_Adaptive extends Onyx_Controller_Node_Content
     public function isReturningCustomer() {
 
         $period = 24 * 3600; // 24-hours
-        $logged_in = ($_SESSION['client']['customer']['id'] > 0);
+        $logged_in = (!empty($_SESSION['client']['customer']['id']));
         $account_is_old = (time() - strtotime($_SESSION['client']['customer']['created']) > $period);
 
         $cookie_status = ($_COOKIE['visited_status'] > 0 && time() - $_COOKIE['visited_status'] > $period);
@@ -111,7 +111,7 @@ class Onyx_Controller_Node_Content_Adaptive extends Onyx_Controller_Node_Content
     
     public function isSubscribed() {
 
-        $logged_in = ($_SESSION['client']['customer']['id'] > 0);
+        $logged_in = (!empty($_SESSION['client']['customer']['id']));
         $customer_newsletter = ($_SESSION['client']['customer']['newsletter'] > 0);
 
         $cookie_status = ($_COOKIE['newsletter_status'] & 1 == 1);

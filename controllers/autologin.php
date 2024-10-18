@@ -13,7 +13,7 @@ class Onyx_Controller_Autologin extends Onyx_Controller {
      
     public function mainAction() {
     
-        if ($_SESSION['client']['customer']['id'] == 0) {
+        if (empty($_SESSION['client']['customer']['id'])) {
 
             $this->checkCookieForToken();
 

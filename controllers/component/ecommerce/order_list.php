@@ -13,7 +13,7 @@ class Onyx_Controller_Component_Ecommerce_Order_List extends Onyx_Controller {
      
     public function mainAction() {
         
-        if ($_SESSION['client']['customer']['id'] > 0) {
+        if (!empty($_SESSION['client']['customer']['id'])) {
             $customer_id = $_SESSION['client']['customer']['id'];
         } else if (Onyx_Bo_Authentication::getInstance()->isAuthenticated()) {
             $customer_id = $this->GET['customer_id'];

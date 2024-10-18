@@ -76,6 +76,9 @@ class ecommerce_recipe extends Onyx_Model {
      */
     var $other_data;
     var $_cache_recipe_in_node;
+    var $authors;
+
+    public common_taxonomy $Taxonomy;
     
     var $_metaData = array(
         'id'=>array('label' => '', 'validation'=>'int', 'required'=>true), 
@@ -247,7 +250,8 @@ CREATE TABLE ecommerce_recipe (
 
             foreach ($keywords_array as $keyword) {
 
-                $keyword = trim(pg_escape_string($keyword));
+                $keyword = trim($keyword);
+                $keyword = preg_replace('/[^A-Za-z0-9_]/', '', $keywords); // sanitize (use only a-Z, A-Z, 0-9)
 
                 if (strlen($keyword) > 0) {
                     // title, description, instructions
@@ -584,13 +588,11 @@ CREATE TABLE ecommerce_recipe (
 
     public function getRecipeAuthorName($item)
 	{
-        //if (!is_array($item)) return false;
-
         require_once('models/common/common_taxonomy.php');
 
         $this->Taxonomy = new common_taxonomy();
 
-        if (!is_array($this->authors)) $this->authors = $this->Taxonomy->getChildren(96);
+        if (empty($this->authors)) $this->authors = $this->Taxonomy->getChildren(96);
 
 		$ids = explode(",", $item['taxonomy']);
 

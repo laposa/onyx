@@ -17,7 +17,7 @@ class Onyx_Controller_Component_Ecommerce_Payment_Protx_Callback extends Onyx_Co
      
     public function mainAction() {
         
-        if ($_SESSION['client']['customer']['id'] == 0) {
+        if (empty($_SESSION['client']['customer']['id'])) {
             msg('payment_callback_protx: You must be logged in.');
             onyxGoTo("/");
         }

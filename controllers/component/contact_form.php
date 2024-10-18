@@ -45,7 +45,7 @@ class Onyx_Controller_Component_Contact_Form extends Onyx_Controller {
         if (ONYX_ECOMMERCE) $this->parseStoreSelect($formdata['form']['store_id'], 'content');
 
         // pre-populate with customer data if available
-        if ($_SESSION['client']['customer']['id'] > 0) {
+        if (!empty($_SESSION['client']['customer']['id'])) {
             if (!$formdata['first_name'] && $_SESSION['client']['customer']['first_name']) $formdata['first_name'] = $formdata['required_first_name'] = $_SESSION['client']['customer']['first_name'];
             if (!$formdata['last_name'] && $_SESSION['client']['customer']['last_name']) $formdata['last_name'] = $formdata['required_last_name'] = $_SESSION['client']['customer']['last_name'];
             if (!$formdata['name'] && ($formdata['first_name'] || $formdata['last_name'])) $formdata['name'] = $formdata['required_name'] = $formdata['first_name'] . " " . $formdata['last_name'];

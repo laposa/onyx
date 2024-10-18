@@ -92,8 +92,8 @@ class Onyx_Controller_Component_Ecommerce_Store_Province_Form extends Onyx_Contr
 
     protected function parseStoreSelect($active_ids, $areaSelected)
     {
-        if ($areaSelected) $stores = $this->getPageChildren($active_ids[count($active_ids) - 5]);
-        else $stores = $this->getPageChildren($active_ids[count($active_ids) - 4]); 
+        if ($areaSelected) $stores = $this->getPageChildren(@$active_ids[count($active_ids) - 5]);
+        else $stores = $this->getPageChildren(@$active_ids[count($active_ids) - 4]); 
 
         $stores = php_multisort($stores, array(array('key' => 'title', 'sort' => 'asc')));
 
@@ -122,7 +122,7 @@ class Onyx_Controller_Component_Ecommerce_Store_Province_Form extends Onyx_Contr
 
     public function getFullPath() {
 
-        if (is_numeric($this->GET['store_node_id'])) {
+        if (!empty($this->GET['store_node_id']) && is_numeric($this->GET['store_node_id'])) {
             $Node = new common_node();
             return $Node->getActiveNodes($this->GET['store_node_id']);
         }

@@ -13,6 +13,7 @@ require_once('models/client/client_customer.php');
 
 class Onyx_Controller_Component_Ecommerce_Store_Locator extends Onyx_Controller {
 
+    public ecommerce_store $Store;
     /**
      * main action
      */
@@ -27,13 +28,13 @@ class Onyx_Controller_Component_Ecommerce_Store_Locator extends Onyx_Controller 
 
         // load stores, store pages and related categories
         $store_pages = $this->getStorePages();
-        $stores = $this->getAllStores($this->GET['store_type_id']);
+        $stores = $this->getAllStores($this->GET['store_type_id'] ?? null);
         $categories = $this->getAllStoreTaxonomyIds();
         $selected_store = $this->getStoreAssociatedToNode($node_id);
         $page_categories = $this->getPageTaxonomyIds($node_id);
 
         // process request to save store as my own store
-        if ($this->GET['set_home_store'] == 'true' && $selected_store['id'] > 0) {
+        if (isset($this->GET['set_home_store']) && $this->GET['set_home_store'] == 'true' && $selected_store['id'] > 0) {
             if ($this->updateCustomersHomeStore($selected_store['id'])) msg("Your store has been updated.");
             else msg("Please login into your account to save your store.");
             return true;
@@ -51,14 +52,15 @@ class Onyx_Controller_Component_Ecommerce_Store_Locator extends Onyx_Controller 
             if ($store['latitude'] != 0 && $store['longitude'] != 0) {
 
                 // find page and url
-                $page = $store_pages[$store['id']];
-                if (!is_numeric($page['id'])) $page['id'] = 5; // if store doesn't have homepage, send to site homepage
+                $page = $store_pages[$store['id']] ?? [];
+                if (empty($page['id'])) $page['id'] = 5; // if store doesn't have homepage, send to site homepage
                 $store['url'] = $Mapping->stringToSeoUrl("/page/{$page['id']}");
                 $store['node_id'] = $page['id'];
-                $store['icon'] = $store['id'] == $selected_store['id'] ? 'false' : 'true';
-                $store['open'] = $store['id'] == $selected_store['id'] ? 'true' : 'false';
+                $store['icon'] = $store['id'] == ($selected_store['id'] ?? null) ? 'false' : 'true';
+                $store['open'] = $store['id'] == ($selected_store['id'] ?? null) ? 'true' : 'false';
 
-                if ($store['id'] == $_SESSION['client']['customer']['store_id']) $store['icon'] = 'false';
+                $session_store_id = $_SESSION['client']['customer']['store_id'] ?? null;
+                if ($store['id'] == $session_store_id) $store['icon'] = 'false';
                 
                 // adjust bounds (by province/county)
                 if (is_array($categories[$store['id']]) && array_intersect($page_categories, $categories[$store['id']])) {
@@ -70,7 +72,7 @@ class Onyx_Controller_Component_Ecommerce_Store_Locator extends Onyx_Controller 
 
                 $store['street_view_options'] = unserialize($store['street_view_options']);
 
-                switch ($store['street_view_options']['image']) {
+                switch ($store['street_view_options']['image'] ?? null) {
                     case 1:
                         $lat = $store['street_view_options']['latitude'];
                         $lng = $store['street_view_options']['longitude'];

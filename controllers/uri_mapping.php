@@ -282,9 +282,9 @@ class Onyx_Controller_Uri_Mapping extends Onyx_Controller {
 
     public function getFileRules() {
 
+        $uri_map = [];
         require_once(ONYX_DIR . 'conf/uri_map.php');
         if (file_exists(ONYX_PROJECT_DIR . 'conf/uri_map.php')) require_once(ONYX_PROJECT_DIR . 'conf/uri_map.php');
-        // TODO: undefined variable?
         return $uri_map;
     }
 

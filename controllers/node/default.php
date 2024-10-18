@@ -48,6 +48,8 @@ class Onyx_Controller_Node_Default extends Onyx_Controller {
         
         //find child nodes
         $contentx = $this->Node->parseChildren($node_id, false, $disable_fe_edit);
+
+        $container = [];
         
         //assign to this controller as CONTAINER variable
         if (is_array($contentx)) {

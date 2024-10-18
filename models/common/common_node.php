@@ -405,47 +405,48 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
     function getNodeList($filter = false, $sort = 'common_node.priority DESC, common_node.id DESC') {
         
         $add_to_where = '';
-        
+        $join = '';
+
         /**
          * query filter
          * 
          */
         
         //node type filter
-        if ($filter['node_group']) {
+        if ($filter['node_group'] ?? null) {
             $add_to_where .= " AND common_node.node_group = '{$filter['node_group']}'";
         }
         
         //node_controller filter
-        if ($filter['node_controller']) {
+        if ($filter['node_controller'] ?? null) {
             $add_to_where .= " AND common_node.node_controller = '{$filter['node_controller']}'";
         }
         
         //parent filter
-        if (is_numeric($filter['parent'])) {
+        if (is_numeric($filter['parent'] ?? null)) {
             $add_to_where .= " AND common_node.parent = {$filter['parent']}";
         }
         
         //publish filter (1 for only published, 0 for only not published, and a string (e.g. 'all') for no restriction by publishing status
         //non-authorised backoffice users shoud be limited in controller to use only 1
-        if (is_numeric($filter['publish'])) {
+        if (is_numeric($filter['publish'] ?? null)) {
             $add_to_where .= " AND common_node.publish = {$filter['publish']}";
         }
 
         // navigation status
-        if (is_numeric($filter['display_in_menu'])) {
+        if (is_numeric($filter['display_in_menu'] ?? null)) {
             $add_to_where .= " AND common_node.display_in_menu = {$filter['display_in_menu']}";
         }
         
         //created filter (only year-month)
-        if (is_numeric($filter['created'])) {
+        if (is_numeric($filter['created'] ?? null)) {
             $add_to_where .= " AND date_part('year', common_node.created) = '{$filter['created']}'";
-        } else if (preg_match('/^([0-9]{4})-([0-9]{1,2})$/', $filter['created'], $matches)) {
+        } else if (preg_match('/^([0-9]{4})-([0-9]{1,2})$/', $filter['created'] ?? '', $matches)) {
             $add_to_where .= " AND date_part('year', common_node.created) = '{$matches[1]}' AND date_part('month', common_node.created) = '{$matches[2]}'";
         }
         
         //taxonomy filter
-        if (is_numeric($filter['taxonomy_tree_id'])) {
+        if (is_numeric($filter['taxonomy_tree_id'] ?? null)) {
         
             $join = "LEFT OUTER JOIN common_node_taxonomy ON (common_node_taxonomy.node_id = common_node.id)";
             
@@ -455,7 +456,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
                 $add_to_where .= " AND common_node_taxonomy.taxonomy_tree_id IS NULL";
             }
             
-        } else if (is_array($filter['taxonomy_tree_id'])) {
+        } else if (is_array($filter['taxonomy_tree_id'] ?? null)) {
             
             /**
              * created $taxonomy_filtered_ids which will contain only allowed values
@@ -1239,6 +1240,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
     
         if (is_numeric($id)) {
         
+            $contentx = [];
             $limit_to_container = is_numeric($container) ? "AND parent_container = $container" : '';
             
             $children = $this->listing("parent = $id AND (node_group = 'layout' OR node_group = 'content' OR node_group = 'variable') $limit_to_container", "priority DESC, id ASC");
@@ -1294,14 +1296,14 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
                 return true;
             } else if ($node_data['display_permission'] == 1) {
                 //1 display only for logged in
-                if ($_SESSION['client']['customer']['id'] > 0) {
+                if (!empty($_SESSION['client']['customer']['id'])) {
                     return true;
                 } else {
                     return false;
                 }
             } else if ($node_data['display_permission'] == 2) {
                 //2 dont display for logged in users
-                if ($_SESSION['client']['customer']['id'] == 0) {
+                if (empty($_SESSION['client']['customer']['id'])) {
                     return true;
                 } else {
                     return false;

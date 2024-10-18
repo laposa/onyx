@@ -13,7 +13,7 @@ class Onyx_Controller_Component_Client_Logout extends Onyx_Controller {
      
     public function mainAction() {
     
-        if ($_SESSION['client']['customer']['id'] > 0) {
+        if (!empty($_SESSION['client']['customer']['id'])) {
             
             require_once('models/client/client_customer.php');
             $ClientCustomer = new client_customer();
