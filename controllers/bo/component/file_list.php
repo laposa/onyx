@@ -17,9 +17,6 @@ class Onyx_Controller_Bo_Component_File_List extends Onyx_Controller_Bo_Componen
     public function mainAction() {
     
         parent::mainAction();
-
-        // TODO test?
-        $this->File = new common_file();
         
         $type = $this->GET['type'];
         $relation = $this->GET['relation'];
