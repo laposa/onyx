@@ -1,10 +1,12 @@
 <?php
 /**
  *
- * Copyright (c) 2006-2022 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2006-2024 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *  
  */
+
+$templates_info = [];
 
 $templates_info['variable'] = [
     'default'=>['title' => 'Default', 'description'=>'', 'visibility'=>false],

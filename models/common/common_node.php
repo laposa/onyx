@@ -1232,8 +1232,8 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
     /**
      * parse children
      *
-     * @param unknown_type $id
-     * @return unknown
+     * @param integer $id
+     * @return mixed
      */
      
     function parseChildren($id, $container = false, $disable_fe_edit = false) {
@@ -1266,8 +1266,8 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
     /**
      * CONDITIONAL DISPLAY OPTION BY display_permission and publish status
      *
-     * @param unknown_type $node_data
-     * @return unknown
+     * @param array $node_data
+     * @return bool
      */
      
     static function checkDisplayPermission($node_data, $force_admin_visibility = true) {
@@ -1325,6 +1325,8 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
             }
             
         }
+
+        return false;
     }
     
     /**

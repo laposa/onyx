@@ -75,7 +75,7 @@ class Onyx_Controller_Node_Default extends Onyx_Controller {
                 $min_container_id = 0;
                 $max_container_id = 20;
                 for ($key = $min_container_id; $key < ($max_container_id + 1); $key++) {
-                    $container[$key] = "<div class='onyx-layout-container' id='onyx-layout-container-{$node_id}-{$key}'>{$container[$key]}</div>";    
+                    if (array_key_exists($key, $container)) $container[$key] = "<div class='onyx-layout-container' id='onyx-layout-container-{$node_id}-{$key}'>{$container[$key]}</div>";
                 }
             } 
         }
