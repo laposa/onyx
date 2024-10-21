@@ -118,7 +118,7 @@ class Onyx_Controller_Component_Image extends Onyx_Controller {
         
         $this->tpl->assign('IMAGE_COUNT', $image_count);
         
-        if ($image_count > 1) {
+        if ($image_count > 0) {
         
             /**
              * set full width based on restrictions in Image->conf
