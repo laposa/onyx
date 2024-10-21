@@ -292,7 +292,7 @@ class Onyx_Controller_Node extends Onyx_Controller {
             if ($node_data['publish'] == 0 && Onyx_Bo_Authentication::getInstance()->isAuthenticated() && $_SESSION['fe_edit_mode'] == 'preview' ) $visibility1 = false;
             else $visibility1 = true;
         } else {
-            $visibility1 = true;
+            $visibility1 = null;
         }
 
         /**
