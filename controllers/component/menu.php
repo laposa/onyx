@@ -366,7 +366,7 @@ class Onyx_Controller_Component_Menu extends Onyx_Controller {
         if (is_numeric($this->GET['active_page'] ?? null)) {
             if ($item['id'] == $this->GET['active_page']) return true;
         } else {
-            return (in_array($item['id'], $_SESSION['active_pages']));
+            return (array_key_exists('active_pages', $_SESSION) && in_array($item['id'], $_SESSION['active_pages']));
         }
     }
 
