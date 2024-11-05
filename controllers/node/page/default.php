@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2008-2022 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2008-2024 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -40,11 +40,11 @@ class Onyx_Controller_Node_Page_Default extends Onyx_Controller_Node_Default {
         $node_id = $this->node_data['id'];
 
         /**
-         * prepare titles
+         * prepare fallback page_title and browser_title
          */
 
-        if (trim($this->node_data['page_title'] && '') == '') $this->node_data['page_title'] = $this->node_data['title']; // page title is also used component/page_header, this will be effective only if page_title is directly in page template
-        if (trim($this->node_data['browser_title'] && '') == '') $this->node_data['browser_title'] = $this->node_data['page_title'];
+        if (trim($this->node_data['page_title']) == '') $this->node_data['page_title'] = $this->node_data['title']; // page title is also used component/page_header, this will be effective only if page_title is directly in page template
+        if (trim($this->node_data['browser_title']) == '') $this->node_data['browser_title'] = $this->node_data['page_title'];
 
         /**
          * fallback on options to global configuration
