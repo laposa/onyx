@@ -277,7 +277,9 @@ class Onyx_Controller_Node extends Onyx_Controller {
 
     public function checkVisibility($node_data) {
 
-        $visibility = false;
+        $visibility1 = true;
+        $visibility2 = false;
+
         //force visibility for admin, only when in edit or preview mode
         if (isset($_SESSION['fe_edit_mode']) && ($_SESSION['fe_edit_mode'] == 'edit' || $_SESSION['fe_edit_mode'] == 'move')) $force_admin_visibility = true;
         else $force_admin_visibility = false;
@@ -290,9 +292,6 @@ class Onyx_Controller_Node extends Onyx_Controller {
 
             //don't display hidden node in preview mode
             if ($node_data['publish'] == 0 && Onyx_Bo_Authentication::getInstance()->isAuthenticated() && $_SESSION['fe_edit_mode'] == 'preview' ) $visibility1 = false;
-            else $visibility1 = true;
-        } else {
-            $visibility1 = null;
         }
 
         /**
@@ -301,8 +300,6 @@ class Onyx_Controller_Node extends Onyx_Controller {
 
         if ($this->Node->checkDisplayPermissionGroupAcl($node_data, $force_admin_visibility)) {
             $visibility2 = true;
-        } else {
-            $visibility2 = false;
         }
 
         /**

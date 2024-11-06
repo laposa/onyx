@@ -8,6 +8,8 @@ require_once('models/common/common_scheduler.php');
 
 class Onyx_Controller_Bo_Component_Scheduler extends Onyx_Controller {
 
+    public $Scheduler;
+
     /**
      * main action
      */
@@ -16,13 +18,13 @@ class Onyx_Controller_Bo_Component_Scheduler extends Onyx_Controller {
     {
         $this->Scheduler = new common_scheduler();
         
-        if (is_numeric($this->GET['cancel'])) {
+        if (is_numeric($this->GET['cancel'] ?? null)) {
             $this->cancelJob($this->GET['cancel']);
         }
 
-        if  (is_numeric($this->GET['limit_from'])) $from = $this->GET['limit_from'];
+        if  (is_numeric($this->GET['limit_from'] ?? null)) $from = $this->GET['limit_from'];
         else $from = 0;
-        if (is_numeric($this->GET['limit_per_page'])) $per_page = $this->GET['limit_per_page'];
+        if (is_numeric($this->GET['limit_per_page'] ?? null)) $per_page = $this->GET['limit_per_page'];
         else $per_page = 25;
 
         $jobs = $this->Scheduler->listing("", "scheduled_time DESC", "$from,$per_page");

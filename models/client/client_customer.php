@@ -1791,7 +1791,7 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
         $subselect_add_to_where = $this->prepareCustomerListFilterWhereQuerySubselect($filter);
         
         //format product filter array to be ready for SQL
-        if (is_array($filter['product_bought'])) $filter['product_bought'] = implode(',', $filter['product_bought']);
+        if (is_array($filter['product_bought'] ?? null)) $filter['product_bought'] = implode(',', $filter['product_bought']);
         
         /**
          * local_* fields
@@ -1821,7 +1821,8 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
          */
         
         //custom SQL query when product filter is in use
-        if ((is_numeric($filter['product_bought']) || preg_match('/^([0-9]{1,},?){1,}$/', $filter['product_bought'])) && $filter['product_bought'] > 0)
+        // TODO product_join is not defined anywhere?
+        if ((is_numeric($filter['product_bought'] ?? null) || preg_match('/^([0-9]{1,},?){1,}$/', $filter['product_bought'] ?? '')) && $filter['product_bought'] > 0)
         {
         $sql = "SELECT
             client_customer.id AS customer_id, 
@@ -1975,7 +1976,7 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
          * group_id filter
          */
         
-        if (is_numeric($filter['group_id'])) {
+        if (is_numeric($filter['group_id'] ?? null)) {
             if ($filter['group_id'] < 0) $add_to_where .= '';
             else if ($filter['group_id'] == 0) $add_to_where .= " AND (SELECT count(*) FROM client_customer_group WHERE client_customer_group.customer_id = client_customer.id) = 0";
             else if ($filter['group_id'] > 0) $add_to_where .= " AND client_customer.id IN (SELECT customer_id FROM client_customer_group WHERE group_id = {$filter['group_id']})";
@@ -1986,7 +1987,7 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
          * 
          */
         
-        if (is_numeric($filter['query'])) {
+        if (is_numeric($filter['query'] ?? null)) {
             $add_to_where .= " AND client_customer.id = {$filter['query']}";
         } else if (isset($filter['query']) && $filter['query'] !== '') {
             // we could use ILIKE there, but it's not available in mysql
@@ -2001,17 +2002,17 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
         }
 
         // invoice status filter
-        if (is_numeric($filter['invoice_status']) && $filter['invoice_status'] > 0) {
+        if (is_numeric($filter['invoice_status'] ?? null) && $filter['invoice_status'] > 0) {
             $add_to_where .= " AND ecommerce_invoice.status = {$filter['invoice_status']}";
         }
         
         //country filter
-        if (is_numeric($filter['country_id']) && $filter['country_id'] > 0) {
+        if (is_numeric($filter['country_id'] ?? null) && $filter['country_id'] > 0) {
             $add_to_where .= " AND country_id = {$filter['country_id']}";
         }
         
         // account type (company) filter
-        if (is_numeric($filter['account_type'])) {
+        if (is_numeric($filter['account_type'] ?? null)) {
             
             if ($filter['account_type'] != -1) $add_to_where .= " AND account_type = {$filter['account_type']}";
             
@@ -2019,7 +2020,7 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
         
         // filter option to search for backoffice users,
         // who are associated via client_customer_role
-        if ($filter['backoffice_role_only'] == 1) {
+        if (isset($filter['backoffice_role_only']) && $filter['backoffice_role_only'] == 1) {
             
             $bo_users_list = $this->getCustomersWithRole();
         
@@ -2040,16 +2041,22 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
         }
         
         //created between filter
-        if ($filter['created_from'] != false && $filter['created_to'] != false) {
+        $created_from = $filter['created_from'] ?? false;
+        $created_to = $filter['created_to'] ?? false;
+
+        if ($created_from != false && $created_to != false) {
             if  (!preg_match('/^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$/', $filter['created_from']) || !preg_match('/^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$/', $filter['created_to'])) {
                 msg("Invalid format for register between. Must be YYYY-MM-DD", "error");
                 return false;
             }
             $add_to_where .=" AND client_customer.created BETWEEN '{$filter['created_from']}' AND '{$filter['created_to']}'";
         }
+
+        $activity_from = $filter['activity_from'] ?? false;
+        $activity_to = $filter['activity_to'] ?? false;
         
         //activity between filter
-        if ($filter['activity_from'] != false && $filter['activity_to'] != false) {
+        if ($activity_from != false && $activity_to != false) {
             if  (!preg_match('/^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$/', $filter['activity_from']) || !preg_match('/^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$/', $filter['activity_to'])) {
                 msg("Invalid format for activity between. Must be YYYY-MM-DD", "error");
                 return false;
@@ -2058,7 +2065,7 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
         }
         
         //customer ID
-        if (is_numeric($filter['customer_id']) &&  $filter['customer_id'] > 0) $add_to_where .= "AND client_customer.id = {$filter['customer_id']}";
+        if (is_numeric($filter['customer_id'] ?? null) &&  $filter['customer_id'] > 0) $add_to_where .= "AND client_customer.id = {$filter['customer_id']}";
         
                 
         return $add_to_where;
@@ -2077,17 +2084,17 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
         
         $subselect_add_to_where = false;
         
-        if (is_numeric($filter['count_orders']) || is_numeric($filter['goods_net'])) {
+        if (is_numeric($filter['count_orders'] ?? null) || is_numeric($filter['goods_net'] ?? null)) {
 
             $subselect_add_to_where = '';
             
             //SUBSELECT count_orders filter
-            if (is_numeric($filter['count_orders'])) {
+            if (is_numeric($filter['count_orders'] ?? null)) {
                 $subselect_add_to_where .= " AND count_orders > {$filter['count_orders']}";
             }
             
             //SUBSELECT goods_net filter
-            if (is_numeric($filter['goods_net'])) {
+            if (is_numeric($filter['goods_net'] ?? null)) {
                 $subselect_add_to_where .= " AND goods_net > {$filter['goods_net']}";
             }
         }

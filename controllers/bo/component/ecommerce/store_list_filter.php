@@ -17,10 +17,10 @@ class Onyx_Controller_Bo_Component_Ecommerce_Store_List_Filter extends Onyx_Cont
         
         if (isset($_POST['store-list-filter'])) $_SESSION['bo']['store-list-filter'] = $_POST['store-list-filter'];
         
-        $filter = $_SESSION['bo']['store-list-filter'];
+        $filter = $_SESSION['bo']['store-list-filter'] ?? '';
         $this->tpl->assign('FILTER', $filter);
         
-        $this->parseTypeSelect($_SESSION['bo']['store-list-filter']['type_id']);
+        $this->parseTypeSelect($_SESSION['bo']['store-list-filter']['type_id'] ?? '');
 
         return true;
     }

@@ -17,7 +17,7 @@ class Onyx_Controller_Bo_Component_Tools extends Onyx_Controller {
         require_once('models/common/common_file.php');
         $File = new common_file();
         
-        $tool = $this->GET['tool'];
+        $tool = $this->GET['tool'] ?? null;
         
         switch ($tool) {
             

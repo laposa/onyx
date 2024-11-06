@@ -24,7 +24,7 @@ class Onyx_Controller_Bo_Component_Taxonomy_Edit extends Onyx_Controller {
                 msg("Taxonomy label updated.");
             }
         }
-        if (is_numeric($this->GET['id'])) {
+        if (is_numeric($this->GET['id'] ?? null)) {
             $taxonomy_data['label'] = $Taxonomy->labelDetailByLTT($this->GET['id']);
             
             //display

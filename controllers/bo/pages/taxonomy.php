@@ -24,7 +24,7 @@ class Onyx_Controller_Bo_Pages_Taxonomy extends Onyx_Controller {
         $this->tpl->assign('TAXONOMY', $taxonomy_data);
         
         */
-        if (is_numeric($this->GET['id'])) $this->tpl->parse('content.submenu');
+        if (is_numeric($this->GET['id'] ?? null)) $this->tpl->parse('content.submenu');
 
         return true;
     }

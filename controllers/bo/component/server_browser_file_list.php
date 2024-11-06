@@ -248,7 +248,7 @@ class Onyx_Controller_Bo_Component_Server_Browser_File_List extends Onyx_Control
         
                 //if (preg_match('/^image\/.*/', $l['mime-type'])) 
                 $this->tpl->parse('content.list.item.thumbnail');
-                switch ($this->GET['type']) {
+                switch ($this->GET['type'] ?? '') {
                     case 'add_to_node':
                     case 'RTE':
                     case 'add_to_product':

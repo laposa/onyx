@@ -216,7 +216,7 @@ CREATE TABLE common_session (
             // TODO: check for size
             $array['session_data'] = $session_data;
             
-            if (is_numeric($_SESSION['client']['customer']['id'])) $array['customer_id'] = $_SESSION['client']['customer']['id'];
+            if (is_numeric($_SESSION['client']['customer']['id'] ?? '')) $array['customer_id'] = $_SESSION['client']['customer']['id'];
             else $array['customer_id'] = 0;
 
             $array['created'] = date('c');

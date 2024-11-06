@@ -18,12 +18,12 @@ class Onyx_Controller_Bo_Component_Ecommerce_Store_List extends Onyx_Controller 
         // initialize filter variables
         $taxonomy_id = $this->GET['taxonomy_tree_id'] ?? null;
         if (isset($_POST['store-list-filter'])) $_SESSION['bo']['store-list-filter'] = $_POST['store-list-filter'];
-        $keyword = $_SESSION['bo']['store-list-filter']['keyword'];
-        $type_id = $_SESSION['bo']['store-list-filter']['type_id'];
+        $keyword = $_SESSION['bo']['store-list-filter']['keyword'] ?? '';
+        $type_id = $_SESSION['bo']['store-list-filter']['type_id'] ?? '';
 
         // initialize sorting variables
-        if ($this->GET['store-list-sort-by']) $_SESSION['bo']['store-list-sort-by'] = $this->GET['store-list-sort-by'];
-        if ($this->GET['store-list-sort-direction']) $_SESSION['bo']['store-list-sort-direction'] = $this->GET['store-list-sort-direction'];
+        $_SESSION['bo']['store-list-sort-by'] = $this->GET['store-list-sort-by'] ?? '';
+        $_SESSION['bo']['store-list-sort-direction'] = $this->GET['store-list-sort-direction'] ?? '';
 
         if ($_SESSION['bo']['store-list-sort-by']) $order_by = $_SESSION['bo']['store-list-sort-by'];
         else $order_by = 'modified';
@@ -31,9 +31,9 @@ class Onyx_Controller_Bo_Component_Ecommerce_Store_List extends Onyx_Controller 
         else $order_dir = 'DESC';
 
         // initialize pagination variables
-        if  (is_numeric($this->GET['limit_from'])) $from = $this->GET['limit_from'];
+        if  (is_numeric($this->GET['limit_from'] ?? null)) $from = $this->GET['limit_from'];
         else $from = 0;
-        if (is_numeric($this->GET['limit_per_page'])) $per_page = $this->GET['limit_per_page'];
+        if (is_numeric($this->GET['limit_per_page'] ?? null)) $per_page = $this->GET['limit_per_page'];
         else $per_page = 25;
 
         // get the list
@@ -54,11 +54,12 @@ class Onyx_Controller_Bo_Component_Ecommerce_Store_List extends Onyx_Controller 
         $this->tpl->assign('PAGINATION', $_Onyx_Request->getContent());
 
         // parse items
+        $even_odd = '';
         foreach ($store_list as $item) {
 
             $item['modified'] = date("d/m/Y H:i", strtotime($item['modified']));
             $this->tpl->assign('ITEM', $item);
-            if ($item['image_src']) $this->tpl->parse('content.list.item.image');
+            if (isset($item['image_src']) && $item['image_src']) $this->tpl->parse('content.list.item.image');
             
             $even_odd = ( 'odd' != $even_odd ) ? 'odd' : 'even';
             $publish = $item['publish'] ? '' : 'disabled';
