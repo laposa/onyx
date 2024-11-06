@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2007-2020 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2007-2024 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -25,6 +25,13 @@ class Onyx_Controller_Node_Site_Default extends Onyx_Controller {
         $node_data = $this->Node->nodeDetail($this->GET['id']);
         if (is_array($node_data) && $node_data['page_title'] == '') $node_data['page_title'] = $node_data['title'];
         
+        /**
+         * prepare fallback page_title and browser_title
+         */
+
+         if (trim($node_data['page_title']) == '') $node_data['page_title'] = $node_data['title'];
+         if (trim($node_data['browser_title']) == '') $node_data['browser_title'] = $node_data['page_title'];
+         
         /**
          * when display_secondary_navigation is used, add extra css class "secondary-navigation"
          */
