@@ -20,7 +20,7 @@ class Onyx_Controller_Node_Content_Image extends Onyx_Controller_Node_Content_De
 
         if ($this->node_data['link_to_node_id'] > 0) $this->tpl->parse('content.image_with_link');
         else $this->tpl->parse('content.image_with_no_link');
-        if ($this->node_data['component']['show_caption']) $this->tpl->parse('content.caption');
+        if ($this->node_data['component']['show_caption'] ?? false) $this->tpl->parse('content.caption');
 
         return true;
     }

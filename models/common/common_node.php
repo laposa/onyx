@@ -124,6 +124,10 @@ class common_node extends Onyx_Model {
     
     var $custom_fields;
 
+    public $Image;
+
+    public $Taxonomy;
+
     /**
      * Static variable to speed up hiearchy determination within a single request
      */
@@ -2365,7 +2369,7 @@ LEFT OUTER JOIN common_taxonomy_label ON (common_taxonomy_tree.label_id = common
         //msg($parent_page_id);
         foreach ($news_section_ids as $item) {
             
-            if ($item == $parent_page_id) $news_section_id = $item;
+            $news_section_id = $item == $parent_page_id ? $item : null;
             
         }
         

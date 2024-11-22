@@ -7,6 +7,8 @@
 require_once('models/common/common_node.php');
 
 class Onyx_Controller_Component_Library extends Onyx_Controller {
+
+    public $Node;
     
     /**
      * main action
@@ -23,13 +25,13 @@ class Onyx_Controller_Component_Library extends Onyx_Controller {
 
         // get input variables
         
-        if (is_numeric($this->GET['source_node_id'])) $source_node_id = (int) $this->GET['source_node_id'];
+        if (is_numeric($this->GET['source_node_id'] ?? null)) $source_node_id = (int) $this->GET['source_node_id'];
         else $source_node_id = false;
 
-        if (is_numeric($this->GET['add_to_node_id'])) $add_to_node_id = (int) $this->GET['add_to_node_id'];
+        if (is_numeric($this->GET['add_to_node_id'] ?? null)) $add_to_node_id = (int) $this->GET['add_to_node_id'];
         else $add_to_node_id = false;
 
-        if (is_numeric($this->GET['add_to_container'])) $add_to_container = $this->GET['add_to_container'];
+        if (is_numeric($this->GET['add_to_container'] ?? null)) $add_to_container = $this->GET['add_to_container'];
         else $add_to_container = 0;
 
         // initialise object
@@ -70,7 +72,10 @@ class Onyx_Controller_Component_Library extends Onyx_Controller {
         foreach ($used_content_types as $item) {
 
             // show only content types with visibility attribute set to true, or not set at all
-            if ($templates_info['content'][$item['node_controller']]['visibility'] == true || $templates_info['content'][$item['node_controller']]['visibility'] === NULL) {
+            if (
+                $templates_info['content'][$item['node_controller']]['visibility'] == true || 
+                $templates_info['content'][$item['node_controller']]['visibility'] === NULL 
+            ) {
                 
                 $list_item = $item;
                 

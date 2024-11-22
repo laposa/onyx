@@ -126,7 +126,7 @@ function feEditStartDragDrop() {
 }
 
 function feEditDragDrop(event, ui) {
-    var source_node_id = $(ui.item).find('div').attr('id').replace('onyx-fe-edit-node-id-', '');
+    var source_node_id = $(ui.item).attr('id').replace('node-id-', '');
     var position = $(ui.item).parent().children().index(ui.item);
     var destination_id = $(ui.item).parent().attr('id');
     //var temp = $(event.target).attr('id').replace('onyx-layout-container-', '').split('-');

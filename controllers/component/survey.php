@@ -11,6 +11,12 @@ require_once('models/client/client_action.php');
 
 class Onyx_Controller_Component_Survey extends Onyx_Controller {
 
+    public $Survey;
+
+    public $Entry;
+
+    public $enableReCaptcha = false;
+
     /**
      * main action
      */
@@ -72,7 +78,7 @@ class Onyx_Controller_Component_Survey extends Onyx_Controller {
                  * Save on request
                  */
                 
-                if ($this->checkVoteEligibility($survey_id) && is_array($_POST['answer'])) {
+                if ($this->checkVoteEligibility($survey_id) && is_array($_POST['answer'] ?? null)) {
 
                     $survey_entry_id = $this->processAndSaveForm($survey_id);
 
@@ -630,7 +636,7 @@ class Onyx_Controller_Component_Survey extends Onyx_Controller {
     public function areUserDetailsRequired()
     {
         $configuration_flag = ($this->GET['require_user_details'] == "1");
-        $user_not_logged_in = !$_SESSION['client']['customer']['id'];
+        $user_not_logged_in = !isset($_SESSION['client']['customer']['id']) || !$_SESSION['client']['customer']['id'];
         return $configuration_flag && $user_not_logged_in;
     }
     

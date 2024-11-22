@@ -33,8 +33,8 @@ class Onyx_Controller_Bo_Component_Server_Browser_File_List extends Onyx_Control
         else if ($_POST['open'] ?? false) $open_folder = $_POST['open'];
         else if (isset($_SESSION['server_browser_last_open_folder']) && $_SESSION['server_browser_last_open_folder'] != '') $open_folder = urlencode($_SESSION['server_browser_last_open_folder']);
         else $open_folder = "";
-        $multiupload = (isset($this->GET['multipload']) && $this->GET['multiupload'] == 'true');
-        
+        $multiupload = (isset($this->GET['multiupload']) && $this->GET['multiupload'] == 'true');
+
         /**
          * Store opened folder to session
          */
@@ -125,7 +125,6 @@ class Onyx_Controller_Bo_Component_Server_Browser_File_List extends Onyx_Control
         foreach ($normal_formated_files as $file_item) {
         
             if (is_uploaded_file($file_item['tmp_name'])) {
-                
                 $save_dir = $base_folder . $relative_folder_path;
                 $upload = $File->getSingleUpload($file_item, $save_dir);
 
@@ -135,8 +134,6 @@ class Onyx_Controller_Bo_Component_Server_Browser_File_List extends Onyx_Control
 
                 if (is_array($upload)) {
                 
-                    $this->tpl->assign("OVERWRITE_FILE", $upload);
-
                     if ($multiupload) $this->jsonResponse("file_exists", $upload);
 
                     $overwrite_show = 1;
@@ -156,7 +153,7 @@ class Onyx_Controller_Bo_Component_Server_Browser_File_List extends Onyx_Control
 
         $path = '';
         $breadcrumbs = explode('/', $relative_folder_path);
-        $folder_head = '<a href="/backoffice/media//" class="root-folder"></a>/ ';
+        $folder_head = '<a href="/backoffice/media/" class="root-folder"></a>/ ';
         if(count($breadcrumbs) > 0) {
             foreach($breadcrumbs as $key => $breadcrumb) {
                 $path .= $breadcrumb . '/';
@@ -285,7 +282,7 @@ class Onyx_Controller_Bo_Component_Server_Browser_File_List extends Onyx_Control
     /**
      * Display JSON response and cancel script execution
      * 
-     * @param  String $status Status attribute value 
+     * @param  string $status Status attribute value 
      * @param  array  $data   Addional response data
      */
     protected function jsonResponse($status, $data = array())
