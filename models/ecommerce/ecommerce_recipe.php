@@ -563,7 +563,7 @@ CREATE TABLE ecommerce_recipe (
                         $image_list = $Image->listFiles($recipe['id']);
                     }
                     // return only one image
-                    $recipe['image']  = $image_list[0];
+                    $recipe['image']  = isset($image_list[0]) ? $image_list[0] : array();
                     
                     // load review
                     $recipe['review'] = $Review->getRating($recipe['id']);

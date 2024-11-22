@@ -22,20 +22,22 @@ class Onyx_Controller_Node_Site_Default extends Onyx_Controller {
          * detail of the page underneath
          */
          
-        $node_data = $this->Node->nodeDetail($this->GET['id']);
-        if (is_array($node_data) && $node_data['page_title'] == '') $node_data['page_title'] = $node_data['title'];
+        $node_data = $this->Node->nodeDetail($this->GET['id'] ?? null);
+        if ($node_data == false) $node_data = null;
+        if (is_array($node_data) && $node_data['page_title'] == '') $node_data['page_title'] = $node_data['title'] ?? '';
         
         /**
          * prepare fallback page_title and browser_title
          */
 
-         if (trim($node_data['page_title']) == '') $node_data['page_title'] = $node_data['title'];
-         if (trim($node_data['browser_title']) == '') $node_data['browser_title'] = $node_data['page_title'];
+         if (trim($node_data['page_title'] ?? '') == '') $node_data['page_title'] = $node_data['title'] ?? '';
+         if (trim($node_data['browser_title'] ?? '') == '') $node_data['browser_title'] = $node_data['page_title'] ?? '';
          
         /**
          * when display_secondary_navigation is used, add extra css class "secondary-navigation"
          */
          
+        $node_data['css_class'] = $node_data['css_class'] ?? '';
         if (!isset($node_data['display_secondary_navigation'])) $node_data['display_secondary_navigation'] = $GLOBALS['onyx_conf']['global']['display_secondary_navigation'];
         if ($node_data['display_secondary_navigation'] == 1) $node_data['css_class'] = "{$node_data['css_class']} secondary-navigation";
         else $node_data['css_class'] = "{$node_data['css_class']} no-secondary-navigation";
@@ -112,7 +114,8 @@ class Onyx_Controller_Node_Site_Default extends Onyx_Controller {
          */
          
         if (Onyx_Bo_Authentication::getInstance()->isAuthenticated()) {
-            $_Onyx_Request = new Onyx_Request("bo/fe_edit~node_id={$node_data['id']}~");
+            $node_id = $this->GET['id'] ?? '';
+            $_Onyx_Request = new Onyx_Request("bo/fe_edit~node_id={$node_id}~");
             $this->tpl->assign('FE_EDIT', $_Onyx_Request->getContent());
         }
 

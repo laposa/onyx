@@ -5,8 +5,7 @@ function beforeSubmit() {
 }
 
 function showResponse()  { 
-    var result_message = $("#file-add-result div.onyx-messages").html();
-    growlMessage(result_message);
+    popupMessage("#file-add-result div.onyx-messages");
     $("#file-add .add-button span").removeClass("saving");
     //FIXME: hide when return message == "File inserted", not very safe and doesn't work when debugging is enabled…
     if ($("#file-add-result div.onyx-messages p.onyx-error-msg").text() == '') {
@@ -49,9 +48,6 @@ function showResponse()  {
                             <span class="label"><label>&nbsp;</label></span>
                             <span class="field"><button type="submit" name="add" class="add-button" value="add"><span>Add</span></button></span>
                         </div>
-
-                        
-
                     </div>
                 </div>
                 <div class="layout-column-two of-two">
