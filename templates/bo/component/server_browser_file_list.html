@@ -9,7 +9,7 @@
         <form id="add-new-file"
             hx-post="/request/bo/component/server_browser_file_list~open={GET.open}:type={GET.type}:relation={GET.relation}:node_id={GET.node_id}:file_id={GET.file_id}~" 
             enctype="multipart/form-data" 
-            hx-on::after-request="popupMessage('#server-browser-file-list div.onyx-messages');" 
+            hx-on::after-request="popupMessage('#server-browser-file-list div.onyx-messages');$('#server-browser-file-list button').removeClass('saving');" 
             hx-on::before-request="beforeRequest()" 
             hx-target="#server-browser-file-list-wrapper"
         >
@@ -144,7 +144,7 @@
         }
         
         function beforeRequest() {
-            $("#server-browser-file-list button span").replaceWith("<span style='background: white; color: black; padding: 5px; display: block; font-size: 125%'><img src='/share/images/ajax-indicator/indicator.gif' alt='Loading ...'/> Saving...</span>");
+            $("#server-browser-file-list button").addClass('saving');
         }
         
         function showFileUploadDialog() {
@@ -241,7 +241,6 @@
                 },
                 uploadFinished: function(i, file, response, time) {
                     if (response) {
-    
                         if (response.status == 'file_exists') {
                             overwriteDialogsOpen++;
                             var dialog = $.data(file).find('.overwrite').show();

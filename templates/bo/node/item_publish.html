@@ -3,7 +3,7 @@
         <input type="checkbox" id="node-publish" name="node[publish]" {NODE.publish_check} /> <label for="node-publish">Publish</label>
     </div>
     <div class="row approval-link">
-        Do you want to share this page with somebody before publishing? Use <a href="/page/{GET.id}?preview_token={PREVIEW_TOKEN}" target="_blank" title=""><span>Approval Link</span></a>
+        Do you want to share this page with somebody before publishing? <a href="/page/{GET.id}?preview_token={PREVIEW_TOKEN}" class="button" target="_blank" title=""><span>Use Approval Link</span></a>
     </div>
     <div class="row schedule">
         {ONYX_REQUEST_scheduler #bo/component/scheduler_list~node_id=GET.id:node_type=common_node:~}
