@@ -59,7 +59,7 @@ class Onyx_Controller_Bo_Component_Ecommerce_Store_Edit extends Onyx_Controller 
         $store['publish'] = ($store['publish'] == 1) ? 'checked="checked" ' : '';
         $store['street_view_options'] = unserialize($store['street_view_options']);
         $this->tpl->assign('STORE', $store);
-        $this->tpl->assign('STREET_VIEW_IMAGE_' . ((int) $store['street_view_options']['image']), 'checked="checked"');
+        $this->tpl->assign('STREET_VIEW_IMAGE_' . ($store['street_view_options']['image'] ?? ''), 'checked="checked"');
 
         $this->parseTypeSelect($store['type_id'] ?? null);
 

@@ -37,7 +37,7 @@ class Onyx_Controller_Bo_Component_Client_Customer_Search extends Onyx_Controlle
         }
         
         //HACK: save selected group for use in filter update
-        $_SESSION['bo']['customer-filter-selected_group_id'] = $customer_filter['group_id'];
+        $_SESSION['bo']['customer-filter-selected_group_id'] = $customer_filter['group_id'] ?? null;
         
         /**
          * list groups
@@ -49,18 +49,18 @@ class Onyx_Controller_Bo_Component_Client_Customer_Search extends Onyx_Controlle
             
             $this->tpl->assign('ITEM', $item);
             
-            if ($item['id'] == $customer_filter['group_id']) $this->tpl->assign('SELECTED', 'selected="selected"');
+            if (isset($customer_filter['group_id']) && $item['id'] == $customer_filter['group_id']) $this->tpl->assign('SELECTED', 'selected="selected"');
             else $this->tpl->assign('SELECTED', '');
             
             $this->tpl->parse('content.item');
         }
         
         // dropdowns
-        $this->tpl->assign("SELECTED_group_{$customer_filter['group_id']}", 'selected="selected"');
-        $this->tpl->assign("SELECTED_account_type_{$customer_filter['account_type']}", 'selected="selected"');
+        if (isset($customer_filter['group_id'])) $this->tpl->assign("SELECTED_group_{$customer_filter['group_id']}", 'selected="selected"');
+        if (isset($customer_filter['account_type']))$this->tpl->assign("SELECTED_account_type_{$customer_filter['account_type']}", 'selected="selected"');
         
         // checkboxes
-        if (is_numeric($customer_filter['backoffice_role_only']) && $customer_filter['backoffice_role_only'] == 1) $this->tpl->assign('CHECKED_backoffice_role_only', 'checked="checked"');
+        if (is_numeric($customer_filter['backoffice_role_only'] ?? null) && $customer_filter['backoffice_role_only'] == 1) $this->tpl->assign('CHECKED_backoffice_role_only', 'checked="checked"');
         
         /**
          * save to the SESSION

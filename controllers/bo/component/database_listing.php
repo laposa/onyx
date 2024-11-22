@@ -17,7 +17,7 @@ class Onyx_Controller_Bo_Component_Database_Listing extends Onyx_Controller {
          * getting detail of model
          */
          
-        if ($this->GET['model'] != '') {
+        if (isset($this->GET['model']) && $this->GET['model'] != '') {
         
             $model_file = $this->GET['model'];
             $dir = explode("/", $model_file);
@@ -63,7 +63,10 @@ class Onyx_Controller_Bo_Component_Database_Listing extends Onyx_Controller {
                  */
                  
                 //pagination
-                if (is_numeric($this->GET['limit_from']) && is_numeric($this->GET['limit_per_page'])) {
+                $limit_from = $this->GET['limit_from'] ?? '';
+                $limit_per_page = $this->GET['limit_per_page'] ?? '';
+                
+                if (is_numeric($limit_from) && is_numeric($limit_per_page)) {
                     $from = $this->GET['limit_from'];
                     $per_page = $this->GET['limit_per_page'];
                 } else {
@@ -83,7 +86,7 @@ class Onyx_Controller_Bo_Component_Database_Listing extends Onyx_Controller {
                             //A) display only part
                             //$val = substr($val, 0, 100) . "...";
                             //B) display human redabe
-                            $val = print_r(unserialize($val), true);
+                            $val = print_r(unserialize($val ?? ''), true);
                             
                         }
                         $this->tpl->assign('value', $val);

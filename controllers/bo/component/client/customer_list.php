@@ -38,9 +38,9 @@ class Onyx_Controller_Bo_Component_Client_Customer_List extends Onyx_Controller 
          * Initialize pagination variables
          */
         
-        if  (is_numeric($this->GET['limit_from'])) $from = $this->GET['limit_from'];
+        if  (is_numeric($this->GET['limit_from'] ?? null)) $from = $this->GET['limit_from'];
         else $from = 0;
-        if (is_numeric($this->GET['limit_per_page'])) $per_page = $this->GET['limit_per_page'];
+        if (is_numeric($this->GET['limit_per_page'] ?? null)) $per_page = $this->GET['limit_per_page'];
         else $per_page = 25;
         
         $limit = "$from,$per_page";
@@ -52,7 +52,8 @@ class Onyx_Controller_Bo_Component_Client_Customer_List extends Onyx_Controller 
         
         $customer_list = $Customer->getClientList($customer_filter, $order_by, $per_page, $from);
         $customer_list_count = $Customer->getCustomerListCount($customer_filter);       
-        
+        $even_odd = '';
+
         if (is_array($customer_list) && count($customer_list) > 0) {
             
             /**
@@ -99,21 +100,21 @@ class Onyx_Controller_Bo_Component_Client_Customer_List extends Onyx_Controller 
      
     public function getOrderBy() {
         
-        if ($this->GET['customer-list-sort-by']) {
+        if ($this->GET['customer-list-sort-by'] ?? false) {
             $_SESSION['bo']['customer-list-sort-by'] = $this->GET['customer-list-sort-by'];
         }
         
-        if ($this->GET['customer-list-sort-direction']) {
+        if ($this->GET['customer-list-sort-direction'] ?? false) {
             $_SESSION['bo']['customer-list-sort-direction'] = $this->GET['customer-list-sort-direction'];
         }
         
-        if ($_SESSION['bo']['customer-list-sort-by']) {
+        if ($_SESSION['bo']['customer-list-sort-by'] ?? false) {
             $sort_by = $_SESSION['bo']['customer-list-sort-by'];
         } else {
             $sort_by = "customer_id";
         }
         
-        if ($_SESSION['bo']['customer-list-sort-direction']) {
+        if ($_SESSION['bo']['customer-list-sort-direction'] ?? false) {
             $sort_direction = $_SESSION['bo']['customer-list-sort-direction'];
         } else {
             $sort_direction = "DESC";

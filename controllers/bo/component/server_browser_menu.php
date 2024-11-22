@@ -117,7 +117,7 @@ class Onyx_Controller_Bo_Component_Server_Browser_Menu extends Onyx_Controller_C
     protected function isNodeActive(&$item)
     {
         $preg = str_replace("/", "\/", quotemeta($item['id']));
-        return (preg_match("/{$preg}$/", $this->GET['open'] ?? $_SESSION['server_browser_last_open_folder']));
+        return (preg_match("/{$preg}$/", $this->GET['open'] ?? $_SESSION['server_browser_last_open_folder'] ?? ''));
     }
 
     /**
@@ -126,7 +126,7 @@ class Onyx_Controller_Bo_Component_Server_Browser_Menu extends Onyx_Controller_C
     protected function isNodeOpen(&$item)
     {
         $preg = str_replace("/", "\/", quotemeta($item['id']));
-        return (preg_match("/{$preg}/", $this->GET['open'] ?? $_SESSION['server_browser_last_open_folder']));
+        return (preg_match("/{$preg}/", $this->GET['open'] ?? $_SESSION['server_browser_last_open_folder'] ?? ''));
     }
 
 }

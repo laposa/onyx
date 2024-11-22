@@ -25,15 +25,15 @@ class Onyx_Controller_Bo_Component_Logs extends Onyx_Controller {
         // filter
         if (isset($this->GET['filter'])) $_SESSION['bo']['filter'] = $this->GET['filter'];
         
-        $filter = $_SESSION['bo']['filter'];
+        $filter = $_SESSION['bo']['filter'] ?? '';
         
-        if ($filter['active'] == 1) {
+        if (isset($filter['active']) && $filter['active'] == 1) {
             $this->tpl->assign('ACTIVE_selected_1', "selected='selected'");
         } else {
             $this->tpl->assign('ACTIVE_selected_0', "selected='selected'");
         }
         
-        if (!is_numeric($filter['customer_id']) || $filter['customer_id'] < 0) $filter['customer_id'] = '';
+        if (!is_numeric($filter['customer_id'] ?? null) || $filter['customer_id'] < 0) $filter['customer_id'] = '';
         
         $this->tpl->assign("FILTER", $filter);
         
@@ -46,7 +46,7 @@ class Onyx_Controller_Bo_Component_Logs extends Onyx_Controller {
         
         
         //pagination
-        if (is_numeric($this->GET['limit_from']) && is_numeric($this->GET['limit_per_page'])) {
+        if (is_numeric($this->GET['limit_from'] ?? null) && is_numeric($this->GET['limit_per_page'] ?? null)) {
             $from = $this->GET['limit_from'];
             $per_page = $this->GET['limit_per_page'];
         } else {
@@ -66,7 +66,7 @@ class Onyx_Controller_Bo_Component_Logs extends Onyx_Controller {
         $count_active = $Session->count($where);
         $count_archive = $Session_archive->count($where);
         
-        if ($filter['active'] == 1) {
+        if (isset($filter['active']) && $filter['active'] == 1) {
             $sessions = $Session->listing($where, 'modified DESC', $limit);
             $count = $count_active;
         } else {

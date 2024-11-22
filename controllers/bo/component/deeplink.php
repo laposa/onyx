@@ -17,11 +17,13 @@ class Onyx_Controller_Bo_Component_Deeplink extends Onyx_Controller {
 
         if(ONYX_MOBILE_APP_DEEPLINK_SET_URL) {
             $data = json_decode(file_get_contents(ONYX_MOBILE_APP_DEEPLINK_SET_URL), true);
-            foreach($data as $item) {
-                $this->tpl->assign('ITEM', $item);
-                $this->tpl->parse('content.list.item');
+            if($data) {
+                foreach($data as $item) {
+                    $this->tpl->assign('ITEM', $item);
+                    $this->tpl->parse('content.list.item');
+                }
+                $this->tpl->parse('content.list');
             }
-            $this->tpl->parse('content.list');
         }
 
         if(ONYX_MOBILE_APP_SCHEMA) {

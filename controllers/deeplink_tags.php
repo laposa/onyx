@@ -30,7 +30,7 @@ class Onyx_Controller_Deeplink_Tags extends Onyx_Controller {
      * Process Deeplink for page
      */
     public function processDeeplink($node_data) {
-        if (!empty($node_data['custom_fields']->deeplink)) {
+        if ($node_data['custom_fields'] && $node_data['custom_fields']->deeplink) {
 
             $link_get = $_GET;
             unset($link_get['translate'], $link_get['request']);
