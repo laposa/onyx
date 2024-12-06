@@ -1,25 +1,10 @@
-<!-- BEGIN: title -->Video Edit<!-- END: title -->
 <!-- BEGIN: content -->
-<div class="page-header">
-    <div class="page-header-wrapper">
-        <h1 class="page-title popup"><span>Video</span> <span class="info">ID {NODE.id}</span></h1>
-    </div>
-</div>
-{FILE "bo/node/form_open.html"}
+{FILE "bo/node/shared_header.html"}
 
-<div class="two-column-layout fibonacci-1-1">
-    <div class="layout-column-one of-two">
-        <fieldset>
-            {FILE "bo/node/item_title.html"}
-            {FILE "bo/node/item_display_title.html"}
-        </fieldset>
-    </div>
-    <div class="layout-column-two of-two">
-        <fieldset>
-            {FILE "bo/node/item_css_class.html"}
-        </fieldset>
-    </div>
-</div>
+<fieldset>
+    {FILE "bo/node/item_title.html"}
+    {FILE "bo/node/item_display_title.html"}
+</fieldset>
 
 <fieldset class="node-edit-content-video">
     <div class="row component provider">
@@ -38,33 +23,5 @@
     </div>
 </fieldset>
 
-<fieldset>
-    {FILE "bo/node/item_position.html"}
-</fieldset>
-
-<div class="two-column-layout fibonacci-1-1 advanced">
-    <div class="layout-column-one of-two">
-        <fieldset>
-            {FILE "bo/node/item_display_in_menu.html"}
-            {FILE "bo/node/item_display_permission.html"}
-            {FILE "bo/node/item_display_permission_group_acl.html"}
-            {FILE "bo/node/item_require_login.html"}
-        </fieldset>
-    </div>
-    <div class="layout-column-two of-two">
-        <fieldset>
-            {FILE "bo/node/item_node_type.html"}
-            {FILE "bo/node/item_signature.html"}
-            {FILE "bo/node/item_customer.html"}
-        </fieldset>
-    </div>
-</div>
-
-<fieldset class="advanced">
-    {FILE "bo/node/item_head.html"}
-</fieldset>
-
-{FILE "bo/node/item_publish.html"}
-    
-{FILE "bo/node/form_close.html"}
+{FILE "bo/node/shared_footer.html"}
 <!-- END: content -->

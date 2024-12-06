@@ -1,21 +1,10 @@
-<!-- BEGIN: title -->site/default<!-- END: title -->
 <!-- BEGIN: content -->
-<div class="page-header">
-    <div class="page-header-wrapper">
-        <h1 class="page-title popup"><span>Site {CONFIGURATION.global.title|htmlspecialchars}</span> <span class="info">ID {NODE.id}</span></h1>
-    </div>
-</div>
-
-{FILE "bo/node/form_open.html"}
+{FILE "bo/node/shared_header.html"}
 
     {FILE "bo/node/item_content_list.html"}
     <div class="advanced">
     {FILE "bo/node/item_image_list.html"}
     </div>
-    <div class="advanced">
-    {FILE "bo/node/item_node_type.html"}
-    {FILE "bo/node/item_signature.html"}
-    </div>
 
-{FILE "bo/node/form_close.html"}
+{FILE "bo/node/shared_footer.html"}
 <!-- END: content -->
