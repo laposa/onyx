@@ -31,7 +31,7 @@ $(function() {
 </script>
 <!-- END: head_once -->
 <!-- BEGIN: content -->
-<section id="node-id-{NODE.id}" class="layout slider-layout {NODE.layout_style} {NODE.css_class}">
+<section id="node-id-{NODE.id}" class="layout slider-layout {NODE.layout_style} {NODE.css_class|htmlspecialchars}">
     <div class="wrapper">
         <!-- BEGIN: title --><h2 class="layout-title"><span>{NODE.title|htmlspecialchars}</span></h2><!-- END: title -->
         <div class="slider-wrapper">

@@ -11,25 +11,29 @@
         });
     </script>
     
-    <div id="qr-code-{GET.node_id}">
-        <div>
-            <label style="display: block;">QR Code for URL <a href="{QRCODE_URL}">{QRCODE_URL}</a></label>
-            <img src="/view/{QRCODE}" alt="QR Code" width="200" height="200"/>
-        </div>
-        <div>
-            <label for="qrcode_parameters">Additional parameters (parameter=value&amp;parameter2=value2...)</label>
-            <input type="text" id="qrcode_parameters" name="node[custom_fields][qrcode_params]" value="{NODE.custom_fields.qrcode_params|htmlspecialchars}" placeholder="utm_source=circulator&utm_medium=email&utm_campaign=offers-040924"/>
-        </div>
-        <div class="qrcode_actions">
-            <a class="download button" title="Download QR Code" href="/download/{QRCODE}"><span>PNG</span></a>
-            <a class="button primary" title="Regenerate QR Code" id="qr-regenerate">Re-generate QR Code</a>
+    <div id="qr-code-{GET.node_id}" class="wrapper">
+
+        <div class="img">
+            <img src="/view/{QRCODE}" alt="QR Code" width="150" height="150"/>
+            
+            <!-- BEGIN: fail -->
+            <div class="error">
+                <p>Failed to generate QR Code</p>
+            </div>
+            <!-- END: fail -->
         </div>
 
-        <!-- BEGIN: fail -->
-        <div class="error">
-            <p>Failed to generate QR Code</p>
+        <div class="body">
+            <label>Current QR Code URL:</label>
+            <a href="{QRCODE_URL}" class="link">{QRCODE_URL}</a>
+            <br>
+            <label for="qrcode_parameters">Additional parameters (parameter=value&amp;parameter2=value2...)</label>
+            <input type="text" id="qrcode_parameters" name="node[custom_fields][qrcode_params]" value="{NODE.custom_fields.qrcode_params|htmlspecialchars}" placeholder="utm_source=circulator&utm_medium=email&utm_campaign=offers-040924"/>
+            <div class="actions">
+                <a class="download button" title="Download QR Code" href="/download/{QRCODE}"><span>PNG</span></a>
+                <a class="button primary" title="Regenerate QR Code" id="qr-regenerate">Re-generate QR Code</a>
+            </div>
         </div>
-        <!-- END: fail -->
     </div>
 </div>
 <!-- END: content -->

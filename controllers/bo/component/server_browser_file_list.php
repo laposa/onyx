@@ -153,7 +153,8 @@ class Onyx_Controller_Bo_Component_Server_Browser_File_List extends Onyx_Control
 
         $path = '';
         $breadcrumbs = explode('/', $relative_folder_path);
-        $folder_head = '<a href="/backoffice/media/" class="root-folder"></a>/ ';
+        // two forward slashes are intentional, button is not working with only 1
+        $folder_head = '<a href="/backoffice/media//" class="root-folder"></a>/ ';
         if(count($breadcrumbs) > 0) {
             foreach($breadcrumbs as $key => $breadcrumb) {
                 $path .= $breadcrumb . '/';

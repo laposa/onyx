@@ -1,56 +1,23 @@
-<!-- BEGIN: title -->{NODE.title} - Alias (Redirect) Page Edit<!-- END: title -->
 <!-- BEGIN: content -->
-<div class="page-header">
-    <div class="page-header-wrapper">
-        <h1 class="page-title popup"><span>Alias (Redirect) Page</span> <span class="info">ID {NODE.id}</span></h1>
-    </div>
-</div>
-
-{FILE "bo/node/form_open.html"}
-
-<div class="two-column-layout fibonacci-1-1">
-    <div class="layout-column-one of-two">
-        <fieldset>
-            {FILE "bo/node/item_title.html"}
-            {FILE "bo/node/item_uri_title.html"}
-            {FILE "bo/node/item_description.html"}
-            <div class="advanced">
-                {FILE "bo/node/item_strapline.html"}
-            </div>
-        </fieldset>
-    </div>
-    <div class="layout-column-two of-two">
-        <fieldset>
-            {FILE "bo/node/item_component_href.html"}
-            {FILE "bo/node/item_image_list.html"}
-        </fieldset>
-    </div>
-</div>
-
-<div class="advanced">
-{FILE "bo/node/item_content_list.html"}
-</div>
-<div class="two-column-layout fibonacci-1-1 advanced">
-    <div class="layout-column-one of-two">
-        <fieldset>
-            {FILE "bo/node/item_display_permission.html"}
-            {FILE "bo/node/item_display_permission_group_acl.html"}
-            {FILE "bo/node/item_require_login.html"}
-        </fieldset>
-    </div>
-    <div class="layout-column-two of-two">
-        <fieldset>
-            {FILE "bo/node/item_node_type.html"}
-            {FILE "bo/node/item_signature.html"}
-            {FILE "bo/node/item_customer.html"}
-        </fieldset>
-    </div>
-</div>
+{FILE "bo/node/shared_header.html"}
 
 <fieldset>
-{FILE "bo/node/item_display_in_menu.html"}
-{FILE "bo/node/item_publish.html"}
+    {FILE "bo/node/item_title.html"}
+    {FILE "bo/node/item_uri_title.html"}
+    {FILE "bo/node/item_description.html"}
+    <div class="advanced">
+        {FILE "bo/node/item_strapline.html"}
+    </div>
 </fieldset>
 
-{FILE "bo/node/form_close.html"}
+<fieldset>
+    {FILE "bo/node/item_component_href.html"}
+    {FILE "bo/node/item_image_list.html"}
+</fieldset>
+
+<div class="advanced">
+    {FILE "bo/node/item_content_list.html"}
+</div>
+
+{FILE "bo/node/shared_footer.html"}
 <!-- END: content -->

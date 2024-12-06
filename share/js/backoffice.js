@@ -71,34 +71,31 @@ function showAdvancedSettings(source) {
     return false;
 }
 
-/**
- * Hook show advanced settings button click
- * and set its state as per saved state
- */
 function initAdvancedSettingsButton() {
-
     if (window.localStorage) {
-        // TODO doesn't set after requests in certain components (product variety edit as an example) - probably in all modals?
         if (localStorage.getItem("show-advanced-settings") == 'true') {
             $('div.page-content .advanced').show();
             $("a.show-advanced-settings span").html('Hide Advanced Settings');
         }
     }
-
-    $(document).on('click', 'a.show-advanced-settings', function(e) {
-        e.preventDefault();
-        showAdvancedSettings(this);
-        return false;
-    });
-}
+};
 
 /**
  * called on every init and update of backoffice forms
  */
  
 function initBackofficeUI() {
-    
+    /**
+     * Hook show advanced settings button click
+     * and set its state as per saved state
+     */
+
     initAdvancedSettingsButton();
+    $(document).on('click', 'a.show-advanced-settings', function(e) {
+        e.preventDefault();
+        showAdvancedSettings(this);
+        return false;
+    });
 
     // mark disabled options
     $('select option.disabled, select option.publish-0').append(' (not public)');
