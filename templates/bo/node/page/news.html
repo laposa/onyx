@@ -1,89 +1,44 @@
-<!-- BEGIN: title -->{NODE.title} - News Article Edit<!-- END: title -->
 <!-- BEGIN: content -->
-<div class="page-header">
-    <div class="page-header-wrapper">
-        <h1 class="page-title popup"><span>{NODE.node_controller|htmlspecialchars|ucfirst} Page</span> <span class="info">ID {NODE.id}</span></h1>
+{FILE "bo/node/shared_header.html"}
+
+<fieldset>
+    {FILE "bo/node/item_title.html"}
+    {FILE "bo/node/item_page_title.html"}
+    {FILE "bo/node/item_display_title.html"}
+    <div class="advanced">
+        {FILE "bo/node/item_browser_title.html"}
+        {FILE "bo/node/item_strapline.html"}
     </div>
-</div>
-{FILE "bo/node/form_open.html"}
-    
-<div class="two-column-layout fibonacci-1-1">
-    <div class="layout-column-one of-two">
-        <fieldset>
-            {FILE "bo/node/item_title.html"}
-            {FILE "bo/node/item_page_title.html"}
-            {FILE "bo/node/item_display_title.html"}
-            <div class="advanced">
-            {FILE "bo/node/item_browser_title.html"}
-            {FILE "bo/node/item_strapline.html"}
-            </div>
-            {FILE "bo/node/item_description.html"}
-            {FILE "bo/node/item_author_name.html"}
-            {FILE "bo/node/item_created.html"}
-            {FILE "bo/node/item_deeplink.html"}
-        </fieldset>
-    </div>
-    <div class="layout-column-two of-two">
-        <fieldset>
-        {FILE "bo/node/item_image_list.html"}
-        {FILE "bo/node/item_taxonomy.html"}
-        </fieldset>
-        <fieldset>
-            {FILE "bo/node/item_css_class.html"}
-        </fieldset>
-    </div>
-</div>
+    {FILE "bo/node/item_description.html"}
+    {FILE "bo/node/item_author_name.html"}
+    {FILE "bo/node/item_created.html"}
+    {FILE "bo/node/item_deeplink.html"}
+</fieldset>
+<fieldset>
+    {FILE "bo/node/item_image_list.html"}
+    {FILE "bo/node/item_taxonomy.html"}
+</fieldset>
 
 <fieldset>
     {FILE "bo/node/item_content.html"}
 </fieldset>
 
-<div class="two-column-layout fibonacci-1-1">
-    <div class="layout-column-one of-two">
-        <fieldset>
-            {FILE "bo/node/item_uri_title.html"}
-            {FILE "bo/node/item_deeplink.html"}
-        </fieldset>
-    </div>
-    <div class="layout-column-two of-two">
-        <fieldset>
-            {FILE "bo/node/item_qrcode.html"}
-        </fieldset>
-    </div>
-</div>
+<fieldset>
+    {FILE "bo/node/item_uri_title.html"}
+    {FILE "bo/node/item_deeplink.html"}
+</fieldset>
+<fieldset>
+    {FILE "bo/node/item_qrcode.html"}
+</fieldset>
+
 {FILE "bo/node/item_content_page_list.html"}
 {FILE "bo/node/item_content_card_list.html"}
+
 <div class="advanced">
     {FILE "bo/node/item_content_list.html"}
 </div>
 
-<div class="two-column-layout fibonacci-1-1 advanced">
-    <div class="layout-column-one of-two">
-        <fieldset>
-            {FILE "bo/node/item_display_permission.html"}
-            {FILE "bo/node/item_display_permission_group_acl.html"}
-            {FILE "bo/node/item_require_login.html"}
-        </fieldset>
-    </div>
-    <div class="layout-column-two of-two">
-        <fieldset>
-            {FILE "bo/node/item_node_type.html"}
-            {FILE "bo/node/item_signature.html"}
-            {FILE "bo/node/item_customer.html"}
-        </fieldset>
-    </div>
-</div>
-
-<fieldset class="advanced">
-    {FILE "bo/node/item_head.html"}
-</fieldset>
-
-<fieldset>
-{FILE "bo/node/item_display_in_menu.html"}
-{FILE "bo/node/item_publish.html"}
-</fieldset>
-
-{FILE "bo/node/form_close.html"}
+{FILE "bo/node/shared_footer.html"}
 
 <p class="extended-toolbar">
     <a class="button edit" href="/page/{GET.id}?fe_edit_mode=edit" target="_blank" style="margin-left: 10px;"><span>Open in Front-End Editing</span></a>

@@ -1511,18 +1511,11 @@ a.fakelink:hover {text-decoration: none;}
     }
   }
 
-  > div {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
-
   img {
     margin-bottom: 10px;
   }
 
-  .qrcode_actions {
+  .actions {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -1532,6 +1525,13 @@ a.fakelink:hover {text-decoration: none;}
   .error {
     padding-top: 10px;
     color: #d74343;
+  }
+
+  .wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 0;
   }
 }
 
@@ -1578,4 +1578,8 @@ a.fakelink:hover {text-decoration: none;}
       background-color: #f0f0f0;
     }
   }
+}
+
+#rt-select > div {
+  margin-bottom: 10px;
 }

@@ -1,37 +1,26 @@
-<!-- BEGIN: title -->{NODE.title} - Recipe Page Edit<!-- END: title -->
 <!-- BEGIN: content -->
-<div class="page-header">
-    <div class="page-header-wrapper">
-        <h1 class="page-title popup"><span>{NODE.node_controller|htmlspecialchars|ucfirst} Page</span> <span class="info">Node ID {NODE.id}, Recipe ID {NODE.content}</span></h1>
-    </div>
-</div>
-{FILE "bo/node/form_open.html"}
-    
-<div class="two-column-layout fibonacci-1-1">
-    <div class="layout-column-one of-two">
-        <fieldset>
+{FILE "bo/node/shared_header.html"}
+
+<div>
+    <fieldset>
         {FILE "bo/node/item_title.html"}
         {FILE "bo/node/item_page_title.html"}
         {FILE "bo/node/item_display_title.html"}
         <div class="advanced">
-        {FILE "bo/node/item_browser_title.html"}
-        {FILE "bo/node/item_strapline.html"}
+            {FILE "bo/node/item_browser_title.html"}
+            {FILE "bo/node/item_strapline.html"}
         </div>
         {FILE "bo/node/item_description.html"}
         {FILE "bo/node/item_deeplink.html"}
-        </fieldset>
-    </div>
-    <div class="layout-column-two of-two">
-        <fieldset>
+    </fieldset>
+    <fieldset>
         <div class="advanced">
-        <p>See recipe database for related images</p>
-        {FILE "bo/node/item_image_list.html"}
-        {FILE "bo/node/item_taxonomy.html"}
-        {FILE "bo/node/item_layout_style.html"}
+            <p>See recipe database for related images</p>
+            {FILE "bo/node/item_image_list.html"}
+            {FILE "bo/node/item_taxonomy.html"}
+            {FILE "bo/node/item_layout_style.html"}
         </div>
-        {FILE "bo/node/item_css_class.html"}
-        </fieldset>
-    </div>
+    </fieldset>
 </div>
 
 <fieldset class="advanced">
@@ -41,49 +30,24 @@
     </div>
 </fieldset>
 
-<div class="two-column-layout fibonacci-1-1">
-    <div class="layout-column-one of-two">
-        <fieldset>
-            {FILE "bo/node/item_uri_title.html"}
-            {FILE "bo/node/item_deeplink.html"}
-        </fieldset>
-    </div>
-    <div class="layout-column-two of-two">
-        <fieldset>
-            {FILE "bo/node/item_qrcode.html"}
-        </fieldset>
-    </div>
+<div>
+    <fieldset>
+        {FILE "bo/node/item_uri_title.html"}
+        {FILE "bo/node/item_deeplink.html"}
+    </fieldset>
+    <fieldset>
+        {FILE "bo/node/item_qrcode.html"}
+    </fieldset>
 </div>
+
 {FILE "bo/node/item_content_page_list.html"}
 {FILE "bo/node/item_content_card_list.html"}
+
 <div class="advanced">
     {FILE "bo/node/item_content_list.html"}
 </div>
 
-{FILE "bo/node/item_position.html"}
-
-<div class="two-column-layout fibonacci-1-1 advanced">
-    <div class="layout-column-one of-two">
-        {FILE "bo/node/item_display_permission.html"}
-        {FILE "bo/node/item_display_permission_group_acl.html"}
-        {FILE "bo/node/item_require_login.html"}
-        {FILE "bo/node/item_require_ssl.html"}
-    </div>
-    <div class="layout-column-two of-two">
-        {NODE_TYPE}
-        {FILE "bo/node/item_signature.html"}
-        {FILE "bo/node/item_customer.html"}
-        {FILE "bo/node/item_head.html"}
-    </div>
-</div>
-
-<fieldset>
-{FILE "bo/node/item_display_in_menu.html"}
-{FILE "bo/node/item_publish.html"}
-<div class="row">Publish option on recipe page should be managed in recipe detail itself.</div>
-</fieldset>
-
-{FILE "bo/node/form_close.html"}
+{FILE "bo/node/shared_footer.html"}
 
 <p class="extended-toolbar">
     <a class="button add" href="/backoffice/recipes/{NODE.content}/edit" target="_blank"><span>Edit Recipe</span></a>
