@@ -249,6 +249,27 @@ function duplicateNode(id, parent_id, node_group) {
     return false;
 }
 
+function trashNode(event, id) {
+    event.preventDefault();
+    $('#onyx-dialog').empty();
+    $('#onyx-dialog').dialog({
+        width: 500, 
+        modal: true, 
+        overlay: {
+            opacity: 0.5, 
+            background: 'black'
+        }, 
+        title: 'Move node to bin', 
+        close: function() {
+            $('#onyx-dialog').empty();
+        },
+    });
+
+    makeAjaxRequest('#onyx-dialog', '/request/bo/component/node_bin~id='+id+':trash=1~');
+    $('#onyx-dialog').dialog('open');
+    return false;
+}
+
 function deleteNode(event, id) {
     event.preventDefault();
     $('#onyx-dialog').empty();

@@ -17,7 +17,7 @@
                         <!-- BEGIN: approve -->
                         <a class="onyx-publish button" title="Schedule Publishing of the Notice on {CHILD.other_data.visible_from}" href="#{CHILD.id}"><span>Approve</span></a>
                         <!-- END: approve -->
-                        <a class="onyx-delete button" title="Delete Notice" href="#{CHILD.id}"><span>Delete</span></a>
+                        <a class="onyx-trash button" title="Trash Notice" href="#{CHILD.id}"><span>Move to bin</span></a>
                     </div>
                 </td>
             </tr>
@@ -48,9 +48,9 @@
                 return false;
             });
 
-            $('#notice-list-{GET.id} a.onyx-delete').live('click', function() {
+            $('#notice-list-{GET.id} a.onyx-trash').live('click', function() {
                 var child_id = $(this).attr('href').replace('#','');;
-                $('#onyx-dialog').addClass('ajax-load').load('/request/bo/component/node_delete~id='+child_id+':delete=1~', function() {$(this).removeClass('ajax-load');});
+                $('#onyx-dialog').addClass('ajax-load').load('/request/bo/component/node_bin~id='+child_id+':trash=1~', function() {$(this).removeClass('ajax-load');});
                 $('#onyx-dialog').dialog({width: 500, modal: true, overlay: {opacity: 0.5, background: 'black'}, beforeClose: function( event, ui ) {refreshNoticeList()}});
                 $('#onyx-dialog').dialog('open');
                 return false;

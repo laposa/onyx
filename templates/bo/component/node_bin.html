@@ -1,3 +1,40 @@
 <!-- BEGIN: content -->
 {MESSAGES}
+	<!-- BEGIN: confirm -->
+	<script type="text/javascript">
+	function confirmTrashNode(node_id) {
+			makeAjaxRequest('#onyx-dialog', '/request/bo/component/node_bin~id=' + node_id + ':trash=1:confirm={CONFIRMATION_CODE}:ajax=1~', function() {
+					$("#node-id-" + node_id).empty(); // in backoffice
+					$("#node-item-id-" + node_id).empty(); // in backoffice
+					$("#onyx-fe-edit-node-id-" + node_id).empty(); // in frontoffice
+					$('#onyx-dialog').dialog( "close").empty();
+					refreshNodeList('{PARENT}', '{NODE_GROUP}');
+			});
+			return false;
+	}
+	</script>
+
+	<div style="padding: 10px;">
+	<p>Do you really want to move {NODE.node_group|htmlspecialchars}/{NODE.node_controller|htmlspecialchars} named "{NODE.title|htmlspecialchars}" to bin? <br><br><button class="button delete remove fakelink" onclick="confirmTrashNode('{GET.id}');">Yes,&nbsp;move to bin</button></p>
+
+	<!-- BEGIN:children -->
+			<h5>These items will be moved to bin aswell:</h5>
+			<ul>
+			<!-- BEGIN: item -->
+					<li><a href="/backoffice/pages/edit/{CHILD.id}">{CHILD.title|htmlspecialchars} <sup>{CHILD.node_group|htmlspecialchars}/{CHILD.node_controller|htmlspecialchars}</sup></a></li>
+			<!-- END: item -->
+			</ul>
+	<!-- END:children -->
+
+	<!-- BEGIN:linked -->
+			<h5>Linked as shared content</h5>
+			<ul>
+			<!-- BEGIN: item -->
+					<li><a href="/backoffice/pages/{LINKED.id}"> {LINKED.title|htmlspecialchars} <sup>{LINKED.node_group|htmlspecialchars}/{LINKED.node_controller|htmlspecialchars}</sup></a></li>
+			<!-- END: item -->
+			</ul>
+	<!-- END:linked -->
+
+	</div>
+	<!-- END: confirm -->
 <!-- END: content -->

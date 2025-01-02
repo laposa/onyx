@@ -1,24 +1,23 @@
 <!-- BEGIN: content -->
 {MESSAGES}
 <div id="page-list-{GET.id}" class="root">
-    <h2>Page List</h2>
+    <h2>Bin content</h2>
     <a href="#{GET.id}" class="fakelink"></a>
     <!-- BEGIN: children -->
     <table id="content-pages">
         <thead>
-            <tr><th>Title</th><th>Page Type</th><th>ID</th><th>Priority</th><th></th></tr>
+            <tr><th>Title</th><th>Removed on</th><th>Type</th><th>ID</th><th></th></tr>
         </thead>
         <tbody>
             <!-- BEGIN: item -->
             <tr id="node-id-{CHILD.id}" class="{CHILD.class}">
-                <td><a class="{CHILD.class} fakelink page-edit" href="{CHILD.id}" onclick="openEdit('/popup/properties/{CHILD.id}/orig' + window.location.pathname)" title="Modified: {CHILD.modified|htmlspecialchars}">{CHILD.title|htlmspecialchars}</a></td>
-                <td>{CHILD.node_controller}</td>
+                <td><a class="{CHILD.class} fakelink" href="{CHILD.id}" onclick="openEdit('/popup/properties/{CHILD.id}/orig' + window.location.pathname)" title="Modified: {CHILD.modified|htmlspecialchars}">{CHILD.title|htlmspecialchars}</a></td>
+                <td>{REMOVED|htmlspecialchars}</td>
+                <td>{CHILD.node_group}</td>
                 <td>{CHILD.id}</td>
-                <td>{CHILD.priority}</td>
                 <td>
                     <div class="onyx-edit-page">
-                        <button class="onyx-duplicate" title="Duplicate {CHILD.title}" onclick="duplicateNode('{CHILD.id}','{CHILD.parent}', '{CHILD.node_group}')"></button>
-                        <button class="onyx-bin" title="Move {CHILD.title} to Bin" onclick="trashNode(event, '{CHILD.id}')"></button>
+                        <button class="onyx-delete" title="Delete {CHILD.title}" onclick="deleteNode(event, '{CHILD.id}')"></button>
                     </div>
                 </td>
             </tr>

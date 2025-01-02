@@ -802,6 +802,7 @@ caption, h3, h4 { font-family: "Lucida Grande", "Helvetica Neue", Helvetica, Ari
  */
  
 a {color: black;}
+a.trash,
 a.remove,
 a.delete {padding-left: 20px; height: 20px; display: inline-block; color: #d74343;}
 a:active {color: #555;}
@@ -818,13 +819,13 @@ a.button.primary { background: cadetblue; color: #ffffff; border: 1px solid cade
 a.button.remove,
 button.remove { background: #d74343; color: #ffffff; border: 1px solid #d74343; }
 a.button.remove:hover,
-button.remove:hover { color: #d74343; }
+button.remove:hover { background-color: white; color: #d74343; }
 button.ui-button,
 a.button.ui-button { box-shadow: none; }
 button.small,
 a.button.small { height: 22px; line-height: 22px; padding: 0 8px;}
 button:hover,
-a.button:hover { text-decoration: none; background: white; color: cadetblue; }
+a.button:hover { text-decoration: none; color: cadetblue; }
 /*
  * disabled links and items
  */

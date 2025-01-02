@@ -71,6 +71,7 @@ a.onyx-edit, button.onyx-edit {background-image: url(/share/images/famfamfam_ico
 a.onyx-edit-layout {background-image: url(/share/images/famfamfam_icons/layout.png);}
 a.onyx-edit-page {background-image: url(/share/images/famfamfam_icons/page.png);}
 a.onyx-duplicate, button.onyx-duplicate {background-image: url(/share/images/famfamfam_icons/application_double.png);}
+a.onyx-trash, button.onyx-trash {background-image: url(/share/images/famfamfam_icons/bin_closed.png);}
 a.onyx-delete, button.onyx-delete {background-image: url(/share/images/famfamfam_icons/delete.png);}
 a.onyx-edit-source {background-image: url(/share/images/famfamfam_icons/link_edit.png);}
 a.onyx-new-content {background-image: url(/share/images/famfamfam_icons/add.png);}
@@ -170,6 +171,7 @@ div.node-node-controller option {background-repeat: no-repeat; background-positi
   .onyx-edit-page button { background-size: contain; filter: grayscale(100%)brightness(0.2); transition: 0.3s ease;}
   button:hover { filter: grayscale(0%)brightness(1); opacity: 1; }
   button.onyx-duplicate { background-image: url(/share/images/icons/duplicate.png); }
+  button.onyx-bin { background-image: url(/share/images/icons/bin.png); }
   button.onyx-delete { background-image: url(/share/images/icons/delete.png); }
   button.onyx-edit { background-image: url(/share/images/icons/edit.png); }
 }
