@@ -40,12 +40,12 @@ $(function() {
  */
 function refreshDeleteContent() {
     
-    $('a.onyx-delete').live('click', function() {
+    $('a.onyx-trash').live('click', function() {
         var node_id = $(this).attr('href').replace('#','');
         $("#onyx-dialog").dialog({
             bgiframe: true,
             autoOpen: false,
-            title: 'Delete content',
+            title: 'Move content to bin',
             modal: true,
             open: function() {
                 $('#onyx-fe-edit-node-id-'+node_id).addClass('onyx-highlight-edit')
@@ -56,7 +56,7 @@ function refreshDeleteContent() {
             }
         });
 
-        $('#onyx-dialog').load('/request/bo/component/node_delete~id=' + node_id + ':delete=1~');
+        $('#onyx-dialog').load('/request/bo/component/node_bin~id=' + node_id + ':trash=1~');
         $('#onyx-dialog').dialog('open');
         return false;
         
