@@ -1,7 +1,8 @@
 <!-- BEGIN: content -->
 {MESSAGES}
-<div id="page-list-{GET.id}" class="root">
-    <h2>Bin content</h2>
+<div id="bin-list" class="root">
+    <h2>Bin content ({COUNT})</h2>
+    {ONYX_REQUEST_empty_trash #bo/component/bin_empty}
     <a href="#{GET.id}" class="fakelink"></a>
     <!-- BEGIN: children -->
     <table id="content-pages">

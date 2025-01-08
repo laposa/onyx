@@ -1,8 +1,7 @@
 <?php
 /** 
- * this component isn't used anywhere yet and standard node_delete is moving to bin by default
  *
- * Copyright (c) 2014 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2024 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */

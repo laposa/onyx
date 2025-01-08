@@ -1,0 +1,21 @@
+<!-- BEGIN: content -->
+{MESSAGES}
+<!-- BEGIN: confirm -->
+<script type="text/javascript">
+function confirmBinEmpty(node_id) {
+    makeAjaxRequest('#onyx-dialog', '/request/bo/component/bin_empty_confirm~id=' + node_id + ':empty=1:confirm={CONFIRMATION_CODE}:ajax=1~', function() {
+        $("#node-id-" + node_id).empty();
+        $("#node-item-id-" + node_id).empty();
+        $('#onyx-dialog').dialog( "close").empty();
+        refreshNodeList('{PARENT}', 'bin');
+    });
+    return false;
+}
+</script>
+
+<div style="padding: 10px;">
+<p><em>Note: this operation is irreversible</em></p>
+<p>Do you really want to permanently delete <span class="important">{COUNT}</span> items? <br><br><button class="button delete remove fakelink" onclick="confirmBinEmpty('{GET.id}');">Yes,&nbsp;Delete All</button></p>
+</div>
+<!-- END: confirm -->
+<!-- END: content -->

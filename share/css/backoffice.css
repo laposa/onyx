@@ -826,6 +826,7 @@ button.small,
 a.button.small { height: 22px; line-height: 22px; padding: 0 8px;}
 button:hover,
 a.button:hover { text-decoration: none; color: cadetblue; }
+button.add:hover,button.save:hover, a.add:hover {color: white; background-color:rgb(68, 126, 129)}
 /*
  * disabled links and items
  */
@@ -1583,4 +1584,25 @@ a.fakelink:hover {text-decoration: none;}
 
 #rt-select > div {
   margin-bottom: 10px;
+}
+
+/* 
+* Bin
+*
+*/
+span.important {
+  color: red; 
+  font-weight: bold; 
+  font-size: 1.5em;
+}
+
+.bin-empty-action {
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  .button {
+    margin-top: 10px;
+  }
 }

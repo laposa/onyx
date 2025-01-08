@@ -1725,6 +1725,23 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
         else return false;
         
     }
+
+    function deleteFromBin($node_id) {
+
+        if (!is_numeric($node_id)) {
+            msg("deleteFromBin: node_id isn't numeric", 'error');
+            return false;
+        }
+
+        $parents = $this->getFullPath($node_id) ?? [];
+
+        if(in_array($this->conf['id_map-bin'], $parents)) {
+            return $this->delete($node_id);
+        } else {
+            msg("deleteFromBin: node needs to be moved into Bin first in order to be deleted", 'error');
+            return false;
+        }
+    }
     
     /**
      * change position

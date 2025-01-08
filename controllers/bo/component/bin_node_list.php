@@ -14,18 +14,17 @@ class Onyx_Controller_Bo_Component_Bin_Node_List extends Onyx_Controller {
     public function mainAction() {
     
         require_once('models/common/common_node.php');
+        $Node = new common_node();
         
-        if (!is_numeric($this->GET['id'])) {
-            msg('node_child: id is not numeric', 'error');
+        if (!is_numeric($Node->conf['id_map-bin'])) {
+            msg('id_map-bin: id is not numeric', 'error');
             return false;
         }
         
-        $Node = new common_node();
-        
-        $node_detail = $Node->getDetail($this->GET['id']);
+        $node_detail = $Node->getDetail($Node->conf['id_map-bin']);
         
         if (!is_array($node_detail)) {
-            msg("node_child: Node not found", 'error');
+            msg("id_map-bin: Bin not found", 'error');
             return false;
         }
         
@@ -40,6 +39,7 @@ class Onyx_Controller_Bo_Component_Bin_Node_List extends Onyx_Controller {
         
         //get children
         $children = $Node->getChildren($node_detail['id'], 'modified DESC');
+        $count = count($children ?? []);
 
         // Sort by removed by - keep it or not ? too much resource consuming ?
         foreach ($children as &$child) {
@@ -54,7 +54,8 @@ class Onyx_Controller_Bo_Component_Bin_Node_List extends Onyx_Controller {
             return $a['other_data']['removed'] <= $b['other_data']['removed'];
         });
 
-        if (is_array($children) && count($children) > 0) {
+        if (is_array($children) && $count > 0) {
+
 
             if (count($children) > 1000) {
                 $children = array_slice($children, 0, 1000);
@@ -64,6 +65,7 @@ class Onyx_Controller_Bo_Component_Bin_Node_List extends Onyx_Controller {
             foreach ($children as $child) {
                 if ($child['publish'] == 0)  $child['class'] = 'disabled';
                 $this->tpl->assign("CHILD", $child);
+                $this->tpl->assign("COUNT", $count);
                 $this->tpl->assign("REMOVED", isset($child['other_data']['removed']) ? date('d. m. Y H:i:s', strtotime($child['other_data']['removed'])) : '');
                 $this->tpl->parse('content.children.item');
             }

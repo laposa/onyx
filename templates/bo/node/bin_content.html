@@ -1,6 +1,6 @@
 <fieldset id="page-list">
     <legend style="display: none">Bin Contents</legend>
-    <div class="row child" id="content-list-pages-wrapper" hx-get="/request/bo/componentbin_node_list~id={GET.id}~" hx-target="#content-list-pages-wrapper" hx-trigger="nodeUpdated from:body">
-        {ONYX_REQUEST_page_list #bo/component/bin_node_list~id=GET.id~}
+    <div class="row child" id="content-list-pages-wrapper" hx-get="/request/bo/componentbin_node_list" hx-target="#content-list-pages-wrapper" hx-trigger="nodeUpdated from:body">
+        {ONYX_REQUEST_page_list #bo/component/bin_node_list}
     </div>
 </fieldset>

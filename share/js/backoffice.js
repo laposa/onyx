@@ -291,6 +291,27 @@ function deleteNode(event, id) {
     return false;
 }
 
+function emptyBin(event) {
+    event.preventDefault();
+    $('#onyx-dialog').empty();
+    $('#onyx-dialog').dialog({
+        width: 500, 
+        modal: true, 
+        overlay: {
+            opacity: 0.5, 
+            background: 'black'
+        }, 
+        title: 'Empty bin', 
+        close: function() {
+            $('#onyx-dialog').empty();
+        },
+    });
+
+    makeAjaxRequest('#onyx-dialog', '/request/bo/component/bin_empty_confirm~empty=1~');
+    $('#onyx-dialog').dialog('open');
+    return false;
+}
+
 function addNode(event, node_id, parent_node_group, specific_node_group = '') {
     event.preventDefault();
     $('#onyx-dialog').empty();
@@ -323,6 +344,9 @@ function refreshNodeList(id, node_group) {
         case 'page':
             refreshPages(id);
             break;
+        case 'bin':
+            refreshBin(id);
+            break;
         default:
             break;
     }
@@ -349,6 +373,13 @@ function refreshPages(id) {
         makeAjaxRequest('#page-list-' + id, pages_refresh_url, function() {
             makeAjaxRequest('#pages-node-menu', '/request/bo/component/node_menu~id=0:open=0:expand_all=1:publish=0~');
         });
+    }
+}
+
+function refreshBin() {
+    if($('#bin-list').length > 0) {
+        var refresh_url = '/request/bo/component/bin_node_list';
+        makeAjaxRequest('#bin-list', refresh_url);
     }
 }
 
