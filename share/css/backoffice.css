@@ -1493,6 +1493,14 @@ a.fakelink:hover {text-decoration: none;}
   margin-top: 15px;
 }
 
+.page-list-form-edit {
+
+  table {
+    margin-top: 5px;
+    margin-bottom: 15px;
+  }
+}
+
 /*
 * QR
 *
