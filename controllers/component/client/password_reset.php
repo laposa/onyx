@@ -24,7 +24,7 @@ class Onyx_Controller_Component_Client_Password_Reset extends Onyx_Controller {
         require_once('models/common/common_node.php');
         $node_conf = common_node::initConfiguration();
 
-        $hide_form = 1;
+        $hide_form = 0;
 
         /**
          * Prefill from GET
