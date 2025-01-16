@@ -11,6 +11,8 @@ class Onyx_Controller_Component_News_List extends Onyx_Controller_List {
     /**
      * main action
      */
+
+    public $Node;
      
     public function mainAction() {
     
@@ -30,15 +32,18 @@ class Onyx_Controller_Component_News_List extends Onyx_Controller_List {
          
         require_once('models/common/common_node.php');
         $this->Node = new common_node();
+
+        $node_id = $this->GET['id'];
+        $node_data = $this->Node->nodeDetail($node_id);
         
         /**
          * input data
          * 
-         */
-         
+         */ 
+
         //blog_node_id can be provided via GET parameter, find by actual content with fallback to configuration option
         if (is_numeric($this->GET['blog_node_id'])) $blog_node_id = $this->GET['blog_node_id'];
-        else if ($news_section_current = $this->Node->getCurrentNewsSectionId()) $blog_node_id = $news_section_current;
+        else if (is_numeric($node_data['parent'])) $blog_node_id = $node_data['parent'];
         else $blog_node_id = $this->Node->conf['id_map-blog'];
 
         if (count_chars(trim($this->GET['node_controller'])) > 0) $node_controller = $this->GET['node_controller'];
