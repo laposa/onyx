@@ -1845,13 +1845,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
                 unset($data['author_detail']);
                 if (is_array($data)) {
                     $data['parent'] = $update_value;
-
-                    if($update_value == $this->conf['id_map-bin']) {
-                        // TODO double check whether other_data is not being listed anywhere or something
-                        $data['other_data']['removed'] = date('c');
-                    }
-                    
-                    if (!$this->nodeUpdate($data)) return true;
+                    if ($this->nodeUpdate($data)) return true;
                     else return false;
                 }
             break;

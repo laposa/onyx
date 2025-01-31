@@ -74,14 +74,14 @@ class Onyx_Controller_Bo_Component_Node_Bin extends Onyx_Controller {
                             }
                         
                         } else {
-                        
-                            msg("Can't delete!", 'error');
+                            
+                            msg("Can't move to bin!", 'error');
                         
                         }
                         
                     } else {
                         
-                        msg("node_delete: incorrect confirmation code", 'error');
+                        msg("node_bin: incorrect confirmation code", 'error');
                     
                     }
                                         
