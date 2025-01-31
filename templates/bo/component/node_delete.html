@@ -4,11 +4,10 @@
 <script type="text/javascript">
 function confirmDeleteNode(node_id) {
     makeAjaxRequest('#onyx-dialog', '/request/bo/component/node_delete~id=' + node_id + ':delete=1:confirm={CONFIRMATION_CODE}:ajax=1~', function() {
-        $("#node-id-" + node_id).empty(); // in backoffice
-        $("#node-item-id-" + node_id).empty(); // in backoffice
-        $("#onyx-fe-edit-node-id-" + node_id).empty(); // in frontoffice
+        $("#node-id-" + node_id).empty();
+        $("#node-item-id-" + node_id).empty();
         $('#onyx-dialog').dialog( "close").empty();
-        refreshNodeList('{PARENT}', '{NODE_GROUP}');
+        refreshNodeList('{PARENT}', 'bin');
     });
     return false;
 }

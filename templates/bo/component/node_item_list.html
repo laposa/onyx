@@ -50,7 +50,7 @@ $(function() {
                 <td>
                     <div class="onyx-edit-content">
                         <button class="onyx-duplicate" title="Duplicate {ITEM.title}" onclick="duplicateNode('{ITEM.id}', '{ITEM.parent}', '{ITEM.node_group}')"><span>Duplicate</span></bu>
-                        <a class="onyx-delete" title="Delete {ITEM.node_group}" href="#" onclick="openAjaxRequestInDialog('/request/bo/component/node_delete~id={ITEM.id}:delete=1~', 'Delete item ID {ITEM.id}'); return false"><span>Delete</span></a>
+                        <a class="onyx-trash" title="Move {ITEM.title} to bin" href="#" onclick="openAjaxRequestInDialog('/request/bo/component/node_bin~id={ITEM.id}:trash=1~', 'Move {ITEM.title} to bin'); return false"><span>Move to bin</span></a>
                     </div>
                 </td>
             </tr>

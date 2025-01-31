@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2006-2014 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2024 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -52,16 +52,10 @@ class Onyx_Controller_Bo_Component_Node_Delete extends Onyx_Controller {
                     
                     //delete only if confirmation code match
                     if ($this->GET['confirm'] === $confirmation_code) {
-                        
-                        if ($Node->moveToBin($delete_id)) {
-                        
-                            msg("{$node_data['node_group']} \"{$node_data['title']}\" (id={$node_data['id']}) has been deleted");
-                        
-                            //if it was a "page", than go to parent page
-                            if ($this->GET['ajax'] == 0) {
-                                if ($node_data['node_group'] == 'page') onyxGoTo("/page/{$node_data['parent']}");
-                                else onyxGoTo($_SESSION['last_diff'], 2);
-                            }
+
+                        if ($Node->deleteFromBin($delete_id)) {
+
+                            msg("{$node_data['node_group']} \"{$node_data['title']}\" (id={$node_data['id']}) has been permanently deleted");
                         
                         } else {
                         
@@ -97,7 +91,7 @@ class Onyx_Controller_Bo_Component_Node_Delete extends Onyx_Controller {
                         $this->tpl->parse('content.confirm.linked.item');
                     }
                     
-                    if (count($shared_linked) > 0) $this->tpl->parse('content.confirm.linked');
+                    if (count($shared_linked ?? []) > 0) $this->tpl->parse('content.confirm.linked');
                     
                     
                     $this->tpl->parse('content.confirm');

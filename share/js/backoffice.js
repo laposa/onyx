@@ -249,6 +249,27 @@ function duplicateNode(id, parent_id, node_group) {
     return false;
 }
 
+function trashNode(event, id) {
+    event.preventDefault();
+    $('#onyx-dialog').empty();
+    $('#onyx-dialog').dialog({
+        width: 500, 
+        modal: true, 
+        overlay: {
+            opacity: 0.5, 
+            background: 'black'
+        }, 
+        title: 'Move node to bin', 
+        close: function() {
+            $('#onyx-dialog').empty();
+        },
+    });
+
+    makeAjaxRequest('#onyx-dialog', '/request/bo/component/node_bin~id='+id+':trash=1~');
+    $('#onyx-dialog').dialog('open');
+    return false;
+}
+
 function deleteNode(event, id) {
     event.preventDefault();
     $('#onyx-dialog').empty();
@@ -266,6 +287,27 @@ function deleteNode(event, id) {
     });
 
     makeAjaxRequest('#onyx-dialog', '/request/bo/component/node_delete~id='+id+':delete=1~');
+    $('#onyx-dialog').dialog('open');
+    return false;
+}
+
+function emptyBin(event) {
+    event.preventDefault();
+    $('#onyx-dialog').empty();
+    $('#onyx-dialog').dialog({
+        width: 500, 
+        modal: true, 
+        overlay: {
+            opacity: 0.5, 
+            background: 'black'
+        }, 
+        title: 'Empty bin', 
+        close: function() {
+            $('#onyx-dialog').empty();
+        },
+    });
+
+    makeAjaxRequest('#onyx-dialog', '/request/bo/component/bin_empty_confirm~empty=1~');
     $('#onyx-dialog').dialog('open');
     return false;
 }
@@ -302,6 +344,9 @@ function refreshNodeList(id, node_group) {
         case 'page':
             refreshPages(id);
             break;
+        case 'bin':
+            refreshBin(id);
+            break;
         default:
             break;
     }
@@ -328,6 +373,13 @@ function refreshPages(id) {
         makeAjaxRequest('#page-list-' + id, pages_refresh_url, function() {
             makeAjaxRequest('#pages-node-menu', '/request/bo/component/node_menu~id=0:open=0:expand_all=1:publish=0~');
         });
+    }
+}
+
+function refreshBin() {
+    if($('#bin-list').length > 0) {
+        var refresh_url = '/request/bo/component/bin_node_list';
+        makeAjaxRequest('#bin-list', refresh_url);
     }
 }
 
