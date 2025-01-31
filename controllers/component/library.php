@@ -40,7 +40,7 @@ class Onyx_Controller_Component_Library extends Onyx_Controller {
         // process adding
 
         if ($source_node_id && $add_to_node_id) {
-            $this->addItem($source_node_id, $add_to_node_id, $add_to_container);
+            if (Onyx_Bo_Authentication::getInstance()->isAuthenticated()) $this->addItem($source_node_id, $add_to_node_id, $add_to_container);
         } else {
             // list all used items
             $this->listItems($add_to_node_id);
