@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2005-2024 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2005-2025 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -95,21 +95,6 @@ class Onyx_Controller_Node extends Onyx_Controller {
         if ($node_data['require_login'] == 1 && empty($_SESSION['client']['customer']['id'])) {
             onyxGoTo("page/" . $this->Node->conf['id_map-login'] . "?to=" . urlencode($_SERVER['REQUEST_URI']));//will exit immediatelly
         }
-
-        /**
-         * force SSL
-         * this is no longer effective since Onyx 1.7 when we force SSL for all pages
-         * when ONYX_CUSTOMER_USE_SSL is set to "true"
-         * kept here for transitional period
-         */
-
-        if ($node_data['require_ssl'] == 1) {
-            if (!($_SERVER['SSL_PROTOCOL'] || $_SERVER['HTTPS']) && ONYX_CUSTOMER_USE_SSL) {
-                //don't exit in this case, just say "next time use SSL"
-                header("Location: https://{$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}");
-            }
-        }
-
 
         /**
          * check if template file exists in ONYX_DIR or in ONYX_PROJECT_DIR
@@ -277,37 +262,25 @@ class Onyx_Controller_Node extends Onyx_Controller {
 
     public function checkVisibility($node_data) {
 
-        $visibility1 = true;
-        $visibility2 = false;
+        $publish_status = (bool) $node_data['publish'];
+        $force_admin_visibility = false;
 
         //force visibility for admin, only when in edit or preview mode
         if (isset($_SESSION['fe_edit_mode']) && ($_SESSION['fe_edit_mode'] == 'edit' || $_SESSION['fe_edit_mode'] == 'move')) $force_admin_visibility = true;
         else $force_admin_visibility = false;
 
         /**
-         * CONDITIONAL DISPLAY OPTION BY display_permission
+         * TODO:
+         * refactor Node->checkDisplayPermission and Node->checkDisplayPermissionGroupAcl
+         * overwrites
          */
-
-        if ($this->Node->checkDisplayPermission($node_data, $force_admin_visibility)) {
-
-            //don't display hidden node in preview mode
-            if ($node_data['publish'] == 0 && Onyx_Bo_Authentication::getInstance()->isAuthenticated() && $_SESSION['fe_edit_mode'] == 'preview' ) $visibility1 = false;
-        }
-
-        /**
-         * check permission from group_acl
-         */
-
-        if ($this->Node->checkDisplayPermissionGroupAcl($node_data, $force_admin_visibility)) {
-            $visibility2 = true;
-        }
-
+        
         /**
          * visible only if preview token is provided and all permissions are correct
          */
 
         if ($this->checkForValidPreviewToken($node_data)) return true;
-        else if ($visibility1 && $visibility2) return true;
+        else if ($publish_status || $force_admin_visibility) return true;
         else return false;
 
     }
