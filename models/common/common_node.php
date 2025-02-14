@@ -581,6 +581,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
     
         if (!is_null($node_data['other_data'])) $node_data['other_data'] = unserialize(trim($node_data['other_data']));
         if (!is_null($node_data['custom_fields'])) $node_data['custom_fields'] = json_decode($node_data['custom_fields']);
+        else $node_data['custom_fields'] = new stdClass();
         if (!is_null($node_data['component'])) $node_data['component'] = unserialize(trim($node_data['component']));
         if (!is_null($node_data['relations'])) $node_data['relations'] = unserialize(trim($node_data['relations']));
         if (!is_null($node_data['display_permission_group_acl'])) $node_data['display_permission_group_acl'] = unserialize($node_data['display_permission_group_acl']);
@@ -646,7 +647,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
     function nodeUpdate($node_data) {
     
         $node_data['modified'] = date('c');
-        
+
         if (is_array($node_data['other_data'] ?? null)) $node_data['other_data'] = serialize($node_data['other_data']);
         if (is_object($node_data['custom_fields'] ?? null) || is_array($node_data['custom_fields'] ?? null)) $node_data['custom_fields'] = json_encode($node_data['custom_fields']);
         if (is_array($node_data['component'] ?? null)) $node_data['component'] = serialize($node_data['component']);
