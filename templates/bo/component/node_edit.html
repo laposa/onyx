@@ -9,7 +9,10 @@
     
     function afterNodeEditRequest(evt) {
         popupMessage("#node-properties-edit div.onyx-messages");
-
+        initAdvancedSettingsButton();
+        if(typeof appendHeader === 'function') {
+            appendHeader();
+        }
         $('button.save').removeClass('saving');
     };
 </script>
