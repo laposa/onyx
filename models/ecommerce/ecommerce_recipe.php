@@ -251,7 +251,7 @@ CREATE TABLE ecommerce_recipe (
             foreach ($keywords_array as $keyword) {
 
                 $keyword = trim($keyword);
-                $keyword = preg_replace('/[^A-Za-z0-9_]/', '', $keywords); // sanitize (use only a-Z, A-Z, 0-9)
+                $keyword = preg_replace('/[^A-Za-z0-9_]/', '', $keyword); // sanitize (use only a-Z, A-Z, 0-9)
 
                 if (strlen($keyword) > 0) {
                     // title, description, instructions
