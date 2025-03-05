@@ -178,9 +178,13 @@ class Onyx_Controller_Node_Page_Default extends Onyx_Controller_Node_Default {
         require_once('models/common/common_node.php');
         $this->Node = new common_node();
 
+        // skip for 404 page
+        if ($this->GET['id'] == $this->Node->conf['id_map-404']) return false;
+
         $_SESSION['active_pages'] = $this->Node->getActivePages($this->GET['id']);
         $_SESSION['full_path'] = $this->Node->getFullPath($this->GET['id']);
 
+        return true;
     }
 
     /**
