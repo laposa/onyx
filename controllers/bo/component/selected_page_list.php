@@ -20,7 +20,7 @@ class Onyx_Controller_Bo_Component_Selected_Page_List extends Onyx_Controller {
 				foreach ($ids as $id) {
 						if(! empty($id)) {
 								$node_detail = $Node->nodeDetail($id);
-								$this->tpl->assign('PAGE_NAME', '<a onclick="openEdit(\'/popup/edit/content/' . $id . '/orig/page/' . $node_data['parent'] . '\')">' . $node_detail['title'] . '</a>');
+								$this->tpl->assign('PAGE_NAME', '<a onclick="openEdit(\'/popup/edit/content/' . str_replace(' ', '', $id) . '/orig/page/' . $node_data['parent'] . '\')">' . $node_detail['title'] . '</a>');
 								$this->tpl->assign('PAGE_ID', $id);
 								$this->tpl->assign('PAGE_VISIBILITY', $this->setPublished($node_detail['publish']));
 								$this->tpl->parse('content.list.page');

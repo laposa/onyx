@@ -1491,6 +1491,10 @@ a.fakelink:hover {text-decoration: none;}
 *
 */
 
+.link {
+  text-decoration: underline;
+}
+
 .revision-list {
   margin-top: 15px;
 }
