@@ -1,0 +1,85 @@
+<!-- BEGIN: title -->{NODE.browser_title}<!-- END: title -->
+<!-- BEGIN: head -->
+<!-- BEGIN: open_graph -->
+<meta property="og:type" content="article" />
+<!-- BEGIN: image -->
+<meta property="og:image" content="{PROTOCOL}://{_SERVER.HTTP_HOST}/image/{OPENGRAPH_IMAGE.src|htmlspecialchars}" />
+<!-- END: image -->
+<meta property="og:description" content="{NODE.description|htmlspecialchars}" />
+<!-- END: open_graph -->
+
+<script src="/opt/pdf2web/pdf2web-viewer.js?{ONYX_CACHE_VERSION}"></script>
+<style>
+    @import url(/opt/pdf2web/pdf2web-viewer.css?{ONYX_CACHE_VERSION});
+
+    body {
+      background-color: #7e1d26;
+      color: white;
+    }
+    .pdf2web-container {
+      position: relative;
+      width: 90%;
+      margin: 5vh auto;
+      height: 90vh;
+    }
+
+    @media screen and (max-width: 768px) {
+      .pdf2web-container {
+        max-width: 90vw;
+      }
+    }
+
+  </style>
+<!-- END: head -->
+
+<!-- BEGIN: content -->
+<body class="pdf-brochure node-id-{NODE.id} parent-node-id-{NODE.parent} {NODE.css_class|htmlspecialchars} {NODE.taxonomy_class}">
+    {MESSAGES}
+    {ONYX_REQUEST_google_tag_manager #component/google_tag_manager}
+    {CONFIGURATION.global.extra_body_top}
+    {ONYX_REQUEST_google_analytics #component/google_analytics}
+
+    <main class="site">
+        <div class="pdf2web-container">
+            <div id="pdf2web-viewer"></div>
+        </div>
+    </main>
+
+    <script>
+
+      var manifest = {NODE.custom_fields.pdf2Web};
+      var fe_edit_mode = '{_SESSION.fe_edit_mode}';
+
+      pdf2webViewer({
+          target: document.getElementById("pdf2web-viewer"),
+          showTwoPages: true,
+          showEditor: fe_edit_mode == 'edit'?true:false,
+          mobileBreakpoint: 480,
+          saveHandler: saveToOnyxBackoffice,
+          manifest: manifest,
+          imagesBaseUrl: "/image/var/files/pdf2web/{NODE.id}/",
+      });
+
+      async function saveToOnyxBackoffice(manifest) {
+        const url = "/request/bo/component/node_edit?id={NODE.id}";
+        try {
+          const response = await fetch(url, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: new URLSearchParams({
+                  manifest: JSON.stringify(manifest),
+                  csrf_token: '{CSRF_TOKEN}'
+                })
+          });
+          if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+          }
+        } catch (error) {
+          console.error(error.message);
+        }
+      }
+  </script>
+</body>
+<!-- END: content -->

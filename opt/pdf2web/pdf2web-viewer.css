@@ -1,0 +1,508 @@
+/**
+ * styling needed for view app functionality
+ */
+
+.pdf2web-wrapper * {
+  box-sizing: border-box;
+}
+
+.pdf2web-wrapper {
+  opacity: 0;
+  height: 100%;
+}
+
+.pdf2web-wrapper.loaded {
+  opacity: 1;
+}
+
+.pdf2web-pages {
+  perspective: 4000px;
+  transition: transform 0.4s ease-in-out;
+  max-width: 100%;
+  max-height: calc(100% - 80px);
+  margin: 0 auto;
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+}
+
+.pdf2web-pages.pdf2web-pages-show-two.pdf2web-cover-page-visible {
+  transform: translateX(-25%);
+}
+
+.pdf2web-pages.pdf2web-pages-show-two.pdf2web-last {
+  transform: translateX(25%);
+}
+
+.pdf2web-pages.pdf2web-pages-show-two.pdf2web-two-page-book {
+  transition: transform 0.6s ease-in;
+}
+
+.pdf2web-page {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  transition: transform 0.6s ease-in;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  transform-origin: 0 50%;
+  cursor: grab;
+  overflow: hidden;
+
+  .pdf2web-hotspot {
+    display: block;
+    position: absolute;
+    background: rgba(0, 0, 40, 0.4);
+    transition: opacity 0.2s ease;
+    border: 1px dashed #808080;
+    opacity: 0;
+  }
+
+  .pdf2web-hotspot:hover {
+    opacity: 1;
+  }
+
+  .pdf2web-hotspot::after {
+    content: attr(data-tooltip);
+    box-sizing: border-box;
+    display: inline-block;
+    padding: 0.2em 1em;
+    color: #000000;
+    background: #ffffff;
+    border: 1px solid #eeeeee;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-size: 10px;
+    overflow: hidden;
+    max-width: 90%;
+    position: absolute;
+    bottom: 10px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    z-index: 1;
+    border-radius: 20px;
+  }
+
+  .pdf2web-hotspot.new::after {
+    display: none;
+  }
+
+  img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+}
+
+.pdf2web-page.flipped {
+  transform: rotateY(-90deg);
+  pointer-events: none;
+}
+
+.pdf2web-pages-show-two {
+  .pdf2web-page {
+    width: 50%;
+    left: 50%;
+  }
+  .pdf2web-page.odd.opposite {
+    transition: transform 0.6s ease-out 0.6s;
+  }
+  .pdf2web-page.even {
+    transform: rotateY(90deg);
+    transform-origin: 100% 50%;
+    transition: transform 0.6s ease-in, 0.6s z-index ease-out 0.6s;
+    left: 0;
+  }
+  .pdf2web-page.even.open {
+    transition: transform 0.6s ease-out 0.6s, 0.6s z-index ease-out 0.6s;
+    transform: rotateY(0deg);
+  }
+
+  .pdf2web-page.even.flipped {
+    transform: rotateY(0deg);
+    z-index: 0 !important;
+  }
+}
+
+.pdf2web-pagination-container {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+
+  .pdf2web-pagination {
+    height: 80px;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0;
+    margin: 0;
+    user-select: none;
+
+    .pdf2web-disabled {
+      pointer-events: none;
+      opacity: 0.3;
+    }
+
+    a {
+      color: white;
+    }
+
+    > li {
+      display: inline-block;
+      margin: 0 0.5em;
+    }
+  }
+}
+
+.pdf2web-editor-enabled {
+  .pdf2web-pages {
+    max-width: calc(100% - 430px);
+    transform: translateX(-215px);
+  }
+  .pdf2web-page {
+    cursor: crosshair;
+  }
+  .pdf2web-pagination {
+    transform: translateX(-215px);
+  }
+  .pdf2web-hotspot {
+    opacity: 1;
+
+    &.edited {
+      background: rgba(0, 0, 80, 0.6);
+      border: 1px dashed #ffffff;
+    }
+
+    .pdf2web-resize-handle {
+      width: 8px;
+      height: 8px;
+      background-color: #000000;
+      border: 1px solid #ffffff;
+      position: absolute;
+      z-index: 20;
+    }
+
+    .pdf2web-nw {
+      top: -4px;
+      left: -4px;
+      cursor: nwse-resize;
+    }
+    .pdf2web-ne {
+      top: -4px;
+      right: -4px;
+      cursor: nesw-resize;
+    }
+    .pdf2web-se {
+      bottom: -4px;
+      right: -4px;
+      cursor: nwse-resize;
+    }
+    .pdf2web-sw {
+      bottom: -4px;
+      left: -4px;
+      cursor: nesw-resize;
+    }
+    .pdf2web-n {
+      top: -4px;
+      left: 50%;
+      transform: translateX(-50%);
+      cursor: ns-resize;
+    }
+    .pdf2web-e {
+      right: -4px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: ew-resize;
+    }
+    .pdf2web-s {
+      bottom: -4px;
+      left: 50%;
+      transform: translateX(-50%);
+      cursor: ns-resize;
+    }
+    .pdf2web-w {
+      left: -4px;
+      top: 50%;
+      transform: translateY(-50%);
+      cursor: ew-resize;
+    }
+  }
+}
+
+.pdf2web-editor-form {
+  background-color: #fbf9f7;
+  width: 400px;
+  height: calc(100% - 80px);
+  position: absolute;
+  top: 0;
+  right: 0;
+  border-radius: 20px;
+  box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  color: #333333;
+
+  h2 {
+    margin: 0 0 10px 0;
+    padding: 0;
+    color: #333333;
+  }
+
+  .pdf2web-editor-form-fields,
+  .pdf2web-editor-form-list {
+    padding: 30px 20px;
+    width: 100%;
+    height: 100%;
+    padding-bottom: 75px;
+    overflow-x: auto;
+    position: absolute;
+    left: 0;
+    top: 0;
+    transition: left 0.4s ease;
+  }
+
+  .pdf2web-editor-form-fields {
+    left: 100%;
+
+    input,
+    textarea,
+    .pdf2web-editor-form-back-arrow {
+      visibility: hidden;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+    }
+  }
+
+  ul.pdf2web-editor-page-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    > li {
+      padding: 0.8em 0;
+
+      > ul {
+        margin: 0.9em 0 0 0;
+        padding: 0;
+        list-style: none;
+        font-size: 14px;
+        background-color: #ffffff;
+        border: 1px solid #cccccc;
+        border-radius: 10px;
+        overflow: hidden;
+
+        a {
+          font-weight: normal;
+          padding: 10px;
+          border-bottom: 1px solid #cccccc;
+          display: block;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+
+          &:focus,
+          &:active,
+          &:hover {
+            background-color: #f0f0f0;
+            text-decoration: none;
+          }
+        }
+
+        > li {
+          margin: 0;
+          padding: 0;
+          &:last-child {
+            a {
+              border-bottom: none;
+            }
+          }
+        }
+      }
+    }
+
+    p.pdf2web-page-empty {
+      color: #aaaaaa;
+      font-style: italic;
+      font-size: 13px;
+      margin: 1.6em 0 0 0;
+      padding: 1em 2em;
+      text-align: center;
+      border: 1px dashed #dddddd;
+      border-radius: 10px;
+    }
+
+    svg {
+      vertical-align: bottom;
+      display: inline-block;
+      margin-right: 4px;
+      position: relative;
+      top: 1px;
+    }
+
+    a {
+      color: #333333;
+      text-decoration: none;
+      font-weight: bold;
+
+      &:focus,
+      &:active,
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  &.pdf2web-edit-hotspot {
+    .pdf2web-editor-form-list {
+      left: -100%;
+    }
+    .pdf2web-editor-form-fields {
+      left: 0;
+
+      input,
+      textarea,
+      .pdf2web-editor-form-back-arrow {
+        visibility: visible;
+      }
+    }
+  }
+
+  .pdf2web-editor-form-fields {
+    .pdf2web-editor-form-back-arrow {
+      text-decoration: none;
+      position: absolute;
+      top: 28px;
+      right: 20px;
+      font-weight: bold;
+      color: #909090;
+      font-size: 40px;
+      line-height: 24px;
+      width: 24px;
+      overflow: hidden;
+    }
+
+    label {
+      font-size: 16px;
+      font-weight: bold;
+      display: block;
+      margin: 1em 0;
+    }
+
+    div.pdf2web-number-input-wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+
+      label {
+        width: 48%;
+        position: relative;
+        margin: 0;
+      }
+
+      input {
+        text-align: right;
+        padding: 5px 30px 5px 40px;
+      }
+
+      .pdf2web-label {
+        position: absolute;
+        opacity: 0.3;
+        font-weight: normal;
+        top: 23px;
+        left: 7px;
+      }
+
+      .pdf2web-unit {
+        position: absolute;
+        opacity: 0.3;
+        font-weight: normal;
+        top: 23px;
+        right: 7px;
+      }
+    }
+
+    input[type="text"] {
+      background: #ffffff;
+      color: #000000;
+      margin: 1em 0;
+      padding: 8px 8px;
+      font-size: 16px;
+      width: 100%;
+      border: 1px solid #cccccc;
+      border-radius: 5px;
+      display: block;
+    }
+
+    textarea {
+      background: #ffffff;
+      color: #000000;
+      margin: 1em 0;
+      padding: 8px 8px;
+      font-size: 13px;
+      width: 100%;
+      height: 60px;
+      resize: none;
+      border: 1px solid #cccccccc;
+      border-radius: 5px;
+      display: block;
+    }
+  }
+
+  .pdf2web-toolbar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: #ffffff;
+    box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.25);
+    padding: 20px;
+
+    .pdf2web-button {
+      border: none;
+      background: #3fc558;
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: bold;
+      text-transform: uppercase;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      display: inline-block;
+      margin: 0;
+
+      &:hover {
+        background: #2d8b3e;
+      }
+
+      &.pdf2web-button-save {
+        float: right;
+      }
+
+      &.pdf2web-button-remove-hotspot {
+        background: #db4343;
+        display: none;
+
+        &:hover {
+          background: #882b2b;
+        }
+      }
+    }
+  }
+
+  &.pdf2web-edit-hotspot {
+    .pdf2web-toolbar {
+      .pdf2web-button-add-hotspot {
+        display: none;
+      }
+      .pdf2web-button-remove-hotspot {
+        display: inline-block;
+      }
+    }
+  }
+}
