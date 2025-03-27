@@ -26,6 +26,7 @@ function pdf2webViewer(params) {
   createPagination();
   attachKeyboardHandlers();
   attachSwipeHandlers();
+  attachHashChangeHandler();
   if (params.showEditor) initEditor();
 
   function firstImageLoaded() {
@@ -116,7 +117,7 @@ function pdf2webViewer(params) {
     a.style.width = hotspot.width + "%";
     a.style.height = hotspot.height + "%";
     a.setAttribute("href", hotspot.url);
-    a.setAttribute("target", "_blank");
+    if (!hotspot.url.startsWith('#') && !isSameHostname(hotspot.url)) a.setAttribute("target", "_blank");
     a.dataset.page = pageIndex;
     a.dataset.hotspot = hotspotIndex;
     a.addEventListener("click", function (e) {
@@ -124,7 +125,7 @@ function pdf2webViewer(params) {
     });
     if (params.showEditor) a.addEventListener("mousedown", handleHotspotMouseDown);
     if (hotspot.title) {
-      a.setAttribute("data-tooltip", hotspot.title);
+      a.setAttribute("data-title", hotspot.title);
       a.setAttribute("aria-label", hotspot.title);
     }
     element.appendChild(a);
@@ -342,6 +343,10 @@ function pdf2webViewer(params) {
     else pagesElement.classList.remove("pdf2web-first");
     if (currentPage == numPages) pagesElement.classList.add("pdf2web-last");
     else pagesElement.classList.remove("pdf2web-last");
+    if (showingTwoPages) {
+      var isPageEven = page % 2 !== 0;
+      if (isPageEven && page > 1) page--;
+    }
     params.target.querySelectorAll(".pdf2web-page").forEach(function (page, index) {
       page.classList.remove("flipped");
       page.classList.remove("open");
@@ -357,6 +362,7 @@ function pdf2webViewer(params) {
         }
       }
     });
+    window.location.hash = 'page' + page;
     updatePagination();
     centerCoverPage();
   }
@@ -371,7 +377,9 @@ function pdf2webViewer(params) {
 
   function updatePagination() {
     var num = params.target.querySelector(".pdf2web-pagination-nums");
-    num.innerText = currentPage + " / " + numPages;
+    if (showingTwoPages && currentPage > 1 && currentPage < numPages) page = currentPage + '-' + (currentPage + 1);
+    else page = currentPage;
+    num.innerText = page + " / " + numPages;
     if (currentPage == 1) {
       params.target.querySelector(".pdf2web-pagination-first").classList.add("pdf2web-disabled");
       params.target.querySelector(".pdf2web-pagination-prev").classList.add("pdf2web-disabled");
@@ -559,7 +567,7 @@ function pdf2webViewer(params) {
     a.style.height = hotspot.height + "%";
     a.setAttribute("href", hotspot.url);
     if (hotspot.title) {
-      a.setAttribute("data-tooltip", hotspot.title);
+      a.setAttribute("data-title", hotspot.title);
       a.setAttribute("aria-label", hotspot.title);
     }
   }
@@ -878,5 +886,29 @@ function pdf2webViewer(params) {
     if (value < min) return min;
     if (value > max) return max;
     return value;
+  }
+
+  function isSameHostname(url) {
+    const currentHostname = window.location.hostname;
+    try {
+        const targetUrl = new URL(url);
+        return targetUrl.hostname === currentHostname;
+    } catch (error) {
+        return false;
+    }
+  }
+
+  function goToPageFromHash() {
+      const hash = window.location.hash;
+      const match = hash.match(/#page(\d+)/);
+      if (match) {
+          const pageNumber = parseInt(match[1], 10);
+          goToPage(pageNumber);
+      }
+  }
+
+  function attachHashChangeHandler() {
+    window.addEventListener('hashchange', goToPageFromHash);
+    goToPageFromHash();
   }
 }
