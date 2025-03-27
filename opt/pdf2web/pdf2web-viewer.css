@@ -65,7 +65,7 @@
   }
 
   .pdf2web-hotspot::after {
-    content: attr(data-tooltip);
+    content: attr(data-title);
     box-sizing: border-box;
     display: inline-block;
     padding: 0.2em 1em;
