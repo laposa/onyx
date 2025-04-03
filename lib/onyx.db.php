@@ -611,4 +611,9 @@ class Onyx_Db {
         if (!$tableName) $tableName = $this->_class_name;
         return $this->db->getSchemaManager()->listTableDetails($tableName);
     }
+
+    public function getTableColumns($tableName = false) {
+        if (!$tableName) $tableName = $this->_class_name;
+        return $this->db->getSchemaManager()->listTableColumns($tableName);
+    }
 }
