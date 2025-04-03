@@ -43,6 +43,7 @@ class Onyx_Controller_Bo_Export_CSV_Database extends Onyx_Controller_Bo_Export_C
 
                 foreach ($columns as $col) {
                     $column['name'] = $col->getName();
+                    $column['type'] = $col->getType()->getName();
                 
                     $this->tpl->assign('COLUMN', $column);
                     $this->tpl->parse('content.th');

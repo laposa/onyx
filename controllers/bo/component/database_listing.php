@@ -51,7 +51,8 @@ class Onyx_Controller_Bo_Component_Database_Listing extends Onyx_Controller {
 
                 foreach ($columns as $col) {
                     $column['name'] = $col->getName();
-                
+                    $column['type'] = $col->getType()->getName();
+                    
                     $this->tpl->assign('COLUMN', $column);
                     $this->tpl->parse('content.listing.th');
                 }
