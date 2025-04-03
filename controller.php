@@ -595,7 +595,7 @@ class Onyx_Controller {
         $this->tpl->assign('URI_SAFE', $uri); // deprecated
         $this->tpl->assign('BASE_URI', "$protocol://{$_SERVER['SERVER_NAME']}$port");
         if (isset($_GET['request'])) $this->tpl->assign('REQUEST_URI', "$protocol://{$_SERVER['SERVER_NAME']}$port{$_SERVER['SCRIPT_NAME']}?request={$_GET['request']}");
-        if (isset($_GLOBALS['onyx_conf'])) $this->tpl->assign('CONFIGURATION', $GLOBALS['onyx_conf']);
+        if (isset($GLOBALS['onyx_conf'])) $this->tpl->assign('CONFIGURATION', $GLOBALS['onyx_conf']);
         $this->tpl->assign('REGISTRY', $registry);
         $this->tpl->assign('CSRF_TOKEN', $registry['CSRF_TOKEN']);
 

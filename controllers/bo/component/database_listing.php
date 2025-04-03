@@ -47,12 +47,12 @@ class Onyx_Controller_Bo_Component_Database_Listing extends Onyx_Controller {
                  * creating head
                  */
                  
-                $columns = $Obj->getTableInformation($model);
-                //print_r($columns );
+                $columns = $Obj->getTableColumns($model);
+
                 foreach ($columns as $col) {
-                    $column['name'] = $col['COLUMN_NAME'];
-                    $column['type'] = $col['DATA_TYPE'];
-                
+                    $column['name'] = $col->getName();
+                    $column['type'] = $col->getType()->getName();
+                    
                     $this->tpl->assign('COLUMN', $column);
                     $this->tpl->parse('content.listing.th');
                 }
