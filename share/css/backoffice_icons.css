@@ -21,6 +21,7 @@
 #menu-frontoffice li.frontoffice a:before {content: '\f108';} /*fa-desktop*/
 
 #menu-sections li.pages a:before {content: "\f0e8";} /*fa-sitemap*/
+#menu-sections li.components a:before {content: "\f022";} /*fa-list-alt*/
 #menu-sections li.news a:before {content: "\f0f6";} /*fa-file-text-o*/
 #menu-sections li.products a:before {content: "\f02a";} /*fa-barcode*/
 #menu-sections li.recipes a:before {content: "\f0f5";} /*fa-cutlery*/

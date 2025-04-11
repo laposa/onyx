@@ -60,6 +60,7 @@ class Onyx_Controller_Bo_Backoffice_Menu_Sections extends Onyx_Controller_Bo_Bac
 
         if ($auth->hasAnyPermission('front_office')) $this->tpl->parse('content.fe_edit');
         if ($auth->hasAnyPermission('nodes')) $this->tpl->parse('content.pages');
+        if ($auth->hasAnyPermission('nodes')) $this->tpl->parse('content.components');
         if ($auth->hasAnyPermission('nodes')) $this->tpl->parse('content.news');
         if ($auth->hasAnyPermission('build') && ONYX_STATIC_FILE_GENERATOR) $this->tpl->parse('content.build');
         if ($auth->hasAnyPermission('products') && $isEcommerce) $this->tpl->parse('content.products');

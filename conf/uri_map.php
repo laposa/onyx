@@ -79,10 +79,10 @@ $uri_map = array(
         '^/backoffice/stores/([0-9]*)/edit$' => '/index.php?request=bo/backoffice_wrapper.bo/backoffice.bo/component/ecommerce/store_edit&id=$1',
         '^/backoffice/orders$' => '/index.php?request=bo/backoffice_wrapper.bo/backoffice.bo/pages/ecommerce/orders',
         '^/backoffice/orders/([0-9]*)/detail$' => '/index.php?request=bo/backoffice_wrapper.bo/backoffice.bo/pages/ecommerce/order_detail&id=$1',
-        '^/backoffice/stock$' => '/index.php?request=bo/backoffice_wrapper.bo/backoffice.bo/pages/ecommerce/stock',
         '^/backoffice/customers$' => '/index.php?request=bo/backoffice_wrapper.bo/backoffice.bo/pages/client/customers',
         '^/backoffice/customers/add$' => '/index.php?request=bo/backoffice_wrapper.bo/backoffice.bo/pages/client/customer_add',
-        '^/backoffice/customers/([0-9]*)/detail$' => '/index.php?request=bo/backoffice_wrapper.bo/backoffice.bo/pages/client/customer_detail&id=$1'
+        '^/backoffice/customers/([0-9]*)/detail$' => '/index.php?request=bo/backoffice_wrapper.bo/backoffice.bo/pages/client/customer_detail&id=$1',
+        '^/backoffice/components$' => '/index.php?request=bo/backoffice_wrapper.bo/backoffice.bo/pages/components'
     ),
 
     '^/popup' => array(
