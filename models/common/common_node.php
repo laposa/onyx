@@ -2606,11 +2606,37 @@ LEFT OUTER JOIN common_taxonomy_label ON (common_taxonomy_tree.label_id = common
         
         }
 
+    }
+
+    public function getNodesByController($node_controller) {
+
+        $list = [];
+        
         /**
-         * return array
+         * SQL query
          */
-         
-        return $list;
+
+        $sql = "
+            SELECT *
+            FROM common_node
+            WHERE node_group = 'content'
+            AND parent != {$this->conf['id_map-bin']}
+            AND node_controller = '{$node_controller}'
+            ORDER BY modified DESC, id DESC
+            ";
+        /**
+         * execute SQL
+         */
+
+        if ($result = $this->executeSql($sql)) {
+
+            return $result;
+            
+        } else {
+            
+            return $list;
+        
+        }
 
     }
 }

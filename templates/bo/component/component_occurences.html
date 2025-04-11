@@ -1,0 +1,22 @@
+<!-- BEGIN: title -->Component Occurences<!-- END: title -->
+<!-- BEGIN: content -->
+<div class="component-occurences">
+    <a href="#{GET.id}" class="fakelink"></a>
+    <!-- BEGIN: list -->
+    <table id="content-pages">
+        <tbody>
+            <!-- BEGIN: item -->
+            <tr id="node-id-{ITEM.id}" class="{ITEM.class}">
+                <td><a class="{ITEM.class} fakelink" href="{ITEM.id}" onclick="openEdit('/popup/properties/{ITEM.id}/orig' + window.location.pathname)" title="Modified: {ITEM.modified|htmlspecialchars}">{ITEM.title|htlmspecialchars}</a></td>
+                <td></td>
+            </tr>
+            <!-- END: item -->
+        </tbody>
+    </table>
+    <!-- END: list -->
+
+    <!-- BEGIN: empty -->
+    <p>This component is not used currently being used in any page</p>
+    <!-- END: empty -->
+</div>
+<!-- END: content -->

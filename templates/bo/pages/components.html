@@ -1,0 +1,40 @@
+<!-- BEGIN: title -->Components<!-- END: title -->
+<!-- BEGIN: content -->
+<div id="pages">
+    <div class="two-column-page page sidebar">
+        <div class="page-wrapper">
+            <div id="page-header-wrapper">
+                <div class="page-header">
+                    <div class="page-header-wrapper">
+                        <h1 class="page-title"><span>Components</span></h1>
+                    </div>
+                </div>
+            </div>
+
+            <div class="page-content">
+                <div class="page-content-wrapper">
+                    <div class="row-middle">
+                        <div class="row-wrapper">
+                            <div class="column-one">
+                                <div class="column-wrapper">
+                                    {ONYX_REQUEST_component_list #bo/component/component_list}
+                                </div>
+                            </div>
+
+                            <div class="column-two">
+                                <div class="column-wrapper">
+                                    <div id="occurences-loading" class="onyx-loading htmx-indicator">
+                                        <img src="/share/images/loading.svg" alt="Loading..."/>
+                                    </div>
+                                    <div id="component-occurences">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END: content -->
