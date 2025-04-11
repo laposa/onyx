@@ -1458,48 +1458,103 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
     /**
      * return pages and products which we want to display in sitemap 
      */
-     
-    function getFlatSitemap() {
-    
-        $sql = "
-        SELECT id, parent, title as name, page_title as title, node_group, node_controller, content, display_in_menu, publish, priority, strapline, display_permission, modified 
-        FROM common_node 
-        WHERE publish >= 1 AND node_group='page' AND (require_login IS NULL OR require_login = 0) AND display_permission = 0 AND display_in_menu > 0 AND parent != " . $this->conf['id_map-system_navigation'] . " AND parent != " . $this->conf['id_map-ecommerce_navigation'] . " ORDER BY id ASC";
-        
-        $records = $this->executeSql($sql);
-        
-        if (is_array($records)) {
-            
-            //filter only homepages of products
-            if (ONYX_ECOMMERCE) {
-                require_once("models/ecommerce/ecommerce_product.php");
-                $Product = new ecommerce_product();
-            }
-            
-            foreach ($records as $record) {
-                //add only pages which are under published pages
-                $fullpath = $this->getFullPathDetail($record['id']);
-                
-                $disable = 0;
-                foreach ($fullpath as $fp) {
-                    if ($fp['publish'] == 0) $disable = 1;
-                }
-                
-                if ($disable == 0) {
-                    if (ONYX_ECOMMERCE && $record['node_group'] == 'page' && $record['node_controller'] == 'product') {
-                        $homepage = $Product->getProductHomepage($record['content']);
-                        if ($homepage['id'] == $record['id']) $sitemap[] = $record;
-                    } else {
-                        $sitemap[] = $record;
-                    }
-                }
-            }
 
-            return $sitemap;
-        } else {
-            return false;
+    function getFlatSitemap()
+    {
+        $sql = "
+        -- get all nodes where every parent node in their hierarchy is published.
+        WITH RECURSIVE node_tree AS (
+            SELECT 
+                id, parent, title, page_title, node_group, node_controller, content, display_in_menu, publish, priority, strapline, display_permission, modified, require_login
+            FROM 
+                common_node
+            WHERE 
+                parent = 0
+                AND publish >= 1
+
+            UNION 
+
+            SELECT 
+                cn.id, cn.parent, cn.title, cn.page_title, cn.node_group, cn.node_controller, cn.content, cn.display_in_menu, cn.publish, cn.priority, cn.strapline, cn.display_permission, cn.modified, cn.require_login
+            FROM 
+                common_node cn
+            INNER JOIN 
+                node_tree nt ON cn.parent = nt.id
+            WHERE 
+                cn.publish >= 1
+        ),
+
+        -- get last modified for all pages and their children
+        modified_tree AS (
+            SELECT 
+                id, parent, node_group, modified, id as root, 0 as level
+            FROM 
+                common_node
+            WHERE
+                node_group = 'page'
+
+            UNION
+
+            SELECT 
+                cn.id, cn.parent, cn.node_group, cn.modified, mt.root, mt.level + 1
+            FROM
+                common_node cn
+            INNER JOIN
+                modified_tree mt ON cn.parent = mt.id
+            WHERE
+                -- for 0 level, we want to include all nodes
+                -- for > 0 level, we want to include only childs of layout and content
+                (mt.level = 0 OR mt.node_group IN ('layout', 'content'))
+        ),
+
+        -- get last modified by selecting the max modified date for each root node / page
+        max_modified AS (
+            SELECT 
+                root, MAX(modified) as modified
+            FROM 
+                modified_tree
+            GROUP BY 
+                root
+        )
+
+        SELECT DISTINCT 
+            nt.id, nt.parent, nt.title as name, nt.page_title as title, nt.node_group, nt.node_controller, nt.content, nt.display_in_menu, nt.publish, nt.priority, nt.strapline, nt.display_permission, mm.modified
+        FROM 
+            node_tree nt
+        LEFT JOIN 
+            max_modified mm ON nt.id = mm.root
+        WHERE 
+            nt.node_group = 'page'
+            AND (nt.require_login IS NULL OR nt.require_login = 0)
+            AND nt.display_permission = 0
+            AND nt.display_in_menu > 0
+            AND nt.parent != " . $this->conf['id_map-system_navigation'] . " 
+            AND nt.parent != " . $this->conf['id_map-ecommerce_navigation'] . "
+        ORDER BY 
+            nt.id ASC
+        ";
+
+        $records = $this->executeSql($sql);
+
+        if (!is_array($records)) return false;
+
+        //filter only homepages of products
+        if (ONYX_ECOMMERCE) {
+            require_once("models/ecommerce/ecommerce_product.php");
+            $Product = new ecommerce_product();
         }
 
+        foreach ($records as $record) {
+
+            if (ONYX_ECOMMERCE && $record['node_group'] == 'page' && $record['node_controller'] == 'product') {
+                $homepage = $Product->getProductHomepage($record['content']);
+                if ($homepage['id'] == $record['id']) $sitemap[] = $record;
+            } else {
+                $sitemap[] = $record;
+            }
+        }
+
+        return $sitemap;
     }
 
     
