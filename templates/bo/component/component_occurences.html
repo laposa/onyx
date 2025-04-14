@@ -7,7 +7,7 @@
         <tbody>
             <!-- BEGIN: item -->
             <tr id="node-id-{ITEM.id}" class="{ITEM.class}">
-                <td><a class="{ITEM.class} fakelink" href="{ITEM.id}" onclick="openEdit('/popup/properties/{ITEM.id}/orig' + window.location.pathname)" title="Modified: {ITEM.modified|htmlspecialchars}">{ITEM.title|htlmspecialchars}</a></td>
+                <td><a class="{ITEM.class}" href="/backoffice/pages/{ITEM.id}" title="Modified: {ITEM.modified|htmlspecialchars}">{ITEM.title|htlmspecialchars}</a></td>
                 <td></td>
             </tr>
             <!-- END: item -->

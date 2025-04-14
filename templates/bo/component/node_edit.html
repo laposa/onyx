@@ -14,10 +14,21 @@
             appendHeader();
         }
         $('button.save').removeClass('saving');
+
+        //don't reload in context when in backoffice
+        var path = '{GET.orig}';
+        var node_id = {GET.id};
+        if (path.length > 0) {
+            refreshOpenerAjax(path, node_id);
+        }
     };
 </script>
-<div class="node-edit node-{NODE.node_group}-{NODE.node_controller}" id="node-properties-edit" hx-on::before-request="beforeNodeEditRequest()" hx-on::after-swap="afterNodeEditRequest()">
-{SUB_CONTENT}
+<div 
+    class="node-edit node-{NODE.node_group}-{NODE.node_controller}" 
+    id="node-properties-edit" 
+    hx-on::before-request="beforeNodeEditRequest()" 
+    hx-on::after-swap="afterNodeEditRequest()">
+    {SUB_CONTENT}
 </div>
 <!-- END: form -->
 

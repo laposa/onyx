@@ -9,15 +9,15 @@
         <tbody>
             <!-- BEGIN: item -->
             <tr id="node-id-{CHILD.id}" class="{CHILD.class}">
-                <td><a class="{CHILD.class}" onclick="openEdit('/popup/properties/{CHILD.id}/orig' + window.location.pathname)" title="Modified: {CHILD.modified|htmlspecialchars}">{CHILD.title|htlmspecialchars}</a></td>
-                <td><a class="{CHILD.class}" onclick="openEdit('/popup/properties/{CHILD.id}/orig' + window.location.pathname)" title="Modified: {CHILD.modified|htmlspecialchars}">{CHILD.node_group}/{CHILD.node_controller}</a></td>
+                <td><a class="{CHILD.class}" href="/backoffice/pages/{CHILD.id}" title="Modified: {CHILD.modified|htmlspecialchars}">{CHILD.title|htlmspecialchars}</a></td>
+                <td><a class="{CHILD.class}" href="/backoffice/pages/{CHILD.id}" title="Modified: {CHILD.modified|htmlspecialchars}">{CHILD.node_group}/{CHILD.node_controller}</a></td>
                 <td>{CHILD.id}</td>
                 <td>{CHILD.parent_container}</td>
                 <td>{CHILD.priority}</td>
                 <td>
                     <div class="onyx-edit-page">
-                        <button class="onyx-duplicate" title="Duplicate {CHILD.title}" onclick="duplicateNode('{CHILD.id}','{CHILD.parent}', '{CHILD.node_group}')"></button>
-                        <button class="onyx-trash" title="Move {CHILD.title} to bin" onclick="trashNode(event, '{CHILD.id}')"></button>
+                        <button class="onyx-duplicate action" title="Duplicate {CHILD.title}" onclick="duplicateNode('{CHILD.id}','{CHILD.parent}', '{CHILD.node_group}')"></button>
+                        <button class="onyx-trash action" title="Move {CHILD.title} to bin" onclick="trashNode(event, '{CHILD.id}')"></button>
                     </div>
                 </td>
             </tr>
