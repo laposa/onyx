@@ -9,24 +9,12 @@
 
 class Onyx_Controller_Bo_Component_Server_Browser_File_List extends Onyx_Controller {
 
-    /**
-     * main action
-     */
-     
     public function mainAction() {
-        
-        /**
-         * initialize
-         */
-         
+        // initialize 
         require_once('models/common/common_file.php');
         $File = new common_file();
         
-        /**
-         * Setting input variables
-         * 
-         */
-        
+        // Setting input variables
         $base_folder = $this->GET['directory'] ?? 'var/files/';
         
         if ($this->GET['open'] ?? false) $open_folder = $this->GET['open'];
@@ -35,17 +23,10 @@ class Onyx_Controller_Bo_Component_Server_Browser_File_List extends Onyx_Control
         else $open_folder = "";
         $multiupload = (isset($this->GET['multiupload']) && $this->GET['multiupload'] == 'true');
 
-        /**
-         * Store opened folder to session
-         */
-        
+        // Store opened folder to session
         $_SESSION['server_browser_last_open_folder'] = urldecode($open_folder);
         
-        /**
-         * Setting base paths
-         * 
-         */
-        
+        // Setting base paths
         $base_folder_full = ONYX_PROJECT_DIR . $base_folder;
         $fullpath = $base_folder_full . urldecode($open_folder);
         
@@ -62,28 +43,19 @@ class Onyx_Controller_Bo_Component_Server_Browser_File_List extends Onyx_Control
         //TODO check overwrite functionality without debug. behaves weirdly
         $overwrite_show = 0;
         
-        /**
-         * Cleaning
-         *
-         */
-        //stolen from common_uri_mapping
+        // Cleaning
+        // stolen from common_uri_mapping
         if (function_exists("recode_string")) {
             $new_folder = isset($_POST['new_Folder']) ? recode_string("utf-8..flat", trim($_POST['new_folder'])) : '';
         } else {
             $new_folder = isset($_POST['new_folder']) ? iconv("UTF-8", "ASCII//IGNORE", trim($_POST['new_folder'])) : '';
         }
         
-        //$new_folder = strtolower($new_folder);
         $new_folder = preg_replace("/\s/", "-", $new_folder);
         $new_folder = preg_replace("/&[^([a-zA-Z;)]/", 'and-', $new_folder);
         $new_folder = preg_replace("/\-{2,}/", '-', $new_folder);
         
-        
-                    
-        /**
-         * Create a new folder
-         */
-        
+        // Create a new folder
         if ($new_folder != '' && $_POST['create']) {
             $new_folder_full = $actual_folder . $new_folder;
             if (!mkdir($new_folder_full)) {
@@ -91,22 +63,14 @@ class Onyx_Controller_Bo_Component_Server_Browser_File_List extends Onyx_Control
             }
             
         }
-        
-        
-        /**
-         * Delete file
-         */
-        
+
+        // Delete File
         if ($this->GET['delete_file'] ?? false) {
             $File->deleteFile($this->GET['delete_file']);
             return true;
         }
         
-        
-        /**
-         * Confirm overwrite
-         */
-        
+        // Confirm overwrite
         if (isset($_POST['overwrite']) && $_POST['overwrite'] == 'overwrite') {
             if ($File->overwriteFile($_POST['filename'], $_POST['save_dir'], $_POST['temp_file']) ) {
 
@@ -119,38 +83,26 @@ class Onyx_Controller_Bo_Component_Server_Browser_File_List extends Onyx_Control
             }
         }
         
-        //input
+        // input
         $normal_formated_files = $_FILES;
         
         foreach ($normal_formated_files as $file_item) {
-        
-            if (is_uploaded_file($file_item['tmp_name'])) {
-                $save_dir = $base_folder . $relative_folder_path;
-                $upload = $File->getSingleUpload($file_item, $save_dir);
+            if (!is_uploaded_file($file_item['tmp_name'])) continue;
 
-                /**
-                 * when array is returned by getSingleUpload, it's an existing file is in place
-                 */
+            $save_dir = $base_folder . $relative_folder_path;
+            $upload = $File->getSingleUpload($file_item, $save_dir);
 
-                if (is_array($upload)) {
-                
-                    if ($multiupload) $this->jsonResponse("file_exists", $upload);
-
-                    $overwrite_show = 1;
-                    
-                } else if ($upload) {
-
-                    if ($multiupload) $this->jsonResponse("success");
-
-                    msg("Uploaded {$file_item['name']}");
-                }
+            // when array is returned by getSingleUpload, it's an existing file is in place
+            if (is_array($upload)) {
+                if ($multiupload) $this->jsonResponse("file_exists", $upload);
+                $overwrite_show = 1;
+            } else if ($upload) {
+                if ($multiupload) $this->jsonResponse("success");
+                msg("Uploaded {$file_item['name']}");
             }
         }
         
-        /**
-         * prepare folder head string
-         */
-
+        // prepare folder head string
         $path = '';
         $breadcrumbs = explode('/', $relative_folder_path);
         // two forward slashes are intentional, button is not working with only 1
@@ -165,28 +117,16 @@ class Onyx_Controller_Bo_Component_Server_Browser_File_List extends Onyx_Control
             }
         }
 
-        /**
-         * Add subfolders
-         * 
-         */
-
-
-        $subfolders = $File->getTree($actual_folder, '-type d');
-        $subfolders = array_filter($subfolders, function($item) {
-            return $item['parent'] === '';
-        });
+        // Add subfolders
+        $subfolders = $File->getFlatArrayFromFs($actual_folder, 'd');
         $subfolders_str = '';
-        if(is_array($subfolders) && count($subfolders) > 0) {
+        if (is_array($subfolders) && count($subfolders) > 0) {
             foreach($subfolders as $subfolder) {
                 $subfolders_str .= '<a href="/backoffice/media/' . $relative_folder_path . $subfolder['name'] . '" class="folder">' . $subfolder['name'] . '</a>';
             }
         }
         
-        /**
-         * Assign template variables
-         * 
-         */
-        
+        // Assign template variables
         $this->tpl->assign('BASE', $base_folder);
         $this->tpl->assign('FOLDER_HEAD', $folder_head);
         $this->tpl->assign('FOLDER', $relative_folder_path);
@@ -194,36 +134,24 @@ class Onyx_Controller_Bo_Component_Server_Browser_File_List extends Onyx_Control
         $this->tpl->assign('MAX_FILES', ini_get('max_file_uploads'));
         $this->tpl->assign('SUBFOLDERS', $subfolders_str);
         
-        /**
-         * allow to upload only in non-root folder
-         */
-        
+        // allow to upload only in non-root folder
         if (($relative_folder_path || ONYX_MEDIA_LIBRARY_ROOT_UPLOAD) && is_writable($fullpath)) {
-            
             $this->tpl->parse('content.add_new.upload_file');
-            
         } else {
-            
             if (!is_writable($fullpath)) $this->tpl->parse('content.add_new.upload_instruction.permission');
             else if (ONYX_MEDIA_LIBRARY_ROOT_UPLOAD == false) $this->tpl->parse('content.add_new.upload_instruction.root');
             
             $this->tpl->parse('content.add_new.upload_instruction');
-            
         }
         
-        //hide upload when overwrite?
+        // hide upload when overwrite?
         if ($overwrite_show == 0) {
             $this->tpl->parse("content.add_new");
         }
-        
-        /**
-         * Get File List
-         * 
-         */
-        
-        //list content od folder
-        $list = $File->getFlatArrayFromFs($actual_folder, '-type f -maxdepth 1');
-        //FIND2GLOB PATCH: $list = $File->getFlatArrayFromFs($actual_folder, 'f', false);
+
+        // Get File List
+        // list content od folder
+        $list = $File->getFlatArrayFromFs($actual_folder, 'f');
         
         if (is_array($list) && count($list) > 0) {
             foreach ($list as $l) {
