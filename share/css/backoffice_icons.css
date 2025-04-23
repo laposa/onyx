@@ -168,14 +168,14 @@ div.node-node-controller option {background-repeat: no-repeat; background-positi
  *  New Icons
  */
 
-#content-list, #page-list {
-  .onyx-edit-page .action { background-size: contain; filter: grayscale(100%)brightness(0.2); transition: 0.3s ease;}
-  .action:hover { filter: grayscale(0%)brightness(1); opacity: 1; }
-  .action.onyx-duplicate { background-image: url(/share/images/icons/duplicate.png); }
-  .action.onyx-bin { background-image: url(/share/images/icons/bin.png); }
-  .action.onyx-delete { background-image: url(/share/images/icons/delete.png); }
-  .action.onyx-edit { background-image: url(/share/images/icons/edit.png); }
-}
+
+.action { background-size: contain; filter: grayscale(100%)brightness(0.2); transition: 0.3s ease;}
+.action:hover { filter: grayscale(0%)brightness(1); opacity: 1; }
+.action.onyx-duplicate { background-image: url(/share/images/icons/duplicate.png); }
+.action.onyx-bin { background-image: url(/share/images/icons/bin.png); }
+.action.onyx-delete { background-image: url(/share/images/icons/delete.png); }
+.action.onyx-edit { background-image: url(/share/images/icons/edit.png); }
+
 div.content-pods__item--actions .action { height: 25px; width: 35px; }
 a.page-edit { display: flex; align-items: center; transition: 0.3s ease; }
 a.page-edit:before { content:""; display: block; width: 30px; height: 19px;  background: url(/share/images/icons/edit.png) no-repeat; background-size: contain; filter: grayscale(100%)brightness(0.2); transition: 0.3s ease;}
