@@ -1482,6 +1482,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
                 node_tree nt ON cn.parent = nt.id
             WHERE 
                 cn.publish >= 1
+                AND cn.node_group IN ('site', 'container', 'page') 
         ),
 
         -- get last modified for all pages and their children
