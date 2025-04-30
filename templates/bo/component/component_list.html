@@ -9,19 +9,17 @@
     });
 </script>
 
-<div class="component-list">
-    <ul>
-        <!-- BEGIN: item -->
-        <li
-            hx-get="/request/bo/component/component_occurences~node_controller={ITEM.node_controller}~"
-            hx-target="#component-occurences"
-            hx-indicator="#occurences-loading"
-            hx-swap="innerHTML"
-            title="{ITEM.node_controller}" 
-            class="component-list-item">
-            {ITEM.info.title|htmlspecialchars} ({ITEM.count})
-        </li>
-        <!-- END: item -->
-    </ul>
-</div>
+<ul class="component-list">
+    <!-- BEGIN: item -->
+    <li
+        hx-get="/request/bo/component/component_occurences~node_controller={ITEM.node_controller}~"
+        hx-target="#component-occurences"
+        hx-indicator="#detail-loading"
+        hx-swap="innerHTML"
+        title="{ITEM.node_controller}" 
+        class="component-list-item">
+        {ITEM.info.title|htmlspecialchars} ({ITEM.count})
+    </li>
+    <!-- END: item -->
+</ul>
 <!-- END: content -->

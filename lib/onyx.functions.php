@@ -278,9 +278,9 @@ function onyxSlug($text, $and_string = I18N_AND) {
 /**
  * return active template directory
  *
- * @param unknown_type $file
- * @param unknown_type $prefix
- * @return unknown
+ * @param string $file
+ * @param string $prefix
+ * @return string
  * @deprecated
  */
 

@@ -1,0 +1,145 @@
+.levels {
+	display: flex;
+	align-items: flex-start;
+	position: relative;
+	min-width: 550px;
+	width: 100%;
+	height: 100%;
+}
+
+.navigation-list {
+	position: absolute;
+	width: auto;
+	max-width: 50%;
+	padding: 0;
+	height: 100%;
+	background-color: white;
+	transition: 0.3s ease;
+	list-style-type: none;
+	box-shadow: -3px 0 3px rgba(0, 0, 0, 0.05);
+
+	/* hide all levels higher than 4 */
+	&:nth-last-of-type(n+5) {
+		display: none;
+	}
+
+	/* stack items*/
+	&:nth-last-of-type(4) {
+		z-index: 0;
+		left: 0;
+
+		&:before {
+			background-color: black;
+			opacity: 0.1;
+		}
+
+		&:hover {
+			+ .navigation-list {
+				left: 75px;
+			}
+		}
+	}
+
+	&:nth-last-of-type(3) {
+		left: 50px;
+		z-index: 1;
+		
+		&:before {
+			background-color: black;
+			opacity: 0.05;
+		}
+
+		&:hover {
+			left: 25px;
+		}
+	}
+
+	/* parent level */
+	&:nth-last-of-type(2) {
+		width: 225px;
+		left: 100px;
+		top: 0;
+		z-index: 2;
+	}
+
+	/* active level */
+	&:nth-last-of-type(1) {
+		width: 225px; 
+		left: auto;
+		top: 0;
+		right: 0;
+		z-index: 2;
+	}
+
+	&:before {
+		content: '';
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		z-index: 1;
+		top: 0;
+		left: 0;
+		pointer-events: none;
+	}
+
+  h3 {
+    font-size: 1.5rem;
+    color: cadetblue;
+  }
+
+  .navigation-list-item {
+		font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    transition: all 0.5s ease;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+
+    &:hover {
+      color:cadetblue;
+      background-color: rgb(95, 158, 160, 0.05);
+    }
+
+		&.active {
+      color:white;
+      background-color: cadetblue;
+    }
+  }
+
+	.action-buttons {
+		padding: 10px;
+		text-align: center;
+
+		a {
+			width: 100%;
+		}
+	}
+
+		
+	/* Icons */
+
+	.icon {
+		margin-left: 5px;
+
+		&:after {
+			position: relative;
+			font-family: 'onyx';
+			opacity: 0.3;
+		}
+
+		&.page:after {
+			content: "\f0f6"; /*fa-file-text-o*/
+		}
+		
+		&.content:after {
+			content: "\f009"; /*fa-file-text-o*/
+		}
+
+		&.container:after {
+			content: "\f0db"; /*fa-file-text-o*/
+		}
+	}
+
+}

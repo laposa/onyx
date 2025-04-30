@@ -123,9 +123,10 @@ function initBackofficeUI() {
 
     // fix for history.pushState so page refreshes on back button
     // TODO temporarily disabled, causes "Maximum call stack size exceeded" error   
-    // $(window).bind("popstate", function() {
-    //     window.location = location.href
-    // });
+    // TODO 04/25 enabled again after new menu implementation. keep an eye on whatever may cause the Maximum call stack again
+    $(window).bind("popstate", function() {
+        window.location = location.href
+    });
 }
 
 /**
@@ -133,9 +134,7 @@ function initBackofficeUI() {
  */
 
 $(function() {
-
     initBackofficeUI();
-
 });
     
 /**
@@ -405,4 +404,9 @@ function repositionNode(event, ui, node_group = '') {
 
 $(document).on('click', '.fakelink, #content-list button, #page-list button, #node-list button', function(e) {
     e.preventDefault();
+});
+
+$(document).on('click','.navigation-list-item', function(e) {
+    $('.navigation-list-item.active').removeClass('active');
+    $(this).addClass('active');
 });

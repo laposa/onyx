@@ -1157,6 +1157,25 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
     }
 
     /**
+     * get list of nodes by parent id
+     */
+    function getNavigationChildren($parent_id = false)
+    {
+        // TODO node group filter?
+        if (is_numeric($parent_id)) $root = "parent = $parent_id";
+        else $root = "(parent = 0 OR parent IS NULL)";
+        
+        $sql = "SELECT id, parent, title, node_group, publish, priority
+            FROM common_node 
+            WHERE $root
+            ORDER BY node_group DESC, priority DESC, id ASC";        
+
+        $records = $this->executeSql($sql);
+        
+        return $records;
+    }
+
+    /**
      * get lazy tree
      *
      * DEPRECATED
@@ -1406,6 +1425,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
      * @return unknown
      */
      
+    //  TODO: compare with getchildrenbyparent
     function getChildren($parent_id, $sort_by = 'node_group DESC, node_controller DESC, parent_container ASC, priority DESC', $published_only = false) {
         
         if ($published_only) $published_only_constraint = 'AND publish = 1';
