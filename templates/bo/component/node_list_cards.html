@@ -1,76 +1,151 @@
 <!-- BEGIN: content -->
 {MESSAGES}
 <div id="content-list-{GET.id}">
-    <h2>Content List</h2>
-    <!-- BEGIN: children -->
-    <ul class="content-pods" id="content-pods">
-        <li class="root folder-open">
-            <a href="#{GET.id}" class="fakelink"></a>
-            <ul>
-                <!-- BEGIN: item -->
-                <li>
-                    <span>
-                        <a href="#{CHILD.id}" class="fakelink" title="Type: {CHILD.node_controller} &#013;Created: {CHILD.created} &#013;Last Modified: {CHILD.modified}">
-                            <div class="content-pods__item">
-                                <div class="content-pods__item--content">
-                                    <span class="pill">ID {CHILD.id}</span>
-                                    <strong>{CHILD.title|htlmspecialchars}</strong>
-                                    <p>{CHILD.node_controller}</p>
-                                    <!-- BEGIN: css_class -->
-                                        <span class="label">CSS Classes:</span><p>{CHILD.css_class}</p>
-                                    <!-- END: css_class -->
+  <h2>Content List</h2>
+  <!-- BEGIN: children -->
+  <div class="content-pods" id="content-pods">
+    <!-- BEGIN: item -->
+    <div
+      class="item"
+      data-node-id="{CHILD.id}"
+      data-parent-node-id="{CHILD.parent}"
+      title="Type: {CHILD.node_controller} &#013;Created: {CHILD.created} &#013;Last Modified: {CHILD.modified}"
+    >
+      <h3>{CHILD.title|htlmspecialchars}</h3>
+      <p>
+        ID: {CHILD.id}, Controller: {CHILD.node_controller}, CSS Classes:
+        {CHILD.css_class}
+      </p>
+      <!-- BEGIN: description --><span class="label">Description:</span
+      ><!-- END: description -->
+      <!-- BEGIN: content_excerpt -->
+      <p>{CONTENT_EXCERPT}</p>
+      <!-- END: content_excerpt -->
+      <!-- BEGIN: custom_fields -->
+      <p class="custom-fields">{CHILD.custom_fields|htlmspecialchars}</p>
+      <!-- END: custom_fields -->
+      <!-- BEGIN: sub_items -->
+      <p><span class="label">Sub items: {SUB_ITEMS}</span></p>
+      <!-- END: sub_items -->
+      <div class="images">{FILE_LIST}</div>
+      <div class="onyx-edit-page">
+        <a
+          class="onyx-edit action"
+          href="/backoffice/pages/{CHILD.id}"
+          title="Edit {CHILD.title}"
+        ></a>
+        <button
+          class="onyx-duplicate action"
+          title="Duplicate {CHILD.title}"
+          onclick="duplicateNode('{CHILD.id}', '{CHILD.parent}', '{CHILD.node_group}')"
+        ></button>
+        <button
+          class="onyx-bin action"
+          title="Move {CHILD.title} to Bin"
+          onclick="trashNode(event, '{CHILD.id}')"
+        ></button>
+      </div>
+    </div>
+    <!-- END: item -->
+  </div>
+  <script type="text/javascript">
+    $(document).ready(function () {
+      $("#content-pods").sortable({
+        scroll: true,
+        placeholder: "placeholder",
 
-                                    <!-- BEGIN: content_excerpt -->
-                                        <p>{CONTENT_EXCERPT}</p>
-                                    <!-- END: content_excerpt -->
+        stop: function (event, ui) {
+          repositionNode(event, ui, "content");
+        },
+      });
+    });
 
-                                    <!-- BEGIN: description -->
-                                        <span class="label">Description:</span><p>{CHILD.description}</p>
-                                    <!-- END: description -->
+    function repositionNode(event, ui, node_group = "") {
+      var source_node_id = $(ui.item).data("node-id");
+      var destination_node_id = $(ui.item).data("parent-node-id");
 
-                                    <!-- BEGIN: custom_fields -->
-                                        <p class="custom-fields">{CHILD.custom_fields|htlmspecialchars}</p>
-                                    <!-- END: custom_fields -->
+      var position = $(ui.item).parent().children().index(ui.item);
+      $.post(
+        "/request/bo/component/node_move",
+        {
+          csrf_token: getCSRFToken(),
+          source_node_id: source_node_id,
+          destination_node_id: destination_node_id,
+          position: position,
+        },
+        function (data) {
+          popupMessage(data);
+        }
+      );
+    }
+  </script>
 
-                                    <!-- BEGIN: sub_items -->
-                                        <p><span class="label">Sub items: {SUB_ITEMS}</span></p>
-                                    <!-- END: sub_items -->
-                                </div>
-                                <div class="content-pods__item--images">
-                                    {FILE_LIST}
-                                </div>
-                                <div class="content-pods__item--actions onyx-edit-page">
-                                    <a class="onyx-edit action" href="/backoffice/pages/{CHILD.id}" title="Edit {CHILD.title}"></a>
-                                    <button class="onyx-duplicate action" title="Duplicate {CHILD.title}" onclick="duplicateNode('{CHILD.id}', '{CHILD.parent}', '{CHILD.node_group}')"></button>
-                                    <button class="onyx-bin action" title="Move {CHILD.title} to Bin" onclick="trashNode(event, '{CHILD.id}')"></button>
-                                </div> 
-                            </div>
-                        </a>
-                    </span>
-                </li>
-                <!-- END: item -->
-            </ul>
-        </li>
-    </ul>
-    
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $("#content-pods ul").sortable({
-                scroll: true,
-                placeholder: 'placeholder',
-
-                stop: function(event, ui) {
-                    repositionNode(event, ui, 'content');
-                },
-            });
-        });
-    </script>
-
-    <!-- END:children -->
-    <!-- BEGIN: empty -->
-    <p>This node contains no children of content type</p>
-    <!-- END: empty -->
-    <p><button class="button add" title="Add Content"  onclick="addNode(event, '{GET.id}', '{NODE_GROUP}', 'content')">Add Content</button></p>
+  <!-- END:children -->
+  <!-- BEGIN: empty -->
+  <p>This node contains no children of content type</p>
+  <!-- END: empty -->
+  <p>
+    <button
+      class="button add"
+      title="Add Content"
+      onclick="addNode(event, '{GET.id}', '{NODE_GROUP}', 'content')"
+    >
+      Add Content
+    </button>
+  </p>
 </div>
+<style>
+  #content-pods {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    row-gap: 20px;
+    padding-left: 0;
 
+    > div {
+      padding: 10px;
+      background-color: white;
+      cursor: grab;
+    }
+
+    .placeholder {
+      position: relative;
+      padding-bottom: 10px;
+
+      &:after {
+        content: "Move here";
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.25rem;
+        top: 0;
+        left: 0;
+        width: 100%;
+        position: relative;
+        transition: 0.5s ease;
+        opacity: 0;
+        max-height: 0;
+        height: 75px;
+        color: #999;
+        border: 2px dashed transparent;
+        border-radius: 10px;
+        animation: growPlaceholder 0.5s ease forwards;
+      }
+    }
+  }
+
+  @keyframes growPlaceholder {
+    from {
+      max-height: 0;
+      opacity: 0;
+      border: transparent;
+    }
+    to {
+      max-height: 75px;
+      opacity: 0.5;
+      border-color: #999;
+    }
+  }
+</style>
 <!-- END: content -->
