@@ -10,6 +10,7 @@
 @import url(/share/css/backoffice_icons.css);
 @import url(/share/css/simple-tree.css);
 @import url(/share/themes/jquery-ui/onyx/jquery-ui.css);
+@import 'template.css';
 @import 'layout.css';
 @import 'navigation.css';
 @import 'components.css';

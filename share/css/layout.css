@@ -1,14 +1,28 @@
+#backoffice {
+  height: 100%;
+  width: auto; 
+  margin: 0 auto;
 
-/**
- * backoffice content
- */
-#backoffice {height: 100%; width: auto; margin: 0 auto;}
-#backoffice div.page-content-wrapper,
-#backoffice div.page-header-wrapper {padding-left: 0; margin-left: 0;}
-#onyx-backoffice {clear: both; margin-left: 130px; height: 100%; width: calc(100% - 130px);}
-div.wrapper {margin: 0 10px;}
-#onyx-content {clear: both;}
-#layout-icon {background-position: top right; background-repeat: no-repeat;}
+  .page-content-wrapper, 
+  .page-header-wrapper {
+    padding-left: 0; margin-left: 0;
+  }
+}
+
+#onyx-backoffice {
+  margin-left: 130px; 
+  height: 100%; 
+  width: calc(100% - 130px);
+}
+
+#layout-icon {
+  background-position: top right; 
+  background-repeat: no-repeat;
+}
+
+div.wrapper {
+  margin: 0 10px;
+}
 
 .bo-page {
   min-height: 100%;

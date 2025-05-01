@@ -84,7 +84,7 @@
 
   h3 {
     font-size: 1.5rem;
-    color: cadetblue;
+    color: var(--color-primary);
   }
 
   .navigation-list-item {
@@ -98,13 +98,13 @@
     border-bottom: 1px solid #eee;
 
     &:hover {
-      color:cadetblue;
+      color:var(--color-primary);
       background-color: rgb(95, 158, 160, 0.05);
     }
 
 		&.active {
-      color:white;
-      background-color: cadetblue;
+      color:var(--color-text-light);
+      background-color: var(--color-primary);
     }
   }
 
