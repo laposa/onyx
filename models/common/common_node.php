@@ -1207,8 +1207,10 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
         /**
          * check requested parent is not under item in page tree
          */
-         
-        $parent_path = array_reverse($this->getFullPath($item_parent) ?? []);
+        $path = $this->getFullPath($item_id);
+        if (!is_array($path)) $path = [];
+        
+        $parent_path = array_reverse($path);
 
         foreach ($parent_path as $parent_path_id) {
             if ($parent_path_id == $item_id) {
