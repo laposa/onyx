@@ -17,11 +17,9 @@ class Onyx_Controller_Bo_Component_Node_List_Recent extends Onyx_Controller {
         
         $Node = new common_node();
         
-        $node_list = $Node->listing('', 'modified DESC', '0,500');
+        $node_list = $Node->getListWithLastModified(500);
                 
         foreach ($node_list as $item) {
-            
-            $item['latest_change_by'] = $Node->getCustomerIdForLastModified($item['id']);
             
             if ($item['publish'] == 0)  $item['class'] = 'disabled';
             $this->tpl->assign("ITEM", $item);
