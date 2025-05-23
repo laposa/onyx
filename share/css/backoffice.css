@@ -1275,10 +1275,6 @@ div.comment-list tr.status-new a.title { font-weight: bold; }
 * Content pods
 */
 
-#content-list, #page-list {
-  background-color: transparent;
-}
-
 ul#content-pods {
   width: 100%;
   display: flex;

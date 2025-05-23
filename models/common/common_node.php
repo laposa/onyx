@@ -1226,8 +1226,10 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
         /**
          * check requested parent is not under item in page tree
          */
-         
-        $parent_path = array_reverse($this->getFullPath($item_parent));
+        $path = $this->getFullPath($item_id);
+        if (!is_array($path)) $path = [];
+        
+        $parent_path = array_reverse($path);
 
         foreach ($parent_path as $parent_path_id) {
             if ($parent_path_id == $item_id) {
@@ -1502,6 +1504,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
                 node_tree nt ON cn.parent = nt.id
             WHERE 
                 cn.publish >= 1
+                AND cn.node_group IN ('site', 'container', 'page') 
         ),
 
         -- get last modified for all pages and their children

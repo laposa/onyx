@@ -797,8 +797,7 @@ CREATE TABLE common_file (
     }
 
     /**
-     * function for replace of bin/csv_from_fs
-     * use the php glob() function
+     * get list of files or directories from the filesystem
      * 
      * @param string $directory
      * start directory
@@ -809,23 +808,23 @@ CREATE TABLE common_file (
      * @param boolean $recursive
      * walk into subdirectories?
      * 
-     * @return string
-     * files information formatted as from bin/csv_from_fs
+     * @return array
+     * array of files with format defined in toFileFormat()
+     * 
+     * @see common_file::toFileFormat()
      */
-     
-    private function csv_from_glob($directory, $type = '', $recursive = true) {
-    
+    private function getFiles($directory, $type = '', $recursive = false) {
+        $directory = rtrim($directory, '/');
         $path[] = "$directory/*";
         $out = array();
 
         while(count($path) != 0) {
-        
             $v = array_shift($path);
             
             foreach(glob($v) as $item) {
-            
-                if( ($type == '') || (($type == 'f') && (filetype($item) == 'file')) || (($type == 'd') && (filetype($item) == 'dir')) ) {
-                    $out[] = $this->getFileFindFormat($item);
+
+                if (($type == '') || (($type == 'f') && (filetype($item) == 'file')) || (($type == 'd') && (filetype($item) == 'dir'))) {
+                    $out[] = $this->toFileFormat($directory, $item);
                 }
                 
                 if ($recursive && is_dir($item)) {
@@ -835,42 +834,50 @@ CREATE TABLE common_file (
         }
 
         sort($out);
-        $text = '';
-        
-        foreach ($out as $line) {
-        
-            $text .= "$line\n";
-        
-        }
-        
-        return $text;
+        return $out;
     }
     
     /**
-     * get file information in find format "%h/%f;%h;%f;%s;%c"
+     * transform filepath into an array with file information
      * 
      * @param string $file
      * file name with path
      * 
-     * @return string
+     * @return array
      * formatted file informations
      */
+    private function toFileFormat($startDirectory, $fpath) {
      
-    private function getFileFindFormat($file) {
-    
-        $fpath = "./$file";
-        $path_parts = pathinfo($fpath);
+        $relativePath = str_replace($startDirectory, '', $fpath);
+        $path_parts = pathinfo($relativePath);
         $dirname = $path_parts['dirname'];
         $basename = $path_parts['basename'];
         $filesize = filesize($fpath);
         $filectime = gmdate('D M j H:i:s Y', filectime($fpath));
-    
-        return "$fpath;$dirname;$basename;$filesize;$filectime";
+
+        if (!$filesize) {
+            $filesize = 0;
+        }
+
+        $file = [];
+
+        $file['id'] = ltrim(str_replace($startDirectory, '', $fpath), '/');
+        $file['parent'] = explode('/', ltrim($dirname, '/'));
+        $file['parent'] = array_pop($file['parent']);
+        if ($file['parent'] == '') $file['parent'] = null;
+
+        $file['name'] = $basename;
+        $file['title'] = $basename;
+        $file['node_group'] = is_dir($fpath) ? 'folder' : 'file';
+        $file['publish'] = 1;
+        $file['size'] = $this->resize_bytes($filesize);
+        $file['modified'] = $filectime;
+
+        return $file;
     }
 
     /**
-     * get file list using unix file command
-     * TODO: use PHP glob() instead
+     * get file list from fs
      *
      * @param string $directory
      * from this directory
@@ -884,48 +891,22 @@ CREATE TABLE common_file (
      * @return mixed
      * files array or false
      */
-     
-    function getFlatArrayFromFs($directory, $attrs = '', $display_hidden = 0) {
-    //FIND2GLOB PATCH: function getFlatArrayFromFs($directory, $type = '', $recursive = true, $display_hidden = 0) {
-    
+    function getFlatArrayFromFs($directory, $type = '', $recursive = false, $display_hidden = 0) {
         msg("calling getFlatArrayFromFs($directory)", 'ok', 3);
         if (!file_exists($directory)) {
             msg("Directory $directory does not exists!", 'error', 1); 
             return false;
         }
         
-        $csv_list = local_exec("csv_from_fs " . escapeshellarg($directory ?? '') . " " . escapeshellarg($attrs ?? ''));
-        //FIND2GLOB PATCH:  $csv_list = $this->csv_from_glob($directory, $type, $recursive);
-        
-        $csv_list = str_replace(rtrim($directory, '/'), '', $csv_list);
-        $csv_array = explode("\n", $csv_list);
+        $files = $this->getFiles($directory, $type, $recursive);
     
-        $basename = '/' . basename($directory) . '/';
-        foreach ($csv_array as $c) {
-            $x = explode(';', $c);
-            //dont populate base directory
-            if ($x[0] != $basename) $csv[] = $x; 
-        }
-        
-        array_pop($csv);
-    
-        foreach ($csv as $c) {
-        
-            $l['id'] = ltrim($c[0], '/');
-            $l['parent'] = ltrim($c[1], '/');
-            $l['name'] = $c[2];
-            $l['title'] = $c[2];
-            if (is_dir($directory . $l['id'])) $l['node_group'] = 'folder';
-            else $l['node_group'] = 'file';
-            $l['publish'] = 1;
-            $l['size'] = $this->resize_bytes($c[3]);
-            $l['modified'] = str_replace('.0000000000', '', $c[4]); //remove seconds fraction
+        foreach ($files as $file) {
             
             if ($display_hidden) {
-                $csvf[] = $l;
+                $csvf[] = $file;
             } else {
                 // don't display hidden files files beginning with "."
-                if (!preg_match("/^\./", $l['name'])) $csvf[] = $l;
+                if (!preg_match("/^\./", $file['name'])) $csvf[] = $file;
             }
         }
         
@@ -943,14 +924,12 @@ CREATE TABLE common_file (
      * @return array
      * merged files list
      */
-     
-    function getFlatArrayFromFsJoin ($directory) {
-        
+    function getFlatArrayFromFsJoin ($directory, $recursive = false) {
         $global_templates_dir = ONYX_DIR . $directory;
-        $global_templates = $this->getFlatArrayFromFs($global_templates_dir);
+        $global_templates = $this->getFlatArrayFromFs($global_templates_dir, '', $recursive);
     
         $application_templates_dir = ONYX_PROJECT_DIR . $directory;
-        if (is_dir($application_templates_dir)) $application_templates = $this->getFlatArrayFromFs($application_templates_dir);
+        if (is_dir($application_templates_dir)) $application_templates = $this->getFlatArrayFromFs($application_templates_dir, '', $recursive);
         else $application_templates = array();
     
         //merge
@@ -966,7 +945,6 @@ CREATE TABLE common_file (
         }
         
         return $templates;
-    
     }
     
         
@@ -982,12 +960,8 @@ CREATE TABLE common_file (
      * @return mixed
      * files array or false
      */
-     
     function getTree($directory, $type = '') {
-
-        $list = $this->getFlatArrayFromFs($directory, $type);
-        
-        return $list;
+        return $this->getFlatArrayFromFs($directory, $type, true);
     }
     
     
