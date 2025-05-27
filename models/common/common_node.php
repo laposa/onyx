@@ -1207,7 +1207,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
         /**
          * check requested parent is not under item in page tree
          */
-        $path = $this->getFullPath($item_id);
+        $path = $this->getFullPath($item_parent);
         if (!is_array($path)) $path = [];
         
         $parent_path = array_reverse($path);
@@ -2641,7 +2641,7 @@ LEFT OUTER JOIN common_taxonomy_label ON (common_taxonomy_tree.label_id = common
          */
         $sql = "
             SELECT
-            DISTINCT ON (node_controller) node_controller, id 
+            DISTINCT ON (node_controller) node_controller, id, node_group
             FROM common_node
             WHERE (node_group = 'content' OR node_group = 'layout')
             AND parent != {$this->conf['id_map-bin']}
