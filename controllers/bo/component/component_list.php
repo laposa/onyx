@@ -41,8 +41,8 @@ class Onyx_Controller_Bo_Component_Component_List extends Onyx_Controller {
 
             // show only content types with visibility attribute set to true, or not set at all
             if (
-                $templates_info['content'][$item['node_controller']]['visibility'] == true || 
-                $templates_info['content'][$item['node_controller']]['visibility'] === NULL 
+                $templates_info[$item['node_group']][$item['node_controller']]['visibility'] == true || 
+                $templates_info[$item['node_group']][$item['node_controller']]['visibility'] === NULL 
             ) {
                 
                 $list_item = $item;

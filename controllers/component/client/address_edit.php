@@ -30,7 +30,7 @@ class Onyx_Controller_Component_Client_Address_Edit extends Onyx_Controller {
         $Address->setCacheable(false);
 
         // add address
-        if ($_POST['add_address']) {
+        if ($_POST['add_address'] ?? false) {
             $_POST['client']['address']['customer_id'] = $customer_id;
             if ($address_id = $Address->insert($_POST['client']['address'])) {
                 msg('New address added to your list.');
@@ -40,7 +40,7 @@ class Onyx_Controller_Component_Client_Address_Edit extends Onyx_Controller {
         }
 
         // select address
-        if ($_POST['select_address']) {
+        if ($_POST['select_address'] ?? false) {
             $customer_detail = $Customer->detail($customer_id);
             $customer_detail["{$this->GET['type']}_address_id"] = $_POST['select_address'];
 
@@ -54,7 +54,7 @@ class Onyx_Controller_Component_Client_Address_Edit extends Onyx_Controller {
         }
 
         // remove address
-        if (is_numeric($_POST['remove_address'])) {
+        if (is_numeric($_POST['remove_address'] ?? null)) {
             $address_id_to_remove = $_POST['remove_address'];
             $address_detail = $Address->detail($address_id_to_remove);
 
@@ -79,7 +79,7 @@ class Onyx_Controller_Component_Client_Address_Edit extends Onyx_Controller {
             if ($addr['line_2'] != '') $this->tpl->parse('content.address.line_2');
             if ($addr['line_3'] != '') $this->tpl->parse('content.address.line_3');
 
-            if ($this->GET['type'] != '') $this->tpl->parse('content.address.select');
+            if (isset($this->GET['type']) && $this->GET['type'] != '') $this->tpl->parse('content.address.select');
             else if ($addr['id'] != $current_invoices && $addr['id'] != $current_delivery)
                 $this->tpl->parse('content.address.delete');
 

@@ -42,8 +42,8 @@ class Onyx_Controller_Bo_Component_Node_List_Cards extends Onyx_Controller {
         
         //get children
         $children = $Node->getChildren($node_detail['id'], 'parent_container ASC, priority DESC, id ASC');
-        $children = array_filter($children, function($child) {
-            return $child['node_group'] == 'content';
+        $children = array_filter($children ?? [], function($child) {
+            return $child['node_group'] == 'content' || $child['node_group'] == 'layout';
         });
         $count = 0;
         

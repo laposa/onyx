@@ -15,7 +15,7 @@ class Onyx_Controller_Component_Ecommerce_Basket_Edit extends Onyx_Controller_Co
      
     public function mainAction() {
     
-        if ($this->GET['id'] && $this->GET['code']) {
+        if ($this->GET['node_id'] && isset($this->GET['code']) && $this->GET['code']) {
         
             // if basket was shared associate helper CSS class
             $this->tpl->assign('CSS_CLASS_SHARED', 'shared');

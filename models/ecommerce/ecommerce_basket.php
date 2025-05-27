@@ -138,12 +138,27 @@ class ecommerce_basket extends Onyx_Model {
     public function calculateBasketSubTotals(&$basket, $include_vat = true)
     {
         $basket['sub_total']['price'] = 0;
+        $basket['total_weight'] = 0;
+        $basket['total_weight_gross'] = 0;
+        $basket['quantity'] = 0;
+        $basket['count'] = 0;
+        $basket['sub_totals'] = array();
 
         foreach ($basket['items'] as &$item) {
 
             $item['unit_price'] = $include_vat ? $item['product']['variety']['price']['value'] : $item['product']['variety']['price']['value_net'];
             $item['vat_rate'] = $include_vat ? $item['product']['variety']['type']['vat'] : 0;
             $item['price'] = $item['unit_price'] * $item['quantity'];
+            
+            if(!array_key_exists($item['vat_rate'], $basket['sub_totals'])) {
+                $basket['sub_totals'][$item['vat_rate']] = array(
+                    'price' => 0,
+                    'quantity' => 0,
+                    'total' => 0,
+                    'net' => 0,
+                    'vat' => 0,
+                );
+            }
 
             $basket['total_weight'] += $item['product']['variety']['weight'] * $item['quantity'];
             $basket['total_weight_gross'] += $item['product']['variety']['weight_gross'] * $item['quantity'];
@@ -152,6 +167,7 @@ class ecommerce_basket extends Onyx_Model {
             $basket['count']++;
 
             $basket['sub_total']['price'] += $item['price'];
+
             $basket['sub_totals'][$item['vat_rate']]['price'] += $item['price'];
             $basket['sub_totals'][$item['vat_rate']]['quantity'] += $item['quantity'];
 
@@ -164,6 +180,9 @@ class ecommerce_basket extends Onyx_Model {
      */
     public function calculateBasketTotals(&$basket)
     {
+        $basket['sub_total']['vat'] = 0;
+        $basket['sub_total']['net'] = 0;
+
         foreach ($basket['items'] as &$item) {
             $item['total'] = $item['price'] - $item['discount'];            
             $item['vat'] = $item['total'] / (100 + $item['vat_rate']) * $item['vat_rate'];
@@ -173,12 +192,12 @@ class ecommerce_basket extends Onyx_Model {
             $basket['sub_totals'][$item['vat_rate']]['total'] += $item['total'];
             $basket['sub_totals'][$item['vat_rate']]['vat'] += $item['vat'];
             $basket['sub_totals'][$item['vat_rate']]['net'] += $item['net'];
-
         }
 
+        // TODO: delivery is not being calculated here?
         $basket['total_net'] = $basket['sub_total']['net'] + $basket['delivery']['value_net'];
         $basket['total_vat'] = $basket['sub_total']['vat'] + $basket['delivery']['vat'];
-        $basket['total'] = max(0, $basket['sub_total']['price'] - $basket['face_value_voucher'] - $basket['discount']) + $basket['delivery']['value'];
+        $basket['total'] = max(0, $basket['sub_total']['price'] - $basket['face_value_voucher'] - $basket['discount']) + ($basket['delivery']['value'] ?? 0);
     }
 
     /**

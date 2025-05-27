@@ -16,10 +16,15 @@ require_once('models/ecommerce/ecommerce_order.php');
 
 class Onyx_Controller_Component_Ecommerce_Delivery_Option extends Onyx_Controller {
 
+    public $Address;
+    public $Delivery;
+    public $Delivery_Carrier;
+    public $Delivery_Carrier_Zone;
+    public $Basket;
+    public $Order;
     /**
      * main action
      */
-
     public function mainAction() {
 
         setlocale(LC_MONETARY, $GLOBALS['onyx_conf']['global']['locale']);
@@ -27,10 +32,10 @@ class Onyx_Controller_Component_Ecommerce_Delivery_Option extends Onyx_Controlle
         $this->initModels();
         $options = $this->getInputOrDefaults();
         $address_detail = $this->getAddress();
-        $zone_id = (int) $this->Delivery_Carrier_Zone->getZoneIdByCountry($address_detail['country']['id']);
+        $zone_id = (int) $this->Delivery_Carrier_Zone->getZoneIdByCountry($address_detail['country']['id'] ?? null);
         $carrier_list = $this->Delivery_Carrier->getList("zone_id = $zone_id AND publish = 1", "priority DESC, id ASC");
 
-        $carrier_list = $this->processCarrierList($carrier_list, $address_detail['id'], $options);
+        $carrier_list = $this->processCarrierList($carrier_list, $address_detail['id'] ?? null, $options);
 
         if (count($carrier_list) > 0) {
 
@@ -78,7 +83,7 @@ class Onyx_Controller_Component_Ecommerce_Delivery_Option extends Onyx_Controlle
 
     protected function getInputOrDefaults()
     {
-        if (is_array($_POST['delivery'])) return $_POST['delivery'];
+        if (is_array($_POST['delivery'] ?? null)) return $_POST['delivery'];
         else if (is_array($_SESSION['delivery_options'])) return $_SESSION['delivery_options'];
         else return array('carrier_id' => $this->Delivery_carrier->conf['default_carrier_id']);
     }

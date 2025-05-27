@@ -74,10 +74,10 @@ CREATE TABLE ecommerce_basket_content (
     
         if (array_key_exists('ecommerce_basket_content', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['ecommerce_basket_content'];
         else $conf = array();
-        
-        if (!is_numeric($conf['allow_out_of_stock_item'])) $conf['allow_out_of_stock_item'] = 0;
-        if (!is_numeric($conf['allow_unpublished_product_variety_item'])) $conf['allow_unpublished_product_variety_item'] = 0;
-        if (!is_numeric($conf['allow_unpublished_product_item'])) $conf['allow_unpublished_product_item'] = 0;
+
+        if (!is_numeric($conf['allow_out_of_stock_item'] ?? null)) $conf['allow_out_of_stock_item'] = 0;
+        if (!is_numeric($conf['allow_unpublished_product_variety_item'] ?? null)) $conf['allow_unpublished_product_variety_item'] = 0;
+        if (!is_numeric($conf['allow_unpublished_product_item'] ?? null)) $conf['allow_unpublished_product_item'] = 0;
         
         return $conf;
     }

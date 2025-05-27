@@ -43,8 +43,8 @@ class Onyx_Controller_Node_Page_Default extends Onyx_Controller_Node_Default {
          * prepare fallback page_title and browser_title
          */
 
-        if (trim($this->node_data['page_title']) == '') $this->node_data['page_title'] = $this->node_data['title']; // page title is also used component/page_header, this will be effective only if page_title is directly in page template
-        if (trim($this->node_data['browser_title']) == '') $this->node_data['browser_title'] = $this->node_data['page_title'];
+        if (trim($this->node_data['page_title'] ?? '') == '') $this->node_data['page_title'] = $this->node_data['title']; // page title is also used component/page_header, this will be effective only if page_title is directly in page template
+        if (trim($this->node_data['browser_title'] ?? '') == '') $this->node_data['browser_title'] = $this->node_data['page_title'];
 
         /**
          * fallback on options to global configuration

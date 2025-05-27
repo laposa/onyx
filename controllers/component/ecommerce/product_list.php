@@ -9,6 +9,8 @@ require_once('controllers/list.php');
 
 class Onyx_Controller_Component_Ecommerce_Product_List extends Onyx_Controller_List {
 
+    public $Product; 
+    
     /**
      * main action (only a router in this case)
      */
@@ -16,13 +18,17 @@ class Onyx_Controller_Component_Ecommerce_Product_List extends Onyx_Controller_L
     public function mainAction() {
     
         // input variables
-        if (is_array($this->GET['product_id_list'])) $product_id_list = $this->GET['product_id_list'];
-        if (is_numeric($this->GET['node_id'])) $node_id = $this->GET['node_id'];
-        if ($this->GET['product_id_list_force_sorting_as_listed']) $force_sorting_as_listed = true;
-        if (is_array($this->GET['sort'])) {
+        $sort_by = null;
+        $sort_direction = null; 
+        $product_id_list = $this->GET['product_id_list'] ?? null;
+        $node_id = $this->GET['node_id'] ?? null;
+        $force_sorting_as_listed = isset($this->GET['product_id_list_force_sorting_as_listed']) ? true : false;
+        
+        if (is_array($this->GET['sort'] ?? null)) {
             $sort_by = $this->GET['sort']['by'];
             $sort_direction = $this->GET['sort']['direction'];
         }
+
         // initialize product
         require_once('models/ecommerce/ecommerce_product.php');
         $this->Product = new ecommerce_product();
@@ -35,8 +41,8 @@ class Onyx_Controller_Component_Ecommerce_Product_List extends Onyx_Controller_L
         
         // sorting
         if ($sort_by == 'priority') {
-            if ($sort_direction == 'ASC') usort($product_list , function ($a, $b) {return $a['priority'] > $b['priority'];});
-            else usort($product_list , function ($a, $b) {return $a['priority'] < $b['priority'];});
+            if ($sort_direction == 'ASC') usort($product_list , function ($a, $b) {return $a['priority'] <=> $b['priority'];});
+            else usort($product_list , function ($a, $b) {return $a['priority'] <=> $b['priority'];});
         }
 
         // display

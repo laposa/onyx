@@ -96,9 +96,10 @@ class Onyx_Db {
      */
     public function set($attribute, $value) {
         // msg("{$this->_class_name}: Calling set($attribute, $value)", 'ok', 4);
-        $validation_type = $this->_metaData[$attribute]['validation'];
+        // TODO: default value?
+        $validation_type = $this->_metaData[$attribute]['validation'] ?? null;
 
-        if ($this->_metaData[$attribute]['required'] == true || $value != '') {
+        if ((isset($this->_metaData[$attribute]) && $this->_metaData[$attribute]['required'] == true) || $value != '') {
             if ($this->validation($validation_type, $attribute, $value)) {
                 $this->$attribute = $value;
                 return true;

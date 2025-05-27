@@ -33,7 +33,7 @@ class Onyx_Controller_Component_News_List extends Onyx_Controller_List {
         require_once('models/common/common_node.php');
         $this->Node = new common_node();
 
-        $node_id = $this->GET['id'];
+        $node_id = $this->GET['node_id'];
         $node_data = $this->Node->nodeDetail($node_id);
         
         /**
@@ -46,7 +46,7 @@ class Onyx_Controller_Component_News_List extends Onyx_Controller_List {
         else if (is_numeric($node_data['parent'])) $blog_node_id = $node_data['parent'];
         else $blog_node_id = $this->Node->conf['id_map-blog'];
 
-        if (count_chars(trim($this->GET['node_controller'])) > 0) $node_controller = $this->GET['node_controller'];
+        if (strlen(trim($this->GET['node_controller'] ?? '')) > 0) $node_controller = $this->GET['node_controller'];
         else $node_controller = 'news';
 
         /**
@@ -69,14 +69,14 @@ class Onyx_Controller_Component_News_List extends Onyx_Controller_List {
          * get input variables
          */
         
-        if (is_numeric($this->GET['created'])) $created = $this->GET['created'];
-        else if (preg_match('/[0-9]{4}-[0-9]{1,2}/', $this->GET['created'])) $created = $this->GET['created'];
+        if (is_numeric($this->GET['created'] ?? null)) $created = $this->GET['created'];
+        else if (preg_match('/[0-9]{4}-[0-9]{1,2}/', $this->GET['created'] ?? '')) $created = $this->GET['created'];
         else $created = '';
         
-        if (is_numeric($this->GET['publish'])) $publish = $this->GET['publish'];
+        if (is_numeric($this->GET['publish'] ?? null)) $publish = $this->GET['publish'];
         else $publish = '';
         
-        if ($this->GET['display_pagination'] == 1) $display_pagination = 1;
+        if (isset($this->GET['display_pagination']) && $this->GET['display_pagination'] == 1) $display_pagination = 1;
         else $display_pagination = 0;
         
         /**
@@ -109,7 +109,7 @@ class Onyx_Controller_Component_News_List extends Onyx_Controller_List {
          * can be removed when news_filter and news_archive will be improved
          */
          
-        if ((is_numeric($_GET['taxonomy_tree_id']) || is_numeric($_GET['created'])) || $this->GET['show_all_from_bo']) {
+        if ((is_numeric($_GET['taxonomy_tree_id'] ?? null) || is_numeric($_GET['created'] ?? null)) || ($this->GET['show_all_from_bo'] ?? false)) {
             $limit_from = 0;
             $limit_per_page = 999999;
         }
@@ -185,6 +185,8 @@ class Onyx_Controller_Component_News_List extends Onyx_Controller_List {
         if (is_array($news_list)) {
         
             $news_list_filtered = array();
+
+            $odd_even = 'even'; 
             
             foreach ($news_list as $i=>$item) {
             
@@ -263,7 +265,7 @@ class Onyx_Controller_Component_News_List extends Onyx_Controller_List {
                     }
                 }
             }
-            
+
             return $news_list_filtered;
             
         } else {

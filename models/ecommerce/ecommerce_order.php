@@ -73,7 +73,7 @@ class ecommerce_order extends Onyx_Model {
         'review_email_sent'=>array('label' => '', 'validation'=>'int', 'required'=>false),
         'created'=>array('label' => '', 'validation'=>'datetime', 'required'=>false),
         'modified'=>array('label' => '', 'validation'=>'datetime', 'required'=>false)
-        );
+    );
         
     /**
      * create table sql
@@ -109,7 +109,14 @@ class ecommerce_order extends Onyx_Model {
     static function initConfiguration() {
     
         if (array_key_exists('ecommerce_order', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['ecommerce_order'];
-        else $conf = array();
+        
+        else $conf = array(
+            'product_returns_mail_to_address' => '',
+            'product_returns_mail_to_name' => '',
+            'non_eu_zero_vat' => false,
+            'proforma_invoice' => '',
+            'mail_unpaid' => '',
+        );
         
         //order of the status is important, don't change it! you can only add a new one at the end
         if (array_key_exists('status', $conf)) {
@@ -124,6 +131,7 @@ class ecommerce_order extends Onyx_Model {
         if ($conf['product_returns_mail_to_address'] == '') $conf['product_returns_mail_to_address'] = $GLOBALS['onyx_conf']['global']['admin_email'];
         if ($conf['product_returns_mail_to_name'] == '') $conf['product_returns_mail_to_name'] = $GLOBALS['onyx_conf']['global']['admin_email_name'];
         
+        // TODO what are default values?
         //show print proforma invoice to customer?
         if ($conf['proforma_invoice'] == 'false') $conf['proforma_invoice'] = false;
         else $conf['proforma_invoice'] = true;
@@ -347,10 +355,10 @@ class ecommerce_order extends Onyx_Model {
          */
         
         //order status
-        if (is_numeric($filter['status'])) $add_to_where .= " AND ecommerce_order.status = {$filter['status']}";
+        if (is_numeric($filter['status'] ?? null)) $add_to_where .= " AND ecommerce_order.status = {$filter['status']}";
         
         //query
-        if (is_numeric($filter['query'])) {
+        if (is_numeric($filter['query'] ?? null)) {
             $add_to_where .= " AND ecommerce_order.id = {$filter['query']}";
         } else if (isset($filter['query']) && $filter['query'] !== '') {
             // we could use ILIKE there, but it's not available in mysql
@@ -364,9 +372,8 @@ class ecommerce_order extends Onyx_Model {
             }
         }
         
-
         //created between filter
-        if ($filter['created_from'] != false && $filter['created_to'] != false) {
+        if ($filter && $filter['created_from'] != false && $filter['created_to'] != false) {
             if  (!preg_match('/^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$/', $filter['created_from']) || !preg_match('/^[0-9]{4}-[0-9]{1,2}-[0-9]{1,2}$/', $filter['created_to'])) {
                 msg("Invalid format for created between. Must be YYYY-MM-DD", "error");
                 return false;

@@ -4,7 +4,7 @@
 <article class="item item-id-{ITEM.id}">
     <h4>{ITEM.title|htmlspecialchars}</h4>
     <div class="byline">
-        <time datetime="{ITEM.created|strtotime|strftime('%Y-%m-%d', %s)}">{ITEM.created|strtotime|strftime('%A %e %B %Y', %s)}</time>
+        <time datetime="{ITEM.created|date_format('Y-m-d')}">{ITEM.created|date_format('l d F Y')}</time>
         <address class="author">{ITEM.author_detail.name|htmlspecialchars}</address>
     </div>
     <p>{ITEM.content|htmlspecialchars|nl2br}</p>

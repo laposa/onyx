@@ -24,7 +24,7 @@ class Onyx_Controller_Component_Menu extends Onyx_Controller {
         else $max_display_level = 0;
         
         // if to expand all items, when 1 show all (ie for sitemap), 0 expands only active items
-        if ($this->GET['expand_all'] == 1) $expand_all = 1;
+        if (isset($this->GET['expand_all']) && $this->GET['expand_all'] == 1) $expand_all = 1;
         else $expand_all = 0;
         
         // 1 parse strapline

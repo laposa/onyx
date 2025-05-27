@@ -2641,9 +2641,9 @@ LEFT OUTER JOIN common_taxonomy_label ON (common_taxonomy_tree.label_id = common
          */
         $sql = "
             SELECT
-            DISTINCT ON (node_controller) node_controller, id 
+            DISTINCT ON (node_controller) node_controller, id, node_group
             FROM common_node
-            WHERE node_group = 'content'
+            WHERE (node_group = 'content' OR node_group = 'layout')
             AND parent != {$this->conf['id_map-bin']}
             AND publish = 1
             AND node_controller != 'component'
@@ -2677,7 +2677,7 @@ LEFT OUTER JOIN common_taxonomy_label ON (common_taxonomy_tree.label_id = common
         $sql = "
             SELECT *
             FROM common_node
-            WHERE node_group = 'content'
+            WHERE (node_group = 'content' OR node_group = 'layout')
             AND parent != {$this->conf['id_map-bin']}
             AND node_controller = '{$node_controller}'
             ORDER BY modified DESC, id DESC

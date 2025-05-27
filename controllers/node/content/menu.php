@@ -42,28 +42,29 @@ class Onyx_Controller_Node_Content_Menu extends Onyx_Controller_Node_Content_Def
                 $template = 'component/menu';
         }
         
-        if (is_numeric($node_data['component']['level'])) $level = $node_data['component']['level'];
+        if (is_numeric($node_data['component']['level'] ?? null)) $level = $node_data['component']['level'];
         else $level = 0;
-        if (is_numeric($node_data['component']['display_all'])) $display_all = $node_data['component']['display_all'];
+        if (is_numeric($node_data['component']['display_all'] ?? null)) $display_all = $node_data['component']['display_all'];
         else $display_all = 0;
-        if (is_numeric($node_data['component']['open'])) $open = $node_data['component']['open'];
+        if (is_numeric($node_data['component']['open'] ?? null)) $open = $node_data['component']['open'];
         else $open = '';
         
         /**
          * image size
          */
         
-        if ($template == 'component/menu_grid' || $template == 'component/menu_stack') {
-            
-            $image_o = $this->getImageSizeOptions($node_data);
-                    
-        }
+        $image_o = ($template == 'component/menu_grid' || $template == 'component/menu_stack') ? $this->getImageSizeOptions($node_data) : array();
         
         /**
          * pass to menu component
          */
+
+        $strapline = $node_data['component']['display_strapline'] ?? 0;
+        $image_w = $image_o['width'] ?? false;
+        $image_h = $image_o['height'] ?? false;
+        $image_f = $image_o['fill'] ?? false;
          
-        $Onyx_Request = new Onyx_Request("$template~id={$node_data['component']['node_id']}:display_strapline={$node_data['component']['display_strapline']}:level={$level}:expand_all={$display_all}:open={$open}:image_width={$image_o['width']}:image_height={$image_o['height']}:image_fill={$image_o['fill']}~");
+        $Onyx_Request = new Onyx_Request("$template~id={$node_data['component']['node_id']}:display_strapline={$strapline}:level={$level}:expand_all={$display_all}:open={$open}:image_width={$image_w}:image_height={$image_h}:image_fill={$image_f}~");
         $this->tpl->assign("MENU", $Onyx_Request->getContent());
         $this->tpl->assign("NODE", $node_data);
         

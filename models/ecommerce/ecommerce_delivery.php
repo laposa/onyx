@@ -166,7 +166,7 @@ class ecommerce_delivery extends Onyx_Model {
         require_once('models/client/client_address.php');
         $Address = new client_address();
         $address_detail = $Address->detail($delivery_address_id);
-        $country_id = (int) $address_detail['country_id'];
+        $country_id = $address_detail ? (int) $address_detail['country_id'] : null;
 
         return $this->calculateDeliveryForCountry($basket, $carrier_id, $country_id, $promotion_detail);
     }
