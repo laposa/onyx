@@ -45,15 +45,15 @@ class international_country extends Onyx_Model {
     private function getCreateTableSql() {
     
         $sql = "
-CREATE TABLE international_country (
-    id serial NOT NULL PRIMARY KEY,
-    name character varying(255),
-    iso_code2 character(2),
-    iso_code3 character(3),
-    eu_status boolean,
-    currency_code character(3),
-    publish smallint NOT NULL,
-);
+            CREATE TABLE international_country (
+                id serial NOT NULL PRIMARY KEY,
+                name character varying(255),
+                iso_code2 character(2),
+                iso_code3 character(3),
+                eu_status boolean,
+                currency_code character(3),
+                publish smallint NOT NULL,
+            );
         ";
         
         return $sql;
@@ -68,7 +68,7 @@ CREATE TABLE international_country (
         else $conf = array();
 
         // define default country
-        if (!is_numeric($conf['default_id'])) $conf['default_id'] = 222;
+        if (!is_numeric($conf['default_id'] ?? null)) $conf['default_id'] = 222;
         
         //better use CODE3 (i.e. GBR)
 

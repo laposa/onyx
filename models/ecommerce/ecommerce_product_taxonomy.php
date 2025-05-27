@@ -25,13 +25,13 @@ class ecommerce_product_taxonomy extends common_node_taxonomy {
     private function getCreateTableSql() {
     
         $sql = "
-CREATE TABLE ecommerce_product_taxonomy ( 
-    id serial NOT NULL PRIMARY KEY,
-    node_id int NOT NULL REFERENCES ecommerce_product ON UPDATE CASCADE ON DELETE CASCADE,
-    taxonomy_tree_id int NOT NULL REFERENCES common_taxonomy_tree ON UPDATE CASCADE ON DELETE CASCADE
-);
+            CREATE TABLE ecommerce_product_taxonomy ( 
+                id serial NOT NULL PRIMARY KEY,
+                node_id int NOT NULL REFERENCES ecommerce_product ON UPDATE CASCADE ON DELETE CASCADE,
+                taxonomy_tree_id int NOT NULL REFERENCES common_taxonomy_tree ON UPDATE CASCADE ON DELETE CASCADE
+            );
 
-ALTER TABLE ecommerce_product_taxonomy ADD CONSTRAINT product_node_id_taxonomy_tree_id_key UNIQUE (node_id, taxonomy_tree_id);
+            ALTER TABLE ecommerce_product_taxonomy ADD CONSTRAINT product_node_id_taxonomy_tree_id_key UNIQUE (node_id, taxonomy_tree_id);
         ";
         
         return $sql;
@@ -56,6 +56,8 @@ ALTER TABLE ecommerce_product_taxonomy ADD CONSTRAINT product_node_id_taxonomy_t
      */
     
     function getRelationsToProduct($product_id) {
+
+        $relations = array();
     
         if (!is_numeric($product_id)) return false;
         
@@ -66,6 +68,5 @@ ALTER TABLE ecommerce_product_taxonomy ADD CONSTRAINT product_node_id_taxonomy_t
         }
         
         return $relations;
-        
     }
 }

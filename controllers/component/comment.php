@@ -6,6 +6,8 @@
 
 class Onyx_Controller_Component_Comment extends Onyx_Controller {
 
+    public $Comment;
+
     /** 
      * main action 
      */
@@ -17,10 +19,10 @@ class Onyx_Controller_Component_Comment extends Onyx_Controller {
          */
         
         $options = array();
-        $options['allow_anonymouse_submit'] = $this->GET['allow_anonymouse_submit'];
-        $options['allow_anonymouse_view'] = $this->GET['allow_anonymouse_view'];
+        $options['allow_anonymouse_submit'] = $this->GET['allow_anonymouse_submit'] ?? null;
+        $options['allow_anonymouse_view'] = $this->GET['allow_anonymouse_view'] ?? null;
         
-        if (is_array($_POST['comment'])) $data = $_POST['comment'];
+        if (is_array($_POST['comment'] ?? null)) $data = $_POST['comment'];
         else $data = array();
         if (is_numeric($this->GET['node_id'])) $data['node_id'] = $this->GET['node_id'];
         else $data['node_id'] = 0;
@@ -82,7 +84,7 @@ class Onyx_Controller_Component_Comment extends Onyx_Controller {
 
         $filter = array();
         $filter['node_id'] = $node_id;
-        if (is_numeric($this->GET['parent'])) $filter['parent'] = $this->GET['parent'];
+        if (is_numeric($this->GET['parent'] ?? null)) $filter['parent'] = $this->GET['parent'];
         else $filter['parent'] = null;
         $filter['relation_subject'] = $this->getRelationSubject();
         
@@ -235,8 +237,9 @@ class Onyx_Controller_Component_Comment extends Onyx_Controller {
         /**
          * display and process insert only when allowed
          */
+        $client_id = isset($_SESSION['client']) ? $_SESSION['client']['customer']['id'] : null;
          
-        if ($_SESSION['client']['customer']['id'] || $options['allow_anonymouse_submit']) {
+        if ($client_id || $options['allow_anonymouse_submit']) {
 
             if ($options['allow_anonymouse_submit'] && !$_SESSION['client']['customer']['id']) {
                 $this->tpl->parse('content.comment_insert.email');

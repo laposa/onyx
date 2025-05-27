@@ -237,13 +237,13 @@ CREATE INDEX common_comment_node_id_key1 ON common_comment USING btree (node_id)
                 $add_to_where .= " AND relation_subject LIKE '{$filter['relation_subject']}' ";
             }
             
-            if (is_numeric($filter['parent'])) {
+            if (is_numeric($filter['parent'] ?? null)) {
                 $add_to_where .= " AND parent = '{$filter['parent']}' ";
             } else if (array_key_exists('parent', $filter) && $filter['parent'] === null) {
                 $add_to_where .= " AND parent IS NULL ";
             }
 
-            if (is_numeric($filter['customer_id'])) {
+            if (is_numeric($filter['customer_id'] ?? null)) {
                 $add_to_where .= " AND customer_id = '{$filter['customer_id']}' ";
             }
 

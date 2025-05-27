@@ -17,20 +17,20 @@ class Onyx_Controller_Component_Ecommerce_Promotion_code extends Onyx_Controller
          * find code
          */
          
-        if ($_SESSION['promotion_code']) $code = $_SESSION['promotion_code'];
-        else if (trim($_POST['promotion_code']) != '') $code = trim($_POST['promotion_code']);
+        if ($_SESSION['promotion_code'] ?? false) $code = $_SESSION['promotion_code'];
+        else if (trim($_POST['promotion_code'] ?? '') != '') $code = trim($_POST['promotion_code']);
         else $code = false;
 
         /**
          * Check Actions
          */
 
-        if ($_POST['promotion_code_add'] && $code) {
+        if (isset($_POST['promotion_code_add']) && $_POST['promotion_code_add'] && $code) {
 
             $_SESSION['promotion_code'] = $code;
             onyxGoTo("/page/{$_SESSION['active_pages'][0]}");
             
-        } else if ($_POST['promotion_code_remove']) {
+        } else if ($_POST['promotion_code_remove'] ?? false) {
 
             $_SESSION['promotion_code'] = false;
             onyxGoTo("/page/{$_SESSION['active_pages'][0]}");
@@ -63,7 +63,7 @@ class Onyx_Controller_Component_Ecommerce_Promotion_code extends Onyx_Controller
         /**
          * Allow Guest Checkout
          */
-        if ($basket['customer_id'] == 0 && $_SESSION['client']['customer']['guest'] == 1) {
+        if (isset($basket['customer_id']) && $basket['customer_id'] == 0 && $_SESSION['client']['customer']['guest'] == 1) {
             $customer_email = $_SESSION['client']['customer']['email'];
         } else {
             $customer_email = '';
@@ -108,7 +108,7 @@ class Onyx_Controller_Component_Ecommerce_Promotion_code extends Onyx_Controller
     {
         $result = true;
 
-        if (is_numeric($_SESSION['client']['customer']['delivery_address_id'])) {
+        if (is_numeric($_SESSION['client']['customer']['delivery_address_id'] ?? null)) {
             
             require_once('models/ecommerce/ecommerce_order.php');
             $Order = new ecommerce_order();

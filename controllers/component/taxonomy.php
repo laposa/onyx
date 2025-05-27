@@ -7,6 +7,8 @@
 
 class Onyx_Controller_Component_Taxonomy extends Onyx_Controller {
 
+    public $Taxonomy;
+
     /**
      * main action
      */
@@ -308,6 +310,8 @@ class Onyx_Controller_Component_Taxonomy extends Onyx_Controller {
      */
      
     public function sortByPriority($list) {
+
+        $l = array();
     
         /**
          * first pass parent_priority to the same level in multiarray (preparation for multisort function)
@@ -330,7 +334,6 @@ class Onyx_Controller_Component_Taxonomy extends Onyx_Controller {
         }
         
         $list = $l;
-                
                 
         return $list;
     

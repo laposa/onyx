@@ -138,7 +138,7 @@ CREATE TABLE client_address (
         $address = $this->detail($id);
         
         require_once('models/international/international_country.php');
-        if (is_numeric($address['country_id'])) {
+        if (is_numeric($address['country_id'] ?? null)) {
             $Country = new international_country();
             $country_data = $Country->detail($address['country_id']);
             $address['country'] = $country_data;

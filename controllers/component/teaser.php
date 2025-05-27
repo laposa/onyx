@@ -9,6 +9,7 @@ require_once('models/common/common_node.php');
 
 class Onyx_Controller_Component_Teaser extends Onyx_Controller {
 
+    public $Node;
 
     /**
      * main action
@@ -36,7 +37,7 @@ class Onyx_Controller_Component_Teaser extends Onyx_Controller {
         $node = $this->Node->nodeDetail($target_node_id);
 
         // set default link text if required
-        if (trim($node['link_text']) == '') $node['link_text'] = "Find Out More";
+        if (trim($node['link_text'] ?? '') == '') $node['link_text'] = "Find Out More";
 
         /**
          * override teaser text and link text if required
@@ -122,8 +123,8 @@ class Onyx_Controller_Component_Teaser extends Onyx_Controller {
         
         $image_resize_options = array();
         
-        if ($this->GET['image_method']) $image_resize_options['method'] = $this->GET['image_method'];
-        if ($this->GET['image_gravity']) $image_resize_options['gravity'] = $this->GET['image_gravity'];
+        if ($this->GET['image_method'] ?? false) $image_resize_options['method'] = $this->GET['image_method'];
+        if ($this->GET['image_gravity'] ?? false) $image_resize_options['gravity'] = $this->GET['image_gravity'];
         if ($this->GET['image_fill']) $image_resize_options['fill'] = $this->GET['image_fill'];
         else $image_resize_options['fill'] = 0;
         

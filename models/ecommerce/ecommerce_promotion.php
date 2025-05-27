@@ -191,16 +191,16 @@ class ecommerce_promotion extends Onyx_Model {
         else $conf = array();
 
         // Total number of referrals every customer can have.
-        if (!is_numeric($conf['available_referrals_per_person'])) $conf['available_referrals_per_person'] = 10;
+        if (!is_numeric($conf['available_referrals_per_person'] ?? null)) $conf['available_referrals_per_person'] = 10;
 
         // An amount both customers (inviting and invited) will receive
-        if (!is_numeric($conf['discount_value'])) $conf['discount_value'] = 5;
+        if (!is_numeric($conf['discount_value'] ?? null)) $conf['discount_value'] = 5;
 
         // Mimimum order amount to placed
-        if (!is_numeric($conf['minimum_order_amount'])) $conf['minimum_order_amount'] = 30;
+        if (!is_numeric($conf['minimum_order_amount'] ?? null)) $conf['minimum_order_amount'] = 30;
 
         // Welcome page id
-        if (!is_numeric($conf['referral_page_id'])) $conf['referral_page_id'] = 5727;
+        if (!is_numeric($conf['referral_page_id'] ?? null)) $conf['referral_page_id'] = 5727;
 
         return $conf;
     }

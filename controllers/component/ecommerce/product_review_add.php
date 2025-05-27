@@ -8,6 +8,8 @@ require_once('controllers/component/ecommerce/product_review.php');
 
 class Onyx_Controller_Component_Ecommerce_Product_Review_Add extends Onyx_Controller_Component_Ecommerce_Product_Review {
 
+    public $enableCaptcha;
+    
     /**
      * custom comment action
      */

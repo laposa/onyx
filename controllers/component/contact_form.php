@@ -14,11 +14,10 @@ class Onyx_Controller_Component_Contact_Form extends Onyx_Controller {
         $this->enableReCaptcha = ONYX_RECAPTCHA_PUBLIC_KEY && ONYX_RECAPTCHA_PRIVATE_KEY;
 
         $formdata = isset($_POST['formdata']) ? $this->preProcessEmailForm($_POST['formdata']) : [];
-        if (is_array($formdata) && isset($_POST['node_id']) && $_POST['node_id'] == $this->GET['node_id']) {
+        if (!empty($formdata) && is_array($formdata) && isset($_POST['node_id']) && $_POST['node_id'] == $this->GET['node_id']) {
             $formdata = $this->processEmailForm($formdata);
         }
 
-        $formdata = $this->postProcessEmailForm($formdata);
         $this->tpl->assign('FORMDATA', $formdata);
 
         if ($this->enableReCaptcha) {

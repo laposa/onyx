@@ -28,8 +28,8 @@ class Onyx_Controller_Component_Client_Address extends Onyx_Controller {
         require_once('models/client/client_address.php');
         $Address = new client_address();
         
-        if (is_numeric($this->GET['invoices_address_id'])) $invoices_address_id = $this->GET['invoices_address_id'];
-        if (is_numeric($this->GET['delivery_address_id'])) $delivery_address_id = $this->GET['delivery_address_id'];
+        $invoices_address_id = (is_numeric($this->GET['invoices_address_id'] ?? null)) ? $this->GET['invoices_address_id'] : null;
+        $delivery_address_id = (is_numeric($this->GET['delivery_address_id'] ?? null)) ? $this->GET['delivery_address_id'] : null;
         
         //if we have not address_ids, we'll use session data
         if (!is_numeric($invoices_address_id) && !is_numeric($delivery_address_id)) {
@@ -60,7 +60,7 @@ class Onyx_Controller_Component_Client_Address extends Onyx_Controller {
             if ($this->GET['hide_button'] == 0) $this->tpl->parse('content.invoices.button');
             $this->tpl->parse('content.invoices');
         } else {
-            if ($this->GET['hide_button'] == 0) $this->tpl->parse('content.invoices_add_button');
+            if (isset($this->GET['hide_button']) && $this->GET['hide_button'] == 0) $this->tpl->parse('content.invoices_add_button');
         }
         
         if (is_array($addr['delivery'])) {
@@ -69,7 +69,7 @@ class Onyx_Controller_Component_Client_Address extends Onyx_Controller {
             if ($this->GET['hide_button'] == 0) $this->tpl->parse('content.delivery.button');
             $this->tpl->parse('content.delivery');
         } else {
-            if ($this->GET['hide_button'] == 0) $this->tpl->parse('content.delivery_add_button');
+            if (isset($this->GET['hide_button']) && $this->GET['hide_button'] == 0) $this->tpl->parse('content.delivery_add_button');
         }
 
         return true;

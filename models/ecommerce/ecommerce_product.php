@@ -505,7 +505,7 @@ CREATE TABLE ecommerce_product (
             }
 
             // taxonomy
-            if ($filter['taxonomy_json']) {
+            if ($filter['taxonomy_json'] ?? false) {
 
                 $taxonomy_list = json_decode($filter['taxonomy_json']);
 

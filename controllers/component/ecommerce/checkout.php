@@ -7,8 +7,10 @@
  *
  */
 
-class Onyx_Controller_Component_Ecommerce_Checkout extends Onyx_Controller {
-    protected $enableReCaptcha;
+class Onyx_Controller_Component_Ecommerce_Checkout extends Onyx_Controller
+{
+
+    public $enableReCaptcha;
 
     /**
      * main action
@@ -20,8 +22,10 @@ class Onyx_Controller_Component_Ecommerce_Checkout extends Onyx_Controller {
         }
 
         // get input
-        if (is_array($_POST['order'])) $order_data = $_POST['order'];
-        else $order_data = array();
+        if (is_array($_POST['order'] ?? null))
+            $order_data = $_POST['order'];
+        else
+            $order_data = array();
 
         // get node configuration
         require_once('models/common/common_node.php');
@@ -38,11 +42,7 @@ class Onyx_Controller_Component_Ecommerce_Checkout extends Onyx_Controller {
         $Basket->setCacheable(false);
 
         //temp
-        if ($_POST['client']['customer']['currency_code']) {
-            $currency_code = $_POST['client']['customer']['currency_code'];
-        } else {
-            $currency_code = $_SESSION['client']['customer']['currency_code'];
-        }
+        $currency_code = $_POST['client']['customer']['currency_code'] ?? $_SESSION['client']['customer']['currency_code'];
 
         if (!empty($_SESSION['client']['customer']['id'])) {
             if (is_numeric($basket_id = $_SESSION['basket']['id'])) {
@@ -130,8 +130,10 @@ class Onyx_Controller_Component_Ecommerce_Checkout extends Onyx_Controller {
                 $basket_content = $Basket->getFullDetail($basket_id);
                 $voucher_basket_items = $this->getVoucherBasketItems($basket_content['items'], $gift_voucher_product_id);
 
-                if (!$voucher_basket_items) return false;
-                if (count($voucher_basket_items) == count($basket_content['items'])) return true;
+                if (!$voucher_basket_items)
+                    return false;
+                if (count($voucher_basket_items) == count($basket_content['items']))
+                    return true;
                 return false;
             } else {
                 return false;
@@ -150,7 +152,7 @@ class Onyx_Controller_Component_Ecommerce_Checkout extends Onyx_Controller {
         $ecommerce_product_conf = ecommerce_product::initConfiguration();
 
         // check gift voucher product ID is set
-        if (!is_numeric($ecommerce_product_conf['gift_voucher_product_id']) || $ecommerce_product_conf['gift_voucher_product_id']  == 0) {
+        if (!is_numeric($ecommerce_product_conf['gift_voucher_product_id']) || $ecommerce_product_conf['gift_voucher_product_id'] == 0) {
             return false;
         }
 
@@ -161,18 +163,21 @@ class Onyx_Controller_Component_Ecommerce_Checkout extends Onyx_Controller {
      * getVoucherBasketItems
      */
     public function getVoucherBasketItems($basket_items, $gift_voucher_product_id) {
-        if (!is_array($basket_items)) return false;
-        if (!is_numeric($gift_voucher_product_id)) return false;
+        if (!is_array($basket_items))
+            return false;
+        if (!is_numeric($gift_voucher_product_id))
+            return false;
 
         $voucher_basket_items = array();
         foreach ($basket_items as $basket_item) {
             if ($basket_item['product']['id'] == $gift_voucher_product_id) {
                 $voucher_basket_items[] = $basket_item;
             }
-
         }
 
-        if (count($voucher_basket_items) > 0) return $voucher_basket_items;
-        else return false;
+        if (count($voucher_basket_items) > 0)
+            return $voucher_basket_items;
+        else
+            return false;
     }
 }

@@ -13,6 +13,13 @@ require_once('models/ecommerce/ecommerce_order.php');
 
 class Onyx_Controller_Component_Ecommerce_Basket extends Onyx_Controller {
 
+    public $Basket;
+    public $basket_content;
+    public $order;
+    public $basket_id;
+    public $customer_id;
+    public $include_vat;
+
     /**
      * main action
      */
@@ -22,7 +29,8 @@ class Onyx_Controller_Component_Ecommerce_Basket extends Onyx_Controller {
         $this->initModels();
 
         $this->basket_id = $this->getBasketId();
-        $this->customer_id = (int) $_SESSION['client']['customer']['id'];
+        // TODO: default value?
+        $this->customer_id = isset($_SESSION['client']) ? (int) $_SESSION['client']['customer']['id'] : null;
         $this->include_vat = true;
         $currency = GLOBAL_LOCALE_CURRENCY;
 
@@ -73,14 +81,13 @@ class Onyx_Controller_Component_Ecommerce_Basket extends Onyx_Controller {
         $this->Basket = new ecommerce_basket();
         $this->Basket->setCacheable(false);
 
-        $this->Basket_content = new ecommerce_basket_content();
-        $this->Basket_content->setCacheable(false);
+        $this->basket_content = new ecommerce_basket_content();
+        $this->basket_content->setCacheable(false);
 
-        $this->Order = new ecommerce_order();
-        $this->Order->setCacheable(false);
+        $this->order = new ecommerce_order();
+        $this->order->setCacheable(false);
 
-        return $Basket;
-
+        return $this->Basket;
     }
 
     /**
@@ -100,7 +107,7 @@ class Onyx_Controller_Component_Ecommerce_Basket extends Onyx_Controller {
     protected function getBasketId()
     {
         // from session by default
-        $result = $_SESSION['basket']['id'];
+        $result = isset($_SESSION['basket']) ? $_SESSION['basket']['id'] : null;
 
         // parameter may override session
         if (is_numeric($this->GET['id'] ?? null)) {
@@ -145,13 +152,13 @@ class Onyx_Controller_Component_Ecommerce_Basket extends Onyx_Controller {
         if ($this->container->has('component_ecommerce_basket_processed')) return false;
 
         // populate basket action
-        if (is_numeric($this->GET['populate_basket_from_order_id'])) return array(
+        if (is_numeric($this->GET['populate_basket_from_order_id'] ?? null)) return array(
             'action' => 'populate_basket_from_order_id',
             'order_id' => $this->GET['populate_basket_from_order_id']
         );
 
         // add to basket action
-        if (is_numeric($_POST['add'])) return array(
+        if (is_numeric($_POST['add'] ?? null)) return array(
             'action' => 'add',
             'product_variety_id' => $_POST['add'],
             'quantity' => $_POST['quantity'] > 0 ? $_POST['quantity'] : 1,
@@ -159,19 +166,19 @@ class Onyx_Controller_Component_Ecommerce_Basket extends Onyx_Controller {
         );
 
         // remove from basket action
-        if (is_numeric($_POST['remove'])) return array(
+        if (is_numeric($_POST['remove'] ?? null)) return array(
             'action' => 'remove',
             'basket_content_id' => $_POST['remove']
         );
 
         //update basket action
-        if (is_array($_POST['basket_content'])) return array(
+        if (is_array($_POST['basket_content'] ?? null)) return array(
             'action' => 'update',
             'basket_content' => $_POST['basket_content']
         );
 
         //remove by variety id
-        if (is_numeric($_POST['remove_variety_id'])) return array(
+        if (is_numeric($_POST['remove_variety_id'] ?? null)) return array(
             'action' => 'remove_variety_id',
             'product_variety_id' => $_POST['remove_variety_id']
         );
@@ -280,7 +287,7 @@ class Onyx_Controller_Component_Ecommerce_Basket extends Onyx_Controller {
 
     protected function removeVariety($variety_id)
     {
-        $items = $this->Basket_content->getItems($this->basket_id);
+        $items = $this->basket_content->getItems($this->basket_id);
         foreach ($items as $item) {
             if ($item['product_variety_id'] == $variety_id) $this->removeItem($item['id']);
         }
@@ -396,7 +403,7 @@ class Onyx_Controller_Component_Ecommerce_Basket extends Onyx_Controller {
      */
     protected function getProductImage($product_id)
     {
-        if (is_numeric($this->GET['image_size'])) $size = $this->GET['image_size'];
+        if (is_numeric($this->GET['image_size'] ?? null)) $size = $this->GET['image_size'];
         else $size = 50;
         $Image_Controller = new Onyx_Request("component/image~relation=product:role=main:width=$size:height=$size:node_id={$product_id}:limit=0,1~");
         return $Image_Controller->getContent();
@@ -500,6 +507,6 @@ class Onyx_Controller_Component_Ecommerce_Basket extends Onyx_Controller {
     public function canEditBasket()
     {
         if ($this->basket_id == 0) return true; // basket wasn't created yet, editing can start
-        else return ($this->Order->count("basket_id = {$this->basket_id}") == 0); // return true only if there is no order
+        else return ($this->order->count("basket_id = {$this->basket_id}") == 0); // return true only if there is no order
     }
 }
