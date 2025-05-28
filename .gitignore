@@ -6,4 +6,4 @@ __MACOSX
 *~
 *.swp
 vendor
-
+.vscode
