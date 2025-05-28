@@ -2298,20 +2298,22 @@ ALTER TABLE ONLY client_customer ADD CONSTRAINT client_customer_email_key UNIQUE
      */
      
     public function getCustomersWithRole($role_id = false) {
-        
-        require_once 'models/client/client_customer_role.php';
-        $Role = new client_customer_role();
-        
-        $customer_ids = $Role->getCustomerIdsWithRole($role_id);
-        
-        $customer_list = array();
-        
-        foreach ($customer_ids as $customer_id) {
-            
-            $customer_list[] = $this->detail($customer_id);
-            
+        $where = '';
+        if (is_numeric($role_id)) {
+            $where = "WHERE role_id = $role_id";
         }
-        
-        return $customer_list;
+
+        $sql = "
+            SELECT cc.*
+            FROM client_customer_role ccr
+            INNER JOIN client_customer cc ON cc.id = ccr.customer_id
+            {$where}
+            GROUP BY cc.id
+        ";
+
+        $records = $this->executeSql($sql);
+        if (!is_array($records)) return [];
+
+        return $records;
     }
 }

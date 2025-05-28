@@ -2322,38 +2322,57 @@ LEFT OUTER JOIN common_taxonomy_label ON (common_taxonomy_tree.label_id = common
     public function getAuthorStats($customer_id) {
         
         if (!is_numeric($customer_id)) return false;
-        
-        $stats = array();
-        
-        // number of all nodes:
-        $stats['total'] = $this->count("customer_id = $customer_id");
-        
-        // number of all pages created
-        $stats['page'] = $this->count("customer_id = $customer_id AND node_group = 'page'");
-        
-        // number of all layouts created
-        $stats['layout'] = $this->count("customer_id = $customer_id AND node_group = 'layout'");
-        
-        // number of all content created
-        $stats['content'] = $this->count("customer_id = $customer_id AND node_group = 'content'");
-        
-        // number of pages created with description
-        $stats['page_description'] = $this->count("customer_id = $customer_id AND node_group = 'page' AND description != ''");
-        
-        // number of pages type 'news' (blog) created
-        $stats['news'] = $this->count("customer_id = $customer_id AND node_group = 'page' AND node_controller = 'news'");
-        
-        // number of pages type 'recipe' created
-        $stats['recipe'] = $this->count("customer_id = $customer_id AND node_group = 'page' AND node_controller = 'recipe'");
-        
-        // number of pages type 'product' created
-        $stats['product'] = $this->count("customer_id = $customer_id AND node_group = 'page' AND node_controller = 'product'");
-        
-        // number of pages type 'store' created
-        $stats['product'] = $this->count("customer_id = $customer_id AND node_group = 'page' AND node_controller = 'store'");
-        
-        return $stats;
-        
+
+        $sql = "
+            SELECT
+                COUNT(*) as total,
+                COUNT(*) FILTER (WHERE node_group = 'page') as page,
+                COUNT(*) FILTER (WHERE node_group = 'layout') as layout,
+                COUNT(*) FILTER (WHERE node_group = 'content') as content,
+                COUNT(*) FILTER (WHERE node_group = 'page' AND description != '') as page_description,
+                COUNT(*) FILTER (WHERE node_group = 'page' AND node_controller = 'news') as news,
+                COUNT(*) FILTER (WHERE node_group = 'page' AND node_controller = 'recipe') as recipe,
+                COUNT(*) FILTER (WHERE node_group = 'page' AND node_controller = 'product') as product,
+                COUNT(*) FILTER (WHERE node_group = 'page' AND node_controller = 'store') as store
+            FROM common_node
+            WHERE customer_id = $customer_id
+        ";
+
+        $stats = $this->executeSql($sql);
+        return $stats[0];    
+    }
+
+    public function getListWithLastModified($limit = 500)
+    {
+        $sql = "
+            WITH revisions as (
+                SELECT max(id) as id, node_id
+                FROM common_revision
+                WHERE object = 'common_node'
+                GROUP BY node_id
+            )
+
+            SELECT 
+                cn.*, 
+                cc.id as latest_change_by,
+                cc.first_name as latest_change_by_fname,
+                cc.last_name as latest_change_by_lname
+            
+            FROM common_node cn
+            
+            LEFT JOIN revisions r ON cn.id = r.node_id
+            LEFT JOIN common_revision cr ON r.id = cr.id
+            LEFT JOIN client_customer cc ON COALESCE(cr.customer_id, cn.customer_id) = cc.id
+            
+            ORDER BY modified DESC
+            LIMIT {$limit}
+        ";
+
+        $records = $this->executeSql($sql);
+
+        if (!is_array($records)) return [];
+
+        return $records;
     }
 
     /**
