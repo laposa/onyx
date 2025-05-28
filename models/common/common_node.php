@@ -1422,40 +1422,53 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
         return $children;
     }
     
-    /**
-     * TODO: add filter for "display_permission"
-     */
-    
-    function search($q) {
-    
+    /*
+    * search for nodes and products
+    */
+    function search($q)
+    {
         $q = pg_escape_string($q);
-        $qs = explode(" ", $q);
-        $where_query = '';
-        
-        foreach ($qs as $q) {
-        
-            $where_query .= "
-                SELECT *
-                FROM common_node
-                WHERE to_tsvector('english', 
-                    title || ' ' || 
-                    coalesce(page_title, '') || ' ' || 
-                    coalesce(description, '')  || ' ' || 
-                    coalesce(keywords, '')  || ' ' || 
-                    coalesce(content, '')
-                    ) @@ to_tsquery('english', '$q')
+
+        $query = "
+            WITH products AS (
+                SELECT
+                    p.id,
+                    setweight(to_tsvector('english', coalesce(p.name, '') || ' ' || string_agg(pv.sku, ' ') || ' ' || string_agg(pv.name, ' ')), 'A') ||
+                    setweight(to_tsvector('english', coalesce(p.teaser, '')), 'B') ||
+                    setweight(to_tsvector('english', coalesce(p.description, '')), 'C') AS search_vector
+                FROM ecommerce_product p
+                LEFT JOIN ecommerce_product_variety pv ON p.id = pv.product_id  
+                GROUP BY p.id
+            ),
+
+            with_vector AS (
+                SELECT 
+                    n.*, 
+                    setweight(to_tsvector('english', coalesce(n.title,'')), 'A')    ||
+                    setweight(to_tsvector('english', coalesce(n.page_title,'')), 'A')  ||
+                    setweight(to_tsvector('english', coalesce(n.description,'')), 'B') ||
+                    setweight(to_tsvector('english', coalesce(n.keywords,'')), 'A') ||
+                    setweight(to_tsvector('english', coalesce(n.content,'')), 'C') ||
+                    p.search_vector AS search_vector
+                FROM common_node n
+                LEFT JOIN products p ON n.node_controller = 'product' AND n.content::int = p.id
+            )
+
+            SELECT 
+                *,
+                ts_rank_cd(search_vector, websearch_to_tsquery('english', '$q')) AS rank
+            FROM with_vector
+            WHERE 
+                search_vector @@ websearch_to_tsquery('english', '$q')
                 AND node_controller != 'symbolic' AND publish = 1
-                ORDER BY modified DESC;
-            ";
-        
-        }
-        
+            ORDER BY rank DESC;
+        ";
+
         //msg($where_query);
-        $result = $this->executeSQL($where_query);
-        
+        $result = $this->executeSQL($query);
+
         return $result;
     }
-    
     
     /**
      * return pages and products which we want to display in sitemap 
