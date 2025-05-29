@@ -38,8 +38,8 @@ class Onyx_Controller_Component_Ecommerce_Referral_Share extends Onyx_Controller
     {
         $referral = array();
 
-        $min = money_format("%n", $this->conf['minimum_order_amount']);
-        $discount = money_format("%n", $this->conf['discount_value']);
+        $min = money_format($this->conf['minimum_order_amount']);
+        $discount = money_format($this->conf['discount_value']);
 
         $default_message = "Hello," .
                 "I have chosen you to receive $discount off when you " .

@@ -13,8 +13,8 @@
 				<div class="teaser">{ITEM.product_teaser}</div>
 				<div class="detail">
 					<p class="price">
-						<!-- BEGIN: price_single -->{ITEM.price|money_format('%n', %s)}<!-- END: price_single -->
-						<!-- BEGIN: price_range -->From {ITEM.price_min|money_format('%n', %s)} to {ITEM.price_max|money_format('%n', %s)}<!-- END: price_range -->
+						<!-- BEGIN: price_single -->{ITEM.price|money_format(%s)}<!-- END: price_single -->
+						<!-- BEGIN: price_range -->From {ITEM.price_min|money_format(%s)} to {ITEM.price_max|money_format(%s)}<!-- END: price_range -->
 					</p>
 					<a class="button more-details" href="/page/{ITEM.node_id}" title="{ITEM.product_name|htmlspecialchars}"><span>{I18N_MORE_DETAILS}</span></a>
 				</div>

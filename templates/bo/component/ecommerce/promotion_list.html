@@ -34,9 +34,9 @@
                 <td><a title="Edit promotion settings (id={ITEM.id})" onclick="makeAjaxRequest('#discounts-page', '/request/bo/component/ecommerce/promotion_edit~id={ITEM.id}~');" href="#promotionEdit">{ITEM.title|htmlspecialchars}</a></td>
                 <td>{ITEM.code_pattern|htmlspecialchars}</td>
                 <td class="number">{ITEM.usage.count}</td>
-                <td class="money">{ITEM.usage.sum_goods_net|money_format('%n', %s)}</td>
-                <td class="money">{ITEM.usage.sum_face_value_voucher|money_format('%n', %s)}</td>
-                <td class="money">{ITEM.usage.sum_discount|money_format('%n', %s)}</td>
+                <td class="money">{ITEM.usage.sum_goods_net|money_format(%s)}</td>
+                <td class="money">{ITEM.usage.sum_face_value_voucher|money_format(%s)}</td>
+                <td class="money">{ITEM.usage.sum_discount|money_format(%s)}</td>
                 <td><a href="/backoffice/customers/{ITEM.generated_by_customer_id}/detail" title="Display customer detail">{ITEM.customer_title_before} {ITEM.customer_first_name} {ITEM.customer_last_name}</a></td>
                 <td>{ITEM.customer_invite_count}</td>
             </tr>

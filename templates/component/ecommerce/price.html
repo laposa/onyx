@@ -1,10 +1,10 @@
 <!-- BEGIN: content -->
 
 <!-- BEGIN: price_common -->
-    {PRICE.common.value|money_format('%n', %s)}
+    {PRICE.common.value|money_format(%s)}
 <!-- END: price_common -->
 <!-- BEGIN: price_discount -->
-    {PRICE.discount.value|money_format('%n', %s)}
-    {I18N_WAS} <strike>{PRICE.common.value|money_format('%n', %s)}</strike>
+    {PRICE.discount.value|money_format(%s)}
+    {I18N_WAS} <strike>{PRICE.common.value|money_format(%s)}</strike>
 <!-- END: price_discount -->
 <!-- END: content -->

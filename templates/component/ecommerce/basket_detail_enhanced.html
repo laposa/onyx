@@ -8,7 +8,7 @@
             <th scope="col" class="qty">{I18N_QTY}</th>
             <th scope="col" class="price">{I18N_PRICE}</th>
             <!-- BEGIN: discount_fixed -->
-            <th scope="col" class="price">{I18N_DISCOUNT}<br/>{I18N_DISCOUNT_OF} {BASKET.discount_fixed_claim|money_format('%n',%s)|str_replace('.00', '', %s)}</th>
+            <th scope="col" class="price">{I18N_DISCOUNT}<br/>{I18N_DISCOUNT_OF} {BASKET.discount_fixed_claim|money_format(%s)|str_replace('.00', '', %s)}</th>
             <!-- END: discount_fixed -->
             <!-- BEGIN: discount_percentage -->
             <th scope="col" class="price">{I18N_DISCOUNT}<br/>{I18N_DISCOUNT_OF} {BASKET.discount_percentage_claim|number_format(%s, 0)}%</th>
@@ -23,13 +23,13 @@
         <tr class="item">
             <td class="product-detail"><a href="/product/{ITEM.product.id}" title="{ITEM.product.name|htmlspecialchars}">{ITEM.product.name|htmlspecialchars}</a> - {ITEM.product.variety.name|htmlspecialchars} ({ITEM.product.variety.sku|htmlspecialchars}) {ITEM.other_data|htmlspecialchars}</td>
             <td class="qty">{ITEM.quantity}</td>
-            <td class="price">{ITEM.price|money_format('%n',%s)}</td>
+            <td class="price">{ITEM.price|money_format(%s)}</td>
             <!-- BEGIN: discount -->
-            <td class="price">-{ITEM.discount|money_format('%n',%s)}</td>
+            <td class="price">-{ITEM.discount|money_format(%s)}</td>
             <!-- END: discount -->
-            <td class="price">{ITEM.net|money_format('%n',%s)}</td>
-            <td class="vat">{ITEM.vat|money_format('%n',%s)}</td>
-            <td class="total">{ITEM.total|money_format('%n',%s)}</td>
+            <td class="price">{ITEM.net|money_format(%s)}</td>
+            <td class="vat">{ITEM.vat|money_format(%s)}</td>
+            <td class="total">{ITEM.total|money_format(%s)}</td>
         </tr>
         <!-- END: item -->
     </tbody>
@@ -41,13 +41,13 @@
         <tr class="item">
             <td class="title">SUB TOTAL ITEMS AT {ITEM.rate}% VAT</td>
             <td class="qty">{ITEM.quantity}</td>
-            <td class="price">{ITEM.price|money_format('%n',%s)}</td>
+            <td class="price">{ITEM.price|money_format(%s)}</td>
             <!-- BEGIN: discount -->
-            <td class="price">-{ITEM.discount|money_format('%n',%s)}</td>
+            <td class="price">-{ITEM.discount|money_format(%s)}</td>
             <!-- END: discount -->
-            <td class="price">{ITEM.net|money_format('%n',%s)}</td>
-            <td class="vat">{ITEM.vat|money_format('%n',%s)}</td>
-            <td class="total">{ITEM.total|money_format('%n',%s)}</td>
+            <td class="price">{ITEM.net|money_format(%s)}</td>
+            <td class="vat">{ITEM.vat|money_format(%s)}</td>
+            <td class="total">{ITEM.total|money_format(%s)}</td>
         </tr>
         <!-- END: sub_total_item -->
         <tr>
@@ -57,29 +57,29 @@
     <tbody class="breakdown">
         <!-- BEGIN: face_value_voucher -->
         <tr class="face-value-voucher">
-            <td class="title">{I18N_GIFT_VOUCHER_OF} {BASKET.face_value_voucher_claim|money_format('%n',%s)|str_replace('.00', '', %s)}</td>
+            <td class="title">{I18N_GIFT_VOUCHER_OF} {BASKET.face_value_voucher_claim|money_format(%s)|str_replace('.00', '', %s)}</td>
             <td colspan="{COLS_MORE}">&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
             <td>&nbsp;</td>
-            <td class="money"> -{BASKET.face_value_voucher|money_format('%n',%s)}</td>
+            <td class="money"> -{BASKET.face_value_voucher|money_format(%s)}</td>
         </tr>
         <!-- END: face_value_voucher -->
 
         <tr class="delivery">
             <td class="title">{I18N_DELIVERY}</td>
             <td colspan="{COLS_LESS}"></td>
-            <td class="money">{BASKET.delivery.value_net|money_format('%n',%s)}</td>
-            <td class="money">{BASKET.delivery.vat|money_format('%n',%s)}</td>
-            <td class="money">{BASKET.delivery.value|money_format('%n',%s)}</td>
+            <td class="money">{BASKET.delivery.value_net|money_format(%s)}</td>
+            <td class="money">{BASKET.delivery.vat|money_format(%s)}</td>
+            <td class="money">{BASKET.delivery.value|money_format(%s)}</td>
         </tr>
         
         <tr class="total">
             <td class="title">{I18N_TOTAL}</td>
             <td colspan="{COLS_LESS}"></td>
-            <td class="money">{BASKET.total_net|money_format('%n',%s)}</td>
-            <td class="money">{BASKET.total_vat|money_format('%n',%s)}</td>
-            <td class="money">{BASKET.total|money_format('%n',%s)}</td>
+            <td class="money">{BASKET.total_net|money_format(%s)}</td>
+            <td class="money">{BASKET.total_vat|money_format(%s)}</td>
+            <td class="money">{BASKET.total|money_format(%s)}</td>
         </tr>
     </tbody>
 </table>

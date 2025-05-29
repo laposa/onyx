@@ -4,9 +4,9 @@
 
 <p>Thank you for sharing {CONFIGURATION.global.title|htmlspecialchars} with your friends and family. The invitation you sent to {DATA.invited_customer.first_name} has been accepted. </p>
 
-<p>As promised, we are pleased to offer you {DATA.discount_value|money_format('%n', %s)} off your next order when you spend over {DATA.minimum_order_amount|money_format('%n', %s)}.</p>
+<p>As promised, we are pleased to offer you {DATA.discount_value|money_format(%s)} off your next order when you spend over {DATA.minimum_order_amount|money_format(%s)}.</p>
 
-<p>Your new {DATA.discount_value|money_format('%n', %s)} voucher code is: <strong>{DATA.code}</strong></p>
+<p>Your new {DATA.discount_value|money_format(%s)} voucher code is: <strong>{DATA.code}</strong></p>
 
 <p>Full details of your {CONFIGURATION.global.title|htmlspecialchars} vouchers, and the friends you have invited can be found in your <a href="{PROTOCOL}://{_SERVER.HTTP_HOST}/my-account/invite-friends">{CONFIGURATION.global.title|htmlspecialchars} Account Page</a>.</p>
 
