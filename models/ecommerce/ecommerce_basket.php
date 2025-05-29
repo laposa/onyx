@@ -195,8 +195,8 @@ class ecommerce_basket extends Onyx_Model {
         }
 
         // TODO: delivery is not being calculated here?
-        $basket['total_net'] = $basket['sub_total']['net'] + $basket['delivery']['value_net'];
-        $basket['total_vat'] = $basket['sub_total']['vat'] + $basket['delivery']['vat'];
+        $basket['total_net'] = $basket['sub_total']['net'] + ($basket['delivery']['value_net'] ?? 0);
+        $basket['total_vat'] = $basket['sub_total']['vat'] + ($basket['delivery']['vat'] ?? 0);
         $basket['total'] = max(0, $basket['sub_total']['price'] - $basket['face_value_voucher'] - $basket['discount']) + ($basket['delivery']['value'] ?? 0);
     }
 
