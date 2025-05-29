@@ -621,15 +621,15 @@ class ecommerce_promotion extends Onyx_Model {
                 $Basket->calculateBasketDiscount($basket, $code, false);
                 $usage = $this->getUsage($promotion_data['id'], $customer_id);
                 if ($usage && ($usage['sum_discount'] + $basket['discount']) > $promotion_data['limit_cumulative_discount']) {
-                    $limit = money_format("%n", $promotion_data['limit_cumulative_discount']);
-                    $provided = money_format("%n", $usage['sum_discount']);
+                    $limit = money_format($promotion_data['limit_cumulative_discount']);
+                    $provided = money_format($usage['sum_discount']);
                     if (!$this->container->has('ecommerce_promotion:limit_cumulative_discount_exceeded')) {
                         $msg = "Code \"$code\" is limited to maximum discount value of $limit. " .
                             "You’ve already used of {$provided}";
                         if ($promotion_data['discount_percentage_value'] > 0) {
                             $max_order = ($promotion_data['limit_cumulative_discount'] - $usage['sum_discount']) / ($promotion_data['discount_percentage_value'] / 100);
                             if ($max_order > 0) {
-                                $max_order = money_format("%n", $max_order);
+                                $max_order = money_format($max_order);
                                 $msg .= ", so your current order would exceed your allotted discount value. " .
                                         "Please try again with an order of no greater than $max_order";
                                 }
@@ -670,8 +670,8 @@ class ecommerce_promotion extends Onyx_Model {
             if ($promotion_data['limit_to_order_amount'] > 0) {
                 if ($order_value < $promotion_data['limit_to_order_amount']) {
                     if (!$this->container->has('ecommerce_promotion:order_amount')) {
-                        $amount = money_format("%n", $promotion_data['limit_to_order_amount']);
-                        $sub_total = money_format("%n", $order_value);
+                        $amount = money_format($promotion_data['limit_to_order_amount']);
+                        $sub_total = money_format($order_value);
                         msg("The voucher code \"$code\" is restricted to orders in amount of $amount. You have only $sub_total in you basket.", 'error');
                         $this->container->set('ecommerce_promotion:order_amount', true);
                     }

@@ -25,7 +25,7 @@ Dear {DATA.customer.first_name},
         <td style="border: 1px solid #a39161; padding: 20px; ">
             <h3><a style="font-size: 16px; color: #a39161;" href="{DATA.product.url}">{DATA.product.name|htmlspecialchars} - {DATA.product.variety.name|htmlspecialchars}</a></h3>
             <p>{DATA.product.teaser|strip_tags|htmlspecialchars}</p>
-            <p><strong>{DATA.product.variety.price.value||money_format('%n', %s)}</strong></p>
+            <p><strong>{DATA.product.variety.price.value||money_format(%s)}</strong></p>
         </td>
     </tr>
 </table>

@@ -76,8 +76,8 @@ $(document).ready(function() {
                     <td {ROWSPAN} class="product_name"><span class="{ITEM.disabled}"><a href="/backoffice/products/{ITEM.product_id}/edit">{ITEM.product_name|htmlspecialchars}</a></span></td>
                 <!-- END: imagetitle -->
                 <td class="variety-name"><a class="title {ITEM.variety_publish}" id="ecommerce-product-variety-name-id-{ITEM.variety_id}" href="#{ITEM.variety_id}">{ITEM.variety_name|htmlspecialchars}</a></td>
-                <td class="price money">{ITEM.price|money_format('%n', %s)}</td>
-                <td class="price money"><a class="price" id="ecommerce_price-net-value-product-variety-id-{ITEM.variety_id}" href="#{ITEM.variety_id}">{ITEM.price_net|money_format('%n', %s)}</a></td>
+                <td class="price money">{ITEM.price|money_format(%s)}</td>
+                <td class="price money"><a class="price" id="ecommerce_price-net-value-product-variety-id-{ITEM.variety_id}" href="#{ITEM.variety_id}">{ITEM.price_net|money_format(%s)}</a></td>
                 <td class="sku number"><a href="#{ITEM.variety_id}" id="ecommerce-product-variety-sku-id-{ITEM.variety_id}">{ITEM.sku}</a></td>
                 <td class="stock number"><a href="#{ITEM.variety_id}" id="ecommerce-product-variety-stock-id-{ITEM.variety_id}" data-original-stock="{ITEM.stock}" data-num-notifications="{ITEM.num_notifications}">{ITEM.stock}</a></td>
             </tr>

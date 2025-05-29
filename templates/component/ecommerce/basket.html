@@ -17,7 +17,7 @@
                     <tbody>
                     <!-- BEGIN: item -->
                         <tr><td><a href="/page/{ITEM.product.node.id}" title="{ITEM.product.node.title}"><span>{ITEM.product.name}</span></a> - {ITEM.product.variety.name} ({ITEM.product.variety.sku})<br />
-                        {ITEM.quantity} @ {ITEM.price} - {ITEM.total|money_format('%n',%s)}</td><td class="remove"><a class="remove" href="#item_id_{ITEM.id}" title="Remove Item"><span>X</span></a></td></tr>
+                        {ITEM.quantity} @ {ITEM.price} - {ITEM.total|money_format(%s)}</td><td class="remove"><a class="remove" href="#item_id_{ITEM.id}" title="Remove Item"><span>X</span></a></td></tr>
                     <!-- END: item -->
                     </tbody>
                 </table>
@@ -26,7 +26,7 @@
             
             <div class="checkout">
                 <div class="summary">
-                    {I18N_ITEMS}: <strong>{BASKET.quantity}</strong> <span class="delimiter">|</span> {I18N_TOTAL}: <strong>{BASKET.total|money_format('%n',%s)}</strong> {VAT_NOTE}
+                    {I18N_ITEMS}: <strong>{BASKET.quantity}</strong> <span class="delimiter">|</span> {I18N_TOTAL}: <strong>{BASKET.total|money_format(%s)}</strong> {VAT_NOTE}
                 </div>
                 <div class="go-to-checkout">
                     <a href="/page/{NODE_CONF.id_map-checkout}"><span>{I18N_CHECKOUT}</span></a>

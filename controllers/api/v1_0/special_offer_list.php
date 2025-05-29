@@ -84,7 +84,7 @@ class Onyx_Controller_Api_v1_0_Special_Offer_List extends Onyx_Controller_Api {
         $item['images'] = array("$protocol://{$_SERVER['HTTP_HOST']}/thumbnail/180x180/" . $Product->getProductMainImageSrc($original_item['product_id']));
         $item['rondel'] = $this->getRoundelText($original_item);
         $item['rondel_image_url'] = $this->getRoundelImageSource($original_item);
-        if ($original_item['price'] > 0) $item['price'] = money_format('%n', $original_item['price']);
+        if ($original_item['price'] > 0) $item['price'] = money_format($original_item['price']);
         else $item['price'] = '';
         $item['expiry_date'] = $original_item['group_schedule_end'];
         $item['taxonomy'] = $this->getTaxonomy($original_item['product_id'], $Product);

@@ -6,6 +6,8 @@
         <label>Title</label>    
         <input type="text" name="node[title]" value="{NODE.title|htmlspecialchars}" />
     </div>
+    {FILE "bo/node/item_page_title.html"}
+    {FILE "bo/node/item_display_title.html"}
 </fieldset>
 
 {ONYX_REQUEST_node_ids #bo/component/selected_page_list~node_id=GET.id~}

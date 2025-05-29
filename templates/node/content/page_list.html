@@ -1,9 +1,10 @@
 <!-- BEGIN: content -->
 <div id="node-id-{NODE.id}" class="content page-list {NODE.css_class|htmlspecialchars} {NODE.taxonomy_class}">
     <div class="wrapper">
-        <!-- BEGIN: title --><h3 class="content-title"><span>{NODE.title|htmlspecialchars}</span></h3><!-- END: title -->
+        <!-- BEGIN: title --><h3 class="content-title"><span>{NODE.page_title|htmlspecialchars}</span></h3><!-- END: title -->
         <div class="content-body">
-            <!-- BEGIN: item --><div class="item {ITEM.taxonomy_class} node-id-{ITEM.id}">
+            <!-- BEGIN: item -->
+            <div class="item {ITEM.taxonomy_class} node-id-{ITEM.id}">
                 <a href="/page/{ITEM.id}">
                     <div class="image"><img alt="{ITEM.image.title|htmlspecialchars}" title="{ITEM.image.title|htmlspecialchars}" src="/thumbnail/600x400/{ITEM.image.src}?fill=1" /></div>
                     <div class="info">
@@ -13,7 +14,8 @@
                         </div>
                     </div>
                 </a>
-            </div><!-- END: item -->
+            </div>
+            <!-- END: item -->
         </div>
     </div>
 </div>

@@ -30,11 +30,11 @@
                         {ONYX_REQUEST_discount #component/ecommerce/promotion_code_basket}
                     </td>
                     <td class="update"><button class="update" type="submit" name="update" value="Update"><span>{I18N_UPDATE}</span></button></td>
-                    <td colspan="2" class="sub_total money">{I18N_SUB_TOTAL} {VAT_NOTE} {BASKET.sub_total.price|money_format('%n',%s)}<!-- BEGIN: face_value_voucher --><br />{I18N_GIFT_VOUCHER_OF} {BASKET.face_value_voucher_claim|money_format('%n',%s)|str_replace('.00', '', %s)} -{BASKET.face_value_voucher|money_format('%n',%s)}<br />
-                            After Discount {BASKET.total|money_format('%n',%s)}
+                    <td colspan="2" class="sub_total money">{I18N_SUB_TOTAL} {VAT_NOTE} {BASKET.sub_total.price|money_format(%s)}<!-- BEGIN: face_value_voucher --><br />{I18N_GIFT_VOUCHER_OF} {BASKET.face_value_voucher_claim|money_format(%s)|str_replace('.00', '', %s)} -{BASKET.face_value_voucher|money_format(%s)}<br />
+                            After Discount {BASKET.total|money_format(%s)}
                         <!-- END: face_value_voucher --><!-- BEGIN: discount --><br />
-                            {I18N_DISCOUNT} -{BASKET.discount|money_format('%n',%s)}<br />
-                            {I18N_AFTER_DISCOUNT} {BASKET.total|money_format('%n',%s)}
+                            {I18N_DISCOUNT} -{BASKET.discount|money_format(%s)}<br />
+                            {I18N_AFTER_DISCOUNT} {BASKET.total|money_format(%s)}
                         <!-- END: discount -->
                     </td>
                 </tr>
@@ -46,8 +46,8 @@
                 <td class="product_detail"><div class="image"><a href="/page/{ITEM.product.node.id}" title="{ITEM.product.node.title|htmlspecialchars}">{IMAGE_PRODUCT}</a></div><a href="/page/{ITEM.product.node.id}" title="{ITEM.product.node.title|htmlspecialchars}">{ITEM.product.name|htmlspecialchars}</a><br />{ITEM.product.variety.name|htmlspecialchars} ({ITEM.product.variety.sku|htmlspecialchars}) {ITEM.other_data|htmlspecialchars}
                 </td>
                 <td class="quanity"><input class="text basket-content-quantity" type="text" name="basket_content[{ITEM.id}][quantity]" value="{ITEM.quantity}" onfocus="$('button.update').addClass('highlightbutton');"/></td>
-                <td class="price money">{ITEM.unit_price|money_format('%n',%s)}</td>
-                <td class="total money">{ITEM.price|money_format('%n',%s)}</td>
+                <td class="price money">{ITEM.unit_price|money_format(%s)}</td>
+                <td class="total money">{ITEM.price|money_format(%s)}</td>
             </tr>
                 <!-- END: item -->
                 

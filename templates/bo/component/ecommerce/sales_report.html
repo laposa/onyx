@@ -20,7 +20,7 @@
                 <td></td>
                 <td>Total (before discount):</td>
                 <td>{TOTAL_UNITS}</td>
-                <td class="money">{TOTAL_REVENUE|money_format('%n', %s)}</td>
+                <td class="money">{TOTAL_REVENUE|money_format(%s)}</td>
             </tr>
         </tfoot>
         <!-- END: foot -->
@@ -30,7 +30,7 @@
                     <td><a href="/backoffice/products/variety/{ITEM.variety_id}/edit" onclick="openEdit('/popup_window/bo/component/ecommerce/product_variety_edit~id={ITEM.variety_id}~', this, 0); return false;">{ITEM.variety_sku}</a></td>
                     <td><a href="/product/{ITEM.product_id}">{ITEM.product_name}</a> / <a href="/backoffice/products/variety/{ITEM.variety_id}/edit" onclick="openEdit('/popup_window/bo/component/ecommerce/product_variety_edit~id={ITEM.variety_id}~', this, 0); return false;">{ITEM.variety_name}</a></td>
                     <td>{ITEM.count}</td>
-                    <td class="money">{ITEM.revenue|money_format('%n', %s)}</td>
+                    <td class="money">{ITEM.revenue|money_format(%s)}</td>
                 </tr>
             <!-- END: item -->
             <!-- BEGIN: empty -->

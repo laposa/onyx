@@ -309,6 +309,7 @@ class XTemplate {
 	// TODO: get rid of strftime across projects - replace with date_format
 	'date', 'idate', 'strtotime', 'strftime', 'date_format', 'getdate', 'gettimeofday', 'timetostr',
 	// Number modifiers
+	// original oney_format was removed in PHP 8.0; replaced with custom identically-named function in onyx.functions.php
 	'number_format', 'money_format','convertNumeralArabicToRoman',
 	// Miscellaneous modifiers
 	'var_dump', 'print_r'
