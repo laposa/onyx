@@ -25,7 +25,7 @@ div.return div.order-detail p.actions {display: none;}
                 <span class="field">
                     <select name="return[order_id]" id="return-order-id" onchange="submit()">
                         <!-- BEGIN: item -->
-                        <option value="{ITEM.order_id}" {SELECTED}>Order #{ITEM.order_id} from {ITEM.order_created|strtotime|strftime('%A %e %B %Y', %s)}</option>
+                        <option value="{ITEM.order_id}" {SELECTED}>Order #{ITEM.order_id} from {ITEM.order_created|date_format('l d F Y')}</option>
                         <!-- END: item -->
                     </select>
                 </span>

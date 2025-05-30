@@ -96,7 +96,7 @@ class ecommerce_delivery_carrier extends Onyx_Model {
         if (array_key_exists('ecommerce_delivery_carrier', $GLOBALS['onyx_conf'])) $conf = $GLOBALS['onyx_conf']['ecommerce_delivery_carrier'];
         else $conf = array();
     
-        if (!is_numeric($conf['default_carrier_id'])) $conf['default_carrier_id'] = 1; //Standard - fixed value
+        if (!is_numeric($conf['default_carrier_id'] ?? null)) $conf['default_carrier_id'] = 1; //Standard - fixed value
         
         return $conf;
     }

@@ -55,7 +55,7 @@ class Onyx_Controller_Component_Client_Login extends Onyx_Controller {
             }
             
             /* log in as client from backoffice */
-            if (Onyx_Bo_Authentication::getInstance()->isAuthenticated() && $this->GET['client']['email']) {
+            if (Onyx_Bo_Authentication::getInstance()->isAuthenticated() && isset($this->GET['client']) && $this->GET['client']['email']) {
                 
                 $customer_detail = $Customer->getClientByEmail($this->GET['client']['email']);
                 
@@ -82,7 +82,7 @@ class Onyx_Controller_Component_Client_Login extends Onyx_Controller {
         }
                 
         //output
-        $this->tpl->assign('CLIENT', $_POST['client']);
+        $this->tpl->assign('CLIENT', $_POST['client'] ?? '');
         $this->tpl->parse('content.login_box');
         
         return true;

@@ -25,7 +25,7 @@
 <tr>
     <td><a href="/page/{NODE_CONF.id_map-order_detail}?order_id={ITEM.order_id}">#{ITEM.order_id}</a></td>
     <td>{ITEM.order_created}</td>
-    <td class="money">{ITEM.goods_net|money_format('%n',%s)}</td>
+    <td class="money">{ITEM.goods_net|money_format(%s)}</td>
     <td>
         {ITEM.status_title}
         

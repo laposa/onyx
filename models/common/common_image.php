@@ -320,21 +320,23 @@ CREATE TABLE common_image (
         
         if (!is_numeric($customer_id)) return false;
         
-        $stats = array();
-        
-        // this uses list from templates/bo/component/file_role
-        $stats['total'] = $this->count("customer_id = $customer_id");
-        $stats['main'] = $this->count("role = 'main' AND customer_id = $customer_id");
-        $stats['teaser'] = $this->count("role = 'teaser' AND customer_id = $customer_id");
-        $stats['header'] = $this->count("role = 'header' AND customer_id = $customer_id");
-        $stats['feature'] = $this->count("role = 'feature' AND customer_id = $customer_id");
-        $stats['promotion'] = $this->count("role = 'promotion' AND customer_id = $customer_id");
-        $stats['background'] = $this->count("role = 'background' AND customer_id = $customer_id");
-        $stats['RTE'] = $this->count("role = 'RTE' AND customer_id = $customer_id");
-        $stats['opengraph'] = $this->count("role = 'opengraph' AND customer_id = $customer_id");
-                
-        return $stats;
-        
+        $sql = "
+            SELECT
+                COUNT(*) as total,
+                COUNT(*) FILTER (WHERE role = 'main') as main,
+                COUNT(*) FILTER (WHERE role = 'teaser') as teaser,
+                COUNT(*) FILTER (WHERE role = 'header') as header,
+                COUNT(*) FILTER (WHERE role = 'feature') as feature,
+                COUNT(*) FILTER (WHERE role = 'promotion') as promotion,
+                COUNT(*) FILTER (WHERE role = 'background') as background,
+                COUNT(*) FILTER (WHERE role = 'RTE') as rte,
+                COUNT(*) FILTER (WHERE role = 'opengraph') as opengraph
+            FROM common_image
+            WHERE customer_id = $customer_id
+        ";
+
+        $stats = $this->executeSql($sql);
+        return $stats[0];           
     }
     
 }

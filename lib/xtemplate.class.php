@@ -306,7 +306,8 @@ class XTemplate {
 	'urlencode', 'urldecode','xmlentities','html2text','textile','json_encode','json_decode',
 	'makeHash',
 	// Date / time modifiers
-	'date', 'idate', 'strtotime', 'strftime', 'getdate', 'gettimeofday', 'timetostr',
+	// TODO: get rid of strftime across projects - replace with date_format
+	'date', 'idate', 'strtotime', 'strftime', 'date_format', 'getdate', 'gettimeofday', 'timetostr',
 	// Number modifiers
 	'number_format', 'money_format','convertNumeralArabicToRoman',
 	// Miscellaneous modifiers
@@ -596,8 +597,8 @@ class XTemplate {
      * @example {name.key} {name.key2} {name.key3} in template
      *
      * @access public
-     * @param string / array / object $name Variable to assign $val to
-     * @param string / array / object $val Value to assign to $name
+     * @param string $name Variable to assign $val to
+     * @param string | array | object $val Value to assign to $name
 	 * @param boolean $reset_array Reset the variable array if $val is an array
      */
 	public function assign ($name, $val = '', $reset_array = true) {
@@ -885,6 +886,10 @@ class XTemplate {
 								}
 							} elseif (in_array($callback, $this->allowed_callbacks) && function_exists($callback) && is_callable($callback)) {
 								if (isset($parameters)) {
+									// Workaround for strftime deprecation in PHP 8.1
+									if($callback == 'date_format') {
+										$parameters[0] = new DateTime($parameters[0]);
+									}
 									$var = call_user_func_array($callback, $parameters);
 									unset($parameters);
 								} else {

@@ -276,6 +276,27 @@ function onyxSlug($text, $and_string = I18N_AND) {
 }
 
 /**
+ * global function to replace money_format removed in PHP 8.0
+ *
+ * @param float $amount
+ * @return string
+ */
+
+function money_format($amount) {
+    if (!is_numeric($amount)) {
+        msg("money_format: amount is not numeric", "error", 1);
+        return false;
+    }
+
+    $locale = $GLOBALS['onyx_conf']['global']['locale'] ?? 'en_GB.UTF-8';
+    $currency = $GLOBALS['onyx_conf']['global']['default_currency'] ?? 'GBP';
+
+    $fmt = new NumberFormatter($locale, NumberFormatter::CURRENCY);
+    $currency = $fmt->formatCurrency((float) $amount, $currency);
+    return $currency;
+}
+
+/**
  * return active template directory
  *
  * @param string $file

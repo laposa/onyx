@@ -8,7 +8,7 @@
             <!-- BEGIN: item -->
             <div class="row type">
                 <input type="radio" class="radio" name="delivery[carrier_id]" value="{ITEM.id}" id="delivery-carrier-id-{ITEM.id}" title="{ITEM.description|htmlspecialchars}" {ITEM.selected} onclick="$(this).parents('.page-wrapper').css('opacity', 0.3).css('cursor', 'wait'); submit()" />
-                <label for="delivery-carrier-id-{ITEM.id}" title="{ITEM.description|htmlspecialchars}">{ITEM.title|htmlspecialchars} <span class="calculated">({ITEM.calculated_delivery.value|money_format('%n',%s)})</span></label>
+                <label for="delivery-carrier-id-{ITEM.id}" title="{ITEM.description|htmlspecialchars}">{ITEM.title|htmlspecialchars} <span class="calculated">({ITEM.calculated_delivery.value|money_format(%s)})</span></label>
                 
             </div>
             <!-- END: item -->

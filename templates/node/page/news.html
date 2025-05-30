@@ -15,7 +15,7 @@
             <h1 class="page-title">{NODE.page_title|htmlspecialchars}</h1>
             <p>{ITEM.description|htmlspecialchars}</p>
             <div class="byline {AUTHOR_EMPTY}">
-                <time datetime="{NODE.created|strtotime|strftime('%Y-%m-%d', %s)}">{NODE.created|strtotime|strftime('%A %e %B %Y', %s)}</time>
+                <time datetime="{NODE.created|date_format('Y-m-d')}">{NODE.created|date_format('l d F Y')}</time>
                 <address class="author">{ITEM.author_detail.name|htmlspecialchars}</address>
             </div>
             <figure>

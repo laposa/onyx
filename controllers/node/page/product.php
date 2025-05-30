@@ -148,7 +148,7 @@ class Onyx_Controller_Node_Page_Product extends Onyx_Controller_Node_Page_Defaul
         require_once('models/ecommerce/ecommerce_product_image.php');
         $ecommerce_product_image_conf = ecommerce_product_image::initConfiguration();
 
-        if (is_numeric($this->GET['image_width'])) $image_width = $this->GET['image_width'];
+        if (is_numeric($this->GET['image_width'] ?? null)) $image_width = $this->GET['image_width'];
         else $image_width = $GLOBALS['onyx_conf']['global']['product_detail_image_width'];
         
         $this->GET['image_width'] = $image_width;

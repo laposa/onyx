@@ -46,7 +46,7 @@ class Onyx_Controller_Component_Ecommerce_Price extends Onyx_Controller {
         
         $this->tpl->assign("PRICE", $pt);
             
-        if ($pt['discount']['value'] > 0) {
+        if (isset($pt['discount']['value']) && $pt['discount']['value'] > 0) {
             $this->tpl->parse('content.price_discount');
         } else {
             $this->tpl->parse('content.price_common');

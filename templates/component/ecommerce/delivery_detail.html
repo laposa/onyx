@@ -6,8 +6,8 @@
         <caption>Delivery #{ITEM.id}</caption>
         <tbody>
             <tr><td>Carrier</td><td class="money"><strong>{ITEM.carrier_detail.title}</strong></td></tr>
-            <tr><td>Value net</td><td class="money">{ITEM.value_net|money_format('%n', %s)}</td></tr>
-            <tr><td>VAT</td><td class="money">{ITEM.vat|money_format('%n', %s)}</td></tr>
+            <tr><td>Value net</td><td class="money">{ITEM.value_net|money_format(%s)}</td></tr>
+            <tr><td>VAT</td><td class="money">{ITEM.vat|money_format(%s)}</td></tr>
             <tr><td>VAT rate</td><td class="money">{ITEM.vat_rate|number_format(%s, 2)}</td></tr>
             <!-- <tr><td>required datetime</td><td class="money">{ITEM.required_datetime}</td></tr> -->
             <tr><td>Customer note</td><td class="money">{ITEM.customer_note}</td></tr>

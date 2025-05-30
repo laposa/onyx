@@ -60,7 +60,7 @@ class Onyx_Controller_Component_Ecommerce_Product_Related extends Onyx_Controlle
          * template
          */
         
-        switch ($this->GET['product_list_template']) {
+        switch ($this->GET['product_list_template'] ?? '') {
         
             case 'shelf':
                 $product_list_template = 'product_list_shelf';
@@ -96,7 +96,7 @@ class Onyx_Controller_Component_Ecommerce_Product_Related extends Onyx_Controlle
                  * check request for image width and customize query in that case
                  */
                 
-                if (is_numeric($this->GET['image_width'])) {
+                if (is_numeric($this->GET['image_width'] ?? null)) {
                     
                     $image_width = $this->GET['image_width'];
                     $query = $query . ":image_width=$image_width";

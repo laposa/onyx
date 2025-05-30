@@ -6,15 +6,15 @@
         <caption>Invoice #{INVOICE.id}</caption>
         <tbody>
             <tr><td>Created</td><td>{INVOICE.created}</td></tr>
-            <tr><td>Goods net</td><td class="money">{INVOICE.goods_net|money_format('%n', %s)}</td></tr>
-            <tr><td>Goods VAT standard rate</td><td class="money">{INVOICE.goods_vat_sr|money_format('%n', %s)}</td></tr>
-            <tr><td>Goods VAT reduced_rate</td><td class="money">{INVOICE.goods_vat_rr|money_format('%n', %s)}</td></tr>
-            <tr><td>Delivery net</td><td class="money">{INVOICE.delivery_net|money_format('%n', %s)}</td></tr>
-            <tr><td>Delivery VAT</td><td class="money">{INVOICE.delivery_vat|money_format('%n', %s)}</td></tr>
-            <tr><td>Voucher Discount</td><td class="money">{INVOICE.voucher_discount|money_format('%n', %s)}</td></tr>
+            <tr><td>Goods net</td><td class="money">{INVOICE.goods_net|money_format(%s)}</td></tr>
+            <tr><td>Goods VAT standard rate</td><td class="money">{INVOICE.goods_vat_sr|money_format(%s)}</td></tr>
+            <tr><td>Goods VAT reduced_rate</td><td class="money">{INVOICE.goods_vat_rr|money_format(%s)}</td></tr>
+            <tr><td>Delivery net</td><td class="money">{INVOICE.delivery_net|money_format(%s)}</td></tr>
+            <tr><td>Delivery VAT</td><td class="money">{INVOICE.delivery_vat|money_format(%s)}</td></tr>
+            <tr><td>Voucher Discount</td><td class="money">{INVOICE.voucher_discount|money_format(%s)}</td></tr>
         </tbody>
         <tfoot>
-            <tr><td>Total payment amount</td><td class="money">{INVOICE.payment_amount|money_format('%n', %s)}</td></tr>
+            <tr><td>Total payment amount</td><td class="money">{INVOICE.payment_amount|money_format(%s)}</td></tr>
         </tfoot>
     </table>
     <!-- END: invoice -->

@@ -28,6 +28,11 @@
 {CONFIGURATION.global.extra_head}
 </head>
 <body class="{NODE.body_css_class|htmlspecialchars}" data-node-id="{NODE.node_id}">
+<ul id="accessibility-menu">
+    <li><a href="#primary-navigation">Skip to navigation</a></li>
+    <li><a href="#content">Skip to content</a></li>
+</ul>
+
 {MESSAGES}
 {ONYX_REQUEST_google_tag_manager #component/google_tag_manager}
 {CONFIGURATION.global.extra_body_top}
@@ -49,7 +54,7 @@
 </header>
 
 <main class="site">
-    <div class="wrapper">
+    <div id="content" class="wrapper">
         {SUB_CONTENT}
     </div>
 </main>

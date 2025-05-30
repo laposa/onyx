@@ -11,6 +11,10 @@ require_once('models/ecommerce/ecommerce_promotion.php');
 
 class Onyx_Controller_Component_Ecommerce_Basket_Detail extends Onyx_Controller_Component_Ecommerce_Basket {
 
+    public $guest_customer;
+    public $delivery_country;
+    public $delivery_address_id;
+    public $delivery_options;
     /**
      * main action
      */
@@ -91,7 +95,7 @@ class Onyx_Controller_Component_Ecommerce_Basket_Detail extends Onyx_Controller_
         $Delivery = new ecommerce_delivery();
 
         // order exists?
-        if ($this->orderFinished($basket['id'], $this->GET['order_id'])) {
+        if ($this->orderFinished($basket['id'], $this->GET['order_id'] ?? null)) {
 
             $Promotion = new ecommerce_promotion();
             $Promotion->setCacheable(false);
@@ -117,6 +121,7 @@ class Onyx_Controller_Component_Ecommerce_Basket_Detail extends Onyx_Controller_
                     $this->delivery_country, 
                     $promotion_detail
                 );
+
             } else {
                 $basket['delivery'] = $Delivery->calculateDelivery(
                     $basket, 
@@ -124,6 +129,7 @@ class Onyx_Controller_Component_Ecommerce_Basket_Detail extends Onyx_Controller_
                     $this->delivery_address_id, 
                     $promotion_detail
                 );
+
             }
 
             // this only applies when using wizard checkout
@@ -165,17 +171,17 @@ class Onyx_Controller_Component_Ecommerce_Basket_Detail extends Onyx_Controller_
      
     protected function prepareAddresses()
     {
-        $this->guest_customer = $_SESSION['client']['customer']['guest'];
-        $this->delivery_country = $_SESSION['client']['address']['delivery']['country_id'];
+        $this->guest_customer = $_SESSION['client']['customer']['guest'] ?? null;
+        $this->delivery_country = $_SESSION['client']['address']['delivery']['country_id'] ?? null;
 
         //prepare shipping address
-        if (is_numeric($this->GET['delivery_address_id'])) $this->delivery_address_id = $this->GET['delivery_address_id'];
-        else if (is_numeric($_SESSION['client']['customer']['delivery_address_id'])) $this->delivery_address_id = $_SESSION['client']['customer']['delivery_address_id'];
+        if (is_numeric($this->GET['delivery_address_id'] ?? null)) $this->delivery_address_id = $this->GET['delivery_address_id'];
+        else if (is_numeric($_SESSION['client']['customer']['delivery_address_id'] ?? null)) $this->delivery_address_id = $_SESSION['client']['customer']['delivery_address_id'];
         else if (!$this->guest_customer) msg('Unknown delivery_address_id', 'error');
 
         //prepare delivery options
-        if (is_array($this->GET['delivery_options'])) $this->delivery_options = $this->GET['delivery_options'];
-        else if (is_array($_SESSION['delivery_options'])) $this->delivery_options = $_SESSION['delivery_options'];
+        if (is_array($this->GET['delivery_options'] ?? null)) $this->delivery_options = $this->GET['delivery_options'];
+        else if (is_array($_SESSION['delivery_options'] ?? null)) $this->delivery_options = $_SESSION['delivery_options'];
         else $this->delivery_options = false;
     }
 

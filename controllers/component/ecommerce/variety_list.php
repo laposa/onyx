@@ -10,6 +10,9 @@ require_once('models/ecommerce/ecommerce_product_variety.php');
 
 class Onyx_Controller_Component_Ecommerce_Variety_List extends Onyx_Controller {
 
+    public $Product;
+    public $ProductVariety;
+
     /**
      * main action
      */
@@ -31,9 +34,8 @@ class Onyx_Controller_Component_Ecommerce_Variety_List extends Onyx_Controller {
         $this->Product = new ecommerce_product();
         $this->ProductVariety = new ecommerce_product_variety();
          
-        
         $product_id = $this->GET['product_id'];
-        $sku = $this->GET['sku'];
+        $sku = $this->GET['sku'] ?? null;
 
         if ($sku && !is_numeric($product_id)) {
             $variety_list = $this->ProductVariety->getVarietyListForSKU($sku);

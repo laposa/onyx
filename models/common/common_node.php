@@ -1226,7 +1226,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
         /**
          * check requested parent is not under item in page tree
          */
-        $path = $this->getFullPath($item_id);
+        $path = $this->getFullPath($item_parent);
         if (!is_array($path)) $path = [];
         
         $parent_path = array_reverse($path);
@@ -1442,40 +1442,53 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
         return $children;
     }
     
-    /**
-     * TODO: add filter for "display_permission"
-     */
-    
-    function search($q) {
-    
+    /*
+    * search for nodes and products
+    */
+    function search($q)
+    {
         $q = pg_escape_string($q);
-        $qs = explode(" ", $q);
-        $where_query = '';
-        
-        foreach ($qs as $q) {
-        
-            $where_query .= "
-                SELECT *
-                FROM common_node
-                WHERE to_tsvector('english', 
-                    title || ' ' || 
-                    coalesce(page_title, '') || ' ' || 
-                    coalesce(description, '')  || ' ' || 
-                    coalesce(keywords, '')  || ' ' || 
-                    coalesce(content, '')
-                    ) @@ to_tsquery('english', '$q')
+
+        $query = "
+            WITH products AS (
+                SELECT
+                    p.id,
+                    setweight(to_tsvector('english', coalesce(p.name, '') || ' ' || string_agg(pv.sku, ' ') || ' ' || string_agg(pv.name, ' ')), 'A') ||
+                    setweight(to_tsvector('english', coalesce(p.teaser, '')), 'B') ||
+                    setweight(to_tsvector('english', coalesce(p.description, '')), 'C') AS search_vector
+                FROM ecommerce_product p
+                LEFT JOIN ecommerce_product_variety pv ON p.id = pv.product_id  
+                GROUP BY p.id
+            ),
+
+            with_vector AS (
+                SELECT 
+                    n.*, 
+                    setweight(to_tsvector('english', coalesce(n.title,'')), 'A')    ||
+                    setweight(to_tsvector('english', coalesce(n.page_title,'')), 'A')  ||
+                    setweight(to_tsvector('english', coalesce(n.description,'')), 'B') ||
+                    setweight(to_tsvector('english', coalesce(n.keywords,'')), 'A') ||
+                    setweight(to_tsvector('english', coalesce(n.content,'')), 'C') ||
+                    p.search_vector AS search_vector
+                FROM common_node n
+                LEFT JOIN products p ON n.node_controller = 'product' AND n.content::int = p.id
+            )
+
+            SELECT 
+                *,
+                ts_rank_cd(search_vector, websearch_to_tsquery('english', '$q')) AS rank
+            FROM with_vector
+            WHERE 
+                search_vector @@ websearch_to_tsquery('english', '$q')
                 AND node_controller != 'symbolic' AND publish = 1
-                ORDER BY modified DESC;
-            ";
-        
-        }
-        
+            ORDER BY rank DESC;
+        ";
+
         //msg($where_query);
-        $result = $this->executeSQL($where_query);
-        
+        $result = $this->executeSQL($query);
+
         return $result;
     }
-    
     
     /**
      * return pages and products which we want to display in sitemap 
@@ -2342,38 +2355,57 @@ LEFT OUTER JOIN common_taxonomy_label ON (common_taxonomy_tree.label_id = common
     public function getAuthorStats($customer_id) {
         
         if (!is_numeric($customer_id)) return false;
-        
-        $stats = array();
-        
-        // number of all nodes:
-        $stats['total'] = $this->count("customer_id = $customer_id");
-        
-        // number of all pages created
-        $stats['page'] = $this->count("customer_id = $customer_id AND node_group = 'page'");
-        
-        // number of all layouts created
-        $stats['layout'] = $this->count("customer_id = $customer_id AND node_group = 'layout'");
-        
-        // number of all content created
-        $stats['content'] = $this->count("customer_id = $customer_id AND node_group = 'content'");
-        
-        // number of pages created with description
-        $stats['page_description'] = $this->count("customer_id = $customer_id AND node_group = 'page' AND description != ''");
-        
-        // number of pages type 'news' (blog) created
-        $stats['news'] = $this->count("customer_id = $customer_id AND node_group = 'page' AND node_controller = 'news'");
-        
-        // number of pages type 'recipe' created
-        $stats['recipe'] = $this->count("customer_id = $customer_id AND node_group = 'page' AND node_controller = 'recipe'");
-        
-        // number of pages type 'product' created
-        $stats['product'] = $this->count("customer_id = $customer_id AND node_group = 'page' AND node_controller = 'product'");
-        
-        // number of pages type 'store' created
-        $stats['product'] = $this->count("customer_id = $customer_id AND node_group = 'page' AND node_controller = 'store'");
-        
-        return $stats;
-        
+
+        $sql = "
+            SELECT
+                COUNT(*) as total,
+                COUNT(*) FILTER (WHERE node_group = 'page') as page,
+                COUNT(*) FILTER (WHERE node_group = 'layout') as layout,
+                COUNT(*) FILTER (WHERE node_group = 'content') as content,
+                COUNT(*) FILTER (WHERE node_group = 'page' AND description != '') as page_description,
+                COUNT(*) FILTER (WHERE node_group = 'page' AND node_controller = 'news') as news,
+                COUNT(*) FILTER (WHERE node_group = 'page' AND node_controller = 'recipe') as recipe,
+                COUNT(*) FILTER (WHERE node_group = 'page' AND node_controller = 'product') as product,
+                COUNT(*) FILTER (WHERE node_group = 'page' AND node_controller = 'store') as store
+            FROM common_node
+            WHERE customer_id = $customer_id
+        ";
+
+        $stats = $this->executeSql($sql);
+        return $stats[0];    
+    }
+
+    public function getListWithLastModified($limit = 500)
+    {
+        $sql = "
+            WITH revisions as (
+                SELECT max(id) as id, node_id
+                FROM common_revision
+                WHERE object = 'common_node'
+                GROUP BY node_id
+            )
+
+            SELECT 
+                cn.*, 
+                cc.id as latest_change_by,
+                cc.first_name as latest_change_by_fname,
+                cc.last_name as latest_change_by_lname
+            
+            FROM common_node cn
+            
+            LEFT JOIN revisions r ON cn.id = r.node_id
+            LEFT JOIN common_revision cr ON r.id = cr.id
+            LEFT JOIN client_customer cc ON COALESCE(cr.customer_id, cn.customer_id) = cc.id
+            
+            ORDER BY modified DESC
+            LIMIT {$limit}
+        ";
+
+        $records = $this->executeSql($sql);
+
+        if (!is_array($records)) return [];
+
+        return $records;
     }
 
     /**
@@ -2661,9 +2693,9 @@ LEFT OUTER JOIN common_taxonomy_label ON (common_taxonomy_tree.label_id = common
          */
         $sql = "
             SELECT
-            DISTINCT ON (node_controller) node_controller, id 
+            DISTINCT ON (node_controller) node_controller, id, node_group
             FROM common_node
-            WHERE node_group = 'content'
+            WHERE (node_group = 'content' OR node_group = 'layout')
             AND parent != {$this->conf['id_map-bin']}
             AND publish = 1
             AND node_controller != 'component'
@@ -2697,7 +2729,7 @@ LEFT OUTER JOIN common_taxonomy_label ON (common_taxonomy_tree.label_id = common
         $sql = "
             SELECT *
             FROM common_node
-            WHERE node_group = 'content'
+            WHERE (node_group = 'content' OR node_group = 'layout')
             AND parent != {$this->conf['id_map-bin']}
             AND node_controller = '{$node_controller}'
             ORDER BY modified DESC, id DESC
