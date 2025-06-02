@@ -280,6 +280,8 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
                 'id_map-payment_protx_success',
                 'id_map-payment_protx_failure',
                 'id_map-payment_worldpay_callback',
+                'id_map-payment_stripe_success',
+                'id_map-payment_stripe_cancel',
                 'id_map-terms',
                 'id_map-notifications',
                 'id_map-checkout_basket',
