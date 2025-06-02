@@ -154,6 +154,7 @@ define('I18N_BY_CLICKING_CONFIRM_AUTO', 'Stisknutím „' . I18N_CONFIRM_ORDER .
 define('I18N_TERMS_AND_CONDITIONS', 'Obchodními podmínkami');
 define('I18N_ORDER_CUSTOMER_NOTE', 'Vaše poznámky k objednávce/doručení');
 define('I18N_PAY_BY_PROTX', 'Zaplatit platební kartou');
+define('I18N_PAY_BY_STRIPE', 'Zaplatit platební kartou');
 define('I18N_PAY_BY_WORLDPAY', 'Zaplatit platební kartou');
 define('I18N_PAY_BY_PAYPAL', 'Zaplatit přes PayPal (platební kartou)');
 define('I18N_PAY_BY_CHEQUE', 'Zaplatit na dobírku');
