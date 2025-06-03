@@ -37,6 +37,7 @@ class Onyx_Controller_Component_Client_Address_Edit extends Onyx_Controller {
             } else {
                 msg('Address is not valid', 'error');
             }
+            onyxGoTo("/page/{$this->page_id}");
         }
 
         // select address
@@ -46,11 +47,10 @@ class Onyx_Controller_Component_Client_Address_Edit extends Onyx_Controller {
 
             if ($Customer->update($customer_detail)) {
                 $_SESSION['client']['customer'] = $customer_detail;
-                $referer = $_SESSION['referer'] ? $_SESSION['referer'] : $_SERVER['HTTP_REFERER'];
-                onyxGoTo($referer, 2);
             } else {
                 msg("Cannot select this address", 'error');
             }
+            onyxGoTo("/page/{$this->page_id}");
         }
 
         // remove address
@@ -64,6 +64,8 @@ class Onyx_Controller_Component_Client_Address_Edit extends Onyx_Controller {
             } else {
                 msg("This is not your address!", 'error');
             }
+
+            onyxGoTo("/page/{$this->page_id}");
         }
 
         // address list

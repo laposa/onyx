@@ -12,6 +12,7 @@
     "html2text/html2text": "^4.3",
     "symfony/http-client": "^5.2",
     "symfony/http-foundation": "^5.4",
-    "chillerlan/php-qrcode": "3.4.1"
+    "chillerlan/php-qrcode": "3.4.1",
+    "stripe/stripe-php": "^17.3"
   }
 }

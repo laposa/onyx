@@ -137,6 +137,7 @@ define('I18N_BY_CLICKING_CONFIRM_AUTO', 'By pressing „' . I18N_CONFIRM_ORDER .
 define('I18N_TERMS_AND_CONDITIONS', 'Terms &amp; Conditions');
 define('I18N_ORDER_CUSTOMER_NOTE', '配送に関する特記事項やその他のリクエストがあればご記入下さい');
 define('I18N_PAY_BY_PROTX', 'Pay By Credit Card');
+define('I18N_PAY_BY_STRIPE', 'Pay By Credit Card');
 define('I18N_PAY_BY_WORLDPAY', 'Pay By Credit Card');
 define('I18N_PAY_BY_PAYPAL', 'Pay By Paypal');
 define('I18N_PAY_BY_CHEQUE', 'Pay By Cheque');

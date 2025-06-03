@@ -1,9 +1,10 @@
 <?php
+
 /**
  * Copyright (c) 2005-2018 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
- 
+
 //node/page/news.html
 define('I18N_POSTED_ON', 'Posted on');
 define('I18N_BY', 'by');
@@ -27,7 +28,7 @@ define('I18N_COMMENT_ADDNEW', 'Дать новый комментарий');
 define('I18N_COMMENT_THANK_YOU', 'Спасибо за ваши коментарии.');
 define('I18N_COMMENT_PLEASE_LOGIN', 'Пожалуйста логин для дачи комментария');
 define('I18N_COMMENT_CREATE_ACCOUNT', 'Забыли пароль, или еще нет аккаута?');
-define('I18N_COMMENT_REPLY', 'Ответить' );
+define('I18N_COMMENT_REPLY', 'Ответить');
 define('I18N_COMMENT_APPROVE', 'Подтвердить');
 define('I18N_COMMENT_OR', 'или');
 define('I18N_COMMENT_REJECT', 'Удалить');
@@ -137,6 +138,7 @@ define('I18N_BY_CLICKING_CONFIRM_AUTO', 'By pressing „' . I18N_CONFIRM_ORDER .
 define('I18N_TERMS_AND_CONDITIONS', 'Terms &amp; Conditions');
 define('I18N_ORDER_CUSTOMER_NOTE', 'Please enter any special or additional delivery instructions in the box below');
 define('I18N_PAY_BY_PROTX', 'Pay By Credit Card');
+define('I18N_PAY_BY_STRIPE', 'Pay By Credit Card');
 define('I18N_PAY_BY_WORLDPAY', 'Pay By Credit Card');
 define('I18N_PAY_BY_PAYPAL', 'Pay By Paypal');
 define('I18N_PAY_BY_CHEQUE', 'Pay By Cheque');

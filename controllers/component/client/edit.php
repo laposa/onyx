@@ -62,7 +62,8 @@ class Onyx_Controller_Component_Client_Edit extends Onyx_Controller {
             } else {
                 msg("Can't update client data", 'error');
             }
-            
+           
+            onyxGoTo("/page/{$this->page_id}");
         }
         
         $client_data = $Customer->getClientData($customer_id);

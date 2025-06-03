@@ -61,6 +61,10 @@ class Onyx_Controller_Component_Ecommerce_Delivery_Option extends Onyx_Controlle
 
         $_SESSION['delivery_options'] = $options;
 
+        if (is_array($_POST['delivery'] ?? null)) {
+            onyxGoTo("/page/{$this->page_id}#node-id-{$this->GET['node_id']}");
+        } 
+
         setlocale(LC_MONETARY, LOCALE);
 
         return true;
