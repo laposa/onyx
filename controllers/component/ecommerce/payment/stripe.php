@@ -43,10 +43,8 @@ class Onyx_Controller_Component_Ecommerce_Payment_Stripe extends Onyx_Controller
         // process payment method only if status = 0 unpaid or 5 failed payment
         if (!$this->checkOrderStatusValidForPayment($order_data['status'])) return false;
 
-        if ($_SERVER['HTTPS']) $protocol = 'https';
-        else $protocol = 'http';
+        $protocol = onyxDetectProtocol();
         $server_url = "$protocol://{$_SERVER['HTTP_HOST']}";
-
 
         $Order = new ecommerce_order();
         $total = $Order->calculatePayableAmount($order_data);
