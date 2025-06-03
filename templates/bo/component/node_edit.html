@@ -3,14 +3,14 @@
 
 <!-- BEGIN: form -->
 <div 
+    id="node-properties-edit"
     class="node-edit node-{NODE.node_group}-{NODE.node_controller}" 
-    id="node-properties-edit" 
-    hx-swap="outerHTML"
+    hx-swap="innerHTML"
     hx-indicator="#detail-loading"
     hx-get="/request/bo/component/node_edit"
     hx-trigger="loadDetail from:body"
     hx-vals="js:{id: event.detail.nodeId}"
-    hx-on="htmx:afterRequest: initAdvancedSettingsButton()">
+    hx-on::after-request="initAdvancedSettingsButton();">
     {SUB_CONTENT}
 </div>
 <!-- END: form -->

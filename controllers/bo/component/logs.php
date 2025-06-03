@@ -25,7 +25,7 @@ class Onyx_Controller_Bo_Component_Logs extends Onyx_Controller {
         // filter
         if (isset($this->GET['filter'])) $_SESSION['bo']['filter'] = $this->GET['filter'];
         
-        $filter = $_SESSION['bo']['filter'] ?? '';
+        $filter = $_SESSION['bo']['filter'] ?? [];
         
         if (isset($filter['active']) && $filter['active'] == 1) {
             $this->tpl->assign('ACTIVE_selected_1', "selected='selected'");

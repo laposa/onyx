@@ -38,7 +38,9 @@ div.wrapper {
   position: relative;
   flex-grow: 1;
   flex-shrink: 1;
+	min-width: 550px;
   border-right: 1px solid #ddd;
+  overflow: hidden;
 }
 
 .bo-node-detail-wrapper {

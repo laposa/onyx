@@ -1,0 +1,24 @@
+<!-- BEGIN: content -->
+<ul class="search-results-list">
+    <!-- BEGIN: no_results -->
+    <li class="search-result-item no-results">No results found</li>
+    <!-- END: no_results -->
+
+    <!-- BEGIN: results -->
+
+        <!-- BEGIN: item -->
+            <li>
+                <a class="search-result-item" href="/backoffice/pages/{ITEM.id}">
+                    <span class="path">{PATH}</span>
+                    <span class="title">{ITEM.title}</span>
+                </a>
+            </li>
+        <!-- END: item -->
+
+    <!-- END: results -->
+</ul>
+    <!-- BEGIN: backdrop -->
+    <div class="search-close" onclick="document.getElementById('search-results').innerHTML=''"></div>
+    <div class="backdrop" onclick="document.getElementById('search-results').innerHTML=''"></div>
+    <!-- END: backdrop -->
+<!-- END: content -->

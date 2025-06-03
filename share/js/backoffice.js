@@ -72,12 +72,17 @@ function showAdvancedSettings(source) {
 }
 
 function initAdvancedSettingsButton() {
+    popupMessage("div.onyx-messages");
+    
     if (window.localStorage) {
         if (localStorage.getItem("show-advanced-settings") == 'true') {
             $('div.page-content .advanced').show();
             $("a.show-advanced-settings span").html('Hide Advanced Settings');
         }
     }
+    
+    var buttonToolbar = $('div.row-bottom p:first');
+    if (buttonToolbar.length > 0) buttonToolbar.append($('.extended-toolbar a').detach());
 };
 
 /**
@@ -102,11 +107,6 @@ function initBackofficeUI() {
 
     $("#menu-back-office a, #menu-editing-mode a, #menu-actions a.logout").mousedown(function(e) { 
         if (!e.altKey && !e.ctrlKey && !e.shiftKey && !e.metaKey && e.which == 1) {
-            var body = $("#onyx-cms-content");
-            body.fadeOut(500, function() {
-                body.html('<img src="/share/images/loading.svg" alt="Loading..." style="position: fixed; width: 16px; height: 11px; top: 50%; left: 50%; margin: -5px 0 0 -8px;"/>');
-                body.fadeIn(300);
-            }); 
             var targetUrl = $(this).attr("href");
             setTimeout(function() { window.location = targetUrl; }, 5000); // try again after 5 seconds
         }
