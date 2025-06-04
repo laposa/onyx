@@ -41,6 +41,7 @@ div.wrapper {
 	min-width: 550px;
   border-right: 1px solid #ddd;
   overflow: hidden;
+  transition: 0.3s ease;
 }
 
 .bo-node-detail-wrapper {

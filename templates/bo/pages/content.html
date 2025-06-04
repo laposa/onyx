@@ -1,0 +1,35 @@
+<!-- BEGIN: title -->Pages<!-- END: title -->
+<!-- BEGIN: content -->
+<script>
+    function isInit(event) {
+        return event.detail ? !event.detail.init : true;
+    }
+</script>
+<div class="bo-navigation-wrapper">
+    <div id="navigation-loading" class="onyx-loading htmx-indicator">
+    </div>
+
+    <div 
+        id="bo-search"
+        class="bo-search"
+        hx-get="/request/bo/component/bo_search"
+        hx-trigger="load">
+    </div>
+
+    <div 
+        id="bo-navigation" 
+        class="bo-navigation" 
+        hx-indicator="#navigation-loading"
+        hx-get="/request/bo/component/bo_navigation~id=GET.id:open=GET.open~" 
+        hx-vals="js:{init: isInit(event)}"
+        hx-swap="innerHTML"
+        hx-trigger="load, nodeUpdated from:body, navUpdated from:body">
+    </div>
+</div>
+
+<div class="bo-node-detail-wrapper">
+    <div id="detail-loading" class="onyx-loading htmx-indicator">
+    </div>
+    {NODE_EDIT}
+</div>
+<!-- END: content -->

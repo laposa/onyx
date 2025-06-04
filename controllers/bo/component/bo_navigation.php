@@ -39,9 +39,11 @@ class Onyx_Controller_Bo_Component_Bo_Navigation extends Onyx_Controller {
         foreach($parents as $index => $level) {
 
             $items = $this->Node->getNavigationChildren($level);
+            $this->tpl->assign('ROOT', $level);
 
-            foreach($items as $item) {
+            foreach($items as $key => $item) {
                 $this->tpl->assign('ITEM', $item);
+                $this->tpl->assign('POSITION', $key + 1);
 
                 if(in_array($item['id'], $parents)) {
                     $this->tpl->assign('ACTIVE', 'active');
