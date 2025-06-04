@@ -39,65 +39,61 @@ $(document).ready(function(){
 });
 </script>
 
-<div id="recipes">
-
+<div id="recipes" class="bo-page">
     <div class="two-column-page page sidebar">
-            <div class="page-wrapper">
+        <div class="page-wrapper">
 
-                <div class="page-header">
-                    <div class="page-header-wrapper">
-                        <h1 class="page-title"><span>Recipes</span></h1>
-                    </div>
+            <div class="page-header">
+                <div class="page-header-wrapper">
+                    <h1 class="page-title"><span>Recipes</span></h1>
                 </div>
+            </div>
 
-                <div class="page-content">
-                    <div class="page-content-wrapper">
-                        <div class="row-top">
-                            <div class="row-wrapper">
-                                <div class="column-wrapper">
-                                    <div class="filter-bar">
-                                        {ONYX_REQUEST_filter #bo/component/ecommerce/recipe_list_filter}
-                                    </div>
+            <div class="page-content">
+                <div class="page-content-wrapper">
+                    <div class="row-top">
+                        <div class="row-wrapper">
+                            <div class="column-wrapper">
+                                <div class="filter-bar">
+                                    {ONYX_REQUEST_filter #bo/component/ecommerce/recipe_list_filter}
                                 </div>
                             </div>
                         </div>
-                        <div class="row-middle">
-                            <div class="row-wrapper">
-                                <div class="column-one">
-                                    <div class="column-wrapper">
+                    </div>
+                    <div class="row-middle">
+                        <div class="row-wrapper">
+                            <div class="column-one">
+                                <div class="column-wrapper">
 
-                                        <div id="filter-taxonomy">
-                                            {ONYX_REQUEST_menupages #bo/component/taxonomy_menu~id=null:expand_all=1:publish=0~}
-                                        </div>
-
+                                    <div id="filter-taxonomy">
+                                        {ONYX_REQUEST_menupages #bo/component/taxonomy_menu~id=null:expand_all=1:publish=0~}
                                     </div>
+
                                 </div>
-                                <div class="column-two">
-                                    <div class="column-wrapper">
+                            </div>
+                            <div class="column-two">
+                                <div class="column-wrapper">
 
-                                        <div id="sub-content">
-                                            {SUB_CONTENT}
-                                        </div>
-
+                                    <div id="sub-content">
+                                        {SUB_CONTENT}
                                     </div>
+
                                 </div>
                             </div>
                         </div>
-                        <div class="row-bottom">
-                            <div class="row-wrapper">
-                                <div class="column-wrapper">
-
-                                    <p>
-                                        <a class="button add" title="Add new recipe" href="/backoffice/recipes/recipe_add"><span>Add a New Recipe</span></a>
-                                    </p>
-
-                                </div>
+                    </div>
+                    <div class="row-bottom">
+                        <div class="row-wrapper">
+                            <div class="column-wrapper">
+                                <p>
+                                    <a class="button add" title="Add new recipe" href="/backoffice/recipes/recipe_add"><span>Add a New Recipe</span></a>
+                                </p>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </div>
     </div>
-
 </div>
 <!-- END: content -->

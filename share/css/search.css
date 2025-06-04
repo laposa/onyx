@@ -1,0 +1,119 @@
+#bo-search {
+
+	.search-bar {
+		position: relative;
+
+		.onyx-loading {
+			position: absolute;
+			top: 5px;
+			right: 10px;
+			z-index: 1000;
+			width: 50px;
+			height: 50px;
+			min-height: unset;
+			background: transparent;
+			left: unset;
+		}
+
+		input, input:focus {
+			padding: 0 10px 0 45px;
+			outline: none;
+			border: none;
+			height: 60px;
+			border-radius: 0;
+			color: #6a6a6a;
+			font-size: 16px;
+			margin: 0;
+			border-bottom: 1px solid #e0e0e0;
+		}
+
+		&:before {
+			content: "\f002";
+			position: absolute;
+			font-family: 'onyx';
+			color: var(--color-primary);
+			font-size: 25px;
+			top: 10px;
+			left: 10px;
+		}
+	}
+
+	.search-results {
+		position: absolute;
+		top: 60px;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+		z-index: 1000;
+		pointer-events: none;
+	}
+
+	.search-results-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		pointer-events: all;
+
+		.search-result-item {
+			display: flex;
+			flex-direction: column;
+			width: 100%;
+			padding: 10px;
+			background-color: white;
+			border-bottom: 1px solid #ddd;
+			cursor: pointer;
+			color: #333;
+			transition: 0.5s ease;
+
+			&:hover {
+				background-color: #f5f5f5;
+				text-decoration: none;
+
+				.title {
+					color: var(--color-primary);
+				}
+			}
+
+			.title {
+				width: 100%;
+				font-size: 1.25rem;
+				font-weight: 700;
+				color: #333;
+			}
+
+			.path {
+				font-size: 0.65rem;
+				color: #999;
+			}
+		}
+	}
+
+	.backdrop {
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 100%;
+		z-index: -1;
+		background: rgba(0, 0, 0, 0.1);
+		pointer-events: all;
+		cursor: pointer;
+	}
+
+	.search-close {
+		cursor: pointer;
+		position: absolute;
+		top: -50px;
+		right: 15px;
+		font-family: 'onyx';
+		font-size: 25px;
+		color: var(--color-primary);
+		pointer-events: all;
+
+		&:before {
+			content: "\f00d";
+		}
+	}
+}
+

@@ -2,32 +2,15 @@
 {MESSAGES}
 
 <!-- BEGIN: form -->
-<script type="text/javascript">
-    function beforeNodeEditRequest(evt) {
-        $('button.save').addClass('saving');
-    };
-    
-    function afterNodeEditRequest(evt) {
-        popupMessage("#node-properties-edit div.onyx-messages");
-        initAdvancedSettingsButton();
-        if(typeof appendHeader === 'function') {
-            appendHeader();
-        }
-        $('button.save').removeClass('saving');
-
-        //don't reload in context when in backoffice
-        var path = '{GET.orig}';
-        var node_id = {GET.id};
-        if (path.length > 0) {
-            refreshOpenerAjax(path, node_id);
-        }
-    };
-</script>
 <div 
+    id="node-properties-edit"
     class="node-edit node-{NODE.node_group}-{NODE.node_controller}" 
-    id="node-properties-edit" 
-    hx-on::before-request="beforeNodeEditRequest()" 
-    hx-on::after-swap="afterNodeEditRequest()">
+    hx-swap="innerHTML"
+    hx-indicator="#detail-loading"
+    hx-get="/request/bo/component/node_edit"
+    hx-trigger="loadDetail from:body"
+    hx-vals="js:{id: event.detail.nodeId}"
+    hx-on::after-request="initAdvancedSettingsButton();">
     {SUB_CONTENT}
 </div>
 <!-- END: form -->

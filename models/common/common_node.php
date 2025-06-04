@@ -1161,6 +1161,25 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
     }
 
     /**
+     * get list of nodes by parent id
+     */
+    function getNavigationChildren($parent_id = false)
+    {
+        // TODO node group filter?
+        if (is_numeric($parent_id)) $root = "parent = $parent_id";
+        else $root = "(parent = 0 OR parent IS NULL)";
+        
+        $sql = "SELECT id, parent, title, node_group, node_controller, publish, priority
+            FROM common_node 
+            WHERE $root
+            ORDER BY priority DESC, id ASC";        
+
+        $records = $this->executeSql($sql);
+        
+        return $records;
+    }
+
+    /**
      * get lazy tree
      *
      * DEPRECATED
@@ -1412,6 +1431,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
      * @return unknown
      */
      
+    //  TODO: compare with getchildrenbyparent
     function getChildren($parent_id, $sort_by = 'node_group DESC, node_controller DESC, parent_container ASC, priority DESC', $published_only = false) {
         
         if ($published_only) $published_only_constraint = 'AND publish = 1';
@@ -1448,11 +1468,11 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
             with_vector AS (
                 SELECT 
                     n.*, 
-                    setweight(to_tsvector('english', coalesce(n.title,'')), 'A')    ||
-                    setweight(to_tsvector('english', coalesce(n.page_title,'')), 'A')  ||
-                    setweight(to_tsvector('english', coalesce(n.description,'')), 'B') ||
-                    setweight(to_tsvector('english', coalesce(n.keywords,'')), 'A') ||
-                    setweight(to_tsvector('english', coalesce(n.content,'')), 'C') ||
+                    setweight(to_tsvector('english', coalesce(n.title, '')), 'A')    ||
+                    setweight(to_tsvector('english', coalesce(n.page_title, '')), 'A')  ||
+                    setweight(to_tsvector('english', coalesce(n.description, '')), 'B') ||
+                    setweight(to_tsvector('english', coalesce(n.keywords, '')), 'A') ||
+                    setweight(to_tsvector('english', coalesce(n.content, '')), 'C') ||
                     p.search_vector AS search_vector
                 FROM common_node n
                 LEFT JOIN products p ON n.node_controller = 'product' AND n.content::int = p.id

@@ -1,0 +1,50 @@
+#backoffice {
+  height: 100%;
+  width: auto; 
+  margin: 0 auto;
+
+  .page-content-wrapper, 
+  .page-header-wrapper {
+    padding-left: 0; margin-left: 0;
+  }
+}
+
+#onyx-backoffice {
+  margin-left: 130px; 
+  height: 100%; 
+  width: calc(100% - 130px);
+}
+
+#layout-icon {
+  background-position: top right; 
+  background-repeat: no-repeat;
+}
+
+div.wrapper {
+  margin: 0 10px;
+}
+
+.bo-page {
+  min-height: 100%;
+  display: flex;
+  width: 100%;
+}
+
+.bo-navigation {
+  height: 100%;
+}
+
+.bo-navigation-wrapper {
+  position: relative;
+  flex-grow: 1;
+  flex-shrink: 1;
+	min-width: 550px;
+  border-right: 1px solid #ddd;
+  overflow: hidden;
+}
+
+.bo-node-detail-wrapper {
+  position: relative;
+  width: 100%;
+  padding: 0 20px;
+}

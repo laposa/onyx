@@ -72,12 +72,17 @@ function showAdvancedSettings(source) {
 }
 
 function initAdvancedSettingsButton() {
+    popupMessage("div.onyx-messages");
+    
     if (window.localStorage) {
         if (localStorage.getItem("show-advanced-settings") == 'true') {
             $('div.page-content .advanced').show();
             $("a.show-advanced-settings span").html('Hide Advanced Settings');
         }
     }
+    
+    var buttonToolbar = $('div.row-bottom p:first');
+    if (buttonToolbar.length > 0) buttonToolbar.append($('.extended-toolbar a').detach());
 };
 
 /**
@@ -102,11 +107,6 @@ function initBackofficeUI() {
 
     $("#menu-back-office a, #menu-editing-mode a, #menu-actions a.logout").mousedown(function(e) { 
         if (!e.altKey && !e.ctrlKey && !e.shiftKey && !e.metaKey && e.which == 1) {
-            var body = $("#onyx-cms-content");
-            body.fadeOut(500, function() {
-                body.html('<img src="/share/images/loading.svg" alt="Loading..." style="position: fixed; width: 16px; height: 11px; top: 50%; left: 50%; margin: -5px 0 0 -8px;"/>');
-                body.fadeIn(300);
-            }); 
             var targetUrl = $(this).attr("href");
             setTimeout(function() { window.location = targetUrl; }, 5000); // try again after 5 seconds
         }
@@ -123,9 +123,10 @@ function initBackofficeUI() {
 
     // fix for history.pushState so page refreshes on back button
     // TODO temporarily disabled, causes "Maximum call stack size exceeded" error   
-    // $(window).bind("popstate", function() {
-    //     window.location = location.href
-    // });
+    // TODO 04/25 enabled again after new menu implementation. keep an eye on whatever may cause the Maximum call stack again
+    $(window).bind("popstate", function() {
+        window.location = location.href
+    });
 }
 
 /**
@@ -133,9 +134,7 @@ function initBackofficeUI() {
  */
 
 $(function() {
-
     initBackofficeUI();
-
 });
     
 /**
@@ -405,4 +404,9 @@ function repositionNode(event, ui, node_group = '') {
 
 $(document).on('click', '.fakelink, #content-list button, #page-list button, #node-list button', function(e) {
     e.preventDefault();
+});
+
+$(document).on('click','.navigation-list-item', function(e) {
+    $('.navigation-list-item.active').removeClass('active');
+    $(this).addClass('active');
 });

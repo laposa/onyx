@@ -10,8 +10,15 @@
                         <a class="button show-advanced-settings" href="#" style="display: {ALLOW_ADVANCE_SETTINGS_CSS_DISPLAY_PROPERTY};"><span>Show Advanced Settings</span></a>
                     </p>
                     
-                    <button class="save" id="save-button" type="submit" name="save" value="save"><span>Save</span></button>
-
+                    <button 
+                        class="save"
+                        name="save"
+                        value="save"
+                        hx-post="/request/bo/component/node_edit?id={GET.id}"
+                        hx-target="#node-properties-edit"
+                        id="save-button">
+                        <span>Save</span>
+                    </button>
                 </div>
             </div>
         </div>

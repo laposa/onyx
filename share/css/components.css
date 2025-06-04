@@ -1,0 +1,39 @@
+
+/* 
+* Components page
+*
+*/
+
+.component-list {
+	padding: 0;
+	min-width: 250px;
+
+  h3 {
+    font-size: 1.5rem;
+    color: cadetblue;
+  }
+
+  .component-list-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    transition: all 0.5s ease;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+		font-size: 0.9rem;
+
+    &.active {
+      font-weight: bold;
+      color:cadetblue;
+
+      background-color: rgb(95, 158, 160, 0.05);
+    }
+
+  }
+}
+
+.component-occurences {
+  padding-left: 20px;
+}
+

@@ -1,0 +1,45 @@
+<!-- BEGIN: content -->
+<script>
+    // rewrite url on page select
+    $('.navigation-list li').on('click', function(e) {
+        e.preventDefault();
+        let newLink = window.location.origin + '/backoffice/pages/' + $(this).attr('id').replace('navigation-node-', '');
+
+        if(window.history.pushState) {
+            window.history.pushState({}, $(this).find('span').html(), newLink);
+        }
+    });
+</script>
+<div class="levels">
+    <!-- BEGIN: level -->
+    <ul class="navigation-list">
+        <!-- BEGIN: item -->
+        <li
+            hx-get="/request/bo/component/bo_navigation~id={ITEM.id}:open=GET.open~"
+            hx-trigger="click"
+            hx-target="#bo-navigation"
+            hx-swap="innerHTML"
+            title="{ITEM.node_controller}" 
+            class="navigation-list-item {ACTIVE}"
+            id="navigation-node-{ITEM.id}">
+            {ITEM.title|htmlspecialchars}
+            <span class="icon {ITEM.node_group}" title="{ITEM.node_group}/{ITEM.node_controller}"></span>
+        </li>
+        <!-- END: item -->
+        <!-- BEGIN: action_buttons -->
+        <li class="action-buttons">
+            <a 
+                class="button add" 
+                href="#" 
+                id="button-add-subpage" 
+                data-node-id="{GET.id}" 
+                data-node-group="page" 
+                onclick="addNode(event, '{GET.id}', 'page')">
+                Add New Node
+            </a>
+        </li>
+        <!-- END: action_buttons -->
+    </ul>
+    <!-- END: level -->
+</div>
+<!-- END: content -->

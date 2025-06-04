@@ -1,71 +1,37 @@
 <!-- BEGIN: title -->Pages<!-- END: title -->
 <!-- BEGIN: content -->
-<script type="text/javascript">
-$(document).ready(function(){
-    appendHeader();
-});
-
-function appendHeader() {
-    var header = $("#sub-content div.page-header").detach();
-    var title = $("#sub-content #node-title").val();
-    $('#page-header-wrapper').empty().append(header);
-    
-    document.title = title + ' - Pages';
-    
-    var buttonToolbar = $('div.row-bottom p:first');
-    if (buttonToolbar.length > 0) buttonToolbar.append($('.extended-toolbar a').detach());
-}
+<script>
+    function isInit(event) {
+        return event.detail? !event.detail.init : true;
+    }
 </script>
+<div class="bo-navigation-wrapper">
+    <div id="navigation-loading" class="onyx-loading htmx-indicator">
+        <img src="/share/images/loading.svg" alt="Loading..."/>
+    </div>
 
-<div id="pages">
+    <div 
+        id="bo-search"
+        class="bo-search"
+        hx-get="/request/bo/component/bo_search"
+        hx-trigger="load">
+    </div>
 
-    <div class="two-column-page page sidebar">
-            <div class="page-wrapper">
+    <div 
+        id="bo-navigation" 
+        class="bo-navigation" 
+        hx-indicator="#navigation-loading"
+        hx-get="/request/bo/component/bo_navigation~id=GET.id:open=GET.open~" 
+        hx-vals="js:{init: isInit(event)}"
+        hx-swap="innerHTML"
+        hx-trigger="load, nodeUpdated from:body">
+    </div>
+</div>
 
-                <div id="page-header-wrapper">
-                    <div class="page-header">
-                        <div class="page-header-wrapper">
-                            <h1 class="page-title"><span>Page</span> <span class="info">ID {NODE_ID}</span></h1>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="page-content">
-                    <div class="page-content-wrapper">
-                        <div class="row-top">
-                            <div class="row-wrapper">
-                                <div class="column-wrapper">
-                                    {CONTAINER.0}
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row-middle">
-                            <div class="row-wrapper">
-                                <div class="column-one">
-                                    <div class="column-wrapper">
-
-                                        <div id="pages-node-menu" hx-get="/request/bo/component/node_menu~id=0:open=GET.open:expand_all=1:publish=0~" hx-trigger="nodeUpdated from:body">
-                                            {ONYX_REQUEST_menupages #bo/component/node_menu~id=0:open=GET.open:expand_all=1:publish=0~}
-                                        </div>
-
-                                    </div>
-                                </div>
-                                <div class="column-two">
-                                    <div class="column-wrapper">
-
-                                        <div id="sub-content">
-                                            {NODE_EDIT}
-                                        </div>
-                                        
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div>
-            </div>
-        </div>
-
+<div class="bo-node-detail-wrapper">
+    <div id="detail-loading" class="onyx-loading htmx-indicator">
+        <img src="/share/images/loading.svg" alt="Loading..."/>
+    </div>
+    {NODE_EDIT}
 </div>
 <!-- END: content -->
