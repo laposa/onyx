@@ -280,6 +280,8 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
                 'id_map-payment_protx_success',
                 'id_map-payment_protx_failure',
                 'id_map-payment_worldpay_callback',
+                'id_map-payment_stripe_success',
+                'id_map-payment_stripe_cancel',
                 'id_map-terms',
                 'id_map-notifications',
                 'id_map-checkout_basket',
@@ -350,6 +352,8 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
             if (!is_numeric($conf['id_map-payment'])) $conf['id_map-payment'] = 10;
             if (!is_numeric($conf['id_map-payment_protx_success'])) $conf['id_map-payment_protx_success'] = 12;
             if (!is_numeric($conf['id_map-payment_protx_failure'])) $conf['id_map-payment_protx_failure'] = 11;
+            if (!is_numeric($conf['id_map-payment_stripe_success'])) $conf['id_map-payment_stripe_success'] = 12;
+            if (!is_numeric($conf['id_map-payment_stripe_cancel'])) $conf['id_map-payment_stripe_cancel'] = 11;
             if (!is_numeric($conf['id_map-payment_worldpay_callback'])) $conf['id_map-payment_worldpay_callback'] = 999;
             if (!is_numeric($conf['id_map-terms'])) $conf['id_map-terms'] = 26;
             if (!is_numeric($conf['id_map-notifications'])) $conf['id_map-notifications'] = 0; // TODO add to template and get ID

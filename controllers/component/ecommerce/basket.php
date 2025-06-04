@@ -13,6 +13,7 @@ require_once('models/ecommerce/ecommerce_order.php');
 
 class Onyx_Controller_Component_Ecommerce_Basket extends Onyx_Controller {
 
+    public $node_conf;
     public $Basket;
     public $basket_content;
     public $order;
@@ -45,7 +46,7 @@ class Onyx_Controller_Component_Ecommerce_Basket extends Onyx_Controller {
             $this->handleActions($input);
             $post_action_state = $this->Basket->getFullDetail($this->basket_id, $currency);
             $this->parseTrackingData($pre_action_state['items'], $post_action_state['items']);
-
+            onyxGoTo("page/" . $this->node_conf['id_map-basket']);
         }
 
         if ($this->basket_id > 0) {
@@ -75,8 +76,8 @@ class Onyx_Controller_Component_Ecommerce_Basket extends Onyx_Controller {
 
     protected function initModels()
     {
-        $node_conf = common_node::initConfiguration();
-        $this->tpl->assign('NODE_CONF', $node_conf);
+        $this->node_conf = common_node::initConfiguration();
+        $this->tpl->assign('NODE_CONF', $this->node_conf);
 
         $this->Basket = new ecommerce_basket();
         $this->Basket->setCacheable(false);
