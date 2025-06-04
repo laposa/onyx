@@ -1,4 +1,10 @@
 <!-- BEGIN: content -->
+<script>
+    function cancelSearch() {
+        document.getElementById('search-results').innerHTML = '';
+        document.getElementById('search-input').value = '';
+    }
+</script>
 <ul class="search-results-list">
     <!-- BEGIN: no_results -->
     <li class="search-result-item no-results">No results found</li>
@@ -18,7 +24,7 @@
     <!-- END: results -->
 </ul>
     <!-- BEGIN: backdrop -->
-    <div class="search-close" onclick="document.getElementById('search-results').innerHTML=''"></div>
-    <div class="backdrop" onclick="document.getElementById('search-results').innerHTML=''"></div>
+    <div class="search-close" onclick="cancelSearch()"></div>
+    <div class="backdrop" onclick="cancelSearch()"></div>
     <!-- END: backdrop -->
 <!-- END: content -->

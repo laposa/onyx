@@ -9,10 +9,76 @@
             window.history.pushState({}, $(this).find('span').html(), newLink);
         }
     });
+
+    draggableElements = document.querySelectorAll('li[draggable="true"]');
+    dropZones = document.querySelectorAll('.drop-zone');
+
+    dropZones.forEach((zone) => {
+        zone.addEventListener("dragenter", (event) => {
+            event.target.classList.add("drag-over");
+        });
+
+        zone.addEventListener("dragleave", (event) => {
+            event.target.classList.remove("drag-over");
+        });
+
+        zone.addEventListener("dragover", (event) => {
+            event.preventDefault(); // Necessary to allow drop
+        });
+
+        zone.addEventListener("drop", (event) => {
+            event.target.classList.remove("drag-over");
+            const position = event.target.getAttribute("data-position");
+            const sourceId = event.dataTransfer.getData("source-id");
+            const destinationId = event.target.getAttribute("data-parent-id");
+
+            const sourceElement = document.getElementById('navigation-node-' + sourceId);
+            
+            if(sourceElement.nextElementSibling == event.target || sourceElement.previousElementSibling == event.target) {
+                return; // Do not allow moving to the same level
+            }
+            
+            document.getElementById('navigation-loading').classList.add('htmx-request');
+
+            moveDomObject(event);
+
+            $.post(
+                "/request/bo/component/node_move", 
+                {
+                    csrf_token: getCSRFToken(),
+                    source_node_id: sourceId,
+                    destination_node_id: destinationId,
+                    position: position
+                }, 
+                function (data) {
+                    popupMessage(data);
+                    document.body.dispatchEvent(new CustomEvent('navUpdated', { detail: { init: "false" } }));
+                }
+            );
+        });
+    });
+
+    draggableElements.forEach((element) => {
+        element.addEventListener("dragstart", (event) => {
+            event.dataTransfer.setData("source-id", event.target.getAttribute("data-source-id"));
+        });
+    });
+
+    function moveDomObject(event) {
+        const sourceId = event.dataTransfer.getData("source-id");
+        const sourceElement = document.getElementById('navigation-node-' + sourceId);
+        const targetZone = event.target;
+
+        if (sourceElement && targetZone) {
+            targetZone.parentNode.insertBefore(sourceElement, targetZone);
+        }
+    }
+
 </script>
 <div class="levels">
     <!-- BEGIN: level -->
     <ul class="navigation-list">
+        <li class="drop-zone" data-position="0" data-parent-id="{ROOT}"></li>
         <!-- BEGIN: item -->
         <li
             hx-get="/request/bo/component/bo_navigation~id={ITEM.id}:open=GET.open~"
@@ -21,10 +87,13 @@
             hx-swap="innerHTML"
             title="{ITEM.node_controller}" 
             class="navigation-list-item {ACTIVE}"
-            id="navigation-node-{ITEM.id}">
+            draggable="true"
+            id="navigation-node-{ITEM.id}"
+            data-source-id="{ITEM.id}">
             {ITEM.title|htmlspecialchars}
             <span class="icon {ITEM.node_group}" title="{ITEM.node_group}/{ITEM.node_controller}"></span>
         </li>
+        <li class="drop-zone" data-position="{POSITION}" data-parent-id="{ITEM.parent}"></li>
         <!-- END: item -->
         <!-- BEGIN: action_buttons -->
         <li class="action-buttons">
