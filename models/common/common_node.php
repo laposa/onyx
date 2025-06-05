@@ -1449,46 +1449,119 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
     /*
     * search for nodes and products
     */
-    function search($q)
+    function search($q, $params = [])
     {
+        $defaults = ['published_only' => true];
+        $params = array_merge($defaults, $params);
+        
         $q = pg_escape_string($q);
+        $published = $params['published_only'] ? 1 : 0;
 
         $query = "
-            WITH products AS (
+            -- get all content recursively for all pages
+            WITH RECURSIVE page_content AS (
+                SELECT id as page_id, id, parent, title, content
+                FROM common_node
+                WHERE 
+                    node_group = 'page'
+                    AND node_controller != 'product'
+                    AND publish >= $published
+
+                UNION 
+
+                SELECT 
+                    pc.page_id, 
+                    cn.id, 
+                    cn.parent, 
+                    CASE 
+                        WHEN cn.display_title >= 1 THEN cn.title
+                        ELSE ''::varchar(255)
+                    END AS title,
+                    cn.content
+                FROM common_node cn
+                INNER JOIN page_content pc ON cn.parent = pc.id
+                WHERE 
+                    cn.publish >= $published
+                    AND cn.node_group IN ('site', 'container', 'content', 'layout') 
+            ),
+
+            -- construct breadcrumbs containg arrays of ids and titles
+            breadcrumbs AS (
+                SELECT id, parent, ARRAY[id] AS ids, ARRAY[title::varchar] AS titles 
+                FROM common_node
+                WHERE parent = 0 AND publish >= $published
+                    
+                UNION
+                
+                SELECT cn.id, cn.parent, array_append(b.ids, cn.id), array_append(b.titles, cn.title::varchar)
+                FROM common_node AS cn
+                INNER JOIN breadcrumbs AS b ON b.id = cn.parent
+                WHERE cn.node_group = 'page' AND publish >= $published
+            ),
+
+            -- group page content by page_id and aggregate all titles and content into single column
+            page_content_grouped AS (
+                SELECT page_id AS id, string_agg(title, ' ') AS title, string_agg(content, ' ') AS content
+                FROM page_content
+                GROUP BY page_id
+            ),
+
+            -- aggregate all product variants into single column
+            products AS (
                 SELECT
                     p.id,
-                    setweight(to_tsvector('english', coalesce(p.name, '') || ' ' || string_agg(pv.sku, ' ') || ' ' || string_agg(pv.name, ' ')), 'A') ||
-                    setweight(to_tsvector('english', coalesce(p.teaser, '')), 'B') ||
-                    setweight(to_tsvector('english', coalesce(p.description, '')), 'C') AS search_vector
+                    p.publish,
+                    coalesce(p.name, '') || ' ' || string_agg(pv.sku, ' ') || ' ' || string_agg(pv.name, ' ') AS rank_a,
+                    coalesce(p.teaser, '') AS rank_b,
+                    coalesce(p.description, '') AS rank_c
                 FROM ecommerce_product p
                 LEFT JOIN ecommerce_product_variety pv ON p.id = pv.product_id  
                 GROUP BY p.id
             ),
 
+            -- create tsvector with help of the previously created CTEs
             with_vector AS (
                 SELECT 
-                    n.*, 
-                    setweight(to_tsvector('english', coalesce(n.title, '')), 'A')    ||
-                    setweight(to_tsvector('english', coalesce(n.page_title, '')), 'A')  ||
-                    setweight(to_tsvector('english', coalesce(n.description, '')), 'B') ||
-                    setweight(to_tsvector('english', coalesce(n.keywords, '')), 'A') ||
-                    setweight(to_tsvector('english', coalesce(n.content, '')), 'C') ||
-                    p.search_vector AS search_vector
+                    n.*,
+                    array_to_json(b.ids) AS breadcrumbs_ids,
+                    array_to_json(b.titles) AS breadcrumbs_titles,
+                    setweight(to_tsvector('english', coalesce(pcg.title,'')), 'A')    ||
+                    setweight(to_tsvector('english', coalesce(n.page_title,'')), 'A')  ||
+                    setweight(to_tsvector('english', coalesce(n.description,'')), 'B') ||
+                    setweight(to_tsvector('english', coalesce(n.keywords,'')), 'A') ||
+                    setweight(to_tsvector('english', coalesce(pcg.content,'')), 'C') ||
+                    setweight(to_tsvector('english', coalesce(p.rank_a,'')), 'A') ||
+                    setweight(to_tsvector('english', coalesce(p.rank_b,'')), 'B') ||
+                    setweight(to_tsvector('english', coalesce(p.rank_c,'')), 'C') AS search_vector
                 FROM common_node n
-                LEFT JOIN products p ON n.node_controller = 'product' AND n.content::int = p.id
+                -- inner join as we want to filter by publish and breadcrumbs are already constructed with that in mind
+                -- ie whole page parent tree needs to be published in order to appear in search results
+                INNER JOIN breadcrumbs AS b ON b.id = n.id
+                LEFT JOIN page_content_grouped AS pcg ON pcg.id = n.id
+                LEFT JOIN products p ON n.node_controller = 'product' AND
+                    CASE 
+                        WHEN n.node_controller = 'product' THEN n.content::int
+                        ELSE 0
+                    END = p.id
+                WHERE 
+                    -- filter out unpublished products
+                    n.node_controller != 'product' OR p.publish >= $published
             )
-
+                    
             SELECT 
                 *,
-                ts_rank_cd(search_vector, websearch_to_tsquery('english', '$q')) AS rank
+                ts_rank_cd(search_vector, websearch_to_tsquery('english', '$q')) AS rank,
+                word_similarity(title, '$q') AS sim
             FROM with_vector
             WHERE 
-                search_vector @@ websearch_to_tsquery('english', '$q')
-                AND node_controller != 'symbolic' AND publish = 1
-            ORDER BY rank DESC;
+                (
+                    search_vector @@ websearch_to_tsquery('english', '$q')
+                    OR word_similarity(title, '$q') > 0.5
+                )
+                AND node_controller != 'symbolic'
+            ORDER BY rank DESC, sim DESC;
         ";
 
-        //msg($where_query);
         $result = $this->executeSQL($query);
 
         return $result;
