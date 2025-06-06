@@ -3,7 +3,7 @@
     // rewrite url on page select
     $('.navigation-list li').on('click', function(e) {
         e.preventDefault();
-        let newLink = window.location.origin + '/backoffice/pages/' + $(this).attr('id').replace('navigation-node-', '');
+        let newLink = window.location.origin + '/backoffice/content/' + $(this).attr('id').replace('navigation-node-', '');
 
         if(window.history.pushState) {
             window.history.pushState({}, $(this).find('span').html(), newLink);
@@ -85,13 +85,13 @@
             hx-trigger="click"
             hx-target="#bo-navigation"
             hx-swap="innerHTML"
-            title="{ITEM.node_controller}" 
-            class="navigation-list-item {ACTIVE}"
+            title="{ITEM.node_group}/{ITEM.node_controller}" 
+            class="navigation-list-item {ACTIVE} {HAS_CHILDREN}"
             draggable="true"
             id="navigation-node-{ITEM.id}"
             data-source-id="{ITEM.id}">
-            {ITEM.title|htmlspecialchars}
             <span class="icon {ITEM.node_group}" title="{ITEM.node_group}/{ITEM.node_controller}"></span>
+            {ITEM.title|htmlspecialchars}
         </li>
         <li class="drop-zone" data-position="{POSITION}" data-parent-id="{ITEM.parent}"></li>
         <!-- END: item -->

@@ -1,4 +1,4 @@
-<!-- BEGIN: title -->Pages<!-- END: title -->
+<!-- BEGIN: title -->Content Explorer<!-- END: title -->
 <!-- BEGIN: content -->
 <script>
     function isInit(event) {
@@ -22,7 +22,6 @@
         hx-indicator="#navigation-loading"
         hx-get="/request/bo/component/bo_navigation~id=GET.id:open=GET.open~" 
         hx-vals="js:{init: isInit(event)}"
-        hx-swap="innerHTML"
         hx-trigger="load, nodeUpdated from:body, navUpdated from:body">
     </div>
 </div>
@@ -30,6 +29,16 @@
 <div class="bo-node-detail-wrapper">
     <div id="detail-loading" class="onyx-loading htmx-indicator">
     </div>
-    {NODE_EDIT}
+
+    <div 
+        id="node-properties-edit"
+        class="node-info" 
+        hx-swap="innerHTML"
+        hx-indicator="#detail-loading"
+        hx-get="/request/bo/component/node_info"
+        hx-trigger="loadDetail from:body"
+        hx-vals="js:{id: event.detail.nodeId}"
+        hx-on::after-request="initAdvancedSettingsButton();">
+    </div>
 </div>
 <!-- END: content -->

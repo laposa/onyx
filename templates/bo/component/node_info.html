@@ -1,0 +1,63 @@
+<!-- BEGIN: content -->
+{MESSAGES}
+
+<h2>{NODE.title}</h2>
+<p>{NODE.node_group} - {NODE.node_controller}</p>
+
+<div class="node-info-block">
+    <h4>Information</h4>
+    <p><span class="label">ID:</span> {NODE.id}</p>
+    <p><span class="label">Name:</span> {NODE.title}</p>
+    <p><span class="label">Display Title:</span> {NODE.page_title}</p>
+    <p><span class="label">Content Type:</span> {NODE.node_group}</p>
+    <p><span class="label">Sub items:</span> {SUB_ITEMS}</p>
+</div>
+
+<div class="node-info-block">
+    <h4>Description</h4>
+    <p>{NODE.description}</p>
+</div>
+
+<div class="node-info-block">
+    <h4>Content</h4>
+    <p>{CONTENT_EXCERPT}</p>
+</div>
+
+<div class="node-info-block">
+    <h4>CSS Classes</h4>
+    <p>{NODE.css_class}</p>
+</div>
+
+<div class="node-info-block">
+    <h4>Files</h4>
+    {FILE_LIST}
+</div>
+
+<div class="actions">
+    <a href="#" class="edit">
+        <svg>
+            <use xlink:href="/share/images/icons/icon_node_edit.svg"></use>
+        </svg>
+        <div class="label">Edit</div>
+    </a>
+    <a href="#" class="duplicate">
+        <svg>
+            <use xlink:href="/share/images/icons/icon_node_duplicate.svg"></use>
+        </svg>
+        <div class="label">Duplicate</div>
+    </a>
+    <a href="#" class="move">
+        <svg>
+            <use xlink:href="/share/images/icons/icon_node_move_2.svg"></use>
+        </svg>
+        <div class="label">Move</div>
+    </a>
+    <a href="#" class="delete">
+        <svg>
+            <use xlink:href="/share/images/icons/icon_node_trash.svg"></use>
+        </svg>
+        <div class="label">Delete</div>
+    </a>
+</div>
+
+<!-- END: content -->

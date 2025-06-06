@@ -7,6 +7,7 @@
  *
  */
 
+@import url(/share/css/components/node_info.css);
 @import url(/share/css/backoffice_icons.css);
 @import url(/share/css/simple-tree.css);
 @import url(/share/themes/jquery-ui/onyx/jquery-ui.css);
@@ -63,8 +64,6 @@
   }
   
   hr {
-    -webkit-box-sizing: content-box;
-            box-sizing: content-box;
     height: 0;
     overflow: visible;
   }
@@ -205,8 +204,6 @@
   }
   
   legend {
-    -webkit-box-sizing: border-box;
-            box-sizing: border-box;
     color: inherit;
     display: table;
     max-width: 100%;
@@ -225,8 +222,6 @@
   
   [type="checkbox"],
   [type="radio"] {
-    -webkit-box-sizing: border-box;
-            box-sizing: border-box;
     padding: 0;
   }
   
@@ -272,16 +267,11 @@
     display: none;
   }
   
-  html {
-    -webkit-box-sizing: border-box;
-            box-sizing: border-box;
-  }
-  
   *,
   *::before,
   *::after {
-    -webkit-box-sizing: inherit;
-            box-sizing: inherit;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
   }
   
   @-ms-viewport {
@@ -298,7 +288,7 @@
     font-size: 1rem;
     font-weight: normal;
     line-height: 1.5;
-    color: #292b2c;
+    color: var(--text-color);
     background-color: #fff;
   }
   
@@ -576,6 +566,7 @@
   div.row-bottom:after {content: '.'; display: block; height: 0; font-size: 0; clear: both; visibility: hidden;}
   div.page div.page-wrapper {padding: 0;}
   div.page div.row-bottom {clear: both;}
+  div.page {overflow-y: auto;}
   
   /*default, fobinaci-1-1, 50%/50%*/
   div.two-column-page div.column-one,
@@ -1160,7 +1151,7 @@ div.CodeMirror {font-size: 13px;}
 .invisible { opacity: 0; transition: all 400ms ease; -webkit-transform: translateX(-10px); transform: translateX(-10px); }
 .visible.visible { opacity: 1; -webkit-transform: translateX(0); transform: translateX(0);}
 
-div.two-column-page { padding: 0 20px; margin: 0; width: 100%;}
+div.two-column-page { padding: 0 20px; margin: 0; width: 100%; overflow-y: auto;}
 div.two-column-page div.two-column-page { padding: 0; margin: 0;}
 div.row-bottom { height: 60px;}
 div.row-bottom div.row-wrapper { position: fixed; z-index: 250000; /*needs to be higher than div#mce_fullscreen_container for TinyMCE Full Screen mode*/ width: 100%; left: 0; bottom: 0; height: 60px; background: rgba(250,250,250,0.9); border-top: 1px solid #fff; margin: 0 0 0 130px; padding: 15px 0 0 20px; box-shadow: 4px 0 6px rgba(0,0,0,0.4); }

@@ -1,5 +1,6 @@
 :root {
 	--color-primary: cadetblue;
+	--color-primary-opaque: rgba(95, 158, 160, 0.1);
 	--color-secondary: #6c757d;
 	--color-success: #28a745;
 	--color-info: #17a2b8;
@@ -7,7 +8,7 @@
 	--color-danger: #dc3545;
 	--color-background-light: rgba(95, 158, 160, 0.05);
 	--color-background-dark: #343a40;
-	--color-text: #212529;
+	--color-text: #2e3135;
 	--color-text-light: #ffffff;
 }
  

@@ -45,11 +45,9 @@ class Onyx_Controller_Bo_Component_Bo_Navigation extends Onyx_Controller {
                 $this->tpl->assign('ITEM', $item);
                 $this->tpl->assign('POSITION', $key + 1);
 
-                if(in_array($item['id'], $parents)) {
-                    $this->tpl->assign('ACTIVE', 'active');
-                } else {
-                    $this->tpl->assign('ACTIVE', '');
-                }
+                $sub_items = count($this->Node->getChildren($item['id']) ?? []);
+                $this->tpl->assign('HAS_CHILDREN', $sub_items > 0 ? 'has-children' : '');                   
+                $this->tpl->assign('ACTIVE', in_array($item['id'], $parents) ? 'active' : '');
 
                 $this->tpl->parse('content.level.item');
             }
