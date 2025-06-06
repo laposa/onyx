@@ -407,6 +407,6 @@ $(document).on('click', '.fakelink, #content-list button, #page-list button, #no
 });
 
 $(document).on('click','.navigation-list-item', function(e) {
-    $('.navigation-list-item.active').removeClass('active');
+    $(this).siblings('.navigation-list-item.active').removeClass('active');
     $(this).addClass('active');
 });

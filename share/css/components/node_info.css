@@ -1,0 +1,132 @@
+.node-info {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	overflow-y: auto;
+	height: 100%;
+
+	h2 {
+		margin-top: 10px;
+		margin-bottom: 0;
+		line-height: normal;
+
+		+ p {
+			margin-top: 0;
+			color: #6a6a6a;
+		}
+	}
+
+	.node-info-block {
+		margin-bottom: 10px;
+
+		h4 {
+			font-size: 1rem;
+			margin-bottom: 5px;
+			color: var(--color-text);
+		}
+
+		p {
+			margin: 0 0 5px;
+			display: flex;
+
+			.label {
+				min-width: 75px;
+				color: #6a6a6a;
+			}
+		}
+	}
+
+	.actions {
+		display: flex;
+		height: 70px;
+		min-height: 70px;
+		width: 100%;
+		position: sticky;
+		bottom: 10px;
+		left: 0;
+		margin-top: auto;
+		background-color: white;
+		box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+
+		a {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			gap: 5px;
+			width: 25%;
+			transition: 0.3s ease;
+			padding: 10px;
+			opacity: 0.75;
+			border-radius: 5px;
+
+			.label {
+				max-height: 0;
+				opacity: 0;
+				transition: 0.3s ease;
+			}
+
+			svg {
+				width: 24px;
+				height: 24px;
+			}
+
+			&:hover {
+				text-decoration: none;
+				opacity: 1;
+
+				.label {
+					opacity: 1;
+					max-height: 20px;
+				}
+
+				svg {
+					color: white;
+				}
+			}
+		}
+
+		.edit {
+			svg {
+				color: var(--color-primary);
+			}
+
+			&:hover {
+				background-color: var(--color-primary);
+			}
+		}
+
+		.duplicate {
+			svg {
+				color: var(--color-warning);
+			}
+
+			&:hover {
+				background-color: var(--color-warning);
+			}
+		}
+
+		.move {
+			svg {
+				color: var(--color-info);
+			}
+
+			&:hover {
+				background-color: var(--color-info);
+			}
+		}
+
+		.delete {
+			height: auto;
+
+			svg {
+				color: var(--color-danger);
+			}
+
+			&:hover {
+				background-color: var(--color-danger);
+			}
+		}
+	}
+}
