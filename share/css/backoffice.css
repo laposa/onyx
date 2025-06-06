@@ -1501,6 +1501,10 @@ a.fakelink:hover {text-decoration: none;}
   transition: 0.3s ease;
   pointer-events: none;
   opacity: 0.5;
+
+  &.htmx-request {
+    pointer-events: all;
+  }
 }
 
 /*

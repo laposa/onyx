@@ -38,13 +38,13 @@
 
 	.actions {
 		display: flex;
-		height: 70px;
-		min-height: 70px;
+		height: 60px;
+		min-height: 60px;
 		width: 100%;
 		position: sticky;
-		bottom: 10px;
+		top: 0;
 		left: 0;
-		margin-top: auto;
+		margin-bottom: 5px;
 		background-color: white;
 		box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 
@@ -54,10 +54,9 @@
 			align-items: center;
 			justify-content: center;
 			color: white;
-			gap: 5px;
 			width: 25%;
 			transition: 0.3s ease;
-			padding: 10px;
+			padding: 0;
 			opacity: 0.75;
 			border-radius: 5px;
 
