@@ -240,11 +240,36 @@ $.widget("custom.combobox", {
 *   Onyx Node Actions
 */
 
-function duplicateNode(id, parent_id, node_group) {
-    $.get('/request/bo/component/node_duplicate~id='+id+'~', function(data) {
-        popupMessage($(data).find("div.onyx-messages"));
-        refreshNodeList(parent_id, node_group);
+function duplicateNode(id, parent_id, node_group, sub_items = 0) {
+    if (sub_items == 0 || confirm("Are you sure you want to duplicate this node and all its children?")) {
+        $.get('/request/bo/component/node_duplicate~id='+id+'~', function(data) {
+            popupMessage($(data).find("div.onyx-messages"));
+            refreshNodeList(parent_id, node_group);
+        });
+    } else {
+        return false;
+    }
+    return false;
+}
+
+function moveNode(event, node_group) {
+    event.preventDefault();
+    $('#onyx-dialog').empty();
+    $('#onyx-dialog').dialog({
+        width: 500, 
+        modal: true, 
+        overlay: {
+            opacity: 0.5, 
+            background: 'black'
+        }, 
+        title: 'Move node to a different location', 
+        close: function() {
+            $('#onyx-dialog').empty();
+        },
     });
+
+    makeAjaxRequest('#onyx-dialog', '/request/bo/component/node_parent_menu~id=0:expand_all=1:publish=0:parent_type='+node_group+'~');
+    $('#onyx-dialog').dialog('open');
     return false;
 }
 

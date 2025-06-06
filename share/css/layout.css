@@ -33,10 +33,6 @@ div.wrapper {
   height: 100%;
 }
 
-.bo-navigation {
-  height: 100%;
-}
-
 .bo-navigation-wrapper {
   display: flex;
   flex-direction: column;
