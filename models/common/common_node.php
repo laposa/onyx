@@ -1457,6 +1457,8 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
         $q = pg_escape_string($q);
         $published = $params['published_only'] ? 1 : 0;
 
+        // NOTE: this query requires pg_trgm extension to be installed
+        // and enabled in the database via: CREATE EXTENSION IF NOT EXISTS pg_trgm;
         $query = "
             -- get all content recursively for all pages
             WITH RECURSIVE page_content AS (
