@@ -1,10 +1,5 @@
 <!-- BEGIN: title -->Content Explorer<!-- END: title -->
 <!-- BEGIN: content -->
-<script>
-    function isInit(event) {
-        return event.detail ? !event.detail.init : true;
-    }
-</script>
 <div class="bo-navigation-wrapper">
     <div id="navigation-loading" class="onyx-loading htmx-indicator">
     </div>
@@ -19,10 +14,8 @@
     <div 
         id="bo-navigation" 
         class="bo-navigation" 
-        hx-indicator="#navigation-loading"
-        hx-get="/request/bo/component/bo_navigation~id=GET.id:open=GET.open~" 
-        hx-vals="js:{init: isInit(event)}"
-        hx-trigger="load, nodeUpdated from:body, navUpdated from:body">
+        hx-get="/request/bo/component/bo_navigation~id={GET.id}~" 
+        hx-trigger="load">
     </div>
 </div>
 
@@ -37,8 +30,7 @@
         hx-indicator="#detail-loading"
         hx-get="/request/bo/component/node_info"
         hx-trigger="loadDetail from:body"
-        hx-vals="js:{id: event.detail.nodeId}"
-        hx-on::after-request="initAdvancedSettingsButton();">
+        hx-vals="js:{id: event.detail.nodeId}">
     </div>
 </div>
 <!-- END: content -->

@@ -8,25 +8,27 @@
         </svg>
         <div class="label">Edit</div>
     </a>
-    <a href="#" class="duplicate" onclick="duplicateNode('{NODE.id}', '{NODE.parent}', '{NODE.node_group}', '{SUB_ITEMS}')">
+    
+    <button class="duplicate" onclick="duplicateNode('{NODE.id}', '{NODE.parent}', '{NODE.node_group}', '{SUB_ITEMS}')">
         <svg>
             <use xlink:href="/share/images/icons/icon_node_duplicate.svg"></use>
         </svg>
         <div class="label">Duplicate</div>
-    </a>
+    </button>
 
-    <a href="#" class="move" onclick="moveNode(event, '{NODE.node_group}')">
+    <button class="move" onclick="moveNode(event, '{NODE.node_group}', '{NODE.id}')">
         <svg>
             <use xlink:href="/share/images/icons/icon_node_move_2.svg"></use>
         </svg>
         <div class="label">Move</div>
-    </a>
-    <a href="#" class="delete" title="Move {NODE.title} to Bin" onclick="trashNode(event, '{NODE.id}')">
+    </button>
+
+    <button class="delete" title="Move {NODE.title} to Bin" onclick="trashNode(event, '{NODE.id}')">
         <svg>
             <use xlink:href="/share/images/icons/icon_node_trash.svg"></use>
         </svg>
         <div class="label">Delete</div>
-    </a>
+    </button>
 </div>
 
 <h2>{NODE.title}</h2>

@@ -9,6 +9,9 @@
 					$("#onyx-fe-edit-node-id-" + node_id).empty(); // in frontoffice
 					$('#onyx-dialog').dialog( "close").empty();
 					refreshNodeList('{PARENT}', '{NODE_GROUP}');
+
+					//  load parent detail, refresh level
+					htmx.trigger('#navigation-node-{PARENT}', 'click');
 			});
 			return false;
 	}

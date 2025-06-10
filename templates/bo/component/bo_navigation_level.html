@@ -1,0 +1,33 @@
+<!-- BEGIN: content -->
+<li class="drop-zone" data-position="0" data-parent-id="{ROOT}"></li>
+<!-- BEGIN: item -->
+<li
+    hx-get="/request/bo/component/bo_navigation_level~id={ITEM.id}:active={ITEM.id}~"
+    hx-trigger="click"
+    hx-target="#navigation-level-{TARGET}"
+    title="{ITEM.node_group}/{ITEM.node_controller}" 
+    class="navigation-list-item {ACTIVE} {HAS_CHILDREN}"
+    draggable="true"
+    id="navigation-node-{ITEM.id}"
+    data-source-id="{ITEM.id}"
+    hx-on::after-request="levelRefresh(event)"
+    >
+    <span class="icon {ITEM.node_group}" title="{ITEM.node_group}/{ITEM.node_controller}"></span>
+    {ITEM.title|htmlspecialchars}
+</li>
+<li class="drop-zone" data-position="{POSITION}" data-parent-id="{ITEM.parent}"></li>
+<!-- END: item -->
+<!-- BEGIN: action_buttons -->
+<li class="action-buttons">
+    <a 
+        class="button add" 
+        href="#" 
+        id="button-add-subpage" 
+        data-node-id="{GET.id}" 
+        data-node-group="page" 
+        onclick="addNode(event, '{GET.id}', 'page')">
+        Add New Node
+    </a>
+</li>
+<!-- END: action_buttons -->
+<!-- END: content -->

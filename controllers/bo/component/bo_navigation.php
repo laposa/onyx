@@ -28,8 +28,6 @@ class Onyx_Controller_Bo_Component_Bo_Navigation extends Onyx_Controller {
             ? $this->GET['id'] 
             : $_SESSION['active_pages'][0] ?? null;
 
-        $tree = [];
-        
         $parents = $this->Node->getFullPath($node_id) ? $this->Node->getFullPath($node_id) : [];
 
         //fill in root
@@ -37,31 +35,13 @@ class Onyx_Controller_Bo_Component_Bo_Navigation extends Onyx_Controller {
         $parents = array_reverse($parents);
 
         foreach($parents as $index => $level) {
-
-            $items = $this->Node->getNavigationChildren($level);
             $this->tpl->assign('ROOT', $level);
-
-            foreach($items as $key => $item) {
-                $this->tpl->assign('ITEM', $item);
-                $this->tpl->assign('POSITION', $key + 1);
-
-                $sub_items = count($this->Node->getChildren($item['id']) ?? []);
-                $this->tpl->assign('HAS_CHILDREN', $sub_items > 0 ? 'has-children' : '');                   
-                $this->tpl->assign('ACTIVE', in_array($item['id'], $parents) ? 'active' : '');
-
-                $this->tpl->parse('content.level.item');
-            }
-
-            if(count($parents) == $index + 1) {
-                $this->tpl->parse('content.level.action_buttons');
-            }
-
+            $this->tpl->assign('LEVEL', $index);
+            $this->tpl->assign('ACTIVE_PAGE', $node_id);
             $this->tpl->parse('content.level');
         }
 
-        if($node_id && $_GET['init'] === 'true') {
-            header('HX-Trigger: {"loadDetail":{"nodeId" :"'. $node_id.'"}}');
-        }
+        $this->tpl->assign('LAST', count($parents));	
         
         return true;        
     }

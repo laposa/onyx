@@ -48,22 +48,27 @@
 		background-color: white;
 		box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 
-		a {
+		a, button {
 			display: flex;
 			flex-direction: column;
 			align-items: center;
 			justify-content: center;
 			color: white;
+			background-color: white;
 			width: 25%;
-			transition: 0.3s ease;
+			height: auto;
 			padding: 0;
-			opacity: 0.75;
+			border: none;
 			border-radius: 5px;
+			opacity: 0.75;
+			transition: 0.3s ease;
 
 			.label {
 				max-height: 0;
 				opacity: 0;
 				transition: 0.3s ease;
+				font-weight: normal;
+				line-height: normal;
 			}
 
 			svg {
