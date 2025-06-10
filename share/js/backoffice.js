@@ -252,9 +252,11 @@ function duplicateNode(id, parent_id, node_group, sub_items = 0) {
     return false;
 }
 
-function moveNode(event, node_group) {
+function moveNode(event, node_group, source_node_id) {
     event.preventDefault();
     $('#onyx-dialog').empty();
+    // Workaround for node moving in Content Explorer page
+    // Standalone controller would be better, but needs consultation and some more work (design, allow positioning, collision with node_move component)
     $('#onyx-dialog').dialog({
         width: 500, 
         modal: true, 
@@ -263,6 +265,32 @@ function moveNode(event, node_group) {
             background: 'black'
         }, 
         title: 'Move node to a different location', 
+        buttons: [
+            {
+                text: 'Save',
+                click: function() {
+                    var destination_id = $('#onyx-dialog span.active > a').attr('href').match("[0-9]{1,}$") ?? false;
+                    if (destination_id) {
+                        $.post(
+                            "/request/bo/component/node_move", 
+                            {
+                                csrf_token: getCSRFToken(),
+                                source_node_id: source_node_id,
+                                destination_node_id: destination_id[0],
+                                position: 0,
+                            }, 
+                            function (data) {
+                                popupMessage(data);
+                                $('#onyx-dialog').dialog('close');
+                                document.body.dispatchEvent(new CustomEvent('navUpdated', { detail: { init: "false" } }));
+                            }
+                        );
+                    } else {
+                        popupMessage("Please select a destination node from the list.");
+                    }
+                }
+            }
+        ],
         close: function() {
             $('#onyx-dialog').empty();
         },
@@ -279,6 +307,7 @@ function trashNode(event, id) {
     $('#onyx-dialog').dialog({
         width: 500, 
         modal: true, 
+        buttons: [],
         overlay: {
             opacity: 0.5, 
             background: 'black'
@@ -300,6 +329,7 @@ function deleteNode(event, id) {
     $('#onyx-dialog').dialog({
         width: 500, 
         modal: true, 
+        buttons: [],
         overlay: {
             opacity: 0.5, 
             background: 'black'
@@ -321,6 +351,7 @@ function emptyBin(event) {
     $('#onyx-dialog').dialog({
         width: 500, 
         modal: true, 
+        buttons: [],
         overlay: {
             opacity: 0.5, 
             background: 'black'
@@ -355,7 +386,16 @@ function addNode(event, node_id, parent_node_group, specific_node_group = '') {
         var button = '#node-add-form-' + node_id + '-' + container_id + '-wrapper button';
         $(button).after(' <a href="#" class="button remove" onclick="$(\'#onyx-dialog\').empty().dialog(\'close\'); return false;"><span>Cancel</span></a>');
     });
-    $('#onyx-dialog').dialog({width: 500, modal: true, overlay: {opacity: 0.5, background: 'black'}, title: 'Add new node'}).dialog('open');
+    $('#onyx-dialog').dialog({
+        width: 500, 
+        modal: true, 
+        buttons: [],
+        overlay: {
+            opacity: 0.5, 
+            background: 'black'
+        }, 
+        title: 'Add new node'
+    }).dialog('open');
     return false;
 }
 
