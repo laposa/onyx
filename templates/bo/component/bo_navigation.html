@@ -36,7 +36,7 @@
 
                 const sourceElement = document.getElementById('navigation-node-' + sourceId);
                 
-                if(sourceElement.nextElementSibling == event.target || sourceElement.previousElementSibling == event.target) {
+                if(sourceElement.nextElementSibling == event.target || sourceElement.previousElementSibling == event.target || sourceId == destinationId) {
                     return; // Do not allow moving to the same level
                 }
                 
@@ -54,7 +54,17 @@
                     }, 
                     function (data) {
                         popupMessage(data);
-                        document.body.dispatchEvent(new CustomEvent('navUpdated', { detail: { init: "false" } }));
+
+                        const sourceList = $('#navigation-node-' + sourceId).closest('ul');
+                        const destinationList = $('.nav-list-' + destinationId);
+
+                        if(sourceList.attr('id') != destinationList.attr('id')) {
+                            htmx.trigger('#' + sourceList.attr('id'), 'navRefresh');
+                            htmx.trigger('#' + destinationList.attr('id'), 'navRefresh');
+                        } else {
+                            htmx.trigger('#' + sourceList.attr('id'), 'navRefresh');
+                        }
+                        document.getElementById('navigation-loading').classList.remove('htmx-request');
                     }
                 );
             });
@@ -77,8 +87,28 @@
         }
     }
 
-    function levelRefresh() {
+    function levelRefresh(event) {
+        const actualLevel = event.target.closest('ul').nextElementSibling;
+        const actualLevelId = actualLevel.id.replace('navigation-level-', '');
+        const emptyLevel = document.createElement('ul')
+        emptyLevel.classList.add('navigation-list', 'empty');
+        emptyLevel.id = 'navigation-level-' + (parseInt(actualLevelId) + 1);
+
+        let next = actualLevel.nextElementSibling;
+        while (next) {
+            let toRemove = next;
+            next = next.nextElementSibling;
+            toRemove.remove();
+        }
+
+        document.querySelectorAll('.navigation-list.empty').forEach((el) => {
+            el.classList.remove('empty');
+            const levelParentId = el.querySelector('.drop-zone').getAttribute('data-parent-id');
+            el.classList.add('nav-list-' + levelParentId);
+        });
         
+        actualLevel.parentNode.appendChild(emptyLevel);
+        initializeDragAndDrop();
     }
 
 </script>
@@ -86,9 +116,9 @@
     <!-- BEGIN: level -->
     <ul 
         id="navigation-level-{LEVEL}"
-        class="navigation-list"
+        class="navigation-list nav-list-{ROOT}"
         hx-get="/request/bo/component/bo_navigation_level~id={ROOT}:active={ACTIVE_PAGE}~"
-        hx-trigger="load"
+        hx-trigger="load, navRefresh"
         hx-swap="innerHTML"
         hx-on::after-request="initializeDragAndDrop();"
     >
@@ -96,7 +126,7 @@
     <!-- END: level -->
     <ul 
         id="navigation-level-{LAST}"
-        class="navigation-list"
+        class="navigation-list empty"
     >
     </ul>
 </div>

@@ -105,4 +105,9 @@
 			opacity: 0.25;
 		}
 	}
+
+	&.htmx-request, &.empty {
+		min-width: 0;
+		width: 0; 
+	}
 }

@@ -10,6 +10,7 @@
     draggable="true"
     id="navigation-node-{ITEM.id}"
     data-source-id="{ITEM.id}"
+    hx-on::after-request="levelRefresh(event)"
     >
     <span class="icon {ITEM.node_group}" title="{ITEM.node_group}/{ITEM.node_controller}"></span>
     {ITEM.title|htmlspecialchars}

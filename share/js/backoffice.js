@@ -244,7 +244,8 @@ function duplicateNode(id, parent_id, node_group, sub_items = 0) {
     if (sub_items == 0 || confirm("Are you sure you want to duplicate this node and all its children?")) {
         $.get('/request/bo/component/node_duplicate~id='+id+'~', function(data) {
             popupMessage($(data).find("div.onyx-messages"));
-            refreshNodeList(parent_id, node_group);
+            // refreshNodeList(parent_id, node_group);
+            htmx.trigger('.nav-list-' + parent_id, 'navRefresh');
         });
     } else {
         return false;
@@ -282,7 +283,17 @@ function moveNode(event, node_group, source_node_id) {
                             function (data) {
                                 popupMessage(data);
                                 $('#onyx-dialog').dialog('close');
-                                document.body.dispatchEvent(new CustomEvent('navUpdated', { detail: { init: "false" } }));
+                                
+                                const sourceList = $('#navigation-node-' + source_node_id).closest('ul');
+                                const destinationList = $('.nav-list-' + destination_id[0]);
+
+                                if(sourceList.length > 0) {
+                                    htmx.trigger('#' + sourceList.attr('id'), 'navRefresh');
+                                }
+
+                                if(destinationList.length > 0) {
+                                    htmx.trigger('#' + destinationList.attr('id'), 'navRefresh');
+                                }
                             }
                         );
                     } else {
