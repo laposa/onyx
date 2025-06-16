@@ -149,23 +149,13 @@ function onyxDetectProtocol() {
 }
 
 /**
- * onyxDetectProtocol to find if we are using SSL
+ * onyxDetectPort to find non standard port
  */
 
- function onyxDetectPort($protocol = false) {
+function onyxDetectPort($protocol = false) {
 
-    if (!$protocol) $protocol = onyxDetectProtocol();
-
-    if (array_key_exists('SERVER_PORT', $_SERVER)) $SERVER_PORT = $_SERVER['SERVER_PORT'];
-    else $SERVER_PORT = false;
-
-    if (array_key_exists('HTTP_X_FORWARDED_PORT', $_SERVER)) $HTTP_X_FORWARDED_PORT = $_SERVER['HTTP_X_FORWARDED_PORT'];
-    else $HTTP_X_FORWARDED_PORT = false;
-
-    if ($protocol == 'https' && ($SERVER_PORT == 443 || $HTTP_X_FORWARDED_PORT == 443)) $port = '';
-    elseif ($protocol == 'http' && ($SERVER_PORT == 80 || $HTTP_X_FORWARDED_PORT == 80)) $port = '';
-    elseif (is_numeric($HTTP_X_FORWARDED_PORT)) $port = ":$HTTP_X_FORWARDED_PORT";
-    else $port = ":$SERVER_PORT";
+    if (!in_array(ONYX_PORT, [80,443])) $port = ":" . ONYX_PORT;
+    else $port = '';
 
     return $port;
 }

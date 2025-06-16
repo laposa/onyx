@@ -166,6 +166,12 @@ if (!defined('ONYX_HSTS_ENABLE')) {
 onyxGlobalConfSetValue('ONYX_HSTS_TTL', 3600 * 24 * 60);
 
 /**
+ * Client facing web server port number
+ */
+
+onyxGlobalConfSetValue('ONYX_PORT', 443);
+
+/**
  * send X-XSS-Protection HTTP header
  */
 onyxGlobalConfSetValue('ONYX_XSS_PROTECTION_ENABLE', true);
