@@ -144,6 +144,7 @@ function onyxDetectProtocol() {
 
     if (array_key_exists('HTTP_X_FORWARDED_PROTO', $_SERVER)) $protocol = $_SERVER['HTTP_X_FORWARDED_PROTO'];
     else if (array_key_exists('SSL_PROTOCOL', $_SERVER) || array_key_exists('HTTPS', $_SERVER)) $protocol = 'https';
+    else if ((bool)ONYX_SSL == true) $protocol = 'https';
     else $protocol = 'http';
 
     return $protocol;

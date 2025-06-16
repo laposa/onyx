@@ -75,7 +75,8 @@ class Onyx_Bootstrap {
         //hack
         if (array_key_exists('logout', $_GET) && $_GET['logout'] == 1) {
             Onyx_Bo_Authentication::getInstance()->logout();
-            header("Location: http://{$_SERVER['SERVER_NAME']}/");
+            $protocol = onyxDetectProtocol();
+            header("Location: $protocol://{$_SERVER['SERVER_NAME']}/");
             exit;
         }
     }
@@ -291,11 +292,7 @@ class Onyx_Bootstrap {
      */
     public function processAuthentication($request)
     {
-        if (!$_SERVER['HTTPS'] && ONYX_EDITOR_USE_SSL) {
-            header("Location: https://{$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}");
-            exit;
-        }
-
+        
         if (!Onyx_Bo_Authentication::getInstance()->isAuthenticated()) {
             if (Onyx_Bo_Authentication::getInstance()->login()) {
                 msg('Successful Login to the backoffice', 'ok', 1);

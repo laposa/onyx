@@ -25,8 +25,14 @@ function onyxGlobalConfSetValue($name, $value) {
     }
 
     // check env variable
-    if (strlen(getenv($name)) > 0) define($name, getenv($name));
-    else define($name, $value);
+    if (strlen(getenv($name)) > 0) {
+        $value = getenv($name);
+        if (in_array(strtolower(($value)), ['true', 'false'])) {
+            $value = filter_var($value, FILTER_VALIDATE_BOOLEAN);
+        }
+    }
+
+    define($name, $value);
 }
 
 /**
@@ -148,19 +154,11 @@ onyxGlobalConfSetValue('ONYX_REQUIRE_AUTH', false);
 
 /**
  * Use SSL?
- * will force SSL in Onyx_Controller_Uri_Mapping
+ * 
  */
 
-onyxGlobalConfSetValue('ONYX_SSL', false);
+onyxGlobalConfSetValue('ONYX_SSL', true);
 
-if (!defined('ONYX_EDITOR_USE_SSL')) {
-    if (ONYX_SSL) define('ONYX_EDITOR_USE_SSL', true);
-    else define('ONYX_EDITOR_USE_SSL', false);
-}
-if (!defined('ONYX_CUSTOMER_USE_SSL')) {
-    if (ONYX_SSL) define('ONYX_CUSTOMER_USE_SSL', true);
-    else define('ONYX_CUSTOMER_USE_SSL', false);
-}
 if (!defined('ONYX_HSTS_ENABLE')) {
     if (ONYX_SSL) define('ONYX_HSTS_ENABLE', true);
     else define('ONYX_HSTS_ENABLE', false);

@@ -43,11 +43,6 @@ class Onyx_Controller_Uri_Mapping extends Onyx_Controller {
             //similar check is done in Onyx_Bootstrap
             if (preg_match('/bo\//', $controller_request)) {
 
-                if ((!isset($_SERVER['HTTPS']) || !$_SERVER['HTTPS']) && ONYX_EDITOR_USE_SSL) {
-                    header("Location: https://{$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}");
-                    exit;
-                }
-
                 $auth = Onyx_Bo_Authentication::getInstance()->login();
                 if (!$auth) $controller_request = 'sys/401';
                 // don't allow to save this request to the cache
@@ -317,18 +312,6 @@ class Onyx_Controller_Uri_Mapping extends Onyx_Controller {
                 }
             }
         }
-
-        /**
-         * force SSL
-         * this is usually done by the server or proxy
-         */
-
-        /*
-        if (!($_SERVER['SSL_PROTOCOL'] || $_SERVER['HTTPS']) && ONYX_CUSTOMER_USE_SSL) {
-            header("HTTP/1.1 301 Moved Permanently");
-            header("Location: https://{$_SERVER['SERVER_NAME']}{$_SERVER['REQUEST_URI']}");
-            exit;
-        }*/
 
     }
 }
