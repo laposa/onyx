@@ -55,6 +55,10 @@
 				opacity: 0.3;
 			}
 		}
+
+		&.unpublished {
+			opacity: 0.4;
+		}
   }
 
 	.action-buttons {
@@ -90,6 +94,10 @@
 
 		 &.container:before {
 			background-image: url('../images/icons/icon_container.png');
+		}
+
+		&.page.product:before {
+			background-image: url('../images/icons/icon_product.png');
 		}
 	}
 
