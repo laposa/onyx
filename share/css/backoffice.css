@@ -967,7 +967,7 @@ div.ui-dialog {z-index: 310000; /*needs to be higher than .onyx-modal-overlay*/}
  * popup window
  */
  
-div.popup {padding: 10px; background: white; color: black;}
+div.popup {height: 100%; padding: 10px; background: white; color: black; overflow-y: auto;}
 h2 a,
 h3 a,
 h4 a {color: black;}
@@ -1151,7 +1151,7 @@ div.CodeMirror {font-size: 13px;}
 .invisible { opacity: 0; transition: all 400ms ease; -webkit-transform: translateX(-10px); transform: translateX(-10px); }
 .visible.visible { opacity: 1; -webkit-transform: translateX(0); transform: translateX(0);}
 
-div.two-column-page { padding: 0 20px; margin: 0; width: 100%; overflow-y: auto;}
+div.two-column-page { padding: 0 20px; margin: 0; width: 100%; height: 100%; overflow-y: auto;}
 div.two-column-page div.two-column-page { padding: 0; margin: 0;}
 div.row-bottom { height: 60px;}
 div.row-bottom div.row-wrapper { position: fixed; z-index: 250000; /*needs to be higher than div#mce_fullscreen_container for TinyMCE Full Screen mode*/ width: 100%; left: 0; bottom: 0; height: 60px; background: rgba(250,250,250,0.9); border-top: 1px solid #fff; margin: 0 0 0 130px; padding: 15px 0 0 20px; box-shadow: 4px 0 6px rgba(0,0,0,0.4); }
