@@ -15,9 +15,12 @@
         <!-- BEGIN: item -->
             <li>
                 <a class="search-result-item" href="/backoffice/content/{ITEM.id}">
-                    <span class="path">{PATH}</span>
-                    <span class="title">{ITEM.title}</span>
+                    <span class="title">
+                        <span class="icon {ITEM.node_group} {ITEM.node_controller}" title="{ITEM.node_group}/{ITEM.node_controller}"></span>
+                        {ITEM.title}
+                    </span>
                 </a>
+                <span class="path">{PATH}</span>
             </li>
         <!-- END: item -->
 

@@ -33,7 +33,7 @@ class Onyx_Controller_Bo_Component_Bo_Search_Results extends Onyx_Controller {
             foreach( $results as $result ) {
 
                 $this->tpl->assign('ITEM', $result);
-                $this->tpl->assign('PATH', $this->buildPath($result['id']));
+                $this->tpl->assign('PATH', $this->buildPath($result));
                 $this->tpl->parse('content.results.item');
             }
 
@@ -47,16 +47,20 @@ class Onyx_Controller_Bo_Component_Bo_Search_Results extends Onyx_Controller {
         return true;        
     }
 
-    private function buildPath($id) {
-        $path = $this->Node->getFullPathDetailForBreadcrumb($id);
-        array_splice($path, -1, 1);
+    private function buildPath($result) {
+        $ids = json_decode($result['breadcrumbs_ids'] ?? []);
+        $titles = json_decode($result['breadcrumbs_titles'] ?? []);
+
         $breadcrumb = '';
 
-        foreach($path as $level) {
-            if (!empty($breadcrumb)) {
-                $breadcrumb .= ' > ';
+        foreach($ids as $index => $id) {
+            $title = $titles[$index] ?? '';
+            if (!empty($title)) {
+                $breadcrumb .= '<a href="/backoffice/content/' . $id . '">' . htmlspecialchars($title) . '</a>';
+                if ($index < count($ids) - 1) {
+                    $breadcrumb .= ' &raquo; ';
+                }
             }
-            $breadcrumb .= $level['title'];
         }
 
         return $breadcrumb;

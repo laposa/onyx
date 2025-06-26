@@ -40,52 +40,74 @@
 
 	.search-results {
 		position: absolute;
-		top: 60px;
 		left: 0;
-		height: calc(100% - 60px);
 		width: 100%;
 		box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 		z-index: 1000;
+		height: calc(100% - 60px);
 		pointer-events: none;
-		overflow-y: auto
 	}
 
 	.search-results-list {
 		list-style: none;
 		margin: 0;
+		overflow-y: auto;
+		top: 60px;
+		max-height: 100%;
 		padding: 0;
 		pointer-events: all;
+		background-color: white;
 
-		.search-result-item {
-			display: flex;
-			flex-direction: column;
-			width: 100%;
+		> li {
 			padding: 10px;
 			background-color: white;
 			border-bottom: 1px solid #ddd;
-			cursor: pointer;
-			color: #333;
-			transition: 0.5s ease;
+			transition: 0.3s ease;
 
 			&:hover {
-				background-color: #f5f5f5;
-				text-decoration: none;
+				background-color: var(--color-primary-opaque);
 
 				.title {
 					color: var(--color-primary);
 				}
 			}
+		}
+
+		a:hover {
+			text-decoration: none;
+		}
+
+		.search-result-item {
+			display: flex;
+			flex-direction: column;
+			width: 100%;
+			cursor: pointer;
+			color: #333;
+			transition: 0.5s ease;
 
 			.title {
 				width: 100%;
-				font-size: 1.25rem;
-				font-weight: 700;
+				font-size: 1.1rem;
+				font-weight: 500;
 				color: #333;
+				display: flex;
+				align-items: center;
+				transition: 0.3s ease;
 			}
+		}
 
-			.path {
-				font-size: 0.65rem;
+		.path {
+			font-size: 0.7rem;
+			color: #999;
+			margin-top: 5px;
+
+			a {
+				font-size: 0.7rem;
 				color: #999;
+
+				&:hover {
+					color: var(--color-primary);
+				}
 			}
 		}
 	}
@@ -114,6 +136,37 @@
 
 		&:before {
 			content: "\f00d";
+		}
+	}
+
+	/* Icons */
+
+	.icon {
+		margin-right: 5px;
+
+		&:before {
+			content: "";
+			display: block;
+			position: relative;
+			width: 20px;
+			height: 20px;
+			background-size: contain;
+		}
+
+		&.page:before {
+			background-image: url('../images/icons/icon_page.png');
+		}
+		
+		&.content:before, &.layout:before {
+			background-image: url('../images/icons/icon_content_2.png');
+		}
+
+		 &.container:before {
+			background-image: url('../images/icons/icon_container.png');
+		}
+
+		&.page.product:before {
+			background-image: url('../images/icons/icon_product.png');
 		}
 	}
 }

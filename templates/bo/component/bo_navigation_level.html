@@ -3,7 +3,7 @@
 <!-- BEGIN: item -->
 <li
     id="navigation-node-{ITEM.id}"
-    class="navigation-list-item {ACTIVE} {HAS_CHILDREN} {PUBLISHED}"
+    class="navigation-list-item {ACTIVE} {HAS_CHILDREN} published-{ITEM.publish}"
     title="{ITEM.node_group}/{ITEM.node_controller}" 
     hx-get="/request/bo/component/bo_navigation_level~id={ITEM.id}:active={ITEM.id}~"
     hx-trigger="click"

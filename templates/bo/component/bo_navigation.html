@@ -5,6 +5,8 @@
         e.preventDefault();
         let newLink = window.location.origin + '/backoffice/content/' + $(this).attr('id').replace('navigation-node-', '');
 
+        $(this).siblings('li.action-buttons').remove();
+
         if(window.history.pushState) {
             window.history.pushState({}, $(this).find('span').html(), newLink);
         }
@@ -36,6 +38,9 @@
 
                 const sourceElement = document.getElementById('navigation-node-' + sourceId);
                 
+                const sourceList = $('#navigation-node-' + sourceId).closest('ul');
+                const destinationList = $('.nav-list-' + destinationId);
+
                 if(sourceElement.nextElementSibling == event.target || sourceElement.previousElementSibling == event.target || sourceId == destinationId) {
                     return; // Do not allow moving to the same level
                 }
@@ -54,9 +59,6 @@
                     }, 
                     function (data) {
                         popupMessage(data);
-
-                        const sourceList = $('#navigation-node-' + sourceId).closest('ul');
-                        const destinationList = $('.nav-list-' + destinationId);
 
                         if(sourceList.attr('id') != destinationList.attr('id')) {
                             htmx.trigger('#' + sourceList.attr('id'), 'navRefresh');
