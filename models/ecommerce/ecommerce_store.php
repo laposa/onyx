@@ -381,7 +381,7 @@ CREATE INDEX ecommerce_store_type_id_idx ON ecommerce_store (type_id);
                 }
                 
                 // help old installations with transtion from one address field to multiple fields
-                if (trim($item['address']) == '') {
+                if (trim($item['address'] ?? '') == '') {
                     if ($item['address_name']) $records[$i]['address'] .= $item['address_name'] . ",\n";
                     if ($item['address_line_1']) $records[$i]['address'] .= $item['address_line_1'] . ",\n";
                     if ($item['address_line_2']) $records[$i]['address'] .= $item['address_line_2'] . ",\n";
