@@ -326,12 +326,11 @@ function templateExists($template_name) {
 /**
  * shell_exec wrapper calling local shell scripts
  *
- * @param unknown_type $command
- * @return unknown
+ * @param string $command
+ * @return string|bool
  */
 
 function local_exec($command) {
-
 
     $command = escapeshellcmd($command);
     msg("Calling: local_exec($command)", "ok", 2);

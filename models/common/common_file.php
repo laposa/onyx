@@ -737,7 +737,7 @@ CREATE TABLE common_file (
      */
      
     static function getFileInfo($fp, $extra_detail = false, $fast = true) {
-    
+
         if (trim($fp) == '' || !file_exists($fp)) return false;
         
         $file_info = array();
@@ -750,10 +750,31 @@ CREATE TABLE common_file (
         $file_info['size'] = self::resize_bytes(filesize($fp));
         
         if ($extra_detail) {
-            $file_info['mime-type'] = local_exec("file -bi " . escapeshellarg($fp)); // overwrite the above mime-type with more details
-            $file_info['type-detail'] = local_exec("file -b " . escapeshellarg($fp));
+            $finfo = new finfo(FILEINFO_MIME_TYPE);
+            $file_info['mime-type'] = $finfo->file($fp);
+            
+            $finfo_desc = new finfo(FILEINFO_NONE);
+            $file_info['type-detail'] = $finfo_desc->file($fp);
+            
             if (trim($file_info['mime-type']) == 'application/pdf') {
-                $file_info['extra-detail'] = local_exec("pdfinfo " . escapeshellarg($fp));
+                try {
+                    $parser = new \Smalot\PdfParser\Parser();
+                    $pdf = $parser->parseFile($fp);
+                    
+                    $details = $pdf->getDetails();
+                    
+                    $pdf_info = [];
+                    if (isset($details['Pages'])) $pdf_info[] = "Pages: " . $details['Pages'];
+                    if (isset($details['Title'])) $pdf_info[] = "Title: " . $details['Title'];
+                    if (isset($details['Author'])) $pdf_info[] = "Author: " . $details['Author'];
+                    if (isset($details['CreationDate'])) $pdf_info[] = "Created: " . $details['CreationDate'];
+                    if (isset($details['ModDate'])) $pdf_info[] = "Modified: " . $details['ModDate'];
+                    
+                    $file_info['extra-detail'] = implode("\n", $pdf_info);
+                    
+                } catch (Exception $e) {
+                    $file_info['extra-detail'] = "PDF info unavailable: " . $e->getMessage();
+                }
             } else if (preg_match("/^image/", $file_info['mime-type'])) {
                 $file_info['extra-detail'] = local_exec("identify " . escapeshellarg($fp));
             }
