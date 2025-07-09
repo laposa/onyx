@@ -327,7 +327,7 @@ function templateExists($template_name) {
  * shell_exec wrapper calling local shell scripts
  *
  * @param string $command
- * @return unknown
+ * @return string|bool
  */
 
 function local_exec($command) {
