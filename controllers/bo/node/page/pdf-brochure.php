@@ -65,6 +65,9 @@ class Onyx_Controller_Bo_Node_Page_Pdf_Brochure extends Onyx_Controller_Bo_Node_
       return false;
     }
 
+    // Add images to node
+    $this->appendImagesToNode($folderPath, $manifest);
+
     // save manifest
     $this->manifestUpdate($manifest);
   }
@@ -135,5 +138,30 @@ class Onyx_Controller_Bo_Node_Page_Pdf_Brochure extends Onyx_Controller_Bo_Node_
     $nodeData['custom_fields'] = (object) json_decode($nodeData['custom_fields']);
     $nodeData['custom_fields']->pdf2Web = $manifest;
     return $this->Node->nodeUpdate($nodeData);
+  }
+
+  public function appendImagesToNode($folderPath, $manifest) {
+    
+    require_once('models/common/common_file.php');
+
+    $Image = new common_image();
+    $node_id = $this->node_data['id'];
+
+    $file_list = $Image->getFlatArrayFromFs($folderPath, 'f');
+
+    //need to use manifest in order to insert files in correct order
+    $manifest_array = json_decode($manifest, true);
+
+    foreach ($manifest_array['pages'] as $key => $page) {
+      $file_index = array_search($page['filename'], array_column($file_list, 'name'));
+
+      $file_data = [];
+      $file_data['src'] = 'var/files/pdf2web/' . $node_id . '/' . $file_list[$file_index]['name'];
+      $file_data['node_id'] = $node_id;
+      $file_data['title'] = 'Page ' . ($key + 1);
+      $file_data['role'] = 'main';
+
+      $Image->insertFile($file_data);
+    }
   }
 }

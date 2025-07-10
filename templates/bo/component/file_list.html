@@ -22,16 +22,16 @@ function chooseImage(src, title) {
         <div class="item" id="linked-file-{FILE.id}" style="margin: 0 1em 1em 0;">
                 
                 <!-- BEGIN: default -->
-                    <a title="Click on this file to edit its properties" href="#file-list-{GET.node_id}" onclick="showModalOverlay('replace-file'); makeAjaxRequest('#modal-overlay-window', '/request/bo/component/file_detail~file_id={FILE.id}:type={GET.type}:role={GET.role}:relation={GET.relation}:node_id={GET.node_id}~'); return false;"><img id="image-thumbnail-{FILE.id}" src="/image/{FILE.src}" style="width: 125px;" title="Role: {FILE.role}. Click on this file to edit its properties" alt="{FILE.title}" /></a>
+                    <a title="Click on this file to edit its properties" href="#file-list-{GET.node_id}" onclick="showModalOverlay('replace-file'); makeAjaxRequest('#modal-overlay-window', '/request/bo/component/file_detail~file_id={FILE.id}:type={GET.type}:role={GET.role}:relation={GET.relation}:node_id={GET.node_id}~'); return false;"><img id="image-thumbnail-{FILE.id}" src="/thumbnail/200/{FILE.src}" style="width: 125px;" title="Role: {FILE.role}. Click on this file to edit its properties" alt="{FILE.title}" /></a>
                 <!-- END: default -->
                 
                 
                 <!-- BEGIN: RTE_select -->      
-                    <a href="#" class="image" onclick="chooseImage($('#image-thumbnail-{FILE.id}').attr('src') , $('#image-thumbnail-{FILE.id}').attr('title')); return false;"><img id="image-thumbnail-{FILE.id}" src="/image/{FILE.src}" style="width: 125px;" title="{FILE.title|htmlspecialchars}"  alt="{FILE.title|htmlspecialchars}" /></a>
+                    <a href="#" class="image" onclick="chooseImage($('#image-thumbnail-{FILE.id}').attr('src') , $('#image-thumbnail-{FILE.id}').attr('title')); return false;"><img id="image-thumbnail-{FILE.id}" src="/thumbnail/200/{FILE.src}" style="width: 125px;" title="{FILE.title|htmlspecialchars}"  alt="{FILE.title|htmlspecialchars}" /></a>
                 <!-- END: RTE_select -->
                 
                 <!-- BEGIN: CSS_select -->
-                    <a href="#" onclick="var src = $('#image-thumbnail-{FILE.id}').attr('src'); alert('Copy&amp;Paste this:\nurl(' + src + ')'); return false;"><img id="image-thumbnail-{FILE.id}" src="/image/{FILE.src}" style="width: 125px;" title="{FILE.title|htmlspecialchars}"  alt="{FILE.title|htmlspecialchars}" /></a>
+                    <a href="#" onclick="var src = $('#image-thumbnail-{FILE.id}').attr('src'); alert('Copy&amp;Paste this:\nurl(' + src + ')'); return false;"><img id="image-thumbnail-{FILE.id}" src="/thumbnail/200/{FILE.src}" style="width: 125px;" title="{FILE.title|htmlspecialchars}"  alt="{FILE.title|htmlspecialchars}" /></a>
                 <!-- END: CSS_select -->
         </div>
         <!-- END: item -->
