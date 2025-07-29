@@ -475,6 +475,7 @@
       cursor: pointer;
       display: inline-block;
       margin: 0;
+      width: auto;
 
       &:hover {
         background: #2d8b3e;
