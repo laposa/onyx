@@ -17,7 +17,7 @@ function chooseImage(src, title) {
     <div class="layout-column-two of-two">
         <div class="content" style="margin: 10px;">
             <p>Click on the image to replace it</p>
-            <p onclick="showModalOverlay(); makeAjaxRequest('.onyx-modal-overlay.secondary #modal-overlay-window', '/request/bo/pages/server_browser~type=replace_file:relation={GET.relation}:node_id={GET.node_id}:file_id={FILE.id}~'); return false"><img id="image-thumbnail-{FILE.id}" src="/image/{FILE.src}" title="Click on this image to select replacement" alt="{FILE.title|htmlspecialchars}" style="max-height: 200px; background: url(/share/images/empty-canvas-bg.png) repeat; padding: 20px; cursor:pointer;" /></p>
+            <p onclick="showModalOverlay(); makeAjaxRequest('.onyx-modal-overlay.secondary #modal-overlay-window', '/request/bo/pages/server_browser~type=replace_file:relation={GET.relation}:node_id={GET.node_id}:file_id={FILE.id}~'); return false"><img id="image-thumbnail-{FILE.id}" src="/thumbnail/200/{FILE.src}" title="Click on this image to select replacement" alt="{FILE.title|htmlspecialchars}" style="max-height: 200px; background: url(/share/images/empty-canvas-bg.png) repeat; padding: 20px; cursor:pointer;" /></p>
             <p>{FULL_DETAILS}</p>
             <p><a class="button remove" title="Unlink file" href="#" onclick="if (confirm('Do you really want to unlink {FILE.title|htmlspecialchars|addslashes}?')) {$('#linked-file-{FILE.id}').load('/request/bo/component/file_unlink~relation={GET.relation}:file_id={FILE.id}~', function() { popupMessage('#linked-file-{FILE.id} div.onyx-messages'); hideModalOverlay(); });}; return false"><span>Unlink</span></a></p>
         </div>
