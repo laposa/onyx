@@ -47,13 +47,13 @@
 
     <script>
 
-      var manifest = {NODE.custom_fields.pdf2Web};
+      var manifest = {PDF2WEB_MANIFEST};
       var fe_edit_mode = '{_SESSION.fe_edit_mode}';
 
       pdf2webViewer({
           target: document.getElementById("pdf2web-viewer"),
           showTwoPages: true,
-          showEditor: fe_edit_mode == 'edit'?true:false,
+          showEditor: fe_edit_mode == 'edit' ? true : false,
           mobileBreakpoint: 480,
           saveHandler: saveToOnyxBackoffice,
           manifest: manifest,
