@@ -2,8 +2,6 @@
   height: 100%;
   width: auto; 
   margin: 0 auto;
-  max-height: 100vh;
-  overflow: hidden;
 
   .page-content-wrapper, 
   .page-header-wrapper {
