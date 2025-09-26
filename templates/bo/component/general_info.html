@@ -1,0 +1,97 @@
+<!-- BEGIN: content -->
+{MESSAGES}
+    <!-- BEGIN: preview -->
+    <fieldset id="component-general-info" class="component-preview">
+        <div id="general-info-loading" class="onyx-loading htmx-indicator">
+            <img src="/share/images/loading.svg" alt="Loading..."/>
+        </div>
+
+        <legend>General Information</legend>
+
+        <span class="label">Name:</span>
+        <span class="value">{NODE.title}</span>
+
+        <span class="label">Display Title:</span>
+        <span class="value">{NODE.page_title}</span>
+
+        <span class="label">Description:</span>
+        <span class="value">{NODE.description}</span>
+
+        <div class="component-actions">
+            <button
+                hx-get="/request/bo/component/general_info?edit=true&node_id={NODE.id}"
+                hx-target="#edit-dialog-content"
+                hx-indicator="#edit-loading"
+                hx-trigger="click"
+                hx-swap="innerHTML"
+                hx-on::before-request="openDialog()"
+                class="btn">
+                Edit
+            </button>
+        </div>
+    </fieldset>
+    <!-- END: preview -->
+
+    <!-- BEGIN: edit -->
+    <form id="general-info-edit">
+        <h2>Edit General Information</h2>
+
+        <!-- Title -->
+        <!-- TODO: add slug placeholder to metadata -->
+        <div class="row text">
+            <label for="node-title">{NODE.node_group|ucfirst} Name:</label>    
+            <input 
+                class="title" 
+                type="text" 
+                id="node-title" 
+                name="node[title]" 
+                value="{NODE.title|htmlspecialchars}" 
+                placeholder="{NODE.node_group|ucfirst} Name"
+                onkeyup="if (document.getElementById('node-page-title')) document.getElementById('node-page-title').setAttribute('placeholder', this.value);"
+            />
+        </div>
+
+        <!-- Heading -->
+        <div class="row text">
+            <label for="node-page-title" title="This title will be displayd in the H1 for page (page title), H2 for layouts and H3 for content elements (content title)">Heading:</label>
+            <input class="title" type="text" name="node[page_title]" id="node-page-title" value="{NODE.page_title|htmlspecialchars}" title="Please try to fit your title length into the size of this input box" placeholder="{NODE.title|htmlspecialchars}"/>
+        </div>
+        <div class="row checkbox">
+            <label>
+                <input 
+                    type="checkbox" 
+                    name="node[display_title]" 
+                    id="node-display-title" 
+                    value="1" 
+                    {NODE.display_title_check} 
+                /> 
+                <span class="slider"></span>
+            </label>
+            Display heading
+        </div>
+
+        <!-- Display Heading -->
+        <div class="row text">
+            <label for="node-description">Excerpt (description, summary):</label>
+            <textarea name="node[description]" id="node-description" class="small" style="width: 100%;" title="Please try to fit your description into this input box, this will display Google in the search result" cols="50" rows="20">{NODE.description|htmlspecialchars}</textarea>
+        </div>
+
+        <!-- Display Secondary Navigation -->
+        <div class="row checkbox">
+            <label title="When this option is disabled, an extra CSS class noSecondaryNavigation will be added into parent container (helpful for making page full width) and CONTAINER.4 will be shown">
+                <input 
+                    type="checkbox" 
+                    title="When this option is disabled, an extra CSS class noSecondaryNavigation will be added into parent container (helpful for making page full width)" 
+                    name="node[display_secondary_navigation]" 
+                    id="node-display-secondary-navigation" 
+                    {NODE.display_secondary_navigation} 
+                />
+                <span class="slider"></span>
+            </label>
+            Secondary Nav. (if supported by HTML template)
+        </div>
+
+        {FILE "bo/component/edit_dialog_footer.html"}
+    </form>
+    <!-- END: edit -->
+<!-- END: content -->

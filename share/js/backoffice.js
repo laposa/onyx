@@ -2,6 +2,38 @@
  * backoffice and fe_edit
  * Author: Norbert @ Laposa Limited 2010-2020
  */
+
+function openDialog() {
+    document.querySelector("#edit-dialog").showModal();
+}
+
+function openFileDialog() {
+    document.querySelector("#file-dialog").showModal();
+}
+
+function closeFileDialog() {
+    document.querySelector("#file-dialog-content").innerHTML = '';
+    document.querySelector("#file-dialog").close();
+}
+
+function closeDialog() {
+    document.querySelector("#edit-dialog-content").innerHTML = '';
+    document.querySelector("#edit-dialog").close();
+}
+
+// TODO: refresh is being triggered while clicking through file dialog
+function refreshComponent(triggerButton) {
+    const form = htmx.closest(triggerButton, 'form');
+    const componentName = form.id.replace('-edit', '');
+    htmx.trigger('#' + componentName, 'refresh');
+}
+
+document.addEventListener('htmx:afterRequest', (event) => {
+    if (event.target.id == 'saveAndClose') {
+        refreshComponent(event.target);
+        closeDialog();
+    }
+});
  
 function openEdit(url, el, ajax) {
     if (ajax) {
@@ -13,7 +45,7 @@ function openEdit(url, el, ajax) {
 }
 
 function openAjaxRequestInDialog(url, title) {
-    $('#onyx-dialog').html(onyx_load_indicator_html_snippet).load(url, '', function (responseText, textStatus, XMLHttpRequest) {
+    $('#onyx-dialog').load(url, '', function (responseText, textStatus, XMLHttpRequest) {
         htmx.process('#onyx-dialog');
     })
     .dialog({
@@ -125,7 +157,9 @@ function initBackofficeUI() {
     // TODO temporarily disabled, causes "Maximum call stack size exceeded" error   
     // TODO 04/25 enabled again after new menu implementation. keep an eye on whatever may cause the Maximum call stack again
     $(window).bind("popstate", function() {
-        window.location = location.href
+        if(location.href.indexOf('#') == -1) {
+            window.location = location.href
+        }
     });
 }
 

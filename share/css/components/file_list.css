@@ -1,0 +1,20 @@
+.file-list {
+	margin-bottom: 20px;
+
+	.list {
+		display: flex; 
+		align-items: center;
+		justify-content: left; 
+		flex-wrap:wrap;
+
+		.item {
+			margin: 0 1em 1em 0;
+
+			img {
+				width: 100%;
+				max-width: 125px;
+				min-width: 125px;
+			}
+		}
+	}
+}

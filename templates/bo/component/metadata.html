@@ -1,0 +1,93 @@
+<!-- BEGIN: content -->
+{MESSAGES}
+    <!-- BEGIN: preview -->
+    <fieldset id="component-metadata" class="component-preview">
+        <div id="metadata-loading" class="onyx-loading htmx-indicator">
+            <img src="/share/images/loading.svg" alt="Loading..."/>
+        </div>
+        
+        <legend>Metadata</legend>
+
+        <span class="label">URI Title:</span>
+        <span class="value">{NODE.uri_title}</span>
+
+        <span class="label">Browser Title:</span>
+        <span class="value">{NODE.browser_title}</span>
+
+        <span class="label">Strapline:</span>
+        <span class="value">{NODE.strapline}</span>
+
+        <span class="label">Deeplink:</span>
+        <span class="value">{NODE.custom_fields.deeplink}</span>
+
+        <div class="component-actions">
+            <button
+                hx-get="/request/bo/component/metadata?edit=true&node_id={NODE.id}"
+                hx-target="#edit-dialog-content"
+                hx-indicator="#edit-loading"
+                hx-trigger="click"
+                hx-swap="innerHTML"
+                hx-on::before-request="openDialog()"
+                class="btn">
+                Edit
+            </button>
+        </div>
+    </fieldset>
+    <!-- END: preview -->
+
+    <!-- BEGIN: edit -->
+    <form id="metadata-edit">
+        <h2>Edit Metadata</h2>
+
+        <!-- Slug / URI -->
+        <div class="row text">
+            <label for="node-uri-title" title="Speaking URL path segment">Slug:</label>
+            <input 
+                class="half" 
+                type="text" 
+                name="node[uri_title]" 
+                id="node-uri-title" 
+                value="{NODE.uri_title|htmlspecialchars}" 
+                title="If empty, navigation title will be used" 
+                onchange="var value = $(this).attr('value'); if (value.indexOf('{_SERVER.HTTP_HOST}') != -1) {growlMessage('Invalid slug, don\'t use actual URL'); $(this).attr('value', '');}"
+                placeholder="{NODE_URL_LAST_SEGMENT}"
+            />
+            <div class="additional-info">
+                Current full path: <a href="{NODE_URL}" id="node-full-path-url" target="_blank">{NODE_URL}</a>
+            </div>
+        </div>
+
+        <!-- Browser Title -->
+        <div class="row text">
+            <label for="node-browser-title" title="HTML header title">Browser Title (to override {NODE.node_group|ucfirst} Title or Heading Title):</label>
+            <input 
+                id="node-browser-title" 
+                class="title" 
+                type="text" 
+                name="node[browser_title]" 
+                value="{NODE.browser_title|htmlspecialchars}" 
+                placeholder="{NODE.title|htmlspecialchars}"
+                title="Please try to your title size keep no longer than this input box, this will display Google in the search result" 
+            />
+        </div>
+
+        <!-- Strapline -->
+        <div class="row text">
+            <label for="node-strapline">Strapline:</label>
+            <input 
+                type="text" 
+                name="node[strapline]" 
+                id="node-strapline" 
+                value="{NODE.strapline|htmlspecialchars}" 
+            />
+        </div>
+
+        <!-- Deeplink -->
+        <div class="row deeplink text">
+            {ONYX_REQUEST_deeplink #bo/component/deeplink~node_id=GET.node_id~}
+        </div>
+
+        {FILE "bo/component/edit_dialog_footer.html"}
+    </form>
+    <!-- END: edit -->
+<!-- END: content -->

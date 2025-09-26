@@ -7,6 +7,9 @@
  *
  */
 
+@import url(/share/css/components/component_preview.css);
+@import url(/share/css/components/file_list.css);
+@import url(/share/css/components/edit_dialog.css);
 @import url(/share/css/components/node_info.css);
 @import url(/share/css/backoffice_icons.css);
 @import url(/share/css/simple-tree.css);
@@ -956,8 +959,8 @@ div.divider {border-top: 2px solid #dadada;}
  */
  
 div.ui-dialog legend {display: none;}
-div.ui-dialog {z-index: 310000; /*needs to be higher than .onyx-modal-overlay*/}
-.ui-widget-overlay {background: #000; opacity: 0.7; z-index: 310000; /*needs to be higher than .onyx-modal-overlay*/}
+div.ui-dialog { /*needs to be higher than .onyx-modal-overlay*/}
+.ui-widget-overlay {background: #000; opacity: 0.7; /*needs to be higher than .onyx-modal-overlay*/}
 
 .ui-tabs-hide { display: none; }
 
@@ -1502,6 +1505,11 @@ a.fakelink:hover {text-decoration: none;}
   pointer-events: none;
   opacity: 0.5;
 
+  img {
+    width: 50px;
+    margin: 0 auto;
+  }
+
   &.htmx-request {
     pointer-events: all;
   }
@@ -1525,10 +1533,6 @@ a.fakelink:hover {text-decoration: none;}
     }
   }
 
-  img {
-    margin-bottom: 10px;
-  }
-
   .actions {
     display: flex;
     align-items: center;
@@ -1546,6 +1550,24 @@ a.fakelink:hover {text-decoration: none;}
     flex-wrap: wrap;
     gap: 10px;
     margin: 0;
+
+    .img {
+      display: flex;
+      align-items: center;
+      border: 1px solid #e0e0e0;
+      border-radius: 5px;
+    }
+
+    .body {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      flex-grow: 1;
+
+      a {
+        font-size: 14px;
+      }
+    }
   }
 }
 
