@@ -5,8 +5,9 @@
  */
 
 use chillerlan\QRCode\{QRCode, QROptions};
+require_once('controllers/bo/component.php');
 
-class Onyx_Controller_Bo_Component_Qr_Code extends Onyx_Controller {
+class Onyx_Controller_Bo_Component_Qr_Code extends Onyx_Controller_Bo_Component {
 
     const CACHE_DIRECTORY = ONYX_PROJECT_DIR . "var/qr-code/";
 
@@ -16,14 +17,14 @@ class Onyx_Controller_Bo_Component_Qr_Code extends Onyx_Controller {
      
     public function mainAction() {
 
-        $Node = new common_node();
+        parent::assignNodeData();
         
         // make sure latest data are used during form save action
-        if (array_key_exists('node', $_POST) && is_array($_POST['node'])) $node_detail = $_POST['node'];
-        else $node_detail = $Node->nodeDetail($this->GET['node_id']);
+        if (array_key_exists('node', $_POST) && is_array($_POST['node'])) $this->node_data = $_POST['node'];
+        else $this->node_data = $this->Node->nodeDetail($this->GET['node_id']);
 
         //nodeDetail returns custom_fields as an object and $_POST returns array
-        $node_detail['custom_fields'] = (array) $node_detail['custom_fields'];
+        $this->node_data['custom_fields'] = (array) $this->node_data['custom_fields'];
 
         $options = [
             'imageTransparent' => false,
@@ -36,11 +37,12 @@ class Onyx_Controller_Bo_Component_Qr_Code extends Onyx_Controller {
 
         $url = 'https://' . $hostname . '/'. $this->GET['node_id'];
 
-        // QR Code regenerating
-        if(isset($this->GET['regenerate']) && $this->GET['regenerate'] == 'true') {
-            $url = $this->GET['params'] ? $url . '?' . urldecode($this->GET['params']) : $url;
-        } else if ($node_detail['custom_fields']['qrcode_params'] ?? false) {
-            $url .= '?' . $node_detail['custom_fields']['qrcode_params'];
+        if($this->GET['params']) {
+            $this->node_data['custom_fields']['qrcode_params'] = urldecode($this->GET['params']);
+        }
+
+        if ($this->node_data['custom_fields']['qrcode_params'] ?? false) {
+            $url .= '?' . $this->node_data['custom_fields']['qrcode_params'];
         }
 
         // Check for valid URL
@@ -59,9 +61,11 @@ class Onyx_Controller_Bo_Component_Qr_Code extends Onyx_Controller {
             $qrcode = $qrcode->render($url, $cached_file_path);
         }
         
-        $this->tpl->assign('NODE', $node_detail);
         $this->tpl->assign('QRCODE_URL', $url);
         $this->tpl->assign('QRCODE', 'var/qr-code/' . $filename);
+
+        parent::parseTemplate();
+        
         return true;
     }
 }

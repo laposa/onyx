@@ -1,5 +1,44 @@
 <!-- BEGIN: content -->
-<div id="qr-code-generator">
+
+    <!-- BEGIN: preview -->
+    <fieldset id="component-qr-code" class="component-preview qrcode">
+        <div id="qr-code-loading" class="onyx-loading htmx-indicator">
+            <img src="/share/images/loading.svg" alt="Loading..."/>
+        </div>
+            
+        <legend>QR Code</legend>
+
+        <div class="wrapper">
+            <div class="img">
+                <img src="/view/{QRCODE}" alt="QR Code" width="150" height="150"/>
+            </div>
+
+            <div class="body">
+                <span class="label">Current QR Code URL:</span>
+                <span class="value"><a href="{QRCODE_URL}" class="link">{QRCODE_URL}</a></span>
+
+                <span class="label">Additional Parameters:</span>
+                <span class="value">{NODE.custom_fields.qrcode_params|htmlspecialchars}</span>
+            </div>
+        </div>
+
+        <div class="component-actions">
+            <a class="download button" title="Download QR Code" href="/download/{QRCODE}"><span>PNG</span></a>
+            <button
+                hx-get="/request/bo/component/qr_code?edit=true&node_id={NODE.id}"
+                hx-target="#edit-dialog-content"
+                hx-indicator="#edit-loading"
+                hx-trigger="click"
+                hx-swap="innerHTML"
+                hx-on::before-request="openDialog()"
+                class="btn">
+                Edit
+            </button>
+        </div>
+    </fieldset>
+    <!-- END: preview -->
+
+    <!-- BEGIN: edit -->
     <script type="text/javascript">
         $(document).ready(function(){
             $('#qr-regenerate').on('click', function() {
@@ -10,30 +49,17 @@
             });
         });
     </script>
-    
-    <div id="qr-code-{GET.node_id}" class="wrapper">
 
-        <div class="img">
-            <img src="/view/{QRCODE}" alt="QR Code" width="150" height="150"/>
-            
-            <!-- BEGIN: fail -->
-            <div class="error">
-                <p>Failed to generate QR Code</p>
-            </div>
-            <!-- END: fail -->
-        </div>
+    <form id="qr-code-edit" class="qrcode">
+        <h2>QR Code Edit</h2>
 
-        <div class="body">
-            <label>Current QR Code URL:</label>
-            <a href="{QRCODE_URL}" class="link">{QRCODE_URL}</a>
-            <br>
-            <label for="qrcode_parameters">Additional parameters (parameter=value&amp;parameter2=value2...)</label>
+        <div class="row text">
+            <label for="qrcode_parameters">Additional parameters:</label>
             <input type="text" id="qrcode_parameters" name="node[custom_fields][qrcode_params]" value="{NODE.custom_fields.qrcode_params|htmlspecialchars}" placeholder="utm_source=circulator&utm_medium=email&utm_campaign=offers-040924"/>
-            <div class="actions">
-                <a class="download button" title="Download QR Code" href="/download/{QRCODE}"><span>PNG</span></a>
-                <a class="button primary" title="Regenerate QR Code" id="qr-regenerate">Re-generate QR Code</a>
-            </div>
+            <div class="additional-info">Insert parameters using pattern: parameter1=value1&amp;parameter2=value2...</div>
         </div>
-    </div>
-</div>
+
+        {FILE "bo/component/edit_dialog_footer.html"}
+    </form>
+    <!-- END: edit -->
 <!-- END: content -->
