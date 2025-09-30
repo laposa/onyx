@@ -17,6 +17,15 @@ class Onyx_Controller_Bo_Component_General_Info extends Onyx_Controller_Bo_Compo
 
         parent::assignNodeData();
 
+        //display title
+        if (!is_numeric($this->node_data['display_title'])) $this->node_data['display_title'] = $GLOBALS['onyx_conf']['global']['display_title'];
+
+        if ($this->node_data['display_title'] == 1) {
+            $this->node_data['display_title_check'] = 'checked="checked"';
+        } else {
+            $this->node_data['display_title_check'] = '';
+        }
+
         parent::parseTemplate();
 
         return true;

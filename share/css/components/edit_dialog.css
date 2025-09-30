@@ -20,6 +20,36 @@ dialog.edit-dialog {
 		background-color: rgba(0, 0, 0, 0);
 	}
 
+	ul {
+		padding-left: 20px;
+
+		li {
+			font-size: 1rem;
+			margin-bottom: 5px;
+		}
+	}
+
+	p {
+		font-size: 12px;
+		color: var(--color-text-grey);
+	}
+
+	select {
+		background-color: white;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+		padding: 10px;
+		font-size: 14px;
+		color: var(--color-text);
+		outline: none;
+		transition: 0.3s ease;
+
+		&:focus {
+			border-color: var(--color-primary);
+			box-shadow: 0 0 5px var(--color-primary-opaque);
+		}
+	}
+
 	.content {
 		width: 100%;
 	}
@@ -192,5 +222,49 @@ dialog.edit-dialog {
 
 	.file-item-form {
 		width: 100%;
+	}
+
+	.datepicker {
+		position: relative;
+		
+		.ui-datepicker {
+			position: absolute;
+			top: 40px;
+			z-index: 100;
+			width: 14em;
+
+			table {
+				font-size: 0.6rem;
+			}
+		}
+	}
+
+	.scheduler-list {
+		input {
+			padding: 10px;
+			min-width: 100px;
+		}
+
+		.scheduler-item {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+		}
+
+		.onyx-delete {
+			background-image: none;
+			height: auto;
+
+			&:hover {
+				text-decoration: none;
+			}
+
+			&:before {
+				content: '✕';
+				font-weight: bold;
+				font-size: 18px;
+				color: var(--color-danger);
+			}
+		}
 	}
 }

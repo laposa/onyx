@@ -94,7 +94,7 @@ class Onyx_Controller_Bo_Node_Default extends Onyx_Controller {
      * assign to template
      *
      */
-     
+    //  TODO: check if this is still needed after node_edit rework
     function assign() {
         //display
         if ($this->node_data['publish'] == 1) {

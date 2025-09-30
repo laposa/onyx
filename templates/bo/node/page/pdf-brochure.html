@@ -19,6 +19,15 @@
 		</div> -->
 </div>
 
+<div id="visibility"
+	 hx-get="/request/bo/component/visibility?node_id={GET.id}"
+	 hx-trigger="load, refresh"
+	 hx-indicator="#visibility-loading">
+	 <!-- <div id="visibility-loading" class="onyx-loading htmx-indicator">
+			<img src="/share/images/loading.svg" alt="Loading..."/>
+		</div> -->
+</div>
+
 <div id="leaflet-generator"
 	 hx-get="/request/bo/component/leaflet_generator?node_id={GET.id}"
 	 hx-trigger="load, refresh"
