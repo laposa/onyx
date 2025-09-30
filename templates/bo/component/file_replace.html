@@ -3,20 +3,18 @@
  
 // post-submit callback 
 function afterFileReplaceRequest()  { 
-    var result_message = $("#file-replace-result div.onyx-messages").html();
-    growlMessage(result_message);
-    $("#file-replace .replace-button span").removeClass("saving");
-    if ($("#file-replace-result div.onyx-messages p.onyx-error-msg").text() == '') {
-        hideModalOverlay();
-        $("#file-list-{GET.node_id}").parent().load("/request/bo/component/file_list~type={GET.type}:relation={GET.relation}:node_id={GET.node_id}~");
-        $('#onyx-dialog').dialog('close');
-        $('.replace-file .onyx-modal-overlay-window').load('/request/bo/component/file_detail~file_id={GET.file_id}:role={GET.role}:relation={GET.relation}:node_id={GET.node_id}~');
-    }
+    closeFileDialog();
+    $("#edit-dialog #file-list-{GET.node_id}").load("/request/bo/component/file_list~type={GET.type}:relation={GET.relation}:node_id={GET.node_id}~");
 }
 </script> 
 
 {MESSAGES}
-<form hx-post="{URI|htmlspecialchars}" id="file-replace" hx-target="#file-replace-result" hx-on::after-request="afterFileReplaceRequest()">
+<form 
+    hx-post="{URI|htmlspecialchars}" 
+    id="file-replace" 
+    hx-target="#file-replace-result" 
+    hx-on::after-request="afterFileReplaceRequest()"
+>
     <fieldset id="replace-file-in-node" class="file-item-form">
 
         <legend>File to replace</legend>

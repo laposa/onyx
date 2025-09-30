@@ -2,52 +2,65 @@
 <!DOCTYPE html>
 <html lang="{LOCALE|substr(%s, 0, 2)}">
 <head>
-<title>{REGISTRY.browser_title|htmlspecialchars} {CONFIGURATION.global.html_title_suffix|htmlspecialchars}</title>
-<meta charset="UTF-8">
-<meta name="author" content="{CONFIGURATION.global.author_content|htmlspecialchars}" />
-<meta name="generator" content="{ONYX_VERSION}" />
-<meta name="description" content="{REGISTRY.description|htmlspecialchars}" />
-<meta name="csrf_token" content="{CSRF_TOKEN}" />
-<script type="text/javascript" src="/share/js/jquery/jquery.js?{ONYX_CACHE_VERSION}"></script>
-<script type="text/javascript" src="/share/js/jquery/jquery-migrate.js?{ONYX_CACHE_VERSION}"></script>
-<script type="text/javascript" src="/share/js/jquery/plugins/jquery.tools.js?{ONYX_CACHE_VERSION}"></script>
-<script type="text/javascript" src="/share/js/jquery/ui/jquery-ui.all.min.js?{ONYX_CACHE_VERSION}"></script>
-<script type="text/javascript" src="/share/js/jquery/plugins/jquery.cookie.js?{ONYX_CACHE_VERSION}"></script>
-<script type="text/javascript" src="/share/js/jquery/plugins/jquery.form.js?{ONYX_CACHE_VERSION}"></script>
-<script type="text/javascript" src="/share/js/jquery/plugins/jquery.jgrowl.js?{ONYX_CACHE_VERSION}"></script>
-<script type="text/javascript" src="/share/js/jquery/plugins/jquery.editinplace.js?{ONYX_CACHE_VERSION}"></script>
-<script type="text/javascript" src="/share/js/jquery/jquery.simple.tree.js?{ONYX_CACHE_VERSION}"></script>
-<script type="text/javascript" src="/share/js/jquery/jquery.filedrop.js?{ONYX_CACHE_VERSION}"></script>
-<script type="text/javascript" src="/share/js/jquery/plugins/jquery.validate.js?{ONYX_CACHE_VERSION}"></script>
-<script type="text/javascript" src="/opt/tinymce/tinymce.min.js?{ONYX_CACHE_VERSION}"></script>
-<script type="text/javascript" src="/share/js/angular.min.js?{ONYX_CACHE_VERSION}"></script>
-<script type="text/javascript" src="/share/js/common.js?{ONYX_CACHE_VERSION}"></script>
-<script type="text/javascript" src="/share/js/backoffice.js?{ONYX_CACHE_VERSION}"></script>
-<script type="text/javascript" src="/share/js/htmx.min.js?{ONYX_CACHE_VERSION}"></script>
-<style type="text/css" media="all">
-@import url(/share/css/backoffice.css?{ONYX_CACHE_VERSION});
-{CONFIGURATION.global.backoffice_css}
-</style>
-<script type="text/javascript">
-$(function(){ 
-    popupMessage("div.onyx-messages");
-    
-    var buttonToolbar = $('div.row-bottom p:first');
-    if (buttonToolbar.length > 0) buttonToolbar.append($('.extended-toolbar a').detach());
-});
+    <title>{REGISTRY.browser_title|htmlspecialchars} {CONFIGURATION.global.html_title_suffix|htmlspecialchars}</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="{CONFIGURATION.global.author_content|htmlspecialchars}" />
+    <meta name="generator" content="{ONYX_VERSION}" />
+    <meta name="description" content="{REGISTRY.description|htmlspecialchars}" />
+    <meta name="csrf_token" content="{CSRF_TOKEN}" />
+    <script type="text/javascript" src="/share/js/jquery/jquery.js?{ONYX_CACHE_VERSION}"></script>
+    <script type="text/javascript" src="/share/js/jquery/jquery-migrate.js?{ONYX_CACHE_VERSION}"></script>
+    <script type="text/javascript" src="/share/js/jquery/plugins/jquery.tools.js?{ONYX_CACHE_VERSION}"></script>
+    <script type="text/javascript" src="/share/js/jquery/ui/jquery-ui.all.min.js?{ONYX_CACHE_VERSION}"></script>
+    <script type="text/javascript" src="/share/js/jquery/plugins/jquery.cookie.js?{ONYX_CACHE_VERSION}"></script>
+    <script type="text/javascript" src="/share/js/jquery/plugins/jquery.form.js?{ONYX_CACHE_VERSION}"></script>
+    <script type="text/javascript" src="/share/js/jquery/plugins/jquery.jgrowl.js?{ONYX_CACHE_VERSION}"></script>
+    <script type="text/javascript" src="/share/js/jquery/plugins/jquery.editinplace.js?{ONYX_CACHE_VERSION}"></script>
+    <script type="text/javascript" src="/share/js/jquery/jquery.simple.tree.js?{ONYX_CACHE_VERSION}"></script>
+    <script type="text/javascript" src="/share/js/jquery/jquery.filedrop.js?{ONYX_CACHE_VERSION}"></script>
+    <script type="text/javascript" src="/share/js/jquery/plugins/jquery.validate.js?{ONYX_CACHE_VERSION}"></script>
+    <script type="text/javascript" src="/opt/tinymce/tinymce.min.js?{ONYX_CACHE_VERSION}"></script>
+    <script type="text/javascript" src="/share/js/angular.min.js?{ONYX_CACHE_VERSION}"></script>
+    <script type="text/javascript" src="/share/js/common.js?{ONYX_CACHE_VERSION}"></script>
+    <script type="text/javascript" src="/share/js/backoffice.js?{ONYX_CACHE_VERSION}"></script>
+    <script type="text/javascript" src="/share/js/htmx.min.js?{ONYX_CACHE_VERSION}"></script>
+    <style type="text/css" media="all">
+    @import url(/share/css/backoffice.css?{ONYX_CACHE_VERSION});
+    {CONFIGURATION.global.backoffice_css}
+    </style>
+    <script type="text/javascript">
+    $(function(){ 
+        popupMessage("div.onyx-messages");
+        
+        var buttonToolbar = $('div.row-bottom p:first');
+        if (buttonToolbar.length > 0) buttonToolbar.append($('.extended-toolbar a').detach());
+    });
+    </script>
 
-
-
-</script>
-{REGISTRY.head}
+    {REGISTRY.head}
 </head>
-<body>
-{MESSAGES}
-<div id="backoffice">
-    {MESSAGES}
-    {SUB_CONTENT}
-</div>
 
+<body>
+    {MESSAGES}
+    <div id="backoffice">
+        {MESSAGES}
+        {SUB_CONTENT}
+    </div>
+    <dialog id="file-dialog" class="edit-dialog">
+        <div id="file-loading" class="onyx-loading htmx-indicator">
+            <img src="/share/images/loading.svg" alt="Loading..."/>
+        </div>
+        <div class="content"></div>
+        <span class="close" onclick="closeFileDialog()"></span>
+    </dialog>
+
+    <dialog id="edit-dialog" class="edit-dialog">
+        <div id="edit-loading" class="onyx-loading htmx-indicator">
+            <img src="/share/images/loading.svg" alt="Loading..."/>
+        </div>
+        <div class="content"></div>
+        <span class="close" onclick="closeDialog()"></span>
+    </dialog>
 </body>
 </html>
 <!-- END: content -->

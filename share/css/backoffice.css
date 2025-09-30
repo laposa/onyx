@@ -7,6 +7,9 @@
  *
  */
 
+@import url(/share/css/components/component_preview.css);
+@import url(/share/css/components/file_list.css);
+@import url(/share/css/components/edit_dialog.css);
 @import url(/share/css/components/node_info.css);
 @import url(/share/css/backoffice_icons.css);
 @import url(/share/css/simple-tree.css);
@@ -956,8 +959,8 @@ div.divider {border-top: 2px solid #dadada;}
  */
  
 div.ui-dialog legend {display: none;}
-div.ui-dialog {z-index: 310000; /*needs to be higher than .onyx-modal-overlay*/}
-.ui-widget-overlay {background: #000; opacity: 0.7; z-index: 310000; /*needs to be higher than .onyx-modal-overlay*/}
+div.ui-dialog { /*needs to be higher than .onyx-modal-overlay*/}
+.ui-widget-overlay {background: #000; opacity: 0.7; /*needs to be higher than .onyx-modal-overlay*/}
 
 .ui-tabs-hide { display: none; }
 
@@ -1039,8 +1042,15 @@ div.file-list-icon div.item a.image {display: block; max-height: 120px; overflow
 #server-browser-file-list .file-upload-preview img {position: absolute; height: 100%; width: 100%; object-fit: contain; top: 0; left: 0;}
 #server-browser-file-list .file-upload-preview .file-overlay {position: absolute; width: 100%; z-index: 100; bottom: 0; padding: 10px 0; background-color: rgba(0,0,0,0.5);}
 
+#server-browser-file-list .add-new {
+  width: 100%;
+}
+
 #add-folder {
   display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
 }
 
 #server-browser-file-list .media-breadcrumbs {
@@ -1502,6 +1512,11 @@ a.fakelink:hover {text-decoration: none;}
   pointer-events: none;
   opacity: 0.5;
 
+  img {
+    width: 50px;
+    margin: 0 auto;
+  }
+
   &.htmx-request {
     pointer-events: all;
   }
@@ -1525,10 +1540,6 @@ a.fakelink:hover {text-decoration: none;}
     }
   }
 
-  img {
-    margin-bottom: 10px;
-  }
-
   .actions {
     display: flex;
     align-items: center;
@@ -1546,6 +1557,24 @@ a.fakelink:hover {text-decoration: none;}
     flex-wrap: wrap;
     gap: 10px;
     margin: 0;
+
+    .img {
+      display: flex;
+      align-items: center;
+      border: 1px solid #e0e0e0;
+      border-radius: 5px;
+    }
+
+    .body {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      flex-grow: 1;
+
+      a {
+        font-size: 14px;
+      }
+    }
   }
 }
 

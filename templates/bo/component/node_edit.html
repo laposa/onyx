@@ -2,15 +2,10 @@
 {MESSAGES}
 
 <!-- BEGIN: form -->
+ <!-- TODO: other pages won't probably work now -->
 <div 
     id="node-properties-edit"
-    class="node-edit node-{NODE.node_group}-{NODE.node_controller}" 
-    hx-swap="innerHTML"
-    hx-indicator="#detail-loading"
-    hx-get="/request/bo/component/node_edit"
-    hx-trigger="loadDetail from:body"
-    hx-vals="js:{id: event.detail.nodeId}"
-    hx-on::after-request="initAdvancedSettingsButton();">
+    class="node-edit node-{NODE.node_group}-{NODE.node_controller}">
     {SUB_CONTENT}
 </div>
 <!-- END: form -->

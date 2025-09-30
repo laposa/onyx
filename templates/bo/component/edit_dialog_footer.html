@@ -1,0 +1,18 @@
+<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+<input type="hidden" name="node[id]" value="{NODE.id}" />
+
+<div class="edit-actions">
+    <button 
+        hx-indicator="#edit-loading"
+        hx-post="/request/bo/component/node_edit?id={NODE.id}"
+        class="btn" 
+        type="submit" 
+        name="save" 
+        value="save" 
+        id="saveAndClose"
+    >
+        Save & Close
+    </button>
+
+    <button class="btn secondary" type="button" onclick="closeDialog()">Cancel</button>
+</div>

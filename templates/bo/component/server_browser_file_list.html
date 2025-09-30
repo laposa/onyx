@@ -80,7 +80,7 @@
                     
                     <div class="file-actions">
                     <!-- BEGIN: add_to_node --><a class="button small add" title="Use {ITEM.name}" href="#serverBrowser" onclick="makeAjaxRequest('#server-browser', '/request/bo/component/file_add~file_path_encoded={ITEM.file_path_encoded}:type={GET.type}:role={GET.role}:relation={GET.relation}:node_id={GET.node_id}~'); "><span>Use</span></a><br /><!-- END: add_to_node -->
-                    <!-- BEGIN: replace_file --><a class="button small add" title="Use {ITEM.name}" onclick="openAjaxRequestInDialog('/request/bo/component/file_replace~file_path_encoded={ITEM.file_path_encoded}:type={GET.type}:relation={GET.relation}:node_id={GET.node_id}:file_id={GET.file_id}~', 'Replace file'); "><span>Use</span></a><br /><!-- END: replace_file -->
+                    <!-- BEGIN: replace_file --><a class="button small add" title="Use {ITEM.name}" onclick="makeAjaxRequest('#file-dialog .content', '/request/bo/component/file_replace~file_path_encoded={ITEM.file_path_encoded}:type={GET.type}:relation={GET.relation}:node_id={GET.node_id}:file_id={GET.file_id}~', 'Replace file'); "><span>Use</span></a><br /><!-- END: replace_file -->
                     <!-- BEGIN: delete --><a class="button small remove" onclick="deleteFile('{ITEM.file_path_encoded_relative}');"><span>Delete</span></a><!-- END: delete -->
                     <!-- BEGIN: database_import --><a class="button add" title="Import {ITEM.name}" href="?data_file={BASE}{FOLDER}{ITEM.name}"><span>Import this ...</span></a><br /><!-- END: database_import --> 
                 </div>

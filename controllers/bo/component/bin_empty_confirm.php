@@ -47,8 +47,6 @@ class Onyx_Controller_Bo_Component_Bin_Empty_Confirm extends Onyx_Controller {
                     $bin_contents = $Node->getChildren($bin_id);
                     
                     foreach($bin_contents as $index => $garbage) {
-                        msg("Almost Deleted \"{$garbage['title']}\" !", 'error');
-
                         if (!array_search($garbage['id'], $id_map)) {
                             if (!$Node->deleteFromBin($garbage['id'] ?? false)) {
                                 msg("Can't delete \"{$garbage['title']}\" !", 'error');
