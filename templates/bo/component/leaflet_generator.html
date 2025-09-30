@@ -2,6 +2,10 @@
 {MESSAGES}
     <!-- BEGIN: preview -->
     <fieldset id="component-leaflet-generator" class="component-preview">
+			<div id="leaflet-generator-loading" class="onyx-loading htmx-indicator">
+					<img src="/share/images/loading.svg" alt="Loading..."/>
+			</div>
+
 			<legend>Leaflet Generator</legend>
 
 			<span class="label">Files:</span>
@@ -15,7 +19,7 @@
 			<div class="component-actions">
 				<button
 					hx-get="/request/bo/component/leaflet_generator?edit=true&node_id={NODE.id}"
-					hx-target="#edit-dialog-content"
+					hx-target="#edit-dialog .content"
 					hx-indicator="#edit-loading"
 					hx-trigger="click"
 					hx-swap="innerHTML"

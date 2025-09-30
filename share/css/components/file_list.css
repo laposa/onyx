@@ -14,6 +14,7 @@
 				width: 100%;
 				max-width: 125px;
 				min-width: 125px;
+				cursor: pointer;
 			}
 		}
 	}

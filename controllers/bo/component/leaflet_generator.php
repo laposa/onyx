@@ -48,6 +48,7 @@ class Onyx_Controller_Bo_Component_Leaflet_Generator extends Onyx_Controller_Bo_
                 foreach($files as $index => $file) {
                     if ($index == 0) continue;
                     $image->unlinkFile($file['id']);
+                    $image->delete($file['id']);
                 }
                 
                 $manifest = $this->sendPdfForConversion(ONYX_PROJECT_DIR . $pdfFile['src'], $folderPath);

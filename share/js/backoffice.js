@@ -12,12 +12,12 @@ function openFileDialog() {
 }
 
 function closeFileDialog() {
-    document.querySelector("#file-dialog-content").innerHTML = '';
+    document.querySelector("#file-dialog .content").innerHTML = '';
     document.querySelector("#file-dialog").close();
 }
 
 function closeDialog() {
-    document.querySelector("#edit-dialog-content").innerHTML = '';
+    document.querySelector("#edit-dialog .content").innerHTML = '';
     document.querySelector("#edit-dialog").close();
 }
 

@@ -20,7 +20,7 @@
         <div class="component-actions">
             <button
                 hx-get="/request/bo/component/general_info?edit=true&node_id={NODE.id}"
-                hx-target="#edit-dialog-content"
+                hx-target="#edit-dialog .content"
                 hx-indicator="#edit-loading"
                 hx-trigger="click"
                 hx-swap="innerHTML"
@@ -37,7 +37,6 @@
         <h2>Edit General Information</h2>
 
         <!-- Title -->
-        <!-- TODO: add slug placeholder to metadata -->
         <div class="row text">
             <label for="node-title">{NODE.node_group|ucfirst} Name:</label>    
             <input 
@@ -54,8 +53,18 @@
         <!-- Heading -->
         <div class="row text">
             <label for="node-page-title" title="This title will be displayd in the H1 for page (page title), H2 for layouts and H3 for content elements (content title)">Heading:</label>
-            <input class="title" type="text" name="node[page_title]" id="node-page-title" value="{NODE.page_title|htmlspecialchars}" title="Please try to fit your title length into the size of this input box" placeholder="{NODE.title|htmlspecialchars}"/>
+            <input 
+                class="title" 
+                type="text" 
+                name="node[page_title]" 
+                id="node-page-title" 
+                value="{NODE.page_title|htmlspecialchars}" 
+                title="Please try to fit your title length into the size of this input box" 
+                placeholder="{NODE.title|htmlspecialchars}"
+            />
         </div>
+
+        <!-- Display Heading -->
         <div class="row checkbox">
             <label>
                 <input 
@@ -70,10 +79,19 @@
             Display heading
         </div>
 
-        <!-- Display Heading -->
+        <!-- Description -->
         <div class="row text">
             <label for="node-description">Excerpt (description, summary):</label>
-            <textarea name="node[description]" id="node-description" class="small" style="width: 100%;" title="Please try to fit your description into this input box, this will display Google in the search result" cols="50" rows="20">{NODE.description|htmlspecialchars}</textarea>
+            <textarea 
+                name="node[description]" 
+                id="node-description" 
+                class="small" 
+                title="Please try to fit your description into this input box, this will display Google in the search result" 
+                cols="50" 
+                rows="20"
+            >
+                {NODE.description|htmlspecialchars}
+            </textarea>
         </div>
 
         <!-- Display Secondary Navigation -->

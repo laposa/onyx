@@ -1,7 +1,7 @@
 dialog.edit-dialog {
 	display: flex;
 	padding: 20px;
-	min-width: 600px;
+	min-width: 800px;
 	min-height: 200px;
 	pointer-events: none;
 	opacity: 0;
@@ -20,7 +20,7 @@ dialog.edit-dialog {
 		background-color: rgba(0, 0, 0, 0);
 	}
 
-	#edit-dialog-content {
+	.content {
 		width: 100%;
 	}
 
