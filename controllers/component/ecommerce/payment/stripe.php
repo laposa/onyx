@@ -53,8 +53,8 @@ class Onyx_Controller_Component_Ecommerce_Payment_Stripe extends Onyx_Controller
             'mode' => 'payment',
             'client_reference_id' => $order_data['id'],
             'customer_email' => $order_data['client']['customer']['email'],
-            'success_url' => "$server_url/page/" . $node_conf['id_map-payment_stripe_success'] . "?session_id={CHECKOUT_SESSION_ID}",
-            'cancel_url' => "$server_url/page/" . $node_conf['id_map-payment_stripe_cancel'] . "?session_id={CHECKOUT_SESSION_ID}",
+            'success_url' => "$server_url/page/" . $node_conf['id_map-payment_stripe_success'] . "?stripe_session_id={CHECKOUT_SESSION_ID}",
+            'cancel_url' => "$server_url/page/" . $node_conf['id_map-payment_stripe_cancel'] . "?stripe_session_id={CHECKOUT_SESSION_ID}",
             'line_items' => [
                 [
                     'price_data' => [
