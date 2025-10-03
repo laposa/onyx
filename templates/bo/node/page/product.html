@@ -1,40 +1,111 @@
 <!-- BEGIN: content -->
 
-{FILE "bo/node/shared_header.html"}
+{FILE "bo/component/page_header.html"}
 
-<fieldset>
-    {FILE "bo/node/item_title.html"}
-    {FILE "bo/node/item_page_title.html"}
-    {FILE "bo/node/item_display_title.html"}
-    <div class="advanced">
-        {FILE "bo/node/item_browser_title.html"}
-        {FILE "bo/node/item_strapline.html"}
-    </div>
-    {FILE "bo/node/item_description.html"}
-    {FILE "bo/node/item_deeplink.html"}
+<div id="general-info"
+	hx-get="/request/bo/component/general_info?node_id={GET.id}"
+	hx-trigger="load, refresh"
+	hx-indicator="#general-info-loading">
+	<!-- <div id="general-info-loading" class="onyx-loading htmx-indicator">
+			<img src="/share/images/loading.svg" alt="Loading..."/>
+	</div> -->
+</div>
+
+<div id="metadata"
+	hx-get="/request/bo/component/metadata?node_id={GET.id}"
+	hx-trigger="load, refresh"
+	hx-indicator="#metadata-loading">
+	<!-- <div id="metadata-loading" class="onyx-loading htmx-indicator">
+		<img src="/share/images/loading.svg" alt="Loading..."/>
+	</div> -->
+</div>
+
+<div id="visibility"
+	hx-get="/request/bo/component/visibility?node_id={GET.id}"
+	hx-trigger="load, refresh"
+	hx-indicator="#visibility-loading">
+	<!-- <div id="visibility-loading" class="onyx-loading htmx-indicator">
+		<img src="/share/images/loading.svg" alt="Loading..."/>
+	</div> -->
+</div>
+
+<div id="qr-code"
+	hx-get="/request/bo/component/qr_code?node_id={GET.id}"
+	hx-trigger="load, refresh"
+	hx-indicator="#qr-code-loading">
+	<!-- <div id="qr-code-loading" class="onyx-loading htmx-indicator">
+		<img src="/share/images/loading.svg" alt="Loading..."/>
+	</div> -->
+</div>
+
+<!-- Product Info -->
+<div id="product-info"
+	hx-get="/request/bo/component/product_info?node_id={GET.id}"
+	hx-trigger="load, refresh"
+	hx-indicator="#product-info-loading">
+	<!-- <div id="product-info-loading" class="onyx-loading htmx-indicator">
+		<img src="/share/images/loading.svg" alt="Loading..."/>
+	</div> -->
+</div>
+
+<!-- Product Varieties -->
+<div id="product-varieties"
+	hx-get="/request/bo/component/ecommerce/product_variety_list?id={NODE.content}"
+	hx-trigger="load, refresh"
+	hx-indicator="#product-varieties-loading">
+	<!-- <div id="product-info-loading" class="onyx-loading htmx-indicator">
+		<img src="/share/images/loading.svg" alt="Loading..."/>
+	</div> -->
+</div>
+
+<!-- Product Images -->
+<fieldset id="component-product-images" class="component-preview">
+	<div id="product-images-loading" class="onyx-loading htmx-indicator">
+			<img src="/share/images/loading.svg" alt="Loading..."/>
+	</div>
+
+	<legend>Product Images</legend>
+
+	<span class="label">Files:</span>
+	<br>
+
+	<!-- TODO: missing dialog title. Create special component for file/product list? -->
+	<div 
+		hx-get="/request/bo/component/file_list?type=add_to_product&relation=product&node_id={NODE.content}"
+		hx-trigger="load, refresh"
+		hx-indicator="#product-images-loading">
+	</div>
+	
+	<div class="component-actions">
+		<button
+			hx-get="/request/bo/component/file_list?type=add_to_product&relation=product&node_id={NODE.content}"
+			hx-target="#edit-dialog .content"
+			hx-indicator="#edit-loading"
+			hx-trigger="click"
+			hx-swap="innerHTML"
+			hx-on::before-request="openDialog()"
+			class="btn">
+			Edit
+		</button>
+	</div>
 </fieldset>
-<fieldset>
-    <div class="advanced">
-        <p>See product database for related images</p>
-        {FILE "bo/node/item_image_list.html"}
-        {FILE "bo/node/item_taxonomy.html"}
-    </div>
-</fieldset>
+
+<!-- TODO Product Categories/Tags -->
+<!-- TODO: problems with product ID parsing as node ID -->
+<div 
+	hx-get="/request/bo/component/relation_taxonomy?relation=product&id={NODE.content}"
+	hx-trigger="load, refresh"
+	hx-indicator="#relation-taxonomy-loading">
+</div>
+
+<!-- TODO Other data -->
+ 
 
 <fieldset class="advanced">
     <div class="row">
         <span class="label"><label>Product ID:</label></span>
         <span class="field"><input class="short" type="text" name="node[content]" value="{NODE.content}" /> <a href="/backoffice/products/{NODE.content}/edit" target="_blank"><span>Edit Product</span></a></span>
     </div>
-</fieldset>
-
-<fieldset>
-    {FILE "bo/node/item_uri_title.html"}
-    {FILE "bo/node/item_deeplink.html"}
-</fieldset>
-
-<fieldset>
-    {FILE "bo/node/item_qrcode.html"}
 </fieldset>
 
 {FILE "bo/node/item_content_page_list.html"}
@@ -45,8 +116,6 @@
 </div>
 
 {FILE "bo/node/item_position.html"}
-
-{FILE "bo/node/shared_footer_page.html"}
 
 <p class="extended-toolbar">
     <a class="button add" href="/backoffice/products/{NODE.content}/edit" target="_blank"><span>Edit product</span></a>

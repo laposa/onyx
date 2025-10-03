@@ -508,7 +508,6 @@
   input.short,
   textarea.short,
   select.short {width: 4em;}
-  input.number {text-align: right;}
   
   button {cursor: pointer;}
   
@@ -887,7 +886,6 @@ form span.field {width: 100%;}
 form div.rte span.label {text-align: left;}
 form div.rte span.field {display: block; overflow: auto; width: auto; clear: both; padding: 1px 0 0 1px;}
 textarea {font-size: 1.2em;}
-form div.row span.label label { color: #999; text-shadow: 0 1px 0 #fff; }
 fieldset { background: #f8f8f8; padding: 20px 20px 10px; margin: 0 0 20px 0; border-radius: 5px; }
 fieldset a { cursor: pointer }
 @media all and (min-width: 800px) {
@@ -1646,5 +1644,24 @@ span.important {
 
   .button {
     margin-top: 10px;
+  }
+}
+
+/* Component specific changes */
+
+.category-list {
+  li {
+    font-size: 1rem;
+  }
+
+  .category-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    
+    a:not(:last-child)::after {
+      content: '»';
+      margin: 0 5px 0 10px;
+    }
   }
 }

@@ -18,15 +18,15 @@ class Onyx_Controller_Bo_Component extends Onyx_Controller {
         return true;
     }
 
-		public function parseTemplate() {
-        
-            $this->tpl->assign('NODE', $this->node_data);
+    public function parseTemplate() {
+    
+        $this->tpl->assign('NODE', $this->node_data);
 
-            if (isset($_GET['edit']) && $_GET['edit'] == 'true') {
-                $this->tpl->parse("content.edit");
-            } else {
-                $this->tpl->parse("content.preview");
-            }
-		}
+        if (isset($_GET['edit']) && $_GET['edit'] == 'true') {
+            $this->tpl->parse("content.edit");
+        } else {
+            $this->tpl->parse("content.preview");
+        }
+    }
 }   
 

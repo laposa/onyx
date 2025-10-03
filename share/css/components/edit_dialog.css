@@ -43,6 +43,8 @@ dialog.edit-dialog {
 		color: var(--color-text);
 		outline: none;
 		transition: 0.3s ease;
+		min-height: 45px;
+		min-width: 49%;
 
 		&:focus {
 			border-color: var(--color-primary);
@@ -50,7 +52,7 @@ dialog.edit-dialog {
 		}
 	}
 
-	.content {
+	.content, #variety-more-details {
 		width: 100%;
 	}
 
@@ -90,6 +92,7 @@ dialog.edit-dialog {
 			transition: 0.3s ease;
 			outline: none;
 			font-weight: normal;
+			min-width: 49%;
 
 			&:placeholder {
 				font-weight: normal;
@@ -199,6 +202,7 @@ dialog.edit-dialog {
 		display: flex;
 		justify-content: space-between;
 		margin-top: 10px;
+		margin-bottom: 20px;
 		width: 100%;
 
 		button {
@@ -220,6 +224,8 @@ dialog.edit-dialog {
 		margin-bottom: 10px;
 	}
 
+	/* TODO: specific changes - create separate files for each component? */
+
 	.file-item-form {
 		width: 100%;
 	}
@@ -239,21 +245,10 @@ dialog.edit-dialog {
 		}
 	}
 
-	.scheduler-list {
-		input {
-			padding: 10px;
-			min-width: 100px;
-		}
-
-		.scheduler-item {
-			display: flex;
-			align-items: center;
-			gap: 10px;
-		}
-
-		.onyx-delete {
+	.onyx-delete {
 			background-image: none;
 			height: auto;
+			padding-top: 1px;
 
 			&:hover {
 				text-decoration: none;
@@ -265,6 +260,18 @@ dialog.edit-dialog {
 				font-size: 18px;
 				color: var(--color-danger);
 			}
+		}
+
+	.scheduler-list {
+		input {
+			padding: 10px;
+			min-width: 100px;
+		}
+
+		.scheduler-item {
+			display: flex;
+			align-items: center;
+			gap: 10px;
 		}
 	}
 }

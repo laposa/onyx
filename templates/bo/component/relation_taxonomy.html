@@ -1,60 +1,98 @@
 <!-- BEGIN: content -->
 <script type="text/javascript">
-$(document).ready(function(){
-    $('#rt-add-new a.button').live('click', function() {
-    
-        makeAjaxRequest('#rt-add-new', '/request/bo/component/taxonomy_menu~expand_all=1:publish=0~', function() {
-           
-            $('#rt-add-new .simple-tree').simpleTree({
-                drag: false,
-                autoclose: true,
-                afterClick:function(node){
-                    var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
-                    var title = $('a:first', node).text();
-                    var template = $('#template-rt-select').html();
-                    
-                    var html_append = template;
-                    html_append = html_append.replace('__ID__', node_id);
-                    html_append = html_append.replace('__TITLE__', title);
-                    $('#rt-select').append(html_append);
-                    
-                },
-                animate: true,
-                docToFolderConvert: true
-            });
-            
-        });
-        
-        return false;
-        
-    });
-    
-});
-</script>
 
-    <div class="row">
-        <p>Related to <a href="/backoffice/taxonomy" target="_blank"><span>categories</span></a></p>
-        {MESSAGES}
-        <div id="rt-select">
+function addNewTaxonomy() {
+
+    makeAjaxRequest('dialog #rt-add-new', '/request/bo/component/taxonomy_menu~expand_all=1:publish=0~', function() {
+        $('#rt-add-new .simple-tree').simpleTree({
+            drag: false,
+            autoclose: true,
+            afterClick:function(node){
+                var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
+                var title = $('a:first', node).text();
+                var template = $('#template-rt-select').html();
+                
+                var html_append = template;
+                html_append = html_append.replace('__ID__', node_id);
+                html_append = html_append.replace('__TITLE__', title);
+                $('dialog #rt-select').append(html_append);
+                
+            },
+            animate: true,
+            docToFolderConvert: true
+        });
+    });
+
+    return false;
+}
+</script>
+    <!-- BEGIN: preview -->
+    <fieldset id="component-relation-taxonomy" class="component-preview">
+        <div id="relation-taxonomy-loading" class="onyx-loading htmx-indicator">
+            <img src="/share/images/loading.svg" alt="Loading..."/>
+        </div>
+
+        <legend>Related Categories</legend>
+
+        <ul class="category-list">
             <!-- BEGIN:ptn -->
-            <div>
-                <input type="hidden" name="relation_taxonomy[]" value="{CURRENT.id}" />
-                <button class="remove small" onclick="this.parentNode.parentNode.removeChild(this.parentNode)"><span>Remove</span></button>
-                <div style="display: inline-block" {CURRENT.class}>{BREADCRUMB}</div>
-            </div>
+
+            <li {CURRENT.class}>
+                <div class="category-item">
+                    {BREADCRUMB}
+                </div>
+            </li>
             <!-- END:ptn -->
+        </ul>
+
+        <div class="component-actions">
+            <button
+                hx-get="/request/bo/component/relation_taxonomy?&relation=product&edit=true&id={GET.id}"
+                hx-target="#edit-dialog .content"
+                hx-indicator="#edit-loading"
+                hx-trigger="click"
+                hx-swap="innerHTML"
+                hx-on::before-request="openDialog()"
+                class="btn">
+                Edit
+            </button>
         </div>
+    </fieldset>
+    <!-- END: preview -->
+
+    <!-- BEGIN: edit -->
+    <form id="relation-taxonomy-edit">
+        <h2>Edit Related Categories</h2>
+
+        <div class="row">
+            <ul class="category-list" id="rt-select">
+                <!-- BEGIN: ptn -->
+                <li {CURRENT.class}>
+                    <div class="category-item">
+                        <input type="hidden" name="relation_taxonomy[]" value="{CURRENT.id}" />
+                        {BREADCRUMB}
+                        <a class="onyx-delete onyx-icon" href="#" onclick="this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode)"></a>
+                    </div>
+                </li>
+                <!-- END: ptn -->
+            </ul>
+            
+            <div id="rt-add-new">
+                <p><a class="button add" href="#" onclick="addNewTaxonomy()"><span>Add Relation to a Category...</span></a></p>
+            </div>
         
-        <div id="rt-add-new">
-            <p><a class="button add" href="#"><span>Add Relation to a Category...</span></a></p>
-        </div>
-    
-        <div id="template-rt-select" style="display: none">
-            <div>
-                <input type="hidden" name="relation_taxonomy[]" value="__ID__" />
-                <button class="remove small" onclick="this.parentNode.parentNode.removeChild(this.parentNode)"><span>Remove</span></button>
-                <div style="display: inline-block; margin-bottom: 8px;"><a href="/backoffice/pages/__ID__">__TITLE__</a></div>
+            <div id="template-rt-select" style="display: none">
+                <li>
+                    <div class="category-item">
+                        <input type="hidden" name="relation_taxonomy[]" value="__ID__" />
+                        <div class="breadcrumb"><a href="/backoffice/pages/__ID__">__TITLE__</a></div>
+                        <a class="onyx-delete onyx-icon" href="#" onclick="this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode)"></a>
+                    </div>
+                </li>
             </div>
         </div>
-    </div>
+
+        {FILE "bo/component/edit_dialog_footer.html"}
+    </form>
+    <!-- END: edit -->
 <!-- END: content -->

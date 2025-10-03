@@ -7,7 +7,10 @@
  * taxonomy_manager_node, taxonomy_manager_product
  */
 
-class Onyx_Controller_Bo_Component_Relation_Taxonomy extends Onyx_Controller {
+require_once('controllers/bo/component.php');
+require_once('models/common/common_node.php');
+
+class Onyx_Controller_Bo_Component_Relation_Taxonomy extends Onyx_Controller_Bo_Component {
 
     /**
      * main action
@@ -15,11 +18,14 @@ class Onyx_Controller_Bo_Component_Relation_Taxonomy extends Onyx_Controller {
      
     public function mainAction() {
 
+        parent::assignNodeData();
+
         /**
          * initialise
          */
+
+        $template = (isset($_GET['edit']) && $_GET['edit'] == 'true') ? 'edit' : 'preview';
          
-        require_once('models/common/common_node.php');
         $Node = new common_node();
         
         switch ($this->GET['relation']) {
@@ -105,7 +111,6 @@ class Onyx_Controller_Bo_Component_Relation_Taxonomy extends Onyx_Controller {
          */
          
         if (is_numeric($node_id)) {
-        
             $current = $Taxonomy->listing("node_id = " . $node_id);
         
             if (is_array($current)) { 
@@ -116,10 +121,12 @@ class Onyx_Controller_Bo_Component_Relation_Taxonomy extends Onyx_Controller {
                     $this->tpl->assign("CURRENT", $taxonomy_data);
                     $_Onyx_Request = new Onyx_Request("component/breadcrumb_taxonomy~id={$taxonomy_data['id']}~");
                     $this->tpl->assign('BREADCRUMB', $_Onyx_Request->getContent());
-                    $this->tpl->parse("content.ptn");
+                    $this->tpl->parse("content.{$template}.ptn");
                 }
             }
         }
+
+        parent::parseTemplate();
 
         return true;
     }

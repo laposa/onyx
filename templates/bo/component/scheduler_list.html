@@ -2,6 +2,11 @@
 {MESSAGES}
 <div class="scheduler-list">
 <input type="hidden" name="scheduler_action" value="save"/>
+
+<!-- BEGIN: no_schedule -->
+<p id="no-schedule">This content has no publishing schedule.</p>
+<!-- END: no_schedule -->
+
 <ul id="scheduler-list">
     <!-- BEGIN:item -->
      <li><div class="scheduler-item">
@@ -10,10 +15,6 @@
      </div></li>
     <!-- END:item -->
 </ul>
-
-<!-- BEGIN: no_schedule -->
-<p id="no-schedule">This content has no publishing schedule.</p>
-<!-- END: no_schedule -->
 
 <a id="scheduler-add-new" href="#" class="button primary link"><span>Schedule new publishing</span></a>
 
