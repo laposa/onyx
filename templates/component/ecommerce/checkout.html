@@ -42,14 +42,14 @@ $(function(){
                 <span class="label"><label for="order-payment-type">{I18N_PLEASE_CHOOSE}</label></span>
                 <span class="field">
                 <select name="order[payment_type]" id="order-payment-type">
-                    <!-- BEGIN: paypal --><option value="paypal">{I18N_PAY_BY_PAYPAL}</option><!-- END: paypal -->
+                    <!-- BEGIN: stripe --><option value="stripe">{I18N_PAY_BY_STRIPE}</option><!-- END: stripe -->
                     <!-- BEGIN: protx --><option value="protx">{I18N_PAY_BY_PROTX}</option><!-- END: protx -->
                     <!-- BEGIN: worldpay --><option value="worldpay">{I18N_PAY_BY_WORLDPAY}</option><!-- END: worldpay -->
+                    <!-- BEGIN: paypal --><option value="paypal">{I18N_PAY_BY_PAYPAL}</option><!-- END: paypal -->
                     <!-- BEGIN: cheque --><option value="cheque">{I18N_PAY_BY_CHEQUE}</option><!-- END: cheque -->
                     <!-- BEGIN: on_delivery --><option value="on_delivery">{I18N_PAY_BY_ON_DELIVERY}</option><!-- END: on_delivery -->
                     <!-- BEGIN: bank_transfer --><option value="bank_transfer">{I18N_PAY_BY_BANK_TRANSFER}</option><!-- END: bank_transfer -->
                     <!-- BEGIN: custom --><option value="custom">{I18N_PAY_BY_CUSTOM}</option><!-- END: custom -->
-                    <!-- BEGIN: stripe --><option value="stripe">{I18N_PAY_BY_STRIPE}</option><!-- END: stripe -->
                 </select>
                 </span>
             </div>

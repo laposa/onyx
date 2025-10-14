@@ -10,9 +10,9 @@ class Onyx_Controller_Component_Ecommerce_Payment_Stripe_Callback extends Onyx_C
 
     public function mainAction()
     {
-        if (isset($this->GET['session_id'])) {
+        if (isset($this->GET['stripe_session_id'])) {
             try {
-                $this->fulfill_checkout($this->GET['session_id']);
+                $this->fulfill_checkout($this->GET['stripe_session_id']);
             } catch (Exception $e) {
                 msg($e->getMessage(), 'error');
                 $node_conf = common_node::initConfiguration();
