@@ -40,6 +40,7 @@
 	p {
 		margin: 0 0 5px;
 		display: flex;
+		font-size: 1rem;
 	}
 
 	ul {
@@ -55,10 +56,6 @@
 	}
 
 	.file-list {
-
-		p {
-			font-size: 1rem;
-		}
 		
 		.list {
 

@@ -40,7 +40,7 @@
 
 <!-- Product Info -->
 <div id="product-info"
-	hx-get="/request/bo/component/product_info?node_id={GET.id}"
+	hx-get="/request/bo/component/product_info?node_id={NODE.content}"
 	hx-trigger="load, refresh"
 	hx-indicator="#product-info-loading">
 	<!-- <div id="product-info-loading" class="onyx-loading htmx-indicator">
@@ -90,35 +90,23 @@
 	</div>
 </fieldset>
 
-<!-- TODO Product Categories/Tags -->
-<!-- TODO: problems with product ID parsing as node ID -->
+<!-- Product Categories/Tags -->
 <div 
-	hx-get="/request/bo/component/relation_taxonomy?relation=product&id={NODE.content}"
+	id="product-taxonomy"
+	hx-get="/request/bo/component/product_taxonomy?relation=product&node_id={NODE.content}"
 	hx-trigger="load, refresh"
-	hx-indicator="#relation-taxonomy-loading">
+	hx-indicator="#product-taxonomy-loading">
 </div>
 
-<!-- TODO Other data -->
- 
-
-<fieldset class="advanced">
-    <div class="row">
-        <span class="label"><label>Product ID:</label></span>
-        <span class="field"><input class="short" type="text" name="node[content]" value="{NODE.content}" /> <a href="/backoffice/products/{NODE.content}/edit" target="_blank"><span>Edit Product</span></a></span>
-    </div>
-</fieldset>
-
-{FILE "bo/node/item_content_page_list.html"}
-{FILE "bo/node/item_content_card_list.html"}
-
-<div class="advanced">
-    {FILE "bo/node/item_content_list.html"}
+<!-- Other data -->
+<div id="product-other-data"
+	hx-get="/request/bo/component/product_other_data?node_id={NODE.content}"
+	hx-trigger="load, refresh"
+	hx-indicator="#product-info-loading">
+	<!-- <div id="product-info-loading" class="onyx-loading htmx-indicator">
+		<img src="/share/images/loading.svg" alt="Loading..."/>
+	</div> -->
 </div>
 
 {FILE "bo/node/item_position.html"}
-
-<p class="extended-toolbar">
-    <a class="button add" href="/backoffice/products/{NODE.content}/edit" target="_blank"><span>Edit product</span></a>
-    <a class="button edit" href="/page/{GET.id}?fe_edit_mode=edit" target="_blank" style="margin-left: 10px;"><span>Open in Front-End Editing</span></a>
-</p>
 <!-- END: content -->

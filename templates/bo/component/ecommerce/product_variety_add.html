@@ -39,7 +39,7 @@
     });
 </script>
 {MESSAGES}
-<form method="post" action="{URI|htmlspecialchars}" id="product-variety-add-form">
+<form method="post" action="{URI|htmlspecialchars}" id="product-varieties-edit">
     <h2>Add Variety of Product</h2>
     
     <div class="row text">
@@ -113,10 +113,22 @@
     
     <div class="row submit">
         <span class="label"><label>&nbsp;</label></span>
-        <span class="field"><button type="submit" name="save" value="save"><span>Next</span></button></span>
+        <span class="field">
+            <button 
+                hx-indicator="#edit-loading"
+                hx-post="/request/bo/component/ecommerce/product_variety_add?id={GET.id}"
+                class="btn"
+                type="submit" 
+                name="save" 
+                value="save" 
+                id="saveAndClose"
+            >
+                Next
+            </button>
+        </span>
     </div>
 
-    <input type="hidden" name="product[variety][product_id]" value="{GET.product_id}"/>
+    <input type="hidden" name="product[variety][product_id]" value="{GET.id}"/>
     <input type="hidden" name="product[variety][price][currency_code]" value="{GLOBAL_DEFAULT_CURRENCY}" />
     <input type="hidden" name="product[variety][price][type]" value="common" />
     <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />

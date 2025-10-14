@@ -274,4 +274,15 @@ dialog.edit-dialog {
 			gap: 10px;
 		}
 	}
+
+	.product-other-data {
+		width: 100%;
+
+		.item {
+			display: flex;
+			align-items: flex-start;
+			gap: 10px;
+			margin-bottom: 10px;
+		}
+	}
 }
