@@ -1,0 +1,92 @@
+.component-preview {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	background-color: rgb(255,255,255);
+	box-shadow: 0 3px 4px 1px rgba(0, 0, 0, 0.1);
+	padding-top: 5px;
+	margin: 10px 10px 20px 10px;
+	padding-bottom: 60px;
+
+	legend {
+		top: 0;
+		font-size: 1.5rem;
+		margin-bottom: 0;
+		color: var(--color-primary);
+		text-shadow: 
+			-2px -2px 0 #ffffff, 
+			-2px 2px 0 #ffffff, 
+			2px -2px 0 #ffffff, 
+			2px 2px 0 #ffffff;
+	}
+
+	h4 {
+		margin-bottom: 5px;
+		font-size: 1.2rem;
+		color: var(--color-text);
+	}
+
+	.label {
+		color: #afafaf;
+		font-size: 0.8rem;
+	}
+
+	.value {
+		font-size: 1rem;
+		margin-bottom: 10px;
+	}
+
+	p {
+		margin: 0 0 5px;
+		display: flex;
+		font-size: 1rem;
+	}
+
+	ul {
+		padding-left: 20px;
+	}
+
+	.component-actions {
+		position: absolute;
+		display: flex;
+		gap: 10px;
+		bottom: 15px;
+		right: 15px;
+	}
+
+	.file-list {
+		
+		.list {
+
+			.item {
+				pointer-events: none;
+
+				img {
+					max-width: 100px;
+					min-width: 100px;
+				}
+			}
+		}
+
+		.add-file {
+			display: none;
+		}
+	}
+
+	.publish.No {
+		color: var(--color-danger);
+	}
+
+	#scheduler-add-new, .onyx-delete {
+		display: none;
+	}
+
+	select {
+		font-size: 1rem;
+		border: none;
+		background: transparent;
+		pointer-events: none;
+		appearance: none;
+	}
+}

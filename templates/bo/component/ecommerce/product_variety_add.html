@@ -39,93 +39,99 @@
     });
 </script>
 {MESSAGES}
-<p><a class="back" href="/backoffice/products/{GET.product_id}/edit"><span>Back to product edit</span></a></p>
+<form method="post" action="{URI|htmlspecialchars}" id="product-varieties-edit">
+    <h2>Add Variety of Product</h2>
+    
+    <div class="row text">
+        <label for="product-variety-name">Variety Name</label>
+        <input type="text" class="text title required" name="product[variety][name]" id="product-variety-name" value="{PRODUCT.variety.name}"/>
+    </div>
+    
+    <div class="row text">
+        <label for="product-variety-sku">Code (SKU)</label>
+        <input type="text" class="required" name="product[variety][sku]" id="product-variety-sku" value="{PRODUCT.variety.sku}"/>
+    </div>
 
-<form method="post" action="{URI|htmlspecialchars}" id="product-variety-add-form">
-<fieldset>
-    <legend>Variety of product</legend>
-    <div class="row title">
-        <span class="label"><label for="product-variety-name">Variety Name</label></span>
-        <span class="field"><input type="text" class="text title required" name="product[variety][name]" id="product-variety-name" value="{PRODUCT.variety.name}"/></span>
-    </div>
-    <div class="row">
-        <span class="label"><label for="product-variety-sku">Code (SKU)</label></span>
-        <span class="field"><input type="text" class="text required" name="product[variety][sku]" id="product-variety-sku" value="{PRODUCT.variety.sku}"/></span>
-    </div>
-    <div class="row">
+    <div class="row select text">
         {ONYX_REQUEST_producttype #bo/component/ecommerce/product_type_select}
     </div>
 
-    <div class="row">
-        <span class="label"><label for="product-variety-weight-gross">Weight Gross [{VARIETY_CONF.weight_units}]</label></span>
-        <span class="field"><input type="text" class="text short required number" name="product[variety][weight_gross]" id="product-variety-weight-gross" value="{PRODUCT.variety.weight_gross}"/> (Used for postage. Zero weight is free postage.)</span>
-    </div>          
-
-    <div class="row">
-        <span class="label"><label for="product-variety-stock">Stock</label></span>
-        <span class="field"><input type="text" class="text short required digits" name="product[variety][stock]" id="product-variety-stock" value="{PRODUCT.variety.stock}"/></span>
+    <div class="row text">
+        <label for="product-variety-weight-gross">Weight Gross [{VARIETY_CONF.weight_units}]</label>
+        <input type="text" class="required number" name="product[variety][weight_gross]" id="product-variety-weight-gross" value="{PRODUCT.variety.weight_gross}"/>
+        <div class="additional-info">(Used for postage. Zero weight is free postage.)</div>
     </div>
 
-    <div class="two-column-layout">
-        <div class="layout-column-one of-two">
-            <div class="row">
-                <span class="label"><label>Price Value (excluding VAT) in {GLOBAL_DEFAULT_CURRENCY}</label></span>
-                <span class="field"><input type="text" id="price-without-vat" class="text half required number" name="product[variety][price][value]" value="{PRODUCT.variety.price.value}"/></span>
-            </div>
-        </div>
-        <div class="layout-column-two of-two">
-            <div class="row">
-                <span class="label"><label>Price Value (including VAT) in {GLOBAL_DEFAULT_CURRENCY}</label></span>
-                <span class="field"><input type="text" id="price_with_vat" class="text half number"/></span>
-            </div>
-        </div>
+    <div class="row text">
+        <label for="product-variety-stock">Stock</label>
+        <input type="text" class="required digits" name="product[variety][stock]" id="product-variety-stock" value="{PRODUCT.variety.stock}"/>
     </div>
 
+    <div class="row text">
+        <label>Price Value (excluding VAT) in {GLOBAL_DEFAULT_CURRENCY}</label>
+        <input type="text" id="price-without-vat" class="required number" name="product[variety][price][value]" value="{PRODUCT.variety.price.value}"/>
+    </div>
+    <div class="row text">
+        <label>Price Value (including VAT) in {GLOBAL_DEFAULT_CURRENCY}</label>
+        <input type="text" id="price_with_vat" class="number"/>
+    </div>
+
+    <p><a href="#" class="button primary" onclick="$('#variety-more-details').toggle(); return false">More details</a></p>
+
+    <div id="variety-more-details" style="display: none;;">
+        <div class="row rte">
+            <label for="product-variety-description">Description</label>
+            <textarea id="product-variety-description" name="product[variety][description]">{PRODUCT.variety.description}</textarea>
+        </div>
+
+        <div class="row text">
+            <label for="product-variety-weight">Weight Net [{VARIETY_CONF.weight_units}]</label>
+            <input type="text" name="product[variety][weight]" id="product-variety-weight" value="{PRODUCT.variety.weight}"/>
+        </div>
+
+        <h2>Dimensions</h2>
+
+        <br />
+
+        <div class="row text">
+            <label>Width [{VARIETY_CONF.dimension_units}]</label>
+            <input type="text" name="product[variety][width]" value="{PRODUCT.variety.width}"/>
+        </div>
+        <div class="row text">
+            <label>Height [{VARIETY_CONF.dimension_units}]</label>
+            <input type="text" name="product[variety][height]" value="{PRODUCT.variety.height}"/>
+        </div>
+        <div class="row text">
+            <label>Depth [{VARIETY_CONF.dimension_units}]</label>
+            <input type="text" name="product[variety][depth]" value="{PRODUCT.variety.depth}"/>
+        </div>
+        <div class="row text">
+            <label>Diameter [{VARIETY_CONF.dimension_units}]</label>
+            <input type="text" name="product[variety][diameter]" value="{PRODUCT.variety.diameter}"/>
+        </div>
+    </div>
+    
+    <div class="row submit">
+        <span class="label"><label>&nbsp;</label></span>
+        <span class="field">
+            <button 
+                hx-indicator="#edit-loading"
+                hx-post="/request/bo/component/ecommerce/product_variety_add?id={GET.id}"
+                class="btn"
+                type="submit" 
+                name="save" 
+                value="save" 
+                id="saveAndClose"
+            >
+                Next
+            </button>
+        </span>
+    </div>
+
+    <input type="hidden" name="product[variety][product_id]" value="{GET.id}"/>
     <input type="hidden" name="product[variety][price][currency_code]" value="{GLOBAL_DEFAULT_CURRENCY}" />
     <input type="hidden" name="product[variety][price][type]" value="common" />
-
-</fieldset>
-
-<p><a href="#" onclick="$('#variety-more-details').toggle(); return false">More details</a></p>
-
-<div id="variety-more-details" style="display: none">
-<fieldset>
-    <div class="row rte">
-        <span class="label"><label for="product-variety-description">Description</label></span>
-        <span class="field"><textarea id="product-variety-description" name="product[variety][description]">{PRODUCT.variety.description}</textarea></span>
-    </div>
-    <div class="row">
-        <span class="label"><label for="product-variety-weight">Weight Net [{VARIETY_CONF.weight_units}]</label></span>
-        <span class="field"><input type="text" name="product[variety][weight]" id="product-variety-weight" value="{PRODUCT.variety.weight}"/></span>
-    </div>
-</fieldset>
-<fieldset>
-    <legend>Dimensions</legend>
-    <div class="row">
-        <span class="label"><label>Width [{VARIETY_CONF.dimension_units}]</label></span>
-        <span class="field"><input type="text" name="product[variety][width]" value="{PRODUCT.variety.width}"/></span>
-    </div>
-    <div class="row">
-        <span class="label"><label>Height [{VARIETY_CONF.dimension_units}]</label></span>
-        <span class="field"><input type="text" name="product[variety][height]" value="{PRODUCT.variety.height}"/></span>
-    </div>
-    <div class="row">
-        <span class="label"><label>Depth [{VARIETY_CONF.dimension_units}]</label></span>
-        <span class="field"><input type="text" name="product[variety][depth]" value="{PRODUCT.variety.depth}"/></span>
-    </div>
-    <div class="row">
-        <span class="label"><label>Diameter [{VARIETY_CONF.dimension_units}]</label></span>
-        <span class="field"><input type="text" name="product[variety][diameter]" value="{PRODUCT.variety.diameter}"/></span>
-    </div>
-</fieldset>
-</div>
-
-<input type="hidden" name="product[variety][product_id]" value="{GET.product_id}"/>
-<div class="row submit">
-    <span class="label"><label>&nbsp;</label></span>
-    <span class="field"><button type="submit" name="save" value="save"><span>Next</span></button></span>
-</div>
-<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+    <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 </form>
 
 {ONYX_REQUEST_tinymce #bo/tinymce~theme=simple:relation=product_variety:edit_elements=product-variety-description~}

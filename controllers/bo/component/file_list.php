@@ -5,6 +5,7 @@
  */
 
 require_once('controllers/bo/component/file.php');
+require_once('models/common/common_image.php');
 
 class Onyx_Controller_Bo_Component_File_List extends Onyx_Controller_Bo_Component_File {
 
@@ -62,7 +63,6 @@ class Onyx_Controller_Bo_Component_File_List extends Onyx_Controller_Bo_Componen
             case 'CSS':
                 $this->tpl->parse("content.list.item.CSS_select");
             break;
-            case 'file':
             default:
                 $this->tpl->parse("content.list.item.default");
             break;

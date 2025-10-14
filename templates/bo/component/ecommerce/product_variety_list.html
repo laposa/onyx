@@ -1,35 +1,53 @@
 <!-- BEGIN: content -->
 {MESSAGES}
-<table cellspacing="0" class="product-variety-list">
-    <thead>
-        <tr>
-            <th>Product Code</th>
-            <th>Option Name</th>
-            <th>Stock</th>
-            <th>Weight Gross [{VARIETY_CONF.weight_units}]</th>
-            <!--<th>Dimensions [{VARIETY_CONF.dimension_units}]</th>-->
-            <th>Price Net</th>  
-        </tr>
-    </thead>
-    <tbody>
-        <!-- BEGIN: variety -->
-        <tr>
-            <td>
-                <a class="title" href="/backoffice/products/variety/{VARIETY.id}/edit" onclick="javascript:openEdit('/backoffice/products/variety/{VARIETY.id}/edit', this, 0); return false;" title="Click to Edit Product Variety">{VARIETY.sku|htmlspecialchars}</a>
-                <a class="button edit small" href="/backoffice/products/variety/{VARIETY.id}/edit" onclick="javascript:openEdit('/backoffice/products/variety/{VARIETY.id}/edit', this, 0); return false;" title="Click to Edit Product Variety"><span>Edit</span></a>
-                {IMAGE}
-            </td>
-            <td class="{DISABLED}"><a class="title" id="ecommerce-product-variety-variety-name-id-{VARIETY.id}" href="#{VARIETY.id}" onclick="javascript:openEdit('/backoffice/products/variety/{VARIETY.id}/edit', this, 0); return false;">{VARIETY.name|htmlspecialchars}</a><br /><div style="font-size: small">{VARIETY.description}</div></td>
-            <td>{VARIETY.stock}</td>
-            <td>{VARIETY.weight_gross}</td>
-            <!--<td>Width {VARIETY.width} x Height {VARIETY.height} x Depth {VARIETY.depth}<br />&Oslash; {VARIETY.diameter}</td>-->
-            <td class="price">
-                <a class="price" id="ecommerce-price-value-product-variety-id-{VARIETY.id}" href="#{VARIETY.id}" onclick="javascript:openEdit('/backoffice/products/variety/{VARIETY.id}/edit', this, 0); return false;">{VARIETY.price.value_net|money_format('%!n', %s)}</a> {CONFIGURATION.global.default_currency}
-            </td>
-        </tr>
-    <!-- END: variety -->
-    </tbody>
-</table>
+<fieldset id="component-product-varieties" class="component-preview">
+    <div id="product-varieties-loading" class="onyx-loading htmx-indicator">
+        <img src="/share/images/loading.svg" alt="Loading..."/>
+    </div>
+        
+    <legend>Product Varieties</legend>
 
-<p><a class="button add" href="/backoffice/products/{GET.id}/variety_add"><span>Add a New Variety</span></a></p>
+    <table cellspacing="0" class="product-variety-list">
+        <thead>
+            <tr>
+                <th>Product Code</th>
+                <th>Option Name</th>
+                <th>Stock</th>
+                <th>Weight Gross [{VARIETY_CONF.weight_units}]</th>
+                <!--<th>Dimensions [{VARIETY_CONF.dimension_units}]</th>-->
+                <th>Price Net</th>  
+            </tr>
+        </thead>
+        <tbody>
+            <!-- BEGIN: variety -->
+            <tr>
+                <td>
+                    <a class="title" href="/backoffice/products/variety/{VARIETY.id}/edit" onclick="javascript:openEdit('/backoffice/products/variety/{VARIETY.id}/edit', this, 0); return false;" title="Click to Edit Product Variety">{VARIETY.sku|htmlspecialchars}</a>
+                    <a class="button edit small" href="/backoffice/products/variety/{VARIETY.id}/edit" onclick="javascript:openEdit('/backoffice/products/variety/{VARIETY.id}/edit', this, 0); return false;" title="Click to Edit Product Variety"><span>Edit</span></a>
+                    {IMAGE}
+                </td>
+                <td class="{DISABLED}"><a class="title" id="ecommerce-product-variety-variety-name-id-{VARIETY.id}" href="#{VARIETY.id}" onclick="javascript:openEdit('/backoffice/products/variety/{VARIETY.id}/edit', this, 0); return false;">{VARIETY.name|htmlspecialchars}</a><br /><div style="font-size: small">{VARIETY.description}</div></td>
+                <td>{VARIETY.stock}</td>
+                <td>{VARIETY.weight_gross}</td>
+                <!--<td>Width {VARIETY.width} x Height {VARIETY.height} x Depth {VARIETY.depth}<br />&Oslash; {VARIETY.diameter}</td>-->
+                <td class="price">
+                    <a class="price" id="ecommerce-price-value-product-variety-id-{VARIETY.id}" href="#{VARIETY.id}" onclick="javascript:openEdit('/backoffice/products/variety/{VARIETY.id}/edit', this, 0); return false;">{VARIETY.price.value_net|money_format('%!n', %s)}</a> {CONFIGURATION.global.default_currency}
+                </td>
+            </tr>
+        <!-- END: variety -->
+        </tbody>
+    </table>
+    <div class="component-actions">
+        <button
+            hx-get="/request/bo/component/ecommerce/product_variety_add?id={GET.id}"
+            hx-target="#edit-dialog .content"
+            hx-indicator="#edit-loading"
+            hx-trigger="click"
+            hx-swap="innerHTML"
+            hx-on::before-request="openDialog()"
+            class="btn">
+            Add a New Variety
+        </button>
+    </div>
+</fieldset>
 <!-- END: content -->

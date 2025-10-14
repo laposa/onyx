@@ -215,16 +215,15 @@ CREATE TABLE ecommerce_product (
         /**
          * set values
          */
-
-        if (!isset($data['publish'])) $data['publish'] = 0;
-
         $data['modified'] = date('c');
 
         /**
          * handle other_data
          */
 
-        $data['other_data'] = serialize($data['other_data'] ?? '');
+        if (isset($data['other_data'])) {
+            $data['other_data'] = serialize($data['other_data'] ?? '');
+        }
 
         /**
          * update product

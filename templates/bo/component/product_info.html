@@ -1,0 +1,102 @@
+<!-- BEGIN: content -->
+{MESSAGES}
+    <!-- BEGIN: preview -->
+    <fieldset id="component-product-info" class="component-preview">
+        <div id="product-info-loading" class="onyx-loading htmx-indicator">
+            <img src="/share/images/loading.svg" alt="Loading..."/>
+        </div>
+
+        <legend>Product Information</legend>
+
+        <span class="label">Product Name:</span>
+        <span class="value">{PRODUCT.name|htmlspecialchars}</span>
+
+        <span class="label">Also Known As / Subtitle:</span>
+        <span class="value">{PRODUCT.name_aka|htmlspecialchars}</span>
+
+        <span class="label">Teaser:</span>
+        <span class="value">{PRODUCT.teaser}</span>
+
+        <span class="label">Description:</span>
+        <span class="value">{PRODUCT.description}</span>
+
+        <div class="component-actions">
+            <button
+                hx-get="/request/bo/component/product_info?edit=true&node_id={PRODUCT.id}"
+                hx-target="#edit-dialog .content"
+                hx-indicator="#edit-loading"
+                hx-trigger="click"
+                hx-swap="innerHTML"
+                hx-on::before-request="openDialog()"
+                class="btn">
+                Edit
+            </button>
+        </div>
+    </fieldset>
+    <!-- END: preview -->
+
+    <!-- BEGIN: edit -->
+    <form id="product-info-edit">
+        <h2>Edit Product Information</h2>
+
+        <!-- Product Name -->
+        <div class="row text">
+            <label for="product-name">Product Name:</label>    
+            <input 
+                type="text" 
+                id="product-name" 
+                name="product[name]" 
+                value="{PRODUCT.name|htmlspecialchars}" 
+            />
+        </div>
+
+        <!-- Also Known As / Subtitle -->
+        <div class="row text">
+            <label for="product-name-aka">Also Known As / Subtitle:</label>
+            <input 
+                type="text" 
+                name="product[name_aka]" 
+                id="product-name-aka" 
+                value="{PRODUCT.name_aka|htmlspecialchars}" 
+                title="Please try to fit your title length into the size of this input box" 
+            />
+        </div>
+
+        <!-- Teaser -->
+        <div class="row rte">
+            <label for="product-teaser">Teaser:</label>
+            <textarea 
+                name="product[teaser]" 
+                id="product-teaser" 
+            >
+                {PRODUCT.teaser|htmlspecialchars}
+            </textarea>
+        </div>
+
+        <!-- Description -->
+        <div class="row rte">
+            <label for="product-description">Description:</label>
+            <textarea 
+                name="product[description]" 
+                id="product-description" 
+            >
+                {PRODUCT.description|htmlspecialchars}
+            </textarea>
+            
+            {ONYX_REQUEST_tinymce #bo/tinymce~id=GET.node_id:relation=product:role=RTE_description:mode=exact:edit_elements=product-description:theme=advanced~}
+        </div>
+
+        <script type="text/javascript">
+            tinymce.init({
+                selector: "dialog #product-teaser",
+                menubar: "false",
+                toolbar: "bold",
+                invalid_elements : "span,div,form,input,label,button,script,font",
+                entity_encoding : "raw"
+            });
+        </script>
+
+        {FILE "bo/component/edit_product_dialog_footer.html"}
+    </form>
+    <!-- END: edit -->
+<!-- END: content -->

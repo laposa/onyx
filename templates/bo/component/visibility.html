@@ -1,0 +1,80 @@
+<!-- BEGIN: content -->
+{MESSAGES}
+    <!-- BEGIN: preview -->
+    <fieldset id="component-visibility" class="component-preview">
+        <div id="visibility-loading" class="onyx-loading htmx-indicator">
+            <img src="/share/images/loading.svg" alt="Loading..."/>
+        </div>
+
+        <legend>Visibility</legend>
+
+        <span class="label">Published:</span>
+        <span class="value publish {PUBLISHED}">{PUBLISHED}</span>
+
+        <span class="label">Visibility in navigation and sitemap:</span>
+        <span class="value">
+            <select name="node[display_in_menu]" id="node-display-in-menu">
+                <option value="1" {NODE.display_in_menu_select_1}>Display</option>
+                <option value="2" {NODE.display_in_menu_select_2}>Display, but don't create link</option>
+                <option value="0" {NODE.display_in_menu_select_0}>Hide</option>
+            </select>
+        </span>
+
+        <span class="label">Scheduled Actions:</span>
+        <span class="value">
+            {ONYX_REQUEST_scheduler_preview #bo/component/scheduler_list~node_id=GET.node_id:node_type=common_node~}
+        </span>
+
+        <div class="component-actions">
+            <button
+                hx-get="/request/bo/component/visibility?edit=true&node_id={NODE.id}"
+                hx-target="#edit-dialog .content"
+                hx-indicator="#edit-loading"
+                hx-trigger="click"
+                hx-swap="innerHTML" 
+                hx-on::before-request="openDialog()"
+                class="btn">
+                Edit
+            </button>
+        </div>
+    </fieldset>
+    <!-- END: preview -->
+
+    <!-- BEGIN: edit -->
+    <form id="visibility-edit">
+        <h2>Edit Visibility</h2>
+
+        <!-- Published -->
+        <div class="row checkbox">
+            <label>
+                <input 
+                    id="node-publish" 
+                    type="checkbox" 
+                    name="node[publish]" 
+                    {NODE.publish_check} 
+                /> 
+                <span class="slider"></span>
+            </label>
+            Publish
+        </div>
+
+        <!-- Display In Menu -->
+        <div class="row display-in-menu">
+            <label for="node-display-in-menu">Visibility in navigation and sitemap:</label>  
+            <select name="node[display_in_menu]" id="node-display-in-menu">
+                <option value="1" {NODE.display_in_menu_select_1}>Display</option>
+                <option value="2" {NODE.display_in_menu_select_2}>Display, but don't create link</option>
+                <option value="0" {NODE.display_in_menu_select_0}>Hide</option>
+            </select>
+        </div>
+
+        <!-- Schedule -->
+        <div class="row schedule">
+            <p>Scheduled Actions:</p>
+            {ONYX_REQUEST_scheduler_edit #bo/component/scheduler_list~node_id=GET.node_id:node_type=common_node~}
+        </div>
+
+        {FILE "bo/component/edit_dialog_footer.html"}
+    </form>
+    <!-- END: edit -->
+<!-- END: content -->

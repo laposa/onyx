@@ -10,28 +10,63 @@ function chooseImage(src, title) {
 }
 </script>
 
-<div id="file-list-{GET.node_id}">
+<div id="file-list-{GET.node_id}" class="file-list">
 
     <!-- BEGIN: empty -->
     <p>No files are currently assigned to this content</p>
     <!-- END: empty -->
     
     <!--  BEGIN: list -->
-    <div class="list" style="display: flex; align-items: center; justify-content: left; flex-wrap:wrap; ">
+    <div class="list">
         <!-- BEGIN: item -->
-        <div class="item" id="linked-file-{FILE.id}" style="margin: 0 1em 1em 0;">
-                
-                <!-- BEGIN: default -->
-                    <a title="Click on this file to edit its properties" href="#file-list-{GET.node_id}" onclick="showModalOverlay('replace-file'); makeAjaxRequest('#modal-overlay-window', '/request/bo/component/file_detail~file_id={FILE.id}:type={GET.type}:role={GET.role}:relation={GET.relation}:node_id={GET.node_id}~'); return false;"><img id="image-thumbnail-{FILE.id}" src="/thumbnail/300/{FILE.src}" style="width: 125px;" title="Role: {FILE.role}. Click on this file to edit its properties" alt="{FILE.title}" /></a>
-                <!-- END: default -->
-                
-                <!-- BEGIN: RTE_select -->      
-                    <a href="#" class="image" onclick="chooseImage($('#image-thumbnail-{FILE.id}').attr('src') , $('#image-thumbnail-{FILE.id}').attr('title')); return false;"><img id="image-thumbnail-{FILE.id}" src="/image/{FILE.src}" style="width: 125px;" title="{FILE.title|htmlspecialchars}"  alt="{FILE.title|htmlspecialchars}" /></a>
-                <!-- END: RTE_select -->
-                
-                <!-- BEGIN: CSS_select -->
-                    <a href="#" onclick="var src = $('#image-thumbnail-{FILE.id}').attr('src'); alert('Copy&amp;Paste this:\nurl(' + src + ')'); return false;"><img id="image-thumbnail-{FILE.id}" src="/image/{FILE.src}" style="width: 125px;" title="{FILE.title|htmlspecialchars}"  alt="{FILE.title|htmlspecialchars}" /></a>
-                <!-- END: CSS_select -->
+        <div class="item" id="linked-file-{FILE.id}">
+            <!-- BEGIN: default -->
+                <img 
+                    id="image-thumbnail-{FILE.id}" 
+                    src="/thumbnail/300/{FILE.src}" 
+                    title="Role: {FILE.role}. Click on this file to edit its properties" 
+                    alt="{FILE.title}" 
+                    hx-get="/request/bo/component/file_detail?file_id={FILE.id}&type={GET.type}&role={GET.role}&relation={GET.relation}&node_id={GET.node_id}~"
+                    hx-on::before-request="openFileDialog();"
+                    hx-target="#file-dialog .content"
+                    hx-trigger="click"
+                    hx-indicator="#file-loading"
+                />
+            <!-- END: default -->
+            
+            <!-- BEGIN: RTE_select -->      
+                <a 
+                    href="#" 
+                    class="image" 
+                    onclick="
+                        chooseImage($('#image-thumbnail-{FILE.id}').attr('src') , $('#image-thumbnail-{FILE.id}').attr('title')); 
+                        return false;"
+                >
+                    <img 
+                        id="image-thumbnail-{FILE.id}" 
+                        src="/image/{FILE.src}" 
+                        title="{FILE.title|htmlspecialchars}" 
+                        alt="{FILE.title|htmlspecialchars}" 
+                    />
+                </a>
+            <!-- END: RTE_select -->
+            
+            <!-- BEGIN: CSS_select -->
+                <a 
+                    href="#" 
+                    onclick="
+                        var src = $('#image-thumbnail-{FILE.id}').attr('src');
+                        alert('Copy&amp;Paste this:\nurl(' + src + ')');
+                        return false;"
+                >
+                    <img 
+                        id="image-thumbnail-{FILE.id}" 
+                        src="/image/{FILE.src}" 
+                        title="{FILE.title|htmlspecialchars}"
+                        alt="{FILE.title|htmlspecialchars}" 
+                    />
+                </a>
+            <!-- END: CSS_select -->
         </div>
         <!-- END: item -->
     </div>
@@ -39,7 +74,17 @@ function chooseImage(src, title) {
 
     <div class="bottom"></div>
 
-    <p style="clear: both;"><a class="button add" title="Add Files..." href="#" onclick="showModalOverlay(); makeAjaxRequest('#modal-overlay-window', '/request/bo/pages/server_browser~type={GET.type}:role={GET.role}:relation={GET.relation}:node_id={GET.node_id}~'); return false"><span>Add Files...</span></a></p>
+    <button 
+        class="button primary add-file" 
+        title="Add Files..." 
+        hx-get="/request/bo/pages/server_browser?type={GET.type}&role={GET.role}&relation={GET.relation}&node_id={GET.node_id}~"
+        hx-target="#file-dialog .content"
+        hx-trigger="click"
+        hx-indicator="#file-loading"
+        hx-on::before-request="openFileDialog();"
+    >
+        <span>Add Files...</span>
+    </button>
 
 </div>
 

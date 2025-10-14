@@ -7,6 +7,9 @@
  *
  */
 
+@import url(/share/css/components/component_preview.css);
+@import url(/share/css/components/file_list.css);
+@import url(/share/css/components/edit_dialog.css);
 @import url(/share/css/components/node_info.css);
 @import url(/share/css/backoffice_icons.css);
 @import url(/share/css/simple-tree.css);
@@ -492,7 +495,7 @@
   input.error,
   textarea.error {border-color: red; /*background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><path fill='none' stroke='red' stroke-width='16' stroke-linecap='round' d='M89,9a81,81 0 1,0 2,0zm1,38v58m0,25v1'/></svg>"); background-repeat: no-repeat; background-size: 20px; background-position-x: 95%; background-position-y: center;*/}
   
-  textarea {width: 100%; min-height: 100px;}
+  textarea {width: 100%;}
   textarea.small {height: 50px;}
   textarea.big,
   textarea.large,
@@ -505,7 +508,6 @@
   input.short,
   textarea.short,
   select.short {width: 4em;}
-  input.number {text-align: right;}
   
   button {cursor: pointer;}
   
@@ -884,7 +886,6 @@ form span.field {width: 100%;}
 form div.rte span.label {text-align: left;}
 form div.rte span.field {display: block; overflow: auto; width: auto; clear: both; padding: 1px 0 0 1px;}
 textarea {font-size: 1.2em;}
-form div.row span.label label { color: #999; text-shadow: 0 1px 0 #fff; }
 fieldset { background: #f8f8f8; padding: 20px 20px 10px; margin: 0 0 20px 0; border-radius: 5px; }
 fieldset a { cursor: pointer }
 @media all and (min-width: 800px) {
@@ -956,8 +957,8 @@ div.divider {border-top: 2px solid #dadada;}
  */
  
 div.ui-dialog legend {display: none;}
-div.ui-dialog {z-index: 310000; /*needs to be higher than .onyx-modal-overlay*/}
-.ui-widget-overlay {background: #000; opacity: 0.7; z-index: 310000; /*needs to be higher than .onyx-modal-overlay*/}
+div.ui-dialog { /*needs to be higher than .onyx-modal-overlay*/}
+.ui-widget-overlay {background: #000; opacity: 0.7; /*needs to be higher than .onyx-modal-overlay*/}
 
 .ui-tabs-hide { display: none; }
 
@@ -1039,8 +1040,15 @@ div.file-list-icon div.item a.image {display: block; max-height: 120px; overflow
 #server-browser-file-list .file-upload-preview img {position: absolute; height: 100%; width: 100%; object-fit: contain; top: 0; left: 0;}
 #server-browser-file-list .file-upload-preview .file-overlay {position: absolute; width: 100%; z-index: 100; bottom: 0; padding: 10px 0; background-color: rgba(0,0,0,0.5);}
 
+#server-browser-file-list .add-new {
+  width: 100%;
+}
+
 #add-folder {
   display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
 }
 
 #server-browser-file-list .media-breadcrumbs {
@@ -1502,6 +1510,11 @@ a.fakelink:hover {text-decoration: none;}
   pointer-events: none;
   opacity: 0.5;
 
+  img {
+    width: 50px;
+    margin: 0 auto;
+  }
+
   &.htmx-request {
     pointer-events: all;
   }
@@ -1525,10 +1538,6 @@ a.fakelink:hover {text-decoration: none;}
     }
   }
 
-  img {
-    margin-bottom: 10px;
-  }
-
   .actions {
     display: flex;
     align-items: center;
@@ -1546,6 +1555,24 @@ a.fakelink:hover {text-decoration: none;}
     flex-wrap: wrap;
     gap: 10px;
     margin: 0;
+
+    .img {
+      display: flex;
+      align-items: center;
+      border: 1px solid #e0e0e0;
+      border-radius: 5px;
+    }
+
+    .body {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      flex-grow: 1;
+
+      a {
+        font-size: 14px;
+      }
+    }
   }
 }
 
@@ -1617,5 +1644,24 @@ span.important {
 
   .button {
     margin-top: 10px;
+  }
+}
+
+/* Component specific changes */
+
+.category-list {
+  li {
+    font-size: 1rem;
+  }
+
+  .category-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    
+    a:not(:last-child)::after {
+      content: '»';
+      margin: 0 5px 0 10px;
+    }
   }
 }

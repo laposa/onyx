@@ -1,0 +1,74 @@
+<!-- BEGIN: content -->
+    <!-- BEGIN: preview -->
+    <fieldset id="component-product-other-data" class="component-preview">
+        <div id="product-other-data-loading" class="onyx-loading htmx-indicator">
+            <img src="/share/images/loading.svg" alt="Loading..."/>
+        </div>
+
+        <legend>Other Data</legend>
+
+        <!-- BEGIN: other_data -->
+            <!-- BEGIN: item -->
+            <span class="label">{OTHER_DATA.key|htmlspecialchars}:</span>
+            <span class="value">{OTHER_DATA.value|htmlspecialchars}</span>
+            <!-- END: item -->
+        <!-- END: other_data -->
+
+        <div class="component-actions">
+            <button
+                hx-get="/request/bo/component/product_other_data?edit=true&node_id={PRODUCT.id}"
+                hx-target="#edit-dialog .content"
+                hx-indicator="#edit-loading"
+                hx-trigger="click"
+                hx-swap="innerHTML"
+                hx-on::before-request="openDialog()"
+                class="btn">
+                Edit
+            </button>
+        </div>
+    </fieldset>
+    <!-- END: preview -->
+
+    <!-- BEGIN: edit -->
+    <form id="product-other-data-edit">
+        <h2>Edit Other Data</h2>
+
+        <!-- BEGIN: other_data -->
+        <div class="product-other-data">
+            <!-- BEGIN: item -->
+            <div class="item row text">
+                <span class="label"><input type="text" placeholder="Attribute" value="{OTHER_DATA.key|htmlspecialchars}" /></span>
+                <span class="field"><textarea placeholder="Value" name="product[other_data][{OTHER_DATA.key|htmlspecialchars}]" rows="1">{OTHER_DATA.value|htmlspecialchars}</textarea></span>
+
+                <a class="onyx-delete onyx-icon" href="javascript: return false;" onclick="$(this).parent().remove()"></a>
+            </div>
+            <!-- END: item -->
+        </div>
+        <!-- END: other_data -->
+        <a class="button add" href="#" onclick="addNewOtherDataAttribute()"><span>Add a New Attribute</span></a>
+        
+        {FILE "bo/component/edit_product_dialog_footer.html"}
+    </form>
+
+    <!-- END: edit -->
+    <script type="text/javascript">
+        function addNewOtherDataAttribute() {
+            var row = `
+                <div class="item">
+                    <span class="label"><input type="text" placeholder="Attribute" value=""/></span>
+                    <span class="field"><textarea name="" rows="1" placeholder="Value"></textarea></span>
+                    <a class="onyx-delete onyx-icon" href="javascript: return false;" onclick="$(this).parent().remove()"></a>
+                </div>
+            `;
+            $(row).appendTo('div.product-other-data');
+            return false;
+        }
+
+        $().ready(function() {
+            $(document).on("keyup", "div.product-other-data input", function () {
+                var value = $(this).val();
+                $(this).parent().next().children().attr('name', 'product[other_data]['+value+']');
+            });
+        });
+    </script>
+<!-- END: content -->

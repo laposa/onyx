@@ -1,0 +1,90 @@
+<!-- BEGIN: content -->
+{MESSAGES}
+    <!-- BEGIN: preview -->
+    <fieldset id="component-leaflet-generator" class="component-preview">
+			<div id="leaflet-generator-loading" class="onyx-loading htmx-indicator">
+					<img src="/share/images/loading.svg" alt="Loading..."/>
+			</div>
+
+			<legend>Leaflet Generator</legend>
+
+			<span class="label">Files:</span>
+
+			<br>
+			
+			{ONYX_REQUEST_leaflet_preview #bo/component/file_list~type=add_to_node:relation=node:node_id=GET.node_id~}
+
+			<!-- TODO: list of hotspots? expandable or only in edit? -->
+
+			<div class="component-actions">
+				<button
+					hx-get="/request/bo/component/leaflet_generator?edit=true&node_id={NODE.id}"
+					hx-target="#edit-dialog .content"
+					hx-indicator="#edit-loading"
+					hx-trigger="click"
+					hx-swap="innerHTML"
+					hx-on::before-request="openDialog()"
+					class="btn">
+					Edit
+				</button>
+			</div>
+    </fieldset>
+    <!-- END: preview -->
+
+    <!-- BEGIN: edit -->
+			<form id="leaflet-generator-edit">
+        <h2>Leaflet Generator Edit</h2>
+
+				<!-- BEGIN: error -->
+					<div class="error-message">
+						An error occurred while processing your request.
+					</div>
+				<!-- END: error -->
+
+				<!-- BEGIN: no_file -->
+					<div class="error-message">
+						No PDF file found for conversion.
+					</div>
+				<!-- END: no_file -->
+
+				<span class="label">
+					Files:<br>
+					1: Source PDF File<br>
+					Other: Individual Pages
+				</span>
+
+				<br>
+
+				{ONYX_REQUEST_leaflet_edit #bo/component/file_list~type=add_to_node:relation=node:node_id=GET.node_id~}
+
+				<!-- 
+					TODO: refresh this+image list
+					TODO: conjoin with image list, get rid of relations
+					TODO: check for changes - confirm re-generating / or just add confirm dialog
+					TODO: hotspot list? nice to have?
+					TODO: tooltip with step-by-step instructions
+					TODO: special component? readable/expandable json or list of hotspots or both?
+				-->
+
+				<button
+					hx-get="/request/bo/component/leaflet_generator?node_id={NODE.id}&edit=true&generate=true"
+					hx-trigger="click"
+					hx-target="#leaflet-generator-edit"
+					hx-swap="innerHTML"
+					hx-indicator="#edit-loading">
+					Generate PDF Brochure
+				</button>
+
+				<br>
+
+        <div class="row text">
+					<label for="pdf-manifest">
+						PDF2Web Manifest:
+					</label>
+					<textarea name="node[custom_fields][pdf2Web]" id="pdf-manifest" readonly>{NODE.custom_fields.pdf2Web|htmlspecialchars}</textarea>
+				</div>
+
+				{FILE "bo/component/edit_dialog_footer.html"}
+			</form>
+    <!-- END: edit -->
+<!-- END: content -->
