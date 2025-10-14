@@ -93,7 +93,7 @@ class Onyx_Controller_Component_Ecommerce_Payment_Stripe extends Onyx_Controller
         }
 
         $transaction_data['order_id'] = $order_data['id'];
-        $transaction_data['pg_data'] = serialize($checkoutSession);
+        $transaction_data['pg_data'] = serialize($checkoutSession->toArray());
         $transaction_data['currency_code'] = GLOBAL_DEFAULT_CURRENCY;
         $transaction_data['amount'] = $checkoutSession->amount_total / 100; // Stripe returns amount in cents
         $transaction_data['created'] = date('c');
