@@ -5,7 +5,7 @@
 
 		.onyx-loading {
 			position: absolute;
-			top: 5px;
+			top: 0px;
 			right: 10px;
 			z-index: 1000;
 			width: 50px;
@@ -16,15 +16,15 @@
 		}
 
 		input, input:focus {
-			padding: 0 10px 0 45px;
+			padding: 0 10px 0 38px;
 			outline: none;
 			border: none;
-			height: 60px;
+			height: 49px;
 			border-radius: 0;
 			color: #6a6a6a;
 			font-size: 16px;
 			margin: 0;
-			border-bottom: 1px solid #e0e0e0;
+			border: none;
 		}
 
 		&:before {
@@ -32,17 +32,19 @@
 			position: absolute;
 			font-family: 'onyx';
 			color: var(--color-primary);
-			font-size: 25px;
+			font-size: 19px;
 			top: 10px;
 			left: 10px;
 		}
+
+		border-bottom: 1px solid #e0e0e0;
 	}
 
 	.search-results {
 		position: absolute;
-		top: 60px;
+		top: 50px;
 		left: 0;
-		height: calc(100% - 60px);
+		height: calc(100% - 50px);
 		width: 100%;
 		box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
 		z-index: 1000;
@@ -78,7 +80,7 @@
 
 			.title {
 				width: 100%;
-				font-size: 1.25rem;
+				font-size: 0.9rem;
 				font-weight: 700;
 				color: #333;
 			}
@@ -105,12 +107,13 @@
 	.search-close {
 		cursor: pointer;
 		position: absolute;
-		top: -50px;
+		top: -1px;
 		right: 15px;
 		font-family: 'onyx';
 		font-size: 25px;
 		color: var(--color-primary);
 		pointer-events: all;
+		z-index: 10;
 
 		&:before {
 			content: "\f00d";
