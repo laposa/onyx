@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2010-2021 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2010-2025 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -42,7 +42,7 @@ class Onyx_Controller_Component_Ecommerce_Product_List extends Onyx_Controller_L
         // sorting
         if ($sort_by == 'priority') {
             if ($sort_direction == 'ASC') usort($product_list , function ($a, $b) {return $a['priority'] <=> $b['priority'];});
-            else usort($product_list , function ($a, $b) {return $a['priority'] <=> $b['priority'];});
+            else usort($product_list , function ($a, $b) {return $b['priority'] <=> $a['priority'];});
         }
 
         // display
