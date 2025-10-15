@@ -1,5 +1,5 @@
 dialog.edit-dialog {
-	display: flex;
+	display: none;
 	padding: 20px;
 	min-width: 800px;
 	min-height: 200px;
@@ -11,6 +11,7 @@ dialog.edit-dialog {
 	position: relative;
 
 	&[open] {
+		display: flex;
 		opacity: 1;
 		pointer-events: inherit;
 		box-shadow: 0 0 0 100vw  rgba(0, 0, 0, 0.3);
