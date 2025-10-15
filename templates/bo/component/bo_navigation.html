@@ -121,12 +121,14 @@
         hx-trigger="load, navRefresh"
         hx-swap="innerHTML"
         hx-on::after-request="initializeDragAndDrop();"
+        hx-indicator="#navigation-level-{LEVEL}"
     >
     </ul>
     <!-- END: level -->
     <ul 
         id="navigation-level-{LAST}"
         class="navigation-list empty"
+        hx-indicator="#navigation-level-{LAST}"
     >
     </ul>
 </div>

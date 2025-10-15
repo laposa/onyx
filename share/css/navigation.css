@@ -22,6 +22,7 @@
 	list-style-type: none;
 	box-shadow: -5px 0px 5px 1px rgba(0, 0, 0, 0.05);
 	overflow-y: auto;
+  position: relative;
 
   .navigation-list-item {
 		font-size: 0.9rem;
@@ -114,8 +115,31 @@
 		}
 	}
 
-	&.htmx-request, &.empty {
-		min-width: 0;
-		width: 0; 
+  &.empty {
+    background-color: transparent;
+  }
+
+  &.htmx-request {
+    min-width: 250px;
+    width: 250px;
+    pointer-events: none;
+
+    &>* {
+      opacity: 0.1 !important;
+    }
+
+    &:before {
+      content: "";
+      display: block;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 48px;
+      height: 48px;
+      background: url('/share/images/loading.svg') no-repeat center center;
+      background-size: cover;
+      z-index: 10;
+    }
 	}
 }
