@@ -1166,13 +1166,21 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
     function getNavigationChildren($parent_id = false)
     {
         // TODO node group filter?
-        if (is_numeric($parent_id)) $root = "parent = $parent_id";
-        else $root = "(parent = 0 OR parent IS NULL)";
+        if (is_numeric($parent_id)) $root = "cn.parent = $parent_id";
+        else $root = "(cn.parent = 0 OR cn.parent IS NULL)";
         
-        $sql = "SELECT id, parent, title, node_group, node_controller, publish, priority
-            FROM common_node 
+        $sql = "SELECT DISTINCT cn.id,
+              cn.parent,
+              cn.title,
+              cn.node_group,
+              cn.node_controller,
+              cn.publish,
+              cn.priority,
+              ch.id IS NOT NULL AS has_children
+            FROM common_node AS cn
+            LEFT JOIN common_node AS ch ON cn.id = ch.parent
             WHERE $root
-            ORDER BY priority DESC, id ASC";        
+            ORDER BY cn.priority DESC, cn.id ASC";
 
         $records = $this->executeSql($sql);
         
