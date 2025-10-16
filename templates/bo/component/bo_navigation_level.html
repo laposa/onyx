@@ -1,5 +1,4 @@
 <!-- BEGIN: content -->
-<!-- <li class="drop-zone" data-position="0" data-parent-id="{ROOT}"></li> -->
 <!-- BEGIN: item -->
 <li
     id="navigation-node-{ITEM.id}"
@@ -9,14 +8,13 @@
     hx-trigger="click"
     hx-target="#navigation-level-{TARGET}"
     hx-indicator="#navigation-level-{TARGET}"
-    draggable="true"
     data-source-id="{ITEM.id}"
+    data-parent-id="{ITEM.parent_id}"
     hx-on::after-request="levelRefresh(event)"
     >
     <span class="icon {ITEM.node_group} {ITEM.node_controller}" title="{ITEM.node_group}/{ITEM.node_controller}"></span>
-    {ITEM.title|htmlspecialchars}
+    <span class="item-label">{ITEM.title|htmlspecialchars}</span>
 </li>
-<!-- <li class="drop-zone" data-position="{POSITION}" data-parent-id="{ITEM.parent}"></li> -->
 <!-- END: item -->
 <!-- BEGIN: action_buttons -->
 <li class="action-buttons">

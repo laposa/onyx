@@ -17,81 +17,144 @@
         }
     }
 
-    // TODO: might not work after rework - needs to be initialized after each htmx load?
     function initializeDragAndDrop() {
-        draggableElements = document.querySelectorAll('li[draggable="true"]');
-        dropZones = document.querySelectorAll('.drop-zone');
+        const lists = document.querySelectorAll('.navigation-list');
+        let draggedItem = null;
+        let sourceNodeId = null;
+        let sourceNodeTitle = null;
+        let sourceList = null;
+        let targetList = null;
 
-        dropZones.forEach((zone) => {
-            zone.addEventListener("dragenter", (event) => {
-                event.target.classList.add("drag-over");
-            });
+        // Drag Start
+        lists.forEach(list => {
+            if (list.dataset.dragAndDropInitialized) return;
+            list.dataset.dragAndDropInitialized = true;
 
-            zone.addEventListener("dragleave", (event) => {
-                event.target.classList.remove("drag-over");
-            });
-
-            zone.addEventListener("dragover", (event) => {
-                event.preventDefault(); // Necessary to allow drop
-            });
-
-            zone.addEventListener("drop", (event) => {
-                event.target.classList.remove("drag-over");
-                const position = event.target.getAttribute("data-position");
-                const sourceId = event.dataTransfer.getData("source-id");
-                const destinationId = event.target.getAttribute("data-parent-id");
-
-                const sourceElement = document.getElementById('navigation-node-' + sourceId);
-                
-                if(sourceElement.nextElementSibling == event.target || sourceElement.previousElementSibling == event.target || sourceId == destinationId) {
-                    return; // Do not allow moving to the same level
+            list.addEventListener('dragstart', function (e) {
+                draggedItem = e.target;
+                if (!draggedItem.classList.contains('navigation-list-item')) {
+                    e.preventDefault();
+                    return;
                 }
-                
-                document.getElementById('navigation-loading').classList.add('htmx-request');
+                draggedItem.classList.add('dragging');
+                sourceList = draggedItem.parentElement;
+                sourceNodeId = draggedItem.dataset.sourceId;
+                sourceNodeTitle = draggedItem.querySelector('.item-label').innerText;
+                e.dataTransfer.effectAllowed = 'move'; // Explicitly set the allowed effect
+            });
 
-                moveDomObject(event);
+            list.addEventListener('dragend', function (e) {
+                draggedItem.classList.remove('dragging');
+                lists.forEach(list => list.classList.remove('over')); // Remove 'over' from all lists
 
-                $.post(
-                    "/request/bo/component/node_move", 
-                    {
-                        csrf_token: getCSRFToken(),
-                        source_node_id: sourceId,
-                        destination_node_id: destinationId,
-                        position: position
-                    }, 
-                    function (data) {
-                        popupMessage(data);
+                let parentId = 0;
+                let position = 0;
+                let targetList = draggedItem.parentElement;
+                let insertedList = null;
+                let message;
 
-                        const sourceList = $('#navigation-node-' + sourceId).closest('ul');
-                        const destinationList = $('.nav-list-' + destinationId);
+                // check for drop on item first
+                const acceptChild = document.querySelector('li.accept-child');
+                if (acceptChild) {
+                    parentId = acceptChild.dataset.sourceId;
+                    insertedList = document.querySelector('.nav-list-' + parentId);
+                    parentTitle = acceptChild.querySelector('.item-label').innerText;
+                    message = "Are you sure you want to move node \"" + sourceNodeTitle + "\" (" + sourceNodeId + ") to position "
+                        + (position + 1) + " under parent node \"" + parentTitle + "\" (" + parentId + ")?"
 
-                        if(sourceList.attr('id') != destinationList.attr('id')) {
-                            htmx.trigger('#' + sourceList.attr('id'), 'navRefresh');
-                            htmx.trigger('#' + destinationList.attr('id'), 'navRefresh');
-                        } else {
-                            htmx.trigger('#' + sourceList.attr('id'), 'navRefresh');
+                } else {
+                    parentId = draggedItem.parentElement.dataset.parentId || 0;
+                    position = [...draggedItem.parentElement.children].indexOf(draggedItem);
+                    message = "Are you sure you want to move node \"" + sourceNodeTitle + "\" (" + sourceNodeId + ") to position "
+                        + (position + 1) + " under parent node " + parentId + "?"
+                }
+
+                if (confirm(message)) {
+                    sourceList.classList.add('htmx-request');
+                    if (targetList && sourceList !== targetList) targetList.classList.add('htmx-request');
+                    updateNodePosition(sourceNodeId, parentId, position, function() {
+                        htmx.trigger(sourceList, 'navRefresh');
+                        if (sourceList !== targetList) {
+                            htmx.trigger(targetList, 'navRefresh');
                         }
-                        document.getElementById('navigation-loading').classList.remove('htmx-request');
+                        if (insertedList && insertedList !== sourceList && insertedList !== targetList) {
+                            htmx.trigger(insertedList, 'navRefresh');
+                        }
+                    });
+                }
+                draggedItem = null;
+            });
+
+            // Drag Over - the element has a draggable item being dragged over it,
+            list.addEventListener('dragover', function (e) {
+                e.preventDefault();
+                this.classList.add('over');
+                e.dataTransfer.dropEffect = 'move';
+
+                const dropTarget = e.target;
+
+                if (dropTarget.tagName === 'LI' && dropTarget !== draggedItem && dropTarget.classList.contains('navigation-list-item')) {
+                    const rect = dropTarget.getBoundingClientRect();
+                    const mouseY = e.clientY - rect.top;
+
+                    if (mouseY > rect.height / 2) {
+                        dropTarget.parentNode.insertBefore(draggedItem, dropTarget.nextSibling);
+                    } else {
+                        dropTarget.parentNode.insertBefore(draggedItem, dropTarget);
                     }
-                );
+                }
             });
+
+            // Drag Leave - the element has a draggable item being dragged out of it
+            list.addEventListener('dragleave', function (e) {
+                this.classList.remove('over');
+                let target = e.target;
+                let listItem = target.closest('li'); // Find the closest LI ancestor
+            });
+
+            // Drag Enter - the element has a draggable item being dragged into it
+            list.addEventListener('dragenter', function (e) {
+                let target = e.target;
+                let listItem = target.closest('li'); // Find the closest LI ancestor
+                document.querySelectorAll('li.accept-child').forEach((el) => {
+                    el.classList.remove('accept-child');
+                })
+                draggedItem.classList.remove('inactive');;
+
+                if (listItem && listItem !== draggedItem) {
+                    listItem.classList.add('accept-child');
+                    draggedItem.classList.add('inactive');
+                }
+            });
+
+            function postDragRefresh() {
+                
+            }
         });
 
-        draggableElements.forEach((element) => {
-            element.addEventListener("dragstart", (event) => {
-                event.dataTransfer.setData("source-id", event.target.getAttribute("data-source-id"));
-            });
-        });
-    }
-
-    function moveDomObject(event) {
-        const sourceId = event.dataTransfer.getData("source-id");
-        const sourceElement = document.getElementById('navigation-node-' + sourceId);
-        const targetZone = event.target;
-
-        if (sourceElement && targetZone) {
-            targetZone.parentNode.insertBefore(sourceElement, targetZone);
+        function updateNodePosition(nodeId, parentId, position, callback) {
+            $.post(
+                "/request/bo/component/node_move",
+                {
+                    csrf_token: getCSRFToken(),
+                    source_node_id: nodeId,
+                    destination_node_id: parentId,
+                    position: position
+                },
+                function (data) {
+                    popupMessage(data);
+                    callback();
+                }
+            );
         }
+
+        // Make sure list items are draggable on initial load
+        lists.forEach(list => {
+            list.querySelectorAll('li.navigation-list-item').forEach(item => {
+                item.setAttribute('draggable', true);
+            });
+        });
+
     }
 
     function levelRefresh(event) {
@@ -110,10 +173,8 @@
 
         document.querySelectorAll('.navigation-list.empty').forEach((el) => {
             el.classList.remove('empty');
-            const levelParentId = el.querySelector('.drop-zone').getAttribute('data-parent-id');
-            el.classList.add('nav-list-' + levelParentId);
         });
-        
+
         actualLevel.parentNode.appendChild(emptyLevel);
         initializeDragAndDrop();
     }
@@ -129,6 +190,7 @@
         hx-swap="innerHTML"
         hx-on::after-request="initializeDragAndDrop(); scrollToActive(this);"
         hx-indicator="#navigation-level-{LEVEL}"
+        data-parent-id="{ROOT}"
     >
     </ul>
     <!-- END: level -->

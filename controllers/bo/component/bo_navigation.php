@@ -13,12 +13,6 @@ class Onyx_Controller_Bo_Component_Bo_Navigation extends Onyx_Controller {
      * main action
      */
 
-    // TODO:
-    // - can we achieve smooth animations and transitions while using this?
-    // - getTree vs getNodesByParent ?
-    // remove priority if we dont need sortable drag and drop
-
-     
     public function mainAction() {
 
         require_once('models/common/common_node.php');
@@ -34,6 +28,8 @@ class Onyx_Controller_Bo_Component_Bo_Navigation extends Onyx_Controller {
         $parents[count($parents)] = 0;
         $parents = array_reverse($parents);
 
+        $this->tpl->assign('NODE_ID', $node_id);	
+
         foreach($parents as $index => $level) {
             $this->tpl->assign('ROOT', $level);
             $this->tpl->assign('LEVEL', $index);
@@ -41,7 +37,7 @@ class Onyx_Controller_Bo_Component_Bo_Navigation extends Onyx_Controller {
             $this->tpl->parse('content.level');
         }
 
-        $this->tpl->assign('LAST', count($parents));	
+        $this->tpl->assign('LAST', count($parents));
         
         return true;        
     }

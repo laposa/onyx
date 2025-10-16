@@ -1,5 +1,5 @@
 .bo-navigation {
-  height: calc(100% - 60px);
+  height: calc(100% - 50px);
   background-color: var(--color-background-light);
 }
 
@@ -30,9 +30,8 @@
     align-items: center;
     justify-content: flex-start;
     padding: 2px 5px;
-    transition: all 0.5s ease;
     cursor: pointer;
-    min-height: 32px;
+    min-height: 26px;
 
     &:hover {
       color:var(--color-primary);
@@ -44,6 +43,29 @@
       font-weight: bold;
       background-color: var(--color-primary-opaque);
       border-bottom: 2px solid var(--color-primary);
+      margin-bottom: -2px;
+    }
+
+    &.dragging {
+      background: #e0e0e0;
+      border-bottom: none;
+      margin-bottom: 0;
+
+      &.inactive {
+        background-color: white;
+        opacity: 0.2;
+      }
+    }
+
+    &.accept-child {
+      background: #e0e0e0;
+      border-bottom: none;
+      margin-bottom: 0;
+
+      &.active {
+        border-bottom: 2px solid var(--color-primary);
+        margin-bottom: -2px;
+      }
     }
 
     &.has-children {
@@ -59,6 +81,13 @@
 
     &.unpublished {
       opacity: 0.4;
+    }
+    
+    .item-label {
+      flex-grow: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
   }
 
@@ -99,19 +128,6 @@
 
     &.page.product:before {
       background-image: url('../images/icons/icon_product.png');
-    }
-  }
-
-  .drop-zone {
-    height: 5px;
-    width: 100%;
-    background-color: var(--color-primary);
-    transition: 0.3s ease;
-    opacity: 0;
-
-    &.drag-over {
-      height: 25px;
-      opacity: 0.25;
     }
   }
 
