@@ -40,8 +40,7 @@ class Onyx_Controller_Bo_Component_Bo_Navigation_Level extends Onyx_Controller {
             $this->tpl->assign('POSITION', $key + 1);
             $this->tpl->assign('TARGET', $level + 1);
             
-            $sub_items = count($this->Node->getChildren($item['id']) ?? []);
-            $this->tpl->assign('HAS_CHILDREN', $sub_items > 0 ? 'has-children' : '');
+            $this->tpl->assign('HAS_CHILDREN', $item['has_children'] ? 'has-children' : '');
             $this->tpl->assign('ACTIVE', in_array($item['id'], $active_path) ? 'active' : '');
             $this->tpl->assign('PUBLISHED', $item['publish'] ? '' : 'unpublished');
 

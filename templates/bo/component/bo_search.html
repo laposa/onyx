@@ -8,8 +8,8 @@
         hx-get="/request/bo/component/bo_search_results"
         hx-target="#search-results"
         hx-indicator="#search-loading"
-        hx-trigger="input[this.value.length > 3] changed delay:1s"
-        hx-on::before-request="document.getElementById('search-results').innerHTML = ''" />
+        hx-trigger="keypress[key == 'Enter']"
+        hx-on::before-request="document.getElementById('search-results').innerHTML = ''"/>
     <div id="search-loading" class="onyx-loading htmx-indicator">
         <img src="/share/images/loading.svg" alt="Loading..."/>
     </div>
