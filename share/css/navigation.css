@@ -31,7 +31,7 @@
     justify-content: flex-start;
     padding: 2px 5px;
     cursor: pointer;
-    min-height: 26px;
+    min-height: 28px;
 
     &:hover {
       color:var(--color-primary);
@@ -44,6 +44,7 @@
       background-color: var(--color-primary-opaque);
       border-bottom: 2px solid var(--color-primary);
       margin-bottom: -2px;
+      min-height: 30px;
     }
 
     &.dragging {
