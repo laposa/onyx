@@ -22,6 +22,7 @@
         let draggedItem = null;
         let sourceNodeId = null;
         let sourceNodeTitle = null;
+        let sourcePosition = null;
         let sourceList = null;
         let targetList = null;
 
@@ -40,6 +41,7 @@
                 sourceList = draggedItem.parentElement;
                 sourceNodeId = draggedItem.dataset.sourceId;
                 sourceNodeTitle = draggedItem.querySelector('.item-label').innerText;
+                sourcePosition = [...sourceList.children].indexOf(draggedItem);
                 e.dataTransfer.effectAllowed = 'move'; // Explicitly set the allowed effect
             });
 
@@ -81,6 +83,8 @@
                             htmx.trigger(insertedList, 'navRefresh');
                         }
                     });
+                } else {
+                    sourceList.insertBefore(draggedItem, sourceList.children[sourcePosition]);
                 }
                 draggedItem = null;
             });
@@ -127,9 +131,6 @@
                 }
             });
 
-            function postDragRefresh() {
-                
-            }
         });
 
         function updateNodePosition(nodeId, parentId, position, callback) {
