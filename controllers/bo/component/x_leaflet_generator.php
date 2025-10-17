@@ -5,12 +5,12 @@
  */
 
 require_once("conf/pdf2web.php");
-require_once('controllers/bo/component.php');
+require_once('controllers/bo/component/x.php');
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\BadResponseException;
 
-class Onyx_Controller_Bo_Component_X_Leaflet_Generator extends Onyx_Controller_Bo_Component
+class Onyx_Controller_Bo_Component_X_Leaflet_Generator extends Onyx_Controller_Bo_Component_X
 {
     protected $IMAGES_PATH = ONYX_PROJECT_DIR . 'var/files/pdf2web/';
 
@@ -21,7 +21,10 @@ class Onyx_Controller_Bo_Component_X_Leaflet_Generator extends Onyx_Controller_B
 
     public function mainAction() {
 
-        parent::assignNodeData();
+        // get details
+        $this->Node = new common_node();
+        $this->node_data = $this->Node->nodeDetail($this->GET['node_id']);
+        if ($this->node_data) $this->tpl->assign('NODE', $this->node_data);
 
         if(isset($this->GET['generate']) && $this->GET['generate'] == 'true') {
             // TODO: returns only PDF?

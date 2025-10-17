@@ -7,10 +7,10 @@
  * taxonomy_manager_node, taxonomy_manager_product
  */
 
-require_once('controllers/bo/component.php');
+require_once('controllers/bo/component/x.php');
 require_once('models/common/common_node.php');
 
-class Onyx_Controller_Bo_Component_X_Relation_Taxonomy extends Onyx_Controller_Bo_Component {
+class Onyx_Controller_Bo_Component_X_Relation_Taxonomy extends Onyx_Controller_Bo_Component_X {
 
     /**
      * main action

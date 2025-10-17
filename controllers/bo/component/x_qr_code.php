@@ -5,9 +5,10 @@
  */
 
 use chillerlan\QRCode\{QRCode, QROptions};
-require_once('controllers/bo/component.php');
+require_once('controllers/bo/component/x.php');
+require_once('models/common/common_node.php');
 
-class Onyx_Controller_Bo_Component_X_Qr_Code extends Onyx_Controller_Bo_Component {
+class Onyx_Controller_Bo_Component_X_Qr_Code extends Onyx_Controller_Bo_Component_X {
 
     const CACHE_DIRECTORY = ONYX_PROJECT_DIR . "var/qr-code/";
 

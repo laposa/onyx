@@ -7,11 +7,12 @@
  * taxonomy_manager_node, taxonomy_manager_product
  */
 
-require_once('controllers/bo/component.php');
+require_once('controllers/bo/component/x.php');
 require_once('models/common/common_node.php');
 require_once('models/ecommerce/ecommerce_product_taxonomy.php');
+require_once('models/ecommerce/ecommerce_product.php');
 
-class Onyx_Controller_Bo_Component_Product_Taxonomy extends Onyx_Controller_Bo_Component {
+class Onyx_Controller_Bo_Component_X_Product_Taxonomy extends Onyx_Controller_Bo_Component_X {
 
     /**
      * main action
@@ -19,7 +20,10 @@ class Onyx_Controller_Bo_Component_Product_Taxonomy extends Onyx_Controller_Bo_C
      
     public function mainAction() {
 
-        parent::assignProductData();
+         // get details
+        $Product = new ecommerce_product();
+        $product_data = $Product->productDetail($this->GET['node_id']);
+        if ($product_data) $this->tpl->assign('PRODUCT', $product_data);
 
         /**
          * initialise
@@ -33,13 +37,13 @@ class Onyx_Controller_Bo_Component_Product_Taxonomy extends Onyx_Controller_Bo_C
          * saving
          */
 
-        if (isset($_POST['relation_taxonomy']) && is_array($_POST['relation_taxonomy']) && is_numeric($this->product_data['id'])) {
+        if (isset($_POST['relation_taxonomy']) && is_array($_POST['relation_taxonomy']) && is_numeric($product_data['id'])) {
 
             $current = array();
             $submitted = array();
 
             // prepare list of ids currently in the database
-            $current_raw = $Taxonomy->listing("node_id = " . $this->product_data['id']);
+            $current_raw = $Taxonomy->listing("node_id = " . $product_data['id']);
             if (is_array($current_raw)) {
                 foreach ($current_raw as $c) {
                     $current[$c['taxonomy_tree_id']] = $c['id'];
@@ -62,7 +66,7 @@ class Onyx_Controller_Bo_Component_Product_Taxonomy extends Onyx_Controller_Bo_C
             // insert items which were submitted and not in the database yet
             foreach ($submitted as $taxonomy_tree_id) {
                 if (!isset($current[$taxonomy_tree_id])) {
-                    if ($Taxonomy->insert(array('node_id' => $this->product_data['id'], 'taxonomy_tree_id' => $taxonomy_tree_id))) {
+                    if ($Taxonomy->insert(array('node_id' => $product_data['id'], 'taxonomy_tree_id' => $taxonomy_tree_id))) {
                         msg("Relation to the category $taxonomy_tree_id has been added.", 'ok', 1);
                     }
                 }
@@ -74,8 +78,8 @@ class Onyx_Controller_Bo_Component_Product_Taxonomy extends Onyx_Controller_Bo_C
          * listing
          */
 
-        if (is_numeric($this->product_data['id'])) {
-            $current = $Taxonomy->listing("node_id = " . $this->product_data['id']);
+        if (is_numeric($product_data['id'])) {
+            $current = $Taxonomy->listing("node_id = " . $product_data['id']);
 
             if (is_array($current)) {
                 foreach ($current as $c) {

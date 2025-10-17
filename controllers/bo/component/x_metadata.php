@@ -5,9 +5,10 @@
  *
  */
 
-require_once('controllers/bo/component.php');
+require_once('controllers/bo/component/x.php');
+require_once('models/common/common_node.php');
 
-class Onyx_Controller_Bo_Component_X_Metadata extends Onyx_Controller_Bo_Component {
+class Onyx_Controller_Bo_Component_X_Metadata extends Onyx_Controller_Bo_Component_X {
 
     /**
      * main action
@@ -15,7 +16,10 @@ class Onyx_Controller_Bo_Component_X_Metadata extends Onyx_Controller_Bo_Compone
      
     public function mainAction() {
 
-        parent::assignNodeData();
+        // get details
+        $this->Node = new common_node();
+        $this->node_data = $this->Node->nodeDetail($this->GET['node_id']);
+        if ($this->node_data) $this->tpl->assign('NODE', $this->node_data);
 
         $this->tpl->assign('NODE_URL', translateURL("page/".$this->GET['node_id']));
         

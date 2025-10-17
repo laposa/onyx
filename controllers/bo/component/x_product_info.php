@@ -5,9 +5,10 @@
  *
  */
 
-require_once('controllers/bo/component.php');
+require_once('controllers/bo/component/x.php');
+require_once('models/ecommerce/ecommerce_product.php');
 
-class Onyx_Controller_Bo_Component_X_Product_Info extends Onyx_Controller_Bo_Component {
+class Onyx_Controller_Bo_Component_X_Product_Info extends Onyx_Controller_Bo_Component_X {
 
     /**
      * main action
@@ -15,7 +16,10 @@ class Onyx_Controller_Bo_Component_X_Product_Info extends Onyx_Controller_Bo_Com
      
     public function mainAction() {
 
-        parent::assignProductData();
+        // get details
+        $Product = new ecommerce_product();
+        $product_data = $Product->productDetail($this->GET['node_id']);
+        if ($product_data) $this->tpl->assign('PRODUCT', $product_data);
 
         parent::parseTemplate();
 

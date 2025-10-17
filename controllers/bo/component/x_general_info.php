@@ -5,9 +5,9 @@
  *
  */
 
-require_once('controllers/bo/component.php');
-
-class Onyx_Controller_Bo_Component_X_General_Info extends Onyx_Controller_Bo_Component {
+require_once('controllers/bo/component/x.php');
+require_once('models/common/common_node.php');
+class Onyx_Controller_Bo_Component_X_General_Info extends Onyx_Controller_Bo_Component_X {
 
     /**
      * main action
@@ -15,9 +15,12 @@ class Onyx_Controller_Bo_Component_X_General_Info extends Onyx_Controller_Bo_Com
      
     public function mainAction() {
 
-        parent::assignNodeData();
+        // get details
+        $this->Node = new common_node();
+        $this->node_data = $this->Node->nodeDetail($this->GET['node_id']);
+        if ($this->node_data) $this->tpl->assign('NODE', $this->node_data);
 
-        //display title
+        // display title
         if (!is_numeric($this->node_data['display_title'])) $this->node_data['display_title'] = $GLOBALS['onyx_conf']['global']['display_title'];
 
         if ($this->node_data['display_title'] == 1) {
@@ -30,5 +33,6 @@ class Onyx_Controller_Bo_Component_X_General_Info extends Onyx_Controller_Bo_Com
 
         return true;
     }
+
 }   
 

@@ -5,9 +5,10 @@
  *
  */
 
-require_once('controllers/bo/component.php');
+require_once('controllers/bo/component/x.php');
+require_once('models/common/common_node.php');
 
-class Onyx_Controller_Bo_Component_X_Visibility extends Onyx_Controller_Bo_Component {
+class Onyx_Controller_Bo_Component_X_Visibility extends Onyx_Controller_Bo_Component_X {
 
     /**
      * main action
