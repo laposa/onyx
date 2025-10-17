@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2008-2024 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2008-2025 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -19,8 +19,6 @@ class Onyx_Controller_Bo_Node_Default extends Onyx_Controller {
     public function mainAction() {
     
         require_once('models/common/common_node.php');
-        require_once('models/ecommerce/ecommerce_product.php');
-
         common_node::initConfiguration();
         $this->Node = new common_node();    
 
@@ -49,26 +47,26 @@ class Onyx_Controller_Bo_Node_Default extends Onyx_Controller {
     function save() {
         
         $node_data = $_POST['node']; 
-        $product_data = $_POST['product'] ?? false;
 
         if (isset($node_data['publish']) && ($node_data['publish'] == 'on' || $node_data['publish'] == 1)) $node_data['publish'] = 1;
+        else $node_data['publish'] = 0;
+
         if (isset($node_data['display_title']) && ($node_data['display_title'] == 'on' || $node_data['display_title'] == 1)) $node_data['display_title'] = 1;
-        if (isset($node_data['require_login']) && ($node_data['require_login'] == 'on' || $node_data['require_login'] == 1)) $node_data['require_login'] = 1;
-        if (isset($node_data['require_ssl']) && ($node_data['require_ssl'] == 'on' || $node_data['require_ssl'] == 1)) $node_data['require_ssl'] = 1;
+        else $node_data['display_title'] = 0;
         
-        if($product_data) {
-            $Product = new ecommerce_product();
-            bar_dump($product_data);
-            if($Product->updateProduct($product_data)) {
-                return true;
-            }
-        } else if($this->Node->nodeUpdate($node_data)) {
+        if (isset($node_data['require_login']) && ($node_data['require_login'] == 'on' || $node_data['require_login'] == 1)) $node_data['require_login'] = 1;
+        else $node_data['require_login'] = 0;
+        
+        if (isset($node_data['require_ssl']) && ($node_data['require_ssl'] == 'on' || $node_data['require_ssl'] == 1)) $node_data['require_ssl'] = 1;
+        else $node_data['require_ssl'] = 0;
+        
+        if($this->Node->nodeUpdate($node_data)) {
             msg("{$node_data['node_group']} (id={$node_data['id']}) has been updated");
-            // TODO: not needed anymore? think whether current solution is better. (refreshing components & menu in case of editing title)
-            // header('HX-Trigger: {"nodeUpdated":{"init" :"false"}}');
+            header('HX-Trigger: {"nodeUpdated":{"init" :"false"}}');
         } else {
             msg("Cannot update node {$node_data['node_group']} (id={$node_data['id']})", 'error');
         }
+        
 
         //get whole detail
         $this->detail($_POST['node']['id']);
@@ -96,7 +94,7 @@ class Onyx_Controller_Bo_Node_Default extends Onyx_Controller {
      * assign to template
      *
      */
-    //  TODO: check if this is still needed after node_edit rework
+     
     function assign() {
         //display
         if ($this->node_data['publish'] == 1) {
@@ -389,5 +387,3 @@ class Onyx_Controller_Bo_Node_Default extends Onyx_Controller {
         
     }
 }
-
-        

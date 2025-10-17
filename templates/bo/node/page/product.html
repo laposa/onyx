@@ -3,7 +3,7 @@
 {FILE "bo/component/page_header.html"}
 
 <div id="general-info"
-	hx-get="/request/bo/component/general_info?node_id={GET.id}"
+	hx-get="/request/bo/component/x_general_info?node_id={GET.id}"
 	hx-trigger="load, refresh"
 	hx-indicator="#general-info-loading">
 	<!-- <div id="general-info-loading" class="onyx-loading htmx-indicator">
@@ -12,7 +12,7 @@
 </div>
 
 <div id="metadata"
-	hx-get="/request/bo/component/metadata?node_id={GET.id}"
+	hx-get="/request/bo/component/x_metadata?node_id={GET.id}"
 	hx-trigger="load, refresh"
 	hx-indicator="#metadata-loading">
 	<!-- <div id="metadata-loading" class="onyx-loading htmx-indicator">
@@ -21,7 +21,7 @@
 </div>
 
 <div id="visibility"
-	hx-get="/request/bo/component/visibility?node_id={GET.id}"
+	hx-get="/request/bo/component/x_visibility?node_id={GET.id}"
 	hx-trigger="load, refresh"
 	hx-indicator="#visibility-loading">
 	<!-- <div id="visibility-loading" class="onyx-loading htmx-indicator">
@@ -30,7 +30,7 @@
 </div>
 
 <div id="qr-code"
-	hx-get="/request/bo/component/qr_code?node_id={GET.id}"
+	hx-get="/request/bo/component/x_qr_code?node_id={GET.id}"
 	hx-trigger="load, refresh"
 	hx-indicator="#qr-code-loading">
 	<!-- <div id="qr-code-loading" class="onyx-loading htmx-indicator">
@@ -40,7 +40,7 @@
 
 <!-- Product Info -->
 <div id="product-info"
-	hx-get="/request/bo/component/product_info?node_id={NODE.content}"
+	hx-get="/request/bo/component/x_product_info?node_id={NODE.content}"
 	hx-trigger="load, refresh"
 	hx-indicator="#product-info-loading">
 	<!-- <div id="product-info-loading" class="onyx-loading htmx-indicator">
@@ -93,14 +93,14 @@
 <!-- Product Categories/Tags -->
 <div 
 	id="product-taxonomy"
-	hx-get="/request/bo/component/product_taxonomy?relation=product&node_id={NODE.content}"
+	hx-get="/request/bo/component/x_product_taxonomy?relation=product&node_id={NODE.content}"
 	hx-trigger="load, refresh"
 	hx-indicator="#product-taxonomy-loading">
 </div>
 
 <!-- Other data -->
 <div id="product-other-data"
-	hx-get="/request/bo/component/product_other_data?node_id={NODE.content}"
+	hx-get="/request/bo/component/x_product_other_data?node_id={NODE.content}"
 	hx-trigger="load, refresh"
 	hx-indicator="#product-info-loading">
 	<!-- <div id="product-info-loading" class="onyx-loading htmx-indicator">

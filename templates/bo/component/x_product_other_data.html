@@ -47,7 +47,24 @@
         <!-- END: other_data -->
         <a class="button add" href="#" onclick="addNewOtherDataAttribute()"><span>Add a New Attribute</span></a>
         
-        {FILE "bo/component/edit_product_dialog_footer.html"}
+        <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+        <input type="hidden" name="product[id]" value="{PRODUCT.id}" />
+
+        <div class="edit-actions">
+            <button 
+                hx-indicator="#edit-loading"
+                hx-post="/request/bo/component/product_other_data"
+                class="btn" 
+                type="submit" 
+                name="save" 
+                value="save" 
+                id="saveAndClose"
+            >
+                Save & Close
+            </button>
+
+            <button class="btn secondary" type="button" onclick="closeDialog()">Cancel</button>
+        </div>
     </form>
 
     <!-- END: edit -->

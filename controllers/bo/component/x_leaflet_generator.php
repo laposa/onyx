@@ -10,7 +10,7 @@ require_once('controllers/bo/component.php');
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\BadResponseException;
 
-class Onyx_Controller_Bo_Component_Leaflet_Generator extends Onyx_Controller_Bo_Component
+class Onyx_Controller_Bo_Component_X_Leaflet_Generator extends Onyx_Controller_Bo_Component
 {
     protected $IMAGES_PATH = ONYX_PROJECT_DIR . 'var/files/pdf2web/';
 

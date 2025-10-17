@@ -84,7 +84,24 @@
 					<textarea name="node[custom_fields][pdf2Web]" id="pdf-manifest" readonly>{NODE.custom_fields.pdf2Web|htmlspecialchars}</textarea>
 				</div>
 
-				{FILE "bo/component/edit_dialog_footer.html"}
+				<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+				<input type="hidden" name="node[id]" value="{GET.node_id}" />
+
+				<div class="edit-actions">
+						<button 
+								hx-indicator="#edit-loading"
+								hx-post="/request/bo/component/leaflet_generator"
+								class="btn" 
+								type="submit" 
+								name="save" 
+								value="save" 
+								id="saveAndClose"
+						>
+								Save & Close
+						</button>
+
+						<button class="btn secondary" type="button" onclick="closeDialog()">Cancel</button>
+				</div>
 			</form>
     <!-- END: edit -->
 <!-- END: content -->

@@ -1,13 +1,13 @@
 <?php
 /** 
- * Copyright (c) 2024 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2024-2025 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
 use chillerlan\QRCode\{QRCode, QROptions};
 require_once('controllers/bo/component.php');
 
-class Onyx_Controller_Bo_Component_Qr_Code extends Onyx_Controller_Bo_Component {
+class Onyx_Controller_Bo_Component_X_Qr_Code extends Onyx_Controller_Bo_Component {
 
     const CACHE_DIRECTORY = ONYX_PROJECT_DIR . "var/qr-code/";
 

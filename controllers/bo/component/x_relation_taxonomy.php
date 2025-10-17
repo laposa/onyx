@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2006-2011 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2006-2025 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  * split into: taxonomy_manager, taxonomy_filter - can be used in FE
@@ -10,7 +10,7 @@
 require_once('controllers/bo/component.php');
 require_once('models/common/common_node.php');
 
-class Onyx_Controller_Bo_Component_Relation_Taxonomy extends Onyx_Controller_Bo_Component {
+class Onyx_Controller_Bo_Component_X_Relation_Taxonomy extends Onyx_Controller_Bo_Component {
 
     /**
      * main action
