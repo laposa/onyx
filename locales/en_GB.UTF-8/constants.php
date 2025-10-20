@@ -186,8 +186,8 @@ define('I18N_PRINT_INVOICE', 'Print Invoice');
 define('I18N_PRINT_PROFORMA_INVOICE', 'Print Proforma Invoice');
 define('I18N_OTHER_DATA', 'Other Details');
 define('I18N_BUTTON_MAKE_PAYMENT', 'Make Payment');
-define('I18N_BUTTON_REPEAT_ORDER', 'Repeat');
-define('I18N_BUTTON_PRINT_ORDER', 'Print');
+define('I18N_BUTTON_REPEAT_ORDER', 'Repeat order');
+define('I18N_BUTTON_PRINT_ORDER', 'Print invoice');
 //component/ecommerce/order_list.html
 define('I18N_ORDERS', 'Displayed below are your orders with us:');
 define('I18N_ORDER_ID', 'Order ID');
