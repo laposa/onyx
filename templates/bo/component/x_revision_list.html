@@ -1,0 +1,108 @@
+<!-- BEGIN: content -->
+{MESSAGES}
+
+<fieldset id="component-revision-list" class="component-preview">
+    <div id="revision-list-loading" class="onyx-loading htmx-indicator">
+        <img src="/share/images/loading.svg" alt="Loading..."/>
+    </div>
+
+    <legend>Previous Versions</legend>
+
+    <div class="revision-list">
+        <table cellspacing="0">
+            <thead>
+                <tr>
+                    <th></th>
+                    <th>Revision ID</th>
+                    <th>Created</th>
+                    <th>Author</th>
+                </tr>
+            </thead>
+            <tfoot>
+                {PAGINATION}
+            </tfoot>
+            <tbody>
+                <!-- BEGIN: item -->
+                <!-- TODO: status is blank? -->
+                <tr class="status-{ITEM.status}">
+                    <td><input type="checkbox" class="compare_chk" name="compare[]" onchange="countChecked()" value="{ITEM.id}" /></td>
+                    <td>{ITEM.id}</td>
+                    <td>{ITEM.created|strtotime|date('d/m/Y H:i:s', %s)}</td>
+                    <td><a href="/backoffice/customers/{ITEM.customer_id}/detail" target="_blank">{ITEM.customer.email}</a></td>
+                </tr>
+                <!-- END: item -->
+                <!-- BEGIN: empty -->
+                <tr>
+                    <td class="empty" colspan="4"><span class="note">No Revisions</span></td>
+                </tr>
+                <!-- END: empty -->
+            </tbody>
+        </table>
+        <br />
+        <div class="component-actions">
+            <button 
+                id="compare_btn" 
+                class="button add hidden"
+                hx-get="/request/bo/component/revision_compare&object=common_node"
+                hx-vals="js:{id: getSelectedRevisions()}"
+                hx-target="#edit-dialog .content"
+                hx-indicator="#edit-loading"
+                hx-trigger="click"
+                hx-swap="innerHTML"
+                hx-on::before-request="openDialog()"
+            >
+                Compare
+            </button>
+        </div>
+    </div>
+</fieldset>
+
+<style>
+    .hidden {
+        display: none;
+    }
+</style>
+
+<script type="text/javascript">
+    function getSelectedRevisions() {
+        var ids = "";
+        var checked = $('input.compare_chk:checked');
+        checked.each(function(key,row) {
+            var row = $(row);
+            ids += row.val() + "+";
+        });
+        ids = ids.substring(0,ids.length - 1);
+        console.log(ids);
+        return ids;
+    }
+
+    function countChecked() {
+        var checked = $('input.compare_chk:checked');
+        var compare_btn = $('#compare_btn');
+        if(checked.length == 0) {
+            compare_btn.addClass('hidden');
+        } else {
+            compare_btn.removeClass('hidden');
+        }
+
+    }
+    $(document).ready(function(){
+
+        // $('#compare_btn').click(function(e) {
+        //     e.preventDefault();
+        //     var id = "";
+        //     var checked = $('input.compare_chk:checked');
+        //     checked.each(function(key,row) {
+        //         var row = $(row);
+        //         id += row.val() + "+";
+        //     });
+
+        //     id = id.substring(0,id.length - 1);
+
+        //     var url = "/request/bo/component/revision_compare&object=common_node&id=" + id;
+        //     openAjaxRequestInOverlayWindow(url);
+        // });
+    });
+</script>
+
+<!-- END: content -->

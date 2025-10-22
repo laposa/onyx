@@ -1,27 +1,64 @@
 <!-- BEGIN: content -->
-{FILE "bo/node/shared_header.html"}
+{FILE "bo/component/page_header.html"}
 
-<fieldset>
-    {FILE "bo/node/item_title.html"}
-    {FILE "bo/node/item_uri_title.html"}
-    {FILE "bo/node/item_description.html"}
-    <div class="advanced">
-        {FILE "bo/node/item_strapline.html"}
-    </div>
-</fieldset>
-
-<fieldset>
-    {FILE "bo/node/item_component_href.html"}
-    {FILE "bo/node/item_image_list.html"}
-</fieldset>
-
-<div class="advanced">
-    {FILE "bo/node/item_content_list.html"}
+<div id="general-info"
+	hx-get="/request/bo/component/x_general_info?node_id={GET.id}"
+	hx-trigger="load, refresh"
+	hx-indicator="#general-info-loading">
+	<!-- <div id="general-info-loading" class="onyx-loading htmx-indicator">
+		<img src="/share/images/loading.svg" alt="Loading..."/>
+	</div> -->
 </div>
 
-{FILE "bo/node/shared_footer_page.html"}
+<!-- Node Images -->
+<fieldset id="component-node-images" class="component-preview">
+	<div id="node-images-loading" class="onyx-loading htmx-indicator">
+        <img src="/share/images/loading.svg" alt="Loading..."/>
+	</div>
 
-<p class="extended-toolbar">
-    <a class="button add" href="#" id="button-add-subpage" data-node-id="{GET.id}" data-node-group="page" onclick="addNode(event, '{GET.id}', 'page')"><span>Add a New Node</span></a>
-</p>
+	<legend>Images</legend>
+
+	<span class="label">Files:</span>
+	<br>
+
+	<!-- TODO: missing dialog title. Create special component for file/product list? -->
+	<div 
+		hx-get="/request/bo/component/file_list?type=add_to_node&relation=node&node_id={GET.id}"
+		hx-trigger="load, refresh"
+		hx-indicator="#node-images-loading">
+	</div>
+	
+	<div class="component-actions">
+		<button
+			hx-get="/request/bo/component/file_list?type=add_to_node&relation=node&node_id={GET.id}"
+			hx-target="#edit-dialog .content"
+			hx-indicator="#edit-loading"
+			hx-trigger="click"
+			hx-swap="innerHTML"
+			hx-on::before-request="openDialog()"
+			class="btn">
+			Edit
+		</button>
+	</div>
+</fieldset>
+
+<div id="redirect"
+	hx-get="/request/bo/component/x_redirect?node_id={GET.id}"
+	hx-trigger="load, refresh"
+	hx-indicator="#redirect-loading">
+	<!-- <div id="redirect-loading" class="onyx-loading htmx-indicator">
+		<img src="/share/images/loading.svg" alt="Loading..."/>
+	</div> -->
+</div>
+
+<div id="revision-list"
+	hx-get="/request/bo/component/x_revision_list?node_id={GET.id}&object=common_node"
+	hx-trigger="load, refresh"
+	hx-indicator="#revision-list-loading">
+	<!-- <div id="revision-list-loading" class="onyx-loading htmx-indicator">
+		<img src="/share/images/loading.svg" alt="Loading..."/>
+	</div> -->
+</div>
+
+<!-- TODO: does symbolic need content/page blocks? maybe for creating children nodes? -->
 <!-- END: content -->

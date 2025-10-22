@@ -45,4 +45,13 @@
 		<img src="/share/images/loading.svg" alt="Loading..."/>
 	</div> -->
 </div>
+
+<div id="revision-list"
+	hx-get="/request/bo/component/x_revision_list?node_id={GET.id}&object=common_node"
+	hx-trigger="load, refresh"
+	hx-indicator="#revision-list-loading">
+	<!-- <div id="revision-list-loading" class="onyx-loading htmx-indicator">
+		<img src="/share/images/loading.svg" alt="Loading..."/>
+	</div> -->
+</div>
 <!-- END: content -->

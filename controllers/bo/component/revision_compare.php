@@ -9,6 +9,8 @@ class Onyx_Controller_Bo_Component_Revision_Compare extends Onyx_Controller {
     /**
      * main action
      */
+
+    // TODO: potentially possible to merge with x_revision_list?
      
     public function mainAction() {
     
@@ -18,7 +20,7 @@ class Onyx_Controller_Bo_Component_Revision_Compare extends Onyx_Controller {
 
         if (in_array($this->GET['object'], common_revision::getAllowedRevisionObjects())) $object = $this->GET['object'];
         $selected_id = $this->GET['id'];
-        $selected_id = explode(" ", $selected_id);
+        $selected_id = explode("+", $selected_id);
 
         $this->parseList($selected_id);
 
