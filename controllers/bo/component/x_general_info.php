@@ -16,18 +16,30 @@ class Onyx_Controller_Bo_Component_X_General_Info extends Onyx_Controller_Bo_Com
     public function mainAction() {
 
         // get details
-        $this->Node = new common_node();
-        $this->node_data = $this->Node->nodeDetail($this->GET['node_id']);
-        if ($this->node_data) $this->tpl->assign('NODE', $this->node_data);
+        $node = new common_node();
+        $node_data = $node->nodeDetail($this->GET['node_id']);
 
         // display title
-        if (!is_numeric($this->node_data['display_title'])) $this->node_data['display_title'] = $GLOBALS['onyx_conf']['global']['display_title'];
+        if (!is_numeric($node_data['display_title'])) $node_data['display_title'] = $GLOBALS['onyx_conf']['global']['display_title'];
 
-        if ($this->node_data['display_title'] == 1) {
-            $this->node_data['display_title_check'] = 'checked="checked"';
+        if ($node_data['display_title'] == 1) {
+            $node_data['display_title_check'] = 'checked="checked"';
         } else {
-            $this->node_data['display_title_check'] = '';
+            $node_data['display_title_check'] = '';
         }
+
+        // save
+        if (isset($_POST['save'])) {
+            // TODO: messages
+            if($node->nodeUpdate($_POST['node'])) {
+                msg("{$node_data['node_group']} (id={$node_data['id']}) has been updated");
+                // header('HX-Trigger: {"nodeUpdated":{"init" :"false"}}');
+            } else {
+                msg("Cannot update node {$node_data['node_group']} (id={$node_data['id']})", 'error');
+            }
+        }
+        
+        $this->tpl->assign('NODE', $node_data);
 
         parent::parseTemplate();
 

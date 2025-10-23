@@ -14,7 +14,6 @@
                 <th>Option Name</th>
                 <th>Stock</th>
                 <th>Weight Gross [{VARIETY_CONF.weight_units}]</th>
-                <!--<th>Dimensions [{VARIETY_CONF.dimension_units}]</th>-->
                 <th>Price Net</th>  
             </tr>
         </thead>
@@ -22,16 +21,15 @@
             <!-- BEGIN: variety -->
             <tr>
                 <td>
-                    <a class="title" href="/backoffice/products/variety/{VARIETY.id}/edit" onclick="javascript:openEdit('/backoffice/products/variety/{VARIETY.id}/edit', this, 0); return false;" title="Click to Edit Product Variety">{VARIETY.sku|htmlspecialchars}</a>
-                    <a class="button edit small" href="/backoffice/products/variety/{VARIETY.id}/edit" onclick="javascript:openEdit('/backoffice/products/variety/{VARIETY.id}/edit', this, 0); return false;" title="Click to Edit Product Variety"><span>Edit</span></a>
+                    <a class="title" target="_blank" href="/backoffice/products/variety/{VARIETY.id}/edit" title="Click to Edit Product Variety">{VARIETY.sku|htmlspecialchars}</a>
+                    <a class="button edit small" target="_blank" href="/backoffice/products/variety/{VARIETY.id}/edit" title="Click to Edit Product Variety"><span>Edit</span></a>
                     {IMAGE}
                 </td>
-                <td class="{DISABLED}"><a class="title" id="ecommerce-product-variety-variety-name-id-{VARIETY.id}" href="#{VARIETY.id}" onclick="javascript:openEdit('/backoffice/products/variety/{VARIETY.id}/edit', this, 0); return false;">{VARIETY.name|htmlspecialchars}</a><br /><div style="font-size: small">{VARIETY.description}</div></td>
+                <td class="{DISABLED}"><a class="title" id="ecommerce-product-variety-variety-name-id-{VARIETY.id}" href="/backoffice/products/variety/{VARIETY.id}/edit" title="Click to Edit Product Variety">{VARIETY.name|htmlspecialchars}</a><br /><div style="font-size: small">{VARIETY.description}</div></td>
                 <td>{VARIETY.stock}</td>
                 <td>{VARIETY.weight_gross}</td>
-                <!--<td>Width {VARIETY.width} x Height {VARIETY.height} x Depth {VARIETY.depth}<br />&Oslash; {VARIETY.diameter}</td>-->
                 <td class="price">
-                    <a class="price" id="ecommerce-price-value-product-variety-id-{VARIETY.id}" href="#{VARIETY.id}" onclick="javascript:openEdit('/backoffice/products/variety/{VARIETY.id}/edit', this, 0); return false;">{VARIETY.price.value_net|money_format('%!n', %s)}</a> {CONFIGURATION.global.default_currency}
+                    {VARIETY.price.value_net|money_format(%s)} {VARIETY.price.currency_code}
                 </td>
             </tr>
         <!-- END: variety -->

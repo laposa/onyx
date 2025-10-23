@@ -25,7 +25,7 @@
         <div class="component-actions">
             <a class="download button" title="Download QR Code" href="/download/{QRCODE}"><span>PNG</span></a>
             <button
-                hx-get="/request/bo/component/qr_code?edit=true&node_id={NODE.id}"
+                hx-get="/request/bo/component/x_qr_code?edit=true&node_id={NODE.id}"
                 hx-target="#edit-dialog .content"
                 hx-indicator="#edit-loading"
                 hx-trigger="click"
@@ -39,17 +39,6 @@
     <!-- END: preview -->
 
     <!-- BEGIN: edit -->
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $('#qr-regenerate').on('click', function() {
-                let params = $('#qrcode_parameters').val();
-                makeAjaxRequest('#qr-code-generator', '/request/bo/component/qr_code?node_id={GET.node_id}&regenerate=true&params='+ encodeURIComponent(params), function() {
-                    $('#qrcode_parameters').val(params);
-                });
-            });
-        });
-    </script>
-
     <form id="qr-code-edit" class="qrcode">
         <h2>QR Code Edit</h2>
 

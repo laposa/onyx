@@ -17,16 +17,27 @@ class Onyx_Controller_Bo_Component_X_Metadata extends Onyx_Controller_Bo_Compone
     public function mainAction() {
 
         // get details
-        $this->Node = new common_node();
-        $this->node_data = $this->Node->nodeDetail($this->GET['node_id']);
-        if ($this->node_data) $this->tpl->assign('NODE', $this->node_data);
+        $node = new common_node();
+        $node_data = $node->nodeDetail($this->GET['node_id']);
 
         $this->tpl->assign('NODE_URL', translateURL("page/".$this->GET['node_id']));
         
         // SLUG
         $CommonUriMapping = new common_uri_mapping();
-        $this->tpl->assign('NODE_URL_LAST_SEGMENT', $CommonUriMapping->cleanTitle($this->node_data['title']));
+        $this->tpl->assign('NODE_URL_LAST_SEGMENT', $CommonUriMapping->cleanTitle($node_data['title']));
         
+        //save
+        if (isset($_POST['save'])) {
+            if($node->nodeUpdate($_POST['node'])) {
+                msg("{$node_data['node_group']} (id={$node_data['id']}) has been updated");
+                // header('HX-Trigger: {"nodeUpdated":{"init" :"false"}}');
+            } else {
+                msg("Cannot update node {$node_data['node_group']} (id={$node_data['id']})", 'error');
+            }
+        }
+
+        if ($node_data) $this->tpl->assign('NODE', $node_data);
+
         parent::parseTemplate();
 
         return true;

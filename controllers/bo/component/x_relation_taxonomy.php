@@ -18,8 +18,6 @@ class Onyx_Controller_Bo_Component_X_Relation_Taxonomy extends Onyx_Controller_B
      
     public function mainAction() {
 
-        parent::assignNodeData();
-
         /**
          * initialise
          */

@@ -20,14 +20,15 @@
             </select>
         </span>
 
-        <span class="label">Scheduled Actions:</span>
+        <!-- TODO: needs rework -->
+        <!-- <span class="label">Scheduled Actions:</span>
         <span class="value">
             {ONYX_REQUEST_scheduler_preview #bo/component/scheduler_list~node_id=GET.node_id:node_type=common_node~}
-        </span>
+        </span> -->
 
         <div class="component-actions">
             <button
-                hx-get="/request/bo/component/visibility?edit=true&node_id={NODE.id}"
+                hx-get="/request/bo/component/x_visibility?edit=true&node_id={NODE.id}"
                 hx-target="#edit-dialog .content"
                 hx-indicator="#edit-loading"
                 hx-trigger="click"
@@ -69,10 +70,10 @@
         </div>
 
         <!-- Schedule -->
-        <div class="row schedule">
+        <!-- <div class="row schedule">
             <p>Scheduled Actions:</p>
             {ONYX_REQUEST_scheduler_edit #bo/component/scheduler_list~node_id=GET.node_id:node_type=common_node~}
-        </div>
+        </div> -->
 
         <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
         <input type="hidden" name="node[id]" value="{GET.node_id}" />

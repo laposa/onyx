@@ -21,9 +21,8 @@ class Onyx_Controller_Bo_Component_X_Product_Taxonomy extends Onyx_Controller_Bo
     public function mainAction() {
 
          // get details
-        $Product = new ecommerce_product();
-        $product_data = $Product->productDetail($this->GET['node_id']);
-        if ($product_data) $this->tpl->assign('PRODUCT', $product_data);
+        $product = new ecommerce_product();
+        $product_data = $product->productDetail($this->GET['node_id']);
 
         /**
          * initialise
@@ -31,19 +30,23 @@ class Onyx_Controller_Bo_Component_X_Product_Taxonomy extends Onyx_Controller_Bo
 
         $template = (isset($_GET['edit']) && $_GET['edit'] == 'true') ? 'edit' : 'preview';
 
-        $Taxonomy = new ecommerce_product_taxonomy();
+        $taxonomy = new ecommerce_product_taxonomy();
         
         /**
          * saving
          */
-
-        if (isset($_POST['relation_taxonomy']) && is_array($_POST['relation_taxonomy']) && is_numeric($product_data['id'])) {
-
+        
+        if (
+            isset($_POST['save']) &&
+            isset($_POST['relation_taxonomy']) && 
+            is_array($_POST['relation_taxonomy']) && 
+            is_numeric($_POST['product']['id'])
+        ) {
             $current = array();
             $submitted = array();
 
             // prepare list of ids currently in the database
-            $current_raw = $Taxonomy->listing("node_id = " . $product_data['id']);
+            $current_raw = $taxonomy->listing("node_id = " . $_POST['product']['id']);
             if (is_array($current_raw)) {
                 foreach ($current_raw as $c) {
                     $current[$c['taxonomy_tree_id']] = $c['id'];
@@ -58,7 +61,7 @@ class Onyx_Controller_Bo_Component_X_Product_Taxonomy extends Onyx_Controller_Bo
             // delete items which were not submitted
             foreach ($current as $taxonomy_tree_id => $id) {
                 if (!in_array($taxonomy_tree_id, $submitted)) {
-                    $Taxonomy->delete($id);
+                    $taxonomy->delete($id);
                     msg("Relation to the category $taxonomy_tree_id has been removed.", 'ok', 1);
                 }
             }
@@ -66,7 +69,7 @@ class Onyx_Controller_Bo_Component_X_Product_Taxonomy extends Onyx_Controller_Bo
             // insert items which were submitted and not in the database yet
             foreach ($submitted as $taxonomy_tree_id) {
                 if (!isset($current[$taxonomy_tree_id])) {
-                    if ($Taxonomy->insert(array('node_id' => $product_data['id'], 'taxonomy_tree_id' => $taxonomy_tree_id))) {
+                    if ($taxonomy->insert(array('node_id' => $_POST['product']['id'], 'taxonomy_tree_id' => $taxonomy_tree_id))) {
                         msg("Relation to the category $taxonomy_tree_id has been added.", 'ok', 1);
                     }
                 }
@@ -79,11 +82,11 @@ class Onyx_Controller_Bo_Component_X_Product_Taxonomy extends Onyx_Controller_Bo
          */
 
         if (is_numeric($product_data['id'])) {
-            $current = $Taxonomy->listing("node_id = " . $product_data['id']);
+            $current = $taxonomy->listing("node_id = " . $product_data['id']);
 
             if (is_array($current)) {
                 foreach ($current as $c) {
-                    $taxonomy_data = $Taxonomy->getLabel($c['taxonomy_tree_id']);
+                    $taxonomy_data = $taxonomy->getLabel($c['taxonomy_tree_id']);
 
                     $this->tpl->assign("CURRENT", $taxonomy_data);
                     $_Onyx_Request = new Onyx_Request("component/breadcrumb_taxonomy~id={$taxonomy_data['id']}~");
@@ -96,6 +99,8 @@ class Onyx_Controller_Bo_Component_X_Product_Taxonomy extends Onyx_Controller_Bo
                 $this->tpl->parse("content.{$template}.empty");
             }
         }
+
+        $this->tpl->assign('PRODUCT', $product_data);
 
         parent::parseTemplate();
 

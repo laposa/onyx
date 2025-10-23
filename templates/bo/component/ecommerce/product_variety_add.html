@@ -63,6 +63,11 @@
     </div>
 
     <div class="row text">
+        <label for="product-variety-weight">Weight Net [{VARIETY_CONF.weight_units}]</label>
+        <input type="text" name="product[variety][weight]" id="product-variety-weight" value="{PRODUCT.variety.weight}"/>
+    </div>
+
+    <div class="row text">
         <label for="product-variety-stock">Stock</label>
         <input type="text" class="required digits" name="product[variety][stock]" id="product-variety-stock" value="{PRODUCT.variety.stock}"/>
     </div>
@@ -78,15 +83,12 @@
 
     <p><a href="#" class="button primary" onclick="$('#variety-more-details').toggle(); return false">More details</a></p>
 
-    <div id="variety-more-details" style="display: none;;">
+    <div id="variety-more-details" style="display: none;">
+        <h2>Additional Information</h2>
+
         <div class="row rte">
             <label for="product-variety-description">Description</label>
             <textarea id="product-variety-description" name="product[variety][description]">{PRODUCT.variety.description}</textarea>
-        </div>
-
-        <div class="row text">
-            <label for="product-variety-weight">Weight Net [{VARIETY_CONF.weight_units}]</label>
-            <input type="text" name="product[variety][weight]" id="product-variety-weight" value="{PRODUCT.variety.weight}"/>
         </div>
 
         <h2>Dimensions</h2>

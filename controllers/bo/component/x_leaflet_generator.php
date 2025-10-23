@@ -15,6 +15,8 @@ class Onyx_Controller_Bo_Component_X_Leaflet_Generator extends Onyx_Controller_B
     protected $IMAGES_PATH = ONYX_PROJECT_DIR . 'var/files/pdf2web/';
 
     private $File;
+    public $node;
+    public $node_data;
     /**
      * main action
      */
@@ -22,14 +24,13 @@ class Onyx_Controller_Bo_Component_X_Leaflet_Generator extends Onyx_Controller_B
     public function mainAction() {
 
         // get details
-        $this->Node = new common_node();
-        $this->node_data = $this->Node->nodeDetail($this->GET['node_id']);
-        if ($this->node_data) $this->tpl->assign('NODE', $this->node_data);
+        $this->node = new common_node();
+        $this->node_data = $this->node->nodeDetail($this->GET['node_id']);
 
         if(isset($this->GET['generate']) && $this->GET['generate'] == 'true') {
             // TODO: returns only PDF?
-            $files = $this->Node->getFilesForNodeId($this->GET['node_id']);
-            
+            $files = $this->node->getFilesForNodeId($this->GET['node_id']);
+
             $pdfFile = null;
             foreach ($files as $file) {
                 if ($file['info']['mime-type'] == 'application/pdf') {
@@ -43,8 +44,6 @@ class Onyx_Controller_Bo_Component_X_Leaflet_Generator extends Onyx_Controller_B
             } else {
                 $folderPath = $this->IMAGES_PATH . '/' . $this->node_data['id'];
 
-                bar_dump($files);
-        
                 // remove old files & unlink
                 $this->removeFolder($folderPath);
                 $image = new common_image();
@@ -65,6 +64,19 @@ class Onyx_Controller_Bo_Component_X_Leaflet_Generator extends Onyx_Controller_B
                 }
             }
         }
+
+        // save
+        if (isset($_POST['save'])) {
+            // TODO: messages
+            if($this->node->nodeUpdate($_POST['node'])) {
+                msg("{$this->node_data['node_group']} (id={$this->node_data['id']}) has been updated");
+                // header('HX-Trigger: {"nodeUpdated":{"init" :"false"}}');
+            } else {
+                msg("Cannot update node {$this->node_data['node_group']} (id={$this->node_data['id']})", 'error');
+            }
+        }
+
+        if ($this->node_data) $this->tpl->assign('NODE', $this->node_data);
 
         parent::parseTemplate();
 
@@ -123,7 +135,6 @@ class Onyx_Controller_Bo_Component_X_Leaflet_Generator extends Onyx_Controller_B
         }
 
         foreach (scandir($dir) as $item) {
-            bar_dump($item);
             if ($item == '.' || $item == '..') {
                 continue;
             }
