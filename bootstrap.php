@@ -1,13 +1,9 @@
 <?php
 /**
  *
- * Copyright (c) 2005-2020 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2005-2025 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
-
-// Set include paths
-set_include_path(ONYX_PROJECT_DIR . PATH_SEPARATOR . ONYX_DIR . PATH_SEPARATOR . ONYX_PROJECT_DIR . 'lib/' . PATH_SEPARATOR . ONYX_DIR . 'lib/' . PATH_SEPARATOR . get_include_path());
-require_once('lib/onyx.functions.php');
 
 // Setup Tracy
 if (ONYX_TRACY) {

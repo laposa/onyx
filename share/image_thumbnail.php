@@ -45,13 +45,6 @@ if (array_key_exists('fill', $_GET) && is_numeric($_GET['fill'])) $fill = $_GET[
  
 require_once("$dir/../conf/global.php");
 
-/**
- * Set include paths
- */
- 
-set_include_path(ONYX_PROJECT_DIR . PATH_SEPARATOR . ONYX_DIR . PATH_SEPARATOR . ONYX_DIR . 'lib/' . PATH_SEPARATOR . get_include_path());
-
-require_once('lib/onyx.functions.php');
 require_once('model.php');
 
 /**

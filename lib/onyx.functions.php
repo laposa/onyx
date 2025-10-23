@@ -1105,3 +1105,26 @@ function savePdfManifest($node_id, $manifest) {
     $nodeData['custom_fields']->pdf2Web = $manifest;
     return $Node->nodeUpdate($nodeData);
 }
+
+ /**
+ * onyxGlobalConfSetValue
+ * @param $name constant name
+ * @param $value
+ */
+
+function onyxGlobalConfSetValue($name, $value) {
+
+    if (defined($name)) {
+        return false; // already set
+    }
+
+    // check env variable
+    if (strlen(getenv($name)) > 0) {
+        $value = getenv($name);
+        if (in_array(strtolower(($value)), ['true', 'false'])) {
+            $value = filter_var($value, FILTER_VALIDATE_BOOLEAN);
+        }
+    }
+
+    define($name, $value);
+}

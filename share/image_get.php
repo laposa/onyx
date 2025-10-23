@@ -60,13 +60,6 @@ $dir = str_replace($_SERVER["SCRIPT_NAME"], "", $_SERVER["SCRIPT_FILENAME"]);
 require_once("$dir/../conf/global.php");
 
 /**
- * Set include paths
- */
- 
-set_include_path(get_include_path() . PATH_SEPARATOR . ONYX_DIR);
-require_once('lib/onyx.functions.php');
-
-/**
  * read input and set paths
  */
  

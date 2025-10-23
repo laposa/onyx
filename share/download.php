@@ -26,13 +26,6 @@ require_once("$dir/../conf/global.php");
 set_time_limit(86400);
 
 /**
- * Set include paths
- */
-
-set_include_path(ONYX_PROJECT_DIR . PATH_SEPARATOR . ONYX_DIR . PATH_SEPARATOR . ONYX_DIR . 'lib/' . PATH_SEPARATOR . get_include_path());
-require_once('lib/onyx.functions.php');
-
-/**
  * Include Bootstrap
  */
 
