@@ -67,7 +67,7 @@
 				-->
 
 				<button
-					hx-get="/request/bo/component/leaflet_generator?node_id={NODE.id}&edit=true&generate=true"
+					hx-get="/request/bo/component/x_leaflet_generator?node_id={NODE.id}&edit=true&generate=true"
 					hx-trigger="click"
 					hx-target="#leaflet-generator-edit"
 					hx-swap="innerHTML"
@@ -90,7 +90,7 @@
 				<div class="edit-actions">
 						<button 
 								hx-indicator="#edit-loading"
-								hx-post="/request/bo/component/leaflet_generator"
+								hx-post="/request/bo/component/x_leaflet_generator"
 								class="btn" 
 								type="submit" 
 								name="save" 

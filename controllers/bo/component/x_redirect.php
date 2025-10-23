@@ -7,8 +7,7 @@
 
 require_once('controllers/bo/component/x.php');
 require_once('models/common/common_node.php');
-
-class Onyx_Controller_Bo_Component_X_Metadata extends Onyx_Controller_Bo_Component_X {
+class Onyx_Controller_Bo_Component_X_Redirect extends Onyx_Controller_Bo_Component_X {
 
     /**
      * main action
@@ -19,28 +18,24 @@ class Onyx_Controller_Bo_Component_X_Metadata extends Onyx_Controller_Bo_Compone
         // get details
         $node = new common_node();
         $node_data = $node->nodeDetail($this->GET['node_id']);
+        if ($node_data) $this->tpl->assign('NODE', $node_data);
 
-        $this->tpl->assign('NODE_URL', translateURL("page/".$this->GET['node_id']));
-        
-        // SLUG
-        $CommonUriMapping = new common_uri_mapping();
-        $this->tpl->assign('NODE_URL_LAST_SEGMENT', $CommonUriMapping->cleanTitle($node_data['title']));
-        
         //save
         if (isset($_POST['save'])) {
-            if($node->nodeUpdate($_POST['node'])) {
+            $node_data = $_POST['node']; 
+
+            // TODO: messages
+            if($node->nodeUpdate($node_data)) {
                 msg("{$node_data['node_group']} (id={$node_data['id']}) has been updated");
                 // header('HX-Trigger: {"nodeUpdated":{"init" :"false"}}');
             } else {
                 msg("Cannot update node {$node_data['node_group']} (id={$node_data['id']})", 'error');
             }
         }
-
-        if ($node_data) $this->tpl->assign('NODE', $node_data);
-
+        
         parent::parseTemplate();
-
         return true;
     }
+
 }   
 

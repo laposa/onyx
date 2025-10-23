@@ -17,8 +17,20 @@ class Onyx_Controller_Bo_Component_X_Product_Info extends Onyx_Controller_Bo_Com
     public function mainAction() {
 
         // get details
-        $Product = new ecommerce_product();
-        $product_data = $Product->productDetail($this->GET['node_id']);
+        $product = new ecommerce_product();
+        $product_data = $product->productDetail($this->GET['node_id']);
+
+        // save
+        if (isset($_POST['save'])) {
+            // TODO: messages
+            if($product->updateProduct($_POST['product'])) {
+                msg("{$product_data['name']} (id={$product_data['id']}) has been updated");
+                // header('HX-Trigger: {"nodeUpdated":{"init" :"false"}}');
+            } else {
+                msg("Cannot update node {$product_data['name']} (id={$product_data['id']})", 'error');
+            }
+        }
+
         if ($product_data) $this->tpl->assign('PRODUCT', $product_data);
 
         parent::parseTemplate();

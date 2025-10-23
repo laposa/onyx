@@ -16,10 +16,9 @@ class Onyx_Controller_Bo_Component_X_Product_Other_Data extends Onyx_Controller_
     public function mainAction() {
 
          // get details
-        $Product = new ecommerce_product();
-        $product_data = $Product->productDetail($this->GET['node_id']);
-        if ($product_data) $this->tpl->assign('PRODUCT', $product_data);
-    
+        $product = new ecommerce_product();
+        $product_data = $product->productDetail($this->GET['node_id']);
+
         /**
          * other data (attributes) list
          */
@@ -37,6 +36,19 @@ class Onyx_Controller_Bo_Component_X_Product_Other_Data extends Onyx_Controller_
             }
             if (count($product_data['other_data']) > 0) $this->tpl->parse("content.{$template}.other_data");
         }
+
+        // save
+        if (isset($_POST['save'])) {
+            // TODO: messages
+            if($product->updateProduct($_POST['product'])) {
+                msg("{$product_data['name']} (id={$product_data['id']}) has been updated");
+                // header('HX-Trigger: {"nodeUpdated":{"init" :"false"}}');
+            } else {
+                msg("Cannot update node {$product_data['name']} (id={$product_data['id']})", 'error');
+            }
+        }
+
+        $this->tpl->assign('PRODUCT', $product_data);
 
         parent::parseTemplate();
 

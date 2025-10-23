@@ -4,7 +4,9 @@
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
-class Onyx_Controller_Bo_Component_Revision_List extends Onyx_Controller {
+require_once('controllers/bo/component/x.php');
+
+class Onyx_Controller_Bo_Component_X_Revision_List extends Onyx_Controller_Bo_Component_X {
 
     /**
      * main action
@@ -21,6 +23,8 @@ class Onyx_Controller_Bo_Component_Revision_List extends Onyx_Controller {
         $list = $Revision->getList($object, $node_id);
         
         $this->parseList($list);
+
+        parent::parseTemplate();
 
         return true;
     }

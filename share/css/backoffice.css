@@ -1478,6 +1478,7 @@ a.fakelink:hover {text-decoration: none;}
 
 .revision-list {
   margin-top: 15px;
+  width: 100%;
 }
 
 .page-list-form-edit {
