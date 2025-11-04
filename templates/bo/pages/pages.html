@@ -52,12 +52,14 @@ function appendHeader() {
                                 </div>
                                 <div class="column-two">
                                     <div class="column-wrapper">
-
                                         <div id="sub-content">
-                                            <!-- TODO: obsolete after edit rework? -->
-                                            {NODE_EDIT}
+                                            <div 
+                                                id="node-edit"
+                                                hx-get="/request/bo/component/node_edit~id={NODE_ID}~"
+                                                hx-trigger="pageRefresh from:body, load"
+                                            >
+                                            </div>
                                         </div>
-                                        
                                     </div>
                                 </div>
                             </div>

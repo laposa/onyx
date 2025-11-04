@@ -1,0 +1,78 @@
+<!-- BEGIN: content -->
+    <!-- BEGIN: preview -->
+    <fieldset id="component-advanced-settings" class="component-preview">
+        <div id="advanced-settings-loading" class="onyx-loading htmx-indicator">
+            <img src="/share/images/loading.svg" alt="Loading..."/>
+        </div>
+
+        <legend>Advanced Settings</legend>
+
+        <span class="label">CSS Class:</span>
+        <span class="value">{NODE.css_class|htmlspecialchars}</span>
+
+        <span class="label">Head:</span>
+        <span class="value">{NODE.head|htmlspecialchars}</span>
+
+        <div class="component-actions">
+            <button
+                hx-get="/request/bo/component/x_advanced_settings?edit=true&node_id={NODE.id}"
+                hx-target="#edit-dialog .content"
+                hx-indicator="#edit-loading"
+                hx-trigger="click"
+                hx-swap="innerHTML"
+                hx-on::before-request="openDialog()"
+                class="btn">
+                Edit
+            </button>
+        </div>
+    </fieldset>
+    <!-- END: preview -->
+
+    <!-- BEGIN: edit -->
+    <form id="advanced-settings-edit">
+        <h2>Edit Advanced Settings</h2>
+
+        <!-- CSS Class -->
+        <div class="row text">
+            <label for="node-css-class">CSS Class:</label>
+            <input 
+                type="text" 
+                name="node[css_class]" 
+                id="node-css-class" 
+                value="{NODE.css_class|htmlspecialchars}" 
+            />
+        </div>
+
+        <!-- Head -->
+        <div class="row text">
+            <label for="node-head">Head (HTML code):</label>
+            <textarea
+                cols="70" 
+                rows="20" 
+                class="long" 
+                name="node[head]" 
+                id="node-head"
+            >{NODE.head|htmlspecialchars}</textarea>
+        </div>
+
+        <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+        <input type="hidden" name="node[id]" value="{GET.node_id}" />
+
+        <div class="edit-actions">
+            <button 
+                hx-indicator="#edit-loading"
+                hx-post="/request/bo/component/x_advanced_settings"
+                class="btn" 
+                type="submit" 
+                name="save" 
+                value="save" 
+                id="saveAndClose"
+            >
+                Save & Close
+            </button>
+
+            <button class="btn secondary" type="button" onclick="closeDialog()">Cancel</button>
+        </div>
+    </form>
+    <!-- END: edit -->
+<!-- END: content -->

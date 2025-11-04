@@ -37,6 +37,10 @@
 		margin-bottom: 10px;
 	}
 
+	.row {
+		width: 100%;
+	}
+
 	p {
 		margin: 0 0 5px;
 		display: flex;

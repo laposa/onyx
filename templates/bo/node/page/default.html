@@ -1,39 +1,139 @@
 <!-- BEGIN: content -->
-{FILE "bo/node/shared_header.html"}
 
-<fieldset>
-    {FILE "bo/node/item_title.html"}
-    {FILE "bo/node/item_page_title.html"}
-    {FILE "bo/node/item_display_title.html"}
-    {FILE "bo/node/item_uri_title.html"}
+{FILE "bo/component/page_header.html"}
 
-    <div class="advanced">
-        {FILE "bo/node/item_display_secondary_navigation.html"}                
-        {FILE "bo/node/item_browser_title.html"}
-        {FILE "bo/node/item_strapline.html"}
-    </div>
+<div id="general-info"
+	hx-get="/request/bo/component/x_general_info?node_id={GET.id}"
+	hx-trigger="load, refresh"
+	hx-indicator="#general-info-loading">
+	<!-- <div id="general-info-loading" class="onyx-loading htmx-indicator">
+		<img src="/share/images/loading.svg" alt="Loading..."/>
+	</div> -->
+</div>
 
-    {FILE "bo/node/item_description.html"}
-    {FILE "bo/node/item_deeplink.html"}
+<div id="visibility"
+	hx-get="/request/bo/component/x_visibility?node_id={GET.id}"
+	hx-trigger="load, refresh"
+	hx-indicator="#visibility-loading">
+	<!-- <div id="visibility-loading" class="onyx-loading htmx-indicator">
+		<img src="/share/images/loading.svg" alt="Loading..."/>
+	</div> -->
+</div>
+
+
+<!-- Node Images -->
+<fieldset id="component-node-images" class="component-preview">
+	<div id="node-images-loading" class="onyx-loading htmx-indicator">
+        <img src="/share/images/loading.svg" alt="Loading..."/>
+	</div>
+
+	<legend>Images</legend>
+
+	<span class="label">Files:</span>
+	<br>
+
+	<!-- TODO: missing dialog title. Create special component for file/product list? -->
+	<div 
+		hx-get="/request/bo/component/file_list?type=add_to_node&relation=node&node_id={GET.id}"
+		hx-trigger="load, refresh"
+		hx-indicator="#node-images-loading">
+	</div>
+	
+	<div class="component-actions">
+		<button
+			hx-get="/request/bo/component/file_list?type=add_to_node&relation=node&node_id={GET.id}"
+			hx-target="#edit-dialog .content"
+			hx-indicator="#edit-loading"
+			hx-trigger="click"
+			hx-swap="innerHTML"
+			hx-on::before-request="openDialog()"
+			class="btn">
+			Edit
+		</button>
+	</div>
 </fieldset>
 
-<fieldset>
-    {FILE "bo/node/item_image_list.html"}
-    <div class="advanced">
-        {FILE "bo/node/item_taxonomy.html"}
+<!-- Categories/Tags -->
+<div 
+	id="relation-taxonomy"
+	hx-get="/request/bo/component/x_relation_taxonomy?relation=node&node_id={NODE.content}"
+	hx-trigger="load, refresh"
+	hx-indicator="#relation-taxonomy-loading">
+</div>
+
+<!-- Page List -->
+<!-- TODO: check refresh, create custom component? -->
+<fieldset id="component-page-list" class="component-preview">
+    <div id="page-list-loading" class="onyx-loading htmx-indicator">
+        <img src="/share/images/loading.svg" alt="Loading..."/>
     </div>
+
+    <legend>Page List</legend>
+
+    <div 
+        class="row" 
+        id="content-list-pages-wrapper" 
+        hx-get="/request/bo/component/node_list_pages~id={GET.id}~" 
+        hx-target="#content-list-pages-wrapper" 
+        hx-trigger="load, refresh"
+    >
+    </div>
+
+		<div class="component-actions">
+			<button class="btn add" title="Add Node" onclick="addNode(event, '{GET.id}', 'page', 'page')">Add Page</button>
+		</div>
 </fieldset>
 
-{FILE "bo/node/item_content_page_list.html"}
-{FILE "bo/node/item_content_card_list.html"}
+<!-- Content List -->
+<!-- TODO: check refresh, create custom component? -->
+<fieldset id="component-content-list" class="component-preview">
+		<div id="content-list-loading" class="onyx-loading htmx-indicator">
+        <img src="/share/images/loading.svg" alt="Loading..."/>
+    </div>
 
-{FILE "bo/node/item_qrcode.html"}
+    <legend>Content List</legend>
 
-{FILE "bo/node/shared_footer_page.html"}
+    <div 
+        id="content-list-cards-wrapper" 
+        class="row" 
+        hx-get="/request/bo/component/node_list_cards~id={GET.id}~" 
+        hx-target="#content-list-cards-wrapper" 
+        hx-trigger="load, refresh"
+    >
+    </div>
 
-<p class="extended-toolbar">
-    <a class="button add" href="#" id="button-add-subpage" data-node-id="{GET.id}" data-node-group="page" onclick="addNode(event, '{GET.id}', 'page')"><span>Add a New Subpage</span></a>
-    <a class="button edit" href="/page/{GET.id}?fe_edit_mode=edit" target="_blank" style="margin-left: 10px;"><span>Open in Front-End Editing</span></a>
-    <a class="button edit" href="/page/{GET.id}?preview_token={PREVIEW_TOKEN}" target="_blank" style="margin-left: 10px;"><span>Approval Link</span></a>
-</p>
+		<div class="component-actions">
+    	<button class="button add" title="Add Content" onclick="addNode(event, '{GET.id}', '{NODE.node_group}', 'content')">Add Content</button>
+		</div>
+</fieldset>
+
+<!-- QR Code -->
+<div id="qr-code"
+	hx-get="/request/bo/component/x_qr_code?node_id={GET.id}"
+	hx-trigger="load, refresh"
+	hx-indicator="#qr-code-loading">
+	<!-- <div id="qr-code-loading" class="onyx-loading htmx-indicator">
+		<img src="/share/images/loading.svg" alt="Loading..."/>
+	</div> -->
+</div>
+
+<!-- Position -->
+<div id="node-position"
+	hx-get="/request/bo/component/x_node_position?node_id={GET.id}"
+	hx-trigger="load, refresh"
+	hx-indicator="#node-position-loading">
+	<!-- <div id="node-position-loading" class="onyx-loading htmx-indicator">
+		<img src="/share/images/loading.svg" alt="Loading..."/>
+	</div> -->
+
+<!-- Advanced Settings -->
+<div id="advanced-settings"
+	hx-get="/request/bo/component/x_advanced_settings?node_id={GET.id}"
+	hx-trigger="load, refresh"
+	hx-indicator="#advanced-settings-loading">
+	<!-- <div id="advanced-settings-loading" class="onyx-loading htmx-indicator">
+		<img src="/share/images/loading.svg" alt="Loading..."/>
+	</div> -->
+</div>
+
 <!-- END: content -->

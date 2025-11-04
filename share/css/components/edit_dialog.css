@@ -46,6 +46,7 @@ dialog.edit-dialog {
 		transition: 0.3s ease;
 		min-height: 45px;
 		min-width: 49%;
+		width: 100%;
 
 		&:focus {
 			border-color: var(--color-primary);
@@ -111,7 +112,7 @@ dialog.edit-dialog {
 			width: 100%;
 		}
 
-		.row.text {
+		.row.text, .row.select {
 			margin-top: 10px;
 		}
 
@@ -178,7 +179,7 @@ dialog.edit-dialog {
 			}
 		}
 
-		.row.text label {
+		.row.text label, .row.select label {
 			position: absolute;
 			top: -9px;
 			left: 7px;

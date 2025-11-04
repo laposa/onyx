@@ -50,6 +50,7 @@
       var manifest = {PDF2WEB_MANIFEST};
       var fe_edit_mode = '{_SESSION.fe_edit_mode}';
 
+      // TODO: save using x_leaflet_generator, test!
       pdf2webViewer({
           target: document.getElementById("pdf2web-viewer"),
           showTwoPages: true,
@@ -61,7 +62,7 @@
       });
 
       async function saveToOnyxBackoffice(manifest) {
-        const url = "/request/bo/component/node_edit?id={NODE.id}";
+        const url = "/request/bo/component/x_leaflet_generator?id={NODE.id}";
         try {
           const response = await fetch(url, {
             method: 'POST',
