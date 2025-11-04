@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2006-2011 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2025 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  * split into: taxonomy_manager, taxonomy_filter - can be used in FE

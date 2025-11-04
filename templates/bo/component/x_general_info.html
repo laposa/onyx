@@ -8,6 +8,9 @@
 
         <legend>General Information</legend>
 
+        <span class="label">Node Type:</span>
+        <span class="value">{NODE_TYPE}</span>
+
         <span class="label">Name:</span>
         <span class="value">{NODE.title}</span>
 
@@ -35,6 +38,21 @@
     <!-- BEGIN: edit -->
     <form id="general-info-edit">
         <h2>Edit General Information</h2>
+
+        <!-- Node Type -->
+        <div class="row select">
+            <label for="node-node-controller" title="Content Type">Node Type:</label>
+            <select name="node[node_controller]" id="node-node-controller-{GET.node_id}" title="Content Type" onchange="$('input#node-node-group-{GET.node_id}').attr('value', $(this).find('option:selected').parent().attr('data-group'));">
+                <!-- BEGIN: group -->
+                <optgroup label="{GROUP_LABEL}" data-group="{GROUP_VALUE}">
+                    <!-- BEGIN: item -->
+                    <option value="{VALUE}" {SELECTED}>{LABEL}</option>
+                    <!-- END: item -->
+                </optgroup>
+                <!-- END: group -->
+            </select>
+            <input id="node-node-group-{GET.node_id}" type="hidden" name="node[node_group]" value="{NODE.node_group}" />
+        </div>
 
         <!-- Title -->
         <div class="row text">
@@ -89,9 +107,7 @@
                 title="Please try to fit your description into this input box, this will display Google in the search result" 
                 cols="50" 
                 rows="20"
-            >
-                {NODE.description|htmlspecialchars}
-            </textarea>
+            >{NODE.description|htmlspecialchars}</textarea>
         </div>
 
         <!-- Display Secondary Navigation -->

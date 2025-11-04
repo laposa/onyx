@@ -1489,11 +1489,6 @@ a.fakelink:hover {text-decoration: none;}
   }
 }
 
-/* workaround for content swap after save */
-.column-two #node-properties-edit .page-header {
-  display: none;
-}
-
 .column-wrapper {
   position: relative;
 }

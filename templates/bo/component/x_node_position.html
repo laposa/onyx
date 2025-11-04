@@ -1,0 +1,100 @@
+<!-- BEGIN: content -->
+{MESSAGES}
+    <!-- BEGIN: preview -->
+    <fieldset id="component-node-position" class="component-preview">
+        <div id="node-position-loading" class="onyx-loading htmx-indicator">
+            <img src="/share/images/loading.svg" alt="Loading..."/>
+        </div>
+
+        <legend>Position</legend>
+
+        <span class="label">Priority:</span>
+        <span class="value">{NODE.priority}</span>
+
+        <span class="label">Parent Container:</span>
+        <span class="value">{NODE.parent_container}</span>
+
+        <span class="label">Parent Node:</span>
+        <span class="value">{PARENT}</span>
+
+        <div class="component-actions">
+            <button
+                hx-get="/request/bo/component/x_node_position?edit=true&node_id={NODE.id}"
+                hx-target="#edit-dialog .content"
+                hx-indicator="#edit-loading"
+                hx-trigger="click"
+                hx-swap="innerHTML"
+                hx-on::before-request="openDialog()"
+                class="btn">
+                Edit
+            </button>
+        </div>
+    </fieldset>
+    <!-- END: preview -->
+
+    <!-- BEGIN: edit -->
+    <form id="node-position-edit">
+        <h2>Edit Position</h2>
+
+        <!-- Priority -->
+        <div class="row text">
+            <label for="node-priority">Priority:</label>
+            <input
+                id="node-priority"
+                type="number"
+                name="node[priority]"
+                value="{NODE.priority|htmlspecialchars}"
+            />
+        </div>
+
+        <!-- Parent Container -->
+        <div class="row text">
+            <label for="node-parent-container">Parent Container:</label>
+            <input
+                id="node-parent-container"
+                type="text"
+                name="node[parent_container]"
+                value="{NODE.parent_container}"
+            />
+        </div>
+
+        <!-- Parent Container -->
+        <div class="row text">
+            <label for="node-parent-container">Parent Node:</label>
+            <input
+                id="node-parent-input"
+                type="text"
+                value="{PARENT}"
+                disabled
+            />
+            <input type="hidden" id="node-parent" name="node[parent]" value="{NODE.parent}" />
+        </div>
+
+        <!-- TODO: rework once new menu/node select component is made -->
+        <a class="button" href="#" onclick="$('#parent-ajax').addClass('ajax-load').load('/request/bo/component/node_parent_menu~id=0:expand_all=1:publish=0:parent_type={NODE.node_group}~', function() {$(this).removeClass('ajax-load')}); return false">
+            <span title="Move to a different page or layout">Move Under Different Node</span>
+        </a>
+
+        <span style="display: block;" id="parent-ajax"></span>
+
+        <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+        <input type="hidden" name="node[id]" value="{GET.node_id}" />
+
+        <div class="edit-actions">
+            <button 
+                hx-indicator="#edit-loading"
+                hx-post="/request/bo/component/x_node_position"
+                class="btn" 
+                type="submit" 
+                name="save" 
+                value="save" 
+                id="saveAndClose"
+            >
+                Save & Close
+            </button>
+
+            <button class="btn secondary" type="button" onclick="closeDialog()">Cancel</button>
+        </div>
+    </form>
+    <!-- END: edit -->
+<!-- END: content -->
