@@ -46,6 +46,26 @@
 	</div> -->
 </div>
 
+<!-- Position -->
+<div id="node-position"
+	hx-get="/request/bo/component/x_node_position?node_id={GET.id}"
+	hx-trigger="load, refresh"
+	hx-indicator="#node-position-loading">
+	<!-- <div id="node-position-loading" class="onyx-loading htmx-indicator">
+		<img src="/share/images/loading.svg" alt="Loading..."/>
+	</div> -->
+</div>
+
+<!-- Advanced Settings -->
+<div id="advanced-settings"
+	hx-get="/request/bo/component/x_advanced_settings?node_id={GET.id}"
+	hx-trigger="load, refresh"
+	hx-indicator="#advanced-settings-loading">
+	<!-- <div id="advanced-settings-loading" class="onyx-loading htmx-indicator">
+		<img src="/share/images/loading.svg" alt="Loading..."/>
+	</div> -->
+</div>
+
 <div id="revision-list"
 	hx-get="/request/bo/component/x_revision_list?node_id={GET.id}&object=common_node"
 	hx-trigger="load, refresh"
