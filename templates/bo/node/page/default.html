@@ -2,6 +2,7 @@
 
 {FILE "bo/component/page_header.html"}
 
+<!-- Gerneral Info -->
 <div id="general-info"
 	hx-get="/request/bo/component/x_general_info?node_id={GET.id}"
 	hx-trigger="load, refresh"
@@ -11,6 +12,17 @@
 	</div> -->
 </div>
 
+<!-- Metadata -->
+<div id="metadata"
+	hx-get="/request/bo/component/x_metadata?node_id={GET.id}"
+	hx-trigger="load, refresh"
+	hx-indicator="#metadata-loading">
+	<!-- <div id="metadata-loading" class="onyx-loading htmx-indicator">
+		<img src="/share/images/loading.svg" alt="Loading..."/>
+	</div> -->
+</div>
+
+<!-- Visibility -->
 <div id="visibility"
 	hx-get="/request/bo/component/x_visibility?node_id={GET.id}"
 	hx-trigger="load, refresh"
@@ -19,7 +31,6 @@
 		<img src="/share/images/loading.svg" alt="Loading..."/>
 	</div> -->
 </div>
-
 
 <!-- Node Images -->
 <fieldset id="component-node-images" class="component-preview">
@@ -137,4 +148,13 @@
 	</div> -->
 </div>
 
+<!-- Previous Versions -->
+<div id="revision-list"
+	hx-get="/request/bo/component/x_revision_list?node_id={GET.id}&object=common_node"
+	hx-trigger="load, refresh"
+	hx-indicator="#revision-list-loading">
+	<!-- <div id="revision-list-loading" class="onyx-loading htmx-indicator">
+		<img src="/share/images/loading.svg" alt="Loading..."/>
+	</div> -->
+</div>
 <!-- END: content -->

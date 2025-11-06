@@ -1,0 +1,92 @@
+<!-- BEGIN: content -->
+{MESSAGES}
+    <!-- BEGIN: preview -->
+    <fieldset id="component-article-info" class="component-preview">
+        <div id="article-info-loading" class="onyx-loading htmx-indicator">
+            <img src="/share/images/loading.svg" alt="Loading..."/>
+        </div>
+        
+        <legend>Article Information</legend>
+
+        <span class="label">Author:</span>
+        <span class="value">{NODE.component.author|htmlspecialchars}</span>
+
+        <span class="label">Date Created:</span>
+        <span class="value">{NODE.created}</span>
+
+        <span class="label">Content:</span>
+        <span class="value">{NODE.content}</span>
+
+        <div class="component-actions">
+            <button
+                hx-get="/request/bo/component/x_article_info?edit=true&node_id={NODE.id}"
+                hx-target="#edit-dialog .content"
+                hx-indicator="#edit-loading"
+                hx-trigger="click"
+                hx-swap="innerHTML"
+                hx-on::before-request="openDialog()"
+                class="btn">
+                Edit
+            </button>
+        </div>
+    </fieldset>
+    <!-- END: preview -->
+
+    <!-- BEGIN: edit -->
+    <form id="article-info-edit">
+        <h2>Edit Article Information</h2>
+
+        <!-- Author Name -->
+        <div class="row text">
+            <label for="node-author-name">Author Name:</label>
+            <input 
+                id="node-author-name" 
+                class="title" 
+                type="text" 
+                name="node[component][author]" 
+                value="{NODE.component.author|htmlspecialchars}" 
+            />
+        </div>
+
+        <!-- Date -->
+        <div class="row text">
+            <label for="node-created">Date (overwrite created date):</label>
+            <input 
+                id="node-created" 
+                type="datetime-local"
+                name="node[created]" 
+                value="{NODE.created|htmlspecialchars}" 
+            />
+        </div>
+
+        <!-- Content -->
+        <div class="row text">
+            <label for="node-content">Content:</label>
+            <textarea 
+                id="node-content" 
+                name="node[content]" 
+            >{NODE.content|htmlspecialchars}</textarea>
+        </div>
+        {ONYX_REQUEST_tinymce1 #bo/tinymce~id=GET.id:relation=node:edit_elements=node-content:theme=advanced~}
+
+        <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+        <input type="hidden" name="node[id]" value="{GET.node_id}" />
+
+        <div class="edit-actions">
+            <button 
+                hx-indicator="#edit-loading"
+                hx-post="/request/bo/component/x_article_info"
+                class="btn" 
+                type="submit" 
+                name="save" 
+                value="save" 
+                id="saveAndClose"
+            >
+                Save & Close
+            </button>
+
+            <button class="btn secondary" type="button" onclick="closeDialog()">Cancel</button>
+        </div>
+    </form>
+    <!-- END: edit -->
+<!-- END: content -->
