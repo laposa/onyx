@@ -1,6 +1,7 @@
 <!-- BEGIN: content -->
 {FILE "bo/component/page_header.html"}
 
+<!-- General Info -->
 <div id="general-info"
 	hx-get="/request/bo/component/x_general_info?node_id={GET.id}"
 	hx-trigger="load, refresh"
@@ -10,6 +11,7 @@
 	</div> -->
 </div>
 
+<!-- Metadata -->
 <div id="metadata"
 	hx-get="/request/bo/component/x_metadata?node_id={GET.id}"
 	hx-trigger="load, refresh"
@@ -19,6 +21,7 @@
 	</div> -->
 </div>
 
+<!-- Visibility -->
 <div id="visibility"
 	hx-get="/request/bo/component/x_visibility?node_id={GET.id}"
 	hx-trigger="load, refresh"
@@ -28,6 +31,7 @@
 	</div> -->
 </div>
 
+<!-- Leaflet Generator -->
 <div id="leaflet-generator"
 	hx-get="/request/bo/component/x_leaflet_generator?node_id={GET.id}"
 	hx-trigger="load, refresh"
@@ -37,6 +41,7 @@
 	</div> -->
 </div>
 
+<!-- QR Code -->
 <div id="qr-code"
 	hx-get="/request/bo/component/x_qr_code?node_id={GET.id}"
 	hx-trigger="load, refresh"
@@ -66,6 +71,7 @@
 	</div> -->
 </div>
 
+<!-- Previous Versions -->
 <div id="revision-list"
 	hx-get="/request/bo/component/x_revision_list?node_id={GET.id}&object=common_node"
 	hx-trigger="load, refresh"
