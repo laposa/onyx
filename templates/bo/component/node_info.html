@@ -3,30 +3,22 @@
 
 <div class="actions">
     <a href="/backoffice/pages/{NODE.id}" class="edit">
-        <svg>
-            <use xlink:href="/share/images/icons/icon_node_edit.svg"></use>
-        </svg>
+        <img src="/share/images/icons/icon_node_edit.svg">
         <div class="label">Edit</div>
     </a>
     
     <button class="duplicate" onclick="duplicateNode('{NODE.id}', '{NODE.parent}', '{NODE.node_group}', '{SUB_ITEMS}')">
-        <svg>
-            <use xlink:href="/share/images/icons/icon_node_duplicate.svg"></use>
-        </svg>
+        <img src="/share/images/icons/icon_node_duplicate.svg" />
         <div class="label">Duplicate</div>
     </button>
 
     <button class="move" onclick="moveNode(event, '{NODE.node_group}', '{NODE.id}')">
-        <svg>
-            <use xlink:href="/share/images/icons/icon_node_move_2.svg"></use>
-        </svg>
+        <img src="/share/images/icons/icon_node_move_2.svg" />
         <div class="label">Move</div>
     </button>
 
     <button class="delete" title="Move {NODE.title} to Bin" onclick="trashNode(event, '{NODE.id}')">
-        <svg>
-            <use xlink:href="/share/images/icons/icon_node_trash.svg"></use>
-        </svg>
+       <img src="/share/images/icons/icon_node_trash.svg" />
         <div class="label">Delete</div>
     </button>
 </div>
