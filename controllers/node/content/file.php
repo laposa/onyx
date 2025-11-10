@@ -13,16 +13,17 @@ class Onyx_Controller_Node_Content_File extends Onyx_Controller_Node_Content_Def
      */
      
     public function mainAction() {
-    
+
         require_once('models/common/common_node.php');  
         $Node = new common_node();
-        
-        $node_data = $Node->nodeDetail($this->GET['id']);
+        $node_id = (int)$this->GET['id'];
+
+        $node_data = $Node->nodeDetail($node_id);
         
         require_once('models/common/common_file.php');
         $File = new common_file();
         
-        if (is_numeric($this->GET['id'])) $files = $File->listFiles($this->GET['id']);
+        $files = $File->listFiles($node_id);
         
         if (is_array($files)){
             foreach ($files as $file) {
