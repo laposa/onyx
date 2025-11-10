@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2005-2018 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2005-2025 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -8,6 +8,7 @@
 class Onyx_Controller_Component_Menu extends Onyx_Controller {
 
     public $Node;
+    public $force_menu_cache;
 
     /**
      * main action
@@ -55,6 +56,10 @@ class Onyx_Controller_Component_Menu extends Onyx_Controller {
             else $filter = 'page';
             
         }
+
+        // forced cache - useful for heavy navigation in backoffice
+        if (array_key_exists('force_menu_cache', $this->GET) && $this->GET['force_menu_cache'] == 1) $this->force_menu_cache = true;
+        else $this->force_menu_cache = false;
         
         /**
          * process action
@@ -72,6 +77,7 @@ class Onyx_Controller_Component_Menu extends Onyx_Controller {
 
         require_once('models/common/common_node.php');
         $this->Node = new common_node();
+        if ($this->force_menu_cache) $this->Node->setCacheable(true);
         
         $tree = $this->getTree($publish, $filter, $node_id, $max_display_level - 1, $expand_all);
 
