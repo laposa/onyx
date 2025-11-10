@@ -66,10 +66,6 @@
 
 	<legend>Product Images</legend>
 
-	<span class="label">Files:</span>
-	<br>
-
-	<!-- TODO: missing dialog title. Create special component for file/product list? -->
 	<div 
 		hx-get="/request/bo/component/file_list?type=add_to_product&relation=product&node_id={NODE.content}"
 		hx-trigger="load, refresh"
@@ -88,6 +84,29 @@
 			Edit
 		</button>
 	</div>
+</fieldset>
+
+<!-- Content List -->
+<!-- TODO: check refresh, create custom component? -->
+<fieldset id="component-content-list" class="component-preview">
+		<div id="content-list-loading" class="onyx-loading htmx-indicator">
+        <img src="/share/images/loading.svg" alt="Loading..."/>
+    </div>
+
+    <legend>Additional Content, e.g. user manuals</legend>
+
+    <div
+        id="content-list-cards-wrapper"
+        class="row"
+        hx-get="/request/bo/component/node_list_cards~id={GET.id}~"
+        hx-target="#content-list-cards-wrapper"
+        hx-trigger="load, refresh"
+    >
+    </div>
+
+		<div class="component-actions">
+      <button class="button add" title="Add Content" onclick="addNode(event, '{GET.id}', '{NODE.node_group}', 'content')">Add Content</button>
+		</div>
 </fieldset>
 
 <!-- Product Categories/Tags -->
