@@ -1,0 +1,13 @@
+<!-- BEGIN: content -->
+<label for="node-node-controller" title="Content Type">Node Type:</label>
+<select name="node[node_controller]" id="node-node-controller-{GET.node_id}" title="Content Type" onchange="$('input#node-node-group-{GET.node_id}').attr('value', $(this).find('option:selected').parent().attr('data-group'));">
+    <!-- BEGIN: group -->
+    <optgroup label="{GROUP_LABEL}" data-group="{GROUP_VALUE}">
+        <!-- BEGIN: item -->
+        <option value="{VALUE}" {SELECTED}>{LABEL}</option>
+        <!-- END: item -->
+    </optgroup>
+    <!-- END: group -->
+</select>
+<input id="node-node-group-{GET.node_id}" type="hidden" name="node[node_group]" value="{NODE.node_group}" />
+<!-- END: content -->

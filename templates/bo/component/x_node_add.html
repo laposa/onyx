@@ -1,0 +1,50 @@
+<!-- BEGIN: content -->
+<form id="node-add-edit">
+    <h2>Add a New Node</h2>
+
+    <!-- Title -->
+    <div class="row text">
+        <label for="node-title">Node Name:</label>    
+        <input 
+            class="title" 
+            type="text" 
+            id="node-title" 
+            name="node[title]" 
+            placeholder="Node Name"
+            autofocus
+            required
+        />
+    </div>
+
+    <!-- Node Type -->
+    <div
+        class="row select"
+        hx-get="/request/bo/component/x_node_type_menu"
+        hx-trigger="load"
+        hx-swap="innerHTML"
+        >
+    </div>
+            
+    <input type="hidden" name="node[parent]" value="{GET.parent}" />
+    <input type="hidden" name="node[parent_container]" value="{GET.container}" />
+    <input type="hidden" name="position" value="{GET.position}" />
+    <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+
+    <div class="edit-actions">
+        <!-- TODO: fix refresh - other listener than saveAndClose -->
+        <button 
+            hx-indicator="#edit-loading"
+            hx-post="/request/bo/component/x_node_add"
+            class="btn" 
+            type="submit" 
+            name="save" 
+            value="save" 
+            id="saveAndClose"
+        >
+            Add & Close
+        </button>
+
+        <button class="btn secondary" type="button" onclick="closeDialog()">Cancel</button>
+    </div>
+</form>
+<!-- END: content -->
