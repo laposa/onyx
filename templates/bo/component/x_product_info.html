@@ -83,12 +83,18 @@
         </div>
 
         <script type="text/javascript">
+            if (tinymce.EditorManager.editors['product-teaser']) {
+                tinymce.EditorManager.editors['product-teaser'].destroy();
+            }
             tinymce.init({
                 selector: "dialog #product-teaser",
                 menubar: "false",
-                toolbar: "bold",
+                toolbar: "bold,italic,underline",
                 invalid_elements : "span,div,form,input,label,button,script,font",
-                entity_encoding : "raw"
+                entity_encoding : "raw",
+                setup: editor => {
+                    editor.on('blur', () => editor.save())
+                }
             });
         </script>
 

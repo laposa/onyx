@@ -11,6 +11,16 @@
 	</div> -->
 </div>
 
+<!-- Product Info -->
+<div id="product-info"
+	hx-get="/request/bo/component/x_product_info?node_id={NODE.content}"
+	hx-trigger="load, refresh"
+	hx-indicator="#product-info-loading">
+	<!-- <div id="product-info-loading" class="onyx-loading htmx-indicator">
+		<img src="/share/images/loading.svg" alt="Loading..."/>
+	</div> -->
+</div>
+
 <div id="metadata"
 	hx-get="/request/bo/component/x_metadata?node_id={GET.id}"
 	hx-trigger="load, refresh"
@@ -34,16 +44,6 @@
 	hx-trigger="load, refresh"
 	hx-indicator="#qr-code-loading">
 	<!-- <div id="qr-code-loading" class="onyx-loading htmx-indicator">
-		<img src="/share/images/loading.svg" alt="Loading..."/>
-	</div> -->
-</div>
-
-<!-- Product Info -->
-<div id="product-info"
-	hx-get="/request/bo/component/x_product_info?node_id={NODE.content}"
-	hx-trigger="load, refresh"
-	hx-indicator="#product-info-loading">
-	<!-- <div id="product-info-loading" class="onyx-loading htmx-indicator">
 		<img src="/share/images/loading.svg" alt="Loading..."/>
 	</div> -->
 </div>
