@@ -67,7 +67,14 @@
                 name="node[content]" 
             >{NODE.content|htmlspecialchars}</textarea>
         </div>
-        {ONYX_REQUEST_tinymce1 #bo/tinymce~id=GET.id:relation=node:edit_elements=node-content:theme=advanced~}
+
+        <script type="text/javascript">
+            hugerte.remove();
+            hugerte.init({
+                selector: "dialog #node-content",
+                menubar: false,
+            });
+        </script>
 
         <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
         <input type="hidden" name="node[id]" value="{GET.node_id}" />
@@ -81,6 +88,7 @@
                 name="save" 
                 value="save" 
                 id="saveAndClose"
+                onfocus="hugerte.triggerSave()"
             >
                 Save & Close
             </button>

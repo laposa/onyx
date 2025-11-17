@@ -40,11 +40,6 @@
 #layout-icon {background-position: top right; background-repeat: no-repeat;}
 
 /**
- * tinymce editor overwrites
- */
-span.mceEditorContainer select {width: auto;}
-
-/**
  * Display permission
  */
 .onyx-fe-edit-node-container.show-at-normal-login {border: 1px dotted red;}

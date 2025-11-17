@@ -43,13 +43,6 @@ function makeAjaxRequest(jquery_selector, url, complete_callback) {
     });
 }
 
-function removeTinyMCEEditors(container) {
-    for (var i = 0; i < tinyMCE.editors.length; i++) {
-        var id = tinyMCE.editors[i].id;
-        if (container.find("textarea#" + id).length) tinyMCE.editors[i].remove();
-    }
-}
-
 activeOverlay = null;
 overlayRemovingInProgress = false;
 function showModalOverlay(optionalClass = "") {
