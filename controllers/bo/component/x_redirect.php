@@ -17,21 +17,26 @@ class Onyx_Controller_Bo_Component_X_Redirect extends Onyx_Controller_Bo_Compone
 
         // get details
         $node = new common_node();
-        $node_data = $node->nodeDetail($this->GET['node_id']);
+        $node_data = $node->nodeDetail($this->GET['node_id'] ?? $_POST['node']['id']);
         if ($node_data) $this->tpl->assign('NODE', $node_data);
+
+        $readable_link = $node_data['component']['href'];
+
+        if(str_starts_with($node_data['component']['href'], '/page')) {
+            $readable_link = translateURL(ltrim($node_data['component']['href'], '/'));
+        }
 
         //save
         if (isset($_POST['save'])) {
-            $node_data = $_POST['node']; 
-
-            // TODO: messages
-            if($node->nodeUpdate($node_data)) {
+            if($node->nodeUpdate($_POST['node'])) {
                 msg("{$node_data['node_group']} (id={$node_data['id']}) has been updated");
                 // header('HX-Trigger: {"nodeUpdated":{"init" :"false"}}');
             } else {
                 msg("Cannot update node {$node_data['node_group']} (id={$node_data['id']})", 'error');
             }
         }
+
+        $this->tpl->assign('PRETTY_LINK', $readable_link);
         
         parent::parseTemplate();
         return true;

@@ -1,15 +1,15 @@
 <!-- BEGIN: content -->
 
     <!-- BEGIN: preview -->
-    <fieldset id="component-redirect" class="component-preview qrcode">
-        <div id="qr-code-loading" class="onyx-loading htmx-indicator">
+    <fieldset id="component-redirect" class="component-preview">
+        <div id="redirect-loading" class="onyx-loading htmx-indicator">
             <img src="/share/images/loading.svg" alt="Loading..."/>
         </div>
             
         <legend>Redirect</legend>
 
         <span class="label">This page redirects to:</span>
-        <span class="value"><a href="{NODE.component.href}" class="link">{NODE.component.href}</a></span>
+        <span class="value"><a href="{NODE.component.href}" class="link">{PRETTY_LINK}</a></span>
 
         <div class="component-actions">
             <button
@@ -48,7 +48,7 @@
         });
     </script>
 
-    <form id="qr-code-edit" class="qrcode">
+    <form id="redirect-edit">
         <h2>Redirect Edit</h2>
 
         <div class="row text">
@@ -59,7 +59,6 @@
                 name="node[component][href]" 
                 value="{NODE.component.href}" 
             />
-            <div class="additional-info">Insert parameters using pattern: parameter1=value1&amp;parameter2=value2...</div>
         </div>
         <a class="button" id="browse-server" href="#"><span>Browse Pages</span></a>
         <div id="href-select"></div>

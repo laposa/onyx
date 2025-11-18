@@ -30,8 +30,8 @@ function refreshComponent(triggerButton) {
 
 document.addEventListener('htmx:afterRequest', (event) => {
     if (event.target.id == 'saveAndClose') {
-        refreshComponent(event.target);
         closeDialog();
+        refreshComponent(event.target);
     }
 });
  

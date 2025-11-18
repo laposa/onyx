@@ -33,7 +33,7 @@ class Onyx_Controller_Bo_Component_X_Visibility extends Onyx_Controller_Bo_Compo
 
         //save
         if (isset($_POST['save'])) {
-            $node_data = $_POST['node']; 
+            $node_data = $_POST['node'];
             $scheduler = new common_scheduler();
             $jobs = $_POST['scheduler'];
 

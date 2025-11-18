@@ -22,6 +22,8 @@ class Onyx_Controller_Bo_Component_X_Relation_Taxonomy extends Onyx_Controller_B
          * initialise
          */
 
+        $node = new common_node();
+        $node_data = $node->nodeDetail($this->GET['node_id'] ?? $_POST['node']['id']);
         $template = (isset($_GET['edit']) && $_GET['edit'] == 'true') ? 'edit' : 'preview';
         
         switch ($this->GET['relation']) {
@@ -58,13 +60,13 @@ class Onyx_Controller_Bo_Component_X_Relation_Taxonomy extends Onyx_Controller_B
          */
 
         
-        if (isset($_POST['relation_taxonomy']) && is_array($_POST['relation_taxonomy']) && is_numeric($this->node_data['id'])) {
+        if (isset($_POST['relation_taxonomy']) && is_array($_POST['relation_taxonomy']) && is_numeric($node_data['id'])) {
 
             $current = array();
             $submitted = array();
 
             // prepare list of ids currently in the database
-            $current_raw = $Taxonomy->listing("node_id = " . $this->node_data['id']);
+            $current_raw = $Taxonomy->listing("node_id = " . $node_data['id']);
             if (is_array($current_raw)) {
                 foreach ($current_raw as $c) {
                     $current[$c['taxonomy_tree_id']] = $c['id'];
@@ -87,7 +89,7 @@ class Onyx_Controller_Bo_Component_X_Relation_Taxonomy extends Onyx_Controller_B
             // insert items which were submitted and not in the database yet
             foreach ($submitted as $taxonomy_tree_id) {
                 if (!isset($current[$taxonomy_tree_id])) {
-                    if ($Taxonomy->insert(array('node_id' => $this->node_data['id'], 'taxonomy_tree_id' => $taxonomy_tree_id))) {
+                    if ($Taxonomy->insert(array('node_id' => $node_data['id'], 'taxonomy_tree_id' => $taxonomy_tree_id))) {
                         msg("Relation to the category $taxonomy_tree_id has been added.", 'ok', 1);
                     }
                 }
@@ -98,10 +100,9 @@ class Onyx_Controller_Bo_Component_X_Relation_Taxonomy extends Onyx_Controller_B
         /**
          * listing
          */
-         
-        if (is_numeric($this->node_data['id'])) {
-            $current = $Taxonomy->listing("node_id = " . $this->node_data['id']);
-        
+        if (is_numeric($node_data['id'])) {
+            $current = $Taxonomy->listing("node_id = " . $node_data['id']);
+
             if (is_array($current)) { 
                 foreach ($current as $c) {
                     $taxonomy_data = $Taxonomy->getLabel($c['taxonomy_tree_id']);
@@ -113,6 +114,10 @@ class Onyx_Controller_Bo_Component_X_Relation_Taxonomy extends Onyx_Controller_B
                     $this->tpl->parse("content.{$template}.ptn");
                 }
             }
+        }
+
+        if(!$current || count($current) == 0) {
+            $this->tpl->parse("content.{$template}.empty");
         }
 
         parent::parseTemplate();

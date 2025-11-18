@@ -83,12 +83,18 @@
         </div>
 
         <script type="text/javascript">
+            if (tinymce.EditorManager.editors['product-teaser']) {
+                tinymce.EditorManager.editors['product-teaser'].destroy();
+            }
             tinymce.init({
                 selector: "dialog #product-teaser",
                 menubar: "false",
-                toolbar: "bold",
+                toolbar: "bold,italic,underline",
                 invalid_elements : "span,div,form,input,label,button,script,font",
-                entity_encoding : "raw"
+                entity_encoding : "raw",
+                setup: editor => {
+                    editor.on('blur', () => editor.save())
+                }
             });
         </script>
 
@@ -112,4 +118,28 @@
         </div>
     </form>
     <!-- END: edit -->
+
+    <!-- BEGIN: missing_product -->
+    <fieldset id="component-product-info" class="component-preview">
+        <div id="product-info-loading" class="onyx-loading htmx-indicator">
+            <img src="/share/images/loading.svg" alt="Loading..."/>
+        </div>
+
+        <legend>Product Information</legend>
+
+        <p>No product has been created for this page.</p>
+
+        <button
+            hx-get="/request/bo/component/x_product_add?node_id={GET.node_id}"
+            hx-target="#edit-dialog .content"
+            hx-indicator="#edit-loading"
+            hx-trigger="click"
+            hx-swap="innerHTML"
+            hx-on::before-request="openDialog()"
+            class="btn">
+            Add a product
+        </button>
+    </fieldset>
+    <!-- END: missing_product -->
+     
 <!-- END: content -->

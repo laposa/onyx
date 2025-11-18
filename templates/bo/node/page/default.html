@@ -67,7 +67,7 @@
 <!-- Categories/Tags -->
 <div 
 	id="relation-taxonomy"
-	hx-get="/request/bo/component/x_relation_taxonomy?relation=node&node_id={NODE.content}"
+	hx-get="/request/bo/component/x_relation_taxonomy?relation=node&node_id={GET.id}"
 	hx-trigger="load, refresh"
 	hx-indicator="#relation-taxonomy-loading">
 </div>

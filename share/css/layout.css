@@ -36,15 +36,15 @@ div.wrapper {
   flex-direction: column;
   position: relative;
   width: 100%;
-  max-width: 75%;
+  max-width: 50%;
   height: 100%;
   transition: 0.3s ease;
 }
 
 .bo-node-detail-wrapper {
   height: 100%;
-  width: 25%;
+  width: 50%;
   padding: 0 20px;
-	border-left: 1px solid #e0e0e0;
+	border-left: 2px solid var(--color-primary);
   position: relative;
 }

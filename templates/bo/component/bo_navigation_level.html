@@ -18,15 +18,17 @@
 <!-- END: item -->
 <!-- BEGIN: action_buttons -->
 <li class="action-buttons">
-    <a 
+    <button
+        hx-get="/request/bo/component/x_node_add?parent={GET.id}"
         class="button add" 
-        href="#" 
-        id="button-add-subpage" 
-        data-node-id="{GET.id}" 
-        data-node-group="page" 
-        onclick="addNode(event, '{GET.id}', 'page')">
-        Add New Node
-    </a>
+        id="button-add-subpage"
+        hx-trigger="click"
+        hx-target="#edit-dialog .content"
+        hx-indicator="#edit-loading"
+        hx-swap="innerHTML"
+        hx-on::before-request="openDialog()">
+        Add Node
+</button>
 </li>
 <!-- END: action_buttons -->
 <!-- END: content -->
