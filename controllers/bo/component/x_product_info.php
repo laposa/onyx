@@ -18,7 +18,7 @@ class Onyx_Controller_Bo_Component_X_Product_Info extends Onyx_Controller_Bo_Com
 
         // get details
         $product = new ecommerce_product();
-        $product_data = $product->productDetail($this->GET['node_id']);
+        $product_data = $product->productDetail($this->GET['product_id']);
 
         // save
         if (isset($_POST['save'])) {
@@ -31,9 +31,10 @@ class Onyx_Controller_Bo_Component_X_Product_Info extends Onyx_Controller_Bo_Com
             }
         }
 
-        if ($product_data) $this->tpl->assign('PRODUCT', $product_data);
-
-        parent::parseTemplate();
+        if ($product_data) {
+            $this->tpl->assign('PRODUCT', $product_data);
+            parent::parseTemplate();
+        } else $this->tpl->parse("content.missing_product");
 
         return true;
     }

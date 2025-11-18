@@ -1,51 +1,53 @@
 <!-- BEGIN: content -->
 {MESSAGES}
-<fieldset id="component-product-varieties" class="component-preview">
-    <div id="product-varieties-loading" class="onyx-loading htmx-indicator">
-        <img src="/share/images/loading.svg" alt="Loading..."/>
-    </div>
-        
-    <legend>Product Varieties</legend>
+    <!-- BEGIN: list -->
+    <fieldset id="component-product-varieties" class="component-preview">
+        <div id="product-varieties-loading" class="onyx-loading htmx-indicator">
+            <img src="/share/images/loading.svg" alt="Loading..."/>
+        </div>
+            
+        <legend>Product Varieties</legend>
 
-    <table cellspacing="0" class="product-variety-list">
-        <thead>
-            <tr>
-                <th>Product Code</th>
-                <th>Option Name</th>
-                <th>Stock</th>
-                <th>Weight Gross [{VARIETY_CONF.weight_units}]</th>
-                <th>Price Net</th>  
-            </tr>
-        </thead>
-        <tbody>
-            <!-- BEGIN: variety -->
-            <tr>
-                <td>
-                    <a class="title" target="_blank" href="/backoffice/products/variety/{VARIETY.id}/edit" title="Click to Edit Product Variety">{VARIETY.sku|htmlspecialchars}</a>
-                    <a class="button edit small" target="_blank" href="/backoffice/products/variety/{VARIETY.id}/edit" title="Click to Edit Product Variety"><span>Edit</span></a>
-                    {IMAGE}
-                </td>
-                <td class="{DISABLED}"><a class="title" id="ecommerce-product-variety-variety-name-id-{VARIETY.id}" href="/backoffice/products/variety/{VARIETY.id}/edit" title="Click to Edit Product Variety">{VARIETY.name|htmlspecialchars}</a><br /><div style="font-size: small">{VARIETY.description}</div></td>
-                <td>{VARIETY.stock}</td>
-                <td>{VARIETY.weight_gross}</td>
-                <td class="price">
-                    {VARIETY.price.value_net|money_format(%s)} {VARIETY.price.currency_code}
-                </td>
-            </tr>
-        <!-- END: variety -->
-        </tbody>
-    </table>
-    <div class="component-actions">
-        <button
-            hx-get="/request/bo/component/ecommerce/product_variety_add?id={GET.id}"
-            hx-target="#edit-dialog .content"
-            hx-indicator="#edit-loading"
-            hx-trigger="click"
-            hx-swap="innerHTML"
-            hx-on::before-request="openDialog()"
-            class="btn">
-            Add a New Variety
-        </button>
-    </div>
-</fieldset>
+        <table cellspacing="0" class="product-variety-list">
+            <thead>
+                <tr>
+                    <th>Product Code</th>
+                    <th>Option Name</th>
+                    <th>Stock</th>
+                    <th>Weight Gross [{VARIETY_CONF.weight_units}]</th>
+                    <th>Price Net</th>  
+                </tr>
+            </thead>
+            <tbody>
+                <!-- BEGIN: variety -->
+                <tr>
+                    <td>
+                        <a class="title" target="_blank" href="/backoffice/products/variety/{VARIETY.id}/edit" title="Click to Edit Product Variety">{VARIETY.sku|htmlspecialchars}</a>
+                        <a class="button edit small" target="_blank" href="/backoffice/products/variety/{VARIETY.id}/edit" title="Click to Edit Product Variety"><span>Edit</span></a>
+                        {IMAGE}
+                    </td>
+                    <td class="{DISABLED}"><a class="title" id="ecommerce-product-variety-variety-name-id-{VARIETY.id}" href="/backoffice/products/variety/{VARIETY.id}/edit" title="Click to Edit Product Variety">{VARIETY.name|htmlspecialchars}</a><br /><div style="font-size: small">{VARIETY.description}</div></td>
+                    <td>{VARIETY.stock}</td>
+                    <td>{VARIETY.weight_gross}</td>
+                    <td class="price">
+                        {VARIETY.price.value_net|money_format(%s)} {VARIETY.price.currency_code}
+                    </td>
+                </tr>
+            <!-- END: variety -->
+            </tbody>
+        </table>
+        <div class="component-actions">
+            <button
+                hx-get="/request/bo/component/ecommerce/product_variety_add?id={GET.id}"
+                hx-target="#edit-dialog .content"
+                hx-indicator="#edit-loading"
+                hx-trigger="click"
+                hx-swap="innerHTML"
+                hx-on::before-request="openDialog()"
+                class="btn">
+                Add a New Variety
+            </button>
+        </div>
+    </fieldset>
+    <!-- END: list -->
 <!-- END: content -->

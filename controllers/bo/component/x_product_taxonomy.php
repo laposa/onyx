@@ -24,6 +24,10 @@ class Onyx_Controller_Bo_Component_X_Product_Taxonomy extends Onyx_Controller_Bo
         $product = new ecommerce_product();
         $product_data = $product->productDetail($this->GET['node_id']);
 
+        if (!$product_data) {
+            return true;
+        }
+
         /**
          * initialise
          */

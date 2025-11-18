@@ -9,8 +9,7 @@
         <!-- END: backend_wrapper_before -->
         <!-- BEGIN: fe_layout_property -->
         <div class="onyx-edit-layout">
-            <a class="onyx-edit-layout" title="{NODE.node_group} properties" href="#{NODE.id}"
-                onclick="openEdit('/popup/properties/{NODE.id}/orig{_SESSION.orig}'); return false;"
+            <a class="onyx-edit-layout" title="{NODE.node_group} properties" href="/backoffice/content/{NODE.id}" target="_blank"
                 onmouseover="$('#node-id-{NODE.id}').addClass('onyx-highlight-edit');"
                 onmouseout="$('#node-id-{NODE.id}').removeClass('onyx-highlight-edit');">
                 <span>{NODE.node_group} properties</span>
@@ -49,8 +48,7 @@
         <div class="onyx-edit-page">
             <div class="wrapper">
                 <a class="onyx-edit-{NODE.node_controller} verbose"
-                    title="Page properties (Controller: {NODE.node_controller}, ID: {NODE.id})" href="#{NODE.id}"
-                    onclick="openEdit('/popup/properties/{NODE.id}/orig{_SESSION.orig}'); return false;"
+                    title="Page properties (Controller: {NODE.node_controller}, ID: {NODE.id})" href="/backoffice/content/{NODE.id}" target="_blank"
                     onmouseover="$('#node-id-{NODE.id}').addClass('onyx-highlight-edit');"
                     onmouseout="$('#node-id-{NODE.id}').removeClass('onyx-highlight-edit');">
                     <span>Page {NODE.title|htmlspecialchars} ({NODE.node_controller})</span>
@@ -69,8 +67,8 @@
             <div class="wrapper">
                 <a class="onyx-edit onyx-edit-{NODE.node_controller|str_replace('_','-',%s)}"
                     title="Edit {NODE.node_group} {NODE.title|htmlspecialchars} ({NODE.node_controller})"
-                    href="/backoffice/pages/{NODE.id}"
-                    onclick="openEdit('/popup/edit/{NODE.node_group}/{NODE.id}/orig{_SESSION.orig}'); return false;"
+                    href="/backoffice/content/{NODE.id}"
+                    target="_blank"
                     onmouseover="$('#node-id-{NODE.id}').addClass('onyx-highlight-edit');"
                     onmouseout="$('#node-id-{NODE.id}').removeClass('onyx-highlight-edit');">
                     <span>Edit {NODE.node_controller}</span>

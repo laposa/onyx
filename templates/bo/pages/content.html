@@ -21,16 +21,34 @@
 
 <div class="bo-node-detail-wrapper">
     <div id="detail-loading" class="onyx-loading htmx-indicator">
+        <img src="/share/images/loading.svg" alt="Loading..."/>
     </div>
 
     <div 
         id="node-properties-edit"
         class="node-info" 
         hx-swap="innerHTML"
+        hx-trigger="loadDetail"
         hx-indicator="#detail-loading"
-        hx-get="/request/bo/component/node_info"
-        hx-trigger="loadDetail from:body"
-        hx-vals="js:{id: event.detail.nodeId}">
+        hx-get="/request/bo/component/node_edit">
     </div>
 </div>
+
+<script>
+    /*
+        Workaround for loading node_edit. When we were using hx-vals, the request was being fired with each child hx component
+        nothing worked, tried 'consume' keyword on trigger, targetting the source of the event, etc.
+    */
+    document.getElementById('bo-navigation').addEventListener('loadDetail', function(event) {
+        console.log('fayah');
+        if (event.detail && event.detail.nodeId) {
+            // Manually trigger the HTMX request with the node ID
+            htmx.ajax('GET', '/request/bo/component/node_edit', {
+                target: '#node-properties-edit',
+                values: { id: event.detail.nodeId },
+                indicator: '#detail-loading'
+            });
+        }
+    });
+</script>
 <!-- END: content -->

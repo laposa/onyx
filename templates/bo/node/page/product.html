@@ -13,7 +13,7 @@
 
 <!-- Product Info -->
 <div id="product-info"
-	hx-get="/request/bo/component/x_product_info?node_id={NODE.content}"
+	hx-get="/request/bo/component/x_product_info?node_id={GET.id}&product_id={NODE.content}"
 	hx-trigger="load, refresh"
 	hx-indicator="#product-info-loading">
 	<!-- <div id="product-info-loading" class="onyx-loading htmx-indicator">
