@@ -95,7 +95,7 @@ if (ONYX_ECOMMERCE) {
 
     $templates_info['page']['recipe'] = ['title' => 'Recipe', 'description'=>'', 'visibility'=>false];
     $templates_info['page']['store'] = ['title' => 'Store', 'description'=>'', 'visibility'=>false];
-    $templates_info['page']['product'] = ['title' => 'Product', 'description'=>'', 'visibility'=>false];
+    $templates_info['page']['product'] = ['title' => 'Product', 'description'=>'', 'visibility'=>true];
     $templates_info['page']['product_browse'] = ['title' => 'Products Browse', 'description'=>'', 'visibility'=>true];
     
 }

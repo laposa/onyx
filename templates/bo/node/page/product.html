@@ -117,6 +117,16 @@
 	hx-indicator="#product-taxonomy-loading">
 </div>
 
+<!-- Position -->
+<div id="node-position"
+	hx-get="/request/bo/component/x_node_position?node_id={GET.id}"
+	hx-trigger="load, refresh"
+	hx-indicator="#node-position-loading">
+	<!-- <div id="node-position-loading" class="onyx-loading htmx-indicator">
+		<img src="/share/images/loading.svg" alt="Loading..."/>
+	</div> -->
+</div>
+
 <!-- Other data -->
 <div id="product-other-data"
 	hx-get="/request/bo/component/x_product_other_data?node_id={NODE.content}"
@@ -135,6 +145,4 @@
 		<img src="/share/images/loading.svg" alt="Loading..."/>
 	</div> -->
 </div>
-
-{FILE "bo/node/item_position.html"}
 <!-- END: content -->
