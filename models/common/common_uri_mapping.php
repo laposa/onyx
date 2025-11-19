@@ -424,7 +424,7 @@ ALTER TABLE common_uri_mapping ADD UNIQUE (public_uri);
              * delete previously created redirects for this new URI path
              */
              
-            $sql = "DELETE FROM common_uri_mapping WHERE public_uri = '".$new_uri."' AND type = '301'";
+            $sql = "DELETE FROM common_uri_mapping WHERE public_uri LIKE '".$new_uri."%' AND type = '301'";
             if (!is_array($this->executeSql($sql))) msg("Couldn't delete old redirects", 'error');
             
             /**
@@ -441,7 +441,7 @@ ALTER TABLE common_uri_mapping ADD UNIQUE (public_uri);
                 
                 // insert 301 redirect, not for pages moved to bin
                 if ($node_data['parent'] != $this->conf['bin_id']) {
-                    if ($this->insertRedirect($old_uri, $node_data['id'])) msg("Created 301 redirect for previous path $old_uri");
+                    if ($this->insertRedirects($old_uri, $new_uri, $node_data['id'])) msg("Created 301 redirects for previous path $old_uri");
                     else msg("Redirect generator for previous path $old_uri failed", 'error');
                 }
                 // the update was successful, altough some errors could happen
@@ -459,7 +459,7 @@ ALTER TABLE common_uri_mapping ADD UNIQUE (public_uri);
         
         }
     }
-    
+
     /**
      * insert new path
      */
@@ -477,28 +477,37 @@ ALTER TABLE common_uri_mapping ADD UNIQUE (public_uri);
     }
    
     /**
-     * insert redirect
+     * insert redirects
      *
-     * @param string path
+     * @param string old_path
+     * @param string new_path
      * @param int target_node_id
      * @param string type, optional, 301 default
      * @return int|bool
      */
+    public function insertRedirects($old_path, $new_path, $target_node_id, $type = '301') {
+        require_once('models/common/common_node.php');
+        $node = new common_node();
 
-    public function insertRedirect($path, $target_node_id, $type = '301') {
-    
-        if (trim($path) == '') return false;
-        if (!is_numeric($target_node_id)) return false;
+        $records = $node->getChildTree($target_node_id);
+        if (!is_array($records)) {
+            return false;
+        }
 
-        $item = array();
-        $item['node_id'] = $target_node_id;
-        $item['public_uri'] = $path;
-        $item['type'] = $type;
+        $insertData = [];
+        foreach ($records as $record) {
+            if ($record['node_group'] != 'page') continue;
 
-        if ($id = $this->insert($item)) return $id;
-        else return false;
+            $redirect = preg_replace("/^" . preg_quote($new_path, '/') . "/", $old_path, $record['public_uri']);
+            $insertData[] = "'" . implode("','", [$record['id'], $redirect, $type]) . "'";
+        }
 
-    }
+        $insert = "(" . implode("), (", $insertData) . ")";
+
+        $sql = "INSERT INTO common_uri_mapping (node_id, public_uri, type) VALUES " . $insert . ";";
+        
+        return $this->executeSql($sql);
+    }   
 
     /**
      * clean title

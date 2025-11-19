@@ -683,7 +683,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
             $node_data_full = $this->detail($node_data['id']);
             if ($node_data_full['node_group'] == 'page') {
                 // update existing or insert a new one
-                if (!$this->updateSingleURI($node_data)) $this->insertNewMappingURI($node_data);
+                if (!$this->updateSingleURI($node_data_full)) $this->insertNewMappingURI($node_data_full);
             }
             return true;
         } else {
@@ -733,7 +733,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
             $node_data_full = $this->detail($node_data['id']);
             if ($node_data_full['node_group'] == 'page') {
                     // update existing or insert a new one
-                    if (!$this->updateSingleURI($node_data)) $this->insertNewMappingURI($node_data);
+                    if (!$this->updateSingleURI($node_data_full)) $this->insertNewMappingURI($node_data_full);
             }
             return true;
         } else {
@@ -1212,6 +1212,45 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
         }
         
         return $tree;
+    }
+
+    function getChildTree($id, $publish = 1, $node_group = ['site', 'container', 'page']) {
+        $sql = "
+            WITH RECURSIVE node_tree AS (
+                SELECT 
+                    id, parent, title, page_title, node_group, node_controller, content, display_in_menu, publish, priority, strapline, display_permission, modified, require_login
+                FROM 
+                    common_node
+                WHERE 
+                    id = $id
+                    AND publish >= $publish
+
+                UNION 
+
+                SELECT 
+                    cn.id, cn.parent, cn.title, cn.page_title, cn.node_group, cn.node_controller, cn.content, cn.display_in_menu, cn.publish, cn.priority, cn.strapline, cn.display_permission, cn.modified, cn.require_login
+                FROM 
+                    common_node cn
+                INNER JOIN 
+                    node_tree nt ON cn.parent = nt.id
+                WHERE 
+                    cn.publish >= $publish
+                    AND cn.node_group IN ('". implode("','", $node_group) ."')
+            )
+
+            SELECT DISTINCT 
+                nt.id, nt.parent, nt.title as name, nt.page_title as title, nt.node_group, nt.node_controller, nt.content, nt.display_in_menu, nt.publish, nt.priority, nt.strapline, nt.display_permission, m.public_uri
+            FROM 
+                node_tree nt
+            LEFT JOIN
+                common_uri_mapping m ON nt.id = m.node_id AND m.type = 'generic'
+            ORDER BY 
+                nt.id ASC
+        ";
+
+        $records = $this->executeSql($sql);
+
+        return $records;
     }
     
     /**
