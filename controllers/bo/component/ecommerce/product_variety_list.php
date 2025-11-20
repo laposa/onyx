@@ -28,7 +28,7 @@ class Onyx_Controller_Bo_Component_Ecommerce_Product_Variety_List extends Onyx_C
         
         $product = $Product->getProductDetail($this->GET['id']);
 
-        if (!$product_data) {
+        if (!$product) {
             return false;
         }
         
