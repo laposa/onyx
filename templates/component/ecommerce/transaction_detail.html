@@ -1,18 +1,38 @@
 <!-- BEGIN: content -->
-{MESSAGES}
 <div class="transaction-detail">
     <!-- BEGIN: transaction -->
     <table>
-        <caption>Transaction #{TRANSACTION.id}</caption>
+        <h3>Transaction #{TRANSACTION.id}</h3>
+        <!-- BEGIN: default -->
         <tbody>
             <tr><td>Created</td><td>{TRANSACTION.created}</td></tr>
-            <tr><td>transId</td><td class="money">{TRANSACTION.pg_data.transId}</td></tr>
-            <tr><td>transStatus</td><td class="money">{TRANSACTION.pg_data.transStatus}</td></tr>
-            <tr><td>cardType</td><td class="money">{TRANSACTION.pg_data.cardType}</td></tr>
-            <tr><td>authAmountString</td><td class="money">{TRANSACTION.pg_data.authAmountString}</td></tr>
+            <tr><td>transId</td><td class="money">{TRANSACTION.pg_data.VPSTxId}</td></tr>
+            <tr><td>transStatus</td><td class="money">{TRANSACTION.pg_data.StatusDetail}</td></tr>
+            <tr><td>cardType</td><td class="money">{TRANSACTION.pg_data.CardType}</td></tr>
+            <tr><td>authAmountString</td><td class="money">{TRANSACTION.pg_data.Amount}</td></tr>
         </tbody>
+        <!-- END: default -->
+        <!-- BEGIN: stripe -->
+        <tbody>
+            <tr><td>Created</td><td>{TRANSACTION.created}</td></tr>
+            <tr><td>id</td><td class="money"><abbr title="{TRANSACTION.pg_data.id}" onclick="navigator.clipboard.writeText('{TRANSACTION.pg_data.id}')">{TRANSACTION.pg_data.id_truncated}</abbr></td></tr>
+            <tr><td>status</td><td class="money">{TRANSACTION.pg_data.status}</td></tr>
+            <tr><td>payment_status</td><td class="money">{TRANSACTION.pg_data.payment_status}</td></tr>
+            <tr><td>amount_total</td><td class="money">{TRANSACTION.pg_data.amount_total|money_format(%s)}</td></tr>
+        </tbody>
+        <!-- END: stripe -->
     </table>
     <!-- END: transaction -->
+
+    <!-- BEGIN: purchase_order -->
+    <table>
+        <h3>Purchase Order Number</h3>
+        <tbody>
+            <tr><td>Uploaded</td><td>{ORDER.created}</td></tr>
+            <tr><td>File</td><td><a href="/download/{ORDER.other_data.po_number}"><u>Download Link</u></a></td></tr>
+        </tbody>
+    </table>
+    <!-- END: purchase_order -->
 
 </div>
 <!-- END: content -->
