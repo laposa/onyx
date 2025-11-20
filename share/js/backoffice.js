@@ -29,10 +29,24 @@ function refreshComponent(triggerButton) {
 }
 
 document.addEventListener('htmx:afterRequest', (event) => {
-    if (event.target.id == 'saveAndClose') {
+    if (event.target.id == 'saveComponent') {
         closeDialog();
         refreshComponent(event.target);
     }
+
+    if (event.target.id == 'addNode') {
+        closeDialog();
+        navId = event.target.getAttribute('data-nav-id');
+        htmx.trigger('.nav-list-' + navId, 'navRefresh');
+        //refresh content+page list and navigation
+    }
+
+    if (event.target.id == 'addProduct') {
+        closeDialog();
+        //refresh product page
+    }
+
+    // TODO: move component - refresh nav?
 });
  
 function openEdit(url, el, ajax) {

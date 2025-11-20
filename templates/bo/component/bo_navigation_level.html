@@ -16,8 +16,6 @@
     <span class="item-label">{ITEM.title|htmlspecialchars}</span>
 </li>
 <!-- END: item -->
-<!-- BEGIN: action_buttons -->
-<li class="action-buttons">
     <button
         hx-get="/request/bo/component/x_node_add?parent={GET.id}"
         class="button add" 
@@ -29,6 +27,4 @@
         hx-on::before-request="openDialog()">
         Add Node
 </button>
-</li>
-<!-- END: action_buttons -->
 <!-- END: content -->

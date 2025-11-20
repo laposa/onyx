@@ -92,12 +92,15 @@
     }
   }
 
-  .action-buttons {
-    padding: 10px;
-    text-align: center;
-
-    a {
-      width: 100%;
+  button {
+    display: none;
+    margin: 10px;
+    width: calc(100% - 20px);
+  }
+  
+  &:nth-last-child(1 of :not(.empty)) {
+    button {
+      display: block;
     }
   }
     
