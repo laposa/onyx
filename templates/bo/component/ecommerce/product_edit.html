@@ -68,12 +68,7 @@
                                                 </div>
                                             </fieldset>
 
-                                            <fieldset>
-                                                <legend>Product Varieties</legend>
-                                                <div class="row">
-                                                    {ONYX_REQUEST_detail #bo/component/ecommerce/product_variety_list~id=GET.id~}
-                                                </div>
-                                            </fieldset>
+                                            {ONYX_REQUEST_detail #bo/component/ecommerce/product_variety_list~id=GET.id~}
 
                                             <fieldset>
                                             {ONYX_REQUEST_rt #bo/component/relation_taxonomy~relation=product:id=GET.id~}
