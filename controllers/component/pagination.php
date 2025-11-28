@@ -6,8 +6,8 @@
  */
 
 class Onyx_Controller_Component_Pagination extends Onyx_Controller {
+    public $params_http_query = null;
 
-    public $params_http_query;
     /**
      * main action
      */
@@ -47,7 +47,7 @@ class Onyx_Controller_Component_Pagination extends Onyx_Controller {
         else $option_show_all = 1;
         if (is_numeric($this->GET['option_per_page'] ?? null)) $option_per_page = $this->GET['option_per_page'];
         else $option_per_page = 0;
-        
+
         /**
          * process only when necessary
          */
@@ -152,7 +152,7 @@ class Onyx_Controller_Component_Pagination extends Onyx_Controller {
     
     public function appendGetParameters($limit = '') {
         
-        if (!property_exists($this, 'params_http_query')) $this->params_http_query = $this->getParamsHttpQuery();
+        if ($this->params_http_query === null) $this->params_http_query = $this->getParamsHttpQuery();
         
         if (!$this->params_http_query) return $limit;
         
