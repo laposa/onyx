@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2005-2024 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2005-2025 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -408,57 +408,12 @@ class Onyx_Bootstrap {
             $this->processAction($request);
             $dataToCache = ['output_headers' => $this->headers, 'output_body' => $this->getOutput()];
 
-            // update index immediately if enabled in the configuration,
-            // but not when search_query is submitted (don't index search results)
-            // and not when forward "to" is provided
-            // TODO: canonise the request before submitting for indexing
-            if (ONYX_ALLOW_SEARCH_INDEX_AUTOUPDATE && !array_key_exists('search_query', $_GET) && !array_key_exists('to', $_GET)) {
-                $this->indexContent($_GET['translate'], $this->output);
-            }
-
             return $dataToCache;
         });
 
         $this->headers = $data['output_headers'];
         $this->output = $data['output_body'];
         $this->restoreHeaders();
-    }
-
-    /**
-     * Index - consider removal
-     *
-     * @param string $uri
-     * @param string $htmlString
-     */
-    public function indexContent($uri, $htmlString)
-    {
-        return false;
-
-        if (is_dir($index_location)) {
-            // Open existing index
-            try {
-                $index = Zend_Search_Lucene::open($index_location);
-            } catch (Exception $e) {
-                // Create index
-                try {
-                    $index = Zend_Search_Lucene::create($index_location);
-                } catch (Exception $e) {
-                    $index = false;
-                }
-            }
-        }
-
-        if ($index) {
-            // find and remove pages with the same URI
-            $hits = $index->find("uri:" . $uri);
-            foreach ($hits as $hit) $index->delete($hit);
-
-            $doc = Zend_Search_Lucene_Document_Html::loadHTML($htmlString, true);
-            $doc->addField(Zend_Search_Lucene_Field::Keyword('uri', $uri));
-
-            $index->addDocument($doc);
-            $index->commit();
-        }
     }
 
     /**
