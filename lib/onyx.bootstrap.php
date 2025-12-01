@@ -404,30 +404,38 @@ class Onyx_Bootstrap {
             return;
         }
 
-        $data = $this->cache->get($id, function (ItemInterface $item) use ($request) {
+        $data = $this->cache->getItem($id);
+        if (!$data->isHit()) {
             $this->processAction($request);
-            $dataToCache = ['output_headers' => $this->headers, 'output_body' => $this->getOutput()];
-
-            return $dataToCache;
-        });
+            $status = http_response_code();
+            $data = ['output_headers' => $this->headers, 'output_body' => $this->getOutput(), 'output_status' => $status];
+          
+            // cache successful responses, redirects and 404s
+            if (($status >= 200 && $status < 400) || $status == 404) {
+                $this->cache->save($this->cache->getItem($id)->set($data));
+            }
+        } else {
+            $data = $data->get();
+            $this->restoreHeadersAndStatus($data);
+        }
 
         $this->headers = $data['output_headers'];
         $this->output = $data['output_body'];
-        $this->restoreHeaders();
     }
 
     /**
-     * restoreHeaders
+     * restoreHeadersAndStatus
      * will resend original headers for cached pages
      */
-    public function restoreHeaders()
+    public function restoreHeadersAndStatus($data)
     {
-        if (is_array($this->headers)) {
-            foreach ($this->headers as $header) {
+        if (is_array($data['output_headers'])) {
+            foreach ($data['output_headers'] as $header) {
                 header($header);
             }
         }
 
+        http_response_code($data['output_status']);
         header("X-Onyx-From-Cache: 1");
     }
 
