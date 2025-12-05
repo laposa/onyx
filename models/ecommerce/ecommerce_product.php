@@ -487,10 +487,8 @@ CREATE TABLE ecommerce_product (
             if (isset($filter['stock']) && is_numeric($filter['stock']) && $filter['stock'] >= 0) $add_to_where .= " AND variety.stock < {$filter['stock']}";
 
             // publish filter and deprecated disable/enabled option
-            if(isset($filter['publish']) && isset($filter['disabled'])) {
-                if ($filter['publish'] === 0 || $filter['disabled'] == 'disabled') $add_to_where .= " AND product.publish = 0";
-                else if ($filter['publish'] === 1  || $filter['disabled'] == 'enabled') $add_to_where .= " AND product.publish = 1 AND variety.publish = 1";
-            }
+            if ((isset($filter['publish']) && $filter['publish'] === 0) || (isset($filter['disabled']) && $filter['disabled'] == 'disabled')) $add_to_where .= " AND product.publish = 0";
+            else if ($filter['publish'] === 1  || $filter['disabled'] == 'enabled') $add_to_where .= " AND product.publish = 1 AND variety.publish = 1";
 
             // special offer
             if (is_numeric($filter['offer_group_id'] ?? null)) {
@@ -623,6 +621,7 @@ variety.stock, price.date, product.publish, product.modified, variety.sku, varie
                 if(is_array($homepage)) {
                     $records[$k]['node_id'] = $homepage['id'];
                     $records[$k]['node_publish'] = $homepage['publish'];
+                    $records[$k]['node_priority'] = $homepage['priority'];
                 }
             }
 

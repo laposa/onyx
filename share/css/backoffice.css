@@ -7,18 +7,18 @@
  *
  */
 
-@import url(/share/css/components/component_preview.css);
-@import url(/share/css/components/file_list.css);
-@import url(/share/css/components/edit_dialog.css);
-@import url(/share/css/components/node_info.css);
-@import url(/share/css/backoffice_icons.css);
-@import url(/share/css/simple-tree.css);
-@import url(/share/themes/jquery-ui/onyx/jquery-ui.css);
-@import 'search.css';
-@import 'template.css';
-@import 'layout.css';
-@import 'navigation.css';
-@import 'components.css';
+ @import url(/share/css/components/component_preview.css);
+ @import url(/share/css/components/file_list.css);
+ @import url(/share/css/components/edit_dialog.css);
+ @import url(/share/css/components/node_info.css);
+ @import url(/share/css/backoffice_icons.css);
+ @import url(/share/css/simple-tree.css);
+ @import url(/share/themes/jquery-ui/onyx/jquery-ui.css);
+ @import url(/share/css/components/node_explorer.css);
+ @import 'search.css';
+ @import 'template.css';
+ @import 'layout.css';
+ @import 'components.css';
 
 /**
  * Fonts

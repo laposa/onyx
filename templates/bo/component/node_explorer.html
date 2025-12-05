@@ -186,7 +186,7 @@
     <ul 
         id="navigation-level-{LEVEL}"
         class="navigation-list nav-list-{ROOT}"
-        hx-get="/request/bo/component/bo_navigation_level~id={ROOT}:active={ACTIVE_PAGE}~"
+        hx-get="/request/bo/component/node_explorer_level~id={ROOT}:active={ACTIVE_PAGE}~"
         hx-trigger="load, navRefresh"
         hx-swap="innerHTML"
         hx-on::after-request="initializeDragAndDrop(); scrollToActive(this);"
