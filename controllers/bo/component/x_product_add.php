@@ -55,6 +55,7 @@ class Onyx_Controller_Bo_Component_X_Product_Add extends Onyx_Controller_Bo_Comp
         }
 
         $this->tpl->assign('PRODUCT', $product_data);
+        $this->tpl->assign("VARIETY_CONF", $product_variety->conf);
 
         return true;
     }

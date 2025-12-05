@@ -83,18 +83,23 @@ dialog.edit-dialog {
 		label {
 			font-size: 12px;
 			color: var(--color-text-grey);
+
+			&:has(+ .error) {
+				color: var(--color-danger);
+			}
 		}
 
 		input, textarea {
-			border-radius: 5px;
+			width: 100%;
+			min-width: 49%;
+			font-weight: normal;
 			color: var(--color-text);
 			border: 1px solid #ccc;
+			border-radius: 5px;
 			padding: 12px 10px 10px 12px;
 			font-size: 14px;
 			transition: 0.3s ease;
 			outline: none;
-			font-weight: normal;
-			min-width: 49%;
 
 			&:placeholder {
 				font-weight: normal;
@@ -186,6 +191,13 @@ dialog.edit-dialog {
 			padding: 0 5px;
 			background-color: white;
 			z-index: 20;
+
+			&.error {
+				display: none!important;
+				/* left: auto;
+				right: 7px;
+				color: var(--color-danger); */
+			}
 		}
 	}
 

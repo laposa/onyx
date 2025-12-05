@@ -12,9 +12,9 @@
     </div>
 
     <div 
-        id="bo-navigation" 
-        class="bo-navigation" 
-        hx-get="/request/bo/component/bo_navigation~id={GET.id}~" 
+        id="node-explorer" 
+        class="node-explorer" 
+        hx-get="/request/bo/component/node_explorer~id={GET.id}~" 
         hx-trigger="load">
     </div>
 </div>
@@ -37,10 +37,9 @@
 <script>
     /*
         Workaround for loading node_edit. When we were using hx-vals, the request was being fired with each child hx component
-        nothing worked, tried 'consume' keyword on trigger, targetting the source of the event, etc.
+        - nothing worked, tried 'consume' keyword on trigger, targetting the source of the event, etc.
     */
-    document.getElementById('bo-navigation').addEventListener('loadDetail', function(event) {
-        console.log('fayah');
+    document.getElementById('node-explorer').addEventListener('loadDetail', function(event) {
         if (event.detail && event.detail.nodeId) {
             // Manually trigger the HTMX request with the node ID
             htmx.ajax('GET', '/request/bo/component/node_edit', {
