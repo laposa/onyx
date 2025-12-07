@@ -1,6 +1,12 @@
 <!-- BEGIN: content -->
 {MESSAGES}
-<form id="product-add-form">
+<form 
+    id="product-add-form"
+    hx-indicator="#edit-loading"
+    hx-post="/request/bo/component/x_product_add?node_id={GET.node_id}"
+    hx-validate="true"
+    data-action="addProduct"
+>
     <h2>Add a New Product</h2>
 
     <div class="row text">
@@ -29,23 +35,23 @@
 
     <div class="row text">
         <label for="product-variety-weight_gross">Weight Gross [{VARIETY_CONF.weight_units}]</label>
-        <input type="text"name="product[variety][weight_gross]" id="product-variety-weight_gross" required/> 
+        <input type="number" name="product[variety][weight_gross]" id="product-variety-weight_gross" required/> 
         <p>(Used for postage. Zero weight is free postage.)</p>
     </div>
 
     <div class="row text">
         <label for="product-varitety-stock">Stock</label>
-        <input type="text" class="digits" name="product[variety][stock]" id="product-varitety-stock" required/>
+        <input type="number" class="digits" name="product[variety][stock]" id="product-varitety-stock" required/>
     </div>
 
     <div class="row text">
         <label>Price Value excluding VAT in {GLOBAL_DEFAULT_CURRENCY}</label>
-        <input id="price_without_vat" type="text" name="product[variety][price][value]" value="{PRICE.variety.price.value}"/>
+        <input id="price_without_vat" type="number" name="product[variety][price][value]" value="{PRICE.variety.price.value}" required/>
     </div>
 
     <div class="row text">
         <label>Price Value including VAT in {GLOBAL_DEFAULT_CURRENCY}</label>
-        <input id="price_with_vat" type="text"/>
+        <input id="price_with_vat" type="number"/>
     </div>
    
     <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
@@ -54,15 +60,8 @@
 
     <div class="edit-actions">
         <!-- TODO: fix refresh - other listener than saveAndClose -->
-        <button 
-            hx-indicator="#edit-loading"
-            hx-post="/request/bo/component/x_product_add?node_id={GET.node_id}"
-            class="btn" 
-            type="submit" 
-            name="save" 
-            value="save" 
-            id="saveAndClose"
-        >
+        <!-- TODO: move all posts to form in order to work with validations and such? can this be problem for components that have multiple buttons ? are there any? -->
+        <button class="btn" type="submit" name="save" value="save">
             Add & Close
         </button>
 

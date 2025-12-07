@@ -33,6 +33,22 @@ document.addEventListener('htmx:afterRequest', (event) => {
         closeDialog();
         refreshComponent(event.target);
     }
+
+    if (event.target.id == 'addNode') {
+        closeDialog();
+        navId = event.target.getAttribute('data-nav-id');
+        htmx.trigger('.nav-list-' + navId, 'navRefresh');
+        //refresh content+page list and navigation
+    }
+
+    if (event.target.dataset.action == 'addProduct') {
+        closeDialog();
+        if(document.getElementById('product-info')) {
+            htmx.trigger('#product-info', 'refresh');
+        }
+    }
+
+    // TODO: move component - refresh nav?
 });
  
 function openEdit(url, el, ajax) {
