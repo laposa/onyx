@@ -5,7 +5,7 @@
  *
  */
 
-class Onyx_Controller_Bo_Component_Bo_Navigation_Level extends Onyx_Controller {
+class Onyx_Controller_Bo_Component_Node_Explorer_Level extends Onyx_Controller {
 
     public $Node;
 

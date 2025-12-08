@@ -4,7 +4,7 @@
     id="navigation-node-{ITEM.id}"
     class="navigation-list-item {ACTIVE} {HAS_CHILDREN} {PUBLISHED}"
     title="{ITEM.node_group}/{ITEM.node_controller}" 
-    hx-get="/request/bo/component/bo_navigation_level~id={ITEM.id}:active={ITEM.id}~"
+    hx-get="/request/bo/component/node_explorer_level~id={ITEM.id}:active={ITEM.id}~"
     hx-trigger="click"
     hx-target="#navigation-level-{TARGET}"
     hx-indicator="#navigation-level-{TARGET}"
@@ -18,15 +18,17 @@
 <!-- END: item -->
 <!-- BEGIN: action_buttons -->
 <li class="action-buttons">
-    <a 
+    <button
+        hx-get="/request/bo/component/x_node_add?parent={GET.id}"
         class="button add" 
-        href="#" 
-        id="button-add-subpage" 
-        data-node-id="{GET.id}" 
-        data-node-group="page" 
-        onclick="addNode(event, '{GET.id}', 'page')">
-        Add New Node
-    </a>
+        id="button-add-subpage"
+        hx-trigger="click"
+        hx-target="#edit-dialog .content"
+        hx-indicator="#edit-loading"
+        hx-swap="innerHTML"
+        hx-on::before-request="openDialog()">
+        Add Node
+</button>
 </li>
 <!-- END: action_buttons -->
 <!-- END: content -->

@@ -24,7 +24,7 @@
 			<h5>These items will be moved to bin aswell:</h5>
 			<ul>
 			<!-- BEGIN: item -->
-					<li><a href="/backoffice/pages/edit/{CHILD.id}">{CHILD.title|htmlspecialchars} <sup>{CHILD.node_group|htmlspecialchars}/{CHILD.node_controller|htmlspecialchars}</sup></a></li>
+					<li><a href="/backoffice/content/edit/{CHILD.id}">{CHILD.title|htmlspecialchars} <sup>{CHILD.node_group|htmlspecialchars}/{CHILD.node_controller|htmlspecialchars}</sup></a></li>
 			<!-- END: item -->
 			</ul>
 	<!-- END:children -->
@@ -33,7 +33,7 @@
 			<h5>Linked as shared content</h5>
 			<ul>
 			<!-- BEGIN: item -->
-					<li><a href="/backoffice/pages/{LINKED.id}"> {LINKED.title|htmlspecialchars} <sup>{LINKED.node_group|htmlspecialchars}/{LINKED.node_controller|htmlspecialchars}</sup></a></li>
+					<li><a href="/backoffice/content/{LINKED.id}"> {LINKED.title|htmlspecialchars} <sup>{LINKED.node_group|htmlspecialchars}/{LINKED.node_controller|htmlspecialchars}</sup></a></li>
 			<!-- END: item -->
 			</ul>
 	<!-- END:linked -->

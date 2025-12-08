@@ -34,6 +34,10 @@ function addNewTaxonomy() {
 
         <legend>Related Categories</legend>
 
+        <!-- BEGIN: empty -->
+            <p>No related categories have been assigned yet.</p>
+        <!-- END: empty -->
+
         <ul class="category-list">
             <!-- BEGIN:ptn -->
 
@@ -47,7 +51,7 @@ function addNewTaxonomy() {
 
         <div class="component-actions">
             <button
-                hx-get="/request/bo/component/relation_taxonomy?&relation=node&edit=true&node_id={GET.node_id}"
+                hx-get="/request/bo/component/x_relation_taxonomy?&relation=node&edit=true&node_id={GET.node_id}"
                 hx-target="#edit-dialog .content"
                 hx-indicator="#edit-loading"
                 hx-trigger="click"
@@ -64,8 +68,13 @@ function addNewTaxonomy() {
     <form id="relation-taxonomy-edit">
         <h2>Edit Related Categories</h2>
 
+        <!-- BEGIN: empty -->
+            <p>No related categories have been assigned yet.</p>
+        <!-- END: empty -->
+
         <div class="row">
             <ul class="category-list" id="rt-select">
+
                 <!-- BEGIN: ptn -->
                 <li {CURRENT.class}>
                     <div class="category-item">
@@ -85,7 +94,7 @@ function addNewTaxonomy() {
                 <li>
                     <div class="category-item">
                         <input type="hidden" name="relation_taxonomy[]" value="__ID__" />
-                        <div class="breadcrumb"><a href="/backoffice/pages/__ID__">__TITLE__</a></div>
+                        <div class="breadcrumb"><a href="/backoffice/content/__ID__">__TITLE__</a></div>
                         <a class="onyx-delete onyx-icon" href="#" onclick="this.parentNode.parentNode.parentNode.removeChild(this.parentNode.parentNode)"></a>
                     </div>
                 </li>

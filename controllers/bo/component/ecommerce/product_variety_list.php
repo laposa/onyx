@@ -27,6 +27,10 @@ class Onyx_Controller_Bo_Component_Ecommerce_Product_Variety_List extends Onyx_C
         $Product = new ecommerce_product();
         
         $product = $Product->getProductDetail($this->GET['id']);
+
+        if (!$product) {
+            return false;
+        }
         
         if (is_array($product['variety'])) {
             foreach ($product['variety'] as $variety) {
@@ -36,11 +40,13 @@ class Onyx_Controller_Bo_Component_Ecommerce_Product_Variety_List extends Onyx_C
                 $Image = new Onyx_Request("component/image&relation=product_variety&node_id={$variety['id']}");
                 $this->tpl->assign('IMAGE', $Image->getContent());
                 $this->tpl->assign('VARIETY', $variety);
-                $this->tpl->parse('content.variety');
+                $this->tpl->parse('content.list.variety');
             }
         } else {
             msg('This product has no variety.');
         }
+
+        $this->tpl->parse('content.list');
 
         return true;
     }

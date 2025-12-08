@@ -13,7 +13,7 @@
 
 <!-- Product Info -->
 <div id="product-info"
-	hx-get="/request/bo/component/x_product_info?node_id={NODE.content}"
+	hx-get="/request/bo/component/x_product_info?node_id={GET.id}"
 	hx-trigger="load, refresh"
 	hx-indicator="#product-info-loading">
 	<!-- <div id="product-info-loading" class="onyx-loading htmx-indicator">
@@ -35,6 +35,15 @@
 	hx-trigger="load, refresh"
 	hx-indicator="#visibility-loading">
 	<!-- <div id="visibility-loading" class="onyx-loading htmx-indicator">
+		<img src="/share/images/loading.svg" alt="Loading..."/>
+	</div> -->
+</div>
+
+<div id="qr-code"
+	hx-get="/request/bo/component/x_qr_code?node_id={GET.id}"
+	hx-trigger="load, refresh"
+	hx-indicator="#qr-code-loading">
+	<!-- <div id="qr-code-loading" class="onyx-loading htmx-indicator">
 		<img src="/share/images/loading.svg" alt="Loading..."/>
 	</div> -->
 </div>
@@ -108,11 +117,12 @@
 	hx-indicator="#product-taxonomy-loading">
 </div>
 
-<div id="qr-code"
-	hx-get="/request/bo/component/x_qr_code?node_id={GET.id}"
+<!-- Position -->
+<div id="node-position"
+	hx-get="/request/bo/component/x_node_position?node_id={GET.id}"
 	hx-trigger="load, refresh"
-	hx-indicator="#qr-code-loading">
-	<!-- <div id="qr-code-loading" class="onyx-loading htmx-indicator">
+	hx-indicator="#node-position-loading">
+	<!-- <div id="node-position-loading" class="onyx-loading htmx-indicator">
 		<img src="/share/images/loading.svg" alt="Loading..."/>
 	</div> -->
 </div>
@@ -135,6 +145,4 @@
 		<img src="/share/images/loading.svg" alt="Loading..."/>
 	</div> -->
 </div>
-
-{FILE "bo/node/item_position.html"}
 <!-- END: content -->

@@ -2,7 +2,7 @@
 /**
  * Transaction Detail
  *
- * Copyright (c) 2008-2014 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2008-2020 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -40,12 +40,27 @@ class Onyx_Controller_Component_Ecommerce_Transaction_Detail extends Onyx_Contro
         if ($order_data['basket']['customer_id'] !== $_SESSION['client']['customer']['id'] &&  !Onyx_Bo_Authentication::getInstance()->isAuthenticated()) {
             msg('unauthorized access to view transaction detail', 'error');
         } else {
+    
+            if (isset($order_data['other_data']['po_number'])) {
+                $this->tpl->assign('ORDER', $order_data);
+                $this->tpl->parse('content.purchase_order');
+                return true;
+            }
+
             $transaction_list = $Transaction->getListForOrderId($order_id);
-            
-            //print_r($transaction_list);
+
             if (is_array($transaction_list)) {
                 foreach ($transaction_list as $transaction_detail) {
+
+                    $type = 'default';	
+                    if ($transaction_detail['type'] == 'stripe') {
+                        $transaction_detail['pg_data']['id_truncated'] = substr($transaction_detail['pg_data']['id'], 0, 8) . '...' . substr($transaction_detail['pg_data']['id'], -8);
+                        $transaction_detail['pg_data']['amount_total'] = $transaction_detail['pg_data']['amount_total'] / 100;
+                        $type = 'stripe';
+                    }
+
                     $this->tpl->assign('TRANSACTION', $transaction_detail);
+                    $this->tpl->parse("content.transaction.$type");
                     $this->tpl->parse('content.transaction');
                 }
             } else {

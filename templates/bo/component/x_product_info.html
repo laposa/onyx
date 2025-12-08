@@ -22,7 +22,7 @@
 
         <div class="component-actions">
             <button
-                hx-get="/request/bo/component/x_product_info?edit=true&node_id={PRODUCT.id}"
+                hx-get="/request/bo/component/x_product_info?edit=true&node_id={NODE.id}"
                 hx-target="#edit-dialog .content"
                 hx-indicator="#edit-loading"
                 hx-trigger="click"
@@ -83,10 +83,19 @@
         </div>
 
         <script type="text/javascript">
+            if (hugerte.EditorManager.editors['product-teaser']) {
+                hugerte.EditorManager.editors['product-teaser'].destroy();
+            }
             hugerte.init({
                 selector: "dialog #product-teaser",
                 menubar: "false",
                 ui_mode: "split",
+                toolbar: "bold,italic,underline",
+                invalid_elements : "span,div,form,input,label,button,script,font",
+                entity_encoding : "raw",
+                setup: editor => {
+                    editor.on('blur', () => editor.save())
+                }
             });
         </script>
 
@@ -110,4 +119,28 @@
         </div>
     </form>
     <!-- END: edit -->
+
+    <!-- BEGIN: missing_product -->
+    <fieldset id="component-product-info" class="component-preview">
+        <div id="product-info-loading" class="onyx-loading htmx-indicator">
+            <img src="/share/images/loading.svg" alt="Loading..."/>
+        </div>
+
+        <legend>Product Information</legend>
+
+        <p>No product has been created for this page.</p>
+
+        <button
+            hx-get="/request/bo/component/x_product_add?node_id={GET.node_id}"
+            hx-target="#edit-dialog .content"
+            hx-indicator="#edit-loading"
+            hx-trigger="click"
+            hx-swap="innerHTML"
+            hx-on::before-request="openDialog()"
+            class="btn">
+            Add a product
+        </button>
+    </fieldset>
+    <!-- END: missing_product -->
+     
 <!-- END: content -->

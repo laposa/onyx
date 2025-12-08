@@ -7,18 +7,18 @@
  *
  */
 
-@import url(/share/css/components/component_preview.css);
-@import url(/share/css/components/file_list.css);
-@import url(/share/css/components/edit_dialog.css);
-@import url(/share/css/components/node_info.css);
-@import url(/share/css/backoffice_icons.css);
-@import url(/share/css/simple-tree.css);
-@import url(/share/themes/jquery-ui/onyx/jquery-ui.css);
-@import 'search.css';
-@import 'template.css';
-@import 'layout.css';
-@import 'navigation.css';
-@import 'components.css';
+ @import url(/share/css/components/component_preview.css);
+ @import url(/share/css/components/file_list.css);
+ @import url(/share/css/components/edit_dialog.css);
+ @import url(/share/css/components/node_info.css);
+ @import url(/share/css/backoffice_icons.css);
+ @import url(/share/css/simple-tree.css);
+ @import url(/share/themes/jquery-ui/onyx/jquery-ui.css);
+ @import url(/share/css/components/node_explorer.css);
+ @import 'search.css';
+ @import 'template.css';
+ @import 'layout.css';
+ @import 'components.css';
 
 /**
  * Fonts
@@ -1172,7 +1172,8 @@ button.save { position: fixed; z-index: 260000; /*higher div.rowBottom div.rowWr
 button.saving { opacity: 0.7; }
 button.saving span { visibility: hidden; }
 button.saving:before { content: "\f013"; position: absolute; left: 50%; top: 50%; margin-left: -6px; margin-top: -10px; display: inline-block; font-family: 'onyx'; font-style: normal; font-weight: normal; line-height: 1; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; -webkit-animation: spin 2s infinite linear; -moz-animation: spin 2s infinite linear; -o-animation: spin 2s infinite linear; animation: spin 2s infinite linear; font-size: 20px;}
-div.page-header { height: 60px; border-bottom: 1px solid #e0e0e0; margin: 0 0 10px 0; }
+div.page-header { height: 50px; border-bottom: 1px solid #e0e0e0; margin: 0 0 10px 0; }
+div.page-header h1 { font-size: 30px; }
 div.horizontal-filter { border-bottom: 1px solid #e0e0e0; margin: 0 0 20px 0; height: 64px;}
 div.horizontal-filter form { margin: 0; }
 div.horizontal-filter fieldset { margin: 0; float: left; padding: 0; background: #ffffff;}
@@ -1181,7 +1182,7 @@ div.horizontal-filter div.row { float: left; clear: none; margin: 0 20px 0 0; }
 div.horizontal-filter div.row input { float: left; clear: none; margin: 0 5px 0 0;}
 
 h1 { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 100; font-size: 40px; margin-top: 0; padding: 0; color: #666;}
-h1 span.info { font-weight: normal; float: right; font-size: 14px; background: #f0f0f0; border: 1px solid #ddd; text-shadow: 0 -1px 0 #fff; border-radius: 20px; padding: 3px 16px; margin: 12px 0 0 0; }
+h1 span.info { font-weight: normal; float: right; font-size: 14px; background: #f0f0f0; border: 1px solid #ddd; text-shadow: 0 -1px 0 #fff; border-radius: 20px; padding: 3px 16px; margin: 9px 0 0 0; }
 h2 { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 600; color: var(--color-primary); font-size: 1.5rem;}
 
 #pages-node-menu { overflow-x: auto; }
