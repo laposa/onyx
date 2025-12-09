@@ -15,6 +15,7 @@ function chooseImage(src, title) {
         {PROPERTIES_EDIT_FORM}
     </div>
     <div class="layout-column-two of-two">
+        <p>Click on the image to replace it</p>
         <div class="preview"
             hx-get="/request/bo/pages/server_browser?type=replace_file&relation={GET.relation}&node_id={GET.node_id}&file_id={FILE.id}"
             hx-trigger="click"
@@ -22,12 +23,11 @@ function chooseImage(src, title) {
             hx-indicator="#file-loading"
             hx-on::before-request="openFileDialog();"
         >
-            <!-- TODO: sometimes fails to load original file? -->
-            <p>Click on the image to replace it</p>
             <img id="image-thumbnail-{FILE.id}" src="/thumbnail/200/{FILE.src}" title="Click on this image to select replacement" alt="{FILE.title|htmlspecialchars}" style="max-height: 200px; background: url(/share/images/empty-canvas-bg.png) repeat; padding: 20px; cursor:pointer;" />
-            <p>{FULL_DETAILS}</p>
-            <p><a class="button remove" title="Unlink file" href="#" onclick="if (confirm('Do you really want to unlink {FILE.title|htmlspecialchars|addslashes}?')) {$('#linked-file-{FILE.id}').load('/request/bo/component/file_unlink~relation={GET.relation}:file_id={FILE.id}~', function() { popupMessage('#linked-file-{FILE.id} div.onyx-messages'); hideModalOverlay(); });}; return false"><span>Unlink</span></a></p>
         </div>
+        <p>{FULL_DETAILS}</p>
+        <p><a class="button remove" title="Unlink file" href="#" onclick="if (confirm('Do you really want to unlink {FILE.title|htmlspecialchars|addslashes}?')) {$('#linked-file-{FILE.id}').load('/request/bo/component/file_unlink~relation={GET.relation}:file_id={FILE.id}~', function() { popupMessage('#linked-file-{FILE.id} div.onyx-messages'); hideModalOverlay(); });}; return false"><span>Unlink</span></a></p>
+        
     </div>
 </div>          
 
