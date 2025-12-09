@@ -3,7 +3,7 @@
  * Onyx global functions
  * KEEP IT SMALL
  *
- * Copyright (c) 2005-2024 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2005-2025 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -1090,20 +1090,6 @@ function verifyReCaptchaToken($token) {
     } catch (Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface $e) {
         return false;
     }
-}
-
-/*
-*   Save manifest for pdf_brochure page
-*   @param $node_id
-*   @param $manifest
-*/
-function savePdfManifest($node_id, $manifest) {
-    $Node = new common_node();
-
-    $nodeData = $Node->detail($node_id);
-    $nodeData['custom_fields'] = (object) json_decode($nodeData['custom_fields']);
-    $nodeData['custom_fields']->pdf2Web = $manifest;
-    return $Node->nodeUpdate($nodeData);
 }
 
  /**
