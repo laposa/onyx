@@ -35,14 +35,14 @@ $container = Onyx_Container::getInstance();
 
 // Include & init Bootstrap
 require_once('lib/onyx.bootstrap.php');
-$bootstrap = new Onyx_Bootstrap();
+$OnyxBootstrap = new Onyx_Bootstrap();
 
 // Init pre-action (standard pre-actions defined as global variable in conf/global.php)
 if (!isset($onyx_pre_actions)) $onyx_pre_actions = [];
-$bootstrap->initPreAction($onyx_pre_actions);
+$OnyxBootstrap->initPreAction($onyx_pre_actions);
 
 // Init action
-$bootstrap->initAction($_GET['request'] ?? '');
+$OnyxBootstrap->initAction($_GET['request'] ?? '');
 
 // Test log to firebug
 if (ONYX_IS_DEBUG_HOST && isset($channel) && isset($response)) {
@@ -52,7 +52,7 @@ if (ONYX_IS_DEBUG_HOST && isset($channel) && isset($response)) {
 }
 
 // Output content
-echo $bootstrap->finalOutput();
+echo $OnyxBootstrap->finalOutput();
 
 // Debug benchmarking
 if (ONYX_BENCHMARK && ONYX_IS_DEBUG_HOST) {
