@@ -1,11 +1,32 @@
 <!-- BEGIN: content -->
 {FILE "bo/component/page_header.html"}
 
+<!-- Gerneral Info -->
 <div id="general-info"
 	hx-get="/request/bo/component/x_general_info?node_id={GET.id}"
 	hx-trigger="load, refresh"
 	hx-indicator="#general-info-loading">
 	<!-- <div id="general-info-loading" class="onyx-loading htmx-indicator">
+		<img src="/share/images/loading.svg" alt="Loading..."/>
+	</div> -->
+</div>
+
+<!-- Metadata -->
+<div id="metadata"
+	hx-get="/request/bo/component/x_metadata?node_id={GET.id}"
+	hx-trigger="load, refresh"
+	hx-indicator="#metadata-loading">
+	<!-- <div id="metadata-loading" class="onyx-loading htmx-indicator">
+		<img src="/share/images/loading.svg" alt="Loading..."/>
+	</div> -->
+</div>
+
+<!-- Visibility -->
+<div id="visibility"
+	hx-get="/request/bo/component/x_visibility?node_id={GET.id}"
+	hx-trigger="load, refresh"
+	hx-indicator="#visibility-loading">
+	<!-- <div id="visibility-loading" class="onyx-loading htmx-indicator">
 		<img src="/share/images/loading.svg" alt="Loading..."/>
 	</div> -->
 </div>
@@ -51,6 +72,37 @@
 	</div> -->
 </div>
 
+<!-- QR Code -->
+<div id="qr-code"
+	hx-get="/request/bo/component/x_qr_code?node_id={GET.id}"
+	hx-trigger="load, refresh"
+	hx-indicator="#qr-code-loading">
+	<!-- <div id="qr-code-loading" class="onyx-loading htmx-indicator">
+		<img src="/share/images/loading.svg" alt="Loading..."/>
+	</div> -->
+</div>
+
+<!-- Position -->
+<div id="node-position"
+	hx-get="/request/bo/component/x_node_position?node_id={GET.id}"
+	hx-trigger="load, refresh"
+	hx-indicator="#node-position-loading">
+	<!-- <div id="node-position-loading" class="onyx-loading htmx-indicator">
+		<img src="/share/images/loading.svg" alt="Loading..."/>
+	</div> -->
+</div>
+
+<!-- Advanced Settings -->
+<div id="advanced-settings"
+	hx-get="/request/bo/component/x_advanced_settings?node_id={GET.id}"
+	hx-trigger="load, refresh"
+	hx-indicator="#advanced-settings-loading">
+	<!-- <div id="advanced-settings-loading" class="onyx-loading htmx-indicator">
+		<img src="/share/images/loading.svg" alt="Loading..."/>
+	</div> -->
+</div>
+
+<!-- Previous Versions -->
 <div id="revision-list"
 	hx-get="/request/bo/component/x_revision_list?node_id={GET.id}&object=common_node"
 	hx-trigger="load, refresh"
@@ -59,6 +111,4 @@
 		<img src="/share/images/loading.svg" alt="Loading..."/>
 	</div> -->
 </div>
-
-<!-- TODO: does symbolic need content/page blocks? maybe for creating children nodes? -->
 <!-- END: content -->
