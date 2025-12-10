@@ -2,13 +2,15 @@
 <script type="text/javascript">
 
 function tinyMCEinit() {
-    if (tinymce.EditorManager.editors.length > 0 && tinymce.EditorManager.editors['{TINYMCE.edit_elements}']) {
-        tinymce.EditorManager.editors['{TINYMCE.edit_elements}'].destroy();
+
+    if (hugerte.get('{TINYMCE.edit_elements}')) {
+        hugerte.get('{TINYMCE.edit_elements}').destroy();
     }
 
-    tinymce.init({
+    hugerte.init({
         selector:'#{TINYMCE.edit_elements}',
         mode : "{TINYMCE.mode}",
+        ui_mode: "split",
         editor_selector: "mceAdvanced",
         theme_advanced_toolbar_location : "top",
         theme_advanced_toolbar_align : "left",
@@ -29,12 +31,12 @@ function tinyMCEinit() {
         remove_script_host : true,
         document_base_url : "{BASE_URI}/",
         plugins: [
-            'advlist autolink lists link image charmap print preview hr anchor pagebreak',
-            'searchreplace wordcount visualblocks visualchars code fullscreen',
-            'insertdatetime media nonbreaking save table contextmenu directionality',
-            'emoticons template paste textcolor colorpicker textpattern imagetools codesample toc autoresize'
+            'advlist', 'autolink', 'autosave', 'lists', 'link', 'image', 'charmap', 'preview', 'anchor', 'pagebreak',
+            'searchreplace', 'wordcount', 'visualblocks', 'visualchars', 'code', 'fullscreen',
+            'insertdatetime', 'media', 'nonbreaking', 'save', 'table', 'directionality',
+            'emoticons', 'template', 'codesample',
         ],
-        toolbar1: 'undo redo | insert | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
+        toolbar: 'undo redo | insert | styles | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
         image_advtab: true,
         advlink_styles: "button=button;viewMore=viewMore",/*for Insert/edit links*/
         file_picker_callback: function(callback, value, meta) {
@@ -44,9 +46,17 @@ function tinyMCEinit() {
         paste_strip_class_attributes : "all",
         paste_use_dialog : false,
         entity_encoding : "raw",
-        'setup': editor => {
+        setup: editor => {
             editor.on('blur', () => editor.save())
-        }
+        },
+        init_instance_callback: function (editor) {
+        // move last aux helper to dialog, if field is in a dialog
+            const dialogContainer = editor.editorContainer.closest('dialog')
+            if (dialogContainer) {
+                const auxElements = document.querySelectorAll('body > .tox-hugerte-aux')
+                if (auxElements.length) dialogContainer.append(auxElements[auxElements.length - 1])
+            }
+        }  
     });
 }
 
@@ -58,17 +68,16 @@ function onyxFileBrowserCallBack_{GET.relation}_{GET.id}(callback, value, meta) 
         
         var url = '/popup_window/bo/component/node_menu_tinymce~id=0:open={GET.id}:expand_all=1:publish=0:node_group=page_and_product~';
         
-        tinymce.activeEditor.windowManager.open({
+        hugerte.activeEditor.windowManager.openUrl({
             title: 'Onyx File Browser',
             url: url,
             width: 720,
             height: 500,
-            }, {
-                oninsert: function (url, title) {
-                    callback(url, {text: title});
-                }
+            onMessage: function (instance, details) {
+                callback(details.data.src, {text: details.data.title});
+                instance.close();
             }
-        )
+        })
     }
 
     // Provide image and alt text for the image and media dialog
@@ -76,17 +85,14 @@ function onyxFileBrowserCallBack_{GET.relation}_{GET.id}(callback, value, meta) 
         
         var url = '/popup/files/{GET.relation}/{GET.id}?type=RTE&role=RTE';
         
-        tinymce.activeEditor.windowManager.open({
+        hugerte.activeEditor.windowManager.openUrl({
             title: 'Onyx File Browser',
             url: url,
-            width: 720,
-            height: 500,
-            }, {
-                oninsert: function (url, title) {
-                    callback(url, {alt: title});
-                }
+            onMessage: function (instance, details) {
+                callback(details.data.src, {alt: details.data.title});
+                instance.close();
             }
-        )
+        })
     }
 
     return false;

@@ -1,0 +1,28 @@
+<!-- BEGIN: content -->
+<script type="text/javascript">
+    if (hugerte.get('{TINYMCE.edit_elements}')) {
+        hugerte.get('{TINYMCE.edit_elements}').destroy();
+    }
+
+    hugerte.init({
+        selector:'#{TINYMCE.edit_elements}',
+        menubar: "false",
+        ui_mode: "split",
+        toolbar: "bold italic underline",
+        invalid_elements : "span,div,form,input,label,button,script,font",
+        entity_encoding : "raw",
+        setup: editor => {
+            editor.on('blur', () => editor.save())
+        },
+        init_instance_callback: function (editor) {
+            // move last aux helper to dialog, if field is in a dialog
+            const dialogContainer = editor.editorContainer.closest('dialog')
+            if (dialogContainer) {
+                const auxElements = document.querySelectorAll('body > .tox-hugerte-aux')
+                if (auxElements.length) dialogContainer.append(auxElements[auxElements.length - 1])
+            }
+        }  
+    });
+</script>
+
+<!-- END: content -->

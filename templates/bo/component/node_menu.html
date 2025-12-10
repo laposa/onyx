@@ -10,7 +10,7 @@
             drag: true,
             autoclose: false,
             afterClick:function(node){
-                tinymce.remove();
+                hugerte.remove();
                 var node_id = $('a:first', node).attr('href').match("[0-9]{1,}$");
                 makeAjaxRequest("#sub-content", "/request/bo/component/node_edit~id="+node_id+"~", function(data) {
                     appendHeader();

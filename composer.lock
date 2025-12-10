@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "e9b9b2340ce2757eda26b90287710cf2",
+    "content-hash": "44f0e3f740f6781b8a184f4297c3fe5e",
     "packages": [
         {
             "name": "chillerlan/php-qrcode",
@@ -580,6 +580,65 @@
                 "source": "https://github.com/mtibben/html2text/tree/4.3.2"
             },
             "time": "2024-08-20T02:43:29+00:00"
+        },
+        {
+            "name": "hugerte/hugerte",
+            "version": "1.0.9",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/hugerte/hugerte-dist.git",
+                "reference": "a723324bbdcedafeca2454b7e4532033c117d7b1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/hugerte/hugerte-dist/zipball/a723324bbdcedafeca2454b7e4532033c117d7b1",
+                "reference": "a723324bbdcedafeca2454b7e4532033c117d7b1",
+                "shasum": ""
+            },
+            "type": "component",
+            "extra": {
+                "component": {
+                    "files": [
+                        "hugerte.min.js",
+                        "plugins/*/plugin.min.js",
+                        "themes/*/theme.min.js",
+                        "models/*/model.min.js",
+                        "skins/**",
+                        "icons/*/icons.min.js"
+                    ],
+                    "scripts": [
+                        "hugerte.js",
+                        "plugins/*/plugin.js",
+                        "themes/*/theme.js",
+                        "models/*/model.js",
+                        "icons/*/icons.js"
+                    ]
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "description": "Web based JavaScript HTML WYSIWYG editor control.",
+            "homepage": "https://hugerte.org/",
+            "keywords": [
+                "contenteditable",
+                "editing",
+                "html",
+                "hugerte",
+                "javascript",
+                "rich editor",
+                "rich text",
+                "rich text editor",
+                "richtext",
+                "rte",
+                "text",
+                "wysiwyg"
+            ],
+            "support": {
+                "source": "https://github.com/hugerte/hugerte-dist/tree/v1.0.9"
+            },
+            "time": "2025-03-15T21:14:20+00:00"
         },
         {
             "name": "jdorn/sql-formatter",
