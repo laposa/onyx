@@ -5,8 +5,13 @@
 
 <script type="text/javascript">
 function chooseImage(src, title) {
-    top.hugerte.activeEditor.windowManager.getParams().oninsert(src, title);
-    top.hugerte.activeEditor.windowManager.close();
+    window.parent.postMessage({
+        mceAction: 'customInsertImage',
+        data: {
+            src: src,
+            title: title,
+        }
+    }, '*');
 }
 </script>
 

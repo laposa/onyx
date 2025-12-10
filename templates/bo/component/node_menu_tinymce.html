@@ -1,10 +1,13 @@
 <!-- BEGIN: content -->
 <script type="text/javascript">
 function chooseLink(src, title) {
-
-    top.hugerte.activeEditor.windowManager.getParams().oninsert(src, title);
-    top.hugerte.activeEditor.windowManager.close();
-    
+    window.parent.postMessage({
+        mceAction: 'customInsertLink',
+        data: {
+            src: src,
+            title: title,
+        }
+    }, '*');
 }
 
 $(document).ready(function(){

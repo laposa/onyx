@@ -2,11 +2,10 @@
 <script type="text/javascript">
 
 function tinyMCEinit() {
-    
 
-    // if (hugeRTE.EditorManager.editors.length > 0 && hugeRTE.EditorManager.editors['{TINYMCE.edit_elements}']) {
-    //     hugeRTE.EditorManager.editors['{TINYMCE.edit_elements}'].destroy();
-    // }
+    if (hugerte.get('{TINYMCE.edit_elements}')) {
+        hugerte.get('{TINYMCE.edit_elements}').destroy();
+    }
 
     hugerte.init({
         selector:'#{TINYMCE.edit_elements}',
@@ -47,12 +46,18 @@ function tinyMCEinit() {
         paste_strip_class_attributes : "all",
         paste_use_dialog : false,
         entity_encoding : "raw",
-        // setup: editor => {
-        //     editor.on('blur', () => editor.save())
-        // }
+        setup: editor => {
+            editor.on('blur', () => editor.save())
+        },
+        init_instance_callback: function (editor) {
+        // move last aux helper to dialog, if field is in a dialog
+            const dialogContainer = editor.editorContainer.closest('dialog')
+            if (dialogContainer) {
+                const auxElements = document.querySelectorAll('body > .tox-hugerte-aux')
+                if (auxElements.length) dialogContainer.append(auxElements[auxElements.length - 1])
+            }
+        }  
     });
-
-    console.log('{GET.id}', '{GET.node_id}');
 }
 
 
@@ -63,37 +68,31 @@ function onyxFileBrowserCallBack_{GET.relation}_{GET.id}(callback, value, meta) 
         
         var url = '/popup_window/bo/component/node_menu_tinymce~id=0:open={GET.id}:expand_all=1:publish=0:node_group=page_and_product~';
         
-        hugerte.activeEditor.windowManager.open({
+        hugerte.activeEditor.windowManager.openUrl({
             title: 'Onyx File Browser',
             url: url,
             width: 720,
             height: 500,
-            }, {
-                oninsert: function (url, title) {
-                    callback(url, {text: title});
-                }
+            onMessage: function (instance, details) {
+                callback(details.data.src, {text: details.data.title});
+                instance.close();
             }
-        )
+        })
     }
 
     // Provide image and alt text for the image and media dialog
     if (meta.filetype == 'image' || meta.filetype == 'media') {
         
         var url = '/popup/files/{GET.relation}/{GET.id}?type=RTE&role=RTE';
-        // TODO: role node?
-        // var url = '/request/bo/component/file_list~relation=node:node_id={GET.id}~'
         
         hugerte.activeEditor.windowManager.openUrl({
             title: 'Onyx File Browser',
             url: url,
-            width: 720,
-            height: 500,
-            }, {
-                oninsert: function (url, title) {
-                    callback(url, {alt: title});
-                }
+            onMessage: function (instance, details) {
+                callback(details.data.src, {alt: details.data.title});
+                instance.close();
             }
-        )
+        })
     }
 
     return false;

@@ -67,14 +67,7 @@
                 name="node[content]" 
             >{NODE.content|htmlspecialchars}</textarea>
         </div>
-
-        <script type="text/javascript">
-            hugerte.remove();
-            hugerte.init({
-                selector: "dialog #node-content",
-                menubar: false,
-            });
-        </script>
+        {ONYX_REQUEST_tinymce #bo/tinymce~id=GET.node_id:relation=node:role=RTE_description:mode=exact:edit_elements=node-content:theme=advanced~}
 
         <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
         <input type="hidden" name="node[id]" value="{GET.node_id}" />
