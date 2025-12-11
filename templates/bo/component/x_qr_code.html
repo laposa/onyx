@@ -8,19 +8,13 @@
             
         <legend>QR Code</legend>
 
-        <div class="wrapper">
-            <div class="img">
-                <img src="/view/{QRCODE}" alt="QR Code" width="150" height="150"/>
-            </div>
+        <img src="/view/{QRCODE}" alt="QR Code" width="150" height="150"/>
 
-            <div class="body">
-                <span class="label">Current QR Code URL:</span>
-                <span class="value"><a href="{QRCODE_URL}" class="link">{QRCODE_URL}</a></span>
+        <span class="label">Current QR Code URL:</span>
+        <span class="value"><a href="{QRCODE_URL}" class="link">{QRCODE_URL}</a></span>
 
-                <span class="label">Additional Parameters:</span>
-                <span class="value">{NODE.custom_fields.qrcode_params|htmlspecialchars}</span>
-            </div>
-        </div>
+        <span class="label">Additional Parameters:</span>
+        <span class="value">{NODE.custom_fields.qrcode_params|htmlspecialchars}</span>
 
         <div class="component-actions">
             <a class="download button" title="Download QR Code" href="/download/{QRCODE}"><span>PNG</span></a>

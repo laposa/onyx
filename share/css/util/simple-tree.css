@@ -163,7 +163,6 @@ div.twoColumnPage.page .simple-tree
     line-height: 3px;
     height:3px;
     font-size:3px;
-    /*background: url(/share/images/simple-tree/line_bg.gif) 0 0 no-repeat transparent;*/
 }
 .simple-tree .line-last
 {
@@ -195,32 +194,26 @@ div.twoColumnPage.page .simple-tree
 .simple-tree .folder-open
 {
     margin-left:-16px;
-    /*background: url(/share/images/simple-tree/collapsable.gif) 0 -2px no-repeat;*/
 }
 .simple-tree .folder-open-last
 {
     margin-left:-16px;
-    /*background: url(/share/images/simple-tree/collapsable-last.gif) 0 -2px no-repeat;*/
 }
 .simple-tree .folder-close
 {
     margin-left:-16px;
-    /*background: url(/share/images/simple-tree/expandable.gif) 0 -2px no-repeat;*/
 }
 .simple-tree .folder-close-last
 {
     margin-left:-16px;
-    /*background: url(/share/images/simple-tree/expandable-last.gif) 0 -2px no-repeat;*/
 }
 .simple-tree .doc
 {
     margin-left:-16px;
-    /*background: url(/share/images/simple-tree/leaf.gif) 0 -1px no-repeat;*/
 }
 .simple-tree .doc-last
 {
     margin-left:-16px;
-    /*background: url(/share/images/simple-tree/leaf-last.gif) 0 -1px no-repeat;*/
 }
 
 .simple-tree .ajax

@@ -1,0 +1,12 @@
+  
+  
+  /********* component/pagination.html *********/
+  div.pagination {margin: 5px 0; text-align: center;}
+  div.pagination a {text-decoration: none;}
+  div.pagination ul {margin: 0; padding: 0;}
+  div.pagination li {list-style-type: none; display: inline; padding: 0; margin: 0;}
+  div.pagination a {display: inline-block; padding: 2px 5px; border: 0;}
+  div.pagination a.active {border: 1px solid #CCCCCC; font-weight: normal; -moz-border-radius: 4px; -webkit-border-radius: 4px; border-radius: 4px;}
+  div.pagination li.previous a:hover,
+  div.pagination li.next a:hover,
+  div.pagination a.show_all:hover {text-decoration: underline;}

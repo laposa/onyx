@@ -1,0 +1,13 @@
+
+/****************************************************************************************/
+/*****************************          node/page           *****************************/
+/****************************************************************************************/
+
+/************ node/page/default.html ****/
+div.row-top:after,
+div.row-middle:after,
+div.row-bottom:after {content: '.'; display: block; height: 0; font-size: 0; clear: both; visibility: hidden;}
+div.page div.page-wrapper {padding: 0;}
+div.page div.row-bottom {clear: both;}
+div.page {overflow-y: auto;}
+  
