@@ -13,44 +13,42 @@ class Onyx_Controller_Bo_Component_X_General_Info extends Onyx_Controller_Bo_Com
      * main action
      */
 
-    private $node_data;
-     
     public function mainAction() {
 
         // get details
         $node = new common_node();
-        $this->node_data = $node->nodeDetail($this->GET['node_id'] ?? $_POST['node']['id']);
+        $node_data = $node->nodeDetail($this->GET['node_id'] ?? $_POST['node']['id']);
 
         // display title
-        if (!is_numeric($this->node_data['display_title'])) $this->node_data['display_title'] = $GLOBALS['onyx_conf']['global']['display_title'];
+        if (!is_numeric($node_data['display_title'])) $node_data['display_title'] = $GLOBALS['onyx_conf']['global']['display_title'];
 
-        if ($this->node_data['display_title'] == 1) {
-            $this->node_data['display_title_check'] = 'checked="checked"';
+        if ($node_data['display_title'] == 1) {
+            $node_data['display_title_check'] = 'checked="checked"';
         } else {
-            $this->node_data['display_title_check'] = '';
+            $node_data['display_title_check'] = '';
         }
 
         // save
         if (isset($_POST['save'])) {
             // TODO: messages
             if($node->nodeUpdate($_POST['node'])) {
-                msg("{$this->node_data['node_group']} (id={$this->node_data['id']}) has been updated");
+                msg("{$node_data['node_group']} (id={$node_data['id']}) has been updated");
             } else {
-                msg("Cannot update node {$this->node_data['node_group']} (id={$this->node_data['id']})", 'error');
+                msg("Cannot update node {$node_data['node_group']} (id={$node_data['id']})", 'error');
             }
 
             //trigger page refresh if node type changed
-            if($_POST['node']['node_group'] != $this->node_data['node_group'] || $_POST['node']['node_controller'] != $this->node_data['node_controller']) {
+            if($_POST['node']['node_group'] != $node_data['node_group'] || $_POST['node']['node_controller'] != $node_data['node_controller']) {
                 header("HX-Trigger: pageRefresh");
             }
         }
 
         $node_type = 
-            ucwords(str_replace(['-', '_'], ' ', $this->node_data['node_group'])) . ' - ' . 
-            ucwords(str_replace(['-', '_'], ' ', $this->node_data['node_controller']));
+            ucwords(str_replace(['-', '_'], ' ', $node_data['node_group'])) . ' - ' . 
+            ucwords(str_replace(['-', '_'], ' ', $node_data['node_controller']));
         $this->tpl->assign('NODE_TYPE', $node_type);
 
-        $this->tpl->assign('NODE', $this->node_data);
+        $this->tpl->assign('NODE', $node_data);
 
         parent::parseTemplate();
 

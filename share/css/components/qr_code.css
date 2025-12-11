@@ -1,0 +1,36 @@
+
+/*
+* QR
+*/
+
+.qrcode {
+  .download {
+    span {
+      display: flex;
+    }
+
+    span::before {
+      content: '\f019';
+      font-family: 'onyx';
+      margin-right: 5px;
+    }
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .error {
+    padding-top: 10px;
+    color: #d74343;
+  }
+
+	img {
+		border-radius: 5px;
+		border: 1px solid #afafaf;
+		margin-bottom: 10px;
+	}
+}
