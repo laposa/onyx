@@ -29,6 +29,8 @@ function refreshComponent(triggerButton) {
 }
 
 document.addEventListener('htmx:afterRequest', (event) => {
+    popupMessage("dialog div.onyx-messages");
+
     if (event.target.id == 'saveAndClose') {
         closeDialog();
         refreshComponent(event.target);
@@ -45,6 +47,13 @@ document.addEventListener('htmx:afterRequest', (event) => {
         closeDialog();
         if(document.getElementById('product-info')) {
             htmx.trigger('#product-info', 'refresh');
+        }
+    }
+
+    if (event.target.dataset.action == 'addProductVariety') {
+        closeDialog();
+        if(document.getElementById('product-varieties')) {
+            htmx.trigger('#product-varieties', 'refresh');
         }
     }
 
