@@ -39,17 +39,22 @@
     });
 </script>
 {MESSAGES}
-<form method="post" action="{URI|htmlspecialchars}" id="product-varieties-edit">
+<form id="product-varieties-edit"
+    hx-indicator="#edit-loading"
+    hx-post="/request/bo/component/ecommerce/product_variety_add?id={GET.id}"
+    hx-validate="true"
+    data-action="addProductVariety"
+>
     <h2>Add Variety of Product</h2>
     
     <div class="row text">
         <label for="product-variety-name">Variety Name</label>
-        <input type="text" class="text title required" name="product[variety][name]" id="product-variety-name" value="{PRODUCT.variety.name}"/>
+        <input type="text" class="text title" name="product[variety][name]" id="product-variety-name" value="{PRODUCT.variety.name}" required/>
     </div>
     
     <div class="row text">
         <label for="product-variety-sku">Code (SKU)</label>
-        <input type="text" class="required" name="product[variety][sku]" id="product-variety-sku" value="{PRODUCT.variety.sku}"/>
+        <input type="text"name="product[variety][sku]" id="product-variety-sku" value="{PRODUCT.variety.sku}" required/>
     </div>
 
     <div class="row select text">
@@ -58,7 +63,7 @@
 
     <div class="row text">
         <label for="product-variety-weight-gross">Weight Gross [{VARIETY_CONF.weight_units}]</label>
-        <input type="text" class="required number" name="product[variety][weight_gross]" id="product-variety-weight-gross" value="{PRODUCT.variety.weight_gross}"/>
+        <input type="number" class="number" name="product[variety][weight_gross]" id="product-variety-weight-gross" value="{PRODUCT.variety.weight_gross}" required/>
         <div class="additional-info">(Used for postage. Zero weight is free postage.)</div>
     </div>
 
@@ -69,16 +74,16 @@
 
     <div class="row text">
         <label for="product-variety-stock">Stock</label>
-        <input type="text" class="required digits" name="product[variety][stock]" id="product-variety-stock" value="{PRODUCT.variety.stock}"/>
+        <input type="number" class="digits" name="product[variety][stock]" id="product-variety-stock" value="{PRODUCT.variety.stock}" required/>
     </div>
 
     <div class="row text">
         <label>Price Value (excluding VAT) in {GLOBAL_DEFAULT_CURRENCY}</label>
-        <input type="text" id="price-without-vat" class="required number" name="product[variety][price][value]" value="{PRODUCT.variety.price.value}"/>
+        <input type="number" id="price-without-vat" name="product[variety][price][value]" value="{PRODUCT.variety.price.value}" required/>
     </div>
     <div class="row text">
         <label>Price Value (including VAT) in {GLOBAL_DEFAULT_CURRENCY}</label>
-        <input type="text" id="price_with_vat" class="number"/>
+        <input type="number" id="price_with_vat"/>
     </div>
 
     <p><a href="#" class="button primary" onclick="$('#variety-more-details').toggle(); return false">More details</a></p>
@@ -116,16 +121,8 @@
     <div class="row submit">
         <span class="label"><label>&nbsp;</label></span>
         <span class="field">
-            <button 
-                hx-indicator="#edit-loading"
-                hx-post="/request/bo/component/ecommerce/product_variety_add?id={GET.id}"
-                class="btn"
-                type="submit" 
-                name="save" 
-                value="save" 
-                id="saveAndClose"
-            >
-                Next
+            <button class="btn" type="submit" name="save" value="save" >
+                Add & Close
             </button>
         </span>
     </div>
