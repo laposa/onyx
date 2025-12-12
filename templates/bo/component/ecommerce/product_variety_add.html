@@ -79,11 +79,11 @@
 
     <div class="row text">
         <label>Price Value (excluding VAT) in {GLOBAL_DEFAULT_CURRENCY}</label>
-        <input type="number" id="price-without-vat" name="product[variety][price][value]" value="{PRODUCT.variety.price.value}" required/>
+        <input type="number" step="0.01" id="price-without-vat" name="product[variety][price][value]" value="{PRODUCT.variety.price.value}" required/>
     </div>
     <div class="row text">
         <label>Price Value (including VAT) in {GLOBAL_DEFAULT_CURRENCY}</label>
-        <input type="number" id="price_with_vat"/>
+        <input type="number" step="0.01" id="price_with_vat"/>
     </div>
 
     <p><a href="#" class="button primary" onclick="$('#variety-more-details').toggle(); return false">More details</a></p>
