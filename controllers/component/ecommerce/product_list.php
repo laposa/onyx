@@ -76,7 +76,6 @@ class Onyx_Controller_Component_Ecommerce_Product_List extends Onyx_Controller_L
         
         // configure filter
         $filter = array();
-        $filter['publish'] = 1;
         $filter['product_id_list'] = $product_id_list;
         
         // get list
@@ -106,7 +105,6 @@ class Onyx_Controller_Component_Ecommerce_Product_List extends Onyx_Controller_L
 
         // configure filter
         $filter = array();
-        $filter['publish'] = 1;
         $filter['node_id'] = $node_id;
 
         // get product list
