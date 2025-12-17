@@ -32,6 +32,12 @@ class common_node extends Onyx_Model {
     var $priority;
     
     /**
+     * @access private
+     * Array to store validation errors
+     */
+    var $validation_errors = [];
+    
+    /**
      * headline strapline
      */
     var $strapline;
@@ -669,10 +675,24 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
         }
         
         /**
+         * validate node data
+         */
+        $validation_errors = $this->validateNodeData($node_data);
+        if (!empty($validation_errors)) {
+            sendNodeUpdateResponse($validation_errors, 400, 'Validation failed');
+            // TODO: possibly need this for future?
+            // $this->validation_errors = $validation_errors;
+            return false;
+        }
+        
+        /**
          * valid parent
          */
          
-        if (!$this->validateParent($node_data['id'], $node_data['parent'])) return false;
+        if (!$this->validateParent($node_data['id'], $node_data['parent'])) {
+            $this->validation_errors = ['parent' => 'Invalid parent node selected'];
+            return false;
+        }
         
         /**
          * commit update
@@ -689,11 +709,145 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
         } else {
             $node_group = ucfirst($node_data['node_group']);
             msg("$node_group (id={$node_data['id']}) can't be updated", 'error');
+            $this->validation_errors = ['database' => "Failed to update node in database"];
             return false;
         }
     }
 
+    /**
+     * Validate node data for updates using $_metaData
+     * 
+     * @param array $node_data
+     * @return array $validation_errors
+     */
+    function validateNodeData($node_data) {
+        bar_dump($node_data);
+        $errors = [];
 
+        // Use metaData for validation, but only select fields present in $node_data
+        foreach (array_intersect_key($this->_metaData, $node_data) as $field_name => $field_config) {
+            $value = $node_data[$field_name] ?? null;
+            $is_empty = empty($value) && $value !== '0' && $value !== 0;
+            
+            // Check required fields
+            if ($field_config['required'] && $is_empty) {
+                $errors[$field_name] = ucfirst(str_replace('_', ' ', $field_name)) . ' is required';
+                continue;
+            }
+            
+            // Skip validation for empty optional fields
+            if ($is_empty && !$field_config['required']) {
+                continue;
+            }
+            
+            // Validate based on type
+            switch ($field_config['validation']) {
+                case 'int':
+                    if (!is_numeric($value)) {
+                        $errors[$field_name] = ucfirst(str_replace('_', ' ', $field_name)) . ' must be numeric';
+                    } elseif ($field_name === 'id' && intval($value) < 1) {
+                        $errors[$field_name] = 'ID must be a positive integer';
+                    }
+                    break;
+                    
+                case 'string':
+                    if (!is_string($value) && !is_numeric($value)) {
+                        $errors[$field_name] = ucfirst(str_replace('_', ' ', $field_name)) . ' must be a string';
+                    } else {
+                        // String length validation
+                        $string_value = (string)$value;
+                        if ($field_name === 'title' && strlen($string_value) > 255) {
+                            $errors[$field_name] = 'Title cannot exceed 255 characters';
+                        } elseif (in_array($field_name, ['node_group', 'node_controller']) && strlen($string_value) > 255) {
+                            $errors[$field_name] = ucfirst(str_replace('_', ' ', $field_name)) . ' cannot exceed 255 characters';
+                        }
+                        
+                        // Additional business logic validation
+                        if ($field_name === 'node_group' && !empty($string_value)) {
+                            $valid_groups = ['page', 'content', 'container', 'recipe', 'product', 'event', 'store'];
+                            if (!in_array($string_value, $valid_groups)) {
+                                $errors[$field_name] = 'Invalid node group specified';
+                            }
+                        }
+                    }
+                    break;
+                    
+                case 'xhtml':
+                    // For content fields, we might want to validate HTML
+                    if (!is_string($value) && !is_null($value)) {
+                        $errors[$field_name] = ucfirst(str_replace('_', ' ', $field_name)) . ' must be valid HTML content';
+                    }
+                    break;
+                    
+                case 'datetime':
+                    if (!empty($value) && !strtotime($value)) {
+                        $errors[$field_name] = ucfirst(str_replace('_', ' ', $field_name)) . ' must be a valid datetime';
+                    }
+                    break;
+                    
+                case 'serialized':
+                    // Validate serialized data if present
+                    if (!empty($value) && !is_array($value) && !is_string($value)) {
+                        $errors[$field_name] = ucfirst(str_replace('_', ' ', $field_name)) . ' must be valid serialized data';
+                    }
+                    break;
+            }
+        }
+        
+        // Additional custom validation rules
+        $custom_errors = $this->validateCustomRules($node_data);
+        $errors = array_merge($errors, $custom_errors);
+        
+        return $errors;
+    }
+    
+    /**
+     * Additional custom validation rules not covered by metaData
+     * 
+     * @param array $node_data
+     * @return array
+     */
+    function validateCustomRules($node_data) {
+        $errors = [];
+        
+        // Validate parent relationship
+        if (isset($node_data['parent']) && !empty($node_data['parent'])) {
+            if (!$this->validateParent($node_data['id'], $node_data['parent'])) {
+                $errors['parent'] = 'Invalid parent node selected';
+            }
+        }
+        
+        // Validate publish status values
+        if (isset($node_data['publish']) && !in_array($node_data['publish'], [0, 1, '0', '1'])) {
+            $errors['publish'] = 'Publish status must be 0 or 1';
+        }
+        
+        // Validate display settings
+        $display_fields = ['display_in_menu', 'display_title', 'display_secondary_navigation', 'require_login', 'display_breadcrumb', 'require_ssl'];
+        foreach ($display_fields as $field) {
+            if (isset($node_data[$field]) && !in_array($node_data[$field], [0, 1, '0', '1', null, ''])) {
+                $errors[$field] = ucfirst(str_replace('_', ' ', $field)) . ' must be 0 or 1';
+            }
+        }
+        
+        // Validate title requirements for specific node types
+        if (isset($node_data['node_group']) && in_array($node_data['node_group'], ['page', 'content', 'article'])) {
+            if (empty(trim($node_data['title'] ?? ''))) {
+                $errors['title'] = 'Title is required for this node type';
+            }
+        }
+        
+        return $errors;
+    }
+
+    /**
+     * Get validation errors from last operation
+     * 
+     * @return array
+     */
+    function getValidationErrors() {
+        return $this->validation_errors ?? [];
+    }
     
     /**
      * restore revision node

@@ -82,6 +82,7 @@ class Onyx_Controller_Bo_Component_X_Relation_Taxonomy extends Onyx_Controller_B
             foreach ($current as $taxonomy_tree_id => $id) {
                 if (!in_array($taxonomy_tree_id, $submitted)) {
                     $Taxonomy->delete($id);
+                    // TODO: not suitable for sending request with each. Should we make separate function that only sends messages or is it okay to get rid of these and only fire one in the end?
                     msg("Relation to the category $taxonomy_tree_id has been removed.", 'ok', 1);
                 }
             }
@@ -95,6 +96,7 @@ class Onyx_Controller_Bo_Component_X_Relation_Taxonomy extends Onyx_Controller_B
                 }
             }
 
+            sendNodeUpdateResponse("Relations for the {$node_data['node_group']} <b>{$node_data['title']}</b>({$node_data['id']}) have been updated successfully.", 200, 'Update successful');
         }
         
         /**

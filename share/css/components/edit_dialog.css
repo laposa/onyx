@@ -228,16 +228,6 @@ dialog.edit-dialog {
 		}
 	}
 
-	.error-message {
-		color: var(--color-danger);
-		padding: 10px;
-		font-size: 14px;
-		width: 100%;
-		background-color: #fbeaea;
-		border-radius: 5px;
-		margin-bottom: 10px;
-	}
-
 	/* TODO: specific changes - create separate files for each component? */
 
 	.file-item-form {

@@ -65,7 +65,12 @@ function addNewTaxonomy() {
     <!-- END: preview -->
 
     <!-- BEGIN: edit -->
-    <form id="relation-taxonomy-edit">
+    <form 
+        id="relation-taxonomy-edit"
+        hx-indicator="#edit-loading"
+        hx-post="/request/bo/component/x_relation_taxonomy"
+        data-refresh="#relation-taxonomy"
+    >
         <h2>Edit Related Categories</h2>
 
         <!-- BEGIN: empty -->
@@ -105,15 +110,7 @@ function addNewTaxonomy() {
         <input type="hidden" name="node[id]" value="{GET.node_id}" />
 
         <div class="edit-actions">
-            <button 
-                hx-indicator="#edit-loading"
-                hx-post="/request/bo/component/x_relation_taxonomy"
-                class="btn" 
-                type="submit" 
-                name="save" 
-                value="save" 
-                id="saveAndClose"
-            >
+            <button class="btn" type="submit" name="save" value="save" >
                 Save & Close
             </button>
 

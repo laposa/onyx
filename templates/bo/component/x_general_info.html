@@ -1,5 +1,4 @@
 <!-- BEGIN: content -->
-{MESSAGES}
     <!-- BEGIN: preview -->
     <fieldset id="component-general-info" class="component-preview">
         <div id="general-info-loading" class="onyx-loading htmx-indicator">
@@ -36,7 +35,13 @@
     <!-- END: preview -->
 
     <!-- BEGIN: edit -->
-    <form id="general-info-edit">
+    <form 
+        id="general-info-edit"
+        hx-indicator="#edit-loading"
+        hx-post="/request/bo/component/x_general_info"
+        hx-validate="true"
+        data-refresh="#general-info"
+    >
         <h2>Edit General Information</h2>
 
         <!-- Node Type -->
@@ -59,6 +64,7 @@
                 value="{NODE.title|htmlspecialchars}" 
                 placeholder="{NODE.node_group|ucfirst} Name"
                 onkeyup="if (document.getElementById('node-page-title')) document.getElementById('node-page-title').setAttribute('placeholder', this.value);"
+                required
             />
         </div>
 
@@ -123,15 +129,7 @@
         <input type="hidden" name="node[id]" value="{GET.node_id}" />
 
         <div class="edit-actions">
-            <button 
-                hx-indicator="#edit-loading"
-                hx-post="/request/bo/component/x_general_info"
-                class="btn" 
-                type="submit" 
-                name="save" 
-                value="save" 
-                id="saveAndClose"
-            >
+            <button class="btn" type="submit" name="save" value="save">
                 Save & Close
             </button>
 

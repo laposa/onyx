@@ -3,10 +3,12 @@
     // rewrite url on page select
     $(document).on('click', '.navigation-list li', function(e) {
         e.preventDefault();
-        let newLink = window.location.origin + '/backoffice/content/' + $(this).attr('id').replace('navigation-node-', '');
-
-        if(window.history.pushState) {
-            window.history.pushState({}, $(this).find('span').html(), newLink);
+        if($(this).attr('id')) {
+            let newLink = window.location.origin + '/backoffice/content/' + $(this).attr('id').replace('navigation-node-', '');
+    
+            if(window.history.pushState) {
+                window.history.pushState({}, $(this).find('span').html(), newLink);
+            }
         }
     });
 
@@ -75,12 +77,12 @@
                     sourceList.classList.add('htmx-request');
                     if (targetList && sourceList !== targetList) targetList.classList.add('htmx-request');
                     updateNodePosition(sourceNodeId, parentId, position, function() {
-                        htmx.trigger(sourceList, 'navRefresh');
+                        htmx.trigger(sourceList, 'refresh');
                         if (sourceList !== targetList) {
-                            htmx.trigger(targetList, 'navRefresh');
+                            htmx.trigger(targetList, 'refresh');
                         }
                         if (insertedList && insertedList !== sourceList && insertedList !== targetList) {
-                            htmx.trigger(insertedList, 'navRefresh');
+                            htmx.trigger(insertedList, 'refresh');
                         }
                     });
                 } else {
@@ -187,7 +189,7 @@
         id="navigation-level-{LEVEL}"
         class="navigation-list nav-list-{ROOT}"
         hx-get="/request/bo/component/node_explorer_level~id={ROOT}:active={ACTIVE_PAGE}~"
-        hx-trigger="load, navRefresh"
+        hx-trigger="load, refresh"
         hx-swap="innerHTML"
         hx-on::after-request="initializeDragAndDrop(); scrollToActive(this);"
         hx-indicator="#navigation-level-{LEVEL}"

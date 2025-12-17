@@ -1114,3 +1114,51 @@ function onyxGlobalConfSetValue($name, $value) {
 
     define($name, $value);
 }
+
+/**
+ * Send HTMX-compatible response for node update operations
+ * 
+ * @param array|string $errors - Validation errors or error message
+ * @param int $status_code - HTTP status code (default 400)
+ * @param string $message - Main error message
+ * @return void
+ */
+function  sendNodeUpdateResponse($errors, $status_code = 400, $message = 'Validation failed') {
+    http_response_code($status_code);
+    header('Content-Type: application/json');
+    
+    if (is_string($errors)) {
+        $errors = ['general' => $errors];
+    }
+
+    switch($status_code) {
+        case 200:
+            $status = 'success';
+            break;
+        case 400:
+        case 401:
+        case 403:
+        case 404:
+        case 500:
+            $status = 'error';
+            break;
+        default:
+            $status = 'unknown';
+            break;
+    }
+    
+    $response = [
+        'status' => $status,
+        'message' => $message,
+        'errors' => $errors,
+        'timestamp' => date('c'),
+        'status_code' => $status_code
+    ];
+    
+    // HTMX trigger for error handling
+    header('HX-Trigger: {"nodeUpdateResponse": ' . json_encode($response) . '}');
+    
+    // Return JSON error response
+    echo json_encode($response);
+    exit();
+}

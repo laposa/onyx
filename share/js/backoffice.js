@@ -21,43 +21,52 @@ function closeDialog() {
     document.querySelector("#edit-dialog").close();
 }
 
-// TODO: refresh is being triggered while clicking through file dialog
-function refreshComponent(triggerButton) {
-    const form = htmx.closest(triggerButton, 'form');
-    const componentName = form.id.replace('-edit', '');
-    htmx.trigger('#' + componentName, 'refresh');
-}
-
 document.addEventListener('htmx:afterRequest', (event) => {
     popupMessage("dialog div.onyx-messages");
-
-    if (event.target.id == 'saveAndClose') {
-        closeDialog();
-        refreshComponent(event.target);
+    
+    //check for errors
+    if (event.detail.xhr.status >= 400) {
+        return;
     }
-
-    if (event.target.id == 'addNode') {
+    
+    // NOTE: if needed, can accept more components to refresh, explode by comma, trigger for each
+    if(event.target.dataset.refresh) {
         closeDialog();
-        navId = event.target.getAttribute('data-nav-id');
-        htmx.trigger('.nav-list-' + navId, 'navRefresh');
-        //refresh content+page list and navigation
+        console.log(event.target.dataset.refresh);
+        htmx.trigger(event.target.dataset.refresh, 'refresh');
+        return;
     }
-
-    if (event.target.dataset.action == 'addProduct') {
-        closeDialog();
-        if(document.getElementById('product-info')) {
-            htmx.trigger('#product-info', 'refresh');
-        }
-    }
-
-    if (event.target.dataset.action == 'addProductVariety') {
-        closeDialog();
-        if(document.getElementById('product-varieties')) {
-            htmx.trigger('#product-varieties', 'refresh');
-        }
-    }
-
     // TODO: move component - refresh nav?
+});
+
+document.addEventListener('nodeUpdateResponse', (event) => {
+    const responseMessage = document.createElement('div');
+    responseMessage.classList.add('onyx-response', event.detail.status);
+    responseMessage.innerHTML = `<strong>${event.detail.message}</strong>`;
+
+    if(event.detail.errors) {
+        if(event.detail.errors.length > 1) {
+            const errorList = document.createElement('ul');
+    
+            for (const [field, message] of Object.entries(event.detail.errors)) {
+                const listItem = document.createElement('li');
+                listItem.textContent = `${message}`;
+                errorList.appendChild(listItem);
+            }
+            responseMessage.appendChild(errorList);
+        } else {
+            responseMessage.innerHTML += `<br>${Object.values(event.detail.errors)[0]}`;
+        }
+    }
+
+    if(event.detail.status === 'error' && document.querySelector('dialog[open]')) {
+        document.querySelector('dialog[open] .content h2').after(responseMessage);
+    } else {
+        document.querySelector("#onyx-snackbar").append(responseMessage); 
+        setTimeout(() => {
+            responseMessage.remove();
+        }, 3000); //timeout is in sync with animation in messages.css
+    }
 });
  
 function openEdit(url, el, ajax) {
@@ -66,7 +75,6 @@ function openEdit(url, el, ajax) {
     } else {
         nOpenWin(url, 825, 800);
     }
-    
 }
 
 function openAjaxRequestInDialog(url, title) {
@@ -304,7 +312,7 @@ function duplicateNode(id, parent_id, node_group, sub_items = 0) {
         $.get('/request/bo/component/node_duplicate~id='+id+'~', function(data) {
             popupMessage($(data).find("div.onyx-messages"));
             // refreshNodeList(parent_id, node_group);
-            htmx.trigger('.nav-list-' + parent_id, 'navRefresh');
+            htmx.trigger('.nav-list-' + parent_id, 'refresh');
         });
     } else {
         return false;
@@ -347,11 +355,11 @@ function moveNode(event, node_group, source_node_id) {
                                 const destinationList = $('.nav-list-' + destination_id[0]);
 
                                 if(sourceList.length > 0) {
-                                    htmx.trigger('#' + sourceList.attr('id'), 'navRefresh');
+                                    htmx.trigger('#' + sourceList.attr('id'), 'refresh');
                                 }
 
                                 if(destinationList.length > 0) {
-                                    htmx.trigger('#' + destinationList.attr('id'), 'navRefresh');
+                                    htmx.trigger('#' + destinationList.attr('id'), 'refresh');
                                 }
                             }
                         );

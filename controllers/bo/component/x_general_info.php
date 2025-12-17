@@ -30,11 +30,10 @@ class Onyx_Controller_Bo_Component_X_General_Info extends Onyx_Controller_Bo_Com
 
         // save
         if (isset($_POST['save'])) {
-            // TODO: messages
             if($node->nodeUpdate($_POST['node'])) {
-                msg("{$node_data['node_group']} (id={$node_data['id']}) has been updated");
+                sendNodeUpdateResponse("{$node_data['node_group']} <b>{$node_data['title']}</b>({$node_data['id']}) has been updated", 200, 'Update successful');
             } else {
-                msg("Cannot update node {$node_data['node_group']} (id={$node_data['id']})", 'error');
+                sendNodeUpdateResponse("Cannot update node {$node_data['node_group']} <b>{$node_data['title']}</b>({$node_data['id']})", 500, 'Update failed');
             }
 
             //trigger page refresh if node type changed

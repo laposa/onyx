@@ -1,5 +1,4 @@
 <!-- BEGIN: content -->
-{MESSAGES}
     <!-- BEGIN: preview -->
     <fieldset id="component-metadata" class="component-preview">
         <div id="metadata-loading" class="onyx-loading htmx-indicator">
@@ -36,7 +35,12 @@
     <!-- END: preview -->
 
     <!-- BEGIN: edit -->
-    <form id="metadata-edit">
+    <form 
+        id="metadata-edit"
+        hx-indicator="#edit-loading"
+        hx-post="/request/bo/component/x_metadata"
+        data-refresh="#metadata"
+    >
         <h2>Edit Metadata</h2>
 
         <!-- Slug / URI -->
@@ -91,15 +95,7 @@
         <input type="hidden" name="node[id]" value="{GET.node_id}" />
 
         <div class="edit-actions">
-            <button 
-                hx-indicator="#edit-loading"
-                hx-post="/request/bo/component/x_metadata"
-                class="btn" 
-                type="submit" 
-                name="save" 
-                value="save" 
-                id="saveAndClose"
-            >
+            <button class="btn" type="submit" name="save" value="save" >
                 Save & Close
             </button>
 

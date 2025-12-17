@@ -33,16 +33,15 @@ class Onyx_Controller_Bo_Component_X_Node_Add extends Onyx_Controller_Bo_Compone
                 $home_page_data = $Node->getDetail($Node->conf['id_map-homepage']);
                 $node_data['parent'] = $home_page_data['parent'];
                 $home_page_parent_data = $Node->getDetail($home_page_data['parent']);
+                // TODO: is this msg needed? purely log purpose?
                 msg("Inserting page under {$home_page_parent_data['title']}");
             }
             
             /**
              * insert a new node
-             */
+            */
             if($id = $Node->nodeInsert($node_data, $position)) {
-                // TODO: messages and menu update
-                msg(ucfirst($node_data['node_group']) . " ". $node_data['title'] . " has been added.");
-                header('HX-Trigger: {"nodeUpdated":{"init" :"false"}}');
+                sendNodeUpdateResponse("{$node_data['node_group']} <b>{$node_data['title']}</b>({$node_data['id']}) has been added under {$home_page_parent_data['title']}.", 200, 'Insert successful');
             }
         }
         

@@ -1,0 +1,64 @@
+#onyx-snackbar {
+	display: flex;
+	position: fixed;
+	flex-direction: colummn;
+	justify-content: center;
+	top: 20px;
+	width: 100%;
+	z-index: 10000;
+	pointer-events: none;
+
+	.onyx-response {
+		max-width: 600px;
+		margin: 10px;
+	}
+}
+
+.onyx-response {
+	padding: 15px;
+	font-size: 14px;
+	width: 100%;
+	border-radius: 5px;
+	margin-bottom: 10px;
+
+	strong {
+		font-size: 16px;
+	}
+
+	ul {
+		margin-bottom: 0;
+	}
+
+	&.error {
+		color: var(--color-danger);
+		background-color: #fbeaea;
+	}
+
+	&.success {
+		position: relative;
+		color: var(--color-success);
+		background-color: #e6f7e6;
+		box-shadow: 0 0 8px rgba(0, 128, 0, 0.3);
+		animation: fadeInOut 3s forwards; /* animation length is in sync with backoffice.js @ nodeUpdateResponse listener */
+
+		&:after {
+			content: "";
+			width: 13px;
+			height: 20px;
+			border-right: 5px solid var(--color-success);
+			border-bottom: 5px solid var(--color-success);
+			transform: rotate(45deg);
+			top: 15px;
+			right: 25px;
+			color: var(--color-success);
+			position: absolute;
+		}
+	}
+}
+
+@keyframes fadeInOut {
+	0% {opacity: 0;}
+	10% {opacity: 1;}
+	90% {opacity: 1;}
+	100% {opacity: 0;}
+}

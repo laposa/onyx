@@ -42,7 +42,12 @@
     <!-- END: preview -->
 
     <!-- BEGIN: edit -->
-    <form id="visibility-edit">
+    <form 
+        id="visibility-edit"
+        hx-indicator="#edit-loading"
+        hx-post="/request/bo/component/x_visibility"
+        data-refresh="#visibility"
+    >
         <h2>Edit Visibility</h2>
 
         <!-- Published -->
@@ -79,15 +84,7 @@
         <input type="hidden" name="node[id]" value="{GET.node_id}" />
 
         <div class="edit-actions">
-            <button 
-                hx-indicator="#edit-loading"
-                hx-post="/request/bo/component/x_visibility"
-                class="btn" 
-                type="submit" 
-                name="save" 
-                value="save" 
-                id="saveAndClose"
-            >
+            <button class="btn" type="submit" name="save" value="save" >
                 Save & Close
             </button>
 
