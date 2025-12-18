@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2008-2018 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2008-2025 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  */
 
@@ -19,14 +19,27 @@ class Onyx_Controller_Bo_Component_File_List extends Onyx_Controller_Bo_Componen
     
         parent::mainAction();
 
+        /**
+         * inputs
+         */
+        
         $type = $this->GET['type'];
         $relation = $this->GET['relation'];
-        $files = [];
         
-        if (!is_numeric($this->GET['node_id'] ?? null)) $this->GET['node_id'] = $_POST['file']['node_id'] ?? null;
-        if (is_numeric($this->GET['node_id'] ?? null)) $files = $this->File->listFiles($this->GET['node_id'] ?? null); // don't filter listing by role
+        if (is_numeric($this->GET['node_id'] ?? null)) $node_id = $this->GET['node_id'];
+        else if (is_numeric($_POST['file']['node_id'] ?? null)) $node_id = $_POST['file']['node_id'];
+        else {
+            msg("Missing node_id", 'error');
+            return false;
+        }
+
+        /**
+         * get list of related files
+         */
+
+        $files = $this->File->listFiles($node_id);
         
-        if (is_array($files)) {
+        if (is_array($files) && count($files) > 0) {
         
             if (count($files) == 0) {
             

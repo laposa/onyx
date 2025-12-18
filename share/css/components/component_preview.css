@@ -41,16 +41,6 @@
 		width: 100%;
 	}
 
-	p {
-		margin: 0 0 5px;
-		display: flex;
-		font-size: 1rem;
-	}
-
-	ul {
-		padding-left: 20px;
-	}
-
 	.component-actions {
 		position: absolute;
 		display: flex;

@@ -20,9 +20,19 @@ class Onyx_Controller_Bo_Component_X_Product_Taxonomy extends Onyx_Controller_Bo
      
     public function mainAction() {
 
-         // get details
+        /**
+         * input validation
+         */
+
+        if (is_numeric($this->GET['id'])) $product_id = $this->GET['node_id'];
+        else return false;
+
+        /**
+         * get details
+         */
+        
         $product = new ecommerce_product();
-        $product_data = $product->productDetail($this->GET['node_id']);
+        $product_data = $product->productDetail($product_id);
 
         if (!$product_data) {
             return true;

@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2005-2011 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2005-2025 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  * 
  */
@@ -14,7 +14,17 @@ class Onyx_Controller_Bo_Component_Ecommerce_Product_Variety_List extends Onyx_C
     public function mainAction() {
     
         /**
-         * include variety confg
+         * input validation
+         */
+
+        if (is_numeric($this->GET['id'])) $product_id = $this->GET['id'];
+        else {
+            msg("Product ID is not avaiilable - add a product first.", 'error');
+            return false;
+        }
+
+        /**
+         * include variety config
          */
         require_once('models/ecommerce/ecommerce_product_variety.php');
         $variety_conf = ecommerce_product_variety::initConfiguration();

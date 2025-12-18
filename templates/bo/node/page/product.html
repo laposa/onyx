@@ -21,6 +21,34 @@
 	</div> -->
 </div>
 
+<!-- Product Varieties -->
+<div id="product-varieties"
+	hx-get="/request/bo/component/ecommerce/product_variety_list?id={NODE.content}"
+	hx-trigger="load, refresh"
+	hx-indicator="#product-varieties-loading">
+	<!-- <div id="product-varieties-loading" class="onyx-loading htmx-indicator">
+		<img src="/share/images/loading.svg" alt="Loading..."/>
+	</div> -->
+</div>
+
+<!-- Product Images -->
+<div id="product-images"
+	hx-get="/request/bo/component/x_product_images?node_id={NODE.content}"
+	hx-trigger="load, refresh"
+	hx-indicator="#product-images-loading">
+	<!-- <div id="product-images-loading" class="onyx-loading htmx-indicator">
+		<img src="/share/images/loading.svg" alt="Loading..."/>
+	</div> -->
+</div>
+
+<!-- Product Categories/Tags -->
+<div 
+	id="product-taxonomy"
+	hx-get="/request/bo/component/x_product_taxonomy?relation=product&node_id={NODE.content}"
+	hx-trigger="load, refresh"
+	hx-indicator="#product-taxonomy-loading">
+</div>
+
 <div id="metadata"
 	hx-get="/request/bo/component/x_metadata?node_id={GET.id}"
 	hx-trigger="load, refresh"
@@ -48,44 +76,6 @@
 	</div> -->
 </div>
 
-<!-- Product Varieties -->
-<div id="product-varieties"
-	hx-get="/request/bo/component/ecommerce/product_variety_list?id={NODE.content}"
-	hx-trigger="load, refresh"
-	hx-indicator="#product-varieties-loading">
-	<!-- <div id="product-info-loading" class="onyx-loading htmx-indicator">
-		<img src="/share/images/loading.svg" alt="Loading..."/>
-	</div> -->
-</div>
-
-<!-- Product Images -->
-<fieldset id="component-product-images" class="component-preview">
-	<div id="product-images-loading" class="onyx-loading htmx-indicator">
-			<img src="/share/images/loading.svg" alt="Loading..."/>
-	</div>
-
-	<legend>Product Images</legend>
-
-	<div 
-		hx-get="/request/bo/component/file_list?type=add_to_product&relation=product&node_id={NODE.content}"
-		hx-trigger="load, refresh"
-		hx-indicator="#product-images-loading">
-	</div>
-	
-	<div class="component-actions">
-		<button
-			hx-get="/request/bo/component/file_list?type=add_to_product&relation=product&node_id={NODE.content}"
-			hx-target="#edit-dialog .content"
-			hx-indicator="#edit-loading"
-			hx-trigger="click"
-			hx-swap="innerHTML"
-			hx-on::before-request="openDialog()"
-			class="btn">
-			Edit
-		</button>
-	</div>
-</fieldset>
-
 <!-- Content List -->
 <!-- TODO: check refresh, create custom component? -->
 <fieldset id="component-content-list" class="component-preview">
@@ -108,14 +98,6 @@
       <button class="button add" title="Add Content" onclick="addNode(event, '{GET.id}', '{NODE.node_group}', 'content')">Add Content</button>
 		</div>
 </fieldset>
-
-<!-- Product Categories/Tags -->
-<div 
-	id="product-taxonomy"
-	hx-get="/request/bo/component/x_product_taxonomy?relation=product&node_id={NODE.content}"
-	hx-trigger="load, refresh"
-	hx-indicator="#product-taxonomy-loading">
-</div>
 
 <!-- Position -->
 <div id="node-position"

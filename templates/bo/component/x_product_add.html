@@ -46,12 +46,12 @@
 
     <div class="row text">
         <label>Price Value excluding VAT in {GLOBAL_DEFAULT_CURRENCY}</label>
-        <input id="price_without_vat" type="number" name="product[variety][price][value]" value="{PRICE.variety.price.value}" required/>
+        <input id="price-without-vat" type="number" name="product[variety][price][value]" value="{PRICE.variety.price.value}" required/>
     </div>
 
     <div class="row text">
         <label>Price Value including VAT in {GLOBAL_DEFAULT_CURRENCY}</label>
-        <input id="price_with_vat" type="number"/>
+        <input id="price-with-vat" type="number"/>
     </div>
    
     <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />

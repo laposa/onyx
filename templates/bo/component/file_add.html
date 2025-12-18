@@ -10,7 +10,8 @@ function showResponse()  {
     //FIXME: hide when return message == "File inserted", not very safe and doesn't work when debugging is enabled…
     if ($("#file-add-result div.onyx-messages p.onyx-error-msg").text() == '') {
         $("#file-list-{GET.node_id}").load("/request/bo/component/file_list~type={GET.type}:relation={GET.relation}:node_id={GET.node_id}~");
-        hideModalOverlay();
+        closeFileDialog();
+        closeDialog();
     }
 }
 </script> 

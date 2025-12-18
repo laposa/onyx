@@ -35,6 +35,7 @@
         <button 
             hx-indicator="#edit-loading"
             hx-post="/request/bo/component/x_node_add"
+            hx-on::after-request="htmx.trigger('.nav-list-' + {GET.parent}, 'navRefresh');"
             class="btn" 
             type="submit" 
             name="save" 

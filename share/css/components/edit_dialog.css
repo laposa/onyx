@@ -185,12 +185,8 @@ dialog.edit-dialog {
 		}
 
 		.row.text label, .row.select label {
-			position: absolute;
-			top: -9px;
-			left: 7px;
 			padding: 0 5px;
 			background-color: white;
-			z-index: 20;
 
 			&.error {
 				display: none!important;

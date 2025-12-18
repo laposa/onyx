@@ -1,0 +1,27 @@
+<!-- BEGIN: content -->
+    <!-- BEGIN: preview -->
+    <fieldset id="component-product-images-files" class="component-preview">
+
+        <legend>Product Images</legend>
+
+        <div 
+            hx-get="/request/bo/component/file_list?type=add_to_product&relation=product&node_id={GET.node_id}"
+            hx-trigger="load, refresh"
+            hx-indicator="#product-images-loading-files">
+        </div>
+        
+        <div class="component-actions">
+            <button
+                hx-get="/request/bo/component/file_list?type=add_to_product&relation=product&node_id={GET.node_id}"
+                hx-target="#edit-dialog .content"
+                hx-indicator="#edit-loading"
+                hx-trigger="click"
+                hx-swap="innerHTML"
+                hx-on::before-request="openDialog()"
+                class="btn">
+                Edit
+            </button>
+        </div>
+    </fieldset>
+    <!-- END: preview -->
+<!-- END: content -->
