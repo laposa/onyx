@@ -2003,42 +2003,15 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
      * get sibling
      */
      
-    function getSiblingList($item_id, $exclude_unrelated = true) {
+    function getSiblingList($item_id) {
     
         if (!is_numeric($item_id)) return false;
-        
+
         if ($item_data = $this->detail($item_id)) {
-            
-            /**
-             * prepare exclude_query to make sure we are getting only related siblings
-             */
-            
-            if ($exclude_unrelated) {
-                
-                if (in_array($item_data['node_group'], array('page', 'container', 'site'))) {
-                    
-                    // when ecommerce is enabled, include page or container, don't include products, recipes and news
-                    if (ONYX_ECOMMERCE) $exclude_query = "(node_group = 'page' OR node_group = 'container') AND node_controller != 'product' AND node_controller != 'recipe' AND node_controller != 'news'";
-                    else $exclude_query = "(node_group = 'page' OR node_group = 'container')";
-                    
-                } else {
-                    
-                    //asking for content or layout, exclude all pages and containers
-                    $exclude_query = "node_group != 'page' AND node_group != 'container'";
-                }
-                
-            } else {
-                
-                $exclude_query = '1=1';
-            }
-            
             //use same sorting as getTree() function
-            $list = $this->listing("parent_container = {$item_data['parent_container']} AND parent = {$item_data['parent']} AND $exclude_query", 'priority DESC, id ASC');
-            
+            $list = $this->listing("parent_container = {$item_data['parent_container']} AND parent = {$item_data['parent']}", 'priority DESC, id ASC');
         } else {
-            
             return false;
-            
         }
         
         if (is_array($list)) return $list;
