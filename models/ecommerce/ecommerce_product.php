@@ -467,8 +467,7 @@ CREATE TABLE ecommerce_product (
 
     function getFilteredProductList($filter = null, $currency_code = GLOBAL_DEFAULT_CURRENCY, $price_type = 'common') {
 
-        // sanitize input TODO: pg_escape_string() function deprecated? may cause security issues?
-        $filter['keyword'] = trim($filter['keyword'] ?? '');//addslashes or pg_escape_string
+        $filter['keyword'] = pg_escape_string(trim($filter['keyword']));
 
         $add_to_where = '';
 
@@ -500,7 +499,7 @@ CREATE TABLE ecommerce_product (
 
             // image role
             if ($filter['image_role'] ?? false) {
-                // TODO: pg_escape_string() function deprecated? may cause security issues?
+                $filter['image_role'] = pg_escape_string($filter['image_role']);
                 $add_to_where .= " AND image.role = '{$filter['image_role']}'";
             }
 

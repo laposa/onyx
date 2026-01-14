@@ -119,7 +119,7 @@ CREATE TABLE common_scheduler (
     {
         if (!is_numeric($node_id)) return false;
 
-        //TODO pg_escape_string removed. possible issues?
+        $node_type = pg_escape_string($node_type);
         return $this->listing("node_type = '$node_type' AND node_id = " . $node_id, "scheduled_time ASC");
     }
 
