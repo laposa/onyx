@@ -420,8 +420,7 @@ CREATE INDEX ecommerce_store_type_id_idx ON ecommerce_store (type_id);
     {
         $sql = '1 = 1';
 
-        // TODO test?
-        $keyword = trim($keyword);
+        $keyword = pg_escape_string(trim($keyword));
 
         // keyword
         if (is_numeric($keyword)) {
