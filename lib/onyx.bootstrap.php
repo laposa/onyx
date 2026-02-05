@@ -160,7 +160,7 @@ class Onyx_Bootstrap {
 
         $dbCache = $this->initCacheAdapter(ONYX_DB_QUERY_CACHE_BACKEND, 'DB', ONYX_DB_QUERY_CACHE_TTL, ONYX_DB_QUERY_CACHE_DIRECTORY);
         $pageCache = $this->initCacheAdapter(ONYX_PAGE_CACHE_BACKEND, 'PAGE', ONYX_PAGE_CACHE_TTL, ONYX_PAGE_CACHE_DIRECTORY);
-        $generalCache = $this->initCacheAdapter(ONYX_GENERAL_CACHE_BACKEND, 'GENERAL', ONYX_GENERAL_CACHE_TTL, ONYX_GENERAL_CACHE_BACKEND);
+        $generalCache = $this->initCacheAdapter(ONYX_GENERAL_CACHE_BACKEND, 'GENERAL', ONYX_GENERAL_CACHE_TTL, ONYX_GENERAL_CACHE_DIRECTORY);
 
         $this->cache = $pageCache;
         $this->container->set('onyx_db_cache', $dbCache);
