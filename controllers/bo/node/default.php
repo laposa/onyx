@@ -62,7 +62,6 @@ class Onyx_Controller_Bo_Node_Default extends Onyx_Controller {
         
         if($this->Node->nodeUpdate($node_data)) {
             msg("{$node_data['node_group']} (id={$node_data['id']}) has been updated");
-            header('HX-Trigger: {"nodeUpdated":{"init" :"false"}}');
         } else {
             msg("Cannot update node {$node_data['node_group']} (id={$node_data['id']})", 'error');
         }

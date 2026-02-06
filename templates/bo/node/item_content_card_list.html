@@ -6,7 +6,7 @@
         class="row child" 
         hx-get="/request/bo/component/node_list_cards~id={GET.id}~" 
         hx-target="#content-list-cards-wrapper" 
-        hx-trigger="nodeUpdated from:body"
+        hx-trigger="refresh"
     >
         {ONYX_REQUEST_content_list #bo/component/node_list_cards~id=GET.id~}
     </div>

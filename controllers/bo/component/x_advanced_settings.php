@@ -21,10 +21,8 @@ class Onyx_Controller_Bo_Component_X_Advanced_Settings extends Onyx_Controller_B
 
         // save
         if (isset($_POST['save'])) {
-            // TODO: messages
             if($node->nodeUpdate($_POST['node'])) {
                 msg("{$node_data['node_group']} (id={$node_data['id']}) has been updated");
-                // header('HX-Trigger: {"nodeUpdated":{"init" :"false"}}');
             } else {
                 msg("Cannot update node {$node_data['node_group']} (id={$node_data['id']})", 'error');
             }

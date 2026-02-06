@@ -43,10 +43,8 @@ class Onyx_Controller_Bo_Component_X_Product_Other_Data extends Onyx_Controller_
 
         // save
         if (isset($_POST['save'])) {
-            // TODO: messages
             if($product->updateProduct($_POST['product'])) {
                 msg("{$product_data['name']} (id={$product_data['id']}) has been updated");
-                // header('HX-Trigger: {"nodeUpdated":{"init" :"false"}}');
             } else {
                 msg("Cannot update node {$product_data['name']} (id={$product_data['id']})", 'error');
             }
