@@ -35,12 +35,12 @@
         <button 
             hx-indicator="#edit-loading"
             hx-post="/request/bo/component/x_node_add"
-            hx-on::after-request="htmx.trigger('.nav-list-' + {GET.parent}, 'navRefresh');"
+            data-nav-id="{GET.parent}"
             class="btn" 
             type="submit" 
             name="save" 
             value="save" 
-            id="saveAndClose"
+            id="addNode"
         >
             Add & Close
         </button>

@@ -6,9 +6,6 @@
 	hx-get="/request/bo/component/x_general_info?node_id={GET.id}"
 	hx-trigger="load, refresh"
 	hx-indicator="#general-info-loading">
-	<!-- <div id="general-info-loading" class="onyx-loading htmx-indicator">
-			<img src="/share/images/loading.svg" alt="Loading..."/>
-	</div> -->
 </div>
 
 <!-- Product Info -->
@@ -16,19 +13,13 @@
 	hx-get="/request/bo/component/x_product_info?node_id={GET.id}"
 	hx-trigger="load, refresh"
 	hx-indicator="#product-info-loading">
-	<!-- <div id="product-info-loading" class="onyx-loading htmx-indicator">
-		<img src="/share/images/loading.svg" alt="Loading..."/>
-	</div> -->
 </div>
 
 <!-- Product Varieties -->
 <div id="product-varieties"
-	hx-get="/request/bo/component/ecommerce/product_variety_list?id={NODE.content}"
+	hx-get="/request/bo/component/ecommerce/product_variety_list?node_id={NODE.content}"
 	hx-trigger="load, refresh"
 	hx-indicator="#product-varieties-loading">
-	<!-- <div id="product-varieties-loading" class="onyx-loading htmx-indicator">
-		<img src="/share/images/loading.svg" alt="Loading..."/>
-	</div> -->
 </div>
 
 <!-- Product Images -->
@@ -36,9 +27,6 @@
 	hx-get="/request/bo/component/x_product_images?node_id={NODE.content}"
 	hx-trigger="load, refresh"
 	hx-indicator="#product-images-loading">
-	<!-- <div id="product-images-loading" class="onyx-loading htmx-indicator">
-		<img src="/share/images/loading.svg" alt="Loading..."/>
-	</div> -->
 </div>
 
 <!-- Product Categories/Tags -->
@@ -53,27 +41,18 @@
 	hx-get="/request/bo/component/x_metadata?node_id={GET.id}"
 	hx-trigger="load, refresh"
 	hx-indicator="#metadata-loading">
-	<!-- <div id="metadata-loading" class="onyx-loading htmx-indicator">
-		<img src="/share/images/loading.svg" alt="Loading..."/>
-	</div> -->
 </div>
 
 <div id="visibility"
 	hx-get="/request/bo/component/x_visibility?node_id={GET.id}"
 	hx-trigger="load, refresh"
 	hx-indicator="#visibility-loading">
-	<!-- <div id="visibility-loading" class="onyx-loading htmx-indicator">
-		<img src="/share/images/loading.svg" alt="Loading..."/>
-	</div> -->
 </div>
 
 <div id="qr-code"
 	hx-get="/request/bo/component/x_qr_code?node_id={GET.id}"
 	hx-trigger="load, refresh"
 	hx-indicator="#qr-code-loading">
-	<!-- <div id="qr-code-loading" class="onyx-loading htmx-indicator">
-		<img src="/share/images/loading.svg" alt="Loading..."/>
-	</div> -->
 </div>
 
 <!-- Content List -->
@@ -104,9 +83,6 @@
 	hx-get="/request/bo/component/x_node_position?node_id={GET.id}"
 	hx-trigger="load, refresh"
 	hx-indicator="#node-position-loading">
-	<!-- <div id="node-position-loading" class="onyx-loading htmx-indicator">
-		<img src="/share/images/loading.svg" alt="Loading..."/>
-	</div> -->
 </div>
 
 <!-- Other data -->
@@ -114,17 +90,11 @@
 	hx-get="/request/bo/component/x_product_other_data?node_id={NODE.content}"
 	hx-trigger="load, refresh"
 	hx-indicator="#product-info-loading">
-	<!-- <div id="product-info-loading" class="onyx-loading htmx-indicator">
-		<img src="/share/images/loading.svg" alt="Loading..."/>
-	</div> -->
 </div>
 
 <div id="revision-list"
 	hx-get="/request/bo/component/x_revision_list?node_id={GET.id}&object=common_node"
 	hx-trigger="load, refresh"
 	hx-indicator="#revision-list-loading">
-	<!-- <div id="revision-list-loading" class="onyx-loading htmx-indicator">
-		<img src="/share/images/loading.svg" alt="Loading..."/>
-	</div> -->
 </div>
 <!-- END: content -->

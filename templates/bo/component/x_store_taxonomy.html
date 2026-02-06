@@ -27,20 +27,19 @@ function addNewTaxonomy() {
 }
 </script>
     <!-- BEGIN: preview -->
-    <fieldset id="component-relation-taxonomy" class="component-preview">
-        <div id="relation-taxonomy-loading" class="onyx-loading htmx-indicator">
+    <fieldset id="component-store-taxonomy" class="component-preview">
+        <div id="store-taxonomy-loading" class="onyx-loading htmx-indicator">
             <img src="/share/images/loading.svg" alt="Loading..."/>
         </div>
 
-        <legend>Related Categories</legend>
+        <legend>Store Categories</legend>
 
         <!-- BEGIN: empty -->
-        <p>No related categories have been assigned yet.</p>
+        <p>No categories assigned.</p>
         <!-- END: empty -->
 
         <ul class="category-list">
             <!-- BEGIN:ptn -->
-
             <li {CURRENT.class}>
                 <div class="category-item">
                     {BREADCRUMB}
@@ -51,7 +50,7 @@ function addNewTaxonomy() {
 
         <div class="component-actions">
             <button
-                hx-get="/request/bo/component/x_relation_taxonomy?&relation=node&edit=true&node_id={GET.node_id}"
+                hx-get="/request/bo/component/x_store_taxonomy?edit=true&node_id={GET.node_id}"
                 hx-target="#edit-dialog .content"
                 hx-indicator="#edit-loading"
                 hx-trigger="click"
@@ -65,16 +64,15 @@ function addNewTaxonomy() {
     <!-- END: preview -->
 
     <!-- BEGIN: edit -->
-    <form id="relation-taxonomy-edit">
-        <h2>Edit Related Categories</h2>
+    <form id="store-taxonomy-edit">
+        <h2>Edit Store Categories</h2>
 
         <!-- BEGIN: empty -->
-        <p>No related categories have been assigned yet.</p>
+        <p>No categories assigned.</p>
         <!-- END: empty -->
 
         <div class="row">
             <ul class="category-list" id="rt-select">
-
                 <!-- BEGIN: ptn -->
                 <li {CURRENT.class}>
                     <div class="category-item">
@@ -87,7 +85,7 @@ function addNewTaxonomy() {
             </ul>
             
             <div id="rt-add-new">
-                <p><a class="button add" href="#" onclick="addNewTaxonomy()"><span>Add Relation to a Category...</span></a></p>
+                <p><a class="button add" href="#" onclick="addNewTaxonomy()"><span>Add a Category...</span></a></p>
             </div>
         
             <div id="template-rt-select" style="display: none">
@@ -102,12 +100,13 @@ function addNewTaxonomy() {
         </div>
 
         <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
-        <input type="hidden" name="node[id]" value="{GET.node_id}" />
+        <input type="hidden" name="store[id]" value="{GET.node_id}" />
 
         <div class="edit-actions">
             <button 
                 hx-indicator="#edit-loading"
-                hx-post="/request/bo/component/x_relation_taxonomy"
+                hx-trigger="click"
+                hx-post="/request/bo/component/x_store_taxonomy"
                 class="btn" 
                 type="submit" 
                 name="save" 

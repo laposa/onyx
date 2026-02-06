@@ -272,7 +272,7 @@ CREATE INDEX ecommerce_store_type_id_idx ON ecommerce_store (type_id);
      */
     function insertStore($data)
     {
-        $data['publish'] = 0;
+        $data['publish'] = 1;
         $data['created'] = date('c');
         $data['modified'] = date('c');
         if (is_array($data['other_data'])) $data['other_data'] = serialize($data['other_data']);

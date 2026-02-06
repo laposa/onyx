@@ -38,16 +38,16 @@ document.addEventListener('htmx:afterRequest', (event) => {
 
     if (event.target.id == 'addNode') {
         closeDialog();
+        console.log(event.target);
         navId = event.target.getAttribute('data-nav-id');
         htmx.trigger('.nav-list-' + navId, 'navRefresh');
-        //refresh content+page list and navigation
+        htmx.trigger('#content-list-pages-wrapper', 'refresh');
+        htmx.trigger('#content-list-cards-wrapper', 'refresh');
     }
 
-    if (event.target.dataset.action == 'addProduct') {
+    if (event.target.dataset.action == 'addProduct' || event.target.dataset.action == 'addStore' ) {
         closeDialog();
-        if(document.getElementById('product-info')) {
-            htmx.trigger('#product-info', 'refresh');
-        }
+        htmx.trigger('#node-explorer', 'loadDetail', {nodeId: event.target.dataset.nodeId});
     }
 
     if (event.target.dataset.action == 'addProductVariety') {
@@ -56,8 +56,6 @@ document.addEventListener('htmx:afterRequest', (event) => {
             htmx.trigger('#product-varieties', 'refresh');
         }
     }
-
-    // TODO: move component - refresh nav?
 });
  
 function openEdit(url, el, ajax) {

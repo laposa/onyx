@@ -6,7 +6,7 @@
 
 require_once('controllers/bo/component/x.php');
 
-class Onyx_Controller_Bo_Component_X_Product_Images extends Onyx_Controller_Bo_Component_X {
+class Onyx_Controller_Bo_Component_X_Store_Images extends Onyx_Controller_Bo_Component_X {
 
     /**
      * main action

@@ -3,10 +3,12 @@
     // rewrite url on page select
     $(document).on('click', '.navigation-list li', function(e) {
         e.preventDefault();
-        let newLink = window.location.origin + '/backoffice/content/' + $(this).attr('id').replace('navigation-node-', '');
-
-        if(window.history.pushState) {
-            window.history.pushState({}, $(this).find('span').html(), newLink);
+        if($(this).attr('id')) {
+            let newLink = window.location.origin + '/backoffice/content/' + $(this).attr('id').replace('navigation-node-', '');
+    
+            if(window.history.pushState) {
+                window.history.pushState({}, $(this).find('span').html(), newLink);
+            }
         }
     });
 
