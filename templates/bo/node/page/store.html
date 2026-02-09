@@ -45,6 +45,13 @@
 	hx-indicator="#store-images-loading">
 </div>
 
+<!-- Store Street View -->
+<div id="store-street-view"
+	hx-get="/request/bo/component/x_store_street_view?node_id={NODE.content}"
+	hx-trigger="load, refresh"
+	hx-indicator="#store-street-view-loading">
+</div>
+
 <!-- Metadata -->
 <div id="metadata"
 	hx-get="/request/bo/component/x_metadata?node_id={GET.id}"
