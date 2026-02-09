@@ -18,14 +18,14 @@
 
 <!-- Store Address -->
 <div id="store-address"
-	hx-get="/request/bo/component/x_store_address?node_id={NODE.content}"
+	hx-get="/request/bo/component/x_store_address?store_id={NODE.content}"
 	hx-trigger="load, refresh"
 	hx-indicator="#store-address-loading">
 </div>
 
 <!-- Store Management Info -->
 <div id="store-management-info"
-	hx-get="/request/bo/component/x_store_management_info?node_id={NODE.content}"
+	hx-get="/request/bo/component/x_store_management_info?store_id={NODE.content}"
 	hx-trigger="load, refresh"
 	hx-indicator="#store-management-info-loading">
 </div>
@@ -33,21 +33,21 @@
 <!-- Store Categories/Tags -->
 <div 
 	id="store-taxonomy"
-	hx-get="/request/bo/component/x_store_taxonomy?relation=store&node_id={NODE.content}"
+	hx-get="/request/bo/component/x_store_taxonomy?relation=store&store_id={NODE.content}"
 	hx-trigger="load, refresh"
 	hx-indicator="#store-taxonomy-loading">
 </div>
 
 <!-- Store Images -->
 <div id="store-images"
-	hx-get="/request/bo/component/x_store_images?node_id={NODE.content}"
+	hx-get="/request/bo/component/x_store_images?store_id={NODE.content}"
 	hx-trigger="load, refresh"
 	hx-indicator="#store-images-loading">
 </div>
 
 <!-- Store Street View -->
 <div id="store-street-view"
-	hx-get="/request/bo/component/x_store_street_view?node_id={NODE.content}"
+	hx-get="/request/bo/component/x_store_street_view?store_id={NODE.content}"
 	hx-trigger="load, refresh"
 	hx-indicator="#store-street-view-loading">
 </div>

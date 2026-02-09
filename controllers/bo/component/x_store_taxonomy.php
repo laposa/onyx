@@ -8,7 +8,6 @@
  */
 
 require_once('controllers/bo/component/x.php');
-require_once('models/common/common_node.php');
 require_once('models/ecommerce/ecommerce_store_taxonomy.php');
 require_once('models/ecommerce/ecommerce_store.php');
 
@@ -25,7 +24,7 @@ class Onyx_Controller_Bo_Component_X_Store_Taxonomy extends Onyx_Controller_Bo_C
          */
         
         $store = new ecommerce_store();
-        $store_data = $store->detail($this->GET['node_id'] ?? $_POST['store']['id']);
+        $store_data = $store->detail($this->GET['store_id'] ?? $_POST['store']['id']);
 
         if (!$store_data) {
             msg("Store ID not found.", 'error');

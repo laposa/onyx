@@ -9,7 +9,7 @@
         <legend>Management Information</legend>
 
         <span class="label">Opening Hours:</span>
-        <span class="value">{STORE.opening_hours}</span>
+        <span class="value">{STORE.opening_hours|nl2br}</span>
 
         <span class="label">Telephone:</span>
         <span class="value">{STORE.telephone}</span>
@@ -28,7 +28,7 @@
 
         <div class="component-actions">
             <button
-                hx-get="/request/bo/component/x_store_management_info?edit=true&node_id={STORE.id}"
+                hx-get="/request/bo/component/x_store_management_info?edit=true&store_id={STORE.id}"
                 hx-target="#edit-dialog .content"
                 hx-indicator="#edit-loading"
                 hx-trigger="click"

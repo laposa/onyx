@@ -17,7 +17,7 @@ class Onyx_Controller_Bo_Component_X_Store_Address extends Onyx_Controller_Bo_Co
 
         // get details
         $store = new ecommerce_store();
-        $store_data = $store->detail($this->GET['node_id'] ?? $_POST['store']['id'] ?? null);
+        $store_data = $store->detail($this->GET['store_id'] ?? $_POST['store']['id'] ?? null);
         $template = (isset($_GET['edit']) && $_GET['edit'] == 'true') ? 'edit' : 'preview';
 
         if (!$store_data) {
@@ -46,6 +46,8 @@ class Onyx_Controller_Bo_Component_X_Store_Address extends Onyx_Controller_Bo_Co
 
         // save
         if (isset($_POST['save'])) {
+            if (!is_numeric($_POST['store']['country_id'])) unset($_POST['store']['country_id']);
+
             if($store->storeUpdate($_POST['store'])) {
                 msg("{$store_data['title']} (id={$store_data['id']}) has been updated");
             } else {

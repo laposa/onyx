@@ -17,7 +17,7 @@ class Onyx_Controller_Bo_Component_X_Product_Other_Data extends Onyx_Controller_
 
          // get details
         $product = new ecommerce_product();
-        $product_data = $product->productDetail($this->GET['node_id']);
+        $product_data = $product->productDetail($this->GET['product_id']);
 
         if (!$product_data) {
             return true;

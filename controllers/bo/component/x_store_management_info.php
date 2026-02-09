@@ -17,7 +17,7 @@ class Onyx_Controller_Bo_Component_X_Store_Management_Info extends Onyx_Controll
 
         // get details
         $store = new ecommerce_store();
-        $store_data = $store->detail($this->GET['node_id'] ?? $_POST['store']['id'] ?? null);
+        $store_data = $store->detail($this->GET['store_id'] ?? $_POST['store']['id'] ?? null);
 
         if (!$store_data) {
             return true;

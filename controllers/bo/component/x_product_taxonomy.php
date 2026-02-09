@@ -8,7 +8,6 @@
  */
 
 require_once('controllers/bo/component/x.php');
-require_once('models/common/common_node.php');
 require_once('models/ecommerce/ecommerce_product_taxonomy.php');
 require_once('models/ecommerce/ecommerce_product.php');
 
@@ -25,7 +24,7 @@ class Onyx_Controller_Bo_Component_X_Product_Taxonomy extends Onyx_Controller_Bo
          */
         
         $product = new ecommerce_product();
-        $product_data = $product->productDetail($this->GET['node_id'] ?? $_POST['product']['id']);
+        $product_data = $product->productDetail($this->GET['product_id'] ?? $_POST['product']['id']);
 
         if (!$product_data) {
             msg("Product ID not found.", 'error');

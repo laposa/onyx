@@ -50,7 +50,7 @@ function addNewTaxonomy() {
 
         <div class="component-actions">
             <button
-                hx-get="/request/bo/component/x_store_taxonomy?edit=true&node_id={GET.node_id}"
+                hx-get="/request/bo/component/x_store_taxonomy?edit=true&store_id={GET.store_id}"
                 hx-target="#edit-dialog .content"
                 hx-indicator="#edit-loading"
                 hx-trigger="click"
@@ -100,7 +100,7 @@ function addNewTaxonomy() {
         </div>
 
         <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
-        <input type="hidden" name="store[id]" value="{GET.node_id}" />
+        <input type="hidden" name="store[id]" value="{GET.store_id}" />
 
         <div class="edit-actions">
             <button 
