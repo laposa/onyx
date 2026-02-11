@@ -62,9 +62,9 @@ class Onyx_Controller_Bo_Component_X_Visibility extends Onyx_Controller_Bo_Compo
             else $save_data['publish'] = 0;
 
             if($node->nodeUpdate($save_data)) {
-                msg("{$node_data['node_group']} (id={$node_data['id']}) has been updated");
+                msg("{$node_data['node_group']} {$node_data['title']} (id={$node_data['id']}) has been updated");
             } else {
-                msg("Cannot update node {$node_data['node_group']} (id={$node_data['id']})", 'error');
+                msg("Cannot update {$node_data['node_group']} {$node_data['title']} (id={$node_data['id']})", 'error');
             }
         }
 

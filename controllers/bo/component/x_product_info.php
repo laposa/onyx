@@ -28,9 +28,9 @@ class Onyx_Controller_Bo_Component_X_Product_Info extends Onyx_Controller_Bo_Com
         // save
         if (isset($_POST['save'])) {
             if($product->updateProduct($_POST['product'])) {
-                msg("{$product_data['name']} (id={$product_data['id']}) has been updated");
+                msg("{$product_data['node_group']} {$product_data['title']} (id={$product_data['id']}) has been updated");
             } else {
-                msg("Cannot update node {$product_data['name']} (id={$product_data['id']})", 'error');
+                msg("Cannot update {$product_data['node_group']} {$product_data['title']} (id={$product_data['id']})", 'error');
             }
         }
         

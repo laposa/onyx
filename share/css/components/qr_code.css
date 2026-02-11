@@ -28,7 +28,7 @@
     color: #d74343;
   }
 
-	img {
+	.qr-img {
 		border-radius: 5px;
 		border: 1px solid #afafaf;
 		margin-bottom: 10px;

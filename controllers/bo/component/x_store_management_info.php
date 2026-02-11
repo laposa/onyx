@@ -26,9 +26,9 @@ class Onyx_Controller_Bo_Component_X_Store_Management_Info extends Onyx_Controll
         // save
         if (isset($_POST['save'])) {
             if($store->storeUpdate($_POST['store'])) {
-                msg("{$store_data['title']} (id={$store_data['id']}) has been updated");
+                msg("Store {$store_data['title']} (id={$store_data['id']}) has been updated");
             } else {
-                msg("Cannot update node {$store_data['title']} (id={$store_data['id']})", 'error');
+                msg("Cannot update store {$store_data['title']} (id={$store_data['id']})", 'error');
             }
         }
 
