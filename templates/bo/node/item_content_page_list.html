@@ -5,7 +5,7 @@
         id="content-list-pages-wrapper" 
         hx-get="/request/bo/component/node_list_pages~id={GET.id}~" 
         hx-target="#content-list-pages-wrapper" 
-        hx-trigger="nodeUpdated from:body"
+        hx-trigger="refresh"
     >
         {ONYX_REQUEST_page_list #bo/component/node_list_pages~id=GET.id~}
     </div>

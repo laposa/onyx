@@ -17,9 +17,9 @@ class Onyx_Controller_Bo_Component_Ecommerce_Product_Variety_List extends Onyx_C
          * input validation
          */
 
-        if (is_numeric($this->GET['id'])) $product_id = $this->GET['id'];
+        if (is_numeric($this->GET['product_id'])) $product_id = $this->GET['product_id'];
         else {
-            msg("Product ID is not avaiilable - add a product first.", 'error');
+            msg("Product ID is not available - add a product first.", 'error');
             return false;
         }
 
@@ -36,7 +36,7 @@ class Onyx_Controller_Bo_Component_Ecommerce_Product_Variety_List extends Onyx_C
         require_once('models/ecommerce/ecommerce_product.php');
         $Product = new ecommerce_product();
         
-        $product = $Product->getProductDetail($this->GET['id']);
+        $product = $Product->getProductDetail($product_id);
 
         if (!$product) {
             return false;

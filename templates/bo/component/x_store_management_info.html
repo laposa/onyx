@@ -1,0 +1,138 @@
+<!-- BEGIN: content -->
+{MESSAGES}
+    <!-- BEGIN: preview -->
+    <fieldset id="component-store-management-info" class="component-preview">
+        <div id="store-management-info-loading" class="onyx-loading htmx-indicator">
+            <img src="/share/images/loading.svg" alt="Loading..."/>
+        </div>
+
+        <legend>Management Information</legend>
+
+        <span class="label">Opening Hours:</span>
+        <span class="value">{STORE.opening_hours|nl2br}</span>
+
+        <span class="label">Telephone:</span>
+        <span class="value">{STORE.telephone}</span>
+
+        <span class="label">Manager Name:</span>
+        <span class="value">{STORE.manager_name}</span>
+
+        <span class="label">E-mail:</span>
+        <span class="value">{STORE.email}</span>
+
+        <span class="label">URL:</span>
+        <span class="value">{STORE.url}</span>
+
+        <span class="label">Reference Code:</span>
+        <span class="value">{STORE.code}</span>
+
+        <div class="component-actions">
+            <button
+                hx-get="/request/bo/component/x_store_management_info?edit=true&store_id={STORE.id}"
+                hx-target="#edit-dialog .content"
+                hx-indicator="#edit-loading"
+                hx-trigger="click"
+                hx-swap="innerHTML"
+                hx-on::before-request="openDialog()"
+                class="btn">
+                Edit
+            </button>
+        </div>
+    </fieldset>
+    <!-- END: preview -->
+
+    <!-- BEGIN: edit -->
+    <form id="store-management-info-edit">
+        <h2>Edit General Information</h2>
+
+         <!-- Opening Hours -->
+        <div class="row text">
+            <label for="node-description">Opening Hours:</label>
+            <textarea
+                name="store[opening_hours]"
+                id="store-opening-hours"
+            >{STORE.opening_hours|htmlspecialchars}</textarea>
+        </div>
+
+        <!-- Telephone -->
+        <div class="row text">
+            <label for="store-telephone">Telephone:</label>
+            <input
+                class="title"
+                type="text"
+                id="store-telephone"
+                name="store[telephone]"
+                value="{STORE.telephone|htmlspecialchars}"
+            />
+        </div>
+
+        <!-- Manager Name -->
+        <div class="row text">
+            <label for="store-manager-name">Manager Name:</label>
+            <input
+                class="title"
+                type="text"
+                id="store-manager-name"
+                name="store[manager_name]"
+                value="{STORE.manager_name|htmlspecialchars}"
+            />
+        </div>
+
+        <!-- E-mail -->
+        <div class="row text">
+            <label for="store-email">E-mail:</label>
+            <input
+                class="title"
+                type="text"
+                id="store-email"
+                name="store[email]"
+                value="{STORE.email|htmlspecialchars}"
+            />
+        </div>
+
+        <!-- URL -->
+        <div class="row text">
+            <label for="store-url">URL:</label>
+            <input
+                class="title"
+                type="text"
+                id="store-url"
+                name="store[url]"
+                value="{STORE.url|htmlspecialchars}"
+            />
+        </div>
+
+        <!-- Reference Code -->
+        <div class="row text">
+            <label for="store-reference-code">Reference Code:</label>
+            <input
+                class="title"
+                type="text"
+                id="store-reference-code"
+                name="store[code]"
+                value="{STORE.code|htmlspecialchars}"
+            />
+        </div>
+
+
+        <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+        <input type="hidden" name="store[id]" value="{STORE.id}" />
+
+        <div class="edit-actions">
+            <button
+                hx-indicator="#edit-loading"
+                hx-post="/request/bo/component/x_store_management_info"
+                class="btn"
+                type="submit"
+                name="save"
+                value="save"
+                id="saveAndClose"
+            >
+                Save & Close
+            </button>
+
+            <button class="btn secondary" type="button" onclick="closeDialog()">Cancel</button>
+        </div>
+    </form>
+    <!-- END: edit -->
+<!-- END: content -->

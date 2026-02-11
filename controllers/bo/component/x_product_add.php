@@ -7,7 +7,6 @@
 
 require_once('models/ecommerce/ecommerce_product.php');
 require_once('models/ecommerce/ecommerce_product_variety.php');
-require_once('models/ecommerce/ecommerce_price.php');
 require_once('controllers/bo/component/x.php');
 require_once('models/common/common_node.php');
 
@@ -22,7 +21,6 @@ class Onyx_Controller_Bo_Component_X_Product_Add extends Onyx_Controller_Bo_Comp
         $node = new common_node();
         $product = new ecommerce_product();
         $product_variety = new ecommerce_product_variety();
-        $price = new ecommerce_price();
 
         //nodeDetail causes error while update - something about author_detail relation
         $node_data = $node->detail($this->GET['node_id']);
@@ -54,7 +52,6 @@ class Onyx_Controller_Bo_Component_X_Product_Add extends Onyx_Controller_Bo_Comp
             $product_data['variety']['price']['value'] = 0;
         }
 
-        $this->tpl->assign('PRODUCT', $product_data);
         $this->tpl->assign("VARIETY_CONF", $product_variety->conf);
 
         return true;

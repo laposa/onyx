@@ -5,7 +5,6 @@
  */
 
 require_once('controllers/bo/component/x.php');
-require_once('models/common/common_node.php');
 
 class Onyx_Controller_Bo_Component_X_Product_Images extends Onyx_Controller_Bo_Component_X {
 
@@ -19,9 +18,11 @@ class Onyx_Controller_Bo_Component_X_Product_Images extends Onyx_Controller_Bo_C
          * input validation
          */
 
-        if (is_numeric($this->GET['node_id'] ?? null)) $product_id = $this->GET['node_id'];
+        if (is_numeric($this->GET['product_id'] ?? null)) $product_id = $this->GET['product_id'];
         else $product_id = false;
 
         if (is_numeric($product_id)) $this->tpl->parse('content.preview');
+
+        return true;
     }
 }

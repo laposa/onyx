@@ -133,6 +133,10 @@
 		&.page.product:before {
 			background-image: url(/share/images/icons/icon_product.png);
 		}
+
+		&.page.store:before {
+			background-image: url(/share/images/icons/icon_store.png);
+		}
 	}
 
 	&.empty {

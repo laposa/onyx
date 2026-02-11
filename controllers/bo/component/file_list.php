@@ -38,19 +38,16 @@ class Onyx_Controller_Bo_Component_File_List extends Onyx_Controller_Bo_Componen
          */
 
         $files = $this->File->listFiles($node_id);
+
         
-        if (is_array($files) && count($files) > 0) {
-        
+        if (is_array($files)) {
+            
             if (count($files) == 0) {
-            
                 $this->tpl->parse('content.empty');
-            
             } else {
 
                 foreach ($files as $file_detail) {
-                    
                     $this->parseItem($file_detail, $type, $relation);
-                    
                 }
                 
                 $this->tpl->parse("content.list");

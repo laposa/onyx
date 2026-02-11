@@ -1,0 +1,39 @@
+<!-- BEGIN: content -->
+
+{MESSAGES}
+
+<form 
+    id="store-add-form"
+    hx-indicator="#edit-loading"
+    hx-post="/request/bo/component/x_store_add?node_id={GET.node_id}"
+    hx-validate="true"
+    data-action="addStore"
+    data-node-id="{GET.node_id}"
+>
+    <h2>Add a New Store</h2>
+
+    <div class="row text">
+        <label for="store-name">Store Name:</label>
+        <input 
+            id="store-name" 
+            type="text" 
+            name="store[title]" 
+            required
+        />
+    </div>
+
+    <!-- TODO: add general store info right away? -->
+
+    <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+    <input type="hidden" name="node_id" value="{GET.node_id}" />
+
+    <div class="edit-actions">
+        <button class="btn" type="submit" name="save" value="save">
+            Add & Close
+        </button>
+
+        <button class="btn secondary" type="button" onclick="closeDialog()">Cancel</button>
+    </div>
+</form>
+
+<!-- END: content -->

@@ -1,0 +1,197 @@
+<!-- BEGIN: content -->
+{MESSAGES}
+    <!-- BEGIN: preview -->
+    <fieldset id="component-store-street-view" class="component-preview">
+        <div id="store-street-view-loading" class="onyx-loading htmx-indicator">
+            <img src="/share/images/loading.svg" alt="Loading..."/>
+        </div>
+        
+        <legend>Street View</legend>
+
+        <span class="label">Street View Image:</span>
+        <span class="value"><img src="{STREET_VIEW_URL}" alt="Street View Image" /></span>
+
+        <div class="component-actions">
+            <button
+                hx-get="/request/bo/component/x_store_street_view?edit=true&store_id={GET.store_id}"
+                hx-target="#edit-dialog .content"
+                hx-indicator="#edit-loading"
+                hx-trigger="click"
+                hx-swap="innerHTML"
+                hx-on::before-request="openDialog()"
+                class="btn">
+                Edit
+            </button>
+        </div>
+    </fieldset>
+    <!-- END: preview -->
+
+    <!-- BEGIN: edit -->
+    <form id="store-street-view-edit">
+        <h2>Edit Street View</h2>
+
+        <div class="street-view-options">
+            <div class="inputs">
+                <!-- Image Shown -->
+                <div class="row select">
+                    <span class="label"><label>Show Image:</label></span>
+                    <span class="field">
+                        <select id="store-image-shown" name="store[street_view_options][image]" value="{STORE.street_view_options.image}">
+                            <option>Select Image to be displayed</option>
+                            <option value="0" {STREET_VIEW_IMAGE_0}>Show Generic Store Image</option>
+                            <option value="1" {STREET_VIEW_IMAGE_1}>Show Street View Image</option>
+                            <option value="2" {STREET_VIEW_IMAGE_2}>Show Attached Image</option>
+                        </select>
+                    </span>
+                </div>
+
+                <!-- Latitude-->
+                <div class="row text">
+                    <span class="label"><label>Latitude</label></span>
+                    <span class="field">
+                        <input type="text" id="sv-lat" class="latitude" name="store[latitude]" value="{STORE.latitude|htmlspecialchars}" />
+                    </span>
+                </div>
+    
+                <!-- Longitude -->
+                <div class="row text">
+                    <span class="label"><label>Longitude</label></span>
+                    <span class="field">
+                        <input type="text" id="sv-lng" class="longitude" name="store[longitude]" value="{STORE.longitude|htmlspecialchars}" />
+                    </span>
+                </div>
+            </div>
+
+            <div class="inputs">
+                <!-- Camera Movement -->
+                <div class="row google-map-buttons">
+                    <span class="label"><label>Move Camera Target</label></span>
+                    <br/>
+                    <span class="field" >
+                        <span style="display: table-cell; padding: 0; vertical-align: middle; text-align: center; width: 80px; height: 80px; background: #f0f0f0; border-radius: 100%; ">
+                            <a href="#" class="move-north" onclick="$('#sv-lat').val($('#sv-lat').val() * 1 + 0.0001); updateGoogleImage(); return false;">N</a>
+                            <br/>
+                            <a href="#" class="move-west"  onclick="$('#sv-lng').val($('#sv-lng').val() * 1 - 0.0001); updateGoogleImage(); return false;">W</a>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <a href="#" class="move-east"  onclick="$('#sv-lng').val($('#sv-lng').val() * 1 + 0.0001); updateGoogleImage(); return false;">E</a>
+                            <br/>
+                            <a href="#" class="move-south" onclick="$('#sv-lat').val($('#sv-lat').val() * 1 - 0.0001); updateGoogleImage(); return false;">S</a>
+                        </span>
+                    </span>
+                    <style>
+                        a.google-map-button,
+                        div.google-map-buttons a { padding: 2px 8px; margin-bottom: 4px; display: inline-block; border-radius: 5px; background: #e0e0e0; text-decoration: none; }
+                    </style>
+                </div>
+            </div>
+            
+        </div>
+
+        <div class="street-view-options">
+
+            <div class="inputs">
+                <!-- Camera Heading -->
+                <div class="row adjustable-text">
+                    <span class="label"><label>Compass Heading (0-360)</label></span>
+                    <span class="field">
+                        <a href="#" class="google-map-button look-left"  onclick="$('input.google-map-heading').val((355 + 1 * $('input.google-map-heading').val()) % 360); updateGoogleImage(); return false;">←</a>
+                        <input type="text" class="google-map-heading" name="store[street_view_options][heading]" value="{STORE.street_view_options.heading|htmlspecialchars}" />
+                        <a href="#" class="google-map-button look-right"  onclick="$('input.google-map-heading').val((5 + 1 * $('input.google-map-heading').val()) % 360); updateGoogleImage(); return false;">→</a>
+                    </span>
+                </div>
+    
+                <!-- Camera Pitch -->
+                <div class="row adjustable-text">
+                    <span class="label"><label>Up or Down Angle (-90-90)</label></span>
+                    <span class="field">
+                        <a href="#" class="google-map-button look-up"  onclick="$('input.google-map-pitch').val(5 + 1 * $('input.google-map-pitch').val()); updateGoogleImage(); return false;">↑</a>
+                        <input type="text" class="google-map-pitch" name="store[street_view_options][pitch]" value="{STORE.street_view_options.pitch|htmlspecialchars}" />
+                        <a href="#" class="google-map-button look-down"  onclick="$('input.google-map-pitch').val(-5 + 1 * $('input.google-map-pitch').val()); updateGoogleImage(); return false;">↓</a>
+                    </span>
+                </div>
+    
+                <!-- Camera Field of View -->
+                <div class="row adjustable-text">
+                    <span class="label"><label>Field of View (0-120)</label></span>
+                    <span class="field">
+                        <a href="#" class="google-map-button zoom-in"  onclick="$('input.google-map-fov').val(-10 + 1 * $('input.google-map-fov').val()); updateGoogleImage(); return false;">+</a>
+                        <input type="text" class="google-map-fov" name="store[street_view_options][fov]" value="{STORE.street_view_options.fov|htmlspecialchars}" />
+                        <a href="#" class="google-map-button zoom-out"  onclick="$('input.google-map-fov').val(10 + 1 * $('input.google-map-fov').val()); updateGoogleImage(); return false;">-</a>
+                    </span>
+                </div>
+            </div>
+
+            <!-- Image -->
+            <div class="preview">
+                <span class="label"><label>Street View Image:</label></span>
+                <span class="field">
+                    <img id="sv-img" src="{STREET_VIEW_URL}" alt="Street View Image" />
+                </span>
+            </div>
+
+        </div>
+
+        <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+        <input type="hidden" name="store[id]" value="{STORE.id}" />
+
+        <div class="edit-actions">
+            <button
+                hx-indicator="#edit-loading"
+                hx-post="/request/bo/component/x_store_street_view"
+                class="btn"
+                type="submit"
+                name="save"
+                value="save"
+                id="saveAndClose"
+            >
+                Save & Close
+            </button>
+
+            <button class="btn secondary" type="button" onclick="closeDialog()">Cancel</button>
+        </div>
+    </form>
+
+    <script type="text/javascript">
+        function updateGoogleImage() {
+            console.log('update google image');
+            var lat = $("#sv-lat").val();
+            var lng = $("#sv-lng").val();
+            var fov = $("input.google-map-fov").val();
+            var heading = $("input.google-map-heading").val();
+            var pitch = $("input.google-map-pitch").val();
+
+            if (fov.length > 0) fov = fov * 1; else fov = 90;
+            if (heading.length > 0) heading = heading % 360; else heading = 0;
+            if (pitch.length > 0) pitch = pitch * 1; else pitch = 0;
+            if (isNaN(heading)) heading = 0;
+            if (isNaN(fov) || fov < 0 || fov > 120) fov = 90;
+            if (isNaN(pitch) || pitch < -90 || pitch > 90) pitch = 0;
+
+            $("input.google-map-fov").val(fov);
+            $("input.google-map-heading").val(heading);
+            $("input.google-map-pitch").val(pitch);
+
+            if (lat && lat.length > 0 && lng && lng.length > 0) {
+
+                var url = 'https://maps.googleapis.com/maps/api/streetview?size=200x200';
+                url += '&location=' + lat + ',' + lng;
+                url += '&fov=' + fov;
+                url += '&heading=' + heading;
+                url += '&pitch=' + pitch;
+                url += '&sensor=false';
+                url += '&key={ONYX_GOOGLE_API_KEY}';
+
+                var img = $("#sv-img");
+                if (img.length > 0) {
+                    img.attr("src", url);
+                }
+            }
+        }
+
+        $(function() {
+            $("#store-street-view-edit").find("input").blur(updateGoogleImage).change(updateGoogleImage);
+        });
+
+    </script>
+    <!-- END: edit -->
+<!-- END: content -->

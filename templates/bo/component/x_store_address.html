@@ -1,0 +1,145 @@
+<!-- BEGIN: content -->
+{MESSAGES}
+    <!-- BEGIN: preview -->
+    <fieldset id="component-store-address" class="component-preview">
+        <div id="store-address-loading" class="onyx-loading htmx-indicator">
+            <img src="/share/images/loading.svg" alt="Loading..."/>
+        </div>
+        
+        <legend>Address</legend>
+
+        <span class="label">Country:</span>
+        <span class="value">{COUNTRY}</span>
+
+        <span class="label">Address:</span>
+        <span class="value">{ADDRESS}</span>
+
+        <div class="component-actions">
+            <button
+                hx-get="/request/bo/component/x_store_address?edit=true&store_id={GET.store_id}"
+                hx-target="#edit-dialog .content"
+                hx-indicator="#edit-loading"
+                hx-trigger="click"
+                hx-swap="innerHTML"
+                hx-on::before-request="openDialog()"
+                class="btn">
+                Edit
+            </button>
+        </div>
+    </fieldset>
+    <!-- END: preview -->
+
+    <!-- BEGIN: edit -->
+    <form id="store-address-edit">
+        <h2>Edit Address</h2>
+
+        <!-- Country ID -->
+        <div class="row text">
+            <label for="store-country-id">Country ID:</label>
+            <input
+                type="text"
+                name="store[country_id]"
+                id="store-country-id"
+                value="{STORE.country_id|htmlspecialchars}"
+            />
+        </div>
+
+        <!-- Address name -->
+        <div class="row text">
+            <label for="store-address-name">Address Name:</label>
+            <input
+                type="text"
+                name="store[address_name]"
+                id="store-address-name"
+                value="{STORE.address_name|htmlspecialchars}"
+            />
+        </div>
+
+        <!-- Address line 1 -->
+        <div class="row text">
+            <label for="store-address-line-1">Address Line 1:</label>
+            <input
+                type="text"
+                name="store[address_line_1]"
+                id="store-address-line-1"
+                value="{STORE.address_line_1|htmlspecialchars}"
+            />
+        </div>
+
+        <!-- Address line 2 -->
+        <div class="row text">
+            <label for="store-address-line-2">Address Line 2:</label>
+            <input
+                type="text"
+                name="store[address_line_2]"
+                id="store-address-line-2"
+                value="{STORE.address_line_2|htmlspecialchars}"
+            />
+        </div>
+
+        <!-- Address line 3 -->
+        <div class="row text">
+            <label for="store-address-line-3">Address Line 3:</label>
+            <input
+                type="text"
+                name="store[address_line_3]"
+                id="store-address-line-3"
+                value="{STORE.address_line_3|htmlspecialchars}"
+            />
+        </div>
+
+        <!-- City -->
+        <div class="row text">
+            <label for="store-city">City:</label>
+            <input
+                type="text"
+                name="store[address_city]"
+                id="store-city"
+                value="{STORE.address_city|htmlspecialchars}"
+            />
+        </div>
+
+        <!-- County -->
+        <div class="row text">
+            <label for="store-county">County:</label>
+            <input
+                type="text"
+                name="store[address_county]"
+                id="store-county"
+                value="{STORE.address_county|htmlspecialchars}"
+            />
+        </div>
+
+        <!-- Post Code -->
+        <div class="row text">
+            <label for="store-post-code">Post Code:</label>
+            <input
+                type="text"
+                name="store[address_post_code]"
+                id="store-post-code"
+                value="{STORE.address_post_code|htmlspecialchars}"
+            />
+        </div>
+
+        <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+        <input type="hidden" name="node[id]" value="{GET.node_id}" />
+        <input type="hidden" name="store[id]" value="{STORE.id}" />
+
+        <div class="edit-actions">
+            <button
+                hx-indicator="#edit-loading"
+                hx-post="/request/bo/component/x_store_address"
+                class="btn"
+                type="submit"
+                name="save"
+                value="save"
+                id="saveAndClose"
+            >
+                Save & Close
+            </button>
+
+            <button class="btn secondary" type="button" onclick="closeDialog()">Cancel</button>
+        </div>
+    </form>
+    <!-- END: edit -->
+<!-- END: content -->

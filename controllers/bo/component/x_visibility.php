@@ -19,7 +19,7 @@ class Onyx_Controller_Bo_Component_X_Visibility extends Onyx_Controller_Bo_Compo
 
         // get details
         $node = new common_node();
-        $node_data = $node->nodeDetail($this->GET['node_id']);
+        $node_data = $node->nodeDetail($this->GET['node_id'] ?? $_POST['node']['id']);
 
         //publish
         if ($node_data['publish'] == 1) {
@@ -33,7 +33,7 @@ class Onyx_Controller_Bo_Component_X_Visibility extends Onyx_Controller_Bo_Compo
 
         //save
         if (isset($_POST['save'])) {
-            $node_data = $_POST['node'];
+            $save_data = $_POST['node'];
             $scheduler = new common_scheduler();
             $jobs = $_POST['scheduler'];
 
@@ -46,7 +46,7 @@ class Onyx_Controller_Bo_Component_X_Visibility extends Onyx_Controller_Bo_Compo
                     $scheduled_time = strtotime($date . " " . $time);
 
                     $data = array(
-                        'node_id' => $node_data['id'],
+                        'node_id' => $save_data['id'],
                         'node_type' => 'common_node',
                         'controller' => $controller,
                         'scheduled_time' => $scheduled_time,
@@ -58,13 +58,11 @@ class Onyx_Controller_Bo_Component_X_Visibility extends Onyx_Controller_Bo_Compo
                 }
             }
 
-            if (isset($node_data['publish']) && ($node_data['publish'] == 'on' || $node_data['publish'] == 1)) $node_data['publish'] = 1;
-            else $node_data['publish'] = 0;
+            if (isset($save_data['publish']) && ($save_data['publish'] == 'on' || $save_data['publish'] == 1)) $save_data['publish'] = 1;
+            else $save_data['publish'] = 0;
 
-            // TODO: messages
-            if($node->nodeUpdate($node_data)) {
+            if($node->nodeUpdate($save_data)) {
                 msg("{$node_data['node_group']} (id={$node_data['id']}) has been updated");
-                // header('HX-Trigger: {"nodeUpdated":{"init" :"false"}}');
             } else {
                 msg("Cannot update node {$node_data['node_group']} (id={$node_data['id']})", 'error');
             }

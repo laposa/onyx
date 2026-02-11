@@ -272,7 +272,7 @@ CREATE INDEX ecommerce_store_type_id_idx ON ecommerce_store (type_id);
      */
     function insertStore($data)
     {
-        $data['publish'] = 0;
+        $data['publish'] = 1;
         $data['created'] = date('c');
         $data['modified'] = date('c');
         if (is_array($data['other_data'])) $data['other_data'] = serialize($data['other_data']);
@@ -296,23 +296,6 @@ CREATE INDEX ecommerce_store_type_id_idx ON ecommerce_store (type_id);
         $data['modified'] = date('c');
         if (is_array($data['other_data'])) $data['other_data'] = serialize($data['other_data']);
         $store_id = $this->update($data);
-
-        if (array_key_exists('publish', $data)) {
-
-            // update node publishing info (if node exists)
-            $store_homepage = $this->getStoreHomepage($store_id);
-            
-            if (is_array($store_homepage) && count($store_homepage) > 0) {
-                
-                $store_homepage['publish'] = $data['publish'];
-                
-                require_once('models/common/common_node.php');
-                $Node = new common_node();
-                
-                $Node->nodeUpdate($store_homepage);
-                
-            }
-        }
 
         return $store_id;
     }

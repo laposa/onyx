@@ -1,6 +1,6 @@
 <?php
 /** 
- * Copyright (c) 2025 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2026 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  * split into: taxonomy_manager, taxonomy_filter - can be used in FE
@@ -8,10 +8,10 @@
  */
 
 require_once('controllers/bo/component/x.php');
-require_once('models/ecommerce/ecommerce_product_taxonomy.php');
-require_once('models/ecommerce/ecommerce_product.php');
+require_once('models/ecommerce/ecommerce_store_taxonomy.php');
+require_once('models/ecommerce/ecommerce_store.php');
 
-class Onyx_Controller_Bo_Component_X_Product_Taxonomy extends Onyx_Controller_Bo_Component_X {
+class Onyx_Controller_Bo_Component_X_Store_Taxonomy extends Onyx_Controller_Bo_Component_X {
 
     /**
      * main action
@@ -19,15 +19,15 @@ class Onyx_Controller_Bo_Component_X_Product_Taxonomy extends Onyx_Controller_Bo
      
     public function mainAction() {
 
-    /**
+        /**
          * get details
          */
         
-        $product = new ecommerce_product();
-        $product_data = $product->productDetail($this->GET['product_id'] ?? $_POST['product']['id']);
+        $store = new ecommerce_store();
+        $store_data = $store->detail($this->GET['store_id'] ?? $_POST['store']['id']);
 
-        if (!$product_data) {
-            msg("Product ID not found.", 'error');
+        if (!$store_data) {
+            msg("Store ID not found.", 'error');
             return false;
         }
 
@@ -36,7 +36,7 @@ class Onyx_Controller_Bo_Component_X_Product_Taxonomy extends Onyx_Controller_Bo
          */
 
         $template = (isset($_GET['edit']) && $_GET['edit'] == 'true') ? 'edit' : 'preview';
-        $taxonomy = new ecommerce_product_taxonomy();
+        $taxonomy = new ecommerce_store_taxonomy();
         
         /**
          * saving
@@ -46,13 +46,15 @@ class Onyx_Controller_Bo_Component_X_Product_Taxonomy extends Onyx_Controller_Bo
             isset($_POST['save']) &&
             isset($_POST['relation_taxonomy']) && 
             is_array($_POST['relation_taxonomy']) && 
-            is_numeric($_POST['product']['id'])
+            is_numeric($_POST['store']['id'])
         ) {
+
+            var_dump('here alright', $_POST['store']['id']);
             $current = array();
             $submitted = array();
 
             // prepare list of ids currently in the database
-            $current_raw = $taxonomy->listing("node_id = " . $_POST['product']['id']);
+            $current_raw = $taxonomy->listing("node_id = " . $_POST['store']['id']);
             if (is_array($current_raw)) {
                 foreach ($current_raw as $c) {
                     $current[$c['taxonomy_tree_id']] = $c['id'];
@@ -87,8 +89,8 @@ class Onyx_Controller_Bo_Component_X_Product_Taxonomy extends Onyx_Controller_Bo
          * listing
          */
 
-        if (is_numeric($product_data['id'])) {
-            $current = $taxonomy->listing("node_id = " . $product_data['id']);
+        if (is_numeric($store_data['id'])) {
+            $current = $taxonomy->listing("node_id = " . $store_data['id']);
 
             if (is_array($current)) {
                 foreach ($current as $c) {
@@ -106,7 +108,7 @@ class Onyx_Controller_Bo_Component_X_Product_Taxonomy extends Onyx_Controller_Bo
             }
         }
 
-        $this->tpl->assign('PRODUCT', $product_data);
+        $this->tpl->assign('STORE', $store_data);
 
         parent::parseTemplate();
 

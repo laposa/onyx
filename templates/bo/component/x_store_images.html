@@ -1,21 +1,21 @@
 <!-- BEGIN: content -->
     <!-- BEGIN: preview -->
-    <fieldset id="component-product-images" class="component-preview">
+    <fieldset id="component-store-images" class="component-preview">
 
-        <legend>Product Images</legend>
+        <legend>Store Images</legend>
 
         <span class="label">Files:</span>
 	    <br>
 
         <div 
-            hx-get="/request/bo/component/file_list?type=add_to_product&relation=product&node_id={GET.product_id}"
+            hx-get="/request/bo/component/file_list?type=add_to_store&relation=store&node_id={GET.store_id}"
             hx-trigger="load, refresh"
-            hx-indicator="#product-images-loading">
+            hx-indicator="#store-images-loading">
         </div>
         
         <div class="component-actions">
             <button
-                hx-get="/request/bo/component/file_list?type=add_to_product&relation=product&node_id={GET.product_id}"
+                hx-get="/request/bo/component/file_list?type=add_to_store&relation=store&node_id={GET.store_id}"
                 hx-target="#edit-dialog .content"
                 hx-indicator="#edit-loading"
                 hx-trigger="click"

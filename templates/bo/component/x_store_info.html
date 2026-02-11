@@ -1,0 +1,121 @@
+<!-- BEGIN: content -->
+{MESSAGES}
+    <!-- BEGIN: preview -->
+    <fieldset id="component-store-info" class="component-preview">
+        <div id="store-info-loading" class="onyx-loading htmx-indicator">
+            <img src="/share/images/loading.svg" alt="Loading..."/>
+        </div>
+
+        <legend>Store Information</legend>
+
+        <span class="label">Store ID:</span>
+        <span class="value">{STORE.id|htmlspecialchars}</span>
+
+        <span class="label">Store Title:</span>
+        <span class="value">{STORE.title|htmlspecialchars}</span>
+
+        <span class="label">Description:</span>
+        <span class="value">{STORE.description|htmlspecialchars}</span>
+
+        <span class="label">Type:</span>
+        <span class="value">{STORE_TYPE}</span>
+
+        <div class="component-actions">
+            <button
+                hx-get="/request/bo/component/x_store_info?edit=true&node_id={NODE.id}"
+                hx-target="#edit-dialog .content"
+                hx-indicator="#edit-loading"
+                hx-trigger="click"
+                hx-swap="innerHTML"
+                hx-on::before-request="openDialog()"
+                class="btn">
+                Edit
+            </button>
+        </div>
+    </fieldset>
+    <!-- END: preview -->
+
+    <!-- BEGIN: edit -->
+    <form id="store-info-edit">
+        <h2>Edit Store Information</h2>
+
+        <!-- Store Type -->
+        <!-- BEGIN: type -->
+        <div class="row select">
+            <span class="label"><label>Type</label></span>
+            <span class="field">
+                <select id="store-type-id" name="store[type_id]">
+                    <!-- BEGIN: item -->
+                    <option value="{ITEM.id}" {ITEM.selected}>{ITEM.title|htmlspecialchars}</option>
+                    <!-- END: item -->
+                </select>
+            </span>
+        </div>
+        <!-- END: type -->
+
+        <!-- Store Title -->
+        <div class="row text">
+            <label for="store-title">Store Title:</label>    
+            <input 
+                type="text" 
+                id="store-title" 
+                name="store[title]" 
+                value="{STORE.title|htmlspecialchars}" 
+            />
+        </div>
+
+        <!-- Description -->
+        <div class="row rte">
+            <label for="store-description">Description:</label>
+            <textarea 
+                name="store[description]" 
+                id="store-description" 
+            >{STORE.description|htmlspecialchars}</textarea>
+            <!-- TODO: is the relation=store needed? do I need to parse store id for id parameter? -->
+            {ONYX_REQUEST_tinymce #bo/tinymce~id=GET.node_id:relation=store:role=RTE_description:mode=exact:edit_elements=store-description:theme=advanced~}
+        </div>
+
+        <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+        <input type="hidden" name="store[id]" value="{STORE.id}" />
+
+        <div class="edit-actions">
+            <button 
+                hx-indicator="#edit-loading"
+                hx-post="/request/bo/component/x_store_info"
+                class="btn" 
+                type="submit" 
+                name="save" 
+                value="save" 
+                id="saveAndClose"
+            >
+                Save & Close
+            </button>
+
+            <button class="btn secondary" type="button" onclick="closeDialog()">Cancel</button>
+        </div>
+    </form>
+    <!-- END: edit -->
+
+    <!-- BEGIN: missing_store -->
+    <fieldset id="component-store-info" class="component-preview">
+        <div id="store-info-loading" class="onyx-loading htmx-indicator">
+            <img src="/share/images/loading.svg" alt="Loading..."/>
+        </div>
+
+        <legend>Store Information</legend>
+        <p>No store has been created for this page.</p>
+
+        <button
+            hx-get="/request/bo/component/x_store_add?node_id={GET.node_id}"
+            hx-target="#edit-dialog .content"
+            hx-indicator="#edit-loading"
+            hx-trigger="click"
+            hx-swap="innerHTML"
+            hx-on::before-request="openDialog()"
+            class="btn">
+            Add a store
+        </button>
+    </fieldset>
+    <!-- END: missing_store -->
+     
+<!-- END: content -->

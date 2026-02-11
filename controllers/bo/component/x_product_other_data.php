@@ -17,7 +17,7 @@ class Onyx_Controller_Bo_Component_X_Product_Other_Data extends Onyx_Controller_
 
          // get details
         $product = new ecommerce_product();
-        $product_data = $product->productDetail($this->GET['node_id']);
+        $product_data = $product->productDetail($this->GET['product_id']);
 
         if (!$product_data) {
             return true;
@@ -43,10 +43,8 @@ class Onyx_Controller_Bo_Component_X_Product_Other_Data extends Onyx_Controller_
 
         // save
         if (isset($_POST['save'])) {
-            // TODO: messages
             if($product->updateProduct($_POST['product'])) {
                 msg("{$product_data['name']} (id={$product_data['id']}) has been updated");
-                // header('HX-Trigger: {"nodeUpdated":{"init" :"false"}}');
             } else {
                 msg("Cannot update node {$product_data['name']} (id={$product_data['id']})", 'error');
             }

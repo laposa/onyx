@@ -18,7 +18,7 @@ class Onyx_Controller_Bo_Component_X_Metadata extends Onyx_Controller_Bo_Compone
 
         // get details
         $node = new common_node();
-        $node_data = $node->nodeDetail($this->GET['node_id']);
+        $node_data = $node->nodeDetail($this->GET['node_id'] ?? $_POST['node']['id']);
 
         $this->tpl->assign('NODE_URL', translateURL("page/".$this->GET['node_id']));
         
@@ -30,7 +30,6 @@ class Onyx_Controller_Bo_Component_X_Metadata extends Onyx_Controller_Bo_Compone
         if (isset($_POST['save'])) {
             if($node->nodeUpdate($_POST['node'])) {
                 msg("{$node_data['node_group']} (id={$node_data['id']}) has been updated");
-                // header('HX-Trigger: {"nodeUpdated":{"init" :"false"}}');
             } else {
                 msg("Cannot update node {$node_data['node_group']} (id={$node_data['id']})", 'error');
             }
