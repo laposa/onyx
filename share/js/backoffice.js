@@ -40,9 +40,9 @@ document.addEventListener('htmx:afterRequest', (event) => {
         closeDialog();
         console.log(event.target);
         navId = event.target.getAttribute('data-nav-id');
-        htmx.trigger('.nav-list-' + navId, 'navRefresh');
-        htmx.trigger('#content-list-pages-wrapper', 'refresh');
-        htmx.trigger('#content-list-cards-wrapper', 'refresh');
+        if(document.querySelector('.nav-list-' + navId)) htmx.trigger('.nav-list-' + navId, 'navRefresh');
+        if(document.getElementById('content-list-pages-wrapper')) htmx.trigger('#content-list-pages-wrapper', 'refresh');
+        if(document.getElementById('content-list-cards-wrapper')) htmx.trigger('#content-list-cards-wrapper', 'refresh');
     }
 
     if (event.target.dataset.action == 'addProduct' || event.target.dataset.action == 'addStore' ) {
