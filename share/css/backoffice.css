@@ -118,6 +118,16 @@ div.onyx-messages {margin: 1em; border: none; background: black; color: white; b
 div.onyx-messages p {margin: 5px 0; line-height: 1; padding: 0; color: white; font-weight: bold; }
 div.onyx-messages p.onyx-error-msg {background: transparent url(/share/images/famfamfam_icons/exclamation.png) left top no-repeat; padding: 0 0 0 25px;}
 
+.error-message {
+  color: var(--color-danger);
+  padding: 10px;
+  font-size: 14px;
+  width: 100%;
+  background-color: #fbeaea;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
 /*
 * Ajax
 */

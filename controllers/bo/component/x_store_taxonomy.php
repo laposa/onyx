@@ -27,7 +27,6 @@ class Onyx_Controller_Bo_Component_X_Store_Taxonomy extends Onyx_Controller_Bo_C
         $store_data = $store->detail($this->GET['store_id'] ?? $_POST['store']['id']);
 
         if (!$store_data) {
-            msg("Store ID not found.", 'error');
             return false;
         }
 

@@ -111,7 +111,9 @@
 
         <legend>Product Information</legend>
 
-        <p>No product has been created for this page.</p>
+        <div class="error-message">
+            No product has been created/associated for this page. Please create one in order to display product-related fields.
+        </div>
 
         <button
             hx-get="/request/bo/component/x_product_add?node_id={GET.node_id}"
@@ -121,7 +123,7 @@
             hx-swap="innerHTML"
             hx-on::before-request="openDialog()"
             class="btn">
-            Add a product
+            Create a product
         </button>
     </fieldset>
     <!-- END: missing_product -->

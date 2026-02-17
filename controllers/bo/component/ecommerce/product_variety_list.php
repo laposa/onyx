@@ -19,7 +19,6 @@ class Onyx_Controller_Bo_Component_Ecommerce_Product_Variety_List extends Onyx_C
 
         if (is_numeric($this->GET['product_id'])) $product_id = $this->GET['product_id'];
         else {
-            msg("Product ID is not available - add a product first.", 'error');
             return false;
         }
 

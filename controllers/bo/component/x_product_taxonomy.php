@@ -27,7 +27,6 @@ class Onyx_Controller_Bo_Component_X_Product_Taxonomy extends Onyx_Controller_Bo
         $product_data = $product->productDetail($this->GET['product_id'] ?? $_POST['product']['id']);
 
         if (!$product_data) {
-            msg("Product ID not found.", 'error');
             return false;
         }
 

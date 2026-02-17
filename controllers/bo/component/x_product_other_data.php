@@ -20,7 +20,7 @@ class Onyx_Controller_Bo_Component_X_Product_Other_Data extends Onyx_Controller_
         $product_data = $product->productDetail($this->GET['product_id']);
 
         if (!$product_data) {
-            return true;
+            return false;
         }
         
         /**

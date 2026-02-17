@@ -21,7 +21,7 @@ class Onyx_Controller_Bo_Component_X_Store_Address extends Onyx_Controller_Bo_Co
         $template = (isset($_GET['edit']) && $_GET['edit'] == 'true') ? 'edit' : 'preview';
 
         if (!$store_data) {
-            return true;
+            return false;
         }
 
         // Preview address and country
