@@ -19,7 +19,7 @@ class Onyx_Controller_Bo_Component_X_Store_Street_View extends Onyx_Controller_B
     
         $store = new ecommerce_store();
 
-        $store_data = $store->detail($_GET['node_id'] ?? $_POST['store']['id'] ?? null);
+        $store_data = $store->detail($_GET['store_id'] ?? $_POST['store']['id'] ?? null);
         
         if (!$store_data) {
             return false;
