@@ -75,6 +75,7 @@ dialog.edit-dialog {
 		width: 100%;
 		flex-direction: column;
 		align-items: flex-start;
+		margin: 0;
 
 		h2 {
 			margin-bottom: 10px;
