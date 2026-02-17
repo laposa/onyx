@@ -17,14 +17,14 @@ class Onyx_Controller_Bo_Component_X_Advanced_Settings extends Onyx_Controller_B
 
         // get details
         $node = new common_node();
-        $node_data = $node->nodeDetail($this->GET['node_id']);
+        $node_data = $node->nodeDetail($this->GET['node_id'] ?? $_POST['node']['id']);
 
         // save
         if (isset($_POST['save'])) {
             if($node->nodeUpdate($_POST['node'])) {
-                msg("{$node_data['node_group']} (id={$node_data['id']}) has been updated");
+                msg("{$node_data['node_group']} {$node_data['title']} (id={$node_data['id']}) has been updated");
             } else {
-                msg("Cannot update node {$node_data['node_group']} (id={$node_data['id']})", 'error');
+                msg("Cannot update {$node_data['node_group']} {$node_data['title']} (id={$node_data['id']})", 'error');
             }
         }
         

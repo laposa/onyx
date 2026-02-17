@@ -103,7 +103,9 @@
         </div>
 
         <legend>Store Information</legend>
-        <p>No store has been created for this page.</p>
+        <div class="error-message">
+            No store has been created/associated for this page. Please create one in order to display store-related fields.
+        </div>
 
         <button
             hx-get="/request/bo/component/x_store_add?node_id={GET.node_id}"
@@ -113,7 +115,7 @@
             hx-swap="innerHTML"
             hx-on::before-request="openDialog()"
             class="btn">
-            Add a store
+            Create a store
         </button>
     </fieldset>
     <!-- END: missing_store -->

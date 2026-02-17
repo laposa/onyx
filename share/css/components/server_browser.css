@@ -3,141 +3,334 @@
  * server file browser
  */
  
-#server-browser-add fieldset.dropzone-wrap {padding: 0; margin-bottom: 30px;}
-
-#add-dropzone {display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0; padding: 30px; background: repeating-linear-gradient(135deg, #efefef, #efefef 10px, transparent 10px, transparent 20px); opacity: 0.5;}
-#add-dropzone:hover {opacity: 1;}
-
 @keyframes animation-01 {
     0%   {background-position-x: 0px;}
     100% {background-position-x: 29px;}
 }
-#add-dropzone.drag-over {
-    opacity: 1;
-    animation-name: animation-01;
-    animation-duration: 500ms;
-    animation-iteration-count: infinite;
-    animation-timing-function: linear;
-}
 
-#add-dropzone h2 {margin-bottom: 0;}
-#add-dropzone p.limits {margin: 0;}
+#server-browser-file-list {
+  #add-new-file {
+    #add-folder {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 10px;
+    }
 
-#server-browser-file-list div.progress-total {display: none; position: fixed; z-index: 9999; top: 0; right: 0; bottom: 0; left: 0; background-color: rgba(0, 0, 0, 0.7); color: white; text-align: center;}
-#server-browser-file-list div.progress-total > div.wrapper {display: flex; flex-direction: column; align-items: center; justify-content: center; width: 100%; height: 100vh;}
+    .dropzone-wrap {
+      padding: 0;
+      margin-bottom: 30px;
+    }
 
-#server-browser-file-list div.server-browser > div.wrapper {display: flex; flex-wrap: wrap; margin: 0;}
+    .dropzone {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      margin: 0;
+      padding: 30px;
+      background: repeating-linear-gradient(135deg, #efefef, #efefef 10px, transparent 10px, transparent 20px);
+      opacity: 0.5;
 
-#server-browser-file-list div.server-browser div[id^="file-"] {display: flex; flex-direction: column; align-items: center; justify-content: center; position: relative; width: 200px; height: 200px; margin: 10px; padding: 10px; border: 1px solid #cccccc; overflow: hidden;}
-#server-browser-file-list div.server-browser div[id^="file-"] img {width: 200px; height: auto; background-image: linear-gradient(45deg, #efefef 25%, transparent 25%), linear-gradient(-45deg, #efefef 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #efefef 75%), linear-gradient(-45deg, transparent 75%, #efefef 75%); background-size: 20px 20px; background-position: 0 0, 0 10px, 10px -10px, -10px 0px;}
+      &.drag-over {
+        opacity: 1;
+        animation-name: animation-01;
+        animation-duration: 500ms;
+        animation-iteration-count: infinite;
+        animation-timing-function: linear;
+      }
 
-#server-browser-file-list div.server-browser div[id^="file-"] div.overlay {display: flex; flex-direction: column; align-items: center; justify-content: center; position: absolute; top: 0; right: 0; bottom: 0; left: 0; padding: 20px; background-color: rgba(0, 0, 0, 0.5); opacity: 0; pointer-events: none; transition: all 100ms ease-out; color: white; text-align: center;}
-#server-browser-file-list div.server-browser div[id^="file-"]:hover div.overlay {opacity: 1; pointer-events: all;}
-#server-browser-file-list div.server-browser div[id^="file-"] div.overlay a.usage {margin-bottom: 20px;}
-#server-browser-file-list div.server-browser div[id^="file-"] div.overlay div.file-info {margin-bottom: 20px;}
-#server-browser-file-list div.server-browser div[id^="file-"] div.overlay div.file-info a {display: inline-block; width: 30px; height: 30px; outline: none; line-height: 30px; opacity: 0.7; color: white; }
-#server-browser-file-list div.server-browser div[id^="file-"] div.overlay div.file-info a:hover,
-#server-browser-file-list div.server-browser div[id^="file-"] div.overlay div.file-info a:focus {text-decoration: none; opacity: 1;}
-#server-browser-file-list div.server-browser div[id^="file-"] div.overlay div.file-info a::before {content:'X'; font-family: 'onyx'; font-size: 20px;}
-#server-browser-file-list div.server-browser div[id^="file-"] div.overlay div.file-info a.view::before {content:'\f06e';}
-#server-browser-file-list div.server-browser div[id^="file-"] div.overlay div.file-info a.download::before {content:'\f019';}
-#server-browser-file-list div.server-browser div[id^="file-"] div.overlay div.file-info a.info::before {content:'\f05a';}
-#server-browser-file-list div.server-browser div[id^="file-"] div.overlay div.file-info a > span {display: none;}
+      h2 {
+        margin-bottom: 0;
+      }
 
-#server-browser-file-list div.server-browser div[id^="file-"] div.overlay div.file-actions {display: flex;}
-#server-browser-file-list div.server-browser div[id^="file-"] div.overlay div.file-actions a.button {margin: 0 5px;}
+      p.limits {
+        margin: 0;
+      }
 
-#server-browser-file-list div.server-browser div[id^="file-"] > div.file_delete {display: flex; flex-direction: column; align-items: center; justify-content: center;}
-#server-browser-file-list div.server-browser div[id^="file-"] > div.file_delete::before {content:'\f00d'; font-family: 'onyx'; font-size: 20px; color: #cc0000;}
-#server-browser-file-list div.server-browser div[id^="file-"] > div.file_delete::after {content:'Deleted'; font-size: 10px; color: #cc0000; text-transform: uppercase; }
-
-#server-browser-file-list .file-uploads {display: flex;justify-content: center;flex-wrap: wrap;gap: 10px; margin-top: 20px;overflow-y: auto;}
-#server-browser-file-list .file-upload-preview {width: 200px; height: 200px; position: relative; background-color: white;}
-#server-browser-file-list .file-upload-preview img {position: absolute; height: 100%; width: 100%; object-fit: contain; top: 0; left: 0;}
-#server-browser-file-list .file-upload-preview .file-overlay {position: absolute; width: 100%; z-index: 100; bottom: 0; padding: 10px 0; background-color: rgba(0,0,0,0.5);}
-
-#server-browser-file-list .add-new {
-  width: 100%;
-}
-
-#add-folder {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 10px;
-}
-
-#server-browser-file-list .media-breadcrumbs {
-  margin-top: 5px;
-  margin-bottom: 10px;
-}
-
-#server-browser-file-list .media-breadcrumbs .root-folder {
-  position: relative;
-  display: inline-flex;
-  width: 8px;
-  height: 8px;
-  left: 4px;
-  margin-right: 10px;
-  background-color: rgb(100, 100, 100);
-  border-top-right-radius: 5px;
-  border-top-left-radius: 5px;
-}
-
-#server-browser-file-list .media-breadcrumbs .root-folder:before {
-  content: "";
-  position:relative;
-  bottom: 2px;
-  left: -3px;
-  width: 0px;
-  height: 0px;
-  border-bottom: 7px solid rgb(100, 100, 100);
-  border-left: 7px solid transparent;
-  border-right: 7px solid transparent;
-}
-
-#server-browser-file-list .media-breadcrumbs .root-folder:after {
-  content: "";
-  position: absolute;
-  bottom: 0px;
-  width: 2px;
-  height: 3px;
-  background-color: white;
-  z-index: 10;
-  left: 3px;
-}
-
-#server-browser-file-list .media-subfolders {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-
-#server-browser-file-list .media-subfolders a {
-  display: flex;
-  align-items: center;
-  padding: 5px 10px;
-  background-color: rgb(242, 242, 242);
-  border: 1px solid rgb(208, 208, 208);
-  font-weight: 500;
-  border-radius: 5px;
-  transition: 0.3s ease;
-
-  &:before {
-    content:"";
-    position: relative;
-    height: 13px;
-    width: 13px;
-    background-image: url(/share/images/folder.svg);
-    background-size: 13px;
-    background-repeat: no-repeat;
-    display: inline-block;
-    margin-right: 5px;
+      &:hover {
+        opacity: 1;
+      }
+    }
   }
 
-  &:hover {
-    text-decoration: none;
-    background-color: rgb(214, 214, 214);
-    color: black;
+
+  #add-dropzone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 30px;
+    background: repeating-linear-gradient(135deg, #efefef, #efefef 10px, transparent 10px, transparent 20px);
+    opacity: 0.5;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  .progress-total {
+    display: none; 
+    position: fixed; 
+    z-index: 9999; 
+    top: 0; 
+    right: 0; 
+    bottom: 0; 
+    left: 0; 
+    background-color: rgba(0, 0, 0, 0.7); 
+    color: white; 
+    text-align: center;
+
+    .wrapper {
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+      justify-content: center; 
+      width: 100%; 
+      height: 100vh;
+    }
+  }
+
+  .server-browser {
+    .wrapper {
+      display: flex; 
+      flex-wrap: wrap; 
+      margin: 0;
+    }
+
+    .file-wrapper {
+      width: 200px;
+    }
+
+    .file {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      margin: 10px;
+      border: 1px solid #cccccc;
+      overflow: hidden;
+
+      img {
+        width: 200px;
+        height: 200px;
+        object-fit: contain;
+        background-image: linear-gradient(45deg, #efefef 25%, transparent 25%), linear-gradient(-45deg, #efefef 25%, transparent 25%), linear-gradient(45deg, transparent 75%, #efefef 75%), linear-gradient(-45deg, transparent 75%, #efefef 75%);
+        background-size: 20px 20px;
+        background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+      }
+
+      .overlay {
+        display: flex; 
+        flex-direction: column; 
+        align-items: center; 
+        justify-content: center; 
+        position: absolute; 
+        top: 0; 
+        right: 0; 
+        bottom: 0; 
+        left: 0; 
+        padding: 20px; 
+        background-color: rgba(0, 0, 0, 0.5); 
+        opacity: 0; 
+        pointer-events: none; 
+        transition: all 100ms ease-out; 
+        text-align: center;
+
+        a.usage {
+          color: white; margin-bottom: 20px;
+        }
+
+        .file-info {
+          margin-bottom: 20px;
+
+          a {
+            display: inline-block; 
+            width: 30px; 
+            height: 30px; 
+            outline: none; 
+            line-height: 30px; 
+            opacity: 0.7; 
+            color: white;
+
+            > span {
+              display: none;
+            }
+
+            &:hover,
+            &:focus {
+              text-decoration: none; 
+              opacity: 1;
+            }
+
+            &::before {
+              font-family: 'onyx'; 
+              font-size: 20px;
+            }
+
+            &.view::before {content:'\f06e';}
+            &.download::before {content:'\f019';}
+            &.info::before {content:'\f05a';}
+          }
+
+        }
+
+        .file-actions {
+          display: flex;
+
+          a.button {
+            margin: 0 5px;
+          }
+        }
+      }
+
+      .file-delete {
+        display: flex; 
+        flex-direction: column; 
+        align-items: center; 
+        justify-content: center;
+
+        &::before {
+          content:'\f00d'; 
+          font-family: 'onyx'; 
+          font-size: 20px; 
+          color: #cc0000;
+        }
+
+        &::after {
+          content:'Deleted'; 
+          font-size: 10px; 
+          color: #cc0000; 
+          text-transform: uppercase;
+        }
+      }
+
+      &:hover {
+        .overlay {
+          opacity: 1; 
+          pointer-events: all;
+        }
+      }
+    }
+
+    .file-name {
+      padding: 0 10px;
+      text-align: center;
+      word-break: break-all;
+    }
+  }
+
+  .file-uploads {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px; 
+    margin-top: 20px;
+    overflow-y: auto;
+
+    .file-upload-preview {
+      width: 200px; 
+      height: 200px; 
+      position: relative; 
+      background-color: white;
+
+      img {
+        position: absolute; 
+        height: 100%; 
+        width: 100%; 
+        object-fit: contain; 
+        top: 0; 
+        left: 0;
+      }
+
+      .file-overlay {
+        position: absolute; 
+        width: 100%; 
+        z-index: 100; 
+        bottom: 0; 
+        padding: 10px 0; 
+        background-color: rgba(0,0,0,0.5);
+      }
+    }
+  }
+
+  .add-new {
+    width: 100%;
+  }
+
+  .media-breadcrumbs {
+    margin-top: 5px;
+    margin-bottom: 10px;
+
+    .root-folder {
+      position: relative;
+      display: inline-flex;
+      width: 8px;
+      height: 8px;
+      left: 4px;
+      margin-right: 10px;
+      background-color: rgb(100, 100, 100);
+      border-top-right-radius: 5px;
+      border-top-left-radius: 5px;
+
+      &:before {
+        content: "";
+        position:relative;
+        bottom: 2px;
+        left: -3px;
+        width: 0px;
+        height: 0px;
+        border-bottom: 7px solid rgb(100, 100, 100);
+        border-left: 7px solid transparent;
+        border-right: 7px solid transparent;
+      }
+
+      &:after {
+        content: "";
+        position: absolute;
+        bottom: 0px;
+        width: 2px;
+        height: 3px;
+        background-color: white;
+        z-index: 10;
+        left: 3px;
+      }
+    }
+  }
+
+  .media-subfolders {
+    columns: 6 150px;
+
+    .folder {
+      display: flex;
+      align-items: center;
+      padding: 5px 10px;
+      background-color: rgb(242, 242, 242);
+      border: 1px solid rgb(208, 208, 208);
+      border-radius: 5px;
+      transition: 0.3s ease;
+      margin-bottom: 10px;
+
+      &:before {
+        content:"";
+        position: relative;
+        height: 13px;
+        width: 13px;
+        background-image: url(/share/images/folder.svg);
+        background-size: 13px;
+        background-repeat: no-repeat;
+        display: inline-block;
+        margin-right: 5px;
+      }
+
+      &:hover {
+        text-decoration: none;
+        background-color: rgb(214, 214, 214);
+        color: black;
+      }
+    }
   }
 }

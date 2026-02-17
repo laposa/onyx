@@ -66,25 +66,28 @@
     <div class="server-browser">
         <div class="wrapper">
             <!-- BEGIN: item -->
-            <div id="file-{ITEM.file_path_encoded_relative}" class="file">
-                <!-- BEGIN: thumbnail --><img src="/thumbnail/200/{BASE}{FOLDER}{ITEM.name}" alt="{ITEM.name}" /><!-- END: thumbnail -->
-                <div class="overlay">
-                    <p style="display: block;">{ITEM.name|str_replace('_', ' ', %s)}</p>
-                    <div class="file-info">
-                        <a class="view" title="View {ITEM.name} ({ITEM.size})" href="/view/{BASE}{FOLDER}{ITEM.name}" target="_blank"><span>View</span></a>
-                        <a class="download" title="Download {ITEM.name} ({ITEM.size})" href="/download/{BASE}{FOLDER}{ITEM.name}"><span>Download</span></a>
-                        <a class="info" href="#" title="Size: {ITEM.size}, click to view more details" onclick="openAjaxRequestInDialog('/request/bo/component/file_info~file_path_encoded={ITEM.file_path_encoded}~', 'File Info'); return false"><span>View more details</span></a>
+            <div class="file-wrapper">
+                <div id="file-{ITEM.file_path_encoded_relative}" class="file">
+                    <!-- BEGIN: thumbnail --><img src="/thumbnail/200/{BASE}{FOLDER}{ITEM.name}" alt="{ITEM.name}" /><!-- END: thumbnail -->
+                    <div class="overlay">
+                        <div class="file-info">
+                            <a class="view" title="View {ITEM.name} ({ITEM.size})" href="/view/{BASE}{FOLDER}{ITEM.name}" target="_blank"><span>View</span></a>
+                            <a class="download" title="Download {ITEM.name} ({ITEM.size})" href="/download/{BASE}{FOLDER}{ITEM.name}"><span>Download</span></a>
+                            <a class="info" href="#" title="Size: {ITEM.size}, click to view more details" onclick="openAjaxRequestInDialog('/request/bo/component/file_info~file_path_encoded={ITEM.file_path_encoded}~', 'File Info'); return false"><span>View more details</span></a>
+                        </div>
+                        
+                        <!-- BEGIN: usage --><a class="usage" href="#" onclick="openAjaxRequestInDialog('/request/bo/component/file_usage~file_path_encoded_relative={ITEM.file_path_encoded_relative}~', 'File Usage'); return false" title="Usage">This file has been used<br>{FILE_USAGE} times</a><!-- END: usage -->
+                        
+                        <div class="file-actions">
+                        <!-- BEGIN: add_to_node --><a class="button small add" title="Use {ITEM.name}" href="#serverBrowser" onclick="makeAjaxRequest('#server-browser', '/request/bo/component/file_add~file_path_encoded={ITEM.file_path_encoded}:type={GET.type}:role={GET.role}:relation={GET.relation}:node_id={GET.node_id}~'); "><span>Use</span></a><br /><!-- END: add_to_node -->
+                        <!-- BEGIN: replace_file --><a class="button small add" title="Use {ITEM.name}" onclick="makeAjaxRequest('#file-dialog .content', '/request/bo/component/file_replace~file_path_encoded={ITEM.file_path_encoded}:type={GET.type}:relation={GET.relation}:node_id={GET.node_id}:file_id={GET.file_id}~', 'Replace file'); "><span>Use</span></a><br /><!-- END: replace_file -->
+                        <!-- BEGIN: delete --><a class="button small remove" onclick="deleteFile('{ITEM.file_path_encoded_relative}');"><span>Delete</span></a><!-- END: delete -->
+                        <!-- BEGIN: database_import --><a class="button add" title="Import {ITEM.name}" href="?data_file={BASE}{FOLDER}{ITEM.name}"><span>Import this ...</span></a><br /><!-- END: database_import --> 
+                        </div>
                     </div>
-                    
-                    <!-- BEGIN: usage --><a class="usage" href="#" onclick="openAjaxRequestInDialog('/request/bo/component/file_usage~file_path_encoded_relative={ITEM.file_path_encoded_relative}~', 'File Usage'); return false" title="Usage">This file has been used<br>{FILE_USAGE} times</a><!-- END: usage -->
-                    
-                    <div class="file-actions">
-                    <!-- BEGIN: add_to_node --><a class="button small add" title="Use {ITEM.name}" href="#serverBrowser" onclick="makeAjaxRequest('#server-browser', '/request/bo/component/file_add~file_path_encoded={ITEM.file_path_encoded}:type={GET.type}:role={GET.role}:relation={GET.relation}:node_id={GET.node_id}~'); "><span>Use</span></a><br /><!-- END: add_to_node -->
-                    <!-- BEGIN: replace_file --><a class="button small add" title="Use {ITEM.name}" onclick="makeAjaxRequest('#file-dialog .content', '/request/bo/component/file_replace~file_path_encoded={ITEM.file_path_encoded}:type={GET.type}:relation={GET.relation}:node_id={GET.node_id}:file_id={GET.file_id}~', 'Replace file'); "><span>Use</span></a><br /><!-- END: replace_file -->
-                    <!-- BEGIN: delete --><a class="button small remove" onclick="deleteFile('{ITEM.file_path_encoded_relative}');"><span>Delete</span></a><!-- END: delete -->
-                    <!-- BEGIN: database_import --><a class="button add" title="Import {ITEM.name}" href="?data_file={BASE}{FOLDER}{ITEM.name}"><span>Import this ...</span></a><br /><!-- END: database_import --> 
                 </div>
-                    
+                <div class="file-name">
+                    {ITEM.name|str_replace('_', ' ', %s)}
                 </div>
             </div>
             <!-- END: item -->

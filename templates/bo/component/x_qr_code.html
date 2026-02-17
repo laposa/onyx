@@ -1,5 +1,5 @@
 <!-- BEGIN: content -->
-
+{MESSAGES}
     <!-- BEGIN: preview -->
     <fieldset id="component-qr-code" class="component-preview qrcode">
         <div id="qr-code-loading" class="onyx-loading htmx-indicator">
@@ -8,7 +8,7 @@
             
         <legend>QR Code</legend>
 
-        <img src="/view/{QRCODE}" alt="QR Code" width="150" height="150"/>
+        <img src="/view/{QRCODE}" class="qr-img" alt="QR Code" width="150" height="150"/>
 
         <span class="label">Current QR Code URL:</span>
         <span class="value"><a href="{QRCODE_URL}" class="link">{QRCODE_URL}</a></span>

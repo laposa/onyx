@@ -30,7 +30,6 @@ class Onyx_Controller_Bo_Component_X_Product_Add extends Onyx_Controller_Bo_Comp
             $product_data = $_POST['product'];
 
             if($id = $product->insertFullProduct($product_data)) {
-                // TODO: messages
                 msg("Product has been added.");
 
                 $node_data['content'] = $id;
