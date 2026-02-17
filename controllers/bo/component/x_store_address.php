@@ -34,13 +34,19 @@ class Onyx_Controller_Bo_Component_X_Store_Address extends Onyx_Controller_Bo_Co
             }
 
             $address = '';
-            $address .= $store_data['address_name'] ?? '';
-            $address .= $store_data['address_line_1'] ? ', <br>' . $store_data['address_line_1'] : '';
-            $address .= $store_data['address_line_2'] ? ', <br>' . $store_data['address_line_2'] : '';
-            $address .= $store_data['address_line_3'] ? ', <br>' . $store_data['address_line_3'] : '';
-            $address .= $store_data['address_city'] ? ', <br>' . $store_data['address_city'] : '';
-            $address .= $store_data['address_county'] ? ', <br>' . $store_data['address_county'] : '';
-            $address .= $store_data['address_post_code'] ? $store_data['address_post_code'] : '';
+
+            if ($store_data['address']) {
+                $address = nl2br($store_data['address']);
+            } else {
+                $address .= $store_data['address_name'] ?? '';
+                $address .= $store_data['address_line_1'] ? ', <br>' . $store_data['address_line_1'] : '';
+                $address .= $store_data['address_line_2'] ? ', <br>' . $store_data['address_line_2'] : '';
+                $address .= $store_data['address_line_3'] ? ', <br>' . $store_data['address_line_3'] : '';
+                $address .= $store_data['address_city'] ? ', <br>' . $store_data['address_city'] : '';
+                $address .= $store_data['address_county'] ? ', <br>' . $store_data['address_county'] : '';
+                $address .= $store_data['address_post_code'] ? $store_data['address_post_code'] : '';
+            }
+
             $this->tpl->assign('ADDRESS', $address);
         }
 
