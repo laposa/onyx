@@ -1,7 +1,7 @@
 <!-- BEGIN: content -->
 <ul id="menu-actions">
     <li class="flush-cache"><a href='/backoffice/advanced/tools?tool=flush_cache' onclick="clearOnyxCache(this); return false" title="Clear Cache"><span>Clear Cache</span></a></li>
-    <!-- BEGIN: css_edit --><li class="css-edit"><a class="onyx-edit-css-edit" href="/backoffice/advanced/templates" title="CSS Edit" onclick="nOpenWin('/popup/css_edit/{_SESSION.active_pages.0}/orig/{_SESSION.orig}', 900, 600); return false;"><span>CSS</span></a></li><!-- END: css_edit -->
+    <!-- BEGIN: css_edit --><li class="css-edit"><a class="onyx-edit-css-edit" href="/popup/css_edit/" target="_blank" title="CSS Edit"><span>CSS</span></a></li><!-- END: css_edit -->
     <li class="logout" ><a class="logout" href="/?logout=1" title="Logout user {_SESSION.authentication.user_details.email|htmlspecialchars} from Front Office"><span>Log Out</span></a></li>
 </ul>
 <!-- END: content -->

@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2014-2025 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2014-2026 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  * this file contains mapping of URLs to Onyx component requests
@@ -89,21 +89,16 @@ $uri_map = array(
 
     '^/popup' => array(
         '^/popup_window/(.*)$' => '/index.php?request=bo/backoffice_wrapper.bo/popup.$1',
-        '^/popup/edit/([a-z]*)/([0-9]*)/orig/(.*)$' => '/index.php?request=bo/backoffice_wrapper.bo/popup.bo/component/node_edit~id=$2~&orig=$3&popup=1',
-        '^/popup/properties/([0-9]*)/orig/(.*)$' => '/index.php?request=bo/backoffice_wrapper.bo/popup.bo/component/node_edit&id=$1&orig=$2&popup=1',
         '^/popup/properties/([0-9]*)/delete$' => '/index.php?request=bo/backoffice_wrapper.bo/popup.bo/component/node_edit~id=$1:delete=1~',
         '^/popup/add/([a-z]*)/([0-9]*)$' => '/index.php?request=bo/backoffice_wrapper.bo/popup.bo/component/node_add&parent=$2&container=$3&node_group=$1&popup=1',
-        '^/popup/add/([a-z]*)/([0-9]*)/([0-9]*)/orig/(.*)$' => '/index.php?request=bo/backoffice_wrapper.bo/popup.bo/component/node_add&parent=$2&container=$3&node_group=$1&orig=$4&popup=1',
         '^/popup/files/([a-z_]*)/([0-9]*)$' => '/index.php?request=bo/backoffice_wrapper.bo/popup.bo/component/file_list~relation=$1:node_id=$2~',
-        '^/popup/css_edit/([0-9]*)/orig/(.*)$' => '/index.php?request=bo/backoffice_wrapper.bo/popup.bo/component/css_edit~popup=1:orig=$2:id=$1~',
         '^/popup/css_edit/?$' => '/index.php?request=bo/backoffice_wrapper.bo/popup.bo/component/css_edit~popup=1~',
         '^/popup/logs$' => '/index.php?request=bo/backoffice_wrapper.bo/popup.bo/component/logs',
         '^/popupimage/(.*)$' => '/index.php?request=component/popimage&src=$1'
     ),
 
     '^/ajax/add/' => array(
-        '^/ajax/add/([a-z]*)/([0-9]*)$' => '/index.php?request=bo/component/node_add&parent=$2&container=$3&node_group=$1&ajax=1&dontforward=1',
-        '^/ajax/add/([a-z]*)/([0-9]*)/([0-9]*)/orig/(.*)$' => '/index.php?request=bo/component/node_add&parent=$2&container=$3&node_group=$1&orig=$4&ajax=1&dontforward=1'
+        '^/ajax/add/([a-z]*)/([0-9]*)$' => '/index.php?request=bo/component/node_add&parent=$2&container=$3&node_group=$1&ajax=1&dontforward=1'
     ),
 
     '^/export/' => array(
