@@ -135,9 +135,6 @@ function initAdvancedSettingsButton() {
             $("a.show-advanced-settings span").html('Hide Advanced Settings');
         }
     }
-    
-    var buttonToolbar = $('div.row-bottom p:first');
-    if (buttonToolbar.length > 0) buttonToolbar.append($('.extended-toolbar a').detach());
 };
 
 /**
