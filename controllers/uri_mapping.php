@@ -1,6 +1,6 @@
 <?php
 /**
- * Copyright (c) 2006-2024 Laposa Limited (https://laposa.ie)
+ * Copyright (c) 2006-2026 Laposa Limited (https://laposa.ie)
  * Licensed under the New BSD License. See the file LICENSE.txt for details.
  *
  */
@@ -165,11 +165,6 @@ class Onyx_Controller_Uri_Mapping extends Onyx_Controller {
     public function getActionToProcessForPage($node_id) {
 
         if (!is_numeric($node_id)) return false;
-
-        //save node_id to last record in history
-        if (is_array($_SESSION)) {
-            $_SESSION['orig'] = "/page/$node_id";
-        }
 
         $action_to_process = $this->Mapper->getRequest($node_id);
 
