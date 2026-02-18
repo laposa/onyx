@@ -24,6 +24,9 @@ class Onyx_Controller_Bo_Component_Node_Edit extends Onyx_Controller {
         $Node = new common_node();
         $node_data = $Node->detail($node_id);
         $this->tpl->assign("NODE", $node_data);
+
+        $sub_items = count($Node->getChildren($node_data['id']) ?? []);
+        $this->tpl->assign("SUB_ITEMS", $sub_items);
         
         $_SESSION['active_pages'] = $Node->getActiveNodes($node_id, array('page', 'container'));
         $_SESSION['full_path'] = $Node->getFullPath($node_id);
