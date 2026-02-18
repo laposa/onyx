@@ -113,52 +113,6 @@
 	hx-indicator="#qr-code-loading">
 </div>
 
-<!-- Page List -->
-<!-- TODO: check refresh, create custom component? -->
-<fieldset id="component-page-list" class="component-preview">
-    <div id="page-list-loading" class="onyx-loading htmx-indicator">
-        <img src="/share/images/loading.svg" alt="Loading..."/>
-    </div>
-
-    <legend>Page List</legend>
-
-    <div 
-        class="row" 
-        id="content-list-pages-wrapper" 
-        hx-get="/request/bo/component/node_list_pages~id={GET.id}~" 
-        hx-target="#content-list-pages-wrapper" 
-        hx-trigger="load, refresh"
-    >
-    </div>
-
-		<div class="component-actions">
-			<button class="btn add" title="Add Node" onclick="addNode(event, '{GET.id}', 'page', 'page')">Add Page</button>
-		</div>
-</fieldset>
-
-<!-- Content List -->
-<!-- TODO: check refresh, create custom component? -->
-<fieldset id="component-content-list" class="component-preview">
-		<div id="content-list-loading" class="onyx-loading htmx-indicator">
-        <img src="/share/images/loading.svg" alt="Loading..."/>
-    </div>
-
-    <legend>Content List</legend>
-
-    <div 
-        id="content-list-cards-wrapper" 
-        class="row" 
-        hx-get="/request/bo/component/node_list_cards~id={GET.id}~" 
-        hx-target="#content-list-cards-wrapper" 
-        hx-trigger="load, refresh"
-    >
-    </div>
-
-		<div class="component-actions">
-    	<button class="button add" title="Add Content" onclick="addNode(event, '{GET.id}', '{NODE.node_group}', 'content')">Add Content</button>
-		</div>
-</fieldset>
-
 <!-- Advanced Settings -->
 <div id="advanced-settings"
 	hx-get="/request/bo/component/x_advanced_settings?node_id={GET.id}"

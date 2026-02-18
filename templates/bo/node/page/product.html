@@ -55,29 +55,6 @@
 	hx-indicator="#qr-code-loading">
 </div>
 
-<!-- Content List -->
-<!-- TODO: check refresh, create custom component? -->
-<fieldset id="component-content-list" class="component-preview">
-		<div id="content-list-loading" class="onyx-loading htmx-indicator">
-        <img src="/share/images/loading.svg" alt="Loading..."/>
-    </div>
-
-    <legend>Additional Content, e.g. user manuals</legend>
-
-    <div
-        id="content-list-cards-wrapper"
-        class="row"
-        hx-get="/request/bo/component/node_list_cards~id={GET.id}~"
-        hx-target="#content-list-cards-wrapper"
-        hx-trigger="load, refresh"
-    >
-    </div>
-
-		<div class="component-actions">
-      <button class="button add" title="Add Content" onclick="addNode(event, '{GET.id}', '{NODE.node_group}', 'content')">Add Content</button>
-		</div>
-</fieldset>
-
 <!-- Position -->
 <div id="node-position"
 	hx-get="/request/bo/component/x_node_position?node_id={GET.id}"
