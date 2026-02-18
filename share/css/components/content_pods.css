@@ -189,7 +189,6 @@ div#drag_container.clean {
   }
 }
 
-div#node-properties-edit fieldset {position: relative; }
 
 a.fakelink {text-decoration: none; display:block;}
 a.fakelink:hover {text-decoration: none;}
