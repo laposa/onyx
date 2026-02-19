@@ -20,7 +20,6 @@
     transition: all 0.5s ease;
     cursor: pointer;
     border-bottom: 1px solid #eee;
-		font-size: 0.9rem;
 
     &.active {
       font-weight: bold;

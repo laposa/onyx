@@ -25,7 +25,6 @@
 	position: relative;
 
 	.navigation-list-item {
-		font-size: 0.75rem;
 		display: flex;
 		align-items: center;
 		justify-content: flex-start;

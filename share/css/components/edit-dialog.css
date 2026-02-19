@@ -25,13 +25,11 @@ dialog.edit-dialog {
 		padding-left: 20px;
 
 		li {
-			font-size: 1rem;
 			margin-bottom: 5px;
 		}
 	}
 
 	p {
-		font-size: 12px;
 		color: var(--color-text-grey);
 	}
 
@@ -40,7 +38,6 @@ dialog.edit-dialog {
 		border: 1px solid #ccc;
 		border-radius: 5px;
 		padding: 10px;
-		font-size: 14px;
 		color: var(--color-text);
 		outline: none;
 		transition: 0.3s ease;
@@ -82,7 +79,6 @@ dialog.edit-dialog {
 		}
 		
 		label {
-			font-size: 12px;
 			color: var(--color-text-grey);
 
 			&:has(+ .error) {
@@ -98,7 +94,6 @@ dialog.edit-dialog {
 			border: 1px solid #ccc;
 			border-radius: 5px;
 			padding: 12px 10px 10px 12px;
-			font-size: 14px;
 			transition: 0.3s ease;
 			outline: none;
 
@@ -126,7 +121,6 @@ dialog.edit-dialog {
 			display: flex;
 			align-items: center;
 			gap: 10px;
-			font-size: 14px;
 			color: var(--color-text);
 
 			label {
@@ -180,7 +174,6 @@ dialog.edit-dialog {
 
 			label {
 				margin-bottom: 0;
-				font-size: 14px;
 				color: var(--color-text);
 			}
 		}
@@ -201,7 +194,6 @@ dialog.edit-dialog {
 	.additional-info {
 		padding-left: 10px;
 		padding-top: 5px;
-		font-size: 12px;
 		color: var(--color-text-grey);
 
 		a {
@@ -217,7 +209,6 @@ dialog.edit-dialog {
 		width: 100%;
 
 		button {
-			font-size: 14px;
 			padding: 10px 15px;
 			border-radius: 5px;
 			line-height: normal;
