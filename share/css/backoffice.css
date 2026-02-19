@@ -27,7 +27,7 @@
 }
 
 
-body {font-size: 70%; color: black; font-family: "Lucida Grande", "Helvetica Neue", Helvetica, Arial, sans-serif; background: white; margin-bottom: 100px;}
+body {font-size: 12px; color: black; font-family: "Lucida Grande", "Helvetica Neue", Helvetica, Arial, sans-serif; background: white; margin-bottom: 100px;}
 h2 a, h3 a, h4 a {color: white;}
 h1 { font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; font-weight: 100; font-size: 40px; margin-top: 0; padding: 0; color: #666;}
 h1 span.info { font-weight: normal; float: right; font-size: 14px; background: #f0f0f0; border: 1px solid #ddd; text-shadow: 0 -1px 0 #fff; border-radius: 20px; padding: 3px 16px; margin: 9px 0 0 0; }
@@ -257,7 +257,7 @@ div.wrapper {
 
 #onyx-menu-bar ul { margin: 0; padding: 10px 0; list-style: none; text-shadow: 1px 1px 1px rgba(0,0,0,0.5); border-top: 1px solid #33373c; box-shadow: 0 -1px 0 #0f1112; }
 #onyx-menu-bar ul li { margin: 0; padding: 0; width: 130px; white-space: nowrap;}
-#onyx-menu-bar ul li a { text-decoration: none; font-size: 11px; display: block; width: 130px; height: 28px; line-height: 24px; transition: color 200ms linear; }
+#onyx-menu-bar ul li a { text-decoration: none; font-size: 12px; display: block; width: 130px; height: 28px; line-height: 24px; transition: color 200ms linear; }
 #onyx-menu-bar ul li.active a { color: #fff; margin-top: 0; border-top: 1px solid #6d97d0; background-image: -webkit-linear-gradient(top, #5685c4, #4c6cb8); background-image: -moz-linear-gradient(top, #5685c4, #4c6cb8); background-image: -ms-linear-gradient(top, #5685c4, #4c6cb8); background-image: -o-linear-gradient(top, #5685c4, #4c6cb8); background-image: linear-gradient(to bottom, #5685c4, #4c6cb8); }
 #onyx-menu-bar ul li a:hover { color: #fff !important; }
 
@@ -326,7 +326,6 @@ div.file-list-icon div.item a.image {display: block; max-height: 120px; overflow
 * product list table
 */
 
-div.product-list td.product-name {font-size: 1.5em; }
 div.product-list th.price,
 div.product-list th.sku {text-align: center;}
 div.product-list tbody tr.even td { background: #f0f0f0;}
@@ -336,7 +335,7 @@ div.product-list tbody tr.odd td { background: #fcfcfc;}
 * CodeMirror
 */
 
-div.CodeMirror {font-size: 13px;}
+div.CodeMirror {font-size: 12px;}
 
 /* 
 * combobox 
@@ -552,7 +551,7 @@ div.survey-detail table td.answers a.is-correct-0 { color: #444; position: relat
 div.survey-detail table td.answers a.is-correct-1 { color: #000; position: relative; font-weight: bold;}
 div.survey-detail table td.answers a.is-correct-0:before { content: "\f096"; }
 div.survey-detail table td.answers a.is-correct-1:before { content: "\f046"; }
-div.survey-detail table td.answers li a:before {display: inline-block; font-family: 'onyx'; font-style: normal; font-weight: normal; line-height: 1; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; line-height: 18px; color: #333; position: absolute; left: -18px; top: -1px; font-size: 14px; } 
+div.survey-detail table td.answers li a:before {display: inline-block; font-family: 'onyx'; font-style: normal; font-weight: normal; line-height: 1; -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; line-height: 18px; color: #333; position: absolute; left: -18px; top: -1px;} 
 
 /*
 * Tabs
@@ -561,7 +560,7 @@ div.survey-detail table td.answers li a:before {display: inline-block; font-fami
 div.onyx-tabs { height: 36px; border-bottom: 1px solid #e0e0e0; margin: 0 0 10px 0; background: #f8f8f8; position: relative; top: -10px;}
 div.onyx-tabs ul { list-style: none; margin: 0; padding: 0; }
 div.onyx-tabs ul li { float: left; margin: 0; padding: 0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;}
-div.onyx-tabs ul li a { text-decoration: none; font-size: 14px; font-weight: bold; color: #666; display: block; padding: 6px 20px; margin: 0 40px 0 0; position: relative; text-shadow: 0 1px 0 #fff; }
+div.onyx-tabs ul li a { text-decoration: none; font-size: 12px; font-weight: bold; color: #666; display: block; padding: 6px 20px; margin: 0 40px 0 0; position: relative; text-shadow: 0 1px 0 #fff; }
 div.onyx-tabs ul li a:hover,
 div.onyx-tabs ul li.active a { color: #000; }
 div.onyx-tabs ul li.active a:before { content: ''; position: absolute; top: 28px; left: 50%; margin-left: -8px; width: 0; height: 0; border-style: solid; border-width: 0 7px 7px 7px; border-color: transparent transparent #e0e0e0 transparent; }
@@ -654,7 +653,7 @@ div.comment-list tr.status-new a.title { font-weight: bold; }
 
 .category-list {
   li {
-    font-size: 1rem;
+    font-size: 12px;
   }
 
   .category-item {
