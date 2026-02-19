@@ -1,19 +1,24 @@
 <!-- BEGIN: content -->
-<div class="search-bar">
-    <input 
-        type="text" 
-        name="search_query" 
-        id="search-input"
-        placeholder="Search pages"
-        hx-get="/request/bo/component/bo_search_results"
-        hx-target="#search-results"
-        hx-indicator="#search-loading"
-        hx-trigger="keypress[key == 'Enter']"
-        hx-on::before-request="document.getElementById('search-results').innerHTML = ''"/>
-    <div id="search-loading" class="onyx-loading htmx-indicator">
-        <img src="/share/images/loading.svg" alt="Loading..."/>
+<style>
+    @import url(/share/css/components/bo-search.css?{ONYX_CACHE_VERSION});
+</style>
+<div class="bo-search">
+    <div class="search-bar">
+        <input 
+            type="text" 
+            name="search_query" 
+            id="search-input"
+            placeholder="Search pages"
+            hx-get="/request/bo/component/bo_search_results"
+            hx-target="#search-results"
+            hx-indicator="#search-loading"
+            hx-trigger="keypress[key == 'Enter']"
+            hx-on::before-request="document.getElementById('search-results').innerHTML = ''"/>
+        <div id="search-loading" class="onyx-loading htmx-indicator">
+            <img src="/share/images/loading.svg" alt="Loading..."/>
+        </div>
     </div>
-</div>
-<div class="search-results" id="search-results">
+    <div class="search-results" id="search-results">
+    </div>
 </div>
 <!-- END: content -->

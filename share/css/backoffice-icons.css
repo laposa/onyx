@@ -7,11 +7,11 @@
  */
 @font-face {
     font-family: 'onyx';
-    src:url('../../fonts/onyx.eot?-yjb9qm');
-    src:url('../../fonts/onyx.eot?#iefix-yjb9qm') format('embedded-opentype'),
-        url('../../fonts/onyx.woff?-yjb9qm') format('woff'),
-        url('../../fonts/onyx.ttf?-yjb9qm') format('truetype'),
-        url('../../fonts/onyx.svg?-yjb9qm#icomoon') format('svg');
+    src:url('../fonts/onyx.eot?-yjb9qm');
+    src:url('../fonts/onyx.eot?#iefix-yjb9qm') format('embedded-opentype'),
+        url('../fonts/onyx.woff?-yjb9qm') format('woff'),
+        url('../fonts/onyx.ttf?-yjb9qm') format('truetype'),
+        url('../fonts/onyx.svg?-yjb9qm#icomoon') format('svg');
     font-weight: normal;
     font-style: normal;
 }
