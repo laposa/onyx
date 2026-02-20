@@ -44,8 +44,8 @@ class Onyx_Controller_Component_Ecommerce_Store_List extends Onyx_Controller {
         // distance
         foreach ($store_list as $k=>$item) {
 
-            $distance_from_selected_store = 0;
-            $distance_from_client_geoposition = 0;
+            $distance_from_selected_store = null;
+            $distance_from_client_geoposition = null;
 
             if(!$item['latitude'] || !$item['longitude']) {
                 unset($store_list[$k]);
