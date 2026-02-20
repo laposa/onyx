@@ -115,16 +115,18 @@
             No product has been created/associated for this page. Please create one in order to display product-related fields.
         </div>
 
-        <button
-            hx-get="/request/bo/component/x_product_add?node_id={GET.node_id}"
-            hx-target="#edit-dialog .content"
-            hx-indicator="#edit-loading"
-            hx-trigger="click"
-            hx-swap="innerHTML"
-            hx-on::before-request="openDialog()"
-            class="btn">
-            Create a product
-        </button>
+        <div class="component-actions">
+            <button
+                hx-get="/request/bo/component/x_product_add?node_id={GET.node_id}"
+                hx-target="#edit-dialog .content"
+                hx-indicator="#edit-loading"
+                hx-trigger="click"
+                hx-swap="innerHTML"
+                hx-on::before-request="openDialog()"
+                class="btn">
+                Create a product
+            </button>
+        </div>
     </fieldset>
     <!-- END: missing_product -->
      
