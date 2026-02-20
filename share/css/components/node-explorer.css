@@ -139,7 +139,8 @@
 	}
 
 	&.empty {
-		background-color: transparent;
+		min-width: 0;
+		width: 0;
 	}
 
 	&.htmx-request {
