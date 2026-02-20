@@ -43,6 +43,15 @@ class Onyx_Controller_Component_Ecommerce_Store_List extends Onyx_Controller {
 
         // distance
         foreach ($store_list as $k=>$item) {
+
+            $distance_from_selected_store = null;
+            $distance_from_client_geoposition = null;
+
+            if(!$item['latitude'] || !$item['longitude']) {
+                unset($store_list[$k]);
+                continue;
+            }
+
             // distance_from_selected_store
             if ($active_store_detail) {
                 $distance_from_selected_store = $Store->distance($active_store_detail['latitude'], $active_store_detail['longitude'], $item['latitude'], $item['longitude']);
@@ -51,7 +60,7 @@ class Onyx_Controller_Component_Ecommerce_Store_List extends Onyx_Controller {
             }
             
             // distance_from_client_geoposition
-            if (is_array($client_geoposition) && $client_geoposition['latitude'] && $client_geoposition['longitude']) {
+            if (!$active_store_id && is_array($client_geoposition) && $client_geoposition['latitude'] && $client_geoposition['longitude']) {
                 $distance_from_client_geoposition = $Store->distance($client_geoposition['latitude'], $client_geoposition['longitude'], $item['latitude'], $item['longitude']);
                 if ($distance_from_client_geoposition > 1) $distance_from_client_geoposition = round($distance_from_client_geoposition);
                 else $distance_from_client_geoposition = round($distance_from_client_geoposition, 1);
