@@ -17,8 +17,14 @@
 
     function scrollToActive(list) {
         var activeItem = list.querySelector('li.active');
+        var explorer = document.querySelector('.levels');
+
         if (activeItem) {
             activeItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); 
+        }
+
+        if (explorer) {
+            explorer.scrollTo({ left: explorer.scrollWidth - explorer.clientWidth, behavior: 'smooth' });
         }
     }
 
