@@ -1579,6 +1579,7 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
                     setweight(to_tsvector('english', coalesce(n.description,'')), 'B') ||
                     setweight(to_tsvector('english', coalesce(n.keywords,'')), 'A') ||
                     setweight(to_tsvector('english', coalesce(pcg.content,'')), 'C') ||
+                    setweight(to_tsvector('english', coalesce(s.code,'')), 'A') ||
                     setweight(to_tsvector('english', coalesce(p.rank_a,'')), 'A') ||
                     setweight(to_tsvector('english', coalesce(p.rank_b,'')), 'B') ||
                     setweight(to_tsvector('english', coalesce(p.rank_c,'')), 'C') AS search_vector
@@ -1592,6 +1593,11 @@ CREATE INDEX common_node_custom_fields_idx ON common_node USING gin (custom_fiel
                         WHEN n.node_controller = 'product' THEN n.content::int
                         ELSE 0
                     END = p.id
+                LEFT JOIN ecommerce_store s ON n.node_controller = 'store' AND
+                    CASE 
+                        WHEN n.node_controller = 'store' THEN n.content::int
+                        ELSE 0
+                    END = s.id
                 WHERE 
                     -- filter out unpublished products
                     n.node_controller != 'product' OR p.publish >= $published
