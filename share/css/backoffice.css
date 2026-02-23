@@ -600,11 +600,6 @@ div.comment-list tr.status-new a.title { font-weight: bold; }
   text-decoration: underline;
 }
 
-.revision-list {
-  margin-top: 15px;
-  width: 100%;
-}
-
 .page-list-form-edit {
 
   table {

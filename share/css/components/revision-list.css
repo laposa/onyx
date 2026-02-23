@@ -1,0 +1,29 @@
+.revision-list {
+	table {
+		margin-top: 15px;
+  	width: 100%;
+
+		tbody {
+			tr:nth-child(n+6) {
+				display: none;
+			}
+
+			&.expanded {
+				tr:nth-child(n+6) {
+					display: table-row;
+				}
+			}
+		}
+
+		.show-more {
+			text-align: center;
+			font-weight: 600;
+			color: var(--color-primary);
+			background-color: var(--color-background-light);
+
+			span {
+				cursor: pointer;
+			}
+		}
+	}
+}
