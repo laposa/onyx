@@ -232,7 +232,7 @@ div.wrapper {
   display: flex;
   flex-direction: column;
   position: relative;
-  width: 100%;
+  width: auto;
   max-width: 50%;
   height: 100%;
   transition: 0.3s ease;
@@ -240,7 +240,8 @@ div.wrapper {
 
 .bo-node-detail-wrapper {
   height: 100%;
-  width: 50%;
+  width: 100%;
+  min-width: 50%;
   padding: 0 20px;
   border-left: 2px solid var(--color-primary);
   position: relative;
