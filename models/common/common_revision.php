@@ -143,7 +143,7 @@ class common_revision extends Onyx_Model {
         if (in_array($object, self::getAllowedRevisionObjects())) $add_to_where .= " AND object = '$object' ";
         if (is_numeric($node_id)) $add_to_where .= " AND node_id = $node_id ";
         
-        $list = $this->listing($add_to_where);
+        $list = $this->listing($add_to_where, 'created DESC');
 
         return $list;
     }
