@@ -725,6 +725,57 @@ CREATE TABLE common_file (
     }
 
     /**
+     * Get relation counts for multiple files in bulk
+     *
+     * @param array $files array of file src paths
+     * @return array associative array keyed by file src, value is total usage count
+     */
+    function getRelationsCounts($files) {
+
+        if (!is_array($files) || count($files) == 0) return [];
+
+        $quoted = [];
+        foreach ($files as $file) {
+            $quoted[] = $this->db->quote($file);
+        }
+        $in_clause = implode(',', $quoted);
+
+        $tables = ['common_file', 'common_image', 'common_taxonomy_label_image'];
+
+        if (ONYX_ECOMMERCE) {
+            $tables = array_merge($tables, [
+                'ecommerce_product_image',
+                'ecommerce_product_variety_image',
+                'ecommerce_recipe_image',
+                'ecommerce_store_image',
+                'education_survey_image',
+            ]);
+        }
+
+        // initialize counts
+        $counts = array_fill_keys($files, 0);
+
+        foreach ($tables as $table) {
+            $sql = "SELECT src, COUNT(*) as cnt FROM {$table} WHERE src IN ({$in_clause}) GROUP BY src";
+
+            try {
+                $records = $this->db->fetchAllAssociative($sql);
+                if (is_array($records)) {
+                    foreach ($records as $row) {
+                        if (isset($counts[$row['src']])) {
+                            $counts[$row['src']] += (int)$row['cnt'];
+                        }
+                    }
+                }
+            } catch (\Exception $e) {
+                msg("getRelationsCounts error on {$table}: " . $e->getMessage(), 'error', 1);
+            }
+        }
+
+        return $counts;
+    }
+
+    /**
      * Get detailed file info
      *
      * @param string $fp

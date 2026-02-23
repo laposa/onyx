@@ -71,24 +71,7 @@ class Onyx_Controller_Bo_Component_Server_Browser_Menu extends Onyx_Controller_C
     public function getListForDirectories($directories) {
         
         if (!is_array($directories)) return false;
-        
-        /**
-         * pass find param
-         */
-        
-        switch ($this->GET['type'] ?? '') {
-            case 'd':
-                $find_param = '-type d';
-            break;
-            default:
-                $find_param = '';
-            break;
-        }  
-        
-        /**
-         * get list
-         */
-         
+
         require_once('models/common/common_file.php');
         $File = new common_file();
 
@@ -98,7 +81,7 @@ class Onyx_Controller_Bo_Component_Server_Browser_Menu extends Onyx_Controller_C
         
             $directory = $directory_prefix . $this->GET['directory'];
 
-            if (file_exists($directory) && is_dir($directory)) $list_single = $File->getTree($directory, $find_param);
+            if (file_exists($directory) && is_dir($directory)) $list_single = $File->getTree($directory, $this->GET['type'] ?? '');
             else $list_single = array();
 
             $list = array_merge($list, $list_single);
