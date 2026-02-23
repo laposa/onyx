@@ -41,6 +41,10 @@ class Onyx_Controller_Bo_Component_X_Revision_List extends Onyx_Controller_Bo_Co
 
     public function parseList($list) {
 
+        if (count($list) > 5) {
+            $this->tpl->parse('content.show_more');
+        }
+
         if (count($list) > 0) {
             require_once('models/client/client_customer.php');
             $Client_Customer = new client_customer();

@@ -1,6 +1,23 @@
 <!-- BEGIN: content -->
+<style>
+    @import url(/share/css/components/revision-list.css);
+</style>
+<script>
+    function toggleRevisionList(event) {
+        var tableBody = document.querySelector('#component-revision-list tbody');
+        var showMoreText = event.target;
+        
+        tableBody.classList.toggle('expanded');
+        
+        if (tableBody.classList.contains('expanded')) {
+            showMoreText.textContent = "Show Less";
+        } else {
+            showMoreText.textContent = "Show More";
+        }
+    }
+</script>
 {MESSAGES}
-<fieldset id="component-revision-list" class="component-preview">
+<fieldset id="component-revision-list" class="component-preview revision-list">
     <div id="revision-list-loading" class="onyx-loading htmx-indicator">
         <img src="/share/images/loading.svg" alt="Loading..."/>
     </div>
@@ -16,52 +33,56 @@
     <span class="label">Author:</span>
     <span class="value">{NODE.author_detail.email}</span>
 
-    <div class="revision-list">
-        <table cellspacing="0">
-            <thead>
-                <tr>
-                    <th></th>
-                    <th>Revision ID</th>
-                    <th>Created</th>
-                    <th>Author</th>
-                </tr>
-            </thead>
-            <tfoot>
-                {PAGINATION}
-            </tfoot>
-            <tbody>
-                <!-- BEGIN: item -->
-                <!-- TODO: status is blank? -->
-                <tr class="status-{ITEM.status}">
-                    <td><input type="checkbox" class="compare_chk" name="compare[]" onchange="countChecked()" value="{ITEM.id}" /></td>
-                    <td>{ITEM.id}</td>
-                    <td>{ITEM.created|strtotime|date('d/m/Y H:i:s', %s)}</td>
-                    <td><a href="/backoffice/customers/{ITEM.customer_id}/detail" target="_blank">{ITEM.customer.email}</a></td>
-                </tr>
-                <!-- END: item -->
-                <!-- BEGIN: empty -->
-                <tr>
-                    <td class="empty" colspan="4"><span class="note">No Revisions</span></td>
-                </tr>
-                <!-- END: empty -->
-            </tbody>
-        </table>
-        <br />
-        <div class="component-actions">
-            <button 
-                id="compare_btn" 
-                class="button add hidden"
-                hx-get="/request/bo/component/revision_compare&object=common_node"
-                hx-vals="js:{id: getSelectedRevisions()}"
-                hx-target="#edit-dialog .content"
-                hx-indicator="#edit-loading"
-                hx-trigger="click"
-                hx-swap="innerHTML"
-                hx-on::before-request="openDialog()"
-            >
-                Compare
-            </button>
-        </div>
+    <table cellspacing="0">
+        <thead>
+            <tr>
+                <th></th>
+                <th>Revision ID</th>
+                <th>Created</th>
+                <th>Author</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- BEGIN: item -->
+            <!-- TODO: status is blank? -->
+            <tr class="status-{ITEM.status}">
+                <td><input type="checkbox" class="compare_chk" name="compare[]" onchange="countChecked()" value="{ITEM.id}" /></td>
+                <td>{ITEM.id}</td>
+                <td>{ITEM.created|strtotime|date('d/m/Y H:i:s', %s)}</td>
+                <td><a href="/backoffice/customers/{ITEM.customer_id}/detail" target="_blank">{ITEM.customer.email}</a></td>
+            </tr>
+            <!-- END: item -->
+            <!-- BEGIN: empty -->
+            <tr>
+                <td class="empty" colspan="4"><span class="note">No Revisions</span></td>
+            </tr>
+            <!-- END: empty -->
+        </tbody>
+        <tfoot>
+            <!-- BEGIN: show_more -->
+            <tr>
+                <td colspan="4" class="show-more">
+                    <span onclick="toggleRevisionList(event)">Show More</span>
+                </td>
+            </tr>
+            <!-- END: show_more -->
+        </tfoot>
+    </table>
+    <br />
+    <div class="component-actions">
+        <button 
+            id="compare_btn" 
+            class="button add hidden"
+            hx-get="/request/bo/component/revision_compare&object=common_node"
+            hx-vals="js:{id: getSelectedRevisions()}"
+            hx-target="#edit-dialog .content"
+            hx-indicator="#edit-loading"
+            hx-trigger="click"
+            hx-swap="innerHTML"
+            hx-on::before-request="openDialog()"
+        >
+            Compare
+        </button>
     </div>
 </fieldset>
 
