@@ -150,10 +150,17 @@ class Onyx_Controller_Bo_Component_Server_Browser_File_List extends Onyx_Control
         }
 
         // Get File List
-        // list content od folder
+        // list content of folder
         $list = $File->getFlatArrayFromFs($actual_folder, 'f');
         
         if (is_array($list) && count($list) > 0) {
+
+            $file_src_paths = [];
+            foreach ($list as $l) {
+                $file_src_paths[] = $base_folder . $relative_folder_path . $l['name'];
+            }
+            $relations_counts = $File->getRelationsCounts($file_src_paths);
+
             foreach ($list as $l) {
                 $l['file_path'] = $actual_folder . $l['name'];
                 $l['file_path_encoded'] = $File->encode_file_path($actual_folder . $l['name']);
@@ -161,12 +168,13 @@ class Onyx_Controller_Bo_Component_Server_Browser_File_List extends Onyx_Control
                 
                 $this->tpl->assign("ITEM", $l);
         
-                $relations_list = $File->getRelations($base_folder.$relative_folder_path.$l['name']);
+                $file_src = $base_folder . $relative_folder_path . $l['name'];
+                $relations_count = $relations_counts[$file_src] ?? 0;
         
-                if ($relations_list['count'] == 0) {
+                if ($relations_count == 0) {
                     $this->tpl->parse('content.list.item.delete');
                 } else {
-                    $this->tpl->assign("FILE_USAGE", $relations_list['count']);
+                    $this->tpl->assign("FILE_USAGE", $relations_count);
                     $this->tpl->parse('content.list.item.usage');
                     //$_Onyx_Request = new Onyx_Request("bo/component/file_usage~file_path_encoded_relative={$l['file_path_encoded_relative']}~");
                     //$this->tpl->assign("FILE_USAGE", $_Onyx_Request->getContent());

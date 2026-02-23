@@ -60,10 +60,13 @@ class Onyx_Bootstrap {
         if (ONYX_CSRF_PROTECTION_ENABLED) $this->csrfCheck();
 
         // Disable DB cache when logged in as editor
+        // and increase php timeout
         if (Onyx_Bo_Authentication::getInstance()->isAuthenticated()) {
             define('ONYX_DB_QUERY_CACHE', false);
+            set_time_limit(ONYX_PHP_TIMEOUT_AUTHENTICATED);
         } else {
             define('ONYX_DB_QUERY_CACHE', true);
+            set_time_limit(ONYX_PHP_TIMEOUT_NON_AUTHENTICATED);
         }
 
         // Initialise A/B testing

@@ -444,3 +444,9 @@ onyxGlobalConfSetValue('ONYX_MOBILE_APP_PACKAGE', false);
 onyxGlobalConfSetValue('ONYX_MOBILE_APP_DEEPLINK_SET_URL', false);
 onyxGlobalConfSetValue('ONYX_MOBILE_APP_DEEPLINK_VALIDATION_REGEX', false);
 onyxGlobalConfSetValue('ONYX_MOBILE_APP_ASSOCIATED_HOSTNAME', false);
+
+/**
+ * PHP Timeout settings
+ */
+onyxGlobalConfSetValue('ONYX_PHP_TIMEOUT_AUTHENTICATED', 300); // 5 minutes for BO authenticated users
+onyxGlobalConfSetValue('ONYX_PHP_TIMEOUT_NON_AUTHENTICATED', 15); // 15 seconds for BO non-authenticated users
