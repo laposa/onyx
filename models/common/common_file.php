@@ -905,7 +905,6 @@ CREATE TABLE common_file (
             }
         }
 
-        sort($out);
         return $out;
     }
     
