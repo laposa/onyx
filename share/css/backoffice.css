@@ -86,9 +86,6 @@ a.onyx-nopublish span,
 table { margin-top: 0; width: 100%; color: black; border-radius: 10px; border: 0; box-shadow: 0 0 6px 2px rgba(0,0,0, 0.05); padding: 15px;}
 td, th { vertical-align: middle; text-align: left; padding: 10px 15px; }
 th { text-transform: uppercase; background-color: var(--color-primary); color: white; }
-th.last {text-align: right; }
-td:first-of-type, th:first-of-type { text-align: left; }
-td:last-of-type, th:last-of-type { text-align: right; }
 tbody tr:nth-child(2n) td { background: var(--color-background-light);}
 tbody tr:nth-child(2n+1) td { background: white; }
 div.layout-column-wrapper > table {background: #FDFDFD; width: 100%; margin-top: 0; }
