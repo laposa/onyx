@@ -83,15 +83,22 @@ class Onyx_Controller_Bo_Component_Server_Browser_File_List extends Onyx_Control
         
         // prepare folder head string
         $path = '';
-        $breadcrumbs = explode('/', $relative_folder_path);
+        $breadcrumbs = explode('/', $relative_folder_path, -1);
         // two forward slashes are intentional, button is not working with only 1
         $folder_head = '<a href="/backoffice/media//" class="root-folder"></a>/ ';
         if(count($breadcrumbs) > 0) {
             foreach($breadcrumbs as $key => $breadcrumb) {
                 $path .= $breadcrumb . '/';
                 $folder_head .= '<a href="/backoffice/media/' . $path . '">' . $breadcrumb . '</a>';
-                if($key < count($breadcrumbs) - 2) {
+                if($key < count($breadcrumbs) - 1) {
                     $folder_head .= ' / ';
+                }
+
+                // add button that goes one level up
+                if($key == count($breadcrumbs) - 2) {
+                    $this->tpl->assign('BACK_BUTTON', '<a href="/backoffice/media/' . $path . '" class="folder back"> Go Back </a>');
+                } else if (count($breadcrumbs) == 1) {
+                    $this->tpl->assign('BACK_BUTTON', '<a href="/backoffice/media//" class="folder back"> Go Back </a>');
                 }
             }
         }
