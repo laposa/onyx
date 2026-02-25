@@ -306,6 +306,7 @@
       border-radius: 5px;
       transition: 0.3s ease;
       margin-bottom: 10px;
+      break-inside: avoid;
 
       &:before {
         content:"";
@@ -328,6 +329,7 @@
 
     button {
       width: 100%;
+      break-inside: avoid;
     }
   }
 }

@@ -31,10 +31,14 @@
 
             <div class="page">
                 <div class="column-wrapper page">
+                    <div id="server-browser-loading" class="onyx-loading htmx-indicator">
+                        <img src="/share/images/loading.svg" alt="Loading..."/>
+                    </div>
                     <div 
                         id="server-browser-file-list-wrapper"
                         hx-get="/request/bo/component/server_browser_file_list?type={TYPE}&role={ROLE}&node_id={NODE_ID}&relation={RELATION}&file_id={FILE_ID}&open={OPEN}"
-                        hx-trigger="load, refresh">
+                        hx-trigger="load, refresh"
+                        hx-loading="server-browser-loading">
                     </div>
                 </div>
             </div>
