@@ -1,0 +1,37 @@
+<!-- BEGIN: content -->
+{MESSAGES}
+<form 
+    id="folder-add-edit"
+    hx-indicator="#edit-loading"
+    hx-post="/request/bo/component/x_folder_add"
+    hx-validate="true"
+    data-action="addFolder"
+    data-node-id="{GET.node_id}"
+>
+    <h2>Add a New Folder</h2>
+
+    <div class="row text">
+        <label for="folder-name">Folder Name:</label>    
+        <input 
+            class="title" 
+            type="text" 
+            id="folder-name" 
+            name="folder_name" 
+            placeholder="Folder Name"
+            autofocus
+            required
+        />
+    </div>
+
+    <input type="hidden" name="folder" value="{FOLDER}" />
+    <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+
+    <div class="edit-actions">
+        <button class="btn" type="submit" name="save" value="save" >
+            Add & Close
+        </button>
+
+        <button class="btn secondary" type="button" onclick="closeFileDialog()">Cancel</button>
+    </div>
+</form>
+<!-- END: content -->

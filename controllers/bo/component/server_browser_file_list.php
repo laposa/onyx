@@ -43,27 +43,6 @@ class Onyx_Controller_Bo_Component_Server_Browser_File_List extends Onyx_Control
         //TODO check overwrite functionality without debug. behaves weirdly
         $overwrite_show = 0;
         
-        // Cleaning
-        // stolen from common_uri_mapping
-        if (function_exists("recode_string")) {
-            $new_folder = isset($_POST['new_Folder']) ? recode_string("utf-8..flat", trim($_POST['new_folder'])) : '';
-        } else {
-            $new_folder = isset($_POST['new_folder']) ? iconv("UTF-8", "ASCII//IGNORE", trim($_POST['new_folder'])) : '';
-        }
-        
-        $new_folder = preg_replace("/\s/", "-", $new_folder);
-        $new_folder = preg_replace("/&[^([a-zA-Z;)]/", 'and-', $new_folder);
-        $new_folder = preg_replace("/\-{2,}/", '-', $new_folder);
-        
-        // Create a new folder
-        if ($new_folder != '' && $_POST['create']) {
-            $new_folder_full = $actual_folder . $new_folder;
-            if (!mkdir($new_folder_full)) {
-                msg("Cannot create folder $new_folder in $actual_folder", 'error');
-            }
-            
-        }
-
         // Delete File
         if ($this->GET['delete_file'] ?? false) {
             $File->deleteFile($this->GET['delete_file']);

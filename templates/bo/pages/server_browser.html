@@ -13,7 +13,7 @@
 
             openDir = $(this).attr('href').replace('/backoffice/media/', '');
             var url = "/request/bo/component/server_browser_file_list~open=" + openDir + ":type={GET.type}:relation={GET.relation}:node_id={GET.node_id}:file_id={GET.file_id}~";
-            makeAjaxRequest('#server-browser-file-list', url);
+            makeAjaxRequest('#server-browser-file-list-wrapper', url);
             $("#add-new-file").attr('action', '{_SERVER.REDIRECT_URL}?open='+openDir);
         });
     });
@@ -31,8 +31,10 @@
 
             <div class="page">
                 <div class="column-wrapper page">
-                    <div id="server-browser-file-list">
-                        {SERVER_BROWSER_FILE_LIST}
+                    <div 
+                        id="server-browser-file-list-wrapper"
+                        hx-get="/request/bo/component/server_browser_file_list?type={TYPE}&role={ROLE}&node_id={NODE_ID}&relation={RELATION}&file_id={FILE_ID}&open={OPEN}"
+                        hx-trigger="load, refresh">
                     </div>
                 </div>
             </div>

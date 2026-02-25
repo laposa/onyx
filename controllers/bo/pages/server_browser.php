@@ -15,34 +15,20 @@ class Onyx_Controller_Bo_Pages_Server_Browser extends Onyx_Controller {
      
     public function mainAction() {
 
-        if ($this->GET['directory'] ?? false) $base_folder = $this->GET['directory'];
-        else $base_folder = 'var/files/';
+        $this->tpl->assign('OPEN', $this->GET['open'] ?? 'var/files/');
 
-        if ($this->GET['role'] ?? false) $role = $this->GET['role'];
-        else $role = 'main';
+        $this->tpl->assign('ROLE', $this->GET['role'] ?? 'main');
         
         //type: add_to_node, RTE
-        if ($this->GET['type'] ?? false) $type = $this->GET['type'];
-        else $type = '';
+        $this->tpl->assign('TYPE', $this->GET['type'] ?? '');
         
-        if ($this->GET['node_id'] ?? false) $node_id = $this->GET['node_id'];
-        else $node_id = 0;
+        $this->tpl->assign('NODE_ID', $this->GET['node_id'] ?? 0);
         
-        if ($this->GET['relation'] ?? false) $relation = $this->GET['relation'];
-        else $relation = 'node';
+        $this->tpl->assign('RELATION', $this->GET['relation'] ?? 'node');
 
-        if ($this->GET['file_id'] ?? false) $file_id = $this->GET['file_id'];
-        else $file_id = 0;
+        $this->tpl->assign('FILE_ID', $this->GET['file_id'] ?? 0);
 
-        if ($this->GET['open'] ?? false) $open = $this->GET['open'];
-        else $open = null;
-
-        if ($type === 'replace_file') $keep_url = true;
-        else $keep_url = false;
-        
-        $_Onyx_Request = new Onyx_Request("bo/component/server_browser_file_list~type=$type:role=$role:node_id=$node_id:relation=$relation:file_id=$file_id:open=$open~");
-        $this->tpl->assign("SERVER_BROWSER_FILE_LIST", $_Onyx_Request->getContent());
-        $this->tpl->assign("KEEP_URL", $keep_url);
+        $this->tpl->assign('OPEN', $this->GET['open'] ?? '');
 
         return true;
     }

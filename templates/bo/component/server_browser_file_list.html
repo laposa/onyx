@@ -1,10 +1,30 @@
 <!-- BEGIN: content -->
 
-<div id="server-browser-file-list-wrapper">
-<style>
-    @import url(/share/css/components/server-browser.css?{ONYX_CACHE_VERSION});
-</style>
+<div id="server-browser-file-list">
+    <style>
+        @import url(/share/css/components/server-browser.css?{ONYX_CACHE_VERSION});
+    </style>
+
     {MESSAGES}
+
+    <fieldset class="add-folder single">
+                    
+        <div class="media-breadcrumbs">{FOLDER_HEAD}</div>
+        
+        <div class="media-subfolders">
+            {SUBFOLDERS}
+            
+            <button 
+                hx-get="/request/bo/component/x_folder_add?folder={FOLDER}"
+                hx-trigger="click"
+                hx-target="#file-dialog .content"
+                hx-indicator="#file-loading"
+                hx-on::before-request="openFileDialog();"
+            >
+                <span>Create new folder</span>
+            </button>
+        </div>
+    </fieldset>
     
     <div id="server-browser-add">
     
@@ -17,17 +37,7 @@
         >
             <!-- BEGIN: add_new -->
             <div class="add-new">
-                <fieldset class="add-folder single">
-                    
-                    <div class="media-breadcrumbs">{FOLDER_HEAD}</div>
-
-                    <div class="row" id="add-folder">
-                        <input id="add-folder-input" type="text" name="new_folder" value="{GET.new_folder}" placeholder="New Folder Name" />
-                        <button type="submit" name="create" value="create" class="create"><span>Create</span></button>
-                    </div>
-
-                    <div class="media-subfolders">{SUBFOLDERS}</div>
-                </fieldset>
+                
                 <!-- BEGIN: upload_file -->
                 <fieldset class="add-new single dropzone-wrap">
                     <div id="add-dropzone" class="row dropzone">
@@ -120,7 +130,7 @@
         }
     
         function deleteFolder() {
-            makeAjaxRequest('#server-browser-file-list', '/request/bo/component/server_browser_file_list~delete_file={BASE}{FOLDER}~', function() {
+            makeAjaxRequest('#server-browser-file-list-wrapper', '/request/bo/component/server_browser_file_list~delete_file={BASE}{FOLDER}~', function() {
                 const folder = '{FOLDER}';
                 let parentFolder = folder.substring(0, folder.length - 1);
                 parentFolder = parentFolder.substring(0, parentFolder.lastIndexOf('/'));
@@ -131,7 +141,7 @@
                 }
     
                 var url = "/request/bo/component/server_browser_file_list~open=" + parentFolder + ":type={GET.type}:relation={GET.relation}:node_id={GET.node_id}:file_id={GET.file_id}~";
-                makeAjaxRequest('#server-browser-file-list', url, function() {
+                makeAjaxRequest('#server-browser-file-list-wrapper', url, function() {
                     $("#add-new-file").attr('action', '{_SERVER.REDIRECT_URL}?open='+parentFolder);
                 }, true);
             });
@@ -144,7 +154,7 @@
             let deletedFiles = $('#server-browser-file-list .server-browser .file.deleted').length;
     
             if (files == deletedFiles) {
-                makeAjaxRequest('#server-browser-file-list', "/request/bo/component/server_browser_file_list~open={GET.open}:type={GET.type}:relation={GET.relation}:node_id={GET.node_id}:file_id={GET.file_id}~");
+                makeAjaxRequest('#server-browser-file-list-wrapper', "/request/bo/component/server_browser_file_list~open={GET.open}:type={GET.type}:relation={GET.relation}:node_id={GET.node_id}:file_id={GET.file_id}~");
             }
         }
         
@@ -170,7 +180,7 @@
         var allFilesUploadedFlag = false;
     
         function allFilesUploaded() {
-            makeAjaxRequest("#server-browser-file-list", "/request/bo/component/server_browser_file_list~open={GET.open}:type={GET.type}:relation={GET.relation}:node_id={GET.node_id}:file_id={GET.file_id}~");
+            makeAjaxRequest("#server-browser-file-list-wrapper", "/request/bo/component/server_browser_file_list~open={GET.open}:type={GET.type}:relation={GET.relation}:node_id={GET.node_id}:file_id={GET.file_id}~");
             growlMessage("Uploaded completed.");
         }
     
