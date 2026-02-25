@@ -53,7 +53,22 @@
 
 			&.inactive {
 				background-color: white;
-				opacity: 0.2;
+			}
+		}
+
+		&.dragging.hidden {
+
+			background: #ffffff;
+			border: 2px solid var(--color-primary);
+			padding: 0px 3px;
+
+			span {
+				opacity: 0.01;
+			}
+
+			&.inactive {
+				border: none;
+				padding: 2px 5px;
 			}
 		}
 

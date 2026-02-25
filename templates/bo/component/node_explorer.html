@@ -48,16 +48,17 @@
                     e.preventDefault();
                     return;
                 }
-                draggedItem.classList.add('dragging');
                 sourceList = draggedItem.parentElement;
                 sourceNodeId = draggedItem.dataset.sourceId;
                 sourceNodeTitle = draggedItem.querySelector('.item-label').innerText;
                 sourcePosition = [...sourceList.children].indexOf(draggedItem);
                 e.dataTransfer.effectAllowed = 'move'; // Explicitly set the allowed effect
+                draggedItem.classList.add('dragging');
+                setTimeout(function() { draggedItem.classList.add('hidden'); }, 400);
             });
 
             list.addEventListener('dragend', function (e) {
-                draggedItem.classList.remove('dragging');
+                draggedItem.classList.remove('dragging', 'hidden');
                 lists.forEach(list => list.classList.remove('over')); // Remove 'over' from all lists
 
                 let parentId = 0;
@@ -72,14 +73,12 @@
                     parentId = acceptChild.dataset.sourceId;
                     insertedList = document.querySelector('.nav-list-' + parentId);
                     parentTitle = acceptChild.querySelector('.item-label').innerText;
-                    message = "Are you sure you want to move node \"" + sourceNodeTitle + "\" (" + sourceNodeId + ") to position "
-                        + (position + 1) + " under parent node \"" + parentTitle + "\" (" + parentId + ")?"
+                    message = "Are you sure you want to move the node \"" + sourceNodeTitle + "\" (" + sourceNodeId + ") under the parent node \"" + parentTitle + "\" (" + parentId + ")?"
 
                 } else {
                     parentId = draggedItem.parentElement.dataset.parentId || 0;
                     position = [...draggedItem.parentElement.children].indexOf(draggedItem);
-                    message = "Are you sure you want to move node \"" + sourceNodeTitle + "\" (" + sourceNodeId + ") to position "
-                        + (position + 1) + " under parent node " + parentId + "?"
+                    message = "Are you sure you want to move the node \"" + sourceNodeTitle + "\" (" + sourceNodeId + ") to a new position " + (position + 1) + "?"
                 }
 
                 if (confirm(message)) {
