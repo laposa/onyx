@@ -327,10 +327,9 @@
       }
     }
 
-    .folder.back {
+    .folder.parent {
 
       background-color: white;
-      border-color: var(--color-primary);
 
       &:before {
         background-image: url(/share/images/icons/arrow_up.png);
