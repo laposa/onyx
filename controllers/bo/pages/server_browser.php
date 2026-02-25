@@ -28,8 +28,6 @@ class Onyx_Controller_Bo_Pages_Server_Browser extends Onyx_Controller {
 
         $this->tpl->assign('FILE_ID', $this->GET['file_id'] ?? 0);
 
-        $this->tpl->assign('OPEN', $this->GET['open'] ?? '');
-
         return true;
     }
 }

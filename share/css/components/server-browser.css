@@ -313,7 +313,7 @@
         position: relative;
         height: 13px;
         width: 13px;
-        background-image: url(/share/images/folder.svg);
+        background-image: url(/share/images/icons/folder.svg);
         background-size: 13px;
         background-repeat: no-repeat;
         display: inline-block;
@@ -324,6 +324,20 @@
         text-decoration: none;
         background-color: rgb(214, 214, 214);
         color: black;
+      }
+    }
+
+    .folder.back {
+
+      background-color: white;
+      border-color: var(--color-primary);
+
+      &:before {
+        background-image: url(/share/images/icons/arrow_up.png);
+      }
+
+      &:hover {
+        background-color: var(--color-background-light);
       }
     }
 
