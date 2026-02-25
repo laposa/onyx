@@ -10,13 +10,6 @@
 
 #server-browser-file-list {
   #add-new-file {
-    #add-folder {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: 10px;
-    }
-
     .dropzone-wrap {
       padding: 0;
       margin-bottom: 30px;
@@ -230,7 +223,7 @@
     gap: 10px; 
     margin-top: 20px;
     overflow-y: auto;
-
+ 
     .file-upload-preview {
       width: 200px; 
       height: 200px; 
@@ -313,6 +306,7 @@
       border-radius: 5px;
       transition: 0.3s ease;
       margin-bottom: 10px;
+      break-inside: avoid;
 
       &:before {
         content:"";
@@ -331,6 +325,11 @@
         background-color: rgb(214, 214, 214);
         color: black;
       }
+    }
+
+    button {
+      width: 100%;
+      break-inside: avoid;
     }
   }
 }

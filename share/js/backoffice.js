@@ -50,6 +50,11 @@ document.addEventListener('htmx:afterRequest', (event) => {
         htmx.trigger('#node-explorer', 'loadDetail', {nodeId: event.target.dataset.nodeId});
     }
 
+    if (event.target.dataset.action == 'addFolder') {
+        closeFileDialog();
+        htmx.trigger('#server-browser-file-list-wrapper', 'refresh');
+    }
+
     if (event.target.dataset.action == 'addProductVariety') {
         closeDialog();
         if(document.getElementById('product-varieties')) {
