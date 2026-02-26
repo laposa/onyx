@@ -41,6 +41,7 @@ class Onyx_Controller_Bo_Component_X_Node_Add extends Onyx_Controller_Bo_Compone
              */
             if($id = $Node->nodeInsert($node_data, $position)) {
                 msg(ucfirst($node_data['node_group']) . " ". $node_data['title'] . " has been added.");
+                header('HX-Trigger: {"loadNewNode":{"nodeId" :"'.$id.'"}}');
             }
         }
         

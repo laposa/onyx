@@ -24,5 +24,16 @@
         {SUB_CONTENT}
     </div>
 
+    <script>
+        document.body.addEventListener('loadNewNode', function(event) {
+            if (event.detail && event.detail.nodeId) {
+                // Manually trigger the HTMX request with the node ID
+                htmx.ajax('GET', '/request/bo/pages/content', {
+                    target: '.bo-page',
+                    values: { id: event.detail.nodeId },
+                });
+            }
+        });
+    </script>
 </div>
 <!-- END: content -->
