@@ -31,6 +31,12 @@
                 htmx.ajax('GET', '/request/bo/pages/content', {
                     target: '.bo-page',
                     values: { id: event.detail.nodeId },
+                }).then(function() {
+                    let newLink = window.location.origin + '/backoffice/content/' + event.detail.nodeId;
+    
+                    if(window.history.pushState) {
+                        window.history.pushState({}, '', newLink);
+                    }     
                 });
             }
         });
