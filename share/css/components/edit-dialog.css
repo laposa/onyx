@@ -15,6 +15,7 @@ dialog.edit-dialog {
 		opacity: 1;
 		pointer-events: inherit;
 		box-shadow: 0 0 0 100vw  rgba(0, 0, 0, 0.3);
+		border: none;
 	}
 
 	&::backdrop {
@@ -101,6 +102,7 @@ dialog.edit-dialog {
 			padding: 12px 10px 10px 12px;
 			transition: 0.3s ease;
 			outline: none;
+			box-shadow: none;
 
 			&:placeholder {
 				font-weight: normal;
@@ -114,7 +116,7 @@ dialog.edit-dialog {
 		
 		.row {
 			position: relative;
-			margin-bottom: 20px;
+			margin-bottom: 10px;
 			width: 100%;
 		}
 

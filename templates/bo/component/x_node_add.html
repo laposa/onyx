@@ -1,6 +1,12 @@
 <!-- BEGIN: content -->
 {MESSAGES}
-<form id="node-add-edit">
+<form 
+    id="node-add-edit"
+    hx-indicator="#edit-loading"
+    hx-post="/request/bo/component/x_node_add"
+    data-nav-id="{GET.parent}"
+    data-action="addNode"
+>
     <h2>Add a New Node</h2>
 
     <!-- Title -->
@@ -32,18 +38,8 @@
     <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 
     <div class="edit-actions">
-        <!-- TODO: fix refresh - other listener than saveAndClose -->
-        <button 
-            hx-indicator="#edit-loading"
-            hx-post="/request/bo/component/x_node_add"
-            data-nav-id="{GET.parent}"
-            class="btn" 
-            type="submit" 
-            name="save" 
-            value="save" 
-            id="addNode"
-        >
-            Add & Close
+        <button class="btn" type="submit" name="save" value="save" >
+            Add & Open
         </button>
 
         <button class="btn secondary" type="button" onclick="closeDialog()">Cancel</button>

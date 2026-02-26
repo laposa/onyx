@@ -24,5 +24,22 @@
         {SUB_CONTENT}
     </div>
 
+    <script>
+        document.body.addEventListener('loadNewNode', function(event) {
+            if (event.detail && event.detail.nodeId) {
+                // Manually trigger the HTMX request with the node ID
+                htmx.ajax('GET', '/request/bo/pages/content', {
+                    target: '.bo-page',
+                    values: { id: event.detail.nodeId },
+                }).then(function() {
+                    let newLink = window.location.origin + '/backoffice/content/' + event.detail.nodeId;
+    
+                    if(window.history.pushState) {
+                        window.history.pushState({}, '', newLink);
+                    }     
+                });
+            }
+        });
+    </script>
 </div>
 <!-- END: content -->

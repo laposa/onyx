@@ -36,13 +36,8 @@ document.addEventListener('htmx:afterRequest', (event) => {
         refreshComponent(event.target);
     }
 
-    if (event.target.id == 'addNode') {
+    if (event.target.dataset.action == 'addNode') {
         closeDialog();
-        console.log(event.target);
-        navId = event.target.getAttribute('data-nav-id');
-        if(document.querySelector('.nav-list-' + navId)) htmx.trigger('.nav-list-' + navId, 'navRefresh');
-        if(document.getElementById('content-list-pages-wrapper')) htmx.trigger('#content-list-pages-wrapper', 'refresh');
-        if(document.getElementById('content-list-cards-wrapper')) htmx.trigger('#content-list-cards-wrapper', 'refresh');
     }
 
     if (event.target.dataset.action == 'addProduct' || event.target.dataset.action == 'addStore' ) {
