@@ -662,4 +662,11 @@ div.comment-list tr.status-new a.title { font-weight: bold; }
 	height: 100%;
 }
 
-
+/**
+ * component/breadcrump
+ */
+ 
+nav.breadcrumb a:not(:last-child)::after {
+content: '>';
+margin: 0 5px;
+}
