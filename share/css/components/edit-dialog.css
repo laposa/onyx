@@ -66,6 +66,11 @@ dialog.edit-dialog {
 		color: var(--color-primary);
 	}
 
+	/* scrollbar overlapping with close button fix */
+	div.page {
+		overflow: unset;
+	}
+
 	/* Form & Inputs */
 	form {
 		display: flex;
@@ -184,9 +189,6 @@ dialog.edit-dialog {
 
 			&.error {
 				display: none!important;
-				/* left: auto;
-				right: 7px;
-				color: var(--color-danger); */
 			}
 		}
 	}
