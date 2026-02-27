@@ -19,29 +19,20 @@
     });
 </script>
 
-<div id="server-browser" class="two-column-page page server-browser">
-    <div class="page">
-        <div class="content-wrappper page">
+<div id="server-browser" class="page server-browser-wrapper">
+    <div class="page-header">
+        <h1 class="page-title"><span>Media Library</span></h1>
+    </div>
 
-            <div class="page-header">
-                <div class="page-header-wrapper">
-                    <h1 class="page-title"><span>Media Library</span></h1>
-                </div>
-            </div>
-
-            <div class="page">
-                <div class="column-wrapper page">
-                    <div id="server-browser-loading" class="onyx-loading htmx-indicator">
-                        <img src="/share/images/loading.svg" alt="Loading..."/>
-                    </div>
-                    <div 
-                        id="server-browser-file-list-wrapper"
-                        hx-get="/request/bo/component/server_browser_file_list?type={TYPE}&role={ROLE}&node_id={NODE_ID}&relation={RELATION}&file_id={FILE_ID}"
-                        hx-trigger="load, refresh"
-                        hx-loading="server-browser-loading">
-                    </div>
-                </div>
-            </div>
+    <div class="server-browser">
+        <div id="server-browser-loading" class="onyx-loading htmx-indicator">
+            <img src="/share/images/loading.svg" alt="Loading..."/>
+        </div>
+        <div 
+            id="server-browser-file-list-wrapper"
+            hx-get="/request/bo/component/server_browser_file_list?type={TYPE}&role={ROLE}&node_id={NODE_ID}&relation={RELATION}&file_id={FILE_ID}"
+            hx-trigger="load, refresh"
+            hx-loading="server-browser-loading">
         </div>
     </div>
 </div>
