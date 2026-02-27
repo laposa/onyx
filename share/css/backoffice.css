@@ -503,7 +503,7 @@ div.row-middle:after,
 div.row-bottom:after {content: '.'; display: block; height: 0; font-size: 0; clear: both; visibility: hidden;}
 div.page div.page-wrapper {padding: 0;}
 div.page div.row-bottom {clear: both;}
-div.page {overflow-y: auto;}
+div.page {overflow-y: auto; width: 100%; padding: 0 20px;}
 
 /********* component/pagination.html *********/
   div.pagination {margin: 5px 0; text-align: center;}

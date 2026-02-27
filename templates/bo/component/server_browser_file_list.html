@@ -87,10 +87,30 @@
                         <div class="file-info">
                             <a class="view" title="View {ITEM.name} ({ITEM.size})" href="/view/{BASE}{FOLDER}{ITEM.name}" target="_blank"><span>View</span></a>
                             <a class="download" title="Download {ITEM.name} ({ITEM.size})" href="/download/{BASE}{FOLDER}{ITEM.name}"><span>Download</span></a>
-                            <a class="info" href="#" title="Size: {ITEM.size}, click to view more details" onclick="openAjaxRequestInDialog('/request/bo/component/file_info~file_path_encoded={ITEM.file_path_encoded}~', 'File Info'); return false"><span>View more details</span></a>
+                            <a
+                                class="info" 
+                                href="#" 
+                                title="Size: {ITEM.size}, click to view more details" 
+                                hx-get="/request/bo/component/file_info?file_path_encoded={ITEM.file_path_encoded}"
+                                hx-target="#file-info-{ITEM.key}"
+                                hx-trigger="click"
+                                hx-on::before-request="loadExtraInfo({ITEM.key})"
+                            >
+                            </a>
                         </div>
                         
-                        <!-- BEGIN: usage --><a class="usage" href="#" onclick="openAjaxRequestInDialog('/request/bo/component/file_usage~file_path_encoded_relative={ITEM.file_path_encoded_relative}~', 'File Usage'); return false" title="Usage">This file has been used<br>{FILE_USAGE} times</a><!-- END: usage -->
+                        <!-- BEGIN: usage -->
+                            <a 
+                                class="usage" 
+                                href="#" 
+                                hx-get="/request/bo/component/file_usage?file_path_encoded_relative={ITEM.file_path_encoded_relative}"
+                                hx-target="#file-info-{ITEM.key}"
+                                hx-trigger="click"
+                                hx-on::before-request="loadExtraInfo({ITEM.key})"
+                            >
+                                This file has been used<br>{FILE_USAGE} times
+                            </a>
+                        <!-- END: usage -->
                         
                         <div class="file-actions">
                         <!-- BEGIN: add_to_node --><a class="button small add" title="Use {ITEM.name}" href="#serverBrowser" onclick="makeAjaxRequest('#server-browser', '/request/bo/component/file_add~file_path_encoded={ITEM.file_path_encoded}:type={GET.type}:role={GET.role}:relation={GET.relation}:node_id={GET.node_id}~'); "><span>Use</span></a><br /><!-- END: add_to_node -->
@@ -100,6 +120,7 @@
                         </div>
                     </div>
                 </div>
+                <div id="file-info-{ITEM.key}" class="file-info-bubble"></div>
                 <div class="file-name">
                     {ITEM.name|str_replace('_', ' ', %s)}
                 </div>
@@ -117,6 +138,20 @@
     <!-- END: empty -->
                 
     <script type="text/javascript">
+
+        document.addEventListener('click', function(event) {
+            if (!event.target.closest('.file-info') && !event.target.closest('.usage') && !event.target.closest('.file-info-bubble')) {
+                document.querySelectorAll('.file-info-bubble.open').forEach(function(bubble) {
+                    bubble.classList.remove('open');
+                });
+            }
+        });
+
+        function loadExtraInfo(key) {
+            document.querySelector('.file-info-bubble.open')?.classList.remove('open'); 
+            document.querySelector('#file-info-' + key).innerHTML = '';
+            document.querySelector('#file-info-' + key).classList.add('open');
+        }
     
         function deleteFile(file) {
             $('#file-' + file).load(

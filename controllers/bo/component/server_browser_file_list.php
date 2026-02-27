@@ -147,7 +147,8 @@ class Onyx_Controller_Bo_Component_Server_Browser_File_List extends Onyx_Control
             }
             $relations_counts = $File->getRelationsCounts($file_src_paths);
 
-            foreach ($list as $l) {
+            foreach ($list as $k => $l) {
+                $l['key'] = $k;
                 $l['file_path'] = $actual_folder . $l['name'];
                 $l['file_path_encoded'] = $File->encode_file_path($actual_folder . $l['name']);
                 $l['file_path_encoded_relative'] = $File->encode_file_path($base_folder . $relative_folder_path . $l['name']);
