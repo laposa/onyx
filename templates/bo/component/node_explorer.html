@@ -186,6 +186,7 @@
             el.classList.remove('empty');
         });
 
+        scrollToActive(actualLevel);
         actualLevel.parentNode.appendChild(emptyLevel);
         initializeDragAndDrop();
     }
