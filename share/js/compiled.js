@@ -327,30 +327,14 @@ function unixtime() {
 }
 
 /**
- * HTML snippet for AJAX loader
- */
- 
-var onyx_load_indicator_html_snippet = "<div style='width: 100%; padding-top: 10px; text-align: center;'><img src='/share/images/ajax-indicator/indicator_facebook.gif' alt='Loading ...'/></div>";
-
-/**
  * ajax loader
  */
  
 function makeAjaxRequest(jquery_selector, url, complete_callback) {
-
-    jQuery(jquery_selector).html(onyx_load_indicator_html_snippet);
-
     htmx.ajax('GET', url, jquery_selector).then(() => {
         popupMessage( jquery_selector + ' div.onyx-messages');
         if (jQuery.isFunction(complete_callback)) complete_callback();
     });
-}
-
-function removeTinyMCEEditors(container) {
-    for (var i = 0; i < tinyMCE.editors.length; i++) {
-        var id = tinyMCE.editors[i].id;
-        if (container.find("textarea#" + id).length) tinyMCE.editors[i].remove();
-    }
 }
 
 activeOverlay = null;
