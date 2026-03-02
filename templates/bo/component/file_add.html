@@ -18,51 +18,56 @@ function showResponse()  {
 
 {MESSAGES}
 
-<form hx-post="{URI|htmlspecialchars}" name="file-add" id="file-add" hx-on::after-request="showResponse()" hx-on::before-request="beforeSubmit()">
+<form 
+    name="file-add" 
+    id="file-add"
+    class="image-dialog"
+    hx-post="{URI|htmlspecialchars}" 
+    hx-on::after-request="showResponse()" 
+    hx-on::before-request="beforeSubmit()"
+>
+    <h2>Link New File In</h2>
 
-    <fieldset id="add-to-node" class="file-item-form">
+    <a 
+        class="image-preview" 
+        href="#"
+        title="View Full Size" 
+        onclick="openImg('/image/{FILE.src}'); return false;"
+    >
+        <img id="file-preview" src="/thumbnail/200/{FILE.src}" alt="thumbnail preview" />
+    </a>
 
-        <legend>Link New File In</legend>
+    <div class="row text">
+        <span class="label"><label>Give this file a short description*:</label></span>
+        <span class="field">
+            <input 
+                id="file-title" 
+                class="text title" 
+                type="text" 
+                name="file[title]" 
+                value="{FILE.title|htmlspecialchars}"
+            />
+        </span>
+    </div>
 
-        <div class="two-column-layout layout fibonacci-3-1">
-            <div class="layout-wrapper">
-                <div class="layout-column-one of-two">
-                    <div class="layout-column-wrapper">
-                        
-                        <div class="row title">
-                            <span class="label"><label>Give this file a short description*:</label></span>
-                            <span class="field"><input class="text title" type="text" id="file-title" name="file[title]" value="{FILE.title|htmlspecialchars}"/></span>
-                        </div>
-                        <div class="row">
-                            <span class="label"><label>Role:</label></span>
-                            <span class="field">
-                                <select name="file[role]">
-                                    {FILE "bo/component/file_role.html"}
-                                </select>
-                            </span>
-                        </div>
+    <div class="row select">
+        <span class="label"><label>Role:</label></span>
+        <span class="field">
+            <select name="file[role]">
+                {FILE "bo/component/file_role.html"}
+            </select>
+        </span>
+    </div>
 
-                        <input type="hidden" id="file-src" name="file[src]" value="{FILE.src}" />
-                        <input type="hidden" name="file[node_id]" value="{FILE.node_id}" />
+    <input type="hidden" id="file-src" name="file[src]" value="{FILE.src}" />
+    <input type="hidden" name="file[node_id]" value="{FILE.node_id}" />
+    <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
 
-                        <div class="row submit">
-                            <span class="label"><label>&nbsp;</label></span>
-                            <span class="field"><button type="submit" name="add" class="add-button" value="add"><span>Add</span></button></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="layout-column-two of-two">
-                    <div class="layout-column-wrapper">
-                        <a class="image-preview" style="float: right;" href="#" title="View Full Size" onclick="openImg('/image/{FILE.src}'); return false;"><img id="file-preview" src="/thumbnail/200/{FILE.src}" alt="thumbnail preview" /></a>
-                    </div>
-                </div>
-                
-            </div>
-        </div>
-
-    </fieldset>
-
-<input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+    <div class="edit-actions">
+        <button type="submit" name="add" class="add-button" value="add">Add</button>
+        
+        <button class="btn secondary" type="button" onclick="closeFileDialog()">Cancel</button>
+    </div>
 </form>
 
 <div id="file-add-result" style="display: none"></div>

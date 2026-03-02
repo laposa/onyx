@@ -312,4 +312,30 @@ dialog.edit-dialog {
 			}
 		}
 	}
+
+	&#file-dialog {
+		width: 90vw;
+		height: 90vh;
+
+		.server-browser-wrapper {
+			height: 100%;
+		}
+
+		.image-dialog {
+			height: 100%;
+
+			h2 {
+				width: 100%;
+				margin-bottom: 20px;
+			}
+
+			.inputs, .image {
+				width: calc(50% - 10px);
+			}
+
+			.edit-actions {
+				margin-top: auto;
+			}
+		}
+	}
 }
