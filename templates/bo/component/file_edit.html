@@ -1,60 +1,88 @@
 <!-- BEGIN: content -->
 {MESSAGES}
 
-<h2>File Edit</h2>
+<script type="text/javascript"> 
+    // post-submit callback 
+    function afterFileEditRequest() { 
+        closeFileDialog();
+        $('#edit-loading').addClass('htmx-request');
+        htmx.ajax('GET', "/request/bo/component/file_list?type={GET.type}&relation={GET.relation}&node_id={GET.node_id}", "#edit-dialog #file-list-{GET.node_id}").then(() => {
+            $('#edit-loading').removeClass('htmx-request');
+        });
+    }
+</script> 
 
 <form 
     class="file-edit image-dialog" 
     hx-post="{URI|htmlspecialchars}" 
+    hx-swap="innerHTML"
     id="file-edit-{FILE.id}"
     data-action="editFile"
+    hx-on::after-request="afterFileEditRequest()"
+    hx-indicator="#file-loading"
 >
-    <div class="preview"
-        hx-get="/request/bo/pages/server_browser?type=replace_file&relation={GET.relation}&node_id={GET.node_id}&file_id={FILE.id}"
-        hx-trigger="click"
-        hx-target="#file-dialog .content"
-        hx-indicator="#file-loading"
-        hx-on::before-request="openFileDialog();"
-    >
-        <img id="image-thumbnail-{FILE.id}" src="/thumbnail/200/{FILE.src}" title="Click on this image to select replacement" alt="{FILE.title|htmlspecialchars}" style="max-height: 200px; background: url(/share/images/empty-canvas-bg.png) repeat; padding: 20px; cursor:pointer;" />
-    </div>
+    <h2>File Edit</h2>
+
+    <div class="image-input-wrapper">
+        <div class="inputs">
+            <div class="row title">
+                <span class="label"><label>Title *:</label></span>
+                <span class="field">
+                    <input 
+                        class="text title" 
+                        type="text" 
+                        name="file[title]" 
+                        value="{FILE.title|htmlspecialchars}" 
+                    />
+                </span>
+            </div>
     
-    <div class="row title">
-        <span class="label"><label>Title *:</label></span>
-        <span class="field">
-            <input 
-                class="text title" 
-                type="text" 
-                name="file[title]" 
-                value="{FILE.title|htmlspecialchars}" 
-            />
-        </span>
+            <div class="row select">
+                <span class="label"><label>Role:</label></span>
+                <span class="field">
+                    <select name="file[role]">
+                        {FILE "bo/component/file_role.html"}
+                    </select>
+                </span>
+            </div>
+    
+            <div class="row">
+                <span class="label"><label>Description:</label></span>
+                <span class="field"><textarea name="file[description]">{FILE.description|htmlspecialchars}</textarea></span>
+            </div>
+            
+            <div class="row advanced">
+                <span class="label"><label>Priority:</label></span>
+                <span class="field"><input class="text" type="text" name="file[priority]" value="{FILE.priority}" /></span>
+            </div>
+        </div>
+    
+        <div class="image">
+            <div class="preview">
+                <img id="image-thumbnail-{FILE.id}" src="/thumbnail/200/{FILE.src}" alt="{FILE.title|htmlspecialchars}" style="background: url(/share/images/empty-canvas-bg.png) repeat; padding: 10px;" />
+            </div>
+    
+            {FULL_DETAILS}
+        </div>
     </div>
 
-    <div class="row">
-        <span class="label"><label>Role:</label></span>
-        <span class="field">
-            <select name="file[role]">
-                {FILE "bo/component/file_role.html"}
-            </select>
-        </span>
-    </div>
-
-    <div class="row">
-        <span class="label"><label>Description:</label></span>
-        <span class="field"><textarea name="file[description]">{FILE.description|htmlspecialchars}</textarea></span>
-    </div>
-    
-    <div class="row advanced">
-        <span class="label"><label>Priority:</label></span>
-        <span class="field"><input class="text" type="text" name="file[priority]" value="{FILE.priority}" /></span>
-    </div>
     
     <input type="hidden" name="file[id]" value="{FILE.id}" />
     <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+    <input type="hidden" name="node_id" value="{GET.node_id}" />
 
     <div class="edit-actions">
         <button type="submit" name="save" value="save" class="add-button">Save</button>
+
+        <button
+            class="button secondary"
+            hx-get="/request/bo/pages/server_browser?type=replace_file&relation={GET.relation}&node_id={GET.node_id}&file_id={FILE.id}"
+            hx-trigger="click"
+            hx-target="#file-dialog .content"
+            hx-indicator="#file-loading"
+        >
+            Replace
+        </button>
     
         <button  type="submit" name="unlink" value="unlink" class="button remove">Unlink</button>
     </div>

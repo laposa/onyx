@@ -1,18 +1,12 @@
 <!-- BEGIN: content -->
 <script type="text/javascript"> 
-function beforeSubmit() {
-    $("#file-add .add-button").addClass("saving")
-}
 
 function showResponse()  { 
-    popupMessage("#file-add-result div.onyx-messages");
-    $("#file-add .add-button span").removeClass("saving");
-    //FIXME: hide when return message == "File inserted", not very safe and doesn't work when debugging is enabled…
-    if ($("#file-add-result div.onyx-messages p.onyx-error-msg").text() == '') {
-        $("#file-list-{GET.node_id}").load("/request/bo/component/file_list~type={GET.type}:relation={GET.relation}:node_id={GET.node_id}~");
-        closeFileDialog();
-        closeDialog();
-    }
+    closeFileDialog();
+    $('#edit-loading').addClass('htmx-request');
+    htmx.ajax('GET', "/request/bo/component/file_list?type={GET.type}&relation={GET.relation}&node_id={GET.node_id}", "#edit-dialog #file-list-{GET.node_id}").then(() => {
+        $('#edit-loading').removeClass('htmx-request');
+    });
 }
 </script> 
 
@@ -24,18 +18,10 @@ function showResponse()  {
     class="image-dialog"
     hx-post="{URI|htmlspecialchars}" 
     hx-on::after-request="showResponse()" 
-    hx-on::before-request="beforeSubmit()"
 >
     <h2>Link New File In</h2>
 
-    <a 
-        class="image-preview" 
-        href="#"
-        title="View Full Size" 
-        onclick="openImg('/image/{FILE.src}'); return false;"
-    >
-        <img id="file-preview" src="/thumbnail/200/{FILE.src}" alt="thumbnail preview" />
-    </a>
+    <img id="file-preview" src="/thumbnail/200/{FILE.src}" alt="thumbnail preview" />
 
     <div class="row text">
         <span class="label"><label>Give this file a short description*:</label></span>
@@ -69,7 +55,4 @@ function showResponse()  {
         <button class="btn secondary" type="button" onclick="closeFileDialog()">Cancel</button>
     </div>
 </form>
-
-<div id="file-add-result" style="display: none"></div>
-
 <!-- END: content -->

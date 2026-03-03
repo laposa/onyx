@@ -13,15 +13,6 @@ function nOpenWin(src, width, height) {
 }
 
 /**
- * open image in popup window
- */
- 
-function openImg(src) {
-    url = '/popupimage/' + src;
-    nOpenWin(url, 400, 300);
-}
-
-/**
  * unixtime used in nOpenWin
  */
  

@@ -27,21 +27,20 @@ class Onyx_Controller_Bo_Component_File_Replace extends Onyx_Controller_Bo_Compo
             $file_data = $_POST['file'];
             $file_data['id'] = $file_id;
 
-            if ($File->updateFile($file_data)) msg("updated $relation/$file_id");
+            if ($File->updateFile($file_data)) {
+                msg("File $relation/$file_id updated");
+            } 
 
             $this->tpl->assign('FILE', $_POST['file']);
 
         } else {
 
-            //tady by se měl přiřadit ten old file kdyžtak?
             $old_file = $this->initializeFile($relation);
             $old_file->getFileDetail($file_id);
         
             $file_data['src'] = str_replace(ONYX_PROJECT_DIR, "", $File->decode_file_path($this->GET['file_path_encoded']));
             $file_data['node_id'] = $this->GET['node_id'];
             $file_data['relation'] = $this->GET['relation'];
-
-            $old_file_src = $this->GET['old_file_src'];
         
             if (trim($file_data['title']) == '') {
                 $file_info = $File->getFileInfo(ONYX_PROJECT_DIR . $file_data['src']);

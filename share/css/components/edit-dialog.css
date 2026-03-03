@@ -207,16 +207,21 @@ dialog.edit-dialog {
 
 	.edit-actions {
 		display: flex;
-		justify-content: space-between;
+		justify-content: flex-start;
 		margin-top: 10px;
 		margin-bottom: 20px;
 		width: 100%;
+		gap: 20px;
 
 		button {
 			padding: 10px 15px;
 			border-radius: 5px;
 			line-height: normal;
 			height: auto;
+
+			&:last-child {
+				margin-left: auto;
+			}
 		}
 	}
 
@@ -329,12 +334,23 @@ dialog.edit-dialog {
 				margin-bottom: 20px;
 			}
 
+			img {
+				margin-bottom: 20px;
+			}
+
+			.image-input-wrapper {
+				display: flex;
+				width: 100%;
+				gap: 20px;
+			}
+
 			.inputs, .image {
 				width: calc(50% - 10px);
 			}
 
 			.edit-actions {
 				margin-top: auto;
+				margin-bottom: 0;
 			}
 		}
 	}
