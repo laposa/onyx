@@ -29,7 +29,8 @@ function refreshComponent(triggerButton) {
 }
 
 document.addEventListener('htmx:afterRequest', (event) => {
-    popupMessage("dialog div.onyx-messages");
+    popupMessage("#edit-dialog div.onyx-messages");
+    popupMessage("#file-dialog div.onyx-messages");
 
     if (event.target.id == 'saveAndClose') {
         closeDialog();
@@ -38,6 +39,13 @@ document.addEventListener('htmx:afterRequest', (event) => {
 
     if (event.target.dataset.action == 'addNode') {
         closeDialog();
+    }
+
+    if (event.target.dataset.action == 'editFile') {
+        closeFileDialog();
+        if(document.getElementById('file-list')) {
+            htmx.trigger('#file-list', 'refresh');
+        }
     }
 
     if (event.target.dataset.action == 'addProduct' || event.target.dataset.action == 'addStore' ) {

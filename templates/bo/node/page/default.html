@@ -35,6 +35,7 @@
 	<br>
 
 	<div 
+		id="file-list"
 		hx-get="/request/bo/component/file_list?type=add_to_node&relation=node&node_id={GET.id}"
 		hx-trigger="load, refresh"
 		hx-indicator="#node-images-loading">

@@ -1,54 +1,51 @@
 <!-- BEGIN: content -->
 <script type="text/javascript"> 
- 
 // post-submit callback 
-function afterFileReplaceRequest()  { 
+function afterFileReplaceRequest() { 
     closeFileDialog();
-    $("#edit-dialog #file-list-{GET.node_id}").load("/request/bo/component/file_list~type={GET.type}:relation={GET.relation}:node_id={GET.node_id}~");
+    $('#edit-loading').addClass('htmx-request');
+    htmx.ajax('GET', "/request/bo/component/file_list?type={GET.type}&relation={GET.relation}&node_id={GET.node_id}", "#edit-dialog #file-list-{GET.node_id}").then(() => {
+        $('#edit-loading').removeClass('htmx-request');
+    });
 }
 </script> 
 
 {MESSAGES}
 <form 
-    hx-post="{URI|htmlspecialchars}" 
     id="file-replace" 
-    hx-target="#file-replace-result" 
+    class="image-dialog"
+    hx-post="{URI|htmlspecialchars}" 
     hx-on::after-request="afterFileReplaceRequest()"
+    hx-indicator="#file-loading"
 >
-    <fieldset id="replace-file-in-node" class="file-item-form">
+    <h2>File to replace</h2>
 
-        <legend>File to replace</legend>
-
-        <div class="replace-preview">
-            <input type="hidden" id="file-src" name="file[src]" value="{FILE.src}" />
-            <input type="hidden" name="file[node_id]" value="{FILE.node_id}" />
-            
-            <div class="before">
-                <span>Old file:</span>
-                <div class="img-wrap before">
-                    <img src="/thumbnail/200/{OLD_FILE}" alt="thumbnail preview" />
-                </div>
+    <div class="replace-preview">
+        <input type="hidden" id="file-src" name="file[src]" value="{FILE.src}" />
+        <input type="hidden" name="file[node_id]" value="{FILE.node_id}" />
+        
+        <div class="before">
+            <span>Old file:</span>
+            <div class="img-wrap before">
+                <img src="/thumbnail/200/{OLD_FILE}" alt="thumbnail preview" />
             </div>
-
-            <div class="after">
-                <span>New file:</span>
-                <div class="img-wrap after">
-                    <img id="file-preview" src="/thumbnail/200/{FILE.src}" alt="thumbnail preview" />
-                </div>
-            </div>
-
         </div>
 
-        <div class="row submit">
-            <span class="field"><button type="submit" name="replace" class="replace-button" value="replace"><span>Yes</span></button></span>
-            <button class="button remove" onclick="$('#onyx-dialog').dialog('close')">No</button>
+        <div class="after">
+            <span>New file:</span>
+            <div class="img-wrap after">
+                <img id="file-preview" src="/thumbnail/200/{FILE.src}" alt="thumbnail preview" />
+            </div>
         </div>
-
-    </fieldset>
+    </div>
 
     <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+
+    <div class="edit-actions">
+        <button type="submit" name="replace" class="replace-button" value="replace">Replace</button>
+        
+        <button class="btn secondary" type="button" onclick="closeFileDialog()">Cancel</button>
+    </div>
+
 </form>
-
-<div id="file-replace-result" style="display: none"></div>
-
 <!-- END: content -->
