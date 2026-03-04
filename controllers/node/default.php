@@ -71,16 +71,22 @@ class Onyx_Controller_Node_Default extends Onyx_Controller {
          
         if (isset($_SESSION['fe_edit_mode']) && ($_SESSION['fe_edit_mode'] == 'edit' || $_SESSION['fe_edit_mode'] == 'move')) {
             if ($disable_fe_edit == false) {
+
+                
                 //normally we support container.0 to container.6 in default templates, but why not to have some reserve, e.g. 20
                 $min_container_id = 0;
                 $max_container_id = 20;
                 for ($key = $min_container_id; $key < ($max_container_id + 1); $key++) {
-                    if (array_key_exists($key, $container)) $container[$key] = "<div class='onyx-layout-container' id='onyx-layout-container-{$node_id}-{$key}'>{$container[$key]}</div>";
+                    if (array_key_exists($key, $container)) {
+                        // append to existing container content
+                        $container[$key] = "<div class='onyx-layout-container' id='onyx-layout-container-{$node_id}-{$key}'>{$container[$key]}</div>";
+                    } else {
+                        // create new empty container
+                        $container[$key] = "<div class='onyx-layout-container' id='onyx-layout-container-{$node_id}-{$key}'></div>";
+                
+                    }
                 }
-                if(empty($container)) {
-                    $container[0] = "<div class='onyx-layout-container' id='onyx-layout-container-{$node_id}-0'></div>";
-                }
-            } 
+            }
         }
             
         $this->tpl->assign("CONTAINER", $container);
