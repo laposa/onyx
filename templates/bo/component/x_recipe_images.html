@@ -1,0 +1,34 @@
+<!-- BEGIN: content -->
+{MESSAGES}
+    <!-- BEGIN: preview -->
+    <fieldset id="component-recipe-images" class="component-preview">
+        <div id="recipe-images-loading" class="onyx-loading htmx-indicator">
+            <img src="/share/images/loading.svg" alt="Loading..."/>
+        </div>
+
+        <legend>Recipe Images</legend>
+
+        <span class="label">Files:</span>
+        <br>
+
+        <div 
+            hx-get="/request/bo/component/file_list?type=add_to_recipe&relation=recipe&node_id={GET.recipe_id}"
+            hx-trigger="load, refresh"
+            hx-indicator="#recipe-images-loading">
+        </div>
+        
+        <div class="component-actions">
+            <button
+                hx-get="/request/bo/component/file_list?type=add_to_recipe&relation=recipe&node_id={GET.recipe_id}"
+                hx-target="#edit-dialog .content"
+                hx-indicator="#edit-loading"
+                hx-trigger="click"
+                hx-swap="innerHTML"
+                hx-on::before-request="openDialog()"
+                class="btn">
+                Edit
+            </button>
+        </div>
+    </fieldset>
+    <!-- END: preview -->
+<!-- END: content -->

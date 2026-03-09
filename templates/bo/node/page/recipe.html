@@ -1,52 +1,64 @@
 <!-- BEGIN: content -->
-{FILE "bo/node/shared_header.html"}
 
-<div>
-    <fieldset>
-        {FILE "bo/node/item_title.html"}
-        {FILE "bo/node/item_page_title.html"}
-        {FILE "bo/node/item_display_title.html"}
-        <div class="advanced">
-            {FILE "bo/node/item_browser_title.html"}
-            {FILE "bo/node/item_strapline.html"}
-        </div>
-        {FILE "bo/node/item_description.html"}
-        {FILE "bo/node/item_deeplink.html"}
-    </fieldset>
-    <fieldset>
-        <div class="advanced">
-            <p>See recipe database for related images</p>
-            {FILE "bo/node/item_image_list.html"}
-            {FILE "bo/node/item_taxonomy.html"}
-            {FILE "bo/node/item_layout_style.html"}
-        </div>
-    </fieldset>
+{FILE "bo/component/page_header.html"}
+
+<div id="general-info"
+	hx-get="/request/bo/component/x_general_info?node_id={GET.id}"
+	hx-trigger="load, refresh"
+	hx-indicator="#general-info-loading">
 </div>
 
-<fieldset class="advanced">
-    <div class="row">
-        <span class="label"><label>Recipe ID:</label></span>
-        <span class="field"><input class="short" type="text" name="node[content]" value="{NODE.content}" /> <a href="/backoffice/recipes/{NODE.content}/edit" target="_blank"><span>Edit Recipe</span></a></span>
-    </div>
-</fieldset>
-
-<div>
-    <fieldset>
-        {FILE "bo/node/item_uri_title.html"}
-        {FILE "bo/node/item_deeplink.html"}
-    </fieldset>
-    <fieldset>
-        {FILE "bo/node/item_qrcode.html"}
-    </fieldset>
+<div id="recipe-info"
+	hx-get="/request/bo/component/x_recipe_info?node_id={GET.id}"
+	hx-trigger="load, refresh"
+	hx-indicator="#recipe-info-loading">
 </div>
 
-{FILE "bo/node/item_content_page_list.html"}
-{FILE "bo/node/item_content_card_list.html"}
+<div id="recipe-ingredients"
+	hx-get="/request/bo/component/x_recipe_ingredients?recipe_id={NODE.content}"
+	hx-trigger="load, refresh"
+	hx-indicator="#recipe-ingredients-loading">
+</div>
 
-{FILE "bo/node/shared_footer_page.html"}
+<div id="recipe-images"
+	hx-get="/request/bo/component/x_recipe_images?recipe_id={NODE.content}"
+	hx-trigger="load, refresh"
+	hx-indicator="#recipe-images-loading">
+</div>
 
-<p class="extended-toolbar">
-    <a class="button add" href="/backoffice/recipes/{NODE.content}/edit" target="_blank"><span>Edit Recipe</span></a>
-    <a class="button edit" href="/page/{GET.id}?fe_edit_mode=edit" target="_blank" style="margin-left: 10px;"><span>Open in Front-End Editing</span></a>
-</p>
+<div id="recipe-video"
+	hx-get="/request/bo/component/x_recipe_video?recipe_id={NODE.content}"
+	hx-trigger="load, refresh"
+	hx-indicator="#recipe-video-loading">
+</div>
+
+<div id="metadata"
+	hx-get="/request/bo/component/x_metadata?node_id={GET.id}"
+	hx-trigger="load, refresh"
+	hx-indicator="#metadata-loading">
+</div>
+
+<div id="visibility"
+	hx-get="/request/bo/component/x_visibility?node_id={GET.id}"
+	hx-trigger="load, refresh"
+	hx-indicator="#visibility-loading">
+</div>
+
+<div id="qr-code"
+	hx-get="/request/bo/component/x_qr_code?node_id={GET.id}"
+	hx-trigger="load, refresh"
+	hx-indicator="#qr-code-loading">
+</div>
+
+<div id="node-position"
+	hx-get="/request/bo/component/x_node_position?node_id={GET.id}"
+	hx-trigger="load, refresh"
+	hx-indicator="#node-position-loading">
+</div>
+
+<div id="revision-list"
+	hx-get="/request/bo/component/x_revision_list?node_id={GET.id}&object=common_node"
+	hx-trigger="load, refresh"
+	hx-indicator="#revision-list-loading">
+</div>
 <!-- END: content -->

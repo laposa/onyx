@@ -198,7 +198,6 @@ CREATE TABLE ecommerce_recipe (
     function updateRecipe($data)
     {
         // set values
-        if (!isset($data['publish'])) $data['publish'] = 0;
         $data['modified'] = date('c');
             
         // make sure values are int
@@ -210,27 +209,9 @@ CREATE TABLE ecommerce_recipe (
         $data['other_data'] = serialize($data['other_data'] ?? '');
 
         if ($id = $this->update($data)) {
-        
-            // update node info (if exists)
-            $recipe_homepage = $this->getRecipeHomepage($id);
-        
-            if (is_array($recipe_homepage) && count($recipe_homepage) > 0) {
-            
-                $recipe_homepage['publish'] = $data['publish'];
-                
-                require_once('models/common/common_node.php');
-                $Node = new common_node();
-                
-                $Node->nodeUpdate($recipe_homepage);
-                
-            }
-            
             return $id;
-        
         } else {
-        
             return false;
-        
         }
     }
 

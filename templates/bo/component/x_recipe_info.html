@@ -1,0 +1,160 @@
+<!-- BEGIN: content -->
+{MESSAGES}
+    <!-- BEGIN: preview -->
+    <fieldset id="component-recipe-info" class="component-preview">
+        <div id="recipe-info-loading" class="onyx-loading htmx-indicator">
+            <img src="/share/images/loading.svg" alt="Loading..."/>
+        </div>
+
+        <legend>Recipe Information</legend>
+
+        <span class="label">Recipe ID:</span>
+        <span class="value">{RECIPE.id}</span>
+
+        <span class="label">Recipe Title:</span>
+        <span class="value">{RECIPE.title|htmlspecialchars}</span>
+
+        <span class="label">Description:</span>
+        <span class="value">{RECIPE.description}</span>
+
+        <span class="label">Instructions:</span>
+        <span class="value">{RECIPE.instructions}</span>
+
+        <span class="label">Serving People:</span>
+        <span class="value">{RECIPE.serving_people|htmlspecialchars}</span>
+
+        <span class="label">Preparation time:</span>
+        <span class="value">{RECIPE.preparation_time|htmlspecialchars}</span>
+
+        <span class="label">Cooking time:</span>
+        <span class="value">{RECIPE.cooking_time|htmlspecialchars}</span>
+
+        <div class="component-actions">
+            <button
+                hx-get="/request/bo/component/x_recipe_info?edit=true&node_id={NODE.id}"
+                hx-target="#edit-dialog .content"
+                hx-indicator="#edit-loading"
+                hx-trigger="click"
+                hx-swap="innerHTML"
+                hx-on::before-request="openDialog()"
+                class="btn">
+                Edit
+            </button>
+        </div>
+    </fieldset>
+    <!-- END: preview -->
+
+    <!-- BEGIN: edit -->
+    <form id="recipe-info-edit">
+        <h2>Edit Recipe Information</h2>
+
+        <!-- Recipe Title -->
+        <div class="row text">
+            <label for="recipe-title">Recipe Title:</label>
+            <input 
+                type="text" 
+                id="recipe-title" 
+                name="recipe[title]" 
+                value="{RECIPE.title|htmlspecialchars}" 
+            />
+        </div>
+
+        <!-- Description -->
+        <div class="row rte">
+            <label for="recipe-description">Description:</label>
+            <textarea 
+                name="recipe[description]" 
+                id="recipe-description" 
+            >{RECIPE.description|htmlspecialchars}</textarea>
+            {ONYX_REQUEST_tinymce_teaser #bo/tinymce_simple~id=GET.node_id:edit_elements=recipe-description~}
+        </div>
+
+        <!-- Instructions -->
+        <div class="row rte">
+            <label for="recipe-instructions">Instructions:</label>
+            <textarea 
+                name="recipe[instructions]" 
+                id="recipe-instructions" 
+            >{RECIPE.instructions|htmlspecialchars}</textarea>
+            {ONYX_REQUEST_tinymce #bo/tinymce~id=GET.node_id:relation=recipe:role=RTE_description:mode=exact:edit_elements=recipe-instructions:theme=advanced~}
+        </div>
+
+        <div class="row text">
+            <label for="recipe-serving-people">Serving People:</label>
+            <input 
+                type="text"
+                id="recipe-serving-people"
+                name="recipe[serving_people]"
+                value="{RECIPE.serving_people|htmlspecialchars}"
+            />
+        </div>
+
+        <div class="row text">
+            <label for="recipe-preparation-time">Preparation time:</label>
+            <input 
+                type="text"
+                id="recipe-preparation-time"
+                name="recipe[preparation_time]"
+                value="{RECIPE.preparation_time|htmlspecialchars}"
+            />
+        </div>
+
+        <div class="row text">
+            <label for="recipe-cooking-time">Cooking time:</label>
+            <input 
+                type="text"
+                id="recipe-cooking-time"
+                name="recipe[cooking_time]"
+                value="{RECIPE.cooking_time|htmlspecialchars}"
+            />
+        </div>
+
+        <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+        <input type="hidden" name="recipe[id]" value="{RECIPE.id}" />
+
+        <div class="edit-actions">
+            <button 
+                hx-indicator="#edit-loading"
+                hx-post="/request/bo/component/x_recipe_info"
+                class="btn" 
+                type="submit" 
+                name="save" 
+                value="save" 
+                id="saveAndClose"
+            >
+                Save & Close
+            </button>
+
+            <button class="btn secondary" type="button" onclick="closeDialog()">Cancel</button>
+        </div>
+    </form>
+    <!-- END: edit -->
+
+    <!-- BEGIN: missing_recipe -->
+    <fieldset id="component-recipe-info" class="component-preview">
+        <div id="recipe-info-loading" class="onyx-loading htmx-indicator">
+            <img src="/share/images/loading.svg" alt="Loading..."/>
+        </div>
+
+        <legend>Recipe Information</legend>
+
+        <div class="error-message">
+            No recipe has been created/associated for this page.
+        </div>
+
+        <div class="component-actions">
+            <button
+                hx-get="/request/bo/component/x_recipe_add?node_id={GET.node_id}"
+                hx-target="#edit-dialog .content"
+                hx-indicator="#edit-loading"
+                hx-trigger="click"
+                hx-swap="innerHTML"
+                hx-on::before-request="openDialog()"
+                class="btn">
+                Create a recipe
+            </button>
+        </div>
+    </fieldset>
+    <!-- END: missing_recipe -->
+
+<!-- END: content -->

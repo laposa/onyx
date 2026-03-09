@@ -1,0 +1,173 @@
+<!-- BEGIN: content -->
+{MESSAGES}
+    <!-- BEGIN: preview -->
+    <fieldset id="component-recipe-ingredients" class="component-preview">
+        <div id="recipe-ingredients-loading" class="onyx-loading htmx-indicator">
+            <img src="/share/images/loading.svg" alt="Loading..."/>
+        </div>
+
+        <legend>Ingredients</legend>
+
+        <!-- BEGIN: empty -->
+        <p>No ingredients assigned.</p>
+        <!-- END: empty -->
+
+        <table class="ingredients-preview-table">
+            <thead>
+                <tr>
+                    <th>Quantity</th>
+                    <th>Unit</th>
+                    <th>Ingredient</th>
+                    <th>Note</th>
+                    <th>Group</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- BEGIN: item -->
+                <tr>
+                    <td>{ITEM.quantity|htmlspecialchars}</td>
+                    <td>{ITEM.units_name|htmlspecialchars}</td>
+                    <td>{ITEM.name|htmlspecialchars}</td>
+                    <td>{ITEM.notes|htmlspecialchars}</td>
+                    <td>{ITEM.group_title|htmlspecialchars}</td>
+                </tr>
+                <!-- END: item -->
+            </tbody>
+        </table>
+
+        <div class="component-actions">
+            <button
+                hx-get="/request/bo/component/x_recipe_ingredients?edit=true&recipe_id={RECIPE.id}"
+                hx-target="#edit-dialog .content"
+                hx-indicator="#edit-loading"
+                hx-trigger="click"
+                hx-swap="innerHTML"
+                hx-on::before-request="openDialog()"
+                class="btn">
+                Edit
+            </button>
+        </div>
+    </fieldset>
+    <!-- END: preview -->
+
+    <!-- BEGIN: edit -->
+    <form id="recipe-ingredients-edit">
+        <h2>Edit Ingredients</h2>
+
+        <div id="related-select">
+            <table id="ingredients-table">
+                <tr>
+                    <th>Quantity</th>
+                    <th>Unit</th>
+                    <th>&nbsp;</th>
+                    <th>Ingredient (product)</th>
+                    <th>Note</th>
+                    <th>Group Title</th>
+                    <th></th>
+                </tr>
+
+                <!-- BEGIN: item -->
+                <tr>
+                    <td>
+                        <input type="text" class="short number" name="ingredients[{ITEM.id}][quantity]" value="{ITEM.quantity|htmlspecialchars}"/>
+                    </td>
+                    <td>
+                        <select name="ingredients[{ITEM.id}][units]">
+                            <!-- BEGIN: unit -->
+                            <option value="{UNIT.id}" {UNIT.selected}>{UNIT.title|htmlspecialchars}</option>
+                            <!-- END: unit -->
+                        </select>
+                    </td>
+                    <td>of</td>
+                    <td>
+                        <select class="product-dropdown" style="width: 240px;" name="ingredients[{ITEM.id}][product_variety_id]">
+                            <!-- BEGIN: product -->
+                            <option value="{PRODUCT_OPTION.id}" class="{PRODUCT_OPTION.class}" {PRODUCT_OPTION.selected}>{PRODUCT_OPTION.name|htmlspecialchars} - {PRODUCT_OPTION.sku|htmlspecialchars}</option>
+                            <!-- END: product -->
+                        </select>
+                    </td>
+                    <td>
+                        <input type="text" name="ingredients[{ITEM.id}][notes]" value="{ITEM.notes|htmlspecialchars}"/>
+                    </td>
+                    <td>
+                        <input type="text" name="ingredients[{ITEM.id}][group_title]" value="{ITEM.group_title|htmlspecialchars}"/>
+                    </td>
+                    <td>
+                        <button style="float: none;" class="remove small" onclick="$(this).closest('tr').remove(); return false"><span>Remove</span></button>
+                    </td>
+                </tr>
+                <!-- END: item -->
+            </table>
+        </div>
+
+        <!-- BEGIN: row_template -->
+        <script type="text/template" id="ingredient-row-template">
+            <tr>
+                <td>
+                    <input type="text" class="short number" name="ingredients[__NEW__][quantity]" value="1"/>
+                </td>
+                <td>
+                    <select name="ingredients[__NEW__][units]">
+                        <!-- BEGIN: unit -->
+                        <option value="{UNIT.id}">{UNIT.title|htmlspecialchars}</option>
+                        <!-- END: unit -->
+                    </select>
+                </td>
+                <td>of</td>
+                <td>
+                    <select style="width: 240px;" name="ingredients[__NEW__][product_variety_id]">
+                        <!-- BEGIN: product -->
+                        <option value="{PRODUCT_OPTION.id}" class="{PRODUCT_OPTION.class}">{PRODUCT_OPTION.name|htmlspecialchars} - {PRODUCT_OPTION.sku|htmlspecialchars}</option>
+                        <!-- END: product -->
+                    </select>
+                </td>
+                <td>
+                    <input type="text" name="ingredients[__NEW__][notes]" value=""/>
+                </td>
+                <td>
+                    <input type="text" name="ingredients[__NEW__][group_title]" value=""/>
+                </td>
+                <td>
+                    <button style="float: none;" class="remove small" onclick="$(this).closest('tr').remove(); return false"><span>Remove</span></button>
+                </td>
+            </tr>
+        </script>
+        <!-- END: row_template -->
+
+        <p><a class="button add" id="ingredient-add" href="#"><span>Add a New Ingredient</span></a></p>
+
+        <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+        <input type="hidden" name="recipe[id]" value="{RECIPE.id}" />
+
+        <div class="edit-actions">
+            <button 
+                hx-indicator="#edit-loading"
+                hx-post="/request/bo/component/x_recipe_ingredients"
+                class="btn" 
+                type="submit" 
+                name="save" 
+                value="save" 
+                id="saveAndClose"
+            >
+                Save & Close
+            </button>
+
+            <button class="btn secondary" type="button" onclick="closeDialog()">Cancel</button>
+        </div>
+    </form>
+
+    <script type="text/javascript">
+        $(function() {
+            var ingredientCounter = 0;
+
+            $("#ingredient-add").click(function() {
+                var template = $("#ingredient-row-template").html();
+                template = template.replace(/__NEW__/g, '__NEW__' + ingredientCounter);
+                $("#ingredients-table").append(template);
+                ingredientCounter++;
+                return false;
+            });
+        });
+    </script>
+    <!-- END: edit -->
+<!-- END: content -->

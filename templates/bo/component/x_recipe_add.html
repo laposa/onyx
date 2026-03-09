@@ -1,0 +1,39 @@
+<!-- BEGIN: content -->
+{MESSAGES}
+<form 
+    id="recipe-add-form"
+    hx-indicator="#edit-loading"
+    hx-post="/request/bo/component/x_recipe_add?node_id={GET.node_id}"
+    hx-validate="true"
+    data-action="addRecipe"
+    data-node-id="{GET.node_id}"
+>
+    <h2>Add a New Recipe</h2>
+
+    <div class="row text">
+        <label for="recipe-title">Recipe Title:</label>
+        <input 
+            id="recipe-title" 
+            type="text" 
+            name="recipe[title]" 
+            required
+        />
+    </div>
+
+    <input type="hidden" name="csrf_token" value="{CSRF_TOKEN}" />
+
+    <div class="edit-actions">
+        <button class="btn" type="submit" name="save" value="save">
+            Add & Close
+        </button>
+
+        <button class="btn secondary" type="button" onclick="closeDialog()">Cancel</button>
+    </div>
+</form>
+
+<script type="text/javascript">
+    $(function(){
+        $("#recipe-add-form").validate();
+    });
+</script>
+<!-- END: content -->
