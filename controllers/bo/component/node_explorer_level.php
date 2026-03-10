@@ -51,12 +51,6 @@ class Onyx_Controller_Bo_Component_Node_Explorer_Level extends Onyx_Controller {
             $this->tpl->parse('content.action_buttons');
         }
 
-        //initialization
-        //TODO unnecessary trigger on adding new nodes - should be triggered only on clicking the node
-        if($level == count($active_path) - 1) {
-            header('HX-Trigger: {"loadDetail":{"nodeId" :"'.$node_id.'"}}');
-        }
-
         return true;        
     }
 }

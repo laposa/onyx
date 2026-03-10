@@ -628,7 +628,7 @@ div.comment-list tr.status-new a.title { font-weight: bold; }
   }
 
   &.htmx-request {
-    pointer-events: all;
+    pointer-events: none;
   }
 }
 
