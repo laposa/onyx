@@ -51,6 +51,8 @@ class Onyx_Controller_Bo_Pages_Content extends Onyx_Controller {
         
         $_SESSION['active_pages'] = $this->Node->getActiveNodes($content_id);
         $_SESSION['full_path'] = $this->Node->getFullPath($content_id);
+
+        $this->tpl->assign('CONTENT_ID', $content_id);
         
         return true;
 
