@@ -35,8 +35,7 @@ class Onyx_Controller_Node_Page_Pdf_Brochure extends Onyx_Controller_Node_Page_D
             $manifest_array = json_decode($manifest, true);
             
             foreach($manifest_array['pages'] as $key => $page) {
-                $new_file = str_replace('var/files/pdf2web/'.$node_id.'/', '', $file_list[$key]['src']);
-                $manifest_array['pages'][$key]['filename'] = $new_file;
+                $manifest_array['pages'][$key]['filename'] = $file_list[$key]['src'];
             }
         }
 
