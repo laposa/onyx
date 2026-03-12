@@ -6,10 +6,10 @@
             <img src="/share/images/loading.svg" alt="Loading..."/>
         </div>
         
-        <legend>Metadata</legend>
+        <legend>Path</legend>
 
-        <span class="label">URI Title:</span>
-        <span class="value">{NODE.uri_title}</span>
+        <span class="label">Current full path:</span>
+        <span class="value"><a href="{NODE_URL}" id="node-full-path-url" target="_blank">{NODE_URL}</a></span>
 
         <span class="label">Browser Title:</span>
         <span class="value">{NODE.browser_title}</span>
@@ -19,7 +19,7 @@
 
         <span class="label">Deeplink:</span>
         <span class="value">{NODE.custom_fields.deeplink}</span>
-
+        
         <div class="component-actions">
             <button
                 hx-get="/request/bo/component/x_metadata?edit=true&node_id={NODE.id}"
