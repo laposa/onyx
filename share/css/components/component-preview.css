@@ -7,7 +7,7 @@
 	box-shadow: 0 3px 4px 1px rgba(0, 0, 0, 0.1);
 	padding-top: 5px;
 	margin: 10px 10px 20px 10px;
-	padding-bottom: 60px;
+	padding-bottom: 10px;
 
 	legend {
 		top: 0;
@@ -41,8 +41,8 @@
 		position: absolute;
 		display: flex;
 		gap: 10px;
-		bottom: 15px;
 		right: 15px;
+		top: -32px;
 	}
 
 	.file-list {
