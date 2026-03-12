@@ -25,11 +25,12 @@ class Onyx_Controller_Bo_Component_X_Leaflet_Generator extends Onyx_Controller_B
 
         // get details
         $this->node = new common_node();
-        $this->node_data = $this->node->nodeDetail($this->GET['node_id'] ?? $_POST['node']['id']);
+        $node_id = $this->GET['node_id'] ?? $_POST['node']['id'];
+        $this->node_data = $this->node->nodeDetail($node_id);
 
         if(isset($this->GET['generate']) && $this->GET['generate'] == 'true') {
             // TODO: returns only PDF?
-            $files = $this->node->getFilesForNodeId($this->GET['node_id']);
+            $files = $this->node->getFilesForNodeId($node_id);
 
             $pdfFile = null;
             foreach ($files as $file) {
