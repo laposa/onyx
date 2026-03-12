@@ -30,7 +30,7 @@
         </div>
         <div 
             id="server-browser-file-list-wrapper"
-            hx-get="/request/bo/component/server_browser_file_list?type={TYPE}&role={ROLE}&node_id={NODE_ID}&relation={RELATION}&file_id={FILE_ID}"
+            hx-get="/request/bo/component/server_browser_file_list?type={TYPE}&role={ROLE}&node_id={NODE_ID}&relation={RELATION}&file_id={FILE_ID}&open={GET.open}"
             hx-trigger="load, refresh"
             hx-loading="server-browser-loading">
         </div>

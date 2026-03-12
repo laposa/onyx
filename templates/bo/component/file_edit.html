@@ -76,7 +76,7 @@
 
         <button
             class="button secondary"
-            hx-get="/request/bo/pages/server_browser?type=replace_file&relation={GET.relation}&node_id={GET.node_id}&file_id={FILE.id}"
+            hx-get="/request/bo/pages/server_browser?type=replace_file&relation={GET.relation}&node_id={GET.node_id}&file_id={FILE.id}&open={OPEN}"
             hx-trigger="click"
             hx-target="#file-dialog .content"
             hx-indicator="#file-loading"

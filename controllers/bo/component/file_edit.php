@@ -58,6 +58,8 @@ class Onyx_Controller_Bo_Component_File_Edit extends Onyx_Controller_Bo_Componen
             }
         }
 
+        $this->tpl->assign('OPEN', str_replace([$file_data['info']['filename'], 'var/files/'], '', $file_data['src']));
+
         // full details
         $_Onyx = new Onyx_Request("bo/component/file_info~file_path_encoded={$file_data['file_path_encoded']}~");
         $this->tpl->assign('FULL_DETAILS', $_Onyx->getContent());
