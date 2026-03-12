@@ -41,8 +41,8 @@
 		position: absolute;
 		display: flex;
 		gap: 10px;
-		bottom: 15px;
 		right: 15px;
+		top: -32px;
 	}
 
 	.file-list {
